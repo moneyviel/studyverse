@@ -4,8 +4,648 @@
  "emoji": "🔷",
  "topics": [
   {
+   "id": "g9-maths-12-04",
+   "title": "Tiling and the exact meaning of a quadrilateral",
+   "covers": [
+    "c12.1.1",
+    "c12.1.2",
+    "c12.2.1",
+    "c12.2.2",
+    "c12.2.3"
+   ],
+   "learn": {
+    "hook": "Floor tiles fit with no gaps and no overlaps. Which four-sided shapes can do that? Every parallelogram, for a start!",
+    "points": [
+     "A tiling covers the plane with copies of a shape with no gaps and no overlaps.",
+     "Any parallelogram tiles the plane: two sets of equally spaced parallel lines (like sticks pinned in a grid) make rows of identical parallelograms.",
+     "A quadrilateral ABCD is made from four points A, B, C, D (no three on a line) and the four segments AB, BC, CD, DA, where the segments meet only at their ends.",
+     "A, B, C, D are vertices; AB, BC, CD, DA are sides; AC and BD are diagonals. AB and BC are adjacent sides; AB and CD are opposite sides; A and C are opposite vertices; ∠A and ∠C are opposite angles.",
+     "Name a quadrilateral by going round it in order: ABCD, BCDA or DCBA all name the same one, but ABDC is a different figure."
+    ],
+    "example": {
+     "q": "For quadrilateral PQRS, list the diagonals, a pair of opposite sides and the angle opposite ∠Q.",
+     "steps": [
+      "Diagonals join opposite vertices: PR and QS",
+      "Opposite sides: PQ and RS (also QR and SP)",
+      "Opposite to Q is S: ∠S"
+     ],
+     "answer": "PR, QS; PQ and RS; ∠S"
+    },
+    "reallife": "Brick walls, chessboards and floor tiles are all tilings by parallelograms (rectangles and squares)."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "For quadrilateral ABCD",
+     "buckets": [
+      "Side",
+      "Diagonal"
+     ],
+     "items": [
+      [
+       "AB",
+       0
+      ],
+      [
+       "AC",
+       1
+      ],
+      [
+       "CD",
+       0
+      ],
+      [
+       "BD",
+       1
+      ],
+      [
+       "DA",
+       0
+      ],
+      [
+       "BC",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Naming rules",
+     "items": [
+      [
+       "ABCD and CDAB name the same quadrilateral.",
+       true,
+       "Both go round in the same order from a different start."
+      ],
+      [
+       "ABCD and ABDC always name the same quadrilateral.",
+       false,
+       "ABDC joins B to D as a side, a different figure."
+      ],
+      [
+       "In ABCD, ∠A and ∠C are opposite angles.",
+       true,
+       "A and C are opposite vertices."
+      ],
+      [
+       "AB and BC are opposite sides.",
+       false,
+       "They share B, so they are adjacent."
+      ],
+      [
+       "Every parallelogram can tile the plane.",
+       true,
+       "Rows of translated copies fill the plane."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What does a tiling of the plane require?",
+     "options": [
+      "Copies of shapes that cover it with no gaps and no overlaps",
+      "Shapes of different colours",
+      "Only squares",
+      "Shapes that overlap a little"
+     ],
+     "answer": 0,
+     "explain": "Gaps or overlaps are not allowed in a tiling.",
+     "mistake": "Thinks tiles may overlap"
+    },
+    {
+     "q": "Which shape can always tile the plane?",
+     "options": [
+      "Any circle",
+      "Any parallelogram",
+      "Any regular pentagon",
+      "Any regular octagon"
+     ],
+     "answer": 1,
+     "explain": "Translating a parallelogram along its two side directions fills the plane.",
+     "mistake": "Thinks only squares can tile"
+    },
+    {
+     "q": "In quadrilateral WXYZ, which segment is a diagonal?",
+     "options": [
+      "WX",
+      "YZ",
+      "WY",
+      "ZW"
+     ],
+     "answer": 2,
+     "explain": "A diagonal joins opposite (non-adjacent) vertices.",
+     "mistake": "Confuses a side with a diagonal"
+    },
+    {
+     "q": "In quadrilateral ABCD, which side is opposite to BC?",
+     "options": [
+      "AB",
+      "CD",
+      "AC",
+      "DA"
+     ],
+     "answer": 3,
+     "explain": "BC and DA share no vertex.",
+     "mistake": "Picks an adjacent side"
+    },
+    {
+     "q": "Which name describes the same quadrilateral as ABCD?",
+     "options": [
+      "DCBA",
+      "ACBD",
+      "ABDC",
+      "BACD"
+     ],
+     "answer": 0,
+     "explain": "DCBA goes round the same vertices in reverse order.",
+     "mistake": "Thinks any order of the four letters is fine"
+    },
+    {
+     "q": "Why do we need 'no three of the four points on a line' in the definition?",
+     "options": [
+      "To make it a square",
+      "Otherwise two sides would lie along one line and it would collapse into a triangle",
+      "So that it has a right angle",
+      "To make the diagonals equal"
+     ],
+     "answer": 1,
+     "explain": "Three collinear points would make a straight angle, not a true corner.",
+     "mistake": "Ignores the need for genuine corners"
+    },
+    {
+     "q": "How many diagonals does a quadrilateral have?",
+     "options": [
+      "4",
+      "1",
+      "2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "AC and BD.",
+     "mistake": "Counts sides",
+     "check": "2"
+    },
+    {
+     "q": "In quadrilateral ABCD, which pair are adjacent angles?",
+     "options": [
+      "∠A and ∠C",
+      "∠B and ∠D",
+      "None",
+      "∠A and ∠B"
+     ],
+     "answer": 3,
+     "explain": "A and B are joined by side AB.",
+     "mistake": "Picks opposite angles"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"What exactly is a quadrilateral, and what is a diagonal?\"",
+    "must": [
+     [
+      "four",
+      "4"
+     ],
+     [
+      "sides",
+      "segments"
+     ],
+     [
+      "opposite",
+      "diagonal",
+      "join"
+     ]
+    ],
+    "praise": "Great! Four points joined in order by four sides, and diagonals join opposite vertices!",
+    "nudge": "How many points and segments are there? What does a diagonal connect?"
+   }
+  },
+  {
+   "id": "g9-maths-12-05",
+   "title": "Convex, non-convex and other 4-gons",
+   "covers": [
+    "c12.2.4",
+    "c12.2.5",
+    "c12.2.6"
+   ],
+   "learn": {
+    "hook": "An arrowhead has four sides, but one of its corners points inwards. Is it still a quadrilateral? Yes, a non-convex one!",
+    "points": [
+     "Convex quadrilateral: every interior angle is less than 180° and the two diagonals cross inside it.",
+     "Non-convex (concave) quadrilateral: one interior angle is a reflex angle (more than 180°), like an arrowhead; one diagonal lies outside.",
+     "The interior angle at a vertex is the angle inside the figure; at the 'dent' of an arrowhead it is reflex. The four interior angles of any simple quadrilateral still add to 360°.",
+     "Other four-sided figures: self-intersecting (like a bow-tie, where two sides cross) and non-planar (the four points are not all in one plane, like a bent frame). A Venn diagram of 4-gons puts convex and non-convex quadrilaterals inside the bigger family of 4-gons."
+    ],
+    "example": {
+     "q": "An arrowhead quadrilateral has angles 30°, 40° and 30° at three vertices. Find the fourth angle and say what kind it is.",
+     "steps": [
+      "Sum = 360°",
+      "Fourth = 360 − 30 − 40 − 30 = 260°",
+      "260° > 180°: reflex, so non-convex"
+     ],
+     "answer": "260°, reflex (non-convex)"
+    },
+    "reallife": "The arrowhead shape is common in road signs and kites; its reflex angle points inwards."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which type?",
+     "buckets": [
+      "Convex",
+      "Non-convex",
+      "Self-intersecting"
+     ],
+     "items": [
+      [
+       "A square",
+       0
+      ],
+      [
+       "An arrowhead",
+       1
+      ],
+      [
+       "A bow-tie",
+       2
+      ],
+      [
+       "A kite",
+       0
+      ],
+      [
+       "A dart (concave kite)",
+       1
+      ],
+      [
+       "Figure 8 made of 4 segments",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "4-gon facts",
+     "items": [
+      [
+       "In a convex quadrilateral both diagonals lie inside.",
+       true,
+       "They cross inside the figure."
+      ],
+      [
+       "A non-convex quadrilateral has an angle greater than 180°.",
+       true,
+       "That reflex angle makes the dent."
+      ],
+      [
+       "A bow-tie is a quadrilateral in the usual sense.",
+       false,
+       "Its sides cross, so it is self-intersecting."
+      ],
+      [
+       "The interior angles of an arrowhead add to 360°.",
+       true,
+       "Like every simple quadrilateral."
+      ],
+      [
+       "Four points not in one plane can still form a flat quadrilateral.",
+       false,
+       "That 4-gon is non-planar."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A quadrilateral has angles 85°, 95°, 70° and 110°. Is it convex?",
+     "options": [
+      "Yes, all angles are less than 180°",
+      "No, it has a reflex angle",
+      "No, the angles do not add to 360°",
+      "Cannot be told"
+     ],
+     "answer": 0,
+     "explain": "Every angle is below 180°.",
+     "mistake": "Thinks an obtuse angle makes it non-convex"
+    },
+    {
+     "q": "Three angles of a non-convex quadrilateral are 25°, 35° and 20°. What is the reflex angle?",
+     "options": [
+      "80°",
+      "280°",
+      "100°",
+      "260°"
+     ],
+     "answer": 1,
+     "explain": "360 − (25 + 35 + 20).",
+     "mistake": "Subtracts from 180°",
+     "check": "360-80"
+    },
+    {
+     "q": "In a non-convex quadrilateral, how many interior angles can be reflex?",
+     "options": [
+      "Two",
+      "Three",
+      "Exactly one",
+      "None"
+     ],
+     "answer": 2,
+     "explain": "The four angles add to 360°, so two reflex angles (each > 180°) are impossible.",
+     "mistake": "Thinks any number is possible"
+    },
+    {
+     "q": "Where do the diagonals of a convex quadrilateral meet?",
+     "options": [
+      "Outside it",
+      "At a vertex",
+      "They never meet",
+      "Inside the quadrilateral"
+     ],
+     "answer": 3,
+     "explain": "In a convex quadrilateral the diagonals cross inside.",
+     "mistake": "Mixes up with the non-convex case"
+    },
+    {
+     "q": "Which figure is self-intersecting?",
+     "options": [
+      "A bow-tie whose two sides cross",
+      "A rhombus",
+      "A trapezium",
+      "An arrowhead"
+     ],
+     "answer": 0,
+     "explain": "Two of its sides cross each other at a point that is not a vertex.",
+     "mistake": "Thinks a non-convex shape is self-intersecting"
+    },
+    {
+     "q": "A 4-gon whose four vertices are not all in one plane is called:",
+     "options": [
+      "convex",
+      "non-planar",
+      "concave",
+      "cyclic"
+     ],
+     "answer": 1,
+     "explain": "Its vertices do not lie on one flat surface.",
+     "mistake": "Confuses with concave"
+    },
+    {
+     "q": "In an arrowhead ABCD with the dent at C, what kind of angle is the interior angle at C?",
+     "options": [
+      "Acute",
+      "Right",
+      "Reflex",
+      "Straight"
+     ],
+     "answer": 2,
+     "explain": "At the dent the inside angle is more than 180°.",
+     "mistake": "Measures the outside angle instead"
+    },
+    {
+     "q": "Which statement fits a Venn diagram of 4-gons?",
+     "options": [
+      "Every 4-gon is convex",
+      "Self-intersecting 4-gons are convex",
+      "Non-planar 4-gons are squares",
+      "Convex quadrilaterals are a subset of all quadrilaterals, which are a subset of 4-gons"
+     ],
+     "answer": 3,
+     "explain": "4-gons include quadrilaterals (simple, planar) and other types like bow-ties and non-planar figures.",
+     "mistake": "Thinks all four-sided figures are convex"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can I tell if a quadrilateral is convex?\"",
+    "must": [
+     [
+      "180",
+      "reflex"
+     ],
+     [
+      "angle",
+      "angles"
+     ],
+     [
+      "diagonal",
+      "diagonals",
+      "inside"
+     ]
+    ],
+    "praise": "Brilliant! Convex means all angles are under 180° and the diagonals cross inside!",
+    "nudge": "What size must every angle be? Where do the diagonals meet?"
+   }
+  },
+  {
+   "id": "g9-maths-12-06",
+   "title": "Linkages and counting quadrilaterals",
+   "covers": [
+    "c12.2.7",
+    "c12.2.8",
+    "c12.4.1"
+   ],
+   "learn": {
+    "hook": "Four sticks joined at the ends with pins can wiggle into many shapes. Engineers use this to build machines!",
+    "points": [
+     "A four-bar linkage is a quadrilateral with fixed side lengths but movable joints; its angles change as it moves. It powers windscreen wipers, bicycle pedals with legs, and folding chairs.",
+     "Parallelogram linkages keep opposite sides parallel while moving: Watt's parallel motion guided steam-engine pistons; a pantograph copies a drawing larger or smaller; forces combine by the parallelogram rule.",
+     "Given 4 points with no three in a line, they can be joined into 3 different 4-gons (the vertex orders ABCD, ABDC, ACBD).",
+     "If the 4 points are corners of a convex shape, you get 1 convex quadrilateral and 2 self-intersecting 4-gons. If one point is inside the triangle of the other three, you get 3 non-convex quadrilaterals."
+    ],
+    "example": {
+     "q": "Points A(0, 0), B(4, 0), C(4, 3), D(0, 3). How many 4-gons can be formed and of which kinds?",
+     "steps": [
+      "The points form a rectangle, so they are in convex position",
+      "Order ABCD gives the convex rectangle",
+      "Orders ABDC and ACBD give bow-ties"
+     ],
+     "answer": "1 convex, 2 self-intersecting"
+    },
+    "reallife": "Architects and artists once used pantographs to enlarge drawings; today some trains use a pantograph to touch the overhead wire."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Linkage use",
+     "pairs": [
+      [
+       "Pantograph",
+       "Copies a drawing at a different size"
+      ],
+      [
+       "Watt's parallel motion",
+       "Guides a piston in a straight line"
+      ],
+      [
+       "Parallelogram of forces",
+       "Combines two forces"
+      ],
+      [
+       "Four-bar linkage",
+       "Wiper and folding-chair mechanisms"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "4 points: what can you get?",
+     "buckets": [
+      "Possible",
+      "Impossible"
+     ],
+     "items": [
+      [
+       "Convex position: 1 convex + 2 bow-ties",
+       0
+      ],
+      [
+       "One point inside: 3 non-convex",
+       0
+      ],
+      [
+       "Convex position: 3 convex quadrilaterals",
+       1
+      ],
+      [
+       "One point inside: a bow-tie",
+       1
+      ],
+      [
+       "4 points give 3 different 4-gons in all",
+       0
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In a four-bar linkage, what stays fixed as it moves?",
+     "options": [
+      "The lengths of the four bars",
+      "All the angles",
+      "The diagonals",
+      "The area"
+     ],
+     "answer": 0,
+     "explain": "The joints turn, so angles and diagonals change but bar lengths do not.",
+     "mistake": "Thinks the shape is rigid"
+    },
+    {
+     "q": "A rhombus-shaped linkage of 4 equal bars is pushed. Which shape can it NOT become?",
+     "options": [
+      "A square",
+      "A rectangle that is not a square",
+      "A thinner rhombus",
+      "A flatter rhombus"
+     ],
+     "answer": 1,
+     "explain": "All sides stay equal, so it is always a rhombus (a square at one moment), never a non-square rectangle.",
+     "mistake": "Forgets that side lengths are fixed"
+    },
+    {
+     "q": "What does a pantograph do?",
+     "options": [
+      "Measures angles",
+      "Draws circles",
+      "Copies a drawing at a larger or smaller size",
+      "Calculates areas"
+     ],
+     "answer": 2,
+     "explain": "Its parallelogram linkage keeps the copy similar to the original.",
+     "mistake": "Confuses it with a protractor"
+    },
+    {
+     "q": "Four points have no three in a line. How many different 4-gons can be formed using all four as vertices?",
+     "options": [
+      "1",
+      "4",
+      "24",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "The orders ABCD, ABDC and ACBD give the only distinct figures.",
+     "mistake": "Counts all 24 orderings",
+     "check": "3"
+    },
+    {
+     "q": "Four points form a convex shape. How many of the 4-gons are self-intersecting?",
+     "options": [
+      "2",
+      "0",
+      "1",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "Only one ordering goes round the outside; the other two make bow-ties.",
+     "mistake": "Thinks all are convex",
+     "check": "2"
+    },
+    {
+     "q": "Point D is inside triangle ABC. How many non-convex quadrilaterals can be formed with A, B, C, D as vertices?",
+     "options": [
+      "1",
+      "3",
+      "2",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "Each choice of where to insert D between two of A, B, C gives an arrowhead.",
+     "mistake": "Thinks a point inside gives a bow-tie",
+     "check": "3"
+    },
+    {
+     "q": "Two forces act on a box along two sides of a parallelogram. By the parallelogram rule, the combined force is shown by:",
+     "options": [
+      "the shorter side",
+      "the opposite side",
+      "the diagonal from the common corner",
+      "the perimeter"
+     ],
+     "answer": 2,
+     "explain": "The resultant is the diagonal of the parallelogram formed by the two forces.",
+     "mistake": "Adds the lengths of the sides"
+    },
+    {
+     "q": "Which mechanism helped steam engines move a piston rod in a nearly straight line?",
+     "options": [
+      "A pulley",
+      "A pendulum",
+      "A gear wheel",
+      "Watt's parallel motion"
+     ],
+     "answer": 3,
+     "explain": "James Watt designed a linkage using a parallelogram for this.",
+     "mistake": "Names an unrelated machine"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"I have four points. How many different four-sided figures can I make?\"",
+    "must": [
+     [
+      "3",
+      "three"
+     ],
+     [
+      "convex",
+      "inside",
+      "position"
+     ],
+     [
+      "bow-tie",
+      "self-intersecting",
+      "cross"
+     ]
+    ],
+    "praise": "Exactly! Three ways to join them; what you get depends on whether the points are in convex position!",
+    "nudge": "How many different orders are there? Does it matter if a point is inside the others?"
+   }
+  },
+  {
    "id": "g9-maths-12-01",
    "title": "Quadrilaterals and their family",
+   "covers": [
+    "c12.3.1",
+    "c12.7.1"
+   ],
    "learn": {
     "hook": "Kites in the Makar Sankranti sky, carrom boards and window panes are all quadrilaterals, but they belong to different branches of one big family!",
     "points": [
@@ -245,6 +885,10 @@
   {
    "id": "g9-maths-12-02",
    "title": "Properties of parallelograms",
+   "covers": [
+    "c12.3.2",
+    "c12.3.4"
+   ],
    "learn": {
     "hook": "Push the top of a folding gate sideways: it leans, but opposite sides stay equal and parallel. That's the parallelogram's superpower!",
     "points": [
@@ -510,8 +1154,420 @@
    }
   },
   {
+   "id": "g9-maths-12-07",
+   "title": "Proving a quadrilateral is a parallelogram",
+   "covers": [
+    "c12.3.3",
+    "c12.3.5",
+    "c12.3.6",
+    "c12.3.7"
+   ],
+   "learn": {
+    "hook": "Measure only the sides, or only the diagonals, and still be sure it's a parallelogram? Yes, with the right converse!",
+    "points": [
+     "If both pairs of opposite sides are equal, the quadrilateral is a parallelogram. Proof: diagonal AC gives △ABC ≅ △CDA (SSS), so alternate angles are equal and the sides are parallel.",
+     "If the diagonals bisect each other, it is a parallelogram. Proof: with diagonals meeting at O, △AOB ≅ △COD (SAS, vertically opposite angles), so ∠OAB = ∠OCD and AB ∥ CD; similarly AD ∥ BC.",
+     "If one pair of opposite sides is both equal and parallel, it is a parallelogram (△ABC ≅ △CDA by SAS).",
+     "Proofs use congruence rules SSS, SAS, ASA and then CPCT (corresponding parts of congruent triangles are equal)."
+    ],
+    "example": {
+     "q": "In quadrilateral PQRS, diagonals meet at O with PO = 5, OR = 5, QO = 7, OS = 7. What is PQRS?",
+     "steps": [
+      "O is the midpoint of PR (5 = 5)",
+      "O is the midpoint of QS (7 = 7)",
+      "Diagonals bisect each other"
+     ],
+     "answer": "A parallelogram"
+    },
+    "reallife": "A carpenter checking a door frame can measure diagonals: if they bisect each other the frame is a parallelogram."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Prove: opposite sides equal ⇒ parallelogram",
+     "prompt": "Steps in order",
+     "items": [
+      "Draw diagonal AC",
+      "AB = CD, BC = DA, AC common",
+      "△ABC ≅ △CDA by SSS",
+      "∠BAC = ∠DCA by CPCT",
+      "Alternate angles equal, so AB ∥ CD; similarly BC ∥ DA"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Enough to be a parallelogram?",
+     "buckets": [
+      "Yes",
+      "Not enough"
+     ],
+     "items": [
+      [
+       "Both pairs of opposite sides equal",
+       0
+      ],
+      [
+       "Diagonals bisect each other",
+       0
+      ],
+      [
+       "One pair of opposite sides equal and parallel",
+       0
+      ],
+      [
+       "One pair of opposite sides parallel only",
+       1
+      ],
+      [
+       "One pair of opposite sides equal only",
+       1
+      ],
+      [
+       "Diagonals equal only",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In quadrilateral ABCD, AB = CD = 7 cm and BC = DA = 4 cm. What must ABCD be?",
+     "options": [
+      "A parallelogram",
+      "A rhombus",
+      "A trapezium that is not a parallelogram",
+      "A kite"
+     ],
+     "answer": 0,
+     "explain": "Both pairs of opposite sides are equal.",
+     "mistake": "Thinks equal sides make it a rhombus"
+    },
+    {
+     "q": "Which congruence rule proves that equal opposite sides make a parallelogram?",
+     "options": [
+      "SAS",
+      "SSS",
+      "ASA",
+      "RHS"
+     ],
+     "answer": 1,
+     "explain": "The diagonal splits it into triangles with three equal sides.",
+     "mistake": "Uses SAS without knowing an angle"
+    },
+    {
+     "q": "What does CPCT stand for?",
+     "options": [
+      "Common perpendicular of congruent triangles",
+      "Centre point of the circle and triangle",
+      "Corresponding parts of congruent triangles",
+      "Corresponding perimeter of congruent triangles"
+     ],
+     "answer": 2,
+     "explain": "Once triangles are congruent, their matching parts are equal.",
+     "mistake": "Does not know the abbreviation"
+    },
+    {
+     "q": "The diagonals of quadrilateral KLMN meet at O. KO = 6, OM = 6, LO = 4, ON = 9. Is KLMN a parallelogram?",
+     "options": [
+      "Yes, because KO = OM",
+      "Yes, because all four parts are given",
+      "It is a rectangle",
+      "No, O is not the midpoint of LN"
+     ],
+     "answer": 3,
+     "explain": "Both diagonals must be bisected.",
+     "mistake": "Checks only one diagonal"
+    },
+    {
+     "q": "In the proof that bisecting diagonals give a parallelogram, which angles are used as equal in △AOB and △COD?",
+     "options": [
+      "The vertically opposite angles at O",
+      "The angles at A and B",
+      "Right angles",
+      "The angles at C and D"
+     ],
+     "answer": 0,
+     "explain": "∠AOB = ∠COD as vertically opposite angles, giving SAS.",
+     "mistake": "Assumes the diagonals are perpendicular"
+    },
+    {
+     "q": "AB ∥ DC and AB = DC = 9 cm in quadrilateral ABCD. What is ABCD?",
+     "options": [
+      "A trapezium only",
+      "A parallelogram",
+      "A kite",
+      "A rhombus"
+     ],
+     "answer": 1,
+     "explain": "One pair of opposite sides equal and parallel is enough.",
+     "mistake": "Thinks both pairs must be given"
+    },
+    {
+     "q": "Which single fact is NOT enough to prove a parallelogram?",
+     "options": [
+      "Both pairs of opposite sides equal",
+      "Diagonals bisect each other",
+      "One pair of opposite sides parallel",
+      "One pair of opposite sides equal and parallel"
+     ],
+     "answer": 2,
+     "explain": "A trapezium has one pair of parallel sides but is not a parallelogram.",
+     "mistake": "Thinks any one parallel pair suffices"
+    },
+    {
+     "q": "In quadrilateral PQRS, PQ = 3x − 1 and SR = x + 7, and PQ ∥ SR. For what x is PQRS a parallelogram?",
+     "options": [
+      "3",
+      "2",
+      "8",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "Equal and parallel: 3x − 1 = x + 7 gives x = 4.",
+     "steps": [
+      "2x = 8",
+      "x = 4"
+     ],
+     "mistake": "Sets up the equation wrongly",
+     "check": "8/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can I prove a quadrilateral is a parallelogram without checking parallel lines?\"",
+    "must": [
+     [
+      "opposite sides equal",
+      "sides equal"
+     ],
+     [
+      "diagonals",
+      "bisect"
+     ],
+     [
+      "congruent",
+      "sss",
+      "sas"
+     ]
+    ],
+    "praise": "Great! Equal opposite sides, or bisecting diagonals, prove it using congruent triangles!",
+    "nudge": "Which measurements could you check instead? Which congruence rule helps?"
+   }
+  },
+  {
+   "id": "g9-maths-12-08",
+   "title": "Rhombus, rectangle and square: special conditions",
+   "covers": [
+    "c12.3.8",
+    "c12.3.9",
+    "c12.3.10"
+   ],
+   "learn": {
+    "hook": "Draw the four angle bisectors of any parallelogram and, like magic, they box in a rectangle!",
+    "points": [
+     "If a diagonal of a parallelogram bisects one of its angles, the parallelogram is a rhombus (the diagonal makes an isosceles triangle, so adjacent sides are equal).",
+     "The bisectors of the four angles of a parallelogram form a rectangle: adjacent angles add to 180°, so their halves add to 90°, and each corner of the inner figure is a right angle.",
+     "Converses with extra conditions: a parallelogram with equal diagonals is a rectangle; a parallelogram with perpendicular diagonals is a rhombus; a parallelogram with equal and perpendicular diagonals is a square.",
+     "Without 'parallelogram' these fail: a kite has perpendicular diagonals but is not a rhombus; an isosceles trapezium has equal diagonals but is not a rectangle."
+    ],
+    "example": {
+     "q": "In parallelogram ABCD, ∠A = 110°. The bisectors of ∠A and ∠B meet at P. Find ∠APB.",
+     "steps": [
+      "∠B = 70° (adjacent angles)",
+      "Halves: 55° and 35°",
+      "∠APB = 180 − 55 − 35 = 90°"
+     ],
+     "answer": "90°"
+    },
+    "reallife": "Window frames and photo frames are checked for squareness by measuring diagonals: equal diagonals of a parallelogram mean a rectangle."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Parallelogram plus...",
+     "pairs": [
+      [
+       "Equal diagonals",
+       "Rectangle"
+      ],
+      [
+       "Perpendicular diagonals",
+       "Rhombus"
+      ],
+      [
+       "Equal and perpendicular diagonals",
+       "Square"
+      ],
+      [
+       "Bisectors of two adjacent angles meet at",
+       "90°"
+      ],
+      [
+       "Angle bisectors drawn",
+       "Inner rectangle"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Careful converses",
+     "items": [
+      [
+       "Any quadrilateral with perpendicular diagonals is a rhombus.",
+       false,
+       "A kite is a counterexample."
+      ],
+      [
+       "A parallelogram with perpendicular diagonals is a rhombus.",
+       true,
+       "The extra condition makes it work."
+      ],
+      [
+       "Any quadrilateral with equal diagonals is a rectangle.",
+       false,
+       "An isosceles trapezium is a counterexample."
+      ],
+      [
+       "A parallelogram with equal diagonals is a rectangle.",
+       true,
+       "Its angles must all be 90°."
+      ],
+      [
+       "Angle bisectors of a parallelogram meet at right angles in pairs.",
+       true,
+       "Half of 180° is 90°."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A parallelogram has equal diagonals. What special parallelogram is it?",
+     "options": [
+      "A rectangle",
+      "A rhombus",
+      "A kite",
+      "A trapezium"
+     ],
+     "answer": 0,
+     "explain": "Equal diagonals force all angles to be 90°.",
+     "mistake": "Confuses with perpendicular diagonals"
+    },
+    {
+     "q": "A parallelogram's diagonals cross at 90°. What is it?",
+     "options": [
+      "A rectangle",
+      "A rhombus",
+      "A kite only",
+      "A trapezium"
+     ],
+     "answer": 1,
+     "explain": "Perpendicular diagonals in a parallelogram make all sides equal.",
+     "mistake": "Picks kite, ignoring that it is a parallelogram"
+    },
+    {
+     "q": "A quadrilateral (not known to be a parallelogram) has perpendicular diagonals. Which can it be without being a rhombus?",
+     "options": [
+      "A square",
+      "A rectangle with unequal sides",
+      "A kite",
+      "A parallelogram with unequal sides"
+     ],
+     "answer": 2,
+     "explain": "Kites have perpendicular diagonals but unequal adjacent pairs.",
+     "mistake": "Assumes the converse holds without extra conditions"
+    },
+    {
+     "q": "In parallelogram PQRS, diagonal PR bisects ∠P. What can you conclude?",
+     "options": [
+      "PQRS is a rectangle",
+      "PQRS is a trapezium",
+      "Nothing",
+      "PQRS is a rhombus"
+     ],
+     "answer": 3,
+     "explain": "∠QPR = ∠RPS = ∠QRP (alternate angles), so △PQR is isosceles with PQ = QR.",
+     "mistake": "Thinks any diagonal bisects the angles"
+    },
+    {
+     "q": "The angle bisectors of a parallelogram enclose which shape?",
+     "options": [
+      "A rectangle",
+      "A rhombus",
+      "A square always",
+      "A triangle"
+     ],
+     "answer": 0,
+     "explain": "Each meeting angle is 90°, since half of 180° is 90°.",
+     "mistake": "Assumes it must be a square"
+    },
+    {
+     "q": "In parallelogram ABCD, ∠A = 64°. The bisectors of ∠A and ∠D meet at Q. What is ∠AQD?",
+     "options": [
+      "64°",
+      "90°",
+      "116°",
+      "58°"
+     ],
+     "answer": 1,
+     "explain": "∠D = 116°; halves 32° + 58° = 90°, so ∠AQD = 90°.",
+     "mistake": "Forgets that adjacent angles are supplementary",
+     "check": "180-32-58"
+    },
+    {
+     "q": "A parallelogram has diagonals of 10 cm each that cross at right angles. What is it?",
+     "options": [
+      "A rhombus that is not a square",
+      "A rectangle that is not a square",
+      "A square",
+      "A kite"
+     ],
+     "answer": 2,
+     "explain": "Equal and perpendicular diagonals in a parallelogram make a square.",
+     "mistake": "Uses only one of the two conditions"
+    },
+    {
+     "q": "A quadrilateral has equal diagonals that do not bisect each other. Which can it be?",
+     "options": [
+      "A rectangle",
+      "A square",
+      "A parallelogram",
+      "An isosceles trapezium"
+     ],
+     "answer": 3,
+     "explain": "Rectangles and squares have bisecting diagonals.",
+     "mistake": "Thinks equal diagonals always mean a rectangle"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If a quadrilateral has perpendicular diagonals, is it a rhombus?\"",
+    "must": [
+     [
+      "parallelogram"
+     ],
+     [
+      "kite",
+      "not always",
+      "no"
+     ],
+     [
+      "extra",
+      "condition",
+      "only if"
+     ]
+    ],
+    "praise": "Correct! Only if it's also a parallelogram; a kite shows it can fail!",
+    "nudge": "Can you think of a shape with perpendicular diagonals that isn't a rhombus?"
+   }
+  },
+  {
    "id": "g9-maths-12-03",
    "title": "The mid-point theorem",
+   "covers": [
+    "c12.4.2",
+    "c12.5.1",
+    "c12.5.2",
+    "c12.6.3"
+   ],
    "learn": {
     "hook": "Join the middles of two sides of any triangle and something magical appears: a line exactly parallel to the third side and exactly half as long!",
     "points": [
@@ -714,6 +1770,840 @@
     ],
     "praise": "It is parallel to the third side and exactly half its length. That's the mid-point theorem! My straw is famous.",
     "nudge": "Compare the straw with the third side. Which way does it point, and how long is it?"
+   }
+  },
+  {
+   "id": "g9-maths-12-09",
+   "title": "Midpoint theorem: proof, trapeziums and equal parts",
+   "covers": [
+    "c12.5.3",
+    "c12.5.4",
+    "c12.5.5"
+   ],
+   "learn": {
+    "hook": "Split a ladder into equal steps using just parallel lines. The midpoint theorem's big brother does it!",
+    "points": [
+     "Proof of the midpoint theorem by construction: with D, E midpoints of AB, AC, extend DE to F with EF = DE. △ADE ≅ △CFE (SAS), so CF = AD = DB and CF ∥ AB. So DBCF is a parallelogram, giving DE ∥ BC and DF = BC, so DE = ½ BC.",
+     "Trapezium mid-segment: the segment joining the midpoints of the non-parallel sides is parallel to the bases and equals half their sum: (a + b)/2.",
+     "If three or more parallel lines cut equal parts on one transversal, they cut equal parts on every transversal.",
+     "To divide AB in a ratio like 3 : 5, draw a ray from A, mark 8 equal steps, join the 8th mark to B, and draw parallels through the other marks; the 3rd one meets AB at the dividing point."
+    ],
+    "example": {
+     "q": "A trapezium has parallel sides 14 cm and 22 cm. Find the length of the segment joining the midpoints of the other two sides.",
+     "steps": [
+      "Mid-segment = (14 + 22) ÷ 2",
+      "= 36 ÷ 2",
+      "= 18 cm"
+     ],
+     "answer": "18 cm"
+    },
+    "reallife": "Tailors dividing cloth into equal strips and architects spacing stairs use the equal-intercept property."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Prove the midpoint theorem",
+     "prompt": "Steps in order",
+     "items": [
+      "Extend DE to F so that EF = DE",
+      "△ADE ≅ △CFE by SAS",
+      "So CF = AD = DB and CF ∥ AB",
+      "DBCF is a parallelogram",
+      "So DE ∥ BC and DE = ½ BC"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Mid-segments and parts",
+     "items": [
+      {
+       "q": "Trapezium bases 10 and 16: mid-segment",
+       "a": "13",
+       "check": "(10+16)/2"
+      },
+      {
+       "q": "Bases 7 and 15: mid-segment",
+       "a": "11",
+       "check": "(7+15)/2"
+      },
+      {
+       "q": "Mid-segment 12, one base 9: other base",
+       "a": "15",
+       "check": "24-9"
+      },
+      {
+       "q": "Divide 24 cm in 3 : 5: shorter part",
+       "a": "9",
+       "check": "24*3/8"
+      },
+      {
+       "q": "Equal parallels cut 4 equal parts on a 20 cm line: each",
+       "a": "5",
+       "check": "20/4"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the proof of the midpoint theorem, DE is extended to F with EF = DE. Which triangles are congruent?",
+     "options": [
+      "△ADE and △CFE",
+      "△ABC and △DEF",
+      "△ADE and △ABC",
+      "△DBC and △CFE"
+     ],
+     "answer": 0,
+     "explain": "AE = EC, DE = EF and vertically opposite angles at E give SAS.",
+     "mistake": "Picks triangles of different sizes"
+    },
+    {
+     "q": "Why is DBCF a parallelogram in that proof?",
+     "options": [
+      "DB = BC",
+      "CF is equal and parallel to DB",
+      "Its diagonals are equal",
+      "It has a right angle"
+     ],
+     "answer": 1,
+     "explain": "From the congruence, CF = AD = DB and CF ∥ AB.",
+     "mistake": "Uses a condition that is not shown"
+    },
+    {
+     "q": "A trapezium has parallel sides 9 cm and 17 cm. What is the length of its mid-segment?",
+     "options": [
+      "26 cm",
+      "8 cm",
+      "13 cm",
+      "4 cm"
+     ],
+     "answer": 2,
+     "explain": "(9 + 17)/2.",
+     "mistake": "Subtracts the bases",
+     "check": "(9+17)/2"
+    },
+    {
+     "q": "A trapezium's mid-segment is 15 cm and one base is 11 cm. What is the other base?",
+     "options": [
+      "4 cm",
+      "26 cm",
+      "7.5 cm",
+      "19 cm"
+     ],
+     "answer": 3,
+     "explain": "(11 + b)/2 = 15 gives b = 19.",
+     "mistake": "Subtracts 11 from 15",
+     "check": "30-11"
+    },
+    {
+     "q": "Three parallel lines cut segments of 4 cm and 4 cm on one transversal. On another transversal the first segment is 6 cm. What is the second?",
+     "options": [
+      "6 cm",
+      "4 cm",
+      "8 cm",
+      "3 cm"
+     ],
+     "answer": 0,
+     "explain": "Equal intercepts on one transversal mean equal intercepts on every transversal.",
+     "mistake": "Thinks the second must match the first transversal",
+     "check": "6"
+    },
+    {
+     "q": "To divide a 16 cm segment in the ratio 1 : 3, how many equal steps do you mark on the ray?",
+     "options": [
+      "3",
+      "4",
+      "1",
+      "16"
+     ],
+     "answer": 1,
+     "explain": "1 + 3 = 4 equal steps.",
+     "mistake": "Uses only the larger part of the ratio",
+     "check": "1+3"
+    },
+    {
+     "q": "A 35 cm rod is divided in the ratio 2 : 5. How long is the longer part?",
+     "options": [
+      "10 cm",
+      "14 cm",
+      "25 cm",
+      "17.5 cm"
+     ],
+     "answer": 2,
+     "explain": "35 × 5/7.",
+     "mistake": "Divides by 5 instead of 7",
+     "check": "35*5/7"
+    },
+    {
+     "q": "The mid-segment of a trapezium is parallel to:",
+     "options": [
+      "only the longer base",
+      "the non-parallel sides",
+      "the diagonals",
+      "both parallel sides"
+     ],
+     "answer": 3,
+     "explain": "It runs halfway between the two bases and is parallel to both.",
+     "mistake": "Thinks it is parallel to the slanted sides"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How long is the line joining the midpoints of the slanted sides of a trapezium?\"",
+    "must": [
+     [
+      "half",
+      "average"
+     ],
+     [
+      "sum",
+      "add",
+      "plus"
+     ],
+     [
+      "parallel",
+      "bases"
+     ]
+    ],
+    "praise": "Spot on! It's parallel to the bases and equals half their sum!",
+    "nudge": "What do you do with the two parallel sides? Is it parallel to them?"
+   }
+  },
+  {
+   "id": "g9-maths-12-10",
+   "title": "Medians and the centroid",
+   "covers": [
+    "c12.6.1",
+    "c12.6.2",
+    "c12.6.5"
+   ],
+   "learn": {
+    "hook": "Balance a cardboard triangle on a pencil tip. The balancing point is where the three medians meet!",
+    "points": [
+     "A median joins a vertex of a triangle to the midpoint of the opposite side. Every triangle has three medians.",
+     "The three medians are concurrent: they meet at one point G, the centroid (the balancing point).",
+     "Centroid theorem: G divides each median in the ratio 2 : 1 from the vertex, so AG = ⅔ AD and GD = ⅓ AD. (Proof idea: join the midpoints of two sides and use the midpoint theorem.)",
+     "Trisecting a segment AD: make AD a median of some triangle (pick B, extend BD to C with DC = BD). The centroid G is at one-third from D; the midpoint of AG gives the other trisection point."
+    ],
+    "example": {
+     "q": "Median AD of △ABC is 12 cm. Find AG and GD.",
+     "steps": [
+      "AG = ⅔ × 12 = 8 cm",
+      "GD = ⅓ × 12 = 4 cm",
+      "Check: 8 : 4 = 2 : 1"
+     ],
+     "answer": "AG = 8 cm, GD = 4 cm"
+    },
+    "reallife": "Engineers find the centroid of triangular metal plates so they can be lifted without tilting."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Centroid sums",
+     "items": [
+      {
+       "q": "Median 18: vertex to centroid",
+       "a": "12",
+       "check": "18*2/3"
+      },
+      {
+       "q": "Median 18: centroid to midpoint",
+       "a": "6",
+       "check": "18/3"
+      },
+      {
+       "q": "GD = 5: whole median",
+       "a": "15",
+       "check": "5*3"
+      },
+      {
+       "q": "AG = 10: GD",
+       "a": "5",
+       "check": "10/2"
+      },
+      {
+       "q": "Number of medians in a triangle",
+       "a": "3",
+       "check": "3"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Median facts",
+     "items": [
+      [
+       "The three medians of a triangle meet at one point.",
+       true,
+       "They are concurrent at the centroid."
+      ],
+      [
+       "The centroid divides a median 1 : 1.",
+       false,
+       "It is 2 : 1 from the vertex."
+      ],
+      [
+       "A median always meets the opposite side at a right angle.",
+       false,
+       "That is an altitude."
+      ],
+      [
+       "The centroid of a triangle is always inside it.",
+       true,
+       "Each median lies inside the triangle."
+      ],
+      [
+       "The centroid can be used to trisect a segment.",
+       true,
+       "It sits one-third of the way along a median."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What does a median of a triangle join?",
+     "options": [
+      "A vertex to the midpoint of the opposite side",
+      "Two midpoints",
+      "A vertex to the foot of the perpendicular",
+      "The centre to a vertex"
+     ],
+     "answer": 0,
+     "explain": "That is the definition of a median.",
+     "mistake": "Confuses a median with an altitude"
+    },
+    {
+     "q": "Median PM of △PQR is 15 cm. How far is the centroid from P?",
+     "options": [
+      "5 cm",
+      "10 cm",
+      "7.5 cm",
+      "12 cm"
+     ],
+     "answer": 1,
+     "explain": "⅔ × 15 = 10.",
+     "mistake": "Takes one-third from the vertex",
+     "check": "15*2/3"
+    },
+    {
+     "q": "The centroid G is 4 cm from the midpoint of side BC on median AD. How long is AD?",
+     "options": [
+      "8 cm",
+      "6 cm",
+      "12 cm",
+      "16 cm"
+     ],
+     "answer": 2,
+     "explain": "GD is one-third of AD.",
+     "mistake": "Doubles instead of tripling",
+     "check": "4*3"
+    },
+    {
+     "q": "In what ratio does the centroid divide each median, from the vertex?",
+     "options": [
+      "1 : 2",
+      "1 : 1",
+      "3 : 1",
+      "2 : 1"
+     ],
+     "answer": 3,
+     "explain": "The vertex-side part is twice the other.",
+     "mistake": "Reverses the ratio"
+    },
+    {
+     "q": "A triangular plate has vertices A(0, 0), B(6, 0), C(0, 9). The centroid is the average of the vertices. Where is it?",
+     "options": [
+      "(2, 3)",
+      "(3, 4.5)",
+      "(6, 9)",
+      "(2, 4.5)"
+     ],
+     "answer": 0,
+     "explain": "((0 + 6 + 0)/3, (0 + 0 + 9)/3).",
+     "mistake": "Averages only two vertices"
+    },
+    {
+     "q": "Why are the medians called concurrent?",
+     "options": [
+      "They are all equal",
+      "All three pass through one point",
+      "They are parallel",
+      "They are perpendicular"
+     ],
+     "answer": 1,
+     "explain": "Concurrent lines meet at a single point.",
+     "mistake": "Thinks concurrent means equal"
+    },
+    {
+     "q": "AD is a median of length 21 cm, and G is the centroid. What is AG − GD?",
+     "options": [
+      "14 cm",
+      "21 cm",
+      "7 cm",
+      "3.5 cm"
+     ],
+     "answer": 2,
+     "explain": "AG = 14, GD = 7, difference 7.",
+     "mistake": "Gives AG instead",
+     "check": "14-7"
+    },
+    {
+     "q": "To trisect segment AD using a centroid, which construction works?",
+     "options": [
+      "Draw the perpendicular bisector of AD",
+      "Draw a circle with AD as diameter",
+      "Bisect AD twice",
+      "Make AD a median of a triangle; the centroid is one-third of the way from D"
+     ],
+     "answer": 3,
+     "explain": "The centroid divides AD in 2 : 1, giving a trisection point.",
+     "mistake": "Bisecting twice gives quarters, not thirds"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"Where do the three medians of a triangle meet, and how is each one split?\"",
+    "must": [
+     [
+      "centroid",
+      "one point",
+      "concurrent"
+     ],
+     [
+      "2 : 1",
+      "2:1",
+      "two to one",
+      "twice"
+     ],
+     [
+      "vertex"
+     ]
+    ],
+    "praise": "Excellent! They meet at the centroid, which splits each median 2 : 1 from the vertex!",
+    "nudge": "What is the meeting point called? In what ratio does it divide a median?"
+   }
+  },
+  {
+   "id": "g9-maths-12-11",
+   "title": "Varignon shapes and tiling with any quadrilateral",
+   "covers": [
+    "c12.6.4",
+    "c12.7.2",
+    "c12.7.3"
+   ],
+   "learn": {
+    "hook": "Even a lopsided, wonky quadrilateral can tile a whole floor. Spin it around its edge midpoints and watch!",
+    "points": [
+     "Varignon parallelogram (midpoints of the sides joined in order): its sides are parallel to the diagonals and half as long.",
+     "If the original's diagonals are perpendicular, the Varignon figure is a rectangle; if they are equal, it is a rhombus; if they are equal and perpendicular, a square.",
+     "Tiling method 1: rotate a copy of the quadrilateral by 180° about the midpoint of one edge; keep doing this about edge midpoints. The four angles (sum 360°) meet at every vertex, and copies fill the plane.",
+     "Tiling method 2: the Varignon parallelograms of copies form a parallelogram grid, which shows how translated copies of the quadrilateral fit together."
+    ],
+    "example": {
+     "q": "A quadrilateral has diagonals 10 cm and 14 cm that are perpendicular. Describe its Varignon figure and its perimeter.",
+     "steps": [
+      "Sides are half the diagonals: 5 cm and 7 cm",
+      "Perpendicular diagonals give a rectangle",
+      "Perimeter = 2(5 + 7) = 24 cm"
+     ],
+     "answer": "A 5 cm by 7 cm rectangle, perimeter 24 cm"
+    },
+    "reallife": "Tile designers use 180° rotations about edge midpoints to make floor patterns with irregular shapes."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Varignon figure",
+     "pairs": [
+      [
+       "Diagonals perpendicular",
+       "Rectangle"
+      ],
+      [
+       "Diagonals equal",
+       "Rhombus"
+      ],
+      [
+       "Diagonals equal and perpendicular",
+       "Square"
+      ],
+      [
+       "Any diagonals",
+       "Parallelogram"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Varignon numbers",
+     "items": [
+      {
+       "q": "Diagonals 8 and 12: Varignon perimeter",
+       "a": "20",
+       "check": "8+12"
+      },
+      {
+       "q": "Diagonals 6 and 6: Varignon side",
+       "a": "3",
+       "check": "6/2"
+      },
+      {
+       "q": "Original area 40: Varignon area",
+       "a": "20",
+       "check": "40/2"
+      },
+      {
+       "q": "Angles of the tile meeting at a point: sum",
+       "a": "360°",
+       "check": "360"
+      },
+      {
+       "q": "Copies of a quadrilateral meeting at each vertex",
+       "a": "4",
+       "check": "4"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A kite has perpendicular diagonals. What is its Varignon figure?",
+     "options": [
+      "A rectangle",
+      "A rhombus",
+      "A square always",
+      "A trapezium"
+     ],
+     "answer": 0,
+     "explain": "Varignon sides are parallel to the diagonals, so they meet at right angles.",
+     "mistake": "Thinks a kite gives a rhombus"
+    },
+    {
+     "q": "An isosceles trapezium has equal diagonals. What is its Varignon figure?",
+     "options": [
+      "A rectangle",
+      "A rhombus",
+      "A kite",
+      "A trapezium"
+     ],
+     "answer": 1,
+     "explain": "Each Varignon side is half a diagonal, so all four sides are equal.",
+     "mistake": "Mixes up the equal-diagonal and perpendicular-diagonal cases"
+    },
+    {
+     "q": "A quadrilateral's diagonals are 9 cm and 13 cm. What is the perimeter of its Varignon parallelogram?",
+     "options": [
+      "44 cm",
+      "11 cm",
+      "22 cm",
+      "117 cm"
+     ],
+     "answer": 2,
+     "explain": "Two sides of 4.5 and two of 6.5: total = 9 + 13.",
+     "mistake": "Doubles the diagonals",
+     "check": "9+13"
+    },
+    {
+     "q": "A square has diagonals of 8 cm. What is its Varignon figure?",
+     "options": [
+      "A rhombus of side 8 cm",
+      "A rectangle 4 cm by 8 cm",
+      "A square of side 8 cm",
+      "A square of side 4 cm"
+     ],
+     "answer": 3,
+     "explain": "Equal, perpendicular diagonals give a square with sides half a diagonal.",
+     "mistake": "Uses the full diagonal as the side"
+    },
+    {
+     "q": "In tiling with any quadrilateral, each copy is rotated by how much about an edge midpoint?",
+     "options": [
+      "180°",
+      "90°",
+      "360°",
+      "60°"
+     ],
+     "answer": 0,
+     "explain": "A half-turn about the midpoint swaps the two ends of that edge.",
+     "mistake": "Uses a quarter turn",
+     "check": "180"
+    },
+    {
+     "q": "Why do four copies of any quadrilateral fit around a point in such a tiling?",
+     "options": [
+      "Its sides are all equal",
+      "Its four angles add up to 360°",
+      "It is always convex",
+      "Its diagonals are equal"
+     ],
+     "answer": 1,
+     "explain": "Each of the four different angles appears once at the point, filling 360°.",
+     "mistake": "Thinks only regular shapes fit around a point"
+    },
+    {
+     "q": "A quadrilateral has area 50 cm². What is the area of its Varignon parallelogram?",
+     "options": [
+      "12.5 cm²",
+      "50 cm²",
+      "25 cm²",
+      "100 cm²"
+     ],
+     "answer": 2,
+     "explain": "The Varignon parallelogram has half the area.",
+     "mistake": "Uses one quarter, as for midpoint triangles",
+     "check": "50/2"
+    },
+    {
+     "q": "Which tiling idea uses the Varignon parallelograms of copies?",
+     "options": [
+      "They show the tiles must be squares",
+      "They prove tiles must overlap",
+      "They are used only for triangles",
+      "They form a parallelogram grid showing how translated copies fit"
+     ],
+     "answer": 3,
+     "explain": "A parallelogram grid tiles the plane, guiding the placement of the copies.",
+     "mistake": "Thinks Varignon figures are unrelated to tiling"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"What shape do you get when you join the midpoints of a kite's sides?\"",
+    "must": [
+     [
+      "rectangle"
+     ],
+     [
+      "perpendicular",
+      "right angle",
+      "90"
+     ],
+     [
+      "diagonal",
+      "diagonals",
+      "parallel"
+     ]
+    ],
+    "praise": "Super! The kite's diagonals are perpendicular, so the midpoint figure is a rectangle!",
+    "nudge": "What do you know about a kite's diagonals? How are the Varignon sides related to them?"
+   }
+  },
+  {
+   "id": "g9-maths-12-12",
+   "title": "Which shapes tile? Pentagons, hats and bow-ties",
+   "covers": [
+    "c12.7.4",
+    "c12.7.5",
+    "c12.7.6",
+    "c12.7.7",
+    "c12.7.8"
+   ],
+   "learn": {
+    "hook": "Bathroom tiles are squares, honeycombs are hexagons, but you'll never see a floor of regular pentagons. Why?",
+    "points": [
+     "Any triangle and any quadrilateral (even a non-convex one) can tile the plane.",
+     "A regular pentagon cannot: each angle is 108°, and 360 ÷ 108 is not a whole number, so copies cannot fill the space around a point.",
+     "Aperiodic tilings cover the plane but never repeat in a regular pattern. In 2023 a single shape nicknamed the 'hat' was found that tiles the plane only aperiodically.",
+     "Scissors congruence: a shape can be cut into pieces and rearranged. For example, joining the midpoints of a triangle's sides cuts it into 4 congruent triangles.",
+     "In a self-intersecting (bow-tie) 4-gon, the four vertex angles add up to less than 360°: they are 360° − 2θ, where θ is the angle where the sides cross."
+    ],
+    "example": {
+     "q": "Can regular hexagons tile the plane? Regular pentagons?",
+     "steps": [
+      "Hexagon angle = 120°; 360 ÷ 120 = 3: yes, three meet at a point",
+      "Pentagon angle = 108°; 360 ÷ 108 ≈ 3.33: not whole",
+      "So hexagons tile; pentagons do not"
+     ],
+     "answer": "Hexagons yes, regular pentagons no"
+    },
+    "reallife": "Honeybees build hexagonal cells because hexagons tile without gaps and use little wax."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Tiles the plane?",
+     "buckets": [
+      "Can tile",
+      "Cannot tile"
+     ],
+     "items": [
+      [
+       "Any triangle",
+       0
+      ],
+      [
+       "Any quadrilateral",
+       0
+      ],
+      [
+       "Regular hexagon",
+       0
+      ],
+      [
+       "Regular pentagon",
+       1
+      ],
+      [
+       "Arrowhead quadrilateral",
+       0
+      ],
+      [
+       "Regular octagon alone",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Tiling truths",
+     "items": [
+      [
+       "A non-convex quadrilateral can tile the plane.",
+       true,
+       "Rotating about edge midpoints works for any quadrilateral."
+      ],
+      [
+       "A regular pentagon tiles the plane.",
+       false,
+       "108° does not divide 360°."
+      ],
+      [
+       "The 'hat' tile found in 2023 tiles only in a non-repeating way.",
+       true,
+       "It is an aperiodic monotile."
+      ],
+      [
+       "A bow-tie's vertex angles add to 360°.",
+       false,
+       "They add to less than 360°."
+      ],
+      [
+       "Midpoints of a triangle's sides cut it into 4 congruent triangles.",
+       true,
+       "Each has sides half of the original's."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is each interior angle of a regular pentagon?",
+     "options": [
+      "108°",
+      "120°",
+      "72°",
+      "90°"
+     ],
+     "answer": 0,
+     "explain": "Sum of angles = 540°; 540 ÷ 5 = 108.",
+     "mistake": "Uses the central angle 72°",
+     "check": "540/5"
+    },
+    {
+     "q": "Why can't regular pentagons tile the plane?",
+     "options": [
+      "They have too many sides",
+      "360° is not a whole-number multiple of 108°",
+      "Pentagons have no equal sides",
+      "Their diagonals are too long"
+     ],
+     "answer": 1,
+     "explain": "Around a point the angles must add up to exactly 360°.",
+     "mistake": "Thinks any regular polygon tiles"
+    },
+    {
+     "q": "Which regular polygon can tile the plane on its own?",
+     "options": [
+      "Regular pentagon",
+      "Regular heptagon",
+      "Regular hexagon",
+      "Regular octagon"
+     ],
+     "answer": 2,
+     "explain": "120° × 3 = 360°.",
+     "mistake": "Picks a polygon whose angle does not divide 360"
+    },
+    {
+     "q": "What is special about the 'hat' shape found in 2023?",
+     "options": [
+      "It cannot tile at all",
+      "It tiles like squares",
+      "It is a regular pentagon",
+      "It tiles the plane, but only in a pattern that never repeats"
+     ],
+     "answer": 3,
+     "explain": "It is an aperiodic monotile.",
+     "mistake": "Thinks aperiodic means it leaves gaps"
+    },
+    {
+     "q": "Can an arrowhead (non-convex) quadrilateral tile the plane?",
+     "options": [
+      "Yes, like every quadrilateral",
+      "No, only convex ones can",
+      "Only if it is a kite",
+      "Only with triangles added"
+     ],
+     "answer": 0,
+     "explain": "Half-turns about edge midpoints work for any quadrilateral.",
+     "mistake": "Thinks non-convex shapes cannot tile"
+    },
+    {
+     "q": "In a bow-tie 4-gon, the two crossing sides make an angle of 40° inside each of the two triangles of the bow-tie. What is the sum of its four vertex angles?",
+     "options": [
+      "360°",
+      "280°",
+      "320°",
+      "140°"
+     ],
+     "answer": 1,
+     "explain": "360° − 2 × 40°.",
+     "mistake": "Assumes 360° as for ordinary quadrilaterals",
+     "check": "360-2*40"
+    },
+    {
+     "q": "Joining the midpoints of the sides of a triangle with area 36 cm² cuts it into 4 congruent triangles. What is the area of each?",
+     "options": [
+      "12 cm²",
+      "18 cm²",
+      "9 cm²",
+      "6 cm²"
+     ],
+     "answer": 2,
+     "explain": "36 ÷ 4.",
+     "mistake": "Divides by 3",
+     "check": "36/4"
+    },
+    {
+     "q": "What does 'scissors congruence' mean?",
+     "options": [
+      "Two shapes are the same size",
+      "Cutting along a line of symmetry",
+      "Folding a shape in half",
+      "Cutting a shape into pieces that can be rearranged into another shape"
+     ],
+     "answer": 3,
+     "explain": "The pieces are rearranged without overlap or gaps.",
+     "mistake": "Thinks it is about symmetry"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"Why can hexagons tile a floor but regular pentagons can't?\"",
+    "must": [
+     [
+      "360"
+     ],
+     [
+      "angle",
+      "angles",
+      "108",
+      "120"
+     ],
+     [
+      "whole",
+      "exactly",
+      "divide"
+     ]
+    ],
+    "praise": "Wonderful! Angles meeting at a point must make exactly 360°: 3 × 120° works, 108° doesn't!",
+    "nudge": "What must the angles around a point add up to? Does 108° fit evenly?"
    }
   }
  ]

@@ -4,8 +4,235 @@
  "emoji": "🧊",
  "topics": [
   {
+   "id": "g9-maths-14-04",
+   "title": "Surface versus space: cuboids in layers",
+   "covers": [
+    "c14.1.1",
+    "c14.1.4",
+    "c14.1.5",
+    "c14.1.7"
+   ],
+   "learn": {
+    "hook": "A 1 × 1 × 8 stick of clay and a 2 × 2 × 2 cube use the same clay. Which needs more wrapping paper?",
+    "points": [
+     "Every solid has a surface (measured as area, in square units) and takes up space (volume, in cubic units).",
+     "Volume as layers: stack thin layers each with the base area; volume = base area × height. For a cuboid that is l × w × h.",
+     "The same volume can have different surface areas: 1 × 1 × 8 and 2 × 2 × 2 both have volume 8, but surface areas 34 and 24. Compact shapes lose less heat and need less packaging.",
+     "If the three face areas of a cuboid are A₁ = lw, A₂ = wh, A₃ = hl, then A₁ × A₂ × A₃ = (lwh)², so V = √(A₁A₂A₃)."
+    ],
+    "example": {
+     "q": "A cuboid's faces have areas 12 cm², 15 cm² and 20 cm². Find its volume.",
+     "steps": [
+      "Product = 12 × 15 × 20 = 3600",
+      "V² = 3600",
+      "V = 60 cm³"
+     ],
+     "answer": "60 cm³"
+    },
+    "reallife": "Laddoo boxes and milk cartons are shaped to hold a lot with as little cardboard as possible."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Area or volume?",
+     "buckets": [
+      "Area (square units)",
+      "Volume (cubic units)"
+     ],
+     "items": [
+      [
+       "Paint for a wall",
+       0
+      ],
+      [
+       "Water in a tank",
+       1
+      ],
+      [
+       "Gift-wrap for a box",
+       0
+      ],
+      [
+       "Sand in a truck",
+       1
+      ],
+      [
+       "Tiles for a floor",
+       0
+      ],
+      [
+       "Air in a room",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Layers and faces",
+     "items": [
+      {
+       "q": "Base 20 cm², height 6 cm: volume",
+       "a": "120",
+       "check": "20*6"
+      },
+      {
+       "q": "1 × 1 × 8: surface area",
+       "a": "34",
+       "check": "2*(1+8+8)"
+      },
+      {
+       "q": "2 × 2 × 2: surface area",
+       "a": "24",
+       "check": "6*4"
+      },
+      {
+       "q": "Faces 6, 10, 15: volume",
+       "a": "30",
+       "check": "(6*10*15)**0.5"
+      },
+      {
+       "q": "Faces 4, 4, 4 (a cube): volume",
+       "a": "8",
+       "check": "(4*4*4)**0.5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which unit measures volume?",
+     "options": [
+      "cm³",
+      "cm²",
+      "cm",
+      "m²"
+     ],
+     "answer": 0,
+     "explain": "Volume counts unit cubes.",
+     "mistake": "Mixes up area and volume units"
+    },
+    {
+     "q": "A stack of 25 identical sheets, each 30 cm × 20 cm and 0.1 cm thick, forms a cuboid. What is its volume?",
+     "options": [
+      "600 cm³",
+      "1500 cm³",
+      "150 cm³",
+      "15000 cm³"
+     ],
+     "answer": 1,
+     "explain": "Base area 600 cm² × height 2.5 cm.",
+     "steps": [
+      "Height = 25 × 0.1 = 2.5 cm",
+      "600 × 2.5 = 1500 cm³"
+     ],
+     "mistake": "Forgets to multiply the thickness by the number of sheets",
+     "check": "600*2.5"
+    },
+    {
+     "q": "Cuboids 1 × 2 × 8 and 2 × 2 × 4 have the same volume. Which has the smaller surface area?",
+     "options": [
+      "1 × 2 × 8",
+      "They are equal",
+      "2 × 2 × 4 (40 vs 52)",
+      "Cannot tell"
+     ],
+     "answer": 2,
+     "explain": "1 × 2 × 8: 2(2 + 16 + 8) = 52. 2 × 2 × 4: 2(4 + 8 + 8) = 40.",
+     "mistake": "Assumes equal volume means equal surface area"
+    },
+    {
+     "q": "Why do cold-region houses tend to be compact rather than long and thin?",
+     "options": [
+      "Compact houses hold more people",
+      "Thin houses are illegal",
+      "Surface area does not matter",
+      "Less surface area for the same volume means less heat loss"
+     ],
+     "answer": 3,
+     "explain": "Heat escapes through the surface; a compact shape has less of it.",
+     "mistake": "Thinks volume decides heat loss"
+    },
+    {
+     "q": "The face areas of a cuboid are 24 cm², 32 cm² and 48 cm². What is its volume?",
+     "options": [
+      "192 cm³",
+      "104 cm³",
+      "36864 cm³",
+      "96 cm³"
+     ],
+     "answer": 0,
+     "explain": "√(24 × 32 × 48) = √36864 = 192.",
+     "mistake": "Adds the areas or forgets the square root",
+     "check": "(24*32*48)**0.5"
+    },
+    {
+     "q": "Which surface area is the smallest for a volume of 27 cm³?",
+     "options": [
+      "A 1 × 1 × 27 cuboid",
+      "A 3 × 3 × 3 cube (54 cm²)",
+      "A 1 × 3 × 9 cuboid",
+      "All are the same"
+     ],
+     "answer": 1,
+     "explain": "The cube is the most compact: 6 × 9 = 54. The others are 110 and 78.",
+     "mistake": "Thinks all boxes with equal volume use equal cardboard"
+    },
+    {
+     "q": "A rectangular tank has base area 2.5 m² and water 0.8 m deep. What volume of water does it hold?",
+     "options": [
+      "3.3 m³",
+      "0.32 m³",
+      "2 m³",
+      "20 m³"
+     ],
+     "answer": 2,
+     "explain": "Volume = base area × height.",
+     "mistake": "Adds instead of multiplying",
+     "check": "2.5*0.8"
+    },
+    {
+     "q": "What does surface area measure?",
+     "options": [
+      "The space inside",
+      "The length of all edges",
+      "The weight of the solid",
+      "The total area of all the outer faces"
+     ],
+     "answer": 3,
+     "explain": "It is the area you would cover if you wrapped the solid.",
+     "mistake": "Confuses surface area with volume"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"Can two boxes hold the same amount but need different amounts of cardboard?\"",
+    "must": [
+     [
+      "yes",
+      "different"
+     ],
+     [
+      "surface",
+      "area",
+      "cardboard"
+     ],
+     [
+      "volume",
+      "same"
+     ]
+    ],
+    "praise": "Yes indeed! Same volume, different surface areas; compact shapes need less!",
+    "nudge": "Compare a long stick and a cube with the same volume. Which needs more wrapping?"
+   }
+  },
+  {
    "id": "g9-maths-14-01",
    "title": "Surface area of cuboids, cubes and cylinders",
+   "covers": [
+    "c14.1.2",
+    "c14.1.3",
+    "c14.2.2",
+    "c14.2.3"
+   ],
    "learn": {
     "hook": "How much paper do you need to gift-wrap a box of sweets for Diwali? That is a surface area question!",
     "points": [
@@ -251,258 +478,470 @@
    }
   },
   {
-   "id": "g9-maths-14-02",
-   "title": "Surface area of cones and spheres",
+   "id": "g9-maths-14-05",
+   "title": "Packing, painted cubes and integer boxes",
+   "covers": [
+    "c14.1.6",
+    "c14.1.8",
+    "c14.1.9"
+   ],
    "learn": {
-    "hook": "A birthday cap, an ice-cream cone and a cricket ball: two of these are cones and one is a sphere. How much material covers each?",
+    "hook": "Dip a 4 × 4 × 4 cube of small cubes in paint. How many small cubes have no paint at all? Only the hidden heart!",
     "points": [
-     "A right circular cone has radius r, height h and slant height l, where l = √(r² + h²).",
-     "Curved surface area of a cone = πrl; total surface area = πr(l + r).",
-     "Surface area of a sphere of radius r = 4πr².",
-     "A hemisphere has curved surface area 2πr² and, with its flat circular face, total surface area 3πr².",
-     "If the radius of a sphere doubles, its surface area becomes 4 times as big."
+     "Packing: the number of small boxes a × b × c that fit (in the same orientation) in a box L × W × H is (L ÷ a) × (W ÷ b) × (H ÷ c), using whole numbers only.",
+     "Painted n × n × n cube cut into unit cubes: 3 faces painted: 8 (corners); 2 faces: 12(n − 2) (edges); 1 face: 6(n − 2)² (face centres); 0 faces: (n − 2)³ (inside).",
+     "Check: 8 + 12(n − 2) + 6(n − 2)² + (n − 2)³ = n³.",
+     "Cuboids with whole-number edges and surface area S: solve lw + wh + hl = S/2. For S = 22 there are exactly two: 1 × 1 × 5 and 1 × 2 × 3."
     ],
     "example": {
-     "q": "A conical birthday cap has radius 7 cm and height 24 cm. How much paper is needed for it? (Use π = 22/7.)",
+     "q": "A 5 × 5 × 5 painted cube is cut into unit cubes. Count the cubes with 2 faces painted and with none.",
      "steps": [
-      "Slant height l = √(7² + 24²) = √(49 + 576) = √625 = 25 cm",
-      "Curved surface area = πrl = 22/7 × 7 × 25",
-      "= 22 × 25 = 550 cm²"
+      "2 faces: 12(n − 2) = 12 × 3 = 36",
+      "0 faces: (n − 2)³ = 3³ = 27",
+      "Total check: 8 + 36 + 54 + 27 = 125"
      ],
-     "answer": "550 cm²"
+     "answer": "36 and 27"
     },
-    "reallife": "Tent-makers measure canvas for conical tents with πrl, and football manufacturers need 4πr² of leather for each ball."
+    "reallife": "Warehouse managers plan how many cartons fit on a truck using this packing calculation."
    },
    "games": [
     {
-     "type": "fill",
-     "title": "Cones and spheres",
+     "type": "speed",
+     "title": "Painted 4 × 4 × 4 cube",
      "items": [
       {
-       "text": "Slant height of a cone: l = √(r² + ___)",
-       "answer": "h²",
-       "options": [
-        "h²",
-        "l²",
-        "2h"
-       ]
+       "q": "3 faces painted",
+       "a": "8",
+       "check": "8"
       },
       {
-       "text": "Curved surface area of a cone = π × r × ___",
-       "answer": "l",
-       "options": [
-        "l",
-        "h",
-        "r"
-       ]
+       "q": "2 faces painted",
+       "a": "24",
+       "check": "12*2"
       },
       {
-       "text": "Surface area of a sphere = ___ × πr²",
-       "answer": "4",
-       "options": [
-        "4",
-        "2",
-        "3"
-       ]
+       "q": "1 face painted",
+       "a": "24",
+       "check": "6*4"
       },
       {
-       "text": "Total surface area of a solid hemisphere = ___ × πr²",
-       "answer": "3",
-       "options": [
-        "3",
-        "2",
-        "4"
-       ]
+       "q": "0 faces painted",
+       "a": "8",
+       "check": "2**3"
+      },
+      {
+       "q": "Total small cubes",
+       "a": "64",
+       "check": "4**3"
       }
      ]
     },
     {
-     "type": "truefalse",
-     "title": "Curved surface check",
+     "type": "fill",
+     "title": "Packing",
      "items": [
-      [
-       "The slant height of a cone is always longer than its height",
-       true,
-       "l = √(r² + h²), which is more than h whenever r > 0."
-      ],
-      [
-       "A sphere's surface area is 4 times the area of its biggest circle",
-       true,
-       "The biggest circle has area πr², and the sphere's surface is 4πr²."
-      ],
-      [
-       "Curved surface area of a cone = πrh",
-       false,
-       "It uses the slant height l, not the height h: πrl."
-      ],
-      [
-       "Doubling the radius of a ball doubles its surface area",
-       false,
-       "Surface area depends on r², so it becomes 4 times as big."
-      ],
-      [
-       "The curved surface of a hemisphere is half the surface of the full sphere",
-       true,
-       "Half of 4πr² is 2πr²."
-      ]
+      {
+       "text": "2-cm cubes in a 10 × 6 × 4 cm box: ___",
+       "answer": "30",
+       "options": [
+        "30",
+        "240",
+        "60"
+       ]
+      },
+      {
+       "text": "Boxes 3 × 2 × 1 in 9 × 4 × 2: ___",
+       "answer": "12",
+       "options": [
+        "12",
+        "24",
+        "36"
+       ]
+      },
+      {
+       "text": "Cubes of 1 cm in 3 × 3 × 3: ___",
+       "answer": "27",
+       "options": [
+        "27",
+        "9",
+        "54"
+       ]
+      },
+      {
+       "text": "Cuboids with whole edges and surface area 22: ___",
+       "answer": "2",
+       "options": [
+        "2",
+        "1",
+        "3"
+       ]
+      }
      ]
     }
    ],
    "quiz": [
     {
-     "q": "A cone has radius 7 cm and height 24 cm. What is its slant height?",
+     "q": "How many 2 cm cubes fit in a box 12 cm × 8 cm × 6 cm?",
      "options": [
-      "25 cm",
-      "31 cm",
-      "17 cm",
-      "625 cm"
+      "72",
+      "576",
+      "96",
+      "48"
      ],
      "answer": 0,
-     "explain": "l = √(7² + 24²) = √(49 + 576) = √625 = 25 cm.",
-     "mistake": "Adds the radius and height directly (31 cm), or forgets the square root",
-     "check": "(7**2+24**2)**0.5",
-     "visual": {
-      "kind": "shape",
-      "name": "cone"
-     }
-    },
-    {
-     "q": "Find the curved surface area of a cone with radius 7 cm and slant height 25 cm. (Use π = 22/7.)",
-     "options": [
-      "550 cm²",
-      "704 cm²",
-      "1100 cm²",
-      "175 cm²"
+     "explain": "6 × 4 × 3.",
+     "steps": [
+      "12 ÷ 2 = 6, 8 ÷ 2 = 4, 6 ÷ 2 = 3",
+      "6 × 4 × 3 = 72"
      ],
-     "answer": 0,
-     "explain": "CSA = πrl = 22/7 × 7 × 25 = 550 cm².",
-     "mistake": "Adds the base area too (704 cm²), which gives the total surface area",
-     "check": "22/7*7*25"
+     "mistake": "Divides the whole volume by 2 instead of by 8",
+     "check": "6*4*3"
     },
     {
-     "q": "Find the surface area of a sphere of radius 7 cm. (Use π = 22/7.)",
+     "q": "How many matchboxes 5 cm × 3 cm × 2 cm fit in a carton 50 cm × 30 cm × 20 cm (same orientation)?",
      "options": [
-      "154 cm²",
-      "308 cm²",
-      "616 cm²",
-      "1437 cm²"
-     ],
-     "answer": 2,
-     "explain": "Surface area = 4πr² = 4 × 22/7 × 49 = 616 cm².",
-     "mistake": "Uses πr² (154) or 2πr² (308) instead of 4πr²",
-     "check": "4*22/7*7*7",
-     "visual": {
-      "kind": "shape",
-      "name": "sphere"
-     }
-    },
-    {
-     "q": "Find the total surface area of a solid hemisphere of radius 7 cm. (Use π = 22/7.)",
-     "options": [
-      "308 cm²",
-      "462 cm²",
-      "616 cm²",
-      "154 cm²"
+      "100",
+      "1000",
+      "300",
+      "10000"
      ],
      "answer": 1,
-     "explain": "TSA = curved part + flat circle = 2πr² + πr² = 3πr² = 3 × 22/7 × 49 = 462 cm².",
-     "mistake": "Forgets the flat circular face and gives 2πr² = 308",
-     "check": "3*22/7*7*7"
+     "explain": "10 × 10 × 10.",
+     "mistake": "Divides only one dimension",
+     "check": "10*10*10"
     },
     {
-     "q": "A joker's cap is a cone of radius 7 cm and slant height 12 cm. How much sheet is needed to make it? (Use π = 22/7.)",
+     "q": "A 6 × 6 × 6 painted cube is cut into unit cubes. How many have exactly 3 faces painted?",
      "options": [
-      "264 cm²",
-      "418 cm²",
-      "528 cm²",
-      "84 cm²"
-     ],
-     "answer": 0,
-     "explain": "A cap has no base, so we need only the curved surface: πrl = 22/7 × 7 × 12 = 264 cm².",
-     "mistake": "Adds the base circle (418) even though a cap is open at the bottom",
-     "check": "22/7*7*12"
-    },
-    {
-     "q": "A ball has surface area 154 cm². What is its radius? (Use π = 22/7.)",
-     "options": [
-      "7 cm",
-      "14 cm",
-      "12.25 cm",
-      "3.5 cm"
-     ],
-     "answer": 3,
-     "explain": "4πr² = 154, so r² = 154 × 7 ÷ 88 = 12.25 and r = 3.5 cm.",
-     "steps": [
-      "4 × 22/7 × r² = 154",
-      "r² = 12.25",
-      "r = 3.5 cm"
-     ],
-     "mistake": "Uses πr² = 154 (giving r = 7) or forgets the square root (12.25)",
-     "check": "(154*7/(4*22))**0.5"
-    },
-    {
-     "q": "A hemispherical bowl has radius 10.5 cm. What is the area of its inner curved surface? (Use π = 22/7.)",
-     "options": [
-      "346.5 cm²",
-      "1386 cm²",
-      "693 cm²",
-      "1039.5 cm²"
+      "6",
+      "12",
+      "8",
+      "24"
      ],
      "answer": 2,
-     "explain": "Curved surface of a hemisphere = 2πr² = 2 × 22/7 × 10.5 × 10.5 = 693 cm².",
-     "steps": [
-      "10.5 × 10.5 = 110.25",
-      "2 × 22/7 × 110.25 = 693"
-     ],
-     "mistake": "Uses 4πr² (the whole sphere, 1386) instead of half of it",
-     "check": "2*22/7*10.5*10.5"
+     "explain": "Only the 8 corners have 3 painted faces, whatever the size.",
+     "mistake": "Thinks the number grows with n",
+     "check": "8"
     },
     {
-     "q": "Find the total surface area of a solid cone with radius 7 cm and slant height 25 cm. (Use π = 22/7.)",
+     "q": "For the 6 × 6 × 6 cube, how many unit cubes have exactly 2 faces painted?",
      "options": [
-      "704 cm²",
-      "550 cm²",
-      "858 cm²",
-      "154 cm²"
+      "72",
+      "24",
+      "96",
+      "48"
+     ],
+     "answer": 3,
+     "explain": "12(n − 2) = 12 × 4.",
+     "mistake": "Uses n instead of n − 2",
+     "check": "12*4"
+    },
+    {
+     "q": "For the 6 × 6 × 6 cube, how many have exactly 1 face painted?",
+     "options": [
+      "96",
+      "144",
+      "36",
+      "64"
      ],
      "answer": 0,
-     "explain": "TSA = πr(l + r) = 22/7 × 7 × (25 + 7) = 22 × 32 = 704 cm².",
-     "steps": [
-      "πr = 22",
-      "l + r = 32",
-      "22 × 32 = 704"
+     "explain": "6(n − 2)² = 6 × 16.",
+     "mistake": "Forgets to subtract the edge cubes",
+     "check": "6*16"
+    },
+    {
+     "q": "For the 6 × 6 × 6 cube, how many have no paint?",
+     "options": [
+      "216",
+      "64",
+      "125",
+      "8"
      ],
-     "mistake": "Gives only the curved surface (550), forgetting the base",
-     "check": "22/7*7*(25+7)"
+     "answer": 1,
+     "explain": "(n − 2)³ = 4³.",
+     "mistake": "Uses (n − 1)³",
+     "check": "4**3"
+    },
+    {
+     "q": "Which cuboid with whole-number edges has surface area 22 cm²?",
+     "options": [
+      "2 × 2 × 2",
+      "1 × 1 × 4",
+      "1 × 2 × 3",
+      "1 × 3 × 3"
+     ],
+     "answer": 2,
+     "explain": "2(2 + 6 + 3) = 22.",
+     "steps": [
+      "2(1 × 2 + 2 × 3 + 3 × 1) = 2 × 11 = 22"
+     ],
+     "mistake": "Computes lw + wh + hl but forgets to double"
+    },
+    {
+     "q": "A box 9 cm × 9 cm × 9 cm is packed with 2 cm cubes. How many fit?",
+     "options": [
+      "91",
+      "81",
+      "729",
+      "64"
+     ],
+     "answer": 3,
+     "explain": "Only 4 fit along each 9 cm edge (4 × 2 = 8 cm): 4 × 4 × 4.",
+     "mistake": "Divides 729 by 8 and rounds",
+     "check": "4**3"
     }
    ],
    "teach": {
-    "ask": "Gappu holds an ice-cream cone: \"How much wafer is used to make the cone? Do I use its height?\"",
+    "ask": "Gappu asks: \"Which small cubes of a painted big cube have no paint?\"",
     "must": [
      [
-      "slant height",
-      "slant",
-      "l =",
-      "sloping side"
+      "inside",
+      "hidden",
+      "middle",
+      "inner"
      ],
      [
-      "πrl",
-      "pi r l",
-      "radius times slant"
+      "n − 2",
+      "n-2",
+      "smaller cube"
      ],
      [
-      "pythagoras",
-      "√(r² + h²)",
-      "square root"
+      "cube",
+      "cubed",
+      "³"
      ]
     ],
-    "praise": "Use the slant height l, found by Pythagoras from r and h, and the curved surface is πrl. Wafer-thin and exactly right!",
-    "nudge": "Is the wafer's length along the side the same as the cone's straight-up height? Which one goes into the formula?"
+    "praise": "Right! The inner (n − 2) × (n − 2) × (n − 2) cube stays unpainted!",
+    "nudge": "Where are the unpainted cubes? How big is that hidden block?"
+   }
+  },
+  {
+   "id": "g9-maths-14-06",
+   "title": "Cylinders: discs, ratios and percentage changes",
+   "covers": [
+    "c14.2.1",
+    "c14.2.5",
+    "c14.3.1"
+   ],
+   "learn": {
+    "hook": "Stack khakhras one on top of another and you've built a cylinder!",
+    "points": [
+     "A right circular cylinder has two equal circular bases, every cross-section parallel to the base is the same circle, and its axis is perpendicular to the base.",
+     "Think of a cylinder as a stack of thin discs (like khakhras or coins): each has area πr², and the stack has height h, so V = πr²h.",
+     "Ratios: if the radius is multiplied by k, volume is multiplied by k² (height fixed); if the height is multiplied by k, volume is multiplied by k.",
+     "Percentage change: radius up 10% (× 1.1) makes volume × 1.21, a 21% increase. Curved surface area 2πrh grows by the same factor as r × h."
+    ],
+    "example": {
+     "q": "Cylinder A has radius 3 cm and height 8 cm; cylinder B has radius 6 cm and height 4 cm. Compare their volumes.",
+     "steps": [
+      "A: π × 9 × 8 = 72π",
+      "B: π × 36 × 4 = 144π",
+      "B : A = 2 : 1"
+     ],
+     "answer": "B has twice the volume of A"
+    },
+    "reallife": "A stack of ₹10 coins is a cylinder; doubling the stack doubles the volume, but a coin twice as wide holds four times the metal."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Cylinder changes",
+     "items": [
+      [
+       "Doubling the radius doubles the volume.",
+       false,
+       "It multiplies the volume by 4."
+      ],
+      [
+       "Doubling the height doubles the volume.",
+       true,
+       "V = πr²h is proportional to h."
+      ],
+      [
+       "A cylinder's cross-sections parallel to its base are all equal circles.",
+       true,
+       "That is part of the definition."
+      ],
+      [
+       "A stack of coins approximates a cylinder.",
+       true,
+       "Thin discs stacked up."
+      ],
+      [
+       "Increasing the radius by 10% increases the volume by 10%.",
+       false,
+       "It increases by 21%."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Scale factors",
+     "items": [
+      {
+       "q": "Radius × 3: volume ×",
+       "a": "9",
+       "check": "3**2"
+      },
+      {
+       "q": "Height × 5: volume ×",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "Radius × 2, height × 2: volume ×",
+       "a": "8",
+       "check": "2**2*2"
+      },
+      {
+       "q": "Radius +10%: volume ×",
+       "a": "1.21",
+       "check": "1.1**2"
+      },
+      {
+       "q": "Radius × 2: curved surface ×",
+       "a": "2",
+       "check": "2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which description fits a right circular cylinder?",
+     "options": [
+      "Two equal circular bases with the axis perpendicular to them",
+      "One circular base and an apex",
+      "Six rectangular faces",
+      "A curved surface with no flat faces"
+     ],
+     "answer": 0,
+     "explain": "That is the definition.",
+     "mistake": "Confuses it with a cone or sphere"
+    },
+    {
+     "q": "A stack of 40 coins, each of radius 1 cm and thickness 0.2 cm, forms a cylinder. What is its volume? (π = 22/7)",
+     "options": [
+      "88/7 cm³",
+      "176/7 cm³",
+      "8 cm³",
+      "176 cm³"
+     ],
+     "answer": 1,
+     "explain": "Height = 40 × 0.2 = 8 cm; V = 22/7 × 1 × 8.",
+     "mistake": "Forgets to multiply the thickness by the number of coins",
+     "check": "Fraction(22,7)*1*8"
+    },
+    {
+     "q": "The radius of a cylinder is tripled and the height is unchanged. Its volume becomes:",
+     "options": [
+      "3 times as large",
+      "6 times as large",
+      "9 times as large",
+      "27 times as large"
+     ],
+     "answer": 2,
+     "explain": "Volume depends on r²: 3² = 9.",
+     "mistake": "Treats volume as proportional to r"
+    },
+    {
+     "q": "Cylinder P has r = 2, h = 9; cylinder Q has r = 3, h = 4. What is the ratio of their volumes P : Q?",
+     "options": [
+      "2 : 3",
+      "9 : 4",
+      "3 : 2",
+      "1 : 1"
+     ],
+     "answer": 3,
+     "explain": "P: 4 × 9 = 36π; Q: 9 × 4 = 36π.",
+     "mistake": "Compares only radii or only heights"
+    },
+    {
+     "q": "The radius of a cylindrical tank is increased by 20%, height unchanged. By what percentage does its volume increase?",
+     "options": [
+      "44%",
+      "20%",
+      "40%",
+      "24%"
+     ],
+     "answer": 0,
+     "explain": "1.2² = 1.44.",
+     "mistake": "Doubles the percentage",
+     "check": "(1.2**2-1)*100"
+    },
+    {
+     "q": "The height of a cylinder is halved and its radius doubled. The volume becomes:",
+     "options": [
+      "the same",
+      "2 times as large",
+      "4 times as large",
+      "half as large"
+     ],
+     "answer": 1,
+     "explain": "(2)² × ½ = 2.",
+     "steps": [
+      "Radius factor squared: 2² = 4",
+      "Height factor: ½",
+      "4 × ½ = 2"
+     ],
+     "mistake": "Thinks the changes cancel"
+    },
+    {
+     "q": "Why is V = πr²h for a cylinder?",
+     "options": [
+      "Because it has two circles",
+      "Because 2πr is the circumference",
+      "It is a stack of discs of area πr² piled to height h",
+      "Because it is a cone tripled"
+     ],
+     "answer": 2,
+     "explain": "Base area × height, like any prism.",
+     "mistake": "Uses the circumference instead of the area"
+    },
+    {
+     "q": "A cylindrical glass has radius 3 cm and height 10 cm. Another has radius 6 cm and height 2.5 cm. Which holds more?",
+     "options": [
+      "The first",
+      "The second",
+      "Cannot tell",
+      "They hold the same"
+     ],
+     "answer": 3,
+     "explain": "9 × 10 = 90 and 36 × 2.5 = 90.",
+     "mistake": "Thinks the wider glass always holds more"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If I double a cylinder's radius, does its volume double?\"",
+    "must": [
+     [
+      "four",
+      "4",
+      "times 4"
+     ],
+     [
+      "square",
+      "r²",
+      "squared"
+     ],
+     [
+      "no",
+      "not"
+     ]
+    ],
+    "praise": "Correct! Volume depends on r², so doubling r makes it 4 times!",
+    "nudge": "How does the radius appear in πr²h? What happens to r² if r doubles?"
    }
   },
   {
    "id": "g9-maths-14-03",
    "title": "Volume of cylinders, cones and spheres",
+   "covers": [
+    "c14.2.4",
+    "c14.2.6",
+    "c14.4.4",
+    "c14.9.2"
+   ],
    "learn": {
     "hook": "Fill a cone with water three times and pour it into a cylinder of the same base and height: it fills up exactly. Maths predicted it!",
     "points": [
@@ -753,6 +1192,1549 @@
     ],
     "praise": "The cylinder holds πr²h, and the cone only ⅓ of that. So it takes three cones to fill the cylinder. Splash!",
     "nudge": "How many cones of water do you need to fill the cylinder? What fraction is that?"
+   }
+  },
+  {
+   "id": "g9-maths-14-07",
+   "title": "Cones: how they form and where we meet them",
+   "covers": [
+    "c14.4.1",
+    "c14.4.5"
+   ],
+   "learn": {
+    "hook": "Spin a set square around one of its short edges really fast: the blur you see is a cone!",
+    "points": [
+     "A right circular cone is formed by rotating a right triangle about one of its legs: that leg becomes the height h, the other leg the radius r, and the hypotenuse the slant height l.",
+     "Rotating the same triangle about the other leg gives a different cone (radius and height swap).",
+     "Problems: a birthday cap needs paper = curved surface πrl; a conical tent needs canvas πrl and holds air ⅓πr²h; a tarpaulin to cover a heap uses πrl.",
+     "A conical cup filled to half its depth holds only 1/8 of its full volume, because the water forms a smaller cone with half the radius and half the height: (½)² × ½ = 1/8."
+    ],
+    "example": {
+     "q": "A right triangle has legs 6 cm and 8 cm. Find the volume of the cone made by rotating it about the 8 cm leg. (π = 3.14)",
+     "steps": [
+      "h = 8, r = 6",
+      "V = ⅓ × 3.14 × 36 × 8",
+      "= 301.44 cm³"
+     ],
+     "answer": "301.44 cm³"
+    },
+    "reallife": "Ice-cream cones, traffic cones, mehndi cones and tent tops are all cones."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Rotate a 5-12-13 triangle",
+     "pairs": [
+      [
+       "About the 12 cm leg: radius",
+       "5 cm"
+      ],
+      [
+       "About the 5 cm leg: radius",
+       "12 cm"
+      ],
+      [
+       "Slant height in both cases",
+       "13 cm"
+      ],
+      [
+       "About the 12 cm leg: curved surface",
+       "65π cm²"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Cone problems (π = 22/7)",
+     "items": [
+      {
+       "q": "Cap r = 7, l = 10: paper (cm²)",
+       "a": "220",
+       "check": "Fraction(22,7)*7*10"
+      },
+      {
+       "q": "Tent r = 7, l = 25: canvas (m²)",
+       "a": "550",
+       "check": "Fraction(22,7)*7*25"
+      },
+      {
+       "q": "Cup filled to half depth: fraction of volume",
+       "a": "1/8",
+       "check": "Fraction(1,8)"
+      },
+      {
+       "q": "Cone r = 7, h = 6: volume",
+       "a": "308",
+       "check": "Fraction(1,3)*Fraction(22,7)*49*6"
+      },
+      {
+       "q": "r = 6, h = 8: slant height",
+       "a": "10",
+       "check": "(36+64)**0.5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A right triangle with legs 3 cm and 4 cm is rotated about the 4 cm leg. What is the radius of the cone?",
+     "options": [
+      "3 cm",
+      "4 cm",
+      "5 cm",
+      "7 cm"
+     ],
+     "answer": 0,
+     "explain": "The leg it spins around is the height; the other leg sweeps out the radius.",
+     "mistake": "Takes the axis leg as the radius",
+     "check": "3"
+    },
+    {
+     "q": "For the same rotation, what is the slant height?",
+     "options": [
+      "7 cm",
+      "5 cm",
+      "3 cm",
+      "4 cm"
+     ],
+     "answer": 1,
+     "explain": "The hypotenuse √(9 + 16) = 5 becomes the slant height.",
+     "mistake": "Adds the legs",
+     "check": "(9+16)**0.5"
+    },
+    {
+     "q": "A conical tent has radius 7 m and height 24 m. How much canvas is needed? (π = 22/7)",
+     "options": [
+      "528 m²",
+      "1232 m²",
+      "550 m²",
+      "704 m²"
+     ],
+     "answer": 2,
+     "explain": "l = 25; CSA = 22/7 × 7 × 25.",
+     "steps": [
+      "l = √(49 + 576) = 25",
+      "22 × 25 = 550"
+     ],
+     "mistake": "Uses the height instead of the slant height",
+     "check": "Fraction(22,7)*7*25"
+    },
+    {
+     "q": "How much air is inside that tent? (π = 22/7)",
+     "options": [
+      "550 m³",
+      "3696 m³",
+      "616 m³",
+      "1232 m³"
+     ],
+     "answer": 3,
+     "explain": "⅓ × 22/7 × 49 × 24.",
+     "mistake": "Forgets the ⅓",
+     "check": "Fraction(1,3)*Fraction(22,7)*49*24"
+    },
+    {
+     "q": "A conical paper cup holds 240 ml when full. How much does it hold when filled to half its depth?",
+     "options": [
+      "30 ml",
+      "120 ml",
+      "60 ml",
+      "80 ml"
+     ],
+     "answer": 0,
+     "explain": "The water cone has half the radius and half the height: 1/8 of 240.",
+     "mistake": "Thinks half the depth means half the volume",
+     "check": "240/8"
+    },
+    {
+     "q": "A heap of sand is a cone of radius 3 m and slant height 5 m. What area of tarpaulin covers it? (π = 3.14)",
+     "options": [
+      "28.26 m²",
+      "47.1 m²",
+      "15 m²",
+      "75.36 m²"
+     ],
+     "answer": 1,
+     "explain": "πrl = 3.14 × 3 × 5.",
+     "mistake": "Uses πr²",
+     "check": "3.14*3*5"
+    },
+    {
+     "q": "A clown's cap has radius 10 cm and slant height 21 cm. How much paper is needed? (π = 22/7)",
+     "options": [
+      "314 cm²",
+      "1320 cm²",
+      "660 cm²",
+      "210 cm²"
+     ],
+     "answer": 2,
+     "explain": "22/7 × 10 × 21.",
+     "mistake": "Uses 2πrl",
+     "check": "Fraction(22,7)*10*21"
+    },
+    {
+     "q": "Rotating a right triangle about its hypotenuse gives:",
+     "options": [
+      "one cone",
+      "a cylinder",
+      "a sphere",
+      "two cones joined at their bases"
+     ],
+     "answer": 3,
+     "explain": "Each part of the triangle on either side of the altitude sweeps a cone.",
+     "mistake": "Assumes any rotation gives a single cone"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can a triangle turn into a cone?\"",
+    "must": [
+     [
+      "rotate",
+      "spin",
+      "turn"
+     ],
+     [
+      "leg",
+      "side",
+      "axis"
+     ],
+     [
+      "height",
+      "radius",
+      "slant"
+     ]
+    ],
+    "praise": "Brilliant! Spin a right triangle about a leg: that leg is the height and the other is the radius!",
+    "nudge": "What do you do with the triangle? Which side becomes the height?"
+   }
+  },
+  {
+   "id": "g9-maths-14-02",
+   "title": "Surface area of cones and spheres",
+   "covers": [
+    "c14.4.2",
+    "c14.4.3",
+    "c14.8.1"
+   ],
+   "learn": {
+    "hook": "A birthday cap, an ice-cream cone and a cricket ball: two of these are cones and one is a sphere. How much material covers each?",
+    "points": [
+     "A right circular cone has radius r, height h and slant height l, where l = √(r² + h²).",
+     "Curved surface area of a cone = πrl; total surface area = πr(l + r).",
+     "Surface area of a sphere of radius r = 4πr².",
+     "A hemisphere has curved surface area 2πr² and, with its flat circular face, total surface area 3πr².",
+     "If the radius of a sphere doubles, its surface area becomes 4 times as big."
+    ],
+    "example": {
+     "q": "A conical birthday cap has radius 7 cm and height 24 cm. How much paper is needed for it? (Use π = 22/7.)",
+     "steps": [
+      "Slant height l = √(7² + 24²) = √(49 + 576) = √625 = 25 cm",
+      "Curved surface area = πrl = 22/7 × 7 × 25",
+      "= 22 × 25 = 550 cm²"
+     ],
+     "answer": "550 cm²"
+    },
+    "reallife": "Tent-makers measure canvas for conical tents with πrl, and football manufacturers need 4πr² of leather for each ball."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Cones and spheres",
+     "items": [
+      {
+       "text": "Slant height of a cone: l = √(r² + ___)",
+       "answer": "h²",
+       "options": [
+        "h²",
+        "l²",
+        "2h"
+       ]
+      },
+      {
+       "text": "Curved surface area of a cone = π × r × ___",
+       "answer": "l",
+       "options": [
+        "l",
+        "h",
+        "r"
+       ]
+      },
+      {
+       "text": "Surface area of a sphere = ___ × πr²",
+       "answer": "4",
+       "options": [
+        "4",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "text": "Total surface area of a solid hemisphere = ___ × πr²",
+       "answer": "3",
+       "options": [
+        "3",
+        "2",
+        "4"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Curved surface check",
+     "items": [
+      [
+       "The slant height of a cone is always longer than its height",
+       true,
+       "l = √(r² + h²), which is more than h whenever r > 0."
+      ],
+      [
+       "A sphere's surface area is 4 times the area of its biggest circle",
+       true,
+       "The biggest circle has area πr², and the sphere's surface is 4πr²."
+      ],
+      [
+       "Curved surface area of a cone = πrh",
+       false,
+       "It uses the slant height l, not the height h: πrl."
+      ],
+      [
+       "Doubling the radius of a ball doubles its surface area",
+       false,
+       "Surface area depends on r², so it becomes 4 times as big."
+      ],
+      [
+       "The curved surface of a hemisphere is half the surface of the full sphere",
+       true,
+       "Half of 4πr² is 2πr²."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A cone has radius 7 cm and height 24 cm. What is its slant height?",
+     "options": [
+      "25 cm",
+      "31 cm",
+      "17 cm",
+      "625 cm"
+     ],
+     "answer": 0,
+     "explain": "l = √(7² + 24²) = √(49 + 576) = √625 = 25 cm.",
+     "mistake": "Adds the radius and height directly (31 cm), or forgets the square root",
+     "check": "(7**2+24**2)**0.5",
+     "visual": {
+      "kind": "shape",
+      "name": "cone"
+     }
+    },
+    {
+     "q": "Find the curved surface area of a cone with radius 7 cm and slant height 25 cm. (Use π = 22/7.)",
+     "options": [
+      "550 cm²",
+      "704 cm²",
+      "1100 cm²",
+      "175 cm²"
+     ],
+     "answer": 0,
+     "explain": "CSA = πrl = 22/7 × 7 × 25 = 550 cm².",
+     "mistake": "Adds the base area too (704 cm²), which gives the total surface area",
+     "check": "22/7*7*25"
+    },
+    {
+     "q": "Find the surface area of a sphere of radius 7 cm. (Use π = 22/7.)",
+     "options": [
+      "154 cm²",
+      "308 cm²",
+      "616 cm²",
+      "1437 cm²"
+     ],
+     "answer": 2,
+     "explain": "Surface area = 4πr² = 4 × 22/7 × 49 = 616 cm².",
+     "mistake": "Uses πr² (154) or 2πr² (308) instead of 4πr²",
+     "check": "4*22/7*7*7",
+     "visual": {
+      "kind": "shape",
+      "name": "sphere"
+     }
+    },
+    {
+     "q": "Find the total surface area of a solid hemisphere of radius 7 cm. (Use π = 22/7.)",
+     "options": [
+      "308 cm²",
+      "462 cm²",
+      "616 cm²",
+      "154 cm²"
+     ],
+     "answer": 1,
+     "explain": "TSA = curved part + flat circle = 2πr² + πr² = 3πr² = 3 × 22/7 × 49 = 462 cm².",
+     "mistake": "Forgets the flat circular face and gives 2πr² = 308",
+     "check": "3*22/7*7*7"
+    },
+    {
+     "q": "A joker's cap is a cone of radius 7 cm and slant height 12 cm. How much sheet is needed to make it? (Use π = 22/7.)",
+     "options": [
+      "264 cm²",
+      "418 cm²",
+      "528 cm²",
+      "84 cm²"
+     ],
+     "answer": 0,
+     "explain": "A cap has no base, so we need only the curved surface: πrl = 22/7 × 7 × 12 = 264 cm².",
+     "mistake": "Adds the base circle (418) even though a cap is open at the bottom",
+     "check": "22/7*7*12"
+    },
+    {
+     "q": "A ball has surface area 154 cm². What is its radius? (Use π = 22/7.)",
+     "options": [
+      "7 cm",
+      "14 cm",
+      "12.25 cm",
+      "3.5 cm"
+     ],
+     "answer": 3,
+     "explain": "4πr² = 154, so r² = 154 × 7 ÷ 88 = 12.25 and r = 3.5 cm.",
+     "steps": [
+      "4 × 22/7 × r² = 154",
+      "r² = 12.25",
+      "r = 3.5 cm"
+     ],
+     "mistake": "Uses πr² = 154 (giving r = 7) or forgets the square root (12.25)",
+     "check": "(154*7/(4*22))**0.5"
+    },
+    {
+     "q": "A hemispherical bowl has radius 10.5 cm. What is the area of its inner curved surface? (Use π = 22/7.)",
+     "options": [
+      "346.5 cm²",
+      "1386 cm²",
+      "693 cm²",
+      "1039.5 cm²"
+     ],
+     "answer": 2,
+     "explain": "Curved surface of a hemisphere = 2πr² = 2 × 22/7 × 10.5 × 10.5 = 693 cm².",
+     "steps": [
+      "10.5 × 10.5 = 110.25",
+      "2 × 22/7 × 110.25 = 693"
+     ],
+     "mistake": "Uses 4πr² (the whole sphere, 1386) instead of half of it",
+     "check": "2*22/7*10.5*10.5"
+    },
+    {
+     "q": "Find the total surface area of a solid cone with radius 7 cm and slant height 25 cm. (Use π = 22/7.)",
+     "options": [
+      "704 cm²",
+      "550 cm²",
+      "858 cm²",
+      "154 cm²"
+     ],
+     "answer": 0,
+     "explain": "TSA = πr(l + r) = 22/7 × 7 × (25 + 7) = 22 × 32 = 704 cm².",
+     "steps": [
+      "πr = 22",
+      "l + r = 32",
+      "22 × 32 = 704"
+     ],
+     "mistake": "Gives only the curved surface (550), forgetting the base",
+     "check": "22/7*7*(25+7)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu holds an ice-cream cone: \"How much wafer is used to make the cone? Do I use its height?\"",
+    "must": [
+     [
+      "slant height",
+      "slant",
+      "l =",
+      "sloping side"
+     ],
+     [
+      "πrl",
+      "pi r l",
+      "radius times slant"
+     ],
+     [
+      "pythagoras",
+      "√(r² + h²)",
+      "square root"
+     ]
+    ],
+    "praise": "Use the slant height l, found by Pythagoras from r and h, and the curved surface is πrl. Wafer-thin and exactly right!",
+    "nudge": "Is the wafer's length along the side the same as the cone's straight-up height? Which one goes into the formula?"
+   }
+  },
+  {
+   "id": "g9-maths-14-08",
+   "title": "Pyramids",
+   "covers": [
+    "c14.5.1",
+    "c14.5.2",
+    "c14.5.3"
+   ],
+   "learn": {
+    "hook": "The great pyramids of Egypt and the sharp peak of a temple tower share one formula!",
+    "points": [
+     "A pyramid has a polygon base and triangular faces that meet at a point called the apex. Egyptian pyramids are square pyramids; mountain peaks and some temple roofs look pyramidal.",
+     "Volume of any pyramid = ⅓ × base area × height (height measured straight up from base to apex).",
+     "Surface area = base area + areas of all the triangular faces.",
+     "A cone is like a pyramid with a circular base: V = ⅓ × πr² × h follows the same rule."
+    ],
+    "example": {
+     "q": "A square pyramid has base side 6 m, height 4 m and slant height (of each triangular face) 5 m. Find its volume and total surface area.",
+     "steps": [
+      "Volume = ⅓ × 36 × 4 = 48 m³",
+      "Each face = ½ × 6 × 5 = 15 m²",
+      "TSA = 36 + 4 × 15 = 96 m²"
+     ],
+     "answer": "48 m³, 96 m²"
+    },
+    "reallife": "Glass pyramids above museums and paper lampshades use pyramid surface area for material and volume for the space inside."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Base shape",
+     "pairs": [
+      [
+       "Square pyramid",
+       "4 triangular faces"
+      ],
+      [
+       "Triangular pyramid",
+       "3 triangular faces"
+      ],
+      [
+       "Hexagonal pyramid",
+       "6 triangular faces"
+      ],
+      [
+       "Cone",
+       "Circular base, curved surface"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Pyramid numbers",
+     "items": [
+      {
+       "q": "Square base 9 m², height 4 m: volume",
+       "a": "12",
+       "check": "9*4/3"
+      },
+      {
+       "q": "Base 30 cm², height 10 cm: volume",
+       "a": "100",
+       "check": "30*10/3"
+      },
+      {
+       "q": "Square base 4, slant 6: one face area",
+       "a": "12",
+       "check": "4*6/2"
+      },
+      {
+       "q": "Square base 4, slant 6: TSA",
+       "a": "64",
+       "check": "16+4*12"
+      },
+      {
+       "q": "Cone vs cylinder, same base and height: fraction",
+       "a": "1/3",
+       "check": "Fraction(1,3)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the volume of a pyramid with base area 48 cm² and height 9 cm?",
+     "options": [
+      "144 cm³",
+      "432 cm³",
+      "57 cm³",
+      "216 cm³"
+     ],
+     "answer": 0,
+     "explain": "⅓ × 48 × 9.",
+     "mistake": "Forgets the ⅓",
+     "check": "48*9/3"
+    },
+    {
+     "q": "A square pyramid has base side 10 m and height 12 m. What is its volume?",
+     "options": [
+      "1200 m³",
+      "400 m³",
+      "120 m³",
+      "40 m³"
+     ],
+     "answer": 1,
+     "explain": "⅓ × 100 × 12.",
+     "mistake": "Uses the side instead of the base area",
+     "check": "100*12/3"
+    },
+    {
+     "q": "How many triangular faces does a pentagonal pyramid have?",
+     "options": [
+      "6",
+      "4",
+      "5",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "One for each side of the base.",
+     "mistake": "Counts the base as a triangle",
+     "check": "5"
+    },
+    {
+     "q": "A square pyramid has base side 8 cm and slant height 5 cm. What is its total surface area?",
+     "options": [
+      "80 cm²",
+      "64 cm²",
+      "224 cm²",
+      "144 cm²"
+     ],
+     "answer": 3,
+     "explain": "Base 64 + 4 × (½ × 8 × 5) = 64 + 80.",
+     "mistake": "Leaves out the base",
+     "check": "64+80"
+    },
+    {
+     "q": "Why is a cone like a pyramid?",
+     "options": [
+      "Both have a base and an apex, and V = ⅓ × base area × height for both",
+      "Both have square bases",
+      "Both have flat faces only",
+      "Both are prisms"
+     ],
+     "answer": 0,
+     "explain": "A cone is a pyramid whose base is a circle.",
+     "mistake": "Thinks only polygon bases count"
+    },
+    {
+     "q": "A tent is a square pyramid of base side 4 m and height 3 m. How much air is inside?",
+     "options": [
+      "48 m³",
+      "16 m³",
+      "12 m³",
+      "24 m³"
+     ],
+     "answer": 1,
+     "explain": "⅓ × 16 × 3.",
+     "mistake": "Forgets the ⅓",
+     "check": "16*3/3"
+    },
+    {
+     "q": "A pyramid and a prism have the same base and height. How do their volumes compare?",
+     "options": [
+      "They are equal",
+      "The pyramid has half",
+      "The pyramid has one-third of the prism's volume",
+      "The pyramid has twice as much"
+     ],
+     "answer": 2,
+     "explain": "Pyramid = ⅓ base × height; prism = base × height.",
+     "mistake": "Thinks a pyramid is half of a prism"
+    },
+    {
+     "q": "What is the apex of a pyramid?",
+     "options": [
+      "The centre of the base",
+      "Any corner of the base",
+      "The middle of a face",
+      "The point where the triangular faces meet"
+     ],
+     "answer": 3,
+     "explain": "All side faces meet at the apex.",
+     "mistake": "Confuses the apex with a base vertex"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I find the volume of a pyramid?\"",
+    "must": [
+     [
+      "third",
+      "1/3",
+      "⅓"
+     ],
+     [
+      "base area",
+      "base"
+     ],
+     [
+      "height"
+     ]
+    ],
+    "praise": "Perfect! One-third of base area times height!",
+    "nudge": "Which area do you use? What fraction of base × height is it?"
+   }
+  },
+  {
+   "id": "g9-maths-14-09",
+   "title": "Spheres and Archimedes' discovery",
+   "covers": [
+    "c14.6.1",
+    "c14.6.2",
+    "c14.6.3",
+    "c14.7.1"
+   ],
+   "learn": {
+    "hook": "Archimedes was so proud of this that he wanted it carved on his tomb: a sphere inside a cylinder!",
+    "points": [
+     "A sphere is the set of all points in space at the same distance r from a centre.",
+     "Surface area = 4πr². Archimedes showed this equals the curved surface area of the cylinder that just encloses the sphere (radius r, height 2r): 2πr × 2r = 4πr².",
+     "Volume = (4/3)πr³, which is exactly 2/3 of the enclosing cylinder's volume πr² × 2r = 2πr³.",
+     "Hands-on: wind a string tightly over half a ball (a hemisphere), then use the same length of string to fill circles of the ball's radius. A whole ball needs string to fill exactly 4 such circles, so its surface is 4πr²."
+    ],
+    "example": {
+     "q": "A ball has radius 7 cm. Find its surface area and volume. (π = 22/7)",
+     "steps": [
+      "SA = 4 × 22/7 × 49 = 616 cm²",
+      "V = (4/3) × 22/7 × 343 = 4312/3 ≈ 1437.33 cm³"
+     ],
+     "answer": "616 cm², about 1437.33 cm³"
+    },
+    "reallife": "Cricket balls, footballs and laddoos are close to spheres; makers use 4πr² for leather and (4/3)πr³ for filling."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Archimedes check",
+     "items": [
+      [
+       "A sphere's surface area equals the curved surface of its enclosing cylinder.",
+       true,
+       "Both are 4πr²."
+      ],
+      [
+       "A sphere's volume is half that of its enclosing cylinder.",
+       false,
+       "It is two-thirds."
+      ],
+      [
+       "The string on a ball fills 4 circles of the ball's radius.",
+       true,
+       "That gives 4πr²."
+      ],
+      [
+       "Every point on a sphere is the same distance from its centre.",
+       true,
+       "That is the definition."
+      ],
+      [
+       "The enclosing cylinder of a sphere has height r.",
+       false,
+       "Its height is 2r."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Sphere sprint (π = 22/7)",
+     "items": [
+      {
+       "q": "SA, r = 7",
+       "a": "616",
+       "check": "4*Fraction(22,7)*49"
+      },
+      {
+       "q": "SA, r = 14",
+       "a": "2464",
+       "check": "4*Fraction(22,7)*196"
+      },
+      {
+       "q": "V, r = 21",
+       "a": "38808",
+       "check": "Fraction(4,3)*Fraction(22,7)*9261"
+      },
+      {
+       "q": "Enclosing cylinder volume, r = 21",
+       "a": "58212",
+       "check": "Fraction(22,7)*441*42"
+      },
+      {
+       "q": "Sphere/cylinder volume ratio",
+       "a": "2/3",
+       "check": "Fraction(2,3)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the surface area of a sphere of radius 3.5 cm? (π = 22/7)",
+     "options": [
+      "154 cm²",
+      "38.5 cm²",
+      "616 cm²",
+      "179.67 cm²"
+     ],
+     "answer": 0,
+     "explain": "4 × 22/7 × 12.25 = 154.",
+     "mistake": "Uses πr² only",
+     "check": "4*Fraction(22,7)*Fraction(49,4)"
+    },
+    {
+     "q": "A sphere of radius 6 cm sits snugly in a cylinder. What is the cylinder's height?",
+     "options": [
+      "6 cm",
+      "12 cm",
+      "18 cm",
+      "3 cm"
+     ],
+     "answer": 1,
+     "explain": "The cylinder's height equals the sphere's diameter.",
+     "mistake": "Uses the radius",
+     "check": "2*6"
+    },
+    {
+     "q": "For a sphere of radius r, what is the curved surface area of its enclosing cylinder?",
+     "options": [
+      "2πr²",
+      "πr²",
+      "4πr²",
+      "6πr²"
+     ],
+     "answer": 2,
+     "explain": "2πr × 2r.",
+     "mistake": "Uses height r instead of 2r"
+    },
+    {
+     "q": "A sphere has volume 288π cm³. What is the volume of its enclosing cylinder?",
+     "options": [
+      "192π cm³",
+      "576π cm³",
+      "864π cm³",
+      "432π cm³"
+     ],
+     "answer": 3,
+     "explain": "Sphere = ⅔ cylinder, so cylinder = 288π × 3/2.",
+     "mistake": "Multiplies by 2/3 instead of 3/2"
+    },
+    {
+     "q": "Find the volume of a sphere of radius 3 cm in terms of π.",
+     "options": [
+      "36π cm³",
+      "12π cm³",
+      "108π cm³",
+      "27π cm³"
+     ],
+     "answer": 0,
+     "explain": "(4/3)π × 27 = 36π.",
+     "mistake": "Forgets the 4/3"
+    },
+    {
+     "q": "In the string activity, string covering a whole ball fills how many circles of the ball's radius?",
+     "options": [
+      "2",
+      "4",
+      "3",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "Surface area = 4πr² = 4 circles of area πr².",
+     "mistake": "Counts only a hemisphere's worth",
+     "check": "4"
+    },
+    {
+     "q": "What fraction of a cylinder's volume does a sphere fill if it just fits inside?",
+     "options": [
+      "1/2",
+      "3/4",
+      "2/3",
+      "1/3"
+     ],
+     "answer": 2,
+     "explain": "(4/3)πr³ ÷ 2πr³ = 2/3.",
+     "mistake": "Confuses with a cone's 1/3",
+     "check": "Fraction(2,3)"
+    },
+    {
+     "q": "A laddoo has diameter 4 cm. What is its volume? (π = 3.14, to 2 decimal places)",
+     "options": [
+      "267.95 cm³",
+      "50.24 cm³",
+      "25.12 cm³",
+      "33.49 cm³"
+     ],
+     "answer": 3,
+     "explain": "r = 2; (4/3) × 3.14 × 8 = 33.49.",
+     "mistake": "Uses the diameter as the radius",
+     "check": "4*3.14*8/3"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"What did Archimedes discover about a sphere in a cylinder?\"",
+    "must": [
+     [
+      "surface",
+      "area",
+      "4πr²"
+     ],
+     [
+      "2/3",
+      "two-thirds",
+      "two thirds"
+     ],
+     [
+      "cylinder",
+      "equal",
+      "same"
+     ]
+    ],
+    "praise": "Wow! Same surface area as the cylinder's curved side, and two-thirds of its volume!",
+    "nudge": "Compare the sphere's surface with the cylinder's curved surface. What fraction of the volume?"
+   }
+  },
+  {
+   "id": "g9-maths-14-10",
+   "title": "Maps, growing balls and hemisphere problems",
+   "covers": [
+    "c14.6.4",
+    "c14.6.5",
+    "c14.8.2"
+   ],
+   "learn": {
+    "hook": "On many world maps Greenland looks as big as Africa. In reality Africa is about 14 times bigger!",
+    "points": [
+     "A cylindrical map projection wraps a cylinder around the globe and transfers the surface onto it. Near the equator it is fairly accurate, but near the poles the map gets badly distorted (on the common Mercator map, regions near the poles look much bigger than they really are).",
+     "If a sphere's radius is multiplied by k, its surface area is multiplied by k² and its volume by k³. A 10% larger radius gives 21% more area and 33.1% more volume.",
+     "Hemisphere problems: a dome's curved surface is 2πr² (for painting); a solid hemisphere's total surface is 3πr²; a hemispherical shell with outer radius R and inner radius r has volume (2/3)π(R³ − r³)."
+    ],
+    "example": {
+     "q": "A hemispherical dome of radius 7 m is painted at ₹12 per m². Find the cost. (π = 22/7)",
+     "steps": [
+      "Curved area = 2 × 22/7 × 49 = 308 m²",
+      "Cost = 308 × 12",
+      "= ₹3696"
+     ],
+     "answer": "₹3696"
+    },
+    "reallife": "Temple and mosque domes, gol gumbaz and planetarium roofs are hemispheres; painters estimate cost from 2πr²."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Growing spheres",
+     "items": [
+      {
+       "q": "Radius × 2: area ×",
+       "a": "4",
+       "check": "2**2"
+      },
+      {
+       "q": "Radius × 2: volume ×",
+       "a": "8",
+       "check": "2**3"
+      },
+      {
+       "q": "Radius × 3: volume ×",
+       "a": "27",
+       "check": "3**3"
+      },
+      {
+       "q": "Radius +10%: area ×",
+       "a": "1.21",
+       "check": "1.1**2"
+      },
+      {
+       "q": "Radius +10%: volume ×",
+       "a": "1.331",
+       "check": "1.1**3"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Map and dome facts",
+     "items": [
+      [
+       "Cylindrical map projections are most distorted near the poles.",
+       true,
+       "The globe's surface is stretched most there to fit the cylinder."
+      ],
+      [
+       "On the Mercator map Greenland looks bigger than it really is compared to Africa.",
+       true,
+       "Africa is about 14 times larger."
+      ],
+      [
+       "Painting a dome needs the area 3πr².",
+       false,
+       "Only the curved part, 2πr², is painted."
+      ],
+      [
+       "A hemispherical shell's volume uses R³ − r³.",
+       true,
+       "Outer minus inner hemisphere."
+      ],
+      [
+       "Doubling a ball's radius doubles its volume.",
+       false,
+       "Volume becomes 8 times."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Why does Greenland look so large on many world maps?",
+     "options": [
+      "The Mercator projection, a cylindrical map, stretches regions near the poles",
+      "Greenland is larger than Africa",
+      "The map uses a wrong scale everywhere",
+      "Ice makes it look bigger"
+     ],
+     "answer": 0,
+     "explain": "Areas far from the equator get enlarged in such projections.",
+     "mistake": "Believes the map shows true sizes"
+    },
+    {
+     "q": "A ball's radius is doubled. How many times larger is its surface area?",
+     "options": [
+      "2",
+      "4",
+      "8",
+      "16"
+     ],
+     "answer": 1,
+     "explain": "Area scales by k² = 4.",
+     "mistake": "Uses k³",
+     "check": "2**2"
+    },
+    {
+     "q": "A balloon's radius increases by 10%. By what percentage does its volume increase?",
+     "options": [
+      "10%",
+      "30%",
+      "33.1%",
+      "21%"
+     ],
+     "answer": 2,
+     "explain": "1.1³ = 1.331.",
+     "mistake": "Uses the area factor 1.21",
+     "check": "(1.1**3-1)*100"
+    },
+    {
+     "q": "A balloon's radius increases by 50%. Its surface area becomes how many times as large?",
+     "options": [
+      "1.5",
+      "3.375",
+      "2",
+      "2.25"
+     ],
+     "answer": 3,
+     "explain": "1.5² = 2.25.",
+     "mistake": "Uses the length factor",
+     "check": "1.5**2"
+    },
+    {
+     "q": "The inner surface of a hemispherical bowl of radius 14 cm is to be polished at ₹0.50 per cm². What is the cost? (π = 22/7)",
+     "options": [
+      "₹616",
+      "₹1232",
+      "₹308",
+      "₹924"
+     ],
+     "answer": 0,
+     "explain": "2 × 22/7 × 196 = 1232 cm²; × 0.5.",
+     "steps": [
+      "Area = 1232 cm²",
+      "Cost = ₹616"
+     ],
+     "mistake": "Uses 3πr² for an open bowl",
+     "check": "2*Fraction(22,7)*196*Fraction(1,2)"
+    },
+    {
+     "q": "A hemispherical shell has outer radius 7 cm and inner radius 3.5 cm. What is the volume of material? (π = 22/7)",
+     "options": [
+      "2156/3 cm³",
+      "3773/6 cm³",
+      "539/6 cm³",
+      "3773/3 cm³"
+     ],
+     "answer": 1,
+     "explain": "(2/3) × 22/7 × (7³ − 3.5³) = (2/3) × 22/7 × (343 − 42.875) = (2/3) × 22/7 × 300.125 = 3773/6 ≈ 628.83 cm³.",
+     "mistake": "Subtracts the radii before cubing",
+     "check": "Fraction(2,3)*Fraction(22,7)*(343-Fraction(343,8))"
+    },
+    {
+     "q": "A solid hemisphere has radius 7 cm. What is its total surface area? (π = 22/7)",
+     "options": [
+      "308 cm²",
+      "616 cm²",
+      "462 cm²",
+      "154 cm²"
+     ],
+     "answer": 2,
+     "explain": "3πr² = 3 × 22/7 × 49.",
+     "mistake": "Leaves out the flat face",
+     "check": "3*Fraction(22,7)*49"
+    },
+    {
+     "q": "The volume of a sphere becomes 27 times as large. What happened to its radius?",
+     "options": [
+      "It became 9 times",
+      "It became 27 times",
+      "It became √27 times",
+      "It became 3 times as large"
+     ],
+     "answer": 3,
+     "explain": "k³ = 27 gives k = 3.",
+     "mistake": "Takes the square root instead of the cube root"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If a ball's radius doubles, what happens to its paint and its filling?\"",
+    "must": [
+     [
+      "4",
+      "four",
+      "area"
+     ],
+     [
+      "8",
+      "eight",
+      "volume"
+     ],
+     [
+      "square",
+      "cube",
+      "k²",
+      "k³"
+     ]
+    ],
+    "praise": "Superb! Paint (area) goes up 4 times and filling (volume) 8 times!",
+    "nudge": "How does area depend on r? How does volume depend on r?"
+   }
+  },
+  {
+   "id": "g9-maths-14-11",
+   "title": "Shapes around us and guesstimates",
+   "covers": [
+    "c14.9.1",
+    "c14.10.1",
+    "c14.10.2",
+    "c14.10.3"
+   ],
+   "learn": {
+    "hook": "How many golgappas does India eat in a day? Nobody counts, but you can make a smart guess!",
+    "points": [
+     "Everyday objects match solids: a gas cylinder (cylinder), a laddoo (sphere), a matchbox (cuboid), an ice-cream cone (cone plus hemisphere). Use the matching formula to estimate volumes.",
+     "Units: 1 litre = 1000 cm³, 1 m³ = 1000 litres, 1 m² = 10,000 cm².",
+     "Guesstimation: make clear, reasonable assumptions, round numbers, and combine them to get a sensible estimate (often just to the nearest power of 10).",
+     "Different assumptions give different answers: the number of tennis balls in a room depends on the room size and how tightly they pack. State your assumptions.",
+     "Projects: water you drink in a lifetime (≈ 2 L a day × 365 × 70 years ≈ 51,000 L), ink in a pen, volume of your house."
+    ],
+    "example": {
+     "q": "Estimate the litres of water a person drinks in 70 years at 2 L a day.",
+     "steps": [
+      "Per year: 2 × 365 = 730 L",
+      "70 years: 730 × 70 = 51,100 L",
+      "About 51 m³, enough to fill a small swimming pool"
+     ],
+     "answer": "About 51,000 litres"
+    },
+    "reallife": "Engineers planning a city's water supply start with exactly such guesstimates."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Object to solid",
+     "pairs": [
+      [
+       "Gas cylinder",
+       "Cylinder"
+      ],
+      [
+       "Laddoo",
+       "Sphere"
+      ],
+      [
+       "Matchbox",
+       "Cuboid"
+      ],
+      [
+       "Birthday cap",
+       "Cone"
+      ],
+      [
+       "Bowl",
+       "Hemisphere"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Units and estimates",
+     "items": [
+      {
+       "q": "2.5 L in cm³",
+       "a": "2500",
+       "check": "2.5*1000"
+      },
+      {
+       "q": "3 m³ in litres",
+       "a": "3000",
+       "check": "3*1000"
+      },
+      {
+       "q": "2 m² in cm²",
+       "a": "20000",
+       "check": "2*10000"
+      },
+      {
+       "q": "Water per year at 2 L a day (L)",
+       "a": "730",
+       "check": "2*365"
+      },
+      {
+       "q": "Room 5 × 4 × 3 m: volume (m³)",
+       "a": "60",
+       "check": "5*4*3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A cuboid water bottle crate is 40 cm × 30 cm × 25 cm. How many litres is that?",
+     "options": [
+      "30",
+      "300",
+      "3",
+      "30000"
+     ],
+     "answer": 0,
+     "explain": "40 × 30 × 25 = 30,000 cm³ = 30 L.",
+     "mistake": "Forgets to divide by 1000",
+     "check": "40*30*25/1000"
+    },
+    {
+     "q": "How many cm² are in 3.5 m²?",
+     "options": [
+      "350",
+      "35000",
+      "3500",
+      "350000"
+     ],
+     "answer": 1,
+     "explain": "1 m² = 10,000 cm².",
+     "mistake": "Uses 100 as for length",
+     "check": "3.5*10000"
+    },
+    {
+     "q": "A drum holds 0.2 m³. How many litres is that?",
+     "options": [
+      "20",
+      "2000",
+      "200",
+      "0.2"
+     ],
+     "answer": 2,
+     "explain": "1 m³ = 1000 L.",
+     "mistake": "Uses 100",
+     "check": "0.2*1000"
+    },
+    {
+     "q": "What is the first step of a good guesstimate?",
+     "options": [
+      "Look up the exact answer",
+      "Use as many decimals as possible",
+      "Refuse to answer without data",
+      "State reasonable assumptions"
+     ],
+     "answer": 3,
+     "explain": "Assumptions make the estimate clear and checkable.",
+     "mistake": "Thinks estimation means random guessing"
+    },
+    {
+     "q": "Two students estimate tennis balls in a classroom: one gets 30,000 and the other 60,000. Why can both be sensible?",
+     "options": [
+      "They made different assumptions about room size or packing",
+      "One must have made an arithmetic error",
+      "Estimates must always agree",
+      "Tennis balls cannot be estimated"
+     ],
+     "answer": 0,
+     "explain": "Guesstimates depend on assumptions; state them clearly.",
+     "mistake": "Thinks there is one exact correct estimate"
+    },
+    {
+     "q": "A golgappa stall sells about 300 plates a day, 6 golgappas a plate. Roughly how many golgappas in 30 days?",
+     "options": [
+      "1800",
+      "54000",
+      "9000",
+      "540000"
+     ],
+     "answer": 1,
+     "explain": "300 × 6 × 30.",
+     "mistake": "Leaves out one factor",
+     "check": "300*6*30"
+    },
+    {
+     "q": "Estimate the volume of a classroom 8 m × 6 m × 3 m in litres.",
+     "options": [
+      "144",
+      "14400",
+      "144000",
+      "1440000"
+     ],
+     "answer": 2,
+     "explain": "144 m³ × 1000 L.",
+     "mistake": "Forgets to convert m³ to litres",
+     "check": "8*6*3*1000"
+    },
+    {
+     "q": "A ball-pen refill is a thin cylinder of radius 0.1 cm and length 10 cm. Roughly how much ink can it hold? (π ≈ 3)",
+     "options": [
+      "3 cm³",
+      "30 cm³",
+      "0.03 cm³",
+      "0.3 cm³"
+     ],
+     "answer": 3,
+     "explain": "3 × 0.01 × 10 = 0.3 cm³.",
+     "mistake": "Squares the radius wrongly",
+     "check": "3*0.01*10"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can I estimate something nobody has counted?\"",
+    "must": [
+     [
+      "assume",
+      "assumption",
+      "assumptions"
+     ],
+     [
+      "round",
+      "approximate",
+      "estimate"
+     ],
+     [
+      "multiply",
+      "combine",
+      "break"
+     ]
+    ],
+    "praise": "Great thinking! Make clear assumptions, round numbers and combine them!",
+    "nudge": "What do you need to decide before calculating? Do you need exact numbers?"
+   }
+  },
+  {
+   "id": "g9-maths-14-12",
+   "title": "The Earth-string puzzle and cube formulas",
+   "covers": [
+    "c14.10.4",
+    "c14.10.5"
+   ],
+   "learn": {
+    "hook": "Tie a string around the Earth's equator, then add just 1 metre. Could a cat crawl under it? Surprisingly, yes!",
+    "points": [
+     "Earth-string puzzle: circumference C = 2πR. Adding 1 m makes C + 1 = 2π(R + gap), so gap = 1/(2π) ≈ 0.16 m, about 16 cm.",
+     "The gap does not depend on R at all: the same 16 cm for a football, the Earth or the Sun.",
+     "For a cube of edge a: V = a³ and S = 6a². Since a = V^(1/3), S = 6V^(2/3).",
+     "Example: V = 64 cm³ gives a = 4 and S = 6 × 16 = 96 cm². Doubling the volume does not double the surface; it multiplies it by 2^(2/3) ≈ 1.59."
+    ],
+    "example": {
+     "q": "A string is wrapped tightly around a football (radius 11 cm). It is lengthened by 1 m. How big is the gap now?",
+     "steps": [
+      "New radius − old radius = 1 ÷ (2π)",
+      "= 1 ÷ 6.28 ≈ 0.159 m",
+      "About 16 cm, the same as for the Earth"
+     ],
+     "answer": "About 16 cm"
+    },
+    "reallife": "Puzzles like this show why we trust algebra over gut feeling."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Puzzle facts",
+     "items": [
+      [
+       "The gap from adding 1 m of string depends on the size of the ball.",
+       false,
+       "It is always 1/(2π) m."
+      ],
+      [
+       "Adding 1 m of string around the Earth raises it about 16 cm.",
+       true,
+       "1 ÷ 2π ≈ 0.159 m."
+      ],
+      [
+       "S = 6V^(2/3) for a cube.",
+       true,
+       "From S = 6a² and a = V^(1/3)."
+      ],
+      [
+       "A cube of volume 27 has surface area 54.",
+       true,
+       "Edge 3, 6 × 9 = 54."
+      ],
+      [
+       "Doubling a cube's volume doubles its surface area.",
+       false,
+       "It multiplies it by about 1.59."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Cube from volume",
+     "items": [
+      {
+       "q": "V = 8: edge",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "V = 8: surface area",
+       "a": "24",
+       "check": "6*4"
+      },
+      {
+       "q": "V = 125: surface area",
+       "a": "150",
+       "check": "6*25"
+      },
+      {
+       "q": "V = 1000: surface area",
+       "a": "600",
+       "check": "6*100"
+      },
+      {
+       "q": "S = 54: volume",
+       "a": "27",
+       "check": "27"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A string around a ball of radius R is lengthened by 2π metres. By how much does the gap grow?",
+     "options": [
+      "1 m",
+      "2π m",
+      "2 m",
+      "It depends on R"
+     ],
+     "answer": 0,
+     "explain": "2π = 2π × gap, so gap = 1 m.",
+     "mistake": "Thinks the gap depends on R",
+     "check": "1"
+    },
+    {
+     "q": "A string around the equator is lengthened by 1 m. About how high above the ground is it now? (π = 3.14)",
+     "options": [
+      "About 1 mm",
+      "About 16 cm",
+      "About 1 m",
+      "About 16 m"
+     ],
+     "answer": 1,
+     "explain": "1 ÷ 6.28 ≈ 0.159 m.",
+     "mistake": "Trusts the feeling that 1 m is tiny compared to the Earth"
+    },
+    {
+     "q": "Does the gap in the Earth-string puzzle depend on the Earth's radius?",
+     "options": [
+      "Yes, it is bigger for bigger balls",
+      "Yes, it is smaller for bigger balls",
+      "No, it is always 1/(2π) m for 1 m of extra string",
+      "Only for perfect spheres"
+     ],
+     "answer": 2,
+     "explain": "The R terms cancel: 2π(R + g) − 2πR = 2πg.",
+     "mistake": "Thinks a bigger ball spreads the extra string thinner"
+    },
+    {
+     "q": "A cube has volume 216 cm³. What is its surface area?",
+     "options": [
+      "36 cm²",
+      "1296 cm²",
+      "144 cm²",
+      "216 cm²"
+     ],
+     "answer": 3,
+     "explain": "Edge 6; 6 × 36 = 216.",
+     "mistake": "Uses S = 6V",
+     "check": "6*36"
+    },
+    {
+     "q": "A cube has surface area 384 cm². What is its volume?",
+     "options": [
+      "512 cm³",
+      "64 cm³",
+      "384 cm³",
+      "2304 cm³"
+     ],
+     "answer": 0,
+     "explain": "6a² = 384 gives a² = 64, a = 8, V = 512.",
+     "mistake": "Stops at a² = 64",
+     "check": "8**3"
+    },
+    {
+     "q": "Using S = 6V^(2/3), what is S for V = 343?",
+     "options": [
+      "2058",
+      "294",
+      "49",
+      "42"
+     ],
+     "answer": 1,
+     "explain": "V^(1/3) = 7, so V^(2/3) = 49 and S = 6 × 49.",
+     "mistake": "Uses V^(1/3) instead of V^(2/3)",
+     "check": "6*49"
+    },
+    {
+     "q": "A cube's volume is multiplied by 8. Its surface area is multiplied by:",
+     "options": [
+      "8",
+      "2",
+      "4",
+      "64"
+     ],
+     "answer": 2,
+     "explain": "Edge × 2, so area × 4.",
+     "mistake": "Assumes area changes like volume",
+     "check": "4"
+    },
+    {
+     "q": "A string is tight around a pole of radius 10 cm. To make a gap of 5 cm all round, how much extra string is needed? (π = 3.14)",
+     "options": [
+      "5 cm",
+      "10 cm",
+      "62.8 cm",
+      "31.4 cm"
+     ],
+     "answer": 3,
+     "explain": "Extra = 2π × 5.",
+     "mistake": "Adds just the gap",
+     "check": "2*3.14*5"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If I add 1 m of string around the Earth, why is the gap the same as for a football?\"",
+    "must": [
+     [
+      "2π",
+      "2 pi",
+      "circumference"
+     ],
+     [
+      "cancel",
+      "does not depend",
+      "same"
+     ],
+     [
+      "radius",
+      "r"
+     ]
+    ],
+    "praise": "Mind-blowing but true! The extra length 1 = 2π × gap, and the radius cancels out!",
+    "nudge": "Write both circumferences. What happens to R when you subtract?"
    }
   }
  ]

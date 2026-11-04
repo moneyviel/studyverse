@@ -6,6 +6,11 @@
   {
    "id": "g9-maths-09-01",
    "title": "Mathematical statements",
+   "covers": [
+    "c9.1.1",
+    "c9.1.2",
+    "c9.2.4"
+   ],
    "learn": {
     "hook": "'Mangoes are the best fruit' starts an argument. '7 is a prime number' ends one. Maths loves sentences that are clearly true or clearly false!",
     "points": [
@@ -233,6 +238,11 @@
   {
    "id": "g9-maths-09-02",
    "title": "Converses",
+   "covers": [
+    "c9.1.3",
+    "c9.2.1",
+    "c9.3.1"
+   ],
    "learn": {
     "hook": "'If you are in Jaipur, you are in Rajasthan' is true. But 'If you are in Rajasthan, you are in Jaipur'? Swapping can change everything!",
     "points": [
@@ -450,8 +460,1316 @@
    }
   },
   {
+   "id": "g9-maths-09-04",
+   "title": "Converses in geometry",
+   "covers": [
+    "c9.1.4",
+    "c9.2.5",
+    "c9.2.6"
+   ],
+   "learn": {
+    "hook": "Equal sides give equal angles. Do equal angles give equal sides? Geometry says yes, but it needs a proof!",
+    "points": [
+     "Proposition: if two sides of a triangle are equal, the angles opposite them are equal. Its converse: if two angles are equal, the sides opposite them are equal. Both are true.",
+     "Proof idea for the converse: in △ABC with ∠B = ∠C, drop the altitude AD. △ABD ≅ △ACD (AAS: ∠B = ∠C, right angles at D, AD common), so AB = AC.",
+     "Congruent triangles always have equal areas, but the converse is false: a triangle with base 6 and height 4 and one with base 8 and height 3 both have area 12 but are not congruent.",
+     "Converse of Baudhayana–Pythagoras: if a² + b² = c² in a triangle, the angle opposite c is 90°. Proof: build a right triangle with legs a and b; its hypotenuse is √(a² + b²) = c, so the two triangles are congruent by SSS and the original angle is also 90°."
+    ],
+    "example": {
+     "q": "Is a triangle with sides 9, 40 and 41 right-angled? Which angle is 90°?",
+     "steps": [
+      "9² + 40² = 81 + 1600 = 1681",
+      "41² = 1681",
+      "Equal, so by the converse the angle opposite 41 is 90°"
+     ],
+     "answer": "Yes; the angle opposite the side 41"
+    },
+    "reallife": "Carpenters check a right corner with a 3-4-5 rope: that's the converse of Pythagoras in action."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Geometry converses",
+     "items": [
+      [
+       "If two angles of a triangle are equal, the sides opposite them are equal.",
+       true,
+       "Proved using an altitude and congruence."
+      ],
+      [
+       "If two triangles have equal areas, they are congruent.",
+       false,
+       "Base 6, height 4 and base 8, height 3 both give 12."
+      ],
+      [
+       "If a² + b² = c², the triangle has a right angle opposite c.",
+       true,
+       "Converse of Baudhayana–Pythagoras."
+      ],
+      [
+       "Congruent triangles have equal areas.",
+       true,
+       "They cover exactly the same space."
+      ],
+      [
+       "Sides 5, 6, 7 form a right triangle.",
+       false,
+       "25 + 36 = 61 ≠ 49."
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Right-angled?",
+     "buckets": [
+      "Right-angled",
+      "Not right-angled"
+     ],
+     "items": [
+      [
+       "3, 4, 5",
+       0
+      ],
+      [
+       "6, 8, 10",
+       0
+      ],
+      [
+       "5, 12, 13",
+       0
+      ],
+      [
+       "4, 5, 6",
+       1
+      ],
+      [
+       "7, 24, 25",
+       0
+      ],
+      [
+       "2, 3, 4",
+       1
+      ],
+      [
+       "8, 15, 17",
+       0
+      ],
+      [
+       "10, 11, 15",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In △PQR, ∠Q = ∠R = 65° and PQ = 9 cm. What is PR?",
+     "options": [
+      "9 cm",
+      "65 cm",
+      "4.5 cm",
+      "18 cm"
+     ],
+     "answer": 0,
+     "explain": "Sides opposite equal angles are equal: PR (opposite ∠Q) = PQ (opposite ∠R).",
+     "mistake": "Thinks equal angles say nothing about sides",
+     "check": "9"
+    },
+    {
+     "q": "To prove 'equal angles ⇒ equal opposite sides' in △ABC with ∠B = ∠C, which line is drawn?",
+     "options": [
+      "A line parallel to BC",
+      "The altitude AD from A to BC",
+      "The bisector of ∠B",
+      "A diagonal"
+     ],
+     "answer": 1,
+     "explain": "The altitude gives two right triangles that can be shown congruent.",
+     "mistake": "Draws a line that creates no congruent triangles"
+    },
+    {
+     "q": "In that proof, △ABD ≅ △ACD by which rule?",
+     "options": [
+      "SSS",
+      "SAS",
+      "AAS",
+      "RHS without any given side"
+     ],
+     "answer": 2,
+     "explain": "∠B = ∠C, ∠ADB = ∠ADC = 90°, and side AD is common.",
+     "mistake": "Uses SSS though AB = AC is what we want to prove"
+    },
+    {
+     "q": "Which pair of triangles shows that equal area does not imply congruence?",
+     "options": [
+      "Two triangles with sides 3, 4, 5",
+      "Base 4, height 6 and base 4, height 6 (same shape)",
+      "Two equilateral triangles of side 2",
+      "Base 10, height 3 and base 6, height 5"
+     ],
+     "answer": 3,
+     "explain": "Both have area 15 but different bases, so they cannot be congruent.",
+     "mistake": "Picks triangles that are actually congruent"
+    },
+    {
+     "q": "A triangle has sides 20, 21 and 29. Is it right-angled?",
+     "options": [
+      "Yes, 20² + 21² = 29²",
+      "No, 20 + 21 ≠ 29",
+      "Yes, because 29 is prime",
+      "No, sides must be 3, 4, 5"
+     ],
+     "answer": 0,
+     "explain": "400 + 441 = 841 = 29².",
+     "steps": [
+      "400 + 441 = 841",
+      "29² = 841"
+     ],
+     "mistake": "Adds the sides instead of their squares"
+    },
+    {
+     "q": "In the proof of the Pythagoras converse, why are the original triangle and the constructed right triangle congruent?",
+     "options": [
+      "SAS with the right angle",
+      "SSS: a, b equal by construction and both third sides equal c",
+      "AAA",
+      "They are not congruent"
+     ],
+     "answer": 1,
+     "explain": "The constructed hypotenuse is √(a² + b²) = c, so all three sides match.",
+     "mistake": "Assumes the right angle in the original triangle, which is what we want to prove"
+    },
+    {
+     "q": "Which statement is the converse of 'If a triangle is right-angled with hypotenuse c, then a² + b² = c²'?",
+     "options": [
+      "If a² + b² ≠ c², it is not right-angled",
+      "If the triangle is not right-angled, a² + b² ≠ c²",
+      "If a² + b² = c², then the triangle is right-angled with hypotenuse c",
+      "If c² = a² − b², it is right-angled"
+     ],
+     "answer": 2,
+     "explain": "The converse swaps hypotenuse-condition and equation.",
+     "mistake": "Confuses the converse with the contrapositive or inverse"
+    },
+    {
+     "q": "A triangle has sides 7, 8 and 11. What can you say?",
+     "options": [
+      "It is right-angled at the largest angle",
+      "It is equilateral",
+      "Nothing can be said",
+      "It is not right-angled, since 49 + 64 = 113 ≠ 121"
+     ],
+     "answer": 3,
+     "explain": "The squares of the two smaller sides must add to the square of the largest.",
+     "mistake": "Checks the wrong pair of sides"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If two angles of a triangle are equal, must the opposite sides be equal? How do you know?\"",
+    "must": [
+     [
+      "altitude",
+      "perpendicular"
+     ],
+     [
+      "congruent",
+      "aas",
+      "congruence"
+     ],
+     [
+      "yes",
+      "equal"
+     ]
+    ],
+    "praise": "Superb! Drop the altitude, prove the triangles congruent by AAS, and the sides are equal!",
+    "nudge": "What line could you draw from the top vertex? Which congruence rule helps?"
+   }
+  },
+  {
+   "id": "g9-maths-09-05",
+   "title": "Number converses: both true, both false",
+   "covers": [
+    "c9.2.2",
+    "c9.2.3",
+    "c9.3.9"
+   ],
+   "learn": {
+    "hook": "Count the factors of 16: 1, 2, 4, 8, 16. Five, an odd number! Only perfect squares do that.",
+    "points": [
+     "A proposition and its converse can both be true: 'If n is a perfect square, it has an odd number of factors' and 'If n has an odd number of factors, it is a perfect square'. Factors pair up as d and n/d, except √n, which pairs with itself.",
+     "Both can be false: 'If a number is a multiple of 3, it is even' (3 is a counterexample) and its converse 'If a number is even, it is a multiple of 3' (2 is a counterexample).",
+     "The square of a prime p has exactly 3 divisors: 1, p, p². Conversely, a number with exactly 3 divisors is the square of a prime.",
+     "A product of two distinct primes pq has exactly 4 divisors: 1, p, q, pq. But the converse fails: 8 has 4 divisors (1, 2, 4, 8) and is not a product of two distinct primes."
+    ],
+    "example": {
+     "q": "How many factors does 36 have? Is the count odd?",
+     "steps": [
+      "Pairs: 1 × 36, 2 × 18, 3 × 12, 4 × 9, 6 × 6",
+      "6 × 6 uses only one factor, 6",
+      "Factors: 1, 2, 3, 4, 6, 9, 12, 18, 36 = 9 factors"
+     ],
+     "answer": "9, odd, since 36 is a perfect square"
+    },
+    "reallife": "Locker puzzles: if students toggle lockers by their factors, only lockers with perfect-square numbers end up open, because they have an odd number of factors."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Odd or even number of factors?",
+     "buckets": [
+      "Odd",
+      "Even"
+     ],
+     "items": [
+      [
+       "16",
+       0
+      ],
+      [
+       "12",
+       1
+      ],
+      [
+       "25",
+       0
+      ],
+      [
+       "18",
+       1
+      ],
+      [
+       "49",
+       0
+      ],
+      [
+       "30",
+       1
+      ],
+      [
+       "100",
+       0
+      ],
+      [
+       "7",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Exactly how many divisors?",
+     "pairs": [
+      [
+       "49",
+       "3"
+      ],
+      [
+       "15",
+       "4"
+      ],
+      [
+       "16",
+       "5"
+      ],
+      [
+       "13",
+       "2"
+      ],
+      [
+       "1",
+       "1"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many factors does 49 have?",
+     "options": [
+      "3",
+      "2",
+      "7",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "1, 7, 49: the square of the prime 7.",
+     "mistake": "Forgets that 1 and 49 are factors",
+     "check": "3"
+    },
+    {
+     "q": "Which number has an odd number of factors?",
+     "options": [
+      "24",
+      "64",
+      "50",
+      "18"
+     ],
+     "answer": 1,
+     "explain": "64 = 8² is a perfect square, so its factor 8 pairs with itself.",
+     "mistake": "Thinks large numbers always have even counts",
+     "check": "64"
+    },
+    {
+     "q": "'If a number is a multiple of 3, then it is even.' Which number is a counterexample?",
+     "options": [
+      "6",
+      "12",
+      "9",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "9 is a multiple of 3 but odd.",
+     "mistake": "Gives a number that fits both parts",
+     "check": "9"
+    },
+    {
+     "q": "The converse 'If a number is even, then it is a multiple of 3' is:",
+     "options": [
+      "true for all even numbers",
+      "true, e.g. 6",
+      "not a proposition",
+      "false, e.g. 4"
+     ],
+     "answer": 3,
+     "explain": "4 is even but not a multiple of 3.",
+     "mistake": "Tests only one supporting example"
+    },
+    {
+     "q": "How many divisors does 77 = 7 × 11 have?",
+     "options": [
+      "4",
+      "2",
+      "3",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "1, 7, 11, 77.",
+     "mistake": "Counts only the primes",
+     "check": "4"
+    },
+    {
+     "q": "Which number shows that 'If n has exactly 4 divisors, then n is a product of two distinct primes' is false?",
+     "options": [
+      "15",
+      "27",
+      "21",
+      "35"
+     ],
+     "answer": 1,
+     "explain": "27 = 3³ has divisors 1, 3, 9, 27: four, but it is not pq.",
+     "mistake": "Picks a number that really is pq",
+     "check": "27"
+    },
+    {
+     "q": "A number has exactly 3 divisors. What must it be?",
+     "options": [
+      "A prime",
+      "A cube",
+      "The square of a prime",
+      "A product of two distinct primes"
+     ],
+     "answer": 2,
+     "explain": "Only p² has the divisors 1, p, p².",
+     "mistake": "Thinks primes have 3 divisors"
+    },
+    {
+     "q": "Why does a perfect square have an odd number of factors?",
+     "options": [
+      "Perfect squares are odd",
+      "It has no factor pairs",
+      "It always has 3 factors",
+      "Its square root is a factor that pairs with itself"
+     ],
+     "answer": 3,
+     "explain": "All other factors pair as d and n/d; √n is the unpaired one.",
+     "mistake": "Confuses 'odd number of factors' with 'odd number'"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"Why do only perfect squares have an odd number of factors?\"",
+    "must": [
+     [
+      "pair",
+      "pairs"
+     ],
+     [
+      "square root",
+      "itself",
+      "same"
+     ],
+     [
+      "odd"
+     ]
+    ],
+    "praise": "Excellent! Factors come in pairs, but the square root pairs with itself!",
+    "nudge": "How do factors usually come? Which factor of 16 has no partner?"
+   }
+  },
+  {
+   "id": "g9-maths-09-06",
+   "title": "Converses with shapes and lines",
+   "covers": [
+    "c9.3.2",
+    "c9.3.3",
+    "c9.3.4",
+    "c9.3.14"
+   ],
+   "learn": {
+    "hook": "Two sticks crossing at their midpoints make a parallelogram. Make the sticks equal and you get a rectangle!",
+    "points": [
+     "Parallel lines: if two lines are parallel, corresponding angles made by a transversal are equal; and conversely, equal corresponding angles mean the lines are parallel. Both directions are true.",
+     "'If a quadrilateral is a square, all its angles are equal' is true, but the converse fails: a rectangle has all angles equal and need not be a square.",
+     "In △ABC let the bisectors of ∠B and ∠C meet at the incentre I and cut AC at E and AB at F. 'If AB = AC, then IE = IF' is true: ∠B = ∠C gives ∠IBC = ∠ICB, so IB = IC, and then △IBF ≅ △ICE (ASA). Its converse 'If IE = IF, then AB = AC' is false: in a triangle with ∠A = 60°, ∠B = 90°, ∠C = 30°, IE = IF but AB ≠ AC.",
+     "Two sticks as diagonals joined at their midpoints always give a parallelogram; equal sticks give a rectangle; equal sticks crossing at right angles give a square. But 'equal diagonals ⇒ rectangle' fails if the diagonals do not bisect each other (an isosceles trapezium)."
+    ],
+    "example": {
+     "q": "Write the converse of 'If a quadrilateral is a rectangle, its diagonals are equal' and test it.",
+     "steps": [
+      "Converse: If a quadrilateral has equal diagonals, it is a rectangle",
+      "An isosceles trapezium has equal diagonals but is not a rectangle",
+      "So the converse is false"
+     ],
+     "answer": "Converse false (isosceles trapezium)"
+    },
+    "reallife": "Kite-makers use two crossing sticks: equal sticks crossing at their middles give a rectangular frame."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Two sticks as diagonals",
+     "pairs": [
+      [
+       "Bisect each other",
+       "Parallelogram"
+      ],
+      [
+       "Equal and bisect each other",
+       "Rectangle"
+      ],
+      [
+       "Bisect each other at right angles",
+       "Rhombus"
+      ],
+      [
+       "Equal, bisect each other at right angles",
+       "Square"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Is the converse true?",
+     "buckets": [
+      "Converse true",
+      "Converse false"
+     ],
+     "items": [
+      [
+       "If lines are parallel, corresponding angles are equal",
+       0
+      ],
+      [
+       "If it is a square, all angles are 90°",
+       1
+      ],
+      [
+       "If AB = AC, the bisector pieces IE and IF are equal",
+       1
+      ],
+      [
+       "If it is a rectangle, its diagonals are equal",
+       1
+      ],
+      [
+       "If alternate angles are equal, the lines are parallel",
+       0
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "'If corresponding angles are equal, then the lines are parallel.' What is the converse and is it true?",
+     "options": [
+      "If lines are parallel, corresponding angles are equal: true",
+      "If lines are not parallel, angles are equal: true",
+      "If angles are unequal, lines are parallel: false",
+      "There is no converse"
+     ],
+     "answer": 0,
+     "explain": "Both directions hold for parallel lines and a transversal.",
+     "mistake": "Writes the inverse instead of the converse"
+    },
+    {
+     "q": "Which shape shows that 'If all angles of a quadrilateral are equal, it is a square' is false?",
+     "options": [
+      "A square",
+      "A rectangle with sides 4 cm and 7 cm",
+      "A rhombus with angles 60° and 120°",
+      "A kite"
+     ],
+     "answer": 1,
+     "explain": "All its angles are 90° but its sides are not all equal.",
+     "mistake": "Picks a shape whose angles are not all equal"
+    },
+    {
+     "q": "In △ABC with AB = AC, the bisectors of ∠B and ∠C meet at I and cut AC at E and AB at F. Why is IE = IF?",
+     "options": [
+      "Because I is the midpoint of BE",
+      "Because BE is perpendicular to AC",
+      "∠IBC = ∠ICB, so IB = IC; then △IBF ≅ △ICE by ASA",
+      "Because IE = IF in every triangle"
+     ],
+     "answer": 2,
+     "explain": "Equal base angles have equal halves, so △IBC is isosceles with IB = IC. With the vertically opposite angles at I and the equal half-angles at B and C, ASA gives △IBF ≅ △ICE, so IF = IE.",
+     "mistake": "Cannot pick the congruence that links IE and IF"
+    },
+    {
+     "q": "In △ABC with ∠A = 60°, ∠B = 90° and ∠C = 30°, the same lengths IE and IF turn out to be equal. What does this show about the converse 'If IE = IF, then AB = AC'?",
+     "options": [
+      "It is true",
+      "It is true only for right triangles",
+      "It is not a proposition",
+      "It is false: here IE = IF but AB ≠ AC"
+     ],
+     "answer": 3,
+     "explain": "AB is opposite the 30° angle and AC is opposite the 90° angle, so AB ≠ AC even though IE = IF. One counterexample is enough to make the converse false.",
+     "mistake": "Believes the converse of a true statement must be true"
+    },
+    {
+     "q": "Two unequal sticks are joined at their midpoints at an angle that is not 90°. Their ends form a:",
+     "options": [
+      "parallelogram",
+      "rectangle",
+      "square",
+      "rhombus"
+     ],
+     "answer": 0,
+     "explain": "Diagonals bisecting each other give a parallelogram; unequal and not perpendicular rules out the others.",
+     "mistake": "Assumes crossing sticks always give a rectangle"
+    },
+    {
+     "q": "Two equal sticks are joined at their midpoints. Their ends always form a:",
+     "options": [
+      "rhombus",
+      "rectangle",
+      "kite",
+      "trapezium"
+     ],
+     "answer": 1,
+     "explain": "Equal diagonals that bisect each other give a rectangle (a square if also perpendicular).",
+     "mistake": "Thinks equal diagonals give a rhombus"
+    },
+    {
+     "q": "Which quadrilateral has equal diagonals but is not a rectangle?",
+     "options": [
+      "A square",
+      "A rhombus with unequal diagonals",
+      "An isosceles trapezium",
+      "A parallelogram with unequal diagonals"
+     ],
+     "answer": 2,
+     "explain": "Its diagonals are equal but they do not bisect each other.",
+     "mistake": "Picks a shape with unequal diagonals"
+    },
+    {
+     "q": "A transversal makes corresponding angles of 72° and 75° with two lines. What can you conclude?",
+     "options": [
+      "The lines are parallel",
+      "The lines are perpendicular",
+      "Nothing",
+      "The lines are not parallel"
+     ],
+     "answer": 3,
+     "explain": "If the lines were parallel, corresponding angles would be equal.",
+     "mistake": "Thinks nearly equal angles are enough"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If a quadrilateral has all angles equal, is it a square?\"",
+    "must": [
+     [
+      "no",
+      "not"
+     ],
+     [
+      "rectangle"
+     ],
+     [
+      "converse",
+      "counterexample"
+     ]
+    ],
+    "praise": "Right! A rectangle has equal angles but isn't a square, so the converse fails!",
+    "nudge": "Can you think of a shape with four right angles that isn't a square?"
+   }
+  },
+  {
+   "id": "g9-maths-09-07",
+   "title": "Equations, squares and products: which way works?",
+   "covers": [
+    "c9.3.5",
+    "c9.3.6",
+    "c9.3.7"
+   ],
+   "learn": {
+    "hook": "If x = y, then x² = y². But if x² = y², is x = y? Try x = −4 and y = 4!",
+    "points": [
+     "If a = b, then a + c = b + c (adding the same number keeps equality). The converse, cancellation, is also true: if a + c = b + c, then a = b.",
+     "If x = y, then x² = y² is true, but the converse is false: (−3)² = 3² while −3 ≠ 3.",
+     "If x = y, then x³ = y³, and the converse is also true for real numbers: cubes keep the sign, so equal cubes mean equal numbers.",
+     "The product of two perfect squares is a perfect square: a² × b² = (ab)². The converse fails: 2 × 8 = 16 is a perfect square, but 2 and 8 are not."
+    ],
+    "example": {
+     "q": "Is the converse of 'If x = y then x³ = y³' true? Check with x³ = −27.",
+     "steps": [
+      "x³ = −27 only for x = −3 (real numbers)",
+      "No other real number cubes to −27",
+      "So x³ = y³ gives x = y: converse true"
+     ],
+     "answer": "Yes, the converse is true"
+    },
+    "reallife": "Balancing scales: add the same weight to both pans and they stay balanced; that is equality preserved by addition."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Which way works?",
+     "items": [
+      [
+       "If a + 5 = b + 5, then a = b.",
+       true,
+       "Subtract 5 from both sides (cancellation)."
+      ],
+      [
+       "If x² = y², then x = y.",
+       false,
+       "x = −2, y = 2."
+      ],
+      [
+       "If x³ = y³, then x = y (real numbers).",
+       true,
+       "Cubes keep the sign, so they are one-to-one."
+      ],
+      [
+       "If a × b is a perfect square, then a and b are perfect squares.",
+       false,
+       "2 × 18 = 36."
+      ],
+      [
+       "If a and b are perfect squares, then ab is a perfect square.",
+       true,
+       "a = m², b = n² gives ab = (mn)²."
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Find the counterexample",
+     "items": [
+      {
+       "text": "x² = y² but x ≠ y: x = 5, y = ___",
+       "answer": "−5",
+       "options": [
+        "−5",
+        "5",
+        "25"
+       ]
+      },
+      {
+       "text": "ab square, a and b not: a = 3, b = ___",
+       "answer": "12",
+       "options": [
+        "12",
+        "9",
+        "6"
+       ]
+      },
+      {
+       "text": "4 × 9 = ___, a perfect square",
+       "answer": "36",
+       "options": [
+        "36",
+        "13",
+        "49"
+       ]
+      },
+      {
+       "text": "(−2)³ = ___",
+       "answer": "−8",
+       "options": [
+        "−8",
+        "8",
+        "−6"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "'If a = b, then a + 7 = b + 7.' What is its converse, and is it true?",
+     "options": [
+      "If a + 7 = b + 7 then a = b; true",
+      "If a ≠ b then a + 7 ≠ b + 7; false",
+      "If a + 7 = b, then a = b + 7; true",
+      "It has no converse"
+     ],
+     "answer": 0,
+     "explain": "Subtracting 7 from both sides gives the converse: cancellation.",
+     "mistake": "Writes a different statement instead of swapping hypothesis and conclusion"
+    },
+    {
+     "q": "Which pair shows that 'If x² = y², then x = y' is false?",
+     "options": [
+      "x = 6, y = 6",
+      "x = −6, y = 6",
+      "x = 0, y = 0",
+      "x = 2, y = 3"
+     ],
+     "answer": 1,
+     "explain": "Both squares are 36 but the numbers differ.",
+     "mistake": "Picks a pair where x = y"
+    },
+    {
+     "q": "Is 'If x³ = y³, then x = y' true for real numbers?",
+     "options": [
+      "No, x = −2, y = 2 is a counterexample",
+      "No, cubes can be equal for different numbers",
+      "Yes",
+      "Only for positive numbers"
+     ],
+     "answer": 2,
+     "explain": "(−2)³ = −8 and 2³ = 8 differ; cubes keep the sign, so equal cubes force equal numbers.",
+     "mistake": "Wrongly copies the counterexample from squares"
+    },
+    {
+     "q": "Which statement and converse are BOTH true?",
+     "options": [
+      "x = y and x² = y²",
+      "ab square and a, b squares",
+      "a > b and a² > b²",
+      "x = y and x³ = y³"
+     ],
+     "answer": 3,
+     "explain": "Only the cube statement works both ways.",
+     "mistake": "Thinks squaring works both ways"
+    },
+    {
+     "q": "Which pair is a counterexample to 'If ab is a perfect square, then a and b are perfect squares'?",
+     "options": [
+      "3 and 27",
+      "4 and 9",
+      "1 and 16",
+      "25 and 4"
+     ],
+     "answer": 0,
+     "explain": "3 × 27 = 81 = 9², but neither 3 nor 27 is a perfect square.",
+     "mistake": "Picks two perfect squares"
+    },
+    {
+     "q": "Why is the product of two perfect squares always a perfect square?",
+     "options": [
+      "Because squares are even",
+      "m² × n² = (mn)²",
+      "Because m² + n² is a square",
+      "Because all products are squares"
+     ],
+     "answer": 1,
+     "explain": "Rearranging the factors gives a square of mn.",
+     "mistake": "Confuses product with sum"
+    },
+    {
+     "q": "If x² = 49, what are the possible values of x?",
+     "options": [
+      "7 only",
+      "49",
+      "7 or −7",
+      "−7 only"
+     ],
+     "answer": 2,
+     "explain": "Both 7² and (−7)² equal 49.",
+     "mistake": "Forgets the negative root"
+    },
+    {
+     "q": "Kiran writes: 'a + 3 = b + 3, so a = b.' Which property is he using?",
+     "options": [
+      "Squaring both sides",
+      "Multiplying by zero",
+      "The distributive property",
+      "Cancellation (the converse of adding the same number)"
+     ],
+     "answer": 3,
+     "explain": "Subtracting 3 from both sides undoes adding 3.",
+     "mistake": "Names an unrelated property"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If x² = y², does that mean x = y?\"",
+    "must": [
+     [
+      "no",
+      "not"
+     ],
+     [
+      "negative",
+      "−",
+      "minus",
+      "-"
+     ],
+     [
+      "counterexample",
+      "example"
+     ]
+    ],
+    "praise": "Correct! x = −3 and y = 3 have equal squares but are different numbers!",
+    "nudge": "Can you think of two different numbers with the same square?"
+   }
+  },
+  {
+   "id": "g9-maths-09-08",
+   "title": "Divisibility propositions",
+   "covers": [
+    "c9.3.8",
+    "c9.3.12",
+    "c9.3.13"
+   ],
+   "learn": {
+    "hook": "Every number divisible by 24 is divisible by 6. Is every number divisible by 6 divisible by 24? Try 12!",
+    "points": [
+     "'If n is divisible by 24, then n is divisible by 4 and by 6' is true. Its converse is false: 12 is divisible by 4 and 6 but not by 24 (because LCM(4, 6) = 12, not 24).",
+     "'n is divisible by 60 if and only if it is divisible by 5 and by 12' is true both ways, because 5 and 12 share no factor and LCM(5, 12) = 60.",
+     "'Divisible by 8 ⇒ divisible by 2 and 4' is true; the converse fails: 4 and 12 are divisible by 2 and 4 but not by 8.",
+     "Test for 8: a number is divisible by 8 if and only if the number formed by its last three digits is, because 1000 = 8 × 125.",
+     "Test for 3: if the digit sum is divisible by 3 the number is, and conversely; both directions are true."
+    ],
+    "example": {
+     "q": "Is 7,35,136 divisible by 8? Use the last three digits.",
+     "steps": [
+      "Last three digits: 136",
+      "136 = 8 × 17",
+      "So 735136 is divisible by 8"
+     ],
+     "answer": "Yes"
+    },
+    "reallife": "Shopkeepers packing items in boxes of 8 can check if a big order fits exactly using the last-three-digits test."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Divisible by 8?",
+     "buckets": [
+      "Yes",
+      "No"
+     ],
+     "items": [
+      [
+       "5,120",
+       0
+      ],
+      [
+       "3,412",
+       1
+      ],
+      [
+       "10,008",
+       0
+      ],
+      [
+       "2,244",
+       1
+      ],
+      [
+       "9,000",
+       0
+      ],
+      [
+       "7,124",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Divisibility logic",
+     "items": [
+      [
+       "If n is divisible by 24, it is divisible by 6.",
+       true,
+       "24 = 6 × 4."
+      ],
+      [
+       "If n is divisible by 4 and 6, it is divisible by 24.",
+       false,
+       "12 is a counterexample."
+      ],
+      [
+       "If n is divisible by 5 and 12, it is divisible by 60.",
+       true,
+       "LCM(5, 12) = 60."
+      ],
+      [
+       "If the digit sum of n is divisible by 3, then n is divisible by 3.",
+       true,
+       "This is the test for 3."
+      ],
+      [
+       "If n is divisible by 2 and 4, it is divisible by 8.",
+       false,
+       "4 itself is a counterexample."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which number is a counterexample to 'If n is divisible by 4 and 6, then n is divisible by 24'?",
+     "options": [
+      "36",
+      "48",
+      "24",
+      "72"
+     ],
+     "answer": 0,
+     "explain": "36 is divisible by 4 and 6 but 36 ÷ 24 = 1.5.",
+     "mistake": "Picks a multiple of 24",
+     "check": "36"
+    },
+    {
+     "q": "Why is 'divisible by 5 and 12 ⇒ divisible by 60' true?",
+     "options": [
+      "Because 5 + 12 = 17",
+      "5 and 12 have no common factor, so LCM(5, 12) = 60",
+      "Because 60 is even",
+      "Because 12 is divisible by 4"
+     ],
+     "answer": 1,
+     "explain": "A number divisible by both is divisible by their LCM, which here is the product.",
+     "mistake": "Thinks it holds for any two divisors"
+    },
+    {
+     "q": "What is LCM(4, 6)?",
+     "options": [
+      "24",
+      "2",
+      "12",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "Multiples of 6: 6, 12; 12 is also a multiple of 4.",
+     "mistake": "Multiplies the numbers instead",
+     "check": "12"
+    },
+    {
+     "q": "Is 4,61,720 divisible by 8?",
+     "options": [
+      "No, 461 is not divisible by 8",
+      "Yes, because it ends in 0",
+      "No, the digit sum is 20",
+      "Yes, 720 = 8 × 90"
+     ],
+     "answer": 3,
+     "explain": "Only the last three digits matter: 720.",
+     "mistake": "Uses the wrong digits for the test"
+    },
+    {
+     "q": "Why does the last-three-digits test for 8 work?",
+     "options": [
+      "1000 is divisible by 8, so only the last three digits affect the remainder",
+      "8 has three digits",
+      "Every number ends in three digits",
+      "It works only for even numbers"
+     ],
+     "answer": 0,
+     "explain": "Any number = 1000 × (something) + last three digits.",
+     "mistake": "Cannot explain why the test works"
+    },
+    {
+     "q": "Which number shows 'divisible by 2 and 4 ⇒ divisible by 8' is false?",
+     "options": [
+      "16",
+      "20",
+      "40",
+      "24"
+     ],
+     "answer": 1,
+     "explain": "20 is divisible by 2 and 4 but not by 8.",
+     "mistake": "Picks a multiple of 8",
+     "check": "20"
+    },
+    {
+     "q": "The four-digit number 47d2 (d is a single digit) is divisible by 3. Which value of d works?",
+     "options": [
+      "3",
+      "4",
+      "2",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "Digit sum = 4 + 7 + d + 2 = 13 + d. With d = 2 it is 15, a multiple of 3; with 3, 4 or 6 it is 16, 17 or 19.",
+     "steps": [
+      "13 + 2 = 15",
+      "15 ÷ 3 = 5"
+     ],
+     "mistake": "Adds the digits wrongly",
+     "check": "2"
+    },
+    {
+     "q": "'If a number is divisible by 3, then its digit sum is divisible by 3.' Is this converse of the digit-sum test true?",
+     "options": [
+      "No, 12 is a counterexample",
+      "No, it works only for even numbers",
+      "Only for numbers less than 100",
+      "Yes, both directions of the test for 3 are true"
+     ],
+     "answer": 3,
+     "explain": "A number and its digit sum leave the same remainder when divided by 3, so both directions hold.",
+     "mistake": "Assumes every converse fails"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If a number is divisible by 4 and by 6, must it be divisible by 24?\"",
+    "must": [
+     [
+      "no",
+      "not"
+     ],
+     [
+      "12",
+      "counterexample"
+     ],
+     [
+      "lcm",
+      "least common multiple"
+     ]
+    ],
+    "praise": "Brilliant! 12 is divisible by 4 and 6 but not 24, because LCM(4, 6) = 12!",
+    "nudge": "Can you find a small number divisible by both 4 and 6 but not by 24?"
+   }
+  },
+  {
+   "id": "g9-maths-09-09",
+   "title": "Common factors and prime-making formulas",
+   "covers": [
+    "c9.3.10",
+    "c9.3.11"
+   ],
+   "learn": {
+    "hook": "n² + n + 11 gives 13, 17, 23, 31, 41, ... all primes! Keep going and it breaks at n = 10.",
+    "points": [
+     "Any common factor of n and n + 3 must divide their difference 3, so it is 1 or 3.",
+     "So: if n and n + 3 have no common factor (other than 1), then n is not a multiple of 3. Conversely, if n is not a multiple of 3, then n and n + 3 share no factor. Both directions are true.",
+     "Formulas that seem to give only primes can fail: 4n² + 1 gives 5, 17, 37, then 65 = 5 × 13 at n = 4.",
+     "n² + n + 11 fails at n = 10: 121 = 11². 2ⁿ − 1 with n prime fails at n = 11: 2047 = 23 × 89. 2ⁿ + 1 fails at n = 3: 9.",
+     "Many examples never prove a statement, but one counterexample disproves it."
+    ],
+    "example": {
+     "q": "Does n² + n + 11 always give a prime? Test n = 10.",
+     "steps": [
+      "10² + 10 + 11 = 100 + 10 + 11 = 121",
+      "121 = 11 × 11",
+      "Not prime, so the claim is false"
+     ],
+     "answer": "No; n = 10 gives 121 = 11²"
+    },
+    "reallife": "Computer security uses huge primes, so mathematicians must be careful: a formula that 'usually' gives primes is not good enough."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Test the formula",
+     "items": [
+      {
+       "q": "4n² + 1 at n = 4",
+       "a": "65",
+       "check": "4*16+1"
+      },
+      {
+       "q": "n² + n + 11 at n = 10",
+       "a": "121",
+       "check": "100+10+11"
+      },
+      {
+       "q": "2ⁿ − 1 at n = 11",
+       "a": "2047",
+       "check": "2**11-1"
+      },
+      {
+       "q": "2ⁿ + 1 at n = 3",
+       "a": "9",
+       "check": "2**3+1"
+      },
+      {
+       "q": "23 × 89",
+       "a": "2047",
+       "check": "23*89"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Do n and n + 3 share a factor > 1?",
+     "buckets": [
+      "Share factor 3",
+      "No common factor"
+     ],
+     "items": [
+      [
+       "n = 6",
+       0
+      ],
+      [
+       "n = 7",
+       1
+      ],
+      [
+       "n = 12",
+       0
+      ],
+      [
+       "n = 10",
+       1
+      ],
+      [
+       "n = 15",
+       0
+      ],
+      [
+       "n = 1",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the smallest n ≥ 1 for which 4n² + 1 is not prime?",
+     "options": [
+      "4",
+      "3",
+      "5",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "n = 1, 2, 3 give 5, 17, 37 (primes); n = 4 gives 65 = 5 × 13.",
+     "mistake": "Stops checking too early",
+     "check": "4"
+    },
+    {
+     "q": "For n = 10, what is n² + n + 11?",
+     "options": [
+      "111",
+      "121",
+      "131",
+      "110"
+     ],
+     "answer": 1,
+     "explain": "100 + 10 + 11 = 121 = 11².",
+     "mistake": "Forgets one of the terms",
+     "check": "100+10+11"
+    },
+    {
+     "q": "2¹¹ − 1 = 2047. Which shows it is not prime?",
+     "options": [
+      "2047 = 7 × 293",
+      "2047 is even",
+      "2047 = 23 × 89",
+      "2047 = 11 × 186"
+     ],
+     "answer": 2,
+     "explain": "23 × 89 = 2047.",
+     "mistake": "Assumes 2ᵖ − 1 is always prime for prime p"
+    },
+    {
+     "q": "Which value of n is a counterexample to '2ⁿ + 1 is always prime'?",
+     "options": [
+      "1",
+      "2",
+      "4",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "2³ + 1 = 9 = 3 × 3. (n = 1, 2, 4 give 3, 5, 17, all prime.)",
+     "mistake": "Picks a value that gives a prime",
+     "check": "3"
+    },
+    {
+     "q": "Any common factor of n and n + 3 must divide:",
+     "options": [
+      "3",
+      "n²",
+      "6",
+      "n + 6"
+     ],
+     "answer": 0,
+     "explain": "If d divides both, it divides (n + 3) − n = 3.",
+     "mistake": "Does not use the difference",
+     "check": "3"
+    },
+    {
+     "q": "Do 21 and 24 have a common factor greater than 1?",
+     "options": [
+      "No",
+      "Yes, 3, because 21 is a multiple of 3",
+      "Yes, 7",
+      "Yes, 2"
+     ],
+     "answer": 1,
+     "explain": "21 = 3 × 7 and 24 = 3 × 8.",
+     "mistake": "Forgets that n = 21 is a multiple of 3"
+    },
+    {
+     "q": "n = 20 is not a multiple of 3. What can you say about 20 and 23?",
+     "options": [
+      "They share the factor 3",
+      "They share the factor 2",
+      "They have no common factor except 1",
+      "They share the factor 5"
+     ],
+     "answer": 2,
+     "explain": "The only possible common factor is 3, and 3 does not divide 20.",
+     "mistake": "Thinks even numbers always share factors"
+    },
+    {
+     "q": "Ravi checks n² + n + 11 for n = 1 to 9 and gets primes every time. What can he conclude?",
+     "options": [
+      "It always gives primes",
+      "It gives primes for all odd n",
+      "It is proved for n up to 100",
+      "Nothing for all n; checking examples does not prove it, and n = 10 fails"
+     ],
+     "answer": 3,
+     "explain": "Examples can suggest a pattern but cannot prove it.",
+     "mistake": "Treats many examples as a proof"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"A formula gave primes 9 times in a row. Does it always give primes?\"",
+    "must": [
+     [
+      "no",
+      "not"
+     ],
+     [
+      "counterexample",
+      "one example",
+      "fails"
+     ],
+     [
+      "prove",
+      "proof"
+     ]
+    ],
+    "praise": "Exactly! Examples never prove it, and one counterexample breaks it!",
+    "nudge": "Is checking a few cases enough? What would show the formula is wrong?"
+   }
+  },
+  {
    "id": "g9-maths-09-03",
    "title": "Proof",
+   "covers": [
+    "c9.2.4"
+   ],
    "learn": {
     "hook": "Kabir checked 100 examples and says his rule always works. A mathematician smiles: 'Show me a proof that covers ALL numbers, even the ones you didn't try!'",
     "points": [

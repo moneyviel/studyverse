@@ -6,6 +6,15 @@
   {
    "id": "g9-maths-08-01",
    "title": "Number sequences and their rules",
+   "covers": [
+    "c8.1.1",
+    "c8.1.3",
+    "c8.1.4",
+    "c8.2.1",
+    "c8.2.2",
+    "c8.3.1",
+    "c8.3.2"
+   ],
    "learn": {
     "hook": "1, 1, 2, 3, 5, 8, ... Indian poets studied this pattern of rhythms centuries ago, long before it got the name Fibonacci. Can you guess what comes next?",
     "points": [
@@ -222,8 +231,449 @@
    }
   },
   {
+   "id": "g9-maths-08-04",
+   "title": "Finite, infinite and partial sums; is it a term?",
+   "covers": [
+    "c8.1.2",
+    "c8.1.5",
+    "c8.2.3",
+    "c8.2.4"
+   ],
+   "learn": {
+    "hook": "Is 100 in the sequence 3, 7, 11, 15, ...? Don't list them all: let algebra check!",
+    "points": [
+     "A finite sequence stops (the days of a week, 1 to 31); an infinite sequence goes on forever (all odd numbers), shown with '...'.",
+     "A partial sum Sₙ adds the first n terms: for 1, 3, 5, 7, ..., S₁ = 1, S₂ = 4, S₃ = 9.",
+     "To check if a number is a term, set the rule equal to it and solve for n. If n is a natural number, it is a term; otherwise it is not.",
+     "The solution n also tells you the position of the term."
+    ],
+    "example": {
+     "q": "Is 100 a term of tₙ = 4n − 1? Is 99?",
+     "steps": [
+      "4n − 1 = 100 gives n = 101/4 = 25.25: not a natural number, so no",
+      "4n − 1 = 99 gives n = 25: yes",
+      "99 is the 25th term"
+     ],
+     "answer": "100 is not a term; 99 is the 25th term"
+    },
+    "reallife": "A railway timetable lists a finite sequence of stations; the ticks of a clock form a sequence that goes on and on."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Finite or infinite?",
+     "buckets": [
+      "Finite",
+      "Infinite"
+     ],
+     "items": [
+      [
+       "Months of the year in order",
+       0
+      ],
+      [
+       "All even numbers 2, 4, 6, ...",
+       1
+      ],
+      [
+       "Roll numbers of your class",
+       0
+      ],
+      [
+       "1, 1/2, 1/3, 1/4, ...",
+       1
+      ],
+      [
+       "Pages of a book",
+       0
+      ],
+      [
+       "Powers of 2: 1, 2, 4, 8, ...",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Partial sums and positions",
+     "items": [
+      {
+       "q": "1, 3, 5, 7: S₄",
+       "a": "16",
+       "check": "1+3+5+7"
+      },
+      {
+       "q": "2, 4, 6, 8, 10: S₅",
+       "a": "30",
+       "check": "2+4+6+8+10"
+      },
+      {
+       "q": "tₙ = 3n + 1: position of 31",
+       "a": "10",
+       "check": "(31-1)/3"
+      },
+      {
+       "q": "tₙ = 5n − 2: position of 48",
+       "a": "10",
+       "check": "(48+2)/5"
+      },
+      {
+       "q": "1, 2, 4, 8: S₄",
+       "a": "15",
+       "check": "1+2+4+8"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which sequence is finite?",
+     "options": [
+      "The page numbers of a 200-page book",
+      "All multiples of 5",
+      "1, 1/2, 1/4, 1/8, ...",
+      "All square numbers"
+     ],
+     "answer": 0,
+     "explain": "It stops at 200.",
+     "mistake": "Thinks any long list is infinite"
+    },
+    {
+     "q": "For the sequence 2, 5, 8, 11, ..., what is the partial sum S₄?",
+     "options": [
+      "11",
+      "26",
+      "24",
+      "30"
+     ],
+     "answer": 1,
+     "explain": "2 + 5 + 8 + 11 = 26.",
+     "mistake": "Gives the 4th term instead of the sum",
+     "check": "2+5+8+11"
+    },
+    {
+     "q": "The partial sums of 1, 3, 5, 7, ... are 1, 4, 9, 16, ... What is S₁₀?",
+     "options": [
+      "19",
+      "55",
+      "100",
+      "81"
+     ],
+     "answer": 2,
+     "explain": "The sum of the first n odd numbers is n².",
+     "mistake": "Gives the 10th odd number",
+     "check": "10**2"
+    },
+    {
+     "q": "Is 50 a term of tₙ = 3n + 2?",
+     "options": [
+      "Yes, the 17th term",
+      "No, n is not a whole number",
+      "No, 50 is even",
+      "Yes, the 16th term"
+     ],
+     "answer": 3,
+     "explain": "3n + 2 = 50 gives n = 16.",
+     "steps": [
+      "3n = 48",
+      "n = 16"
+     ],
+     "mistake": "Forgets to subtract 2 first"
+    },
+    {
+     "q": "Is 75 a term of tₙ = 4n + 1?",
+     "options": [
+      "No, n would be 18.5, not a natural number",
+      "Yes, the 18th term",
+      "Yes, the 19th term",
+      "No, because 75 is odd"
+     ],
+     "answer": 0,
+     "explain": "4n + 1 = 75 gives 4n = 74, n = 18.5.",
+     "steps": [
+      "4n = 74",
+      "n = 18.5"
+     ],
+     "mistake": "Rounds n to a whole number"
+    },
+    {
+     "q": "Which term of tₙ = 7n − 4 is 66?",
+     "options": [
+      "9th",
+      "10th",
+      "62nd",
+      "11th"
+     ],
+     "answer": 1,
+     "explain": "7n − 4 = 66 gives 7n = 70.",
+     "steps": [
+      "7n = 70",
+      "n = 10"
+     ],
+     "mistake": "Subtracts 4 instead of adding"
+    },
+    {
+     "q": "For tₙ = n² + 1, is 50 a term?",
+     "options": [
+      "No, n is not whole",
+      "Yes, the 49th term",
+      "Yes, the 7th term",
+      "Yes, the 25th term"
+     ],
+     "answer": 2,
+     "explain": "n² + 1 = 50 gives n² = 49, n = 7.",
+     "mistake": "Forgets to take the square root"
+    },
+    {
+     "q": "The sequence 1, 1/2, 1/3, 1/4, ... is:",
+     "options": [
+      "finite, ending at 0",
+      "finite, with 4 terms",
+      "infinite, with terms growing",
+      "infinite, with terms getting closer to 0"
+     ],
+     "answer": 3,
+     "explain": "The '...' shows it continues forever; 1/n shrinks towards 0 but never reaches it.",
+     "mistake": "Thinks the sequence stops when terms get small"
+    },
+    {
+     "q": "For tₙ = 2n + 3, what is S₃ = t₁ + t₂ + t₃?",
+     "options": [
+      "21",
+      "9",
+      "15",
+      "27"
+     ],
+     "answer": 0,
+     "explain": "t₁ = 5, t₂ = 7, t₃ = 9; sum = 21.",
+     "steps": [
+      "5 + 7 + 9 = 21"
+     ],
+     "mistake": "Gives t₃ only",
+     "check": "5+7+9"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can I check if 100 is in the sequence 4n − 1?\"",
+    "must": [
+     [
+      "solve",
+      "equation",
+      "equal"
+     ],
+     [
+      "natural",
+      "whole",
+      "integer"
+     ],
+     [
+      "n",
+      "position"
+     ]
+    ],
+    "praise": "Brilliant! Solve 4n − 1 = 100; if n is a natural number it's a term, otherwise not!",
+    "nudge": "What equation do you make? What kind of number must n be?"
+   }
+  },
+  {
+   "id": "g9-maths-08-05",
+   "title": "Recursive rules and the Virahanka numbers",
+   "covers": [
+    "c8.3.3",
+    "c8.3.4",
+    "c8.3.5"
+   ],
+   "learn": {
+    "hook": "How many ways can a drummer fill 5 beats with short (1-beat) and long (2-beat) strokes? Indian poets counted this more than 1200 years ago!",
+    "points": [
+     "A recursive rule can use several previous terms. For example T₁ = T₂ = T₃ = 1 and Tₙ = Tₙ₋₁ + Tₙ₋₂ + Tₙ₋₃ gives 1, 1, 1, 3, 5, 9, 17, ...",
+     "Virahanka numbers: V₁ = 1, V₂ = 2 and Vₙ = Vₙ₋₁ + Vₙ₋₂, giving 1, 2, 3, 5, 8, 13, 21, ...",
+     "Vₙ counts the rhythms of n beats made of short (1 beat) and long (2 beats) syllables: a rhythm of n beats ends in a short (leaving n − 1 beats) or a long (leaving n − 2 beats).",
+     "Virahanka (who lived some time between the 6th and 8th centuries CE) found them while studying Sanskrit poetic metres; Gopala (around 1135) and Hemachandra (around 1150) wrote about them before Fibonacci (1202). So they are often called Virahanka–Fibonacci numbers."
+    ],
+    "example": {
+     "q": "List all rhythms of 4 beats using S (1 beat) and L (2 beats).",
+     "steps": [
+      "SSSS, SSL, SLS, LSS, LL",
+      "That is 5 rhythms",
+      "V₄ = V₃ + V₂ = 3 + 2 = 5 ✓"
+     ],
+     "answer": "5 rhythms"
+    },
+    "reallife": "Tabla and mridangam players build rhythms from short and long strokes, the very patterns Virahanka counted."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Virahanka numbers",
+     "prompt": "In order",
+     "items": [
+      "1",
+      "2",
+      "3",
+      "5",
+      "8",
+      "13"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Who and when?",
+     "pairs": [
+      [
+       "Virahanka",
+       "Counted poetic rhythms, between the 6th and 8th centuries"
+      ],
+      [
+       "Gopala",
+       "Wrote about them around 1135"
+      ],
+      [
+       "Hemachandra",
+       "Wrote about them around 1150"
+      ],
+      [
+       "Fibonacci",
+       "Rabbit problem in 1202"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the next Virahanka number after 1, 2, 3, 5, 8, 13, 21?",
+     "options": [
+      "29",
+      "34",
+      "42",
+      "26"
+     ],
+     "answer": 1,
+     "explain": "21 + 13 = 34.",
+     "mistake": "Adds a fixed amount instead of the previous two terms",
+     "check": "21+13"
+    },
+    {
+     "q": "How many rhythms of 6 beats can be made from short (1 beat) and long (2 beats) syllables?",
+     "options": [
+      "8",
+      "21",
+      "13",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "V₁..V₆ = 1, 2, 3, 5, 8, 13.",
+     "mistake": "Stops one term early",
+     "check": "13"
+    },
+    {
+     "q": "Why is Vₙ = Vₙ₋₁ + Vₙ₋₂ for rhythms?",
+     "options": [
+      "Because rhythms always double",
+      "Because poets liked the number 2",
+      "Because every rhythm has exactly two syllables",
+      "Each rhythm ends in a short (leaving n − 1 beats) or a long (leaving n − 2 beats)"
+     ],
+     "answer": 3,
+     "explain": "Splitting by the last syllable gives the two cases, which add up.",
+     "mistake": "Cannot connect the rule to the counting"
+    },
+    {
+     "q": "Tₙ = Tₙ₋₁ + Tₙ₋₂ + Tₙ₋₃ with T₁ = T₂ = T₃ = 1. What is T₆?",
+     "options": [
+      "9",
+      "5",
+      "7",
+      "17"
+     ],
+     "answer": 0,
+     "explain": "T₄ = 3, T₅ = 1 + 1 + 3 = 5, T₆ = 1 + 3 + 5 = 9.",
+     "steps": [
+      "T₄ = 3",
+      "T₅ = 5",
+      "T₆ = 9"
+     ],
+     "mistake": "Adds only the last two terms",
+     "check": "1+3+5"
+    },
+    {
+     "q": "A sequence has u₁ = 2, u₂ = 5 and uₙ = uₙ₋₁ − uₙ₋₂. What is u₄?",
+     "options": [
+      "3",
+      "−2",
+      "8",
+      "−3"
+     ],
+     "answer": 1,
+     "explain": "u₃ = 5 − 2 = 3, u₄ = 3 − 5 = −2.",
+     "mistake": "Subtracts in the wrong order",
+     "check": "3-5"
+    },
+    {
+     "q": "Who among these wrote about these numbers before Fibonacci?",
+     "options": [
+      "Descartes",
+      "Newton",
+      "Hemachandra",
+      "Euclid"
+     ],
+     "answer": 2,
+     "explain": "Hemachandra (about 1150) came before Fibonacci (1202); Virahanka and Gopala too.",
+     "mistake": "Thinks the sequence was discovered in Europe first"
+    },
+    {
+     "q": "Virahanka studied these numbers while working on:",
+     "options": [
+      "the growth of rabbits",
+      "the orbits of planets",
+      "trade weights",
+      "the metres (rhythms) of Sanskrit poetry"
+     ],
+     "answer": 3,
+     "explain": "He counted the patterns of short and long syllables in verses.",
+     "mistake": "Mixes it up with Fibonacci's rabbit problem"
+    },
+    {
+     "q": "If V₁₀ = 89 and V₁₁ = 144, what is V₁₂?",
+     "options": [
+      "233",
+      "144",
+      "199",
+      "288"
+     ],
+     "answer": 0,
+     "explain": "89 + 144 = 233.",
+     "mistake": "Doubles the last term",
+     "check": "89+144"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do you get the next Virahanka number?\"",
+    "must": [
+     [
+      "add",
+      "sum",
+      "plus"
+     ],
+     [
+      "two",
+      "previous",
+      "before"
+     ]
+    ],
+    "praise": "Yes! Add the two previous numbers!",
+    "nudge": "Which earlier terms do you use? What do you do with them?"
+   }
+  },
+  {
    "id": "g9-maths-08-02",
    "title": "Arithmetic progressions",
+   "covers": [
+    "c8.4.1",
+    "c8.4.2",
+    "c8.4.4",
+    "c8.4.7"
+   ],
    "learn": {
     "hook": "Saving ₹10 more every week than the week before? Your savings make an arithmetic progression, growing by the same step every time!",
     "points": [
@@ -495,8 +945,476 @@
    }
   },
   {
+   "id": "g9-maths-08-06",
+   "title": "More about APs: recursion, two terms, multiples and graphs",
+   "covers": [
+    "c8.4.3",
+    "c8.4.5",
+    "c8.4.6",
+    "c8.5.1",
+    "c8.5.2"
+   ],
+   "learn": {
+    "hook": "An AP plotted on graph paper lines up as straight as a cricket pitch!",
+    "points": [
+     "Recursive form of an AP: t₁ = a and tₙ = tₙ₋₁ + d.",
+     "From two terms: if t₃ = 11 and t₈ = 26, then 5d = 15, so d = 3 and a = 11 − 2 × 3 = 5.",
+     "Counting multiples: the 3-digit multiples of 7 are 105, 112, ..., 994, an AP with d = 7, so n = (994 − 105)/7 + 1 = 128.",
+     "Plotting (n, tₙ) for an AP gives points on a straight line, because tₙ = a + (n − 1)d = dn + (a − d) is a linear polynomial in n with slope d."
+    ],
+    "example": {
+     "q": "An AP has t₄ = 18 and t₁₀ = 42. Find a, d and t₂₀.",
+     "steps": [
+      "t₁₀ − t₄ = 6d = 24, so d = 4",
+      "a = 18 − 3 × 4 = 6",
+      "t₂₀ = 6 + 19 × 4 = 82"
+     ],
+     "answer": "a = 6, d = 4, t₂₀ = 82"
+    },
+    "reallife": "Taxi fares that rise by the same amount each km form an AP, and their graph is a straight line."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Two-term detective",
+     "items": [
+      {
+       "q": "t₂ = 7, t₅ = 16: d",
+       "a": "3",
+       "check": "(16-7)/3"
+      },
+      {
+       "q": "t₂ = 7, t₅ = 16: a",
+       "a": "4",
+       "check": "7-3"
+      },
+      {
+       "q": "Multiples of 5 from 100 to 995: count",
+       "a": "180",
+       "check": "(995-100)/5+1"
+      },
+      {
+       "q": "t₁ = 3, tₙ = tₙ₋₁ + 4: t₅",
+       "a": "19",
+       "check": "3+4*4"
+      },
+      {
+       "q": "tₙ = 6n − 1 as a line: slope",
+       "a": "6",
+       "check": "6"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "AP graphs",
+     "items": [
+      [
+       "Points (n, tₙ) of an AP lie on a straight line.",
+       true,
+       "tₙ is linear in n."
+      ],
+      [
+       "The slope of that line is the common difference.",
+       true,
+       "tₙ = dn + (a − d)."
+      ],
+      [
+       "Points of 2, 4, 8, 16 lie on a straight line.",
+       false,
+       "That is a GP; the points curve upward."
+      ],
+      [
+       "The AP 10, 7, 4, 1 gives a falling line.",
+       true,
+       "d = −3 is negative."
+      ],
+      [
+       "tₙ = 5n + 2 is an AP with d = 2.",
+       false,
+       "d = 5; 2 is part of the constant."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "An AP has t₁ = 9 and tₙ = tₙ₋₁ − 2. What is t₆?",
+     "options": [
+      "−3",
+      "−1",
+      "1",
+      "21"
+     ],
+     "answer": 1,
+     "explain": "9, 7, 5, 3, 1, −1.",
+     "mistake": "Counts one term too few",
+     "check": "9-5*2"
+    },
+    {
+     "q": "The 3rd term of an AP is 14 and the 9th term is 38. What is d?",
+     "options": [
+      "6",
+      "24",
+      "4",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "6d = 38 − 14 = 24.",
+     "mistake": "Divides by 9 − 3 + 1 = 7",
+     "check": "24/6"
+    },
+    {
+     "q": "For the same AP (t₃ = 14, t₉ = 38), what is the first term?",
+     "options": [
+      "10",
+      "14",
+      "2",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "a = 14 − 2d = 14 − 8.",
+     "mistake": "Subtracts 3d instead of 2d",
+     "check": "14-2*4"
+    },
+    {
+     "q": "How many 3-digit numbers are divisible by 7?",
+     "options": [
+      "128",
+      "127",
+      "142",
+      "129"
+     ],
+     "answer": 0,
+     "explain": "First 105, last 994; (994 − 105)/7 + 1.",
+     "steps": [
+      "889 ÷ 7 = 127",
+      "127 + 1 = 128"
+     ],
+     "mistake": "Forgets to add 1",
+     "check": "(994-105)/7+1"
+    },
+    {
+     "q": "How many 2-digit numbers are divisible by 3?",
+     "options": [
+      "33",
+      "30",
+      "29",
+      "31"
+     ],
+     "answer": 1,
+     "explain": "12 to 99: (99 − 12)/3 + 1 = 30.",
+     "mistake": "Starts the count at 10 or forgets the +1",
+     "check": "(99-12)/3+1"
+    },
+    {
+     "q": "The AP 5, 8, 11, 14, ... is written as tₙ = dn + c. What is c?",
+     "options": [
+      "5",
+      "3",
+      "2",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "tₙ = 5 + (n − 1)3 = 3n + 2.",
+     "mistake": "Uses the first term as the constant",
+     "check": "5-3"
+    },
+    {
+     "q": "Points (1, 5), (2, 8), (3, 11), (4, 14) are plotted. What is the slope of the line through them?",
+     "options": [
+      "5",
+      "1",
+      "14",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "Each step in n raises tₙ by 3.",
+     "mistake": "Uses the first term as the slope",
+     "check": "(14-5)/(4-1)"
+    },
+    {
+     "q": "Which sequence's points (n, tₙ) lie on a straight line?",
+     "options": [
+      "20, 17, 14, 11",
+      "1, 4, 9, 16",
+      "1, 2, 4, 8",
+      "1, 1, 2, 3"
+     ],
+     "answer": 0,
+     "explain": "It is an AP with d = −3; only APs give straight lines.",
+     "mistake": "Thinks any increasing sequence makes a line"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If I know the 3rd and 8th terms of an AP, how do I find d?\"",
+    "must": [
+     [
+      "subtract",
+      "difference"
+     ],
+     [
+      "divide",
+      "5",
+      "gap"
+     ],
+     [
+      "d",
+      "common difference"
+     ]
+    ],
+    "praise": "Spot on! Subtract the terms and divide by the gap in positions!",
+    "nudge": "How many steps of d are there between the 3rd and 8th terms?"
+   }
+  },
+  {
+   "id": "g9-maths-08-07",
+   "title": "Adding up 1 + 2 + 3 + ... + n",
+   "covers": [
+    "c8.6.1",
+    "c8.6.2",
+    "c8.6.3",
+    "c8.6.4",
+    "c8.6.5"
+   ],
+   "learn": {
+    "hook": "Add 1 to 100 in ten seconds? Write the sum forwards and backwards, and every pair makes 101!",
+    "points": [
+     "Write S = 1 + 2 + ... + n and also S = n + (n − 1) + ... + 1. Adding pairs, each pair is n + 1 and there are n pairs: 2S = n(n + 1). This idea appears in Aryabhata's work.",
+     "So Sₙ = n(n + 1)/2. Picture: two staircases of dots fit together into an n × (n + 1) rectangle.",
+     "The triangular numbers 1, 3, 6, 10, ... are exactly n(n + 1)/2.",
+     "A block sum is a difference: 51 + 52 + ... + 100 = S₁₀₀ − S₅₀ = 5050 − 1275 = 3775.",
+     "To find the smallest n with Sₙ > target, test n(n + 1)/2 near √(2 × target). Some numbers are sums of consecutive numbers: 15 = 7 + 8 = 4 + 5 + 6 = 1 + 2 + 3 + 4 + 5."
+    ],
+    "example": {
+     "q": "Find the smallest n for which 1 + 2 + ... + n exceeds 300.",
+     "steps": [
+      "√600 ≈ 24.5, so try n = 24: 24 × 25/2 = 300 (not more than 300)",
+      "n = 25: 25 × 26/2 = 325 > 300",
+      "Smallest n = 25"
+     ],
+     "answer": "25"
+    },
+    "reallife": "Stacks of pipes or cricket balls in a triangle pyramid at a shop have 1, 2, 3, ... per row: the total is a triangular number."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Sum it",
+     "items": [
+      {
+       "q": "1 + 2 + ... + 20",
+       "a": "210",
+       "check": "20*21/2"
+      },
+      {
+       "q": "1 + 2 + ... + 50",
+       "a": "1275",
+       "check": "50*51/2"
+      },
+      {
+       "q": "8th triangular number",
+       "a": "36",
+       "check": "8*9/2"
+      },
+      {
+       "q": "21 + 22 + ... + 40",
+       "a": "610",
+       "check": "40*41/2-20*21/2"
+      },
+      {
+       "q": "1 + 2 + ... + 1000",
+       "a": "500500",
+       "check": "1000*1001/2"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Pair it up",
+     "items": [
+      {
+       "text": "In 1 + 2 + ... + 100, each pair (1 + 100), (2 + 99), ... equals ___",
+       "answer": "101",
+       "options": [
+        "101",
+        "100",
+        "50"
+       ]
+      },
+      {
+       "text": "The dot picture of 2Sₙ is a rectangle of n by ___",
+       "answer": "n + 1",
+       "options": [
+        "n + 1",
+        "n",
+        "2n"
+       ]
+      },
+      {
+       "text": "9 as consecutive numbers: 4 + ___",
+       "answer": "5",
+       "options": [
+        "5",
+        "6",
+        "3"
+       ]
+      },
+      {
+       "text": "The 5th triangular number is ___",
+       "answer": "15",
+       "options": [
+        "15",
+        "10",
+        "25"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find 1 + 2 + 3 + ... + 60.",
+     "options": [
+      "3660",
+      "1830",
+      "1800",
+      "3600"
+     ],
+     "answer": 1,
+     "explain": "60 × 61 / 2.",
+     "mistake": "Forgets to divide by 2",
+     "check": "60*61/2"
+    },
+    {
+     "q": "When 1 + 2 + ... + n is written forwards and backwards, what does each column add up to?",
+     "options": [
+      "n",
+      "2n",
+      "n + 1",
+      "n − 1"
+     ],
+     "answer": 2,
+     "explain": "1 + n, 2 + (n − 1), ... all equal n + 1.",
+     "mistake": "Thinks the pairs sum to n"
+    },
+    {
+     "q": "Two staircases of dots, each 1 + 2 + ... + 7, fit together into a rectangle. What are its dimensions?",
+     "options": [
+      "7 by 7",
+      "8 by 8",
+      "7 by 14",
+      "7 by 8"
+     ],
+     "answer": 3,
+     "explain": "n by n + 1 = 7 by 8, which holds 56 dots = 2 × 28.",
+     "mistake": "Thinks the staircases make a square"
+    },
+    {
+     "q": "What is the 12th triangular number?",
+     "options": [
+      "78",
+      "66",
+      "144",
+      "91"
+     ],
+     "answer": 0,
+     "explain": "12 × 13 / 2 = 78.",
+     "mistake": "Uses n² instead",
+     "check": "12*13/2"
+    },
+    {
+     "q": "Find 31 + 32 + ... + 60.",
+     "options": [
+      "1830",
+      "1365",
+      "465",
+      "1395"
+     ],
+     "answer": 1,
+     "explain": "S₆₀ − S₃₀ = 1830 − 465.",
+     "steps": [
+      "S₆₀ = 1830",
+      "S₃₀ = 465",
+      "1830 − 465 = 1365"
+     ],
+     "mistake": "Subtracts S₃₁ instead of S₃₀",
+     "check": "60*61/2-30*31/2"
+    },
+    {
+     "q": "What is the smallest n such that 1 + 2 + ... + n is more than 200?",
+     "options": [
+      "19",
+      "14",
+      "20",
+      "21"
+     ],
+     "answer": 2,
+     "explain": "S₁₉ = 190, S₂₀ = 210.",
+     "steps": [
+      "S₁₉ = 19 × 20/2 = 190",
+      "S₂₀ = 210 > 200"
+     ],
+     "mistake": "Stops at a sum less than 200",
+     "check": "20"
+    },
+    {
+     "q": "Which is a way of writing 21 as a sum of consecutive natural numbers?",
+     "options": [
+      "5 + 7 + 9",
+      "10 + 12",
+      "3 + 4 + 5 + 6",
+      "6 + 7 + 8"
+     ],
+     "answer": 3,
+     "explain": "6 + 7 + 8 = 21. (3 + 4 + 5 + 6 = 18 and 5 + 7 + 9 skips numbers.)",
+     "mistake": "Uses numbers that are not consecutive"
+    },
+    {
+     "q": "Mr Rao gives 1 sweet on day 1, 2 on day 2, 3 on day 3, and so on. How many sweets in total by day 30?",
+     "options": [
+      "465",
+      "30",
+      "900",
+      "435"
+     ],
+     "answer": 0,
+     "explain": "30 × 31 / 2.",
+     "mistake": "Multiplies 30 by 30",
+     "check": "30*31/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can I add 1 to 100 so quickly?\"",
+    "must": [
+     [
+      "pair",
+      "pairs",
+      "forwards",
+      "backwards"
+     ],
+     [
+      "101",
+      "n + 1"
+     ],
+     [
+      "half",
+      "divide by 2",
+      "2"
+     ]
+    ],
+    "praise": "Superb! Pair the numbers to make 101 fifty times: 5050!",
+    "nudge": "What do 1 and 100 add to? How many such pairs are there?"
+   }
+  },
+  {
    "id": "g9-maths-08-03",
    "title": "Geometric progressions",
+   "covers": [
+    "c8.7.1",
+    "c8.7.2",
+    "c8.7.7"
+   ],
    "learn": {
     "hook": "A king once promised a wise man 1 grain of rice on the first chessboard square, 2 on the next, 4 on the next... By the last square it was more rice than the whole world had!",
     "points": [
@@ -741,6 +1659,680 @@
     ],
     "praise": "In an AP you add the same number each time; in a GP you multiply by the same number each time. 2, 4, 6, 8 adds 2, but 2, 4, 8, 16 doubles!",
     "nudge": "From 4 to the next term, did you add something or multiply by something?"
+   }
+  },
+  {
+   "id": "g9-maths-08-08",
+   "title": "More about GPs",
+   "covers": [
+    "c8.7.3",
+    "c8.7.4",
+    "c8.7.5",
+    "c8.7.6"
+   ],
+   "learn": {
+    "hook": "Multiply by −2 each time and the sequence jumps back and forth across zero!",
+    "points": [
+     "Recursive form of a GP: t₁ = a and tₙ = r × tₙ₋₁.",
+     "The ratio r can be greater than 1 (growth), between 0 and 1 (shrinking), negative (signs alternate) or even irrational, like √2: 1, √2, 2, 2√2, 4, ...",
+     "To test for a GP, check that each term ÷ the previous term gives the same r. To find which term equals k, solve a × rⁿ⁻¹ = k.",
+     "Three terms in a GP can be taken as a/r, a, ar. Their product is a³, which quickly gives a; then a sum condition gives r."
+    ],
+    "example": {
+     "q": "Three numbers in a GP have product 216 and sum 21. Find them.",
+     "steps": [
+      "Take a/r, a, ar: product a³ = 216, so a = 6",
+      "6/r + 6 + 6r = 21 gives 6r² − 15r + 6 = 0",
+      "2r² − 5r + 2 = 0, so r = 2 or 1/2",
+      "Numbers: 3, 6, 12"
+     ],
+     "answer": "3, 6, 12"
+    },
+    "reallife": "A savings scheme that doubles your money every 8 years makes a GP of amounts."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which kind of ratio?",
+     "buckets": [
+      "r > 1",
+      "0 < r < 1",
+      "r < 0"
+     ],
+     "items": [
+      [
+       "3, 6, 12, 24",
+       0
+      ],
+      [
+       "80, 40, 20, 10",
+       1
+      ],
+      [
+       "1, −3, 9, −27",
+       2
+      ],
+      [
+       "5, 15, 45",
+       0
+      ],
+      [
+       "100, 10, 1, 0.1",
+       1
+      ],
+      [
+       "2, −2, 2, −2",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "GP gym",
+     "items": [
+      {
+       "q": "t₁ = 3, tₙ = 2tₙ₋₁: t₅",
+       "a": "48",
+       "check": "3*2**4"
+      },
+      {
+       "q": "Which term of 2, 6, 18, ... is 486?",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "1, √2, 2, ...: t₇",
+       "a": "8",
+       "check": "2**3"
+      },
+      {
+       "q": "r of 81, −27, 9",
+       "a": "-1/3",
+       "check": "Fraction(-27,81)"
+      },
+      {
+       "q": "5, 10, 20: t₆",
+       "a": "160",
+       "check": "5*2**5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A GP has t₁ = 4 and tₙ = 3tₙ₋₁. What is t₄?",
+     "options": [
+      "36",
+      "108",
+      "13",
+      "324"
+     ],
+     "answer": 1,
+     "explain": "4, 12, 36, 108.",
+     "mistake": "Adds 3 instead of multiplying",
+     "check": "4*3**3"
+    },
+    {
+     "q": "What is the common ratio of 2, −6, 18, −54, ...?",
+     "options": [
+      "3",
+      "−1/3",
+      "−3",
+      "−4"
+     ],
+     "answer": 2,
+     "explain": "−6 ÷ 2 = −3.",
+     "mistake": "Ignores the alternating sign",
+     "check": "-6/2"
+    },
+    {
+     "q": "In the GP 1, √2, 2, 2√2, ..., what is the 9th term?",
+     "options": [
+      "8",
+      "9√2",
+      "32",
+      "16"
+     ],
+     "answer": 3,
+     "explain": "tₙ = (√2)ⁿ⁻¹ = (√2)⁸ = 2⁴.",
+     "steps": [
+      "(√2)⁸ = (√2²)⁴ = 2⁴ = 16"
+     ],
+     "mistake": "Uses n instead of n − 1 as the power",
+     "check": "2**4"
+    },
+    {
+     "q": "Which term of the GP 3, 6, 12, ... is 384?",
+     "options": [
+      "8th",
+      "7th",
+      "128th",
+      "9th"
+     ],
+     "answer": 0,
+     "explain": "3 × 2ⁿ⁻¹ = 384 gives 2ⁿ⁻¹ = 128 = 2⁷.",
+     "steps": [
+      "2ⁿ⁻¹ = 128",
+      "n − 1 = 7, n = 8"
+     ],
+     "mistake": "Forgets the n − 1"
+    },
+    {
+     "q": "Is 1, 3, 9, 26, ... a GP?",
+     "options": [
+      "Yes, r = 3",
+      "No, 26 ÷ 9 is not 3",
+      "Yes, r = 1/3",
+      "No, because it starts at 1"
+     ],
+     "answer": 1,
+     "explain": "3/1 = 3 and 9/3 = 3, but 26/9 ≈ 2.89.",
+     "mistake": "Checks only the first ratio"
+    },
+    {
+     "q": "A GP has ratio 1/2 and first term 64. What is t₅?",
+     "options": [
+      "8",
+      "2",
+      "4",
+      "32"
+     ],
+     "answer": 2,
+     "explain": "64 × (1/2)⁴ = 64/16.",
+     "mistake": "Uses the 4th power for t₄",
+     "check": "64*Fraction(1,2)**4"
+    },
+    {
+     "q": "Three terms of a GP have product 64. What is the middle term?",
+     "options": [
+      "8",
+      "16",
+      "64/3",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "(a/r) × a × (ar) = a³ = 64.",
+     "mistake": "Divides 64 by 3",
+     "check": "4"
+    },
+    {
+     "q": "Three terms a/r, a, ar of a GP have product 1000 and sum 35. What are they?",
+     "options": [
+      "5, 10, 20",
+      "10, 10, 15",
+      "2, 10, 23",
+      "5, 15, 15"
+     ],
+     "answer": 0,
+     "explain": "a = 10. Then 10/r + 10 + 10r = 35 gives 2r² − 5r + 2 = 0, r = 2.",
+     "steps": [
+      "a³ = 1000, a = 10",
+      "r = 2 (or 1/2)"
+     ],
+     "mistake": "Picks numbers with the right sum but not a GP"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I check if a sequence is a GP?\"",
+    "must": [
+     [
+      "divide",
+      "ratio"
+     ],
+     [
+      "same",
+      "constant",
+      "equal"
+     ],
+     [
+      "previous",
+      "each term"
+     ]
+    ],
+    "praise": "Great! Divide each term by the one before; if the ratio is always the same, it's a GP!",
+    "nudge": "What do you divide? What must be true about all the ratios?"
+   }
+  },
+  {
+   "id": "g9-maths-08-09",
+   "title": "Fractals: patterns inside patterns",
+   "covers": [
+    "c8.8.1",
+    "c8.8.2",
+    "c8.8.3"
+   ],
+   "learn": {
+    "hook": "Zoom into a cauliflower floret and you see a tiny cauliflower. That's a fractal!",
+    "points": [
+     "Sierpinski triangle: start with a shaded triangle, join the midpoints and remove the middle one; repeat in each shaded triangle.",
+     "After n steps there are 3ⁿ shaded triangles, and the shaded area is (3/4)ⁿ of the original: both are GPs.",
+     "Sierpinski carpet: split a square into 9 and remove the centre; repeat. After n steps there are 8ⁿ squares and the area left is (8/9)ⁿ, which gets closer and closer to 0.",
+     "Fractals in nature: tree branches, ferns, cauliflower and romanesco, snowflakes, river networks and coastlines repeat similar shapes at smaller scales."
+    ],
+    "example": {
+     "q": "After 3 steps of the Sierpinski triangle, how many shaded triangles are there and what fraction of the area is shaded?",
+     "steps": [
+      "Count: 3³ = 27",
+      "Area: (3/4)³ = 27/64"
+     ],
+     "answer": "27 triangles, 27/64 of the area"
+    },
+    "reallife": "Designers use fractal patterns in rangoli, textiles and even mobile phone antennas."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Fractal counts",
+     "items": [
+      {
+       "q": "Sierpinski triangle, step 2: triangles",
+       "a": "9",
+       "check": "3**2"
+      },
+      {
+       "q": "Sierpinski triangle, step 4: triangles",
+       "a": "81",
+       "check": "3**4"
+      },
+      {
+       "q": "Triangle step 2: shaded fraction",
+       "a": "9/16",
+       "check": "Fraction(3,4)**2"
+      },
+      {
+       "q": "Carpet step 2: squares",
+       "a": "64",
+       "check": "8**2"
+      },
+      {
+       "q": "Carpet step 1: area left",
+       "a": "8/9",
+       "check": "Fraction(8,9)"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Fractal-like in nature?",
+     "buckets": [
+      "Fractal-like",
+      "Not fractal-like"
+     ],
+     "items": [
+      [
+       "Fern leaf",
+       0
+      ],
+      [
+       "Cauliflower",
+       0
+      ],
+      [
+       "Coastline",
+       0
+      ],
+      [
+       "Snowflake",
+       0
+      ],
+      [
+       "Smooth marble ball",
+       1
+      ],
+      [
+       "Plain brick",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the Sierpinski triangle, how many shaded triangles are there after 5 steps?",
+     "options": [
+      "15",
+      "243",
+      "125",
+      "81"
+     ],
+     "answer": 1,
+     "explain": "3⁵ = 243.",
+     "mistake": "Multiplies 3 × 5",
+     "check": "3**5"
+    },
+    {
+     "q": "What fraction of the original area is shaded after 2 steps of the Sierpinski triangle?",
+     "options": [
+      "1/2",
+      "3/8",
+      "9/16",
+      "1/4"
+     ],
+     "answer": 2,
+     "explain": "(3/4)² = 9/16.",
+     "mistake": "Subtracts 1/4 twice",
+     "check": "Fraction(9,16)"
+    },
+    {
+     "q": "Why does the shaded area of the Sierpinski triangle form a GP?",
+     "options": [
+      "Each step removes the same fixed area",
+      "Each step adds 3 triangles",
+      "The area doubles each time",
+      "Each step keeps 3/4 of the previous shaded area"
+     ],
+     "answer": 3,
+     "explain": "Multiplying by 3/4 each time is a common ratio.",
+     "mistake": "Thinks a fixed amount is removed (an AP)"
+    },
+    {
+     "q": "In the Sierpinski carpet, how many small squares remain after 3 steps?",
+     "options": [
+      "512",
+      "24",
+      "729",
+      "64"
+     ],
+     "answer": 0,
+     "explain": "8³ = 512.",
+     "mistake": "Uses 9 instead of 8",
+     "check": "8**3"
+    },
+    {
+     "q": "What fraction of the carpet's area remains after 2 steps?",
+     "options": [
+      "8/9",
+      "64/81",
+      "16/81",
+      "1/81"
+     ],
+     "answer": 1,
+     "explain": "(8/9)² = 64/81.",
+     "mistake": "Uses only one step",
+     "check": "Fraction(64,81)"
+    },
+    {
+     "q": "What happens to the area of the Sierpinski carpet as the steps go on forever?",
+     "options": [
+      "It stays the same",
+      "It grows without limit",
+      "It gets closer and closer to 0",
+      "It becomes exactly 8/9"
+     ],
+     "answer": 2,
+     "explain": "(8/9)ⁿ shrinks towards 0 because 8/9 < 1.",
+     "mistake": "Thinks a ratio close to 1 means no shrinking"
+    },
+    {
+     "q": "Which of these is a fractal found in nature?",
+     "options": [
+      "A cricket ball",
+      "A brick",
+      "A coin",
+      "The branching of a tree"
+     ],
+     "answer": 3,
+     "explain": "Branches split into smaller branches that look like the whole.",
+     "mistake": "Confuses regular smooth shapes with fractals"
+    },
+    {
+     "q": "After how many steps of the Sierpinski triangle are there 729 shaded triangles?",
+     "options": [
+      "6",
+      "9",
+      "243",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "3⁶ = 729.",
+     "mistake": "Divides 729 by 3",
+     "check": "6"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"What makes the Sierpinski triangle a fractal?\"",
+    "must": [
+     [
+      "repeat",
+      "repeats",
+      "again"
+     ],
+     [
+      "smaller",
+      "small",
+      "same shape",
+      "itself"
+     ],
+     [
+      "3",
+      "three",
+      "3/4"
+     ]
+    ],
+    "praise": "Wonderful! It repeats the same pattern at smaller and smaller sizes!",
+    "nudge": "What happens inside each small triangle? Does the pattern repeat?"
+   }
+  },
+  {
+   "id": "g9-maths-08-10",
+   "title": "Graphs of GPs and the bouncing ball",
+   "covers": [
+    "c8.9.1",
+    "c8.9.2"
+   ],
+   "learn": {
+    "hook": "Drop a ball from 16 m: it bounces to 8, then 4, then 2... Does it ever stop travelling?",
+    "points": [
+     "Plotting (n, tₙ) for a GP gives points on a curve, not a straight line.",
+     "With r > 1 the curve shoots up faster and faster; with 0 < r < 1 it drops quickly and then flattens out towards 0.",
+     "Bouncing ball: if a ball dropped from height h bounces to r × the height each time, the bounce heights hr, hr², hr³, ... form a GP.",
+     "Total distance = first drop + 2 × (sum of bounce heights), because the ball goes up and comes down each bounce. For h = 16, r = 1/2: bounce heights 8 + 4 + 2 + ... approach 16, so the total approaches 16 + 32 = 48 m."
+    ],
+    "example": {
+     "q": "A ball is dropped from 16 m and bounces back to half its height each time. How far has it travelled when it hits the ground for the 3rd time?",
+     "steps": [
+      "Drop: 16",
+      "Up and down 8: 16",
+      "Up and down 4: 8",
+      "Total = 16 + 16 + 8 = 40 m"
+     ],
+     "answer": "40 m"
+    },
+    "reallife": "Sports scientists test cricket and tennis balls by measuring how high they bounce: a fixed bounce ratio gives a GP."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Graphs and bounces",
+     "items": [
+      [
+       "The points of 1, 2, 4, 8, 16 lie on a straight line.",
+       false,
+       "They lie on a curve that bends upward."
+      ],
+      [
+       "A GP with r = 1/2 gets close to 0 but never reaches it.",
+       true,
+       "Halving a positive number never gives 0."
+      ],
+      [
+       "A ball's bounce heights with a fixed ratio form an AP.",
+       false,
+       "Multiplying by a fixed ratio gives a GP."
+      ],
+      [
+       "Total distance counts each bounce height twice.",
+       true,
+       "Up and back down."
+      ],
+      [
+       "The graph of an AP is a curve.",
+       false,
+       "An AP gives a straight line."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Bounce maths (h = 27, r = 1/3)",
+     "items": [
+      {
+       "q": "Height after 1st bounce",
+       "a": "9",
+       "check": "27/3"
+      },
+      {
+       "q": "Height after 2nd bounce",
+       "a": "3",
+       "check": "27/9"
+      },
+      {
+       "q": "Height after 3rd bounce",
+       "a": "1",
+       "check": "27/27"
+      },
+      {
+       "q": "Distance until 2nd landing",
+       "a": "45",
+       "check": "27+2*9"
+      },
+      {
+       "q": "Distance until 3rd landing",
+       "a": "51",
+       "check": "27+2*9+2*3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which sequence's graph of (n, tₙ) is a curve that rises faster and faster?",
+     "options": [
+      "3, 6, 9, 12",
+      "3, 9, 27, 81",
+      "81, 27, 9, 3",
+      "5, 5, 5, 5"
+     ],
+     "answer": 1,
+     "explain": "A GP with r > 1 grows faster each step.",
+     "mistake": "Thinks an AP rises faster"
+    },
+    {
+     "q": "The graph of 100, 50, 25, 12.5, ... :",
+     "options": [
+      "is a straight falling line",
+      "rises",
+      "drops quickly and flattens out towards 0",
+      "crosses below 0"
+     ],
+     "answer": 2,
+     "explain": "A GP with 0 < r < 1 shrinks by a factor each time.",
+     "mistake": "Expects the terms to become negative"
+    },
+    {
+     "q": "A ball dropped from 20 m bounces to 3/5 of its height each time. How high does it rise after the 2nd bounce?",
+     "options": [
+      "12 m",
+      "8 m",
+      "4.32 m",
+      "7.2 m"
+     ],
+     "answer": 3,
+     "explain": "20 × (3/5)² = 20 × 9/25.",
+     "mistake": "Uses only one bounce",
+     "check": "20*Fraction(9,25)"
+    },
+    {
+     "q": "A ball dropped from 10 m bounces to half its height each time. How far has it travelled when it lands the 2nd time?",
+     "options": [
+      "20 m",
+      "15 m",
+      "25 m",
+      "10 m"
+     ],
+     "answer": 0,
+     "explain": "10 down, then 5 up and 5 down.",
+     "steps": [
+      "10 + 2 × 5 = 20 m"
+     ],
+     "mistake": "Counts the bounce only once",
+     "check": "10+2*5"
+    },
+    {
+     "q": "For the same ball (10 m, half each time), the bounce heights 5 + 2.5 + 1.25 + ... approach which total?",
+     "options": [
+      "5 m",
+      "10 m",
+      "20 m",
+      "They grow forever"
+     ],
+     "answer": 1,
+     "explain": "Each half fills half of what is left: the sum approaches 10.",
+     "mistake": "Thinks infinitely many bounces mean infinite distance",
+     "check": "10"
+    },
+    {
+     "q": "So what total distance does that ball approach if it bounces forever?",
+     "options": [
+      "20 m",
+      "10 m",
+      "30 m",
+      "Infinite"
+     ],
+     "answer": 2,
+     "explain": "10 (first drop) + 2 × 10 (all ups and downs) = 30 m.",
+     "mistake": "Forgets to double the bounces",
+     "check": "10+2*10"
+    },
+    {
+     "q": "A ball dropped from 81 m rebounds to 1/3 of the height each time. After which bounce does it first rise less than 2 m?",
+     "options": [
+      "3rd",
+      "2nd",
+      "5th",
+      "4th"
+     ],
+     "answer": 3,
+     "explain": "Heights: 27, 9, 3, 1. The 4th bounce is the first below 2 m.",
+     "steps": [
+      "81/3 = 27, 9, 3, 1"
+     ],
+     "mistake": "Stops at 3 m"
+    },
+    {
+     "q": "Why does the graph of a GP never look like a straight line (for r ≠ 1)?",
+     "options": [
+      "The terms change by multiplying, so the gaps between them change",
+      "Because GPs are always negative",
+      "Because GPs have no first term",
+      "Because the points are too far apart"
+     ],
+     "answer": 0,
+     "explain": "In a line, equal steps in n give equal gaps; in a GP the gaps grow or shrink.",
+     "mistake": "Thinks any sequence makes a line"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I find the total distance a bouncing ball travels?\"",
+    "must": [
+     [
+      "drop",
+      "first"
+     ],
+     [
+      "twice",
+      "double",
+      "2",
+      "up and down"
+     ],
+     [
+      "ratio",
+      "gp",
+      "multiply"
+     ]
+    ],
+    "praise": "Perfect! First drop, plus each bounce height twice!",
+    "nudge": "Does the ball travel each bounce height once or twice? Don't forget the first drop!"
    }
   }
  ]

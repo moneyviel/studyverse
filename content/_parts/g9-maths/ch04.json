@@ -4,8 +4,244 @@
  "emoji": "🧩",
  "topics": [
   {
+   "id": "g9-maths-04-04",
+   "title": "Seeing identities as areas",
+   "covers": [
+    "c4.1.1",
+    "c4.2.1",
+    "c4.2.2",
+    "c4.2.3",
+    "c4.2.4"
+   ],
+   "learn": {
+    "hook": "4² − 3² = 7, 5² − 4² = 9, 6² − 5² = 11... odd numbers keep popping out. Why? Draw squares and see!",
+    "points": [
+     "Number patterns hint at identities: (n + 1)² − n² is always 2n + 1, the odd number n + (n + 1).",
+     "(a + b)²: a square of side a + b splits into an a × a square, a b × b square and two a × b rectangles, so it equals a² + 2ab + b².",
+     "(a − b)²: from the a × a square cut off two a × b strips (they overlap in a b × b square, which gets removed twice), so add b² back: a² − 2ab + b².",
+     "(a + b)(a − b): cut a b × b square from an a × a square and rearrange the L-shape into an (a + b) × (a − b) rectangle, so it equals a² − b².",
+     "(x + a)(x + b): a rectangle of sides x + a and x + b splits into x², ax, bx and ab, so it equals x² + (a + b)x + ab."
+    ],
+    "example": {
+     "q": "A square of side (x + 3) is split into pieces. List their areas and the total.",
+     "steps": [
+      "One x × x square: x²",
+      "Two x × 3 rectangles: 3x + 3x = 6x",
+      "One 3 × 3 square: 9",
+      "Total: x² + 6x + 9"
+     ],
+     "answer": "x² + 6x + 9"
+    },
+    "reallife": "Tilers covering a square floor with a border find the tile count using exactly these area splits."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Area pieces",
+     "pairs": [
+      [
+       "(a + b)²",
+       "a² + 2ab + b²"
+      ],
+      [
+       "(a − b)²",
+       "a² − 2ab + b²"
+      ],
+      [
+       "(a + b)(a − b)",
+       "a² − b²"
+      ],
+      [
+       "(x + 2)(x + 5)",
+       "x² + 7x + 10"
+      ],
+      [
+       "(n + 1)² − n²",
+       "2n + 1"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Area model check",
+     "items": [
+      [
+       "A square of side a + b contains two a × b rectangles.",
+       true,
+       "That is where 2ab comes from."
+      ],
+      [
+       "The area of an (x + 4) × (x + 1) rectangle is x² + 4x + 4.",
+       false,
+       "It is x² + 5x + 4."
+      ],
+      [
+       "10² − 9² = 19.",
+       true,
+       "2 × 9 + 1 = 19."
+      ],
+      [
+       "In the (a − b)² model, the b × b corner is removed twice, so b² is added back.",
+       true,
+       "That gives a² − 2ab + b²."
+      ],
+      [
+       "(a + b)² = a² + b².",
+       false,
+       "The two rectangles 2ab are missing."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Using the pattern (n + 1)² − n² = 2n + 1, what is 51² − 50²?",
+     "options": [
+      "101",
+      "1",
+      "100",
+      "2601"
+     ],
+     "answer": 0,
+     "explain": "2 × 50 + 1 = 101.",
+     "steps": [
+      "n = 50",
+      "2(50) + 1 = 101"
+     ],
+     "mistake": "Thinks consecutive squares differ by 1",
+     "check": "51**2-50**2"
+    },
+    {
+     "q": "A square of side (a + b) is cut into 4 pieces. Which list gives their areas?",
+     "options": [
+      "a², b², 2a, 2b",
+      "a², b², ab, ab",
+      "a², b²",
+      "a, b, ab, ab"
+     ],
+     "answer": 1,
+     "explain": "A side split into a and b gives an a × a square, a b × b square and two a × b rectangles.",
+     "mistake": "Leaves out the two rectangles"
+    },
+    {
+     "q": "In the area model of (a − b)² with a = 12 cm and b = 3 cm, what is the area of the square that is left?",
+     "options": [
+      "135 cm²",
+      "153 cm²",
+      "81 cm²",
+      "72 cm²"
+     ],
+     "answer": 2,
+     "explain": "(12 − 3)² = 9² = 81, which equals 144 − 72 + 9.",
+     "steps": [
+      "a² − 2ab + b² = 144 − 72 + 9",
+      "= 81"
+     ],
+     "mistake": "Subtracts 2ab but forgets to add b² back",
+     "check": "(12-3)**2"
+    },
+    {
+     "q": "From a 10 × 10 square, a 4 × 4 corner is cut away. The L-shape is rearranged into a rectangle. What are its sides?",
+     "options": [
+      "10 and 4",
+      "16 and 6",
+      "14 and 4",
+      "14 and 6"
+     ],
+     "answer": 3,
+     "explain": "The L-shape rearranges into (a + b) × (a − b) = 14 × 6 = 84 = 100 − 16.",
+     "steps": [
+      "a + b = 14",
+      "a − b = 6"
+     ],
+     "mistake": "Uses a and b as the sides"
+    },
+    {
+     "q": "What is the area of the L-shape left when a 4 × 4 square is cut from a 10 × 10 square?",
+     "options": [
+      "84",
+      "96",
+      "36",
+      "16"
+     ],
+     "answer": 0,
+     "explain": "100 − 16 = 84, the same as 14 × 6.",
+     "mistake": "Subtracts the side lengths and squares",
+     "check": "10**2-4**2"
+    },
+    {
+     "q": "A rectangle has sides (x + 3) and (x + 5). What is its area?",
+     "options": [
+      "x² + 15x + 8",
+      "x² + 8x + 15",
+      "x² + 15",
+      "2x + 8"
+     ],
+     "answer": 1,
+     "explain": "The pieces are x², 3x, 5x and 15. 3x + 5x = 8x.",
+     "steps": [
+      "x² + 5x + 3x + 15",
+      "= x² + 8x + 15"
+     ],
+     "mistake": "Multiplies only the first terms and the last terms"
+    },
+    {
+     "q": "In the area model of (x + a)(x + b), which piece gives the constant term ab?",
+     "options": [
+      "The x × x square",
+      "The x × a rectangle",
+      "The small a × b rectangle",
+      "The whole rectangle"
+     ],
+     "answer": 2,
+     "explain": "The rectangle made from the parts a and b has area ab.",
+     "mistake": "Thinks the constant comes from the big square"
+    },
+    {
+     "q": "Which identity does the pattern 3² − 2² = 5, 4² − 3² = 7, 5² − 4² = 9 come from?",
+     "options": [
+      "(n + 1)² = n² + 1",
+      "n² − (n − 1)² = 2n + 1",
+      "(n + 1)² − n² = n + 1",
+      "(n + 1)² − n² = 2n + 1"
+     ],
+     "answer": 3,
+     "explain": "The difference of consecutive squares is always the next odd number 2n + 1.",
+     "mistake": "Forgets the 2n part of the expansion"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"Why is (a + b)² not just a² + b²? Show me with a picture!\"",
+    "must": [
+     [
+      "square",
+      "area"
+     ],
+     [
+      "rectangle",
+      "rectangles",
+      "2ab"
+     ],
+     [
+      "two",
+      "2",
+      "twice"
+     ]
+    ],
+    "praise": "Lovely! The big square has two extra a × b rectangles, so 2ab!",
+    "nudge": "Draw a square of side a + b. What pieces do you see apart from a² and b²?"
+   }
+  },
+  {
    "id": "g9-maths-04-01",
    "title": "Square and product identities",
+   "covers": [
+    "c4.1.2",
+    "c4.1.3",
+    "c4.1.4",
+    "c4.2.5",
+    "c4.6.4"
+   ],
    "learn": {
     "hook": "Can you find 103 × 103 in your head in five seconds? With the right identity, you can!",
     "points": [
@@ -254,8 +490,463 @@
    }
   },
   {
+   "id": "g9-maths-04-03",
+   "title": "Factorisation using identities",
+   "covers": [
+    "c4.3.1",
+    "c4.3.2",
+    "c4.3.3",
+    "c4.6.1",
+    "c4.9.1"
+   ],
+   "learn": {
+    "hook": "Expanding is like opening a gift box; factorising is packing it back. Identities show you how the box was folded!",
+    "points": [
+     "To factorise means to write an expression as a product of simpler expressions.",
+     "Always take out a common factor first: 3x² − 75 = 3(x² − 25).",
+     "Look for patterns: a² − b² = (a − b)(a + b); a² + 2ab + b² = (a + b)²; a² − 2ab + b² = (a − b)².",
+     "For x² + px + q, find two numbers with sum p and product q: x² + 7x + 12 = (x + 3)(x + 4).",
+     "a³ + b³ and a³ − b³ have their own factor forms. Always check by expanding your answer."
+    ],
+    "example": {
+     "q": "Factorise 4x² − 12x + 9.",
+     "steps": [
+      "4x² = (2x)² and 9 = 3²",
+      "Middle term: 2 × 2x × 3 = 12x, with a minus sign",
+      "So it matches a² − 2ab + b² with a = 2x, b = 3",
+      "4x² − 12x + 9 = (2x − 3)²"
+     ],
+     "answer": "(2x − 3)²"
+    },
+    "reallife": "If a rectangular rangoli has area x² + 9x + 20, factorising tells you possible side lengths: (x + 4) and (x + 5)."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match each expression with its factors",
+     "pairs": [
+      [
+       "x² − 49",
+       "(x − 7)(x + 7)"
+      ],
+      [
+       "x² + 10x + 25",
+       "(x + 5)²"
+      ],
+      [
+       "x² − 6x + 9",
+       "(x − 3)²"
+      ],
+      [
+       "x² + 5x + 6",
+       "(x + 2)(x + 3)"
+      ],
+      [
+       "x³ + 8",
+       "(x + 2)(x² − 2x + 4)"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Factorise 3x² − 75",
+     "prompt": "Put the steps in order",
+     "items": [
+      "Take out the common factor 3: 3(x² − 25)",
+      "Spot a difference of squares: x² − 5²",
+      "Use a² − b² = (a − b)(a + b)",
+      "Write the answer 3(x − 5)(x + 5)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Factorise 9y² − 16.",
+     "options": [
+      "(3y − 4)²",
+      "(9y − 4)(y + 4)",
+      "(3y − 4)(3y + 4)",
+      "(3y − 8)(3y + 2)"
+     ],
+     "answer": 2,
+     "explain": "9y² − 16 = (3y)² − 4², a difference of squares.",
+     "mistake": "Writes a difference of squares as a perfect square"
+    },
+    {
+     "q": "Factorise x² + 8x + 16.",
+     "options": [
+      "(x + 4)²",
+      "(x + 8)(x + 2)",
+      "(x − 4)²",
+      "(x + 16)(x + 1)"
+     ],
+     "answer": 0,
+     "explain": "x² + 2(x)(4) + 4² = (x + 4)².",
+     "mistake": "Finds numbers with product 16 but ignores the sum 8"
+    },
+    {
+     "q": "Factorise x² − 7x + 12.",
+     "options": [
+      "(x + 3)(x + 4)",
+      "(x − 2)(x − 6)",
+      "(x − 3)(x − 4)",
+      "(x − 12)(x + 1)"
+     ],
+     "answer": 2,
+     "explain": "We need two numbers with sum −7 and product 12: −3 and −4.",
+     "steps": [
+      "Product 12, sum −7",
+      "−3 × −4 = 12, −3 + −4 = −7",
+      "(x − 3)(x − 4)"
+     ],
+     "mistake": "Uses + signs even though the middle term is negative"
+    },
+    {
+     "q": "Factorise 2x² − 18 completely.",
+     "options": [
+      "2(x² − 9)",
+      "(2x − 3)(x + 6)",
+      "2(x − 3)²",
+      "2(x − 3)(x + 3)"
+     ],
+     "answer": 3,
+     "explain": "Take out 2 to get 2(x² − 9), then x² − 9 = (x − 3)(x + 3).",
+     "mistake": "Stops after taking out the common factor"
+    },
+    {
+     "q": "Use factorisation to find 87² − 13².",
+     "options": [
+      "5476",
+      "7400",
+      "10000",
+      "7000"
+     ],
+     "answer": 1,
+     "explain": "87² − 13² = (87 + 13)(87 − 13) = 100 × 74 = 7400.",
+     "steps": [
+      "a + b = 100",
+      "a − b = 74",
+      "100 × 74 = 7400"
+     ],
+     "mistake": "Computes (87 − 13)² = 5476 instead",
+     "check": "87**2-13**2"
+    },
+    {
+     "q": "Factorise x² + x − 20.",
+     "options": [
+      "(x + 5)(x − 4)",
+      "(x − 5)(x + 4)",
+      "(x + 10)(x − 2)",
+      "(x + 20)(x − 1)"
+     ],
+     "answer": 0,
+     "explain": "Two numbers with product −20 and sum +1 are 5 and −4.",
+     "steps": [
+      "5 × (−4) = −20",
+      "5 + (−4) = 1"
+     ],
+     "mistake": "Puts the signs the wrong way round, giving a sum of −1"
+    },
+    {
+     "q": "Factorise 27a³ − 8.",
+     "options": [
+      "(3a − 2)(9a² − 6a + 4)",
+      "(3a − 2)(9a² + 6a + 4)",
+      "(3a − 2)³",
+      "(27a − 8)(a² + 1)"
+     ],
+     "answer": 1,
+     "explain": "27a³ − 8 = (3a)³ − 2³ = (3a − 2)((3a)² + (3a)(2) + 2²) = (3a − 2)(9a² + 6a + 4).",
+     "mistake": "Uses a minus sign in the second bracket, mixing it up with a³ + b³"
+    },
+    {
+     "q": "A rectangular rangoli has area x² + 9x + 20 square units. One side is (x + 4). What is the other side?",
+     "options": [
+      "(x + 16)",
+      "(x − 5)",
+      "(x + 9)",
+      "(x + 5)"
+     ],
+     "answer": 3,
+     "explain": "x² + 9x + 20 = (x + 4)(x + 5), since 4 + 5 = 9 and 4 × 5 = 20.",
+     "mistake": "Subtracts 4 from 20 instead of dividing, or uses the coefficient 9"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu stares at x² − 49: \"How do I break this into factors? Where do I start?\"",
+    "must": [
+     [
+      "common factor",
+      "take out",
+      "common"
+     ],
+     [
+      "pattern",
+      "identity",
+      "difference of squares",
+      "a² − b²"
+     ],
+     [
+      "check",
+      "multiply back",
+      "expand"
+     ]
+    ],
+    "praise": "First take out anything common, then match a pattern like a² − b², and finally multiply back to check. x² − 49 = (x − 7)(x + 7)!",
+    "nudge": "Is 49 a square number? Which identity has a minus sign between two squares?"
+   }
+  },
+  {
+   "id": "g9-maths-04-05",
+   "title": "Fraction squares, three-term squares and reciprocals",
+   "covers": [
+    "c4.3.4",
+    "c4.4.2",
+    "c4.9.3"
+   ],
+   "learn": {
+    "hook": "x + 1/x = 3? Then x² + 1/x² is exactly 7, and you never need to know x!",
+    "points": [
+     "Perfect squares can have fractional coefficients: x² + x + 1/4 = (x + 1/2)² because 2 × x × 1/2 = x.",
+     "A six-term expression may be a three-term square: x² + 4y² + 9z² + 4xy + 12yz + 6zx = (x + 2y + 3z)². Find the square roots of the squared terms and check the cross terms.",
+     "(x + 1/x)² = x² + 2 + 1/x², so x² + 1/x² = (x + 1/x)² − 2. Similarly x² + 1/x² = (x − 1/x)² + 2.",
+     "'A number plus its reciprocal is k' gives x + 1/x = k, which becomes the quadratic x² − kx + 1 = 0 after multiplying by x."
+    ],
+    "example": {
+     "q": "A number plus its reciprocal is 10/3. Find the number.",
+     "steps": [
+      "x + 1/x = 10/3",
+      "Multiply by 3x: 3x² + 3 = 10x",
+      "3x² − 10x + 3 = 0",
+      "(3x − 1)(x − 3) = 0, so x = 3 or 1/3"
+     ],
+     "answer": "3 or 1/3"
+    },
+    "reallife": "Engineers simplify formulas with fractions by spotting perfect squares, just as you will here."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Complete the square",
+     "items": [
+      {
+       "text": "x² + x + ___ = (x + 1/2)²",
+       "answer": "1/4",
+       "options": [
+        "1/4",
+        "1/2",
+        "1"
+       ]
+      },
+      {
+       "text": "x² − (2/3)x + 1/9 = (x − ___)²",
+       "answer": "1/3",
+       "options": [
+        "1/3",
+        "2/3",
+        "1/9"
+       ]
+      },
+      {
+       "text": "(a + b + c)² has ___ terms when expanded",
+       "answer": "6",
+       "options": [
+        "6",
+        "4",
+        "9"
+       ]
+      },
+      {
+       "text": "If x + 1/x = 4, then x² + 1/x² = ___",
+       "answer": "14",
+       "options": [
+        "14",
+        "16",
+        "18"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Reciprocal rush",
+     "items": [
+      {
+       "q": "x + 1/x = 3, find x² + 1/x²",
+       "a": "7",
+       "check": "3**2-2"
+      },
+      {
+       "q": "x + 1/x = 5, find x² + 1/x²",
+       "a": "23",
+       "check": "5**2-2"
+      },
+      {
+       "q": "x − 1/x = 2, find x² + 1/x²",
+       "a": "6",
+       "check": "2**2+2"
+      },
+      {
+       "q": "x − 1/x = 4, find x² + 1/x²",
+       "a": "18",
+       "check": "4**2+2"
+      },
+      {
+       "q": "x + 1/x = 6, find x² + 1/x²",
+       "a": "34",
+       "check": "6**2-2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Factorise x² + (2/3)x + 1/9.",
+     "options": [
+      "(x + 1/3)²",
+      "(x + 1/9)²",
+      "(x + 2/3)²",
+      "(x − 1/3)²"
+     ],
+     "answer": 0,
+     "explain": "(1/3)² = 1/9 and 2 × x × 1/3 = (2/3)x.",
+     "mistake": "Takes the square root of the middle coefficient"
+    },
+    {
+     "q": "Expand (y/2 − 2)².",
+     "options": [
+      "y²/4 − y + 4",
+      "y²/4 − 2y + 4",
+      "y²/2 − 2y + 4",
+      "y²/4 + 4"
+     ],
+     "answer": 1,
+     "explain": "(y/2)² = y²/4, 2 × (y/2) × 2 = 2y, and 2² = 4.",
+     "mistake": "Halves the middle term twice"
+    },
+    {
+     "q": "Which expression equals (a + 2b + c)²?",
+     "options": [
+      "a² + 2b² + c² + 2ab + 2bc + 2ca",
+      "a² + 4b² + c²",
+      "a² + 4b² + c² + 4ab + 4bc + 2ca",
+      "a² + 4b² + c² + 2ab + 2bc + ca"
+     ],
+     "answer": 2,
+     "explain": "Square each term and add twice each product: 2(a)(2b) = 4ab, 2(2b)(c) = 4bc, 2(c)(a) = 2ca.",
+     "mistake": "Forgets to square the coefficient 2 in 2b"
+    },
+    {
+     "q": "Factorise 4x² + y² + 9z² + 4xy + 6yz + 12zx.",
+     "options": [
+      "(4x + y + 9z)²",
+      "(2x + y + 9z)²",
+      "(2x + 3y + z)²",
+      "(2x + y + 3z)²"
+     ],
+     "answer": 3,
+     "explain": "Square roots of the squares are 2x, y, 3z. Check: 2(2x)(y) = 4xy, 2(y)(3z) = 6yz, 2(3z)(2x) = 12zx.",
+     "mistake": "Uses the squared coefficients instead of their square roots"
+    },
+    {
+     "q": "If x + 1/x = 7, find x² + 1/x².",
+     "options": [
+      "47",
+      "49",
+      "51",
+      "45"
+     ],
+     "answer": 0,
+     "explain": "x² + 1/x² = 7² − 2.",
+     "steps": [
+      "49 − 2 = 47"
+     ],
+     "mistake": "Forgets to subtract 2, or adds it",
+     "check": "7**2-2"
+    },
+    {
+     "q": "If x − 1/x = 5, find x² + 1/x².",
+     "options": [
+      "23",
+      "27",
+      "25",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "(x − 1/x)² = x² − 2 + 1/x², so x² + 1/x² = 25 + 2.",
+     "steps": [
+      "25 + 2 = 27"
+     ],
+     "mistake": "Subtracts 2 instead of adding",
+     "check": "5**2+2"
+    },
+    {
+     "q": "A number plus its reciprocal equals 5/2. Which numbers can it be?",
+     "options": [
+      "5 or 1/5",
+      "5/2 only",
+      "2 or 1/2",
+      "1 or 2"
+     ],
+     "answer": 2,
+     "explain": "x + 1/x = 5/2 gives 2x² − 5x + 2 = 0 = (2x − 1)(x − 2).",
+     "steps": [
+      "2x² − 5x + 2 = 0",
+      "(2x − 1)(x − 2) = 0"
+     ],
+     "mistake": "Takes the given sum as the number"
+    },
+    {
+     "q": "If a + b + c = 10 and a² + b² + c² = 38, find ab + bc + ca.",
+     "options": [
+      "62",
+      "28",
+      "48",
+      "31"
+     ],
+     "answer": 3,
+     "explain": "100 = 38 + 2(ab + bc + ca), so 2(ab + bc + ca) = 62.",
+     "steps": [
+      "(a + b + c)² = 100",
+      "2(ab + bc + ca) = 100 − 38 = 62",
+      "ab + bc + ca = 31"
+     ],
+     "mistake": "Forgets to halve",
+     "check": "(100-38)/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"If x + 1/x = 3, how can I find x² + 1/x² without finding x?\"",
+    "must": [
+     [
+      "square",
+      "squaring"
+     ],
+     [
+      "2",
+      "two",
+      "subtract"
+     ],
+     [
+      "7",
+      "seven"
+     ]
+    ],
+    "praise": "Clever! Square both sides and subtract 2 to get 7!",
+    "nudge": "What happens if you square x + 1/x? What extra number appears?"
+   }
+  },
+  {
    "id": "g9-maths-04-02",
    "title": "Cube identities and three terms",
+   "covers": [
+    "c4.4.1",
+    "c4.4.4",
+    "c4.4.6",
+    "c4.7.1",
+    "c4.7.2",
+    "c4.7.4"
+   ],
    "learn": {
     "hook": "11³ = 1331 and 101³ = 1030301. Patterns like these come straight from the cube identities!",
     "points": [
@@ -512,203 +1203,880 @@
    }
   },
   {
-   "id": "g9-maths-04-03",
-   "title": "Factorisation using identities",
+   "id": "g9-maths-04-06",
+   "title": "More cube identities and testing identities",
+   "covers": [
+    "c4.4.3",
+    "c4.4.5",
+    "c4.4.7",
+    "c4.7.3",
+    "c4.9.5"
+   ],
    "learn": {
-    "hook": "Expanding is like opening a gift box; factorising is packing it back. Identities show you how the box was folded!",
+    "hook": "Is (a + b)³ the same as a³ + b³? Try a = b = 1: 8 versus 2. One test is enough to bust a fake identity!",
     "points": [
-     "To factorise means to write an expression as a product of simpler expressions.",
-     "Always take out a common factor first: 3x² − 75 = 3(x² − 25).",
-     "Look for patterns: a² − b² = (a − b)(a + b); a² + 2ab + b² = (a + b)²; a² − 2ab + b² = (a − b)².",
-     "For x² + px + q, find two numbers with sum p and product q: x² + 7x + 12 = (x + 3)(x + 4).",
-     "a³ + b³ and a³ − b³ have their own factor forms. Always check by expanding your answer."
+     "Sum of cubes: a³ + b³ = (a + b)(a² − ab + b²).",
+     "x³ + y³ + z³ − 3xyz = (x + y + z)(x² + y² + z² − xy − yz − zx).",
+     "To use it with only x + y + z and xy + yz + zx known, first find x² + y² + z² = (x + y + z)² − 2(xy + yz + zx).",
+     "Verify an identity by multiplying out the right side and checking it equals the left side.",
+     "To test a claimed identity, try simple values. If even one value fails, it is NOT an identity; passing a few tests suggests (but does not prove) it is one."
     ],
     "example": {
-     "q": "Factorise 4x² − 12x + 9.",
+     "q": "If a + b + c = 15 and ab + bc + ca = 74, find a³ + b³ + c³ − 3abc.",
      "steps": [
-      "4x² = (2x)² and 9 = 3²",
-      "Middle term: 2 × 2x × 3 = 12x, with a minus sign",
-      "So it matches a² − 2ab + b² with a = 2x, b = 3",
-      "4x² − 12x + 9 = (2x − 3)²"
+      "a² + b² + c² = 225 − 148 = 77",
+      "a² + b² + c² − (ab + bc + ca) = 77 − 74 = 3",
+      "Answer = 15 × 3 = 45"
      ],
-     "answer": "(2x − 3)²"
+     "answer": "45"
     },
-    "reallife": "If a rectangular rangoli has area x² + 9x + 20, factorising tells you possible side lengths: (x + 4) and (x + 5)."
+    "reallife": "Software testers do the same as you: one failing case proves a program (or an identity) is wrong."
    },
    "games": [
     {
      "type": "match",
-     "title": "Match each expression with its factors",
+     "title": "Factor it",
      "pairs": [
       [
-       "x² − 49",
-       "(x − 7)(x + 7)"
+       "a³ + 8",
+       "(a + 2)(a² − 2a + 4)"
       ],
       [
-       "x² + 10x + 25",
-       "(x + 5)²"
+       "x³ + 27",
+       "(x + 3)(x² − 3x + 9)"
       ],
       [
-       "x² − 6x + 9",
-       "(x − 3)²"
+       "8y³ + 1",
+       "(2y + 1)(4y² − 2y + 1)"
       ],
       [
-       "x² + 5x + 6",
-       "(x + 2)(x + 3)"
+       "m³ + 64",
+       "(m + 4)(m² − 4m + 16)"
       ],
       [
-       "x³ + 8",
-       "(x + 2)(x² − 2x + 4)"
+       "27p³ + 125",
+       "(3p + 5)(9p² − 15p + 25)"
       ]
      ]
     },
     {
-     "type": "order",
-     "title": "Factorise 3x² − 75",
-     "prompt": "Put the steps in order",
+     "type": "truefalse",
+     "title": "Identity or not?",
      "items": [
-      "Take out the common factor 3: 3(x² − 25)",
-      "Spot a difference of squares: x² − 5²",
-      "Use a² − b² = (a − b)(a + b)",
-      "Write the answer 3(x − 5)(x + 5)"
+      [
+       "(a + b)² = a² + b² for all a, b",
+       false,
+       "a = b = 1 gives 4 ≠ 2."
+      ],
+      [
+       "a³ + b³ = (a + b)(a² − ab + b²)",
+       true,
+       "Multiplying out gives a³ + b³."
+      ],
+      [
+       "(a − b)² = (b − a)²",
+       true,
+       "Both equal a² − 2ab + b²."
+      ],
+      [
+       "(a + b)³ = a³ + b³",
+       false,
+       "a = b = 1 gives 8 ≠ 2."
+      ],
+      [
+       "a² − b² = (a − b)²",
+       false,
+       "a = 3, b = 1 gives 8 ≠ 4."
+      ]
      ]
     }
    ],
    "quiz": [
     {
-     "q": "Factorise 9y² − 16.",
+     "q": "Factorise x³ + 125.",
      "options": [
-      "(3y − 4)²",
-      "(9y − 4)(y + 4)",
-      "(3y − 4)(3y + 4)",
-      "(3y − 8)(3y + 2)"
-     ],
-     "answer": 2,
-     "explain": "9y² − 16 = (3y)² − 4², a difference of squares.",
-     "mistake": "Writes a difference of squares as a perfect square"
-    },
-    {
-     "q": "Factorise x² + 8x + 16.",
-     "options": [
-      "(x + 4)²",
-      "(x + 8)(x + 2)",
-      "(x − 4)²",
-      "(x + 16)(x + 1)"
+      "(x + 5)(x² − 5x + 25)",
+      "(x + 5)(x² + 5x + 25)",
+      "(x − 5)(x² + 5x + 25)",
+      "(x + 5)³"
      ],
      "answer": 0,
-     "explain": "x² + 2(x)(4) + 4² = (x + 4)².",
-     "mistake": "Finds numbers with product 16 but ignores the sum 8"
+     "explain": "Use a³ + b³ = (a + b)(a² − ab + b²) with b = 5.",
+     "mistake": "Uses + ab in the second bracket, which belongs to a³ − b³"
     },
     {
-     "q": "Factorise x² − 7x + 12.",
+     "q": "Use the sum of cubes to find 8³ + 2³ as (a + b)(a² − ab + b²).",
      "options": [
-      "(x + 3)(x + 4)",
-      "(x − 2)(x − 6)",
-      "(x − 3)(x − 4)",
-      "(x − 12)(x + 1)"
+      "1000",
+      "520",
+      "512",
+      "600"
+     ],
+     "answer": 1,
+     "explain": "(8 + 2)(64 − 16 + 4) = 10 × 52.",
+     "steps": [
+      "a + b = 10",
+      "a² − ab + b² = 52",
+      "10 × 52 = 520"
+     ],
+     "mistake": "Cubes the sum: (8 + 2)³",
+     "check": "10*52"
+    },
+    {
+     "q": "Using x³ + y³ + z³ − 3xyz = (x + y + z)(x² + y² + z² − xy − yz − zx), find the value for x = 1, y = 2, z = 3.",
+     "options": [
+      "36",
+      "6",
+      "18",
+      "0"
      ],
      "answer": 2,
-     "explain": "We need two numbers with sum −7 and product 12: −3 and −4.",
-     "steps": [
-      "Product 12, sum −7",
-      "−3 × −4 = 12, −3 + −4 = −7",
-      "(x − 3)(x − 4)"
-     ],
-     "mistake": "Uses + signs even though the middle term is negative"
+     "explain": "x + y + z = 6 and x² + y² + z² − xy − yz − zx = 14 − 11 = 3, so 6 × 3 = 18. Check: 1 + 8 + 27 − 18 = 18.",
+     "mistake": "Forgets the −3xyz term",
+     "check": "1+8+27-3*1*2*3"
     },
     {
-     "q": "Factorise 2x² − 18 completely.",
+     "q": "If a + b + c = 12 and ab + bc + ca = 47, what is a³ + b³ + c³ − 3abc?",
      "options": [
-      "2(x² − 9)",
-      "(2x − 3)(x + 6)",
-      "2(x − 3)²",
-      "2(x − 3)(x + 3)"
+      "144",
+      "564",
+      "3",
+      "36"
      ],
      "answer": 3,
-     "explain": "Take out 2 to get 2(x² − 9), then x² − 9 = (x − 3)(x + 3).",
-     "mistake": "Stops after taking out the common factor"
-    },
-    {
-     "q": "Use factorisation to find 87² − 13².",
-     "options": [
-      "5476",
-      "7400",
-      "10000",
-      "7000"
-     ],
-     "answer": 1,
-     "explain": "87² − 13² = (87 + 13)(87 − 13) = 100 × 74 = 7400.",
+     "explain": "First a² + b² + c² = 144 − 94 = 50. Then 50 − 47 = 3, and 12 × 3 = 36.",
      "steps": [
-      "a + b = 100",
-      "a − b = 74",
-      "100 × 74 = 7400"
+      "a² + b² + c² = 12² − 2 × 47 = 50",
+      "Second bracket = 50 − 47 = 3",
+      "12 × 3 = 36"
      ],
-     "mistake": "Computes (87 − 13)² = 5476 instead",
-     "check": "87**2-13**2"
+     "mistake": "Stops after finding the second bracket, or multiplies 12 by 47",
+     "check": "12*((144-94)-47)"
     },
     {
-     "q": "Factorise x² + x − 20.",
+     "q": "Riya checks (a + b)² = a² + b² + 2 using a = 1, b = 1 and finds both sides equal 4. What can she conclude?",
      "options": [
-      "(x + 5)(x − 4)",
-      "(x − 5)(x + 4)",
-      "(x + 10)(x − 2)",
-      "(x + 20)(x − 1)"
+      "Nothing yet; she must test other values, and a = 2, b = 1 shows it fails",
+      "It is an identity",
+      "It is an identity for all whole numbers",
+      "Identities only need one test"
      ],
      "answer": 0,
-     "explain": "Two numbers with product −20 and sum +1 are 5 and −4.",
-     "steps": [
-      "5 × (−4) = −20",
-      "5 + (−4) = 1"
-     ],
-     "mistake": "Puts the signs the wrong way round, giving a sum of −1"
+     "explain": "With a = 2, b = 1: 9 versus 4 + 1 + 2 = 7. One value that works does not prove an identity.",
+     "mistake": "Thinks one successful test proves an identity"
     },
     {
-     "q": "Factorise 27a³ − 8.",
+     "q": "Which value shows that (x + 1)² = x² + 1 is not an identity?",
      "options": [
-      "(3a − 2)(9a² − 6a + 4)",
-      "(3a − 2)(9a² + 6a + 4)",
-      "(3a − 2)³",
-      "(27a − 8)(a² + 1)"
+      "x = 0",
+      "x = 1",
+      "Every value makes it true",
+      "No value can show it"
      ],
      "answer": 1,
-     "explain": "27a³ − 8 = (3a)³ − 2³ = (3a − 2)((3a)² + (3a)(2) + 2²) = (3a − 2)(9a² + 6a + 4).",
-     "mistake": "Uses a minus sign in the second bracket, mixing it up with a³ + b³"
+     "explain": "x = 1: left 4, right 2. (x = 0 gives 1 = 1, which hides the error.)",
+     "mistake": "Tests only x = 0"
     },
     {
-     "q": "A rectangular rangoli has area x² + 9x + 20 square units. One side is (x + 4). What is the other side?",
+     "q": "To verify a³ − b³ = (a − b)(a² + ab + b²), you multiply out the right side. Which terms cancel?",
      "options": [
-      "(x + 16)",
-      "(x − 5)",
-      "(x + 9)",
-      "(x + 5)"
+      "a³ and b³",
+      "Only constants",
+      "a²b and ab² terms",
+      "No terms cancel"
+     ],
+     "answer": 2,
+     "explain": "(a − b)(a² + ab + b²) = a³ + a²b + ab² − a²b − ab² − b³ = a³ − b³.",
+     "mistake": "Thinks the cubes cancel"
+    },
+    {
+     "q": "If a + b + c = 6 and ab + bc + ca = 11, find a² + b² + c².",
+     "options": [
+      "25",
+      "36",
+      "−16",
+      "14"
      ],
      "answer": 3,
-     "explain": "x² + 9x + 20 = (x + 4)(x + 5), since 4 + 5 = 9 and 4 × 5 = 20.",
-     "mistake": "Subtracts 4 from 20 instead of dividing, or uses the coefficient 9"
+     "explain": "(a + b + c)² − 2(ab + bc + ca) = 36 − 22.",
+     "steps": [
+      "36 − 22 = 14"
+     ],
+     "mistake": "Forgets to double the pairwise sum",
+     "check": "36-22"
     }
    ],
    "teach": {
-    "ask": "Gappu stares at x² − 49: \"How do I break this into factors? Where do I start?\"",
+    "ask": "Gappu asks: \"How do I know if something is really an identity?\"",
     "must": [
      [
-      "common factor",
-      "take out",
+      "every",
+      "all",
+      "any value"
+     ],
+     [
+      "test",
+      "try",
+      "substitute",
+      "value"
+     ],
+     [
+      "one",
+      "fails",
+      "counterexample",
+      "single"
+     ]
+    ],
+    "praise": "Great thinking! It must work for every value; one failure busts it!",
+    "nudge": "Does an identity work for some values or all values? What does one failing value tell you?"
+   }
+  },
+  {
+   "id": "g9-maths-04-07",
+   "title": "Factorising with algebra tiles",
+   "covers": [
+    "c4.5.1",
+    "c4.5.2",
+    "c4.9.2"
+   ],
+   "learn": {
+    "hook": "Factorising can be done with your hands: arrange tiles into a perfect rectangle and read off the sides!",
+    "points": [
+     "Algebra tiles: a big square of side x has area x², a long strip x by 1 has area x, and a small unit square has area 1.",
+     "To factor x² + 7x + 12, take 1 big square, 7 strips and 12 unit squares, and arrange them into a rectangle.",
+     "The rectangle's sides are the factors: x² + 7x + 12 = (x + 3)(x + 4). The units form a 3 × 4 block and the strips split 3 and 4.",
+     "A path around a square ground of side x and width w covers (x + 2w)² − x² = 4wx + 4w²; tiles show the four strips and four corner squares."
+    ],
+    "example": {
+     "q": "Factor x² + 5x + 6 with tiles.",
+     "steps": [
+      "1 x² tile, 5 x-strips, 6 unit squares",
+      "Units arranged 2 × 3; strips 2 on one side, 3 on the other",
+      "Rectangle sides x + 2 and x + 3"
+     ],
+     "answer": "(x + 2)(x + 3)"
+    },
+    "reallife": "A gardener laying a paved border around a square lawn can count the paving stones the same way."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Build x² + 6x + 8",
+     "prompt": "Steps in order",
+     "items": [
+      "Place the x² tile",
+      "Find two numbers with product 8 and sum 6: 2 and 4",
+      "Put 2 strips on one side and 4 on the other",
+      "Fill the corner with 2 × 4 = 8 unit squares",
+      "Read the sides: (x + 2)(x + 4)"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Tiles to factors",
+     "pairs": [
+      [
+       "x² + 4x + 3",
+       "(x + 1)(x + 3)"
+      ],
+      [
+       "x² + 6x + 9",
+       "(x + 3)(x + 3)"
+      ],
+      [
+       "x² + 7x + 10",
+       "(x + 2)(x + 5)"
+      ],
+      [
+       "x² + 8x + 12",
+       "(x + 2)(x + 6)"
+      ],
+      [
+       "x² + 9x + 8",
+       "(x + 1)(x + 8)"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which tile has area x?",
+     "options": [
+      "A strip of length x and width 1",
+      "A square of side x",
+      "A square of side 1",
+      "A strip of length 1 and width 1/x"
+     ],
+     "answer": 0,
+     "explain": "x × 1 = x.",
+     "mistake": "Confuses the strip with the big square"
+    },
+    {
+     "q": "How many unit squares are needed to show x² + 9x + 14?",
+     "options": [
+      "9",
+      "14",
+      "23",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "The constant term 14 is the number of unit tiles.",
+     "mistake": "Uses the coefficient of x",
+     "check": "14"
+    },
+    {
+     "q": "Tiles for x² + 9x + 14 make a rectangle. What are its sides?",
+     "options": [
+      "x + 9 and x + 14",
+      "x + 1 and x + 14",
+      "x + 2 and x + 7",
+      "x + 3 and x + 6"
+     ],
+     "answer": 2,
+     "explain": "2 × 7 = 14 and 2 + 7 = 9.",
+     "mistake": "Uses the coefficients directly as the sides"
+    },
+    {
+     "q": "Rohan arranges 1 x²-tile, 6 strips and 9 units into a square. What is its side?",
+     "options": [
+      "x + 9",
+      "x + 6",
+      "3x",
+      "x + 3"
+     ],
+     "answer": 3,
+     "explain": "x² + 6x + 9 = (x + 3)², so the rectangle is a square.",
+     "mistake": "Takes the number of strips as the side"
+    },
+    {
+     "q": "With 1 x²-tile, 5 strips and 4 units, which rectangle is possible?",
+     "options": [
+      "(x + 1)(x + 4)",
+      "(x + 2)(x + 2)",
+      "(x + 5)(x + 4)",
+      "(x + 1)(x + 5)"
+     ],
+     "answer": 0,
+     "explain": "1 × 4 = 4 and 1 + 4 = 5. (x + 2)(x + 2) would need only 4 strips.",
+     "mistake": "Ignores the number of strips"
+    },
+    {
+     "q": "A square park of side x m has a path 2 m wide all around it on the outside. What is the area of the path?",
+     "options": [
+      "4x + 4 m²",
+      "8x + 16 m²",
+      "8x + 4 m²",
+      "x² + 16 m²"
+     ],
+     "answer": 1,
+     "explain": "Outer side x + 4. (x + 4)² − x² = 8x + 16.",
+     "steps": [
+      "(x + 4)² = x² + 8x + 16",
+      "Subtract x²"
+     ],
+     "mistake": "Adds the width only once on each side"
+    },
+    {
+     "q": "For the same path with x = 20, what is the path's area?",
+     "options": [
+      "96 m²",
+      "400 m²",
+      "176 m²",
+      "164 m²"
+     ],
+     "answer": 2,
+     "explain": "8 × 20 + 16 = 176. Check: 24² − 20² = 576 − 400 = 176.",
+     "mistake": "Gives the park's area instead of the path's",
+     "check": "24**2-20**2"
+    },
+    {
+     "q": "Why can x² + 3x + 5 not be made into a rectangle with whole tiles?",
+     "options": [
+      "There are too many units",
+      "x² tiles cannot be used",
+      "Every expression makes a rectangle",
+      "No two whole numbers have product 5 and sum 3"
+     ],
+     "answer": 3,
+     "explain": "5 = 1 × 5 only, and 1 + 5 = 6, not 3.",
+     "mistake": "Thinks any set of tiles forms a rectangle"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can tiles help me factor x² + 7x + 12?\"",
+    "must": [
+     [
+      "rectangle",
+      "arrange"
+     ],
+     [
+      "sides",
+      "length",
+      "width"
+     ],
+     [
+      "3",
+      "4",
+      "product",
+      "sum"
+     ]
+    ],
+    "praise": "Brilliant! Arrange the tiles into a rectangle and its sides are the factors!",
+    "nudge": "What shape do you make with the tiles? How do you read off the factors?"
+   }
+  },
+  {
+   "id": "g9-maths-04-08",
+   "title": "Splitting the middle term",
+   "covers": [
+    "c4.6.2",
+    "c4.6.3",
+    "c4.9.4",
+    "c4.9.6"
+   ],
+   "learn": {
+    "hook": "6x² + 7x − 3 looks scary, but find two numbers that multiply to −18 and add to 7, and it falls apart!",
+    "points": [
+     "For ax² + bx + c, find two numbers with product a × c and sum b. Split bx using them, then group in pairs.",
+     "Example: 6x² + 7x − 3; a × c = −18, the numbers are 9 and −2: 6x² + 9x − 2x − 3 = 3x(2x + 3) − 1(2x + 3) = (3x − 1)(2x + 3).",
+     "For x² + px + q (a = 1) just find two numbers with product q and sum p: r² − r − 42 = (r − 7)(r + 6).",
+     "If (x − k) is a factor of a polynomial, then putting x = k makes it zero; this links its coefficients.",
+     "n³ − n = (n − 1)n(n + 1), a product of three consecutive integers, so it is always divisible by 2 and by 3, hence by 6."
+    ],
+    "example": {
+     "q": "Factorise 2x² + 7x + 3.",
+     "steps": [
+      "a × c = 6; numbers 6 and 1 add to 7",
+      "2x² + 6x + x + 3",
+      "2x(x + 3) + 1(x + 3)",
+      "(2x + 1)(x + 3)"
+     ],
+     "answer": "(2x + 1)(x + 3)"
+    },
+    "reallife": "Splitting things smartly into pairs is how quiz teams split prize money and how this method splits the middle term."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Fill the factor",
+     "items": [
+      {
+       "text": "x² + 2x − 15 = (x + 5)(x ___)",
+       "answer": "− 3",
+       "options": [
+        "− 3",
+        "+ 3",
+        "− 5"
+       ]
+      },
+      {
+       "text": "r² − r − 42 = (r − 7)(r ___)",
+       "answer": "+ 6",
+       "options": [
+        "+ 6",
+        "− 6",
+        "+ 7"
+       ]
+      },
+      {
+       "text": "3x² − 5x − 2 = (3x + 1)(x ___)",
+       "answer": "− 2",
+       "options": [
+        "− 2",
+        "+ 2",
+        "− 1"
+       ]
+      },
+      {
+       "text": "2x² + 5x + 2 = (2x + 1)(x ___)",
+       "answer": "+ 2",
+       "options": [
+        "+ 2",
+        "+ 1",
+        "− 2"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Sum and product",
+     "items": [
+      {
+       "q": "Product 12, sum 7: larger number",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "Product −18, sum 7: positive number",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "Product 24, sum −10: smaller number",
+       "a": "-6",
+       "check": "-6"
+      },
+      {
+       "q": "Product −42, sum −1: negative number",
+       "a": "-7",
+       "check": "-7"
+      },
+      {
+       "q": "6³ − 6",
+       "a": "210",
+       "check": "6**3-6"
+      },
+      {
+       "q": "210 ÷ 6",
+       "a": "35",
+       "check": "210/6"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Factorise y² − 11y + 28.",
+     "options": [
+      "(y − 4)(y − 7)",
+      "(y + 4)(y + 7)",
+      "(y − 2)(y − 14)",
+      "(y − 4)(y + 7)"
+     ],
+     "answer": 0,
+     "explain": "Product 28, sum −11: −4 and −7.",
+     "mistake": "Ignores the sign of the middle term"
+    },
+    {
+     "q": "Factorise 3x² + 10x + 8.",
+     "options": [
+      "(3x + 2)(x + 4)",
+      "(3x + 4)(x + 2)",
+      "(3x + 8)(x + 1)",
+      "(x + 4)(x + 2)"
+     ],
+     "answer": 1,
+     "explain": "a × c = 24; 6 + 4 = 10: 3x² + 6x + 4x + 8 = 3x(x + 2) + 4(x + 2).",
+     "mistake": "Checks the product but not the middle term"
+    },
+    {
+     "q": "Factorise 6x² − x − 2.",
+     "options": [
+      "(2x − 1)(3x + 2)",
+      "(6x + 1)(x − 2)",
+      "(2x + 1)(3x − 2)",
+      "(3x + 1)(2x − 2)"
+     ],
+     "answer": 2,
+     "explain": "a × c = −12; −4 + 3 = −1: 6x² − 4x + 3x − 2 = 2x(3x − 2) + 1(3x − 2).",
+     "mistake": "Gets the signs of the factors swapped"
+    },
+    {
+     "q": "To factor 4x² + 4x − 15, which two numbers should split 4x?",
+     "options": [
+      "5 and −3",
+      "15 and −4",
+      "−10 and 6",
+      "10 and −6"
+     ],
+     "answer": 3,
+     "explain": "Product 4 × (−15) = −60 and sum 4: 10 × (−6) = −60 and 10 + (−6) = 4.",
+     "mistake": "Uses the product c only, not a × c"
+    },
+    {
+     "q": "Fill in: a² + 3a − 40 = (a + 8)(a − __).",
+     "options": [
+      "5",
+      "8",
+      "3",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "8 × (−5) = −40 and 8 − 5 = 3.",
+     "mistake": "Picks the number that matches the middle coefficient",
+     "check": "5"
+    },
+    {
+     "q": "(x − 2) and (x − 1/2) are both factors of px² + 5x + r. Substituting x = 2 and x = 1/2 gives 4p + 10 + r = 0 and p + 10 + 4r = 0. What follows?",
+     "options": [
+      "p = 4r",
+      "p = r",
+      "p + r = 10",
+      "p = −r"
+     ],
+     "answer": 1,
+     "explain": "Subtract the second from the first: 3p − 3r = 0.",
+     "steps": [
+      "(4p + 10 + r) − (p + 10 + 4r) = 0",
+      "3p − 3r = 0"
+     ],
+     "mistake": "Adds the equations instead of subtracting"
+    },
+    {
+     "q": "Using p = r in 4p + 10 + r = 0, what is p?",
+     "options": [
+      "2",
+      "−10",
+      "−2",
+      "10/3"
+     ],
+     "answer": 2,
+     "explain": "5p + 10 = 0.",
+     "steps": [
+      "5p = −10",
+      "p = −2"
+     ],
+     "mistake": "Drops the sign",
+     "check": "-10/5"
+    },
+    {
+     "q": "Why is n³ − n always divisible by 6 for whole numbers n?",
+     "options": [
+      "Because n³ is always even",
+      "Because 6 divides n",
+      "Because n³ − n is always 6",
+      "It equals (n − 1)n(n + 1), three consecutive numbers, so it has a factor 2 and a factor 3"
+     ],
+     "answer": 3,
+     "explain": "Among three consecutive integers one is a multiple of 3 and at least one is even.",
+     "mistake": "Checks one example and calls it proof"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I factor 2x² + 7x + 3?\"",
+    "must": [
+     [
+      "product",
+      "multiply",
+      "6"
+     ],
+     [
+      "sum",
+      "add",
+      "7"
+     ],
+     [
+      "split",
+      "group",
+      "grouping"
+     ]
+    ],
+    "praise": "Yes! Two numbers with product a × c and sum b, then split and group!",
+    "nudge": "Which two numbers do you look for? What do they multiply to and add to?"
+   }
+  },
+  {
+   "id": "g9-maths-04-09",
+   "title": "Simplifying rational expressions",
+   "covers": [
+    "c4.8.1",
+    "c4.8.2",
+    "c4.8.3"
+   ],
+   "learn": {
+    "hook": "Just as 12/18 cancels to 2/3, (x² − 9)/(x + 3) cancels to x − 3 — but watch out for x = −3!",
+    "points": [
+     "A rational expression is a ratio of two polynomials, P(x)/Q(x), with Q(x) not the zero polynomial.",
+     "To simplify, factorise the numerator and the denominator fully, then cancel common factors (whole factors only, never single terms).",
+     "Values that make the denominator zero are not allowed. List them from the original denominator, before cancelling.",
+     "Example: (x² − 9)/(x² + 5x + 6) = (x − 3)(x + 3)/((x + 2)(x + 3)) = (x − 3)/(x + 2), for x ≠ −2 and x ≠ −3."
+    ],
+    "example": {
+     "q": "Simplify (x² − 4x)/(x² − 16) and state the restrictions.",
+     "steps": [
+      "Numerator: x(x − 4)",
+      "Denominator: (x − 4)(x + 4)",
+      "Cancel (x − 4): x/(x + 4)",
+      "Restrictions: x ≠ 4 and x ≠ −4"
+     ],
+     "answer": "x/(x + 4), x ≠ ±4"
+    },
+    "reallife": "Scientists simplify formulas before plugging in numbers, but they always note the values where the formula breaks down."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Allowed value?",
+     "buckets": [
+      "Allowed",
+      "Not allowed"
+     ],
+     "items": [
+      [
+       "x = 2 in 1/(x − 3)",
+       0
+      ],
+      [
+       "x = 3 in 1/(x − 3)",
+       1
+      ],
+      [
+       "x = 0 in x/(x + 1)",
+       0
+      ],
+      [
+       "x = −1 in x/(x + 1)",
+       1
+      ],
+      [
+       "x = 5 in (x + 2)/(x² − 25)",
+       1
+      ],
+      [
+       "x = −2 in (x + 2)/(x² − 25)",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Simplify",
+     "pairs": [
+      [
+       "(x² − 1)/(x − 1)",
+       "x + 1"
+      ],
+      [
+       "(2x + 6)/(x + 3)",
+       "2"
+      ],
+      [
+       "(x² + 2x)/x",
+       "x + 2"
+      ],
+      [
+       "(x² − 6x + 9)/(x − 3)",
+       "x − 3"
+      ],
+      [
+       "(x + 5)/(x² + 5x)",
+       "1/x"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is a rational expression?",
+     "options": [
+      "(x + 1)/(x − 2)",
+      "√x + 1",
+      "x^(1/2) − 3",
+      "2^x"
+     ],
+     "answer": 0,
+     "explain": "It is a ratio of two polynomials.",
+     "mistake": "Thinks any expression with a fraction bar or root qualifies"
+    },
+    {
+     "q": "Simplify (x² − 25)/(x + 5).",
+     "options": [
+      "x + 5",
+      "x − 5",
+      "x − 25",
+      "x² − 5"
+     ],
+     "answer": 1,
+     "explain": "x² − 25 = (x − 5)(x + 5); cancel x + 5.",
+     "mistake": "Cancels single terms instead of factors"
+    },
+    {
+     "q": "Simplify (x² + 7x + 10)/(x² + 3x − 10).",
+     "options": [
+      "(x + 2)/(x + 5)",
+      "7x/3x",
+      "(x + 2)/(x − 2)",
+      "(x + 5)/(x − 2)"
+     ],
+     "answer": 2,
+     "explain": "(x + 2)(x + 5) over (x + 5)(x − 2).",
+     "mistake": "Cancels the x² terms"
+    },
+    {
+     "q": "For which values is (x + 1)/(x² − 4) not defined?",
+     "options": [
+      "x = −1",
+      "x = 4",
+      "x = 0",
+      "x = 2 and x = −2"
+     ],
+     "answer": 3,
+     "explain": "x² − 4 = 0 when x = ±2.",
+     "mistake": "Looks for zeros of the numerator"
+    },
+    {
+     "q": "Simplify (3x² − 6x)/(6x).",
+     "options": [
+      "(x − 2)/2",
+      "x − 6x",
+      "3x − 1",
+      "(x − 2)/6"
+     ],
+     "answer": 0,
+     "explain": "3x(x − 2) / (6x) = (x − 2)/2, for x ≠ 0.",
+     "mistake": "Cancels 3 but not the x"
+    },
+    {
+     "q": "Riya simplifies (x + 4)/4 to x. What went wrong?",
+     "options": [
+      "Nothing, it is correct",
+      "She cancelled a single term, not a common factor",
+      "She should have cancelled x",
+      "She forgot x ≠ 4"
+     ],
+     "answer": 1,
+     "explain": "4 is not a factor of the whole numerator x + 4, so it cannot be cancelled.",
+     "mistake": "Cancels terms joined by + signs"
+    },
+    {
+     "q": "(x² − 9)/(x − 3) simplifies to x + 3. What is the value of the simplified form at x = 5?",
+     "options": [
+      "2",
+      "16",
+      "8",
+      "−8"
+     ],
+     "answer": 2,
+     "explain": "5 + 3 = 8. (Check: (25 − 9)/(5 − 3) = 16/2 = 8.)",
+     "mistake": "Substitutes into the wrong expression",
+     "check": "(25-9)/(5-3)"
+    },
+    {
+     "q": "After simplifying (x² − 9)/(x − 3) to x + 3, is x = 3 allowed?",
+     "options": [
+      "Yes, x + 3 = 6 is fine",
+      "Yes, all values are allowed after cancelling",
+      "No, because x + 3 is 0",
+      "No, the original denominator is 0 at x = 3"
+     ],
+     "answer": 3,
+     "explain": "Restrictions come from the original expression, before cancelling.",
+     "mistake": "Takes restrictions from the simplified form only"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I simplify (x² − 9)/(x + 3)? Can I put any x in?\"",
+    "must": [
+     [
+      "factor",
+      "factorise",
+      "factorize"
+     ],
+     [
+      "cancel",
       "common"
      ],
      [
-      "pattern",
-      "identity",
-      "difference of squares",
-      "a² − b²"
-     ],
-     [
-      "check",
-      "multiply back",
-      "expand"
+      "zero",
+      "denominator",
+      "not allowed",
+      "−3",
+      "-3"
      ]
     ],
-    "praise": "First take out anything common, then match a pattern like a² − b², and finally multiply back to check. x² − 49 = (x − 7)(x + 7)!",
-    "nudge": "Is 49 a square number? Which identity has a minus sign between two squares?"
+    "praise": "Excellent! Factorise, cancel common factors, and exclude values that make the denominator zero!",
+    "nudge": "What do you do before cancelling? Which x-values must you exclude?"
    }
   }
  ]

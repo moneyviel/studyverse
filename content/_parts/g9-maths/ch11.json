@@ -4,8 +4,215 @@
  "emoji": "🤖",
  "topics": [
   {
+   "id": "g9-maths-11-04",
+   "title": "Column addition: a classic algorithm",
+   "covers": [
+    "c11.1.1",
+    "c11.1.2",
+    "c11.2.2",
+    "c11.2.3"
+   ],
+   "learn": {
+    "hook": "Add 4,786 and 3,459 by counting dots? You'd still be counting at dinner time! Column addition finishes in seconds.",
+    "points": [
+     "Counting dots works for tiny numbers but becomes impossibly slow as numbers grow; column addition stays fast because the work depends on the number of digits, not the size of the number.",
+     "Column addition: line the numbers up by place value, add the units first, write the units digit of the sum and carry any ten to the next column, move left, and write the final carry at the end.",
+     "It works because of place value: 10 units make 1 ten, 10 tens make 1 hundred, and so on. Carrying is regrouping.",
+     "Adding two 4-digit numbers needs just 4 column steps, while counting dots would need thousands of counts."
+    ],
+    "example": {
+     "q": "Add 4786 + 3459 by columns.",
+     "steps": [
+      "Units: 6 + 9 = 15, write 5 carry 1",
+      "Tens: 8 + 5 + 1 = 14, write 4 carry 1",
+      "Hundreds: 7 + 4 + 1 = 12, write 2 carry 1",
+      "Thousands: 4 + 3 + 1 = 8"
+     ],
+     "answer": "8245"
+    },
+    "reallife": "Shopkeepers adding a bill in a notebook use the same column method you learnt in primary school."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Add 678 + 545",
+     "prompt": "Steps in order",
+     "items": [
+      "Units: 8 + 5 = 13, write 3, carry 1",
+      "Tens: 7 + 4 + 1 = 12, write 2, carry 1",
+      "Hundreds: 6 + 5 + 1 = 12, write 2, carry 1",
+      "Write the final carry 1",
+      "Answer: 1223"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Column sums",
+     "items": [
+      {
+       "q": "356 + 478",
+       "a": "834",
+       "check": "356+478"
+      },
+      {
+       "q": "999 + 1",
+       "a": "1000",
+       "check": "999+1"
+      },
+      {
+       "q": "2047 + 3958",
+       "a": "6005",
+       "check": "2047+3958"
+      },
+      {
+       "q": "1234 + 8766",
+       "a": "10000",
+       "check": "1234+8766"
+      },
+      {
+       "q": "4786 + 3459",
+       "a": "8245",
+       "check": "4786+3459"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Why is column addition faster than counting dots for big numbers?",
+     "options": [
+      "Its steps depend on the number of digits, not the size of the number",
+      "It skips some digits",
+      "It uses a calculator",
+      "Counting dots is not allowed"
+     ],
+     "answer": 0,
+     "explain": "A 6-digit sum takes about 6 column steps, while counting would take hundreds of thousands of counts.",
+     "mistake": "Thinks both take the same time"
+    },
+    {
+     "q": "What is 5867 + 2575?",
+     "options": [
+      "7342",
+      "8442",
+      "8432",
+      "8342"
+     ],
+     "answer": 1,
+     "explain": "Units 12 (carry 1), tens 6 + 7 + 1 = 14 (carry 1), hundreds 8 + 5 + 1 = 14 (carry 1), thousands 5 + 2 + 1 = 8.",
+     "mistake": "Forgets to add a carry",
+     "check": "5867+2575"
+    },
+    {
+     "q": "In 468 + 375, what is written in the tens place of the answer?",
+     "options": [
+      "3",
+      "14",
+      "4",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "Units: 8 + 5 = 13, carry 1. Tens: 6 + 7 + 1 = 14, write 4.",
+     "mistake": "Forgets the carry from the units",
+     "check": "4"
+    },
+    {
+     "q": "When adding by columns, which column do you start with?",
+     "options": [
+      "The leftmost column",
+      "Any column",
+      "The column with the biggest digits",
+      "The units (rightmost) column"
+     ],
+     "answer": 3,
+     "explain": "Carries move leftwards, so you must start from the right.",
+     "mistake": "Starts from the left and has to go back"
+    },
+    {
+     "q": "What does 'carrying 1' into the tens column really mean?",
+     "options": [
+      "Regrouping 10 units as 1 ten",
+      "Adding an extra 1 by mistake",
+      "Moving 1 unit to the left",
+      "Rounding up"
+     ],
+     "answer": 0,
+     "explain": "Place value: ten units equal one ten.",
+     "mistake": "Thinks a carry is a rule with no meaning"
+    },
+    {
+     "q": "About how many basic steps would counting on from 3,000 by ones take to add 3,000 + 2,000?",
+     "options": [
+      "4",
+      "2000",
+      "5000",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "You would count 2,000 more ones; column addition needs only 4 column steps.",
+     "mistake": "Thinks counting is as fast as columns",
+     "check": "2000"
+    },
+    {
+     "q": "What is the final carry written when adding 875 + 649?",
+     "options": [
+      "0",
+      "2",
+      "1",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "5 + 9 = 14 (carry 1); 7 + 4 + 1 = 12 (carry 1); 8 + 6 + 1 = 15 (write 5, carry 1). The sum is 1524.",
+     "steps": [
+      "Sum = 1524"
+     ],
+     "mistake": "Forgets to write the last carry",
+     "check": "1"
+    },
+    {
+     "q": "Riya adds 4999 + 2 by columns. How many carries does she make?",
+     "options": [
+      "1",
+      "2",
+      "4",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "9 + 2 = 11 (carry), 9 + 1 = 10 (carry), 9 + 1 = 10 (carry), 4 + 1 = 5. Answer 5001.",
+     "mistake": "Stops after the first carry",
+     "check": "3"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How does column addition work, and why do we carry?\"",
+    "must": [
+     [
+      "place value",
+      "units",
+      "tens"
+     ],
+     [
+      "right",
+      "rightmost",
+      "units first"
+     ],
+     [
+      "carry",
+      "regroup",
+      "10"
+     ]
+    ],
+    "praise": "Super! Start from the units, and carry because 10 of one place make 1 of the next!",
+    "nudge": "Which column do you start with? What does the carry stand for?"
+   }
+  },
+  {
    "id": "g9-maths-11-01",
    "title": "What is an algorithm?",
+   "covers": [
+    "c11.2.1",
+    "c11.12.6"
+   ],
    "learn": {
     "hook": "A recipe for chai, the steps for long division and the instructions inside your phone's map app have something in common: they are all algorithms!",
     "points": [
@@ -233,8 +440,231 @@
    }
   },
   {
+   "id": "g9-maths-11-05",
+   "title": "Carries, missing digits and decimals",
+   "covers": [
+    "c11.2.4",
+    "c11.2.5",
+    "c11.2.6"
+   ],
+   "learn": {
+    "hook": "When you add two numbers, can a carry ever be 2? Try your hardest with 9s: it can't!",
+    "points": [
+     "When adding two numbers, a column sum is at most 9 + 9 + 1 = 19, so the carry is never more than 1. (With three or more numbers, bigger carries are possible.)",
+     "If the numbers have different lengths, treat missing digits as 0: 3456 + 78 is 3456 + 0078.",
+     "The written method often skips steps like 'write a 0' or 'no carry'; a full algorithm states them clearly.",
+     "For decimals, line up the decimal points (fill missing places with 0), add as usual, and put the point in the same column."
+    ],
+    "example": {
+     "q": "Add 27.45 + 8.9.",
+     "steps": [
+      "Line up: 27.45 + 08.90",
+      "Hundredths: 5 + 0 = 5; tenths: 4 + 9 = 13, write 3 carry 1",
+      "Units: 7 + 8 + 1 = 16, write 6 carry 1; tens: 2 + 0 + 1 = 3",
+      "Answer: 36.35"
+     ],
+     "answer": "36.35"
+    },
+    "reallife": "Adding ₹149.50 and ₹38.75 at a stationery shop is decimal column addition."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Decimal sums",
+     "items": [
+      {
+       "q": "27.45 + 8.9",
+       "a": "36.35",
+       "check": "27.45+8.9"
+      },
+      {
+       "q": "0.75 + 0.5",
+       "a": "1.25",
+       "check": "0.75+0.5"
+      },
+      {
+       "q": "12.6 + 7.48",
+       "a": "20.08",
+       "check": "12.6+7.48"
+      },
+      {
+       "q": "₹149.50 + ₹38.75",
+       "a": "₹188.25",
+       "check": "149.50+38.75"
+      },
+      {
+       "q": "3456 + 78",
+       "a": "3534",
+       "check": "3456+78"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Carry facts",
+     "items": [
+      [
+       "Adding two numbers, a carry can be 2.",
+       false,
+       "The largest column sum is 9 + 9 + 1 = 19."
+      ],
+      [
+       "Adding three numbers, a carry can be 2.",
+       true,
+       "9 + 9 + 9 = 27 gives carry 2."
+      ],
+      [
+       "Missing digits are treated as 0.",
+       true,
+       "3456 + 78 = 3456 + 0078."
+      ],
+      [
+       "For decimals we line up the last digits.",
+       false,
+       "We line up the decimal points."
+      ],
+      [
+       "9.9 + 0.1 = 10.0",
+       true,
+       "9 + 1 = 10 in tenths; carry gives 10.0."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the largest possible carry when adding two numbers by columns?",
+     "options": [
+      "1",
+      "2",
+      "9",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "The biggest column total is 9 + 9 + 1 (carry) = 19.",
+     "mistake": "Thinks large digits can make a carry of 2",
+     "check": "1"
+    },
+    {
+     "q": "What is the largest possible column total when adding two numbers (including the carry)?",
+     "options": [
+      "18",
+      "19",
+      "20",
+      "27"
+     ],
+     "answer": 1,
+     "explain": "9 + 9 + 1 = 19.",
+     "mistake": "Forgets the incoming carry",
+     "check": "9+9+1"
+    },
+    {
+     "q": "Adding three numbers, what is the largest possible carry from the units column?",
+     "options": [
+      "1",
+      "3",
+      "2",
+      "9"
+     ],
+     "answer": 2,
+     "explain": "9 + 9 + 9 = 27, so carry 2.",
+     "mistake": "Applies the two-number rule to three numbers",
+     "check": "2"
+    },
+    {
+     "q": "Find 8027 + 596.",
+     "options": [
+      "13987",
+      "8613",
+      "8523",
+      "8623"
+     ],
+     "answer": 3,
+     "explain": "Treat 596 as 0596: units 13 (carry 1), tens 2 + 9 + 1 = 12 (carry 1), hundreds 0 + 5 + 1 = 6, thousands 8.",
+     "mistake": "Lines up the numbers from the left",
+     "check": "8027+596"
+    },
+    {
+     "q": "Add 14.7 + 3.85.",
+     "options": [
+      "18.55",
+      "18.12",
+      "17.55",
+      "5.32"
+     ],
+     "answer": 0,
+     "explain": "Write 14.70 + 03.85.",
+     "mistake": "Lines up the last digits instead of the decimal points",
+     "check": "14.7+3.85"
+    },
+    {
+     "q": "Add 0.68 + 0.457.",
+     "options": [
+      "1.125",
+      "1.137",
+      "0.1137",
+      "1.037"
+     ],
+     "answer": 1,
+     "explain": "0.680 + 0.457.",
+     "mistake": "Ignores the missing thousandths digit",
+     "check": "0.68+0.457"
+    },
+    {
+     "q": "Joseph writes 523 + 41 as 523 + 410. What mistake did he make?",
+     "options": [
+      "No mistake",
+      "He forgot to carry",
+      "He lined up from the left; 41 should be 041",
+      "He should add 523 + 4100"
+     ],
+     "answer": 2,
+     "explain": "Units must line up with units: 41 = 041.",
+     "mistake": "Thinks digits line up from the left"
+    },
+    {
+     "q": "Kavya buys a pen for ₹45.50 and a notebook for ₹62.75. What is the total?",
+     "options": [
+      "₹107.25",
+      "₹108.75",
+      "₹1082.5",
+      "₹108.25"
+     ],
+     "answer": 3,
+     "explain": "45.50 + 62.75: 0.50 + 0.75 = 1.25, carry 1 rupee.",
+     "mistake": "Forgets the carry from the paise",
+     "check": "45.50+62.75"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I add decimals by columns?\"",
+    "must": [
+     [
+      "point",
+      "decimal point",
+      "line up"
+     ],
+     [
+      "0",
+      "zero",
+      "fill"
+     ],
+     [
+      "carry"
+     ]
+    ],
+    "praise": "Great! Line up the decimal points, fill gaps with 0, and add with carries!",
+    "nudge": "What must you line up in decimal addition? What fills an empty place?"
+   }
+  },
+  {
    "id": "g9-maths-11-02",
    "title": "Famous number algorithms",
+   "covers": [
+    "c11.3.1",
+    "c11.10.1",
+    "c11.11.1"
+   ],
    "learn": {
     "hook": "Over 2000 years ago Euclid found a way to get the HCF of two huge numbers without listing a single factor. It is still used in every computer today!",
     "points": [
@@ -472,6 +902,10 @@
   {
    "id": "g9-maths-11-03",
    "title": "Algorithmic thinking",
+   "covers": [
+    "c11.3.2",
+    "c11.4.2"
+   ],
    "learn": {
     "hook": "Before a robot vacuum cleans your room, someone had to think like a computer: break the job into tiny steps, repeat them and make decisions. That is algorithmic thinking!",
     "points": [
@@ -706,6 +1140,1482 @@
     ],
     "praise": "Use a loop: repeat 'water the plant and move on' 10 times, or until no plants are left. Smart robot, smarter bird!",
     "nudge": "Is there a way to tell the robot to do the same step again and again? How will it know when to stop?"
+   }
+  },
+  {
+   "id": "g9-maths-11-06",
+   "title": "An algorithm for divisors",
+   "covers": [
+    "c11.4.1",
+    "c11.4.3",
+    "c11.4.4"
+   ],
+   "learn": {
+    "hook": "To find all divisors of 36, do you really need to test all 36 numbers? Only up to 6!",
+    "points": [
+     "divisors(n): for each j from 1 to n, check whether j divides n; if yes, add j to a list. Output the list.",
+     "The work grows with n: for n = 1000 the simple method checks 1000 numbers.",
+     "Divisors come in pairs j and n/j. One of each pair is at most √n, so you only need to check j with j × j ≤ n, and add both j and n/j.",
+     "For n = 36: check j = 1 to 6. Pairs: (1, 36), (2, 18), (3, 12), (4, 9), (6, 6). Divisors: 1, 2, 3, 4, 6, 9, 12, 18, 36."
+    ],
+    "example": {
+     "q": "Use the pair method to find the divisors of 60.",
+     "steps": [
+      "Check j with j² ≤ 60: j = 1 to 7",
+      "Pairs: (1, 60), (2, 30), (3, 20), (4, 15), (5, 12), (6, 10); 7 does not divide 60",
+      "Divisors: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60"
+     ],
+     "answer": "12 divisors"
+    },
+    "reallife": "Packing 60 laddoos into equal boxes? Each divisor of 60 is a possible box size."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "How many checks?",
+     "items": [
+      {
+       "q": "Simple method, n = 50",
+       "a": "50",
+       "check": "50"
+      },
+      {
+       "q": "Pair method, n = 50 (j² ≤ 50)",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "Pair method, n = 100",
+       "a": "10",
+       "check": "10"
+      },
+      {
+       "q": "Pair method, n = 1000",
+       "a": "31",
+       "check": "31"
+      },
+      {
+       "q": "Number of divisors of 36",
+       "a": "9",
+       "check": "9"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Divisor pairs of 48",
+     "pairs": [
+      [
+       "1",
+       "48"
+      ],
+      [
+       "2",
+       "24"
+      ],
+      [
+       "3",
+       "16"
+      ],
+      [
+       "4",
+       "12"
+      ],
+      [
+       "6",
+       "8"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the simple divisors(n) algorithm, which numbers j are tested?",
+     "options": [
+      "Every j from 1 to n",
+      "Only even numbers",
+      "Only primes",
+      "Only j from 2 to 10"
+     ],
+     "answer": 0,
+     "explain": "It checks each j in turn and keeps those that divide n.",
+     "mistake": "Thinks only primes need checking"
+    },
+    {
+     "q": "How many numbers does the simple algorithm test for n = 120?",
+     "options": [
+      "11",
+      "120",
+      "60",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "It tests j = 1, 2, ..., 120.",
+     "mistake": "Uses the pair method count",
+     "check": "120"
+    },
+    {
+     "q": "Using the pair idea, up to what value of j must you check for n = 120?",
+     "options": [
+      "60",
+      "11",
+      "10",
+      "120"
+     ],
+     "answer": 2,
+     "explain": "10² = 100 ≤ 120 but 11² = 121 > 120.",
+     "mistake": "Checks up to n/2",
+     "check": "10"
+    },
+    {
+     "q": "Why can we stop checking at √n?",
+     "options": [
+      "Numbers above √n never divide n",
+      "√n is always prime",
+      "Because n is even",
+      "Divisors pair up as j and n/j, and one of each pair is at most √n"
+     ],
+     "answer": 3,
+     "explain": "If j > √n divides n, then n/j < √n was already found.",
+     "mistake": "Thinks no divisor exceeds √n"
+    },
+    {
+     "q": "How many divisors does 100 have?",
+     "options": [
+      "9",
+      "10",
+      "8",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "Pairs: (1, 100), (2, 50), (4, 25), (5, 20), (10, 10). Count: 4 pairs × 2 + 1 = 9.",
+     "mistake": "Counts 10 twice",
+     "check": "9"
+    },
+    {
+     "q": "The simple algorithm takes 1 second for n = 1,000,000. Roughly how long for n = 10,000,000?",
+     "options": [
+      "1 second",
+      "10 seconds",
+      "2 seconds",
+      "100 seconds"
+     ],
+     "answer": 1,
+     "explain": "The work grows in proportion to n.",
+     "mistake": "Thinks the time grows with the number of digits",
+     "check": "10"
+    },
+    {
+     "q": "Which list shows all divisors of 28?",
+     "options": [
+      "1, 2, 4, 7, 14",
+      "2, 4, 7, 14",
+      "1, 2, 4, 7, 14, 28",
+      "1, 2, 3, 4, 7, 14, 28"
+     ],
+     "answer": 2,
+     "explain": "Pairs (1, 28), (2, 14), (4, 7).",
+     "mistake": "Leaves out 1 or n itself"
+    },
+    {
+     "q": "For n = 49, the pair method checks j = 1 to 7. Which divisor appears without a partner?",
+     "options": [
+      "1",
+      "49",
+      "None",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "7 × 7 = 49, so 7 pairs with itself.",
+     "mistake": "Thinks every divisor has a different partner",
+     "check": "7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"Do I need to test all numbers up to 100 to find the divisors of 100?\"",
+    "must": [
+     [
+      "no",
+      "only",
+      "just"
+     ],
+     [
+      "square root",
+      "√",
+      "10",
+      "j × j",
+      "j²"
+     ],
+     [
+      "pair",
+      "pairs",
+      "partner"
+     ]
+    ],
+    "praise": "Clever! Check up to √100 = 10 and use pairs to get the rest!",
+    "nudge": "Do divisors come alone or in pairs? Where can you stop checking?"
+   }
+  },
+  {
+   "id": "g9-maths-11-07",
+   "title": "First algorithm for gcd",
+   "covers": [
+    "c11.5.1",
+    "c11.5.2",
+    "c11.6.1",
+    "c11.7.1"
+   ],
+   "learn": {
+    "hook": "Write the divisors of 24 and of 36, find what they share, pick the biggest. That's the first gcd algorithm!",
+    "points": [
+     "Step 1: list divisors(m). Step 2: list divisors(n). Step 3: build the list of common divisors (numbers in both lists). Step 4: report the largest.",
+     "If the lists are sorted from smallest to largest, the gcd is the last element of the common list.",
+     "Naming intermediate results (like Dm, Dn and C) makes an algorithm clear; a list is a simple data structure for storing many values in order.",
+     "Example: divisors(24) = 1, 2, 3, 4, 6, 8, 12, 24; divisors(36) = 1, 2, 3, 4, 6, 9, 12, 18, 36. Common: 1, 2, 3, 4, 6, 12. gcd = 12."
+    ],
+    "example": {
+     "q": "Find gcd(18, 30) with the first algorithm.",
+     "steps": [
+      "D18 = 1, 2, 3, 6, 9, 18",
+      "D30 = 1, 2, 3, 5, 6, 10, 15, 30",
+      "Common C = 1, 2, 3, 6",
+      "gcd = last of C = 6"
+     ],
+     "answer": "6"
+    },
+    "reallife": "Cutting two ribbons of 18 cm and 30 cm into equal pieces of the largest possible length uses the gcd: 6 cm."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "First gcd algorithm",
+     "prompt": "Steps in order",
+     "items": [
+      "List the divisors of m",
+      "List the divisors of n",
+      "Build the list of common divisors",
+      "Report the largest common divisor"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Common and greatest",
+     "items": [
+      {
+       "q": "gcd(24, 36)",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "gcd(18, 30)",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "Number of common divisors of 24 and 36",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "gcd(14, 15)",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "gcd(40, 60)",
+       "a": "20",
+       "check": "20"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The common divisors of 20 and 30 in sorted order are 1, 2, 5, 10. What is the gcd?",
+     "options": [
+      "10",
+      "1",
+      "5",
+      "30"
+     ],
+     "answer": 0,
+     "explain": "The gcd is the last (largest) common divisor.",
+     "mistake": "Picks the first element",
+     "check": "10"
+    },
+    {
+     "q": "Which list is the common divisors of 16 and 24?",
+     "options": [
+      "1, 2, 4, 8, 16",
+      "1, 2, 4, 8",
+      "1, 2, 3, 4, 6, 8",
+      "2, 4, 8"
+     ],
+     "answer": 1,
+     "explain": "D16 = 1, 2, 4, 8, 16; D24 = 1, 2, 3, 4, 6, 8, 12, 24.",
+     "mistake": "Includes divisors of only one number"
+    },
+    {
+     "q": "What is gcd(45, 60) by listing divisors?",
+     "options": [
+      "5",
+      "3",
+      "15",
+      "180"
+     ],
+     "answer": 2,
+     "explain": "Common divisors: 1, 3, 5, 15.",
+     "mistake": "Gives the LCM",
+     "check": "15"
+    },
+    {
+     "q": "In a sorted list of common divisors, why is the gcd the last element?",
+     "options": [
+      "The last element is always the smaller number",
+      "It is the first number checked",
+      "Lists are always reversed",
+      "The list goes from smallest to largest"
+     ],
+     "answer": 3,
+     "explain": "Sorted increasing, the largest is at the end.",
+     "mistake": "Thinks the first element is the largest"
+    },
+    {
+     "q": "What is a list in an algorithm?",
+     "options": [
+      "A data structure that stores values in order",
+      "A single number",
+      "A flowchart shape",
+      "A type of loop"
+     ],
+     "answer": 0,
+     "explain": "Lists hold many values like divisors, one after another.",
+     "mistake": "Confuses data with steps"
+    },
+    {
+     "q": "Why does the algorithm name results like Dm, Dn and C?",
+     "options": [
+      "To make it longer",
+      "So later steps can refer to them clearly",
+      "Names change the answer",
+      "Only computers need names"
+     ],
+     "answer": 1,
+     "explain": "Naming intermediate values makes each step precise.",
+     "mistake": "Thinks names are decoration"
+    },
+    {
+     "q": "How many common divisors do 12 and 18 have?",
+     "options": [
+      "6",
+      "3",
+      "4",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "1, 2, 3, 6.",
+     "mistake": "Counts only primes",
+     "check": "4"
+    },
+    {
+     "q": "Two ropes of 28 m and 42 m are cut into pieces of equal length, as long as possible, with nothing left over. How long is each piece?",
+     "options": [
+      "7 m",
+      "84 m",
+      "2 m",
+      "14 m"
+     ],
+     "answer": 3,
+     "explain": "gcd(28, 42) = 14.",
+     "mistake": "Uses the LCM",
+     "check": "14"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I find the gcd of two numbers using lists?\"",
+    "must": [
+     [
+      "list",
+      "divisors"
+     ],
+     [
+      "common",
+      "both"
+     ],
+     [
+      "largest",
+      "biggest",
+      "greatest",
+      "last"
+     ]
+    ],
+    "praise": "Excellent! List both sets of divisors, find the common ones, and pick the largest!",
+    "nudge": "What lists do you make? Which number from the common list do you choose?"
+   }
+  },
+  {
+   "id": "g9-maths-11-08",
+   "title": "Working with sorted lists and the LCM",
+   "covers": [
+    "c11.7.2",
+    "c11.7.3"
+   ],
+   "learn": {
+    "hook": "Two sorted lists of guests: who is on the first list but not the second? Walk down both lists together!",
+    "points": [
+     "To find elements of sorted list A that are not in sorted list B, walk through both with a pointer each: if the A item is smaller, it is missing from B (record it); if equal, move both; if the B item is smaller, move B's pointer.",
+     "Walking down sorted lists once is much faster than checking every element of A against every element of B.",
+     "LCM by multiples: list the multiples of the larger number (n, 2n, 3n, ...) and stop at the first one divisible by the smaller number.",
+     "Example: LCM(6, 8): multiples of 8 are 8, 16, 24; 24 is divisible by 6, so LCM = 24."
+    ],
+    "example": {
+     "q": "A = 2, 5, 8, 11, 14 and B = 1, 5, 9, 11, 13. Which elements of A are not in B?",
+     "steps": [
+      "Compare 2 with 1: move B. 2 vs 5: 2 smaller, record 2",
+      "5 = 5: move both",
+      "8 vs 9: record 8; 11 = 11: move both",
+      "14 vs 13: move B; B finished, record 14"
+     ],
+     "answer": "2, 8, 14"
+    },
+    "reallife": "Buses leaving every 12 and 18 minutes meet again after LCM(12, 18) = 36 minutes."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "LCM by multiples",
+     "items": [
+      {
+       "q": "LCM(6, 8)",
+       "a": "24",
+       "check": "24"
+      },
+      {
+       "q": "LCM(4, 10)",
+       "a": "20",
+       "check": "20"
+      },
+      {
+       "q": "LCM(9, 12)",
+       "a": "36",
+       "check": "36"
+      },
+      {
+       "q": "LCM(5, 7)",
+       "a": "35",
+       "check": "35"
+      },
+      {
+       "q": "LCM(12, 18)",
+       "a": "36",
+       "check": "36"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "In A but not B",
+     "items": [
+      {
+       "text": "A = 1, 3, 5, 7; B = 3, 7. Missing from B: 1 and ___",
+       "answer": "5",
+       "options": [
+        "5",
+        "3",
+        "7"
+       ]
+      },
+      {
+       "text": "A = 2, 4, 6; B = 2, 4, 6. Missing from B: ___",
+       "answer": "none",
+       "options": [
+        "none",
+        "2",
+        "6"
+       ]
+      },
+      {
+       "text": "LCM(8, 12): multiples of 12 are 12, ___",
+       "answer": "24",
+       "options": [
+        "24",
+        "36",
+        "48"
+       ]
+      },
+      {
+       "text": "When the A item is smaller than the B item, it is ___ from B",
+       "answer": "missing",
+       "options": [
+        "missing",
+        "present"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Using multiples of the larger number, what is LCM(15, 20)?",
+     "options": [
+      "60",
+      "300",
+      "40",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "20, 40, 60; 60 is the first divisible by 15.",
+     "mistake": "Multiplies the two numbers",
+     "check": "60"
+    },
+    {
+     "q": "How many multiples of 9 must you list to find LCM(6, 9)?",
+     "options": [
+      "3",
+      "2",
+      "6",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "9 (not divisible by 6), 18 (divisible by 6). So 2.",
+     "mistake": "Lists multiples of the smaller number",
+     "check": "2"
+    },
+    {
+     "q": "A = 3, 6, 9, 12 and B = 2, 4, 6, 8, 10, 12. Which elements of A are not in B?",
+     "options": [
+      "6 and 12",
+      "2, 4, 8, 10",
+      "3 and 9",
+      "3 only"
+     ],
+     "answer": 2,
+     "explain": "6 and 12 appear in both; 3 and 9 do not.",
+     "mistake": "Lists elements of B not in A"
+    },
+    {
+     "q": "Why is walking down two sorted lists together efficient?",
+     "options": [
+      "It skips half the elements",
+      "It only checks the first element",
+      "It sorts the lists again",
+      "Each element is looked at about once"
+     ],
+     "answer": 3,
+     "explain": "Pointers only move forward, so the work is about the total length of the lists.",
+     "mistake": "Thinks every pair must be compared"
+    },
+    {
+     "q": "While walking the lists, the A item is 8 and the B item is 10. What should you do?",
+     "options": [
+      "Record 8 as missing from B and move A's pointer",
+      "Move B's pointer",
+      "Record 10",
+      "Stop"
+     ],
+     "answer": 0,
+     "explain": "Since B is sorted and already past 8, 8 cannot be in B.",
+     "mistake": "Moves the wrong pointer"
+    },
+    {
+     "q": "Diyas in two rows flash every 4 seconds and every 6 seconds. After how many seconds do they flash together again?",
+     "options": [
+      "24",
+      "12",
+      "10",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "LCM(4, 6) = 12.",
+     "mistake": "Uses the gcd or the product",
+     "check": "12"
+    },
+    {
+     "q": "Which is the first multiple of 14 that is divisible by 21?",
+     "options": [
+      "21",
+      "28",
+      "42",
+      "294"
+     ],
+     "answer": 2,
+     "explain": "14, 28, 42: 42 ÷ 21 = 2.",
+     "mistake": "Takes the product",
+     "check": "42"
+    },
+    {
+     "q": "For LCM by multiples, why list multiples of the larger number?",
+     "options": [
+      "The smaller number has no multiples",
+      "It gives a different answer",
+      "The LCM is always the larger number",
+      "You reach the LCM in fewer steps"
+     ],
+     "answer": 3,
+     "explain": "Bigger jumps reach the common multiple sooner.",
+     "mistake": "Thinks the choice changes the answer"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I find the LCM of 6 and 8 using an algorithm?\"",
+    "must": [
+     [
+      "multiple",
+      "multiples"
+     ],
+     [
+      "larger",
+      "8",
+      "bigger"
+     ],
+     [
+      "divisible",
+      "divides",
+      "first"
+     ]
+    ],
+    "praise": "Great! List multiples of 8 until one is divisible by 6: 24!",
+    "nudge": "Which number's multiples do you list? When do you stop?"
+   }
+  },
+  {
+   "id": "g9-maths-11-09",
+   "title": "Improving and analysing gcd algorithms",
+   "covers": [
+    "c11.8.1",
+    "c11.8.2",
+    "c11.9.1",
+    "c11.9.2"
+   ],
+   "learn": {
+    "hook": "Why list all divisors of both numbers when you could just count down and stop at the first one that works?",
+    "points": [
+     "Improvement 1: check j = 1, 2, ..., min(m, n) only, and keep just the most recent j that divides both. At the end it is the gcd. No lists needed.",
+     "Improvement 2: search downwards from min(m, n) and stop at the first j that divides both; that j is the gcd.",
+     "Each refinement must still be correct: we must explain why it always gives the gcd (for example, no common divisor can exceed the smaller number).",
+     "Efficiency: these methods need up to min(m, n) checks, which grows with the VALUE of the numbers. For a 12-digit number that could be a trillion checks, while Euclid's method grows only with the number of DIGITS."
+    ],
+    "example": {
+     "q": "Find gcd(84, 36) by counting down from min(84, 36).",
+     "steps": [
+      "Start at 36: 84 ÷ 36 not exact",
+      "35 to 13: none divides both",
+      "12: 84 = 12 × 7 and 36 = 12 × 3",
+      "Stop: gcd = 12"
+     ],
+     "answer": "12"
+    },
+    "reallife": "Programmers improve slow apps the same way: first make it work, then make it faster while keeping it correct."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which version?",
+     "buckets": [
+      "Count up, keep latest",
+      "Count down, stop at first"
+     ],
+     "items": [
+      [
+       "Checks every j up to min(m, n)",
+       0
+      ],
+      [
+       "Can stop early",
+       1
+      ],
+      [
+       "Last common divisor found is the gcd",
+       0
+      ],
+      [
+       "First common divisor found is the gcd",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Analysis",
+     "items": [
+      [
+       "No common divisor of m and n can exceed min(m, n).",
+       true,
+       "A divisor of n cannot be larger than n."
+      ],
+      [
+       "Counting down never needs more checks than counting up.",
+       true,
+       "It stops at the gcd and never checks below it; when the gcd is 1 both need the same number."
+      ],
+      [
+       "The work of these methods depends on the number of digits only.",
+       false,
+       "It depends on the value of min(m, n)."
+      ],
+      [
+       "A faster algorithm need not be checked for correctness.",
+       false,
+       "Every refinement must be justified."
+      ],
+      [
+       "Euclid's method is much faster for large numbers.",
+       true,
+       "Its steps grow with the number of digits."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the count-up improvement, what is stored instead of full lists?",
+     "options": [
+      "Only the most recent common divisor found",
+      "Every divisor of m",
+      "The product m × n",
+      "The smallest common divisor"
+     ],
+     "answer": 0,
+     "explain": "Each time a j divides both, it replaces the stored value.",
+     "mistake": "Thinks lists are still needed"
+    },
+    {
+     "q": "When counting down from min(m, n), when can you stop?",
+     "options": [
+      "After 10 checks",
+      "At the first j that divides both m and n",
+      "When j is prime",
+      "Only at j = 1"
+     ],
+     "answer": 1,
+     "explain": "The first common divisor met while counting down is the greatest.",
+     "mistake": "Keeps going to 1 unnecessarily"
+    },
+    {
+     "q": "Counting down for gcd(45, 75), which j do you reach first that divides both?",
+     "options": [
+      "45",
+      "5",
+      "15",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "Start at 45: 75 ÷ 45 is not exact; ... 15 divides both.",
+     "mistake": "Stops at a common divisor that is not the first from the top",
+     "check": "15"
+    },
+    {
+     "q": "How many checks does counting down need for gcd(40, 60)?",
+     "options": [
+      "20",
+      "40",
+      "60",
+      "21"
+     ],
+     "answer": 3,
+     "explain": "Start at 40 and go down to 20: 40, 39, ..., 20 is 21 numbers.",
+     "mistake": "Forgets to count the starting number",
+     "check": "40-20+1"
+    },
+    {
+     "q": "Why is it enough to check j only up to min(m, n)?",
+     "options": [
+      "A common divisor must divide the smaller number, so it cannot exceed it",
+      "Larger j are all prime",
+      "Because m is even",
+      "The gcd is always half of min(m, n)"
+     ],
+     "answer": 0,
+     "explain": "Any divisor of n is at most n.",
+     "mistake": "Gives an unrelated reason"
+    },
+    {
+     "q": "Counting up for gcd(m, n) where m and n are 9-digit numbers could need about how many checks?",
+     "options": [
+      "About 9",
+      "Hundreds of millions",
+      "About 18",
+      "About 81"
+     ],
+     "answer": 1,
+     "explain": "min(m, n) can be around 10⁸ or more, so that many checks.",
+     "mistake": "Thinks the work depends on the number of digits"
+    },
+    {
+     "q": "Which statement about efficiency is correct?",
+     "options": [
+      "All gcd methods take the same time",
+      "Counting up is faster than Euclid's method",
+      "Methods whose work grows with the number of digits are much faster for big numbers",
+      "Efficiency does not matter for computers"
+     ],
+     "answer": 2,
+     "explain": "Digits grow slowly: a 12-digit number has only 12 digits but is about a trillion.",
+     "mistake": "Thinks computers make efficiency irrelevant"
+    },
+    {
+     "q": "A friend improves an algorithm and it runs faster but sometimes gives a wrong gcd. What is the problem?",
+     "options": [
+      "Nothing, speed is what matters",
+      "It needs a faster computer",
+      "gcd has no single answer",
+      "The refinement was not proved correct"
+     ],
+     "answer": 3,
+     "explain": "Correctness must be justified for every change.",
+     "mistake": "Values speed over correctness"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can I find the gcd faster than listing all divisors?\"",
+    "must": [
+     [
+      "down",
+      "downwards",
+      "largest"
+     ],
+     [
+      "min",
+      "smaller",
+      "minimum"
+     ],
+     [
+      "first",
+      "stop"
+     ]
+    ],
+    "praise": "Smart! Count down from the smaller number and stop at the first common divisor!",
+    "nudge": "Where should you start counting? When can you stop?"
+   }
+  },
+  {
+   "id": "g9-maths-11-10",
+   "title": "Euclid's and Aryabhata's gcd algorithms",
+   "covers": [
+    "c11.10.2",
+    "c11.10.3",
+    "c11.11.2",
+    "c11.11.3",
+    "c11.11.4"
+   ],
+   "learn": {
+    "hook": "gcd(1000, 3) by subtracting 3 again and again takes over 300 steps. By division it takes just 2!",
+    "points": [
+     "Subtraction method: gcd(m, n) = gcd(m − n, n) for m > n. Swap when m < n. Stop when one number becomes 0, since gcd(m, 0) = m.",
+     "When the numbers are very different, subtraction can take very many steps (like 1000 and 3).",
+     "Division method (Aryabhata used this repeated division in the kuttaka method of his Aryabhatiya, 499 CE, so it is called Aryabhata’s division algorithm): gcd(m, n) = gcd(n, m mod n), where m mod n is the remainder. Laid out like repeated long division: divide, then divide the divisor by the remainder, and so on, until the remainder is 0.",
+     "Why it works: if d divides m and n, it divides m − qn = remainder; and if d divides n and the remainder, it divides qn + remainder = m. So the common divisors (and the gcd) do not change.",
+     "The number of division steps grows with the number of digits, so it is very fast: it never needs more than about 5 times the number of digits of the smaller number."
+    ],
+    "example": {
+     "q": "Find gcd(1071, 462) by the division method.",
+     "steps": [
+      "1071 = 462 × 2 + 147",
+      "462 = 147 × 3 + 21",
+      "147 = 21 × 7 + 0",
+      "Last non-zero remainder: 21"
+     ],
+     "answer": "21"
+    },
+    "reallife": "Encryption on your phone uses the division gcd algorithm many times a second because it is so fast."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "gcd(1071, 462) by division",
+     "prompt": "Steps in order",
+     "items": [
+      "1071 = 462 × 2 + 147",
+      "462 = 147 × 3 + 21",
+      "147 = 21 × 7 + 0",
+      "gcd = 21"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Remainders and gcds",
+     "items": [
+      {
+       "q": "1000 mod 3",
+       "a": "1",
+       "check": "1000-3*333"
+      },
+      {
+       "q": "gcd(1000, 3)",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "75 mod 21",
+       "a": "12",
+       "check": "75-63"
+      },
+      {
+       "q": "gcd(75, 21)",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "gcd(144, 60)",
+       "a": "12",
+       "check": "12"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Using subtraction, gcd(28, 12) becomes gcd(16, 12), then gcd(4, 12). What comes next?",
+     "options": [
+      "Swap to gcd(12, 4), then gcd(8, 4), gcd(4, 4), gcd(0, 4) = 4",
+      "Stop: gcd = 4 immediately",
+      "gcd(4, 12) = 12",
+      "gcd(16, 4)"
+     ],
+     "answer": 0,
+     "explain": "Keep subtracting the smaller from the larger (swapping as needed) until one number is 0.",
+     "mistake": "Stops before reaching 0"
+    },
+    {
+     "q": "What is gcd(m, 0)?",
+     "options": [
+      "0",
+      "m",
+      "1",
+      "Undefined"
+     ],
+     "answer": 1,
+     "explain": "Every number divides 0, so the greatest common divisor of m and 0 is m.",
+     "mistake": "Thinks it must be 0"
+    },
+    {
+     "q": "About how many subtractions does gcd(1000, 3) need by the subtraction method?",
+     "options": [
+      "About 2",
+      "About 10",
+      "More than 300",
+      "Exactly 3"
+     ],
+     "answer": 2,
+     "explain": "Subtracting 3 from 1000 repeatedly takes 333 steps before the numbers swap.",
+     "mistake": "Thinks subtraction is as fast as division"
+    },
+    {
+     "q": "What is 145 mod 12?",
+     "options": [
+      "12",
+      "5",
+      "0",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "145 = 12 × 12 + 1.",
+     "mistake": "Gives the quotient",
+     "check": "145-12*12"
+    },
+    {
+     "q": "Using gcd(m, n) = gcd(n, m mod n), find gcd(156, 66).",
+     "options": [
+      "6",
+      "12",
+      "3",
+      "66"
+     ],
+     "answer": 0,
+     "explain": "156 = 66 × 2 + 24; 66 = 24 × 2 + 18; 24 = 18 × 1 + 6; 18 = 6 × 3 + 0.",
+     "mistake": "Stops at an earlier remainder",
+     "check": "6"
+    },
+    {
+     "q": "How many division steps are needed for gcd(1000, 3)?",
+     "options": [
+      "333",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "1000 = 3 × 333 + 1; 3 = 1 × 3 + 0. gcd = 1.",
+     "mistake": "Counts subtraction steps",
+     "check": "2"
+    },
+    {
+     "q": "Why does d divide m mod n if d divides both m and n?",
+     "options": [
+      "Because remainders are always prime",
+      "Because d is 1",
+      "m mod n = m − qn, and d divides both m and qn",
+      "Because m mod n is even"
+     ],
+     "answer": 2,
+     "explain": "A number dividing two numbers divides their difference.",
+     "mistake": "Cannot justify why the remainder keeps the common divisors"
+    },
+    {
+     "q": "Why is the division method fast even for huge numbers?",
+     "options": [
+      "It skips the last step",
+      "Computers do it",
+      "It uses subtraction",
+      "Its number of steps grows with the number of digits, not the size"
+     ],
+     "answer": 3,
+     "explain": "Remainders shrink quickly, so few steps are needed.",
+     "mistake": "Thinks it is fast only because of computers"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How does the division method find the gcd so fast?\"",
+    "must": [
+     [
+      "remainder",
+      "mod"
+     ],
+     [
+      "divide",
+      "division"
+     ],
+     [
+      "0",
+      "zero",
+      "last"
+     ]
+    ],
+    "praise": "Brilliant! Keep dividing by the remainder; when it hits 0, the last divisor is the gcd!",
+    "nudge": "What replaces the larger number at each step? When do you stop?"
+   }
+  },
+  {
+   "id": "g9-maths-11-11",
+   "title": "Al-Khwarizmi and prime-testing algorithms",
+   "covers": [
+    "c11.12.1",
+    "c11.12.2",
+    "c11.12.3"
+   ],
+   "learn": {
+    "hook": "The word 'algorithm' comes from a person's name. A Baghdad scholar who wrote about Indian numerals!",
+    "points": [
+     "Al-Khwarizmi (9th century, Baghdad) wrote a book explaining the Indian decimal numerals and methods of calculating with them. Its Latin title began 'Algoritmi ...', and from his name came the word algorithm.",
+     "A prime number has exactly two divisors: 1 and itself. So 1 is not prime (one divisor) and 4 is not prime (three divisors).",
+     "prime(n): compute divisors(n); if the list has exactly 2 elements, n is prime, otherwise it is not.",
+     "primedivisors(n): go through divisors(n) and keep only those d for which prime(d) is true. For 60: 2, 3, 5."
+    ],
+    "example": {
+     "q": "Use prime(n) to test 91.",
+     "steps": [
+      "divisors(91) = 1, 7, 13, 91",
+      "The list has 4 elements, not 2",
+      "So 91 is not prime"
+     ],
+     "answer": "91 is not prime"
+    },
+    "reallife": "Your phone's security uses huge primes found by prime-testing algorithms far faster than listing divisors."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Exactly two divisors?",
+     "buckets": [
+      "Prime",
+      "Not prime"
+     ],
+     "items": [
+      [
+       "2",
+       0
+      ],
+      [
+       "1",
+       1
+      ],
+      [
+       "17",
+       0
+      ],
+      [
+       "21",
+       1
+      ],
+      [
+       "29",
+       0
+      ],
+      [
+       "51",
+       1
+      ],
+      [
+       "97",
+       0
+      ],
+      [
+       "91",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Prime divisors",
+     "pairs": [
+      [
+       "60",
+       "2, 3, 5"
+      ],
+      [
+       "84",
+       "2, 3, 7"
+      ],
+      [
+       "45",
+       "3, 5"
+      ],
+      [
+       "98",
+       "2, 7"
+      ],
+      [
+       "143",
+       "11, 13"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The word 'algorithm' comes from the name of:",
+     "options": [
+      "Al-Khwarizmi",
+      "Aryabhata",
+      "Euclid",
+      "Al-Biruni"
+     ],
+     "answer": 0,
+     "explain": "His name in Latin, Algoritmi, became 'algorithm'.",
+     "mistake": "Picks another mathematician"
+    },
+    {
+     "q": "Al-Khwarizmi's famous book explained:",
+     "options": [
+      "the theory of gravity",
+      "the Indian decimal numerals and how to calculate with them",
+      "the first computer",
+      "the shape of the Earth"
+     ],
+     "answer": 1,
+     "explain": "It spread Indian place-value numerals to the Arab world and later to Europe.",
+     "mistake": "Mixes him up with astronomers"
+    },
+    {
+     "q": "By the definition 'exactly two divisors', why is 1 not prime?",
+     "options": [
+      "1 is odd",
+      "1 is too small",
+      "1 has only one divisor",
+      "1 has two divisors"
+     ],
+     "answer": 2,
+     "explain": "divisors(1) = 1: a list of length 1.",
+     "mistake": "Thinks 1 has divisors 1 and 1"
+    },
+    {
+     "q": "prime(n) reports TRUE when divisors(n) has how many elements?",
+     "options": [
+      "1",
+      "3",
+      "n",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "Exactly two divisors: 1 and n.",
+     "mistake": "Thinks primes have one divisor",
+     "check": "2"
+    },
+    {
+     "q": "divisors(57) = 1, 3, 19, 57. What does prime(57) report?",
+     "options": [
+      "Not prime",
+      "Prime",
+      "Cannot tell",
+      "57 is even"
+     ],
+     "answer": 0,
+     "explain": "Four divisors, not two.",
+     "mistake": "Assumes odd numbers are prime"
+    },
+    {
+     "q": "What are the prime divisors of 90?",
+     "options": [
+      "2, 3, 5, 9",
+      "2, 3, 5",
+      "1, 2, 3, 5",
+      "3, 5, 9"
+     ],
+     "answer": 1,
+     "explain": "divisors(90) include 9, 15 etc., but only 2, 3, 5 are prime.",
+     "mistake": "Includes 1 or composite divisors"
+    },
+    {
+     "q": "How many prime divisors does 210 have?",
+     "options": [
+      "3",
+      "5",
+      "4",
+      "16"
+     ],
+     "answer": 2,
+     "explain": "210 = 2 × 3 × 5 × 7.",
+     "mistake": "Counts all divisors",
+     "check": "4"
+    },
+    {
+     "q": "Which number has exactly 2 divisors?",
+     "options": [
+      "33",
+      "35",
+      "39",
+      "31"
+     ],
+     "answer": 3,
+     "explain": "31 is prime; 33 = 3 × 11, 35 = 5 × 7, 39 = 3 × 13.",
+     "mistake": "Thinks numbers ending in 3 or 9 are prime",
+     "check": "31"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How can an algorithm decide if a number is prime?\"",
+    "must": [
+     [
+      "divisors",
+      "list"
+     ],
+     [
+      "two",
+      "2",
+      "exactly"
+     ],
+     [
+      "count",
+      "length",
+      "how many"
+     ]
+    ],
+    "praise": "Perfect! List the divisors and check if there are exactly two!",
+    "nudge": "What list do you make first? How many elements must it have for a prime?"
+   }
+  },
+  {
+   "id": "g9-maths-11-12",
+   "title": "Prime factorisation and gcd from factors",
+   "covers": [
+    "c11.12.4",
+    "c11.12.5"
+   ],
+   "learn": {
+    "hook": "Every whole number above 1 is built from prime bricks. Record each brick and how many times it's used!",
+    "points": [
+     "Prime factorisation algorithm: start with the smallest prime 2; while it divides n, divide and count; then move to the next prime. Record pairs (prime, power).",
+     "Example: 360 → divide by 2 three times (45), by 3 twice (5), by 5 once (1). Pairs: (2, 3), (3, 2), (5, 1), so 360 = 2³ × 3² × 5.",
+     "gcd from factorisations: take each prime common to both numbers with the smaller of its two powers, and multiply.",
+     "Example: 360 = 2³ × 3² × 5 and 84 = 2² × 3 × 7. Common primes 2 and 3: gcd = 2² × 3¹ = 12."
+    ],
+    "example": {
+     "q": "Find gcd(180, 252) from prime factorisations.",
+     "steps": [
+      "180 = 2² × 3² × 5",
+      "252 = 2² × 3² × 7",
+      "Common: 2² and 3²",
+      "gcd = 4 × 9 = 36"
+     ],
+     "answer": "36"
+    },
+    "reallife": "Cryptographers depend on the fact that factorising very large numbers is extremely slow, even though multiplying primes is easy."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Factorisation pairs",
+     "pairs": [
+      [
+       "72",
+       "(2, 3), (3, 2)"
+      ],
+      [
+       "100",
+       "(2, 2), (5, 2)"
+      ],
+      [
+       "98",
+       "(2, 1), (7, 2)"
+      ],
+      [
+       "135",
+       "(3, 3), (5, 1)"
+      ],
+      [
+       "126",
+       "(2, 1), (3, 2), (7, 1)"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "gcd from primes",
+     "items": [
+      {
+       "q": "gcd(2³ × 3, 2² × 3²)",
+       "a": "12",
+       "check": "2**2*3"
+      },
+      {
+       "q": "gcd(2 × 5², 2³ × 5)",
+       "a": "10",
+       "check": "2*5"
+      },
+      {
+       "q": "gcd(3² × 7, 3 × 7²)",
+       "a": "21",
+       "check": "3*7"
+      },
+      {
+       "q": "gcd(2⁴, 3⁴)",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "gcd(180, 252)",
+       "a": "36",
+       "check": "36"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the prime factorisation of 168?",
+     "options": [
+      "2³ × 3 × 7",
+      "2² × 3 × 14",
+      "2³ × 21",
+      "2 × 3 × 7"
+     ],
+     "answer": 0,
+     "explain": "168 ÷ 2 = 84, ÷ 2 = 42, ÷ 2 = 21, ÷ 3 = 7, ÷ 7 = 1.",
+     "mistake": "Leaves a composite factor such as 14 or 21"
+    },
+    {
+     "q": "In the algorithm for 360, how many times does 2 divide before moving to 3?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "360 → 180 → 90 → 45; 45 is odd.",
+     "mistake": "Stops after one division",
+     "check": "3"
+    },
+    {
+     "q": "Which list of (prime, power) pairs describes 600?",
+     "options": [
+      "(2, 2), (3, 1), (5, 2)",
+      "(2, 3), (5, 2)",
+      "(2, 3), (3, 1), (5, 2)",
+      "(6, 1), (10, 2)"
+     ],
+     "answer": 2,
+     "explain": "600 = 8 × 3 × 25 = 2³ × 3 × 5².",
+     "mistake": "Misses a prime or uses composite 'primes'"
+    },
+    {
+     "q": "Using factorisations, what is gcd(2⁴ × 3² × 5, 2² × 3³ × 7)?",
+     "options": [
+      "180",
+      "12",
+      "1",
+      "36"
+     ],
+     "answer": 3,
+     "explain": "Common primes: 2 (smaller power 2) and 3 (smaller power 2): 4 × 9.",
+     "mistake": "Uses the larger powers (that gives the LCM part)",
+     "check": "2**2*3**2"
+    },
+    {
+     "q": "gcd(84, 90) from 84 = 2² × 3 × 7 and 90 = 2 × 3² × 5 is:",
+     "options": [
+      "6",
+      "2",
+      "18",
+      "1260"
+     ],
+     "answer": 0,
+     "explain": "Common primes 2 and 3 with powers 1 and 1.",
+     "mistake": "Takes all primes from both",
+     "check": "2*3"
+    },
+    {
+     "q": "If two numbers share no prime factor, their gcd is:",
+     "options": [
+      "0",
+      "1",
+      "the smaller number",
+      "their product"
+     ],
+     "answer": 1,
+     "explain": "No common primes means the only common divisor is 1.",
+     "mistake": "Thinks it is 0",
+     "check": "1"
+    },
+    {
+     "q": "Why does the factorisation algorithm move to the next prime only when the current one no longer divides?",
+     "options": [
+      "To save time by skipping primes",
+      "Because primes must be used once",
+      "To capture the full power of each prime",
+      "It does not matter"
+     ],
+     "answer": 2,
+     "explain": "Dividing repeatedly counts how many times each prime appears.",
+     "mistake": "Records each prime only once"
+    },
+    {
+     "q": "Which number has factorisation pairs (2, 1), (3, 1), (11, 1)?",
+     "options": [
+      "33",
+      "132",
+      "6",
+      "66"
+     ],
+     "answer": 3,
+     "explain": "2 × 3 × 11 = 66.",
+     "mistake": "Leaves out one of the primes",
+     "check": "2*3*11"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I get the gcd from prime factorisations?\"",
+    "must": [
+     [
+      "common",
+      "both",
+      "shared"
+     ],
+     [
+      "smaller",
+      "smallest",
+      "lower",
+      "minimum"
+     ],
+     [
+      "power",
+      "powers",
+      "exponent"
+     ]
+    ],
+    "praise": "Superb! Take the common primes with their smaller powers and multiply!",
+    "nudge": "Which primes do you use? Which power of each do you take?"
    }
   }
  ]
