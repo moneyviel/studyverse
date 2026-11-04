@@ -1,0 +1,716 @@
+{
+ "n": 7,
+ "title": "A Tale of Three Intersecting Lines",
+ "emoji": "🔺",
+ "topics": [
+  {
+   "id": "g7-maths-07-01",
+   "title": "Triangles and their types",
+   "lab": "angle",
+   "learn": {
+    "hook": "Three sticks can make a triangle... or can they? Try 2 cm, 3 cm and 10 cm and see what happens!",
+    "points": [
+     "A triangle is made by three line segments. It has 3 sides, 3 angles and 3 vertices.",
+     "By sides: equilateral (all 3 sides equal), isosceles (2 sides equal), scalene (all sides different).",
+     "By angles: acute (all angles less than 90°), right (one angle is 90°), obtuse (one angle more than 90°).",
+     "Triangle inequality: any two sides added together must be MORE than the third side.",
+     "If the two shorter sides add up to the longest side or less, no triangle can be made."
+    ],
+    "example": {
+     "q": "Can sticks of 4 cm, 5 cm and 10 cm make a triangle?",
+     "steps": [
+      "The two shorter sticks are 4 cm and 5 cm",
+      "4 + 5 = 9 cm",
+      "9 cm is less than 10 cm, so the two short sticks cannot reach each other"
+     ],
+     "answer": "No triangle can be made"
+    },
+    "reallife": "Bridges, roof frames and the stands of cricket nets use triangles because triangles keep their shape."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Sort by sides",
+     "buckets": [
+      "Equilateral",
+      "Isosceles",
+      "Scalene"
+     ],
+     "items": [
+      [
+       "5, 5, 5 cm",
+       0
+      ],
+      [
+       "6, 6, 4 cm",
+       1
+      ],
+      [
+       "3, 4, 5 cm",
+       2
+      ],
+      [
+       "7, 7, 7 cm",
+       0
+      ],
+      [
+       "8, 5, 8 cm",
+       1
+      ],
+      [
+       "4, 6, 9 cm",
+       2
+      ],
+      [
+       "2, 9, 9 cm",
+       1
+      ],
+      [
+       "5, 7, 10 cm",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Triangle truths",
+     "items": [
+      [
+       "A triangle can have two right angles.",
+       false,
+       "Two right angles already make 180°, leaving nothing for the third angle."
+      ],
+      [
+       "Sticks of 3 cm, 4 cm and 8 cm can form a triangle.",
+       false,
+       "3 + 4 = 7, which is less than 8."
+      ],
+      [
+       "Sticks of 5 cm, 5 cm and 9 cm can form a triangle.",
+       true,
+       "5 + 5 = 10, which is more than 9."
+      ],
+      [
+       "In an obtuse triangle, one angle is more than 90°.",
+       true,
+       "That is what obtuse means."
+      ],
+      [
+       "A scalene triangle has all three sides of different lengths.",
+       true,
+       "No two sides are equal in a scalene triangle."
+      ],
+      [
+       "A right-angled triangle can be equilateral.",
+       false,
+       "An equilateral triangle has all angles 60°, so none of them is 90°."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A triangle has sides 6 cm, 6 cm and 6 cm. What type is it?",
+     "options": [
+      "Equilateral",
+      "Isosceles only",
+      "Scalene",
+      "Right-angled"
+     ],
+     "answer": 0,
+     "explain": "All three sides are equal, so it is equilateral.",
+     "mistake": "Mixes up the names of triangle types",
+     "visual": {
+      "kind": "shape",
+      "name": "triangle"
+     }
+    },
+    {
+     "q": "A triangle has angles 90°, 50° and 40°. What type is it?",
+     "options": [
+      "Acute",
+      "Right-angled",
+      "Obtuse",
+      "Equilateral"
+     ],
+     "answer": 1,
+     "explain": "One angle is exactly 90°, so it is a right-angled triangle.",
+     "mistake": "Looks at the smaller angles and calls it acute",
+     "visual": {
+      "kind": "angle",
+      "deg": 90
+     }
+    },
+    {
+     "q": "Which set of lengths can form a triangle?",
+     "options": [
+      "2 cm, 3 cm, 6 cm",
+      "1 cm, 2 cm, 3 cm",
+      "4 cm, 5 cm, 7 cm",
+      "5 cm, 5 cm, 11 cm"
+     ],
+     "answer": 2,
+     "explain": "4 + 5 = 9, which is more than 7. In the others the two shorter sides add to the longest side or less.",
+     "mistake": "Forgets to check that the two shorter sides add up to MORE than the longest"
+    },
+    {
+     "q": "Two sides of a triangle are 5 cm and 8 cm. Which could be the third side?",
+     "options": [
+      "2 cm",
+      "3 cm",
+      "13 cm",
+      "10 cm"
+     ],
+     "answer": 3,
+     "explain": "The third side must be more than 8 − 5 = 3 cm and less than 8 + 5 = 13 cm. Only 10 cm fits.",
+     "steps": [
+      "More than 8 − 5 = 3",
+      "Less than 8 + 5 = 13",
+      "10 is between 3 and 13"
+     ],
+     "mistake": "Thinks the third side can equal the sum or the difference",
+     "check": "10"
+    },
+    {
+     "q": "A triangle has angles 30°, 40° and 110°. What type is it?",
+     "options": [
+      "Acute",
+      "Right-angled",
+      "Obtuse",
+      "Equilateral"
+     ],
+     "answer": 2,
+     "explain": "110° is more than 90°, so the triangle is obtuse.",
+     "mistake": "Thinks a triangle is acute if most of its angles are small",
+     "visual": {
+      "kind": "angle",
+      "deg": 110
+     }
+    },
+    {
+     "q": "An isosceles triangle has two equal sides of 7 cm and a base of 4 cm. What is its perimeter?",
+     "options": [
+      "11 cm",
+      "18 cm",
+      "25 cm",
+      "21 cm"
+     ],
+     "answer": 1,
+     "explain": "Perimeter = 7 + 7 + 4 = 18 cm.",
+     "steps": [
+      "Sides: 7, 7, 4",
+      "7 + 7 + 4 = 18"
+     ],
+     "mistake": "Counts the equal side only once",
+     "check": "7+7+4",
+     "visual": {
+      "kind": "shape",
+      "name": "triangle"
+     }
+    },
+    {
+     "q": "Can a triangle have sides 3 cm, 4 cm and 7 cm?",
+     "options": [
+      "Yes, because 3 + 4 = 7",
+      "No, because 3 + 4 is not more than 7",
+      "Yes, any three lengths make a triangle",
+      "No, because 7 is odd"
+     ],
+     "answer": 1,
+     "explain": "The two shorter sides must add to MORE than the longest. 3 + 4 is exactly 7, so the sides lie flat on one straight line.",
+     "mistake": "Thinks 'equal to' is good enough"
+    },
+    {
+     "q": "Which triangle has exactly two equal sides?",
+     "options": [
+      "Equilateral",
+      "Scalene",
+      "Isosceles"
+     ],
+     "answer": 2,
+     "explain": "An isosceles triangle has two equal sides. Equilateral has all three equal; scalene has none.",
+     "mistake": "Mixes up isosceles and equilateral"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has sticks of 2 cm, 3 cm and 10 cm, but cannot make a triangle. Why not? What is the rule?",
+    "must": [
+     [
+      "two sides",
+      "two shorter",
+      "shorter sides",
+      "two sticks",
+      "any two"
+     ],
+     [
+      "more",
+      "greater",
+      "longer",
+      "bigger"
+     ],
+     [
+      "third",
+      "longest",
+      "longer side",
+      "big side"
+     ]
+    ],
+    "praise": "Ohh! 2 + 3 is less than 10, so the short sticks cannot meet. Gappu understands!",
+    "nudge": "What must be true about the two shorter sides compared to the longest side?"
+   }
+  },
+  {
+   "id": "g7-maths-07-02",
+   "title": "Angle sum property",
+   "lab": "angle",
+   "learn": {
+    "hook": "Tear off the three corners of any paper triangle and put them side by side. They always make a straight line!",
+    "points": [
+     "The three angles of every triangle add up to 180°.",
+     "Reason: draw a line through one vertex parallel to the opposite side. The alternate angles copy the two base angles, and together with the top angle they fill a straight angle (180°).",
+     "So if we know two angles, the third = 180° − (sum of the two).",
+     "Each angle of an equilateral triangle is 180° ÷ 3 = 60°. In a right triangle, the other two angles add up to 90°.",
+     "Exterior angle: if one side is extended, the outside angle equals the sum of the two opposite inside angles."
+    ],
+    "example": {
+     "q": "Two angles of a triangle are 65° and 45°. Find the third angle.",
+     "steps": [
+      "Sum of all three angles = 180°",
+      "65° + 45° = 110°",
+      "Third angle = 180° − 110° = 70°"
+     ],
+     "answer": "70°"
+    },
+    "reallife": "Carpenters and kite makers use the 180° rule to cut triangular pieces that fit perfectly."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Find the missing angle",
+     "items": [
+      {
+       "q": "Third angle: 60°, 70°, ?",
+       "a": "50°",
+       "check": "180-60-70"
+      },
+      {
+       "q": "Third angle: 90°, 35°, ?",
+       "a": "55°",
+       "check": "180-90-35"
+      },
+      {
+       "q": "Each angle of an equilateral triangle",
+       "a": "60°",
+       "check": "180/3"
+      },
+      {
+       "q": "Third angle: 100°, 45°, ?",
+       "a": "35°",
+       "check": "180-100-45"
+      },
+      {
+       "q": "Exterior angle when opposite inside angles are 50° and 60°",
+       "a": "110°",
+       "check": "50+60"
+      },
+      {
+       "q": "Isosceles: equal angles 70° each, third?",
+       "a": "40°",
+       "check": "180-70-70"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Angles to triangle type",
+     "pairs": [
+      [
+       "60°, 60°, 60°",
+       "Equilateral triangle"
+      ],
+      [
+       "90°, 45°, 45°",
+       "Right isosceles triangle"
+      ],
+      [
+       "120°, 30°, 30°",
+       "Obtuse isosceles triangle"
+      ],
+      [
+       "50°, 60°, 70°",
+       "Acute scalene triangle"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Two angles of a triangle are 65° and 45°. What is the third angle?",
+     "options": [
+      "110°",
+      "70°",
+      "80°",
+      "290°"
+     ],
+     "answer": 1,
+     "explain": "All three angles add up to 180°. 180° − (65° + 45°) = 180° − 110° = 70°.",
+     "steps": [
+      "65 + 45 = 110",
+      "180 − 110 = 70"
+     ],
+     "mistake": "Adds the two angles and stops there",
+     "check": "180-65-45",
+     "visual": {
+      "kind": "angle",
+      "deg": 70
+     }
+    },
+    {
+     "q": "In a right-angled triangle, one of the other angles is 35°. What is the third angle?",
+     "options": [
+      "145°",
+      "65°",
+      "35°",
+      "55°"
+     ],
+     "answer": 3,
+     "explain": "180° − 90° − 35° = 55°. The two smaller angles of a right triangle add up to 90°.",
+     "steps": [
+      "180 − 90 = 90",
+      "90 − 35 = 55"
+     ],
+     "mistake": "Forgets to subtract the right angle",
+     "check": "180-90-35",
+     "visual": {
+      "kind": "angle",
+      "deg": 55
+     }
+    },
+    {
+     "q": "What is each angle of an equilateral triangle?",
+     "options": [
+      "60°",
+      "90°",
+      "45°",
+      "180°"
+     ],
+     "answer": 0,
+     "explain": "The three angles are equal and add up to 180°. 180° ÷ 3 = 60°.",
+     "mistake": "Thinks every triangle has a right angle",
+     "check": "180/3",
+     "visual": {
+      "kind": "angle",
+      "deg": 60
+     }
+    },
+    {
+     "q": "In an isosceles triangle, the two equal angles are 50° each. What is the third angle?",
+     "options": [
+      "130°",
+      "50°",
+      "80°",
+      "100°"
+     ],
+     "answer": 2,
+     "explain": "180° − 50° − 50° = 80°.",
+     "steps": [
+      "50 + 50 = 100",
+      "180 − 100 = 80"
+     ],
+     "mistake": "Subtracts only one 50°",
+     "check": "180-50-50",
+     "visual": {
+      "kind": "angle",
+      "deg": 80
+     }
+    },
+    {
+     "q": "The angles of a triangle are x, 2x and 3x. What is x?",
+     "options": [
+      "60°",
+      "36°",
+      "30°",
+      "20°"
+     ],
+     "answer": 2,
+     "explain": "x + 2x + 3x = 6x = 180°, so x = 180° ÷ 6 = 30°. The angles are 30°, 60° and 90°.",
+     "steps": [
+      "x + 2x + 3x = 6x",
+      "6x = 180",
+      "x = 30"
+     ],
+     "mistake": "Divides 180 by 3 because there are three angles",
+     "check": "180/6"
+    },
+    {
+     "q": "Can a triangle have angles 100°, 50° and 40°?",
+     "options": [
+      "Yes, all angles are less than 180°",
+      "No, because they add up to 190°",
+      "Yes, it is an obtuse triangle",
+      "No, because 40° is too small"
+     ],
+     "answer": 1,
+     "explain": "100 + 50 + 40 = 190°, but the angles of a triangle must add up to exactly 180°.",
+     "steps": [
+      "100 + 50 + 40 = 190",
+      "190 ≠ 180"
+     ],
+     "mistake": "Checks each angle alone instead of the total"
+    },
+    {
+     "q": "One side of a triangle is extended. The exterior angle is 120° and one opposite interior angle is 70°. What is the other opposite interior angle?",
+     "options": [
+      "50°",
+      "60°",
+      "110°",
+      "190°"
+     ],
+     "answer": 0,
+     "explain": "The exterior angle equals the sum of the two opposite interior angles: 120° − 70° = 50°.",
+     "steps": [
+      "Exterior angle = sum of the two opposite interior angles",
+      "120 − 70 = 50"
+     ],
+     "mistake": "Subtracts from 180° instead of using the exterior angle rule",
+     "check": "120-70",
+     "visual": {
+      "kind": "angle",
+      "deg": 50
+     }
+    },
+    {
+     "q": "Why can't a triangle have two obtuse angles?",
+     "options": [
+      "Obtuse angles cannot be drawn in a triangle",
+      "Two obtuse angles already add up to more than 180°",
+      "Triangles must have a right angle",
+      "Only squares have obtuse angles"
+     ],
+     "answer": 1,
+     "explain": "Each obtuse angle is more than 90°, so two of them make more than 180°. Then nothing is left for the third angle.",
+     "mistake": "Does not connect angle types to the 180° total"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu measured the angles of a triangle and got 70°, 60° and 50°. Is there a rule for the three angles of every triangle?",
+    "must": [
+     [
+      "180",
+      "one hundred eighty",
+      "hundred and eighty"
+     ],
+     [
+      "add",
+      "sum",
+      "total",
+      "together"
+     ],
+     [
+      "angles",
+      "three angles",
+      "all angles",
+      "corners"
+     ]
+    ],
+    "praise": "Amazing! 70 + 60 + 50 = 180. Gappu tore the corners of his paper triangle and checked!",
+    "nudge": "What do the three angles of any triangle add up to?"
+   }
+  },
+  {
+   "id": "g7-maths-07-03",
+   "title": "Constructing triangles",
+   "learn": {
+    "hook": "With just a ruler, a compass and three lengths, you can build a perfect triangle — like an architect!",
+    "points": [
+     "SSS: given three sides, draw one side as the base, then draw arcs from both ends with the other two lengths. Where the arcs cross is the third vertex.",
+     "SAS: given two sides and the angle between them, draw one side, make the angle with a protractor, and mark the second side along it.",
+     "ASA: given two angles and the side between them, draw the side and make both angles at its ends. Where the lines cross is the third vertex.",
+     "If the arcs do not meet, the three lengths cannot make a triangle (the triangle inequality fails).",
+     "Knowing only the three angles does not fix the size: many triangles of different sizes have the same angles."
+    ],
+    "example": {
+     "q": "Construct a triangle ABC with AB = 5 cm, BC = 4 cm and CA = 3 cm.",
+     "steps": [
+      "Draw AB = 5 cm with a ruler",
+      "Open the compass to 3 cm and draw an arc from A",
+      "Open the compass to 4 cm and draw an arc from B",
+      "Mark C where the arcs cross and join AC and BC"
+     ],
+     "answer": "Triangle ABC is constructed (it has a right angle at C)"
+    },
+    "reallife": "Engineers and tailors draw exact shapes using fixed lengths, just like constructing a triangle with a compass."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "SSS construction steps",
+     "prompt": "First step to last step",
+     "items": [
+      "Draw the base AB = 5 cm",
+      "Draw an arc of radius 3 cm from A and an arc of radius 4 cm from B",
+      "Mark C where the two arcs cross",
+      "Join AC and BC to finish the triangle"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Construction check",
+     "items": [
+      [
+       "To construct a triangle from its three sides we use a ruler and a compass.",
+       true,
+       "The ruler draws the base and the compass marks the other two lengths."
+      ],
+      [
+       "If the two arcs do not meet, the three lengths cannot form a triangle.",
+       true,
+       "The two shorter sides are too short to reach each other."
+      ],
+      [
+       "With sides 3 cm, 4 cm and 9 cm, the arcs will meet.",
+       false,
+       "3 + 4 = 7 is less than 9, so the arcs never meet."
+      ],
+      [
+       "For SAS, the given angle must be the angle between the two given sides.",
+       true,
+       "That angle fixes how the two sides open up."
+      ],
+      [
+       "Knowing only the three angles fixes the size of a triangle.",
+       false,
+       "Triangles with the same angles can be small or big."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which tool helps you mark a fixed length from a point by drawing arcs?",
+     "options": [
+      "Protractor",
+      "Compass",
+      "Set square",
+      "Eraser"
+     ],
+     "answer": 1,
+     "explain": "A compass keeps the same opening, so every point on its arc is the same distance from the centre.",
+     "mistake": "Mixes up the compass and the protractor"
+    },
+    {
+     "q": "In an SSS construction, AB = 6 cm is the base and AC = 5 cm. What should the compass opening be when drawing the arc from A?",
+     "options": [
+      "6 cm",
+      "5 cm",
+      "11 cm",
+      "1 cm"
+     ],
+     "answer": 1,
+     "explain": "The arc from A marks all points 5 cm from A, because AC = 5 cm.",
+     "mistake": "Uses the base length for the arc",
+     "check": "5"
+    },
+    {
+     "q": "Which set of lengths can NOT be used to construct a triangle?",
+     "options": [
+      "3 cm, 4 cm, 5 cm",
+      "5 cm, 5 cm, 5 cm",
+      "4 cm, 6 cm, 8 cm",
+      "2 cm, 3 cm, 6 cm"
+     ],
+     "answer": 3,
+     "explain": "2 + 3 = 5, which is less than 6, so the arcs would never meet.",
+     "mistake": "Does not check the triangle inequality"
+    },
+    {
+     "q": "Riya constructs a triangle with all angles 60° and one side 5 cm. How long are the other two sides?",
+     "options": [
+      "5 cm each",
+      "2.5 cm each",
+      "10 cm each",
+      "They can be any length"
+     ],
+     "answer": 0,
+     "explain": "A triangle with all angles 60° is equilateral, so all sides are equal: 5 cm each.",
+     "mistake": "Does not link equal angles with equal sides"
+    },
+    {
+     "q": "For an SAS construction, which angle must be given?",
+     "options": [
+      "Any one angle",
+      "The angle opposite the longest side",
+      "The angle between the two given sides",
+      "Only a right angle"
+     ],
+     "answer": 2,
+     "explain": "SAS means Side–Angle–Side: the angle sits between the two sides.",
+     "mistake": "Thinks any angle is enough"
+    },
+    {
+     "q": "You know only that all three angles of a triangle are 60°. How many different-sized triangles can you draw?",
+     "options": [
+      "Exactly one",
+      "None",
+      "Many — of any size",
+      "Exactly two"
+     ],
+     "answer": 2,
+     "explain": "Equal angles fix the shape but not the size. Small and big equilateral triangles all have 60° angles.",
+     "mistake": "Thinks angles alone fix the triangle"
+    },
+    {
+     "q": "Arjun draws a base of 7 cm and draws arcs of 3 cm from each end. What happens?",
+     "options": [
+      "They meet and make an isosceles triangle",
+      "The arcs do not meet, so there is no triangle",
+      "They meet exactly on the base",
+      "They make a right triangle"
+     ],
+     "answer": 1,
+     "explain": "3 + 3 = 6 is less than 7, so the arcs are too short to meet.",
+     "mistake": "Thinks two equal sides always make an isosceles triangle"
+    },
+    {
+     "q": "Harpreet constructs a right-angled triangle whose two sides next to the right angle are 3 cm and 4 cm. She measures the third side. What does she find?",
+     "options": [
+      "7 cm",
+      "5 cm",
+      "6 cm",
+      "1 cm"
+     ],
+     "answer": 1,
+     "explain": "The longest side of this right triangle measures 5 cm. (3, 4, 5 is a famous right-triangle set.) It is less than 3 + 4 = 7 cm, as the triangle inequality says.",
+     "mistake": "Adds the two sides, forgetting the third side must be less than their sum",
+     "check": "5",
+     "visual": {
+      "kind": "shape",
+      "name": "triangle"
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has three lengths: 5 cm, 4 cm and 3 cm. How can he construct the triangle using a ruler and a compass?",
+    "must": [
+     [
+      "compass"
+     ],
+     [
+      "arc",
+      "arcs",
+      "circle"
+     ],
+     [
+      "meet",
+      "cross",
+      "cut",
+      "intersect",
+      "join"
+     ]
+    ],
+    "praise": "Yay! The arcs crossed and Gappu's triangle is perfect!",
+    "nudge": "After drawing the base, what do you draw from each end, and where is the third corner?"
+   }
+  }
+ ]
+}
