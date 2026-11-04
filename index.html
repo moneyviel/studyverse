@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Angle Island – Study World Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#0f1b3d; --sky2:#1d2f6b; --card:#ffffff; --ink:#1b1f3a; --muted:#6b7090;
+  --sun:#ffc93c; --coral:#ff6b6b; --mint:#2ed3a5; --violet:#8b5cf6; --blue:#3b82f6;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Nunito,system-ui,sans-serif;background:linear-gradient(180deg,var(--sky),var(--sky2));color:var(--ink);min-height:100vh;display:flex;justify-content:center}
+.app{width:100%;max-width:440px;min-height:100vh;display:flex;flex-direction:column;position:relative}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;color:#fff}
+.brand{font-family:'Baloo 2';font-weight:800;font-size:22px;letter-spacing:.3px}
+.brand span{color:var(--sun)}
+.stats{display:flex;gap:8px}
+.pill{background:rgba(255,255,255,.12);border-radius:999px;padding:5px 10px;font-weight:800;font-size:13px;display:flex;align-items:center;gap:4px}
+main{flex:1;padding:4px 14px 96px;overflow-y:auto}
+.screen{display:none;animation:pop .35s ease}
+.screen.active{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+h2{font-family:'Baloo 2';font-size:22px;line-height:1.1;margin-bottom:4px}
+h3{font-family:'Baloo 2';font-size:17px;margin-bottom:6px}
+p.sub{color:var(--muted);font-size:14px;margin-bottom:10px}
+.btn{border:none;border-radius:16px;padding:13px 16px;font-family:'Baloo 2';font-weight:700;font-size:17px;cursor:pointer;width:100%;color:#fff;background:var(--violet);box-shadow:0 4px 0 #5b33c9;transition:transform .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #5b33c9}
+.btn.mint{background:var(--mint);box-shadow:0 4px 0 #1a9c78}
+.btn.ghost{background:#eef0fb;color:var(--ink);box-shadow:0 4px 0 #d3d7ef}
+/* World map */
+.hud{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border-radius:16px;padding:10px 12px;color:#fff;margin-bottom:10px;font-weight:800;font-size:13px}
+.hud-top{display:flex;justify-content:space-between;margin-bottom:6px}
+.hud-bar{height:9px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden}
+.hud-bar i{display:block;height:100%;width:18%;background:linear-gradient(90deg,#ffc93c,#ff6b6b,#8b5cf6);box-shadow:0 0 12px #ffc93c}
+.map{height:calc(100vh - 210px);min-height:420px;border-radius:24px;overflow-y:auto;overflow-x:hidden;box-shadow:0 10px 40px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.08);scrollbar-width:none}
+.map::-webkit-scrollbar{display:none}
+.map svg{display:block;width:100%;height:auto}
+.isle{cursor:pointer}
+.bob{animation:bob 3s ease-in-out infinite;transform-box:fill-box}
+.bob2{animation:bob 4s ease-in-out infinite .8s;transform-box:fill-box}
+@keyframes bob{50%{transform:translateY(-7px)}}
+.twinkle{animation:tw 2.4s ease-in-out infinite}
+@keyframes tw{50%{opacity:.15}}
+.wave{animation:wv 6s linear infinite}
+.wave.b{animation-duration:9s;animation-direction:reverse}
+@keyframes wv{to{transform:translateX(-80px)}}
+.cloud{animation:cl 40s linear infinite}
+@keyframes cl{from{transform:translateX(-160px)}to{transform:translateX(480px)}}
+.spin{animation:sp 4s linear infinite;transform-box:fill-box;transform-origin:center}
+.spin.slow{animation-duration:14s}
+@keyframes sp{to{transform:rotate(360deg)}}
+.beam{animation:beam 4s ease-in-out infinite;transform-origin:0 0}
+@keyframes beam{0%,100%{transform:rotate(-35deg)}50%{transform:rotate(35deg)}}
+.smoke{animation:smk 3s ease-out infinite;transform-box:fill-box}
+@keyframes smk{from{transform:translateY(0) scale(.6);opacity:.9}to{transform:translateY(-38px) scale(1.6);opacity:0}}
+.pulse{animation:pl 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pl{50%{transform:scale(1.15);opacity:.7}}
+.fog{animation:fg 7s ease-in-out infinite}
+@keyframes fg{50%{transform:translateX(14px)}}
+.shoot{animation:sh 6s ease-in infinite}
+@keyframes sh{0%,80%{transform:translate(0,0);opacity:0}82%{opacity:1}100%{transform:translate(-220px,120px);opacity:0}}
+.flow{animation:fl 1.2s linear infinite}
+@keyframes fl{to{stroke-dashoffset:-28}}
+.sheet{position:fixed;inset:0;background:rgba(5,10,30,.55);display:none;align-items:flex-end;justify-content:center;z-index:8}
+.sheet.show{display:flex}
+.sheet-in{background:#fff;width:100%;max-width:440px;border-radius:26px 26px 0 0;padding:12px 18px calc(20px + env(safe-area-inset-bottom));animation:up .3s ease}
+@keyframes up{from{transform:translateY(100%)}}
+.sheet-grab{width:44px;height:5px;border-radius:9px;background:#dfe2f5;margin:0 auto 12px}
+.stars3{font-size:26px;letter-spacing:4px;margin:4px 0 6px}
+/* Explainer */
+.explain{margin-top:12px;border-radius:18px;background:linear-gradient(#f7f8ff,#eceffe);padding:10px;animation:pop .35s ease}
+.explain svg{width:100%;height:auto;display:block}
+.explain .why{font-weight:700;font-size:14px;margin:6px 4px 2px}
+.explain .why b{color:var(--violet)}
+.xrow{display:flex;gap:8px;margin-top:10px}
+.xrow .btn{font-size:15px;padding:11px}
+.draw{stroke-dasharray:100;stroke-dashoffset:100;animation:dr 1.6s linear forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.late{opacity:0;animation:fi .4s ease forwards 1.7s}
+.late2{opacity:0;animation:fi .4s ease forwards 2.2s}
+@keyframes fi{to{opacity:1}}
+.tag{display:inline-block;background:#eef0fb;color:var(--violet);font-weight:800;font-size:11px;border-radius:999px;padding:3px 9px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+/* Angle lab */
+#lab{width:100%;height:auto;touch-action:none;background:linear-gradient(#f7f8ff,#eef1ff);border-radius:18px;display:block}
+.readout{display:flex;justify-content:space-between;align-items:center;margin:12px 0 6px}
+.deg{font-family:'Baloo 2';font-size:44px;font-weight:800;line-height:1}
+.type{font-family:'Baloo 2';font-size:20px;font-weight:800;padding:4px 12px;border-radius:12px;color:#fff}
+.reallife{background:#fff8e1;border-radius:14px;padding:10px 12px;font-size:14px;margin-top:8px}
+.mission{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:#f3f4fb;margin-top:8px;font-weight:700;font-size:14px}
+.mission .ck{width:26px;height:26px;border-radius:50%;border:3px solid #c9cde6;display:grid;place-items:center;font-size:14px;flex-shrink:0}
+.mission.done{background:#e3fbf3}.mission.done .ck{background:var(--mint);border-color:var(--mint);color:#fff}
+/* Gappu */
+.pet{display:flex;gap:12px;align-items:flex-start}
+.pet .face{font-size:54px;line-height:1;flex-shrink:0;transition:transform .3s}
+.bubble{background:#f1efff;border-radius:16px 16px 16px 4px;padding:10px 12px;font-size:15px;font-weight:600}
+textarea{width:100%;border:2px solid #dfe2f5;border-radius:14px;padding:10px;font-family:inherit;font-size:15px;margin:12px 0 10px;resize:none;min-height:80px}
+textarea:focus{outline:none;border-color:var(--violet)}
+/* Quiz */
+.opt{display:block;width:100%;text-align:left;border:2px solid #e3e6f6;background:#fff;border-radius:14px;padding:12px 14px;margin-top:8px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;color:var(--ink)}
+.opt.right{border-color:var(--mint);background:#e3fbf3}
+.opt.wrong{border-color:var(--coral);background:#ffecec}
+.progress{height:10px;background:#eef0fb;border-radius:999px;overflow:hidden;margin-bottom:12px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--blue));width:0;transition:width .4s}
+.dna{display:flex;align-items:center;gap:8px;padding:9px 11px;background:#fff1f1;border-radius:12px;margin-top:8px;font-size:14px}
+/* Squad */
+.row{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #eef0fb}
+.row:last-child{border:none}
+.rank{width:26px;font-family:'Baloo 2';font-weight:800;color:var(--muted);text-align:center}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.row .nm{flex:1;font-weight:800}.row .nm small{display:block;color:var(--muted);font-weight:600;font-size:12px}
+.row .xp{font-family:'Baloo 2';font-weight:800}
+.row.me{background:#fff8e1;border-radius:12px}
+.vs{display:flex;align-items:center;justify-content:space-between;text-align:center;font-family:'Baloo 2';font-weight:800}
+.vs .big{font-size:30px}
+.bar2{height:14px;border-radius:999px;background:var(--coral);overflow:hidden;margin:10px 0 4px}
+.bar2 i{display:block;height:100%;background:var(--mint);transition:width .5s}
+/* Nav */
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;display:flex;justify-content:space-around;padding:8px 6px calc(10px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0;box-shadow:0 -6px 20px rgba(0,0,0,.2);z-index:5}
+nav button{background:none;border:none;font-family:inherit;font-size:11px;font-weight:800;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:4px 8px;border-radius:12px}
+nav button b{font-size:22px;font-weight:400}
+nav button.on{color:var(--violet);background:#f1efff}
+/* Toast */
+.toast{position:fixed;top:16px;left:50%;transform:translate(-50%,-120px);background:var(--sun);color:var(--ink);font-family:'Baloo 2';font-weight:800;padding:10px 18px;border-radius:999px;box-shadow:0 8px 20px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.2,1.6,.4,1);z-index:10;white-space:nowrap}
+.toast.show{transform:translate(-50%,0)}
+.note{color:rgba(255,255,255,.6);font-size:12px;text-align:center;margin:4px 0 10px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">Study<span>Verse</span></div>
+    <div class="stats">
+      <div class="pill">🔥 <span id="streak">1</span></div>
+      <div class="pill">⭐ <span id="xp">0</span></div>
+      <button class="pill btnp" onclick="openSound()" aria-label="Sound settings"><span id="sndIcon">🔊</span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- WORLD -->
+    <section class="screen active" id="s-world">
+      <div class="hud">
+        <div class="hud-top"><span>🌊 Season 1 · Voyage to the Stars</span><span id="hudPct">18%</span></div>
+        <div class="hud-bar"><i id="hudBar"></i></div>
+      </div>
+      <div class="map" id="map"></div>
+      <div class="sheet" id="sheet">
+        <div class="sheet-in">
+          <div class="sheet-grab"></div>
+          <span class="tag" id="shTag"></span>
+          <h2 id="shTitle"></h2>
+          <div class="stars3" id="shStars"></div>
+          <p class="sub" id="shText"></p>
+          <button class="btn" id="shBtn"></button>
+          <div style="height:8px"></div>
+          <button class="btn ghost" id="shPrev"></button>
+          <div style="height:8px"></div>
+          <button class="btn ghost" onclick="closeSheet()">Close</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAB -->
+    <section class="screen" id="s-lab">
+      <div class="card">
+        <span class="tag">Step 1 · Play</span>
+        <h2>Drag the yellow dot</h2>
+        <p class="sub">Open and close the angle. Watch what it becomes.</p>
+        <svg id="lab" viewBox="0 0 320 240">
+          <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1b1f3a"/></marker></defs>
+          <path id="arc" fill="rgba(139,92,246,.18)" stroke="#8b5cf6" stroke-width="3"/>
+          <rect id="sq" width="22" height="22" fill="none" stroke="#8b5cf6" stroke-width="3" style="display:none"/>
+          <line x1="160" y1="140" x2="290" y2="140" stroke="#1b1f3a" stroke-width="5" stroke-linecap="round"/>
+          <line id="ray" x1="160" y1="140" x2="250" y2="50" stroke="#1b1f3a" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="160" cy="140" r="7" fill="#1b1f3a"/>
+          <circle id="knob" cx="250" cy="50" r="17" fill="#ffc93c" stroke="#1b1f3a" stroke-width="3" style="cursor:grab"/>
+        </svg>
+        <div class="readout">
+          <div class="deg" id="degText">45°</div>
+          <div class="type" id="typeText" style="background:#2ed3a5">Acute</div>
+        </div>
+        <div class="reallife" id="real">🍕 Like a thin pizza slice — less than 90°.</div>
+      </div>
+      <div class="card">
+        <h3>🎯 Missions</h3>
+        <div class="mission" id="m-right"><div class="ck">✓</div>Make a perfect right angle (90°)</div>
+        <div class="mission" id="m-obtuse"><div class="ck">✓</div>Make an obtuse angle</div>
+        <div class="mission" id="m-straight"><div class="ck">✓</div>Make a straight angle (180°)</div>
+        <div class="mission" id="m-reflex"><div class="ck">✓</div>Find the secret: go past 180°!</div>
+        <div style="height:12px"></div>
+        <button class="btn mint" onclick="go('teach')">Next: teach Gappu ▶</button>
+      </div>
+    </section>
+
+    <!-- TEACH -->
+    <section class="screen" id="s-teach">
+      <div class="card">
+        <span class="tag">Step 2 · Teach to learn</span>
+        <div class="pet">
+          <div class="face" id="gface">🐣</div>
+          <div class="bubble" id="gsay">Hi! I'm Gappu. My teacher said "obtuse angle" and I got scared 😰. Can you explain it to me in your own words?</div>
+        </div>
+        <textarea id="ans" placeholder="Type like you're explaining to a little friend…"></textarea>
+        <button class="btn" onclick="teach()">Explain to Gappu 💬</button>
+        <div id="teachViz"></div>
+        <p class="sub" style="margin-top:10px;font-size:12px">In the real app, Gappu is an AI that asks follow-up questions. This demo checks your answer with simple rules.</p>
+      </div>
+      <button class="btn mint" onclick="go('quiz')">Next: quiz battle ▶</button>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="screen" id="s-quiz">
+      <div class="card" id="quizCard">
+        <span class="tag">Step 3 · Quiz battle</span>
+        <div class="progress"><i id="qbar"></i></div>
+        <h2 id="qtext"></h2>
+        <div id="qopts"></div>
+      </div>
+    </section>
+
+    <!-- SQUAD -->
+    <section class="screen" id="s-squad">
+      <div class="card">
+        <span class="tag">This week · School league</span>
+        <div class="vs">
+          <div><div class="big">🦁</div>Team Lions<br><span id="usScore">0</span> XP</div>
+          <div class="big">VS</div>
+          <div><div class="big">🦅</div>Team Eagles<br><span id="themScore">1450</span> XP</div>
+        </div>
+        <div class="bar2"><i id="vsbar" style="width:40%"></i></div>
+        <p class="sub" style="text-align:center" id="vsmsg">Every XP you earn helps the Lions.</p>
+      </div>
+      <div class="card">
+        <h3>🦁 Team Lions</h3>
+        <div id="board"></div>
+      </div>
+      <div class="card">
+        <h3>🎓 Senior mentor</h3>
+        <div class="row"><div class="av" style="background:#e9e2ff">👩‍🎓</div><div class="nm">Priya (BTech, 2nd yr)<small>Helped 38 juniors · earns her fee back</small></div></div>
+        <div style="height:8px"></div>
+        <button class="btn ghost" onclick="toast('Help request sent to Priya 🙌')">Ask Priya for help</button>
+      </div>
+    </section>
+  </main>
+
+  <nav>
+    <button class="on" data-s="world" onclick="go('world')"><b>🗺️</b>World</button>
+    <button data-s="lab" onclick="go('lab')"><b>📐</b>Play</button>
+    <button data-s="teach" onclick="go('teach')"><b>🐣</b>Teach</button>
+    <button data-s="quiz" onclick="go('quiz')"><b>⚡</b>Quiz</button>
+    <button data-s="squad" onclick="go('squad')"><b>🦁</b>Squad</button>
+  </nav>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+let xp = 0;
+try { xp = parseInt(localStorage.getItem('sv_xp') || '0', 10) || 0; } catch(e) {}
+const done = {};
+function save(){ try{ localStorage.setItem('sv_xp', xp); }catch(e){} }
+function addXP(n, msg){ xp += n; save(); document.getElementById('xp').textContent = xp; toast(msg + '  +' + n + ' ⭐'); renderSquad(); }
+document.getElementById('xp').textContent = xp;
+
+let tt;
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),1800); }
+
+function go(s){
+  if(typeof sfx==='function') sfx('tap');
+  document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));
+  document.getElementById('s-'+s).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on', b.dataset.s===s));
+  window.scrollTo(0,0);
+  if(s==='quiz' && qi===0 && !quizStarted) startQuiz();
+  if(s==='squad') renderSquad();
+}
+
+/* ---------- World map ---------- */
+const ISLES=[
+  {id:'num', name:'Number Bay', cls:'Class 1–5', x:110, y:1000, state:'done', lm:'lighthouse', g:['#7ee081','#2f9e5b'],
+   text:'You mastered counting, place value and tables here. Replay any time to keep your 3 stars shining.'},
+  {id:'ang', name:'Angle Island', cls:'Class 6', x:285, y:850, state:'current', lm:'protractor', g:['#ffe27a','#f2a93b'],
+   text:'Bend light, open laptops, read clocks — and discover the secret Reflex angle. Finish it to open the treasure chest!'},
+  {id:'tri', name:'Triangle Peak', cls:'Class 7', x:115, y:690, state:'locked', lm:'peak', g:['#b8a6ff','#6d4fe0'],
+   text:'Climb the mountain built from triangles. Unlocks when you finish Angle Island — angles are the rope you climb with!'},
+  {id:'phy', name:'Physics Port', cls:'Class 9', x:290, y:530, state:'locked', lm:'windmill', g:['#8fd3ff','#2f80d1'],
+   text:'Ships, forces and motion. The angles you learn today steer the ships here.'},
+  {id:'chem', name:'Chem Volcano', cls:'Class 11', x:115, y:370, state:'locked', lm:'volcano', g:['#9ef0c8','#22a37a'],
+   text:'Reactions bubble and erupt. Mix elements safely and watch what happens.'},
+  {id:'gal', name:'Galaxy Gate', cls:'College · CA · BTech · MBA', x:225, y:150, state:'locked', lm:'portal', g:['#e3b8ff','#8b5cf6'],
+   text:'The final portal. Everything you learn from Class 1 builds the bridge to your career up here among the stars.'}
+];
+function rnd(seed){ let s=seed; return ()=>{ s=(s*9301+49297)%233280; return s/233280; }; }
+function landmark(i){
+  const {x,y,lm}=i, Y=y-14;
+  switch(lm){
+    case 'lighthouse': return `
+      <g><rect x="${x-9}" y="${Y-62}" width="18" height="62" rx="3" fill="#fff"/>
+      <rect x="${x-9}" y="${Y-48}" width="18" height="10" fill="#ff6b6b"/><rect x="${x-9}" y="${Y-24}" width="18" height="10" fill="#ff6b6b"/>
+      <rect x="${x-12}" y="${Y-72}" width="24" height="12" rx="3" fill="#ffd54f"/><path d="M${x-13} ${Y-72} L${x} ${Y-84} L${x+13} ${Y-72}Z" fill="#c62828"/>
+      <g transform="translate(${x},${Y-66})"><path d="M0 0 L120 -22 L120 22Z" fill="url(#beamG)"><animateTransform attributeName="transform" type="rotate" values="-35;35;-35" dur="4s" repeatCount="indefinite"/></path></g>
+      <text x="${x}" y="${Y-6}" font-size="9" font-weight="800" text-anchor="middle" fill="#1b1f3a">123</text></g>`;
+    case 'protractor': return `
+      <g filter="url(#glow)"><path d="M${x-44} ${Y} A44 44 0 0 1 ${x+44} ${Y}" fill="none" stroke="#ffd54f" stroke-width="9"/>
+      ${Array.from({length:13},(_,k)=>{const a=Math.PI*k/12;return `<line x1="${x-38*Math.cos(a)}" y1="${Y-38*Math.sin(a)}" x2="${x-32*Math.cos(a)}" y2="${Y-32*Math.sin(a)}" stroke="#8a5a00" stroke-width="2"/>`}).join('')}</g>
+      <line x1="${x}" y1="${Y}" x2="${x+30}" y2="${Y-30}" stroke="#ff6b6b" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="${x}" cy="${Y}" r="4" fill="#1b1f3a"/>
+      <line x1="${x+44}" y1="${Y}" x2="${x+44}" y2="${Y-70}" stroke="#5d4037" stroke-width="3"/>
+      <path d="M${x+44} ${Y-70} q14 4 26 0 q-6 7 0 14 q-12 4 -26 0z" fill="#ff6b6b"><animate attributeName="d" dur="1.4s" repeatCount="indefinite" values="M${x+44} ${Y-70} q14 4 26 0 q-6 7 0 14 q-12 4 -26 0z;M${x+44} ${Y-70} q14 -4 26 2 q-6 7 0 14 q-12 -4 -26 -2z;M${x+44} ${Y-70} q14 4 26 0 q-6 7 0 14 q-12 4 -26 0z"/></path>`;
+    case 'peak': return `
+      <path d="M${x-50} ${Y} L${x-12} ${Y-78} L${x+22} ${Y}Z" fill="#7c6bd6"/><path d="M${x-12} ${Y-78} L${x+22} ${Y} L${x+2} ${Y}Z" fill="#5a49b8"/>
+      <path d="M${x-8} ${Y} L${x+22} ${Y-52} L${x+50} ${Y}Z" fill="#9a8cf0"/>
+      <path d="M${x-12} ${Y-78} L${x-22} ${Y-60} L${x-14} ${Y-63} L${x-6} ${Y-58} L${x-3} ${Y-62}Z" fill="#fff"/>
+      <path d="M${x+22} ${Y-52} L${x+14} ${Y-40} L${x+22} ${Y-43} L${x+30} ${Y-40}Z" fill="#fff"/>`;
+    case 'windmill': return `
+      <path d="M${x-8} ${Y} L${x-5} ${Y-56} L${x+5} ${Y-56} L${x+8} ${Y}Z" fill="#eceff1"/><rect x="${x-4}" y="${Y-18}" width="8" height="18" rx="2" fill="#795548"/>
+      <g>${[0,90,180,270].map(r=>`<rect x="${x-3}" y="${Y-96}" width="6" height="40" rx="2" fill="#fff" stroke="#90a4ae" transform="rotate(${r} ${x} ${Y-56})"/>`).join('')}<animateTransform attributeName="transform" type="rotate" from="0 ${x} ${Y-56}" to="360 ${x} ${Y-56}" dur="5s" repeatCount="indefinite"/></g>
+      <circle cx="${x}" cy="${Y-56}" r="5" fill="#455a64"/>
+      <g class="bob2"><path d="M${x+30} ${Y+16} h34 l-6 10 h-22z" fill="#8d6e63"/><path d="M${x+46} ${Y+16} v-26 l16 22z" fill="#fff"/></g>`;
+    case 'volcano': return `
+      <path d="M${x-48} ${Y} L${x-14} ${Y-58} L${x+14} ${Y-58} L${x+48} ${Y}Z" fill="#6d4c41"/>
+      <path d="M${x-14} ${Y-58} L${x+14} ${Y-58} L${x+6} ${Y-40} L${x+2} ${Y-50} L${x-4} ${Y-34} L${x-8} ${Y-50}Z" fill="#69f0ae" filter="url(#glow)"/>
+      ${[0,1,2].map(k=>`<circle class="smoke" style="animation-delay:${k}s" cx="${x-4+k*5}" cy="${Y-66}" r="9" fill="#cfd8dc"/>`).join('')}`;
+    case 'portal': return '';
+  }
+}
+function treesFor(i){
+  const r=rnd(i.x*7+i.y); let s='';
+  for(let k=0;k<5;k++){ const tx=i.x+(r()*2-1)*44, ty=i.y-4+(r()*2-1)*8; if(Math.abs(tx-i.x)<20) continue;
+    s+=`<g><rect x="${tx-1.5}" y="${ty-12}" width="3" height="12" fill="#6d4c41"/><circle cx="${tx}" cy="${ty-16}" r="8" fill="#2e7d32"/><circle cx="${tx-2}" cy="${ty-18}" r="4" fill="#66bb6a"/></g>`; }
+  return s;
+}
+function islandSVG(i,idx){
+  const {x,y,state}=i, locked=state==='locked';
+  let body;
+  if(i.lm==='portal'){
+    body=`<g class="bob">
+      <path d="M${x-70} ${y+6} Q${x} ${y+20} ${x+70} ${y+6} L${x+20} ${y+70} L${x-10} ${y+90} L${x-30} ${y+60}Z" fill="#4a3a7a"/>
+      <ellipse cx="${x}" cy="${y+6}" rx="70" ry="16" fill="url(#gr${idx})"/>
+      <circle cx="${x}" cy="${y-48}" r="46" fill="url(#portalG)" filter="url(#glow)"/>
+      <circle class="spin slow" cx="${x}" cy="${y-48}" r="54" fill="none" stroke="#e3b8ff" stroke-width="3" stroke-dasharray="6 10"/>
+      <circle class="spin" cx="${x}" cy="${y-48}" r="38" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2" stroke-dasharray="2 8"/>
+      <text x="${x}" y="${y-38}" font-size="30" text-anchor="middle">🎓</text></g>`;
+  } else {
+    body=`<g>
+      <ellipse cx="${x}" cy="${y+22}" rx="82" ry="24" fill="#ffffff" opacity=".22"><animate attributeName="rx" values="78;86;78" dur="3s" repeatCount="indefinite"/></ellipse>
+      <ellipse cx="${x}" cy="${y+14}" rx="72" ry="26" fill="#f6dc9a"/>
+      <ellipse cx="${x}" cy="${y+6}" rx="66" ry="24" fill="#c99a5b"/>
+      <ellipse cx="${x}" cy="${y}" rx="62" ry="22" fill="url(#gr${idx})"/>
+      <ellipse cx="${x-18}" cy="${y-8}" rx="26" ry="7" fill="#fff" opacity=".18"/>
+      ${treesFor(i)}${landmark(i)}</g>`;
+  }
+  const label=`<g transform="translate(${x},${y+(i.lm==='portal'?104:46)})">
+      <rect x="-78" y="-13" width="156" height="34" rx="12" fill="${state==='current'?'#ffc93c':'rgba(10,16,48,.75)'}" stroke="rgba(255,255,255,.35)"/>
+      <text y="1" font-family="Baloo 2,Nunito,sans-serif" font-weight="800" font-size="14" text-anchor="middle" fill="${state==='current'?'#1b1f3a':'#fff'}">${i.name}${state==='done'?' ✓':''}</text>
+      <text y="15" font-size="9.5" font-weight="700" text-anchor="middle" fill="${state==='current'?'#5b4300':'#c9d1ff'}">${i.cls}</text></g>`;
+  let extra='';
+  if(state==='done') extra+=`<text x="${x}" y="${y-92}" font-size="18" text-anchor="middle">⭐⭐⭐</text>`;
+  if(locked) extra+=`
+      <g class="fog" opacity=".85"><ellipse cx="${x-30}" cy="${y-30}" rx="50" ry="22" fill="#dfe6ff" opacity=".55"/><ellipse cx="${x+26}" cy="${y-14}" rx="56" ry="20" fill="#eef2ff" opacity=".5"/></g>
+      <g transform="translate(${x+52},${y-56})"><circle r="17" fill="#0a1030" stroke="#ffc93c" stroke-width="2"/><text y="6" font-size="16" text-anchor="middle">🔒</text></g>`;
+  if(state==='current') extra+=`
+      <circle class="pulse" cx="${x}" cy="${y}" r="74" fill="none" stroke="#ffc93c" stroke-width="3" opacity=".9"/>
+      <g class="bob" transform="translate(0,0)">
+        <g transform="translate(${x-110},${y+8})">
+          <path d="M-26 10 h52 l-10 14 h-32z" fill="#8d4f2a"/><rect x="-1.5" y="-34" width="3" height="44" fill="#5d4037"/>
+          <path d="M2 -32 L26 4 L2 4Z" fill="#fff"/><path d="M-2 -28 L-20 2 L-2 2Z" fill="#ffe082"/>
+          <text x="-10" y="10" font-size="18" text-anchor="middle">🧒</text>
+          <g transform="translate(0,-52)"><rect x="-22" y="-12" width="44" height="20" rx="10" fill="#fff"/><path d="M-5 8 L0 14 L5 8Z" fill="#fff"/><text y="3" font-size="11" font-weight="800" text-anchor="middle" fill="#8b5cf6">YOU</text></g>
+        </g></g>`;
+  return `<g class="isle" onclick="openIsle(${idx})" ${locked?'filter="url(#dim)"':''}>${body}${extra}</g>${label}`;
+}
+function seg(a,b){ return `M${a.x} ${a.y} C${a.x} ${a.y-90} ${b.x} ${b.y+90} ${b.x} ${b.y}`; }
+function buildMap(){
+  const W=400,H=1120, r=rnd(42);
+  let stars='', waves='';
+  for(let k=0;k<70;k++){ const sy=r()*480, sx=r()*W, sz=r()*1.6+.4; stars+=`<circle class="twinkle" style="animation-delay:${(r()*3).toFixed(2)}s" cx="${sx}" cy="${sy}" r="${sz}" fill="#fff" opacity="${(1-sy/520).toFixed(2)}"/>`; }
+  for(let wy=480; wy<H; wy+=46){ const op=Math.min(.28,(wy-460)/1600+.08), off=(wy*13)%80;
+    waves+=`<g transform="translate(${-off},${wy})"><path class="wave ${wy%92?'b':''}" d="M0 0 ${Array.from({length:7},(_,k)=>`q20 -8 40 0 t40 0`).join(' ')}" fill="none" stroke="#fff" stroke-opacity="${op.toFixed(2)}" stroke-width="2"/></g>`; }
+  let sparkle=''; for(let k=0;k<26;k++){ sparkle+=`<circle class="twinkle" style="animation-delay:${(r()*3).toFixed(2)}s" cx="${r()*W}" cy="${520+r()*590}" r="1.6" fill="#fff"/>`; }
+  let path='';
+  for(let k=0;k<ISLES.length-1;k++){
+    const a=ISLES[k], b=ISLES[k+1], d=seg(a,b);
+    if(a.state==='done') path+=`<path d="${d}" fill="none" stroke="#ffc93c" stroke-width="7" stroke-linecap="round" filter="url(#glow)"/>`;
+    else if(a.state==='current') path+=`<path class="flow" d="${d}" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="4 10" stroke-linecap="round"/>`;
+    else path+=`<path d="${d}" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="4" stroke-dasharray="3 12" stroke-linecap="round"/>`;
+  }
+  const grads=ISLES.map((i,idx)=>`<radialGradient id="gr${idx}" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="${i.g[0]}"/><stop offset="1" stop-color="${i.g[1]}"/></radialGradient>`).join('');
+  const svgStr=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#12052e"/><stop offset=".22" stop-color="#2b1a6b"/><stop offset=".42" stop-color="#22408f"/>
+      <stop offset=".62" stop-color="#1570b8"/><stop offset=".85" stop-color="#11a3c9"/><stop offset="1" stop-color="#3fd6d0"/></linearGradient>
+    <radialGradient id="portalG"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#e3b8ff"/><stop offset=".75" stop-color="#8b5cf6"/><stop offset="1" stop-color="#3b1d8f" stop-opacity="0"/></radialGradient>
+    <radialGradient id="moonG" cx="35%" cy="35%"><stop offset="0" stop-color="#fffbe6"/><stop offset="1" stop-color="#ffd76a"/></radialGradient>
+    <linearGradient id="beamG" x1="0" x2="1"><stop offset="0" stop-color="#fff59d" stop-opacity=".9"/><stop offset="1" stop-color="#fff59d" stop-opacity="0"/></linearGradient>
+    <linearGradient id="aur" x1="0" x2="1"><stop offset="0" stop-color="#2ed3a5" stop-opacity="0"/><stop offset=".5" stop-color="#2ed3a5" stop-opacity=".45"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></linearGradient>
+    ${grads}
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="dim"><feColorMatrix type="saturate" values=".45"/><feComponentTransfer><feFuncR type="linear" slope=".8"/><feFuncG type="linear" slope=".8"/><feFuncB type="linear" slope=".9"/></feComponentTransfer></filter>
+  </defs>
+  <rect width="${W}" height="${H}" fill="url(#bg)"/>
+  ${stars}
+  <path d="M-20 300 Q100 230 200 290 T420 260 L420 330 Q300 300 200 350 T-20 360Z" fill="url(#aur)" filter="url(#soft)"><animate attributeName="opacity" values=".6;1;.6" dur="6s" repeatCount="indefinite"/></path>
+  <circle cx="335" cy="62" r="26" fill="url(#moonG)" filter="url(#glow)"/><circle cx="326" cy="56" r="4" fill="#f2c94c" opacity=".6"/><circle cx="342" cy="72" r="3" fill="#f2c94c" opacity=".6"/>
+  <g class="shoot"><line x1="360" y1="20" x2="400" y2="0" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g>
+  <g transform="translate(60,240)"><circle r="12" fill="#ff8a65"/><ellipse rx="22" ry="5" fill="none" stroke="#ffcc80" stroke-width="2" transform="rotate(-18)"/></g>
+  ${waves}${sparkle}
+  <g class="cloud" opacity=".55"><ellipse cx="0" cy="600" rx="44" ry="14" fill="#fff"/><ellipse cx="22" cy="592" rx="28" ry="14" fill="#fff"/></g>
+  <g class="cloud" style="animation-delay:-22s" opacity=".4"><ellipse cx="0" cy="430" rx="52" ry="15" fill="#fff"/><ellipse cx="-20" cy="421" rx="30" ry="14" fill="#fff"/></g>
+  ${path}
+  <g class="bob2"><text x="330" y="1060" font-size="22">🐬</text></g>
+  <g class="bob"><text x="40" y="900" font-size="18">🐠</text></g>
+  <g onclick="toast('Finish Angle Island to open this chest 🎁')" style="cursor:pointer"><circle class="pulse" cx="208" cy="768" r="22" fill="#ffc93c" opacity=".35"/><text x="208" y="777" font-size="24" text-anchor="middle">🎁</text></g>
+  ${ISLES.map(islandSVG).join('')}
+  </svg>`;
+  const m=document.getElementById('map'); m.innerHTML=svgStr;
+  requestAnimationFrame(()=>{ const sv=m.querySelector('svg'); const cur=ISLES.find(i=>i.state==='current'); m.scrollTop=cur.y/H*sv.clientHeight-m.clientHeight*0.55; });
+}
+function openIsle(i){
+  const s=ISLES[i];
+  document.getElementById('shTag').textContent=s.cls;
+  document.getElementById('shTitle').textContent=s.name;
+  document.getElementById('shStars').textContent= s.state==='done'?'⭐⭐⭐': s.state==='current'?'☆☆☆':'🔒';
+  document.getElementById('shText').textContent=s.text;
+  const b=document.getElementById('shBtn');
+  if(s.state==='current'){ b.textContent='Start quest ▶'; b.onclick=()=>{closeSheet();go('lab');}; b.style.display=''; }
+  else if(s.state==='done'){ b.textContent='Replay for fun 🔁'; b.onclick=()=>{closeSheet();toast('Replay coming soon!');}; b.style.display=''; }
+  else b.style.display='none';
+  const pv=document.getElementById('shPrev'); const g={num:3,ang:6,tri:7,phy:9,chem:11,gal:13}[s.id]; pv.textContent='🎵 Hear this island\'s music'; pv.onclick=()=>previewGrade(g); sfx('open');
+  document.getElementById('sheet').classList.add('show');
+}
+function closeSheet(){ document.getElementById('sheet').classList.remove('show'); if(SND.grade!==myTrack() && SND.on) startMusic(); }
+document.getElementById('sheet').addEventListener('click',e=>{ if(e.target.id==='sheet') closeSheet(); });
+buildMap();
+
+/* ---------- Answer explainers (animated) ---------- */
+function arcD(cx,cy,r,a){ const rad=a*Math.PI/180, ex=cx+r*Math.cos(rad), ey=cy-r*Math.sin(rad); return `M${cx+r} ${cy} A${r} ${r} 0 ${a>180?1:0} 0 ${ex.toFixed(1)} ${ey.toFixed(1)}`; }
+function sweep(a,col,label,extra=''){
+  const cx=160, cy=118, L=110;
+  const zones = `
+    <path d="${arcD(cx,cy,70,90)}" fill="none" stroke="#2ed3a5" stroke-opacity=".25" stroke-width="10"/>
+    <path d="M${cx} ${cy-70} A70 70 0 0 0 ${cx-70} ${cy}" fill="none" stroke="#ff9f43" stroke-opacity=".25" stroke-width="10"/>
+    <path d="M${cx-70} ${cy} A70 70 0 0 0 ${cx+70} ${cy}" fill="none" stroke="#ff6b6b" stroke-opacity=".18" stroke-width="10"/>
+    <text x="${cx+52}" y="${cy-56}" font-size="10" font-weight="800" fill="#1a9c78">acute</text>
+    <text x="${cx-82}" y="${cy-56}" font-size="10" font-weight="800" fill="#d97706">obtuse</text>
+    <text x="${cx}" y="${cy+84}" font-size="10" font-weight="800" fill="#e05555" text-anchor="middle">reflex (past 180°)</text>
+    <text x="${cx}" y="${cy-76}" font-size="9" fill="#6b7090" text-anchor="middle">90°</text>
+    <text x="${cx-88}" y="${cy+4}" font-size="9" fill="#6b7090" text-anchor="end">180°</text>`;
+  return `<svg viewBox="0 0 320 210">
+    ${zones}${extra}
+    <line x1="${cx}" y1="${cy}" x2="${cx+L}" y2="${cy}" stroke="#1b1f3a" stroke-width="5" stroke-linecap="round"/>
+    <path class="draw" pathLength="100" d="${arcD(cx,cy,34,a)}" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round"/>
+    <g><line x1="${cx}" y1="${cy}" x2="${cx+L}" y2="${cy}" stroke="${col}" stroke-width="5" stroke-linecap="round"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 ${cx} ${cy}" to="${-a} ${cx} ${cy}" dur="1.6s" fill="freeze"/></g>
+    <circle cx="${cx}" cy="${cy}" r="6" fill="#1b1f3a"/>
+    <g class="late"><rect x="${cx-70}" y="4" width="140" height="28" rx="14" fill="${col}"/><text x="${cx}" y="23" font-size="15" font-weight="800" fill="#fff" text-anchor="middle">${label}</text></g>
+  </svg>`;
+}
+function clockSVG(){
+  const cx=160,cy=105,R=80; let ticks='';
+  for(let k=0;k<12;k++){ const a=k*30*Math.PI/180; ticks+=`<line x1="${cx+R*.86*Math.sin(a)}" y1="${cy-R*.86*Math.cos(a)}" x2="${cx+R*.97*Math.sin(a)}" y2="${cy-R*.97*Math.cos(a)}" stroke="#1b1f3a" stroke-width="${k%3?2:4}"/>`; }
+  return `<svg viewBox="0 0 320 210">
+    <circle cx="${cx}" cy="${cy}" r="${R}" fill="#fff" stroke="#1b1f3a" stroke-width="5"/>${ticks}
+    <text x="${cx}" y="${cy-55}" font-size="13" font-weight="800" text-anchor="middle">12</text><text x="${cx+56}" y="${cy+5}" font-size="13" font-weight="800" text-anchor="middle">3</text>
+    <path class="draw" pathLength="100" d="M${cx} ${cy-36} A36 36 0 0 1 ${cx+36} ${cy}" fill="none" stroke="#3b82f6" stroke-width="8" stroke-linecap="round"/>
+    <line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-50}" stroke="#1b1f3a" stroke-width="5" stroke-linecap="round"/>
+    <g><line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy-40}" stroke="#3b82f6" stroke-width="7" stroke-linecap="round"/>
+      <animateTransform attributeName="transform" type="rotate" from="0 ${cx} ${cy}" to="90 ${cx} ${cy}" dur="1.6s" fill="freeze"/></g>
+    <rect class="late" x="${cx}" y="${cy-18}" width="18" height="18" fill="none" stroke="#3b82f6" stroke-width="3"/>
+    <circle cx="${cx}" cy="${cy}" r="6" fill="#1b1f3a"/>
+    <g class="late2"><rect x="${cx+86}" y="${cy-30}" width="72" height="44" rx="12" fill="#3b82f6"/><text x="${cx+122}" y="${cy-11}" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">90°</text><text x="${cx+122}" y="${cy+6}" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">Right</text></g>
+  </svg>`;
+}
+function laptopSVG(){
+  const cx=110, cy=160, a=110;
+  return `<svg viewBox="0 0 320 210">
+    <rect x="${cx}" y="${cy}" width="150" height="12" rx="4" fill="#90a4ae"/>
+    <rect x="${cx+10}" y="${cy+2}" width="130" height="6" rx="2" fill="#cfd8dc"/>
+    <path class="draw" pathLength="100" d="${arcD(cx,cy,40,a)}" fill="none" stroke="#ff9f43" stroke-width="8" stroke-linecap="round"/>
+    <g><rect x="${cx}" y="${cy-8}" width="140" height="8" rx="3" fill="#455a64"/><rect x="${cx+8}" y="${cy-7}" width="124" height="6" fill="#64b5f6"><animate attributeName="fill" values="#263238;#64b5f6" dur="1.6s" fill="freeze"/></rect>
+      <animateTransform attributeName="transform" type="rotate" from="0 ${cx} ${cy}" to="${-a} ${cx} ${cy}" dur="1.6s" fill="freeze"/></g>
+    <circle cx="${cx}" cy="${cy}" r="5" fill="#1b1f3a"/>
+    <g class="late"><rect x="${cx+38}" y="${cy-120}" width="174" height="48" rx="14" fill="#ff9f43"/><text x="${cx+125}" y="${cy-99}" font-size="15" font-weight="800" fill="#fff" text-anchor="middle">110° = Obtuse</text><text x="${cx+125}" y="${cy-82}" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">more than 90°, less than 180°</text></g>
+  </svg>`;
+}
+function explainer(k){
+  switch(k){
+    case 0: return {svg:clockSVG(), why:'At 3:00 the hour hand moves a <b>quarter turn</b> from 12 to 3. A quarter turn = <b>90°</b> = a right angle, like a notebook corner.'};
+    case 1: return {svg:sweep(120,'#ff9f43','120° = Obtuse'), why:'Obtuse lives in the <b>orange zone</b>: wider than 90°, but not yet a flat line (180°). Only 120° lands there.'};
+    case 2: return {svg:sweep(180,'#8b5cf6','180° = Straight', `<rect class="late2" x="40" y="${118+12}" width="240" height="16" rx="3" fill="#ffe082" stroke="#c49000"/>`), why:'Open the angle all the way until both arms point opposite ways — it lies <b>flat like a ruler</b>. That is half a turn: <b>180°</b>.'};
+    case 3: return {svg:sweep(200,'#ff6b6b','200° = Reflex'), why:'Watch the arm <b>cross the 180° line</b> and keep going. Anything past 180° (but under 360°) is a <b>Reflex</b> angle.'};
+    case 4: return {svg:laptopSVG(), why:'A laptop opened wide stops around <b>110°</b> — past the 90° corner but not flat. That makes it <b>obtuse</b>.'};
+  }
+}
+function showExplain(k, box){
+  const e=explainer(k);
+  box.innerHTML=`<div class="explain">${e.svg}<div class="why">${e.why}</div></div>`;
+}
+
+/* ---------- Angle lab ---------- */
+const svg=document.getElementById('lab'), knob=document.getElementById('knob'), ray=document.getElementById('ray'), arc=document.getElementById('arc'), sq=document.getElementById('sq');
+const O={x:160,y:140}, R=95;
+let dragging=false, angle=45, lastA=45;
+const kinds=[
+  {max:89.5, name:'Acute', col:'#2ed3a5', real:'🍕 Like a thin pizza slice — less than 90°.'},
+  {max:90.5, name:'Right', col:'#3b82f6', real:'📘 Like the corner of your notebook — exactly 90°.'},
+  {max:179.5, name:'Obtuse', col:'#ff9f43', real:'💻 Like a laptop opened wide — between 90° and 180°.'},
+  {max:180.5, name:'Straight', col:'#8b5cf6', real:'📏 A flat ruler — exactly 180°, a straight line!'},
+  {max:359.5, name:'Reflex', col:'#ff6b6b', real:'🕹️ Bigger than a straight line! Like Pac-Man\'s body — more than 180°.'},
+  {max:361, name:'Full turn', col:'#1b1f3a', real:'🔄 A full spin — 360°, back where you started!'}
+];
+function draw(a){
+  const rad=a*Math.PI/180;
+  const kx=O.x+R*Math.cos(rad), ky=O.y-R*Math.sin(rad);
+  knob.setAttribute('cx',kx); knob.setAttribute('cy',ky);
+  ray.setAttribute('x2',O.x+130*Math.cos(rad)); ray.setAttribute('y2',O.y-130*Math.sin(rad));
+  const ar=34, ex=O.x+ar*Math.cos(rad), ey=O.y-ar*Math.sin(rad);
+  const k=kinds.find(k=>a<=k.max);
+  if(k.name==='Right'){ arc.setAttribute('d',''); sq.style.display=''; sq.setAttribute('x',O.x); sq.setAttribute('y',O.y-22); }
+  else { sq.style.display='none'; arc.setAttribute('d',`M${O.x},${O.y} L${O.x+ar},${O.y} A${ar},${ar} 0 ${a>180?1:0} 0 ${ex},${ey} Z`); }
+  document.getElementById('degText').textContent=Math.round(a)+'°';
+  const tEl=document.getElementById('typeText'); tEl.textContent=k.name; tEl.style.background=k.col;
+  document.getElementById('real').textContent=k.real;
+  check(k.name);
+}
+function mission(id,msg){ if(done[id]) return; done[id]=true; sfx('unlock'); document.getElementById(id).classList.add('done'); addXP(10,msg); }
+function check(n){
+  if(n==='Right') mission('m-right','Perfect 90°!');
+  if(n==='Obtuse') mission('m-obtuse','Obtuse unlocked!');
+  if(n==='Straight') mission('m-straight','Straight line!');
+  if(n==='Reflex') mission('m-reflex','Secret found: Reflex angle!');
+}
+function pt(e){ const r=svg.getBoundingClientRect(); const c=e.touches?e.touches[0]:e; return {x:(c.clientX-r.left)*320/r.width, y:(c.clientY-r.top)*240/r.height}; }
+function move(e){
+  if(!dragging) return; e.preventDefault();
+  const p=pt(e); let a=Math.atan2(O.y-p.y, p.x-O.x)*180/Math.PI; if(a<0) a+=360;
+  // keep motion continuous: avoid jumping 0<->360
+  if(lastA>300 && a<60) a=360; if(lastA<60 && a>300) a=0;
+  // snap near key angles to make missions reachable
+  [90,180].forEach(s=>{ if(Math.abs(a-s)<3) a=s; });
+  if(a<1) a=1; angle=a; lastA=a; draw(a);
+}
+svg.addEventListener('pointerdown',e=>{ dragging=true; svg.setPointerCapture(e.pointerId); move(e); });
+svg.addEventListener('pointermove',move);
+svg.addEventListener('pointerup',()=>dragging=false);
+svg.addEventListener('pointercancel',()=>dragging=false);
+draw(45);
+
+/* ---------- Teach Gappu ---------- */
+let taught=false;
+function teach(){
+  const t=document.getElementById('ans').value.toLowerCase();
+  const face=document.getElementById('gface'), say=document.getElementById('gsay');
+  if(t.trim().length<8){ face.textContent='🐣'; say.textContent='Hmm, that was too short for my tiny brain. Tell me a bit more? 🥺'; return; }
+  const more90=/(more|greater|bigger|larger|above|over|>)\s*(than\s*)?(a\s*)?(90|right)/.test(t) || /90\s*(to|and|-)\s*180/.test(t);
+  const less180=/(less|smaller|below|under|<)\s*(than\s*)?(a\s*)?(180|straight)/.test(t) || /90\s*(to|and|-)\s*180/.test(t);
+  if(more90 && less180){
+    face.textContent='🐥'; face.style.transform='scale(1.2)'; setTimeout(()=>face.style.transform='',300);
+    say.textContent='WOW! So obtuse is wider than a notebook corner but not flat like a ruler. I get it now! Can I say a laptop opened wide is obtuse? 🤩';
+    sfx('correct'); if(!taught){ taught=true; addXP(25,'Gappu learned from you!'); }
+    showExplain(1, document.getElementById('teachViz'));
+  } else if(more90){
+    sfx('hmm'); face.textContent='🤔'; say.textContent='Okay, bigger than 90°… but then is a flat straight line (180°) also obtuse? Where does it stop?';
+  } else if(less180){
+    sfx('hmm'); face.textContent='🤔'; say.textContent='Less than 180°… but then is a thin pizza slice (30°) obtuse too? What is the smallest it can be?';
+  } else {
+    face.textContent='😵‍💫'; say.textContent='I\'m confused… can you tell me how it compares with 90° and 180°? Try the Play tab if you want to check!';
+  }
+}
+
+/* ---------- Quiz ---------- */
+const Q=[
+  {q:'A clock shows 3:00. The angle between the hands is…', o:['Acute','Right','Obtuse','Straight'], a:1, dna:'Mixes up 90° with other angles'},
+  {q:'Which angle is obtuse?', o:['45°','90°','120°','180°'], a:2, dna:'Unsure where obtuse starts and ends'},
+  {q:'A straight line makes an angle of…', o:['90°','180°','270°','360°'], a:1, dna:'Confuses straight angle with full turn'},
+  {q:'An angle of 200° is called…', o:['Obtuse','Straight','Reflex','Acute'], a:2, dna:'Thinks every big angle is "obtuse"'},
+  {q:'Open a laptop wide (about 110°). That angle is…', o:['Acute','Obtuse','Reflex','Right'], a:1, dna:'Struggles to link angles to real objects'}
+];
+let qi=0, score=0, mistakes=[], quizStarted=false;
+function startQuiz(){ quizStarted=true; qi=0; score=0; mistakes=[]; showQ(); }
+function showQ(){
+  const c=Q[qi];
+  document.getElementById('qbar').style.width=(qi/Q.length*100)+'%';
+  document.getElementById('qtext').textContent=c.q;
+  const box=document.getElementById('qopts'); box.innerHTML='';
+  c.o.forEach((t,i)=>{ const b=document.createElement('button'); b.className='opt'; b.textContent=t; b.onclick=()=>pick(i,b); box.appendChild(b); });
+}
+function pick(i,b){
+  const c=Q[qi], all=document.querySelectorAll('.opt');
+  all.forEach(x=>x.disabled=true);
+  all[c.a].classList.add('right');
+  if(i===c.a){ score++; sfx('correct'); addXP(10,'Correct!'); } else { sfx('wrong'); b.classList.add('wrong'); mistakes.push(c.dna); }
+  const box=document.createElement('div'); document.getElementById('qopts').appendChild(box);
+  const k=qi; showExplain(k, box);
+  const row=document.createElement('div'); row.className='xrow';
+  row.innerHTML=`<button class="btn ghost">🔁 Replay</button><button class="btn mint">${qi<Q.length-1?'Next ▶':'See result ▶'}</button>`;
+  row.children[0].onclick=()=>showExplain(k, box);
+  row.children[1].onclick=()=>{ qi++; if(qi<Q.length) showQ(); else endQuiz(); };
+  document.getElementById('qopts').appendChild(row);
+  setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'center'}),150);
+}
+function endQuiz(){
+  document.getElementById('qbar').style.width='100%';
+  document.getElementById('qtext').textContent=score===Q.length?'🏆 Perfect score!':`You got ${score} of ${Q.length}!`;
+  const box=document.getElementById('qopts');
+  let h='';
+  if(mistakes.length){
+    h+='<h3 style="margin-top:12px">🧬 Your Mistake DNA</h3><p class="sub">Not just "wrong" — <b>why</b>. The app keeps fixing these, even years later.</p>';
+    mistakes.forEach(m=>h+=`<div class="dna">🔍 ${m}</div>`);
+  } else h+='<p class="sub" style="margin-top:10px">No confusions found. Triangle Peak is now closer! 🔺</p>';
+  h+='<div style="height:12px"></div><button class="btn ghost" onclick="startQuiz()">Play again</button><div style="height:10px"></div><button class="btn mint" onclick="go(\'squad\')">See your squad ▶</button>';
+  box.innerHTML=h;
+}
+
+/* ---------- Squad ---------- */
+const mates=[{n:'Aarav',e:'🐯',x:420,c:'#ffe1cc'},{n:'Diya',e:'🦊',x:360,c:'#ffd9e8'},{n:'Kabir',e:'🐼',x:210,c:'#e1ecff'},{n:'Meera',e:'🐨',x:140,c:'#e3fbf3'}];
+function renderSquad(){
+  const list=[...mates.map(m=>({...m})),{n:'You',e:'⭐',x:xp,c:'#fff3c4',me:true}].sort((a,b)=>b.x-a.x);
+  document.getElementById('board').innerHTML=list.map((m,i)=>`<div class="row ${m.me?'me':''}"><div class="rank">${i+1}</div><div class="av" style="background:${m.c}">${m.e}</div><div class="nm">${m.n}<small>${m.me?'Class 6 · Angle Island':'Class 6'}</small></div><div class="xp">${m.x} ⭐</div></div>`).join('');
+  const us=mates.reduce((s,m)=>s+m.x,0)+xp, them=1450;
+  document.getElementById('usScore').textContent=us;
+  document.getElementById('vsbar').style.width=(us/(us+them)*100)+'%';
+  document.getElementById('vsmsg').textContent= us>=them ? '🎉 Lions are winning! Keep it up.' : `Lions need ${them-us} more XP to overtake the Eagles!`;
+}
+renderSquad();
+</script>
+<!-- SOUND PANEL -->
+<div class="sheet" id="soundSheet">
+  <div class="sheet-in">
+    <div class="sheet-grab"></div>
+    <h2>🎵 Sound</h2>
+    <div class="srow"><span>Music</span><button class="tgl" id="musicTgl" onclick="toggleMusic()"></button></div>
+    <div class="srow"><span>🎶 Music volume</span><input type="range" id="musVol" min="0" max="100" oninput="setVol('music',this.value)"></div>
+    <div class="srow"><span>🔔 Effects volume</span><input type="range" id="sfxVol" min="0" max="100" oninput="setVol('sfx',this.value)"></div>
+    <h3 style="margin-top:14px">Pick your music</h3>
+    <p class="sub"><b>Auto</b> picks music that grows up with you. Or choose any song you like.</p>
+    <div class="chips" id="gradeChips"></div>
+    <div class="nowplay" id="nowPlay"></div>
+    <div style="height:10px"></div>
+    <button class="btn ghost" onclick="closeSound()">Done</button>
+  </div>
+</div>
+<style>
+.srow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;font-weight:800;border-bottom:1px solid #eef0fb}
+.srow input[type=range]{width:52%;accent-color:#8b5cf6}
+.tgl{width:54px;height:30px;border-radius:999px;border:none;background:#d3d7ef;position:relative;cursor:pointer;transition:background .2s}
+.tgl::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.tgl.on{background:#2ed3a5}.tgl.on::after{left:27px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips button{border:2px solid #e3e6f6;background:#fff;border-radius:12px;padding:7px 10px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;color:#1b1f3a}
+.chips button.on{background:#8b5cf6;border-color:#8b5cf6;color:#fff}
+.glabel{width:100%;font-weight:800;font-size:12px;color:#6b7090;text-transform:uppercase;letter-spacing:.5px;margin-top:8px}
+#soundSheet .sheet-in{max-height:88vh;overflow-y:auto}
+.nowplay{margin-top:12px;background:#f1efff;border-radius:14px;padding:10px 12px;font-size:14px;font-weight:700;display:flex;gap:10px;align-items:center}
+.eq{display:flex;gap:2px;align-items:flex-end;height:18px}
+.eq i{width:4px;background:#8b5cf6;border-radius:2px;animation:eq .8s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}.eq i:nth-child(4){animation-delay:.1s}
+.eq.off i{animation:none;height:4px}
+@keyframes eq{0%,100%{height:4px}50%{height:18px}}
+.pill.btnp{cursor:pointer;border:none;color:#fff;font-family:inherit}
+</style>
+<script>
+/* ================= SOUND ENGINE (all music generated in code) ================= */
+const SND={ctx:null, master:null, music:null, sfx:null, delay:null, on:true, mv:75, sv:90, choice:'auto', grade:6, myGrade:6, playing:false, step:0, next:0, timer:null, theme:null, pat:null, loop:0};
+try{ const p=JSON.parse(localStorage.getItem('sv_snd2')||'{}'); if(p.on!==undefined)SND.on=p.on; if(p.mv!==undefined)SND.mv=p.mv; if(p.sv!==undefined)SND.sv=p.sv; if(p.choice)SND.choice=p.choice; }catch(e){}
+function saveSnd(){ try{ localStorage.setItem('sv_snd2',JSON.stringify({on:SND.on,mv:SND.mv,sv:SND.sv,choice:SND.choice})); }catch(e){} }
+
+const MODES={major:[0,2,4,5,7,9,11],mixo:[0,2,4,5,7,9,10],dorian:[0,2,3,5,7,9,10],minor:[0,2,3,5,7,8,10],lydian:[0,2,4,6,7,9,11],bhairav:[0,1,4,5,7,8,11],penta:[0,2,4,7,9,12,14],raga:[0,2,4,5,7,9,10]};
+/* One soundtrack per class. Young = bright toy sounds, fast & bouncy. Older = deeper, cooler, calmer. */
+const THEMES={
+ 1:{name:'Toy Box Parade',      desc:'Toy xylophone, happy & bouncy', mode:'major', root:60, bpm:132, prog:[0,4,5,3], lead:'bell',   dens:.85, drums:'toy',   bass:'boing', pad:false, seven:false, swing:0, penta:true,  seed:11},
+ 2:{name:'Bubble Garden',       desc:'Music-box bubbles & claps',     mode:'major', root:62, bpm:128, prog:[0,3,4,0], lead:'musicbox',dens:.8, drums:'clap',  bass:'boing', pad:false, seven:false, swing:0, penta:true,  seed:23},
+ 3:{name:'Sunny Marimba',       desc:'Marimba & shakers',            mode:'major', root:65, bpm:124, prog:[0,5,3,4], lead:'marimba',dens:.75, drums:'shaker',bass:'simple',pad:false, seven:false, swing:0, penta:true,  seed:37},
+ 4:{name:'Island Steel Drums',  desc:'Steel drums, beach groove',    mode:'mixo',  root:62, bpm:120, prog:[0,6,3,0], lead:'steel',  dens:.7,  drums:'light', bass:'simple',pad:false, seven:false, swing:0, penta:true,  seed:41},
+ 5:{name:'Explorer March',      desc:'Plucky adventure march',       mode:'major', root:60, bpm:116, prog:[0,3,4,5], lead:'pluck',  dens:.65, drums:'light', bass:'simple',pad:true,  seven:false, swing:0, penta:false, seed:53},
+ 6:{name:'Angle Island Groove', desc:'Funky chiptune adventure',     mode:'mixo',  root:57, bpm:112, prog:[0,6,3,4], lead:'chip',   dens:.6,  drums:'pop',   bass:'bounce',pad:true,  seven:false, swing:0, penta:false, seed:67},
+ 7:{name:'Mountain Quest',      desc:'Heroic game soundtrack',       mode:'dorian',root:62, bpm:108, prog:[0,3,6,3], lead:'chip',   dens:.55, drums:'pop',   bass:'bounce',pad:true,  seven:false, swing:0, penta:false, seed:71},
+ 8:{name:'Neon Arcade',         desc:'Synth-pop energy',             mode:'minor', root:57, bpm:110, prog:[0,5,2,6], lead:'synth',  dens:.55, drums:'pop',   bass:'synth', pad:true,  seven:false, swing:0, penta:false, seed:83},
+ 9:{name:'Port City Nights',    desc:'Synthwave with echo',          mode:'minor', root:52, bpm:100, prog:[0,5,6,4], lead:'synth',  dens:.45, drums:'wave',  bass:'synth', pad:true,  seven:true,  swing:0, penta:false, seed:97},
+ 10:{name:'Focus Flow',         desc:'Chill electronic, steady beat', mode:'dorian',root:55, bpm:96,  prog:[0,3,0,4], lead:'synth',  dens:.4,  drums:'wave',  bass:'synth', pad:true,  seven:true,  swing:0, penta:false, seed:101},
+ 11:{name:'Lab After Dark',     desc:'Deep house, calm & cool',      mode:'minor', root:53, bpm:92,  prog:[0,6,5,4], lead:'epiano', dens:.35, drums:'house', bass:'deep',  pad:true,  seven:true,  swing:.08,penta:false, seed:113},
+ 12:{name:'Board Exam Lo-fi',   desc:'Lo-fi beats to study to',      mode:'dorian',root:50, bpm:84,  prog:[0,3,6,4], lead:'epiano', dens:.3,  drums:'lofi',  bass:'deep',  pad:true,  seven:true,  swing:.14,penta:false, seed:127},
+ 13:{name:'Galaxy Gate Jazz',   desc:'Smooth jazz-hop',     mode:'lydian',root:53, bpm:80,  prog:[1,4,0,5], lead:'epiano', dens:.28, drums:'lofi',  bass:'walk',  pad:true,  seven:true,  swing:.16,penta:false, seed:139},
+ 14:{name:'Desi Dhol Dhamaka',  desc:'Dhol beats & bright melody',  mode:'raga',  root:62, bpm:118, prog:[0,3,4,0], lead:'shehnai',dens:.7,  drums:'dhol',  bass:'simple',pad:false, seven:false, swing:0, penta:false, seed:151},
+ 15:{name:'Sitar Sunrise',      desc:'Calm sitar & tabla feel',     mode:'bhairav',root:57,bpm:92,  prog:[0,0,3,4], lead:'sitar',  dens:.45, drums:'tabla', bass:'drone', pad:false, seven:false, swing:0, penta:false, seed:163},
+ 16:{name:'Rainbow Bounce',     desc:'Super happy, jumpy fun',      mode:'major', root:64, bpm:140, prog:[0,3,4,3], lead:'chip',   dens:.85, drums:'pop',   bass:'bounce',pad:false, seven:false, swing:0, penta:true,  seed:173},
+ 17:{name:'Retro Racer',        desc:'Fast arcade racing',          mode:'minor', root:57, bpm:150, prog:[0,6,5,6], lead:'chip',   dens:.7,  drums:'race',  bass:'synth', pad:false, seven:false, swing:0, penta:false, seed:181},
+ 18:{name:'Space Cadet',        desc:'Twinkly outer-space adventure', mode:'lydian',root:60,bpm:104, prog:[0,1,0,4], lead:'musicbox',dens:.5, drums:'wave',  bass:'synth', pad:true,  seven:true,  swing:0, penta:false, seed:191},
+ 19:{name:'Jungle Drums',       desc:'Tribal drums & marimba',      mode:'dorian',root:57, bpm:112, prog:[0,3,0,6], lead:'marimba',dens:.6,  drums:'jungle',bass:'simple',pad:false, seven:false, swing:0, penta:true,  seed:197},
+ 20:{name:'Calm Ocean',         desc:'Gentle waves, no drums',      mode:'major', root:55, bpm:72,  prog:[0,5,3,4], lead:'bell',   dens:.25, drums:'none',  bass:'drone', pad:true,  seven:true,  swing:0, penta:true,  seed:211},
+ 21:{name:'Chai & Chill',       desc:'Cozy lo-fi for homework',     mode:'dorian',root:53, bpm:78,  prog:[0,3,1,4], lead:'epiano', dens:.3,  drums:'lofi',  bass:'deep',  pad:true,  seven:true,  swing:.15,penta:false, seed:223},
+ 22:{name:'Victory Parade',     desc:'Big brass-style celebration', mode:'major', root:60, bpm:120, prog:[0,4,3,4], lead:'brass',  dens:.6,  drums:'march', bass:'simple',pad:true,  seven:false, swing:0, penta:false, seed:229},
+ 23:{name:'Midnight Focus',     desc:'Deep, steady concentration',  mode:'minor', root:50, bpm:88,  prog:[0,5,3,4], lead:'synth',  dens:.25, drums:'house', bass:'deep',  pad:true,  seven:true,  swing:0, penta:false, seed:233}
+};
+const GENRE={1:'Playful',2:'Playful',3:'Playful',4:'Playful',16:'Playful',14:'Desi',15:'Desi',5:'Adventure',6:'Adventure',7:'Adventure',18:'Adventure',19:'Adventure',22:'Adventure',8:'Energy',9:'Energy',17:'Energy',10:'Focus',11:'Focus',12:'Focus',13:'Focus',21:'Focus',23:'Focus',20:'Relax'};
+const GENRES=['Playful','Desi','Adventure','Energy','Focus','Relax'];
+const midiHz=m=>440*Math.pow(2,(m-69)/12);
+
+function initAudio(){
+  if(SND.ctx) { if(SND.ctx.state==='suspended') SND.ctx.resume(); return; }
+  try{
+    const C=new (window.AudioContext||window.webkitAudioContext)(); SND.ctx=C;
+    SND.master=C.createGain(); SND.master.gain.value=1.4;
+    const comp=C.createDynamicsCompressor(); comp.threshold.value=-10; comp.ratio.value=3; comp.attack.value=.003; comp.release.value=.2;
+    const lim=C.createDynamicsCompressor(); lim.threshold.value=-2; lim.knee.value=0; lim.ratio.value=20; lim.attack.value=.001; lim.release.value=.1;
+    SND.master.connect(comp); comp.connect(lim); lim.connect(C.destination);
+    SND.music=C.createGain(); SND.music.connect(SND.master);
+    SND.sfx=C.createGain(); SND.sfx.connect(SND.master);
+    // echo for older soundtracks
+    SND.delay=C.createDelay(1); const fb=C.createGain(); fb.gain.value=.32; const dl=C.createGain(); dl.gain.value=.35; SND.delayOut=dl;
+    SND.delay.connect(fb); fb.connect(SND.delay); SND.delay.connect(dl); dl.connect(SND.music);
+    // noise buffer for drums
+    const nb=C.createBuffer(1,C.sampleRate,C.sampleRate), d=nb.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; SND.noise=nb;
+    applyVol();
+  }catch(e){ SND.ctx=null; }
+}
+function applyVol(){
+  if(!SND.ctx) return; const t=SND.ctx.currentTime;
+  SND.music.gain.setTargetAtTime(SND.on? Math.pow(SND.mv/100,1.5)*1.6 : 0, t, .1);
+  SND.sfx.gain.setTargetAtTime(Math.pow(SND.sv/100,1.5)*2.2, t, .05);
+}
+/* ---- instruments ---- */
+function tone(t,f,dur,o={}){
+  const C=SND.ctx, g=C.createGain(), dest=o.dest||SND.music, peak=o.gain??.2, a=o.attack??.005;
+  const osc=C.createOscillator(); osc.type=o.type||'sine'; osc.frequency.setValueAtTime(f,t);
+  if(o.slide) osc.frequency.exponentialRampToValueAtTime(o.slide,t+dur);
+  if(o.detune) osc.detune.value=o.detune;
+  let node=osc;
+  if(o.lp){ const fl=C.createBiquadFilter(); fl.type='lowpass'; fl.frequency.setValueAtTime(o.lp,t); if(o.lpEnd) fl.frequency.exponentialRampToValueAtTime(o.lpEnd,t+dur); fl.Q.value=o.q||1; osc.connect(fl); node=fl; }
+  node.connect(g); g.connect(dest); if(o.echo&&SND.delay) g.connect(SND.delay);
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(peak,t+a);
+  if(o.sustain){ g.gain.setValueAtTime(peak,t+dur-.15); g.gain.linearRampToValueAtTime(0,t+dur); }
+  else g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  osc.start(t); osc.stop(t+dur+.05);
+}
+function noise(t,dur,o={}){
+  const C=SND.ctx, s=C.createBufferSource(); s.buffer=SND.noise;
+  const f=C.createBiquadFilter(); f.type=o.ft||'highpass'; f.frequency.value=o.f||7000; f.Q.value=o.q||1;
+  const g=C.createGain(); g.gain.setValueAtTime(o.gain??.1,t); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  s.connect(f); f.connect(g); g.connect(o.dest||SND.music); s.start(t,Math.random()*.5); s.stop(t+dur+.02);
+}
+const INST={
+  bell:(t,f,d)=>{ tone(t,f,.5,{type:'triangle',gain:.16}); tone(t,f*4,.18,{type:'sine',gain:.05}); },
+  musicbox:(t,f,d)=>{ tone(t,f*2,.6,{type:'sine',gain:.12}); tone(t,f*4.01,.25,{type:'sine',gain:.04}); },
+  marimba:(t,f,d)=>{ tone(t,f,.35,{type:'sine',gain:.2}); tone(t,f*4,.06,{type:'sine',gain:.06}); },
+  steel:(t,f,d)=>{ tone(t,f,.5,{type:'sine',gain:.15}); tone(t,f*2.02,.4,{type:'sine',gain:.07}); tone(t,f*3.98,.2,{type:'triangle',gain:.03}); },
+  pluck:(t,f,d)=>tone(t,f,.3,{type:'square',gain:.07,lp:2600,lpEnd:500}),
+  chip:(t,f,d)=>{ tone(t,f,Math.min(d,.22),{type:'square',gain:.06,lp:3500}); },
+  synth:(t,f,d)=>{ tone(t,f,.4,{type:'sawtooth',gain:.07,lp:2200,lpEnd:400,echo:true}); tone(t,f,.4,{type:'sawtooth',gain:.04,detune:9,lp:1800,lpEnd:400}); },
+  sitar:(t,f,d)=>{ tone(t,f*.97,.9,{type:'sawtooth',gain:.07,lp:3000,lpEnd:600,slide:f,q:4,echo:true}); tone(t,f*2,.4,{type:'triangle',gain:.03}); },
+  shehnai:(t,f,d)=>{ tone(t,f*.985,Math.max(d,.25),{type:'sawtooth',gain:.07,lp:2600,q:3,attack:.03,slide:f}); tone(t,f,Math.max(d,.25),{type:'square',gain:.03,lp:1800,attack:.03}); },
+  brass:(t,f,d)=>{ tone(t,f,Math.max(d,.3),{type:'sawtooth',gain:.09,lp:900,lpEnd:2400,attack:.03}); tone(t,f*1.005,Math.max(d,.3),{type:'sawtooth',gain:.05,lp:1200,attack:.03}); },
+  epiano:(t,f,d)=>{ tone(t,f,1.2,{type:'sine',gain:.12,echo:true}); tone(t,f*2,.5,{type:'sine',gain:.03,detune:6}); tone(t,f*7,.08,{type:'sine',gain:.012}); }
+};
+function kick(t,g=.5){ tone(t,140,.28,{type:'sine',slide:42,gain:g}); }
+function snare(t,g=.12){ noise(t,.16,{ft:'bandpass',f:1800,gain:g}); tone(t,190,.08,{type:'triangle',gain:g*.8}); }
+function hat(t,g=.04){ noise(t,.04,{f:8000,gain:g}); }
+function shaker(t,g=.035){ noise(t,.06,{f:6000,gain:g}); }
+function clap(t,g=.09){ [0,.012,.024].forEach(o=>noise(t+o,.08,{ft:'bandpass',f:1500,gain:g})); }
+function tick(t,g=.06){ tone(t,1900,.05,{type:'sine',gain:g}); }
+function rim(t,g=.06){ tone(t,1700,.03,{type:'square',gain:g*.5,lp:3000}); }
+
+/* ---- composition ---- */
+function noteAt(th,deg,oct=0){ const sc=MODES[th.mode], n=sc.length; const o=Math.floor(deg/n); return th.root+12*(o+oct)+sc[((deg%n)+n)%n]; }
+function chordNotes(th,deg){ const ns=[0,2,4].map(k=>noteAt(th,deg+k)); if(th.seven) ns.push(noteAt(th,deg+6)); return ns; }
+function makePattern(th){
+  // catchy 4-bar melody: random walk on chord tones & scale, seeded so each class always has "its" tune
+  let s=th.seed; const r=()=>{ s=(s*9301+49297)%233280; return s/233280; };
+  const pent=[0,1,2,4,5]; const mel=[]; let deg=th.prog[0]+2;
+  for(let bar=0;bar<4;bar++){
+    const ch=th.prog[bar];
+    for(let e=0;e<8;e++){
+      const strong=e%2===0, play = e===0 || r()<th.dens*(strong?1.1:.7);
+      if(!play){ mel.push(null); continue; }
+      if(e===0 || r()<.4){ deg=ch+[0,2,4][Math.floor(r()*3)]; }
+      else deg+= [-2,-1,1,1,2][Math.floor(r()*5)];
+      if(th.penta){ const n=7, base=Math.floor(deg/n)*n, rr=((deg%n)+n)%n; const nearest=pent.reduce((a,b)=>Math.abs(b-rr)<Math.abs(a-rr)?b:a); deg=base+nearest; }
+      deg=Math.max(-1,Math.min(9,deg));
+      mel.push({deg, len: r()<.25?2:1});
+    }
+  }
+  // make bar 4 end on the home note so it loops sweetly
+  mel[24]={deg:th.prog[3]+2,len:1}; mel[28]={deg:7,len:4}; for(let k=29;k<32;k++) mel[k]=null;
+  return mel;
+}
+function scheduleStep(st,t){
+  const th=SND.theme, bar=Math.floor(st/16)%4, s16=st%16, eighth=Math.floor(s16/2), spb=60/th.bpm;
+  const chordDeg=th.prog[bar], dur16=spb/4;
+  // swing on off-beat 8ths
+  if(th.swing && s16%4===2) t+=th.swing*spb;
+  // pad: whole bar chord
+  if(s16===0 && th.pad){ chordNotes(th,chordDeg).forEach((m,i)=>{ tone(t,midiHz(m),spb*4,{type:th.seven?'triangle':'sawtooth',gain:th.seven?.035:.018,lp:th.seven?1400:900,attack:.25,sustain:true,detune:i%2?6:-6}); }); }
+  // young classes: light chord stabs instead of pads
+  if(!th.pad && (s16===0||s16===8)){ chordNotes(th,chordDeg).forEach(m=>tone(t,midiHz(m),.25,{type:'triangle',gain:.035})); }
+  // bass
+  const b=midiHz(noteAt(th,chordDeg,-1));
+  switch(th.bass){
+    case 'boing': if(s16===0||s16===8) tone(t,b,.22,{type:'sine',gain:.22,slide:b*1.5}); break;
+    case 'simple': if(s16===0||s16===8) tone(t,b,.35,{type:'triangle',gain:.22}); break;
+    case 'bounce': if([0,6,8,11,14].includes(s16)) tone(t,s16===11?b*1.5:b,.18,{type:'square',gain:.06,lp:700}); break;
+    case 'synth': if(s16%2===0) tone(t,b/ (s16%4?1:2)*(s16%4?1:2),.2,{type:'sawtooth',gain:.07,lp:600,lpEnd:150}); break;
+    case 'deep': if([0,3,10].includes(s16)) tone(t,b/2,.5,{type:'sine',gain:.32}); break;
+    case 'drone': if(s16===0) { tone(t,midiHz(th.root-12),spb*4,{type:'sawtooth',gain:.05,lp:500,attack:.3,sustain:true}); tone(t,midiHz(th.root-5),spb*4,{type:'sawtooth',gain:.03,lp:500,attack:.3,sustain:true}); } break;
+    case 'walk': if(s16%4===0){ const w=[0,2,4,5][s16/4]; tone(t,midiHz(noteAt(th,chordDeg+w,-2)),spb*.9,{type:'sine',gain:.3}); } break;
+  }
+  // drums
+  const k4=s16%4===0;
+  switch(th.drums){
+    case 'toy': if(k4) tick(t,s16===0?.08:.05); break;
+    case 'clap': if(s16===4||s16===12) clap(t,.06); if(k4) tick(t,.04); break;
+    case 'shaker': if(s16%2===0) shaker(t,s16%4?.02:.035); if(s16===0) kick(t,.3); break;
+    case 'light': if(s16===0||s16===8) kick(t,.35); if(s16%2===0) shaker(t,.025); if(s16===12) clap(t,.05); break;
+    case 'pop': if(s16===0||s16===8||s16===10) kick(t,.45); if(s16===4||s16===12) snare(t,.1); if(s16%2===0) hat(t,.03); break;
+    case 'wave': if(k4) kick(t,.42); if(s16===4||s16===12) snare(t,.11); hat(t,s16%2?.015:.03); break;
+    case 'house': if(k4) kick(t,.45); if(s16%4===2) hat(t,.05); if(s16===4||s16===12) clap(t,.05); break;
+    case 'dhol': if([0,3,6,10].includes(s16)) kick(t,.5); if([4,12].includes(s16)) tone(t,320,.12,{type:'triangle',gain:.22,slide:260}); if([2,7,9,14,15].includes(s16)) tone(t,520,.06,{type:'triangle',gain:.1}); if(s16%2===0) shaker(t,.03); break;
+    case 'tabla': if([0,6,10].includes(s16)) tone(t,110,.4,{type:'sine',gain:.35,slide:70}); if([3,8,13].includes(s16)) tone(t,680,.09,{type:'sine',gain:.14,slide:600}); if([4,12,15].includes(s16)) tone(t,900,.05,{type:'triangle',gain:.07}); break;
+    case 'race': if(s16%2===0) kick(t,.4); if(s16===4||s16===12) snare(t,.12); hat(t,.03); break;
+    case 'jungle': if([0,3,8,11].includes(s16)) tone(t,95,.3,{type:'sine',gain:.4,slide:60}); if([6,14].includes(s16)) tone(t,210,.15,{type:'sine',gain:.2,slide:160}); if(s16%2===1) shaker(t,.025); break;
+    case 'march': if(s16===0||s16===8) kick(t,.45); if(s16===4||s16===12) snare(t,.14); if(s16===14||s16===15) snare(t,.06); break;
+    case 'lofi': if(s16===0||s16===10) kick(t,.4); if(s16===4||s16===12) rim(t,.09); if(s16%2===0) hat(t,.018); break;
+  }
+  // melody (on 8th notes); every 2nd loop, older themes rest for a bar to breathe
+  if(s16%2===0){
+    const idx=bar*8+eighth, n=SND.pat[idx];
+    const rest = SND.loop%2===1 && bar===2 && th.dens<.5;
+    if(n && !rest){ const oct = th.lead==='musicbox'||th.lead==='bell'?1:(th.lead==='epiano'?0:1); INST[th.lead](t, midiHz(noteAt(th,n.deg,oct)), dur16*2*n.len); }
+  }
+  if(st%64===63) SND.loop++;
+}
+function scheduler(){
+  if(!SND.ctx||!SND.playing) return;
+  const spb=60/SND.theme.bpm;
+  while(SND.next < SND.ctx.currentTime+.12){ scheduleStep(SND.step,SND.next); SND.next+=spb/4; SND.step++; }
+}
+function myTrack(){ return SND.choice==='auto' ? SND.myGrade : +SND.choice; }
+function startMusic(grade){
+  initAudio(); if(!SND.ctx) return;
+  SND.grade = grade || myTrack();
+  SND.theme=THEMES[SND.grade]; SND.pat=makePattern(SND.theme); SND.step=0; SND.loop=0;
+  if(SND.delay) SND.delay.delayTime.value=(60/SND.theme.bpm)*.75;
+  SND.next=SND.ctx.currentTime+.1; SND.playing=true;
+  clearInterval(SND.timer); SND.timer=setInterval(scheduler,25);
+  renderSoundPanel();
+}
+function duck(){ if(!SND.ctx||!SND.on) return; const g=SND.music.gain, t=SND.ctx.currentTime, v=Math.pow(SND.mv/100,1.5)*1.6; g.cancelScheduledValues(t); g.setValueAtTime(g.value,t); g.linearRampToValueAtTime(v*.3,t+.05); g.linearRampToValueAtTime(v,t+1.1); }
+
+/* ---- sound effects ---- */
+function sfx(kind){
+  initAudio(); if(!SND.ctx) return; const t=SND.ctx.currentTime+.01, d=SND.sfx;
+  switch(kind){
+    case 'correct': duck(); [72,76,79,84].forEach((m,i)=>{ tone(t+i*.07,midiHz(m),.4,{type:'triangle',gain:.22,dest:d}); tone(t+i*.07,midiHz(m+12),.25,{type:'sine',gain:.06,dest:d}); });
+      for(let i=0;i<6;i++) tone(t+.3+i*.04,midiHz(96+(i%3)*4),.12,{type:'sine',gain:.05,dest:d}); break;
+    case 'wrong': duck();
+      // "uh-oh" buzzer: two falling buzzy notes + a little wobble at the end
+      tone(t,     midiHz(67),.2, {type:'square',  gain:.16,lp:2400,dest:d});
+      tone(t,     midiHz(67)*1.01,.2,{type:'sawtooth',gain:.08,lp:2000,dest:d});
+      tone(t+.22, midiHz(61),.55,{type:'square',  gain:.18,lp:2200,slide:midiHz(56),dest:d});
+      tone(t+.22, midiHz(61)*1.01,.55,{type:'sawtooth',gain:.09,lp:1800,slide:midiHz(56),dest:d});
+      noise(t+.22,.12,{ft:'lowpass',f:500,gain:.25,dest:d});
+      break;
+    case 'coin': tone(t,midiHz(83),.08,{type:'square',gain:.06,dest:d,lp:4000}); tone(t+.07,midiHz(88),.25,{type:'square',gain:.06,dest:d,lp:4000}); break;
+    case 'unlock': duck(); [60,64,67,72].forEach((m,i)=>tone(t+i*.09,midiHz(m),.3,{type:'square',gain:.06,lp:3000,dest:d})); tone(t+.36,midiHz(76),.7,{type:'triangle',gain:.2,dest:d}); tone(t+.36,midiHz(79),.7,{type:'triangle',gain:.12,dest:d}); break;
+    case 'hmm': tone(t,midiHz(67),.18,{type:'sine',gain:.15,dest:d}); tone(t+.15,midiHz(70),.3,{type:'sine',gain:.15,slide:midiHz(72),dest:d}); break;
+    case 'tap': tone(t,midiHz(88),.05,{type:'sine',gain:.06,dest:d}); break;
+    case 'open': tone(t,midiHz(72),.12,{type:'sine',gain:.1,dest:d,slide:midiHz(79)}); break;
+  }
+}
+
+/* ---- panel ---- */
+function openSound(){ initAudio(); renderSoundPanel(); document.getElementById('soundSheet').classList.add('show'); }
+function closeSound(){ document.getElementById('soundSheet').classList.remove('show'); }
+document.getElementById('soundSheet').addEventListener('click',e=>{ if(e.target.id==='soundSheet') closeSound(); });
+function toggleMusic(){ SND.on=!SND.on; saveSnd(); if(SND.on && !SND.playing) startMusic(); applyVol(); renderSoundPanel(); updateSndBtn(); }
+function setVol(which,v){ if(which==='music') SND.mv=+v; else { SND.sv=+v; sfx('coin'); } saveSnd(); applyVol(); updateSndBtn(); }
+function chooseTrack(k){ SND.choice=k; saveSnd(); if(!SND.on){ SND.on=true; applyVol(); updateSndBtn(); } startMusic(); }
+function previewGrade(g){ if(!SND.on){ SND.on=true; saveSnd(); applyVol(); updateSndBtn(); } startMusic(g); }
+function renderSoundPanel(){
+  document.getElementById('musicTgl').classList.toggle('on',SND.on);
+  document.getElementById('musVol').value=SND.mv; document.getElementById('sfxVol').value=SND.sv;
+  let h=`<div class="glabel">✨ Smart</div><button class="${SND.choice==='auto'?'on':''}" onclick="chooseTrack('auto')">🪄 Auto · grows with me</button>`;
+  GENRES.forEach(gn=>{ h+=`<div class="glabel">${{Playful:'🎈',Desi:'🪘',Adventure:'🗺️',Energy:'⚡',Focus:'🎧',Relax:'🌊'}[gn]} ${gn}</div>`;
+    Object.keys(THEMES).filter(k=>GENRE[k]===gn).forEach(k=>{ h+=`<button class="${SND.choice!=='auto'&&+SND.choice===+k?'on':''}" onclick="chooseTrack(${k})">${THEMES[k].name}</button>`; }); });
+  document.getElementById('gradeChips').innerHTML=h;
+  const th=THEMES[SND.grade];
+  document.getElementById('nowPlay').innerHTML=`<div class="eq ${SND.on&&SND.playing?'':'off'}"><i></i><i></i><i></i><i></i></div><div>Now playing: ${th.name}<br><span style="color:#6b7090;font-weight:600;font-size:12px">${th.desc}</span></div>`;
+}
+function updateSndBtn(){ document.getElementById('sndIcon').textContent = !SND.on||SND.mv==0 ? '🔇' : SND.mv<40 ? '🔉' : '🔊'; }
+updateSndBtn();
+
+/* start music on the first tap (browsers block sound until the user touches the page) */
+let firstTap=true;
+document.addEventListener('pointerdown',()=>{ if(!firstTap) return; firstTap=false; initAudio(); if(SND.on) startMusic(); },{capture:true});
+setTimeout(()=>{ if(firstTap) toast('🎵 Tap anywhere to start the music'); },1200);
+/* stop sound when the phone locks, the app goes to background, or the page closes */
+function pauseAll(){ if(SND.ctx && SND.ctx.state==='running') SND.ctx.suspend(); }
+function resumeAll(){ if(SND.ctx && SND.on && document.visibilityState==='visible' && SND.ctx.state==='suspended') SND.ctx.resume(); }
+document.addEventListener('visibilitychange',()=>{ document.hidden ? pauseAll() : resumeAll(); });
+window.addEventListener('pagehide',pauseAll);
+window.addEventListener('blur',pauseAll);
+window.addEventListener('focus',resumeAll);
+document.addEventListener('freeze',pauseAll);
+document.addEventListener('pointerdown',resumeAll);
+</script>
+
+</body>
+</html>
