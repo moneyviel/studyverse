@@ -1,0 +1,2662 @@
+{
+ "n": 2,
+ "title": "Encoding Schemes and Number System",
+ "emoji": "🔢",
+ "topics": [
+  {
+   "id": "g11-cs-02-01",
+   "title": "Encoding and the ASCII code",
+   "covers": [
+    "c2.1.1",
+    "c2.1.2",
+    "c2.1.3",
+    "c2.2.1"
+   ],
+   "learn": {
+    "hook": "When you press 'A', the keyboard doesn't send the letter. It sends the number 65, stored as 1000001. Every character you type has a secret number.",
+    "points": [
+     "Encoding is the mapping of each character (letter, digit, symbol) to a unique code, which is finally stored in binary.",
+     "Example: the key 'A' is mapped to decimal 65 (binary 1000001). A Devanagari letter like 'अ' is mapped to the hexadecimal Unicode value 0905.",
+     "Encoding is NOT encryption. Encoding represents data in a standard form anyone can decode; encryption scrambles data with a key to hide it.",
+     "ASCII (American Standard Code for Information Interchange) is a 7-bit code, so it can represent 2⁷ = 128 characters (codes 0–127): English letters, digits, punctuation and control characters.",
+     "Useful ASCII values: space = 32, '0' = 48, 'A' = 65, 'a' = 97. Upper and lower case differ by 32."
+    ],
+    "example": {
+     "q": "What is the ASCII code of 'E' and of 'e'?",
+     "steps": [
+      "'A' = 65, so 'E' (4 letters later) = 65 + 4 = 69",
+      "Lower case is 32 more: 'e' = 69 + 32 = 101"
+     ],
+     "answer": "'E' = 69, 'e' = 101"
+    },
+    "reallife": "Every SMS, train-ticket PNR and bank message is stored as character codes. Without agreed encodings, your 'Hi' could arrive as garbage on someone else's phone."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Character ↔ ASCII code",
+     "pairs": [
+      [
+       "Capital A",
+       "65"
+      ],
+      [
+       "Small a",
+       "97"
+      ],
+      [
+       "0 (digit zero)",
+       "48"
+      ],
+      [
+       "Space",
+       "32"
+      ],
+      [
+       "Z",
+       "90"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Encoding or encryption?",
+     "items": [
+      [
+       "Encoding is meant to hide data from others.",
+       false,
+       "That is encryption. Encoding only represents data in a standard form."
+      ],
+      [
+       "ASCII uses 7 bits per character.",
+       true,
+       "7 bits give 2⁷ = 128 codes."
+      ],
+      [
+       "ASCII can represent 256 characters.",
+       false,
+       "Being 7-bit, it represents 128 characters."
+      ],
+      [
+       "The ASCII codes of 'B' and 'b' differ by 32.",
+       true,
+       "'B' = 66 and 'b' = 98."
+      ],
+      [
+       "An encoded message can be decoded by anyone who knows the standard.",
+       true,
+       "Encoding schemes are public standards."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many characters can ASCII represent?",
+     "options": [
+      "65536",
+      "128",
+      "256",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "ASCII is a 7-bit code, and 2⁷ = 128.",
+     "steps": [
+      "Number of codes = 2ⁿ",
+      "2⁷ = 128"
+     ],
+     "mistake": "Uses 8 bits (256) or just counts the bits",
+     "check": "2**7"
+    },
+    {
+     "q": "What is the ASCII code of 'C'?",
+     "options": [
+      "3",
+      "67",
+      "68",
+      "99"
+     ],
+     "answer": 1,
+     "explain": "'A' is 65, so 'C' is 65 + 2 = 67.",
+     "steps": [
+      "'A' = 65",
+      "'C' = 65 + 2 = 67"
+     ],
+     "mistake": "Gives the lower-case code (99) or counts from 1",
+     "check": "65+2"
+    },
+    {
+     "q": "What is the ASCII code of 'd'?",
+     "options": [
+      "4",
+      "68",
+      "100",
+      "101"
+     ],
+     "answer": 2,
+     "explain": "'a' is 97, so 'd' is 97 + 3 = 100.",
+     "steps": [
+      "'a' = 97",
+      "'d' = 97 + 3 = 100"
+     ],
+     "mistake": "Gives the upper-case code 68",
+     "check": "97+3"
+    },
+    {
+     "q": "Which statement best describes encoding?",
+     "options": [
+      "Compressing a file to save space",
+      "Locking data with a secret key",
+      "Deleting characters a computer cannot read",
+      "Representing each character by a unique code that can be stored in binary"
+     ],
+     "answer": 3,
+     "explain": "Encoding maps characters to standard codes; it is not about secrecy or compression.",
+     "mistake": "Confuses encoding with encryption"
+    },
+    {
+     "q": "The digit character '7' typed on a keyboard has ASCII code:",
+     "options": [
+      "55",
+      "71",
+      "48",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "Digit characters start at '0' = 48, so '7' = 48 + 7 = 55.",
+     "steps": [
+      "'0' = 48",
+      "'7' = 48 + 7 = 55"
+     ],
+     "mistake": "Thinks the character '7' is stored as the number 7",
+     "check": "48+7"
+    },
+    {
+     "q": "A character has ASCII code 72. Which character is it?",
+     "options": [
+      "H",
+      "G",
+      "J",
+      "I"
+     ],
+     "answer": 0,
+     "explain": "72 − 65 = 7, so it is 7 letters after 'A', which is 'H'.",
+     "mistake": "Is off by one when counting from 'A' = 65"
+    },
+    {
+     "q": "Assertion (A): Encoding and encryption are the same.\nReason (R): Encryption converts data into a secret form using a key.",
+     "options": [
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are false"
+     ],
+     "answer": 1,
+     "explain": "Encryption hides data with a key; encoding just represents it. So A is false and R is true.",
+     "mistake": "Thinks any conversion of data is encryption"
+    },
+    {
+     "q": "What is the difference between the ASCII codes of 'M' and 'm'?",
+     "options": [
+      "32",
+      "64",
+      "1",
+      "26"
+     ],
+     "answer": 0,
+     "explain": "Every lower-case letter is 32 more than its upper-case partner (e.g. 77 and 109).",
+     "steps": [
+      "'M' = 77, 'm' = 109",
+      "109 − 77 = 32"
+     ],
+     "mistake": "Assumes the gap is 26 because there are 26 letters",
+     "check": "109-77"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu typed 'A' and wonders what the computer actually stores. Explain encoding and ASCII.",
+    "must": [
+     [
+      "code",
+      "unique code",
+      "number"
+     ],
+     [
+      "ascii",
+      "american standard code"
+     ],
+     [
+      "65",
+      "7 bit",
+      "7-bit",
+      "128"
+     ]
+    ],
+    "praise": "So 'A' becomes 65 in ASCII, a 7-bit code with 128 characters. And encoding isn't secret like encryption!",
+    "nudge": "Close! What number does 'A' get, and how many bits does ASCII use?"
+   }
+  },
+  {
+   "id": "g11-cs-02-02",
+   "title": "Encoding words in ASCII, and ISCII for Indian scripts",
+   "covers": [
+    "c2.2.2",
+    "c2.2.3",
+    "c2.3.1",
+    "c2.3.2"
+   ],
+   "learn": {
+    "hook": "ASCII handles 'DATA' easily but has no slot for 'दाता'. India built its own code to fix that.",
+    "points": [
+     "To encode a word, write each letter's ASCII decimal code, then its 7-bit binary. 'D'=68=1000100, 'A'=65=1000001, 'T'=84=1010100.",
+     "Limitation: with only 128 codes, ASCII covers English letters, digits and symbols, but cannot represent Indian or other non-English scripts.",
+     "ISCII (Indian Script Code for Information Interchange) is an 8-bit code, so it has 2⁸ = 256 codes. It keeps the first 128 codes the same as ASCII.",
+     "In ISCII, the Indian language aksharas are placed in the upper range, codes 160–255. ISCII has been largely replaced by Unicode today."
+    ],
+    "example": {
+     "q": "Encode the word 'DATA' in ASCII decimal and 7-bit binary.",
+     "steps": [
+      "D = 68 = 1000100",
+      "A = 65 = 1000001",
+      "T = 84 = 1010100",
+      "A = 65 = 1000001"
+     ],
+     "answer": "68 65 84 65 → 1000100 1000001 1010100 1000001"
+    },
+    "reallife": "Indian-language software of the 1990s, such as C-DAC's GIST tools, used ISCII. Because ISCII keeps ASCII intact, English and Hindi text could live in the same file."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Letter ↔ 7-bit ASCII",
+     "pairs": [
+      [
+       "A",
+       "1000001"
+      ],
+      [
+       "B",
+       "1000010"
+      ],
+      [
+       "D",
+       "1000100"
+      ],
+      [
+       "T",
+       "1010100"
+      ],
+      [
+       "Small a",
+       "1100001"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the code facts",
+     "items": [
+      {
+       "text": "ISCII is a ___-bit code.",
+       "answer": "8",
+       "options": [
+        "8",
+        "7",
+        "16"
+       ]
+      },
+      {
+       "text": "ASCII can encode ___ characters.",
+       "answer": "128",
+       "options": [
+        "128",
+        "256",
+        "1024"
+       ]
+      },
+      {
+       "text": "In ISCII, Indian aksharas use codes from ___ to 255.",
+       "answer": "160",
+       "options": [
+        "160",
+        "128",
+        "0"
+       ]
+      },
+      {
+       "text": "ISCII keeps the first ___ codes the same as ASCII.",
+       "answer": "128",
+       "options": [
+        "128",
+        "160",
+        "64"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many characters can ISCII represent?",
+     "options": [
+      "128",
+      "256",
+      "65536",
+      "160"
+     ],
+     "answer": 1,
+     "explain": "ISCII is an 8-bit code, and 2⁸ = 256.",
+     "steps": [
+      "2⁸ = 256"
+     ],
+     "mistake": "Uses 7 bits like ASCII",
+     "check": "2**8"
+    },
+    {
+     "q": "Which is the 7-bit ASCII binary code for 'A'?",
+     "options": [
+      "(1100001)₂",
+      "(0100001)₂",
+      "(1000010)₂",
+      "(1000001)₂"
+     ],
+     "answer": 3,
+     "explain": "'A' = 65 = 64 + 1 = 1000001 in binary.",
+     "mistake": "Gives the code of 'B' or of lower-case 'a'"
+    },
+    {
+     "q": "What is the 7-bit ASCII code for 'T' (decimal 84)?",
+     "options": [
+      "(1010010)₂",
+      "(1001100)₂",
+      "(1010100)₂",
+      "(1110100)₂"
+     ],
+     "answer": 2,
+     "explain": "84 = 64 + 16 + 4, so the bits for 64, 16 and 4 are 1: 1010100.",
+     "mistake": "Places a 1 in the wrong power-of-two position"
+    },
+    {
+     "q": "Why was ISCII developed?",
+     "options": [
+      "To replace binary numbers",
+      "To represent Indian language scripts, which ASCII cannot",
+      "To store only numbers",
+      "To encrypt government data"
+     ],
+     "answer": 1,
+     "explain": "ASCII's 128 codes have no room for Indian scripts, so ISCII added them using 8 bits.",
+     "mistake": "Confuses a character code with encryption"
+    },
+    {
+     "q": "The sum of the ASCII codes of the letters in 'CAB' is:",
+     "options": [
+      "195",
+      "201",
+      "99",
+      "198"
+     ],
+     "answer": 3,
+     "explain": "C = 67, A = 65, B = 66, and 67 + 65 + 66 = 198.",
+     "steps": [
+      "C = 67, A = 65, B = 66",
+      "67 + 65 + 66 = 198"
+     ],
+     "mistake": "Uses a wrong code for one letter",
+     "check": "67+65+66"
+    },
+    {
+     "q": "Which statement about ISCII is correct?",
+     "options": [
+      "Its first 128 codes match ASCII and Indian aksharas are in the upper range",
+      "It is the same as UTF-32",
+      "It cannot represent English letters",
+      "It is a 7-bit code"
+     ],
+     "answer": 0,
+     "explain": "ISCII extends ASCII to 8 bits, keeping ASCII's 128 codes and placing aksharas in 160–255.",
+     "mistake": "Thinks ISCII drops English characters"
+    },
+    {
+     "q": "ASCII code 97 decodes to:",
+     "options": [
+      "a",
+      "b",
+      "9",
+      "A (capital)"
+     ],
+     "answer": 0,
+     "explain": "97 is the code for lower-case 'a'.",
+     "mistake": "Mixes up upper and lower case"
+    },
+    {
+     "q": "Assertion (A): ASCII cannot store a Tamil word.\nReason (R): ASCII has only 128 codes, used for English letters, digits, symbols and control characters.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 0,
+     "explain": "With all 128 codes used up by English characters and controls, there is no room for Tamil script.",
+     "mistake": "Thinks ASCII can store any language"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to type his name in Hindi, but ASCII refuses. Explain how words are encoded in ASCII and why ISCII was needed.",
+    "must": [
+     [
+      "ascii",
+      "7 bit",
+      "128"
+     ],
+     [
+      "iscii",
+      "indian script"
+     ],
+     [
+      "8 bit",
+      "8-bit",
+      "256"
+     ]
+    ],
+    "praise": "So ASCII is 7-bit with 128 codes and ISCII is 8-bit with room for Indian scripts!",
+    "nudge": "Good. How many bits do ASCII and ISCII each use, and why couldn't ASCII store Hindi?"
+   }
+  },
+  {
+   "id": "g11-cs-02-03",
+   "title": "Unicode: one code for every script",
+   "covers": [
+    "c2.4.1",
+    "c2.4.2",
+    "c2.4.3",
+    "c2.4.4"
+   ],
+   "learn": {
+    "hook": "You can WhatsApp 'नमस्ते', 'வணக்கம்' and an emoji in one message. Unicode is the reason it doesn't turn into boxes.",
+    "points": [
+     "Unicode is a universal standard that gives every character of every script a unique number (code point), whatever the platform, program or language.",
+     "Encodings: UTF-8 (variable length, 1 to 4 bytes per character), UTF-16 (2 or 4 bytes) and UTF-32 (fixed 4 bytes = 32 bits per character). UTF-32 uses the most space because even English letters take 4 bytes.",
+     "Unicode is a superset of ASCII: the first 128 Unicode code points are the same as ASCII.",
+     "Devanagari has its own block in Unicode, U+0900 to U+097F. 'अ' is U+0905 and 'क' is U+0915 (hexadecimal values).",
+     "Advantages for India: text in Hindi, Tamil, Bengali, Telugu and other Indian languages can be typed, searched and shared on any device using Unicode fonts and Indic keyboards."
+    ],
+    "example": {
+     "q": "How many bytes does the word 'INDIA' take in UTF-32 and in UTF-8?",
+     "steps": [
+      "UTF-32 uses 4 bytes per character: 5 × 4 = 20 bytes",
+      "In UTF-8, ASCII characters take 1 byte each: 5 × 1 = 5 bytes"
+     ],
+     "answer": "20 bytes in UTF-32, 5 bytes in UTF-8"
+    },
+    "reallife": "Government sites like DigiLocker and IRCTC show forms in Hindi and many regional languages because the text is stored in Unicode, which every browser can display."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Encoding ↔ bytes per character",
+     "pairs": [
+      [
+       "UTF-32",
+       "Always 4 bytes"
+      ],
+      [
+       "UTF-8",
+       "1 to 4 bytes"
+      ],
+      [
+       "UTF-16",
+       "2 or 4 bytes"
+      ],
+      [
+       "ASCII",
+       "7 bits"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Unicode truths",
+     "items": [
+      [
+       "Unicode is a superset of ASCII.",
+       true,
+       "Its first 128 code points match ASCII."
+      ],
+      [
+       "In Unicode, 'अ' has the code U+0905.",
+       true,
+       "It lies in the Devanagari block U+0900–U+097F."
+      ],
+      [
+       "UTF-8 always uses 4 bytes per character.",
+       false,
+       "That is UTF-32. UTF-8 uses 1 to 4 bytes."
+      ],
+      [
+       "Unicode covers only English and Hindi.",
+       false,
+       "It covers scripts of almost every language, plus symbols and emoji."
+      ],
+      [
+       "Unicode code points are usually written in hexadecimal.",
+       true,
+       "For example U+0915 for 'क'."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which Unicode encoding uses a fixed 4 bytes for every character?",
+     "options": [
+      "UTF-16",
+      "UTF-32",
+      "UTF-8",
+      "ASCII"
+     ],
+     "answer": 1,
+     "explain": "UTF-32 stores each character in exactly 32 bits = 4 bytes.",
+     "mistake": "Thinks UTF-8 means 8 bytes"
+    },
+    {
+     "q": "How many bytes does the 6-letter word 'PYTHON' need in UTF-32?",
+     "options": [
+      "24",
+      "6",
+      "48",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "Each character takes 4 bytes in UTF-32: 6 × 4 = 24.",
+     "steps": [
+      "UTF-32: 4 bytes per character",
+      "6 × 4 = 24"
+     ],
+     "mistake": "Uses 1 byte per character as in UTF-8",
+     "check": "6*4"
+    },
+    {
+     "q": "Why is Unicode called a superset of ASCII?",
+     "options": [
+      "It can only store ASCII characters",
+      "Its first 128 code points are the same as the ASCII codes",
+      "It replaces all ASCII codes with new ones",
+      "It uses fewer bits than ASCII"
+     ],
+     "answer": 1,
+     "explain": "Every ASCII character keeps the same number in Unicode, so ASCII text is valid Unicode.",
+     "mistake": "Thinks 'superset' means 'larger file size'"
+    },
+    {
+     "q": "The Unicode value of 'क' is U+0915. In which number system is 0915 written?",
+     "options": [
+      "Hexadecimal",
+      "Binary",
+      "Decimal",
+      "Octal"
+     ],
+     "answer": 0,
+     "explain": "Unicode code points are written in hexadecimal after 'U+'.",
+     "mistake": "Reads 0915 as a decimal number"
+    },
+    {
+     "q": "What is the main advantage of Unicode over ASCII and ISCII?",
+     "options": [
+      "It gives a unique code to characters of almost all world scripts",
+      "It uses only 7 bits",
+      "It encrypts text automatically",
+      "It stores only Indian scripts"
+     ],
+     "answer": 0,
+     "explain": "Unicode is universal, covering nearly all scripts and symbols in one standard.",
+     "mistake": "Thinks Unicode is limited like ISCII"
+    },
+    {
+     "q": "A UTF-8 file contains only English letters. How many bytes does each character use?",
+     "options": [
+      "2",
+      "1",
+      "4",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "UTF-8 encodes ASCII characters in a single byte, so English text stays compact.",
+     "mistake": "Thinks the '8' in UTF-8 means 8 bytes",
+     "check": "1"
+    },
+    {
+     "q": "The Devanagari block in Unicode starts at:",
+     "options": [
+      "U+0000",
+      "U+0041",
+      "U+FFFF",
+      "U+0900"
+     ],
+     "answer": 3,
+     "explain": "Devanagari characters occupy U+0900 to U+097F.",
+     "mistake": "Confuses it with the ASCII range starting at U+0000"
+    },
+    {
+     "q": "Assertion (A): UTF-32 files are usually larger than UTF-8 files for English text.\nReason (R): UTF-32 uses 4 bytes for every character, while UTF-8 uses 1 byte for English letters.",
+     "options": [
+      "A is false but R is true",
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false"
+     ],
+     "answer": 1,
+     "explain": "Four bytes versus one byte per English letter makes UTF-32 files about four times larger, explaining A.",
+     "mistake": "Doesn't connect bytes per character with file size"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to send a message in Tamil, Hindi and English together. Explain what Unicode is and how UTF-8 and UTF-32 differ.",
+    "must": [
+     [
+      "unicode",
+      "universal"
+     ],
+     [
+      "every script",
+      "all languages",
+      "unique number",
+      "code point"
+     ],
+     [
+      "utf-8",
+      "utf-32",
+      "utf8",
+      "utf32",
+      "bytes"
+     ]
+    ],
+    "praise": "Unicode gives every character in every script its own number, and UTF-8 saves space while UTF-32 uses 4 bytes each. Amazing!",
+    "nudge": "Nice try. What makes Unicode universal, and how many bytes do UTF-8 and UTF-32 use?"
+   }
+  },
+  {
+   "id": "g11-cs-02-04",
+   "title": "Positional number systems, decimal and binary",
+   "covers": [
+    "c2.5.1",
+    "c2.5.2",
+    "c2.6.1",
+    "c2.6.2"
+   ],
+   "learn": {
+    "hook": "In 555, the three 5s are worth 500, 50 and 5. Position is power, and computers use the same trick with only two digits.",
+    "points": [
+     "In a positional number system, a digit's value depends on its position. The radix (base) is the number of distinct symbols used.",
+     "Write the base as a subscript: (70)₈ is seventy in base 8 (= 56 in decimal), while (70)₁₀ is plain seventy.",
+     "Positional expansion: each digit × base^position, positions 0, 1, 2 … to the left of the point and −1, −2 … to the right. (237.5)₁₀ = 2×10² + 3×10¹ + 7×10⁰ + 5×10⁻¹.",
+     "Decimal: base 10, digits 0–9.",
+     "Binary: base 2, digits 0 and 1 (bits). Computers use binary because a transistor has two states, ON (1) and OFF (0)."
+    ],
+    "example": {
+     "q": "Expand (1101)₂ by positions and find its decimal value.",
+     "steps": [
+      "Positions from right: 0, 1, 2, 3",
+      "1×2³ + 1×2² + 0×2¹ + 1×2⁰",
+      "8 + 4 + 0 + 1 = 13"
+     ],
+     "answer": "(1101)₂ = (13)₁₀"
+    },
+    "reallife": "Railway seat maps, ATM displays and cricket scoreboards are run by chips whose billions of transistors are each just ON or OFF: pure binary."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "System ↔ base and digits",
+     "pairs": [
+      [
+       "Decimal",
+       "Base 10: 0–9"
+      ],
+      [
+       "Binary",
+       "Base 2: 0 and 1"
+      ],
+      [
+       "Octal",
+       "Base 8: 0–7"
+      ],
+      [
+       "Hexadecimal",
+       "Base 16: 0–9, A–F"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Place value sprint",
+     "items": [
+      {
+       "q": "Place value of 1 in (1000)₂",
+       "a": "8",
+       "check": "2**3"
+      },
+      {
+       "q": "Value of 2⁵",
+       "a": "32",
+       "check": "2**5"
+      },
+      {
+       "q": "(10)₂ in decimal",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "(111)₂ in decimal",
+       "a": "7",
+       "check": "4+2+1"
+      },
+      {
+       "q": "Place value of 3 in 4321",
+       "a": "300",
+       "check": "3*100"
+      },
+      {
+       "q": "(70)₈ in decimal",
+       "a": "56",
+       "check": "7*8"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the radix of the binary number system?",
+     "options": [
+      "10",
+      "8",
+      "1",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "Binary uses two symbols, 0 and 1, so its base is 2.",
+     "mistake": "Confuses the highest digit (1) with the base",
+     "check": "2"
+    },
+    {
+     "q": "Convert (10110)₂ to decimal.",
+     "options": [
+      "26",
+      "22",
+      "21",
+      "11"
+     ],
+     "answer": 1,
+     "explain": "16 + 0 + 4 + 2 + 0 = 22.",
+     "steps": [
+      "1×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰",
+      "16 + 4 + 2 = 22"
+     ],
+     "mistake": "Reads the bits from the wrong end",
+     "check": "16+4+2"
+    },
+    {
+     "q": "What is the decimal value of (70)₈?",
+     "options": [
+      "63",
+      "70",
+      "15",
+      "56"
+     ],
+     "answer": 3,
+     "explain": "7 × 8¹ + 0 × 8⁰ = 56.",
+     "steps": [
+      "7 × 8 = 56",
+      "0 × 1 = 0"
+     ],
+     "mistake": "Treats the octal number as decimal",
+     "check": "7*8"
+    },
+    {
+     "q": "Why do computers use the binary system?",
+     "options": [
+      "Binary was invented by computer companies",
+      "Binary uses ten digits",
+      "Electronic components such as transistors have two stable states, ON and OFF",
+      "Binary numbers are shorter than decimal numbers"
+     ],
+     "answer": 2,
+     "explain": "Two states map neatly to 1 and 0, making circuits simple and reliable.",
+     "mistake": "Thinks binary numbers are shorter (they are actually longer)"
+    },
+    {
+     "q": "In (4352)₁₀, what is the place value of 3?",
+     "options": [
+      "300",
+      "30",
+      "3000",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "3 is in the hundreds place (10²), so its value is 300.",
+     "mistake": "Gives the face value instead of the place value",
+     "check": "3*100"
+    },
+    {
+     "q": "Which of these digit strings can NOT be a binary number?",
+     "options": [
+      "'100000'",
+      "'11111'",
+      "'10101'",
+      "'10201'"
+     ],
+     "answer": 3,
+     "explain": "Binary allows only 0 and 1; the digit 2 is not allowed.",
+     "mistake": "Thinks any number made of small digits is binary"
+    },
+    {
+     "q": "What is the decimal value of the largest 5-bit binary number?",
+     "options": [
+      "32",
+      "31",
+      "63",
+      "16"
+     ],
+     "answer": 1,
+     "explain": "The largest 5-bit number is 11111 = 2⁵ − 1 = 31.",
+     "steps": [
+      "11111 = 16 + 8 + 4 + 2 + 1",
+      "= 31 = 2⁵ − 1"
+     ],
+     "mistake": "Gives 2⁵ instead of 2⁵ − 1",
+     "check": "2**5-1"
+    },
+    {
+     "q": "In positional expansion, what power of 10 does the digit 5 in (237.5)₁₀ get?",
+     "options": [
+      "10⁻⁵",
+      "10⁻¹",
+      "10⁰",
+      "10¹"
+     ],
+     "answer": 1,
+     "explain": "The first digit to the right of the decimal point has position −1.",
+     "mistake": "Thinks positions after the point start at 0"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks 101 always means 'one hundred and one'. Explain positional number systems, base, and binary.",
+    "must": [
+     [
+      "position",
+      "place value",
+      "positional"
+     ],
+     [
+      "base",
+      "radix"
+     ],
+     [
+      "binary",
+      "0 and 1",
+      "two digits"
+     ]
+    ],
+    "praise": "So 101 depends on the base! In binary it's just 5. Position and base decide everything.",
+    "nudge": "Good start. What does 'base' mean, and how does the position of a digit affect its value?"
+   }
+  },
+  {
+   "id": "g11-cs-02-05",
+   "title": "Octal and hexadecimal, and where hex is used",
+   "covers": [
+    "c2.6.3",
+    "c2.6.4",
+    "c2.7.1",
+    "c2.7.2"
+   ],
+   "learn": {
+    "hook": "Web designers write colours like #FF9933 (that is saffron). That code is hexadecimal, and it's far easier than 24 ones and zeros.",
+    "points": [
+     "Octal: base 8, digits 0–7. Since 8 = 2³, each octal digit stands for exactly 3 bits.",
+     "Hexadecimal: base 16, symbols 0–9 and A–F, where A=10, B=11, C=12, D=13, E=14, F=15. Since 16 = 2⁴, each hex digit stands for exactly 4 bits.",
+     "Hex keeps long binary values short and readable, so memory addresses are usually written in hex (e.g. 0x1A3F).",
+     "Colour codes: 24-bit RGB colour uses 2 hex digits (8 bits) each for Red, Green, Blue. Red = FF0000, Green = 00FF00, Blue = 0000FF, White = FFFFFF, Black = 000000.",
+     "Each colour channel ranges from 00 to FF, i.e. 0 to 255 in decimal."
+    ],
+    "example": {
+     "q": "What is the decimal value of each channel in the colour #FF9933?",
+     "steps": [
+      "Red = FF = 15×16 + 15 = 255",
+      "Green = 99 = 9×16 + 9 = 153",
+      "Blue = 33 = 3×16 + 3 = 51"
+     ],
+     "answer": "R = 255, G = 153, B = 51"
+    },
+    "reallife": "The tricolour's saffron, white and green on government websites are stored as hex colour codes, and every byte of your phone's memory has a hex address."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Hex symbol ↔ decimal",
+     "pairs": [
+      [
+       "A",
+       "10"
+      ],
+      [
+       "C",
+       "12"
+      ],
+      [
+       "F",
+       "15"
+      ],
+      [
+       "10 (hex)",
+       "16"
+      ],
+      [
+       "1F (hex)",
+       "31"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Octal or not?",
+     "buckets": [
+      "Valid octal number",
+      "Not valid in octal (valid in hex)"
+     ],
+     "items": [
+      [
+       "(745)",
+       0
+      ],
+      [
+       "(1207)",
+       0
+      ],
+      [
+       "(666)",
+       0
+      ],
+      [
+       "(1A9)",
+       1
+      ],
+      [
+       "(FF)",
+       1
+      ],
+      [
+       "(89)",
+       1
+      ],
+      [
+       "(C0DE)",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which digits does the octal system use?",
+     "options": [
+      "1 to 8",
+      "0 to 7",
+      "0 to 9",
+      "0 to 8"
+     ],
+     "answer": 1,
+     "explain": "Base 8 has eight symbols, 0 through 7.",
+     "mistake": "Includes 8, the base itself, as a digit"
+    },
+    {
+     "q": "How many bits does one hexadecimal digit represent?",
+     "options": [
+      "16",
+      "8",
+      "3",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "16 = 2⁴, so each hex digit maps to exactly 4 bits.",
+     "mistake": "Confuses hex with octal (3 bits)",
+     "check": "4"
+    },
+    {
+     "q": "What is the decimal value of the hex digit D?",
+     "options": [
+      "12",
+      "13",
+      "14",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "A=10, B=11, C=12, D=13.",
+     "mistake": "Is off by one in counting from A=10",
+     "check": "13"
+    },
+    {
+     "q": "The 24-bit RGB colour code for pure blue is:",
+     "options": [
+      "FFFFFF",
+      "00FF00",
+      "FF0000",
+      "0000FF"
+     ],
+     "answer": 3,
+     "explain": "In RGB order, blue is the last two hex digits, so only they are FF.",
+     "mistake": "Mixes up the order of R, G and B"
+    },
+    {
+     "q": "What is the decimal value of one colour channel 'FF'?",
+     "options": [
+      "1515",
+      "255",
+      "256",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "FF = 15 × 16 + 15 = 255, the maximum for 8 bits.",
+     "steps": [
+      "F = 15",
+      "15 × 16 + 15 = 255"
+     ],
+     "mistake": "Gives 256 (the number of values) instead of the largest value",
+     "check": "15*16+15"
+    },
+    {
+     "q": "Why are memory addresses usually written in hexadecimal?",
+     "options": [
+      "Computers store data in hexadecimal",
+      "Binary cannot represent addresses",
+      "Hex addresses use less electricity",
+      "Hex is a compact way to write long binary numbers"
+     ],
+     "answer": 3,
+     "explain": "Each hex digit replaces 4 bits, making addresses short and readable. Computers still store binary.",
+     "mistake": "Thinks computers actually store hex"
+    },
+    {
+     "q": "Which of these is a valid octal number?",
+     "options": [
+      "(18)₈",
+      "(1276)₈",
+      "(1289)₈",
+      "(7A)₈"
+     ],
+     "answer": 1,
+     "explain": "Octal digits must be 0–7. 8, 9 and A are not allowed.",
+     "mistake": "Forgets that 8 and 9 are invalid in octal"
+    },
+    {
+     "q": "A colour code is 00FF00. What colour is it?",
+     "options": [
+      "Green",
+      "Blue",
+      "Red",
+      "Black"
+     ],
+     "answer": 0,
+     "explain": "Only the middle (green) channel is at maximum.",
+     "mistake": "Reads the channels in the wrong order"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu saw '#FF0000' in a website's code and got scared. Explain octal, hexadecimal and why hex is used.",
+    "must": [
+     [
+      "hexadecimal",
+      "hex",
+      "base 16"
+     ],
+     [
+      "a to f",
+      "a-f",
+      "10 to 15",
+      "letters"
+     ],
+     [
+      "colour",
+      "color",
+      "rgb",
+      "memory address",
+      "address"
+     ]
+    ],
+    "praise": "So hex uses 0–9 and A–F, each digit is 4 bits, and FF0000 is just red. Not scary at all!",
+    "nudge": "Good! Which symbols does hex use beyond 9, and where do we see hex in real life?"
+   }
+  },
+  {
+   "id": "g11-cs-02-06",
+   "title": "Decimal to binary, octal and hexadecimal",
+   "covers": [
+    "c2.8.1",
+    "c2.8.2",
+    "c2.8.3"
+   ],
+   "learn": {
+    "hook": "Divide, note the remainder, repeat. This one routine converts any whole decimal number into any base.",
+    "points": [
+     "Decimal to base b: divide the number by b repeatedly, writing down each remainder, until the quotient is 0.",
+     "Read the remainders from the LAST to the FIRST (bottom-up). The last remainder is the most significant digit.",
+     "Decimal → binary: divide by 2 (remainders are 0 or 1). Decimal → octal: divide by 8 (remainders 0–7).",
+     "Decimal → hexadecimal: divide by 16; write remainders 10–15 as A–F."
+    ],
+    "example": {
+     "q": "Convert (45)₁₀ to binary.",
+     "steps": [
+      "45 ÷ 2 = 22 r 1",
+      "22 ÷ 2 = 11 r 0",
+      "11 ÷ 2 = 5 r 1",
+      "5 ÷ 2 = 2 r 1",
+      "2 ÷ 2 = 1 r 0",
+      "1 ÷ 2 = 0 r 1",
+      "Read bottom-up: 101101",
+      "Check: 32 + 8 + 4 + 1 = 45"
+     ],
+     "answer": "(45)₁₀ = (101101)₂"
+    },
+    "reallife": "Network engineers at Indian ISPs convert decimal IP address parts like 192 into binary (11000000) every day when they set up subnets."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Converting 13 to binary",
+     "prompt": "Put the division steps in order",
+     "items": [
+      "13 ÷ 2 = 6 remainder 1",
+      "6 ÷ 2 = 3 remainder 0",
+      "3 ÷ 2 = 1 remainder 1",
+      "1 ÷ 2 = 0 remainder 1",
+      "Read remainders bottom-up: 1101"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Decimal ↔ converted value",
+     "pairs": [
+      [
+       "(25)₁₀",
+       "(11001)₂"
+      ],
+      [
+       "(64)₁₀",
+       "(100)₈"
+      ],
+      [
+       "(255)₁₀",
+       "(FF)₁₆"
+      ],
+      [
+       "(100)₁₀",
+       "(144)₈"
+      ],
+      [
+       "(47)₁₀",
+       "(2F)₁₆"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Convert (25)₁₀ to binary.",
+     "options": [
+      "(10011)₂",
+      "(10101)₂",
+      "(11001)₂",
+      "(11010)₂"
+     ],
+     "answer": 2,
+     "explain": "25 → remainders 1, 0, 0, 1, 1 read bottom-up give 11001 (16 + 8 + 1 = 25).",
+     "steps": [
+      "25÷2=12 r1, 12÷2=6 r0, 6÷2=3 r0",
+      "3÷2=1 r1, 1÷2=0 r1",
+      "Bottom-up: 11001"
+     ],
+     "mistake": "Reads the remainders top-down"
+    },
+    {
+     "q": "Convert (100)₁₀ to octal.",
+     "options": [
+      "(124)₈",
+      "(100)₈",
+      "(144)₈",
+      "(441)₈"
+     ],
+     "answer": 2,
+     "explain": "100 ÷ 8 = 12 r 4, 12 ÷ 8 = 1 r 4, 1 ÷ 8 = 0 r 1; bottom-up gives 144.",
+     "steps": [
+      "100÷8 = 12 r4",
+      "12÷8 = 1 r4",
+      "1÷8 = 0 r1",
+      "Read: 144"
+     ],
+     "mistake": "Writes the remainders in the order they were found"
+    },
+    {
+     "q": "Convert (47)₁₀ to hexadecimal.",
+     "options": [
+      "(F2)₁₆",
+      "(215)₁₆",
+      "(2E)₁₆",
+      "(2F)₁₆"
+     ],
+     "answer": 3,
+     "explain": "47 ÷ 16 = 2 r 15 (F), 2 ÷ 16 = 0 r 2; bottom-up gives 2F.",
+     "steps": [
+      "47÷16 = 2 r15 → F",
+      "2÷16 = 0 r2",
+      "Read: 2F"
+     ],
+     "mistake": "Writes 15 as two digits instead of F"
+    },
+    {
+     "q": "Convert (200)₁₀ to hexadecimal.",
+     "options": [
+      "(D8)₁₆",
+      "(128)₁₆",
+      "(C8)₁₆",
+      "(8C)₁₆"
+     ],
+     "answer": 2,
+     "explain": "200 ÷ 16 = 12 r 8, 12 ÷ 16 = 0 r 12 (C); bottom-up gives C8.",
+     "steps": [
+      "200÷16 = 12 r8",
+      "12÷16 = 0 r12 → C",
+      "Read: C8"
+     ],
+     "mistake": "Reverses the digits"
+    },
+    {
+     "q": "When converting decimal to binary by repeated division, the remainders are read:",
+     "options": [
+      "Only the last remainder is used",
+      "In any order",
+      "From the last remainder to the first",
+      "From the first remainder to the last"
+     ],
+     "answer": 2,
+     "explain": "The last remainder is the most significant bit, so read bottom-up.",
+     "mistake": "Reads top-down and reverses the number"
+    },
+    {
+     "q": "How many bits are in the binary form of (64)₁₀?",
+     "options": [
+      "7",
+      "8",
+      "6",
+      "64"
+     ],
+     "answer": 0,
+     "explain": "64 = 2⁶ = 1000000, which has 7 bits.",
+     "steps": [
+      "64 = 2⁶",
+      "2⁶ in binary is 1 followed by six 0s",
+      "That is 7 bits"
+     ],
+     "mistake": "Confuses the power 6 with the number of bits",
+     "check": "6+1"
+    },
+    {
+     "q": "Convert (19)₁₀ to binary.",
+     "options": [
+      "(11001)₂",
+      "(10011)₂",
+      "(10010)₂",
+      "(10101)₂"
+     ],
+     "answer": 1,
+     "explain": "19 = 16 + 2 + 1, so the bits for 16, 2 and 1 are set: 10011.",
+     "mistake": "Reverses the bits (11001 is 25)"
+    },
+    {
+     "q": "Convert (83)₁₀ to octal.",
+     "options": [
+      "(321)₈",
+      "(123)₈",
+      "(113)₈",
+      "(103)₈"
+     ],
+     "answer": 1,
+     "explain": "83 ÷ 8 = 10 r 3, 10 ÷ 8 = 1 r 2, 1 ÷ 8 = 0 r 1; read bottom-up: 123.",
+     "steps": [
+      "83÷8 = 10 r3",
+      "10÷8 = 1 r2",
+      "1÷8 = 0 r1",
+      "Read: 123; check 64 + 16 + 3 = 83"
+     ],
+     "mistake": "Reads remainders top-down"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu needs to convert 37 into binary but doesn't know how. Teach him the repeated division method.",
+    "must": [
+     [
+      "divide",
+      "division",
+      "repeated division"
+     ],
+     [
+      "remainder",
+      "remainders"
+     ],
+     [
+      "bottom",
+      "bottom-up",
+      "reverse",
+      "last to first"
+     ]
+    ],
+    "praise": "Divide by 2, note remainders, read from bottom to top. 37 becomes 100101. Easy!",
+    "nudge": "Almost. What do we divide by, what do we write down, and in which order do we read it?"
+   }
+  },
+  {
+   "id": "g11-cs-02-07",
+   "title": "Binary, octal and hexadecimal to decimal",
+   "covers": [
+    "c2.9.1",
+    "c2.9.2",
+    "c2.9.3"
+   ],
+   "learn": {
+    "hook": "Going back to decimal is even easier: multiply each digit by its place value and add.",
+    "points": [
+     "To convert any base b to decimal, multiply each digit by b raised to its position (0 at the rightmost digit) and add the products.",
+     "Binary → decimal: powers of 2 (1, 2, 4, 8, 16, 32, 64, 128 …). Just add the place values where the bit is 1.",
+     "Octal → decimal: powers of 8 (1, 8, 64, 512 …).",
+     "Hexadecimal → decimal: powers of 16 (1, 16, 256, 4096 …); replace A–F by 10–15 first."
+    ],
+    "example": {
+     "q": "Convert (3A7)₁₆ to decimal.",
+     "steps": [
+      "A = 10",
+      "3 × 16² + 10 × 16¹ + 7 × 16⁰",
+      "768 + 160 + 7 = 935"
+     ],
+     "answer": "(3A7)₁₆ = (935)₁₀"
+    },
+    "reallife": "When a router shows an error code like 0x1F4, a support engineer converts it to 500 to look it up: the same place-value maths."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "To decimal, fast",
+     "items": [
+      {
+       "q": "(1010)₂",
+       "a": "10",
+       "check": "8+2"
+      },
+      {
+       "q": "(1111)₂",
+       "a": "15",
+       "check": "8+4+2+1"
+      },
+      {
+       "q": "(17)₈",
+       "a": "15",
+       "check": "8+7"
+      },
+      {
+       "q": "(20)₈",
+       "a": "16",
+       "check": "2*8"
+      },
+      {
+       "q": "(1F)₁₆",
+       "a": "31",
+       "check": "16+15"
+      },
+      {
+       "q": "(100)₁₆",
+       "a": "256",
+       "check": "16**2"
+      },
+      {
+       "q": "(110000)₂",
+       "a": "48",
+       "check": "32+16"
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Converting (725)₈",
+     "prompt": "Put the steps in order",
+     "items": [
+      "Write positions: 7 at 8², 2 at 8¹, 5 at 8⁰",
+      "Compute 7 × 64 = 448",
+      "Compute 2 × 8 = 16",
+      "Compute 5 × 1 = 5",
+      "Add: 448 + 16 + 5 = 469"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Convert (110101)₂ to decimal.",
+     "options": [
+      "106",
+      "54",
+      "43",
+      "53"
+     ],
+     "answer": 3,
+     "explain": "32 + 16 + 4 + 1 = 53.",
+     "steps": [
+      "Bits at 2⁵, 2⁴, 2², 2⁰ are 1",
+      "32 + 16 + 4 + 1 = 53"
+     ],
+     "mistake": "Misses one of the place values",
+     "check": "32+16+4+1"
+    },
+    {
+     "q": "Convert (725)₈ to decimal.",
+     "options": [
+      "725",
+      "469",
+      "365",
+      "477"
+     ],
+     "answer": 1,
+     "explain": "7 × 64 + 2 × 8 + 5 = 448 + 16 + 5 = 469.",
+     "steps": [
+      "7 × 8² = 448",
+      "2 × 8 = 16",
+      "5 × 1 = 5",
+      "448 + 16 + 5 = 469"
+     ],
+     "mistake": "Uses powers of 10 instead of 8",
+     "check": "7*64+2*8+5"
+    },
+    {
+     "q": "Convert (2B)₁₆ to decimal.",
+     "options": [
+      "27",
+      "211",
+      "42",
+      "43"
+     ],
+     "answer": 3,
+     "explain": "2 × 16 + 11 = 43.",
+     "steps": [
+      "B = 11",
+      "2 × 16 + 11 = 43"
+     ],
+     "mistake": "Treats B as 1 and 1, or uses base 10",
+     "check": "2*16+11"
+    },
+    {
+     "q": "Convert (3A7)₁₆ to decimal.",
+     "options": [
+      "935",
+      "3107",
+      "919",
+      "937"
+     ],
+     "answer": 0,
+     "explain": "3 × 256 + 10 × 16 + 7 = 768 + 160 + 7 = 935.",
+     "steps": [
+      "3 × 16² = 768",
+      "10 × 16 = 160",
+      "7 × 1 = 7",
+      "Total = 935"
+     ],
+     "mistake": "Uses 16 instead of 16² for the first digit or slips in addition",
+     "check": "3*256+10*16+7"
+    },
+    {
+     "q": "Convert (1000000)₂ to decimal.",
+     "options": [
+      "32",
+      "64",
+      "128",
+      "1000000"
+     ],
+     "answer": 1,
+     "explain": "A 1 followed by six 0s is 2⁶ = 64.",
+     "mistake": "Counts the 1 as being at position 7",
+     "check": "2**6"
+    },
+    {
+     "q": "What is the decimal value of (777)₈?",
+     "options": [
+      "777",
+      "512",
+      "448",
+      "511"
+     ],
+     "answer": 3,
+     "explain": "7×64 + 7×8 + 7 = 448 + 56 + 7 = 511, which is 8³ − 1.",
+     "steps": [
+      "7 × 64 = 448",
+      "7 × 8 = 56",
+      "448 + 56 + 7 = 511"
+     ],
+     "mistake": "Answers 512 (the next power of 8)",
+     "check": "7*64+7*8+7"
+    },
+    {
+     "q": "Which of these has the largest value?",
+     "options": [
+      "(36)₈",
+      "(29)₁₀",
+      "(1C)₁₆",
+      "(11111)₂"
+     ],
+     "answer": 3,
+     "explain": "(11111)₂ = 31, (36)₈ = 30, (1C)₁₆ = 28 and (29)₁₀ = 29, so (11111)₂ is largest.",
+     "steps": [
+      "(11111)₂ = 16+8+4+2+1 = 31",
+      "(36)₈ = 3×8 + 6 = 30",
+      "(1C)₁₆ = 16 + 12 = 28"
+     ],
+     "mistake": "Compares the digits directly without converting to decimal"
+    },
+    {
+     "q": "Convert (FF)₁₆ to decimal.",
+     "options": [
+      "255",
+      "240",
+      "1515",
+      "256"
+     ],
+     "answer": 0,
+     "explain": "15 × 16 + 15 = 255.",
+     "steps": [
+      "F = 15",
+      "15 × 16 + 15 = 255"
+     ],
+     "mistake": "Thinks FF is 256",
+     "check": "15*16+15"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu found (1011)₂ written on a lab board. Explain how to convert binary, octal or hex to decimal.",
+    "must": [
+     [
+      "multiply",
+      "place value",
+      "position"
+     ],
+     [
+      "power",
+      "powers",
+      "2 raised",
+      "base raised"
+     ],
+     [
+      "add",
+      "sum",
+      "adding"
+     ]
+    ],
+    "praise": "Multiply each digit by its power of the base and add. (1011)₂ = 8 + 2 + 1 = 11!",
+    "nudge": "Getting there. What do we multiply each digit by, and what do we do with the products?"
+   }
+  },
+  {
+   "id": "g11-cs-02-08",
+   "title": "Binary ↔ octal ↔ hexadecimal by grouping",
+   "covers": [
+    "c2.10.1",
+    "c2.10.2",
+    "c2.10.3",
+    "c2.10.4"
+   ],
+   "learn": {
+    "hook": "No division needed: because 8 = 2³ and 16 = 2⁴, you can jump between binary, octal and hex just by grouping bits.",
+    "points": [
+     "Binary → octal: group bits in threes from the right (pad with leading 0s if needed) and write each group as one octal digit.",
+     "Octal → binary: write each octal digit as exactly 3 bits (e.g. 5 → 101, 2 → 010).",
+     "Binary → hex: group bits in fours from the right and write each group as one hex digit (1010 → A, 1111 → F). Hex → binary: write each hex digit as 4 bits.",
+     "Octal ↔ hex: go through binary. Octal → binary (3 bits each) → regroup in fours → hex, and the reverse."
+    ],
+    "example": {
+     "q": "Convert (1101101)₂ to octal and to hexadecimal.",
+     "steps": [
+      "Octal: groups of 3 from right: 1 | 101 | 101 → 001 101 101 → 1 5 5",
+      "So (1101101)₂ = (155)₈",
+      "Hex: groups of 4 from right: 110 | 1101 → 0110 1101 → 6 D",
+      "So (1101101)₂ = (6D)₁₆",
+      "Check: both equal 109 in decimal"
+     ],
+     "answer": "(155)₈ and (6D)₁₆"
+    },
+    "reallife": "Old Unix file permissions like 755 are octal shorthand for 9 binary permission bits, 111 101 101: grouping in threes at work."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Group ↔ digit",
+     "pairs": [
+      [
+       "101 (3 bits)",
+       "Octal 5"
+      ],
+      [
+       "111 (3 bits)",
+       "Octal 7"
+      ],
+      [
+       "1010 (4 bits)",
+       "Hex A"
+      ],
+      [
+       "1100 (4 bits)",
+       "Hex C"
+      ],
+      [
+       "1111 (4 bits)",
+       "Hex F"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Octal (27) to hex",
+     "prompt": "Put the steps in order",
+     "items": [
+      "Write each octal digit as 3 bits: 2 → 010, 7 → 111",
+      "Join: 010111",
+      "Regroup in fours from the right: 0001 0111",
+      "Write each group in hex: 1 and 7",
+      "Answer: (17)₁₆"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Convert (101110)₂ to octal.",
+     "options": [
+      "(56)₁₆",
+      "(46)₈",
+      "(65)₈",
+      "(56)₈"
+     ],
+     "answer": 3,
+     "explain": "Groups of 3 from the right: 101 | 110 → 5 and 6, so 56.",
+     "mistake": "Groups from the left, or confuses octal with hex"
+    },
+    {
+     "q": "Convert (11010110)₂ to hexadecimal.",
+     "options": [
+      "(C6)₁₆",
+      "(6D)₁₆",
+      "(D6)₁₆",
+      "(326)₁₆"
+     ],
+     "answer": 2,
+     "explain": "1101 → D and 0110 → 6, so D6.",
+     "mistake": "Reverses the hex digits"
+    },
+    {
+     "q": "Convert (47)₈ to binary.",
+     "options": [
+      "(110111)₂",
+      "(100111)₂",
+      "(1000111)₂",
+      "(10111)₂"
+     ],
+     "answer": 1,
+     "explain": "4 → 100 and 7 → 111, giving 100111.",
+     "mistake": "Writes each digit with the wrong number of bits"
+    },
+    {
+     "q": "Convert (A3)₁₆ to binary.",
+     "options": [
+      "(10100011)₂",
+      "(1010011)₂",
+      "(10100110)₂",
+      "(00111010)₂"
+     ],
+     "answer": 0,
+     "explain": "A → 1010 and 3 → 0011, giving 10100011.",
+     "mistake": "Drops the leading zeros inside a group (3 → 11)"
+    },
+    {
+     "q": "Convert (27)₈ to hexadecimal.",
+     "options": [
+      "(17)₁₆",
+      "(71)₁₆",
+      "(1B)₁₆",
+      "(27)₁₆"
+     ],
+     "answer": 0,
+     "explain": "27₈ = 010 111 = 10111₂ → regroup in fours 0001 0111 = 17₁₆ (both are 23 in decimal).",
+     "mistake": "Copies the digits without converting"
+    },
+    {
+     "q": "Convert (2F)₁₆ to octal.",
+     "options": [
+      "(57)₈",
+      "(75)₈",
+      "(217)₈",
+      "(47)₈"
+     ],
+     "answer": 0,
+     "explain": "2F = 0010 1111 = 101111 → groups of 3: 101 111 = 57₈ (both are 47 in decimal).",
+     "mistake": "Groups bits from the left"
+    },
+    {
+     "q": "While converting binary to octal, the bits are grouped:",
+     "options": [
+      "In threes, starting from the right of the integer part",
+      "In twos, from the right",
+      "In fours, starting from the left",
+      "In eights, from the left"
+     ],
+     "answer": 0,
+     "explain": "8 = 2³, so groups of 3 from the binary point outward.",
+     "mistake": "Uses groups of 4, which is for hexadecimal"
+    },
+    {
+     "q": "How many binary digits are produced when a 5-digit hexadecimal number is converted to binary (keeping leading zeros)?",
+     "options": [
+      "40",
+      "15",
+      "20",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "Each hex digit becomes 4 bits: 5 × 4 = 20.",
+     "mistake": "Uses 3 bits per digit as in octal",
+     "check": "5*4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks converting binary to hex needs long division. Show him the grouping shortcut.",
+    "must": [
+     [
+      "group",
+      "grouping",
+      "groups"
+     ],
+     [
+      "three",
+      "3 bits",
+      "threes"
+     ],
+     [
+      "four",
+      "4 bits",
+      "fours"
+     ]
+    ],
+    "praise": "Groups of 3 for octal, groups of 4 for hex — no division at all. Love it!",
+    "nudge": "Nice. How many bits go in each group for octal and for hexadecimal, and from which side do we start?"
+   }
+  },
+  {
+   "id": "g11-cs-02-09",
+   "title": "Numbers with a fractional part",
+   "covers": [
+    "c2.11.1",
+    "c2.11.2",
+    "c2.11.3"
+   ],
+   "learn": {
+    "hook": "0.1 + 0.2 in Python gives 0.30000000000000004. Why? Because 0.1 never ends in binary. Let's see how fractions convert.",
+    "points": [
+     "Decimal fraction → base b: multiply the fractional part by b. The integer part of the result is the next digit. Repeat with the new fractional part.",
+     "Read the integer parts from TOP to BOTTOM (first one is just after the point).",
+     "Stop when the fractional part becomes 0, when the digits start repeating, or after a fixed number of places (as asked).",
+     "Base b → decimal: digits after the point get negative powers: b⁻¹, b⁻², b⁻³ … e.g. (0.101)₂ = 1×2⁻¹ + 0×2⁻² + 1×2⁻³ = 0.5 + 0.125 = 0.625.",
+     "Handle the integer part and the fractional part separately, then join them with the point."
+    ],
+    "example": {
+     "q": "Convert (100101.101)₂ to decimal.",
+     "steps": [
+      "Integer part: 100101 = 32 + 4 + 1 = 37",
+      "Fraction part: .101 = 1/2 + 0/4 + 1/8 = 0.5 + 0.125 = 0.625",
+      "Join: 37.625"
+     ],
+     "answer": "(100101.101)₂ = (37.625)₁₀"
+    },
+    "reallife": "Bank interest like 7.25% p.a. is stored as binary fractions in computers. Because some decimals repeat in binary, RBI-regulated banks use special decimal arithmetic for money."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "0.625 to binary",
+     "prompt": "Put the steps in order",
+     "items": [
+      "0.625 × 2 = 1.25 → digit 1",
+      "0.25 × 2 = 0.5 → digit 0",
+      "0.5 × 2 = 1.0 → digit 1",
+      "Fraction is 0, so stop",
+      "Read top-down: 0.101"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Fraction quickfire",
+     "items": [
+      {
+       "q": "(0.1)₂ in decimal",
+       "a": "0.5",
+       "check": "1/2"
+      },
+      {
+       "q": "(0.01)₂ in decimal",
+       "a": "0.25",
+       "check": "1/4"
+      },
+      {
+       "q": "(0.11)₂ in decimal",
+       "a": "0.75",
+       "check": "1/2+1/4"
+      },
+      {
+       "q": "(0.4)₈ in decimal",
+       "a": "0.5",
+       "check": "4/8"
+      },
+      {
+       "q": "(0.8)₁₆ in decimal",
+       "a": "0.5",
+       "check": "8/16"
+      },
+      {
+       "q": "(10.1)₂ in decimal",
+       "a": "2.5",
+       "check": "2+1/2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Convert (0.375)₁₀ to binary.",
+     "options": [
+      "(0.0011)₂",
+      "(0.110)₂",
+      "(0.011)₂",
+      "(0.101)₂"
+     ],
+     "answer": 2,
+     "explain": "0.375×2 = 0.75 → 0; 0.75×2 = 1.5 → 1; 0.5×2 = 1.0 → 1. Top-down: 0.011.",
+     "steps": [
+      "0.375 × 2 = 0.75 → 0",
+      "0.75 × 2 = 1.5 → 1",
+      "0.5 × 2 = 1.0 → 1",
+      "Read top-down: .011"
+     ],
+     "mistake": "Reads the integer parts bottom-up"
+    },
+    {
+     "q": "Convert (100101.101)₂ to decimal.",
+     "options": [
+      "37.101",
+      "37.625",
+      "37.5",
+      "45.625"
+     ],
+     "answer": 1,
+     "explain": "100101 = 37 and .101 = 0.5 + 0.125 = 0.625.",
+     "steps": [
+      "100101 = 32 + 4 + 1 = 37",
+      ".101 = 1/2 + 1/8 = 0.625"
+     ],
+     "mistake": "Copies the fractional bits as decimal digits",
+     "check": "37+1/2+1/8"
+    },
+    {
+     "q": "When converting a decimal fraction to binary, the integer parts of the products are read:",
+     "options": [
+      "Top to bottom",
+      "In any order",
+      "Only the last one",
+      "Bottom to top"
+     ],
+     "answer": 0,
+     "explain": "The first product's integer part is the first digit after the point, so read top-down.",
+     "mistake": "Uses the bottom-up rule from integer conversion"
+    },
+    {
+     "q": "Convert (0.75)₁₀ to octal.",
+     "options": [
+      "(0.06)₈",
+      "(0.75)₈",
+      "(0.3)₈",
+      "(0.6)₈"
+     ],
+     "answer": 3,
+     "explain": "0.75 × 8 = 6.0 → digit 6, fraction 0. So 0.6₈.",
+     "mistake": "Multiplies by 2 instead of 8"
+    },
+    {
+     "q": "What is (0.11)₂ in decimal?",
+     "options": [
+      "0.11",
+      "0.75",
+      "3",
+      "0.3"
+     ],
+     "answer": 1,
+     "explain": "1×2⁻¹ + 1×2⁻² = 0.5 + 0.25 = 0.75.",
+     "steps": [
+      "0.5 + 0.25 = 0.75"
+     ],
+     "mistake": "Reads the bits as decimal digits",
+     "check": "1/2+1/4"
+    },
+    {
+     "q": "Why can't (0.1)₁₀ be written exactly in binary?",
+     "options": [
+      "Binary fractions use base 10",
+      "Multiplying its fraction by 2 never reaches 0; the digits repeat forever",
+      "0.1 is too small for binary",
+      "Binary cannot store any fractions"
+     ],
+     "answer": 1,
+     "explain": "0.1 → 0.0001100110011…, a repeating pattern, so it must be cut off after some places.",
+     "mistake": "Thinks binary cannot represent fractions at all"
+    },
+    {
+     "q": "Convert (0.C)₁₆ to decimal.",
+     "options": [
+      "0.75",
+      "0.6",
+      "0.12",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "C = 12, so 12 × 16⁻¹ = 12/16 = 0.75.",
+     "steps": [
+      "C = 12",
+      "12 / 16 = 0.75"
+     ],
+     "mistake": "Reads C as the decimal digits 12",
+     "check": "12/16"
+    },
+    {
+     "q": "What is (0.4)₈ in decimal?",
+     "options": [
+      "0.4",
+      "0.32",
+      "0.25",
+      "0.5"
+     ],
+     "answer": 3,
+     "explain": "4 × 8⁻¹ = 4/8 = 0.5.",
+     "mistake": "Assumes the octal digits stay the same in decimal",
+     "check": "4/8"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu can convert whole numbers but gets stuck on 0.625. Explain fraction conversion both ways.",
+    "must": [
+     [
+      "multiply",
+      "multiplication",
+      "repeated multiplication"
+     ],
+     [
+      "integer part",
+      "whole part"
+     ],
+     [
+      "negative power",
+      "negative powers",
+      "2^-1",
+      "1/2"
+     ]
+    ],
+    "praise": "Multiply the fraction by the base, collect the integer parts top-down, and use negative powers to come back. 0.625 = 0.101!",
+    "nudge": "Good. What do we multiply by, which part do we collect, and how do negative powers help in reverse?"
+   }
+  },
+  {
+   "id": "g11-cs-02-10",
+   "title": "Fractional binary to octal/hex and mixed conversions",
+   "covers": [
+    "c2.11.4",
+    "c2.11.5"
+   ],
+   "learn": {
+    "hook": "Board papers love one big question: convert a number like (1011.0111)₂ into octal, hex and decimal. Here's the full toolkit in one place.",
+    "points": [
+     "Fractional binary → octal: group in threes outward from the binary point: integer part from right to left, fractional part from LEFT to RIGHT. Pad with 0s at the ends.",
+     "Fractional binary → hex: same idea with groups of four. (1011.0111)₂ = 1011 . 0111 = (B.7)₁₆.",
+     "Never pad zeros on the 'inside' next to the point; pad only at the far left of the integer part and the far right of the fraction.",
+     "Exam checklist: know base values (2, 8, 10, 16), full forms (ASCII, ISCII, UTF), mixed conversions, and encoding words in ASCII/Unicode."
+    ],
+    "example": {
+     "q": "Convert (1011.0111)₂ to octal.",
+     "steps": [
+      "Integer part from the right: 1 | 011 → 001 011 → 1 3",
+      "Fraction from the left: 011 | 1 → 011 100 → 3 4",
+      "Join: 13.34"
+     ],
+     "answer": "(1011.0111)₂ = (13.34)₈"
+    },
+    "reallife": "Graphics programmers convert fixed-point colour and position values between binary and hex all the time when they write code for game engines used by Indian studios."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Full form ↔ abbreviation",
+     "pairs": [
+      [
+       "ASCII",
+       "American Standard Code for Information Interchange"
+      ],
+      [
+       "ISCII",
+       "Indian Script Code for Information Interchange"
+      ],
+      [
+       "UTF",
+       "Unicode Transformation Format"
+      ],
+      [
+       "Bit",
+       "Binary digit"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Grouping rules",
+     "items": [
+      [
+       "For the fractional part, bits are grouped from left to right starting at the point.",
+       true,
+       "Groups move outward from the binary point."
+      ],
+      [
+       "(0.1)₂ grouped for octal becomes 0.100, which is (0.4)₈.",
+       true,
+       "Pad on the right: 100 = 4."
+      ],
+      [
+       "(0.1)₂ grouped for octal becomes 0.001, which is (0.1)₈.",
+       false,
+       "Padding must be on the right of the fraction, giving 100 = 4."
+      ],
+      [
+       "(1.1)₂ = (1.8)₁₆",
+       true,
+       "Fraction 1 → 1000 = 8, so 1.8."
+      ],
+      [
+       "The base of the hexadecimal system is 15.",
+       false,
+       "Hex has 16 symbols (0–F), so its base is 16."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Convert (1011.0111)₂ to hexadecimal.",
+     "options": [
+      "(B.E)₁₆",
+      "(B.7)₁₆",
+      "(13.7)₁₆",
+      "(D.7)₁₆"
+     ],
+     "answer": 1,
+     "explain": "1011 → B; .0111 → 7 (groups of four from the point).",
+     "mistake": "Pads the fraction on the wrong side"
+    },
+    {
+     "q": "Convert (110.11)₂ to octal.",
+     "options": [
+      "(6.11)₈",
+      "(3.3)₈",
+      "(6.6)₈",
+      "(6.3)₈"
+     ],
+     "answer": 2,
+     "explain": "Integer 110 → 6. Fraction 11 → pad right → 110 → 6. So 6.6.",
+     "mistake": "Pads the fractional group on the left (011 → 3)"
+    },
+    {
+     "q": "Convert (0.101)₂ to hexadecimal.",
+     "options": [
+      "(0.101)₁₆",
+      "(0.5)₁₆",
+      "(0.A)₁₆",
+      "(0.B)₁₆"
+     ],
+     "answer": 2,
+     "explain": ".101 → pad right to 1010 → A.",
+     "mistake": "Pads on the left, making 0101 = 5"
+    },
+    {
+     "q": "What is the decimal value of (12.4)₈?",
+     "options": [
+      "12.4",
+      "10.4",
+      "12.5",
+      "10.5"
+     ],
+     "answer": 3,
+     "explain": "1×8 + 2 + 4/8 = 10 + 0.5 = 10.5.",
+     "steps": [
+      "1 × 8 + 2 × 1 = 10",
+      "4 × 8⁻¹ = 0.5",
+      "10 + 0.5 = 10.5"
+     ],
+     "mistake": "Converts only the integer part",
+     "check": "1*8+2+4/8"
+    },
+    {
+     "q": "Convert (A.8)₁₆ to decimal.",
+     "options": [
+      "10.8",
+      "10.5",
+      "11.5",
+      "8.5"
+     ],
+     "answer": 1,
+     "explain": "A = 10 and 8/16 = 0.5.",
+     "mistake": "Copies the fractional digit as decimal",
+     "check": "10+8/16"
+    },
+    {
+     "q": "Convert (5.25)₁₀ to binary.",
+     "options": [
+      "(101.01)₂",
+      "(101.11)₂",
+      "(101.10)₂",
+      "(110.01)₂"
+     ],
+     "answer": 0,
+     "explain": "5 = 101; 0.25×2 = 0.5 → 0, 0.5×2 = 1.0 → 1 → .01.",
+     "mistake": "Reads fraction digits bottom-up (giving .10)"
+    },
+    {
+     "q": "Convert (11.101)₂ to decimal.",
+     "options": [
+      "5.625",
+      "3.5",
+      "3.625",
+      "3.101"
+     ],
+     "answer": 2,
+     "explain": "11 = 3 and .101 = 0.5 + 0.125 = 0.625.",
+     "mistake": "Ignores the last fractional bit",
+     "check": "3+1/2+1/8"
+    },
+    {
+     "q": "Which conversion is correct?",
+     "options": [
+      "(0.1)₂ = (0.1)₁₆",
+      "(0.1)₂ = (0.4)₈",
+      "(0.1)₂ = (0.2)₈",
+      "(0.1)₂ = (0.1)₈"
+     ],
+     "answer": 1,
+     "explain": "(0.1)₂ = 0.5 in decimal, and (0.4)₈ = 4/8 = 0.5. Group: .100 → 4.",
+     "mistake": "Pads zeros on the left of the fractional group"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must convert (110.01)₂ to octal in his exam. Explain how to group a binary number that has a fractional part.",
+    "must": [
+     [
+      "binary point",
+      "point",
+      "decimal point"
+     ],
+     [
+      "left to right",
+      "outward",
+      "right side",
+      "from the point"
+     ],
+     [
+      "pad",
+      "padding",
+      "add zeros",
+      "zeros"
+     ]
+    ],
+    "praise": "Group outward from the point and pad zeros only at the ends. (110.01)₂ = (6.2)₈. Nailed it!",
+    "nudge": "Good effort. From where do we start grouping the fraction bits, and where do we add the padding zeros?"
+   }
+  },
+  {
+   "id": "g11-cs-02-11",
+   "title": "Boolean logic and basic logic gates",
+   "covers": [
+    "c2.12.1",
+    "c2.12.2",
+    "c2.12.3"
+   ],
+   "learn": {
+    "hook": "A lift door closes only if no one is in the doorway AND the button is pressed. That AND is a logic gate, and your CPU has billions of them.",
+    "points": [
+     "Boolean logic works with only two values: True/False, written as 1/0. A Boolean variable can hold only one of these values.",
+     "NOT (inverter): one input; output is the opposite. Written A̅ (A bar) or A'. AND: output 1 only when ALL inputs are 1; written A·B. OR: output 1 when AT LEAST ONE input is 1; written A + B.",
+     "NAND = NOT of AND: output 0 only when all inputs are 1. NOR = NOT of OR: output 1 only when all inputs are 0.",
+     "XOR (exclusive OR), A ⊕ B: output 1 when the inputs are DIFFERENT. For two inputs: 0⊕0 = 0, 0⊕1 = 1, 1⊕0 = 1, 1⊕1 = 0.",
+     "NAND and NOR are called universal gates because any other gate can be built using only NAND gates (or only NOR gates)."
+    ],
+    "example": {
+     "q": "A = 1, B = 0. Find A AND B, A OR B, A NAND B, A NOR B, A XOR B.",
+     "steps": [
+      "AND: needs both 1 → 0",
+      "OR: at least one 1 → 1",
+      "NAND: NOT(0) → 1",
+      "NOR: NOT(1) → 0",
+      "XOR: inputs differ → 1"
+     ],
+     "answer": "AND 0, OR 1, NAND 1, NOR 0, XOR 1"
+    },
+    "reallife": "A metro train door system uses AND logic (doors close AND platform clear → train starts), while a fire alarm uses OR logic (smoke OR heat → alarm)."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Gate ↔ rule",
+     "pairs": [
+      [
+       "AND",
+       "1 only when all inputs are 1"
+      ],
+      [
+       "OR",
+       "1 when at least one input is 1"
+      ],
+      [
+       "NOT",
+       "Inverts the single input"
+      ],
+      [
+       "NAND",
+       "0 only when all inputs are 1"
+      ],
+      [
+       "NOR",
+       "1 only when all inputs are 0"
+      ],
+      [
+       "XOR",
+       "1 when the two inputs are different"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Gate outputs",
+     "items": [
+      {
+       "q": "1 AND 1",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "0 OR 0",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "NOT 1",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "1 NAND 1",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "0 NOR 0",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "1 XOR 1",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "0 XOR 1",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "1 OR 0",
+       "a": "1",
+       "check": "1"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output of an AND gate when its inputs are 1 and 0?",
+     "options": [
+      "1",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "AND gives 1 only when every input is 1.",
+     "mistake": "Treats AND like OR",
+     "check": "0"
+    },
+    {
+     "q": "Which gate gives output 1 only when both inputs are 0?",
+     "options": [
+      "NOR",
+      "AND",
+      "XOR",
+      "NAND"
+     ],
+     "answer": 0,
+     "explain": "NOR is NOT(OR). OR is 0 only for inputs 0,0, so NOR is 1 only then.",
+     "mistake": "Confuses NOR with NAND"
+    },
+    {
+     "q": "Which gate's output is 1 when its two inputs are different?",
+     "options": [
+      "NOT",
+      "AND",
+      "XOR",
+      "NOR"
+     ],
+     "answer": 2,
+     "explain": "XOR (exclusive OR) is 1 for 0,1 and 1,0 and 0 for equal inputs.",
+     "mistake": "Confuses XOR with OR, which is also 1 for 1,1"
+    },
+    {
+     "q": "A NAND gate has inputs A = 1, B = 1. What is the output?",
+     "options": [
+      "0",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "AND of 1,1 is 1; NOT of that is 0.",
+     "mistake": "Forgets to invert the AND result",
+     "check": "0"
+    },
+    {
+     "q": "Which gates are called universal gates?",
+     "options": [
+      "NAND and NOR",
+      "XOR and NOT",
+      "AND and NOT",
+      "AND and OR"
+     ],
+     "answer": 0,
+     "explain": "Any logic circuit can be built using only NAND gates or only NOR gates.",
+     "mistake": "Thinks basic gates are 'universal'"
+    },
+    {
+     "q": "How does the OR gate differ from the XOR gate?",
+     "options": [
+      "There is no difference",
+      "For inputs 0 and 0, OR gives 1 but XOR gives 0",
+      "OR has one input, XOR has two",
+      "For inputs 1 and 1, OR gives 1 but XOR gives 0"
+     ],
+     "answer": 3,
+     "explain": "Both give 1 when exactly one input is 1; they differ only when both inputs are 1.",
+     "mistake": "Thinks OR and XOR are identical"
+    },
+    {
+     "q": "The output of a NOT gate is 1. What was its input?",
+     "options": [
+      "1",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "A NOT gate inverts its input, so the input must have been 0.",
+     "mistake": "Thinks NOT passes the input unchanged",
+     "check": "0"
+    },
+    {
+     "q": "Assertion (A): The output of a NOR gate is 1 only when all its inputs are 0.\nReason (R): A NOR gate is an OR gate followed by a NOT gate.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "OR is 0 only when all inputs are 0; inverting it gives 1 only in that case. So R explains A.",
+     "mistake": "Doesn't use the OR + NOT structure to explain NOR"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know how a fire alarm 'decides'. Explain Boolean values and the AND, OR, NOT, NAND, NOR and XOR gates.",
+    "must": [
+     [
+      "true",
+      "false",
+      "1 and 0",
+      "0 and 1"
+     ],
+     [
+      "and",
+      "and gate",
+      "all inputs"
+     ],
+     [
+      "or",
+      "or gate",
+      "at least one"
+     ],
+     [
+      "not",
+      "inverts",
+      "opposite",
+      "nand",
+      "nor",
+      "xor"
+     ]
+    ],
+    "praise": "AND needs all ones, OR needs any one, NOT flips, and XOR spots differences. Logic is fun!",
+    "nudge": "Good. What does each gate do with its inputs — especially AND versus OR?"
+   }
+  },
+  {
+   "id": "g11-cs-02-12",
+   "title": "Truth tables, De Morgan's laws and logic circuits",
+   "covers": [
+    "c2.12.4",
+    "c2.12.5",
+    "c2.12.6"
+   ],
+   "learn": {
+    "hook": "Can you prove two different-looking circuits do the same job? A truth table settles it, row by row.",
+    "points": [
+     "A truth table lists every combination of inputs with the output. With n variables there are 2ⁿ rows: 4 rows for 2 variables, 8 rows for 3.",
+     "For an expression like A·B + C, add intermediate columns (A·B) and then compute the final column.",
+     "De Morgan's laws: NOT(A AND B) = (NOT A) OR (NOT B), i.e. (A·B)' = A' + B'; and NOT(A OR B) = (NOT A) AND (NOT B), i.e. (A + B)' = A'·B'.",
+     "Verify a law by making a truth table for each side; if the final columns match in every row, the expressions are equal.",
+     "To draw a circuit from an expression, draw gates for the innermost operations first and feed their outputs forward. To read a circuit, write each gate's output as you move from inputs to final output."
+    ],
+    "example": {
+     "q": "Make the truth table for Y = A·B + A' (A' means NOT A).",
+     "steps": [
+      "Rows: (A,B) = 00, 01, 10, 11",
+      "A·B: 0, 0, 0, 1",
+      "A': 1, 1, 0, 0",
+      "Y = A·B + A': 1, 1, 0, 1"
+     ],
+     "answer": "Y = 1, 1, 0, 1 for AB = 00, 01, 10, 11"
+    },
+    "reallife": "Chip designers at Indian semiconductor design centres in Bengaluru and Hyderabad use Boolean simplification such as De Morgan's laws to cut the number of gates and save power."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Verifying De Morgan's first law",
+     "prompt": "Put the steps in order",
+     "items": [
+      "List all 4 combinations of A and B",
+      "Compute A·B, then (A·B)' for each row",
+      "Compute A' and B' for each row",
+      "Compute A' + B' for each row",
+      "Compare the two final columns: they match"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Truth or table?",
+     "items": [
+      [
+       "A truth table for 3 variables has 8 rows.",
+       true,
+       "2³ = 8 combinations."
+      ],
+      [
+       "(A + B)' = A' + B'",
+       false,
+       "De Morgan: (A + B)' = A'·B'."
+      ],
+      [
+       "(A·B)' = A' + B'",
+       true,
+       "This is De Morgan's first law."
+      ],
+      [
+       "If A = 1 and B = 0, then (A·B)' = 1.",
+       true,
+       "A·B = 0 and its NOT is 1."
+      ],
+      [
+       "A truth table for 2 variables has 2 rows.",
+       false,
+       "It has 2² = 4 rows."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many rows are needed in a truth table with 3 input variables?",
+     "options": [
+      "8",
+      "9",
+      "3",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "Each variable doubles the rows: 2³ = 8.",
+     "mistake": "Multiplies 3 × 2 instead of raising 2 to the power 3",
+     "check": "2**3"
+    },
+    {
+     "q": "Which is De Morgan's law?",
+     "options": [
+      "(A + B)' = A'·B'",
+      "(A·B)' = A + B",
+      "(A·B)' = A'·B'",
+      "(A + B)' = A' + B'"
+     ],
+     "answer": 0,
+     "explain": "Breaking the bar changes OR to AND (and AND to OR) while each variable is complemented.",
+     "mistake": "Complements the variables but forgets to change the operator"
+    },
+    {
+     "q": "For A = 0, B = 1, C = 1, what is Y = A·B + C?",
+     "options": [
+      "0",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "A·B = 0·1 = 0, and 0 + 1 = 1.",
+     "mistake": "Evaluates OR before AND",
+     "check": "1"
+    },
+    {
+     "q": "For A = 1, B = 1, what is Y = (A + B)'?",
+     "options": [
+      "0",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "A + B = 1, and its complement is 0.",
+     "mistake": "Forgets to apply the NOT at the end",
+     "check": "0"
+    },
+    {
+     "q": "A circuit feeds A and B into an AND gate, then passes the output through a NOT gate. Its expression is:",
+     "options": [
+      "A' · B'",
+      "A + B",
+      "(A·B)'",
+      "A' + B"
+     ],
+     "answer": 2,
+     "explain": "AND first gives A·B; NOT then gives (A·B)', which is a NAND.",
+     "mistake": "Applies NOT to the inputs instead of the output"
+    },
+    {
+     "q": "Y = A' + B' is equivalent to which single gate on A and B?",
+     "options": [
+      "XOR",
+      "NOR",
+      "NAND",
+      "AND"
+     ],
+     "answer": 2,
+     "explain": "By De Morgan, A' + B' = (A·B)', which is NAND.",
+     "mistake": "Confuses NAND with NOR"
+    },
+    {
+     "q": "In the truth table of Y = A + B·C, for how many of the 8 rows is Y = 1?",
+     "options": [
+      "4",
+      "5",
+      "6",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "Y = 1 for all 4 rows with A = 1, plus 1 row with A = 0 and B = C = 1: 4 + 1 = 5.",
+     "steps": [
+      "A = 1: 4 rows give Y = 1",
+      "A = 0: need B·C = 1, only B = C = 1",
+      "Total = 4 + 1 = 5"
+     ],
+     "mistake": "Counts only the rows where A = 1",
+     "check": "4+1"
+    },
+    {
+     "q": "Assertion (A): Two Boolean expressions are equal if their truth tables have the same output column for all input combinations.\nReason (R): A truth table lists every possible combination of inputs.",
+     "options": [
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 2,
+     "explain": "Because every input case is listed, matching outputs in all rows prove the expressions behave identically.",
+     "mistake": "Doesn't see why 'every combination' makes the test complete"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's teacher asked him to prove (A·B)' = A' + B'. Explain truth tables and De Morgan's laws to him.",
+    "must": [
+     [
+      "truth table",
+      "table"
+     ],
+     [
+      "de morgan",
+      "de morgan's",
+      "demorgan"
+     ],
+     [
+      "rows",
+      "combinations",
+      "all inputs",
+      "2^n"
+     ]
+    ],
+    "praise": "List every combination, compute both sides, and the columns match: De Morgan is proven!",
+    "nudge": "Good. How many rows do we need, and what does De Morgan's law say about breaking the bar?"
+   }
+  }
+ ]
+}

@@ -1,0 +1,2745 @@
+{
+ "n": 4,
+ "title": "Getting Started with Python",
+ "emoji": "🐍",
+ "topics": [
+  {
+   "id": "g11-cs-04-01",
+   "title": "Meet Python: features and execution modes",
+   "covers": [
+    "c4.1.1",
+    "c4.1.2",
+    "c4.1.3",
+    "c4.1.4"
+   ],
+   "learn": {
+    "hook": "Instagram, YouTube's tools, ISRO data analysis and NASA scripts all use Python. Your first line of it is just print('Hello').",
+    "points": [
+     "A program is an ordered set of instructions for a computer; a programming language is the notation used to write it. Python is a high-level, interpreted, free and open-source language created by Guido van Rossum.",
+     "Features: simple, readable syntax; free and open source; interpreted (runs line by line); portable (same code runs on Windows, Linux, macOS); case-sensitive (Marks and marks differ); rich standard library; uses indentation to define blocks.",
+     "The Python interpreter (or the IDLE shell) shows the prompt >>>, where you can type a statement and see the result immediately.",
+     "Interactive mode: type one statement at >>> and get instant output; good for testing, but the code is not saved. Script mode: write the program in a file with the .py extension, save it, and run the whole file (in IDLE: Run → Run Module, or F5)."
+    ],
+    "example": {
+     "q": "Write and run your first Python program in script mode.",
+     "steps": [
+      "Open IDLE → File → New File",
+      "Type: print(\"Hello World\")",
+      "Save as hello.py",
+      "Run → Run Module (F5)",
+      "The shell shows: Hello World"
+     ],
+     "answer": "Hello World"
+    },
+    "reallife": "Python is used across Indian startups and research labs, from analysing monsoon data at IITM Pune to fintech apps in Bengaluru, because it is free, readable and has huge libraries."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Interactive or script mode?",
+     "buckets": [
+      "Interactive mode",
+      "Script mode"
+     ],
+     "items": [
+      [
+       "Typing 2 + 3 at >>> to see 5",
+       0
+      ],
+      [
+       "Quickly testing one statement",
+       0
+      ],
+      [
+       "Code is not saved for later",
+       0
+      ],
+      [
+       "Saving a program as marks.py",
+       1
+      ],
+      [
+       "Running a whole program with F5",
+       1
+      ],
+      [
+       "Writing a 50-line project",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Python features",
+     "items": [
+      [
+       "Python is case-sensitive.",
+       true,
+       "Total and total are two different names."
+      ],
+      [
+       "Python is a compiled-only language.",
+       false,
+       "Python is an interpreted language."
+      ],
+      [
+       "Python programs can run on different operating systems without change.",
+       true,
+       "Python is portable."
+      ],
+      [
+       "Python uses curly braces { } to mark blocks.",
+       false,
+       "Python uses indentation to mark blocks."
+      ],
+      [
+       "Python is free and open source.",
+       true,
+       "Anyone can download, use and study its source code."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Python is called an interpreted language because:",
+     "options": [
+      "It must be compiled to an .exe file first",
+      "It cannot show errors",
+      "It runs only in interactive mode",
+      "The interpreter executes the program one statement at a time"
+     ],
+     "answer": 3,
+     "explain": "An interpreter translates and runs each statement in turn.",
+     "mistake": "Thinks 'interpreted' means it runs only at the >>> prompt"
+    },
+    {
+     "q": "Which extension is used for a Python script file?",
+     "options": [
+      ".pt",
+      ".py",
+      ".exe",
+      ".python"
+     ],
+     "answer": 1,
+     "explain": "Python source files are saved with the .py extension.",
+     "mistake": "Guesses .python or .exe"
+    },
+    {
+     "q": "What does the >>> symbol in IDLE indicate?",
+     "options": [
+      "The interpreter is ready to accept a statement",
+      "The program has ended",
+      "The output of a program",
+      "An error has occurred"
+     ],
+     "answer": 0,
+     "explain": ">>> is the Python prompt in interactive mode.",
+     "mistake": "Thinks >>> marks an error or output"
+    },
+    {
+     "q": "Which statement about interactive mode is correct?",
+     "options": [
+      "Statements are executed immediately, but they are not saved as a program",
+      "It cannot run print()",
+      "It is the only way to run Python",
+      "Programs are saved automatically as .py files"
+     ],
+     "answer": 0,
+     "explain": "Interactive mode gives instant results but does not keep the code for reuse.",
+     "mistake": "Thinks interactive mode saves the code"
+    },
+    {
+     "q": "What is the output?\nTotal = 5\nprint(total)",
+     "options": [
+      "0",
+      "Total",
+      "NameError",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "Python is case-sensitive: Total and total are different names, and total was never assigned.",
+     "mistake": "Thinks capitalisation is ignored"
+    },
+    {
+     "q": "What is the output?\nprint(\"Hello World\")",
+     "options": [
+      "\"Hello World\"",
+      "HelloWorld",
+      "Hello World",
+      "print Hello World"
+     ],
+     "answer": 2,
+     "explain": "print() shows the text without the quotation marks.",
+     "mistake": "Expects the quotes to be printed"
+    },
+    {
+     "q": "Which is a feature of Python?",
+     "options": [
+      "It is proprietary software",
+      "It can run only on Windows",
+      "It uses indentation to define blocks of code",
+      "It needs semicolons at the end of every line"
+     ],
+     "answer": 2,
+     "explain": "Indentation is part of Python's syntax; Python is free, open source and portable.",
+     "mistake": "Carries over rules from other languages such as C"
+    },
+    {
+     "q": "Assertion (A): Script mode is preferred for long programs.\nReason (R): In script mode, the program is saved in a file and can be edited and run again.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Saving, editing and rerunning a file is exactly what long programs need.",
+     "mistake": "Doesn't connect saving the file with suitability for long programs"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu installed Python and sees >>>. Explain what Python is, its main features and the two ways to run code.",
+    "must": [
+     [
+      "interpreted",
+      "interpreter"
+     ],
+     [
+      "open source",
+      "free"
+     ],
+     [
+      "interactive mode",
+      "interactive",
+      "shell"
+     ],
+     [
+      "script mode",
+      "script",
+      ".py"
+     ]
+    ],
+    "praise": "Python is free, open source and interpreted, and I can use interactive mode for quick tests or script mode for saved programs!",
+    "nudge": "Good. What are the two execution modes, and name a couple of Python's features."
+   }
+  },
+  {
+   "id": "g11-cs-04-02",
+   "title": "Character set, tokens and keywords",
+   "covers": [
+    "c4.2.1",
+    "c4.2.2",
+    "c4.3.1"
+   ],
+   "learn": {
+    "hook": "Just as a sentence is made of words and punctuation, a Python statement is made of tokens. Some of those words are reserved, and you can't touch them.",
+    "points": [
+     "Character set: the characters Python recognises: letters (A–Z, a–z), digits (0–9), special symbols (+ − * / ( ) [ ] { } : , ' \" # etc.) and whitespace (space, tab, newline). Python 3 also accepts Unicode characters.",
+     "A token is the smallest meaningful unit of a program. Types: keywords, identifiers, literals, operators and punctuators (delimiters).",
+     "Literals are fixed values written directly in code: 25, 3.14, 'Delhi', True, None. Operators perform operations: +, ==, and. Punctuators structure the code: ( ) [ ] { } , : etc.",
+     "Keywords are reserved words with a special meaning, e.g. if, else, elif, for, while, True, False, None, and, or, not, def, import, in, is. They cannot be used as identifiers.",
+     "Keywords are case-sensitive: True is a keyword but true is not. print and input are built-in function names, not keywords."
+    ],
+    "example": {
+     "q": "Identify the tokens in: if marks >= 33 : print(\"Pass\")",
+     "steps": [
+      "if → keyword",
+      "marks, print → identifiers",
+      ">= → operator",
+      "33, \"Pass\" → literals",
+      ": ( ) → punctuators"
+     ],
+     "answer": "Keyword, identifiers, operator, literals and punctuators"
+    },
+    "reallife": "A railway announcement system's code might say: if delay > 30: announce(...). Here if is a keyword, delay an identifier, 30 a literal and > an operator."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which token?",
+     "buckets": [
+      "Keyword",
+      "Literal",
+      "Operator"
+     ],
+     "items": [
+      [
+       "while",
+       0
+      ],
+      [
+       "None",
+       0
+      ],
+      [
+       "elif",
+       0
+      ],
+      [
+       "3.14",
+       1
+      ],
+      [
+       "'Mumbai'",
+       1
+      ],
+      [
+       "100",
+       1
+      ],
+      [
+       "//",
+       2
+      ],
+      [
+       "!=",
+       2
+      ],
+      [
+       "**",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Keyword or not?",
+     "items": [
+      [
+       "True is a Python keyword.",
+       true,
+       "True, False and None are keywords."
+      ],
+      [
+       "print is a Python keyword.",
+       false,
+       "print is a built-in function name, not a keyword."
+      ],
+      [
+       "for can be used as a variable name.",
+       false,
+       "for is a keyword and is reserved."
+      ],
+      [
+       "true (lower case) is a keyword.",
+       false,
+       "Keywords are case-sensitive; only True is a keyword."
+      ],
+      [
+       "'Hello' is a literal.",
+       true,
+       "It is a fixed string value written directly in code."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the smallest individual unit in a Python program called?",
+     "options": [
+      "Token",
+      "Statement",
+      "Module",
+      "Block"
+     ],
+     "answer": 0,
+     "explain": "Tokens are the smallest meaningful units: keywords, identifiers, literals, operators, punctuators.",
+     "mistake": "Thinks a statement is the smallest unit"
+    },
+    {
+     "q": "Which of these is a Python keyword?",
+     "options": [
+      "print",
+      "Input",
+      "main",
+      "elif"
+     ],
+     "answer": 3,
+     "explain": "elif is reserved for the if-elif-else ladder; print and input are function names.",
+     "mistake": "Treats built-in function names as keywords"
+    },
+    {
+     "q": "In the statement x = 45, what is 45?",
+     "options": [
+      "A literal",
+      "An identifier",
+      "A punctuator",
+      "A keyword"
+     ],
+     "answer": 0,
+     "explain": "45 is a fixed value written in code: an integer literal.",
+     "mistake": "Confuses a value with a name"
+    },
+    {
+     "q": "Which of these is NOT a token type in Python?",
+     "options": [
+      "Operator",
+      "Comment",
+      "Keyword",
+      "Literal"
+     ],
+     "answer": 1,
+     "explain": "Comments are ignored by the interpreter; they are not tokens.",
+     "mistake": "Thinks everything typed in the code is a token"
+    },
+    {
+     "q": "Why can't 'while' be used as a variable name?",
+     "options": [
+      "It is a keyword reserved by Python",
+      "It is a literal",
+      "It is too long",
+      "It contains a vowel"
+     ],
+     "answer": 0,
+     "explain": "Keywords have special meaning to the interpreter, so they cannot be identifiers.",
+     "mistake": "Thinks length or letters matter"
+    },
+    {
+     "q": "Which of these is a valid literal?",
+     "options": [
+      "for",
+      "None",
+      "if",
+      "while"
+     ],
+     "answer": 1,
+     "explain": "None is a special literal (and a keyword) meaning 'no value'; the others are control keywords.",
+     "mistake": "Doesn't recognise None as a value"
+    },
+    {
+     "q": "In print(a, b), the comma and the parentheses are:",
+     "options": [
+      "Literals",
+      "Operators",
+      "Punctuators",
+      "Keywords"
+     ],
+     "answer": 2,
+     "explain": "Symbols that structure code, like ( ) and ,, are punctuators (delimiters).",
+     "mistake": "Calls every symbol an operator"
+    },
+    {
+     "q": "Which group correctly lists the categories of Python's character set?",
+     "options": [
+      "Keywords, identifiers, literals and operators",
+      "Letters, digits, special symbols and whitespace",
+      "int, float, str and bool",
+      "Input, processing and output"
+     ],
+     "answer": 1,
+     "explain": "The character set is the set of characters Python recognises: letters, digits, special symbols and whitespace. Keywords, identifiers and literals are tokens built from these characters.",
+     "mistake": "Confuses the character set with token types"
+    },
+    {
+     "q": "Assertion (A): None is a keyword in Python.\nReason (R): Keywords are words reserved by Python with a special meaning.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "None has the special meaning 'no value' and is reserved, which is why it is a keyword.",
+     "mistake": "Doesn't connect None's special meaning to it being reserved"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to name his variable 'if'. Explain tokens, and why keywords can't be used as names.",
+    "must": [
+     [
+      "token",
+      "tokens",
+      "smallest unit"
+     ],
+     [
+      "keyword",
+      "keywords",
+      "reserved"
+     ],
+     [
+      "identifier",
+      "literal",
+      "operator",
+      "punctuator"
+     ]
+    ],
+    "praise": "Tokens are the building blocks, and keywords like if are reserved, so I'll call my variable 'condition' instead!",
+    "nudge": "Good. What are the types of tokens, and what makes a keyword special?"
+   }
+  },
+  {
+   "id": "g11-cs-04-03",
+   "title": "Identifiers and comments",
+   "covers": [
+    "c4.4.1",
+    "c4.4.2",
+    "c4.6.1"
+   ],
+   "learn": {
+    "hook": "Naming a variable x1 works. Naming it total_marks works better. Naming it 1st_rank crashes your code.",
+    "points": [
+     "An identifier is a name given to a variable, function or other object.",
+     "Rules: it can contain letters (A–Z, a–z), digits (0–9) and underscore (_); it must start with a letter or underscore, not a digit; no spaces or special symbols like @, $, %, -, .; it cannot be a keyword; it is case-sensitive.",
+     "Good practice: use meaningful names (total_marks, not t), separate words with underscores. An identifier can be of any length.",
+     "A comment starts with # and runs to the end of the line. The interpreter ignores it; it explains code to humans.",
+     "A docstring is a string in triple quotes (\"\"\"...\"\"\") placed as the first statement of a module or function to document it."
+    ],
+    "example": {
+     "q": "Which are valid identifiers: _count, 2nd_term, total-marks, Rate, class, roll_no1?",
+     "steps": [
+      "_count: starts with underscore → valid",
+      "2nd_term: starts with a digit → invalid",
+      "total-marks: hyphen not allowed → invalid",
+      "Rate: valid",
+      "class: keyword → invalid",
+      "roll_no1: letters, underscore, digit → valid"
+     ],
+     "answer": "Valid: _count, Rate, roll_no1"
+    },
+    "reallife": "Large codebases at Indian IT companies require meaningful names and comments so that a team in Pune can understand code written by a team in Chennai."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Valid or invalid identifier?",
+     "buckets": [
+      "Valid",
+      "Invalid"
+     ],
+     "items": [
+      [
+       "student_name",
+       0
+      ],
+      [
+       "_temp",
+       0
+      ],
+      [
+       "Marks2026",
+       0
+      ],
+      [
+       "MAX_SPEED",
+       0
+      ],
+      [
+       "2ndPlace",
+       1
+      ],
+      [
+       "my name",
+       1
+      ],
+      [
+       "price$",
+       1
+      ],
+      [
+       "import",
+       1
+      ],
+      [
+       "roll-no",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Comment check",
+     "items": [
+      [
+       "A comment in Python starts with #.",
+       true,
+       "Everything after # on that line is ignored."
+      ],
+      [
+       "Comments slow down the program because they are executed.",
+       false,
+       "The interpreter ignores comments."
+      ],
+      [
+       "An identifier can start with an underscore.",
+       true,
+       "e.g. _total is valid."
+      ],
+      [
+       "Identifiers can contain spaces if they are short.",
+       false,
+       "Spaces are never allowed in identifiers."
+      ],
+      [
+       "Total and total are the same identifier.",
+       false,
+       "Python is case-sensitive."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which is a valid identifier?",
+     "options": [
+      "marks 2",
+      "_marks2",
+      "2marks",
+      "marks-2"
+     ],
+     "answer": 1,
+     "explain": "It starts with an underscore and uses only letters, digits and underscore.",
+     "mistake": "Allows a digit at the start, a hyphen or a space"
+    },
+    {
+     "q": "Why is 'class' an invalid identifier?",
+     "options": [
+      "It has five letters",
+      "It contains 's' twice",
+      "It starts with a lowercase letter",
+      "It is a keyword"
+     ],
+     "answer": 3,
+     "explain": "class is reserved by Python.",
+     "mistake": "Thinks lowercase or repeated letters matter"
+    },
+    {
+     "q": "Which is invalid as an identifier?",
+     "options": [
+      "_TotalSum",
+      "total@sum",
+      "TotalSum",
+      "total_sum"
+     ],
+     "answer": 1,
+     "explain": "@ is a special symbol and not allowed in identifiers.",
+     "mistake": "Thinks any symbol on the keyboard is allowed"
+    },
+    {
+     "q": "What is the output?\n# print(\"A\")\nprint(\"B\")",
+     "options": [
+      "# print(\"A\")\nB",
+      "B",
+      "A",
+      "A\nB"
+     ],
+     "answer": 1,
+     "explain": "The first line is a comment, so only print(\"B\") runs.",
+     "mistake": "Thinks commented code still runs"
+    },
+    {
+     "q": "How does a docstring differ from a # comment?",
+     "options": [
+      "There is no difference at all",
+      "A docstring is executed as code to print output",
+      "A docstring begins with //",
+      "A docstring is a triple-quoted string placed at the start of a function or module to document it"
+     ],
+     "answer": 3,
+     "explain": "Docstrings document modules, functions and classes; # comments explain individual lines.",
+     "mistake": "Thinks docstrings use a different comment symbol"
+    },
+    {
+     "q": "Which identifier is the most meaningful for storing a student's percentage?",
+     "options": [
+      "p",
+      "x1",
+      "abc",
+      "percentage"
+     ],
+     "answer": 3,
+     "explain": "Meaningful names make code self-explanatory.",
+     "mistake": "Thinks short names are always better"
+    },
+    {
+     "q": "Consider the names Age, age_1, 1age, _age and age!. How many of them are valid identifiers?",
+     "options": [
+      "5",
+      "3",
+      "2",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "Age, age_1 and _age are valid; 1age starts with a digit and age! contains '!'.",
+     "mistake": "Counts 1age or age! as valid",
+     "check": "3"
+    },
+    {
+     "q": "Assertion (A): Roll_No and roll_no can store different values in the same program.\nReason (R): Python is case-sensitive.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Because case matters, they are two different identifiers.",
+     "mistake": "Thinks Python ignores case"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu named his variable '1st-score' and got an error. Explain the rules for identifiers and what comments are for.",
+    "must": [
+     [
+      "letter",
+      "underscore",
+      "start with"
+     ],
+     [
+      "digit",
+      "cannot start with a digit",
+      "number"
+     ],
+     [
+      "keyword",
+      "special symbol",
+      "no spaces"
+     ],
+     [
+      "comment",
+      "hash",
+      "comments"
+     ]
+    ],
+    "praise": "So names start with a letter or underscore, have no special symbols or keywords, and # comments explain my code. first_score it is!",
+    "nudge": "Close! What can an identifier start with, and which characters are not allowed?"
+   }
+  },
+  {
+   "id": "g11-cs-04-04",
+   "title": "Variables, assignment and objects",
+   "covers": [
+    "c4.5.1",
+    "c4.5.2",
+    "c4.7.1"
+   ],
+   "learn": {
+    "hook": "In Python, a variable is not a box that holds a value. It's a name tag tied to an object in memory, and you can move the tag.",
+    "points": [
+     "A variable is a name that refers to a value (object) stored in memory. Python needs no explicit declaration; a variable is created when it is first assigned.",
+     "Assignment uses =: the right side (r-value, an expression) is evaluated first, then the name on the left (l-value) is made to refer to it. 5 = x is an error because 5 cannot be an l-value.",
+     "Multiple assignment: a = b = c = 0 gives all three the value 0; x, y, z = 1, 2, 3 assigns each in turn. x, y = y, x swaps two values.",
+     "Everything in Python is an object with an identity (its location in memory), a type and a value. id(x) returns the identity; type(x) returns the type."
+    ],
+    "example": {
+     "q": "Trace: x = 10; y = x; x = x + 5. What are x and y?",
+     "steps": [
+      "x = 10: x refers to 10",
+      "y = x: y refers to the same 10",
+      "x = x + 5: right side gives 15; x now refers to 15",
+      "y still refers to 10"
+     ],
+     "answer": "x = 15, y = 10"
+    },
+    "reallife": "A cricket scoreboard program might use runs = runs + 4 after every boundary. The name 'runs' keeps pointing to the newest total."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Term ↔ meaning",
+     "pairs": [
+      [
+       "l-value",
+       "Name on the left that receives the value"
+      ],
+      [
+       "r-value",
+       "Expression on the right that is evaluated"
+      ],
+      [
+       "id()",
+       "Returns an object's identity"
+      ],
+      [
+       "type()",
+       "Returns an object's data type"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Trace the value",
+     "items": [
+      {
+       "q": "a = 5; a = a * 2. Value of a?",
+       "a": "10",
+       "check": "5*2"
+      },
+      {
+       "q": "x, y = 3, 7; x = y. Value of x?",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "p = q = 4; p = p + 1. Value of q?",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "m, n = 2, 9; m, n = n, m. Value of m?",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "t = 1; t = t + t; t = t + t. Value of t?",
+       "a": "4",
+       "check": "4"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\na = 5\nb = a\na = 8\nprint(a, b)",
+     "options": [
+      "5 5",
+      "8 5",
+      "5 8",
+      "8 8"
+     ],
+     "answer": 1,
+     "explain": "b was given the value 5; changing a later does not change b.",
+     "mistake": "Thinks b follows a after reassignment"
+    },
+    {
+     "q": "What is the output?\nx, y = 4, 9\nx, y = y, x\nprint(x, y)",
+     "options": [
+      "4 4",
+      "9 4",
+      "9 9",
+      "4 9"
+     ],
+     "answer": 1,
+     "explain": "The right side (9, 4) is built first, then assigned, so the values are swapped.",
+     "mistake": "Thinks the first assignment overwrites before the second"
+    },
+    {
+     "q": "Which statement gives a SyntaxError?",
+     "options": [
+      "10 = marks",
+      "marks = marks + 10",
+      "a = b = 10",
+      "marks = 10"
+     ],
+     "answer": 0,
+     "explain": "A literal like 10 cannot be an l-value, so it cannot appear on the left of =.",
+     "mistake": "Thinks = works both ways like in maths"
+    },
+    {
+     "q": "What is the output?\np = q = r = 7\nq = q + 1\nprint(p + q + r)",
+     "options": [
+      "21",
+      "22",
+      "23",
+      "24"
+     ],
+     "answer": 1,
+     "explain": "p = 7, q = 8, r = 7, so the sum is 22.",
+     "mistake": "Thinks changing q also changes p and r",
+     "check": "7+8+7"
+    },
+    {
+     "q": "What does id(x) return?",
+     "options": [
+      "The data type of x",
+      "The value of x as a string",
+      "The name of x",
+      "The identity (unique number) of the object x refers to"
+     ],
+     "answer": 3,
+     "explain": "id() gives the object's identity, which in CPython is its memory address.",
+     "mistake": "Confuses id() with type()"
+    },
+    {
+     "q": "In Python, a variable is created:",
+     "options": [
+      "Only after declaring its type",
+      "When a value is first assigned to it",
+      "When the program ends",
+      "Only inside a loop"
+     ],
+     "answer": 1,
+     "explain": "Python needs no declaration; assignment creates the variable.",
+     "mistake": "Carries over the 'declare first' rule from C/Java"
+    },
+    {
+     "q": "What is the output?\ntotal = 0\ntotal = total + 25\ntotal = total + 40\nprint(total)",
+     "options": [
+      "40",
+      "0",
+      "25",
+      "65"
+     ],
+     "answer": 3,
+     "explain": "total goes 0 → 25 → 65.",
+     "mistake": "Thinks reassignment replaces rather than adds",
+     "check": "25+40"
+    },
+    {
+     "q": "Every Python object has which three properties?",
+     "options": [
+      "Input, process and output",
+      "Name, size and colour",
+      "Address, keyword and literal",
+      "Identity, type and value"
+     ],
+     "answer": 3,
+     "explain": "Python's data model gives every object an identity, a type and a value.",
+     "mistake": "Mixes object properties with other ideas"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks a Python variable is a box. Explain variables, assignment and objects in Python.",
+    "must": [
+     [
+      "name",
+      "refers",
+      "reference",
+      "label"
+     ],
+     [
+      "assignment",
+      "assign",
+      "assigned"
+     ],
+     [
+      "object",
+      "identity",
+      "id"
+     ],
+     [
+      "type",
+      "value"
+     ]
+    ],
+    "praise": "So a variable is a name referring to an object, = binds it, and every object has an id, type and value!",
+    "nudge": "Good. What does = actually do, and what three things does every object have?"
+   }
+  },
+  {
+   "id": "g11-cs-04-05",
+   "title": "Data types: numbers, sequences, sets, None and dictionaries",
+   "covers": [
+    "c4.8.1",
+    "c4.8.2",
+    "c4.8.3",
+    "c4.8.4"
+   ],
+   "learn": {
+    "hook": "Is 9876543210 a number or a string? For a phone number, you'll want a string. Picking the right type is half of programming.",
+    "points": [
+     "Numbers: int (whole numbers like −5, 2026), float (with a decimal point, like 3.14, 2.0) and complex (like 3 + 4j). bool (True/False) is a subtype of int, so True + True = 2.",
+     "Sequences (ordered collections): str (characters in quotes, 'India'), list (in square brackets, mutable, [1, 'a', 2.5]) and tuple (in parentheses, immutable, (10, 20)).",
+     "Set: an unordered collection of unique items in braces, e.g. {1, 2, 3}; duplicates are removed automatically.",
+     "None: a special value meaning absence of a value; its type is NoneType.",
+     "Mapping: a dictionary (dict) stores key : value pairs in braces, e.g. {'roll': 12, 'name': 'Asha'}."
+    ],
+    "example": {
+     "q": "Give the type of each: 25, 25.0, '25', [25], (25,), {25}, {'a': 25}, True, None, 2+5j.",
+     "steps": [
+      "25 → int; 25.0 → float; '25' → str",
+      "[25] → list; (25,) → tuple",
+      "{25} → set; {'a': 25} → dict",
+      "True → bool; None → NoneType; 2+5j → complex"
+     ],
+     "answer": "int, float, str, list, tuple, set, dict, bool, NoneType, complex"
+    },
+    "reallife": "A UPI transaction record might use a str for the UPI ID, a float for the amount, a bool for success and a dict to bundle them together."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Value ↔ type",
+     "pairs": [
+      [
+       "3 + 4j",
+       "complex"
+      ],
+      [
+       "(1, 2)",
+       "tuple"
+      ],
+      [
+       "{'a': 1}",
+       "dict"
+      ],
+      [
+       "{1, 2}",
+       "set"
+      ],
+      [
+       "None",
+       "NoneType"
+      ],
+      [
+       "False",
+       "bool"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Sequence or not?",
+     "buckets": [
+      "Sequence type",
+      "Not a sequence"
+     ],
+     "items": [
+      [
+       "str",
+       0
+      ],
+      [
+       "list",
+       0
+      ],
+      [
+       "tuple",
+       0
+      ],
+      [
+       "int",
+       1
+      ],
+      [
+       "float",
+       1
+      ],
+      [
+       "set",
+       1
+      ],
+      [
+       "dict",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint(type(7.0))",
+     "options": [
+      "<class 'str'>",
+      "<class 'int'>",
+      "<class 'complex'>",
+      "<class 'float'>"
+     ],
+     "answer": 3,
+     "explain": "Any number written with a decimal point is a float.",
+     "mistake": "Thinks 7.0 is an int because it is a whole number"
+    },
+    {
+     "q": "What is the output?\nprint(True + True + 1)",
+     "options": [
+      "True",
+      "TrueTrue1",
+      "3",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "bool is a subtype of int with True = 1, so 1 + 1 + 1 = 3.",
+     "mistake": "Thinks booleans cannot be added",
+     "check": "1+1+1"
+    },
+    {
+     "q": "What is the output?\ns = {3, 1, 3, 2, 1}\nprint(len(s))",
+     "options": [
+      "3",
+      "5",
+      "2",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "A set keeps unique items only: {1, 2, 3}.",
+     "mistake": "Counts duplicates",
+     "check": "3"
+    },
+    {
+     "q": "Which data type stores key-value pairs?",
+     "options": [
+      "List",
+      "Tuple",
+      "Dictionary",
+      "Set"
+     ],
+     "answer": 2,
+     "explain": "A dictionary maps keys to values.",
+     "mistake": "Thinks a list of pairs is the mapping type"
+    },
+    {
+     "q": "What is the output?\nprint(type(None))",
+     "options": [
+      "<class 'None'>",
+      "<class 'NoneType'>",
+      "None",
+      "<class 'str'>"
+     ],
+     "answer": 1,
+     "explain": "None is the only value of type NoneType.",
+     "mistake": "Thinks the type is called None"
+    },
+    {
+     "q": "Which of these is a complex number literal in Python?",
+     "options": [
+      "3 + 2j",
+      "3 + 2i",
+      "'3+2j'",
+      "3.2"
+     ],
+     "answer": 0,
+     "explain": "Python uses j (not i) for the imaginary unit.",
+     "mistake": "Uses i as in mathematics"
+    },
+    {
+     "q": "Which is an ordered, immutable sequence?",
+     "options": [
+      "Set",
+      "Tuple",
+      "Dictionary",
+      "List"
+     ],
+     "answer": 1,
+     "explain": "A tuple keeps order and cannot be changed after creation.",
+     "mistake": "Confuses tuple with list (which is mutable)"
+    },
+    {
+     "q": "What is the output?\nx = (5)\ny = (5,)\nprint(type(x), type(y))",
+     "options": [
+      "<class 'int'> <class 'int'>",
+      "<class 'tuple'> <class 'tuple'>",
+      "<class 'int'> <class 'tuple'>",
+      "<class 'tuple'> <class 'int'>"
+     ],
+     "answer": 2,
+     "explain": "Parentheses alone just group; the trailing comma makes a tuple.",
+     "mistake": "Thinks brackets alone create a tuple"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to store a mobile number, a price, a list of friends and a name-to-marks table. Explain Python's data types.",
+    "must": [
+     [
+      "int",
+      "float",
+      "number",
+      "numbers",
+      "complex"
+     ],
+     [
+      "string",
+      "str",
+      "list",
+      "tuple",
+      "sequence"
+     ],
+     [
+      "dictionary",
+      "dict",
+      "key value",
+      "key-value"
+     ],
+     [
+      "set",
+      "none",
+      "bool",
+      "boolean"
+     ]
+    ],
+    "praise": "Numbers, sequences (str, list, tuple), sets, None and dictionaries — now I know which box to pick!",
+    "nudge": "Good. Can you name the number types, the sequence types and the mapping type?"
+   }
+  },
+  {
+   "id": "g11-cs-04-06",
+   "title": "Mutable vs immutable, and choosing a data type",
+   "covers": [
+    "c4.8.5",
+    "c4.8.6"
+   ],
+   "learn": {
+    "hook": "You can change a list in place but not a string. Try s[0] = 'J' on 'Python' and Python refuses. Why?",
+    "points": [
+     "Mutable types can be changed in place after creation: list, dictionary, set. Their id() stays the same when you modify their contents.",
+     "Immutable types cannot be changed in place: int, float, bool, complex, str, tuple. 'Changing' them actually creates a new object; the variable then refers to the new object (a different id).",
+     "Example: x = 10; x = x + 1 makes x refer to a NEW object 11. L = [1, 2]; L.append(3) changes the SAME list.",
+     "Choosing types: use a list for a collection that will change (shopping cart), a tuple for fixed data (days of the week, coordinates), a dictionary for fast lookup by key (roll number → name), a set for unique items, and type() to check a value's type."
+    ],
+    "example": {
+     "q": "Predict: L = [1, 2]; before = id(L); L.append(3); is id(L) == before? And for s = 'ab'; before = id(s); s = s + 'c'?",
+     "steps": [
+      "append changes the same list object in place → ids are equal → True",
+      "s + 'c' creates a new string 'abc'; s now refers to it → ids differ → False"
+     ],
+     "answer": "List: True (same object). String: False (new object)."
+    },
+    "reallife": "An e-commerce cart (items added/removed) should be a list or dict, while the fixed list of Indian states and UTs in a form can safely be a tuple."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Mutable or immutable?",
+     "buckets": [
+      "Mutable",
+      "Immutable"
+     ],
+     "items": [
+      [
+       "list",
+       0
+      ],
+      [
+       "dict",
+       0
+      ],
+      [
+       "set",
+       0
+      ],
+      [
+       "int",
+       1
+      ],
+      [
+       "float",
+       1
+      ],
+      [
+       "str",
+       1
+      ],
+      [
+       "tuple",
+       1
+      ],
+      [
+       "bool",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Need ↔ best type",
+     "pairs": [
+      [
+       "Items in a shopping cart that change",
+       "list"
+      ],
+      [
+       "Days of the week, never changing",
+       "tuple"
+      ],
+      [
+       "Look up a name by roll number",
+       "dict"
+      ],
+      [
+       "Unique pin codes visited",
+       "set"
+      ],
+      [
+       "A student's name",
+       "str"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ns = \"Python\"\ns[0] = \"J\"\nprint(s)",
+     "options": [
+      "IndexError",
+      "Jython",
+      "Python",
+      "TypeError"
+     ],
+     "answer": 3,
+     "explain": "Strings are immutable, so assigning to s[0] raises a TypeError.",
+     "mistake": "Thinks strings can be edited in place like lists"
+    },
+    {
+     "q": "What is the output?\nL = [10, 20, 30]\nL[0] = 5\nprint(L)",
+     "options": [
+      "TypeError",
+      "[5, 20, 30]",
+      "[5, 10, 20, 30]",
+      "[10, 20, 30]"
+     ],
+     "answer": 1,
+     "explain": "Lists are mutable, so an element can be replaced.",
+     "mistake": "Thinks lists are immutable like strings"
+    },
+    {
+     "q": "What is the output?\nL = [1, 2]\na = id(L)\nL.append(3)\nprint(a == id(L))",
+     "options": [
+      "False",
+      "None",
+      "True",
+      "Error"
+     ],
+     "answer": 2,
+     "explain": "append() modifies the same list object, so its identity does not change.",
+     "mistake": "Thinks any change creates a new object"
+    },
+    {
+     "q": "What is the output?\nx = 300\na = id(x)\nx = x + 1\nprint(a == id(x))",
+     "options": [
+      "301",
+      "True",
+      "False",
+      "Error"
+     ],
+     "answer": 2,
+     "explain": "int is immutable; x + 1 creates a new object, so x now has a different identity.",
+     "mistake": "Thinks the int is changed in place"
+    },
+    {
+     "q": "Which of these is mutable?",
+     "options": [
+      "int",
+      "dict",
+      "str",
+      "tuple"
+     ],
+     "answer": 1,
+     "explain": "Dictionaries can have keys added, removed or changed in place.",
+     "mistake": "Thinks all collections are immutable"
+    },
+    {
+     "q": "Which type is most suitable to store the 12 months' names, which never change?",
+     "options": [
+      "Tuple",
+      "Set",
+      "List",
+      "Dictionary"
+     ],
+     "answer": 0,
+     "explain": "A tuple keeps order and protects fixed data from accidental changes.",
+     "mistake": "Uses a set and loses the order"
+    },
+    {
+     "q": "What is the output?\nprint(type([1, 2]) == list)",
+     "options": [
+      "list",
+      "<class 'list'>",
+      "False",
+      "True"
+     ],
+     "answer": 3,
+     "explain": "type([1, 2]) is the list class itself, so comparing with list gives True.",
+     "mistake": "Thinks type() returns a string"
+    },
+    {
+     "q": "Assertion (A): After t = (1, 2), the statement t[0] = 5 raises an error.\nReason (R): Tuples are immutable.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Because tuples cannot be modified in place, item assignment raises a TypeError.",
+     "mistake": "Thinks tuples behave like lists"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu was surprised that he could change a list but not a string. Explain mutable and immutable types.",
+    "must": [
+     [
+      "mutable",
+      "can be changed"
+     ],
+     [
+      "immutable",
+      "cannot be changed"
+     ],
+     [
+      "list",
+      "dictionary",
+      "dict",
+      "set"
+     ],
+     [
+      "string",
+      "str",
+      "tuple",
+      "int"
+     ]
+    ],
+    "praise": "Lists, dicts and sets are mutable; ints, floats, strings and tuples are immutable. That's why s[0] = 'J' fails!",
+    "nudge": "Good. Which types can change in place and which can't? Give examples of each."
+   }
+  },
+  {
+   "id": "g11-cs-04-07",
+   "title": "Arithmetic, relational and assignment operators",
+   "covers": [
+    "c4.9.1",
+    "c4.9.2",
+    "c4.9.3"
+   ],
+   "learn": {
+    "hook": "7 / 2 is 3.5, 7 // 2 is 3, and −7 // 2 is −4, not −3. Python's operators have a few surprises worth knowing.",
+    "points": [
+     "Arithmetic: + − * (multiply), / (true division, always a float), // (floor division: rounds DOWN to the nearest whole number), % (remainder/modulus), ** (exponent).",
+     "With ints, +, −, *, //, % give an int; / always gives a float (10 / 2 is 5.0). If either operand is a float, the result is a float (7.0 // 2 is 3.0).",
+     "Floor division rounds towards minus infinity: −7 // 2 is −4. The remainder takes the sign of the divisor: −7 % 2 is 1, 7 % −2 is −1.",
+     "Relational operators ==, !=, >, <, >=, <= compare values and return True or False. Note: = assigns, == compares.",
+     "Augmented assignment: x += 3 means x = x + 3. Similarly −=, *=, /=, %=, //=, **=."
+    ],
+    "example": {
+     "q": "Find 17 / 5, 17 // 5, 17 % 5 and 17 ** 2.",
+     "steps": [
+      "17 / 5 = 3.4 (true division, float)",
+      "17 // 5 = 3 (floor of 3.4)",
+      "17 % 5 = 2 (17 = 5 × 3 + 2)",
+      "17 ** 2 = 289"
+     ],
+     "answer": "3.4, 3, 2, 289"
+    },
+    "reallife": "To split 250 laddoos equally among 12 children: 250 // 12 = 20 each, with 250 % 12 = 10 left over for the teacher!"
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Operator sprint",
+     "items": [
+      {
+       "q": "17 // 5",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "17 % 5",
+       "a": "2",
+       "check": "17-15"
+      },
+      {
+       "q": "2 ** 5",
+       "a": "32",
+       "check": "2**5"
+      },
+      {
+       "q": "20 % 7",
+       "a": "6",
+       "check": "20-14"
+      },
+      {
+       "q": "9 // 2",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "-7 // 2",
+       "a": "-4",
+       "check": "-4"
+      },
+      {
+       "q": "10 % 2",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "3 ** 3",
+       "a": "27",
+       "check": "3**3"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Operator ↔ meaning",
+     "pairs": [
+      [
+       "//",
+       "Floor division"
+      ],
+      [
+       "%",
+       "Remainder"
+      ],
+      [
+       "**",
+       "Exponent"
+      ],
+      [
+       "==",
+       "Equal to (comparison)"
+      ],
+      [
+       "!=",
+       "Not equal to"
+      ],
+      [
+       "+=",
+       "Add and assign"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint(20 / 4, 20 // 4)",
+     "options": [
+      "5.0 5",
+      "5 5",
+      "5 5.0",
+      "5.0 5.0"
+     ],
+     "answer": 0,
+     "explain": "/ always gives a float (5.0); // with two ints gives an int (5).",
+     "mistake": "Thinks / gives an int when the division is exact"
+    },
+    {
+     "q": "What is the output?\nprint(-7 // 2)",
+     "options": [
+      "-4",
+      "3",
+      "-3.5",
+      "-3"
+     ],
+     "answer": 0,
+     "explain": "Floor division rounds down towards minus infinity: −3.5 becomes −4.",
+     "mistake": "Truncates towards zero and gets −3",
+     "check": "-4"
+    },
+    {
+     "q": "What is the output?\nprint(23 % 4)",
+     "options": [
+      "4",
+      "3",
+      "5",
+      "5.75"
+     ],
+     "answer": 1,
+     "explain": "23 = 4 × 5 + 3, so the remainder is 3.",
+     "mistake": "Gives the quotient instead of the remainder",
+     "check": "23-4*5"
+    },
+    {
+     "q": "What is the output?\nx = 10\nx += 5\nx *= 2\nprint(x)",
+     "options": [
+      "20",
+      "30",
+      "15",
+      "25"
+     ],
+     "answer": 1,
+     "explain": "x becomes 15, then 30.",
+     "mistake": "Applies the operators in the wrong order",
+     "check": "(10+5)*2"
+    },
+    {
+     "q": "What is the output?\nprint(7.0 // 2, 7 % 3)",
+     "options": [
+      "3.0 1",
+      "3 1",
+      "3.5 1",
+      "3.0 2"
+     ],
+     "answer": 0,
+     "explain": "A float operand makes // give a float (3.0); 7 % 3 is 1.",
+     "mistake": "Forgets that // returns a float when an operand is a float"
+    },
+    {
+     "q": "What is the output?\na = 5\nb = 7\nprint(a != b, a >= b)",
+     "options": [
+      "False True",
+      "True False",
+      "False False",
+      "True True"
+     ],
+     "answer": 1,
+     "explain": "5 is not equal to 7 (True), and 5 >= 7 is False.",
+     "mistake": "Reads != as 'equal'"
+    },
+    {
+     "q": "What is the output?\nn = 2\nn **= 3\nn //= 3\nprint(n)",
+     "options": [
+      "8",
+      "2.6666666666666665",
+      "2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "n = 2**3 = 8; then 8 // 3 = 2.",
+     "mistake": "Uses / instead of // for //=",
+     "check": "2"
+    },
+    {
+     "q": "What is the difference between = and == in Python?",
+     "options": [
+      "Both assign values",
+      "= compares; == assigns",
+      "= assigns a value; == compares two values and gives True or False",
+      "Both compare values"
+     ],
+     "answer": 2,
+     "explain": "x = 5 stores 5 in x; x == 5 asks whether x equals 5.",
+     "mistake": "Uses = for comparison as in maths"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks 7 / 2 and 7 // 2 are the same. Explain Python's arithmetic, relational and assignment operators.",
+    "must": [
+     [
+      "floor division",
+      "//",
+      "integer division"
+     ],
+     [
+      "remainder",
+      "modulus",
+      "modulo"
+     ],
+     [
+      "comparison",
+      "relational",
+      "==",
+      "true or false"
+     ],
+     [
+      "+=",
+      "augmented",
+      "assignment"
+     ]
+    ],
+    "praise": "/ gives a float, // floors, % gives the remainder, == compares and += updates. I'll never mix them up again!",
+    "nudge": "Close. What is the difference between /, // and %, and between = and ==?"
+   }
+  },
+  {
+   "id": "g11-cs-04-08",
+   "title": "Logical, identity and membership operators",
+   "covers": [
+    "c4.9.4",
+    "c4.9.5",
+    "c4.9.6"
+   ],
+   "learn": {
+    "hook": "0 or 'Guest' gives 'Guest'. In Python, and/or don't always return True or False; they return one of the operands!",
+    "points": [
+     "Logical operators: and (True only if both are True), or (True if at least one is True), not (reverses). They short-circuit: evaluation stops as soon as the result is known.",
+     "Truth values: 0, 0.0, '' (empty string), [], (), {}, None and False are falsy; everything else is truthy.",
+     "With non-Boolean operands: x and y returns x if x is falsy, else y. x or y returns x if x is truthy, else y. not always returns True or False. e.g. 0 or 5 → 5; 3 and 0 → 0; 5 and 7 → 7.",
+     "Identity operators: is and is not check whether two names refer to the SAME object (same id), not just equal values.",
+     "Membership operators: in and not in test whether a value is present in a sequence (string, list, tuple) or is a key of a dictionary."
+    ],
+    "example": {
+     "q": "Evaluate: (a) 'a' in 'Delhi' (b) 3 not in [1, 2, 3] (c) 0 or 'Guest' (d) not 0",
+     "steps": [
+      "(a) 'Delhi' has 'D', 'e', 'l', 'h', 'i' but no lowercase 'a' → False",
+      "(b) 3 is in the list, so 'not in' gives False",
+      "(c) 0 is falsy, so or returns the second operand → 'Guest'",
+      "(d) 0 is falsy, so not 0 → True"
+     ],
+     "answer": "False, False, 'Guest', True"
+    },
+    "reallife": "A login check might be: if user in registered_users and password == saved_password: — membership and logic together."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Truthy or falsy?",
+     "buckets": [
+      "Truthy",
+      "Falsy"
+     ],
+     "items": [
+      [
+       "5",
+       0
+      ],
+      [
+       "'0' (a string)",
+       0
+      ],
+      [
+       "[0]",
+       0
+      ],
+      [
+       "-1",
+       0
+      ],
+      [
+       "0",
+       1
+      ],
+      [
+       "''",
+       1
+      ],
+      [
+       "[]",
+       1
+      ],
+      [
+       "None",
+       1
+      ],
+      [
+       "0.0",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Operator logic",
+     "items": [
+      [
+       "True and False gives False.",
+       true,
+       "and needs both operands to be True."
+      ],
+      [
+       "not 5 gives False.",
+       true,
+       "5 is truthy, so not makes it False."
+      ],
+      [
+       "'is' checks whether two values are equal.",
+       false,
+       "is checks identity; == checks equality."
+      ],
+      [
+       "'in' can check whether a key exists in a dictionary.",
+       true,
+       "Membership on a dict checks its keys."
+      ],
+      [
+       "'' or 'Guest' gives 'Guest'.",
+       true,
+       "The empty string is falsy, so or returns the second operand."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint(0 or 5, 3 and 0)",
+     "options": [
+      "0 3",
+      "5 3",
+      "True False",
+      "5 0"
+     ],
+     "answer": 3,
+     "explain": "0 is falsy so 'or' returns 5; 3 is truthy so 'and' returns the second operand, 0.",
+     "mistake": "Expects and/or to always return True or False"
+    },
+    {
+     "q": "What is the output?\nprint(not (5 > 3 and 2 > 4))",
+     "options": [
+      "None",
+      "Error",
+      "True",
+      "False"
+     ],
+     "answer": 2,
+     "explain": "5 > 3 is True, 2 > 4 is False, so 'and' gives False, and not False is True.",
+     "mistake": "Forgets the not, or applies it only to the first condition"
+    },
+    {
+     "q": "What is the output?\nprint('ra' in 'Bharat', 'B' not in 'Bharat')",
+     "options": [
+      "True True",
+      "False True",
+      "True False",
+      "False False"
+     ],
+     "answer": 2,
+     "explain": "'ra' appears in 'Bharat'; 'B' is present, so 'not in' is False.",
+     "mistake": "Thinks 'in' checks only single characters"
+    },
+    {
+     "q": "What is the output?\na = [1, 2]\nb = [1, 2]\nc = a\nprint(a == b, a is b, a is c)",
+     "options": [
+      "True False True",
+      "True False False",
+      "True True True",
+      "False False True"
+     ],
+     "answer": 0,
+     "explain": "a and b have equal values but are separate objects; c refers to the same object as a.",
+     "mistake": "Thinks equal lists are the same object"
+    },
+    {
+     "q": "What is the output?\nd = {'roll': 7, 'name': 'Asha'}\nprint('Asha' in d, 'roll' in d)",
+     "options": [
+      "False False",
+      "False True",
+      "True False",
+      "True True"
+     ],
+     "answer": 1,
+     "explain": "in checks a dictionary's keys, not its values.",
+     "mistake": "Thinks 'in' searches the values"
+    },
+    {
+     "q": "What is the output?\nprint(5 and 7)",
+     "options": [
+      "5",
+      "True",
+      "7",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "5 is truthy, so 'and' returns its second operand, 7.",
+     "mistake": "Expects True or adds the numbers",
+     "check": "7"
+    },
+    {
+     "q": "Which of these values is falsy in Python?",
+     "options": [
+      "[0]",
+      "' '",
+      "'0'",
+      "''"
+     ],
+     "answer": 3,
+     "explain": "Only the empty string is falsy; a space, the string '0' and a list containing 0 are non-empty and so truthy.",
+     "mistake": "Thinks '0' or a list containing 0 is falsy"
+    },
+    {
+     "q": "Assertion (A): In the expression x != 0 and 10 / x > 1, there is no ZeroDivisionError when x is 0.\nReason (R): and stops evaluating once its first operand is False.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R is the correct explanation of A"
+     ],
+     "answer": 3,
+     "explain": "Short-circuiting means 10 / x is never evaluated when x is 0, so A follows from R.",
+     "mistake": "Doesn't know about short-circuit evaluation"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is puzzled that 0 or 'Guest' gives 'Guest'. Explain logical, identity and membership operators.",
+    "must": [
+     [
+      "and",
+      "or",
+      "not",
+      "logical"
+     ],
+     [
+      "truthy",
+      "falsy",
+      "true",
+      "false"
+     ],
+     [
+      "is",
+      "identity",
+      "same object"
+     ],
+     [
+      "in",
+      "membership",
+      "not in"
+     ]
+    ],
+    "praise": "and/or return an operand based on truthiness, is checks identity and in checks membership. Python logic decoded!",
+    "nudge": "Nice. How do and/or behave with non-Boolean values, and what's the difference between is and ==?"
+   }
+  },
+  {
+   "id": "g11-cs-04-09",
+   "title": "Expressions, precedence and statements",
+   "covers": [
+    "c4.10.1",
+    "c4.10.2",
+    "c4.11.1"
+   ],
+   "learn": {
+    "hook": "2 ** 3 ** 2 is 512, not 64. Knowing which operator goes first is the difference between full marks and zero.",
+    "points": [
+     "An expression is a combination of values, variables and operators that Python evaluates to a single value: 3 + 4 * 2, x > 5, 'a' * 3.",
+     "Precedence (highest first): ( ) parentheses → ** → unary −, + → * / // % → binary + − → relational (==, !=, <, >, <=, >=) → not → and → or.",
+     "Associativity: operators of equal precedence are evaluated left to right, EXCEPT ** which is right to left: 2 ** 3 ** 2 = 2 ** 9 = 512.",
+     "Since ** binds tighter than unary minus, −2 ** 2 = −(2 ** 2) = −4. Use parentheses (−2) ** 2 = 4 when you mean it.",
+     "A statement is a unit of code that Python executes, e.g. x = 5, print(x), if ...: An expression produces a value; a statement performs an action (an expression can be part of a statement)."
+    ],
+    "example": {
+     "q": "Evaluate 20 − 3 * 2 ** 2 + 8 // 3.",
+     "steps": [
+      "** first: 2 ** 2 = 4",
+      "Then * and //, left to right: 3 * 4 = 12; 8 // 3 = 2",
+      "Then + and −, left to right: 20 − 12 = 8; 8 + 2 = 10"
+     ],
+     "answer": "10"
+    },
+    "reallife": "Spreadsheet formulas in an RBI report follow similar precedence rules: forget the brackets in an interest formula and the whole projection goes wrong."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Precedence ladder",
+     "prompt": "Highest to lowest precedence",
+     "items": [
+      "** (exponent)",
+      "* / // %",
+      "+ − (binary)",
+      "== != < > (relational)",
+      "not",
+      "and"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Evaluate it",
+     "items": [
+      {
+       "q": "2 + 3 * 4",
+       "a": "14",
+       "check": "2+3*4"
+      },
+      {
+       "q": "(2 + 3) * 4",
+       "a": "20",
+       "check": "(2+3)*4"
+      },
+      {
+       "q": "2 ** 3 ** 2",
+       "a": "512",
+       "check": "2**9"
+      },
+      {
+       "q": "-2 ** 2",
+       "a": "-4",
+       "check": "-4"
+      },
+      {
+       "q": "10 - 4 - 3",
+       "a": "3",
+       "check": "10-4-3"
+      },
+      {
+       "q": "15 // 4 % 3",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "2 * 3 ** 2",
+       "a": "18",
+       "check": "2*9"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint(2 ** 3 ** 2)",
+     "options": [
+      "64",
+      "36",
+      "12",
+      "512"
+     ],
+     "answer": 3,
+     "explain": "** is right-associative: 3 ** 2 = 9 first, then 2 ** 9 = 512.",
+     "mistake": "Evaluates left to right: (2 ** 3) ** 2 = 64",
+     "check": "2**9"
+    },
+    {
+     "q": "What is the output?\nprint(-3 ** 2)",
+     "options": [
+      "9",
+      "-9",
+      "6",
+      "-6"
+     ],
+     "answer": 1,
+     "explain": "** has higher precedence than unary minus: −(3 ** 2) = −9.",
+     "mistake": "Squares −3 first",
+     "check": "-9"
+    },
+    {
+     "q": "What is the output?\nprint(5 + 3 * 2 ** 2)",
+     "options": [
+      "17",
+      "32",
+      "64",
+      "11"
+     ],
+     "answer": 0,
+     "explain": "2 ** 2 = 4, 3 * 4 = 12, 5 + 12 = 17.",
+     "mistake": "Works left to right ignoring precedence",
+     "check": "5+3*4"
+    },
+    {
+     "q": "What is the output?\nprint(15 // 4 % 3)",
+     "options": [
+      "2",
+      "1",
+      "0",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "// and % have equal precedence and go left to right: 15 // 4 = 3, then 3 % 3 = 0.",
+     "mistake": "Evaluates 4 % 3 first",
+     "check": "0"
+    },
+    {
+     "q": "What is the output?\nprint(10 - 4 + 2 * 3 > 11)",
+     "options": [
+      "False",
+      "Error",
+      "True",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "2 * 3 = 6; 10 − 4 + 6 = 12; 12 > 11 is True. Arithmetic happens before comparison.",
+     "mistake": "Compares before finishing the arithmetic"
+    },
+    {
+     "q": "What is the output?\nprint(True or False and False)",
+     "options": [
+      "True",
+      "None",
+      "False",
+      "Error"
+     ],
+     "answer": 0,
+     "explain": "and has higher precedence: False and False = False; then True or False = True.",
+     "mistake": "Evaluates left to right: (True or False) and False"
+    },
+    {
+     "q": "Which of these is an expression rather than a complete statement that performs an action?",
+     "options": [
+      "x = 10",
+      "import math",
+      "a + b * 2",
+      "print(x)"
+     ],
+     "answer": 2,
+     "explain": "a + b * 2 just evaluates to a value; the others are statements that do something.",
+     "mistake": "Thinks any line with operators is a statement"
+    },
+    {
+     "q": "What is the output?\nprint(100 / 10 * 2)",
+     "options": [
+      "20.0",
+      "2.0",
+      "5.0",
+      "200.0"
+     ],
+     "answer": 0,
+     "explain": "/ and * go left to right: 100 / 10 = 10.0, then × 2 = 20.0 (a float because of /).",
+     "mistake": "Multiplies first and gets 100 / 20 = 5.0",
+     "check": "100/10*2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu calculated 2 ** 3 ** 2 as 64. Explain expressions, precedence and associativity in Python.",
+    "must": [
+     [
+      "precedence",
+      "priority",
+      "order"
+     ],
+     [
+      "associativity",
+      "right to left",
+      "left to right"
+     ],
+     [
+      "**",
+      "exponent",
+      "power"
+     ],
+     [
+      "parentheses",
+      "brackets"
+     ]
+    ],
+    "praise": "Precedence decides who goes first, and ** groups right to left, so it's 2 ** 9 = 512. Brackets save the day!",
+    "nudge": "Good. Which operator has the highest precedence, and which one is right-associative?"
+   }
+  },
+  {
+   "id": "g11-cs-04-10",
+   "title": "Input and output",
+   "covers": [
+    "c4.12.1",
+    "c4.12.2",
+    "c4.12.3"
+   ],
+   "learn": {
+    "hook": "input() always hands you a string. Type 5 and 3 into an adder without converting, and you'll get 53!",
+    "points": [
+     "input(prompt) shows the prompt, waits for the user to type and press Enter, and returns what was typed as a STRING.",
+     "To use the input as a number, convert it: age = int(input('Age: ')), price = float(input('Price: ')).",
+     "print() displays values separated by a space and ends with a newline. sep changes the separator: print(1, 2, 3, sep='-') gives 1-2-3. end changes the ending: print('Hi', end='!') prints Hi! with no newline.",
+     "Typical programs: area and perimeter of a rectangle, simple interest SI = P × R × T / 100, temperature F = C × 9/5 + 32, and swapping two values (a, b = b, a)."
+    ],
+    "example": {
+     "q": "Write a program to find simple interest.",
+     "steps": [
+      "P = float(input('Principal: '))",
+      "R = float(input('Rate: '))",
+      "T = float(input('Time: '))",
+      "SI = P * R * T / 100",
+      "print('Simple Interest =', SI)",
+      "For P = 1000, R = 5, T = 2: SI = 100.0"
+     ],
+     "answer": "Simple Interest = 100.0"
+    },
+    "reallife": "A railway fare calculator reads distance with input(), converts it with float() and prints the fare with print(), the same three steps you just learnt."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Complete the I/O code",
+     "items": [
+      {
+       "text": "age = ___(input('Age: '))  # to get a whole number",
+       "answer": "int",
+       "options": [
+        "int",
+        "str",
+        "print"
+       ]
+      },
+      {
+       "text": "print(1, 2, 3, ___='-')  # prints 1-2-3",
+       "answer": "sep",
+       "options": [
+        "sep",
+        "end",
+        "split"
+       ]
+      },
+      {
+       "text": "print('Hi', ___='')  # no newline after Hi",
+       "answer": "end",
+       "options": [
+        "end",
+        "sep",
+        "stop"
+       ]
+      },
+      {
+       "text": "The value returned by input() is always of type ___.",
+       "answer": "str",
+       "options": [
+        "str",
+        "int",
+        "float"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Output check",
+     "items": [
+      [
+       "print('A', 'B') prints A B with a space between.",
+       true,
+       "The default separator is a space."
+      ],
+      [
+       "input() returns an int if the user types digits.",
+       false,
+       "input() always returns a string."
+      ],
+      [
+       "print() ends with a newline by default.",
+       true,
+       "The default value of end is '\\n'."
+      ],
+      [
+       "print(5, 6, sep='') prints 56.",
+       true,
+       "The separator is an empty string."
+      ],
+      [
+       "F = C * 9/5 + 32 converts Celsius to Fahrenheit.",
+       true,
+       "That is the standard conversion formula."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A user types 5 and then 3 for the code below. What is printed?\na = input()\nb = input()\nprint(a + b)",
+     "options": [
+      "8",
+      "Error",
+      "53",
+      "5 3"
+     ],
+     "answer": 2,
+     "explain": "input() returns strings, and + joins strings: '5' + '3' = '53'.",
+     "mistake": "Forgets that input() returns a string",
+     "check": "53"
+    },
+    {
+     "q": "What is the output?\nprint(10, 20, 30, sep='*')",
+     "options": [
+      "10*20*30*",
+      "6000",
+      "10*20*30",
+      "10 20 30"
+     ],
+     "answer": 2,
+     "explain": "sep='*' puts * between the values, not after the last one.",
+     "mistake": "Thinks sep also appears at the end, or that * multiplies"
+    },
+    {
+     "q": "What is the output?\nprint('Good', end=' ')\nprint('Morning')",
+     "options": [
+      "Morning Good",
+      "Good end Morning",
+      "Good Morning",
+      "GoodMorning"
+     ],
+     "answer": 2,
+     "explain": "end=' ' replaces the newline with a space, so 'Morning' follows on the same line.",
+     "mistake": "Ignores the end parameter"
+    },
+    {
+     "q": "Which statement correctly reads a decimal price from the user?",
+     "options": [
+      "price = int(input('Price: '))",
+      "price = input(float('Price: '))",
+      "price = float(input('Price: '))",
+      "price = float('Price: ')"
+     ],
+     "answer": 2,
+     "explain": "input() reads a string, and float() converts it to a decimal number.",
+     "mistake": "Puts float() inside input() or uses int() for decimals"
+    },
+    {
+     "q": "For P = 2000, R = 6 and T = 3, what does this print?\nP, R, T = 2000, 6, 3\nprint(P * R * T / 100)",
+     "options": [
+      "3600.0",
+      "360.0",
+      "36000.0",
+      "36.0"
+     ],
+     "answer": 1,
+     "explain": "2000 × 6 × 3 / 100 = 360.0; / gives a float.",
+     "mistake": "Forgets to divide by 100, or divides by 1000",
+     "check": "2000*6*3/100"
+    },
+    {
+     "q": "The user types 25 for the code below. What is printed?\nC = float(input())\nprint(C * 9 / 5 + 32)",
+     "options": [
+      "57.0",
+      "45.0",
+      "77.0",
+      "13.88888888888889"
+     ],
+     "answer": 2,
+     "explain": "25 × 9 / 5 + 32 = 45 + 32 = 77.0.",
+     "mistake": "Forgets the × 9/5 step, forgets the + 32, or uses the reverse formula",
+     "check": "25*9/5+32"
+    },
+    {
+     "q": "What is the output?\nl, b = 6, 4\nprint('Area', l * b, 'Perimeter', 2 * (l + b))",
+     "options": [
+      "Area 24 Perimeter 10",
+      "Area 10 Perimeter 24",
+      "Area 24 Perimeter 20",
+      "Area24Perimeter20"
+     ],
+     "answer": 2,
+     "explain": "Area = 6 × 4 = 24 and perimeter = 2 × (6 + 4) = 20; print separates items with spaces.",
+     "mistake": "Forgets to double (l + b)"
+    },
+    {
+     "q": "The user types 7 for the code below. What is printed?\nn = input()\nprint(type(n))",
+     "options": [
+      "7",
+      "<class 'str'>",
+      "<class 'float'>",
+      "<class 'int'>"
+     ],
+     "answer": 1,
+     "explain": "input() always returns a string, even when the user types digits.",
+     "mistake": "Thinks input() gives an int when digits are typed"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's adder program says 5 + 3 = 53. Explain how input() and print() work, including sep and end.",
+    "must": [
+     [
+      "input",
+      "string",
+      "str"
+     ],
+     [
+      "int",
+      "float",
+      "convert",
+      "conversion"
+     ],
+     [
+      "print",
+      "sep",
+      "end"
+     ]
+    ],
+    "praise": "input() gives a string, so I must convert with int() or float(). And sep and end control how print() looks!",
+    "nudge": "Getting there. What type does input() return, and how do we fix that for numbers?"
+   }
+  },
+  {
+   "id": "g11-cs-04-11",
+   "title": "Type conversion",
+   "covers": [
+    "c4.13.1",
+    "c4.13.2"
+   ],
+   "learn": {
+    "hook": "int('42') works. int('4.2') crashes. int(4.9) quietly gives 4. Type conversion has rules worth memorising.",
+    "points": [
+     "Explicit conversion (type casting) is done by the programmer using functions: int(), float(), str(), chr(), ord(), and also list(), tuple(), bool().",
+     "int(x): converts a float by dropping the fractional part (int(4.9) → 4, int(−4.9) → −4), or a string of digits ('42' → 42). int('4.2') and int('abc') raise ValueError.",
+     "float('3.5') → 3.5; float(7) → 7.0; str(25) → '25'. chr(65) → 'A' (code to character); ord('a') → 97 (character to code).",
+     "Implicit conversion (coercion) is done automatically by Python to avoid data loss: int + float gives float (5 + 2.0 = 7.0); True + 1 = 2.",
+     "Python does NOT implicitly convert between str and numbers: '5' + 2 raises TypeError."
+    ],
+    "example": {
+     "q": "Predict: int(7.8) + float('2.5') + int('3').",
+     "steps": [
+      "int(7.8) → 7 (fraction dropped)",
+      "float('2.5') → 2.5",
+      "int('3') → 3",
+      "7 + 2.5 + 3 = 12.5 (implicit conversion makes it a float)"
+     ],
+     "answer": "12.5"
+    },
+    "reallife": "When a bank app reads ₹1500.75 from a text box, it gets a string; float() converts it so interest can be calculated, and str() turns the result back into text for the SMS."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Expression ↔ result",
+     "pairs": [
+      [
+       "int(9.99)",
+       "9"
+      ],
+      [
+       "float(4)",
+       "4.0"
+      ],
+      [
+       "str(10) + '5'",
+       "'105'"
+      ],
+      [
+       "chr(66)",
+       "'B'"
+      ],
+      [
+       "ord('a')",
+       "97"
+      ],
+      [
+       "int('12') + 3",
+       "15"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Works or error?",
+     "buckets": [
+      "Works",
+      "Raises an error"
+     ],
+     "items": [
+      [
+       "int('25')",
+       0
+      ],
+      [
+       "float('2.5')",
+       0
+      ],
+      [
+       "int(3.99)",
+       0
+      ],
+      [
+       "str(3.5)",
+       0
+      ],
+      [
+       "int('2.5')",
+       1
+      ],
+      [
+       "int('abc')",
+       1
+      ],
+      [
+       "'Age: ' + 16",
+       1
+      ],
+      [
+       "float('ten')",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint(int(9.99), int(-2.5))",
+     "options": [
+      "10 -2",
+      "9 -3",
+      "10 -3",
+      "9 -2"
+     ],
+     "answer": 3,
+     "explain": "int() drops the fractional part (truncates towards zero); it does not round.",
+     "mistake": "Rounds instead of truncating"
+    },
+    {
+     "q": "What is the output?\nprint(int('4.5'))",
+     "options": [
+      "4.5",
+      "4",
+      "ValueError",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "int() cannot convert a string that contains a decimal point.",
+     "mistake": "Thinks int() rounds or truncates the string"
+    },
+    {
+     "q": "What is the output?\nprint('Total: ' + 50)",
+     "options": [
+      "ValueError",
+      "Total: 50",
+      "TypeError",
+      "Total: + 50"
+     ],
+     "answer": 2,
+     "explain": "A str and an int cannot be joined with +; use str(50).",
+     "mistake": "Expects Python to convert 50 to text automatically"
+    },
+    {
+     "q": "What is the output?\nprint(5 + 2.0, type(5 + 2.0))",
+     "options": [
+      "7 <class 'int'>",
+      "7 <class 'float'>",
+      "7.0 <class 'float'>",
+      "52.0 <class 'str'>"
+     ],
+     "answer": 2,
+     "explain": "Python implicitly converts the int 5 to float, so the result is the float 7.0.",
+     "mistake": "Thinks the result stays an int"
+    },
+    {
+     "q": "What is the output?\nprint(chr(ord('a') + 2))",
+     "options": [
+      "c",
+      "b",
+      "99",
+      "a2"
+     ],
+     "answer": 0,
+     "explain": "ord('a') = 97, 97 + 2 = 99, and chr(99) = 'c'.",
+     "mistake": "Adds only 1, or prints the number"
+    },
+    {
+     "q": "What is the output?\nprint(str(12) * 2, int('12') * 2)",
+     "options": [
+      "24 24",
+      "1212 24",
+      "24 1212",
+      "1212 1212"
+     ],
+     "answer": 1,
+     "explain": "A string times 2 repeats it; an int times 2 doubles it.",
+     "mistake": "Mixes string repetition with multiplication"
+    },
+    {
+     "q": "Which is an example of implicit type conversion?",
+     "options": [
+      "3 + 4.5 giving 7.5",
+      "int('7') giving 7",
+      "float('2') giving 2.0",
+      "str(9) giving '9'"
+     ],
+     "answer": 0,
+     "explain": "Python converts 3 to float on its own here; the others use explicit functions.",
+     "mistake": "Calls every conversion implicit"
+    },
+    {
+     "q": "What is the output?\nx = int(float('7.9'))\nprint(x + 1)",
+     "options": [
+      "9",
+      "8.9",
+      "8",
+      "ValueError"
+     ],
+     "answer": 2,
+     "explain": "float('7.9') = 7.9; int(7.9) = 7; 7 + 1 = 8.",
+     "mistake": "Rounds 7.9 to 8 before adding",
+     "check": "7+1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu got an error with 'Marks: ' + 95. Explain explicit and implicit type conversion in Python.",
+    "must": [
+     [
+      "explicit",
+      "type casting",
+      "casting"
+     ],
+     [
+      "implicit",
+      "automatic",
+      "coercion"
+     ],
+     [
+      "int",
+      "float",
+      "str"
+     ]
+    ],
+    "praise": "Explicit is when I use int(), float() or str(); implicit is Python's own int-to-float upgrade. I'll write 'Marks: ' + str(95)!",
+    "nudge": "Good. What's the difference between explicit and implicit conversion, and which functions do we use?"
+   }
+  },
+  {
+   "id": "g11-cs-04-12",
+   "title": "Debugging: syntax, logical and runtime errors",
+   "covers": [
+    "c4.14.1",
+    "c4.14.2",
+    "c4.14.3",
+    "c4.14.4",
+    "c4.14.5"
+   ],
+   "learn": {
+    "hook": "The program runs, no red text, but your average of 80 and 90 comes out as 125. That's the sneakiest kind of bug.",
+    "points": [
+     "Debugging is the process of finding and removing errors (bugs) from a program.",
+     "Syntax error: the code breaks the rules of the language (missing colon, unmatched bracket, misspelt keyword). Python refuses to run the program. e.g. print('Hi' → SyntaxError.",
+     "Logical error: the program runs without crashing but gives the wrong output because the logic is wrong, e.g. average = a + b / 2 instead of (a + b) / 2. Python gives no message, so these are hardest to find.",
+     "Runtime error (exception): the program starts but stops during execution, e.g. ZeroDivisionError (10 / 0), ValueError (int('abc')), TypeError ('5' + 2), NameError (using an undefined name), IndexError.",
+     "Exam tasks: identify valid identifiers, evaluate expressions, predict output, name the error type, and write small programs."
+    ],
+    "example": {
+     "q": "Classify: (a) if x > 5 print(x)  (b) avg = a + b / 2  (c) print(10 / n) with n = 0",
+     "steps": [
+      "(a) Missing colon after the condition → syntax error",
+      "(b) Runs but divides only b by 2 → logical error",
+      "(c) Starts running, then crashes when dividing by zero → runtime error (ZeroDivisionError)"
+     ],
+     "answer": "Syntax, logical, runtime"
+    },
+    "reallife": "Bank software that rounds interest the wrong way never crashes but leaks money: a logical error. That's why banks test with known answers before going live."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which error type?",
+     "buckets": [
+      "Syntax error",
+      "Logical error",
+      "Runtime error"
+     ],
+     "items": [
+      [
+       "Missing ) in print('Hi'",
+       0
+      ],
+      [
+       "Writing whlie instead of while",
+       0
+      ],
+      [
+       "Missing colon after if condition",
+       0
+      ],
+      [
+       "Area = 2 * l * b for a rectangle",
+       1
+      ],
+      [
+       "Using > instead of >= for pass marks",
+       1
+      ],
+      [
+       "Dividing by a user input that is 0",
+       2
+      ],
+      [
+       "int('abc')",
+       2
+      ],
+      [
+       "Using a variable that was never defined",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Exception ↔ cause",
+     "pairs": [
+      [
+       "ZeroDivisionError",
+       "Dividing by zero"
+      ],
+      [
+       "ValueError",
+       "int('hello')"
+      ],
+      [
+       "TypeError",
+       "'5' + 2"
+      ],
+      [
+       "NameError",
+       "Using an undefined variable"
+      ],
+      [
+       "IndexError",
+       "Accessing a list position that doesn't exist"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A program to find the average of two numbers uses avg = a + b / 2. What kind of error is this?",
+     "options": [
+      "Syntax error",
+      "Logical error",
+      "No error",
+      "Runtime error"
+     ],
+     "answer": 1,
+     "explain": "It runs but gives the wrong answer because / binds tighter than +.",
+     "mistake": "Thinks wrong output must come with an error message"
+    },
+    {
+     "q": "Which line has a syntax error?",
+     "options": [
+      "x = marks // 2",
+      "print('Pass')",
+      "marks = 40",
+      "if marks >= 33 print('Pass')"
+     ],
+     "answer": 3,
+     "explain": "The colon after the if condition is missing.",
+     "mistake": "Doesn't notice the missing colon"
+    },
+    {
+     "q": "What is the output?\nn = 0\nprint(10 / n)",
+     "options": [
+      "ZeroDivisionError",
+      "inf",
+      "10",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "Division by zero stops the program with a runtime error.",
+     "mistake": "Thinks Python returns infinity or 0"
+    },
+    {
+     "q": "What is the output?\nprint(total)\ntotal = 5",
+     "options": [
+      "NameError",
+      "SyntaxError",
+      "0",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "total is used before it is assigned, so Python cannot find the name.",
+     "mistake": "Thinks Python looks ahead for the assignment"
+    },
+    {
+     "q": "Which error is generally hardest to detect?",
+     "options": [
+      "NameError",
+      "Logical error",
+      "Syntax error",
+      "ZeroDivisionError"
+     ],
+     "answer": 1,
+     "explain": "Logical errors produce no message; the program just gives wrong results.",
+     "mistake": "Thinks errors with messages are harder"
+    },
+    {
+     "q": "int(input()) is run and the user types 'twelve'. What happens?",
+     "options": [
+      "A syntax error",
+      "A logical error",
+      "A runtime error (ValueError)",
+      "It prints 12"
+     ],
+     "answer": 2,
+     "explain": "The code is valid, but converting 'twelve' to int fails while running.",
+     "mistake": "Calls every crash a syntax error"
+    },
+    {
+     "q": "A student's program stops with 'IndentationError: expected an indented block'. This is a type of:",
+     "options": [
+      "Syntax error",
+      "Logical error",
+      "Hardware error",
+      "Runtime ZeroDivisionError"
+     ],
+     "answer": 0,
+     "explain": "IndentationError is a kind of SyntaxError detected before the program runs.",
+     "mistake": "Thinks indentation problems are logical errors"
+    },
+    {
+     "q": "Assertion (A): A program with a logical error can run to completion.\nReason (R): Logical errors break the syntax rules of Python.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "A is true but R is false",
+      "Both A and R are false"
+     ],
+     "answer": 2,
+     "explain": "Logical errors don't break syntax, which is why the program runs; R is false.",
+     "mistake": "Confuses logical errors with syntax errors"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's average program gives 125 for 80 and 90 without any error message. Explain the three types of errors and debugging.",
+    "must": [
+     [
+      "syntax",
+      "syntax error"
+     ],
+     [
+      "logical",
+      "logical error",
+      "wrong output"
+     ],
+     [
+      "runtime",
+      "runtime error",
+      "exception",
+      "crash"
+     ],
+     [
+      "debug",
+      "debugging",
+      "fix"
+     ]
+    ],
+    "praise": "So it's a logical error — the code runs but the formula is wrong. Syntax errors stop it from starting and runtime errors crash it midway!",
+    "nudge": "Good. Can you name the three error types and say which one runs but gives wrong output?"
+   }
+  }
+ ]
+}

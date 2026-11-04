@@ -1,0 +1,2194 @@
+{
+ "n": 8,
+ "title": "Tuples and Dictionaries",
+ "emoji": "🗂️",
+ "topics": [
+  {
+   "id": "g11-cs-08-01",
+   "title": "Tuples: creation, indexing and immutability",
+   "covers": [
+    "c8.1.1",
+    "c8.1.2",
+    "c8.1.3",
+    "c8.1.4"
+   ],
+   "learn": {
+    "hook": "The GPS coordinates of India Gate, (28.6129, 77.2295), should never change by accident. Tuples are Python's locked boxes.",
+    "points": [
+     "A tuple is an ordered, immutable sequence written in parentheses: t = (10, 'Goa', 3.5). The parentheses are optional: t = 10, 20 also makes a tuple. () is an empty tuple.",
+     "A single-element tuple needs a trailing comma: (5,) is a tuple, but (5) is just the int 5.",
+     "Indexing works as in strings and lists: t[0] is the first element, t[−1] the last; out-of-range indices raise IndexError.",
+     "Tuples are immutable: t[0] = 1 raises TypeError, and there is no append() or remove(). But if a tuple contains a mutable object such as a list, that list's contents can change: t = (1, [2, 3]); t[1].append(4) is allowed.",
+     "Prefer tuples for fixed data that must not change (days of the week, coordinates, records); they are also slightly faster to iterate over than lists."
+    ],
+    "example": {
+     "q": "t = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri'). Find t[1], t[−2] and say what t[0] = 'Sun' does.",
+     "steps": [
+      "t[1] = 'Tue'",
+      "t[−2] = 'Thu'",
+      "t[0] = 'Sun' raises TypeError: tuples cannot be modified"
+     ],
+     "answer": "'Tue', 'Thu', TypeError"
+    },
+    "reallife": "A railway timetable stores each train's fixed route as a tuple of station codes, e.g. ('NDLS', 'CNB', 'PRYJ', 'DDU'), so no program can reorder it by mistake."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Tuple or not?",
+     "buckets": [
+      "Is a tuple",
+      "Is not a tuple"
+     ],
+     "items": [
+      [
+       "(5,)",
+       0
+      ],
+      [
+       "()",
+       0
+      ],
+      [
+       "1, 2, 3",
+       0
+      ],
+      [
+       "('a', 'b')",
+       0
+      ],
+      [
+       "(5)",
+       1
+      ],
+      [
+       "[5]",
+       1
+      ],
+      [
+       "'5,'",
+       1
+      ],
+      [
+       "{5}",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Tuple truths",
+     "items": [
+      [
+       "Tuples are immutable.",
+       true,
+       "Their elements cannot be reassigned."
+      ],
+      [
+       "(7) is a tuple with one element.",
+       false,
+       "Without a comma, (7) is just the int 7."
+      ],
+      [
+       "A list inside a tuple can be modified.",
+       true,
+       "The tuple holds a reference to a mutable list."
+      ],
+      [
+       "Tuples support the append() method.",
+       false,
+       "Being immutable, tuples have no append()."
+      ],
+      [
+       "t[-1] gives the last element of tuple t.",
+       true,
+       "Negative indexing works for tuples too."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\na = (9)\nb = (9,)\nprint(type(a), type(b))",
+     "options": [
+      "<class 'tuple'> <class 'tuple'>",
+      "<class 'int'> <class 'int'>",
+      "<class 'tuple'> <class 'int'>",
+      "<class 'int'> <class 'tuple'>"
+     ],
+     "answer": 3,
+     "explain": "(9) is just 9 in brackets; (9,) is a one-element tuple.",
+     "mistake": "Thinks parentheses alone make a tuple"
+    },
+    {
+     "q": "What is the output?\nt = (1, 2, 3)\nt[0] = 5\nprint(t)",
+     "options": [
+      "(1, 2, 3)",
+      "IndexError",
+      "(5, 2, 3)",
+      "TypeError"
+     ],
+     "answer": 3,
+     "explain": "Tuples are immutable, so item assignment fails.",
+     "mistake": "Thinks tuples can be edited like lists"
+    },
+    {
+     "q": "What is the output?\nt = (1, [2, 3])\nt[1].append(4)\nprint(t)",
+     "options": [
+      "(1, [2, 3])",
+      "(1, 2, 3, 4)",
+      "(1, [2, 3, 4])",
+      "TypeError"
+     ],
+     "answer": 2,
+     "explain": "The tuple can't change, but the list inside it is mutable.",
+     "mistake": "Thinks nothing inside a tuple can change"
+    },
+    {
+     "q": "What is the output?\nt = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri')\nprint(t[-2], t[1])",
+     "options": [
+      "Fri Tue",
+      "Wed Tue",
+      "Thu Mon",
+      "Thu Tue"
+     ],
+     "answer": 3,
+     "explain": "t[−2] is the second-last ('Thu'); t[1] is 'Tue'.",
+     "mistake": "Treats −2 as the second element"
+    },
+    {
+     "q": "What is the output?\nt = 4, 5, 6\nprint(type(t), len(t))",
+     "options": [
+      "<class 'int'> 1",
+      "<class 'list'> 3",
+      "<class 'tuple'> 1",
+      "<class 'tuple'> 3"
+     ],
+     "answer": 3,
+     "explain": "Comma-separated values without brackets still form a tuple.",
+     "mistake": "Thinks brackets are compulsory for tuples"
+    },
+    {
+     "q": "Which data is best stored as a tuple rather than a list?",
+     "options": [
+      "Items in a shopping cart",
+      "The latitude and longitude of a city",
+      "Names of students joining a club during the year",
+      "Today's to-do list"
+     ],
+     "answer": 1,
+     "explain": "Coordinates are fixed data, so an immutable tuple protects them.",
+     "mistake": "Chooses data that changes often"
+    },
+    {
+     "q": "What is the output?\nt = ('a', 'b', 'c')\nprint(t[3])",
+     "options": [
+      "('a', 'b', 'c')",
+      "None",
+      "c",
+      "IndexError"
+     ],
+     "answer": 3,
+     "explain": "Valid indices are 0, 1, 2; t[3] is out of range.",
+     "mistake": "Thinks the last index equals the length"
+    },
+    {
+     "q": "Assertion (A): Tuples are preferred for data that should not change.\nReason (R): A tuple can hold elements of different data types.",
+     "options": [
+      "A is false but R is true",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 3,
+     "explain": "Both are true, but holding mixed types (lists can too) is not why tuples suit fixed data; immutability is.",
+     "mistake": "Accepts any true reason as the explanation"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders why we need tuples if we have lists. Explain what a tuple is, the single-element rule and immutability.",
+    "must": [
+     [
+      "tuple",
+      "parentheses",
+      "brackets"
+     ],
+     [
+      "immutable",
+      "cannot be changed",
+      "cannot change"
+     ],
+     [
+      "comma",
+      "trailing comma",
+      "(5,)"
+     ],
+     [
+      "fixed",
+      "constant",
+      "should not change"
+     ]
+    ],
+    "praise": "A tuple is an immutable sequence for fixed data, and (5,) needs that comma. Lists for changing data, tuples for locked data!",
+    "nudge": "Good. How is a tuple different from a list, and how do you write a tuple with one element?"
+   }
+  },
+  {
+   "id": "g11-cs-08-02",
+   "title": "Tuple operations and built-in functions",
+   "covers": [
+    "c8.2.1",
+    "c8.3.1",
+    "c8.3.2"
+   ],
+   "learn": {
+    "hook": "You can't change a tuple, but you can join, repeat, slice and search it. Every one of these makes a NEW tuple.",
+    "points": [
+     "Concatenation: (1, 2) + (3,) → (1, 2, 3). Both operands must be tuples; (1, 2) + 3 raises TypeError.",
+     "Repetition: ('Hi',) * 3 → ('Hi', 'Hi', 'Hi'). Membership: 3 in (1, 2, 3) → True. Slicing: t[1:3], t[::−1] return new tuples.",
+     "len(t) gives the number of elements; tuple(seq) converts a sequence: tuple('abc') → ('a', 'b', 'c'), tuple([1, 2]) → (1, 2).",
+     "t.count(x) counts occurrences; t.index(x) gives the first index of x (ValueError if absent).",
+     "sorted(t) returns a sorted LIST (not a tuple). min(t), max(t) and sum(t) work on numeric tuples."
+    ],
+    "example": {
+     "q": "For t = (5, 2, 8, 2, 9), find t[1:4], t.count(2), sorted(t), sum(t).",
+     "steps": [
+      "t[1:4] = (2, 8, 2)",
+      "2 occurs twice → count = 2",
+      "sorted(t) = [2, 2, 5, 8, 9] (a list!)",
+      "sum = 5 + 2 + 8 + 2 + 9 = 26"
+     ],
+     "answer": "(2, 8, 2), 2, [2, 2, 5, 8, 9], 26"
+    },
+    "reallife": "Monthly temperature readings for Delhi stored as a tuple can be summarised with max(), min() and sum() without risking any change to the official data."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "t = (4, 1, 4, 7): expression ↔ result",
+     "pairs": [
+      [
+       "t.count(4)",
+       "2"
+      ],
+      [
+       "t.index(7)",
+       "3"
+      ],
+      [
+       "sorted(t)",
+       "[1, 4, 4, 7]"
+      ],
+      [
+       "t + (0,)",
+       "(4, 1, 4, 7, 0)"
+      ],
+      [
+       "t[::-1]",
+       "(7, 4, 1, 4)"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Tuple quickfire",
+     "items": [
+      {
+       "q": "len((1, 2, 3) * 2)",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "sum((10, 20, 30))",
+       "a": "60",
+       "check": "10+20+30"
+      },
+      {
+       "q": "max((3, 9, 4))",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "min((3, 9, 4))",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "(5, 5, 6).count(5)",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "len(tuple('Hello'))",
+       "a": "5",
+       "check": "5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint((5, 6) + (7, 8))",
+     "options": [
+      "((5, 6), (7, 8))",
+      "TypeError",
+      "(12, 14)",
+      "(5, 6, 7, 8)"
+     ],
+     "answer": 3,
+     "explain": "+ joins the tuples into a new tuple.",
+     "mistake": "Adds the elements pairwise"
+    },
+    {
+     "q": "What is the output?\nprint((5, 6) + 7)",
+     "options": [
+      "(5, 6)",
+      "18",
+      "(5, 6, 7)",
+      "TypeError"
+     ],
+     "answer": 3,
+     "explain": "A tuple can only be concatenated with another tuple; 7 is an int.",
+     "mistake": "Thinks + appends the number"
+    },
+    {
+     "q": "What is the output?\nt = (5, 1, 3)\ns = sorted(t)\nprint(s, type(s))",
+     "options": [
+      "(1, 3, 5) <class 'tuple'>",
+      "[1, 3, 5] <class 'tuple'>",
+      "[1, 3, 5] <class 'list'>",
+      "(5, 3, 1) <class 'tuple'>"
+     ],
+     "answer": 2,
+     "explain": "sorted() always returns a list, even for a tuple.",
+     "mistake": "Thinks sorted() returns the same type"
+    },
+    {
+     "q": "What is the output?\nprint(tuple('Goa'))",
+     "options": [
+      "('G', 'o', 'a')",
+      "['G', 'o', 'a']",
+      "('Goa',)",
+      "('Goa')"
+     ],
+     "answer": 0,
+     "explain": "tuple() on a string makes a tuple of its characters.",
+     "mistake": "Expects a single-element tuple"
+    },
+    {
+     "q": "What is the output?\nt = ('a', 'b', 'c', 'b')\nprint(t.count('b'), t.index('b'))",
+     "options": [
+      "2 1",
+      "2 3",
+      "3 1",
+      "1 1"
+     ],
+     "answer": 0,
+     "explain": "'b' occurs twice; its first index is 1.",
+     "mistake": "Gives the last index or counts wrongly"
+    },
+    {
+     "q": "What is the output?\nt = (10, 20, 30, 40)\nprint(t[1:3])",
+     "options": [
+      "(20, 30)",
+      "[20, 30]",
+      "(20, 30, 40)",
+      "(10, 20, 30)"
+     ],
+     "answer": 0,
+     "explain": "Slicing a tuple gives a new tuple from index 1 up to 2.",
+     "mistake": "Includes the stop index"
+    },
+    {
+     "q": "What is the output?\nt = (5, 10, 15)\nprint(5 in t, '5' in t)",
+     "options": [
+      "False False",
+      "True False",
+      "True True",
+      "False True"
+     ],
+     "answer": 1,
+     "explain": "5 is an element; '5' (a string) is not.",
+     "mistake": "Ignores the difference between 5 and '5'"
+    },
+    {
+     "q": "What is the output?\nt = (4, 9, 1, 6)\nprint(max(t), min(t), sum(t))",
+     "options": [
+      "9 1 20",
+      "9 1 15",
+      "20 9 1",
+      "1 9 20"
+     ],
+     "answer": 0,
+     "explain": "max = 9, min = 1, sum = 4 + 9 + 1 + 6 = 20.",
+     "mistake": "Mixes up max and min"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If tuples can't change, what can I do with them?' Explain tuple operations and built-in functions.",
+    "must": [
+     [
+      "concatenation",
+      "join",
+      "joins"
+     ],
+     [
+      "slice",
+      "slicing",
+      "membership"
+     ],
+     [
+      "count",
+      "index"
+     ],
+     [
+      "sorted",
+      "list",
+      "max",
+      "min",
+      "sum"
+     ]
+    ],
+    "praise": "Join, repeat, slice, search, count and summarise — all without changing the tuple. And sorted() hands back a list!",
+    "nudge": "Good. Which operations work on tuples, and what type does sorted() return?"
+   }
+  },
+  {
+   "id": "g11-cs-08-03",
+   "title": "Tuple assignment and nested tuples",
+   "covers": [
+    "c8.4.1",
+    "c8.4.2",
+    "c8.5.1"
+   ],
+   "learn": {
+    "hook": "a, b = b, a swaps two values in one line, no third variable needed. That's tuple assignment.",
+    "points": [
+     "Tuple assignment (unpacking): (x, y, z) = (1, 2, 3) or x, y, z = 1, 2, 3 assigns each value to the matching variable in order.",
+     "Swapping: a, b = b, a. The right side is evaluated first into a tuple (b, a), then unpacked.",
+     "The number of variables on the left must equal the number of values: a, b = (1, 2, 3) raises ValueError (too many values to unpack); a, b, c = (1, 2) raises ValueError (not enough values).",
+     "A nested tuple contains tuples as elements, e.g. student records: st = ((101, 'Asha', 92), (102, 'Ravi', 85)). st[1][1] is 'Ravi'.",
+     "Loop over records with unpacking: for roll, name, marks in st: print(roll, name, marks)."
+    ],
+    "example": {
+     "q": "Print each record of st = ((1, 'Asha', 92), (2, 'Ravi', 85)).",
+     "steps": [
+      "for roll, name, marks in st:",
+      "    print(roll, name, marks)",
+      "First pass: roll = 1, name = 'Asha', marks = 92",
+      "Second pass: roll = 2, name = 'Ravi', marks = 85"
+     ],
+     "answer": "1 Asha 92 / 2 Ravi 85"
+    },
+    "reallife": "A cricket scorecard can store each batter as a tuple (name, runs, balls) inside a bigger tuple for the innings, then unpack it to print the card."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Statement ↔ result",
+     "pairs": [
+      [
+       "a, b = 3, 4",
+       "a = 3, b = 4"
+      ],
+      [
+       "a, b = b, a (after a=3, b=4)",
+       "a = 4, b = 3"
+      ],
+      [
+       "x, y = (1, 2, 3)",
+       "ValueError"
+      ],
+      [
+       "p, q, r = 'abc'",
+       "p = 'a', q = 'b', r = 'c'"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Unpacking rules",
+     "items": [
+      [
+       "x, y = 10, 20 assigns 10 to x and 20 to y.",
+       true,
+       "Values are assigned in order."
+      ],
+      [
+       "a, b = (1, 2, 3) works and ignores 3.",
+       false,
+       "It raises ValueError: too many values to unpack."
+      ],
+      [
+       "Swapping with a, b = b, a needs a temporary variable.",
+       false,
+       "Tuple assignment swaps directly."
+      ],
+      [
+       "In ((1, 2), (3, 4)), t[1][0] is 3.",
+       true,
+       "t[1] is (3, 4), and its index 0 is 3."
+      ],
+      [
+       "A tuple can contain other tuples.",
+       true,
+       "That is a nested tuple."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nx, y = 10, 20\nx, y = y, x\nprint(x, y)",
+     "options": [
+      "20 10",
+      "20 20",
+      "10 10",
+      "10 20"
+     ],
+     "answer": 0,
+     "explain": "The right side (20, 10) is built first, then unpacked into x and y.",
+     "mistake": "Thinks the first assignment overwrites x before the second"
+    },
+    {
+     "q": "What is the output?\na, b = (1, 2, 3)\nprint(a, b)",
+     "options": [
+      "1 2 3",
+      "1 2",
+      "TypeError",
+      "ValueError"
+     ],
+     "answer": 3,
+     "explain": "Two variables can't receive three values.",
+     "mistake": "Thinks extra values are ignored"
+    },
+    {
+     "q": "What is the output?\nst = ((101, 'Asha', 92), (102, 'Ravi', 85))\nprint(st[1][1])",
+     "options": [
+      "85",
+      "102",
+      "('Ravi',)",
+      "Ravi"
+     ],
+     "answer": 3,
+     "explain": "st[1] is the second record (102, 'Ravi', 85) and its index 1 is 'Ravi'.",
+     "mistake": "Counts records from 1"
+    },
+    {
+     "q": "What is the output?\nst = ((101, 'Asha', 92), (102, 'Ravi', 85))\nfor roll, name, marks in st:\n    print(name, marks)",
+     "options": [
+      "Asha Ravi",
+      "101 102",
+      "Asha 92\nRavi 85",
+      "92\n85"
+     ],
+     "answer": 2,
+     "explain": "Each record is unpacked into roll, name and marks; name and marks are printed.",
+     "mistake": "Prints the wrong fields"
+    },
+    {
+     "q": "What is the output?\na, b, c = 'Pyt'\nprint(a, b, c)",
+     "options": [
+      "('P', 'y', 't')",
+      "P y t",
+      "Pyt",
+      "ValueError"
+     ],
+     "answer": 1,
+     "explain": "A 3-character string can be unpacked into three variables.",
+     "mistake": "Thinks only tuples can be unpacked"
+    },
+    {
+     "q": "What is the output?\nst = ((101, 'Asha', 92), (102, 'Ravi', 85))\ntotal = 0\nfor r in st:\n    total += r[2]\nprint(total)",
+     "options": [
+      "177",
+      "92",
+      "2",
+      "85"
+     ],
+     "answer": 0,
+     "explain": "The loop adds the marks of both records: 92 + 85 = 177.",
+     "mistake": "Adds roll numbers or picks one record",
+     "check": "92+85"
+    },
+    {
+     "q": "What is the output?\na, b, c = 1, 2, 3\na, b, c = c, a, b\nprint(a, b, c)",
+     "options": [
+      "1 2 3",
+      "2 3 1",
+      "3 1 2",
+      "3 2 1"
+     ],
+     "answer": 2,
+     "explain": "The right side (3, 1, 2) is evaluated first and then assigned in order.",
+     "mistake": "Rotates in the wrong direction"
+    },
+    {
+     "q": "Assertion (A): a, b = b, a swaps the values of a and b.\nReason (R): The right-hand side is evaluated completely into a tuple before any assignment happens.",
+     "options": [
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Because (b, a) is built first, assigning it doesn't lose either value.",
+     "mistake": "Thinks assignments happen one at a time from left to right"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu swaps values with a third variable and wants a shortcut. Explain tuple assignment, its rule about counts, and nested tuples.",
+    "must": [
+     [
+      "unpack",
+      "unpacking",
+      "tuple assignment"
+     ],
+     [
+      "swap",
+      "a, b = b, a"
+     ],
+     [
+      "same number",
+      "match",
+      "valueerror"
+     ],
+     [
+      "nested",
+      "tuple inside",
+      "records"
+     ]
+    ],
+    "praise": "a, b = b, a swaps instantly, the counts must match or it's a ValueError, and nested tuples hold records. Neat!",
+    "nudge": "Good. What must be true about the number of variables and values in tuple assignment?"
+   }
+  },
+  {
+   "id": "g11-cs-08-04",
+   "title": "Tuple programs",
+   "covers": [
+    "c8.6.1",
+    "c8.6.2"
+   ],
+   "learn": {
+    "hook": "A function can return two answers at once, like a circle's area AND circumference, packed neatly in a tuple.",
+    "points": [
+     "Swap two numbers using tuple assignment: a, b = b, a.",
+     "A function can return several values as a tuple: return area, circumference; then unpack: a, c = circle(r).",
+     "Min, max and mean of tuple values: min(t), max(t), sum(t) / len(t).",
+     "Linear search in a tuple: loop with an index and compare each element with the key; report position or 'not found'.",
+     "Frequency of elements: for each unique element, use t.count(x), or count in a loop."
+    ],
+    "example": {
+     "q": "Write a function that returns the area and circumference of a circle of radius 7 (use π = 22/7).",
+     "steps": [
+      "def circle(r):",
+      "    return 22/7 * r * r, 2 * 22/7 * r",
+      "a, c = circle(7)",
+      "a = 22/7 × 49 = 154.0; c = 2 × 22/7 × 7 = 44.0"
+     ],
+     "answer": "Area 154.0, circumference 44.0"
+    },
+    "reallife": "An exam portal returns (total, percentage, grade) as one tuple for each student, so the report-card program can unpack all three at once."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Search in a tuple",
+     "prompt": "Arrange the program",
+     "items": [
+      "t = (12, 7, 25, 7)",
+      "key = 25",
+      "for i in range(len(t)):",
+      "    if t[i] == key:",
+      "        print('Found at index', i)",
+      "        break"
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the tuple program",
+     "items": [
+      {
+       "text": "Mean: m = sum(t) ___ len(t)",
+       "answer": "/",
+       "options": [
+        "/",
+        "*",
+        "-"
+       ]
+      },
+      {
+       "text": "Return two values: return area ___ perimeter",
+       "answer": ",",
+       "options": [
+        ",",
+        "+",
+        "and"
+       ]
+      },
+      {
+       "text": "Frequency of 7: t.___(7)",
+       "answer": "count",
+       "options": [
+        "count",
+        "index",
+        "find"
+       ]
+      },
+      {
+       "text": "Unpack: a, c ___ circle(7)",
+       "answer": "=",
+       "options": [
+        "=",
+        "==",
+        "in"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ndef circle(r):\n    return 22/7 * r * r, 2 * 22/7 * r\nprint(circle(7))",
+     "options": [
+      "(154.0, 44.0)",
+      "154.0 44.0",
+      "[154.0, 44.0]",
+      "(154, 44)"
+     ],
+     "answer": 0,
+     "explain": "Returning two values separated by a comma returns a tuple.",
+     "mistake": "Thinks the function returns a list or prints separately"
+    },
+    {
+     "q": "What is the output?\ndef circle(r):\n    return 22/7 * r * r, 2 * 22/7 * r\na, c = circle(7)\nprint(a, c)",
+     "options": [
+      "Error",
+      "(154.0, 44.0)",
+      "154 44",
+      "154.0 44.0"
+     ],
+     "answer": 3,
+     "explain": "The returned tuple is unpacked into a and c.",
+     "mistake": "Thinks unpacking a returned tuple is not allowed"
+    },
+    {
+     "q": "What is the output?\nt = (8, 17, 3, 8)\nprint(max(t), min(t), sum(t) / len(t))",
+     "options": [
+      "3 17 9.0",
+      "17 3 9.0",
+      "17 3 9",
+      "17 3 36"
+     ],
+     "answer": 1,
+     "explain": "max = 17, min = 3, mean = 36 / 4 = 9.0.",
+     "mistake": "Forgets that / gives a float"
+    },
+    {
+     "q": "What is the output?\nt = (12, 7, 25, 7)\nfor i in range(len(t)):\n    if t[i] == 25:\n        print('Found at index', i)\n        break\nelse:\n    print('Not found')",
+     "options": [
+      "Found at index 2",
+      "Found at index 1",
+      "Not found",
+      "Found at index 3"
+     ],
+     "answer": 0,
+     "explain": "25 is at index 2; break stops the search.",
+     "mistake": "Counts positions from 1"
+    },
+    {
+     "q": "What is the output?\nt = (2, 9, 2, 5, 9, 2)\nfor x in sorted(set(t)):\n    print(str(x) + ':', t.count(x))",
+     "options": [
+      "3 1 2",
+      "2: 3\n5: 1\n9: 2",
+      "2: 1\n5: 1\n9: 1",
+      "2: 3\n5: 1\n9: 2\n2: 3"
+     ],
+     "answer": 1,
+     "explain": "Looping over the sorted unique values, each count is printed once.",
+     "mistake": "Prints duplicates or the wrong counts"
+    },
+    {
+     "q": "What is the output?\nt = (10, 20, 30)\nfor x in t:\n    if x == 50:\n        print('Found')\n        break\nelse:\n    print('Not found')",
+     "options": [
+      "Found at 0",
+      "Not found",
+      "Found",
+      "Error"
+     ],
+     "answer": 1,
+     "explain": "No element equals 50, so the loop finishes without break and the else runs.",
+     "mistake": "Thinks the else runs only after break"
+    },
+    {
+     "q": "What is the output?\na, b = 5, 8\na, b = b, a\nprint(a, b)",
+     "options": [
+      "5 8",
+      "8 5",
+      "5 5",
+      "8 8"
+     ],
+     "answer": 1,
+     "explain": "Tuple assignment swaps a and b without a temporary variable.",
+     "mistake": "Thinks the swap needs a third variable"
+    },
+    {
+     "q": "What is the output?\ncities = ('Delhi', 'Agra', 'Delhi', 'Pune')\nprint(cities.count('Delhi'))",
+     "options": [
+      "1",
+      "2",
+      "3",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "'Delhi' appears twice in the tuple.",
+     "mistake": "Counts the first occurrence only",
+     "check": "2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants a function that gives both the area and the perimeter of a rectangle. Explain how tuples help, and how to search a tuple.",
+    "must": [
+     [
+      "return",
+      "returns",
+      "tuple"
+     ],
+     [
+      "unpack",
+      "unpacking",
+      "a, b ="
+     ],
+     [
+      "search",
+      "linear search",
+      "loop"
+     ]
+    ],
+    "praise": "return area, perimeter sends a tuple back, and I can unpack it into two variables. Searching is just a loop. Awesome!",
+    "nudge": "Good. How can one function return two values, and how do we receive them?"
+   }
+  },
+  {
+   "id": "g11-cs-08-05",
+   "title": "Dictionaries: creation, access and changes",
+   "covers": [
+    "c8.7.1",
+    "c8.7.2",
+    "c8.7.3",
+    "c8.8.1",
+    "c8.8.2"
+   ],
+   "learn": {
+    "hook": "Your phone's contact list maps names to numbers. You never search by position; you search by name. That's a dictionary.",
+    "points": [
+     "A dictionary is a mutable mapping of key : value pairs in braces: d = {'roll': 12, 'name': 'Asha'}. Keys must be unique and immutable (str, int, float, tuple); values can be anything.",
+     "Create with {} (empty), with literal pairs, or with dict(): dict(name='Asha', roll=12) or dict([('a', 1), ('b', 2)]).",
+     "Access a value by its key: d['name'] → 'Asha'. A missing key raises KeyError. Dictionaries are not indexed by position.",
+     "Add a new pair: d['class'] = 11. Modify an existing value: d['roll'] = 15. Assigning to an existing key replaces its value (keys stay unique).",
+     "A list cannot be a key (it is mutable): {[1, 2]: 'x'} raises TypeError."
+    ],
+    "example": {
+     "q": "Start with d = {'Asha': 92}. Add Ravi with 85, change Asha to 95, then print d.",
+     "steps": [
+      "d['Ravi'] = 85 → {'Asha': 92, 'Ravi': 85}",
+      "d['Asha'] = 95 → key exists, so its value is replaced",
+      "d = {'Asha': 95, 'Ravi': 85}"
+     ],
+     "answer": "{'Asha': 95, 'Ravi': 85}"
+    },
+    "reallife": "DigiLocker-style apps store a citizen's documents in key-value form like {'PAN': ..., 'DL': ..., 'Aadhaar': ...}, so each document is fetched by name, not position."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Valid as a dictionary key?",
+     "buckets": [
+      "Valid key",
+      "Invalid key (TypeError)"
+     ],
+     "items": [
+      [
+       "'name'",
+       0
+      ],
+      [
+       "101",
+       0
+      ],
+      [
+       "(1, 2)",
+       0
+      ],
+      [
+       "3.5",
+       0
+      ],
+      [
+       "[1, 2]",
+       1
+      ],
+      [
+       "{'a': 1}",
+       1
+      ],
+      [
+       "{1, 2}",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Dictionary basics",
+     "items": [
+      [
+       "Dictionary keys must be unique.",
+       true,
+       "Assigning to an existing key replaces its value."
+      ],
+      [
+       "d[0] always gives the first item of a dictionary.",
+       false,
+       "Dictionaries are accessed by key, not position."
+      ],
+      [
+       "Accessing a missing key with d[key] raises KeyError.",
+       true,
+       "Use get() to avoid the error."
+      ],
+      [
+       "Dictionaries are immutable.",
+       false,
+       "Pairs can be added, changed and deleted."
+      ],
+      [
+       "dict() can create a dictionary.",
+       true,
+       "e.g. dict(a=1, b=2)."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nd = {'roll': 12, 'name': 'Asha'}\nprint(d['name'])",
+     "options": [
+      "Asha",
+      "KeyError",
+      "12",
+      "{'name': 'Asha'}"
+     ],
+     "answer": 0,
+     "explain": "The value stored under the key 'name' is 'Asha'.",
+     "mistake": "Thinks dictionaries are accessed by position"
+    },
+    {
+     "q": "What is the output?\nd = {'roll': 12}\nprint(d['age'])",
+     "options": [
+      "{}",
+      "KeyError",
+      "None",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "'age' is not a key, so d['age'] raises KeyError.",
+     "mistake": "Expects None for a missing key"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1}\nd['b'] = 2\nprint(d)",
+     "options": [
+      "KeyError",
+      "{'a': 1, 'b': 2}",
+      "{'a': 1}",
+      "{'b': 2}"
+     ],
+     "answer": 1,
+     "explain": "Assigning to a new key adds a pair.",
+     "mistake": "Expects a KeyError for a new key"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1}\nd['a'] = 5\nprint(d)",
+     "options": [
+      "{'a': 5}",
+      "{'a': 1}",
+      "{'a': 1, 'a': 5}",
+      "KeyError"
+     ],
+     "answer": 0,
+     "explain": "Keys are unique; the value of 'a' is replaced by 5.",
+     "mistake": "Thinks a second pair with the same key is added"
+    },
+    {
+     "q": "What is the output?\nd = {[1, 2]: 'x'}\nprint(d)",
+     "options": [
+      "{'x': [1, 2]}",
+      "KeyError",
+      "{[1, 2]: 'x'}",
+      "TypeError"
+     ],
+     "answer": 3,
+     "explain": "A list is mutable, so it cannot be used as a key.",
+     "mistake": "Thinks any value can be a key"
+    },
+    {
+     "q": "What is the output?\nprint(dict(name='Ravi', roll=7))",
+     "options": [
+      "('name', 'Ravi', 'roll', 7)",
+      "{name: Ravi, roll: 7}",
+      "{'name': 'Ravi', 'roll': 7}",
+      "Error"
+     ],
+     "answer": 2,
+     "explain": "dict() with keyword arguments uses the argument names as string keys.",
+     "mistake": "Thinks dict() needs braces inside"
+    },
+    {
+     "q": "What is the output?\nd = {'x': 1, 'y': 2, 'x': 3}\nprint(len(d))",
+     "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "The later pair 'x': 3 replaces the earlier 'x': 1, leaving 2 keys.",
+     "mistake": "Counts the duplicate key twice",
+     "check": "2"
+    },
+    {
+     "q": "Assertion (A): A tuple can be used as a dictionary key but a list cannot.\nReason (R): Dictionary keys must be of an immutable type.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R is the correct explanation of A"
+     ],
+     "answer": 3,
+     "explain": "Tuples are immutable and lists are mutable, which is exactly why only tuples are allowed as keys.",
+     "mistake": "Doesn't link key rules to immutability"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to store his friends' birthdays by name. Explain dictionaries: keys, values, access and updating.",
+    "must": [
+     [
+      "key",
+      "keys"
+     ],
+     [
+      "value",
+      "values",
+      "key-value",
+      "key value"
+     ],
+     [
+      "unique",
+      "immutable"
+     ],
+     [
+      "keyerror",
+      "missing key",
+      "add",
+      "update"
+     ]
+    ],
+    "praise": "A dictionary maps unique, immutable keys to values; I access by key, add or change with d[key] = value, and a missing key gives KeyError!",
+    "nudge": "Good. How do we access a value, and what happens if the key isn't there?"
+   }
+  },
+  {
+   "id": "g11-cs-08-06",
+   "title": "Dictionary membership, traversal and core methods",
+   "covers": [
+    "c8.9.1",
+    "c8.9.2",
+    "c8.10.1",
+    "c8.10.2"
+   ],
+   "learn": {
+    "hook": "'Asha' in marks checks the KEYS, not the values. Forget that, and your 'search' will mysteriously fail.",
+    "points": [
+     "Membership: key in d and key not in d test KEYS only. To test values use x in d.values().",
+     "Traversal: for k in d: … loops over keys (in insertion order); use d[k] for values. for k, v in d.items(): … gives key and value together.",
+     "len(d) is the number of pairs. keys(), values() and items() return views of keys, values and (key, value) tuples; wrap in list() to get a list.",
+     "get(key) returns the value or None if the key is missing (no KeyError); get(key, default) returns default instead.",
+     "update(other) adds all pairs of another dictionary, replacing values for keys that already exist."
+    ],
+    "example": {
+     "q": "For m = {'Asha': 92, 'Ravi': 85}, evaluate 92 in m, 'Ravi' in m, m.get('Zoya', 0), list(m.items()).",
+     "steps": [
+      "in checks keys: 92 is not a key → False",
+      "'Ravi' is a key → True",
+      "'Zoya' is missing → default 0",
+      "items → [('Asha', 92), ('Ravi', 85)]"
+     ],
+     "answer": "False, True, 0, [('Asha', 92), ('Ravi', 85)]"
+    },
+    "reallife": "A railway PNR lookup is like pnr_db.get(pnr, 'Invalid PNR'): if the key exists you get the booking, otherwise a friendly message instead of a crash."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "d = {'a': 1, 'b': 2}: expression ↔ result",
+     "pairs": [
+      [
+       "list(d.keys())",
+       "['a', 'b']"
+      ],
+      [
+       "list(d.values())",
+       "[1, 2]"
+      ],
+      [
+       "list(d.items())",
+       "[('a', 1), ('b', 2)]"
+      ],
+      [
+       "d.get('z')",
+       "None"
+      ],
+      [
+       "d.get('z', 0)",
+       "0"
+      ],
+      [
+       "len(d)",
+       "2"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Traversal truths",
+     "items": [
+      [
+       "for k in d loops over the keys of d.",
+       true,
+       "Iterating a dictionary gives its keys."
+      ],
+      [
+       "'in' checks the values of a dictionary.",
+       false,
+       "'in' checks keys; use d.values() for values."
+      ],
+      [
+       "get() raises KeyError for a missing key.",
+       false,
+       "get() returns None or the given default."
+      ],
+      [
+       "update() can change values of existing keys.",
+       true,
+       "Existing keys get the new values."
+      ],
+      [
+       "items() gives (key, value) pairs.",
+       true,
+       "Each pair is a tuple."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nm = {'Asha': 92, 'Ravi': 85}\nprint(92 in m, 'Ravi' in m)",
+     "options": [
+      "False False",
+      "False True",
+      "True False",
+      "True True"
+     ],
+     "answer": 1,
+     "explain": "in checks keys: 92 is a value, not a key; 'Ravi' is a key.",
+     "mistake": "Thinks 'in' searches values"
+    },
+    {
+     "q": "What is the output?\nd = {'x': 10}\nprint(d.get('y'), d.get('y', 0))",
+     "options": [
+      "None None",
+      "KeyError",
+      "0 None",
+      "None 0"
+     ],
+     "answer": 3,
+     "explain": "get() returns None for a missing key, or the default if one is given.",
+     "mistake": "Expects a KeyError from get()"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1, 'b': 2}\nd.update({'b': 20, 'c': 3})\nprint(d)",
+     "options": [
+      "{'a': 1, 'b': 20, 'c': 3}",
+      "{'a': 1, 'b': 2, 'c': 3}",
+      "{'a': 1, 'b': 2, 'b': 20, 'c': 3}",
+      "{'b': 20, 'c': 3}"
+     ],
+     "answer": 0,
+     "explain": "update adds 'c' and replaces the value of the existing key 'b'.",
+     "mistake": "Thinks update keeps the old value or duplicates keys"
+    },
+    {
+     "q": "What is the output?\nm = {'Asha': 92, 'Ravi': 85}\nfor k, v in m.items():\n    print(k, v)",
+     "options": [
+      "Asha\nRavi",
+      "Asha 92\nRavi 85",
+      "92\n85",
+      "('Asha', 92)\n('Ravi', 85)"
+     ],
+     "answer": 1,
+     "explain": "items() gives key-value pairs, unpacked into k and v.",
+     "mistake": "Prints the tuples without unpacking"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1, 'b': 2, 'c': 3}\nfor k in d:\n    print(k, end=' ')",
+     "options": [
+      "a 1 b 2 c 3",
+      "1 2 3",
+      "('a', 1) ('b', 2) ('c', 3)",
+      "a b c"
+     ],
+     "answer": 3,
+     "explain": "Looping over a dictionary gives its keys.",
+     "mistake": "Thinks the loop gives values"
+    },
+    {
+     "q": "What is the output?\nm = {'Asha': 92, 'Ravi': 85}\nprint(sum(m.values()))",
+     "options": [
+      "2",
+      "92",
+      "Asha Ravi",
+      "177"
+     ],
+     "answer": 3,
+     "explain": "sum() of the values 92 and 85 is 177.",
+     "mistake": "Sums the keys or counts the pairs",
+     "check": "92+85"
+    },
+    {
+     "q": "What is the output?\nd = {1: 'a', 2: 'b', 3: 'c'}\nprint(len(d))",
+     "options": [
+      "2",
+      "6",
+      "1",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "len counts the key-value pairs: 3.",
+     "mistake": "Counts keys and values separately",
+     "check": "3"
+    },
+    {
+     "q": "What is the output?\nm = {'Asha': 92, 'Ravi': 85}\nprint(85 in m.values())",
+     "options": [
+      "True",
+      "False",
+      "KeyError",
+      "None"
+     ],
+     "answer": 0,
+     "explain": "85 is among the values, so 85 in m.values() is True.",
+     "mistake": "Thinks values can't be searched"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's check '92 in marks' keeps returning False. Explain dictionary membership, traversal and the methods keys(), values(), items(), get() and update().",
+    "must": [
+     [
+      "keys",
+      "key",
+      "checks keys"
+     ],
+     [
+      "values",
+      "values()"
+     ],
+     [
+      "items",
+      "pairs",
+      "for k, v"
+     ],
+     [
+      "get",
+      "update",
+      "default"
+     ]
+    ],
+    "praise": "'in' looks at keys, values() holds the values, items() gives pairs, get() avoids KeyError and update() merges. Bug fixed!",
+    "nudge": "Good. Does 'in' check keys or values? Which method lets us look at values?"
+   }
+  },
+  {
+   "id": "g11-cs-08-07",
+   "title": "More dictionary methods: del, clear, fromkeys, copy, pop, popitem, setdefault",
+   "covers": [
+    "c8.10.3",
+    "c8.10.4",
+    "c8.10.5"
+   ],
+   "learn": {
+    "hook": "pop() on a dictionary needs a key, popitem() doesn't. A dozen methods, but each has one clear job.",
+    "points": [
+     "del d[key] deletes that pair (KeyError if missing); del d deletes the whole dictionary. d.clear() empties it, leaving {}.",
+     "dict.fromkeys(keys, value) creates a dictionary with the given keys all set to value (None if omitted): dict.fromkeys(['a', 'b'], 0) → {'a': 0, 'b': 0}.",
+     "d.copy() returns a new (shallow) copy. d.pop(key) removes the pair and returns its value (KeyError if missing, unless a default is given: d.pop(key, default)).",
+     "d.popitem() removes and returns the LAST inserted pair as a tuple (KeyError if d is empty). d.setdefault(key, value) returns d[key] if it exists; otherwise inserts key with value and returns value.",
+     "max(d), min(d) and sorted(d) work on the KEYS: sorted({'b': 1, 'a': 2}) → ['a', 'b']."
+    ],
+    "example": {
+     "q": "d = {'x': 1, 'y': 2, 'z': 3}. Do v = d.pop('y'), then p = d.popitem(). What are v, p and d?",
+     "steps": [
+      "pop('y') removes 'y' and returns 2 → v = 2",
+      "d is now {'x': 1, 'z': 3}",
+      "popitem() removes the last inserted pair ('z', 3) → p = ('z', 3)",
+      "d = {'x': 1}"
+     ],
+     "answer": "v = 2, p = ('z', 3), d = {'x': 1}"
+    },
+    "reallife": "At the start of a school year, attendance = dict.fromkeys(roll_numbers, 0) sets every student's count to zero in one line."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Method ↔ what it returns",
+     "pairs": [
+      [
+       "d.pop(k)",
+       "The value of key k (pair removed)"
+      ],
+      [
+       "d.popitem()",
+       "The last inserted (key, value) pair"
+      ],
+      [
+       "d.copy()",
+       "A new dictionary with the same pairs"
+      ],
+      [
+       "dict.fromkeys(L, 0)",
+       "A new dictionary with keys from L, all 0"
+      ],
+      [
+       "d.setdefault(k, v)",
+       "d[k] if present, otherwise v (after inserting it)"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Does it remove anything from d?",
+     "buckets": [
+      "Removes pair(s)",
+      "Removes nothing"
+     ],
+     "items": [
+      [
+       "del d['a']",
+       0
+      ],
+      [
+       "d.pop('a')",
+       0
+      ],
+      [
+       "d.popitem()",
+       0
+      ],
+      [
+       "d.clear()",
+       0
+      ],
+      [
+       "d.copy()",
+       1
+      ],
+      [
+       "d.get('a')",
+       1
+      ],
+      [
+       "sorted(d)",
+       1
+      ],
+      [
+       "max(d)",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nd = {'x': 1, 'y': 2, 'z': 3}\nv = d.pop('y')\nprint(v, d)",
+     "options": [
+      "('y', 2) {'x': 1, 'z': 3}",
+      "{'x': 1, 'z': 3} 2",
+      "2 {'x': 1, 'z': 3}",
+      "2 {'x': 1, 'y': 2, 'z': 3}"
+     ],
+     "answer": 2,
+     "explain": "pop('y') removes that pair and returns its value 2.",
+     "mistake": "Thinks pop returns the pair, or doesn't remove it"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1, 'b': 2, 'c': 3}\nprint(d.popitem())",
+     "options": [
+      "('c', 3)",
+      "3",
+      "c",
+      "('a', 1)"
+     ],
+     "answer": 0,
+     "explain": "popitem() removes and returns the last inserted pair.",
+     "mistake": "Thinks popitem removes the first pair"
+    },
+    {
+     "q": "What is the output?\nprint(dict.fromkeys(['a', 'b', 'c'], 0))",
+     "options": [
+      "{0: 'a', 0: 'b', 0: 'c'}",
+      "{'abc': 0}",
+      "{'a': 0, 'b': 0, 'c': 0}",
+      "{'a': None, 'b': None, 'c': None}"
+     ],
+     "answer": 2,
+     "explain": "fromkeys makes each element of the iterable a key with value 0.",
+     "mistake": "Swaps keys and values, or forgets the given value"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1}\nd.clear()\nprint(d)",
+     "options": [
+      "None",
+      "{}",
+      "{'a': 1}",
+      "NameError"
+     ],
+     "answer": 1,
+     "explain": "clear() removes all pairs but the dictionary still exists.",
+     "mistake": "Confuses clear() with del"
+    },
+    {
+     "q": "What is the output?\nd = {}\nprint(d.setdefault('m', 5), d)",
+     "options": [
+      "5 {'m': 5}",
+      "5 {}",
+      "None {'m': 5}",
+      "KeyError"
+     ],
+     "answer": 0,
+     "explain": "'m' was missing, so setdefault inserts it with 5 and returns 5.",
+     "mistake": "Thinks setdefault only reads"
+    },
+    {
+     "q": "What is the output?\nd = {'m': 13, 'z': 26, 'a': 1}\nprint(max(d), min(d), sorted(d))",
+     "options": [
+      "26 1 [26, 1, 13]",
+      "1 26 [1, 13, 26]",
+      "z a [1, 13, 26]",
+      "z a ['a', 'm', 'z']"
+     ],
+     "answer": 3,
+     "explain": "max, min and sorted on a dictionary work on its keys.",
+     "mistake": "Thinks they work on values"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1}\ne = d.copy()\ne['b'] = 2\nprint(d, e)",
+     "options": [
+      "Error",
+      "{'a': 1, 'b': 2} {'a': 1, 'b': 2}",
+      "{'a': 1} {'a': 1, 'b': 2}",
+      "{'a': 1} {'a': 1}"
+     ],
+     "answer": 2,
+     "explain": "copy() makes a separate dictionary; adding to e doesn't change d.",
+     "mistake": "Thinks copy() makes an alias"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1}\ndel d['b']\nprint(d)",
+     "options": [
+      "None",
+      "{'a': 1}",
+      "{}",
+      "KeyError"
+     ],
+     "answer": 3,
+     "explain": "del on a missing key raises KeyError.",
+     "mistake": "Expects del to ignore missing keys"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu mixes up pop(), popitem(), del and clear() on dictionaries. Explain each, plus fromkeys(), copy() and setdefault().",
+    "must": [
+     [
+      "pop",
+      "popitem",
+      "last inserted"
+     ],
+     [
+      "del",
+      "clear",
+      "empty"
+     ],
+     [
+      "fromkeys",
+      "copy",
+      "setdefault"
+     ]
+    ],
+    "praise": "pop needs a key, popitem takes the last pair, del deletes, clear empties, and fromkeys, copy and setdefault build or fill. Sorted!",
+    "nudge": "Good. What's the difference between pop() and popitem(), and between del and clear()?"
+   }
+  },
+  {
+   "id": "g11-cs-08-08",
+   "title": "Dictionary programs",
+   "covers": [
+    "c8.11.1",
+    "c8.11.2",
+    "c8.11.3"
+   ],
+   "learn": {
+    "hook": "Count the letters of 'MISSISSIPPI' in one loop? A dictionary makes the tally automatically.",
+    "points": [
+     "Character frequency: freq = {}; for ch in s: freq[ch] = freq.get(ch, 0) + 1. (Or: if ch in freq: freq[ch] += 1 else: freq[ch] = 1.)",
+     "Employee records: emp = {'Anil': 45000, 'Bina': 52000}. Look up with emp['Anil'], raise a salary with emp['Bina'] += 3000, and print all with for name, sal in emp.items().",
+     "Number to words: digits = {'0': 'Zero', '1': 'One', …, '9': 'Nine'}; for d in str(n): print(digits[d], end=' ').",
+     "Marks lookup: marks.get(name, 'Not found') gives a safe answer for names that aren't in the dictionary."
+    ],
+    "example": {
+     "q": "Count the characters of 'banana' with a dictionary.",
+     "steps": [
+      "freq = {}",
+      "b → {'b': 1}",
+      "a → {'b': 1, 'a': 1}; n → 'n': 1",
+      "a → 2, n → 2, a → 3",
+      "Result: {'b': 1, 'a': 3, 'n': 2}"
+     ],
+     "answer": "{'b': 1, 'a': 3, 'n': 2}"
+    },
+    "reallife": "Election vote counting software is a giant frequency dictionary: votes[candidate] = votes.get(candidate, 0) + 1 for every ballot."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Character-frequency program",
+     "prompt": "Arrange the lines",
+     "items": [
+      "s = input('Text: ')",
+      "freq = {}",
+      "for ch in s:",
+      "    freq[ch] = freq.get(ch, 0) + 1",
+      "print(freq)"
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the dictionary program",
+     "items": [
+      {
+       "text": "freq[ch] = freq.___(ch, 0) + 1",
+       "answer": "get",
+       "options": [
+        "get",
+        "pop",
+        "keys"
+       ]
+      },
+      {
+       "text": "Raise salary: emp['Bina'] ___ 3000",
+       "answer": "+=",
+       "options": [
+        "+=",
+        "=+",
+        "=="
+       ]
+      },
+      {
+       "text": "Loop pairs: for name, sal in emp.___():",
+       "answer": "items",
+       "options": [
+        "items",
+        "keys",
+        "values"
+       ]
+      },
+      {
+       "text": "Safe lookup: marks.get(name, ___)",
+       "answer": "'Not found'",
+       "options": [
+        "'Not found'",
+        "KeyError",
+        "del"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nfreq = {}\nfor ch in 'banana':\n    freq[ch] = freq.get(ch, 0) + 1\nprint(freq)",
+     "options": [
+      "{'banana': 1}",
+      "{'b': 1, 'a': 3, 'n': 2}",
+      "{'b': 1, 'a': 1, 'n': 1}",
+      "{'a': 3, 'b': 1, 'n': 2}"
+     ],
+     "answer": 1,
+     "explain": "Keys appear in the order first seen; counts are b 1, a 3, n 2.",
+     "mistake": "Expects alphabetical order or counts only once"
+    },
+    {
+     "q": "What is the output?\nfreq = {}\nfor ch in 'MISSISSIPPI':\n    freq[ch] = freq.get(ch, 0) + 1\nprint(freq['S'])",
+     "options": [
+      "2",
+      "1",
+      "4",
+      "11"
+     ],
+     "answer": 2,
+     "explain": "In 'MISSISSIPPI', the letter 'S' occurs 4 times.",
+     "mistake": "Miscounts the repeated letters",
+     "check": "4"
+    },
+    {
+     "q": "What is the output?\nemp = {'Anil': 45000, 'Bina': 52000}\nemp['Bina'] += 3000\nprint(emp['Bina'])",
+     "options": [
+      "KeyError",
+      "52000",
+      "3000",
+      "55000"
+     ],
+     "answer": 3,
+     "explain": "Bina's salary 52000 is increased by 3000.",
+     "mistake": "Forgets the update or replaces the value",
+     "check": "52000+3000"
+    },
+    {
+     "q": "What is the output?\nw = {'0': 'Zero', '1': 'One', '5': 'Five'}\nfor d in str(105):\n    print(w[d], end=' ')",
+     "options": [
+      "105",
+      "One Five",
+      "One Zero Five",
+      "Five Zero One"
+     ],
+     "answer": 2,
+     "explain": "Each digit character of '105' is looked up in the dictionary in order.",
+     "mistake": "Reads the digits in reverse"
+    },
+    {
+     "q": "What is the output?\nmarks = {'Asha': 92}\nprint(marks.get('Zoya', 'Not found'))",
+     "options": [
+      "None",
+      "KeyError",
+      "0",
+      "Not found"
+     ],
+     "answer": 3,
+     "explain": "get() returns the given default for a missing key.",
+     "mistake": "Expects a KeyError"
+    },
+    {
+     "q": "What is the output?\nemp = {'Anil': 45000, 'Bina': 52000}\ntop = ''\nbest = 0\nfor name, sal in emp.items():\n    if sal > best:\n        best = sal\n        top = name\nprint(top)",
+     "options": [
+      "Anil",
+      "45000",
+      "Bina",
+      "52000"
+     ],
+     "answer": 2,
+     "explain": "The loop keeps the name with the largest salary.",
+     "mistake": "Returns the salary instead of the name"
+    },
+    {
+     "q": "What is the output?\nfreq = {}\nfor ch in 'goa':\n    freq[ch] = freq.get(ch, 0) + 1\nprint(len(freq))",
+     "options": [
+      "5",
+      "4",
+      "2",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "'goa' has three different characters, so the dictionary has 3 keys.",
+     "mistake": "Counts total characters",
+     "check": "3"
+    },
+    {
+     "q": "Assertion (A): freq[ch] = freq.get(ch, 0) + 1 works even the first time a character is seen.\nReason (R): get() returns the default 0 when the key is not yet in the dictionary.",
+     "options": [
+      "A is false but R is true",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 2,
+     "explain": "Because get() supplies 0 for new keys, the first count becomes 1 with no KeyError.",
+     "mistake": "Thinks the key must be added first"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to count how many times each letter appears in his name. Explain how to do it with a dictionary.",
+    "must": [
+     [
+      "dictionary",
+      "dict",
+      "freq"
+     ],
+     [
+      "get",
+      "default",
+      "zero"
+     ],
+     [
+      "loop",
+      "for",
+      "each character"
+     ],
+     [
+      "count",
+      "frequency",
+      "+ 1"
+     ]
+    ],
+    "praise": "Loop over the name, and freq[ch] = freq.get(ch, 0) + 1 builds the tally automatically. Dictionary magic!",
+    "nudge": "Good. How do we handle a letter the first time we see it, before it's a key?"
+   }
+  },
+  {
+   "id": "g11-cs-08-09",
+   "title": "Python modules and the math module",
+   "covers": [
+    "c8.12.1",
+    "c8.12.2",
+    "c8.12.3",
+    "c8.12.4",
+    "c8.12.5"
+   ],
+   "learn": {
+    "hook": "Why write a square-root function when Python already ships one? Modules are ready-made toolkits you just import.",
+    "points": [
+     "A module is a .py file containing reusable functions, variables and classes. Python's standard library comes with many modules: math, random, statistics and more.",
+     "import math, then call math.sqrt(25). from math import sqrt, pi lets you call sqrt(25) directly. from math import * imports every public name (can clash with your own names, so use carefully).",
+     "math constants: math.pi ≈ 3.141592653589793, math.e ≈ 2.718281828459045. Functions: sqrt(x) (float), ceil(x) (smallest integer ≥ x), floor(x) (largest integer ≤ x), fabs(x) (absolute value as float), sin(x), cos(x), tan(x) (x in radians).",
+     "Also: factorial(n) (n!), gcd(a, b) (HCF), fmod(x, y) (float remainder, sign of x: fmod(−7, 3) = −1.0, while −7 % 3 = 2).",
+     "Built-in pow(2, 3) gives 8 (int for int arguments); math.pow(2, 3) always gives a float, 8.0."
+    ],
+    "example": {
+     "q": "Evaluate math.ceil(4.2), math.floor(−4.2), math.sqrt(49), math.factorial(4), math.gcd(12, 18).",
+     "steps": [
+      "ceil(4.2) = 5 (smallest integer ≥ 4.2)",
+      "floor(−4.2) = −5 (largest integer ≤ −4.2)",
+      "sqrt(49) = 7.0 (a float)",
+      "factorial(4) = 24",
+      "gcd(12, 18) = 6"
+     ],
+     "answer": "5, −5, 7.0, 24, 6"
+    },
+    "reallife": "ISRO trajectory calculations use the same math functions (sin, cos, sqrt) that you can import in one line."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Expression ↔ value",
+     "pairs": [
+      [
+       "math.ceil(2.1)",
+       "3"
+      ],
+      [
+       "math.floor(2.9)",
+       "2"
+      ],
+      [
+       "math.sqrt(81)",
+       "9.0"
+      ],
+      [
+       "math.fabs(-6)",
+       "6.0"
+      ],
+      [
+       "math.pow(2, 4)",
+       "16.0"
+      ],
+      [
+       "pow(2, 4)",
+       "16"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Math module sprint",
+     "items": [
+      {
+       "q": "math.factorial(5)",
+       "a": "120",
+       "check": "5*4*3*2*1"
+      },
+      {
+       "q": "math.gcd(24, 36)",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "math.ceil(7.01)",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "math.floor(-1.5)",
+       "a": "-2",
+       "check": "-2"
+      },
+      {
+       "q": "math.fmod(10, 3)",
+       "a": "1.0",
+       "check": "1"
+      },
+      {
+       "q": "math.sqrt(144)",
+       "a": "12.0",
+       "check": "12"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nimport math\nprint(math.ceil(4.2), math.floor(-4.2))",
+     "options": [
+      "5 -4",
+      "5 -5",
+      "4 -5",
+      "4 -4"
+     ],
+     "answer": 1,
+     "explain": "ceil goes up to 5; floor of −4.2 goes down to −5.",
+     "mistake": "Thinks floor truncates towards zero"
+    },
+    {
+     "q": "What is the output?\nimport math\nprint(pow(2, 3), math.pow(2, 3))",
+     "options": [
+      "8 8.0",
+      "8.0 8",
+      "8.0 8.0",
+      "8 8"
+     ],
+     "answer": 0,
+     "explain": "Built-in pow returns an int for int arguments; math.pow always returns a float.",
+     "mistake": "Thinks both behave the same"
+    },
+    {
+     "q": "What is the output?\nimport math\nprint(math.sqrt(49))",
+     "options": [
+      "49.0",
+      "7.0",
+      "14.0",
+      "3.5"
+     ],
+     "answer": 1,
+     "explain": "math.sqrt(49) is 7.0; math.sqrt always returns a float.",
+     "mistake": "Squares the number, halves it or doubles the root instead",
+     "check": "7"
+    },
+    {
+     "q": "What is the output?\nimport math\nprint(sqrt(25))",
+     "options": [
+      "Error in import",
+      "25",
+      "NameError",
+      "5.0"
+     ],
+     "answer": 2,
+     "explain": "Only the module name 'math' is imported, so sqrt must be called as math.sqrt.",
+     "mistake": "Thinks import math makes sqrt available directly"
+    },
+    {
+     "q": "What is the output?\nfrom math import sqrt\nprint(sqrt(25))",
+     "options": [
+      "5.0",
+      "25.0",
+      "2.5",
+      "NameError"
+     ],
+     "answer": 0,
+     "explain": "from math import sqrt brings sqrt into the program, so it can be called directly.",
+     "mistake": "Thinks the math. prefix is still required",
+     "check": "5"
+    },
+    {
+     "q": "What is the output?\nimport math\nprint(math.fmod(-7, 3), -7 % 3)",
+     "options": [
+      "2 -1.0",
+      "-1.0 2",
+      "1.0 2",
+      "-1.0 -1"
+     ],
+     "answer": 1,
+     "explain": "fmod keeps the sign of x (−1.0); % keeps the sign of the divisor (2).",
+     "mistake": "Thinks fmod and % always agree"
+    },
+    {
+     "q": "What is the output?\nimport math\nprint(math.factorial(5), math.gcd(18, 24))",
+     "options": [
+      "60 12",
+      "24 6",
+      "120 6",
+      "120 3"
+     ],
+     "answer": 2,
+     "explain": "5! = 120 and gcd(18, 24) = 6.",
+     "mistake": "Confuses gcd with lcm"
+    },
+    {
+     "q": "What is the output?\nimport math\nprint(round(math.pi, 2))",
+     "options": [
+      "3.15",
+      "3",
+      "3.1",
+      "3.14"
+     ],
+     "answer": 3,
+     "explain": "math.pi is 3.14159…, and rounding to 2 decimal places gives 3.14.",
+     "mistake": "Rounds up to 3.15 or keeps only one decimal place",
+     "check": "314/100"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wrote his own square-root code. Explain modules, the ways to import them, and some math functions.",
+    "must": [
+     [
+      "module",
+      "modules",
+      "library"
+     ],
+     [
+      "import",
+      "from math import"
+     ],
+     [
+      "sqrt",
+      "ceil",
+      "floor",
+      "pi"
+     ],
+     [
+      "math.pow",
+      "pow",
+      "float"
+     ]
+    ],
+    "praise": "import math gives me sqrt, ceil, floor, pi and more; from math import sqrt lets me skip the prefix. No need to reinvent!",
+    "nudge": "Good. What are the two ways to import, and how do you then call the function in each case?"
+   }
+  },
+  {
+   "id": "g11-cs-08-10",
+   "title": "The random and statistics modules",
+   "covers": [
+    "c8.12.6",
+    "c8.12.7",
+    "c8.12.8"
+   ],
+   "learn": {
+    "hook": "A Ludo app 'rolls' a die with random.randint(1, 6). Every board game app you've played leans on the random module.",
+    "points": [
+     "random.random() returns a float x with 0.0 ≤ x < 1.0 (never 1.0).",
+     "random.randint(a, b) returns an integer N with a ≤ N ≤ b; BOTH ends are included.",
+     "random.randrange(start, stop, step) returns a random element of range(start, stop, step); stop is NOT included. randrange(10) gives 0 to 9.",
+     "statistics.mean(data) is the average; statistics.median(data) is the middle value of the sorted data (average of the two middle values for an even count); statistics.mode(data) is the most frequent value.",
+     "Exam tasks: predict outputs of tuple/dictionary code, find the possible outputs of random code, and write programs using dictionaries and modules."
+    ],
+    "example": {
+     "q": "For data = [2, 7, 4, 7, 5], find mean, median and mode.",
+     "steps": [
+      "mean = (2 + 7 + 4 + 7 + 5) / 5 = 25 / 5 = 5",
+      "Sorted: 2, 4, 5, 7, 7 → median = 5 (middle value)",
+      "7 occurs twice → mode = 7"
+     ],
+     "answer": "mean 5, median 5, mode 7"
+    },
+    "reallife": "Lottery-style draws, OTP generation demos and 'shuffle' in music apps all rely on random numbers, while statistics.mean() and median() summarise exam results."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Call ↔ possible results",
+     "pairs": [
+      [
+       "random.randint(1, 6)",
+       "1, 2, 3, 4, 5 or 6"
+      ],
+      [
+       "random.randrange(1, 6)",
+       "1, 2, 3, 4 or 5"
+      ],
+      [
+       "random.randrange(0, 10, 5)",
+       "0 or 5"
+      ],
+      [
+       "random.random()",
+       "Any float from 0.0 up to but not including 1.0"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Random and stats",
+     "items": [
+      [
+       "random.randint(1, 10) can return 10.",
+       true,
+       "randint includes both endpoints."
+      ],
+      [
+       "random.randrange(1, 10) can return 10.",
+       false,
+       "randrange excludes the stop value."
+      ],
+      [
+       "random.random() can return 1.0.",
+       false,
+       "It returns values in [0.0, 1.0)."
+      ],
+      [
+       "The median of [1, 3, 2] is 2.",
+       true,
+       "Sorted: 1, 2, 3; the middle value is 2."
+      ],
+      [
+       "statistics.mode([4, 1, 4, 2]) is 4.",
+       true,
+       "4 occurs most often."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which values can random.randint(3, 6) return?",
+     "options": [
+      "3, 4 and 5 only",
+      "Any float between 3 and 6",
+      "3, 4, 5 and 6",
+      "4, 5 and 6 only"
+     ],
+     "answer": 2,
+     "explain": "randint includes both endpoints.",
+     "mistake": "Thinks randint excludes the upper limit like range()"
+    },
+    {
+     "q": "Which values can random.randrange(2, 11, 3) return?",
+     "options": [
+      "3, 6 and 9",
+      "2, 5, 8 and 11",
+      "2 to 11",
+      "2, 5 and 8"
+     ],
+     "answer": 3,
+     "explain": "range(2, 11, 3) is 2, 5, 8; 11 is excluded.",
+     "mistake": "Includes the stop value"
+    },
+    {
+     "q": "What is the smallest and the largest value random.random() can produce?",
+     "options": [
+      "−1.0 to 1.0",
+      "0 to 1, both included",
+      "0.0 up to (but not including) 1.0",
+      "1 to 10"
+     ],
+     "answer": 2,
+     "explain": "random() returns a float in the half-open interval [0.0, 1.0).",
+     "mistake": "Thinks 1.0 is possible"
+    },
+    {
+     "q": "What is the output?\nimport statistics\nd = [2, 7, 4, 7, 5]\nprint(statistics.mean(d), statistics.median(d), statistics.mode(d))",
+     "options": [
+      "5 5 7",
+      "5.0 5 7",
+      "5 4 7",
+      "25 5 7"
+     ],
+     "answer": 0,
+     "explain": "mean = 25 / 5 = 5, median of 2, 4, 5, 7, 7 is 5, mode is 7.",
+     "mistake": "Picks the wrong middle value"
+    },
+    {
+     "q": "What is the output?\nimport statistics\nprint(statistics.median([4, 1, 3, 2]))",
+     "options": [
+      "2.5",
+      "4",
+      "1.5",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "Sorted data 1, 2, 3, 4 has two middle values (2 and 3); their average is 2.5.",
+     "mistake": "Picks one of the middle values, or doesn't sort first",
+     "check": "5/2"
+    },
+    {
+     "q": "Consider:\nimport random\nL = ['Red', 'Green', 'Blue']\nprint(L[random.randint(0, 1)])\nWhich output is NOT possible?",
+     "options": [
+      "Red",
+      "Green",
+      "Blue"
+     ],
+     "answer": 2,
+     "explain": "randint(0, 1) gives index 0 or 1, i.e. 'Red' or 'Green'; index 2 ('Blue') is never chosen.",
+     "mistake": "Thinks randint(0, 1) can give 2"
+    },
+    {
+     "q": "Which statement correctly simulates rolling a six-sided die?",
+     "options": [
+      "random.randint(1, 6)",
+      "random.randrange(1, 6)",
+      "random.randint(0, 6)",
+      "random.random() * 6"
+     ],
+     "answer": 0,
+     "explain": "randint(1, 6) includes both 1 and 6; randrange(1, 6) would never give 6.",
+     "mistake": "Uses randrange and loses the 6"
+    },
+    {
+     "q": "What is the output?\nimport statistics\nprint(statistics.mode(['a', 'b', 'c', 'b']))",
+     "options": [
+      "a",
+      "c",
+      "b",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "'b' appears most often (twice).",
+     "mistake": "Returns the count instead of the value"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is building a dice game and a marks summary. Explain random.random(), randint(), randrange(), and statistics mean, median and mode.",
+    "must": [
+     [
+      "randint",
+      "both included",
+      "inclusive"
+     ],
+     [
+      "randrange",
+      "stop excluded",
+      "not included"
+     ],
+     [
+      "random()",
+      "0 and 1",
+      "less than 1"
+     ],
+     [
+      "mean",
+      "median",
+      "mode"
+     ]
+    ],
+    "praise": "randint includes both ends, randrange skips the stop, random() stays below 1, and mean/median/mode summarise data. Game on!",
+    "nudge": "Good. Which random function includes both ends, and what do mean, median and mode each tell us?"
+   }
+  }
+ ]
+}

@@ -1,0 +1,1741 @@
+{
+ "n": 3,
+ "title": "Introduction to Problem Solving",
+ "emoji": "🧩",
+ "topics": [
+  {
+   "id": "g11-cs-03-01",
+   "title": "Problem solving: from problem to plan",
+   "covers": [
+    "c3.1.1",
+    "c3.1.2",
+    "c3.2.1",
+    "c3.2.2"
+   ],
+   "learn": {
+    "hook": "Booking a Tatkal ticket online feels instant, but someone first broke that task into hundreds of exact steps a computer could follow.",
+    "points": [
+     "A computer cannot think for itself; it solves a problem only when given precise, step-by-step instructions.",
+     "Problem solving means identifying the problem, designing a step-by-step solution and implementing it as a program.",
+     "Step 1, analysing the problem: understand exactly what is given (inputs), what is required (outputs) and any conditions or constraints.",
+     "Step 2, developing an algorithm: write the solution as an ordered set of steps in plain language before writing any code. A good plan saves debugging time later.",
+     "Full sequence: analyse the problem → develop an algorithm → code → test and debug."
+    ],
+    "example": {
+     "q": "Analyse: 'Find the total bill for n items with price p each, plus 18% GST.'",
+     "steps": [
+      "Inputs: n (number of items), p (price per item)",
+      "Process: amount = n × p; GST = 18% of amount; total = amount + GST",
+      "Output: total bill",
+      "Constraint: n and p must not be negative"
+     ],
+     "answer": "Inputs n, p → output total = n × p × 1.18"
+    },
+    "reallife": "Before IRCTC's software was written, analysts listed every input (train, date, class, passengers) and output (PNR, seat) the system must handle."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Steps of problem solving",
+     "prompt": "Put the steps in the correct order",
+     "items": [
+      "Analyse the problem",
+      "Develop an algorithm",
+      "Code the algorithm",
+      "Test and debug the program"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Input or output?",
+     "buckets": [
+      "Input",
+      "Output"
+     ],
+     "items": [
+      [
+       "Marks in five subjects (for a percentage program)",
+       0
+      ],
+      [
+       "Radius (for an area program)",
+       0
+      ],
+      [
+       "Principal, rate and time (for simple interest)",
+       0
+      ],
+      [
+       "Percentage obtained",
+       1
+      ],
+      [
+       "Area of the circle",
+       1
+      ],
+      [
+       "Simple interest",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the FIRST step in solving a problem with a computer?",
+     "options": [
+      "Testing the program",
+      "Drawing the output",
+      "Writing the code",
+      "Analysing the problem"
+     ],
+     "answer": 3,
+     "explain": "You must understand inputs, outputs and requirements before planning or coding.",
+     "mistake": "Jumps straight to coding"
+    },
+    {
+     "q": "While analysing 'find the average of three numbers', what are the inputs?",
+     "options": [
+      "The three numbers",
+      "The sum only",
+      "The number 3",
+      "The average"
+     ],
+     "answer": 0,
+     "explain": "Inputs are the values given; the average is the output to be computed.",
+     "mistake": "Mixes up the inputs and the output"
+    },
+    {
+     "q": "Why should an algorithm be developed before coding?",
+     "options": [
+      "It gives a clear plan, so errors in logic are found early",
+      "It makes the program run without a translator",
+      "Coding is not needed if there is an algorithm",
+      "Computers can run algorithms directly"
+     ],
+     "answer": 0,
+     "explain": "Planning first makes the logic clear and reduces errors and rework in the code.",
+     "mistake": "Thinks an algorithm can be executed directly by the computer"
+    },
+    {
+     "q": "Which sequence of problem-solving steps is correct?",
+     "options": [
+      "Test → code → algorithm → analyse",
+      "Code → analyse → test → algorithm",
+      "Analyse → algorithm → code → test and debug",
+      "Algorithm → analyse → code → test"
+     ],
+     "answer": 2,
+     "explain": "Understand the problem, plan it, write it, then check it.",
+     "mistake": "Puts testing before coding"
+    },
+    {
+     "q": "A computer can solve a problem only when:",
+     "options": [
+      "It is given precise, step-by-step instructions",
+      "The problem is simple",
+      "The user types fast",
+      "It has an internet connection"
+     ],
+     "answer": 0,
+     "explain": "Computers follow instructions exactly; they cannot fill gaps in vague instructions.",
+     "mistake": "Thinks computers can 'figure out' what we mean"
+    },
+    {
+     "q": "For a program that converts temperature from Celsius to Fahrenheit, what is the output?",
+     "options": [
+      "The number 32",
+      "The formula",
+      "Temperature in Celsius",
+      "Temperature in Fahrenheit"
+     ],
+     "answer": 3,
+     "explain": "Celsius is given (input); Fahrenheit is what we need (output).",
+     "mistake": "Treats the given value as the output"
+    },
+    {
+     "q": "Case: A shop owner says, 'Make an app that gives a discount.' Before writing an algorithm, a programmer should FIRST:",
+     "options": [
+      "Test the app",
+      "Ask what the discount rules are, what inputs are given and what output is expected",
+      "Start coding a 10% discount",
+      "Choose a colour for the app"
+     ],
+     "answer": 1,
+     "explain": "This is analysis: clarify requirements, inputs and outputs before designing a solution.",
+     "mistake": "Assumes requirements instead of analysing them"
+    },
+    {
+     "q": "Assertion (A): Analysing a problem carefully reduces errors later.\nReason (R): Analysis identifies the exact inputs, outputs and requirements before the solution is designed.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Knowing exactly what is needed prevents designing the wrong solution, explaining A.",
+     "mistake": "Doesn't see how analysis prevents later errors"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to write a program to calculate his pocket-money savings but doesn't know where to begin. Explain the first steps of problem solving.",
+    "must": [
+     [
+      "analyse",
+      "analyze",
+      "analysis",
+      "understand the problem"
+     ],
+     [
+      "input",
+      "inputs"
+     ],
+     [
+      "output",
+      "outputs"
+     ],
+     [
+      "algorithm",
+      "plan",
+      "steps"
+     ]
+    ],
+    "praise": "First understand inputs and outputs, then plan an algorithm, and only then code. That's a real plan!",
+    "nudge": "Good. What must you figure out about the problem before writing the algorithm?"
+   }
+  },
+  {
+   "id": "g11-cs-03-02",
+   "title": "Coding, testing and debugging",
+   "covers": [
+    "c3.2.3",
+    "c3.2.4",
+    "c3.8.1",
+    "c3.8.2"
+   ],
+   "learn": {
+    "hook": "In 1996 the Ariane 5 rocket exploded about 40 seconds after launch because of a software bug. Testing is not optional.",
+    "points": [
+     "Coding: translating the algorithm into a programming language (such as Python). The program written in a high-level language is called source code and must follow the language's syntax.",
+     "Source code must be translated into machine code by a compiler or an interpreter before the computer can run it. Python uses an interpreter.",
+     "Testing: running the program with test data whose correct output is known, to check that it gives the right results.",
+     "Debugging: finding and fixing errors (bugs) in the program.",
+     "Kinds of testing: unit testing (each small part separately), integration testing (parts working together), system testing (the whole system) and acceptance testing (by the user to confirm it meets their needs)."
+    ],
+    "example": {
+     "q": "A percentage program prints 450% for marks 90 out of 100 in each of 5 subjects. What step catches this, and what is the bug?",
+     "steps": [
+      "Testing: with known input 90 × 5 = 450 out of 500, the expected output is 90%",
+      "The program printed 450, so it forgot to divide by 500 and multiply by 100",
+      "Debugging: fix the formula to (total / 500) × 100",
+      "Re-test: output is now 90%"
+     ],
+     "answer": "Testing reveals it; debugging fixes the missing division"
+    },
+    "reallife": "Before UPI features go live, NPCI and banks run unit, integration and system tests, then let real users do acceptance testing in pilot cities."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Testing type ↔ what it checks",
+     "pairs": [
+      [
+       "Unit testing",
+       "Each module or function on its own"
+      ],
+      [
+       "Integration testing",
+       "Modules working together"
+      ],
+      [
+       "System testing",
+       "The complete system as a whole"
+      ],
+      [
+       "Acceptance testing",
+       "Whether the user's requirements are met"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Code, test, fix",
+     "items": [
+      [
+       "Source code is written in a high-level language.",
+       true,
+       "The programmer writes source code, which is later translated."
+      ],
+      [
+       "Debugging means adding new features to a program.",
+       false,
+       "Debugging means finding and fixing errors."
+      ],
+      [
+       "A computer runs Python source code directly with no translation.",
+       false,
+       "An interpreter translates it into machine instructions."
+      ],
+      [
+       "Test data should include cases whose correct output is already known.",
+       true,
+       "Otherwise you cannot tell if the output is right."
+      ],
+      [
+       "Acceptance testing is usually done by the end users or client.",
+       true,
+       "They confirm the software meets their needs."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is source code?",
+     "options": [
+      "A program written in a high-level language by a programmer",
+      "The binary code executed by the CPU",
+      "The output of a program",
+      "A list of test inputs"
+     ],
+     "answer": 0,
+     "explain": "Source code is human-written code, which a compiler or interpreter translates to machine code.",
+     "mistake": "Thinks source code is the machine code"
+    },
+    {
+     "q": "Which step involves finding and removing errors in a program?",
+     "options": [
+      "Decomposition",
+      "Debugging",
+      "Coding",
+      "Analysing"
+     ],
+     "answer": 1,
+     "explain": "Errors are called bugs; removing them is debugging.",
+     "mistake": "Thinks testing alone fixes the errors"
+    },
+    {
+     "q": "Testing each function of a program separately is called:",
+     "options": [
+      "Integration testing",
+      "System testing",
+      "Unit testing",
+      "Acceptance testing"
+     ],
+     "answer": 2,
+     "explain": "A unit is the smallest testable part, tested on its own.",
+     "mistake": "Confuses unit testing with integration testing"
+    },
+    {
+     "q": "A school checks that the attendance module and the report-card module exchange data correctly. This is:",
+     "options": [
+      "Unit testing",
+      "Coding",
+      "Acceptance testing",
+      "Integration testing"
+     ],
+     "answer": 3,
+     "explain": "Checking that separate modules work together is integration testing.",
+     "mistake": "Thinks testing two modules is still unit testing"
+    },
+    {
+     "q": "Why does Python source code need an interpreter?",
+     "options": [
+      "To make the code longer",
+      "To draw a flowchart",
+      "The CPU understands only machine code, so the source code must be translated",
+      "To store the code on disk"
+     ],
+     "answer": 2,
+     "explain": "High-level code must be translated into instructions the CPU can execute.",
+     "mistake": "Thinks the CPU reads Python directly"
+    },
+    {
+     "q": "Which is the best test data for a program that checks if a number is even?",
+     "options": [
+      "No test data is needed",
+      "4, 7, 0 and −2, whose answers are known",
+      "Only very large numbers",
+      "Only 2"
+     ],
+     "answer": 1,
+     "explain": "Good tests cover normal even, odd, zero and negative cases with known answers.",
+     "mistake": "Tests only one easy case"
+    },
+    {
+     "q": "The final testing done by the client to confirm the software meets their needs is:",
+     "options": [
+      "Acceptance testing",
+      "Unit testing",
+      "Integration testing",
+      "Debugging"
+     ],
+     "answer": 0,
+     "explain": "Acceptance testing is done by, or for, the user to accept the product.",
+     "mistake": "Thinks the developer's own tests are acceptance tests"
+    },
+    {
+     "q": "Assertion (A): A program that runs without crashing is always correct.\nReason (R): Testing compares the program's output with the expected output for known inputs.",
+     "options": [
+      "Both A and R are false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "A is true but R is false"
+     ],
+     "answer": 2,
+     "explain": "A program can run smoothly yet give wrong results, so A is false. R correctly describes testing.",
+     "mistake": "Equates 'no crash' with 'correct output'"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wrote his first program and it ran, so he thinks he is done. Explain coding, testing and debugging to him.",
+    "must": [
+     [
+      "source code",
+      "coding",
+      "code"
+     ],
+     [
+      "testing",
+      "test",
+      "test data"
+     ],
+     [
+      "debugging",
+      "debug",
+      "bug",
+      "fix errors"
+     ]
+    ],
+    "praise": "So running isn't enough — I must test with known answers and debug any mistakes. Thanks!",
+    "nudge": "Nice. After coding, what do we do to check the program, and what is it called when we fix errors?"
+   }
+  },
+  {
+   "id": "g11-cs-03-03",
+   "title": "Algorithms and their characteristics",
+   "covers": [
+    "c3.3.1",
+    "c3.3.2",
+    "c3.3.3"
+   ],
+   "learn": {
+    "hook": "A recipe that says 'add some salt and cook till done' is fine for a chef, but a computer would be stuck forever. An algorithm can't be vague.",
+    "points": [
+     "An algorithm is a finite sequence of well-defined steps, in a fixed order, that solves a problem. It has a clear beginning and end.",
+     "Why algorithms: they make the solution clear before coding, help check correctness, and let us explain the solution to others in plain language.",
+     "Characteristics of a good algorithm: precision (each step is exactly stated), uniqueness (each step's result depends only on the input and earlier steps), finiteness (it always stops after a finite number of steps).",
+     "It has defined input (it receives data) and produces output (a result).",
+     "An algorithm is language-independent: the same algorithm can be coded in Python, C++ or Java."
+    ],
+    "example": {
+     "q": "Write an algorithm to find the larger of two numbers A and B.",
+     "steps": [
+      "Step 1: Start",
+      "Step 2: Input A and B",
+      "Step 3: If A > B, then Large = A, else Large = B",
+      "Step 4: Print Large",
+      "Step 5: Stop"
+     ],
+     "answer": "Input → compare → print the larger → stop"
+    },
+    "reallife": "Google Maps uses route-finding algorithms to pick the quickest way through Bengaluru traffic: exact steps, fixed input (start, destination) and a finite answer."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Characteristic ↔ meaning",
+     "pairs": [
+      [
+       "Precision",
+       "Each step is clearly and exactly stated"
+      ],
+      [
+       "Finiteness",
+       "It stops after a limited number of steps"
+      ],
+      [
+       "Uniqueness",
+       "Each step's result depends only on input and earlier steps"
+      ],
+      [
+       "Input",
+       "It receives data to work on"
+      ],
+      [
+       "Output",
+       "It produces at least one result"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Is it a valid algorithm step?",
+     "items": [
+      [
+       "'Add a little sugar' is a precise step.",
+       false,
+       "'A little' is vague; precision needs exact quantities."
+      ],
+      [
+       "An algorithm may run forever if the problem is hard.",
+       false,
+       "Finiteness requires it to stop."
+      ],
+      [
+       "The same algorithm can be coded in different programming languages.",
+       true,
+       "Algorithms are language-independent."
+      ],
+      [
+       "An algorithm must produce some output.",
+       true,
+       "Producing a result is one of its characteristics."
+      ],
+      [
+       "Steps of an algorithm can be done in any random order.",
+       false,
+       "An algorithm's steps follow a definite order."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which statement best defines an algorithm?",
+     "options": [
+      "A finite, ordered set of well-defined steps to solve a problem",
+      "A list of the outputs of a program",
+      "A diagram of computer hardware",
+      "Any computer program written in Python"
+     ],
+     "answer": 0,
+     "explain": "An algorithm is the step-by-step plan, independent of any language.",
+     "mistake": "Thinks an algorithm must be code"
+    },
+    {
+     "q": "'Repeat: add 1 to x' with no stopping condition violates which characteristic?",
+     "options": [
+      "Precision",
+      "Uniqueness",
+      "Input",
+      "Finiteness"
+     ],
+     "answer": 3,
+     "explain": "Without a stopping condition it never ends, breaking finiteness.",
+     "mistake": "Confuses finiteness with precision"
+    },
+    {
+     "q": "'Cook the dal for some time' fails which characteristic?",
+     "options": [
+      "Finiteness",
+      "Precision",
+      "Input",
+      "Output"
+     ],
+     "answer": 1,
+     "explain": "'Some time' is not exactly defined, so the step is not precise.",
+     "mistake": "Thinks it only fails finiteness"
+    },
+    {
+     "q": "Which of these is NOT a characteristic of a good algorithm?",
+     "options": [
+      "It must be written in Python",
+      "Finiteness",
+      "Defined input and output",
+      "Precision"
+     ],
+     "answer": 0,
+     "explain": "Algorithms are language-independent; they need not be in any programming language.",
+     "mistake": "Thinks algorithms are tied to a language"
+    },
+    {
+     "q": "Why do programmers write an algorithm before the program?",
+     "options": [
+      "Because the computer runs the algorithm instead of code",
+      "To make the logic clear and catch mistakes before coding",
+      "Because algorithms need no input",
+      "To make the program slower"
+     ],
+     "answer": 1,
+     "explain": "An algorithm is a plan that clarifies logic and is easy to discuss and correct.",
+     "mistake": "Thinks algorithms replace programs"
+    },
+    {
+     "q": "An algorithm to find the area of a rectangle needs which inputs?",
+     "options": [
+      "Length and breadth",
+      "Perimeter",
+      "Radius",
+      "Area only"
+     ],
+     "answer": 0,
+     "explain": "Area = length × breadth, so both must be given.",
+     "mistake": "Treats the result as an input"
+    },
+    {
+     "q": "What does 'uniqueness' mean for an algorithm's steps?",
+     "options": [
+      "Each step must use a different variable",
+      "Every algorithm must be different from all others",
+      "The result of each step is uniquely decided by the input and the previous steps",
+      "Only one person can write it"
+     ],
+     "answer": 2,
+     "explain": "The same input always leads to the same result at each step, with no guessing.",
+     "mistake": "Reads uniqueness as originality"
+    },
+    {
+     "q": "Assertion (A): An algorithm can be implemented in any programming language.\nReason (R): An algorithm describes the logic of a solution in plain steps, not in a particular language's syntax.",
+     "options": [
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 1,
+     "explain": "Because it is written in plain steps, the same logic can be coded in any language.",
+     "mistake": "Does not link language-independence to plain-step writing"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks any set of instructions is an algorithm, even 'add salt to taste'. Explain what makes a good algorithm.",
+    "must": [
+     [
+      "finite",
+      "finiteness",
+      "stops"
+     ],
+     [
+      "precise",
+      "precision",
+      "exact",
+      "clear"
+     ],
+     [
+      "input",
+      "output"
+     ]
+    ],
+    "praise": "So an algorithm must be precise, finite and have input and output. 'To taste' is out!",
+    "nudge": "Good thinking. Which characteristics make a step 'good enough' for a computer, and must it always stop?"
+   }
+  },
+  {
+   "id": "g11-cs-03-04",
+   "title": "Flowcharts",
+   "covers": [
+    "c3.4.1",
+    "c3.4.2"
+   ],
+   "learn": {
+    "hook": "A flowchart is an algorithm you can see at a glance, like a metro map for your logic.",
+    "points": [
+     "A flowchart is a visual (diagrammatic) representation of an algorithm using standard symbols connected by arrows.",
+     "Terminator (oval / rounded rectangle): Start or Stop. Process (rectangle): a calculation or assignment, e.g. Sum = A + B.",
+     "Decision (diamond): a yes/no question, e.g. Is A > B? It has one entry and two exits (Yes and No).",
+     "Input/Output (parallelogram): reading input or printing output. Flow lines (arrows): show the direction of flow.",
+     "Example flowcharts: sum of two numbers (Start → Input A, B → Sum = A + B → Print Sum → Stop); square of a number; largest of two or three numbers (uses decisions)."
+    ],
+    "example": {
+     "q": "Draw the flowchart for the square of a number N.",
+     "steps": [
+      "Oval: Start",
+      "Parallelogram: Input N",
+      "Rectangle: Square = N × N",
+      "Parallelogram: Print Square",
+      "Oval: Stop"
+     ],
+     "answer": "Start → Input N → Square = N × N → Print Square → Stop"
+    },
+    "reallife": "Indian Railways' safety manuals use flowchart-like charts to show staff exactly what to do at each signal: check → decide → act."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Symbol ↔ use",
+     "pairs": [
+      [
+       "Oval",
+       "Start or Stop"
+      ],
+      [
+       "Rectangle",
+       "Process or calculation"
+      ],
+      [
+       "Diamond",
+       "Decision (Yes/No)"
+      ],
+      [
+       "Parallelogram",
+       "Input or Output"
+      ],
+      [
+       "Arrow",
+       "Direction of flow"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Flowchart: sum of two numbers",
+     "prompt": "Order the boxes from top to bottom",
+     "items": [
+      "Start (oval)",
+      "Input A, B (parallelogram)",
+      "Sum = A + B (rectangle)",
+      "Print Sum (parallelogram)",
+      "Stop (oval)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which flowchart symbol represents a decision?",
+     "options": [
+      "Rectangle",
+      "Diamond",
+      "Parallelogram",
+      "Oval"
+     ],
+     "answer": 1,
+     "explain": "A diamond holds a condition with Yes/No branches.",
+     "mistake": "Uses the process rectangle for decisions"
+    },
+    {
+     "q": "'Read marks' is shown in which flowchart symbol?",
+     "options": [
+      "Rectangle",
+      "Parallelogram",
+      "Diamond",
+      "Oval"
+     ],
+     "answer": 1,
+     "explain": "Input and output use the parallelogram.",
+     "mistake": "Thinks reading data is a process (rectangle)"
+    },
+    {
+     "q": "'Total = Total + marks' is drawn in which symbol?",
+     "options": [
+      "Oval",
+      "Parallelogram",
+      "Diamond",
+      "Rectangle"
+     ],
+     "answer": 3,
+     "explain": "A calculation or assignment is a process, shown as a rectangle.",
+     "mistake": "Uses the parallelogram for any statement with a variable"
+    },
+    {
+     "q": "Which symbol marks the beginning and end of a flowchart?",
+     "options": [
+      "Diamond",
+      "Circle with an arrow",
+      "Oval (terminator)",
+      "Rectangle"
+     ],
+     "answer": 2,
+     "explain": "Start and Stop are terminators, drawn as ovals or rounded rectangles.",
+     "mistake": "Uses a rectangle for Start"
+    },
+    {
+     "q": "How many exits does a decision box usually have?",
+     "options": [
+      "4",
+      "1",
+      "3",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "A decision answers Yes or No, so it has two exits.",
+     "mistake": "Thinks every box has one exit",
+     "check": "2"
+    },
+    {
+     "q": "In a flowchart to find the larger of A and B, which step comes right after 'Input A, B'?",
+     "options": [
+      "Input C",
+      "Decision: Is A > B?",
+      "Stop",
+      "Print A"
+     ],
+     "answer": 1,
+     "explain": "After reading both numbers, we compare them in a decision box.",
+     "mistake": "Prints before comparing"
+    },
+    {
+     "q": "What is the main advantage of a flowchart over a written algorithm?",
+     "options": [
+      "It cannot have decisions",
+      "It runs faster on the computer",
+      "It needs no symbols",
+      "It shows the flow of logic visually, making it easier to follow"
+     ],
+     "answer": 3,
+     "explain": "Diagrams make branching and order easy to see and explain.",
+     "mistake": "Thinks flowcharts are executed by computers"
+    },
+    {
+     "q": "Case: A flowchart reads N, checks 'Is N % 2 == 0?', and prints 'Even' on Yes and 'Odd' on No. For N = 15, what is printed?",
+     "options": [
+      "Odd",
+      "Even",
+      "15",
+      "Nothing"
+     ],
+     "answer": 0,
+     "explain": "15 % 2 = 1, which is not 0, so the No branch prints 'Odd'.",
+     "mistake": "Follows the Yes branch without evaluating the condition"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to draw his logic as a picture. Explain flowcharts and their main symbols.",
+    "must": [
+     [
+      "oval",
+      "terminator",
+      "start",
+      "stop"
+     ],
+     [
+      "rectangle",
+      "process"
+     ],
+     [
+      "diamond",
+      "decision"
+     ],
+     [
+      "parallelogram",
+      "input",
+      "output"
+     ]
+    ],
+    "praise": "Oval to start and stop, rectangle for work, diamond for decisions and parallelogram for input/output. I can draw it now!",
+    "nudge": "Good. Which shape is for decisions, which for input/output, and which for calculations?"
+   }
+  },
+  {
+   "id": "g11-cs-03-05",
+   "title": "Pseudocode",
+   "covers": [
+    "c3.4.3",
+    "c3.4.4"
+   ],
+   "learn": {
+    "hook": "Pseudocode is how programmers talk logic to each other without arguing about Python versus Java.",
+    "points": [
+     "Pseudocode ('false code') is an informal, language-independent way of writing an algorithm in structured English-like statements.",
+     "Common keywords: INPUT, COMPUTE, PRINT, INCREMENT, DECREMENT, IF/ELSE, WHILE, TRUE/FALSE.",
+     "It is not executed by a computer, so it has no strict syntax, but it should be clear, ordered and close to real code.",
+     "Benefits: easy to read and modify, helps non-programmers review the logic, and converts easily into any programming language."
+    ],
+    "example": {
+     "q": "Write pseudocode to check if a person is eligible to vote (age 18 or above).",
+     "steps": [
+      "INPUT age",
+      "IF age >= 18 THEN",
+      "    PRINT \"Eligible to vote\"",
+      "ELSE",
+      "    PRINT \"Not eligible\""
+     ],
+     "answer": "INPUT age; IF age >= 18 PRINT eligible ELSE PRINT not eligible"
+    },
+    "reallife": "Election Commission software teams can review a voter-eligibility rule written in pseudocode with officials who have never coded."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Complete the pseudocode",
+     "items": [
+      {
+       "text": "___ length, breadth  (read the values)",
+       "answer": "INPUT",
+       "options": [
+        "INPUT",
+        "PRINT",
+        "WHILE"
+       ]
+      },
+      {
+       "text": "COMPUTE area ___ length * breadth",
+       "answer": "=",
+       "options": [
+        "=",
+        "==",
+        "IF"
+       ]
+      },
+      {
+       "text": "___ area  (show the result)",
+       "answer": "PRINT",
+       "options": [
+        "PRINT",
+        "INPUT",
+        "ELSE"
+       ]
+      },
+      {
+       "text": "___ count < 10: INCREMENT count",
+       "answer": "WHILE",
+       "options": [
+        "WHILE",
+        "PRINT",
+        "INPUT"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Pseudocode facts",
+     "items": [
+      [
+       "Pseudocode can be run directly by the Python interpreter.",
+       false,
+       "It is informal and not executable."
+      ],
+      [
+       "Pseudocode is independent of any programming language.",
+       true,
+       "It describes logic in plain structured statements."
+      ],
+      [
+       "Pseudocode can include IF/ELSE and WHILE.",
+       true,
+       "These keywords express selection and repetition."
+      ],
+      [
+       "Pseudocode must follow exact Python syntax.",
+       false,
+       "It has no strict syntax."
+      ],
+      [
+       "Pseudocode helps non-programmers understand the logic.",
+       true,
+       "It reads almost like English."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Pseudocode is best described as:",
+     "options": [
+      "Machine code",
+      "A flowchart with shapes",
+      "Code that only Python can run",
+      "An informal, language-independent description of an algorithm"
+     ],
+     "answer": 3,
+     "explain": "Pseudocode uses English-like structured statements and is not executed.",
+     "mistake": "Thinks pseudocode is a programming language"
+    },
+    {
+     "q": "Which keyword reads data from the user in pseudocode?",
+     "options": [
+      "INCREMENT",
+      "COMPUTE",
+      "PRINT",
+      "INPUT"
+     ],
+     "answer": 3,
+     "explain": "INPUT reads data; PRINT shows it.",
+     "mistake": "Mixes up INPUT and PRINT"
+    },
+    {
+     "q": "Consider:\nINPUT n\nsum = 0\ncount = 1\nWHILE count <= n\n    sum = sum + count\n    INCREMENT count\nPRINT sum\nWhat is printed for n = 5?",
+     "options": [
+      "10",
+      "15",
+      "5",
+      "21"
+     ],
+     "answer": 1,
+     "explain": "It adds 1 + 2 + 3 + 4 + 5 = 15.",
+     "steps": [
+      "count 1..5 are all added",
+      "1 + 2 + 3 + 4 + 5 = 15"
+     ],
+     "mistake": "Stops one step early (missing 5)",
+     "check": "1+2+3+4+5"
+    },
+    {
+     "q": "Consider:\nINPUT a, b\nIF a > b THEN PRINT a\nELSE PRINT b\nWhat is printed for a = 12, b = 20?",
+     "options": [
+      "12",
+      "20",
+      "8",
+      "32"
+     ],
+     "answer": 1,
+     "explain": "12 > 20 is false, so the ELSE part prints b = 20.",
+     "mistake": "Prints a without checking the condition",
+     "check": "20"
+    },
+    {
+     "q": "Which is a benefit of pseudocode?",
+     "options": [
+      "It can be easily converted into any programming language",
+      "It removes the need for testing",
+      "It runs faster than Python",
+      "It needs a compiler"
+     ],
+     "answer": 0,
+     "explain": "Since it is language-neutral, it can be translated into any language's syntax.",
+     "mistake": "Thinks pseudocode is executable"
+    },
+    {
+     "q": "Consider:\nINPUT n\nIF n MOD 2 = 0 THEN PRINT \"Even\"\nELSE PRINT \"Odd\"\nWhat is printed for n = 0?",
+     "options": [
+      "0",
+      "Error",
+      "Odd",
+      "Even"
+     ],
+     "answer": 3,
+     "explain": "0 MOD 2 = 0, so the condition is true and 'Even' is printed.",
+     "mistake": "Thinks zero is odd or neither"
+    },
+    {
+     "q": "Consider:\nproduct = 1\nFOR i = 1 TO 4\n    product = product * i\nPRINT product\nWhat is printed?",
+     "options": [
+      "120",
+      "10",
+      "4",
+      "24"
+     ],
+     "answer": 3,
+     "explain": "1 × 1 × 2 × 3 × 4 = 24 (that is 4!).",
+     "steps": [
+      "product = 1 × 1 = 1",
+      "× 2 = 2, × 3 = 6, × 4 = 24"
+     ],
+     "mistake": "Adds instead of multiplies, or loops to 5",
+     "check": "1*2*3*4"
+    },
+    {
+     "q": "Assertion (A): Pseudocode is useful even though a computer cannot execute it.\nReason (R): Pseudocode lets people focus on the logic without worrying about the syntax of a language.",
+     "options": [
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 1,
+     "explain": "Its value lies in clear logic, free of syntax rules, which explains why it is useful.",
+     "mistake": "Thinks only executable things are useful"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Is pseudocode just bad code?' Explain what pseudocode is and why we use it.",
+    "must": [
+     [
+      "informal",
+      "english like",
+      "plain english",
+      "not a programming language"
+     ],
+     [
+      "language independent",
+      "any language",
+      "language-independent"
+     ],
+     [
+      "input",
+      "print",
+      "if",
+      "while"
+     ]
+    ],
+    "praise": "Pseudocode is plain, structured logic using words like INPUT and PRINT — easy to turn into any language. Not bad code at all!",
+    "nudge": "Good. What makes pseudocode different from real code, and which keywords does it use?"
+   }
+  },
+  {
+   "id": "g11-cs-03-06",
+   "title": "Flow of control: sequence, selection, repetition",
+   "covers": [
+    "c3.5.1",
+    "c3.5.2",
+    "c3.5.3"
+   ],
+   "learn": {
+    "hook": "Every program, from a calculator to Chandrayaan's landing software, is built from just three building blocks.",
+    "points": [
+     "Sequence: statements are executed one after another in the order written.",
+     "Selection: a condition decides which of two or more paths to follow (IF/ELSE). Example: if number MOD 2 = 0, print 'Even', else print 'Odd'; if age >= 18, 'Eligible'.",
+     "Repetition (iteration): a set of steps is repeated while a condition holds, or for a fixed number of times. Example: summing marks of 40 students; counting digits.",
+     "Most real algorithms combine all three: sequence inside loops, decisions inside loops, and so on."
+    ],
+    "example": {
+     "q": "Identify the control structures in: 'Read 10 numbers; for each, if it is negative, count it; finally print the count.'",
+     "steps": [
+      "'Read … finally print' happens in order → sequence",
+      "'For each of 10 numbers' → repetition",
+      "'If it is negative' → selection"
+     ],
+     "answer": "Sequence, repetition and selection all appear"
+    },
+    "reallife": "A traffic signal controller repeats a cycle (repetition), switches lights in a fixed order (sequence) and gives extra green time if sensors detect a queue (selection)."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which control structure?",
+     "buckets": [
+      "Sequence",
+      "Selection",
+      "Repetition"
+     ],
+     "items": [
+      [
+       "Input A; Input B; Print A + B",
+       0
+      ],
+      [
+       "Compute area, then print it",
+       0
+      ],
+      [
+       "If marks >= 33 print Pass else Fail",
+       1
+      ],
+      [
+       "If it rains, take an umbrella",
+       1
+      ],
+      [
+       "Print numbers 1 to 100",
+       2
+      ],
+      [
+       "Keep asking for a password until it is correct",
+       2
+      ],
+      [
+       "Add up the marks of all 40 students",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Control check",
+     "items": [
+      [
+       "In sequence, every statement runs exactly once, in order.",
+       true,
+       "No decision or loop changes the order."
+      ],
+      [
+       "Selection may skip some statements.",
+       true,
+       "Only the chosen branch runs."
+      ],
+      [
+       "Repetition always runs its steps exactly once.",
+       false,
+       "Loops repeat steps, possibly many times."
+      ],
+      [
+       "An algorithm can mix sequence, selection and repetition.",
+       true,
+       "Most real algorithms do."
+      ],
+      [
+       "Checking whether a number is odd or even needs repetition.",
+       false,
+       "A single selection is enough."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which control structure is needed to decide whether a number is odd or even?",
+     "options": [
+      "None",
+      "Sequence only",
+      "Selection",
+      "Repetition"
+     ],
+     "answer": 2,
+     "explain": "A condition (n MOD 2 = 0) picks one of two outputs.",
+     "mistake": "Thinks a loop is needed for a single check"
+    },
+    {
+     "q": "Printing the multiplication table of 7 (7 × 1 to 7 × 10) mainly uses:",
+     "options": [
+      "Repetition",
+      "Selection",
+      "Sequence only",
+      "Decomposition"
+     ],
+     "answer": 0,
+     "explain": "The same multiply-and-print step repeats ten times.",
+     "mistake": "Writes ten separate statements instead of a loop"
+    },
+    {
+     "q": "'Input radius; area = 3.14 × r × r; print area' is an example of:",
+     "options": [
+      "Repetition",
+      "Selection",
+      "Sequence",
+      "Recursion"
+     ],
+     "answer": 2,
+     "explain": "Each step runs once in order, with no choice or loop.",
+     "mistake": "Thinks any calculation is selection"
+    },
+    {
+     "q": "Consider:\ncount = 0\nFOR each number in [5, -3, 8, -1, 0]\n    IF number < 0 THEN INCREMENT count\nPRINT count\nWhat is printed?",
+     "options": [
+      "1",
+      "5",
+      "2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "Only −3 and −1 are less than 0; 0 is not negative.",
+     "mistake": "Counts 0 as negative",
+     "check": "2"
+    },
+    {
+     "q": "Which structure makes an ATM ask for the PIN again (up to 3 times) after a wrong entry?",
+     "options": [
+      "Sequence",
+      "Repetition",
+      "Output",
+      "Selection only"
+     ],
+     "answer": 1,
+     "explain": "The PIN request repeats while the PIN is wrong and attempts remain.",
+     "mistake": "Thinks one IF statement is enough to retry"
+    },
+    {
+     "q": "Consider:\nINPUT age\nIF age >= 18 THEN PRINT \"Adult\"\nELSE PRINT \"Minor\"\nHow many PRINT statements run for any one input?",
+     "options": [
+      "0",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "In selection, only one branch runs.",
+     "mistake": "Thinks both branches run",
+     "check": "1"
+    },
+    {
+     "q": "Consider:\nn = 1234\ndigits = 0\nWHILE n > 0\n    n = n DIV 10\n    INCREMENT digits\nPRINT digits\n(DIV is integer division.) What is printed?",
+     "options": [
+      "3",
+      "5",
+      "4",
+      "1234"
+     ],
+     "answer": 2,
+     "explain": "n goes 1234 → 123 → 12 → 1 → 0, so the loop runs 4 times.",
+     "steps": [
+      "1234 → 123 (1)",
+      "123 → 12 (2)",
+      "12 → 1 (3)",
+      "1 → 0 (4)"
+     ],
+     "mistake": "Stops before the last division",
+     "check": "4"
+    },
+    {
+     "q": "Assertion (A): Summing the marks of all students in a class needs repetition.\nReason (R): The same 'add marks to total' step is carried out for each student.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "A is true but R is false"
+     ],
+     "answer": 1,
+     "explain": "Because one step repeats for every student, a loop (repetition) is natural.",
+     "mistake": "Doesn't connect repeated steps with loops"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders how a program 'decides' or 'repeats'. Explain sequence, selection and repetition with examples.",
+    "must": [
+     [
+      "sequence",
+      "one after another",
+      "in order"
+     ],
+     [
+      "selection",
+      "decision",
+      "if",
+      "condition"
+     ],
+     [
+      "repetition",
+      "iteration",
+      "loop",
+      "repeat"
+     ]
+    ],
+    "praise": "Sequence goes in order, selection chooses a path and repetition loops. Three blocks build everything!",
+    "nudge": "Good. Can you name all three and give an example of each?"
+   }
+  },
+  {
+   "id": "g11-cs-03-07",
+   "title": "Verifying and comparing algorithms",
+   "covers": [
+    "c3.6.1",
+    "c3.6.2",
+    "c3.7.1",
+    "c3.7.2"
+   ],
+   "learn": {
+    "hook": "Two students both write a prime-checker. One answers instantly for 1,000,003; the other takes ages. Both are correct, but one is smarter.",
+    "points": [
+     "Verifying an algorithm: do a dry run, i.e. trace it step by step by hand with sample inputs, recording variable values in a table, and compare with the expected result.",
+     "Choose good test inputs: normal values, boundary values (e.g. marks exactly 33 for pass/fail) and special cases (0, negative numbers, very large values).",
+     "One problem can have many algorithms. To check if n is prime you can test divisors from 2 to n − 1, or 2 to n/2, or only up to √n, or only odd divisors after 2.",
+     "Algorithms are compared by time complexity (how many steps/operations they need) and space complexity (how much memory they need). Fewer steps and less memory is better."
+    ],
+    "example": {
+     "q": "How many divisors are tested to check if 101 is prime using (a) 2 to n − 1, (b) 2 to √n?",
+     "steps": [
+      "(a) Divisors 2, 3, …, 100: that is 99 checks",
+      "(b) √101 ≈ 10.05, so test 2 to 10: that is 9 checks",
+      "Both correctly find that 101 is prime"
+     ],
+     "answer": "99 checks versus 9 checks"
+    },
+    "reallife": "Aadhaar authentication must search over a billion records in seconds; choosing a faster algorithm is the difference between a smooth queue and a stuck one."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Kind of test input for 'pass if marks ≥ 33' (marks 0–100)",
+     "buckets": [
+      "Normal case",
+      "Boundary case"
+     ],
+     "items": [
+      [
+       "Marks = 75",
+       0
+      ],
+      [
+       "Marks = 50",
+       0
+      ],
+      [
+       "Marks = 20",
+       0
+      ],
+      [
+       "Marks = 33",
+       1
+      ],
+      [
+       "Marks = 32",
+       1
+      ],
+      [
+       "Marks = 0",
+       1
+      ],
+      [
+       "Marks = 100",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Compare and verify",
+     "items": [
+      [
+       "A dry run is done on paper without running the code.",
+       true,
+       "It traces each step by hand."
+      ],
+      [
+       "If two algorithms give correct answers, they are equally good.",
+       false,
+       "They may differ in time and memory used."
+      ],
+      [
+       "Testing up to √n is enough to check whether n is prime.",
+       true,
+       "Any factor larger than √n pairs with one smaller than √n."
+      ],
+      [
+       "Boundary values are the least important test cases.",
+       false,
+       "Errors often appear exactly at the boundaries."
+      ],
+      [
+       "Space complexity is about how much memory an algorithm needs.",
+       true,
+       "Time is about steps; space is about memory."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is a dry run?",
+     "options": [
+      "Deleting unused code",
+      "Compiling a program twice",
+      "Tracing an algorithm step by step by hand with sample input",
+      "Running a program without electricity"
+     ],
+     "answer": 2,
+     "explain": "A dry run checks the logic manually, recording values of variables.",
+     "mistake": "Thinks it means executing on the computer"
+    },
+    {
+     "q": "A program gives 'Pass' when marks > 33. Which test input reveals the bug if the rule is 'pass at 33 or more'?",
+     "options": [
+      "10",
+      "50",
+      "33",
+      "90"
+     ],
+     "answer": 2,
+     "explain": "At exactly 33, 'marks > 33' gives Fail though the student should pass. Boundary inputs catch such errors.",
+     "mistake": "Tests only values far from the boundary",
+     "check": "33"
+    },
+    {
+     "q": "To check if 49 is prime by testing divisors from 2 up to √49, how many divisors are tested at most?",
+     "options": [
+      "24",
+      "6",
+      "7",
+      "47"
+     ],
+     "answer": 1,
+     "explain": "√49 = 7, so the divisors 2 to 7 are tested: that is 6 numbers (and 7 divides 49).",
+     "steps": [
+      "√49 = 7",
+      "Divisors 2, 3, 4, 5, 6, 7",
+      "That is 6 numbers"
+     ],
+     "mistake": "Counts from 1 or up to n − 1",
+     "check": "7-2+1"
+    },
+    {
+     "q": "Two algorithms solve the same problem; A needs 1000 steps, B needs 50 steps for the same input. Which is better in time?",
+     "options": [
+      "B",
+      "A",
+      "Both equal",
+      "Cannot be decided by steps"
+     ],
+     "answer": 0,
+     "explain": "Fewer processing steps means less time.",
+     "mistake": "Thinks a longer algorithm is more thorough and so better"
+    },
+    {
+     "q": "Comparing algorithms by the memory they use is comparing their:",
+     "options": [
+      "Syntax",
+      "Space requirement (space complexity)",
+      "Output",
+      "Time requirement"
+     ],
+     "answer": 1,
+     "explain": "Space complexity measures memory needed.",
+     "mistake": "Confuses space with time complexity"
+    },
+    {
+     "q": "Consider this algorithm:\nINPUT n\nf = 1\nWHILE n > 1\n    f = f * n\n    n = n - 1\nPRINT f\nDry-run it for n = 5. What is printed?",
+     "options": [
+      "120",
+      "60",
+      "24",
+      "15"
+     ],
+     "answer": 0,
+     "explain": "f = 5 × 4 × 3 × 2 = 120 (it computes 5!).",
+     "steps": [
+      "n=5: f=5",
+      "n=4: f=20",
+      "n=3: f=60",
+      "n=2: f=120",
+      "n=1: loop ends"
+     ],
+     "mistake": "Stops one iteration early, giving 60",
+     "check": "5*4*3*2"
+    },
+    {
+     "q": "Checking divisibility only up to n/2 instead of n − 1 to test for primes:",
+     "options": [
+      "Uses more steps",
+      "Works only for even numbers",
+      "Gives wrong answers for most numbers",
+      "Gives the same answer with fewer steps"
+     ],
+     "answer": 3,
+     "explain": "No number (other than n itself) greater than n/2 can divide n, so the answer is unchanged but faster.",
+     "mistake": "Thinks skipping checks makes it wrong"
+    },
+    {
+     "q": "Assertion (A): Two correct algorithms for the same problem may still differ in quality.\nReason (R): They can need different amounts of time and memory.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Time and memory needs are exactly how we judge which correct algorithm is better.",
+     "mistake": "Thinks correctness is the only measure"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's prime-checker works but is slow. Explain how we verify an algorithm and how we compare two algorithms.",
+    "must": [
+     [
+      "dry run",
+      "trace",
+      "by hand"
+     ],
+     [
+      "test",
+      "test data",
+      "boundary"
+     ],
+     [
+      "time",
+      "steps",
+      "faster"
+     ],
+     [
+      "space",
+      "memory"
+     ]
+    ],
+    "praise": "Dry-run with good test cases to verify, then compare time and memory to choose the better one. Mine needs a √n upgrade!",
+    "nudge": "Nice. How do we check an algorithm by hand, and on what two things do we compare algorithms?"
+   }
+  },
+  {
+   "id": "g11-cs-03-08",
+   "title": "Decomposition",
+   "covers": [
+    "c3.9.1",
+    "c3.9.2",
+    "c3.9.3"
+   ],
+   "learn": {
+    "hook": "Nobody builds the IRCTC website in one go. It's split into search, booking, payment and cancellation, each built by a separate team.",
+    "points": [
+     "Decomposition means breaking a large, complex problem into smaller sub-problems that are easier to understand and solve.",
+     "Each sub-problem can be solved (and tested) independently, and the solutions are then combined to solve the original problem.",
+     "Railway reservation decomposes into: train enquiry, seat availability, booking, payment, ticket generation and cancellation/refund.",
+     "Benefits: easier understanding, work can be divided among teams, parts can be reused, and errors are easier to locate.",
+     "Exam tasks: write an algorithm, pseudocode or flowchart for a task; dry-run an algorithm; identify the flow-of-control type used; decompose a given problem."
+    ],
+    "example": {
+     "q": "Decompose a school management system.",
+     "steps": [
+      "Student admission and records",
+      "Attendance",
+      "Fee collection",
+      "Examination and report cards",
+      "Timetable",
+      "Library"
+     ],
+     "answer": "Six independent modules that together form the system"
+    },
+    "reallife": "ISRO's Chandrayaan missions were decomposed into launch vehicle, orbiter, lander and rover, each designed and tested by different teams before integration."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Is it a sub-problem of an online food-delivery app?",
+     "buckets": [
+      "Sub-problem of the app",
+      "Not part of the app"
+     ],
+     "items": [
+      [
+       "Restaurant menu display",
+       0
+      ],
+      [
+       "Cart and order placement",
+       0
+      ],
+      [
+       "Payment",
+       0
+      ],
+      [
+       "Delivery tracking",
+       0
+      ],
+      [
+       "Designing the delivery bike's engine",
+       1
+      ],
+      [
+       "Growing vegetables for the restaurant",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Exam task ↔ tool",
+     "pairs": [
+      [
+       "Show logic visually with symbols",
+       "Flowchart"
+      ],
+      [
+       "Write logic in structured English",
+       "Pseudocode"
+      ],
+      [
+       "Trace values by hand",
+       "Dry run"
+      ],
+      [
+       "Break a big problem into parts",
+       "Decomposition"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Decomposition means:",
+     "options": [
+      "Breaking a complex problem into smaller, manageable sub-problems",
+      "Converting a program into machine code",
+      "Deleting parts of a program",
+      "Testing a program with large data"
+     ],
+     "answer": 0,
+     "explain": "It splits a problem so each part can be solved separately.",
+     "mistake": "Confuses decomposition with deleting or compiling code"
+    },
+    {
+     "q": "Which is a benefit of decomposition?",
+     "options": [
+      "It removes the need for an algorithm",
+      "The program no longer needs testing",
+      "Different teams can work on different parts at the same time",
+      "It makes the problem bigger"
+     ],
+     "answer": 2,
+     "explain": "Independent sub-problems can be shared among teams and worked on in parallel.",
+     "mistake": "Thinks splitting means no testing is needed"
+    },
+    {
+     "q": "For an online exam system, which is NOT a sensible sub-problem?",
+     "options": [
+      "Result calculation",
+      "Student login",
+      "Choosing the colour of the examiner's car",
+      "Question display and timer"
+     ],
+     "answer": 2,
+     "explain": "Sub-problems must be parts of the system being built.",
+     "mistake": "Includes unrelated tasks as modules"
+    },
+    {
+     "q": "Solving each sub-problem separately and then combining the solutions is the idea of:",
+     "options": [
+      "Compilation",
+      "Encryption",
+      "Decomposition",
+      "Iteration"
+     ],
+     "answer": 2,
+     "explain": "That is exactly how decomposition works.",
+     "mistake": "Mixes up decomposition with iteration"
+    },
+    {
+     "q": "A railway reservation system is split into enquiry, booking, payment and cancellation. Which part should handle refunds?",
+     "options": [
+      "Booking",
+      "Payment display only",
+      "Cancellation",
+      "Enquiry"
+     ],
+     "answer": 2,
+     "explain": "Refunds follow a cancellation, so that module handles them.",
+     "mistake": "Puts refunds under booking"
+    },
+    {
+     "q": "Which tool is used to show an algorithm visually with standard symbols?",
+     "options": [
+      "Decomposition",
+      "Dry run",
+      "Flowchart",
+      "Pseudocode"
+     ],
+     "answer": 2,
+     "explain": "A flowchart uses shapes and arrows; pseudocode uses structured text.",
+     "mistake": "Confuses flowchart with pseudocode"
+    },
+    {
+     "q": "Why is it easier to find errors in a decomposed program?",
+     "options": [
+      "The computer fixes them automatically",
+      "Errors move to the main program",
+      "Each small part can be tested on its own, so the faulty part is easy to locate",
+      "Decomposed programs never have errors"
+     ],
+     "answer": 2,
+     "explain": "Testing parts independently narrows down where the bug is.",
+     "mistake": "Thinks decomposed programs are error-free"
+    },
+    {
+     "q": "Assertion (A): Large software like a banking system is built using decomposition.\nReason (R): In a flowchart, a diamond is used for decisions.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is false but R is true",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A"
+     ],
+     "answer": 0,
+     "explain": "Both statements are true, but flowchart symbols have nothing to do with why big systems are decomposed.",
+     "mistake": "Accepts any true reason as the explanation"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to build a whole quiz app alone in one go and is overwhelmed. Explain decomposition and how it helps.",
+    "must": [
+     [
+      "decomposition",
+      "decompose",
+      "break down"
+     ],
+     [
+      "smaller",
+      "sub-problem",
+      "sub problem",
+      "parts",
+      "modules"
+     ],
+     [
+      "independently",
+      "separately",
+      "team",
+      "teams"
+     ]
+    ],
+    "praise": "Break the big app into small modules, solve each separately and join them. Much less scary now!",
+    "nudge": "Good. What does decomposition do to a big problem, and why does that help?"
+   }
+  }
+ ]
+}

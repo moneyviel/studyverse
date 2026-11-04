@@ -1,0 +1,1684 @@
+{
+ "n": 7,
+ "title": "Lists",
+ "emoji": "📋",
+ "topics": [
+  {
+   "id": "g11-cs-07-01",
+   "title": "Lists: creation, indexing and mutability",
+   "covers": [
+    "c7.1.1",
+    "c7.1.2",
+    "c7.1.3"
+   ],
+   "learn": {
+    "hook": "A cricket team sheet changes after every match: one player out, one in. A Python list is built for exactly that kind of changing data.",
+    "points": [
+     "A list is an ordered sequence of elements in square brackets, separated by commas: marks = [78, 92, 65]. Elements can be of mixed types: ['Asha', 16, 5.4, True]. [] is an empty list.",
+     "Indexing works like strings: positive from 0 (left), negative from −1 (right). L[len(L)] raises IndexError.",
+     "Lists are mutable: you can change an element in place with L[i] = new_value; the list object stays the same.",
+     "A list can contain other lists (nested lists), e.g. [[1, 2], [3, 4]]."
+    ],
+    "example": {
+     "q": "team = ['Rohit', 'Virat', 'Rahul', 'Hardik']. Replace 'Rahul' with 'Pant' and find team[−1].",
+     "steps": [
+      "'Rahul' is at index 2",
+      "team[2] = 'Pant' → ['Rohit', 'Virat', 'Pant', 'Hardik']",
+      "team[−1] is the last element: 'Hardik'"
+     ],
+     "answer": "['Rohit', 'Virat', 'Pant', 'Hardik'], 'Hardik'"
+    },
+    "reallife": "A school's attendance app keeps today's absentees in a list and updates it as late-comers arrive."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "L = [10, 'Goa', 3.5, True, [1, 2]]: expression ↔ value",
+     "pairs": [
+      [
+       "L[0]",
+       "10"
+      ],
+      [
+       "L[-1]",
+       "[1, 2]"
+      ],
+      [
+       "L[1]",
+       "'Goa'"
+      ],
+      [
+       "L[-2]",
+       "True"
+      ],
+      [
+       "L[4][1]",
+       "2"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "List basics",
+     "items": [
+      [
+       "Lists are mutable.",
+       true,
+       "Elements can be changed in place."
+      ],
+      [
+       "All elements of a list must be of the same type.",
+       false,
+       "Lists can hold mixed types."
+      ],
+      [
+       "L[-1] is the last element of L.",
+       true,
+       "Negative indexing starts at −1 from the right."
+      ],
+      [
+       "[] creates an empty list.",
+       true,
+       "It has no elements; len([]) is 0."
+      ],
+      [
+       "For L = [1, 2, 3], L[3] is 3.",
+       false,
+       "Valid indices are 0, 1, 2; L[3] raises IndexError."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nL = [10, 20, 30]\nL[1] = 25\nprint(L)",
+     "options": [
+      "[10, 25, 30]",
+      "[10, 20, 30]",
+      "[25, 20, 30]",
+      "TypeError"
+     ],
+     "answer": 0,
+     "explain": "Lists are mutable, so L[1] is replaced by 25.",
+     "mistake": "Thinks lists can't be changed, like strings"
+    },
+    {
+     "q": "What is the output?\nL = ['Delhi', 3, 'Goa', 'Pune', 7.5]\nprint(len(L), L[-2])",
+     "options": [
+      "4 Goa",
+      "4 Pune",
+      "5 Pune",
+      "5 Goa"
+     ],
+     "answer": 2,
+     "explain": "The list has 5 elements; L[−2] is the second-last, 'Pune'.",
+     "mistake": "Counts from 1, or treats −2 as the second element"
+    },
+    {
+     "q": "What is the output?\nL = ['a', 'b', 'c']\nprint(L[3])",
+     "options": [
+      "c",
+      "None",
+      "['a', 'b', 'c']",
+      "IndexError"
+     ],
+     "answer": 3,
+     "explain": "Valid indices are 0 to 2, so L[3] is out of range.",
+     "mistake": "Thinks the last index equals the length"
+    },
+    {
+     "q": "Which of these creates a list with three elements?",
+     "options": [
+      "'1, two, 3.0'",
+      "(1, 'two', 3.0)",
+      "[1, 'two', 3.0]",
+      "{1, 'two', 3.0}"
+     ],
+     "answer": 2,
+     "explain": "Square brackets create a list; parentheses make a tuple and braces make a set.",
+     "mistake": "Confuses list, tuple and set syntax"
+    },
+    {
+     "q": "What is the output?\nL = [1, 2, 3]\nL[-1] = 99\nprint(L)",
+     "options": [
+      "[1, 99, 3]",
+      "[1, 2, 3]",
+      "[1, 2, 99]",
+      "[99, 2, 3]"
+     ],
+     "answer": 2,
+     "explain": "L[−1] is the last element, so 3 is replaced by 99.",
+     "mistake": "Thinks −1 refers to the first element"
+    },
+    {
+     "q": "What is the output?\nL = [5, 6]\nold = id(L)\nL[0] = 50\nprint(id(L) == old)",
+     "options": [
+      "False",
+      "True",
+      "Error",
+      "None"
+     ],
+     "answer": 1,
+     "explain": "Changing an element doesn't create a new list; the id stays the same.",
+     "mistake": "Thinks modification creates a new list"
+    },
+    {
+     "q": "What is the output?\nL = [1, [2, 3], [4, 5]]\nprint(len(L))",
+     "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "The outer list has 3 elements: 1, the list [2, 3] and the list [4, 5].",
+     "mistake": "Counts the inner elements separately",
+     "check": "3"
+    },
+    {
+     "q": "Assertion (A): After L = [1, 2, 3], the statement L[0] = 100 is valid.\nReason (R): Lists are mutable sequences.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Because lists are mutable, an element can be replaced in place.",
+     "mistake": "Applies the string rule to lists"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu keeps his friends' names in a list and wants to change one. Explain what a list is, indexing and mutability.",
+    "must": [
+     [
+      "list",
+      "square brackets",
+      "ordered"
+     ],
+     [
+      "index",
+      "indexing",
+      "position"
+     ],
+     [
+      "mutable",
+      "can be changed",
+      "change"
+     ]
+    ],
+    "praise": "A list is an ordered, mutable collection in square brackets, so I can change friends[2] directly!",
+    "nudge": "Good. How do we reach an element, and can we change it after the list is made?"
+   }
+  },
+  {
+   "id": "g11-cs-07-02",
+   "title": "List operations: +, *, in and slicing",
+   "covers": [
+    "c7.2.1",
+    "c7.2.2",
+    "c7.2.3",
+    "c7.2.4"
+   ],
+   "learn": {
+    "hook": "Joining two playlists, repeating a pattern, checking if a song exists, picking songs 3 to 7: four list operations cover it all.",
+    "points": [
+     "Concatenation: L1 + L2 joins two lists into a new list. Both operands must be lists: [1, 2] + 3 raises TypeError; use [1, 2] + [3].",
+     "Repetition: L * n repeats the list n times: [0] * 4 → [0, 0, 0, 0].",
+     "Membership: x in L is True if x is an element of L; not in is the opposite. 2 in [[1, 2], 3] is False because 2 is inside a sub-list, not an element.",
+     "Slicing works like strings: L[m:n], L[m:n:k], L[::−1] (reversed copy). Slices return new lists; out-of-range limits are clipped."
+    ],
+    "example": {
+     "q": "For L = [10, 20, 30, 40, 50], find L[1:4], L[::2], L[::−1], L + [60], 25 in L.",
+     "steps": [
+      "L[1:4] = [20, 30, 40]",
+      "L[::2] = [10, 30, 50]",
+      "L[::−1] = [50, 40, 30, 20, 10]",
+      "L + [60] = [10, 20, 30, 40, 50, 60]",
+      "25 is not an element → False"
+     ],
+     "answer": "[20, 30, 40], [10, 30, 50], [50, 40, 30, 20, 10], [10, …, 60], False"
+    },
+    "reallife": "An IPL fantasy app joins your batsmen and bowlers lists with + and checks 'player in my_team' before letting you pick someone twice."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Expression ↔ result",
+     "pairs": [
+      [
+       "[1, 2] + [3]",
+       "[1, 2, 3]"
+      ],
+      [
+       "[7] * 3",
+       "[7, 7, 7]"
+      ],
+      [
+       "3 in [1, 2, 3]",
+       "True"
+      ],
+      [
+       "[5, 6, 7, 8][1:3]",
+       "[6, 7]"
+      ],
+      [
+       "[1, 2, 3][::-1]",
+       "[3, 2, 1]"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Valid or TypeError?",
+     "buckets": [
+      "Valid",
+      "TypeError"
+     ],
+     "items": [
+      [
+       "[1] + [2]",
+       0
+      ],
+      [
+       "[1] * 3",
+       0
+      ],
+      [
+       "3 * [1]",
+       0
+      ],
+      [
+       "'a' in ['a']",
+       0
+      ],
+      [
+       "[1] + 2",
+       1
+      ],
+      [
+       "[1] * [2]",
+       1
+      ],
+      [
+       "[1] * 2.0",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint([1, 2] + [3, 4])",
+     "options": [
+      "[1, 2, 3, 4]",
+      "10",
+      "[4, 6]",
+      "[[1, 2], [3, 4]]"
+     ],
+     "answer": 0,
+     "explain": "+ joins the two lists into one longer list.",
+     "mistake": "Adds the elements pairwise"
+    },
+    {
+     "q": "What is the output?\nprint(['Hi'] * 3)",
+     "options": [
+      "['Hi'] * 3",
+      "['HiHiHi']",
+      "Error",
+      "['Hi', 'Hi', 'Hi']"
+     ],
+     "answer": 3,
+     "explain": "* repeats the list's elements three times.",
+     "mistake": "Thinks the string inside is repeated"
+    },
+    {
+     "q": "What is the output?\nprint([1, 2] + 3)",
+     "options": [
+      "6",
+      "TypeError",
+      "[1, 2, 3]",
+      "[4, 5]"
+     ],
+     "answer": 1,
+     "explain": "A list can only be concatenated with another list.",
+     "mistake": "Thinks + appends a number"
+    },
+    {
+     "q": "What is the output?\nL = [[1, 2], 3]\nprint(2 in L, [1, 2] in L)",
+     "options": [
+      "False False",
+      "False True",
+      "True True",
+      "True False"
+     ],
+     "answer": 1,
+     "explain": "2 is not an element of the outer list (it's inside [1, 2]), but [1, 2] is.",
+     "mistake": "Thinks 'in' searches inside sub-lists"
+    },
+    {
+     "q": "What is the output?\nL = [10, 20, 30, 40, 50]\nprint(L[3:0:-1])",
+     "options": [
+      "[40, 30, 20, 10]",
+      "[50, 40, 30]",
+      "[40, 30, 20]",
+      "[20, 30, 40]"
+     ],
+     "answer": 2,
+     "explain": "Start at index 3 (40), step −1, stop before index 0: 40, 30, 20.",
+     "mistake": "Includes the stop index 0"
+    },
+    {
+     "q": "What is the output?\nL = ['a', 'b', 'c', 'd', 'e', 'f']\nprint(L[1:5:2])",
+     "options": [
+      "['b', 'd', 'f']",
+      "['b', 'c', 'd']",
+      "['b', 'd']",
+      "['a', 'c', 'e']"
+     ],
+     "answer": 2,
+     "explain": "Indices 1 and 3 (step 2, stop 5 excluded).",
+     "mistake": "Starts at index 0"
+    },
+    {
+     "q": "What is the output?\nL = [1, 2, 3]\nprint(L[5:10])",
+     "options": [
+      "None",
+      "[3]",
+      "[]",
+      "IndexError"
+     ],
+     "answer": 2,
+     "explain": "Slicing never raises IndexError; it returns an empty list here.",
+     "mistake": "Expects an error for out-of-range slices"
+    },
+    {
+     "q": "Assertion (A): L[::-1] does not change the list L.\nReason (R): Slicing creates and returns a new list.",
+     "options": [
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Since the slice is a new list, the original L is untouched.",
+     "mistake": "Confuses slicing with the reverse() method"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to join two lists and pick out a part of one. Explain +, *, in and slicing on lists.",
+    "must": [
+     [
+      "concatenation",
+      "join",
+      "joins"
+     ],
+     [
+      "repetition",
+      "repeat",
+      "repeats"
+     ],
+     [
+      "in",
+      "membership"
+     ],
+     [
+      "slice",
+      "slicing",
+      "[m:n]"
+     ]
+    ],
+    "praise": "+ joins, * repeats, in checks membership and slices pick parts as new lists. List power!",
+    "nudge": "Good. What do + and * do with lists, and what does a slice return?"
+   }
+  },
+  {
+   "id": "g11-cs-07-03",
+   "title": "Traversing lists, len() and list()",
+   "covers": [
+    "c7.3.1",
+    "c7.4.1"
+   ],
+   "learn": {
+    "hook": "To total 40 students' marks you need to visit each one. Traversal is how every list program begins.",
+    "points": [
+     "Traversal by element: for x in L: … gives each element in order.",
+     "Traversal by index: for i in range(len(L)): … L[i] …, needed when you want positions or want to modify elements.",
+     "Traversal with while: i = 0; while i < len(L): …; i += 1.",
+     "len(L) gives the number of elements. list() builds a list from a sequence: list('abc') → ['a', 'b', 'c'], list((1, 2)) → [1, 2], list(range(3)) → [0, 1, 2]; list() alone gives []."
+    ],
+    "example": {
+     "q": "Double every element of L = [3, 5, 7] in place.",
+     "steps": [
+      "Need indices to modify: for i in range(len(L)):",
+      "    L[i] = L[i] * 2",
+      "i = 0: 6; i = 1: 10; i = 2: 14"
+     ],
+     "answer": "[6, 10, 14]"
+    },
+    "reallife": "A monsoon report loops over a list of 30 daily rainfall readings to find the total, the wettest day and the dry days."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Expression ↔ result",
+     "pairs": [
+      [
+       "list('Goa')",
+       "['G', 'o', 'a']"
+      ],
+      [
+       "list(range(1, 4))",
+       "[1, 2, 3]"
+      ],
+      [
+       "list((5, 6))",
+       "[5, 6]"
+      ],
+      [
+       "len([1, [2, 3]])",
+       "2"
+      ],
+      [
+       "list()",
+       "[]"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Index traversal to add 1 to each element",
+     "prompt": "Arrange the lines",
+     "items": [
+      "L = [4, 8, 15]",
+      "for i in range(len(L)):",
+      "    L[i] = L[i] + 1",
+      "print(L)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nL = [21, 35, 7]\ntotal = 0\nfor x in L:\n    total += x\nprint(total)",
+     "options": [
+      "63",
+      "[21, 35, 7]",
+      "21357",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "The loop adds every element: 21 + 35 + 7 = 63.",
+     "mistake": "Counts the elements instead",
+     "check": "21+35+7"
+    },
+    {
+     "q": "What is the output?\nL = [3, 5, 7]\nfor i in range(len(L)):\n    L[i] = L[i] * 2\nprint(L)",
+     "options": [
+      "[3, 5, 7, 3, 5, 7]",
+      "[6, 10]",
+      "[3, 5, 7]",
+      "[6, 10, 14]"
+     ],
+     "answer": 3,
+     "explain": "Using indices, each element is replaced by its double.",
+     "mistake": "Thinks the list doesn't change"
+    },
+    {
+     "q": "What is the output?\nL = [3, 5, 7]\nfor x in L:\n    x = x * 2\nprint(L)",
+     "options": [
+      "Error",
+      "[]",
+      "[3, 5, 7]",
+      "[6, 10, 14]"
+     ],
+     "answer": 2,
+     "explain": "x is just a name for each element; x = x * 2 doesn't change the list.",
+     "mistake": "Thinks modifying the loop variable changes the list"
+    },
+    {
+     "q": "What is the output?\nprint(list('2026'))",
+     "options": [
+      "[2, 0, 2, 6]",
+      "[2026]",
+      "['2', '0', '2', '6']",
+      "['2026']"
+     ],
+     "answer": 2,
+     "explain": "list() on a string makes a list of its characters (still strings).",
+     "mistake": "Expects integers or a single element"
+    },
+    {
+     "q": "What is the output?\nL = ['a', 'b', 'c']\nfor i in range(len(L)):\n    print(i, L[i])",
+     "options": [
+      "0\n1\n2",
+      "0 a\n1 b\n2 c",
+      "a 0\nb 1\nc 2",
+      "a\nb\nc"
+     ],
+     "answer": 1,
+     "explain": "range(len(L)) gives indices; each line prints the index and the element.",
+     "mistake": "Prints only the elements"
+    },
+    {
+     "q": "What is the output?\nprint(len(['x', [1, 2], (3, 4), '5']))",
+     "options": [
+      "3",
+      "2",
+      "4",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "The list has 4 elements: 'x', [1, 2], (3, 4) and '5'.",
+     "mistake": "Counts the inner items",
+     "check": "4"
+    },
+    {
+     "q": "What is the output?\nprint(list(range(0, 8, 2)))",
+     "options": [
+      "range(0, 8, 2)",
+      "[2, 4, 6, 8]",
+      "[0, 2, 4, 6, 8]",
+      "[0, 2, 4, 6]"
+     ],
+     "answer": 3,
+     "explain": "list(range(0, 8, 2)) gives 0, 2, 4, 6 (8 is excluded).",
+     "mistake": "Includes the stop value"
+    },
+    {
+     "q": "What is the output?\nL = [10, 20, 30]\ni = 0\nwhile i < len(L):\n    print(L[i], end=' ')\n    i += 1",
+     "options": [
+      "10 20 30",
+      "10 20 30 40",
+      "IndexError",
+      "Infinite loop"
+     ],
+     "answer": 0,
+     "explain": "i takes 0, 1, 2; the loop stops when i reaches 3 = len(L).",
+     "mistake": "Thinks the while loop goes one step too far"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to add 5 bonus marks to every element of his list. Explain how to traverse a list, and why the index matters here.",
+    "must": [
+     [
+      "for",
+      "traverse",
+      "loop"
+     ],
+     [
+      "index",
+      "range(len",
+      "range"
+     ],
+     [
+      "len",
+      "length"
+     ]
+    ],
+    "praise": "To change elements I must loop over indices with range(len(L)) and assign L[i]. A plain 'for x in L' only reads them!",
+    "nudge": "Good. Why doesn't 'for x in L: x += 5' change the list? What should we loop over instead?"
+   }
+  },
+  {
+   "id": "g11-cs-07-04",
+   "title": "Adding elements: append, extend, insert; count and index",
+   "covers": [
+    "c7.4.2",
+    "c7.4.3"
+   ],
+   "learn": {
+    "hook": "append([4, 5]) and extend([4, 5]) look similar but give very different lists. This is a CBSE favourite.",
+    "points": [
+     "append(x) adds x as ONE element at the end: [1, 2].append([3, 4]) → [1, 2, [3, 4]].",
+     "extend(iterable) adds EACH element of the iterable at the end: [1, 2].extend([3, 4]) → [1, 2, 3, 4]. extend('ab') adds 'a' and 'b'.",
+     "insert(i, x) inserts x before index i: [10, 30].insert(1, 20) → [10, 20, 30]. If i is beyond the end, x goes at the end.",
+     "count(x) returns how many times x occurs. index(x) returns the index of the first occurrence; ValueError if x is not present.",
+     "append, extend and insert change the list in place and return None, so print(L.append(5)) prints None."
+    ],
+    "example": {
+     "q": "L = [1, 2]. Do L.append([3]), then L.extend([4, 5]), then L.insert(0, 0). What is L and len(L)?",
+     "steps": [
+      "append([3]) → [1, 2, [3]]",
+      "extend([4, 5]) → [1, 2, [3], 4, 5]",
+      "insert(0, 0) → [0, 1, 2, [3], 4, 5]",
+      "len = 6"
+     ],
+     "answer": "[0, 1, 2, [3], 4, 5], length 6"
+    },
+    "reallife": "When a new student joins mid-year, the school roll list uses insert() to place the name in alphabetical position, and count() to check for duplicate entries."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Operation on L = [1, 2] ↔ resulting L",
+     "pairs": [
+      [
+       "L.append(3)",
+       "[1, 2, 3]"
+      ],
+      [
+       "L.append([3, 4])",
+       "[1, 2, [3, 4]]"
+      ],
+      [
+       "L.extend([3, 4])",
+       "[1, 2, 3, 4]"
+      ],
+      [
+       "L.insert(0, 9)",
+       "[9, 1, 2]"
+      ],
+      [
+       "L.extend('ab')",
+       "[1, 2, 'a', 'b']"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Method facts",
+     "items": [
+      [
+       "append() can add several separate elements at once.",
+       false,
+       "append adds exactly one element (which may itself be a list)."
+      ],
+      [
+       "L.index(x) raises ValueError if x is not in L.",
+       true,
+       "Unlike string find(), there is no −1 result."
+      ],
+      [
+       "L.count(x) returns the number of occurrences of x.",
+       true,
+       "e.g. [1, 2, 1].count(1) is 2."
+      ],
+      [
+       "L.insert(1, 'x') puts 'x' at index 1.",
+       true,
+       "Elements from index 1 onwards shift right."
+      ],
+      [
+       "print(L.append(4)) prints the updated list.",
+       false,
+       "append returns None, so None is printed."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nL = [1, 2]\nL.append([3, 4])\nprint(L, len(L))",
+     "options": [
+      "[1, 2, 3, 4] 4",
+      "[1, 2, 3, 4] 3",
+      "[1, 2, [3, 4]] 3",
+      "[1, 2, [3, 4]] 4"
+     ],
+     "answer": 2,
+     "explain": "append adds the list [3, 4] as a single element, so the length is 3.",
+     "mistake": "Confuses append with extend"
+    },
+    {
+     "q": "What is the output?\nL = [1, 2]\nL.extend([3, 4])\nprint(L, len(L))",
+     "options": [
+      "[1, 2, 3, 4] 3",
+      "[1, 2, 3, 4] 4",
+      "[1, 2, [3, 4]] 4",
+      "[1, 2, [3, 4]] 3"
+     ],
+     "answer": 1,
+     "explain": "extend adds 3 and 4 as separate elements.",
+     "mistake": "Confuses extend with append"
+    },
+    {
+     "q": "What is the output?\nL = ['a', 'b', 'c']\nL.insert(1, 'x')\nprint(L)",
+     "options": [
+      "['a', 'x', 'b', 'c']",
+      "['a', 'x', 'c']",
+      "['a', 'b', 'x', 'c']",
+      "['x', 'a', 'b', 'c']"
+     ],
+     "answer": 0,
+     "explain": "insert(1, 'x') places 'x' at index 1 and shifts the rest right.",
+     "mistake": "Replaces the element instead of inserting"
+    },
+    {
+     "q": "What is the output?\nL = [1, 2]\nprint(L.append(3))",
+     "options": [
+      "[1, 2]",
+      "[1, 2, 3]",
+      "3",
+      "None"
+     ],
+     "answer": 3,
+     "explain": "append changes the list but returns None.",
+     "mistake": "Expects append to return the new list"
+    },
+    {
+     "q": "What is the output?\nL = [2, 5, 7, 5, 5]\nprint(L.count(5), L.index(5))",
+     "options": [
+      "3 1",
+      "1 3",
+      "2 1",
+      "3 0"
+     ],
+     "answer": 0,
+     "explain": "5 occurs 3 times; its first occurrence is at index 1.",
+     "mistake": "Gives the last occurrence or counts from 1"
+    },
+    {
+     "q": "What is the output?\nL = [10, 20]\nprint(L.index(30))",
+     "options": [
+      "-1",
+      "0",
+      "None",
+      "ValueError"
+     ],
+     "answer": 3,
+     "explain": "index raises ValueError when the element is absent.",
+     "mistake": "Applies the string find() rule to lists"
+    },
+    {
+     "q": "What is the output?\nL = [1, 2]\nL.extend('hi')\nprint(L)",
+     "options": [
+      "[1, 2, 'hi']",
+      "[1, 2, 'h', 'i']",
+      "TypeError",
+      "['h', 'i', 1, 2]"
+     ],
+     "answer": 1,
+     "explain": "extend adds each character of the string separately.",
+     "mistake": "Thinks extend adds the whole string as one element"
+    },
+    {
+     "q": "What is the output?\nL = [5, 10]\nL.insert(50, 99)\nprint(L)",
+     "options": [
+      "[5, 99, 10]",
+      "IndexError",
+      "[99, 5, 10]",
+      "[5, 10, 99]"
+     ],
+     "answer": 3,
+     "explain": "An insert position beyond the end simply adds the element at the end.",
+     "mistake": "Expects an IndexError"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu used append([6, 7]) and got a list inside his list. Explain append, extend and insert, and count and index.",
+    "must": [
+     [
+      "append",
+      "one element",
+      "single element"
+     ],
+     [
+      "extend",
+      "each element",
+      "separate"
+     ],
+     [
+      "insert",
+      "position"
+     ],
+     [
+      "count",
+      "index"
+     ]
+    ],
+    "praise": "append adds one item, extend adds each item, insert puts it at a position, and count/index find things. My nested-list mystery is solved!",
+    "nudge": "Good. What's the difference between append and extend when you pass a list?"
+   }
+  },
+  {
+   "id": "g11-cs-07-05",
+   "title": "Removing, sorting and summarising lists",
+   "covers": [
+    "c7.4.4",
+    "c7.4.5",
+    "c7.4.6",
+    "c7.4.7"
+   ],
+   "learn": {
+    "hook": "L.sort() and sorted(L) both sort, but only one of them leaves your original list alone. Mixing them up is a classic bug.",
+    "points": [
+     "remove(x) deletes the FIRST occurrence of x (ValueError if absent). pop(i) removes and RETURNS the element at index i; pop() with no index removes the last. del L[i] or del L[m:n] deletes by index/slice. clear() empties the list.",
+     "reverse() reverses the list in place. sort() sorts in place in ascending order; sort(reverse=True) sorts in descending order. Both return None.",
+     "sorted(L) returns a NEW sorted list and leaves L unchanged. sorted(L, reverse=True) for descending order.",
+     "min(L), max(L) and sum(L) work on lists of numbers (min and max also on strings, comparing alphabetically by character codes)."
+    ],
+    "example": {
+     "q": "L = [40, 10, 30, 20]. Find sorted(L), then L after L.sort(reverse=True), then L.pop() and sum(L) after that.",
+     "steps": [
+      "sorted(L) → [10, 20, 30, 40] (L unchanged)",
+      "L.sort(reverse=True) → L = [40, 30, 20, 10]",
+      "L.pop() removes and returns 10 → L = [40, 30, 20]",
+      "sum(L) = 90"
+     ],
+     "answer": "[10, 20, 30, 40]; [40, 30, 20, 10]; 10; 90"
+    },
+    "reallife": "An exam merit list is just marks.sort(reverse=True), and the topper is max(marks): CBSE result software does this for lakhs of students."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Method ↔ what it does",
+     "pairs": [
+      [
+       "remove(x)",
+       "Deletes the first occurrence of x"
+      ],
+      [
+       "pop()",
+       "Removes and returns the last element"
+      ],
+      [
+       "clear()",
+       "Removes all elements"
+      ],
+      [
+       "sort()",
+       "Sorts the list in place"
+      ],
+      [
+       "sorted(L)",
+       "Returns a new sorted list"
+      ],
+      [
+       "reverse()",
+       "Reverses the list in place"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Changes L in place, or returns a new value without changing L?",
+     "buckets": [
+      "Changes L in place",
+      "Leaves L unchanged"
+     ],
+     "items": [
+      [
+       "L.sort()",
+       0
+      ],
+      [
+       "L.reverse()",
+       0
+      ],
+      [
+       "L.remove(5)",
+       0
+      ],
+      [
+       "del L[0]",
+       0
+      ],
+      [
+       "sorted(L)",
+       1
+      ],
+      [
+       "L[::-1]",
+       1
+      ],
+      [
+       "max(L)",
+       1
+      ],
+      [
+       "sum(L)",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nL = [3, 1, 3, 2, 3]\nL.remove(3)\nL.remove(3)\nprint(L)",
+     "options": [
+      "[1, 3, 2, 3]",
+      "[3, 2, 3]",
+      "[1, 2, 3]",
+      "[1, 2]"
+     ],
+     "answer": 2,
+     "explain": "Each remove() deletes only the first 3 it finds, so after two calls one 3 is left at the end.",
+     "mistake": "Thinks remove deletes every occurrence, or that it runs only once"
+    },
+    {
+     "q": "What is the output?\nL = [10, 20, 30]\nx = L.pop()\nprint(x, L)",
+     "options": [
+      "[10, 20] 30",
+      "30 [10, 20]",
+      "10 [20, 30]",
+      "30 [10, 20, 30]"
+     ],
+     "answer": 1,
+     "explain": "pop() removes and returns the last element, 30.",
+     "mistake": "Thinks pop removes the first element"
+    },
+    {
+     "q": "What is the output?\nL = [3, 1, 2]\nS = sorted(L)\nprint(L, S)",
+     "options": [
+      "[1, 2, 3] [1, 2, 3]",
+      "[3, 1, 2] [1, 2, 3]",
+      "[3, 1, 2] [3, 1, 2]",
+      "None [1, 2, 3]"
+     ],
+     "answer": 1,
+     "explain": "sorted() returns a new list; L itself is unchanged.",
+     "mistake": "Thinks sorted() sorts L in place"
+    },
+    {
+     "q": "What is the output?\nL = [3, 1, 2]\nprint(L.sort())",
+     "options": [
+      "Error",
+      "[3, 2, 1]",
+      "[1, 2, 3]",
+      "None"
+     ],
+     "answer": 3,
+     "explain": "sort() sorts in place and returns None.",
+     "mistake": "Expects sort() to return the sorted list"
+    },
+    {
+     "q": "What is the output?\nL = [4, 9, 1, 7]\nL.sort(reverse=True)\nprint(L)",
+     "options": [
+      "[9, 7, 4, 1]",
+      "[7, 1, 9, 4]",
+      "[4, 9, 1, 7]",
+      "[1, 4, 7, 9]"
+     ],
+     "answer": 0,
+     "explain": "sort(reverse=True) sorts in descending order.",
+     "mistake": "Thinks reverse=True just reverses the original order"
+    },
+    {
+     "q": "What is the output?\nL = [10, 20, 30, 40, 50]\ndel L[1:4]\nprint(L)",
+     "options": [
+      "[10, 40, 50]",
+      "[20, 30, 40]",
+      "[10, 20, 50]",
+      "[10, 50]"
+     ],
+     "answer": 3,
+     "explain": "del L[1:4] deletes indices 1, 2 and 3 (20, 30, 40).",
+     "mistake": "Includes or excludes the wrong end of the slice"
+    },
+    {
+     "q": "What is the output?\nL = [3, 12, 7, 8]\nprint(min(L), max(L), sum(L))",
+     "options": [
+      "3 12 30",
+      "12 3 30",
+      "3 30 12",
+      "3 12 15"
+     ],
+     "answer": 0,
+     "explain": "min = 3, max = 12, sum = 3 + 12 + 7 + 8 = 30.",
+     "mistake": "Mixes up min and max"
+    },
+    {
+     "q": "What is the output?\nL = [3, 4, 5]\nL.reverse()\nprint(L)",
+     "options": [
+      "None",
+      "[5, 4, 3]",
+      "[3, 4, 5]",
+      "[3, 5, 4]"
+     ],
+     "answer": 1,
+     "explain": "reverse() reverses the order of the existing elements (it does not sort).",
+     "mistake": "Thinks reverse() sorts in descending order"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sorted his list with sorted(L) and is confused that L didn't change. Explain removing elements, sort vs sorted, and min/max/sum.",
+    "must": [
+     [
+      "remove",
+      "pop",
+      "del",
+      "clear"
+     ],
+     [
+      "sort",
+      "in place"
+     ],
+     [
+      "sorted",
+      "new list"
+     ],
+     [
+      "min",
+      "max",
+      "sum"
+     ]
+    ],
+    "praise": "sort() changes the list itself, sorted() gives a new one, and pop/remove/del take things out. min, max and sum summarise!",
+    "nudge": "Good. Which one changes the original list — sort() or sorted()? And how do pop and remove differ?"
+   }
+  },
+  {
+   "id": "g11-cs-07-06",
+   "title": "Nested lists and copying lists",
+   "covers": [
+    "c7.5.1",
+    "c7.6.1",
+    "c7.6.2"
+   ],
+   "learn": {
+    "hook": "You 'copy' a list with B = A, change B, and A changes too! That's not a bug in Python; it's an alias.",
+    "points": [
+     "A nested list contains lists as elements, like a table: M = [[1, 2, 3], [4, 5, 6]]. M[i] is row i, and M[i][j] is the element in row i, column j. M[1][2] = 6.",
+     "Assignment B = A does NOT copy: both names refer to the SAME list (an alias). Changing B[0] changes A[0] too, and B is A is True.",
+     "True (shallow) copies are separate list objects: B = A[:], B = list(A), B = A.copy(), or import copy; B = copy.copy(A).",
+     "After a true copy, B is A is False and changing B's elements does not affect A (for simple elements)."
+    ],
+    "example": {
+     "q": "M = [[10, 20], [30, 40], [50, 60]]. Find M[2][0], len(M), len(M[0]).",
+     "steps": [
+      "M[2] is the third row [50, 60]",
+      "M[2][0] = 50",
+      "len(M) = 3 rows",
+      "len(M[0]) = 2 columns"
+     ],
+     "answer": "50, 3, 2"
+    },
+    "reallife": "A cinema seat map is a nested list: seats[row][col] = 'X' marks a booked seat. And a booking app copies the map before trying changes, so a failed payment doesn't mess up the real one."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "M = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]: expression ↔ value",
+     "pairs": [
+      [
+       "M[0][0]",
+       "1"
+      ],
+      [
+       "M[1][2]",
+       "6"
+      ],
+      [
+       "M[2]",
+       "[7, 8, 9]"
+      ],
+      [
+       "M[-1][-1]",
+       "9"
+      ],
+      [
+       "len(M)",
+       "3"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Alias or true copy?",
+     "buckets": [
+      "Alias (same list)",
+      "True copy (new list)"
+     ],
+     "items": [
+      [
+       "B = A",
+       0
+      ],
+      [
+       "C = B = A",
+       0
+      ],
+      [
+       "B = A[:]",
+       1
+      ],
+      [
+       "B = list(A)",
+       1
+      ],
+      [
+       "B = A.copy()",
+       1
+      ],
+      [
+       "B = copy.copy(A)",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nM = [[1, 2, 3], [4, 5, 6]]\nprint(M[1][2])",
+     "options": [
+      "[4, 5, 6]",
+      "8",
+      "6",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "M[1] is [4, 5, 6] and its index 2 is 6.",
+     "mistake": "Counts rows or columns from 1",
+     "check": "6"
+    },
+    {
+     "q": "What is the output?\nA = [1, 2, 3]\nB = A\nB[0] = 99\nprint(A)",
+     "options": [
+      "[1, 2, 3]",
+      "[1, 99, 3]",
+      "[99, 2, 3]",
+      "Error"
+     ],
+     "answer": 2,
+     "explain": "B = A makes an alias, so changing B changes A.",
+     "mistake": "Thinks = makes a copy"
+    },
+    {
+     "q": "What is the output?\nA = [1, 2, 3]\nB = A.copy()\nB[0] = 99\nprint(A)",
+     "options": [
+      "Error",
+      "[1, 2, 3]",
+      "[99, 2, 3]",
+      "[99]"
+     ],
+     "answer": 1,
+     "explain": "A.copy() creates a new list, so changing B doesn't affect A.",
+     "mistake": "Thinks slicing creates an alias"
+    },
+    {
+     "q": "What is the output?\nA = [5, 6]\nB = A\nC = list(A)\nprint(B is A, C is A)",
+     "options": [
+      "True False",
+      "True True",
+      "False False",
+      "False True"
+     ],
+     "answer": 0,
+     "explain": "B is the same object as A; C is a new list made by list().",
+     "mistake": "Mixes up which assignment copies"
+    },
+    {
+     "q": "What is the output?\nM = [[1, 2], [3, 4]]\nc = 0\nfor row in M:\n    c += len(row)\nprint(c)",
+     "options": [
+      "2",
+      "6",
+      "3",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "The loop adds the length of each row: 2 + 2 = 4.",
+     "mistake": "Counts only the rows",
+     "check": "2+2"
+    },
+    {
+     "q": "What is the output?\nM = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\ns = 0\nfor i in range(3):\n    s += M[i][i]\nprint(s)",
+     "options": [
+      "6",
+      "45",
+      "24",
+      "15"
+     ],
+     "answer": 3,
+     "explain": "The loop adds the diagonal elements M[0][0] + M[1][1] + M[2][2] = 1 + 5 + 9 = 15.",
+     "mistake": "Adds a row instead of the diagonal",
+     "check": "1+5+9"
+    },
+    {
+     "q": "What is the output?\nM = [[1, 2], [3, 4]]\nM[1].append(5)\nprint(M)",
+     "options": [
+      "[[1, 2, 5], [3, 4]]",
+      "[[1, 2], [3, 4, 5]]",
+      "[[1, 2], [3, 4], 5]",
+      "Error"
+     ],
+     "answer": 1,
+     "explain": "M[1] is the list [3, 4], so append adds 5 to that inner list.",
+     "mistake": "Thinks append adds to the outer list"
+    },
+    {
+     "q": "Assertion (A): After B = A.copy(), the statement B.append(10) does not change A.\nReason (R): copy() returns a new list object.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Since B is a different list object, appending to it leaves A unchanged.",
+     "mistake": "Thinks copy() makes an alias"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wrote B = A to back up his list, changed B and lost the original. Explain aliasing, true copies and nested lists.",
+    "must": [
+     [
+      "alias",
+      "same list",
+      "same object"
+     ],
+     [
+      "copy",
+      "[:]",
+      "list(",
+      "copy()"
+     ],
+     [
+      "nested",
+      "row",
+      "column",
+      "m[i][j]"
+     ]
+    ],
+    "praise": "B = A only makes another name for the same list. A[:] or A.copy() makes a real copy. And M[i][j] reaches into nested lists!",
+    "nudge": "Good. Does B = A make a new list? How do we make a real copy?"
+   }
+  },
+  {
+   "id": "g11-cs-07-07",
+   "title": "Lists and functions, and menu-driven list programs",
+   "covers": [
+    "c7.7.1",
+    "c7.7.2",
+    "c7.8.1"
+   ],
+   "learn": {
+    "hook": "Pass a list to a function, change it inside, and the change is still there after the function returns. Lists travel by reference.",
+    "points": [
+     "When a list is passed to a function, the parameter refers to the SAME list object as the argument.",
+     "So changes made through the parameter (L[i] = …, L.append(…), L.sort()) are visible in the original list after the function returns, because lists are mutable.",
+     "But if the parameter is REASSIGNED to a new list inside the function (L = [0, 0]), it now refers to a different object, and the original list is not affected.",
+     "Menu-driven program: a while loop shows a menu (1. Append 2. Insert 3. Delete 4. Modify 5. Sort 6. Display 7. Exit), reads a choice and uses an if-elif ladder to perform the chosen list operation."
+    ],
+    "example": {
+     "q": "What does print(marks) show?\ndef bonus(L):\n    for i in range(len(L)):\n        L[i] += 5\nmarks = [80, 90]\nbonus(marks)",
+     "steps": [
+      "L and marks refer to the same list",
+      "L[0] becomes 85 and L[1] becomes 95",
+      "The change is made to that shared list"
+     ],
+     "answer": "[85, 95]"
+    },
+    "reallife": "A hostel mess program passes the day's menu list to a function that adds 'Sweet' on festival days, and the main menu is updated everywhere at once."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Menu-driven list program",
+     "prompt": "Arrange the skeleton",
+     "items": [
+      "L = []",
+      "while True:",
+      "    ch = int(input('1.Append 2.Display 3.Exit: '))",
+      "    if ch == 1: L.append(int(input('Value: ')))",
+      "    elif ch == 2: print(L)",
+      "    else: break"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Lists and functions",
+     "items": [
+      [
+       "Changes made to a list inside a function through L[i] = ... affect the original list.",
+       true,
+       "The parameter refers to the same list object."
+      ],
+      [
+       "Reassigning the parameter (L = [ ]) inside a function empties the original list.",
+       false,
+       "Reassignment just makes the parameter refer to a new list."
+      ],
+      [
+       "Calling L.append(x) inside a function changes the caller's list.",
+       true,
+       "append modifies the shared object in place."
+      ],
+      [
+       "A menu-driven program usually uses a loop so the user can choose many times.",
+       true,
+       "The loop repeats until the user picks Exit."
+      ],
+      [
+       "Passing a list to a function always makes a copy of it.",
+       false,
+       "No copy is made; the same object is passed."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ndef add(L):\n    L.append(4)\nnums = [1, 2, 3]\nadd(nums)\nprint(nums)",
+     "options": [
+      "[1, 2, 3]",
+      "Error",
+      "None",
+      "[1, 2, 3, 4]"
+     ],
+     "answer": 3,
+     "explain": "The function appends to the same list object, so the change is visible outside.",
+     "mistake": "Thinks functions work on a copy of the list"
+    },
+    {
+     "q": "What is the output?\ndef reset(L):\n    L = [0, 0]\nnums = [1, 2, 3]\nreset(nums)\nprint(nums)",
+     "options": [
+      "[]",
+      "[1, 2, 3]",
+      "[0, 0]",
+      "Error"
+     ],
+     "answer": 1,
+     "explain": "L = [0, 0] makes L refer to a new list; nums is untouched.",
+     "mistake": "Thinks reassignment changes the original"
+    },
+    {
+     "q": "What is the output?\ndef double(L):\n    for i in range(len(L)):\n        L[i] *= 2\nA = [1, 2, 3]\ndouble(A)\nprint(A)",
+     "options": [
+      "[1, 4, 9]",
+      "None",
+      "[2, 4, 6]",
+      "[1, 2, 3]"
+     ],
+     "answer": 2,
+     "explain": "Each element of the shared list is doubled in place.",
+     "mistake": "Thinks the original list is unaffected"
+    },
+    {
+     "q": "What is the output?\ndef arrange(L):\n    L.sort()\nX = [5, 1, 3]\narrange(X)\nprint(X)",
+     "options": [
+      "[1, 3, 5]",
+      "[5, 1, 3]",
+      "[5, 3, 1]",
+      "None"
+     ],
+     "answer": 0,
+     "explain": "sort() inside the function sorts the caller's list in place.",
+     "mistake": "Thinks the sort is lost when the function ends"
+    },
+    {
+     "q": "What is the output?\ndef f(L):\n    L[0] = 9\n    L.append(8)\ndef g(L):\n    L = [7]\nA = [1]\nB = [7]\nf(A)\ng(B)\nprint(A, B)",
+     "options": [
+      "[7] [9, 8]",
+      "[9, 8] [7]",
+      "[7] [7]",
+      "[9, 8] [9, 8]"
+     ],
+     "answer": 1,
+     "explain": "The first function modifies the shared list; the second only rebinds its parameter.",
+     "mistake": "Treats both functions the same way"
+    },
+    {
+     "q": "In a menu-driven list program, which option needs L.insert(pos, value)?",
+     "options": [
+      "Insert an element at a given position",
+      "Sort the list",
+      "Exit",
+      "Display the list"
+     ],
+     "answer": 0,
+     "explain": "insert(pos, value) places an element at a chosen position.",
+     "mistake": "Uses append, which can only add at the end"
+    },
+    {
+     "q": "A menu option should change the value at position 2 to 50. Which statement does it?",
+     "options": [
+      "L.remove(2)",
+      "L.insert(50, 2)",
+      "L[2] = 50",
+      "L.append(50)"
+     ],
+     "answer": 2,
+     "explain": "Index assignment modifies an existing element.",
+     "mistake": "Uses insert with the arguments swapped"
+    },
+    {
+     "q": "Assertion (A): A function can change the contents of a list passed to it.\nReason (R): Lists are mutable, and the parameter refers to the same list object as the argument.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Shared reference plus mutability means in-place changes are seen by the caller.",
+     "mistake": "Thinks functions always get copies"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's function changed his marks list even though he didn't return anything. Explain why, and when the original list is NOT changed.",
+    "must": [
+     [
+      "same list",
+      "same object",
+      "reference"
+     ],
+     [
+      "mutable",
+      "modify",
+      "in place"
+     ],
+     [
+      "reassign",
+      "new list",
+      "rebind"
+     ]
+    ],
+    "praise": "The parameter points to the same mutable list, so in-place changes stick. Only reassigning makes a new list and leaves the original alone!",
+    "nudge": "Good. What happens if we write L = [ ] inside the function instead of changing L[i]?"
+   }
+  },
+  {
+   "id": "g11-cs-07-08",
+   "title": "List programs: max, min, mean, linear search and frequency",
+   "covers": [
+    "c7.8.2",
+    "c7.8.3",
+    "c7.8.4",
+    "c7.8.5"
+   ],
+   "learn": {
+    "hook": "Linear search is how you find your name on a printed result sheet: start at the top and check each line until you find it.",
+    "points": [
+     "Max/min without built-ins: big = L[0]; for x in L: if x > big: big = x (similarly for small). Mean = sum(L) / len(L).",
+     "Linear search: check each element in order; if L[i] == key, report position i + 1 (1-based) and stop. If the loop ends without finding it, report 'not found'.",
+     "In the worst case (key at the end or absent), linear search makes len(L) comparisons.",
+     "Frequency of an element: L.count(x), or a loop with a counter. Frequency of every element: loop over unique elements and count each.",
+     "Exam tasks: predict outputs of list operations, and write list programs (search, max/min/mean, frequency, menu-driven operations)."
+    ],
+    "example": {
+     "q": "Search for 42 in L = [15, 8, 42, 23, 42].",
+     "steps": [
+      "i = 0: 15 ≠ 42",
+      "i = 1: 8 ≠ 42",
+      "i = 2: 42 = 42 → found at index 2, i.e. position 3",
+      "Stop (break): only the first occurrence is reported"
+     ],
+     "answer": "Found at position 3 (index 2) after 3 comparisons"
+    },
+    "reallife": "Before databases, railway clerks used linear search through printed charts to find a passenger's berth. Today's apps still use it for small lists like your recent searches."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Linear search program",
+     "prompt": "Arrange the lines",
+     "items": [
+      "L = [15, 8, 42, 23]",
+      "key = int(input('Search: '))",
+      "for i in range(len(L)):",
+      "    if L[i] == key:",
+      "        print('Found at position', i + 1)",
+      "        break"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Quick list maths",
+     "items": [
+      {
+       "q": "Mean of [10, 20, 30, 40]",
+       "a": "25",
+       "check": "(10+20+30+40)/4"
+      },
+      {
+       "q": "max([3, 17, 9])",
+       "a": "17",
+       "check": "17"
+      },
+      {
+       "q": "Comparisons to find 9 in [4, 9, 2] by linear search",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "Worst-case comparisons for a list of 50",
+       "a": "50",
+       "check": "50"
+      },
+      {
+       "q": "[2, 3, 2, 2].count(2)",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "sum([5, 5, 5]) / 3",
+       "a": "5.0",
+       "check": "15/3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nL = [67, 45, 91, 88]\nbig = L[0]\nfor x in L:\n    if x > big:\n        big = x\nprint(big)",
+     "options": [
+      "67",
+      "91",
+      "45",
+      "88"
+     ],
+     "answer": 1,
+     "explain": "The loop keeps the largest value seen so far: 91.",
+     "mistake": "Returns the last element instead of the largest",
+     "check": "91"
+    },
+    {
+     "q": "What is the output?\nL = [12, 20, 16, 24]\nprint(sum(L) / len(L))",
+     "options": [
+      "4.0",
+      "18.0",
+      "72.0",
+      "24.0"
+     ],
+     "answer": 1,
+     "explain": "sum = 72, len = 4, and 72 / 4 = 18.0 (/ gives a float).",
+     "mistake": "Forgets to divide, or divides by 3 instead of the count 4",
+     "check": "72/4"
+    },
+    {
+     "q": "What is the output?\nL = [15, 8, 42, 23, 42]\nkey = 42\nfor i in range(len(L)):\n    if L[i] == key:\n        print('Found at', i + 1)\n        break\nelse:\n    print('Not found')",
+     "options": [
+      "Found at 3",
+      "Not found",
+      "Found at 2",
+      "Found at 4"
+     ],
+     "answer": 0,
+     "explain": "42 is at index 2, which is position 3; break stops further search.",
+     "mistake": "Reports the index instead of the position, or the last occurrence"
+    },
+    {
+     "q": "What is the output?\nL = [1, 3, 5]\nfor x in L:\n    if x == 7:\n        print('Found')\n        break\nelse:\n    print('Not found')",
+     "options": [
+      "Found",
+      "Not found",
+      "Error",
+      "Found\nNot found"
+     ],
+     "answer": 1,
+     "explain": "No element equals 7, so the loop ends without break and its else runs.",
+     "mistake": "Thinks the else runs only if found"
+    },
+    {
+     "q": "How many comparisons does linear search make to find 35 in [10, 35, 20, 35]?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "It checks 10 (no), then 35 (yes) and stops.",
+     "mistake": "Keeps searching for later occurrences",
+     "check": "2"
+    },
+    {
+     "q": "What is the output?\nL = [4, 9, 4, 1, 9, 4]\nprint(L.count(4), L.count(9))",
+     "options": [
+      "2 3",
+      "1 2",
+      "3 1",
+      "3 2"
+     ],
+     "answer": 3,
+     "explain": "count gives how many times each value occurs: 4 appears 3 times, 9 appears 2 times.",
+     "mistake": "Counts positions instead of occurrences"
+    },
+    {
+     "q": "What is the output?\nL = [45, 2, 30, 7]\nsmall = L[0]\nfor x in L:\n    if x < small:\n        small = x\nprint(small)",
+     "options": [
+      "1",
+      "45",
+      "3",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "The smallest value 2 is found by the min loop.",
+     "mistake": "Takes the first element as the answer",
+     "check": "2"
+    },
+    {
+     "q": "Assertion (A): Linear search can be used on an unsorted list.\nReason (R): Linear search always makes fewer comparisons than the number of elements in the list.",
+     "options": [
+      "A is false but R is true",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 2,
+     "explain": "A is true because linear search checks elements one by one. R is false: if the key is last or absent, it makes as many comparisons as there are elements.",
+     "mistake": "Forgets the worst case of linear search"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu needs to find whether his roll number is in the class list. Explain linear search and how to find max, min and mean.",
+    "must": [
+     [
+      "linear search",
+      "one by one",
+      "each element"
+     ],
+     [
+      "compare",
+      "comparison",
+      "=="
+     ],
+     [
+      "found",
+      "position",
+      "break"
+     ],
+     [
+      "max",
+      "min",
+      "mean",
+      "average"
+     ]
+    ],
+    "praise": "Check each element in turn until it matches, then report the position — that's linear search. And max/min/mean are just loops over the list!",
+    "nudge": "Good. How does linear search move through the list, and when does it stop?"
+   }
+  }
+ ]
+}

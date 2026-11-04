@@ -1,0 +1,2166 @@
+{
+ "n": 1,
+ "title": "Computer System",
+ "emoji": "🖥️",
+ "topics": [
+  {
+   "id": "g11-cs-01-01",
+   "title": "What a computer is: the block diagram",
+   "covers": [
+    "c1.1.1",
+    "c1.1.2",
+    "c1.1.3"
+   ],
+   "learn": {
+    "hook": "When you tap 'Book' on the IRCTC app, a chain of input, processing, storage and output fires in well under a second. That chain is the block diagram of every computer.",
+    "points": [
+     "A computer is an electronic device that accepts data (input), processes it according to a set of instructions (a program) and produces results (output).",
+     "Block diagram: Input unit → CPU (with memory) → Output unit, with secondary storage holding data and programs permanently. Data and instructions travel between these units.",
+     "The CPU (Central Processing Unit) is the 'brain'. It has three parts: the ALU (Arithmetic Logic Unit), the CU (Control Unit) and registers.",
+     "ALU: does arithmetic (+, −, ×, ÷) and logical work (comparisons such as >, <, =). CU: fetches and decodes instructions and directs every other unit, like a traffic controller.",
+     "Registers: tiny, very fast storage cells inside the CPU that hold the data and instructions being worked on right now."
+    ],
+    "example": {
+     "q": "A student types 45 + 30 on a calculator app and sees 75. Trace the path through the block diagram.",
+     "steps": [
+      "Input unit: the touch screen sends 45, +, 30 to the computer as binary.",
+      "Memory: the numbers and the instruction are held in primary memory (RAM).",
+      "CU: fetches the 'add' instruction and tells the ALU what to do; the operands sit in registers.",
+      "ALU: adds them to get 75 and the result goes back to a register/memory.",
+      "Output unit: the screen displays 75."
+     ],
+     "answer": "Input → memory → CU directs → ALU computes → output"
+    },
+    "reallife": "ISRO's mission computers at Sriharikota take sensor input from the rocket, process it in real time and output commands to the engines: the same input-process-output cycle, at very high speed."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Unit ↔ its job",
+     "pairs": [
+      [
+       "ALU",
+       "Performs arithmetic and logical operations"
+      ],
+      [
+       "Control Unit",
+       "Directs and coordinates all other units"
+      ],
+      [
+       "Registers",
+       "Hold data the CPU is using right now"
+      ],
+      [
+       "Input unit",
+       "Sends data into the computer"
+      ],
+      [
+       "Output unit",
+       "Shows or delivers the result"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Data's journey",
+     "prompt": "Put the stages of processing in order",
+     "items": [
+      "Data entered through an input device",
+      "Data stored in primary memory",
+      "Control Unit fetches and decodes the instruction",
+      "ALU carries out the operation",
+      "Result shown on an output device"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which part of the CPU decides whether 'marks >= 33' is True?",
+     "options": [
+      "Hard disk",
+      "Input unit",
+      "Control Unit",
+      "Arithmetic Logic Unit"
+     ],
+     "answer": 3,
+     "explain": "Comparisons are logical operations, and logical operations are done by the ALU.",
+     "mistake": "Thinks the Control Unit makes decisions, when it only directs the ALU"
+    },
+    {
+     "q": "Which part of the CPU fetches an instruction, decodes it and signals the other units?",
+     "options": [
+      "Cache",
+      "ALU",
+      "Register",
+      "Control Unit"
+     ],
+     "answer": 3,
+     "explain": "The CU manages and coordinates: it fetches, decodes and issues control signals. It does not compute results itself.",
+     "mistake": "Confuses directing work (CU) with doing arithmetic (ALU)"
+    },
+    {
+     "q": "Registers are best described as:",
+     "options": [
+      "Small, high-speed storage locations inside the CPU",
+      "Large permanent storage for files",
+      "Programs that translate code",
+      "Output devices that print data"
+     ],
+     "answer": 0,
+     "explain": "Registers sit inside the CPU and temporarily hold the data and instructions being processed. They are the fastest memory.",
+     "mistake": "Mixes registers with secondary storage because both 'store' data"
+    },
+    {
+     "q": "Which statement correctly defines a computer?",
+     "options": [
+      "A device that stores data but cannot process it",
+      "An electronic device that takes input, processes it under the control of instructions and gives output",
+      "A machine that can only perform arithmetic",
+      "Any device that runs on electricity"
+     ],
+     "answer": 1,
+     "explain": "A computer is defined by input, processing under program control, and output. Arithmetic alone or storage alone is not enough.",
+     "mistake": "Picks a definition that captures only one function of a computer"
+    },
+    {
+     "q": "Assertion (A): The CPU is called the brain of the computer.\nReason (R): The CPU carries out instructions and controls the working of all other units.",
+     "options": [
+      "A is false but R is true",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A"
+     ],
+     "answer": 3,
+     "explain": "The CPU executes instructions (via the ALU) and controls other units (via the CU), which is exactly why it is called the brain.",
+     "mistake": "Does not link the reason to the assertion"
+    },
+    {
+     "q": "In the block diagram, where are the program and data kept while the CPU is working on them?",
+     "options": [
+      "Printer buffer",
+      "Output unit",
+      "Primary memory (RAM)",
+      "Keyboard"
+     ],
+     "answer": 2,
+     "explain": "The CPU reads instructions and data from primary memory while processing. Input and output units only bring data in or send it out.",
+     "mistake": "Thinks data stays inside the input device until processed"
+    },
+    {
+     "q": "Which pair of units together form the CPU's processing core along with registers?",
+     "options": [
+      "RAM and hard disk",
+      "Monitor and keyboard",
+      "ALU and Control Unit",
+      "Input unit and output unit"
+     ],
+     "answer": 2,
+     "explain": "The CPU consists of the ALU, the CU and registers. RAM and hard disk are memory/storage outside the CPU.",
+     "mistake": "Counts memory chips as parts of the CPU"
+    },
+    {
+     "q": "Case: A self-service railway ticket kiosk at a station reads your touch selection, computes the fare and prints the ticket. Which is the correct sequence of units used?",
+     "options": [
+      "Input → Output → CPU",
+      "CPU → Input → Output",
+      "Input (touch screen) → CPU → Output (printer)",
+      "Output (printer) → CPU → Input (touch screen)"
+     ],
+     "answer": 2,
+     "explain": "Data first enters through an input device, is processed by the CPU, and the result is sent to an output device.",
+     "mistake": "Mixes up the direction of data flow"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know what happens inside a computer between pressing a key and seeing the result. Explain the block diagram and the parts of the CPU.",
+    "must": [
+     [
+      "input",
+      "input unit",
+      "input device"
+     ],
+     [
+      "alu",
+      "arithmetic logic unit",
+      "arithmetic"
+     ],
+     [
+      "control unit",
+      "cu",
+      "controls"
+     ],
+     [
+      "output",
+      "output unit",
+      "output device"
+     ]
+    ],
+    "praise": "Brilliant! Input, CPU with ALU and CU, then output — I can see the whole pipeline now!",
+    "nudge": "You've got part of it. Who does the arithmetic and who directs the other units inside the CPU?"
+   }
+  },
+  {
+   "id": "g11-cs-01-02",
+   "title": "Input devices, output devices and kinds of computers",
+   "covers": [
+    "c1.1.4",
+    "c1.1.5",
+    "c1.1.6"
+   ],
+   "learn": {
+    "hook": "Your Aadhaar fingerprint scan, your school's smartboard and the token-number speaker at a bank are all I/O devices doing one job each.",
+    "points": [
+     "Input devices convert data from the outside world into a form the computer can process: keyboard, mouse, scanner, microphone, touch screen, webcam, and biometric sensors such as fingerprint or iris scanners.",
+     "Output devices convert processed data into a form people can use: monitor, printer, speaker, projector, and 3D printer (which builds a solid object layer by layer).",
+     "A touch screen works as both an input device (you tap) and an output device (it displays).",
+     "Hardware is the physical part you can touch (CPU, keyboard, monitor). Software is the set of programs that tells the hardware what to do.",
+     "Computers come in many forms: servers, desktops, laptops, tablets and smartphones. All follow the same input-process-output idea."
+    ],
+    "example": {
+     "q": "Classify for a bank: cheque scanner, passbook printer, PIN keypad, display board.",
+     "steps": [
+      "Ask: does the device bring data IN or send results OUT?",
+      "Cheque scanner reads the cheque → input",
+      "PIN keypad sends digits → input",
+      "Passbook printer prints entries → output",
+      "Display board shows token numbers → output"
+     ],
+     "answer": "Input: scanner, keypad. Output: printer, display board."
+    },
+    "reallife": "Aadhaar-based attendance in many government offices uses a fingerprint scanner (input), a server that matches the print (processing) and a screen or SMS confirming attendance (output)."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Input or output?",
+     "buckets": [
+      "Input device",
+      "Output device"
+     ],
+     "items": [
+      [
+       "Keyboard",
+       0
+      ],
+      [
+       "Microphone",
+       0
+      ],
+      [
+       "Fingerprint scanner",
+       0
+      ],
+      [
+       "Webcam",
+       0
+      ],
+      [
+       "Projector",
+       1
+      ],
+      [
+       "Speaker",
+       1
+      ],
+      [
+       "3D printer",
+       1
+      ],
+      [
+       "Monitor",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Hardware or not?",
+     "items": [
+      [
+       "A device driver is a piece of hardware.",
+       false,
+       "A device driver is software that lets the OS talk to a hardware device."
+      ],
+      [
+       "A touch screen can act as both input and output device.",
+       true,
+       "You give input by touching it and it displays output."
+      ],
+      [
+       "A smartphone is a computer.",
+       true,
+       "It takes input, processes it with a processor under program control and gives output."
+      ],
+      [
+       "A 3D printer is an input device.",
+       false,
+       "It creates physical objects from a digital design, so it is an output device."
+      ],
+      [
+       "Software can be physically touched.",
+       false,
+       "Software is a set of instructions; only the medium storing it is physical."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is an output device?",
+     "options": [
+      "Biometric sensor",
+      "Projector",
+      "Microphone",
+      "Scanner"
+     ],
+     "answer": 1,
+     "explain": "A projector displays processed data on a screen. The others send data into the computer.",
+     "mistake": "Treats any device attached to a computer as output"
+    },
+    {
+     "q": "A doctor at AIIMS dictates notes into speech-to-text software. Which input device is used?",
+     "options": [
+      "Monitor",
+      "Speaker",
+      "Plotter",
+      "Microphone"
+     ],
+     "answer": 3,
+     "explain": "A microphone captures sound and converts it to digital data, so it is an input device.",
+     "mistake": "Confuses the microphone (input) with the speaker (output)"
+    },
+    {
+     "q": "Which device can work as both an input and an output device?",
+     "options": [
+      "Touch screen",
+      "Keyboard",
+      "Printer",
+      "Mouse"
+     ],
+     "answer": 0,
+     "explain": "A touch screen displays information and also senses your touch.",
+     "mistake": "Picks a device that does only one of the two jobs"
+    },
+    {
+     "q": "Which one of the following is software, not hardware?",
+     "options": [
+      "Motherboard",
+      "Keyboard",
+      "RAM chip",
+      "Operating system"
+     ],
+     "answer": 3,
+     "explain": "An operating system is a set of programs. The others are physical components.",
+     "mistake": "Thinks anything inside the cabinet must be hardware"
+    },
+    {
+     "q": "What does a 3D printer produce?",
+     "options": [
+      "A scanned image of an object",
+      "A photo printed in colour",
+      "A sound file",
+      "A solid three-dimensional object built layer by layer"
+     ],
+     "answer": 3,
+     "explain": "A 3D printer is an output device that builds physical objects from a digital design, layer upon layer.",
+     "mistake": "Thinks 3D printing is just colour printing"
+    },
+    {
+     "q": "A shop uses a barcode reader at the billing counter. The barcode reader is:",
+     "options": [
+      "A processing unit",
+      "A storage device",
+      "An input device",
+      "An output device"
+     ],
+     "answer": 2,
+     "explain": "It reads the code on the product and sends it into the computer, which is input.",
+     "mistake": "Thinks the device that 'reads' shows output"
+    },
+    {
+     "q": "Which statement about different computers is correct?",
+     "options": [
+      "Only desktops are true computers",
+      "Smartphones have no processor",
+      "Servers, laptops and smartphones all work on the input-process-output principle",
+      "Tablets cannot store data"
+     ],
+     "answer": 2,
+     "explain": "Every type of computer, from a server to a phone, takes input, processes it and produces output.",
+     "mistake": "Thinks only big desk machines count as computers"
+    },
+    {
+     "q": "Assertion (A): A speaker is an output device.\nReason (R): A speaker converts digital audio signals from the computer into sound.",
+     "options": [
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 1,
+     "explain": "A speaker turns processed digital data into sound for us, which is exactly what makes it an output device.",
+     "mistake": "Misses that R gives the reason for A"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is confused: 'Is a scanner input or output? And what is hardware versus software?' Help Gappu out.",
+    "must": [
+     [
+      "input",
+      "input device"
+     ],
+     [
+      "output",
+      "output device"
+     ],
+     [
+      "hardware",
+      "physical"
+     ],
+     [
+      "software",
+      "program",
+      "programs"
+     ]
+    ],
+    "praise": "Now I can sort every gadget on my desk! Hardware I can touch, software I can't, and devices either bring data in or send it out.",
+    "nudge": "Nice start. Can you also say which devices bring data in, which send results out, and what hardware vs software means?"
+   }
+  },
+  {
+   "id": "g11-cs-01-03",
+   "title": "Evolution of computers",
+   "covers": [
+    "c1.2.1",
+    "c1.2.2",
+    "c1.2.3",
+    "c1.2.4",
+    "c1.2.5"
+   ],
+   "learn": {
+    "hook": "The phone in your pocket is millions of times more powerful than the room-sized machines of the 1940s. How did we get from beads on wires to AI chips?",
+    "points": [
+     "Early aids: the abacus (beads on rods for counting), Blaise Pascal's Pascaline (1642, a mechanical adding machine) and Leibniz's Stepped Reckoner, which could also multiply and divide.",
+     "Charles Babbage designed the Analytical Engine (1834), a mechanical general-purpose machine with a 'mill' (processing) and a 'store' (memory): the first idea of a programmable computer. Herman Hollerith used punched cards to process the 1890 US census.",
+     "John von Neumann's stored-program architecture: the program and data are both kept in the same memory, and the CPU fetches instructions one by one. Almost all modern computers follow it.",
+     "Generations: 1st – vacuum tubes; 2nd – transistors; 3rd – integrated circuits (ICs); 4th – VLSI microprocessors; 5th – usually described as computers built around artificial intelligence, using ULSI (Ultra Large Scale Integration) chips.",
+     "Personal computers, laptops and smartphones followed microprocessors. Today's trends include wearables, the Internet of Things (IoT) and artificial intelligence (AI)."
+    ],
+    "example": {
+     "q": "Arrange: transistor-based computer, abacus, smart watch, Analytical Engine, vacuum-tube computer.",
+     "steps": [
+      "Abacus: ancient counting aid",
+      "Analytical Engine: 1830s design by Babbage",
+      "Vacuum-tube computer: first generation (1940s)",
+      "Transistor-based computer: second generation",
+      "Smart watch: today's wearable computer"
+     ],
+     "answer": "Abacus → Analytical Engine → vacuum tubes → transistors → smart watch"
+    },
+    "reallife": "India's own PARAM 8000 supercomputer (C-DAC, 1991) and today's AI-powered UPI fraud checks show how computing grew from big machines to everyday intelligent systems."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Through the ages",
+     "prompt": "Oldest to newest",
+     "items": [
+      "Abacus",
+      "Pascaline",
+      "Analytical Engine",
+      "Vacuum-tube computers",
+      "Microprocessor-based PCs",
+      "Wearables and IoT devices"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Generation ↔ key technology",
+     "pairs": [
+      [
+       "First generation",
+       "Vacuum tubes"
+      ],
+      [
+       "Second generation",
+       "Transistors"
+      ],
+      [
+       "Third generation",
+       "Integrated circuits"
+      ],
+      [
+       "Fourth generation",
+       "VLSI microprocessors"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which technology defines second-generation computers?",
+     "options": [
+      "VLSI chips",
+      "Integrated circuits",
+      "Vacuum tubes",
+      "Transistors"
+     ],
+     "answer": 3,
+     "explain": "Transistors replaced vacuum tubes in the second generation, making computers smaller and more reliable.",
+     "mistake": "Shifts the generations by one"
+    },
+    {
+     "q": "The stored-program concept, where both program and data are kept in memory, is credited to:",
+     "options": [
+      "John von Neumann",
+      "Herman Hollerith",
+      "Blaise Pascal",
+      "Charles Babbage"
+     ],
+     "answer": 0,
+     "explain": "Von Neumann's architecture keeps instructions and data together in memory. Modern computers still follow it.",
+     "mistake": "Credits Babbage because he designed an early programmable machine"
+    },
+    {
+     "q": "Who is known for designing the Analytical Engine, the first concept of a general-purpose programmable computer?",
+     "options": [
+      "Charles Babbage",
+      "Blaise Pascal",
+      "Gottfried Leibniz",
+      "John von Neumann"
+     ],
+     "answer": 0,
+     "explain": "Babbage's Analytical Engine (1834) had a mill and a store and could follow instructions on punched cards.",
+     "mistake": "Mixes up early calculator inventors with Babbage"
+    },
+    {
+     "q": "Herman Hollerith's major contribution was:",
+     "options": [
+      "Designing the first microprocessor",
+      "Building the Pascaline",
+      "Inventing the transistor",
+      "Using punched cards to tabulate census data"
+     ],
+     "answer": 3,
+     "explain": "Hollerith's tabulating machine read punched cards and processed the 1890 US census much faster.",
+     "mistake": "Links Hollerith to the wrong invention"
+    },
+    {
+     "q": "Which was mainly an adding machine built in 1642?",
+     "options": [
+      "Analytical Engine",
+      "ENIAC",
+      "Pascaline",
+      "Stepped Reckoner"
+     ],
+     "answer": 2,
+     "explain": "Blaise Pascal built the Pascaline in 1642 to add and subtract mechanically.",
+     "mistake": "Confuses Pascal's and Leibniz's machines"
+    },
+    {
+     "q": "Fourth-generation computers are based on:",
+     "options": [
+      "Vacuum tubes",
+      "Transistors",
+      "Punched cards",
+      "VLSI microprocessors"
+     ],
+     "answer": 3,
+     "explain": "Very Large Scale Integration put an entire CPU on one chip, the microprocessor, giving us personal computers.",
+     "mistake": "Thinks ICs and VLSI belong to the same generation"
+    },
+    {
+     "q": "Smart watches and fitness bands that send data to a phone are examples of:",
+     "options": [
+      "Mechanical calculators",
+      "Wearable devices, part of the IoT trend",
+      "Mainframe terminals",
+      "First-generation computers"
+     ],
+     "answer": 1,
+     "explain": "Wearables are small computers worn on the body, and when connected they are part of the Internet of Things.",
+     "mistake": "Does not link small gadgets with being computers"
+    },
+    {
+     "q": "Assertion (A): First-generation computers were very large and produced a lot of heat.\nReason (R): They used thousands of vacuum tubes.",
+     "options": [
+      "A is false but R is true",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A"
+     ],
+     "answer": 1,
+     "explain": "Vacuum tubes were bulky and hot, so machines using thousands of them were huge and heat-producing.",
+     "mistake": "Treats two true statements as unrelated"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Were computers always this small?' Explain how computers evolved from early machines through the generations.",
+    "must": [
+     [
+      "abacus",
+      "pascaline",
+      "babbage",
+      "analytical engine"
+     ],
+     [
+      "vacuum tube",
+      "vacuum tubes"
+     ],
+     [
+      "transistor",
+      "transistors"
+     ],
+     [
+      "integrated circuit",
+      "microprocessor",
+      "vlsi",
+      "ic"
+     ]
+    ],
+    "praise": "Wow, from beads to vacuum tubes to tiny chips! I'll never look at my phone the same way.",
+    "nudge": "Good! But what technology did each generation use — vacuum tubes, then what?"
+   }
+  },
+  {
+   "id": "g11-cs-01-04",
+   "title": "Why memory matters and units of memory",
+   "covers": [
+    "c1.3.1",
+    "c1.3.2"
+   ],
+   "learn": {
+    "hook": "A 4K movie is about 20 GB, but a WhatsApp text is only a few bytes. Knowing memory units helps you guess what fits in your phone.",
+    "points": [
+     "A computer needs memory to hold the data being processed, the instructions (program) and the results. Without memory the CPU would have nothing to work on.",
+     "Bit (binary digit, 0 or 1) is the smallest unit. 4 bits = 1 nibble. 8 bits = 1 byte.",
+     "1 KB (kilobyte) = 1024 bytes; 1 MB = 1024 KB; 1 GB = 1024 MB; 1 TB = 1024 GB; 1 PB = 1024 TB. Each step is 2¹⁰ = 1024.",
+     "To go to a smaller unit, multiply by 1024; to go to a bigger unit, divide by 1024. Bits ↔ bytes uses 8."
+    ],
+    "example": {
+     "q": "How many bits are in 2 KB?",
+     "steps": [
+      "2 KB = 2 × 1024 bytes = 2048 bytes",
+      "1 byte = 8 bits",
+      "2048 × 8 = 16384 bits"
+     ],
+     "answer": "16384 bits"
+    },
+    "reallife": "An ISRO satellite downlinking 1 TB of imagery a day is sending 1024 × 1024 MB: that is why ground stations need huge storage farms."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Smallest to largest",
+     "prompt": "Arrange the memory units from smallest to largest",
+     "items": [
+      "Bit",
+      "Nibble",
+      "Byte",
+      "Kilobyte",
+      "Megabyte",
+      "Terabyte"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Unit conversion sprint",
+     "items": [
+      {
+       "q": "Bits in 1 byte",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "Bits in 1 nibble",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "Bytes in 1 KB",
+       "a": "1024",
+       "check": "1024"
+      },
+      {
+       "q": "MB in 2 GB",
+       "a": "2048",
+       "check": "2*1024"
+      },
+      {
+       "q": "KB in 3 MB",
+       "a": "3072",
+       "check": "3*1024"
+      },
+      {
+       "q": "GB in 1 TB",
+       "a": "1024",
+       "check": "1024"
+      },
+      {
+       "q": "Nibbles in 4 bytes",
+       "a": "8",
+       "check": "4*2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many megabytes are there in 4 GB?",
+     "options": [
+      "4096",
+      "1024",
+      "512",
+      "4000"
+     ],
+     "answer": 0,
+     "explain": "1 GB = 1024 MB, so 4 GB = 4 × 1024 = 4096 MB.",
+     "steps": [
+      "1 GB = 1024 MB",
+      "4 × 1024 = 4096"
+     ],
+     "mistake": "Uses 1000 instead of 1024",
+     "check": "4*1024"
+    },
+    {
+     "q": "A file is 8192 bytes. What is its size in KB?",
+     "options": [
+      "8",
+      "1024",
+      "8.192",
+      "64"
+     ],
+     "answer": 0,
+     "explain": "Divide by 1024 to go from bytes to KB: 8192 ÷ 1024 = 8 KB.",
+     "steps": [
+      "Bytes → KB: divide by 1024",
+      "8192 ÷ 1024 = 8"
+     ],
+     "mistake": "Divides by 1000 instead of 1024",
+     "check": "8192/1024"
+    },
+    {
+     "q": "How many bits are there in 3 bytes?",
+     "options": [
+      "3",
+      "12",
+      "24",
+      "38"
+     ],
+     "answer": 2,
+     "explain": "1 byte = 8 bits, so 3 bytes = 24 bits.",
+     "steps": [
+      "1 byte = 8 bits",
+      "3 × 8 = 24"
+     ],
+     "mistake": "Uses 4 bits per byte (confusing a byte with a nibble)",
+     "check": "3*8"
+    },
+    {
+     "q": "How many nibbles make 1 KB?",
+     "options": [
+      "2048",
+      "4096",
+      "512",
+      "1024"
+     ],
+     "answer": 0,
+     "explain": "1 KB = 1024 bytes and each byte has 2 nibbles, so 1024 × 2 = 2048 nibbles.",
+     "steps": [
+      "1 KB = 1024 bytes",
+      "1 byte = 2 nibbles",
+      "1024 × 2 = 2048"
+     ],
+     "mistake": "Forgets that a byte has two nibbles",
+     "check": "1024*2"
+    },
+    {
+     "q": "Which is the correct ascending order of memory units?",
+     "options": [
+      "Byte < KB < GB < MB < TB < PB",
+      "Byte < KB < MB < GB < TB < PB",
+      "KB < Byte < MB < GB < TB < PB",
+      "Byte < MB < KB < GB < PB < TB"
+     ],
+     "answer": 1,
+     "explain": "Each unit is 1024 times the previous: byte, KB, MB, GB, TB, PB.",
+     "mistake": "Mixes up the order of MB and GB or TB and PB"
+    },
+    {
+     "q": "A phone has 128 GB storage. How many such phones together hold 1 TB?",
+     "options": [
+      "8",
+      "16",
+      "4",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "1 TB = 1024 GB and 1024 ÷ 128 = 8.",
+     "steps": [
+      "1 TB = 1024 GB",
+      "1024 ÷ 128 = 8"
+     ],
+     "mistake": "Uses 1 TB = 1000 GB and gets a non-whole number",
+     "check": "1024/128"
+    },
+    {
+     "q": "Why does a computer need memory at all?",
+     "options": [
+      "To hold the data, instructions and results the CPU works with",
+      "To make the screen brighter",
+      "Only to connect to the internet",
+      "Only to store movies and photos"
+     ],
+     "answer": 0,
+     "explain": "The CPU can only process what is in memory: the instructions to follow and the data to work on.",
+     "mistake": "Thinks memory is only for saving personal files"
+    },
+    {
+     "q": "How many bytes are there in 2 MB?",
+     "options": [
+      "2097152",
+      "2000000",
+      "2048",
+      "1048576"
+     ],
+     "answer": 0,
+     "explain": "2 MB = 2 × 1024 KB = 2048 KB = 2048 × 1024 bytes = 2097152 bytes.",
+     "steps": [
+      "1 MB = 1024 × 1024 bytes = 1048576 bytes",
+      "2 × 1048576 = 2097152"
+     ],
+     "mistake": "Stops at KB or uses powers of 1000",
+     "check": "2*1024*1024"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders, 'Why does a computer need memory, and how big is a kilobyte?' Explain memory and its units.",
+    "must": [
+     [
+      "bit",
+      "bits",
+      "binary digit"
+     ],
+     [
+      "byte",
+      "8 bits",
+      "eight bits"
+     ],
+     [
+      "1024",
+      "kilobyte",
+      "kb"
+     ]
+    ],
+    "praise": "So a byte is 8 bits and every step up is 1024 times bigger. Memory maths makes sense now!",
+    "nudge": "Almost there! How many bits make a byte, and what number do we multiply by to go from KB to bytes?"
+   }
+  },
+  {
+   "id": "g11-cs-01-05",
+   "title": "Types of memory: RAM, ROM, cache and secondary storage",
+   "covers": [
+    "c1.3.3",
+    "c1.3.4",
+    "c1.3.5",
+    "c1.3.6"
+   ],
+   "learn": {
+    "hook": "Your laptop forgets unsaved work when the power cuts, yet still knows how to start up. Two different memories are at play.",
+    "points": [
+     "Primary memory is directly accessed by the CPU. RAM (Random Access Memory) is read-write and volatile: its contents are lost when power goes off. It holds running programs and data.",
+     "ROM (Read Only Memory) is non-volatile: it keeps its contents without power. It stores start-up (boot) instructions, such as the BIOS/firmware.",
+     "Cache memory is a small, very fast memory placed between the CPU and RAM. It keeps frequently used data and instructions so the CPU does not wait for slower RAM.",
+     "Secondary memory is non-volatile, larger, cheaper per GB and slower: HDD, SSD, CD/DVD, pen drive, memory card. It stores data permanently but the CPU cannot access it directly.",
+     "Memory hierarchy (fastest/costliest/smallest → slowest/cheapest/largest): registers → cache → RAM → secondary storage."
+    ],
+    "example": {
+     "q": "A student's laptop restarts after a power cut. Which work is lost, and which instructions let it start again?",
+     "steps": [
+      "The open, unsaved document was in RAM",
+      "RAM is volatile, so it was erased when power was lost",
+      "Boot instructions are stored in ROM, which is non-volatile",
+      "Saved files on the SSD (secondary memory) are safe"
+     ],
+     "answer": "Unsaved work in RAM is lost; ROM's boot instructions and SSD files survive."
+    },
+    "reallife": "At a busy Indian Railways reservation server, the most-used route and fare data are kept in cache and RAM for speed, while years of booking records live on large secondary storage."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Volatile or non-volatile?",
+     "buckets": [
+      "Volatile",
+      "Non-volatile"
+     ],
+     "items": [
+      [
+       "RAM",
+       0
+      ],
+      [
+       "Cache memory",
+       0
+      ],
+      [
+       "CPU registers",
+       0
+      ],
+      [
+       "ROM",
+       1
+      ],
+      [
+       "Hard disk drive",
+       1
+      ],
+      [
+       "SSD",
+       1
+      ],
+      [
+       "Pen drive",
+       1
+      ],
+      [
+       "DVD",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Memory hierarchy",
+     "prompt": "Fastest to slowest",
+     "items": [
+      "Registers",
+      "Cache memory",
+      "RAM",
+      "SSD",
+      "Optical disc (DVD)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which memory loses its contents when the power is switched off?",
+     "options": [
+      "Pen drive",
+      "Hard disk",
+      "ROM",
+      "RAM"
+     ],
+     "answer": 3,
+     "explain": "RAM is volatile, so it needs power to keep data.",
+     "mistake": "Thinks all primary memory is volatile, including ROM"
+    },
+    {
+     "q": "Where are the instructions needed to start up (boot) a computer usually stored?",
+     "options": [
+      "Recycle bin",
+      "RAM",
+      "Cache",
+      "ROM"
+     ],
+     "answer": 3,
+     "explain": "ROM is non-volatile, so boot instructions remain available every time the computer is switched on.",
+     "mistake": "Thinks boot instructions are in RAM, which is empty at power-on"
+    },
+    {
+     "q": "Cache memory is placed between:",
+     "options": [
+      "Keyboard and CPU",
+      "RAM and hard disk",
+      "Monitor and printer",
+      "The CPU and RAM"
+     ],
+     "answer": 3,
+     "explain": "Cache is a small, fast buffer between the CPU and main memory that holds frequently used data.",
+     "mistake": "Places cache between RAM and secondary storage"
+    },
+    {
+     "q": "Compared with primary memory, secondary memory is:",
+     "options": [
+      "Faster, smaller and volatile",
+      "Directly used by the ALU for every calculation",
+      "Slower, larger and non-volatile",
+      "Faster and costlier per GB"
+     ],
+     "answer": 2,
+     "explain": "Secondary storage trades speed for large, cheap, permanent capacity.",
+     "mistake": "Assumes bigger storage must also be faster"
+    },
+    {
+     "q": "Which of these is NOT a secondary storage device?",
+     "options": [
+      "Memory card",
+      "SSD",
+      "RAM",
+      "DVD"
+     ],
+     "answer": 2,
+     "explain": "RAM is primary memory. SSDs, memory cards and DVDs store data permanently as secondary storage.",
+     "mistake": "Thinks RAM is storage because people say 'memory' for both"
+    },
+    {
+     "q": "Arrange from fastest to slowest: RAM, registers, hard disk, cache.",
+     "options": [
+      "Registers, RAM, cache, hard disk",
+      "RAM, cache, registers, hard disk",
+      "Registers, cache, RAM, hard disk",
+      "Cache, registers, RAM, hard disk"
+     ],
+     "answer": 2,
+     "explain": "Registers are inside the CPU and fastest, then cache, then RAM, and the hard disk is slowest.",
+     "mistake": "Puts cache before registers"
+    },
+    {
+     "q": "Assertion (A): The CPU keeps frequently used data in cache memory.\nReason (R): Cache is faster than RAM.",
+     "options": [
+      "A is false but R is true",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true and R is the correct explanation of A"
+     ],
+     "answer": 3,
+     "explain": "Because cache is faster than RAM, keeping frequently used data there reduces the time the CPU waits.",
+     "mistake": "Doesn't see that speed is the reason for using cache"
+    },
+    {
+     "q": "A student says, 'ROM is read-only, so it is volatile.' What is wrong?",
+     "options": [
+      "ROM is actually secondary storage",
+      "ROM is non-volatile: it keeps data without power",
+      "ROM is read-write",
+      "Nothing, the statement is correct"
+     ],
+     "answer": 1,
+     "explain": "'Read-only' is about not writing normally; 'volatile' is about losing data without power. ROM keeps its data.",
+     "mistake": "Confuses the idea of read-only with volatility"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's tablet lost his unsaved drawing in a power cut but still turned on. Explain RAM, ROM, cache and secondary memory to him.",
+    "must": [
+     [
+      "ram",
+      "random access memory"
+     ],
+     [
+      "rom",
+      "read only memory"
+     ],
+     [
+      "volatile",
+      "loses data",
+      "power off"
+     ],
+     [
+      "cache",
+      "secondary",
+      "hard disk",
+      "ssd"
+     ]
+    ],
+    "praise": "So my drawing was in volatile RAM, but ROM kept the start-up steps. I'll save to storage more often!",
+    "nudge": "Good try! Which memory is volatile and which keeps data without power? Where do saved files live?"
+   }
+  },
+  {
+   "id": "g11-cs-01-06",
+   "title": "System bus and microprocessors",
+   "covers": [
+    "c1.4.1",
+    "c1.4.2",
+    "c1.5.1",
+    "c1.5.2",
+    "c1.5.3"
+   ],
+   "learn": {
+    "hook": "Inside your laptop, data races along tiny copper highways at billions of cycles per second. Which highway carries what?",
+    "points": [
+     "The system bus is a set of wires that carries data, addresses and control signals between the CPU, memory and I/O devices.",
+     "Data bus: carries the actual data; it is bidirectional (data moves to and from the CPU). Address bus: carries the memory address the CPU wants; it is unidirectional (CPU → memory). Control bus: carries control signals such as read/write and timing.",
+     "A microprocessor is a CPU built on a single chip. Intel's 4004 (1971) was 4-bit; today's chips are 64-bit and multi-core (dual-core, quad-core, octa-core).",
+     "Specifications: word size (bits processed at once, e.g. 64-bit), memory size (how much memory it can address; with 32 address bits, 2³² bytes = 4 GB), clock speed (cycles per second, in Hz/GHz) and number of cores.",
+     "A microcontroller is a small computer on one chip, with CPU, memory and I/O ports, built for one dedicated job in embedded devices: washing machines, microwave ovens, TV remotes."
+    ],
+    "example": {
+     "q": "A processor can use 32 address bits. What is the largest memory it can address, in GB?",
+     "steps": [
+      "Number of addresses = 2³²",
+      "2³² bytes = 2² × 2³⁰ bytes",
+      "2³⁰ bytes = 1 GB",
+      "So 2² GB = 4 GB"
+     ],
+     "answer": "4 GB"
+    },
+    "reallife": "The smart electricity meters being installed across Indian cities contain microcontrollers that read consumption and send it to the DISCOM, while your phone uses an octa-core microprocessor."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Bus ↔ what it carries",
+     "pairs": [
+      [
+       "Data bus",
+       "The actual data, in both directions"
+      ],
+      [
+       "Address bus",
+       "Memory location numbers, from CPU to memory"
+      ],
+      [
+       "Control bus",
+       "Signals such as read and write"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Chip check",
+     "items": [
+      [
+       "A microcontroller has CPU, memory and I/O on a single chip.",
+       true,
+       "That is what lets it run an embedded device on its own."
+      ],
+      [
+       "The address bus is bidirectional.",
+       false,
+       "Addresses go only from the CPU to memory, so it is unidirectional."
+      ],
+      [
+       "A 3 GHz processor completes 3 × 10⁹ clock cycles per second.",
+       true,
+       "Giga means 10⁹ and hertz means cycles per second."
+      ],
+      [
+       "Word size is the number of bits a processor handles at one time.",
+       true,
+       "A 64-bit processor handles 64 bits in one operation."
+      ],
+      [
+       "A quad-core processor has four separate processor chips on the motherboard.",
+       false,
+       "The four cores sit on a single chip."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which bus is bidirectional?",
+     "options": [
+      "Only the power line",
+      "Data bus",
+      "Address bus",
+      "None of the buses can be"
+     ],
+     "answer": 1,
+     "explain": "Data must travel both from memory to the CPU (read) and from the CPU to memory (write).",
+     "mistake": "Thinks the address bus also needs to go both ways"
+    },
+    {
+     "q": "When the CPU wants to read memory location 2048, the number 2048 travels on the:",
+     "options": [
+      "Data bus",
+      "Control bus",
+      "USB port",
+      "Address bus"
+     ],
+     "answer": 3,
+     "explain": "The location number is an address, so it goes on the address bus. The value stored there comes back on the data bus.",
+     "mistake": "Mixes up the address with the data stored at it"
+    },
+    {
+     "q": "How many memory locations can a CPU address with 16 address lines?",
+     "options": [
+      "16",
+      "256",
+      "32768",
+      "65536"
+     ],
+     "answer": 3,
+     "explain": "Each extra line doubles the count: 2¹⁶ = 65536 locations.",
+     "steps": [
+      "Locations = 2ⁿ",
+      "2¹⁶ = 65536"
+     ],
+     "mistake": "Uses 2¹⁵ or just 16",
+     "check": "2**16"
+    },
+    {
+     "q": "Which device is most likely to use a microcontroller rather than a full general-purpose computer?",
+     "options": [
+      "Supercomputer",
+      "Gaming laptop",
+      "Web server",
+      "Washing machine"
+     ],
+     "answer": 3,
+     "explain": "A washing machine runs one fixed set of tasks, so a small, cheap microcontroller is ideal.",
+     "mistake": "Thinks microcontrollers are used in high-end computers"
+    },
+    {
+     "q": "The clock speed of a microprocessor is measured in:",
+     "options": [
+      "Hertz (e.g. GHz)",
+      "Bytes (e.g. GB)",
+      "Watts",
+      "Bits per pixel"
+     ],
+     "answer": 0,
+     "explain": "Clock speed counts cycles per second, which is measured in hertz.",
+     "mistake": "Confuses clock speed with memory size"
+    },
+    {
+     "q": "A processor with a word size of 64 bits can:",
+     "options": [
+      "Store only 64 bytes",
+      "Run only 64 programs",
+      "Have only 64 cores",
+      "Process 64 bits of data at a time"
+     ],
+     "answer": 3,
+     "explain": "Word size is the amount of data the processor handles in one operation.",
+     "mistake": "Confuses word size with memory capacity"
+    },
+    {
+     "q": "What is a microprocessor?",
+     "options": [
+      "A program that controls hardware",
+      "A CPU built on a single integrated-circuit chip",
+      "A memory card",
+      "A small hard disk"
+     ],
+     "answer": 1,
+     "explain": "The microprocessor puts the entire CPU on one chip, a key 4th-generation development.",
+     "mistake": "Thinks it is a kind of memory"
+    },
+    {
+     "q": "Assertion (A): The address bus is unidirectional.\nReason (R): The data bus carries data both to and from the CPU.",
+     "options": [
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both statements are true, but the direction of the data bus does not explain why the address bus is one-way; that is because only the CPU sends addresses.",
+     "mistake": "Accepts any true reason as the explanation"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks how the CPU talks to memory and what a microprocessor is. Explain buses and microprocessors.",
+    "must": [
+     [
+      "data bus",
+      "data"
+     ],
+     [
+      "address bus",
+      "address"
+     ],
+     [
+      "control bus",
+      "control signals"
+     ],
+     [
+      "microprocessor",
+      "single chip",
+      "microcontroller"
+     ]
+    ],
+    "praise": "Three highways — data, address and control — and a whole CPU on one chip! Super clear.",
+    "nudge": "Nice. Can you name all three buses and what each one carries?"
+   }
+  },
+  {
+   "id": "g11-cs-01-07",
+   "title": "Data and information",
+   "covers": [
+    "c1.6.1",
+    "c1.6.2",
+    "c1.6.3",
+    "c1.6.4"
+   ],
+   "learn": {
+    "hook": "'98, 87, 91' means nothing. 'Priya's average is 92' means a lot. That jump from data to information is what computers are for.",
+    "points": [
+     "Data are raw, unorganised facts (numbers, text, images). Information is data processed into a meaningful, useful form.",
+     "Structured data follows a fixed format, like rows and columns in a table (a marks register). Unstructured data has no fixed format (photos, audio, video, free text posts). Semi-structured data has some organisation through tags but not a strict table (emails, HTML, XML files).",
+     "Data capturing collects data through input devices or sensors; data storage keeps it on storage media; data retrieval fetches stored data when needed.",
+     "Deleting a file usually moves it to the Recycle Bin; even after emptying it, the data often stays on the disk until overwritten. Recovery tools can bring it back, which is useful but also a privacy risk when old devices are sold."
+    ],
+    "example": {
+     "q": "A school records attendance in a spreadsheet, CCTV footage of the gate and parents' emails. Classify each.",
+     "steps": [
+      "Spreadsheet: fixed rows and columns → structured",
+      "CCTV video: no row/column format → unstructured",
+      "Email: has tagged fields (To, Subject) but a free-text body → semi-structured"
+     ],
+     "answer": "Structured, unstructured, semi-structured"
+    },
+    "reallife": "IMD collects raw rainfall readings (data) from thousands of stations and turns them into the monsoon forecast you see on the news (information)."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Kind of data",
+     "buckets": [
+      "Structured",
+      "Unstructured",
+      "Semi-structured"
+     ],
+     "items": [
+      [
+       "Table of train timings",
+       0
+      ],
+      [
+       "Bank passbook entries",
+       0
+      ],
+      [
+       "Voice note",
+       1
+      ],
+      [
+       "Selfie photo",
+       1
+      ],
+      [
+       "Cricket match video",
+       1
+      ],
+      [
+       "XML file",
+       2
+      ],
+      [
+       "Email with To, Subject and body",
+       2
+      ],
+      [
+       "HTML web page",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Data facts",
+     "items": [
+      [
+       "Information is processed, meaningful data.",
+       true,
+       "Processing turns raw facts into something useful."
+      ],
+      [
+       "Emptying the Recycle Bin always destroys data beyond recovery.",
+       false,
+       "Data often remains until it is overwritten, so recovery tools may retrieve it."
+      ],
+      [
+       "A marks register with fixed columns is structured data.",
+       true,
+       "It follows a fixed row-column format."
+      ],
+      [
+       "Audio recordings are structured data.",
+       false,
+       "Audio has no fixed row-column format, so it is unstructured."
+      ],
+      [
+       "Data retrieval means fetching stored data when needed.",
+       true,
+       "That is the step that follows storage."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is information rather than raw data?",
+     "options": [
+      "'72, 65, 80, 71'",
+      "'12-03-2026'",
+      "'The class average in Physics is 72'",
+      "'A, B, A, C'"
+     ],
+     "answer": 2,
+     "explain": "The average is the result of processing raw marks, so it is meaningful information.",
+     "mistake": "Thinks any number is information"
+    },
+    {
+     "q": "An XML file storing book details with tags like <title> is an example of:",
+     "options": [
+      "Unstructured data",
+      "Semi-structured data",
+      "Encrypted data",
+      "Structured data"
+     ],
+     "answer": 1,
+     "explain": "Tags give some organisation, but it is not a strict table, so it is semi-structured.",
+     "mistake": "Thinks any computer file is structured"
+    },
+    {
+     "q": "Instagram reels and photos are mostly:",
+     "options": [
+      "Information only",
+      "Semi-structured data",
+      "Structured data",
+      "Unstructured data"
+     ],
+     "answer": 3,
+     "explain": "Images and videos do not follow a fixed row-column format.",
+     "mistake": "Thinks data stored on a server is automatically structured"
+    },
+    {
+     "q": "Which data type is the easiest to search with simple queries like 'all students with marks > 90'?",
+     "options": [
+      "Handwritten notes",
+      "Audio data",
+      "Unstructured data",
+      "Structured data"
+     ],
+     "answer": 3,
+     "explain": "Structured data is in fixed fields, so it can be filtered directly.",
+     "mistake": "Ignores that unstructured data has no fixed fields"
+    },
+    {
+     "q": "When you delete a file on Windows, where does it usually go first?",
+     "options": [
+      "ROM",
+      "The printer queue",
+      "The CPU cache",
+      "The Recycle Bin"
+     ],
+     "answer": 3,
+     "explain": "Normal deletion just moves the file to the Recycle Bin, so it can be restored.",
+     "mistake": "Thinks deletion is always permanent"
+    },
+    {
+     "q": "Before selling an old phone, why should you do a secure wipe rather than just delete files?",
+     "options": [
+      "A secure wipe increases the storage size",
+      "Deleted data can often be recovered by recovery tools",
+      "Deleted files move to ROM",
+      "Deleting makes the phone slower"
+     ],
+     "answer": 1,
+     "explain": "Plain deletion often leaves data on the storage until overwritten, so a buyer could recover it.",
+     "mistake": "Thinks deleted means gone forever"
+    },
+    {
+     "q": "Which step comes immediately after data capturing?",
+     "options": [
+      "Data storage",
+      "Data recovery",
+      "Data deletion",
+      "Data printing"
+     ],
+     "answer": 0,
+     "explain": "Captured data is first stored so that it can later be retrieved and processed.",
+     "mistake": "Mixes the order of capture, storage and retrieval"
+    },
+    {
+     "q": "Assertion (A): Data and information mean the same thing.\nReason (R): Information is obtained by processing data.",
+     "options": [
+      "Both A and R are false",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "A is true but R is false"
+     ],
+     "answer": 2,
+     "explain": "Data is raw; information is processed data. So A is false while R is true.",
+     "mistake": "Uses the words data and information as synonyms"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks data and information are the same. Explain the difference and the types of data.",
+    "must": [
+     [
+      "raw",
+      "raw facts",
+      "unprocessed"
+     ],
+     [
+      "processed",
+      "meaningful",
+      "information"
+     ],
+     [
+      "structured",
+      "unstructured",
+      "semi-structured"
+     ]
+    ],
+    "praise": "Raw facts become information after processing, and data can be structured, unstructured or semi-structured. Got it!",
+    "nudge": "Good! Can you say which one is raw and which is processed, and name the types of data?"
+   }
+  },
+  {
+   "id": "g11-cs-01-08",
+   "title": "System software, languages and translators",
+   "covers": [
+    "c1.7.1",
+    "c1.7.2",
+    "c1.7.3",
+    "c1.7.4",
+    "c1.7.5"
+   ],
+   "learn": {
+    "hook": "The CPU understands only 0s and 1s, yet you write print('Hello'). Who translates?",
+    "points": [
+     "Hardware does nothing on its own; software (a set of programs) gives it instructions. Software is broadly system software, programming tools and application software.",
+     "System software runs the computer itself: the operating system, system utilities (antivirus, disk cleanup, backup, compression) and device drivers (let the OS control a particular device such as a printer).",
+     "Low-level languages: machine language (binary 0s and 1s, directly understood by the CPU) and assembly language (mnemonics like ADD, MOV). High-level languages (Python, C++, Java) are close to English and portable.",
+     "Translators: an assembler converts assembly to machine code. A compiler translates the whole program at once and lists errors after scanning it. An interpreter translates and runs one statement at a time and stops at the first error. Python uses an interpreter.",
+     "Program development tools: text editors to write code, and IDEs (Integrated Development Environments, e.g. IDLE, Spyder) that combine editor, interpreter/compiler and debugger."
+    ],
+    "example": {
+     "q": "A program has errors on line 3 and line 7. What happens with an interpreter and with a compiler?",
+     "steps": [
+      "Interpreter: runs lines 1 and 2, stops at line 3 and reports that error",
+      "Fix line 3, run again; it stops at line 7",
+      "Compiler: scans the whole program first and reports errors on lines 3 and 7 together",
+      "No machine code is produced until all errors are fixed"
+     ],
+     "answer": "Interpreter stops at the first error; compiler lists all errors after scanning the whole program."
+    },
+    "reallife": "When you plug a new printer into a school lab PC, Windows installs its device driver. And the Python you'll write in this course runs through an interpreter like IDLE."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Kind of software",
+     "buckets": [
+      "System software",
+      "Programming tool"
+     ],
+     "items": [
+      [
+       "Operating system",
+       0
+      ],
+      [
+       "Antivirus utility",
+       0
+      ],
+      [
+       "Printer driver",
+       0
+      ],
+      [
+       "Disk cleanup",
+       0
+      ],
+      [
+       "Compiler",
+       1
+      ],
+      [
+       "Interpreter",
+       1
+      ],
+      [
+       "Assembler",
+       1
+      ],
+      [
+       "IDE",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Software ↔ what it does",
+     "pairs": [
+      [
+       "Assembler",
+       "Converts assembly language into machine code"
+      ],
+      [
+       "Compiler",
+       "Translates the whole program at once"
+      ],
+      [
+       "Interpreter",
+       "Translates and executes one statement at a time"
+      ],
+      [
+       "Device driver",
+       "Lets the OS control a specific hardware device"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which language is directly understood by the CPU without translation?",
+     "options": [
+      "Assembly language",
+      "Java",
+      "Python",
+      "Machine language"
+     ],
+     "answer": 3,
+     "explain": "Machine language is written in binary, the only form the CPU executes directly.",
+     "mistake": "Thinks assembly is 'machine level' so needs no translator"
+    },
+    {
+     "q": "Which translator converts assembly-language mnemonics into machine code?",
+     "options": [
+      "Assembler",
+      "Linker",
+      "Interpreter",
+      "Compiler"
+     ],
+     "answer": 0,
+     "explain": "Assembly code is converted by an assembler.",
+     "mistake": "Uses 'compiler' as a general word for every translator"
+    },
+    {
+     "q": "Which statement about an interpreter is correct?",
+     "options": [
+      "It works only on machine language",
+      "It translates and executes one statement at a time, stopping at the first error",
+      "It never reports errors",
+      "It translates the whole program before running any of it"
+     ],
+     "answer": 1,
+     "explain": "An interpreter processes line by line, so it stops as soon as it meets an error.",
+     "mistake": "Swaps the behaviours of compiler and interpreter"
+    },
+    {
+     "q": "A student installs a new webcam and the computer cannot use it until certain software is installed. That software is a:",
+     "options": [
+      "Compiler",
+      "Device driver",
+      "Web browser",
+      "Spreadsheet"
+     ],
+     "answer": 1,
+     "explain": "A device driver lets the OS communicate with a specific hardware device.",
+     "mistake": "Thinks the OS alone handles every device"
+    },
+    {
+     "q": "Which of these is a system utility?",
+     "options": [
+      "Video game",
+      "Disk cleanup tool",
+      "Railway booking app",
+      "Payroll software"
+     ],
+     "answer": 1,
+     "explain": "Utilities maintain the computer, e.g. antivirus, backup, disk cleanup.",
+     "mistake": "Thinks every free tool is application software"
+    },
+    {
+     "q": "Python is called a high-level language because:",
+     "options": [
+      "It needs no translator at all",
+      "Its statements are close to human language and independent of the hardware",
+      "It is written in binary",
+      "It runs only on high-end computers"
+     ],
+     "answer": 1,
+     "explain": "High-level languages use English-like words and are portable across machines; they still need translation.",
+     "mistake": "Thinks high-level means 'advanced hardware'"
+    },
+    {
+     "q": "Which is an example of an IDE used for Python?",
+     "options": [
+      "Printer driver",
+      "Recycle Bin",
+      "IDLE",
+      "BIOS"
+     ],
+     "answer": 2,
+     "explain": "IDLE is Python's Integrated Development and Learning Environment, combining an editor and an interpreter shell.",
+     "mistake": "Doesn't know what an IDE bundles"
+    },
+    {
+     "q": "Assertion (A): A compiled program usually runs faster than the same program interpreted line by line.\nReason (R): A compiler translates the entire program into machine code once, before execution.",
+     "options": [
+      "Both A and R are true but R is not the correct explanation of A",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true",
+      "A is true but R is false"
+     ],
+     "answer": 1,
+     "explain": "Since translation is done once in advance, execution does not pause to translate each line.",
+     "mistake": "Can't connect the translation method to speed"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How does my Python code become 0s and 1s? And what is system software?' Explain.",
+    "must": [
+     [
+      "compiler",
+      "compiles"
+     ],
+     [
+      "interpreter",
+      "line by line"
+     ],
+     [
+      "machine language",
+      "machine code",
+      "binary"
+     ],
+     [
+      "system software",
+      "operating system",
+      "device driver",
+      "utility"
+     ]
+    ],
+    "praise": "So interpreters go line by line, compilers do it all at once, and system software keeps the machine running. Neat!",
+    "nudge": "Good start. What's the difference between a compiler and an interpreter, and what counts as system software?"
+   }
+  },
+  {
+   "id": "g11-cs-01-09",
+   "title": "Application software and software licences",
+   "covers": [
+    "c1.7.6",
+    "c1.7.7"
+   ],
+   "learn": {
+    "hook": "Your school's fee portal was built just for your school, but the browser you open it in is used by millions. Same 'app' word, very different software.",
+    "points": [
+     "Application software helps users do specific tasks. General-purpose application software is ready-made for many users: word processors, spreadsheets, presentation tools, web browsers, image editors.",
+     "Customised (specific-purpose) software is built for one organisation's needs: a school's fee management system, a company's payroll, a railway reservation system.",
+     "Proprietary software: owned by a company; you buy a licence to use it and cannot see or change the source code (e.g. Microsoft Windows, MS Office).",
+     "Free and Open Source Software (FOSS): source code is available to view, modify and share (e.g. Linux/Ubuntu, Python, LibreOffice, Mozilla Firefox).",
+     "Freeware is free of cost, but its source code is not open; you can use it but not modify it. 'Free' in FOSS means freedom, not just zero price."
+    ],
+    "example": {
+     "q": "Classify: LibreOffice Writer, a hospital's patient-record system, MS Excel, Python.",
+     "steps": [
+      "LibreOffice Writer: general-purpose, FOSS",
+      "Hospital patient-record system: customised",
+      "MS Excel: general-purpose, proprietary",
+      "Python: open source (a language, distributed as FOSS)"
+     ],
+     "answer": "General-purpose: Writer, Excel; customised: hospital system; FOSS: LibreOffice, Python; proprietary: Excel"
+    },
+    "reallife": "Many Indian state governments and schools use FOSS such as Ubuntu and LibreOffice to save licence costs, while banks often run customised core-banking software."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Licence type",
+     "buckets": [
+      "Proprietary",
+      "Free and open source"
+     ],
+     "items": [
+      [
+       "Microsoft Windows",
+       0
+      ],
+      [
+       "MS Office",
+       0
+      ],
+      [
+       "Ubuntu Linux",
+       1
+      ],
+      [
+       "Python",
+       1
+      ],
+      [
+       "LibreOffice",
+       1
+      ],
+      [
+       "Mozilla Firefox",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Licence logic",
+     "items": [
+      [
+       "Freeware always comes with its source code.",
+       false,
+       "Freeware is free to use, but the source code is usually closed."
+      ],
+      [
+       "A payroll system written for one company is customised software.",
+       true,
+       "It is made for that organisation's specific needs."
+      ],
+      [
+       "Open source software lets users view and modify the source code.",
+       true,
+       "That is what 'open source' means."
+      ],
+      [
+       "A web browser is system software.",
+       false,
+       "It helps users do a task (browse), so it is application software."
+      ],
+      [
+       "Proprietary software can be legally copied and sold by anyone.",
+       false,
+       "Its licence restricts copying and redistribution."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A spreadsheet such as MS Excel is an example of:",
+     "options": [
+      "Customised software",
+      "Device driver",
+      "System utility",
+      "General-purpose application software"
+     ],
+     "answer": 3,
+     "explain": "Spreadsheets are ready-made for many users and many tasks, so they are general-purpose applications.",
+     "mistake": "Thinks widely used software must be system software"
+    },
+    {
+     "q": "Software developed only for the fee collection of a particular school is:",
+     "options": [
+      "General-purpose software",
+      "Operating system",
+      "Customised (specific-purpose) software",
+      "Freeware"
+     ],
+     "answer": 2,
+     "explain": "It is tailored for one organisation's specific needs.",
+     "mistake": "Confuses 'custom' with 'free'"
+    },
+    {
+     "q": "Which is free and open source software?",
+     "options": [
+      "MS Office",
+      "A licensed antivirus suite",
+      "LibreOffice",
+      "Microsoft Windows"
+     ],
+     "answer": 2,
+     "explain": "LibreOffice's source code is open for anyone to study, modify and share.",
+     "mistake": "Thinks any well-known software is open source"
+    },
+    {
+     "q": "What is the key difference between freeware and open source software?",
+     "options": [
+      "Open source software must be paid for",
+      "There is no difference",
+      "Freeware is free to use but its source code is closed; open source shares the source code",
+      "Freeware is always proprietary hardware"
+     ],
+     "answer": 2,
+     "explain": "Both can be free of cost, but only open source gives access to the source code.",
+     "mistake": "Thinks 'free' and 'open' mean the same thing"
+    },
+    {
+     "q": "Proprietary software means:",
+     "options": [
+      "Anyone can modify and redistribute it",
+      "The owner keeps the source code closed and users need a licence",
+      "It is always free of cost",
+      "It cannot run on Windows"
+     ],
+     "answer": 1,
+     "explain": "Proprietary software is owned by a company that controls how it is used and keeps the code private.",
+     "mistake": "Thinks proprietary means 'pirated'"
+    },
+    {
+     "q": "A web browser is classified as:",
+     "options": [
+      "System software",
+      "Device driver",
+      "Language translator",
+      "Application software"
+     ],
+     "answer": 3,
+     "explain": "It helps the user perform a task (browsing), so it is application software.",
+     "mistake": "Thinks software that comes pre-installed is system software"
+    },
+    {
+     "q": "Which of these is customised software?",
+     "options": [
+      "Mozilla Firefox",
+      "LibreOffice Calc",
+      "IRCTC's train reservation system",
+      "A general photo editor"
+     ],
+     "answer": 2,
+     "explain": "The reservation system was designed for the specific needs of Indian Railways.",
+     "mistake": "Thinks any app used by many people is general-purpose"
+    },
+    {
+     "q": "Assertion (A): Python is free and open source.\nReason (R): Its source code is publicly available and can be modified and redistributed.",
+     "options": [
+      "Both A and R are true and R is the correct explanation of A",
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Public, modifiable source code is the defining feature of open source, which explains A.",
+     "mistake": "Thinks open source only means free of cost"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Is every app the same type of software? What is open source?' Explain application software and licences.",
+    "must": [
+     [
+      "general purpose",
+      "general-purpose",
+      "ready-made"
+     ],
+     [
+      "customised",
+      "customized",
+      "specific purpose",
+      "tailor made"
+     ],
+     [
+      "open source",
+      "foss",
+      "source code"
+     ],
+     [
+      "proprietary",
+      "licence",
+      "license"
+     ]
+    ],
+    "praise": "General-purpose for everyone, customised for one organisation, and open source shares its code. I'm getting it!",
+    "nudge": "Good effort. Can you tell me the difference between general-purpose and customised software, and between proprietary and open source?"
+   }
+  },
+  {
+   "id": "g11-cs-01-10",
+   "title": "Operating system: interfaces and functions",
+   "covers": [
+    "c1.8.1",
+    "c1.8.2",
+    "c1.8.3",
+    "c1.8.4"
+   ],
+   "learn": {
+    "hook": "You say 'Hey, call Mumma' and your phone dials. You never talk to the hardware; the operating system does it for you.",
+    "points": [
+     "An operating system (OS) is system software that acts as an interface between the user and the hardware and manages all resources (CPU, memory, files, devices). Examples: Windows, Linux, macOS, Android, iOS.",
+     "User interfaces: command-based (typing commands, e.g. MS-DOS, Linux terminal), GUI (icons, windows, menus), touch-based (smartphones, tablets), voice-based (voice assistants) and gesture-based (hand movements, e.g. some smart TVs, phones).",
+     "Process management: decides which program (process) gets the CPU and for how long. Memory management: allocates and frees primary memory for programs.",
+     "File management: creating, naming, organising, opening and deleting files and folders. Device management: controls I/O devices through drivers.",
+     "Common exam pairs: RAM vs ROM, compiler vs interpreter, system vs application software, data/address/control bus, and memory unit conversions."
+    ],
+    "example": {
+     "q": "You open a music app and a browser together, and copy a photo to a pen drive. Which OS functions are at work?",
+     "steps": [
+      "Sharing the CPU between the two apps → process management",
+      "Giving each app its own space in RAM → memory management",
+      "Copying the photo and creating its entry on the pen drive → file management",
+      "Talking to the USB pen drive via its driver → device management"
+     ],
+     "answer": "Process, memory, file and device management"
+    },
+    "reallife": "DigiLocker and UPI apps all run on top of Android or iOS, which manages your phone's memory, files and camera so each app doesn't have to."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Interface ↔ example",
+     "pairs": [
+      [
+       "Command-based",
+       "Typing commands in a terminal"
+      ],
+      [
+       "Graphical (GUI)",
+       "Clicking icons and menus"
+      ],
+      [
+       "Touch-based",
+       "Swiping on a smartphone screen"
+      ],
+      [
+       "Voice-based",
+       "Asking a voice assistant to set an alarm"
+      ],
+      [
+       "Gesture-based",
+       "Waving a hand to change a smart TV channel"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Which OS function?",
+     "buckets": [
+      "Process / memory management",
+      "File / device management"
+     ],
+     "items": [
+      [
+       "Deciding which program uses the CPU next",
+       0
+      ],
+      [
+       "Allocating RAM to a newly opened app",
+       0
+      ],
+      [
+       "Freeing memory when an app closes",
+       0
+      ],
+      [
+       "Renaming a folder",
+       1
+      ],
+      [
+       "Sending a document to the printer",
+       1
+      ],
+      [
+       "Detecting a newly plugged pen drive",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The operating system mainly acts as:",
+     "options": [
+      "A hardware chip on the motherboard",
+      "An interface between the user and the hardware, managing resources",
+      "A program to type documents",
+      "A translator for assembly code only"
+     ],
+     "answer": 1,
+     "explain": "The OS hides hardware details from the user and manages CPU, memory, files and devices.",
+     "mistake": "Thinks the OS is a hardware component"
+    },
+    {
+     "q": "Which OS function decides which running program gets the CPU next?",
+     "options": [
+      "Data recovery",
+      "File management",
+      "Device management",
+      "Process management"
+     ],
+     "answer": 3,
+     "explain": "Scheduling programs on the CPU is process management.",
+     "mistake": "Confuses scheduling programs with managing memory"
+    },
+    {
+     "q": "Allocating RAM to a newly opened app and freeing it when the app closes is:",
+     "options": [
+      "File management",
+      "Memory management",
+      "Device management",
+      "Process management"
+     ],
+     "answer": 1,
+     "explain": "Handling primary memory space is the job of memory management.",
+     "mistake": "Thinks file management handles RAM"
+    },
+    {
+     "q": "A Linux user types 'ls' to list files. Which type of interface is this?",
+     "options": [
+      "Command-based",
+      "Touch-based",
+      "Gesture-based",
+      "Graphical"
+     ],
+     "answer": 0,
+     "explain": "Typing text commands is a command-based (command-line) interface.",
+     "mistake": "Thinks all Linux interfaces are graphical"
+    },
+    {
+     "q": "Which is NOT an operating system?",
+     "options": [
+      "Linux",
+      "Android",
+      "Windows",
+      "MS Word"
+     ],
+     "answer": 3,
+     "explain": "MS Word is an application (word processor); the others are operating systems.",
+     "mistake": "Thinks any well-known Microsoft product is an OS"
+    },
+    {
+     "q": "Creating folders, naming files and controlling who may open them is part of:",
+     "options": [
+      "Cache management",
+      "Memory management",
+      "Process management",
+      "File management"
+     ],
+     "answer": 3,
+     "explain": "The OS's file system organises and protects files and folders.",
+     "mistake": "Mixes up file and memory management"
+    },
+    {
+     "q": "Which statement is correct?",
+     "options": [
+      "Both RAM and ROM are secondary memory",
+      "RAM is non-volatile and a compiler translates line by line",
+      "RAM is volatile, ROM is non-volatile; a compiler translates the whole program, an interpreter one line at a time",
+      "ROM is volatile and an interpreter translates the whole program"
+     ],
+     "answer": 2,
+     "explain": "This pairs the correct property with each memory and each translator.",
+     "mistake": "Swaps the properties within a pair"
+    },
+    {
+     "q": "Assertion (A): A user can work on a computer without knowing how its hardware works.\nReason (R): The operating system provides an interface that hides hardware details.",
+     "options": [
+      "A is true but R is false",
+      "Both A and R are true but R is not the correct explanation of A",
+      "Both A and R are true and R is the correct explanation of A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Because the OS hides the hardware behind a friendly interface, users don't need hardware knowledge.",
+     "mistake": "Misses the link between the OS interface and ease of use"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks, 'What does an operating system actually do?' Explain the OS, its interfaces and its main functions.",
+    "must": [
+     [
+      "interface",
+      "between user and hardware"
+     ],
+     [
+      "process management",
+      "process"
+     ],
+     [
+      "memory management",
+      "memory"
+     ],
+     [
+      "file management",
+      "device management",
+      "files",
+      "devices"
+     ]
+    ],
+    "praise": "The OS is my phone's manager — it juggles processes, memory, files and devices. Thank you!",
+    "nudge": "Nice. Which four things does the OS manage, and what does 'interface' mean here?"
+   }
+  }
+ ]
+}
