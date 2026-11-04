@@ -70,6 +70,14 @@ def _same_rounding(a, b):
     return round(float(a), 2) == round(float(b), 2)
 
 
+def load_outline(grade, subject):
+    p = os.path.join(ROOT, "content", "outlines", f"g{grade}-{subject}.json")
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    return None
+
+
 def load_curriculum():
     p = os.path.join(ROOT, "content", "curriculum.json")
     if os.path.exists(p):
@@ -266,6 +274,7 @@ def check_file(path, curriculum):
             if extra: r.err("coverage", f"chapters not in syllabus: {extra}")
             if have != sorted(have): r.err("coverage", "chapters are not in order")
 
+    outline = load_outline(grade, subject)
     ids, seen_q, answer_pos, nq = set(), {}, Counter(), 0
     for ci, ch in enumerate(chapters):
         cw = f"ch{ch.get('n', ci+1)}"
@@ -275,8 +284,23 @@ def check_file(path, curriculum):
             if cc and cc["title"].strip().lower() != str(ch.get("title", "")).strip().lower():
                 r.warn(cw, f"title '{ch.get('title')}' differs from syllabus '{cc['title']}'")
         topics = ch.get("topics")
-        if not isinstance(topics, list) or not (2 <= len(topics) <= 5):
-            r.err(cw, "each chapter needs 2-5 topics"); continue
+        if not isinstance(topics, list) or not (2 <= len(topics) <= 14):
+            r.err(cw, "each chapter needs 2-14 topics"); continue
+        if outline is not None:
+            och = next((c for c in outline.get("chapters", []) if c.get("n") == ch.get("n")), None)
+            if och is None:
+                r.err(cw, "chapter missing from the depth outline")
+            else:
+                want = {cc["id"]: cc["text"] for sec in och.get("sections", []) for cc in sec.get("concepts", [])}
+                got = set()
+                for tp in topics:
+                    for cid in tp.get("covers", []) or []:
+                        if cid not in want:
+                            r.err(cw, f"topic '{tp.get('title')}' covers unknown concept id '{cid}'")
+                        got.add(cid)
+                for cid, txt in want.items():
+                    if cid not in got:
+                        r.err("depth", f"ch{ch.get('n')}: concept not covered: {cid} - {txt}")
         for ti, tp in enumerate(topics):
             tw = f"{cw}/t{ti+1}"
             tid = tp.get("id", "")

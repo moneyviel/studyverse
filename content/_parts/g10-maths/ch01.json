@@ -247,7 +247,15 @@
     ],
     "praise": "Tweet! Same primes every time, only the order changes. My prime bricks are sorted!",
     "nudge": "But what if I write the primes in a different order — is that a new factorisation?"
-   }
+   },
+   "covers": [
+    "c1.2.1",
+    "c1.2.2",
+    "c1.2.3",
+    "c1.2.4",
+    "c1.2.10",
+    "c1.2.14"
+   ]
   },
   {
    "id": "g10-maths-01-02",
@@ -524,6 +532,270 @@
     ],
     "praise": "Chirp chirp! Smallest common powers for HCF, biggest powers for LCM. I can share my laddoos now!",
     "nudge": "Which powers do I pick for the HCF and which for the LCM — the smaller or the bigger ones?"
+   },
+   "covers": [
+    "c1.2.5",
+    "c1.2.6",
+    "c1.2.7",
+    "c1.2.9",
+    "c1.2.11"
+   ]
+  },
+  {
+   "id": "g10-maths-01-04",
+   "title": "HCF and LCM: missing values, three numbers and meeting times",
+   "covers": [
+    "c1.2.8",
+    "c1.2.12",
+    "c1.2.13",
+    "c1.2.16"
+   ],
+   "learn": {
+    "hook": "Two friends jog round a ground at different speeds. Will they ever cross the start line together? The LCM knows!",
+    "points": [
+     "For two numbers: LCM = (a × b) ÷ HCF and HCF = (a × b) ÷ LCM. Use this to find a missing HCF or LCM.",
+     "For three numbers, write each as a product of primes. HCF = smallest power of each prime common to ALL three; LCM = greatest power of every prime that appears.",
+     "For three numbers, HCF × LCM is usually NOT equal to the product of the numbers, so never use the product rule there.",
+     "'When will they meet again at the start?' or 'when will they ring together?' is an LCM question. 'Largest equal share' is an HCF question."
+    ],
+    "example": {
+     "q": "Sonia takes 18 minutes and Ravi 12 minutes to go once round a field. They start together from the same point in the same direction. After how many minutes will they next meet at the starting point?",
+     "steps": [
+      "18 = 2 × 3² and 12 = 2² × 3",
+      "LCM = 2² × 3² = 36",
+      "Sonia has done 2 rounds and Ravi 3 rounds"
+     ],
+     "answer": "After 36 minutes"
+    },
+    "reallife": "School bells, traffic signals and runners on a track all repeat on their own cycles — the LCM tells you when the cycles line up again."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the three numbers with their HCF",
+     "pairs": [
+      [
+       "12, 18, 30",
+       "6"
+      ],
+      [
+       "8, 9, 25",
+       "1"
+      ],
+      [
+       "14, 28, 42",
+       "14"
+      ],
+      [
+       "15, 45, 60",
+       "15"
+      ],
+      [
+       "16, 24, 40",
+       "8"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Missing HCF or LCM",
+     "items": [
+      {
+       "q": "HCF = 4, a × b = 480. LCM?",
+       "a": "120",
+       "check": "480/4"
+      },
+      {
+       "q": "LCM = 60, a × b = 720. HCF?",
+       "a": "12",
+       "check": "720/60"
+      },
+      {
+       "q": "LCM(4, 6, 10)",
+       "a": "60",
+       "check": "2**2*3*5"
+      },
+      {
+       "q": "HCF(20, 30, 50)",
+       "a": "10",
+       "check": "10"
+      },
+      {
+       "q": "LCM(3, 5, 7)",
+       "a": "105",
+       "check": "3*5*7"
+      },
+      {
+       "q": "HCF = 13, numbers 26 and 91. LCM?",
+       "a": "182",
+       "check": "26*91/13"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The HCF of 306 and 657 is 9. What is their LCM?",
+     "options": [
+      "22338",
+      "201042",
+      "11169",
+      "2482"
+     ],
+     "answer": 0,
+     "explain": "For two numbers, LCM = product ÷ HCF = 306 × 657 ÷ 9 = 22338.",
+     "steps": [
+      "306 × 657 = 201042",
+      "201042 ÷ 9 = 22338"
+     ],
+     "mistake": "Gives the plain product 306 × 657 and forgets to divide by the HCF",
+     "check": "306*657/9"
+    },
+    {
+     "q": "What is the LCM of 6, 72 and 120?",
+     "options": [
+      "720",
+      "360",
+      "6",
+      "1440"
+     ],
+     "answer": 1,
+     "explain": "6 = 2 × 3, 72 = 2³ × 3², 120 = 2³ × 3 × 5. Take the greatest power of each prime: 2³ × 3² × 5 = 360.",
+     "steps": [
+      "6 = 2 × 3",
+      "72 = 2³ × 3²",
+      "120 = 2³ × 3 × 5",
+      "LCM = 8 × 9 × 5 = 360"
+     ],
+     "mistake": "Uses a power that is too big, or doubles a common multiple instead of finding the least one",
+     "check": "2**3*3**2*5"
+    },
+    {
+     "q": "What is the HCF of 12, 15 and 21?",
+     "options": [
+      "3",
+      "1",
+      "6",
+      "420"
+     ],
+     "answer": 0,
+     "explain": "12 = 2² × 3, 15 = 3 × 5, 21 = 3 × 7. The only prime common to all three is 3, so HCF = 3.",
+     "steps": [
+      "12 = 2² × 3",
+      "15 = 3 × 5",
+      "21 = 3 × 7",
+      "Common to all: 3"
+     ],
+     "mistake": "Thinks there is no common factor at all, or gives the LCM (420)",
+     "check": "3"
+    },
+    {
+     "q": "Sonia takes 18 minutes and Ravi 12 minutes to go round a field once. They start together from the same point in the same direction. After how many minutes do they first meet at the start again?",
+     "options": [
+      "216",
+      "6",
+      "30",
+      "36"
+     ],
+     "answer": 3,
+     "explain": "They meet at the start after a time that is a multiple of both 18 and 12. The smallest such time is LCM(18, 12) = 36 minutes.",
+     "steps": [
+      "18 = 2 × 3², 12 = 2² × 3",
+      "LCM = 2² × 3² = 36"
+     ],
+     "mistake": "Multiplies the times (216) or uses the HCF (6)",
+     "check": "2**2*3**2"
+    },
+    {
+     "q": "Two numbers have product 1800 and HCF 15. What is their LCM?",
+     "options": [
+      "27000",
+      "120",
+      "60",
+      "1785"
+     ],
+     "answer": 1,
+     "explain": "HCF × LCM = product, so LCM = 1800 ÷ 15 = 120.",
+     "steps": [
+      "HCF × LCM = 1800",
+      "LCM = 1800 ÷ 15 = 120"
+     ],
+     "mistake": "Multiplies product and HCF instead of dividing",
+     "check": "1800/15"
+    },
+    {
+     "q": "The LCM of two numbers is 180 and their product is 2160. What is their HCF?",
+     "options": [
+      "6",
+      "18",
+      "2340",
+      "12"
+     ],
+     "answer": 3,
+     "explain": "HCF = product ÷ LCM = 2160 ÷ 180 = 12. (Check: 12 divides 180 ✓)",
+     "steps": [
+      "HCF × 180 = 2160",
+      "HCF = 2160 ÷ 180 = 12"
+     ],
+     "mistake": "Divides the wrong way or adds the numbers",
+     "check": "2160/180"
+    },
+    {
+     "q": "For 12, 18 and 24, the HCF is 6 and the LCM is 72. Is HCF × LCM equal to 12 × 18 × 24?",
+     "options": [
+      "Yes, both are 432",
+      "Yes, both are 5184",
+      "No: HCF × LCM = 432 but the product is 5184",
+      "No: HCF × LCM is bigger than the product"
+     ],
+     "answer": 2,
+     "explain": "6 × 72 = 432, while 12 × 18 × 24 = 5184. So the product rule does not work for three numbers.",
+     "steps": [
+      "HCF × LCM = 6 × 72 = 432",
+      "12 × 18 × 24 = 5184",
+      "432 ≠ 5184"
+     ],
+     "mistake": "Applies the two-number product rule to three numbers"
+    },
+    {
+     "q": "Three traffic lights change every 48, 72 and 108 seconds. They change together at 7:00 AM. When do they next change together?",
+     "options": [
+      "7:03:36 AM",
+      "7:04:48 AM",
+      "7:12:00 AM",
+      "7:07:12 AM"
+     ],
+     "answer": 3,
+     "explain": "LCM(48, 72, 108) = 2⁴ × 3³ = 432 seconds = 7 minutes 12 seconds, so at 7:07:12 AM.",
+     "steps": [
+      "48 = 2⁴ × 3, 72 = 2³ × 3², 108 = 2² × 3³",
+      "LCM = 16 × 27 = 432 s",
+      "432 s = 7 min 12 s"
+     ],
+     "mistake": "Uses a common multiple of only two of the numbers, or makes an error converting seconds to minutes"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is puzzled: 'Two runners go round a track in 6 and 8 minutes. When will they be at the start together again, and how do I find a missing LCM?' Explain to Gappu.",
+    "must": [
+     [
+      "lcm",
+      "least common multiple",
+      "lowest common multiple"
+     ],
+     [
+      "product",
+      "multiply",
+      "a × b"
+     ],
+     [
+      "hcf",
+      "highest common factor",
+      "divide"
+     ]
+    ],
+    "praise": "Chirp! So meeting again is about the LCM, and LCM = product ÷ HCF for two numbers. Got it!",
+    "nudge": "But how do I get the LCM if I only know the HCF and the two numbers?"
    }
   },
   {
@@ -743,6 +1015,262 @@
     ],
     "praise": "Wow, a proof by contradiction! √2 can't hide behind a fraction any more. Tweet!",
     "nudge": "What do we pretend first, and what impossible thing do we reach at the end?"
+   },
+   "covers": [
+    "c1.3.1",
+    "c1.3.2",
+    "c1.3.3",
+    "c1.3.4",
+    "c1.3.5",
+    "c1.3.6",
+    "c1.3.7",
+    "c1.3.8",
+    "c1.3.9",
+    "c1.3.10"
+   ]
+  },
+  {
+   "id": "g10-maths-01-05",
+   "title": "Real numbers: the big picture and chapter review",
+   "covers": [
+    "c1.1.1",
+    "c1.1.2",
+    "c1.2.15",
+    "c1.4.1"
+   ],
+   "learn": {
+    "hook": "Every number on the number line is either a neat fraction or a wild never-ending decimal — and prime numbers are the bricks behind both stories.",
+    "points": [
+     "Real numbers = all rational numbers together with all irrational numbers. Every point on the number line is one of the two, never both.",
+     "The Fundamental Theorem of Arithmetic (unique prime factorisation) is the key tool of the chapter: it gives HCF and LCM, and it powers the proofs that √2, √3, √5 are irrational.",
+     "Spot a common factor to show a number is composite: 7 × 11 × 13 + 13 = 13 × (7 × 11 + 1) = 13 × 78.",
+     "Recap: HCF uses the smallest powers of common primes, LCM the greatest powers; HCF × LCM = a × b for TWO numbers; rational ± irrational is irrational."
+    ],
+    "example": {
+     "q": "Show that 7 × 6 × 5 × 4 × 3 × 2 × 1 + 5 is a composite number.",
+     "steps": [
+      "Every term has a factor 5: 7 × 6 × 5 × 4 × 3 × 2 × 1 + 5 = 5 × (7 × 6 × 4 × 3 × 2 × 1 + 1)",
+      "= 5 × (1008 + 1) = 5 × 1009",
+      "It has the factor 5 besides 1 and itself, so it is composite"
+     ],
+     "answer": "It equals 5 × 1009, so it is composite"
+    },
+    "reallife": "A shopkeeper's bill (₹45.50) is rational; the diagonal of a 1 m square tile (√2 m) is irrational — both are real lengths you can measure."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Prime or composite?",
+     "buckets": [
+      "Composite",
+      "Prime"
+     ],
+     "items": [
+      [
+       "7 × 11 × 13 + 13",
+       0
+      ],
+      [
+       "2 × 3 × 5 + 5",
+       0
+      ],
+      [
+       "2 × 3 × 5 + 1",
+       1
+      ],
+      [
+       "5 × 4 × 3 × 2 × 1 + 5",
+       0
+      ],
+      [
+       "2 × 3 + 1",
+       1
+      ],
+      [
+       "29",
+       1
+      ],
+      [
+       "3 × 5 × 7 + 7",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Chapter 1 recap",
+     "items": [
+      [
+       "Every real number is either rational or irrational.",
+       true,
+       "Rational and irrational numbers together make up all the real numbers."
+      ],
+      [
+       "A number can be both rational and irrational.",
+       false,
+       "Irrational means NOT rational, so no number is both."
+      ],
+      [
+       "HCF × LCM = product works for any two positive integers.",
+       true,
+       "This is true for two numbers, though not in general for three."
+      ],
+      [
+       "7 × 11 × 13 + 13 is prime because it ends in 4.",
+       false,
+       "It equals 13 × 78 = 1014, which has the factor 13, so it is composite."
+      ],
+      [
+       "√2 + 5 is irrational.",
+       true,
+       "Rational + irrational is always irrational."
+      ],
+      [
+       "The prime factorisation of a number can change if we start with a different factor tree.",
+       false,
+       "The Fundamental Theorem says it is unique apart from order."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Why is 7 × 11 × 13 + 13 a composite number?",
+     "options": [
+      "Because it is a multiple of 7",
+      "Because it equals 13 × 78, so it has a factor other than 1 and itself",
+      "Because 7, 11 and 13 are all prime",
+      "Because every sum of products is composite"
+     ],
+     "answer": 1,
+     "explain": "Take 13 common: 7 × 11 × 13 + 13 = 13 × (77 + 1) = 13 × 78. Having the factor 13 makes it composite.",
+     "steps": [
+      "7 × 11 × 13 + 13 = 13 × (7 × 11 + 1)",
+      "= 13 × 78"
+     ],
+     "mistake": "Thinks a sum of primes or products of primes must be prime"
+    },
+    {
+     "q": "3 × 5 × 7 + 7 can be written as 7 × k. What is k?",
+     "options": [
+      "16",
+      "15",
+      "22",
+      "112"
+     ],
+     "answer": 0,
+     "explain": "3 × 5 × 7 + 7 = 7 × (3 × 5 + 1) = 7 × 16.",
+     "steps": [
+      "3 × 5 × 7 + 7 = 105 + 7 = 112",
+      "112 = 7 × 16"
+     ],
+     "mistake": "Forgets the +1 left behind when 7 is taken out (gets 15)",
+     "check": "(3*5*7+7)/7"
+    },
+    {
+     "q": "6 × 5 × 4 × 3 × 2 × 1 + 6 = 6 × k. What is k?",
+     "options": [
+      "121",
+      "120",
+      "126",
+      "721"
+     ],
+     "answer": 0,
+     "explain": "Take 6 common: 6 × (5 × 4 × 3 × 2 × 1 + 1) = 6 × (120 + 1) = 6 × 121.",
+     "steps": [
+      "6 × 5 × 4 × 3 × 2 × 1 = 720",
+      "720 + 6 = 726",
+      "726 ÷ 6 = 121"
+     ],
+     "mistake": "Drops the 1 that remains inside the bracket",
+     "check": "(720+6)/6"
+    },
+    {
+     "q": "Which statement about real numbers is true?",
+     "options": [
+      "Every real number can be written as p/q",
+      "Irrational numbers are not on the number line",
+      "Real numbers are only the whole numbers",
+      "Every real number is either rational or irrational"
+     ],
+     "answer": 3,
+     "explain": "The real numbers are made up of the rationals and the irrationals together, and both kinds sit on the number line.",
+     "mistake": "Thinks only rational numbers are real numbers"
+    },
+    {
+     "q": "Which number is real but NOT rational?",
+     "options": [
+      "−3/4",
+      "√7",
+      "0.25",
+      "√36"
+     ],
+     "answer": 1,
+     "explain": "√7 cannot be written as p/q because 7 is not a perfect square, so it is irrational. The others are rational (√36 = 6).",
+     "mistake": "Treats every square root as irrational, including √36"
+    },
+    {
+     "q": "Which idea from this chapter is used BOTH to find HCF/LCM and to prove that √2 is irrational?",
+     "options": [
+      "The quadratic formula",
+      "Unique prime factorisation (Fundamental Theorem of Arithmetic)",
+      "The distance formula",
+      "Long division of decimals"
+     ],
+     "answer": 1,
+     "explain": "HCF and LCM come from prime factorisations, and the √2 proof uses the fact that if 2 divides a², then 2 divides a — which comes from unique prime factorisation.",
+     "mistake": "Does not see how the Fundamental Theorem links the parts of the chapter"
+    },
+    {
+     "q": "What is the LCM of 2³ × 5 and 2 × 5² × 7?",
+     "options": [
+      "1400",
+      "70",
+      "280",
+      "2800"
+     ],
+     "answer": 0,
+     "explain": "Take the greatest power of each prime: 2³ × 5² × 7 = 8 × 25 × 7 = 1400.",
+     "steps": [
+      "Primes involved: 2, 5, 7",
+      "Greatest powers: 2³, 5², 7",
+      "8 × 25 × 7 = 1400"
+     ],
+     "mistake": "Takes the smallest powers (that gives HCF-like answers) or multiplies everything",
+     "check": "2**3*5**2*7"
+    },
+    {
+     "q": "Simplify first, then decide: which of these numbers is irrational?",
+     "options": [
+      "3 − √5",
+      "2 + √9",
+      "√8 ÷ √2",
+      "0.333…"
+     ],
+     "answer": 0,
+     "explain": "√9 = 3 and √8 ÷ √2 = √4 = 2 are rational, and 0.333… = 1/3. But 3 − √5 is rational minus irrational, so it is irrational.",
+     "mistake": "Sees a root sign and assumes the number is irrational without simplifying"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What are real numbers, and how does prime factorisation help in this whole chapter?' Explain it to Gappu.",
+    "must": [
+     [
+      "rational",
+      "fraction",
+      "p/q"
+     ],
+     [
+      "irrational"
+     ],
+     [
+      "prime",
+      "factorisation",
+      "fundamental theorem"
+     ]
+    ],
+    "praise": "Tweet! Real numbers are rationals plus irrationals, and prime factors help with HCF, LCM AND the √2 proof!",
+    "nudge": "And which two kinds of numbers make up the real numbers?"
    }
   }
  ]

@@ -207,7 +207,7 @@ function sfx(kind){
 }
 
 /* ---- panel ---- */
-function openSound(){ initAudio(); renderSoundPanel(); document.getElementById('soundSheet').classList.add('show'); }
+function openSound(){ initAudio(); renderSoundPanel(); try{ renderVoicePicker(); }catch(e){} document.getElementById('soundSheet').classList.add('show'); }
 function closeSound(){ document.getElementById('soundSheet').classList.remove('show'); }
 document.getElementById('soundSheet').addEventListener('click',e=>{ if(e.target.id==='soundSheet') closeSound(); });
 function toggleMusic(){ SND.on=!SND.on; saveSnd(); if(SND.on && !SND.playing) startMusic(); applyVol(); renderSoundPanel(); updateSndBtn(); }

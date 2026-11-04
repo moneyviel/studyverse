@@ -4,6 +4,242 @@
  "emoji": "🎲",
  "topics": [
   {
+   "id": "g10-maths-14-04",
+   "title": "Experiments, events and elementary events",
+   "covers": [
+    "c14.1.1",
+    "c14.1.4",
+    "c14.1.5"
+   ],
+   "learn": {
+    "hook": "Toss a coin 10 times and you might get 7 heads. Toss it 10,000 times and something magical happens — it settles near half!",
+    "points": [
+     "Experimental (empirical) probability comes from actually doing trials: P(E) = (number of trials in which E happened) ÷ (total number of trials).",
+     "Theoretical probability comes from reasoning about equally likely outcomes. As the number of trials grows, the experimental value gets closer to the theoretical one.",
+     "An event is a collection of outcomes of an experiment, e.g. 'getting an even number' on a die = {2, 4, 6}.",
+     "An elementary event has exactly ONE outcome, e.g. 'getting a 5'. The probabilities of all the elementary events of an experiment add up to 1."
+    ],
+    "example": {
+     "q": "A coin is tossed 200 times and shows heads 108 times. Find the experimental and theoretical probabilities of a head.",
+     "steps": [
+      "Experimental P(H) = 108/200 = 0.54",
+      "Theoretical: two equally likely outcomes, H and T",
+      "Theoretical P(H) = 1/2 = 0.5",
+      "They are close, and would get closer with more tosses"
+     ],
+     "answer": "Experimental 0.54, theoretical 0.5"
+    },
+    "reallife": "Weather forecasters use records of past days (experimental probability), while a fair dice game is planned using theoretical probability."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Elementary event or not? (one die rolled)",
+     "buckets": [
+      "Elementary event",
+      "Not elementary"
+     ],
+     "items": [
+      [
+       "Getting a 5",
+       0
+      ],
+      [
+       "Getting an even number",
+       1
+      ],
+      [
+       "Getting a 1",
+       0
+      ],
+      [
+       "Getting a number less than 3",
+       1
+      ],
+      [
+       "Getting a 6",
+       0
+      ],
+      [
+       "Getting a prime number",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "True or false?",
+     "items": [
+      [
+       "Experimental probability is found from actual trials.",
+       true,
+       "It counts what really happened."
+      ],
+      [
+       "Experimental and theoretical probabilities are always exactly equal.",
+       false,
+       "They are close for many trials but often differ."
+      ],
+      [
+       "'Getting an odd number' on a die is an elementary event.",
+       false,
+       "It has three outcomes: 1, 3, 5."
+      ],
+      [
+       "The probabilities of all elementary events of an experiment add up to 1.",
+       true,
+       "For a die, six times 1/6 is 1."
+      ],
+      [
+       "An event can contain more than one outcome.",
+       true,
+       "Only an elementary event has exactly one outcome."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A coin is tossed 200 times and lands heads 108 times. What is the experimental probability of a head?",
+     "options": [
+      "0.54",
+      "0.5",
+      "0.46",
+      "1.08"
+     ],
+     "answer": 0,
+     "explain": "Experimental P(H) = 108/200 = 0.54.",
+     "steps": [
+      "108 ÷ 200 = 0.54"
+     ],
+     "mistake": "Gives the theoretical value 0.5 instead",
+     "check": "108/200"
+    },
+    {
+     "q": "For a fair coin, what is the theoretical probability of a head?",
+     "options": [
+      "1",
+      "1/2",
+      "1/4",
+      "0.54"
+     ],
+     "answer": 1,
+     "explain": "There are two equally likely outcomes, H and T, and one is favourable: P(H) = 1/2.",
+     "steps": [
+      "Favourable 1, total 2"
+     ],
+     "mistake": "Uses results from an experiment instead",
+     "check": "Fraction(1,2)"
+    },
+    {
+     "q": "A die is rolled. How many outcomes are in the event 'a number greater than 4'?",
+     "options": [
+      "1",
+      "4",
+      "2",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "The event is {5, 6}, which has 2 outcomes.",
+     "steps": [
+      "Numbers greater than 4: 5 and 6"
+     ],
+     "mistake": "Includes 4 itself",
+     "check": "2"
+    },
+    {
+     "q": "What are the elementary events when one coin is tossed, and what do their probabilities add up to?",
+     "options": [
+      "H and T; they add up to 1",
+      "Only H; probability 1",
+      "HH, HT, TT; they add up to 1",
+      "H and T; they add up to 1/2"
+     ],
+     "answer": 0,
+     "explain": "Each toss has two single outcomes, H and T, each with probability 1/2, and 1/2 + 1/2 = 1.",
+     "mistake": "Forgets that all elementary events together must add up to 1"
+    },
+    {
+     "q": "A die has six elementary events. What is the sum of their probabilities?",
+     "options": [
+      "6",
+      "1/6",
+      "0",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "Each has probability 1/6, and 6 × 1/6 = 1.",
+     "steps": [
+      "6 × 1/6 = 1"
+     ],
+     "mistake": "Adds the face numbers or gives one probability",
+     "check": "6*Fraction(1,6)"
+    },
+    {
+     "q": "A spinner can stop on A, B or C only. P(A) = 0.5 and P(B) = 0.3. What is P(C)?",
+     "options": [
+      "0.8",
+      "0.3",
+      "0.15",
+      "0.2"
+     ],
+     "answer": 3,
+     "explain": "The probabilities of all the elementary events add up to 1, so P(C) = 1 − 0.5 − 0.3 = 0.2.",
+     "steps": [
+      "1 − 0.5 − 0.3 = 0.2"
+     ],
+     "mistake": "Adds the given probabilities instead of subtracting from 1",
+     "check": "1-0.5-0.3"
+    },
+    {
+     "q": "Ravi tosses a coin 10 times and gets 7 heads. Neha tosses one 10,000 times. Whose experimental probability of a head is likely to be closer to 1/2?",
+     "options": [
+      "Ravi's, because 7 is a whole number",
+      "Neha's, because with more trials the experimental value gets closer to the theoretical one",
+      "Both are always exactly 1/2",
+      "Neither can ever be close to 1/2"
+     ],
+     "answer": 1,
+     "explain": "Over a large number of trials, the experimental probability settles near the theoretical probability.",
+     "mistake": "Thinks a small number of trials is just as reliable"
+    },
+    {
+     "q": "A die is rolled. Which of these is NOT an elementary event?",
+     "options": [
+      "Getting a 3",
+      "Getting a 6",
+      "Getting a 1",
+      "Getting an odd number"
+     ],
+     "answer": 3,
+     "explain": "'Getting an odd number' has three outcomes (1, 3, 5), so it is not elementary.",
+     "mistake": "Thinks any event described in a few words is elementary"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu tossed a coin 10 times and got 7 heads. He now thinks P(head) = 0.7 for ever. Explain experimental and theoretical probability to him.",
+    "must": [
+     [
+      "experimental",
+      "trials",
+      "experiment"
+     ],
+     [
+      "theoretical",
+      "equally likely",
+      "1/2"
+     ],
+     [
+      "more",
+      "large number",
+      "many"
+     ]
+    ],
+    "praise": "Chirp! 0.7 is just my experiment — the theoretical value is 1/2, and many more tosses get close to it!",
+    "nudge": "What happens to the experimental value as the number of tosses grows?"
+   }
+  },
+  {
    "id": "g10-maths-14-01",
    "title": "Theoretical probability",
    "learn": {
@@ -248,7 +484,16 @@
     ],
     "praise": "Chirp! Favourable outcomes divided by total outcomes, when all are equally likely. Heads it is!",
     "nudge": "What do I count on the top, what on the bottom, and when does this rule work?"
-   }
+   },
+   "covers": [
+    "c14.1.2",
+    "c14.1.3",
+    "c14.1.6",
+    "c14.1.7",
+    "c14.1.8",
+    "c14.1.11",
+    "c14.1.13"
+   ]
   },
   {
    "id": "g10-maths-14-02",
@@ -503,7 +748,12 @@
     ],
     "praise": "Tweet! 36 pairs in all, count the ones that work, then divide. I'm a dice master now!",
     "nudge": "How many outcomes do two dice have, and how do I count the ones I want?"
-   }
+   },
+   "covers": [
+    "c14.1.9",
+    "c14.1.14",
+    "c14.1.15"
+   ]
   },
   {
    "id": "g10-maths-14-03",
@@ -737,6 +987,41 @@
       "emoji": "🔵",
       "n": 10
      }
+    },
+    {
+     "q": "Kabir's piggy bank has 60 coins: 20 coins of ₹1, 25 of ₹2, 10 of ₹5 and 5 of ₹10. He shakes it and one coin falls out. What is the probability that it is a ₹5 coin?",
+     "options": [
+      "1/6",
+      "1/12",
+      "1/10",
+      "1/4"
+     ],
+     "answer": 0,
+     "explain": "There are 10 coins of ₹5 out of 60 coins, and each coin is equally likely to fall out. P = 10/60 = 1/6.",
+     "steps": [
+      "Total coins = 20 + 25 + 10 + 5 = 60",
+      "₹5 coins = 10",
+      "P = 10/60 = 1/6"
+     ],
+     "mistake": "Uses the value of the coin (5) instead of the number of such coins",
+     "check": "Fraction(10,60)"
+    },
+    {
+     "q": "A fish tank at a pet shop has 6 goldfish and 9 guppies. Meena scoops out one fish at random. What is the probability that it is a goldfish?",
+     "options": [
+      "2/3",
+      "2/5",
+      "1/3",
+      "3/5"
+     ],
+     "answer": 1,
+     "explain": "There are 6 + 9 = 15 fish and 6 of them are goldfish, so P = 6/15 = 2/5.",
+     "steps": [
+      "Total fish = 6 + 9 = 15",
+      "P(goldfish) = 6/15 = 2/5"
+     ],
+     "mistake": "Divides by the number of guppies instead of the total number of fish",
+     "check": "Fraction(6,15)"
     }
    ],
    "teach": {
@@ -761,6 +1046,276 @@
     ],
     "praise": "Chirp chirp! 4 kings out of 52 cards — that's 1/13. Card shark Gappu!",
     "nudge": "How many cards are there in all, and how many of them are kings?"
+   },
+   "covers": [
+    "c14.1.10",
+    "c14.1.11",
+    "c14.1.12",
+    "c14.1.13",
+    "c14.1.19",
+    "c14.1.20"
+   ]
+  },
+  {
+   "id": "g10-maths-14-05",
+   "title": "Equally likely? Birthdays, tricky statements and recap",
+   "covers": [
+    "c14.1.16",
+    "c14.1.17",
+    "c14.1.18",
+    "c14.2.1"
+   ],
+   "learn": {
+    "hook": "A leap year has an extra day — so the chance of 53 Sundays isn't what you'd guess. Let's think carefully!",
+    "points": [
+     "P(E) = favourable ÷ total works ONLY when the outcomes are equally likely. Win/lose/tie in a cricket match, or pass/fail in an exam, are NOT equally likely.",
+     "A leap year has 366 days = 52 weeks + 2 extra days. The 2 extra days can be any of 7 equally likely pairs (Mon–Tue, Tue–Wed, …), and 2 of these contain a Sunday, so P(53 Sundays) = 2/7. An ordinary year has 1 extra day, giving 1/7.",
+     "Birthdays: if P(two students have different birthdays) is known, then P(same birthday) = 1 − that value.",
+     "Recap: 0 ≤ P(E) ≤ 1; P(impossible) = 0; P(sure) = 1; P(E) + P(not E) = 1. A probability can never be negative or more than 1."
+    ],
+    "example": {
+     "q": "What is the probability that a leap year has 53 Sundays?",
+     "steps": [
+      "366 days = 52 weeks + 2 days",
+      "The two extra days are one of 7 equally likely pairs: (Mon, Tue), (Tue, Wed), …, (Sun, Mon)",
+      "Pairs containing Sunday: (Sat, Sun) and (Sun, Mon) — 2 of them",
+      "P = 2/7"
+     ],
+     "answer": "2/7"
+    },
+    "reallife": "Insurance companies and weather offices must check whether outcomes are really equally likely before using simple probability formulas."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Equally likely or not?",
+     "items": [
+      [
+       "When a die is thrown, 'odd' and 'even' are equally likely.",
+       true,
+       "Each has 3 of the 6 outcomes."
+      ],
+      [
+       "A cricket match can be won, lost or tied, so each has probability 1/3.",
+       false,
+       "These outcomes are not equally likely."
+      ],
+      [
+       "A student either passes or fails, so P(pass) = 1/2.",
+       false,
+       "Passing and failing are not equally likely; it depends on preparation."
+      ],
+      [
+       "For a fair coin, head and tail are equally likely.",
+       true,
+       "Neither side is favoured."
+      ],
+      [
+       "Experimental probability is found by reasoning, without doing any trials.",
+       false,
+       "That is theoretical probability."
+      ],
+      [
+       "P(not E) = 1 − P(E).",
+       true,
+       "E and not E together are certain."
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Complete the statement",
+     "items": [
+      {
+       "text": "P(E) + P(not E) = ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "0",
+        "1/2"
+       ]
+      },
+      {
+       "text": "The probability of an impossible event is ___",
+       "answer": "0",
+       "options": [
+        "0",
+        "1",
+        "−1"
+       ]
+      },
+      {
+       "text": "The probability of a sure event is ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "0",
+        "100"
+       ]
+      },
+      {
+       "text": "Every probability lies between 0 and ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "10",
+        "100"
+       ]
+      },
+      {
+       "text": "An event with only one outcome is called an ___ event",
+       "answer": "elementary",
+       "options": [
+        "elementary",
+        "impossible",
+        "equal"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the probability that a leap year has 53 Sundays?",
+     "options": [
+      "1/7",
+      "53/366",
+      "1/2",
+      "2/7"
+     ],
+     "answer": 3,
+     "explain": "The 2 extra days form one of 7 equally likely pairs; 2 of them contain a Sunday. So P = 2/7.",
+     "steps": [
+      "366 = 52 × 7 + 2",
+      "7 possible pairs of extra days",
+      "2 contain Sunday → 2/7"
+     ],
+     "mistake": "Treats a leap year like an ordinary year (1 extra day)",
+     "check": "Fraction(2,7)"
+    },
+    {
+     "q": "What is the probability that an ordinary (non-leap) year has 53 Mondays?",
+     "options": [
+      "2/7",
+      "53/365",
+      "1/7",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "365 days = 52 weeks + 1 day. That extra day is Monday in 1 of 7 equally likely cases.",
+     "steps": [
+      "365 = 52 × 7 + 1",
+      "P = 1/7"
+     ],
+     "mistake": "Uses 2 extra days as in a leap year",
+     "check": "Fraction(1,7)"
+    },
+    {
+     "q": "The probability that two friends have different birthdays is 0.997. What is the probability that they share a birthday?",
+     "options": [
+      "0.997",
+      "0.03",
+      "1.997",
+      "0.003"
+     ],
+     "answer": 3,
+     "explain": "Same and different birthdays are complementary, so P(same) = 1 − 0.997 = 0.003.",
+     "steps": [
+      "1 − 0.997 = 0.003"
+     ],
+     "mistake": "Adds instead of subtracting from 1",
+     "check": "1-0.997"
+    },
+    {
+     "q": "A die is thrown once. Are the outcomes 'odd number' and 'even number' equally likely?",
+     "options": [
+      "No — odd numbers are more likely",
+      "No — 6 is even, so even wins",
+      "Only if the die is thrown twice",
+      "Yes — each has 3 of the 6 outcomes"
+     ],
+     "answer": 3,
+     "explain": "Odd = {1, 3, 5} and even = {2, 4, 6}. Both have 3 outcomes, so each has probability 1/2.",
+     "mistake": "Thinks the bigger numbers make 'even' more likely"
+    },
+    {
+     "q": "Sameer says: 'A cricket match can end in a win, a loss or a tie, so P(win) = 1/3.' What is wrong?",
+     "options": [
+      "The three outcomes are not equally likely, so the formula cannot be used this way",
+      "Nothing — he is right",
+      "There are only two outcomes",
+      "P(win) must be 1/2"
+     ],
+     "answer": 0,
+     "explain": "The formula favourable ÷ total needs equally likely outcomes. A tie is far rarer than a win or a loss.",
+     "mistake": "Uses favourable ÷ total without checking that the outcomes are equally likely"
+    },
+    {
+     "q": "Complete: the probability of an event that is certain to happen is ___.",
+     "options": [
+      "1",
+      "0",
+      "1/2",
+      "100"
+     ],
+     "answer": 0,
+     "explain": "A sure event always happens, so its probability is 1.",
+     "mistake": "Confuses 'certain' with 100 per cent written as 100",
+     "check": "1"
+    },
+    {
+     "q": "Which of these numbers could be the probability of an event?",
+     "options": [
+      "−0.2",
+      "0.15",
+      "1.05",
+      "1.4"
+     ],
+     "answer": 1,
+     "explain": "A probability must lie between 0 and 1. Only 0.15 does.",
+     "steps": [
+      "0 ≤ P(E) ≤ 1",
+      "Only 0.15 fits"
+     ],
+     "mistake": "Forgets that probabilities can't be negative or greater than 1",
+     "check": "0.15"
+    },
+    {
+     "q": "Recap: if P(E) = 0.35, what is P(not E)?",
+     "options": [
+      "0.35",
+      "0.65",
+      "1.35",
+      "0.5"
+     ],
+     "answer": 1,
+     "explain": "P(not E) = 1 − 0.35 = 0.65.",
+     "steps": [
+      "1 − 0.35 = 0.65"
+     ],
+     "mistake": "Copies P(E) or adds 1",
+     "check": "1-0.35"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu says: 'Tomorrow I either pass the test or fail, so P(pass) = 1/2.' Explain why this is wrong, and what probability values are allowed.",
+    "must": [
+     [
+      "equally likely",
+      "not equally",
+      "same chance"
+     ],
+     [
+      "0",
+      "zero"
+     ],
+     [
+      "1",
+      "one"
+     ]
+    ],
+    "praise": "Tweet! Pass and fail aren't equally likely, so I can't just say 1/2 — and every probability is between 0 and 1!",
+    "nudge": "Are passing and failing equally likely outcomes?"
    }
   }
  ]

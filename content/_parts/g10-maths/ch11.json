@@ -262,7 +262,14 @@
     ],
     "praise": "Tweet! The angle out of 360, times the circumference. The tip's journey is solved!",
     "nudge": "What fraction of the full circle is the arc, and what do I multiply that fraction by?"
-   }
+   },
+   "covers": [
+    "c11.1.1",
+    "c11.1.4",
+    "c11.1.6",
+    "c11.1.12",
+    "c11.1.13"
+   ]
   },
   {
    "id": "g10-maths-11-02",
@@ -550,7 +557,15 @@
     ],
     "praise": "Chirp chirp! Angle out of 360 times πr². Now I know exactly how much pizza I'm eating!",
     "nudge": "What fraction of the circle is my slice, and the area of what do I multiply it by?"
-   }
+   },
+   "covers": [
+    "c11.1.2",
+    "c11.1.5",
+    "c11.1.7",
+    "c11.1.12",
+    "c11.1.13",
+    "c11.1.14"
+   ]
   },
   {
    "id": "g10-maths-11-03",
@@ -800,6 +815,474 @@
     ],
     "praise": "Tweet! Sector minus triangle gives the segment. My roti maths is perfect!",
     "nudge": "Which two areas do I need, and do I add or subtract them?"
+   },
+   "covers": [
+    "c11.1.3",
+    "c11.1.8",
+    "c11.1.9",
+    "c11.1.10",
+    "c11.1.12",
+    "c11.1.15"
+   ]
+  },
+  {
+   "id": "g10-maths-11-04",
+   "title": "Segments with a 120° angle",
+   "covers": [
+    "c11.1.10",
+    "c11.1.11"
+   ],
+   "learn": {
+    "hook": "Fold a 120° triangle in half and two 30°–60°–90° triangles appear — that's the key to the trickiest segment!",
+    "points": [
+     "In Class 10, segment problems use central angles of 60°, 90° or 120° only, because then the triangle's area is easy to find.",
+     "For ∠AOB = 120°: drop the perpendicular OM from O to chord AB. It bisects the angle (60° each) and the chord.",
+     "OM = r cos 60° = r/2 and AM = r sin 60° = (√3/2)r, so AB = √3 r.",
+     "Area of ΔOAB = ½ × AB × OM = ½ × √3r × r/2 = (√3/4)r² — the same as for 60°!",
+     "Minor segment = (120/360)πr² − (√3/4)r²; major segment = πr² − minor segment."
+    ],
+    "example": {
+     "q": "A chord of a circle of radius 12 cm makes 120° at the centre. Find the area of the minor segment. (π = 3.14, √3 = 1.73)",
+     "steps": [
+      "Sector = (120/360) × 3.14 × 144 = 150.72 cm²",
+      "ΔOAB = (√3/4) × 144 = 36√3 ≈ 36 × 1.73 = 62.28 cm²",
+      "Minor segment = 150.72 − 62.28 = 88.44 cm²"
+     ],
+     "answer": "88.44 cm²"
+    },
+    "reallife": "Decorative windows and arches are often cut as 120° segments — the glazier needs exactly this area to order glass."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the central angle to the area of ΔOAB",
+     "pairs": [
+      [
+       "60°",
+       "(√3/4)r², equilateral"
+      ],
+      [
+       "90°",
+       "r²/2, right isosceles"
+      ],
+      [
+       "120°",
+       "(√3/4)r², using the altitude r/2"
+      ],
+      [
+       "180°",
+       "0 — the chord is a diameter"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Minor segment for a 120° chord",
+     "prompt": "First step to last step",
+     "items": [
+      "Find the sector area (120/360)πr²",
+      "Drop the perpendicular from O to the chord",
+      "Find OM = r/2 and AB = √3r",
+      "Area of ΔOAB = ½ × AB × OM",
+      "Subtract: sector − triangle"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A chord of a circle of radius 12 cm makes 120° at the centre. Using √3 = 1.73, what is the area of ΔOAB?",
+     "options": [
+      "72 cm²",
+      "124.56 cm²",
+      "62.28 cm²",
+      "36 cm²"
+     ],
+     "answer": 2,
+     "explain": "Area = (√3/4)r² = (1.73/4) × 144 = 62.28 cm².",
+     "steps": [
+      "Area = (√3/4) × 12²",
+      "= 36 × 1.73 = 62.28"
+     ],
+     "mistake": "Uses ½r² (the 90° formula) for a 120° angle",
+     "check": "1.73*144/4"
+    },
+    {
+     "q": "What is the area of the 120° sector of a circle of radius 12 cm? (π = 3.14)",
+     "options": [
+      "452.16 cm²",
+      "75.36 cm²",
+      "150.72 cm²",
+      "301.44 cm²"
+     ],
+     "answer": 2,
+     "explain": "(120/360) × 3.14 × 144 = (1/3) × 452.16 = 150.72 cm².",
+     "steps": [
+      "Circle area = 3.14 × 144 = 452.16",
+      "One third of it = 150.72"
+     ],
+     "mistake": "Uses the whole circle or the wrong fraction of it",
+     "check": "3.14*144/3"
+    },
+    {
+     "q": "So what is the area of the minor segment for this 120° chord (r = 12 cm, π = 3.14, √3 = 1.73)?",
+     "options": [
+      "88.44 cm²",
+      "213 cm²",
+      "62.28 cm²",
+      "150.72 cm²"
+     ],
+     "answer": 0,
+     "explain": "Minor segment = sector − triangle = 150.72 − 62.28 = 88.44 cm².",
+     "steps": [
+      "Sector = 150.72",
+      "Triangle = 62.28",
+      "150.72 − 62.28 = 88.44"
+     ],
+     "mistake": "Adds the triangle instead of subtracting it",
+     "check": "3.14*144/3-1.73*144/4"
+    },
+    {
+     "q": "And the major segment for the same chord?",
+     "options": [
+      "301.44 cm²",
+      "88.44 cm²",
+      "389.88 cm²",
+      "363.72 cm²"
+     ],
+     "answer": 3,
+     "explain": "Major segment = πr² − minor segment = 452.16 − 88.44 = 363.72 cm².",
+     "steps": [
+      "Circle = 452.16",
+      "452.16 − 88.44 = 363.72"
+     ],
+     "mistake": "Subtracts the triangle or the sector instead of the minor segment",
+     "check": "3.14*144-(3.14*144/3-1.73*144/4)"
+    },
+    {
+     "q": "A chord makes 120° at the centre of a circle of radius 12 cm. How far is the chord from the centre?",
+     "options": [
+      "12 cm",
+      "6 cm",
+      "6√3 cm",
+      "4 cm"
+     ],
+     "answer": 1,
+     "explain": "The perpendicular OM makes 60° with OA, so OM = r cos 60° = 12 × 1/2 = 6 cm.",
+     "steps": [
+      "∠AOM = 60°",
+      "OM = 12 × cos 60° = 6"
+     ],
+     "mistake": "Uses sin 60° instead of cos 60°",
+     "check": "12/2"
+    },
+    {
+     "q": "How long is a chord that makes 120° at the centre of a circle of radius r?",
+     "options": [
+      "r",
+      "2r",
+      "r/2",
+      "√3 r"
+     ],
+     "answer": 3,
+     "explain": "Half the chord AM = r sin 60° = (√3/2)r, so AB = √3 r.",
+     "mistake": "Thinks the chord equals the radius, as it does for 60°"
+    },
+    {
+     "q": "In Class 10, which central angles are used in problems on the area of a segment?",
+     "options": [
+      "Any angle",
+      "Only 45°",
+      "Only 30° and 150°",
+      "Only 60°, 90° and 120°"
+     ],
+     "answer": 3,
+     "explain": "These angles make the triangle OAB easy: equilateral (60°), right isosceles (90°), or two 30°–60°–90° halves (120°).",
+     "mistake": "Thinks any angle can be used in a segment problem"
+    },
+    {
+     "q": "Which formula gives the area of ΔOAB when ∠AOB = 120° and the radius is r?",
+     "options": [
+      "r²/2",
+      "(√3/2)r²",
+      "√3 r²",
+      "(√3/4)r²"
+     ],
+     "answer": 3,
+     "explain": "½ × AB × OM = ½ × √3r × r/2 = (√3/4)r².",
+     "mistake": "Forgets to halve the base × height product"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu knows the area of ΔOAB for 60° and 90°, but not for 120°. Show him how to find it.",
+    "must": [
+     [
+      "perpendicular",
+      "altitude",
+      "drop"
+     ],
+     [
+      "r/2",
+      "half",
+      "cos 60"
+     ],
+     [
+      "√3",
+      "root 3",
+      "sqrt 3"
+     ]
+    ],
+    "praise": "Chirp! The perpendicular is r/2 and the chord is √3 r — so the area is (√3/4)r²!",
+    "nudge": "What line should he draw from the centre to the chord?"
+   }
+  },
+  {
+   "id": "g10-maths-11-05",
+   "title": "Wipers, umbrellas, brooches and chapter recap",
+   "covers": [
+    "c11.1.14",
+    "c11.2.1"
+   ],
+   "learn": {
+    "hook": "Car wipers, a beach umbrella, a lighthouse beam and a silver brooch — every one of them is a sector in disguise!",
+    "points": [
+     "A wiper blade, an umbrella panel, a clock hand and a lighthouse beam all sweep out sectors. Find the angle and the radius, then use (θ/360)πr².",
+     "Equal panels or sectors: if a circle is split into n equal sectors, each has angle 360°/n.",
+     "Wire problems: total wire = circumference + length of the straight pieces (diameters or radii).",
+     "Recap: arc length = (θ/360) × 2πr; sector area = (θ/360) × πr²; segment area = sector area − triangle area; major part = whole circle − minor part."
+    ],
+    "example": {
+     "q": "A silver brooch is a circle of diameter 28 mm with 4 diameters that split it into 8 equal sectors. Find the total length of wire and the area of each sector. (π = 22/7)",
+     "steps": [
+      "Circumference = (22/7) × 28 = 88 mm",
+      "4 diameters = 4 × 28 = 112 mm",
+      "Total wire = 88 + 112 = 200 mm",
+      "Each sector = (1/8) × (22/7) × 14² = 616/8 = 77 mm²"
+     ],
+     "answer": "200 mm of wire; each sector 77 mm²"
+    },
+    "reallife": "Car designers choose wiper length and sweep angle to clear the largest possible area of the windscreen for the driver."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Sector sprint (π = 22/7)",
+     "items": [
+      {
+       "q": "Angle of each of 10 equal umbrella panels (°)",
+       "a": "36",
+       "check": "360/10"
+      },
+      {
+       "q": "Area of a 60° sector, r = 21",
+       "a": "231",
+       "check": "Fraction(1,6)*22/7*21*21"
+      },
+      {
+       "q": "Arc of a 90° sector, r = 14",
+       "a": "22",
+       "check": "Fraction(1,4)*2*22/7*14"
+      },
+      {
+       "q": "Area of a quadrant, r = 14",
+       "a": "154",
+       "check": "Fraction(1,4)*22/7*14*14"
+      },
+      {
+       "q": "Angle swept by the hour hand in 2 hours (°)",
+       "a": "60",
+       "check": "2*30"
+      },
+      {
+       "q": "Circumference, d = 28",
+       "a": "88",
+       "check": "22/7*28"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Recap check",
+     "items": [
+      [
+       "Arc length = (θ/360) × 2πr.",
+       true,
+       "It is θ/360 of the circumference."
+      ],
+      [
+       "Sector area = (θ/360) × 2πr.",
+       false,
+       "That is the arc length; sector area is (θ/360) × πr²."
+      ],
+      [
+       "Minor segment = sector − triangle.",
+       true,
+       "Remove the triangle OAB from the sector."
+      ],
+      [
+       "The hour hand of a clock turns 30° each hour.",
+       true,
+       "360° ÷ 12 hours = 30° per hour."
+      ],
+      [
+       "Two wipers that do not overlap clean twice the area of one.",
+       true,
+       "Add their sector areas."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A car has two wipers that do not overlap. Each blade is 21 cm long and sweeps 120°. What total area is cleaned in one sweep? (π = 22/7)",
+     "options": [
+      "462 cm²",
+      "1386 cm²",
+      "924 cm²",
+      "264 cm²"
+     ],
+     "answer": 2,
+     "explain": "One wiper: (120/360) × (22/7) × 21² = 462 cm². Two wipers: 924 cm².",
+     "steps": [
+      "One sector = (1/3) × 22/7 × 441 = 462",
+      "Two wipers = 2 × 462 = 924"
+     ],
+     "mistake": "Counts only one wiper",
+     "check": "2*Fraction(120,360)*22/7*21*21"
+    },
+    {
+     "q": "An umbrella has 10 equally spaced ribs. Treating it as a flat circle of radius 35 cm, what is the area between two neighbouring ribs? (π = 22/7)",
+     "options": [
+      "3850 cm²",
+      "385 cm²",
+      "110 cm²",
+      "192.5 cm²"
+     ],
+     "answer": 1,
+     "explain": "Each panel is a 36° sector: (1/10) × (22/7) × 35² = 3850/10 = 385 cm².",
+     "steps": [
+      "Angle = 360° ÷ 10 = 36°",
+      "Circle = 22/7 × 1225 = 3850",
+      "3850 ÷ 10 = 385"
+     ],
+     "mistake": "Finds the whole umbrella's area and forgets to divide by 10",
+     "check": "Fraction(1,10)*22/7*35*35"
+    },
+    {
+     "q": "A lighthouse spreads light over a 60° sector up to 21 km. Over how much sea area is the light spread? (π = 22/7)",
+     "options": [
+      "231 km²",
+      "1386 km²",
+      "22 km²",
+      "462 km²"
+     ],
+     "answer": 0,
+     "explain": "(60/360) × (22/7) × 21² = (1/6) × 1386 = 231 km².",
+     "steps": [
+      "Circle = 22/7 × 441 = 1386",
+      "1/6 of it = 231"
+     ],
+     "mistake": "Uses arc length instead of sector area",
+     "check": "Fraction(1,6)*22/7*21*21"
+    },
+    {
+     "q": "A circular brooch of diameter 28 mm is made of silver wire, with 4 diameters dividing it into 8 equal sectors. How much wire is needed? (π = 22/7)",
+     "options": [
+      "88 mm",
+      "112 mm",
+      "144 mm",
+      "200 mm"
+     ],
+     "answer": 3,
+     "explain": "Circumference = (22/7) × 28 = 88 mm, plus 4 diameters = 112 mm. Total = 200 mm.",
+     "steps": [
+      "Circle: 22/7 × 28 = 88",
+      "Diameters: 4 × 28 = 112",
+      "88 + 112 = 200"
+     ],
+     "mistake": "Counts only the circle or only the diameters",
+     "check": "22/7*28+4*28"
+    },
+    {
+     "q": "What is the area of each of the 8 sectors of that brooch (diameter 28 mm)? (π = 22/7)",
+     "options": [
+      "616 sq mm",
+      "154 sq mm",
+      "77 sq mm",
+      "308 sq mm"
+     ],
+     "answer": 2,
+     "explain": "Radius = 14 mm. Circle = (22/7) × 196 = 616 mm². Each sector = 616 ÷ 8 = 77 mm².",
+     "steps": [
+      "r = 14",
+      "Area = 616",
+      "616 ÷ 8 = 77"
+     ],
+     "mistake": "Uses the diameter as the radius",
+     "check": "22/7*14*14/8"
+    },
+    {
+     "q": "A clock's hour hand is 6 cm long. What area does it sweep in 2 hours? (π = 3.14)",
+     "options": [
+      "113.04 cm²",
+      "37.68 cm²",
+      "6.28 cm²",
+      "18.84 cm²"
+     ],
+     "answer": 3,
+     "explain": "In 2 hours the hour hand turns 2 × 30° = 60°. Area = (60/360) × 3.14 × 36 = 18.84 cm².",
+     "steps": [
+      "Angle = 60°",
+      "(1/6) × 3.14 × 36",
+      "= 18.84"
+     ],
+     "mistake": "Uses 6° per hour (the minute hand's rate per minute) or the full circle",
+     "check": "3.14*36/6"
+    },
+    {
+     "q": "Recap: which formula gives the length of an arc of angle θ in a circle of radius r?",
+     "options": [
+      "(θ/360) × 2πr",
+      "(θ/360) × πr²",
+      "θ × r",
+      "(θ/180) × πr²"
+     ],
+     "answer": 0,
+     "explain": "An arc is θ/360 of the circumference 2πr.",
+     "mistake": "Mixes up the arc length and sector area formulas"
+    },
+    {
+     "q": "Recap: how do you find the area of a minor segment?",
+     "options": [
+      "Area of sector + area of triangle",
+      "πr² − area of sector",
+      "Area of sector − area of triangle OAB",
+      "Arc length × radius"
+     ],
+     "answer": 2,
+     "explain": "The minor segment is the sector with the triangle OAB removed.",
+     "mistake": "Adds the triangle instead of removing it"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's dad asks how much glass a car's wipers clean. Explain how to find it.",
+    "must": [
+     [
+      "sector"
+     ],
+     [
+      "angle",
+      "θ/360",
+      "theta"
+     ],
+     [
+      "πr²",
+      "pi r",
+      "area of circle",
+      "radius"
+     ]
+    ],
+    "praise": "Tweet! Each wiper sweeps a sector: (θ/360) × πr² — then add the wipers together!",
+    "nudge": "Which part of a circle does a wiper blade sweep out?"
    }
   }
  ]

@@ -270,7 +270,15 @@
     ],
     "praise": "Tweet! Put the number in, and if the answer is 0, it's a zero. So simple!",
     "nudge": "What do I do with the number, and what answer should I get?"
-   }
+   },
+   "covers": [
+    "c2.1.1",
+    "c2.1.2",
+    "c2.1.3",
+    "c2.1.4",
+    "c2.1.5",
+    "c2.2.5"
+   ]
   },
   {
    "id": "g10-maths-02-02",
@@ -513,7 +521,15 @@
     ],
     "praise": "Chirp! Look where the curve meets the x-axis and read the x values. Graphs are fun!",
     "nudge": "Which axis should I look at, and which number of the point do I read?"
-   }
+   },
+   "covers": [
+    "c2.2.1",
+    "c2.2.2",
+    "c2.2.3",
+    "c2.2.4",
+    "c2.2.5",
+    "c2.2.7"
+   ]
   },
   {
    "id": "g10-maths-02-03",
@@ -811,6 +827,498 @@
     ],
     "praise": "Wow! Sum is −b/a and product is c/a. Magic without solving. Tweet tweet!",
     "nudge": "Which coefficients do I divide to get the sum, and which for the product?"
+   },
+   "covers": [
+    "c2.3.2",
+    "c2.3.3",
+    "c2.3.5",
+    "c2.3.6",
+    "c2.3.9"
+   ]
+  },
+  {
+   "id": "g10-maths-02-04",
+   "title": "Finding zeros by splitting, then verifying the relations",
+   "covers": [
+    "c2.3.1",
+    "c2.3.4",
+    "c2.3.7",
+    "c2.3.8"
+   ],
+   "learn": {
+    "hook": "Split the middle term, crack the quadratic open, and then let the coefficients confirm you got it right!",
+    "points": [
+     "To factorise ax² + bx + c, find two numbers whose product is ac and whose sum is b. Use them to split bx into two terms.",
+     "Group in pairs and take out common factors to get two brackets. Set each bracket equal to 0 to get the zeros.",
+     "Verify: the zeros must add up to −b/a and multiply to c/a. If they don't, recheck your factors.",
+     "For a cubic ax³ + bx² + cx + d with zeros α, β, γ, check α + β + γ = −b/a, αβ + βγ + γα = c/a and αβγ = −d/a.",
+     "If there is no constant term (like 4u² + 8u), take x out: 4u(u + 2). Then 0 is one of the zeros."
+    ],
+    "example": {
+     "q": "Find the zeros of 6x² − 7x − 3 and verify the relations with the coefficients.",
+     "steps": [
+      "ac = 6 × (−3) = −18. Numbers with product −18 and sum −7: −9 and 2",
+      "6x² − 9x + 2x − 3 = 3x(2x − 3) + 1(2x − 3) = (3x + 1)(2x − 3)",
+      "Zeros: x = −1/3 and x = 3/2",
+      "Sum = 3/2 − 1/3 = 7/6 = −b/a = 7/6 ✓",
+      "Product = −1/2 = c/a = −3/6 ✓"
+     ],
+     "answer": "Zeros 3/2 and −1/3; both relations check out"
+    },
+    "reallife": "An engineer designing a curved bridge arch checks her answer two ways — the same habit as verifying zeros with the coefficients."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Splitting the middle term",
+     "prompt": "First step to last step for 2x² + 5x + 3",
+     "items": [
+      "Find two numbers with product 2 × 3 = 6 and sum 5: they are 2 and 3",
+      "Rewrite: 2x² + 2x + 3x + 3",
+      "Group: 2x(x + 1) + 3(x + 1)",
+      "Factorise: (2x + 3)(x + 1)",
+      "Zeros: x = −3/2 and x = −1"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the polynomial with its zeros",
+     "pairs": [
+      [
+       "x² − 9",
+       "3 and −3"
+      ],
+      [
+       "x² + x − 6",
+       "2 and −3"
+      ],
+      [
+       "x² − 5x",
+       "0 and 5"
+      ],
+      [
+       "4x² − 1",
+       "1/2 and −1/2"
+      ],
+      [
+       "x² − 6x + 9",
+       "3 and 3"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What are the zeros of 6x² − 7x − 3?",
+     "options": [
+      "−3/2 and 1/3",
+      "3 and −1",
+      "1/2 and −3",
+      "3/2 and −1/3"
+     ],
+     "answer": 3,
+     "explain": "6x² − 7x − 3 = (2x − 3)(3x + 1), so the zeros are 3/2 and −1/3. Check: their sum 7/6 = −b/a.",
+     "steps": [
+      "Product ac = −18, sum −7 → −9 and 2",
+      "6x² − 9x + 2x − 3 = (2x − 3)(3x + 1)",
+      "2x − 3 = 0 → x = 3/2; 3x + 1 = 0 → x = −1/3"
+     ],
+     "mistake": "Gets the signs of the zeros the wrong way round"
+    },
+    {
+     "q": "To split the middle term of x² + 7x + 10, which two numbers do you need?",
+     "options": [
+      "7 and 10",
+      "5 and 2",
+      "−5 and −2",
+      "10 and 1"
+     ],
+     "answer": 1,
+     "explain": "You need product 1 × 10 = 10 and sum 7: that is 5 and 2. So x² + 7x + 10 = (x + 5)(x + 2).",
+     "mistake": "Picks numbers with the right product but the wrong sum or sign"
+    },
+    {
+     "q": "What are the zeros of 4s² − 4s + 1?",
+     "options": [
+      "1 and −1",
+      "1/2 and 1/2",
+      "1/2 and −1/2",
+      "2 and 2"
+     ],
+     "answer": 1,
+     "explain": "4s² − 4s + 1 = (2s − 1)², so both zeros are 1/2. Check: sum 1 = −b/a = 4/4 ✓, product 1/4 = c/a ✓.",
+     "steps": [
+      "Split −4s as −2s − 2s",
+      "2s(2s − 1) − 1(2s − 1) = (2s − 1)(2s − 1)",
+      "2s − 1 = 0 → s = 1/2 (twice)"
+     ],
+     "mistake": "Thinks a perfect square gives zeros of opposite signs"
+    },
+    {
+     "q": "The zeros of t² − 15 are √15 and −√15. What is their sum, and so what is −b/a?",
+     "options": [
+      "15",
+      "0",
+      "−15",
+      "2√15"
+     ],
+     "answer": 1,
+     "explain": "√15 + (−√15) = 0. In t² + 0t − 15, b = 0, so −b/a = 0 too — the relation checks out.",
+     "steps": [
+      "Sum = √15 − √15 = 0",
+      "b = 0, a = 1, so −b/a = 0 ✓"
+     ],
+     "mistake": "Forgets that the missing t term means b = 0",
+     "check": "0"
+    },
+    {
+     "q": "3x² − x − 4 = (3x − 4)(x + 1). What is the product of its zeros?",
+     "options": [
+      "4/3",
+      "−4",
+      "−4/3",
+      "−1/3"
+     ],
+     "answer": 2,
+     "explain": "The zeros are 4/3 and −1, so their product is −4/3. This matches c/a = −4/3 ✓.",
+     "steps": [
+      "Zeros: 4/3 and −1",
+      "Product = (4/3) × (−1) = −4/3",
+      "c/a = −4/3 ✓"
+     ],
+     "mistake": "Drops the minus sign or forgets to divide by a",
+     "check": "Fraction(-4,3)"
+    },
+    {
+     "q": "The cubic x³ − 2x² − 5x + 6 has zeros 1, −2 and 3. What is αβ + βγ + γα?",
+     "options": [
+      "5",
+      "−6",
+      "2",
+      "−5"
+     ],
+     "answer": 3,
+     "explain": "1 × (−2) + (−2) × 3 + 3 × 1 = −2 − 6 + 3 = −5, which equals c/a = −5/1 ✓.",
+     "steps": [
+      "αβ = 1 × (−2) = −2",
+      "βγ = (−2) × 3 = −6",
+      "γα = 3 × 1 = 3",
+      "Total = −5 = c/a ✓"
+     ],
+     "mistake": "Adds the zeros instead of the products in pairs, or loses a sign",
+     "check": "1*(-2)+(-2)*3+3*1"
+    },
+    {
+     "q": "The zeros of 2x³ + x² − 13x + 6 are 2, −3 and 1/2. What is their product? (It should equal −d/a.)",
+     "options": [
+      "3",
+      "−3",
+      "−6",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "2 × (−3) × 1/2 = −3, and −d/a = −6/2 = −3 ✓.",
+     "steps": [
+      "2 × (−3) = −6",
+      "−6 × 1/2 = −3",
+      "−d/a = −6/2 = −3 ✓"
+     ],
+     "mistake": "Uses d/a instead of −d/a, or forgets to divide by a = 2",
+     "check": "2*(-3)*Fraction(1,2)"
+    },
+    {
+     "q": "What are the zeros of 4u² + 8u?",
+     "options": [
+      "0 and −2",
+      "−2 only",
+      "0 and 2",
+      "2 and −2"
+     ],
+     "answer": 0,
+     "explain": "4u² + 8u = 4u(u + 2). So u = 0 or u = −2. Check: sum −2 = −b/a = −8/4 ✓, product 0 = c/a ✓.",
+     "steps": [
+      "Take 4u common: 4u(u + 2)",
+      "4u = 0 → u = 0",
+      "u + 2 = 0 → u = −2"
+     ],
+     "mistake": "Divides by u and loses the zero u = 0"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the zeros of x² − 2x − 8, and how can I be sure they are right?' Explain to Gappu.",
+    "must": [
+     [
+      "split",
+      "middle term",
+      "factorise",
+      "factor"
+     ],
+     [
+      "sum",
+      "-b/a",
+      "−b/a"
+     ],
+     [
+      "product",
+      "c/a"
+     ]
+    ],
+    "praise": "Chirp chirp! Split, factorise, find the zeros, then check the sum and product. Double-sure!",
+    "nudge": "And after I find the zeros, how do the coefficients help me check them?"
+   }
+  },
+  {
+   "id": "g10-maths-02-05",
+   "title": "Graphs from tables and chapter review",
+   "covers": [
+    "c2.2.6",
+    "c2.4.1"
+   ],
+   "learn": {
+    "hook": "No graph paper magic needed — a simple table of values tells you exactly where a curve meets the x-axis.",
+    "points": [
+     "To draw y = p(x), choose some x-values, work out p(x) for each, and write them in a table. Plot the points and join them smoothly.",
+     "Where the y-value in the table is 0, that x is a zero of p(x).",
+     "If y changes sign between two x-values (say from −2 to +3), the graph crosses the x-axis between them, so a zero lies there.",
+     "Recap: degree = highest power; a polynomial of degree n has at most n zeros; zeros are where the graph meets the x-axis.",
+     "Recap: for ax² + bx + c, sum of zeros = −b/a and product = c/a; a quadratic with sum S and product P is k(x² − Sx + P)."
+    ],
+    "example": {
+     "q": "Make a table for y = x² − x − 6 for x = −3 to 4 and read off the zeros.",
+     "steps": [
+      "x = −3, −2, −1, 0, 1, 2, 3, 4",
+      "y = 6, 0, −4, −6, −6, −4, 0, 6",
+      "y = 0 at x = −2 and x = 3"
+     ],
+     "answer": "The zeros are −2 and 3"
+    },
+    "reallife": "Scientists plot readings from a table — say, the height of a cricket ball at each second — and see when it hits the ground (height 0)."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Complete the table",
+     "items": [
+      {
+       "text": "For y = x² − 4, at x = 3, y = ___",
+       "answer": "5",
+       "options": [
+        "5",
+        "13",
+        "−1"
+       ]
+      },
+      {
+       "text": "For y = 2x − 6, at x = 3, y = ___",
+       "answer": "0",
+       "options": [
+        "0",
+        "6",
+        "−3"
+       ]
+      },
+      {
+       "text": "For y = x² + x, at x = −1, y = ___",
+       "answer": "0",
+       "options": [
+        "0",
+        "−2",
+        "2"
+       ]
+      },
+      {
+       "text": "For y = x³, at x = −2, y = ___",
+       "answer": "−8",
+       "options": [
+        "−8",
+        "8",
+        "−6"
+       ]
+      },
+      {
+       "text": "For y = −x² + 1, at x = 2, y = ___",
+       "answer": "−3",
+       "options": [
+        "−3",
+        "5",
+        "3"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Chapter 2 recap",
+     "items": [
+      [
+       "A polynomial of degree 4 can have at most 4 zeros.",
+       true,
+       "Degree n means at most n zeros."
+      ],
+      [
+       "If a table shows y = 0 at x = 5, then 5 is a zero.",
+       true,
+       "A zero is an x where p(x) = 0."
+      ],
+      [
+       "The product of the zeros of ax² + bx + c is −c/a.",
+       false,
+       "The product is c/a; the sum is −b/a."
+      ],
+      [
+       "If y goes from −1 at x = 2 to 4 at x = 3, a zero lies between 2 and 3.",
+       true,
+       "The graph must cross the x-axis to change sign."
+      ],
+      [
+       "Every quadratic polynomial has two real zeros.",
+       false,
+       "It may have 2, 1 (repeated) or 0 real zeros."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A table for y = x² − x − 6 gives: x = −3, −2, −1, 0, 1, 2, 3, 4 and y = 6, 0, −4, −6, −6, −4, 0, 6. What are the zeros?",
+     "options": [
+      "−6 only",
+      "0 and 1",
+      "6 and −6",
+      "−2 and 3"
+     ],
+     "answer": 3,
+     "explain": "Zeros are the x-values where y = 0. That happens at x = −2 and x = 3.",
+     "mistake": "Reads the y-values instead of the x-values"
+    },
+    {
+     "q": "Ankit is making a table for y = x² − 2x − 3. What y-value should he write for x = −2?",
+     "options": [
+      "5",
+      "−3",
+      "−11",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "y = (−2)² − 2(−2) − 3 = 4 + 4 − 3 = 5.",
+     "steps": [
+      "(−2)² = 4",
+      "−2 × (−2) = +4",
+      "4 + 4 − 3 = 5"
+     ],
+     "mistake": "Takes (−2)² as −4, or gets the sign of −2 × (−2) wrong",
+     "check": "(-2)**2-2*(-2)-3"
+    },
+    {
+     "q": "A table for p(x) shows p(1) = −2 and p(2) = 3. What can you say?",
+     "options": [
+      "p(x) has no zeros",
+      "A zero of p(x) lies between 1 and 2",
+      "1 and 2 are zeros",
+      "The graph is a straight line"
+     ],
+     "answer": 1,
+     "explain": "The value changes from negative to positive, so the graph must cross the x-axis somewhere between x = 1 and x = 2.",
+     "mistake": "Thinks a zero must appear exactly in the table"
+    },
+    {
+     "q": "A table for y = x² + 2 gives y = 6, 3, 2, 3, 6 for x = −2, −1, 0, 1, 2. At how many points does the graph meet the x-axis?",
+     "options": [
+      "1",
+      "0",
+      "2",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "Every y-value is positive and the smallest is 2 (at x = 0). The parabola stays above the x-axis, so it has no zeros.",
+     "steps": [
+      "Lowest y-value = 2 > 0",
+      "The curve never reaches y = 0"
+     ],
+     "mistake": "Confuses the lowest point of the graph with a zero",
+     "check": "0"
+    },
+    {
+     "q": "What is the greatest number of zeros a polynomial of degree 4 can have?",
+     "options": [
+      "4",
+      "2",
+      "3",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "A polynomial of degree n has at most n zeros, so degree 4 gives at most 4.",
+     "mistake": "Thinks the number of zeros is always fewer than the degree",
+     "check": "4"
+    },
+    {
+     "q": "A table for y = (x − 1)² gives y = 1, 0, 1 at x = 0, 1, 2. What does the graph do at x = 1?",
+     "options": [
+      "It crosses the x-axis twice",
+      "It never meets the x-axis",
+      "It cuts the y-axis",
+      "It just touches the x-axis"
+     ],
+     "answer": 3,
+     "explain": "y is 0 only at x = 1 and positive on both sides, so the parabola touches the x-axis at (1, 0). The two zeros are equal.",
+     "mistake": "Thinks every zero means the graph crosses over"
+    },
+    {
+     "q": "Which quadratic polynomial has zeros 4 and −1?",
+     "options": [
+      "x² − 3x − 4",
+      "x² + 3x − 4",
+      "x² − 5x + 4",
+      "x² + 4x − 1"
+     ],
+     "answer": 0,
+     "explain": "Sum = 3 and product = −4, so the polynomial is x² − 3x − 4. Check: (x − 4)(x + 1) = x² − 3x − 4 ✓.",
+     "steps": [
+      "Sum = 4 + (−1) = 3",
+      "Product = 4 × (−1) = −4",
+      "x² − 3x − 4"
+     ],
+     "mistake": "Uses +sum instead of −sum in x² − (sum)x + product"
+    },
+    {
+     "q": "Recap: for 2x² − 8x + 5, what is the sum of the zeros?",
+     "options": [
+      "−4",
+      "4",
+      "5/2",
+      "−5/2"
+     ],
+     "answer": 1,
+     "explain": "Sum = −b/a = −(−8)/2 = 4.",
+     "steps": [
+      "a = 2, b = −8",
+      "−b/a = 8/2 = 4"
+     ],
+     "mistake": "Forgets the minus sign in −b/a",
+     "check": "8/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How can a table of numbers show me the zeros of a polynomial?' Explain to Gappu.",
+    "must": [
+     [
+      "table",
+      "values"
+     ],
+     [
+      "y = 0",
+      "zero",
+      "0"
+     ],
+     [
+      "x-axis",
+      "cross",
+      "meet",
+      "touch"
+     ]
+    ],
+    "praise": "Tweet! Find where y is 0 in the table — that's where the graph meets the x-axis!",
+    "nudge": "But which row of the table tells me the zero — the x row or the y row?"
    }
   }
  ]

@@ -8,24 +8,73 @@ const BOARDS = [
 const AVATARS = ['🦁', '🐯', '🦊', '🐼', '🐨', '🐸', '🦄', '🐙', '🦉', '🐬', '🚀', '⭐'];
 const MAX_GRADE = 10;
 
-/* ---------- read aloud (free, built into phones) ---------- */
+/* ---------- read aloud: pick the clearest, most natural voice on this device ---------- */
+const VOICE = { en: null, hi: null, rate: 0.9 };
+try { Object.assign(VOICE, JSON.parse(localStorage.getItem('sv_voice') || '{}')); } catch (e) {}
+function voiceScore(v, hi) {
+  const n = (v.name + ' ' + v.voiceURI).toLowerCase(), l = (v.lang || '').toLowerCase().replace('_', '-');
+  let s = 0;
+  if (hi) { if (l.startsWith('hi')) s += 50; else return -1; }
+  else { if (l === 'en-in') s += 40; else if (l.startsWith('en-gb') || l.startsWith('en-au')) s += 25; else if (l.startsWith('en')) s += 20; else return -1; }
+  if (/natural|neural|online|premium|enhanced/.test(n)) s += 30;
+  if (/google/.test(n)) s += 20;
+  if (/neerja|swara|heera|kalpana|lekha|veena|aditi|raveena|sonia|libby|ava|samantha|serena/.test(n)) s += 8;
+  if (!v.localService) s += 4;
+  if (/compact|espeak|robot/.test(n)) s -= 40;
+  return s;
+}
+function bestVoice(hi) {
+  const vs = ('speechSynthesis' in window) ? speechSynthesis.getVoices() : [];
+  const saved = hi ? VOICE.hi : VOICE.en; const pick = saved && vs.find(v => v.voiceURI === saved);
+  if (pick) return pick;
+  return vs.map(v => [voiceScore(v, hi), v]).filter(x => x[0] >= 0).sort((a, b) => b[0] - a[0])[0]?.[1] || null;
+}
+function speechText(t, hi) {
+  let x = String(t).replace(/_{2,}/g, hi ? 'रिक्त स्थान' : 'blank');
+  x = x.replace(/₹\s?([\d,.]+)/g, (m, n) => hi ? `${n} रुपये` : `${n} rupees`)
+       .replace(/(\d)\s*[×x]\s*(\d)/g, hi ? '$1 गुणा $2' : '$1 times $2').replace(/÷/g, hi ? ' भाग ' : ' divided by ')
+       .replace(/(\d)\s*−\s*(\d)/g, hi ? '$1 घटा $2' : '$1 minus $2').replace(/=/g, hi ? ' बराबर ' : ' equals ')
+       .replace(/(\d+)\s*\/\s*(\d+)/g, hi ? '$2 में से $1' : '$1 over $2').replace(/°/g, hi ? ' डिग्री' : ' degrees')
+       .replace(/²/g, hi ? ' का वर्ग' : ' squared').replace(/³/g, hi ? ' का घन' : ' cubed').replace(/√/g, hi ? 'वर्गमूल ' : 'square root of ')
+       .replace(/π/g, 'pi').replace(/[🔊🎉👍💪🧬🔍✅❌⭐🎯]/gu, '');
+  return x;
+}
 window.speak = function (t) {
   try {
     if (!('speechSynthesis' in window) || !t) return;
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(String(t).replace(/[_]{2,}/g, 'blank'));
-    const hi = /[\u0900-\u097F]/.test(t); u.lang = hi ? 'hi-IN' : 'en-IN'; u.rate = .95;
-    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith(hi ? 'hi' : 'en-in')) || speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith(hi ? 'hi' : 'en'));
-    if (v) u.voice = v;
-    speechSynthesis.speak(u);
+    const hi = /[\u0900-\u097F]/.test(t), v = bestVoice(hi);
+    const parts = speechText(t, hi).split(/(?<=[.!?।])\s+|\n+/).map(s => s.trim()).filter(Boolean);
+    parts.forEach(part => {
+      const u = new SpeechSynthesisUtterance(part);
+      u.lang = v ? v.lang : (hi ? 'hi-IN' : 'en-IN'); if (v) u.voice = v;
+      u.rate = VOICE.rate || 0.9; u.pitch = 1.04; u.volume = 1;
+      speechSynthesis.speak(u);
+    });
   } catch (e) {}
 };
+if ('speechSynthesis' in window) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => { try { renderVoicePicker(); } catch (e) {} }; }
+function renderVoicePicker() {
+  const el = document.getElementById('voicePick'); if (!el || !('speechSynthesis' in window)) return;
+  const vs = speechSynthesis.getVoices();
+  const opts = hi => vs.map(v => [voiceScore(v, hi), v]).filter(x => x[0] >= 0).sort((a, b) => b[0] - a[0]).slice(0, 8)
+    .map(([s, v]) => `<option value="${esc(v.voiceURI)}" ${bestVoice(hi) === v ? 'selected' : ''}>${esc(v.name)}${s >= 70 ? ' ★' : ''}</option>`).join('');
+  el.innerHTML = `<div class="srow"><span>🗣️ English voice</span><select id="vEn">${opts(false) || '<option>Phone default</option>'}</select></div>
+    <div class="srow"><span>🗣️ हिंदी आवाज़</span><select id="vHi">${opts(true) || '<option>Phone default</option>'}</select></div>
+    <div class="srow"><span>🐢 Speed</span><input type="range" id="vRate" min="70" max="110" value="${Math.round((VOICE.rate || .9) * 100)}"></div>
+    <div class="srow"><button class="btn ghost" id="vTest" style="width:100%">▶ Hear a sample</button></div>`;
+  const saveV = () => { try { localStorage.setItem('sv_voice', JSON.stringify(VOICE)); } catch (e) {} };
+  el.querySelector('#vEn').onchange = e => { VOICE.en = e.target.value; saveV(); speak('Hello! I will read your lessons to you.'); };
+  el.querySelector('#vHi').onchange = e => { VOICE.hi = e.target.value; saveV(); speak('नमस्ते! मैं तुम्हारे पाठ पढ़कर सुनाऊँगी।'); };
+  el.querySelector('#vRate').oninput = e => { VOICE.rate = e.target.value / 100; saveV(); };
+  el.querySelector('#vTest').onclick = () => speak('Three rows of four laddoos make twelve laddoos. ₹45 + ₹5 = ₹50.');
+}
 const spk = t => `<button class="spk" data-say="${esc(t)}" aria-label="Read aloud">🔊</button>`;
 document.addEventListener('click', e => { const b = e.target.closest('.spk'); if (b) { e.stopPropagation(); speak(b.dataset.say); } });
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=5'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=6'); return S3D; }
 async function mount3D(host, topic, chapter) {
   try { const m = await scenes(); const spec = m.pickScene(topic, NAV.subject, ST.profile.grade, chapter); m.mount(host, spec); }
   catch (e) { host.innerHTML = '<p class="sub">3D view could not load on this device.</p>'; }

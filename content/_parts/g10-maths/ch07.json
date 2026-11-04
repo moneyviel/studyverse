@@ -4,6 +4,231 @@
  "emoji": "📍",
  "topics": [
   {
+   "id": "g10-maths-07-04",
+   "title": "Coordinates refresher and where the distance formula comes from",
+   "covers": [
+    "c7.1.1",
+    "c7.1.2",
+    "c7.1.3",
+    "c7.2.2"
+   ],
+   "learn": {
+    "hook": "Every spot on a map has an address of two numbers. Pythagoras turns those addresses into distances!",
+    "points": [
+     "The x-axis and y-axis meet at the origin O(0, 0) and divide the plane into four quadrants: I (+, +), II (−, +), III (−, −), IV (+, −).",
+     "In (x, y), x is the abscissa (distance from the y-axis) and y is the ordinate (distance from the x-axis).",
+     "Every point on the x-axis is (x, 0) and every point on the y-axis is (0, y).",
+     "Coordinate geometry is used in maps, GPS, physics and engineering to turn shapes into numbers.",
+     "Distance formula idea: from P(x₁, y₁) to Q(x₂, y₂), draw a right triangle with horizontal side |x₂ − x₁| and vertical side |y₂ − y₁|. Pythagoras gives PQ² = (x₂ − x₁)² + (y₂ − y₁)²."
+    ],
+    "example": {
+     "q": "Use Pythagoras to find the distance between P(1, 2) and Q(4, 6).",
+     "steps": [
+      "Draw a horizontal line from P and a vertical line from Q; they meet at R(4, 2)",
+      "PR = 4 − 1 = 3 and RQ = 6 − 2 = 4",
+      "PQ² = 3² + 4² = 25",
+      "PQ = 5"
+     ],
+     "answer": "5 units"
+    },
+    "reallife": "Delivery apps place your home and the restaurant as coordinates and use exactly this formula to estimate the straight-line distance."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Where is the point?",
+     "buckets": [
+      "On the x-axis",
+      "On the y-axis",
+      "In a quadrant"
+     ],
+     "items": [
+      [
+       "(5, 0)",
+       0
+      ],
+      [
+       "(0, −3)",
+       1
+      ],
+      [
+       "(−2, 7)",
+       2
+      ],
+      [
+       "(−6, 0)",
+       0
+      ],
+      [
+       "(0, 8)",
+       1
+      ],
+      [
+       "(4, −1)",
+       2
+      ],
+      [
+       "(−3, −3)",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the point to its quadrant",
+     "pairs": [
+      [
+       "(3, 5)",
+       "Quadrant I"
+      ],
+      [
+       "(−3, 5)",
+       "Quadrant II"
+      ],
+      [
+       "(−3, −5)",
+       "Quadrant III"
+      ],
+      [
+       "(3, −5)",
+       "Quadrant IV"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In which quadrant does the point (−3, 5) lie?",
+     "options": [
+      "Quadrant II",
+      "Quadrant I",
+      "Quadrant III",
+      "Quadrant IV"
+     ],
+     "answer": 0,
+     "explain": "x is negative and y is positive, which is Quadrant II.",
+     "mistake": "Mixes up the signs of the quadrants"
+    },
+    {
+     "q": "What is the abscissa of the point (7, −2)?",
+     "options": [
+      "−2",
+      "7",
+      "5",
+      "9"
+     ],
+     "answer": 1,
+     "explain": "The abscissa is the x-coordinate, so it is 7.",
+     "mistake": "Confuses abscissa with ordinate",
+     "check": "7"
+    },
+    {
+     "q": "Where does the point (0, −4) lie?",
+     "options": [
+      "On the x-axis",
+      "In Quadrant IV",
+      "On the y-axis",
+      "At the origin"
+     ],
+     "answer": 2,
+     "explain": "Its x-coordinate is 0, so it is on the y-axis, 4 units below the origin.",
+     "mistake": "Thinks a 0 in the first place means the x-axis"
+    },
+    {
+     "q": "Which form does every point on the x-axis have?",
+     "options": [
+      "(0, y)",
+      "(x, 0)",
+      "(x, x)",
+      "(1, y)"
+     ],
+     "answer": 1,
+     "explain": "On the x-axis the height above it is zero, so y = 0.",
+     "mistake": "Swaps the forms for the two axes"
+    },
+    {
+     "q": "What is the distance between (3, 2) and (3, 9)?",
+     "options": [
+      "6",
+      "7",
+      "11",
+      "√58"
+     ],
+     "answer": 1,
+     "explain": "Both points have x = 3, so they are on one vertical line. Distance = 9 − 2 = 7.",
+     "steps": [
+      "Same x, so the distance is the difference of y",
+      "9 − 2 = 7"
+     ],
+     "mistake": "Adds the y-values instead of subtracting",
+     "check": "9-2"
+    },
+    {
+     "q": "To find PQ for P(x₁, y₁) and Q(x₂, y₂), we draw a right triangle with PQ as its hypotenuse. Pythagoras gives PQ² = ?",
+     "options": [
+      "(x₂ − x₁)² + (y₂ − y₁)²",
+      "(x₂ + x₁)² + (y₂ + y₁)²",
+      "(x₂ − x₁) + (y₂ − y₁)",
+      "(x₂ − y₂)² + (x₁ − y₁)²"
+     ],
+     "answer": 0,
+     "explain": "The two shorter sides are the horizontal gap (x₂ − x₁) and the vertical gap (y₂ − y₁). Square and add them.",
+     "mistake": "Adds coordinates instead of subtracting, or forgets to square"
+    },
+    {
+     "q": "For P(1, 2) and Q(4, 6), what is the length of the horizontal side of the right triangle with hypotenuse PQ?",
+     "options": [
+      "4",
+      "3",
+      "5",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "The horizontal side goes from x = 1 to x = 4, so it is 4 − 1 = 3. (The vertical side is 6 − 2 = 4 and PQ = 5.)",
+     "steps": [
+      "Horizontal side = x₂ − x₁",
+      "= 4 − 1 = 3"
+     ],
+     "mistake": "Uses the change in y instead of the change in x",
+     "check": "4-1"
+    },
+    {
+     "q": "Which of these is a real use of coordinate geometry?",
+     "options": [
+      "Locating places on a GPS map",
+      "Writing a poem",
+      "Mixing paint colours",
+      "Counting coins"
+     ],
+     "answer": 0,
+     "explain": "GPS gives each place coordinates and uses them to find positions and distances.",
+     "mistake": "Does not connect coordinates with maps and positions"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Where does the distance formula come from? It looks like magic!' Explain it to him.",
+    "must": [
+     [
+      "pythagoras",
+      "right triangle",
+      "right-angled"
+     ],
+     [
+      "horizontal",
+      "x₂ − x₁",
+      "difference of x"
+     ],
+     [
+      "vertical",
+      "y₂ − y₁",
+      "difference of y"
+     ]
+    ],
+    "praise": "Chirp! The horizontal gap and vertical gap make a right triangle — Pythagoras does the rest!",
+    "nudge": "What are the two shorter sides of that right triangle?"
+   }
+  },
+  {
    "id": "g10-maths-07-01",
    "title": "The distance formula",
    "learn": {
@@ -250,7 +475,14 @@
     ],
     "praise": "Chirp! Subtract, square, add and take the square root. We are 5 units apart!",
     "nudge": "After finding the gaps in x and y, what do I do with them?"
-   }
+   },
+   "covers": [
+    "c7.2.1",
+    "c7.2.3",
+    "c7.2.4",
+    "c7.2.8",
+    "c7.2.11"
+   ]
   },
   {
    "id": "g10-maths-07-02",
@@ -483,6 +715,201 @@
     ],
     "praise": "Tweet! If the two shorter distances add up to the longest one, they're on one line!",
     "nudge": "Which distances do I add, and what should the total be equal to?"
+   },
+   "covers": [
+    "c7.2.5",
+    "c7.2.6",
+    "c7.2.7"
+   ]
+  },
+  {
+   "id": "g10-maths-07-05",
+   "title": "Equidistant points and checking seating patterns",
+   "covers": [
+    "c7.2.9",
+    "c7.2.10"
+   ],
+   "learn": {
+    "hook": "Are four friends sitting in a perfect square in class? Don't trust your eyes — trust the distance formula!",
+    "points": [
+     "A point P(x, y) is equidistant from A and B when PA = PB. Square both sides (PA² = PB²) and simplify to get a relation between x and y.",
+     "The x² and y² terms cancel, so the relation is a straight line — it is the perpendicular bisector of AB.",
+     "To test a square: all four sides equal AND both diagonals equal. Equal sides only → rhombus. Opposite sides equal and equal diagonals → rectangle.",
+     "Seating or garden layouts given as coordinates can be checked this way."
+    ],
+    "example": {
+     "q": "Find a relation between x and y if P(x, y) is equidistant from A(2, 1) and B(4, 5).",
+     "steps": [
+      "PA² = (x − 2)² + (y − 1)² and PB² = (x − 4)² + (y − 5)²",
+      "Expand: x² − 4x + 4 + y² − 2y + 1 = x² − 8x + 16 + y² − 10y + 25",
+      "Cancel x² and y²: −4x − 2y + 5 = −8x − 10y + 41",
+      "4x + 8y = 36, so x + 2y = 9"
+     ],
+     "answer": "x + 2y = 9"
+    },
+    "reallife": "Event planners lay out chairs, stalls and rangoli squares on a grid and check the distances before the big day."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Proving four points form a square",
+     "prompt": "First step to last step",
+     "items": [
+      "Find all four side lengths with the distance formula",
+      "Check that all four sides are equal",
+      "Find the two diagonals",
+      "Check that the diagonals are equal",
+      "Conclude that the figure is a square"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Square, rhombus or rectangle?",
+     "items": [
+      [
+       "Four equal sides are enough to prove a square.",
+       false,
+       "A rhombus also has four equal sides; the diagonals must be equal too."
+      ],
+      [
+       "A quadrilateral with four equal sides and equal diagonals is a square.",
+       true,
+       "That is the test for a square."
+      ],
+      [
+       "Points equidistant from A and B lie on a straight line.",
+       true,
+       "The relation from PA² = PB² is linear: the perpendicular bisector of AB."
+      ],
+      [
+       "(5, 2) is equidistant from (2, 1) and (4, 5).",
+       true,
+       "Both distances are √10."
+      ],
+      [
+       "Equal diagonals and four equal sides can also describe a rectangle that is not a square.",
+       false,
+       "A rectangle that is not a square does not have four equal sides."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "P(x, y) is equidistant from A(2, 1) and B(4, 5). Which relation do x and y satisfy?",
+     "options": [
+      "2x + y = 9",
+      "x − 2y = 9",
+      "x + y = 6",
+      "x + 2y = 9"
+     ],
+     "answer": 3,
+     "explain": "Setting PA² = PB² and cancelling x² and y² gives 4x + 8y = 36, so x + 2y = 9.",
+     "mistake": "Makes a sign error when expanding the brackets"
+    },
+    {
+     "q": "Which point is equidistant from A(2, 1) and B(4, 5)?",
+     "options": [
+      "(2, 5)",
+      "(4, 4)",
+      "(5, 2)",
+      "(1, 1)"
+     ],
+     "answer": 2,
+     "explain": "(5, 2) satisfies x + 2y = 9 (5 + 4 = 9). Check: PA² = 9 + 1 = 10 and PB² = 1 + 9 = 10.",
+     "mistake": "Picks a point that is near both but not equally far"
+    },
+    {
+     "q": "Four friends sit at A(2, 3), B(5, 6), C(8, 3) and D(5, 0). What is the length AB?",
+     "options": [
+      "3√2",
+      "6",
+      "√12",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "AB = √[(5 − 2)² + (6 − 3)²] = √(9 + 9) = √18 = 3√2.",
+     "mistake": "Adds the gaps instead of squaring and adding"
+    },
+    {
+     "q": "For the same friends at A(2, 3), B(5, 6), C(8, 3), D(5, 0), how long are the diagonals AC and BD?",
+     "options": [
+      "AC = 6, BD = 6",
+      "AC = 6, BD = 3√2",
+      "AC = 3, BD = 6",
+      "AC = 3√2, BD = 3√2"
+     ],
+     "answer": 0,
+     "explain": "AC: same y, so 8 − 2 = 6. BD: same x, so 6 − 0 = 6. The diagonals are equal.",
+     "mistake": "Uses a side length instead of a diagonal"
+    },
+    {
+     "q": "Meera says the friends at A(2, 3), B(5, 6), C(8, 3), D(5, 0) form just a rhombus, not a square. Is she right?",
+     "options": [
+      "Yes, because the sides are not equal",
+      "Yes, because the diagonals are unequal",
+      "No — it is a rectangle",
+      "No — all four sides are 3√2 and both diagonals are 6, so it is a square"
+     ],
+     "answer": 3,
+     "explain": "Equal sides make it at least a rhombus; equal diagonals as well make it a square.",
+     "mistake": "Stops after checking the sides"
+    },
+    {
+     "q": "Which point on the x-axis is equidistant from A(2, 1) and B(4, 5)?",
+     "options": [
+      "(3, 0)",
+      "(9, 0)",
+      "(4.5, 0)",
+      "(0, 4.5)"
+     ],
+     "answer": 1,
+     "explain": "On the x-axis y = 0. Put y = 0 in x + 2y = 9: x = 9. Check: PA² = 49 + 1 = 50 and PB² = 25 + 25 = 50.",
+     "mistake": "Takes the midpoint of the x-coordinates instead of using the relation"
+    },
+    {
+     "q": "P(x, y) is equidistant from (0, 0) and (4, 0). What relation must hold?",
+     "options": [
+      "y = 2",
+      "x = 2",
+      "x + y = 4",
+      "x = y"
+     ],
+     "answer": 1,
+     "explain": "x² + y² = (x − 4)² + y² → 0 = −8x + 16 → x = 2. It is the vertical line through the midpoint.",
+     "mistake": "Thinks y must be fixed instead of x"
+    },
+    {
+     "q": "Benches are placed at (0, 0), (4, 0), (4, 3) and (0, 3). What shape do they form?",
+     "options": [
+      "Rectangle that is not a square",
+      "Square",
+      "Rhombus",
+      "Not a quadrilateral"
+     ],
+     "answer": 0,
+     "explain": "Opposite sides are 4 and 3 (not all equal) and both diagonals are 5. So it is a rectangle, not a square.",
+     "mistake": "Sees equal diagonals and assumes a square"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's four friends are sitting in class. How can he use coordinates to check if they form a square?",
+    "must": [
+     [
+      "distance",
+      "distance formula"
+     ],
+     [
+      "sides",
+      "four sides"
+     ],
+     [
+      "diagonals",
+      "diagonal"
+     ]
+    ],
+    "praise": "Tweet! All four sides equal AND both diagonals equal — then it's a square!",
+    "nudge": "Is checking only the four sides enough?"
    }
   },
   {
@@ -745,6 +1172,228 @@
     ],
     "praise": "Chirp! Multiply by the ratio parts crosswise and divide by their sum. Found my spot!",
     "nudge": "Which ratio number goes with which end point, and what do I divide by?"
+   },
+   "covers": [
+    "c7.3.1",
+    "c7.3.2",
+    "c7.3.3",
+    "c7.3.4",
+    "c7.3.5",
+    "c7.3.6",
+    "c7.3.9"
+   ]
+  },
+  {
+   "id": "g10-maths-07-06",
+   "title": "Equal parts, parallelograms, sports day — and chapter recap",
+   "covers": [
+    "c7.3.7",
+    "c7.3.8",
+    "c7.3.10",
+    "c7.4.1"
+   ],
+   "learn": {
+    "hook": "Plant flags on a sports ground, find a lost corner of a parallelogram, and cut a road into four equal parts — all with the section formula!",
+    "points": [
+     "To divide AB into four equal parts, find the points that divide it in 1 : 3, 1 : 1 and 3 : 1. The middle one is just the midpoint.",
+     "The diagonals of a parallelogram bisect each other: the midpoint of AC equals the midpoint of BD. Use this to find a missing vertex.",
+     "Story problems: turn positions into coordinates (line number, distance along it), then use the distance and midpoint formulas.",
+     "Recap: distance = √[(x₂ − x₁)² + (y₂ − y₁)²]; distance from origin = √(x² + y²); section point = ((m₁x₂ + m₂x₁)/(m₁ + m₂), (m₁y₂ + m₂y₁)/(m₁ + m₂)); midpoint = ((x₁ + x₂)/2, (y₁ + y₂)/2)."
+    ],
+    "example": {
+     "q": "A(1, 1), B(5, 2) and C(6, 5) are three vertices of parallelogram ABCD. Find D.",
+     "steps": [
+      "Diagonals AC and BD bisect each other",
+      "Midpoint of AC = ((1 + 6)/2, (1 + 5)/2) = (3.5, 3)",
+      "Midpoint of BD = ((5 + x)/2, (2 + y)/2) = (3.5, 3)",
+      "5 + x = 7 → x = 2 and 2 + y = 6 → y = 4"
+     ],
+     "answer": "D = (2, 4)"
+    },
+    "reallife": "Sports teachers mark lanes and flag positions on a grid; town planners split a road into equal stretches for street lights."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Midpoints and parts",
+     "items": [
+      {
+       "q": "x of midpoint of (1, −2) and (9, 6)",
+       "a": "5",
+       "check": "(1+9)/2"
+      },
+      {
+       "q": "y of midpoint of (1, −2) and (9, 6)",
+       "a": "2",
+       "check": "(-2+6)/2"
+      },
+      {
+       "q": "Distance of (−8, 6) from origin",
+       "a": "10",
+       "check": "(64+36)**0.5"
+      },
+      {
+       "q": "x of point 1/4 of the way from x = 1 to x = 9",
+       "a": "3",
+       "check": "1+(9-1)/4"
+      },
+      {
+       "q": "x of D if A(1,1), B(5,2), C(6,5) form parallelogram ABCD",
+       "a": "2",
+       "check": "1+6-5"
+      },
+      {
+       "q": "y of D for the same parallelogram",
+       "a": "4",
+       "check": "1+5-2"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Recap: match the formula",
+     "pairs": [
+      [
+       "√[(x₂ − x₁)² + (y₂ − y₁)²]",
+       "Distance between two points"
+      ],
+      [
+       "√(x² + y²)",
+       "Distance from the origin"
+      ],
+      [
+       "((x₁ + x₂)/2, (y₁ + y₂)/2)",
+       "Midpoint"
+      ],
+      [
+       "((m₁x₂ + m₂x₁)/(m₁ + m₂), …)",
+       "Section formula"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which points divide the segment from A(1, −2) to B(9, 6) into four equal parts?",
+     "options": [
+      "(3, 0), (5, 2), (7, 4)",
+      "(2, −1), (5, 2), (8, 5)",
+      "(3, 2), (5, 4), (7, 6)",
+      "(4, 1), (5, 2), (6, 3)"
+     ],
+     "answer": 0,
+     "explain": "Each quarter moves (9 − 1)/4 = 2 in x and (6 − (−2))/4 = 2 in y. So the points are (3, 0), (5, 2) and (7, 4).",
+     "mistake": "Divides into three parts instead of four"
+    },
+    {
+     "q": "What is the midpoint of A(1, −2) and B(9, 6)?",
+     "options": [
+      "(5, 2)",
+      "(4, 2)",
+      "(5, 4)",
+      "(10, 4)"
+     ],
+     "answer": 0,
+     "explain": "((1 + 9)/2, (−2 + 6)/2) = (5, 2).",
+     "mistake": "Forgets to divide by 2, or drops the minus sign"
+    },
+    {
+     "q": "A(1, 1), B(5, 2) and C(6, 5) are three vertices of parallelogram ABCD, in order. What is D?",
+     "options": [
+      "(10, 6)",
+      "(0, −2)",
+      "(2, 4)",
+      "(3, 4)"
+     ],
+     "answer": 2,
+     "explain": "Midpoint of AC is (3.5, 3). For BD to have the same midpoint, D = (7 − 5, 6 − 2) = (2, 4).",
+     "mistake": "Adds B and C instead of using the diagonal midpoints"
+    },
+    {
+     "q": "In the parallelogram A(1, 1), B(5, 2), C(6, 5), D(2, 4), where do the diagonals meet?",
+     "options": [
+      "(3, 3.5)",
+      "(7, 6)",
+      "(4, 3)",
+      "(3.5, 3)"
+     ],
+     "answer": 3,
+     "explain": "Diagonals bisect each other, so they meet at the midpoint of AC: ((1 + 6)/2, (1 + 5)/2) = (3.5, 3).",
+     "mistake": "Mixes up the x- and y-coordinates"
+    },
+    {
+     "q": "On sports day, lines are drawn 1 m apart. Asha runs 20 m along the 3rd line and plants a flag at (3, 20). Bilal runs 30 m along the 7th line and plants a flag at (7, 30). How far apart are the flags?",
+     "options": [
+      "14 m",
+      "10 m",
+      "2√29 m",
+      "√26 m"
+     ],
+     "answer": 2,
+     "explain": "Distance = √[(7 − 3)² + (30 − 20)²] = √(16 + 100) = √116 = 2√29 m.",
+     "mistake": "Adds the gaps 4 + 10 instead of using the distance formula"
+    },
+    {
+     "q": "Chetan wants to plant a flag exactly halfway between the flags at (3, 20) and (7, 30). Where should he put it?",
+     "options": [
+      "(4, 10)",
+      "(10, 50)",
+      "(5, 25)",
+      "(5, 20)"
+     ],
+     "answer": 2,
+     "explain": "Midpoint = ((3 + 7)/2, (20 + 30)/2) = (5, 25): on the 5th line, 25 m along it.",
+     "mistake": "Subtracts instead of averaging"
+    },
+    {
+     "q": "Recap: how far is (−8, 6) from the origin?",
+     "options": [
+      "14",
+      "10",
+      "2",
+      "√28"
+     ],
+     "answer": 1,
+     "explain": "√((−8)² + 6²) = √(64 + 36) = √100 = 10.",
+     "steps": [
+      "(−8)² = 64, 6² = 36",
+      "√100 = 10"
+     ],
+     "mistake": "Adds −8 and 6 directly",
+     "check": "(64+36)**0.5"
+    },
+    {
+     "q": "Recap: which point divides the segment from A(2, 4) to B(8, 10) in the ratio 2 : 1?",
+     "options": [
+      "(6, 8)",
+      "(4, 6)",
+      "(5, 7)",
+      "(18, 24)"
+     ],
+     "answer": 0,
+     "explain": "x = (2 × 8 + 1 × 2)/3 = 6 and y = (2 × 10 + 1 × 4)/3 = 8. The point is two-thirds of the way to B.",
+     "mistake": "Pairs m₁ with A instead of B, giving the 1 : 2 point"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu lost the fourth corner D of parallelogram ABCD. He knows A, B and C. How can he find D?",
+    "must": [
+     [
+      "diagonals",
+      "diagonal"
+     ],
+     [
+      "bisect",
+      "midpoint",
+      "middle"
+     ],
+     [
+      "same",
+      "equal"
+     ]
+    ],
+    "praise": "Chirp! The diagonals bisect each other, so the midpoints of AC and BD are the same — and that gives D!",
+    "nudge": "What special property do the diagonals of a parallelogram have?"
    }
   }
  ]

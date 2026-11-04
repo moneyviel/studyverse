@@ -59,7 +59,7 @@ with **zero errors** before it is published.
 * `lab` (optional on a topic): `"angle"` adds the interactive angle lab to the Learn step. Use it for topics about measuring/classifying angles.
 * `emoji` on each chapter: one emoji that represents the chapter on the map.
 * `id` format: `g<grade>-<subject>-<chapter 2 digits>-<topic 2 digits>`, unique.
-* 2–5 topics per chapter. Each topic: 6–10 quiz questions (Grades 1–2: 5–8), 1–3 games.
+* 2–14 topics per chapter. When a depth outline exists (`content/outlines/g<grade>-<subject>.json`), every concept id in it must be listed in some topic's `covers` array (e.g. `"covers": ["c3.2.1", "c3.2.2"]`), and the checker fails the file until all are covered. Each topic: 6–10 quiz questions (Grades 1–2: 5–8), 1–3 games.
 * `teach.must`: 2–4 groups; each group is a list of words/phrases (lowercase, any one of which counts).
   For Hindi/Sanskrit use Devanagari words.
 

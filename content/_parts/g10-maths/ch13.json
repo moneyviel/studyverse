@@ -4,6 +4,245 @@
  "emoji": "📊",
  "topics": [
   {
+   "id": "g10-maths-13-04",
+   "title": "Data recap: averages of ungrouped data and grouped tables",
+   "covers": [
+    "c13.1.1",
+    "c13.1.2",
+    "c13.1.3",
+    "c13.2.1",
+    "c13.4.1"
+   ],
+   "learn": {
+    "hook": "Before we tame big tables, let's warm up with small lists — mean, median and mode are old friends!",
+    "points": [
+     "Ungrouped data is a plain list of values. Grouped data puts values into class intervals like 10–20, 20–30 with a frequency for each class.",
+     "In a class interval like 10–20, 10 is the lower limit, 20 the upper limit, and the class size is 20 − 10 = 10. A value equal to 20 goes into the next class, 20–30.",
+     "Measures of central tendency: mean (average), median (middle value) and mode (most frequent value).",
+     "Mean of ungrouped data with frequencies: x̄ = Σfᵢxᵢ / Σfᵢ.",
+     "Median of ungrouped data: arrange in order. If n is odd, take the ((n + 1)/2)th value; if n is even, average the (n/2)th and (n/2 + 1)th values. This chapter extends all three measures to grouped data."
+    ],
+    "example": {
+     "q": "Marks of 10 students: x = 2, 4, 6 with frequencies 3, 5, 2. Find the mean.",
+     "steps": [
+      "Σfx = 2×3 + 4×5 + 6×2 = 6 + 20 + 12 = 38",
+      "Σf = 3 + 5 + 2 = 10",
+      "Mean = 38 ÷ 10 = 3.8"
+     ],
+     "answer": "3.8"
+    },
+    "reallife": "Cricket averages, class test results and the most common shoe size in a shop are all measures of central tendency."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the word to its meaning",
+     "pairs": [
+      [
+       "Mean",
+       "Sum of values ÷ number of values"
+      ],
+      [
+       "Median",
+       "Middle value after arranging in order"
+      ],
+      [
+       "Mode",
+       "Most frequent value"
+      ],
+      [
+       "Class size",
+       "Upper limit − lower limit"
+      ],
+      [
+       "Frequency",
+       "How many times a value or class occurs"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Warm-up round",
+     "items": [
+      {
+       "q": "Mean of 4, 8, 6, 10, 7",
+       "a": "7",
+       "check": "35/5"
+      },
+      {
+       "q": "Median of 3, 9, 5, 7, 11",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "Mode of 3, 5, 5, 7, 5, 8",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "Class size of 20–30",
+       "a": "10",
+       "check": "30-20"
+      },
+      {
+       "q": "Median of 2, 4, 6, 8",
+       "a": "5",
+       "check": "(4+6)/2"
+      },
+      {
+       "q": "Mean of 10, 20, 30",
+       "a": "20",
+       "check": "60/3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the mean of 4, 8, 6, 10 and 7?",
+     "options": [
+      "6",
+      "8",
+      "35",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "Sum = 35 and there are 5 values, so the mean is 35 ÷ 5 = 7.",
+     "steps": [
+      "4 + 8 + 6 + 10 + 7 = 35",
+      "35 ÷ 5 = 7"
+     ],
+     "mistake": "Gives the sum instead of dividing",
+     "check": "35/5"
+    },
+    {
+     "q": "Values 2, 4 and 6 occur 3, 5 and 2 times. What is the mean?",
+     "options": [
+      "4",
+      "12.67",
+      "3.8",
+      "38"
+     ],
+     "answer": 2,
+     "explain": "Σfx = 6 + 20 + 12 = 38 and Σf = 10, so the mean is 3.8.",
+     "steps": [
+      "Σfx = 38",
+      "Σf = 10",
+      "38 ÷ 10 = 3.8"
+     ],
+     "mistake": "Averages 2, 4, 6 without using the frequencies",
+     "check": "38/10"
+    },
+    {
+     "q": "What is the median of 3, 9, 5, 7, 11?",
+     "options": [
+      "5",
+      "7",
+      "9",
+      "35"
+     ],
+     "answer": 1,
+     "explain": "In order: 3, 5, 7, 9, 11. The middle (3rd) value is 7.",
+     "steps": [
+      "Arrange: 3, 5, 7, 9, 11",
+      "Middle value = 7"
+     ],
+     "mistake": "Takes the middle of the list without arranging it first",
+     "check": "7"
+    },
+    {
+     "q": "What is the median of 4, 9, 2, 10, 6, 12?",
+     "options": [
+      "7.5",
+      "6",
+      "9",
+      "8"
+     ],
+     "answer": 0,
+     "explain": "In order: 2, 4, 6, 9, 10, 12. n = 6 is even, so the median is (6 + 9)/2 = 7.5.",
+     "steps": [
+      "Arrange: 2, 4, 6, 9, 10, 12",
+      "3rd and 4th values: 6 and 9",
+      "(6 + 9) ÷ 2 = 7.5"
+     ],
+     "mistake": "Takes only one middle value when n is even",
+     "check": "(6+9)/2"
+    },
+    {
+     "q": "What is the mode of 3, 5, 5, 7, 5, 8, 7?",
+     "options": [
+      "7",
+      "8",
+      "3",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "5 appears three times, more than any other value.",
+     "mistake": "Picks the largest value or one that appears twice",
+     "check": "5"
+    },
+    {
+     "q": "What is the class size of the class interval 20–30?",
+     "options": [
+      "10",
+      "20",
+      "30",
+      "25"
+     ],
+     "answer": 0,
+     "explain": "Class size = upper limit − lower limit = 30 − 20 = 10.",
+     "steps": [
+      "30 − 20 = 10"
+     ],
+     "mistake": "Gives the class mark (25) or a limit",
+     "check": "30-20"
+    },
+    {
+     "q": "Which three are measures of central tendency?",
+     "options": [
+      "Range, mean and frequency",
+      "Class size, class mark and mode",
+      "Sum, product and mean",
+      "Mean, median and mode"
+     ],
+     "answer": 3,
+     "explain": "Mean, median and mode each describe a 'central' or typical value of the data.",
+     "mistake": "Confuses table words with measures of central tendency"
+    },
+    {
+     "q": "Classes are 10–20, 20–30, 30–40. In which class is a value of exactly 20 counted?",
+     "options": [
+      "10–20",
+      "20–30",
+      "Both",
+      "Neither"
+     ],
+     "answer": 1,
+     "explain": "By convention the upper limit is not included in a class, so 20 goes into 20–30.",
+     "mistake": "Counts the boundary value in both classes"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has a list of marks and a big table of marks. Explain mean, median and mode and how they move from lists to tables.",
+    "must": [
+     [
+      "mean",
+      "average"
+     ],
+     [
+      "median",
+      "middle"
+     ],
+     [
+      "mode",
+      "most"
+     ]
+    ],
+    "praise": "Chirp! Mean is the average, median the middle, mode the most common — and grouped data uses classes!",
+    "nudge": "Which measure tells me the middle value?"
+   }
+  },
+  {
    "id": "g10-maths-13-01",
    "title": "Mean of grouped data",
    "learn": {
@@ -254,6 +493,256 @@
     ],
     "praise": "Tweet! Class marks times frequencies, added up and divided by the total frequency. Average found!",
     "nudge": "Which value represents each class, and what do I divide the total by?"
+   },
+   "covers": [
+    "c13.2.2",
+    "c13.2.3",
+    "c13.2.4",
+    "c13.2.5",
+    "c13.2.7",
+    "c13.2.10",
+    "c13.2.11"
+   ]
+  },
+  {
+   "id": "g10-maths-13-05",
+   "title": "Step-deviation method and continuous classes",
+   "covers": [
+    "c13.2.6",
+    "c13.2.8",
+    "c13.2.9",
+    "c13.2.12"
+   ],
+   "learn": {
+    "hook": "Big class marks like 20, 40, 60, 80, 100? Shrink them to −2, −1, 0, 1, 2 and the mean pops out with tiny sums!",
+    "points": [
+     "Step-deviation method: choose an assumed mean a (a middle class mark), let h be the class size, and find uᵢ = (xᵢ − a)/h.",
+     "Then x̄ = a + h × (Σfᵢuᵢ / Σfᵢ).",
+     "It works neatly only when all classes have the same size h, so that every uᵢ is a small whole number.",
+     "Inclusive classes like 10–19, 20–29 have gaps. Make them continuous by subtracting 0.5 from each lower limit and adding 0.5 to each upper limit: 9.5–19.5, 19.5–29.5. Class marks do not change.",
+     "If the class sizes are unequal (for example days absent in classes 0–6, 6–10, 10–14, 14–20), use the direct method with class marks instead."
+    ],
+    "example": {
+     "q": "Find the mean by the step-deviation method: classes 10–30, 30–50, 50–70, 70–90, 90–110 with frequencies 5, 8, 12, 10, 5.",
+     "steps": [
+      "Class marks: 20, 40, 60, 80, 100; take a = 60, h = 20",
+      "uᵢ = −2, −1, 0, 1, 2",
+      "fᵢuᵢ = −10, −8, 0, 10, 10; Σfᵢuᵢ = 2 and Σfᵢ = 40",
+      "x̄ = 60 + 20 × 2/40 = 60 + 1 = 61"
+     ],
+     "answer": "61"
+    },
+    "reallife": "Government surveys of literacy rates across districts, or of household spending, use step-deviation to handle large numbers quickly."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Step-deviation method",
+     "prompt": "First step to last step",
+     "items": [
+      "Find the class marks xᵢ",
+      "Choose the assumed mean a and class size h",
+      "Work out uᵢ = (xᵢ − a)/h",
+      "Find Σfᵢuᵢ and Σfᵢ",
+      "Mean = a + h × Σfᵢuᵢ/Σfᵢ"
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the gap",
+     "items": [
+      {
+       "text": "With a = 60, h = 20, the u for x = 100 is ___",
+       "answer": "2",
+       "options": [
+        "2",
+        "40",
+        "5"
+       ]
+      },
+      {
+       "text": "10–19 as a continuous class is ___",
+       "answer": "9.5–19.5",
+       "options": [
+        "9.5–19.5",
+        "10–20",
+        "10.5–18.5"
+       ]
+      },
+      {
+       "text": "Class mark of 10–19 is ___",
+       "answer": "14.5",
+       "options": [
+        "14.5",
+        "15",
+        "14"
+       ]
+      },
+      {
+       "text": "Step-deviation needs a common class ___",
+       "answer": "size",
+       "options": [
+        "size",
+        "frequency",
+        "mark"
+       ]
+      },
+      {
+       "text": "a = 70, h = 10, Σfu = −5, Σf = 20: mean = ___",
+       "answer": "67.5",
+       "options": [
+        "67.5",
+        "65",
+        "69.5"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Classes 10–30, 30–50, 50–70, 70–90, 90–110 have frequencies 5, 8, 12, 10, 5. Using a = 60 and h = 20, what is the mean?",
+     "options": [
+      "60",
+      "62",
+      "61",
+      "59"
+     ],
+     "answer": 2,
+     "explain": "Σfu = −10 − 8 + 0 + 10 + 10 = 2, Σf = 40. Mean = 60 + 20 × 2/40 = 61.",
+     "steps": [
+      "u = −2, −1, 0, 1, 2",
+      "Σfu = 2",
+      "60 + 20 × 0.05 = 61"
+     ],
+     "mistake": "Forgets to multiply by h",
+     "check": "60+20*Fraction(2,40)"
+    },
+    {
+     "q": "With assumed mean a = 60 and class size h = 20, what is uᵢ for the class mark 100?",
+     "options": [
+      "2",
+      "40",
+      "5",
+      "−2"
+     ],
+     "answer": 0,
+     "explain": "uᵢ = (100 − 60)/20 = 2.",
+     "steps": [
+      "d = 100 − 60 = 40",
+      "u = 40 ÷ 20 = 2"
+     ],
+     "mistake": "Gives the deviation dᵢ = 40 and forgets to divide by h",
+     "check": "(100-60)/20"
+    },
+    {
+     "q": "When does the step-deviation method work smoothly?",
+     "options": [
+      "When all frequencies are equal",
+      "Only when the mean is a whole number",
+      "When all classes have the same size h",
+      "When the data is ungrouped"
+     ],
+     "answer": 2,
+     "explain": "Dividing every deviation by the common class size h gives small whole numbers uᵢ.",
+     "mistake": "Thinks equal frequencies are needed"
+    },
+    {
+     "q": "Data has classes 10–19, 20–29, 30–39. What is the class 20–29 when made continuous?",
+     "options": [
+      "19.5–29.5",
+      "20–30",
+      "20.5–29.5",
+      "19–29"
+     ],
+     "answer": 0,
+     "explain": "The gap between 19 and 20 is 1, so subtract 0.5 from the lower limit and add 0.5 to the upper limit: 19.5–29.5.",
+     "mistake": "Just changes the upper limit to the next class's lower limit"
+    },
+    {
+     "q": "What is the class mark of the inclusive class 10–19?",
+     "options": [
+      "15",
+      "14",
+      "9.5",
+      "14.5"
+     ],
+     "answer": 3,
+     "explain": "Class mark = (10 + 19)/2 = 14.5. It stays the same after converting to 9.5–19.5.",
+     "steps": [
+      "(10 + 19) ÷ 2 = 14.5"
+     ],
+     "mistake": "Assumes the class runs 10–20",
+     "check": "(10+19)/2"
+    },
+    {
+     "q": "Literacy rates (%) of 20 towns: 45–55: 2, 55–65: 6, 65–75: 8, 75–85: 3, 85–95: 1. Using a = 70 and h = 10, what is the mean literacy rate?",
+     "options": [
+      "70%",
+      "72.5%",
+      "67.5%",
+      "65%"
+     ],
+     "answer": 2,
+     "explain": "u = −2, −1, 0, 1, 2; fu = −4, −6, 0, 3, 2; Σfu = −5. Mean = 70 + 10 × (−5/20) = 67.5%.",
+     "steps": [
+      "Σfu = −5, Σf = 20",
+      "70 + 10 × (−0.25)",
+      "= 67.5"
+     ],
+     "mistake": "Loses the minus sign of Σfu",
+     "check": "70+10*Fraction(-5,20)"
+    },
+    {
+     "q": "Days absent by 20 students: 0–4: 6, 4–8: 10, 8–12: 4. What is the mean number of days absent?",
+     "options": [
+      "5.6",
+      "6",
+      "4.8",
+      "6.4"
+     ],
+     "answer": 0,
+     "explain": "Class marks 2, 6, 10. Σfx = 12 + 60 + 40 = 112, Σf = 20, mean = 5.6.",
+     "steps": [
+      "Marks: 2, 6, 10",
+      "Σfx = 112",
+      "112 ÷ 20 = 5.6"
+     ],
+     "mistake": "Uses class limits instead of class marks",
+     "check": "112/20"
+    },
+    {
+     "q": "Class marks are 1250, 1750, 2250, 2750, all with class size 500. Which method keeps the working easiest?",
+     "options": [
+      "Direct method",
+      "Step-deviation method",
+      "Counting each value one by one",
+      "Finding the mode"
+     ],
+     "answer": 1,
+     "explain": "Large class marks with a common class size are ideal for step-deviation: u becomes −1, 0, 1, 2 and so on.",
+     "mistake": "Thinks all methods are equally easy for large values"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has class marks 20, 40, 60, 80, 100 and hates big multiplications. Teach him the step-deviation method.",
+    "must": [
+     [
+      "assumed mean",
+      "a"
+     ],
+     [
+      "divide",
+      "class size",
+      "h"
+     ],
+     [
+      "u",
+      "step"
+     ]
+    ],
+    "praise": "Tweet! Subtract the assumed mean, divide by h, use the tiny u's — then multiply back by h!",
+    "nudge": "After subtracting a, what should he divide by?"
    }
   },
   {
@@ -529,6 +1018,258 @@
     ],
     "praise": "Chirp! Find the class with the highest frequency, then use the mode formula. Popular size found!",
     "nudge": "Which class do I look at first, and how do I get the exact mode from it?"
+   },
+   "covers": [
+    "c13.3.1",
+    "c13.3.2",
+    "c13.3.3",
+    "c13.3.7"
+   ]
+  },
+  {
+   "id": "g10-maths-13-06",
+   "title": "Making sense of the mode",
+   "covers": [
+    "c13.3.4",
+    "c13.3.5",
+    "c13.3.6"
+   ],
+   "learn": {
+    "hook": "The average age of patients is 34, but most patients are about 35. Both are true — they just answer different questions!",
+    "points": [
+     "The mode tells you the most typical value; the mean tells you the average. For the same data they can be different, and both are useful.",
+     "When two classes share the highest frequency the data is bimodal. Class 10 problems avoid such data, so there is always one modal class.",
+     "Mode = l + [(f₁ − f₀)/(2f₁ − f₀ − f₂)] × h, with l the lower limit of the modal class.",
+     "Typical exercise data: ages of hospital patients, lifetimes of electrical parts, monthly family expenses, teacher–student ratios."
+    ],
+    "example": {
+     "q": "Ages of 40 patients: 10–20: 4, 20–30: 9, 30–40: 15, 40–50: 10, 50–60: 2. Find the mode and the mean and compare them.",
+     "steps": [
+      "Modal class 30–40: l = 30, f₁ = 15, f₀ = 9, f₂ = 10, h = 10",
+      "Mode = 30 + (15 − 9)/(30 − 9 − 10) × 10 = 30 + 60/11 ≈ 35.45 years",
+      "Mean: class marks 15, 25, 35, 45, 55; Σfx = 60 + 225 + 525 + 450 + 110 = 1370; mean = 1370/40 = 34.25 years",
+      "Most patients are around 35.45 years old, while the average age is 34.25 years"
+     ],
+     "answer": "Mode ≈ 35.45 years, mean = 34.25 years"
+    },
+    "reallife": "Hospitals use the modal age group to plan beds and staff; shops use the modal size to decide what to stock."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Mode or mean?",
+     "items": [
+      [
+       "The mode and the mean of the same data are always equal.",
+       false,
+       "They are often different; each answers a different question."
+      ],
+      [
+       "Bimodal data has two classes with the highest frequency.",
+       true,
+       "Our formula needs a single modal class, so the book avoids such data."
+      ],
+      [
+       "A shopkeeper choosing which shirt size to stock most should use the mode.",
+       true,
+       "The mode is the most common value."
+      ],
+      [
+       "The mode formula uses the frequencies of the classes just before and after the modal class.",
+       true,
+       "These are f₀ and f₂."
+      ],
+      [
+       "The modal class is the class with the largest class mark.",
+       false,
+       "It is the class with the highest frequency."
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Which measure fits best?",
+     "buckets": [
+      "Mean",
+      "Median",
+      "Mode"
+     ],
+     "items": [
+      [
+       "Most popular uniform size",
+       2
+      ],
+      [
+       "Average marks of a class",
+       0
+      ],
+      [
+       "Typical income when a few are super-rich",
+       1
+      ],
+      [
+       "Most common age group of patients",
+       2
+      ],
+      [
+       "Average rainfall over a month",
+       0
+      ],
+      [
+       "Middle house price in a town with a few mansions",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Ages of 40 patients: 10–20: 4, 20–30: 9, 30–40: 15, 40–50: 10, 50–60: 2. What is the mode?",
+     "options": [
+      "34.25 years",
+      "35 years",
+      "35.45 years",
+      "36.5 years"
+     ],
+     "answer": 2,
+     "explain": "Mode = 30 + (15 − 9)/(30 − 9 − 10) × 10 = 30 + 6/11 × 10 ≈ 35.45 years.",
+     "steps": [
+      "l = 30, f₁ = 15, f₀ = 9, f₂ = 10",
+      "2f₁ − f₀ − f₂ = 11",
+      "30 + 60/11 ≈ 35.45"
+     ],
+     "mistake": "Takes the class mark of the modal class (35) as the mode",
+     "check": "30+Fraction(6,11)*10"
+    },
+    {
+     "q": "For the same patients' data, what is the mean age?",
+     "options": [
+      "35.45 years",
+      "35 years",
+      "34.25 years",
+      "27.4 years"
+     ],
+     "answer": 2,
+     "explain": "Class marks 15, 25, 35, 45, 55. Σfx = 60 + 225 + 525 + 450 + 110 = 1370, so mean = 1370 ÷ 40 = 34.25 years.",
+     "steps": [
+      "Σfx = 1370",
+      "Σf = 40",
+      "1370 ÷ 40 = 34.25"
+     ],
+     "mistake": "Divides by the number of classes (5) instead of Σf",
+     "check": "1370/40"
+    },
+    {
+     "q": "For these patients the mode is about 35.45 years and the mean is 34.25 years. What do they tell us?",
+     "options": [
+      "Every patient is 35 years old",
+      "Most patients are about 35 years old, and the average age is about 34",
+      "The mean is wrong because it differs from the mode",
+      "Half the patients are under 34.25 years"
+     ],
+     "answer": 1,
+     "explain": "The mode describes the most common age; the mean describes the average. They need not be equal.",
+     "mistake": "Thinks the mean and mode must match, or confuses the mean with the median"
+    },
+    {
+     "q": "Lifetimes (hours) of 70 bulbs: 0–20: 8, 20–40: 14, 40–60: 22, 60–80: 18, 80–100: 8. What is the modal lifetime?",
+     "options": [
+      "50 hours",
+      "56.67 hours",
+      "48 hours",
+      "53.33 hours"
+     ],
+     "answer": 3,
+     "explain": "Modal class 40–60: mode = 40 + (22 − 14)/(44 − 14 − 18) × 20 = 40 + 8/12 × 20 ≈ 53.33 hours.",
+     "steps": [
+      "l = 40, f₁ = 22, f₀ = 14, f₂ = 18",
+      "2f₁ − f₀ − f₂ = 12",
+      "40 + 13.33 = 53.33"
+     ],
+     "mistake": "Swaps f₀ and f₂",
+     "check": "40+Fraction(8,12)*20"
+    },
+    {
+     "q": "Monthly expenses of 35 families (in thousands of ₹): 10–15: 6, 15–20: 14, 20–25: 10, 25–30: 5. What is the modal expense, in thousands of ₹?",
+     "options": [
+      "17.5",
+      "20",
+      "18.33",
+      "16.67"
+     ],
+     "answer": 2,
+     "explain": "Modal class 15–20: 15 + (14 − 6)/(28 − 6 − 10) × 5 = 15 + 8/12 × 5 ≈ 18.33 thousand rupees.",
+     "steps": [
+      "l = 15, f₁ = 14, f₀ = 6, f₂ = 10, h = 5",
+      "Denominator = 12",
+      "15 + 3.33 = 18.33"
+     ],
+     "mistake": "Uses the class mark 17.5 instead of the formula",
+     "check": "15+Fraction(8,12)*5"
+    },
+    {
+     "q": "Frequencies of five classes are 5, 12, 7, 12, 4. Why can't we use the mode formula directly?",
+     "options": [
+      "The total is not 40",
+      "The frequencies are too small",
+      "Two classes share the highest frequency, so the data is bimodal",
+      "The first frequency is odd"
+     ],
+     "answer": 2,
+     "explain": "There are two modal classes (both 12). Class 10 problems avoid such bimodal data.",
+     "mistake": "Picks the first class with frequency 12 without noticing the tie"
+    },
+    {
+     "q": "Which situation is best described by the mode?",
+     "options": [
+      "The total runs scored in a season",
+      "The most popular school-uniform size",
+      "The average temperature over a month",
+      "The middle salary in a company"
+     ],
+     "answer": 1,
+     "explain": "The mode is the most frequent value — exactly what you need for the most popular size.",
+     "mistake": "Uses the mean for a 'most common' question"
+    },
+    {
+     "q": "Teacher–student ratios of states: 15–20: 3, 20–25: 8, 25–30: 9, 30–35: 12, 35–40: 4. What is the modal ratio (students per teacher)?",
+     "options": [
+      "31.36",
+      "32.5",
+      "30",
+      "33.75"
+     ],
+     "answer": 0,
+     "explain": "Modal class 30–35: 30 + (12 − 9)/(24 − 9 − 4) × 5 = 30 + 15/11 ≈ 31.36.",
+     "steps": [
+      "l = 30, f₁ = 12, f₀ = 9, f₂ = 4, h = 5",
+      "Denominator = 11",
+      "30 + 1.36 = 31.36"
+     ],
+     "mistake": "Uses the class mark 32.5",
+     "check": "30+Fraction(3,11)*5"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu found the mean age of patients is 34.25 years and the mode is 35.45 years. He thinks one must be wrong. Explain.",
+    "must": [
+     [
+      "mode",
+      "most common",
+      "most frequent"
+     ],
+     [
+      "mean",
+      "average"
+     ],
+     [
+      "different",
+      "both",
+      "not equal"
+     ]
+    ],
+    "praise": "Chirp! The mode is the most common age and the mean is the average — they answer different questions!",
+    "nudge": "What does each one actually measure?"
    }
   },
   {
@@ -751,6 +1492,490 @@
     ],
     "praise": "Tweet tweet! Half of n, cumulative frequencies, the median class and then the formula. Spot on!",
     "nudge": "How do I find which class the middle value falls in?"
+   },
+   "covers": [
+    "c13.4.2",
+    "c13.4.3",
+    "c13.4.4",
+    "c13.4.5",
+    "c13.4.8",
+    "c13.4.10"
+   ]
+  },
+  {
+   "id": "g10-maths-13-07",
+   "title": "Cumulative frequency tables and missing frequencies",
+   "covers": [
+    "c13.4.2",
+    "c13.4.6",
+    "c13.4.7"
+   ],
+   "learn": {
+    "hook": "A 'less than' table and a 'more than' table hide the same data — learn to decode both, and even find frequencies that went missing!",
+    "points": [
+     "Less-than cumulative frequency: how many values are below each upper limit (keep adding from the top).",
+     "More-than (or equal to) cumulative frequency: how many values are at or above each lower limit (start from the total and subtract).",
+     "To get back the frequencies from a less-than table, subtract consecutive entries: f = cf(this class) − cf(previous class). For a more-than table, subtract each entry from the one before it.",
+     "Missing frequencies: use Σf = n for one equation and the median formula for another, then solve."
+    ],
+    "example": {
+     "q": "For 50 values, the median is 32. Classes: 0–10: 5, 10–20: x, 20–30: 10, 30–40: 15, 40–50: y, 50–60: 4. Find x and y.",
+     "steps": [
+      "Total: 5 + x + 10 + 15 + y + 4 = 50, so x + y = 16",
+      "Median 32 lies in 30–40: l = 30, f = 15, h = 10, cf = 5 + x + 10 = 15 + x",
+      "32 = 30 + [(25 − 15 − x)/15] × 10",
+      "2 = (10 − x) × 10/15 → 10 − x = 3 → x = 7",
+      "y = 16 − 7 = 9"
+     ],
+     "answer": "x = 7, y = 9"
+    },
+    "reallife": "Exam results are often published as 'number of students scoring less than 40, less than 60…'. These are cumulative tables."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Fill the gap",
+     "items": [
+      {
+       "text": "Less than 20: 10 and less than 30: 22, so frequency of 20–30 = ___",
+       "answer": "12",
+       "options": [
+        "12",
+        "32",
+        "22"
+       ]
+      },
+      {
+       "text": "More than or equal to 40: 30 and ≥ 45: 18, so frequency of 40–45 = ___",
+       "answer": "12",
+       "options": [
+        "12",
+        "48",
+        "18"
+       ]
+      },
+      {
+       "text": "The first entry of a 'more than or equal to' table is ___",
+       "answer": "n",
+       "options": [
+        "n",
+        "0",
+        "f₁"
+       ]
+      },
+      {
+       "text": "The last entry of a 'less than' table is ___",
+       "answer": "n",
+       "options": [
+        "n",
+        "0",
+        "h"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Missing frequencies from the median",
+     "prompt": "First step to last step",
+     "items": [
+      "Write Σf = n to get one equation",
+      "Find n/2 and locate the median class",
+      "Write cf of the class before it using the unknowns",
+      "Put the values into the median formula and solve",
+      "Use the first equation to get the other unknown"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Classes 0–10: 5, 10–20: 8, 20–30: 12, 30–40: 5. How many values are 20 or more?",
+     "options": [
+      "25",
+      "17",
+      "13",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "Values 20 or more are in 20–30 and 30–40: 12 + 5 = 17.",
+     "steps": [
+      "≥ 20 means classes 20–30 and 30–40",
+      "12 + 5 = 17"
+     ],
+     "mistake": "Adds the first classes instead of the last ones",
+     "check": "12+5"
+    },
+    {
+     "q": "A less-than table reads: < 10: 4, < 20: 10, < 30: 22, < 40: 30. What is the frequency of the class 20–30?",
+     "options": [
+      "22",
+      "10",
+      "32",
+      "12"
+     ],
+     "answer": 3,
+     "explain": "Frequency = 22 − 10 = 12.",
+     "steps": [
+      "f = cf(< 30) − cf(< 20)",
+      "= 22 − 10 = 12"
+     ],
+     "mistake": "Reads the cumulative frequency as the class frequency",
+     "check": "22-10"
+    },
+    {
+     "q": "50 values have median 32. Classes: 0–10: 5, 10–20: x, 20–30: 10, 30–40: 15, 40–50: y, 50–60: 4. What is x?",
+     "options": [
+      "7",
+      "9",
+      "3",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "32 = 30 + [(25 − 15 − x)/15] × 10 gives 10 − x = 3, so x = 7.",
+     "steps": [
+      "cf before 30–40 = 15 + x",
+      "2 = (10 − x) × 10/15",
+      "x = 7"
+     ],
+     "mistake": "Uses n instead of n/2 in the formula",
+     "check": "10-3"
+    },
+    {
+     "q": "In the same problem (x + y = 16 and x = 7), what is y?",
+     "options": [
+      "7",
+      "16",
+      "23",
+      "9"
+     ],
+     "answer": 3,
+     "explain": "y = 16 − 7 = 9. Check: 5 + 7 + 10 + 15 + 9 + 4 = 50 ✓.",
+     "steps": [
+      "x + y = 16",
+      "y = 16 − 7 = 9"
+     ],
+     "mistake": "Forgets the total equation",
+     "check": "16-7"
+    },
+    {
+     "q": "In a 'more than or equal to' cumulative frequency table, what is the first entry (for the lowest lower limit)?",
+     "options": [
+      "The total number of values n",
+      "0",
+      "The first class frequency",
+      "n/2"
+     ],
+     "answer": 0,
+     "explain": "Every value is at least the lowest lower limit, so the first entry is the total n.",
+     "mistake": "Confuses it with a less-than table, which starts small"
+    },
+    {
+     "q": "A more-than table reads: ≥ 0: 40, ≥ 10: 34, ≥ 20: 24, ≥ 30: 10, ≥ 40: 0. What is the median?",
+     "options": [
+      "25",
+      "20",
+      "24.29",
+      "22.86"
+     ],
+     "answer": 3,
+     "explain": "Frequencies: 6, 10, 14, 10. n/2 = 20; cf: 6, 16, 30, so the median class is 20–30. Median = 20 + (20 − 16)/14 × 10 ≈ 22.86.",
+     "steps": [
+      "Frequencies: 40 − 34 = 6, 34 − 24 = 10, 24 − 10 = 14, 10 − 0 = 10",
+      "Median class 20–30, cf = 16, f = 14",
+      "20 + 4/14 × 10 ≈ 22.86"
+     ],
+     "mistake": "Uses the more-than entries directly as cumulative frequencies in the formula",
+     "check": "20+Fraction(4,14)*10"
+    },
+    {
+     "q": "In a less-than table, what does 'less than 30: 22' mean?",
+     "options": [
+      "22 values are exactly 30",
+      "The class 20–30 has 22 values",
+      "30 values are below 22",
+      "22 values are below 30"
+     ],
+     "answer": 3,
+     "explain": "A less-than cumulative frequency counts all values below the given limit.",
+     "mistake": "Thinks it is the frequency of one class"
+    },
+    {
+     "q": "Weights of students: ≥ 40 kg: 30, ≥ 45 kg: 18. How many students weigh from 40 kg up to (but not including) 45 kg?",
+     "options": [
+      "18",
+      "12",
+      "30",
+      "48"
+     ],
+     "answer": 1,
+     "explain": "30 students are at least 40 kg and 18 are at least 45 kg, so 30 − 18 = 12 are in 40–45 kg.",
+     "steps": [
+      "30 − 18 = 12"
+     ],
+     "mistake": "Adds the two entries",
+     "check": "30-18"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu got a 'less than' table instead of a frequency table. How can he get the frequencies back?",
+    "must": [
+     [
+      "subtract",
+      "difference",
+      "minus"
+     ],
+     [
+      "cumulative",
+      "cf"
+     ],
+     [
+      "previous",
+      "before",
+      "consecutive"
+     ]
+    ],
+    "praise": "Tweet! Subtract each cumulative frequency from the next one — the class frequencies come right back!",
+    "nudge": "Which two entries should he subtract to get one class's frequency?"
+   }
+  },
+  {
+   "id": "g10-maths-13-08",
+   "title": "The empirical relationship and chapter recap",
+   "covers": [
+    "c13.4.9",
+    "c13.5.1"
+   ],
+   "learn": {
+    "hook": "Know any two of mean, median and mode? A handy rule of thumb gives you the third!",
+    "points": [
+     "Empirical relationship: 3 Median = Mode + 2 Mean (it works well for moderately skewed data).",
+     "So Mode = 3 Median − 2 Mean, and Mean = (3 Median − Mode)/2.",
+     "Recap of the mean: direct x̄ = Σfx/Σf; assumed mean x̄ = a + Σfd/Σf; step-deviation x̄ = a + h × Σfu/Σf.",
+     "Recap: Mode = l + [(f₁ − f₀)/(2f₁ − f₀ − f₂)] × h; Median = l + [(n/2 − cf)/f] × h."
+    ],
+    "example": {
+     "q": "The mean of some data is 30 and the median is 32. Estimate the mode.",
+     "steps": [
+      "3 Median = Mode + 2 Mean",
+      "3 × 32 = Mode + 2 × 30",
+      "96 = Mode + 60",
+      "Mode = 36"
+     ],
+     "answer": "36"
+    },
+    "reallife": "Statisticians use this quick rule to check whether reported averages are sensible before doing longer calculations."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Empirical rule sprint",
+     "items": [
+      {
+       "q": "Mean 30, median 32: mode?",
+       "a": "36",
+       "check": "3*32-2*30"
+      },
+      {
+       "q": "Mode 45, mean 42: median?",
+       "a": "43",
+       "check": "(45+2*42)/3"
+      },
+      {
+       "q": "Median 25, mode 28: mean?",
+       "a": "23.5",
+       "check": "(3*25-28)/2"
+      },
+      {
+       "q": "Median 18, mean 20: mode?",
+       "a": "14",
+       "check": "3*18-2*20"
+      },
+      {
+       "q": "Mean 50, mode 50: median?",
+       "a": "50",
+       "check": "(50+100)/3"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Recap: match the formula",
+     "pairs": [
+      [
+       "a + Σfd/Σf",
+       "Assumed mean method"
+      ],
+      [
+       "a + h × Σfu/Σf",
+       "Step-deviation method"
+      ],
+      [
+       "l + [(n/2 − cf)/f] × h",
+       "Median"
+      ],
+      [
+       "l + [(f₁ − f₀)/(2f₁ − f₀ − f₂)] × h",
+       "Mode"
+      ],
+      [
+       "3 Median = Mode + 2 Mean",
+       "Empirical relationship"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The mean of some data is 30 and the median is 32. Using the empirical relationship, what is the mode?",
+     "options": [
+      "36",
+      "34",
+      "31",
+      "28"
+     ],
+     "answer": 0,
+     "explain": "Mode = 3 Median − 2 Mean = 96 − 60 = 36.",
+     "steps": [
+      "3 × 32 = 96",
+      "2 × 30 = 60",
+      "96 − 60 = 36"
+     ],
+     "mistake": "Uses 2 Median − 3 Mean or another mixed-up form",
+     "check": "3*32-2*30"
+    },
+    {
+     "q": "The mode of some data is 45 and the mean is 42. What is the median?",
+     "options": [
+      "43.5",
+      "44",
+      "43",
+      "39"
+     ],
+     "answer": 2,
+     "explain": "3 Median = 45 + 84 = 129, so Median = 43.",
+     "steps": [
+      "3 Median = Mode + 2 Mean",
+      "= 45 + 84 = 129",
+      "Median = 43"
+     ],
+     "mistake": "Forgets to multiply the mean by 2",
+     "check": "(45+2*42)/3"
+    },
+    {
+     "q": "The median is 25 and the mode is 28. What is the mean?",
+     "options": [
+      "26.5",
+      "22",
+      "23.5",
+      "47"
+     ],
+     "answer": 2,
+     "explain": "Mean = (3 Median − Mode)/2 = (75 − 28)/2 = 23.5.",
+     "steps": [
+      "3 × 25 = 75",
+      "75 − 28 = 47",
+      "47 ÷ 2 = 23.5"
+     ],
+     "mistake": "Forgets to divide by 2",
+     "check": "(3*25-28)/2"
+    },
+    {
+     "q": "The median is 18 and the mean is 20. What is the mode?",
+     "options": [
+      "16",
+      "22",
+      "14",
+      "26"
+     ],
+     "answer": 2,
+     "explain": "Mode = 3 × 18 − 2 × 20 = 54 − 40 = 14.",
+     "steps": [
+      "54 − 40 = 14"
+     ],
+     "mistake": "Swaps the roles of mean and median",
+     "check": "3*18-2*20"
+    },
+    {
+     "q": "Recap: using the assumed mean method with a = 50, Σfᵢdᵢ = 60 and Σfᵢ = 30, what is the mean?",
+     "options": [
+      "48",
+      "52",
+      "50",
+      "110"
+     ],
+     "answer": 1,
+     "explain": "x̄ = 50 + 60/30 = 52.",
+     "steps": [
+      "60 ÷ 30 = 2",
+      "50 + 2 = 52"
+     ],
+     "mistake": "Subtracts instead of adding, or forgets to divide by Σf",
+     "check": "50+60/30"
+    },
+    {
+     "q": "Recap: step-deviation with a = 25, h = 10, Σfᵢuᵢ = −6 and Σfᵢ = 20. What is the mean?",
+     "options": [
+      "22",
+      "28",
+      "24.7",
+      "19"
+     ],
+     "answer": 0,
+     "explain": "x̄ = 25 + 10 × (−6/20) = 25 − 3 = 22.",
+     "steps": [
+      "−6 ÷ 20 = −0.3",
+      "10 × (−0.3) = −3",
+      "25 − 3 = 22"
+     ],
+     "mistake": "Forgets to multiply by h (gets 24.7)",
+     "check": "25+10*Fraction(-6,20)"
+    },
+    {
+     "q": "Recap: in the median formula l + [(n/2 − cf)/f] × h, what is f?",
+     "options": [
+      "The total frequency",
+      "The frequency of the class before the median class",
+      "The frequency of the median class",
+      "The class size"
+     ],
+     "answer": 2,
+     "explain": "f is the frequency of the median class itself; cf is the cumulative frequency of the class before it.",
+     "mistake": "Mixes up f and cf"
+    },
+    {
+     "q": "Recap: which measure is found using the class marks of every class?",
+     "options": [
+      "Median",
+      "Mode",
+      "Mean",
+      "Class size"
+     ],
+     "answer": 2,
+     "explain": "The mean uses Σfᵢxᵢ, where xᵢ is the class mark of each class. The median and mode use mainly one class.",
+     "mistake": "Thinks the median uses all the class marks"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu knows the mean is 30 and the median is 32 but has no table. How can he estimate the mode?",
+    "must": [
+     [
+      "3 median",
+      "three times the median",
+      "3 × median"
+     ],
+     [
+      "2 mean",
+      "twice the mean",
+      "2 × mean"
+     ],
+     [
+      "empirical",
+      "relationship",
+      "rule"
+     ]
+    ],
+    "praise": "Chirp! 3 Median = Mode + 2 Mean, so Mode = 96 − 60 = 36!",
+    "nudge": "What is the rule that links the three measures?"
    }
   }
  ]
