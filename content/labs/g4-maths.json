@@ -57,107 +57,55 @@
   }
  },
  "g4-maths-01-06": {
-  "type": "wordbuilder",
+  "type": "matchpairs",
   "p": {
-   "challenge": "Straws are edges, clay balls are corners. Spin the wheels to build each skeleton",
-   "slots": [
+   "title": "Straw and clay skeletons",
+   "challenge": "Straws are edges, clay balls are corners. Join each solid to what its skeleton needs",
+   "leftTitle": "Solid",
+   "rightTitle": "Straws and clay balls",
+   "mode": "instant",
+   "pairs": [
     [
-     "6 straws",
-     "8 straws",
-     "12 straws"
+     "Cube",
+     "12 straws, 8 clay balls"
     ],
     [
-     "4 clay balls",
-     "5 clay balls",
-     "8 clay balls"
+     "Square pyramid",
+     "8 straws, 5 clay balls"
+    ],
+    [
+     "Triangular pyramid",
+     "6 straws, 4 clay balls"
+    ],
+    [
+     "Triangular prism",
+     "9 straws, 6 clay balls"
     ]
-   ],
-   "slotLabels": [
-    "Straws (edges)",
-    "Clay balls (corners)"
-   ],
-   "rootSlot": 0,
-   "words": [
-    {
-     "parts": [
-      "6 straws",
-      "4 clay balls"
-     ],
-     "word": "Triangular pyramid",
-     "meaning": "6 edges and 4 corners"
-    },
-    {
-     "parts": [
-      "8 straws",
-      "5 clay balls"
-     ],
-     "word": "Square pyramid",
-     "meaning": "8 edges and 5 corners"
-    },
-    {
-     "parts": [
-      "12 straws",
-      "8 clay balls"
-     ],
-     "word": "Cube",
-     "meaning": "12 edges and 8 corners"
-    }
-   ],
-   "targets": [
-    "Cube",
-    "Square pyramid",
-    "Triangular pyramid"
    ]
   }
  },
  "g4-maths-01-07": {
-  "type": "wordbuilder",
+  "type": "matchpairs",
   "p": {
-   "challenge": "Opposite faces of a dice add up to 7. Spin the wheels to find all 3 opposite pairs",
-   "slots": [
+   "title": "Opposite faces of a dice",
+   "challenge": "Opposite faces of a dice add up to 7. Join each top face to the face at the bottom",
+   "leftTitle": "Top face",
+   "rightTitle": "Bottom face",
+   "mode": "instant",
+   "pairs": [
     [
-     "1",
-     "2",
-     "3"
+     "1 on top",
+     "6 at the bottom"
     ],
     [
-     "4",
-     "5",
-     "6"
+     "2 on top",
+     "5 at the bottom"
+    ],
+    [
+     "3 on top",
+     "4 at the bottom"
     ]
-   ],
-   "slotLabels": [
-    "Top face",
-    "Bottom face"
-   ],
-   "rootSlot": 0,
-   "words": [
-    {
-     "parts": [
-      "1",
-      "6"
-     ],
-     "word": "1 opposite 6",
-     "meaning": "1 + 6 = 7"
-    },
-    {
-     "parts": [
-      "2",
-      "5"
-     ],
-     "word": "2 opposite 5",
-     "meaning": "2 + 5 = 7"
-    },
-    {
-     "parts": [
-      "3",
-      "4"
-     ],
-     "word": "3 opposite 4",
-     "meaning": "3 + 4 = 7"
-    }
-   ],
-   "goal": 3
+   ]
   }
  },
  "g4-maths-01-08": {
@@ -292,6 +240,64 @@
      "Circle",
      "1 curved edge, no corners"
     ]
+   ]
+  }
+ },
+ "g4-maths-01-12": {
+  "type": "sortbins",
+  "p": {
+   "title": "Group the straw shapes by their angles",
+   "challenge": "Count the angles (corners) of each shape. Fewer than 5, or more than 5?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Fewer than 5 angles",
+     "emoji": "🔺",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "More than 5 angles",
+     "emoji": "⬡",
+     "color": "#8b5cf6"
+    }
+   ],
+   "items": [
+    {
+     "text": "Triangle",
+     "emoji": "🔺",
+     "bin": 0,
+     "why": "3 angles. A straw triangle is rigid!"
+    },
+    {
+     "text": "Square",
+     "emoji": "🟥",
+     "bin": 0,
+     "why": "4 angles, all right angles."
+    },
+    {
+     "text": "Rectangle",
+     "emoji": "▭",
+     "bin": 0,
+     "why": "4 angles, all right angles."
+    },
+    {
+     "text": "Pushed square (slanted)",
+     "emoji": "◇",
+     "bin": 0,
+     "why": "Still 4 angles: 2 acute and 2 obtuse. Sides stay the same."
+    },
+    {
+     "text": "Hexagon",
+     "emoji": "⬡",
+     "bin": 1,
+     "why": "6 sides, 6 angles."
+    },
+    {
+     "text": "Octagon",
+     "emoji": "🛑",
+     "bin": 1,
+     "why": "8 sides, 8 angles."
+    }
    ]
   }
  },
@@ -1416,6 +1422,58 @@
    "slice": true,
    "den": 4,
    "challenge": "Fold the square paper in half, then in half again. Cut the bottom shape into 4 quarters: how many quarters make a half?"
+  }
+ },
+ "g4-maths-05-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Halves or quarters?",
+   "challenge": "Each way of cutting a rectangle gives equal parts. Halves or quarters?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Halves (2 equal parts)",
+     "emoji": "½",
+     "color": "#8b5cf6"
+    },
+    {
+     "name": "Quarters (4 equal parts)",
+     "emoji": "¼",
+     "color": "#2ed3a5"
+    }
+   ],
+   "items": [
+    {
+     "text": "1 fold across the middle",
+     "bin": 0,
+     "why": "1 fold makes 2 equal parts: halves."
+    },
+    {
+     "text": "1 diagonal cut",
+     "bin": 0,
+     "why": "Corner to corner makes 2 equal triangles: halves."
+    },
+    {
+     "text": "1 fold along the middle",
+     "bin": 0,
+     "why": "2 equal parts: halves."
+    },
+    {
+     "text": "4 equal strips",
+     "bin": 1,
+     "why": "4 equal parts are quarters."
+    },
+    {
+     "text": "Both diagonals",
+     "bin": 1,
+     "why": "Both diagonals make 4 equal triangles: quarters."
+    },
+    {
+     "text": "2 folds crossing at the centre",
+     "bin": 1,
+     "why": "4 small equal rectangles: quarters."
+    }
+   ]
   }
  },
  "g4-maths-05-06": {
@@ -2647,76 +2705,73 @@
   }
  },
  "g4-maths-10-06": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Odd or even sum?",
-   "task": "play",
-   "challenge": "Pick two numbers, like 3 + 5 or 3 + 4. Press Next and answer Yes/No to find if the sum is odd or even",
-   "nodes": [
+   "title": "Odd or even answer?",
+   "challenge": "Sort each sum or difference: is the answer even or odd?",
+   "mode": "sort",
+   "bins": [
     {
-     "id": "a",
-     "emoji": "1️⃣",
-     "text": "Is the first number odd?",
-     "info": "Odd numbers end in 1, 3, 5, 7 or 9.",
-     "type": "decision"
+     "name": "Even answer",
+     "emoji": "🟦",
+     "color": "#8b5cf6"
     },
     {
-     "id": "b",
-     "emoji": "2️⃣",
-     "text": "Is the second number odd too?",
-     "info": "Look at its ones digit.",
-     "type": "decision"
-    },
-    {
-     "id": "c",
-     "emoji": "2️⃣",
-     "text": "Is the second number odd?",
-     "info": "Look at its ones digit.",
-     "type": "decision"
-    },
-    {
-     "id": "d",
-     "emoji": "✅",
-     "text": "Even sum",
-     "info": "Odd + odd = even (3 + 5 = 8). Even + even = even (4 + 6 = 10)."
-    },
-    {
-     "id": "e",
+     "name": "Odd answer",
      "emoji": "⭕",
-     "text": "Odd sum",
-     "info": "Odd + even = odd (3 + 4 = 7)."
+     "color": "#2ed3a5"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b",
-     "label": "Yes"
+     "text": "Odd + odd",
+     "bin": 0,
+     "why": "Odd + odd = even (3 + 5 = 8)."
     },
     {
-     "from": "a",
-     "to": "c",
-     "label": "No"
+     "text": "Even + even",
+     "bin": 0,
+     "why": "Even + even = even (4 + 6 = 10)."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "Yes"
+     "text": "Odd + even",
+     "bin": 1,
+     "why": "Odd + even = odd (3 + 4 = 7)."
     },
     {
-     "from": "b",
-     "to": "e",
-     "label": "No"
+     "text": "Even + odd",
+     "bin": 1,
+     "why": "Even + odd = odd."
     },
     {
-     "from": "c",
-     "to": "e",
-     "label": "Yes"
+     "text": "15 + 27",
+     "bin": 0,
+     "why": "Odd + odd: 15 + 27 = 42, even."
     },
     {
-     "from": "c",
-     "to": "d",
-     "label": "No"
+     "text": "24 + 31",
+     "bin": 1,
+     "why": "Even + odd: 24 + 31 = 55, odd."
+    },
+    {
+     "text": "Odd − odd",
+     "bin": 0,
+     "why": "Odd − odd is even (9 − 3 = 6)."
+    },
+    {
+     "text": "Even − odd",
+     "bin": 1,
+     "why": "Even − odd is odd (10 − 3 = 7)."
+    },
+    {
+     "text": "Even − even",
+     "bin": 0,
+     "why": "Even − even is even (8 − 2 = 6)."
+    },
+    {
+     "text": "Odd − even",
+     "bin": 1,
+     "why": "Odd − even is odd (9 − 4 = 5)."
     }
    ]
   }
@@ -3020,6 +3075,68 @@
    "challenge": "The paper is folded twice and a square is cut in the middle, away from the folds. Open it: paint every hole you will see"
   }
  },
+ "g4-maths-11-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Mirror games with numbers",
+   "challenge": "Hold a mirror beside each number. Does it look the same, or does it change?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Looks the same",
+     "emoji": "🪞",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Looks different",
+     "emoji": "🔄",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "0",
+     "bin": 0,
+     "why": "0 looks the same in a mirror."
+    },
+    {
+     "text": "8",
+     "bin": 0,
+     "why": "8 looks the same in a mirror."
+    },
+    {
+     "text": "88",
+     "bin": 0,
+     "why": "Same digits, and the order flips to the same number."
+    },
+    {
+     "text": "101",
+     "bin": 0,
+     "why": "It reads the same both ways."
+    },
+    {
+     "text": "808",
+     "bin": 0,
+     "why": "It reads the same both ways."
+    },
+    {
+     "text": "18",
+     "bin": 1,
+     "why": "The mirror reverses the order: it looks like 81."
+    },
+    {
+     "text": "81",
+     "bin": 1,
+     "why": "The mirror reverses the order: it looks like 18."
+    },
+    {
+     "text": "2",
+     "bin": 1,
+     "why": "2 is flipped the other way round in a mirror."
+    }
+   ]
+  }
+ },
  "g4-maths-11-06": {
   "type": "symmetry",
   "p": {
@@ -3047,6 +3164,64 @@
     "plus"
    ],
    "challenge": "Turn the tile a quarter turn at a time. How many quarter turns bring it back to the start?"
+  }
+ },
+ "g4-maths-11-08": {
+  "type": "sortbins",
+  "p": {
+   "title": "Tessellation: no gaps, no overlaps",
+   "challenge": "Can copies of this tile cover a floor on their own with no gaps and no overlaps?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Tessellates",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Leaves gaps",
+     "emoji": "🕳️",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Square",
+     "emoji": "🟩",
+     "bin": 0,
+     "why": "Squares fit together with no gaps."
+    },
+    {
+     "text": "Rectangle",
+     "emoji": "▭",
+     "bin": 0,
+     "why": "Rectangles fit together like bricks."
+    },
+    {
+     "text": "Regular triangle",
+     "emoji": "🔺",
+     "bin": 0,
+     "why": "Regular triangles fit together with no gaps."
+    },
+    {
+     "text": "Regular hexagon",
+     "emoji": "⬡",
+     "bin": 0,
+     "why": "Like a honeycomb: no gaps."
+    },
+    {
+     "text": "Circle",
+     "emoji": "⚪",
+     "bin": 1,
+     "why": "Circles always leave gaps between them."
+    },
+    {
+     "text": "Regular pentagon",
+     "emoji": "⬠",
+     "bin": 1,
+     "why": "Regular pentagons leave gaps."
+    }
+   ]
   }
  },
  "g4-maths-11-10": {
@@ -3329,6 +3504,74 @@
     10
    ],
    "challenge": "14 × 5 = double (7 × 5). Start at 7 × 5 = 35 and hop 35 more to double it"
+  }
+ },
+ "g4-maths-13-09": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Break it up: multiples of 10",
+   "challenge": "Join each product to the easy way of working it out",
+   "leftTitle": "Product",
+   "rightTitle": "Easy way",
+   "mode": "instant",
+   "pairs": [
+    [
+     "24 × 40",
+     "24 × 4 × 10 = 960"
+    ],
+    [
+     "50 × 60",
+     "5 × 6 × 100 = 3000"
+    ],
+    [
+     "70 × 80",
+     "7 × 8 × 100 = 5600"
+    ],
+    [
+     "15 × 30",
+     "15 × 3 × 10 = 450"
+    ],
+    [
+     "90 × 20",
+     "9 × 2 × 100 = 1800"
+    ],
+    [
+     "35 × 20",
+     "35 × 2 × 10 = 700"
+    ]
+   ]
+  }
+ },
+ "g4-maths-13-10": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Partial products for 23 × 14",
+   "challenge": "23 × 14 = (20 + 3) × (10 + 4). Join each part to its product",
+   "leftTitle": "Part",
+   "rightTitle": "Product",
+   "mode": "instant",
+   "pairs": [
+    [
+     "20 × 10",
+     "200"
+    ],
+    [
+     "20 × 4",
+     "80"
+    ],
+    [
+     "3 × 10",
+     "30"
+    ],
+    [
+     "3 × 4",
+     "12"
+    ],
+    [
+     "200 + 80 + 30 + 12",
+     "322 = 23 × 14"
+    ]
+   ]
   }
  },
  "g4-maths-13-11": {
@@ -3700,184 +3943,6 @@
     "answer": 35
    },
    "challenge": "Compare the two bars for Tuesday: popcorn 50, balloons 15. How many more popcorn packets?"
-  }
- },
- "g4-maths-01-12": {
-  "type": "sortbins",
-  "p": {
-   "title": "Group the straw shapes by their angles",
-   "challenge": "Count the angles (corners) of each shape. Fewer than 5, or more than 5?",
-   "mode": "sort",
-   "bins": [
-    {
-     "name": "Fewer than 5 angles",
-     "emoji": "🔺",
-     "color": "#2ed3a5"
-    },
-    {
-     "name": "More than 5 angles",
-     "emoji": "⬡",
-     "color": "#8b5cf6"
-    }
-   ],
-   "items": [
-    {
-     "text": "Triangle",
-     "emoji": "🔺",
-     "bin": 0,
-     "why": "3 angles. A straw triangle is rigid!"
-    },
-    {
-     "text": "Square",
-     "emoji": "🟥",
-     "bin": 0,
-     "why": "4 angles, all right angles."
-    },
-    {
-     "text": "Rectangle",
-     "emoji": "▭",
-     "bin": 0,
-     "why": "4 angles, all right angles."
-    },
-    {
-     "text": "Pushed square (slanted)",
-     "emoji": "◇",
-     "bin": 0,
-     "why": "Still 4 angles: 2 acute and 2 obtuse. Sides stay the same."
-    },
-    {
-     "text": "Hexagon",
-     "emoji": "⬡",
-     "bin": 1,
-     "why": "6 sides, 6 angles."
-    },
-    {
-     "text": "Octagon",
-     "emoji": "🛑",
-     "bin": 1,
-     "why": "8 sides, 8 angles."
-    }
-   ]
-  }
- },
- "g4-maths-11-05": {
-  "type": "sortbins",
-  "p": {
-   "title": "Mirror games with numbers",
-   "challenge": "Hold a mirror beside each number. Does it look the same, or does it change?",
-   "mode": "sort",
-   "bins": [
-    {
-     "name": "Looks the same",
-     "emoji": "🪞",
-     "color": "#2ed3a5"
-    },
-    {
-     "name": "Looks different",
-     "emoji": "🔄",
-     "color": "#ff6b6b"
-    }
-   ],
-   "items": [
-    {
-     "text": "0",
-     "bin": 0,
-     "why": "0 looks the same in a mirror."
-    },
-    {
-     "text": "8",
-     "bin": 0,
-     "why": "8 looks the same in a mirror."
-    },
-    {
-     "text": "88",
-     "bin": 0,
-     "why": "Same digits, and the order flips to the same number."
-    },
-    {
-     "text": "101",
-     "bin": 0,
-     "why": "It reads the same both ways."
-    },
-    {
-     "text": "808",
-     "bin": 0,
-     "why": "It reads the same both ways."
-    },
-    {
-     "text": "18",
-     "bin": 1,
-     "why": "The mirror reverses the order: it looks like 81."
-    },
-    {
-     "text": "81",
-     "bin": 1,
-     "why": "The mirror reverses the order: it looks like 18."
-    },
-    {
-     "text": "2",
-     "bin": 1,
-     "why": "2 is flipped the other way round in a mirror."
-    }
-   ]
-  }
- },
- "g4-maths-11-08": {
-  "type": "sortbins",
-  "p": {
-   "title": "Tessellation: no gaps, no overlaps",
-   "challenge": "Can copies of this tile cover a floor on their own with no gaps and no overlaps?",
-   "mode": "sort",
-   "bins": [
-    {
-     "name": "Tessellates",
-     "emoji": "✅",
-     "color": "#2ed3a5"
-    },
-    {
-     "name": "Leaves gaps",
-     "emoji": "🕳️",
-     "color": "#ff6b6b"
-    }
-   ],
-   "items": [
-    {
-     "text": "Square",
-     "emoji": "🟩",
-     "bin": 0,
-     "why": "Squares fit together with no gaps."
-    },
-    {
-     "text": "Rectangle",
-     "emoji": "▭",
-     "bin": 0,
-     "why": "Rectangles fit together like bricks."
-    },
-    {
-     "text": "Regular triangle",
-     "emoji": "🔺",
-     "bin": 0,
-     "why": "Regular triangles fit together with no gaps."
-    },
-    {
-     "text": "Regular hexagon",
-     "emoji": "⬡",
-     "bin": 0,
-     "why": "Like a honeycomb: no gaps."
-    },
-    {
-     "text": "Circle",
-     "emoji": "⚪",
-     "bin": 1,
-     "why": "Circles always leave gaps between them."
-    },
-    {
-     "text": "Regular pentagon",
-     "emoji": "⬠",
-     "bin": 1,
-     "why": "Regular pentagons leave gaps."
-    }
-   ]
   }
  }
 }

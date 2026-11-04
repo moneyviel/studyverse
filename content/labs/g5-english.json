@@ -34,144 +34,88 @@
   }
  },
  "g5-english-01-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Riya's family words",
-   "task": "play",
-   "challenge": "Follow the questions to find the right family word for each of Riya's relatives",
-   "nodes": [
+   "title": "Masculine, feminine or both?",
+   "challenge": "Sort each family word: does it name a male, a female, or can it be used for both?",
+   "mode": "sort",
+   "bins": [
     {
-     "id": "a",
-     "emoji": "👧",
-     "text": "Who is this relative of Riya?",
-     "info": "Answer each question to find the English family word."
-    },
-    {
-     "id": "b",
-     "emoji": "👨‍👩",
-     "text": "Mummy's or Papa's brother or sister?",
-     "type": "decision",
-     "info": "Riya's Mama ji is her mother's brother."
-    },
-    {
-     "id": "c",
-     "emoji": "🚹",
-     "text": "Is it a male?",
-     "type": "decision",
-     "info": "Masculine words name males; feminine words name females."
-    },
-    {
-     "id": "u",
+     "name": "Masculine",
      "emoji": "👨",
-     "text": "Uncle (masculine)",
-     "info": "Mama ji, Chacha ji: your father's or mother's brother is your uncle."
+     "color": "#8b5cf6"
     },
     {
-     "id": "t",
+     "name": "Feminine",
      "emoji": "👩",
-     "text": "Aunt (feminine)",
-     "info": "Your father's or mother's sister is your aunt."
+     "color": "#2ed3a5"
     },
     {
-     "id": "d",
-     "emoji": "🧒",
-     "text": "Child of Riya's uncle or aunt?",
-     "type": "decision",
-     "info": "The children of your uncle or aunt are your cousins."
-    },
-    {
-     "id": "k",
+     "name": "Both",
      "emoji": "🧑‍🤝‍🧑",
-     "text": "Cousin (boy or girl)",
-     "info": "Cousin is used for both males and females."
-    },
-    {
-     "id": "e",
-     "emoji": "👶",
-     "text": "Child of Riya's brother or sister?",
-     "type": "decision",
-     "info": "Your brother's or sister's son is your nephew; their daughter is your niece."
-    },
-    {
-     "id": "f",
-     "emoji": "🚹",
-     "text": "Is it a boy?",
-     "type": "decision",
-     "info": "Nephew is masculine; niece is feminine."
-    },
-    {
-     "id": "o",
-     "emoji": "👴",
-     "text": "Another word, like grandfather",
-     "info": "Family words name all our relations."
-    },
-    {
-     "id": "n",
-     "emoji": "👦",
-     "text": "Nephew (masculine)",
-     "info": "Riya's brother's or sister's son."
-    },
-    {
-     "id": "m",
-     "emoji": "👧",
-     "text": "Niece (feminine)",
-     "info": "Riya's brother's or sister's daughter."
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "uncle",
+     "bin": 0,
+     "why": "A parent's brother is an uncle: masculine."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "aunt",
+     "bin": 1,
+     "why": "A parent's sister is an aunt: feminine."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "nephew",
+     "bin": 0,
+     "why": "A brother's or sister's son: masculine."
     },
     {
-     "from": "c",
-     "to": "u",
-     "label": "Yes"
+     "text": "niece",
+     "bin": 1,
+     "why": "A brother's or sister's daughter: feminine."
     },
     {
-     "from": "c",
-     "to": "t",
-     "label": "No"
+     "text": "brother",
+     "bin": 0,
+     "why": "A brother is male."
     },
     {
-     "from": "d",
-     "to": "k",
-     "label": "Yes"
+     "text": "sister",
+     "bin": 1,
+     "why": "A sister is female."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "No"
+     "text": "son",
+     "bin": 0,
+     "why": "A son is male."
     },
     {
-     "from": "e",
-     "to": "f",
-     "label": "Yes"
+     "text": "king",
+     "bin": 0,
+     "why": "King names a male."
     },
     {
-     "from": "e",
-     "to": "o",
-     "label": "No"
+     "text": "queen",
+     "bin": 1,
+     "why": "Queen names a female."
     },
     {
-     "from": "f",
-     "to": "n",
-     "label": "Yes"
+     "text": "cousin",
+     "bin": 2,
+     "why": "A cousin can be a boy or a girl."
     },
     {
-     "from": "f",
-     "to": "m",
-     "label": "No"
+     "text": "friend",
+     "bin": 2,
+     "why": "Friend is used for both."
+    },
+    {
+     "text": "child",
+     "bin": 2,
+     "why": "Child is used for both."
     }
    ]
   }
@@ -360,82 +304,38 @@
   }
  },
  "g5-english-03-02": {
-  "type": "wordbuilder",
+  "type": "matchpairs",
   "p": {
-   "challenge": "Make 5 similes: spin the wheels to match each \"as … as\" with the right thing",
-   "slots": [
+   "title": "Similes: as … as",
+   "challenge": "Make 6 similes: join each \"as … as\" with the right thing",
+   "leftTitle": "Describing part",
+   "rightTitle": "Compared with",
+   "mode": "instant",
+   "pairs": [
     [
-     "as green as⠀",
-     "as busy as⠀",
-     "as cold as⠀",
-     "as light as⠀",
-     "as tall as⠀",
-     "as white as⠀"
+     "as green as",
+     "a parrot"
     ],
     [
-     "a parrot",
-     "a bee",
-     "ice",
-     "a feather",
-     "a giraffe",
+     "as busy as",
+     "a bee"
+    ],
+    [
+     "as cold as",
+     "ice"
+    ],
+    [
+     "as light as",
+     "a feather"
+    ],
+    [
+     "as tall as",
+     "a giraffe"
+    ],
+    [
+     "as white as",
      "milk"
     ]
-   ],
-   "slotLabels": [
-    "Describing part",
-    "Compared with"
-   ],
-   "rootSlot": 0,
-   "goal": 5,
-   "words": [
-    {
-     "parts": [
-      "as green as⠀",
-      "a parrot"
-     ],
-     "word": "as green as a parrot",
-     "meaning": "very green, like a parrot's feathers"
-    },
-    {
-     "parts": [
-      "as busy as⠀",
-      "a bee"
-     ],
-     "word": "as busy as a bee",
-     "meaning": "very busy, always working"
-    },
-    {
-     "parts": [
-      "as cold as⠀",
-      "ice"
-     ],
-     "word": "as cold as ice",
-     "meaning": "very cold"
-    },
-    {
-     "parts": [
-      "as light as⠀",
-      "a feather"
-     ],
-     "word": "as light as a feather",
-     "meaning": "very light, not heavy at all"
-    },
-    {
-     "parts": [
-      "as tall as⠀",
-      "a giraffe"
-     ],
-     "word": "as tall as a giraffe",
-     "meaning": "very tall"
-    },
-    {
-     "parts": [
-      "as white as⠀",
-      "milk"
-     ],
-     "word": "as white as milk",
-     "meaning": "very white"
-    }
    ]
   }
  },
@@ -603,91 +503,68 @@
   }
  },
  "g5-english-04-02": {
-  "type": "wordbuilder",
+  "type": "sortbins",
   "p": {
-   "challenge": "Find 6 word pairs from the tale: a synonym (same meaning) or an antonym (opposite)",
-   "slots": [
-    [
-     "clever⠀",
-     "happy⠀",
-     "wise⠀",
-     "open⠀",
-     "rich⠀",
-     "inside⠀",
-     "remember⠀"
-    ],
-    [
-     "smart",
-     "glad",
-     "foolish",
-     "shut",
-     "poor",
-     "outside",
-     "forget"
-    ]
+   "title": "Synonyms or antonyms?",
+   "challenge": "Is each word pair a synonym pair (same meaning) or an antonym pair (opposite)?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Synonyms (same)",
+     "emoji": "🟰",
+     "color": "#8b5cf6"
+    },
+    {
+     "name": "Antonyms (opposite)",
+     "emoji": "↔️",
+     "color": "#2ed3a5"
+    }
    ],
-   "slotLabels": [
-    "Word",
-    "Partner word"
-   ],
-   "rootSlot": 0,
-   "goal": 6,
-   "words": [
+   "items": [
     {
-     "parts": [
-      "clever⠀",
-      "smart"
-     ],
-     "word": "clever = smart",
-     "meaning": "synonyms: both mean quick to think"
+     "text": "clever – smart",
+     "bin": 0,
+     "why": "Both mean quick at thinking."
     },
     {
-     "parts": [
-      "happy⠀",
-      "glad"
-     ],
-     "word": "happy = glad",
-     "meaning": "synonyms: both mean pleased"
+     "text": "happy – glad",
+     "bin": 0,
+     "why": "Both mean pleased."
     },
     {
-     "parts": [
-      "wise⠀",
-      "foolish"
-     ],
-     "word": "wise ↔ foolish",
-     "meaning": "antonyms: opposite meanings"
+     "text": "clever – intelligent",
+     "bin": 0,
+     "why": "Both mean quick at thinking."
     },
     {
-     "parts": [
-      "open⠀",
-      "shut"
-     ],
-     "word": "open ↔ shut",
-     "meaning": "antonyms: The cage was shut, but now it is open."
+     "text": "wise – foolish",
+     "bin": 1,
+     "why": "Opposite meanings."
     },
     {
-     "parts": [
-      "rich⠀",
-      "poor"
-     ],
-     "word": "rich ↔ poor",
-     "meaning": "antonyms: opposite meanings"
+     "text": "open – shut",
+     "bin": 1,
+     "why": "The cage was shut, but now it is open."
     },
     {
-     "parts": [
-      "inside⠀",
-      "outside"
-     ],
-     "word": "inside ↔ outside",
-     "meaning": "antonyms: opposite meanings"
+     "text": "rich – poor",
+     "bin": 1,
+     "why": "Opposite meanings."
     },
     {
-     "parts": [
-      "remember⠀",
-      "forget"
-     ],
-     "word": "remember ↔ forget",
-     "meaning": "antonyms: opposite meanings"
+     "text": "inside – outside",
+     "bin": 1,
+     "why": "Opposite meanings."
+    },
+    {
+     "text": "remember – forget",
+     "bin": 1,
+     "why": "Opposite meanings."
+    },
+    {
+     "text": "brave – cowardly",
+     "bin": 1,
+     "why": "Opposite meanings."
     }
    ]
   }
@@ -810,92 +687,42 @@
   }
  },
  "g5-english-05-03": {
-  "type": "wordbuilder",
+  "type": "matchpairs",
   "p": {
-   "challenge": "Build 6 group names (collective nouns): spin to match each group word with its animals or things",
-   "slots": [
+   "title": "Group names (collective nouns)",
+   "challenge": "Join each group word to the animals or things it names",
+   "leftTitle": "Group word",
+   "rightTitle": "Who or what",
+   "mode": "instant",
+   "pairs": [
     [
-     "a herd of⠀",
-     "a flock of⠀",
-     "a swarm of⠀",
-     "a pride of⠀",
-     "a school of⠀",
-     "a troop of⠀",
-     "a bunch of⠀"
+     "a herd of",
+     "elephants"
     ],
     [
-     "cows",
-     "sheep",
-     "bees",
-     "lions",
-     "fish",
-     "monkeys",
+     "a flock of",
+     "sheep"
+    ],
+    [
+     "a swarm of",
+     "bees"
+    ],
+    [
+     "a pride of",
+     "lions"
+    ],
+    [
+     "a school of",
+     "fish"
+    ],
+    [
+     "a troop of",
+     "monkeys"
+    ],
+    [
+     "a bunch of",
      "grapes"
     ]
-   ],
-   "slotLabels": [
-    "Group word",
-    "Who or what"
-   ],
-   "rootSlot": 0,
-   "goal": 6,
-   "words": [
-    {
-     "parts": [
-      "a herd of⠀",
-      "cows"
-     ],
-     "word": "a herd of cows",
-     "meaning": "a group of cows"
-    },
-    {
-     "parts": [
-      "a flock of⠀",
-      "sheep"
-     ],
-     "word": "a flock of sheep",
-     "meaning": "a group of sheep"
-    },
-    {
-     "parts": [
-      "a swarm of⠀",
-      "bees"
-     ],
-     "word": "a swarm of bees",
-     "meaning": "a group of bees buzzing together"
-    },
-    {
-     "parts": [
-      "a pride of⠀",
-      "lions"
-     ],
-     "word": "a pride of lions",
-     "meaning": "a group of lions"
-    },
-    {
-     "parts": [
-      "a school of⠀",
-      "fish"
-     ],
-     "word": "a school of fish",
-     "meaning": "a group of fish swimming together"
-    },
-    {
-     "parts": [
-      "a troop of⠀",
-      "monkeys"
-     ],
-     "word": "a troop of monkeys",
-     "meaning": "a group of monkeys"
-    },
-    {
-     "parts": [
-      "a bunch of⠀",
-      "grapes"
-     ],
-     "word": "a bunch of grapes",
-     "meaning": "grapes growing together on one stem"
-    }
    ]
   }
  },
