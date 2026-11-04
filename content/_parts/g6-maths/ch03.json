@@ -1,0 +1,773 @@
+{
+ "n": 3,
+ "title": "Number Play",
+ "emoji": "🎲",
+ "topics": [
+  {
+   "id": "g6-maths-03-01",
+   "title": "Numbers and their properties",
+   "learn": {
+    "hook": "Numbers have personalities! Some are even, some are odd, some are 'supercells' that tower over their neighbours.",
+    "points": [
+     "Even numbers end in 0, 2, 4, 6 or 8. Odd numbers end in 1, 3, 5, 7 or 9.",
+     "Even + even = even, odd + odd = even, and even + odd = odd.",
+     "The digit sum of a number is what you get when you add its digits: for 347 it is 3 + 4 + 7 = 14.",
+     "In a row of numbers, a supercell is a number bigger than all its neighbours. A number at either end has only one neighbour.",
+     "Collatz game: if a number is even, halve it; if it is odd, multiply by 3 and add 1. Every number anyone has tried so far ends at 1."
+    ],
+    "example": {
+     "q": "Play the Collatz game starting with 6.",
+     "steps": [
+      "6 is even → 6 ÷ 2 = 3",
+      "3 is odd → 3 × 3 + 1 = 10",
+      "10 → 5",
+      "5 → 5 × 3 + 1 = 16",
+      "16 → 8 → 4 → 2 → 1"
+     ],
+     "answer": "6, 3, 10, 5, 16, 8, 4, 2, 1"
+    },
+    "reallife": "Pairing up children for a game works only when the number is even; shopkeepers quickly check bills using digit sums."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Will the answer be even or odd?",
+     "buckets": [
+      "Even answer",
+      "Odd answer"
+     ],
+     "items": [
+      [
+       "13 + 25",
+       0
+      ],
+      [
+       "17 + 20",
+       1
+      ],
+      [
+       "44 + 66",
+       0
+      ],
+      [
+       "9 + 9 + 9",
+       1
+      ],
+      [
+       "15 + 22",
+       1
+      ],
+      [
+       "101 + 99",
+       0
+      ],
+      [
+       "8 + 8 + 8",
+       0
+      ],
+      [
+       "7 + 6",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Number detective",
+     "items": [
+      {
+       "text": "The digit sum of 4352 is ___",
+       "answer": "14",
+       "options": [
+        "13",
+        "14",
+        "15"
+       ]
+      },
+      {
+       "text": "Collatz: 12 → 6 → 3 → ___",
+       "answer": "10",
+       "options": [
+        "10",
+        "9",
+        "1"
+       ]
+      },
+      {
+       "text": "The smallest 3-digit number with digit sum 5 is ___",
+       "answer": "104",
+       "options": [
+        "500",
+        "113",
+        "104"
+       ]
+      },
+      {
+       "text": "Odd + odd always gives an ___ number.",
+       "answer": "even",
+       "options": [
+        "even",
+        "odd"
+       ]
+      },
+      {
+       "text": "In the row 4, 9, 2, 7, 3 the supercells are 9 and ___",
+       "answer": "7",
+       "options": [
+        "4",
+        "7",
+        "3"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Is the sum 37 + 48 + 15 even or odd?",
+     "options": [
+      "Odd",
+      "Even"
+     ],
+     "answer": 1,
+     "explain": "Odd + even + odd: the two odd numbers make an even, and even + even is even. The total is 100.",
+     "steps": [
+      "37 (odd) + 15 (odd) = even",
+      "even + 48 (even) = even",
+      "Check: 37 + 48 + 15 = 100"
+     ],
+     "mistake": "Thinks that adding any odd number makes the answer odd"
+    },
+    {
+     "q": "What is the digit sum of 9078?",
+     "options": [
+      "23",
+      "24",
+      "25",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "9 + 0 + 7 + 8 = 24.",
+     "steps": [
+      "9 + 0 = 9",
+      "9 + 7 = 16",
+      "16 + 8 = 24"
+     ],
+     "mistake": "Skips a digit or makes an adding slip",
+     "check": "9+0+7+8"
+    },
+    {
+     "q": "How many supercells are in this row: 5, 8, 3, 6, 1, 4? (A supercell is bigger than all its neighbours.)",
+     "options": [
+      "2",
+      "4",
+      "3",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "8 is bigger than 5 and 3; 6 is bigger than 3 and 1; 4 at the end has only one neighbour, 1, and is bigger. So there are 3.",
+     "steps": [
+      "8 > 5 and 8 > 3 ✓",
+      "6 > 3 and 6 > 1 ✓",
+      "4 > 1 (end cell, one neighbour) ✓",
+      "5 < 8, 3 and 1 are small ✗"
+     ],
+     "mistake": "Forgets that a number at the end has only one neighbour",
+     "check": "3"
+    },
+    {
+     "q": "Start the Collatz game at 5 (even → halve, odd → × 3 + 1). What is the third number after 5?",
+     "options": [
+      "16",
+      "8",
+      "2",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "5 → 16 → 8 → 4. The third number after 5 is 4.",
+     "steps": [
+      "5 is odd: 5 × 3 + 1 = 16",
+      "16 is even: 8",
+      "8 is even: 4"
+     ],
+     "mistake": "Counts 5 itself as a step, or stops too early",
+     "check": "(5*3+1)/2/2"
+    },
+    {
+     "q": "Arjun adds five odd numbers. The answer must be...",
+     "options": [
+      "odd",
+      "even",
+      "a multiple of 5",
+      "zero"
+     ],
+     "answer": 0,
+     "explain": "Four odd numbers make two even pairs, and the fifth odd number makes the total odd. For example 1 + 3 + 5 + 7 + 9 = 25.",
+     "mistake": "Thinks adding odd numbers always gives an even answer"
+    },
+    {
+     "q": "Which of these numbers has digits that add up to 10?",
+     "options": [
+      "612",
+      "731",
+      "433",
+      "540"
+     ],
+     "answer": 2,
+     "explain": "4 + 3 + 3 = 10. The others give 6 + 1 + 2 = 9, 7 + 3 + 1 = 11 and 5 + 4 + 0 = 9.",
+     "steps": [
+      "433: 4 + 3 + 3 = 10 ✓"
+     ],
+     "mistake": "Adds only the first two digits",
+     "check": "433"
+    },
+    {
+     "q": "Meena says: 'Adding two even numbers always gives an even number.' Is she right?",
+     "options": [
+      "Only sometimes",
+      "No, never",
+      "Yes, always",
+      "Only for small numbers"
+     ],
+     "answer": 2,
+     "explain": "Each even number is made of pairs. Putting pairs together still gives only pairs, so the sum is even.",
+     "mistake": "Thinks large even numbers might behave differently"
+    },
+    {
+     "q": "Kabir looks at the numbers from 1 to 20. How many of them have a digit sum of 5?",
+     "options": [
+      "2",
+      "1",
+      "3",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "Only 5 and 14 (1 + 4 = 5) have a digit sum of 5 between 1 and 20.",
+     "steps": [
+      "One-digit: 5",
+      "Teens: 14 (1 + 4 = 5)",
+      "Total = 2"
+     ],
+     "mistake": "Forgets the single-digit number 5, or includes 23 which is bigger than 20",
+     "check": "2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has 7 + 9 written in the sand: 'Without adding, can you tell if the answer is even or odd? How?'",
+    "must": [
+     [
+      "even",
+      "odd"
+     ],
+     [
+      "pairs",
+      "pair",
+      "two odds",
+      "odd plus odd"
+     ],
+     [
+      "add",
+      "sum",
+      "plus"
+     ]
+    ],
+    "praise": "Tweet! Odd + odd makes even because the two leftover ones pair up. Clever!",
+    "nudge": "Why does odd + odd turn out even? What happens to the leftovers?"
+   }
+  },
+  {
+   "id": "g6-maths-03-02",
+   "title": "Palindromes",
+   "learn": {
+    "hook": "MALAYALAM reads the same backwards! Numbers can play this mirror game too.",
+    "points": [
+     "A palindrome reads the same forwards and backwards: 121, 4334, 7 and the word MALAYALAM.",
+     "Every 1-digit number is a palindrome. A 3-digit palindrome has the same first and last digit, like 505.",
+     "Reverse-and-add: add a number to its reverse, then repeat with the answer until you get a palindrome.",
+     "Example: 39 + 93 = 132, then 132 + 231 = 363, a palindrome.",
+     "Clocks show palindrome times too, like 12:21 and 10:01."
+    ],
+    "example": {
+     "q": "Do reverse-and-add on 57 until you get a palindrome.",
+     "steps": [
+      "57 + 75 = 132 (not a palindrome)",
+      "132 + 231 = 363",
+      "363 reads the same both ways"
+     ],
+     "answer": "363, in 2 steps"
+    },
+    "reallife": "Look for palindrome bus numbers, car number plates and dates like 22-02-2022!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Palindrome or not?",
+     "buckets": [
+      "Palindrome",
+      "Not a palindrome"
+     ],
+     "items": [
+      [
+       "121",
+       0
+      ],
+      [
+       "4554",
+       0
+      ],
+      [
+       "909",
+       0
+      ],
+      [
+       "7",
+       0
+      ],
+      [
+       "1001",
+       0
+      ],
+      [
+       "123",
+       1
+      ],
+      [
+       "4540",
+       1
+      ],
+      [
+       "1012",
+       1
+      ],
+      [
+       "98",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Reverse and add",
+     "items": [
+      {
+       "text": "45 + 54 = ___",
+       "answer": "99",
+       "options": [
+        "99",
+        "909",
+        "89"
+       ]
+      },
+      {
+       "text": "28 + 82 = ___",
+       "answer": "110",
+       "options": [
+        "100",
+        "110",
+        "120"
+       ]
+      },
+      {
+       "text": "110 + 11 = ___",
+       "answer": "121",
+       "options": [
+        "111",
+        "221",
+        "121"
+       ]
+      },
+      {
+       "text": "The palindrome between 140 and 150 is ___",
+       "answer": "141",
+       "options": [
+        "144",
+        "141",
+        "149"
+       ]
+      },
+      {
+       "text": "The largest 3-digit palindrome is ___",
+       "answer": "999",
+       "options": [
+        "999",
+        "989",
+        "900"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these numbers is a palindrome?",
+     "options": [
+      "2424",
+      "2244",
+      "2442",
+      "4422"
+     ],
+     "answer": 2,
+     "explain": "2442 backwards is 2442. The others change when reversed, for example 2424 becomes 4242.",
+     "mistake": "Thinks a number with repeating digits is always a palindrome",
+     "check": "2442"
+    },
+    {
+     "q": "How many 2-digit palindromes are there?",
+     "options": [
+      "9",
+      "10",
+      "11",
+      "90"
+     ],
+     "answer": 0,
+     "explain": "They are 11, 22, 33, 44, 55, 66, 77, 88, 99, which makes 9. (00 is not a 2-digit number.)",
+     "steps": [
+      "Both digits must be the same",
+      "First digit can be 1 to 9",
+      "So 9 palindromes"
+     ],
+     "mistake": "Counts 00 as a 2-digit number",
+     "check": "9"
+    },
+    {
+     "q": "Do reverse-and-add on 48: 48 + 84 = 132. Then 132 + 231 = ?",
+     "options": [
+      "343",
+      "264",
+      "462",
+      "363"
+     ],
+     "answer": 3,
+     "explain": "132 + 231 = 363, which is a palindrome.",
+     "steps": [
+      "100 + 200 = 300",
+      "30 + 30 = 60",
+      "2 + 1 = 3",
+      "300 + 60 + 3 = 363"
+     ],
+     "mistake": "Doubles 132 instead of adding its reverse (264)",
+     "check": "132+231"
+    },
+    {
+     "q": "Riya's digital clock shows 10:01. Is it a palindrome time?",
+     "options": [
+      "No, because 10 and 01 are different",
+      "Yes, 1001 reads the same both ways",
+      "No, because of the colon",
+      "Only at night"
+     ],
+     "answer": 1,
+     "explain": "Ignoring the colon, the digits 1-0-0-1 read the same forwards and backwards.",
+     "mistake": "Compares the two halves without reversing the second one"
+    },
+    {
+     "q": "What is the smallest 3-digit palindrome?",
+     "options": [
+      "100",
+      "111",
+      "101",
+      "110"
+     ],
+     "answer": 2,
+     "explain": "The first digit must be 1 and the last digit must match it, so the smallest is 1_1 with 0 in the middle: 101.",
+     "mistake": "Chooses 100, which reads 001 backwards",
+     "check": "101"
+    },
+    {
+     "q": "Which of these state languages is spelled as a palindrome in English capital letters?",
+     "options": [
+      "MARATHI",
+      "MALAYALAM",
+      "BENGALI",
+      "PUNJABI"
+     ],
+     "answer": 1,
+     "explain": "MALAYALAM backwards is M-A-L-A-Y-A-L-A-M, exactly the same.",
+     "mistake": "Checks only the first and last letters"
+    },
+    {
+     "q": "How many 3-digit palindromes start with the digit 5?",
+     "options": [
+      "9",
+      "5",
+      "10",
+      "100"
+     ],
+     "answer": 2,
+     "explain": "They look like 5_5, and the middle digit can be any of 0 to 9: 505, 515, ..., 595. That is 10.",
+     "steps": [
+      "First and last digit: 5",
+      "Middle digit: 0, 1, 2, ..., 9",
+      "10 choices"
+     ],
+     "mistake": "Forgets that the middle digit can be 0",
+     "check": "10"
+    },
+    {
+     "q": "Reverse-and-add on 23 gives a palindrome after how many steps?",
+     "options": [
+      "3",
+      "2",
+      "0",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "23 + 32 = 55, which is already a palindrome. So it takes just 1 step.",
+     "steps": [
+      "23 + 32 = 55",
+      "55 is a palindrome"
+     ],
+     "mistake": "Keeps adding after a palindrome has already appeared",
+     "check": "1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu writes 1221 in the sand: 'Someone called this a palindrome. What does that mean?'",
+    "must": [
+     [
+      "same",
+      "match"
+     ],
+     [
+      "backwards",
+      "reverse",
+      "back to front",
+      "right to left"
+     ],
+     [
+      "forwards",
+      "left to right",
+      "both ways"
+     ]
+    ],
+    "praise": "Chirp! It reads the same forwards and backwards, like MALAYALAM. I'll spot them on number plates!",
+    "nudge": "What happens when you read it from the other end?"
+   }
+  },
+  {
+   "id": "g6-maths-03-03",
+   "title": "Kaprekar's routine",
+   "learn": {
+    "hook": "Pick almost any 4-digit number, follow a simple recipe, and you will always land on 6174. Spooky? No, it's maths!",
+    "points": [
+     "Take a 4-digit number whose digits are not all the same.",
+     "Arrange its digits from largest to smallest, and again from smallest to largest.",
+     "Subtract the smaller number from the larger one. Keep zeros: 0378 counts as a 4-digit arrangement.",
+     "Repeat with the answer. You always reach 6174 within 7 steps, and 7641 − 1467 = 6174 brings it back to itself.",
+     "This was discovered by D. R. Kaprekar, a maths teacher from Maharashtra. For 3-digit numbers the routine ends at 495."
+    ],
+    "example": {
+     "q": "Run Kaprekar's routine on 3524.",
+     "steps": [
+      "5432 − 2345 = 3087",
+      "8730 − 0378 = 8352",
+      "8532 − 2358 = 6174"
+     ],
+     "answer": "6174 in 3 steps"
+    },
+    "reallife": "It's a great party trick: ask a friend for a 4-digit number and tell them where they'll end up before they start!"
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Kaprekar's recipe",
+     "prompt": "Put the steps in the right order",
+     "items": [
+      "Pick a 4-digit number whose digits are not all the same",
+      "Arrange its digits to make the largest and the smallest numbers",
+      "Subtract the smaller number from the larger",
+      "Repeat with the answer until you reach 6174"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Speed round: arrange and subtract",
+     "items": [
+      {
+       "q": "Largest number using 3, 9, 1, 5",
+       "a": "9531",
+       "check": "9531"
+      },
+      {
+       "q": "Smallest number using 3, 9, 1, 5",
+       "a": "1359",
+       "check": "1359"
+      },
+      {
+       "q": "9531 − 1359",
+       "a": "8172",
+       "check": "9531-1359"
+      },
+      {
+       "q": "7641 − 1467",
+       "a": "6174",
+       "check": "7641-1467"
+      },
+      {
+       "q": "954 − 459",
+       "a": "495",
+       "check": "954-459"
+      },
+      {
+       "q": "8721 − 1278",
+       "a": "7443",
+       "check": "8721-1278"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is Kaprekar's constant for 4-digit numbers?",
+     "options": [
+      "6174",
+      "1467",
+      "7641",
+      "495"
+     ],
+     "answer": 0,
+     "explain": "Every 4-digit number (digits not all the same) reaches 6174, and 7641 − 1467 = 6174 again.",
+     "mistake": "Picks one of the arranged numbers, or the 3-digit constant 495",
+     "check": "7641-1467"
+    },
+    {
+     "q": "Start with 2005. Arrange its digits largest-first and smallest-first, then subtract. What do you get?",
+     "options": [
+      "3195",
+      "4995",
+      "5175",
+      "5225"
+     ],
+     "answer": 2,
+     "explain": "Largest: 5200. Smallest: 0025, which is 25. 5200 − 25 = 5175.",
+     "steps": [
+      "Digits: 2, 0, 0, 5",
+      "Largest: 5200, smallest: 0025 = 25",
+      "5200 − 25 = 5175"
+     ],
+     "mistake": "Subtracts the original number (3195), keeps only one zero in front (4995) or adds (5225)",
+     "check": "5200-25"
+    },
+    {
+     "q": "Joseph uses 6174 in Kaprekar's routine. What does he get next?",
+     "options": [
+      "6174",
+      "1467",
+      "0",
+      "7641"
+     ],
+     "answer": 0,
+     "explain": "Largest 7641 − smallest 1467 = 6174. It comes back to itself, so the routine stops there.",
+     "steps": [
+      "7641 − 1467 = 6174"
+     ],
+     "mistake": "Stops after arranging the digits instead of subtracting",
+     "check": "7641-1467"
+    },
+    {
+     "q": "Why can't we use 3333 in Kaprekar's routine?",
+     "options": [
+      "It is too big",
+      "It is odd",
+      "It is a palindrome",
+      "All its digits are the same, so the answer is 0 at once"
+     ],
+     "answer": 3,
+     "explain": "3333 − 3333 = 0, so the routine gets stuck. Other palindromes like 4224 work fine.",
+     "mistake": "Thinks palindromes cannot be used"
+    },
+    {
+     "q": "For 3-digit numbers (digits not all the same), Kaprekar's routine ends at which number?",
+     "options": [
+      "6174",
+      "594",
+      "495",
+      "999"
+     ],
+     "answer": 2,
+     "explain": "For 3 digits the routine ends at 495, because 954 − 459 = 495.",
+     "steps": [
+      "954 − 459 = 495"
+     ],
+     "mistake": "Uses the 4-digit constant or reverses the digits (594)",
+     "check": "954-459"
+    },
+    {
+     "q": "Aisha starts with 4321. What is the first subtraction answer?",
+     "options": [
+      "3087",
+      "3097",
+      "5555",
+      "3187"
+     ],
+     "answer": 0,
+     "explain": "4321 − 1234 = 3087.",
+     "steps": [
+      "Largest: 4321, smallest: 1234",
+      "4321 − 1234 = 3087"
+     ],
+     "mistake": "Forgets to borrow (3097 or 3187), or adds instead (5555)",
+     "check": "4321-1234"
+    },
+    {
+     "q": "Next step from 3087: the arrangements are 8730 and 0378. What is 8730 − 378?",
+     "options": [
+      "8452",
+      "8362",
+      "9108",
+      "8352"
+     ],
+     "answer": 3,
+     "explain": "8730 − 378 = 8352. One more step gives 8532 − 2358 = 6174.",
+     "steps": [
+      "8730 − 300 = 8430",
+      "8430 − 78 = 8352"
+     ],
+     "mistake": "Makes a borrowing slip, or adds instead of subtracting (9108)",
+     "check": "8730-378"
+    },
+    {
+     "q": "Who discovered the special property of 6174?",
+     "options": [
+      "Aryabhata",
+      "D. R. Kaprekar, a maths teacher from Maharashtra",
+      "Srinivasa Ramanujan",
+      "Brahmagupta"
+     ],
+     "answer": 1,
+     "explain": "D. R. Kaprekar found this routine, which is why 6174 is called Kaprekar's constant.",
+     "mistake": "Guesses another famous Indian mathematician"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has the number 2196: 'Show me the Kaprekar trick! What do I do?'",
+    "must": [
+     [
+      "largest",
+      "biggest",
+      "big to small",
+      "descending"
+     ],
+     [
+      "smallest",
+      "small to big",
+      "ascending"
+     ],
+     [
+      "subtract",
+      "minus",
+      "take away",
+      "difference"
+     ],
+     [
+      "6174",
+      "repeat",
+      "again"
+     ]
+    ],
+    "praise": "Wow! Biggest minus smallest, again and again, and I reached 6174. Magic maths!",
+    "nudge": "After arranging the digits two ways, what do I do with those two numbers?"
+   }
+  }
+ ]
+}

@@ -1,0 +1,850 @@
+{
+ "n": 1,
+ "title": "Patterns in Mathematics",
+ "emoji": "🔢",
+ "topics": [
+  {
+   "id": "g6-maths-01-01",
+   "title": "Number sequences",
+   "learn": {
+    "hook": "If you know the secret rule, you can predict a number nobody has written yet. That's maths magic!",
+    "points": [
+     "A number sequence is a list of numbers that follows a rule, like 2, 4, 6, 8, ...",
+     "To find the rule, look at how each number changes into the next: do we add, subtract, multiply or double?",
+     "Famous sequences: counting numbers 1, 2, 3, ...; odd numbers 1, 3, 5, ...; powers of 2: 1, 2, 4, 8, 16, ...",
+     "Virahānka numbers 1, 2, 3, 5, 8, 13, ... : each number is the sum of the two numbers before it.",
+     "Cubes 1, 8, 27, 64, ... come from 1×1×1, 2×2×2, 3×3×3, 4×4×4."
+    ],
+    "example": {
+     "q": "Find the next two numbers: 3, 7, 11, 15, ...",
+     "steps": [
+      "The gaps are 7 − 3 = 4, 11 − 7 = 4, 15 − 11 = 4, so the rule is 'add 4'.",
+      "15 + 4 = 19",
+      "19 + 4 = 23"
+     ],
+     "answer": "19 and 23"
+    },
+    "reallife": "Seat numbers in a train coach, house numbers on one side of a street (1, 3, 5, ...) and saving money that doubles all follow number sequences."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "What comes next?",
+     "items": [
+      {
+       "text": "2, 4, 8, 16, ___",
+       "answer": "32",
+       "options": [
+        "32",
+        "24",
+        "18"
+       ]
+      },
+      {
+       "text": "1, 3, 5, 7, ___",
+       "answer": "9",
+       "options": [
+        "8",
+        "9",
+        "11"
+       ]
+      },
+      {
+       "text": "1, 2, 3, 5, 8, ___",
+       "answer": "13",
+       "options": [
+        "11",
+        "16",
+        "13"
+       ]
+      },
+      {
+       "text": "50, 45, 40, 35, ___",
+       "answer": "30",
+       "options": [
+        "30",
+        "25",
+        "40"
+       ]
+      },
+      {
+       "text": "1, 3, 9, 27, ___",
+       "answer": "81",
+       "options": [
+        "54",
+        "81",
+        "36"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match each sequence to its rule",
+     "pairs": [
+      [
+       "2, 4, 6, 8",
+       "add 2 each time"
+      ],
+      [
+       "1, 2, 4, 8",
+       "double each time"
+      ],
+      [
+       "1, 2, 3, 5, 8",
+       "add the two numbers before"
+      ],
+      [
+       "1, 3, 9, 27",
+       "multiply by 3"
+      ],
+      [
+       "20, 17, 14, 11",
+       "subtract 3 each time"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What comes next: 4, 9, 14, 19, ...?",
+     "options": [
+      "24",
+      "23",
+      "25",
+      "29"
+     ],
+     "answer": 0,
+     "explain": "Each number is 5 more than the one before, so 19 + 5 = 24.",
+     "steps": [
+      "Gap: 9 − 4 = 5",
+      "Rule: add 5",
+      "19 + 5 = 24"
+     ],
+     "mistake": "Adds the wrong gap (4 or 6) or adds 10 instead of 5",
+     "check": "19+5",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 25,
+      "marks": [
+       4,
+       9,
+       14,
+       19,
+       24
+      ],
+      "jumps": [
+       [
+        19,
+        24
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Riya saves ₹1 on day 1, ₹2 on day 2, ₹4 on day 3, doubling every day. How much does she save on day 6?",
+     "options": [
+      "₹11",
+      "₹32",
+      "₹64",
+      "₹16"
+     ],
+     "answer": 1,
+     "explain": "Doubling each day gives 1, 2, 4, 8, 16, 32. Day 6 is ₹32.",
+     "steps": [
+      "Day 1: ₹1, Day 2: ₹2, Day 3: ₹4",
+      "Day 4: ₹8, Day 5: ₹16",
+      "Day 6: ₹32"
+     ],
+     "mistake": "Adds 2 each day instead of doubling, or counts one day too many or too few",
+     "check": "2**5"
+    },
+    {
+     "q": "The Virahānka numbers go 1, 2, 3, 5, 8, 13, ... What is the next number?",
+     "options": [
+      "18",
+      "26",
+      "21",
+      "20"
+     ],
+     "answer": 2,
+     "explain": "Each Virahānka number is the sum of the two before it, so 8 + 13 = 21.",
+     "steps": [
+      "The two numbers before are 8 and 13",
+      "8 + 13 = 21"
+     ],
+     "mistake": "Adds a fixed gap of 5 or doubles 13 instead of adding the last two numbers",
+     "check": "8+13"
+    },
+    {
+     "q": "Which number is missing: 81, 27, ___, 3, 1?",
+     "options": [
+      "18",
+      "12",
+      "15",
+      "9"
+     ],
+     "answer": 3,
+     "explain": "Each number is the one before divided by 3: 27 ÷ 3 = 9, and 9 ÷ 3 = 3 fits.",
+     "steps": [
+      "81 ÷ 3 = 27",
+      "27 ÷ 3 = 9",
+      "Check: 9 ÷ 3 = 3 ✓"
+     ],
+     "mistake": "Thinks the rule is 'subtract' instead of 'divide by 3'",
+     "check": "27/3"
+    },
+    {
+     "q": "Add the first five odd numbers: 1 + 3 + 5 + 7 + 9 = ?",
+     "options": [
+      "25",
+      "24",
+      "20",
+      "30"
+     ],
+     "answer": 0,
+     "explain": "1 + 3 + 5 + 7 + 9 = 25. Adding the first five odd numbers always gives 5 × 5, a square number.",
+     "steps": [
+      "1 + 3 = 4",
+      "4 + 5 = 9",
+      "9 + 7 = 16",
+      "16 + 9 = 25"
+     ],
+     "mistake": "Makes an adding slip or multiplies 5 × 4 or 5 × 6",
+     "check": "1+3+5+7+9",
+     "visual": {
+      "kind": "count",
+      "emoji": "🟡",
+      "n": 25,
+      "groups": 5
+     }
+    },
+    {
+     "q": "Meena writes 100, 92, 84, 76, ... What is the 6th number in her list?",
+     "options": [
+      "68",
+      "60",
+      "52",
+      "56"
+     ],
+     "answer": 1,
+     "explain": "The rule is 'subtract 8'. The list goes 100, 92, 84, 76, 68, 60, so the 6th number is 60.",
+     "steps": [
+      "Rule: subtract 8",
+      "5th number: 76 − 8 = 68",
+      "6th number: 68 − 8 = 60"
+     ],
+     "mistake": "Stops at the 5th number (68) or goes one step too far (52)",
+     "check": "100-5*8"
+    },
+    {
+     "q": "Which sequence follows the rule 'multiply by 2'?",
+     "options": [
+      "3, 5, 7, 9",
+      "3, 6, 9, 12",
+      "3, 6, 12, 24",
+      "3, 9, 27, 81"
+     ],
+     "answer": 2,
+     "explain": "3 × 2 = 6, 6 × 2 = 12, 12 × 2 = 24. The others add 2, add 3 or multiply by 3.",
+     "mistake": "Thinks 3, 6, 9, 12 doubles because 3 to 6 is a double, without checking the next step"
+    },
+    {
+     "q": "Cubes go 1, 8, 27, 64, ... What is the next cube?",
+     "options": [
+      "25",
+      "100",
+      "81",
+      "125"
+     ],
+     "answer": 3,
+     "explain": "The 5th cube is 5 × 5 × 5 = 125.",
+     "steps": [
+      "1 = 1×1×1, 8 = 2×2×2, 27 = 3×3×3, 64 = 4×4×4",
+      "Next: 5×5×5 = 25×5 = 125"
+     ],
+     "mistake": "Works out 5 × 5 (a square) instead of 5 × 5 × 5",
+     "check": "5**3"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu tilts his head: 'Someone gave me 5, 10, 15, 20... How do I find the next number?'",
+    "must": [
+     [
+      "rule",
+      "pattern"
+     ],
+     [
+      "gap",
+      "difference",
+      "add",
+      "multiply",
+      "double",
+      "each time"
+     ],
+     [
+      "next",
+      "continue",
+      "keep going"
+     ]
+    ],
+    "praise": "Tweet tweet! Find the rule, then use it again. I can predict numbers now!",
+    "nudge": "But how do I know what to do to get from one number to the next?"
+   }
+  },
+  {
+   "id": "g6-maths-01-02",
+   "title": "Shape patterns",
+   "learn": {
+    "hook": "Pictures can hide number patterns. Count the sides, dots or lines, and a sequence pops out!",
+    "points": [
+     "In a shape pattern, count something in each picture: sides, corners, dots, lines or small squares.",
+     "Regular polygons: triangle (3 sides), square (4), pentagon (5), hexagon (6), heptagon (7), octagon (8). The sides are the counting numbers from 3.",
+     "Square grids of size 1×1, 2×2, 3×3, ... have 1, 4, 9, ... small squares: the square numbers.",
+     "Join every pair of dots with lines: 2 dots need 1 line, 3 dots need 3, 4 dots need 6, 5 dots need 10: the triangular numbers.",
+     "Koch snowflake: each step turns every line into 4 smaller lines, so the line count goes 3, 12, 48, 192 (times 4 each step)."
+    ],
+    "example": {
+     "q": "How many lines are needed to join every pair of 6 dots?",
+     "steps": [
+      "5 dots need 10 lines.",
+      "The 6th dot must be joined to each of the 5 old dots: 5 new lines.",
+      "10 + 5 = 15"
+     ],
+     "answer": "15 lines"
+    },
+    "reallife": "Rangoli designs, tiles on a floor and patterns on saris often grow in steps that follow number patterns."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Odd or even number of sides?",
+     "buckets": [
+      "Odd number of sides",
+      "Even number of sides"
+     ],
+     "items": [
+      [
+       "Triangle",
+       0
+      ],
+      [
+       "Square",
+       1
+      ],
+      [
+       "Pentagon",
+       0
+      ],
+      [
+       "Hexagon",
+       1
+      ],
+      [
+       "Heptagon",
+       0
+      ],
+      [
+       "Octagon",
+       1
+      ],
+      [
+       "Decagon (10 sides)",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Shape pattern facts",
+     "items": [
+      [
+       "A hexagon has 6 sides.",
+       true,
+       "Hexa means six."
+      ],
+      [
+       "A 3×3 grid has 6 small squares.",
+       false,
+       "It has 3 rows of 3, which is 9 small squares."
+      ],
+      [
+       "Joining every pair of 4 dots needs 6 lines.",
+       true,
+       "3 + 2 + 1 = 6 lines."
+      ],
+      [
+       "In the Koch snowflake, each step multiplies the number of lines by 4.",
+       true,
+       "Every line is replaced by 4 smaller lines."
+      ],
+      [
+       "A pentagon has 6 corners.",
+       false,
+       "A pentagon has 5 sides and 5 corners."
+      ],
+      [
+       "A regular octagon has 8 sides and 8 corners.",
+       true,
+       "Any polygon has as many corners as sides."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Arjun draws regular polygons in order: triangle, square, pentagon, hexagon, ... How many sides does the shape after the hexagon have?",
+     "options": [
+      "7",
+      "8",
+      "6",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "Each shape has one more side than the one before. A hexagon has 6, so the next shape (a heptagon) has 7.",
+     "steps": [
+      "Sides: 3, 4, 5, 6, ...",
+      "6 + 1 = 7"
+     ],
+     "mistake": "Skips a shape, or doubles 6 instead of adding 1",
+     "check": "6+1"
+    },
+    {
+     "q": "A 4×4 grid is made of small squares. How many of the smallest squares are there?",
+     "options": [
+      "16",
+      "8",
+      "12",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "4 rows with 4 squares in each row make 4 × 4 = 16 small squares.",
+     "steps": [
+      "4 rows × 4 squares",
+      "4 × 4 = 16"
+     ],
+     "mistake": "Adds 4 + 4, or counts only the squares around the border (12)",
+     "check": "4*4",
+     "visual": {
+      "kind": "count",
+      "emoji": "🟦",
+      "n": 16,
+      "groups": 4
+     }
+    },
+    {
+     "q": "Kabir joins every pair of 5 dots with a straight line. How many lines does he draw?",
+     "options": [
+      "5",
+      "20",
+      "10",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "The 1st dot joins 4 others, the 2nd joins 3 new ones, then 2, then 1: 4 + 3 + 2 + 1 = 10.",
+     "steps": [
+      "4 + 3 + 2 + 1",
+      "= 10"
+     ],
+     "mistake": "Counts each line twice (20) or thinks one line per dot (5)",
+     "check": "4+3+2+1"
+    },
+    {
+     "q": "The Koch snowflake starts with 3 lines. Each step turns every line into 4 smaller lines. How many lines are there after 2 steps?",
+     "options": [
+      "24",
+      "12",
+      "36",
+      "48"
+     ],
+     "answer": 3,
+     "explain": "After step 1: 3 × 4 = 12 lines. After step 2: 12 × 4 = 48 lines.",
+     "steps": [
+      "Step 1: 3 × 4 = 12",
+      "Step 2: 12 × 4 = 48"
+     ],
+     "mistake": "Adds 4 lines each step, or stops after 1 step (12)",
+     "check": "3*4*4"
+    },
+    {
+     "q": "In a Diwali rangoli, the rows have 1, 3, 5, 7, ... diyas. How many diyas are in the 6th row?",
+     "options": [
+      "11",
+      "12",
+      "13",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "Each row has 2 more diyas: 1, 3, 5, 7, 9, 11. The 6th row has 11.",
+     "steps": [
+      "Rule: add 2",
+      "Row 5: 7 + 2 = 9",
+      "Row 6: 9 + 2 = 11"
+     ],
+     "mistake": "Thinks the 6th row has 2 × 6 = 12, or stops at row 5",
+     "check": "1+5*2"
+    },
+    {
+     "q": "Square grids 1×1, 2×2, 3×3, ... have 1, 4, 9, ... small squares. Which grid has 49 small squares?",
+     "options": [
+      "6 × 6",
+      "7 × 7",
+      "8 × 8",
+      "9 × 9"
+     ],
+     "answer": 1,
+     "explain": "7 × 7 = 49, so the 7 × 7 grid has 49 small squares.",
+     "steps": [
+      "6 × 6 = 36, too small",
+      "7 × 7 = 49 ✓"
+     ],
+     "mistake": "Guesses a nearby grid without multiplying"
+    },
+    {
+     "q": "Which picture pattern gives the numbers 1, 3, 6, 10?",
+     "options": [
+      "Sides of a triangle, square, pentagon, hexagon",
+      "Small squares in 1×1, 2×2, 3×3, 4×4 grids",
+      "Lines joining every pair of 2, 3, 4, 5 dots",
+      "Lines in the first four Koch snowflake steps"
+     ],
+     "answer": 2,
+     "explain": "2, 3, 4 and 5 dots need 1, 3, 6 and 10 lines. The others give 3, 4, 5, 6 and 1, 4, 9, 16 and 3, 12, 48, 192.",
+     "mistake": "Mixes up triangular numbers with square numbers or counting numbers"
+    },
+    {
+     "q": "How many corners does a regular octagon have?",
+     "options": [
+      "6",
+      "10",
+      "4",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "Octa means eight. An octagon has 8 sides, and every polygon has as many corners as sides.",
+     "mistake": "Confuses octagon with hexagon (6) or decagon (10)",
+     "check": "8"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is staring at a rangoli: 'How can a picture pattern turn into a number pattern?'",
+    "must": [
+     [
+      "count",
+      "counting",
+      "how many"
+     ],
+     [
+      "sides",
+      "dots",
+      "lines",
+      "squares",
+      "corners"
+     ],
+     [
+      "each step",
+      "next",
+      "grows",
+      "more",
+      "each picture"
+     ]
+    ],
+    "praise": "Chirp! Count the same thing in each picture and the numbers make a pattern. Lovely!",
+    "nudge": "What exactly should I count in each picture, and how does it change from one picture to the next?"
+   }
+  },
+  {
+   "id": "g6-maths-01-03",
+   "title": "Triangular and square numbers",
+   "learn": {
+    "hook": "Stack laddoos in a triangle or a square and you discover two of the most famous number families!",
+    "points": [
+     "Triangular numbers count dots arranged in a triangle: 1, 3, 6, 10, 15, 21, ... The 5th one is 1 + 2 + 3 + 4 + 5 = 15.",
+     "Square numbers count dots arranged in a square: 1, 4, 9, 16, 25, ... The 5th one is 5 × 5 = 25.",
+     "Adding odd numbers from 1 gives square numbers: 1 + 3 + 5 + 7 = 16 = 4 × 4.",
+     "Two triangular numbers next to each other add up to a square: 6 + 10 = 16.",
+     "Counting up and back down gives a square too: 1 + 2 + 3 + 2 + 1 = 9 = 3 × 3."
+    ],
+    "example": {
+     "q": "Find the 7th triangular number.",
+     "steps": [
+      "Add the first 7 counting numbers: 1 + 2 + 3 + 4 + 5 + 6 + 7",
+      "1 + 2 + 3 + 4 + 5 + 6 = 21",
+      "21 + 7 = 28"
+     ],
+     "answer": "28"
+    },
+    "reallife": "Bowling pins and a carrom board's starting coins sit in triangles; chessboards and tiled floors show square numbers."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Triangular, square or both?",
+     "buckets": [
+      "Triangular only",
+      "Square only",
+      "Both"
+     ],
+     "items": [
+      [
+       "3",
+       0
+      ],
+      [
+       "10",
+       0
+      ],
+      [
+       "15",
+       0
+      ],
+      [
+       "21",
+       0
+      ],
+      [
+       "4",
+       1
+      ],
+      [
+       "9",
+       1
+      ],
+      [
+       "16",
+       1
+      ],
+      [
+       "25",
+       1
+      ],
+      [
+       "1",
+       2
+      ],
+      [
+       "36",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Speed round: dots and squares",
+     "items": [
+      {
+       "q": "4 × 4",
+       "a": "16",
+       "check": "4*4"
+      },
+      {
+       "q": "1 + 2 + 3 + 4 + 5",
+       "a": "15",
+       "check": "1+2+3+4+5"
+      },
+      {
+       "q": "6 × 6",
+       "a": "36",
+       "check": "6*6"
+      },
+      {
+       "q": "1 + 3 + 5 + 7",
+       "a": "16",
+       "check": "1+3+5+7"
+      },
+      {
+       "q": "10 + 15",
+       "a": "25",
+       "check": "10+15"
+      },
+      {
+       "q": "1 + 2 + 3 + 2 + 1",
+       "a": "9",
+       "check": "1+2+3+2+1"
+      },
+      {
+       "q": "9 × 9",
+       "a": "81",
+       "check": "9*9"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the 6th triangular number?",
+     "options": [
+      "18",
+      "21",
+      "15",
+      "36"
+     ],
+     "answer": 1,
+     "explain": "1 + 2 + 3 + 4 + 5 + 6 = 21.",
+     "steps": [
+      "5th triangular number = 15",
+      "15 + 6 = 21"
+     ],
+     "mistake": "Gives the 5th triangular number (15) or the 6th square number (36)",
+     "check": "1+2+3+4+5+6",
+     "visual": {
+      "kind": "count",
+      "emoji": "🔵",
+      "n": 21
+     }
+    },
+    {
+     "q": "What is the 8th square number?",
+     "options": [
+      "16",
+      "36",
+      "81",
+      "64"
+     ],
+     "answer": 3,
+     "explain": "The 8th square number is 8 × 8 = 64.",
+     "steps": [
+      "8 × 8 = 64"
+     ],
+     "mistake": "Adds 8 + 8 = 16 instead of multiplying 8 × 8",
+     "check": "8*8"
+    },
+    {
+     "q": "Aisha arranges laddoos in a square tray with 9 rows and 9 laddoos in each row. How many laddoos are there?",
+     "options": [
+      "81",
+      "18",
+      "72",
+      "90"
+     ],
+     "answer": 0,
+     "explain": "9 rows of 9 is 9 × 9 = 81 laddoos, a square number.",
+     "steps": [
+      "9 rows × 9 laddoos",
+      "9 × 9 = 81"
+     ],
+     "mistake": "Adds 9 + 9 instead of multiplying, or makes a times-table slip (72, 90)",
+     "check": "9*9"
+    },
+    {
+     "q": "1 + 3 + 5 + 7 + 9 + 11 = ?",
+     "options": [
+      "30",
+      "42",
+      "36",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "These are the first 6 odd numbers, and their sum is 6 × 6 = 36.",
+     "steps": [
+      "Count the odd numbers: 6 of them",
+      "Sum = 6 × 6 = 36",
+      "Check: 1+3+5+7+9 = 25, 25 + 11 = 36"
+     ],
+     "mistake": "Forgets the last number (25) or makes an adding slip",
+     "check": "1+3+5+7+9+11"
+    },
+    {
+     "q": "Which two neighbouring triangular numbers add up to 25?",
+     "options": [
+      "10 and 15",
+      "6 and 10",
+      "15 and 21",
+      "9 and 16"
+     ],
+     "answer": 0,
+     "explain": "10 and 15 are next to each other in 1, 3, 6, 10, 15, 21, and 10 + 15 = 25.",
+     "steps": [
+      "6 + 10 = 16",
+      "10 + 15 = 25 ✓",
+      "15 + 21 = 36"
+     ],
+     "mistake": "Picks 9 and 16, which add to 25 but are square numbers, not triangular ones"
+    },
+    {
+     "q": "Harpreet stacks cricket balls in a triangle: 1 ball in the top row, 2 in the next, then 3, with 5 rows in all. How many balls does he use?",
+     "options": [
+      "10",
+      "25",
+      "12",
+      "15"
+     ],
+     "answer": 3,
+     "explain": "1 + 2 + 3 + 4 + 5 = 15, the 5th triangular number.",
+     "steps": [
+      "1 + 2 = 3",
+      "3 + 3 = 6",
+      "6 + 4 = 10",
+      "10 + 5 = 15"
+     ],
+     "mistake": "Stops at 4 rows (10) or uses the square number 5 × 5 = 25",
+     "check": "1+2+3+4+5",
+     "visual": {
+      "kind": "count",
+      "emoji": "⚪",
+      "n": 15
+     }
+    },
+    {
+     "q": "1 + 2 + 3 + 4 + 5 + 4 + 3 + 2 + 1 = ?",
+     "options": [
+      "25",
+      "30",
+      "20",
+      "15"
+     ],
+     "answer": 0,
+     "explain": "Counting up to 5 and back down to 1 gives 5 × 5 = 25.",
+     "steps": [
+      "1 + 2 + 3 + 4 + 5 = 15",
+      "4 + 3 + 2 + 1 = 10",
+      "15 + 10 = 25"
+     ],
+     "mistake": "Counts the 5 twice (30) or only adds one side (15)",
+     "check": "1+2+3+4+5+4+3+2+1"
+    },
+    {
+     "q": "Which of these numbers is BOTH a triangular number and a square number?",
+     "options": [
+      "16",
+      "10",
+      "36",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "36 = 6 × 6 is square, and 36 = 1 + 2 + ... + 8 is the 8th triangular number. 16 and 25 are only square; 10 is only triangular.",
+     "steps": [
+      "Triangular: 1, 3, 6, 10, 15, 21, 28, 36",
+      "Square: 1, 4, 9, 16, 25, 36",
+      "Only 36 is in both lists"
+     ],
+     "mistake": "Checks only one of the two lists",
+     "check": "6*6"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has a pile of laddoos: 'What is the difference between a triangular number and a square number?'",
+    "must": [
+     [
+      "triangular",
+      "triangle"
+     ],
+     [
+      "square",
+      "times itself",
+      "rows and columns"
+     ],
+     [
+      "add",
+      "sum",
+      "plus",
+      "odd"
+     ]
+    ],
+    "praise": "Wow! Triangles grow by adding 1, 2, 3, ... and squares are a number times itself. I'll stack my laddoos both ways!",
+    "nudge": "How do I actually work out a triangular number? And a square one?"
+   }
+  }
+ ]
+}
