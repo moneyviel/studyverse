@@ -1,0 +1,806 @@
+{
+ "n": 3,
+ "title": "Pair of Linear Equations in Two Variables",
+ "emoji": "✖️",
+ "topics": [
+  {
+   "id": "g10-maths-03-01",
+   "title": "The graphical method",
+   "learn": {
+    "hook": "Two straight lines on a graph can meet once, never meet, or sit right on top of each other — and each story tells you about the answer!",
+    "points": [
+     "A pair of linear equations is a₁x + b₁y + c₁ = 0 and a₂x + b₂y + c₂ = 0. Each one is a straight line on a graph.",
+     "If the lines intersect at one point, that point is the unique solution. The pair is consistent.",
+     "If the lines are parallel, there is no solution. The pair is inconsistent.",
+     "If the lines coincide (are the same line), there are infinitely many solutions. The pair is dependent and consistent.",
+     "Shortcut without drawing: a₁/a₂ ≠ b₁/b₂ means one solution; a₁/a₂ = b₁/b₂ ≠ c₁/c₂ means parallel lines; a₁/a₂ = b₁/b₂ = c₁/c₂ means the lines coincide."
+    ],
+    "example": {
+     "q": "Solve x + y = 5 and x − y = 1 graphically.",
+     "steps": [
+      "For x + y = 5, plot (0, 5) and (5, 0) and join them",
+      "For x − y = 1, plot (1, 0) and (0, −1) and join them",
+      "The two lines cross at (3, 2)",
+      "Check: 3 + 2 = 5 ✓ and 3 − 2 = 1 ✓"
+     ],
+     "answer": "x = 3, y = 2"
+    },
+    "reallife": "If two auto-rickshaw fare plans are drawn as lines, the crossing point shows the distance at which both plans cost the same."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "How many solutions?",
+     "buckets": [
+      "Unique solution",
+      "No solution",
+      "Infinitely many"
+     ],
+     "items": [
+      [
+       "x + y = 4 and x − y = 2",
+       0
+      ],
+      [
+       "2x + 3y = 6 and 4x + 6y = 12",
+       2
+      ],
+      [
+       "x + 2y = 3 and 2x + 4y = 7",
+       1
+      ],
+      [
+       "3x − y = 1 and 6x − 2y = 5",
+       1
+      ],
+      [
+       "x = 2y and 2x = 4y",
+       2
+      ],
+      [
+       "2x + y = 5 and 3x + 2y = 8",
+       0
+      ],
+      [
+       "5x − 2y = 3 and 10x − 4y = 6",
+       2
+      ],
+      [
+       "y = 2x + 1 and y = 2x − 3",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Lines on a graph",
+     "items": [
+      [
+       "A pair of parallel lines has no common solution.",
+       true,
+       "Parallel lines never meet, so no point lies on both."
+      ],
+      [
+       "If a₁/a₂ = b₁/b₂ = c₁/c₂, the two lines coincide.",
+       true,
+       "One equation is just a multiple of the other, so they are the same line."
+      ],
+      [
+       "An inconsistent pair has exactly one solution.",
+       false,
+       "Inconsistent means there is no solution at all."
+      ],
+      [
+       "x + y = 3 and 2x + 2y = 6 have infinitely many solutions.",
+       true,
+       "The second equation is 2 times the first, so the lines coincide."
+      ],
+      [
+       "Two different straight lines can meet at exactly two points.",
+       false,
+       "Two different straight lines meet at most once."
+      ],
+      [
+       "The pair x = 3 and y = 2 has the unique solution (3, 2).",
+       true,
+       "x = 3 is a vertical line and y = 2 is a horizontal line; they cross only at (3, 2)."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The lines 2x + 3y = 9 and 4x + 6y = 18 are…",
+     "options": [
+      "Intersecting",
+      "Parallel",
+      "Perpendicular",
+      "Coincident"
+     ],
+     "answer": 3,
+     "explain": "2/4 = 3/6 = 9/18 = 1/2. All three ratios are equal, so the lines coincide.",
+     "steps": [
+      "a₁/a₂ = 2/4 = 1/2",
+      "b₁/b₂ = 3/6 = 1/2",
+      "c₁/c₂ = 9/18 = 1/2"
+     ],
+     "mistake": "Sees equal a and b ratios and says parallel without checking c"
+    },
+    {
+     "q": "For which values of k do kx + 2y = 5 and 3x + y = 1 have a unique solution?",
+     "options": [
+      "k ≠ 6",
+      "k = 6",
+      "k = 3",
+      "k ≠ 3"
+     ],
+     "answer": 0,
+     "explain": "A unique solution needs a₁/a₂ ≠ b₁/b₂, so k/3 ≠ 2/1, which means k ≠ 6.",
+     "steps": [
+      "a₁/a₂ = k/3, b₁/b₂ = 2/1",
+      "Unique solution: k/3 ≠ 2",
+      "k ≠ 6"
+     ],
+     "mistake": "Uses '=' instead of '≠' for the unique-solution condition"
+    },
+    {
+     "q": "For what value of k are the lines x + 2y = 3 and 3x + ky = 7 parallel?",
+     "options": [
+      "6",
+      "2/3",
+      "3",
+      "−6"
+     ],
+     "answer": 0,
+     "explain": "Parallel lines need 1/3 = 2/k, so k = 6. Also 3/7 ≠ 1/3, so the lines do not coincide.",
+     "steps": [
+      "a₁/a₂ = 1/3",
+      "b₁/b₂ = 2/k",
+      "1/3 = 2/k gives k = 6"
+     ],
+     "mistake": "Cross-multiplies wrongly and gets 2/3",
+     "check": "2*3"
+    },
+    {
+     "q": "The lines x + y = 6 and x − y = 2 are drawn on a graph. Where do they meet?",
+     "options": [
+      "(4, 2)",
+      "(2, 4)",
+      "(3, 3)",
+      "(6, 2)"
+     ],
+     "answer": 0,
+     "explain": "Adding the equations gives 2x = 8, so x = 4 and y = 2. Check: 4 + 2 = 6 and 4 − 2 = 2.",
+     "steps": [
+      "x + y = 6, x − y = 2",
+      "Add: 2x = 8, x = 4",
+      "y = 6 − 4 = 2"
+     ],
+     "mistake": "Swaps the x- and y-coordinates"
+    },
+    {
+     "q": "Riya draws two lines that never meet, however far she extends them. The pair of equations is…",
+     "options": [
+      "Inconsistent",
+      "Consistent with one solution",
+      "Dependent",
+      "Consistent with infinitely many solutions"
+     ],
+     "answer": 0,
+     "explain": "Lines that never meet are parallel, so there is no solution. Such a pair is called inconsistent.",
+     "mistake": "Mixes up the words consistent and inconsistent"
+    },
+    {
+     "q": "Where does the line 2x + y = 6 meet the y-axis?",
+     "options": [
+      "(0, 6)",
+      "(3, 0)",
+      "(6, 0)",
+      "(0, 3)"
+     ],
+     "answer": 0,
+     "explain": "On the y-axis x = 0, so y = 6. The point is (0, 6).",
+     "steps": [
+      "Put x = 0",
+      "y = 6"
+     ],
+     "mistake": "Finds where the line meets the x-axis instead, (3, 0)"
+    },
+    {
+     "q": "How many solutions do 3x − 5y = 2 and 6x − 10y = 4 have?",
+     "options": [
+      "Infinitely many",
+      "One",
+      "Two",
+      "None"
+     ],
+     "answer": 0,
+     "explain": "3/6 = −5/−10 = 2/4 = 1/2, so the lines coincide and every point on the line is a solution.",
+     "mistake": "Thinks a pair of linear equations always has exactly one solution"
+    },
+    {
+     "q": "Which pair has exactly one solution?",
+     "options": [
+      "x + y = 5 and x + y = 7",
+      "2x + 4y = 8 and x + 2y = 4",
+      "x + y = 5 and 2x − y = 1",
+      "y = 3x and y = 3x + 2"
+     ],
+     "answer": 2,
+     "explain": "For x + y = 5 and 2x − y = 1, a₁/a₂ = 1/2 and b₁/b₂ = 1/(−1) = −1 are different, so the lines intersect once (at (2, 3)).",
+     "mistake": "Does not compare the ratios a₁/a₂ and b₁/b₂"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu draws two lines with a crayon: 'How do these lines tell me how many answers the equations have?'",
+    "must": [
+     [
+      "intersect",
+      "meet",
+      "cross",
+      "one point"
+     ],
+     [
+      "parallel",
+      "never meet",
+      "no solution"
+     ],
+     [
+      "coincide",
+      "same line",
+      "on top",
+      "infinitely many"
+     ]
+    ],
+    "praise": "Cheep! Meeting once, never meeting, or being the same line — I get it now!",
+    "nudge": "What happens to the answer if the lines are parallel, or the same line?"
+   }
+  },
+  {
+   "id": "g10-maths-03-02",
+   "title": "Substitution method",
+   "learn": {
+    "hook": "Make one variable 'wear the costume' of the other, swap it in, and the puzzle shrinks to one variable!",
+    "points": [
+     "Step 1: from one equation, write one variable in terms of the other (for example y = 2x − 4).",
+     "Step 2: substitute this into the other equation, so it has only one variable.",
+     "Step 3: solve that equation, then put the value back to find the other variable.",
+     "Always check your answer in both original equations.",
+     "If you end with a true statement like 6 = 6, there are infinitely many solutions. If you get a false one like 0 = 4, there is no solution."
+    ],
+    "example": {
+     "q": "Kabir buys 2 pens and 3 notebooks for ₹80. A notebook costs ₹10 more than a pen. Find each price.",
+     "steps": [
+      "Let a pen cost ₹p and a notebook ₹n. Then n = p + 10 and 2p + 3n = 80",
+      "Substitute: 2p + 3(p + 10) = 80",
+      "5p + 30 = 80, so p = 10",
+      "n = 10 + 10 = 20",
+      "Check: 2 × 10 + 3 × 20 = 80 ✓"
+     ],
+     "answer": "Pen ₹10, notebook ₹20"
+    },
+    "reallife": "Shopkeepers in a market use this kind of reasoning when one price is 'so much more' than another."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Put the substitution steps in order",
+     "prompt": "Solve x + 2y = 7 and 2x − y = 4",
+     "items": [
+      "From 2x − y = 4, write y = 2x − 4",
+      "Substitute: x + 2(2x − 4) = 7",
+      "5x − 8 = 7, so x = 3",
+      "y = 2(3) − 4 = 2",
+      "Check: 3 + 2(2) = 7 ✓"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Swap-and-solve sprint",
+     "items": [
+      {
+       "q": "y = 2x and x + y = 9. Find x",
+       "a": "3",
+       "check": "9/3"
+      },
+      {
+       "q": "y = x + 1 and x + y = 7. Find y",
+       "a": "4",
+       "check": "(7+1)/2"
+      },
+      {
+       "q": "x = 2y and x + y = 15. Find x",
+       "a": "10",
+       "check": "2*15/3"
+      },
+      {
+       "q": "y = 3x and x + y = 8. Find y",
+       "a": "6",
+       "check": "3*8/4"
+      },
+      {
+       "q": "x = y + 2 and x + y = 10. Find x",
+       "a": "6",
+       "check": "(10+2)/2"
+      },
+      {
+       "q": "y = 5 − x and 2x + y = 8. Find x",
+       "a": "3",
+       "check": "8-5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Solve x + y = 10 and x − y = 2. What is x?",
+     "options": [
+      "4",
+      "6",
+      "8",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "From x − y = 2, x = y + 2. Then (y + 2) + y = 10, so y = 4 and x = 6.",
+     "steps": [
+      "x = y + 2",
+      "2y + 2 = 10, y = 4",
+      "x = 4 + 2 = 6"
+     ],
+     "mistake": "Gives the value of y instead of x",
+     "check": "(10+2)/2"
+    },
+    {
+     "q": "If y = 2x − 3 and 3x + y = 12, what is x?",
+     "options": [
+      "9/5",
+      "3",
+      "15",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "3x + (2x − 3) = 12 gives 5x = 15, so x = 3 (and y = 3).",
+     "steps": [
+      "3x + 2x − 3 = 12",
+      "5x = 15",
+      "x = 3"
+     ],
+     "mistake": "Moves −3 across without changing its sign, getting 5x = 9",
+     "check": "15/5"
+    },
+    {
+     "q": "Substituting y = 4 − x into 2x + 3y = 10 gives which equation?",
+     "options": [
+      "2x + 12 − 3x = 10",
+      "2x + 4 − x = 10",
+      "2x + 12 − x = 10",
+      "5x + 12 = 10"
+     ],
+     "answer": 0,
+     "explain": "3y = 3(4 − x) = 12 − 3x, so the equation becomes 2x + 12 − 3x = 10.",
+     "mistake": "Multiplies only the first term inside the bracket by 3"
+    },
+    {
+     "q": "Meena is 3 times as old as her brother. The sum of their ages is 24 years. How old is Meena?",
+     "options": [
+      "6 years",
+      "18 years",
+      "8 years",
+      "21 years"
+     ],
+     "answer": 1,
+     "explain": "Let the brother be b years. Meena = 3b, so 3b + b = 24, b = 6 and Meena is 18.",
+     "steps": [
+      "M = 3b",
+      "3b + b = 24",
+      "b = 6, M = 18"
+     ],
+     "mistake": "Gives the brother's age instead of Meena's",
+     "check": "3*24/4",
+     "visual": {
+      "kind": "compare",
+      "a": [
+       "Meena",
+       18
+      ],
+      "b": [
+       "Brother",
+       6
+      ]
+     }
+    },
+    {
+     "q": "2 samosas and 1 cup of tea cost ₹40. 1 samosa and 1 cup of tea cost ₹25. What does one samosa cost?",
+     "options": [
+      "₹10",
+      "₹25",
+      "₹15",
+      "₹20"
+     ],
+     "answer": 2,
+     "explain": "From the second equation t = 25 − s. Then 2s + 25 − s = 40, so s = 15 (and tea costs ₹10).",
+     "steps": [
+      "t = 25 − s",
+      "2s + (25 − s) = 40",
+      "s + 25 = 40, s = 15"
+     ],
+     "mistake": "Gives the price of the tea",
+     "check": "40-25",
+     "visual": {
+      "kind": "compare",
+      "a": [
+       "Samosa",
+       15
+      ],
+      "b": [
+       "Tea",
+       10
+      ]
+     }
+    },
+    {
+     "q": "While solving a pair by substitution, Aisha ends up with 6 = 6. What does this mean?",
+     "options": [
+      "The pair has no solution",
+      "x = 6",
+      "The pair has infinitely many solutions",
+      "She made a mistake"
+     ],
+     "answer": 2,
+     "explain": "A statement that is always true means both equations describe the same line, so every point on it is a solution.",
+     "mistake": "Thinks the number 6 is the value of a variable"
+    },
+    {
+     "q": "While solving a pair, Arjun's working ends with 0 = 4. What does this tell him?",
+     "options": [
+      "x = 0 and y = 4",
+      "The pair has no solution",
+      "The pair has infinitely many solutions",
+      "The answer is 4"
+     ],
+     "answer": 1,
+     "explain": "0 = 4 is false, so no values of x and y satisfy both equations. The lines are parallel.",
+     "mistake": "Reads the numbers in a false statement as the solution"
+    },
+    {
+     "q": "Two numbers add up to 35 and one is 7 more than the other. What is the larger number?",
+     "options": [
+      "14",
+      "21",
+      "28",
+      "17.5"
+     ],
+     "answer": 1,
+     "explain": "Let the smaller be x. Then x + (x + 7) = 35, so x = 14 and the larger is 21.",
+     "steps": [
+      "Larger = x + 7",
+      "2x + 7 = 35, x = 14",
+      "Larger = 21"
+     ],
+     "mistake": "Gives the smaller number, or just halves 35",
+     "check": "(35+7)/2",
+     "visual": {
+      "kind": "compare",
+      "a": [
+       "Larger",
+       21
+      ],
+      "b": [
+       "Smaller",
+       14
+      ]
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has two equations and is stuck: 'How does the substitution trick work?'",
+    "must": [
+     [
+      "one variable",
+      "in terms of",
+      "make y",
+      "make x",
+      "express"
+     ],
+     [
+      "substitute",
+      "put",
+      "replace",
+      "plug"
+     ],
+     [
+      "solve",
+      "find",
+      "work out"
+     ]
+    ],
+    "praise": "Tweet! Write one in terms of the other, put it in, and solve. Easy-peasy!",
+    "nudge": "After I write y in terms of x, where do I put it?"
+   }
+  },
+  {
+   "id": "g10-maths-03-03",
+   "title": "Elimination method and word problems",
+   "learn": {
+    "hook": "Line up two equations, add or subtract, and watch one variable vanish like a magic trick!",
+    "points": [
+     "Multiply one or both equations so that one variable has the same (or opposite) coefficient in both.",
+     "Subtract the equations if the coefficients are the same, or add them if they are opposite, to eliminate that variable.",
+     "Solve for the remaining variable, then substitute back to find the other one.",
+     "For word problems: name the two unknowns, write two equations from the two facts given, then solve.",
+     "Check that your answer makes sense in the story — a negative number of notes is a sign of an error!"
+    ],
+    "example": {
+     "q": "Solve 3x + 2y = 11 and 2x − 2y = 4.",
+     "steps": [
+      "The y terms are +2y and −2y, so add the equations",
+      "5x = 15, so x = 3",
+      "Put x = 3 in 3x + 2y = 11: 9 + 2y = 11, y = 1",
+      "Check: 2(3) − 2(1) = 4 ✓"
+     ],
+     "answer": "x = 3, y = 1"
+    },
+    "reallife": "Cricket kit shops, fruit sellers and ticket counters all face 'two unknown prices, two bills' puzzles like these."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Make it vanish",
+     "items": [
+      {
+       "text": "To eliminate y from 2x + 3y = 8 and x − y = 1, multiply the second equation by ___",
+       "answer": "3",
+       "options": [
+        "3",
+        "2",
+        "−1"
+       ]
+      },
+      {
+       "text": "Adding x + y = 7 and x − y = 3 gives 2x = ___",
+       "answer": "10",
+       "options": [
+        "10",
+        "4",
+        "7"
+       ]
+      },
+      {
+       "text": "Subtracting x + y = 5 from x + 2y = 9 gives y = ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "14",
+        "2"
+       ]
+      },
+      {
+       "text": "From 3x + y = 10 and 3x − y = 8, x = ___",
+       "answer": "3",
+       "options": [
+        "3",
+        "2",
+        "1"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the story to its equations",
+     "pairs": [
+      [
+       "Two numbers add to 50 and differ by 10",
+       "x + y = 50, x − y = 10"
+      ],
+      [
+       "20 coins of ₹2 and ₹5 are worth ₹70",
+       "x + y = 20, 2x + 5y = 70"
+      ],
+      [
+       "A fraction's numerator and denominator add to 12; the denominator is twice the numerator",
+       "x + y = 12, y = 2x"
+      ],
+      [
+       "A bat costs ₹300 more than a ball; together they cost ₹500",
+       "x − y = 300, x + y = 500"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Solve 2x + y = 7 and x − y = 2. What is y?",
+     "options": [
+      "3",
+      "2",
+      "1",
+      "−1"
+     ],
+     "answer": 2,
+     "explain": "Adding the equations gives 3x = 9, so x = 3. Then y = 7 − 2 × 3 = 1.",
+     "steps": [
+      "Add: 3x = 9",
+      "x = 3",
+      "y = 7 − 6 = 1"
+     ],
+     "mistake": "Stops after finding x and gives it as y",
+     "check": "7-2*3"
+    },
+    {
+     "q": "Solve 3x + 4y = 10 and 3x − 2y = 4. What is x?",
+     "options": [
+      "1",
+      "2",
+      "−2/3",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "Subtract: (3x + 4y) − (3x − 2y) = 6y = 6, so y = 1. Then 3x = 10 − 4 = 6, so x = 2.",
+     "steps": [
+      "Subtract: 6y = 6, y = 1",
+      "3x + 4 = 10",
+      "x = 2"
+     ],
+     "mistake": "Treats 4y − (−2y) as 2y instead of 6y",
+     "check": "(10-4*1)/3"
+    },
+    {
+     "q": "Which step eliminates x from x + 3y = 9 and 2x + y = 8?",
+     "options": [
+      "Add the two equations",
+      "Multiply the second equation by 3 and add",
+      "Multiply the first equation by 2 and subtract",
+      "Subtract the equations as they are"
+     ],
+     "answer": 2,
+     "explain": "Multiplying the first by 2 gives 2x + 6y = 18. Subtracting 2x + y = 8 removes x: 5y = 10.",
+     "mistake": "Adds or subtracts before making the x coefficients equal"
+    },
+    {
+     "q": "Harpreet has 25 notes of ₹10 and ₹20 worth ₹350 in all. How many ₹20 notes does she have?",
+     "options": [
+      "10",
+      "15",
+      "25",
+      "35"
+     ],
+     "answer": 0,
+     "explain": "x + y = 25 and 10x + 20y = 350, so x + 2y = 35. Subtracting gives y = 10 ₹20 notes (and 15 ₹10 notes).",
+     "steps": [
+      "x + y = 25",
+      "10x + 20y = 350 → x + 2y = 35",
+      "Subtract: y = 10"
+     ],
+     "mistake": "Gives the number of ₹10 notes instead",
+     "check": "35-25",
+     "visual": {
+      "kind": "compare",
+      "a": [
+       "₹10 notes",
+       15
+      ],
+      "b": [
+       "₹20 notes",
+       10
+      ]
+     }
+    },
+    {
+     "q": "2 cricket bats and 3 balls cost ₹1300. 1 bat and 2 balls cost ₹700. What does one bat cost?",
+     "options": [
+      "₹100",
+      "₹600",
+      "₹450",
+      "₹500"
+     ],
+     "answer": 3,
+     "explain": "Double the second bill: 2b + 4c = 1400. Subtract the first: c = 100. Then b = 700 − 200 = 500.",
+     "steps": [
+      "2b + 3c = 1300 and b + 2c = 700",
+      "2b + 4c = 1400; subtract: c = 100",
+      "b = 700 − 2 × 100 = 500"
+     ],
+     "mistake": "Gives the price of a ball",
+     "check": "700-2*100",
+     "visual": {
+      "kind": "compare",
+      "a": [
+       "Bat",
+       500
+      ],
+      "b": [
+       "Ball",
+       100
+      ]
+     }
+    },
+    {
+     "q": "The numerator and denominator of a fraction add up to 13, and the denominator is 3 more than the numerator. What is the fraction?",
+     "options": [
+      "8/5",
+      "4/9",
+      "3/13",
+      "5/8"
+     ],
+     "answer": 3,
+     "explain": "x + y = 13 and y − x = 3. Adding gives 2y = 16, so y = 8 and x = 5. The fraction is 5/8.",
+     "steps": [
+      "x + y = 13, y − x = 3",
+      "2y = 16, y = 8",
+      "x = 5, fraction 5/8"
+     ],
+     "mistake": "Writes the fraction upside down",
+     "check": "Fraction(5,8)",
+     "visual": {
+      "kind": "fraction",
+      "num": 5,
+      "den": 8
+     }
+    },
+    {
+     "q": "The digits of a two-digit number add up to 9. Reversing the digits increases the number by 27. What is the number?",
+     "options": [
+      "63",
+      "45",
+      "27",
+      "36"
+     ],
+     "answer": 3,
+     "explain": "Let the number be 10a + b. Then a + b = 9 and (10b + a) − (10a + b) = 27, so b − a = 3. Solving: b = 6, a = 3, giving 36. Check: 63 − 36 = 27 ✓",
+     "steps": [
+      "a + b = 9",
+      "9b − 9a = 27 → b − a = 3",
+      "b = 6, a = 3, number = 36"
+     ],
+     "mistake": "Gives the reversed number 63",
+     "check": "10*3+6"
+    },
+    {
+     "q": "Solve 4x + 3y = 26 and 2x − 3y = 4. What is x + y?",
+     "options": [
+      "7",
+      "5",
+      "2",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "Adding gives 6x = 30, so x = 5. Then 3y = 26 − 20 = 6, so y = 2. x + y = 7.",
+     "steps": [
+      "Add: 6x = 30, x = 5",
+      "3y = 26 − 20 = 6, y = 2",
+      "x + y = 7"
+     ],
+     "mistake": "Gives only x (5) instead of x + y",
+     "check": "5+2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu stares at 3x + 2y = 11 and 2x − 2y = 4: 'How can I make one letter disappear?'",
+    "must": [
+     [
+      "add",
+      "subtract",
+      "plus",
+      "minus"
+     ],
+     [
+      "same coefficient",
+      "equal coefficient",
+      "opposite",
+      "cancel",
+      "same number"
+     ],
+     [
+      "eliminate",
+      "remove",
+      "disappear",
+      "get rid"
+     ]
+    ],
+    "praise": "Chirp chirp! Make the numbers match, add or subtract, and one letter vanishes. Magic!",
+    "nudge": "What must be the same in both equations before I add or subtract them?"
+   }
+  }
+ ]
+}

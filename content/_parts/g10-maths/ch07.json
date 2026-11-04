@@ -1,0 +1,751 @@
+{
+ "n": 7,
+ "title": "Coordinate Geometry",
+ "emoji": "📍",
+ "topics": [
+  {
+   "id": "g10-maths-07-01",
+   "title": "The distance formula",
+   "learn": {
+    "hook": "Pythagoras goes to the graph paper: find the distance between any two points without a ruler!",
+    "points": [
+     "The distance between P(x₁, y₁) and Q(x₂, y₂) is PQ = √[(x₂ − x₁)² + (y₂ − y₁)²].",
+     "It comes from Pythagoras theorem: the horizontal gap and the vertical gap are the two shorter sides of a right triangle.",
+     "The distance of P(x, y) from the origin O(0, 0) is √(x² + y²).",
+     "The order of the points does not matter, because the differences are squared.",
+     "If the points are on the same horizontal or vertical line, the distance is just the difference of the changing coordinate."
+    ],
+    "example": {
+     "q": "Find the distance between A(−2, 3) and B(4, −5).",
+     "steps": [
+      "x₂ − x₁ = 4 − (−2) = 6",
+      "y₂ − y₁ = −5 − 3 = −8",
+      "AB = √(6² + (−8)²) = √(36 + 64)",
+      "= √100 = 10 units"
+     ],
+     "answer": "10 units"
+    },
+    "reallife": "Map apps work out straight-line distances between places using coordinates, just like this formula."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Distance dash",
+     "items": [
+      {
+       "q": "Distance of (3, 4) from the origin",
+       "a": "5",
+       "check": "(3**2+4**2)**0.5"
+      },
+      {
+       "q": "Distance from (1, 2) to (4, 6)",
+       "a": "5",
+       "check": "(3**2+4**2)**0.5"
+      },
+      {
+       "q": "Distance of (6, 8) from the origin",
+       "a": "10",
+       "check": "(36+64)**0.5"
+      },
+      {
+       "q": "Distance from (−1, 0) to (4, 12)",
+       "a": "13",
+       "check": "(25+144)**0.5"
+      },
+      {
+       "q": "Distance from (2, 5) to (2, −3)",
+       "a": "8",
+       "check": "5+3"
+      },
+      {
+       "q": "Distance from (7, 1) to (−2, 1)",
+       "a": "9",
+       "check": "7+2"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the points to their distance",
+     "pairs": [
+      [
+       "(0, 0) and (5, 12)",
+       "13"
+      ],
+      [
+       "(1, 1) and (4, 5)",
+       "5"
+      ],
+      [
+       "(2, 3) and (2, 10)",
+       "7"
+      ],
+      [
+       "(0, 0) and (1, 1)",
+       "√2"
+      ],
+      [
+       "(−4, 0) and (4, 6)",
+       "10"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the distance between (2, 3) and (10, 9)?",
+     "options": [
+      "10",
+      "14",
+      "100",
+      "√28"
+     ],
+     "answer": 0,
+     "explain": "√[(10 − 2)² + (9 − 3)²] = √(64 + 36) = √100 = 10.",
+     "steps": [
+      "Δx = 8, Δy = 6",
+      "8² + 6² = 100",
+      "√100 = 10"
+     ],
+     "mistake": "Adds the gaps (8 + 6 = 14) instead of using squares",
+     "check": "(8**2+6**2)**0.5"
+    },
+    {
+     "q": "How far is the point (−5, 12) from the origin?",
+     "options": [
+      "7",
+      "17",
+      "13",
+      "√119"
+     ],
+     "answer": 2,
+     "explain": "√[(−5)² + 12²] = √(25 + 144) = √169 = 13.",
+     "steps": [
+      "(−5)² = 25",
+      "12² = 144",
+      "√169 = 13"
+     ],
+     "mistake": "Treats (−5)² as −25",
+     "check": "(25+144)**0.5"
+    },
+    {
+     "q": "What is the distance between (a, 0) and (0, a), where a > 0?",
+     "options": [
+      "a√2",
+      "a",
+      "2a",
+      "√a"
+     ],
+     "answer": 0,
+     "explain": "√[(0 − a)² + (a − 0)²] = √(2a²) = a√2.",
+     "mistake": "Adds the two gaps and gets 2a"
+    },
+    {
+     "q": "The points (1, k) and (4, 5) are 5 units apart. What can k be?",
+     "options": [
+      "−1 or 9",
+      "4 only",
+      "1 or 9",
+      "1 or −9"
+     ],
+     "answer": 2,
+     "explain": "3² + (5 − k)² = 25 gives (5 − k)² = 16, so 5 − k = ±4 and k = 1 or 9.",
+     "steps": [
+      "(4 − 1)² + (5 − k)² = 25",
+      "(5 − k)² = 16",
+      "5 − k = 4 or −4, so k = 1 or 9"
+     ],
+     "mistake": "Takes only the positive square root"
+    },
+    {
+     "q": "On a town map, Riya's house is at (2, 1) and her school at (8, 9), where 1 unit = 100 m. How far apart are they in a straight line?",
+     "options": [
+      "1400 m",
+      "100 m",
+      "10 m",
+      "1000 m"
+     ],
+     "answer": 3,
+     "explain": "Distance = √(6² + 8²) = 10 units, and 10 × 100 m = 1000 m.",
+     "steps": [
+      "Δx = 6, Δy = 8",
+      "√(36 + 64) = 10 units",
+      "10 × 100 = 1000 m"
+     ],
+     "mistake": "Forgets to use the map scale, or adds 6 + 8",
+     "check": "100*(36+64)**0.5"
+    },
+    {
+     "q": "What is the distance between (−6, 2) and (−2, −1)?",
+     "options": [
+      "5",
+      "7",
+      "√65",
+      "25"
+     ],
+     "answer": 0,
+     "explain": "Δx = −2 − (−6) = 4 and Δy = −1 − 2 = −3, so the distance is √(16 + 9) = 5.",
+     "steps": [
+      "Δx = 4, Δy = −3",
+      "16 + 9 = 25",
+      "√25 = 5"
+     ],
+     "mistake": "Forgets to take the square root (25) or mishandles the negative signs",
+     "check": "(16+9)**0.5"
+    },
+    {
+     "q": "What is the distance of the point (x, y) from the origin?",
+     "options": [
+      "√(x² + y²)",
+      "x + y",
+      "x² + y²",
+      "√(x + y)"
+     ],
+     "answer": 0,
+     "explain": "Use the distance formula with (0, 0): √[(x − 0)² + (y − 0)²] = √(x² + y²).",
+     "mistake": "Forgets the square root, or adds the coordinates"
+    },
+    {
+     "q": "Which point is nearest to the origin?",
+     "options": [
+      "(3, 4)",
+      "(5, 0)",
+      "(1, −5)",
+      "(−2, −4)"
+     ],
+     "answer": 3,
+     "explain": "Distances: (3, 4) → 5, (−2, −4) → √20 ≈ 4.47, (5, 0) → 5, (1, −5) → √26 ≈ 5.10. The smallest is √20.",
+     "steps": [
+      "(−2, −4): √(4 + 16) = √20 ≈ 4.47",
+      "(3, 4) and (5, 0): 5",
+      "(1, −5): √26 ≈ 5.10"
+     ],
+     "mistake": "Ignores negative coordinates or just adds the coordinates"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sits at (1, 2) and his friend at (4, 6): 'How far apart are we on this graph?'",
+    "must": [
+     [
+      "difference",
+      "subtract",
+      "gap",
+      "minus"
+     ],
+     [
+      "square",
+      "squared",
+      "squares"
+     ],
+     [
+      "add",
+      "plus",
+      "sum"
+     ],
+     [
+      "square root",
+      "root",
+      "√"
+     ]
+    ],
+    "praise": "Chirp! Subtract, square, add and take the square root. We are 5 units apart!",
+    "nudge": "After finding the gaps in x and y, what do I do with them?"
+   }
+  },
+  {
+   "id": "g10-maths-07-02",
+   "title": "Using distances: shapes and collinear points",
+   "learn": {
+    "hook": "With just the distance formula you can prove points are in a straight line, or spot a hidden square!",
+    "points": [
+     "Points A, B, C are collinear (on one line) if the two shorter distances add up to the longest, e.g. AB + BC = AC.",
+     "Isosceles triangle: two sides equal. Equilateral: all three sides equal.",
+     "Right triangle: the square of the longest side equals the sum of the squares of the other two (converse of Pythagoras).",
+     "Quadrilaterals: four equal sides and equal diagonals → square; four equal sides only → rhombus; opposite sides equal and equal diagonals → rectangle.",
+     "To find a point equidistant from A and B, set PA² = PB² (squares avoid messy roots)."
+    ],
+    "example": {
+     "q": "Show that A(1, 1), B(4, 5) and C(7, 9) are collinear.",
+     "steps": [
+      "AB = √(3² + 4²) = 5",
+      "BC = √(3² + 4²) = 5",
+      "AC = √(6² + 8²) = 10",
+      "AB + BC = 5 + 5 = 10 = AC, so the points lie on one line"
+     ],
+     "answer": "A, B and C are collinear"
+    },
+    "reallife": "Planners check whether three bus stops lie on one straight road, or whether a plot of land is a perfect square, using coordinates."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Shape spotter",
+     "items": [
+      [
+       "If AB + BC = AC, then A, B and C are collinear.",
+       true,
+       "B lies on the segment AC, so all three are on one line."
+      ],
+      [
+       "A quadrilateral with four equal sides is always a square.",
+       false,
+       "It could be a rhombus with no right angle; the diagonals must also be equal for a square."
+      ],
+      [
+       "The points (0, 0), (3, 0) and (0, 4) form a right triangle.",
+       true,
+       "The sides are 3, 4 and 5, and 3² + 4² = 5²."
+      ],
+      [
+       "The points (0, 0), (2, 0) and (1, √3) form an equilateral triangle.",
+       true,
+       "Each side is 2: for example √(1² + (√3)²) = √4 = 2."
+      ],
+      [
+       "The points (1, 2), (2, 3) and (4, 6) are collinear.",
+       false,
+       "√2 + √13 ≈ 5.02, which is not equal to the longest distance 5."
+      ],
+      [
+       "The point (3, 3) is equidistant from (0, 0) and (6, 0).",
+       true,
+       "Both distances are √18."
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Find the point on the x-axis equidistant from A(3, 4) and B(−1, 2)",
+     "prompt": "First step to last step",
+     "items": [
+      "Let the point be P(x, 0)",
+      "Set PA² = PB²",
+      "(x − 3)² + 16 = (x + 1)² + 4",
+      "−6x + 25 = 2x + 5",
+      "x = 2.5, so P is (2.5, 0)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Are the points A(1, 5), B(2, 3) and C(−2, 11) collinear?",
+     "options": [
+      "No, because no two distances are equal",
+      "Yes, because all distances are equal",
+      "No, because they form a right triangle",
+      "Yes, because AB + AC = BC"
+     ],
+     "answer": 3,
+     "explain": "AB = √5, AC = √45 = 3√5 and BC = √80 = 4√5. Since √5 + 3√5 = 4√5, AB + AC = BC, so the points are collinear.",
+     "steps": [
+      "AB = √(1 + 4) = √5",
+      "AC = √(9 + 36) = 3√5",
+      "BC = √(16 + 64) = 4√5"
+     ],
+     "mistake": "Expects equal distances instead of checking the sum"
+    },
+    {
+     "q": "What kind of triangle has vertices A(0, 0), B(4, 0) and C(4, 3)?",
+     "options": [
+      "Equilateral",
+      "Isosceles",
+      "Right-angled",
+      "Obtuse-angled"
+     ],
+     "answer": 2,
+     "explain": "AB = 4, BC = 3 and AC = 5. Since 3² + 4² = 5², the angle at B is 90°.",
+     "steps": [
+      "AB = 4, BC = 3",
+      "AC = √(16 + 9) = 5",
+      "9 + 16 = 25 ✓"
+     ],
+     "mistake": "Does not test the Pythagoras condition"
+    },
+    {
+     "q": "Which point on the y-axis is equidistant from (2, 3) and (−4, 1)?",
+     "options": [
+      "(0, −1)",
+      "(0, 1)",
+      "(−1, 0)",
+      "(0, 4)"
+     ],
+     "answer": 0,
+     "explain": "Let P = (0, y). 4 + (y − 3)² = 16 + (y − 1)² gives −6y + 13 = −2y + 17, so y = −1. Both distances are √20.",
+     "steps": [
+      "2² + (y − 3)² = 4² + (y − 1)²",
+      "y² − 6y + 13 = y² − 2y + 17",
+      "−4y = 4, y = −1"
+     ],
+     "mistake": "Takes a point on the x-axis instead of the y-axis"
+    },
+    {
+     "q": "What figure do the points (1, 1), (4, 1), (4, 4) and (1, 4) form?",
+     "options": [
+      "A rhombus that is not a square",
+      "A square",
+      "A rectangle that is not a square",
+      "A trapezium"
+     ],
+     "answer": 1,
+     "explain": "All four sides are 3 and both diagonals are √18 = 3√2. Equal sides with equal diagonals make a square.",
+     "mistake": "Checks the sides but not the diagonals",
+     "visual": {
+      "kind": "shape",
+      "name": "square"
+     }
+    },
+    {
+     "q": "P(x, 3) is equidistant from A(1, 1) and B(5, 1). What is x?",
+     "options": [
+      "2",
+      "4",
+      "3",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "(x − 1)² + 4 = (x − 5)² + 4 gives −2x + 1 = −10x + 25, so 8x = 24 and x = 3.",
+     "steps": [
+      "(x − 1)² = (x − 5)²",
+      "x² − 2x + 1 = x² − 10x + 25",
+      "8x = 24, x = 3"
+     ],
+     "mistake": "Makes an error expanding the squares",
+     "check": "(1+5)/2"
+    },
+    {
+     "q": "A circle has centre (2, −1) and passes through (5, 3). What is its radius?",
+     "options": [
+      "7",
+      "25",
+      "√7",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "The radius is the distance from the centre to the point: √(3² + 4²) = √25 = 5.",
+     "steps": [
+      "Δx = 3, Δy = 4",
+      "9 + 16 = 25",
+      "√25 = 5"
+     ],
+     "mistake": "Forgets to take the square root, or adds the gaps",
+     "check": "(9+16)**0.5"
+    },
+    {
+     "q": "What kind of triangle has vertices (0, 0), (6, 0) and (3, 4)?",
+     "options": [
+      "Right-angled",
+      "Equilateral",
+      "Isosceles",
+      "The points are collinear"
+     ],
+     "answer": 2,
+     "explain": "The sides are 6, √(9 + 16) = 5 and √(9 + 16) = 5. Two equal sides make it isosceles; 5² + 5² ≠ 6², so it is not right-angled.",
+     "mistake": "Assumes a triangle with whole-number sides is right-angled"
+    },
+    {
+     "q": "Three laddoo stalls at a mela are at (3, 1), (6, 4) and (8, 6). Are they in a straight line?",
+     "options": [
+      "No, because the first two gaps are unequal",
+      "Yes, because they are in the same row",
+      "No, they form a triangle",
+      "Yes, because AB + BC = AC"
+     ],
+     "answer": 3,
+     "explain": "AB = √18 = 3√2, BC = √8 = 2√2 and AC = √50 = 5√2. Since 3√2 + 2√2 = 5√2, the stalls are collinear.",
+     "steps": [
+      "AB = √(9 + 9) = 3√2",
+      "BC = √(4 + 4) = 2√2",
+      "AC = √(25 + 25) = 5√2"
+     ],
+     "mistake": "Thinks collinear points must be equally spaced"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has three points: 'How can I prove they lie on one straight line?'",
+    "must": [
+     [
+      "distance",
+      "distances",
+      "length"
+     ],
+     [
+      "add",
+      "sum",
+      "plus",
+      "two smaller"
+     ],
+     [
+      "equal",
+      "same",
+      "equals",
+      "longest"
+     ]
+    ],
+    "praise": "Tweet! If the two shorter distances add up to the longest one, they're on one line!",
+    "nudge": "Which distances do I add, and what should the total be equal to?"
+   }
+  },
+  {
+   "id": "g10-maths-07-03",
+   "title": "The section formula",
+   "learn": {
+    "hook": "Want the exact spot one-third of the way from your home to school? The section formula pins it down!",
+    "points": [
+     "The point P that divides the segment from A(x₁, y₁) to B(x₂, y₂) internally in the ratio m₁ : m₂ is P = ((m₁x₂ + m₂x₁)/(m₁ + m₂), (m₁y₂ + m₂y₁)/(m₁ + m₂)).",
+     "Remember: m₁ goes with the far end B, and m₂ with the near end A.",
+     "Midpoint (ratio 1 : 1): ((x₁ + x₂)/2, (y₁ + y₂)/2).",
+     "To find an unknown ratio, call it k : 1 and solve for k.",
+     "Points of trisection divide a segment in the ratios 1 : 2 and 2 : 1."
+    ],
+    "example": {
+     "q": "Find the point that divides the join of A(−2, 5) and B(8, −5) in the ratio 2 : 3.",
+     "steps": [
+      "m₁ = 2, m₂ = 3",
+      "x = (2 × 8 + 3 × (−2))/5 = (16 − 6)/5 = 2",
+      "y = (2 × (−5) + 3 × 5)/5 = (−10 + 15)/5 = 1"
+     ],
+     "answer": "(2, 1)"
+    },
+    "reallife": "Placing a water tank at a fair point between two villages, or a fielder between two cricket players, uses the section formula idea."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Section formula fill-up",
+     "items": [
+      {
+       "text": "The midpoint of (2, 4) and (6, 8) is ___",
+       "answer": "(4, 6)",
+       "options": [
+        "(4, 6)",
+        "(8, 12)",
+        "(2, 2)"
+       ]
+      },
+      {
+       "text": "The point dividing (0, 0) and (6, 9) in the ratio 1 : 2 is ___",
+       "answer": "(2, 3)",
+       "options": [
+        "(2, 3)",
+        "(4, 6)",
+        "(3, 4.5)"
+       ]
+      },
+      {
+       "text": "If (3, y) is the midpoint of (1, 2) and (5, 8), then y = ___",
+       "answer": "5",
+       "options": [
+        "5",
+        "10",
+        "3"
+       ]
+      },
+      {
+       "text": "A point on the x-axis always has y-coordinate ___",
+       "answer": "0",
+       "options": [
+        "0",
+        "1",
+        "equal to x"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Section speed round",
+     "items": [
+      {
+       "q": "x-coordinate of the midpoint of (−4, 2) and (10, 6)",
+       "a": "3",
+       "check": "(-4+10)/2"
+      },
+      {
+       "q": "y-coordinate of the midpoint of (1, −7) and (3, 3)",
+       "a": "−2",
+       "check": "(-7+3)/2"
+      },
+      {
+       "q": "x-coordinate of the point dividing (1, 0) and (7, 0) in 1 : 2",
+       "a": "3",
+       "check": "(1*7+2*1)/3"
+      },
+      {
+       "q": "x-coordinate of the point dividing (0, 0) and (10, 5) in 3 : 2",
+       "a": "6",
+       "check": "(3*10+2*0)/5"
+      },
+      {
+       "q": "(5, 4) is the midpoint of (x, 2) and (7, 6). Find x",
+       "a": "3",
+       "check": "2*5-7"
+      },
+      {
+       "q": "y-coordinate of the midpoint of (2, 4) and (8, 10)",
+       "a": "7",
+       "check": "(4+10)/2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the midpoint of (−3, 8) and (7, −2)?",
+     "options": [
+      "(5, 5)",
+      "(−5, 5)",
+      "(4, 6)",
+      "(2, 3)"
+     ],
+     "answer": 3,
+     "explain": "((−3 + 7)/2, (8 + (−2))/2) = (2, 3).",
+     "steps": [
+      "x = (−3 + 7)/2 = 2",
+      "y = (8 − 2)/2 = 3"
+     ],
+     "mistake": "Subtracts the coordinates instead of adding them"
+    },
+    {
+     "q": "Which point divides the join of A(1, 3) and B(7, 9) in the ratio 1 : 2?",
+     "options": [
+      "(5, 7)",
+      "(4, 6)",
+      "(2, 4)",
+      "(3, 5)"
+     ],
+     "answer": 3,
+     "explain": "x = (1 × 7 + 2 × 1)/3 = 3 and y = (1 × 9 + 2 × 3)/3 = 5.",
+     "steps": [
+      "x = (7 + 2)/3 = 3",
+      "y = (9 + 6)/3 = 5"
+     ],
+     "mistake": "Swaps m₁ and m₂ and gets (5, 7)"
+    },
+    {
+     "q": "In what ratio does the y-axis divide the segment joining (−4, 2) and (6, 7)?",
+     "options": [
+      "3 : 2",
+      "2 : 3",
+      "1 : 1",
+      "4 : 7"
+     ],
+     "answer": 1,
+     "explain": "On the y-axis x = 0. With ratio k : 1, (6k − 4)/(k + 1) = 0, so k = 2/3. The ratio is 2 : 3.",
+     "steps": [
+      "(6k − 4)/(k + 1) = 0",
+      "6k = 4, k = 2/3",
+      "Ratio 2 : 3"
+     ],
+     "mistake": "Sets the y-coordinate to 0 instead of the x-coordinate"
+    },
+    {
+     "q": "(2, p) is the midpoint of (6, −3) and (−2, 7). What is p?",
+     "options": [
+      "5",
+      "4",
+      "2",
+      "−5"
+     ],
+     "answer": 2,
+     "explain": "p = (−3 + 7)/2 = 2. (Also x = (6 − 2)/2 = 2 ✓)",
+     "steps": [
+      "p = (−3 + 7)/2",
+      "= 4/2 = 2"
+     ],
+     "mistake": "Forgets to halve the sum",
+     "check": "(-3+7)/2"
+    },
+    {
+     "q": "One end of a diameter of a circle is (4, −1) and the centre is (1, 2). What is the other end?",
+     "options": [
+      "(−2, 5)",
+      "(7, −4)",
+      "(2.5, 0.5)",
+      "(3, −3)"
+     ],
+     "answer": 0,
+     "explain": "The centre is the midpoint: (4 + x)/2 = 1 and (−1 + y)/2 = 2, so x = −2 and y = 5.",
+     "steps": [
+      "4 + x = 2, x = −2",
+      "−1 + y = 4, y = 5"
+     ],
+     "mistake": "Finds the midpoint of the two given points instead"
+    },
+    {
+     "q": "What are the points of trisection of the segment joining (0, 0) and (9, 6)?",
+     "options": [
+      "(4.5, 3) only",
+      "(3, 3) and (6, 6)",
+      "(2, 3) and (4, 6)",
+      "(3, 2) and (6, 4)"
+     ],
+     "answer": 3,
+     "explain": "Ratio 1 : 2 gives (9/3, 6/3) = (3, 2), and ratio 2 : 1 gives (18/3, 12/3) = (6, 4).",
+     "steps": [
+      "1 : 2 → ((9 + 0)/3, (6 + 0)/3) = (3, 2)",
+      "2 : 1 → ((18 + 0)/3, (12 + 0)/3) = (6, 4)"
+     ],
+     "mistake": "Gives only the midpoint, or swaps x and y"
+    },
+    {
+     "q": "In what ratio does P(4, 6) divide the join of A(2, 4) and B(8, 10)?",
+     "options": [
+      "2 : 1",
+      "1 : 2",
+      "3 : 1",
+      "1 : 3"
+     ],
+     "answer": 1,
+     "explain": "With ratio k : 1, (8k + 2)/(k + 1) = 4 gives 4k = 2, so k = 1/2. The ratio is 1 : 2 (the y-coordinates agree too).",
+     "steps": [
+      "8k + 2 = 4k + 4",
+      "k = 1/2",
+      "Ratio 1 : 2"
+     ],
+     "mistake": "Writes the ratio upside down"
+    },
+    {
+     "q": "Kabir walks in a straight line from the gate G(2, 1) to a tree T(10, 5) and stops three-quarters of the way. Where is he?",
+     "options": [
+      "(4, 2)",
+      "(8, 4)",
+      "(6, 3)",
+      "(7.5, 3.75)"
+     ],
+     "answer": 1,
+     "explain": "Three-quarters of the way means the ratio 3 : 1 from G. x = (3 × 10 + 1 × 2)/4 = 8 and y = (3 × 5 + 1 × 1)/4 = 4.",
+     "steps": [
+      "Ratio 3 : 1",
+      "x = (30 + 2)/4 = 8",
+      "y = (15 + 1)/4 = 4"
+     ],
+     "mistake": "Uses the ratio 1 : 3, which is only a quarter of the way"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to sit one-third of the way from his nest to the mango tree: 'How do I find that point?'",
+    "must": [
+     [
+      "ratio",
+      "m1",
+      "m₁",
+      "parts"
+     ],
+     [
+      "multiply",
+      "times",
+      "weight"
+     ],
+     [
+      "divide",
+      "m1 + m2",
+      "total",
+      "sum of ratio"
+     ]
+    ],
+    "praise": "Chirp! Multiply by the ratio parts crosswise and divide by their sum. Found my spot!",
+    "nudge": "Which ratio number goes with which end point, and what do I divide by?"
+   }
+  }
+ ]
+}

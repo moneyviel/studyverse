@@ -1,0 +1,863 @@
+{
+ "n": 5,
+ "title": "Arithmetic Progressions",
+ "emoji": "🪜",
+ "topics": [
+  {
+   "id": "g10-maths-05-01",
+   "title": "What is an AP?",
+   "learn": {
+    "hook": "Climbing stairs, saving pocket money every week, or a taxi meter ticking up — all follow the same steady pattern!",
+    "points": [
+     "An arithmetic progression (AP) is a list of numbers where each term is got by adding a fixed number to the previous term.",
+     "This fixed number is the common difference d = a₂ − a₁ = a₃ − a₂ = … It can be positive, negative, zero or a fraction.",
+     "An AP with first term a looks like a, a + d, a + 2d, a + 3d, …",
+     "To test for an AP, check that the difference between every pair of consecutive terms is the same.",
+     "An AP can be finite (it stops) or infinite (it goes on forever)."
+    ],
+    "example": {
+     "q": "Is 3, 7, 11, 15, … an AP? If yes, find the next term.",
+     "steps": [
+      "7 − 3 = 4, 11 − 7 = 4, 15 − 11 = 4",
+      "The difference is always 4, so it is an AP with d = 4",
+      "Next term = 15 + 4 = 19"
+     ],
+     "answer": "Yes, d = 4; the next term is 19"
+    },
+    "reallife": "If Joseph puts ₹20 more in his piggy bank each week than the week before, his weekly savings form an AP."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "AP or not?",
+     "buckets": [
+      "AP",
+      "Not an AP"
+     ],
+     "items": [
+      [
+       "2, 5, 8, 11",
+       0
+      ],
+      [
+       "1, 4, 9, 16",
+       1
+      ],
+      [
+       "10, 7, 4, 1",
+       0
+      ],
+      [
+       "3, 6, 12, 24",
+       1
+      ],
+      [
+       "−2, −2, −2, −2",
+       0
+      ],
+      [
+       "1/2, 1, 3/2, 2",
+       0
+      ],
+      [
+       "1, 1, 2, 3, 5",
+       1
+      ],
+      [
+       "0.5, 0.75, 1, 1.25",
+       0
+      ],
+      [
+       "√2, √8, √18, √32",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Build the AP",
+     "prompt": "Terms of the AP with a = 4 and d = −3, first to fifth",
+     "items": [
+      "4",
+      "1",
+      "−2",
+      "−5",
+      "−8"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the common difference of 15, 11, 7, 3, …?",
+     "options": [
+      "−4",
+      "4",
+      "3",
+      "−3"
+     ],
+     "answer": 0,
+     "explain": "d = 11 − 15 = −4. The terms go down by 4 each time.",
+     "steps": [
+      "d = a₂ − a₁",
+      "= 11 − 15 = −4"
+     ],
+     "mistake": "Subtracts the wrong way round (15 − 11 = 4)",
+     "check": "11-15",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 16,
+      "marks": [
+       15,
+       11,
+       7,
+       3
+      ],
+      "jumps": [
+       [
+        15,
+        11
+       ],
+       [
+        11,
+        7
+       ],
+       [
+        7,
+        3
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What is the next term of 2.5, 4, 5.5, …?",
+     "options": [
+      "7",
+      "6.5",
+      "8",
+      "7.5"
+     ],
+     "answer": 0,
+     "explain": "d = 4 − 2.5 = 1.5, so the next term is 5.5 + 1.5 = 7.",
+     "steps": [
+      "d = 1.5",
+      "5.5 + 1.5 = 7"
+     ],
+     "mistake": "Adds 1 instead of the common difference 1.5",
+     "check": "5.5+1.5",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 10,
+      "marks": [
+       2.5,
+       4,
+       5.5,
+       7
+      ],
+      "jumps": [
+       [
+        2.5,
+        4
+       ],
+       [
+        4,
+        5.5
+       ],
+       [
+        5.5,
+        7
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Which of these lists is an AP?",
+     "options": [
+      "1, 3, 9, 27",
+      "1, 4, 9, 16",
+      "2, 3, 5, 8",
+      "5, 5, 5, 5"
+     ],
+     "answer": 3,
+     "explain": "5, 5, 5, 5 has common difference 0, which is allowed. The others have changing differences.",
+     "mistake": "Thinks the common difference cannot be zero"
+    },
+    {
+     "q": "If 2k + 1, 13 and 5k − 3 are three consecutive terms of an AP, what is k?",
+     "options": [
+      "2",
+      "4",
+      "5",
+      "26/7"
+     ],
+     "answer": 1,
+     "explain": "In an AP, the middle term is the average of its neighbours: 2 × 13 = (2k + 1) + (5k − 3). So 26 = 7k − 2 and k = 4. The terms are 9, 13, 17.",
+     "steps": [
+      "2 × 13 = (2k + 1) + (5k − 3)",
+      "26 = 7k − 2",
+      "7k = 28, k = 4"
+     ],
+     "mistake": "Forgets the −2 and writes 7k = 26",
+     "check": "28/7"
+    },
+    {
+     "q": "Riya saves ₹50 in week 1, ₹75 in week 2 and ₹100 in week 3, continuing the pattern. Which describes her savings?",
+     "options": [
+      "a = 50, d = 25",
+      "a = 25, d = 50",
+      "a = 50, d = 75",
+      "Not an AP"
+     ],
+     "answer": 0,
+     "explain": "The first term is 50 and each week she saves ₹25 more: 75 − 50 = 100 − 75 = 25.",
+     "mistake": "Mixes up the first term and the common difference"
+    },
+    {
+     "q": "What is the fourth term of the AP with a = −3 and d = 1/2?",
+     "options": [
+      "−3/2",
+      "−1/2",
+      "3/2",
+      "−1"
+     ],
+     "answer": 0,
+     "explain": "The fourth term is a + 3d = −3 + 3/2 = −3/2.",
+     "steps": [
+      "a₄ = a + 3d",
+      "= −3 + 3 × 1/2",
+      "= −3/2"
+     ],
+     "mistake": "Adds 4d instead of 3d",
+     "check": "-3+3*Fraction(1,2)"
+    },
+    {
+     "q": "A taxi charges ₹30 for the first km and ₹12 for each extra km. What is the fare for 3 km?",
+     "options": [
+      "₹66",
+      "₹54",
+      "₹42",
+      "₹36"
+     ],
+     "answer": 1,
+     "explain": "The fares 30, 42, 54, … form an AP with d = 12. For 3 km: 30 + 2 × 12 = ₹54.",
+     "steps": [
+      "1 km: ₹30",
+      "2 km: ₹42",
+      "3 km: 30 + 2 × 12 = ₹54"
+     ],
+     "mistake": "Charges ₹12 for all 3 km on top of ₹30",
+     "check": "30+2*12",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "1 km",
+        30
+       ],
+       [
+        "2 km",
+        42
+       ],
+       [
+        "3 km",
+        54
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Which statement about every AP is TRUE?",
+     "options": [
+      "The common difference must be positive",
+      "The difference between consecutive terms is constant",
+      "The ratio of consecutive terms is constant",
+      "An AP must have infinitely many terms"
+     ],
+     "answer": 1,
+     "explain": "That is the definition of an AP. The difference can be negative or zero, and an AP can be finite.",
+     "mistake": "Confuses a constant difference with a constant ratio"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sees 3, 7, 11, 15: 'Is this an AP? How do I check?'",
+    "must": [
+     [
+      "difference",
+      "subtract",
+      "minus",
+      "gap"
+     ],
+     [
+      "same",
+      "constant",
+      "fixed",
+      "equal"
+     ],
+     [
+      "next",
+      "consecutive",
+      "each term",
+      "previous"
+     ]
+    ],
+    "praise": "Chirp chirp! Subtract each term from the next, and if the gap is always the same, it's an AP!",
+    "nudge": "What do I subtract, and what must stay the same?"
+   }
+  },
+  {
+   "id": "g10-maths-05-02",
+   "title": "The nth term of an AP",
+   "learn": {
+    "hook": "Want the 100th term without writing 99 terms first? One short formula jumps straight there!",
+    "points": [
+     "The nth term of an AP is aₙ = a + (n − 1)d.",
+     "You add d only (n − 1) times, because the first term already has no d.",
+     "Number of terms in a finite AP: n = (l − a)/d + 1, where l is the last term.",
+     "The nth term from the end is l − (n − 1)d.",
+     "A number is a term of the AP only if the n you get is a positive whole number."
+    ],
+    "example": {
+     "q": "Find the 40th term of 5, 9, 13, …",
+     "steps": [
+      "a = 5, d = 4, n = 40",
+      "a₄₀ = 5 + (40 − 1) × 4",
+      "= 5 + 156 = 161"
+     ],
+     "answer": "161"
+    },
+    "reallife": "Seats in a stadium often increase by the same number in every row — the nth-term formula tells how many seats are in row 30."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "nth-term sprint",
+     "items": [
+      {
+       "q": "10th term of 3, 5, 7, …",
+       "a": "21",
+       "check": "3+9*2"
+      },
+      {
+       "q": "20th term of 1, 4, 7, …",
+       "a": "58",
+       "check": "1+19*3"
+      },
+      {
+       "q": "a = 10, d = −2: the 6th term",
+       "a": "0",
+       "check": "10+5*(-2)"
+      },
+      {
+       "q": "Number of terms in 7, 11, …, 47",
+       "a": "11",
+       "check": "(47-7)/4+1"
+      },
+      {
+       "q": "a = 4 and a₅ = 20: find d",
+       "a": "4",
+       "check": "(20-4)/4"
+      },
+      {
+       "q": "15th term of −2, 0, 2, …",
+       "a": "26",
+       "check": "-2+14*2"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the gap",
+     "items": [
+      {
+       "text": "In aₙ = a + (n − 1)d, d stands for the ___",
+       "answer": "common difference",
+       "options": [
+        "common difference",
+        "number of terms",
+        "last term"
+       ]
+      },
+      {
+       "text": "The 3rd term of an AP is a + ___",
+       "answer": "2d",
+       "options": [
+        "2d",
+        "3d",
+        "d"
+       ]
+      },
+      {
+       "text": "If a = 7 and d = 3, then a₄ = ___",
+       "answer": "16",
+       "options": [
+        "16",
+        "19",
+        "13"
+       ]
+      },
+      {
+       "text": "The number of two-digit numbers divisible by 7 is ___",
+       "answer": "13",
+       "options": [
+        "13",
+        "14",
+        "12"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the 25th term of 2, 7, 12, …?",
+     "options": [
+      "127",
+      "117",
+      "122",
+      "125"
+     ],
+     "answer": 2,
+     "explain": "a₂₅ = 2 + 24 × 5 = 122.",
+     "steps": [
+      "a = 2, d = 5",
+      "a₂₅ = 2 + (25 − 1) × 5",
+      "= 2 + 120 = 122"
+     ],
+     "mistake": "Uses n instead of n − 1 and gets 127",
+     "check": "2+24*5"
+    },
+    {
+     "q": "Which term of the AP 3, 8, 13, … is 78?",
+     "options": [
+      "15",
+      "26",
+      "17",
+      "16"
+     ],
+     "answer": 3,
+     "explain": "3 + (n − 1) × 5 = 78 gives n − 1 = 15, so n = 16.",
+     "steps": [
+      "(n − 1) × 5 = 75",
+      "n − 1 = 15",
+      "n = 16"
+     ],
+     "mistake": "Forgets to add 1 at the end",
+     "check": "(78-3)/5+1"
+    },
+    {
+     "q": "Is 301 a term of the AP 5, 11, 17, 23, …?",
+     "options": [
+      "Yes, it is the 50th term",
+      "Yes, it is the 49th term",
+      "No, because (301 − 5)/6 is not a whole number",
+      "No, because 301 is odd"
+     ],
+     "answer": 2,
+     "explain": "For 301 to be a term, (301 − 5)/6 = 296/6 must be a whole number. It is 49.33…, so 301 is not a term.",
+     "steps": [
+      "5 + (n − 1)6 = 301",
+      "n − 1 = 296/6 = 49.33…",
+      "Not a whole number"
+     ],
+     "mistake": "Rounds n to a whole number instead of checking"
+    },
+    {
+     "q": "The 4th term of an AP is 14 and the 9th term is 34. What is d?",
+     "options": [
+      "5",
+      "4",
+      "20",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "From the 4th to the 9th term we add d five times: 5d = 34 − 14 = 20, so d = 4.",
+     "steps": [
+      "a₉ − a₄ = 5d",
+      "5d = 20",
+      "d = 4"
+     ],
+     "mistake": "Divides by 9 − 4 + 1 = 6 or forgets to divide at all",
+     "check": "(34-14)/5"
+    },
+    {
+     "q": "The 3rd term of an AP is 12 and the 7th term is 28. What is the first term?",
+     "options": [
+      "8",
+      "16",
+      "4",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "4d = 28 − 12 = 16, so d = 4. Then a = 12 − 2d = 4.",
+     "steps": [
+      "a₇ − a₃ = 4d = 16, d = 4",
+      "a₃ = a + 2d",
+      "a = 12 − 8 = 4"
+     ],
+     "mistake": "Subtracts only one d from the 3rd term",
+     "check": "12-2*4"
+    },
+    {
+     "q": "How many three-digit numbers are divisible by 6?",
+     "options": [
+      "149",
+      "166",
+      "150",
+      "151"
+     ],
+     "answer": 2,
+     "explain": "They are 102, 108, …, 996. n = (996 − 102)/6 + 1 = 149 + 1 = 150.",
+     "steps": [
+      "First: 102, last: 996, d = 6",
+      "n = (996 − 102)/6 + 1",
+      "= 149 + 1 = 150"
+     ],
+     "mistake": "Forgets the +1 in the counting formula",
+     "check": "(996-102)/6+1"
+    },
+    {
+     "q": "What is the 10th term from the end of the AP 3, 8, 13, …, 253?",
+     "options": [
+      "203",
+      "48",
+      "213",
+      "208"
+     ],
+     "answer": 3,
+     "explain": "From the end, the AP goes 253, 248, … with d = −5. 10th term = 253 − 9 × 5 = 208.",
+     "steps": [
+      "l = 253, d = 5",
+      "10th from end = l − (10 − 1)d",
+      "= 253 − 45 = 208"
+     ],
+     "mistake": "Finds the 10th term from the start (48) instead",
+     "check": "253-9*5"
+    },
+    {
+     "q": "Kabir's salary starts at ₹20,000 a month and rises by ₹1,500 every year. In which year will it first be ₹35,000 a month?",
+     "options": [
+      "10th year",
+      "11th year",
+      "12th year",
+      "15th year"
+     ],
+     "answer": 1,
+     "explain": "20000 + (n − 1) × 1500 = 35000 gives n − 1 = 10, so n = 11.",
+     "steps": [
+      "(n − 1) × 1500 = 15000",
+      "n − 1 = 10",
+      "n = 11"
+     ],
+     "mistake": "Forgets that the first year has no raise and answers 10"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the 50th term of 2, 5, 8, …: 'Do I really have to write all 50?'",
+    "must": [
+     [
+      "a + (n − 1)d",
+      "a+(n-1)d",
+      "formula"
+     ],
+     [
+      "first term",
+      "start"
+     ],
+     [
+      "common difference",
+      "difference",
+      "gap"
+     ],
+     [
+      "n − 1",
+      "n-1",
+      "one less"
+     ]
+    ],
+    "praise": "Tweet! First term plus (n − 1) common differences. I can jump to any term now!",
+    "nudge": "Why do I multiply d by n − 1 and not by n?"
+   }
+  },
+  {
+   "id": "g10-maths-05-03",
+   "title": "Sum of n terms of an AP",
+   "learn": {
+    "hook": "Young Gauss added 1 to 100 in seconds by pairing numbers — learn his trick and add any AP in a flash!",
+    "points": [
+     "The sum of the first n terms is Sₙ = n/2 [2a + (n − 1)d].",
+     "If you know the last term l, use Sₙ = n/2 (a + l).",
+     "Sum of the first n natural numbers: 1 + 2 + … + n = n(n + 1)/2.",
+     "The nth term can be found from sums: aₙ = Sₙ − Sₙ₋₁.",
+     "Pairing idea: first + last = second + second-last = …, and there are n/2 such pairs."
+    ],
+    "example": {
+     "q": "Find the sum of the first 20 terms of 4, 7, 10, …",
+     "steps": [
+      "a = 4, d = 3, n = 20",
+      "S₂₀ = 20/2 [2 × 4 + 19 × 3]",
+      "= 10 × (8 + 57)",
+      "= 10 × 65 = 650"
+     ],
+     "answer": "650"
+    },
+    "reallife": "Stacking diyas or logs in rows that shrink by one each time — the sum formula counts them all without counting one by one."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the sum",
+     "pairs": [
+      [
+       "Sum of the first 10 natural numbers",
+       "55"
+      ],
+      [
+       "Sum of the first 5 odd numbers",
+       "25"
+      ],
+      [
+       "1 + 2 + 3 + … + 100",
+       "5050"
+      ],
+      [
+       "2 + 4 + 6 + 8",
+       "20"
+      ],
+      [
+       "5 + 10 + 15 + 20",
+       "50"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Sum sense",
+     "items": [
+      [
+       "Sₙ = n/2 (a + l), where l is the last term.",
+       true,
+       "Each pair first + last has the same total, and there are n/2 pairs."
+      ],
+      [
+       "The sum of the first n odd numbers is n².",
+       true,
+       "For example 1 + 3 + 5 = 9 = 3²."
+      ],
+      [
+       "If Sₙ = n², then the second term is 4.",
+       false,
+       "a₂ = S₂ − S₁ = 4 − 1 = 3."
+      ],
+      [
+       "The sum of the terms of an AP can be negative.",
+       true,
+       "For example −1 + (−3) + (−5) = −9."
+      ],
+      [
+       "Sₙ − Sₙ₋₁ gives the nth term.",
+       true,
+       "The sum of n terms minus the sum of n − 1 terms leaves just the nth term."
+      ],
+      [
+       "The sum of the first 10 terms of 1, 1, 1, … is 1.",
+       false,
+       "Ten terms of 1 add up to 10."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the sum of the first 15 terms of 3, 7, 11, …?",
+     "options": [
+      "465",
+      "930",
+      "59",
+      "435"
+     ],
+     "answer": 0,
+     "explain": "S₁₅ = 15/2 [6 + 14 × 4] = 15/2 × 62 = 465.",
+     "steps": [
+      "a = 3, d = 4",
+      "S₁₅ = 15/2 [2 × 3 + 14 × 4]",
+      "= 15/2 × 62 = 465"
+     ],
+     "mistake": "Forgets to halve and gets 930, or gives the 15th term (59)",
+     "check": "Fraction(15,2)*(2*3+14*4)"
+    },
+    {
+     "q": "What is 1 + 3 + 5 + … + 49?",
+     "options": [
+      "1225",
+      "625",
+      "600",
+      "650"
+     ],
+     "answer": 1,
+     "explain": "There are (49 − 1)/2 + 1 = 25 terms. S = 25/2 × (1 + 49) = 625, which is 25².",
+     "steps": [
+      "n = (49 − 1)/2 + 1 = 25",
+      "S = 25/2 × (1 + 49)",
+      "= 25 × 25 = 625"
+     ],
+     "mistake": "Counts 49 terms instead of 25",
+     "check": "Fraction(25,2)*(1+49)"
+    },
+    {
+     "q": "The sum of the first n terms of an AP is Sₙ = 3n² + 2n. What is the first term?",
+     "options": [
+      "3",
+      "2",
+      "8",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "The first term equals S₁ = 3(1)² + 2(1) = 5.",
+     "steps": [
+      "a₁ = S₁",
+      "= 3 + 2 = 5"
+     ],
+     "mistake": "Reads the coefficient 3 or 2 as the first term",
+     "check": "3+2"
+    },
+    {
+     "q": "For the same rule Sₙ = 3n² + 2n, what is the common difference?",
+     "options": [
+      "6",
+      "3",
+      "11",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "S₂ = 12 + 4 = 16, so a₂ = S₂ − S₁ = 16 − 5 = 11. Then d = 11 − 5 = 6.",
+     "steps": [
+      "S₁ = 5, S₂ = 16",
+      "a₂ = 16 − 5 = 11",
+      "d = 11 − 5 = 6"
+     ],
+     "mistake": "Gives the second term (11) instead of the difference",
+     "check": "(3*4+2*2)-2*(3+2)"
+    },
+    {
+     "q": "Harpreet stacks logs with 20 in the bottom row, 19 in the next, and so on, with 5 in the top row. How many logs are there?",
+     "options": [
+      "180",
+      "225",
+      "216",
+      "200"
+     ],
+     "answer": 3,
+     "explain": "Rows go 20, 19, …, 5: n = 20 − 5 + 1 = 16 rows. S = 16/2 × (20 + 5) = 200.",
+     "steps": [
+      "n = 16",
+      "S = 16/2 × (20 + 5)",
+      "= 8 × 25 = 200"
+     ],
+     "mistake": "Counts 15 rows instead of 16",
+     "check": "Fraction(16,2)*(20+5)"
+    },
+    {
+     "q": "How many terms of the AP 5, 9, 13, … must be added to get 230?",
+     "options": [
+      "12",
+      "10",
+      "8",
+      "23"
+     ],
+     "answer": 1,
+     "explain": "n/2 [10 + 4(n − 1)] = 230 gives n(2n + 3) = 230, i.e. 2n² + 3n − 230 = 0. D = 9 + 1840 = 1849 = 43², so n = (−3 + 43)/4 = 10.",
+     "steps": [
+      "Sₙ = n/2 [2(5) + (n − 1)4] = n(2n + 3)",
+      "2n² + 3n − 230 = 0",
+      "n = (−3 + 43)/4 = 10"
+     ],
+     "mistake": "Keeps the negative root or makes an error forming the equation",
+     "check": "(-3+1849**0.5)/4"
+    },
+    {
+     "q": "A Diwali quiz has 5 prizes worth ₹2,500 in all. Each prize is ₹100 less than the one before. What is the first prize?",
+     "options": [
+      "₹500",
+      "₹900",
+      "₹600",
+      "₹700"
+     ],
+     "answer": 3,
+     "explain": "5/2 [2a − 400] = 2500 gives 2a − 400 = 1000, so a = 700. Prizes: 700, 600, 500, 400, 300.",
+     "steps": [
+      "S₅ = 5/2 [2a + 4(−100)] = 2500",
+      "2a − 400 = 1000",
+      "a = 700"
+     ],
+     "mistake": "Divides ₹2,500 equally and gives the middle prize ₹500",
+     "check": "(2*2500/5+400)/2",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "1st",
+        700
+       ],
+       [
+        "2nd",
+        600
+       ],
+       [
+        "3rd",
+        500
+       ],
+       [
+        "4th",
+        400
+       ],
+       [
+        "5th",
+        300
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What is the sum of the first 50 natural numbers?",
+     "options": [
+      "2550",
+      "1275",
+      "1250",
+      "1300"
+     ],
+     "answer": 1,
+     "explain": "n(n + 1)/2 = 50 × 51/2 = 1275.",
+     "steps": [
+      "n = 50",
+      "50 × 51 = 2550",
+      "2550 ÷ 2 = 1275"
+     ],
+     "mistake": "Forgets to divide by 2",
+     "check": "50*51/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has to add 2 + 4 + 6 + … + 100: 'Isn't there a faster way than adding one by one?'",
+    "must": [
+     [
+      "n/2",
+      "half",
+      "divide by 2",
+      "pairs"
+     ],
+     [
+      "first term",
+      "first"
+     ],
+     [
+      "last term",
+      "last"
+     ]
+    ],
+    "praise": "Wow! Number of terms by 2, times first plus last. Gauss would be proud of you!",
+    "nudge": "Which two terms do I add, and what do I multiply them by?"
+   }
+  }
+ ]
+}

@@ -225,8 +225,9 @@ function teachStep(b) {
   let tries = 0;
   $('#tSkip').onclick = nextStep;
   $('#tBtn').onclick = () => {
-    const txt = $('#ans').value.toLowerCase(); tries++;
-    const hasWord = w => { w = String(w).toLowerCase().trim(); if (!w) return false;
+    const norm = t => String(t).toLowerCase().replace(/×/g, 'x').replace(/÷/g, '/').replace(/−/g, '-').replace(/\s+/g, ' ');
+    const txt = norm($('#ans').value); tries++;
+    const hasWord = w => { w = norm(w).trim(); if (!w) return false;
       if (/[^\x00-\x7f]/.test(w)) return txt.includes(w); // Hindi/Sanskrit: match inside text
       const e = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); return new RegExp(`(^|[^a-z0-9])${e}(s|es)?([^a-z0-9]|$)`).test(txt); };
     const miss = (T.must || []).filter(grp => !grp.some(hasWord));

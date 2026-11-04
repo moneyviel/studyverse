@@ -1,0 +1,817 @@
+{
+ "n": 2,
+ "title": "Polynomials",
+ "emoji": "📈",
+ "topics": [
+  {
+   "id": "g10-maths-02-01",
+   "title": "Polynomials and their zeros",
+   "learn": {
+    "hook": "A zero of a polynomial is a secret number that makes the whole expression vanish — poof, it becomes 0!",
+    "points": [
+     "The degree of a polynomial in x is the highest power of x in it: degree 1 is linear, 2 is quadratic, 3 is cubic.",
+     "A real number k is a zero of p(x) if p(k) = 0.",
+     "The zero of the linear polynomial ax + b (a ≠ 0) is −b/a.",
+     "A polynomial of degree n has at most n zeros.",
+     "Powers of x in a polynomial must be whole numbers, so 1/x or √x terms are not allowed. Coefficients like √3 are fine."
+    ],
+    "example": {
+     "q": "Find the zeros of p(x) = x² − 5x + 6.",
+     "steps": [
+      "Find two numbers with product 6 and sum −5: they are −2 and −3",
+      "x² − 5x + 6 = (x − 2)(x − 3)",
+      "p(x) = 0 when x − 2 = 0 or x − 3 = 0",
+      "Check: p(2) = 4 − 10 + 6 = 0 ✓ and p(3) = 9 − 15 + 6 = 0 ✓"
+     ],
+     "answer": "The zeros are 2 and 3"
+    },
+    "reallife": "Engineers find the zeros of polynomials to know exactly when a cricket ball's height becomes 0 — the moment it lands!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Linear, quadratic or cubic?",
+     "buckets": [
+      "Linear",
+      "Quadratic",
+      "Cubic"
+     ],
+     "items": [
+      [
+       "3x + 7",
+       0
+      ],
+      [
+       "x² − 4",
+       1
+      ],
+      [
+       "2x³ + x",
+       2
+      ],
+      [
+       "5 − x",
+       0
+      ],
+      [
+       "x³",
+       2
+      ],
+      [
+       "4x² + 3x − 1",
+       1
+      ],
+      [
+       "√2 x + 1",
+       0
+      ],
+      [
+       "y² + 2y",
+       1
+      ],
+      [
+       "t³ − t² + 1",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the polynomial to its zero(s)",
+     "pairs": [
+      [
+       "x − 4",
+       "4"
+      ],
+      [
+       "2x + 6",
+       "−3"
+      ],
+      [
+       "x² − 9",
+       "3 and −3"
+      ],
+      [
+       "x² − 3x",
+       "0 and 3"
+      ],
+      [
+       "3x − 2",
+       "2/3"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the degree of 4x³ − 7x⁵ + 2?",
+     "options": [
+      "3",
+      "5",
+      "7",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "The degree is the highest power of x. The term −7x⁵ has power 5.",
+     "mistake": "Takes the power of the first term instead of the highest power",
+     "check": "5"
+    },
+    {
+     "q": "What is the zero of the polynomial 2x − 8?",
+     "options": [
+      "4",
+      "−4",
+      "8",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "Set 2x − 8 = 0, so 2x = 8 and x = 4.",
+     "steps": [
+      "2x − 8 = 0",
+      "2x = 8",
+      "x = 8 ÷ 2 = 4"
+     ],
+     "mistake": "Takes the constant term as the zero, or gets the sign wrong",
+     "check": "8/2",
+     "visual": {
+      "kind": "numberline",
+      "from": -5,
+      "to": 10,
+      "marks": [
+       4
+      ]
+     }
+    },
+    {
+     "q": "If p(x) = x² − 3x + 2, what is p(−1)?",
+     "options": [
+      "0",
+      "−2",
+      "2",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "Put x = −1: (−1)² − 3(−1) + 2 = 1 + 3 + 2 = 6.",
+     "steps": [
+      "(−1)² = 1",
+      "−3 × (−1) = +3",
+      "1 + 3 + 2 = 6"
+     ],
+     "mistake": "Treats (−1)² as −1 or −3 × (−1) as −3",
+     "check": "(-1)**2-3*(-1)+2"
+    },
+    {
+     "q": "Which number is a zero of x² + x − 12?",
+     "options": [
+      "−3",
+      "4",
+      "12",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "x² + x − 12 = (x + 4)(x − 3), so the zeros are −4 and 3. Check: 9 + 3 − 12 = 0.",
+     "steps": [
+      "Two numbers with product −12 and sum 1: 4 and −3",
+      "(x + 4)(x − 3) = 0",
+      "x = −4 or x = 3"
+     ],
+     "mistake": "Gets the signs of the zeros the wrong way round",
+     "check": "3",
+     "visual": {
+      "kind": "numberline",
+      "from": -5,
+      "to": 5,
+      "marks": [
+       -4,
+       3
+      ]
+     }
+    },
+    {
+     "q": "At most how many zeros can a cubic polynomial have?",
+     "options": [
+      "1",
+      "2",
+      "4",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "A polynomial of degree n has at most n zeros. A cubic has degree 3.",
+     "mistake": "Thinks every polynomial has 2 zeros like a quadratic",
+     "check": "3"
+    },
+    {
+     "q": "If x = 2 is a zero of x² + kx − 10, what is k?",
+     "options": [
+      "−3",
+      "3",
+      "2",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "p(2) = 0 gives 4 + 2k − 10 = 0, so 2k = 6 and k = 3.",
+     "steps": [
+      "4 + 2k − 10 = 0",
+      "2k − 6 = 0",
+      "k = 3"
+     ],
+     "mistake": "Makes a sign error while moving terms across",
+     "check": "(10-4)/2"
+    },
+    {
+     "q": "Which of these is NOT a polynomial?",
+     "options": [
+      "√3 x² + 2",
+      "x² + 1/x",
+      "x³ − x",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "1/x means x to the power −1, and powers in a polynomial must be whole numbers. A coefficient like √3 is allowed, and 7 is a constant polynomial.",
+     "mistake": "Thinks a coefficient like √3 stops it being a polynomial"
+    },
+    {
+     "q": "What is the zero of the linear polynomial ax + b, where a ≠ 0?",
+     "options": [
+      "b/a",
+      "−a/b",
+      "a/b",
+      "−b/a"
+     ],
+     "answer": 3,
+     "explain": "ax + b = 0 gives ax = −b, so x = −b/a.",
+     "steps": [
+      "ax + b = 0",
+      "ax = −b",
+      "x = −b/a"
+     ],
+     "mistake": "Forgets the minus sign when moving b across"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu scratches his head: 'What does it mean when someone says 3 is a zero of a polynomial?'",
+    "must": [
+     [
+      "put",
+      "substitute",
+      "plug",
+      "replace"
+     ],
+     [
+      "zero",
+      "0",
+      "nothing"
+     ],
+     [
+      "value",
+      "answer",
+      "result"
+     ]
+    ],
+    "praise": "Tweet! Put the number in, and if the answer is 0, it's a zero. So simple!",
+    "nudge": "What do I do with the number, and what answer should I get?"
+   }
+  },
+  {
+   "id": "g10-maths-02-02",
+   "title": "Seeing zeros on a graph",
+   "learn": {
+    "hook": "Draw a polynomial and its zeros jump out — they are exactly where the graph meets the x-axis!",
+    "points": [
+     "The zeros of p(x) are the x-coordinates of the points where the graph of y = p(x) meets the x-axis.",
+     "A linear polynomial ax + b (a ≠ 0) gives a straight line that cuts the x-axis exactly once.",
+     "A quadratic gives a U-shaped curve called a parabola. It may cut the x-axis twice, touch it once, or miss it completely — so it has 2, 1 or 0 zeros.",
+     "For y = ax² + bx + c, the parabola opens upwards if a > 0 and downwards if a < 0.",
+     "A cubic polynomial's graph meets the x-axis at least once and at most three times."
+    ],
+    "example": {
+     "q": "Where does the graph of y = x² − 4 meet the x-axis?",
+     "steps": [
+      "On the x-axis, y = 0",
+      "x² − 4 = 0, so x² = 4",
+      "x = 2 or x = −2"
+     ],
+     "answer": "At (−2, 0) and (2, 0); the zeros are −2 and 2"
+    },
+    "reallife": "The path of a water jet from a garden pipe is a parabola; its zeros tell where the water starts and where it lands."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Graph detective",
+     "items": [
+      [
+       "Every quadratic polynomial has exactly two zeros.",
+       false,
+       "Some parabolas never meet the x-axis, like y = x² + 1, so they have no zeros."
+      ],
+      [
+       "The graph of a linear polynomial ax + b (a ≠ 0) cuts the x-axis exactly once.",
+       true,
+       "It is a slanted straight line, so it crosses the x-axis at one point, x = −b/a."
+      ],
+      [
+       "If a > 0, the parabola y = ax² + bx + c opens upwards.",
+       true,
+       "A positive x² coefficient makes the U open upwards."
+      ],
+      [
+       "The point where a graph cuts the y-axis gives a zero of the polynomial.",
+       false,
+       "Zeros are where the graph meets the x-axis, not the y-axis."
+      ],
+      [
+       "A cubic polynomial can have a graph that crosses the x-axis only once.",
+       true,
+       "For example, y = x³ crosses the x-axis only at x = 0."
+      ],
+      [
+       "A parabola can cut the x-axis at three points.",
+       false,
+       "A quadratic has at most 2 zeros, so its parabola meets the x-axis at most twice."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the graph to the number of zeros",
+     "pairs": [
+      [
+       "Parabola cutting the x-axis twice",
+       "2 zeros"
+      ],
+      [
+       "Parabola just touching the x-axis",
+       "1 zero"
+      ],
+      [
+       "Parabola completely above the x-axis",
+       "No zeros"
+      ],
+      [
+       "Cubic curve crossing the x-axis three times",
+       "3 zeros"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The graph of y = p(x) cuts the x-axis at (−3, 0), (1, 0) and (4, 0). How many zeros does p(x) have?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "Each point where the graph meets the x-axis gives one zero: −3, 1 and 4.",
+     "mistake": "Counts the coordinates instead of the crossing points",
+     "check": "3",
+     "visual": {
+      "kind": "numberline",
+      "from": -5,
+      "to": 5,
+      "marks": [
+       -3,
+       1,
+       4
+      ]
+     }
+    },
+    {
+     "q": "The graph of a quadratic polynomial just touches the x-axis at one point. How many zeros does it have?",
+     "options": [
+      "1",
+      "2",
+      "0",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "The graph meets the x-axis at only one point, so there is exactly one zero (it is repeated).",
+     "mistake": "Thinks every quadratic must show two zeros",
+     "check": "1"
+    },
+    {
+     "q": "Which way does the parabola y = −x² + 4 open?",
+     "options": [
+      "Upwards",
+      "Sideways",
+      "Downwards",
+      "It is a straight line"
+     ],
+     "answer": 2,
+     "explain": "The coefficient of x² is −1, which is negative, so the parabola opens downwards.",
+     "mistake": "Looks at the constant 4 instead of the sign of the x² term"
+    },
+    {
+     "q": "At how many points does the graph of y = x² + 1 meet the x-axis?",
+     "options": [
+      "1",
+      "2",
+      "0",
+      "Infinitely many"
+     ],
+     "answer": 2,
+     "explain": "x² is never negative, so x² + 1 is always at least 1. The parabola stays above the x-axis and never meets it.",
+     "mistake": "Assumes every parabola must cross the x-axis",
+     "check": "0"
+    },
+    {
+     "q": "A parabola meets the x-axis at (2, 0) and (5, 0). Which polynomial could it be?",
+     "options": [
+      "x² + 7x + 10",
+      "x² − 7x + 10",
+      "x² − 3x + 10",
+      "x² − 10x + 7"
+     ],
+     "answer": 1,
+     "explain": "Zeros 2 and 5 give (x − 2)(x − 5) = x² − 7x + 10.",
+     "steps": [
+      "Zeros 2 and 5 mean factors (x − 2) and (x − 5)",
+      "(x − 2)(x − 5) = x² − 5x − 2x + 10",
+      "= x² − 7x + 10"
+     ],
+     "mistake": "Uses (x + 2)(x + 5) and gets the middle sign wrong",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 6,
+      "marks": [
+       2,
+       5
+      ]
+     }
+    },
+    {
+     "q": "Where does the line y = 2x − 6 cut the x-axis?",
+     "options": [
+      "(0, 3)",
+      "(0, −6)",
+      "(−6, 0)",
+      "(3, 0)"
+     ],
+     "answer": 3,
+     "explain": "On the x-axis y = 0, so 2x − 6 = 0 and x = 3. The point is (3, 0).",
+     "steps": [
+      "y = 0",
+      "2x − 6 = 0",
+      "x = 3"
+     ],
+     "mistake": "Writes the point as (0, 3) or uses the y-intercept −6"
+    },
+    {
+     "q": "The graph of a polynomial cuts the x-axis at 4 different points. What is the smallest possible degree of the polynomial?",
+     "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "A polynomial of degree n has at most n zeros. To have 4 zeros, the degree must be at least 4.",
+     "mistake": "Forgets that the number of zeros cannot be more than the degree",
+     "check": "4"
+    },
+    {
+     "q": "At which point does the graph of y = x² − 6x + 9 touch the x-axis?",
+     "options": [
+      "(9, 0)",
+      "(−3, 0)",
+      "(3, 0)",
+      "(0, 9)"
+     ],
+     "answer": 2,
+     "explain": "x² − 6x + 9 = (x − 3)², which is 0 only at x = 3. So the parabola touches the x-axis at (3, 0).",
+     "steps": [
+      "x² − 6x + 9 = (x − 3)²",
+      "(x − 3)² = 0 only when x = 3"
+     ],
+     "mistake": "Picks (0, 9), which is where the graph meets the y-axis"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is holding a graph upside down: 'How can I find the zeros just by looking at this picture?'",
+    "must": [
+     [
+      "x-axis",
+      "x axis",
+      "horizontal axis"
+     ],
+     [
+      "cuts",
+      "meets",
+      "touches",
+      "crosses"
+     ],
+     [
+      "x-coordinate",
+      "x coordinate",
+      "x value",
+      "x-value"
+     ]
+    ],
+    "praise": "Chirp! Look where the curve meets the x-axis and read the x values. Graphs are fun!",
+    "nudge": "Which axis should I look at, and which number of the point do I read?"
+   }
+  },
+  {
+   "id": "g10-maths-02-03",
+   "title": "Zeros and coefficients",
+   "learn": {
+    "hook": "You can find the sum and product of the zeros without ever finding the zeros — just peek at the coefficients!",
+    "points": [
+     "If α and β are the zeros of ax² + bx + c (a ≠ 0), then α + β = −b/a.",
+     "And the product αβ = c/a.",
+     "A quadratic with zeros whose sum is S and product is P is k(x² − Sx + P), for any non-zero number k.",
+     "For a cubic ax³ + bx² + cx + d with zeros α, β, γ: α + β + γ = −b/a, αβ + βγ + γα = c/a and αβγ = −d/a.",
+     "Useful trick: α² + β² = (α + β)² − 2αβ."
+    ],
+    "example": {
+     "q": "Find the zeros of x² − 2x − 8 and check the relations with the coefficients.",
+     "steps": [
+      "x² − 2x − 8 = (x − 4)(x + 2), so the zeros are 4 and −2",
+      "Sum = 4 + (−2) = 2, and −b/a = −(−2)/1 = 2 ✓",
+      "Product = 4 × (−2) = −8, and c/a = −8/1 = −8 ✓"
+     ],
+     "answer": "Zeros 4 and −2; sum 2 = −b/a and product −8 = c/a"
+    },
+    "reallife": "Puzzle makers use these relations to build quadratics with nice whole-number answers for quiz contests."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Sum and product sprint",
+     "items": [
+      {
+       "q": "Sum of zeros of x² − 5x + 6",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "Product of zeros of x² − 5x + 6",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "Sum of zeros of 2x² + 8x − 3",
+       "a": "−4",
+       "check": "-8/2"
+      },
+      {
+       "q": "Product of zeros of 2x² + 8x − 3",
+       "a": "−3/2",
+       "check": "Fraction(-3,2)"
+      },
+      {
+       "q": "Product of zeros of 3x² − 12",
+       "a": "−4",
+       "check": "-12/3"
+      },
+      {
+       "q": "Sum of zeros of x² − 9",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "Sum of zeros of 4x² − 4x + 1",
+       "a": "1",
+       "check": "4/4"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the gap",
+     "items": [
+      {
+       "text": "A quadratic with zeros of sum 3 and product −10 is x² − 3x ___",
+       "answer": "− 10",
+       "options": [
+        "− 10",
+        "+ 10",
+        "+ 3"
+       ]
+      },
+      {
+       "text": "If α, β are the zeros of x² + 7x + 12, then α + β = ___",
+       "answer": "−7",
+       "options": [
+        "7",
+        "−7",
+        "12"
+       ]
+      },
+      {
+       "text": "For 5x² − 2x + 15, the product of the zeros is ___",
+       "answer": "3",
+       "options": [
+        "3",
+        "−3",
+        "2/5"
+       ]
+      },
+      {
+       "text": "For ax² + bx + c, the product of the zeros = ___",
+       "answer": "c/a",
+       "options": [
+        "c/a",
+        "−b/a",
+        "b/a"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the sum of the zeros of 3x² − 6x + 2?",
+     "options": [
+      "2",
+      "−2",
+      "2/3",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "Sum = −b/a = −(−6)/3 = 2.",
+     "steps": [
+      "a = 3, b = −6",
+      "−b/a = 6/3",
+      "= 2"
+     ],
+     "mistake": "Forgets the minus sign in −b/a",
+     "check": "6/3"
+    },
+    {
+     "q": "What is the product of the zeros of 4x² + 5x − 8?",
+     "options": [
+      "−2",
+      "−8",
+      "2",
+      "5/4"
+     ],
+     "answer": 0,
+     "explain": "Product = c/a = −8/4 = −2.",
+     "steps": [
+      "a = 4, c = −8",
+      "c/a = −8/4 = −2"
+     ],
+     "mistake": "Uses c alone without dividing by a",
+     "check": "-8/4"
+    },
+    {
+     "q": "Which quadratic has zeros whose sum is −3 and product is 2?",
+     "options": [
+      "x² − 3x + 2",
+      "x² + 2x − 3",
+      "x² + 3x + 2",
+      "x² − 2x + 3"
+     ],
+     "answer": 2,
+     "explain": "Use x² − (sum)x + product = x² − (−3)x + 2 = x² + 3x + 2. Its zeros are −1 and −2.",
+     "steps": [
+      "x² − Sx + P",
+      "S = −3, P = 2",
+      "x² + 3x + 2"
+     ],
+     "mistake": "Writes the sum with the wrong sign",
+     "visual": {
+      "kind": "numberline",
+      "from": -5,
+      "to": 5,
+      "marks": [
+       -2,
+       -1
+      ]
+     }
+    },
+    {
+     "q": "If α and β are the zeros of x² − 7x + 10, what is α² + β²?",
+     "options": [
+      "49",
+      "29",
+      "69",
+      "39"
+     ],
+     "answer": 1,
+     "explain": "α + β = 7 and αβ = 10. So α² + β² = (α + β)² − 2αβ = 49 − 20 = 29. (The zeros are 2 and 5: 4 + 25 = 29.)",
+     "steps": [
+      "α + β = 7, αβ = 10",
+      "(α + β)² = 49",
+      "49 − 2 × 10 = 29"
+     ],
+     "mistake": "Thinks α² + β² = (α + β)², or adds 2αβ instead of subtracting",
+     "check": "7**2-2*10"
+    },
+    {
+     "q": "One zero of x² − 5x + k is 2. What is k?",
+     "options": [
+      "3",
+      "6",
+      "−6",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "The sum of the zeros is 5, so the other zero is 3. Then k = product = 2 × 3 = 6.",
+     "steps": [
+      "Sum of zeros = 5, other zero = 5 − 2 = 3",
+      "k = product = 2 × 3 = 6",
+      "Check: 4 − 10 + 6 = 0 ✓"
+     ],
+     "mistake": "Gives the other zero (3) instead of k",
+     "check": "2*(5-2)",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 6,
+      "marks": [
+       2,
+       3
+      ]
+     }
+    },
+    {
+     "q": "The zeros of 2x² + kx − 6 add up to 3. What is k?",
+     "options": [
+      "6",
+      "−6",
+      "3",
+      "−3"
+     ],
+     "answer": 1,
+     "explain": "Sum = −k/2 = 3, so k = −6.",
+     "steps": [
+      "−b/a = −k/2",
+      "−k/2 = 3",
+      "k = −6"
+     ],
+     "mistake": "Forgets the minus sign in −b/a and gets k = 6",
+     "check": "-3*2"
+    },
+    {
+     "q": "If α and β are the zeros of x² − 6x + 4, what is 1/α + 1/β?",
+     "options": [
+      "3/2",
+      "2/3",
+      "10",
+      "−3/2"
+     ],
+     "answer": 0,
+     "explain": "1/α + 1/β = (α + β)/(αβ) = 6/4 = 3/2.",
+     "steps": [
+      "α + β = 6, αβ = 4",
+      "1/α + 1/β = (α + β)/αβ",
+      "6/4 = 3/2"
+     ],
+     "mistake": "Turns the fraction upside down (αβ divided by α + β)",
+     "check": "Fraction(6,4)"
+    },
+    {
+     "q": "What is the product of the zeros of the cubic x³ − 4x² + x + 6?",
+     "options": [
+      "6",
+      "−6",
+      "4",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "For a cubic, αβγ = −d/a = −6/1 = −6. (The zeros are −1, 2 and 3, and −1 × 2 × 3 = −6.)",
+     "steps": [
+      "a = 1, d = 6",
+      "αβγ = −d/a",
+      "= −6"
+     ],
+     "mistake": "Uses the quadratic rule c/a, or forgets the minus sign in −d/a",
+     "check": "-6/1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu peeks at x² − 5x + 6: 'Can you tell me the sum and product of its zeros without solving it?'",
+    "must": [
+     [
+      "sum",
+      "add",
+      "total"
+     ],
+     [
+      "product",
+      "multiply"
+     ],
+     [
+      "-b/a",
+      "−b/a",
+      "minus b by a",
+      "negative b over a"
+     ],
+     [
+      "c/a",
+      "c by a",
+      "c over a"
+     ]
+    ],
+    "praise": "Wow! Sum is −b/a and product is c/a. Magic without solving. Tweet tweet!",
+    "nudge": "Which coefficients do I divide to get the sum, and which for the product?"
+   }
+  }
+ ]
+}

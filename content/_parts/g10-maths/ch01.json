@@ -1,0 +1,749 @@
+{
+ "n": 1,
+ "title": "Real Numbers",
+ "emoji": "🔢",
+ "topics": [
+  {
+   "id": "g10-maths-01-01",
+   "title": "Fundamental Theorem of Arithmetic",
+   "learn": {
+    "hook": "Every whole number above 1 is built from prime 'bricks' — and there is only ONE way to build it!",
+    "points": [
+     "A prime has exactly two factors: 1 and itself. A composite number has more than two.",
+     "Fundamental Theorem of Arithmetic: every composite number can be written as a product of primes, and this factorisation is unique apart from the order of the primes.",
+     "Find it with a factor tree or by dividing again and again by the smallest prime that fits.",
+     "Write repeated primes as powers: 360 = 2³ × 3² × 5.",
+     "A number ends in 0 only if both 2 and 5 are among its prime factors. So 6ⁿ = 2ⁿ × 3ⁿ can never end in 0."
+    ],
+    "example": {
+     "q": "Write 4620 as a product of primes.",
+     "steps": [
+      "4620 ÷ 2 = 2310",
+      "2310 ÷ 2 = 1155",
+      "1155 ÷ 3 = 385",
+      "385 ÷ 5 = 77",
+      "77 ÷ 7 = 11, and 11 is prime",
+      "Check: 4 × 3 × 5 × 7 × 11 = 4620"
+     ],
+     "answer": "4620 = 2² × 3 × 5 × 7 × 11"
+    },
+    "reallife": "Computer security (like the lock on your UPI app) depends on how hard it is to find the prime factors of huge numbers."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match each number to its prime factorisation",
+     "pairs": [
+      [
+       "72",
+       "2³ × 3²"
+      ],
+      [
+       "100",
+       "2² × 5²"
+      ],
+      [
+       "84",
+       "2² × 3 × 7"
+      ],
+      [
+       "210",
+       "2 × 3 × 5 × 7"
+      ],
+      [
+       "121",
+       "11²"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Prime brick check",
+     "items": [
+      [
+       "Every composite number can be written as a product of primes.",
+       true,
+       "That is exactly what the Fundamental Theorem of Arithmetic says."
+      ],
+      [
+       "4ⁿ ends in the digit 0 for some natural number n.",
+       false,
+       "4ⁿ = 2²ⁿ has only the prime 2. Ending in 0 needs both 2 and 5."
+      ],
+      [
+       "The prime factorisation of 45 is 3² × 5.",
+       true,
+       "3² × 5 = 9 × 5 = 45, and 3 and 5 are primes."
+      ],
+      [
+       "9 is a prime factor of 81.",
+       false,
+       "9 is a factor of 81 but 9 is not prime. The only prime factor of 81 is 3."
+      ],
+      [
+       "Writing 5 × 3 × 2 instead of 2 × 3 × 5 gives a different prime factorisation.",
+       false,
+       "Uniqueness is 'apart from the order', so both are the same factorisation of 30."
+      ],
+      [
+       "10ⁿ ends in 0 for every natural number n.",
+       true,
+       "10ⁿ = 2ⁿ × 5ⁿ always contains both 2 and 5."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which is the prime factorisation of 360?",
+     "options": [
+      "2² × 3² × 10",
+      "2³ × 3² × 5",
+      "2³ × 3 × 15",
+      "2⁴ × 3² × 5"
+     ],
+     "answer": 1,
+     "explain": "360 = 2 × 2 × 2 × 3 × 3 × 5 = 2³ × 3² × 5. Every factor must be prime.",
+     "steps": [
+      "360 ÷ 2 = 180, ÷ 2 = 90, ÷ 2 = 45",
+      "45 ÷ 3 = 15, ÷ 3 = 5",
+      "So 360 = 2³ × 3² × 5"
+     ],
+     "mistake": "Stops at a composite factor like 10 or 15, or miscounts the 2s"
+    },
+    {
+     "q": "Riya's secret number is 2² × 3 × 5² × 7. What is the number?",
+     "options": [
+      "1050",
+      "420",
+      "2100",
+      "4200"
+     ],
+     "answer": 2,
+     "explain": "Multiply out the powers: 4 × 3 × 25 × 7 = 2100.",
+     "steps": [
+      "2² = 4 and 5² = 25",
+      "4 × 3 = 12, 12 × 25 = 300",
+      "300 × 7 = 2100"
+     ],
+     "mistake": "Uses 5 instead of 5², or 2 instead of 2²",
+     "check": "2**2*3*5**2*7"
+    },
+    {
+     "q": "Why can 6ⁿ never end in the digit 0, for any natural number n?",
+     "options": [
+      "Because 6ⁿ is always odd",
+      "Because 6 is even",
+      "Because n can be zero",
+      "Because its only prime factors are 2 and 3, so 5 never appears"
+     ],
+     "answer": 3,
+     "explain": "To end in 0 a number needs both 2 and 5 as prime factors. 6ⁿ = 2ⁿ × 3ⁿ has no 5, and by uniqueness it can never get one.",
+     "mistake": "Thinks being even is enough to end in 0"
+    },
+    {
+     "q": "How many different prime factors does 2310 have?",
+     "options": [
+      "4",
+      "5",
+      "6",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "2310 = 2 × 3 × 5 × 7 × 11, so it has 5 different primes.",
+     "steps": [
+      "2310 ÷ 2 = 1155",
+      "1155 ÷ 3 = 385",
+      "385 ÷ 5 = 77 = 7 × 11",
+      "Primes: 2, 3, 5, 7, 11"
+     ],
+     "mistake": "Stops dividing too early and leaves a composite factor such as 77",
+     "check": "5",
+     "visual": {
+      "kind": "count",
+      "emoji": "🧱",
+      "n": 5
+     }
+    },
+    {
+     "q": "For which value of b does bⁿ end in the digit 0 for every natural number n?",
+     "options": [
+      "12",
+      "15",
+      "10",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "10 = 2 × 5, so 10ⁿ = 2ⁿ × 5ⁿ always has both 2 and 5. 12 has no 5, while 15 and 25 have no 2.",
+     "mistake": "Thinks having just one of the primes 2 or 5 is enough",
+     "check": "10"
+    },
+    {
+     "q": "Which is the prime factorisation of 156?",
+     "options": [
+      "2² × 3 × 13",
+      "2 × 3 × 26",
+      "2² × 39",
+      "2³ × 3 × 13"
+     ],
+     "answer": 0,
+     "explain": "156 = 2 × 78 = 2 × 2 × 39 = 2 × 2 × 3 × 13. 26 and 39 are not prime, and 2³ × 3 × 13 = 312.",
+     "steps": [
+      "156 ÷ 2 = 78",
+      "78 ÷ 2 = 39",
+      "39 = 3 × 13"
+     ],
+     "mistake": "Leaves a composite factor like 26 or 39 in the answer"
+    },
+    {
+     "q": "Arjun's number is 2⁴ × 5³. What is it?",
+     "options": [
+      "2000",
+      "1000",
+      "4000",
+      "200"
+     ],
+     "answer": 0,
+     "explain": "2⁴ = 16 and 5³ = 125, and 16 × 125 = 2000.",
+     "steps": [
+      "2⁴ = 16",
+      "5³ = 125",
+      "16 × 125 = 2000"
+     ],
+     "mistake": "Multiplies the base by the power (2 × 4, 5 × 3) instead of repeated multiplication",
+     "check": "2**4*5**3"
+    },
+    {
+     "q": "The theorem says the prime factorisation is 'unique'. What does unique mean here?",
+     "options": [
+      "Only prime numbers can be factorised",
+      "The primes must be written from largest to smallest",
+      "Every number has a different number of factors",
+      "There is only one set of primes, apart from the order they are written in"
+     ],
+     "answer": 3,
+     "explain": "However you split a number, you always end with the same primes the same number of times; only the order may change.",
+     "mistake": "Confuses 'unique' with a fixed writing order"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu flaps in: 'Why is 2 × 2 × 3 the only way to break 12 into primes? Teach me!'",
+    "must": [
+     [
+      "prime",
+      "primes"
+     ],
+     [
+      "unique",
+      "only one way",
+      "one way",
+      "same"
+     ],
+     [
+      "order",
+      "arrangement",
+      "any order"
+     ]
+    ],
+    "praise": "Tweet! Same primes every time, only the order changes. My prime bricks are sorted!",
+    "nudge": "But what if I write the primes in a different order — is that a new factorisation?"
+   }
+  },
+  {
+   "id": "g10-maths-01-02",
+   "title": "HCF and LCM using prime factors",
+   "learn": {
+    "hook": "Two bells, three buses or a box of laddoos — HCF and LCM tell you when things meet and how to share fairly!",
+    "points": [
+     "Write each number as a product of primes first.",
+     "HCF = product of the SMALLEST power of each prime that is common to all the numbers.",
+     "LCM = product of the GREATEST power of every prime that appears in any of the numbers.",
+     "For two positive integers a and b: HCF(a, b) × LCM(a, b) = a × b. This rule does not work in general for three numbers.",
+     "The HCF always divides the LCM."
+    ],
+    "example": {
+     "q": "Find the HCF and LCM of 84 and 120, and check the product rule.",
+     "steps": [
+      "84 = 2² × 3 × 7 and 120 = 2³ × 3 × 5",
+      "Common primes with smallest powers: 2² and 3, so HCF = 12",
+      "All primes with greatest powers: 2³, 3, 5, 7, so LCM = 8 × 3 × 5 × 7 = 840",
+      "Check: 12 × 840 = 10080 and 84 × 120 = 10080 ✓"
+     ],
+     "answer": "HCF = 12, LCM = 840"
+    },
+    "reallife": "Traffic lights that turn green together, school bells, or packing sweets into equal boxes for Diwali gifts all use HCF and LCM."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Fill the gap",
+     "items": [
+      {
+       "text": "HCF(8, 12) = ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "2",
+        "24"
+       ]
+      },
+      {
+       "text": "LCM(8, 12) = ___",
+       "answer": "24",
+       "options": [
+        "96",
+        "24",
+        "12"
+       ]
+      },
+      {
+       "text": "If HCF = 5 and LCM = 60 for two numbers, their product = ___",
+       "answer": "300",
+       "options": [
+        "65",
+        "12",
+        "300"
+       ]
+      },
+      {
+       "text": "LCM(7, 11) = ___",
+       "answer": "77",
+       "options": [
+        "77",
+        "1",
+        "18"
+       ]
+      },
+      {
+       "text": "HCF of 2³ × 3 and 2² × 3² = ___",
+       "answer": "2² × 3",
+       "options": [
+        "2³ × 3²",
+        "2² × 3",
+        "2 × 3"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "HCF-LCM speed round",
+     "items": [
+      {
+       "q": "HCF(18, 24)",
+       "a": "6",
+       "check": "2*3"
+      },
+      {
+       "q": "LCM(18, 24)",
+       "a": "72",
+       "check": "2**3*3**2"
+      },
+      {
+       "q": "HCF(17, 34)",
+       "a": "17",
+       "check": "17"
+      },
+      {
+       "q": "LCM(5, 9)",
+       "a": "45",
+       "check": "5*9"
+      },
+      {
+       "q": "HCF(48, 72)",
+       "a": "24",
+       "check": "2**3*3"
+      },
+      {
+       "q": "LCM(10, 15)",
+       "a": "30",
+       "check": "2*3*5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the HCF of 36 and 60?",
+     "options": [
+      "6",
+      "12",
+      "180",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "36 = 2² × 3² and 60 = 2² × 3 × 5. Common primes with smallest powers: 2² × 3 = 12.",
+     "steps": [
+      "36 = 2² × 3²",
+      "60 = 2² × 3 × 5",
+      "HCF = 2² × 3 = 12"
+     ],
+     "mistake": "Picks a smaller common factor, or gives the LCM",
+     "check": "2**2*3"
+    },
+    {
+     "q": "What is the LCM of 36 and 60?",
+     "options": [
+      "2160",
+      "360",
+      "12",
+      "180"
+     ],
+     "answer": 3,
+     "explain": "Take every prime with its greatest power: 2² × 3² × 5 = 180.",
+     "steps": [
+      "36 = 2² × 3², 60 = 2² × 3 × 5",
+      "LCM = 2² × 3² × 5",
+      "= 4 × 9 × 5 = 180"
+     ],
+     "mistake": "Just multiplies the two numbers (36 × 60 = 2160)",
+     "check": "2**2*3**2*5"
+    },
+    {
+     "q": "The HCF of two numbers is 9 and their LCM is 270. One number is 45. What is the other?",
+     "options": [
+      "54",
+      "30",
+      "27",
+      "81"
+     ],
+     "answer": 0,
+     "explain": "HCF × LCM = product of the two numbers, so the other number = 9 × 270 ÷ 45 = 54.",
+     "steps": [
+      "9 × 270 = 2430",
+      "2430 ÷ 45 = 54",
+      "Check: HCF(45, 54) = 9 ✓"
+     ],
+     "mistake": "Divides LCM by the number without using the HCF (270 ÷ 45 = 6) or guesses a multiple of 9",
+     "check": "9*270/45"
+    },
+    {
+     "q": "If HCF(a, b) = 1, then LCM(a, b) is equal to…",
+     "options": [
+      "1",
+      "a × b",
+      "a + b",
+      "a ÷ b"
+     ],
+     "answer": 1,
+     "explain": "HCF × LCM = a × b. With HCF = 1, LCM = a × b.",
+     "mistake": "Thinks the LCM must also be 1"
+    },
+    {
+     "q": "Can two numbers have HCF 16 and LCM 380?",
+     "options": [
+      "Yes, any HCF and LCM are possible",
+      "Yes, because 16 × 380 is even",
+      "No, because 16 does not divide 380",
+      "No, because 380 is not a prime"
+     ],
+     "answer": 2,
+     "explain": "The HCF must always divide the LCM. 380 ÷ 16 = 23.75, not a whole number, so this is impossible.",
+     "mistake": "Does not know that the HCF always divides the LCM"
+    },
+    {
+     "q": "Three temple bells ring every 12, 15 and 20 minutes. They ring together at 8:00 AM. When will they next ring together?",
+     "options": [
+      "8:20 AM",
+      "9:00 AM",
+      "8:47 AM",
+      "10:00 AM"
+     ],
+     "answer": 1,
+     "explain": "They meet after LCM(12, 15, 20) = 60 minutes, which is 9:00 AM.",
+     "steps": [
+      "12 = 2² × 3, 15 = 3 × 5, 20 = 2² × 5",
+      "LCM = 2² × 3 × 5 = 60 minutes",
+      "8:00 AM + 60 min = 9:00 AM"
+     ],
+     "mistake": "Adds the gaps (12 + 15 + 20 = 47 min) or uses the largest gap only",
+     "visual": {
+      "kind": "clock",
+      "h": 9,
+      "m": 0
+     }
+    },
+    {
+     "q": "Meena has 96 laddoos and 120 barfis. She packs them in boxes, one kind per box, with the same number in every box and as many as possible per box. How many sweets go in each box?",
+     "options": [
+      "12",
+      "48",
+      "24",
+      "480"
+     ],
+     "answer": 2,
+     "explain": "The biggest number that divides both 96 and 120 is HCF(96, 120) = 24.",
+     "steps": [
+      "96 = 2⁵ × 3",
+      "120 = 2³ × 3 × 5",
+      "HCF = 2³ × 3 = 24"
+     ],
+     "mistake": "Uses the LCM (480) when the problem asks for the greatest equal share",
+     "check": "2**3*3"
+    },
+    {
+     "q": "For the three numbers 4, 6 and 8, what is HCF × LCM?",
+     "options": [
+      "192",
+      "24",
+      "48",
+      "96"
+     ],
+     "answer": 2,
+     "explain": "HCF(4, 6, 8) = 2 and LCM = 24, so HCF × LCM = 48. That is NOT 4 × 6 × 8 = 192, so the product rule is only for two numbers.",
+     "steps": [
+      "HCF(4, 6, 8) = 2",
+      "LCM(4, 6, 8) = 2³ × 3 = 24",
+      "2 × 24 = 48"
+     ],
+     "mistake": "Assumes HCF × LCM = product of the numbers also works for three numbers",
+     "check": "2*24"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is puzzled: 'How do I find the HCF and LCM of two numbers using primes?'",
+    "must": [
+     [
+      "prime",
+      "factorise",
+      "factors",
+      "factorisation"
+     ],
+     [
+      "smallest power",
+      "lowest power",
+      "smallest",
+      "common"
+     ],
+     [
+      "greatest power",
+      "highest power",
+      "biggest",
+      "largest"
+     ]
+    ],
+    "praise": "Chirp chirp! Smallest common powers for HCF, biggest powers for LCM. I can share my laddoos now!",
+    "nudge": "Which powers do I pick for the HCF and which for the LCM — the smaller or the bigger ones?"
+   }
+  },
+  {
+   "id": "g10-maths-01-03",
+   "title": "Proving numbers are irrational",
+   "learn": {
+    "hook": "√2 has been hiding as a 'fake fraction' for 2500 years — today you catch it with a proof!",
+    "points": [
+     "A number is irrational if it cannot be written as p/q where p and q are integers and q ≠ 0. Examples: √2, √3, √5, π.",
+     "We prove irrationality by contradiction: assume the number is rational, then reach something impossible.",
+     "Key fact: if a prime p divides a², then p divides a.",
+     "Proof idea for √2: assume √2 = a/b with a, b co-prime. Squaring gives a² = 2b², so 2 divides a. Put a = 2c: then b² = 2c², so 2 divides b too — but a and b had no common factor. Contradiction!",
+     "Rational + irrational is irrational, and a non-zero rational × irrational is irrational. But two irrationals can add or multiply to a rational (√2 × √2 = 2)."
+    ],
+    "example": {
+     "q": "Show that 5 + 3√2 is irrational, given that √2 is irrational.",
+     "steps": [
+      "Assume 5 + 3√2 = r, where r is rational",
+      "Then 3√2 = r − 5, so √2 = (r − 5)/3",
+      "(r − 5)/3 is rational, because rationals are closed under subtraction and division by a non-zero number",
+      "That would make √2 rational — a contradiction",
+      "So 5 + 3√2 is irrational"
+     ],
+     "answer": "5 + 3√2 is irrational"
+    },
+    "reallife": "Engineers use √2 for the diagonal of a square tile and π for round wheels — their decimals never end or repeat, so measurements are always rounded."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Rational or irrational?",
+     "buckets": [
+      "Rational",
+      "Irrational"
+     ],
+     "items": [
+      [
+       "√49",
+       0
+      ],
+      [
+       "√50",
+       1
+      ],
+      [
+       "3/8",
+       0
+      ],
+      [
+       "π",
+       1
+      ],
+      [
+       "2 + √3",
+       1
+      ],
+      [
+       "√2 × √8",
+       0
+      ],
+      [
+       "−7",
+       0
+      ],
+      [
+       "5√5",
+       1
+      ],
+      [
+       "√0.09",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Put the proof that √5 is irrational in order",
+     "prompt": "First step to last step",
+     "items": [
+      "Assume √5 = a/b, where a and b are co-prime integers",
+      "Square both sides: a² = 5b²",
+      "So 5 divides a²; hence 5 divides a. Write a = 5c",
+      "Then 25c² = 5b², so b² = 5c² and 5 divides b",
+      "5 divides both a and b, which contradicts co-prime, so √5 is irrational"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is irrational?",
+     "options": [
+      "√16",
+      "√12",
+      "0.75",
+      "22/7"
+     ],
+     "answer": 1,
+     "explain": "√12 = 2√3 and √3 is irrational. √16 = 4, 0.75 = 3/4 and 22/7 are all fractions.",
+     "mistake": "Thinks 22/7 is irrational because it is close to π"
+    },
+    {
+     "q": "To prove √3 is irrational we assume √3 = a/b with a, b co-prime. What do we get after squaring and rearranging?",
+     "options": [
+      "3a² = b²",
+      "9b² = a²",
+      "a² = 3b²",
+      "3b = a²"
+     ],
+     "answer": 2,
+     "explain": "Squaring gives 3 = a²/b², so a² = 3b².",
+     "steps": [
+      "√3 = a/b",
+      "3 = a²/b²",
+      "a² = 3b²"
+     ],
+     "mistake": "Squares only one side, or swaps a and b"
+    },
+    {
+     "q": "In the proof that √2 is irrational, why do we start by taking a and b co-prime?",
+     "options": [
+      "Because a and b must both be prime",
+      "So that a must be even",
+      "So that a and b are both odd",
+      "So that finding a common factor 2 gives a contradiction"
+     ],
+     "answer": 3,
+     "explain": "Any fraction can be reduced to lowest terms. If we then show 2 divides both a and b, that clashes with 'no common factor'.",
+     "mistake": "Confuses 'co-prime' with 'both numbers are prime'"
+    },
+    {
+     "q": "Which of these is rational?",
+     "options": [
+      "2√7",
+      "(3 + √5) − √5",
+      "√2 + √3",
+      "1/√2"
+     ],
+     "answer": 1,
+     "explain": "(3 + √5) − √5 = 3, which is rational. The others stay irrational.",
+     "mistake": "Thinks any expression containing a square root must be irrational"
+    },
+    {
+     "q": "Why is 6 + √2 irrational?",
+     "options": [
+      "Because 6 is even",
+      "Because √2 is smaller than 6",
+      "Because a rational number plus an irrational number is always irrational",
+      "Because every sum of numbers is irrational"
+     ],
+     "answer": 2,
+     "explain": "If 6 + √2 were rational, then √2 = (6 + √2) − 6 would be rational too — impossible.",
+     "mistake": "Gives a reason that has nothing to do with rational/irrational"
+    },
+    {
+     "q": "What is √3 × √12?",
+     "options": [
+      "√15",
+      "36",
+      "6",
+      "2√3"
+     ],
+     "answer": 2,
+     "explain": "√3 × √12 = √36 = 6. Two irrational numbers can multiply to give a rational number.",
+     "steps": [
+      "√3 × √12 = √(3 × 12)",
+      "= √36",
+      "= 6"
+     ],
+     "mistake": "Adds the numbers under the root, or forgets to take the square root of 36",
+     "check": "(3*12)**0.5"
+    },
+    {
+     "q": "Kabir says, 'Both factors are irrational, so √5 × √5 must be irrational.' Is he right?",
+     "options": [
+      "Yes, irrational × irrational is always irrational",
+      "No, √5 × √5 = 5, which is rational",
+      "Yes, because 5 is prime",
+      "No, because √5 is rational"
+     ],
+     "answer": 1,
+     "explain": "√5 × √5 = 5. The product of two irrationals can be rational.",
+     "mistake": "Overgeneralises: thinks irrationals always multiply to irrationals"
+    },
+    {
+     "q": "Which statement is ALWAYS true?",
+     "options": [
+      "The sum of two irrational numbers is irrational",
+      "The product of two irrational numbers is irrational",
+      "A non-zero rational number times an irrational number is irrational",
+      "The square root of every whole number is irrational"
+     ],
+     "answer": 2,
+     "explain": "If q × x = r with q, r rational and q ≠ 0, then x = r/q is rational, a contradiction. The others fail: √2 + (−√2) = 0, √2 × √2 = 2, √9 = 3.",
+     "mistake": "Treats a rule that works sometimes as one that always works"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu tilts his head: 'How can you be SURE √2 is not a fraction? Prove it to me!'",
+    "must": [
+     [
+      "assume",
+      "suppose",
+      "let"
+     ],
+     [
+      "co-prime",
+      "lowest terms",
+      "no common factor",
+      "lowest form"
+     ],
+     [
+      "contradiction",
+      "impossible",
+      "not possible",
+      "contradicts"
+     ]
+    ],
+    "praise": "Wow, a proof by contradiction! √2 can't hide behind a fraction any more. Tweet!",
+    "nudge": "What do we pretend first, and what impossible thing do we reach at the end?"
+   }
+  }
+ ]
+}
