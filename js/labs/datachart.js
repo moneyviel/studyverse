@@ -7,16 +7,24 @@
  * PARAMS (all optional; missing ones fall back to `example`)
  *   title     string    chart title                                                    default 'Favourite fruit'
  *   labels    string[]  categories (2–7), English or Hindi                              default ['Apple','Mango','Banana','Grapes']
- *   values    number[]  whole-number counts, same length as labels                     default [4,7,3,5]
+ *   values    number[]  counts / amounts, same length as labels. Any size (e.g. sex ratio 943);
+ *                       whole numbers unless some value has decimals (then kept to 2 dp)  default [4,7,3,5]
  *   values2   number[]  second data set → double bar graph                             default none
  *   series    [string,string]  names of the two data sets                             default ['Class A','Class B']
  *   views     string[]  any of 'tally','picto','bar','pie' (order = tab order)          default ['tally','picto','bar','pie']
+ *                       (['bar','pie'] when the data goes above 40). Tally / picto rows
+ *                       too long to fit are cut with '…' (the number is still shown).
  *   view      string    starting view                                                   default first of views
  *   icon      string    pictograph symbol (emoji)                                       default '🍎'
  *   key       number    pictograph: one icon stands for this many                       default 1
  *   unit      string    what is counted, e.g. 'students'                                default 'students'
  *   editable  boolean   show + / − controls                                              default true
- *   max       number    largest value allowed per category                              default 20
+ *   max       number    largest value allowed per category (no upper cap; raised
+ *                       automatically to the largest value in values / values2 / ask)   default 20
+ *   step      number    how much one tap of + / − changes a value. Hold + / − to repeat
+ *                       quickly (speeds up ×10 after a while)                        default 1 (0.1 / 0.01 for decimal data)
+ *             Bar axis: values up to 100 keep the 1 / 2 / 5 / 10 ticks; bigger or decimal data
+ *             auto-scales with nice ticks (e.g. 0–1000 by 200).
  *   statsOf   'values' | 'frequency' | 'none'   'frequency' = labels are numbers (marks, sizes) and
  *             values are how often each occurs (Σfx/Σf)                                  default 'values'
  *   ask       the challenge, one of:
@@ -39,14 +47,21 @@
     render(host, p, api) {
       const ex = this.example;
       let labels = Array.isArray(p.labels) && p.labels.length >= 2 ? p.labels.slice(0, 7).map(String) : ex.labels.slice();
-      const max = Math.max(5, Math.min(100, +p.max || 20));
       const okVals = a => Array.isArray(a) && a.length === labels.length && a.every(v => Number.isFinite(+v) && +v >= 0);
-      let vals = okVals(p.values) ? p.values.map(v => Math.min(max, Math.round(+v))) : labels.map((_, i) => (ex.values[i] ?? 3));
-      let vals2 = okVals(p.values2) ? p.values2.map(v => Math.min(max, Math.round(+v))) : null;
+      const given = [p.values, p.values2, p.ask && p.ask.values].filter(okVals).flat().map(Number);
+      // decimals: only when the data itself has decimals (whole-number data behaves exactly as before)
+      const dp = Math.min(2, Math.max(0, ...given.map(v => { const t = String(r2(v)).split('.')[1]; return t ? t.length : 0; })));
+      const dec = dp > 0, fix = v => dec ? Math.round(v * 10 ** dp) / 10 ** dp : Math.round(v);
+      const max = Math.max(5, +p.max > 0 ? +p.max : 20, ...given.map(fix));
+      const step = +p.step > 0 ? +p.step : dec ? 10 ** -dp : 1;
+      let vals = okVals(p.values) ? p.values.map(v => Math.min(max, fix(+v))) : labels.map((_, i) => (ex.values[i] ?? 3));
+      let vals2 = okVals(p.values2) ? p.values2.map(v => Math.min(max, fix(+v))) : null;
       const series = Array.isArray(p.series) && p.series.length === 2 ? p.series.map(String) : ['Class A', 'Class B'];
       const allViews = ['tally', 'picto', 'bar', 'pie'];
-      let views = Array.isArray(p.views) ? p.views.filter(v => allViews.includes(v)) : allViews.slice();
-      if (!views.length) views = allViews.slice();
+      const bigData = Math.max(0, ...vals, ...(vals2 || [])) > 40;
+      const defViews = bigData ? ['bar', 'pie'] : allViews.slice();
+      let views = Array.isArray(p.views) ? p.views.filter(v => allViews.includes(v)) : defViews.slice();
+      if (!views.length) views = defViews.slice();
       if (vals2) views = views.filter(v => v !== 'picto' && v !== 'tally').concat(views.includes('bar') ? [] : ['bar']);
       let view = views.includes(p.view) ? p.view : views[0];
       const icon = String(p.icon || '🍎'), key = Math.max(1, +p.key || 1);
@@ -128,6 +143,19 @@
       const svg = $('.lb-datachart-svg'), stEl = $('.lb-datachart-st'), ed = $('.lb-datachart-ed'), ans = $('.lb-datachart-ans'), msg = $('.lb-datachart-msg');
       const W = 360, H = 180;
 
+      const num = v => +(+v).toFixed(10);   // tidy float noise (0.30000000004 → 0.3)
+      // y-axis scale for the bar graph. Whole numbers up to 100 keep the original ticks;
+      // anything bigger (or decimal) gets 'nice' ticks of 1 / 2 / 2.5 / 5 × 10^k, about 5 steps.
+      function scale(m) {
+        if (!dec && m <= 100) {
+          const top = Math.max(5, Math.ceil(Math.max(m, 1) / 5) * 5);
+          return { top, stepT: top <= 10 ? 1 : top <= 20 ? 2 : top <= 50 ? 5 : 10 };
+        }
+        if (!(m > 0)) return { top: 5, stepT: 1 };
+        const raw = m / 5, mag = 10 ** Math.floor(Math.log10(raw)), f = raw / mag;
+        const stepT = num((f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * mag);
+        return { top: num(Math.ceil(m / stepT - 1e-9) * stepT), stepT };
+      }
       function tallyMarks(x, y, n, h) {
         let g = '', cx = x;
         for (let k = 0; k < n; k++) {
@@ -147,13 +175,17 @@
             g += `<rect x="6" y="${y + 1}" width="${W - 12}" height="${rowH - 2}" rx="7" fill="${i % 2 ? '#fff' : '#f4f2ff'}"/>`;
             g += `<text x="12" y="${y + rowH / 2 + 4}" font-size="12" font-weight="800" fill="#1b1f3a">${esc(l.length > 10 ? l.slice(0, 9) + '…' : l)}</text>`;
             if (view === 'tally') {
-              g += tallyMarks(lw + 10, y + 5, vals[i], rowH - 10);
+              const cap = 25, nT = Math.round(vals[i]);
+              g += tallyMarks(lw + 10, y + 5, Math.min(cap, nT), rowH - 10);
+              if (nT > cap) g += `<text x="${lw + 10 + 5 * 38 + 2}" y="${y + rowH / 2 + 4}" font-size="13" font-weight="900" fill="#6b7090">…</text>`;
               g += `<text x="${W - 14}" y="${y + rowH / 2 + 4}" text-anchor="end" font-size="13" font-weight="900" fill="#8b5cf6">${vals[i]}</text>`;
             } else {
               const full = Math.floor(vals[i] / key), part = (vals[i] % key) / key;
-              const fs = Math.min(rowH - 8, 20), step = Math.min(fs + 3, (W - lw - 20) / Math.max(1, Math.ceil(max / key)));
-              for (let k = 0; k < full; k++) g += `<text x="${lw + 8 + k * step}" y="${y + rowH / 2 + fs * 0.36}" font-size="${fs}">${esc(icon)}</text>`;
-              if (part > 0) {
+              const slots = Math.max(1, Math.ceil(max / key)), capI = 40, cut = slots > capI && full > capI - 1;
+              const fs = Math.min(rowH - 8, 20), step = Math.min(fs + 3, (W - lw - 20) / Math.min(slots, capI));
+              for (let k = 0; k < (cut ? capI - 1 : full); k++) g += `<text x="${lw + 8 + k * step}" y="${y + rowH / 2 + fs * 0.36}" font-size="${fs}">${esc(icon)}</text>`;
+              if (cut) g += `<text x="${W - 12}" y="${y + rowH / 2 + 4}" text-anchor="end" font-size="11" font-weight="900" fill="#8b5cf6" paint-order="stroke" stroke="#fff" stroke-width="3">…${vals[i]}</text>`;
+              else if (part > 0) {
                 const cid = 'lbdc' + Math.random().toString(36).slice(2, 7);
                 g += `<clipPath id="${cid}"><rect x="${lw + 8 + full * step}" y="${y}" width="${fs * 1.1 * part}" height="${rowH}"/></clipPath><text clip-path="url(#${cid})" x="${lw + 8 + full * step}" y="${y + rowH / 2 + fs * 0.36}" font-size="${fs}">${esc(icon)}</text>`;
               }
@@ -162,11 +194,12 @@
           if (view === 'picto') g += `<text x="${W - 10}" y="${H - 6}" text-anchor="end" font-size="11.5" font-weight="800" fill="#6b7090">Key: ${esc(icon)} = ${key} ${esc(unit)}${key > 1 ? ` · half = ${key / 2}` : ''}</text>`;
           else g += `<text x="${W - 10}" y="${H - 6}" text-anchor="end" font-size="11.5" font-weight="800" fill="#6b7090">4 lines + 1 across = 5</text>`;
         } else if (view === 'bar') {
-          const L = 30, B = H - 24, T = 30, all = vals2 ? vals.concat(vals2) : vals;
-          const top = Math.max(5, Math.ceil(Math.max(...all, 1) / 5) * 5 + (Math.max(...all) % 5 === 0 ? 0 : 0));
-          const stepT = top <= 10 ? 1 : top <= 20 ? 2 : top <= 50 ? 5 : 10;
+          const B = H - 24, T = 30, all = vals2 ? vals.concat(vals2) : vals;
+          const { top, stepT } = scale(Math.max(...all, 0));
+          const ticks = []; for (let k = 0; k * stepT <= top + stepT * 1e-6; k++) ticks.push(num(k * stepT));
+          const L = Math.max(30, 8 + Math.max(...ticks.map(t => String(t).length)) * 5.6);
           const y = v => B - v / top * (B - T);
-          for (let t = 0; t <= top; t += stepT) g += `<line x1="${L}" x2="${W - 6}" y1="${y(t)}" y2="${y(t)}" stroke="#eef0fb"/><text x="${L - 4}" y="${y(t) + 3}" text-anchor="end" font-size="9.5" font-weight="700" fill="#6b7090">${t}</text>`;
+          ticks.forEach(t => { g += `<line x1="${L}" x2="${W - 6}" y1="${y(t)}" y2="${y(t)}" stroke="#eef0fb"/><text x="${L - 4}" y="${y(t) + 3}" text-anchor="end" font-size="9.5" font-weight="700" fill="#6b7090">${t}</text>`; });
           const slot = (W - L - 8) / n, bw = Math.min(vals2 ? 20 : 34, slot * (vals2 ? 0.38 : 0.6));
           labels.forEach((l, i) => {
             const cx = L + slot * (i + 0.5);
@@ -179,9 +212,13 @@
           });
           g += `<line x1="${L}" x2="${W - 6}" y1="${B}" y2="${B}" stroke="#1b1f3a" stroke-width="1.5"/><line x1="${L}" x2="${L}" y1="${T - 6}" y2="${B}" stroke="#1b1f3a" stroke-width="1.5"/>`;
           if (vals2) g += `<g transform="translate(${W - 150} 24)"><rect width="10" height="10" rx="2" fill="#8b5cf6"/><text x="14" y="9" font-size="10.5" font-weight="800">${esc(series[0])}</text><rect x="74" width="10" height="10" rx="2" fill="#ff9f43"/><text x="88" y="9" font-size="10.5" font-weight="800">${esc(series[1])}</text></g>`;
-          else g += `<text x="${L + 4}" y="${T - 10}" font-size="10" font-weight="800" fill="#6b7090">${esc(unit)}</text>`;
+          else {
+            // keep the unit label clear of the centred title (long units are shortened with …)
+            const room = title ? (W / 2 - title.length * 3.6) - (L + 10) : W - L - 20, fit = Math.max(4, Math.floor(room / 5.6));
+            g += `<text x="${L + 4}" y="${T - 10}" font-size="10" font-weight="800" fill="#6b7090">${esc(unit.length > fit ? unit.slice(0, fit - 1) + '…' : unit)}</text>`;
+          }
         } else {
-          const tot = vals.reduce((s, v) => s + v, 0), C = [98, 100], R = 70;
+          const tot = num(vals.reduce((s, v) => s + v, 0)), C = [98, 100], R = 70;
           if (vals2) g += `<text x="196" y="${H - 22}" font-size="10" font-weight="800" fill="#8b5cf6">showing ${esc(series[0])}</text>`;
           if (!tot) g += `<circle cx="${C[0]}" cy="${C[1]}" r="${R}" fill="#eef0fb"/><text x="${C[0]}" y="${C[1] + 4}" text-anchor="middle" font-size="12" font-weight="800" fill="#6b7090">no data</text>`;
           let a0 = -90;
@@ -206,7 +243,7 @@
           const s = stats(vals);
           if (!s) stEl.innerHTML = '<div>Labels must be numbers for frequency stats</div>';
           else if (!s.n) stEl.innerHTML = '<div>No data yet</div>';
-          else stEl.innerHTML = `<div>Mean<b>${r2(s.mean)}</b></div><div>Median<b>${r2(s.median)}</b></div><div>Mode<b>${s.mode ? s.mode.join(', ') : 'none'}</b></div><div>Range<b>${s.range}</b></div>`;
+          else stEl.innerHTML = `<div>Mean<b>${r2(s.mean)}</b></div><div>Median<b>${r2(s.median)}</b></div><div>Mode<b>${s.mode ? s.mode.join(', ') : 'none'}</b></div><div>Range<b>${r2(s.range)}</b></div>`;
         }
         if (ed) {
           const cur = edit ? vals2 : vals;
@@ -226,26 +263,49 @@
       }
       function check() {
         if (won) return;
-        if (ask.type === 'build' && vals.every((v, i) => v === +ask.values[i])) { won = true; api.sfx('correct'); api.win(`Your ${view === 'pie' ? 'pie chart' : 'graph'} shows ${labels.map((l, i) => `${l} ${vals[i]}`).join(', ')}. Total ${vals.reduce((s, v) => s + v, 0)} ${unit}.`); }
+        if (ask.type === 'build' && vals.every((v, i) => Math.abs(v - +ask.values[i]) < 1e-9)) { won = true; api.sfx('correct'); api.win(`Your ${view === 'pie' ? 'pie chart' : 'graph'} shows ${labels.map((l, i) => `${l} ${vals[i]}`).join(', ')}. Total ${r2(vals.reduce((s, v) => s + v, 0))} ${unit}.`); }
         if (ask.type === 'stat') {
           const s = stats(vals); if (!s || !s.n) return;
           const got = ask.stat === 'mode' ? (s.mode && s.mode.length === 1 ? s.mode[0] : NaN) : s[ask.stat];
-          if (Math.abs(got - +ask.value) < 1e-9) {
+          if (Math.abs(got - +ask.value) < 1e-6) {
             won = true; api.sfx('correct');
-            const how = ask.stat === 'mean' ? (statsOf === 'frequency' ? `Σfx ÷ Σf = ${r2(s.mean)}` : `total ${vals.reduce((a, b) => a + b, 0)} ÷ ${vals.length} = ${r2(s.mean)}`) : ask.stat === 'range' ? `highest − lowest = ${s.range}` : ask.stat === 'median' ? `middle value = ${r2(s.median)}` : `most frequent value = ${got}`;
+            const how = ask.stat === 'mean' ? (statsOf === 'frequency' ? `Σfx ÷ Σf = ${r2(s.mean)}` : `total ${r2(vals.reduce((a, b) => a + b, 0))} ÷ ${vals.length} = ${r2(s.mean)}`) : ask.stat === 'range' ? `highest − lowest = ${r2(s.range)}` : ask.stat === 'median' ? `middle value = ${r2(s.median)}` : `most frequent value = ${got}`;
             api.win(`The ${ask.stat} is ${ask.value}: ${how}.`);
           }
         }
       }
+      // change one value by d × step × mult; returns false at the limits
+      function bump(i, d, mult) {
+        const arr = edit ? vals2 : vals, nv = num(arr[i] + d * step * mult);
+        if (nv < -1e-9 || nv > max + 1e-9) { api.sfx('hmm'); return false; }
+        arr[i] = nv; api.sfx('tap'); draw(); check();
+        if (['most', 'least'].includes(ask.type)) host.querySelectorAll('.lb-datachart-a').forEach(x => x.classList.remove('bad', 'good'));
+        return true;
+      }
+      // press and hold + / − to repeat (handy for big numbers like 943)
+      let holdT = null, repeated = false;
+      const stopHold = () => { clearTimeout(holdT); holdT = null; };
+      function onDown(e) {
+        const b = e.target.closest('.lb-datachart-pm'); if (!b) return;
+        const i = +b.dataset.pm, d = +b.dataset.d; let n = 0; repeated = false; stopHold();
+        const tick = () => {
+          n++; repeated = true;
+          // after 12 single steps jump by 10 steps at a time, but never past a multiple of 10 steps
+          const cur = (edit ? vals2 : vals)[i] / step, mult = n > 12 && Math.abs(num(cur) % 10) < 1e-6 ? 10 : 1;
+          if (won || !bump(i, d, mult)) return stopHold();
+          holdT = setTimeout(tick, n > 12 ? 110 : 90);
+        };
+        holdT = setTimeout(tick, 450);
+      }
+      host.addEventListener('pointerdown', onDown);
+      window.addEventListener('pointerup', stopHold); window.addEventListener('pointercancel', stopHold);
       function onClick(e) {
         const b = e.target.closest('button'); if (!b) return;
         if (b.dataset.view) { view = b.dataset.view; api.sfx('tap'); draw(); return; }
         if (b.dataset.s != null) { edit = +b.dataset.s; api.sfx('tap'); draw(); return; }
         if (b.dataset.pm != null) {
-          const arr = edit ? vals2 : vals, i = +b.dataset.pm, nv = arr[i] + +b.dataset.d;
-          if (nv < 0 || nv > max) { api.sfx('hmm'); return; }
-          arr[i] = nv; api.sfx('tap'); draw(); check();
-          if (['most', 'least'].includes(ask.type)) host.querySelectorAll('.lb-datachart-a').forEach(x => x.classList.remove('bad', 'good'));
+          if (repeated) { repeated = false; return; }
+          bump(+b.dataset.pm, +b.dataset.d, 1);
           return;
         }
         if (b.dataset.ans != null) {
@@ -265,13 +325,14 @@
       }
       host.addEventListener('click', onClick);
       draw(); drawAns();
-      return () => host.removeEventListener('click', onClick);
+      return () => { stopHold(); host.removeEventListener('click', onClick); host.removeEventListener('pointerdown', onDown); window.removeEventListener('pointerup', stopHold); window.removeEventListener('pointercancel', stopHold); };
     },
     example: { title: 'Favourite fruit of Class 3', labels: ['Apple', 'Mango', 'Banana', 'Grapes'], values: [4, 7, 3, 5], views: ['tally', 'picto', 'bar', 'pie'], icon: '🍎', key: 1, unit: 'students', editable: true, max: 20, statsOf: 'values' },
     examples: [
       { title: 'Books read (1 📘 = 2 books)', labels: ['Ravi', 'Asha', 'Meera', 'John', 'Zoya'], values: [6, 9, 4, 8, 3], views: ['picto', 'bar'], icon: '📘', key: 2, unit: 'books', ask: { type: 'stat', stat: 'mean', value: 7 }, challenge: 'Change the books so the mean is exactly 7.' },
       { title: 'Marks in a test (out of 5)', labels: ['1', '2', '3', '4', '5'], values: [2, 3, 6, 5, 4], views: ['bar', 'pie'], view: 'bar', unit: 'students', statsOf: 'frequency', editable: false, ask: { type: 'read', question: 'How many students scored 3 marks?', answer: 6 } },
-      { title: 'Rainfall (cm)', labels: ['Jun', 'Jul', 'Aug', 'Sep'], values: [12, 18, 15, 9], values2: [10, 20, 13, 7], series: ['2024', '2025'], unit: 'cm', ask: { type: 'build', values: [12, 18, 15, 11] }, challenge: 'Sep 2024 had 11 cm, not 9. Fix the purple bar!' }
+      { title: 'Rainfall (cm)', labels: ['Jun', 'Jul', 'Aug', 'Sep'], values: [12, 18, 15, 9], values2: [10, 20, 13, 7], series: ['2024', '2025'], unit: 'cm', ask: { type: 'build', values: [12, 18, 15, 11] }, challenge: 'Sep 2024 had 11 cm, not 9. Fix the purple bar!' },
+      { title: 'Sex ratio (females per 1000 males)', labels: ['India', 'Kerala', 'Haryana', 'Bihar'], values: [943, 1084, 879, 918], views: ['bar'], unit: 'females', editable: false, statsOf: 'none', ask: { type: 'least' }, challenge: 'India’s sex ratio is 943. Which state has the lowest sex ratio? Tap it.' }
     ]
   });
 })();

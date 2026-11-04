@@ -22,6 +22,11 @@
  *  from        string|number   calendar: start date "2026-03-05" or a day of `month`                   5
  *  days        number          calendar: answer is this many days after `from` (negative = before)     10
  *  to          string|number   calendar: answer date instead of `days`                                none
+ *  seconds     boolean         add a thin red seconds hand. It can be dragged too and is geared like a real
+ *                              clock (one full turn = 1 minute, so the minute and hour hands creep along).
+ *                              The digital readout shows h:mm:ss. With seconds on, `target` / `start` may
+ *                              include seconds ("3:45:30"); then the seconds must match too (set / ampm).
+ *                              Without seconds in `target`, the seconds hand position does not matter.  false
  *  newChallenge boolean        show the "New" button                                                   true
  *  challenge   string          challenge text (any language); default generated                        auto
  */
@@ -33,16 +38,18 @@
   const NUMW = ['twelve', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
   const MINW = n => { const o = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'quarter', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']; return n <= 20 ? o[n] : 'twenty-' + o[n - 20]; };
   const pad = n => String(n).padStart(2, '0');
-  // parse "3:45", "7:30 pm", "19:30", "12 am" → minutes since midnight (or since 0 for 12h when no am/pm: flag)
+  // parse "3:45", "7:30 pm", "19:30", "12 am", "3:45:30" → minutes since midnight (or since 0 for 12h when no
+  // am/pm: flag); sec = seconds part or null when not given
   function parseTime(v) {
     if (v == null || v === '') return null;
     const s = String(v).trim().toLowerCase().replace(/\./g, ':');
-    const m = s.match(/^(\d{1,2})(?::(\d{1,2}))?\s*(am|pm|a\s*m|p\s*m)?$/);
+    const m = s.match(/^(\d{1,2})(?::(\d{1,2}))?(?::(\d{1,2}))?\s*(am|pm|a\s*m|p\s*m)?$/);
     if (!m) return null;
-    let h = +m[1], mi = +(m[2] || 0); const ap = m[3] ? m[3].replace(/\s/g, '') : '';
-    if (mi > 59 || h > 24) return null;
+    let h = +m[1], mi = +(m[2] || 0); const ap = m[4] ? m[4].replace(/\s/g, '') : '';
+    const sec = m[3] != null ? +m[3] : null;
+    if (mi > 59 || h > 24 || sec > 59) return null;
     if (ap) { if (h < 1 || h > 12) return null; h = h % 12 + (ap === 'pm' ? 12 : 0); }
-    return { min: (h % 24) * 60 + mi, ampm: !!ap || h >= 13 || h === 0 };
+    return { min: (h % 24) * 60 + mi, ampm: !!ap || h >= 13 || h === 0, sec };
   }
   const t12 = m => { m = ((m % 1440) + 1440) % 1440; const h = Math.floor(m / 60), mi = m % 60; return `${h % 12 === 0 ? 12 : h % 12}:${pad(mi)}`; };
   const ap = m => (((m % 1440) + 1440) % 1440) < 720 ? 'am' : 'pm';
@@ -65,6 +72,8 @@
   .lb-clockset-side{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;align-items:stretch}
   .lb-clockset-dig{background:#1b1f3a;color:#7dffd4;border-radius:14px;text-align:center;font-weight:800;font-size:30px;letter-spacing:1px;padding:6px 4px;font-variant-numeric:tabular-nums;line-height:1.1}
   .lb-clockset-dig small{font-size:15px;color:#ffc93c;margin-left:3px}
+  .lb-clockset-dig.sec{font-size:23px;letter-spacing:0}
+  .lb-clockset-dig .ss{color:#ff8f8f}
   .lb-clockset-tag{background:#f7f8fe;border-radius:12px;padding:5px 8px;font-weight:800;font-size:13px;text-align:center;color:#1b1f3a;line-height:1.25}
   .lb-clockset-tag .k{display:block;font-size:10.5px;color:#6b7090;text-transform:uppercase;letter-spacing:.4px}
   .lb-clockset-words{text-align:center;font-weight:800;font-size:15px;color:#7c4ddb;margin:6px 0 2px;min-height:20px}
@@ -102,7 +111,10 @@
       const useAP = mode === 'ampm' || mode === 'elapsed';
       const st = parseTime(p.start);
       let start = st ? st.min : (mode === 'elapsed' ? 510 : 720);
-      let target, need = 0;
+      const useSec = !!p.seconds;
+      const startSec = useSec && st && st.sec != null ? st.sec : 0;
+      let sec = startSec, targetSec = null;      // seconds hand (only with p.seconds)
+      const ss = () => useSec ? `<span class="ss">:${pad(sec)}</span>` : '';
       function setupTarget() {
         if (mode === 'elapsed') {
           const e = parseTime(p.end);
@@ -116,6 +128,7 @@
         } else {
           const t = parseTime(p.target);
           target = t ? t.min : (mode === 'ampm' ? 1110 : 225);
+          targetSec = useSec && t && t.sec != null ? t.sec : null;
           if (mode === 'ampm' && t && !t.ampm) target = t.min; // "6:30" without am/pm → morning
         }
       }
@@ -126,8 +139,9 @@
       let cur = start, raw = start, customText = p.challenge ? String(p.challenge) : '';
 
       function defaultText() {
-        if (mode === 'set') return `Set the clock to ${t12(target)} (${words(target)})`;
-        if (mode === 'ampm') return `Set the clock to ${t12(target)} ${ap(target)}. What is that in 24-hour time?`;
+        const tsx = targetSec != null ? ':' + pad(targetSec) : '';
+        if (mode === 'set') return `Set the clock to ${t12(target)}${tsx} (${words(target)}${targetSec ? ` and ${targetSec} second${targetSec === 1 ? '' : 's'}` : ''})`;
+        if (mode === 'ampm') return `Set the clock to ${t12(target)}${tsx} ${ap(target)}. What is that in 24-hour time?`;
         return p.duration ? `It is ${t12(start)} ${ap(start)}. Move the clock ${dur(need)} later. What time will it be?` : `Start ${t12(start)} ${ap(start)}, end ${t12(target)} ${ap(target)}. Move the hands forward — how much time passes?`;
       }
 
@@ -159,9 +173,9 @@
 
       function drawHands() {
         const m = ((cur % 720) + 720) % 720;
-        const ma = (m % 60) * 6, ha = m / 2;
+        const ma = (m % 60 + (useSec ? sec / 60 : 0)) * 6, ha = (m + (useSec ? sec / 60 : 0)) / 2;
         const hand = (ang, len, w, col, tail) => `<g transform="rotate(${ang.toFixed(2)} ${C} ${C})"><path d="M${C - w / 2} ${C + tail} L${C - w * .35} ${C - len + w} L${C} ${C - len} L${C + w * .35} ${C - len + w} L${C + w / 2} ${C + tail} Z" fill="${col}" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></g>`;
-        gHands.innerHTML = hand(ha, 58, 11, '#8b5cf6', 12) + hand(ma, 88, 7.5, '#3b82f6', 16) + `<circle cx="${C}" cy="${C}" r="7" fill="#1b1f3a"/><circle cx="${C}" cy="${C}" r="2.6" fill="#ffc93c"/>`;
+        gHands.innerHTML = hand(ha, 58, 11, '#8b5cf6', 12) + hand(ma, 88, 7.5, '#3b82f6', 16) + (useSec ? `<g transform="rotate(${sec * 6} ${C} ${C})"><line x1="${C}" y1="${C + 20}" x2="${C}" y2="${C - 96}" stroke="#ff6b6b" stroke-width="2.4" stroke-linecap="round"/><circle cx="${C}" cy="${C + 15}" r="4" fill="#ff6b6b"/></g>` : '') + `<circle cx="${C}" cy="${C}" r="7" fill="#1b1f3a"/><circle cx="${C}" cy="${C}" r="2.6" fill="#ffc93c"/>`;
         // am/pm sky badge
         if (useAP) {
           const day = ap(cur) === 'am' ? (((cur % 1440) + 1440) % 1440 >= 360) : (((cur % 1440) + 1440) % 1440 < 1080);
@@ -182,14 +196,14 @@
       }
       function readout() {
         let s = '';
-        if (showDig || won) s += `<div class="lb-clockset-dig">${t12(cur)}${useAP ? `<small>${ap(cur)}</small>` : ''}</div>`;
-        else s += `<div class="lb-clockset-dig">--:--</div>`;
-        if (show24 && (showDig || won)) s += `<div class="lb-clockset-tag"><span class="k">24-hour</span>${t24(cur)}</div>`;
+        if (showDig || won) s += `<div class="lb-clockset-dig${useSec ? ' sec' : ''}">${t12(cur)}${ss()}${useAP ? `<small>${ap(cur)}</small>` : ''}</div>`;
+        else s += `<div class="lb-clockset-dig${useSec ? ' sec' : ''}">--:--${useSec ? ':--' : ''}</div>`;
+        if (show24 && (showDig || won)) s += `<div class="lb-clockset-tag"><span class="k">24-hour</span>${t24(cur)}${ss()}</div>`;
         if (mode === 'elapsed') {
           const d = cur - start;
           s += `<div class="lb-clockset-tag"><span class="k">Time passed</span>${d < 0 ? '−' : ''}${dur(Math.abs(d))}</div>`;
         } else if (mode === 'set') {
-          s += `<div class="lb-clockset-tag"><span style="color:#8b5cf6">Short hand: hours</span><br><span style="color:#3b82f6">Long hand: minutes</span></div>`;
+          s += `<div class="lb-clockset-tag"><span style="color:#8b5cf6">Short hand: hours</span><br><span style="color:#3b82f6">Long hand: minutes</span>${useSec ? '<br><span style="color:#ff6b6b">Thin red hand: seconds</span>' : ''}</div>`;
         } else {
           const mm = ((cur % 1440) + 1440) % 1440;
           const part = mm === 0 ? 'midnight' : mm === 720 ? 'noon' : mm < 720 ? (mm < 360 ? 'night (am)' : 'morning') : mm < 960 ? 'afternoon' : mm < 1140 ? 'evening' : 'night';
@@ -230,13 +244,15 @@
         if (mode === 'set') ok = (((cur - target) % 720) + 720) % 720 === 0;
         else if (mode === 'ampm') ok = (((cur - target) % 1440) + 1440) % 1440 === 0;
         else ok = cur - start === need;
+        if (ok && targetSec != null && sec !== targetSec && mode !== 'elapsed') { hint(`Hours and minutes are right — now the seconds: ${targetSec}`); return; }
         if (!ok) {
           if (mode === 'ampm' && (((cur - target) % 720) + 720) % 720 === 0) { hint(`The hands are right, but it is ${ap(cur)}! Go round once more.`); api.sfx('hmm'); }
           return;
         }
         won = true; api.sfx('correct'); hint('⭐ Right on time!'); readout();
-        if (mode === 'set') api.win(`${t12(target)} — ${words(target)}`);
-        else if (mode === 'ampm') api.win(`${t12(target)} ${ap(target)} = ${t24(target)} in 24-hour time`);
+        const tsx = targetSec != null ? ':' + pad(targetSec) : '';
+        if (mode === 'set') api.win(`${t12(target)}${tsx} — ${words(target)}${targetSec ? ` and ${targetSec} second${targetSec === 1 ? '' : 's'}` : ''}`);
+        else if (mode === 'ampm') api.win(`${t12(target)}${tsx} ${ap(target)} = ${t24(target)}${tsx} in 24-hour time`);
         else api.win(`From ${t12(start)} ${ap(start)} to ${t12(cur)} ${ap(cur)} is ${dur(need)}`);
       }
       function setCur(v, quiet) {
@@ -249,12 +265,14 @@
       function angleAt(ev) { const r = svg.getBoundingClientRect(); const x = (ev.clientX - r.left) / r.width * 240 - C, y = (ev.clientY - r.top) / r.height * 240 - C; return { a: (Math.atan2(x, -y) * 180 / Math.PI + 360) % 360, d: Math.hypot(x, y) }; }
       svg.addEventListener('pointerdown', ev => {
         const { a, d } = angleAt(ev); if (d > R + 10) return;
-        const m = ((cur % 720) + 720) % 720, ma = (m % 60) * 6, ha = m / 2;
+        const m = ((cur % 720) + 720) % 720, ma = (m % 60 + (useSec ? sec / 60 : 0)) * 6, ha = (m + (useSec ? sec / 60 : 0)) / 2;
         const diff = (x, y) => { const t = Math.abs(x - y) % 360; return t > 180 ? 360 - t : t; };
         const dm = diff(a, ma), dh = diff(a, ha);
         // prefer the hour hand when the touch is near the centre & close to it
-        const which = (dh + (d > 66 ? 25 : 0)) < dm ? 'h' : 'm';
-        drag = { which, last: a }; raw = cur;
+        let which = (dh + (d > 66 ? 25 : 0)) < dm ? 'h' : 'm';
+        // seconds hand: chosen when the touch is closest to it (it is long, so less likely near the centre)
+        if (useSec && diff(a, sec * 6) + (d < 50 ? 20 : 0) < Math.min(dm, dh + (d > 66 ? 25 : 0))) which = 's';
+        drag = { which, last: a, rawS: cur * 60 + sec }; raw = cur;
         try { svg.setPointerCapture(ev.pointerId); } catch (e) { }
         hint(which === 'h' ? 'Moving the hour hand' : 'Moving the minute hand');
         ev.preventDefault();
@@ -263,24 +281,32 @@
         if (!drag) return;
         const { a } = angleAt(ev);
         let da = a - drag.last; if (da > 180) da -= 360; if (da < -180) da += 360; drag.last = a;
+        if (drag.which === 's') {   // seconds hand: 6°/s, geared: a full turn moves the minute hand by 1 minute
+          drag.rawS += da / 6; let t = Math.round(drag.rawS);
+          if (mode === 'elapsed') t = Math.max((start - 720) * 60, Math.min((start + 2880) * 60 + 59, t));
+          const nc = Math.floor(t / 60), ns = ((t % 60) + 60) % 60;
+          if (ns !== sec || nc !== cur) { sec = ns; if (nc !== cur) setCur(nc, true); else { drawHands(); readout(); } }
+          return;
+        }
         raw += drag.which === 'm' ? da / 6 : da * 2; // minute hand: 6°/min; hour hand: 0.5°/min
         const st2 = drag.which === 'h' ? Math.max(snapE, 15) : snapE;
         const v = Math.round(raw / st2) * st2;
         setCur(drag.which === 'h' ? v - (v % snapE) : v, true);
       });
-      const up = () => { if (!drag) return; drag = null; const v = Math.round(cur / snapE) * snapE; setCur(v, true); raw = cur; hint(''); api.sfx('tap'); check(); };
+      const up = () => { if (!drag) return; const wasS = drag.which === 's'; drag = null; const v = wasS ? cur : Math.round(cur / snapE) * snapE; setCur(v, true); raw = cur; hint(''); api.sfx('tap'); check(); };
       svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
 
       rowEl.addEventListener('click', e => {
         const b = e.target.closest('button'); if (!b) return;
         if (b.dataset.d) { setCur(cur + +b.dataset.d); raw = cur; hint(''); check(); return; }
-        if (b.dataset.act === 'reset') { cur = raw = start; drawHands(); readout(); hint(''); api.sfx('tap'); return; }
+        if (b.dataset.act === 'reset') { cur = raw = start; sec = startSec; drawHands(); readout(); hint(''); api.sfx('tap'); return; }
         if (b.dataset.act === 'new') {
           const r = (a, b2) => a + Math.floor(Math.random() * (b2 - a + 1));
           const st3 = Math.max(snapE, 5);
           if (mode === 'set') { let t; do { t = r(0, 143) * 5; t = Math.round(t / st3) * st3; } while (t === target); target = t; cur = raw = start; }
           else if (mode === 'ampm') { let t; do { t = Math.round(r(0, 287) * 5 / st3) * st3; } while (t === target); target = t; cur = raw = start; }
           else { start = Math.round(r(72, 216) * 5 / st3) * st3; need = Math.round(r(4, 60) * 5 / st3) * st3; target = start + need; cur = raw = start; }
+          sec = startSec; if (useSec && targetSec != null && mode !== 'elapsed') targetSec = r(0, 11) * 5;
           customText = ''; snapE = snap; if (target % snap || start % snap) snapE = 1;
           if (won) { won = false; api.resetWin && api.resetWin(); }
           setText(); buildRow(); drawHands(); readout(); hint(''); api.sfx('tap');
@@ -294,6 +320,7 @@
     examples: [
       { mode: 'ampm', target: '18:30', start: '6:00', snap: 15, challenge: 'The train leaves at 18:30. Set the clock — is that am or pm? Turn the hands past 12 to switch!' },
       { mode: 'elapsed', start: '8:30', end: '1:15', snap: 5, challenge: 'School starts at 8:30 am and ends at 1:15 pm. Move the hands forward — how long is the school day?' },
+      { mode: 'set', target: '4:20:30', start: '4:00', snap: 5, seconds: true, challenge: 'Set the clock to 4:20 and 30 seconds. Drag the thin red seconds hand too!' },
       { mode: 'calendar', year: 2026, month: 8, from: 10, days: 12, challenge: 'Raksha Bandhan practice starts on 10 August. The show is 12 days later. Tap the show date!' }
     ]
   });

@@ -4,8 +4,11 @@
    PARAMS (all optional — missing ones fall back to `example`)
    ─────────────────────────────────────────────────────────────────────────────────────────
    title     string   Heading text.                                              'Timeline'
-   events    object[] {year:number, label, emoji?, info?}. BCE years are NEGATIVE
+   events    object[] {year:number, label, emoji?, info?, approx?}. BCE years are NEGATIVE
                       (-326 = 326 BCE). With format 'ago' give positive "years ago".
+                      approx: true → the date is approximate: shown as "c. 760 CE" (or
+                      "लगभग 760 CE" when the event label is in Devanagari), and gaps read
+                      "about … years". Ordering / "which came first" use the year as usual.
    eras      object[] Coloured bands {from, to, label, color?} (same year units).     []
    format    string   'bce'  → 326 BCE / 1526 CE (no year 0, gaps across 1 BCE→1 CE are correct)
                       'plain'→ 1947           'ago' → 65 + suffix (older = left).  'bce' if any year < 0 else 'plain'
@@ -38,6 +41,10 @@
       const nf = n => Math.abs(n) >= 10000 ? Math.round(n).toLocaleString('en-IN') : (Math.abs(n) < 10 && Math.abs(n - Math.round(n)) > 0.05 ? String(+Math.abs(n).toFixed(1) * Math.sign(n)) : String(Math.round(n)));
       const fmtS = v => ago ? nf(-v) : fmt(v);
       const fmt = v => { if (ago) return `${nf(-v)} ${suffix}`; if (fmtKind === 'bce') return v < 0 ? `${nf(-v)} BCE` : `${nf(v)} CE`; return nf(v); };
+      const DEVA = /[\u0900-\u097F]/;
+      const isApprox = e => !!e && (e.approx === true || e.approx === 1 || e.approx === 'true');
+      const fmtE = e => (isApprox(e) ? (DEVA.test(String(e.label || '') + String(p.title || '')) ? 'लगभग ' : 'c. ') : '') + fmt(e.v);   /* event date */
+      const fmtSE = e => (isApprox(e) ? (DEVA.test(String(e.label || '') + String(p.title || '')) ? 'लगभग ' : 'c. ') : '') + fmtS(e.v);
       const unitW = ago ? suffix.replace(/\s*ago\s*$/i, '') || 'years' : 'years';
       const span = (a, b) => { let d = b - a; if (fmtKind === 'bce' && a < 0 && b > 0) d -= 1; return d; }; /* no year zero */
       let lo = ev.length ? ev[0].v : 0, hi = ev.length ? ev[ev.length - 1].v : 100;
@@ -135,7 +142,7 @@
         }
         ev.forEach((e, k) => {
           const x = xOf(e.v), up = [44, 62, 78][k % 3];
-          s += `<g class="lb-timeline-ev" data-k="${k}"><line x1="${x}" x2="${x}" y1="${up + 6}" y2="${AY}" stroke="#c9c2f5" stroke-width="1.5"/><text class="em" x="${x}" y="${up}" text-anchor="middle">${esc(e.emoji || '⭐')}</text><circle class="d" cx="${x}" cy="${AY}" r="7"/>${even ? `<text class="yr" x="${x}" y="${AY + (k % 2 ? 36 : 22)}" text-anchor="middle">${esc(fmtS(e.v))}</text>` : ''}<rect x="${x - 20}" y="${up - 20}" width="40" height="${AY - up + 30}" fill="transparent"/></g>`;
+          s += `<g class="lb-timeline-ev" data-k="${k}"><line x1="${x}" x2="${x}" y1="${up + 6}" y2="${AY}" stroke="#c9c2f5" stroke-width="1.5"/><text class="em" x="${x}" y="${up}" text-anchor="middle">${esc(e.emoji || '⭐')}</text><circle class="d" cx="${x}" cy="${AY}" r="7"/>${even ? `<text class="yr" x="${x}" y="${AY + (k % 2 ? 36 : 22)}" text-anchor="middle">${esc(fmtSE(e))}</text>` : ''}<rect x="${x - 20}" y="${up - 20}" width="40" height="${AY - up + 30}" fill="transparent"/></g>`;
         });
         if (ago) s += `<text class="lb-timeline-tk" x="${SW - PAD}" y="${SH - 4}" text-anchor="end">(${esc(suffix)})</text>`;
         s += `<g class="cur" style="pointer-events:none"><line y1="4" y2="${SH - 4}" stroke="#ff6b6b" stroke-width="2.5"/><circle cy="${AY}" r="4" fill="#ff6b6b"/></g></svg>`;
@@ -155,7 +162,7 @@
         if (best !== cur) {
           cur = best; const e = ev[best], prev = ev[best - 1], era = eras.find(r => e.v >= r.a && e.v <= r.b);
           const gap = prev ? span(prev.v, e.v) : null;
-          card.innerHTML = `<div class="e">${esc(e.emoji || '⭐')}</div><div><b>${esc(e.label)}</b><div class="m">${era ? `<span class="lb-timeline-tag" style="background:${era.col};color:${era.dcol}">${esc(era.label)}</span>` : ''}${esc(fmt(e.v))}${gap != null ? ` · ${nf(gap)} ${esc(unitW)} after “${esc(prev.label)}”` : ''}</div>${e.info ? `<div class="tx">${esc(e.info)}</div>` : ''}</div>`;
+          card.innerHTML = `<div class="e">${esc(e.emoji || '⭐')}</div><div><b>${esc(e.label)}</b><div class="m">${era ? `<span class="lb-timeline-tag" style="background:${era.col};color:${era.dcol}">${esc(era.label)}</span>` : ''}${esc(fmtE(e))}${gap != null ? ` · ${isApprox(e) || isApprox(prev) ? 'about ' : ''}${nf(gap)} ${esc(unitW)} after “${esc(prev.label)}”` : ''}</div>${e.info ? `<div class="tx">${esc(e.info)}</div>` : ''}</div>`;
         }
       }
       slider.addEventListener('input', () => setX(PAD + slider.value / 1000 * (SW - 2 * PAD)));
@@ -195,7 +202,7 @@
       function layout(skip) { cBox.querySelectorAll('.lb-timeline-row').forEach(r => { if (r !== skip) r.style.top = order.indexOf(r._e) * ROW + 'px'; }); }
       function check() {
         const sorted = order.slice().sort((a, b) => a.v - b.v); let ok = 0; checked = true;
-        cBox.querySelectorAll('.lb-timeline-row').forEach(r => { const i = order.indexOf(r._e), good = sorted[i].v === r._e.v; ok += good; r.classList.toggle('ok', good); r.classList.toggle('bad', !good); r.querySelector('.y').textContent = good ? fmt(r._e.v) : ''; });
+        cBox.querySelectorAll('.lb-timeline-row').forEach(r => { const i = order.indexOf(r._e), good = sorted[i].v === r._e.v; ok += good; r.classList.toggle('ok', good); r.classList.toggle('bad', !good); r.querySelector('.y').textContent = good ? fmtE(r._e) : ''; });
         const m = cBox.querySelector('.lb-timeline-msg');
         if (ok === order.length) { api.sfx('correct'); m.textContent = 'Perfect order! 🎉'; if (!won) { won = true; api.win(`You put ${order.length} events in the right time order!`); } }
         else { api.sfx('wrong'); m.textContent = `${ok} of ${order.length} in the right place. Move the red ones!`; }
@@ -216,10 +223,10 @@
         bs.forEach((bt, i) => bt.addEventListener('click', () => {
           if (lock || !pair) return; lock = true;
           const first = pair[0].v < pair[1].v ? 0 : 1, good = i === first;
-          bs.forEach((x, j) => { x.classList.add(j === first ? 'ok' : 'bad'); x.querySelector('.y').textContent = fmt(pair[j].v); });
+          bs.forEach((x, j) => { x.classList.add(j === first ? 'ok' : 'bad'); x.querySelector('.y').textContent = fmtE(pair[j]); });
           const m = cBox.querySelector('.lb-timeline-msg');
           if (good) { streak++; api.sfx('correct'); } else api.sfx('wrong');
-          m.textContent = (good ? 'Yes! ' : 'Oops! ') + `${nf(span(pair[first].v, pair[1 - first].v))} ${unitW} apart · ✅ ${streak} / ${rounds}`;
+          m.textContent = (good ? 'Yes! ' : 'Oops! ') + `${isApprox(pair[0]) || isApprox(pair[1]) ? 'about ' : ''}${nf(span(pair[first].v, pair[1 - first].v))} ${unitW} apart · ✅ ${streak} / ${rounds}`;
           if (streak >= rounds) { if (!won) { won = true; api.win(`You got ${rounds} right — great sense of time!`); } m.textContent += ' 🎉'; return; }
           timers.push(setTimeout(ask, 1700));
         }));
@@ -249,6 +256,7 @@
         { year: -563, label: 'Gautama Buddha is born', emoji: '☸️', info: 'Born at Lumbini; taught the Middle Path.' },
         { year: -268, label: 'Ashoka becomes emperor', emoji: '🦁', info: 'After Kalinga he spread dhamma. His lion capital is our national emblem.' },
         { year: 499, label: 'Aryabhata writes Aryabhatiya', emoji: '🔭', info: 'Explained that the Earth spins on its axis.' },
+        { year: 760, approx: true, label: 'Kailasa temple at Ellora is carved', emoji: '🛕', info: 'Cut from a single rock under the Rashtrakuta kings.' },
         { year: 1526, label: 'First Battle of Panipat', emoji: '⚔️', info: 'Babur defeats Ibrahim Lodi; the Mughal Empire begins.' },
         { year: 1857, label: 'Revolt of 1857', emoji: '🔥', info: 'First big uprising against the East India Company.' },
         { year: 1947, label: 'India becomes independent', emoji: '🇮🇳', info: '15 August 1947.' }
@@ -267,7 +275,10 @@
         eras: [{ from: 540, to: 252, label: 'Old life' }, { from: 252, to: 66, label: 'Dinosaur age' }, { from: 66, to: 0, label: 'Mammal age' }],
         events: [{ year: 500, label: 'Fish appear in the sea', emoji: '🐟' }, { year: 375, label: 'Animals walk onto land', emoji: '🦎' },
           { year: 230, label: 'First dinosaurs', emoji: '🦕' }, { year: 150, label: 'First birds', emoji: '🐦' },
-          { year: 66, label: 'Dinosaurs die out', emoji: '☄️' }, { year: 0.3, label: 'Modern humans appear', emoji: '🧍' }] }
+          { year: 66, label: 'Dinosaurs die out', emoji: '☄️' }, { year: 0.3, label: 'Modern humans appear', emoji: '🧍' }] },
+      { title: 'भारत का इतिहास', format: 'bce', spacing: 'even', task: 'order', count: 4, challenge: 'चारों घटनाओं को समय के क्रम में लगाओ — सबसे पुरानी ऊपर',
+        events: [{ year: -2600, approx: true, label: 'मोहनजोदड़ो नगर', emoji: '🧱' }, { year: -268, label: 'अशोक सम्राट बने', emoji: '🦁' },
+          { year: 760, approx: true, label: 'एलोरा का कैलाश मंदिर', emoji: '🛕' }, { year: 1947, label: 'भारत स्वतंत्र हुआ', emoji: '🇮🇳' }] }
     ]
   });
 })();

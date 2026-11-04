@@ -9,7 +9,11 @@
  *   left       [number, number]  [boxes, units] on the left pan  e.g. [2,3] = 2x + 3      default [2,3]
  *   right      [number, number]  [boxes, units] on the right pan e.g. [0,11] = 11         default [0,11]
  *              The solution x = (ru − lu)/(lx − rx) must be a positive number; otherwise
- *              the example equation is used. Keep units ≤ 20 per pan, boxes ≤ 6 per pan.
+ *              the example equation is used. Limits: units ≤ 200 per pan, boxes ≤ 12 per pan.
+ *              Up to 20 units per pan they are drawn as single 1-weights (as before). When a pan
+ *              starts with more than 20 units (e.g. 4a + 16 = 72) units are grouped: golden ×10
+ *              weights plus 1-weights, and extra −10 / −10 both buttons appear (tap a 10 on a pan
+ *              to take 10 off that side).
  *   letter     string   name of the unknown shown on boxes (x, y, n, क …)                 default 'x'
  *   unit       string   optional unit after the answer, e.g. 'kg' or 'g'                  default ''
  *   challenge  string   challenge text; default "Solve 2x + 3 = 11. Get x alone and keep the scale level!"
@@ -26,11 +30,12 @@
     subjects: ['maths'],
     render(host, p, api) {
       const ex = this.example;
-      const okPair = a => Array.isArray(a) && a.length === 2 && a.every(n => Number.isInteger(+n) && +n >= 0) && +a[0] <= 6 && +a[1] <= 20;
+      const okPair = a => Array.isArray(a) && a.length === 2 && a.every(n => Number.isInteger(+n) && +n >= 0) && +a[0] <= 12 && +a[1] <= 200;
       let L0 = okPair(p.left) ? p.left.map(Number) : ex.left.slice();
       let R0 = okPair(p.right) ? p.right.map(Number) : ex.right.slice();
       let xv = (R0[1] - L0[1]) / (L0[0] - R0[0]);
       if (!isFinite(xv) || xv <= 0) { L0 = ex.left.slice(); R0 = ex.right.slice(); xv = (R0[1] - L0[1]) / (L0[0] - R0[0]); }
+      const big = Math.max(L0[1], R0[1]) > 20;   // grouped ×10 weights + −10 buttons
       const X = String(p.letter || 'x');
       const unit = p.unit ? ' ' + p.unit : '';
       const gid = 'lbbal' + Math.random().toString(36).slice(2, 8);
@@ -84,14 +89,15 @@
     <path class="lb-balance-needle" d="M180 50 L180 22" stroke="#ff6b6b" stroke-width="4" stroke-linecap="round"/>
   </svg>
   <div class="lb-balance-row">
-    <div class="lb-balance-side"><button class="lb-balance-b" data-a="Lx">−${esc(X)}</button><button class="lb-balance-b" data-a="Lu">−1</button></div>
-    <span class="lb-balance-lab">one side</span>
-    <div class="lb-balance-side"><button class="lb-balance-b" data-a="Rx">−${esc(X)}</button><button class="lb-balance-b" data-a="Ru">−1</button></div>
+    <div class="lb-balance-side"><button class="lb-balance-b" data-a="Lx">−${esc(X)}</button>${big ? '<button class="lb-balance-b" data-a="Lt">−10</button>' : ''}<button class="lb-balance-b" data-a="Lu">−1</button></div>
+    <span class="lb-balance-lab">${big ? 'side' : 'one side'}</span>
+    <div class="lb-balance-side"><button class="lb-balance-b" data-a="Rx">−${esc(X)}</button>${big ? '<button class="lb-balance-b" data-a="Rt">−10</button>' : ''}<button class="lb-balance-b" data-a="Ru">−1</button></div>
   </div>
   <div class="lb-balance-row">
     <span class="lb-balance-lab">both</span>
-    <button class="lb-balance-b both" data-a="Bx">−${esc(X)} both</button>
-    <button class="lb-balance-b both" data-a="Bu">−1 both</button>
+    <button class="lb-balance-b both" data-a="Bx">−${esc(X)}${big ? '' : ' both'}</button>
+    ${big ? '<button class="lb-balance-b both" data-a="Bt">−10</button>' : ''}
+    <button class="lb-balance-b both" data-a="Bu">−1${big ? '' : ' both'}</button>
     <button class="lb-balance-b div" data-a="D">÷</button>
     <button class="lb-balance-b ghost" data-a="U" aria-label="undo">↶</button>
     <button class="lb-balance-b ghost" data-a="Z" aria-label="reset">⟲</button>
@@ -120,8 +126,19 @@
         }
         y = s.x ? -Math.ceil(s.x / per) * (bw + 3) - 2 : 0;
         const r = 8, us = 17.5, uper = 7;
-        for (let i = 0; i < s.u; i++) {
-          const row = Math.floor(i / uper), col = i % uper, inRow = Math.min(uper, s.u - row * uper);
+        let ones = s.u;
+        if (big) {
+          // ×10 weights: golden discs marked 10, 5 per row
+          const tn = Math.floor(s.u / 10), tr = 10.5, ts = 22.5, tper = 5; ones = s.u % 10;
+          for (let i = 0; i < tn; i++) {
+            const row = Math.floor(i / tper), col = i % tper, inRow = Math.min(tper, tn - row * tper);
+            const x0 = -((inRow - 1) * ts) / 2 + col * ts, yy = y - tr - 1 - row * (2 * tr + 1);
+            out += `<g class="lb-balance-it" data-s="${side}" data-k="t"><circle cx="${x0}" cy="${yy}" r="${tr}" fill="#ff9f43" stroke="#c46a12" stroke-width="1.6"/><text x="${x0}" y="${yy + 4}" text-anchor="middle" font-size="10.5" font-weight="900" fill="#fff">10</text></g>`;
+          }
+          if (tn) y -= Math.ceil(tn / tper) * (2 * tr + 1) + 1;
+        }
+        for (let i = 0; i < ones; i++) {
+          const row = Math.floor(i / uper), col = i % uper, inRow = Math.min(uper, ones - row * uper);
           const x0 = -((inRow - 1) * us) / 2 + col * us;
           const yy = y - r - 1 - row * (2 * r + 1);
           out += `<g class="lb-balance-it" data-s="${side}" data-k="u"><circle cx="${x0}" cy="${yy}" r="${r}" fill="#ffc93c" stroke="#d99a00" stroke-width="1.5"/><text x="${x0}" y="${yy + 4}" text-anchor="middle" font-size="10" font-weight="800" fill="#7a5200">1</text></g>`;
@@ -192,10 +209,11 @@
         const g = gcd(gcd(L.x, L.u), gcd(R.x, R.u));
         const dBtn = $('[data-a="D"]');
         dBtn.disabled = !(g > 1 && (L.x || R.x) && bal);
-        dBtn.textContent = g > 1 ? `÷${g} both` : '÷ both';
+        dBtn.textContent = big ? (g > 1 ? `÷${g}` : '÷') : g > 1 ? `÷${g} both` : '÷ both';
         $('[data-a="Lx"]').disabled = !L.x; $('[data-a="Lu"]').disabled = !L.u;
         $('[data-a="Rx"]').disabled = !R.x; $('[data-a="Ru"]').disabled = !R.u;
         $('[data-a="Bx"]').disabled = !(L.x && R.x); $('[data-a="Bu"]').disabled = !(L.u && R.u);
+        if (big) { $('[data-a="Lt"]').disabled = L.u < 10; $('[data-a="Rt"]').disabled = R.u < 10; $('[data-a="Bt"]').disabled = !(L.u >= 10 && R.u >= 10); }
         $('[data-a="U"]').disabled = !history.length;
         drawPans(); place(); setTilt();
         logIfBalanced();
@@ -224,6 +242,8 @@
         else if (a === 'Rx' && R.x) R.x--; else if (a === 'Ru' && R.u) R.u--;
         else if (a === 'Bx' && L.x && R.x) { L.x--; R.x--; }
         else if (a === 'Bu' && L.u && R.u) { L.u--; R.u--; }
+        else if (a === 'Lt' && L.u >= 10) L.u -= 10; else if (a === 'Rt' && R.u >= 10) R.u -= 10;
+        else if (a === 'Bt' && L.u >= 10 && R.u >= 10) { L.u -= 10; R.u -= 10; }
         else if (a === 'D') {
           const g = gcd(gcd(L.x, L.u), gcd(R.x, R.u)); if (g < 2) return;
           L = { x: L.x / g, u: L.u / g }; R = { x: R.x / g, u: R.u / g };
@@ -253,7 +273,8 @@
     examples: [
       { left: [1, 5], right: [0, 12], letter: 'n', challenge: 'A bag n and 5 marbles weigh as much as 12 marbles. Find n.' },
       { left: [3, 2], right: [1, 10], letter: 'x', challenge: 'Solve 3x + 2 = x + 10 (x on both sides!)' },
-      { left: [4, 0], right: [0, 20], letter: 'y', unit: 'kg', challenge: '4 equal sacks weigh 20 kg. How heavy is one sack y?' }
+      { left: [4, 0], right: [0, 20], letter: 'y', unit: 'kg', challenge: '4 equal sacks weigh 20 kg. How heavy is one sack y?' },
+      { left: [4, 16], right: [0, 72], letter: 'a', challenge: 'Solve 4a + 16 = 72. Take 16 off both sides, then divide.' }
     ]
   });
 })();

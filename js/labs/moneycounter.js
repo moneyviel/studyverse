@@ -15,8 +15,13 @@
  *                              `target`), 'cheapest' | 'costliest' (tap that item)                      'pay'
  *  buy         array           shop+pay: names of items that must be in the basket (else any basket)     none
  *  target      number          shop+total: basket total to reach                                       auto
- *  coins       array           coin values available (₹)                                               [1, 2, 5, 10]
- *  notes       array           note values available (₹)                                               [20, 50, 100, 200, 500]
+ *  coins       array           coin values available (₹). [] (or [0]) = no coins at all                 [1, 2, 5, 10]
+ *  notes       array           note values available (₹). [] (or [0]) = no notes at all                 [20, 50, 100, 200, 500]
+ *                              Only the listed denominations appear (e.g. notes [20, 50] + coins []
+ *                              shows just ₹20 and ₹50 notes). If both lists end up empty the defaults are used.
+ *                              Amounts are NOT rounded to the smallest piece: any amount that the pieces
+ *                              can make exactly is kept (₹170 = 50+50+50+20 with ₹20/₹50 notes). Only an
+ *                              amount that cannot be made at all is moved to the nearest one that can.
  *  paise       boolean         adds the 50 paise coin and shows amounts as ₹12.50                       false
  *  fewest      boolean         the challenge also needs the fewest coins/notes possible                 false
  *  newChallenge boolean        show the "New" button                                                    true
@@ -82,16 +87,22 @@
     render(host, p, api) {
       const mode = ['pay', 'change', 'shop'].includes(p.mode) ? p.mode : 'pay';
       const P = v => { const x = Math.round(parseFloat(String(v == null ? '' : v).replace(/[₹,\s]/g, '')) * 100); return isFinite(x) ? x : NaN; };
-      const okList = (a, d) => Array.isArray(a) && a.length ? a.map(P).filter(x => x > 0) : d;
+      // a given list (even an empty one) is used as-is; a missing list falls back to the default
+      const okList = (a, d) => Array.isArray(a) ? [...new Set(a.map(P).filter(x => x > 0))] : d;
       let coins = okList(p.coins, [100, 200, 500, 1000]);
-      const notes = okList(p.notes, [2000, 5000, 10000, 20000, 50000]);
+      let notes = okList(p.notes, [2000, 5000, 10000, 20000, 50000]);
       if (p.paise && !coins.includes(50)) coins = [50].concat(coins);
+      if (!coins.length && !notes.length) { coins = [100, 200, 500, 1000]; notes = [2000, 5000, 10000, 20000, 50000]; }
       const usePaise = !!p.paise || coins.some(c => c % 100) ;
       const denoms = coins.map(v => ({ v, k: 'c' })).concat(notes.map(v => ({ v, k: 'n' }))).sort((a, b) => a.v - b.v);
       const allV = [...new Set(denoms.map(d => d.v))].sort((a, b) => a - b);
       const rs = v => { const neg = v < 0; v = Math.abs(v); const r = Math.floor(v / 100), ps = v % 100; const s = r.toLocaleString('en-IN'); return (neg ? '−' : '') + '₹' + (usePaise || ps ? s + '.' + String(ps).padStart(2, '0') : s); };
-      const unit = Math.min(...allV);
+      // amounts are kept exact: work in steps of the GCD of all pieces (₹20 & ₹50 → ₹10), never the smallest piece
+      const gcd = (a, b) => { while (b) [a, b] = [b, a % b]; return a; };
+      const unit = allV.reduce(gcd, 0) || 100;
       const round = v => Math.round(v / unit) * unit;
+      // nearest amount (> 0) that the available pieces can make exactly; prefers the amount itself, then up
+      const reach = v => { v = round(v); if (!(v > 0)) return v; if (isFinite(minPieces(v))) return v; for (let d = unit; d <= 100000; d += unit) { if (isFinite(minPieces(v + d))) return v + d; if (v - d > 0 && isFinite(minPieces(v - d))) return v - d; } return v; };
       // minimum pieces (DP, works for any denominations)
       function minPieces(t) {
         if (t <= 0) return 0; const u = unit; const n = Math.round(t / u); if (n > 20000) return Infinity;
@@ -108,9 +119,10 @@
       const ask = ['pay', 'total', 'cheapest', 'costliest'].includes(p.ask) ? p.ask : 'pay';
       let mustBuy = Array.isArray(p.buy) ? p.buy.map(String) : [];
       function setup() {
-        amount = round(P(p.amount)); if (!(amount > 0)) amount = 3700;
+        amount = reach(P(p.amount)); if (!(amount > 0)) amount = reach(3700);
         price = round(P(p.price)); paid = round(P(p.paid));
         if (!(price > 0)) price = 6300; if (!(paid > price)) paid = Math.ceil((price + 1) / 10000) * 10000;
+        { const ch = reach(paid - price); if (ch > 0 && ch < paid) price = paid - ch; }   // change must be makeable
         target = round(P(p.target));
         if (!(target > 0)) { const s = items.slice(0, 2).reduce((a, b) => a + b.price, 0); target = s; }
       }
@@ -174,7 +186,8 @@
         }
         if (mode === 'shop' && !basket.size) { msg('First tap the things you want to buy'); return; }
         if (!tray.length) { msg(mode === 'change' ? `Count up from ${rs(price)} to ${rs(paid)}` : ''); return; }
-        if (t < g) msg(`${rs(g - t)} more needed`);
+        if (t < g && !isFinite(minPieces(g))) msg(`${rs(g)} can't be made exactly with these coins and notes — try other things`);
+        else if (t < g) msg(`${rs(g - t)} more needed`);
         else if (t > g) msg(`Too much by ${rs(t - g)} — tap a coin to take it back`);
         else msg(mode === 'change' ? `${rs(price)} + ${rs(t)} = ${rs(paid)} ✔` : 'Exact amount! ✔');
       }
@@ -241,8 +254,8 @@
       function newChallenge() {
         const r = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
         const bigV = Math.max(...allV);
-        if (mode === 'pay') { let a; do { a = round(r(3, Math.min(bigV / 100 * 2, 300)) * 100 + (usePaise && Math.random() < .5 ? 50 : 0)); } while (a === amount); amount = a; }
-        else if (mode === 'change') { const pv = [1000, 2000, 5000, 10000, 20000, 50000].filter(v => v <= bigV * 2); paid = pv[r(Math.min(1, pv.length - 1), pv.length - 1)] || 10000; price = round(r(1, Math.max(1, paid / 100 - 1)) * 100 - (usePaise && Math.random() < .5 ? 50 : 0)); if (price <= 0) price = paid / 2; }
+        if (mode === 'pay') { let a, t = 0; do { a = reach(r(3, Math.max(3, Math.min(bigV / 100 * 2, 300))) * 100 + (usePaise && Math.random() < .5 ? 50 : 0)); } while ((a === amount || !(a > 0)) && ++t < 40); amount = a; }
+        else if (mode === 'change') { const pv = [1000, 2000, 5000, 10000, 20000, 50000].filter(v => v <= bigV * 2); paid = pv[r(Math.min(1, pv.length - 1), pv.length - 1)] || 10000; price = round(r(1, Math.max(1, paid / 100 - 1)) * 100 - (usePaise && Math.random() < .5 ? 50 : 0)); if (price <= 0) price = paid / 2; const ch = reach(paid - price); if (ch > 0 && ch < paid) price = paid - ch; }
         else if (ask === 'total') { const idx = items.map((_, i) => i).sort(() => Math.random() - .5).slice(0, r(2, Math.min(3, items.length))); target = idx.reduce((s, i) => s + items[i].price, 0); }
         else if (ask === 'pay') { mustBuy = items.map(x => x.name).sort(() => Math.random() - .5).slice(0, r(1, Math.min(2, items.length))); }
         else if (ask === 'cheapest' || ask === 'costliest') { items.sort(() => Math.random() - .5); }
@@ -258,6 +271,7 @@
     examples: [
       { mode: 'change', price: 63, paid: 100, itemName: 'A cricket ball', fewest: true, challenge: 'A cricket ball costs ₹63. Aman pays with a ₹100 note. Give him the change using the fewest coins and notes.' },
       { mode: 'shop', ask: 'pay', items: [{ name: 'Samosa', price: 15 }, { name: 'Lassi', price: 30 }, { name: 'Jalebi', price: 25 }, { name: 'Chai', price: 10 }], buy: ['Samosa', 'Lassi'], challenge: 'Buy a samosa and a lassi. Pay the exact total.' },
+      { mode: 'pay', amount: 170, coins: [], notes: [20, 50], challenge: 'Pay exactly ₹170 using only ₹20 and ₹50 notes.' },
       { mode: 'pay', amount: 12.5, paise: true, coins: [1, 2, 5, 10], notes: [10, 20, 50], challenge: 'A pencil box costs ₹12.50. Pay the exact amount — you will need a 50 paise coin!' }
     ]
   });

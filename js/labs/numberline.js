@@ -14,7 +14,14 @@
  *  add         number|string    jump mode: amount to add (negative = subtract); target = start+add  5
  *  target      number|string    value the frog must land on (overrides start+add)                  auto
  *  step        number|string    skip mode: size of each hop                                        2
- *  hops        array            sizes of the hop buttons, e.g. [1, 5] or ["1/4"]                   [tick] (+5×tick if 15+ ticks)
+ *  hops        array            sizes of the hop buttons, e.g. [1, 5], ["1/4"] or [8, 4, 2, 1] (up to 8
+ *                               sizes; with 4+ sizes the buttons get compact rows: − row, + row)    [tick] (+5×tick if 15+ ticks)
+ *  marks       array            extra labelled points, also irrational ones: [{value, label}], e.g.
+ *                               [{value: 'sqrt(2)', label: '√2'}, {value: 2.2360679, label: '√5'}].
+ *                               value: a number, or text like '√2', 'sqrt(5)', '-√3', '2√3', 'π', '3/4'.
+ *                               label: any text (default: the value to 3 places). Drawn as coral dots
+ *                               on the line with the label below the tick numbers. Display only — the
+ *                               frog's snapping and the challenge are unchanged.                    none
  *  labels      string           which ticks get numbers: 'auto' | 'all' | 'whole' | 'ends' | 'none' 'auto'
  *  format      string           label style: 'auto' | 'int' | 'fraction' | 'mixed' | 'decimal'      'auto'
  *  snap        number|string    drag snapping size                                                 tick
@@ -66,6 +73,8 @@
   .lb-numberline-b.s{background:#eef0fb;color:#1b1f3a;box-shadow:0 4px 0 #d3d7ef;font-size:14px}
   .lb-numberline-b.s:active{box-shadow:0 1px 0 #d3d7ef}
   .lb-numberline-b:disabled{opacity:.45}
+  .lb-numberline-b.c{min-width:0;flex:1 1 0;max-width:72px;height:42px;font-size:15px;padding:0 3px}
+  .lb-numberline-br{flex-basis:100%;height:0}
   .lb-numberline-hint{text-align:center;font-weight:800;font-size:13.5px;color:#7c4ddb;min-height:20px;margin:2px 0 6px;transition:opacity .2s}
   .lb-numberline-arc{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:lbnlDraw .38s ease forwards}
   @keyframes lbnlDraw{to{stroke-dashoffset:0}}
@@ -113,6 +122,21 @@
       let fmt = p.format;
       if (!['int', 'fraction', 'mixed', 'decimal'].includes(fmt)) fmt = D === 1 ? 'int' : (anyFrac ? 'fraction' : (anyDec ? 'decimal' : 'fraction'));
       const decPlaces = Math.max(1, Math.ceil(Math.log10(D) - 1e-9));
+      // ---- marks: labelled (possibly irrational) points, display only ----
+      function markVal(v) {
+        if (typeof v === 'number') return isFinite(v) ? v : NaN;
+        const s0 = String(v == null ? '' : v).trim().replace(/[−–]/g, '-').replace(/\s+/g, '');
+        let m = s0.match(/^(-?)(\d*\.?\d*)(?:√|sqrt)\(?(\d+(?:\.\d+)?)\)?$/i);
+        if (m) return (m[1] ? -1 : 1) * (m[2] ? +m[2] : 1) * Math.sqrt(+m[3]);
+        m = s0.match(/^(-?)(\d*\.?\d*)(?:π|pi)$/i);
+        if (m) return (m[1] ? -1 : 1) * (m[2] ? +m[2] : 1) * Math.PI;
+        const q = parseQ(s0); return q ? q.n / q.d : NaN;
+      }
+      const marks = (Array.isArray(p.marks) ? p.marks : []).map(mk => {
+        const o = mk && typeof mk === 'object' ? mk : { value: mk };
+        const v = markVal(o.value);
+        return { v, k: v * D, label: o.label != null && o.label !== '' ? String(o.label) : String(+v.toFixed(3)).replace('-', MINUS) };
+      }).filter(mk => isFinite(mk.v) && mk.k >= kmin - 1e-9 && mk.k <= kmax + 1e-9).sort((a, b) => a.v - b.v);
 
       // ---------- state ----------
       let start, target, snapU, hopsU;
@@ -153,7 +177,7 @@
         if (span / snapU > 400) snapU = gcd(snapU, tickU);
         // hop buttons
         if (mode === 'skip') hopsU = [stepU];
-        else if (hopsQ.length) hopsU = hopsQ.map(K).filter(h => h > 0).slice(0, 3);
+        else if (hopsQ.length) hopsU = [...new Set(hopsQ.map(K).filter(h => h > 0))].slice(0, 8);
         else { hopsU = [tickU]; if (span / tickU >= 15) hopsU.push(tickU * 5); if (span / tickU > 40) hopsU.push(tickU * 10); }
       }
       let pos = 0, hist = [], customText = p.challenge ? String(p.challenge) : '';
@@ -192,8 +216,12 @@
       }
 
       // ---------- geometry ----------
-      const W = 360, H = 156, PX = 24, LY = 104;
+      const W = 360, PX = 24, LY = 104;
       const X = k => PX + (k - kmin) / span * (W - 2 * PX);
+      // mark labels sit in rows under the tick numbers; a mark goes to the 2nd row if it would overlap
+      const markW = mk => Math.max(18, Array.from(mk.label).length * 7.4 + 10);
+      { const lastEnd = [-1e9, -1e9]; marks.forEach(mk => { const x = X(mk.k), w = markW(mk); mk.row = x - w / 2 >= lastEnd[0] + 3 ? 0 : x - w / 2 >= lastEnd[1] + 3 ? 1 : 0; lastEnd[mk.row] = x + w / 2; }); }
+      const H = 156 + (marks.length ? (marks.some(mk => mk.row) ? 38 : 20) : 0);
       const pxPerTick = (W - 2 * PX) / (span / tickU);
       // label spacing
       const labMode = ['all', 'whole', 'ends', 'none'].includes(p.labels) ? p.labels : 'auto';
@@ -268,6 +296,13 @@
           s += `<line x1="${x}" x2="${x}" y1="${LY - h}" y2="${LY + h}" stroke="${k === 0 ? '#7c4ddb' : '#1b1f3a'}" stroke-width="${lab || whole ? 2.2 : 1.4}"/>`;
           if (lab) s += labelSVG(k, +x);
         }
+        marks.forEach(mk => {
+          const x = X(mk.k), ly = LY + 54 + mk.row * 18, w = markW(mk), lx = Math.max(w / 2 + 2, Math.min(W - w / 2 - 2, x));
+          s += `<g class="mark"><line x1="${x.toFixed(2)}" x2="${x.toFixed(2)}" y1="${LY}" y2="${ly - 12}" stroke="#ff6b6b" stroke-width="1.4" stroke-dasharray="3 3"/>` +
+            `<rect x="${(lx - w / 2).toFixed(1)}" y="${ly - 12}" width="${w.toFixed(1)}" height="17" rx="8" fill="#fff" stroke="#ff6b6b" stroke-width="1.6"/>` +
+            `<text x="${lx.toFixed(1)}" y="${ly + 1}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#d04545">${esc(mk.label)}</text>` +
+            `<circle cx="${x.toFixed(2)}" cy="${LY}" r="5" fill="#ff6b6b" stroke="#fff" stroke-width="1.6"/></g>`;
+        });
         gAxis.innerHTML = s;
       }
       function drawTarget() {
@@ -343,9 +378,13 @@
           s += `<button class="lb-numberline-b m" data-h="${-stepU}" aria-label="back">${MINUS}${esc(txt(stepU))}</button>`;
           s += `<button class="lb-numberline-b" data-h="${stepU}" style="min-width:110px">Hop +${esc(txt(stepU))}</button>`;
         } else if (mode === 'jump' || !canDrag || p.hops) {
-          const hs = hopsU.slice().sort((a, b) => b - a);
-          hs.forEach(h => { s += `<button class="lb-numberline-b m" data-h="${-h}">${MINUS}${esc(txt(h))}</button>`; });
-          hs.slice().reverse().forEach(h => { s += `<button class="lb-numberline-b" data-h="${h}">+${esc(txt(h))}</button>`; });
+          const hs = hopsU.slice().sort((a, b) => b - a), many = hs.length > 3;
+          // 4+ hop sizes: compact buttons, one row of − hops and one row of + hops
+          const row = many ? '<span class="lb-numberline-br"></span>' : '';
+          hs.forEach(h => { s += `<button class="lb-numberline-b m${many ? ' c' : ''}" data-h="${-h}">${MINUS}${esc(txt(h))}</button>`; });
+          s += row;
+          hs.slice().reverse().forEach(h => { s += `<button class="lb-numberline-b${many ? ' c' : ''}" data-h="${h}">+${esc(txt(h))}</button>`; });
+          s += row;
         }
         s += `<button class="lb-numberline-b s" data-act="reset">↺ Reset</button>`;
         if (p.newChallenge !== false) s += `<button class="lb-numberline-b s" data-act="new">✨ New</button>`;
@@ -457,7 +496,9 @@
     examples: [
       { mode: 'jump', min: -10, max: 10, start: 3, add: -7, challenge: 'Find 3 − 7 using hops. Can the frog go below zero?' },
       { mode: 'skip', min: 0, max: 50, start: 0, step: 5, target: 35, tick: 5, challenge: 'Skip count by 5s to reach 35. How many hops of 5 make 35?' },
-      { mode: 'place', min: 0, max: 2, tick: '1/4', start: 0, target: '5/4', format: 'mixed', showDecimal: true, challenge: 'Drag the frog to 1¼ (five quarters).' }
+      { mode: 'place', min: 0, max: 2, tick: '1/4', start: 0, target: '5/4', format: 'mixed', showDecimal: true, challenge: 'Drag the frog to 1¼ (five quarters).' },
+      { mode: 'jump', min: 0, max: 16, start: 0, target: 15, hops: [8, 4, 2, 1], challenge: 'Reach 15 using each hop size 8, 4, 2 and 1 once.' },
+      { mode: 'place', min: 0, max: 3.5, tick: 0.5, start: 0, target: 1.5, marks: [{ value: '√2', label: '√2' }, { value: 'sqrt(5)', label: '√5' }, { value: 'π', label: 'π' }], challenge: '√2 ≈ 1.41 and √5 ≈ 2.24 are marked. Drag the frog to 1.5 — is it between √2 and √5?' }
     ]
   });
 })();

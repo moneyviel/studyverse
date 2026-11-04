@@ -25,6 +25,11 @@
  *                     'matchsticks', 'cubes'.  weight: 'g' | 'kg' (shows 1 kg 200 g) or e.g.
  *                     'cubes', 'marbles'.  capacity: 'cups' | 'glasses' | 'ml' (measuring jug) |
  *                     'spoons' | 'bottles'.        default length 'cm', weight 'g', capacity 'cups'
+ *   unitPlural string plural of a non-standard unit, e.g. unit 'glass', unitPlural 'glasses'. Optional:
+ *                     without it singular / plural are worked out from `unit` (singular or plural,
+ *                     e.g. glasses ↔ glass, boxes ↔ box, cubes ↔ cube, berries ↔ berry, feet ↔ foot,
+ *                     'hand spans' ↔ 'hand span'). Hindi / non-English units are left unchanged.
+ *                     Counts read '1 glass', '3 glasses', '½ glass' → '0.5 glasses'.    default derived
  *   unitSize  number  size of one non-standard unit: cm (length), g (weight), ml (capacity).
  *                     default clip 3, matchstick 4, cube 2, hand span 15, step 30 (cm);
  *                     cube/marble 10 g; cup 250, glass 200, spoon 5, bottle 500, ml-jug 100 (ml)
@@ -56,7 +61,34 @@
     return `${g} g`;
   };
   const fmtC = ml => { ml = Math.round(ml); if (ml >= 1000) { const l = Math.floor(ml / 1000), r = ml % 1000; return r ? `${l} L ${r} ml` : `${l} L`; } return `${ml} ml`; };
-  const unitLabel = (n, u) => `${r2(n)} ${n === 1 ? u.replace(/s$/i, '') : u}`;
+  // ---- English singular / plural for unit names (only the last word changes; 'cups of tea' → 'cup of tea')
+  const IRR = { feet: 'foot', teeth: 'tooth', people: 'person', children: 'child', mice: 'mouse', men: 'man', women: 'woman',
+    buses: 'bus', gases: 'gas', leaves: 'leaf', loaves: 'loaf', halves: 'half', knives: 'knife', shelves: 'shelf', wolves: 'wolf',
+    potatoes: 'potato', tomatoes: 'tomato', mangoes: 'mango', heroes: 'hero', echoes: 'echo' };
+  const IRR_PL = Object.fromEntries(Object.entries(IRR).map(([a, b]) => [b, a]));
+  const NOCHANGE = /^(sheep|deer|fish|series|species|news|cm|mm|m|km|g|kg|mg|ml|l)$/i;
+  const wordFix = (str, fn) => {
+    const m = String(str).match(/^(.*?)([A-Za-z]+)((?:\s+of\s+.*)?)$/);
+    if (!m || /[^\x00-\x7F]/.test(m[2] + (m[3] || ''))) return String(str);
+    const w = m[2], lw = w.toLowerCase(), out = fn(lw);
+    const keepCase = out === lw ? w : (w[0] === w[0].toUpperCase() ? out[0].toUpperCase() + out.slice(1) : out);
+    return m[1] + keepCase + (m[3] || '');
+  };
+  const singularOf = str => wordFix(str, w => {
+    if (NOCHANGE.test(w)) return w;
+    if (IRR[w]) return IRR[w];
+    if (/[^aeiou]ies$/.test(w)) return w.slice(0, -3) + 'y';
+    if (/(ss|x|z|ch|sh)es$/.test(w)) return w.slice(0, -2);
+    if (/s$/.test(w) && !/(ss|us|is)$/.test(w)) return w.slice(0, -1);
+    return w;
+  });
+  const pluralOf = str => wordFix(str, w => {
+    if (NOCHANGE.test(w)) return w;
+    if (IRR_PL[w]) return IRR_PL[w];
+    if (/(s|x|z|ch|sh)$/.test(w)) return w + 'es';
+    if (/[^aeiou]y$/.test(w)) return w.slice(0, -1) + 'ies';
+    return w + 's';
+  });
 
   Labs.register('compare', {
     title: 'Compare & measure',
@@ -94,6 +126,15 @@
         const guess = std ? [100, '🧪'] : /glass|गिलास/.test(lc) ? [200, '🥛'] : /spoon|चम्मच/.test(lc) ? [5, '🥄'] : /bottle|बोतल/.test(lc) ? [500, '🍼'] : /mug|मग/.test(lc) ? [300, '☕'] : /bucket|बाल्टी/.test(lc) ? [10000, '🪣'] : /^l$|litre|liter|लीटर/.test(lc) ? [1000, '🫙'] : [250, '🥤'];
         unitSize = +p.unitSize > 0 ? +p.unitSize : guess[0]; unitEmoji = p.unitEmoji || guess[1];
       }
+      // singular / plural forms; `unit` itself is always the plural (as before for plural input)
+      let unitSg = unit;
+      if (!std) {
+        const pl = p.unitPlural ? String(p.unitPlural).trim() : '';
+        if (pl) { unitSg = pl === unit ? singularOf(unit) : unit; unit = pl; }
+        else { const sg = singularOf(unit); if (sg !== unit) unitSg = sg; else unit = pluralOf(unit); }
+      }
+      const uN = n => Math.abs(n - 1) < 1e-9 ? unitSg : unit;           // unit word for a count
+      const uCount = n => `${r2(n)} ${uN(r2(n))}`;                           // '1 glass', '3 glasses'
       const uName = mode === 'capacity' && std ? `${unitSize} ml jug` : unit;
 
       // ---- challenge text
@@ -266,7 +307,7 @@
           let h = `<div class="lb-compare-stage"><div class="lb-compare-start">▼ START</div><div class="lb-compare-rows">`;
           rows.forEach((o, k) => {
             const c = COLS[o.i % COLS.length];
-            const sv = showVals || won ? `<span class="lb-compare-val">${measure && !std ? unitLabel(r2(o.value / unitSize), unit) : esc(fmtV(o.value))}</span>` : '';
+            const sv = showVals || won ? `<span class="lb-compare-val">${measure && !std ? uCount(o.value / unitSize) : esc(fmtV(o.value))}</span>` : '';
             h += `<div class="lb-compare-lr${selRow === k ? ' sel' : ''}" data-row="${k}">
               <div class="lb-compare-lab">${goal === 'order' ? `<span class="lb-compare-hd" data-h="${k}" aria-label="move">⇅</span>` : ''}<span>${esc(o.emoji)}</span><span class="lb-compare-nn">${esc(o.name)}</span>${sv}</div>
               <div class="lb-compare-tr"><div class="lb-compare-bar${won && (picked === k || goal === 'order') ? ' ok' : ''}" data-bar="${k}" style="left:${pct(offs[list.indexOf(o)])}%;width:${pct(o.value)}%;background:linear-gradient(90deg,${c},${c}cc)" role="button" aria-label="${esc(o.name)}"></div></div></div>`;
@@ -285,7 +326,7 @@
           }
           h += `</div>`;
           if (measure && std) h += `<div class="lb-compare-step"><button data-st="-1" aria-label="less">−</button><output>${ans} cm</output><button data-st="1" aria-label="more">+</button></div>`;
-          if (measure && !std) h += `<div class="lb-compare-step"><span class="lb-compare-chip" data-drag="unit" style="cursor:grab">${esc(unitEmoji)} <span class="lb-compare-ct">1 ${esc(unit.replace(/s$/i, ''))}</span></span><button data-un="-1" aria-label="remove one">−</button><output>${units}</output><button data-un="1" aria-label="add one">+</button></div>`;
+          if (measure && !std) h += `<div class="lb-compare-step"><span class="lb-compare-chip" data-drag="unit" style="cursor:grab">${esc(unitEmoji)} <span class="lb-compare-ct">1 ${esc(unitSg)}</span></span><button data-un="-1" aria-label="remove one">−</button><output>${units}</output><button data-un="1" aria-label="add one">+</button></div>`;
           body.innerHTML = h;
           btnRow.innerHTML = (lineUp ? `<button class="lb-compare-b" data-a="line">⇤ Line up</button>` : '') + (goal === 'order' || measure ? `<button class="lb-compare-b go" data-a="check">✔ Check</button>` : '') + `<button class="lb-compare-b" data-a="new">↺ Reset</button>`;
         }
@@ -374,7 +415,7 @@
                 else { api.sfx('wrong'); say(offs[0] !== 0 ? 'Tip: slide it so its start is at 0, then read the end.' : `Not ${ans} cm. Read the number at its end.`, 'bad'); }
               } else {
                 const need = Math.round(T.value / unitSize), exact = Math.abs(T.value / unitSize - need) < 1e-9;
-                if (units === need) { doWin(`Yes! The ${nm(T)} is ${exact ? '' : 'about '}${need} ${need === 1 ? unit.replace(/s$/i, '') : unit} long.`); drawL(); }
+                if (units === need) { doWin(`Yes! The ${nm(T)} is ${exact ? '' : 'about '}${uCount(need)} long.`); drawL(); }
                 else { api.sfx('wrong'); say(units < need ? `Not yet: lay ${unit} until they reach the end.` : `Too many ${unit} — they go past the end.`, 'bad'); }
               }
             }
@@ -460,7 +501,7 @@
           const a = panW('L'), b = panW('R');
           const st = bal ? (Math.abs(a - b) < 1e-9 ? '⚖ Level' : a > b ? '⬇ Left' : '⬇ Right') : Math.abs(a - b) < 1e-9 ? (a ? '⚖ Level — equal' : 'Empty') : (a > b ? '⬇ Left is heavier' : '⬇ Right is heavier');
           const B1 = `<button class="lb-compare-ib" data-a="clear" aria-label="empty the pans">⤺ Clear</button>`, B2 = `<button class="lb-compare-ib" data-a="new" aria-label="reset">↺</button>`;
-          if (bal) return `<div class="lb-compare-read">${B1}${B2}<span>${esc(T.emoji)} ${won ? esc(std ? fmtW(T.value, unit) : `${pans.R.length} ${unit}`) : '?'}</span><span>${st}</span><span>${std ? fmtW(b, unit) : `${pans.R.length} ${esc(unit)}`}</span></div>`;
+          if (bal) return `<div class="lb-compare-read">${B1}${B2}<span>${esc(T.emoji)} ${won ? esc(std ? fmtW(T.value, unit) : uCount(pans.R.length)) : '?'}</span><span>${st}</span><span>${std ? fmtW(b, unit) : esc(uCount(pans.R.length))}</span></div>`;
           return `<div class="lb-compare-read">${B1}<span>${st}</span>${B2}</div>`;
         }
         function drawW() {
@@ -472,7 +513,7 @@
             <g class="lb-compare-beam"><rect x="68" y="39" width="224" height="10" rx="5" fill="#6b7090"/><circle cx="180" cy="44" r="7" fill="#ffc93c" stroke="#1b1f3a" stroke-width="2"/></g>
             <g class="lb-compare-pl"></g><g class="lb-compare-pr"></g></svg>${readout()}</div>`;
           h += `<div class="lb-compare-tray" data-drop="tray">`;
-          if (bal) h += weights.map(w => `<span class="lb-compare-chip wt${dsel === 'W' + w ? ' sel' : ''}" data-drag="W${w}">${std ? '⚖ ' : `<span class="lb-compare-ce">${esc(unitEmoji)}</span>`}<span class="lb-compare-ct">${esc(std ? wName(w) : '1 ' + unit.replace(/s$/i, ''))}</span></span>`).join('');
+          if (bal) h += weights.map(w => `<span class="lb-compare-chip wt${dsel === 'W' + w ? ' sel' : ''}" data-drag="W${w}">${std ? '⚖ ' : `<span class="lb-compare-ce">${esc(unitEmoji)}</span>`}<span class="lb-compare-ct">${esc(std ? wName(w) : '1 ' + unitSg)}</span></span>`).join('');
           else h += inTray.map(k => chip(k)).join('') || '<span style="font-size:12px;color:#a07a00;font-weight:700">(all objects are out)</span>';
           h += `</div>`;
           if (goal === 'heaviest' || goal === 'lightest') h += `<div class="lb-compare-ans"><div class="lb-compare-slot${won ? ' ok' : ''}" data-drop="pick"><small>🏆 ${goal === 'heaviest' ? 'Heaviest' : 'Lightest'}</small>${pick ? `<span class="lb-compare-sc">${esc(items[pick].emoji)} ${esc(items[pick].label)}</span>` : ''}</div></div>`;
@@ -515,8 +556,8 @@
           const a = panW('L'), b = panW('R');
           if (bal) {
             const ok = Math.abs(a - b) < 1e-9 || (!std && Math.abs(a - b) < unitSize / 2 && b > 0);
-            if (ok) { doWin(`Balanced! The ${nm(T)} weighs ${std ? fmtW(T.value, unit) : `${Math.abs(a - b) < 1e-9 ? '' : 'about '}${pans.R.length} ${unit}`}.`); drawW(); return; }
-            say(b === 0 ? '' : b < a ? `Right pan: ${std ? fmtW(b, unit) : pans.R.length + ' ' + unit}. Left side still goes down — add more.` : 'Too much! The right side went down. Tap a weight to take it off.', b > a ? 'bad' : '');
+            if (ok) { doWin(`Balanced! The ${nm(T)} weighs ${std ? fmtW(T.value, unit) : `${Math.abs(a - b) < 1e-9 ? '' : 'about '}${uCount(pans.R.length)}`}.`); drawW(); return; }
+            say(b === 0 ? '' : b < a ? `Right pan: ${std ? fmtW(b, unit) : uCount(pans.R.length)}. Left side still goes down — add more.` : 'Too much! The right side went down. Tap a weight to take it off.', b > a ? 'bad' : '');
             return;
           }
           if (pick) {
@@ -574,10 +615,10 @@
           </svg>`;
         }
         function drawC() {
-          let h = `<div class="lb-compare-stage"><div class="lb-compare-src"><span class="lb-compare-chip${dsel === 'cup' ? ' sel' : ''}" data-drag="cup"><span class="lb-compare-ce">${esc(unitEmoji)}</span><span class="lb-compare-ct">${std ? `${unitSize} ml` : '1 ' + esc(unit.replace(/s$/i, ''))}</span></span><span>← drag to pour</span><button class="lb-compare-b" data-a="new" style="flex:0 0 auto;min-height:40px" aria-label="reset">↺</button></div><div class="lb-compare-cons">`;
+          let h = `<div class="lb-compare-stage"><div class="lb-compare-src"><span class="lb-compare-chip${dsel === 'cup' ? ' sel' : ''}" data-drag="cup"><span class="lb-compare-ce">${esc(unitEmoji)}</span><span class="lb-compare-ct">${std ? `${unitSize} ml` : '1 ' + esc(unitSg)}</span></span><span>← drag to pour</span><button class="lb-compare-b" data-a="new" style="flex:0 0 auto;min-height:40px" aria-label="reset">↺</button></div><div class="lb-compare-cons">`;
           list.forEach((o, k) => {
             const n = cupsIn(k);
-            const cnt = fill[k] ? (std ? fmtC(Math.min(fill[k], o.value)) : `${r2(n)} ${n === 1 ? unit.replace(/s$/i, '') : unit}`) + (spill[k] ? ' 💦' : fill[k] >= o.value ? ' full' : '') : (showVals || won ? fmtC(o.value) : '');
+            const cnt = fill[k] ? (std ? fmtC(Math.min(fill[k], o.value)) : uCount(n)) + (spill[k] ? ' 💦' : fill[k] >= o.value ? ' full' : '') : (showVals || won ? fmtC(o.value) : '');
             const rk = rankC.indexOf(k);
             h += `<div class="lb-compare-con">${conSVG(k)}<div class="lb-compare-cc">${esc(cnt)}</div>
               <div class="lb-compare-cb"><button data-pour="${k}" aria-label="pour one">+${esc(unitEmoji)}</button><button class="lb-compare-ce" data-empty="${k}" aria-label="empty">↺</button></div>
@@ -600,13 +641,13 @@
           const n = cupsIn(k);
           if (meas) {
             const exact = Math.abs(fill[k] - o.value) < unitSize / 2;
-            if (exact && !spill[k]) { doWin(`Full! The ${nm(o)} holds ${std ? fmtC(o.value) : `${r2(n)} ${unit}`}${!std ? ` (${fmtC(o.value)})` : ''}.`); drawC(); return; }
+            if (exact && !spill[k]) { doWin(`Full! The ${nm(o)} holds ${std ? fmtC(o.value) : uCount(n)}${!std ? ` (${fmtC(o.value)})` : ''}.`); drawC(); return; }
             if (spill[k]) { say('Oops, it overflowed! Empty it and pour again — stop when it is just full.', 'bad'); api.sfx('wrong'); return; }
-            say(`${std ? fmtC(fill[k]) : `${r2(n)} ${unit}`} poured. Keep going until it is full.`);
+            say(`${std ? fmtC(fill[k]) : uCount(n)} poured. Keep going until it is full.`);
           } else {
-            if (spill[k]) say(`The ${nm(o)} overflowed on ${unit === 'ml' ? fmtC(fill[k]) : 'pour ' + n}. It holds ${std ? 'less than ' + fmtC(fill[k]) : `${Math.floor(o.value / unitSize + 1e-9)} full ${unit}`}.`);
-            else if (Math.abs(fill[k] - o.value) < 1e-9) say(`The ${nm(o)} is full: ${std ? fmtC(fill[k]) : `${r2(n)} ${unit}`}.`, 'good');
-            else say(`${std ? fmtC(fill[k]) : `${r2(n)} ${unit}`} in the ${nm(o)}.`);
+            if (spill[k]) say(`The ${nm(o)} overflowed on ${unit === 'ml' ? fmtC(fill[k]) : 'pour ' + n}. It holds ${std ? 'less than ' + fmtC(fill[k]) : `${Math.floor(o.value / unitSize + 1e-9)} full ${uN(Math.floor(o.value / unitSize + 1e-9))}`}.`);
+            else if (Math.abs(fill[k] - o.value) < 1e-9) say(`The ${nm(o)} is full: ${std ? fmtC(fill[k]) : uCount(n)}.`, 'good');
+            else say(`${std ? fmtC(fill[k]) : uCount(n)} in the ${nm(o)}.`);
           }
         }
         H.place = (key, drop) => { if (drop && drop[0] === 'c') pour(+drop.slice(1)); else drawC(); };
@@ -654,7 +695,8 @@
     examples: [
       { mode: 'length', goal: 'longest', unit: 'cm', objects: [{ name: 'Snake', emoji: '🐍', value: 14 }, { name: 'Caterpillar', emoji: '🐛', value: 9 }, { name: 'पेंसिल (pencil)', emoji: '✏️', value: 11 }], challenge: 'Who is the longest? Line them up at the start first!' },
       { mode: 'length', goal: 'measure', unit: 'clips', objects: [{ name: 'Crayon', emoji: '🖍️', value: 9 }], challenge: 'How many paper clips long is the crayon?' },
-      { mode: 'capacity', goal: 'most', unit: 'cups', objects: [{ name: 'Tall glass', emoji: '🥛', value: 500 }, { name: 'Wide bowl', emoji: '🥣', value: 750 }, { name: 'Mug', emoji: '☕', value: 250 }], challenge: 'Which one holds the most water? Pour cups to find out.' }
+      { mode: 'capacity', goal: 'most', unit: 'cups', objects: [{ name: 'Tall glass', emoji: '🥛', value: 500 }, { name: 'Wide bowl', emoji: '🥣', value: 750 }, { name: 'Mug', emoji: '☕', value: 250 }], challenge: 'Which one holds the most water? Pour cups to find out.' },
+      { mode: 'capacity', goal: 'measure', unit: 'glass', unitPlural: 'glasses', objects: [{ name: 'Small jug', emoji: '🫖', value: 600 }], challenge: 'How many glasses of water fill the small jug?' }
     ]
   });
 })();
