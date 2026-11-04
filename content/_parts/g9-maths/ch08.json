@@ -1,0 +1,747 @@
+{
+ "n": 8,
+ "title": "Predicting What Comes Next: Exploring Sequences and Progressions",
+ "emoji": "🔮",
+ "topics": [
+  {
+   "id": "g9-maths-08-01",
+   "title": "Number sequences and their rules",
+   "learn": {
+    "hook": "1, 1, 2, 3, 5, 8, ... Indian poets studied this pattern of rhythms centuries ago, long before it got the name Fibonacci. Can you guess what comes next?",
+    "points": [
+     "A sequence is a list of numbers in a definite order. Each number is a term: a₁ is the first term, a₂ the second, and aₙ the nth term.",
+     "A rule for the nth term lets you jump straight to any term. For aₙ = 3n + 2, the 10th term is 3 × 10 + 2 = 32.",
+     "A recursive rule builds each term from earlier ones, like the Virahanka–Fibonacci numbers: each term is the sum of the two before it.",
+     "Famous sequences: square numbers 1, 4, 9, 16, ...; triangular numbers 1, 3, 6, 10, ...; cube numbers 1, 8, 27, 64, ...",
+     "Looking at the differences between terms often reveals the rule."
+    ],
+    "example": {
+     "q": "Find the next term of 2, 6, 12, 20, 30, ... and a rule for the nth term.",
+     "steps": [
+      "Differences: 4, 6, 8, 10, so the next difference is 12",
+      "Next term = 30 + 12 = 42",
+      "Notice 2 = 1 × 2, 6 = 2 × 3, 12 = 3 × 4, ..., so aₙ = n(n + 1)",
+      "Check: a₆ = 6 × 7 = 42 ✓"
+     ],
+     "answer": "42; aₙ = n(n + 1)"
+    },
+    "reallife": "Seat numbers in a stadium, the rows of dots in a rangoli and the beats in a tabla rhythm all follow sequences."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Name the sequence",
+     "pairs": [
+      [
+       "1, 4, 9, 16, ...",
+       "Square numbers"
+      ],
+      [
+       "1, 3, 6, 10, ...",
+       "Triangular numbers"
+      ],
+      [
+       "1, 1, 2, 3, 5, ...",
+       "Virahanka–Fibonacci numbers"
+      ],
+      [
+       "2, 4, 8, 16, ...",
+       "Powers of 2"
+      ],
+      [
+       "1, 8, 27, 64, ...",
+       "Cube numbers"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Build the sequence aₙ = 20 − 3n",
+     "prompt": "First term to fifth term",
+     "items": [
+      "17",
+      "14",
+      "11",
+      "8",
+      "5"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the next term of 2, 6, 12, 20, 30, ...?",
+     "options": [
+      "42",
+      "40",
+      "36",
+      "60"
+     ],
+     "answer": 0,
+     "explain": "The differences are 4, 6, 8, 10, so the next difference is 12: 30 + 12 = 42.",
+     "steps": [
+      "Differences: 4, 6, 8, 10",
+      "Next difference: 12",
+      "30 + 12 = 42"
+     ],
+     "mistake": "Keeps the last difference (10) the same, getting 40",
+     "check": "6*7"
+    },
+    {
+     "q": "What comes next: 1, 1, 2, 3, 5, 8, 13, ...?",
+     "options": [
+      "18",
+      "26",
+      "20",
+      "21"
+     ],
+     "answer": 3,
+     "explain": "Each term is the sum of the two before it: 8 + 13 = 21.",
+     "mistake": "Adds a fixed number or doubles instead of adding the last two terms",
+     "check": "8+13"
+    },
+    {
+     "q": "The nth term of a sequence is aₙ = 3n + 2. What is the 10th term?",
+     "options": [
+      "32",
+      "35",
+      "15",
+      "302"
+     ],
+     "answer": 0,
+     "explain": "Put n = 10: 3 × 10 + 2 = 32.",
+     "mistake": "Writes 3 next to 10 instead of multiplying, or adds instead of multiplying",
+     "check": "3*10+2"
+    },
+    {
+     "q": "If aₙ = n² − 1, what is a₅?",
+     "options": [
+      "9",
+      "16",
+      "24",
+      "26"
+     ],
+     "answer": 2,
+     "explain": "a₅ = 5² − 1 = 25 − 1 = 24.",
+     "mistake": "Computes 2 × 5 − 1 instead of 5² − 1",
+     "check": "5**2-1"
+    },
+    {
+     "q": "The triangular numbers are 1, 3, 6, 10, 15, ... What is the 7th triangular number?",
+     "options": [
+      "21",
+      "28",
+      "36",
+      "49"
+     ],
+     "answer": 1,
+     "explain": "The nth triangular number is n(n + 1)/2. For n = 7: 7 × 8 ÷ 2 = 28. Or keep adding: 15 + 6 = 21, 21 + 7 = 28.",
+     "steps": [
+      "6th = 15 + 6 = 21",
+      "7th = 21 + 7 = 28"
+     ],
+     "mistake": "Stops at the 6th term (21)",
+     "check": "7*8/2"
+    },
+    {
+     "q": "A sequence starts with a₁ = 2, and each next term is twice the previous term plus 1. What is a₄?",
+     "options": [
+      "11",
+      "23",
+      "16",
+      "47"
+     ],
+     "answer": 1,
+     "explain": "a₂ = 2 × 2 + 1 = 5, a₃ = 2 × 5 + 1 = 11, a₄ = 2 × 11 + 1 = 23.",
+     "steps": [
+      "a₂ = 5",
+      "a₃ = 11",
+      "a₄ = 23"
+     ],
+     "mistake": "Stops one step early and gives a₃ = 11",
+     "check": "2*(2*(2*2+1)+1)+1"
+    },
+    {
+     "q": "Which rule gives the sequence 1, 4, 9, 16, 25, ...?",
+     "options": [
+      "aₙ = 3n + 1",
+      "aₙ = 2n",
+      "aₙ = n + 3",
+      "aₙ = n²"
+     ],
+     "answer": 3,
+     "explain": "1 = 1², 4 = 2², 9 = 3², ... so aₙ = n².",
+     "mistake": "Tests a rule on one term only instead of checking every term"
+    },
+    {
+     "q": "Meena draws a rangoli with 1 dot in the first row, 3 in the second, 5 in the third and so on. How many dots are there in the first 6 rows altogether?",
+     "options": [
+      "11",
+      "21",
+      "30",
+      "36"
+     ],
+     "answer": 3,
+     "explain": "1 + 3 + 5 + 7 + 9 + 11 = 36. The sum of the first n odd numbers is always n².",
+     "steps": [
+      "Rows: 1, 3, 5, 7, 9, 11",
+      "Total = 36 = 6²"
+     ],
+     "mistake": "Gives the number of dots in the 6th row (11) instead of the total",
+     "check": "1+3+5+7+9+11",
+     "visual": {
+      "kind": "count",
+      "emoji": "🔵",
+      "n": 36
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sees 3, 7, 11, 15, ...: \"How can I know what the 50th number will be without writing them all?\"",
+    "must": [
+     [
+      "rule",
+      "formula",
+      "nth term",
+      "pattern"
+     ],
+     [
+      "difference",
+      "add",
+      "gap",
+      "increase"
+     ],
+     [
+      "nth",
+      "n =",
+      "position",
+      "term number"
+     ]
+    ],
+    "praise": "Find the pattern, write a rule using n, then put n = 50. No need to write fifty numbers!",
+    "nudge": "What is the same between one term and the next? Can you write that as a rule with n?"
+   }
+  },
+  {
+   "id": "g9-maths-08-02",
+   "title": "Arithmetic progressions",
+   "learn": {
+    "hook": "Saving ₹10 more every week than the week before? Your savings make an arithmetic progression, growing by the same step every time!",
+    "points": [
+     "An arithmetic progression (AP) is a sequence in which each term is got by adding a fixed number d, called the common difference, to the previous term.",
+     "d = any term − the term before it. It can be positive, negative or zero.",
+     "The nth term of an AP with first term a is aₙ = a + (n − 1)d.",
+     "To find which term equals a given number, solve a + (n − 1)d = that number for n.",
+     "The sum of the first n terms is Sₙ = n/2 × [2a + (n − 1)d], or n/2 × (first term + last term)."
+    ],
+    "example": {
+     "q": "Find the 15th term of the AP 7, 11, 15, 19, ...",
+     "steps": [
+      "a = 7, d = 11 − 7 = 4",
+      "a₁₅ = 7 + (15 − 1) × 4",
+      "= 7 + 56 = 63"
+     ],
+     "answer": "63"
+    },
+    "reallife": "Auto fares that rise by a fixed amount per km, rows of seats that grow by 2 each row, and monthly EMI schedules are all APs."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Spot a and d",
+     "items": [
+      {
+       "text": "In 5, 9, 13, 17, ... the common difference is ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "5",
+        "9"
+       ]
+      },
+      {
+       "text": "In 20, 17, 14, 11, ... the common difference is ___",
+       "answer": "−3",
+       "options": [
+        "−3",
+        "3",
+        "20"
+       ]
+      },
+      {
+       "text": "The nth term of an AP is a + (n − 1) × ___",
+       "answer": "d",
+       "options": [
+        "d",
+        "n",
+        "a"
+       ]
+      },
+      {
+       "text": "In the AP 2, 2, 2, 2, ... the common difference is ___",
+       "answer": "0",
+       "options": [
+        "0",
+        "1",
+        "2"
+       ]
+      },
+      {
+       "text": "If a = 3 and d = 5, the second term is ___",
+       "answer": "8",
+       "options": [
+        "8",
+        "15",
+        "5"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "AP sprint",
+     "items": [
+      {
+       "q": "10th term of 1, 3, 5, ...",
+       "a": "19",
+       "check": "1+9*2"
+      },
+      {
+       "q": "Common difference of 12, 9, 6, ...",
+       "a": "−3",
+       "check": "9-12"
+      },
+      {
+       "q": "20th term of 4, 8, 12, ...",
+       "a": "80",
+       "check": "4+19*4"
+      },
+      {
+       "q": "Sum 1 + 2 + ... + 10",
+       "a": "55",
+       "check": "10*11/2"
+      },
+      {
+       "q": "Next term of −7, −2, 3, ...",
+       "a": "8",
+       "check": "3+5"
+      },
+      {
+       "q": "6th term of 100, 90, 80, ...",
+       "a": "50",
+       "check": "100+5*(-10)"
+      },
+      {
+       "q": "Sum 2 + 4 + 6 + ... + 20",
+       "a": "110",
+       "check": "10*(2+20)/2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the common difference of the AP 7, 11, 15, 19, ...?",
+     "options": [
+      "4",
+      "7",
+      "11",
+      "−4"
+     ],
+     "answer": 0,
+     "explain": "d = 11 − 7 = 4, and it stays 4 between every pair of terms.",
+     "mistake": "Subtracts the wrong way round, getting −4",
+     "check": "11-7"
+    },
+    {
+     "q": "Find the 20th term of the AP 3, 8, 13, ...",
+     "options": [
+      "103",
+      "100",
+      "93",
+      "98"
+     ],
+     "answer": 3,
+     "explain": "a = 3, d = 5. a₂₀ = 3 + 19 × 5 = 98.",
+     "steps": [
+      "a₂₀ = a + 19d",
+      "= 3 + 95 = 98"
+     ],
+     "mistake": "Uses n × d instead of (n − 1) × d, getting 103",
+     "check": "3+19*5"
+    },
+    {
+     "q": "Which of these lists is an AP?",
+     "options": [
+      "1, 2, 4, 8, ...",
+      "1, 4, 9, 16, ...",
+      "2, 3, 5, 8, ...",
+      "5, 2, −1, −4, ..."
+     ],
+     "answer": 3,
+     "explain": "5, 2, −1, −4 goes down by 3 each time, so d = −3 is constant.",
+     "mistake": "Thinks a decreasing sequence cannot be an AP"
+    },
+    {
+     "q": "Which term of the AP 4, 9, 14, ... is 104?",
+     "options": [
+      "20th",
+      "21st",
+      "22nd",
+      "26th"
+     ],
+     "answer": 1,
+     "explain": "Solve 4 + (n − 1) × 5 = 104: (n − 1) × 5 = 100, so n − 1 = 20 and n = 21.",
+     "steps": [
+      "(n − 1) × 5 = 100",
+      "n − 1 = 20",
+      "n = 21"
+     ],
+     "mistake": "Forgets to add 1 at the end, answering 20th"
+    },
+    {
+     "q": "Meena saves ₹50 in week 1 and ₹10 more each week than the week before. How much does she save in week 12?",
+     "options": [
+      "₹160",
+      "₹170",
+      "₹120",
+      "₹600"
+     ],
+     "answer": 0,
+     "explain": "a = 50, d = 10. a₁₂ = 50 + 11 × 10 = ₹160.",
+     "steps": [
+      "a₁₂ = 50 + (12 − 1) × 10",
+      "= 50 + 110 = 160"
+     ],
+     "mistake": "Uses 12 × 10 instead of 11 × 10",
+     "check": "50+11*10"
+    },
+    {
+     "q": "Find 1 + 2 + 3 + ... + 100.",
+     "options": [
+      "5050",
+      "10100",
+      "5000",
+      "100"
+     ],
+     "answer": 0,
+     "explain": "Pair the first and last terms: 1 + 100 = 101, 2 + 99 = 101, ... There are 50 such pairs, so the sum is 50 × 101 = 5050.",
+     "steps": [
+      "Sₙ = n/2 × (first + last)",
+      "= 100/2 × (1 + 100)",
+      "= 50 × 101 = 5050"
+     ],
+     "mistake": "Forgets to halve, getting 10100",
+     "check": "100*101/2"
+    },
+    {
+     "q": "An AP has first term −6 and common difference 3. What is its 5th term?",
+     "options": [
+      "9",
+      "−3",
+      "6",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "a₅ = −6 + 4 × 3 = −6 + 12 = 6.",
+     "steps": [
+      "a₅ = a + 4d",
+      "= −6 + 12 = 6"
+     ],
+     "mistake": "Uses 5d instead of 4d, getting 9",
+     "check": "-6+4*3"
+    },
+    {
+     "q": "A hall has 20 seats in the first row and 2 more seats in each next row. How many seats are there in the first 10 rows?",
+     "options": [
+      "38",
+      "200",
+      "380",
+      "290"
+     ],
+     "answer": 3,
+     "explain": "a = 20, d = 2, n = 10. Last row = 20 + 9 × 2 = 38. Sum = 10/2 × (20 + 38) = 5 × 58 = 290.",
+     "steps": [
+      "10th row = 38 seats",
+      "S₁₀ = 10/2 × (20 + 38)",
+      "= 5 × 58 = 290"
+     ],
+     "mistake": "Gives the number of seats in the last row (38) instead of the total",
+     "check": "10*(2*20+9*2)/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"How do I find the 100th term of 2, 5, 8, 11, ... without counting forever?\"",
+    "must": [
+     [
+      "common difference",
+      "difference",
+      "d =",
+      "add the same"
+     ],
+     [
+      "first term",
+      "a =",
+      "start"
+     ],
+     [
+      "n − 1",
+      "n-1",
+      "one less",
+      "99"
+     ]
+    ],
+    "praise": "Start with a = 2 and add the common difference 3 exactly 99 times: 2 + 99 × 3 = 299. So quick!",
+    "nudge": "What do you keep adding? And how many times do you add it to reach the 100th term?"
+   }
+  },
+  {
+   "id": "g9-maths-08-03",
+   "title": "Geometric progressions",
+   "learn": {
+    "hook": "A king once promised a wise man 1 grain of rice on the first chessboard square, 2 on the next, 4 on the next... By the last square it was more rice than the whole world had!",
+    "points": [
+     "A geometric progression (GP) is a sequence in which each term is got by multiplying the previous term by a fixed non-zero number r, called the common ratio.",
+     "r = any term ÷ the term before it.",
+     "The nth term of a GP with first term a is aₙ = a × r^(n − 1).",
+     "If r > 1 the terms grow very fast (doubling, tripling). If 0 < r < 1 they shrink, like a bouncing ball.",
+     "An AP grows by adding the same amount; a GP grows by multiplying by the same amount."
+    ],
+    "example": {
+     "q": "Find the 6th term of the GP 3, 6, 12, 24, ...",
+     "steps": [
+      "a = 3, r = 6 ÷ 3 = 2",
+      "a₆ = 3 × 2^(6 − 1) = 3 × 2⁵",
+      "= 3 × 32 = 96"
+     ],
+     "answer": "96"
+    },
+    "reallife": "Bacteria doubling every hour, a viral video being shared, and money growing with compound interest all follow geometric progressions."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "AP, GP or neither?",
+     "buckets": [
+      "AP",
+      "GP",
+      "Neither"
+     ],
+     "items": [
+      [
+       "3, 7, 11, 15",
+       0
+      ],
+      [
+       "10, 5, 0, −5",
+       0
+      ],
+      [
+       "2, 6, 18, 54",
+       1
+      ],
+      [
+       "64, 32, 16, 8",
+       1
+      ],
+      [
+       "5, −10, 20, −40",
+       1
+      ],
+      [
+       "1, 4, 9, 16",
+       2
+      ],
+      [
+       "1, 2, 4, 7, 11",
+       2
+      ],
+      [
+       "1, 1, 2, 3, 5",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "GP true or false",
+     "items": [
+      [
+       "In a GP, you multiply by the same number each time",
+       true,
+       "That fixed multiplier is the common ratio r."
+      ],
+      [
+       "2, 4, 6, 8, ... is a GP",
+       false,
+       "It adds 2 each time, so it is an AP. 4 ÷ 2 = 2 but 6 ÷ 4 = 1.5."
+      ],
+      [
+       "The common ratio of 81, 27, 9, 3 is 1/3",
+       true,
+       "27 ÷ 81 = 1/3, and every next ratio is also 1/3."
+      ],
+      [
+       "Starting from 1, the GP with r = 2 eventually overtakes the AP with d = 100",
+       true,
+       "Doubling eventually beats adding a fixed amount. The 20th term of the GP is 2¹⁹ = 524288, while the AP's 20th term is only 1901."
+      ],
+      [
+       "The nth term of a GP is a × r × n",
+       false,
+       "It is a × r^(n − 1), a power, not a product with n."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the common ratio of the GP 3, 12, 48, 192, ...?",
+     "options": [
+      "4",
+      "9",
+      "3",
+      "36"
+     ],
+     "answer": 0,
+     "explain": "r = 12 ÷ 3 = 4, and 48 ÷ 12 = 4 as well.",
+     "mistake": "Subtracts terms (12 − 3 = 9) as if it were an AP",
+     "check": "12/3"
+    },
+    {
+     "q": "What is the next term of 5, 10, 20, 40, ...?",
+     "options": [
+      "60",
+      "45",
+      "80",
+      "50"
+     ],
+     "answer": 2,
+     "explain": "Each term is doubled: 40 × 2 = 80.",
+     "mistake": "Adds the last difference (20) instead of multiplying",
+     "check": "40*2"
+    },
+    {
+     "q": "Find the 6th term of the GP 2, 6, 18, ...",
+     "options": [
+      "162",
+      "1458",
+      "30",
+      "486"
+     ],
+     "answer": 3,
+     "explain": "a = 2, r = 3. a₆ = 2 × 3⁵ = 2 × 243 = 486.",
+     "steps": [
+      "a₆ = a × r⁵",
+      "3⁵ = 243",
+      "2 × 243 = 486"
+     ],
+     "mistake": "Uses r⁴ (getting 162) or r⁶ (getting 1458)",
+     "check": "2*3**5"
+    },
+    {
+     "q": "Which of these is a GP?",
+     "options": [
+      "81, 27, 9, 3, ...",
+      "1, 3, 5, 7, ...",
+      "1, 4, 9, 16, ...",
+      "2, 4, 6, 8, ..."
+     ],
+     "answer": 0,
+     "explain": "Each term is the previous one divided by 3, that is, multiplied by r = 1/3.",
+     "mistake": "Thinks a GP must be increasing"
+    },
+    {
+     "q": "A lab starts with 50 bacteria, and the number doubles every hour. How many bacteria are there after 5 hours?",
+     "options": [
+      "250",
+      "800",
+      "1600",
+      "3200"
+     ],
+     "answer": 2,
+     "explain": "After 5 doublings: 50 × 2⁵ = 50 × 32 = 1600.",
+     "steps": [
+      "After 1 hour: 100",
+      "After 5 hours: 50 × 2⁵",
+      "= 1600"
+     ],
+     "mistake": "Multiplies 50 by 5 instead of doubling five times",
+     "check": "50*2**5"
+    },
+    {
+     "q": "What is the common ratio of 64, 32, 16, 8, ...?",
+     "options": [
+      "2",
+      "−32",
+      "−1/2",
+      "1/2"
+     ],
+     "answer": 3,
+     "explain": "r = 32 ÷ 64 = 1/2. The terms halve each time.",
+     "mistake": "Divides the earlier term by the later one, getting 2",
+     "check": "Fraction(32,64)"
+    },
+    {
+     "q": "A ball dropped from 81 m bounces back to 2/3 of its previous height each time. How high does it rise after the 3rd bounce?",
+     "options": [
+      "54 m",
+      "36 m",
+      "16 m",
+      "24 m"
+     ],
+     "answer": 3,
+     "explain": "Heights: 81 × 2/3 = 54, then 36, then 24 m.",
+     "steps": [
+      "1st bounce: 54 m",
+      "2nd bounce: 36 m",
+      "3rd bounce: 24 m"
+     ],
+     "mistake": "Stops at the 2nd bounce (36 m) or goes one too far (16 m)",
+     "check": "81*Fraction(2,3)**3"
+    },
+    {
+     "q": "Aisha sends a Diwali greeting to 3 friends. Each of them forwards it to 3 new people, and so on. How many new people receive it in round 5?",
+     "options": [
+      "15",
+      "81",
+      "243",
+      "729"
+     ],
+     "answer": 2,
+     "explain": "Round 1: 3, round 2: 9, round 3: 27, round 4: 81, round 5: 243. That is 3⁵.",
+     "steps": [
+      "Round n gets 3ⁿ people",
+      "3⁵ = 243"
+     ],
+     "mistake": "Multiplies 3 × 5 instead of raising 3 to the power 5",
+     "check": "3**5"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is confused: \"2, 4, 6, 8 and 2, 4, 8, 16 both start with 2, 4. Why is one an AP and the other a GP?\"",
+    "must": [
+     [
+      "add",
+      "adding",
+      "plus",
+      "difference"
+     ],
+     [
+      "multiply",
+      "multiplying",
+      "times",
+      "ratio"
+     ],
+     [
+      "same",
+      "fixed",
+      "constant",
+      "every time"
+     ]
+    ],
+    "praise": "In an AP you add the same number each time; in a GP you multiply by the same number each time. 2, 4, 6, 8 adds 2, but 2, 4, 8, 16 doubles!",
+    "nudge": "From 4 to the next term, did you add something or multiply by something?"
+   }
+  }
+ ]
+}

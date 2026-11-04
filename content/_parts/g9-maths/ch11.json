@@ -1,0 +1,712 @@
+{
+ "n": 11,
+ "title": "The World of Algorithms",
+ "emoji": "🤖",
+ "topics": [
+  {
+   "id": "g9-maths-11-01",
+   "title": "What is an algorithm?",
+   "learn": {
+    "hook": "A recipe for chai, the steps for long division and the instructions inside your phone's map app have something in common: they are all algorithms!",
+    "points": [
+     "An algorithm is a finite list of clear, step-by-step instructions that solves a problem or completes a task.",
+     "A good algorithm has an input (what you start with), an output (the result), and steps that are precise, so anyone following them gets the same result.",
+     "It must stop after a finite number of steps.",
+     "The order of steps matters: 'add 3, then double' is not the same as 'double, then add 3'.",
+     "Algorithms can repeat steps (loops) and make choices (if this, then do that)."
+    ],
+    "example": {
+     "q": "Algorithm: start with a number. If it is even, halve it; if it is odd, multiply by 3 and add 1. Stop when you reach 1. Start with 6. How many steps until you reach 1?",
+     "steps": [
+      "6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1",
+      "Count the arrows: 8 steps"
+     ],
+     "answer": "8 steps"
+    },
+    "reallife": "Railway ticket booking, ATM cash withdrawal and traffic signals all run on algorithms written by programmers."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Algorithm for making chai",
+     "prompt": "Put the steps in order",
+     "items": [
+      "Boil a cup of water in a pan",
+      "Add tea leaves and let it boil for a minute",
+      "Add milk and sugar and boil again",
+      "Strain the chai into a cup",
+      "Serve it hot"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Clear step or vague step?",
+     "buckets": [
+      "Clear step",
+      "Vague step"
+     ],
+     "items": [
+      [
+       "Add 5 to the number",
+       0
+      ],
+      [
+       "Divide the total by 3",
+       0
+      ],
+      [
+       "Walk 20 steps north",
+       0
+      ],
+      [
+       "Repeat until the number is 1",
+       0
+      ],
+      [
+       "Add a little salt, maybe",
+       1
+      ],
+      [
+       "Do something nice with the number",
+       1
+      ],
+      [
+       "Walk for a while",
+       1
+      ],
+      [
+       "Keep going until it feels right",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which is the best description of an algorithm?",
+     "options": [
+      "A finite list of clear steps that solves a problem",
+      "Any computer program, even one that never stops",
+      "A guess that usually works",
+      "A list of answers to memorise"
+     ],
+     "answer": 0,
+     "explain": "An algorithm must be step-by-step, precise and finite.",
+     "mistake": "Thinks only computer code can be an algorithm"
+    },
+    {
+     "q": "Which instruction would be a poor step in an algorithm?",
+     "options": [
+      "Multiply the number by 4",
+      "Write down the answer",
+      "Stop when the total is above 100",
+      "Add a little salt, maybe"
+     ],
+     "answer": 3,
+     "explain": "'A little' and 'maybe' are vague; two people could follow this step differently.",
+     "mistake": "Does not notice that a step must be precise"
+    },
+    {
+     "q": "Start with 5. Repeat 3 times: double the number and then add 1. What is the result?",
+     "options": [
+      "23",
+      "16",
+      "47",
+      "95"
+     ],
+     "answer": 2,
+     "explain": "5 → 11 → 23 → 47.",
+     "steps": [
+      "1st: 5 × 2 + 1 = 11",
+      "2nd: 11 × 2 + 1 = 23",
+      "3rd: 23 × 2 + 1 = 47"
+     ],
+     "mistake": "Stops after two repeats (23) or does one repeat too many (95)",
+     "check": "2*(2*(2*5+1)+1)+1"
+    },
+    {
+     "q": "In an algorithm for making chai, what are the inputs?",
+     "options": [
+      "Water, tea leaves, milk and sugar",
+      "A hot cup of chai",
+      "The time it takes",
+      "The cup you wash afterwards"
+     ],
+     "answer": 0,
+     "explain": "Inputs are what the algorithm starts with. The cup of chai is the output.",
+     "mistake": "Mixes up the input with the output"
+    },
+    {
+     "q": "Use the rule: if even, halve it; if odd, multiply by 3 and add 1; stop at 1. Starting from 12, how many steps until you reach 1?",
+     "options": [
+      "9",
+      "7",
+      "6",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "12 → 6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1 takes 9 steps.",
+     "steps": [
+      "12 → 6 → 3 → 10 → 5",
+      "5 → 16 → 8 → 4 → 2 → 1",
+      "Count the arrows: 9"
+     ],
+     "mistake": "Counts the numbers in the chain (10) instead of the steps between them",
+     "check": "9"
+    },
+    {
+     "q": "Why must an algorithm have a finite number of steps?",
+     "options": [
+      "So that it fits on one page",
+      "So that it eventually stops and gives an answer",
+      "Because computers can only count to 100",
+      "It does not need to"
+     ],
+     "answer": 1,
+     "explain": "A procedure that never stops can never give an output.",
+     "mistake": "Thinks the length limit is about writing space"
+    },
+    {
+     "q": "Algorithm A: add 3, then multiply by 2. Algorithm B: multiply by 2, then add 3. Both start with 5. What is A's result minus B's result?",
+     "options": [
+      "0",
+      "6",
+      "−3",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "A gives (5 + 3) × 2 = 16. B gives 5 × 2 + 3 = 13. 16 − 13 = 3, so order matters.",
+     "steps": [
+      "A: (5 + 3) × 2 = 16",
+      "B: 5 × 2 + 3 = 13",
+      "16 − 13 = 3"
+     ],
+     "mistake": "Assumes the order of steps does not change the result",
+     "check": "(5+3)*2-(5*2+3)"
+    },
+    {
+     "q": "To find the largest number in a list, keep a 'biggest so far' and replace it only when a number is BIGGER. For the list 7, 3, 12, 9, 12, 5, how many times is 'biggest so far' replaced after starting with 7?",
+     "options": [
+      "1",
+      "2",
+      "3",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "Only the first 12 is bigger than 7. The second 12 is equal, not bigger, so no change.",
+     "steps": [
+      "Start: 7",
+      "3: no",
+      "12: yes (1)",
+      "9: no",
+      "12: equal, so no",
+      "5: no"
+     ],
+     "mistake": "Replaces the value when a number is equal, counting 2",
+     "check": "1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: \"My mum's recipe says 'cook till done'. Is that an algorithm?\"",
+    "must": [
+     [
+      "clear",
+      "precise",
+      "exact",
+      "definite"
+     ],
+     [
+      "steps",
+      "step by step",
+      "instructions",
+      "order"
+     ],
+     [
+      "stop",
+      "end",
+      "finish",
+      "finite"
+     ]
+    ],
+    "praise": "An algorithm needs clear, precise steps in the right order that finish with an answer. 'Till done' is too vague for a computer!",
+    "nudge": "Would two different people understand 'cook till done' in exactly the same way? What makes a step good?"
+   }
+  },
+  {
+   "id": "g9-maths-11-02",
+   "title": "Famous number algorithms",
+   "learn": {
+    "hook": "Over 2000 years ago Euclid found a way to get the HCF of two huge numbers without listing a single factor. It is still used in every computer today!",
+    "points": [
+     "Division algorithm: for whole numbers a and b > 0, a = b × q + r with 0 ≤ r < b.",
+     "Euclid's algorithm for HCF(a, b): divide the larger by the smaller, then replace the pair by (smaller, remainder). Repeat until the remainder is 0; the last non-zero remainder (the last divisor) is the HCF.",
+     "LCM(a, b) = a × b ÷ HCF(a, b).",
+     "To test if n is prime, you only need to try dividing by primes up to √n.",
+     "The Sieve of Eratosthenes finds all primes up to a limit by crossing out multiples of 2, 3, 5, 7, ... Binary search finds an item in a sorted list by halving the search area each time."
+    ],
+    "example": {
+     "q": "Use Euclid's algorithm to find HCF(252, 105).",
+     "steps": [
+      "252 = 2 × 105 + 42",
+      "105 = 2 × 42 + 21",
+      "42 = 2 × 21 + 0",
+      "The remainder is 0, so the HCF is the last divisor, 21"
+     ],
+     "answer": "HCF(252, 105) = 21"
+    },
+    "reallife": "Online payments are kept safe by codes that use Euclid's algorithm and prime numbers. Searching a contact on your phone uses ideas like binary search."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Euclid's algorithm for HCF(84, 36)",
+     "prompt": "Put the steps in order",
+     "items": [
+      "84 = 2 × 36 + 12",
+      "Now divide 36 by the remainder 12",
+      "36 = 3 × 12 + 0",
+      "The remainder is 0, so HCF = 12"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "HCF hunt",
+     "items": [
+      {
+       "q": "HCF(18, 12)",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "HCF(35, 21)",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "HCF(100, 75)",
+       "a": "25",
+       "check": "25"
+      },
+      {
+       "q": "HCF(17, 5)",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "LCM(4, 6)",
+       "a": "12",
+       "check": "4*6/2"
+      },
+      {
+       "q": "Remainder when 50 is divided by 7",
+       "a": "1",
+       "check": "50-7*7"
+      },
+      {
+       "q": "HCF(144, 60)",
+       "a": "12",
+       "check": "12"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Use Euclid's algorithm to find HCF(48, 18).",
+     "options": [
+      "3",
+      "12",
+      "6",
+      "18"
+     ],
+     "answer": 2,
+     "explain": "48 = 2 × 18 + 12; 18 = 1 × 12 + 6; 12 = 2 × 6 + 0. The last divisor is 6.",
+     "steps": [
+      "48 = 2 × 18 + 12",
+      "18 = 1 × 12 + 6",
+      "12 = 2 × 6 + 0",
+      "HCF = 6"
+     ],
+     "mistake": "Stops early and gives the first remainder (12)",
+     "check": "6"
+    },
+    {
+     "q": "Find HCF(91, 65) using Euclid's algorithm.",
+     "options": [
+      "26",
+      "5",
+      "7",
+      "13"
+     ],
+     "answer": 3,
+     "explain": "91 = 1 × 65 + 26; 65 = 2 × 26 + 13; 26 = 2 × 13 + 0. So the HCF is 13.",
+     "steps": [
+      "91 = 1 × 65 + 26",
+      "65 = 2 × 26 + 13",
+      "26 = 2 × 13 + 0"
+     ],
+     "mistake": "Gives a remainder from the middle of the process instead of the last divisor",
+     "check": "13"
+    },
+    {
+     "q": "To check whether 97 is prime, what is the largest prime you need to try dividing by?",
+     "options": [
+      "7",
+      "11",
+      "48",
+      "97"
+     ],
+     "answer": 0,
+     "explain": "√97 is a little less than 10, so you only need to try 2, 3, 5 and 7. None divides 97, so 97 is prime.",
+     "steps": [
+      "9² = 81 < 97 < 100 = 10²",
+      "Primes below 10: 2, 3, 5, 7"
+     ],
+     "mistake": "Thinks you must try every number up to half of 97",
+     "check": "7"
+    },
+    {
+     "q": "Riya thinks of a number from 1 to 100. Arjun always guesses the middle of the remaining range and is told 'higher' or 'lower'. What is the most guesses he will ever need?",
+     "options": [
+      "50",
+      "10",
+      "7",
+      "100"
+     ],
+     "answer": 2,
+     "explain": "After each wrong guess at most half of the numbers are left: 100 → 50 → 25 → 12 → 6 → 3 → 1. After 6 guesses only one number can remain, so the 7th guess is sure to be right (2⁷ = 128 ≥ 100).",
+     "mistake": "Thinks you might need to try every number one by one",
+     "check": "7"
+    },
+    {
+     "q": "HCF(12, 18) = 6. What is LCM(12, 18)?",
+     "options": [
+      "36",
+      "216",
+      "6",
+      "72"
+     ],
+     "answer": 0,
+     "explain": "LCM = 12 × 18 ÷ HCF = 216 ÷ 6 = 36.",
+     "steps": [
+      "12 × 18 = 216",
+      "216 ÷ 6 = 36"
+     ],
+     "mistake": "Gives the product 216 without dividing by the HCF",
+     "check": "12*18/6"
+    },
+    {
+     "q": "After using the Sieve of Eratosthenes on the numbers 1 to 100, how many primes are left?",
+     "options": [
+      "25",
+      "50",
+      "20",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "Crossing out 1 and the multiples of 2, 3, 5 and 7 (but not those primes themselves) leaves exactly 25 primes up to 100.",
+     "mistake": "Thinks half the numbers (all the odd ones) are prime",
+     "check": "25"
+    },
+    {
+     "q": "Use repeated subtraction (the older form of Euclid's method) for HCF(35, 14): keep subtracting the smaller from the larger. What is the HCF?",
+     "options": [
+      "14",
+      "2",
+      "5",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "(35, 14) → (21, 14) → (7, 14) → (7, 7). When the two numbers are equal, that number, 7, is the HCF.",
+     "steps": [
+      "35 − 14 = 21",
+      "21 − 14 = 7",
+      "14 − 7 = 7",
+      "Both are 7: HCF = 7"
+     ],
+     "mistake": "Stops after the first subtraction",
+     "check": "7"
+    },
+    {
+     "q": "Write 157 = 12 × q + r with 0 ≤ r < 12. What is r?",
+     "options": [
+      "13",
+      "1",
+      "5",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "12 × 13 = 156, so 157 = 12 × 13 + 1. The remainder is 1.",
+     "steps": [
+      "157 ÷ 12 = 13 remainder 1",
+      "Check: 12 × 13 + 1 = 157"
+     ],
+     "mistake": "Gives the quotient (13) instead of the remainder",
+     "check": "157-12*13"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the HCF of 1071 and 462: \"Listing all their factors will take forever! Is there a faster way?\"",
+    "must": [
+     [
+      "divide",
+      "division",
+      "remainder"
+     ],
+     [
+      "repeat",
+      "again",
+      "keep"
+     ],
+     [
+      "zero",
+      "0",
+      "last divisor",
+      "stops"
+     ]
+    ],
+    "praise": "Euclid's algorithm: divide, take the remainder, and repeat with the smaller numbers until the remainder is 0. The last divisor is the HCF. It is 21!",
+    "nudge": "What do you do with the remainder after the first division? When do you stop?"
+   }
+  },
+  {
+   "id": "g9-maths-11-03",
+   "title": "Algorithmic thinking",
+   "learn": {
+    "hook": "Before a robot vacuum cleans your room, someone had to think like a computer: break the job into tiny steps, repeat them and make decisions. That is algorithmic thinking!",
+    "points": [
+     "Decomposition: break a big problem into smaller parts that are easier to solve.",
+     "Loops repeat a set of steps, either a fixed number of times or while a condition is true.",
+     "Conditions (if... else...) let an algorithm choose between different steps.",
+     "Flowcharts show algorithms as pictures: ovals for start and stop, rectangles for actions, diamonds for decisions (yes/no questions), and arrows for the order.",
+     "Efficiency: different algorithms can solve the same problem in very different numbers of steps. Tracing an algorithm step by step helps you find and fix bugs."
+    ],
+    "example": {
+     "q": "Trace this algorithm: set x = 1. While x is less than 50, replace x by 3 × x. Output x.",
+     "steps": [
+      "x = 1 (less than 50) → x = 3",
+      "x = 3 → x = 9",
+      "x = 9 → x = 27",
+      "x = 27 (still less than 50) → x = 81",
+      "81 is not less than 50, so stop and output 81"
+     ],
+     "answer": "81"
+    },
+    "reallife": "Indian Railways' route planning, Diwali light patterns on a timer and video games all use loops and conditions."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Flowchart shapes",
+     "pairs": [
+      [
+       "Oval",
+       "Start or stop"
+      ],
+      [
+       "Rectangle",
+       "An action or process"
+      ],
+      [
+       "Diamond",
+       "A yes/no decision"
+      ],
+      [
+       "Arrow",
+       "The order to follow"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Thinking like an algorithm",
+     "items": [
+      {
+       "text": "Breaking a big task into smaller tasks is called ___",
+       "answer": "decomposition",
+       "options": [
+        "decomposition",
+        "addition",
+        "estimation"
+       ]
+      },
+      {
+       "text": "A set of steps that repeats is called a ___",
+       "answer": "loop",
+       "options": [
+        "loop",
+        "flowchart",
+        "bug"
+       ]
+      },
+      {
+       "text": "A mistake in an algorithm is often called a ___",
+       "answer": "bug",
+       "options": [
+        "bug",
+        "loop",
+        "input"
+       ]
+      },
+      {
+       "text": "'If marks ≥ 33, print Pass, else print Fail' is an example of a ___",
+       "answer": "condition",
+       "options": [
+        "condition",
+        "loop",
+        "output"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In a flowchart, what does a diamond-shaped box show?",
+     "options": [
+      "The start",
+      "An action such as 'add 5'",
+      "A decision with yes/no answers",
+      "The output"
+     ],
+     "answer": 2,
+     "explain": "A diamond holds a question, and the flow splits into 'yes' and 'no' paths.",
+     "mistake": "Mixes up the decision box with the action box"
+    },
+    {
+     "q": "A total starts at 10. A loop runs 5 times, and each time it adds 4 to the total. What is the final total?",
+     "options": [
+      "30",
+      "20",
+      "14",
+      "50"
+     ],
+     "answer": 0,
+     "explain": "5 additions of 4 add 20, so the total becomes 10 + 20 = 30.",
+     "steps": [
+      "5 × 4 = 20",
+      "10 + 20 = 30"
+     ],
+     "mistake": "Forgets the starting value of 10",
+     "check": "10+5*4"
+    },
+    {
+     "q": "Set x = 2. While x is less than 100, replace x by x × x. What is the output?",
+     "options": [
+      "16",
+      "64",
+      "100",
+      "256"
+     ],
+     "answer": 3,
+     "explain": "2 → 4 → 16 → 256. 16 is still less than 100, so the loop runs once more, giving 256.",
+     "steps": [
+      "2 < 100 → 4",
+      "4 < 100 → 16",
+      "16 < 100 → 256",
+      "256 is not less than 100: stop"
+     ],
+     "mistake": "Stops at 16, forgetting to check the condition one more time",
+     "check": "256"
+    },
+    {
+     "q": "Which algorithm finds 1 + 2 + 3 + ... + 1000 in the fewest steps?",
+     "options": [
+      "Add the numbers one by one",
+      "Use the formula n(n + 1) ÷ 2",
+      "Count on fingers",
+      "Add only the even numbers"
+     ],
+     "answer": 1,
+     "explain": "The formula needs just a multiplication and a division: 1000 × 1001 ÷ 2 = 500500, instead of 999 additions.",
+     "mistake": "Thinks every correct method is equally efficient"
+    },
+    {
+     "q": "An algorithm says: 'If marks are 33 or more, print Pass; else print Fail.' Meena scores exactly 33. What is printed?",
+     "options": [
+      "Pass",
+      "Fail",
+      "Nothing",
+      "Both"
+     ],
+     "answer": 0,
+     "explain": "33 or more includes 33 itself, so the condition is true and Pass is printed.",
+     "mistake": "Reads 'or more' as 'more than'"
+    },
+    {
+     "q": "Harpreet's algorithm for the average of three numbers says: 'Add them, then divide by 2.' What is the correct average of 6, 9 and 12?",
+     "options": [
+      "13.5",
+      "27",
+      "9",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "The bug is dividing by 2. The correct average is (6 + 9 + 12) ÷ 3 = 27 ÷ 3 = 9.",
+     "steps": [
+      "Sum = 27",
+      "Divide by 3, the number of values",
+      "27 ÷ 3 = 9"
+     ],
+     "mistake": "Follows the buggy step and gets 13.5",
+     "check": "(6+9+12)/3"
+    },
+    {
+     "q": "What is it called when you break a big problem, like planning a school trip, into smaller tasks?",
+     "options": [
+      "Decomposition",
+      "Looping",
+      "Debugging",
+      "Sorting"
+     ],
+     "answer": 0,
+     "explain": "Decomposition means splitting a problem into parts: booking a bus, collecting money, planning food, and so on.",
+     "mistake": "Confuses decomposition with repetition (looping)"
+    },
+    {
+     "q": "For each of 4 rows, Kabir's algorithm says 'place 6 diyas'. How many times is a diya placed in total?",
+     "options": [
+      "10",
+      "24",
+      "46",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "The inner step runs 6 times for each of the 4 rows: 4 × 6 = 24.",
+     "mistake": "Adds the loop counts instead of multiplying",
+     "check": "4*6",
+     "visual": {
+      "kind": "count",
+      "emoji": "🪔",
+      "n": 24,
+      "groups": 4
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to teach a robot to water 10 plants: \"Do I really have to write 'water the plant' ten times?\"",
+    "must": [
+     [
+      "loop",
+      "repeat",
+      "again"
+     ],
+     [
+      "condition",
+      "if",
+      "check",
+      "until"
+     ],
+     [
+      "steps",
+      "break",
+      "smaller",
+      "order"
+     ]
+    ],
+    "praise": "Use a loop: repeat 'water the plant and move on' 10 times, or until no plants are left. Smart robot, smarter bird!",
+    "nudge": "Is there a way to tell the robot to do the same step again and again? How will it know when to stop?"
+   }
+  }
+ ]
+}
