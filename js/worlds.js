@@ -86,13 +86,28 @@
         ${[...Array(4)].map(() => `<ellipse cx="${r() * W}" cy="${r() * H}" rx="${80 + r() * 80}" ry="${40 + r() * 40}" fill="${['#8b5cf6', '#ec4899', '#3b82f6'][Math.floor(r() * 3)]}" opacity=".18" filter="url(#soft)"/>`).join('')}
         ${stars(r, 90, H, H)}
         <g class="shoot"><line x1="360" y1="20" x2="400" y2="0" stroke="#fff" stroke-width="2"/></g>
-        ${[...Array(8)].map(() => em(r() * W, 40 + r() * (H - 60), ['🚀', '🛰️', '🪐', '🌙', '☄️', '👩‍🚀', '🌍'][Math.floor(r() * 7)], 18 + r() * 14, 'bob', r() * 3)).join('')}` }
+        ${[...Array(8)].map(() => em(r() * W, 40 + r() * (H - 60), ['🚀', '🛰️', '🪐', '🌙', '☄️', '👩‍🚀', '🌍'][Math.floor(r() * 7)], 18 + r() * 14, 'bob', r() * 3)).join('')}` },
+    11: { name: 'Aurora Peaks', tag: 'Light up big ideas', base: 'rock', text: '#e6fff7', path: '#5ef2c2', dark: true,
+      bg: (H, r) => `${grad('bg', [[0, '#020617'], [.45, '#0b2447'], [1, '#19376d']])}<rect width="${W}" height="${H}" fill="url(#bg)"/>
+        ${stars(r, 70, H, H)}
+        ${[0, 1, 2, 3, 4].map(i => { const y = 80 + i * (H / 5.2), c = ['#34d399', '#22d3ee', '#a78bfa', '#34d399', '#f472b6'][i]; return `<path class="drift" style="animation-delay:${-i * 4}s" d="M-60 ${y} C80 ${y - 70} 180 ${y + 60} 300 ${y - 20} S460 ${y - 50} 520 ${y}" fill="none" stroke="${c}" stroke-width="${26 + r() * 20}" stroke-linecap="round" opacity=".16" filter="url(#soft)"/>`; }).join('')}
+        ${[0, 1, 2].map(i => { const y = 300 + i * (H - 300) / 3; return `<path d="M-20 ${y + 140} L50 ${y + 20} L110 ${y + 80} L190 ${y - 10} L260 ${y + 70} L330 ${y + 5} L420 ${y + 120} V${y + 300} H-20z" fill="${['#0f2a4a', '#0c2240', '#091a33'][i]}" opacity=".85"/>`; }).join('')}
+        ${[...Array(8)].map(() => em(r() * W, 40 + r() * (H - 60), ['🔭', '⚗️', '🧬', '📊', '🦉', '💡', '📐'][Math.floor(r() * 7)], 18 + r() * 12, 'bob', r() * 3, .9)).join('')}` },
+    12: { name: 'Summit of Dreams', tag: 'Your final climb to the top', base: 'cloud', text: '#3b1d00', path: '#ff6f3c',
+      bg: (H, r) => `${grad('bg', [[0, '#ffb86b'], [.35, '#ff8fa3'], [.7, '#c5a3ff'], [1, '#7aa7ff']])}<rect width="${W}" height="${H}" fill="url(#bg)"/>
+        <circle cx="200" cy="120" r="60" fill="#fff4c2" filter="url(#glow)" opacity=".9"/>
+        ${[...Array(12)].map(() => `<line x1="200" y1="120" x2="${200 + Math.cos(r() * 6.28) * 400}" y2="${120 + Math.sin(r() * 6.28) * 400}" stroke="#fff" stroke-opacity=".08" stroke-width="10"/>`).join('')}
+        ${[...Array(7)].map(() => cloud(r() * W, 160 + r() * (H - 220), .7 + r() * .8, .7, 'drift', -r() * 40)).join('')}
+        ${[...Array(9)].map(() => em(r() * W, 40 + r() * (H - 60), ['🎓', '🏆', '🚀', '🌄', '🎯', '📜', '⭐'][Math.floor(r() * 7)], 18 + r() * 14, 'bob', r() * 3)).join('')}` }
+
   };
 
   const SUBJECT_STYLE = {
     maths: { e: '🔢', c: '#ffc93c' }, english: { e: '📖', c: '#4fc3f7' }, hindi: { e: 'अ', c: '#ff8a65' }, sanskrit: { e: 'ॐ', c: '#ffb74d' },
     evs: { e: '🌳', c: '#81c784' }, science: { e: '🔬', c: '#4dd0e1' }, social: { e: '🏛️', c: '#ba68c8' }, history: { e: '🏰', c: '#a1887f' },
-    geography: { e: '🌍', c: '#4db6ac' }, civics: { e: '⚖️', c: '#7986cb' }, economics: { e: '💰', c: '#aed581' }
+    geography: { e: '🌍', c: '#4db6ac' }, civics: { e: '⚖️', c: '#7986cb' }, economics: { e: '💰', c: '#aed581' },
+    physics: { e: '⚛️', c: '#64b5f6' }, chemistry: { e: '⚗️', c: '#f06292' }, biology: { e: '🧬', c: '#81c784' }, accountancy: { e: '📒', c: '#ffb74d' },
+    business: { e: '💼', c: '#4db6ac' }, polsci: { e: '🗳️', c: '#7986cb' }, psychology: { e: '🧠', c: '#ce93d8' }, sociology: { e: '👥', c: '#ffab91' }, cs: { e: '💻', c: '#90caf9' }
   };
   SUBJECT_STYLE.sanskrit.e = '📜';
 

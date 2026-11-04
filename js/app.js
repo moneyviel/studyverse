@@ -6,7 +6,7 @@ const BOARDS = [
   { id: 'state', name: 'State Board', live: false }, { id: 'cambridge', name: 'Cambridge', live: false }, { id: 'ib', name: 'IB', live: false }
 ];
 const AVATARS = ['🦁', '🐯', '🦊', '🐼', '🐨', '🐸', '🦄', '🐙', '🦉', '🐬', '🚀', '⭐'];
-const MAX_GRADE = 10;
+const MAX_GRADE = 12;
 
 /* ---------- read aloud: pick the clearest, most natural voice on this device ---------- */
 const VOICE = { en: null, hi: null, rate: 0.9 };
@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=10'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=11'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -200,7 +200,34 @@ async function subjectData(g, sid) {
   try { DATA[k] = await loadJSON(`content/${k}.json`); } catch (e) { DATA[k] = null; }
   return DATA[k];
 }
-const curSubjects = g => (CUR?.grades?.[g]?.subjects || []);
+const curSubjects = g => { const all = CUR?.grades?.[g]?.subjects || []; const mine = g >= 11 && ST.profile?.subjects;
+  return mine && mine.length ? all.filter(s => mine.includes(s.id)) : all; };
+/* ---------- Grades 11–12: pick a stream, then subjects ---------- */
+const STREAMS = [{ id: 'science', e: '🔬', n: 'Science', d: 'Physics, Chemistry, Maths / Biology' }, { id: 'commerce', e: '📈', n: 'Commerce', d: 'Accountancy, Business Studies, Economics' }, { id: 'arts', e: '🎨', n: 'Arts / Humanities', d: 'History, Political Science, Geography, Psychology, Sociology' }];
+function pickStream(g, done, back) {
+  show('onboard'); const el = $('#s-onboard');
+  el.innerHTML = `<div class="ob"><div class="ob-hero">🧭</div><h1>Grade ${g}: pick your stream</h1>
+    <div class="card">${STREAMS.map(s => `<button class="choice stream" data-s="${s.id}"><b>${s.e} ${s.n}</b><small>${s.d}</small></button>`).join('')}</div>
+    ${back ? '<button class="btn ghost" id="stBack">← Back</button>' : ''}</div>`;
+  el.querySelectorAll('.stream').forEach(b => b.onclick = () => { sfx('tap'); pickSubjects(g, b.dataset.s, done, back); });
+  if (back) $('#stBack').onclick = back;
+}
+function pickSubjects(g, stream, done, back) {
+  const all = CUR?.grades?.[g]?.subjects || [], st = CUR?.streams?.[stream] || { core: [], optional: [] };
+  const list = all.filter(s => st.core.includes(s.id) || st.optional.includes(s.id));
+  let sel = new Set(st.core.filter(id => all.some(s => s.id === id)));
+  if (stream === 'science') sel.delete('biology');          // PCM by default; tap to add Biology (PCB / PCMB)
+  const el = $('#s-onboard');
+  const draw = () => {
+    el.innerHTML = `<div class="ob"><div class="ob-hero">🎒</div><h1>Your subjects</h1><p class="sub" style="color:#fff">Tap to add or remove. You can change this later in Me.</p>
+      <div class="card">${list.map(s => { const sty = Worlds.SUBJECT_STYLE[s.id] || { e: '📘' }; return `<button class="choice subj ${sel.has(s.id) ? 'sel' : ''}" data-id="${s.id}"><b>${sty.e} ${esc(s.name)}</b>${st.optional.includes(s.id) ? '<small>optional</small>' : ''}</button>`; }).join('')}</div>
+      <button class="btn" id="sjGo" ${sel.size ? '' : 'disabled'}>Continue ▶</button><div style="height:8px"></div><button class="btn ghost" id="sjBack">← Back</button></div>`;
+    el.querySelectorAll('.subj').forEach(b => b.onclick = () => { const id = b.dataset.id; sel.has(id) ? sel.delete(id) : sel.add(id); sfx('tap'); draw(); });
+    $('#sjGo').onclick = () => done(stream, list.map(s => s.id).filter(id => sel.has(id)));
+    $('#sjBack').onclick = () => pickStream(g, done, back);
+  };
+  draw();
+}
 const topicStars = id => ST.topics[id]?.stars || 0;
 function subjectPct(d) { if (!d) return 0; let t = 0, n = 0; d.chapters.forEach(c => c.topics.forEach(tp => { n++; if (topicStars(tp.id)) t++; })); return n ? t / n * 100 : 0; }
 const chapterDone = c => c.topics.every(t => topicStars(t.id) > 0);
@@ -217,7 +244,9 @@ function onboard(step = 1, draft = {}) {
     el.innerHTML = `<div class="ob"><div class="ob-hero">🎒</div><h1>Which grade are you in?</h1>
       <div class="card"><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice big" data-g="${i + 1}"><b>${i + 1}</b><small>${Worlds.THEMES[i + 1].name}</small></button>`).join('')}</div></div>
       <button class="btn ghost" id="obBack">← Back</button></div>`;
-    el.querySelectorAll('.choice').forEach(b => b.onclick = () => { sfx('tap'); onboard(3, { ...draft, grade: +b.dataset.g }); });
+    el.querySelectorAll('.choice').forEach(b => b.onclick = () => { sfx('tap'); const g = +b.dataset.g;
+      if (g >= 11) pickStream(g, (stream, subjects) => onboard(3, { ...draft, grade: g, stream, subjects }), () => onboard(2, draft));
+      else onboard(3, { ...draft, grade: g, stream: null, subjects: null }); });
     $('#obBack').onclick = () => onboard(1, draft);
   } else {
     el.innerHTML = `<div class="ob"><div class="ob-hero">😊</div><h1>Pick your hero</h1>
@@ -471,7 +500,11 @@ function meScreen() {
     <div class="card statrow"><div><b>${ST.xp}</b><span>XP</span></div><div><b>${ST.streak.n || 0}🔥</b><span>Streak</span></div><div><b>${done}</b><span>Quests</span></div></div>
     <div class="card"><h3>Change grade</h3><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice ${p.grade === i + 1 ? 'sel' : ''}" data-g="${i + 1}"><b>${i + 1}</b></button>`).join('')}</div></div>
     <div class="card"><button class="btn ghost" onclick="openSound()">🎵 Sound & music</button><div style="height:8px"></div><button class="btn ghost" id="meReset">Start over</button></div>`;
-  $('#s-me').querySelectorAll('.choice').forEach(b => b.onclick = () => { setGrade(+b.dataset.g); sfx('unlock'); toast(`Welcome to ${Worlds.THEMES[+b.dataset.g].name}!`); worldScreen(); });
+  const go = g => { setGrade(g); sfx('unlock'); toast(`Welcome to ${Worlds.THEMES[g].name}!`); worldScreen(); };
+  $('#s-me').querySelectorAll('.choice').forEach(b => b.onclick = () => { const g = +b.dataset.g;
+    if (g >= 11) pickStream(g, (stream, subjects) => { ST.profile.stream = stream; ST.profile.subjects = subjects; save(); go(g); }, meScreen); else go(g); });
+  if (p.grade >= 11) { const c = $('#s-me .grid5').closest('.card'); c.insertAdjacentHTML('afterend', `<div class="card"><h3>Stream & subjects</h3><p class="sub">${esc((STREAMS.find(x => x.id === p.stream) || {}).n || '')} · ${(p.subjects || []).length} subjects</p><button class="btn ghost" id="meStream">Change stream or subjects</button></div>`);
+    $('#meStream').onclick = () => pickStream(p.grade, (stream, subjects) => { ST.profile.stream = stream; ST.profile.subjects = subjects; save(); worldScreen(); }, meScreen); }
   $('#meReset').onclick = () => { if ($('#meReset').dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { $('#meReset').dataset.sure = 1; $('#meReset').textContent = 'Tap again to erase all progress'; } };
 }
 
