@@ -1,62 +1,2361 @@
-{"n": 3, "title": "Patterns Around Us", "emoji": "🌀", "topics": [
-{"id": "g4-maths-03-01", "title": "Number patterns",
- "learn": {"hook": "5, 10, 15, 20... Can you guess the next number before your friend does?",
-  "points": ["A number pattern follows a rule, again and again.", "Some patterns add the same number each time: 3, 7, 11, 15 adds 4.", "Some patterns take away the same number: 50, 45, 40 takes away 5.", "Some patterns double: 2, 4, 8, 16.", "Some patterns grow by a bit more each time: 1, 3, 6, 10 adds 2, then 3, then 4."],
-  "example": {"q": "Find the next number: 4, 9, 14, 19, ?", "steps": ["9 - 4 = 5 and 14 - 9 = 5, so the rule is 'add 5'.", "19 + 5 = 24"], "answer": "24"},
-  "reallife": "House numbers on one side of a street often go 1, 3, 5, 7. Bus timings like 8:00, 8:15, 8:30 follow a pattern too."},
- "games": [
-  {"type": "speed", "title": "What comes next?", "items": [{"q": "10, 20, 30, 40, ?", "a": "50", "check": "40+10"}, {"q": "2, 5, 8, 11, ?", "a": "14", "check": "11+3"}, {"q": "30, 27, 24, 21, ?", "a": "18", "check": "21-3"}, {"q": "1, 2, 4, 8, ?", "a": "16", "check": "8*2"}, {"q": "25, 50, 75, 100, ?", "a": "125", "check": "100+25"}, {"q": "7, 14, 21, 28, ?", "a": "35", "check": "28+7"}]},
-  {"type": "order", "title": "Build the pattern", "prompt": "Put these in order to make a count-by-12 pattern", "items": ["12", "24", "36", "48", "60"]}
- ],
- "quiz": [
-  {"q": "What comes next? 5, 10, 15, 20, ?", "options": ["25", "21", "30", "40"], "answer": 0, "explain": "Each number is 5 more than the one before. 20 + 5 = 25.", "steps": ["Rule: add 5", "20 + 5 = 25"], "mistake": "Adds 1 to the last number instead of following the rule", "check": "20+5", "visual": {"kind": "numberline", "from": 0, "to": 25, "marks": [5, 10, 15, 20, 25], "jumps": [[20, 25]]}},
-  {"q": "What comes next? 3, 7, 11, 15, ?", "options": ["18", "19", "17", "20"], "answer": 1, "explain": "The rule is add 4. 15 + 4 = 19.", "steps": ["7 - 3 = 4, 11 - 7 = 4", "15 + 4 = 19"], "mistake": "Adds 3 or 5 instead of finding the real gap", "check": "15+4", "visual": {"kind": "numberline", "from": 0, "to": 20, "marks": [3, 7, 11, 15, 19], "jumps": [[15, 19]]}},
-  {"q": "What comes next? 50, 45, 40, 35, ?", "options": ["40", "25", "31", "30"], "answer": 3, "explain": "The numbers go down by 5 each time. 35 - 5 = 30.", "steps": ["Rule: take away 5", "35 - 5 = 30"], "mistake": "Adds 5 instead of taking away 5", "check": "35-5", "visual": {"kind": "numberline", "from": 25, "to": 50, "marks": [50, 45, 40, 35, 30], "jumps": [[35, 30]]}},
-  {"q": "What comes next? 2, 4, 8, 16, ?", "options": ["18", "24", "32", "20"], "answer": 2, "explain": "Each number is double the one before. 16 × 2 = 32.", "steps": ["2 × 2 = 4, 4 × 2 = 8, 8 × 2 = 16", "16 × 2 = 32"], "mistake": "Thinks the rule is add 2 because 2 to 4 adds 2", "check": "16*2"},
-  {"q": "Find the missing number: 100, 200, 300, ?, 500", "options": ["400", "350", "600", "310"], "answer": 0, "explain": "The numbers go up by 100. After 300 comes 400.", "steps": ["Rule: add 100", "300 + 100 = 400"], "mistake": "Adds 10 instead of 100", "check": "300+100"},
-  {"q": "Riya saves ₹10 on Day 1, ₹20 on Day 2 and ₹30 on Day 3. If the pattern goes on, how much does she save on Day 5?", "options": ["₹40", "₹50", "₹60", "₹15"], "answer": 1, "explain": "She saves ₹10 more each day: ₹40 on Day 4 and ₹50 on Day 5.", "steps": ["Day 4: ₹30 + ₹10 = ₹40", "Day 5: ₹40 + ₹10 = ₹50"], "mistake": "Finds Day 4 instead of Day 5", "check": "10*5", "visual": {"kind": "bars", "items": [["Day 1", 10], ["Day 2", 20], ["Day 3", 30], ["Day 4", 40], ["Day 5", 50]]}},
-  {"q": "What comes next? 1, 3, 6, 10, ?", "options": ["14", "13", "16", "15"], "answer": 3, "explain": "The jumps grow by 1 each time: +2, +3, +4, so next is +5. 10 + 5 = 15.", "steps": ["1 + 2 = 3, 3 + 3 = 6, 6 + 4 = 10", "10 + 5 = 15"], "mistake": "Adds 4 again instead of seeing the jump grow", "check": "10+5", "visual": {"kind": "numberline", "from": 0, "to": 15, "marks": [1, 3, 6, 10, 15], "jumps": [[10, 15]]}},
-  {"q": "What comes next? 9, 18, 27, 36, ?", "options": ["44", "45", "46", "37"], "answer": 1, "explain": "This is the 9 times table. 36 + 9 = 45.", "steps": ["Rule: add 9", "36 + 9 = 45"], "mistake": "Adds 8 or 10 instead of 9, or adds only 1 to 36", "check": "36+9"}
- ],
- "teach": {"ask": "Gappu sees 6, 12, 18, 24 on a wall. How can Gappu find the next number?", "must": [["rule", "pattern"], ["add", "plus", "more", "jump", "same"], ["next", "after", "again"]], "praise": "Yes! Find the rule and use it again to get the next number. Gappu says 30!", "nudge": "What is the same between each pair of numbers? Is there a rule?"}},
-{"id": "g4-maths-03-02", "title": "Shape and growing patterns",
- "learn": {"hook": "Rangoli, bangles and border designs repeat in beautiful ways. Spot the part that repeats!",
-  "points": ["A repeating pattern has a core: a small group that repeats again and again.", "In 🔺🔵🔺🔵, the core is 🔺🔵 and it has 2 parts.", "To find a far-away item, use the core. If the core has 3 parts, the 9th item is the last one of the core.", "A growing pattern gets bigger each step, like 1, 3, 5, 7 dots.", "Shapes can also turn in a pattern, a quarter turn each time."],
-  "example": {"q": "Bead pattern: red, red, blue, red, red, blue... What colour is the 12th bead?", "steps": ["The core is red, red, blue: 3 beads.", "12 ÷ 3 = 4, so the 12th bead ends the 4th core.", "The last bead of the core is blue."], "answer": "Blue"},
-  "reallife": "Look at saree borders, mehendi designs and floor tiles. They are full of repeating and growing patterns."},
- "games": [
-  {"type": "fill", "title": "Finish the pattern", "items": [{"text": "🔺🔵🔺🔵🔺 ___", "answer": "🔵", "options": ["🔵", "🔺", "⭐"]}, {"text": "⭐⭐🌙⭐⭐🌙⭐⭐ ___", "answer": "🌙", "options": ["⭐", "🌙", "🔵"]}, {"text": "🟡🟢🟢🟡🟢🟢🟡 ___", "answer": "🟢", "options": ["🟡", "🟢", "🔴"]}, {"text": "🍎🍌🍇🍎🍌 ___", "answer": "🍇", "options": ["🍎", "🍌", "🍇"]}]},
-  {"type": "truefalse", "title": "Pattern facts", "items": [["In ⭐🌙⭐🌙, the core that repeats is ⭐🌙.", true, "⭐🌙 comes again and again."], ["A growing pattern stays the same size every step.", false, "A growing pattern gets bigger each step."], ["1 dot, 3 dots, 5 dots, 7 dots is a growing pattern.", true, "Each step has 2 more dots."], ["In red, blue, red, blue, the 10th bead is red.", false, "Red is at places 1, 3, 5... (odd). 10 is even, so it is blue."], ["After 4 quarter turns, a shape is back where it started.", true, "4 quarter turns make one full turn."]]}
- ],
- "quiz": [
-  {"q": "Which shape comes next? Triangle, circle, triangle, circle, triangle, ?", "options": ["Triangle", "Square", "Circle", "Star"], "answer": 2, "explain": "The core is triangle, circle. After a triangle comes a circle.", "mistake": "Repeats the last shape instead of following the core", "visual": {"kind": "shape", "name": "circle"}},
-  {"q": "Aisha's bead string goes red, red, blue, red, red, blue... What colour is the 9th bead?", "options": ["Red", "Blue", "Green", "Yellow"], "answer": 1, "explain": "The core has 3 beads. 9 ÷ 3 = 3, so the 9th bead is the end of a core, which is blue.", "steps": ["Core: red, red, blue (3 beads)", "9 ÷ 3 = 3 full cores", "The last bead of each core is blue"], "mistake": "Thinks red comes most often so it must be red"},
-  {"q": "How many beads are in the core of this pattern? 🟡🟢🟢🟡🟢🟢🟡🟢🟢", "options": ["2", "9", "3", "4"], "answer": 2, "explain": "🟡🟢🟢 repeats again and again. It has 3 beads.", "mistake": "Counts all the beads instead of only the repeating part", "check": "3"},
-  {"q": "Kabir makes squares of tiles: 1 by 1, then 2 by 2, then 3 by 3. How many tiles does the 4 by 4 square need?", "options": ["8", "12", "16", "10"], "answer": 2, "explain": "A 4 by 4 square has 4 rows of 4 tiles. 4 × 4 = 16.", "steps": ["1, 4, 9 tiles so far", "Next: 4 rows of 4 = 16"], "mistake": "Adds 4 + 4 instead of making 4 rows of 4", "check": "4*4", "visual": {"kind": "count", "emoji": "🟧", "n": 16, "groups": 4}},
-  {"q": "Arjun makes triangles in a row with matchsticks. 1 triangle uses 3 sticks, 2 triangles use 5 sticks, 3 triangles use 7 sticks. How many sticks for 4 triangles?", "options": ["9", "12", "8", "11"], "answer": 0, "explain": "Each new triangle shares one stick, so it needs only 2 more sticks. 7 + 2 = 9.", "steps": ["Pattern: 3, 5, 7 (add 2)", "7 + 2 = 9"], "mistake": "Uses 3 new sticks for every triangle (4 × 3 = 12)", "check": "7+2", "visual": {"kind": "count", "emoji": "🥢", "n": 9}},
-  {"q": "A growing pattern has 2 stars, then 4 stars, then 6 stars. How many stars are in the 5th step?", "options": ["8", "10", "12", "7"], "answer": 1, "explain": "Each step adds 2 stars: 2, 4, 6, 8, 10. The 5th step has 10.", "steps": ["Step 4: 6 + 2 = 8", "Step 5: 8 + 2 = 10"], "mistake": "Finds the 4th step instead of the 5th", "check": "2*5", "visual": {"kind": "count", "emoji": "⭐", "n": 10}},
-  {"q": "A rangoli tile turns a quarter turn at each step. How many quarter turns bring it back to how it started?", "options": ["2", "3", "4", "1"], "answer": 2, "explain": "4 quarter turns make one full turn, so the tile is back where it began.", "mistake": "Thinks 2 quarter turns make a full turn", "check": "4", "visual": {"kind": "angle", "deg": 360}},
-  {"q": "Meena's bangles go gold, silver, silver, gold, silver, silver... How many silver bangles are in the first 12?", "options": ["6", "4", "9", "8"], "answer": 3, "explain": "Each core of 3 bangles has 2 silver. 12 bangles make 4 cores, so 4 × 2 = 8 silver.", "steps": ["Core: gold, silver, silver", "12 ÷ 3 = 4 cores", "4 × 2 = 8 silver"], "mistake": "Thinks half of the bangles are silver", "check": "12/3*2"}
- ],
- "teach": {"ask": "Gappu has a long bead chain: red, blue, red, blue... How can Gappu know the colour of the 20th bead without counting all of them?", "must": [["core", "repeat", "repeats", "repeating", "group"], ["count", "divide", "groups of", "pairs", "even", "odd", "two", "2"], ["same", "again", "pattern"]], "praise": "Clever! Find the part that repeats and jump in groups. The 20th bead is blue. Thank you!", "nudge": "Which small part keeps coming again and again in the chain?"}},
-{"id": "g4-maths-03-03", "title": "Finding the rule of a pattern",
- "learn": {"hook": "Every pattern hides a secret rule. Can you crack the code?",
-  "points": ["To find the rule, look at how you get from one number to the next.", "Check the rule on ALL the numbers, not just the first two.", "3, 6, 12, 24 looks like 'add 3' at first, but only 'multiply by 2' works for all.", "Odd + odd always gives an even number. Even + even always gives an even number.", "On a calendar, the date just below any date is 7 more, because a week has 7 days."],
-  "example": {"q": "The rule is 'start at 7 and add 3'. What is the 4th number?", "steps": ["1st: 7", "2nd: 7 + 3 = 10", "3rd: 10 + 3 = 13", "4th: 13 + 3 = 16"], "answer": "16"},
-  "reallife": "Calendars, times tables and the seats in a cinema hall all follow simple rules."},
- "games": [
-  {"type": "sort", "title": "Add or double?", "buckets": ["Adds the same number", "Doubles each time"], "items": [["2, 4, 6, 8", 0], ["2, 4, 8, 16", 1], ["5, 10, 20, 40", 1], ["5, 10, 15, 20", 0], ["3, 6, 12, 24", 1], ["3, 6, 9, 12", 0], ["1, 2, 4, 8", 1], ["10, 20, 30, 40", 0]]},
-  {"type": "match", "title": "Match the pattern to its rule", "pairs": [["4, 8, 12, 16", "Add 4"], ["40, 35, 30, 25", "Take away 5"], ["3, 6, 12, 24", "Multiply by 2"], ["11, 22, 33, 44", "Add 11"], ["90, 80, 70, 60", "Take away 10"]]}
- ],
- "quiz": [
-  {"q": "What is the rule of this pattern? 4, 8, 12, 16", "options": ["Add 2", "Add 4", "Multiply by 2", "Take away 4"], "answer": 1, "explain": "8 - 4 = 4, 12 - 8 = 4, 16 - 12 = 4. Each time we add 4.", "mistake": "Checks only 4 to 8 and thinks it is 'multiply by 2'"},
-  {"q": "The rule is 'start at 7 and add 3'. What is the 4th number?", "options": ["19", "13", "16", "10"], "answer": 2, "explain": "7, 10, 13, 16. The 4th number is 16.", "steps": ["7 + 3 = 10", "10 + 3 = 13", "13 + 3 = 16"], "mistake": "Adds 3 four times to 7 and gets the 5th number (19)", "check": "7+3*3", "visual": {"kind": "numberline", "from": 0, "to": 20, "marks": [7, 10, 13, 16], "jumps": [[7, 10], [10, 13], [13, 16]]}},
-  {"q": "Find the missing number: 6, 12, ?, 24, 30", "options": ["18", "16", "20", "14"], "answer": 0, "explain": "The rule is add 6. 12 + 6 = 18, and 18 + 6 = 24 checks out.", "steps": ["Rule: add 6", "12 + 6 = 18"], "mistake": "Uses 'add 4' by guessing a smaller jump", "check": "12+6", "visual": {"kind": "numberline", "from": 0, "to": 30, "marks": [6, 12, 18, 24, 30], "jumps": [[12, 18]]}},
-  {"q": "Which rule works for ALL the numbers? 3, 6, 12, 24", "options": ["Add 3", "Add 6", "Multiply by 2", "Add 12"], "answer": 2, "explain": "3 × 2 = 6, 6 × 2 = 12, 12 × 2 = 24. 'Add 3' works only for the first step.", "mistake": "Checks only the first two numbers"},
-  {"q": "Joseph adds two odd numbers, like 5 + 7 or 3 + 9. What kind of number does he always get?", "options": ["An odd number", "An even number", "Zero", "A number ending in 1"], "answer": 1, "explain": "Odd + odd is always even. 5 + 7 = 12 and 3 + 9 = 12 are both even.", "mistake": "Thinks odd + odd stays odd"},
-  {"q": "What comes next? 1000, 900, 800, ?", "options": ["600", "790", "700", "850"], "answer": 2, "explain": "The rule is take away 100. 800 - 100 = 700.", "steps": ["Rule: take away 100", "800 - 100 = 700"], "mistake": "Takes away 10 instead of 100", "check": "800-100"},
-  {"q": "The pattern 11, 22, 33, 44... goes on. What is the 9th number?", "options": ["88", "90", "110", "99"], "answer": 3, "explain": "The pattern is the 11 times table. The 9th number is 11 × 9 = 99.", "steps": ["The 9th number is 11 × 9", "11 × 9 = 99"], "mistake": "Gives the 8th number (88)", "check": "11*9"},
-  {"q": "On a calendar, which date is just below 5 in the same column?", "options": ["6", "10", "12", "15"], "answer": 2, "explain": "Each row of a calendar is one week of 7 days. So the date below is 5 + 7 = 12.", "steps": ["Rule going down: add 7", "5 + 7 = 12"], "mistake": "Gives the next date (6) which is to the right, not below", "check": "5+7"}
- ],
- "teach": {"ask": "Gappu thinks 3, 6, 12, 24 follows the rule 'add 3'. Is Gappu right? How do we check a rule?", "must": [["check", "test", "try"], ["all", "every", "each"], ["double", "multiply", "times", "twice"]], "praise": "Thanks! A rule must work for every number. Here it is 'double it'. Gappu will always check now!", "nudge": "Does 'add 3' work from 6 to 12? What should Gappu check?"}}
-]}
+{
+ "n": 3,
+ "title": "Patterns Around Us",
+ "emoji": "🌀",
+ "topics": [
+  {
+   "id": "g4-maths-03-04",
+   "title": "Counting arrangements quickly",
+   "covers": [
+    "c3.1.1",
+    "c3.1.2",
+    "c3.1.3",
+    "c3.1.4",
+    "c3.1.5"
+   ],
+   "learn": {
+    "hook": "An orchard has 9 rows of 9 mango trees. Counting one by one takes forever. Is there a faster way?",
+    "points": [
+     "When things are in equal rows, multiply: number of rows × number in each row.",
+     "To multiply a big number, split it into easy parts: 81 × 5 = 80 × 5 + 1 × 5 = 400 + 5 = 405.",
+     "For stacks of different heights, find each stack's total and add them up.",
+     "For equal trays, multiply: number in one tray × number of trays.",
+     "Always be ready to explain your counting way: 'I saw 4 rows of 6, so 4 × 6 = 24.'"
+    ],
+    "example": {
+     "q": "A shop has 6 trays of eggs. Each tray holds 12 eggs. How many eggs are there?",
+     "steps": [
+      "Equal trays, so multiply.",
+      "12 × 6 = 10 × 6 + 2 × 6",
+      "= 60 + 12 = 72"
+     ],
+     "answer": "72 eggs"
+    },
+    "reallife": "Ladoo boxes, egg trays, chairs in a hall and plants in a nursery are arranged in rows so they can be counted quickly."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Count fast",
+     "items": [
+      {
+       "q": "9 rows of 9 trees",
+       "a": "81",
+       "check": "9*9"
+      },
+      {
+       "q": "81 × 5",
+       "a": "405",
+       "check": "81*5"
+      },
+      {
+       "q": "4 trays of 10 idlis",
+       "a": "40",
+       "check": "4*10"
+      },
+      {
+       "q": "Stacks of 5, 3 and 4 plates",
+       "a": "12",
+       "check": "5+3+4"
+      },
+      {
+       "q": "7 rows of 6 chairs",
+       "a": "42",
+       "check": "7*6"
+      },
+      {
+       "q": "21 × 4",
+       "a": "84",
+       "check": "21*4"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Split to multiply",
+     "pairs": [
+      [
+       "81 × 5",
+       "80 × 5 + 1 × 5"
+      ],
+      [
+       "23 × 4",
+       "20 × 4 + 3 × 4"
+      ],
+      [
+       "42 × 3",
+       "40 × 3 + 2 × 3"
+      ],
+      [
+       "15 × 6",
+       "10 × 6 + 5 × 6"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A field has 9 rows of trees with 9 trees in each row. How many trees are there?",
+     "options": [
+      "72",
+      "99",
+      "18",
+      "81"
+     ],
+     "answer": 3,
+     "explain": "9 rows of 9 is 9 × 9 = 81.",
+     "steps": [
+      "9 × 9 = 81"
+     ],
+     "mistake": "Adds 9 + 9 instead of multiplying",
+     "check": "9*9"
+    },
+    {
+     "q": "Find 81 × 5 by splitting 81 into 80 and 1.",
+     "options": [
+      "385",
+      "86",
+      "405",
+      "400"
+     ],
+     "answer": 2,
+     "explain": "80 × 5 = 400 and 1 × 5 = 5. 400 + 5 = 405.",
+     "steps": [
+      "80 × 5 = 400",
+      "1 × 5 = 5",
+      "400 + 5 = 405"
+     ],
+     "mistake": "Forgets to multiply the 1 part",
+     "check": "81*5"
+    },
+    {
+     "q": "Plates are kept in 3 stacks of 6, 4 and 5 plates. How many plates in all?",
+     "options": [
+      "120",
+      "15",
+      "18",
+      "13"
+     ],
+     "answer": 1,
+     "explain": "6 + 4 + 5 = 15 plates.",
+     "steps": [
+      "6 + 4 = 10",
+      "10 + 5 = 15"
+     ],
+     "mistake": "Multiplies different stacks",
+     "check": "6+4+5",
+     "visual": {
+      "kind": "count",
+      "emoji": "🍽️",
+      "n": 15,
+      "groups": 3
+     }
+    },
+    {
+     "q": "A sweet box has 4 rows with 5 laddoos in each row. Amma buys 3 such boxes. How many laddoos?",
+     "options": [
+      "60",
+      "35",
+      "12",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "One box: 4 × 5 = 20. Three boxes: 20 × 3 = 60.",
+     "steps": [
+      "4 × 5 = 20 in a box",
+      "20 × 3 = 60"
+     ],
+     "mistake": "Finds only one box",
+     "check": "4*5*3"
+    },
+    {
+     "q": "Which is the quickest way to count 7 rows of 8 chairs?",
+     "options": [
+      "7 + 8",
+      "8 − 7",
+      "Count one by one",
+      "7 × 8"
+     ],
+     "answer": 3,
+     "explain": "Equal rows can be counted by multiplying: 7 × 8 = 56.",
+     "mistake": "Adds the rows and the number in a row"
+    },
+    {
+     "q": "Find 32 × 3 using 30 × 3 + 2 × 3.",
+     "options": [
+      "66",
+      "35",
+      "96",
+      "90"
+     ],
+     "answer": 2,
+     "explain": "30 × 3 = 90 and 2 × 3 = 6. 90 + 6 = 96.",
+     "steps": [
+      "30 × 3 = 90",
+      "2 × 3 = 6",
+      "90 + 6 = 96"
+     ],
+     "mistake": "Adds 32 + 3",
+     "check": "32*3"
+    },
+    {
+     "q": "Each tray holds 10 cups. There are 8 trays. How many cups?",
+     "options": [
+      "18",
+      "80",
+      "108",
+      "800"
+     ],
+     "answer": 1,
+     "explain": "10 cups × 8 trays = 80 cups.",
+     "steps": [
+      "10 × 8 = 80"
+     ],
+     "mistake": "Adds trays and cups",
+     "check": "10*8"
+    },
+    {
+     "q": "Ravi says, 'I see 5 rows of 4 flowerpots, so there are 9 pots.' What went wrong?",
+     "options": [
+      "He added instead of multiplying; it is 20",
+      "He should subtract: 1",
+      "He should count only 1 row",
+      "Nothing, 9 is right"
+     ],
+     "answer": 0,
+     "explain": "Equal rows mean multiply: 5 × 4 = 20, not 5 + 4.",
+     "mistake": "Adds rows and columns"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has to count 9 rows of 9 trees one by one and is very tired. Teach Gappu a faster way.",
+    "must": [
+     [
+      "rows",
+      "row"
+     ],
+     [
+      "multiply",
+      "times",
+      "×"
+     ],
+     [
+      "split",
+      "break",
+      "parts",
+      "80"
+     ]
+    ],
+    "praise": "Rows times the number in each row! And split big numbers into easy parts. So fast!",
+    "nudge": "Can you use multiplication, and how would you make 81 × 5 easy?"
+   }
+  },
+  {
+   "id": "g4-maths-03-05",
+   "title": "Patterns with money",
+   "covers": [
+    "c3.2.1",
+    "c3.2.2",
+    "c3.2.3"
+   ],
+   "learn": {
+    "hook": "Coins are laid out in a pattern: ₹5, ₹2, ₹5, ₹2... Can you find the total without adding each one?",
+    "points": [
+     "Coins and notes are often laid out in a repeating pattern.",
+     "Find the value of one repeating group, then multiply by the number of groups.",
+     "₹5 + ₹2 repeated 4 times is 4 × ₹7 = ₹28.",
+     "We can make any amount using ₹1, ₹2, ₹5 and ₹10 coins. Use the biggest coins first.",
+     "₹36 = ₹10 + ₹10 + ₹10 + ₹5 + ₹1."
+    ],
+    "example": {
+     "q": "A pattern of coins goes ₹10, ₹5, ₹1, ₹10, ₹5, ₹1, ₹10, ₹5, ₹1. What is the total?",
+     "steps": [
+      "One group: ₹10 + ₹5 + ₹1 = ₹16.",
+      "The group repeats 3 times.",
+      "3 × ₹16 = ₹48."
+     ],
+     "answer": "₹48"
+    },
+    "reallife": "At a mela, the ticket counter keeps coins in neat piles of the same kind so the total can be counted fast."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Pattern totals",
+     "items": [
+      {
+       "q": "₹5, ₹2 repeated 3 times",
+       "a": "21",
+       "check": "3*(5+2)"
+      },
+      {
+       "q": "₹10, ₹1 repeated 4 times",
+       "a": "44",
+       "check": "4*(10+1)"
+      },
+      {
+       "q": "₹2, ₹2, ₹5 repeated 2 times",
+       "a": "18",
+       "check": "2*(2+2+5)"
+      },
+      {
+       "q": "Six ₹5 coins",
+       "a": "30",
+       "check": "6*5"
+      },
+      {
+       "q": "₹10, ₹5, ₹1 repeated 2 times",
+       "a": "32",
+       "check": "2*(10+5+1)"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Make the amount",
+     "pairs": [
+      [
+       "₹36",
+       "3 × ₹10 + ₹5 + ₹1"
+      ],
+      [
+       "₹125",
+       "12 × ₹10 + ₹5"
+      ],
+      [
+       "₹183",
+       "18 × ₹10 + ₹2 + ₹1"
+      ],
+      [
+       "₹47",
+       "4 × ₹10 + ₹5 + ₹2"
+      ],
+      [
+       "₹19",
+       "₹10 + ₹5 + ₹2 + ₹2"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Coins are placed ₹5, ₹2, ₹5, ₹2, ₹5, ₹2, ₹5, ₹2. What is the total?",
+     "options": [
+      "₹20",
+      "₹8",
+      "₹14",
+      "₹28"
+     ],
+     "answer": 3,
+     "explain": "₹5 + ₹2 = ₹7 repeats 4 times. 4 × ₹7 = ₹28.",
+     "steps": [
+      "One group: ₹7",
+      "4 groups: 4 × 7 = 28"
+     ],
+     "mistake": "Counts only one group",
+     "check": "4*(5+2)"
+    },
+    {
+     "q": "A pattern ₹10, ₹10, ₹5 repeats 3 times. What is the total?",
+     "options": [
+      "₹65",
+      "₹25",
+      "₹75",
+      "₹50"
+     ],
+     "answer": 2,
+     "explain": "One group: ₹10 + ₹10 + ₹5 = ₹25. 3 × ₹25 = ₹75.",
+     "steps": [
+      "10 + 10 + 5 = 25",
+      "3 × 25 = 75"
+     ],
+     "mistake": "Finds only one group",
+     "check": "3*(10+10+5)"
+    },
+    {
+     "q": "Which set of coins makes exactly ₹36?",
+     "options": [
+      "₹5, ₹5, ₹5, ₹1",
+      "₹10, ₹10, ₹10, ₹5, ₹1",
+      "₹10, ₹10, ₹5, ₹1",
+      "₹10, ₹10, ₹10, ₹2"
+     ],
+     "answer": 1,
+     "explain": "₹10 + ₹10 + ₹10 + ₹5 + ₹1 = ₹36.",
+     "mistake": "Does not add the coins carefully"
+    },
+    {
+     "q": "Hari makes ₹125 using only ₹10 and ₹5 coins, with as many ₹10 coins as possible. How many ₹10 coins does he use?",
+     "options": [
+      "12",
+      "13",
+      "10",
+      "25"
+     ],
+     "answer": 0,
+     "explain": "12 × ₹10 = ₹120, and ₹5 more makes ₹125.",
+     "steps": [
+      "12 × 10 = 120",
+      "120 + 5 = 125"
+     ],
+     "mistake": "Uses 13 coins, making ₹130",
+     "check": "12"
+    },
+    {
+     "q": "Gauri lays coins as ₹2, ₹1, ₹2, ₹1, ... with 10 coins in all. What is the total?",
+     "options": [
+      "₹30",
+      "₹20",
+      "₹10",
+      "₹15"
+     ],
+     "answer": 3,
+     "explain": "10 coins make 5 groups of ₹2 + ₹1 = ₹3. 5 × ₹3 = ₹15.",
+     "steps": [
+      "10 coins = 5 groups",
+      "5 × 3 = 15"
+     ],
+     "mistake": "Multiplies 10 by 3",
+     "check": "5*(2+1)"
+    },
+    {
+     "q": "₹183 is made with ₹10 coins, one ₹2 coin and one ₹1 coin. How many ₹10 coins?",
+     "options": [
+      "8",
+      "183",
+      "18",
+      "17"
+     ],
+     "answer": 2,
+     "explain": "183 − 2 − 1 = 180. 180 ÷ 10 = 18 coins.",
+     "steps": [
+      "183 − 3 = 180",
+      "180 ÷ 10 = 18"
+     ],
+     "mistake": "Forgets to take away the ₹2 and ₹1",
+     "check": "(183-3)/10"
+    },
+    {
+     "q": "Why is it faster to count a repeating coin pattern by groups?",
+     "options": [
+      "Coins change value",
+      "You add one group and multiply by the number of groups",
+      "Groups are always ₹10",
+      "It is not faster"
+     ],
+     "answer": 1,
+     "explain": "Finding one group and multiplying saves adding every coin.",
+     "mistake": "Does not see the repeating group"
+    },
+    {
+     "q": "Nisha has three ₹10 coins, two ₹5 coins and four ₹1 coins. How much money does she have?",
+     "options": [
+      "₹44",
+      "₹9",
+      "₹40",
+      "₹34"
+     ],
+     "answer": 0,
+     "explain": "30 + 10 + 4 = ₹44.",
+     "steps": [
+      "3 × 10 = 30",
+      "2 × 5 = 10",
+      "4 × 1 = 4",
+      "30 + 10 + 4 = 44"
+     ],
+     "mistake": "Counts the number of coins instead of their value",
+     "check": "3*10+2*5+4*1",
+     "visual": {
+      "kind": "count",
+      "emoji": "🪙",
+      "n": 9
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is counting a long line of coins one by one. They go ₹5, ₹2, ₹5, ₹2. Show Gappu a faster way.",
+    "must": [
+     [
+      "group",
+      "groups",
+      "pattern",
+      "repeat"
+     ],
+     [
+      "7",
+      "seven"
+     ],
+     [
+      "multiply",
+      "times",
+      "×"
+     ]
+    ],
+    "praise": "Each group is ₹7, so I just multiply! Counting money is easy now.",
+    "nudge": "What does one group add up to, and how many groups are there?"
+   }
+  },
+  {
+   "id": "g4-maths-03-06",
+   "title": "Pairs: even and odd numbers",
+   "covers": [
+    "c3.3.1",
+    "c3.3.2",
+    "c3.3.3",
+    "c3.3.4",
+    "c3.3.5"
+   ],
+   "learn": {
+    "hook": "Put coins in pairs, like friends holding hands. Does anyone get left out?",
+    "points": [
+     "Arrange things in pairs (twos). If every one has a partner, the number is even.",
+     "If one is left without a partner, the number is odd.",
+     "Even numbers from 1 to 20: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. The rest are odd.",
+     "Every number in the 2-times table is even.",
+     "An even number can be shared into two equal groups with nothing left over."
+    ],
+    "example": {
+     "q": "Is 13 even or odd? Use pairs.",
+     "steps": [
+      "Make pairs: 13 coins make 6 pairs.",
+      "6 pairs use 12 coins.",
+      "1 coin is left over.",
+      "So 13 is odd."
+     ],
+     "answer": "Odd"
+    },
+    "reallife": "When a class lines up in pairs for assembly, an odd number of children means one child walks alone!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Even or odd?",
+     "buckets": [
+      "Even",
+      "Odd"
+     ],
+     "items": [
+      [
+       "8",
+       0
+      ],
+      [
+       "11",
+       1
+      ],
+      [
+       "14",
+       0
+      ],
+      [
+       "17",
+       1
+      ],
+      [
+       "20",
+       0
+      ],
+      [
+       "3",
+       1
+      ],
+      [
+       "16",
+       0
+      ],
+      [
+       "9",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Pairs facts",
+     "items": [
+      [
+       "7 coins can all be put in pairs.",
+       false,
+       "3 pairs use 6 coins, 1 is left over."
+      ],
+      [
+       "Every answer in the 2-times table is even.",
+       true,
+       "2 × anything is pairs, with nothing left."
+      ],
+      [
+       "18 sweets can be shared equally between 2 children with none left.",
+       true,
+       "18 ÷ 2 = 9 each."
+      ],
+      [
+       "15 is even.",
+       false,
+       "15 = 7 pairs and 1 left over, so it is odd."
+      ],
+      [
+       "If a number of things has one left out when paired, it is odd.",
+       true,
+       "That is what odd means."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "12 children make pairs. How many are left without a partner?",
+     "options": [
+      "1",
+      "2",
+      "6",
+      "0"
+     ],
+     "answer": 3,
+     "explain": "12 = 6 pairs exactly, so none are left. 12 is even.",
+     "steps": [
+      "12 ÷ 2 = 6 pairs",
+      "Left over: 0"
+     ],
+     "mistake": "Gives the number of pairs instead",
+     "check": "0",
+     "visual": {
+      "kind": "count",
+      "emoji": "🧒",
+      "n": 12,
+      "groups": 6
+     }
+    },
+    {
+     "q": "15 coins are put in pairs. How many coins are left over?",
+     "options": [
+      "7",
+      "0",
+      "1",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "7 pairs use 14 coins. 15 − 14 = 1 left over, so 15 is odd.",
+     "steps": [
+      "7 pairs = 14",
+      "15 − 14 = 1"
+     ],
+     "mistake": "Gives the number of pairs",
+     "check": "15-14",
+     "visual": {
+      "kind": "count",
+      "emoji": "🪙",
+      "n": 15
+     }
+    },
+    {
+     "q": "Which number is odd?",
+     "options": [
+      "14",
+      "19",
+      "6",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "19 = 9 pairs and 1 left over, so it is odd.",
+     "mistake": "Mixes up odd and even",
+     "check": "19"
+    },
+    {
+     "q": "How many even numbers are there from 1 to 20?",
+     "options": [
+      "10",
+      "11",
+      "20",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "2, 4, 6, 8, 10, 12, 14, 16, 18, 20: that is 10 even numbers.",
+     "mistake": "Leaves out 20",
+     "check": "10"
+    },
+    {
+     "q": "Which number is NOT in the 2-times table?",
+     "options": [
+      "20",
+      "16",
+      "8",
+      "13"
+     ],
+     "answer": 3,
+     "explain": "13 is odd. Every number in the 2-times table is even.",
+     "mistake": "Thinks any number can be in the 2-times table",
+     "check": "13"
+    },
+    {
+     "q": "Can 17 laddoos be shared equally between 2 brothers with none left?",
+     "options": [
+      "Yes, 8 each",
+      "Yes, 9 each",
+      "No, 1 will be left over",
+      "Yes, 7 each"
+     ],
+     "answer": 2,
+     "explain": "17 is odd: 8 each uses 16, and 1 is left.",
+     "mistake": "Thinks every number can be halved exactly"
+    },
+    {
+     "q": "20 bangles are shared equally between 2 sisters. How many does each get?",
+     "options": [
+      "5",
+      "10",
+      "18",
+      "22"
+     ],
+     "answer": 1,
+     "explain": "20 is even. 20 ÷ 2 = 10 each.",
+     "steps": [
+      "20 ÷ 2 = 10"
+     ],
+     "mistake": "Takes away 2 instead of sharing",
+     "check": "20/2"
+    },
+    {
+     "q": "Mona draws pairs for 9. How many full pairs does she draw?",
+     "options": [
+      "4",
+      "5",
+      "9",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "4 pairs use 8. 1 is left over, so 9 is odd.",
+     "steps": [
+      "4 pairs = 8",
+      "9 − 8 = 1 left"
+     ],
+     "mistake": "Counts the leftover as a pair",
+     "check": "4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has some marbles and wants to know if the number is even or odd. Explain how pairs help.",
+    "must": [
+     [
+      "pair",
+      "pairs",
+      "two",
+      "twos"
+     ],
+     [
+      "left over",
+      "left",
+      "extra",
+      "alone"
+     ],
+     [
+      "even",
+      "odd"
+     ]
+    ],
+    "praise": "If every marble has a partner, it is even. If one is left alone, it is odd!",
+    "nudge": "What do you make with the marbles, and what tells you it is odd?"
+   }
+  },
+  {
+   "id": "g4-maths-03-07",
+   "title": "Even or odd? Look at the ones digit",
+   "covers": [
+    "c3.4.1",
+    "c3.4.2",
+    "c3.4.3",
+    "c3.4.4"
+   ],
+   "learn": {
+    "hook": "Is 4,567 even or odd? You do not need to make 4,567 pairs. One digit tells you!",
+    "points": [
+     "An even number ends in 0, 2, 4, 6 or 8.",
+     "An odd number ends in 1, 3, 5, 7 or 9.",
+     "For a big number, look only at the ones digit to tell even or odd.",
+     "In a book, the pages on one side are all odd and the pages on the other side are all even.",
+     "A good way to mark a list: circle the odd numbers and draw a square around the even numbers."
+    ],
+    "example": {
+     "q": "Is 3,458 even or odd?",
+     "steps": [
+      "Look at the ones digit: 8.",
+      "8 is even.",
+      "So 3,458 is even."
+     ],
+     "answer": "Even"
+    },
+    "reallife": "Open any storybook. Page 1 is on the right side. The right-hand pages are 1, 3, 5... and the left-hand pages are 2, 4, 6..."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Circle or square? (odd = circle, even = square)",
+     "buckets": [
+      "Odd (circle)",
+      "Even (square)"
+     ],
+     "items": [
+      [
+       "245",
+       0
+      ],
+      [
+       "1,000",
+       1
+      ],
+      [
+       "78",
+       1
+      ],
+      [
+       "3,331",
+       0
+      ],
+      [
+       "506",
+       1
+      ],
+      [
+       "9,999",
+       0
+      ],
+      [
+       "4,562",
+       1
+      ],
+      [
+       "87",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Ones digit rule",
+     "items": [
+      {
+       "text": "A number ending in 6 is ___.",
+       "answer": "even",
+       "options": [
+        "even",
+        "odd"
+       ]
+      },
+      {
+       "text": "A number ending in 5 is ___.",
+       "answer": "odd",
+       "options": [
+        "even",
+        "odd"
+       ]
+      },
+      {
+       "text": "7,890 ends in 0, so it is ___.",
+       "answer": "even",
+       "options": [
+        "even",
+        "odd"
+       ]
+      },
+      {
+       "text": "In a book, if the right pages are odd, the left pages are ___.",
+       "answer": "even",
+       "options": [
+        "even",
+        "odd"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which digits can an even number end in?",
+     "options": [
+      "Only 0",
+      "Any digit",
+      "1, 3, 5, 7, 9",
+      "0, 2, 4, 6, 8"
+     ],
+     "answer": 3,
+     "explain": "Even numbers end in 0, 2, 4, 6 or 8.",
+     "mistake": "Mixes up the even and odd ending digits"
+    },
+    {
+     "q": "Is 5,673 even or odd?",
+     "options": [
+      "Neither",
+      "Even",
+      "Odd",
+      "Both"
+     ],
+     "answer": 2,
+     "explain": "Its ones digit is 3, which is odd. So 5,673 is odd.",
+     "mistake": "Looks at the first digit instead of the last"
+    },
+    {
+     "q": "Which of these big numbers is even?",
+     "options": [
+      "6,135",
+      "1,358",
+      "4,321",
+      "2,467"
+     ],
+     "answer": 1,
+     "explain": "1,358 ends in 8, an even digit.",
+     "mistake": "Looks at the thousands digit",
+     "check": "1358"
+    },
+    {
+     "q": "A book is open. The page on the left is 34. What is the page on the right?",
+     "options": [
+      "35",
+      "36",
+      "44",
+      "33"
+     ],
+     "answer": 0,
+     "explain": "Pages go in order, so the next page after 34 is 35, an odd number.",
+     "steps": [
+      "34 + 1 = 35"
+     ],
+     "mistake": "Thinks both pages are even",
+     "check": "34+1"
+    },
+    {
+     "q": "In a book, the right-hand pages are 1, 3, 5, 7... Which page is on the left side?",
+     "options": [
+      "77",
+      "99",
+      "21",
+      "48"
+     ],
+     "answer": 3,
+     "explain": "Right pages are odd, so left pages are even. 48 is even.",
+     "mistake": "Picks an odd number",
+     "check": "48"
+    },
+    {
+     "q": "Tara circles odd numbers and puts squares around even numbers in 12, 25, 40, 63, 78. How many circles does she draw?",
+     "options": [
+      "4",
+      "5",
+      "2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "Odd numbers are 25 and 63: 2 circles.",
+     "mistake": "Circles the even numbers",
+     "check": "2"
+    },
+    {
+     "q": "Which of these 4-digit numbers is odd?",
+     "options": [
+      "2,010",
+      "3,005",
+      "4,444",
+      "1,000"
+     ],
+     "answer": 1,
+     "explain": "3,005 ends in 5, which is odd.",
+     "mistake": "Thinks numbers with zeros are always even",
+     "check": "3005"
+    },
+    {
+     "q": "Raju says 8,641 is even because 8 is even. Is he right?",
+     "options": [
+      "No, the ones digit 1 is odd, so 8,641 is odd",
+      "Yes, because it is big",
+      "No, it is neither",
+      "Yes, the first digit decides"
+     ],
+     "answer": 0,
+     "explain": "Only the ones digit decides. 1 is odd, so 8,641 is odd.",
+     "mistake": "Looks at the first digit instead of the ones digit"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know if 9,876 is even or odd but there are too many to pair. Teach Gappu the shortcut.",
+    "must": [
+     [
+      "ones",
+      "last digit",
+      "last",
+      "end"
+     ],
+     [
+      "0, 2, 4, 6",
+      "0",
+      "2",
+      "4",
+      "6",
+      "8"
+     ],
+     [
+      "even",
+      "odd"
+     ]
+    ],
+    "praise": "Just look at the last digit! 6 is even, so 9,876 is even. Wow!",
+    "nudge": "Which digit do you look at, and which endings are even?"
+   }
+  },
+  {
+   "id": "g4-maths-03-08",
+   "title": "Making even and odd numbers from digits",
+   "covers": [
+    "c3.4.5",
+    "c3.4.6"
+   ],
+   "learn": {
+    "hook": "With the digit cards 3, 4 and 7, how many 2-digit numbers can you make? Which ones are even?",
+    "points": [
+     "To make 2-digit numbers from given digits without repeating, choose a tens digit and a different ones digit.",
+     "Use a system: fix the tens digit, then try each other digit in the ones place.",
+     "Whether the number is even or odd depends only on the ones digit.",
+     "To make an even number, put an even digit (0, 2, 4, 6, 8) in the ones place.",
+     "To make an odd number, put an odd digit in the ones place."
+    ],
+    "example": {
+     "q": "Make all 2-digit numbers using 3, 4 and 7 without repeating a digit. Which are even?",
+     "steps": [
+      "Tens 3: 34, 37.",
+      "Tens 4: 43, 47.",
+      "Tens 7: 73, 74.",
+      "Even ones end in 4: 34 and 74."
+     ],
+     "answer": "34 and 74 are even"
+    },
+    "reallife": "Bus numbers, house numbers and PIN codes all use digits in different places. Changing the order changes the number!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Made from 2, 5 and 8: even or odd?",
+     "buckets": [
+      "Even",
+      "Odd"
+     ],
+     "items": [
+      [
+       "25",
+       1
+      ],
+      [
+       "28",
+       0
+      ],
+      [
+       "52",
+       0
+      ],
+      [
+       "58",
+       0
+      ],
+      [
+       "82",
+       0
+      ],
+      [
+       "85",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill to make it true",
+     "items": [
+      {
+       "text": "Using 1 and 6, the even number is ___.",
+       "answer": "16",
+       "options": [
+        "16",
+        "61"
+       ]
+      },
+      {
+       "text": "Using 3 and 8, the odd number is ___.",
+       "answer": "83",
+       "options": [
+        "38",
+        "83"
+       ]
+      },
+      {
+       "text": "Using 5 and 4, the even number is ___.",
+       "answer": "54",
+       "options": [
+        "45",
+        "54"
+       ]
+      },
+      {
+       "text": "To make an even number, the ___ digit must be even.",
+       "answer": "ones",
+       "options": [
+        "ones",
+        "tens"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many 2-digit numbers can you make from 3, 4 and 7 without repeating a digit?",
+     "options": [
+      "9",
+      "4",
+      "3",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "Each of 3 tens digits can go with 2 different ones digits: 3 × 2 = 6. They are 34, 37, 43, 47, 73, 74.",
+     "steps": [
+      "Tens 3: 34, 37",
+      "Tens 4: 43, 47",
+      "Tens 7: 73, 74",
+      "6 numbers"
+     ],
+     "mistake": "Forgets some numbers",
+     "check": "3*2"
+    },
+    {
+     "q": "Using 3, 4 and 7 without repeating, how many of the 2-digit numbers are even?",
+     "options": [
+      "4",
+      "1",
+      "2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "Only numbers ending in 4 are even: 34 and 74.",
+     "mistake": "Thinks numbers starting with 4 are even",
+     "check": "2"
+    },
+    {
+     "q": "Using the digits 5 and 6 once each, which 2-digit number is even?",
+     "options": [
+      "65",
+      "56",
+      "Both are even",
+      "Neither is even"
+     ],
+     "answer": 1,
+     "explain": "56 ends in 6, which is even.",
+     "mistake": "Puts the even digit in the tens place",
+     "check": "56"
+    },
+    {
+     "q": "With the digits 1, 2 and 9 (no repeats), which number is odd?",
+     "options": [
+      "29",
+      "Each one is even",
+      "12",
+      "92"
+     ],
+     "answer": 0,
+     "explain": "29 ends in 9, so it is odd.",
+     "mistake": "Looks at the tens digit",
+     "check": "29"
+    },
+    {
+     "q": "Which digit must go in the ones place to make an even number from 7 and 8?",
+     "options": [
+      "Either",
+      "Neither",
+      "7",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "The ones digit must be even, so 8 goes there: 78.",
+     "mistake": "Thinks the bigger digit decides",
+     "check": "8"
+    },
+    {
+     "q": "Using 2, 5 and 8 without repeating, what is the biggest even 2-digit number?",
+     "options": [
+      "28",
+      "85",
+      "82",
+      "58"
+     ],
+     "answer": 2,
+     "explain": "Even numbers must end in 2 or 8. The biggest is 82 (85 is odd).",
+     "mistake": "Picks 85, forgetting it is odd",
+     "check": "82"
+    },
+    {
+     "q": "Using 1, 3 and 5 without repeating, how many even 2-digit numbers can you make?",
+     "options": [
+      "6",
+      "0",
+      "1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "All the digits are odd, so every number ends in an odd digit. No even numbers.",
+     "mistake": "Thinks some must be even",
+     "check": "0"
+    },
+    {
+     "q": "Ria makes 2-digit numbers from 4 and 9 using each once. She makes 49 and 94. Which statement is true?",
+     "options": [
+      "49 is odd and 94 is even",
+      "49 is even and 94 is odd",
+      "Both are even",
+      "Both are odd"
+     ],
+     "answer": 0,
+     "explain": "49 ends in 9 (odd). 94 ends in 4 (even).",
+     "mistake": "Looks at the first digit"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has digit cards 2, 3 and 5 and wants to make an even 2-digit number. What should Gappu do?",
+    "must": [
+     [
+      "ones",
+      "last",
+      "end"
+     ],
+     [
+      "even",
+      "2"
+     ],
+     [
+      "32",
+      "52"
+     ]
+    ],
+    "praise": "Put the 2 at the end! 32 and 52 are both even.",
+    "nudge": "Which place decides even or odd, and which card is even?"
+   }
+  },
+  {
+   "id": "g4-maths-03-09",
+   "title": "Even and odd neighbours",
+   "covers": [
+    "c3.4.7",
+    "c3.4.8",
+    "c3.4.9"
+   ],
+   "learn": {
+    "hook": "Count 1, 2, 3, 4... odd, even, odd, even. The pattern never breaks!",
+    "points": [
+     "Counting numbers go odd, even, odd, even, again and again.",
+     "The numbers just before and just after an odd number are even.",
+     "The numbers just before and just after an even number are odd.",
+     "From 1 to 100, there are 50 even numbers and 50 odd numbers.",
+     "From 1 to 10, there are 5 even and 5 odd numbers."
+    ],
+    "example": {
+     "q": "What are the neighbours of 47? Are they even or odd?",
+     "steps": [
+      "Just before 47 is 46.",
+      "Just after 47 is 48.",
+      "47 is odd, so both neighbours are even."
+     ],
+     "answer": "46 and 48, both even"
+    },
+    "reallife": "House numbers on many streets go odd on one side and even on the other, so neighbours across the road differ."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Neighbour facts",
+     "items": [
+      [
+       "The number just after an odd number is even.",
+       true,
+       "Odd and even take turns."
+      ],
+      [
+       "Both neighbours of 20 are even.",
+       false,
+       "19 and 21 are both odd."
+      ],
+      [
+       "From 1 to 100 there are 50 odd numbers.",
+       true,
+       "Half of 100 numbers are odd."
+      ],
+      [
+       "Two numbers in a row can both be odd.",
+       false,
+       "Consecutive numbers alternate odd and even."
+      ],
+      [
+       "The number just before 1,000 is odd.",
+       true,
+       "999 ends in 9."
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the neighbour",
+     "items": [
+      {
+       "text": "Just before 35 is ___, which is even.",
+       "answer": "34",
+       "options": [
+        "34",
+        "36",
+        "33"
+       ]
+      },
+      {
+       "text": "Just after 58 is ___, which is odd.",
+       "answer": "59",
+       "options": [
+        "57",
+        "59",
+        "60"
+       ]
+      },
+      {
+       "text": "7, 8, 9, 10: the pattern is odd, even, ___, even.",
+       "answer": "odd",
+       "options": [
+        "odd",
+        "even"
+       ]
+      },
+      {
+       "text": "From 1 to 10, there are ___ odd numbers.",
+       "answer": "5",
+       "options": [
+        "4",
+        "5",
+        "6"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What are the two neighbours of 63?",
+     "options": [
+      "61 and 65",
+      "60 and 66",
+      "63 and 64",
+      "62 and 64"
+     ],
+     "answer": 3,
+     "explain": "Just before is 62 and just after is 64. Both are even because 63 is odd.",
+     "mistake": "Skips by 2"
+    },
+    {
+     "q": "How many odd numbers are there from 1 to 100?",
+     "options": [
+      "100",
+      "49",
+      "50",
+      "51"
+     ],
+     "answer": 2,
+     "explain": "Odd and even take turns, so half of the 100 numbers, 50, are odd.",
+     "steps": [
+      "100 ÷ 2 = 50"
+     ],
+     "mistake": "Counts 100 as odd",
+     "check": "100/2"
+    },
+    {
+     "q": "40 is even. What kind of number is 41?",
+     "options": [
+      "Even",
+      "Odd",
+      "Both",
+      "Neither"
+     ],
+     "answer": 1,
+     "explain": "The number after an even number is odd.",
+     "mistake": "Thinks neighbours are the same kind"
+    },
+    {
+     "q": "Which pattern is correct for 15, 16, 17, 18?",
+     "options": [
+      "Odd, even, odd, even",
+      "Even, odd, even, odd",
+      "Odd, odd, even, even",
+      "Even, even, odd, odd"
+     ],
+     "answer": 0,
+     "explain": "15 is odd, 16 even, 17 odd, 18 even. They take turns.",
+     "mistake": "Does not check the first number"
+    },
+    {
+     "q": "The neighbours of a number are 89 and 91. What is the number, and is it even or odd?",
+     "options": [
+      "90, odd",
+      "88, even",
+      "92, even",
+      "90, even"
+     ],
+     "answer": 3,
+     "explain": "The number between 89 and 91 is 90, which is even.",
+     "mistake": "Thinks the middle number is odd"
+    },
+    {
+     "q": "How many even numbers are there from 1 to 10?",
+     "options": [
+      "10",
+      "4",
+      "5",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "2, 4, 6, 8, 10: five even numbers.",
+     "mistake": "Leaves out 10",
+     "check": "5"
+    },
+    {
+     "q": "Mani writes 3 numbers in a row: an even, then an odd, then ___. What comes next?",
+     "options": [
+      "Any",
+      "Even",
+      "Odd",
+      "Zero"
+     ],
+     "answer": 1,
+     "explain": "Counting numbers alternate, so after odd comes even.",
+     "mistake": "Thinks two odds can come together"
+    },
+    {
+     "q": "Are the numbers just before and after 500 even or odd?",
+     "options": [
+      "Both odd",
+      "One even, one odd",
+      "Neither",
+      "Both even"
+     ],
+     "answer": 0,
+     "explain": "499 and 501 are both odd because 500 is even.",
+     "mistake": "Thinks neighbours of an even number are even"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu says the neighbours of 25 are 24 and 26, and asks if they are odd. Explain.",
+    "must": [
+     [
+      "even"
+     ],
+     [
+      "odd"
+     ],
+     [
+      "neighbour",
+      "neighbours",
+      "before",
+      "after",
+      "turns",
+      "alternate"
+     ]
+    ],
+    "praise": "Odd and even take turns! The neighbours of an odd number are always even.",
+    "nudge": "Is 25 odd or even, and what are its neighbours then?"
+   }
+  },
+  {
+   "id": "g4-maths-03-01",
+   "title": "Number patterns",
+   "covers": [],
+   "learn": {
+    "hook": "5, 10, 15, 20... Can you guess the next number before your friend does?",
+    "points": [
+     "A number pattern follows a rule, again and again.",
+     "Some patterns add the same number each time: 3, 7, 11, 15 adds 4.",
+     "Some patterns take away the same number: 50, 45, 40 takes away 5.",
+     "Some patterns double: 2, 4, 8, 16.",
+     "Some patterns grow by a bit more each time: 1, 3, 6, 10 adds 2, then 3, then 4."
+    ],
+    "example": {
+     "q": "Find the next number: 4, 9, 14, 19, ?",
+     "steps": [
+      "9 - 4 = 5 and 14 - 9 = 5, so the rule is 'add 5'.",
+      "19 + 5 = 24"
+     ],
+     "answer": "24"
+    },
+    "reallife": "House numbers on one side of a street often go 1, 3, 5, 7. Bus timings like 8:00, 8:15, 8:30 follow a pattern too."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "What comes next?",
+     "items": [
+      {
+       "q": "10, 20, 30, 40, ?",
+       "a": "50",
+       "check": "40+10"
+      },
+      {
+       "q": "2, 5, 8, 11, ?",
+       "a": "14",
+       "check": "11+3"
+      },
+      {
+       "q": "30, 27, 24, 21, ?",
+       "a": "18",
+       "check": "21-3"
+      },
+      {
+       "q": "1, 2, 4, 8, ?",
+       "a": "16",
+       "check": "8*2"
+      },
+      {
+       "q": "25, 50, 75, 100, ?",
+       "a": "125",
+       "check": "100+25"
+      },
+      {
+       "q": "7, 14, 21, 28, ?",
+       "a": "35",
+       "check": "28+7"
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Build the pattern",
+     "prompt": "Put these in order to make a count-by-12 pattern",
+     "items": [
+      "12",
+      "24",
+      "36",
+      "48",
+      "60"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What comes next? 5, 10, 15, 20, ?",
+     "options": [
+      "25",
+      "21",
+      "30",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "Each number is 5 more than the one before. 20 + 5 = 25.",
+     "steps": [
+      "Rule: add 5",
+      "20 + 5 = 25"
+     ],
+     "mistake": "Adds 1 to the last number instead of following the rule",
+     "check": "20+5",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 25,
+      "marks": [
+       5,
+       10,
+       15,
+       20,
+       25
+      ],
+      "jumps": [
+       [
+        20,
+        25
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What comes next? 3, 7, 11, 15, ?",
+     "options": [
+      "18",
+      "19",
+      "17",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "The rule is add 4. 15 + 4 = 19.",
+     "steps": [
+      "7 - 3 = 4, 11 - 7 = 4",
+      "15 + 4 = 19"
+     ],
+     "mistake": "Adds 3 or 5 instead of finding the real gap",
+     "check": "15+4",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 20,
+      "marks": [
+       3,
+       7,
+       11,
+       15,
+       19
+      ],
+      "jumps": [
+       [
+        15,
+        19
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What comes next? 50, 45, 40, 35, ?",
+     "options": [
+      "40",
+      "25",
+      "31",
+      "30"
+     ],
+     "answer": 3,
+     "explain": "The numbers go down by 5 each time. 35 - 5 = 30.",
+     "steps": [
+      "Rule: take away 5",
+      "35 - 5 = 30"
+     ],
+     "mistake": "Adds 5 instead of taking away 5",
+     "check": "35-5",
+     "visual": {
+      "kind": "numberline",
+      "from": 25,
+      "to": 50,
+      "marks": [
+       50,
+       45,
+       40,
+       35,
+       30
+      ],
+      "jumps": [
+       [
+        35,
+        30
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What comes next? 2, 4, 8, 16, ?",
+     "options": [
+      "18",
+      "24",
+      "32",
+      "20"
+     ],
+     "answer": 2,
+     "explain": "Each number is double the one before. 16 × 2 = 32.",
+     "steps": [
+      "2 × 2 = 4, 4 × 2 = 8, 8 × 2 = 16",
+      "16 × 2 = 32"
+     ],
+     "mistake": "Thinks the rule is add 2 because 2 to 4 adds 2",
+     "check": "16*2"
+    },
+    {
+     "q": "Find the missing number: 100, 200, 300, ?, 500",
+     "options": [
+      "400",
+      "350",
+      "600",
+      "310"
+     ],
+     "answer": 0,
+     "explain": "The numbers go up by 100. After 300 comes 400.",
+     "steps": [
+      "Rule: add 100",
+      "300 + 100 = 400"
+     ],
+     "mistake": "Adds 10 instead of 100",
+     "check": "300+100"
+    },
+    {
+     "q": "Riya saves ₹10 on Day 1, ₹20 on Day 2 and ₹30 on Day 3. If the pattern goes on, how much does she save on Day 5?",
+     "options": [
+      "₹40",
+      "₹50",
+      "₹60",
+      "₹15"
+     ],
+     "answer": 1,
+     "explain": "She saves ₹10 more each day: ₹40 on Day 4 and ₹50 on Day 5.",
+     "steps": [
+      "Day 4: ₹30 + ₹10 = ₹40",
+      "Day 5: ₹40 + ₹10 = ₹50"
+     ],
+     "mistake": "Finds Day 4 instead of Day 5",
+     "check": "10*5",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "Day 1",
+        10
+       ],
+       [
+        "Day 2",
+        20
+       ],
+       [
+        "Day 3",
+        30
+       ],
+       [
+        "Day 4",
+        40
+       ],
+       [
+        "Day 5",
+        50
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What comes next? 1, 3, 6, 10, ?",
+     "options": [
+      "14",
+      "13",
+      "16",
+      "15"
+     ],
+     "answer": 3,
+     "explain": "The jumps grow by 1 each time: +2, +3, +4, so next is +5. 10 + 5 = 15.",
+     "steps": [
+      "1 + 2 = 3, 3 + 3 = 6, 6 + 4 = 10",
+      "10 + 5 = 15"
+     ],
+     "mistake": "Adds 4 again instead of seeing the jump grow",
+     "check": "10+5",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 15,
+      "marks": [
+       1,
+       3,
+       6,
+       10,
+       15
+      ],
+      "jumps": [
+       [
+        10,
+        15
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What comes next? 9, 18, 27, 36, ?",
+     "options": [
+      "44",
+      "45",
+      "46",
+      "37"
+     ],
+     "answer": 1,
+     "explain": "This is the 9 times table. 36 + 9 = 45.",
+     "steps": [
+      "Rule: add 9",
+      "36 + 9 = 45"
+     ],
+     "mistake": "Adds 8 or 10 instead of 9, or adds only 1 to 36",
+     "check": "36+9"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sees 6, 12, 18, 24 on a wall. How can Gappu find the next number?",
+    "must": [
+     [
+      "rule",
+      "pattern"
+     ],
+     [
+      "add",
+      "plus",
+      "more",
+      "jump",
+      "same"
+     ],
+     [
+      "next",
+      "after",
+      "again"
+     ]
+    ],
+    "praise": "Yes! Find the rule and use it again to get the next number. Gappu says 30!",
+    "nudge": "What is the same between each pair of numbers? Is there a rule?"
+   }
+  },
+  {
+   "id": "g4-maths-03-02",
+   "title": "Shape and growing patterns",
+   "covers": [],
+   "learn": {
+    "hook": "Rangoli, bangles and border designs repeat in beautiful ways. Spot the part that repeats!",
+    "points": [
+     "A repeating pattern has a core: a small group that repeats again and again.",
+     "In 🔺🔵🔺🔵, the core is 🔺🔵 and it has 2 parts.",
+     "To find a far-away item, use the core. If the core has 3 parts, the 9th item is the last one of the core.",
+     "A growing pattern gets bigger each step, like 1, 3, 5, 7 dots.",
+     "Shapes can also turn in a pattern, a quarter turn each time."
+    ],
+    "example": {
+     "q": "Bead pattern: red, red, blue, red, red, blue... What colour is the 12th bead?",
+     "steps": [
+      "The core is red, red, blue: 3 beads.",
+      "12 ÷ 3 = 4, so the 12th bead ends the 4th core.",
+      "The last bead of the core is blue."
+     ],
+     "answer": "Blue"
+    },
+    "reallife": "Look at saree borders, mehendi designs and floor tiles. They are full of repeating and growing patterns."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Finish the pattern",
+     "items": [
+      {
+       "text": "🔺🔵🔺🔵🔺 ___",
+       "answer": "🔵",
+       "options": [
+        "🔵",
+        "🔺",
+        "⭐"
+       ]
+      },
+      {
+       "text": "⭐⭐🌙⭐⭐🌙⭐⭐ ___",
+       "answer": "🌙",
+       "options": [
+        "⭐",
+        "🌙",
+        "🔵"
+       ]
+      },
+      {
+       "text": "🟡🟢🟢🟡🟢🟢🟡 ___",
+       "answer": "🟢",
+       "options": [
+        "🟡",
+        "🟢",
+        "🔴"
+       ]
+      },
+      {
+       "text": "🍎🍌🍇🍎🍌 ___",
+       "answer": "🍇",
+       "options": [
+        "🍎",
+        "🍌",
+        "🍇"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Pattern facts",
+     "items": [
+      [
+       "In ⭐🌙⭐🌙, the core that repeats is ⭐🌙.",
+       true,
+       "⭐🌙 comes again and again."
+      ],
+      [
+       "A growing pattern stays the same size every step.",
+       false,
+       "A growing pattern gets bigger each step."
+      ],
+      [
+       "1 dot, 3 dots, 5 dots, 7 dots is a growing pattern.",
+       true,
+       "Each step has 2 more dots."
+      ],
+      [
+       "In red, blue, red, blue, the 10th bead is red.",
+       false,
+       "Red is at places 1, 3, 5... (odd). 10 is even, so it is blue."
+      ],
+      [
+       "After 4 quarter turns, a shape is back where it started.",
+       true,
+       "4 quarter turns make one full turn."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which shape comes next? Triangle, circle, triangle, circle, triangle, ?",
+     "options": [
+      "Triangle",
+      "Square",
+      "Circle",
+      "Star"
+     ],
+     "answer": 2,
+     "explain": "The core is triangle, circle. After a triangle comes a circle.",
+     "mistake": "Repeats the last shape instead of following the core",
+     "visual": {
+      "kind": "shape",
+      "name": "circle"
+     }
+    },
+    {
+     "q": "Aisha's bead string goes red, red, blue, red, red, blue... What colour is the 9th bead?",
+     "options": [
+      "Red",
+      "Blue",
+      "Green",
+      "Yellow"
+     ],
+     "answer": 1,
+     "explain": "The core has 3 beads. 9 ÷ 3 = 3, so the 9th bead is the end of a core, which is blue.",
+     "steps": [
+      "Core: red, red, blue (3 beads)",
+      "9 ÷ 3 = 3 full cores",
+      "The last bead of each core is blue"
+     ],
+     "mistake": "Thinks red comes most often so it must be red"
+    },
+    {
+     "q": "How many beads are in the core of this pattern? 🟡🟢🟢🟡🟢🟢🟡🟢🟢",
+     "options": [
+      "2",
+      "9",
+      "3",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "🟡🟢🟢 repeats again and again. It has 3 beads.",
+     "mistake": "Counts all the beads instead of only the repeating part",
+     "check": "3"
+    },
+    {
+     "q": "Kabir makes squares of tiles: 1 by 1, then 2 by 2, then 3 by 3. How many tiles does the 4 by 4 square need?",
+     "options": [
+      "8",
+      "12",
+      "16",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "A 4 by 4 square has 4 rows of 4 tiles. 4 × 4 = 16.",
+     "steps": [
+      "1, 4, 9 tiles so far",
+      "Next: 4 rows of 4 = 16"
+     ],
+     "mistake": "Adds 4 + 4 instead of making 4 rows of 4",
+     "check": "4*4",
+     "visual": {
+      "kind": "count",
+      "emoji": "🟧",
+      "n": 16,
+      "groups": 4
+     }
+    },
+    {
+     "q": "Arjun makes triangles in a row with matchsticks. 1 triangle uses 3 sticks, 2 triangles use 5 sticks, 3 triangles use 7 sticks. How many sticks for 4 triangles?",
+     "options": [
+      "9",
+      "12",
+      "8",
+      "11"
+     ],
+     "answer": 0,
+     "explain": "Each new triangle shares one stick, so it needs only 2 more sticks. 7 + 2 = 9.",
+     "steps": [
+      "Pattern: 3, 5, 7 (add 2)",
+      "7 + 2 = 9"
+     ],
+     "mistake": "Uses 3 new sticks for every triangle (4 × 3 = 12)",
+     "check": "7+2",
+     "visual": {
+      "kind": "count",
+      "emoji": "🥢",
+      "n": 9
+     }
+    },
+    {
+     "q": "A growing pattern has 2 stars, then 4 stars, then 6 stars. How many stars are in the 5th step?",
+     "options": [
+      "8",
+      "10",
+      "12",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "Each step adds 2 stars: 2, 4, 6, 8, 10. The 5th step has 10.",
+     "steps": [
+      "Step 4: 6 + 2 = 8",
+      "Step 5: 8 + 2 = 10"
+     ],
+     "mistake": "Finds the 4th step instead of the 5th",
+     "check": "2*5",
+     "visual": {
+      "kind": "count",
+      "emoji": "⭐",
+      "n": 10
+     }
+    },
+    {
+     "q": "A rangoli tile turns a quarter turn at each step. How many quarter turns bring it back to how it started?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "4 quarter turns make one full turn, so the tile is back where it began.",
+     "mistake": "Thinks 2 quarter turns make a full turn",
+     "check": "4",
+     "visual": {
+      "kind": "angle",
+      "deg": 360
+     }
+    },
+    {
+     "q": "Meena's bangles go gold, silver, silver, gold, silver, silver... How many silver bangles are in the first 12?",
+     "options": [
+      "6",
+      "4",
+      "9",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "Each core of 3 bangles has 2 silver. 12 bangles make 4 cores, so 4 × 2 = 8 silver.",
+     "steps": [
+      "Core: gold, silver, silver",
+      "12 ÷ 3 = 4 cores",
+      "4 × 2 = 8 silver"
+     ],
+     "mistake": "Thinks half of the bangles are silver",
+     "check": "12/3*2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has a long bead chain: red, blue, red, blue... How can Gappu know the colour of the 20th bead without counting all of them?",
+    "must": [
+     [
+      "core",
+      "repeat",
+      "repeats",
+      "repeating",
+      "group"
+     ],
+     [
+      "count",
+      "divide",
+      "groups of",
+      "pairs",
+      "even",
+      "odd",
+      "two",
+      "2"
+     ],
+     [
+      "same",
+      "again",
+      "pattern"
+     ]
+    ],
+    "praise": "Clever! Find the part that repeats and jump in groups. The 20th bead is blue. Thank you!",
+    "nudge": "Which small part keeps coming again and again in the chain?"
+   }
+  },
+  {
+   "id": "g4-maths-03-03",
+   "title": "Finding the rule of a pattern",
+   "covers": [],
+   "learn": {
+    "hook": "Every pattern hides a secret rule. Can you crack the code?",
+    "points": [
+     "To find the rule, look at how you get from one number to the next.",
+     "Check the rule on ALL the numbers, not just the first two.",
+     "3, 6, 12, 24 looks like 'add 3' at first, but only 'multiply by 2' works for all.",
+     "Odd + odd always gives an even number. Even + even always gives an even number.",
+     "On a calendar, the date just below any date is 7 more, because a week has 7 days."
+    ],
+    "example": {
+     "q": "The rule is 'start at 7 and add 3'. What is the 4th number?",
+     "steps": [
+      "1st: 7",
+      "2nd: 7 + 3 = 10",
+      "3rd: 10 + 3 = 13",
+      "4th: 13 + 3 = 16"
+     ],
+     "answer": "16"
+    },
+    "reallife": "Calendars, times tables and the seats in a cinema hall all follow simple rules."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Add or double?",
+     "buckets": [
+      "Adds the same number",
+      "Doubles each time"
+     ],
+     "items": [
+      [
+       "2, 4, 6, 8",
+       0
+      ],
+      [
+       "2, 4, 8, 16",
+       1
+      ],
+      [
+       "5, 10, 20, 40",
+       1
+      ],
+      [
+       "5, 10, 15, 20",
+       0
+      ],
+      [
+       "3, 6, 12, 24",
+       1
+      ],
+      [
+       "3, 6, 9, 12",
+       0
+      ],
+      [
+       "1, 2, 4, 8",
+       1
+      ],
+      [
+       "10, 20, 30, 40",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the pattern to its rule",
+     "pairs": [
+      [
+       "4, 8, 12, 16",
+       "Add 4"
+      ],
+      [
+       "40, 35, 30, 25",
+       "Take away 5"
+      ],
+      [
+       "3, 6, 12, 24",
+       "Multiply by 2"
+      ],
+      [
+       "11, 22, 33, 44",
+       "Add 11"
+      ],
+      [
+       "90, 80, 70, 60",
+       "Take away 10"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the rule of this pattern? 4, 8, 12, 16",
+     "options": [
+      "Add 2",
+      "Add 4",
+      "Multiply by 2",
+      "Take away 4"
+     ],
+     "answer": 1,
+     "explain": "8 - 4 = 4, 12 - 8 = 4, 16 - 12 = 4. Each time we add 4.",
+     "mistake": "Checks only 4 to 8 and thinks it is 'multiply by 2'"
+    },
+    {
+     "q": "The rule is 'start at 7 and add 3'. What is the 4th number?",
+     "options": [
+      "19",
+      "13",
+      "16",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "7, 10, 13, 16. The 4th number is 16.",
+     "steps": [
+      "7 + 3 = 10",
+      "10 + 3 = 13",
+      "13 + 3 = 16"
+     ],
+     "mistake": "Adds 3 four times to 7 and gets the 5th number (19)",
+     "check": "7+3*3",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 20,
+      "marks": [
+       7,
+       10,
+       13,
+       16
+      ],
+      "jumps": [
+       [
+        7,
+        10
+       ],
+       [
+        10,
+        13
+       ],
+       [
+        13,
+        16
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Find the missing number: 6, 12, ?, 24, 30",
+     "options": [
+      "18",
+      "16",
+      "20",
+      "14"
+     ],
+     "answer": 0,
+     "explain": "The rule is add 6. 12 + 6 = 18, and 18 + 6 = 24 checks out.",
+     "steps": [
+      "Rule: add 6",
+      "12 + 6 = 18"
+     ],
+     "mistake": "Uses 'add 4' by guessing a smaller jump",
+     "check": "12+6",
+     "visual": {
+      "kind": "numberline",
+      "from": 0,
+      "to": 30,
+      "marks": [
+       6,
+       12,
+       18,
+       24,
+       30
+      ],
+      "jumps": [
+       [
+        12,
+        18
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Which rule works for ALL the numbers? 3, 6, 12, 24",
+     "options": [
+      "Add 3",
+      "Add 6",
+      "Multiply by 2",
+      "Add 12"
+     ],
+     "answer": 2,
+     "explain": "3 × 2 = 6, 6 × 2 = 12, 12 × 2 = 24. 'Add 3' works only for the first step.",
+     "mistake": "Checks only the first two numbers"
+    },
+    {
+     "q": "Joseph adds two odd numbers, like 5 + 7 or 3 + 9. What kind of number does he always get?",
+     "options": [
+      "An odd number",
+      "An even number",
+      "Zero",
+      "A number ending in 1"
+     ],
+     "answer": 1,
+     "explain": "Odd + odd is always even. 5 + 7 = 12 and 3 + 9 = 12 are both even.",
+     "mistake": "Thinks odd + odd stays odd"
+    },
+    {
+     "q": "What comes next? 1000, 900, 800, ?",
+     "options": [
+      "600",
+      "790",
+      "700",
+      "850"
+     ],
+     "answer": 2,
+     "explain": "The rule is take away 100. 800 - 100 = 700.",
+     "steps": [
+      "Rule: take away 100",
+      "800 - 100 = 700"
+     ],
+     "mistake": "Takes away 10 instead of 100",
+     "check": "800-100"
+    },
+    {
+     "q": "The pattern 11, 22, 33, 44... goes on. What is the 9th number?",
+     "options": [
+      "88",
+      "90",
+      "110",
+      "99"
+     ],
+     "answer": 3,
+     "explain": "The pattern is the 11 times table. The 9th number is 11 × 9 = 99.",
+     "steps": [
+      "The 9th number is 11 × 9",
+      "11 × 9 = 99"
+     ],
+     "mistake": "Gives the 8th number (88)",
+     "check": "11*9"
+    },
+    {
+     "q": "On a calendar, which date is just below 5 in the same column?",
+     "options": [
+      "6",
+      "10",
+      "12",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "Each row of a calendar is one week of 7 days. So the date below is 5 + 7 = 12.",
+     "steps": [
+      "Rule going down: add 7",
+      "5 + 7 = 12"
+     ],
+     "mistake": "Gives the next date (6) which is to the right, not below",
+     "check": "5+7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks 3, 6, 12, 24 follows the rule 'add 3'. Is Gappu right? How do we check a rule?",
+    "must": [
+     [
+      "check",
+      "test",
+      "try"
+     ],
+     [
+      "all",
+      "every",
+      "each"
+     ],
+     [
+      "double",
+      "multiply",
+      "times",
+      "twice"
+     ]
+    ],
+    "praise": "Thanks! A rule must work for every number. Here it is 'double it'. Gappu will always check now!",
+    "nudge": "Does 'add 3' work from 6 to 12? What should Gappu check?"
+   }
+  }
+ ]
+}
