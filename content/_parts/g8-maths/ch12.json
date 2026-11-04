@@ -1,114 +1,2401 @@
-{"n": 12, "title": "Tales by Dots and Lines", "emoji": "📈",
-"topics": [
-{"id": "g8-maths-12-01", "title": "Mean, median, mode and range",
- "learn": {
-  "hook": "Kabir scored 12, 30, 45, 30 and 8 runs in five matches. Is he a 30-run batter or a 25-run batter? It depends on which 'average' you use!",
-  "points": [
-   "Data are facts or numbers we collect. Putting them in order or in a table makes them easier to read.",
-   "Mean (the usual average) = sum of all values ÷ number of values.",
-   "Median = the middle value after arranging the data in order. If there are two middle values, take their mean.",
-   "Mode = the value that appears most often.",
-   "Range = largest value − smallest value. It tells how spread out the data are."
-  ],
-  "example": {"q": "Kabir's runs: 12, 30, 45, 30, 8. Find the mean, median, mode and range.", "steps": ["Sum = 12 + 30 + 45 + 30 + 8 = 125; mean = 125 ÷ 5 = 25", "In order: 8, 12, 30, 30, 45; median = 30", "30 appears twice; mode = 30", "Range = 45 − 8 = 37"], "answer": "Mean 25, median 30, mode 30, range 37"},
-  "reallife": "Cricket averages, your class's average marks, and the most popular size of school shoes all come from these ideas."
- },
- "games": [
-  {"type": "match", "title": "Name the measure", "pairs": [["Mean", "sum ÷ number of values"], ["Median", "middle value when in order"], ["Mode", "most frequent value"], ["Range", "largest − smallest"]]},
-  {"type": "speed", "title": "Average sprint", "items": [
-   {"q": "Mean of 4, 7, 7, 9, 13", "a": "8", "check": "(4+7+7+9+13)/5"},
-   {"q": "Median of 4, 7, 7, 9, 13", "a": "7", "check": "7"},
-   {"q": "Mode of 4, 7, 7, 9, 13", "a": "7", "check": "7"},
-   {"q": "Range of 4, 7, 7, 9, 13", "a": "9", "check": "13-4"},
-   {"q": "Mean of 10, 20, 30, 40", "a": "25", "check": "(10+20+30+40)/4"},
-   {"q": "Median of 3, 8, 10, 15", "a": "9", "check": "(8+10)/2"}
-  ]}
- ],
- "quiz": [
-  {"q": "Kabir's scores in 5 matches are 12, 30, 45, 30 and 8. What is his mean score?", "options": ["30", "125", "25", "37"], "answer": 2, "explain": "Sum = 125 and there are 5 matches, so the mean is 125 ÷ 5 = 25.", "steps": ["12 + 30 + 45 + 30 + 8 = 125", "125 ÷ 5 = 25"], "mistake": "Gives the total (125) or the most common score (30)", "check": "(12+30+45+30+8)/5"},
-  {"q": "What is the median of 12, 30, 45, 30, 8?", "options": ["45", "25", "12", "30"], "answer": 3, "explain": "In order: 8, 12, 30, 30, 45. The middle (3rd) value is 30.", "steps": ["Arrange: 8, 12, 30, 30, 45", "Middle value = 30"], "mistake": "Picks the middle value without arranging in order (45)", "check": "30"},
-  {"q": "The heights of 6 plants are 10, 14, 15, 18, 20 and 25 cm. What is the median height?", "options": ["15 cm", "16.5 cm", "18 cm", "17 cm"], "answer": 1, "explain": "With 6 values, the two middle ones are 15 and 18. Median = (15 + 18) ÷ 2 = 16.5 cm.", "steps": ["Middle values: 3rd and 4th = 15 and 18", "(15 + 18) ÷ 2 = 16.5"], "mistake": "Picks one of the two middle values, or finds the mean (17)", "check": "(15+18)/2"},
-  {"q": "Shoe sizes in a group: 5, 6, 6, 7, 6, 8, 5, 6. What is the mode?", "options": ["6", "5", "8", "7"], "answer": 0, "explain": "Size 6 appears 4 times, more than any other size.", "steps": ["5 → 2 times", "6 → 4 times", "7 → 1 time, 8 → 1 time"], "mistake": "Picks the largest value, or the first value in the list", "check": "6", "visual": {"kind": "bars", "items": [["Size 5", 2], ["Size 6", 4], ["Size 7", 1], ["Size 8", 1]]}},
-  {"q": "The mean of 4 numbers is 15. Three of them are 10, 12 and 20. What is the fourth number?", "options": ["15", "42", "18", "3"], "answer": 2, "explain": "Total of all 4 numbers = 4 × 15 = 60. The three known numbers add to 42, so the fourth is 60 − 42 = 18.", "steps": ["Total = 4 × 15 = 60", "10 + 12 + 20 = 42", "60 − 42 = 18"], "mistake": "Thinks the missing number must equal the mean (15)", "check": "4*15-(10+12+20)"},
-  {"q": "The midday temperatures (in °C) for a week were 31, 34, 29, 35, 33, 30 and 32. What is the range in °C?", "options": ["35", "6", "32", "4"], "answer": 1, "explain": "Range = highest − lowest = 35 − 29 = 6.", "steps": ["Highest = 35", "Lowest = 29", "35 − 29 = 6"], "mistake": "Gives the highest value or the median instead of the spread", "check": "35-29"},
-  {"q": "Which measure is best for finding the most popular ice-cream flavour in a class?", "options": ["Mean", "Median", "Mode", "Range"], "answer": 2, "explain": "Flavours are names, not numbers, so we cannot add or order them. The mode tells which flavour was chosen most often.", "mistake": "Thinks the mean is always the right average"},
-  {"q": "Riya's mean mark in 6 tests is 70. After a 7th test her mean becomes 72. What did she score in the 7th test?", "options": ["72", "74", "142", "84"], "answer": 3, "explain": "Total for 6 tests = 6 × 70 = 420. Total for 7 tests = 7 × 72 = 504. So the 7th test = 504 − 420 = 84.", "steps": ["6 × 70 = 420", "7 × 72 = 504", "504 − 420 = 84"], "mistake": "Thinks the new mark is just the new mean, or adds the two means", "check": "7*72-6*70"}
- ],
- "teach": {"ask": "Gappu asks: How do I find the median of 9, 2, 7, 4, 5?", "must": [["order", "arrange", "sort", "smallest to largest"], ["middle", "centre", "center"], ["5", "five"]], "praise": "Put them in order: 2, 4, 5, 7, 9. The middle one is 5. That is the median!", "nudge": "What must you do to the numbers first? Then which one do you pick?"}
-},
-{"id": "g8-maths-12-02", "title": "Bar graphs, dot plots and pie charts",
- "learn": {
-  "hook": "A picture can tell a story faster than a long table. One glance at a graph and you know who won the class election!",
-  "points": [
-   "A bar graph uses bars of equal width with gaps between them. The height (or length) shows the value.",
-   "A double bar graph puts two bars side by side for each category, for example boys and girls.",
-   "A dot plot puts one dot for every value above a number line, so clusters and gaps are easy to spot.",
-   "Always read the scale: if 1 unit = 5 students, a bar 4 units tall shows 20 students. The scale should start at 0.",
-   "A pie chart shows parts of a whole as slices. Slice angle = (part ÷ whole) × 360°."
-  ],
-  "example": {"q": "In a survey of 120 students, 30 like cricket best. What angle should the cricket slice have in a pie chart?", "steps": ["Fraction = 30/120 = 1/4", "Angle = 1/4 × 360°", "= 90°"], "answer": "90°"},
-  "reallife": "News channels show election results as bar graphs and pie charts, and sports apps show runs per over as bars."
- },
- "games": [
-  {"type": "fill", "title": "Graph reading", "items": [
-   {"text": "If 1 unit = 5 students, a bar 6 units tall shows ___ students", "answer": "30", "options": ["30", "11", "6"]},
-   {"text": "A slice that is 1/4 of a pie chart has an angle of ___", "answer": "90°", "options": ["90°", "25°", "45°"]},
-   {"text": "In a dot plot, each dot stands for one data ___", "answer": "value", "options": ["value", "bar", "slice"]},
-   {"text": "All the slices of a pie chart add up to ___", "answer": "360°", "options": ["360°", "180°", "100°"]}
-  ]},
-  {"type": "truefalse", "title": "Graph facts", "items": [
-   ["In a bar graph, the width of a bar shows its value.", false, "All bars have the same width. The height (or length) shows the value."],
-   ["A dot plot shows every single data value.", true, "There is one dot for each value."],
-   ["In a pie chart, a 180° slice shows half of the data.", true, "180° is half of 360°."],
-   ["The scale on a bar graph should start at 0 so that bar heights can be compared fairly.", true, "If the scale starts higher, small differences look huge."],
-   ["A double bar graph can compare two groups side by side.", true, "Two bars for each category make comparing easy."],
-   ["If 1 unit = 10 runs, a bar 3.5 units tall shows 3.5 runs.", false, "3.5 × 10 = 35 runs."]
-  ]}
- ],
- "quiz": [
-  {"q": "A bar graph shows books read in a class library: Mon 4, Tue 7, Wed 3, Thu 6. On which day were the most books read?", "options": ["Monday", "Thursday", "Tuesday", "Wednesday"], "answer": 2, "explain": "Tuesday's bar is the tallest, at 7 books.", "mistake": "Picks the last bar or the first bar instead of the tallest", "visual": {"kind": "bars", "items": [["Mon", 4], ["Tue", 7], ["Wed", 3], ["Thu", 6]]}},
-  {"q": "Books read: Mon 4, Tue 7, Wed 3, Thu 6. How many more books were read on Tuesday than on Wednesday?", "options": ["10", "4", "3", "7"], "answer": 1, "explain": "Tuesday 7 − Wednesday 3 = 4 more books.", "steps": ["7 − 3 = 4"], "mistake": "Adds the two values instead of finding the difference", "check": "7-3", "visual": {"kind": "compare", "a": ["Tue", 7], "b": ["Wed", 3]}},
-  {"q": "On a bar graph, 1 unit stands for 50 trees. A bar is 7 units tall. How many trees does it show?", "options": ["57", "7", "50", "350"], "answer": 3, "explain": "Each unit is 50 trees, so 7 units = 7 × 50 = 350 trees.", "steps": ["7 × 50 = 350"], "mistake": "Reads the bar height without using the scale", "check": "7*50"},
-  {"q": "In a class of 40, 10 students walk to school. What angle should the 'walk' slice have in a pie chart?", "options": ["10°", "90°", "40°", "36°"], "answer": 1, "explain": "10 out of 40 is 1/4 of the class. 1/4 × 360° = 90°.", "steps": ["10/40 = 1/4", "1/4 × 360° = 90°"], "mistake": "Uses the number of students as the angle", "check": "10/40*360", "visual": {"kind": "angle", "deg": 90}},
-  {"q": "A dot plot shows goals scored by a team in its matches: 0 goals (3 dots), 1 goal (5 dots), 2 goals (2 dots), 3 goals (1 dot). How many matches did the team play?", "options": ["11", "4", "6", "12"], "answer": 0, "explain": "Each dot is one match. 3 + 5 + 2 + 1 = 11 matches.", "steps": ["Count all the dots", "3 + 5 + 2 + 1 = 11"], "mistake": "Counts the number of columns (4) instead of the dots", "check": "3+5+2+1"},
-  {"q": "Same dot plot: 0 goals (3 dots), 1 goal (5 dots), 2 goals (2 dots), 3 goals (1 dot). How many goals did the team score in all?", "options": ["11", "6", "12", "15"], "answer": 2, "explain": "Multiply goals by the number of matches: 0 × 3 + 1 × 5 + 2 × 2 + 3 × 1 = 0 + 5 + 4 + 3 = 12.", "steps": ["0 × 3 = 0", "1 × 5 = 5", "2 × 2 = 4", "3 × 1 = 3", "Total = 12"], "mistake": "Counts the dots (matches) instead of the goals", "check": "0*3+1*5+2*2+3*1"},
-  {"q": "Which graph is best for showing what share of the whole each part is, like how Meena spends her day?", "options": ["Line graph", "Pie chart", "Dot plot", "Double bar graph"], "answer": 1, "explain": "A pie chart shows parts of one whole as slices, so you see each part's share at a glance.", "mistake": "Uses a line graph, which shows change over time"},
-  {"q": "A double bar graph shows the children who like each sport. Cricket: boys 12, girls 9. Kabaddi: boys 6, girls 8. How many children like kabaddi?", "options": ["2", "18", "21", "14"], "answer": 3, "explain": "Add both bars for kabaddi: 6 boys + 8 girls = 14 children.", "steps": ["6 + 8 = 14"], "mistake": "Finds the difference between the bars, or adds the cricket bars", "check": "6+8"}
- ],
- "teach": {"ask": "Gappu asks: A bar graph says 1 unit = 20 birds. A bar is 3 units tall. How many birds is that?", "must": [["scale", "unit", "each unit", "1 unit"], ["multiply", "times", "×", "x"], ["60", "sixty"]], "praise": "Each unit is 20 birds, so 3 × 20 = 60 birds. That is a big flock!", "nudge": "What does one unit on the graph stand for? What do you do with the 3?"}
-},
-{"id": "g8-maths-12-03", "title": "Line graphs",
- "learn": {
-  "hook": "A doctor's fever chart, a share-market screen and your height on the door frame all tell stories of change. Line graphs show how things change over time.",
-  "points": [
-   "A line graph plots points for values at different times and joins them with line segments.",
-   "Time usually goes on the horizontal axis and the quantity on the vertical axis.",
-   "A line going up shows an increase, going down shows a decrease, and a flat line shows no change.",
-   "A steeper line means a faster change.",
-   "In a distance–time graph, a straight sloping line means a steady speed; speed = distance ÷ time."
-  ],
-  "example": {"q": "Temperatures: 6 am 18°C, 9 am 22°C, 12 noon 30°C, 3 pm 32°C, 6 pm 26°C. Between which two times did the temperature rise the most?", "steps": ["6 am → 9 am: +4°", "9 am → 12 noon: +8°", "12 noon → 3 pm: +2°", "3 pm → 6 pm: −6° (a fall)"], "answer": "Between 9 am and 12 noon (a rise of 8°)"},
-  "reallife": "Weather reports, a patient's temperature chart and a city's population over the years are all shown as line graphs."
- },
- "games": [
-  {"type": "sort", "title": "Line graph or bar graph?", "buckets": ["Line graph is a good choice", "Bar graph is a better choice"], "items": [["Your height every year from age 5 to 13", 0], ["Temperature every hour of a day", 0], ["A plant's height each week", 0], ["Price of petrol each month for a year", 0], ["Favourite fruits of students in a class", 1], ["Number of students in each section of Class 8", 1], ["Medals won by different countries", 1], ["Runs scored by each player in one match", 1]]},
-  {"type": "fill", "title": "Read the line", "items": [
-   {"text": "A line that goes up from left to right shows an ___", "answer": "increase", "options": ["increase", "decrease", "error"]},
-   {"text": "A flat, horizontal part of a line graph shows ___", "answer": "no change", "options": ["no change", "a big rise", "zero"]},
-   {"text": "In a distance–time graph, a steeper line means a ___ speed", "answer": "faster", "options": ["faster", "slower", "zero"]},
-   {"text": "In a line graph over time, time is usually on the ___ axis", "answer": "horizontal", "options": ["horizontal", "vertical", "slanting"]}
-  ]}
- ],
- "quiz": [
-  {"q": "Temperatures: 6 am 18°C, 9 am 22°C, 12 noon 30°C, 3 pm 32°C, 6 pm 26°C. At which of these times was it hottest?", "options": ["12 noon", "3 pm", "6 pm", "9 am"], "answer": 1, "explain": "The highest point on the graph is 32°C at 3 pm.", "mistake": "Assumes noon is always the hottest time", "visual": {"kind": "bars", "items": [["6 am", 18], ["9 am", 22], ["12 noon", 30], ["3 pm", 32], ["6 pm", 26]]}},
-  {"q": "Using the same temperatures, by how many degrees did it rise from 9 am to 12 noon?", "options": ["30", "52", "8", "4"], "answer": 2, "explain": "30 − 22 = 8 degrees.", "steps": ["12 noon: 30", "9 am: 22", "30 − 22 = 8"], "mistake": "Gives the reading at noon instead of the change", "check": "30-22", "visual": {"kind": "compare", "a": ["9 am", 22], "b": ["12 noon", 30]}},
-  {"q": "Using the same temperatures, between which two times did the temperature fall?", "options": ["6 am and 9 am", "9 am and 12 noon", "12 noon and 3 pm", "3 pm and 6 pm"], "answer": 3, "explain": "From 32°C at 3 pm it went down to 26°C at 6 pm. All other parts go up.", "mistake": "Confuses a smaller rise with a fall"},
-  {"q": "Harpreet's plant was 4 cm in week 1, 7 cm in week 2, 10 cm in week 3 and 13 cm in week 4. If it keeps growing the same way, how tall will it be in week 5?", "options": ["16 cm", "14 cm", "17 cm", "26 cm"], "answer": 0, "explain": "It grows 3 cm every week, so the line keeps the same steepness: 13 + 3 = 16 cm.", "steps": ["7 − 4 = 3, 10 − 7 = 3, 13 − 10 = 3", "13 + 3 = 16"], "mistake": "Adds 1 or doubles instead of continuing the steady +3 pattern", "check": "13+3", "visual": {"kind": "bars", "items": [["Wk 1", 4], ["Wk 2", 7], ["Wk 3", 10], ["Wk 4", 13], ["Wk 5", 16]]}},
-  {"q": "On a line graph, what does a horizontal (flat) part show?", "options": ["The quantity became zero", "The quantity did not change during that time", "The quantity increased quickly", "The graph has a mistake"], "answer": 1, "explain": "If the line stays at the same height, the value stays the same for that time.", "mistake": "Thinks a flat line means the value dropped to zero"},
-  {"q": "A cyclist's distance–time graph is a straight line from 0 km at 0 hours to 45 km at 3 hours. What is the speed in km/h?", "options": ["45", "15", "3", "135"], "answer": 1, "explain": "A straight line means steady speed. Speed = 45 km ÷ 3 h = 15 km/h.", "steps": ["45 ÷ 3 = 15"], "mistake": "Reads the final distance as the speed", "check": "45/3"},
-  {"q": "Which data is best shown with a line graph?", "options": ["Favourite colours of 30 students", "Number of boys and girls in each class", "Your weight every month for a year", "Kinds of trees in a park"], "answer": 2, "explain": "Weight changes over time, and a line graph shows change over time. The others compare separate categories.", "mistake": "Uses a line graph for categories that have no order in time"},
-  {"q": "Aisha's savings were ₹200 in January, ₹350 in February, ₹350 in March and ₹600 in April. During which period did her savings not change?", "options": ["January to February", "February to March", "March to April", "January to April"], "answer": 1, "explain": "Savings were ₹350 in both February and March, so the line is flat there.", "mistake": "Looks for the smallest bar instead of two equal readings", "visual": {"kind": "bars", "items": [["Jan", 200], ["Feb", 350], ["Mar", 350], ["Apr", 600]]}}
- ],
- "teach": {"ask": "Gappu asks: How can I tell from a line graph when something is growing fastest?", "must": [["steep", "steepest", "sharp", "slope"], ["up", "rise", "rising", "goes up", "increase"]], "praise": "Where the line goes up most steeply, the growth is fastest. I can read graphs now!", "nudge": "Look at the different parts of the line. Which part climbs the most in the same time?"}
+{
+ "n": 12,
+ "title": "Tales by Dots and Lines",
+ "emoji": "📈",
+ "topics": [
+  {
+   "id": "g8-maths-12-04",
+   "title": "The mean as a balance point",
+   "covers": [
+    "c12.1.1",
+    "c12.1.2",
+    "c12.1.3"
+   ],
+   "learn": {
+    "hook": "Put coins on a ruler at 2 cm, 4 cm and 9 cm. Where should your finger go to balance it? Exactly at the mean, 5 cm!",
+    "points": [
+     "The mean (average) = sum of values ÷ number of values. It is one way to describe the centre of data.",
+     "The mean is the balance point: the total distance of values above the mean equals the total distance of values below it. For 2, 4, 9 (mean 5): below 3 + 1 = 4, above 4.",
+     "A dot plot puts one dot above a number line for each value. Imagine the line as a see-saw — it balances at the mean.",
+     "This helps find a missing value: if the mean of 4, 6 and x is 7, the values below are 3 + 1 = 4 short, so x must be 4 above: x = 11."
+    ],
+    "example": {
+     "q": "Show that 5 is the balance point of 2, 4 and 9.",
+     "steps": [
+      "Distances below 5: 3 and 1 → total 4",
+      "Distance above 5: 4",
+      "Equal totals, so 5 balances the data",
+      "Check: (2 + 4 + 9) ÷ 3 = 5"
+     ],
+     "answer": "Mean = 5"
+    },
+    "reallife": "Cricket batting averages and average rainfall are means — single numbers that balance all the data."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Balance it",
+     "items": [
+      {
+       "text": "Mean of 3, 5, 10 = ___",
+       "answer": "6",
+       "options": [
+        "6",
+        "5",
+        "18"
+       ]
+      },
+      {
+       "text": "For 3, 5, 10, distance above the mean = ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "5",
+        "10"
+       ]
+      },
+      {
+       "text": "Mean of 4, 6, x is 7, so x = ___",
+       "answer": "11",
+       "options": [
+        "11",
+        "7",
+        "9"
+       ]
+      },
+      {
+       "text": "Mean of 1, 2, 3, 10 = ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "2.5",
+        "16"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Balance point facts",
+     "items": [
+      [
+       "Distances above the mean always balance distances below it.",
+       true,
+       "That is why the mean is the balance point."
+      ],
+      [
+       "The mean must be one of the data values.",
+       false,
+       "The mean of 1 and 2 is 1.5."
+      ],
+      [
+       "A dot plot shows one dot for each value.",
+       true,
+       "So you can see every value."
+      ],
+      [
+       "The mean of 2, 4, 9 is 4.",
+       false,
+       "(2 + 4 + 9) ÷ 3 = 5."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the mean of 3, 5 and 10?",
+     "options": [
+      "5",
+      "18",
+      "6",
+      "7"
+     ],
+     "answer": 2,
+     "explain": "(3 + 5 + 10) ÷ 3 = 18 ÷ 3 = 6.",
+     "steps": [
+      "3 + 5 + 10 = 18",
+      "18 ÷ 3 = 6"
+     ],
+     "mistake": "Gives the middle value (median) or the total",
+     "check": "(3+5+10)/3"
+    },
+    {
+     "q": "For 3, 5 and 10 (mean 6), what is the total distance of the values below the mean?",
+     "options": [
+      "4",
+      "3",
+      "6",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "3 is 3 below and 5 is 1 below: 3 + 1 = 4. It balances 10, which is 4 above.",
+     "steps": [
+      "6 − 3 = 3",
+      "6 − 5 = 1",
+      "3 + 1 = 4"
+     ],
+     "mistake": "Counts only one value",
+     "check": "(6-3)+(6-5)"
+    },
+    {
+     "q": "The mean of 4, 6 and x is 7. What is x?",
+     "options": [
+      "7",
+      "9",
+      "11",
+      "17"
+     ],
+     "answer": 2,
+     "explain": "Below the mean: 3 + 1 = 4. So x must be 4 above 7: x = 11. Check: 21 ÷ 3 = 7.",
+     "steps": [
+      "Total = 3 × 7 = 21",
+      "21 − 4 − 6 = 11"
+     ],
+     "mistake": "Averages the two known values",
+     "check": "3*7-4-6"
+    },
+    {
+     "q": "A dot plot has 2 dots at 3, 1 dot at 4 and 1 dot at 6. What is the mean?",
+     "options": [
+      "3",
+      "4.33",
+      "4",
+      "13"
+     ],
+     "answer": 2,
+     "explain": "Values: 3, 3, 4, 6. Sum = 16, and 16 ÷ 4 = 4.",
+     "steps": [
+      "3 + 3 + 4 + 6 = 16",
+      "16 ÷ 4 = 4"
+     ],
+     "mistake": "Divides by the number of different values (3)",
+     "check": "(3+3+4+6)/4",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "3",
+        2
+       ],
+       [
+        "4",
+        1
+       ],
+       [
+        "5",
+        0
+       ],
+       [
+        "6",
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Why is the mean called the 'balance point' of data?",
+     "options": [
+      "It is always the middle value",
+      "The total distance of values above it equals the total distance below it",
+      "It is the most common value",
+      "It is the largest value minus the smallest"
+     ],
+     "answer": 1,
+     "explain": "Like a see-saw, the values on each side 'weigh' the same amount of distance.",
+     "steps": [
+      "Sum of distances above = sum below"
+     ],
+     "mistake": "Confuses the mean with the median or mode"
+    },
+    {
+     "q": "The mean of 10, 12, 14 and 20 is 14. What is the total distance of the values below the mean?",
+     "options": [
+      "6",
+      "4",
+      "14",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "10 is 4 below and 12 is 2 below: 4 + 2 = 6, which balances 20 (6 above).",
+     "steps": [
+      "14 − 10 = 4",
+      "14 − 12 = 2",
+      "4 + 2 = 6"
+     ],
+     "mistake": "Includes 14, which is not below the mean",
+     "check": "(14-10)+(14-12)"
+    },
+    {
+     "q": "8 friends have a mean of ₹45 pocket money. What is their total?",
+     "options": [
+      "₹53",
+      "₹360",
+      "₹45",
+      "₹400"
+     ],
+     "answer": 1,
+     "explain": "Total = mean × number = 45 × 8 = ₹360.",
+     "steps": [
+      "45 × 8 = 360"
+     ],
+     "mistake": "Adds 8 instead of multiplying",
+     "check": "45*8"
+    },
+    {
+     "q": "Where is the balance point of the data 1, 2, 3, 10?",
+     "options": [
+      "2.5",
+      "3",
+      "4",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "Mean = 16 ÷ 4 = 4. Below: 3 + 2 + 1 = 6; above: 10 − 4 = 6. Balanced.",
+     "steps": [
+      "1 + 2 + 3 + 10 = 16",
+      "16 ÷ 4 = 4"
+     ],
+     "mistake": "Takes the middle of the list",
+     "check": "(1+2+3+10)/4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu put pebbles at 1, 3 and 8 on a stick. Where should he hold it to balance? Explain why!",
+    "must": [
+     [
+      "mean",
+      "average"
+     ],
+     [
+      "4"
+     ],
+     [
+      "distance",
+      "above",
+      "below",
+      "balance"
+     ]
+    ],
+    "praise": "At 4! The pebbles at 1 and 3 are 3 + 1 = 4 below, and 8 is 4 above. Perfect balance!",
+    "nudge": "What is the mean of 1, 3 and 8? How far is each pebble from it?"
+   }
+  },
+  {
+   "id": "g8-maths-12-01",
+   "title": "Mean, median, mode and range",
+   "learn": {
+    "hook": "Kabir scored 12, 30, 45, 30 and 8 runs in five matches. Is he a 30-run batter or a 25-run batter? It depends on which 'average' you use!",
+    "points": [
+     "Data are facts or numbers we collect. Putting them in order or in a table makes them easier to read.",
+     "Mean (the usual average) = sum of all values ÷ number of values.",
+     "Median = the middle value after arranging the data in order. If there are two middle values, take their mean.",
+     "Mode = the value that appears most often.",
+     "Range = largest value − smallest value. It tells how spread out the data are."
+    ],
+    "example": {
+     "q": "Kabir's runs: 12, 30, 45, 30, 8. Find the mean, median, mode and range.",
+     "steps": [
+      "Sum = 12 + 30 + 45 + 30 + 8 = 125; mean = 125 ÷ 5 = 25",
+      "In order: 8, 12, 30, 30, 45; median = 30",
+      "30 appears twice; mode = 30",
+      "Range = 45 − 8 = 37"
+     ],
+     "answer": "Mean 25, median 30, mode 30, range 37"
+    },
+    "reallife": "Cricket averages, your class's average marks, and the most popular size of school shoes all come from these ideas."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Name the measure",
+     "pairs": [
+      [
+       "Mean",
+       "sum ÷ number of values"
+      ],
+      [
+       "Median",
+       "middle value when in order"
+      ],
+      [
+       "Mode",
+       "most frequent value"
+      ],
+      [
+       "Range",
+       "largest − smallest"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Average sprint",
+     "items": [
+      {
+       "q": "Mean of 4, 7, 7, 9, 13",
+       "a": "8",
+       "check": "(4+7+7+9+13)/5"
+      },
+      {
+       "q": "Median of 4, 7, 7, 9, 13",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "Mode of 4, 7, 7, 9, 13",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "Range of 4, 7, 7, 9, 13",
+       "a": "9",
+       "check": "13-4"
+      },
+      {
+       "q": "Mean of 10, 20, 30, 40",
+       "a": "25",
+       "check": "(10+20+30+40)/4"
+      },
+      {
+       "q": "Median of 3, 8, 10, 15",
+       "a": "9",
+       "check": "(8+10)/2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Kabir's scores in 5 matches are 12, 30, 45, 30 and 8. What is his mean score?",
+     "options": [
+      "30",
+      "125",
+      "25",
+      "37"
+     ],
+     "answer": 2,
+     "explain": "Sum = 125 and there are 5 matches, so the mean is 125 ÷ 5 = 25.",
+     "steps": [
+      "12 + 30 + 45 + 30 + 8 = 125",
+      "125 ÷ 5 = 25"
+     ],
+     "mistake": "Gives the total (125) or the most common score (30)",
+     "check": "(12+30+45+30+8)/5"
+    },
+    {
+     "q": "What is the median of 12, 30, 45, 30, 8?",
+     "options": [
+      "45",
+      "25",
+      "12",
+      "30"
+     ],
+     "answer": 3,
+     "explain": "In order: 8, 12, 30, 30, 45. The middle (3rd) value is 30.",
+     "steps": [
+      "Arrange: 8, 12, 30, 30, 45",
+      "Middle value = 30"
+     ],
+     "mistake": "Picks the middle value without arranging in order (45)",
+     "check": "30"
+    },
+    {
+     "q": "The heights of 6 plants are 10, 14, 15, 18, 20 and 25 cm. What is the median height?",
+     "options": [
+      "15 cm",
+      "16.5 cm",
+      "18 cm",
+      "17 cm"
+     ],
+     "answer": 1,
+     "explain": "With 6 values, the two middle ones are 15 and 18. Median = (15 + 18) ÷ 2 = 16.5 cm.",
+     "steps": [
+      "Middle values: 3rd and 4th = 15 and 18",
+      "(15 + 18) ÷ 2 = 16.5"
+     ],
+     "mistake": "Picks one of the two middle values, or finds the mean (17)",
+     "check": "(15+18)/2"
+    },
+    {
+     "q": "Shoe sizes in a group: 5, 6, 6, 7, 6, 8, 5, 6. What is the mode?",
+     "options": [
+      "6",
+      "5",
+      "8",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "Size 6 appears 4 times, more than any other size.",
+     "steps": [
+      "5 → 2 times",
+      "6 → 4 times",
+      "7 → 1 time, 8 → 1 time"
+     ],
+     "mistake": "Picks the largest value, or the first value in the list",
+     "check": "6",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "Size 5",
+        2
+       ],
+       [
+        "Size 6",
+        4
+       ],
+       [
+        "Size 7",
+        1
+       ],
+       [
+        "Size 8",
+        1
+       ]
+      ]
+     }
+    },
+    {
+     "q": "The mean of 4 numbers is 15. Three of them are 10, 12 and 20. What is the fourth number?",
+     "options": [
+      "15",
+      "42",
+      "18",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "Total of all 4 numbers = 4 × 15 = 60. The three known numbers add to 42, so the fourth is 60 − 42 = 18.",
+     "steps": [
+      "Total = 4 × 15 = 60",
+      "10 + 12 + 20 = 42",
+      "60 − 42 = 18"
+     ],
+     "mistake": "Thinks the missing number must equal the mean (15)",
+     "check": "4*15-(10+12+20)"
+    },
+    {
+     "q": "The midday temperatures (in °C) for a week were 31, 34, 29, 35, 33, 30 and 32. What is the range in °C?",
+     "options": [
+      "35",
+      "6",
+      "32",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "Range = highest − lowest = 35 − 29 = 6.",
+     "steps": [
+      "Highest = 35",
+      "Lowest = 29",
+      "35 − 29 = 6"
+     ],
+     "mistake": "Gives the highest value or the median instead of the spread",
+     "check": "35-29"
+    },
+    {
+     "q": "Which measure is best for finding the most popular ice-cream flavour in a class?",
+     "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Range"
+     ],
+     "answer": 2,
+     "explain": "Flavours are names, not numbers, so we cannot add or order them. The mode tells which flavour was chosen most often.",
+     "mistake": "Thinks the mean is always the right average"
+    },
+    {
+     "q": "Riya's mean mark in 6 tests is 70. After a 7th test her mean becomes 72. What did she score in the 7th test?",
+     "options": [
+      "72",
+      "74",
+      "142",
+      "84"
+     ],
+     "answer": 3,
+     "explain": "Total for 6 tests = 6 × 70 = 420. Total for 7 tests = 7 × 72 = 504. So the 7th test = 504 − 420 = 84.",
+     "steps": [
+      "6 × 70 = 420",
+      "7 × 72 = 504",
+      "504 − 420 = 84"
+     ],
+     "mistake": "Thinks the new mark is just the new mean, or adds the two means",
+     "check": "7*72-6*70"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: How do I find the median of 9, 2, 7, 4, 5?",
+    "must": [
+     [
+      "order",
+      "arrange",
+      "sort",
+      "smallest to largest"
+     ],
+     [
+      "middle",
+      "centre",
+      "center"
+     ],
+     [
+      "5",
+      "five"
+     ]
+    ],
+    "praise": "Put them in order: 2, 4, 5, 7, 9. The middle one is 5. That is the median!",
+    "nudge": "What must you do to the numbers first? Then which one do you pick?"
+   },
+   "covers": [
+    "c12.1.1",
+    "c12.1.4",
+    "c12.3.1",
+    "c12.4.1"
+   ]
+  },
+  {
+   "id": "g8-maths-12-05",
+   "title": "Tinkering with the mean",
+   "covers": [
+    "c12.2.1",
+    "c12.2.2",
+    "c12.2.3",
+    "c12.2.4",
+    "c12.2.5"
+   ],
+   "learn": {
+    "hook": "A new player scoring 26 joins a team whose mean is 20. Does the mean go up, down or stay? You can tell without any calculation!",
+    "points": [
+     "Adding a value above the mean raises the mean; adding one below lowers it; adding one equal to the mean keeps it the same.",
+     "Removing a value above the mean lowers the mean; removing one below raises it.",
+     "Adding a balanced pair — one value d above and one d below the mean — keeps the mean the same.",
+     "Adding the same number c to every value adds c to the mean. Multiplying every value by k multiplies the mean by k.",
+     "Fixing a wrong entry: mean 40 for 10 values, but 25 was written as 52. Correct total = 400 − 52 + 25 = 373, so the correct mean is 37.3."
+    ],
+    "example": {
+     "q": "5 players have a mean score of 20. A sixth scores 26. What is the new mean?",
+     "steps": [
+      "Old total = 5 × 20 = 100",
+      "New total = 126",
+      "126 ÷ 6 = 21"
+     ],
+     "answer": "21 (it went up)"
+    },
+    "reallife": "Teachers correct averages when a mark was entered wrongly — this is exactly how they do it."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "What happens to the mean?",
+     "buckets": [
+      "Goes up",
+      "Goes down",
+      "Stays the same"
+     ],
+     "items": [
+      [
+       "Add a value above the mean",
+       0
+      ],
+      [
+       "Remove a value below the mean",
+       0
+      ],
+      [
+       "Add 5 to every value",
+       0
+      ],
+      [
+       "Add a value below the mean",
+       1
+      ],
+      [
+       "Remove a value above the mean",
+       1
+      ],
+      [
+       "Add a value equal to the mean",
+       2
+      ],
+      [
+       "Add one value 3 above and one 3 below",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "New mean",
+     "items": [
+      {
+       "q": "Mean 20 of 5 values; add 26",
+       "a": "21",
+       "check": "(100+26)/6"
+      },
+      {
+       "q": "Mean 12; add 5 to every value",
+       "a": "17",
+       "check": "12+5"
+      },
+      {
+       "q": "Mean 8; multiply every value by 3",
+       "a": "24",
+       "check": "8*3"
+      },
+      {
+       "q": "Mean 20; add 15 and 25",
+       "a": "20",
+       "check": "20"
+      },
+      {
+       "q": "Mean 10 of 4 values; remove a 4",
+       "a": "12",
+       "check": "(40-4)/3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "5 values have a mean of 20. A sixth value, 26, is added. What is the new mean?",
+     "options": [
+      "23",
+      "21",
+      "20",
+      "26"
+     ],
+     "answer": 1,
+     "explain": "New total = 100 + 26 = 126, and 126 ÷ 6 = 21. The mean rises because 26 is above 20.",
+     "steps": [
+      "5 × 20 = 100",
+      "126 ÷ 6 = 21"
+     ],
+     "mistake": "Averages 20 and 26",
+     "check": "(100+26)/6"
+    },
+    {
+     "q": "5 values have a mean of 20. One value, 30, is removed. What is the new mean?",
+     "options": [
+      "20",
+      "25",
+      "17.5",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "New total = 100 − 30 = 70, and 70 ÷ 4 = 17.5. Removing a value above the mean lowers it.",
+     "steps": [
+      "100 − 30 = 70",
+      "70 ÷ 4 = 17.5"
+     ],
+     "mistake": "Divides by 5 again instead of 4",
+     "check": "(100-30)/4"
+    },
+    {
+     "q": "Data with a mean of 20 has two new values added: 15 and 25. What is the new mean?",
+     "options": [
+      "20",
+      "40",
+      "22.5",
+      "17.5"
+     ],
+     "answer": 0,
+     "explain": "15 is 5 below and 25 is 5 above — a balanced pair — so the mean stays 20.",
+     "steps": [
+      "15 and 25 balance around 20"
+     ],
+     "mistake": "Thinks adding values always changes the mean",
+     "check": "20"
+    },
+    {
+     "q": "The mean of some marks is 12. Every student gets 5 bonus marks. What is the new mean?",
+     "options": [
+      "12",
+      "60",
+      "13",
+      "17"
+     ],
+     "answer": 3,
+     "explain": "Adding 5 to every value adds 5 to the mean: 12 + 5 = 17.",
+     "steps": [
+      "12 + 5 = 17"
+     ],
+     "mistake": "Multiplies by 5 instead of adding",
+     "check": "12+5"
+    },
+    {
+     "q": "The mean of some lengths is 8 cm. Every length is tripled. What is the new mean?",
+     "options": [
+      "11 cm",
+      "24 cm",
+      "8 cm",
+      "16 cm"
+     ],
+     "answer": 1,
+     "explain": "Multiplying every value by 3 multiplies the mean by 3: 8 × 3 = 24 cm.",
+     "steps": [
+      "8 × 3 = 24"
+     ],
+     "mistake": "Adds 3 instead of multiplying",
+     "check": "8*3"
+    },
+    {
+     "q": "The mean of 10 marks was found to be 40, but one mark of 25 had been entered as 52. What is the correct mean?",
+     "options": [
+      "37.3",
+      "40",
+      "42.7",
+      "37.5"
+     ],
+     "answer": 0,
+     "explain": "Wrong total = 400. Correct total = 400 − 52 + 25 = 373, so the mean is 37.3.",
+     "steps": [
+      "400 − 52 + 25 = 373",
+      "373 ÷ 10 = 37.3"
+     ],
+     "mistake": "Adds the error instead of subtracting it",
+     "check": "(400-52+25)/10"
+    },
+    {
+     "q": "A value exactly equal to the mean is added to the data. What happens to the mean?",
+     "options": [
+      "It goes up",
+      "It goes down",
+      "It stays the same",
+      "It doubles"
+     ],
+     "answer": 2,
+     "explain": "The new value is 0 away from the mean, so the balance does not change.",
+     "steps": [
+      "Distance from mean = 0"
+     ],
+     "mistake": "Thinks any new value shifts the mean"
+    },
+    {
+     "q": "The mean of 4 values is 50. A fifth value makes the mean 52. What is the fifth value?",
+     "options": [
+      "52",
+      "2",
+      "54",
+      "60"
+     ],
+     "answer": 3,
+     "explain": "Old total = 200, new total = 5 × 52 = 260. Fifth value = 260 − 200 = 60.",
+     "steps": [
+      "4 × 50 = 200",
+      "5 × 52 = 260",
+      "260 − 200 = 60"
+     ],
+     "mistake": "Takes the new mean as the new value",
+     "check": "5*52-4*50"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's class has a mean height of 140 cm. A new student who is 150 cm joins. Gappu says the mean stays 140. Is he right?",
+    "must": [
+     [
+      "above",
+      "taller",
+      "more than"
+     ],
+     [
+      "up",
+      "rise",
+      "increase",
+      "goes up"
+     ],
+     [
+      "total",
+      "sum"
+     ]
+    ],
+    "praise": "No! The new student is above the mean, so the mean goes up a little. Balance tips upward!",
+    "nudge": "Is 150 above or below the mean? What does that do to the balance?"
+   }
+  },
+  {
+   "id": "g8-maths-12-06",
+   "title": "Median versus mean",
+   "covers": [
+    "c12.3.2",
+    "c12.3.3",
+    "c12.3.4"
+   ],
+   "learn": {
+    "hook": "Five shopkeepers earn ₹12k, ₹14k, ₹15k, ₹16k — and one earns ₹2 lakh. Which 'average' tells the true story?",
+    "points": [
+     "Adding a very large value moves the median only one step, but can drag the mean far away. 3, 5, 7, 9, 11 has mean and median 7; add 100 and the median becomes 8 but the mean jumps to 22.5.",
+     "Removing a value also shifts the median by at most a step: 2, 4, 6, 8, 10 → remove 10 → median moves from 6 to 5.",
+     "The median is less affected by extreme values (outliers) than the mean.",
+     "Choose the median when there are extreme values (incomes, house prices). Choose the mean when the values are fairly even and you want to use every value."
+    ],
+    "example": {
+     "q": "Find the mean and median of 3, 5, 7, 9, 11, 100.",
+     "steps": [
+      "Median: middle two are 7 and 9 → 8",
+      "Mean: (35 + 100) ÷ 6 = 22.5",
+      "The single 100 pulls the mean far more than the median"
+     ],
+     "answer": "Median 8, mean 22.5"
+    },
+    "reallife": "News reports often give the 'median income' because a few very rich people would push the mean up."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which average fits better?",
+     "buckets": [
+      "Median",
+      "Mean"
+     ],
+     "items": [
+      [
+       "Salaries in a company with one very high salary",
+       0
+      ],
+      [
+       "House prices in a city with a few palaces",
+       0
+      ],
+      [
+       "Pocket money where one child gets ₹5000",
+       0
+      ],
+      [
+       "Daily temperatures over a week",
+       1
+      ],
+      [
+       "Marks of a class with no extreme scores",
+       1
+      ],
+      [
+       "Heights of students in one class",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Middle values",
+     "items": [
+      {
+       "q": "Median of 3, 5, 7, 9, 11",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "Median of 3, 5, 7, 9, 11, 100",
+       "a": "8",
+       "check": "(7+9)/2"
+      },
+      {
+       "q": "Median of 2, 4, 6, 8",
+       "a": "5",
+       "check": "(4+6)/2"
+      },
+      {
+       "q": "Median of 4, 8, 15, 16, 23, 42",
+       "a": "15.5",
+       "check": "(15+16)/2"
+      },
+      {
+       "q": "Median of 1, 4, 6, 8",
+       "a": "5",
+       "check": "(4+6)/2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "3, 5, 7, 9, 11 has median 7. After adding 100, what is the median?",
+     "options": [
+      "7",
+      "8",
+      "53.5",
+      "22.5"
+     ],
+     "answer": 1,
+     "explain": "Six values now: 3, 5, 7, 9, 11, 100. The middle two are 7 and 9, so the median is 8.",
+     "steps": [
+      "Middle two: 7 and 9",
+      "(7 + 9) ÷ 2 = 8"
+     ],
+     "mistake": "Does not re-find the middle after adding a value",
+     "check": "(7+9)/2"
+    },
+    {
+     "q": "3, 5, 7, 9, 11 has mean 7. After adding 100, what is the mean?",
+     "options": [
+      "8",
+      "7",
+      "53.5",
+      "22.5"
+     ],
+     "answer": 3,
+     "explain": "(35 + 100) ÷ 6 = 135 ÷ 6 = 22.5. One extreme value pulls the mean up a lot.",
+     "steps": [
+      "3 + 5 + 7 + 9 + 11 = 35",
+      "135 ÷ 6 = 22.5"
+     ],
+     "mistake": "Gives the median",
+     "check": "(35+100)/6"
+    },
+    {
+     "q": "Which measure is less affected by one extremely large value?",
+     "options": [
+      "Mean",
+      "Total",
+      "Median",
+      "Range"
+     ],
+     "answer": 2,
+     "explain": "The median depends only on the middle position, so one extreme value moves it at most one step.",
+     "steps": [
+      "Mean uses every value's size",
+      "Median uses only the order"
+     ],
+     "mistake": "Thinks the mean resists outliers"
+    },
+    {
+     "q": "Monthly salaries in a small shop: ₹12,000, ₹14,000, ₹15,000, ₹16,000 and ₹2,00,000. Which value best describes a typical salary?",
+     "options": [
+      "The mean, ₹51,400",
+      "The median, ₹15,000",
+      "The largest, ₹2,00,000",
+      "The smallest, ₹12,000"
+     ],
+     "answer": 1,
+     "explain": "The mean is pulled up to ₹51,400 by one large salary; the median ₹15,000 is closer to what most people earn.",
+     "steps": [
+      "Mean = 2,57,000 ÷ 5 = 51,400",
+      "Median = 15,000"
+     ],
+     "mistake": "Uses the mean when there is an extreme value"
+    },
+    {
+     "q": "From 2, 4, 6, 8, 10 the largest value is removed. What is the new median?",
+     "options": [
+      "6",
+      "5",
+      "4",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "2, 4, 6, 8 has middle values 4 and 6, so the median is 5.",
+     "steps": [
+      "(4 + 6) ÷ 2 = 5"
+     ],
+     "mistake": "Keeps the old median",
+     "check": "(4+6)/2"
+    },
+    {
+     "q": "What is the median of 4, 8, 15, 16, 23, 42?",
+     "options": [
+      "16",
+      "19.5",
+      "15.5",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "The middle two values are 15 and 16, so the median is 15.5.",
+     "steps": [
+      "(15 + 16) ÷ 2 = 15.5"
+     ],
+     "mistake": "Picks one of the two middle values",
+     "check": "(15+16)/2"
+    },
+    {
+     "q": "The value 1 is added to the data 4, 6, 8. What is the new median?",
+     "options": [
+      "6",
+      "5",
+      "4",
+      "4.75"
+     ],
+     "answer": 1,
+     "explain": "1, 4, 6, 8 has middle values 4 and 6, so the median is 5.",
+     "steps": [
+      "Order: 1, 4, 6, 8",
+      "(4 + 6) ÷ 2 = 5"
+     ],
+     "mistake": "Forgets to put the new value in order",
+     "check": "(4+6)/2"
+    },
+    {
+     "q": "When is the mean a good choice to describe data?",
+     "options": [
+      "Only when there is one huge value",
+      "Never",
+      "When the values are fairly even, with no extreme values",
+      "Only for words, not numbers"
+     ],
+     "answer": 2,
+     "explain": "Without outliers, the mean uses every value and gives a fair centre.",
+     "steps": [
+      "No outliers → mean works well"
+     ],
+     "mistake": "Thinks the mean is always best"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's flock: four birds have 2 worms each and one greedy bird has 40. Gappu says the 'average bird' has 9.6 worms. Is that fair?",
+    "must": [
+     [
+      "median",
+      "middle"
+     ],
+     [
+      "2"
+     ],
+     [
+      "extreme",
+      "outlier",
+      "greedy",
+      "one big"
+     ]
+    ],
+    "praise": "The mean is 9.6, but the median is 2 — and that's what a typical bird really has! The greedy bird pulled the mean up.",
+    "nudge": "What is the middle value when you put the worm counts in order?"
+   }
+  },
+  {
+   "id": "g8-maths-12-07",
+   "title": "Mean and median from frequency tables",
+   "covers": [
+    "c12.5.1",
+    "c12.5.2",
+    "c12.5.3"
+   ],
+   "learn": {
+    "hook": "A survey of 20 families gives sizes 2, 3, 4 or 5. Instead of writing 20 numbers, we use a frequency table — and can still find the mean and median.",
+    "points": [
+     "A frequency table lists each value x and how many times it occurs (frequency f).",
+     "Mean = (sum of x × f) ÷ (sum of f). Family sizes 2, 3, 4, 5 with frequencies 3, 5, 8, 4: Σxf = 6 + 15 + 32 + 20 = 73 and Σf = 20, so the mean is 3.65.",
+     "Median: find the middle position(s), then use cumulative frequency (running totals) to see which value sits there. With 20 values, look at positions 10 and 11.",
+     "Cumulative frequencies 3, 8, 16, 20 show positions 9 to 16 have size 4, so the median family size is 4.",
+     "Such tables summarise real data like family sizes, bags harvested per farmer or goals per match."
+    ],
+    "example": {
+     "q": "Find the mean number of goals: 0 goals in 4 matches, 1 in 6, 2 in 5, 3 in 5.",
+     "steps": [
+      "Σf = 4 + 6 + 5 + 5 = 20",
+      "Σxf = 0 + 6 + 10 + 15 = 31",
+      "Mean = 31 ÷ 20 = 1.55"
+     ],
+     "answer": "1.55 goals per match"
+    },
+    "reallife": "Village panchayats and health workers summarise family sizes and harvests in frequency tables."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Family sizes: 2 (3), 3 (5), 4 (8), 5 (4)",
+     "items": [
+      {
+       "text": "Total families Σf = ___",
+       "answer": "20",
+       "options": [
+        "20",
+        "14",
+        "4"
+       ]
+      },
+      {
+       "text": "Σxf = ___",
+       "answer": "73",
+       "options": [
+        "73",
+        "20",
+        "14"
+       ]
+      },
+      {
+       "text": "Cumulative frequency up to size 3 = ___",
+       "answer": "8",
+       "options": [
+        "8",
+        "5",
+        "3"
+       ]
+      },
+      {
+       "text": "Median family size = ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "3",
+        "3.5"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Median from a table",
+     "prompt": "Put the steps in order",
+     "items": [
+      "Add the frequencies to find the total n",
+      "Find the middle position(s)",
+      "Write the cumulative frequencies",
+      "See which value the middle position falls in"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Family sizes 2, 3, 4, 5 have frequencies 3, 5, 8, 4. What is the mean family size?",
+     "options": [
+      "3.5",
+      "4",
+      "3.65",
+      "14"
+     ],
+     "answer": 2,
+     "explain": "Σxf = 6 + 15 + 32 + 20 = 73 and Σf = 20, so the mean is 73 ÷ 20 = 3.65.",
+     "steps": [
+      "Σxf = 73",
+      "Σf = 20",
+      "73 ÷ 20 = 3.65"
+     ],
+     "mistake": "Averages the four sizes without using the frequencies",
+     "check": "(2*3+3*5+4*8+5*4)/20"
+    },
+    {
+     "q": "For the same table (sizes 2, 3, 4, 5 with frequencies 3, 5, 8, 4), what is the median family size?",
+     "options": [
+      "3",
+      "4",
+      "3.5",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "There are 20 families, so look at positions 10 and 11. Cumulative frequencies 3, 8, 16 show both are size 4.",
+     "steps": [
+      "Positions 10 and 11",
+      "Cumulative: 3, 8, 16, 20",
+      "Both in size 4"
+     ],
+     "mistake": "Takes the middle of the list of sizes",
+     "check": "4"
+    },
+    {
+     "q": "For the same table, how many families are there in all?",
+     "options": [
+      "20",
+      "4",
+      "14",
+      "73"
+     ],
+     "answer": 0,
+     "explain": "Add the frequencies: 3 + 5 + 8 + 4 = 20.",
+     "steps": [
+      "3 + 5 + 8 + 4 = 20"
+     ],
+     "mistake": "Adds the sizes instead of the frequencies",
+     "check": "3+5+8+4"
+    },
+    {
+     "q": "Farmers harvested 10 bags (2 farmers), 12 bags (5 farmers) or 15 bags (3 farmers). What is the mean harvest per farmer?",
+     "options": [
+      "12.33",
+      "12",
+      "37",
+      "12.5"
+     ],
+     "answer": 3,
+     "explain": "Σxf = 20 + 60 + 45 = 125 and Σf = 10, so the mean is 12.5 bags.",
+     "steps": [
+      "2 × 10 + 5 × 12 + 3 × 15 = 125",
+      "125 ÷ 10 = 12.5"
+     ],
+     "mistake": "Averages 10, 12 and 15 directly",
+     "check": "(2*10+5*12+3*15)/10"
+    },
+    {
+     "q": "For the same harvest table, what is the median number of bags?",
+     "options": [
+      "12.5",
+      "13.5",
+      "12",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "10 farmers → positions 5 and 6. Cumulative 2, 7, 10 shows both are 12 bags.",
+     "steps": [
+      "Positions 5 and 6",
+      "Cumulative: 2, 7, 10",
+      "Both are 12"
+     ],
+     "mistake": "Uses the mean instead",
+     "check": "12"
+    },
+    {
+     "q": "For the same harvest table, what is the cumulative frequency up to 12 bags?",
+     "options": [
+      "5",
+      "12",
+      "2",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "Running total: 2 (for 10 bags) + 5 (for 12 bags) = 7.",
+     "steps": [
+      "2 + 5 = 7"
+     ],
+     "mistake": "Gives only the frequency of 12 bags",
+     "check": "2+5"
+    },
+    {
+     "q": "A team scored 0 goals in 4 matches, 1 in 6, 2 in 5 and 3 in 5. What is the mean number of goals per match?",
+     "options": [
+      "1.5",
+      "2",
+      "7.75",
+      "1.55"
+     ],
+     "answer": 3,
+     "explain": "Σxf = 0 + 6 + 10 + 15 = 31 over 20 matches: 31 ÷ 20 = 1.55.",
+     "steps": [
+      "Σxf = 31",
+      "Σf = 20",
+      "31 ÷ 20 = 1.55"
+     ],
+     "mistake": "Divides by the number of different goal values",
+     "check": "31/20"
+    },
+    {
+     "q": "For the same goals table, what is the median number of goals?",
+     "options": [
+      "1",
+      "1.5",
+      "2",
+      "1.55"
+     ],
+     "answer": 1,
+     "explain": "20 matches → positions 10 and 11. Cumulative 4, 10, 15: position 10 is 1 goal and position 11 is 2 goals. Median = 1.5.",
+     "steps": [
+      "Position 10 → 1",
+      "Position 11 → 2",
+      "(1 + 2) ÷ 2 = 1.5"
+     ],
+     "mistake": "Looks at only one middle position",
+     "check": "(1+2)/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu counted seeds per pod: 3 seeds (2 pods), 4 seeds (5 pods), 5 seeds (3 pods). How can he find the mean?",
+    "must": [
+     [
+      "multiply",
+      "×",
+      "times"
+     ],
+     [
+      "frequency",
+      "pods",
+      "total"
+     ],
+     [
+      "divide",
+      "÷",
+      "4.1"
+     ]
+    ],
+    "praise": "6 + 20 + 15 = 41 seeds in 10 pods, so the mean is 4.1. Frequency tables save so much writing!",
+    "nudge": "What do you multiply each seed count by? What do you divide by?"
+   }
+  },
+  {
+   "id": "g8-maths-12-08",
+   "title": "Spreadsheets for data",
+   "covers": [
+    "c12.6.1",
+    "c12.6.2"
+   ],
+   "learn": {
+    "hook": "Typing 50 marks and adding them by hand is slow. A spreadsheet adds them instantly — and updates the total when a mark changes!",
+    "points": [
+     "A spreadsheet is a grid of cells. Columns are named by letters (A, B, C, ...) and rows by numbers (1, 2, 3, ...). Cell C4 is in column C, row 4.",
+     "A formula starts with '='. =B2*C2 multiplies the values in B2 and C2.",
+     "=SUM(B2:B6) adds all the cells from B2 to B6 (5 cells). =AVERAGE(B2:B6) finds their mean.",
+     "If you change a value, every formula that uses it updates automatically."
+    ],
+    "example": {
+     "q": "Cells B2 to B6 hold 10, 20, 30, 40, 50. What do =SUM(B2:B6) and =AVERAGE(B2:B6) show?",
+     "steps": [
+      "SUM: 10 + 20 + 30 + 40 + 50 = 150",
+      "The range has 5 cells",
+      "AVERAGE: 150 ÷ 5 = 30"
+     ],
+     "answer": "150 and 30"
+    },
+    "reallife": "Shopkeepers, school offices and cricket scorers keep their records in spreadsheets."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Spreadsheet words",
+     "pairs": [
+      [
+       "Cell D7",
+       "Column D, row 7"
+      ],
+      [
+       "=SUM(A1:A10)",
+       "Total of A1 to A10"
+      ],
+      [
+       "=AVERAGE(B2:B6)",
+       "Mean of B2 to B6"
+      ],
+      [
+       "=B2*C2",
+       "B2 times C2"
+      ],
+      [
+       "Row",
+       "A horizontal line of cells, named by a number"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Spreadsheet check",
+     "items": [
+      [
+       "A spreadsheet formula starts with '='.",
+       true,
+       "For example =SUM(B2:B6)."
+      ],
+      [
+       "The range B2:B6 contains 4 cells.",
+       false,
+       "B2, B3, B4, B5, B6 — that is 5 cells."
+      ],
+      [
+       "Changing a cell value updates the totals that use it.",
+       true,
+       "Formulas recalculate automatically."
+      ],
+      [
+       "Columns in a spreadsheet are named by numbers.",
+       false,
+       "Columns use letters; rows use numbers."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which cell is in column D and row 7?",
+     "options": [
+      "D7",
+      "7D",
+      "G4",
+      "D-7th"
+     ],
+     "answer": 0,
+     "explain": "A cell name is its column letter followed by its row number: D7.",
+     "steps": [
+      "Column letter + row number"
+     ],
+     "mistake": "Writes the row before the column"
+    },
+    {
+     "q": "How many cells are in the range B2:B6?",
+     "options": [
+      "4",
+      "6",
+      "5",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "B2, B3, B4, B5 and B6 — five cells.",
+     "steps": [
+      "6 − 2 + 1 = 5"
+     ],
+     "mistake": "Subtracts 6 − 2 and forgets to count both ends",
+     "check": "6-2+1"
+    },
+    {
+     "q": "Cells B2 to B6 hold 10, 20, 30, 40, 50. What does =SUM(B2:B6) show?",
+     "options": [
+      "30",
+      "50",
+      "10",
+      "150"
+     ],
+     "answer": 3,
+     "explain": "SUM adds all the cells: 10 + 20 + 30 + 40 + 50 = 150.",
+     "steps": [
+      "10 + 20 + 30 + 40 + 50 = 150"
+     ],
+     "mistake": "Gives the mean instead",
+     "check": "10+20+30+40+50"
+    },
+    {
+     "q": "Cells B2 to B6 hold 10, 20, 30, 40, 50. What does =AVERAGE(B2:B6) show?",
+     "options": [
+      "30",
+      "150",
+      "25",
+      "50"
+     ],
+     "answer": 0,
+     "explain": "AVERAGE = 150 ÷ 5 = 30.",
+     "steps": [
+      "Sum 150",
+      "150 ÷ 5 = 30"
+     ],
+     "mistake": "Divides by 6 (the last row number)",
+     "check": "150/5"
+    },
+    {
+     "q": "Which formula finds the total of cells A1 to A10?",
+     "options": [
+      "=SUM(A1:A10)",
+      "=AVERAGE(A1:A10)",
+      "=A1+A10",
+      "SUM A1 to A10"
+     ],
+     "answer": 0,
+     "explain": "=SUM(A1:A10) adds every cell from A1 to A10. =A1+A10 adds only two cells.",
+     "steps": [
+      "SUM over a range"
+     ],
+     "mistake": "Adds only the first and last cells"
+    },
+    {
+     "q": "In the same sheet (10, 20, 30, 40, 50 in B2:B6), B4 is changed from 30 to 60. What does =SUM(B2:B6) show now?",
+     "options": [
+      "150",
+      "180",
+      "60",
+      "210"
+     ],
+     "answer": 1,
+     "explain": "The total goes up by 30: 150 + 30 = 180. The formula updates by itself.",
+     "steps": [
+      "150 − 30 + 60 = 180"
+     ],
+     "mistake": "Thinks the total stays the same",
+     "check": "150-30+60"
+    },
+    {
+     "q": "In a spreadsheet, what is a row?",
+     "options": [
+      "A vertical line of cells, named by a letter",
+      "A single cell",
+      "A horizontal line of cells, named by a number",
+      "A formula"
+     ],
+     "answer": 2,
+     "explain": "Rows go across and are numbered; columns go down and are lettered.",
+     "steps": [
+      "Row → number, across",
+      "Column → letter, down"
+     ],
+     "mistake": "Mixes up rows and columns"
+    },
+    {
+     "q": "B2 holds 4 (number of pens) and C2 holds 15 (price in ₹). What does =B2*C2 show?",
+     "options": [
+      "19",
+      "415",
+      "60",
+      "11"
+     ],
+     "answer": 2,
+     "explain": "The * sign means multiply: 4 × 15 = 60.",
+     "steps": [
+      "4 × 15 = 60"
+     ],
+     "mistake": "Adds the two cells",
+     "check": "4*15"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu typed 5 marks into cells B2 to B6. He wants the class average. What formula should he type?",
+    "must": [
+     [
+      "=average",
+      "average"
+     ],
+     [
+      "b2:b6",
+      "b2",
+      "range"
+     ],
+     [
+      "="
+     ]
+    ],
+    "praise": "=AVERAGE(B2:B6)! The spreadsheet does the adding and dividing for me.",
+    "nudge": "Which function finds the mean? Which cells should it use?"
+   }
+  },
+  {
+   "id": "g8-maths-12-02",
+   "title": "Bar graphs, dot plots and pie charts",
+   "learn": {
+    "hook": "A picture can tell a story faster than a long table. One glance at a graph and you know who won the class election!",
+    "points": [
+     "A bar graph uses bars of equal width with gaps between them. The height (or length) shows the value.",
+     "A double bar graph puts two bars side by side for each category, for example boys and girls.",
+     "A dot plot puts one dot for every value above a number line, so clusters and gaps are easy to spot.",
+     "Always read the scale: if 1 unit = 5 students, a bar 4 units tall shows 20 students. The scale should start at 0.",
+     "A pie chart shows parts of a whole as slices. Slice angle = (part ÷ whole) × 360°."
+    ],
+    "example": {
+     "q": "In a survey of 120 students, 30 like cricket best. What angle should the cricket slice have in a pie chart?",
+     "steps": [
+      "Fraction = 30/120 = 1/4",
+      "Angle = 1/4 × 360°",
+      "= 90°"
+     ],
+     "answer": "90°"
+    },
+    "reallife": "News channels show election results as bar graphs and pie charts, and sports apps show runs per over as bars."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Graph reading",
+     "items": [
+      {
+       "text": "If 1 unit = 5 students, a bar 6 units tall shows ___ students",
+       "answer": "30",
+       "options": [
+        "30",
+        "11",
+        "6"
+       ]
+      },
+      {
+       "text": "A slice that is 1/4 of a pie chart has an angle of ___",
+       "answer": "90°",
+       "options": [
+        "90°",
+        "25°",
+        "45°"
+       ]
+      },
+      {
+       "text": "In a dot plot, each dot stands for one data ___",
+       "answer": "value",
+       "options": [
+        "value",
+        "bar",
+        "slice"
+       ]
+      },
+      {
+       "text": "All the slices of a pie chart add up to ___",
+       "answer": "360°",
+       "options": [
+        "360°",
+        "180°",
+        "100°"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Graph facts",
+     "items": [
+      [
+       "In a bar graph, the width of a bar shows its value.",
+       false,
+       "All bars have the same width. The height (or length) shows the value."
+      ],
+      [
+       "A dot plot shows every single data value.",
+       true,
+       "There is one dot for each value."
+      ],
+      [
+       "In a pie chart, a 180° slice shows half of the data.",
+       true,
+       "180° is half of 360°."
+      ],
+      [
+       "The scale on a bar graph should start at 0 so that bar heights can be compared fairly.",
+       true,
+       "If the scale starts higher, small differences look huge."
+      ],
+      [
+       "A double bar graph can compare two groups side by side.",
+       true,
+       "Two bars for each category make comparing easy."
+      ],
+      [
+       "If 1 unit = 10 runs, a bar 3.5 units tall shows 3.5 runs.",
+       false,
+       "3.5 × 10 = 35 runs."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A bar graph shows books read in a class library: Mon 4, Tue 7, Wed 3, Thu 6. On which day were the most books read?",
+     "options": [
+      "Monday",
+      "Thursday",
+      "Tuesday",
+      "Wednesday"
+     ],
+     "answer": 2,
+     "explain": "Tuesday's bar is the tallest, at 7 books.",
+     "mistake": "Picks the last bar or the first bar instead of the tallest",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "Mon",
+        4
+       ],
+       [
+        "Tue",
+        7
+       ],
+       [
+        "Wed",
+        3
+       ],
+       [
+        "Thu",
+        6
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Books read: Mon 4, Tue 7, Wed 3, Thu 6. How many more books were read on Tuesday than on Wednesday?",
+     "options": [
+      "10",
+      "4",
+      "3",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "Tuesday 7 − Wednesday 3 = 4 more books.",
+     "steps": [
+      "7 − 3 = 4"
+     ],
+     "mistake": "Adds the two values instead of finding the difference",
+     "check": "7-3",
+     "visual": {
+      "kind": "compare",
+      "a": [
+       "Tue",
+       7
+      ],
+      "b": [
+       "Wed",
+       3
+      ]
+     }
+    },
+    {
+     "q": "On a bar graph, 1 unit stands for 50 trees. A bar is 7 units tall. How many trees does it show?",
+     "options": [
+      "57",
+      "7",
+      "50",
+      "350"
+     ],
+     "answer": 3,
+     "explain": "Each unit is 50 trees, so 7 units = 7 × 50 = 350 trees.",
+     "steps": [
+      "7 × 50 = 350"
+     ],
+     "mistake": "Reads the bar height without using the scale",
+     "check": "7*50"
+    },
+    {
+     "q": "In a class of 40, 10 students walk to school. What angle should the 'walk' slice have in a pie chart?",
+     "options": [
+      "10°",
+      "90°",
+      "40°",
+      "36°"
+     ],
+     "answer": 1,
+     "explain": "10 out of 40 is 1/4 of the class. 1/4 × 360° = 90°.",
+     "steps": [
+      "10/40 = 1/4",
+      "1/4 × 360° = 90°"
+     ],
+     "mistake": "Uses the number of students as the angle",
+     "check": "10/40*360",
+     "visual": {
+      "kind": "angle",
+      "deg": 90
+     }
+    },
+    {
+     "q": "A dot plot shows goals scored by a team in its matches: 0 goals (3 dots), 1 goal (5 dots), 2 goals (2 dots), 3 goals (1 dot). How many matches did the team play?",
+     "options": [
+      "11",
+      "4",
+      "6",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "Each dot is one match. 3 + 5 + 2 + 1 = 11 matches.",
+     "steps": [
+      "Count all the dots",
+      "3 + 5 + 2 + 1 = 11"
+     ],
+     "mistake": "Counts the number of columns (4) instead of the dots",
+     "check": "3+5+2+1"
+    },
+    {
+     "q": "Same dot plot: 0 goals (3 dots), 1 goal (5 dots), 2 goals (2 dots), 3 goals (1 dot). How many goals did the team score in all?",
+     "options": [
+      "11",
+      "6",
+      "12",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "Multiply goals by the number of matches: 0 × 3 + 1 × 5 + 2 × 2 + 3 × 1 = 0 + 5 + 4 + 3 = 12.",
+     "steps": [
+      "0 × 3 = 0",
+      "1 × 5 = 5",
+      "2 × 2 = 4",
+      "3 × 1 = 3",
+      "Total = 12"
+     ],
+     "mistake": "Counts the dots (matches) instead of the goals",
+     "check": "0*3+1*5+2*2+3*1"
+    },
+    {
+     "q": "Which graph is best for showing what share of the whole each part is, like how Meena spends her day?",
+     "options": [
+      "Line graph",
+      "Pie chart",
+      "Dot plot",
+      "Double bar graph"
+     ],
+     "answer": 1,
+     "explain": "A pie chart shows parts of one whole as slices, so you see each part's share at a glance.",
+     "mistake": "Uses a line graph, which shows change over time"
+    },
+    {
+     "q": "A double bar graph shows the children who like each sport. Cricket: boys 12, girls 9. Kabaddi: boys 6, girls 8. How many children like kabaddi?",
+     "options": [
+      "2",
+      "18",
+      "21",
+      "14"
+     ],
+     "answer": 3,
+     "explain": "Add both bars for kabaddi: 6 boys + 8 girls = 14 children.",
+     "steps": [
+      "6 + 8 = 14"
+     ],
+     "mistake": "Finds the difference between the bars, or adds the cricket bars",
+     "check": "6+8"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: A bar graph says 1 unit = 20 birds. A bar is 3 units tall. How many birds is that?",
+    "must": [
+     [
+      "scale",
+      "unit",
+      "each unit",
+      "1 unit"
+     ],
+     [
+      "multiply",
+      "times",
+      "×",
+      "x"
+     ],
+     [
+      "60",
+      "sixty"
+     ]
+    ],
+    "praise": "Each unit is 20 birds, so 3 × 20 = 60 birds. That is a big flock!",
+    "nudge": "What does one unit on the graph stand for? What do you do with the 3?"
+   },
+   "covers": [
+    "c12.8.2"
+   ]
+  },
+  {
+   "id": "g8-maths-12-03",
+   "title": "Line graphs",
+   "learn": {
+    "hook": "A doctor's fever chart, a share-market screen and your height on the door frame all tell stories of change. Line graphs show how things change over time.",
+    "points": [
+     "A line graph plots points for values at different times and joins them with line segments.",
+     "Time usually goes on the horizontal axis and the quantity on the vertical axis.",
+     "A line going up shows an increase, going down shows a decrease, and a flat line shows no change.",
+     "A steeper line means a faster change.",
+     "In a distance–time graph, a straight sloping line means a steady speed; speed = distance ÷ time."
+    ],
+    "example": {
+     "q": "Temperatures: 6 am 18°C, 9 am 22°C, 12 noon 30°C, 3 pm 32°C, 6 pm 26°C. Between which two times did the temperature rise the most?",
+     "steps": [
+      "6 am → 9 am: +4°",
+      "9 am → 12 noon: +8°",
+      "12 noon → 3 pm: +2°",
+      "3 pm → 6 pm: −6° (a fall)"
+     ],
+     "answer": "Between 9 am and 12 noon (a rise of 8°)"
+    },
+    "reallife": "Weather reports, a patient's temperature chart and a city's population over the years are all shown as line graphs."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Line graph or bar graph?",
+     "buckets": [
+      "Line graph is a good choice",
+      "Bar graph is a better choice"
+     ],
+     "items": [
+      [
+       "Your height every year from age 5 to 13",
+       0
+      ],
+      [
+       "Temperature every hour of a day",
+       0
+      ],
+      [
+       "A plant's height each week",
+       0
+      ],
+      [
+       "Price of petrol each month for a year",
+       0
+      ],
+      [
+       "Favourite fruits of students in a class",
+       1
+      ],
+      [
+       "Number of students in each section of Class 8",
+       1
+      ],
+      [
+       "Medals won by different countries",
+       1
+      ],
+      [
+       "Runs scored by each player in one match",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Read the line",
+     "items": [
+      {
+       "text": "A line that goes up from left to right shows an ___",
+       "answer": "increase",
+       "options": [
+        "increase",
+        "decrease",
+        "error"
+       ]
+      },
+      {
+       "text": "A flat, horizontal part of a line graph shows ___",
+       "answer": "no change",
+       "options": [
+        "no change",
+        "a big rise",
+        "zero"
+       ]
+      },
+      {
+       "text": "In a distance–time graph, a steeper line means a ___ speed",
+       "answer": "faster",
+       "options": [
+        "faster",
+        "slower",
+        "zero"
+       ]
+      },
+      {
+       "text": "In a line graph over time, time is usually on the ___ axis",
+       "answer": "horizontal",
+       "options": [
+        "horizontal",
+        "vertical",
+        "slanting"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Temperatures: 6 am 18°C, 9 am 22°C, 12 noon 30°C, 3 pm 32°C, 6 pm 26°C. At which of these times was it hottest?",
+     "options": [
+      "12 noon",
+      "3 pm",
+      "6 pm",
+      "9 am"
+     ],
+     "answer": 1,
+     "explain": "The highest point on the graph is 32°C at 3 pm.",
+     "mistake": "Assumes noon is always the hottest time",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "6 am",
+        18
+       ],
+       [
+        "9 am",
+        22
+       ],
+       [
+        "12 noon",
+        30
+       ],
+       [
+        "3 pm",
+        32
+       ],
+       [
+        "6 pm",
+        26
+       ]
+      ]
+     }
+    },
+    {
+     "q": "Using the same temperatures, by how many degrees did it rise from 9 am to 12 noon?",
+     "options": [
+      "30",
+      "52",
+      "8",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "30 − 22 = 8 degrees.",
+     "steps": [
+      "12 noon: 30",
+      "9 am: 22",
+      "30 − 22 = 8"
+     ],
+     "mistake": "Gives the reading at noon instead of the change",
+     "check": "30-22",
+     "visual": {
+      "kind": "compare",
+      "a": [
+       "9 am",
+       22
+      ],
+      "b": [
+       "12 noon",
+       30
+      ]
+     }
+    },
+    {
+     "q": "Using the same temperatures, between which two times did the temperature fall?",
+     "options": [
+      "6 am and 9 am",
+      "9 am and 12 noon",
+      "12 noon and 3 pm",
+      "3 pm and 6 pm"
+     ],
+     "answer": 3,
+     "explain": "From 32°C at 3 pm it went down to 26°C at 6 pm. All other parts go up.",
+     "mistake": "Confuses a smaller rise with a fall"
+    },
+    {
+     "q": "Harpreet's plant was 4 cm in week 1, 7 cm in week 2, 10 cm in week 3 and 13 cm in week 4. If it keeps growing the same way, how tall will it be in week 5?",
+     "options": [
+      "16 cm",
+      "14 cm",
+      "17 cm",
+      "26 cm"
+     ],
+     "answer": 0,
+     "explain": "It grows 3 cm every week, so the line keeps the same steepness: 13 + 3 = 16 cm.",
+     "steps": [
+      "7 − 4 = 3, 10 − 7 = 3, 13 − 10 = 3",
+      "13 + 3 = 16"
+     ],
+     "mistake": "Adds 1 or doubles instead of continuing the steady +3 pattern",
+     "check": "13+3",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "Wk 1",
+        4
+       ],
+       [
+        "Wk 2",
+        7
+       ],
+       [
+        "Wk 3",
+        10
+       ],
+       [
+        "Wk 4",
+        13
+       ],
+       [
+        "Wk 5",
+        16
+       ]
+      ]
+     }
+    },
+    {
+     "q": "On a line graph, what does a horizontal (flat) part show?",
+     "options": [
+      "The quantity became zero",
+      "The quantity did not change during that time",
+      "The quantity increased quickly",
+      "The graph has a mistake"
+     ],
+     "answer": 1,
+     "explain": "If the line stays at the same height, the value stays the same for that time.",
+     "mistake": "Thinks a flat line means the value dropped to zero"
+    },
+    {
+     "q": "A cyclist's distance–time graph is a straight line from 0 km at 0 hours to 45 km at 3 hours. What is the speed in km/h?",
+     "options": [
+      "45",
+      "15",
+      "3",
+      "135"
+     ],
+     "answer": 1,
+     "explain": "A straight line means steady speed. Speed = 45 km ÷ 3 h = 15 km/h.",
+     "steps": [
+      "45 ÷ 3 = 15"
+     ],
+     "mistake": "Reads the final distance as the speed",
+     "check": "45/3"
+    },
+    {
+     "q": "Which data is best shown with a line graph?",
+     "options": [
+      "Favourite colours of 30 students",
+      "Number of boys and girls in each class",
+      "Your weight every month for a year",
+      "Kinds of trees in a park"
+     ],
+     "answer": 2,
+     "explain": "Weight changes over time, and a line graph shows change over time. The others compare separate categories.",
+     "mistake": "Uses a line graph for categories that have no order in time"
+    },
+    {
+     "q": "Aisha's savings were ₹200 in January, ₹350 in February, ₹350 in March and ₹600 in April. During which period did her savings not change?",
+     "options": [
+      "January to February",
+      "February to March",
+      "March to April",
+      "January to April"
+     ],
+     "answer": 1,
+     "explain": "Savings were ₹350 in both February and March, so the line is flat there.",
+     "mistake": "Looks for the smallest bar instead of two equal readings",
+     "visual": {
+      "kind": "bars",
+      "items": [
+       [
+        "Jan",
+        200
+       ],
+       [
+        "Feb",
+        350
+       ],
+       [
+        "Mar",
+        350
+       ],
+       [
+        "Apr",
+        600
+       ]
+      ]
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: How can I tell from a line graph when something is growing fastest?",
+    "must": [
+     [
+      "steep",
+      "steepest",
+      "sharp",
+      "slope"
+     ],
+     [
+      "up",
+      "rise",
+      "rising",
+      "goes up",
+      "increase"
+     ]
+    ],
+    "praise": "Where the line goes up most steeply, the growth is fastest. I can read graphs now!",
+    "nudge": "Look at the different parts of the line. Which part climbs the most in the same time?"
+   },
+   "covers": [
+    "c12.7.1",
+    "c12.7.2",
+    "c12.7.3"
+   ]
+  },
+  {
+   "id": "g8-maths-12-09",
+   "title": "Misleading graphs and infographics",
+   "covers": [
+    "c12.7.4",
+    "c12.8.1",
+    "c12.8.2"
+   ],
+   "learn": {
+    "hook": "An ad shows one bar three times taller than another — but the real difference is only 4%! Graphs can trick your eyes.",
+    "points": [
+     "If the vertical axis does not start at 0, small differences look huge. Sales of 92 and 96 on an axis starting at 90 look like bars of 2 and 6 — three times as tall.",
+     "Uneven scales or stretched axes also mislead. Always read the numbers on the axes.",
+     "Infographics mix pictures and data. Doubling the height of a picture also doubles its width, so it looks 4 times as big even if the number only doubled.",
+     "Check an infographic: Are the units clear? Do the percentages of a whole add to 100%? Is the source given?",
+     "Pick the right graph: line graph for change over time; bar graph to compare categories; pie chart for parts of a whole; dot plot for a small set of values."
+    ],
+    "example": {
+     "q": "A graph of sales 92 and 96 has its axis starting at 90. How much bigger does the second bar look, and how much bigger is it really?",
+     "steps": [
+      "Bar heights shown: 92 − 90 = 2 and 96 − 90 = 6",
+      "It looks 6 ÷ 2 = 3 times as big",
+      "Really: 96 is only 4 more than 92, about 4% more"
+     ],
+     "answer": "Looks 3 times; really about 4% more"
+    },
+    "reallife": "Smart readers of newspapers and social media always check the axes before believing a graph."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Best graph for the job",
+     "buckets": [
+      "Line graph",
+      "Bar graph",
+      "Pie chart"
+     ],
+     "items": [
+      [
+       "Temperature every hour of a day",
+       0
+      ],
+      [
+       "A baby's weight each month",
+       0
+      ],
+      [
+       "Students in each school house",
+       1
+      ],
+      [
+       "Medals won by five states",
+       1
+      ],
+      [
+       "How a family's budget is shared",
+       2
+      ],
+      [
+       "Share of land used for each crop",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Spot the trick",
+     "items": [
+      [
+       "A bar graph whose axis starts at 90 can make small differences look big.",
+       true,
+       "The bars show only the part above 90."
+      ],
+      [
+       "If a picture's height and width are both doubled, it looks twice as big.",
+       false,
+       "Its area becomes 4 times as big."
+      ],
+      [
+       "Percentages in a pie infographic should add up to 100%.",
+       true,
+       "They are parts of one whole."
+      ],
+      [
+       "A good graph shows its scale and units.",
+       true,
+       "Otherwise readers cannot judge the numbers."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A bar graph of sales 92 and 96 starts its axis at 90. How many times taller does the 96 bar look than the 92 bar?",
+     "options": [
+      "1",
+      "3",
+      "4",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "The visible bars are 96 − 90 = 6 and 92 − 90 = 2 tall, so one looks 3 times the other.",
+     "steps": [
+      "6 ÷ 2 = 3"
+     ],
+     "mistake": "Compares the actual values instead of the visible bar heights",
+     "check": "(96-90)/(92-90)"
+    },
+    {
+     "q": "In the same graph, how much bigger are sales of 96 than 92 really?",
+     "options": [
+      "Only 4 more, about 4% more",
+      "3 times as much",
+      "Twice as much",
+      "96% more"
+     ],
+     "answer": 0,
+     "explain": "96 − 92 = 4, and 4 is about 4% of 92. The graph exaggerates the difference.",
+     "steps": [
+      "96 − 92 = 4",
+      "4 ÷ 92 ≈ 4%"
+     ],
+     "mistake": "Trusts the bar heights without reading the axis"
+    },
+    {
+     "q": "What is the most common trick that makes a bar graph misleading?",
+     "options": [
+      "The vertical axis does not start at 0",
+      "The bars are coloured",
+      "The bars have labels",
+      "There is a title"
+     ],
+     "answer": 0,
+     "explain": "Starting the axis above 0 cuts off the bottom of every bar and exaggerates differences.",
+     "steps": [
+      "Check where the axis starts"
+     ],
+     "mistake": "Blames harmless features like colour"
+    },
+    {
+     "q": "An infographic shows a coin icon for 2023 and one twice as tall and twice as wide for 2024. By how many times does the 2024 icon's area grow?",
+     "options": [
+      "2",
+      "4",
+      "3",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "Area grows by 2 × 2 = 4, so the picture looks 4 times as big even if the money only doubled.",
+     "steps": [
+      "2 × 2 = 4"
+     ],
+     "mistake": "Thinks doubling height and width doubles the area",
+     "check": "2*2"
+    },
+    {
+     "q": "A pie infographic shows 45%, 30%, 20% and 10% for the four parts of one whole. What is wrong?",
+     "options": [
+      "Nothing",
+      "The parts add to 105%, not 100%",
+      "There are too many parts",
+      "Percentages cannot be shown in a pie"
+     ],
+     "answer": 1,
+     "explain": "45 + 30 + 20 + 10 = 105. The parts of one whole must total 100%.",
+     "steps": [
+      "45 + 30 + 20 + 10 = 105"
+     ],
+     "mistake": "Does not add the percentages"
+    },
+    {
+     "q": "Which graph is best for showing the temperature every hour through a day?",
+     "options": [
+      "Pie chart",
+      "Line graph",
+      "Dot plot of colours",
+      "Pictograph of suns"
+     ],
+     "answer": 1,
+     "explain": "A line graph shows how a quantity changes over time.",
+     "steps": [
+      "Change over time → line graph"
+     ],
+     "mistake": "Uses a pie chart for change over time"
+    },
+    {
+     "q": "Which graph is best for comparing the number of students in each school house?",
+     "options": [
+      "Line graph",
+      "Pie chart only",
+      "Bar graph",
+      "No graph is needed"
+     ],
+     "answer": 2,
+     "explain": "Bars make it easy to compare separate categories side by side.",
+     "steps": [
+      "Comparing categories → bar graph"
+     ],
+     "mistake": "Uses a line graph for categories that are not in time order"
+    },
+    {
+     "q": "An infographic says '3 out of 4 students love maths' but gives no source or sample size. What should a careful reader ask?",
+     "options": [
+      "How many students were asked, and who did the survey?",
+      "What colour is the chart?",
+      "Why is it about maths?",
+      "Nothing — it must be true"
+     ],
+     "answer": 0,
+     "explain": "Without the source and sample size, you cannot tell if the claim is reliable (it might be just 4 students!).",
+     "steps": [
+      "Check source",
+      "Check sample size"
+     ],
+     "mistake": "Believes any number shown in a picture"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu saw a graph where one bar looks 5 times taller than another. He is shocked! What should he check first?",
+    "must": [
+     [
+      "axis",
+      "scale"
+     ],
+     [
+      "0",
+      "zero",
+      "start"
+     ],
+     [
+      "numbers",
+      "values",
+      "read"
+     ]
+    ],
+    "praise": "The axis started at 80, not 0! The real difference is tiny. I won't be fooled again.",
+    "nudge": "Where does the vertical axis start? What do the numbers actually say?"
+   }
+  }
+ ]
 }
-]}

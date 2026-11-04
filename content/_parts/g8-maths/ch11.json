@@ -1,97 +1,2194 @@
-{"n": 11, "title": "Exploring Some Geometric Themes", "emoji": "🧭",
-"topics": [
-{"id": "g8-maths-11-01", "title": "Constructions with ruler and compass", "lab": "angle",
- "learn": {
-  "hook": "With just a pencil, a ruler and a compass you can draw a perfect 60°, 30°, 90° or 45° angle, without ever looking at a protractor!",
-  "points": [
-   "A compass keeps a fixed distance, so every point on an arc is the same distance from the compass point.",
-   "Perpendicular bisector of AB: draw arcs of the same radius (more than half of AB) from A and from B. Join the two points where they cross. Every point on this line is equally far from A and B.",
-   "Angle bisector: draw an arc from the vertex cutting both arms. From those two points draw equal arcs that cross. Join the crossing point to the vertex.",
-   "60°: draw an arc from the vertex, then an arc of the same radius from where it cuts the arm. This makes an equilateral triangle. Bisect 60° to get 30°; bisect 90° to get 45°.",
-   "A triangle can be drawn from three sides only if any two sides together are longer than the third."
-  ],
-  "example": {"q": "How can you construct an angle of 45° with a ruler and compass?", "steps": ["Draw a line and mark a point O on it", "Construct a perpendicular at O to get 90°", "Bisect the 90° angle", "Each half is 90° ÷ 2 = 45°"], "answer": "Construct 90° and bisect it"},
-  "reallife": "Architects, carpenters and rangoli artists use compass constructions to get exact angles and symmetric designs."
- },
- "games": [
-  {"type": "match", "title": "How to construct it", "pairs": [["60°", "arc from vertex, same arc from where it cuts the arm"], ["30°", "bisect a 60° angle"], ["90°", "draw a perpendicular to a line"], ["45°", "bisect a 90° angle"], ["120°", "two 60° angles side by side"]]},
-  {"type": "truefalse", "title": "Compass check", "items": [
-   ["Every point on the perpendicular bisector of AB is the same distance from A and from B.", true, "That is exactly what makes it the perpendicular bisector."],
-   ["For a perpendicular bisector, the arcs must have a radius less than half of AB.", false, "With less than half, the arcs from A and B would not meet. The radius must be more than half."],
-   ["Bisecting a 60° angle gives 30°.", true, "60° ÷ 2 = 30°."],
-   ["A triangle can be drawn with sides 3 cm, 4 cm and 8 cm.", false, "3 + 4 = 7, which is less than 8, so the sides cannot meet."],
-   ["Bisecting 90° and then bisecting one half again gives 22.5°.", true, "90° ÷ 2 = 45°, and 45° ÷ 2 = 22.5°."],
-   ["An angle bisector divides an angle into two equal parts.", true, "Bisect means cut into two equal halves."]
-  ]}
- ],
- "quiz": [
-  {"q": "What angle do you get when you bisect a 90° angle?", "options": ["30°", "180°", "45°", "60°"], "answer": 2, "explain": "Bisecting cuts an angle into two equal halves: 90° ÷ 2 = 45°.", "steps": ["90 ÷ 2 = 45"], "mistake": "Doubles the angle instead of halving it", "check": "90/2", "visual": {"kind": "angle", "deg": 45}},
-  {"q": "Riya draws arcs of the same radius from points A and B and joins the two points where the arcs cross. What has she drawn?", "options": ["The angle bisector", "The perpendicular bisector of AB", "A line parallel to AB", "A diagonal"], "answer": 1, "explain": "The two crossing points are each equally far from A and B. The line through them cuts AB in half at 90°.", "mistake": "Mixes up the perpendicular bisector with the angle bisector"},
-  {"q": "Point P lies on the perpendicular bisector of AB, and PA = 7 cm. What is PB?", "options": ["14 cm", "3.5 cm", "49 cm", "7 cm"], "answer": 3, "explain": "Every point on the perpendicular bisector of AB is equally far from A and B, so PB = PA = 7 cm.", "mistake": "Doubles or halves PA, thinking P must be the midpoint", "check": "7"},
-  {"q": "Which set of side lengths can make a triangle?", "options": ["2 cm, 3 cm, 6 cm", "5 cm, 6 cm, 10 cm", "4 cm, 4 cm, 9 cm", "1 cm, 2 cm, 3 cm"], "answer": 1, "explain": "5 + 6 = 11 is more than 10, so the sides can meet. In the others, the two shorter sides add up to the longest side or less.", "steps": ["5 + 6 = 11 > 10 ✓", "2 + 3 = 5 < 6 ✗", "4 + 4 = 8 < 9 ✗", "1 + 2 = 3, not more than 3 ✗"], "mistake": "Thinks any three lengths can make a triangle"},
-  {"q": "To construct 60°, you draw an arc from the vertex and then an arc of the same radius from where it cuts the arm. Why does this give 60°?", "options": ["A compass always makes 60°", "The arcs are curved", "It makes an equilateral triangle, and each angle of that triangle is 60°", "The radius must be 6 cm"], "answer": 2, "explain": "The vertex, the first cut point and the crossing point are all one radius apart, forming an equilateral triangle. Each of its angles is 180° ÷ 3 = 60°.", "mistake": "Follows the steps without seeing the equilateral triangle behind them"},
-  {"q": "Kabir bisects an angle of 130°. What is the size of each part?", "options": ["65°", "260°", "60°", "50°"], "answer": 0, "explain": "Bisecting means halving: 130° ÷ 2 = 65°.", "steps": ["130 ÷ 2 = 65"], "mistake": "Doubles the angle", "check": "130/2", "visual": {"kind": "angle", "deg": 65}},
-  {"q": "Which construction gives an angle of 120°?", "options": ["Bisect a 60° angle", "Bisect a 90° angle", "Draw a perpendicular", "Make two 60° angles side by side"], "answer": 3, "explain": "60° + 60° = 120°. Bisecting 60° gives 30°, bisecting 90° gives 45°, and a perpendicular gives 90°.", "mistake": "Thinks bisecting makes an angle bigger", "visual": {"kind": "angle", "deg": 120}},
-  {"q": "Aisha bisects a 60° angle, then bisects one of the halves. What angle does she get?", "options": ["30°", "20°", "15°", "45°"], "answer": 2, "explain": "60° ÷ 2 = 30°, then 30° ÷ 2 = 15°.", "steps": ["60 ÷ 2 = 30", "30 ÷ 2 = 15"], "mistake": "Stops after the first bisection", "check": "60/4", "visual": {"kind": "angle", "deg": 15}}
- ],
- "teach": {"ask": "Gappu asks: I have lost my protractor! How can I still draw a 30° angle?", "must": [["60", "sixty", "equilateral"], ["bisect", "half", "halve", "cut in two"], ["compass", "arc", "arcs"]], "praise": "Make 60° with compass arcs (an equilateral triangle), then bisect it to get 30°. No protractor needed!", "nudge": "Which angle can you make easily with just a compass? How do you get half of it?"}
-},
-{"id": "g8-maths-11-02", "title": "Faces, edges, vertices and Euler's formula",
- "learn": {
-  "hook": "Count the faces, corners and edges of any box, add the faces and corners, then subtract the edges. You will always get 2. Try it on a dice!",
-  "points": [
-   "A solid's flat surfaces are faces, the lines where two faces meet are edges, and the corners are vertices.",
-   "A cube or cuboid has 6 faces, 12 edges and 8 vertices. A square pyramid has 5 faces, 8 edges and 5 vertices.",
-   "A polyhedron is a solid whose faces are all flat polygons. Cylinders, cones and spheres have curved surfaces, so they are not polyhedra.",
-   "Euler's formula for polyhedra: F + V − E = 2. For a cube: 6 + 8 − 12 = 2.",
-   "A prism has two identical ends joined by rectangles. A pyramid has one base with triangles meeting at the top."
-  ],
-  "example": {"q": "A pentagonal prism has 7 faces and 15 edges. How many vertices does it have?", "steps": ["F + V − E = 2", "7 + V − 15 = 2", "V − 8 = 2", "V = 10"], "answer": "10 vertices"},
-  "reallife": "Gift boxes, tents, the pyramid-shaped roof of a temple and a cricket ball show the difference between polyhedra and curved solids."
- },
- "games": [
-  {"type": "match", "title": "Solid facts", "pairs": [["Cube", "6 faces, 12 edges, 8 vertices"], ["Triangular prism", "5 faces, 9 edges, 6 vertices"], ["Square pyramid", "5 faces, 8 edges, 5 vertices"], ["Triangular pyramid", "4 faces, 6 edges, 4 vertices"], ["Hexagonal prism", "8 faces, 18 edges, 12 vertices"]]},
-  {"type": "sort", "title": "Polyhedron or not?", "buckets": ["Polyhedron", "Not a polyhedron"], "items": [["Cube", 0], ["Cuboid", 0], ["Square pyramid", 0], ["Triangular prism", 0], ["Sphere", 1], ["Cylinder", 1], ["Cone", 1], ["A round laddoo", 1]]}
- ],
- "quiz": [
-  {"q": "How many edges does a cube have?", "options": ["6", "8", "12", "24"], "answer": 2, "explain": "A cube has 4 edges on the top, 4 on the bottom and 4 upright ones: 12 edges.", "steps": ["Top: 4", "Bottom: 4", "Sides: 4", "4 + 4 + 4 = 12"], "mistake": "Counts faces (6) or vertices (8) instead of edges", "check": "4+4+4", "visual": {"kind": "shape", "name": "cube"}},
-  {"q": "A polyhedron has 8 faces and 6 vertices. How many edges does it have? (Use F + V − E = 2.)", "options": ["16", "14", "12", "10"], "answer": 2, "explain": "8 + 6 − E = 2, so E = 14 − 2 = 12.", "steps": ["8 + 6 − E = 2", "14 − E = 2", "E = 12"], "mistake": "Adds 2 instead of subtracting it", "check": "8+6-2"},
-  {"q": "How many vertices does a square pyramid have?", "options": ["4", "5", "8", "6"], "answer": 1, "explain": "It has 4 corners at the square base and 1 at the top: 5 vertices.", "steps": ["Base corners: 4", "Top: 1", "4 + 1 = 5"], "mistake": "Forgets the top point (apex)", "check": "4+1"},
-  {"q": "Which of these is NOT a polyhedron?", "options": ["Cube", "Triangular prism", "Square pyramid", "Cylinder"], "answer": 3, "explain": "A cylinder has curved surfaces. A polyhedron must have only flat polygon faces.", "mistake": "Thinks any solid shape is a polyhedron", "visual": {"kind": "shape", "name": "cylinder"}},
-  {"q": "A triangular prism has 5 faces and 6 vertices. How many edges does it have?", "options": ["9", "11", "13", "7"], "answer": 0, "explain": "F + V − E = 2 gives 5 + 6 − E = 2, so E = 9. Count check: 3 + 3 edges on the triangles and 3 joining them.", "steps": ["5 + 6 − E = 2", "E = 11 − 2 = 9"], "mistake": "Adds F and V without subtracting 2", "check": "5+6-2"},
-  {"q": "Meena wraps a cuboid-shaped gift box, covering every face. How many faces does she cover?", "options": ["4", "6", "8", "12"], "answer": 1, "explain": "A cuboid has 6 faces: top, bottom, front, back, left and right.", "mistake": "Counts only the side faces, or counts corners", "check": "6"},
-  {"q": "A pentagonal prism has 7 faces and 15 edges. How many vertices does it have?", "options": ["8", "20", "24", "10"], "answer": 3, "explain": "7 + V − 15 = 2, so V = 10. Each pentagon end has 5 corners: 5 + 5 = 10.", "steps": ["V = 2 − 7 + 15", "V = 10"], "mistake": "Gets the signs in Euler's formula mixed up", "check": "2-7+15"},
-  {"q": "Can a polyhedron have 10 faces, 10 vertices and 15 edges?", "options": ["Yes, any numbers work", "No, because F + V − E would be 5, not 2", "Yes, because 10 + 10 is more than 15", "No, because 15 is an odd number"], "answer": 1, "explain": "Every polyhedron obeys F + V − E = 2. Here 10 + 10 − 15 = 5, so no such polyhedron exists.", "steps": ["10 + 10 − 15 = 5", "5 ≠ 2"], "mistake": "Thinks the number of edges must be even (a triangular prism has 9)"}
- ],
- "teach": {"ask": "Gappu asks: What is Euler's formula, and how can I check it on a cube?", "must": [["faces", "face"], ["vertices", "corners", "vertex"], ["edges", "edge"], ["2", "two"]], "praise": "Faces plus vertices minus edges is 2. For a cube: 6 + 8 − 12 = 2. Euler was a genius, and so are you!", "nudge": "Which three things do you count on a cube? What do you do with them?"}
-},
-{"id": "g8-maths-11-03", "title": "Views of solids and nets",
- "learn": {
-  "hook": "Hold a glass at eye level: it looks like a rectangle. Look down into it from above: it is a circle! Same glass, different views.",
-  "points": [
-   "A solid can look different from the front, the side and the top. The top view is also called the plan.",
-   "A cylinder standing up: rectangle from the front, circle from the top. A cone on its base: triangle from the front, circle from the top. A sphere looks like a circle from every side.",
-   "A cube looks like a square from the front, side and top.",
-   "For stacks of cubes, count layer by layer. The top view shows how many columns there are.",
-   "A net is a flat pattern that folds into a solid. Cylinder: a rectangle and 2 circles. Cone: a curved sector and a circle. Square pyramid: a square and 4 triangles. Cube: 6 squares."
-  ],
-  "example": {"q": "Arjun puts 3 cubes in a row on the floor and 1 cube on top of the middle one. Describe the front view and count the cubes.", "steps": ["Bottom row: 3 squares side by side", "Top: 1 square above the middle one", "Total cubes: 3 + 1 = 4"], "answer": "Front view: 3 squares with 1 on top of the middle; 4 cubes"},
-  "reallife": "Architects draw front, side and top views of buildings, and sweet-box makers cut flat nets that fold into boxes."
- },
- "games": [
-  {"type": "match", "title": "What do you see?", "pairs": [["Cylinder, from the top", "Circle"], ["Cylinder, from the front", "Rectangle"], ["Cone, from the front", "Triangle"], ["Cube, from any face", "Square"], ["Square pyramid, from the top", "Square with its diagonals"]]},
-  {"type": "sort", "title": "Top view: circle or not?", "buckets": ["Top view is a circle", "Top view is not a circle"], "items": [["Cylinder standing upright", 0], ["Cone standing on its base", 0], ["Sphere", 0], ["Steel tumbler standing upright", 0], ["Cube", 1], ["Square pyramid", 1], ["Brick lying flat", 1], ["Triangular prism lying on a rectangular face", 1]]}
- ],
- "quiz": [
-  {"q": "What does an upright cylinder look like from the top?", "options": ["Circle", "Rectangle", "Triangle", "Square"], "answer": 0, "explain": "Looking down, you see only the round top face, so the top view is a circle.", "mistake": "Gives the front view (rectangle) instead of the top view", "visual": {"kind": "shape", "name": "circle"}},
-  {"q": "What is the front view of a cone standing on its base?", "options": ["Circle", "Triangle", "Square", "Rectangle"], "answer": 1, "explain": "From the front, the cone narrows from a wide base to a point, so it looks like a triangle.", "mistake": "Gives the top view (circle) instead of the front view", "visual": {"kind": "shape", "name": "triangle"}},
-  {"q": "Which solid looks like a circle from the front, the side and the top?", "options": ["Cylinder", "Cone", "Cube", "Sphere"], "answer": 3, "explain": "A sphere is round in every direction, so every view is a circle.", "mistake": "Picks cylinder, whose front view is a rectangle", "visual": {"kind": "shape", "name": "sphere"}},
-  {"q": "Arjun stacks cubes: 3 in a row on the floor and 1 on top of the middle one. How many cubes does he use?", "options": ["3", "5", "4", "6"], "answer": 2, "explain": "3 cubes in the bottom row and 1 on top: 3 + 1 = 4.", "steps": ["Bottom layer: 3", "Top layer: 1", "Total: 4"], "mistake": "Counts only the bottom layer", "check": "3+1", "visual": {"kind": "count", "emoji": "🧊", "n": 4}},
-  {"q": "Which net folds into a cylinder?", "options": ["Six squares", "A square and four triangles", "A rectangle and two circles", "A circle and a curved sector"], "answer": 2, "explain": "The rectangle rolls into the curved side, and the two circles become the top and bottom. A circle and a sector make a cone.", "mistake": "Confuses the cylinder's net with the cone's net"},
-  {"q": "Which shapes make up the net of a square pyramid?", "options": ["4 squares and 1 triangle", "1 square and 4 triangles", "2 squares and 4 rectangles", "6 squares"], "answer": 1, "explain": "The square is the base, and the 4 triangles fold up to meet at the top.", "mistake": "Mixes up the pyramid with a prism or cube"},
-  {"q": "A cube with edge 3 cm is unfolded into a net of 6 squares. What is the total area of the net?", "options": ["27 cm²", "18 cm²", "36 cm²", "54 cm²"], "answer": 3, "explain": "Each square is 3 × 3 = 9 cm². Six squares: 6 × 9 = 54 cm².", "steps": ["One face: 3 × 3 = 9 cm²", "6 faces: 6 × 9 = 54 cm²"], "mistake": "Finds the volume (27) or uses only 4 faces (36)", "check": "6*3*3"},
-  {"q": "Joseph builds a 2 × 2 × 2 cube from small cubes. How many small cubes can he see from directly above?", "options": ["8", "4", "2", "6"], "answer": 1, "explain": "From the top you see only the top layer, which is 2 × 2 = 4 small cubes. The bottom 4 are hidden.", "steps": ["Top layer: 2 × 2 = 4"], "mistake": "Counts all 8 cubes, including hidden ones", "check": "2*2", "visual": {"kind": "shape", "name": "cube"}}
- ],
- "teach": {"ask": "Gappu asks: Why does my cylinder-shaped water bottle look like a rectangle sometimes and a circle at other times?", "must": [["front", "side"], ["top", "above", "from up"], ["view", "look", "see", "direction"]], "praise": "From the front it looks like a rectangle, and from the top it looks like a circle. It depends on the view! Clever!", "nudge": "Where are you looking from when it looks like a circle? And when it looks like a rectangle?"}
+{
+ "n": 11,
+ "title": "Exploring Some Geometric Themes",
+ "emoji": "🧭",
+ "topics": [
+  {
+   "id": "g8-maths-11-04",
+   "title": "Fractals: Sierpinski's carpet and gasket",
+   "covers": [
+    "c11.1.1",
+    "c11.1.2",
+    "c11.1.3",
+    "c11.1.4"
+   ],
+   "learn": {
+    "hook": "Look closely at a fern leaf: each little leaflet looks like a tiny copy of the whole leaf. Shapes like this are called fractals!",
+    "points": [
+     "A fractal is a shape that repeats itself at smaller and smaller scales (self-similar). Ferns, cauliflower florets, lightning and coastlines are natural examples.",
+     "Sierpinski carpet: split a square into 9 equal squares and remove the middle one. Repeat with each of the 8 remaining squares. After step n there are 8ⁿ squares left.",
+     "Holes in the carpet: 1 after step 1, 1 + 8 = 9 after step 2, 1 + 8 + 64 = 73 after step 3.",
+     "Sierpinski gasket: join the midpoints of an equilateral triangle's sides to get 4 congruent triangles and remove the middle one. Repeat. After step n there are 3ⁿ triangles.",
+     "Remaining area: the carpet keeps 8/9 of its area at each step, so (8/9)ⁿ after n steps; the gasket keeps 3/4, so (3/4)ⁿ."
+    ],
+    "example": {
+     "q": "A Sierpinski carpet starts as an 81 cm² square. What area is left after 2 steps?",
+     "steps": [
+      "Each step keeps 8/9 of the area",
+      "81 × 8/9 = 72 cm² after step 1",
+      "72 × 8/9 = 64 cm² after step 2"
+     ],
+     "answer": "64 cm²"
+    },
+    "reallife": "Mobile phone antennas are sometimes shaped like fractals so they can pick up many signals in a small space."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Count the pieces",
+     "items": [
+      {
+       "q": "Carpet squares after step 1",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "Carpet squares after step 2",
+       "a": "64",
+       "check": "8**2"
+      },
+      {
+       "q": "Carpet holes after step 2",
+       "a": "9",
+       "check": "1+8"
+      },
+      {
+       "q": "Gasket triangles after step 2",
+       "a": "9",
+       "check": "3**2"
+      },
+      {
+       "q": "Gasket triangles after step 3",
+       "a": "27",
+       "check": "3**3"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Fractal facts",
+     "items": [
+      [
+       "A fern leaf is a natural example of a fractal.",
+       true,
+       "Each leaflet looks like a small copy of the whole."
+      ],
+      [
+       "Joining the midpoints of an equilateral triangle gives 4 congruent triangles.",
+       true,
+       "They are all equilateral with half the side."
+      ],
+      [
+       "The Sierpinski carpet gains area at every step.",
+       false,
+       "It loses 1/9 of its area at each step."
+      ],
+      [
+       "After step 3 the Sierpinski gasket has 27 triangles.",
+       true,
+       "3³ = 27."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many small squares remain after step 1 of the Sierpinski carpet?",
+     "options": [
+      "9",
+      "1",
+      "3",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "The square is split into 9 and the middle one is removed, leaving 8.",
+     "steps": [
+      "9 − 1 = 8"
+     ],
+     "mistake": "Forgets to remove the middle square",
+     "check": "9-1"
+    },
+    {
+     "q": "How many small squares remain after step 2 of the Sierpinski carpet?",
+     "options": [
+      "64",
+      "16",
+      "72",
+      "81"
+     ],
+     "answer": 0,
+     "explain": "Each of the 8 squares becomes 8 smaller squares: 8 × 8 = 64.",
+     "steps": [
+      "8² = 64"
+     ],
+     "mistake": "Adds 8 instead of multiplying",
+     "check": "8**2"
+    },
+    {
+     "q": "How many holes does the Sierpinski carpet have after step 2?",
+     "options": [
+      "8",
+      "9",
+      "2",
+      "16"
+     ],
+     "answer": 1,
+     "explain": "Step 1 makes 1 hole; step 2 makes one hole in each of the 8 squares: 1 + 8 = 9.",
+     "steps": [
+      "1 + 8 = 9"
+     ],
+     "mistake": "Counts only the new holes",
+     "check": "1+8"
+    },
+    {
+     "q": "A Sierpinski carpet starts with area 81 cm². What area remains after 2 steps?",
+     "options": [
+      "72 cm²",
+      "9 cm²",
+      "64 cm²",
+      "18 cm²"
+     ],
+     "answer": 2,
+     "explain": "81 × (8/9)² = 81 × 64/81 = 64 cm².",
+     "steps": [
+      "81 × 8/9 = 72",
+      "72 × 8/9 = 64"
+     ],
+     "mistake": "Subtracts only one ninth, once",
+     "check": "81*Fraction(8,9)**2"
+    },
+    {
+     "q": "How many shaded triangles are there after step 1 of the Sierpinski gasket?",
+     "options": [
+      "4",
+      "3",
+      "1",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "Joining midpoints makes 4 triangles, and removing the middle one leaves 3.",
+     "steps": [
+      "4 − 1 = 3"
+     ],
+     "mistake": "Forgets to remove the middle triangle",
+     "check": "4-1"
+    },
+    {
+     "q": "How many shaded triangles are there after step 3 of the Sierpinski gasket?",
+     "options": [
+      "12",
+      "9",
+      "64",
+      "27"
+     ],
+     "answer": 3,
+     "explain": "Each step triples the number of triangles: 3³ = 27.",
+     "steps": [
+      "3 → 9 → 27"
+     ],
+     "mistake": "Uses 4 instead of 3 for each step",
+     "check": "3**3"
+    },
+    {
+     "q": "What fraction of the Sierpinski gasket's original area remains after step 2?",
+     "options": [
+      "1/2",
+      "3/4",
+      "1/4",
+      "9/16"
+     ],
+     "answer": 3,
+     "explain": "Each step keeps 3/4 of the area: (3/4)² = 9/16.",
+     "steps": [
+      "(3/4) × (3/4) = 9/16"
+     ],
+     "mistake": "Keeps 3/4 only once",
+     "check": "Fraction(3,4)**2",
+     "visual": {
+      "kind": "shape",
+      "name": "triangle"
+     }
+    },
+    {
+     "q": "Which of these is a fractal found in nature?",
+     "options": [
+      "A cricket ball",
+      "A brick",
+      "A fern leaf",
+      "A coin"
+     ],
+     "answer": 2,
+     "explain": "Each small part of a fern looks like a smaller copy of the whole leaf.",
+     "steps": [
+      "Self-similar → fractal"
+     ],
+     "mistake": "Thinks any natural object is a fractal"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu drew a triangle, joined the midpoints and shaded the corner triangles. What should he do next to make a fractal?",
+    "must": [
+     [
+      "repeat",
+      "again",
+      "each"
+     ],
+     [
+      "midpoint",
+      "midpoints"
+     ],
+     [
+      "smaller",
+      "copy",
+      "self-similar"
+     ]
+    ],
+    "praise": "Repeat with every shaded triangle, again and again — 3, 9, 27 triangles! My Sierpinski gasket is growing.",
+    "nudge": "What do you do with each of the three shaded triangles?"
+   }
+  },
+  {
+   "id": "g8-maths-11-05",
+   "title": "The Koch snowflake and fractals in art",
+   "covers": [
+    "c11.1.5",
+    "c11.1.6"
+   ],
+   "learn": {
+    "hook": "Start with a triangle, add tiny triangles to every side again and again — the snowflake's border grows forever, yet it fits on your page!",
+    "points": [
+     "Koch snowflake: start with an equilateral triangle. Split each side into 3 equal parts and build a small equilateral triangle on the middle part (removing its base). Repeat on every new side.",
+     "Each step turns every side into 4 sides, each 1/3 as long. So the number of sides goes 3, 12, 48, 192, ... = 3 × 4ⁿ.",
+     "Each step multiplies the perimeter by 4/3. A triangle of side 9 cm (perimeter 27 cm) becomes 36 cm after step 1 and 48 cm after step 2.",
+     "Fractal ideas in art and buildings: the Kandariya Mahadev temple at Khajuraho has spires made of smaller and smaller copies of the main spire; Fulani blankets from West Africa repeat diamond patterns at smaller sizes; the artist M. C. Escher drew shrinking repeated shapes."
+    ],
+    "example": {
+     "q": "A Koch snowflake starts as a triangle with side 9 cm. Find the perimeter after step 2.",
+     "steps": [
+      "Step 1: 12 sides of 3 cm → 36 cm",
+      "Step 2: 48 sides of 1 cm → 48 cm",
+      "(Each step × 4/3)"
+     ],
+     "answer": "48 cm"
+    },
+    "reallife": "Temple spires, rangoli borders and mehendi designs often repeat a motif at smaller and smaller sizes — fractal art!"
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Koch snowflake steps (start side 9 cm)",
+     "pairs": [
+      [
+       "Step 0",
+       "3 sides of 9 cm"
+      ],
+      [
+       "Step 1",
+       "12 sides of 3 cm"
+      ],
+      [
+       "Step 2",
+       "48 sides of 1 cm"
+      ],
+      [
+       "Step 3",
+       "192 sides of 1/3 cm"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Fractals in art",
+     "items": [
+      [
+       "The Kandariya Mahadev temple is at Khajuraho.",
+       true,
+       "It is in Madhya Pradesh."
+      ],
+      [
+       "Fulani blankets come from West Africa.",
+       true,
+       "Their patterns repeat at smaller sizes."
+      ],
+      [
+       "Each Koch step makes the perimeter smaller.",
+       false,
+       "Each step multiplies it by 4/3."
+      ],
+      [
+       "The number of sides of the Koch snowflake is multiplied by 4 at each step.",
+       true,
+       "Every side becomes 4 sides."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many sides does the Koch snowflake have after step 1?",
+     "options": [
+      "6",
+      "9",
+      "4",
+      "12"
+     ],
+     "answer": 3,
+     "explain": "Each of the 3 sides becomes 4 sides: 3 × 4 = 12.",
+     "steps": [
+      "3 × 4 = 12"
+     ],
+     "mistake": "Adds a side instead of multiplying by 4",
+     "check": "3*4"
+    },
+    {
+     "q": "How many sides does the Koch snowflake have after step 2?",
+     "options": [
+      "48",
+      "24",
+      "36",
+      "16"
+     ],
+     "answer": 0,
+     "explain": "12 × 4 = 48.",
+     "steps": [
+      "3 × 4² = 48"
+     ],
+     "mistake": "Doubles instead of multiplying by 4",
+     "check": "3*4**2"
+    },
+    {
+     "q": "A Koch snowflake starts with side 9 cm. What is its perimeter after step 1?",
+     "options": [
+      "27 cm",
+      "36 cm",
+      "12 cm",
+      "45 cm"
+     ],
+     "answer": 1,
+     "explain": "12 sides of 3 cm = 36 cm.",
+     "steps": [
+      "12 × 3 = 36"
+     ],
+     "mistake": "Forgets that the sides become one third as long",
+     "check": "12*3"
+    },
+    {
+     "q": "The same snowflake (start side 9 cm): what is its perimeter after step 2?",
+     "options": [
+      "36 cm",
+      "64 cm",
+      "48 cm",
+      "144 cm"
+     ],
+     "answer": 2,
+     "explain": "48 sides of 1 cm = 48 cm.",
+     "steps": [
+      "48 × 1 = 48"
+     ],
+     "mistake": "Multiplies the side count by the original side",
+     "check": "48*1"
+    },
+    {
+     "q": "By what number is the Koch snowflake's perimeter multiplied at each step?",
+     "options": [
+      "4",
+      "3/4",
+      "1/3",
+      "4/3"
+     ],
+     "answer": 3,
+     "explain": "Each side becomes 4 pieces, each 1/3 as long: 4 × 1/3 = 4/3.",
+     "steps": [
+      "4 pieces × 1/3 length = 4/3"
+     ],
+     "mistake": "Uses only the 4 new pieces or only the 1/3",
+     "check": "Fraction(4,3)"
+    },
+    {
+     "q": "Where is the Kandariya Mahadev temple, famous for its fractal-like spires?",
+     "options": [
+      "Konark, Odisha",
+      "Khajuraho, Madhya Pradesh",
+      "Hampi, Karnataka",
+      "Madurai, Tamil Nadu"
+     ],
+     "answer": 1,
+     "explain": "The Kandariya Mahadev temple at Khajuraho has small spires repeating the shape of the main spire.",
+     "steps": [
+      "Kandariya Mahadev → Khajuraho"
+     ],
+     "mistake": "Mixes up famous temple towns"
+    },
+    {
+     "q": "Fulani blankets with repeating diamond patterns come from which region?",
+     "options": [
+      "South America",
+      "Northern Europe",
+      "West Africa",
+      "Australia"
+     ],
+     "answer": 2,
+     "explain": "The Fulani people of West Africa weave blankets whose diamonds repeat at smaller sizes.",
+     "steps": [
+      "Fulani → West Africa"
+     ],
+     "mistake": "Guesses without knowing the craft's home"
+    },
+    {
+     "q": "What makes a design 'fractal-like'?",
+     "options": [
+      "It uses only straight lines",
+      "It has exactly one line of symmetry",
+      "The same shape repeats at smaller and smaller sizes",
+      "It is coloured in"
+     ],
+     "answer": 2,
+     "explain": "Self-similarity — copies of the shape inside itself at smaller scales — is the key idea.",
+     "steps": [
+      "Self-similar at smaller scales"
+     ],
+     "mistake": "Thinks any pretty pattern is a fractal"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu drew a triangle and added a bump to the middle of each side. What should he do to make a Koch snowflake?",
+    "must": [
+     [
+      "third",
+      "1/3",
+      "three parts"
+     ],
+     [
+      "every",
+      "each",
+      "all sides"
+     ],
+     [
+      "repeat",
+      "again"
+     ]
+    ],
+    "praise": "Split every side into thirds, add a triangle on the middle part, and repeat on all the new sides. Snowflake!",
+    "nudge": "How do you split each side? Which part gets the new triangle?"
+   }
+  },
+  {
+   "id": "g8-maths-11-06",
+   "title": "Seeing solids in your mind",
+   "covers": [
+    "c11.2.1",
+    "c11.2.4"
+   ],
+   "learn": {
+    "hook": "Imagine slicing one corner off a cube with a knife. How many faces, edges and corners does it have now? Close your eyes and picture it!",
+    "points": [
+     "Cutting off one corner of a cube removes 1 vertex but makes a new triangular face with 3 new vertices and 3 new edges. So F = 7, V = 10, E = 15 (and 7 + 10 − 15 = 2 still).",
+     "Cut off all 8 corners and the cube has 6 + 8 = 14 faces, 8 × 3 = 24 vertices and 12 + 24 = 36 edges.",
+     "A prism has two copies of a base joined by rectangles. With an n-sided base: faces n + 2, edges 3n, vertices 2n.",
+     "A pyramid has one base and triangles meeting at a top point. With an n-sided base: faces n + 1, edges 2n, vertices n + 1.",
+     "Prisms and pyramids are named by their base: triangular prism, pentagonal pyramid, hexagonal prism ..."
+    ],
+    "example": {
+     "q": "Count the faces, edges and vertices of a hexagonal pyramid.",
+     "steps": [
+      "n = 6",
+      "Faces = 6 + 1 = 7",
+      "Edges = 2 × 6 = 12",
+      "Vertices = 6 + 1 = 7",
+      "Check: 7 + 7 − 12 = 2 ✓"
+     ],
+     "answer": "7 faces, 12 edges, 7 vertices"
+    },
+    "reallife": "Gem cutters slice corners off crystals to make new faces — they must picture the result before cutting!"
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Count them",
+     "pairs": [
+      [
+       "Pentagonal prism",
+       "7 faces, 15 edges, 10 vertices"
+      ],
+      [
+       "Pentagonal pyramid",
+       "6 faces, 10 edges, 6 vertices"
+      ],
+      [
+       "Hexagonal pyramid",
+       "7 faces, 12 edges, 7 vertices"
+      ],
+      [
+       "Octagonal prism",
+       "10 faces, 24 edges, 16 vertices"
+      ],
+      [
+       "Triangular pyramid",
+       "4 faces, 6 edges, 4 vertices"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "n-sided base",
+     "items": [
+      {
+       "q": "Edges of a prism, n = 8",
+       "a": "24",
+       "check": "3*8"
+      },
+      {
+       "q": "Vertices of a prism, n = 7",
+       "a": "14",
+       "check": "2*7"
+      },
+      {
+       "q": "Faces of a pyramid, n = 9",
+       "a": "10",
+       "check": "9+1"
+      },
+      {
+       "q": "Edges of a pyramid, n = 6",
+       "a": "12",
+       "check": "2*6"
+      },
+      {
+       "q": "Faces of a prism, n = 10",
+       "a": "12",
+       "check": "10+2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A cube has one corner sliced off. How many faces does it have now?",
+     "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+     ],
+     "answer": 1,
+     "explain": "The cut makes one new triangular face: 6 + 1 = 7.",
+     "steps": [
+      "6 old faces + 1 new"
+     ],
+     "mistake": "Forgets the new face made by the cut",
+     "check": "6+1"
+    },
+    {
+     "q": "A cube has one corner sliced off. How many vertices does it have now?",
+     "options": [
+      "7",
+      "10",
+      "8",
+      "11"
+     ],
+     "answer": 1,
+     "explain": "One vertex is removed and 3 new ones appear: 8 − 1 + 3 = 10.",
+     "steps": [
+      "8 − 1 + 3 = 10"
+     ],
+     "mistake": "Forgets that the old corner disappears",
+     "check": "8-1+3"
+    },
+    {
+     "q": "A cube has one corner sliced off. How many edges does it have now?",
+     "options": [
+      "12",
+      "13",
+      "18",
+      "15"
+     ],
+     "answer": 3,
+     "explain": "The new triangle adds 3 edges: 12 + 3 = 15. Check Euler: 7 + 10 − 15 = 2.",
+     "steps": [
+      "12 + 3 = 15"
+     ],
+     "mistake": "Adds only one edge",
+     "check": "12+3"
+    },
+    {
+     "q": "How many edges does a prism with an octagon (8 sides) as its base have?",
+     "options": [
+      "16",
+      "24",
+      "18",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "A prism with an n-sided base has 3n edges: 3 × 8 = 24.",
+     "steps": [
+      "3n = 3 × 8 = 24"
+     ],
+     "mistake": "Uses 2n, the pyramid rule",
+     "check": "3*8"
+    },
+    {
+     "q": "How many faces does a pentagonal pyramid have?",
+     "options": [
+      "5",
+      "7",
+      "10",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "A pyramid with an n-sided base has n + 1 faces: 5 + 1 = 6.",
+     "steps": [
+      "n + 1 = 6"
+     ],
+     "mistake": "Forgets the base",
+     "check": "5+1"
+    },
+    {
+     "q": "A pyramid has 10 edges. What is its base?",
+     "options": [
+      "A decagon",
+      "A square",
+      "A pentagon",
+      "A hexagon"
+     ],
+     "answer": 2,
+     "explain": "A pyramid has 2n edges, so 2n = 10 and n = 5: a pentagon.",
+     "steps": [
+      "2n = 10 → n = 5"
+     ],
+     "mistake": "Uses the prism rule 3n"
+    },
+    {
+     "q": "A prism has 9 faces. How many vertices does it have?",
+     "options": [
+      "18",
+      "9",
+      "16",
+      "14"
+     ],
+     "answer": 3,
+     "explain": "Faces = n + 2 = 9, so n = 7. Vertices = 2n = 14.",
+     "steps": [
+      "n + 2 = 9 → n = 7",
+      "2n = 14"
+     ],
+     "mistake": "Uses the face count as the vertex count",
+     "check": "2*7"
+    },
+    {
+     "q": "All 8 corners of a cube are sliced off. How many faces does the new solid have?",
+     "options": [
+      "8",
+      "14",
+      "6",
+      "24"
+     ],
+     "answer": 1,
+     "explain": "Each cut adds one face: 6 + 8 = 14.",
+     "steps": [
+      "6 + 8 = 14"
+     ],
+     "mistake": "Counts only the new triangular faces",
+     "check": "6+8"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sliced one corner off a cheese cube. He says it still has 8 corners. Is he right?",
+    "must": [
+     [
+      "10",
+      "ten"
+     ],
+     [
+      "3",
+      "three",
+      "triangle"
+     ],
+     [
+      "one removed",
+      "removed",
+      "lost",
+      "minus 1"
+     ]
+    ],
+    "praise": "The old corner vanished but three new ones appeared, so 8 − 1 + 3 = 10 corners. Cheesy maths!",
+    "nudge": "What happens to the corner you cut? How many new corners does the cut make?"
+   }
+  },
+  {
+   "id": "g8-maths-11-03",
+   "title": "Views of solids and nets",
+   "learn": {
+    "hook": "Hold a glass at eye level: it looks like a rectangle. Look down into it from above: it is a circle! Same glass, different views.",
+    "points": [
+     "A solid can look different from the front, the side and the top. The top view is also called the plan.",
+     "A cylinder standing up: rectangle from the front, circle from the top. A cone on its base: triangle from the front, circle from the top. A sphere looks like a circle from every side.",
+     "A cube looks like a square from the front, side and top.",
+     "For stacks of cubes, count layer by layer. The top view shows how many columns there are.",
+     "A net is a flat pattern that folds into a solid. Cylinder: a rectangle and 2 circles. Cone: a curved sector and a circle. Square pyramid: a square and 4 triangles. Cube: 6 squares."
+    ],
+    "example": {
+     "q": "Arjun puts 3 cubes in a row on the floor and 1 cube on top of the middle one. Describe the front view and count the cubes.",
+     "steps": [
+      "Bottom row: 3 squares side by side",
+      "Top: 1 square above the middle one",
+      "Total cubes: 3 + 1 = 4"
+     ],
+     "answer": "Front view: 3 squares with 1 on top of the middle; 4 cubes"
+    },
+    "reallife": "Architects draw front, side and top views of buildings, and sweet-box makers cut flat nets that fold into boxes."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "What do you see?",
+     "pairs": [
+      [
+       "Cylinder, from the top",
+       "Circle"
+      ],
+      [
+       "Cylinder, from the front",
+       "Rectangle"
+      ],
+      [
+       "Cone, from the front",
+       "Triangle"
+      ],
+      [
+       "Cube, from any face",
+       "Square"
+      ],
+      [
+       "Square pyramid, from the top",
+       "Square with its diagonals"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Top view: circle or not?",
+     "buckets": [
+      "Top view is a circle",
+      "Top view is not a circle"
+     ],
+     "items": [
+      [
+       "Cylinder standing upright",
+       0
+      ],
+      [
+       "Cone standing on its base",
+       0
+      ],
+      [
+       "Sphere",
+       0
+      ],
+      [
+       "Steel tumbler standing upright",
+       0
+      ],
+      [
+       "Cube",
+       1
+      ],
+      [
+       "Square pyramid",
+       1
+      ],
+      [
+       "Brick lying flat",
+       1
+      ],
+      [
+       "Triangular prism lying on a rectangular face",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What does an upright cylinder look like from the top?",
+     "options": [
+      "Circle",
+      "Rectangle",
+      "Triangle",
+      "Square"
+     ],
+     "answer": 0,
+     "explain": "Looking down, you see only the round top face, so the top view is a circle.",
+     "mistake": "Gives the front view (rectangle) instead of the top view",
+     "visual": {
+      "kind": "shape",
+      "name": "circle"
+     }
+    },
+    {
+     "q": "What is the front view of a cone standing on its base?",
+     "options": [
+      "Circle",
+      "Triangle",
+      "Square",
+      "Rectangle"
+     ],
+     "answer": 1,
+     "explain": "From the front, the cone narrows from a wide base to a point, so it looks like a triangle.",
+     "mistake": "Gives the top view (circle) instead of the front view",
+     "visual": {
+      "kind": "shape",
+      "name": "triangle"
+     }
+    },
+    {
+     "q": "Which solid looks like a circle from the front, the side and the top?",
+     "options": [
+      "Cylinder",
+      "Cone",
+      "Cube",
+      "Sphere"
+     ],
+     "answer": 3,
+     "explain": "A sphere is round in every direction, so every view is a circle.",
+     "mistake": "Picks cylinder, whose front view is a rectangle",
+     "visual": {
+      "kind": "shape",
+      "name": "sphere"
+     }
+    },
+    {
+     "q": "Arjun stacks cubes: 3 in a row on the floor and 1 on top of the middle one. How many cubes does he use?",
+     "options": [
+      "3",
+      "5",
+      "4",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "3 cubes in the bottom row and 1 on top: 3 + 1 = 4.",
+     "steps": [
+      "Bottom layer: 3",
+      "Top layer: 1",
+      "Total: 4"
+     ],
+     "mistake": "Counts only the bottom layer",
+     "check": "3+1",
+     "visual": {
+      "kind": "count",
+      "emoji": "🧊",
+      "n": 4
+     }
+    },
+    {
+     "q": "Which net folds into a cylinder?",
+     "options": [
+      "Six squares",
+      "A square and four triangles",
+      "A rectangle and two circles",
+      "A circle and a curved sector"
+     ],
+     "answer": 2,
+     "explain": "The rectangle rolls into the curved side, and the two circles become the top and bottom. A circle and a sector make a cone.",
+     "mistake": "Confuses the cylinder's net with the cone's net"
+    },
+    {
+     "q": "Which shapes make up the net of a square pyramid?",
+     "options": [
+      "4 squares and 1 triangle",
+      "1 square and 4 triangles",
+      "2 squares and 4 rectangles",
+      "6 squares"
+     ],
+     "answer": 1,
+     "explain": "The square is the base, and the 4 triangles fold up to meet at the top.",
+     "mistake": "Mixes up the pyramid with a prism or cube"
+    },
+    {
+     "q": "A cube with edge 3 cm is unfolded into a net of 6 squares. What is the total area of the net?",
+     "options": [
+      "27 cm²",
+      "18 cm²",
+      "36 cm²",
+      "54 cm²"
+     ],
+     "answer": 3,
+     "explain": "Each square is 3 × 3 = 9 cm². Six squares: 6 × 9 = 54 cm².",
+     "steps": [
+      "One face: 3 × 3 = 9 cm²",
+      "6 faces: 6 × 9 = 54 cm²"
+     ],
+     "mistake": "Finds the volume (27) or uses only 4 faces (36)",
+     "check": "6*3*3"
+    },
+    {
+     "q": "Joseph builds a 2 × 2 × 2 cube from small cubes. How many small cubes can he see from directly above?",
+     "options": [
+      "8",
+      "4",
+      "2",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "From the top you see only the top layer, which is 2 × 2 = 4 small cubes. The bottom 4 are hidden.",
+     "steps": [
+      "Top layer: 2 × 2 = 4"
+     ],
+     "mistake": "Counts all 8 cubes, including hidden ones",
+     "check": "2*2",
+     "visual": {
+      "kind": "shape",
+      "name": "cube"
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: Why does my cylinder-shaped water bottle look like a rectangle sometimes and a circle at other times?",
+    "must": [
+     [
+      "front",
+      "side"
+     ],
+     [
+      "top",
+      "above",
+      "from up"
+     ],
+     [
+      "view",
+      "look",
+      "see",
+      "direction"
+     ]
+    ],
+    "praise": "From the front it looks like a rectangle, and from the top it looks like a circle. It depends on the view! Clever!",
+    "nudge": "Where are you looking from when it looks like a circle? And when it looks like a rectangle?"
+   },
+   "covers": [
+    "c11.2.2",
+    "c11.2.7",
+    "c11.2.10"
+   ]
+  },
+  {
+   "id": "g8-maths-11-02",
+   "title": "Faces, edges, vertices and Euler's formula",
+   "learn": {
+    "hook": "Count the faces, corners and edges of any box, add the faces and corners, then subtract the edges. You will always get 2. Try it on a dice!",
+    "points": [
+     "A solid's flat surfaces are faces, the lines where two faces meet are edges, and the corners are vertices.",
+     "A cube or cuboid has 6 faces, 12 edges and 8 vertices. A square pyramid has 5 faces, 8 edges and 5 vertices.",
+     "A polyhedron is a solid whose faces are all flat polygons. Cylinders, cones and spheres have curved surfaces, so they are not polyhedra.",
+     "Euler's formula for polyhedra: F + V − E = 2. For a cube: 6 + 8 − 12 = 2.",
+     "A prism has two identical ends joined by rectangles. A pyramid has one base with triangles meeting at the top."
+    ],
+    "example": {
+     "q": "A pentagonal prism has 7 faces and 15 edges. How many vertices does it have?",
+     "steps": [
+      "F + V − E = 2",
+      "7 + V − 15 = 2",
+      "V − 8 = 2",
+      "V = 10"
+     ],
+     "answer": "10 vertices"
+    },
+    "reallife": "Gift boxes, tents, the pyramid-shaped roof of a temple and a cricket ball show the difference between polyhedra and curved solids."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Solid facts",
+     "pairs": [
+      [
+       "Cube",
+       "6 faces, 12 edges, 8 vertices"
+      ],
+      [
+       "Triangular prism",
+       "5 faces, 9 edges, 6 vertices"
+      ],
+      [
+       "Square pyramid",
+       "5 faces, 8 edges, 5 vertices"
+      ],
+      [
+       "Triangular pyramid",
+       "4 faces, 6 edges, 4 vertices"
+      ],
+      [
+       "Hexagonal prism",
+       "8 faces, 18 edges, 12 vertices"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Polyhedron or not?",
+     "buckets": [
+      "Polyhedron",
+      "Not a polyhedron"
+     ],
+     "items": [
+      [
+       "Cube",
+       0
+      ],
+      [
+       "Cuboid",
+       0
+      ],
+      [
+       "Square pyramid",
+       0
+      ],
+      [
+       "Triangular prism",
+       0
+      ],
+      [
+       "Sphere",
+       1
+      ],
+      [
+       "Cylinder",
+       1
+      ],
+      [
+       "Cone",
+       1
+      ],
+      [
+       "A round laddoo",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many edges does a cube have?",
+     "options": [
+      "6",
+      "8",
+      "12",
+      "24"
+     ],
+     "answer": 2,
+     "explain": "A cube has 4 edges on the top, 4 on the bottom and 4 upright ones: 12 edges.",
+     "steps": [
+      "Top: 4",
+      "Bottom: 4",
+      "Sides: 4",
+      "4 + 4 + 4 = 12"
+     ],
+     "mistake": "Counts faces (6) or vertices (8) instead of edges",
+     "check": "4+4+4",
+     "visual": {
+      "kind": "shape",
+      "name": "cube"
+     }
+    },
+    {
+     "q": "A polyhedron has 8 faces and 6 vertices. How many edges does it have? (Use F + V − E = 2.)",
+     "options": [
+      "16",
+      "14",
+      "12",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "8 + 6 − E = 2, so E = 14 − 2 = 12.",
+     "steps": [
+      "8 + 6 − E = 2",
+      "14 − E = 2",
+      "E = 12"
+     ],
+     "mistake": "Adds 2 instead of subtracting it",
+     "check": "8+6-2"
+    },
+    {
+     "q": "How many vertices does a square pyramid have?",
+     "options": [
+      "4",
+      "5",
+      "8",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "It has 4 corners at the square base and 1 at the top: 5 vertices.",
+     "steps": [
+      "Base corners: 4",
+      "Top: 1",
+      "4 + 1 = 5"
+     ],
+     "mistake": "Forgets the top point (apex)",
+     "check": "4+1"
+    },
+    {
+     "q": "Which of these is NOT a polyhedron?",
+     "options": [
+      "Cube",
+      "Triangular prism",
+      "Square pyramid",
+      "Cylinder"
+     ],
+     "answer": 3,
+     "explain": "A cylinder has curved surfaces. A polyhedron must have only flat polygon faces.",
+     "mistake": "Thinks any solid shape is a polyhedron",
+     "visual": {
+      "kind": "shape",
+      "name": "cylinder"
+     }
+    },
+    {
+     "q": "A triangular prism has 5 faces and 6 vertices. How many edges does it have?",
+     "options": [
+      "9",
+      "11",
+      "13",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "F + V − E = 2 gives 5 + 6 − E = 2, so E = 9. Count check: 3 + 3 edges on the triangles and 3 joining them.",
+     "steps": [
+      "5 + 6 − E = 2",
+      "E = 11 − 2 = 9"
+     ],
+     "mistake": "Adds F and V without subtracting 2",
+     "check": "5+6-2"
+    },
+    {
+     "q": "Meena wraps a cuboid-shaped gift box, covering every face. How many faces does she cover?",
+     "options": [
+      "4",
+      "6",
+      "8",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "A cuboid has 6 faces: top, bottom, front, back, left and right.",
+     "mistake": "Counts only the side faces, or counts corners",
+     "check": "6"
+    },
+    {
+     "q": "A pentagonal prism has 7 faces and 15 edges. How many vertices does it have?",
+     "options": [
+      "8",
+      "20",
+      "24",
+      "10"
+     ],
+     "answer": 3,
+     "explain": "7 + V − 15 = 2, so V = 10. Each pentagon end has 5 corners: 5 + 5 = 10.",
+     "steps": [
+      "V = 2 − 7 + 15",
+      "V = 10"
+     ],
+     "mistake": "Gets the signs in Euler's formula mixed up",
+     "check": "2-7+15"
+    },
+    {
+     "q": "Can a polyhedron have 10 faces, 10 vertices and 15 edges?",
+     "options": [
+      "Yes, any numbers work",
+      "No, because F + V − E would be 5, not 2",
+      "Yes, because 10 + 10 is more than 15",
+      "No, because 15 is an odd number"
+     ],
+     "answer": 1,
+     "explain": "Every polyhedron obeys F + V − E = 2. Here 10 + 10 − 15 = 5, so no such polyhedron exists.",
+     "steps": [
+      "10 + 10 − 15 = 5",
+      "5 ≠ 2"
+     ],
+     "mistake": "Thinks the number of edges must be even (a triangular prism has 9)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: What is Euler's formula, and how can I check it on a cube?",
+    "must": [
+     [
+      "faces",
+      "face"
+     ],
+     [
+      "vertices",
+      "corners",
+      "vertex"
+     ],
+     [
+      "edges",
+      "edge"
+     ],
+     [
+      "2",
+      "two"
+     ]
+    ],
+    "praise": "Faces plus vertices minus edges is 2. For a cube: 6 + 8 − 12 = 2. Euler was a genius, and so are you!",
+    "nudge": "Which three things do you count on a cube? What do you do with them?"
+   },
+   "covers": [
+    "c11.2.3",
+    "c11.2.4"
+   ]
+  },
+  {
+   "id": "g8-maths-11-07",
+   "title": "Nets and shortest paths",
+   "covers": [
+    "c11.2.5",
+    "c11.2.6",
+    "c11.2.8"
+   ],
+   "learn": {
+    "hook": "An ant wants to crawl from one corner of a box to the opposite corner along its surface. The shortest route is easy to find — if you unfold the box!",
+    "points": [
+     "A net is a flat shape that folds into a solid. A cube has exactly 11 different nets, each made of 6 squares. Six squares in a 2 × 3 block is NOT a cube net.",
+     "Other nets: cuboid — 6 rectangles; tetrahedron — 4 equilateral triangles; square pyramid — 1 square and 4 triangles; triangular prism — 2 triangles and 3 rectangles; octahedron — 8 triangles.",
+     "Shortest path on a surface: unfold the faces the path crosses into a flat net. The shortest path is then a straight line, found with the Baudhayana–Pythagoras theorem.",
+     "Example: a box with a 3 cm × 3 cm base and height 8 cm. Unfold two side faces: the ant crosses a 6 cm × 8 cm rectangle, so the path is √(6² + 8²) = 10 cm."
+    ],
+    "example": {
+     "q": "An ant crawls on the surface of a cube with edge 1 m from one corner to the opposite corner. How long is the shortest path?",
+     "steps": [
+      "Unfold two faces into a 2 m × 1 m rectangle",
+      "Path² = 2² + 1² = 5",
+      "Path = √5 ≈ 2.24 m"
+     ],
+     "answer": "√5 m ≈ 2.24 m"
+    },
+    "reallife": "Packaging designers draw nets to cut cardboard boxes, and engineers unfold surfaces to lay the shortest cables."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Solid and its net",
+     "pairs": [
+      [
+       "Tetrahedron",
+       "4 triangles"
+      ],
+      [
+       "Octahedron",
+       "8 triangles"
+      ],
+      [
+       "Triangular prism",
+       "2 triangles and 3 rectangles"
+      ],
+      [
+       "Square pyramid",
+       "1 square and 4 triangles"
+      ],
+      [
+       "Cuboid",
+       "6 rectangles"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Cube net or not?",
+     "buckets": [
+      "Folds into a cube",
+      "Does not"
+     ],
+     "items": [
+      [
+       "A cross: 4 squares in a column with one on each side of the second",
+       0
+      ],
+      [
+       "A 2-2-2 staircase of squares",
+       0
+      ],
+      [
+       "4 in a row with one above the 1st and one below the 4th",
+       0
+      ],
+      [
+       "Six squares in a 2 × 3 block",
+       1
+      ],
+      [
+       "Five squares in a row with one on top",
+       1
+      ],
+      [
+       "A 2 × 2 block of squares with two more attached",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many different nets does a cube have?",
+     "options": [
+      "6",
+      "8",
+      "11",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "There are exactly 11 different ways to arrange 6 squares so that they fold into a cube.",
+     "steps": [
+      "11 cube nets"
+     ],
+     "mistake": "Confuses the number of nets with the number of faces",
+     "check": "11"
+    },
+    {
+     "q": "Which arrangement of 6 squares is NOT a net of a cube?",
+     "options": [
+      "A cross of 4 in a column with one square on each side",
+      "A 2-2-2 staircase",
+      "4 in a row with one square above the first and one below the last",
+      "Six squares in a 2 × 3 block"
+     ],
+     "answer": 3,
+     "explain": "In a 2 × 3 block, folding makes squares overlap and leaves faces open, so it cannot form a cube.",
+     "steps": [
+      "Try folding: two squares end up on the same face"
+     ],
+     "mistake": "Thinks any 6 squares make a cube"
+    },
+    {
+     "q": "What is the net of a tetrahedron made of?",
+     "options": [
+      "4 squares",
+      "3 triangles and a square",
+      "4 equilateral triangles",
+      "6 triangles"
+     ],
+     "answer": 2,
+     "explain": "A tetrahedron has 4 triangular faces, so its net has 4 triangles.",
+     "steps": [
+      "Tetrahedron: 4 faces, all triangles"
+     ],
+     "mistake": "Mixes it up with a square pyramid"
+    },
+    {
+     "q": "How many triangles are in the net of an octahedron?",
+     "options": [
+      "6",
+      "8",
+      "4",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "'Octa' means eight: an octahedron has 8 triangular faces.",
+     "steps": [
+      "Octahedron → 8 faces"
+     ],
+     "mistake": "Confuses it with 6 (cube faces)",
+     "check": "8"
+    },
+    {
+     "q": "Which shapes make the net of a triangular prism?",
+     "options": [
+      "3 triangles and 2 rectangles",
+      "2 triangles and 3 rectangles",
+      "4 triangles",
+      "1 triangle and 3 rectangles"
+     ],
+     "answer": 1,
+     "explain": "A triangular prism has 2 triangular ends and 3 rectangular sides.",
+     "steps": [
+      "2 ends + 3 sides"
+     ],
+     "mistake": "Swaps the numbers of triangles and rectangles"
+    },
+    {
+     "q": "A box has a 3 cm × 3 cm base and is 8 cm tall. An ant crawls over two side faces from a bottom corner to the opposite top corner. How long is its shortest path?",
+     "options": [
+      "14 cm",
+      "11 cm",
+      "8 cm",
+      "10 cm"
+     ],
+     "answer": 3,
+     "explain": "Unfold the two faces into a 6 cm × 8 cm rectangle. The straight path is √(36 + 64) = 10 cm.",
+     "steps": [
+      "Unfold: 3 + 3 = 6 cm by 8 cm",
+      "√(6² + 8²) = 10"
+     ],
+     "mistake": "Adds the edges instead of using the theorem",
+     "check": "(6**2+8**2)**0.5"
+    },
+    {
+     "q": "An ant crawls on a cube with edge 1 m from one corner to the opposite corner. What is the square of the shortest path length?",
+     "options": [
+      "3",
+      "2",
+      "4",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "Unfolding two faces gives a 2 × 1 rectangle, so path² = 2² + 1² = 5 (path ≈ 2.24 m).",
+     "steps": [
+      "2² + 1² = 5"
+     ],
+     "mistake": "Uses the diagonal through the inside of the cube (√3)",
+     "check": "2**2+1**2"
+    },
+    {
+     "q": "What is the total area of the net of a 5 cm × 4 cm × 3 cm cuboid?",
+     "options": [
+      "60 cm²",
+      "94 cm²",
+      "47 cm²",
+      "120 cm²"
+     ],
+     "answer": 1,
+     "explain": "The net has two of each face: 2 × (20 + 15 + 12) = 94 cm².",
+     "steps": [
+      "20 + 15 + 12 = 47",
+      "× 2 = 94"
+     ],
+     "mistake": "Counts each face only once",
+     "check": "2*(5*4+5*3+4*3)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to walk across a box from one corner to the far corner on its surface. How can a net help him find the shortest way?",
+    "must": [
+     [
+      "unfold",
+      "flat",
+      "net"
+     ],
+     [
+      "straight",
+      "straight line"
+     ],
+     [
+      "theorem",
+      "pythagoras",
+      "baudhayana",
+      "hypotenuse"
+     ]
+    ],
+    "praise": "Unfold the box flat, draw a straight line, and use the theorem. Shortest walk found!",
+    "nudge": "What happens to the path when the box is unfolded? What is the shortest path on a flat sheet?"
+   }
+  },
+  {
+   "id": "g8-maths-11-08",
+   "title": "Projections, shadows and building from views",
+   "covers": [
+    "c11.2.9",
+    "c11.2.11",
+    "c11.2.12"
+   ],
+   "learn": {
+    "hook": "At noon your shadow is tiny; in the evening it is longer than you. A shadow is a projection — and it obeys some neat rules.",
+    "points": [
+     "Projecting a point onto a plane means dropping it straight onto the plane. Projecting an object projects all its points.",
+     "When light falls straight down (a perpendicular projection, like the overhead noon sun), the shadow is never longer than the object: a 10 cm pencil's shadow can be anything from 0 (pencil upright) to 10 cm (pencil flat). Slanting evening light can make longer shadows.",
+     "Sunlight casts shadows that are parallel projections, so parallel rods have parallel shadows.",
+     "Matching views: a cylinder has a circle top view and a rectangle front view; a square pyramid has a square (with diagonals) top view and a triangle front view.",
+     "Building from views: if the top view of a stack of cubes is a 2 × 2 square and the front and side views each show two columns 2 cubes high, there can be up to 8 cubes, but as few as 6."
+    ],
+    "example": {
+     "q": "A stack's top view is a 2 × 2 square; its front and side views each show two columns, 2 cubes tall. What is the fewest number of cubes?",
+     "steps": [
+      "Each of the 4 places needs at least 1 cube (top view)",
+      "Each front column and each side column needs a tower of 2",
+      "Two towers of 2 on a diagonal do both jobs",
+      "2 + 2 + 1 + 1 = 6 cubes"
+     ],
+     "answer": "6 cubes"
+    },
+    "reallife": "Architects draw front, side and top views so builders can make exactly the right shape."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Which solid has these views?",
+     "pairs": [
+      [
+       "Top: circle, front: rectangle",
+       "Cylinder"
+      ],
+      [
+       "Top: circle, front: triangle",
+       "Cone"
+      ],
+      [
+       "Top: square, front: triangle",
+       "Square pyramid"
+      ],
+      [
+       "Top: square, front: square",
+       "Cube"
+      ],
+      [
+       "Top: circle, front: circle",
+       "Sphere"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Shadow rules",
+     "items": [
+      [
+       "A shadow (projection) can be longer than the object under the overhead sun.",
+       false,
+       "A parallel projection is never longer than the object."
+      ],
+      [
+       "Two parallel rods in sunlight cast parallel shadows.",
+       true,
+       "Parallel lines project to parallel lines."
+      ],
+      [
+       "A pencil standing straight up under the overhead sun casts almost no shadow.",
+       true,
+       "It projects to a point."
+      ],
+      [
+       "A flat square tile held parallel to the ground casts a square shadow under the overhead sun.",
+       true,
+       "It is projected without change."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Under the overhead sun, how long can the shadow of a 10 cm pencil be?",
+     "options": [
+      "Always exactly 10 cm",
+      "Always more than 10 cm",
+      "Always 5 cm",
+      "Anything from 0 to 10 cm"
+     ],
+     "answer": 3,
+     "explain": "A projection is never longer than the object. Upright gives a point; lying flat gives 10 cm.",
+     "steps": [
+      "Projected length ≤ true length"
+     ],
+     "mistake": "Thinks a shadow can stretch longer than the object"
+    },
+    {
+     "q": "A stick stands straight up under the overhead noon sun. What is its shadow?",
+     "options": [
+      "A line as long as the stick",
+      "A circle",
+      "A line twice as long",
+      "Just a point"
+     ],
+     "answer": 3,
+     "explain": "Every point of the stick drops onto the same spot on the ground.",
+     "steps": [
+      "Vertical stick, vertical rays → one point"
+     ],
+     "mistake": "Forgets that the sun is straight overhead"
+    },
+    {
+     "q": "Two parallel bamboo poles stand in the sun. What can you say about their shadows?",
+     "options": [
+      "The shadows meet at a point",
+      "The shadows are always equal to the poles",
+      "The shadows are parallel",
+      "The shadows are at right angles"
+     ],
+     "answer": 2,
+     "explain": "Sunlight gives parallel projection, and parallel lines project to parallel lines.",
+     "steps": [
+      "Sun's rays are parallel"
+     ],
+     "mistake": "Thinks shadows meet like lines from a lamp"
+    },
+    {
+     "q": "A square tile is held parallel to the ground under the overhead sun. What shape is its shadow?",
+     "options": [
+      "A bigger square",
+      "A circle",
+      "A square of the same size",
+      "A thin line"
+     ],
+     "answer": 2,
+     "explain": "When the object is parallel to the ground, the overhead sun projects it without any change.",
+     "steps": [
+      "Parallel to the ground → same shape and size"
+     ],
+     "mistake": "Thinks every shadow is distorted"
+    },
+    {
+     "q": "A solid has a square top view and a triangle front view. Which solid is it?",
+     "options": [
+      "Cube",
+      "Cone",
+      "Cylinder",
+      "Square pyramid"
+     ],
+     "answer": 3,
+     "explain": "A square base seen from above and a triangle from the front fits a square pyramid.",
+     "steps": [
+      "Top square → square base",
+      "Front triangle → pointed top"
+     ],
+     "mistake": "Matches only one of the two views"
+    },
+    {
+     "q": "A stack's top view is a 2 × 2 square and its front and side views each show two columns 2 cubes tall. What is the greatest number of cubes it can have?",
+     "options": [
+      "6",
+      "4",
+      "16",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "At most 2 cubes stand in each of the 4 places: 4 × 2 = 8.",
+     "steps": [
+      "4 places × 2 high"
+     ],
+     "mistake": "Counts only the cubes seen in one view",
+     "check": "4*2"
+    },
+    {
+     "q": "For the same views (top 2 × 2, front and side each two columns 2 tall), what is the fewest number of cubes?",
+     "options": [
+      "8",
+      "6",
+      "4",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "Two towers of 2 placed on a diagonal make every front and side column 2 tall; the other 2 places need 1 cube each: 2 + 2 + 1 + 1 = 6.",
+     "steps": [
+      "Diagonal towers: 2 + 2",
+      "Other places: 1 + 1",
+      "Total 6"
+     ],
+     "mistake": "Assumes every place must be 2 tall",
+     "check": "2+2+1+1"
+    },
+    {
+     "q": "Which solid can have a circle as its top view AND a circle as its front view?",
+     "options": [
+      "Cylinder",
+      "Sphere",
+      "Cone",
+      "Cube"
+     ],
+     "answer": 1,
+     "explain": "A sphere looks like a circle from every direction.",
+     "steps": [
+      "Sphere: circle from all sides"
+     ],
+     "mistake": "Forgets that a cylinder looks like a rectangle from the front"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's shadow at noon is tiny but in the evening it's huge. Explain what a shadow is and why its length changes!",
+    "must": [
+     [
+      "projection",
+      "project"
+     ],
+     [
+      "sun",
+      "light",
+      "rays"
+     ],
+     [
+      "angle",
+      "low",
+      "overhead",
+      "slant"
+     ]
+    ],
+    "praise": "A shadow is a projection made by light. At noon the sun is overhead, so my shadow is short; in the evening the light comes at a slant!",
+    "nudge": "What makes a shadow? Where is the sun at noon compared with the evening?"
+   }
+  },
+  {
+   "id": "g8-maths-11-09",
+   "title": "Isometric drawings and impossible figures",
+   "covers": [
+    "c11.2.13",
+    "c11.2.14",
+    "c11.2.15"
+   ],
+   "learn": {
+    "hook": "Can you draw a 3D cube on flat paper so it really looks solid? Isometric dot paper makes it easy — and lets you draw impossible shapes too!",
+    "points": [
+     "Isometric dot paper has dots in a triangular pattern; each dot has 6 equally spaced neighbours.",
+     "On it, vertical edges stay vertical and the other edges slope at 30° to the horizontal. Equal edges of a cube are drawn the same length.",
+     "An isometric drawing of a cube shows 3 faces, 7 vertices and 9 edges; one vertex is hidden at the back.",
+     "Arrangements of cubes (like tetris shapes) are drawn cube by cube, starting with the front-most cubes.",
+     "The impossible triangle looks solid, but each corner joins beams that are at different depths. Each corner makes sense alone; the whole object cannot exist in 3D."
+    ],
+    "example": {
+     "q": "How many small cube faces can you see in an isometric drawing of a 2 × 2 × 2 cube?",
+     "steps": [
+      "3 big faces are visible",
+      "Each big face shows 2 × 2 = 4 small faces",
+      "3 × 4 = 12"
+     ],
+     "answer": "12"
+    },
+    "reallife": "Video games, engineering drawings and furniture assembly guides often use isometric views."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Isometric facts",
+     "items": [
+      [
+       "On isometric paper, vertical edges are drawn vertical.",
+       true,
+       "Only the other two directions slope."
+      ],
+      [
+       "An isometric drawing of a cube shows all 6 faces.",
+       false,
+       "It shows 3 faces."
+      ],
+      [
+       "Each dot on isometric dot paper has 6 equally spaced neighbours.",
+       true,
+       "The dots form a triangular grid."
+      ],
+      [
+       "The impossible triangle can be built from three straight wooden beams.",
+       false,
+       "It only works as a drawing."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Count in the drawing",
+     "items": [
+      {
+       "q": "Faces of a cube you can see",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "Vertices of a cube you can see",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "Edges of a cube you can see",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "Small faces seen on a 2 × 2 × 2 cube",
+       "a": "12",
+       "check": "3*4"
+      },
+      {
+       "q": "Small faces seen on a 3 × 3 × 3 cube",
+       "a": "27",
+       "check": "3*9"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "On isometric dot paper, how are the vertical edges of a box drawn?",
+     "options": [
+      "Vertical",
+      "At 30° to the horizontal",
+      "At 45°",
+      "Horizontal"
+     ],
+     "answer": 0,
+     "explain": "Vertical edges stay vertical; only the other two sets of edges slope at 30°.",
+     "steps": [
+      "Vertical stays vertical"
+     ],
+     "mistake": "Slopes every edge"
+    },
+    {
+     "q": "On isometric paper, at what angle to the horizontal are the non-vertical edges drawn?",
+     "options": [
+      "30°",
+      "45°",
+      "60°",
+      "90°"
+     ],
+     "answer": 0,
+     "explain": "The two sloping directions make 30° with the horizontal.",
+     "steps": [
+      "Isometric slope = 30°"
+     ],
+     "mistake": "Uses 45°, as in some sketches",
+     "check": "30"
+    },
+    {
+     "q": "How many faces of a cube can you see in an isometric drawing?",
+     "options": [
+      "6",
+      "3",
+      "2",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "Only the top and two side faces face the viewer.",
+     "steps": [
+      "Top + front-left + front-right"
+     ],
+     "mistake": "Counts all the faces of the cube",
+     "check": "3"
+    },
+    {
+     "q": "How many vertices of a cube can you see in an isometric drawing?",
+     "options": [
+      "8",
+      "6",
+      "7",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "All 8 corners exist, but one is hidden behind the cube.",
+     "steps": [
+      "8 − 1 hidden = 7"
+     ],
+     "mistake": "Counts the hidden vertex",
+     "check": "8-1"
+    },
+    {
+     "q": "How many small cube faces can you see in an isometric drawing of a 2 × 2 × 2 cube?",
+     "options": [
+      "12",
+      "8",
+      "24",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "3 big faces are visible, each made of 4 small faces: 3 × 4 = 12.",
+     "steps": [
+      "3 × 4 = 12"
+     ],
+     "mistake": "Counts the small cubes instead of the visible faces",
+     "check": "3*4"
+    },
+    {
+     "q": "Why is the impossible triangle impossible?",
+     "options": [
+      "Its corners join beams at different depths, so the whole shape cannot exist in 3D",
+      "Because triangles cannot be drawn",
+      "Because it has four corners",
+      "Because it is too big"
+     ],
+     "answer": 0,
+     "explain": "Each corner looks fine, but following the beams around shows they cannot all meet in real space.",
+     "steps": [
+      "Local corners look right",
+      "Whole shape is contradictory"
+     ],
+     "mistake": "Thinks the drawing breaks a rule of triangles"
+    },
+    {
+     "q": "What pattern do the dots on isometric dot paper make?",
+     "options": [
+      "A square grid",
+      "A triangular pattern, each dot with 6 equal neighbours",
+      "Random dots",
+      "Circles"
+     ],
+     "answer": 1,
+     "explain": "Isometric dots sit at the corners of equilateral triangles.",
+     "steps": [
+      "Triangular grid"
+     ],
+     "mistake": "Confuses isometric paper with square dot paper"
+    },
+    {
+     "q": "In an isometric drawing of a cube with edge 3 cm, how long are the drawn edges?",
+     "options": [
+      "Vertical 3 cm, others 1.5 cm",
+      "All different lengths",
+      "All 3 cm",
+      "Only the vertical edges are drawn"
+     ],
+     "answer": 2,
+     "explain": "Isometric drawing keeps equal edges equal, so every edge of the cube is drawn the same length.",
+     "steps": [
+      "Equal edges stay equal"
+     ],
+     "mistake": "Thinks sloping edges must be drawn shorter"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to draw a tetris-shaped stack of 4 cubes so it looks 3D. How can isometric paper help?",
+    "must": [
+     [
+      "isometric",
+      "dot paper",
+      "dots"
+     ],
+     [
+      "vertical",
+      "30",
+      "slope"
+     ],
+     [
+      "front",
+      "cube by cube",
+      "one at a time"
+     ]
+    ],
+    "praise": "Vertical lines straight up, the rest at 30°, and draw the front cubes first. My tetris block looks real!",
+    "nudge": "Which edges stay vertical on isometric paper? Which cubes should you draw first?"
+   }
+  },
+  {
+   "id": "g8-maths-11-01",
+   "title": "Constructions with ruler and compass",
+   "lab": "angle",
+   "learn": {
+    "hook": "With just a pencil, a ruler and a compass you can draw a perfect 60°, 30°, 90° or 45° angle, without ever looking at a protractor!",
+    "points": [
+     "A compass keeps a fixed distance, so every point on an arc is the same distance from the compass point.",
+     "Perpendicular bisector of AB: draw arcs of the same radius (more than half of AB) from A and from B. Join the two points where they cross. Every point on this line is equally far from A and B.",
+     "Angle bisector: draw an arc from the vertex cutting both arms. From those two points draw equal arcs that cross. Join the crossing point to the vertex.",
+     "60°: draw an arc from the vertex, then an arc of the same radius from where it cuts the arm. This makes an equilateral triangle. Bisect 60° to get 30°; bisect 90° to get 45°.",
+     "A triangle can be drawn from three sides only if any two sides together are longer than the third."
+    ],
+    "example": {
+     "q": "How can you construct an angle of 45° with a ruler and compass?",
+     "steps": [
+      "Draw a line and mark a point O on it",
+      "Construct a perpendicular at O to get 90°",
+      "Bisect the 90° angle",
+      "Each half is 90° ÷ 2 = 45°"
+     ],
+     "answer": "Construct 90° and bisect it"
+    },
+    "reallife": "Architects, carpenters and rangoli artists use compass constructions to get exact angles and symmetric designs."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "How to construct it",
+     "pairs": [
+      [
+       "60°",
+       "arc from vertex, same arc from where it cuts the arm"
+      ],
+      [
+       "30°",
+       "bisect a 60° angle"
+      ],
+      [
+       "90°",
+       "draw a perpendicular to a line"
+      ],
+      [
+       "45°",
+       "bisect a 90° angle"
+      ],
+      [
+       "120°",
+       "two 60° angles side by side"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Compass check",
+     "items": [
+      [
+       "Every point on the perpendicular bisector of AB is the same distance from A and from B.",
+       true,
+       "That is exactly what makes it the perpendicular bisector."
+      ],
+      [
+       "For a perpendicular bisector, the arcs must have a radius less than half of AB.",
+       false,
+       "With less than half, the arcs from A and B would not meet. The radius must be more than half."
+      ],
+      [
+       "Bisecting a 60° angle gives 30°.",
+       true,
+       "60° ÷ 2 = 30°."
+      ],
+      [
+       "A triangle can be drawn with sides 3 cm, 4 cm and 8 cm.",
+       false,
+       "3 + 4 = 7, which is less than 8, so the sides cannot meet."
+      ],
+      [
+       "Bisecting 90° and then bisecting one half again gives 22.5°.",
+       true,
+       "90° ÷ 2 = 45°, and 45° ÷ 2 = 22.5°."
+      ],
+      [
+       "An angle bisector divides an angle into two equal parts.",
+       true,
+       "Bisect means cut into two equal halves."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What angle do you get when you bisect a 90° angle?",
+     "options": [
+      "30°",
+      "180°",
+      "45°",
+      "60°"
+     ],
+     "answer": 2,
+     "explain": "Bisecting cuts an angle into two equal halves: 90° ÷ 2 = 45°.",
+     "steps": [
+      "90 ÷ 2 = 45"
+     ],
+     "mistake": "Doubles the angle instead of halving it",
+     "check": "90/2",
+     "visual": {
+      "kind": "angle",
+      "deg": 45
+     }
+    },
+    {
+     "q": "Riya draws arcs of the same radius from points A and B and joins the two points where the arcs cross. What has she drawn?",
+     "options": [
+      "The angle bisector",
+      "The perpendicular bisector of AB",
+      "A line parallel to AB",
+      "A diagonal"
+     ],
+     "answer": 1,
+     "explain": "The two crossing points are each equally far from A and B. The line through them cuts AB in half at 90°.",
+     "mistake": "Mixes up the perpendicular bisector with the angle bisector"
+    },
+    {
+     "q": "Point P lies on the perpendicular bisector of AB, and PA = 7 cm. What is PB?",
+     "options": [
+      "14 cm",
+      "3.5 cm",
+      "49 cm",
+      "7 cm"
+     ],
+     "answer": 3,
+     "explain": "Every point on the perpendicular bisector of AB is equally far from A and B, so PB = PA = 7 cm.",
+     "mistake": "Doubles or halves PA, thinking P must be the midpoint",
+     "check": "7"
+    },
+    {
+     "q": "Which set of side lengths can make a triangle?",
+     "options": [
+      "2 cm, 3 cm, 6 cm",
+      "5 cm, 6 cm, 10 cm",
+      "4 cm, 4 cm, 9 cm",
+      "1 cm, 2 cm, 3 cm"
+     ],
+     "answer": 1,
+     "explain": "5 + 6 = 11 is more than 10, so the sides can meet. In the others, the two shorter sides add up to the longest side or less.",
+     "steps": [
+      "5 + 6 = 11 > 10 ✓",
+      "2 + 3 = 5 < 6 ✗",
+      "4 + 4 = 8 < 9 ✗",
+      "1 + 2 = 3, not more than 3 ✗"
+     ],
+     "mistake": "Thinks any three lengths can make a triangle"
+    },
+    {
+     "q": "To construct 60°, you draw an arc from the vertex and then an arc of the same radius from where it cuts the arm. Why does this give 60°?",
+     "options": [
+      "A compass always makes 60°",
+      "The arcs are curved",
+      "It makes an equilateral triangle, and each angle of that triangle is 60°",
+      "The radius must be 6 cm"
+     ],
+     "answer": 2,
+     "explain": "The vertex, the first cut point and the crossing point are all one radius apart, forming an equilateral triangle. Each of its angles is 180° ÷ 3 = 60°.",
+     "mistake": "Follows the steps without seeing the equilateral triangle behind them"
+    },
+    {
+     "q": "Kabir bisects an angle of 130°. What is the size of each part?",
+     "options": [
+      "65°",
+      "260°",
+      "60°",
+      "50°"
+     ],
+     "answer": 0,
+     "explain": "Bisecting means halving: 130° ÷ 2 = 65°.",
+     "steps": [
+      "130 ÷ 2 = 65"
+     ],
+     "mistake": "Doubles the angle",
+     "check": "130/2",
+     "visual": {
+      "kind": "angle",
+      "deg": 65
+     }
+    },
+    {
+     "q": "Which construction gives an angle of 120°?",
+     "options": [
+      "Bisect a 60° angle",
+      "Bisect a 90° angle",
+      "Draw a perpendicular",
+      "Make two 60° angles side by side"
+     ],
+     "answer": 3,
+     "explain": "60° + 60° = 120°. Bisecting 60° gives 30°, bisecting 90° gives 45°, and a perpendicular gives 90°.",
+     "mistake": "Thinks bisecting makes an angle bigger",
+     "visual": {
+      "kind": "angle",
+      "deg": 120
+     }
+    },
+    {
+     "q": "Aisha bisects a 60° angle, then bisects one of the halves. What angle does she get?",
+     "options": [
+      "30°",
+      "20°",
+      "15°",
+      "45°"
+     ],
+     "answer": 2,
+     "explain": "60° ÷ 2 = 30°, then 30° ÷ 2 = 15°.",
+     "steps": [
+      "60 ÷ 2 = 30",
+      "30 ÷ 2 = 15"
+     ],
+     "mistake": "Stops after the first bisection",
+     "check": "60/4",
+     "visual": {
+      "kind": "angle",
+      "deg": 15
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: I have lost my protractor! How can I still draw a 30° angle?",
+    "must": [
+     [
+      "60",
+      "sixty",
+      "equilateral"
+     ],
+     [
+      "bisect",
+      "half",
+      "halve",
+      "cut in two"
+     ],
+     [
+      "compass",
+      "arc",
+      "arcs"
+     ]
+    ],
+    "praise": "Make 60° with compass arcs (an equilateral triangle), then bisect it to get 30°. No protractor needed!",
+    "nudge": "Which angle can you make easily with just a compass? How do you get half of it?"
+   },
+   "covers": []
+  }
+ ]
 }
-]}

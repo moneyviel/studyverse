@@ -1,110 +1,1983 @@
-{"n": 9, "title": "The Baudhayana-Pythagoras Theorem", "emoji": "📐",
-"topics": [
-{"id": "g8-maths-09-01", "title": "Right triangles and the theorem",
- "learn": {
-  "hook": "More than 2500 years ago, the Indian mathematician Baudhayana wrote down a rule for building fire altars that we still use to find distances today!",
-  "points": [
-   "A right triangle has one angle of 90°. The side opposite the right angle is the hypotenuse, and it is the longest side.",
-   "The Baudhayana–Pythagoras theorem: if the legs are a and b and the hypotenuse is c, then a² + b² = c².",
-   "In Baudhayana's words (roughly): the diagonal of a rectangle makes a square as big as the squares on its length and breadth put together.",
-   "To find the hypotenuse: c = √(a² + b²). To find a leg: a = √(c² − b²).",
-   "Converse: if the sides of a triangle satisfy a² + b² = c², then the angle opposite c is a right angle."
-  ],
-  "example": {"q": "A 13 m ladder leans against a wall. Its foot is 5 m from the wall. How high up the wall does it reach?", "steps": ["The ladder is the hypotenuse: c = 13", "One leg is 5, let the height be h", "h² = 13² − 5² = 169 − 25 = 144", "h = √144 = 12"], "answer": "12 m"},
-  "reallife": "Firefighters placing ladders, TV makers measuring screen size along the diagonal, and pilots finding straight-line distances all use this theorem."
- },
- "games": [
-  {"type": "speed", "title": "Hypotenuse hunt", "items": [
-   {"q": "Legs 3 and 4. Hypotenuse?", "a": "5", "check": "(3**2+4**2)**0.5"},
-   {"q": "Legs 6 and 8. Hypotenuse?", "a": "10", "check": "(6**2+8**2)**0.5"},
-   {"q": "Legs 5 and 12. Hypotenuse?", "a": "13", "check": "(5**2+12**2)**0.5"},
-   {"q": "Legs 9 and 12. Hypotenuse?", "a": "15", "check": "(9**2+12**2)**0.5"},
-   {"q": "Hypotenuse 10, one leg 6. Other leg?", "a": "8", "check": "(10**2-6**2)**0.5"},
-   {"q": "Hypotenuse 25, one leg 7. Other leg?", "a": "24", "check": "(25**2-7**2)**0.5"},
-   {"q": "Hypotenuse 17, one leg 8. Other leg?", "a": "15", "check": "(17**2-8**2)**0.5"}
-  ]},
-  {"type": "fill", "title": "Right triangle words", "items": [
-   {"text": "In a right triangle, the longest side is called the ___", "answer": "hypotenuse", "options": ["hypotenuse", "base", "median"]},
-   {"text": "If the legs are 6 and 8, then hypotenuse² = ___", "answer": "100", "options": ["100", "14", "48"]},
-   {"text": "The hypotenuse is opposite the ___ angle", "answer": "right", "options": ["right", "smallest", "acute"]},
-   {"text": "If c² = a² + b², the angle opposite c is ___", "answer": "90°", "options": ["90°", "60°", "180°"]}
-  ]}
- ],
- "quiz": [
-  {"q": "The two shorter sides of a right triangle are 6 cm and 8 cm. How long is the hypotenuse?", "options": ["14 cm", "10 cm", "48 cm", "100 cm"], "answer": 1, "explain": "c² = 6² + 8² = 36 + 64 = 100, so c = √100 = 10 cm.", "steps": ["6² = 36, 8² = 64", "36 + 64 = 100", "√100 = 10"], "mistake": "Adds the sides (14) instead of their squares, or forgets the square root (100)", "check": "(6**2+8**2)**0.5", "visual": {"kind": "shape", "name": "triangle"}},
-  {"q": "A 13 m ladder leans on a wall with its foot 5 m away from the wall. How high up the wall does it reach?", "options": ["8 m", "18 m", "144 m", "12 m"], "answer": 3, "explain": "The ladder is the hypotenuse. Height² = 13² − 5² = 169 − 25 = 144, so the height is 12 m.", "steps": ["13² = 169", "5² = 25", "169 − 25 = 144", "√144 = 12"], "mistake": "Adds the squares instead of subtracting, or forgets the square root", "check": "(13**2-5**2)**0.5"},
-  {"q": "Which side of a right triangle is always the longest?", "options": ["The hypotenuse", "The base", "The height", "Any side can be the longest"], "answer": 0, "explain": "c² = a² + b² is bigger than a² and bigger than b², so c is longer than both legs.", "mistake": "Thinks the side drawn at the bottom (base) is always the longest"},
-  {"q": "Riya walks 9 m east and then 12 m north. How far is she from her starting point in a straight line?", "options": ["21 m", "3 m", "15 m", "108 m"], "answer": 2, "explain": "East and north make a right angle. Distance² = 9² + 12² = 81 + 144 = 225, so the distance is 15 m.", "steps": ["81 + 144 = 225", "√225 = 15"], "mistake": "Adds the two distances walked (21 m)", "check": "(9**2+12**2)**0.5"},
-  {"q": "A TV screen is 80 cm wide and 60 cm tall. How long is its diagonal?", "options": ["140 cm", "70 cm", "120 cm", "100 cm"], "answer": 3, "explain": "Diagonal² = 80² + 60² = 6400 + 3600 = 10,000, so the diagonal is 100 cm.", "steps": ["6400 + 3600 = 10,000", "√10,000 = 100"], "mistake": "Adds the width and height instead of using squares", "check": "(80**2+60**2)**0.5", "visual": {"kind": "shape", "name": "rectangle"}},
-  {"q": "A right triangle has a hypotenuse of 25 cm and one leg of 24 cm. How long is the other leg?", "options": ["7 cm", "1 cm", "49 cm", "35 cm"], "answer": 0, "explain": "Other leg² = 25² − 24² = 625 − 576 = 49, so it is 7 cm.", "steps": ["625 − 576 = 49", "√49 = 7"], "mistake": "Subtracts the sides (25 − 24 = 1) instead of their squares", "check": "(25**2-24**2)**0.5"},
-  {"q": "The squares on the two legs of a right triangle have areas 36 cm² and 64 cm². What is the area of the square on the hypotenuse?", "options": ["10 cm²", "28 cm²", "100 cm²", "2304 cm²"], "answer": 2, "explain": "The theorem says the square on the hypotenuse equals the sum of the squares on the legs: 36 + 64 = 100 cm².", "mistake": "Gives the side length (10) instead of the area, or subtracts", "check": "36+64"},
-  {"q": "In triangle PQR, ∠Q = 90°. Which equation is correct?", "options": ["PQ² = PR² + QR²", "PR² = PQ² + QR²", "QR² = PQ² + PR²", "PR = PQ + QR"], "answer": 1, "explain": "The hypotenuse is opposite the right angle at Q, so it is PR. Then PR² = PQ² + QR².", "mistake": "Does not find the side opposite the right angle first", "visual": {"kind": "angle", "deg": 90}}
- ],
- "teach": {"ask": "Gappu asks: A right triangle has legs 3 and 4. How do I find the long side?", "must": [["square", "squares", "squared"], ["add", "plus", "sum", "25"], ["root", "square root", "√", "5"]], "praise": "Square the legs: 9 and 16. Add: 25. Square root: 5! Baudhayana would be proud!", "nudge": "What do you do to 3 and 4 first? And after adding, how do you get back to a length?"}
-},
-{"id": "g8-maths-09-02", "title": "Pythagorean triples",
- "learn": {
-  "hook": "3, 4, 5 is a magic trio: 9 + 16 = 25. Are there more such trios? Infinitely many!",
-  "points": [
-   "A Pythagorean triple is three whole numbers a, b, c with a² + b² = c². The smallest is (3, 4, 5).",
-   "Multiply a triple by any whole number to get another: (6, 8, 10), (9, 12, 15), (30, 40, 50).",
-   "Some triples are not multiples of smaller ones: (5, 12, 13), (8, 15, 17), (7, 24, 25), (20, 21, 29).",
-   "A recipe: for any whole number m > 1, the numbers 2m, m² − 1 and m² + 1 form a triple. For m = 4: 8, 15, 17.",
-   "To test a triple, square the two smaller numbers, add them, and compare with the square of the largest."
-  ],
-  "example": {"q": "Is (20, 21, 29) a Pythagorean triple?", "steps": ["20² = 400 and 21² = 441", "400 + 441 = 841", "29² = 841", "They are equal, so yes"], "answer": "Yes"},
-  "reallife": "Carpenters and tile layers use triples like 6-8-10 to check that corners are truly square."
- },
- "games": [
-  {"type": "sort", "title": "Triple or trouble?", "buckets": ["Pythagorean triple", "Not a triple"], "items": [["3, 4, 5", 0], ["5, 12, 13", 0], ["8, 15, 17", 0], ["7, 24, 25", 0], ["12, 16, 20", 0], ["4, 5, 6", 1], ["2, 3, 4", 1], ["6, 7, 9", 1], ["10, 24, 25", 1]]},
-  {"type": "match", "title": "Triple machine: 2m, m² − 1, m² + 1", "pairs": [["m = 2", "4, 3, 5"], ["m = 3", "6, 8, 10"], ["m = 4", "8, 15, 17"], ["m = 5", "10, 24, 26"], ["m = 6", "12, 35, 37"]]}
- ],
- "quiz": [
-  {"q": "Which of these is a Pythagorean triple?", "options": ["(6, 7, 9)", "(5, 6, 8)", "(8, 15, 17)", "(4, 6, 8)"], "answer": 2, "explain": "8² + 15² = 64 + 225 = 289 = 17². The others fail: 36 + 49 = 85, 25 + 36 = 61, 16 + 36 = 52.", "steps": ["64 + 225 = 289", "17² = 289"], "mistake": "Picks numbers that just look close together"},
-  {"q": "Complete the Pythagorean triple (9, 40, __).", "options": ["49", "41", "31", "50"], "answer": 1, "explain": "9² + 40² = 81 + 1600 = 1681 = 41².", "steps": ["81 + 1600 = 1681", "41 × 41 = 1681"], "mistake": "Adds 9 and 40 instead of their squares", "check": "(9**2+40**2)**0.5"},
-  {"q": "Using 2m, m² − 1 and m² + 1 with m = 7, what is the largest number of the triple?", "options": ["48", "14", "49", "50"], "answer": 3, "explain": "m² + 1 = 49 + 1 = 50. The triple is (14, 48, 50). Check: 196 + 2304 = 2500 = 50².", "steps": ["2m = 14", "m² − 1 = 48", "m² + 1 = 50"], "mistake": "Uses m² (49) without adding 1", "check": "7**2+1"},
-  {"q": "(3, 4, 5) is a triple. Which of these is also a triple made by multiplying it?", "options": ["(15, 20, 25)", "(4, 5, 6)", "(6, 8, 12)", "(5, 6, 7)"], "answer": 0, "explain": "(15, 20, 25) = 5 × (3, 4, 5). Multiplying every number by the same amount keeps a² + b² = c².", "mistake": "Adds the same number to each, or multiplies only some of the numbers"},
-  {"q": "A right triangle has legs 10 cm and 24 cm. How long is the hypotenuse?", "options": ["34 cm", "26 cm", "25 cm", "13 cm"], "answer": 1, "explain": "(10, 24, 26) = 2 × (5, 12, 13). Check: 100 + 576 = 676 = 26².", "steps": ["10 = 2 × 5, 24 = 2 × 12", "Hypotenuse = 2 × 13 = 26"], "mistake": "Uses the triple (5, 12, 13) but forgets to double 13", "check": "(10**2+24**2)**0.5"},
-  {"q": "Harpreet's triangle has sides 7 cm, 24 cm and 25 cm. Is it a right triangle?", "options": ["No, because 7 + 24 is not 25", "Yes, because 25 is the longest side", "No, because 7 is odd", "Yes, because 7² + 24² = 625 = 25²"], "answer": 3, "explain": "49 + 576 = 625 = 25². By the converse of the theorem, the triangle has a right angle.", "steps": ["7² = 49, 24² = 576", "49 + 576 = 625 = 25²"], "mistake": "Adds the sides instead of their squares"},
-  {"q": "In the Pythagorean triple (20, 21, x), what is x?", "options": ["41", "29", "30", "1"], "answer": 1, "explain": "x² = 400 + 441 = 841, and 29² = 841, so x = 29.", "steps": ["20² = 400, 21² = 441", "400 + 441 = 841", "√841 = 29"], "mistake": "Adds 20 + 21 = 41", "check": "(20**2+21**2)**0.5"},
-  {"q": "How many Pythagorean triples are there?", "options": ["Exactly 5", "Exactly 100", "Only (3, 4, 5)", "Infinitely many"], "answer": 3, "explain": "Multiplying (3, 4, 5) by 2, 3, 4, ... gives a new triple every time, and that never ends.", "mistake": "Thinks only the few famous triples exist"}
- ],
- "teach": {"ask": "Gappu asks: How do I check if 5, 12, 13 is a Pythagorean triple?", "must": [["square", "squares", "squared"], ["add", "sum", "plus", "169"], ["largest", "biggest", "longest", "13", "compare", "equal"]], "praise": "25 + 144 = 169 = 13². The two small squares add up to the big square. It is a triple!", "nudge": "What do you do with 5 and 12? Then what do you compare the answer with?"}
-},
-{"id": "g8-maths-09-03", "title": "Proof ideas and using the converse",
- "learn": {
-  "hook": "Can you prove a² + b² = c² with just four paper triangles and a square? Yes, with a cut-and-arrange trick!",
-  "points": [
-   "Area proof: draw a big square of side (a + b). Put 4 copies of the right triangle in its corners. The space left in the middle is a tilted square of side c.",
-   "Big square area = 4 triangles + middle square: (a + b)² = 4 × ½ab + c². So a² + 2ab + b² = 2ab + c², which gives a² + b² = c².",
-   "Rearrangement: slide the same 4 triangles into a different position in the big square, and the space left is two squares, a² and b². Same leftover area, so a² + b² = c².",
-   "Baudhayana used the diagonal to double a square: the square on the diagonal of a square has twice its area.",
-   "Converse in action: if the longest side c gives a² + b² = c², the triangle is right-angled. If a² + b² > c² it is acute; if a² + b² < c² it is obtuse."
-  ],
-  "example": {"q": "Use the area proof with a = 3 and b = 4 to find c.", "steps": ["Big square side = 3 + 4 = 7, area = 49", "Each triangle = ½ × 3 × 4 = 6; four triangles = 24", "Middle square = 49 − 24 = 25", "c² = 25, so c = 5"], "answer": "c = 5"},
-  "reallife": "Masons mark a perfect right angle for a house corner with a knotted rope stretched into a 3-4-5 triangle."
- },
- "games": [
-  {"type": "order", "title": "Build the proof", "prompt": "Put the steps of the area proof in order", "items": ["Draw a big square of side a + b", "Place four copies of the right triangle in its corners", "The middle space is a tilted square of side c", "Big square = 4 triangles + middle square: (a + b)² = 2ab + c²", "Expand: a² + 2ab + b² = 2ab + c², so a² + b² = c²"]},
-  {"type": "truefalse", "title": "Right or not?", "items": [
-   ["A triangle with sides 6, 8 and 10 has a right angle.", true, "36 + 64 = 100 = 10²."],
-   ["A triangle with sides 4, 5 and 6 has a right angle.", false, "16 + 25 = 41, but 6² = 36. It is an acute triangle."],
-   ["The diagonal of a square with side 1 has length √2.", true, "d² = 1² + 1² = 2, so d = √2."],
-   ["In every triangle, a² + b² = c².", false, "This is true only for right triangles."],
-   ["A knotted rope with sides 3, 4 and 5 units can be used to mark a right angle.", true, "3² + 4² = 5², so by the converse the angle between 3 and 4 is 90°."],
-   ["If both legs of a right triangle are doubled, the hypotenuse also doubles.", true, "(2a)² + (2b)² = 4(a² + b²) = 4c² = (2c)²."]
-  ]}
- ],
- "quiz": [
-  {"q": "In the area proof, a big square of side (a + b) holds 4 right triangles with legs a and b, and a middle square of side c. If a = 3 and b = 4, what is the area of the middle square?", "options": ["49", "24", "25", "12"], "answer": 2, "explain": "Big square = 7² = 49. Four triangles = 4 × 6 = 24. Middle square = 49 − 24 = 25, so c = 5.", "steps": ["(3 + 4)² = 49", "4 × ½ × 3 × 4 = 24", "49 − 24 = 25"], "mistake": "Forgets to subtract the triangles, or uses only one triangle", "check": "(3+4)**2-4*3*4/2"},
-  {"q": "A triangle has sides 5 cm, 6 cm and 8 cm. What kind of triangle is it?", "options": ["Right-angled", "Acute-angled", "Obtuse-angled", "Equilateral"], "answer": 2, "explain": "5² + 6² = 61, which is less than 8² = 64. When the two smaller squares add to less than the largest square, the triangle is obtuse.", "steps": ["25 + 36 = 61", "8² = 64", "61 < 64 → obtuse"], "mistake": "Thinks any triangle with whole-number sides is right-angled"},
-  {"q": "What is the diagonal of a square of side 5 cm? (Use √2 ≈ 1.41.)", "options": ["7.05 cm", "10 cm", "25 cm", "5 cm"], "answer": 0, "explain": "d² = 5² + 5² = 50, so d = √50 = 5√2 ≈ 5 × 1.41 = 7.05 cm.", "steps": ["d² = 25 + 25 = 50", "d = 5√2", "5 × 1.41 = 7.05"], "mistake": "Adds the two sides (10 cm) instead of using the theorem", "check": "5*1.41", "visual": {"kind": "shape", "name": "square"}},
-  {"q": "Baudhayana's idea: a square is drawn on the diagonal of a square of side 6 cm. What is the area of the new square?", "options": ["36 cm²", "144 cm²", "72 cm²", "12 cm²"], "answer": 2, "explain": "Diagonal² = 6² + 6² = 72. The new square's area is diagonal², which is 72 cm², twice the original 36 cm².", "steps": ["Original area = 36", "Diagonal² = 36 + 36 = 72", "New area = 72 cm²"], "mistake": "Doubles the side (12 cm), which makes 144 cm², four times the area", "check": "2*6**2"},
-  {"q": "Why do masons use a knotted rope with sides 3, 4 and 5 units?", "options": ["Because 3 + 4 + 5 = 12 is a nice number", "Because 3² + 4² = 5², so the triangle has a right angle for making square corners", "Because it makes an equilateral triangle", "Because ropes cannot make other shapes"], "answer": 1, "explain": "By the converse of the theorem, sides 3, 4, 5 must make a right angle between the 3 and 4 sides.", "mistake": "Does not connect the converse of the theorem to real right angles"},
-  {"q": "A triangle has sides 9, 10 and 12. Is it acute, right or obtuse?", "options": ["Right-angled", "Obtuse-angled", "Acute-angled"], "answer": 2, "explain": "9² + 10² = 181, which is more than 12² = 144. When the two smaller squares add to more than the largest, all angles are acute.", "steps": ["81 + 100 = 181", "12² = 144", "181 > 144 → acute"], "mistake": "Mixes up which way the inequality points to acute or obtuse"},
-  {"q": "A right triangle has legs 5 and 12. If both legs are doubled, what is the new hypotenuse?", "options": ["13", "52", "17", "26"], "answer": 3, "explain": "The old hypotenuse is 13. Doubling both legs doubles the hypotenuse: 26. Check: 10² + 24² = 676 = 26².", "steps": ["Old: 25 + 144 = 169, c = 13", "New: 2 × 13 = 26"], "mistake": "Thinks the hypotenuse stays the same or becomes 4 times bigger", "check": "2*13"},
-  {"q": "In the rearrangement proof, the four triangles are moved inside the same big square so that two squares are left uncovered. What are their areas?", "options": ["a² and b²", "c² and c²", "ab and ab", "a and b"], "answer": 0, "explain": "The leftover space is a square of side a and a square of side b. Before the move it was one square of side c, so a² + b² = c².", "mistake": "Confuses the triangles' areas (½ab) with the leftover squares"}
- ],
- "teach": {"ask": "Gappu asks: How does putting 4 triangles inside a big square prove a² + b² = c²?", "must": [["area", "areas", "space"], ["same", "equal", "left over", "leftover", "middle"], ["c²", "c squared", "a² + b²", "two squares"]], "praise": "The leftover space is c² in one arrangement and a² + b² in the other. Same space, so they are equal. Mind blown!", "nudge": "What is left uncovered in the middle? And what is left after you move the triangles?"}
+{
+ "n": 9,
+ "title": "The Baudhayana-Pythagoras Theorem",
+ "emoji": "📐",
+ "topics": [
+  {
+   "id": "g8-maths-09-04",
+   "title": "Doubling and halving a square",
+   "covers": [
+    "c9.1.1",
+    "c9.1.3",
+    "c9.1.4",
+    "c9.2.1",
+    "c9.2.2"
+   ],
+   "learn": {
+    "hook": "A priest needed a fire altar with exactly twice the area of a square one. Doubling the side gave 4 times the area! Baudhayana found the clever fix.",
+    "points": [
+     "Doubling the side does not double a square: a square of side 2a has area 4a², four times as big.",
+     "Baudhayana's Śulba-sūtra method: the square drawn on the diagonal of a square has exactly double its area.",
+     "Why: the two diagonals cut the square into 4 congruent right triangles. The square on the diagonal is made of 8 of the same triangles — twice as many.",
+     "Paper version: cut two equal squares along their diagonals into 8 triangles, and arrange all 8 into one big square — double the area.",
+     "Halving a square: join the midpoints of its sides. The four corner triangles are congruent to the four triangles inside the new square, so the new square has half the area."
+    ],
+    "example": {
+     "q": "A square has side 3 cm. Make a square with double its area.",
+     "steps": [
+      "Area of the square = 9 cm²",
+      "Draw the square on its diagonal",
+      "That square has area 2 × 9 = 18 cm²",
+      "(Its side is the diagonal, about 4.24 cm, not 6 cm)"
+     ],
+     "answer": "Square on the diagonal, area 18 cm²"
+    },
+    "reallife": "Ancient Indian altar builders used rope and pegs to double squares exactly, long before calculators."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Double or not?",
+     "items": [
+      [
+       "Doubling the side of a square doubles its area.",
+       false,
+       "It makes the area 4 times."
+      ],
+      [
+       "The square on the diagonal of a square has twice its area.",
+       true,
+       "It is made of 8 triangles instead of 4."
+      ],
+      [
+       "Joining the midpoints of a square's sides gives a square with half the area.",
+       true,
+       "The corner triangles match the inner triangles."
+      ],
+      [
+       "The two diagonals cut a square into 4 congruent triangles.",
+       true,
+       "They are equal isosceles right triangles."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Area check",
+     "items": [
+      {
+       "q": "Area of square, side 5",
+       "a": "25",
+       "check": "5*5"
+      },
+      {
+       "q": "Area of square, side 10",
+       "a": "100",
+       "check": "10*10"
+      },
+      {
+       "q": "Double of a 9 cm² square",
+       "a": "18",
+       "check": "2*9"
+      },
+      {
+       "q": "Half of a 50 cm² square",
+       "a": "25",
+       "check": "50/2"
+      },
+      {
+       "q": "Triangles in the square on the diagonal",
+       "a": "8",
+       "check": "2*4"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The side of a 5 cm square is doubled to 10 cm. What is the new area?",
+     "options": [
+      "50 cm²",
+      "100 cm²",
+      "25 cm²",
+      "20 cm²"
+     ],
+     "answer": 1,
+     "explain": "10 × 10 = 100 cm², which is 4 times the old 25 cm², not 2 times.",
+     "steps": [
+      "Old: 25 cm²",
+      "New: 100 cm²"
+     ],
+     "mistake": "Thinks doubling the side doubles the area",
+     "check": "10*10"
+    },
+    {
+     "q": "When the side of a square is doubled, how many times bigger does its area become?",
+     "options": [
+      "2",
+      "8",
+      "4",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "(2a)² = 4a², so the area becomes 4 times as big.",
+     "steps": [
+      "(2a)² = 4a²"
+     ],
+     "mistake": "Doubles the area along with the side",
+     "check": "2*2"
+    },
+    {
+     "q": "The two diagonals of a square cut it into how many congruent triangles?",
+     "options": [
+      "4",
+      "2",
+      "8",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "The diagonals cross at the centre and make 4 equal isosceles right triangles.",
+     "steps": [
+      "Two diagonals → 4 triangles"
+     ],
+     "mistake": "Counts only the triangles made by one diagonal",
+     "check": "4"
+    },
+    {
+     "q": "Baudhayana's square on the diagonal is made of how many of those small triangles?",
+     "options": [
+      "8",
+      "4",
+      "6",
+      "16"
+     ],
+     "answer": 0,
+     "explain": "It contains 8 such triangles, twice the 4 in the original square — so it has double the area.",
+     "steps": [
+      "Original: 4",
+      "On the diagonal: 8"
+     ],
+     "mistake": "Thinks the new square has the same number of triangles",
+     "check": "8"
+    },
+    {
+     "q": "Two squares, each of area 9 cm², are cut along their diagonals and rearranged into one big square. What is its area?",
+     "options": [
+      "9 cm²",
+      "36 cm²",
+      "81 cm²",
+      "18 cm²"
+     ],
+     "answer": 3,
+     "explain": "Cutting and rearranging does not change area: 9 + 9 = 18 cm².",
+     "steps": [
+      "9 + 9 = 18"
+     ],
+     "mistake": "Squares the side instead of adding the areas",
+     "check": "9+9"
+    },
+    {
+     "q": "A square has side 3 cm. What is the area of the square drawn on its diagonal?",
+     "options": [
+      "18 cm²",
+      "36 cm²",
+      "9 cm²",
+      "12 cm²"
+     ],
+     "answer": 0,
+     "explain": "The square on the diagonal has double the area: 2 × 9 = 18 cm².",
+     "steps": [
+      "Area = 9 cm²",
+      "Double = 18 cm²"
+     ],
+     "mistake": "Doubles the side instead of the area",
+     "check": "2*3*3"
+    },
+    {
+     "q": "The midpoints of the sides of a 12 cm × 12 cm square tile are joined. What is the area of the inner square?",
+     "options": [
+      "36 cm²",
+      "72 cm²",
+      "144 cm²",
+      "48 cm²"
+     ],
+     "answer": 1,
+     "explain": "The inner square has half the area: 144 ÷ 2 = 72 cm².",
+     "steps": [
+      "12 × 12 = 144",
+      "144 ÷ 2 = 72"
+     ],
+     "mistake": "Takes a quarter instead of half",
+     "check": "144/2"
+    },
+    {
+     "q": "Why does the midpoint square have exactly half the area?",
+     "options": [
+      "Because its side is half as long",
+      "The 4 corner triangles are congruent to the 4 triangles inside it",
+      "Because it is tilted",
+      "Because all squares are the same"
+     ],
+     "answer": 1,
+     "explain": "Fold the corners in: each corner triangle exactly covers one inner triangle, so inside and outside have equal area.",
+     "steps": [
+      "4 outside triangles = 4 inside triangles",
+      "So inner = half"
+     ],
+     "mistake": "Thinks halving the side halves the area"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants a square nest twice as big as his old one. He plans to double each side. Will that work?",
+    "must": [
+     [
+      "four",
+      "4",
+      "4 times"
+     ],
+     [
+      "diagonal"
+     ],
+     [
+      "double",
+      "twice",
+      "two times"
+     ]
+    ],
+    "praise": "Doubling the side makes it 4 times bigger! I should build on the diagonal instead — Baudhayana's trick.",
+    "nudge": "What happens to the area when the side doubles? Which line should the new side be?"
+   }
+  },
+  {
+   "id": "g8-maths-09-05",
+   "title": "The surprising number √2",
+   "covers": [
+    "c9.3.2",
+    "c9.3.3",
+    "c9.3.4",
+    "c9.3.5",
+    "c9.3.6"
+   ],
+   "learn": {
+    "hook": "Draw a triangle with two sides of 1 cm and a right angle between them. The third side is √2 cm — a number whose decimals never end and never repeat!",
+    "points": [
+     "An isosceles right triangle with legs 1 has hypotenuse c with c² = 1² + 1² = 2, so c = √2.",
+     "Trap √2 by squaring: 1.4² = 1.96 and 1.5² = 2.25; 1.41² = 1.9881 and 1.42² = 2.0164; 1.414² = 1.999396 and 1.415² = 2.002225. So √2 ≈ 1.414...",
+     "√2 has no terminating decimal: a decimal with k decimal places, squared, has 2k decimal places ending in a non-zero digit, so it can never equal exactly 2.",
+     "√2 is not a fraction p/q: if it were (in lowest terms), then p² = 2q², so p is even; then q² = 2 × (p/2)², so q is even too — impossible for lowest terms. √2 is irrational.",
+     "For legs a, the hypotenuse is a√2. Legs 5 give hypotenuse √50 ≈ 7.07, between 7 and 8 since 49 < 50 < 64."
+    ],
+    "example": {
+     "q": "Between which two numbers with 2 decimal places does √2 lie?",
+     "steps": [
+      "1.41² = 1.9881 < 2",
+      "1.42² = 2.0164 > 2",
+      "So 1.41 < √2 < 1.42"
+     ],
+     "answer": "1.41 and 1.42"
+    },
+    "reallife": "A4 paper is cut so that its long side ÷ short side ≈ √2 — fold it in half and the shape stays the same!"
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Smallest to largest",
+     "prompt": "Arrange from smallest to largest",
+     "items": [
+      "1.41",
+      "1.414",
+      "√2",
+      "1.415",
+      "1.42"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "√2 facts",
+     "items": [
+      [
+       "√2 is about 1.414.",
+       true,
+       "1.414² = 1.999396, very close to 2."
+      ],
+      [
+       "√2 can be written as a fraction of two whole numbers.",
+       false,
+       "The even–even argument shows it cannot."
+      ],
+      [
+       "√2 has a decimal that ends after some digits.",
+       false,
+       "Squaring a terminating decimal can never give exactly 2."
+      ],
+      [
+       "The hypotenuse of an isosceles right triangle with legs 1 is √2.",
+       true,
+       "1² + 1² = 2."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the hypotenuse of an isosceles right triangle with both legs 1 cm?",
+     "options": [
+      "2 cm",
+      "1 cm",
+      "√2 cm",
+      "1.5 cm"
+     ],
+     "answer": 2,
+     "explain": "c² = 1² + 1² = 2, so c = √2 ≈ 1.414 cm.",
+     "steps": [
+      "c² = 1 + 1 = 2",
+      "c = √2"
+     ],
+     "mistake": "Adds the legs instead of using squares"
+    },
+    {
+     "q": "What is 1.41²?",
+     "options": [
+      "1.9881",
+      "1.681",
+      "2.0164",
+      "19.881"
+     ],
+     "answer": 0,
+     "explain": "1.41 × 1.41 = 1.9881, just under 2.",
+     "steps": [
+      "141 × 141 = 19881",
+      "4 decimal places → 1.9881"
+     ],
+     "mistake": "Squares each digit separately or misplaces the decimal",
+     "check": "1.41**2"
+    },
+    {
+     "q": "Which pair of numbers traps √2 between them?",
+     "options": [
+      "1.42 and 1.43",
+      "1.4 and 1.41",
+      "1.41 and 1.42",
+      "1.5 and 1.6"
+     ],
+     "answer": 2,
+     "explain": "1.41² = 1.9881 < 2 < 2.0164 = 1.42².",
+     "steps": [
+      "1.41² < 2",
+      "1.42² > 2"
+     ],
+     "mistake": "Picks a pair whose squares are both above or both below 2"
+    },
+    {
+     "q": "An isosceles right triangle has legs of 7 cm. What is the square of its hypotenuse?",
+     "options": [
+      "98",
+      "49",
+      "14",
+      "196"
+     ],
+     "answer": 0,
+     "explain": "c² = 7² + 7² = 49 + 49 = 98, so c = √98 = 7√2.",
+     "steps": [
+      "c² = 2 × 49",
+      "= 98"
+     ],
+     "mistake": "Squares just one leg or adds the legs",
+     "check": "7**2+7**2"
+    },
+    {
+     "q": "An isosceles right triangle has a hypotenuse of 10 cm. What is the square of each equal leg?",
+     "options": [
+      "100",
+      "5",
+      "50",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "a² + a² = 100, so 2a² = 100 and a² = 50. Each leg is √50 ≈ 7.07 cm.",
+     "steps": [
+      "2a² = 10² = 100",
+      "a² = 50"
+     ],
+     "mistake": "Halves the hypotenuse instead of halving its square",
+     "check": "100/2"
+    },
+    {
+     "q": "Why can √2 not be a terminating decimal like 1.414?",
+     "options": [
+      "Because 2 is even",
+      "Because 1.414 is too small",
+      "Because decimals cannot be squared",
+      "Squaring a decimal with k places gives 2k places ending in a non-zero digit, never exactly 2"
+     ],
+     "answer": 3,
+     "explain": "If the last digit is non-zero, so is the last digit of its square, so the square still has decimal places — it cannot be exactly 2.000...",
+     "steps": [
+      "1.414² = 1.999396 ≠ 2",
+      "The last digit never becomes 0"
+     ],
+     "mistake": "Thinks enough digits will eventually give exactly 2"
+    },
+    {
+     "q": "In the proof that √2 is not a fraction, p² = 2q². What does this tell us about p?",
+     "options": [
+      "p is odd",
+      "p is even",
+      "p = q",
+      "p is a prime"
+     ],
+     "answer": 1,
+     "explain": "p² is 2 times something, so p² is even, and only even numbers have even squares. So p is even.",
+     "steps": [
+      "p² = 2q² → p² even",
+      "odd² is odd, so p must be even"
+     ],
+     "mistake": "Thinks an even square can come from an odd number"
+    },
+    {
+     "q": "An isosceles right triangle has legs of 5 cm. Between which two whole numbers is its hypotenuse?",
+     "options": [
+      "5 and 6",
+      "10 and 11",
+      "6 and 7",
+      "7 and 8"
+     ],
+     "answer": 3,
+     "explain": "c² = 25 + 25 = 50, and 49 < 50 < 64, so 7 < c < 8.",
+     "steps": [
+      "c² = 50",
+      "7² = 49, 8² = 64"
+     ],
+     "mistake": "Adds the legs to get 10"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks √2 is exactly 1.4. Can you show him why it isn't, and how close we can get?",
+    "must": [
+     [
+      "1.96",
+      "square",
+      "squaring"
+     ],
+     [
+      "1.414",
+      "1.41"
+     ],
+     [
+      "never",
+      "not a fraction",
+      "irrational",
+      "never ends"
+     ]
+    ],
+    "praise": "1.4² is only 1.96! √2 ≈ 1.414..., and its decimals never end. What a mysterious number!",
+    "nudge": "What do you get if you square 1.4? Is it exactly 2?"
+   }
+  },
+  {
+   "id": "g8-maths-09-01",
+   "title": "Right triangles and the theorem",
+   "learn": {
+    "hook": "More than 2500 years ago, the Indian mathematician Baudhayana wrote down a rule for building fire altars that we still use to find distances today!",
+    "points": [
+     "A right triangle has one angle of 90°. The side opposite the right angle is the hypotenuse, and it is the longest side.",
+     "The Baudhayana–Pythagoras theorem: if the legs are a and b and the hypotenuse is c, then a² + b² = c².",
+     "In Baudhayana's words (roughly): the diagonal of a rectangle makes a square as big as the squares on its length and breadth put together.",
+     "To find the hypotenuse: c = √(a² + b²). To find a leg: a = √(c² − b²).",
+     "Converse: if the sides of a triangle satisfy a² + b² = c², then the angle opposite c is a right angle."
+    ],
+    "example": {
+     "q": "A 13 m ladder leans against a wall. Its foot is 5 m from the wall. How high up the wall does it reach?",
+     "steps": [
+      "The ladder is the hypotenuse: c = 13",
+      "One leg is 5, let the height be h",
+      "h² = 13² − 5² = 169 − 25 = 144",
+      "h = √144 = 12"
+     ],
+     "answer": "12 m"
+    },
+    "reallife": "Firefighters placing ladders, TV makers measuring screen size along the diagonal, and pilots finding straight-line distances all use this theorem."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Hypotenuse hunt",
+     "items": [
+      {
+       "q": "Legs 3 and 4. Hypotenuse?",
+       "a": "5",
+       "check": "(3**2+4**2)**0.5"
+      },
+      {
+       "q": "Legs 6 and 8. Hypotenuse?",
+       "a": "10",
+       "check": "(6**2+8**2)**0.5"
+      },
+      {
+       "q": "Legs 5 and 12. Hypotenuse?",
+       "a": "13",
+       "check": "(5**2+12**2)**0.5"
+      },
+      {
+       "q": "Legs 9 and 12. Hypotenuse?",
+       "a": "15",
+       "check": "(9**2+12**2)**0.5"
+      },
+      {
+       "q": "Hypotenuse 10, one leg 6. Other leg?",
+       "a": "8",
+       "check": "(10**2-6**2)**0.5"
+      },
+      {
+       "q": "Hypotenuse 25, one leg 7. Other leg?",
+       "a": "24",
+       "check": "(25**2-7**2)**0.5"
+      },
+      {
+       "q": "Hypotenuse 17, one leg 8. Other leg?",
+       "a": "15",
+       "check": "(17**2-8**2)**0.5"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Right triangle words",
+     "items": [
+      {
+       "text": "In a right triangle, the longest side is called the ___",
+       "answer": "hypotenuse",
+       "options": [
+        "hypotenuse",
+        "base",
+        "median"
+       ]
+      },
+      {
+       "text": "If the legs are 6 and 8, then hypotenuse² = ___",
+       "answer": "100",
+       "options": [
+        "100",
+        "14",
+        "48"
+       ]
+      },
+      {
+       "text": "The hypotenuse is opposite the ___ angle",
+       "answer": "right",
+       "options": [
+        "right",
+        "smallest",
+        "acute"
+       ]
+      },
+      {
+       "text": "If c² = a² + b², the angle opposite c is ___",
+       "answer": "90°",
+       "options": [
+        "90°",
+        "60°",
+        "180°"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The two shorter sides of a right triangle are 6 cm and 8 cm. How long is the hypotenuse?",
+     "options": [
+      "14 cm",
+      "10 cm",
+      "48 cm",
+      "100 cm"
+     ],
+     "answer": 1,
+     "explain": "c² = 6² + 8² = 36 + 64 = 100, so c = √100 = 10 cm.",
+     "steps": [
+      "6² = 36, 8² = 64",
+      "36 + 64 = 100",
+      "√100 = 10"
+     ],
+     "mistake": "Adds the sides (14) instead of their squares, or forgets the square root (100)",
+     "check": "(6**2+8**2)**0.5",
+     "visual": {
+      "kind": "shape",
+      "name": "triangle"
+     }
+    },
+    {
+     "q": "A 13 m ladder leans on a wall with its foot 5 m away from the wall. How high up the wall does it reach?",
+     "options": [
+      "8 m",
+      "18 m",
+      "144 m",
+      "12 m"
+     ],
+     "answer": 3,
+     "explain": "The ladder is the hypotenuse. Height² = 13² − 5² = 169 − 25 = 144, so the height is 12 m.",
+     "steps": [
+      "13² = 169",
+      "5² = 25",
+      "169 − 25 = 144",
+      "√144 = 12"
+     ],
+     "mistake": "Adds the squares instead of subtracting, or forgets the square root",
+     "check": "(13**2-5**2)**0.5"
+    },
+    {
+     "q": "Which side of a right triangle is always the longest?",
+     "options": [
+      "The hypotenuse",
+      "The base",
+      "The height",
+      "Any side can be the longest"
+     ],
+     "answer": 0,
+     "explain": "c² = a² + b² is bigger than a² and bigger than b², so c is longer than both legs.",
+     "mistake": "Thinks the side drawn at the bottom (base) is always the longest"
+    },
+    {
+     "q": "Riya walks 9 m east and then 12 m north. How far is she from her starting point in a straight line?",
+     "options": [
+      "21 m",
+      "3 m",
+      "15 m",
+      "108 m"
+     ],
+     "answer": 2,
+     "explain": "East and north make a right angle. Distance² = 9² + 12² = 81 + 144 = 225, so the distance is 15 m.",
+     "steps": [
+      "81 + 144 = 225",
+      "√225 = 15"
+     ],
+     "mistake": "Adds the two distances walked (21 m)",
+     "check": "(9**2+12**2)**0.5"
+    },
+    {
+     "q": "A TV screen is 80 cm wide and 60 cm tall. How long is its diagonal?",
+     "options": [
+      "140 cm",
+      "70 cm",
+      "120 cm",
+      "100 cm"
+     ],
+     "answer": 3,
+     "explain": "Diagonal² = 80² + 60² = 6400 + 3600 = 10,000, so the diagonal is 100 cm.",
+     "steps": [
+      "6400 + 3600 = 10,000",
+      "√10,000 = 100"
+     ],
+     "mistake": "Adds the width and height instead of using squares",
+     "check": "(80**2+60**2)**0.5",
+     "visual": {
+      "kind": "shape",
+      "name": "rectangle"
+     }
+    },
+    {
+     "q": "A right triangle has a hypotenuse of 25 cm and one leg of 24 cm. How long is the other leg?",
+     "options": [
+      "7 cm",
+      "1 cm",
+      "49 cm",
+      "35 cm"
+     ],
+     "answer": 0,
+     "explain": "Other leg² = 25² − 24² = 625 − 576 = 49, so it is 7 cm.",
+     "steps": [
+      "625 − 576 = 49",
+      "√49 = 7"
+     ],
+     "mistake": "Subtracts the sides (25 − 24 = 1) instead of their squares",
+     "check": "(25**2-24**2)**0.5"
+    },
+    {
+     "q": "The squares on the two legs of a right triangle have areas 36 cm² and 64 cm². What is the area of the square on the hypotenuse?",
+     "options": [
+      "10 cm²",
+      "28 cm²",
+      "100 cm²",
+      "2304 cm²"
+     ],
+     "answer": 2,
+     "explain": "The theorem says the square on the hypotenuse equals the sum of the squares on the legs: 36 + 64 = 100 cm².",
+     "mistake": "Gives the side length (10) instead of the area, or subtracts",
+     "check": "36+64"
+    },
+    {
+     "q": "In triangle PQR, ∠Q = 90°. Which equation is correct?",
+     "options": [
+      "PQ² = PR² + QR²",
+      "PR² = PQ² + QR²",
+      "QR² = PQ² + PR²",
+      "PR = PQ + QR"
+     ],
+     "answer": 1,
+     "explain": "The hypotenuse is opposite the right angle at Q, so it is PR. Then PR² = PQ² + QR².",
+     "mistake": "Does not find the side opposite the right angle first",
+     "visual": {
+      "kind": "angle",
+      "deg": 90
+     }
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: A right triangle has legs 3 and 4. How do I find the long side?",
+    "must": [
+     [
+      "square",
+      "squares",
+      "squared"
+     ],
+     [
+      "add",
+      "plus",
+      "sum",
+      "25"
+     ],
+     [
+      "root",
+      "square root",
+      "√",
+      "5"
+     ]
+    ],
+    "praise": "Square the legs: 9 and 16. Add: 25. Square root: 5! Baudhayana would be proud!",
+    "nudge": "What do you do to 3 and 4 first? And after adding, how do you get back to a length?"
+   },
+   "covers": [
+    "c9.4.1",
+    "c9.4.2",
+    "c9.4.5",
+    "c9.7.2",
+    "c9.7.4"
+   ]
+  },
+  {
+   "id": "g8-maths-09-03",
+   "title": "Proof ideas and using the converse",
+   "learn": {
+    "hook": "Can you prove a² + b² = c² with just four paper triangles and a square? Yes, with a cut-and-arrange trick!",
+    "points": [
+     "Area proof: draw a big square of side (a + b). Put 4 copies of the right triangle in its corners. The space left in the middle is a tilted square of side c.",
+     "Big square area = 4 triangles + middle square: (a + b)² = 4 × ½ab + c². So a² + 2ab + b² = 2ab + c², which gives a² + b² = c².",
+     "Rearrangement: slide the same 4 triangles into a different position in the big square, and the space left is two squares, a² and b². Same leftover area, so a² + b² = c².",
+     "Baudhayana used the diagonal to double a square: the square on the diagonal of a square has twice its area.",
+     "Converse in action: if the longest side c gives a² + b² = c², the triangle is right-angled. If a² + b² > c² it is acute; if a² + b² < c² it is obtuse."
+    ],
+    "example": {
+     "q": "Use the area proof with a = 3 and b = 4 to find c.",
+     "steps": [
+      "Big square side = 3 + 4 = 7, area = 49",
+      "Each triangle = ½ × 3 × 4 = 6; four triangles = 24",
+      "Middle square = 49 − 24 = 25",
+      "c² = 25, so c = 5"
+     ],
+     "answer": "c = 5"
+    },
+    "reallife": "Masons mark a perfect right angle for a house corner with a knotted rope stretched into a 3-4-5 triangle."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Build the proof",
+     "prompt": "Put the steps of the area proof in order",
+     "items": [
+      "Draw a big square of side a + b",
+      "Place four copies of the right triangle in its corners",
+      "The middle space is a tilted square of side c",
+      "Big square = 4 triangles + middle square: (a + b)² = 2ab + c²",
+      "Expand: a² + 2ab + b² = 2ab + c², so a² + b² = c²"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Right or not?",
+     "items": [
+      [
+       "A triangle with sides 6, 8 and 10 has a right angle.",
+       true,
+       "36 + 64 = 100 = 10²."
+      ],
+      [
+       "A triangle with sides 4, 5 and 6 has a right angle.",
+       false,
+       "16 + 25 = 41, but 6² = 36. It is an acute triangle."
+      ],
+      [
+       "The diagonal of a square with side 1 has length √2.",
+       true,
+       "d² = 1² + 1² = 2, so d = √2."
+      ],
+      [
+       "In every triangle, a² + b² = c².",
+       false,
+       "This is true only for right triangles."
+      ],
+      [
+       "A knotted rope with sides 3, 4 and 5 units can be used to mark a right angle.",
+       true,
+       "3² + 4² = 5², so by the converse the angle between 3 and 4 is 90°."
+      ],
+      [
+       "If both legs of a right triangle are doubled, the hypotenuse also doubles.",
+       true,
+       "(2a)² + (2b)² = 4(a² + b²) = 4c² = (2c)²."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the area proof, a big square of side (a + b) holds 4 right triangles with legs a and b, and a middle square of side c. If a = 3 and b = 4, what is the area of the middle square?",
+     "options": [
+      "49",
+      "24",
+      "25",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "Big square = 7² = 49. Four triangles = 4 × 6 = 24. Middle square = 49 − 24 = 25, so c = 5.",
+     "steps": [
+      "(3 + 4)² = 49",
+      "4 × ½ × 3 × 4 = 24",
+      "49 − 24 = 25"
+     ],
+     "mistake": "Forgets to subtract the triangles, or uses only one triangle",
+     "check": "(3+4)**2-4*3*4/2"
+    },
+    {
+     "q": "A triangle has sides 5 cm, 6 cm and 8 cm. What kind of triangle is it?",
+     "options": [
+      "Right-angled",
+      "Acute-angled",
+      "Obtuse-angled",
+      "Equilateral"
+     ],
+     "answer": 2,
+     "explain": "5² + 6² = 61, which is less than 8² = 64. When the two smaller squares add to less than the largest square, the triangle is obtuse.",
+     "steps": [
+      "25 + 36 = 61",
+      "8² = 64",
+      "61 < 64 → obtuse"
+     ],
+     "mistake": "Thinks any triangle with whole-number sides is right-angled"
+    },
+    {
+     "q": "What is the diagonal of a square of side 5 cm? (Use √2 ≈ 1.41.)",
+     "options": [
+      "7.05 cm",
+      "10 cm",
+      "25 cm",
+      "5 cm"
+     ],
+     "answer": 0,
+     "explain": "d² = 5² + 5² = 50, so d = √50 = 5√2 ≈ 5 × 1.41 = 7.05 cm.",
+     "steps": [
+      "d² = 25 + 25 = 50",
+      "d = 5√2",
+      "5 × 1.41 = 7.05"
+     ],
+     "mistake": "Adds the two sides (10 cm) instead of using the theorem",
+     "check": "5*1.41",
+     "visual": {
+      "kind": "shape",
+      "name": "square"
+     }
+    },
+    {
+     "q": "Baudhayana's idea: a square is drawn on the diagonal of a square of side 6 cm. What is the area of the new square?",
+     "options": [
+      "36 cm²",
+      "144 cm²",
+      "72 cm²",
+      "12 cm²"
+     ],
+     "answer": 2,
+     "explain": "Diagonal² = 6² + 6² = 72. The new square's area is diagonal², which is 72 cm², twice the original 36 cm².",
+     "steps": [
+      "Original area = 36",
+      "Diagonal² = 36 + 36 = 72",
+      "New area = 72 cm²"
+     ],
+     "mistake": "Doubles the side (12 cm), which makes 144 cm², four times the area",
+     "check": "2*6**2"
+    },
+    {
+     "q": "Why do masons use a knotted rope with sides 3, 4 and 5 units?",
+     "options": [
+      "Because 3 + 4 + 5 = 12 is a nice number",
+      "Because 3² + 4² = 5², so the triangle has a right angle for making square corners",
+      "Because it makes an equilateral triangle",
+      "Because ropes cannot make other shapes"
+     ],
+     "answer": 1,
+     "explain": "By the converse of the theorem, sides 3, 4, 5 must make a right angle between the 3 and 4 sides.",
+     "mistake": "Does not connect the converse of the theorem to real right angles"
+    },
+    {
+     "q": "A triangle has sides 9, 10 and 12. Is it acute, right or obtuse?",
+     "options": [
+      "Right-angled",
+      "Obtuse-angled",
+      "Acute-angled"
+     ],
+     "answer": 2,
+     "explain": "9² + 10² = 181, which is more than 12² = 144. When the two smaller squares add to more than the largest, all angles are acute.",
+     "steps": [
+      "81 + 100 = 181",
+      "12² = 144",
+      "181 > 144 → acute"
+     ],
+     "mistake": "Mixes up which way the inequality points to acute or obtuse"
+    },
+    {
+     "q": "A right triangle has legs 5 and 12. If both legs are doubled, what is the new hypotenuse?",
+     "options": [
+      "13",
+      "52",
+      "17",
+      "26"
+     ],
+     "answer": 3,
+     "explain": "The old hypotenuse is 13. Doubling both legs doubles the hypotenuse: 26. Check: 10² + 24² = 676 = 26².",
+     "steps": [
+      "Old: 25 + 144 = 169, c = 13",
+      "New: 2 × 13 = 26"
+     ],
+     "mistake": "Thinks the hypotenuse stays the same or becomes 4 times bigger",
+     "check": "2*13"
+    },
+    {
+     "q": "In the rearrangement proof, the four triangles are moved inside the same big square so that two squares are left uncovered. What are their areas?",
+     "options": [
+      "a² and b²",
+      "c² and c²",
+      "ab and ab",
+      "a and b"
+     ],
+     "answer": 0,
+     "explain": "The leftover space is a square of side a and a square of side b. Before the move it was one square of side c, so a² + b² = c².",
+     "mistake": "Confuses the triangles' areas (½ab) with the leftover squares"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: How does putting 4 triangles inside a big square prove a² + b² = c²?",
+    "must": [
+     [
+      "area",
+      "areas",
+      "space"
+     ],
+     [
+      "same",
+      "equal",
+      "left over",
+      "leftover",
+      "middle"
+     ],
+     [
+      "c²",
+      "c squared",
+      "a² + b²",
+      "two squares"
+     ]
+    ],
+    "praise": "The leftover space is c² in one arrangement and a² + b² in the other. Same space, so they are equal. Mind blown!",
+    "nudge": "What is left uncovered in the middle? And what is left after you move the triangles?"
+   },
+   "covers": [
+    "c9.1.2",
+    "c9.3.1",
+    "c9.4.3"
+   ]
+  },
+  {
+   "id": "g8-maths-09-06",
+   "title": "Combining squares and drawing squares of any area",
+   "covers": [
+    "c9.4.4",
+    "c9.4.6",
+    "c9.7.5"
+   ],
+   "learn": {
+    "hook": "Can you cut a 3 × 3 and a 4 × 4 square of paper and rebuild them into ONE square? Yes — a 5 × 5 one! That's the theorem in your hands.",
+    "points": [
+     "Two squares with sides a and b can be cut and rearranged into one square of side c, where c² = a² + b². For 3 and 4, c = 5.",
+     "To draw a square with 5 times the area of a unit square: draw a right triangle with legs 1 and 2. Its hypotenuse is √5, so the square on it has area 5.",
+     "For 3 times the area: use legs 1 and √2 (the diagonal of the unit square). The hypotenuse is √3.",
+     "On a square dot grid, a tilted square whose side goes 'a across and b up' has area a² + b². So areas 1, 2, 4, 5, 8, 9, 10 ... are possible, but area 3 is not (3 is not a sum of two squares)."
+    ],
+    "example": {
+     "q": "Draw a square of area 5 on a dot grid.",
+     "steps": [
+      "Area 5 = 2² + 1²",
+      "Draw a side going 2 across and 1 up",
+      "Turn 90° and repeat to make the other sides",
+      "The tilted square has area 5"
+     ],
+     "answer": "Side from (0,0) to (2,1), then turn"
+    },
+    "reallife": "Tile setters and quilt makers combine and tilt squares to fit odd-sized floors and patterns."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Tilted squares on a dot grid",
+     "pairs": [
+      [
+       "1 across, 1 up",
+       "Area 2"
+      ],
+      [
+       "2 across, 1 up",
+       "Area 5"
+      ],
+      [
+       "2 across, 2 up",
+       "Area 8"
+      ],
+      [
+       "3 across, 1 up",
+       "Area 10"
+      ],
+      [
+       "3 across, 0 up",
+       "Area 9"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Possible as a square area on a dot grid?",
+     "buckets": [
+      "Possible",
+      "Impossible"
+     ],
+     "items": [
+      [
+       "2",
+       0
+      ],
+      [
+       "5",
+       0
+      ],
+      [
+       "8",
+       0
+      ],
+      [
+       "10",
+       0
+      ],
+      [
+       "3",
+       1
+      ],
+      [
+       "6",
+       1
+      ],
+      [
+       "7",
+       1
+      ],
+      [
+       "11",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Squares of side 6 cm and 8 cm are cut and rearranged into one square. What is its side?",
+     "options": [
+      "14 cm",
+      "12 cm",
+      "48 cm",
+      "10 cm"
+     ],
+     "answer": 3,
+     "explain": "c² = 36 + 64 = 100, so c = 10 cm.",
+     "steps": [
+      "6² + 8² = 100",
+      "√100 = 10"
+     ],
+     "mistake": "Adds the sides instead of the areas",
+     "check": "(6**2+8**2)**0.5"
+    },
+    {
+     "q": "Paper squares of area 9 cm² and 16 cm² are combined into one square. What is its area?",
+     "options": [
+      "25 cm²",
+      "7 cm²",
+      "144 cm²",
+      "49 cm²"
+     ],
+     "answer": 0,
+     "explain": "Cutting and rearranging keeps the total area: 9 + 16 = 25 cm².",
+     "steps": [
+      "9 + 16 = 25"
+     ],
+     "mistake": "Multiplies the areas",
+     "check": "9+16"
+    },
+    {
+     "q": "To draw a square with area 5 square units, what legs should the right triangle have?",
+     "options": [
+      "1 and 4",
+      "1 and 2",
+      "2 and 3",
+      "1 and 5"
+     ],
+     "answer": 1,
+     "explain": "1² + 2² = 5, so the hypotenuse is √5 and the square on it has area 5.",
+     "steps": [
+      "1² + 2² = 5"
+     ],
+     "mistake": "Uses legs whose sum (not sum of squares) is 5"
+    },
+    {
+     "q": "To draw a square with 3 times the area of a unit square, which right triangle works?",
+     "options": [
+      "Legs 1 and √2",
+      "Legs 1 and 3",
+      "Legs 1 and 2",
+      "Legs 3 and 3"
+     ],
+     "answer": 0,
+     "explain": "1² + (√2)² = 1 + 2 = 3, so the hypotenuse is √3.",
+     "steps": [
+      "(√2)² = 2",
+      "1 + 2 = 3"
+     ],
+     "mistake": "Uses the number 3 directly as a leg"
+    },
+    {
+     "q": "A tilted square on a dot grid has corners (0,0), (1,1), (0,2) and (−1,1). What is its area?",
+     "options": [
+      "1",
+      "4",
+      "3",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "Each side goes 1 across and 1 up, so the area is 1² + 1² = 2.",
+     "steps": [
+      "Side: 1 across, 1 up",
+      "Area = 1 + 1 = 2"
+     ],
+     "mistake": "Counts only whole small squares",
+     "check": "1**2+1**2"
+    },
+    {
+     "q": "One side of a tilted square on a dot grid goes from (0,0) to (2,1). What is its area?",
+     "options": [
+      "5",
+      "3",
+      "4",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "The side goes 2 across and 1 up, so the area is 2² + 1² = 5.",
+     "steps": [
+      "2² + 1² = 5"
+     ],
+     "mistake": "Adds 2 + 1",
+     "check": "2**2+1**2"
+    },
+    {
+     "q": "Which square area can NOT be drawn with corners on a square dot grid?",
+     "options": [
+      "2",
+      "5",
+      "8",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "Grid squares have area a² + b². 2 = 1 + 1, 5 = 4 + 1, 8 = 4 + 4, but 3 is not a sum of two squares.",
+     "steps": [
+      "Possible areas: a² + b²",
+      "3 ≠ any a² + b²"
+     ],
+     "mistake": "Thinks every whole number area is possible",
+     "check": "3"
+    },
+    {
+     "q": "A tilted square's side goes 3 across and 1 up on a dot grid. What is its area?",
+     "options": [
+      "4",
+      "10",
+      "9",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "Area = 3² + 1² = 10.",
+     "steps": [
+      "9 + 1 = 10"
+     ],
+     "mistake": "Forgets to square the steps",
+     "check": "3**2+1**2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to draw a square of area 10 on dotted paper. Every square he draws has area 1, 4 or 9. Help him!",
+    "must": [
+     [
+      "tilt",
+      "tilted",
+      "slant"
+     ],
+     [
+      "3",
+      "1",
+      "across",
+      "up"
+     ],
+     [
+      "10",
+      "3² + 1²",
+      "9 + 1"
+     ]
+    ],
+    "praise": "Tilt it! A side that goes 3 across and 1 up gives 9 + 1 = 10. My square is ready!",
+    "nudge": "Must the sides go straight along the grid lines? What if a side slants?"
+   }
+  },
+  {
+   "id": "g8-maths-09-02",
+   "title": "Pythagorean triples",
+   "learn": {
+    "hook": "3, 4, 5 is a magic trio: 9 + 16 = 25. Are there more such trios? Infinitely many!",
+    "points": [
+     "A Pythagorean triple is three whole numbers a, b, c with a² + b² = c². The smallest is (3, 4, 5).",
+     "Multiply a triple by any whole number to get another: (6, 8, 10), (9, 12, 15), (30, 40, 50).",
+     "Some triples are not multiples of smaller ones: (5, 12, 13), (8, 15, 17), (7, 24, 25), (20, 21, 29).",
+     "A recipe: for any whole number m > 1, the numbers 2m, m² − 1 and m² + 1 form a triple. For m = 4: 8, 15, 17.",
+     "To test a triple, square the two smaller numbers, add them, and compare with the square of the largest."
+    ],
+    "example": {
+     "q": "Is (20, 21, 29) a Pythagorean triple?",
+     "steps": [
+      "20² = 400 and 21² = 441",
+      "400 + 441 = 841",
+      "29² = 841",
+      "They are equal, so yes"
+     ],
+     "answer": "Yes"
+    },
+    "reallife": "Carpenters and tile layers use triples like 6-8-10 to check that corners are truly square."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Triple or trouble?",
+     "buckets": [
+      "Pythagorean triple",
+      "Not a triple"
+     ],
+     "items": [
+      [
+       "3, 4, 5",
+       0
+      ],
+      [
+       "5, 12, 13",
+       0
+      ],
+      [
+       "8, 15, 17",
+       0
+      ],
+      [
+       "7, 24, 25",
+       0
+      ],
+      [
+       "12, 16, 20",
+       0
+      ],
+      [
+       "4, 5, 6",
+       1
+      ],
+      [
+       "2, 3, 4",
+       1
+      ],
+      [
+       "6, 7, 9",
+       1
+      ],
+      [
+       "10, 24, 25",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Triple machine: 2m, m² − 1, m² + 1",
+     "pairs": [
+      [
+       "m = 2",
+       "4, 3, 5"
+      ],
+      [
+       "m = 3",
+       "6, 8, 10"
+      ],
+      [
+       "m = 4",
+       "8, 15, 17"
+      ],
+      [
+       "m = 5",
+       "10, 24, 26"
+      ],
+      [
+       "m = 6",
+       "12, 35, 37"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is a Pythagorean triple?",
+     "options": [
+      "(6, 7, 9)",
+      "(5, 6, 8)",
+      "(8, 15, 17)",
+      "(4, 6, 8)"
+     ],
+     "answer": 2,
+     "explain": "8² + 15² = 64 + 225 = 289 = 17². The others fail: 36 + 49 = 85, 25 + 36 = 61, 16 + 36 = 52.",
+     "steps": [
+      "64 + 225 = 289",
+      "17² = 289"
+     ],
+     "mistake": "Picks numbers that just look close together"
+    },
+    {
+     "q": "Complete the Pythagorean triple (9, 40, __).",
+     "options": [
+      "49",
+      "41",
+      "31",
+      "50"
+     ],
+     "answer": 1,
+     "explain": "9² + 40² = 81 + 1600 = 1681 = 41².",
+     "steps": [
+      "81 + 1600 = 1681",
+      "41 × 41 = 1681"
+     ],
+     "mistake": "Adds 9 and 40 instead of their squares",
+     "check": "(9**2+40**2)**0.5"
+    },
+    {
+     "q": "Using 2m, m² − 1 and m² + 1 with m = 7, what is the largest number of the triple?",
+     "options": [
+      "48",
+      "14",
+      "49",
+      "50"
+     ],
+     "answer": 3,
+     "explain": "m² + 1 = 49 + 1 = 50. The triple is (14, 48, 50). Check: 196 + 2304 = 2500 = 50².",
+     "steps": [
+      "2m = 14",
+      "m² − 1 = 48",
+      "m² + 1 = 50"
+     ],
+     "mistake": "Uses m² (49) without adding 1",
+     "check": "7**2+1"
+    },
+    {
+     "q": "(3, 4, 5) is a triple. Which of these is also a triple made by multiplying it?",
+     "options": [
+      "(15, 20, 25)",
+      "(4, 5, 6)",
+      "(6, 8, 12)",
+      "(5, 6, 7)"
+     ],
+     "answer": 0,
+     "explain": "(15, 20, 25) = 5 × (3, 4, 5). Multiplying every number by the same amount keeps a² + b² = c².",
+     "mistake": "Adds the same number to each, or multiplies only some of the numbers"
+    },
+    {
+     "q": "A right triangle has legs 10 cm and 24 cm. How long is the hypotenuse?",
+     "options": [
+      "34 cm",
+      "26 cm",
+      "25 cm",
+      "13 cm"
+     ],
+     "answer": 1,
+     "explain": "(10, 24, 26) = 2 × (5, 12, 13). Check: 100 + 576 = 676 = 26².",
+     "steps": [
+      "10 = 2 × 5, 24 = 2 × 12",
+      "Hypotenuse = 2 × 13 = 26"
+     ],
+     "mistake": "Uses the triple (5, 12, 13) but forgets to double 13",
+     "check": "(10**2+24**2)**0.5"
+    },
+    {
+     "q": "Harpreet's triangle has sides 7 cm, 24 cm and 25 cm. Is it a right triangle?",
+     "options": [
+      "No, because 7 + 24 is not 25",
+      "Yes, because 25 is the longest side",
+      "No, because 7 is odd",
+      "Yes, because 7² + 24² = 625 = 25²"
+     ],
+     "answer": 3,
+     "explain": "49 + 576 = 625 = 25². By the converse of the theorem, the triangle has a right angle.",
+     "steps": [
+      "7² = 49, 24² = 576",
+      "49 + 576 = 625 = 25²"
+     ],
+     "mistake": "Adds the sides instead of their squares"
+    },
+    {
+     "q": "In the Pythagorean triple (20, 21, x), what is x?",
+     "options": [
+      "41",
+      "29",
+      "30",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "x² = 400 + 441 = 841, and 29² = 841, so x = 29.",
+     "steps": [
+      "20² = 400, 21² = 441",
+      "400 + 441 = 841",
+      "√841 = 29"
+     ],
+     "mistake": "Adds 20 + 21 = 41",
+     "check": "(20**2+21**2)**0.5"
+    },
+    {
+     "q": "How many Pythagorean triples are there?",
+     "options": [
+      "Exactly 5",
+      "Exactly 100",
+      "Only (3, 4, 5)",
+      "Infinitely many"
+     ],
+     "answer": 3,
+     "explain": "Multiplying (3, 4, 5) by 2, 3, 4, ... gives a new triple every time, and that never ends.",
+     "mistake": "Thinks only the few famous triples exist"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: How do I check if 5, 12, 13 is a Pythagorean triple?",
+    "must": [
+     [
+      "square",
+      "squares",
+      "squared"
+     ],
+     [
+      "add",
+      "sum",
+      "plus",
+      "169"
+     ],
+     [
+      "largest",
+      "biggest",
+      "longest",
+      "13",
+      "compare",
+      "equal"
+     ]
+    ],
+    "praise": "25 + 144 = 169 = 13². The two small squares add up to the big square. It is a triple!",
+    "nudge": "What do you do with 5 and 12? Then what do you compare the answer with?"
+   },
+   "covers": [
+    "c9.5.1",
+    "c9.5.2"
+   ]
+  },
+  {
+   "id": "g8-maths-09-07",
+   "title": "Primitive triples and Fermat's famous puzzle",
+   "covers": [
+    "c9.5.3",
+    "c9.5.4",
+    "c9.6.1",
+    "c9.6.2"
+   ],
+   "learn": {
+    "hook": "a² + b² = c² has endless whole-number answers. But try a³ + b³ = c³ — there are NONE. It took 350 years to prove!",
+    "points": [
+     "A triple is primitive if its three numbers share no common factor bigger than 1: (3, 4, 5), (5, 12, 13), (8, 15, 17). (6, 8, 10) is not primitive — it is 2 × (3, 4, 5).",
+     "Odd-number recipe: n² = 1 + 3 + 5 + ... + (2n − 1). If the last odd number 2n − 1 is itself a square k², then n² = (n − 1)² + k².",
+     "Examples: 2n − 1 = 9 gives n = 5 and 5² = 4² + 3²; 2n − 1 = 25 gives 13² = 12² + 5²; 2n − 1 = 49 gives 25² = 24² + 7².",
+     "Fermat's Last Theorem: there are no positive whole numbers x, y, z with xⁿ + yⁿ = zⁿ when n is bigger than 2.",
+     "Pierre de Fermat wrote this in the margin of a book (around 1637), saying the margin was too small for his proof. Andrew Wiles finally proved it in 1994."
+    ],
+    "example": {
+     "q": "Use the odd-number recipe with the odd square 81.",
+     "steps": [
+      "2n − 1 = 81 → n = 41",
+      "n² = (n − 1)² + 81",
+      "41² = 40² + 9²",
+      "Triple: (9, 40, 41)"
+     ],
+     "answer": "(9, 40, 41)"
+    },
+    "reallife": "Mathematicians worked on Fermat's puzzle for over 350 years — proof that some questions are worth a lifetime!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Primitive or not?",
+     "buckets": [
+      "Primitive",
+      "Not primitive"
+     ],
+     "items": [
+      [
+       "3, 4, 5",
+       0
+      ],
+      [
+       "5, 12, 13",
+       0
+      ],
+      [
+       "8, 15, 17",
+       0
+      ],
+      [
+       "20, 21, 29",
+       0
+      ],
+      [
+       "6, 8, 10",
+       1
+      ],
+      [
+       "15, 20, 25",
+       1
+      ],
+      [
+       "10, 24, 26",
+       1
+      ],
+      [
+       "9, 12, 15",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Odd square → triple",
+     "pairs": [
+      [
+       "9",
+       "(3, 4, 5)"
+      ],
+      [
+       "25",
+       "(5, 12, 13)"
+      ],
+      [
+       "49",
+       "(7, 24, 25)"
+      ],
+      [
+       "81",
+       "(9, 40, 41)"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is a primitive triple?",
+     "options": [
+      "(6, 8, 10)",
+      "(15, 20, 25)",
+      "(8, 15, 17)",
+      "(10, 24, 26)"
+     ],
+     "answer": 2,
+     "explain": "8, 15 and 17 have no common factor above 1. The others are multiples of (3, 4, 5) or (5, 12, 13).",
+     "steps": [
+      "HCF(8, 15, 17) = 1"
+     ],
+     "mistake": "Thinks every triple is primitive"
+    },
+    {
+     "q": "(12, 16, 20) is a triple. Dividing by the HCF of its numbers gives which primitive triple?",
+     "options": [
+      "(6, 8, 10)",
+      "(5, 12, 13)",
+      "(1, 2, 3)",
+      "(3, 4, 5)"
+     ],
+     "answer": 3,
+     "explain": "HCF = 4, and (12, 16, 20) ÷ 4 = (3, 4, 5).",
+     "steps": [
+      "HCF = 4",
+      "12 ÷ 4, 16 ÷ 4, 20 ÷ 4"
+     ],
+     "mistake": "Divides by 2 only"
+    },
+    {
+     "q": "In the odd-number recipe, the odd square 2n − 1 = 25. What is n?",
+     "options": [
+      "12",
+      "13",
+      "5",
+      "25"
+     ],
+     "answer": 1,
+     "explain": "2n − 1 = 25 gives n = 13, and then 13² = 12² + 5².",
+     "steps": [
+      "2n = 26",
+      "n = 13"
+     ],
+     "mistake": "Takes the square root of 25 instead",
+     "check": "(25+1)/2"
+    },
+    {
+     "q": "Which triple does the odd square 49 give in the recipe?",
+     "options": [
+      "(7, 24, 25)",
+      "(7, 49, 50)",
+      "(24, 25, 49)",
+      "(7, 14, 21)"
+     ],
+     "answer": 0,
+     "explain": "2n − 1 = 49 gives n = 25, so 25² = 24² + 7²: the triple is (7, 24, 25).",
+     "steps": [
+      "n = 25",
+      "25² = 24² + 7²"
+     ],
+     "mistake": "Uses 49 itself as a side"
+    },
+    {
+     "q": "The odd square 81 gives a triple. What is its largest number?",
+     "options": [
+      "41",
+      "40",
+      "81",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "2n − 1 = 81 gives n = 41, and 41² = 40² + 9².",
+     "steps": [
+      "n = (81 + 1) ÷ 2 = 41"
+     ],
+     "mistake": "Gives n − 1 instead of n",
+     "check": "(81+1)/2"
+    },
+    {
+     "q": "How many solutions in positive whole numbers does x³ + y³ = z³ have?",
+     "options": [
+      "0",
+      "1",
+      "3",
+      "Infinitely many"
+     ],
+     "answer": 0,
+     "explain": "Fermat's Last Theorem (proved by Wiles) says there are none for any power bigger than 2.",
+     "steps": [
+      "n = 3 > 2 → no solutions"
+     ],
+     "mistake": "Assumes it works like a² + b² = c²",
+     "check": "0"
+    },
+    {
+     "q": "Who proved Fermat's Last Theorem in 1994?",
+     "options": [
+      "Pierre de Fermat",
+      "Baudhayana",
+      "Srinivasa Ramanujan",
+      "Andrew Wiles"
+     ],
+     "answer": 3,
+     "explain": "Fermat only claimed a proof; Andrew Wiles proved it in 1994.",
+     "steps": [
+      "Fermat ~1637 claim",
+      "Wiles 1994 proof"
+     ],
+     "mistake": "Thinks Fermat himself proved it"
+    },
+    {
+     "q": "Where did Fermat write his famous claim?",
+     "options": [
+      "In the margin of a book",
+      "On a temple wall",
+      "In a letter to Baudhayana",
+      "On a clay tablet"
+     ],
+     "answer": 0,
+     "explain": "He wrote it in the margin of his copy of an old maths book and said the margin was too small for the proof.",
+     "steps": [
+      "Margin note, around 1637"
+     ],
+     "mistake": "Mixes up Fermat with older mathematicians"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu found (30, 40, 50) and wants to know if it is a 'new' triple. Is it primitive?",
+    "must": [
+     [
+      "common factor",
+      "hcf",
+      "10",
+      "divide"
+     ],
+     [
+      "3, 4, 5",
+      "(3, 4, 5)"
+     ],
+     [
+      "not primitive",
+      "multiple",
+      "no"
+     ]
+    ],
+    "praise": "(30, 40, 50) is just 10 × (3, 4, 5) — not primitive. I need a triple with no common factor!",
+    "nudge": "Do 30, 40 and 50 share a factor? What do you get if you divide by it?"
+   }
+  },
+  {
+   "id": "g8-maths-09-08",
+   "title": "More uses: lotus, rhombus, triangles and a box puzzle",
+   "covers": [
+    "c9.7.1",
+    "c9.7.3",
+    "c9.7.6",
+    "c9.7.7"
+   ],
+   "learn": {
+    "hook": "In Bhaskara's Lilavati, a lotus sways in the wind until its flower touches the water. From that, you can find how deep the lake is!",
+    "points": [
+     "Lotus problem: a lotus stands h above the water; the wind pushes it until the flower touches the water a distance s away. If the depth is d, the stem is d + h, so d² + s² = (d + h)².",
+     "With h = 10 cm and s = 30 cm: d² + 900 = d² + 20d + 100, so 20d = 800 and d = 40 cm.",
+     "A rhombus's diagonals bisect each other at right angles, so side² = (half of one diagonal)² + (half of the other)². Diagonals 16 and 12 give side √(8² + 6²) = 10.",
+     "An equilateral triangle of side a has altitude h with h² + (a/2)² = a², so h = (√3/2)a. Area = ½ × a × h. For a = 10 cm: h ≈ 8.66 cm and area ≈ 43.3 cm².",
+     "Logic puzzle: three boxes are labelled Red, Blue and Mixed, but every label is wrong. Pick one ball from the box labelled Mixed — it can only be all one colour — and you can then work out every box."
+    ],
+    "example": {
+     "q": "A lotus flower is 10 cm above the water. Pushed by the wind, it touches the water 30 cm away. How deep is the water?",
+     "steps": [
+      "Depth d, stem d + 10",
+      "d² + 30² = (d + 10)²",
+      "d² + 900 = d² + 20d + 100",
+      "20d = 800, d = 40 cm"
+     ],
+     "answer": "40 cm"
+    },
+    "reallife": "Engineers use the same theorem to find heights, depths and diagonal braces in buildings and bridges."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Find the side",
+     "pairs": [
+      [
+       "Rhombus with diagonals 16 and 12",
+       "Side 10"
+      ],
+      [
+       "Rhombus with diagonals 10 and 24",
+       "Side 13"
+      ],
+      [
+       "Rhombus with diagonals 6 and 8",
+       "Side 5"
+      ],
+      [
+       "Rhombus with diagonals 30 and 16",
+       "Side 17"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Solve the box puzzle",
+     "prompt": "Put the steps in order",
+     "items": [
+      "All three labels are wrong",
+      "Take one ball from the box labelled Mixed",
+      "That box holds only that ball's colour",
+      "The box labelled with the other colour must be Mixed",
+      "The last box gets the remaining colour"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A lotus flower is 10 cm above the water. The wind pushes it until it touches the water 30 cm away. How deep is the water?",
+     "options": [
+      "30 cm",
+      "50 cm",
+      "40 cm",
+      "20 cm"
+     ],
+     "answer": 2,
+     "explain": "d² + 30² = (d + 10)² gives 900 = 20d + 100, so d = 40 cm. Check: 40² + 30² = 2500 = 50².",
+     "steps": [
+      "d² + 900 = d² + 20d + 100",
+      "20d = 800",
+      "d = 40"
+     ],
+     "mistake": "Takes the stem length (50 cm) as the depth",
+     "check": "800/20"
+    },
+    {
+     "q": "A lotus flower is 20 cm above the water and touches the water 60 cm away when pushed. How deep is the water?",
+     "options": [
+      "80 cm",
+      "60 cm",
+      "100 cm",
+      "40 cm"
+     ],
+     "answer": 0,
+     "explain": "d² + 3600 = (d + 20)² = d² + 40d + 400, so 40d = 3200 and d = 80 cm. Check: 80² + 60² = 10000 = 100².",
+     "steps": [
+      "3600 = 40d + 400",
+      "d = 80"
+     ],
+     "mistake": "Gives the stem length instead of the depth",
+     "check": "3200/40"
+    },
+    {
+     "q": "A rhombus has diagonals 16 cm and 12 cm. How long is each side?",
+     "options": [
+      "14 cm",
+      "20 cm",
+      "10 cm",
+      "28 cm"
+     ],
+     "answer": 2,
+     "explain": "Half-diagonals are 8 and 6, and they meet at 90°. Side = √(64 + 36) = 10 cm.",
+     "steps": [
+      "8² + 6² = 100",
+      "√100 = 10"
+     ],
+     "mistake": "Uses the full diagonals in the theorem",
+     "check": "(8**2+6**2)**0.5"
+    },
+    {
+     "q": "A rhombus has diagonals 10 cm and 24 cm. What is its perimeter?",
+     "options": [
+      "13 cm",
+      "68 cm",
+      "52 cm",
+      "34 cm"
+     ],
+     "answer": 2,
+     "explain": "Side = √(5² + 12²) = 13 cm, so the perimeter is 4 × 13 = 52 cm.",
+     "steps": [
+      "Half-diagonals 5 and 12",
+      "Side 13",
+      "Perimeter 52"
+     ],
+     "mistake": "Stops at one side",
+     "check": "4*13"
+    },
+    {
+     "q": "An equilateral triangle has side 10 cm. Using √3 ≈ 1.732, how long is its altitude?",
+     "options": [
+      "5 cm",
+      "10 cm",
+      "8.66 cm",
+      "7.5 cm"
+     ],
+     "answer": 2,
+     "explain": "h² + 5² = 10², so h² = 75 and h = 5√3 ≈ 5 × 1.732 = 8.66 cm.",
+     "steps": [
+      "h² = 100 − 25 = 75",
+      "h = 5√3 ≈ 8.66"
+     ],
+     "mistake": "Uses half the side as the altitude",
+     "check": "5*1.732"
+    },
+    {
+     "q": "Using an altitude of 8.66 cm, what is the area of an equilateral triangle with side 10 cm?",
+     "options": [
+      "43.3 cm²",
+      "86.6 cm²",
+      "50 cm²",
+      "25 cm²"
+     ],
+     "answer": 0,
+     "explain": "Area = ½ × base × height = ½ × 10 × 8.66 = 43.3 cm².",
+     "steps": [
+      "½ × 10 × 8.66",
+      "= 43.3"
+     ],
+     "mistake": "Forgets the ½",
+     "check": "10*8.66/2"
+    },
+    {
+     "q": "Three boxes are labelled Red, Blue and Mixed, and every label is wrong. From which box should you take one ball to fix all the labels?",
+     "options": [
+      "The box labelled Mixed",
+      "The box labelled Red",
+      "The box labelled Blue",
+      "You must open all three"
+     ],
+     "answer": 0,
+     "explain": "The box labelled Mixed cannot be mixed, so one ball tells you its true colour. Then the other two follow.",
+     "steps": [
+      "Mixed label is wrong → that box is one colour",
+      "One ball shows which"
+     ],
+     "mistake": "Picks a box whose ball would not decide the answer"
+    },
+    {
+     "q": "In the box puzzle, you take a red ball from the box labelled Mixed. What does the box labelled Blue contain?",
+     "options": [
+      "Blue balls",
+      "Red balls",
+      "Nothing",
+      "Mixed balls"
+     ],
+     "answer": 3,
+     "explain": "The Mixed-labelled box is Red. The Blue-labelled box is not blue (its label is wrong) and not red (taken), so it is Mixed. The Red-labelled box is Blue.",
+     "steps": [
+      "Box labelled Mixed → Red",
+      "Box labelled Blue → not Blue, not Red → Mixed"
+     ],
+     "mistake": "Forgets that every label is wrong"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sees a reed sticking 10 cm out of a pond. When he pulls its tip sideways 30 cm, it touches the water. How can he find the pond's depth?",
+    "must": [
+     [
+      "d + 10",
+      "stem",
+      "hypotenuse"
+     ],
+     [
+      "d²",
+      "square",
+      "theorem",
+      "pythagoras",
+      "baudhayana"
+     ],
+     [
+      "40"
+     ]
+    ],
+    "praise": "d² + 900 = (d + 10)², so d = 40 cm! Bhaskara's lotus trick works for reeds too.",
+    "nudge": "If the depth is d, how long is the whole reed? Which side is the hypotenuse?"
+   }
+  }
+ ]
 }
-]}

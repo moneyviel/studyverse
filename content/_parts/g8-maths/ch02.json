@@ -1,103 +1,2767 @@
-{"n": 2, "title": "Power Play", "emoji": "⚡",
-"topics": [
-{"id": "g8-maths-02-01", "title": "Exponents and powers",
- "learn": {
-  "hook": "Fold a sheet of paper in half again and again. After just 10 folds it would have 1024 layers! Doubling grows faster than you think.",
-  "points": [
-   "In 2⁵, 2 is the base and 5 is the exponent (power). 2⁵ = 2 × 2 × 2 × 2 × 2 = 32.",
-   "Each paper fold doubles the layers: after n folds there are 2ⁿ layers.",
-   "Powers grow very fast: 2¹⁰ = 1024 is much bigger than 10² = 100, even though both use a 2 and a 10.",
-   "A negative base with an even exponent gives a positive answer: (−2)⁴ = 16. With an odd exponent it stays negative: (−2)³ = −8.",
-   "(−1) to an even power is 1; (−1) to an odd power is −1."
-  ],
-  "example": {"q": "Write 1,00,000 as a power of 10 and 81 as a power of 3.", "steps": ["1,00,000 = 10 × 10 × 10 × 10 × 10, five tens", "So 1,00,000 = 10⁵", "81 = 3 × 3 × 3 × 3, four threes", "So 81 = 3⁴"], "answer": "1,00,000 = 10⁵ and 81 = 3⁴"},
-  "reallife": "Messages forwarded on phones, a chain of Diwali greetings where each person sends to 2 more, and computer memory sizes (1024 MB) all grow in powers."
- },
- "games": [
-  {"type": "match", "title": "Power pairs", "pairs": [["2⁵", "32"], ["3⁴", "81"], ["10³", "1000"], ["5³", "125"], ["(−1)⁷", "−1"]]},
-  {"type": "order", "title": "Power ladder", "prompt": "Smallest to largest value", "items": ["2⁵", "5³", "3⁵", "10³", "2¹⁰"]}
- ],
- "quiz": [
-  {"q": "Aisha folds a sheet of paper in half 6 times. How many layers does it have now?", "options": ["64", "12", "32", "36"], "answer": 0, "explain": "Each fold doubles the layers, so 6 folds give 2⁶ = 64 layers.", "steps": ["Layers double each fold: 2, 4, 8, 16, 32, 64", "2⁶ = 64"], "mistake": "Multiplies 2 × 6 instead of 2 to the power 6", "check": "2**6"},
-  {"q": "What is the value of (−2)⁴?", "options": ["−16", "16", "−8", "8"], "answer": 1, "explain": "(−2) × (−2) × (−2) × (−2) = 4 × 4 = 16. Four negative signs pair up to make a positive answer.", "steps": ["(−2) × (−2) = 4", "4 × 4 = 16"], "mistake": "Keeps the negative sign even though the exponent is even", "check": "(-2)**4"},
-  {"q": "Which is greater, 2¹⁰ or 10²?", "options": ["2¹⁰", "10²", "They are equal", "Cannot tell without a calculator"], "answer": 0, "explain": "2¹⁰ = 1024 and 10² = 100. Swapping base and exponent changes the value a lot.", "steps": ["2¹⁰ = 1024", "10² = 100", "1024 > 100"], "mistake": "Thinks a bigger base always means a bigger value"},
-  {"q": "Riya writes 81 as a power of 3. What is the exponent?", "options": ["27", "3", "4", "9"], "answer": 2, "explain": "81 = 3 × 3 × 3 × 3 = 3⁴, so the exponent is 4.", "steps": ["3 × 3 = 9", "9 × 3 = 27", "27 × 3 = 81 → four 3s"], "mistake": "Divides 81 by 3 instead of counting how many 3s multiply to 81", "check": "4"},
-  {"q": "What is (−1)¹⁰¹?", "options": ["1", "−1", "101", "−101"], "answer": 1, "explain": "101 is odd, so one −1 is left without a partner. (−1) to an odd power is −1.", "steps": ["(−1) × (−1) = 1 for each pair", "101 = 50 pairs + 1 extra", "Answer: −1"], "mistake": "Multiplies the base by the exponent", "check": "-1"},
-  {"q": "A farmer puts 1 grain on day 1 and doubles the grains every day. How many grains does he put on day 11?", "options": ["1024", "2048", "22", "512"], "answer": 0, "explain": "Day 1 has 2⁰ = 1 grain, day 2 has 2¹, so day 11 has 2¹⁰ = 1024 grains.", "steps": ["Day n has 2ⁿ⁻¹ grains", "Day 11: 2¹⁰ = 1024"], "mistake": "Uses 2¹¹ and forgets that day 1 starts at 1 grain", "check": "2**10"},
-  {"q": "How can 64 be written as a power of 4?", "options": ["4⁴", "4³", "4¹⁶", "4²"], "answer": 1, "explain": "4 × 4 × 4 = 64, so 64 = 4³.", "steps": ["4 × 4 = 16", "16 × 4 = 64"], "mistake": "Divides 64 by 4 to get 16 and uses that as the exponent"},
-  {"q": "In the Indian system, what is 10⁶ called?", "options": ["1 lakh", "1 crore", "10 lakh", "1 thousand"], "answer": 2, "explain": "10⁶ = 10,00,000, which is ten lakh (one million). 1 lakh is 10⁵ and 1 crore is 10⁷.", "steps": ["10⁵ = 1,00,000 = 1 lakh", "10⁶ = 10 × 1 lakh = 10 lakh"], "mistake": "Mixes up the place names lakh and crore"}
- ],
- "teach": {"ask": "Gappu chirps: What does 2⁵ mean? Isn't it just 2 × 5 = 10?", "must": [["multiply", "times", "multiplied"], ["itself", "again", "repeated", "five times", "5 times"], ["32"]], "praise": "Oh! It is 2 multiplied by itself 5 times: 2 × 2 × 2 × 2 × 2 = 32, not 10. Thank you!", "nudge": "How many times is 2 written down when we work out 2⁵? And what is the answer?"}
-},
-{"id": "g8-maths-02-02", "title": "Laws of exponents",
- "learn": {
-  "hook": "Can you work out 2²⁰ ÷ 2¹⁸ in one second? With the laws of exponents, you can: it is just 2² = 4!",
-  "points": [
-   "Same base, multiply → add the exponents: aᵐ × aⁿ = aᵐ⁺ⁿ. So 3² × 3⁴ = 3⁶.",
-   "Same base, divide → subtract the exponents: aᵐ ÷ aⁿ = aᵐ⁻ⁿ. So 7⁹ ÷ 7⁴ = 7⁵.",
-   "Power of a power → multiply the exponents: (aᵐ)ⁿ = aᵐⁿ. So (5²)³ = 5⁶.",
-   "Same exponent: aᵐ × bᵐ = (ab)ᵐ. So 2³ × 5³ = 10³ = 1000.",
-   "Any non-zero number to the power 0 is 1, and a⁻ⁿ = 1/aⁿ. So 9⁰ = 1 and 2⁻³ = 1/8."
-  ],
-  "example": {"q": "Simplify (2⁵ × 2³) ÷ 2⁶.", "steps": ["2⁵ × 2³ = 2⁵⁺³ = 2⁸", "2⁸ ÷ 2⁶ = 2⁸⁻⁶ = 2²", "2² = 4"], "answer": "4"},
-  "reallife": "Scientists and computer engineers use these laws every day, for example to say that 2¹⁰ × 2¹⁰ bytes is 2²⁰ bytes (about one million)."
- },
- "games": [
-  {"type": "fill", "title": "Exponent detective", "items": [
-   {"text": "2³ × 2⁴ = 2 to the power ___", "answer": "7", "options": ["7", "12", "1"]},
-   {"text": "(5²)³ = 5 to the power ___", "answer": "6", "options": ["6", "5", "8"]},
-   {"text": "7⁹ ÷ 7⁴ = 7 to the power ___", "answer": "5", "options": ["5", "13", "2"]},
-   {"text": "1000⁰ = ___", "answer": "1", "options": ["1", "0", "1000"]},
-   {"text": "2⁻³ = ___", "answer": "1/8", "options": ["1/8", "−8", "−6"]}
-  ]},
-  {"type": "truefalse", "title": "Law or flaw?", "items": [
-   ["3² × 3³ = 9⁵", false, "Keep the base and add the exponents: 3² × 3³ = 3⁵ = 243."],
-   ["a⁰ = 1 for every non-zero number a", true, "aⁿ ÷ aⁿ = aⁿ⁻ⁿ = a⁰, and any non-zero number divided by itself is 1."],
-   ["(2³)² = 2⁶", true, "Power of a power: multiply the exponents, 3 × 2 = 6."],
-   ["2³ + 2³ = 2⁶", false, "Adding is not multiplying: 8 + 8 = 16 = 2⁴."],
-   ["5⁻¹ = 1/5", true, "A negative exponent means the reciprocal: 5⁻¹ = 1/5¹."],
-   ["10⁻² = 0.01", true, "10⁻² = 1/10² = 1/100 = 0.01."]
-  ]}
- ],
- "quiz": [
-  {"q": "Simplify 3⁴ × 3².", "options": ["3⁶", "3⁸", "9⁶", "3²"], "answer": 0, "explain": "Same base, multiplying: add the exponents. 4 + 2 = 6, so the answer is 3⁶.", "steps": ["aᵐ × aⁿ = aᵐ⁺ⁿ", "3⁴ × 3² = 3⁴⁺² = 3⁶"], "mistake": "Multiplies the exponents or multiplies the bases"},
-  {"q": "What is the value of (2⁵ × 2³) ÷ 2⁶?", "options": ["2", "16", "4", "256"], "answer": 2, "explain": "2⁵ × 2³ = 2⁸, and 2⁸ ÷ 2⁶ = 2² = 4.", "steps": ["2⁵ × 2³ = 2⁸", "2⁸ ÷ 2⁶ = 2²", "2² = 4"], "mistake": "Subtracts before adding, or stops at 2⁸ = 256", "check": "(2**5*2**3)/2**6"},
-  {"q": "When (4²)³ is written as a single power of 4, what is the exponent?", "options": ["6", "5", "8", "9"], "answer": 0, "explain": "Power of a power: multiply the exponents. 2 × 3 = 6, so (4²)³ = 4⁶.", "steps": ["(aᵐ)ⁿ = aᵐⁿ", "2 × 3 = 6"], "mistake": "Adds the exponents (2 + 3 = 5) instead of multiplying", "check": "6"},
-  {"q": "What is 2025⁰?", "options": ["0", "2025", "2024", "1"], "answer": 3, "explain": "Any non-zero number raised to the power 0 equals 1.", "steps": ["a⁰ = 1 for a ≠ 0", "2025⁰ = 1"], "mistake": "Thinks a power of 0 makes the number 0", "check": "1"},
-  {"q": "What is 5⁻²?", "options": ["1/25", "−25", "−10", "1/10"], "answer": 0, "explain": "A negative exponent means the reciprocal: 5⁻² = 1/5² = 1/25.", "steps": ["a⁻ⁿ = 1/aⁿ", "5² = 25", "5⁻² = 1/25"], "mistake": "Thinks a negative exponent makes the answer negative", "check": "Fraction(1,25)"},
-  {"q": "What is 2³ × 5³?", "options": ["100", "1000", "70", "10000"], "answer": 1, "explain": "Same exponent: 2³ × 5³ = (2 × 5)³ = 10³ = 1000. Check: 8 × 125 = 1000.", "steps": ["aᵐ × bᵐ = (ab)ᵐ", "(2 × 5)³ = 10³ = 1000"], "mistake": "Adds the exponents to get 10⁶ or multiplies 2 × 5 × 3", "check": "2**3*5**3"},
-  {"q": "Kabir says 2³ × 3² = 6⁵. What is the correct value of 2³ × 3²?", "options": ["72", "7776", "36", "30"], "answer": 0, "explain": "The bases are different and so are the exponents, so no law joins them. Just calculate: 8 × 9 = 72.", "steps": ["2³ = 8", "3² = 9", "8 × 9 = 72"], "mistake": "Adds exponents even though the bases are different", "check": "2**3*3**2"},
-  {"q": "Which of these is equal to 1/8?", "options": ["−2³", "3⁻²", "2⁻³", "(−8)¹"], "answer": 2, "explain": "2⁻³ = 1/2³ = 1/8. −2³ = −8 and 3⁻² = 1/9.", "steps": ["2⁻³ = 1/2³", "2³ = 8", "So 2⁻³ = 1/8"], "mistake": "Thinks a negative exponent gives a negative number"}
- ],
- "teach": {"ask": "Gappu scratches his feathers: How do I quickly simplify 3⁴ × 3²? Do I multiply the 4 and the 2?", "must": [["add", "plus", "sum"], ["exponent", "exponents", "power", "powers"], ["same base", "base stays", "keep the base", "same"]], "praise": "Keep the same base and add the powers: 3⁴ × 3² = 3⁶. Now I can do it fast!", "nudge": "When the bases are the same and we multiply, what do we do with the exponents — add or multiply?"}
-},
-{"id": "g8-maths-02-03", "title": "Scientific notation",
- "learn": {
-  "hook": "The Sun is about 15,00,00,000 km away. Counting those zeros is tiring! Scientists simply write 1.5 × 10⁸ km.",
-  "points": [
-   "Scientific notation (standard form) writes a number as a × 10ⁿ, where a is at least 1 and less than 10.",
-   "For a big number, move the decimal point left and count the jumps: 4,50,000 = 4.5 × 10⁵.",
-   "For a tiny number, move the decimal point right; the exponent becomes negative: 0.0005 = 5 × 10⁻⁴.",
-   "To compare two numbers in standard form, compare the powers of 10 first: 2 × 10⁸ is bigger than 9 × 10⁷.",
-   "In the Indian system, 1 lakh = 10⁵ and 1 crore = 10⁷."
-  ],
-  "example": {"q": "The Moon is about 3,84,000 km from the Earth. Write this in scientific notation.", "steps": ["Put the decimal after the first digit: 3.84", "Count how many places the point moved: 5", "3,84,000 = 3.84 × 10⁵"], "answer": "3.84 × 10⁵ km"},
-  "reallife": "India's population (about 1.4 × 10⁹), distances to stars and the size of a virus are all written in scientific notation."
- },
- "games": [
-  {"type": "match", "title": "Same number, short form", "pairs": [["4,50,000", "4.5 × 10⁵"], ["0.007", "7 × 10⁻³"], ["1 crore", "10⁷"], ["62,000", "6.2 × 10⁴"], ["0.00025", "2.5 × 10⁻⁴"]]},
-  {"type": "sort", "title": "Is it in standard form?", "buckets": ["Correct standard form", "Not standard form"], "items": [["3.2 × 10⁶", 0], ["32 × 10⁵", 1], ["0.5 × 10³", 1], ["9.99 × 10⁻²", 0], ["1 × 10⁸", 0], ["10.5 × 10²", 1]]}
- ],
- "quiz": [
-  {"q": "How is 5,60,000 written in scientific notation?", "options": ["5.6 × 10⁵", "56 × 10⁵", "5.6 × 10⁴", "5.6 × 10⁶"], "answer": 0, "explain": "Move the decimal point 5 places left: 5,60,000 = 5.6 × 10⁵. The first part must be between 1 and 10.", "steps": ["5,60,000 → 5.60000", "Point moved 5 places", "5.6 × 10⁵"], "mistake": "Counts the number of zeros (4) instead of the jumps of the decimal point"},
-  {"q": "How is 0.00034 written in scientific notation?", "options": ["3.4 × 10⁻³", "3.4 × 10⁴", "3.4 × 10⁻⁴", "3.4 × 10⁻⁵"], "answer": 2, "explain": "Move the decimal point 4 places right to get 3.4, so the exponent is −4.", "steps": ["0.00034 → 3.4", "Point moved 4 places right", "3.4 × 10⁻⁴"], "mistake": "Forgets the negative sign or miscounts the jumps"},
-  {"q": "What is 2.5 × 10³ in usual form?", "options": ["250", "2500", "25000", "0.0025"], "answer": 1, "explain": "Multiplying by 10³ moves the decimal point 3 places right: 2.5 → 2500.", "steps": ["2.5 × 1000", "= 2500"], "mistake": "Adds three zeros after 25 to get 25000", "check": "2.5*10**3"},
-  {"q": "1 crore is 10 raised to what power?", "options": ["7", "6", "8", "5"], "answer": 0, "explain": "1 crore = 1,00,00,000, which has 7 zeros, so it is 10⁷.", "steps": ["1 lakh = 10⁵", "1 crore = 100 lakh = 10⁵ × 10² = 10⁷"], "mistake": "Confuses crore with 10 lakh (10⁶)", "check": "7"},
-  {"q": "Which is larger: 3 × 10⁸ or 9 × 10⁷?", "options": ["9 × 10⁷", "They are equal", "3 × 10⁸", "Cannot be compared"], "answer": 2, "explain": "3 × 10⁸ = 30 crore and 9 × 10⁷ = 9 crore. Compare the powers of 10 first.", "steps": ["3 × 10⁸ = 30 × 10⁷", "30 × 10⁷ > 9 × 10⁷"], "mistake": "Compares only the front numbers (9 > 3)"},
-  {"q": "Light travels about 3 × 10⁸ m in one second. About how far does it travel in 2 seconds?", "options": ["6 × 10⁸ m", "3 × 10¹⁶ m", "6 × 10¹⁶ m", "5 × 10⁸ m"], "answer": 0, "explain": "Double the distance: 2 × 3 × 10⁸ = 6 × 10⁸ m. The power of 10 does not change.", "steps": ["2 × (3 × 10⁸)", "= (2 × 3) × 10⁸ = 6 × 10⁸"], "mistake": "Doubles the exponent as well as the number"},
-  {"q": "A tiny bacterium is about 0.000002 m long. What is this in scientific notation?", "options": ["2 × 10⁻⁵ m", "2 × 10⁻⁶ m", "2 × 10⁶ m", "2 × 10⁻⁷ m"], "answer": 1, "explain": "Move the point 6 places right to get 2, so the length is 2 × 10⁻⁶ m.", "steps": ["0.000002 → 2", "Point moved 6 places right", "2 × 10⁻⁶ m"], "mistake": "Counts only the zeros after the decimal point (5)"},
-  {"q": "What is (2 × 10³) × (4 × 10²)?", "options": ["8 × 10⁶", "6 × 10⁵", "8 × 10¹", "8 × 10⁵"], "answer": 3, "explain": "Multiply the numbers (2 × 4 = 8) and add the exponents of 10 (3 + 2 = 5): 8 × 10⁵.", "steps": ["2 × 4 = 8", "10³ × 10² = 10⁵", "Answer: 8 × 10⁵"], "mistake": "Multiplies the exponents instead of adding them"}
- ],
- "teach": {"ask": "Gappu blinks: How do I write 4,50,000 in scientific notation? There are so many zeros!", "must": [["decimal", "point", "dot"], ["between 1 and 10", "less than 10", "one digit", "first digit"], ["power of 10", "10 to the power", "exponent", "power", "count"]], "praise": "Move the decimal point to get 4.5, count 5 jumps, so 4.5 × 10⁵. Neat and short!", "nudge": "Where should the decimal point go, and how do you know which power of 10 to use?"}
+{
+ "n": 2,
+ "title": "Power Play",
+ "emoji": "⚡",
+ "topics": [
+  {
+   "id": "g8-maths-02-01",
+   "title": "Exponents and powers",
+   "learn": {
+    "hook": "Fold a sheet of paper in half again and again. After just 10 folds it would have 1024 layers! Doubling grows faster than you think.",
+    "points": [
+     "In 2⁵, 2 is the base and 5 is the exponent (power). 2⁵ = 2 × 2 × 2 × 2 × 2 = 32.",
+     "Each paper fold doubles the layers: after n folds there are 2ⁿ layers.",
+     "Powers grow very fast: 2¹⁰ = 1024 is much bigger than 10² = 100, even though both use a 2 and a 10.",
+     "A negative base with an even exponent gives a positive answer: (−2)⁴ = 16. With an odd exponent it stays negative: (−2)³ = −8.",
+     "(−1) to an even power is 1; (−1) to an odd power is −1."
+    ],
+    "example": {
+     "q": "Write 1,00,000 as a power of 10 and 81 as a power of 3.",
+     "steps": [
+      "1,00,000 = 10 × 10 × 10 × 10 × 10, five tens",
+      "So 1,00,000 = 10⁵",
+      "81 = 3 × 3 × 3 × 3, four threes",
+      "So 81 = 3⁴"
+     ],
+     "answer": "1,00,000 = 10⁵ and 81 = 3⁴"
+    },
+    "reallife": "Messages forwarded on phones, a chain of Diwali greetings where each person sends to 2 more, and computer memory sizes (1024 MB) all grow in powers."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Power pairs",
+     "pairs": [
+      [
+       "2⁵",
+       "32"
+      ],
+      [
+       "3⁴",
+       "81"
+      ],
+      [
+       "10³",
+       "1000"
+      ],
+      [
+       "5³",
+       "125"
+      ],
+      [
+       "(−1)⁷",
+       "−1"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Power ladder",
+     "prompt": "Smallest to largest value",
+     "items": [
+      "2⁵",
+      "5³",
+      "3⁵",
+      "10³",
+      "2¹⁰"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Aisha folds a sheet of paper in half 6 times. How many layers does it have now?",
+     "options": [
+      "64",
+      "12",
+      "32",
+      "36"
+     ],
+     "answer": 0,
+     "explain": "Each fold doubles the layers, so 6 folds give 2⁶ = 64 layers.",
+     "steps": [
+      "Layers double each fold: 2, 4, 8, 16, 32, 64",
+      "2⁶ = 64"
+     ],
+     "mistake": "Multiplies 2 × 6 instead of 2 to the power 6",
+     "check": "2**6"
+    },
+    {
+     "q": "What is the value of (−2)⁴?",
+     "options": [
+      "−16",
+      "16",
+      "−8",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "(−2) × (−2) × (−2) × (−2) = 4 × 4 = 16. Four negative signs pair up to make a positive answer.",
+     "steps": [
+      "(−2) × (−2) = 4",
+      "4 × 4 = 16"
+     ],
+     "mistake": "Keeps the negative sign even though the exponent is even",
+     "check": "(-2)**4"
+    },
+    {
+     "q": "Which is greater, 2¹⁰ or 10²?",
+     "options": [
+      "2¹⁰",
+      "10²",
+      "They are equal",
+      "Cannot tell without a calculator"
+     ],
+     "answer": 0,
+     "explain": "2¹⁰ = 1024 and 10² = 100. Swapping base and exponent changes the value a lot.",
+     "steps": [
+      "2¹⁰ = 1024",
+      "10² = 100",
+      "1024 > 100"
+     ],
+     "mistake": "Thinks a bigger base always means a bigger value"
+    },
+    {
+     "q": "Riya writes 81 as a power of 3. What is the exponent?",
+     "options": [
+      "27",
+      "3",
+      "4",
+      "9"
+     ],
+     "answer": 2,
+     "explain": "81 = 3 × 3 × 3 × 3 = 3⁴, so the exponent is 4.",
+     "steps": [
+      "3 × 3 = 9",
+      "9 × 3 = 27",
+      "27 × 3 = 81 → four 3s"
+     ],
+     "mistake": "Divides 81 by 3 instead of counting how many 3s multiply to 81",
+     "check": "4"
+    },
+    {
+     "q": "What is (−1)¹⁰¹?",
+     "options": [
+      "1",
+      "−1",
+      "101",
+      "−101"
+     ],
+     "answer": 1,
+     "explain": "101 is odd, so one −1 is left without a partner. (−1) to an odd power is −1.",
+     "steps": [
+      "(−1) × (−1) = 1 for each pair",
+      "101 = 50 pairs + 1 extra",
+      "Answer: −1"
+     ],
+     "mistake": "Multiplies the base by the exponent",
+     "check": "-1"
+    },
+    {
+     "q": "A farmer puts 1 grain on day 1 and doubles the grains every day. How many grains does he put on day 11?",
+     "options": [
+      "1024",
+      "2048",
+      "22",
+      "512"
+     ],
+     "answer": 0,
+     "explain": "Day 1 has 2⁰ = 1 grain, day 2 has 2¹, so day 11 has 2¹⁰ = 1024 grains.",
+     "steps": [
+      "Day n has 2ⁿ⁻¹ grains",
+      "Day 11: 2¹⁰ = 1024"
+     ],
+     "mistake": "Uses 2¹¹ and forgets that day 1 starts at 1 grain",
+     "check": "2**10"
+    },
+    {
+     "q": "How can 64 be written as a power of 4?",
+     "options": [
+      "4⁴",
+      "4³",
+      "4¹⁶",
+      "4²"
+     ],
+     "answer": 1,
+     "explain": "4 × 4 × 4 = 64, so 64 = 4³.",
+     "steps": [
+      "4 × 4 = 16",
+      "16 × 4 = 64"
+     ],
+     "mistake": "Divides 64 by 4 to get 16 and uses that as the exponent"
+    },
+    {
+     "q": "In the Indian system, what is 10⁶ called?",
+     "options": [
+      "1 lakh",
+      "1 crore",
+      "10 lakh",
+      "1 thousand"
+     ],
+     "answer": 2,
+     "explain": "10⁶ = 10,00,000, which is ten lakh (one million). 1 lakh is 10⁵ and 1 crore is 10⁷.",
+     "steps": [
+      "10⁵ = 1,00,000 = 1 lakh",
+      "10⁶ = 10 × 1 lakh = 10 lakh"
+     ],
+     "mistake": "Mixes up the place names lakh and crore"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu chirps: What does 2⁵ mean? Isn't it just 2 × 5 = 10?",
+    "must": [
+     [
+      "multiply",
+      "times",
+      "multiplied"
+     ],
+     [
+      "itself",
+      "again",
+      "repeated",
+      "five times",
+      "5 times"
+     ],
+     [
+      "32"
+     ]
+    ],
+    "praise": "Oh! It is 2 multiplied by itself 5 times: 2 × 2 × 2 × 2 × 2 = 32, not 10. Thank you!",
+    "nudge": "How many times is 2 written down when we work out 2⁵? And what is the answer?"
+   },
+   "covers": [
+    "c2.1.1",
+    "c2.2.1",
+    "c2.2.2",
+    "c2.2.3",
+    "c2.7.3"
+   ]
+  },
+  {
+   "id": "g8-maths-02-04",
+   "title": "Folding paper: the power of doubling",
+   "covers": [
+    "c2.1.2",
+    "c2.1.3",
+    "c2.1.4",
+    "c2.5.3"
+   ],
+   "learn": {
+    "hook": "Fold a thin sheet of paper in half 46 times (if you could!) and the pile would stretch past the Moon. Doubling is that powerful.",
+    "points": [
+     "Every fold doubles the thickness. If the sheet starts t thick, after n folds it is t × 2ⁿ thick.",
+     "10 folds multiply the thickness by 2¹⁰ = 1024. A sheet 0.001 cm thick becomes about 1 cm thick.",
+     "After 30 folds the same sheet would be 0.001 × 2³⁰ cm ≈ 10.7 km tall — far taller than the Burj Khalifa (about 828 m) and even Mount Everest. After 46 folds it would be about 7 lakh km, more than the Earth–Moon distance (about 3,84,000 km).",
+     "Adding the same amount each time is linear growth: 2, 4, 6, 8, ... Multiplying by the same amount is exponential growth: 2, 4, 8, 16, ... Exponential growth soon leaves linear growth far behind.",
+     "A ladder to the Moon with 1 m steps would need 38,40,00,000 steps, but doubling gets there in fewer than 50 folds."
+    ],
+    "example": {
+     "q": "A card 0.01 cm thick is folded 5 times. How thick is the pile?",
+     "steps": [
+      "Each fold doubles: 5 folds multiply by 2⁵ = 32",
+      "0.01 × 32 = 0.32"
+     ],
+     "answer": "0.32 cm"
+    },
+    "reallife": "Viral videos spread like folding paper: if each viewer shares with 2 friends, the views double again and again."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Linear or exponential?",
+     "buckets": [
+      "Linear (add)",
+      "Exponential (multiply)"
+     ],
+     "items": [
+      [
+       "Save ₹10 more each week",
+       0
+      ],
+      [
+       "Climb 2 stairs every second",
+       0
+      ],
+      [
+       "Taxi fare of ₹15 per km",
+       0
+      ],
+      [
+       "Bacteria double every hour",
+       1
+      ],
+      [
+       "Lotus leaves triple each day",
+       1
+      ],
+      [
+       "Paper thickness after each fold",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Doubling sprint",
+     "items": [
+      {
+       "q": "2⁵",
+       "a": "32",
+       "check": "2**5"
+      },
+      {
+       "q": "2⁶",
+       "a": "64",
+       "check": "2**6"
+      },
+      {
+       "q": "2⁷",
+       "a": "128",
+       "check": "2**7"
+      },
+      {
+       "q": "2⁸",
+       "a": "256",
+       "check": "2**8"
+      },
+      {
+       "q": "2⁹",
+       "a": "512",
+       "check": "2**9"
+      },
+      {
+       "q": "2¹⁰",
+       "a": "1024",
+       "check": "2**10"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A sheet 0.1 mm thick is folded in half 4 times. How thick is the pile?",
+     "options": [
+      "1.6 mm",
+      "0.4 mm",
+      "0.8 mm",
+      "3.2 mm"
+     ],
+     "answer": 0,
+     "explain": "4 folds multiply the thickness by 2⁴ = 16, and 0.1 × 16 = 1.6 mm.",
+     "steps": [
+      "Thickness = 0.1 × 2⁴",
+      "= 0.1 × 16 = 1.6 mm"
+     ],
+     "mistake": "Multiplies by the number of folds instead of by 2 each time",
+     "check": "0.1*2**4"
+    },
+    {
+     "q": "By how much do 10 folds multiply the thickness of a sheet?",
+     "options": [
+      "1024",
+      "20",
+      "100",
+      "512"
+     ],
+     "answer": 0,
+     "explain": "Each fold doubles, so 10 folds multiply by 2¹⁰ = 1024.",
+     "steps": [
+      "2¹⁰ = 2 × 2 × ... (10 times)",
+      "= 1024"
+     ],
+     "mistake": "Adds 2 for each fold, or stops at 9 doublings",
+     "check": "2**10"
+    },
+    {
+     "q": "After how many folds is a sheet 128 times as thick as before?",
+     "options": [
+      "7",
+      "64",
+      "8",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "128 = 2⁷, so it takes 7 folds.",
+     "steps": [
+      "2⁶ = 64, 2⁷ = 128",
+      "So 7 folds"
+     ],
+     "mistake": "Halves 128 instead of finding the power of 2",
+     "check": "7"
+    },
+    {
+     "q": "Mohan starts with ₹1 and doubles it every day. Sita starts with ₹1 and adds ₹100 every day. After 10 days, who has more?",
+     "options": [
+      "Sita: ₹1001 against Mohan's ₹20",
+      "Mohan: ₹1024 against Sita's ₹1001",
+      "They have the same",
+      "Sita: ₹1001 against Mohan's ₹512"
+     ],
+     "answer": 1,
+     "explain": "Mohan has 1 × 2¹⁰ = ₹1024. Sita has 1 + 10 × 100 = ₹1001. Doubling overtakes adding.",
+     "steps": [
+      "Mohan: 2¹⁰ = 1024",
+      "Sita: 1 + 1000 = 1001"
+     ],
+     "mistake": "Treats doubling as adding 2 each day"
+    },
+    {
+     "q": "A sheet 0.001 cm thick is folded 20 times. About how thick is the pile? (2²⁰ ≈ 10,48,576)",
+     "options": [
+      "About 2 cm",
+      "About 1 km",
+      "About 10 m",
+      "About 20 m"
+     ],
+     "answer": 2,
+     "explain": "0.001 × 10,48,576 ≈ 1049 cm, which is about 10.5 m.",
+     "steps": [
+      "0.001 × 1048576 ≈ 1049 cm",
+      "≈ 10.5 m"
+     ],
+     "mistake": "Multiplies by 20 instead of by 2²⁰"
+    },
+    {
+     "q": "The Moon is about 3,84,000 km away. Would a 0.001 cm sheet folded 46 times reach it?",
+     "options": [
+      "Yes — the pile would be about 7 lakh km",
+      "No — it would be about 46 cm",
+      "No — it would be about 1 km",
+      "Yes — but only after 1000 folds"
+     ],
+     "answer": 0,
+     "explain": "2⁴⁶ ≈ 7 × 10¹³, so the pile is about 7 × 10¹⁰ cm = 7 × 10⁵ km, more than 3,84,000 km.",
+     "steps": [
+      "0.001 cm × 2⁴⁶ ≈ 7 × 10¹⁰ cm",
+      "= 7 × 10⁵ km"
+     ],
+     "mistake": "Thinks 46 small doublings can only give a small height"
+    },
+    {
+     "q": "Which kind of growth is shown by 3, 6, 9, 12, 15?",
+     "options": [
+      "Exponential — it doubles",
+      "Linear — 3 is added each time",
+      "Exponential — it triples",
+      "Neither"
+     ],
+     "answer": 1,
+     "explain": "The gap is always 3, so the same amount is added each time. That is linear growth.",
+     "steps": [
+      "6 − 3 = 3, 9 − 6 = 3, ...",
+      "Same difference → linear"
+     ],
+     "mistake": "Mixes up adding a fixed amount with multiplying"
+    },
+    {
+     "q": "A ladder adds 25 cm of height for each step. How many steps are needed to climb 1 km?",
+     "options": [
+      "250",
+      "4000",
+      "400",
+      "40000"
+     ],
+     "answer": 1,
+     "explain": "1 km = 1000 m and each step is 0.25 m, so 1000 ÷ 0.25 = 4000 steps. Linear growth is slow!",
+     "steps": [
+      "1 km = 1000 m",
+      "1000 ÷ 0.25 = 4000"
+     ],
+     "mistake": "Forgets to change km into metres",
+     "check": "1000/0.25"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks folding paper 30 times only makes it 30 times thicker. Explain what really happens!",
+    "must": [
+     [
+      "double",
+      "doubles",
+      "twice",
+      "2"
+     ],
+     [
+      "power",
+      "2³⁰",
+      "exponent",
+      "multiply",
+      "times 2"
+     ],
+     [
+      "exponential",
+      "fast",
+      "huge"
+     ]
+    ],
+    "praise": "Oh! Every fold doubles, so 30 folds multiply by 2³⁰ — over 100 crore! My nest could reach the sky!",
+    "nudge": "Does each fold add the same amount, or multiply? What does that do after many folds?"
+   }
+  },
+  {
+   "id": "g8-maths-02-02",
+   "title": "Laws of exponents",
+   "learn": {
+    "hook": "Can you work out 2²⁰ ÷ 2¹⁸ in one second? With the laws of exponents, you can: it is just 2² = 4!",
+    "points": [
+     "Same base, multiply → add the exponents: aᵐ × aⁿ = aᵐ⁺ⁿ. So 3² × 3⁴ = 3⁶.",
+     "Same base, divide → subtract the exponents: aᵐ ÷ aⁿ = aᵐ⁻ⁿ. So 7⁹ ÷ 7⁴ = 7⁵.",
+     "Power of a power → multiply the exponents: (aᵐ)ⁿ = aᵐⁿ. So (5²)³ = 5⁶.",
+     "Same exponent: aᵐ × bᵐ = (ab)ᵐ. So 2³ × 5³ = 10³ = 1000.",
+     "Any non-zero number to the power 0 is 1, and a⁻ⁿ = 1/aⁿ. So 9⁰ = 1 and 2⁻³ = 1/8."
+    ],
+    "example": {
+     "q": "Simplify (2⁵ × 2³) ÷ 2⁶.",
+     "steps": [
+      "2⁵ × 2³ = 2⁵⁺³ = 2⁸",
+      "2⁸ ÷ 2⁶ = 2⁸⁻⁶ = 2²",
+      "2² = 4"
+     ],
+     "answer": "4"
+    },
+    "reallife": "Scientists and computer engineers use these laws every day, for example to say that 2¹⁰ × 2¹⁰ bytes is 2²⁰ bytes (about one million)."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Exponent detective",
+     "items": [
+      {
+       "text": "2³ × 2⁴ = 2 to the power ___",
+       "answer": "7",
+       "options": [
+        "7",
+        "12",
+        "1"
+       ]
+      },
+      {
+       "text": "(5²)³ = 5 to the power ___",
+       "answer": "6",
+       "options": [
+        "6",
+        "5",
+        "8"
+       ]
+      },
+      {
+       "text": "7⁹ ÷ 7⁴ = 7 to the power ___",
+       "answer": "5",
+       "options": [
+        "5",
+        "13",
+        "2"
+       ]
+      },
+      {
+       "text": "1000⁰ = ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "0",
+        "1000"
+       ]
+      },
+      {
+       "text": "2⁻³ = ___",
+       "answer": "1/8",
+       "options": [
+        "1/8",
+        "−8",
+        "−6"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Law or flaw?",
+     "items": [
+      [
+       "3² × 3³ = 9⁵",
+       false,
+       "Keep the base and add the exponents: 3² × 3³ = 3⁵ = 243."
+      ],
+      [
+       "a⁰ = 1 for every non-zero number a",
+       true,
+       "aⁿ ÷ aⁿ = aⁿ⁻ⁿ = a⁰, and any non-zero number divided by itself is 1."
+      ],
+      [
+       "(2³)² = 2⁶",
+       true,
+       "Power of a power: multiply the exponents, 3 × 2 = 6."
+      ],
+      [
+       "2³ + 2³ = 2⁶",
+       false,
+       "Adding is not multiplying: 8 + 8 = 16 = 2⁴."
+      ],
+      [
+       "5⁻¹ = 1/5",
+       true,
+       "A negative exponent means the reciprocal: 5⁻¹ = 1/5¹."
+      ],
+      [
+       "10⁻² = 0.01",
+       true,
+       "10⁻² = 1/10² = 1/100 = 0.01."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Simplify 3⁴ × 3².",
+     "options": [
+      "3⁶",
+      "3⁸",
+      "9⁶",
+      "3²"
+     ],
+     "answer": 0,
+     "explain": "Same base, multiplying: add the exponents. 4 + 2 = 6, so the answer is 3⁶.",
+     "steps": [
+      "aᵐ × aⁿ = aᵐ⁺ⁿ",
+      "3⁴ × 3² = 3⁴⁺² = 3⁶"
+     ],
+     "mistake": "Multiplies the exponents or multiplies the bases"
+    },
+    {
+     "q": "What is the value of (2⁵ × 2³) ÷ 2⁶?",
+     "options": [
+      "2",
+      "16",
+      "4",
+      "256"
+     ],
+     "answer": 2,
+     "explain": "2⁵ × 2³ = 2⁸, and 2⁸ ÷ 2⁶ = 2² = 4.",
+     "steps": [
+      "2⁵ × 2³ = 2⁸",
+      "2⁸ ÷ 2⁶ = 2²",
+      "2² = 4"
+     ],
+     "mistake": "Subtracts before adding, or stops at 2⁸ = 256",
+     "check": "(2**5*2**3)/2**6"
+    },
+    {
+     "q": "When (4²)³ is written as a single power of 4, what is the exponent?",
+     "options": [
+      "6",
+      "5",
+      "8",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "Power of a power: multiply the exponents. 2 × 3 = 6, so (4²)³ = 4⁶.",
+     "steps": [
+      "(aᵐ)ⁿ = aᵐⁿ",
+      "2 × 3 = 6"
+     ],
+     "mistake": "Adds the exponents (2 + 3 = 5) instead of multiplying",
+     "check": "6"
+    },
+    {
+     "q": "What is 2025⁰?",
+     "options": [
+      "0",
+      "2025",
+      "2024",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "Any non-zero number raised to the power 0 equals 1.",
+     "steps": [
+      "a⁰ = 1 for a ≠ 0",
+      "2025⁰ = 1"
+     ],
+     "mistake": "Thinks a power of 0 makes the number 0",
+     "check": "1"
+    },
+    {
+     "q": "What is 5⁻²?",
+     "options": [
+      "1/25",
+      "−25",
+      "−10",
+      "1/10"
+     ],
+     "answer": 0,
+     "explain": "A negative exponent means the reciprocal: 5⁻² = 1/5² = 1/25.",
+     "steps": [
+      "a⁻ⁿ = 1/aⁿ",
+      "5² = 25",
+      "5⁻² = 1/25"
+     ],
+     "mistake": "Thinks a negative exponent makes the answer negative",
+     "check": "Fraction(1,25)"
+    },
+    {
+     "q": "What is 2³ × 5³?",
+     "options": [
+      "100",
+      "1000",
+      "70",
+      "10000"
+     ],
+     "answer": 1,
+     "explain": "Same exponent: 2³ × 5³ = (2 × 5)³ = 10³ = 1000. Check: 8 × 125 = 1000.",
+     "steps": [
+      "aᵐ × bᵐ = (ab)ᵐ",
+      "(2 × 5)³ = 10³ = 1000"
+     ],
+     "mistake": "Adds the exponents to get 10⁶ or multiplies 2 × 5 × 3",
+     "check": "2**3*5**3"
+    },
+    {
+     "q": "Kabir says 2³ × 3² = 6⁵. What is the correct value of 2³ × 3²?",
+     "options": [
+      "72",
+      "7776",
+      "36",
+      "30"
+     ],
+     "answer": 0,
+     "explain": "The bases are different and so are the exponents, so no law joins them. Just calculate: 8 × 9 = 72.",
+     "steps": [
+      "2³ = 8",
+      "3² = 9",
+      "8 × 9 = 72"
+     ],
+     "mistake": "Adds exponents even though the bases are different",
+     "check": "2**3*3**2"
+    },
+    {
+     "q": "Which of these is equal to 1/8?",
+     "options": [
+      "−2³",
+      "3⁻²",
+      "2⁻³",
+      "(−8)¹"
+     ],
+     "answer": 2,
+     "explain": "2⁻³ = 1/2³ = 1/8. −2³ = −8 and 3⁻² = 1/9.",
+     "steps": [
+      "2⁻³ = 1/2³",
+      "2³ = 8",
+      "So 2⁻³ = 1/8"
+     ],
+     "mistake": "Thinks a negative exponent gives a negative number"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu scratches his feathers: How do I quickly simplify 3⁴ × 3²? Do I multiply the 4 and the 2?",
+    "must": [
+     [
+      "add",
+      "plus",
+      "sum"
+     ],
+     [
+      "exponent",
+      "exponents",
+      "power",
+      "powers"
+     ],
+     [
+      "same base",
+      "base stays",
+      "keep the base",
+      "same"
+     ]
+    ],
+    "praise": "Keep the same base and add the powers: 3⁴ × 3² = 3⁶. Now I can do it fast!",
+    "nudge": "When the bases are the same and we multiply, what do we do with the exponents — add or multiply?"
+   },
+   "covers": [
+    "c2.2.5",
+    "c2.2.6",
+    "c2.2.7",
+    "c2.2.12",
+    "c2.3.1",
+    "c2.3.2",
+    "c2.3.3"
+   ]
+  },
+  {
+   "id": "g8-maths-02-05",
+   "title": "Exponential form and dividing powers",
+   "covers": [
+    "c2.2.4",
+    "c2.2.8",
+    "c2.7.1"
+   ],
+   "learn": {
+    "hook": "What is the last digit of 2¹⁰⁰? Nobody multiplies it out — a repeating pattern tells you in seconds.",
+    "points": [
+     "Prime factorisations look neat with exponents: 32400 = 2⁴ × 3⁴ × 5², and 720 = 2⁴ × 3² × 5.",
+     "Same exponent, dividing: mᵃ ÷ nᵃ = (m ÷ n)ᵃ. So 15³ ÷ 5³ = 3³ = 27.",
+     "Change bases to match: 4 = 2², 8 = 2³, 9 = 3², 27 = 3³. So 8⁴ ÷ 4⁵ = 2¹² ÷ 2¹⁰ = 2² = 4.",
+     "Units digits of powers repeat: powers of 2 end in 2, 4, 8, 6, 2, 4, ... (a cycle of 4). So 2¹⁰⁰ ends in 6, since 100 is a multiple of 4. Powers of 3 end in 3, 9, 7, 1; powers of 4 in 4, 6; powers of 9 in 9, 1."
+    ],
+    "example": {
+     "q": "Simplify 8⁴ ÷ 4⁵.",
+     "steps": [
+      "8 = 2³, so 8⁴ = 2¹²",
+      "4 = 2², so 4⁵ = 2¹⁰",
+      "2¹² ÷ 2¹⁰ = 2²",
+      "= 4"
+     ],
+     "answer": "4"
+    },
+    "reallife": "Computer scientists rewrite numbers as powers of 2 all the time — memory sizes like 1024 MB = 2¹⁰ MB."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Exponential form",
+     "pairs": [
+      [
+       "72",
+       "2³ × 3²"
+      ],
+      [
+       "200",
+       "2³ × 5²"
+      ],
+      [
+       "108",
+       "2² × 3³"
+      ],
+      [
+       "675",
+       "3³ × 5²"
+      ],
+      [
+       "1000",
+       "2³ × 5³"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Last-digit cycles",
+     "items": [
+      {
+       "text": "2¹⁰⁰ ends in ___",
+       "answer": "6",
+       "options": [
+        "6",
+        "2",
+        "4"
+       ]
+      },
+      {
+       "text": "3²⁰ ends in ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "3",
+        "9"
+       ]
+      },
+      {
+       "text": "7⁵ ends in ___",
+       "answer": "7",
+       "options": [
+        "7",
+        "3",
+        "5"
+       ]
+      },
+      {
+       "text": "4¹¹ ends in ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "6",
+        "1"
+       ]
+      },
+      {
+       "text": "9¹⁰ ends in ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "9",
+        "0"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How is 32400 written in exponential form?",
+     "options": [
+      "2³ × 3⁴ × 5²",
+      "2⁴ × 3³ × 5²",
+      "2⁴ × 3⁴ × 5³",
+      "2⁴ × 3⁴ × 5²"
+     ],
+     "answer": 3,
+     "explain": "32400 = 324 × 100 = (2² × 3⁴) × (2² × 5²) = 2⁴ × 3⁴ × 5².",
+     "steps": [
+      "324 = 2² × 3⁴",
+      "100 = 2² × 5²",
+      "Add the powers of 2: 2 + 2 = 4"
+     ],
+     "mistake": "Miscounts one of the prime factors"
+    },
+    {
+     "q": "What is 15³ ÷ 5³?",
+     "options": [
+      "27",
+      "3",
+      "9",
+      "125"
+     ],
+     "answer": 0,
+     "explain": "Same exponent: 15³ ÷ 5³ = (15 ÷ 5)³ = 3³ = 27.",
+     "steps": [
+      "(15 ÷ 5)³ = 3³",
+      "= 27"
+     ],
+     "mistake": "Divides the bases but forgets to keep the exponent",
+     "check": "3**3"
+    },
+    {
+     "q": "Simplify 8⁴ ÷ 4⁵.",
+     "options": [
+      "2",
+      "1/2",
+      "4",
+      "16"
+     ],
+     "answer": 2,
+     "explain": "Write both as powers of 2: 2¹² ÷ 2¹⁰ = 2² = 4.",
+     "steps": [
+      "8⁴ = 2¹²",
+      "4⁵ = 2¹⁰",
+      "2¹² ÷ 2¹⁰ = 2² = 4"
+     ],
+     "mistake": "Subtracts the exponents without first making the bases the same",
+     "check": "2**12/2**10"
+    },
+    {
+     "q": "What is 27² ÷ 9³?",
+     "options": [
+      "3",
+      "1/3",
+      "1",
+      "9"
+     ],
+     "answer": 2,
+     "explain": "27² = (3³)² = 3⁶ and 9³ = (3²)³ = 3⁶. So the answer is 3⁶ ÷ 3⁶ = 1.",
+     "steps": [
+      "27² = 3⁶",
+      "9³ = 3⁶",
+      "3⁶ ÷ 3⁶ = 1"
+     ],
+     "mistake": "Divides the bases 27 ÷ 9 and keeps an exponent",
+     "check": "27**2/9**3"
+    },
+    {
+     "q": "What is the units digit of 2²⁰²⁵?",
+     "options": [
+      "4",
+      "8",
+      "6",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "Powers of 2 end in 2, 4, 8, 6 and repeat every 4. 2025 = 4 × 506 + 1, so 2²⁰²⁵ ends like 2¹, in 2.",
+     "steps": [
+      "Cycle: 2, 4, 8, 6",
+      "2025 ÷ 4 leaves remainder 1",
+      "Remainder 1 → 2"
+     ],
+     "mistake": "Assumes an odd exponent always gives 8",
+     "check": "2"
+    },
+    {
+     "q": "What is the units digit of 3¹⁰⁰?",
+     "options": [
+      "3",
+      "1",
+      "9",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "Powers of 3 end in 3, 9, 7, 1 and repeat every 4. 100 is a multiple of 4, so 3¹⁰⁰ ends like 3⁴ = 81, in 1.",
+     "steps": [
+      "Cycle: 3, 9, 7, 1",
+      "100 ÷ 4 leaves remainder 0",
+      "→ last in the cycle: 1"
+     ],
+     "mistake": "Uses the cycle of 2 instead of the cycle of 3",
+     "check": "1"
+    },
+    {
+     "q": "What is 12⁴ ÷ 4⁴?",
+     "options": [
+      "3",
+      "81",
+      "12",
+      "256"
+     ],
+     "answer": 1,
+     "explain": "(12 ÷ 4)⁴ = 3⁴ = 81.",
+     "steps": [
+      "12⁴ ÷ 4⁴ = (12/4)⁴",
+      "= 3⁴ = 81"
+     ],
+     "mistake": "Divides the bases and drops the power",
+     "check": "(12/4)**4"
+    },
+    {
+     "q": "Which of these equals 6⁵?",
+     "options": [
+      "2 × 3⁵",
+      "2⁵ + 3⁵",
+      "3 × 6⁴",
+      "2⁵ × 3⁵"
+     ],
+     "answer": 3,
+     "explain": "6 = 2 × 3, so 6⁵ = (2 × 3)⁵ = 2⁵ × 3⁵.",
+     "steps": [
+      "6⁵ = (2 × 3)⁵",
+      "= 2⁵ × 3⁵"
+     ],
+     "mistake": "Splits the base but puts the power on only one factor, or adds"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must find the last digit of 3⁵⁰ without multiplying 50 times. Help!",
+    "must": [
+     [
+      "cycle",
+      "repeat",
+      "pattern",
+      "repeats"
+     ],
+     [
+      "4",
+      "four"
+     ],
+     [
+      "remainder",
+      "divide",
+      "multiple"
+     ]
+    ],
+    "praise": "Clever! The last digits go 3, 9, 7, 1 and repeat. 50 leaves remainder 2, so it ends in 9!",
+    "nudge": "Do the last digits of powers of 3 follow a pattern? How long is it?"
+   }
+  },
+  {
+   "id": "g8-maths-02-06",
+   "title": "Powers in stories: tripling, doubling and counting choices",
+   "covers": [
+    "c2.2.9",
+    "c2.2.10",
+    "c2.2.11",
+    "c2.7.5"
+   ],
+   "learn": {
+    "hook": "How many number plates can India make with just 2 letters and 4 digits? Over 67 lakh — and powers tell you why.",
+    "points": [
+     "Repeated tripling: if shining stones triple every day starting from 1, there are 1, 3, 9, 27, ... — 3ⁿ stones after n days.",
+     "Magical pond: if lotuses double every day and cover the pond on day 30, they covered half of it on day 29. If fish double for 5 days and then triple for 3 days, their number is multiplied by 2⁵ × 3³ = 864.",
+     "Multiplication principle: 3 shirts and 4 pants make 3 × 4 = 12 outfits. A 3-digit lock using 0–9 has 10 × 10 × 10 = 10³ = 1000 codes.",
+     "Number plates with 2 letters then 4 digits: 26² × 10⁴ = 67,60,000 plates.",
+     "To give unique codes to many items, find the smallest power that is big enough: 5000 students need 4-digit codes, since 10³ = 1000 is too few but 10⁴ = 10000 is enough."
+    ],
+    "example": {
+     "q": "How many 4-digit PINs can be made from the digits 0–9?",
+     "steps": [
+      "Each of the 4 places has 10 choices",
+      "10 × 10 × 10 × 10 = 10⁴",
+      "= 10000"
+     ],
+     "answer": "10000"
+    },
+    "reallife": "Every UPI PIN, phone number and vehicle number in India is designed using this multiplication principle."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Count the choices",
+     "pairs": [
+      [
+       "2 shirts, 3 pants",
+       "6 outfits"
+      ],
+      [
+       "3-digit lock (0–9)",
+       "1000 codes"
+      ],
+      [
+       "Coin tossed 5 times",
+       "32 outcomes"
+      ],
+      [
+       "3 caps, 2 scarves, 2 shoes",
+       "12 combos"
+      ],
+      [
+       "Tripling for 4 days from 1",
+       "81 stones"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Smallest to largest",
+     "prompt": "Arrange from smallest to largest",
+     "items": [
+      "2⁵",
+      "3⁴",
+      "10²",
+      "5³",
+      "2⁸"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A cave has 1 shining stone. Every day the number of shining stones triples. How many shine after 5 days?",
+     "options": [
+      "243",
+      "15",
+      "125",
+      "81"
+     ],
+     "answer": 0,
+     "explain": "Tripling 5 times gives 3⁵ = 243.",
+     "steps": [
+      "1 → 3 → 9 → 27 → 81 → 243",
+      "= 3⁵"
+     ],
+     "mistake": "Multiplies 3 by 5 or uses 5³",
+     "check": "3**5"
+    },
+    {
+     "q": "Lotuses double every day and fully cover a pond on day 30. On which day was half the pond covered?",
+     "options": [
+      "15",
+      "29",
+      "28",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "Doubling the half-cover gives the full cover, so half was covered one day earlier, on day 29.",
+     "steps": [
+      "Day 29 × 2 = full on day 30",
+      "So half on day 29"
+     ],
+     "mistake": "Halves the number of days instead of going back one doubling",
+     "check": "29"
+    },
+    {
+     "q": "A pond has 10 fish. Their number doubles every week. How many fish are there after 3 weeks?",
+     "options": [
+      "60",
+      "30",
+      "80",
+      "160"
+     ],
+     "answer": 2,
+     "explain": "10 × 2³ = 10 × 8 = 80.",
+     "steps": [
+      "10 → 20 → 40 → 80",
+      "= 10 × 2³"
+     ],
+     "mistake": "Adds 10 each week or doubles one time too many",
+     "check": "10*2**3"
+    },
+    {
+     "q": "Insects double for 4 days and then triple for 2 days. By what number is their population multiplied?",
+     "options": [
+      "72",
+      "24",
+      "288",
+      "144"
+     ],
+     "answer": 3,
+     "explain": "Doubling 4 times multiplies by 2⁴ = 16; tripling twice multiplies by 3² = 9. Together 16 × 9 = 144.",
+     "steps": [
+      "2⁴ = 16",
+      "3² = 9",
+      "16 × 9 = 144"
+     ],
+     "mistake": "Adds the effects instead of multiplying them",
+     "check": "2**4*3**2"
+    },
+    {
+     "q": "Ananya has 4 kurtas, 3 pyjamas and 2 dupattas. How many different outfits of one of each can she make?",
+     "options": [
+      "9",
+      "24",
+      "12",
+      "48"
+     ],
+     "answer": 1,
+     "explain": "Multiply the choices: 4 × 3 × 2 = 24.",
+     "steps": [
+      "4 × 3 = 12",
+      "12 × 2 = 24"
+     ],
+     "mistake": "Adds the choices instead of multiplying",
+     "check": "4*3*2"
+    },
+    {
+     "q": "How many 4-digit PINs can be made with the digits 0–9 (digits may repeat)?",
+     "options": [
+      "40",
+      "10000",
+      "9999",
+      "5040"
+     ],
+     "answer": 1,
+     "explain": "Each of the 4 places has 10 choices: 10⁴ = 10000.",
+     "steps": [
+      "10 × 10 × 10 × 10",
+      "= 10000"
+     ],
+     "mistake": "Multiplies 4 by 10, or forgets that 0000 is also a PIN",
+     "check": "10**4"
+    },
+    {
+     "q": "A number plate has 2 letters (A–Z) followed by 3 digits (0–9). How many plates are possible?",
+     "options": [
+      "52000",
+      "26000",
+      "676000",
+      "6760"
+     ],
+     "answer": 2,
+     "explain": "26 × 26 × 10 × 10 × 10 = 676 × 1000 = 6,76,000.",
+     "steps": [
+      "Letters: 26² = 676",
+      "Digits: 10³ = 1000",
+      "676 × 1000 = 676000"
+     ],
+     "mistake": "Uses 26 × 2 instead of 26² for the letters",
+     "check": "26**2*10**3"
+    },
+    {
+     "q": "A library wants a different code for each of its 700 books, using only letters A–Z. What is the smallest number of letters each code needs?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "1 letter gives 26 codes and 2 letters give 26² = 676 — not enough. 3 letters give 26³ = 17576, enough.",
+     "steps": [
+      "26¹ = 26",
+      "26² = 676 < 700",
+      "26³ = 17576 ≥ 700"
+     ],
+     "mistake": "Stops at 2 letters without checking that 676 < 700",
+     "check": "3"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has 3 hats and 5 bow ties. He thinks he has 8 looks. Is he right?",
+    "must": [
+     [
+      "multiply",
+      "times",
+      "×",
+      "product"
+     ],
+     [
+      "15",
+      "3 × 5"
+     ],
+     [
+      "choices",
+      "each",
+      "combinations"
+     ]
+    ],
+    "praise": "15 looks! Every hat goes with every bow tie, so we multiply. Fashion bird!",
+    "nudge": "Do you add or multiply the number of choices?"
+   }
+  },
+  {
+   "id": "g8-maths-02-07",
+   "title": "Zero and negative exponents, and power lines",
+   "covers": [
+    "c2.3.2",
+    "c2.3.3",
+    "c2.3.4",
+    "c2.3.5",
+    "c2.3.6"
+   ],
+   "learn": {
+    "hook": "Cut a 1 m ribbon in half, then half again, and again... The pieces are 2⁻¹, 2⁻², 2⁻³ metres long. Yes — negative powers are real!",
+    "points": [
+     "Going down the powers of 2 divides by 2 each step: 2³ = 8, 2² = 4, 2¹ = 2, 2⁰ = 1, 2⁻¹ = 1/2, 2⁻² = 1/4. Halving a 1 m strip again and again gives these lengths.",
+     "So n⁰ = 1 for any n that is not 0, and n⁻ᵃ = 1/nᵃ. 0⁰ is not given a value this way, because getting it from 0ᵃ ÷ 0ᵃ would mean dividing by 0.",
+     "Power line: mark 4⁻², 4⁻¹, 4⁰, 4¹, 4², 4³ at equal steps. Multiplying by 4² means moving 2 steps right; dividing by 4³ means moving 3 steps left.",
+     "All the laws work for every integer exponent: 5⁻³ × 5⁵ = 5², (2⁻²)³ = 2⁻⁶, and 3⁴ ÷ 3⁷ = 3⁻³ = 1/27."
+    ],
+    "example": {
+     "q": "Simplify (2⁻³ × 2⁵) ÷ 2⁻¹.",
+     "steps": [
+      "2⁻³ × 2⁵ = 2⁻³⁺⁵ = 2²",
+      "2² ÷ 2⁻¹ = 2²⁻⁽⁻¹⁾ = 2³",
+      "= 8"
+     ],
+     "answer": "8"
+    },
+    "reallife": "Scientists write tiny sizes with negative powers: a hair is about 10⁻⁴ m thick."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Smallest to largest",
+     "prompt": "Arrange from smallest to largest",
+     "items": [
+      "2⁻³",
+      "2⁻¹",
+      "2⁰",
+      "3¹",
+      "2²"
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Negative and zero powers",
+     "items": [
+      {
+       "text": "7⁻² = ___",
+       "answer": "1/49",
+       "options": [
+        "1/49",
+        "−49",
+        "−14"
+       ]
+      },
+      {
+       "text": "5⁰ = ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "0",
+        "5"
+       ]
+      },
+      {
+       "text": "3⁻⁴ × 3⁶ = 3 to the power ___",
+       "answer": "2",
+       "options": [
+        "2",
+        "10",
+        "−24"
+       ]
+      },
+      {
+       "text": "(4⁻¹)² = ___",
+       "answer": "1/16",
+       "options": [
+        "1/16",
+        "1/8",
+        "−16"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is 2⁻⁵?",
+     "options": [
+      "−32",
+      "−10",
+      "1/32",
+      "1/10"
+     ],
+     "answer": 2,
+     "explain": "2⁻⁵ = 1/2⁵ = 1/32. A negative exponent means the reciprocal, not a negative number.",
+     "steps": [
+      "2⁻⁵ = 1/2⁵",
+      "2⁵ = 32"
+     ],
+     "mistake": "Thinks a negative exponent makes the answer negative",
+     "check": "Fraction(1,32)"
+    },
+    {
+     "q": "A 1 m strip is cut in half 4 times, keeping one piece each time. How long is the last piece?",
+     "options": [
+      "1/8 m",
+      "1/4 m",
+      "4 m",
+      "1/16 m"
+     ],
+     "answer": 3,
+     "explain": "Each cut halves the length: 1 × 2⁻⁴ = 1/16 m.",
+     "steps": [
+      "1 → 1/2 → 1/4 → 1/8 → 1/16",
+      "= 2⁻⁴ m"
+     ],
+     "mistake": "Stops one halving early",
+     "check": "Fraction(1,16)"
+    },
+    {
+     "q": "What is 10⁻³?",
+     "options": [
+      "−1000",
+      "0.001",
+      "0.01",
+      "−30"
+     ],
+     "answer": 1,
+     "explain": "10⁻³ = 1/10³ = 1/1000 = 0.001.",
+     "steps": [
+      "10⁻³ = 1/1000",
+      "= 0.001"
+     ],
+     "mistake": "Treats the negative exponent as a minus sign",
+     "check": "1/1000"
+    },
+    {
+     "q": "Simplify 5⁻³ × 5⁵.",
+     "options": [
+      "1/25",
+      "125",
+      "25",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "Add the exponents: −3 + 5 = 2, so 5² = 25.",
+     "steps": [
+      "5⁻³ × 5⁵ = 5⁻³⁺⁵",
+      "= 5² = 25"
+     ],
+     "mistake": "Subtracts the exponents or multiplies them",
+     "check": "25"
+    },
+    {
+     "q": "What is 3⁴ ÷ 3⁷?",
+     "options": [
+      "1/27",
+      "27",
+      "−27",
+      "1/3"
+     ],
+     "answer": 0,
+     "explain": "Subtract the exponents: 4 − 7 = −3, and 3⁻³ = 1/27.",
+     "steps": [
+      "3⁴ ÷ 3⁷ = 3⁻³",
+      "= 1/3³ = 1/27"
+     ],
+     "mistake": "Subtracts the smaller exponent from the larger and loses the reciprocal",
+     "check": "Fraction(1,27)"
+    },
+    {
+     "q": "On a power line of 4, start at 4², multiply by 4³, then divide by 4⁶. Where do you end?",
+     "options": [
+      "4",
+      "1/16",
+      "1/4",
+      "64"
+     ],
+     "answer": 2,
+     "explain": "Move 3 steps right, then 6 steps left: 2 + 3 − 6 = −1. 4⁻¹ = 1/4.",
+     "steps": [
+      "Start at exponent 2",
+      "+3 → 5",
+      "−6 → −1",
+      "4⁻¹ = 1/4"
+     ],
+     "mistake": "Moves the wrong way for division",
+     "check": "Fraction(1,4)"
+    },
+    {
+     "q": "Why is 0⁰ not given the value 1 by the rule n⁰ = nᵃ ÷ nᵃ?",
+     "options": [
+      "Because 0 is negative",
+      "Because 0⁰ = 0 always",
+      "Because the rule only works for n = 1",
+      "Because 0ᵃ ÷ 0ᵃ would mean dividing by 0"
+     ],
+     "answer": 3,
+     "explain": "n⁰ = nᵃ ÷ nᵃ = 1 works because we divide a number by itself. For n = 0 this would be 0 ÷ 0, which is not defined.",
+     "steps": [
+      "n⁰ = nᵃ ÷ nᵃ",
+      "For n = 0: 0 ÷ 0 — not allowed"
+     ],
+     "mistake": "Thinks the zero-exponent rule works the same for a zero base"
+    },
+    {
+     "q": "Simplify (2⁻²)³ × 2⁸.",
+     "options": [
+      "1/4",
+      "2",
+      "64",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "(2⁻²)³ = 2⁻⁶. Then 2⁻⁶ × 2⁸ = 2² = 4.",
+     "steps": [
+      "(2⁻²)³ = 2⁻⁶",
+      "2⁻⁶ × 2⁸ = 2²",
+      "= 4"
+     ],
+     "mistake": "Adds the exponents in the power-of-a-power step",
+     "check": "4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks 2⁻³ is −8. Can you explain what a negative exponent really means?",
+    "must": [
+     [
+      "reciprocal",
+      "1/",
+      "one over",
+      "divide"
+     ],
+     [
+      "2³",
+      "8",
+      "positive"
+     ],
+     [
+      "half",
+      "halving",
+      "divide by 2"
+     ]
+    ],
+    "praise": "Ah! 2⁻³ means 1 ÷ 2³ = 1/8 — a small piece, not a negative number!",
+    "nudge": "What happens each time you go one step down the powers of 2?"
+   }
+  },
+  {
+   "id": "g8-maths-02-08",
+   "title": "Powers of 10: expanded form and big-number names",
+   "covers": [
+    "c2.4.1",
+    "c2.5.6",
+    "c2.5.7"
+   ],
+   "learn": {
+    "hook": "1 arab = 1 billion = 100 crore. Same number, three names! Powers of 10 help us switch between them.",
+    "points": [
+     "Expanded form with powers of 10: 4705 = 4 × 10³ + 7 × 10² + 0 × 10¹ + 5 × 10⁰.",
+     "Decimal places use negative powers: 23.56 = 2 × 10¹ + 3 × 10⁰ + 5 × 10⁻¹ + 6 × 10⁻².",
+     "Indian names: lakh = 10⁵, crore = 10⁷, arab = 10⁹, kharab = 10¹¹. International names: thousand = 10³, million = 10⁶, billion = 10⁹.",
+     "So 1 million = 10 lakh, 1 crore = 10 million, and 1 billion = 1 arab = 100 crore.",
+     "A googol is 10¹⁰⁰ — 1 followed by 100 zeros. A googolplex is 10 to the power googol: 1 followed by a googol zeros, far too many ever to write down."
+    ],
+    "example": {
+     "q": "Write 50,306.07 in expanded form with powers of 10.",
+     "steps": [
+      "5 × 10⁴ + 0 × 10³ + 3 × 10² + 0 × 10¹ + 6 × 10⁰",
+      "+ 0 × 10⁻¹ + 7 × 10⁻²"
+     ],
+     "answer": "5 × 10⁴ + 3 × 10² + 6 × 10⁰ + 7 × 10⁻²"
+    },
+    "reallife": "News reports switch between '₹1 lakh crore' and '₹1 trillion' — both are 10¹² rupees."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Name the power",
+     "pairs": [
+      [
+       "lakh",
+       "10⁵"
+      ],
+      [
+       "crore",
+       "10⁷"
+      ],
+      [
+       "arab",
+       "10⁹"
+      ],
+      [
+       "kharab",
+       "10¹¹"
+      ],
+      [
+       "million",
+       "10⁶"
+      ],
+      [
+       "googol",
+       "10¹⁰⁰"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Switch the names",
+     "items": [
+      {
+       "text": "1 crore = ___ million",
+       "answer": "10",
+       "options": [
+        "10",
+        "100",
+        "1"
+       ]
+      },
+      {
+       "text": "1 billion = ___ crore",
+       "answer": "100",
+       "options": [
+        "100",
+        "10",
+        "1000"
+       ]
+      },
+      {
+       "text": "0.07 = 7 × 10 to the power ___",
+       "answer": "−2",
+       "options": [
+        "−2",
+        "2",
+        "−1"
+       ]
+      },
+      {
+       "text": "6 × 10³ + 2 × 10⁰ = ___",
+       "answer": "6002",
+       "options": [
+        "6002",
+        "6020",
+        "602"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is 3 × 10⁴ + 5 × 10² + 8 × 10⁰?",
+     "options": [
+      "3058",
+      "350800",
+      "30580",
+      "30508"
+     ],
+     "answer": 3,
+     "explain": "30000 + 500 + 8 = 30508. The missing powers (10³ and 10¹) give zeros.",
+     "steps": [
+      "3 × 10⁴ = 30000",
+      "5 × 10² = 500",
+      "8 × 10⁰ = 8",
+      "Total 30508"
+     ],
+     "mistake": "Forgets the place holders for the missing powers",
+     "check": "3*10**4+5*10**2+8"
+    },
+    {
+     "q": "In 2.045, the digit 4 stands for 4 × 10 to which power?",
+     "options": [
+      "−2",
+      "2",
+      "−3",
+      "−1"
+     ],
+     "answer": 0,
+     "explain": "4 is in the hundredths place: 4/100 = 4 × 10⁻².",
+     "steps": [
+      "2.045 = 2 + 0/10 + 4/100 + 5/1000",
+      "Hundredths = 10⁻²"
+     ],
+     "mistake": "Counts the decimal places wrongly",
+     "check": "-2"
+    },
+    {
+     "q": "1 billion is how many crore?",
+     "options": [
+      "10",
+      "1000",
+      "100",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "1 billion = 10⁹ and 1 crore = 10⁷, so 10⁹ ÷ 10⁷ = 10² = 100.",
+     "steps": [
+      "10⁹ ÷ 10⁷",
+      "= 10² = 100"
+     ],
+     "mistake": "Mixes up million and billion",
+     "check": "10**9/10**7"
+    },
+    {
+     "q": "5 million is how many lakh?",
+     "options": [
+      "5",
+      "50",
+      "500",
+      "0.5"
+     ],
+     "answer": 1,
+     "explain": "5 million = 5 × 10⁶ = 50 × 10⁵, which is 50 lakh.",
+     "steps": [
+      "5 × 10⁶ ÷ 10⁵",
+      "= 50"
+     ],
+     "mistake": "Thinks a million and a lakh are the same",
+     "check": "5*10**6/10**5"
+    },
+    {
+     "q": "How many zeros come after the 1 in a googol?",
+     "options": [
+      "100",
+      "10",
+      "1000",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "A googol is 10¹⁰⁰, so 1 is followed by 100 zeros.",
+     "steps": [
+      "Googol = 10¹⁰⁰"
+     ],
+     "mistake": "Confuses a googol with a googolplex or with 10¹⁰",
+     "check": "100"
+    },
+    {
+     "q": "Which power of 10 is 1 kharab?",
+     "options": [
+      "10⁹",
+      "10¹²",
+      "10¹¹",
+      "10¹⁰"
+     ],
+     "answer": 2,
+     "explain": "lakh 10⁵, crore 10⁷, arab 10⁹, kharab 10¹¹ — each Indian name is 100 times the one before.",
+     "steps": [
+      "arab = 10⁹",
+      "kharab = 100 × arab = 10¹¹"
+     ],
+     "mistake": "Thinks each name is 10 times the previous"
+    },
+    {
+     "q": "India's population is about 140 crore. How much is that in billions?",
+     "options": [
+      "14 billion",
+      "140 billion",
+      "0.14 billion",
+      "1.4 billion"
+     ],
+     "answer": 3,
+     "explain": "140 crore = 140 × 10⁷ = 1.4 × 10⁹, which is 1.4 billion.",
+     "steps": [
+      "140 × 10⁷ = 1.4 × 10⁹",
+      "10⁹ = 1 billion"
+     ],
+     "mistake": "Thinks 1 crore = 1 billion"
+    },
+    {
+     "q": "Which is the expanded form of 0.305?",
+     "options": [
+      "3 × 10⁻¹ + 5 × 10⁻²",
+      "3 × 10¹ + 5 × 10³",
+      "3 × 10⁻² + 5 × 10⁻³",
+      "3 × 10⁻¹ + 5 × 10⁻³"
+     ],
+     "answer": 3,
+     "explain": "3 is in the tenths place (10⁻¹) and 5 is in the thousandths place (10⁻³).",
+     "steps": [
+      "0.305 = 3/10 + 0/100 + 5/1000"
+     ],
+     "mistake": "Skips the zero in the hundredths place"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's uncle says a film earned '1 arab'. Gappu has never heard of arab! How big is it?",
+    "must": [
+     [
+      "10⁹",
+      "10^9",
+      "billion",
+      "nine zeros"
+     ],
+     [
+      "100 crore",
+      "hundred crore"
+     ],
+     [
+      "power",
+      "powers of 10",
+      "10"
+     ]
+    ],
+    "praise": "1 arab = 10⁹ = 1 billion = 100 crore. What a lot of popcorn money!",
+    "nudge": "Which power of 10 is an arab? How does it compare with a crore?"
+   }
+  },
+  {
+   "id": "g8-maths-02-03",
+   "title": "Scientific notation",
+   "learn": {
+    "hook": "The Sun is about 15,00,00,000 km away. Counting those zeros is tiring! Scientists simply write 1.5 × 10⁸ km.",
+    "points": [
+     "Scientific notation (standard form) writes a number as a × 10ⁿ, where a is at least 1 and less than 10.",
+     "For a big number, move the decimal point left and count the jumps: 4,50,000 = 4.5 × 10⁵.",
+     "For a tiny number, move the decimal point right; the exponent becomes negative: 0.0005 = 5 × 10⁻⁴.",
+     "To compare two numbers in standard form, compare the powers of 10 first: 2 × 10⁸ is bigger than 9 × 10⁷.",
+     "In the Indian system, 1 lakh = 10⁵ and 1 crore = 10⁷."
+    ],
+    "example": {
+     "q": "The Moon is about 3,84,000 km from the Earth. Write this in scientific notation.",
+     "steps": [
+      "Put the decimal after the first digit: 3.84",
+      "Count how many places the point moved: 5",
+      "3,84,000 = 3.84 × 10⁵"
+     ],
+     "answer": "3.84 × 10⁵ km"
+    },
+    "reallife": "India's population (about 1.4 × 10⁹), distances to stars and the size of a virus are all written in scientific notation."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Same number, short form",
+     "pairs": [
+      [
+       "4,50,000",
+       "4.5 × 10⁵"
+      ],
+      [
+       "0.007",
+       "7 × 10⁻³"
+      ],
+      [
+       "1 crore",
+       "10⁷"
+      ],
+      [
+       "62,000",
+       "6.2 × 10⁴"
+      ],
+      [
+       "0.00025",
+       "2.5 × 10⁻⁴"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Is it in standard form?",
+     "buckets": [
+      "Correct standard form",
+      "Not standard form"
+     ],
+     "items": [
+      [
+       "3.2 × 10⁶",
+       0
+      ],
+      [
+       "32 × 10⁵",
+       1
+      ],
+      [
+       "0.5 × 10³",
+       1
+      ],
+      [
+       "9.99 × 10⁻²",
+       0
+      ],
+      [
+       "1 × 10⁸",
+       0
+      ],
+      [
+       "10.5 × 10²",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How is 5,60,000 written in scientific notation?",
+     "options": [
+      "5.6 × 10⁵",
+      "56 × 10⁵",
+      "5.6 × 10⁴",
+      "5.6 × 10⁶"
+     ],
+     "answer": 0,
+     "explain": "Move the decimal point 5 places left: 5,60,000 = 5.6 × 10⁵. The first part must be between 1 and 10.",
+     "steps": [
+      "5,60,000 → 5.60000",
+      "Point moved 5 places",
+      "5.6 × 10⁵"
+     ],
+     "mistake": "Counts the number of zeros (4) instead of the jumps of the decimal point"
+    },
+    {
+     "q": "How is 0.00034 written in scientific notation?",
+     "options": [
+      "3.4 × 10⁻³",
+      "3.4 × 10⁴",
+      "3.4 × 10⁻⁴",
+      "3.4 × 10⁻⁵"
+     ],
+     "answer": 2,
+     "explain": "Move the decimal point 4 places right to get 3.4, so the exponent is −4.",
+     "steps": [
+      "0.00034 → 3.4",
+      "Point moved 4 places right",
+      "3.4 × 10⁻⁴"
+     ],
+     "mistake": "Forgets the negative sign or miscounts the jumps"
+    },
+    {
+     "q": "What is 2.5 × 10³ in usual form?",
+     "options": [
+      "250",
+      "2500",
+      "25000",
+      "0.0025"
+     ],
+     "answer": 1,
+     "explain": "Multiplying by 10³ moves the decimal point 3 places right: 2.5 → 2500.",
+     "steps": [
+      "2.5 × 1000",
+      "= 2500"
+     ],
+     "mistake": "Adds three zeros after 25 to get 25000",
+     "check": "2.5*10**3"
+    },
+    {
+     "q": "1 crore is 10 raised to what power?",
+     "options": [
+      "7",
+      "6",
+      "8",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "1 crore = 1,00,00,000, which has 7 zeros, so it is 10⁷.",
+     "steps": [
+      "1 lakh = 10⁵",
+      "1 crore = 100 lakh = 10⁵ × 10² = 10⁷"
+     ],
+     "mistake": "Confuses crore with 10 lakh (10⁶)",
+     "check": "7"
+    },
+    {
+     "q": "Which is larger: 3 × 10⁸ or 9 × 10⁷?",
+     "options": [
+      "9 × 10⁷",
+      "They are equal",
+      "3 × 10⁸",
+      "Cannot be compared"
+     ],
+     "answer": 2,
+     "explain": "3 × 10⁸ = 30 crore and 9 × 10⁷ = 9 crore. Compare the powers of 10 first.",
+     "steps": [
+      "3 × 10⁸ = 30 × 10⁷",
+      "30 × 10⁷ > 9 × 10⁷"
+     ],
+     "mistake": "Compares only the front numbers (9 > 3)"
+    },
+    {
+     "q": "Light travels about 3 × 10⁸ m in one second. About how far does it travel in 2 seconds?",
+     "options": [
+      "6 × 10⁸ m",
+      "3 × 10¹⁶ m",
+      "6 × 10¹⁶ m",
+      "5 × 10⁸ m"
+     ],
+     "answer": 0,
+     "explain": "Double the distance: 2 × 3 × 10⁸ = 6 × 10⁸ m. The power of 10 does not change.",
+     "steps": [
+      "2 × (3 × 10⁸)",
+      "= (2 × 3) × 10⁸ = 6 × 10⁸"
+     ],
+     "mistake": "Doubles the exponent as well as the number"
+    },
+    {
+     "q": "A tiny bacterium is about 0.000002 m long. What is this in scientific notation?",
+     "options": [
+      "2 × 10⁻⁵ m",
+      "2 × 10⁻⁶ m",
+      "2 × 10⁶ m",
+      "2 × 10⁻⁷ m"
+     ],
+     "answer": 1,
+     "explain": "Move the point 6 places right to get 2, so the length is 2 × 10⁻⁶ m.",
+     "steps": [
+      "0.000002 → 2",
+      "Point moved 6 places right",
+      "2 × 10⁻⁶ m"
+     ],
+     "mistake": "Counts only the zeros after the decimal point (5)"
+    },
+    {
+     "q": "What is (2 × 10³) × (4 × 10²)?",
+     "options": [
+      "8 × 10⁶",
+      "6 × 10⁵",
+      "8 × 10¹",
+      "8 × 10⁵"
+     ],
+     "answer": 3,
+     "explain": "Multiply the numbers (2 × 4 = 8) and add the exponents of 10 (3 + 2 = 5): 8 × 10⁵.",
+     "steps": [
+      "2 × 4 = 8",
+      "10³ × 10² = 10⁵",
+      "Answer: 8 × 10⁵"
+     ],
+     "mistake": "Multiplies the exponents instead of adding them"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu blinks: How do I write 4,50,000 in scientific notation? There are so many zeros!",
+    "must": [
+     [
+      "decimal",
+      "point",
+      "dot"
+     ],
+     [
+      "between 1 and 10",
+      "less than 10",
+      "one digit",
+      "first digit"
+     ],
+     [
+      "power of 10",
+      "10 to the power",
+      "exponent",
+      "power",
+      "count"
+     ]
+    ],
+    "praise": "Move the decimal point to get 4.5, count 5 jumps, so 4.5 × 10⁵. Neat and short!",
+    "nudge": "Where should the decimal point go, and how do you know which power of 10 to use?"
+   },
+   "covers": [
+    "c2.4.2",
+    "c2.4.3",
+    "c2.4.4",
+    "c2.4.5"
+   ]
+  },
+  {
+   "id": "g8-maths-02-09",
+   "title": "Estimating big numbers and big times",
+   "covers": [
+    "c2.5.1",
+    "c2.5.2",
+    "c2.5.4",
+    "c2.5.5",
+    "c2.7.6"
+   ],
+   "learn": {
+    "hook": "Have you lived for a billion seconds? Not yet — you would need to be about 32 years old!",
+    "points": [
+     "To estimate: (1) make a guess, (2) choose simple assumptions (a model), (3) calculate, (4) check whether the answer makes sense.",
+     "Tulabhara-style problems: a person is balanced against coins, fruits or grain. A 60 kg person = 60,000 g. If each coin weighs about 5 g, that is 60,000 ÷ 5 = 12,000 coins.",
+     "Time in powers of 10: 1 day = 86,400 s (about 10⁵ s); 10⁶ s ≈ 11.6 days; 1 year ≈ 3.15 × 10⁷ s; 10⁹ s ≈ 31.7 years.",
+     "A 13-year-old has lived about 13 × 365 = 4745 days ≈ 1,13,880 hours ≈ 4.1 × 10⁸ seconds.",
+     "Big counts become easy to compare as powers of 10: India's population is about 1.4 × 10⁹; a 10-litre bucket holds about 2 × 10⁵ drops if one drop is 0.05 ml."
+    ],
+    "example": {
+     "q": "At a tulabhara, a 50 kg child is balanced with bananas of about 125 g each. About how many bananas are needed?",
+     "steps": [
+      "50 kg = 50,000 g",
+      "50,000 ÷ 125 = 400"
+     ],
+     "answer": "About 400 bananas"
+    },
+    "reallife": "Planners estimate how many buses a festival needs or how much water a city drinks using the same guess–model–compute–check idea."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Time in seconds",
+     "pairs": [
+      [
+       "1 hour",
+       "3600 seconds"
+      ],
+      [
+       "1 day",
+       "86,400 seconds"
+      ],
+      [
+       "10⁶ seconds",
+       "about 11.6 days"
+      ],
+      [
+       "1 year",
+       "about 3.15 × 10⁷ seconds"
+      ],
+      [
+       "10⁹ seconds",
+       "about 31.7 years"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Time sprint",
+     "items": [
+      {
+       "q": "Hours in a week",
+       "a": "168",
+       "check": "7*24"
+      },
+      {
+       "q": "Minutes in a day",
+       "a": "1440",
+       "check": "24*60"
+      },
+      {
+       "q": "Seconds in an hour",
+       "a": "3600",
+       "check": "60*60"
+      },
+      {
+       "q": "Seconds in a day",
+       "a": "86400",
+       "check": "24*60*60"
+      },
+      {
+       "q": "Days in 10 years (no leap days)",
+       "a": "3650",
+       "check": "10*365"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many seconds are there in one day?",
+     "options": [
+      "3600",
+      "1440",
+      "86400",
+      "864000"
+     ],
+     "answer": 2,
+     "explain": "24 hours × 60 minutes × 60 seconds = 86,400 seconds.",
+     "steps": [
+      "24 × 60 = 1440 minutes",
+      "1440 × 60 = 86,400 seconds"
+     ],
+     "mistake": "Stops at minutes or seconds in one hour",
+     "check": "24*60*60"
+    },
+    {
+     "q": "About how long is 10⁶ seconds (one million seconds)?",
+     "options": [
+      "About 11.6 days",
+      "About 1 year",
+      "About 1.2 days",
+      "About 3 hours"
+     ],
+     "answer": 0,
+     "explain": "10⁶ ÷ 86,400 ≈ 11.6, so a million seconds is about 11.6 days.",
+     "steps": [
+      "10,00,000 ÷ 86,400",
+      "≈ 11.6 days"
+     ],
+     "mistake": "Thinks a million seconds is close to a year"
+    },
+    {
+     "q": "About how long is 10⁹ seconds (one billion seconds)?",
+     "options": [
+      "About 31.7 years",
+      "About 3 years",
+      "About 317 years",
+      "About 1 year"
+     ],
+     "answer": 0,
+     "explain": "A year is about 3.15 × 10⁷ s. 10⁹ ÷ (3.15 × 10⁷) ≈ 31.7 years.",
+     "steps": [
+      "1 year ≈ 3.15 × 10⁷ s",
+      "10⁹ ÷ 3.15 × 10⁷ ≈ 31.7"
+     ],
+     "mistake": "Divides by the seconds in a day instead of a year"
+    },
+    {
+     "q": "At a tulabhara, Ravi (45 kg) is balanced with coconuts of about 500 g each. About how many coconuts are needed?",
+     "options": [
+      "9",
+      "900",
+      "90",
+      "45"
+     ],
+     "answer": 2,
+     "explain": "45 kg = 45,000 g, and 45,000 ÷ 500 = 90.",
+     "steps": [
+      "45 kg = 45,000 g",
+      "45,000 ÷ 500 = 90"
+     ],
+     "mistake": "Forgets to change kg into g",
+     "check": "45000/500"
+    },
+    {
+     "q": "A ₹10 note weighs about 1 g. What value of ₹10 notes would balance a 50 kg person?",
+     "options": [
+      "₹5,00,000",
+      "₹50,000",
+      "₹5,000",
+      "₹50,00,000"
+     ],
+     "answer": 0,
+     "explain": "50 kg = 50,000 g = 50,000 notes. 50,000 × ₹10 = ₹5,00,000.",
+     "steps": [
+      "50 kg = 50,000 g → 50,000 notes",
+      "50,000 × 10 = 5,00,000"
+     ],
+     "mistake": "Counts the notes but forgets each is worth ₹10",
+     "check": "50000*10"
+    },
+    {
+     "q": "Ignoring leap years, about how many days has a 12-year-old lived?",
+     "options": [
+      "4380",
+      "1200",
+      "43800",
+      "438"
+     ],
+     "answer": 0,
+     "explain": "12 × 365 = 4380 days.",
+     "steps": [
+      "12 × 365",
+      "= 4380"
+     ],
+     "mistake": "Multiplies by 100 days a year, or slips a zero",
+     "check": "12*365"
+    },
+    {
+     "q": "Which order shows good estimation steps?",
+     "options": [
+      "Calculate → guess → stop",
+      "Guess → make assumptions → calculate → check",
+      "Check → guess → calculate",
+      "Guess → stop"
+     ],
+     "answer": 1,
+     "explain": "First guess, then build a simple model with assumptions, calculate with it, and finally check if the answer is sensible.",
+     "steps": [
+      "Guess",
+      "Model",
+      "Compute",
+      "Check"
+     ],
+     "mistake": "Skips the assumptions or the checking step"
+    },
+    {
+     "q": "A drop of water is about 0.05 ml. About how many drops are in a 10-litre bucket?",
+     "options": [
+      "20,000",
+      "20,00,000",
+      "500",
+      "2,00,000"
+     ],
+     "answer": 3,
+     "explain": "10 litres = 10,000 ml. 10,000 ÷ 0.05 = 2,00,000 drops = 2 × 10⁵.",
+     "steps": [
+      "10 L = 10,000 ml",
+      "10,000 ÷ 0.05 = 2,00,000"
+     ],
+     "mistake": "Forgets that 1 litre = 1000 ml",
+     "check": "10000/0.05"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know how many seconds old he is. How would you estimate it?",
+    "must": [
+     [
+      "days",
+      "365"
+     ],
+     [
+      "hours",
+      "24"
+     ],
+     [
+      "seconds",
+      "60",
+      "3600",
+      "86400",
+      "86,400"
+     ]
+    ],
+    "praise": "Days × 24 × 60 × 60! I'm about 10⁸ seconds old, tweet!",
+    "nudge": "How many seconds are there in one day? How do you go from years to days?"
+   }
+  },
+  {
+   "id": "g8-maths-02-11",
+   "title": "A pinch of history: Indian names for huge numbers",
+   "covers": [
+    "c2.6.1",
+    "c2.6.2"
+   ],
+   "learn": {
+    "hook": "Long before calculators, Indian texts had names for numbers with 50 zeros. Ancient India loved big numbers!",
+    "points": [
+     "Ancient Indian texts gave names to very large powers of ten, far beyond what daily life needed.",
+     "In the Buddhist text Lalitavistara, young Siddhartha names number after number, each 100 times the one before, going far beyond a koti (crore) up to tallakshana = 10⁵³.",
+     "Jaina and Pali (Buddhist) works use enormous numbers to describe time and the universe. Mahaviracharya (9th century CE), in his book Ganita Sara Sangraha, listed 24 names for the powers of ten one after another, from eka (1) up to 10²³.",
+     "Modern Indian names continue the lakh–crore pattern, each 100 times the last: arab 10⁹, kharab 10¹¹, neel 10¹³, padma 10¹⁵, shankh 10¹⁷, maha shankh 10¹⁹."
+    ],
+    "example": {
+     "q": "How many crore make 1 padma?",
+     "steps": [
+      "padma = 10¹⁵, crore = 10⁷",
+      "10¹⁵ ÷ 10⁷ = 10⁸",
+      "= 10 crore crore"
+     ],
+     "answer": "10⁸ crore"
+    },
+    "reallife": "Words like padma and shankh still appear in Indian number charts and quiz shows."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Smallest to largest",
+     "prompt": "Arrange from smallest to largest",
+     "items": [
+      "lakh",
+      "crore",
+      "arab",
+      "kharab",
+      "neel",
+      "padma"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Name and power",
+     "pairs": [
+      [
+       "neel",
+       "10¹³"
+      ],
+      [
+       "padma",
+       "10¹⁵"
+      ],
+      [
+       "shankh",
+       "10¹⁷"
+      ],
+      [
+       "maha shankh",
+       "10¹⁹"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many zeros does 1 padma have?",
+     "options": [
+      "15",
+      "13",
+      "17",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "1 padma = 10¹⁵, so it is 1 followed by 15 zeros.",
+     "steps": [
+      "neel 10¹³ → padma 10¹⁵"
+     ],
+     "mistake": "Confuses padma with neel or shankh",
+     "check": "15"
+    },
+    {
+     "q": "1 shankh is how many padma?",
+     "options": [
+      "10",
+      "1000",
+      "100",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "shankh = 10¹⁷ and padma = 10¹⁵, so 10¹⁷ ÷ 10¹⁵ = 100.",
+     "steps": [
+      "10¹⁷ ÷ 10¹⁵ = 10²",
+      "= 100"
+     ],
+     "mistake": "Thinks each name is 10 times the previous",
+     "check": "10**17/10**15"
+    },
+    {
+     "q": "In the modern Indian list, which name comes right after kharab?",
+     "options": [
+      "padma",
+      "neel",
+      "arab",
+      "shankh"
+     ],
+     "answer": 1,
+     "explain": "The order is arab, kharab, neel, padma, shankh.",
+     "steps": [
+      "arab → kharab → neel → padma"
+     ],
+     "mistake": "Skips a step in the list"
+    },
+    {
+     "q": "Which book did Mahaviracharya write?",
+     "options": [
+      "Lalitavistara",
+      "Aryabhatiya",
+      "Lilavati",
+      "Ganita Sara Sangraha"
+     ],
+     "answer": 3,
+     "explain": "Mahaviracharya (9th century CE) wrote the Ganita Sara Sangraha, which lists 24 names for powers of ten, up to 10²³.",
+     "steps": [
+      "Mahaviracharya → Ganita Sara Sangraha"
+     ],
+     "mistake": "Mixes up the authors of famous maths books"
+    },
+    {
+     "q": "In the Lalitavistara story, each new number name is how many times the previous one?",
+     "options": [
+      "10",
+      "2",
+      "100",
+      "1000"
+     ],
+     "answer": 2,
+     "explain": "The names in the story grow by a factor of 100 at each step, going up to 10⁵³.",
+     "steps": [
+      "Each name = 100 × previous"
+     ],
+     "mistake": "Assumes each step is 10 times, as in place value",
+     "check": "100"
+    },
+    {
+     "q": "How many zeros does 1 maha shankh have?",
+     "options": [
+      "17",
+      "19",
+      "21",
+      "18"
+     ],
+     "answer": 1,
+     "explain": "maha shankh = 10¹⁹, which is 100 times a shankh (10¹⁷).",
+     "steps": [
+      "shankh 10¹⁷ × 100 = 10¹⁹"
+     ],
+     "mistake": "Stops at shankh",
+     "check": "19"
+    },
+    {
+     "q": "Which old Indian traditions are known for using enormous numbers?",
+     "options": [
+      "Only modern school books",
+      "Only Roman texts",
+      "Jaina and Buddhist (Pali) texts",
+      "No Indian texts"
+     ],
+     "answer": 2,
+     "explain": "Jaina and Pali Buddhist works describe time and the universe using huge numbers.",
+     "steps": [
+      "Jaina and Pali works used huge numbers"
+     ],
+     "mistake": "Thinks very large numbers are only a modern idea"
+    },
+    {
+     "q": "1 neel is how many crore?",
+     "options": [
+      "10,00,000",
+      "1,000",
+      "100",
+      "10,000"
+     ],
+     "answer": 0,
+     "explain": "neel = 10¹³ and crore = 10⁷, so 10¹³ ÷ 10⁷ = 10⁶ = 10 lakh.",
+     "steps": [
+      "10¹³ ÷ 10⁷ = 10⁶",
+      "= 10,00,000"
+     ],
+     "mistake": "Subtracts the exponents wrongly",
+     "check": "10**6"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu heard the word 'shankh' used for a number. How big is it, and where do such names come from?",
+    "must": [
+     [
+      "10¹⁷",
+      "10^17",
+      "17 zeros"
+     ],
+     [
+      "100",
+      "hundred"
+     ],
+     [
+      "lalitavistara",
+      "jaina",
+      "mahavira",
+      "ancient",
+      "ganita"
+     ]
+    ],
+    "praise": "Wow! Shankh is 10¹⁷, and ancient texts went even beyond. India was a big-number champion!",
+    "nudge": "What power of 10 is shankh? Which old texts used such huge numbers?"
+   }
+  },
+  {
+   "id": "g8-maths-02-10",
+   "title": "Power puzzles: compare, always or never",
+   "covers": [
+    "c2.7.2",
+    "c2.7.3",
+    "c2.7.4",
+    "c2.7.7"
+   ],
+   "learn": {
+    "hook": "Which is bigger, 4³ or 3⁴? 2⁸ or 8²? Guess first — the answers surprise many grown-ups!",
+    "points": [
+     "Compare by working them out: 4³ = 64 but 3⁴ = 81; 2⁸ = 256 but 8² = 64; and 2⁴ = 4² = 16 is a rare tie.",
+     "Always, sometimes or never? 'An odd number to any power is odd' is always true. 'aⁿ is bigger than a' is only sometimes true (false for a = 1). '2ⁿ ends in 0' is never true.",
+     "Numbers that are both perfect squares and perfect cubes are sixth powers: 1, 64 (= 8² = 4³), 729 (= 27² = 9³), 4096, ...",
+     "In a 'make the biggest number' game with digits and powers, a bigger exponent usually helps more than a bigger base: 3⁵ = 243 beats 5³ = 125, and 9⁹ is far bigger than 99."
+    ],
+    "example": {
+     "q": "Which is larger: 2¹⁰ or 10³?",
+     "steps": [
+      "2¹⁰ = 1024",
+      "10³ = 1000",
+      "1024 > 1000"
+     ],
+     "answer": "2¹⁰ is larger"
+    },
+    "reallife": "Comparing powers helps you see why a 6-digit password is far safer than a 4-digit one: 10⁶ vs 10⁴ choices."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Always, sometimes or never?",
+     "buckets": [
+      "Always",
+      "Sometimes",
+      "Never"
+     ],
+     "items": [
+      [
+       "An odd number to any power is odd",
+       0
+      ],
+      [
+       "10ⁿ (n ≥ 1) ends in 0",
+       0
+      ],
+      [
+       "aⁿ is bigger than a",
+       1
+      ],
+      [
+       "A perfect square is also a perfect cube",
+       1
+      ],
+      [
+       "2ⁿ is odd (n ≥ 1)",
+       2
+      ],
+      [
+       "5ⁿ ends in 7",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Bigger or smaller?",
+     "items": [
+      [
+       "3⁴ > 4³",
+       true,
+       "81 > 64."
+      ],
+      [
+       "2⁸ < 8²",
+       false,
+       "256 is bigger than 64."
+      ],
+      [
+       "2⁴ = 4²",
+       true,
+       "Both are 16."
+      ],
+      [
+       "10² > 2¹⁰",
+       false,
+       "100 < 1024."
+      ],
+      [
+       "64 is both a square and a cube",
+       true,
+       "64 = 8² = 4³."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which is larger: 4³ or 3⁴?",
+     "options": [
+      "4³, because 64 > 81",
+      "3⁴, because 81 > 64",
+      "They are equal",
+      "4³, because its base is bigger"
+     ],
+     "answer": 1,
+     "explain": "4³ = 64 and 3⁴ = 81, so 3⁴ is larger.",
+     "steps": [
+      "4³ = 64",
+      "3⁴ = 81"
+     ],
+     "mistake": "Thinks the bigger base always gives the bigger power"
+    },
+    {
+     "q": "What is 2⁸ − 8²?",
+     "options": [
+      "0",
+      "192",
+      "64",
+      "128"
+     ],
+     "answer": 1,
+     "explain": "2⁸ = 256 and 8² = 64, so the difference is 192.",
+     "steps": [
+      "2⁸ = 256",
+      "8² = 64",
+      "256 − 64 = 192"
+     ],
+     "mistake": "Thinks swapping base and exponent gives the same value",
+     "check": "2**8-8**2"
+    },
+    {
+     "q": "After 64, which is the next number that is both a perfect square and a perfect cube?",
+     "options": [
+      "729",
+      "125",
+      "100",
+      "512"
+     ],
+     "answer": 0,
+     "explain": "Such numbers are sixth powers: 2⁶ = 64, then 3⁶ = 729 = 27² = 9³.",
+     "steps": [
+      "Square and cube → sixth power",
+      "3⁶ = 729"
+     ],
+     "mistake": "Picks a number that is only a cube or only a square",
+     "check": "3**6"
+    },
+    {
+     "q": "How many numbers from 1 to 1000 are both perfect squares and perfect cubes?",
+     "options": [
+      "2",
+      "3",
+      "10",
+      "31"
+     ],
+     "answer": 1,
+     "explain": "They are the sixth powers 1, 64 and 729. The next, 4096, is too big.",
+     "steps": [
+      "1⁶ = 1, 2⁶ = 64, 3⁶ = 729",
+      "4⁶ = 4096 > 1000"
+     ],
+     "mistake": "Forgets that 1 counts",
+     "check": "3"
+    },
+    {
+     "q": "'For any whole number a and n > 1, aⁿ is bigger than a.' This is...",
+     "options": [
+      "Always true",
+      "Sometimes true",
+      "Never true",
+      "True only for odd a"
+     ],
+     "answer": 1,
+     "explain": "It is true for 3² = 9 > 3, but false for 1² = 1 and 0² = 0.",
+     "steps": [
+      "Try a = 3: 9 > 3 ✓",
+      "Try a = 1: 1 = 1 ✗"
+     ],
+     "mistake": "Tests only one or two examples"
+    },
+    {
+     "q": "Using the digits 3 and 5 once each in the form aᵇ, what is the largest number you can make?",
+     "options": [
+      "125",
+      "243",
+      "53",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "3⁵ = 243 and 5³ = 125, so 3⁵ is larger.",
+     "steps": [
+      "3⁵ = 243",
+      "5³ = 125"
+     ],
+     "mistake": "Puts the bigger digit as the base",
+     "check": "3**5"
+    },
+    {
+     "q": "Which is the largest?",
+     "options": [
+      "2¹⁰⁰",
+      "100²",
+      "10¹⁰",
+      "100¹⁰"
+     ],
+     "answer": 0,
+     "explain": "100² = 10⁴, 10¹⁰, and 100¹⁰ = 10²⁰, while 2¹⁰⁰ = (2¹⁰)¹⁰ > (10³)¹⁰ = 10³⁰. So 2¹⁰⁰ is largest.",
+     "steps": [
+      "100¹⁰ = 10²⁰",
+      "2¹⁰ > 10³, so 2¹⁰⁰ > 10³⁰"
+     ],
+     "mistake": "Judges by the size of the base"
+    },
+    {
+     "q": "What is 2⁵ − 5²?",
+     "options": [
+      "7",
+      "0",
+      "3",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "2⁵ = 32 and 5² = 25, so the difference is 7.",
+     "steps": [
+      "2⁵ = 32",
+      "5² = 25",
+      "32 − 25 = 7"
+     ],
+     "mistake": "Thinks 2⁵ and 5² are equal",
+     "check": "2**5-5**2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu bets that 5³ is bigger than 3⁵ because 5 is bigger. Will he win the bet?",
+    "must": [
+     [
+      "243",
+      "3⁵"
+     ],
+     [
+      "125",
+      "5³"
+     ],
+     [
+      "exponent",
+      "power"
+     ]
+    ],
+    "praise": "Oops, I lose! 3⁵ = 243 beats 5³ = 125 — the exponent matters a lot.",
+    "nudge": "Did you work out both numbers? Which part of a power makes it grow fastest?"
+   }
+  }
+ ]
 }
-]}
