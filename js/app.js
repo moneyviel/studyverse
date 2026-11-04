@@ -8,6 +8,35 @@ const BOARDS = [
 const AVATARS = ['🦁', '🐯', '🦊', '🐼', '🐨', '🐸', '🦄', '🐙', '🦉', '🐬', '🚀', '⭐'];
 const MAX_GRADE = 10;
 
+/* ---------- read aloud (free, built into phones) ---------- */
+window.speak = function (t) {
+  try {
+    if (!('speechSynthesis' in window) || !t) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(String(t).replace(/[_]{2,}/g, 'blank'));
+    const hi = /[\u0900-\u097F]/.test(t); u.lang = hi ? 'hi-IN' : 'en-IN'; u.rate = .95;
+    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith(hi ? 'hi' : 'en-in')) || speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith(hi ? 'hi' : 'en'));
+    if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+};
+const spk = t => `<button class="spk" data-say="${esc(t)}" aria-label="Read aloud">🔊</button>`;
+document.addEventListener('click', e => { const b = e.target.closest('.spk'); if (b) { e.stopPropagation(); speak(b.dataset.say); } });
+
+/* ---------- 3D concept studio (loaded only when needed) ---------- */
+let S3D = null;
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=5'); return S3D; }
+async function mount3D(host, topic, chapter) {
+  try { const m = await scenes(); const spec = m.pickScene(topic, NAV.subject, ST.profile.grade, chapter); m.mount(host, spec); }
+  catch (e) { host.innerHTML = '<p class="sub">3D view could not load on this device.</p>'; }
+}
+function unmount3D() { if (S3D) S3D.unmount(); }
+function open3D() {
+  const sh = $('#sheet3d'); sh.classList.add('show');
+  mount3D($('#s3dHost'), RUN.t, RUN.c);
+}
+function close3D() { $('#sheet3d').classList.remove('show'); unmount3D(); }
+
 /* ---------- saved progress (on this phone until logins arrive) ---------- */
 let ST = { profile: null, xp: 0, streak: { n: 0, last: '' }, topics: {}, mistakes: {}, qstats: {} };
 try { const s = JSON.parse(localStorage.getItem('sv_state') || 'null'); if (s) ST = Object.assign(ST, s); } catch (e) {}
@@ -149,9 +178,10 @@ function stepBar() {
 }
 function nextStep() { RUN.at++; renderStep(); }
 function renderStep() {
+  unmount3D(); if ('speechSynthesis' in window) speechSynthesis.cancel();
   const el = $('#s-topic'); const s = RUN.steps[RUN.at];
   el.innerHTML = stepBar() + `<div id="stepBody"></div>`;
-  $('#tClose').onclick = () => { chapterScreen(RUN.sid, RUN.ci); };
+  $('#tClose').onclick = () => { unmount3D(); chapterScreen(RUN.sid, RUN.ci); };
   const b = $('#stepBody');
   if (!s) return doneStep(b);
   if (s.k === 'learn') learnStep(b);
@@ -164,13 +194,15 @@ function renderStep() {
 function learnStep(b) {
   const L = RUN.t.learn || {}, t = RUN.t;
   b.innerHTML = `<div class="card"><span class="tag">${esc(RUN.c.title)}</span><h2>${esc(t.title)}</h2>
-      <div class="pet"><div class="face">🐣</div><div class="bubble">${esc(L.hook || '')}</div></div></div>
-    <div class="card"><h3>💡 Big ideas</h3>${(L.points || []).map((p, i) => `<div class="point popin" style="animation-delay:${(i * .25).toFixed(2)}s"><span>${i + 1}</span>${esc(p)}</div>`).join('')}</div>
+      <div class="pet"><div class="face">🐣</div><div class="bubble">${esc(L.hook || '')} ${spk(L.hook || '')}</div></div></div>
+    <div class="card"><h3>🧊 Explore in 3D</h3><div id="s3d" class="s3dhost"></div></div>
+    <div class="card"><h3>💡 Big ideas</h3>${(L.points || []).map((p, i) => `<div class="point popin" style="animation-delay:${(i * .25).toFixed(2)}s"><span>${i + 1}</span><div>${esc(p)}</div>${spk(p)}</div>`).join('')}</div>
     ${t.lab === 'angle' ? `<div class="card"><h3>📐 Angle lab</h3><p class="sub">Drag the yellow dot.</p><div id="lab"></div></div>` : ''}
-    ${L.example ? `<div class="card"><h3>🧠 Watch me solve</h3><div class="exq">${esc(L.example.q)}</div><div id="exSteps"></div>
+    ${L.example ? `<div class="card"><h3>🧠 Watch me solve</h3><div class="exq">${esc(L.example.q)} ${spk(L.example.q)}</div><div id="exSteps"></div>
       <button class="btn ghost" id="exBtn">Show step 1</button></div>` : ''}
     ${L.reallife ? `<div class="reallife card">🌍 <b>In real life:</b> ${esc(L.reallife)}</div>` : ''}
     <button class="btn mint" id="learnGo">${RUN.t.games?.length ? "Let's play ▶" : 'Start quiz ▶'}</button>`;
+  mount3D($('#s3d'), t, RUN.c);
   if (t.lab === 'angle') angleLab($('#lab'));
   if (L.example) {
     const st = L.example.steps || []; let k = 0; const box = $('#exSteps'), btn = $('#exBtn');
@@ -191,7 +223,7 @@ function quizRunner(b, list, done) {
     const { q, qid } = list[i];
     const order = Games.shuffle(q.options.map((o, k) => k));
     b.innerHTML = `<div class="card"><span class="tag">Question ${i + 1} of ${list.length}</span><div class="progress"><i style="width:${i / list.length * 100}%"></i></div>
-      <h2 class="qtext">${esc(q.q)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div></div>`;
+      <h2 class="qtext">${esc(q.q)} ${spk(q.q + '. ' + q.options.join(', '))}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div></div>`;
     b.querySelectorAll('.opt').forEach(btn => btn.onclick = () => {
       const k = +btn.dataset.k, ok = k === q.answer;
       b.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.answer) x.classList.add('right'); });
@@ -203,9 +235,9 @@ function quizRunner(b, list, done) {
       const draw = () => {
         box.innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? '🎉 Correct!' : `🤔 Not quite — it's <b>${esc(q.options[q.answer])}</b>`}</div>
           ${q.visual ? `<div class="vis">${Visual.render(q.visual)}</div>` : `<div class="bigans popin">${esc(q.options[q.answer])}</div>`}
-          <div class="why">${esc(q.explain)}</div>
+          <div class="why">${esc(q.explain)} ${spk(q.explain)}</div>
           ${(q.steps || []).map((s, j) => `<div class="exstep popin" style="animation-delay:${(.4 + j * .45).toFixed(2)}s">${j + 1}. ${esc(s)}</div>`).join('')}</div>
-          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" onclick="open3D()">🧊 3D</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
         const rep = $('#rep'); if (rep) rep.onclick = draw;
         $('#nx').onclick = () => { i++; if (i < list.length) render(); else done({ right, total: list.length, mistakes }); };
         setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
@@ -219,7 +251,7 @@ function quizRunner(b, list, done) {
 /* ---------- Teach Gappu ---------- */
 function teachStep(b) {
   const T = RUN.t.teach || {};
-  b.innerHTML = `<div class="card"><span class="tag">Teach to learn</span><div class="pet"><div class="face" id="gf">🐣</div><div class="bubble" id="gs">${esc(T.ask)}</div></div>
+  b.innerHTML = `<div class="card"><span class="tag">Teach to learn</span><div class="pet"><div class="face" id="gf">🐣</div><div class="bubble" id="gs">${esc(T.ask)}</div>${spk(T.ask)}</div>
     <textarea id="ans" placeholder="Explain in your own words…"></textarea><button class="btn" id="tBtn">Explain to Gappu 💬</button>
     <div style="height:8px"></div><button class="btn ghost" id="tSkip">Skip for now</button></div>`;
   let tries = 0;
