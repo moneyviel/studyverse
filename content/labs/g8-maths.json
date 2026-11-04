@@ -1,0 +1,3393 @@
+{
+ "g8-maths-01-04": {
+  "type": "arraygrid",
+  "p": {
+   "mode": "array",
+   "ask": "factors",
+   "target": 9,
+   "rows": 1,
+   "cols": 2,
+   "maxRows": 12,
+   "maxCols": 12,
+   "item": "star",
+   "itemName": "stars",
+   "challenge": "Locker 9: find every rectangle array of 9 stars. Each one is a factor pair = visitors who flip locker 9. 3 × 3 uses one number twice, so 9 has an odd number of factors (1, 3, 9). Flipped 3 times, it stays open!"
+  }
+ },
+ "g8-maths-01-01": {
+  "type": "patterns",
+  "p": {
+   "kind": "square",
+   "visual": "tiles",
+   "label": "tiles",
+   "n": 4,
+   "maxN": 6,
+   "showSum": false,
+   "ask": {
+    "term": 15
+   },
+   "challenge": "Each new L of tiles is the next odd number: 1, 3, 5, 7, ... How many tiles are in square 15? That is the sum of the first 15 odd numbers."
+  }
+ },
+ "g8-maths-01-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "Can it be a perfect square?",
+   "task": "play",
+   "nodes": [
+    {
+     "id": "s",
+     "emoji": "🔢",
+     "text": "A number to test",
+     "info": "A square can only end in 0, 1, 4, 5, 6 or 9."
+    },
+    {
+     "id": "d1",
+     "emoji": "❓",
+     "text": "Does it end in 2, 3, 7 or 8?",
+     "info": "Units digit of a square: 1 or 9 → 1; 2 or 8 → 4; 3 or 7 → 9; 4 or 6 → 6; 5 → 5; 0 → 0.",
+     "type": "decision"
+    },
+    {
+     "id": "n1",
+     "emoji": "❌",
+     "text": "Never a square (like 2,738)",
+     "info": "2, 3, 7 and 8 never appear as the last digit of a square."
+    },
+    {
+     "id": "d2",
+     "emoji": "❓",
+     "text": "An odd number of 0s at the end?",
+     "info": "If a number ends in k zeros, its square ends in 2k zeros — always an even number of zeros.",
+     "type": "decision"
+    },
+    {
+     "id": "n2",
+     "emoji": "❌",
+     "text": "Not a square (like 4,000)",
+     "info": "4,000 ends in 3 zeros. A square always ends in an even number of zeros."
+    },
+    {
+     "id": "m",
+     "emoji": "🔍",
+     "text": "Maybe! Check it properly",
+     "info": "Passing the tests does not prove it: 26 ends in 6 but is not a square. 841 is: 29² = 841."
+    }
+   ],
+   "challenge": "Test a number with the square clues: choose Yes or No at each question. Play again to reach every ending.",
+   "edges": [
+    {
+     "from": "s",
+     "to": "d1"
+    },
+    {
+     "from": "d1",
+     "to": "n1",
+     "label": "Yes"
+    },
+    {
+     "from": "d1",
+     "to": "d2",
+     "label": "No"
+    },
+    {
+     "from": "d2",
+     "to": "n2",
+     "label": "Yes"
+    },
+    {
+     "from": "d2",
+     "to": "m",
+     "label": "No"
+    }
+   ]
+  }
+ },
+ "g8-maths-01-06": {
+  "type": "patterns",
+  "p": {
+   "kind": "ap",
+   "a": 3,
+   "d": 2,
+   "visual": "numbers",
+   "label": "gap",
+   "n": 4,
+   "maxN": 6,
+   "showSum": false,
+   "ask": {
+    "which": 25
+   },
+   "challenge": "Gaps between neighbouring squares: 4 − 1 = 3, 9 − 4 = 5, 16 − 9 = 7, ... Gap n is n + (n + 1). Which gap number is 25? (It is the gap from n² up to (n + 1)².)"
+  }
+ },
+ "g8-maths-01-02": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": 7,
+   "max": 8,
+   "tick": 0.1,
+   "target": 7.1,
+   "format": "decimal",
+   "labels": "all",
+   "showTarget": false,
+   "challenge": "49 < 50 < 64, so √50 lies between 7 and 8, closer to 7. Drag the frog to √50 correct to one decimal place (check: 7.1² = 50.41)."
+  }
+ },
+ "g8-maths-01-07": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": 60,
+   "max": 70,
+   "tick": 1,
+   "target": 67,
+   "labels": "all",
+   "showTarget": false,
+   "challenge": "Square-root game: √4489. 60² = 3600 < 4489 < 4900 = 70², so the root is in the 60s. 4489 ends in 9, so the root ends in 3 or 7. 65² = 4225 < 4489. Drag the frog to √4489."
+  }
+ },
+ "g8-maths-01-03": {
+  "type": "flowchart",
+  "p": {
+   "title": "Cube root of 343",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🔢",
+     "text": "Start with 343",
+     "info": "343 is odd and does not end in 0 or 5, so try 7."
+    },
+    {
+     "id": "b",
+     "emoji": "➗",
+     "text": "343 ÷ 7 = 49",
+     "info": "7 divides 343."
+    },
+    {
+     "id": "c",
+     "emoji": "➗",
+     "text": "49 ÷ 7 = 7",
+     "info": "7 divides again — and 7 is prime."
+    },
+    {
+     "id": "d",
+     "emoji": "🧱",
+     "text": "343 = 7 × 7 × 7",
+     "info": "The primes make one group of three equal primes."
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "Take one 7 from the group: ∛343 = 7",
+     "info": "Check: 7³ = 7 × 7 × 7 = 343."
+    }
+   ],
+   "challenge": "Put the steps in order to find ∛343 by grouping prime factors in threes."
+  }
+ },
+ "g8-maths-01-08": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": -30,
+   "max": 30,
+   "tick": 3,
+   "snap": 1,
+   "target": -27,
+   "labels": "auto",
+   "showTarget": false,
+   "challenge": "Cubing keeps the sign: (−3)³ = (−3) × (−3) × (−3). Drag the frog to (−3)³. (Its last digit 7 matches 3³ = 27.)"
+  }
+ },
+ "g8-maths-01-09": {
+  "type": "patterns",
+  "p": {
+   "kind": "ap",
+   "a": 12,
+   "d": 6,
+   "visual": "numbers",
+   "label": "second difference",
+   "n": 4,
+   "maxN": 4,
+   "showSum": false,
+   "ask": {
+    "term": 5
+   },
+   "challenge": "Cubes 1, 8, 27, 64, 125, 216 have gaps 7, 19, 37, 61, 91. The gaps of those gaps go 12, 18, 24, 30 (up 6 each time). Find the 5th one — then 91 + it gives 7³ − 6³."
+  }
+ },
+ "g8-maths-01-10": {
+  "type": "flowchart",
+  "p": {
+   "title": "Make 500 a perfect cube",
+   "task": "play",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🔢",
+     "text": "500 = 2² × 5³",
+     "info": "500 = 2 × 2 × 5 × 5 × 5."
+    },
+    {
+     "id": "b",
+     "emoji": "🧱",
+     "text": "Group the primes in threes",
+     "info": "5 × 5 × 5 is a full group. 2 × 2 is one 2 short of a group."
+    },
+    {
+     "id": "c",
+     "emoji": "🤔",
+     "text": "Multiply or divide?",
+     "info": "Choose one way, then come back and try the other.",
+     "type": "decision"
+    },
+    {
+     "id": "m",
+     "emoji": "✖️",
+     "text": "Multiply by 2: 500 × 2 = 1000",
+     "info": "Now 2³ × 5³ = (2 × 5)³ = 10³."
+    },
+    {
+     "id": "v",
+     "emoji": "➗",
+     "text": "Divide by 4: 500 ÷ 4 = 125",
+     "info": "Removing the leftover 2 × 2 leaves 5³."
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "Perfect cube!",
+     "info": "Every prime now appears a multiple of 3 times."
+    }
+   ],
+   "challenge": "500 is not a perfect cube. Press Next, then choose: multiply or divide to turn it into one. Try both ways!",
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "c"
+    },
+    {
+     "from": "c",
+     "to": "m",
+     "label": "× 2"
+    },
+    {
+     "from": "c",
+     "to": "v",
+     "label": "÷ 4"
+    },
+    {
+     "from": "m",
+     "to": "e"
+    },
+    {
+     "from": "v",
+     "to": "e"
+    }
+   ]
+  }
+ },
+ "g8-maths-01-11": {
+  "type": "timeline",
+  "p": {
+   "title": "Squares, cubes and roots in history",
+   "format": "bce",
+   "spacing": "even",
+   "task": "order",
+   "count": 4,
+   "challenge": "Put these moments in the history of squares, cubes and roots in time order — oldest on top.",
+   "events": [
+    {
+     "year": -1700,
+     "label": "Babylonian tablets of squares and cubes",
+     "emoji": "🧱",
+     "info": "Scribes made clay tablets listing squares and cubes to speed up calculations."
+    },
+    {
+     "year": 499,
+     "label": "Aryabhata describes varga (square)",
+     "emoji": "🔭",
+     "info": "Varga: a square figure with four equal sides, and the product of two equal numbers."
+    },
+    {
+     "year": 628,
+     "label": "Brahmagupta gives rules for squares and square roots",
+     "emoji": "📜",
+     "info": "Written in his book Brahmasphutasiddhanta (7th century CE)."
+    },
+    {
+     "year": 820,
+     "label": "Al-Khwarizmi writes jidhr for root in Arabic",
+     "emoji": "🌱",
+     "info": "Around 820 CE in Baghdad. The Indian idea of mula (root of a plant) travelled into Arabic as jidhr, and later into Latin as radix."
+    }
+   ]
+  }
+ },
+ "g8-maths-02-01": {
+  "type": "patterns",
+  "p": {
+   "kind": "gp",
+   "a": 2,
+   "r": 2,
+   "visual": "numbers",
+   "label": "layers",
+   "n": 3,
+   "maxN": 6,
+   "showSum": false,
+   "ask": {
+    "term": 10
+   },
+   "challenge": "Each paper fold doubles the layers: 2, 4, 8, ... (2ⁿ after n folds). How many layers after 10 folds? Compare 2¹⁰ with 10² = 100!"
+  }
+ },
+ "g8-maths-02-04": {
+  "type": "datachart",
+  "p": {
+   "title": "Doubling vs adding 2",
+   "labels": [
+    "Step 1",
+    "Step 2",
+    "Step 3",
+    "Step 4"
+   ],
+   "values": [
+    2,
+    4,
+    6,
+    8
+   ],
+   "values2": [
+    2,
+    4,
+    6,
+    8
+   ],
+   "series": [
+    "Doubling",
+    "Adding 2"
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "layers",
+   "max": 20,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     2,
+     4,
+     8,
+     16
+    ]
+   },
+   "challenge": "Both rows start 2, 4. The orange bars add 2 each step (linear). Change the purple bars so each one DOUBLES (exponential). Which grows faster?"
+  }
+ },
+ "g8-maths-02-02": {
+  "type": "flowchart",
+  "p": {
+   "title": "Which law of exponents?",
+   "task": "play",
+   "nodes": [
+    {
+     "id": "s",
+     "emoji": "🔢",
+     "text": "Combine two powers",
+     "info": "Look at the bases and the exponents first."
+    },
+    {
+     "id": "d1",
+     "emoji": "❓",
+     "text": "Is the base the same?",
+     "info": "3² and 3⁴ have the same base 3. 2³ and 5³ do not, but they have the same exponent.",
+     "type": "decision"
+    },
+    {
+     "id": "d2",
+     "emoji": "❓",
+     "text": "Multiply or divide?",
+     "info": "Choose one, then play again for the other.",
+     "type": "decision"
+    },
+    {
+     "id": "m",
+     "emoji": "✖️",
+     "text": "3² × 3⁴ = 3⁶",
+     "info": "Same base, multiply → add the exponents: 2 + 4 = 6."
+    },
+    {
+     "id": "v",
+     "emoji": "➗",
+     "text": "7⁹ ÷ 7⁴ = 7⁵",
+     "info": "Same base, divide → subtract the exponents: 9 − 4 = 5."
+    },
+    {
+     "id": "q",
+     "emoji": "🤝",
+     "text": "Same exponent: 2³ × 5³ = 10³",
+     "info": "Multiply the bases: (2 × 5)³ = 10³ = 1000."
+    },
+    {
+     "id": "e",
+     "emoji": "🔁",
+     "text": "One more law: (5²)³ = 5⁶",
+     "info": "Power of a power → multiply the exponents. And 9⁰ = 1, 2⁻³ = 1/8."
+    }
+   ],
+   "challenge": "Follow the questions to pick the right law of exponents. Play again until you have reached all three answers.",
+   "edges": [
+    {
+     "from": "s",
+     "to": "d1"
+    },
+    {
+     "from": "d1",
+     "to": "d2",
+     "label": "Yes"
+    },
+    {
+     "from": "d1",
+     "to": "q",
+     "label": "No"
+    },
+    {
+     "from": "d2",
+     "to": "m",
+     "label": "×"
+    },
+    {
+     "from": "d2",
+     "to": "v",
+     "label": "÷"
+    },
+    {
+     "from": "m",
+     "to": "e"
+    },
+    {
+     "from": "v",
+     "to": "e"
+    },
+    {
+     "from": "q",
+     "to": "e"
+    }
+   ]
+  }
+ },
+ "g8-maths-02-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "Work out 8⁴ ÷ 4⁵",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🔄",
+     "text": "Change to one base: 8 = 2³, 4 = 2²",
+     "info": "Both 8 and 4 are powers of 2."
+    },
+    {
+     "id": "b",
+     "emoji": "✍️",
+     "text": "8⁴ ÷ 4⁵ = (2³)⁴ ÷ (2²)⁵",
+     "info": "Replace each base."
+    },
+    {
+     "id": "c",
+     "emoji": "🔁",
+     "text": "= 2¹² ÷ 2¹⁰",
+     "info": "Power of a power: multiply the exponents."
+    },
+    {
+     "id": "d",
+     "emoji": "➗",
+     "text": "= 2²",
+     "info": "Same base, divide: subtract the exponents."
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "= 4",
+     "info": "2² = 4."
+    }
+   ],
+   "challenge": "Put the steps in order to work out 8⁴ ÷ 4⁵ by changing the bases to match."
+  }
+ },
+ "g8-maths-02-06": {
+  "type": "arraygrid",
+  "p": {
+   "mode": "array",
+   "ask": "exact",
+   "target": "3x4",
+   "rows": 1,
+   "cols": 1,
+   "maxRows": 8,
+   "maxCols": 8,
+   "item": "👕",
+   "itemName": "outfits",
+   "challenge": "3 shirts and 4 pants: each row is a shirt, each column is a pair of pants. Build the array of every outfit — how many are there?"
+  }
+ },
+ "g8-maths-02-07": {
+  "type": "numberline",
+  "p": {
+   "mode": "jump",
+   "min": -2,
+   "max": 3,
+   "tick": 1,
+   "start": 2,
+   "add": -3,
+   "labels": "all",
+   "hops": [
+    1
+   ],
+   "showTarget": false,
+   "challenge": "Power line of 4: each number is an exponent (4⁻², 4⁻¹, 4⁰ = 1, 4¹, 4², 4³). Start at 4². Dividing by 4³ means 3 steps left. Where do you land — and what is that power of 4?"
+  }
+ },
+ "g8-maths-02-08": {
+  "type": "placevalue",
+  "p": {
+   "places": "thousands",
+   "view": "abacus",
+   "system": "indian",
+   "toggle": false,
+   "target": 4705,
+   "ask": "expanded",
+   "challenge": "Build the number 4 × 10³ + 7 × 10² + 0 × 10¹ + 5 × 10⁰ on the abacus."
+  }
+ },
+ "g8-maths-02-03": {
+  "type": "placevalue",
+  "p": {
+   "places": "lakhs",
+   "view": "abacus",
+   "system": "indian",
+   "target": 450000,
+   "ask": "number",
+   "challenge": "Build 4,50,000. Then imagine moving the decimal point left until one digit is in front: 4.5 — 5 jumps, so 4,50,000 = 4.5 × 10⁵."
+  }
+ },
+ "g8-maths-02-09": {
+  "type": "flowchart",
+  "p": {
+   "title": "Tulabhara: how many coins balance a person?",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🤔",
+     "text": "Make a guess",
+     "info": "Guess first — maybe a few thousand coins?"
+    },
+    {
+     "id": "b",
+     "emoji": "🧩",
+     "text": "Model: person 60 kg, each coin about 5 g",
+     "info": "Choose simple assumptions."
+    },
+    {
+     "id": "c",
+     "emoji": "⚖️",
+     "text": "Same units: 60 kg = 60,000 g",
+     "info": "1 kg = 1000 g."
+    },
+    {
+     "id": "d",
+     "emoji": "➗",
+     "text": "Calculate: 60,000 ÷ 5 = 12,000 coins",
+     "info": "Divide the total weight by the weight of one coin."
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "Check: 12,000 × 5 g = 60 kg",
+     "info": "Does the answer make sense? Compare it with your guess."
+    }
+   ],
+   "challenge": "Arrange the estimation steps (guess, model, calculate, check) for the Tulabhara coin problem."
+  }
+ },
+ "g8-maths-02-11": {
+  "type": "storysequence",
+  "p": {
+   "title": "Indian number names, each 100 times the last",
+   "kind": "story",
+   "challenge": "Each name is 100 times the one before. Put them in order from smallest to largest.",
+   "panels": [
+    [
+     "💯",
+     "lakh = 100 thousand"
+    ],
+    [
+     "🪙",
+     "crore = 100 lakh"
+    ],
+    [
+     "💰",
+     "arab = 100 crore"
+    ],
+    [
+     "🏦",
+     "kharab = 100 arab"
+    ],
+    [
+     "🌌",
+     "neel = 100 kharab"
+    ],
+    [
+     "🪷",
+     "padma = 100 neel"
+    ],
+    [
+     "🐚",
+     "shankh = 100 padma"
+    ]
+   ]
+  }
+ },
+ "g8-maths-02-10": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Which power is which?",
+   "leftTitle": "Power",
+   "rightTitle": "Value",
+   "mode": "instant",
+   "pairs": [
+    [
+     "4³",
+     "64"
+    ],
+    [
+     "3⁴",
+     "81"
+    ],
+    [
+     "2⁸",
+     "256"
+    ],
+    [
+     "8²",
+     "64"
+    ],
+    [
+     "2⁴",
+     "16"
+    ],
+    [
+     "4²",
+     "16"
+    ],
+    [
+     "3⁵",
+     "243"
+    ],
+    [
+     "5³",
+     "125"
+    ]
+   ],
+   "challenge": "Work out each power and join it to its value. Spot the surprises: 4³ < 3⁴, 2⁸ > 8², and 2⁴ = 4² is a rare tie!"
+  }
+ },
+ "g8-maths-03-04": {
+  "type": "storysequence",
+  "p": {
+   "title": "Counting goats with pebbles",
+   "kind": "story",
+   "challenge": "Put the steps of one-to-one matching in order.",
+   "panels": [
+    [
+     "🌅🐐",
+     "In the morning, the herder lets the goats out one by one."
+    ],
+    [
+     "🪨",
+     "For each goat, one pebble is put aside."
+    ],
+    [
+     "🌾",
+     "The goats graze in the fields all day."
+    ],
+    [
+     "🌇",
+     "In the evening, one pebble is taken back for each goat that returns."
+    ],
+    [
+     "❗",
+     "Pebbles are left over — so some goats are missing!"
+    ]
+   ]
+  }
+ },
+ "g8-maths-03-05": {
+  "type": "timeline",
+  "p": {
+   "title": "How Indian numerals reached the world",
+   "format": "plain",
+   "spacing": "even",
+   "task": "order",
+   "count": 4,
+   "challenge": "Follow the journey of the Indian numerals: put the events in time order — oldest on top.",
+   "events": [
+    {
+     "year": 499,
+     "label": "Aryabhata explains place value",
+     "emoji": "🔭",
+     "info": "Each place is ten times the one before."
+    },
+    {
+     "year": 825,
+     "label": "Al-Khwarizmi writes on Indian numerals in Baghdad",
+     "emoji": "📚",
+     "info": "Around 825 CE (9th century). Al-Khwarizmi and Al-Kindi wrote books on calculating with Indian numerals."
+    },
+    {
+     "year": 1202,
+     "label": "Fibonacci's Liber Abaci",
+     "emoji": "📖",
+     "info": "This book spread the Indian numerals across Europe."
+    },
+    {
+     "year": 1881,
+     "label": "The Bakhshali manuscript is found",
+     "emoji": "📜",
+     "info": "Found in a village now in Pakistan. It uses a dot for zero."
+    }
+   ]
+  }
+ },
+ "g8-maths-03-06": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "urapon",
+     "ukasar"
+    ],
+    [
+     "",
+     "ukasar"
+    ],
+    [
+     "",
+     "urapon"
+    ]
+   ],
+   "slotLabels": [
+    "Word 1",
+    "Word 2",
+    "Word 3"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "urapon",
+      "",
+      ""
+     ],
+     "word": "urapon",
+     "meaning": "1"
+    },
+    {
+     "parts": [
+      "ukasar",
+      "",
+      ""
+     ],
+     "word": "ukasar",
+     "meaning": "2"
+    },
+    {
+     "parts": [
+      "ukasar",
+      "",
+      "urapon"
+     ],
+     "word": "ukasar-urapon",
+     "meaning": "3 (= 2 + 1)"
+    },
+    {
+     "parts": [
+      "ukasar",
+      "ukasar",
+      ""
+     ],
+     "word": "ukasar-ukasar",
+     "meaning": "4 (= 2 + 2)"
+    },
+    {
+     "parts": [
+      "ukasar",
+      "ukasar",
+      "urapon"
+     ],
+     "word": "ukasar-ukasar-urapon",
+     "meaning": "5 (= 2 + 2 + 1)"
+    }
+   ],
+   "targets": [
+    "ukasar-urapon",
+    "ukasar-ukasar",
+    "ukasar-ukasar-urapon"
+   ],
+   "challenge": "The Gumulgal people of Australia counted in twos: urapon = 1, ukasar = 2. Spin the wheels to say 3, 4 and 5 in their words."
+  }
+ },
+ "g8-maths-03-01": {
+  "type": "datachart",
+  "p": {
+   "title": "A herder's tally (bundles of 5)",
+   "labels": [
+    "Goats",
+    "Sheep",
+    "Cows"
+   ],
+   "values": [
+    10,
+    5,
+    3
+   ],
+   "views": [
+    "tally",
+    "bar"
+   ],
+   "unit": "animals",
+   "max": 20,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     17,
+     12,
+     8
+    ]
+   },
+   "challenge": "Add tally marks: Goats 17 (3 bundles of five and 2 marks), Sheep 12, Cows 8. See how bundles of 5 make counting quick."
+  }
+ },
+ "g8-maths-03-07": {
+  "type": "placevalue",
+  "p": {
+   "places": "hundreds",
+   "view": "abacus",
+   "toggle": false,
+   "start": 27,
+   "target": 41,
+   "ask": "number",
+   "challenge": "XXVII + XIV: 27 is on the abacus. Add 14 (1 ten and 4 ones). When a rod reaches 10 counters, they regroup into 1 on the next rod. You get 41 = XLI!"
+  }
+ },
+ "g8-maths-03-08": {
+  "type": "patterns",
+  "p": {
+   "kind": "gp",
+   "a": 1,
+   "r": 5,
+   "visual": "numbers",
+   "label": "landmark",
+   "n": 3,
+   "maxN": 4,
+   "showSum": false,
+   "ask": {
+    "term": 6
+   },
+   "challenge": "Base-5 landmarks: 1, 5, 25, 125, ... each 5 times the one before. 25 × 125 = 5² × 5³ = 5⁵. Which landmark is that? (Term 6 is 5⁵.)"
+  }
+ },
+ "g8-maths-03-03": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "0",
+     "1"
+    ],
+    [
+     "0",
+     "1"
+    ],
+    [
+     "0",
+     "1"
+    ],
+    [
+     "0",
+     "1"
+    ]
+   ],
+   "slotLabels": [
+    "8s",
+    "4s",
+    "2s",
+    "1s"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "0",
+      "0",
+      "0",
+      "0"
+     ],
+     "word": "0000",
+     "meaning": "zero (0)"
+    },
+    {
+     "parts": [
+      "0",
+      "0",
+      "0",
+      "1"
+     ],
+     "word": "0001",
+     "meaning": "one (1)"
+    },
+    {
+     "parts": [
+      "0",
+      "0",
+      "1",
+      "0"
+     ],
+     "word": "0010",
+     "meaning": "two (2)"
+    },
+    {
+     "parts": [
+      "0",
+      "0",
+      "1",
+      "1"
+     ],
+     "word": "0011",
+     "meaning": "three (3)"
+    },
+    {
+     "parts": [
+      "0",
+      "1",
+      "0",
+      "0"
+     ],
+     "word": "0100",
+     "meaning": "four (4)"
+    },
+    {
+     "parts": [
+      "0",
+      "1",
+      "0",
+      "1"
+     ],
+     "word": "0101",
+     "meaning": "five (5)"
+    },
+    {
+     "parts": [
+      "0",
+      "1",
+      "1",
+      "0"
+     ],
+     "word": "0110",
+     "meaning": "six (6)"
+    },
+    {
+     "parts": [
+      "0",
+      "1",
+      "1",
+      "1"
+     ],
+     "word": "0111",
+     "meaning": "seven (7)"
+    },
+    {
+     "parts": [
+      "1",
+      "0",
+      "0",
+      "0"
+     ],
+     "word": "1000",
+     "meaning": "eight (8)"
+    },
+    {
+     "parts": [
+      "1",
+      "0",
+      "0",
+      "1"
+     ],
+     "word": "1001",
+     "meaning": "nine (9)"
+    },
+    {
+     "parts": [
+      "1",
+      "0",
+      "1",
+      "0"
+     ],
+     "word": "1010",
+     "meaning": "ten (10)"
+    },
+    {
+     "parts": [
+      "1",
+      "0",
+      "1",
+      "1"
+     ],
+     "word": "1011",
+     "meaning": "eleven (11)"
+    },
+    {
+     "parts": [
+      "1",
+      "1",
+      "0",
+      "0"
+     ],
+     "word": "1100",
+     "meaning": "twelve (12)"
+    },
+    {
+     "parts": [
+      "1",
+      "1",
+      "0",
+      "1"
+     ],
+     "word": "1101",
+     "meaning": "thirteen (13)"
+    },
+    {
+     "parts": [
+      "1",
+      "1",
+      "1",
+      "0"
+     ],
+     "word": "1110",
+     "meaning": "fourteen (14)"
+    },
+    {
+     "parts": [
+      "1",
+      "1",
+      "1",
+      "1"
+     ],
+     "word": "1111",
+     "meaning": "fifteen (15)"
+    }
+   ],
+   "targets": [
+    "1011",
+    "1101"
+   ],
+   "challenge": "In base 2 the places are 8, 4, 2, 1 and the only digits are 0 and 1. Spin the wheels to write eleven and then thirteen in base 2."
+  }
+ },
+ "g8-maths-03-09": {
+  "type": "clockset",
+  "p": {
+   "mode": "elapsed",
+   "start": "1:00",
+   "duration": 135,
+   "snap": 5,
+   "challenge": "Base 60 lives on in clocks! The Babylonian number '2 | 15' means 2 × 60 + 15 = 135. Move the hands 135 minutes forward from 1:00."
+  }
+ },
+ "g8-maths-03-10": {
+  "type": "flowchart",
+  "p": {
+   "title": "The big story of number systems",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "✋",
+     "text": "One-to-one tallies",
+     "info": "One mark or pebble for each object."
+    },
+    {
+     "id": "b",
+     "emoji": "🧺",
+     "text": "Grouping",
+     "info": "Bundling tally marks, for example in fives."
+    },
+    {
+     "id": "c",
+     "emoji": "🏺",
+     "text": "Special symbols for groups (landmarks)",
+     "info": "Like the Egyptian heel bone for 10 and coiled rope for 100."
+    },
+    {
+     "id": "d",
+     "emoji": "🪜",
+     "text": "Landmarks as powers of a base",
+     "info": "1, 10, 100, 1000, ... each 10 times the one before."
+    },
+    {
+     "id": "e",
+     "emoji": "📍",
+     "text": "Place value",
+     "info": "A digit’s value depends on its position."
+    },
+    {
+     "id": "f",
+     "emoji": "⭕",
+     "text": "Zero as a digit and as a number",
+     "info": "The Indian system has every step of this story."
+    }
+   ],
+   "challenge": "Arrange the big story of numbers, from the first tallies to zero."
+  }
+ },
+ "g8-maths-03-02": {
+  "type": "placevalue",
+  "p": {
+   "places": 3,
+   "view": "blocks",
+   "target": 205,
+   "ask": "number",
+   "challenge": "Build 205 with blocks. The tens place stays empty — the 0 in 205 keeps it empty. (25 is a different number!)"
+  }
+ },
+ "g8-maths-04-01": {
+  "type": "symmetry",
+  "p": {
+   "mode": "lines",
+   "shape": "rectangle",
+   "shapes": [
+    "square",
+    "rectangle",
+    "parallelogram",
+    "kite",
+    "trapezium"
+   ],
+   "challenge": "Tap the dashed lines to test each quadrilateral for mirror lines. Press New for the next shape: square, rectangle, parallelogram, kite, trapezium."
+  }
+ },
+ "g8-maths-04-04": {
+  "type": "coordplane",
+  "p": {
+   "task": "plot",
+   "xRange": [
+    -6,
+    6
+   ],
+   "yRange": [
+    -4,
+    5
+   ],
+   "given": [
+    [
+     -4,
+     -2
+    ],
+    [
+     2,
+     -2
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "givenLabels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "targets": [
+    [
+     -4,
+     3
+    ]
+   ],
+   "targetLabels": [
+    "D"
+   ],
+   "maxPoints": 2,
+   "show": [
+    "coords"
+   ],
+   "challenge": "A, B and C are three corners of a rectangle (∠B = 90°). Plot D so that ABCD has four right angles."
+  }
+ },
+ "g8-maths-04-05": {
+  "type": "coordplane",
+  "p": {
+   "task": "plot",
+   "xRange": [
+    -6,
+    6
+   ],
+   "yRange": [
+    -4,
+    4
+   ],
+   "given": [
+    [
+     -4,
+     0
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     4,
+     0
+    ]
+   ],
+   "givenLabels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "targets": [
+    [
+     0,
+     -3
+    ]
+   ],
+   "targetLabels": [
+    "D"
+   ],
+   "maxPoints": 2,
+   "show": [
+    "coords"
+   ],
+   "challenge": "Diagonal AC goes from (−4, 0) to (4, 0). Plot D so that the diagonals AC and BD bisect each other at right angles but are not equal. Which quadrilateral is ABCD?"
+  }
+ },
+ "g8-maths-04-03": {
+  "type": "anglemaker",
+  "p": {
+   "mode": "make",
+   "max": 180,
+   "start": 40,
+   "target": 115,
+   "challenge": "A quadrilateral has angles 70°, 80° and 95°. All four angles add to 360° (a diagonal makes two triangles: 180° + 180°). Make the fourth angle."
+  }
+ },
+ "g8-maths-04-02": {
+  "type": "anglemaker",
+  "p": {
+   "mode": "pairs",
+   "pair": "supplementary",
+   "start": 30,
+   "target": 110,
+   "ask": 2,
+   "challenge": "In parallelogram ABCD, neighbouring angles add up to 180°. If ∠A = 70°, make ∠B as angle 2 — angle 1 should then show 70°."
+  }
+ },
+ "g8-maths-04-06": {
+  "type": "areagrid",
+  "p": {
+   "mode": "parallelogram",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    4,
+    3,
+    1
+   ],
+   "unit": "cm",
+   "targetArea": 24,
+   "challenge": "Two congruent triangles, each with base 6 and height 4 (area 12), are joined with one turned half-way round. They make a parallelogram! Build it: base 6, height 4, area 24."
+  }
+ },
+ "g8-maths-04-07": {
+  "type": "anglemaker",
+  "p": {
+   "mode": "parallel",
+   "start": 60,
+   "target": 115,
+   "ask": 6,
+   "highlight": "cointerior",
+   "challenge": "Trapezium ABCD has AB ∥ DC, and side AD cuts across them like a transversal. Co-interior angles add to 180° (∠A + ∠D = 180°). Make ∠6 = 115° and read its co-interior partner."
+  }
+ },
+ "g8-maths-04-08": {
+  "type": "storysequence",
+  "p": {
+   "title": "From any quadrilateral to a square",
+   "kind": "story",
+   "challenge": "Every square is a rhombus, every rhombus is a parallelogram, every parallelogram is a quadrilateral. Order the family from the most general to the most special, using the diagonals.",
+   "panels": [
+    [
+     "📐",
+     "Quadrilateral: 4 sides and 2 diagonals"
+    ],
+    [
+     "▱",
+     "Parallelogram: the diagonals bisect each other"
+    ],
+    [
+     "🔷",
+     "Rhombus: they also meet at 90°"
+    ],
+    [
+     "⬛",
+     "Square: they are also equal"
+    ]
+   ]
+  }
+ },
+ "g8-maths-05-04": {
+  "type": "balance",
+  "p": {
+   "left": [
+    3,
+    3
+   ],
+   "right": [
+    0,
+    18
+   ],
+   "letter": "n",
+   "challenge": "Three consecutive numbers n, n + 1, n + 2 add up to 18. That is 3n + 3 = 18. Find n — and the three numbers."
+  }
+ },
+ "g8-maths-05-03": {
+  "type": "patterns",
+  "p": {
+   "kind": "triangular",
+   "visual": "dots",
+   "label": "dots",
+   "n": 4,
+   "maxN": 6,
+   "showSum": false,
+   "ask": {
+    "term": 10
+   },
+   "challenge": "Triangular numbers are 1 + 2 + ... + n = n(n + 1) ÷ 2. How many dots are in triangle 10?"
+  }
+ },
+ "g8-maths-05-05": {
+  "type": "probability",
+  "p": {
+   "device": "dice",
+   "count": 2,
+   "ask": {
+    "type": "event",
+    "outcomes": [
+     2,
+     4,
+     6,
+     8,
+     10,
+     12
+    ],
+    "name": "an even total"
+   },
+   "minTrials": 100,
+   "challenge": "Roll two dice and add. Even + even = even, odd + odd = even, odd + even = odd. Predict P(even total), then roll to check."
+  }
+ },
+ "g8-maths-05-06": {
+  "type": "arraygrid",
+  "p": {
+   "mode": "share",
+   "total": 22,
+   "groups": 5,
+   "item": "sweet",
+   "itemName": "sweets",
+   "challenge": "13 leaves remainder 3 and 9 leaves remainder 4 when shared among 5. Share 13 + 9 = 22 among 5 plates. The remainders add: 3 + 4 = 7 = one more 5 and 2. What is left over?"
+  }
+ },
+ "g8-maths-05-07": {
+  "type": "numberline",
+  "p": {
+   "mode": "skip",
+   "min": 1,
+   "max": 361,
+   "tick": 60,
+   "start": 1,
+   "step": 60,
+   "target": 301,
+   "labels": "all",
+   "showTarget": false,
+   "challenge": "Pebble riddle: the number is 1 more than a multiple of 60 (the LCM of 2, 3, 4, 5, 6). Hop by 60 from 1 and stop at the first number that 7 divides exactly."
+  }
+ },
+ "g8-maths-05-01": {
+  "type": "numberline",
+  "p": {
+   "mode": "skip",
+   "min": 9100,
+   "max": 9148,
+   "tick": 4,
+   "start": 9100,
+   "step": 4,
+   "target": 9144,
+   "labels": "auto",
+   "showTarget": false,
+   "challenge": "9,100 is a multiple of 4 (because 100 is). Hop in 4s from 9,100 to the last multiple of 4 below 9,147. 9,147 is 3 more — the same remainder as 47 ÷ 4!"
+  }
+ },
+ "g8-maths-05-02": {
+  "type": "flowchart",
+  "p": {
+   "title": "Digital root of 9,875",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🔢",
+     "text": "Take 9,875",
+     "info": ""
+    },
+    {
+     "id": "b",
+     "emoji": "➕",
+     "text": "Add the digits: 9 + 8 + 7 + 5 = 29",
+     "info": "A number and its digit sum leave the same remainder on division by 9."
+    },
+    {
+     "id": "c",
+     "emoji": "➕",
+     "text": "Add again: 2 + 9 = 11",
+     "info": "Keep going until one digit is left."
+    },
+    {
+     "id": "d",
+     "emoji": "➕",
+     "text": "Add again: 1 + 1 = 2",
+     "info": "The digital root is 2."
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "9,875 leaves remainder 2 when divided by 9",
+     "info": "Why? 10 = 9 + 1, 100 = 99 + 1, 1000 = 999 + 1. Check: 9 × 1097 = 9873, and 9875 − 9873 = 2."
+    }
+   ],
+   "challenge": "Put the steps in order to find the remainder when 9,875 is divided by 9."
+  }
+ },
+ "g8-maths-05-08": {
+  "type": "flowchart",
+  "p": {
+   "title": "Crack EF × E = GGG",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🔤",
+     "text": "GGG = G × 111",
+     "info": "A number like 777 is 7 × 111."
+    },
+    {
+     "id": "b",
+     "emoji": "🧩",
+     "text": "111 = 3 × 37",
+     "info": ""
+    },
+    {
+     "id": "c",
+     "emoji": "✍️",
+     "text": "So EF × E = G × 3 × 37",
+     "info": ""
+    },
+    {
+     "id": "d",
+     "emoji": "🔍",
+     "text": "Try EF = 37 and E = 3",
+     "info": "EF must start with the digit E — and 37 does start with 3!"
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "37 × 3 = 111, so G = 1",
+     "info": "Every letter is now a digit: E = 3, F = 7, G = 1."
+    }
+   ],
+   "challenge": "Arrange the clues in order to crack the letter puzzle EF × E = GGG."
+  }
+ },
+ "g8-maths-06-04": {
+  "type": "areagrid",
+  "p": {
+   "mode": "rect",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    6,
+    4
+   ],
+   "unit": "cm",
+   "targetArea": 28,
+   "targetPerimeter": 22,
+   "challenge": "6 × 4 = 24. Add 1 to the 6: (6 + 1) × 4 = 24 + 4. Drag the corner to make 7 × 4 and see the area grow by exactly 4, the other factor."
+  }
+ },
+ "g8-maths-06-01": {
+  "type": "arraygrid",
+  "p": {
+   "mode": "array",
+   "ask": "exact",
+   "target": "6x12",
+   "rows": 2,
+   "cols": 3,
+   "maxRows": 8,
+   "maxCols": 12,
+   "item": "star",
+   "itemName": "stars",
+   "challenge": "Build 6 rows of 12 stars. Split each row into 10 + 2: 6 × 12 = 6 × 10 + 6 × 2 = 60 + 12. Is the total 72?"
+  }
+ },
+ "g8-maths-06-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "Grid method: (x² + 2x + 3)(x + 1)",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🔲",
+     "text": "Write x², 2x, 3 along the top and x, 1 down the side",
+     "info": "One bracket on each edge of the grid."
+    },
+    {
+     "id": "b",
+     "emoji": "✖️",
+     "text": "Fill all 6 boxes: x³, 2x², 3x and x², 2x, 3",
+     "info": "Each box = its row term × its column term. 3 × 2 = 6 products."
+    },
+    {
+     "id": "c",
+     "emoji": "🧺",
+     "text": "Group like terms: x³ + (2x² + x²) + (3x + 2x) + 3",
+     "info": "Only like terms can be added."
+    },
+    {
+     "id": "d",
+     "emoji": "✅",
+     "text": "= x³ + 3x² + 5x + 3",
+     "info": "The finished product."
+    }
+   ],
+   "challenge": "Put the grid-method steps in order to multiply (x² + 2x + 3)(x + 1)."
+  }
+ },
+ "g8-maths-06-02": {
+  "type": "algebratiles",
+  "p": {
+   "identity": "sq_sum",
+   "a": 3,
+   "b": 2,
+   "aRange": [
+    1,
+    8
+   ],
+   "bRange": [
+    1,
+    6
+   ],
+   "names": [
+    "a",
+    "b"
+   ],
+   "target": 64,
+   "challenge": "Make a square of area (a + b)² = 64. Tap the parts: a², b² and TWO a × b rectangles. Check that a² + 2ab + b² = 64."
+  }
+ },
+ "g8-maths-06-03": {
+  "type": "algebratiles",
+  "p": {
+   "identity": "diff_sq",
+   "a": 6,
+   "b": 2,
+   "aRange": [
+    1,
+    8
+   ],
+   "bRange": [
+    1,
+    6
+   ],
+   "names": [
+    "a",
+    "b"
+   ],
+   "target": 40,
+   "rearrange": true,
+   "challenge": "Make a² − b² = 40 (cut a b × b corner off an a × a square). Then tap Rearrange to see the same area as (a + b) × (a − b)."
+  }
+ },
+ "g8-maths-06-06": {
+  "type": "patterns",
+  "p": {
+   "kind": "ap",
+   "a": 4,
+   "d": 3,
+   "visual": "tiles",
+   "label": "matchsticks",
+   "n": 3,
+   "maxN": 6,
+   "showSum": false,
+   "ask": {
+    "term": 10
+   },
+   "challenge": "A row of y squares made of matchsticks needs 3y + 1 sticks: 4, 7, 10, ... How many matchsticks for a row of 10 squares?"
+  }
+ },
+ "g8-maths-06-07": {
+  "type": "algebratiles",
+  "p": {
+   "identity": "sq_sum",
+   "a": 1,
+   "b": 4,
+   "aRange": [
+    1,
+    8
+   ],
+   "bRange": [
+    1,
+    6
+   ],
+   "names": [
+    "x",
+    "b"
+   ],
+   "fix": {
+    "b": 4
+   },
+   "target": 49,
+   "challenge": "Mind the mistake: (x + 4)² is NOT x² + 16. With b fixed at 4, make (x + 4)² = 49. Then find the missing middle part 2 × x × 4 = 8x."
+  }
+ },
+ "g8-maths-06-08": {
+  "type": "areagrid",
+  "p": {
+   "mode": "lshape",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    8,
+    6,
+    3,
+    2
+   ],
+   "unit": "cm",
+   "targetArea": 40,
+   "targetPerimeter": 28,
+   "challenge": "Make an L-shape: a 7 × 7 square with a 3 × 3 corner cut out. Its area is 7² − 3². Cut it into two rectangles and line them up: (7 + 3) × (7 − 3). Both give 40!"
+  }
+ },
+ "g8-maths-06-09": {
+  "type": "flowchart",
+  "p": {
+   "title": "Why the calendar trick always gives 7",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "📅",
+     "text": "Pick a 2 × 2 block: top row a, a + 1",
+     "info": "Any block of 4 dates on a calendar."
+    },
+    {
+     "id": "b",
+     "emoji": "⬇️",
+     "text": "Bottom row: a + 7, a + 8",
+     "info": "The date below is 7 more (one week later)."
+    },
+    {
+     "id": "c",
+     "emoji": "✖️",
+     "text": "Multiply across the diagonals: (a + 1)(a + 7) and a(a + 8)",
+     "info": ""
+    },
+    {
+     "id": "d",
+     "emoji": "🧮",
+     "text": "(a + 1)(a + 7) = a² + 8a + 7 and a(a + 8) = a² + 8a",
+     "info": "Expand with the distributive property."
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "The difference is always 7!",
+     "info": "a² + 8a + 7 − (a² + 8a) = 7, whatever a is."
+    }
+   ],
+   "challenge": "Arrange the steps of the proof of the calendar trick."
+  }
+ },
+ "g8-maths-07-04": {
+  "type": "areagrid",
+  "p": {
+   "mode": "rect",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    6,
+    4
+   ],
+   "unit": "cm",
+   "targetArea": 96,
+   "targetPerimeter": 40,
+   "challenge": "A 6 cm × 4 cm photo is enlarged so it still looks alike: BOTH sides are multiplied by 2. Drag the corner to make the enlarged photo."
+  }
+ },
+ "g8-maths-07-01": {
+  "type": "fractionbar",
+  "p": {
+   "mode": "collection",
+   "a": "2/5",
+   "total": 30,
+   "item": "🧒",
+   "itemName": "children",
+   "challenge": "A class has 12 boys and 18 girls: 12 : 18 = 2 : 3. So boys are 2 out of every 5 children. Make 5 equal groups of the 30 children and pick 2/5 — do you get the 12 boys?"
+  }
+ },
+ "g8-maths-07-02": {
+  "type": "fractionbar",
+  "p": {
+   "mode": "equivalent",
+   "a": "3/4",
+   "shape": "bar",
+   "slice": true,
+   "den": 16,
+   "maxParts": 16,
+   "challenge": "Is 3 : 4 :: 12 : 16? Cut the bottom bar into 16 parts and shade as much as 3/4. If you need exactly 12 parts, it is a proportion (3 × 16 = 4 × 12 = 48)."
+  }
+ },
+ "g8-maths-07-03": {
+  "type": "moneycounter",
+  "p": {
+   "mode": "pay",
+   "amount": 960,
+   "coins": [
+    1,
+    2,
+    5,
+    10
+   ],
+   "notes": [
+    10,
+    20,
+    50,
+    100,
+    200,
+    500
+   ],
+   "challenge": "5 kg of apples cost ₹600, so 1 kg costs ₹600 ÷ 5. Pay the exact price of 8 kg of apples."
+  }
+ },
+ "g8-maths-07-05": {
+  "type": "fractionbar",
+  "p": {
+   "mode": "compare",
+   "a": "1/4",
+   "b": "2/7",
+   "shape": "bar",
+   "challenge": "Coffee A is 1 : 3 (decoction : milk), so 1/4 of it is decoction. Coffee B is 2 : 5, so 2/7 is decoction. Shade both and pick the sign — which coffee is stronger?"
+  }
+ },
+ "g8-maths-07-06": {
+  "type": "datachart",
+  "p": {
+   "title": "20 L of milk and water",
+   "labels": [
+    "Milk",
+    "Water"
+   ],
+   "values": [
+    15,
+    5
+   ],
+   "views": [
+    "bar",
+    "pie"
+   ],
+   "unit": "litres",
+   "max": 20,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     15,
+     10
+    ]
+   },
+   "challenge": "The 20 L mix is milk : water = 3 : 1 (15 L and 5 L). Keep the milk as it is and add water to make the ratio 3 : 2."
+  }
+ },
+ "g8-maths-07-07": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Unit conversions",
+   "leftTitle": "Unit",
+   "rightTitle": "Equals",
+   "mode": "instant",
+   "pairs": [
+    [
+     "1 km",
+     "1000 m"
+    ],
+    [
+     "1 m",
+     "100 cm"
+    ],
+    [
+     "1 foot",
+     "30.48 cm"
+    ],
+    [
+     "1 inch",
+     "2.54 cm"
+    ],
+    [
+     "1 m²",
+     "10,000 cm²"
+    ],
+    [
+     "1 hectare",
+     "10,000 m²"
+    ],
+    [
+     "1 L",
+     "1000 mL"
+    ],
+    [
+     "1 m³",
+     "1000 L"
+    ]
+   ],
+   "challenge": "Join each unit to its conversion. Notice: 1 m = 100 cm, but 1 m² = 100 × 100 cm²."
+  }
+ },
+ "g8-maths-07-08": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": 0,
+   "max": 240,
+   "tick": 40,
+   "snap": 4,
+   "target": 212,
+   "labels": "all",
+   "showTarget": false,
+   "challenge": "Water boils at 100°C. Convert it: F = (9/5) × 100 + 32. Drag the frog to the answer on this °F scale."
+  }
+ },
+ "g8-maths-08-01": {
+  "type": "fractionbar",
+  "p": {
+   "mode": "collection",
+   "a": "3/4",
+   "total": 24,
+   "item": "✅",
+   "itemName": "marks",
+   "challenge": "Riya scored 18 out of 24. Make 4 equal groups of the 24 marks and pick 3/4 — is it 18? Then 3/4 × 100% = 75%."
+  }
+ },
+ "g8-maths-08-04": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": 0,
+   "max": 240,
+   "tick": 24,
+   "snap": 12,
+   "target": 84,
+   "labels": "all",
+   "showTarget": false,
+   "challenge": "Bar model for 240: each tick is 10% of 240 = 24. 35% = 30% + 5%. Drag the frog to 35% of 240."
+  }
+ },
+ "g8-maths-08-02": {
+  "type": "numberline",
+  "p": {
+   "mode": "jump",
+   "min": 90,
+   "max": 120,
+   "tick": 1,
+   "start": 110,
+   "add": -11,
+   "labels": "auto",
+   "hops": [
+    1,
+    5
+   ],
+   "showTarget": false,
+   "challenge": "A ₹100 price went up 10% to ₹110. Now it goes DOWN 10% — and 10% of 110 is 11. Hop back 11 from 110. Are you back at 100?"
+  }
+ },
+ "g8-maths-08-03": {
+  "type": "moneycounter",
+  "p": {
+   "mode": "pay",
+   "amount": 400,
+   "coins": [
+    1,
+    2,
+    5,
+    10
+   ],
+   "notes": [
+    10,
+    20,
+    50,
+    100,
+    200,
+    500
+   ],
+   "challenge": "A school bag has a marked price of ₹500 and a 20% discount. SP = 500 × (100 − 20)/100. Pay the selling price."
+  }
+ },
+ "g8-maths-08-05": {
+  "type": "areagrid",
+  "p": {
+   "mode": "rect",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    5,
+    5
+   ],
+   "unit": "cm",
+   "targetArea": 24,
+   "targetPerimeter": 20,
+   "challenge": "A 5 cm × 5 cm square has area 25. Make the length 20% longer (6 cm) and the breadth 20% shorter (4 cm). Is the area the same? 1.2 × 0.8 = 0.96, so it falls by 4%!"
+  }
+ },
+ "g8-maths-08-06": {
+  "type": "budget",
+  "p": {
+   "title": "₹5000 at 8% for 3 years",
+   "mode": "interest",
+   "modes": [
+    "interest"
+   ],
+   "currency": "₹",
+   "principal": {
+    "min": 1000,
+    "max": 10000,
+    "step": 1000,
+    "value": 2000
+   },
+   "rate": {
+    "min": 1,
+    "max": 15,
+    "step": 1,
+    "value": 5
+   },
+   "years": {
+    "min": 1,
+    "max": 10,
+    "step": 1,
+    "value": 1
+   },
+   "igoal": {
+    "kind": "si",
+    "interest": 1200
+   },
+   "challenge": "Set ₹5000 at 8% a year for 3 years. Simple interest should be exactly ₹1200 (amount ₹6200). Then compare: compound interest gives about ₹6298.56!"
+  }
+ },
+ "g8-maths-08-07": {
+  "type": "datachart",
+  "p": {
+   "title": "Biscuit ingredients (%)",
+   "labels": [
+    "Wheat",
+    "Sugar",
+    "Oil",
+    "Others"
+   ],
+   "values": [
+    60,
+    25,
+    12,
+    0
+   ],
+   "views": [
+    "pie",
+    "bar"
+   ],
+   "unit": "%",
+   "max": 100,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     60,
+     25,
+     12,
+     3
+    ]
+   },
+   "challenge": "The parts on a label must add up to 100%. Wheat 60%, sugar 25%, oil 12% — set Others so the label is complete."
+  }
+ },
+ "g8-maths-09-04": {
+  "type": "areagrid",
+  "p": {
+   "mode": "rect",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    3,
+    3
+   ],
+   "unit": "cm",
+   "targetArea": 36,
+   "targetPerimeter": 24,
+   "challenge": "This square has side 3 and area 9. Double the side to 6. Is the area doubled too? Make the 6 × 6 square and compare its area with 9."
+  }
+ },
+ "g8-maths-09-05": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": 1.4,
+   "max": 1.5,
+   "tick": 0.01,
+   "target": 1.41,
+   "format": "decimal",
+   "labels": "auto",
+   "showTarget": false,
+   "challenge": "Trap √2: 1.41² = 1.9881 is less than 2, but 1.42² = 2.0164 is more. Drag the frog to the hundredth just below √2."
+  }
+ },
+ "g8-maths-09-01": {
+  "type": "triangle",
+  "p": {
+   "points": [
+    [
+     2,
+     1
+    ],
+    [
+     9,
+     1
+    ],
+    [
+     4,
+     6
+    ]
+   ],
+   "grid": [
+    12,
+    8
+   ],
+   "show": [
+    "sides",
+    "pythag",
+    "class"
+   ],
+   "goal": "right",
+   "goals": [
+    "right"
+   ],
+   "challenge": "Drag the corners to make a right triangle. Then check the squares: is a² + b² equal to c² on the hypotenuse?"
+  }
+ },
+ "g8-maths-09-03": {
+  "type": "triangle",
+  "p": {
+   "points": [
+    [
+     1,
+     1
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     3,
+     5
+    ]
+   ],
+   "grid": [
+    12,
+    8
+   ],
+   "show": [
+    "sides",
+    "angles",
+    "pythag",
+    "class"
+   ],
+   "goal": "obtuse",
+   "goals": [
+    "obtuse",
+    "acute",
+    "right"
+   ],
+   "challenge": "Converse in action: make an obtuse triangle. Compare a² + b² with c² for the longest side — for an obtuse triangle a² + b² < c²."
+  }
+ },
+ "g8-maths-09-06": {
+  "type": "coordplane",
+  "p": {
+   "task": "plot",
+   "xRange": [
+    -2,
+    4
+   ],
+   "yRange": [
+    0,
+    4
+   ],
+   "given": [
+    [
+     0,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "givenLabels": [
+    "A",
+    "B"
+   ],
+   "targets": [
+    [
+     1,
+     3
+    ],
+    [
+     -1,
+     2
+    ]
+   ],
+   "targetLabels": [
+    "C",
+    "D"
+   ],
+   "maxPoints": 3,
+   "show": [
+    "coords",
+    "distance"
+   ],
+   "challenge": "Side AB goes 2 across and 1 up, so the square on it has area 2² + 1² = 5. Plot C and D to finish the tilted square ABCD."
+  }
+ },
+ "g8-maths-09-02": {
+  "type": "coordplane",
+  "p": {
+   "task": "distance",
+   "xRange": [
+    0,
+    12
+   ],
+   "yRange": [
+    0,
+    12
+   ],
+   "given": [
+    [
+     0,
+     0
+    ]
+   ],
+   "givenLabels": [
+    "O"
+   ],
+   "dist": 13,
+   "show": [
+    "coords",
+    "distance"
+   ],
+   "challenge": "Plot a point with whole-number coordinates exactly 13 units from O. Its x, its y and 13 form a Pythagorean triple — and it is not a multiple of (3, 4, 5)!"
+  }
+ },
+ "g8-maths-09-07": {
+  "type": "patterns",
+  "p": {
+   "kind": "ap",
+   "a": 1,
+   "d": 2,
+   "visual": "numbers",
+   "label": "odd number",
+   "n": 4,
+   "maxN": 6,
+   "showSum": true,
+   "ask": {
+    "which": 25
+   },
+   "challenge": "n² = 1 + 3 + 5 + ... + (2n − 1). When the last odd number is a square like 25 = 5², then n² = (n − 1)² + 5². Which term number is 25? That n gives a triple!"
+  }
+ },
+ "g8-maths-09-08": {
+  "type": "flowchart",
+  "p": {
+   "title": "The lotus problem",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🪷",
+     "text": "Lotus 10 cm above water; wind bends it to touch the water 30 cm away",
+     "info": "The flower moves 30 cm sideways."
+    },
+    {
+     "id": "b",
+     "emoji": "📏",
+     "text": "Let the depth be d, so the stem is d + 10",
+     "info": "The stem stays the same length when it bends."
+    },
+    {
+     "id": "c",
+     "emoji": "📐",
+     "text": "Right triangle: d² + 30² = (d + 10)²",
+     "info": "Depth and distance are the legs; the stem is the hypotenuse."
+    },
+    {
+     "id": "d",
+     "emoji": "🧮",
+     "text": "d² + 900 = d² + 20d + 100",
+     "info": "Expand (d + 10)²."
+    },
+    {
+     "id": "e",
+     "emoji": "➖",
+     "text": "800 = 20d",
+     "info": "Take d² and 100 from both sides."
+    },
+    {
+     "id": "f",
+     "emoji": "✅",
+     "text": "d = 40 cm",
+     "info": "The water is 40 cm deep, and the stem is 50 cm."
+    }
+   ],
+   "challenge": "Put the steps of the lotus problem in order to find how deep the water is."
+  }
+ },
+ "g8-maths-10-01": {
+  "type": "graphplot",
+  "p": {
+   "mode": "line",
+   "m": 1,
+   "c": 2,
+   "xr": 6,
+   "yr": 8,
+   "tableX": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "through": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     6
+    ]
+   ],
+   "challenge": "Pay for a fixed hourly wage: 1 hour → ₹200, 3 hours → ₹600 (y in hundreds of ₹). Make the line through (0, 0), (1, 2) and (3, 6). Is y ÷ x the same in the table?"
+  }
+ },
+ "g8-maths-10-04": {
+  "type": "numberline",
+  "p": {
+   "mode": "skip",
+   "min": 0,
+   "max": 5000,
+   "tick": 500,
+   "start": 0,
+   "step": 500,
+   "target": 4000,
+   "labels": "auto",
+   "challenge": "Map scale 1 : 50,000 — 1 cm on the map is 50,000 cm = 500 m. Each hop is 1 cm on the map. Hop to a real distance of 4 km. How many cm is that on the map?"
+  }
+ },
+ "g8-maths-10-05": {
+  "type": "datachart",
+  "p": {
+   "title": "Masala mix (spoons)",
+   "labels": [
+    "Cumin",
+    "Coriander",
+    "Chilli"
+   ],
+   "values": [
+    2,
+    3,
+    1
+   ],
+   "views": [
+    "bar",
+    "pie"
+   ],
+   "unit": "spoons",
+   "max": 20,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     4,
+     6,
+     2
+    ]
+   },
+   "challenge": "Cumin : coriander : chilli = 2 : 3 : 1. Make a double batch: multiply EVERY term by 2. Check that the pie (the taste!) stays the same."
+  }
+ },
+ "g8-maths-10-06": {
+  "type": "triangle",
+  "p": {
+   "points": [
+    [
+     1,
+     2
+    ],
+    [
+     7,
+     2
+    ],
+    [
+     3,
+     5
+    ]
+   ],
+   "grid": [
+    12,
+    8
+   ],
+   "show": [
+    "sides",
+    "inequality"
+   ],
+   "goal": "flat",
+   "goals": [
+    "flat",
+    "scalene"
+   ],
+   "challenge": "Sides in the ratio 1 : 2 : 3 cannot make a triangle, because 1 + 2 = 3. Drag C until the two shorter sides add up to exactly the longest side — watch the triangle go flat!"
+  }
+ },
+ "g8-maths-10-07": {
+  "type": "datachart",
+  "p": {
+   "title": "Favourite sport of 500 students (1 unit = 10 students)",
+   "labels": [
+    "Cricket",
+    "Football",
+    "Kabaddi",
+    "Hockey"
+   ],
+   "values": [
+    20,
+    10,
+    12,
+    8
+   ],
+   "views": [
+    "pie",
+    "bar"
+   ],
+   "unit": "units",
+   "editable": false,
+   "statsOf": "none",
+   "key": 20,
+   "ask": {
+    "type": "read",
+    "question": "Football's slice is 72°. There are 500 students. How many chose Football? (72/360 × 500)",
+    "answer": 100
+   },
+   "challenge": "Football's slice is 72°. There are 500 students in all. How many chose Football? Use value = (angle ÷ 360°) × total."
+  }
+ },
+ "g8-maths-10-02": {
+  "type": "arraygrid",
+  "p": {
+   "mode": "array",
+   "ask": "factors",
+   "target": 12,
+   "rows": 1,
+   "cols": 1,
+   "maxRows": 12,
+   "maxCols": 12,
+   "item": "sweet",
+   "itemName": "laddoos",
+   "challenge": "A box of 12 laddoos is shared: rows = children, columns = laddoos each. Find every way. More children means fewer laddoos each, and children × laddoos always stays 12."
+  }
+ },
+ "g8-maths-10-08": {
+  "type": "fractionbar",
+  "p": {
+   "mode": "add",
+   "a": "1/6",
+   "b": "1/3",
+   "shape": "bar",
+   "challenge": "Ravi does 1/6 of the job each day and Sita does 1/3. Add their work for one day. What part do they finish together — so how many days for the whole job?"
+  }
+ },
+ "g8-maths-10-03": {
+  "type": "clockset",
+  "p": {
+   "mode": "elapsed",
+   "start": "7:00",
+   "duration": 300,
+   "snap": 15,
+   "challenge": "A train covers 300 km at 60 km/h. Time = distance ÷ speed. It leaves at 7:00 — move the clock forward by the journey time."
+  }
+ },
+ "g8-maths-11-04": {
+  "type": "patterns",
+  "p": {
+   "kind": "gp",
+   "a": 3,
+   "r": 3,
+   "visual": "dots",
+   "label": "triangles",
+   "n": 2,
+   "maxN": 3,
+   "showSum": false,
+   "ask": {
+    "term": 5
+   },
+   "challenge": "Sierpinski gasket: each step keeps 3 of the 4 small triangles in every triangle, so the count triples: 3, 9, 27, ... (3ⁿ after step n). How many triangles after step 5?"
+  }
+ },
+ "g8-maths-11-05": {
+  "type": "patterns",
+  "p": {
+   "kind": "gp",
+   "a": 3,
+   "r": 4,
+   "visual": "numbers",
+   "label": "sides",
+   "n": 2,
+   "maxN": 3,
+   "showSum": false,
+   "ask": {
+    "term": 5
+   },
+   "challenge": "Koch snowflake: every side turns into 4 smaller sides. Term 1 is the triangle (3 sides), term 2 is after step 1 (12 sides). How many sides after step 4 (term 5)?"
+  }
+ },
+ "g8-maths-11-06": {
+  "type": "datachart",
+  "p": {
+   "title": "Pentagonal prism (n = 5)",
+   "labels": [
+    "Faces",
+    "Edges",
+    "Vertices"
+   ],
+   "values": [
+    5,
+    10,
+    5
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "number",
+   "max": 20,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     7,
+     15,
+     10
+    ]
+   },
+   "challenge": "A prism with an n-sided base has n + 2 faces, 3n edges and 2n vertices. Set the bars for a pentagonal prism (n = 5). Then check Euler: F + V − E = 2."
+  }
+ },
+ "g8-maths-11-03": {
+  "type": "solid3d",
+  "p": {
+   "shape": "cube",
+   "challenge": "Spin the cube: from the front, the side and the top it looks like a square. Press Unfold net to see the 6 squares that fold into it."
+  }
+ },
+ "g8-maths-11-02": {
+  "type": "solid3d",
+  "p": {
+   "shape": "pyramid",
+   "challenge": "Spin the square pyramid and tap Faces, Edges and Corners. Check Euler’s formula: F + V − E = 2."
+  }
+ },
+ "g8-maths-11-07": {
+  "type": "coordplane",
+  "p": {
+   "task": "distance",
+   "xRange": [
+    0,
+    8
+   ],
+   "yRange": [
+    0,
+    8
+   ],
+   "given": [
+    [
+     0,
+     0
+    ]
+   ],
+   "givenLabels": [
+    "S"
+   ],
+   "dist": 10,
+   "show": [
+    "coords",
+    "distance"
+   ],
+   "challenge": "An ant crawls over a box with a 3 cm × 3 cm base and height 8 cm. Unfold two side faces: it crosses a 6 cm × 8 cm rectangle. Plot the far corner of that rectangle — exactly 10 cm from the start S."
+  }
+ },
+ "g8-maths-11-08": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Match the solid to its view",
+   "leftTitle": "Solid and view",
+   "rightTitle": "Shape you see",
+   "mode": "instant",
+   "pairs": [
+    [
+     "Cylinder from the top",
+     "Circle"
+    ],
+    [
+     "Cylinder from the front",
+     "Rectangle"
+    ],
+    [
+     "Square pyramid from the top",
+     "Square with diagonals"
+    ],
+    [
+     "Square pyramid from the front",
+     "Triangle"
+    ],
+    [
+     "Cone from the front",
+     "Triangle"
+    ],
+    [
+     "Sphere from any side",
+     "Circle"
+    ]
+   ],
+   "challenge": "Imagine looking straight at each solid. Join each view to the flat shape it makes."
+  }
+ },
+ "g8-maths-11-01": {
+  "type": "flowchart",
+  "p": {
+   "title": "Perpendicular bisector of AB",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "📏",
+     "text": "Draw the line segment AB",
+     "info": ""
+    },
+    {
+     "id": "b",
+     "emoji": "🧭",
+     "text": "Open the compass to more than half of AB",
+     "info": "The arcs must be long enough to cross."
+    },
+    {
+     "id": "c",
+     "emoji": "⭕",
+     "text": "Draw arcs from A and from B with this same radius",
+     "info": "Every point on an arc is the same distance from its centre."
+    },
+    {
+     "id": "d",
+     "emoji": "✖️",
+     "text": "Mark the two points where the arcs cross",
+     "info": "Each crossing point is equally far from A and B."
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "Join them: the perpendicular bisector of AB",
+     "info": "Every point on this line is equally far from A and B."
+    }
+   ],
+   "challenge": "Put the ruler-and-compass steps in order to construct the perpendicular bisector of AB."
+  }
+ },
+ "g8-maths-12-04": {
+  "type": "datachart",
+  "p": {
+   "title": "Three values: 4, 6 and x",
+   "labels": [
+    "First",
+    "Second",
+    "x"
+   ],
+   "values": [
+    4,
+    6,
+    2
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "value",
+   "max": 20,
+   "ask": {
+    "type": "stat",
+    "stat": "mean",
+    "value": 7
+   },
+   "challenge": "The mean of 4, 6 and x is 7. Keep 4 and 6, and change only x. Balance point: 4 and 6 are 3 + 1 = 4 below 7, so x must be 4 above it."
+  }
+ },
+ "g8-maths-12-01": {
+  "type": "datachart",
+  "p": {
+   "title": "Goals scored in 5 matches",
+   "labels": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5"
+   ],
+   "values": [
+    2,
+    4,
+    1,
+    4,
+    3
+   ],
+   "views": [
+    "bar",
+    "tally"
+   ],
+   "unit": "goals",
+   "editable": false,
+   "statsOf": "none",
+   "ask": {
+    "type": "read",
+    "question": "What is the median number of goals? (Put the values in order first.)",
+    "answer": 3
+   },
+   "challenge": "What is the median number of goals? Arrange 2, 4, 1, 4, 3 in order and pick the middle value."
+  }
+ },
+ "g8-maths-12-05": {
+  "type": "numberline",
+  "p": {
+   "mode": "jump",
+   "min": 360,
+   "max": 410,
+   "tick": 5,
+   "start": 400,
+   "add": -27,
+   "labels": "auto",
+   "hops": [
+    1,
+    5,
+    10
+   ],
+   "showTarget": false,
+   "challenge": "The mean of 10 values is 40, so the total is 400. But 25 was written as 52. Fix the total: hop back 52 − 25 = 27. Then the correct mean = new total ÷ 10."
+  }
+ },
+ "g8-maths-12-06": {
+  "type": "datachart",
+  "p": {
+   "title": "3, 5, 7, 9, 11 … and a big value",
+   "labels": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+   ],
+   "values": [
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "value",
+   "max": 30,
+   "ask": {
+    "type": "stat",
+    "stat": "mean",
+    "value": 10
+   },
+   "challenge": "Mean and median are both 7. Change ONLY the last value (E) to make the mean 10. Watch the median — it stays 7!"
+  }
+ },
+ "g8-maths-12-07": {
+  "type": "datachart",
+  "p": {
+   "title": "Family sizes of 20 families",
+   "labels": [
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "values": [
+    3,
+    5,
+    8,
+    4
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "families",
+   "max": 20,
+   "statsOf": "frequency",
+   "ask": {
+    "type": "stat",
+    "stat": "median",
+    "value": 3
+   },
+   "challenge": "Family sizes 2, 3, 4, 5 with frequencies 3, 5, 8, 4: mean 73 ÷ 20 = 3.65 and median 4. Change the frequencies so the median family size becomes 3 (use running totals!)."
+  }
+ },
+ "g8-maths-12-08": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Spreadsheet formulas",
+   "leftTitle": "Cell or formula",
+   "rightTitle": "What it means",
+   "mode": "instant",
+   "pairs": [
+    [
+     "C4",
+     "Column C, row 4"
+    ],
+    [
+     "=B2*C2",
+     "Multiplies B2 by C2"
+    ],
+    [
+     "=SUM(B2:B6)",
+     "Adds the 5 cells B2 to B6"
+    ],
+    [
+     "=AVERAGE(B2:B6)",
+     "Mean of the cells B2 to B6"
+    ]
+   ],
+   "challenge": "Join each cell name or formula to what it does. (Every formula starts with =.)"
+  }
+ },
+ "g8-maths-12-02": {
+  "type": "datachart",
+  "p": {
+   "title": "Favourite sport (1 🧒 = 5 students)",
+   "labels": [
+    "Cricket",
+    "Football",
+    "Kabaddi",
+    "Badminton"
+   ],
+   "values": [
+    20,
+    15,
+    10,
+    5
+   ],
+   "views": [
+    "picto",
+    "bar",
+    "pie"
+   ],
+   "icon": "🧒",
+   "key": 5,
+   "unit": "students",
+   "editable": false,
+   "statsOf": "none",
+   "ask": {
+    "type": "read",
+    "question": "How many students chose Football?",
+    "answer": 15
+   },
+   "challenge": "Each 🧒 stands for 5 students. How many students chose Football? Then switch views to compare the pictograph, bar graph and pie chart."
+  }
+ },
+ "g8-maths-12-03": {
+  "type": "graphplot",
+  "p": {
+   "mode": "line",
+   "m": 1,
+   "c": 1,
+   "xr": 6,
+   "yr": 10,
+   "tableX": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "through": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     8
+    ]
+   ],
+   "challenge": "Distance–time graph: a walker covers 4 km every hour at a steady speed. Make the line through (0, 0), (1, 4) and (2, 8). The slope is the speed!"
+  }
+ },
+ "g8-maths-12-09": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Pick the right graph",
+   "leftTitle": "Data",
+   "rightTitle": "Best graph",
+   "mode": "instant",
+   "pairs": [
+    [
+     "Change over time",
+     "Line graph"
+    ],
+    [
+     "Comparing categories",
+     "Bar graph"
+    ],
+    [
+     "Parts of a whole",
+     "Pie chart"
+    ],
+    [
+     "A small set of values",
+     "Dot plot"
+    ]
+   ],
+   "challenge": "Misleading or unclear graphs often use the wrong kind of graph. Join each kind of data to the best graph for it."
+  }
+ },
+ "g8-maths-13-01": {
+  "type": "graphplot",
+  "p": {
+   "mode": "quad",
+   "qa": 1,
+   "qb": 0,
+   "qc": -4,
+   "xr": 4,
+   "yr": 20,
+   "tableX": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "target": {
+    "qa": 2,
+    "qb": 0,
+    "qc": 1
+   },
+   "challenge": "Set a, b and c to draw y = 2x² + 1 (that is 2x² + 0x + 1). Then read the table: substitute x = 3 → 2 × 9 + 1 = ?"
+  }
+ },
+ "g8-maths-13-02": {
+  "type": "patterns",
+  "p": {
+   "kind": "ap",
+   "a": 5,
+   "d": 3,
+   "visual": "numbers",
+   "label": "number",
+   "n": 4,
+   "maxN": 6,
+   "showSum": false,
+   "ask": {
+    "term": 20
+   },
+   "challenge": "5, 8, 11, 14, ... goes up by 3 each time, so the nth term is 3n + 2. What is term 20?"
+  }
+ },
+ "g8-maths-13-04": {
+  "type": "flowchart",
+  "p": {
+   "title": "Think of a number",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "💭",
+     "text": "Think of a number: n",
+     "info": ""
+    },
+    {
+     "id": "b",
+     "emoji": "✖️",
+     "text": "Double it: 2n",
+     "info": ""
+    },
+    {
+     "id": "c",
+     "emoji": "➕",
+     "text": "Add 10: 2n + 10",
+     "info": ""
+    },
+    {
+     "id": "d",
+     "emoji": "➗",
+     "text": "Halve it: n + 5",
+     "info": ""
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "Take away your number: 5",
+     "info": "n cancels out, so everyone ends with 5. Add 14 instead of 10 and the answer becomes 7 — half of what you add."
+    }
+   ],
+   "challenge": "Arrange the steps of the trick and watch n disappear."
+  }
+ },
+ "g8-maths-13-05": {
+  "type": "balance",
+  "p": {
+   "left": [
+    2,
+    0
+   ],
+   "right": [
+    0,
+    20
+   ],
+   "letter": "x",
+   "challenge": "Number pyramid: bottom 4, x, 6 and top 30. Top = 4 + 2x + 6, so 2x + 10 = 30. Take 10 off both sides: 2x = 20. Now solve it on the scale!"
+  }
+ },
+ "g8-maths-13-06": {
+  "type": "flowchart",
+  "p": {
+   "title": "Calendar shape puzzles",
+   "task": "play",
+   "nodes": [
+    {
+     "id": "s",
+     "emoji": "📅",
+     "text": "Some dates on a calendar add to a total",
+     "info": ""
+    },
+    {
+     "id": "d",
+     "emoji": "🤔",
+     "text": "Which shape?",
+     "info": "Pick one, then play again with the other.",
+     "type": "decision"
+    },
+    {
+     "id": "b1",
+     "emoji": "🟩",
+     "text": "2 × 2 block: a, a + 1, a + 7, a + 8",
+     "info": "The date below is always 7 more."
+    },
+    {
+     "id": "b2",
+     "emoji": "🧮",
+     "text": "Total 4a + 16 = 72, so 4a = 56 and a = 14",
+     "info": ""
+    },
+    {
+     "id": "b3",
+     "emoji": "✅",
+     "text": "The dates are 14, 15, 21 and 22",
+     "info": "Check: 14 + 15 + 21 + 22 = 72."
+    },
+    {
+     "id": "c1",
+     "emoji": "➕",
+     "text": "Cross: c − 7, c − 1, c, c + 1, c + 7",
+     "info": ""
+    },
+    {
+     "id": "c2",
+     "emoji": "🧮",
+     "text": "Total = 5c. A total of 70 gives c = 14",
+     "info": "The −7 and +7, −1 and +1 cancel."
+    },
+    {
+     "id": "c3",
+     "emoji": "✅",
+     "text": "The dates are 7, 13, 14, 15 and 21",
+     "info": "Check: 7 + 13 + 14 + 15 + 21 = 70."
+    }
+   ],
+   "challenge": "Choose a calendar shape and use algebra to find the dates from the total. Then try the other shape.",
+   "edges": [
+    {
+     "from": "s",
+     "to": "d"
+    },
+    {
+     "from": "d",
+     "to": "b1",
+     "label": "2 × 2 block"
+    },
+    {
+     "from": "d",
+     "to": "c1",
+     "label": "Cross"
+    },
+    {
+     "from": "b1",
+     "to": "b2"
+    },
+    {
+     "from": "b2",
+     "to": "b3"
+    },
+    {
+     "from": "c1",
+     "to": "c2"
+    },
+    {
+     "from": "c2",
+     "to": "c3"
+    }
+   ]
+  }
+ },
+ "g8-maths-13-07": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "2",
+     "3",
+     "4"
+    ],
+    [
+     "2",
+     "3",
+     "4"
+    ],
+    [
+     "× 2",
+     "× 3",
+     "× 4"
+    ]
+   ],
+   "slotLabels": [
+    "Tens",
+    "Units",
+    "Times"
+   ],
+   "rootSlot": 0,
+   "goal": 6,
+   "words": [
+    {
+     "parts": [
+      "2",
+      "3",
+      "× 4"
+     ],
+     "word": "23 × 4",
+     "meaning": "= 92"
+    },
+    {
+     "parts": [
+      "2",
+      "4",
+      "× 3"
+     ],
+     "word": "24 × 3",
+     "meaning": "= 72"
+    },
+    {
+     "parts": [
+      "3",
+      "2",
+      "× 4"
+     ],
+     "word": "32 × 4",
+     "meaning": "= 128"
+    },
+    {
+     "parts": [
+      "3",
+      "4",
+      "× 2"
+     ],
+     "word": "34 × 2",
+     "meaning": "= 68"
+    },
+    {
+     "parts": [
+      "4",
+      "2",
+      "× 3"
+     ],
+     "word": "42 × 3",
+     "meaning": "= 126"
+    },
+    {
+     "parts": [
+      "4",
+      "3",
+      "× 2"
+     ],
+     "word": "43 × 2",
+     "meaning": "= 86"
+    }
+   ],
+   "challenge": "Use the digits 2, 3 and 4 once each: a 2-digit number times a 1-digit number. Find all 6 products. Which is the largest — and where did the biggest digit go?"
+  }
+ },
+ "g8-maths-13-08": {
+  "type": "numberline",
+  "p": {
+   "mode": "jump",
+   "min": 0,
+   "max": 90,
+   "tick": 9,
+   "snap": 1,
+   "start": 82,
+   "add": -28,
+   "labels": "all",
+   "hops": [
+    1,
+    10
+   ],
+   "showTarget": false,
+   "challenge": "Reverse and subtract: 82 − 28. Hop back 28 from 82. You land on a multiple of 9, because (10a + b) − (10b + a) = 9(a − b) = 9 × 6."
+  }
+ },
+ "g8-maths-13-03": {
+  "type": "balance",
+  "p": {
+   "left": [
+    5,
+    0
+   ],
+   "right": [
+    2,
+    15
+   ],
+   "letter": "x",
+   "challenge": "5x − 7 = 2x + 8. Add 7 to both sides: 5x = 2x + 15. Solve it on the scale, then check in the original equation."
+  }
+ },
+ "g8-maths-14-04": {
+  "type": "areagrid",
+  "p": {
+   "mode": "rect",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    9,
+    1
+   ],
+   "unit": "cm",
+   "targetArea": 25,
+   "targetPerimeter": 20,
+   "challenge": "Keep the perimeter at 20 cm: 9 × 1 = 9 cm², 8 × 2 = 16 cm², ... Find the rectangle with perimeter 20 cm and the biggest area."
+  }
+ },
+ "g8-maths-14-03": {
+  "type": "areagrid",
+  "p": {
+   "mode": "paint",
+   "grid": [
+    12,
+    8
+   ],
+   "cells": [],
+   "unit": "m",
+   "targetArea": 19,
+   "targetPerimeter": null,
+   "challenge": "A 12 m × 8 m lawn has two 1 m wide paths crossing in the middle, one along its length and one across. Paint both paths: 12 + 8 − 1 = 19 squares (the crossing square counted once)."
+  }
+ },
+ "g8-maths-14-05": {
+  "type": "areagrid",
+  "p": {
+   "mode": "triangle",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    6,
+    4,
+    2
+   ],
+   "unit": "cm",
+   "targetArea": 24,
+   "challenge": "Area of a triangle = ½ × base × height. Make a triangle of area 24 cm² — try base 8 with height 6, then base 6 with height 8."
+  }
+ },
+ "g8-maths-14-06": {
+  "type": "triangle",
+  "p": {
+   "points": [
+    [
+     1,
+     1
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "grid": [
+    12,
+    8
+   ],
+   "show": [
+    "sides",
+    "area"
+   ],
+   "goal": "area",
+   "targetArea": 12,
+   "goals": [
+    12
+   ],
+   "challenge": "Base AB is 6. Move only C to make the area 12. Try several places for C: every point on the same line parallel to AB gives the same area!"
+  }
+ },
+ "g8-maths-14-01": {
+  "type": "areagrid",
+  "p": {
+   "mode": "parallelogram",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    4,
+    3,
+    2
+   ],
+   "unit": "cm",
+   "targetArea": 32,
+   "challenge": "A trapezium has parallel sides 5 cm and 3 cm and height 4 cm. Two copies, one upside down, make a parallelogram with base 5 + 3 = 8 and height 4. Build it — the trapezium is half of it."
+  }
+ },
+ "g8-maths-14-02": {
+  "type": "coordplane",
+  "p": {
+   "task": "plot",
+   "xRange": [
+    -6,
+    6
+   ],
+   "yRange": [
+    -3,
+    3
+   ],
+   "given": [
+    [
+     -5,
+     0
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     5,
+     0
+    ]
+   ],
+   "givenLabels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "targets": [
+    [
+     0,
+     -2
+    ]
+   ],
+   "targetLabels": [
+    "D"
+   ],
+   "maxPoints": 2,
+   "show": [
+    "coords"
+   ],
+   "challenge": "Rhombus ABCD has diagonals AC = 10 and BD = 4, which bisect each other at right angles. Plot D. Then its area = ½ × d₁ × d₂ = ½ × 10 × 4."
+  }
+ },
+ "g8-maths-14-07": {
+  "type": "areagrid",
+  "p": {
+   "mode": "lshape",
+   "grid": [
+    12,
+    8
+   ],
+   "size": [
+    6,
+    6,
+    2,
+    2
+   ],
+   "unit": "cm",
+   "targetArea": 16,
+   "targetPerimeter": 20,
+   "challenge": "Śulba-sūtra trick: an 8 × 2 rectangle (area 16) is rearranged into an L-shape — a 5 × 5 square minus a 3 × 3 corner (25 − 9 = 16). Build that L. Since 16 = 4², it equals a 4 × 4 square!"
+  }
+ }
+}
