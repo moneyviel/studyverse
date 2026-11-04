@@ -152,10 +152,7 @@ async function labFor(topic, chapter) {
   if (!(k in LABMAP)) { try { LABMAP[k] = await loadJSON(`content/labs/${k}.json`); } catch (e) { LABMAP[k] = {}; } }
   if (LABMAP[k][topic.id]) return LABMAP[k][topic.id];
   if (topic.lab === 'angle') return { type: 'anglemaker', p: {} };
-  try { const m = await scenes(); const sc = m.pickScene(topic, NAV.subject, ST.profile.grade, chapter);
-    const map = { solid: 'solid3d', globe: 'globe3d', atom: 'atom3d', molecule: 'molecule3d', cell: 'cell3d', solar: 'solar3d', moon: 'moon3d', earthlayers: 'earthlayers3d', watercycle: 'watercycle3d', plant: 'plant3d' };
-    if (map[sc.kind]) { const { kind, ...p } = sc; return { type: map[sc.kind], p }; }
-  } catch (e) {}
+  /* No keyword guessing: a lab appears only when it was chosen and checked for this exact topic. */
   return null;
 }
 async function mount3D(host, topic, chapter) {
@@ -372,8 +369,9 @@ function quizRunner(b, list, done) {
           ${q.visual ? `<div class="vis">${Visual.render(q.visual)}</div>` : `<div class="bigans popin">${esc(q.options[q.answer])}</div>`}
           <div class="why">${esc(q.explain)} ${spk(q.explain)}</div>
           ${(q.steps || []).map((s, j) => `<div class="exstep popin" style="animation-delay:${(.4 + j * .45).toFixed(2)}s">${j + 1}. ${esc(s)}</div>`).join('')}</div>
-          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" onclick="open3D()">🧪 Try it</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" id="try3d" onclick="open3D()">🧪 Try it</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
         const rep = $('#rep'); if (rep) rep.onclick = draw;
+        if (RUN) labFor(RUN.t, RUN.c).then(sp => { const t = $('#try3d'); if (t && !sp) t.remove(); });
         $('#nx').onclick = () => { i++; if (i < list.length) render(); else done({ right, total: list.length, mistakes }); };
         setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
       };

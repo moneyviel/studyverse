@@ -11,5 +11,10 @@
    for(const [i,ex] of exs.entries()){ const c=document.createElement('div'); c.className='t'; c.innerHTML=`<h3>${t} #${i+1}</h3><div class=h></div>`; out.appendChild(c);
      const def=Labs.registry[t]; const box=c.querySelector('.h'); const api={speak:()=>{},sfx:()=>{},win:m=>{c.dataset.won=m;},resetWin:()=>{}}; await def.render(box,Object.assign({},def.example,ex),api); } }
    catch(e){ const c=document.createElement('div'); c.className='t'; c.textContent='ERROR '+t+': '+e.message; out.appendChild(c); console.error(e);} }
+ const mp=q.get('map'); if(mp){ const only=(q.get('ids')||'').split(',').filter(Boolean); const m=await (await fetch('content/labs/'+mp+'.json?'+Date.now())).json();
+   for(const [id,spec] of Object.entries(m)){ if(only.length&&!only.includes(id)) continue; const c=document.createElement('div'); c.className='t'; c.dataset.id=id; c.innerHTML=`<h3>${id} · ${spec.type}</h3><div class=h></div>`; out.appendChild(c);
+     try{ const d=await Labs.loadType(spec.type); const box=c.querySelector('.h'); const api={speak:()=>{},sfx:()=>{},win:m=>{c.dataset.won=m;},resetWin:()=>{}};
+       const pp=spec.p&&Object.keys(spec.p).length?Object.assign({},spec.p):Object.assign({},d.example||{}); await d.render(box,pp,api); }
+     catch(e){ c.dataset.err=e.message; c.insertAdjacentHTML('beforeend','<b style=color:red>ERROR '+e.message+'</b>'); console.error(id,e);} } }
  document.body.dataset.ready=1; })();
 </script></body></html>
