@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Labs test</title><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Noto+Sans+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css"><link rel="stylesheet" href="css/app.css">
+<style>body{background:#1d2f6b;padding:10px}.t{max-width:400px;margin:0 auto 18px;background:#fff;border-radius:22px;padding:14px}.t h3{margin:0 0 8px;font-family:sans-serif}</style></head>
+<body><div id="out"></div>
+<script>window.speak=t=>console.log('speak',t);window.sfx=k=>{};</script>
+<script src="js/labs/core.js"></script>
+<script>
+(async()=>{ const q=new URLSearchParams(location.search); const types=(q.get('type')||'').split(',').filter(Boolean); const out=document.getElementById('out');
+ for(const t of types){ try{ const d=await Labs.loadType(t); const exs=[d.example,...(d.examples||[])].filter(Boolean);
+   for(const [i,ex] of exs.entries()){ const c=document.createElement('div'); c.className='t'; c.innerHTML=`<h3>${t} #${i+1}</h3><div class=h></div>`; out.appendChild(c);
+     const def=Labs.registry[t]; const box=c.querySelector('.h'); const api={speak:()=>{},sfx:()=>{},win:m=>{c.dataset.won=m;},resetWin:()=>{}}; await def.render(box,Object.assign({},def.example,ex),api); } }
+   catch(e){ const c=document.createElement('div'); c.className='t'; c.textContent='ERROR '+t+': '+e.message; out.appendChild(c); console.error(e);} }
+ document.body.dataset.ready=1; })();
+</script></body></html>

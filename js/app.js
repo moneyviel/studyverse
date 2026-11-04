@@ -69,17 +69,104 @@ function renderVoicePicker() {
   el.querySelector('#vRate').oninput = e => { VOICE.rate = e.target.value / 100; saveV(); };
   el.querySelector('#vTest').onclick = () => speak('Three rows of four laddoos make twelve laddoos. ₹45 + ₹5 = ₹50.');
 }
-const spk = t => `<button class="spk" data-say="${esc(t)}" aria-label="Read aloud">🔊</button>`;
-document.addEventListener('click', e => { const b = e.target.closest('.spk'); if (b) { e.stopPropagation(); speak(b.dataset.say); } });
+/* ---------- Read-along: speaks text and lights up each word as it is spoken ---------- */
+const ReadAlong = (() => {
+  let session = 0, timer = null;
+  const SYM = { '×': 'times', 'x': null, '÷': 'divided by', '=': 'equals', '−': 'minus', '-': 'minus', '+': 'plus', '<': 'is less than', '>': 'is greater than', '%': 'percent' };
+  const SYM_HI = { '×': 'गुणा', '÷': 'भाग', '=': 'बराबर', '−': 'घटा', '-': 'घटा', '+': 'जोड़', '<': 'से छोटा', '>': 'से बड़ा', '%': 'प्रतिशत' };
+  const SKIP = '.spk,.ra-skip,script,style';
+  function spokenOf(w, hi) {
+    if (/^_{2,}[.,!?]*$/.test(w)) return hi ? 'रिक्त स्थान' : 'blank';
+    const m = (hi ? SYM_HI : SYM)[w]; if (m) return m;
+    const s = speechText(w, hi).trim();
+    return /[\p{L}\p{N}]/u.test(s) ? s : '';
+  }
+  function wrap(el) {
+    if (!el.querySelector('.ra-w')) {
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, { acceptNode: n => (n.parentElement.closest(SKIP) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT) });
+      const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(n => {
+        const blank = n.parentElement.closest('.blank');
+        if (blank) { blank.classList.add('ra-w'); blank.dataset.say = 'blank'; return; }
+        if (!n.nodeValue.trim()) return;
+        const frag = document.createDocumentFragment();
+        n.nodeValue.split(/(\s+)/).forEach(tok => {
+          if (!tok) return;
+          if (/^\s+$/.test(tok)) { frag.appendChild(document.createTextNode(tok)); return; }
+          const sp = document.createElement('span'); sp.className = 'ra-w'; sp.textContent = tok; frag.appendChild(sp);
+        });
+        n.parentNode.replaceChild(frag, n);
+      });
+    }
+    return [...el.querySelectorAll('.ra-w')];
+  }
+  function clear() { clearTimeout(timer); document.querySelectorAll('.ra-w.on').forEach(x => x.classList.remove('on')); document.querySelectorAll('.ra-reading').forEach(x => x.classList.remove('ra-reading')); document.querySelectorAll('.spk.ra-play').forEach(x => x.classList.remove('ra-play')); }
+  function stop() { session++; api.active = false; clear(); try { speechSynthesis.cancel(); } catch (e) {} }
+  function play(els, btn) {
+    if (!('speechSynthesis' in window)) return;
+    const was = btn && btn.classList.contains('ra-play');
+    stop(); if (was) return;                       // second tap = stop
+    const my = ++session; api.active = true; if (btn) btn.classList.add('ra-play');
+    els = els.filter(Boolean); let left = 0;
+    els.forEach((el, k) => {
+      const words = wrap(el); if (!words.length) return;
+      const hi = /[ऀ-ॿ]/.test(el.textContent), v = bestVoice(hi);
+      let text = '', offs = [], idx = [];
+      words.forEach((w, i) => { const s = w.dataset.say || spokenOf(w.textContent, hi); if (!s) return; offs.push(text.length); idx.push(i); text += s + ' '; });
+      if (!text.trim()) return;
+      left++;
+      const u = new SpeechSynthesisUtterance(text.trim());
+      u.lang = v ? v.lang : (hi ? 'hi-IN' : 'en-IN'); if (v) u.voice = v;
+      u.rate = VOICE.rate || 0.9; u.pitch = 1.04;
+      let gotB = false, cur = -1;
+      const light = j => { if (my !== session || j === cur || j < 0) return; cur = j; words.forEach(w => w.classList.remove('on')); const w = words[idx[j]]; if (w) w.classList.add('on'); };
+      const tick = j => { if (gotB || my !== session || j >= idx.length) return; light(j);
+        const s = text.slice(offs[j], offs[j + 1] ?? text.length); timer = setTimeout(() => tick(j + 1), (s.length * 62 + 140) / u.rate); };
+      u.onstart = () => { if (my !== session) return; document.querySelectorAll('.ra-reading').forEach(x => x.classList.remove('ra-reading')); el.classList.add('ra-reading'); tick(0); };
+      u.onboundary = e => { if (my !== session || (e.name && e.name !== 'word')) return; if (!gotB) { gotB = true; clearTimeout(timer); }
+        let j = 0; while (j + 1 < offs.length && offs[j + 1] <= e.charIndex) j++; light(j); };
+      u.onend = u.onerror = () => { if (my !== session) return; clearTimeout(timer); words.forEach(w => w.classList.remove('on')); el.classList.remove('ra-reading'); if (--left <= 0) { api.active = false; clear(); } };
+      speechSynthesis.speak(u);
+    });
+    if (!left) { api.active = false; clear(); }
+  }
+  const api = { play, stop, active: false };
+  return api;
+})();
+window.ReadAlong = ReadAlong;
+const spk = (t, opts) => `<button class="spk"${opts ? ' data-opts="1"' : ''} data-say="${esc(t)}" aria-label="Read aloud">🔊</button>`;
+document.addEventListener('click', e => {
+  const b = e.target.closest('.spk');
+  if (b) { e.stopPropagation(); const host = b.parentElement; const els = [host];
+    if (b.dataset.opts) { const scope = b.closest('.card') || document; els.push(...scope.querySelectorAll('.opt:not([disabled])')); }
+    if (host && 'speechSynthesis' in window) ReadAlong.play(els, b); else speak(b.dataset.say); return; }
+  if (e.target.closest('.opt,.tfb,.btn,.navb')) ReadAlong.stop();
+}, true);
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=6'); return S3D; }
-async function mount3D(host, topic, chapter) {
-  try { const m = await scenes(); const spec = m.pickScene(topic, NAV.subject, ST.profile.grade, chapter); m.mount(host, spec); }
-  catch (e) { host.innerHTML = '<p class="sub">3D view could not load on this device.</p>'; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=7'); return S3D; }
+const LABMAP = {};
+async function labFor(topic, chapter) {
+  const k = `g${ST.profile.grade}-${NAV.subject}`;
+  if (!(k in LABMAP)) { try { LABMAP[k] = await loadJSON(`content/labs/${k}.json`); } catch (e) { LABMAP[k] = {}; } }
+  if (LABMAP[k][topic.id]) return LABMAP[k][topic.id];
+  if (topic.lab === 'angle') return { type: 'anglemaker', p: {} };
+  try { const m = await scenes(); const sc = m.pickScene(topic, NAV.subject, ST.profile.grade, chapter);
+    const map = { solid: 'solid3d', globe: 'globe3d', atom: 'atom3d', molecule: 'molecule3d', cell: 'cell3d', solar: 'solar3d', moon: 'moon3d', earthlayers: 'earthlayers3d', watercycle: 'watercycle3d', plant: 'plant3d' };
+    if (map[sc.kind]) { const { kind, ...p } = sc; return { type: map[sc.kind], p }; }
+  } catch (e) {}
+  return null;
 }
-function unmount3D() { if (S3D) S3D.unmount(); }
+async function mount3D(host, topic, chapter) {
+  const card = host.closest('.card');
+  const spec = await labFor(topic, chapter);
+  if (!spec) { if (card) card.style.display = 'none'; return false; }
+  const ok = await Labs.mount(host, spec, { onWin: () => addXP(15, 'Lab challenge done!') });
+  if (!ok && card) card.style.display = 'none';
+  return ok;
+}
+function unmount3D() { try { Labs.unmount(); } catch (e) {} if (S3D) S3D.unmount(); }
 function open3D() {
   const sh = $('#sheet3d'); sh.classList.add('show');
   mount3D($('#s3dHost'), RUN.t, RUN.c);
@@ -244,15 +331,14 @@ function learnStep(b) {
   const L = RUN.t.learn || {}, t = RUN.t;
   b.innerHTML = `<div class="card"><span class="tag">${esc(RUN.c.title)}</span><h2>${esc(t.title)}</h2>
       <div class="pet"><div class="face">🐣</div><div class="bubble">${esc(L.hook || '')} ${spk(L.hook || '')}</div></div></div>
-    <div class="card"><h3>🧊 Explore in 3D</h3><div id="s3d" class="s3dhost"></div></div>
-    <div class="card"><h3>💡 Big ideas</h3>${(L.points || []).map((p, i) => `<div class="point popin" style="animation-delay:${(i * .25).toFixed(2)}s"><span>${i + 1}</span><div>${esc(p)}</div>${spk(p)}</div>`).join('')}</div>
-    ${t.lab === 'angle' ? `<div class="card"><h3>📐 Angle lab</h3><p class="sub">Drag the yellow dot.</p><div id="lab"></div></div>` : ''}
+    <div class="card labcard"><h3>🧪 Try it yourself</h3><div id="s3d" class="s3dhost"></div></div>
+    <div class="card"><h3>💡 Big ideas</h3>${(L.points || []).map((p, i) => `<div class="point popin" style="animation-delay:${(i * .25).toFixed(2)}s"><span class="ra-skip">${i + 1}</span><div>${esc(p)} ${spk(p)}</div></div>`).join('')}</div>
+    
     ${L.example ? `<div class="card"><h3>🧠 Watch me solve</h3><div class="exq">${esc(L.example.q)} ${spk(L.example.q)}</div><div id="exSteps"></div>
       <button class="btn ghost" id="exBtn">Show step 1</button></div>` : ''}
     ${L.reallife ? `<div class="reallife card">🌍 <b>In real life:</b> ${esc(L.reallife)}</div>` : ''}
     <button class="btn mint" id="learnGo">${RUN.t.games?.length ? "Let's play ▶" : 'Start quiz ▶'}</button>`;
   mount3D($('#s3d'), t, RUN.c);
-  if (t.lab === 'angle') angleLab($('#lab'));
   if (L.example) {
     const st = L.example.steps || []; let k = 0; const box = $('#exSteps'), btn = $('#exBtn');
     const reveal = () => {
@@ -272,7 +358,7 @@ function quizRunner(b, list, done) {
     const { q, qid } = list[i];
     const order = Games.shuffle(q.options.map((o, k) => k));
     b.innerHTML = `<div class="card"><span class="tag">Question ${i + 1} of ${list.length}</span><div class="progress"><i style="width:${i / list.length * 100}%"></i></div>
-      <h2 class="qtext">${esc(q.q)} ${spk(q.q + '. ' + q.options.join(', '))}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div></div>`;
+      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div></div>`;
     b.querySelectorAll('.opt').forEach(btn => btn.onclick = () => {
       const k = +btn.dataset.k, ok = k === q.answer;
       b.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.answer) x.classList.add('right'); });
@@ -286,7 +372,7 @@ function quizRunner(b, list, done) {
           ${q.visual ? `<div class="vis">${Visual.render(q.visual)}</div>` : `<div class="bigans popin">${esc(q.options[q.answer])}</div>`}
           <div class="why">${esc(q.explain)} ${spk(q.explain)}</div>
           ${(q.steps || []).map((s, j) => `<div class="exstep popin" style="animation-delay:${(.4 + j * .45).toFixed(2)}s">${j + 1}. ${esc(s)}</div>`).join('')}</div>
-          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" onclick="open3D()">🧊 3D</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" onclick="open3D()">🧪 Try it</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
         const rep = $('#rep'); if (rep) rep.onclick = draw;
         $('#nx').onclick = () => { i++; if (i < list.length) render(); else done({ right, total: list.length, mistakes }); };
         setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
@@ -300,7 +386,7 @@ function quizRunner(b, list, done) {
 /* ---------- Teach Gappu ---------- */
 function teachStep(b) {
   const T = RUN.t.teach || {};
-  b.innerHTML = `<div class="card"><span class="tag">Teach to learn</span><div class="pet"><div class="face" id="gf">🐣</div><div class="bubble" id="gs">${esc(T.ask)}</div>${spk(T.ask)}</div>
+  b.innerHTML = `<div class="card"><span class="tag">Teach to learn</span><div class="pet"><div class="face" id="gf">🐣</div><div class="bubble" id="gs">${esc(T.ask)} ${spk(T.ask)}</div></div>
     <textarea id="ans" placeholder="Explain in your own words…"></textarea><button class="btn" id="tBtn">Explain to Gappu 💬</button>
     <div style="height:8px"></div><button class="btn ghost" id="tSkip">Skip for now</button></div>`;
   let tries = 0;
