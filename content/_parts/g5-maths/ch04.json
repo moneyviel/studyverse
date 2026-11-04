@@ -4,6 +4,936 @@
  "emoji": "🧳",
  "topics": [
   {
+   "id": "g5-maths-04-04",
+   "title": "Making sums equal",
+   "covers": [
+    "c4.1.1",
+    "c4.1.2"
+   ],
+   "learn": {
+    "hook": "Two teams of number cards have different totals. One clever swap can make them equal. Can you find it?",
+    "points": [
+     "First find the sum of each group.",
+     "Add both sums and halve the total. That is what each group must have.",
+     "Swapping card x from the bigger group with card y from the smaller group moves x − y across.",
+     "Choose x − y = half the difference between the two sums.",
+     "Try to use the fewest swaps. Often one good swap is enough, but sometimes no single swap works."
+    ],
+    "example": {
+     "q": "Group A: 9, 4, 7 (sum 20). Group B: 3, 5, 6 (sum 14). Find one swap to make the sums equal.",
+     "steps": [
+      "Total 20 + 14 = 34, so each group needs 17",
+      "A must lose 3, so x − y = 3",
+      "Swap 9 from A with 6 from B: 9 − 6 = 3",
+      "A: 6 + 4 + 7 = 17, B: 3 + 5 + 9 = 17"
+     ],
+     "answer": "Swap 9 and 6"
+    },
+    "reallife": "Picking two kabaddi teams of equal strength is like making sums equal!"
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Swap check",
+     "items": [
+      [
+       "Groups 8, 2 and 5, 1: swapping 8 and 5 makes the sums equal.",
+       false,
+       "The sums become 7 and 9, not equal."
+      ],
+      [
+       "If the sums are 20 and 14, each group needs 17.",
+       true,
+       "(20 + 14) ÷ 2 = 17."
+      ],
+      [
+       "Swapping a 7 and a 5 moves 2 from one sum to the other.",
+       true,
+       "One sum goes down by 2, the other goes up by 2."
+      ],
+      [
+       "Swapping two equal numbers changes the sums.",
+       false,
+       "Nothing changes."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Each group needs?",
+     "items": [
+      {
+       "q": "Sums 18 and 12",
+       "a": "15",
+       "check": "(18+12)/2"
+      },
+      {
+       "q": "Sums 25 and 15",
+       "a": "20",
+       "check": "(25+15)/2"
+      },
+      {
+       "q": "Sums 30 and 22",
+       "a": "26",
+       "check": "(30+22)/2"
+      },
+      {
+       "q": "Sums 11 and 9",
+       "a": "10",
+       "check": "(11+9)/2"
+      },
+      {
+       "q": "Sums 40 and 16",
+       "a": "28",
+       "check": "(40+16)/2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Group A is 8, 3, 5 and Group B is 2, 6, 4. What should each group's sum be after swapping?",
+     "options": [
+      "14",
+      "16",
+      "12",
+      "28"
+     ],
+     "answer": 0,
+     "explain": "A = 16 and B = 12. Total 28, so each needs 28 ÷ 2 = 14.",
+     "steps": [
+      "16 + 12 = 28",
+      "28 ÷ 2 = 14"
+     ],
+     "mistake": "Takes the bigger sum",
+     "check": "(8+3+5+2+6+4)/2"
+    },
+    {
+     "q": "Group A is 8, 3, 5 and Group B is 2, 6, 4. Which one swap makes the sums equal?",
+     "options": [
+      "Swap 8 and 2",
+      "Swap 8 and 6",
+      "Swap 3 and 2",
+      "Swap 5 and 4"
+     ],
+     "answer": 1,
+     "explain": "A must lose 2, and 8 − 6 = 2. Now A = 6 + 3 + 5 = 14 and B = 2 + 8 + 4 = 14.",
+     "mistake": "Swaps without checking the new sums"
+    },
+    {
+     "q": "Two groups have sums 23 and 17. A swap moves x − y from the bigger group. What should x − y be?",
+     "options": [
+      "40",
+      "20",
+      "3",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "The difference is 23 − 17 = 6. Half of 6 is 3. Moving 3 makes both 20.",
+     "steps": [
+      "23 − 17 = 6",
+      "6 ÷ 2 = 3"
+     ],
+     "mistake": "Moves the whole difference instead of half",
+     "check": "(23-17)/2"
+    },
+    {
+     "q": "Group A: 10, 3. Group B: 8, 1. Which swap makes the sums equal?",
+     "options": [
+      "Swap 10 and 1",
+      "Swap 3 and 8",
+      "Keep them as they are",
+      "Swap 10 and 8"
+     ],
+     "answer": 3,
+     "explain": "A = 13, B = 9, each needs 11, so A must lose 2. 10 − 8 = 2 works. (Swapping 3 and 1 also works, but it is not listed.)",
+     "mistake": "Does not check the new sums"
+    },
+    {
+     "q": "Group A: 7, 6, 5. Group B: 4, 3, 1. What is the fewest number of swaps that makes the sums equal?",
+     "options": [
+      "1",
+      "2",
+      "3",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "A = 18, B = 8, each needs 13. A must lose 5. Swap 6 with 1: 6 − 1 = 5. One swap is enough.",
+     "steps": [
+      "18 + 8 = 26, so each needs 13",
+      "6 − 1 = 5"
+     ],
+     "mistake": "Thinks a big difference needs many swaps",
+     "check": "1"
+    },
+    {
+     "q": "Group A: 9, 2. Group B: 5, 4. Which single swap makes the sums equal?",
+     "options": [
+      "Swap 9 and 4",
+      "No single swap works",
+      "Swap 9 and 5",
+      "Swap 2 and 4"
+     ],
+     "answer": 1,
+     "explain": "A = 11, B = 9, so A must lose 1. The swaps move 9 − 5 = 4, 9 − 4 = 5, or make A bigger. None moves exactly 1.",
+     "mistake": "Assumes there is always a swap"
+    },
+    {
+     "q": "After a swap, Group A went from 20 to 17. Group B was 14. What is Group B now?",
+     "options": [
+      "14",
+      "20",
+      "17",
+      "11"
+     ],
+     "answer": 2,
+     "explain": "Whatever A loses, B gains. A lost 3, so B is 14 + 3 = 17.",
+     "steps": [
+      "20 − 17 = 3",
+      "14 + 3 = 17"
+     ],
+     "mistake": "Thinks both groups lose",
+     "check": "14+3"
+    },
+    {
+     "q": "Group A: 12, 5, 1 (sum 18). Group B: 7, 4, 3 (sum 14). Which swap makes the sums equal?",
+     "options": [
+      "Swap 12 and 7",
+      "Swap 5 and 4",
+      "Swap 1 and 3",
+      "Swap 5 and 3"
+     ],
+     "answer": 3,
+     "explain": "Each group needs 16, so A must lose 2. 5 − 3 = 2. Now A = 12 + 3 + 1 = 16 and B = 7 + 4 + 5 = 16.",
+     "mistake": "Picks a swap without working out how much must move"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has groups 6, 5, 9 and 4, 3, 7. How do I make the sums equal with one swap?",
+    "must": [
+     [
+      "sum",
+      "total",
+      "add"
+     ],
+     [
+      "half",
+      "halve",
+      "17"
+     ],
+     [
+      "swap",
+      "exchange"
+     ]
+    ],
+    "praise": "Each group needs 17. I swap 6 with 3 — A loses 3 and B gains 3. Done!",
+    "nudge": "What total should each group have?"
+   }
+  },
+  {
+   "id": "g5-maths-04-05",
+   "title": "Easy ways to add",
+   "covers": [
+    "c4.2.1",
+    "c4.2.2",
+    "c4.2.3"
+   ],
+   "learn": {
+    "hook": "Adding 99 looks hard, but adding 100 is easy. Can you see the trick?",
+    "points": [
+     "To add 99, add 100 and take away 1. To add 999, add 1,000 and take away 1.",
+     "To add 98, add 100 and take away 2. To add 198, add 200 and take away 2.",
+     "Round one number to the nearest ten, add, then adjust: 47 + 38 = 47 + 40 − 2 = 85.",
+     "When fuel is filled into a tank, add the new litres to what was already there."
+    ],
+    "example": {
+     "q": "A tractor tank had 136 litres of diesel. 99 litres more were filled. How much is in the tank now?",
+     "steps": [
+      "136 + 100 = 236",
+      "236 − 1 = 235"
+     ],
+     "answer": "235 litres"
+    },
+    "reallife": "Petrol pump attendants and shopkeepers add quickly in their heads using these tricks."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Quick adds",
+     "items": [
+      {
+       "q": "456 + 99",
+       "a": "555",
+       "check": "456+99"
+      },
+      {
+       "q": "238 + 98",
+       "a": "336",
+       "check": "238+98"
+      },
+      {
+       "q": "1,250 + 999",
+       "a": "2,249",
+       "check": "1250+999"
+      },
+      {
+       "q": "67 + 29",
+       "a": "96",
+       "check": "67+29"
+      },
+      {
+       "q": "345 + 199",
+       "a": "544",
+       "check": "345+199"
+      },
+      {
+       "q": "58 + 47",
+       "a": "105",
+       "check": "58+47"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Same as",
+     "pairs": [
+      [
+       "345 + 99",
+       "345 + 100 − 1"
+      ],
+      [
+       "345 + 98",
+       "345 + 100 − 2"
+      ],
+      [
+       "345 + 999",
+       "345 + 1,000 − 1"
+      ],
+      [
+       "345 + 29",
+       "345 + 30 − 1"
+      ],
+      [
+       "345 + 198",
+       "345 + 200 − 2"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is 456 + 99?",
+     "options": [
+      "555",
+      "545",
+      "556",
+      "565"
+     ],
+     "answer": 0,
+     "explain": "456 + 100 = 556, then take away 1: 555.",
+     "steps": [
+      "456 + 100 = 556",
+      "556 − 1 = 555"
+     ],
+     "mistake": "Adds 100 but forgets to take away 1",
+     "check": "456+99"
+    },
+    {
+     "q": "What is the easy way to work out 2,345 + 999?",
+     "options": [
+      "Add 900, then add 9",
+      "Add 1,000, then take away 1",
+      "Add 1,000, then add 1",
+      "Add 100, then take away 1"
+     ],
+     "answer": 1,
+     "explain": "999 is 1 less than 1,000, so add 1,000 and take away 1.",
+     "mistake": "Adjusts in the wrong direction"
+    },
+    {
+     "q": "Using 68 + 30, what is 68 + 29?",
+     "options": [
+      "96",
+      "87",
+      "97",
+      "98"
+     ],
+     "answer": 2,
+     "explain": "29 is 1 less than 30. 68 + 30 = 98, so 68 + 29 = 97.",
+     "steps": [
+      "68 + 30 = 98",
+      "98 − 1 = 97"
+     ],
+     "mistake": "Forgets to adjust",
+     "check": "68+29"
+    },
+    {
+     "q": "A bus tank has 48 litres of diesel. The driver fills 37 litres more. How much is in the tank?",
+     "options": [
+      "75 L",
+      "11 L",
+      "84 L",
+      "85 L"
+     ],
+     "answer": 3,
+     "explain": "48 + 37 = 48 + 40 − 3 = 85 litres.",
+     "steps": [
+      "48 + 40 = 88",
+      "88 − 3 = 85"
+     ],
+     "mistake": "Subtracts instead of adding",
+     "check": "48+37"
+    },
+    {
+     "q": "A car used 18 L of petrol on Monday, 26 L on Tuesday and 24 L on Wednesday. How much in all?",
+     "options": [
+      "68 L",
+      "58 L",
+      "66 L",
+      "78 L"
+     ],
+     "answer": 0,
+     "explain": "18 + 26 + 24 = 68 litres.",
+     "steps": [
+      "18 + 26 = 44",
+      "44 + 24 = 68"
+     ],
+     "mistake": "Makes a carrying error",
+     "check": "18+26+24"
+    },
+    {
+     "q": "What is 1,250 + 198?",
+     "options": [
+      "1,348",
+      "1,448",
+      "1,452",
+      "1,450"
+     ],
+     "answer": 1,
+     "explain": "1,250 + 200 = 1,450, then take away 2: 1,448.",
+     "steps": [
+      "1,250 + 200 = 1,450",
+      "1,450 − 2 = 1,448"
+     ],
+     "mistake": "Adds the 2 instead of taking it away",
+     "check": "1250+198"
+    },
+    {
+     "q": "Which is the same as 345 + 97?",
+     "options": [
+      "345 + 90 − 7",
+      "345 − 100 + 3",
+      "345 + 100 − 3",
+      "345 + 100 + 3"
+     ],
+     "answer": 2,
+     "explain": "97 = 100 − 3, so 345 + 97 = 345 + 100 − 3.",
+     "mistake": "Adds the 3 instead of taking it away"
+    },
+    {
+     "q": "One fuel tanker carries 2,500 L and another carries 1,999 L. How much do they carry together?",
+     "options": [
+      "4,500 L",
+      "4,399 L",
+      "3,499 L",
+      "4,499 L"
+     ],
+     "answer": 3,
+     "explain": "2,500 + 2,000 = 4,500, then take away 1: 4,499 L.",
+     "steps": [
+      "2,500 + 2,000 = 4,500",
+      "4,500 − 1 = 4,499"
+     ],
+     "mistake": "Forgets to take away the 1",
+     "check": "2500+1999"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must add 527 + 99 in his head. What trick can I use?",
+    "must": [
+     [
+      "100",
+      "hundred"
+     ],
+     [
+      "take away 1",
+      "subtract 1",
+      "minus 1"
+     ],
+     [
+      "626"
+     ]
+    ],
+    "praise": "Add 100 to get 627, then take away 1: 626. So quick!",
+    "nudge": "Which easy number is 99 close to?"
+   }
+  },
+  {
+   "id": "g5-maths-04-06",
+   "title": "Addition and subtraction are partners",
+   "covers": [
+    "c4.3.1",
+    "c4.3.2",
+    "c4.3.3"
+   ],
+   "learn": {
+    "hook": "If 25 + 17 = 42, you already know two subtraction facts for free! Can you find them?",
+    "points": [
+     "Addition and subtraction are inverse (opposite) operations. One undoes the other.",
+     "From 25 + 17 = 42 we get 42 − 17 = 25 and 42 − 25 = 17.",
+     "From 63 − 27 = 36 we get 36 + 27 = 63.",
+     "To find a missing number, use the opposite operation: ? − 245 = 380 means ? = 380 + 245."
+    ],
+    "example": {
+     "q": "Find the missing number: ? − 156 = 289",
+     "steps": [
+      "Undo subtraction by adding",
+      "? = 289 + 156",
+      "= 445"
+     ],
+     "answer": "445"
+    },
+    "reallife": "When a shopkeeper gives change, he often counts up from the price to the money you gave — adding to check a subtraction!"
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Fact family",
+     "items": [
+      {
+       "text": "If 34 + 18 = 52, then 52 − 18 = ___",
+       "answer": "34",
+       "options": [
+        "34",
+        "16",
+        "70"
+       ]
+      },
+      {
+       "text": "If 90 − 35 = 55, then 55 + 35 = ___",
+       "answer": "90",
+       "options": [
+        "90",
+        "20",
+        "125"
+       ]
+      },
+      {
+       "text": "If 120 + 80 = 200, then 200 − 120 = ___",
+       "answer": "80",
+       "options": [
+        "80",
+        "200",
+        "40"
+       ]
+      },
+      {
+       "text": "? − 40 = 75, so ? = ___",
+       "answer": "115",
+       "options": [
+        "115",
+        "35",
+        "75"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Partners",
+     "items": [
+      [
+       "Subtraction undoes addition.",
+       true,
+       "They are inverse operations."
+      ],
+      [
+       "From 7 + 5 = 12 we get 12 − 5 = 7.",
+       true,
+       "Take away what was added."
+      ],
+      [
+       "From 30 − 12 = 18 we get 18 − 12 = 30.",
+       false,
+       "We get 18 + 12 = 30."
+      ],
+      [
+       "To find ? in ? − 50 = 20, we add 50 and 20.",
+       true,
+       "? = 70."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "From 345 + 128 = 473, which subtraction fact is true?",
+     "options": [
+      "473 − 128 = 345",
+      "473 − 345 = 345",
+      "345 − 128 = 473",
+      "128 − 473 = 345"
+     ],
+     "answer": 0,
+     "explain": "Take away one part from the total to get the other part.",
+     "mistake": "Subtracts the wrong numbers"
+    },
+    {
+     "q": "From 63 − 27 = 36, which addition fact is true?",
+     "options": [
+      "36 + 36 = 63",
+      "36 + 27 = 63",
+      "36 + 63 = 27",
+      "27 + 63 = 36"
+     ],
+     "answer": 1,
+     "explain": "Add back what was taken away to get the start number.",
+     "mistake": "Adds the wrong pair"
+    },
+    {
+     "q": "? − 245 = 380. What is the missing number?",
+     "options": [
+      "525",
+      "635",
+      "625",
+      "135"
+     ],
+     "answer": 2,
+     "explain": "Undo the subtraction by adding: 380 + 245 = 625.",
+     "steps": [
+      "380 + 245 = 625"
+     ],
+     "mistake": "Subtracts instead of adding",
+     "check": "380+245"
+    },
+    {
+     "q": "512 − ? = 287. What is the missing number?",
+     "options": [
+      "799",
+      "235",
+      "325",
+      "225"
+     ],
+     "answer": 3,
+     "explain": "512 − 287 = 225. Check: 287 + 225 = 512.",
+     "steps": [
+      "512 − 287 = 225"
+     ],
+     "mistake": "Adds the two numbers",
+     "check": "512-287"
+    },
+    {
+     "q": "? + 1,450 = 3,000. What is the missing number?",
+     "options": [
+      "1,550",
+      "4,450",
+      "1,450",
+      "2,550"
+     ],
+     "answer": 0,
+     "explain": "3,000 − 1,450 = 1,550.",
+     "steps": [
+      "3,000 − 1,450 = 1,550"
+     ],
+     "mistake": "Adds instead of subtracting",
+     "check": "3000-1450"
+    },
+    {
+     "q": "Which operation undoes addition?",
+     "options": [
+      "Doubling",
+      "Subtraction",
+      "Addition",
+      "Multiplication"
+     ],
+     "answer": 1,
+     "explain": "Subtraction takes away what was added, so it undoes addition.",
+     "mistake": "Thinks multiplication is the opposite of addition"
+    },
+    {
+     "q": "Which is NOT in the fact family of 56 + 44 = 100?",
+     "options": [
+      "100 − 56 = 44",
+      "44 + 56 = 100",
+      "56 − 44 = 100",
+      "100 − 44 = 56"
+     ],
+     "answer": 2,
+     "explain": "56 − 44 is 12, not 100. The other three use the same three numbers correctly.",
+     "mistake": "Does not check each fact"
+    },
+    {
+     "q": "Ravi had some marbles. He gave away 38 and has 47 left. How many did he have at first?",
+     "options": [
+      "9",
+      "75",
+      "95",
+      "85"
+     ],
+     "answer": 3,
+     "explain": "? − 38 = 47, so ? = 47 + 38 = 85.",
+     "steps": [
+      "47 + 38 = 85"
+     ],
+     "mistake": "Subtracts the numbers",
+     "check": "47+38"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu knows 48 + 27 = 75. Which subtraction facts can I write from it without working?",
+    "must": [
+     [
+      "75 − 27",
+      "48"
+     ],
+     [
+      "75 − 48",
+      "27"
+     ],
+     [
+      "inverse",
+      "opposite",
+      "undo"
+     ]
+    ],
+    "praise": "75 − 27 = 48 and 75 − 48 = 27. Addition and subtraction are partners!",
+    "nudge": "What do I get if I take away one part from 75?"
+   }
+  },
+  {
+   "id": "g5-maths-04-07",
+   "title": "Sums of consecutive numbers",
+   "covers": [
+    "c4.4.1",
+    "c4.4.2",
+    "c4.4.3",
+    "c4.4.4"
+   ],
+   "learn": {
+    "hook": "Add 15 + 16 + 17 in two seconds? There is a magic shortcut using the middle number!",
+    "points": [
+     "Consecutive numbers come one after another without skipping: 23, 24, 25.",
+     "The sum of 2 consecutive numbers is always odd, because one of them is odd and one is even.",
+     "The sum of 3 consecutive numbers can be odd or even. The sum of 4 consecutive numbers is always even.",
+     "Sums of 2 consecutive numbers go 3, 5, 7, 9 … (up by 2). Sums of 3 go 6, 9, 12 … (up by 3).",
+     "Shortcut: for an odd count of consecutive numbers, sum = middle number × count. 15 + 16 + 17 = 16 × 3 = 48."
+    ],
+    "example": {
+     "q": "Find 21 + 22 + 23 + 24 + 25 quickly.",
+     "steps": [
+      "There are 5 numbers; the middle one is 23",
+      "23 × 5 = 115"
+     ],
+     "answer": "115"
+    },
+    "reallife": "House numbers on one side of a lane are often consecutive odd numbers — patterns are everywhere!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Odd or even sum?",
+     "buckets": [
+      "Always odd",
+      "Always even",
+      "Can be either"
+     ],
+     "items": [
+      [
+       "Sum of 2 consecutive numbers",
+       0
+      ],
+      [
+       "Sum of 4 consecutive numbers",
+       1
+      ],
+      [
+       "Sum of 3 consecutive numbers",
+       2
+      ],
+      [
+       "8 + 9",
+       0
+      ],
+      [
+       "5 + 6 + 7 + 8",
+       1
+      ],
+      [
+       "10 + 11",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Middle × count",
+     "items": [
+      {
+       "q": "9 + 10 + 11",
+       "a": "30",
+       "check": "9+10+11"
+      },
+      {
+       "q": "19 + 20 + 21",
+       "a": "60",
+       "check": "19+20+21"
+      },
+      {
+       "q": "7 + 8 + 9 + 10 + 11",
+       "a": "45",
+       "check": "7+8+9+10+11"
+      },
+      {
+       "q": "49 + 50 + 51",
+       "a": "150",
+       "check": "49+50+51"
+      },
+      {
+       "q": "30 + 31 + 32 + 33 + 34",
+       "a": "160",
+       "check": "30+31+32+33+34"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these are consecutive numbers?",
+     "options": [
+      "34, 35, 36",
+      "34, 36, 38",
+      "34, 35, 37",
+      "35, 34, 33, 31"
+     ],
+     "answer": 0,
+     "explain": "34, 35, 36 follow one after another with nothing skipped.",
+     "mistake": "Thinks even numbers in a row are consecutive"
+    },
+    {
+     "q": "The sum of two consecutive numbers is always…",
+     "options": [
+      "bigger than 100",
+      "odd",
+      "even",
+      "a multiple of 10"
+     ],
+     "answer": 1,
+     "explain": "One number is odd and the other is even, and odd + even = odd.",
+     "mistake": "Has not tried any examples"
+    },
+    {
+     "q": "What is 15 + 16 + 17?",
+     "options": [
+      "51",
+      "47",
+      "48",
+      "45"
+     ],
+     "answer": 2,
+     "explain": "Middle number 16 × 3 numbers = 48.",
+     "steps": [
+      "16 × 3 = 48"
+     ],
+     "mistake": "Multiplies the first number by 3",
+     "check": "15+16+17"
+    },
+    {
+     "q": "Is the sum of 4 consecutive numbers odd or even?",
+     "options": [
+      "Always odd",
+      "Sometimes odd, sometimes even",
+      "It is always 10",
+      "Always even"
+     ],
+     "answer": 3,
+     "explain": "4 consecutive numbers have 2 odd and 2 even numbers. Two odds make an even, so the total is even. Example: 1 + 2 + 3 + 4 = 10.",
+     "mistake": "Tries only one example and guesses"
+    },
+    {
+     "q": "Which is true about the sum of 3 consecutive numbers?",
+     "options": [
+      "It can be odd or even",
+      "It is always odd",
+      "It is always even",
+      "It is always 3"
+     ],
+     "answer": 0,
+     "explain": "1 + 2 + 3 = 6 is even, but 2 + 3 + 4 = 9 is odd.",
+     "mistake": "Generalises from one example"
+    },
+    {
+     "q": "1 + 2 = 3, 2 + 3 = 5, 3 + 4 = 7, 4 + 5 = 9. By how much does each sum grow?",
+     "options": [
+      "4",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "3, 5, 7, 9 go up by 2 each time.",
+     "steps": [
+      "5 − 3 = 2"
+     ],
+     "mistake": "Thinks each sum grows by 1",
+     "check": "5-3"
+    },
+    {
+     "q": "1 + 2 + 3 = 6, 2 + 3 + 4 = 9, 3 + 4 + 5 = 12. What is the next sum, 4 + 5 + 6?",
+     "options": [
+      "14",
+      "18",
+      "15",
+      "13"
+     ],
+     "answer": 2,
+     "explain": "The sums grow by 3 each time: 12 + 3 = 15.",
+     "steps": [
+      "12 + 3 = 15"
+     ],
+     "mistake": "Adds 2 instead of 3",
+     "check": "4+5+6"
+    },
+    {
+     "q": "Find 41 + 42 + 43 + 44 + 45 + 46 + 47 using the middle number.",
+     "options": [
+      "301",
+      "315",
+      "294",
+      "308"
+     ],
+     "answer": 3,
+     "explain": "7 numbers, middle is 44. 44 × 7 = 308.",
+     "steps": [
+      "Middle = 44",
+      "44 × 7 = 308"
+     ],
+     "mistake": "Picks the wrong middle number",
+     "check": "41+42+43+44+45+46+47"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must add 32 + 33 + 34 + 35 + 36. Is there a quick way?",
+    "must": [
+     [
+      "middle",
+      "34"
+     ],
+     [
+      "5",
+      "five",
+      "count"
+     ],
+     [
+      "170",
+      "multiply",
+      "times"
+     ]
+    ],
+    "praise": "The middle number 34 times 5 numbers is 170. Magic shortcut!",
+    "nudge": "Which number is in the middle, and how many numbers are there?"
+   }
+  },
+  {
    "id": "g5-maths-04-01",
    "title": "Adding and subtracting large numbers",
    "learn": {
@@ -240,6 +1170,23 @@
      "answer": 3,
      "explain": "Adding the answer to the number taken away should give back the starting number. 35,730 + 27,480 = 63,210, so she is right.",
      "mistake": "Does not know that adding undoes subtracting"
+    },
+    {
+     "q": "Riya had ₹3,500. She spent ₹1,280 on a school bag and then got ₹750 from her nani on Raksha Bandhan. How much does she have now?",
+     "options": [
+      "₹2,220",
+      "₹5,530",
+      "₹2,970",
+      "₹1,470"
+     ],
+     "answer": 2,
+     "explain": "Spending takes money away and receiving adds it: 3,500 − 1,280 = 2,220, then 2,220 + 750 = 2,970.",
+     "steps": [
+      "3,500 − 1,280 = 2,220",
+      "2,220 + 750 = 2,970"
+     ],
+     "mistake": "Subtracts the money received instead of adding it",
+     "check": "3500-1280+750"
     }
    ],
    "teach": {
@@ -261,6 +1208,1678 @@
     ],
     "praise": "Hooray! Line up the places, add from the right and carry when it is 10 or more!",
     "nudge": "Where do I write each digit? And what do I do when a column makes 10 or more?"
+   },
+   "covers": [
+    "c4.5.1",
+    "c4.5.2",
+    "c4.6.1",
+    "c4.6.2",
+    "c4.3.4",
+    "c4.7.2"
+   ]
+  },
+  {
+   "id": "g5-maths-04-08",
+   "title": "Closest sums and loads",
+   "covers": [
+    "c4.5.3",
+    "c4.6.4"
+   ],
+   "learn": {
+    "hook": "A truck can carry 10,000 kg. It already has 6,450 kg on it. Can it take your 4,000 kg of mangoes?",
+    "points": [
+     "To find two numbers whose sum is closest to a target, try the pairs and see how far each sum is from the target.",
+     "Rounding first helps you find good pairs quickly, then check with exact sums.",
+     "Space left = capacity − load already carried.",
+     "For many loads, add them first or subtract them one by one.",
+     "If the new load is more than the space left, it cannot be carried."
+    ],
+    "example": {
+     "q": "A truck can carry 10,000 kg. It has 6,450 kg. How much more can it carry?",
+     "steps": [
+      "10,000 − 6,450",
+      "= 3,550"
+     ],
+     "answer": "3,550 kg"
+    },
+    "reallife": "Lift signs say 'Maximum 680 kg'. Drivers and lift operators always check the load."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Sums closest to 8,000 first",
+     "prompt": "From closest to 8,000 to farthest",
+     "items": [
+      "2,345 + 5,620 (7,965)",
+      "4,780 + 3,150 (7,930)",
+      "5,620 + 3,150 (8,770)",
+      "2,345 + 4,780 (7,125)",
+      "2,345 + 3,150 (5,495)"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Load check",
+     "items": [
+      [
+       "A boat for 1,500 kg can carry 980 kg of people and 365 kg of bags.",
+       true,
+       "980 + 365 = 1,345, less than 1,500."
+      ],
+      [
+       "A lift for 680 kg can carry 545 kg of people and a 150 kg trolley.",
+       false,
+       "545 + 150 = 695, more than 680."
+      ],
+      [
+       "If a truck holds 8,000 kg and has 5,250 kg, it can take 2,750 kg more.",
+       true,
+       "8,000 − 5,250 = 2,750."
+      ],
+      [
+       "The sum 4,100 + 5,890 is 9,990.",
+       true,
+       "4,100 + 5,890 = 9,990."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which two numbers from 2,345; 4,780; 5,620; 3,150 have a sum closest to 8,000?",
+     "options": [
+      "2,345 and 5,620",
+      "4,780 and 3,150",
+      "4,780 and 5,620",
+      "2,345 and 4,780"
+     ],
+     "answer": 0,
+     "explain": "2,345 + 5,620 = 7,965 is only 35 away. 4,780 + 3,150 = 7,930 is 70 away.",
+     "steps": [
+      "2,345 + 5,620 = 7,965",
+      "4,780 + 3,150 = 7,930"
+     ],
+     "mistake": "Stops at the first pair that is near"
+    },
+    {
+     "q": "Which two numbers from 6,250; 3,480; 4,100; 5,890 have a sum closest to 10,000?",
+     "options": [
+      "3,480 and 5,890",
+      "4,100 and 5,890",
+      "6,250 and 3,480",
+      "6,250 and 4,100"
+     ],
+     "answer": 1,
+     "explain": "4,100 + 5,890 = 9,990, just 10 away. 6,250 + 3,480 = 9,730 is 270 away.",
+     "steps": [
+      "4,100 + 5,890 = 9,990"
+     ],
+     "mistake": "Picks the biggest number first without checking"
+    },
+    {
+     "q": "A truck can carry 10,000 kg. It already has 6,450 kg. How much more can it carry?",
+     "options": [
+      "16,450 kg",
+      "3,450 kg",
+      "3,550 kg",
+      "4,550 kg"
+     ],
+     "answer": 2,
+     "explain": "10,000 − 6,450 = 3,550 kg.",
+     "steps": [
+      "10,000 − 6,450 = 3,550"
+     ],
+     "mistake": "Makes a borrowing mistake",
+     "check": "10000-6450"
+    },
+    {
+     "q": "A lorry carries 8,500 kg of cement. It drops 2,750 kg at one site and 3,125 kg at another. How much is left?",
+     "options": [
+      "5,875 kg",
+      "3,625 kg",
+      "2,525 kg",
+      "2,625 kg"
+     ],
+     "answer": 3,
+     "explain": "8,500 − 2,750 = 5,750. 5,750 − 3,125 = 2,625 kg.",
+     "steps": [
+      "8,500 − 2,750 = 5,750",
+      "5,750 − 3,125 = 2,625"
+     ],
+     "mistake": "Subtracts only one delivery",
+     "check": "8500-2750-3125"
+    },
+    {
+     "q": "A boat can carry 1,500 kg. The passengers weigh 980 kg and their bags 365 kg. How much more can it carry?",
+     "options": [
+      "155 kg",
+      "1,345 kg",
+      "520 kg",
+      "255 kg"
+     ],
+     "answer": 0,
+     "explain": "980 + 365 = 1,345. 1,500 − 1,345 = 155 kg.",
+     "steps": [
+      "980 + 365 = 1,345",
+      "1,500 − 1,345 = 155"
+     ],
+     "mistake": "Forgets to include the bags",
+     "check": "1500-980-365"
+    },
+    {
+     "q": "A lift can carry 680 kg. People inside weigh 545 kg. Can a 150 kg trolley go in too?",
+     "options": [
+      "No, it would be 150 kg too much",
+      "No, it would be 15 kg too much",
+      "Yes, there is 15 kg to spare",
+      "Yes, exactly full"
+     ],
+     "answer": 1,
+     "explain": "545 + 150 = 695, which is 15 kg more than 680.",
+     "steps": [
+      "545 + 150 = 695",
+      "695 − 680 = 15"
+     ],
+     "mistake": "Does not compare the total with the limit"
+    },
+    {
+     "q": "Which pair from 2,480; 2,610; 1,995; 3,050 has a sum closest to 5,000?",
+     "options": [
+      "2,610 and 1,995",
+      "2,480 and 3,050",
+      "1,995 and 3,050",
+      "2,480 and 2,610"
+     ],
+     "answer": 2,
+     "explain": "1,995 + 3,050 = 5,045, which is 45 away. 2,480 + 2,610 = 5,090 is 90 away.",
+     "steps": [
+      "1,995 + 3,050 = 5,045",
+      "2,480 + 2,610 = 5,090"
+     ],
+     "mistake": "Picks the two numbers closest to 2,500 without checking"
+    },
+    {
+     "q": "A goods wagon can carry 25,000 kg. It has 12,600 kg of rice and 9,850 kg of wheat. How much space is left?",
+     "options": [
+      "22,450 kg",
+      "12,400 kg",
+      "3,550 kg",
+      "2,550 kg"
+     ],
+     "answer": 3,
+     "explain": "12,600 + 9,850 = 22,450. 25,000 − 22,450 = 2,550 kg.",
+     "steps": [
+      "12,600 + 9,850 = 22,450",
+      "25,000 − 22,450 = 2,550"
+     ],
+     "mistake": "Forgets to subtract from the capacity",
+     "check": "25000-12600-9850"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's cart can carry 500 kg. It has 320 kg of grain. How much more can I load?",
+    "must": [
+     [
+      "subtract",
+      "minus",
+      "take away",
+      "−"
+     ],
+     [
+      "180"
+     ],
+     [
+      "capacity",
+      "can carry",
+      "limit"
+     ]
+    ],
+    "praise": "500 − 320 = 180 kg more. Thanks!",
+    "nudge": "Which two numbers should I subtract?"
+   }
+  },
+  {
+   "id": "g5-maths-04-03",
+   "title": "Estimation and rounding",
+   "learn": {
+    "hook": "Do you need the exact answer to know if ₹1,000 is enough for a trip snack? Often a smart guess is enough!",
+    "points": [
+     "Estimating means finding a quick answer that is close to the real one.",
+     "To round to the nearest hundred, look at the tens digit. 5 or more: round up. Less than 5: round down.",
+     "To round to the nearest thousand, look at the hundreds digit in the same way.",
+     "Round the numbers first, then add or subtract. 4,872 + 3,195 is about 5,000 + 3,000 = 8,000.",
+     "An estimate helps us check if an exact answer makes sense."
+    ],
+    "example": {
+     "q": "Estimate 4,872 + 3,195 by rounding each number to the nearest thousand.",
+     "steps": [
+      "4,872: hundreds digit is 8, round up to 5,000",
+      "3,195: hundreds digit is 1, round down to 3,000",
+      "5,000 + 3,000 = 8,000",
+      "(The exact answer 8,067 is close.)"
+     ],
+     "answer": "About 8,000"
+    },
+    "reallife": "News reports say 'about 2 lakh people came to the mela'. Shoppers round prices to see if they have enough money."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Round to the nearest thousand",
+     "buckets": [
+      "Rounds to 4,000",
+      "Rounds to 5,000"
+     ],
+     "items": [
+      [
+       "4,120",
+       0
+      ],
+      [
+       "4,499",
+       0
+      ],
+      [
+       "4,500",
+       1
+      ],
+      [
+       "4,980",
+       1
+      ],
+      [
+       "3,600",
+       0
+      ],
+      [
+       "5,400",
+       1
+      ],
+      [
+       "3,501",
+       0
+      ],
+      [
+       "5,499",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "True or false?",
+     "items": [
+      [
+       "47 rounded to the nearest ten is 50.",
+       true,
+       "The ones digit is 7, which is 5 or more, so we round up."
+      ],
+      [
+       "349 rounded to the nearest hundred is 400.",
+       false,
+       "The tens digit is 4, less than 5, so it rounds down to 300."
+      ],
+      [
+       "650 rounded to the nearest hundred is 700.",
+       true,
+       "The tens digit is 5, so we round up."
+      ],
+      [
+       "An estimate is always exactly the same as the real answer.",
+       false,
+       "An estimate is close, not exact."
+      ],
+      [
+       "₹1,98,000 is about ₹2 lakh.",
+       true,
+       "1,98,000 is very close to 2,00,000."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Round 3,462 to the nearest hundred.",
+     "options": [
+      "3,400",
+      "3,500",
+      "3,000",
+      "3,460"
+     ],
+     "answer": 1,
+     "explain": "The tens digit is 6, which is 5 or more, so round up to 3,500.",
+     "steps": [
+      "Hundreds digit is 4, tens digit is 6",
+      "6 is 5 or more → round up",
+      "3,462 → 3,500"
+     ],
+     "mistake": "Looks at the wrong digit or always rounds down",
+     "check": "3500"
+    },
+    {
+     "q": "Round 67,280 to the nearest thousand.",
+     "options": [
+      "68,000",
+      "70,000",
+      "67,000",
+      "67,300"
+     ],
+     "answer": 2,
+     "explain": "The hundreds digit is 2, less than 5, so round down to 67,000.",
+     "steps": [
+      "Thousands digit is 7, hundreds digit is 2",
+      "2 is less than 5 → round down",
+      "67,280 → 67,000"
+     ],
+     "mistake": "Rounds up every time, or rounds to the nearest hundred instead",
+     "check": "67000"
+    },
+    {
+     "q": "Estimate 498 + 307 by rounding each number to the nearest hundred.",
+     "options": [
+      "700",
+      "900",
+      "805",
+      "800"
+     ],
+     "answer": 3,
+     "explain": "498 is about 500 and 307 is about 300. 500 + 300 = 800.",
+     "steps": [
+      "498 → 500",
+      "307 → 300",
+      "500 + 300 = 800"
+     ],
+     "mistake": "Works out the exact answer (805) instead of estimating",
+     "check": "500+300"
+    },
+    {
+     "q": "A train carried 3,890 people on Monday and 5,120 on Tuesday. Rounding to the nearest thousand, about how many in all?",
+     "options": [
+      "9,000",
+      "8,000",
+      "10,000",
+      "9,010"
+     ],
+     "answer": 0,
+     "explain": "3,890 is about 4,000 and 5,120 is about 5,000. 4,000 + 5,000 = 9,000.",
+     "steps": [
+      "3,890 → 4,000",
+      "5,120 → 5,000",
+      "4,000 + 5,000 = 9,000"
+     ],
+     "mistake": "Gives the exact total (9,010) or rounds 3,890 down",
+     "check": "4000+5000"
+    },
+    {
+     "q": "Riya has ₹1,000. She wants toys costing ₹212, ₹395 and ₹289. Round each to the nearest hundred. Does she have enough?",
+     "options": [
+      "No, she needs about ₹1,100",
+      "Yes, she needs about ₹500",
+      "Yes, she needs about ₹900",
+      "No, she needs about ₹2,000"
+     ],
+     "answer": 2,
+     "explain": "₹212 → ₹200, ₹395 → ₹400, ₹289 → ₹300. About ₹900 in all, which is less than ₹1,000.",
+     "steps": [
+      "200 + 400 + 300 = 900",
+      "₹900 < ₹1,000, so yes"
+     ],
+     "mistake": "Rounds ₹395 or ₹289 the wrong way"
+    },
+    {
+     "q": "Which number rounds to 5,000 when rounded to the nearest thousand?",
+     "options": [
+      "4,450",
+      "5,620",
+      "4,725",
+      "5,501"
+     ],
+     "answer": 2,
+     "explain": "4,725 has hundreds digit 7, so it rounds up to 5,000. 4,450 rounds to 4,000; 5,620 and 5,501 round to 6,000.",
+     "mistake": "Thinks any number that starts with 5 rounds to 5,000",
+     "check": "4725"
+    },
+    {
+     "q": "Estimate 612 − 289 by rounding each number to the nearest hundred.",
+     "options": [
+      "400",
+      "300",
+      "323",
+      "200"
+     ],
+     "answer": 1,
+     "explain": "612 is about 600 and 289 is about 300. 600 − 300 = 300.",
+     "steps": [
+      "612 → 600",
+      "289 → 300",
+      "600 − 300 = 300"
+     ],
+     "mistake": "Rounds 289 down to 200, or gives the exact answer",
+     "check": "600-300"
+    },
+    {
+     "q": "A school needs 28 buses with 52 seats each. Round both to the nearest ten to estimate the seats.",
+     "options": [
+      "1,000",
+      "2,000",
+      "1,456",
+      "1,500"
+     ],
+     "answer": 3,
+     "explain": "28 is about 30 and 52 is about 50. 30 × 50 = 1,500.",
+     "steps": [
+      "28 → 30",
+      "52 → 50",
+      "30 × 50 = 1,500"
+     ],
+     "mistake": "Rounds 28 down to 20, or works out the exact answer (1,456)",
+     "check": "30*50"
+    },
+    {
+     "q": "Riya's estimate said ₹1,000 is enough for toys of ₹212, ₹395 and ₹289. She now adds exactly. How much money will be left?",
+     "options": [
+      "₹96",
+      "₹104",
+      "₹100",
+      "₹896"
+     ],
+     "answer": 1,
+     "explain": "Exact total: 212 + 395 + 289 = 896. ₹1,000 is enough, and 1,000 − 896 = ₹104 is left.",
+     "steps": [
+      "212 + 395 = 607",
+      "607 + 289 = 896",
+      "1,000 − 896 = 104"
+     ],
+     "mistake": "Gives the total cost instead of the money left",
+     "check": "1000-(212+395+289)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I round 3,462 to the nearest hundred?'",
+    "must": [
+     [
+      "look at",
+      "next digit",
+      "tens digit",
+      "digit on the right",
+      "digit after"
+     ],
+     [
+      "5 or more",
+      "five or more",
+      "round up",
+      "go up",
+      "less than 5",
+      "round down"
+     ]
+    ],
+    "praise": "Yay! Look at the tens digit: 6 is 5 or more, so it goes up to 3,500!",
+    "nudge": "Which digit should I look at? And when do I go up or down?"
+   },
+   "covers": [
+    "c4.6.3"
+   ]
+  },
+  {
+   "id": "g5-maths-04-09",
+   "title": "Quick complements and subtracting 9 or 99",
+   "covers": [
+    "c4.7.1",
+    "c4.7.3",
+    "c4.7.4"
+   ],
+   "learn": {
+    "hook": "638 + ? = 1,000. Can you find the missing number in a flash?",
+    "points": [
+     "Numbers that add up to 100, 1,000 or 10,000 are complements: 73 + 27 = 100.",
+     "To reach 1,000 from 638: count up to 640 (2), then to 700 (60), then to 1,000 (300). 2 + 60 + 300 = 362.",
+     "To subtract 9, subtract 10 and add 1. To subtract 99, subtract 100 and add 1.",
+     "To find what to subtract from 457 to leave 99, work out 457 − 99 = 358."
+    ],
+    "example": {
+     "q": "What is 562 − 99?",
+     "steps": [
+      "562 − 100 = 462",
+      "462 + 1 = 463"
+     ],
+     "answer": "463"
+    },
+    "reallife": "Counting change from ₹1,000 or ₹500 uses complements every day in shops."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Make it round",
+     "items": [
+      {
+       "q": "73 + ? = 100",
+       "a": "27",
+       "check": "100-73"
+      },
+      {
+       "q": "638 + ? = 1,000",
+       "a": "362",
+       "check": "1000-638"
+      },
+      {
+       "q": "4,725 + ? = 10,000",
+       "a": "5,275",
+       "check": "10000-4725"
+      },
+      {
+       "q": "845 − 9",
+       "a": "836",
+       "check": "845-9"
+      },
+      {
+       "q": "562 − 99",
+       "a": "463",
+       "check": "562-99"
+      },
+      {
+       "q": "1,300 − 99",
+       "a": "1,201",
+       "check": "1300-99"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Complements of 1,000",
+     "pairs": [
+      [
+       "250",
+       "750"
+      ],
+      [
+       "625",
+       "375"
+      ],
+      [
+       "909",
+       "91"
+      ],
+      [
+       "480",
+       "520"
+      ],
+      [
+       "199",
+       "801"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What must be added to 638 to make 1,000?",
+     "options": [
+      "362",
+      "462",
+      "372",
+      "338"
+     ],
+     "answer": 0,
+     "explain": "1,000 − 638 = 362. Check: 638 + 362 = 1,000.",
+     "steps": [
+      "638 + 2 = 640",
+      "640 + 60 = 700",
+      "700 + 300 = 1,000",
+      "2 + 60 + 300 = 362"
+     ],
+     "mistake": "Makes a borrowing error across zeros",
+     "check": "1000-638"
+    },
+    {
+     "q": "4,725 + ? = 10,000. What is the missing number?",
+     "options": [
+      "5,285",
+      "5,275",
+      "5,375",
+      "6,275"
+     ],
+     "answer": 1,
+     "explain": "10,000 − 4,725 = 5,275.",
+     "steps": [
+      "10,000 − 4,725 = 5,275"
+     ],
+     "mistake": "Takes each digit away from 9 or 10 wrongly",
+     "check": "10000-4725"
+    },
+    {
+     "q": "73 + ? = 100. What is the missing number?",
+     "options": [
+      "33",
+      "23",
+      "27",
+      "37"
+     ],
+     "answer": 2,
+     "explain": "73 + 27 = 100.",
+     "steps": [
+      "100 − 73 = 27"
+     ],
+     "mistake": "Takes each digit from 10",
+     "check": "100-73"
+    },
+    {
+     "q": "What is 562 − 99?",
+     "options": [
+      "461",
+      "473",
+      "453",
+      "463"
+     ],
+     "answer": 3,
+     "explain": "562 − 100 = 462, then add 1 back: 463.",
+     "steps": [
+      "562 − 100 = 462",
+      "462 + 1 = 463"
+     ],
+     "mistake": "Subtracts 1 instead of adding it back",
+     "check": "562-99"
+    },
+    {
+     "q": "What is 845 − 9?",
+     "options": [
+      "836",
+      "834",
+      "846",
+      "835"
+     ],
+     "answer": 0,
+     "explain": "845 − 10 = 835, then add 1: 836.",
+     "steps": [
+      "845 − 10 = 835",
+      "835 + 1 = 836"
+     ],
+     "mistake": "Forgets to add 1 back",
+     "check": "845-9"
+    },
+    {
+     "q": "What is the easy way to work out 1,234 − 99?",
+     "options": [
+      "Add 100, then subtract 1",
+      "Subtract 100, then add 1",
+      "Subtract 100, then subtract 1",
+      "Subtract 90, then subtract 1"
+     ],
+     "answer": 1,
+     "explain": "99 is 1 less than 100. Taking away 100 takes away 1 too many, so add 1 back.",
+     "mistake": "Adjusts in the wrong direction"
+    },
+    {
+     "q": "457 − ? = 99. What number must be taken away?",
+     "options": [
+      "368",
+      "556",
+      "358",
+      "356"
+     ],
+     "answer": 2,
+     "explain": "457 − 99 = 358. Check: 457 − 358 = 99.",
+     "steps": [
+      "457 − 100 = 357",
+      "357 + 1 = 358"
+     ],
+     "mistake": "Adds 99 instead of subtracting",
+     "check": "457-99"
+    },
+    {
+     "q": "503 − ? = 9. What is the missing number?",
+     "options": [
+      "512",
+      "484",
+      "504",
+      "494"
+     ],
+     "answer": 3,
+     "explain": "503 − 9 = 494. Check: 503 − 494 = 9.",
+     "steps": [
+      "503 − 10 = 493",
+      "493 + 1 = 494"
+     ],
+     "mistake": "Adds 9 instead of subtracting",
+     "check": "503-9"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has to work out 734 − 99 quickly. What should I do?",
+    "must": [
+     [
+      "100",
+      "hundred"
+     ],
+     [
+      "add 1",
+      "plus 1",
+      "add one"
+     ],
+     [
+      "635"
+     ]
+    ],
+    "praise": "Take away 100 to get 634, then add 1 back: 635!",
+    "nudge": "Which round number is 99 close to?"
+   }
+  },
+  {
+   "id": "g5-maths-04-10",
+   "title": "Palindromes and number grids",
+   "covers": [
+    "c4.8.1",
+    "c4.8.2",
+    "c4.8.3"
+   ],
+   "learn": {
+    "hook": "Read 12321 backwards. Same! Numbers like this are called palindromes.",
+    "points": [
+     "A palindrome number reads the same forwards and backwards: 121, 4,554.",
+     "Two-digit palindromes are 11, 22, 33 … 99. There are 9 of them.",
+     "Three-digit palindromes between 100 and 200 are 101, 111, 121 … 191. There are 10.",
+     "Grid puzzle: put 1 to 9 in a 3 × 3 grid so that each row grows left to right and each column grows top to bottom.",
+     "In such a grid, 1 must be in the top-left corner and 9 in the bottom-right corner."
+    ],
+    "example": {
+     "q": "List the palindromes between 300 and 350.",
+     "steps": [
+      "They look like 3_3",
+      "303, 313, 323, 333, 343"
+     ],
+     "answer": "303, 313, 323, 333, 343"
+    },
+    "reallife": "Some dates are palindromes too, like 12-02-2021 written as 12022021!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Palindrome or not?",
+     "buckets": [
+      "Palindrome",
+      "Not a palindrome"
+     ],
+     "items": [
+      [
+       "4,554",
+       0
+      ],
+      [
+       "121",
+       0
+      ],
+      [
+       "7,007",
+       0
+      ],
+      [
+       "88",
+       0
+      ],
+      [
+       "1,231",
+       1
+      ],
+      [
+       "450",
+       1
+      ],
+      [
+       "6,116",
+       0
+      ],
+      [
+       "5,050",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Grid and palindrome facts",
+     "items": [
+      [
+       "There are 9 two-digit palindromes.",
+       true,
+       "11, 22, … 99."
+      ],
+      [
+       "101 is the smallest 3-digit palindrome.",
+       true,
+       "100 reversed is 001, not the same."
+      ],
+      [
+       "In the growing grid, 9 can go in the top-left corner.",
+       false,
+       "9 is the biggest, so it must be at the end of its row and column: bottom-right."
+      ],
+      [
+       "1,221 is a palindrome.",
+       true,
+       "It reads 1-2-2-1 both ways."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which number is a palindrome?",
+     "options": [
+      "4,554",
+      "4,545",
+      "5,445",
+      "4,455"
+     ],
+     "answer": 0,
+     "explain": "4,554 reads 4-5-5-4 both ways.",
+     "mistake": "Checks only the first and last digits",
+     "check": "4554"
+    },
+    {
+     "q": "How many palindromes are there between 10 and 100?",
+     "options": [
+      "90",
+      "9",
+      "10",
+      "11"
+     ],
+     "answer": 1,
+     "explain": "They are 11, 22, 33, 44, 55, 66, 77, 88, 99: nine numbers.",
+     "steps": [
+      "11 to 99 in steps of 11"
+     ],
+     "mistake": "Counts 10 or 100 too",
+     "check": "9"
+    },
+    {
+     "q": "How many palindromes are there between 100 and 200?",
+     "options": [
+      "11",
+      "100",
+      "10",
+      "9"
+     ],
+     "answer": 2,
+     "explain": "101, 111, 121, 131, 141, 151, 161, 171, 181, 191: ten numbers.",
+     "steps": [
+      "1_1 with 10 middle digits (0–9)"
+     ],
+     "mistake": "Forgets 101",
+     "check": "10"
+    },
+    {
+     "q": "What is the smallest 3-digit palindrome?",
+     "options": [
+      "100",
+      "111",
+      "121",
+      "101"
+     ],
+     "answer": 3,
+     "explain": "100 backwards is 001, so it is not a palindrome. 101 is.",
+     "mistake": "Thinks 100 is a palindrome",
+     "check": "101"
+    },
+    {
+     "q": "What is the next palindrome after 1,221?",
+     "options": [
+      "1,331",
+      "1,222",
+      "1,232",
+      "2,112"
+     ],
+     "answer": 0,
+     "explain": "4-digit palindromes look like abba. After 1,221 comes 1,331.",
+     "mistake": "Changes only the last digit",
+     "check": "1331"
+    },
+    {
+     "q": "In a 3 × 3 grid of 1 to 9 where rows grow left to right and columns grow top to bottom, where must 1 go?",
+     "options": [
+      "Top-right corner",
+      "Top-left corner",
+      "Centre",
+      "Bottom-right corner"
+     ],
+     "answer": 1,
+     "explain": "1 is the smallest, so nothing can be to its left or above it.",
+     "mistake": "Puts 1 in the centre"
+    },
+    {
+     "q": "In the same growing grid, where must 9 go?",
+     "options": [
+      "Centre",
+      "Bottom-left corner",
+      "Bottom-right corner",
+      "Top-left corner"
+     ],
+     "answer": 2,
+     "explain": "9 is the biggest, so it must be last in its row and its column.",
+     "mistake": "Thinks 9 can go anywhere at the edge"
+    },
+    {
+     "q": "Which number is NOT a palindrome?",
+     "options": [
+      "1,221",
+      "7,117",
+      "505",
+      "1,231"
+     ],
+     "answer": 3,
+     "explain": "1,231 backwards is 1,321, which is different.",
+     "mistake": "Checks only the outside digits",
+     "check": "1231"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu found the number 2,442. Is it a palindrome? How do I check?",
+    "must": [
+     [
+      "backwards",
+      "reverse",
+      "back"
+     ],
+     [
+      "same",
+      "both ways"
+     ],
+     [
+      "yes",
+      "palindrome"
+     ]
+    ],
+    "praise": "2,442 backwards is 2,442. It is a palindrome!",
+    "nudge": "What happens when I read it from right to left?"
+   }
+  },
+  {
+   "id": "g5-maths-04-11",
+   "title": "Even and odd numbers",
+   "covers": [
+    "c4.9.1",
+    "c4.9.2",
+    "c4.9.3",
+    "c4.9.4"
+   ],
+   "learn": {
+    "hook": "27 children play a game in pairs. Will someone be left without a partner?",
+    "points": [
+     "A number is even if its ones digit is 0, 2, 4, 6 or 8. Otherwise it is odd.",
+     "Even numbers can be put into pairs with none left over. Odd numbers always leave one over.",
+     "Even + even = even. Odd + odd = even. Odd + even = odd.",
+     "Adding 2 does not change odd or even: 7, 9, 11 stay odd; 8, 10, 12 stay even."
+    ],
+    "example": {
+     "q": "Without adding, is 135 + 247 odd or even?",
+     "steps": [
+      "135 is odd (ends in 5)",
+      "247 is odd (ends in 7)",
+      "Odd + odd = even"
+     ],
+     "answer": "Even"
+    },
+    "reallife": "Houses on one side of many roads have odd numbers, and on the other side even numbers."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Odd or even?",
+     "buckets": [
+      "Even",
+      "Odd"
+     ],
+     "items": [
+      [
+       "3,456",
+       0
+      ],
+      [
+       "7,891",
+       1
+      ],
+      [
+       "10,000",
+       0
+      ],
+      [
+       "555",
+       1
+      ],
+      [
+       "2,348",
+       0
+      ],
+      [
+       "6,003",
+       1
+      ],
+      [
+       "odd + odd",
+       0
+      ],
+      [
+       "odd + even",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Odd and even rules",
+     "items": [
+      {
+       "text": "even + even = ___",
+       "answer": "even",
+       "options": [
+        "even",
+        "odd"
+       ]
+      },
+      {
+       "text": "odd + odd = ___",
+       "answer": "even",
+       "options": [
+        "even",
+        "odd"
+       ]
+      },
+      {
+       "text": "odd + even = ___",
+       "answer": "odd",
+       "options": [
+        "odd",
+        "even"
+       ]
+      },
+      {
+       "text": "odd + 2 = ___",
+       "answer": "odd",
+       "options": [
+        "odd",
+        "even"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Is 3,457 odd or even?",
+     "options": [
+      "Odd",
+      "Even"
+     ],
+     "answer": 0,
+     "explain": "The ones digit is 7, which is odd.",
+     "mistake": "Looks at the first digit instead of the ones digit"
+    },
+    {
+     "q": "Which number is even?",
+     "options": [
+      "5,671",
+      "5,678",
+      "5,677",
+      "5,679"
+     ],
+     "answer": 1,
+     "explain": "5,678 ends in 8, an even digit.",
+     "mistake": "Looks at the wrong digit",
+     "check": "5678"
+    },
+    {
+     "q": "27 children stand in pairs. How many are left without a partner?",
+     "options": [
+      "2",
+      "3",
+      "1",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "27 is odd. 13 pairs make 26, and 1 child is left.",
+     "steps": [
+      "13 × 2 = 26",
+      "27 − 26 = 1"
+     ],
+     "mistake": "Thinks every number can be paired",
+     "check": "27-26"
+    },
+    {
+     "q": "Without adding, is 135 + 247 odd or even?",
+     "options": [
+      "Odd",
+      "Even"
+     ],
+     "answer": 1,
+     "explain": "Both numbers are odd, and odd + odd = even.",
+     "mistake": "Thinks odd + odd = odd"
+    },
+    {
+     "q": "Without adding, is 246 + 135 odd or even?",
+     "options": [
+      "Odd",
+      "Even"
+     ],
+     "answer": 0,
+     "explain": "246 is even and 135 is odd. Even + odd = odd.",
+     "mistake": "Thinks the bigger number decides"
+    },
+    {
+     "q": "Start at 51 and keep adding 2. Which number can you land on?",
+     "options": [
+      "88",
+      "75",
+      "70",
+      "64"
+     ],
+     "answer": 1,
+     "explain": "51 is odd, and adding 2 keeps it odd. 75 is the only odd choice.",
+     "mistake": "Thinks adding 2 changes odd to even",
+     "check": "75"
+    },
+    {
+     "q": "Which sum is odd?",
+     "options": [
+      "22 + 40",
+      "21 + 43",
+      "23 + 40",
+      "23 + 41"
+     ],
+     "answer": 2,
+     "explain": "23 is odd and 40 is even. Odd + even = odd.",
+     "mistake": "Picks a sum of two odd numbers"
+    },
+    {
+     "q": "Why can 36 laddoos be put into pairs with none left?",
+     "options": [
+      "36 is odd",
+      "36 is more than 30",
+      "36 ends in 3",
+      "36 is even"
+     ],
+     "answer": 3,
+     "explain": "Even numbers split into pairs exactly: 18 pairs.",
+     "mistake": "Gives a reason that has nothing to do with odd and even"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know if 999 + 1,001 is odd or even without adding. Can you teach me?",
+    "must": [
+     [
+      "odd",
+      "999",
+      "1,001"
+     ],
+     [
+      "odd + odd",
+      "two odds"
+     ],
+     [
+      "even"
+     ]
+    ],
+    "praise": "Both are odd, and odd + odd = even. So the sum is even!",
+    "nudge": "Are 999 and 1,001 odd or even?"
+   }
+  },
+  {
+   "id": "g5-maths-04-12",
+   "title": "Coins, switches and mountain data",
+   "covers": [
+    "c4.10.1",
+    "c4.10.2",
+    "c4.10.3"
+   ],
+   "learn": {
+    "hook": "A light switch is pressed 25 times. Is the light on or off? Odd and even can tell you!",
+    "points": [
+     "To find coin combinations, start with the biggest coins and list the ways step by step.",
+     "₹6 can be made with ₹1, ₹2 and ₹5 coins in 5 ways: 5+1, 2+2+2, 2+2+1+1, 2+1+1+1+1, 1+1+1+1+1+1.",
+     "A switch that starts off: after an odd number of presses it is on; after an even number it is off.",
+     "To read a table, find the right row and column. Subtract to find how much higher one value is."
+    ],
+    "example": {
+     "q": "Everest is 8,849 m and K2 is 8,611 m. How much higher is Everest?",
+     "steps": [
+      "8,849 − 8,611",
+      "= 238"
+     ],
+     "answer": "238 m"
+    },
+    "reallife": "Mountaineers compare heights of peaks, and electricians know that two presses bring a switch back to where it was."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Peak heights (in metres)",
+     "pairs": [
+      [
+       "Mount Everest",
+       "8,849"
+      ],
+      [
+       "K2",
+       "8,611"
+      ],
+      [
+       "Kangchenjunga",
+       "8,586"
+      ],
+      [
+       "Nanda Devi",
+       "7,816"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Switch and coins",
+     "items": [
+      [
+       "A switch that starts off is on after 7 presses.",
+       true,
+       "7 is odd."
+      ],
+      [
+       "A switch that starts off is on after 10 presses.",
+       false,
+       "10 is even, so it is off."
+      ],
+      [
+       "₹10 can be made with two ₹5 coins.",
+       true,
+       "5 + 5 = 10."
+      ],
+      [
+       "The fewest coins (₹1, ₹2, ₹5) to make ₹13 is 3.",
+       false,
+       "5 + 5 + 2 + 1 needs 4 coins."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In how many ways can you make ₹6 using ₹1, ₹2 and ₹5 coins?",
+     "options": [
+      "5",
+      "4",
+      "6",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "With a ₹5: 5+1 (1 way). Without: 2+2+2, 2+2+1+1, 2+1+1+1+1, 1+1+1+1+1+1 (4 ways). Total 5.",
+     "steps": [
+      "With ₹5: 1 way",
+      "Without ₹5: 4 ways",
+      "1 + 4 = 5"
+     ],
+     "mistake": "Misses the ways that use only ₹1 coins",
+     "check": "1+4"
+    },
+    {
+     "q": "What is the fewest number of coins (₹1, ₹2, ₹5) to make ₹13?",
+     "options": [
+      "13",
+      "4",
+      "3",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "5 + 5 + 2 + 1 = 13 uses 4 coins.",
+     "steps": [
+      "5 + 5 = 10",
+      "10 + 2 + 1 = 13",
+      "4 coins"
+     ],
+     "mistake": "Does not use the biggest coins first",
+     "check": "4"
+    },
+    {
+     "q": "A light starts off. Its switch is pressed 15 times. Is it on or off?",
+     "options": [
+      "On",
+      "Off"
+     ],
+     "answer": 0,
+     "explain": "Each press changes it. 15 is odd, so it ends opposite to the start: on.",
+     "mistake": "Thinks many presses always end off"
+    },
+    {
+     "q": "A fan starts off. Its switch is pressed 20 times. Is it on or off?",
+     "options": [
+      "On",
+      "Off"
+     ],
+     "answer": 1,
+     "explain": "20 is even, so it ends the way it started: off.",
+     "mistake": "Mixes up odd and even"
+    },
+    {
+     "q": "Everest is 8,849 m and K2 is 8,611 m. How much higher is Everest?",
+     "options": [
+      "238 m",
+      "248 m",
+      "1,238 m",
+      "338 m"
+     ],
+     "answer": 0,
+     "explain": "8,849 − 8,611 = 238 m.",
+     "steps": [
+      "8,849 − 8,611 = 238"
+     ],
+     "mistake": "Makes a subtraction error",
+     "check": "8849-8611"
+    },
+    {
+     "q": "Kangchenjunga is 8,586 m and Nanda Devi is 7,816 m. What is the difference?",
+     "options": [
+      "760 m",
+      "770 m",
+      "870 m",
+      "1,770 m"
+     ],
+     "answer": 1,
+     "explain": "8,586 − 7,816 = 770 m.",
+     "steps": [
+      "8,586 − 7,816 = 770"
+     ],
+     "mistake": "Forgets to borrow",
+     "check": "8586-7816"
+    },
+    {
+     "q": "Heights: Everest 8,849 m, K2 8,611 m, Kangchenjunga 8,586 m. Which two are closest in height?",
+     "options": [
+      "Everest and Kangchenjunga",
+      "K2 and Kangchenjunga",
+      "Everest and K2"
+     ],
+     "answer": 1,
+     "explain": "8,611 − 8,586 = 25 m, the smallest difference.",
+     "steps": [
+      "8,849 − 8,611 = 238",
+      "8,611 − 8,586 = 25"
+     ],
+     "mistake": "Compares only the first digits"
+    },
+    {
+     "q": "A climber reached a peak in 2018, after her 26th birthday that year. In which year was she born?",
+     "options": [
+      "1982",
+      "2044",
+      "1994",
+      "1992"
+     ],
+     "answer": 3,
+     "explain": "2018 − 26 = 1992.",
+     "steps": [
+      "2018 − 26 = 1992"
+     ],
+     "mistake": "Adds instead of subtracting",
+     "check": "2018-26"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's lamp is off. If I press the switch 9 times, is it on or off? How do I know without pressing?",
+    "must": [
+     [
+      "odd",
+      "9 is odd"
+     ],
+     [
+      "on"
+     ],
+     [
+      "each press",
+      "changes",
+      "two presses"
+     ]
+    ],
+    "praise": "9 is odd, so the lamp ends up on. Two presses cancel out!",
+    "nudge": "Is 9 odd or even, and what does each press do?"
+   }
+  },
+  {
+   "id": "g5-maths-04-13",
+   "title": "Maths mela: mixed problems",
+   "covers": [
+    "c4.11.1",
+    "c4.11.2",
+    "c4.11.3"
+   ],
+   "learn": {
+    "hook": "The school Maths Mela printed 350 certificates, but 412 children took part. Uh oh! How many more are needed?",
+    "points": [
+     "Surplus means extra. Shortage means not enough. Subtract the smaller number from the bigger one.",
+     "Line up places carefully when adding or subtracting big numbers.",
+     "For savings, add the money saved each month.",
+     "For 'how many more' or 'by how many runs', subtract."
+    ],
+    "example": {
+     "q": "350 certificates were printed for 412 children. Is there a surplus or shortage, and of how many?",
+     "steps": [
+      "412 is more than 350, so there is a shortage",
+      "412 − 350 = 62"
+     ],
+     "answer": "Shortage of 62"
+    },
+    "reallife": "Event planners always count chairs, plates and prizes to avoid shortages!"
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Mela sums",
+     "items": [
+      {
+       "q": "45,670 + 28,450",
+       "a": "74,120",
+       "check": "45670+28450"
+      },
+      {
+       "q": "80,000 − 46,385",
+       "a": "33,615",
+       "check": "80000-46385"
+      },
+      {
+       "q": "12,450 − 9,875",
+       "a": "2,575",
+       "check": "12450-9875"
+      },
+      {
+       "q": "1,250 + 980 + 1,475",
+       "a": "3,705",
+       "check": "1250+980+1475"
+      },
+      {
+       "q": "50,000 − 36,780",
+       "a": "13,220",
+       "check": "50000-36780"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Surplus or shortage?",
+     "buckets": [
+      "Surplus (extra)",
+      "Shortage (not enough)"
+     ],
+     "items": [
+      [
+       "600 badges, 548 children",
+       0
+      ],
+      [
+       "350 certificates, 412 children",
+       1
+      ],
+      [
+       "90 chairs, 85 guests",
+       0
+      ],
+      [
+       "40 plates, 52 guests",
+       1
+      ],
+      [
+       "1,000 tickets, 987 visitors",
+       0
+      ],
+      [
+       "75 prizes, 80 winners",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "350 certificates were printed but 412 children took part. How many more certificates are needed?",
+     "options": [
+      "62",
+      "162",
+      "58",
+      "762"
+     ],
+     "answer": 0,
+     "explain": "412 − 350 = 62 more are needed. This is a shortage.",
+     "steps": [
+      "412 − 350 = 62"
+     ],
+     "mistake": "Adds instead of subtracting",
+     "check": "412-350"
+    },
+    {
+     "q": "600 badges were made for 548 children. How many badges are extra?",
+     "options": [
+      "62",
+      "52",
+      "152",
+      "48"
+     ],
+     "answer": 1,
+     "explain": "600 − 548 = 52 extra badges. This is a surplus.",
+     "steps": [
+      "600 − 548 = 52"
+     ],
+     "mistake": "Makes a borrowing mistake",
+     "check": "600-548"
+    },
+    {
+     "q": "Asha saved ₹1,250 in January, ₹980 in February and ₹1,475 in March. How much did she save?",
+     "options": [
+      "₹2,705",
+      "₹3,715",
+      "₹3,705",
+      "₹3,605"
+     ],
+     "answer": 2,
+     "explain": "1,250 + 980 + 1,475 = 3,705.",
+     "steps": [
+      "1,250 + 980 = 2,230",
+      "2,230 + 1,475 = 3,705"
+     ],
+     "mistake": "Forgets a carry",
+     "check": "1250+980+1475"
+    },
+    {
+     "q": "A factory made 12,450 toys on Monday and 9,875 on Tuesday. How many more on Monday?",
+     "options": [
+      "3,575",
+      "2,425",
+      "22,325",
+      "2,575"
+     ],
+     "answer": 3,
+     "explain": "12,450 − 9,875 = 2,575.",
+     "steps": [
+      "12,450 − 9,875 = 2,575"
+     ],
+     "mistake": "Adds the two days",
+     "check": "12450-9875"
+    },
+    {
+     "q": "Team A scored 287 runs and Team B scored 249. By how many runs did Team A win?",
+     "options": [
+      "38",
+      "48",
+      "536",
+      "42"
+     ],
+     "answer": 0,
+     "explain": "287 − 249 = 38 runs.",
+     "steps": [
+      "287 − 249 = 38"
+     ],
+     "mistake": "Adds the scores",
+     "check": "287-249"
+    },
+    {
+     "q": "A factory must make 50,000 shirts. It has made 36,780. How many are still to be made?",
+     "options": [
+      "13,320",
+      "13,220",
+      "14,220",
+      "86,780"
+     ],
+     "answer": 1,
+     "explain": "50,000 − 36,780 = 13,220.",
+     "steps": [
+      "50,000 − 36,780 = 13,220"
+     ],
+     "mistake": "Makes errors borrowing across zeros",
+     "check": "50000-36780"
+    },
+    {
+     "q": "What is 45,670 + 28,450?",
+     "options": [
+      "74,020",
+      "64,120",
+      "74,120",
+      "73,120"
+     ],
+     "answer": 2,
+     "explain": "Add place by place, carrying: 74,120.",
+     "steps": [
+      "45,670 + 28,450 = 74,120"
+     ],
+     "mistake": "Forgets to carry",
+     "check": "45670+28450"
+    },
+    {
+     "q": "What is 80,000 − 46,385?",
+     "options": [
+      "34,615",
+      "33,625",
+      "46,385",
+      "33,615"
+     ],
+     "answer": 3,
+     "explain": "80,000 − 46,385 = 33,615. Check: 33,615 + 46,385 = 80,000.",
+     "steps": [
+      "80,000 − 46,385 = 33,615"
+     ],
+     "mistake": "Borrows wrongly across the zeros",
+     "check": "80000-46385"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu ordered 120 laddoos for 135 guests. Is that a surplus or a shortage? By how many?",
+    "must": [
+     [
+      "shortage",
+      "not enough",
+      "less"
+     ],
+     [
+      "15",
+      "fifteen"
+     ],
+     [
+      "subtract",
+      "135 − 120"
+     ]
+    ],
+    "praise": "135 − 120 = 15, so I am short by 15 laddoos. I will order more!",
+    "nudge": "Are there more guests or more laddoos?"
    }
   },
   {
@@ -533,268 +3152,8 @@
     ],
     "praise": "Super! Split 24 into 20 and 4, multiply each, then add. 3,240!",
     "nudge": "How can I make 24 easier to work with? And what do I do with the two answers?"
-   }
-  },
-  {
-   "id": "g5-maths-04-03",
-   "title": "Estimation and rounding",
-   "learn": {
-    "hook": "Do you need the exact answer to know if ₹1,000 is enough for a trip snack? Often a smart guess is enough!",
-    "points": [
-     "Estimating means finding a quick answer that is close to the real one.",
-     "To round to the nearest hundred, look at the tens digit. 5 or more: round up. Less than 5: round down.",
-     "To round to the nearest thousand, look at the hundreds digit in the same way.",
-     "Round the numbers first, then add or subtract. 4,872 + 3,195 is about 5,000 + 3,000 = 8,000.",
-     "An estimate helps us check if an exact answer makes sense."
-    ],
-    "example": {
-     "q": "Estimate 4,872 + 3,195 by rounding each number to the nearest thousand.",
-     "steps": [
-      "4,872: hundreds digit is 8, round up to 5,000",
-      "3,195: hundreds digit is 1, round down to 3,000",
-      "5,000 + 3,000 = 8,000",
-      "(The exact answer 8,067 is close.)"
-     ],
-     "answer": "About 8,000"
-    },
-    "reallife": "News reports say 'about 2 lakh people came to the mela'. Shoppers round prices to see if they have enough money."
    },
-   "games": [
-    {
-     "type": "sort",
-     "title": "Round to the nearest thousand",
-     "buckets": [
-      "Rounds to 4,000",
-      "Rounds to 5,000"
-     ],
-     "items": [
-      [
-       "4,120",
-       0
-      ],
-      [
-       "4,499",
-       0
-      ],
-      [
-       "4,500",
-       1
-      ],
-      [
-       "4,980",
-       1
-      ],
-      [
-       "3,600",
-       0
-      ],
-      [
-       "5,400",
-       1
-      ],
-      [
-       "3,501",
-       0
-      ],
-      [
-       "5,499",
-       1
-      ]
-     ]
-    },
-    {
-     "type": "truefalse",
-     "title": "True or false?",
-     "items": [
-      [
-       "47 rounded to the nearest ten is 50.",
-       true,
-       "The ones digit is 7, which is 5 or more, so we round up."
-      ],
-      [
-       "349 rounded to the nearest hundred is 400.",
-       false,
-       "The tens digit is 4, less than 5, so it rounds down to 300."
-      ],
-      [
-       "650 rounded to the nearest hundred is 700.",
-       true,
-       "The tens digit is 5, so we round up."
-      ],
-      [
-       "An estimate is always exactly the same as the real answer.",
-       false,
-       "An estimate is close, not exact."
-      ],
-      [
-       "₹1,98,000 is about ₹2 lakh.",
-       true,
-       "1,98,000 is very close to 2,00,000."
-      ]
-     ]
-    }
-   ],
-   "quiz": [
-    {
-     "q": "Round 3,462 to the nearest hundred.",
-     "options": [
-      "3,400",
-      "3,500",
-      "3,000",
-      "3,460"
-     ],
-     "answer": 1,
-     "explain": "The tens digit is 6, which is 5 or more, so round up to 3,500.",
-     "steps": [
-      "Hundreds digit is 4, tens digit is 6",
-      "6 is 5 or more → round up",
-      "3,462 → 3,500"
-     ],
-     "mistake": "Looks at the wrong digit or always rounds down",
-     "check": "3500"
-    },
-    {
-     "q": "Round 67,280 to the nearest thousand.",
-     "options": [
-      "68,000",
-      "70,000",
-      "67,000",
-      "67,300"
-     ],
-     "answer": 2,
-     "explain": "The hundreds digit is 2, less than 5, so round down to 67,000.",
-     "steps": [
-      "Thousands digit is 7, hundreds digit is 2",
-      "2 is less than 5 → round down",
-      "67,280 → 67,000"
-     ],
-     "mistake": "Rounds up every time, or rounds to the nearest hundred instead",
-     "check": "67000"
-    },
-    {
-     "q": "Estimate 498 + 307 by rounding each number to the nearest hundred.",
-     "options": [
-      "700",
-      "900",
-      "805",
-      "800"
-     ],
-     "answer": 3,
-     "explain": "498 is about 500 and 307 is about 300. 500 + 300 = 800.",
-     "steps": [
-      "498 → 500",
-      "307 → 300",
-      "500 + 300 = 800"
-     ],
-     "mistake": "Works out the exact answer (805) instead of estimating",
-     "check": "500+300"
-    },
-    {
-     "q": "A train carried 3,890 people on Monday and 5,120 on Tuesday. Rounding to the nearest thousand, about how many in all?",
-     "options": [
-      "9,000",
-      "8,000",
-      "10,000",
-      "9,010"
-     ],
-     "answer": 0,
-     "explain": "3,890 is about 4,000 and 5,120 is about 5,000. 4,000 + 5,000 = 9,000.",
-     "steps": [
-      "3,890 → 4,000",
-      "5,120 → 5,000",
-      "4,000 + 5,000 = 9,000"
-     ],
-     "mistake": "Gives the exact total (9,010) or rounds 3,890 down",
-     "check": "4000+5000"
-    },
-    {
-     "q": "Riya has ₹1,000. She wants toys costing ₹212, ₹395 and ₹289. Round each to the nearest hundred. Does she have enough?",
-     "options": [
-      "No, she needs about ₹1,100",
-      "Yes, she needs about ₹500",
-      "Yes, she needs about ₹900",
-      "No, she needs about ₹2,000"
-     ],
-     "answer": 2,
-     "explain": "₹212 → ₹200, ₹395 → ₹400, ₹289 → ₹300. About ₹900 in all, which is less than ₹1,000.",
-     "steps": [
-      "200 + 400 + 300 = 900",
-      "₹900 < ₹1,000, so yes"
-     ],
-     "mistake": "Rounds ₹395 or ₹289 the wrong way"
-    },
-    {
-     "q": "Which number rounds to 5,000 when rounded to the nearest thousand?",
-     "options": [
-      "4,450",
-      "5,620",
-      "4,725",
-      "5,501"
-     ],
-     "answer": 2,
-     "explain": "4,725 has hundreds digit 7, so it rounds up to 5,000. 4,450 rounds to 4,000; 5,620 and 5,501 round to 6,000.",
-     "mistake": "Thinks any number that starts with 5 rounds to 5,000",
-     "check": "4725"
-    },
-    {
-     "q": "Estimate 612 − 289 by rounding each number to the nearest hundred.",
-     "options": [
-      "400",
-      "300",
-      "323",
-      "200"
-     ],
-     "answer": 1,
-     "explain": "612 is about 600 and 289 is about 300. 600 − 300 = 300.",
-     "steps": [
-      "612 → 600",
-      "289 → 300",
-      "600 − 300 = 300"
-     ],
-     "mistake": "Rounds 289 down to 200, or gives the exact answer",
-     "check": "600-300"
-    },
-    {
-     "q": "A school needs 28 buses with 52 seats each. Round both to the nearest ten to estimate the seats.",
-     "options": [
-      "1,000",
-      "2,000",
-      "1,456",
-      "1,500"
-     ],
-     "answer": 3,
-     "explain": "28 is about 30 and 52 is about 50. 30 × 50 = 1,500.",
-     "steps": [
-      "28 → 30",
-      "52 → 50",
-      "30 × 50 = 1,500"
-     ],
-     "mistake": "Rounds 28 down to 20, or works out the exact answer (1,456)",
-     "check": "30*50"
-    }
-   ],
-   "teach": {
-    "ask": "Gappu asks: 'How do I round 3,462 to the nearest hundred?'",
-    "must": [
-     [
-      "look at",
-      "next digit",
-      "tens digit",
-      "digit on the right",
-      "digit after"
-     ],
-     [
-      "5 or more",
-      "five or more",
-      "round up",
-      "go up",
-      "less than 5",
-      "round down"
-     ]
-    ],
-    "praise": "Yay! Look at the tens digit: 6 is 5 or more, so it goes up to 3,500!",
-    "nudge": "Which digit should I look at? And when do I go up or down?"
-   }
+   "covers": []
   }
  ]
 }

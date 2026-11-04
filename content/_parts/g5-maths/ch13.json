@@ -4,6 +4,707 @@
  "emoji": "🐸",
  "topics": [
   {
+   "id": "g5-maths-13-04",
+   "title": "Multiplier boxes and arrays",
+   "covers": [
+    "c13.1.1",
+    "c13.1.2"
+   ],
+   "learn": {
+    "hook": "A magic box turns 3 into 21 and 5 into 35. What is the box doing?",
+    "points": [
+     "A multiplier box multiplies every number that goes in by the same hidden number.",
+     "To find the hidden multiplier, divide an output by its input: 21 ÷ 3 = 7.",
+     "Check with another pair: 5 × 7 = 35. ✔",
+     "An array is objects in equal rows. 15 dots can be 3 rows of 5 or 5 rows of 3, or 1 row of 15.",
+     "The rows and columns of every array of a number are its factors: 15 → 1, 3, 5, 15."
+    ],
+    "example": {
+     "q": "A box turns 4 into 36 and 6 into 54. What will it turn 9 into?",
+     "steps": [
+      "Multiplier = 36 ÷ 4 = 9",
+      "Check: 6 × 9 = 54 ✔",
+      "9 × 9 = 81"
+     ],
+     "answer": "81"
+    },
+    "reallife": "Shopkeepers use a 'multiplier' too: price of 1 item × number of items."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Find the multiplier",
+     "items": [
+      {
+       "q": "3 → 21",
+       "a": "7",
+       "check": "21/3"
+      },
+      {
+       "q": "4 → 36",
+       "a": "9",
+       "check": "36/4"
+      },
+      {
+       "q": "5 → 40",
+       "a": "8",
+       "check": "40/5"
+      },
+      {
+       "q": "6 → 72",
+       "a": "12",
+       "check": "72/6"
+      },
+      {
+       "q": "8 → 48",
+       "a": "6",
+       "check": "48/8"
+      },
+      {
+       "q": "10 → 150",
+       "a": "15",
+       "check": "150/10"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Arrays of 15 and 12",
+     "pairs": [
+      [
+       "1 row of 15",
+       "15 = 1 × 15"
+      ],
+      [
+       "3 rows of 5",
+       "15 = 3 × 5"
+      ],
+      [
+       "2 rows of 6",
+       "12 = 2 × 6"
+      ],
+      [
+       "3 rows of 4",
+       "12 = 3 × 4"
+      ],
+      [
+       "1 row of 12",
+       "12 = 1 × 12"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A multiplier box turns 3 into 21. What is the multiplier?",
+     "options": [
+      "7",
+      "18",
+      "24",
+      "63"
+     ],
+     "answer": 0,
+     "explain": "21 ÷ 3 = 7.",
+     "steps": [
+      "21 ÷ 3 = 7"
+     ],
+     "mistake": "Subtracts instead of dividing",
+     "check": "21/3"
+    },
+    {
+     "q": "The same box (× 7) gets 8. What comes out?",
+     "options": [
+      "48",
+      "56",
+      "15",
+      "87"
+     ],
+     "answer": 1,
+     "explain": "8 × 7 = 56.",
+     "steps": [
+      "8 × 7 = 56"
+     ],
+     "mistake": "Adds 7 instead of multiplying",
+     "check": "8*7"
+    },
+    {
+     "q": "A box turns 4 into 36 and 6 into 54. What does it turn 9 into?",
+     "options": [
+      "72",
+      "90",
+      "81",
+      "59"
+     ],
+     "answer": 2,
+     "explain": "The multiplier is 9 (36 ÷ 4). 9 × 9 = 81.",
+     "steps": [
+      "36 ÷ 4 = 9",
+      "9 × 9 = 81"
+     ],
+     "mistake": "Adds the difference",
+     "check": "9*9"
+    },
+    {
+     "q": "A box turns 5 into 60. What number went in if 84 came out?",
+     "options": [
+      "12",
+      "79",
+      "8",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "Multiplier = 60 ÷ 5 = 12. 84 ÷ 12 = 7.",
+     "steps": [
+      "60 ÷ 5 = 12",
+      "84 ÷ 12 = 7"
+     ],
+     "mistake": "Uses the wrong multiplier",
+     "check": "84/12"
+    },
+    {
+     "q": "15 dots are arranged in 3 equal rows. How many dots are in each row?",
+     "options": [
+      "5",
+      "3",
+      "12",
+      "45"
+     ],
+     "answer": 0,
+     "explain": "15 ÷ 3 = 5.",
+     "steps": [
+      "15 ÷ 3 = 5"
+     ],
+     "mistake": "Subtracts 3",
+     "check": "15/3",
+     "visual": {
+      "kind": "count",
+      "emoji": "🔵",
+      "n": 15,
+      "groups": 3
+     }
+    },
+    {
+     "q": "Which arrays can be made with 15 dots?",
+     "options": [
+      "2 × 8 and 3 × 5",
+      "1 × 15 and 3 × 5",
+      "2 × 7 and 3 × 5",
+      "4 × 4 and 1 × 15"
+     ],
+     "answer": 1,
+     "explain": "Only rows of 1, 3, 5 or 15 fit 15 dots exactly.",
+     "mistake": "Picks rows that leave dots over"
+    },
+    {
+     "q": "Which number is NOT a factor of 15, using its arrays?",
+     "options": [
+      "5",
+      "15",
+      "2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "15 cannot be put in 2 equal rows: 1 dot is left over.",
+     "mistake": "Thinks every small number is a factor",
+     "check": "2"
+    },
+    {
+     "q": "A box turns 7 into 49 and 2 into 14. What is the multiplier?",
+     "options": [
+      "2",
+      "42",
+      "35",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "49 ÷ 7 = 7 and 14 ÷ 2 = 7.",
+     "steps": [
+      "49 ÷ 7 = 7"
+     ],
+     "mistake": "Uses the difference of the outputs",
+     "check": "49/7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's magic box changed 6 into 42. What is the secret multiplier? How do I check it?",
+    "must": [
+     [
+      "7",
+      "seven"
+     ],
+     [
+      "divide",
+      "42 ÷ 6"
+     ],
+     [
+      "check",
+      "another",
+      "multiply"
+     ]
+    ],
+    "praise": "42 ÷ 6 = 7, and I can check: 6 × 7 = 42!",
+    "nudge": "What operation undoes multiplying?"
+   }
+  },
+  {
+   "id": "g5-maths-13-05",
+   "title": "Factors, multiples and factor pairs",
+   "covers": [
+    "c13.2.1",
+    "c13.2.2",
+    "c13.2.5"
+   ],
+   "learn": {
+    "hook": "12 = 3 × 4. So is 3 a factor of 12, or is 12 a multiple of 3? Both!",
+    "points": [
+     "A factor of a number divides it exactly, with no remainder. 4 is a factor of 12.",
+     "A multiple of a number is that number times a whole number. 12 is a multiple of 4 (4 × 3).",
+     "Factor pairs multiply to the number: 12 = 1 × 12 = 2 × 6 = 3 × 4.",
+     "1 is a factor of every number.",
+     "Every number is a factor of itself and a multiple of itself."
+    ],
+    "example": {
+     "q": "Find all the factor pairs of 18.",
+     "steps": [
+      "1 × 18",
+      "2 × 9",
+      "3 × 6",
+      "4 and 5 do not divide 18"
+     ],
+     "answer": "1 × 18, 2 × 9, 3 × 6"
+    },
+    "reallife": "Packing sweets in equal boxes uses factors: 24 sweets fit in boxes of 1, 2, 3, 4, 6, 8, 12 or 24."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Factor pairs",
+     "pairs": [
+      [
+       "20",
+       "4 × 5"
+      ],
+      [
+       "18",
+       "3 × 6"
+      ],
+      [
+       "21",
+       "3 × 7"
+      ],
+      [
+       "16",
+       "2 × 8"
+      ],
+      [
+       "27",
+       "3 × 9"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Factor or multiple?",
+     "items": [
+      [
+       "5 is a factor of 35.",
+       true,
+       "35 ÷ 5 = 7 exactly."
+      ],
+      [
+       "35 is a multiple of 5.",
+       true,
+       "5 × 7 = 35."
+      ],
+      [
+       "1 is a factor of every number.",
+       true,
+       "Every number ÷ 1 has no remainder."
+      ],
+      [
+       "8 is a factor of 20.",
+       false,
+       "20 ÷ 8 leaves 4."
+      ],
+      [
+       "Every number is a multiple of itself.",
+       true,
+       "Any number × 1 is itself."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which number is a factor of 18?",
+     "options": [
+      "6",
+      "4",
+      "5",
+      "36"
+     ],
+     "answer": 0,
+     "explain": "18 ÷ 6 = 3 with nothing left over.",
+     "mistake": "Picks a multiple instead of a factor",
+     "check": "6"
+    },
+    {
+     "q": "Which is a multiple of 7?",
+     "options": [
+      "47",
+      "42",
+      "17",
+      "27"
+     ],
+     "answer": 1,
+     "explain": "7 × 6 = 42.",
+     "mistake": "Picks a number with a 7 in it",
+     "check": "42"
+    },
+    {
+     "q": "Which list shows all the factor pairs of 12?",
+     "options": [
+      "1 × 12, 2 × 6, 4 × 4",
+      "1 × 12, 3 × 4, 6 × 6",
+      "1 × 12, 2 × 6, 3 × 4",
+      "2 × 6, 3 × 4"
+     ],
+     "answer": 2,
+     "explain": "Every pair multiplies to 12, and none is missing.",
+     "mistake": "Forgets the pair with 1"
+    },
+    {
+     "q": "How many factor pairs does 20 have?",
+     "options": [
+      "2",
+      "4",
+      "6",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "1 × 20, 2 × 10, 4 × 5: three pairs.",
+     "steps": [
+      "1 × 20, 2 × 10, 4 × 5"
+     ],
+     "mistake": "Counts each factor separately",
+     "check": "3"
+    },
+    {
+     "q": "Which number is a factor of every number?",
+     "options": [
+      "1",
+      "0",
+      "2",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "Any number divided by 1 leaves no remainder.",
+     "mistake": "Thinks 0 or 2 works for all",
+     "check": "1"
+    },
+    {
+     "q": "Which is true about the number 9?",
+     "options": [
+      "9 is neither",
+      "9 is both a factor and a multiple of 9",
+      "9 is only a factor of 9",
+      "9 is only a multiple of 9"
+     ],
+     "answer": 1,
+     "explain": "9 ÷ 9 = 1, and 9 × 1 = 9. So it is both.",
+     "mistake": "Thinks a number cannot be its own factor"
+    },
+    {
+     "q": "4 × 6 = 24. Which statement is true?",
+     "options": [
+      "6 is a multiple of 24",
+      "4 is a multiple of 24",
+      "6 is a factor of 24 and 24 is a multiple of 6",
+      "24 is a factor of 6"
+     ],
+     "answer": 2,
+     "explain": "The smaller numbers that multiply to 24 are its factors; 24 is their multiple.",
+     "mistake": "Mixes up factor and multiple"
+    },
+    {
+     "q": "What is the missing factor? 36 = 4 × ?",
+     "options": [
+      "8",
+      "32",
+      "40",
+      "9"
+     ],
+     "answer": 3,
+     "explain": "36 ÷ 4 = 9.",
+     "steps": [
+      "36 ÷ 4 = 9"
+     ],
+     "mistake": "Subtracts instead of dividing",
+     "check": "36/4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks 5 is a multiple of 20. Is he right? Can you explain factors and multiples?",
+    "must": [
+     [
+      "factor"
+     ],
+     [
+      "multiple"
+     ],
+     [
+      "20 ÷ 5",
+      "5 × 4",
+      "divides"
+     ]
+    ],
+    "praise": "Oh! 5 is a factor of 20, and 20 is a multiple of 5!",
+    "nudge": "Which one divides the other exactly?"
+   }
+  },
+  {
+   "id": "g5-maths-13-06",
+   "title": "Arrays and prime numbers",
+   "covers": [
+    "c13.2.3",
+    "c13.2.4"
+   ],
+   "learn": {
+    "hook": "13 children can stand in only one kind of rectangle — a single line! Why is 13 so special?",
+    "points": [
+     "Make every rectangle (array) you can with a number of objects. The rows and columns give all its factors.",
+     "12 makes 1 × 12, 2 × 6 and 3 × 4 arrays, so its factors are 1, 2, 3, 4, 6, 12.",
+     "Some numbers make only one array: a single row. 13 = 1 × 13 only.",
+     "A number whose only factors are 1 and itself is a prime number: 2, 3, 5, 7, 11, 13, 37 …",
+     "1 is not prime, because it has only one factor."
+    ],
+    "example": {
+     "q": "Make all the arrays for 16 and list its factors.",
+     "steps": [
+      "1 × 16, 2 × 8, 4 × 4",
+      "Factors: 1, 2, 4, 8, 16"
+     ],
+     "answer": "1, 2, 4, 8, 16"
+    },
+    "reallife": "Prime numbers keep bank cards and online messages safe — very large primes are used in secret codes!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Prime or not?",
+     "buckets": [
+      "Prime (one array only)",
+      "Not prime (more arrays)"
+     ],
+     "items": [
+      [
+       "13",
+       0
+      ],
+      [
+       "37",
+       0
+      ],
+      [
+       "7",
+       0
+      ],
+      [
+       "11",
+       0
+      ],
+      [
+       "12",
+       1
+      ],
+      [
+       "15",
+       1
+      ],
+      [
+       "21",
+       1
+      ],
+      [
+       "9",
+       1
+      ],
+      [
+       "2",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Arrays and factors",
+     "items": [
+      {
+       "text": "12 = 3 × ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "9",
+        "6"
+       ]
+      },
+      {
+       "text": "Factors of 10: 1, 2, ___, 10",
+       "answer": "5",
+       "options": [
+        "5",
+        "3",
+        "4"
+       ]
+      },
+      {
+       "text": "13 makes ___ array(s)",
+       "answer": "1",
+       "options": [
+        "1",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "text": "16 = 4 × ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "8",
+        "12"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many different arrays (rectangles) can 12 objects make? (2 × 6 and 6 × 2 count as one.)",
+     "options": [
+      "3",
+      "2",
+      "6",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "1 × 12, 2 × 6 and 3 × 4.",
+     "steps": [
+      "1 × 12, 2 × 6, 3 × 4"
+     ],
+     "mistake": "Counts 2 × 6 and 6 × 2 separately",
+     "check": "3"
+    },
+    {
+     "q": "Using arrays, which list shows all the factors of 18?",
+     "options": [
+      "1, 18",
+      "1, 2, 3, 6, 9, 18",
+      "1, 2, 3, 9, 18",
+      "2, 3, 6, 9"
+     ],
+     "answer": 1,
+     "explain": "Arrays: 1 × 18, 2 × 9, 3 × 6. So 1, 2, 3, 6, 9, 18.",
+     "mistake": "Forgets a factor"
+    },
+    {
+     "q": "Which number can only be arranged in a single row?",
+     "options": [
+      "15",
+      "16",
+      "13",
+      "14"
+     ],
+     "answer": 2,
+     "explain": "13 has only 1 and 13 as factors.",
+     "mistake": "Thinks odd numbers are always prime",
+     "check": "13"
+    },
+    {
+     "q": "Which of these is a prime number?",
+     "options": [
+      "39",
+      "35",
+      "33",
+      "37"
+     ],
+     "answer": 3,
+     "explain": "37 has only the factors 1 and 37. 39 = 3 × 13, 35 = 5 × 7, 33 = 3 × 11.",
+     "mistake": "Thinks every number ending in 3, 5, 7 or 9 is prime",
+     "check": "37"
+    },
+    {
+     "q": "Why is 21 NOT a prime number?",
+     "options": [
+      "It can be arranged as 3 rows of 7",
+      "It is odd",
+      "It ends in 1",
+      "It is bigger than 20"
+     ],
+     "answer": 0,
+     "explain": "21 = 3 × 7, so it has more than two factors.",
+     "mistake": "Gives a reason that does not use factors"
+    },
+    {
+     "q": "How many factors does a prime number have?",
+     "options": [
+      "0",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "Exactly two: 1 and itself.",
+     "mistake": "Thinks a prime has one factor",
+     "check": "2"
+    },
+    {
+     "q": "Is 1 a prime number?",
+     "options": [
+      "Yes, because it is the smallest",
+      "No, because it is even",
+      "No, it has only one factor",
+      "Yes, it has 1 and itself"
+     ],
+     "answer": 2,
+     "explain": "A prime needs exactly two different factors. 1 has only one.",
+     "mistake": "Thinks 1 is prime"
+    },
+    {
+     "q": "Which number makes the most arrays?",
+     "options": [
+      "23",
+      "25",
+      "19",
+      "24"
+     ],
+     "answer": 3,
+     "explain": "24: 1 × 24, 2 × 12, 3 × 8, 4 × 6 — four arrays.",
+     "mistake": "Picks the biggest number without checking",
+     "check": "24"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has 17 seeds and wants to put them in a rectangle with more than one row. Can I? Why?",
+    "must": [
+     [
+      "prime"
+     ],
+     [
+      "1 and 17",
+      "only 1 and itself"
+     ],
+     [
+      "one row",
+      "single row",
+      "no"
+     ]
+    ],
+    "praise": "17 is prime! Its only factors are 1 and 17, so only one row works.",
+    "nudge": "Which numbers divide 17 exactly?"
+   }
+  },
+  {
    "id": "g5-maths-13-01",
    "title": "Skip jumps on the number line",
    "learn": {
@@ -414,7 +1115,10 @@
     ],
     "praise": "Ribbit! 6 jumps of 4 is 6 × 4 = 24. Multiply the jumps by the jump size!",
     "nudge": "How big is each jump? How do I use the number of jumps?"
-   }
+   },
+   "covers": [
+    "c13.3.1"
+   ]
   },
   {
    "id": "g5-maths-13-02",
@@ -700,6 +1404,246 @@
     ],
     "praise": "Yippee! A common multiple is in both times tables. The first one is where they first meet!",
     "nudge": "Must the number be in one list or both lists? Which one is the first meeting spot?"
+   },
+   "covers": [
+    "c13.3.2",
+    "c13.3.3",
+    "c13.3.4"
+   ]
+  },
+  {
+   "id": "g5-maths-13-07",
+   "title": "Who lands first? Common multiples",
+   "covers": [
+    "c13.4.1",
+    "c13.4.2"
+   ],
+   "learn": {
+    "hook": "A frog jumps 4 and a rabbit jumps 6. Both want to reach the carrot at 30. Who can land on it?",
+    "points": [
+     "List multiples of each jump size to find where each animal lands.",
+     "Common multiples of 4 and 6: 12, 24, 36, 48, 60 … They go up by 12 each time.",
+     "Pattern: every common multiple is a multiple of the smallest one.",
+     "An animal lands on a target only if the target is a multiple of its jump size: the rabbit lands on 30 (6 × 5), the frog does not.",
+     "To see who gets there in fewer jumps, divide the target by each jump size."
+    ],
+    "example": {
+     "q": "List five common multiples of 3 and 4.",
+     "steps": [
+      "Multiples of 4: 4, 8, 12, 16, 20, 24 …",
+      "Which are also multiples of 3? 12, 24, 36, 48, 60"
+     ],
+     "answer": "12, 24, 36, 48, 60"
+    },
+    "reallife": "Two buses on routes that repeat every 4 and 6 minutes meet at the depot every 12 minutes."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Lands on 30?",
+     "buckets": [
+      "Lands on 30",
+      "Does not land on 30"
+     ],
+     "items": [
+      [
+       "Jumps of 6",
+       0
+      ],
+      [
+       "Jumps of 5",
+       0
+      ],
+      [
+       "Jumps of 3",
+       0
+      ],
+      [
+       "Jumps of 10",
+       0
+      ],
+      [
+       "Jumps of 4",
+       1
+      ],
+      [
+       "Jumps of 7",
+       1
+      ],
+      [
+       "Jumps of 8",
+       1
+      ],
+      [
+       "Jumps of 9",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Common multiples",
+     "items": [
+      {
+       "q": "First common multiple of 4 and 6",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "Second common multiple of 4 and 6",
+       "a": "24",
+       "check": "24"
+      },
+      {
+       "q": "First common multiple of 3 and 5",
+       "a": "15",
+       "check": "15"
+      },
+      {
+       "q": "Fifth common multiple of 2 and 3",
+       "a": "30",
+       "check": "5*6"
+      },
+      {
+       "q": "First common multiple of 6 and 8",
+       "a": "24",
+       "check": "24"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which list shows the first five common multiples of 4 and 6?",
+     "options": [
+      "12, 24, 36, 48, 60",
+      "12, 18, 24, 30, 36",
+      "24, 48, 72, 96, 120",
+      "4, 6, 12, 18, 24"
+     ],
+     "answer": 0,
+     "explain": "They are multiples of 12, the smallest common multiple.",
+     "mistake": "Includes numbers that are multiples of only one"
+    },
+    {
+     "q": "What pattern do the common multiples of 3 and 4 show?",
+     "options": [
+      "They are all odd",
+      "They go up by 12 each time",
+      "They go up by 7 each time",
+      "They go up by 3 each time"
+     ],
+     "answer": 1,
+     "explain": "12, 24, 36 … each is 12 more.",
+     "mistake": "Adds the two jump sizes"
+    },
+    {
+     "q": "A frog jumps 4 and a rabbit jumps 6 from 0. Who lands exactly on 30?",
+     "options": [
+      "Both",
+      "Neither",
+      "Only the rabbit",
+      "Only the frog"
+     ],
+     "answer": 2,
+     "explain": "30 = 6 × 5, so the rabbit lands there. 30 ÷ 4 leaves a remainder, so the frog does not.",
+     "mistake": "Thinks bigger jumps miss more spots"
+    },
+    {
+     "q": "Both animals (jumps of 4 and 6) want to reach 24. How many jumps does the rabbit need?",
+     "options": [
+      "6",
+      "24",
+      "2",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "24 ÷ 6 = 4 jumps.",
+     "steps": [
+      "24 ÷ 6 = 4"
+     ],
+     "mistake": "Uses the frog's jump size",
+     "check": "24/6"
+    },
+    {
+     "q": "How many jumps does the frog (jumps of 4) need to reach 24?",
+     "options": [
+      "6",
+      "4",
+      "8",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "24 ÷ 4 = 6 jumps.",
+     "steps": [
+      "24 ÷ 4 = 6"
+     ],
+     "mistake": "Subtracts 4 from 24",
+     "check": "24/4"
+    },
+    {
+     "q": "A deer jumps 5 and a hare jumps 3 from 0. Which spot do they both land on?",
+     "options": [
+      "50",
+      "45",
+      "25",
+      "27"
+     ],
+     "answer": 1,
+     "explain": "45 is a multiple of both 5 and 3.",
+     "mistake": "Picks a multiple of only one",
+     "check": "45"
+    },
+    {
+     "q": "Which number is NOT a common multiple of 2 and 5?",
+     "options": [
+      "20",
+      "40",
+      "25",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "25 is not even, so it is not a multiple of 2.",
+     "mistake": "Thinks any multiple of 5 works",
+     "check": "25"
+    },
+    {
+     "q": "How many common multiples of 4 and 6 are there from 1 to 50?",
+     "options": [
+      "2",
+      "3",
+      "8",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "12, 24, 36 and 48: four of them.",
+     "steps": [
+      "12, 24, 36, 48"
+     ],
+     "mistake": "Stops counting too early",
+     "check": "4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu jumps 3 and his friend jumps 5. Will we both land on 20? On 30?",
+    "must": [
+     [
+      "20",
+      "not 20",
+      "no"
+     ],
+     [
+      "30",
+      "yes"
+     ],
+     [
+      "multiple",
+      "common multiple",
+      "15"
+     ]
+    ],
+    "praise": "We both land on 30 because it is a multiple of 3 and 5, but only my friend lands on 20!",
+    "nudge": "Is 20 a multiple of 3? Is 30?"
    }
   },
   {
@@ -946,6 +1890,921 @@
     ],
     "praise": "Ding dong! The first common multiple of 4 and 6 is 12. They ring together after 12 minutes!",
     "nudge": "What should I list for each bell? Which number do I look for?"
+   },
+   "covers": [
+    "c13.4.3"
+   ]
+  },
+  {
+   "id": "g5-maths-13-08",
+   "title": "Common factors",
+   "covers": [
+    "c13.5.1",
+    "c13.5.2",
+    "c13.5.3"
+   ],
+   "learn": {
+    "hook": "Which jump sizes from 0 land on both 24 and 36? Those are their common factors!",
+    "points": [
+     "A common factor of two numbers divides both of them exactly.",
+     "A jump size that lands on both 24 and 36 (starting at 0) is a common factor.",
+     "To find all common factors, list the factors of each number and pick the ones in both lists.",
+     "Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24. Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36. Common: 1, 2, 3, 4, 6, 12.",
+     "Some pairs like 12 and 13 have only 1 as a common factor."
+    ],
+    "example": {
+     "q": "Find the common factors of 18 and 24.",
+     "steps": [
+      "Factors of 18: 1, 2, 3, 6, 9, 18",
+      "Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24",
+      "In both: 1, 2, 3, 6"
+     ],
+     "answer": "1, 2, 3, 6"
+    },
+    "reallife": "Packing 24 laddoos and 36 barfis into the same number of equal boxes uses common factors."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Common factor of 24 and 36?",
+     "buckets": [
+      "Yes",
+      "No"
+     ],
+     "items": [
+      [
+       "1",
+       0
+      ],
+      [
+       "2",
+       0
+      ],
+      [
+       "3",
+       0
+      ],
+      [
+       "4",
+       0
+      ],
+      [
+       "6",
+       0
+      ],
+      [
+       "12",
+       0
+      ],
+      [
+       "8",
+       1
+      ],
+      [
+       "9",
+       1
+      ],
+      [
+       "18",
+       1
+      ],
+      [
+       "24",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Common factors",
+     "items": [
+      {
+       "text": "Common factors of 12 and 13: only ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "12",
+        "13"
+       ]
+      },
+      {
+       "text": "Biggest common factor of 24 and 36 is ___",
+       "answer": "12",
+       "options": [
+        "12",
+        "6",
+        "24"
+       ]
+      },
+      {
+       "text": "Common factors of 10 and 15: 1 and ___",
+       "answer": "5",
+       "options": [
+        "5",
+        "3",
+        "10"
+       ]
+      },
+      {
+       "text": "Common factors of 8 and 12: 1, 2 and ___",
+       "answer": "4",
+       "options": [
+        "4",
+        "6",
+        "8"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which jump size from 0 lands on both 24 and 36?",
+     "options": [
+      "6",
+      "8",
+      "9",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "6 divides 24 (4 jumps) and 36 (6 jumps).",
+     "mistake": "Picks a factor of only one number",
+     "check": "6"
+    },
+    {
+     "q": "Which list shows all the common factors of 24 and 36?",
+     "options": [
+      "1, 2, 3, 4, 6, 8, 12",
+      "1, 2, 3, 4, 6, 12",
+      "1, 2, 3, 6",
+      "2, 4, 6, 12"
+     ],
+     "answer": 1,
+     "explain": "These are in both factor lists. 8 is not a factor of 36.",
+     "mistake": "Leaves some out or adds 8"
+    },
+    {
+     "q": "What is the only common factor of 12 and 13?",
+     "options": [
+      "13",
+      "2",
+      "1",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "13 is prime, and 13 does not divide 12. So only 1 is common.",
+     "mistake": "Thinks there must be a bigger one",
+     "check": "1"
+    },
+    {
+     "q": "Which is a common factor of 15 and 25?",
+     "options": [
+      "3",
+      "10",
+      "15",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "5 divides both 15 and 25.",
+     "mistake": "Picks a factor of only 15",
+     "check": "5"
+    },
+    {
+     "q": "How many common factors do 16 and 24 have?",
+     "options": [
+      "4",
+      "3",
+      "5",
+      "8"
+     ],
+     "answer": 0,
+     "explain": "Factors of 16: 1, 2, 4, 8, 16. Of 24: 1, 2, 3, 4, 6, 8, 12, 24. Common: 1, 2, 4, 8.",
+     "steps": [
+      "Common: 1, 2, 4, 8"
+     ],
+     "mistake": "Forgets 1 or 8",
+     "check": "4"
+    },
+    {
+     "q": "What is the biggest common factor of 18 and 27?",
+     "options": [
+      "27",
+      "9",
+      "3",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "Factors of 18: 1, 2, 3, 6, 9, 18. Of 27: 1, 3, 9, 27. Biggest common: 9.",
+     "mistake": "Picks a smaller common factor",
+     "check": "9"
+    },
+    {
+     "q": "Which pair has only 1 as a common factor?",
+     "options": [
+      "9 and 12",
+      "6 and 15",
+      "8 and 9",
+      "8 and 10"
+     ],
+     "answer": 2,
+     "explain": "8 = 2 × 2 × 2 and 9 = 3 × 3 share nothing but 1.",
+     "mistake": "Thinks odd and even numbers always share a factor"
+    },
+    {
+     "q": "24 laddoos and 36 barfis go into equal boxes, each box with only one kind and the same number in each. What is the most sweets per box?",
+     "options": [
+      "6",
+      "24",
+      "36",
+      "12"
+     ],
+     "answer": 3,
+     "explain": "The number per box must divide both 24 and 36. The biggest is 12.",
+     "mistake": "Uses a factor of just one number",
+     "check": "12"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know the common factors of 10 and 20. How do I find them?",
+    "must": [
+     [
+      "list",
+      "factors"
+     ],
+     [
+      "both",
+      "common"
+     ],
+     [
+      "1, 2, 5, 10",
+      "10"
+     ]
+    ],
+    "praise": "Factors of 10 are 1, 2, 5, 10, and all of them divide 20. So 1, 2, 5, 10!",
+    "nudge": "Which numbers divide both 10 and 20 exactly?"
+   }
+  },
+  {
+   "id": "g5-maths-13-09",
+   "title": "Patterns in common factors and choosing jumps",
+   "covers": [
+    "c13.5.4",
+    "c13.5.5"
+   ],
+   "learn": {
+    "hook": "Find common factors of 8 and 9, 14 and 15, 20 and 21… do you notice something?",
+    "points": [
+     "Two consecutive numbers (like 14 and 15) always have only 1 as a common factor.",
+     "If one number divides the other (like 6 and 18), the common factors are just the factors of the smaller number.",
+     "Two even numbers always have 2 as a common factor.",
+     "To reach one number but skip another, choose a jump size that is a factor of the first but not of the second.",
+     "Example: to land on 20 but not on 15, jump 2, 4, 10 or 20."
+    ],
+    "example": {
+     "q": "Which jump sizes land on 12 but skip 18?",
+     "steps": [
+      "Factors of 12: 1, 2, 3, 4, 6, 12",
+      "Factors of 18: 1, 2, 3, 6, 9, 18",
+      "In 12's list but not 18's: 4 and 12"
+     ],
+     "answer": "4 and 12"
+    },
+    "reallife": "A watchman who checks every 4th house will visit house 12 but walk past house 18!"
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Spot the pattern",
+     "items": [
+      [
+       "Two consecutive numbers have only 1 as a common factor.",
+       true,
+       "Like 20 and 21."
+      ],
+      [
+       "The common factors of 6 and 18 are the factors of 6.",
+       true,
+       "6 divides 18."
+      ],
+      [
+       "Two even numbers always have 2 as a common factor.",
+       true,
+       "Both divide by 2."
+      ],
+      [
+       "Two odd numbers always have only 1 as a common factor.",
+       false,
+       "9 and 15 share 3."
+      ],
+      [
+       "A jump of 5 lands on 20 but not on 15.",
+       false,
+       "5 lands on both."
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Lands on 20 but not on 15?",
+     "buckets": [
+      "Yes",
+      "No"
+     ],
+     "items": [
+      [
+       "2",
+       0
+      ],
+      [
+       "4",
+       0
+      ],
+      [
+       "10",
+       0
+      ],
+      [
+       "20",
+       0
+      ],
+      [
+       "5",
+       1
+      ],
+      [
+       "3",
+       1
+      ],
+      [
+       "1",
+       1
+      ],
+      [
+       "15",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What are the common factors of 20 and 21?",
+     "options": [
+      "Only 1",
+      "1 and 3",
+      "1 and 7",
+      "1 and 20"
+     ],
+     "answer": 0,
+     "explain": "20 and 21 are consecutive numbers, so only 1 divides both.",
+     "mistake": "Finds a factor of only one number"
+    },
+    {
+     "q": "What are the common factors of 6 and 18?",
+     "options": [
+      "2 and 3 only",
+      "1, 2, 3, 6",
+      "1, 2, 3, 6, 9, 18",
+      "1 and 6 only"
+     ],
+     "answer": 1,
+     "explain": "6 divides 18, so every factor of 6 divides 18 too.",
+     "mistake": "Lists factors of the bigger number"
+    },
+    {
+     "q": "Which number is a common factor of ANY two even numbers?",
+     "options": [
+      "6",
+      "10",
+      "2",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "Every even number divides by 2.",
+     "mistake": "Thinks 4 always works",
+     "check": "2"
+    },
+    {
+     "q": "Which pair of odd numbers has a common factor other than 1?",
+     "options": [
+      "7 and 9",
+      "5 and 7",
+      "11 and 13",
+      "9 and 15"
+     ],
+     "answer": 3,
+     "explain": "9 and 15 both divide by 3.",
+     "mistake": "Thinks odd numbers never share factors"
+    },
+    {
+     "q": "Which jump size lands on 12 but NOT on 18?",
+     "options": [
+      "4",
+      "3",
+      "6",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "4 divides 12 but not 18. 2, 3 and 6 divide both.",
+     "mistake": "Picks a common factor",
+     "check": "4"
+    },
+    {
+     "q": "Which jump size lands on 20 but not on 15?",
+     "options": [
+      "3",
+      "10",
+      "5",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "10 divides 20 but not 15.",
+     "mistake": "Picks 5, which divides both",
+     "check": "10"
+    },
+    {
+     "q": "Which jump size lands on 15 but not on 20?",
+     "options": [
+      "1",
+      "10",
+      "3",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "3 divides 15 but not 20.",
+     "mistake": "Picks a factor of 20",
+     "check": "3"
+    },
+    {
+     "q": "Which is true for every pair of consecutive numbers?",
+     "options": [
+      "They are both even",
+      "They are both prime",
+      "They share the factor 2",
+      "Their only common factor is 1"
+     ],
+     "answer": 3,
+     "explain": "Any number dividing both would also divide their difference, 1. So only 1 works.",
+     "mistake": "Thinks one example decides it"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants a jump size that lands on 16 but never on 24. Which jumps can I use?",
+    "must": [
+     [
+      "16"
+     ],
+     [
+      "factor of 16",
+      "not a factor of 24"
+     ],
+     [
+      "only 16",
+      "16 only"
+     ]
+    ],
+    "praise": "Factors of 16 are 1, 2, 4, 8, 16. Only 16 does not divide 24, so I must jump 16!",
+    "nudge": "Which factors of 16 are not factors of 24?"
+   }
+  },
+  {
+   "id": "g5-maths-13-10",
+   "title": "Divisibility by 2, 5 and 10",
+   "covers": [
+    "c13.6.1",
+    "c13.6.2",
+    "c13.6.3"
+   ],
+   "learn": {
+    "hook": "Without dividing, can you tell whether 3,470 can be shared equally into 10 groups? Just look at the last digit!",
+    "points": [
+     "A number is divisible by 2 if its ones digit is even: 0, 2, 4, 6 or 8.",
+     "A number is divisible by 5 if it ends in 0 or 5.",
+     "A number is divisible by 10 if it ends in 0.",
+     "A number ending in 0 is divisible by 2, 5 and 10 — all three!",
+     "Sort numbers by checking the ones digit only."
+    ],
+    "example": {
+     "q": "Is 3,475 divisible by 2, 5 or 10?",
+     "steps": [
+      "Ones digit is 5",
+      "Not even → not by 2",
+      "Ends in 5 → by 5",
+      "Does not end in 0 → not by 10"
+     ],
+     "answer": "Divisible by 5 only"
+    },
+    "reallife": "Shopkeepers know a price ending in 0 can be paid exactly with ₹10 notes!"
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Divisible by…",
+     "buckets": [
+      "2 only (not 5)",
+      "5 only (not 2)",
+      "2, 5 and 10"
+     ],
+     "items": [
+      [
+       "348",
+       0
+      ],
+      [
+       "1,236",
+       0
+      ],
+      [
+       "75",
+       1
+      ],
+      [
+       "3,475",
+       1
+      ],
+      [
+       "905",
+       1
+      ],
+      [
+       "3,470",
+       2
+      ],
+      [
+       "100",
+       2
+      ],
+      [
+       "8,000",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Divisibility facts",
+     "items": [
+      [
+       "A number ending in 0 is divisible by 10.",
+       true,
+       "Like 70 or 1,230."
+      ],
+      [
+       "Every number divisible by 5 is divisible by 10.",
+       false,
+       "35 is divisible by 5 but not by 10."
+      ],
+      [
+       "Every number divisible by 10 is divisible by 2.",
+       true,
+       "It ends in 0, which is even."
+      ],
+      [
+       "4,682 is divisible by 2.",
+       true,
+       "It ends in 2."
+      ],
+      [
+       "1,005 is divisible by 2.",
+       false,
+       "It ends in 5, an odd digit."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which number is divisible by 2?",
+     "options": [
+      "4,568",
+      "4,565",
+      "4,567",
+      "4,569"
+     ],
+     "answer": 0,
+     "explain": "It ends in 8, an even digit.",
+     "mistake": "Looks at the first digit",
+     "check": "4568"
+    },
+    {
+     "q": "Which number is divisible by 5?",
+     "options": [
+      "2,341",
+      "2,345",
+      "2,343",
+      "2,348"
+     ],
+     "answer": 1,
+     "explain": "It ends in 5.",
+     "mistake": "Thinks any odd number divides by 5",
+     "check": "2345"
+    },
+    {
+     "q": "Which number is divisible by 10?",
+     "options": [
+      "7,809",
+      "7,089",
+      "7,890",
+      "7,895"
+     ],
+     "answer": 2,
+     "explain": "It ends in 0.",
+     "mistake": "Picks a number with a 0 somewhere inside",
+     "check": "7890"
+    },
+    {
+     "q": "Is 3,475 divisible by 10?",
+     "options": [
+      "Yes, it ends in 5",
+      "Yes, it is big",
+      "No, it is even",
+      "No, it does not end in 0"
+     ],
+     "answer": 3,
+     "explain": "Only numbers ending in 0 are divisible by 10.",
+     "mistake": "Confuses divisibility by 5 and 10"
+    },
+    {
+     "q": "Which number is divisible by 2, 5 and 10?",
+     "options": [
+      "560",
+      "565",
+      "562",
+      "556"
+     ],
+     "answer": 0,
+     "explain": "560 ends in 0, so it is divisible by all three.",
+     "mistake": "Checks only one of the rules",
+     "check": "560"
+    },
+    {
+     "q": "Which number is divisible by 5 but NOT by 2?",
+     "options": [
+      "84",
+      "85",
+      "80",
+      "82"
+     ],
+     "answer": 1,
+     "explain": "85 ends in 5: divisible by 5 but odd.",
+     "mistake": "Picks a number ending in 0",
+     "check": "85"
+    },
+    {
+     "q": "Which number is divisible by 2 but NOT by 5?",
+     "options": [
+      "125",
+      "135",
+      "124",
+      "120"
+     ],
+     "answer": 2,
+     "explain": "124 is even but does not end in 0 or 5.",
+     "mistake": "Picks a number ending in 0",
+     "check": "124"
+    },
+    {
+     "q": "How many of these are divisible by 10: 40, 45, 100, 305, 990?",
+     "options": [
+      "2",
+      "4",
+      "5",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "40, 100 and 990 end in 0.",
+     "mistake": "Counts numbers that end in 5",
+     "check": "3"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu found 1,250 seeds. Can I share them equally into 2 piles? 5 piles? 10 piles?",
+    "must": [
+     [
+      "0",
+      "ends in 0",
+      "zero"
+     ],
+     [
+      "yes",
+      "all three"
+     ],
+     [
+      "2",
+      "5",
+      "10"
+     ]
+    ],
+    "praise": "1,250 ends in 0, so it can be shared into 2, 5 or 10 equal piles!",
+    "nudge": "What is the ones digit of 1,250?"
+   }
+  },
+  {
+   "id": "g5-maths-13-11",
+   "title": "True or false: factors and multiples",
+   "covers": [
+    "c13.6.4",
+    "c13.6.5"
+   ],
+   "learn": {
+    "hook": "'0 is a factor of 10.' True or false? Let us test tricky statements like a maths detective!",
+    "points": [
+     "0 is not a factor of any number, because we cannot divide by 0 (0 × anything = 0, never 10).",
+     "Every number is a multiple of 1, and 1 is a factor of every number.",
+     "The sum of two consecutive numbers is always odd.",
+     "Multiples of 8 are always multiples of 4, but multiples of 4 are not always multiples of 8 (12).",
+     "To show a statement is false, one counterexample is enough."
+    ],
+    "example": {
+     "q": "Is 'every multiple of 4 is a multiple of 8' true?",
+     "steps": [
+      "Try 12: 12 = 4 × 3",
+      "12 ÷ 8 leaves 4, so 12 is not a multiple of 8",
+      "One counterexample shows it is false"
+     ],
+     "answer": "False"
+    },
+    "reallife": "Detectives look for one clue that breaks a story. In maths, one counterexample breaks a false claim!"
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Decide",
+     "items": [
+      [
+       "0 is a factor of 10.",
+       false,
+       "0 × anything is 0, never 10."
+      ],
+      [
+       "Every number is a multiple of 1.",
+       true,
+       "Any number = 1 × itself."
+      ],
+      [
+       "The sum of two consecutive numbers is always odd.",
+       true,
+       "One is odd, one is even."
+      ],
+      [
+       "Every multiple of 4 is a multiple of 8.",
+       false,
+       "12 is a multiple of 4 but not 8."
+      ],
+      [
+       "Every multiple of 8 is a multiple of 4.",
+       true,
+       "8 = 4 × 2, so 8 × n = 4 × 2n."
+      ],
+      [
+       "A prime number has exactly two factors.",
+       true,
+       "1 and itself."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Counterexample",
+     "pairs": [
+      [
+       "All odd numbers are prime",
+       "9 = 3 × 3"
+      ],
+      [
+       "All multiples of 4 are multiples of 8",
+       "28"
+      ],
+      [
+       "All multiples of 3 are odd",
+       "24"
+      ],
+      [
+       "All even numbers are multiples of 4",
+       "14"
+      ],
+      [
+       "All multiples of 5 end in 5",
+       "40"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Is 0 a factor of 10?",
+     "options": [
+      "No, nothing times 0 gives 10",
+      "Yes, 0 is a factor of every number",
+      "Yes, 10 ÷ 10 = 1",
+      "Only sometimes"
+     ],
+     "answer": 0,
+     "explain": "A factor times some number must give 10. 0 times anything is 0.",
+     "mistake": "Thinks 0 is a factor of every number"
+    },
+    {
+     "q": "Which statement about 0 and 1 is true?",
+     "options": [
+      "Every even number is a multiple of 4",
+      "1 is a factor of every number",
+      "0 is a factor of every number",
+      "Every number is a multiple of 0"
+     ],
+     "answer": 1,
+     "explain": "Any number ÷ 1 leaves no remainder.",
+     "mistake": "Mixes up the roles of 0 and 1"
+    },
+    {
+     "q": "'The sum of two consecutive numbers is always odd.' True or false?",
+     "options": [
+      "True",
+      "False"
+     ],
+     "answer": 0,
+     "explain": "One of them is odd and one is even, and odd + even = odd: 7 + 8 = 15.",
+     "mistake": "Tests only one example and doubts it"
+    },
+    {
+     "q": "Which number shows that 'every multiple of 4 is a multiple of 8' is false?",
+     "options": [
+      "16",
+      "24",
+      "32",
+      "12"
+     ],
+     "answer": 3,
+     "explain": "12 is a multiple of 4 but 12 ÷ 8 leaves 4.",
+     "mistake": "Picks a number that agrees with the claim",
+     "check": "12"
+    },
+    {
+     "q": "'Every multiple of 6 is a multiple of 3.' True or false?",
+     "options": [
+      "True",
+      "False"
+     ],
+     "answer": 0,
+     "explain": "6 = 3 × 2, so 6 × n = 3 × 2n.",
+     "mistake": "Thinks the claim works only one way"
+    },
+    {
+     "q": "Which is a counterexample to 'all odd numbers are prime'?",
+     "options": [
+      "13",
+      "9",
+      "7",
+      "11"
+     ],
+     "answer": 1,
+     "explain": "9 is odd but 9 = 3 × 3, so it is not prime.",
+     "mistake": "Picks an odd prime",
+     "check": "9"
+    },
+    {
+     "q": "'The product of two consecutive numbers is always even.' True or false?",
+     "options": [
+      "True",
+      "False"
+     ],
+     "answer": 0,
+     "explain": "One of them is even, and any number times an even number is even: 4 × 5 = 20.",
+     "mistake": "Thinks odd numbers spoil it"
+    },
+    {
+     "q": "Which statement is false?",
+     "options": [
+      "Every factor of 24 is a factor of 12",
+      "Every factor of 12 is a factor of 24",
+      "Every multiple of 24 is a multiple of 12",
+      "12 is a factor of 24"
+     ],
+     "answer": 0,
+     "explain": "8 is a factor of 24 but not of 12, so that statement is false.",
+     "mistake": "Reads the statements too quickly"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu says 'all even numbers are multiples of 4'. Is he right? Can you find a counterexample?",
+    "must": [
+     [
+      "false",
+      "wrong",
+      "no"
+     ],
+     [
+      "6",
+      "10",
+      "2",
+      "14"
+     ],
+     [
+      "counterexample",
+      "example"
+     ]
+    ],
+    "praise": "6 is even but not a multiple of 4. So I was wrong!",
+    "nudge": "Can you find an even number that 4 does not divide?"
    }
   }
  ]
