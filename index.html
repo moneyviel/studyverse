@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Angle Island – Study World Prototype</title>
+<title>StudyVerse</title>
+<meta name="theme-color" content="#0f1b3d">
+<meta name="description" content="Learn by playing — games, quizzes and squads from Class 1 to college.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="StudyVerse">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -30,6 +39,13 @@ p.sub{color:var(--muted);font-size:14px;margin-bottom:10px}
 .btn:active{transform:translateY(3px);box-shadow:0 1px 0 #5b33c9}
 .btn.mint{background:var(--mint);box-shadow:0 4px 0 #1a9c78}
 .btn.ghost{background:#eef0fb;color:var(--ink);box-shadow:0 4px 0 #d3d7ef}
+/* Install */
+.install{display:flex;align-items:center;gap:10px;background:#fff;border-radius:18px;padding:10px 10px 10px 12px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.25);animation:pop .4s ease}
+.install img{width:42px;height:42px;border-radius:11px}
+.install div{flex:1;line-height:1.2}.install b{font-family:'Baloo 2';font-size:16px;display:block}.install span{font-size:12px;color:#6b7090;font-weight:600}
+.install button{border:none;background:#8b5cf6;color:#fff;font-family:'Baloo 2';font-weight:800;font-size:15px;border-radius:12px;padding:9px 14px;cursor:pointer}
+.install button.x{background:none;color:#9aa0c0;padding:6px;font-size:14px}
+.steps li{margin:8px 0 8px 18px;font-weight:700;font-size:15px}
 /* World map */
 .hud{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border-radius:16px;padding:10px 12px;color:#fff;margin-bottom:10px;font-weight:800;font-size:13px}
 .hud-top{display:flex;justify-content:space-between;margin-bottom:6px}
@@ -142,6 +158,12 @@ nav button.on{color:var(--violet);background:#f1efff}
   <main>
     <!-- WORLD -->
     <section class="screen active" id="s-world">
+      <div class="install" id="installBar" style="display:none">
+        <img src="icons/icon-192.png" alt="">
+        <div><b>Install StudyVerse</b><span>Play full-screen, like a real app</span></div>
+        <button onclick="installApp()">Install</button>
+        <button class="x" onclick="hideInstall()" aria-label="Close">✕</button>
+      </div>
       <div class="hud">
         <div class="hud-top"><span>🌊 Season 1 · Voyage to the Stars</span><span id="hudPct">18%</span></div>
         <div class="hud-bar"><i id="hudBar"></i></div>
@@ -907,5 +929,40 @@ document.addEventListener('freeze',pauseAll);
 document.addEventListener('pointerdown',resumeAll);
 </script>
 
+<div class="sheet" id="installSheet">
+  <div class="sheet-in">
+    <div class="sheet-grab"></div>
+    <h2>📲 Install StudyVerse</h2>
+    <p class="sub" id="instIntro"></p>
+    <ol class="steps" id="instSteps"></ol>
+    <div style="height:10px"></div>
+    <button class="btn ghost" onclick="document.getElementById('installSheet').classList.remove('show')">Got it</button>
+  </div>
+</div>
+<script>
+/* ---------- Install as an app ---------- */
+let deferredPrompt=null;
+const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+const inFrame = (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })();
+function showInstall(){ if(isStandalone() || inFrame) return; try{ if(sessionStorage.getItem('sv_noinst')) return; }catch(e){} document.getElementById('installBar').style.display='flex'; }
+function hideInstall(){ document.getElementById('installBar').style.display='none'; try{ sessionStorage.setItem('sv_noinst','1'); }catch(e){} }
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt=e; showInstall(); });
+window.addEventListener('appinstalled', () => { document.getElementById('installBar').style.display='none'; deferredPrompt=null; toast('🎉 StudyVerse installed!'); if(typeof sfx==='function') sfx('unlock'); });
+async function installApp(){
+  if(deferredPrompt){ deferredPrompt.prompt(); const r=await deferredPrompt.userChoice; deferredPrompt=null; if(r.outcome==='accepted') document.getElementById('installBar').style.display='none'; return; }
+  // no automatic prompt (iPhone, or browsers that hide it): show simple steps
+  const intro=document.getElementById('instIntro'), st=document.getElementById('instSteps');
+  if(isIOS){ intro.textContent='On iPhone/iPad, install from Safari in 3 taps:';
+    st.innerHTML='<li>Open this page in <b>Safari</b></li><li>Tap the <b>Share</b> button (square with ↑ arrow)</li><li>Scroll and tap <b>Add to Home Screen</b> → <b>Add</b></li>'; }
+  else { intro.textContent='Your browser hides the install button. Do this:';
+    st.innerHTML='<li>Open this page in <b>Google Chrome</b></li><li>Tap the <b>⋮</b> menu (top right)</li><li>Tap <b>Install app</b> → <b>Install</b></li>'; }
+  document.getElementById('installSheet').classList.add('show');
+}
+if(!isStandalone() && !inFrame){ setTimeout(()=>{ if(!deferredPrompt) showInstall(); }, 2500); }
+if('serviceWorker' in navigator && !inFrame && (location.protocol==='https:'||location.hostname==='localhost')){
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
 </body>
 </html>
