@@ -126,7 +126,7 @@ ${items.map((it, i) => `<div class="lb-budget-it"><span class="sw" style="backgr
         let a = 0, svg = '';
         items.forEach(it => { if (it.amount <= 0 || income <= 0) return; const da = it.amount / income * Math.PI * 2; svg += `<path d="${arc(64, 64, 60, a, a + da)}" fill="${it.col}" stroke="#fff" stroke-width="1.5"/>`; a += da; });
         if (s.left > 0 && income > 0) svg += `<path d="${arc(64, 64, 60, a, Math.PI * 2)}" fill="#e7e9f5" stroke="#fff" stroke-width="1.5"/>`;
-        svg += `<circle cx="64" cy="64" r="30" fill="#fff"/><text x="64" y="61" text-anchor="middle" font-size="10" font-weight="800" fill="#6b7090">${s.left > 0 ? 'left' : 'all planned'}</text><text x="64" y="76" text-anchor="middle" font-size="${s.left > 0 ? 13 : 16}" font-weight="800" fill="${s.left > 0 ? '#1b1f3a' : '#0f7a5c'}">${s.left > 0 ? money(s.left) : '✓'}</text>`;
+        svg += `<circle cx="64" cy="64" r="30" fill="#fff"/><text x="64" y="61" text-anchor="middle" font-size="10" font-weight="800" fill="#6b7090">${s.left > 0 ? 'left' : s.left < 0 ? 'overspent' : 'all planned'}</text><text x="64" y="76" text-anchor="middle" font-size="${s.left === 0 ? 16 : 13}" font-weight="800" fill="${s.left > 0 ? '#1b1f3a' : s.left < 0 ? '#d63c4a' : '#0f7a5c'}">${s.left > 0 ? money(s.left) : s.left < 0 ? money(-s.left) : '✓'}</text>`;
         body.querySelector('.lb-budget-top svg').innerHTML = svg;
         const checks = [];
         if (goal.save != null) checks.push([pc(s.save) >= +goal.save - 1e-9, `Savings ${f1(pc(s.save))} (need ≥ ${goal.save}%)`]);

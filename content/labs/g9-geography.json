@@ -1,0 +1,868 @@
+{
+ "g9-geography-02-01": {
+  "type": "storysequence",
+  "p": {
+   "title": "Journey to the centre of the Earth",
+   "kind": "story",
+   "challenge": "Dig from the surface to the centre: put the 6 layers in order",
+   "panels": [
+    {
+     "e": "🏔️",
+     "t": "Crust: thin rocky skin, about 5 km under oceans"
+    },
+    {
+     "e": "🧱",
+     "t": "Rigid top of the mantle (crust + this = lithosphere)"
+    },
+    {
+     "e": "🫠",
+     "t": "Asthenosphere: weak, slowly flowing upper mantle"
+    },
+    {
+     "e": "🟠",
+     "t": "Rest of the mantle, down to about 2,900 km"
+    },
+    {
+     "e": "🌊",
+     "t": "Outer core: liquid; S waves cannot pass"
+    },
+    {
+     "e": "⚪",
+     "t": "Inner core: solid nickel and iron (nife)"
+    }
+   ]
+  }
+ },
+ "g9-geography-02-02": {
+  "type": "worldmap",
+  "p": {
+   "title": "Moving plates and drifting continents",
+   "mode": "find",
+   "modes": [
+    "find",
+    "explore"
+   ],
+   "challenge": "Find the Mid-Atlantic Ridge (divergent), Himalayas (convergent), San Andreas Fault (transform) and both Mesosaurus fossil sites",
+   "points": [
+    {
+     "name": "Mid-Atlantic Ridge",
+     "lat": 30,
+     "lon": -42,
+     "emoji": "↔️",
+     "info": "Divergent boundary: plates move apart."
+    },
+    {
+     "name": "Himalayas",
+     "lat": 28.0,
+     "lon": 86.9,
+     "emoji": "🏔️",
+     "info": "Convergent boundary: plates move towards each other."
+    },
+    {
+     "name": "San Andreas Fault",
+     "lat": 35.1,
+     "lon": -119.6,
+     "emoji": "↕️",
+     "info": "Transform boundary: plates slide past each other."
+    },
+    {
+     "name": "Brazil: Mesosaurus fossils",
+     "lat": -25,
+     "lon": -50,
+     "emoji": "🦎",
+     "info": "Fossils of the same reptile, Mesosaurus, are found in Brazil and South Africa."
+    },
+    {
+     "name": "South Africa: Mesosaurus fossils",
+     "lat": -30,
+     "lon": 24,
+     "emoji": "🦎",
+     "info": "These lands were once joined in Gondwanaland."
+    },
+    {
+     "name": "India: old glacial tillite",
+     "lat": 23,
+     "lon": 80,
+     "emoji": "🧊",
+     "info": "Tillite in India and other southern lands shows they were once joined. India was part of Gondwanaland."
+    }
+   ],
+   "ask": [
+    "Mid-Atlantic Ridge",
+    "Himalayas",
+    "San Andreas Fault",
+    "Brazil: Mesosaurus fossils",
+    "South Africa: Mesosaurus fossils"
+   ],
+   "rounds": 5,
+   "radius": 1200,
+   "grid": 30,
+   "goal": 5
+  }
+ },
+ "g9-geography-02-03": {
+  "type": "flowchart",
+  "p": {
+   "title": "Inside an earthquake",
+   "task": "arrange",
+   "challenge": "Arrange what happens in an earthquake, from stored stress to the seismograph",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🪨",
+     "text": "Energy is stored in rocks along a fault",
+     "info": "Faults are usually near plate boundaries."
+    },
+    {
+     "id": "b",
+     "emoji": "💥",
+     "text": "Rocks suddenly slip at the focus",
+     "info": "The focus (hypocentre) is inside the Earth; the epicentre is the point on the surface right above it, where shaking is usually strongest."
+    },
+    {
+     "id": "c",
+     "emoji": "1️⃣",
+     "text": "P waves arrive first"
+    },
+    {
+     "id": "d",
+     "emoji": "2️⃣",
+     "text": "S waves arrive next"
+    },
+    {
+     "id": "e",
+     "emoji": "🏚️",
+     "text": "Surface waves arrive last and do the most damage"
+    },
+    {
+     "id": "f",
+     "emoji": "📈",
+     "text": "Seismograph record: magnitude on the Richter scale",
+     "info": "Intensity (shaking and damage felt) is measured on the Mercalli scale, 1 to 12."
+    }
+   ]
+  }
+ },
+ "g9-geography-02-04": {
+  "type": "flowchart",
+  "p": {
+   "title": "Active, dormant or extinct?",
+   "task": "play",
+   "challenge": "Think of Barren Island in the Andamans. Answer the questions to find its type",
+   "nodes": [
+    {
+     "id": "s",
+     "emoji": "🌋",
+     "text": "A volcano: an opening (vent) in the crust",
+     "info": "Magma is molten rock below the surface; it is called lava once it comes out."
+    },
+    {
+     "id": "q1",
+     "emoji": "🔥",
+     "text": "Erupting now or recently?",
+     "type": "decision"
+    },
+    {
+     "id": "act",
+     "emoji": "🌋",
+     "text": "Active volcano",
+     "info": "Barren Island in the Andaman and Nicobar Islands is India's only active volcano."
+    },
+    {
+     "id": "q2",
+     "emoji": "💤",
+     "text": "Could it erupt again?",
+     "info": "Some volcanoes stay quiet for a long time but may still erupt.",
+     "type": "decision"
+    },
+    {
+     "id": "dor",
+     "emoji": "😴",
+     "text": "Dormant volcano",
+     "info": "Quiet for a long time but may erupt again."
+    },
+    {
+     "id": "ext",
+     "emoji": "🪨",
+     "text": "Extinct volcano",
+     "info": "Not expected to erupt again."
+    }
+   ],
+   "edges": [
+    {
+     "from": "s",
+     "to": "q1"
+    },
+    {
+     "from": "q1",
+     "to": "act",
+     "label": "Yes"
+    },
+    {
+     "from": "q1",
+     "to": "q2",
+     "label": "No"
+    },
+    {
+     "from": "q2",
+     "to": "dor",
+     "label": "Yes"
+    },
+    {
+     "from": "q2",
+     "to": "ext",
+     "label": "No"
+    }
+   ]
+  }
+ },
+ "g9-geography-03-01": {
+  "type": "storysequence",
+  "p": {
+   "title": "Rocket ride up through the atmosphere",
+   "kind": "story",
+   "challenge": "Order the 5 layers from the ground upwards",
+   "panels": [
+    {
+     "e": "☁️",
+     "t": "Troposphere: almost all weather and clouds"
+    },
+    {
+     "e": "✈️",
+     "t": "Stratosphere: ozone layer; good for aeroplanes"
+    },
+    {
+     "e": "☄️",
+     "t": "Mesosphere: coldest layer; meteors burn up"
+    },
+    {
+     "e": "📻",
+     "t": "Thermosphere: ionosphere reflects radio waves"
+    },
+    {
+     "e": "🛰️",
+     "t": "Exosphere: the air is extremely thin"
+    }
+   ]
+  }
+ },
+ "g9-geography-03-02": {
+  "type": "wordbuilder",
+  "p": {
+   "challenge": "Build the weather instrument from each clue",
+   "slots": [
+    [
+     "thermo",
+     "baro",
+     "anemo",
+     "hygro",
+     "seismo"
+    ],
+    [
+     "meter",
+     "graph"
+    ]
+   ],
+   "slotLabels": [
+    "Start",
+    "End"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "thermo",
+      "meter"
+     ],
+     "word": "thermometer",
+     "meaning": "measures temperature"
+    },
+    {
+     "parts": [
+      "baro",
+      "meter"
+     ],
+     "word": "barometer",
+     "meaning": "measures air pressure"
+    },
+    {
+     "parts": [
+      "anemo",
+      "meter"
+     ],
+     "word": "anemometer",
+     "meaning": "measures wind speed"
+    },
+    {
+     "parts": [
+      "hygro",
+      "meter"
+     ],
+     "word": "hygrometer",
+     "meaning": "measures humidity (water vapour in the air)"
+    },
+    {
+     "parts": [
+      "seismo",
+      "graph"
+     ],
+     "word": "seismograph",
+     "meaning": "records earthquake waves (not a weather instrument!)"
+    }
+   ],
+   "targets": [
+    "barometer",
+    "anemometer",
+    "hygrometer",
+    "thermometer"
+   ]
+  }
+ },
+ "g9-geography-03-03": {
+  "type": "graphplot",
+  "p": {
+   "mode": "line",
+   "m": 0,
+   "c": 30,
+   "lock": [
+    "c"
+   ],
+   "mRange": [
+    -10,
+    0,
+    0.5
+   ],
+   "cRange": [
+    0,
+    40,
+    1
+   ],
+   "xr": 6,
+   "yr": 35,
+   "tableX": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "target": {
+    "m": -6.5
+   },
+   "challenge": "x = height in km, y = temperature in °C. At sea level it is 30 °C. Set the slope so it gets 6.5 °C colder for every 1 km you climb",
+   "winText": "Right! Temperature falls about 6.5 °C per 1,000 m, so 2 km up it is about 17 °C. That is why hill stations like Shimla and Ooty are cool."
+  }
+ },
+ "g9-geography-10-01": {
+  "type": "worldmap",
+  "p": {
+   "title": "The world ocean",
+   "mode": "find",
+   "modes": [
+    "find",
+    "explore"
+   ],
+   "challenge": "Find all 5 oceans and the deepest place in the sea, the Mariana Trench",
+   "points": [
+    {
+     "name": "Mariana Trench",
+     "lat": 11.35,
+     "lon": 142.2,
+     "emoji": "🕳️",
+     "info": "The deepest part of the ocean, about 11 km deep, in the Pacific."
+    },
+    {
+     "name": "Mumbai High",
+     "lat": 19.4,
+     "lon": 71.3,
+     "emoji": "🛢️",
+     "info": "Oil and gas on the continental shelf off Maharashtra."
+    },
+    {
+     "name": "Lakshadweep",
+     "lat": 10.5,
+     "lon": 72.6,
+     "emoji": "🏝️",
+     "info": "Many atolls: ring-shaped coral islands around a lagoon."
+    }
+   ],
+   "ask": [
+    "Pacific Ocean",
+    "Atlantic Ocean",
+    "Indian Ocean",
+    "Southern Ocean",
+    "Arctic Ocean",
+    "Mariana Trench"
+   ],
+   "rounds": 6,
+   "radius": 1000,
+   "grid": 0,
+   "goal": 5
+  }
+ },
+ "g9-geography-10-02": {
+  "type": "flowchart",
+  "p": {
+   "title": "Spring tide or neap tide?",
+   "task": "play",
+   "challenge": "It is a full-moon night at the beach. Answer the questions: what kind of tide will you see?",
+   "nodes": [
+    {
+     "id": "s",
+     "emoji": "🌊",
+     "text": "Tides: the sea rises and falls",
+     "info": "Caused mainly by the pull of the Moon's gravity, helped by the Sun. Most coasts get two high and two low tides a day."
+    },
+    {
+     "id": "q1",
+     "emoji": "🌕",
+     "text": "Full moon or new moon?",
+     "type": "decision"
+    },
+    {
+     "id": "sp",
+     "emoji": "⬆️",
+     "text": "Spring tide",
+     "info": "Spring tides are the highest tides. They come at full moon and new moon."
+    },
+    {
+     "id": "q2",
+     "emoji": "🌓",
+     "text": "Moon at its quarter?",
+     "type": "decision"
+    },
+    {
+     "id": "np",
+     "emoji": "↕️",
+     "text": "Neap tide",
+     "info": "Neap tides have the smallest rise and fall. They come when the Moon is at its quarters."
+    },
+    {
+     "id": "nt",
+     "emoji": "🌊",
+     "text": "Ordinary tide"
+    }
+   ],
+   "edges": [
+    {
+     "from": "s",
+     "to": "q1"
+    },
+    {
+     "from": "q1",
+     "to": "sp",
+     "label": "Yes"
+    },
+    {
+     "from": "q1",
+     "to": "q2",
+     "label": "No"
+    },
+    {
+     "from": "q2",
+     "to": "np",
+     "label": "Yes"
+    },
+    {
+     "from": "q2",
+     "to": "nt",
+     "label": "No"
+    }
+   ]
+  }
+ },
+ "g9-geography-10-03": {
+  "type": "foodchain",
+  "p": {
+   "mode": "chain",
+   "habitat": "ocean",
+   "habitats": [
+    "ocean"
+   ],
+   "energy": 10000,
+   "unit": "J",
+   "pyramid": true,
+   "goal": {
+    "end": "whale"
+   },
+   "challenge": "Phytoplankton are the base of ocean food chains. Build the chain that feeds the blue whale, the largest animal known"
+  }
+ },
+ "g9-geography-11-01": {
+  "type": "wordbuilder",
+  "p": {
+   "challenge": "Build the name of each sphere from its clue",
+   "slots": [
+    [
+     "litho",
+     "hydro",
+     "atmo",
+     "bio",
+     "eco"
+    ],
+    [
+     "sphere",
+     "system"
+    ]
+   ],
+   "slotLabels": [
+    "Start",
+    "End"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "litho",
+      "sphere"
+     ],
+     "word": "lithosphere",
+     "meaning": "rocks, soil and land"
+    },
+    {
+     "parts": [
+      "hydro",
+      "sphere"
+     ],
+     "word": "hydrosphere",
+     "meaning": "oceans, rivers, lakes, ice and groundwater"
+    },
+    {
+     "parts": [
+      "atmo",
+      "sphere"
+     ],
+     "word": "atmosphere",
+     "meaning": "the air around the Earth"
+    },
+    {
+     "parts": [
+      "bio",
+      "sphere"
+     ],
+     "word": "biosphere",
+     "meaning": "all living things, where land, water and air meet"
+    },
+    {
+     "parts": [
+      "eco",
+      "system"
+     ],
+     "word": "ecosystem",
+     "meaning": "living things interacting with each other and their non-living surroundings"
+    }
+   ],
+   "targets": [
+    "lithosphere",
+    "hydrosphere",
+    "atmosphere",
+    "biosphere"
+   ]
+  }
+ },
+ "g9-geography-11-02": {
+  "type": "foodchain",
+  "p": {
+   "mode": "chain",
+   "energy": 10000,
+   "unit": "J",
+   "pyramid": true,
+   "organisms": [
+    {
+     "id": "grass",
+     "name": "Grass",
+     "emoji": "🌿",
+     "eats": []
+    },
+    {
+     "id": "shrub",
+     "name": "Shrubs",
+     "emoji": "🌳",
+     "eats": []
+    },
+    {
+     "id": "deer",
+     "name": "Deer",
+     "emoji": "🦌",
+     "eats": [
+      "grass",
+      "shrub"
+     ]
+    },
+    {
+     "id": "hare",
+     "name": "Hare",
+     "emoji": "🐇",
+     "eats": [
+      "grass"
+     ]
+    },
+    {
+     "id": "tiger",
+     "name": "Tiger",
+     "emoji": "🐅",
+     "eats": [
+      "deer"
+     ]
+    },
+    {
+     "id": "jackal",
+     "name": "Jackal",
+     "emoji": "🐺",
+     "eats": [
+      "hare"
+     ]
+    }
+   ],
+   "goal": {
+    "topEnergy": 100
+   },
+   "challenge": "Only about 10% of energy passes to the next level. From 10,000 J in the plants, build a chain whose top consumer gets 100 J"
+  }
+ },
+ "g9-geography-11-03": {
+  "type": "indiamap",
+  "p": {
+   "title": "India's biodiversity hotspots",
+   "mode": "find",
+   "modes": [
+    "find",
+    "explore"
+   ],
+   "challenge": "Find India's parts of the 4 biodiversity hotspots",
+   "places": [
+    {
+     "name": "Nilgiri Hills",
+     "lat": 11.4,
+     "lon": 76.7,
+     "emoji": "🐐",
+     "info": "Western Ghats: home of endemic species like the Nilgiri tahr and the lion-tailed macaque."
+    },
+    {
+     "name": "Rajasthan: Bishnois",
+     "lat": 26.3,
+     "lon": 73.0,
+     "emoji": "🦌",
+     "info": "The Bishnois protect blackbuck and khejri trees."
+    }
+   ],
+   "lines": [],
+   "regions": [
+    {
+     "name": "Western Ghats",
+     "color": "#2ed3a5",
+     "info": "A hotspot shared with Sri Lanka (Western Ghats and Sri Lanka).",
+     "pts": [
+      [
+       73.3,
+       21.0
+      ],
+      [
+       74.2,
+       21.0
+      ],
+      [
+       74.5,
+       17.0
+      ],
+      [
+       75.3,
+       14.5
+      ],
+      [
+       76.3,
+       12.0
+      ],
+      [
+       77.3,
+       9.5
+      ],
+      [
+       77.6,
+       8.3
+      ],
+      [
+       76.9,
+       8.3
+      ],
+      [
+       75.6,
+       11.5
+      ],
+      [
+       74.3,
+       14.5
+      ],
+      [
+       73.5,
+       17.5
+      ],
+      [
+       72.9,
+       20.0
+      ]
+     ]
+    },
+    {
+     "name": "Himalaya",
+     "color": "#3b82f6",
+     "info": "The Himalaya biodiversity hotspot.",
+     "pts": [
+      [
+       73.8,
+       34.6
+      ],
+      [
+       76.0,
+       35.4
+      ],
+      [
+       79.0,
+       32.5
+      ],
+      [
+       81.0,
+       30.4
+      ],
+      [
+       84.0,
+       28.6
+      ],
+      [
+       88.0,
+       27.9
+      ],
+      [
+       92.0,
+       28.0
+      ],
+      [
+       95.0,
+       29.0
+      ],
+      [
+       96.3,
+       28.5
+      ],
+      [
+       95.0,
+       27.5
+      ],
+      [
+       92.0,
+       27.0
+      ],
+      [
+       88.0,
+       26.8
+      ],
+      [
+       84.0,
+       27.3
+      ],
+      [
+       80.5,
+       28.8
+      ],
+      [
+       77.5,
+       30.4
+      ],
+      [
+       75.2,
+       32.4
+      ],
+      [
+       73.9,
+       33.4
+      ]
+     ]
+    },
+    {
+     "name": "Indo-Burma",
+     "color": "#ff6b6b",
+     "info": "The Indo-Burma hotspot covers India's north-east.",
+     "pts": [
+      [
+       89.9,
+       26.0
+      ],
+      [
+       91.8,
+       24.2
+      ],
+      [
+       92.4,
+       22.2
+      ],
+      [
+       93.4,
+       23.4
+      ],
+      [
+       94.6,
+       25.4
+      ],
+      [
+       95.4,
+       26.8
+      ],
+      [
+       94.0,
+       27.1
+      ],
+      [
+       92.0,
+       26.6
+      ],
+      [
+       90.0,
+       26.3
+      ]
+     ]
+    },
+    {
+     "name": "Sundaland (Nicobar Islands)",
+     "color": "#ffc93c",
+     "info": "India's part of the Sundaland hotspot is the Nicobar Islands.",
+     "pts": [
+      [
+       92.4,
+       9.4
+      ],
+      [
+       93.5,
+       9.4
+      ],
+      [
+       94.3,
+       7.4
+      ],
+      [
+       94.0,
+       6.5
+      ],
+      [
+       93.2,
+       6.5
+      ],
+      [
+       92.4,
+       8.0
+      ]
+     ]
+    }
+   ],
+   "ask": [
+    "Western Ghats",
+    "Himalaya",
+    "Indo-Burma",
+    "Sundaland (Nicobar Islands)"
+   ],
+   "rounds": 4,
+   "radius": 120,
+   "grid": false,
+   "goal": 4
+  }
+ }
+}
