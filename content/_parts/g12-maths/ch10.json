@@ -1,0 +1,2051 @@
+{
+ "n": 10,
+ "title": "Vector Algebra",
+ "emoji": "➡️",
+ "topics": [
+  {
+   "id": "g12-maths-10-01",
+   "title": "Vectors, position vectors and direction cosines",
+   "learn": {
+    "hook": "'Go 5 km' is useless to a pilot. 'Go 5 km north-east' is an instruction. That difference between a scalar and a vector is where this chapter begins.",
+    "points": [
+     "Scalars have magnitude only (mass, time, speed, temperature). Vectors have magnitude and direction (displacement, velocity, force).",
+     "A vector is a directed line segment AB with initial point A and terminal point B; its magnitude is the length |AB|.",
+     "Position vector of P(x, y, z): OP = xi + yj + zk, with |OP| = √(x² + y² + z²).",
+     "If OP makes angles α, β, γ with the x-, y-, z-axes, then l = cos α, m = cos β, n = cos γ are its direction cosines, and l² + m² + n² = 1.",
+     "Direction ratios are any numbers a, b, c proportional to l, m, n; for r = ai + bj + ck, l = a/|r|, m = b/|r|, n = c/|r|."
+    ],
+    "example": {
+     "q": "Find the direction cosines of the vector i + 2j + 2k.",
+     "steps": [
+      "|r| = √(1 + 4 + 4) = 3.",
+      "l = 1/3, m = 2/3, n = 2/3.",
+      "Check: 1/9 + 4/9 + 4/9 = 1 ✓."
+     ],
+     "answer": "1/3, 2/3, 2/3"
+    },
+    "reallife": "Air traffic controllers at Delhi airport give each plane a velocity vector: speed plus heading. Two planes with the same speed but different headings are on very different paths."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Scalar or vector?",
+     "buckets": [
+      "Scalar",
+      "Vector"
+     ],
+     "items": [
+      [
+       "Mass of 5 kg",
+       0
+      ],
+      [
+       "Displacement 10 m north",
+       1
+      ],
+      [
+       "Temperature 30 °C",
+       0
+      ],
+      [
+       "Force 20 N downward",
+       1
+      ],
+      [
+       "Speed 60 km/h",
+       0
+      ],
+      [
+       "Velocity 60 km/h east",
+       1
+      ],
+      [
+       "Time 10 s",
+       0
+      ],
+      [
+       "Acceleration 9.8 m/s² downward",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Magnitude sprint",
+     "items": [
+      {
+       "q": "|2i + 3j − 6k|",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "|3i − 4k|",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "|i + 2j + 2k|",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "|2i − 2j + k|",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "|6i + 2j − 3k|",
+       "a": "7",
+       "check": "7"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the magnitude of the position vector of P(2, 3, −6)?",
+     "options": [
+      "√13",
+      "49",
+      "5",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "√(4 + 9 + 36) = √49 = 7.",
+     "steps": [
+      "4 + 9 + 36 = 49",
+      "√49 = 7"
+     ],
+     "mistake": "Forgets to take the square root",
+     "check": "7"
+    },
+    {
+     "q": "What is the direction cosine n (with the z-axis) of the vector 2i − 2j + k?",
+     "options": [
+      "1",
+      "1/9",
+      "1/3",
+      "−2/3"
+     ],
+     "answer": 2,
+     "explain": "|r| = √(4 + 4 + 1) = 3, so n = 1/3.",
+     "steps": [
+      "|r| = 3",
+      "n = 1/3"
+     ],
+     "mistake": "Uses the component itself, forgetting to divide by |r|",
+     "check": "Fraction(1,3)"
+    },
+    {
+     "q": "A line makes angles 90°, 60° and γ with the x-, y- and z-axes. What is cos²γ?",
+     "options": [
+      "1/4",
+      "1/2",
+      "1",
+      "3/4"
+     ],
+     "answer": 3,
+     "explain": "cos²90° + cos²60° + cos²γ = 1 ⇒ 0 + 1/4 + cos²γ = 1 ⇒ cos²γ = 3/4.",
+     "steps": [
+      "0 + 1/4 + cos²γ = 1",
+      "cos²γ = 3/4"
+     ],
+     "mistake": "Uses cos 60° instead of cos² 60°",
+     "check": "1-Fraction(1,4)"
+    },
+    {
+     "q": "Which are direction cosines of a vector equally inclined to the three axes?",
+     "options": [
+      "1/√3, 1/√3, 1/√3",
+      "1, 1, 1",
+      "1/3, 1/3, 1/3",
+      "1/√2, 1/√2, 1/√2"
+     ],
+     "answer": 0,
+     "explain": "l = m = n and 3l² = 1, so l = 1/√3 (taking the positive sign).",
+     "mistake": "Takes direction ratios 1, 1, 1 as direction cosines"
+    },
+    {
+     "q": "Which of these is a scalar quantity?",
+     "options": [
+      "Work done",
+      "Force",
+      "Displacement",
+      "Velocity"
+     ],
+     "answer": 0,
+     "explain": "Work is a number (with units) with no direction; the others need a direction.",
+     "mistake": "Thinks anything in physics with units is a vector"
+    },
+    {
+     "q": "Which set can be the direction ratios of a line with direction cosines 2/7, 3/7, 6/7?",
+     "options": [
+      "4, 6, 12",
+      "2, 3, 5",
+      "7, 7, 7",
+      "6, 3, 2"
+     ],
+     "answer": 0,
+     "explain": "Direction ratios are proportional to direction cosines; 4, 6, 12 = 14 × (2/7, 3/7, 6/7).",
+     "mistake": "Reorders the numbers, which changes the direction"
+    },
+    {
+     "q": "For any vector, what is l² + m² + n²?",
+     "options": [
+      "0",
+      "1",
+      "3",
+      "It depends on the vector"
+     ],
+     "answer": 1,
+     "explain": "This identity holds for every set of direction cosines.",
+     "mistake": "Confuses direction cosines with direction ratios",
+     "check": "1"
+    },
+    {
+     "q": "Assertion (A): 1, 2, 2 are direction ratios but not direction cosines of a line.\nReason (R): For direction cosines, l² + m² + n² = 1.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "1 + 4 + 4 = 9 ≠ 1, so they cannot be direction cosines, but any proportional triple can be direction ratios.",
+     "mistake": "Treats direction ratios and cosines as the same"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'What makes a vector different from a plain number, and what are direction cosines?'",
+    "must": [
+     [
+      "magnitude",
+      "size",
+      "length"
+     ],
+     [
+      "direction"
+     ],
+     [
+      "cosines",
+      "cos",
+      "angles with axes"
+     ],
+     [
+      "sum of squares",
+      "equals 1",
+      "l² + m² + n²"
+     ]
+    ],
+    "praise": "Tweet! A vector has size and direction; its direction cosines are cosines of the angles with the axes, and their squares add to 1!",
+    "nudge": "What special relation do l, m and n always satisfy?"
+   },
+   "covers": [
+    "c10.1.1",
+    "c10.2.1",
+    "c10.2.2",
+    "c10.2.3",
+    "c10.2.4"
+   ]
+  },
+  {
+   "id": "g12-maths-10-02",
+   "title": "Types of vectors",
+   "learn": {
+    "hook": "Two cricket fielders running in the same direction at the same speed from different spots have equal velocity vectors, even though they start in different places.",
+    "points": [
+     "Zero (null) vector 0: magnitude zero, initial and terminal points coincide; its direction is not defined (any direction).",
+     "Unit vector: magnitude 1; the unit vector along a is â. Coinitial vectors share the same initial point.",
+     "Collinear (parallel) vectors lie along the same or parallel lines, whatever their magnitudes or senses.",
+     "Equal vectors: same magnitude and same direction, regardless of initial points. Negative of AB is BA, with the same magnitude and opposite direction.",
+     "Free vectors can be moved parallel to themselves without change; in this chapter all vectors are free vectors."
+    ],
+    "example": {
+     "q": "In a square ABCD, classify AB and DC, and AB and CD.",
+     "steps": [
+      "AB and DC have the same length and point the same way, so they are equal vectors.",
+      "CD points opposite to AB with the same length, so CD = −AB.",
+      "All of them are collinear (parallel) vectors."
+     ],
+     "answer": "AB = DC (equal); CD = −AB (negative); all collinear"
+    },
+    "reallife": "A map app's route is a chain of displacement vectors; sliding one leg of the route parallel to itself does not change that vector, because displacement vectors are free vectors."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Name the type",
+     "pairs": [
+      [
+       "Magnitude 1",
+       "Unit vector"
+      ],
+      [
+       "Magnitude 0",
+       "Zero vector"
+      ],
+      [
+       "Same initial point",
+       "Coinitial vectors"
+      ],
+      [
+       "Parallel lines of support",
+       "Collinear vectors"
+      ],
+      [
+       "Same magnitude, opposite direction",
+       "Negative vector"
+      ],
+      [
+       "Same magnitude and direction",
+       "Equal vectors"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Type check",
+     "items": [
+      [
+       "Equal vectors must have the same initial point.",
+       false,
+       "Free vectors can start anywhere."
+      ],
+      [
+       "Two collinear vectors always have equal magnitudes.",
+       false,
+       "Collinear vectors may differ in length."
+      ],
+      [
+       "i, j and k are unit vectors.",
+       true,
+       "Each has magnitude 1."
+      ],
+      [
+       "BA = −AB.",
+       true,
+       "They have equal length and opposite directions."
+      ],
+      [
+       "The zero vector has a fixed direction.",
+       false,
+       "Its direction is indeterminate."
+      ],
+      [
+       "Two equal vectors are collinear.",
+       true,
+       "They are parallel with the same sense."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which vector is a unit vector?",
+     "options": [
+      "i + j",
+      "(1/2)(i + j)",
+      "(1/√2)(i + j)",
+      "i + j + k"
+     ],
+     "answer": 2,
+     "explain": "|(1/√2)(i + j)| = (1/√2)√2 = 1.",
+     "mistake": "Thinks a vector with entries 1 is automatically a unit vector"
+    },
+    {
+     "q": "In parallelogram ABCD, which pair are equal vectors?",
+     "options": [
+      "AB and CD",
+      "AB and BC",
+      "AB and DC",
+      "AC and BD"
+     ],
+     "answer": 2,
+     "explain": "Opposite sides AB and DC are equal in length and point the same way.",
+     "mistake": "Confuses CD with DC"
+    },
+    {
+     "q": "Vectors a and −3a are",
+     "options": [
+      "equal",
+      "collinear but not equal",
+      "unit vectors",
+      "perpendicular"
+     ],
+     "answer": 1,
+     "explain": "−3a is parallel to a (opposite sense, three times as long).",
+     "mistake": "Thinks opposite direction means not collinear"
+    },
+    {
+     "q": "What is the magnitude of the zero vector?",
+     "options": [
+      "1",
+      "Undefined",
+      "0",
+      "Any positive number"
+     ],
+     "answer": 2,
+     "explain": "The zero vector has length zero.",
+     "mistake": "Confuses magnitude with direction",
+     "check": "0"
+    },
+    {
+     "q": "Which statement about free vectors is true?",
+     "options": [
+      "They must start at the origin",
+      "They have zero magnitude",
+      "They cannot be added",
+      "They can be shifted parallel to themselves without changing"
+     ],
+     "answer": 3,
+     "explain": "A free vector is defined only by magnitude and direction, not position.",
+     "mistake": "Mixes up free vectors with position vectors"
+    },
+    {
+     "q": "Vectors OA, OB and OC all start at O. They are called",
+     "options": [
+      "collinear vectors",
+      "equal vectors",
+      "coinitial vectors",
+      "zero vectors"
+     ],
+     "answer": 2,
+     "explain": "Coinitial means having the same initial point.",
+     "mistake": "Assumes vectors with a common point must be collinear"
+    },
+    {
+     "q": "Riya walks 4 km west, then 3 km north. What is the magnitude (km) of her displacement vector?",
+     "options": [
+      "7",
+      "1",
+      "5",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "The two legs are perpendicular, so the magnitude is √(16 + 9) = 5 km.",
+     "steps": [
+      "√(4² + 3²)",
+      "= 5"
+     ],
+     "mistake": "Adds the distances instead of combining the vectors",
+     "check": "5"
+    },
+    {
+     "q": "Assertion (A): Two vectors having the same magnitude are equal.\nReason (R): Equal vectors have the same magnitude and the same direction.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is false but R is true",
+      "A is true but R is false"
+     ],
+     "answer": 2,
+     "explain": "Equality needs the same direction as well; i and j have the same magnitude but are not equal.",
+     "mistake": "Ignores direction when comparing vectors"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What is the difference between equal, collinear and negative vectors?'",
+    "must": [
+     [
+      "same direction",
+      "direction"
+     ],
+     [
+      "same magnitude",
+      "same length",
+      "magnitude"
+     ],
+     [
+      "parallel",
+      "same line",
+      "collinear"
+     ],
+     [
+      "opposite",
+      "reverse"
+     ]
+    ],
+    "praise": "Chirp! Equal: same size and direction. Collinear: parallel lines. Negative: same size, opposite direction!",
+    "nudge": "Can two vectors with the same length still be unequal?"
+   },
+   "covers": [
+    "c10.3.1",
+    "c10.3.2",
+    "c10.3.3",
+    "c10.3.4",
+    "c10.3.5",
+    "c10.3.6",
+    "c10.3.7",
+    "c10.3.8"
+   ]
+  },
+  {
+   "id": "g12-maths-10-03",
+   "title": "Addition of vectors",
+   "learn": {
+    "hook": "A boat crossing the Ganga while the river pushes it downstream ends up somewhere neither push alone would take it. Vector addition finds where.",
+    "points": [
+     "Triangle law: if a and b are two sides of a triangle in order (head to tail), the third side taken from the start to the end is a + b: AB + BC = AC.",
+     "So AB + BC + CA = 0 for any triangle ABC.",
+     "Parallelogram law: if a and b are adjacent sides from a common point, the diagonal from that point is a + b.",
+     "Properties: a + b = b + a (commutative), (a + b) + c = a + (b + c) (associative), a + 0 = a, a + (−a) = 0.",
+     "Triangle inequality: |a + b| ≤ |a| + |b|, with equality only when a and b point the same way."
+    ],
+    "example": {
+     "q": "In triangle ABC, simplify AB + BC + CA.",
+     "steps": [
+      "By the triangle law, AB + BC = AC.",
+      "AC + CA = AC − AC = 0."
+     ],
+     "answer": "0 (the zero vector)"
+    },
+    "reallife": "Pilots flying from Mumbai to Chennai add the plane's air velocity to the wind velocity; the resultant vector is the actual ground track."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Triangle law",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Draw vector a from point A to point B",
+      "Draw vector b starting at B, ending at C",
+      "Join A to C",
+      "AC represents a + b"
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Addition laws",
+     "items": [
+      {
+       "text": "AB + BC = ___",
+       "answer": "AC",
+       "options": [
+        "AC",
+        "CA",
+        "BA"
+       ]
+      },
+      {
+       "text": "a + b = ___ + a",
+       "answer": "b",
+       "options": [
+        "b",
+        "a",
+        "0"
+       ]
+      },
+      {
+       "text": "a + (−a) = ___",
+       "answer": "0 (zero vector)",
+       "options": [
+        "0 (zero vector)",
+        "2a",
+        "a"
+       ]
+      },
+      {
+       "text": "|a + b| ___ |a| + |b|",
+       "answer": "≤",
+       "options": [
+        "≤",
+        "≥",
+        "="
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In triangle ABC, what is AB + BC + CA?",
+     "options": [
+      "2AC",
+      "The zero vector",
+      "AC",
+      "AB"
+     ],
+     "answer": 1,
+     "explain": "AB + BC = AC, and AC + CA = 0.",
+     "mistake": "Adds magnitudes instead of vectors"
+    },
+    {
+     "q": "In parallelogram ABCD, AB + AD equals",
+     "options": [
+      "BD",
+      "AC",
+      "DB",
+      "CA"
+     ],
+     "answer": 1,
+     "explain": "By the parallelogram law, the diagonal from A is the sum of the adjacent sides from A.",
+     "mistake": "Picks the other diagonal"
+    },
+    {
+     "q": "If |a| = 3 and |b| = 4, what is the greatest possible value of |a + b|?",
+     "options": [
+      "5",
+      "1",
+      "7",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "|a + b| ≤ |a| + |b| = 7, with equality when a and b have the same direction.",
+     "steps": [
+      "Triangle inequality",
+      "|a + b| ≤ 3 + 4 = 7"
+     ],
+     "mistake": "Assumes the vectors are perpendicular",
+     "check": "3+4"
+    },
+    {
+     "q": "If |a| = 3 and |b| = 4, what is the least possible value of |a + b|?",
+     "options": [
+      "0",
+      "1",
+      "5",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "The sum is smallest when a and b point in opposite directions: 4 − 3 = 1.",
+     "steps": [
+      "Opposite directions",
+      "|4 − 3| = 1"
+     ],
+     "mistake": "Thinks the sum can always be zero",
+     "check": "4-3"
+    },
+    {
+     "q": "Which property says (a + b) + c = a + (b + c)?",
+     "options": [
+      "Commutative law",
+      "Distributive law",
+      "Associative law",
+      "Triangle inequality"
+     ],
+     "answer": 2,
+     "explain": "Associativity means grouping does not matter.",
+     "mistake": "Confuses associative with commutative"
+    },
+    {
+     "q": "A boat moves at 4 km/h straight across a river flowing at 3 km/h. What is the boat's resultant speed (km/h)?",
+     "options": [
+      "5",
+      "7",
+      "1",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "The velocities are perpendicular, so |v| = √(16 + 9) = 5.",
+     "steps": [
+      "Perpendicular vectors",
+      "√(4² + 3²) = 5"
+     ],
+     "mistake": "Adds the speeds directly",
+     "check": "5"
+    },
+    {
+     "q": "In triangle ABC, if AB = a and BC = b, then CA equals",
+     "options": [
+      "a + b",
+      "a − b",
+      "b − a",
+      "−(a + b)"
+     ],
+     "answer": 3,
+     "explain": "AB + BC + CA = 0, so CA = −(a + b).",
+     "mistake": "Forgets the minus sign"
+    },
+    {
+     "q": "Assertion (A): For any two vectors, |a + b| ≤ |a| + |b|.\nReason (R): The length of any side of a triangle is at most the sum of the other two sides.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "a, b and a + b form a triangle (or a straight line), so A follows from the triangle side rule.",
+     "mistake": "Thinks vector sums obey ordinary number addition for lengths"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I add two arrows?'",
+    "must": [
+     [
+      "head to tail",
+      "tip to tail",
+      "triangle law"
+     ],
+     [
+      "parallelogram",
+      "diagonal"
+     ],
+     [
+      "start to end",
+      "third side",
+      "join"
+     ]
+    ],
+    "praise": "Tweet! Place them head to tail and join start to end, or use the parallelogram's diagonal. Arrow arithmetic!",
+    "nudge": "Where does the second arrow start in the triangle law?"
+   },
+   "covers": [
+    "c10.4.1",
+    "c10.4.2",
+    "c10.4.3",
+    "c10.4.4"
+   ]
+  },
+  {
+   "id": "g12-maths-10-04",
+   "title": "Scalar multiples, components and collinearity",
+   "learn": {
+    "hook": "Every vector in space is just a mix of three building blocks: i, j and k. Know the mix, and you know everything about the vector.",
+    "points": [
+     "λa has magnitude |λ||a|; it points along a if λ > 0 and opposite if λ < 0. The unit vector along a is â = a/|a|.",
+     "r = xi + yj + zk: x, y, z are scalar components and xi, yj, zk are vector components.",
+     "Operations are componentwise; a = b exactly when corresponding components are equal.",
+     "a and b are collinear ⇔ b = λa for some scalar λ ⇔ their components are proportional.",
+     "Vector joining P(x₁, y₁, z₁) to Q(x₂, y₂, z₂): PQ = (x₂ − x₁)i + (y₂ − y₁)j + (z₂ − z₁)k."
+    ],
+    "example": {
+     "q": "Find a vector of magnitude 14 in the direction of 2i − 3j + 6k.",
+     "steps": [
+      "|2i − 3j + 6k| = √(4 + 9 + 36) = 7.",
+      "Unit vector = (2i − 3j + 6k)/7.",
+      "Multiply by 14."
+     ],
+     "answer": "4i − 6j + 12k"
+    },
+    "reallife": "A delivery drone's flight can be described leg by leg with components east, north and up; adding the components gives the drone's net position."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Component quickfire",
+     "items": [
+      {
+       "q": "x-component of PQ for P(2, 3, 0), Q(−1, −2, −4)",
+       "a": "−3",
+       "check": "-1-2"
+      },
+      {
+       "q": "|PQ| squared for P(2, 3, 0), Q(−1, −2, −4)",
+       "a": "50",
+       "check": "9+25+16"
+      },
+      {
+       "q": "λ if −4i + 6j − 8k = λ(2i − 3j + 4k)",
+       "a": "−2",
+       "check": "-2"
+      },
+      {
+       "q": "x if xi + 2j − zk = 3i + yj + k",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "z if xi + 2j − zk = 3i + yj + k",
+       "a": "−1",
+       "check": "-1"
+      },
+      {
+       "q": "|3a| if |a| = 4",
+       "a": "12",
+       "check": "12"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Collinear or not?",
+     "items": [
+      [
+       "2i − 3j + 4k and −4i + 6j − 8k are collinear.",
+       true,
+       "The second is −2 times the first."
+      ],
+      [
+       "i + j and i − j are collinear.",
+       false,
+       "Their components are not proportional."
+      ],
+      [
+       "Points (1, 2, 7), (2, 6, 3), (3, 10, −1) are collinear.",
+       true,
+       "AB = BC = i + 4j − 4k."
+      ],
+      [
+       "−a has the same magnitude as a.",
+       true,
+       "|−1| · |a| = |a|."
+      ],
+      [
+       "a/|a| is a unit vector for every non-zero a.",
+       true,
+       "Its magnitude is |a|/|a| = 1."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the unit vector in the direction of a = 2i + 3j + k.",
+     "options": [
+      "(2i + 3j + k)/√14",
+      "(2i + 3j + k)/14",
+      "(2i + 3j + k)/6",
+      "2i + 3j + k"
+     ],
+     "answer": 0,
+     "explain": "|a| = √(4 + 9 + 1) = √14, so â = a/√14.",
+     "mistake": "Divides by |a|² instead of |a|"
+    },
+    {
+     "q": "P(2, 3, 0) and Q(−1, −2, −4). What is PQ?",
+     "options": [
+      "3i + 5j + 4k",
+      "−3i − 5j − 4k",
+      "i + j − 4k",
+      "−3i − 5j + 4k"
+     ],
+     "answer": 1,
+     "explain": "PQ = (−1 − 2)i + (−2 − 3)j + (−4 − 0)k.",
+     "mistake": "Subtracts Q from P instead of P from Q"
+    },
+    {
+     "q": "Find a vector of magnitude 21 in the direction of 2i − 3j + 6k.",
+     "options": [
+      "42i − 63j + 126k",
+      "2i − 3j + 6k",
+      "6i − 9j + 18k",
+      "3i − 4.5j + 9k"
+     ],
+     "answer": 2,
+     "explain": "|2i − 3j + 6k| = 7, so multiply the unit vector by 21: 3(2i − 3j + 6k).",
+     "mistake": "Multiplies the vector itself by 21"
+    },
+    {
+     "q": "If a = 2i − 3j + 4k and b = −4i + λj − 8k are collinear, what is λ?",
+     "options": [
+      "6",
+      "−6",
+      "3",
+      "−3"
+     ],
+     "answer": 0,
+     "explain": "b = −2a requires λ = −2 × (−3) = 6.",
+     "steps": [
+      "Ratio: −4/2 = −2",
+      "λ = −2 × (−3)",
+      "= 6"
+     ],
+     "mistake": "Gets the sign wrong",
+     "check": "-2*(-3)"
+    },
+    {
+     "q": "If xi + 2j − zk = 3i + yj + k, what is x + y + z?",
+     "options": [
+      "6",
+      "2",
+      "5",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "x = 3, y = 2, −z = 1 ⇒ z = −1. Sum = 4.",
+     "steps": [
+      "x = 3, y = 2, z = −1",
+      "3 + 2 − 1 = 4"
+     ],
+     "mistake": "Forgets the minus sign on z",
+     "check": "3+2-1"
+    },
+    {
+     "q": "Show A(1, 2, 7), B(2, 6, 3), C(3, 10, −1) are collinear. Which fact proves it?",
+     "options": [
+      "|AB| = |AC|",
+      "AB = BC = i + 4j − 4k, so AC = 2AB",
+      "A, B, C have positive x-coordinates",
+      "AB · BC = 0"
+     ],
+     "answer": 1,
+     "explain": "AB and BC are parallel and share point B, so A, B, C lie on one line.",
+     "mistake": "Uses equal magnitudes, which does not show the same line"
+    },
+    {
+     "q": "What are the scalar components of the vector joining A(1, −1, 2) to B(4, 3, 2)?",
+     "options": [
+      "5, 2, 4",
+      "3, 4, 0",
+      "−3, −4, 0",
+      "3i, 4j, 0k"
+     ],
+     "answer": 1,
+     "explain": "AB = (4 − 1)i + (3 + 1)j + (2 − 2)k = 3i + 4j. Scalar components are 3, 4, 0.",
+     "mistake": "Gives vector components when scalar components were asked"
+    },
+    {
+     "q": "Assertion (A): −2a is a vector of magnitude 2|a| opposite to a.\nReason (R): For a scalar λ, |λa| = |λ||a|, and λa reverses direction when λ < 0.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "With λ = −2, |λa| = 2|a| and the direction reverses.",
+     "mistake": "Thinks a negative scalar makes the magnitude negative"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find a vector of length 14 pointing the same way as 2i − 3j + 6k?'",
+    "must": [
+     [
+      "unit vector",
+      "divide by magnitude",
+      "magnitude"
+     ],
+     [
+      "multiply",
+      "scale",
+      "times 14"
+     ],
+     [
+      "same direction",
+      "direction"
+     ]
+    ],
+    "praise": "Chirp! Divide by its magnitude to get the unit vector, then multiply by 14. Same direction, new length!",
+    "nudge": "What do you first divide the vector by?"
+   },
+   "covers": [
+    "c10.5.1",
+    "c10.5.2",
+    "c10.5.3",
+    "c10.5.4",
+    "c10.5.5",
+    "c10.5.8"
+   ]
+  },
+  {
+   "id": "g12-maths-10-05",
+   "title": "Section formula and mid-point",
+   "learn": {
+    "hook": "Where exactly is the point two-thirds of the way from Pune to Mumbai on a straight road? The section formula answers instantly in vector form.",
+    "points": [
+     "If P and Q have position vectors a and b, the point R dividing PQ internally in the ratio m : n has position vector (mb + na)/(m + n).",
+     "Externally in the ratio m : n (m ≠ n): (mb − na)/(m − n).",
+     "Mid-point of PQ: (a + b)/2 (internal division with m = n = 1).",
+     "Centroid of a triangle with vertices a, b, c: (a + b + c)/3.",
+     "Remember the 'cross' pattern: m goes with b (the far end), n with a (the near end)."
+    ],
+    "example": {
+     "q": "OP = i + 2j − k and OQ = −i + j + k. Find the point R dividing PQ internally in the ratio 2 : 1.",
+     "steps": [
+      "OR = [2(OQ) + 1(OP)]/(2 + 1).",
+      "= [2(−i + j + k) + (i + 2j − k)]/3.",
+      "= (−i + 4j + k)/3."
+     ],
+     "answer": "OR = −(1/3)i + (4/3)j + (1/3)k"
+    },
+    "reallife": "To place a station two-thirds of the way along a straight stretch of track between two points, a planner can use exactly this section formula."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Formula ↔ meaning",
+     "pairs": [
+      [
+       "(mb + na)/(m + n)",
+       "Internal division m : n"
+      ],
+      [
+       "(mb − na)/(m − n)",
+       "External division m : n"
+      ],
+      [
+       "(a + b)/2",
+       "Mid-point"
+      ],
+      [
+       "(a + b + c)/3",
+       "Centroid"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "External division of PQ in 2 : 1 (P = i + 2j − k, Q = −i + j + k)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Use OR = (2·OQ − 1·OP)/(2 − 1)",
+      "2·OQ = −2i + 2j + 2k",
+      "Subtract OP: −2i + 2j + 2k − i − 2j + k",
+      "OR = −3i + 3k"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the position vector of the mid-point of a and b?",
+     "options": [
+      "(a + b)/2",
+      "(a − b)/2",
+      "a + b",
+      "(b − a)/2"
+     ],
+     "answer": 0,
+     "explain": "Internal division with m = n = 1 gives (a + b)/2.",
+     "mistake": "Subtracts instead of adding"
+    },
+    {
+     "q": "P = i + 2j − k and Q = −i + j + k. R divides PQ externally in the ratio 2 : 1. What is OR?",
+     "options": [
+      "(−i + 4j + k)/3",
+      "−3i + 3k",
+      "3i − 3k",
+      "−i + j + k"
+     ],
+     "answer": 1,
+     "explain": "OR = (2OQ − OP)/(2 − 1) = (−2i + 2j + 2k) − (i + 2j − k) = −3i + 3k.",
+     "mistake": "Uses the internal formula instead"
+    },
+    {
+     "q": "A has position vector 2i + j − k and B has 4i − 3j + 5k. What is the x-component of the mid-point of AB?",
+     "options": [
+      "6",
+      "2",
+      "3",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "(2 + 4)/2 = 3.",
+     "steps": [
+      "(2 + 4)/2 = 3"
+     ],
+     "mistake": "Forgets to divide by 2",
+     "check": "(2+4)/2"
+    },
+    {
+     "q": "Find the position vector of the point dividing a = 2i + j and b = 5i + 7j internally in 1 : 2. What is its y-component?",
+     "options": [
+      "3",
+      "5",
+      "4",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "(1·b + 2·a)/3: y = (7 + 2)/3 = 3.",
+     "steps": [
+      "(1·7 + 2·1)/3",
+      "= 9/3 = 3"
+     ],
+     "mistake": "Pairs m with a instead of b",
+     "check": "(1*7+2*1)/3"
+    },
+    {
+     "q": "The centroid of the triangle with vertices i, j and k has position vector",
+     "options": [
+      "i + j + k",
+      "(i + j + k)/2",
+      "(i + j + k)/3",
+      "3(i + j + k)"
+     ],
+     "answer": 2,
+     "explain": "Centroid = (a + b + c)/3.",
+     "mistake": "Uses 1/2 as for a mid-point"
+    },
+    {
+     "q": "In the internal section formula (mb + na)/(m + n), which ratio does R divide PQ in, with P at a and Q at b?",
+     "options": [
+      "PR : RQ = n : m",
+      "PQ : QR = m : n",
+      "PR : PQ = m : n",
+      "PR : RQ = m : n"
+     ],
+     "answer": 3,
+     "explain": "R is closer to P when m < n; the weights cross over to the far end.",
+     "mistake": "Reverses the meaning of the ratio"
+    },
+    {
+     "q": "For external division in the ratio 3 : 1 of a = i and b = 2i, what is the resulting vector?",
+     "options": [
+      "(7/4)i",
+      "(5/2)i",
+      "5i",
+      "2i"
+     ],
+     "answer": 1,
+     "explain": "(3b − a)/(3 − 1) = (6i − i)/2 = (5/2)i.",
+     "mistake": "Uses m + n in the denominator"
+    },
+    {
+     "q": "Assertion (A): The mid-point formula is a special case of the internal section formula.\nReason (R): Taking m = n = 1 in (mb + na)/(m + n) gives (a + b)/2.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Equal ratio 1 : 1 gives the mid-point, which R computes.",
+     "mistake": "Treats the mid-point formula as unrelated"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the point dividing a line segment in the ratio m : n using vectors?'",
+    "must": [
+     [
+      "m b",
+      "mb",
+      "m times b"
+     ],
+     [
+      "n a",
+      "na",
+      "n times a"
+     ],
+     [
+      "m + n",
+      "divide",
+      "sum of ratio"
+     ],
+     [
+      "external",
+      "m − n",
+      "m - n",
+      "minus"
+     ]
+    ],
+    "praise": "Tweet! Internal: (mb + na)/(m + n). External: (mb − na)/(m − n). Cross the weights and divide!",
+    "nudge": "Which position vector does m multiply, a or b?"
+   },
+   "covers": [
+    "c10.5.6",
+    "c10.5.7"
+   ]
+  },
+  {
+   "id": "g12-maths-10-06",
+   "title": "The scalar (dot) product",
+   "learn": {
+    "hook": "Pull a cart with a rope at an angle and only part of your force moves it forward. The dot product measures exactly that useful part.",
+    "points": [
+     "a · b = |a||b| cos θ, where θ (0 ≤ θ ≤ π) is the angle between a and b. The result is a scalar.",
+     "Properties: a · b = b · a, a · (b + c) = a · b + a · c, (λa) · b = λ(a · b).",
+     "i · i = j · j = k · k = 1 and i · j = j · k = k · i = 0. So (a₁i + a₂j + a₃k) · (b₁i + b₂j + b₃k) = a₁b₁ + a₂b₂ + a₃b₃.",
+     "Angle: cos θ = (a · b)/(|a||b|).",
+     "a ⊥ b ⇔ a · b = 0 (for non-zero vectors). a · a = |a|²."
+    ],
+    "example": {
+     "q": "Find the angle between a = i + j and b = j + k.",
+     "steps": [
+      "a · b = 0 + 1 + 0 = 1.",
+      "|a| = √2, |b| = √2.",
+      "cos θ = 1/(√2 · √2) = 1/2."
+     ],
+     "answer": "θ = π/3"
+    },
+    "reallife": "In physics, work = F · d. A porter at a railway station carrying luggage horizontally does no work against gravity, since force and displacement are perpendicular."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Dot product dash",
+     "items": [
+      {
+       "q": "(2i + 3j + k) · (i − j + 2k)",
+       "a": "1",
+       "check": "2-3+2"
+      },
+      {
+       "q": "(i + 2j + 3k) · (3i − 2j + k)",
+       "a": "2",
+       "check": "3-4+3"
+      },
+      {
+       "q": "i · i",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "j · k",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "(3i − 4k) · (3i − 4k)",
+       "a": "25",
+       "check": "9+16"
+      },
+      {
+       "q": "(i − j) · (i + j)",
+       "a": "0",
+       "check": "1-1"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Dot product facts",
+     "items": [
+      [
+       "a · b is a vector.",
+       false,
+       "It is a scalar."
+      ],
+      [
+       "a · b = b · a.",
+       true,
+       "The dot product is commutative."
+      ],
+      [
+       "If a · b = 0 for non-zero a, b, they are perpendicular.",
+       true,
+       "cos θ = 0 gives θ = π/2."
+      ],
+      [
+       "a · a = |a|².",
+       true,
+       "θ = 0 and cos 0 = 1."
+      ],
+      [
+       "i · j = 1.",
+       false,
+       "i and j are perpendicular, so i · j = 0."
+      ],
+      [
+       "If a · b < 0, the angle between them is obtuse.",
+       true,
+       "cos θ < 0 means θ is between π/2 and π."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find (2i + 3j + k) · (i − j + 2k).",
+     "options": [
+      "1",
+      "7",
+      "−1",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "2(1) + 3(−1) + 1(2) = 1.",
+     "steps": [
+      "2 − 3 + 2",
+      "= 1"
+     ],
+     "mistake": "Drops a sign",
+     "check": "2-3+2"
+    },
+    {
+     "q": "For which λ are 2i + λj + k and i − 2j + 3k perpendicular?",
+     "options": [
+      "−5/2",
+      "2/5",
+      "5/2",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "2 − 2λ + 3 = 0 ⇒ λ = 5/2.",
+     "steps": [
+      "Dot product = 0",
+      "2 − 2λ + 3 = 0",
+      "λ = 5/2"
+     ],
+     "mistake": "Makes a sign slip solving 5 − 2λ = 0",
+     "check": "Fraction(5,2)"
+    },
+    {
+     "q": "Find cos θ for the angle between i − 2j + 3k and 3i − 2j + k.",
+     "options": [
+      "1/7",
+      "10/7",
+      "5/7",
+      "2/7"
+     ],
+     "answer": 2,
+     "explain": "Dot = 3 + 4 + 3 = 10, each magnitude √14, cos θ = 10/14 = 5/7.",
+     "steps": [
+      "a · b = 3 + 4 + 3 = 10",
+      "|a||b| = 14",
+      "cos θ = 5/7"
+     ],
+     "mistake": "Forgets that (−2)(−2) = +4",
+     "check": "Fraction(10,14)"
+    },
+    {
+     "q": "|a| = √3, |b| = 2 and a · b = √6. What is the angle between a and b?",
+     "options": [
+      "π/3",
+      "π/6",
+      "π/2",
+      "π/4"
+     ],
+     "answer": 3,
+     "explain": "cos θ = √6/(2√3) = √2/2 = 1/√2, so θ = π/4.",
+     "mistake": "Simplifies √6/√3 wrongly"
+    },
+    {
+     "q": "What is i · (j × k)?",
+     "options": [
+      "0",
+      "1",
+      "−1",
+      "i"
+     ],
+     "answer": 1,
+     "explain": "j × k = i, and i · i = 1.",
+     "steps": [
+      "j × k = i",
+      "i · i = 1"
+     ],
+     "mistake": "Thinks every product of different unit vectors is 0",
+     "check": "1"
+    },
+    {
+     "q": "If a · b = 0 and a, b are non-zero, what is the angle between them?",
+     "options": [
+      "π/2",
+      "0",
+      "π",
+      "π/4"
+     ],
+     "answer": 0,
+     "explain": "cos θ = 0 gives θ = π/2.",
+     "mistake": "Thinks a zero dot product means parallel vectors"
+    },
+    {
+     "q": "Which pair of vectors is perpendicular?",
+     "options": [
+      "i + j − k and 2i − j + k",
+      "i + j and i + 2j",
+      "i − j and j − i",
+      "2i + k and i + k"
+     ],
+     "answer": 0,
+     "explain": "(1)(2) + (1)(−1) + (−1)(1) = 2 − 1 − 1 = 0.",
+     "mistake": "Checks only two components"
+    },
+    {
+     "q": "Assertion (A): For non-zero vectors, a · b = |a||b| exactly when a and b point in the same direction.\nReason (R): cos θ = 1 only when θ = 0.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "a · b = |a||b| cos θ equals |a||b| only if cos θ = 1, i.e. θ = 0.",
+     "mistake": "Thinks the dot product equals the product of magnitudes for any angle"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the angle between two vectors?'",
+    "must": [
+     [
+      "dot product",
+      "a · b",
+      "a.b",
+      "multiply components"
+     ],
+     [
+      "magnitudes",
+      "|a||b|",
+      "lengths"
+     ],
+     [
+      "cos",
+      "cosine",
+      "cos θ"
+     ]
+    ],
+    "praise": "Chirp! cos θ = (a · b)/(|a||b|). Multiply matching components, add, divide by the lengths!",
+    "nudge": "Which formula links the dot product with the angle?"
+   },
+   "covers": [
+    "c10.6.1",
+    "c10.6.2",
+    "c10.6.3",
+    "c10.6.4"
+   ]
+  },
+  {
+   "id": "g12-maths-10-07",
+   "title": "Projections and dot product identities",
+   "learn": {
+    "hook": "A wind of 20 km/h blows at an angle to a runway. How much of it is a headwind? That is the projection of the wind vector on the runway.",
+    "points": [
+     "Projection of a on b = (a · b)/|b| = a · b̂. Its vector form is ((a · b)/|b|²) b.",
+     "The projection is positive if the angle is acute and negative if obtuse.",
+     "|a + b|² = |a|² + 2a · b + |b|², |a − b|² = |a|² − 2a · b + |b|², and (a + b) · (a − b) = |a|² − |b|².",
+     "Cauchy–Schwarz inequality: |a · b| ≤ |a||b|. Triangle inequality: |a + b| ≤ |a| + |b|.",
+     "If |a + b| = |a − b|, then a · b = 0, so a ⊥ b."
+    ],
+    "example": {
+     "q": "Find the projection of a = 2i + 3j + 2k on b = i + 2j + k.",
+     "steps": [
+      "a · b = 2 + 6 + 2 = 10.",
+      "|b| = √(1 + 4 + 1) = √6.",
+      "Projection = 10/√6."
+     ],
+     "answer": "10/√6 (= 5√6/3)"
+    },
+    "reallife": "Cricket analysts break a ball's velocity into a part along the pitch and a part across it; the along-pitch part is a projection."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Identity ↔ result",
+     "pairs": [
+      [
+       "|a + b|²",
+       "|a|² + 2a · b + |b|²"
+      ],
+      [
+       "|a − b|²",
+       "|a|² − 2a · b + |b|²"
+      ],
+      [
+       "(a + b) · (a − b)",
+       "|a|² − |b|²"
+      ],
+      [
+       "Projection of a on b",
+       "(a · b)/|b|"
+      ],
+      [
+       "|a + b| = |a − b|",
+       "a ⊥ b"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Projection and identity sprint",
+     "items": [
+      {
+       "q": "Projection of 3i + 4k on i",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "Projection of i + j on j",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "|a + b|² if |a| = 2, |b| = 3, a · b = 4",
+       "a": "21",
+       "check": "4+8+9"
+      },
+      {
+       "q": "|a − b|² if |a| = 2, |b| = 3, a · b = 4",
+       "a": "5",
+       "check": "4-8+9"
+      },
+      {
+       "q": "(a + b) · (a − b) if |a| = 5, |b| = 3",
+       "a": "16",
+       "check": "25-9"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the projection of a = 3i + 4j on b = i.",
+     "options": [
+      "4",
+      "5",
+      "1",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "a · b = 3 and |b| = 1, so the projection is 3.",
+     "steps": [
+      "a · i = 3",
+      "|i| = 1"
+     ],
+     "mistake": "Takes the magnitude of a instead",
+     "check": "3"
+    },
+    {
+     "q": "Find the projection of i + 3j + 7k on 7i − j + 8k.",
+     "options": [
+      "60/√59",
+      "60",
+      "60/√114",
+      "√114/60"
+     ],
+     "answer": 2,
+     "explain": "Dot = 7 − 3 + 56 = 60, |7i − j + 8k| = √(49 + 1 + 64) = √114.",
+     "mistake": "Divides by |a| instead of |b|"
+    },
+    {
+     "q": "|a| = 2, |b| = 3 and a · b = 4. What is |a − b|²?",
+     "options": [
+      "5",
+      "21",
+      "13",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "|a − b|² = 4 − 2(4) + 9 = 5.",
+     "steps": [
+      "|a|² − 2a · b + |b|²",
+      "4 − 8 + 9 = 5"
+     ],
+     "mistake": "Adds 2a · b instead of subtracting",
+     "check": "4-8+9"
+    },
+    {
+     "q": "If a is a unit vector and (x − a) · (x + a) = 8, what is |x|?",
+     "options": [
+      "9",
+      "√8",
+      "√7",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "(x − a) · (x + a) = |x|² − |a|² = |x|² − 1 = 8, so |x|² = 9 and |x| = 3.",
+     "steps": [
+      "|x|² − 1 = 8",
+      "|x|² = 9",
+      "|x| = 3"
+     ],
+     "mistake": "Forgets |a|² = 1 or stops at |x|² = 9",
+     "check": "3"
+    },
+    {
+     "q": "If |a + b| = |a − b|, what is the angle between a and b (non-zero)?",
+     "options": [
+      "0",
+      "π/2",
+      "π",
+      "π/3"
+     ],
+     "answer": 1,
+     "explain": "Squaring: |a|² + 2a · b + |b|² = |a|² − 2a · b + |b|², so a · b = 0.",
+     "mistake": "Thinks equal magnitudes mean equal vectors"
+    },
+    {
+     "q": "a, b, c are unit vectors with a + b + c = 0. What is a · b + b · c + c · a?",
+     "options": [
+      "−3/2",
+      "3/2",
+      "0",
+      "−3"
+     ],
+     "answer": 0,
+     "explain": "|a + b + c|² = 3 + 2(a · b + b · c + c · a) = 0, so the sum is −3/2.",
+     "steps": [
+      "0 = 1 + 1 + 1 + 2S",
+      "S = −3/2"
+     ],
+     "mistake": "Forgets that each |a|² = 1",
+     "check": "Fraction(-3,2)"
+    },
+    {
+     "q": "Expand (3a − 5b) · (2a + 7b).",
+     "options": [
+      "6|a|² − 35|b|²",
+      "6|a|² + 31 a · b − 35|b|²",
+      "6|a|² − 11 a · b − 35|b|²",
+      "6|a|² + 11 a · b − 35|b|²"
+     ],
+     "answer": 3,
+     "explain": "6a · a + 21a · b − 10b · a − 35b · b = 6|a|² + 11a · b − 35|b|².",
+     "mistake": "Forgets the cross terms or their signs"
+    },
+    {
+     "q": "Assertion (A): |a · b| ≤ |a||b| for all vectors a and b.\nReason (R): |cos θ| ≤ 1 for every angle θ.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "|a · b| = |a||b||cos θ| ≤ |a||b| because |cos θ| ≤ 1.",
+     "mistake": "Does not link the inequality to the cosine bound"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What does the projection of one vector on another mean?'",
+    "must": [
+     [
+      "shadow",
+      "component along",
+      "along"
+     ],
+     [
+      "dot product",
+      "a · b",
+      "a.b"
+     ],
+     [
+      "divide",
+      "|b|",
+      "magnitude of b",
+      "unit vector"
+     ]
+    ],
+    "praise": "Tweet! It is the shadow of a along b: (a · b)/|b|. Dot, then divide by b's length!",
+    "nudge": "What do you divide a · b by?"
+   },
+   "covers": [
+    "c10.6.5",
+    "c10.6.6"
+   ]
+  },
+  {
+   "id": "g12-maths-10-08",
+   "title": "The vector (cross) product",
+   "learn": {
+    "hook": "Tighten a bolt with a spanner: the turning effect points along the bolt, perpendicular to both the spanner and your push. That direction is a cross product.",
+    "points": [
+     "a × b = |a||b| sin θ n̂, where n̂ is the unit vector perpendicular to both, chosen by the right-hand rule. The result is a vector.",
+     "Anti-commutative: a × b = −(b × a). Distributive: a × (b + c) = a × b + a × c. a × a = 0.",
+     "i × j = k, j × k = i, k × i = j; and j × i = −k, k × j = −i, i × k = −j; i × i = j × j = k × k = 0.",
+     "Component form: a × b = |i j k; a₁ a₂ a₃; b₁ b₂ b₃| (a 3 × 3 determinant).",
+     "Non-zero a and b are parallel ⇔ a × b = 0. (The scalar triple product is not in the current CBSE syllabus.)"
+    ],
+    "example": {
+     "q": "Find (i − 7j + 7k) × (3i − 2j + 2k).",
+     "steps": [
+      "i component: (−7)(2) − (7)(−2) = −14 + 14 = 0.",
+      "j component: −[(1)(2) − (7)(3)] = −(2 − 21) = 19.",
+      "k component: (1)(−2) − (−7)(3) = −2 + 21 = 19."
+     ],
+     "answer": "19j + 19k"
+    },
+    "reallife": "Torque τ = r × F decides how a wind turbine in Tamil Nadu's Muppandal wind farm spins: only the force component perpendicular to the blade turns it."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Cross product table",
+     "pairs": [
+      [
+       "i × j",
+       "k"
+      ],
+      [
+       "j × k",
+       "i"
+      ],
+      [
+       "k × i",
+       "j"
+      ],
+      [
+       "j × i",
+       "−k"
+      ],
+      [
+       "i × i",
+       "0 (zero vector)"
+      ],
+      [
+       "i × k",
+       "−j"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Cross product facts",
+     "items": [
+      [
+       "a × b = b × a.",
+       false,
+       "a × b = −(b × a)."
+      ],
+      [
+       "a × b is perpendicular to both a and b.",
+       true,
+       "It points along n̂, normal to their plane."
+      ],
+      [
+       "a × a = 0 for every a.",
+       true,
+       "θ = 0 and sin 0 = 0."
+      ],
+      [
+       "If a × b = 0 for non-zero a, b, they are perpendicular.",
+       false,
+       "They are parallel."
+      ],
+      [
+       "|a × b| = |a||b| sin θ.",
+       true,
+       "That is its magnitude."
+      ],
+      [
+       "The cross product of two vectors is a scalar.",
+       false,
+       "It is a vector."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find (i + j + k) × (i + 2j + 3k).",
+     "options": [
+      "−i + 2j − k",
+      "i − 2j + k",
+      "i + 2j + k",
+      "5i − 2j − k"
+     ],
+     "answer": 1,
+     "explain": "i(3 − 2) − j(3 − 1) + k(2 − 1) = i − 2j + k.",
+     "mistake": "Forgets the minus sign on the j term"
+    },
+    {
+     "q": "What is |(i − 7j + 7k) × (3i − 2j + 2k)|?",
+     "options": [
+      "19",
+      "19√2",
+      "38",
+      "√38"
+     ],
+     "answer": 1,
+     "explain": "The cross product is 19j + 19k, magnitude √(361 + 361) = 19√2.",
+     "mistake": "Adds the components instead of using √(sum of squares)"
+    },
+    {
+     "q": "|a| = 10, |b| = 2 and a · b = 12. What is |a × b|?",
+     "options": [
+      "12",
+      "20",
+      "16",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "cos θ = 12/20 = 3/5, so sin θ = 4/5. |a × b| = 10 × 2 × 4/5 = 16.",
+     "steps": [
+      "cos θ = 3/5",
+      "sin θ = 4/5",
+      "20 × 4/5 = 16"
+     ],
+     "mistake": "Uses cos θ instead of sin θ",
+     "check": "20*Fraction(4,5)"
+    },
+    {
+     "q": "If (2i + 6j + 27k) × (i + λj + μk) = 0, what is λ?",
+     "options": [
+      "3",
+      "1/3",
+      "27/2",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "Parallel vectors have proportional components: 2/1 = 6/λ = 27/μ, so λ = 3 (and μ = 27/2).",
+     "steps": [
+      "2/1 = 6/λ",
+      "λ = 3"
+     ],
+     "mistake": "Inverts the ratio",
+     "check": "3"
+    },
+    {
+     "q": "For the same equation (2i + 6j + 27k) × (i + λj + μk) = 0, what is μ?",
+     "options": [
+      "3",
+      "2/27",
+      "27/2",
+      "54"
+     ],
+     "answer": 2,
+     "explain": "2/1 = 27/μ gives μ = 27/2.",
+     "steps": [
+      "2 = 27/μ",
+      "μ = 27/2"
+     ],
+     "mistake": "Multiplies 27 by 2 instead of dividing",
+     "check": "Fraction(27,2)"
+    },
+    {
+     "q": "What is k × j?",
+     "options": [
+      "i",
+      "−i",
+      "0",
+      "j"
+     ],
+     "answer": 1,
+     "explain": "j × k = i, so k × j = −i.",
+     "mistake": "Ignores the order in a cross product"
+    },
+    {
+     "q": "|a| = 2, |b| = 3 and a · b = 3. What is |a × b|²?",
+     "options": [
+      "9",
+      "36",
+      "33",
+      "27"
+     ],
+     "answer": 3,
+     "explain": "|a × b|² + (a · b)² = |a|²|b|², so |a × b|² = 36 − 9 = 27.",
+     "steps": [
+      "|a|²|b|² = 36",
+      "36 − 3² = 27"
+     ],
+     "mistake": "Adds (a · b)² instead of subtracting",
+     "check": "36-9"
+    },
+    {
+     "q": "Assertion (A): a × b = −(b × a).\nReason (R): Swapping a and b reverses the right-hand-rule direction while keeping |a||b| sin θ the same.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Same magnitude, opposite normal direction: so b × a = −(a × b).",
+     "mistake": "Thinks the cross product is commutative like the dot product"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu flaps: 'How is the cross product different from the dot product?'",
+    "must": [
+     [
+      "vector",
+      "direction"
+     ],
+     [
+      "perpendicular",
+      "normal",
+      "right-hand rule"
+     ],
+     [
+      "sin",
+      "sine",
+      "sin θ"
+     ],
+     [
+      "determinant",
+      "i j k"
+     ]
+    ],
+    "praise": "Tweet! The cross product is a vector perpendicular to both, with size |a||b| sin θ, found by the i j k determinant!",
+    "nudge": "Is a × b a number or a vector, and which way does it point?"
+   },
+   "covers": [
+    "c10.6.7",
+    "c10.6.8",
+    "c10.6.9",
+    "c10.6.12",
+    "c10.6.14"
+   ]
+  },
+  {
+   "id": "g12-maths-10-09",
+   "title": "Using the cross product: perpendicular vectors and areas",
+   "learn": {
+    "hook": "Need the area of a triangular plot from three GPS points in 3D? One cross product and a half do it.",
+    "points": [
+     "A unit vector perpendicular to both a and b: ±(a × b)/|a × b|.",
+     "Area of a parallelogram with adjacent sides a and b: |a × b|.",
+     "Area of a triangle with sides a and b from one vertex: (1/2)|a × b|.",
+     "For a parallelogram given by its diagonals d₁ and d₂, area = (1/2)|d₁ × d₂|.",
+     "To find a vector satisfying given conditions, write it as xi + yj + zk and use the dot or cross product conditions to form equations."
+    ],
+    "example": {
+     "q": "Find the area of the triangle with vertices A(1, 1, 2), B(2, 3, 5), C(1, 5, 5).",
+     "steps": [
+      "AB = i + 2j + 3k, AC = 4j + 3k.",
+      "AB × AC = i(6 − 12) − j(3 − 0) + k(4 − 0) = −6i − 3j + 4k.",
+      "|AB × AC| = √(36 + 9 + 16) = √61.",
+      "Area = (1/2)√61."
+     ],
+     "answer": "√61/2 square units"
+    },
+    "reallife": "The direction a flat solar panel faces is its normal, which can be found as the cross product of two of its edges; tilting the panel so this normal points towards the sun gives the most power."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Area of triangle ABC with vectors",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Find AB and AC from the coordinates",
+      "Compute AB × AC as a determinant",
+      "Find |AB × AC|",
+      "Halve it for the triangle's area"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Area sprint (square units)",
+     "items": [
+      {
+       "q": "Parallelogram with sides i and j",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "Triangle with sides i and j",
+       "a": "1/2",
+       "check": "Fraction(1,2)"
+      },
+      {
+       "q": "Parallelogram with sides 2i and 3j",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "Triangle with sides 2i and 4k",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "Parallelogram with sides 3i and 3i + 5j",
+       "a": "15",
+       "check": "15"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find a unit vector perpendicular to both a = i + j + k and b = i + 2j + 3k.",
+     "options": [
+      "(i − 2j + k)/6",
+      "(i + j + k)/√3",
+      "i − 2j + k",
+      "(i − 2j + k)/√6"
+     ],
+     "answer": 3,
+     "explain": "a × b = i − 2j + k with magnitude √6. Divide to get a unit vector (its negative also works).",
+     "mistake": "Forgets to divide by the magnitude"
+    },
+    {
+     "q": "Find the area of the parallelogram with adjacent sides 3i + j + 4k and i − j + k.",
+     "options": [
+      "42",
+      "√42/2",
+      "√26",
+      "√42"
+     ],
+     "answer": 3,
+     "explain": "Cross product = 5i + j − 4k, magnitude √(25 + 1 + 16) = √42.",
+     "mistake": "Halves the result as if it were a triangle"
+    },
+    {
+     "q": "Find the area of the triangle with vertices A(1, 1, 2), B(2, 3, 5), C(1, 5, 5).",
+     "options": [
+      "√61",
+      "61/2",
+      "√51/2",
+      "√61/2"
+     ],
+     "answer": 3,
+     "explain": "AB × AC = −6i − 3j + 4k, magnitude √61; half is √61/2.",
+     "mistake": "Forgets the factor 1/2"
+    },
+    {
+     "q": "Find the area (square units) of the triangle with sides a = 2i and b = 3j from a common vertex.",
+     "options": [
+      "6",
+      "3",
+      "5",
+      "3/2"
+     ],
+     "answer": 1,
+     "explain": "a × b = 6k, so the area is (1/2)(6) = 3.",
+     "steps": [
+      "2i × 3j = 6k",
+      "Area = 6/2 = 3"
+     ],
+     "mistake": "Forgets to halve",
+     "check": "6/2"
+    },
+    {
+     "q": "A parallelogram has diagonals d₁ = 3i + j − 2k and d₂ = i − 3j + 4k. Its area is",
+     "options": [
+      "10√3",
+      "√75/4",
+      "√300",
+      "5√3"
+     ],
+     "answer": 3,
+     "explain": "d₁ × d₂ = i(4 − 6) − j(12 + 2) + k(−9 − 1) = −2i − 14j − 10k, magnitude √300 = 10√3. Area = (1/2)(10√3) = 5√3.",
+     "mistake": "Uses |d₁ × d₂| without the 1/2"
+    },
+    {
+     "q": "If a × b is the zero vector for non-zero a and b, the area of the parallelogram they form is",
+     "options": [
+      "|a||b|",
+      "0",
+      "1",
+      "undefined"
+     ],
+     "answer": 1,
+     "explain": "|a × b| = 0, since the vectors are parallel and the 'parallelogram' is flat.",
+     "mistake": "Thinks the area is the product of the lengths",
+     "check": "0"
+    },
+    {
+     "q": "Which vector has dot product 0 with both i + j and j + k?",
+     "options": [
+      "i + j + k",
+      "i − k",
+      "j",
+      "i − j + k"
+     ],
+     "answer": 3,
+     "explain": "(i + j) × (j + k) = i − j + k; check: (1 − 1 + 0) = 0 and (0 − 1 + 1) = 0.",
+     "mistake": "Picks a vector perpendicular to only one of them"
+    },
+    {
+     "q": "Assertion (A): The area of a triangle with adjacent sides a and b is (1/2)|a × b|.\nReason (R): |a × b| is the area of the parallelogram with adjacent sides a and b.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "A triangle is half the parallelogram on the same two sides.",
+     "mistake": "Does not relate triangle and parallelogram areas"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How can a cross product give me the area of a triangle?'",
+    "must": [
+     [
+      "cross product",
+      "a × b",
+      "a x b"
+     ],
+     [
+      "magnitude",
+      "length",
+      "|a × b|"
+     ],
+     [
+      "parallelogram"
+     ],
+     [
+      "half",
+      "1/2"
+     ]
+    ],
+    "praise": "Chirp! |a × b| is the parallelogram's area, so half of it is the triangle's. Areas from vectors!",
+    "nudge": "Why do we take half of |a × b|?"
+   },
+   "covers": [
+    "c10.6.10",
+    "c10.6.11",
+    "c10.6.13"
+   ]
+  }
+ ]
+}

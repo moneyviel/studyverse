@@ -1,0 +1,868 @@
+{
+ "n": 12,
+ "title": "Linear Programming",
+ "emoji": "📉",
+ "topics": [
+  {
+   "id": "g12-maths-12-01",
+   "title": "What is a linear programming problem?",
+   "learn": {
+    "hook": "A furniture dealer in Jodhpur has limited money and limited space. How many tables and chairs should he stock to earn the most? That is a linear programming problem.",
+    "points": [
+     "Linear programming finds the maximum (profit) or minimum (cost) of a linear function under linear restrictions.",
+     "Decision variables (x, y) are the quantities we choose. Usually x ≥ 0, y ≥ 0 (non-negative restrictions).",
+     "Objective function: Z = ax + by, to be maximised or minimised.",
+     "Constraints: linear inequalities (≤ or ≥) that the variables must satisfy.",
+     "Formulating: define variables, write Z, translate each condition into an inequality. (The 'different types of LPP' section is not in the current syllabus.)"
+    ],
+    "example": {
+     "q": "A dealer buys tables at ₹2500 and chairs at ₹500, with ₹50,000 to spend and space for 60 pieces. Profit is ₹250 per table and ₹75 per chair. Formulate the LPP.",
+     "steps": [
+      "Let x = tables, y = chairs.",
+      "Budget: 2500x + 500y ≤ 50000, i.e. 5x + y ≤ 100.",
+      "Space: x + y ≤ 60.",
+      "x ≥ 0, y ≥ 0."
+     ],
+     "answer": "Maximise Z = 250x + 75y subject to 5x + y ≤ 100, x + y ≤ 60, x, y ≥ 0"
+    },
+    "reallife": "Oil refineries use linear programming to decide how much petrol, diesel and LPG to produce from crude oil so that profit is as large as possible within the plant's limits."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "LPP vocabulary",
+     "pairs": [
+      [
+       "Z = 250x + 75y",
+       "Objective function"
+      ],
+      [
+       "x + y ≤ 60",
+       "Constraint"
+      ],
+      [
+       "x ≥ 0, y ≥ 0",
+       "Non-negative restrictions"
+      ],
+      [
+       "x and y",
+       "Decision variables"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Formulate an LPP",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Identify the decision variables",
+      "Write the objective function Z",
+      "Translate each condition into an inequality",
+      "Add the non-negative restrictions"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In 'Maximise Z = 3x + 4y subject to x + y ≤ 4, x, y ≥ 0', what is Z called?",
+     "options": [
+      "The objective function",
+      "A constraint",
+      "The feasible region",
+      "A decision variable"
+     ],
+     "answer": 0,
+     "explain": "Z is the linear function to be optimised.",
+     "mistake": "Confuses the objective with the constraints"
+    },
+    {
+     "q": "Each table needs 3 hours and each chair 1 hour of carpentry; 30 hours are available. Which constraint is correct (x tables, y chairs)?",
+     "options": [
+      "3x + y ≤ 30",
+      "x + 3y ≤ 30",
+      "3x + y ≥ 30",
+      "x + y ≤ 30"
+     ],
+     "answer": 0,
+     "explain": "Total hours used, 3x + y, cannot exceed 30.",
+     "mistake": "Attaches the 3 hours to the wrong variable"
+    },
+    {
+     "q": "A diet needs at least 8 units of vitamin A. Food P gives 2 units per kg and food Q gives 1 unit per kg. Which constraint fits?",
+     "options": [
+      "2x + y ≥ 8",
+      "2x + y ≤ 8",
+      "x + 2y ≥ 8",
+      "2x + y = 8"
+     ],
+     "answer": 0,
+     "explain": "'At least' means ≥, and P (x kg) gives 2x while Q (y kg) gives y.",
+     "mistake": "Uses ≤ for 'at least'"
+    },
+    {
+     "q": "Why are x ≥ 0 and y ≥ 0 included in most LPPs?",
+     "options": [
+      "To make the region unbounded",
+      "To make Z positive",
+      "Quantities like numbers of items cannot be negative",
+      "Because the objective is linear"
+     ],
+     "answer": 2,
+     "explain": "Decision variables represent real quantities that cannot be negative.",
+     "mistake": "Thinks they are needed only to simplify graphs"
+    },
+    {
+     "q": "For the furniture dealer, the budget condition 2500x + 500y ≤ 50000 simplifies to",
+     "options": [
+      "x + 5y ≤ 100",
+      "5x + y ≤ 50",
+      "25x + 5y ≤ 50",
+      "5x + y ≤ 100"
+     ],
+     "answer": 3,
+     "explain": "Divide by 500: 5x + y ≤ 100.",
+     "mistake": "Divides only some terms"
+    },
+    {
+     "q": "A factory makes x units of A (profit ₹40 each) and y units of B (profit ₹30 each). What is the objective function?",
+     "options": [
+      "Minimise Z = 40x + 30y",
+      "Maximise Z = 40x + 30y",
+      "Maximise Z = 30x + 40y",
+      "Maximise Z = x + y"
+     ],
+     "answer": 1,
+     "explain": "Profit is to be maximised: Z = 40x + 30y.",
+     "mistake": "Swaps the coefficients or chooses minimise for profit"
+    },
+    {
+     "q": "Which of the following is NOT a linear constraint?",
+     "options": [
+      "2x + 3y ≤ 12",
+      "x ≥ 0",
+      "xy ≤ 10",
+      "x − y ≥ −1"
+     ],
+     "answer": 2,
+     "explain": "xy is a product of variables, so it is not linear.",
+     "mistake": "Thinks any inequality is linear"
+    },
+    {
+     "q": "Assertion (A): The objective function of an LPP is always a linear function of the decision variables.\nReason (R): In linear programming, the objective and all constraints are linear.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Linearity of the objective is part of the definition of an LPP, stated by R.",
+     "mistake": "Thinks only constraints need to be linear"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What are the parts of a linear programming problem?'",
+    "must": [
+     [
+      "objective",
+      "objective function",
+      "maximise",
+      "minimise"
+     ],
+     [
+      "constraints",
+      "inequalities",
+      "limits"
+     ],
+     [
+      "decision variables",
+      "variables"
+     ],
+     [
+      "non-negative",
+      "x ≥ 0",
+      "cannot be negative"
+     ]
+    ],
+    "praise": "Tweet! Decision variables, an objective to maximise or minimise, and linear constraints including non-negativity. LPP assembled!",
+    "nudge": "What do we call the inequalities the variables must obey?"
+   },
+   "covers": [
+    "c12.1.1",
+    "c12.2.1",
+    "c12.2.2",
+    "c12.2.3",
+    "c12.2.15"
+   ]
+  },
+  {
+   "id": "g12-maths-12-02",
+   "title": "Graphing constraints and the feasible region",
+   "learn": {
+    "hook": "Each constraint cuts the plane in half. Overlap all the allowed halves and you get the feasible region: the only places the answer can live.",
+    "points": [
+     "Each linear inequality ax + by ≤ c represents a half-plane bounded by the line ax + by = c.",
+     "To shade the correct side, test a point not on the line (often the origin).",
+     "The feasible region is the common region of all constraints (including x, y ≥ 0). Points in it are feasible solutions; points outside are infeasible.",
+     "An optimal (feasible) solution is a feasible point that gives the best value of Z.",
+     "The corner points of the feasible region are the intersections of its boundary lines."
+    ],
+    "example": {
+     "q": "Find the corner points of the region x + y ≤ 50, 3x + y ≤ 90, x ≥ 0, y ≥ 0.",
+     "steps": [
+      "x + y = 50 meets the axes at (50, 0) and (0, 50); 3x + y = 90 at (30, 0) and (0, 90).",
+      "The origin satisfies both, so shade towards it.",
+      "Intersection: subtract the equations: 2x = 40, x = 20, y = 30.",
+      "Corners: (0, 0), (30, 0), (20, 30), (0, 50)."
+     ],
+     "answer": "(0, 0), (30, 0), (20, 30), (0, 50)"
+    },
+    "reallife": "A spice exporter can plot weight and budget limits as lines; the overlap of the allowed regions shows every possible shipment mix."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Is the point feasible for x + y ≤ 50, 3x + y ≤ 90, x, y ≥ 0?",
+     "buckets": [
+      "Feasible",
+      "Infeasible"
+     ],
+     "items": [
+      [
+       "(0, 0)",
+       0
+      ],
+      [
+       "(20, 30)",
+       0
+      ],
+      [
+       "(30, 10)",
+       1
+      ],
+      [
+       "(10, 40)",
+       0
+      ],
+      [
+       "(0, 60)",
+       1
+      ],
+      [
+       "(25, 10)",
+       0
+      ],
+      [
+       "(−1, 5)",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Draw the feasible region",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Draw each boundary line from its intercepts",
+      "Test the origin in each inequality",
+      "Shade the correct half-plane for each constraint",
+      "Take the common region in the first quadrant",
+      "Mark the corner points"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which side of the line 2x + 3y = 12 does 2x + 3y ≤ 12 represent?",
+     "options": [
+      "The side containing the origin",
+      "The side away from the origin",
+      "Only the line itself",
+      "The whole plane"
+     ],
+     "answer": 0,
+     "explain": "At (0, 0), 0 ≤ 12 is true, so the half-plane containing the origin is shaded.",
+     "mistake": "Shades the wrong side without testing a point"
+    },
+    {
+     "q": "What is the intersection point of x + y = 50 and 3x + y = 90?",
+     "options": [
+      "(20, 30)",
+      "(30, 20)",
+      "(30, 0)",
+      "(15, 35)"
+     ],
+     "answer": 0,
+     "explain": "Subtracting: 2x = 40 ⇒ x = 20, then y = 30.",
+     "mistake": "Swaps x and y"
+    },
+    {
+     "q": "Is (30, 10) a feasible point for x + y ≤ 50, 3x + y ≤ 90, x, y ≥ 0?",
+     "options": [
+      "No, because 3(30) + 10 = 100 > 90",
+      "Yes, because 30 + 10 ≤ 50",
+      "Yes, because both coordinates are positive",
+      "No, because 30 > 10"
+     ],
+     "answer": 0,
+     "explain": "It satisfies the first constraint but breaks the second, so it is infeasible.",
+     "mistake": "Checks only one constraint"
+    },
+    {
+     "q": "For x + 2y ≥ 10 and 3x + 4y ≤ 24 with x, y ≥ 0, which corner is the intersection of the two lines?",
+     "options": [
+      "(3, 4)",
+      "(2, 4)",
+      "(6, 2)",
+      "(4, 3)"
+     ],
+     "answer": 3,
+     "explain": "x = 10 − 2y ⇒ 3(10 − 2y) + 4y = 24 ⇒ y = 3, x = 4.",
+     "mistake": "Solves the system with a sign slip"
+    },
+    {
+     "q": "What is the y-intercept of the boundary line 3x + 4y = 24?",
+     "options": [
+      "8",
+      "4",
+      "6",
+      "24"
+     ],
+     "answer": 2,
+     "explain": "Put x = 0: 4y = 24 ⇒ y = 6.",
+     "steps": [
+      "x = 0",
+      "4y = 24",
+      "y = 6"
+     ],
+     "mistake": "Gives the x-intercept instead",
+     "check": "24/4"
+    },
+    {
+     "q": "What is a feasible solution of an LPP?",
+     "options": [
+      "Any point that satisfies all the constraints",
+      "The point that maximises Z",
+      "Any corner point",
+      "A point outside the region"
+     ],
+     "answer": 0,
+     "explain": "Feasible means allowed by every constraint; optimal means best among them.",
+     "mistake": "Confuses feasible with optimal"
+    },
+    {
+     "q": "How many corner points does the region x + y ≤ 4, x ≥ 0, y ≥ 0 have?",
+     "options": [
+      "4",
+      "3",
+      "2",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "It is a triangle with corners (0, 0), (4, 0), (0, 4).",
+     "steps": [
+      "Triangle: (0, 0), (4, 0), (0, 4)"
+     ],
+     "mistake": "Counts the intercepts only",
+     "check": "3"
+    },
+    {
+     "q": "Assertion (A): The point (2, 2) lies in the feasible region of x + y ≤ 5, x − y ≥ 1, x, y ≥ 0.\nReason (R): 2 + 2 ≤ 5.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "x − y = 0, which is not ≥ 1, so (2, 2) is infeasible. R is true but checks only one constraint.",
+     "mistake": "Checks only one of the constraints"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the feasible region of an LPP?'",
+    "must": [
+     [
+      "line",
+      "boundary",
+      "draw"
+     ],
+     [
+      "test point",
+      "origin",
+      "test (0, 0)"
+     ],
+     [
+      "shade",
+      "half-plane",
+      "side"
+     ],
+     [
+      "common",
+      "overlap",
+      "intersection"
+     ]
+    ],
+    "praise": "Chirp! Draw each line, test the origin to shade the right side, and the overlap is the feasible region!",
+    "nudge": "How do you decide which side of a line to shade?"
+   },
+   "covers": [
+    "c12.2.4",
+    "c12.2.5",
+    "c12.2.6"
+   ]
+  },
+  {
+   "id": "g12-maths-12-03",
+   "title": "The corner point method",
+   "learn": {
+    "hook": "Among infinitely many feasible points, the best one is always at a corner. So you only need to check a handful of points.",
+    "points": [
+     "Theorem 1: if an LPP has an optimal value, it occurs at a corner point of the feasible region.",
+     "Theorem 2: if the feasible region is bounded, Z has both a maximum and a minimum, each at a corner point.",
+     "Corner point method: (1) draw the feasible region and find its corners, (2) evaluate Z at each corner, (3) pick the largest (max) or smallest (min) if the region is bounded.",
+     "Organise the work in a table: corner point | value of Z.",
+     "Always state the answer with the point and the value, e.g. 'maximum Z = 120 at (30, 0)'."
+    ],
+    "example": {
+     "q": "Maximise Z = 4x + y subject to x + y ≤ 50, 3x + y ≤ 90, x, y ≥ 0.",
+     "steps": [
+      "Corners: (0, 0), (30, 0), (20, 30), (0, 50).",
+      "Z: 0, 120, 110, 50.",
+      "The region is bounded, so the maximum is the largest value."
+     ],
+     "answer": "Maximum Z = 120 at (30, 0)"
+    },
+    "reallife": "A factory planning how many units of two products to make uses the same corner principle: with a linear profit and linear limits, the best plan sits at a corner of the feasible region."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Corner point method",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Draw the feasible region",
+      "Find all corner points",
+      "Evaluate Z at each corner",
+      "Choose the largest or smallest value",
+      "State the optimal point and value"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Evaluate Z at the corner",
+     "items": [
+      {
+       "q": "Z = 4x + y at (30, 0)",
+       "a": "120",
+       "check": "4*30"
+      },
+      {
+       "q": "Z = 4x + y at (20, 30)",
+       "a": "110",
+       "check": "80+30"
+      },
+      {
+       "q": "Z = 200x + 500y at (4, 3)",
+       "a": "2300",
+       "check": "800+1500"
+      },
+      {
+       "q": "Z = 250x + 75y at (10, 50)",
+       "a": "6250",
+       "check": "2500+3750"
+      },
+      {
+       "q": "Z = 3x + 2y at (2, 5)",
+       "a": "16",
+       "check": "6+10"
+      },
+      {
+       "q": "Z = 250x + 75y at (20, 0)",
+       "a": "5000",
+       "check": "5000"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Maximise Z = 4x + y subject to x + y ≤ 50, 3x + y ≤ 90, x, y ≥ 0. What is the maximum value?",
+     "options": [
+      "110",
+      "50",
+      "120",
+      "200"
+     ],
+     "answer": 2,
+     "explain": "Corners give Z = 0, 120, 110, 50. The largest is 120 at (30, 0).",
+     "steps": [
+      "Z(30, 0) = 120",
+      "Z(20, 30) = 110",
+      "Z(0, 50) = 50"
+     ],
+     "mistake": "Assumes the intersection corner (20, 30) must be optimal",
+     "check": "4*30"
+    },
+    {
+     "q": "Minimise Z = 200x + 500y subject to x + 2y ≥ 10, 3x + 4y ≤ 24, x, y ≥ 0. The corners are (0, 5), (4, 3), (0, 6). What is the minimum value?",
+     "options": [
+      "2500",
+      "2300",
+      "3000",
+      "2000"
+     ],
+     "answer": 1,
+     "explain": "Z(0, 5) = 2500, Z(4, 3) = 800 + 1500 = 2300, Z(0, 6) = 3000. Minimum 2300 at (4, 3).",
+     "steps": [
+      "Z(4, 3) = 2300",
+      "Smallest of 2500, 2300, 3000"
+     ],
+     "mistake": "Picks the corner on an axis without evaluating",
+     "check": "200*4+500*3"
+    },
+    {
+     "q": "The furniture dealer maximises Z = 250x + 75y over corners (0, 0), (20, 0), (10, 50), (0, 60). What is the maximum profit?",
+     "options": [
+      "₹5000",
+      "₹4500",
+      "₹7500",
+      "₹6250"
+     ],
+     "answer": 3,
+     "explain": "Z values: 0, 5000, 6250, 4500. Maximum ₹6250 by buying 10 tables and 50 chairs.",
+     "steps": [
+      "Z(10, 50) = 2500 + 3750",
+      "= 6250"
+     ],
+     "mistake": "Picks the corner with the most tables",
+     "check": "250*10+75*50"
+    },
+    {
+     "q": "According to Theorem 2, a bounded feasible region guarantees",
+     "options": [
+      "both a maximum and a minimum of Z at corner points",
+      "only a maximum",
+      "only a minimum",
+      "infinitely many optimal points"
+     ],
+     "answer": 0,
+     "explain": "A linear function on a bounded (closed) region attains both extremes, at corners.",
+     "mistake": "Thinks bounded regions can fail to have an optimum"
+    },
+    {
+     "q": "Maximise Z = 3x + 2y subject to x + 2y ≤ 10, 3x + y ≤ 15, x, y ≥ 0. Corners are (0, 0), (5, 0), (4, 3), (0, 5). What is the maximum?",
+     "options": [
+      "18",
+      "15",
+      "10",
+      "17"
+     ],
+     "answer": 0,
+     "explain": "Z: 0, 15, 12 + 6 = 18, 10. Maximum 18 at (4, 3).",
+     "steps": [
+      "Z(4, 3) = 12 + 6 = 18"
+     ],
+     "mistake": "Stops at the first large value",
+     "check": "3*4+2*3"
+    },
+    {
+     "q": "For the same problem, how was the corner (4, 3) found?",
+     "options": [
+      "By solving x + 2y = 10 and 3x + y = 15 together",
+      "By testing the origin",
+      "By setting x = y",
+      "By maximising Z first"
+     ],
+     "answer": 0,
+     "explain": "From 3x + y = 15, y = 15 − 3x; then x + 30 − 6x = 10 gives x = 4, y = 3.",
+     "mistake": "Guesses the corner instead of solving the boundary equations"
+    },
+    {
+     "q": "Why do we need to check only the corner points?",
+     "options": [
+      "Because the optimal value of a linear objective occurs at a corner point",
+      "Because corners are easy to compute",
+      "Because interior points are infeasible",
+      "Because Z is zero inside the region"
+     ],
+     "answer": 0,
+     "explain": "This is Theorem 1 of linear programming.",
+     "mistake": "Thinks interior points are not allowed"
+    },
+    {
+     "q": "Assertion (A): In a bounded feasible region, the minimum of Z = x + y is at a corner point.\nReason (R): A linear function on a bounded feasible region attains its extreme values at corner points.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "R is the corner point theorem, which directly gives A.",
+     "mistake": "Thinks minima occur inside the region"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'There are infinitely many feasible points. How do I find the best one?'",
+    "must": [
+     [
+      "corner",
+      "vertices",
+      "corner points"
+     ],
+     [
+      "evaluate",
+      "substitute",
+      "value of z"
+     ],
+     [
+      "largest",
+      "smallest",
+      "maximum",
+      "minimum"
+     ]
+    ],
+    "praise": "Tweet! Check only the corner points, compute Z at each, and pick the best. Corners rule!",
+    "nudge": "Which special points of the region do you test?"
+   },
+   "covers": [
+    "c12.2.7",
+    "c12.2.8",
+    "c12.2.9",
+    "c12.2.13"
+   ]
+  },
+  {
+   "id": "g12-maths-12-04",
+   "title": "Unbounded regions, multiple optima and no solution",
+   "learn": {
+    "hook": "Sometimes the feasible region runs off to infinity, sometimes two corners tie, and sometimes no point works at all. Each case needs a careful extra check.",
+    "points": [
+     "Unbounded region, minimum candidate m at a corner: m is the minimum only if the open half-plane Z < m has no point in common with the region. For a maximum M, check Z > M.",
+     "If that half-plane does meet the region, the optimum does not exist (e.g. no maximum).",
+     "Multiple optimal solutions: if two adjacent corners give the same optimal value, every point on the segment joining them is optimal.",
+     "No feasible region: if the constraints have no common point, the LPP has no solution.",
+     "Word problems (diet, manufacturing, allocation) often give unbounded regions with ≥ constraints; check them carefully."
+    ],
+    "example": {
+     "q": "Minimise Z = x + 2y subject to 2x + y ≥ 3, x + 2y ≥ 6, x, y ≥ 0.",
+     "steps": [
+      "The region is unbounded with corners (6, 0) and (0, 3).",
+      "Z(6, 0) = 6 and Z(0, 3) = 6.",
+      "x + 2y < 6 has no common point with the region (it contradicts x + 2y ≥ 6).",
+      "So the minimum 6 is attained at every point of the segment joining (6, 0) and (0, 3)."
+     ],
+     "answer": "Minimum Z = 6 at all points on the segment from (6, 0) to (0, 3)"
+    },
+    "reallife": "Planning a school meal that meets minimum calorie and protein norms (like those set under the PM POSHAN mid-day meal scheme) at the lowest cost is a diet LPP; its ≥ constraints usually give an unbounded feasible region."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which case?",
+     "buckets": [
+      "Unique optimum",
+      "Multiple optima",
+      "No feasible region"
+     ],
+     "items": [
+      [
+       "Two adjacent corners give the same best Z",
+       1
+      ],
+      [
+       "x − y ≤ −1, −x + y ≤ 0, x, y ≥ 0",
+       2
+      ],
+      [
+       "Bounded region, one corner gives the largest Z",
+       0
+      ],
+      [
+       "Min x + 2y with 2x + y ≥ 3, x + 2y ≥ 6",
+       1
+      ],
+      [
+       "x + y ≤ 2 and x + y ≥ 5",
+       2
+      ],
+      [
+       "Max 4x + y with x + y ≤ 50, 3x + y ≤ 90",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Special cases",
+     "items": [
+      [
+       "An unbounded region never has a minimum.",
+       false,
+       "It may, if the half-plane Z < m misses the region."
+      ],
+      [
+       "If Z > M meets an unbounded region, Z has no maximum there.",
+       true,
+       "Z can be made larger than M."
+      ],
+      [
+       "Two corners with the same optimal Z give infinitely many optimal points.",
+       true,
+       "Every point on the segment between them is optimal."
+      ],
+      [
+       "x − y ≤ −1 and −x + y ≤ 0 (with x, y ≥ 0) have a common region.",
+       false,
+       "The first needs y ≥ x + 1 and the second y ≤ x."
+      ],
+      [
+       "A bounded feasible region always has both a maximum and a minimum.",
+       true,
+       "That is Theorem 2."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Minimise Z = 3x + 5y subject to x + 3y ≥ 3, x + y ≥ 2, x, y ≥ 0. The corners are (3, 0), (3/2, 1/2), (0, 2). What is the minimum?",
+     "options": [
+      "9",
+      "10",
+      "7",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "Z: 9, 4.5 + 2.5 = 7, 10. The smallest is 7, and 3x + 5y < 7 has no point in common with the region, so the minimum is 7 at (3/2, 1/2).",
+     "steps": [
+      "Z(3/2, 1/2) = 9/2 + 5/2 = 7",
+      "3x + 5y < 7 misses the region"
+     ],
+     "mistake": "Takes the smallest corner value without checking the unbounded region, or slips in arithmetic",
+     "check": "Fraction(9,2)+Fraction(5,2)"
+    },
+    {
+     "q": "Maximise Z = −x + 2y subject to x ≥ 3, x + y ≥ 5, x + 2y ≥ 6, y ≥ 0. The corners give Z = −6, −2, 1. What is the conclusion?",
+     "options": [
+      "Maximum is 1 at (3, 2)",
+      "Maximum is −2",
+      "Z has no maximum, since −x + 2y > 1 meets the region",
+      "There is no feasible region"
+     ],
+     "answer": 2,
+     "explain": "The region is unbounded upward; e.g. (3, 10) is feasible with Z = 17 > 1. So no maximum exists.",
+     "mistake": "Accepts the largest corner value without the half-plane check"
+    },
+    {
+     "q": "Maximise Z = x + y subject to x − y ≤ −1, −x + y ≤ 0, x, y ≥ 0. What happens?",
+     "options": [
+      "Maximum is 1",
+      "There is no feasible region, so no maximum",
+      "Maximum is at (0, 1)",
+      "The region is unbounded with no maximum"
+     ],
+     "answer": 1,
+     "explain": "x − y ≤ −1 gives y ≥ x + 1, while −x + y ≤ 0 gives y ≤ x. These cannot both hold.",
+     "mistake": "Does not notice the constraints contradict each other"
+    },
+    {
+     "q": "Minimise Z = x + 2y with 2x + y ≥ 3, x + 2y ≥ 6, x, y ≥ 0. How many points give the minimum value?",
+     "options": [
+      "Infinitely many",
+      "Exactly one",
+      "Exactly two",
+      "None"
+     ],
+     "answer": 0,
+     "explain": "Z(6, 0) = Z(0, 3) = 6, and every point of the segment between them gives Z = 6.",
+     "mistake": "Counts only the two corners"
+    },
+    {
+     "q": "A diet uses x kg of food P (₹4/kg) and y kg of food Q (₹6/kg) with 2x + y ≥ 8 and x + 2y ≥ 10. The corners are (10, 0), (2, 4), (0, 8). What is the minimum cost?",
+     "options": [
+      "₹40",
+      "₹32",
+      "₹48",
+      "₹28"
+     ],
+     "answer": 1,
+     "explain": "Z = 4x + 6y: 40, 8 + 24 = 32, 48. Since 4x + 6y < 32 has no common point with the region, ₹32 at (2, 4) is the minimum.",
+     "steps": [
+      "Z(2, 4) = 8 + 24 = 32"
+     ],
+     "mistake": "Picks a corner on an axis",
+     "check": "4*2+6*4"
+    },
+    {
+     "q": "In the diet problem, how is the corner (2, 4) obtained?",
+     "options": [
+      "By solving 2x + y = 8 and x + 2y = 10",
+      "By setting x = 2 directly",
+      "By testing the origin",
+      "By minimising each food separately"
+     ],
+     "answer": 0,
+     "explain": "y = 8 − 2x; then x + 16 − 4x = 10 ⇒ x = 2, y = 4.",
+     "mistake": "Guesses instead of solving"
+    },
+    {
+     "q": "For an unbounded region with smallest corner value m, when is m the minimum of Z?",
+     "options": [
+      "Always",
+      "When the half-plane Z < m has no point in common with the feasible region",
+      "Never",
+      "When m is positive"
+     ],
+     "answer": 1,
+     "explain": "If some feasible point had Z < m, then m would not be the minimum.",
+     "mistake": "Assumes the corner rule works without checking for unbounded regions"
+    },
+    {
+     "q": "Assertion (A): If the feasible region is unbounded, a maximum of Z may not exist.\nReason (R): On an unbounded region, Z can sometimes be made arbitrarily large.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "When Z grows without bound along the region, there is no maximum, which is what A says.",
+     "mistake": "Thinks every LPP has a maximum"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What do I do if the feasible region goes on forever?'",
+    "must": [
+     [
+      "half-plane",
+      "z < m",
+      "z > m",
+      "open half"
+     ],
+     [
+      "common point",
+      "intersect",
+      "meets",
+      "overlap"
+     ],
+     [
+      "no maximum",
+      "no minimum",
+      "does not exist",
+      "no optimum"
+     ]
+    ],
+    "praise": "Chirp! Draw Z < m (or Z > M). If it misses the region, the corner value is optimal; if it meets it, there is no optimum!",
+    "nudge": "What extra check do unbounded regions need?"
+   },
+   "covers": [
+    "c12.2.10",
+    "c12.2.11",
+    "c12.2.12",
+    "c12.2.14"
+   ]
+  }
+ ]
+}

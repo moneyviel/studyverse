@@ -1,0 +1,1377 @@
+{
+ "n": 3,
+ "title": "Matrices",
+ "emoji": "🧮",
+ "topics": [
+  {
+   "id": "g12-maths-03-01",
+   "title": "What is a matrix? Order and construction",
+   "learn": {
+    "hook": "Every IPL scorecard is a grid: rows for batters, columns for runs, balls, fours and sixes. Mathematicians call such a grid a matrix and can do algebra with it.",
+    "points": [
+     "A matrix is a rectangular array of numbers (or functions) in rows and columns. The element in row i and column j is aij.",
+     "A matrix with m rows and n columns has order m × n and has mn elements.",
+     "For a given number of elements N, the possible orders are all factor pairs: each divisor d of N gives the order d × (N/d).",
+     "A matrix can be built from a rule aij = f(i, j) by plugging in each i and j.",
+     "Matrices store data (sales, marks) and coordinates of points of a figure compactly; they also make systems of equations easy to handle."
+    ],
+    "example": {
+     "q": "Construct a 2 × 3 matrix with aij = 2i − j.",
+     "steps": [
+      "Row 1 (i = 1): a11 = 1, a12 = 0, a13 = −1.",
+      "Row 2 (i = 2): a21 = 3, a22 = 2, a23 = 1."
+     ],
+     "answer": "A = [[1, 0, −1], [3, 2, 1]]"
+    },
+    "reallife": "A dairy cooperative tracking milk, butter and paneer sales in four cities each month can store them as a 3 × 4 matrix; adding the monthly matrices gives the yearly totals in one step."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Order and element count",
+     "items": [
+      {
+       "q": "Number of elements in a 3 × 5 matrix",
+       "a": "15",
+       "check": "3*5"
+      },
+      {
+       "q": "Number of possible orders for a matrix with 6 elements",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "Number of possible orders for a matrix with 13 elements",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "aij = i + j: value of a23",
+       "a": "5",
+       "check": "2+3"
+      },
+      {
+       "q": "aij = i·j: value of a32",
+       "a": "6",
+       "check": "3*2"
+      },
+      {
+       "q": "Number of 2 × 2 matrices with each entry 0 or 1",
+       "a": "16",
+       "check": "2**4"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Matrix basics",
+     "items": [
+      [
+       "A 4 × 2 matrix has 4 rows and 2 columns.",
+       true,
+       "Order is written rows × columns."
+      ],
+      [
+       "A 2 × 3 matrix and a 3 × 2 matrix have the same order.",
+       false,
+       "They have the same number of elements but different orders."
+      ],
+      [
+       "a21 is the element in row 1, column 2.",
+       false,
+       "The first index is the row: a21 is row 2, column 1."
+      ],
+      [
+       "A matrix with 7 elements can only have order 1 × 7 or 7 × 1.",
+       true,
+       "7 is prime, so its only factor pairs are 1 and 7."
+      ],
+      [
+       "The vertices of a triangle can be written as a 2 × 3 matrix of coordinates.",
+       true,
+       "Each column can hold the (x, y) coordinates of one vertex."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many possible orders can a matrix with 24 elements have?",
+     "options": [
+      "4",
+      "6",
+      "8",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "24 has divisors 1, 2, 3, 4, 6, 8, 12, 24, and each gives one order d × (24/d): 1 × 24, 2 × 12, 3 × 8, 4 × 6 and their reverses.",
+     "steps": [
+      "Divisors of 24: 1, 2, 3, 4, 6, 8, 12, 24",
+      "Each divisor is a row count: 8 orders"
+     ],
+     "mistake": "Counts only factor pairs, forgetting that 4 × 6 and 6 × 4 are different orders",
+     "check": "8"
+    },
+    {
+     "q": "A matrix has 18 elements. How many possible orders does it have?",
+     "options": [
+      "6",
+      "3",
+      "4",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "Divisors of 18 are 1, 2, 3, 6, 9, 18, giving 6 orders.",
+     "steps": [
+      "Divisors: 1, 2, 3, 6, 9, 18",
+      "6 orders"
+     ],
+     "mistake": "Lists 1 × 18, 2 × 9, 3 × 6 only and forgets their reverses",
+     "check": "6"
+    },
+    {
+     "q": "For a 2 × 2 matrix with aij = (i + j)²/2, what is a12?",
+     "options": [
+      "2",
+      "9",
+      "9/2",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "i = 1, j = 2: (1 + 2)²/2 = 9/2.",
+     "steps": [
+      "a12 = (1 + 2)²/2",
+      "= 9/2"
+     ],
+     "mistake": "Forgets to divide by 2, or squares only one term",
+     "check": "Fraction(9,2)"
+    },
+    {
+     "q": "For a 3 × 2 matrix with aij = |−3i + j|/2, what is a31?",
+     "options": [
+      "4",
+      "5",
+      "−4",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "a31 = |−9 + 1|/2 = |−8|/2 = 4.",
+     "steps": [
+      "−3(3) + 1 = −8",
+      "|−8|/2 = 4"
+     ],
+     "mistake": "Drops the modulus and keeps the sign",
+     "check": "8/2"
+    },
+    {
+     "q": "In the matrix A = [[2, 5, −1], [7, 0, 3]], what is a23?",
+     "options": [
+      "−1",
+      "3",
+      "7",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "a23 is row 2, column 3: the third entry of [7, 0, 3], which is 3.",
+     "mistake": "Reads column first, then row (picks a32 style position)",
+     "check": "3"
+    },
+    {
+     "q": "What is the order of A = [[2, 5, −1], [7, 0, 3]]?",
+     "options": [
+      "3 × 2",
+      "2 × 3",
+      "6 × 1",
+      "2 × 2"
+     ],
+     "answer": 1,
+     "explain": "It has 2 rows and 3 columns.",
+     "mistake": "Writes columns × rows"
+    },
+    {
+     "q": "How many 3 × 3 matrices can be formed with each entry 0 or 1?",
+     "options": [
+      "512",
+      "9",
+      "18",
+      "81"
+     ],
+     "answer": 0,
+     "explain": "There are 9 entries, each with 2 choices: 2⁹ = 512.",
+     "steps": [
+      "9 positions, 2 choices each",
+      "2⁹ = 512"
+     ],
+     "mistake": "Multiplies 9 × 2 instead of raising 2 to the power 9",
+     "check": "2**9"
+    },
+    {
+     "q": "A 1 × n matrix that lists the prices of n items in a canteen is best described as",
+     "options": [
+      "a row matrix",
+      "a column matrix",
+      "a square matrix",
+      "a zero matrix"
+     ],
+     "answer": 0,
+     "explain": "One row and n columns is a row matrix.",
+     "mistake": "Confuses row and column matrices"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu peeks at a grid of numbers: 'What does 3 × 4 mean, and what is a23?'",
+    "must": [
+     [
+      "rows",
+      "row"
+     ],
+     [
+      "columns",
+      "column"
+     ],
+     [
+      "element",
+      "entry",
+      "position"
+     ]
+    ],
+    "praise": "Tweet! 3 rows, 4 columns, and a23 sits in row 2, column 3. Rows always first!",
+    "nudge": "Which number in the order is rows and which is columns?"
+   },
+   "covers": [
+    "c3.1.1",
+    "c3.2.1",
+    "c3.2.2",
+    "c3.2.3",
+    "c3.2.4"
+   ]
+  },
+  {
+   "id": "g12-maths-03-02",
+   "title": "Types of matrices and equality",
+   "learn": {
+    "hook": "Identity matrices are the '1' of matrix algebra and zero matrices are the '0'. Knowing the family names saves marks in every board paper.",
+    "points": [
+     "Row matrix: 1 × n. Column matrix: m × 1. Square matrix: m = n; its diagonal elements are a11, a22, …, ann.",
+     "Diagonal matrix: square, all non-diagonal elements zero. Scalar matrix: diagonal with all diagonal elements equal.",
+     "Identity matrix I: scalar matrix with every diagonal element 1. Zero (null) matrix O: every element 0 (any order).",
+     "Two matrices are equal if they have the same order and every corresponding element is equal.",
+     "Equality lets you set up equations: equate entries one by one and solve."
+    ],
+    "example": {
+     "q": "Find x and y if [[x + 3, 4], [y − 4, x + y]] = [[5, 4], [3, 9]].",
+     "steps": [
+      "Compare (1, 1) entries: x + 3 = 5, so x = 2.",
+      "Compare (2, 1) entries: y − 4 = 3, so y = 7.",
+      "Check (2, 2): x + y = 9 ✓."
+     ],
+     "answer": "x = 2, y = 7"
+    },
+    "reallife": "A scalar matrix like 5I scales every coordinate by 5, the same way a zoom on Google Maps of India scales every distance by the same factor."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which type?",
+     "buckets": [
+      "Diagonal but not scalar",
+      "Scalar",
+      "Not diagonal"
+     ],
+     "items": [
+      [
+       "[[2, 0], [0, 5]]",
+       0
+      ],
+      [
+       "[[3, 0], [0, 3]]",
+       1
+      ],
+      [
+       "[[1, 0], [0, 1]]",
+       1
+      ],
+      [
+       "[[1, 2], [0, 1]]",
+       2
+      ],
+      [
+       "[[0, 0], [0, −4]]",
+       0
+      ],
+      [
+       "[[0, 1], [1, 0]]",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Name the matrix",
+     "pairs": [
+      [
+       "[[1, 0, 0], [0, 1, 0], [0, 0, 1]]",
+       "Identity matrix"
+      ],
+      [
+       "[[0, 0], [0, 0]]",
+       "Zero matrix"
+      ],
+      [
+       "[[4], [7], [1]]",
+       "Column matrix"
+      ],
+      [
+       "[[2, 9, 6]]",
+       "Row matrix"
+      ],
+      [
+       "[[7, 0], [0, 7]]",
+       "Scalar matrix"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which matrix is a scalar matrix?",
+     "options": [
+      "[[−2, 0], [0, −2]]",
+      "[[2, 0], [0, 3]]",
+      "[[1, 1], [1, 1]]",
+      "[[0, 2], [2, 0]]"
+     ],
+     "answer": 0,
+     "explain": "A scalar matrix is diagonal with all diagonal entries equal. Only [[−2, 0], [0, −2]] qualifies.",
+     "mistake": "Thinks any diagonal matrix is scalar"
+    },
+    {
+     "q": "Which statement is true?",
+     "options": [
+      "Every scalar matrix is an identity matrix",
+      "Every diagonal matrix is a scalar matrix",
+      "A zero matrix must be square",
+      "Every identity matrix is a scalar matrix"
+     ],
+     "answer": 3,
+     "explain": "I is diagonal with all diagonal entries 1, so it is scalar. Scalar matrices like 3I are not identity, and zero matrices can be any order.",
+     "mistake": "Reverses the inclusion between scalar and identity matrices"
+    },
+    {
+     "q": "If [[x + y, 2], [5, xy]] = [[6, 2], [5, 8]], which values satisfy the equation?",
+     "options": [
+      "x = 3, y = 3",
+      "x = 1, y = 5",
+      "x = 2, y = 3",
+      "x = 2, y = 4 or x = 4, y = 2"
+     ],
+     "answer": 3,
+     "explain": "x + y = 6 and xy = 8 give the numbers 2 and 4 in either order.",
+     "mistake": "Satisfies only one of the two equations"
+    },
+    {
+     "q": "If [[2a + b, a − 2b], [5c − d, 4c + 3d]] = [[4, −3], [11, 24]], what is a?",
+     "options": [
+      "2",
+      "3",
+      "1",
+      "−1"
+     ],
+     "answer": 2,
+     "explain": "2a + b = 4 and a − 2b = −3. Multiply the first by 2 and add: 5a = 5, so a = 1 (and b = 2).",
+     "steps": [
+      "2a + b = 4 → 4a + 2b = 8",
+      "Add a − 2b = −3: 5a = 5",
+      "a = 1"
+     ],
+     "mistake": "Makes a sign slip when eliminating b",
+     "check": "1"
+    },
+    {
+     "q": "Using the same equation [[2a + b, a − 2b], [5c − d, 4c + 3d]] = [[4, −3], [11, 24]], find d.",
+     "options": [
+      "4",
+      "3",
+      "−4",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "5c − d = 11 and 4c + 3d = 24. Multiply the first by 3 and add: 19c = 57, so c = 3, then d = 15 − 11 = 4.",
+     "steps": [
+      "15c − 3d = 33",
+      "Add 4c + 3d = 24: 19c = 57, c = 3",
+      "d = 5(3) − 11 = 4"
+     ],
+     "mistake": "Solves for c and reports it as d",
+     "check": "5*3-11"
+    },
+    {
+     "q": "A diagonal matrix of order 3 has how many elements that MUST be zero?",
+     "options": [
+      "3",
+      "9",
+      "0",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "A 3 × 3 matrix has 9 elements; the 3 diagonal ones are free, so the other 6 must be zero.",
+     "steps": [
+      "Total = 9",
+      "Diagonal = 3",
+      "Off-diagonal = 9 − 3 = 6"
+     ],
+     "mistake": "Counts the diagonal elements instead of the off-diagonal ones",
+     "check": "9-3"
+    },
+    {
+     "q": "Can the matrices [[1, 2]] and [[1], [2]] be equal?",
+     "options": [
+      "Yes, they have the same entries",
+      "No, because their orders are different",
+      "Yes, if we transpose one",
+      "No, because one is not square"
+     ],
+     "answer": 1,
+     "explain": "Equality needs the same order. One is 1 × 2 and the other is 2 × 1, so they cannot be equal.",
+     "mistake": "Compares only the entries and ignores the order"
+    },
+    {
+     "q": "Assertion (A): [[0, 0, 0]] is a zero matrix.\nReason (R): A zero matrix must be a square matrix.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is false but R is true",
+      "A is true but R is false"
+     ],
+     "answer": 3,
+     "explain": "All entries are 0, so it is a 1 × 3 zero matrix. Zero matrices can be of any order, so R is false.",
+     "mistake": "Thinks only square matrices can be zero matrices"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'What is the difference between a diagonal, a scalar and an identity matrix?'",
+    "must": [
+     [
+      "diagonal",
+      "off-diagonal",
+      "zero outside"
+     ],
+     [
+      "equal",
+      "same",
+      "scalar"
+     ],
+     [
+      "identity",
+      "ones",
+      "1s",
+      "one"
+     ]
+    ],
+    "praise": "Chirp! Diagonal means zeros off the diagonal, scalar means the diagonal entries are all equal, and identity means they are all 1!",
+    "nudge": "What extra condition turns a diagonal matrix into a scalar matrix?"
+   },
+   "covers": [
+    "c3.3.1",
+    "c3.3.2",
+    "c3.3.3",
+    "c3.3.4",
+    "c3.3.5",
+    "c3.3.6",
+    "c3.3.7"
+   ]
+  },
+  {
+   "id": "g12-maths-03-03",
+   "title": "Addition and scalar multiplication",
+   "learn": {
+    "hook": "Two branches of a Kirana chain each record sales in a matrix. Add the matrices and you get the combined sales in one stroke.",
+    "points": [
+     "A + B is defined only when A and B have the same order; add corresponding elements.",
+     "kA multiplies every element by k. −A = (−1)A and A − B = A + (−B).",
+     "Addition is commutative (A + B = B + A) and associative; O is the additive identity and −A is the additive inverse.",
+     "Scalar rules: k(A + B) = kA + kB, (k + l)A = kA + lA.",
+     "Solve matrix equations like ordinary ones: from 2A + 3X = 5B, X = (1/3)(5B − 2A)."
+    ],
+    "example": {
+     "q": "If A = [[2, 1], [0, 3]] and B = [[1, 2], [3, 0]], find X such that 2A + 3X = 5B.",
+     "steps": [
+      "3X = 5B − 2A.",
+      "5B = [[5, 10], [15, 0]] and 2A = [[4, 2], [0, 6]].",
+      "5B − 2A = [[1, 8], [15, −6]].",
+      "Divide by 3."
+     ],
+     "answer": "X = [[1/3, 8/3], [5, −2]]"
+    },
+    "reallife": "A Delhi electronics shop stores stock as a matrix. A festive restock adds one matrix; a Diwali discount of 10% is the scalar multiple 0.9 × (price matrix)."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Matrix arithmetic",
+     "items": [
+      {
+       "text": "If A = [[1, 2], [3, 4]], then 3A has (2, 2) entry ___.",
+       "answer": "12",
+       "options": [
+        "12",
+        "7",
+        "4"
+       ]
+      },
+      {
+       "text": "A + O = ___ for any matrix A of the same order as O.",
+       "answer": "A",
+       "options": [
+        "A",
+        "O",
+        "−A"
+       ]
+      },
+      {
+       "text": "A + (−A) = ___.",
+       "answer": "O",
+       "options": [
+        "O",
+        "I",
+        "2A"
+       ]
+      },
+      {
+       "text": "A 2 × 3 matrix can be added only to a ___ matrix.",
+       "answer": "2 × 3",
+       "options": [
+        "2 × 3",
+        "3 × 2",
+        "3 × 3"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Addition laws",
+     "items": [
+      [
+       "A + B = B + A for matrices of the same order.",
+       true,
+       "Matrix addition is commutative."
+      ],
+      [
+       "A 2 × 2 and a 3 × 3 matrix can be added.",
+       false,
+       "Addition needs the same order."
+      ],
+      [
+       "k(A + B) = kA + kB.",
+       true,
+       "Scalar multiplication distributes over matrix addition."
+      ],
+      [
+       "(A + B) + C = A + (B + C).",
+       true,
+       "Matrix addition is associative."
+      ],
+      [
+       "A − B = B − A for all A, B of the same order.",
+       false,
+       "A − B = −(B − A); they are equal only when A = B."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "If A = [[3, −1], [2, 4]] and B = [[1, 5], [−2, 0]], what is the (1, 2) entry of 2A − B?",
+     "options": [
+      "3",
+      "−3",
+      "7",
+      "−7"
+     ],
+     "answer": 3,
+     "explain": "(2A)12 = 2(−1) = −2 and B12 = 5, so the entry is −2 − 5 = −7.",
+     "steps": [
+      "2 × (−1) = −2",
+      "−2 − 5 = −7"
+     ],
+     "mistake": "Adds B instead of subtracting it",
+     "check": "2*(-1)-5"
+    },
+    {
+     "q": "If A = [[3, −1], [2, 4]] and B = [[1, 5], [−2, 0]], what is the sum of all entries of A + B?",
+     "options": [
+      "8",
+      "10",
+      "14",
+      "12"
+     ],
+     "answer": 3,
+     "explain": "A + B = [[4, 4], [0, 4]], whose entries add to 12.",
+     "steps": [
+      "A + B = [[4, 4], [0, 4]]",
+      "4 + 4 + 0 + 4 = 12"
+     ],
+     "mistake": "Misses a negative sign while adding",
+     "check": "4+4+0+4"
+    },
+    {
+     "q": "X + Y = [[7, 0], [2, 5]] and X − Y = [[3, 0], [0, 3]]. What is X?",
+     "options": [
+      "[[2, 0], [1, 1]]",
+      "[[5, 0], [1, 4]]",
+      "[[10, 0], [2, 8]]",
+      "[[4, 0], [2, 2]]"
+     ],
+     "answer": 1,
+     "explain": "Adding the equations gives 2X = [[10, 0], [2, 8]], so X = [[5, 0], [1, 4]].",
+     "mistake": "Forgets to divide by 2 after adding"
+    },
+    {
+     "q": "For the same pair X + Y = [[7, 0], [2, 5]] and X − Y = [[3, 0], [0, 3]], what is Y?",
+     "options": [
+      "[[2, 0], [1, 1]]",
+      "[[5, 0], [1, 4]]",
+      "[[4, 0], [2, 2]]",
+      "[[−2, 0], [−1, −1]]"
+     ],
+     "answer": 0,
+     "explain": "Subtracting gives 2Y = [[4, 0], [2, 2]], so Y = [[2, 0], [1, 1]].",
+     "mistake": "Subtracts in the wrong order and gets −Y"
+    },
+    {
+     "q": "If 2[[1, 3], [0, x]] + [[y, 0], [1, 2]] = [[5, 6], [1, 8]], what is x + y?",
+     "options": [
+      "5",
+      "6",
+      "3",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "Entry (1, 1): 2 + y = 5 ⇒ y = 3. Entry (2, 2): 2x + 2 = 8 ⇒ x = 3. So x + y = 6.",
+     "steps": [
+      "2 + y = 5 ⇒ y = 3",
+      "2x + 2 = 8 ⇒ x = 3",
+      "x + y = 6"
+     ],
+     "mistake": "Forgets to double x before solving",
+     "check": "3+3"
+    },
+    {
+     "q": "Which is the additive inverse of A = [[2, −3], [0, 1]]?",
+     "options": [
+      "[[2, 3], [0, 1]]",
+      "[[−2, 3], [0, −1]]",
+      "[[1/2, −1/3], [0, 1]]",
+      "[[1, 0], [0, 1]]"
+     ],
+     "answer": 1,
+     "explain": "The additive inverse is −A, which changes the sign of every entry; A + (−A) = O.",
+     "mistake": "Confuses additive inverse with reciprocals or the identity"
+    },
+    {
+     "q": "If A is 2 × 3 and B is 3 × 2, which expression is defined?",
+     "options": [
+      "3A",
+      "A + B",
+      "A − B",
+      "A + 2B"
+     ],
+     "answer": 0,
+     "explain": "A scalar multiple is defined for any matrix. A + B needs equal orders, and 2 × 3 ≠ 3 × 2.",
+     "mistake": "Thinks equal numbers of elements are enough for addition"
+    },
+    {
+     "q": "Assertion (A): If A and B are 2 × 2 matrices, then 3(A + B) = 3A + 3B.\nReason (R): Matrix addition is commutative.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "A holds because scalar multiplication distributes over addition. Commutativity is true but is a different property.",
+     "mistake": "Picks a true property that is not the one being used"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Can I add any two matrices? And what does 3A mean?'",
+    "must": [
+     [
+      "same order",
+      "same size",
+      "same dimensions"
+     ],
+     [
+      "corresponding",
+      "entry by entry",
+      "element-wise",
+      "each element"
+     ],
+     [
+      "every element",
+      "each entry",
+      "multiply each",
+      "all elements"
+     ]
+    ],
+    "praise": "Tweet! Same order only, add matching entries, and 3A triples every single entry. Easy-peasy!",
+    "nudge": "When exactly is A + B allowed?"
+   },
+   "covers": [
+    "c3.4.1",
+    "c3.4.2",
+    "c3.4.3",
+    "c3.4.4",
+    "c3.4.5"
+   ]
+  },
+  {
+   "id": "g12-maths-03-04",
+   "title": "Matrix multiplication",
+   "learn": {
+    "hook": "Multiply a row of quantities by a column of prices and you get the bill. That is matrix multiplication, and it powers everything from shopping carts to Google search.",
+    "points": [
+     "AB is defined when columns of A = rows of B. If A is m × n and B is n × p, AB is m × p.",
+     "Row-by-column rule: (AB)ik = ai1 b1k + ai2 b2k + … + ain bnk.",
+     "AB ≠ BA in general; one may even be undefined. AB = O is possible with A ≠ O and B ≠ O.",
+     "Associative: (AB)C = A(BC). Distributive: A(B + C) = AB + AC. Identity: AI = IA = A.",
+     "To verify identities like A² − 5A + 7I = O, compute A², then combine entry by entry."
+    ],
+    "example": {
+     "q": "If A = [[3, 1], [−1, 2]], show that A² − 5A + 7I = O.",
+     "steps": [
+      "A² = [[3·3 + 1·(−1), 3·1 + 1·2], [−1·3 + 2·(−1), −1·1 + 2·2]] = [[8, 5], [−5, 3]].",
+      "5A = [[15, 5], [−5, 10]] and 7I = [[7, 0], [0, 7]].",
+      "A² − 5A + 7I = [[8 − 15 + 7, 5 − 5 + 0], [−5 + 5 + 0, 3 − 10 + 7]] = [[0, 0], [0, 0]]."
+     ],
+     "answer": "A² − 5A + 7I = O, as required."
+    },
+    "reallife": "A school in Jaipur buys 3 pens at ₹10 each, 5 notebooks at ₹40 each and 2 geometry boxes at ₹25 each: the bill [3 5 2] × [10; 40; 25] = 30 + 200 + 50 = ₹280 is one matrix product."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Compute the (2, 1) entry of AB for A = [[1, 2], [3, 4]], B = [[2, 0], [1, 3]]",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Take row 2 of A: (3, 4)",
+      "Take column 1 of B: (2, 1)",
+      "Multiply matching entries: 3 × 2 and 4 × 1",
+      "Add: 6 + 4 = 10"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Order of the product",
+     "pairs": [
+      [
+       "(2 × 3)(3 × 4)",
+       "2 × 4"
+      ],
+      [
+       "(3 × 1)(1 × 3)",
+       "3 × 3"
+      ],
+      [
+       "(1 × 3)(3 × 1)",
+       "1 × 1"
+      ],
+      [
+       "(4 × 2)(2 × 5)",
+       "4 × 5"
+      ],
+      [
+       "(2 × 3)(2 × 3)",
+       "Not defined"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A = [[1, 2], [3, 4]] and B = [[2, 0], [1, 3]]. What is the (1, 2) entry of AB?",
+     "options": [
+      "6",
+      "4",
+      "0",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "Row 1 of A is (1, 2) and column 2 of B is (0, 3): 1·0 + 2·3 = 6.",
+     "steps": [
+      "Row 1 of A: (1, 2)",
+      "Column 2 of B: (0, 3)",
+      "1 × 0 + 2 × 3 = 6"
+     ],
+     "mistake": "Multiplies entry by entry instead of row by column",
+     "check": "1*0+2*3"
+    },
+    {
+     "q": "For the same A = [[1, 2], [3, 4]] and B = [[2, 0], [1, 3]], what is the (2, 2) entry of BA?",
+     "options": [
+      "14",
+      "12",
+      "10",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "Row 2 of B is (1, 3) and column 2 of A is (2, 4): 1·2 + 3·4 = 14. (The (2, 2) entry of AB is 12, showing AB ≠ BA.)",
+     "steps": [
+      "Row 2 of B: (1, 3)",
+      "Column 2 of A: (2, 4)",
+      "2 + 12 = 14"
+     ],
+     "mistake": "Computes AB instead of BA",
+     "check": "1*2+3*4"
+    },
+    {
+     "q": "A is 3 × 2 and B is 2 × 5. How many elements does AB have?",
+     "options": [
+      "10",
+      "15",
+      "6",
+      "30"
+     ],
+     "answer": 1,
+     "explain": "AB has order 3 × 5, which has 15 elements.",
+     "steps": [
+      "(3 × 2)(2 × 5) → 3 × 5",
+      "3 × 5 = 15"
+     ],
+     "mistake": "Multiplies all four dimensions or uses the inner ones",
+     "check": "3*5"
+    },
+    {
+     "q": "If A is 2 × 3 and B is 3 × 2, which statement is true?",
+     "options": [
+      "Only AB is defined",
+      "Neither AB nor BA is defined",
+      "AB = BA",
+      "Both AB and BA are defined, but they have different orders"
+     ],
+     "answer": 3,
+     "explain": "AB is 2 × 2 and BA is 3 × 3, so both exist but cannot be equal.",
+     "mistake": "Thinks only one of the products can exist"
+    },
+    {
+     "q": "A = [[0, 1], [0, 0]] and B = [[1, 0], [0, 0]]. What is AB?",
+     "options": [
+      "A",
+      "The zero matrix O",
+      "B",
+      "The identity I"
+     ],
+     "answer": 1,
+     "explain": "AB = [[0·1 + 1·0, 0·0 + 1·0], [0, 0]] = [[0, 0], [0, 0]]. So AB = O although A ≠ O and B ≠ O.",
+     "mistake": "Assumes a product of non-zero matrices is non-zero"
+    },
+    {
+     "q": "If A = [[2, 0], [0, 2]], what is A³?",
+     "options": [
+      "[[6, 0], [0, 6]]",
+      "[[2, 0], [0, 2]]",
+      "[[8, 0], [0, 8]]",
+      "[[8, 8], [8, 8]]"
+     ],
+     "answer": 2,
+     "explain": "A = 2I, so A³ = 8I³ = 8I = [[8, 0], [0, 8]].",
+     "mistake": "Multiplies by 3 instead of cubing"
+    },
+    {
+     "q": "A shop sells 4 kg rice, 2 kg dal and 3 kg sugar. Prices per kg (₹) are rice 50, dal 120, sugar 45. Using [4 2 3] × [50; 120; 45], what is the bill?",
+     "options": [
+      "₹575",
+      "₹215",
+      "₹530",
+      "₹620"
+     ],
+     "answer": 0,
+     "explain": "4 × 50 + 2 × 120 + 3 × 45 = 200 + 240 + 135 = ₹575.",
+     "steps": [
+      "4 × 50 = 200",
+      "2 × 120 = 240",
+      "3 × 45 = 135",
+      "Total = 575"
+     ],
+     "mistake": "Adds prices without multiplying by quantities, or slips in one product",
+     "check": "4*50+2*120+3*45"
+    },
+    {
+     "q": "Assertion (A): For square matrices A and B of the same order, (A + B)² = A² + 2AB + B² always.\nReason (R): Matrix multiplication is not commutative in general.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "(A + B)² = A² + AB + BA + B², which equals A² + 2AB + B² only if AB = BA. Since that fails in general (R), A is false.",
+     "mistake": "Uses the ordinary algebra identity for matrices"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is lost: 'How do I multiply two matrices? Do I just multiply matching entries?'",
+    "must": [
+     [
+      "row",
+      "rows"
+     ],
+     [
+      "column",
+      "columns"
+     ],
+     [
+      "add",
+      "sum"
+     ],
+     [
+      "not commutative",
+      "order matters",
+      "ab ≠ ba",
+      "ab not equal ba"
+     ]
+    ],
+    "praise": "Chirp! Row of the first times column of the second, add up, and never swap the order. Matrix magic!",
+    "nudge": "Do AB and BA always give the same answer?"
+   },
+   "covers": [
+    "c3.4.6",
+    "c3.4.7",
+    "c3.4.8",
+    "c3.4.9",
+    "c3.4.10"
+   ]
+  },
+  {
+   "id": "g12-maths-03-05",
+   "title": "Transpose, symmetric and skew-symmetric matrices",
+   "learn": {
+    "hook": "A distance table between Indian cities reads the same across and down: Delhi to Agra equals Agra to Delhi. That table is a symmetric matrix.",
+    "points": [
+     "The transpose A′ (or Aᵀ) is formed by turning rows into columns. If A is m × n, A′ is n × m.",
+     "Properties: (A′)′ = A, (kA)′ = kA′, (A + B)′ = A′ + B′, (AB)′ = B′A′ (order reverses).",
+     "Symmetric: A′ = A (aij = aji). Skew-symmetric: A′ = −A (aij = −aji), so every diagonal element is 0.",
+     "For any square A: A + A′ is symmetric and A − A′ is skew-symmetric.",
+     "Every square matrix is uniquely A = (1/2)(A + A′) + (1/2)(A − A′), a symmetric plus a skew-symmetric matrix."
+    ],
+    "example": {
+     "q": "Express A = [[3, 5], [1, −1]] as the sum of a symmetric and a skew-symmetric matrix.",
+     "steps": [
+      "A′ = [[3, 1], [5, −1]].",
+      "P = (1/2)(A + A′) = (1/2)[[6, 6], [6, −2]] = [[3, 3], [3, −1]], which is symmetric.",
+      "Q = (1/2)(A − A′) = (1/2)[[0, 4], [−4, 0]] = [[0, 2], [−2, 0]], which is skew-symmetric.",
+      "Check: P + Q = [[3, 5], [1, −1]] = A."
+     ],
+     "answer": "A = [[3, 3], [3, −1]] + [[0, 2], [−2, 0]]"
+    },
+    "reallife": "A table of road distances between cities is a symmetric matrix (Delhi to Agra equals Agra to Delhi), which is why such charts are often printed as only half a table."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Prove A + A′ is symmetric",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Let P = A + A′",
+      "P′ = (A + A′)′",
+      "= A′ + (A′)′",
+      "= A′ + A",
+      "= P, so P is symmetric"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Symmetric or skew-symmetric?",
+     "buckets": [
+      "Symmetric",
+      "Skew-symmetric",
+      "Neither"
+     ],
+     "items": [
+      [
+       "[[1, 4], [4, 2]]",
+       0
+      ],
+      [
+       "[[0, 3], [−3, 0]]",
+       1
+      ],
+      [
+       "[[3, −1], [−1, 0]]",
+       0
+      ],
+      [
+       "[[2, 3], [−3, 2]]",
+       2
+      ],
+      [
+       "[[5, 0], [0, −5]]",
+       0
+      ],
+      [
+       "[[0, −7], [7, 0]]",
+       1
+      ],
+      [
+       "[[1, 2], [3, 4]]",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "If A is a 3 × 5 matrix, what is the order of A′?",
+     "options": [
+      "5 × 3",
+      "3 × 5",
+      "3 × 3",
+      "5 × 5"
+     ],
+     "answer": 0,
+     "explain": "Transposing swaps rows and columns.",
+     "mistake": "Thinks transpose keeps the order"
+    },
+    {
+     "q": "Which of the following equals (AB)′?",
+     "options": [
+      "A′B′",
+      "AB",
+      "BA",
+      "B′A′"
+     ],
+     "answer": 3,
+     "explain": "The transpose of a product reverses the order: (AB)′ = B′A′.",
+     "mistake": "Transposes each factor without reversing the order"
+    },
+    {
+     "q": "A is skew-symmetric of order 3 with a12 = 4 and a13 = −2. What is a31?",
+     "options": [
+      "−2",
+      "4",
+      "0",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "Skew-symmetric means a31 = −a13 = −(−2) = 2.",
+     "steps": [
+      "a31 = −a13",
+      "= −(−2) = 2"
+     ],
+     "mistake": "Copies a13 without changing the sign",
+     "check": "2"
+    },
+    {
+     "q": "For A = [[1, 5], [7, 2]], the symmetric part (1/2)(A + A′) is",
+     "options": [
+      "[[2, 12], [12, 4]]",
+      "[[1, 6], [6, 2]]",
+      "[[0, −1], [1, 0]]",
+      "[[1, 7], [5, 2]]"
+     ],
+     "answer": 1,
+     "explain": "A + A′ = [[2, 12], [12, 4]]; half of it is [[1, 6], [6, 2]].",
+     "mistake": "Forgets the factor 1/2"
+    },
+    {
+     "q": "For A = [[1, 5], [7, 2]], the skew-symmetric part (1/2)(A − A′) is",
+     "options": [
+      "[[0, −1], [1, 0]]",
+      "[[0, 1], [−1, 0]]",
+      "[[0, −2], [2, 0]]",
+      "[[1, −1], [1, 2]]"
+     ],
+     "answer": 0,
+     "explain": "A − A′ = [[0, −2], [2, 0]]; half of it is [[0, −1], [1, 0]].",
+     "mistake": "Computes A′ − A instead of A − A′, flipping the signs"
+    },
+    {
+     "q": "How many entries of a 3 × 3 skew-symmetric matrix can be chosen freely?",
+     "options": [
+      "3",
+      "6",
+      "9",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "Diagonal entries are forced to 0, and the 3 entries below the diagonal are negatives of the 3 above. So only 3 are free.",
+     "steps": [
+      "Diagonal: forced to 0",
+      "Above-diagonal: a12, a13, a23 free",
+      "Below is fixed by them: 3 free"
+     ],
+     "mistake": "Forgets that diagonal entries must be zero",
+     "check": "3"
+    },
+    {
+     "q": "If A is symmetric and B is any square matrix of the same order, then B′AB is",
+     "options": [
+      "skew-symmetric",
+      "symmetric",
+      "always the identity",
+      "neither, in general"
+     ],
+     "answer": 1,
+     "explain": "(B′AB)′ = B′A′(B′)′ = B′AB, using A′ = A. So B′AB is symmetric.",
+     "mistake": "Forgets to reverse the order when transposing the product"
+    },
+    {
+     "q": "Assertion (A): Every diagonal element of a skew-symmetric matrix is zero.\nReason (R): For a skew-symmetric matrix, aii = −aii.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Putting j = i in aij = −aji gives aii = −aii, so 2aii = 0 and aii = 0. R proves A.",
+     "mistake": "Thinks diagonal entries of a skew-symmetric matrix can be any equal numbers"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What makes a matrix symmetric or skew-symmetric, and can any matrix be split into them?'",
+    "must": [
+     [
+      "transpose"
+     ],
+     [
+      "symmetric",
+      "a′ = a",
+      "a' = a"
+     ],
+     [
+      "skew",
+      "negative",
+      "−a",
+      "-a"
+     ],
+     [
+      "half",
+      "1/2",
+      "sum"
+     ]
+    ],
+    "praise": "Tweet! A′ = A is symmetric, A′ = −A is skew, and every square matrix is half of (A + A′) plus half of (A − A′)!",
+    "nudge": "How do you build the symmetric and skew-symmetric parts from A and A′?"
+   },
+   "covers": [
+    "c3.5.1",
+    "c3.5.2",
+    "c3.5.3",
+    "c3.6.1",
+    "c3.6.2",
+    "c3.6.3",
+    "c3.6.4",
+    "c3.6.5"
+   ]
+  },
+  {
+   "id": "g12-maths-03-06",
+   "title": "Invertible matrices",
+   "learn": {
+    "hook": "Dividing by a number means multiplying by its reciprocal. Matrices have no division, but some have an inverse that does the same job.",
+    "points": [
+     "A square matrix A is invertible if there is B with AB = BA = I. Then B = A⁻¹.",
+     "The inverse, if it exists, is unique: if B and C are both inverses, B = BI = B(AC) = (BA)C = IC = C.",
+     "(AB)⁻¹ = B⁻¹A⁻¹: the order reverses, just like a transpose of a product.",
+     "Only square matrices can have inverses (but not every square matrix has one).",
+     "Finding inverses by elementary row or column operations is not in the current syllabus; Chapter 4 gives the adjoint method."
+    ],
+    "example": {
+     "q": "Show that B = [[1, −1], [−1, 2]] is the inverse of A = [[2, 1], [1, 1]].",
+     "steps": [
+      "AB = [[2·1 + 1·(−1), 2·(−1) + 1·2], [1·1 + 1·(−1), 1·(−1) + 1·2]] = [[1, 0], [0, 1]].",
+      "BA = [[1·2 + (−1)·1, 1·1 + (−1)·1], [−1·2 + 2·1, −1·1 + 2·1]] = [[1, 0], [0, 1]].",
+      "AB = BA = I."
+     ],
+     "answer": "B = A⁻¹"
+    },
+    "reallife": "Old-school codes like the Hill cipher scramble a message by multiplying with a matrix; the receiver unscrambles it with the inverse matrix."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Prove (AB)⁻¹ = B⁻¹A⁻¹",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Consider (AB)(B⁻¹A⁻¹)",
+      "= A(BB⁻¹)A⁻¹ by associativity",
+      "= AIA⁻¹ = AA⁻¹ = I",
+      "Similarly (B⁻¹A⁻¹)(AB) = I",
+      "So B⁻¹A⁻¹ is the inverse of AB"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Inverse facts",
+     "items": [
+      [
+       "A square matrix can have two different inverses.",
+       false,
+       "The inverse is unique."
+      ],
+      [
+       "(AB)⁻¹ = A⁻¹B⁻¹ for all invertible A, B.",
+       false,
+       "The order reverses: (AB)⁻¹ = B⁻¹A⁻¹."
+      ],
+      [
+       "I⁻¹ = I.",
+       true,
+       "I × I = I."
+      ],
+      [
+       "A 2 × 3 matrix can have an inverse.",
+       false,
+       "Only square matrices can be invertible."
+      ],
+      [
+       "If AB = I for square A and B, then B is the inverse of A.",
+       true,
+       "For square matrices AB = I also forces BA = I."
+      ],
+      [
+       "Every square matrix is invertible.",
+       false,
+       "For example O has no inverse, since OB = O ≠ I for every B."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A = [[2, 1], [1, 1]]. What is the (2, 2) entry of A⁻¹?",
+     "options": [
+      "1",
+      "−1",
+      "2",
+      "1/2"
+     ],
+     "answer": 2,
+     "explain": "A⁻¹ = [[1, −1], [−1, 2]], since AA⁻¹ = I. The (2, 2) entry is 2.",
+     "steps": [
+      "Check AB = I with B = [[1, −1], [−1, 2]]",
+      "b22 = 2"
+     ],
+     "mistake": "Takes reciprocals of the entries",
+     "check": "2"
+    },
+    {
+     "q": "Which matrix is the inverse of [[3, 0], [0, 5]]?",
+     "options": [
+      "[[−3, 0], [0, −5]]",
+      "[[1/3, 0], [0, 1/5]]",
+      "[[5, 0], [0, 3]]",
+      "[[3, 0], [0, 5]]"
+     ],
+     "answer": 1,
+     "explain": "For a diagonal matrix with non-zero entries, the inverse has the reciprocal entries; the product gives I.",
+     "mistake": "Confuses the inverse with the negative of the matrix"
+    },
+    {
+     "q": "If A and B are invertible matrices of the same order, (AB)⁻¹ equals",
+     "options": [
+      "A⁻¹B⁻¹",
+      "AB",
+      "(BA)⁻¹ only when A = B",
+      "B⁻¹A⁻¹"
+     ],
+     "answer": 3,
+     "explain": "(AB)(B⁻¹A⁻¹) = A(BB⁻¹)A⁻¹ = AA⁻¹ = I, so the order reverses.",
+     "mistake": "Inverts each factor without reversing the order"
+    },
+    {
+     "q": "Which statement proves the inverse of a matrix is unique?",
+     "options": [
+      "Every matrix has exactly one transpose",
+      "Inverses always have the same order as the matrix",
+      "AB = BA for all matrices",
+      "If B and C are inverses of A, then B = B(AC) = (BA)C = C"
+     ],
+     "answer": 3,
+     "explain": "Using associativity, B = BI = B(AC) = (BA)C = IC = C, so any two inverses are equal.",
+     "mistake": "Gives a true fact that does not prove uniqueness"
+    },
+    {
+     "q": "If A² = I, what is A⁻¹?",
+     "options": [
+      "I",
+      "−A",
+      "A²",
+      "A"
+     ],
+     "answer": 3,
+     "explain": "A · A = I, so A itself is the inverse of A.",
+     "mistake": "Thinks A⁻¹ = I whenever A² = I"
+    },
+    {
+     "q": "A square matrix A satisfies A² − 3A + I = O. Which expression gives A⁻¹?",
+     "options": [
+      "A − 3I",
+      "3A − I",
+      "3I − A",
+      "A + 3I"
+     ],
+     "answer": 2,
+     "explain": "A² − 3A = −I ⇒ A(3I − A) = I, and similarly (3I − A)A = I. So A⁻¹ = 3I − A.",
+     "mistake": "Makes a sign error when moving terms across"
+    },
+    {
+     "q": "Why does a 3 × 2 matrix have no inverse?",
+     "options": [
+      "Because it has a zero entry",
+      "Because only square matrices can satisfy AB = BA = I with one identity matrix",
+      "Because its transpose is 2 × 3",
+      "Because it has 6 elements"
+     ],
+     "answer": 1,
+     "explain": "If A is 3 × 2, AB and BA have different orders (3 × 3 and 2 × 2 at best), so they cannot both be the same I.",
+     "mistake": "Thinks the reason is about entries rather than the order"
+    },
+    {
+     "q": "Assertion (A): If A is invertible, then (A⁻¹)⁻¹ = A.\nReason (R): A A⁻¹ = A⁻¹ A = I.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "R says A is the matrix that multiplies A⁻¹ on both sides to give I, which is exactly what it means to be the inverse of A⁻¹.",
+     "mistake": "Does not see that the defining equation is symmetric in A and A⁻¹"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu frowns: 'There is no matrix division, so what is an inverse matrix?'",
+    "must": [
+     [
+      "identity",
+      "identity matrix"
+     ],
+     [
+      "both sides",
+      "ab = ba",
+      "both orders"
+     ],
+     [
+      "unique",
+      "only one"
+     ],
+     [
+      "square"
+     ]
+    ],
+    "praise": "Chirp! A⁻¹ is the one and only matrix that gives I from both sides, and only square matrices can have it!",
+    "nudge": "Which matrix do you get when you multiply A by its inverse?"
+   },
+   "covers": [
+    "c3.7.1",
+    "c3.7.2",
+    "c3.7.3",
+    "c3.7.4",
+    "c3.7.5"
+   ]
+  }
+ ]
+}

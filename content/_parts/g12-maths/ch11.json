@@ -1,0 +1,1101 @@
+{
+ "n": 11,
+ "title": "Three Dimensional Geometry",
+ "emoji": "🧊",
+ "topics": [
+  {
+   "id": "g12-maths-11-01",
+   "title": "Direction cosines and direction ratios of a line",
+   "learn": {
+    "hook": "A drone climbs from a rooftop in Bengaluru towards a tower. Three numbers, its direction cosines, pin down that heading in 3D space.",
+    "points": [
+     "Vector algebra lets us describe lines in space neatly. If a line makes angles α, β, γ with the x-, y-, z-axes, its direction cosines are l = cos α, m = cos β, n = cos γ.",
+     "Direction ratios a, b, c are any numbers proportional to l, m, n. A line has infinitely many sets of direction ratios.",
+     "From direction ratios: l = a/√(a² + b² + c²), m = b/√(…), n = c/√(…) (or all with the opposite sign).",
+     "Line through P(x₁, y₁, z₁) and Q(x₂, y₂, z₂): direction ratios x₂ − x₁, y₂ − y₁, z₂ − z₁; divide by PQ for direction cosines.",
+     "Three points are collinear if the direction ratios of AB and BC are proportional. (The derivation of l² + m² + n² = 1 is not in the current syllabus; the result is used.)"
+    ],
+    "example": {
+     "q": "Find the direction cosines of the line through P(−2, 4, −5) and Q(1, 2, 3).",
+     "steps": [
+      "Direction ratios: 1 − (−2), 2 − 4, 3 − (−5) = 3, −2, 8.",
+      "PQ = √(9 + 4 + 64) = √77.",
+      "Divide each ratio by √77."
+     ],
+     "answer": "3/√77, −2/√77, 8/√77"
+    },
+    "reallife": "If GPS gives the coordinates of a base camp and of a ledge above it, the differences of the coordinates are direction ratios of the straight rope line between them; any proportional set describes the same line."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Direction quickfire",
+     "items": [
+      {
+       "q": "l for direction ratios 2, −1, −2",
+       "a": "2/3",
+       "check": "Fraction(2,3)"
+      },
+      {
+       "q": "n for direction ratios 2, −1, −2",
+       "a": "−2/3",
+       "check": "Fraction(-2,3)"
+      },
+      {
+       "q": "√(a² + b² + c²) for direction ratios 2, 3, 6",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "m for direction ratios 2, 3, 6",
+       "a": "3/7",
+       "check": "Fraction(3,7)"
+      },
+      {
+       "q": "l for the x-axis",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "l² + m² + n² for any line",
+       "a": "1",
+       "check": "1"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Direction facts",
+     "items": [
+      [
+       "A line has exactly one set of direction ratios.",
+       false,
+       "Any proportional set works."
+      ],
+      [
+       "2, 4, 6 and 1, 2, 3 are direction ratios of the same line.",
+       true,
+       "They are proportional."
+      ],
+      [
+       "The direction cosines of the y-axis are 0, 1, 0.",
+       true,
+       "It makes angles 90°, 0°, 90° with the axes."
+      ],
+      [
+       "Points A(2, 3, 4), B(−1, −2, 1), C(5, 8, 7) are collinear.",
+       true,
+       "AB has ratios −3, −5, −3 and BC has 6, 10, 6, which are proportional."
+      ],
+      [
+       "If l = m = n, then l = 1/3.",
+       false,
+       "3l² = 1 gives l = ±1/√3."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A line has direction ratios 2, −1, −2. What is its direction cosine l (taking the positive root)?",
+     "options": [
+      "2/9",
+      "2",
+      "−2/3",
+      "2/3"
+     ],
+     "answer": 3,
+     "explain": "√(4 + 1 + 4) = 3, so l = 2/3.",
+     "steps": [
+      "√(2² + 1² + 2²) = 3",
+      "l = 2/3"
+     ],
+     "mistake": "Divides by 9 instead of √9",
+     "check": "Fraction(2,3)"
+    },
+    {
+     "q": "A line makes angles 90°, 135° and 45° with the x-, y- and z-axes. What are its direction cosines?",
+     "options": [
+      "0, 1/√2, 1/√2",
+      "1, −1/√2, 1/√2",
+      "0, −1/2, 1/2",
+      "0, −1/√2, 1/√2"
+     ],
+     "answer": 3,
+     "explain": "cos 90° = 0, cos 135° = −1/√2, cos 45° = 1/√2.",
+     "mistake": "Forgets that cos 135° is negative"
+    },
+    {
+     "q": "What are direction ratios of the line through (3, −2, −5) and (3, −2, 6)?",
+     "options": [
+      "6, −4, 1",
+      "0, 0, 11",
+      "0, 0, −1",
+      "3, −2, 11"
+     ],
+     "answer": 1,
+     "explain": "Differences: 3 − 3, −2 − (−2), 6 − (−5) = 0, 0, 11.",
+     "mistake": "Adds the coordinates instead of subtracting"
+    },
+    {
+     "q": "Which test shows that A(2, 3, 4), B(−1, −2, 1) and C(5, 8, 7) are collinear?",
+     "options": [
+      "AB = BC in length",
+      "Direction ratios of AB (−3, −5, −3) and BC (6, 10, 6) are proportional",
+      "All coordinates are integers",
+      "The sum of the coordinates of each point is odd"
+     ],
+     "answer": 1,
+     "explain": "Proportional direction ratios plus the common point B mean one line.",
+     "mistake": "Uses equal lengths as the test"
+    },
+    {
+     "q": "If a line has direction cosines l, m, n with l = 1/3 and m = 2/3, what is n² ?",
+     "options": [
+      "1/3",
+      "2/9",
+      "4/9",
+      "5/9"
+     ],
+     "answer": 2,
+     "explain": "n² = 1 − 1/9 − 4/9 = 4/9.",
+     "steps": [
+      "l² + m² + n² = 1",
+      "n² = 1 − 5/9 = 4/9"
+     ],
+     "mistake": "Subtracts the cosines instead of their squares",
+     "check": "1-Fraction(5,9)"
+    },
+    {
+     "q": "What is the length PQ for P(−2, 4, −5) and Q(1, 2, 3)?",
+     "options": [
+      "√9",
+      "√77",
+      "77",
+      "9"
+     ],
+     "answer": 1,
+     "explain": "PQ² = 3² + (−2)² + 8² = 77.",
+     "mistake": "Adds the differences instead of squaring"
+    },
+    {
+     "q": "Which set gives direction cosines of a line equally inclined to all three axes?",
+     "options": [
+      "1, 1, 1",
+      "1/3, 1/3, 1/3",
+      "1/√3, 1/√3, 1/√3",
+      "1/√2, 1/√2, 0"
+     ],
+     "answer": 2,
+     "explain": "l = m = n and 3l² = 1 gives l = 1/√3.",
+     "mistake": "Uses direction ratios 1, 1, 1 as cosines"
+    },
+    {
+     "q": "Assertion (A): −2, 1, 2 can be direction ratios of the line with direction cosines 2/3, −1/3, −2/3.\nReason (R): Direction ratios may be any non-zero multiple of the direction cosines, including a negative multiple.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "−2, 1, 2 = −3 × (2/3, −1/3, −2/3), so they are proportional. R explains A.",
+     "mistake": "Thinks a negative multiple gives a different line"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What is the difference between direction cosines and direction ratios?'",
+    "must": [
+     [
+      "cosines",
+      "cos",
+      "angles"
+     ],
+     [
+      "proportional",
+      "multiple",
+      "ratio"
+     ],
+     [
+      "divide",
+      "magnitude",
+      "square root"
+     ],
+     [
+      "sum of squares",
+      "equals 1",
+      "l² + m² + n²"
+     ]
+    ],
+    "praise": "Tweet! Direction cosines are cosines of the angles with the axes, squares adding to 1; ratios are any proportional set!",
+    "nudge": "How do you turn direction ratios into direction cosines?"
+   },
+   "covers": [
+    "c11.1.1",
+    "c11.2.1",
+    "c11.2.2",
+    "c11.2.3",
+    "c11.2.4",
+    "c11.2.5",
+    "c11.2.6"
+   ]
+  },
+  {
+   "id": "g12-maths-11-02",
+   "title": "Equation of a line in space",
+   "learn": {
+    "hook": "One point and one direction: that is all you need to describe a straight line in space, whether it is a laser beam or a metro tunnel.",
+    "points": [
+     "Vector form: a line through the point with position vector a, parallel to b, is r = a + λb (λ a real parameter).",
+     "Cartesian form: through (x₁, y₁, z₁) with direction ratios a, b, c: (x − x₁)/a = (y − y₁)/b = (z − z₁)/c.",
+     "To convert Cartesian to vector: read the point (x₁, y₁, z₁) and the direction (a, b, c) from the denominators.",
+     "A line parallel to a given line has the same direction ratios.",
+     "Watch signs: (x + 3)/2 means x₁ = −3. Write the form as x − x₁ before reading off the point."
+    ],
+    "example": {
+     "q": "Find the vector and Cartesian equations of the line through (5, 2, −4) parallel to 3i + 2j − 8k.",
+     "steps": [
+      "a = 5i + 2j − 4k, b = 3i + 2j − 8k.",
+      "Vector form: r = 5i + 2j − 4k + λ(3i + 2j − 8k).",
+      "Cartesian form: (x − 5)/3 = (y − 2)/2 = (z + 4)/(−8)."
+     ],
+     "answer": "r = 5i + 2j − 4k + λ(3i + 2j − 8k); (x − 5)/3 = (y − 2)/2 = (z + 4)/(−8)"
+    },
+    "reallife": "A laser beam, or the centre line of a straight tunnel, is fixed by one starting point and one direction; every point on it fits r = a + λb."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Cartesian ↔ point and direction",
+     "pairs": [
+      [
+       "(x − 5)/3 = (y + 4)/7 = (z − 6)/2",
+       "Point (5, −4, 6), direction 3, 7, 2"
+      ],
+      [
+       "(x + 3)/2 = (y − 5)/4 = (z + 6)/2",
+       "Point (−3, 5, −6), direction 2, 4, 2"
+      ],
+      [
+       "x/5 = y/(−2) = z/3",
+       "Point (0, 0, 0), direction 5, −2, 3"
+      ],
+      [
+       "(x − 1)/1 = (y − 2)/(−1) = (z + 1)/4",
+       "Point (1, 2, −1), direction 1, −1, 4"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Convert (x − 5)/3 = (y + 4)/7 = (z − 6)/2 to vector form",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Read the point: (5, −4, 6)",
+      "Read the direction ratios: 3, 7, 2",
+      "a = 5i − 4j + 6k and b = 3i + 7j + 2k",
+      "r = 5i − 4j + 6k + λ(3i + 7j + 2k)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which is the vector equation of the line through (1, 2, 3) parallel to 3i + 2j − 2k?",
+     "options": [
+      "r = 3i + 2j − 2k + λ(i + 2j + 3k)",
+      "r = λ(i + 2j + 3k)",
+      "r = i + 2j + 3k + λ(3i + 2j − 2k)",
+      "r = (i + 2j + 3k) · (3i + 2j − 2k)"
+     ],
+     "answer": 2,
+     "explain": "r = a + λb with a the point and b the direction.",
+     "mistake": "Swaps the point and the direction"
+    },
+    {
+     "q": "What point does the line (x + 3)/2 = (y − 5)/4 = (z + 6)/2 pass through?",
+     "options": [
+      "(3, −5, 6)",
+      "(−3, 5, −6)",
+      "(2, 4, 2)",
+      "(−3, −5, −6)"
+     ],
+     "answer": 1,
+     "explain": "x + 3 = x − (−3), so x₁ = −3; similarly y₁ = 5 and z₁ = −6.",
+     "mistake": "Reads the signs directly without rewriting"
+    },
+    {
+     "q": "Which is the Cartesian equation of the line through the origin and (5, −2, 3)?",
+     "options": [
+      "x/5 = y/2 = z/3",
+      "(x − 5)/1 = (y + 2)/1 = (z − 3)/1",
+      "5x = −2y = 3z",
+      "x/5 = y/(−2) = z/3"
+     ],
+     "answer": 3,
+     "explain": "Direction ratios 5, −2, 3 from the origin.",
+     "mistake": "Writes the coordinates as multipliers instead of denominators"
+    },
+    {
+     "q": "Which line is parallel to (x − 1)/2 = (y + 3)/(−1) = z/4?",
+     "options": [
+      "r = i + λ(4i − 2j + 8k)",
+      "r = 2i − j + 4k + λ(i − 3j)",
+      "r = λ(2i + j + 4k)",
+      "r = i − 3j + λ(1i + 1j + 1k)"
+     ],
+     "answer": 0,
+     "explain": "4, −2, 8 is proportional to 2, −1, 4.",
+     "mistake": "Compares points instead of directions"
+    },
+    {
+     "q": "Write the vector equation of the line (x − 5)/3 = (y + 4)/7 = (z − 6)/2. What is its direction vector?",
+     "options": [
+      "3i + 7j + 2k",
+      "5i − 4j + 6k",
+      "5i + 4j + 6k",
+      "3i − 7j + 2k"
+     ],
+     "answer": 0,
+     "explain": "The denominators give the direction.",
+     "mistake": "Uses the point as the direction"
+    },
+    {
+     "q": "The line through A(3, 4, −7) and B(1, −1, 6) has which vector equation?",
+     "options": [
+      "r = 3i + 4j − 7k + λ(i − j + 6k)",
+      "r = 3i + 4j − 7k + λ(−2i − 5j + 13k)",
+      "r = 3i + 4j − 7k + λ(4i + 3j − k)",
+      "r = −2i − 5j + 13k + λ(3i + 4j − 7k)"
+     ],
+     "answer": 1,
+     "explain": "Direction AB = (1 − 3, −1 − 4, 6 + 7) = (−2, −5, 13), starting at A.",
+     "mistake": "Uses the second point as the direction"
+    },
+    {
+     "q": "Which point lies on the line r = i + 2j − k + λ(2i − j + k)?",
+     "options": [
+      "(2, −1, 1)",
+      "(3, 1, 2)",
+      "(1, 1, 1)",
+      "(3, 1, 0)"
+     ],
+     "answer": 3,
+     "explain": "λ = 1 gives (1 + 2, 2 − 1, −1 + 1) = (3, 1, 0).",
+     "mistake": "Takes the direction vector as a point on the line"
+    },
+    {
+     "q": "Assertion (A): (x − 2)/3 = (y − 1)/0 = (z + 1)/4 represents a line with y = 1 for every point.\nReason (R): A zero denominator means that coordinate stays fixed along the line.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "Direction ratio 0 for y means the line never moves in the y direction, so y = 1 throughout.",
+     "mistake": "Thinks a zero denominator makes the equation meaningless"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I write the equation of a line in 3D space?'",
+    "must": [
+     [
+      "point",
+      "position vector"
+     ],
+     [
+      "direction",
+      "parallel vector",
+      "direction ratios"
+     ],
+     [
+      "lambda",
+      "parameter",
+      "any real number"
+     ],
+     [
+      "r = a + λb",
+      "a + λb",
+      "cartesian"
+     ]
+    ],
+    "praise": "Chirp! Pick a point a and a direction b: r = a + λb. In Cartesian form, (x − x₁)/a = (y − y₁)/b = (z − z₁)/c!",
+    "nudge": "What two ingredients define a line?"
+   },
+   "covers": [
+    "c11.3.1",
+    "c11.3.2",
+    "c11.3.3",
+    "c11.3.4"
+   ]
+  },
+  {
+   "id": "g12-maths-11-03",
+   "title": "Angle between two lines",
+   "learn": {
+    "hook": "Two runways at an airport cross at an angle. Find it from their direction vectors, with no protractor needed.",
+    "points": [
+     "If lines have direction ratios a₁, b₁, c₁ and a₂, b₂, c₂, the acute angle θ between them satisfies cos θ = |a₁a₂ + b₁b₂ + c₁c₂| / (√(a₁² + b₁² + c₁²) √(a₂² + b₂² + c₂²)).",
+     "In vector form: cos θ = |b₁ · b₂| / (|b₁||b₂|).",
+     "Perpendicular lines: a₁a₂ + b₁b₂ + c₁c₂ = 0.",
+     "Parallel lines: a₁/a₂ = b₁/b₂ = c₁/c₂.",
+     "With direction cosines, cos θ = |l₁l₂ + m₁m₂ + n₁n₂|."
+    ],
+    "example": {
+     "q": "Find the angle between r = 3i + 2j − 4k + λ(i + 2j + 2k) and r = 5i − 2j + μ(3i + 2j + 6k).",
+     "steps": [
+      "b₁ = i + 2j + 2k, b₂ = 3i + 2j + 6k.",
+      "b₁ · b₂ = 3 + 4 + 12 = 19.",
+      "|b₁| = 3, |b₂| = 7.",
+      "cos θ = 19/21."
+     ],
+     "answer": "θ = cos⁻¹(19/21)"
+    },
+    "reallife": "Engineers designing a cable-stayed bridge can find the angle between two cables in 3D from their direction vectors, using exactly this formula."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Perpendicular, parallel or neither?",
+     "buckets": [
+      "Perpendicular",
+      "Parallel",
+      "Neither"
+     ],
+     "items": [
+      [
+       "DRs 1, 2, 3 and 2, 4, 6",
+       1
+      ],
+      [
+       "DRs 1, −1, 0 and 1, 1, 5",
+       0
+      ],
+      [
+       "DRs 1, 1, 0 and 0, 1, 1",
+       2
+      ],
+      [
+       "DRs 2, 2, 1 and 1, −2, 2",
+       0
+      ],
+      [
+       "DRs 3, −6, 9 and −1, 2, −3",
+       1
+      ],
+      [
+       "DRs 2, 2, 1 and 4, 1, 8",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "cos θ sprint",
+     "items": [
+      {
+       "q": "cos θ for DRs 1, 1, 0 and 0, 1, 1",
+       "a": "1/2",
+       "check": "Fraction(1,2)"
+      },
+      {
+       "q": "cos θ for DRs 2, 2, 1 and 4, 1, 8",
+       "a": "2/3",
+       "check": "Fraction(18,27)"
+      },
+      {
+       "q": "cos θ for DRs 1, 2, 2 and 3, 2, 6",
+       "a": "19/21",
+       "check": "Fraction(19,21)"
+      },
+      {
+       "q": "cos θ for DRs 1, 0, 0 and 0, 0, 1",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "cos θ for DRs 1, 2, 3 and 2, 4, 6",
+       "a": "1",
+       "check": "1"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find cos θ for the angle between the lines with direction ratios 2, 2, 1 and 4, 1, 8.",
+     "options": [
+      "2/3",
+      "1/3",
+      "18/81",
+      "8/9"
+     ],
+     "answer": 0,
+     "explain": "Dot = 8 + 2 + 8 = 18; magnitudes 3 and 9; cos θ = 18/27 = 2/3.",
+     "steps": [
+      "2·4 + 2·1 + 1·8 = 18",
+      "√9 · √81 = 27",
+      "18/27 = 2/3"
+     ],
+     "mistake": "Uses 81 instead of 3 × 9 in the denominator",
+     "check": "Fraction(18,27)"
+    },
+    {
+     "q": "For what value of k are lines with direction ratios 1, k, 2 and 3, −1, 2 perpendicular?",
+     "options": [
+      "−7",
+      "7",
+      "1",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "3 − k + 4 = 0 ⇒ k = 7.",
+     "steps": [
+      "1·3 + k(−1) + 2·2 = 0",
+      "7 − k = 0",
+      "k = 7"
+     ],
+     "mistake": "Makes a sign slip",
+     "check": "7"
+    },
+    {
+     "q": "Find cos θ between (x + 3)/3 = (y − 1)/5 = (z + 3)/4 and (x + 1)/1 = (y − 4)/1 = (z − 5)/2.",
+     "options": [
+      "16/50",
+      "8/15",
+      "8√3/15",
+      "√3/2"
+     ],
+     "answer": 2,
+     "explain": "Dot = 3 + 5 + 8 = 16; magnitudes √50 and √6; cos θ = 16/√300 = 16/(10√3) = 8√3/15.",
+     "mistake": "Forgets to simplify √300 or uses the points instead of directions"
+    },
+    {
+     "q": "Which pair of lines is parallel?",
+     "options": [
+      "DRs 1, 2, 3 and 3, 2, 1",
+      "DRs 1, 0, 1 and 0, 1, 0",
+      "DRs 2, 1, 1 and 1, 2, 1",
+      "DRs 3, −6, 9 and −1, 2, −3"
+     ],
+     "answer": 3,
+     "explain": "3, −6, 9 = −3 × (−1, 2, −3), so the ratios are proportional.",
+     "mistake": "Thinks a negative multiple is not parallel"
+    },
+    {
+     "q": "For the lines (x − 1)/(−3) = (y − 2)/(2p/7) = (z − 3)/2 and (x − 1)/(−3p/7) = (y − 5)/1 = (z − 6)/(−5), what value of p makes them perpendicular?",
+     "options": [
+      "11/70",
+      "−70/11",
+      "7",
+      "70/11"
+     ],
+     "answer": 3,
+     "explain": "Dot of directions: (−3)(−3p/7) + (2p/7)(1) + (2)(−5) = 9p/7 + 2p/7 − 10 = 11p/7 − 10 = 0 ⇒ p = 70/11.",
+     "steps": [
+      "9p/7 + 2p/7 = 10",
+      "11p/7 = 10",
+      "p = 70/11"
+     ],
+     "mistake": "Drops the sign of one of the products",
+     "check": "Fraction(70,11)"
+    },
+    {
+     "q": "What is the angle between lines with direction ratios 1, 1, 0 and 0, 1, 1?",
+     "options": [
+      "π/4",
+      "π/6",
+      "π/3",
+      "π/2"
+     ],
+     "answer": 2,
+     "explain": "cos θ = 1/(√2 · √2) = 1/2.",
+     "mistake": "Forgets to divide by the magnitudes"
+    },
+    {
+     "q": "Why is the modulus used in cos θ = |b₁ · b₂|/(|b₁||b₂|)?",
+     "options": [
+      "Because dot products are always positive",
+      "To make θ = 0",
+      "To get the acute angle between the lines",
+      "Because direction ratios are positive"
+     ],
+     "answer": 2,
+     "explain": "Two lines form two supplementary angles; the modulus picks the acute one.",
+     "mistake": "Thinks the dot product cannot be negative"
+    },
+    {
+     "q": "Assertion (A): Lines with direction ratios 2, −3, 4 and 1, 2, 1 are perpendicular.\nReason (R): Two lines are perpendicular when a₁a₂ + b₁b₂ + c₁c₂ = 0.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "2 − 6 + 4 = 0, so by R the lines are perpendicular.",
+     "mistake": "Adds the ratios instead of multiplying"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the angle between two lines in space?'",
+    "must": [
+     [
+      "direction ratios",
+      "direction vectors",
+      "directions"
+     ],
+     [
+      "dot product",
+      "multiply",
+      "a₁a₂"
+     ],
+     [
+      "magnitudes",
+      "divide",
+      "lengths"
+     ],
+     [
+      "perpendicular",
+      "zero",
+      "parallel",
+      "proportional"
+     ]
+    ],
+    "praise": "Tweet! Use the directions: cos θ = |dot product|/(product of lengths). Zero means perpendicular, proportional means parallel!",
+    "nudge": "What is the condition for the lines to be perpendicular?"
+   },
+   "covers": [
+    "c11.4.1",
+    "c11.4.2",
+    "c11.4.3"
+   ]
+  },
+  {
+   "id": "g12-maths-11-04",
+   "title": "Shortest distance between skew lines",
+   "learn": {
+    "hook": "Two flyovers cross at different heights without meeting. How close do they get? That gap is the shortest distance between skew lines.",
+    "points": [
+     "Skew lines are lines in space that are neither parallel nor intersecting (they lie in different planes).",
+     "The shortest distance is along the segment perpendicular to both lines.",
+     "For r = a₁ + λb₁ and r = a₂ + μb₂: d = |(a₂ − a₁) · (b₁ × b₂)| / |b₁ × b₂|.",
+     "Cartesian form: d = |det[[x₂ − x₁, y₂ − y₁, z₂ − z₁], [a₁, b₁, c₁], [a₂, b₂, c₂]]| / √[(b₁c₂ − b₂c₁)² + (c₁a₂ − c₂a₁)² + (a₁b₂ − a₂b₁)²].",
+     "If d = 0, the lines intersect."
+    ],
+    "example": {
+     "q": "Find the shortest distance between r = i + 2j + k + λ(i − j + k) and r = 2i − j − k + μ(2i + j + 2k).",
+     "steps": [
+      "a₂ − a₁ = i − 3j − 2k.",
+      "b₁ × b₂ = |i j k; 1 −1 1; 2 1 2| = −3i + 0j + 3k, so |b₁ × b₂| = 3√2.",
+      "(a₂ − a₁) · (b₁ × b₂) = −3 + 0 − 6 = −9.",
+      "d = 9/(3√2) = 3/√2."
+     ],
+     "answer": "3/√2 units"
+    },
+    "reallife": "Air traffic controllers check the closest approach of two straight flight paths that do not meet; if the shortest distance is below the safety limit, one plane is moved to a different path."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Shortest distance between skew lines",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Identify a₁, b₁, a₂, b₂",
+      "Find a₂ − a₁",
+      "Compute b₁ × b₂ and its magnitude",
+      "Find (a₂ − a₁) · (b₁ × b₂)",
+      "Divide the absolute value by |b₁ × b₂|"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Skew line facts",
+     "items": [
+      [
+       "Skew lines can exist in a plane.",
+       false,
+       "Two lines in one plane are parallel or intersect."
+      ],
+      [
+       "If the shortest distance is 0, the lines intersect.",
+       true,
+       "They meet at a point."
+      ],
+      [
+       "The shortest distance segment is perpendicular to both lines.",
+       true,
+       "That is why b₁ × b₂ appears."
+      ],
+      [
+       "Parallel lines are skew.",
+       false,
+       "Skew lines are neither parallel nor intersecting."
+      ],
+      [
+       "The x-axis and the line through (0, 0, 5) parallel to the y-axis are skew.",
+       true,
+       "They never meet and are not parallel; their distance is 5."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the shortest distance between r = i + 2j + k + λ(i − j + k) and r = 2i − j − k + μ(2i + j + 2k)?",
+     "options": [
+      "9",
+      "3√2",
+      "3/√2",
+      "1/√2"
+     ],
+     "answer": 2,
+     "explain": "(a₂ − a₁) · (b₁ × b₂) = −9 and |b₁ × b₂| = 3√2, so d = 9/(3√2) = 3/√2.",
+     "mistake": "Forgets to divide by |b₁ × b₂|"
+    },
+    {
+     "q": "What is the shortest distance between the x-axis (r = λi) and the line r = 5k + μj?",
+     "options": [
+      "0",
+      "1",
+      "5",
+      "√26"
+     ],
+     "answer": 2,
+     "explain": "a₂ − a₁ = 5k and b₁ × b₂ = i × j = k. d = |5k · k|/|k| = 5.",
+     "steps": [
+      "b₁ × b₂ = k",
+      "(5k) · k = 5",
+      "d = 5/1 = 5"
+     ],
+     "mistake": "Thinks the lines intersect",
+     "check": "5"
+    },
+    {
+     "q": "Two lines have shortest distance 0. They are",
+     "options": [
+      "skew",
+      "parallel and distinct",
+      "intersecting",
+      "perpendicular and skew"
+     ],
+     "answer": 2,
+     "explain": "Zero distance means a common point.",
+     "mistake": "Assumes zero distance means parallel"
+    },
+    {
+     "q": "In d = |(a₂ − a₁) · (b₁ × b₂)|/|b₁ × b₂|, why do we use b₁ × b₂?",
+     "options": [
+      "It gives the angle between the lines",
+      "It is the point of intersection",
+      "It is perpendicular to both lines, the direction of the shortest segment",
+      "It makes the answer an integer"
+     ],
+     "answer": 2,
+     "explain": "The shortest segment is perpendicular to both lines; b₁ × b₂ has exactly that direction.",
+     "mistake": "Confuses the cross product with the dot product"
+    },
+    {
+     "q": "For the lines in the worked example, what is (a₂ − a₁) · (b₁ × b₂)?",
+     "options": [
+      "9",
+      "−3",
+      "0",
+      "−9"
+     ],
+     "answer": 3,
+     "explain": "(i − 3j − 2k) · (−3i + 0j + 3k) = −3 + 0 − 6 = −9.",
+     "steps": [
+      "(1)(−3) + (−3)(0) + (−2)(3)",
+      "= −9"
+     ],
+     "mistake": "Drops a negative sign",
+     "check": "-3+0-6"
+    },
+    {
+     "q": "Find the shortest distance between (x + 1)/7 = (y + 1)/(−6) = (z + 1)/1 and (x − 3)/1 = (y − 5)/(−2) = (z − 7)/1.",
+     "options": [
+      "√29",
+      "2√29",
+      "116",
+      "29"
+     ],
+     "answer": 1,
+     "explain": "Point difference (4, 6, 8). Cross product of (7, −6, 1) and (1, −2, 1) is (−4, −6, −8). Numerator |4(−4) + 6(−6) + 8(−8)| = 116, denominator √116 = 2√29, so d = 116/(2√29) = 2√29.",
+     "mistake": "Stops at the numerator 116 without dividing"
+    },
+    {
+     "q": "Which pair of lines are skew?",
+     "options": [
+      "r = λi and r = μi + j",
+      "r = λi and r = μj",
+      "r = λ(i + j) and r = μ(2i + 2j)",
+      "r = λi and r = k + μj"
+     ],
+     "answer": 3,
+     "explain": "λi and k + μj never meet (the second has z = 1) and are not parallel.",
+     "mistake": "Picks parallel or intersecting lines"
+    },
+    {
+     "q": "Assertion (A): The lines r = λ(i + j + k) and r = μ(i − j) intersect.\nReason (R): Both lines pass through the origin.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "At λ = μ = 0 both give the origin, so they meet there and their shortest distance is 0.",
+     "mistake": "Computes a formula without noticing the common point"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Two lines in space never meet. How do I find how close they get?'",
+    "must": [
+     [
+      "cross product",
+      "b₁ × b₂",
+      "b1 × b2",
+      "perpendicular to both"
+     ],
+     [
+      "dot",
+      "a₂ − a₁",
+      "a2 − a1",
+      "difference of points"
+     ],
+     [
+      "divide",
+      "magnitude",
+      "modulus"
+     ]
+    ],
+    "praise": "Chirp! Dot the gap a₂ − a₁ with b₁ × b₂, take the absolute value, and divide by |b₁ × b₂|. Closest approach found!",
+    "nudge": "Which vector is perpendicular to both lines?"
+   },
+   "covers": [
+    "c11.5.1",
+    "c11.5.2",
+    "c11.5.3",
+    "c11.5.4"
+   ]
+  },
+  {
+   "id": "g12-maths-11-05",
+   "title": "Parallel lines and perpendicular lines through a point",
+   "learn": {
+    "hook": "Two parallel railway tracks never meet, but the gap between them matters. For parallel lines, a simpler distance formula takes over.",
+    "points": [
+     "Parallel lines r = a₁ + λb and r = a₂ + μb: distance d = |b × (a₂ − a₁)| / |b|.",
+     "The skew-line formula fails here because b × b = 0.",
+     "A line perpendicular to two given lines has direction b₁ × b₂.",
+     "Line through a point a perpendicular to both b₁ and b₂: r = a + λ(b₁ × b₂).",
+     "Planes, coplanarity of lines, angle between planes and line–plane problems are not in the current CBSE syllabus."
+    ],
+    "example": {
+     "q": "Find the distance between r = i + 2j − 4k + λ(2i + 3j + 6k) and r = 3i + 3j − 5k + μ(2i + 3j + 6k).",
+     "steps": [
+      "b = 2i + 3j + 6k, |b| = 7. a₂ − a₁ = 2i + j − k.",
+      "b × (a₂ − a₁) = |i j k; 2 3 6; 2 1 −1| = −9i + 14j − 4k.",
+      "|b × (a₂ − a₁)| = √(81 + 196 + 16) = √293.",
+      "d = √293/7."
+     ],
+     "answer": "√293/7 units"
+    },
+    "reallife": "Indian broad-gauge rails are kept 1676 mm apart. Modelling two straight rails as parallel lines in space, the formula above gives the gap between them."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Situation ↔ formula",
+     "pairs": [
+      [
+       "Skew lines",
+       "|(a₂ − a₁) · (b₁ × b₂)| / |b₁ × b₂|"
+      ],
+      [
+       "Parallel lines",
+       "|b × (a₂ − a₁)| / |b|"
+      ],
+      [
+       "Direction perpendicular to two lines",
+       "b₁ × b₂"
+      ],
+      [
+       "Angle between lines",
+       "|b₁ · b₂| / (|b₁||b₂|)"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Distance quickfire",
+     "items": [
+      {
+       "q": "Distance between r = λi and r = j + μi",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "Distance between r = λk and r = 3i + μk",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "|b| for b = 2i + 3j + 6k",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "|b| for b = i + 2j + 2k",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "Distance between r = λj and r = 3i + 4k + μj",
+       "a": "5",
+       "check": "5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the distance between r = i + 2j − 4k + λ(2i + 3j + 6k) and r = 3i + 3j − 5k + μ(2i + 3j + 6k)?",
+     "options": [
+      "√293/7",
+      "√293",
+      "7/√293",
+      "√293/49"
+     ],
+     "answer": 0,
+     "explain": "|b × (a₂ − a₁)| = √293 and |b| = 7.",
+     "mistake": "Forgets to divide by |b|"
+    },
+    {
+     "q": "What is the distance between the parallel lines r = λk and r = 3i + 4j + μk?",
+     "options": [
+      "7",
+      "1",
+      "5",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "b = k, a₂ − a₁ = 3i + 4j. k × (3i + 4j) = 3j − 4i, magnitude 5.",
+     "steps": [
+      "k × (3i + 4j) = −4i + 3j",
+      "|−4i + 3j| = 5",
+      "d = 5/1"
+     ],
+     "mistake": "Adds 3 and 4",
+     "check": "5"
+    },
+    {
+     "q": "Why can't the skew-line formula be used for parallel lines?",
+     "options": [
+      "Because parallel lines intersect",
+      "Because a₂ − a₁ = 0",
+      "Because the dot product is negative",
+      "Because b₁ × b₂ = 0, making the denominator zero"
+     ],
+     "answer": 3,
+     "explain": "Parallel directions give a zero cross product, so the formula divides by zero.",
+     "mistake": "Thinks parallel lines intersect"
+    },
+    {
+     "q": "A line passes through (1, 2, −4) and is perpendicular to lines with directions 3i − 16j + 7k and 3i + 8j − 5k. Its direction is parallel to",
+     "options": [
+      "6i − 8j + 2k",
+      "i + j + k",
+      "2i + 3j + 6k",
+      "3i − 16j + 7k"
+     ],
+     "answer": 2,
+     "explain": "(3i − 16j + 7k) × (3i + 8j − 5k) = 24i + 36j + 72k = 12(2i + 3j + 6k).",
+     "mistake": "Adds the two direction vectors"
+    },
+    {
+     "q": "Hence the line through (1, 2, −4) perpendicular to both is",
+     "options": [
+      "r = i + 2j − 4k + λ(2i + 3j + 6k)",
+      "r = 2i + 3j + 6k + λ(i + 2j − 4k)",
+      "r = λ(2i + 3j + 6k)",
+      "r = i + 2j − 4k + λ(3i + 8j − 5k)"
+     ],
+     "answer": 0,
+     "explain": "Point a = i + 2j − 4k with direction b₁ × b₂.",
+     "mistake": "Swaps point and direction"
+    },
+    {
+     "q": "Are the lines r = i + λ(2i − j) and r = 3j + μ(−4i + 2j) parallel?",
+     "options": [
+      "Yes, since −4i + 2j = −2(2i − j)",
+      "No, the directions differ in sign",
+      "No, they pass through different points",
+      "Yes, since both contain i"
+     ],
+     "answer": 0,
+     "explain": "−4i + 2j = −2(2i − j), so the direction vectors are proportional and the lines are parallel.",
+     "mistake": "Thinks a negative multiple is a different direction"
+    },
+    {
+     "q": "What is the distance between r = λi and r = j + μi?",
+     "options": [
+      "0",
+      "√2",
+      "1",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "i × j = k, |k| = 1, |i| = 1. d = 1.",
+     "steps": [
+      "b × (a₂ − a₁) = i × j = k",
+      "d = 1/1"
+     ],
+     "mistake": "Thinks the lines meet",
+     "check": "1"
+    },
+    {
+     "q": "Assertion (A): The lines r = i + λ(2i + 3j + 6k) and r = j + μ(4i + 6j + 12k) are parallel.\nReason (R): Their direction vectors are proportional.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "4i + 6j + 12k = 2(2i + 3j + 6k), and proportional directions are exactly the condition for parallel lines.",
+     "mistake": "Thinks lines through different points cannot be parallel"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How is the distance between parallel lines found differently from skew lines?'",
+    "must": [
+     [
+      "same direction",
+      "parallel",
+      "common b",
+      "one direction"
+     ],
+     [
+      "cross",
+      "b × (a₂ − a₁)",
+      "b x"
+     ],
+     [
+      "divide by |b|",
+      "|b|",
+      "magnitude of b"
+     ]
+    ],
+    "praise": "Tweet! For parallel lines, cross the common direction b with the gap and divide by |b|. Simple and safe!",
+    "nudge": "What do you divide by in the parallel-lines formula?"
+   },
+   "covers": [
+    "c11.5.5",
+    "c11.5.6",
+    "c11.5.7"
+   ]
+  }
+ ]
+}

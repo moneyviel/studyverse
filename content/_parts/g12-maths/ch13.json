@@ -1,0 +1,1616 @@
+{
+ "n": 13,
+ "title": "Probability",
+ "emoji": "🎲",
+ "topics": [
+  {
+   "id": "g12-maths-13-01",
+   "title": "Conditional probability",
+   "learn": {
+    "hook": "The chance of rain today is 30%. But if dark clouds are already rolling in over Mumbai, that chance jumps. New information changes probability: that is conditional probability.",
+    "points": [
+     "Recall: for equally likely outcomes, P(E) = n(E)/n(S); in general 0 ≤ P(E) ≤ 1, P(S) = 1 and P(E ∪ F) = P(E) + P(F) − P(E ∩ F).",
+     "Conditional probability of E given F: P(E|F) = P(E ∩ F)/P(F), provided P(F) ≠ 0.",
+     "For equally likely outcomes, P(E|F) = n(E ∩ F)/n(F): F becomes the new, reduced sample space.",
+     "P(E|F) and P(F|E) are generally different.",
+     "Read 'given that', 'if it is known that' as the condition F."
+    ],
+    "example": {
+     "q": "A fair die is thrown. Find the probability that it shows 4, given that the number is even.",
+     "steps": [
+      "F = even = {2, 4, 6}, so the reduced sample space has 3 outcomes.",
+      "E ∩ F = {4}, 1 outcome.",
+      "P(E|F) = 1/3."
+     ],
+     "answer": "1/3"
+    },
+    "reallife": "Doctors read test results using conditional probability: the chance of a disease given a positive result is very different from the chance of a positive result given the disease."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Conditional quickfire",
+     "items": [
+      {
+       "q": "P(E) = 0.6, P(F) = 0.3, P(E ∩ F) = 0.2. P(E|F)",
+       "a": "2/3",
+       "check": "Fraction(2,10)/Fraction(3,10)"
+      },
+      {
+       "q": "Same data: P(F|E)",
+       "a": "1/3",
+       "check": "Fraction(2,10)/Fraction(6,10)"
+      },
+      {
+       "q": "Die: P(4 | even)",
+       "a": "1/3",
+       "check": "Fraction(1,3)"
+      },
+      {
+       "q": "Die: P(even | number ≤ 3)",
+       "a": "1/3",
+       "check": "Fraction(1,3)"
+      },
+      {
+       "q": "Die: P(number > 4 | odd)",
+       "a": "1/3",
+       "check": "Fraction(1,3)"
+      },
+      {
+       "q": "Two coins: P(both heads | first is head)",
+       "a": "1/2",
+       "check": "Fraction(1,2)"
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Find P(E|F) by reducing the sample space",
+     "prompt": "Arrange the steps",
+     "items": [
+      "List the outcomes in F",
+      "Count n(F)",
+      "List the outcomes in E ∩ F",
+      "P(E|F) = n(E ∩ F)/n(F)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "P(E) = 0.6, P(F) = 0.3 and P(E ∩ F) = 0.2. What is P(E|F)?",
+     "options": [
+      "1/3",
+      "2/3",
+      "1/2",
+      "0.18"
+     ],
+     "answer": 1,
+     "explain": "P(E|F) = 0.2/0.3 = 2/3.",
+     "steps": [
+      "P(E ∩ F)/P(F)",
+      "0.2/0.3 = 2/3"
+     ],
+     "mistake": "Divides by P(E) instead of P(F)",
+     "check": "Fraction(2,3)"
+    },
+    {
+     "q": "For the same data, what is P(F|E)?",
+     "options": [
+      "2/3",
+      "1/2",
+      "0.2",
+      "1/3"
+     ],
+     "answer": 3,
+     "explain": "P(F|E) = 0.2/0.6 = 1/3, which differs from P(E|F).",
+     "steps": [
+      "P(E ∩ F)/P(E)",
+      "0.2/0.6 = 1/3"
+     ],
+     "mistake": "Assumes P(F|E) = P(E|F)",
+     "check": "Fraction(2,6)"
+    },
+    {
+     "q": "A family has two children. Given that at least one is a boy, what is the probability that both are boys?",
+     "options": [
+      "1/3",
+      "1/2",
+      "1/4",
+      "2/3"
+     ],
+     "answer": 0,
+     "explain": "Given set: {BB, BG, GB}. Only BB works: 1/3.",
+     "steps": [
+      "F = {BB, BG, GB}",
+      "E ∩ F = {BB}",
+      "1/3"
+     ],
+     "mistake": "Forgets that BG and GB are different outcomes",
+     "check": "Fraction(1,3)"
+    },
+    {
+     "q": "A family has two children. Given that the elder is a boy, what is the probability that both are boys?",
+     "options": [
+      "1/2",
+      "1/3",
+      "1/4",
+      "3/4"
+     ],
+     "answer": 0,
+     "explain": "Given set: {BB, BG}. Only BB: 1/2.",
+     "steps": [
+      "F = {BB, BG}",
+      "P = 1/2"
+     ],
+     "mistake": "Treats it like the 'at least one boy' problem",
+     "check": "Fraction(1,2)"
+    },
+    {
+     "q": "A coin is tossed three times. Find P(at least two heads | first toss is a head).",
+     "options": [
+      "1/2",
+      "3/4",
+      "3/8",
+      "1/4"
+     ],
+     "answer": 1,
+     "explain": "F = {HHH, HHT, HTH, HTT}. E ∩ F = {HHH, HHT, HTH}. P = 3/4.",
+     "steps": [
+      "n(F) = 4",
+      "n(E ∩ F) = 3",
+      "3/4"
+     ],
+     "mistake": "Uses the full sample space of 8 outcomes",
+     "check": "Fraction(3,4)"
+    },
+    {
+     "q": "Two dice are thrown. Given that the first die shows 5, what is the probability that the sum is at least 10?",
+     "options": [
+      "1/6",
+      "1/12",
+      "1/3",
+      "1/2"
+     ],
+     "answer": 2,
+     "explain": "Second die must be 5 or 6: 2 out of 6.",
+     "steps": [
+      "F: first die 5 (6 outcomes)",
+      "Sum ≥ 10: (5,5), (5,6)",
+      "2/6 = 1/3"
+     ],
+     "mistake": "Counts outcomes in the full 36-outcome space",
+     "check": "Fraction(2,6)"
+    },
+    {
+     "q": "Why must P(F) ≠ 0 in P(E|F) = P(E ∩ F)/P(F)?",
+     "options": [
+      "We cannot condition on an impossible event, and we cannot divide by zero",
+      "Because P(E) must be positive",
+      "Because E and F are independent",
+      "Because probabilities must be fractions"
+     ],
+     "answer": 0,
+     "explain": "If F cannot happen, 'given F' makes no sense, and the formula would divide by zero.",
+     "mistake": "Thinks the condition is on P(E)"
+    },
+    {
+     "q": "Assertion (A): For a die, P(number is 2 | number is even) = 1/3.\nReason (R): Given F, the sample space reduces to the outcomes of F.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Reduced space {2, 4, 6} has 3 outcomes, one of which is 2. R explains A.",
+     "mistake": "Uses 1/6 from the full sample space"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What does P(E|F) mean, and how do I calculate it?'",
+    "must": [
+     [
+      "given",
+      "already happened",
+      "condition"
+     ],
+     [
+      "intersection",
+      "both",
+      "e ∩ f"
+     ],
+     [
+      "divide",
+      "p(f)",
+      "reduced",
+      "new sample space"
+     ]
+    ],
+    "praise": "Tweet! P(E|F) is the chance of E once F is known: P(E ∩ F)/P(F), like shrinking the sample space to F!",
+    "nudge": "What do you divide by, and why?"
+   },
+   "covers": [
+    "c13.1.1",
+    "c13.2.1",
+    "c13.2.2"
+   ]
+  },
+  {
+   "id": "g12-maths-13-02",
+   "title": "Properties of conditional probability",
+   "learn": {
+    "hook": "Conditional probability is a full probability in its own right: it obeys the same rules, just inside the smaller world F.",
+    "points": [
+     "P(S|F) = P(F|F) = 1.",
+     "P((A ∪ B)|F) = P(A|F) + P(B|F) − P((A ∩ B)|F); if A and B are disjoint, the last term is 0.",
+     "P(E′|F) = 1 − P(E|F).",
+     "Typical settings: dice, coins, cards and families with children.",
+     "With cards, remember: 52 cards, 4 suits of 13, 4 aces/kings/queens/jacks, 26 red and 26 black, 12 face cards."
+    ],
+    "example": {
+     "q": "A card is drawn from a pack of 52. Given that it is red, find the probability that it is a king.",
+     "steps": [
+      "F = red cards, n(F) = 26.",
+      "E ∩ F = red kings, 2 cards.",
+      "P(E|F) = 2/26."
+     ],
+     "answer": "1/13"
+    },
+    "reallife": "Cricket statisticians quote 'probability of winning given the team bats first'. Its complement, the probability of not winning given batting first, is 1 minus that value."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Property check",
+     "items": [
+      [
+       "P(F|F) = 1.",
+       true,
+       "Given F has happened, F is certain."
+      ],
+      [
+       "P(E′|F) = 1 − P(E|F).",
+       true,
+       "Complements work inside the reduced space."
+      ],
+      [
+       "P(E|F) + P(E|F′) = 1 always.",
+       false,
+       "The complement rule is P(E|F) + P(E′|F) = 1, not this."
+      ],
+      [
+       "If A and B are disjoint, P((A ∪ B)|F) = P(A|F) + P(B|F).",
+       true,
+       "P((A ∩ B)|F) = 0."
+      ],
+      [
+       "P(S|F) = P(F).",
+       false,
+       "P(S|F) = 1."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Card and dice sprint",
+     "items": [
+      {
+       "q": "P(king | red card)",
+       "a": "1/13",
+       "check": "Fraction(2,26)"
+      },
+      {
+       "q": "P(face card | spade)",
+       "a": "3/13",
+       "check": "Fraction(3,13)"
+      },
+      {
+       "q": "P(ace | face card)",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "P(heart | red card)",
+       "a": "1/2",
+       "check": "Fraction(13,26)"
+      },
+      {
+       "q": "P(not 6 | die shows even)",
+       "a": "2/3",
+       "check": "1-Fraction(1,3)"
+      },
+      {
+       "q": "P(red | king)",
+       "a": "1/2",
+       "check": "Fraction(2,4)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "If P(E|F) = 0.4, what is P(E′|F)?",
+     "options": [
+      "0.4",
+      "1",
+      "0.6",
+      "0.16"
+     ],
+     "answer": 2,
+     "explain": "P(E′|F) = 1 − P(E|F) = 0.6.",
+     "steps": [
+      "1 − 0.4 = 0.6"
+     ],
+     "mistake": "Thinks the complement rule does not apply to conditional probability",
+     "check": "1-0.4"
+    },
+    {
+     "q": "P(A|F) = 0.5, P(B|F) = 0.3 and P((A ∩ B)|F) = 0.1. What is P((A ∪ B)|F)?",
+     "options": [
+      "0.8",
+      "0.9",
+      "0.7",
+      "0.6"
+     ],
+     "answer": 2,
+     "explain": "0.5 + 0.3 − 0.1 = 0.7.",
+     "steps": [
+      "P(A|F) + P(B|F) − P(A ∩ B|F)",
+      "= 0.7"
+     ],
+     "mistake": "Forgets to subtract the intersection",
+     "check": "0.5+0.3-0.1"
+    },
+    {
+     "q": "A card is drawn from a pack of 52. Given that it is a face card, what is the probability that it is a queen?",
+     "options": [
+      "1/13",
+      "1/3",
+      "4/13",
+      "1/4"
+     ],
+     "answer": 1,
+     "explain": "There are 12 face cards, 4 of them queens: 4/12 = 1/3.",
+     "steps": [
+      "n(F) = 12",
+      "n(E ∩ F) = 4",
+      "4/12 = 1/3"
+     ],
+     "mistake": "Uses the full pack of 52",
+     "check": "Fraction(4,12)"
+    },
+    {
+     "q": "Two dice are thrown. Given that a doublet appears, what is the probability that the sum is 6?",
+     "options": [
+      "1/36",
+      "5/36",
+      "1/6",
+      "1/3"
+     ],
+     "answer": 2,
+     "explain": "Doublets: 6 outcomes. Sum 6 among them: (3, 3) only. 1/6.",
+     "steps": [
+      "F = 6 doublets",
+      "E ∩ F = {(3, 3)}",
+      "1/6"
+     ],
+     "mistake": "Counts all ways to get sum 6 (5 ways)",
+     "check": "Fraction(1,6)"
+    },
+    {
+     "q": "What is P(S|F) for any event F with P(F) ≠ 0?",
+     "options": [
+      "P(F)",
+      "0",
+      "P(S)P(F)",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "P(S ∩ F)/P(F) = P(F)/P(F) = 1.",
+     "mistake": "Confuses P(S|F) with P(F)",
+     "check": "1"
+    },
+    {
+     "q": "A die is rolled. E = {1, 3, 5}, F = {1, 2, 3}. What is P(E′|F)?",
+     "options": [
+      "2/3",
+      "1/2",
+      "1/6",
+      "1/3"
+     ],
+     "answer": 3,
+     "explain": "E ∩ F = {1, 3}, so P(E|F) = 2/3 and P(E′|F) = 1/3.",
+     "steps": [
+      "P(E|F) = 2/3",
+      "P(E′|F) = 1 − 2/3 = 1/3"
+     ],
+     "mistake": "Gives P(E|F) instead of its complement",
+     "check": "1-Fraction(2,3)"
+    },
+    {
+     "q": "A coin is tossed twice. Given that at least one tail appears, what is the probability of exactly one head?",
+     "options": [
+      "1/2",
+      "2/3",
+      "1/3",
+      "3/4"
+     ],
+     "answer": 1,
+     "explain": "Given set {HT, TH, TT}; exactly one head: HT, TH. 2/3.",
+     "steps": [
+      "n(F) = 3",
+      "n(E ∩ F) = 2"
+     ],
+     "mistake": "Uses the 4-outcome sample space",
+     "check": "Fraction(2,3)"
+    },
+    {
+     "q": "Assertion (A): P(E|F) + P(E′|F) = 1.\nReason (R): E and E′ are disjoint and together make up the whole sample space.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "Using the union rule for disjoint events, P((E ∪ E′)|F) = P(S|F) = 1, which gives A.",
+     "mistake": "Thinks complements need independence"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Do the usual probability rules still work for conditional probability?'",
+    "must": [
+     [
+      "complement",
+      "1 −",
+      "1 -",
+      "not"
+     ],
+     [
+      "union",
+      "add",
+      "subtract the intersection"
+     ],
+     [
+      "one",
+      "equals 1",
+      "certain"
+     ]
+    ],
+    "praise": "Chirp! Yes! Complements, unions and P(F|F) = 1 all work inside the reduced space F. Same rules, smaller world!",
+    "nudge": "What is P(E′|F) in terms of P(E|F)?"
+   },
+   "covers": [
+    "c13.2.3",
+    "c13.2.4"
+   ]
+  },
+  {
+   "id": "g12-maths-13-03",
+   "title": "Multiplication theorem on probability",
+   "learn": {
+    "hook": "Draw two cards one after the other without putting the first back. The second draw depends on the first, and the multiplication theorem handles that chain.",
+    "points": [
+     "P(E ∩ F) = P(E) P(F|E) = P(F) P(E|F), for P(E), P(F) ≠ 0.",
+     "For three events: P(E ∩ F ∩ G) = P(E) P(F|E) P(G|E ∩ F).",
+     "Without replacement, the counts change after each draw: numerator and denominator both drop.",
+     "Read problems in order: first draw, then second given the first, and so on.",
+     "Sanity check: the answer can never be larger than any single probability in the chain."
+    ],
+    "example": {
+     "q": "An urn has 10 black and 5 white balls. Two are drawn one after the other without replacement. Find P(both black).",
+     "steps": [
+      "P(first black) = 10/15.",
+      "P(second black | first black) = 9/14.",
+      "P(both black) = (10/15)(9/14) = 90/210."
+     ],
+     "answer": "3/7"
+    },
+    "reallife": "Quality inspectors pick parts without replacement from a lot; the multiplication theorem gives the chance that every part in the sample passes."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Three cards without replacement: king, king, ace",
+     "prompt": "Arrange the steps",
+     "items": [
+      "P(first king) = 4/52",
+      "P(second king | first king) = 3/51",
+      "P(third ace | two kings) = 4/50",
+      "Multiply: (4/52)(3/51)(4/50) = 2/5525"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Without replacement sprint",
+     "items": [
+      {
+       "q": "Bag 5 red, 3 blue: P(red, red)",
+       "a": "5/14",
+       "check": "Fraction(5,8)*Fraction(4,7)"
+      },
+      {
+       "q": "Urn 10 black, 5 white: P(black, black)",
+       "a": "3/7",
+       "check": "Fraction(10,15)*Fraction(9,14)"
+      },
+      {
+       "q": "Pack of 52: P(ace, ace)",
+       "a": "1/221",
+       "check": "Fraction(4,52)*Fraction(3,51)"
+      },
+      {
+       "q": "Bag 3 red, 2 green: P(green, green)",
+       "a": "1/10",
+       "check": "Fraction(2,5)*Fraction(1,4)"
+      },
+      {
+       "q": "Bag 4 white, 6 black: P(white, then black)",
+       "a": "4/15",
+       "check": "Fraction(4,10)*Fraction(6,9)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "An urn has 10 black and 5 white balls. Two are drawn without replacement. What is P(both black)?",
+     "options": [
+      "3/7",
+      "4/9",
+      "2/3",
+      "9/14"
+     ],
+     "answer": 0,
+     "explain": "(10/15)(9/14) = 90/210 = 3/7.",
+     "steps": [
+      "10/15 × 9/14",
+      "= 3/7"
+     ],
+     "mistake": "Uses 10/15 twice, as if with replacement",
+     "check": "Fraction(10,15)*Fraction(9,14)"
+    },
+    {
+     "q": "A box has 5 red, 3 white and 2 blue balls. Three are drawn one after another without replacement. What is P(red, then white, then blue)?",
+     "options": [
+      "3/100",
+      "1/24",
+      "1/12",
+      "1/8"
+     ],
+     "answer": 1,
+     "explain": "(5/10)(3/9)(2/8) = 30/720 = 1/24.",
+     "steps": [
+      "5/10 × 3/9 × 2/8",
+      "= 30/720 = 1/24"
+     ],
+     "mistake": "Keeps the denominator 10 for every draw, getting 3/100",
+     "check": "Fraction(5,10)*Fraction(3,9)*Fraction(2,8)"
+    },
+    {
+     "q": "A bag has 5 red and 3 blue balls. Two are drawn without replacement. What is P(first red, second blue)?",
+     "options": [
+      "15/64",
+      "5/14",
+      "15/56",
+      "3/28"
+     ],
+     "answer": 2,
+     "explain": "(5/8)(3/7) = 15/56.",
+     "steps": [
+      "5/8 × 3/7",
+      "= 15/56"
+     ],
+     "mistake": "Keeps 8 in the second denominator",
+     "check": "Fraction(5,8)*Fraction(3,7)"
+    },
+    {
+     "q": "P(E) = 0.5 and P(F|E) = 0.4. What is P(E ∩ F)?",
+     "options": [
+      "0.9",
+      "0.2",
+      "0.1",
+      "0.8"
+     ],
+     "answer": 1,
+     "explain": "P(E ∩ F) = P(E) P(F|E) = 0.5 × 0.4 = 0.2.",
+     "steps": [
+      "0.5 × 0.4",
+      "= 0.2"
+     ],
+     "mistake": "Adds instead of multiplying",
+     "check": "0.5*0.4"
+    },
+    {
+     "q": "A box has 4 defective and 16 good bulbs. Two are taken without replacement. What is P(both defective)?",
+     "options": [
+      "1/25",
+      "4/95",
+      "3/80",
+      "3/95"
+     ],
+     "answer": 3,
+     "explain": "(4/20)(3/19) = 12/380 = 3/95.",
+     "steps": [
+      "4/20 × 3/19",
+      "= 12/380 = 3/95"
+     ],
+     "mistake": "Uses 4/20 for both draws",
+     "check": "Fraction(4,20)*Fraction(3,19)"
+    },
+    {
+     "q": "Two cards are drawn without replacement from 52. What is P(both are hearts)?",
+     "options": [
+      "1/4",
+      "2/17",
+      "1/17",
+      "1/2"
+     ],
+     "answer": 2,
+     "explain": "(13/52)(12/51) = 156/2652 = 1/17.",
+     "steps": [
+      "13/52 × 12/51",
+      "= 1/17"
+     ],
+     "mistake": "Stops after the first draw and gives 1/4",
+     "check": "Fraction(13,52)*Fraction(12,51)"
+    },
+    {
+     "q": "Which formula gives P(E ∩ F ∩ G)?",
+     "options": [
+      "P(E) P(F|E) P(G|E ∩ F)",
+      "P(E) P(F) P(G) always",
+      "P(E|F) P(F|G) P(G|E)",
+      "P(E) + P(F) + P(G)"
+     ],
+     "answer": 0,
+     "explain": "The multiplication theorem extends step by step, each factor conditioned on everything before it.",
+     "mistake": "Assumes independence without being told"
+    },
+    {
+     "q": "Assertion (A): When drawing two balls without replacement, P(second red | first red) is less than P(first red) if the bag has both colours.\nReason (R): After removing a red ball, the proportion of red balls in the bag decreases.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "With r red out of n (r < n), (r − 1)/(n − 1) < r/n. R explains why.",
+     "mistake": "Thinks the second probability stays the same"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the chance that two things happen one after another?'",
+    "must": [
+     [
+      "multiply",
+      "product"
+     ],
+     [
+      "given",
+      "conditional",
+      "after the first"
+     ],
+     [
+      "without replacement",
+      "counts change",
+      "reduce"
+     ]
+    ],
+    "praise": "Tweet! Multiply P(first) by P(second given first), updating the counts if nothing is replaced!",
+    "nudge": "What changes in the second fraction when you do not replace?"
+   },
+   "covers": [
+    "c13.3.1",
+    "c13.3.2",
+    "c13.3.3"
+   ]
+  },
+  {
+   "id": "g12-maths-13-04",
+   "title": "Independent events",
+   "learn": {
+    "hook": "Tossing a coin in Delhi does not change a die roll in Chennai. Such events are independent: knowing one tells you nothing about the other.",
+    "points": [
+     "E and F are independent if P(E|F) = P(E) (with P(F) ≠ 0), equivalently P(E ∩ F) = P(E) P(F).",
+     "Independent is NOT the same as mutually exclusive. Mutually exclusive means P(E ∩ F) = 0.",
+     "Two events with non-zero probabilities cannot be both mutually exclusive and independent.",
+     "E, F, G are mutually independent if P(E ∩ F) = P(E)P(F), P(F ∩ G) = P(F)P(G), P(E ∩ G) = P(E)P(G) and P(E ∩ F ∩ G) = P(E)P(F)P(G).",
+     "Pairwise independence alone does not guarantee mutual independence."
+    ],
+    "example": {
+     "q": "A die is thrown. E = multiple of 3, F = even number. Are E and F independent?",
+     "steps": [
+      "E = {3, 6}, P(E) = 1/3. F = {2, 4, 6}, P(F) = 1/2.",
+      "E ∩ F = {6}, P(E ∩ F) = 1/6.",
+      "P(E) P(F) = 1/6 = P(E ∩ F)."
+     ],
+     "answer": "Yes, E and F are independent."
+    },
+    "reallife": "Safety systems often use independent backups: if each fails rarely and independently, the chance of all failing together is the product of the small chances, which is tiny."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Independent or mutually exclusive?",
+     "buckets": [
+      "Independent",
+      "Mutually exclusive"
+     ],
+     "items": [
+      [
+       "Coin shows head; die shows 6",
+       0
+      ],
+      [
+       "Die shows 2; same die shows 5",
+       1
+      ],
+      [
+       "First toss head; second toss head",
+       0
+      ],
+      [
+       "Card is a king; same card is a queen",
+       1
+      ],
+      [
+       "Die: multiple of 3; even number",
+       0
+      ],
+      [
+       "Student passes; same student fails the same exam",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Independence facts",
+     "items": [
+      [
+       "If P(A ∩ B) = P(A)P(B), A and B are independent.",
+       true,
+       "That is the definition."
+      ],
+      [
+       "Mutually exclusive events with non-zero probabilities are independent.",
+       false,
+       "P(A ∩ B) = 0 but P(A)P(B) > 0."
+      ],
+      [
+       "Pairwise independence of three events implies mutual independence.",
+       false,
+       "The triple product condition is also needed."
+      ],
+      [
+       "Successive tosses of a fair coin are independent.",
+       true,
+       "One toss does not affect another."
+      ],
+      [
+       "Draws with replacement are independent.",
+       true,
+       "The bag is restored each time."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A and B are independent with P(A) = 1/2 and P(B) = 1/3. What is P(A ∩ B)?",
+     "options": [
+      "5/6",
+      "1/3",
+      "1/6",
+      "2/3"
+     ],
+     "answer": 2,
+     "explain": "Independence gives P(A ∩ B) = (1/2)(1/3) = 1/6.",
+     "steps": [
+      "P(A)P(B)",
+      "= 1/6"
+     ],
+     "mistake": "Adds the probabilities",
+     "check": "Fraction(1,2)*Fraction(1,3)"
+    },
+    {
+     "q": "With the same independent A and B (P(A) = 1/2, P(B) = 1/3), what is P(A ∪ B)?",
+     "options": [
+      "5/6",
+      "1/6",
+      "2/3",
+      "1/2"
+     ],
+     "answer": 2,
+     "explain": "1/2 + 1/3 − 1/6 = 2/3.",
+     "steps": [
+      "1/2 + 1/3 − 1/6",
+      "= 2/3"
+     ],
+     "mistake": "Forgets to subtract P(A ∩ B)",
+     "check": "Fraction(1,2)+Fraction(1,3)-Fraction(1,6)"
+    },
+    {
+     "q": "P(A) = 0.3, P(B) = 0.4 and A, B are independent. What is P(A ∪ B)?",
+     "options": [
+      "0.7",
+      "0.12",
+      "0.42",
+      "0.58"
+     ],
+     "answer": 3,
+     "explain": "0.3 + 0.4 − 0.12 = 0.58.",
+     "steps": [
+      "P(A ∩ B) = 0.12",
+      "0.3 + 0.4 − 0.12 = 0.58"
+     ],
+     "mistake": "Treats A and B as mutually exclusive",
+     "check": "0.3+0.4-0.12"
+    },
+    {
+     "q": "A die is thrown. E = {1, 3, 5} (odd) and F = {1, 2, 3}. Are E and F independent?",
+     "options": [
+      "No, since P(E ∩ F) = 1/3 but P(E)P(F) = 1/4",
+      "Yes, since both have probability 1/2",
+      "Yes, since they overlap",
+      "No, since they are mutually exclusive"
+     ],
+     "answer": 0,
+     "explain": "E ∩ F = {1, 3}, probability 1/3, which is not (1/2)(1/2).",
+     "mistake": "Thinks equal probabilities mean independence"
+    },
+    {
+     "q": "Which statement is true for events A and B with P(A), P(B) > 0?",
+     "options": [
+      "If they are mutually exclusive, they are not independent",
+      "If they are independent, they are mutually exclusive",
+      "Independent events cannot happen together",
+      "Mutually exclusive events always have P(A ∩ B) = P(A)P(B)"
+     ],
+     "answer": 0,
+     "explain": "Mutually exclusive gives P(A ∩ B) = 0 ≠ P(A)P(B).",
+     "mistake": "Confuses 'independent' with 'cannot happen together'"
+    },
+    {
+     "q": "A card is drawn from 52. E = 'spade', F = 'ace'. What is P(E ∩ F)?",
+     "options": [
+      "1/52",
+      "1/13",
+      "1/4",
+      "17/52"
+     ],
+     "answer": 0,
+     "explain": "Only the ace of spades: 1/52, which equals (1/4)(1/13), so E and F are independent.",
+     "steps": [
+      "Ace of spades only",
+      "1/52 = (13/52)(4/52)"
+     ],
+     "mistake": "Adds P(E) and P(F)",
+     "check": "Fraction(1,52)"
+    },
+    {
+     "q": "For mutual independence of E, F and G, which extra condition is needed besides pairwise independence?",
+     "options": [
+      "P(E ∪ F ∪ G) = 1",
+      "P(E) = P(F) = P(G)",
+      "E, F, G are mutually exclusive",
+      "P(E ∩ F ∩ G) = P(E)P(F)P(G)"
+     ],
+     "answer": 3,
+     "explain": "Mutual independence needs all three pairwise products and the triple product.",
+     "mistake": "Thinks pairwise independence is enough"
+    },
+    {
+     "q": "Assertion (A): If A and B are independent, then P(A|B) = P(A).\nReason (R): P(A|B) = P(A ∩ B)/P(B) = P(A)P(B)/P(B).",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Substituting the independence condition in the definition gives P(A|B) = P(A).",
+     "mistake": "Does not connect the two definitions of independence"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is confused: 'Independent and mutually exclusive sound the same. Are they?'",
+    "must": [
+     [
+      "product",
+      "multiply",
+      "p(a)p(b)"
+     ],
+     [
+      "no effect",
+      "does not change",
+      "does not affect",
+      "unaffected"
+     ],
+     [
+      "cannot happen together",
+      "mutually exclusive",
+      "intersection zero",
+      "disjoint"
+     ]
+    ],
+    "praise": "Tweet! Independent means one doesn't change the other's chance, so P(A ∩ B) = P(A)P(B). Mutually exclusive means they can't happen together!",
+    "nudge": "What is P(A ∩ B) for independent events, and for mutually exclusive ones?"
+   },
+   "covers": [
+    "c13.4.1",
+    "c13.4.2",
+    "c13.4.3"
+   ]
+  },
+  {
+   "id": "g12-maths-13-05",
+   "title": "Complements and 'at least one'",
+   "learn": {
+    "hook": "Three bowlers each have a small chance of taking a wicket this over. What is the chance at least one of them does? Flip the question: find the chance none does.",
+    "points": [
+     "If E and F are independent, so are E and F′, E′ and F, and E′ and F′.",
+     "P(E′ ∩ F′) = P(E′)P(F′) = (1 − P(E))(1 − P(F)) for independent E, F.",
+     "P(at least one of E, F, G) = 1 − P(none) = 1 − P(E′)P(F′)P(G′) for independent events.",
+     "With replacement, successive draws are independent; multiply the same probabilities.",
+     "To test independence, compare P(E ∩ F) with P(E)P(F)."
+    ],
+    "example": {
+     "q": "Probabilities that A, B and C hit a target are 1/2, 1/3 and 1/4, independently. Find P(at least one hits).",
+     "steps": [
+      "P(none) = (1/2)(2/3)(3/4) = 1/4.",
+      "P(at least one) = 1 − 1/4."
+     ],
+     "answer": "3/4"
+    },
+    "reallife": "Disaster managers estimate the chance that at least one of several independent warning systems works, using 1 − P(all fail)."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "At least one",
+     "items": [
+      {
+       "q": "P(at least one head in 3 tosses)",
+       "a": "7/8",
+       "check": "1-Fraction(1,8)"
+      },
+      {
+       "q": "A solves with 1/2, B with 1/3: P(at least one solves)",
+       "a": "2/3",
+       "check": "1-Fraction(1,2)*Fraction(2,3)"
+      },
+      {
+       "q": "Hits 1/2, 1/3, 1/4: P(at least one)",
+       "a": "3/4",
+       "check": "1-Fraction(1,2)*Fraction(2,3)*Fraction(3,4)"
+      },
+      {
+       "q": "P(at least one six in 2 throws of a die)",
+       "a": "11/36",
+       "check": "1-Fraction(25,36)"
+      },
+      {
+       "q": "P(A) = 0.3, P(B) = 0.4 independent: P(neither)",
+       "a": "0.42",
+       "check": "0.7*0.6"
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Find P(at least one) for independent events",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Find each complement P(E′), P(F′), …",
+      "Multiply them to get P(none)",
+      "Subtract from 1"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A coin is tossed 3 times. What is P(at least one head)?",
+     "options": [
+      "3/8",
+      "7/8",
+      "1/2",
+      "1/8"
+     ],
+     "answer": 1,
+     "explain": "P(no head) = (1/2)³ = 1/8, so P(at least one) = 7/8.",
+     "steps": [
+      "P(TTT) = 1/8",
+      "1 − 1/8 = 7/8"
+     ],
+     "mistake": "Counts only exactly one head",
+     "check": "1-Fraction(1,8)"
+    },
+    {
+     "q": "A solves a problem with probability 1/2 and B with 1/3, independently. What is P(the problem is solved)?",
+     "options": [
+      "5/6",
+      "1/6",
+      "2/3",
+      "1/3"
+     ],
+     "answer": 2,
+     "explain": "P(neither) = (1/2)(2/3) = 1/3, so P(solved) = 2/3.",
+     "steps": [
+      "P(neither) = 1/2 × 2/3 = 1/3",
+      "1 − 1/3 = 2/3"
+     ],
+     "mistake": "Adds 1/2 + 1/3 = 5/6",
+     "check": "1-Fraction(1,3)"
+    },
+    {
+     "q": "P(A) = 0.3 and P(B) = 0.4, independent. What is P(A ∩ B′)?",
+     "options": [
+      "0.12",
+      "0.28",
+      "0.42",
+      "0.18"
+     ],
+     "answer": 3,
+     "explain": "A and B′ are independent: 0.3 × 0.6 = 0.18.",
+     "steps": [
+      "P(B′) = 0.6",
+      "0.3 × 0.6 = 0.18"
+     ],
+     "mistake": "Uses P(B) instead of P(B′)",
+     "check": "0.3*0.6"
+    },
+    {
+     "q": "Two cards are drawn with replacement from 52. What is P(both kings)?",
+     "options": [
+      "1/221",
+      "1/13",
+      "1/169",
+      "2/13"
+     ],
+     "answer": 2,
+     "explain": "With replacement the draws are independent: (1/13)(1/13) = 1/169.",
+     "steps": [
+      "(4/52)²",
+      "= 1/169"
+     ],
+     "mistake": "Uses the without-replacement answer",
+     "check": "Fraction(1,13)**2"
+    },
+    {
+     "q": "A die is thrown twice. What is P(at least one six)?",
+     "options": [
+      "11/36",
+      "1/3",
+      "1/36",
+      "25/36"
+     ],
+     "answer": 0,
+     "explain": "P(no six) = (5/6)² = 25/36, so the answer is 11/36.",
+     "steps": [
+      "1 − (5/6)²",
+      "= 11/36"
+     ],
+     "mistake": "Adds 1/6 + 1/6 and double-counts (6, 6)",
+     "check": "1-Fraction(25,36)"
+    },
+    {
+     "q": "If E and F are independent with P(E) = 0.2 and P(F) = 0.5, what is P(E′ ∩ F′)?",
+     "options": [
+      "0.4",
+      "0.1",
+      "0.3",
+      "0.6"
+     ],
+     "answer": 0,
+     "explain": "(1 − 0.2)(1 − 0.5) = 0.8 × 0.5 = 0.4.",
+     "steps": [
+      "0.8 × 0.5 = 0.4"
+     ],
+     "mistake": "Computes 1 − P(E)P(F)",
+     "check": "0.8*0.5"
+    },
+    {
+     "q": "P(A) = 1/2, P(B) = 1/3 and P(A′ ∪ B′) = 5/6. Are A and B independent?",
+     "options": [
+      "Yes, since P(A ∩ B) = 1/6 = P(A)P(B)",
+      "No, since P(A ∩ B) = 5/6",
+      "No, since P(A) ≠ P(B)",
+      "Yes, since P(A′ ∪ B′) < 1"
+     ],
+     "answer": 0,
+     "explain": "By De Morgan, A′ ∪ B′ = (A ∩ B)′, so P(A ∩ B) = 1 − 5/6 = 1/6, which equals (1/2)(1/3).",
+     "mistake": "Forgets De Morgan's law A′ ∪ B′ = (A ∩ B)′"
+    },
+    {
+     "q": "Assertion (A): If A and B are independent, then A′ and B′ are independent.\nReason (R): P(A′ ∩ B′) = 1 − P(A ∪ B) = (1 − P(A))(1 − P(B)) when A, B are independent.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "1 − P(A) − P(B) + P(A)P(B) factorises as P(A′)P(B′), which is exactly the independence of A′ and B′.",
+     "mistake": "Thinks complements of independent events are dependent"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What is the fastest way to find the chance that at least one thing happens?'",
+    "must": [
+     [
+      "complement",
+      "none",
+      "opposite"
+     ],
+     [
+      "1 −",
+      "1 -",
+      "one minus",
+      "subtract from 1"
+     ],
+     [
+      "multiply",
+      "independent",
+      "product"
+     ]
+    ],
+    "praise": "Chirp! Find P(none) by multiplying the complements, then 1 minus that. At least one, at lightning speed!",
+    "nudge": "Instead of adding cases, which single event do you subtract from 1?"
+   },
+   "covers": [
+    "c13.4.4",
+    "c13.4.5",
+    "c13.4.6"
+   ]
+  },
+  {
+   "id": "g12-maths-13-06",
+   "title": "Total probability and Bayes' theorem",
+   "learn": {
+    "hook": "A red ball comes out, but which bag did it come from? Bayes' theorem runs probability backwards: from the result to the cause.",
+    "points": [
+     "E₁, E₂, …, Eₙ form a partition of S if they are pairwise disjoint, together make up S, and each has non-zero probability.",
+     "Theorem of total probability: P(A) = Σ P(Eᵢ) P(A|Eᵢ).",
+     "Bayes' theorem: P(Eᵢ|A) = P(Eᵢ) P(A|Eᵢ) / Σⱼ P(Eⱼ) P(A|Eⱼ).",
+     "Proof idea: P(Eᵢ|A) = P(Eᵢ ∩ A)/P(A); write the top with the multiplication theorem and the bottom with total probability.",
+     "The Eᵢ are hypotheses; P(Eᵢ) are prior probabilities and P(Eᵢ|A) are posterior probabilities (after A is observed)."
+    ],
+    "example": {
+     "q": "Bag I has 3 red and 4 black balls; bag II has 5 red and 6 black. A bag is chosen at random and a ball drawn is red. Find P(it came from bag II).",
+     "steps": [
+      "P(E₁) = P(E₂) = 1/2. P(R|E₁) = 3/7, P(R|E₂) = 5/11.",
+      "P(R) = (1/2)(3/7) + (1/2)(5/11) = (1/2)(68/77) = 34/77.",
+      "P(E₂|R) = (1/2)(5/11) / (34/77) = (5/22)(77/34) = 35/68."
+     ],
+     "answer": "35/68"
+    },
+    "reallife": "Many email spam filters use Bayes' theorem: given that certain words appear, what is the chance that the message is spam?"
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Applying Bayes' theorem",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Identify the hypotheses E₁, E₂, … and their priors",
+      "Write P(A|Eᵢ) for each hypothesis",
+      "Find P(A) by total probability",
+      "Divide the required P(Eᵢ)P(A|Eᵢ) by P(A)"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Bayes vocabulary",
+     "pairs": [
+      [
+       "P(Eᵢ)",
+       "Prior probability"
+      ],
+      [
+       "P(Eᵢ|A)",
+       "Posterior probability"
+      ],
+      [
+       "E₁, E₂, …, Eₙ",
+       "Partition / hypotheses"
+      ],
+      [
+       "Σ P(Eᵢ) P(A|Eᵢ)",
+       "Total probability P(A)"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Bag I has 3 red, 4 black; bag II has 5 red, 6 black. A bag is chosen at random and a red ball is drawn. What is P(bag II | red)?",
+     "options": [
+      "33/68",
+      "35/68",
+      "5/11",
+      "1/2"
+     ],
+     "answer": 1,
+     "explain": "(1/2)(5/11) ÷ [(1/2)(3/7) + (1/2)(5/11)] = 35/68.",
+     "steps": [
+      "Numerator: 5/22",
+      "P(R) = 34/77",
+      "5/22 × 77/34 = 35/68"
+     ],
+     "mistake": "Gives P(red | bag II) instead of P(bag II | red)",
+     "check": "Fraction(5,22)/Fraction(34,77)"
+    },
+    {
+     "q": "Bag A has 2 red and 3 white balls; bag B has 4 red and 1 white. A bag is chosen at random and one ball is drawn. What is P(red)?",
+     "options": [
+      "3/10",
+      "2/5",
+      "3/5",
+      "4/5"
+     ],
+     "answer": 2,
+     "explain": "Total probability: (1/2)(2/5) + (1/2)(4/5) = 3/5.",
+     "steps": [
+      "(1/2)(2/5) + (1/2)(4/5)",
+      "= 1/5 + 2/5 = 3/5"
+     ],
+     "mistake": "Adds the bag probabilities without the 1/2 weights",
+     "check": "Fraction(1,5)+Fraction(2,5)"
+    },
+    {
+     "q": "For the same bags, given the ball is red, what is P(it came from bag A)?",
+     "options": [
+      "2/5",
+      "1/2",
+      "1/3",
+      "2/3"
+     ],
+     "answer": 2,
+     "explain": "(1/2)(2/5) ÷ (3/5) = (1/5)/(3/5) = 1/3.",
+     "steps": [
+      "Numerator 1/5",
+      "Denominator 3/5",
+      "1/3"
+     ],
+     "mistake": "Uses the prior 1/2 as the answer",
+     "check": "Fraction(1,5)/Fraction(3,5)"
+    },
+    {
+     "q": "Which conditions make E₁, E₂, E₃ a partition of S?",
+     "options": [
+      "Each has probability 1/3",
+      "They are independent",
+      "They overlap and cover S",
+      "Pairwise disjoint, union is S, each with non-zero probability"
+     ],
+     "answer": 3,
+     "explain": "A partition splits S into non-overlapping parts that cover it, with positive probabilities.",
+     "mistake": "Thinks the parts must be equally likely"
+    },
+    {
+     "q": "In Bayes' theorem, the probability P(Eᵢ|A) is called the",
+     "options": [
+      "posterior probability",
+      "prior probability",
+      "total probability",
+      "joint probability"
+     ],
+     "answer": 0,
+     "explain": "It is the updated probability after A is observed.",
+     "mistake": "Mixes up prior and posterior"
+    },
+    {
+     "q": "Bayes' theorem is derived by combining the definition of conditional probability with",
+     "options": [
+      "only the addition rule",
+      "independence of the events",
+      "the multiplication theorem and the theorem of total probability",
+      "the binomial theorem"
+     ],
+     "answer": 2,
+     "explain": "P(Eᵢ ∩ A) = P(Eᵢ)P(A|Eᵢ) on top; P(A) by total probability below.",
+     "mistake": "Assumes independence is needed"
+    },
+    {
+     "q": "Two bags are equally likely. Bag I: P(red) = 1/4; bag II: P(red) = 3/4. A red ball is drawn. What is P(bag II | red)?",
+     "options": [
+      "3/4",
+      "1/2",
+      "3/8",
+      "1/4"
+     ],
+     "answer": 0,
+     "explain": "(1/2)(3/4) ÷ [(1/2)(1/4) + (1/2)(3/4)] = (3/8)/(1/2) = 3/4.",
+     "steps": [
+      "Numerator 3/8",
+      "P(red) = 1/2",
+      "3/4"
+     ],
+     "mistake": "Forgets to divide by P(red)",
+     "check": "Fraction(3,8)/Fraction(1,2)"
+    },
+    {
+     "q": "Assertion (A): In the theorem of total probability, the events Eᵢ must form a partition of S.\nReason (R): Then A is the disjoint union of the events A ∩ Eᵢ.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Because A = ∪(A ∩ Eᵢ) with disjoint pieces, P(A) = Σ P(A ∩ Eᵢ) = Σ P(Eᵢ)P(A|Eᵢ). R is the reason.",
+     "mistake": "Uses overlapping events, which double-counts"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What does Bayes' theorem do, and how do I use it?'",
+    "must": [
+     [
+      "reverse",
+      "backwards",
+      "cause",
+      "which bag"
+     ],
+     [
+      "total probability",
+      "p(a)",
+      "sum"
+     ],
+     [
+      "prior",
+      "posterior",
+      "update"
+     ],
+     [
+      "divide",
+      "ratio",
+      "fraction"
+     ]
+    ],
+    "praise": "Tweet! Bayes runs backwards from result to cause: the chosen path's P(Eᵢ)P(A|Eᵢ) divided by the total P(A)!",
+    "nudge": "What goes in the denominator of Bayes' formula?"
+   },
+   "covers": [
+    "c13.5.1",
+    "c13.5.2",
+    "c13.5.3",
+    "c13.5.4"
+   ]
+  },
+  {
+   "id": "g12-maths-13-07",
+   "title": "Bayes' theorem in real problems",
+   "learn": {
+    "hook": "A test is 99% accurate, yet a positive result may still mean only about a 1-in-6 chance of disease. Bayes' theorem explains this surprise.",
+    "points": [
+     "Factories: P(machine | defective) uses each machine's output share and defect rate.",
+     "Medical tests: the disease's rarity (prior) matters as much as test accuracy.",
+     "Truth-telling: P(event really happened | reported) depends on the event's chance and the reporter's honesty.",
+     "Insurance and groups: weight each group by its share of the population.",
+     "Random variables, probability distributions, mean, variance and the binomial distribution are not in the current CBSE syllabus."
+    ],
+    "example": {
+     "q": "Machines A, B, C make 25%, 35% and 40% of bolts, with 5%, 4% and 2% defective. A bolt is defective. Find P(it was made by B).",
+     "steps": [
+      "P(D) = 0.25(0.05) + 0.35(0.04) + 0.40(0.02) = 0.0125 + 0.014 + 0.008 = 0.0345.",
+      "P(B|D) = 0.014/0.0345 = 140/345."
+     ],
+     "answer": "28/69"
+    },
+    "reallife": "During health screenings, doctors explain that a positive result for a rare condition needs a second confirmatory test, exactly because Bayes' theorem lowers the posterior probability."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Medical test with Bayes",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Prior: P(disease) = 0.001, P(no disease) = 0.999",
+      "Likelihoods: P(+ | disease) = 0.99, P(+ | no disease) = 0.005",
+      "P(+) = 0.001(0.99) + 0.999(0.005) = 0.005985",
+      "P(disease | +) = 0.00099/0.005985 = 22/133"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Bayes intuition",
+     "items": [
+      [
+       "A very accurate test always means a positive result is almost certainly correct.",
+       false,
+       "For rare conditions, false positives can outnumber true positives."
+      ],
+      [
+       "In Bayes problems, the priors must add to 1.",
+       true,
+       "The hypotheses form a partition."
+      ],
+      [
+       "P(A|B) and P(B|A) are usually equal.",
+       false,
+       "Bayes' theorem connects them; they differ in general."
+      ],
+      [
+       "A machine with a small share of output can still be a likely source of defects if its defect rate is high.",
+       true,
+       "The posterior depends on share × defect rate."
+      ],
+      [
+       "Binomial distribution is part of the current CBSE Class XII syllabus.",
+       false,
+       "It has been removed from the rationalised syllabus."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Machines A, B, C produce 25%, 35%, 40% of bolts with 5%, 4%, 2% defective. A bolt is defective. What is P(made by B)?",
+     "options": [
+      "25/69",
+      "28/69",
+      "16/69",
+      "35/100"
+     ],
+     "answer": 1,
+     "explain": "P(D) = 0.0345 and 0.35 × 0.04 = 0.014. 0.014/0.0345 = 28/69.",
+     "steps": [
+      "0.014/0.0345",
+      "= 140/345 = 28/69"
+     ],
+     "mistake": "Uses B's share 35% as the answer",
+     "check": "Fraction(14,1000)/Fraction(345,10000)"
+    },
+    {
+     "q": "For the same machines, what is P(made by C | defective)?",
+     "options": [
+      "16/69",
+      "28/69",
+      "25/69",
+      "40/100"
+     ],
+     "answer": 0,
+     "explain": "0.40 × 0.02 = 0.008; 0.008/0.0345 = 80/345 = 16/69.",
+     "steps": [
+      "0.008/0.0345",
+      "= 16/69"
+     ],
+     "mistake": "Gives P(defective | C) instead",
+     "check": "Fraction(8,1000)/Fraction(345,10000)"
+    },
+    {
+     "q": "A man tells the truth 3 out of 4 times. He throws a die and reports a six. What is P(it is actually a six)?",
+     "options": [
+      "3/4",
+      "1/6",
+      "5/8",
+      "3/8"
+     ],
+     "answer": 3,
+     "explain": "(1/6)(3/4) ÷ [(1/6)(3/4) + (5/6)(1/4)] = (3/24)/(8/24) = 3/8.",
+     "steps": [
+      "Numerator 3/24",
+      "Denominator 3/24 + 5/24",
+      "3/8"
+     ],
+     "mistake": "Uses only his truth rate 3/4",
+     "check": "Fraction(3,24)/Fraction(8,24)"
+    },
+    {
+     "q": "0.1% of people have a disease. A test detects it 99% of the time and gives a false positive 0.5% of the time. What is P(disease | positive)?",
+     "options": [
+      "22/133",
+      "99/100",
+      "1/2",
+      "11/133"
+     ],
+     "answer": 0,
+     "explain": "0.00099 ÷ (0.00099 + 0.004995) = 0.00099/0.005985 = 22/133 (about 0.165).",
+     "steps": [
+      "Numerator 0.001 × 0.99",
+      "P(+) = 0.005985",
+      "= 22/133"
+     ],
+     "mistake": "Assumes the posterior equals the test's accuracy",
+     "check": "Fraction(99,100000)/Fraction(5985,1000000)"
+    },
+    {
+     "q": "An insurer has 2000 scooter, 4000 car and 6000 truck drivers with accident probabilities 0.01, 0.03 and 0.15. An insured person has an accident. What is P(scooter driver)?",
+     "options": [
+      "1/6",
+      "3/52",
+      "45/52",
+      "1/52"
+     ],
+     "answer": 3,
+     "explain": "Priors 1/6, 1/3, 1/2. P(acc) = 0.01/6 + 0.01 + 0.075. Multiplying by 6: 0.01/(0.01 + 0.06 + 0.45) = 0.01/0.52 = 1/52.",
+     "steps": [
+      "Scale by 6: 0.01 : 0.06 : 0.45",
+      "0.01/0.52 = 1/52"
+     ],
+     "mistake": "Uses the scooter share 1/6 as the answer",
+     "check": "Fraction(1,100)/Fraction(52,100)"
+    },
+    {
+     "q": "For the same insurer, what is P(truck driver | accident)?",
+     "options": [
+      "45/52",
+      "1/2",
+      "6/52",
+      "15/52"
+     ],
+     "answer": 0,
+     "explain": "Using the scaled weights 0.01, 0.06, 0.45: 0.45/0.52 = 45/52.",
+     "steps": [
+      "0.45/0.52",
+      "= 45/52"
+     ],
+     "mistake": "Uses the truck share 1/2",
+     "check": "Fraction(45,52)"
+    },
+    {
+     "q": "In a class, 40% are girls and 60% are boys. 25% of girls and 10% of boys got an A grade. A student with an A is picked. What is P(the student is a girl)?",
+     "options": [
+      "2/5",
+      "5/8",
+      "1/4",
+      "3/8"
+     ],
+     "answer": 1,
+     "explain": "0.4 × 0.25 = 0.10 and 0.6 × 0.10 = 0.06. P(girl | A) = 0.10/0.16 = 5/8.",
+     "steps": [
+      "Girls: 0.10",
+      "Boys: 0.06",
+      "0.10/0.16 = 5/8"
+     ],
+     "mistake": "Uses the prior 40% as the answer",
+     "check": "Fraction(10,16)"
+    },
+    {
+     "q": "Assertion (A): Even a 99% accurate test can give a low P(disease | positive) for a rare disease.\nReason (R): When the prior is very small, false positives from the large healthy group can outnumber true positives.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "In the 0.1% example, true positives are 0.00099 while false positives are 0.004995, about five times more. That gives a posterior near 0.165.",
+     "mistake": "Ignores the prior probability"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu squawks: 'A test is 99% accurate and I tested positive. Am I 99% likely to be sick?'",
+    "must": [
+     [
+      "prior",
+      "rare",
+      "base rate",
+      "how common"
+     ],
+     [
+      "false positive",
+      "healthy people",
+      "wrong positives"
+     ],
+     [
+      "bayes",
+      "posterior",
+      "update"
+     ]
+    ],
+    "praise": "Chirp! Not necessarily! If the disease is rare, false positives from healthy people pile up, and Bayes' theorem gives a much lower chance!",
+    "nudge": "What role does how rare the disease is play?"
+   },
+   "covers": [
+    "c13.5.5",
+    "c13.5.6",
+    "c13.5.7",
+    "c13.5.8"
+   ]
+  }
+ ]
+}

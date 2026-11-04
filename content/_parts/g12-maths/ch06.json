@@ -1,0 +1,1558 @@
+{
+ "n": 6,
+ "title": "Application of Derivatives",
+ "emoji": "🎯",
+ "topics": [
+  {
+   "id": "g12-maths-06-01",
+   "title": "Rate of change of quantities",
+   "learn": {
+    "hook": "Drop a pebble in a pond: the ripple's radius grows at a steady 5 cm/s, but its area grows faster and faster. Derivatives tell you exactly how fast.",
+    "points": [
+     "Derivatives help us study rates of change, where functions rise or fall, and their highest and lowest values.",
+     "dy/dx is the rate of change of y with respect to x; its value at x = x₀ is the rate at that instant.",
+     "If x and y both depend on t, then dy/dt = (dy/dx)(dx/dt), and dy/dx = (dy/dt)/(dx/dt).",
+     "Circle: A = πr², dA/dr = 2πr. Sphere: V = (4/3)πr³, dV/dr = 4πr²; S = 4πr², dS/dr = 8πr.",
+     "Cube of edge x: V = x³, dV/dt = 3x² dx/dt; S = 6x², dS/dt = 12x dx/dt. Cone: V = (1/3)πr²h."
+    ],
+    "example": {
+     "q": "The volume of a cube increases at 9 cm³/s. How fast is its surface area increasing when an edge is 10 cm?",
+     "steps": [
+      "V = x³ ⇒ dV/dt = 3x² dx/dt ⇒ 9 = 3(100) dx/dt ⇒ dx/dt = 3/100 cm/s.",
+      "S = 6x² ⇒ dS/dt = 12x dx/dt.",
+      "dS/dt = 12 × 10 × 3/100 = 3.6."
+     ],
+     "answer": "3.6 cm²/s"
+    },
+    "reallife": "During the monsoon, dam engineers estimate how fast a reservoir's water level is rising from the rate of inflow, a classic related-rates calculation."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Quantity ↔ rate formula",
+     "pairs": [
+      [
+       "Area of circle w.r.t. r",
+       "2πr"
+      ],
+      [
+       "Volume of sphere w.r.t. r",
+       "4πr²"
+      ],
+      [
+       "Surface area of sphere w.r.t. r",
+       "8πr"
+      ],
+      [
+       "Volume of cube w.r.t. edge x",
+       "3x²"
+      ],
+      [
+       "Surface area of cube w.r.t. edge x",
+       "12x"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Rate truths",
+     "items": [
+      [
+       "If dA/dt is negative, A is decreasing at that instant.",
+       true,
+       "A negative rate means the quantity is falling."
+      ],
+      [
+       "For a circle, dA/dr = πr.",
+       false,
+       "dA/dr = 2πr."
+      ],
+      [
+       "dy/dt = (dy/dx)(dx/dt) when y depends on x and x on t.",
+       true,
+       "This is the chain rule."
+      ],
+      [
+       "If the radius of a circle grows at a constant rate, its area also grows at a constant rate.",
+       false,
+       "dA/dt = 2πr dr/dt grows with r."
+      ],
+      [
+       "The rate of change of volume of a sphere with respect to r equals its surface area.",
+       true,
+       "dV/dr = 4πr² = surface area."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the rate of change of the area of a circle with respect to its radius when r = 5 cm.",
+     "options": [
+      "25π cm²/cm",
+      "5π cm²/cm",
+      "20π cm²/cm",
+      "10π cm²/cm"
+     ],
+     "answer": 3,
+     "explain": "dA/dr = 2πr = 2π(5) = 10π.",
+     "mistake": "Uses A = πr² itself instead of its derivative"
+    },
+    {
+     "q": "The radius of a circle increases at 3 cm/s. At what rate (in cm²/s) is the area increasing when r = 10 cm?",
+     "options": [
+      "30π",
+      "20π",
+      "60π",
+      "300π"
+     ],
+     "answer": 2,
+     "explain": "dA/dt = 2πr dr/dt = 2π(10)(3) = 60π cm²/s.",
+     "mistake": "Forgets the factor 2 from d(r²)/dr"
+    },
+    {
+     "q": "A stone dropped in a pond makes ripples whose radius grows at 5 cm/s. How fast is the enclosed area growing when r = 8 cm?",
+     "options": [
+      "40π cm²/s",
+      "64π cm²/s",
+      "80π cm²/s",
+      "16π cm²/s"
+     ],
+     "answer": 2,
+     "explain": "dA/dt = 2πr dr/dt = 2π(8)(5) = 80π cm²/s.",
+     "mistake": "Multiplies r by the rate without the factor 2π"
+    },
+    {
+     "q": "Find dV/dr for a sphere when r = 10 cm.",
+     "options": [
+      "4000π/3 cm³/cm",
+      "40π cm³/cm",
+      "400π cm³/cm",
+      "100π cm³/cm"
+     ],
+     "answer": 2,
+     "explain": "V = (4/3)πr³ ⇒ dV/dr = 4πr² = 400π.",
+     "mistake": "Gives the volume instead of its rate"
+    },
+    {
+     "q": "The edge of a cube increases at 3 cm/s. How fast (in cm³/s) is its volume increasing when the edge is 10 cm?",
+     "options": [
+      "300",
+      "900",
+      "90",
+      "3000"
+     ],
+     "answer": 1,
+     "explain": "dV/dt = 3x² dx/dt = 3(100)(3) = 900 cm³/s.",
+     "steps": [
+      "dV/dt = 3x² · dx/dt",
+      "3 × 100 × 3 = 900"
+     ],
+     "mistake": "Forgets to multiply by dx/dt or by 3",
+     "check": "3*100*3"
+    },
+    {
+     "q": "The total area of a square changes at 8 cm²/s when its side is 4 cm. At what rate (cm/s) is the side changing?",
+     "options": [
+      "2",
+      "1/2",
+      "1",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "A = s² ⇒ dA/dt = 2s ds/dt ⇒ 8 = 8 ds/dt ⇒ ds/dt = 1 cm/s.",
+     "steps": [
+      "dA/dt = 2s ds/dt",
+      "8 = 2(4) ds/dt",
+      "ds/dt = 1"
+     ],
+     "mistake": "Divides by s instead of 2s",
+     "check": "8/(2*4)"
+    },
+    {
+     "q": "If y = x² + 2x and x increases at 3 units/s, how fast (in units/s) does y increase when x = 2?",
+     "options": [
+      "6",
+      "18",
+      "8",
+      "24"
+     ],
+     "answer": 1,
+     "explain": "dy/dt = (2x + 2) dx/dt = (6)(3) = 18 units/s.",
+     "steps": [
+      "dy/dx = 2x + 2 = 6",
+      "dy/dt = 6 × 3 = 18"
+     ],
+     "mistake": "Uses dy/dx = 6 and forgets to multiply by dx/dt",
+     "check": "(2*2+2)*3"
+    },
+    {
+     "q": "Assertion (A): When a spherical balloon's radius increases at a constant rate, its volume increases faster as it grows.\nReason (R): dV/dt = 4πr² dr/dt, which increases with r.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "With dr/dt fixed, dV/dt is proportional to r², so it increases with r. R gives exactly that reason.",
+     "mistake": "Thinks a constant radius rate means a constant volume rate"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If the radius of a circle grows steadily, how do I find how fast the area grows?'",
+    "must": [
+     [
+      "derivative",
+      "differentiate",
+      "da/dr"
+     ],
+     [
+      "chain rule",
+      "dr/dt",
+      "multiply by"
+     ],
+     [
+      "2πr",
+      "2 pi r",
+      "two pi r"
+     ]
+    ],
+    "praise": "Tweet! dA/dt = 2πr × dr/dt. The bigger the circle, the faster the area grows!",
+    "nudge": "What do you multiply dA/dr by to get the rate with respect to time?"
+   },
+   "covers": [
+    "c6.1.1",
+    "c6.2.1",
+    "c6.2.2",
+    "c6.2.3"
+   ]
+  },
+  {
+   "id": "g12-maths-06-02",
+   "title": "Related rates in action; marginal cost and revenue",
+   "learn": {
+    "hook": "A ladder slides down a wall; sand piles into a cone; a factory adds one more unit. Each is one equation, differentiated with respect to time or quantity.",
+    "points": [
+     "Strategy: draw a diagram, name variables, write an equation linking them, differentiate with respect to t, then substitute the given values.",
+     "Ladder of length L: x² + y² = L² ⇒ x dx/dt + y dy/dt = 0.",
+     "Use a fixed ratio (like h = r/6 in a sand cone) to reduce to one variable before differentiating.",
+     "Marginal cost MC = dC/dx: approximate cost of producing one more unit. Marginal revenue MR = dR/dx.",
+     "A negative rate means the quantity is decreasing, e.g. the top of the ladder moving down."
+    ],
+    "example": {
+     "q": "A 5 m ladder leans against a wall. Its foot is pulled away at 2 cm/s. How fast does the top slide down when the foot is 4 m from the wall?",
+     "steps": [
+      "x² + y² = 25; when x = 4, y = 3.",
+      "Differentiate: 2x dx/dt + 2y dy/dt = 0.",
+      "4(2) + 3 dy/dt = 0 ⇒ dy/dt = −8/3 cm/s (units of the rate stay cm/s)."
+     ],
+     "answer": "The top slides down at 8/3 cm/s."
+    },
+    "reallife": "An Indian textile mill uses marginal cost to decide whether producing one more batch of cotton fabric will add more to cost than to revenue."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Solve a related-rates problem",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Draw a diagram and name the variables",
+      "Write an equation linking the variables",
+      "Differentiate both sides with respect to t",
+      "Substitute the known values and rates",
+      "Solve for the unknown rate and state units"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Marginal sprint",
+     "items": [
+      {
+       "q": "C(x) = 2x² + 5x + 100: MC at x = 10",
+       "a": "45",
+       "check": "4*10+5"
+      },
+      {
+       "q": "R(x) = x² + 20x: MR at x = 15",
+       "a": "50",
+       "check": "2*15+20"
+      },
+      {
+       "q": "C(x) = 3x² + 7: MC at x = 4",
+       "a": "24",
+       "check": "6*4"
+      },
+      {
+       "q": "R(x) = 50x − x²: MR at x = 20",
+       "a": "10",
+       "check": "50-2*20"
+      },
+      {
+       "q": "C(x) = x³ + 2x: MC at x = 2",
+       "a": "14",
+       "check": "3*4+2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 5 m ladder has its foot 4 m from the wall, moving away at 2 cm/s. At what rate (cm/s) is the height of the top changing?",
+     "options": [
+      "8/3",
+      "−3/2",
+      "−4/3",
+      "−8/3"
+     ],
+     "answer": 3,
+     "explain": "x dx/dt + y dy/dt = 0 with x = 4, y = 3, dx/dt = 2: dy/dt = −(4 × 2)/3 = −8/3. Negative because the top moves down.",
+     "steps": [
+      "x² + y² = 25, y = 3",
+      "4(2) + 3 dy/dt = 0",
+      "dy/dt = −8/3"
+     ],
+     "mistake": "Drops the negative sign or swaps x and y",
+     "check": "Fraction(-8,3)"
+    },
+    {
+     "q": "C(x) = 2x² + 5x + 100 (₹). What is the marginal cost when x = 10?",
+     "options": [
+      "₹45",
+      "₹350",
+      "₹25",
+      "₹40"
+     ],
+     "answer": 0,
+     "explain": "MC = dC/dx = 4x + 5 = 45 at x = 10.",
+     "steps": [
+      "dC/dx = 4x + 5",
+      "4(10) + 5 = 45"
+     ],
+     "mistake": "Computes total cost C(10) instead of its derivative",
+     "check": "4*10+5"
+    },
+    {
+     "q": "R(x) = 3x² + 36x + 5 (₹). What is the marginal revenue when x = 5?",
+     "options": [
+      "₹66",
+      "₹260",
+      "₹51",
+      "₹30"
+     ],
+     "answer": 0,
+     "explain": "MR = 6x + 36 = 66 at x = 5.",
+     "steps": [
+      "dR/dx = 6x + 36",
+      "30 + 36 = 66"
+     ],
+     "mistake": "Evaluates R(5) instead of R′(5)",
+     "check": "6*5+36"
+    },
+    {
+     "q": "Sand pours at 12 cm³/s and forms a cone whose height is always one-sixth of its base radius. How fast does the height grow when h = 4 cm?",
+     "options": [
+      "1/(12π) cm/s",
+      "1/(4π) cm/s",
+      "3/(16π) cm/s",
+      "1/(48π) cm/s"
+     ],
+     "answer": 3,
+     "explain": "r = 6h, so V = (1/3)π(36h²)h = 12πh³. dV/dt = 36πh² dh/dt ⇒ 12 = 36π(16) dh/dt ⇒ dh/dt = 1/(48π).",
+     "mistake": "Uses r = h/6 instead of r = 6h"
+    },
+    {
+     "q": "A balloon stays spherical. Its radius grows at 0.5 cm/s. How fast (cm³/s) is its volume growing when r = 2 cm, in terms of π?",
+     "options": [
+      "16π",
+      "8π",
+      "4π",
+      "32π/3"
+     ],
+     "answer": 1,
+     "explain": "dV/dt = 4πr² dr/dt = 4π(4)(0.5) = 8π cm³/s.",
+     "mistake": "Forgets to multiply by dr/dt"
+    },
+    {
+     "q": "A man 2 m tall walks away from a 6 m lamp post at 5 km/h. Taking x as his distance from the post and s as his shadow length, which relation follows from similar triangles?",
+     "options": [
+      "6/x = 2/s, so s = x/3",
+      "6s = 2x, so s = x/3",
+      "s = 3x",
+      "6/(x + s) = 2/s, so s = x/2"
+     ],
+     "answer": 3,
+     "explain": "Lamp height 6 over (x + s) equals man's height 2 over s: 6s = 2x + 2s ⇒ s = x/2. Then ds/dt = (1/2)(5) = 2.5 km/h.",
+     "mistake": "Uses x instead of x + s for the big triangle's base"
+    },
+    {
+     "q": "What does a marginal cost of ₹45 at x = 10 units mean?",
+     "options": [
+      "The total cost of 10 units is ₹45",
+      "The average cost is ₹45",
+      "Profit is ₹45 per unit",
+      "Producing the 11th unit costs about ₹45 more"
+     ],
+     "answer": 3,
+     "explain": "Marginal cost is the instantaneous rate of change of total cost, approximately the extra cost of one more unit.",
+     "mistake": "Confuses marginal cost with total or average cost"
+    },
+    {
+     "q": "Assertion (A): When the foot of a sliding ladder moves away from the wall, dy/dt for the top is negative.\nReason (R): x dx/dt + y dy/dt = 0 with x, y, dx/dt > 0 forces dy/dt < 0.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Since x dx/dt > 0 and y > 0, we need dy/dt < 0 to make the sum zero, which is why the top moves down.",
+     "mistake": "Thinks both ends of the ladder move in the same direction"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'A ladder slides down a wall. How do I find how fast the top falls?'",
+    "must": [
+     [
+      "pythagoras",
+      "x² + y²",
+      "equation",
+      "relation"
+     ],
+     [
+      "differentiate",
+      "with respect to t",
+      "d/dt"
+     ],
+     [
+      "substitute",
+      "plug in",
+      "values"
+     ],
+     [
+      "negative",
+      "decreasing",
+      "down"
+     ]
+    ],
+    "praise": "Chirp-chirp! Link x and y, differentiate with respect to time, plug in values, and the minus sign shows the top going down!",
+    "nudge": "After you write the equation, what do you differentiate with respect to?"
+   },
+   "covers": [
+    "c6.2.4",
+    "c6.2.5"
+   ]
+  },
+  {
+   "id": "g12-maths-06-03",
+   "title": "Increasing and decreasing functions",
+   "learn": {
+    "hook": "A Sensex chart rises and falls. Where it climbs, its slope is positive; where it dips, negative. The sign of f′ is the whole story.",
+    "points": [
+     "f is increasing on I if x1 < x2 ⇒ f(x1) ≤ f(x2); strictly increasing if x1 < x2 ⇒ f(x1) < f(x2). Decreasing and strictly decreasing are defined similarly.",
+     "f is increasing at x₀ if it is increasing on some open interval around x₀.",
+     "If f′(x) > 0 on (a, b), f is strictly increasing on [a, b] (f continuous on [a, b]). If f′(x) < 0, strictly decreasing.",
+     "If f′(x) = 0 throughout, f is constant.",
+     "A constant function is both increasing and decreasing (not strictly)."
+    ],
+    "example": {
+     "q": "Show that f(x) = x³ − 3x² + 4x is strictly increasing on R.",
+     "steps": [
+      "f′(x) = 3x² − 6x + 4.",
+      "= 3(x² − 2x + 1) + 1 = 3(x − 1)² + 1.",
+      "3(x − 1)² + 1 ≥ 1 > 0 for every real x."
+     ],
+     "answer": "f′(x) > 0 for all x, so f is strictly increasing on R."
+    },
+    "reallife": "A home-loan EMI is an increasing function of the interest rate: for the same loan amount and tenure, a higher rate always means a higher EMI."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Strictly increasing or strictly decreasing on the interval?",
+     "buckets": [
+      "Strictly increasing",
+      "Strictly decreasing"
+     ],
+     "items": [
+      [
+       "7x − 3 on R",
+       0
+      ],
+      [
+       "e^(2x) on R",
+       0
+      ],
+      [
+       "cos x on (0, π)",
+       1
+      ],
+      [
+       "log x on (0, ∞)",
+       0
+      ],
+      [
+       "−5x + 2 on R",
+       1
+      ],
+      [
+       "sin x on (0, π/2)",
+       0
+      ],
+      [
+       "1/x on (0, ∞)",
+       1
+      ],
+      [
+       "x² on (−∞, 0)",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Monotonic facts",
+     "items": [
+      [
+       "If f′(x) > 0 on an interval, f is strictly increasing there.",
+       true,
+       "This is the first derivative test for monotonicity."
+      ],
+      [
+       "x² is strictly increasing on R.",
+       false,
+       "It decreases on (−∞, 0)."
+      ],
+      [
+       "A constant function is increasing on R.",
+       true,
+       "x1 < x2 gives f(x1) = f(x2), which satisfies ≤."
+      ],
+      [
+       "A strictly increasing function must have f′(x) > 0 everywhere.",
+       false,
+       "x³ is strictly increasing but f′(0) = 0."
+      ],
+      [
+       "tan x is strictly increasing on (−π/2, π/2).",
+       true,
+       "Its derivative sec²x is positive."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which function is strictly decreasing on R?",
+     "options": [
+      "f(x) = x²",
+      "f(x) = eˣ",
+      "f(x) = −3x + 5",
+      "f(x) = x³"
+     ],
+     "answer": 2,
+     "explain": "f′(x) = −3 < 0 for all x.",
+     "mistake": "Picks a function that decreases only on part of R"
+    },
+    {
+     "q": "On which interval is f(x) = sin x strictly decreasing?",
+     "options": [
+      "(0, π/2)",
+      "(−π/2, π/2)",
+      "(0, π)",
+      "(π/2, π)"
+     ],
+     "answer": 3,
+     "explain": "f′(x) = cos x < 0 on (π/2, π).",
+     "mistake": "Picks an interval where cos x is positive"
+    },
+    {
+     "q": "Why is f(x) = x³ strictly increasing on R even though f′(0) = 0?",
+     "options": [
+      "Because x³ is odd",
+      "Because f″(0) = 0",
+      "Because f′(x) > 0 except at a single point, and x1 < x2 still gives x1³ < x2³",
+      "It is not strictly increasing"
+     ],
+     "answer": 2,
+     "explain": "f′(x) = 3x² ≥ 0 and vanishes only at x = 0; the definition x1 < x2 ⇒ x1³ < x2³ holds everywhere.",
+     "mistake": "Thinks one zero of f′ breaks strict increase"
+    },
+    {
+     "q": "Which statement about f(x) = log x is true?",
+     "options": [
+      "It is strictly decreasing on (0, ∞)",
+      "It is increasing on R",
+      "It is constant on (0, 1)",
+      "It is strictly increasing on (0, ∞)"
+     ],
+     "answer": 3,
+     "explain": "f′(x) = 1/x > 0 for x > 0.",
+     "mistake": "Forgets that log x is defined only for x > 0"
+    },
+    {
+     "q": "f(x) = cos x on (0, π) is",
+     "options": [
+      "strictly decreasing",
+      "strictly increasing",
+      "neither",
+      "constant"
+     ],
+     "answer": 0,
+     "explain": "f′(x) = −sin x < 0 on (0, π).",
+     "mistake": "Forgets the minus sign in the derivative of cos x"
+    },
+    {
+     "q": "Is f(x) = x² increasing at x = 0?",
+     "options": [
+      "No; it is neither increasing nor decreasing at 0",
+      "Yes, because f′(0) = 0",
+      "Yes, because x² ≥ 0",
+      "It is strictly decreasing at 0"
+     ],
+     "answer": 0,
+     "explain": "In every interval around 0, f decreases on the left and increases on the right, so it is neither.",
+     "mistake": "Uses f(x) ≥ 0 as a reason for increase"
+    },
+    {
+     "q": "For which value of k is f(x) = kx + 7 strictly increasing on R?",
+     "options": [
+      "k = 2",
+      "k = 0",
+      "k = −1",
+      "k = −7"
+     ],
+     "answer": 0,
+     "explain": "f′(x) = k must be positive, so k = 2 works and the others do not.",
+     "mistake": "Thinks the constant term 7 decides the direction"
+    },
+    {
+     "q": "Assertion (A): f(x) = e^(−x) is strictly decreasing on R.\nReason (R): f′(x) = −e^(−x) < 0 for all x.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Since eᵗ > 0 always, the derivative −e^(−x) is always negative, which is why f strictly decreases.",
+     "mistake": "Forgets the chain-rule minus sign"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How can I tell where a function goes up and where it goes down?'",
+    "must": [
+     [
+      "derivative",
+      "f′",
+      "f'",
+      "slope"
+     ],
+     [
+      "positive",
+      "> 0",
+      "greater than zero"
+     ],
+     [
+      "negative",
+      "< 0",
+      "less than zero"
+     ]
+    ],
+    "praise": "Tweet! Positive derivative means climbing, negative means falling. The sign of f′ tells all!",
+    "nudge": "What sign does f′ have where the function is decreasing?"
+   },
+   "covers": [
+    "c6.3.1",
+    "c6.3.2",
+    "c6.3.3"
+   ]
+  },
+  {
+   "id": "g12-maths-06-04",
+   "title": "Finding intervals of increase and decrease",
+   "learn": {
+    "hook": "Board paper favourite: 'Find the intervals in which f(x) = 2x³ − 3x² − 36x + 7 is increasing.' One factorisation, one sign chart, full marks.",
+    "points": [
+     "Step 1: find f′(x) and solve f′(x) = 0 (also note where f′ is undefined). These points split the line into intervals.",
+     "Step 2: test the sign of f′ in each interval. Positive ⇒ increasing, negative ⇒ decreasing.",
+     "Write answers with intervals: strictly increasing on (−∞, −2) ∪ (3, ∞) style.",
+     "For trigonometric functions, work inside the given interval, e.g. [0, 2π].",
+     "To find a constant that makes f increasing on an interval, require f′(x) ≥ 0 throughout it."
+    ],
+    "example": {
+     "q": "Find the intervals in which f(x) = 2x³ − 3x² − 36x + 7 is strictly increasing or decreasing.",
+     "steps": [
+      "f′(x) = 6x² − 6x − 36 = 6(x − 3)(x + 2).",
+      "f′ = 0 at x = −2 and x = 3.",
+      "x < −2: f′ > 0. −2 < x < 3: f′ < 0. x > 3: f′ > 0."
+     ],
+     "answer": "Strictly increasing on (−∞, −2) and (3, ∞); strictly decreasing on (−2, 3)."
+    },
+    "reallife": "Transport planners model fuel cost against vehicle speed; finding where the cost function rises or falls shows which speed range is wasteful."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Sign-chart method",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Differentiate to get f′(x)",
+      "Factorise and solve f′(x) = 0",
+      "Mark the roots on the number line",
+      "Test the sign of f′ in each interval",
+      "Write increasing and decreasing intervals"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Function ↔ where it decreases",
+     "pairs": [
+      [
+       "x² − 4x + 6",
+       "(−∞, 2)"
+      ],
+      [
+       "2x³ − 3x² − 36x + 7",
+       "(−2, 3)"
+      ],
+      [
+       "x³ − 3x",
+       "(−1, 1)"
+      ],
+      [
+       "−2x³ − 9x² − 12x + 1",
+       "(−∞, −2) ∪ (−1, ∞)"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "On which interval is f(x) = x² − 4x + 6 strictly increasing?",
+     "options": [
+      "(−∞, 2)",
+      "(2, ∞)",
+      "(−2, 2)",
+      "(−∞, ∞)"
+     ],
+     "answer": 1,
+     "explain": "f′(x) = 2x − 4 > 0 when x > 2.",
+     "mistake": "Solves 2x − 4 < 0 by mistake"
+    },
+    {
+     "q": "On which interval is f(x) = x³ − 3x strictly decreasing?",
+     "options": [
+      "(−1, 1)",
+      "(−∞, −1)",
+      "(1, ∞)",
+      "(−3, 3)"
+     ],
+     "answer": 0,
+     "explain": "f′(x) = 3x² − 3 = 3(x − 1)(x + 1) < 0 for −1 < x < 1.",
+     "mistake": "Reads the sign chart the wrong way round"
+    },
+    {
+     "q": "For f(x) = −2x³ − 9x² − 12x + 1, on which interval is f strictly increasing?",
+     "options": [
+      "(−2, −1)",
+      "(−∞, −2)",
+      "(−1, ∞)",
+      "(1, 2)"
+     ],
+     "answer": 0,
+     "explain": "f′(x) = −6x² − 18x − 12 = −6(x + 1)(x + 2). This is positive between −2 and −1.",
+     "mistake": "Forgets that the leading −6 flips the signs"
+    },
+    {
+     "q": "Find the least value of a such that f(x) = x² + ax + 1 is strictly increasing on (1, 2).",
+     "options": [
+      "2",
+      "−4",
+      "−2",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "f′(x) = 2x + a > 0 on (1, 2) needs 2(1) + a ≥ 0, so a ≥ −2. The least value is −2.",
+     "steps": [
+      "f′(x) = 2x + a is smallest at x = 1",
+      "2 + a ≥ 0",
+      "a ≥ −2"
+     ],
+     "mistake": "Uses the right end x = 2 and gets −4",
+     "check": "-2"
+    },
+    {
+     "q": "On [0, 2π], where is f(x) = sin x + cos x strictly increasing?",
+     "options": [
+      "(π/4, 5π/4)",
+      "[0, π/2)",
+      "(π, 2π)",
+      "[0, π/4) and (5π/4, 2π]"
+     ],
+     "answer": 3,
+     "explain": "f′(x) = cos x − sin x = 0 at π/4 and 5π/4. f′ > 0 on [0, π/4) and (5π/4, 2π].",
+     "mistake": "Takes the interval where f′ < 0"
+    },
+    {
+     "q": "Which statement about f(x) = x/2 + 2/x (x ≠ 0) is correct?",
+     "options": [
+      "It is strictly increasing on (−2, 2)",
+      "It is strictly decreasing on (2, ∞)",
+      "It is strictly decreasing on (−2, 0) and (0, 2)",
+      "It is strictly increasing on (−2, 0)"
+     ],
+     "answer": 2,
+     "explain": "f′(x) = 1/2 − 2/x² = (x² − 4)/(2x²) < 0 when 0 < |x| < 2.",
+     "mistake": "Treats x = 0 as part of an interval"
+    },
+    {
+     "q": "Show that f(x) = log(sin x) is strictly increasing on (0, π/2). Which is the key reason?",
+     "options": [
+      "sin x > 0 on (0, π/2)",
+      "log x is increasing",
+      "f(π/4) > 0",
+      "f′(x) = cot x > 0 on (0, π/2)"
+     ],
+     "answer": 3,
+     "explain": "f′(x) = cos x/sin x = cot x, which is positive in the first quadrant.",
+     "mistake": "Uses a true fact that does not prove the derivative is positive"
+    },
+    {
+     "q": "Assertion (A): f(x) = x³ − 6x² + 12x − 18 is increasing on R.\nReason (R): f′(x) = 3(x − 2)² ≥ 0 for all real x.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "f′(x) = 3x² − 12x + 12 = 3(x − 2)², which is never negative, so f is increasing on R (in fact strictly).",
+     "mistake": "Thinks f′ = 0 at x = 2 makes f decrease there"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find exactly where a cubic function is increasing?'",
+    "must": [
+     [
+      "f′(x) = 0",
+      "f'(x) = 0",
+      "critical",
+      "roots"
+     ],
+     [
+      "intervals",
+      "number line",
+      "split"
+     ],
+     [
+      "sign",
+      "positive",
+      "negative"
+     ]
+    ],
+    "praise": "Chirp! Solve f′(x) = 0, split the number line there, and check the sign of f′ in each piece!",
+    "nudge": "After finding where f′ = 0, how do you decide increasing or decreasing?"
+   },
+   "covers": [
+    "c6.3.4",
+    "c6.3.5",
+    "c6.3.6"
+   ]
+  },
+  {
+   "id": "g12-maths-06-05",
+   "title": "Local maxima, minima and the first derivative test",
+   "learn": {
+    "hook": "A trekker on the Western Ghats reaches a peak: just before it the path climbs, just after it falls. That sign change is the first derivative test.",
+    "points": [
+     "f has a local maximum at c if f(c) ≥ f(x) for all x near c; a local minimum if f(c) ≤ f(x) near c. The largest value over the whole domain is the (absolute) maximum value.",
+     "Critical points: c in the domain where f′(c) = 0 or f′(c) does not exist. Local extrema can occur only at critical points.",
+     "First derivative test: f′ changes + to − at c ⇒ local maximum; − to + ⇒ local minimum.",
+     "If f′ does not change sign at c (like x³ at 0), c is neither: it is a point of inflection.",
+     "Some extrema need no calculus: (2x − 1)² + 3 has minimum 3 since a square is ≥ 0; sin 2x + 5 lies between 4 and 6."
+    ],
+    "example": {
+     "q": "Find the local maxima and minima of f(x) = x³ − 6x² + 9x + 15.",
+     "steps": [
+      "f′(x) = 3x² − 12x + 9 = 3(x − 1)(x − 3).",
+      "At x = 1, f′ changes from + to −: local maximum f(1) = 1 − 6 + 9 + 15 = 19.",
+      "At x = 3, f′ changes from − to +: local minimum f(3) = 27 − 54 + 27 + 15 = 15."
+     ],
+     "answer": "Local max 19 at x = 1; local min 15 at x = 3."
+    },
+    "reallife": "Farm scientists look for the fertiliser dose at which crop yield peaks: the slope of the yield curve changes from positive to negative there."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Classify the critical point",
+     "buckets": [
+      "Local maximum",
+      "Local minimum",
+      "Neither"
+     ],
+     "items": [
+      [
+       "f′ changes from + to −",
+       0
+      ],
+      [
+       "f′ changes from − to +",
+       1
+      ],
+      [
+       "f′ is + on both sides",
+       2
+      ],
+      [
+       "x = 0 for f(x) = |x|",
+       1
+      ],
+      [
+       "x = 0 for f(x) = x³",
+       2
+      ],
+      [
+       "x = 0 for f(x) = −x²",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Max/min without calculus",
+     "items": [
+      {
+       "q": "Minimum value of (2x − 1)² + 3",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "Maximum value of −(x − 1)² + 10",
+       "a": "10",
+       "check": "10"
+      },
+      {
+       "q": "Maximum value of sin 2x + 5",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "Minimum value of sin 2x + 5",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "Maximum value of −|x + 1| + 3",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "Minimum value of |x + 2| − 1",
+       "a": "−1",
+       "check": "-1"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which point is a critical point of f(x) = |x|?",
+     "options": [
+      "x = 1, where f′ = 1",
+      "x = 0, where f′ does not exist",
+      "No critical point",
+      "x = −1"
+     ],
+     "answer": 1,
+     "explain": "Critical points include points where f′ does not exist. |x| has a corner at 0, and that is its minimum.",
+     "mistake": "Looks only for f′ = 0"
+    },
+    {
+     "q": "For f(x) = x³ − 6x² + 9x + 15, what is the local maximum value?",
+     "options": [
+      "19",
+      "15",
+      "1",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "Critical points 1 and 3; f′ changes + to − at 1. f(1) = 1 − 6 + 9 + 15 = 19.",
+     "steps": [
+      "f′ = 3(x − 1)(x − 3)",
+      "Max at x = 1",
+      "f(1) = 19"
+     ],
+     "mistake": "Gives the x-coordinate instead of the value",
+     "check": "1-6+9+15"
+    },
+    {
+     "q": "For f(x) = x³ − 6x² + 9x + 15, what is the local minimum value?",
+     "options": [
+      "19",
+      "3",
+      "0",
+      "15"
+     ],
+     "answer": 3,
+     "explain": "At x = 3, f′ changes − to +, so f(3) = 27 − 54 + 27 + 15 = 15 is a local minimum.",
+     "steps": [
+      "Min at x = 3",
+      "f(3) = 27 − 54 + 27 + 15 = 15"
+     ],
+     "mistake": "Confuses the local maximum with the local minimum",
+     "check": "27-54+27+15"
+    },
+    {
+     "q": "What kind of point is x = 0 for f(x) = x³?",
+     "options": [
+      "A local maximum",
+      "A point of inflection, neither max nor min",
+      "A local minimum",
+      "Not a critical point"
+     ],
+     "answer": 1,
+     "explain": "f′(0) = 0 but f′ = 3x² ≥ 0 on both sides, so no sign change: neither maximum nor minimum.",
+     "mistake": "Assumes f′(c) = 0 always gives an extremum"
+    },
+    {
+     "q": "What is the minimum value of f(x) = 9x² + 12x + 2?",
+     "options": [
+      "2",
+      "−2/3",
+      "0",
+      "−2"
+     ],
+     "answer": 3,
+     "explain": "f′(x) = 18x + 12 = 0 at x = −2/3. f(−2/3) = 9(4/9) − 8 + 2 = −2. (Or: (3x + 2)² − 2 ≥ −2.)",
+     "steps": [
+      "f = (3x + 2)² − 2",
+      "Minimum when 3x + 2 = 0",
+      "Value −2"
+     ],
+     "mistake": "Reports x = −2/3 instead of the minimum value",
+     "check": "4-8+2"
+    },
+    {
+     "q": "Does f(x) = eˣ have a local maximum or minimum on R?",
+     "options": [
+      "A local minimum at 0",
+      "A local maximum at 0",
+      "Neither",
+      "Both"
+     ],
+     "answer": 2,
+     "explain": "f′(x) = eˣ is never zero and always exists, so there are no critical points and no local extrema.",
+     "mistake": "Thinks f(0) = 1 is a minimum"
+    },
+    {
+     "q": "For f(x) = x⁴ − 62x² + ax + 9 to have a local maximum at x = 1, what must a be?",
+     "options": [
+      "120",
+      "−120",
+      "58",
+      "62"
+     ],
+     "answer": 0,
+     "explain": "f′(1) = 4 − 124 + a = 0 ⇒ a = 120. (Then f″(1) = 12 − 124 < 0, confirming a maximum.)",
+     "steps": [
+      "f′(x) = 4x³ − 124x + a",
+      "f′(1) = 4 − 124 + a = 0",
+      "a = 120"
+     ],
+     "mistake": "Makes a sign slip with 124",
+     "check": "124-4"
+    },
+    {
+     "q": "Assertion (A): Every local maximum value of a function is greater than every local minimum value.\nReason (R): At a local maximum, f′ changes from positive to negative.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "'Local' means only nearby comparison. A wavy function can have a local max lower than a local min elsewhere, so A is false. R is the correct sign-change rule.",
+     "mistake": "Treats local extrema as absolute extrema"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I know if a critical point is a peak, a valley, or neither?'",
+    "must": [
+     [
+      "sign",
+      "change"
+     ],
+     [
+      "positive to negative",
+      "+ to −",
+      "+ to -"
+     ],
+     [
+      "negative to positive",
+      "− to +",
+      "- to +"
+     ],
+     [
+      "inflection",
+      "neither",
+      "no change"
+     ]
+    ],
+    "praise": "Tweet! + to − is a peak, − to + is a valley, and no change is neither. The first derivative test rocks!",
+    "nudge": "What if f′ has the same sign on both sides?"
+   },
+   "covers": [
+    "c6.4.1",
+    "c6.4.2",
+    "c6.4.3",
+    "c6.4.4",
+    "c6.4.6"
+   ]
+  },
+  {
+   "id": "g12-maths-06-06",
+   "title": "Second derivative test and absolute extrema",
+   "learn": {
+    "hook": "Sometimes checking signs on both sides is slow. The second derivative test decides max or min with one number.",
+    "points": [
+     "Second derivative test: if f′(c) = 0 and f″(c) < 0, c is a local maximum; if f″(c) > 0, a local minimum.",
+     "If f′(c) = 0 and f″(c) = 0, the test fails; go back to the first derivative test.",
+     "Absolute extrema on a closed interval [a, b]: evaluate f at every critical point in (a, b) and at the end points a and b. The largest is the absolute max, the smallest is the absolute min.",
+     "A continuous function on a closed interval always has an absolute maximum and an absolute minimum.",
+     "Tangents and normals and approximations are not in the current CBSE syllabus."
+    ],
+    "example": {
+     "q": "Find the absolute maximum and minimum of f(x) = 2x³ − 15x² + 36x + 1 on [1, 5].",
+     "steps": [
+      "f′(x) = 6x² − 30x + 36 = 6(x − 2)(x − 3); critical points 2 and 3.",
+      "f(1) = 24, f(2) = 29, f(3) = 28, f(5) = 250 − 375 + 180 + 1 = 56.",
+      "Largest is 56, smallest is 24."
+     ],
+     "answer": "Absolute max 56 at x = 5; absolute min 24 at x = 1."
+    },
+    "reallife": "To find the highest and lowest temperature of a day between 6 am and 6 pm, you must check both the turning points of the temperature curve and the two end times, just like an absolute extremum on [a, b]."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Absolute extrema on [a, b]",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Find f′(x)",
+      "Find critical points inside (a, b)",
+      "Evaluate f at critical points",
+      "Evaluate f at a and b",
+      "Pick the largest and smallest values"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Second derivative test",
+     "items": [
+      [
+       "f′(c) = 0 and f″(c) > 0 means a local minimum.",
+       true,
+       "The graph is concave up there."
+      ],
+      [
+       "f′(c) = 0 and f″(c) < 0 means a local minimum.",
+       false,
+       "That gives a local maximum."
+      ],
+      [
+       "If f″(c) = 0, the point must be a point of inflection.",
+       false,
+       "x⁴ has f″(0) = 0 but a minimum at 0."
+      ],
+      [
+       "End points must be checked when finding absolute extrema on [a, b].",
+       true,
+       "The extreme value may occur at an end point."
+      ],
+      [
+       "A continuous function on a closed interval always attains an absolute maximum.",
+       true,
+       "This is guaranteed for closed bounded intervals."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "For f(x) = 2x³ − 15x² + 36x + 1 on [1, 5], what is the absolute maximum value?",
+     "options": [
+      "29",
+      "56",
+      "28",
+      "24"
+     ],
+     "answer": 1,
+     "explain": "Values: f(1) = 24, f(2) = 29, f(3) = 28, f(5) = 56. The largest is at the end point 5.",
+     "steps": [
+      "f(5) = 250 − 375 + 180 + 1",
+      "= 56"
+     ],
+     "mistake": "Ignores the end points and reports the local maximum 29",
+     "check": "250-375+180+1"
+    },
+    {
+     "q": "Find the absolute minimum of f(x) = x² on [−2, 1].",
+     "options": [
+      "1",
+      "4",
+      "−2",
+      "0"
+     ],
+     "answer": 3,
+     "explain": "Critical point x = 0 gives 0; end points give 4 and 1. The smallest is 0.",
+     "steps": [
+      "f(−2) = 4, f(0) = 0, f(1) = 1",
+      "Min = 0"
+     ],
+     "mistake": "Checks only the end points",
+     "check": "0"
+    },
+    {
+     "q": "Find the absolute maximum of f(x) = 4x − x²/2 on [−2, 9/2].",
+     "options": [
+      "63/8",
+      "8",
+      "−10",
+      "9"
+     ],
+     "answer": 1,
+     "explain": "f′(x) = 4 − x = 0 at x = 4. f(4) = 8, f(−2) = −10, f(9/2) = 18 − 81/8 = 63/8. Max is 8.",
+     "steps": [
+      "f(4) = 16 − 8 = 8",
+      "f(9/2) = 63/8 < 8"
+     ],
+     "mistake": "Picks the end-point value 63/8",
+     "check": "16-8"
+    },
+    {
+     "q": "For the same f(x) = 4x − x²/2 on [−2, 9/2], what is the absolute minimum?",
+     "options": [
+      "0",
+      "63/8",
+      "−8",
+      "−10"
+     ],
+     "answer": 3,
+     "explain": "f(−2) = −8 − 2 = −10 is the smallest of −10, 8 and 63/8.",
+     "steps": [
+      "f(−2) = −8 − 4/2",
+      "= −10"
+     ],
+     "mistake": "Drops the −x²/2 term at x = −2",
+     "check": "-8-2"
+    },
+    {
+     "q": "Using the second derivative test, x = 1 for f(x) = x³ − 6x² + 9x + 15 is",
+     "options": [
+      "a local minimum since f″(1) = 6 > 0",
+      "a point of inflection",
+      "not a critical point",
+      "a local maximum since f″(1) = −6 < 0"
+     ],
+     "answer": 3,
+     "explain": "f″(x) = 6x − 12, so f″(1) = −6 < 0: local maximum.",
+     "mistake": "Mixes up which sign means maximum"
+    },
+    {
+     "q": "What does the second derivative test say about f(x) = x⁴ at x = 0?",
+     "options": [
+      "x = 0 is a local maximum",
+      "x = 0 is a point of inflection",
+      "It fails because f″(0) = 0; the first derivative test shows a minimum",
+      "x = 0 is not critical"
+     ],
+     "answer": 2,
+     "explain": "f′(0) = 0 and f″(0) = 0, so the test is inconclusive. f′ = 4x³ changes − to +, giving a minimum.",
+     "mistake": "Assumes f″ = 0 always means inflection"
+    },
+    {
+     "q": "Find the maximum value of f(x) = sin x + cos x on [0, π].",
+     "options": [
+      "1",
+      "2",
+      "√2",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "f′ = cos x − sin x = 0 at π/4, where f = √2. f(0) = 1, f(π) = −1. Max is √2.",
+     "mistake": "Adds the maximum of sin and cos separately to get 2"
+    },
+    {
+     "q": "Assertion (A): The absolute maximum of f(x) = x on [0, 3] is at x = 3.\nReason (R): f has no critical points in (0, 3), so the extreme values occur at end points.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "f′ = 1 ≠ 0, so only end points matter: f(0) = 0, f(3) = 3. R explains A.",
+     "mistake": "Thinks a function must have a critical point to have a maximum"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the very highest value of a function on a closed interval?'",
+    "must": [
+     [
+      "critical",
+      "f′ = 0",
+      "f' = 0"
+     ],
+     [
+      "end points",
+      "endpoints",
+      "ends"
+     ],
+     [
+      "compare",
+      "largest",
+      "biggest"
+     ]
+    ],
+    "praise": "Chirp! Check all critical points and both end points, then pick the biggest. Never forget the ends!",
+    "nudge": "Besides critical points, which other points must you check?"
+   },
+   "covers": [
+    "c6.4.5",
+    "c6.4.7",
+    "c6.4.13"
+   ]
+  },
+  {
+   "id": "g12-maths-06-07",
+   "title": "Optimisation problems",
+   "learn": {
+    "hook": "What size of square should you cut from the corners of a sheet to make the biggest open box? Calculus gives the exact answer, not a guess.",
+    "points": [
+     "Method: name the variable, write the quantity to optimise as a function of ONE variable using the given condition, differentiate, find critical points, and confirm max/min with f″ or a sign check.",
+     "Two positive numbers with fixed sum S: product is largest when both are S/2.",
+     "Open box from a square sheet of side a, cutting squares of side x: V = x(a − 2x)², maximum at x = a/6.",
+     "Classic results: a rectangle of maximum area inscribed in a circle is a square; a closed cylinder of fixed volume has least surface when h = 2r; a cone of maximum volume in a sphere of radius R has height 4R/3.",
+     "Profit P = R − C is maximum where P′(x) = 0 and P″(x) < 0."
+    ],
+    "example": {
+     "q": "A square tin sheet of side 18 cm has equal squares cut from each corner and the sides folded up. Find the cut size for the largest box.",
+     "steps": [
+      "Let the cut be x cm. V = x(18 − 2x)², 0 < x < 9.",
+      "V′ = (18 − 2x)² − 4x(18 − 2x) = (18 − 2x)(18 − 6x).",
+      "V′ = 0 ⇒ x = 3 (x = 9 gives no box).",
+      "V″(3) < 0, so maximum. V = 3 × 12² = 432 cm³."
+     ],
+     "answer": "Cut 3 cm squares; maximum volume 432 cm³."
+    },
+    "reallife": "Can makers want to hold a given volume using the least metal. Calculus says the best closed can has h = 2r, that is, its height equals its diameter."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Optimisation recipe",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Choose a variable and draw a diagram",
+      "Write the quantity to optimise",
+      "Use the condition to reduce to one variable",
+      "Differentiate and solve for critical points",
+      "Confirm max or min and answer the question"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Problem ↔ optimum",
+     "pairs": [
+      [
+       "Two numbers with sum 24, max product",
+       "12 and 12"
+      ],
+      [
+       "Rectangle of max area in a circle",
+       "Square"
+      ],
+      [
+       "Closed cylinder, fixed volume, least surface",
+       "h = 2r"
+      ],
+      [
+       "Cone of max volume in sphere of radius R",
+       "Height 4R/3"
+      ],
+      [
+       "Box from 18 cm square sheet",
+       "Cut 3 cm"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Two positive numbers have sum 24. What is their maximum product?",
+     "options": [
+      "143",
+      "140",
+      "576",
+      "144"
+     ],
+     "answer": 3,
+     "explain": "P = x(24 − x), P′ = 24 − 2x = 0 at x = 12. P = 12 × 12 = 144; P″ = −2 < 0 confirms a maximum.",
+     "steps": [
+      "P′ = 24 − 2x = 0",
+      "x = 12",
+      "P = 144"
+     ],
+     "mistake": "Squares the sum instead",
+     "check": "12*12"
+    },
+    {
+     "q": "Two positive numbers have sum 16. What is the minimum possible sum of their cubes?",
+     "options": [
+      "1024",
+      "512",
+      "4096",
+      "2048"
+     ],
+     "answer": 0,
+     "explain": "S = x³ + (16 − x)³, S′ = 3x² − 3(16 − x)² = 0 ⇒ x = 8. S = 512 + 512 = 1024 (S″ > 0).",
+     "steps": [
+      "x = 8",
+      "8³ + 8³ = 1024"
+     ],
+     "mistake": "Gives just one cube, 8³",
+     "check": "8**3+8**3"
+    },
+    {
+     "q": "From an 18 cm square sheet, an open box is made by cutting equal squares from the corners. What is the maximum volume (cm³)?",
+     "options": [
+      "486",
+      "384",
+      "432",
+      "324"
+     ],
+     "answer": 2,
+     "explain": "V = x(18 − 2x)² is maximum at x = 3, giving V = 3 × 144 = 432.",
+     "steps": [
+      "x = 18/6 = 3",
+      "V = 3 × (18 − 6)²",
+      "= 432"
+     ],
+     "mistake": "Uses the wrong cut size",
+     "check": "3*12**2"
+    },
+    {
+     "q": "Find the point on the curve x² = 2y nearest to (0, 5).",
+     "options": [
+      "(0, 0)",
+      "(±2√2, 4)",
+      "(±2, 2)",
+      "(±√10, 5)"
+     ],
+     "answer": 1,
+     "explain": "D² = x² + (y − 5)² = 2y + (y − 5)². d/dy = 2 + 2(y − 5) = 0 ⇒ y = 4, x² = 8.",
+     "mistake": "Minimises distance only along the y-axis and picks the vertex"
+    },
+    {
+     "q": "A rectangle is inscribed in a circle of radius 5 cm. What is the maximum possible area (cm²)?",
+     "options": [
+      "25",
+      "100",
+      "25π",
+      "50"
+     ],
+     "answer": 3,
+     "explain": "The maximum rectangle is a square with diagonal 10, so side 5√2 and area 50 = 2r².",
+     "steps": [
+      "Square with diagonal 2r = 10",
+      "Area = d²/2 = 50"
+     ],
+     "mistake": "Takes the side as the radius",
+     "check": "10**2/2"
+    },
+    {
+     "q": "Profit P(x) = −x² + 40x − 100 (₹ thousand). For which output x is profit maximum?",
+     "options": [
+      "40",
+      "20",
+      "10",
+      "300"
+     ],
+     "answer": 1,
+     "explain": "P′ = −2x + 40 = 0 ⇒ x = 20, and P″ = −2 < 0. (Maximum profit is 300 thousand.)",
+     "steps": [
+      "P′ = −2x + 40 = 0",
+      "x = 20"
+     ],
+     "mistake": "Reports the maximum profit instead of the output",
+     "check": "20"
+    },
+    {
+     "q": "For the same profit P(x) = −x² + 40x − 100 (₹ thousand), what is the maximum profit?",
+     "options": [
+      "300",
+      "400",
+      "500",
+      "100"
+     ],
+     "answer": 0,
+     "explain": "P(20) = −400 + 800 − 100 = 300.",
+     "steps": [
+      "P(20) = −400 + 800 − 100",
+      "= 300"
+     ],
+     "mistake": "Forgets the −100 fixed cost",
+     "check": "-400+800-100"
+    },
+    {
+     "q": "A closed cylindrical can must hold a fixed volume with the least metal. What is the relation between its height h and radius r?",
+     "options": [
+      "h = r",
+      "h = 2r",
+      "h = r/2",
+      "h = 3r"
+     ],
+     "answer": 1,
+     "explain": "S = 2πr² + 2V/r. S′ = 4πr − 2V/r² = 0 ⇒ V = 2πr³, and V = πr²h gives h = 2r.",
+     "mistake": "Assumes the height should equal the radius"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu flaps: 'How do I find the biggest box I can fold from a square sheet?'",
+    "must": [
+     [
+      "volume",
+      "function",
+      "formula"
+     ],
+     [
+      "one variable",
+      "single variable",
+      "cut"
+     ],
+     [
+      "differentiate",
+      "derivative",
+      "f′ = 0"
+     ],
+     [
+      "second derivative",
+      "maximum",
+      "check"
+     ]
+    ],
+    "praise": "Tweet! Write volume in one variable, set the derivative to zero, and check it is a maximum. Biggest box ever!",
+    "nudge": "After writing the volume, how do you find the best value of x?"
+   },
+   "covers": [
+    "c6.4.8",
+    "c6.4.9",
+    "c6.4.10",
+    "c6.4.11",
+    "c6.4.12"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,919 @@
+{
+ "n": 8,
+ "title": "Application of Integrals",
+ "emoji": "📊",
+ "topics": [
+  {
+   "id": "g12-maths-08-01",
+   "title": "Area under a curve: vertical and horizontal strips",
+   "learn": {
+    "hook": "Slice a region into thin strips, add their areas, and shrink the strips to zero width. That sum becomes a definite integral.",
+    "points": [
+     "Definite integrals give areas of regions bounded by curves, lines and the axes.",
+     "Vertical strips: the area between y = f(x) ≥ 0, the x-axis and the lines x = a, x = b is ∫ₐᵇ y dx.",
+     "Horizontal strips: the area between x = g(y) ≥ 0, the y-axis and y = c, y = d is ∫ from c to d of x dy.",
+     "A straight line region is a trapezium or triangle, so you can check the integral with geometry.",
+     "Always sketch first: it tells you which strips to use and where the limits are."
+    ],
+    "example": {
+     "q": "Find the area bounded by y = x², the x-axis and the lines x = 1 and x = 2.",
+     "steps": [
+      "The curve lies above the x-axis on [1, 2].",
+      "Area = ∫₁² x² dx = [x³/3]₁² = 8/3 − 1/3."
+     ],
+     "answer": "7/3 square units"
+    },
+    "reallife": "Surveyors estimate the area of a plot with a curved boundary by measuring its width at regular intervals and adding thin strips, which is integration in practice."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Area sprint (square units)",
+     "items": [
+      {
+       "q": "y = x², x-axis, x = 1 to 2",
+       "a": "7/3",
+       "check": "Fraction(7,3)"
+      },
+      {
+       "q": "y = x², x-axis, x = 0 to 3",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "y = 2x, x-axis, x = 0 to 3",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "x = y², y-axis, y = 1 to 2",
+       "a": "7/3",
+       "check": "Fraction(7,3)"
+      },
+      {
+       "q": "y = x + 1, x-axis, x = 0 to 2",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "y = √x, x-axis, x = 0 to 4",
+       "a": "16/3",
+       "check": "Fraction(16,3)"
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Find an area by integration",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Sketch the curve and the bounding lines",
+      "Choose vertical or horizontal strips",
+      "Write the area as ∫ y dx or ∫ x dy with limits",
+      "Evaluate the definite integral",
+      "Write the answer in square units"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the area bounded by y = x³, the x-axis and the lines x = 1 and x = 2 (square units).",
+     "options": [
+      "7/3",
+      "15/4",
+      "4",
+      "17/4"
+     ],
+     "answer": 1,
+     "explain": "Area = ∫₁² x³ dx = [x⁴/4]₁² = 4 − 1/4 = 15/4.",
+     "steps": [
+      "∫₁² x³ dx",
+      "= 16/4 − 1/4 = 15/4"
+     ],
+     "mistake": "Integrates x² by mistake",
+     "check": "Fraction(15,4)"
+    },
+    {
+     "q": "Find the area under y = 2x + 1 from x = 0 to x = 2 (square units).",
+     "options": [
+      "5",
+      "4",
+      "6",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "∫₀² (2x + 1) dx = [x² + x]₀² = 6. As a trapezium: (1/2)(1 + 5)(2) = 6.",
+     "steps": [
+      "[x² + x]₀² = 4 + 2",
+      "= 6"
+     ],
+     "mistake": "Forgets the constant term",
+     "check": "4+2"
+    },
+    {
+     "q": "Find the area bounded by x = y², the y-axis and the lines y = 1 and y = 3 (square units).",
+     "options": [
+      "26/3",
+      "8/3",
+      "9",
+      "13/3"
+     ],
+     "answer": 0,
+     "explain": "Using horizontal strips, area = ∫₁³ y² dy = [y³/3]₁³ = 9 − 1/3 = 26/3.",
+     "steps": [
+      "∫₁³ y² dy",
+      "= 27/3 − 1/3 = 26/3"
+     ],
+     "mistake": "Uses vertical strips with the wrong limits",
+     "check": "Fraction(26,3)"
+    },
+    {
+     "q": "For the area between a curve x = g(y), the y-axis and y = c to y = d, which integral is used?",
+     "options": [
+      "∫ from c to d of y dx",
+      "∫ from c to d of y dy",
+      "∫ from c to d of x dx",
+      "∫ from c to d of x dy"
+     ],
+     "answer": 3,
+     "explain": "Horizontal strips have length x and width dy.",
+     "mistake": "Mixes up which variable is the strip width"
+    },
+    {
+     "q": "Find the area bounded by y = √x, the x-axis and x = 9 (square units).",
+     "options": [
+      "27",
+      "9",
+      "18",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "∫₀⁹ x^(1/2) dx = (2/3)x^(3/2) from 0 to 9 = (2/3)(27) = 18.",
+     "steps": [
+      "(2/3) × 9^(3/2)",
+      "= (2/3) × 27 = 18"
+     ],
+     "mistake": "Uses 3/2 instead of 2/3",
+     "check": "Fraction(2,3)*27"
+    },
+    {
+     "q": "Find the area bounded by y = eˣ, the x-axis and the lines x = 0 and x = 1.",
+     "options": [
+      "e − 1",
+      "e",
+      "1",
+      "e + 1"
+     ],
+     "answer": 0,
+     "explain": "∫₀¹ eˣ dx = e − 1.",
+     "mistake": "Forgets to subtract e⁰ = 1"
+    },
+    {
+     "q": "The area under y = 4 − x² between x = 0 and x = 2 (above the x-axis) is",
+     "options": [
+      "8/3",
+      "16/3",
+      "4",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "∫₀² (4 − x²) dx = 8 − 8/3 = 16/3.",
+     "steps": [
+      "[4x − x³/3]₀²",
+      "= 8 − 8/3 = 16/3"
+     ],
+     "mistake": "Subtracts in the wrong order",
+     "check": "8-Fraction(8,3)"
+    },
+    {
+     "q": "Assertion (A): The area of the triangle bounded by y = x, the x-axis and x = 4 is 8 square units.\nReason (R): Area = ∫₀⁴ x dx = 8.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "∫₀⁴ x dx = 16/2 = 8, matching (1/2)(4)(4) = 8.",
+     "mistake": "Thinks integration and geometry give different answers"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How does an integral give me the area under a curve?'",
+    "must": [
+     [
+      "strips",
+      "thin",
+      "slices",
+      "rectangles"
+     ],
+     [
+      "add",
+      "sum"
+     ],
+     [
+      "limits",
+      "from a to b",
+      "x = a"
+     ],
+     [
+      "y dx",
+      "∫ y dx",
+      "integral"
+     ]
+    ],
+    "praise": "Tweet! Thin strips of height y and width dx, added from a to b. That is ∫ y dx. Area unlocked!",
+    "nudge": "What does each strip look like, and how are the strips combined?"
+   },
+   "covers": [
+    "c8.1.1",
+    "c8.2.1",
+    "c8.2.2",
+    "c8.2.5",
+    "c8.2.11"
+   ]
+  },
+  {
+   "id": "g12-maths-08-02",
+   "title": "Regions below the axis and on both sides",
+   "learn": {
+    "hook": "∫₀^(2π) sin x dx = 0, yet the curve clearly encloses area with the axis. Integrals can cancel; areas never do.",
+    "points": [
+     "If f(x) ≤ 0 on [a, b], the region lies below the x-axis and its area is |∫ₐᵇ f(x) dx|.",
+     "If the curve crosses the axis at c, split: Area = |∫ₐᶜ f dx| + |∫ from c to b of f dx|.",
+     "y = sin x on [0, 2π] gives area 2 + 2 = 4, though the integral is 0. Similarly y = cos x on [0, 2π] gives area 4.",
+     "y = x³ on [−2, 1] gives area 4 + 1/4 = 17/4.",
+     "Modulus curves like y = |x + 3| lie above the axis: integrate piece by piece."
+    ],
+    "example": {
+     "q": "Find the area bounded by y = cos x and the x-axis from x = 0 to x = 2π.",
+     "steps": [
+      "cos x ≥ 0 on [0, π/2], ≤ 0 on [π/2, 3π/2], ≥ 0 on [3π/2, 2π].",
+      "Pieces: ∫₀^(π/2) cos x = 1, |∫ from π/2 to 3π/2 of cos x| = 2, ∫ from 3π/2 to 2π of cos x = 1.",
+      "Total = 1 + 2 + 1."
+     ],
+     "answer": "4 square units"
+    },
+    "reallife": "A bank account's net change over a month can be zero even when lots of money went in and out. The total money moved adds the absolute amounts, just as area adds the pieces above and below the axis as positives."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Area or integral?",
+     "items": [
+      [
+       "∫₀^(2π) sin x dx = 0.",
+       true,
+       "The positive and negative parts cancel."
+      ],
+      [
+       "The area between y = sin x and the x-axis on [0, 2π] is 0.",
+       false,
+       "Area adds absolute values: 2 + 2 = 4."
+      ],
+      [
+       "For f ≤ 0 on [a, b], the area is −∫ₐᵇ f(x) dx.",
+       true,
+       "The integral is negative, so its negative is the area."
+      ],
+      [
+       "Area must always be split where the curve crosses the axis.",
+       true,
+       "Otherwise positive and negative parts cancel."
+      ],
+      [
+       "The area between y = x³ and the x-axis on [−1, 1] is 0.",
+       false,
+       "It is 1/4 + 1/4 = 1/2."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Signed vs total",
+     "items": [
+      {
+       "q": "Area: y = sin x, x = 0 to π",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "Area: y = sin x, x = 0 to 2π",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "Integral: ∫₀^(2π) sin x dx",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "Area: y = x³, x = −2 to 1",
+       "a": "17/4",
+       "check": "4+Fraction(1,4)"
+      },
+      {
+       "q": "Area: y = |x + 3|, x = −6 to 0",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "Area: y = x, x = −1 to 1",
+       "a": "1",
+       "check": "1"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the area bounded by y = sin x and the x-axis between x = 0 and x = 2π.",
+     "options": [
+      "0",
+      "2",
+      "2π",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "∫₀^π sin x = 2 and |∫ from π to 2π of sin x| = 2. Total area = 4.",
+     "steps": [
+      "0 to π: 2",
+      "π to 2π: |−2| = 2",
+      "Total = 4"
+     ],
+     "mistake": "Reports the integral 0 instead of the area",
+     "check": "2+2"
+    },
+    {
+     "q": "Find the area bounded by y = x³, the x-axis and the lines x = −2 and x = 1.",
+     "options": [
+      "15/4",
+      "−15/4",
+      "17/4",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "|∫₋₂⁰ x³ dx| = 4 and ∫₀¹ x³ dx = 1/4, total 17/4.",
+     "steps": [
+      "|∫₋₂⁰ x³| = |0 − 4| = 4",
+      "∫₀¹ x³ = 1/4",
+      "4 + 1/4 = 17/4"
+     ],
+     "mistake": "Integrates straight across and gets −15/4",
+     "check": "4+Fraction(1,4)"
+    },
+    {
+     "q": "Find the area between y = 3x + 2, the x-axis and the lines x = −1 and x = 1.",
+     "options": [
+      "13/3",
+      "4",
+      "25/6",
+      "1/6"
+     ],
+     "answer": 0,
+     "explain": "The line crosses at x = −2/3. Below: 1/6. Above: 25/6. Total 26/6 = 13/3.",
+     "steps": [
+      "Below the axis on [−1, −2/3]: 1/6",
+      "Above on [−2/3, 1]: 25/6",
+      "Total = 13/3"
+     ],
+     "mistake": "Integrates without splitting and gets 4",
+     "check": "Fraction(1,6)+Fraction(25,6)"
+    },
+    {
+     "q": "Find the area under y = |x + 3| from x = −6 to x = 0.",
+     "options": [
+      "18",
+      "0",
+      "9/2",
+      "9"
+     ],
+     "answer": 3,
+     "explain": "Two triangles each with base 3 and height 3: 9/2 + 9/2 = 9.",
+     "steps": [
+      "Split at x = −3",
+      "Each part = 9/2",
+      "Total = 9"
+     ],
+     "mistake": "Counts only one triangle",
+     "check": "Fraction(9,2)*2"
+    },
+    {
+     "q": "Find the area bounded by y = x² − 1 and the x-axis between x = −1 and x = 1.",
+     "options": [
+      "4/3",
+      "−4/3",
+      "2/3",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "The curve is below the axis there: ∫₋₁¹ (x² − 1) dx = 2/3 − 2 = −4/3, so the area is 4/3.",
+     "steps": [
+      "∫₋₁¹ (x² − 1) dx = −4/3",
+      "Area = |−4/3| = 4/3"
+     ],
+     "mistake": "Reports the negative integral as the area",
+     "check": "Fraction(4,3)"
+    },
+    {
+     "q": "Find the area bounded by y = cos x and the x-axis from x = 0 to x = π.",
+     "options": [
+      "2",
+      "0",
+      "1",
+      "π"
+     ],
+     "answer": 0,
+     "explain": "1 from [0, π/2] plus |−1| from [π/2, π] = 2.",
+     "steps": [
+      "∫₀^(π/2) cos x = 1",
+      "|∫ from π/2 to π| = 1",
+      "Total 2"
+     ],
+     "mistake": "Integrates straight across and gets 0",
+     "check": "1+1"
+    },
+    {
+     "q": "Why can ∫ₐᵇ f(x) dx be smaller than the area between the curve and the x-axis?",
+     "options": [
+      "Because area is measured in square units",
+      "Because integrals ignore the x-axis",
+      "Because f must be continuous",
+      "Parts below the axis give negative contributions that cancel positive parts"
+     ],
+     "answer": 3,
+     "explain": "Integrals are signed; area counts every part as positive.",
+     "mistake": "Treats the integral as always equal to the area"
+    },
+    {
+     "q": "Assertion (A): The area bounded by y = x, the x-axis, x = −2 and x = 2 is 4 square units.\nReason (R): ∫₋₂² x dx = 0.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Area = 2 + 2 = 4 (two triangles). R is true too, but it is the signed integral, which is exactly why it cannot explain the area.",
+     "mistake": "Thinks a zero integral means zero area"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu squawks: 'The integral of sin x from 0 to 2π is 0. So is the area 0 too?'",
+    "must": [
+     [
+      "below",
+      "negative",
+      "under the axis"
+     ],
+     [
+      "absolute",
+      "modulus",
+      "positive"
+     ],
+     [
+      "split",
+      "separately",
+      "divide"
+     ]
+    ],
+    "praise": "Chirp! No! Split where the curve crosses the axis and add absolute values. Area is 4, not 0!",
+    "nudge": "What do you do with the part of the curve below the x-axis?"
+   },
+   "covers": [
+    "c8.2.3",
+    "c8.2.4",
+    "c8.2.9",
+    "c8.2.12"
+   ]
+  },
+  {
+   "id": "g12-maths-08-03",
+   "title": "Area of a circle and an ellipse",
+   "learn": {
+    "hook": "You have used πr² since Class 7. Now prove it with calculus, and get the ellipse's area πab for free.",
+    "points": [
+     "Circle x² + y² = a²: by symmetry, area = 4 × (first-quadrant area) = 4∫₀ᵃ √(a² − x²) dx.",
+     "Using ∫√(a² − x²) dx = (x/2)√(a² − x²) + (a²/2) sin⁻¹(x/a), the first quadrant gives (a²/2)(π/2) = πa²/4, so the area is πa².",
+     "Ellipse x²/a² + y²/b² = 1: y = (b/a)√(a² − x²) in the first quadrant, so area = 4(b/a)∫₀ᵃ √(a² − x²) dx = πab.",
+     "A circle is the ellipse with a = b.",
+     "Use symmetry about both axes to integrate over one quadrant only."
+    ],
+    "example": {
+     "q": "Find the area enclosed by the ellipse x²/16 + y²/9 = 1.",
+     "steps": [
+      "a = 4, b = 3.",
+      "Area = 4 × (3/4)∫₀⁴ √(16 − x²) dx.",
+      "∫₀⁴ √(16 − x²) dx = (16/2)(π/2) = 4π.",
+      "Area = 3 × 4π."
+     ],
+     "answer": "12π square units"
+    },
+    "reallife": "Planetary orbits are ellipses. ISRO's Mangalyaan orbit around Mars was elliptical, and Kepler's second law links area swept by an orbit to time, so these area formulas matter in mission planning."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Curve ↔ enclosed area",
+     "pairs": [
+      [
+       "x² + y² = 4",
+       "4π"
+      ],
+      [
+       "x² + y² = 25",
+       "25π"
+      ],
+      [
+       "x²/16 + y²/9 = 1",
+       "12π"
+      ],
+      [
+       "x²/4 + y²/9 = 1",
+       "6π"
+      ],
+      [
+       "x²/25 + y² = 1",
+       "5π"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Area of the circle x² + y² = a²",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Use symmetry: area = 4 × first-quadrant area",
+      "First quadrant: y = √(a² − x²), x from 0 to a",
+      "∫₀ᵃ √(a² − x²) dx = (a²/2) sin⁻¹(1) = πa²/4",
+      "Multiply by 4: area = πa²"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the area enclosed by the circle x² + y² = 9.",
+     "options": [
+      "9π",
+      "3π",
+      "6π",
+      "81π"
+     ],
+     "answer": 0,
+     "explain": "Area = πa² with a = 3, i.e. 9π.",
+     "mistake": "Uses 2πa (the circumference) or a⁴"
+    },
+    {
+     "q": "Find the area of the region in the first quadrant enclosed by x² + y² = 16 and the axes.",
+     "options": [
+      "16π",
+      "8π",
+      "2π",
+      "4π"
+     ],
+     "answer": 3,
+     "explain": "One quarter of π(4²) = 16π/4 = 4π.",
+     "mistake": "Gives the full circle's area"
+    },
+    {
+     "q": "Find the area enclosed by x²/4 + y²/9 = 1.",
+     "options": [
+      "36π",
+      "13π",
+      "3π",
+      "6π"
+     ],
+     "answer": 3,
+     "explain": "a = 2, b = 3, area = πab = 6π.",
+     "mistake": "Uses a² and b² instead of a and b"
+    },
+    {
+     "q": "In finding the area of the ellipse x²/a² + y²/b² = 1, the first-quadrant integral is",
+     "options": [
+      "(a/b)∫₀ᵃ √(a² − x²) dx",
+      "(b/a)∫₀ᵃ √(a² − x²) dx",
+      "∫₀ᵃ √(a² − x²) dx",
+      "(b/a)∫₀ᵇ √(b² − x²) dx"
+     ],
+     "answer": 1,
+     "explain": "Solving for y gives y = (b/a)√(a² − x²) with x from 0 to a.",
+     "mistake": "Inverts the ratio when solving for y"
+    },
+    {
+     "q": "What is ∫₀³ √(9 − x²) dx?",
+     "options": [
+      "9π/2",
+      "9π/4",
+      "3π/2",
+      "9π"
+     ],
+     "answer": 1,
+     "explain": "It is a quarter of the area of a circle of radius 3: 9π/4.",
+     "mistake": "Takes a half instead of a quarter of the circle"
+    },
+    {
+     "q": "Find the area enclosed by 4x² + 9y² = 36.",
+     "options": [
+      "6π",
+      "36π",
+      "4π",
+      "9π"
+     ],
+     "answer": 0,
+     "explain": "Divide by 36: x²/9 + y²/4 = 1, so a = 3, b = 2 and area = 6π.",
+     "mistake": "Uses the coefficients 4 and 9 as a and b"
+    },
+    {
+     "q": "For the circle x² + y² = a², which value of ∫₀ᵃ √(a² − x²) dx is correct?",
+     "options": [
+      "πa²/2",
+      "πa²",
+      "πa²/4",
+      "a²/2"
+     ],
+     "answer": 2,
+     "explain": "(x/2)√(a² − x²) + (a²/2) sin⁻¹(x/a) from 0 to a = (a²/2)(π/2) = πa²/4.",
+     "mistake": "Forgets to evaluate sin⁻¹(1) = π/2"
+    },
+    {
+     "q": "Assertion (A): The area enclosed by x² + y² = a² is πa².\nReason (R): The area enclosed by x²/a² + y²/b² = 1 is πab.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "A circle is the special ellipse with b = a, so R gives π · a · a = πa².",
+     "mistake": "Does not see the circle as a special ellipse"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How can calculus prove that the area of a circle is πr²?'",
+    "must": [
+     [
+      "quarter",
+      "first quadrant",
+      "four",
+      "symmetry"
+     ],
+     [
+      "√(a² − x²)",
+      "root",
+      "semicircle",
+      "y ="
+     ],
+     [
+      "sin⁻¹",
+      "π/2",
+      "pi/2",
+      "formula"
+     ]
+    ],
+    "praise": "Tweet! Integrate √(a² − x²) over one quarter, get πa²/4, and multiply by 4. πr² proved!",
+    "nudge": "Why do we only integrate over one quadrant?"
+   },
+   "covers": [
+    "c8.2.6",
+    "c8.2.7"
+   ]
+  },
+  {
+   "id": "g12-maths-08-04",
+   "title": "Parabolas, lines and first-quadrant regions",
+   "learn": {
+    "hook": "A satellite dish has a parabolic cross-section. How much area does the parabola enclose up to a given line? Two neat formulas answer it.",
+    "points": [
+     "For y² = 4ax and x = k: the region is symmetric about the x-axis, so area = 2∫₀ᵏ 2√(ax) dx = (8/3)√a · k^(3/2).",
+     "For x² = 4ay and y = k: area = 2∫₀ᵏ 2√(ay) dy.",
+     "First-quadrant regions: use only y ≥ 0, x ≥ 0 and the given lines as limits.",
+     "Choose strips wisely: for x² = 4y and the y-axis, horizontal strips (∫ x dy) are often easier.",
+     "Area between two curves and between a curve and a slanting line are not in the current CBSE syllabus."
+    ],
+    "example": {
+     "q": "Find the area bounded by y² = 9x, x = 2, x = 4 and the x-axis in the first quadrant.",
+     "steps": [
+      "In the first quadrant, y = 3√x.",
+      "Area = ∫₂⁴ 3√x dx = 3 × (2/3)[x^(3/2)]₂⁴ = 2(8 − 2√2)."
+     ],
+     "answer": "16 − 4√2 square units"
+    },
+    "reallife": "Parabolic solar cookers concentrate sunlight at the focus; the cross-section of the reflector is a parabola, and its area is found with integrals like these."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Parabola areas (square units)",
+     "items": [
+      {
+       "q": "y² = 4x and x = 1",
+       "a": "8/3",
+       "check": "Fraction(8,3)"
+      },
+      {
+       "q": "x² = 4y and y = 4",
+       "a": "64/3",
+       "check": "Fraction(64,3)"
+      },
+      {
+       "q": "x² = 4y and y = 1",
+       "a": "8/3",
+       "check": "Fraction(8,3)"
+      },
+      {
+       "q": "y = x², y-axis, y = 4 (first quadrant)",
+       "a": "16/3",
+       "check": "Fraction(16,3)"
+      },
+      {
+       "q": "y = x², y-axis, y = 1 to y = 4 (first quadrant)",
+       "a": "14/3",
+       "check": "Fraction(14,3)"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Parabola region facts",
+     "items": [
+      [
+       "y² = 4ax is symmetric about the x-axis.",
+       true,
+       "Replacing y by −y leaves it unchanged."
+      ],
+      [
+       "For x² = 4y and y = k, the area is 2∫₀ᵏ 2√y dy.",
+       true,
+       "x = ±2√y, so each half has width 2√y."
+      ],
+      [
+       "The area between y² = 4x and x = 1 is ∫₀¹ 2√x dx.",
+       false,
+       "That is only the upper half; the full area is twice this."
+      ],
+      [
+       "Area between two curves is in the current CBSE syllabus.",
+       false,
+       "It has been removed in the rationalised book."
+      ],
+      [
+       "In the first quadrant, y² = 9x gives y = 3√x.",
+       true,
+       "Take the positive square root."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the area bounded by y² = 4x and the line x = 1.",
+     "options": [
+      "8/3",
+      "4/3",
+      "2/3",
+      "16/3"
+     ],
+     "answer": 0,
+     "explain": "Area = 2∫₀¹ 2√x dx = 4 × (2/3) = 8/3.",
+     "steps": [
+      "Upper half: ∫₀¹ 2√x dx = 4/3",
+      "Double it: 8/3"
+     ],
+     "mistake": "Counts only the upper half",
+     "check": "2*Fraction(4,3)"
+    },
+    {
+     "q": "Find the area bounded by x² = 4y and the line y = 4.",
+     "options": [
+      "64/3",
+      "32/3",
+      "16/3",
+      "16"
+     ],
+     "answer": 0,
+     "explain": "Area = ∫₀⁴ 2x dy with x = 2√y: ∫₀⁴ 4√y dy = (8/3)(8) = 64/3.",
+     "steps": [
+      "Width at height y: 2 × 2√y",
+      "∫₀⁴ 4√y dy = 4 × (2/3) × 8",
+      "= 64/3"
+     ],
+     "mistake": "Counts only one side of the y-axis",
+     "check": "4*Fraction(2,3)*8"
+    },
+    {
+     "q": "Find the area of the first-quadrant region bounded by y = x², the y-axis and the line y = 4.",
+     "options": [
+      "16/3",
+      "8/3",
+      "64/3",
+      "32/3"
+     ],
+     "answer": 0,
+     "explain": "Horizontal strips: ∫₀⁴ √y dy = (2/3)(8) = 16/3.",
+     "steps": [
+      "x = √y",
+      "∫₀⁴ √y dy = (2/3) × 4^(3/2)",
+      "= 16/3"
+     ],
+     "mistake": "Uses vertical strips with x from 0 to 4",
+     "check": "Fraction(2,3)*8"
+    },
+    {
+     "q": "Find the area bounded by y² = 9x, x = 2, x = 4 and the x-axis in the first quadrant.",
+     "options": [
+      "16 − 4√2",
+      "16 + 4√2",
+      "8 − 2√2",
+      "32 − 8√2"
+     ],
+     "answer": 0,
+     "explain": "∫₂⁴ 3√x dx = 2[x^(3/2)]₂⁴ = 2(8 − 2√2) = 16 − 4√2.",
+     "mistake": "Forgets the factor 3 from y = 3√x"
+    },
+    {
+     "q": "Find the area of the first-quadrant region bounded by x² = 4y, the y-axis, y = 2 and y = 4.",
+     "options": [
+      "(16 − 4√2)/3",
+      "32/3",
+      "(32 − 8√2)/3",
+      "(8√2 − 8)/3"
+     ],
+     "answer": 2,
+     "explain": "x = 2√y, area = ∫₂⁴ 2√y dy = (4/3)[y^(3/2)]₂⁴ = (4/3)(8 − 2√2) = (32 − 8√2)/3.",
+     "mistake": "Uses 4√y, which counts both sides of the y-axis"
+    },
+    {
+     "q": "For the parabola y² = 4ax and the line x = a, the enclosed area is",
+     "options": [
+      "8a²/3",
+      "4a²/3",
+      "2a²",
+      "16a²/3"
+     ],
+     "answer": 0,
+     "explain": "2∫₀ᵃ 2√(ax) dx = 4√a × (2/3)a^(3/2) = 8a²/3.",
+     "mistake": "Counts only one half"
+    },
+    {
+     "q": "Find the area of the first-quadrant region bounded by y = x², the y-axis and the lines y = 1 and y = 4.",
+     "options": [
+      "16/3",
+      "14/3",
+      "7/3",
+      "21"
+     ],
+     "answer": 1,
+     "explain": "∫₁⁴ √y dy = (2/3)(8 − 1) = 14/3.",
+     "steps": [
+      "x = √y",
+      "(2/3)[y^(3/2)]₁⁴",
+      "= (2/3)(7) = 14/3"
+     ],
+     "mistake": "Uses vertical strips ∫₁⁴ x² dx = 21",
+     "check": "Fraction(2,3)*7"
+    },
+    {
+     "q": "Assertion (A): The area bounded by y² = 4x and x = 4 equals 2 × ∫₀⁴ 2√x dx.\nReason (R): The parabola y² = 4x is symmetric about the x-axis.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Symmetry means the lower half equals the upper half, so we double the upper integral (giving 64/3).",
+     "mistake": "Forgets the part of the region below the x-axis"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the area inside a parabola up to a line?'",
+    "must": [
+     [
+      "symmetric",
+      "symmetry",
+      "double",
+      "twice"
+     ],
+     [
+      "√x",
+      "root x",
+      "square root",
+      "solve for y"
+     ],
+     [
+      "limits",
+      "from 0",
+      "up to the line"
+     ]
+    ],
+    "praise": "Chirp! Solve for y, integrate one half up to the line, and double it by symmetry. Parabola done!",
+    "nudge": "Why can you integrate only one half and then double?"
+   },
+   "covers": [
+    "c8.2.8",
+    "c8.2.10",
+    "c8.2.13"
+   ]
+  }
+ ]
+}

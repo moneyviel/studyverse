@@ -1,0 +1,2634 @@
+{
+ "n": 7,
+ "title": "Integrals",
+ "emoji": "♾️",
+ "topics": [
+  {
+   "id": "g12-maths-07-01",
+   "title": "Anti-derivatives and standard integrals",
+   "learn": {
+    "hook": "If speed is the derivative of distance, how do you get distance back from speed? Run differentiation in reverse: integrate.",
+    "points": [
+     "Integration reverses differentiation and also measures areas. If F′(x) = f(x), F is an anti-derivative (primitive) of f and ∫f(x) dx = F(x) + C, where C is the constant of integration.",
+     "Standard results: ∫xⁿ dx = xⁿ⁺¹/(n + 1) + C (n ≠ −1), ∫(1/x) dx = log|x| + C, ∫eˣ dx = eˣ + C, ∫aˣ dx = aˣ/log a + C.",
+     "Trig: ∫sin x dx = −cos x + C, ∫cos x dx = sin x + C, ∫sec²x dx = tan x + C, ∫cosec²x dx = −cot x + C, ∫sec x tan x dx = sec x + C, ∫cosec x cot x dx = −cosec x + C.",
+     "Inverse trig: ∫dx/√(1 − x²) = sin⁻¹x + C, ∫dx/(1 + x²) = tan⁻¹x + C, ∫dx/(x√(x² − 1)) = sec⁻¹x + C.",
+     "Properties: ∫[f ± g] dx = ∫f dx ± ∫g dx, ∫kf dx = k∫f dx, and d/dx ∫f(x) dx = f(x). An initial condition fixes C."
+    ],
+    "example": {
+     "q": "Find f(x) if f′(x) = 3x² + 2x and f(1) = 5.",
+     "steps": [
+      "f(x) = ∫(3x² + 2x) dx = x³ + x² + C.",
+      "f(1) = 1 + 1 + C = 5 ⇒ C = 3."
+     ],
+     "answer": "f(x) = x³ + x² + 3"
+    },
+    "reallife": "From a train's speed log you can recover the distance it covered: integrate speed with respect to time."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Integral ↔ result (+ C)",
+     "pairs": [
+      [
+       "∫cos x dx",
+       "sin x"
+      ],
+      [
+       "∫sin x dx",
+       "−cos x"
+      ],
+      [
+       "∫sec²x dx",
+       "tan x"
+      ],
+      [
+       "∫(1/x) dx",
+       "log|x|"
+      ],
+      [
+       "∫dx/(1 + x²)",
+       "tan⁻¹ x"
+      ],
+      [
+       "∫cosec x cot x dx",
+       "−cosec x"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Anti-derivative facts",
+     "items": [
+      [
+       "x² + 5 and x² − 3 are both anti-derivatives of 2x.",
+       true,
+       "They differ only by a constant."
+      ],
+      [
+       "∫x⁻¹ dx = x⁰/0 + C.",
+       false,
+       "The power rule fails at n = −1; ∫(1/x) dx = log|x| + C."
+      ],
+      [
+       "d/dx ∫f(x) dx = f(x).",
+       true,
+       "Differentiation undoes integration."
+      ],
+      [
+       "∫(f · g) dx = ∫f dx · ∫g dx.",
+       false,
+       "There is no such product rule for integrals."
+      ],
+      [
+       "∫2ˣ dx = 2ˣ/log 2 + C.",
+       true,
+       "∫aˣ dx = aˣ/log a + C."
+      ],
+      [
+       "∫sin x dx = cos x + C.",
+       false,
+       "It is −cos x + C, because d/dx(cos x) = −sin x."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫(3x² − 4x + 5) dx?",
+     "options": [
+      "x³ − 2x² + 5x + C",
+      "6x − 4 + C",
+      "x³ − 4x² + 5x + C",
+      "3x³ − 4x² + 5x + C"
+     ],
+     "answer": 0,
+     "explain": "Integrate term by term: x³ − 2x² + 5x + C.",
+     "mistake": "Forgets to divide by the new power"
+    },
+    {
+     "q": "What is ∫(√x + 1/√x) dx?",
+     "options": [
+      "(3/2)x^(3/2) + 2x^(1/2) + C",
+      "(2/3)x^(3/2) + 2x^(1/2) + C",
+      "(1/2)x^(−1/2) − (1/2)x^(−3/2) + C",
+      "(2/3)x^(3/2) − 2x^(1/2) + C"
+     ],
+     "answer": 1,
+     "explain": "√x = x^(1/2) → x^(3/2)/(3/2), and x^(−1/2) → x^(1/2)/(1/2).",
+     "mistake": "Multiplies by the new power instead of dividing"
+    },
+    {
+     "q": "What is ∫(2 − 3 sin x)/cos²x dx?",
+     "options": [
+      "2 tan x + 3 sec x + C",
+      "2 sec x − 3 tan x + C",
+      "2 tan x − 3 cos x + C",
+      "2 tan x − 3 sec x + C"
+     ],
+     "answer": 3,
+     "explain": "Split: 2 sec²x − 3 sec x tan x. Integrate: 2 tan x − 3 sec x + C.",
+     "mistake": "Gets the sign of the sec x term wrong"
+    },
+    {
+     "q": "f′(x) = 3x² + 2x and f(1) = 5. What is f(2)?",
+     "options": [
+      "12",
+      "17",
+      "14",
+      "15"
+     ],
+     "answer": 3,
+     "explain": "f(x) = x³ + x² + C, f(1) = 2 + C = 5 ⇒ C = 3. f(2) = 8 + 4 + 3 = 15.",
+     "steps": [
+      "f = x³ + x² + C",
+      "C = 3",
+      "f(2) = 8 + 4 + 3 = 15"
+     ],
+     "mistake": "Forgets to find C from the initial condition",
+     "check": "8+4+3"
+    },
+    {
+     "q": "Which function is an anti-derivative of sin 2x?",
+     "options": [
+      "−2 cos 2x",
+      "−(1/2) cos 2x",
+      "(1/2) cos 2x",
+      "2 cos 2x"
+     ],
+     "answer": 1,
+     "explain": "d/dx[−(1/2) cos 2x] = −(1/2)(−sin 2x)(2) = sin 2x.",
+     "mistake": "Forgets to divide by the coefficient 2"
+    },
+    {
+     "q": "What is ∫(x³ − 1)/(x − 1) dx?",
+     "options": [
+      "x³/3 − x + C",
+      "x²/2 + x + C",
+      "(x³ − 1) log|x − 1| + C",
+      "x³/3 + x²/2 + x + C"
+     ],
+     "answer": 3,
+     "explain": "(x³ − 1)/(x − 1) = x² + x + 1, which integrates to x³/3 + x²/2 + x + C.",
+     "mistake": "Tries to integrate the quotient without simplifying"
+    },
+    {
+     "q": "What is ∫eˣ(1 + e⁻ˣ) dx?",
+     "options": [
+      "eˣ + C",
+      "eˣ + x + C",
+      "eˣ − x + C",
+      "x eˣ + C"
+     ],
+     "answer": 1,
+     "explain": "eˣ(1 + e⁻ˣ) = eˣ + 1, whose integral is eˣ + x + C.",
+     "mistake": "Forgets that eˣ · e⁻ˣ = 1"
+    },
+    {
+     "q": "Assertion (A): ∫(1/x) dx = log|x| + C for x ≠ 0.\nReason (R): The power rule ∫xⁿ dx = xⁿ⁺¹/(n + 1) + C works for n = −1.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is a standard result. R is false: at n = −1 the power rule would divide by zero.",
+     "mistake": "Applies the power rule to 1/x"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is puzzled: 'Why do we always add + C when we integrate?'",
+    "must": [
+     [
+      "derivative",
+      "differentiate",
+      "reverse"
+     ],
+     [
+      "constant",
+      "+ c",
+      "arbitrary constant"
+     ],
+     [
+      "zero",
+      "vanishes",
+      "disappears",
+      "family"
+     ]
+    ],
+    "praise": "Chirp! Constants vanish when you differentiate, so any constant could have been there. + C keeps them all!",
+    "nudge": "What happens to a constant when you differentiate it?"
+   },
+   "covers": [
+    "c7.1.1",
+    "c7.2.1",
+    "c7.2.2",
+    "c7.2.3",
+    "c7.2.4",
+    "c7.2.5"
+   ]
+  },
+  {
+   "id": "g12-maths-07-02",
+   "title": "Integration by substitution",
+   "learn": {
+    "hook": "∫2x cos(x²) dx looks scary until you spot that 2x is the derivative of x². Substitution is the art of spotting that pair.",
+    "points": [
+     "If the integrand contains g(x) and g′(x), put t = g(x), so dt = g′(x) dx, and integrate in t. Return to x at the end.",
+     "∫f′(x)/f(x) dx = log|f(x)| + C.",
+     "∫[f(x)]ⁿ f′(x) dx = [f(x)]ⁿ⁺¹/(n + 1) + C, n ≠ −1.",
+     "∫tan x dx = log|sec x| + C, ∫cot x dx = log|sin x| + C.",
+     "∫sec x dx = log|sec x + tan x| + C, ∫cosec x dx = log|cosec x − cot x| + C."
+    ],
+    "example": {
+     "q": "Find ∫(log x)²/x dx.",
+     "steps": [
+      "Put t = log x, so dt = (1/x) dx.",
+      "The integral becomes ∫t² dt = t³/3 + C.",
+      "Substitute back."
+     ],
+     "answer": "(log x)³/3 + C"
+    },
+    "reallife": "Physicists simplify radioactive-decay integrals by substituting t = −λx, turning messy exponentials into ∫eᵗ dt."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Spot the substitution",
+     "pairs": [
+      [
+       "∫2x cos(x²) dx",
+       "t = x²"
+      ],
+      [
+       "∫(log x)/x dx",
+       "t = log x"
+      ],
+      [
+       "∫e^(tan⁻¹ x)/(1 + x²) dx",
+       "t = tan⁻¹ x"
+      ],
+      [
+       "∫sin x/(1 + cos x) dx",
+       "t = 1 + cos x"
+      ],
+      [
+       "∫sec²x tan x dx",
+       "t = tan x"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Standard results",
+     "items": [
+      {
+       "text": "∫tan x dx = log|___| + C",
+       "answer": "sec x",
+       "options": [
+        "sec x",
+        "cos x",
+        "tan x"
+       ]
+      },
+      {
+       "text": "∫cot x dx = log|___| + C",
+       "answer": "sin x",
+       "options": [
+        "sin x",
+        "cos x",
+        "cosec x"
+       ]
+      },
+      {
+       "text": "∫sec x dx = log|sec x + ___| + C",
+       "answer": "tan x",
+       "options": [
+        "tan x",
+        "cot x",
+        "sin x"
+       ]
+      },
+      {
+       "text": "∫cosec x dx = log|cosec x − ___| + C",
+       "answer": "cot x",
+       "options": [
+        "cot x",
+        "tan x",
+        "sec x"
+       ]
+      },
+      {
+       "text": "∫2x/(x² + 1) dx = ___ + C",
+       "answer": "log(x² + 1)",
+       "options": [
+        "log(x² + 1)",
+        "tan⁻¹ x",
+        "2 log x"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫2x cos(x²) dx?",
+     "options": [
+      "sin(x²) + C",
+      "−sin(x²) + C",
+      "x² sin(x²) + C",
+      "2 sin(x²) + C"
+     ],
+     "answer": 0,
+     "explain": "Put t = x², dt = 2x dx: ∫cos t dt = sin t + C = sin(x²) + C.",
+     "mistake": "Forgets that 2x dx is exactly dt"
+    },
+    {
+     "q": "What is ∫sin(3x + 5) dx?",
+     "options": [
+      "−3 cos(3x + 5) + C",
+      "(1/3) cos(3x + 5) + C",
+      "−cos(3x + 5) + C",
+      "−(1/3) cos(3x + 5) + C"
+     ],
+     "answer": 3,
+     "explain": "Put t = 3x + 5, dt = 3 dx: (1/3)∫sin t dt = −(1/3) cos t + C.",
+     "mistake": "Multiplies by 3 instead of dividing"
+    },
+    {
+     "q": "What is ∫e^(tan⁻¹ x)/(1 + x²) dx?",
+     "options": [
+      "tan⁻¹(eˣ) + C",
+      "e^(tan⁻¹ x)/(1 + x²) + C",
+      "e^(tan⁻¹ x) + C",
+      "log(1 + x²) + C"
+     ],
+     "answer": 2,
+     "explain": "With t = tan⁻¹ x, dt = dx/(1 + x²), the integral is ∫eᵗ dt.",
+     "mistake": "Does not recognise 1/(1 + x²) as the derivative of tan⁻¹ x"
+    },
+    {
+     "q": "What is ∫(2x + 3)/(x² + 3x + 7) dx?",
+     "options": [
+      "1/(x² + 3x + 7) + C",
+      "(x² + 3x)/(x² + 3x + 7) + C",
+      "log|x² + 3x + 7| + C",
+      "tan⁻¹(x² + 3x + 7) + C"
+     ],
+     "answer": 2,
+     "explain": "The numerator is the derivative of the denominator, so it is ∫f′/f = log|f| + C.",
+     "mistake": "Misses the f′/f pattern"
+    },
+    {
+     "q": "What is ∫tan x dx?",
+     "options": [
+      "sec²x + C",
+      "log|sec x| + C",
+      "log|cos x| + C",
+      "−log|sec x| + C"
+     ],
+     "answer": 1,
+     "explain": "tan x = sin x/cos x = −(−sin x)/cos x, so ∫tan x dx = −log|cos x| = log|sec x| + C.",
+     "mistake": "Drops the minus sign and writes log|cos x|"
+    },
+    {
+     "q": "What is ∫sin x cos²x dx?",
+     "options": [
+      "cos³x/3 + C",
+      "sin²x cos x + C",
+      "−cos³x/3 + C",
+      "−sin³x/3 + C"
+     ],
+     "answer": 2,
+     "explain": "Put t = cos x, dt = −sin x dx: −∫t² dt = −t³/3 + C.",
+     "mistake": "Loses the minus sign from dt = −sin x dx"
+    },
+    {
+     "q": "What is ∫x√(x² + 1) dx?",
+     "options": [
+      "(2/3)(x² + 1)^(3/2) + C",
+      "(x² + 1)^(3/2) + C",
+      "(1/3)(x² + 1)^(3/2) + C",
+      "(1/2)(x² + 1)^(1/2) + C"
+     ],
+     "answer": 2,
+     "explain": "Put t = x² + 1, dt = 2x dx: (1/2)∫t^(1/2) dt = (1/2)(2/3)t^(3/2) = (1/3)(x² + 1)^(3/2) + C.",
+     "mistake": "Forgets the 1/2 from dt = 2x dx"
+    },
+    {
+     "q": "Assertion (A): ∫cot x dx = log|sin x| + C.\nReason (R): cot x = cos x/sin x and d/dx(sin x) = cos x.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "cot x has the form f′/f with f = sin x, so its integral is log|sin x| + C.",
+     "mistake": "Thinks ∫cot x dx needs integration by parts"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I know what to substitute in an integral?'",
+    "must": [
+     [
+      "derivative",
+      "its derivative",
+      "g′",
+      "g'"
+     ],
+     [
+      "t =",
+      "put t",
+      "new variable",
+      "substitute"
+     ],
+     [
+      "dt",
+      "differential"
+     ],
+     [
+      "back",
+      "replace",
+      "return"
+     ]
+    ],
+    "praise": "Tweet! Find a function whose derivative is also sitting there, call it t, change dx to dt, and switch back at the end!",
+    "nudge": "What clue in the integrand tells you a substitution will work?"
+   },
+   "covers": [
+    "c7.3.1",
+    "c7.3.2",
+    "c7.3.3"
+   ]
+  },
+  {
+   "id": "g12-maths-07-03",
+   "title": "Integrating with trigonometric identities",
+   "learn": {
+    "hook": "∫sin²x dx has no direct formula. One identity, cos 2x = 1 − 2 sin²x, turns it into a two-second job.",
+    "points": [
+     "Reduce powers: sin²x = (1 − cos 2x)/2, cos²x = (1 + cos 2x)/2.",
+     "Cubes: sin³x = (3 sin x − sin 3x)/4, cos³x = (3 cos x + cos 3x)/4.",
+     "Products to sums: 2 sin A cos B = sin(A + B) + sin(A − B); 2 cos A cos B = cos(A + B) + cos(A − B); 2 sin A sin B = cos(A − B) − cos(A + B).",
+     "tan²x = sec²x − 1 and cot²x = cosec²x − 1.",
+     "Odd powers can also be done by substitution, e.g. cos³x = (1 − sin²x) cos x with t = sin x."
+    ],
+    "example": {
+     "q": "Find ∫sin 2x cos 3x dx.",
+     "steps": [
+      "sin 2x cos 3x = (1/2)[sin 5x + sin(−x)] = (1/2)(sin 5x − sin x).",
+      "∫ = (1/2)[−cos 5x/5 + cos x] + C."
+     ],
+     "answer": "−(1/10) cos 5x + (1/2) cos x + C"
+    },
+    "reallife": "Electrical engineers at power grids average sin²(ωt) over a cycle to compute the RMS value of AC mains (230 V in India); the identity sin² = (1 − cos 2θ)/2 is how."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Integral ↔ result (+ C)",
+     "pairs": [
+      [
+       "∫sin²x dx",
+       "x/2 − (sin 2x)/4"
+      ],
+      [
+       "∫cos²x dx",
+       "x/2 + (sin 2x)/4"
+      ],
+      [
+       "∫tan²x dx",
+       "tan x − x"
+      ],
+      [
+       "∫cot²x dx",
+       "−cot x − x"
+      ],
+      [
+       "∫cos³x dx",
+       "sin x − (sin³x)/3"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Find ∫sin³x dx using an identity",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Use sin 3x = 3 sin x − 4 sin³x",
+      "So sin³x = (3 sin x − sin 3x)/4",
+      "Integrate: (3/4)(−cos x) − (1/4)(−cos 3x/3)",
+      "= −(3/4) cos x + (1/12) cos 3x + C"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫sin²x dx?",
+     "options": [
+      "x/2 + (sin 2x)/4 + C",
+      "sin³x/3 + C",
+      "−cos²x + C",
+      "x/2 − (sin 2x)/4 + C"
+     ],
+     "answer": 3,
+     "explain": "sin²x = (1 − cos 2x)/2, so the integral is x/2 − (sin 2x)/4 + C.",
+     "mistake": "Treats sin²x like a power of x"
+    },
+    {
+     "q": "What is ∫cos²x dx?",
+     "options": [
+      "x/2 − (sin 2x)/4 + C",
+      "x/2 + (sin 2x)/4 + C",
+      "sin²x + C",
+      "cos³x/3 + C"
+     ],
+     "answer": 1,
+     "explain": "cos²x = (1 + cos 2x)/2, giving x/2 + (sin 2x)/4 + C.",
+     "mistake": "Uses the sin² identity by mistake"
+    },
+    {
+     "q": "What is ∫tan²x dx?",
+     "options": [
+      "tan³x/3 + C",
+      "sec²x + C",
+      "tan x − x + C",
+      "tan x + x + C"
+     ],
+     "answer": 2,
+     "explain": "tan²x = sec²x − 1, so ∫ = tan x − x + C.",
+     "mistake": "Writes tan²x = sec²x + 1"
+    },
+    {
+     "q": "What is ∫sin 2x cos 3x dx?",
+     "options": [
+      "(1/10) cos 5x − (1/2) cos x + C",
+      "−(1/5) cos 5x + cos x + C",
+      "−(1/10) cos 5x + (1/2) cos x + C",
+      "(1/2) sin 5x − (1/2) sin x + C"
+     ],
+     "answer": 2,
+     "explain": "sin 2x cos 3x = (1/2)(sin 5x − sin x). Integrating: (1/2)(−cos 5x/5 + cos x).",
+     "mistake": "Forgets the 1/2 or the sign of sin(−x)"
+    },
+    {
+     "q": "What is ∫sin³x dx?",
+     "options": [
+      "(3/4) cos x − (1/12) cos 3x + C",
+      "−(3/4) cos x + (1/12) cos 3x + C",
+      "sin⁴x/4 + C",
+      "−cos³x/3 + C"
+     ],
+     "answer": 1,
+     "explain": "sin³x = (3 sin x − sin 3x)/4; integrate each term.",
+     "mistake": "Integrates as if sin³x were x³"
+    },
+    {
+     "q": "What is ∫cos 2x cos 4x dx?",
+     "options": [
+      "(sin 6x)/12 + (sin 2x)/4 + C",
+      "(sin 6x)/6 + (sin 2x)/2 + C",
+      "(sin 6x)/12 − (sin 2x)/4 + C",
+      "sin 2x sin 4x/8 + C"
+     ],
+     "answer": 0,
+     "explain": "cos 2x cos 4x = (1/2)[cos 6x + cos 2x]. Integrate: (1/2)[sin 6x/6 + sin 2x/2] = sin 6x/12 + sin 2x/4.",
+     "mistake": "Forgets the factor 1/2 from the product formula"
+    },
+    {
+     "q": "What is ∫(1 − cos 2x)/(1 + cos 2x) dx?",
+     "options": [
+      "tan x + x + C",
+      "−cot x − x + C",
+      "log|sec x| + C",
+      "tan x − x + C"
+     ],
+     "answer": 3,
+     "explain": "(1 − cos 2x)/(1 + cos 2x) = 2 sin²x/(2 cos²x) = tan²x = sec²x − 1.",
+     "mistake": "Uses the double angle formulas the wrong way round"
+    },
+    {
+     "q": "Assertion (A): ∫cos³x dx = sin x − (sin³x)/3 + C.\nReason (R): cos³x = (1 − sin²x) cos x, and t = sin x gives ∫(1 − t²) dt.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "With t = sin x, ∫(1 − t²) dt = t − t³/3 + C, which is A.",
+     "mistake": "Does not see how an odd power can be reduced by substitution"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu frowns: 'There's no formula for ∫sin²x. How do I integrate it?'",
+    "must": [
+     [
+      "identity",
+      "formula"
+     ],
+     [
+      "cos 2x",
+      "double angle",
+      "1 − cos 2x",
+      "1 - cos 2x"
+     ],
+     [
+      "half",
+      "divide by 2",
+      "/2"
+     ]
+    ],
+    "praise": "Chirp! Use sin²x = (1 − cos 2x)/2, then integrate easily. Identities to the rescue!",
+    "nudge": "Which double-angle identity lets you lower the power of sin²x?"
+   },
+   "covers": [
+    "c7.3.4"
+   ]
+  },
+  {
+   "id": "g12-maths-07-04",
+   "title": "Integrals of some particular functions",
+   "learn": {
+    "hook": "Six formulas unlock a huge chunk of board questions. Learn their shapes and you will spot them instantly.",
+    "points": [
+     "∫dx/(x² − a²) = (1/2a) log|(x − a)/(x + a)| + C.",
+     "∫dx/(a² − x²) = (1/2a) log|(a + x)/(a − x)| + C.",
+     "∫dx/(x² + a²) = (1/a) tan⁻¹(x/a) + C.",
+     "∫dx/√(x² − a²) = log|x + √(x² − a²)| + C and ∫dx/√(x² + a²) = log|x + √(x² + a²)| + C.",
+     "∫dx/√(a² − x²) = sin⁻¹(x/a) + C. If the coefficient of x² is not 1, factor it out first (e.g. 9x² + 4 = 9(x² + 4/9))."
+    ],
+    "example": {
+     "q": "Find ∫dx/(9x² + 4).",
+     "steps": [
+      "9x² + 4 = 9(x² + (2/3)²).",
+      "∫ = (1/9)∫dx/(x² + (2/3)²) = (1/9)(3/2) tan⁻¹(3x/2) + C."
+     ],
+     "answer": "(1/6) tan⁻¹(3x/2) + C"
+    },
+    "reallife": "Many formulas in physics and engineering, from orbits to electric circuits, reduce to these standard forms; engineers recognise them the same way you will."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Form ↔ result (+ C)",
+     "pairs": [
+      [
+       "∫dx/(x² + a²)",
+       "(1/a) tan⁻¹(x/a)"
+      ],
+      [
+       "∫dx/√(a² − x²)",
+       "sin⁻¹(x/a)"
+      ],
+      [
+       "∫dx/(x² − a²)",
+       "(1/2a) log|(x − a)/(x + a)|"
+      ],
+      [
+       "∫dx/(a² − x²)",
+       "(1/2a) log|(a + x)/(a − x)|"
+      ],
+      [
+       "∫dx/√(x² + a²)",
+       "log|x + √(x² + a²)|"
+      ],
+      [
+       "∫dx/√(x² − a²)",
+       "log|x + √(x² − a²)|"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Which result does it use?",
+     "buckets": [
+      "tan⁻¹ form",
+      "sin⁻¹ form",
+      "log form"
+     ],
+     "items": [
+      [
+       "∫dx/(x² + 16)",
+       0
+      ],
+      [
+       "∫dx/√(25 − x²)",
+       1
+      ],
+      [
+       "∫dx/(x² − 9)",
+       2
+      ],
+      [
+       "∫dx/√(x² + 4)",
+       2
+      ],
+      [
+       "∫dx/(4x² + 1)",
+       0
+      ],
+      [
+       "∫dx/√(1 − 4x²)",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫dx/(x² + 16)?",
+     "options": [
+      "tan⁻¹(x/4) + C",
+      "(1/16) tan⁻¹(x/16) + C",
+      "(1/4) tan⁻¹(x/4) + C",
+      "(1/8) log|(x − 4)/(x + 4)| + C"
+     ],
+     "answer": 2,
+     "explain": "a = 4, so ∫ = (1/4) tan⁻¹(x/4) + C.",
+     "mistake": "Forgets the factor 1/a"
+    },
+    {
+     "q": "What is ∫dx/√(1 − 4x²)?",
+     "options": [
+      "(1/2) sin⁻¹(2x) + C",
+      "sin⁻¹(2x) + C",
+      "2 sin⁻¹(2x) + C",
+      "(1/4) sin⁻¹(x/2) + C"
+     ],
+     "answer": 0,
+     "explain": "1 − 4x² = 4(1/4 − x²), so ∫ = (1/2)∫dx/√((1/2)² − x²) = (1/2) sin⁻¹(2x) + C.",
+     "mistake": "Forgets to take the 2 out of the square root"
+    },
+    {
+     "q": "What is ∫dx/(x² − 9)?",
+     "options": [
+      "(1/6) log|(x − 3)/(x + 3)| + C",
+      "(1/3) log|(x − 3)/(x + 3)| + C",
+      "(1/6) log|(x + 3)/(x − 3)| + C",
+      "(1/3) tan⁻¹(x/3) + C"
+     ],
+     "answer": 0,
+     "explain": "Using 1/(2a) with a = 3: (1/6) log|(x − 3)/(x + 3)| + C.",
+     "mistake": "Uses 1/a instead of 1/(2a), or flips the fraction"
+    },
+    {
+     "q": "What is ∫dx/(9 − x²)?",
+     "options": [
+      "(1/6) log|(x − 3)/(x + 3)| + C",
+      "(1/3) sin⁻¹(x/3) + C",
+      "(1/6) log|(3 + x)/(3 − x)| + C",
+      "(1/3) tan⁻¹(x/3) + C"
+     ],
+     "answer": 2,
+     "explain": "∫dx/(a² − x²) = (1/2a) log|(a + x)/(a − x)| with a = 3.",
+     "mistake": "Mixes up the x² − a² and a² − x² forms"
+    },
+    {
+     "q": "What is ∫dx/√(x² + 4)?",
+     "options": [
+      "sin⁻¹(x/2) + C",
+      "(1/2) tan⁻¹(x/2) + C",
+      "log|x + √(x² + 4)| + C",
+      "log|x − √(x² + 4)| + C"
+     ],
+     "answer": 2,
+     "explain": "The form ∫dx/√(x² + a²) gives log|x + √(x² + a²)| + C.",
+     "mistake": "Confuses √(x² + a²) with a² + x² without the root"
+    },
+    {
+     "q": "What is ∫dx/(9x² + 4)?",
+     "options": [
+      "(1/2) tan⁻¹(3x/2) + C",
+      "(1/6) tan⁻¹(3x/2) + C",
+      "(1/3) tan⁻¹(3x/2) + C",
+      "(1/18) tan⁻¹(x/2) + C"
+     ],
+     "answer": 1,
+     "explain": "(1/9)∫dx/(x² + 4/9) = (1/9)(3/2) tan⁻¹(3x/2) = (1/6) tan⁻¹(3x/2) + C.",
+     "mistake": "Forgets to factor out the 9"
+    },
+    {
+     "q": "What is ∫x²/(1 − x⁶) dx?",
+     "options": [
+      "(1/6) log|(1 + x³)/(1 − x³)| + C",
+      "(1/3) log|(1 + x³)/(1 − x³)| + C",
+      "(1/3) sin⁻¹(x³) + C",
+      "(1/3) tan⁻¹(x³) + C"
+     ],
+     "answer": 0,
+     "explain": "Put t = x³, dt = 3x² dx: (1/3)∫dt/(1 − t²) = (1/3)(1/2) log|(1 + t)/(1 − t)| + C.",
+     "mistake": "Forgets either the 1/3 from dt or the 1/2 from the formula"
+    },
+    {
+     "q": "Assertion (A): ∫dx/√(16 − x²) = sin⁻¹(x/4) + C.\nReason (R): ∫dx/√(a² − x²) = (1/a) sin⁻¹(x/a) + C.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "Both A and R are true but R does not explain A",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "The correct formula is ∫dx/√(a² − x²) = sin⁻¹(x/a) + C, with no 1/a. So A is true and R is false.",
+     "mistake": "Copies the 1/a factor from the tan⁻¹ formula"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I remember which of the six special integrals to use?'",
+    "must": [
+     [
+      "square root",
+      "root",
+      "under root"
+     ],
+     [
+      "plus",
+      "x² + a²",
+      "sum"
+     ],
+     [
+      "minus",
+      "difference",
+      "x² − a²",
+      "a² − x²"
+     ],
+     [
+      "tan⁻¹",
+      "sin⁻¹",
+      "log"
+     ]
+    ],
+    "praise": "Tweet! Look for a root, then a plus or a minus: no root and plus is tan⁻¹, root over a² − x² is sin⁻¹, the rest are logs!",
+    "nudge": "What two features of the denominator decide which formula fits?"
+   },
+   "covers": [
+    "c7.4.1",
+    "c7.4.2"
+   ]
+  },
+  {
+   "id": "g12-maths-07-05",
+   "title": "Quadratic denominators: completing the square",
+   "learn": {
+    "hook": "∫dx/(x² − 6x + 13) does not match any formula, until you write x² − 6x + 13 = (x − 3)² + 4.",
+    "points": [
+     "For ∫dx/(ax² + bx + c) or ∫dx/√(ax² + bx + c): complete the square, ax² + bx + c = a[(x + b/2a)² ± k²], then use a standard form.",
+     "For ∫(px + q)/(ax² + bx + c) dx: write px + q = A·d/dx(ax² + bx + c) + B = A(2ax + b) + B, and find A and B by comparing coefficients.",
+     "The A part gives A log|ax² + bx + c|; the B part is a completing-the-square integral.",
+     "For ∫(px + q)/√(ax² + bx + c) dx, the A part gives 2A√(ax² + bx + c).",
+     "Always factor out the coefficient of x² before completing the square."
+    ],
+    "example": {
+     "q": "Find ∫dx/(x² − 6x + 13).",
+     "steps": [
+      "x² − 6x + 13 = (x − 3)² + 2².",
+      "Put t = x − 3: ∫dt/(t² + 2²) = (1/2) tan⁻¹(t/2) + C."
+     ],
+     "answer": "(1/2) tan⁻¹((x − 3)/2) + C"
+    },
+    "reallife": "Engineers analysing how a spring or a car's suspension settles meet integrals of 1/(quadratic); completing the square is their first step too."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Integrate ∫(x + 2)/(2x² + 6x + 5) dx",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Write x + 2 = A(4x + 6) + B",
+      "Compare: 4A = 1, 6A + B = 2, so A = 1/4, B = 1/2",
+      "A part: (1/4) log|2x² + 6x + 5|",
+      "B part: complete the square, 2x² + 6x + 5 = 2[(x + 3/2)² + 1/4]",
+      "Answer: (1/4) log|2x² + 6x + 5| + (1/2) tan⁻¹(2x + 3) + C"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Complete the square",
+     "pairs": [
+      [
+       "x² − 6x + 13",
+       "(x − 3)² + 4"
+      ],
+      [
+       "x² + 2x + 2",
+       "(x + 1)² + 1"
+      ],
+      [
+       "x² + 4x − 5",
+       "(x + 2)² − 9"
+      ],
+      [
+       "5 − 4x − x²",
+       "9 − (x + 2)²"
+      ],
+      [
+       "x² − 8x + 16",
+       "(x − 4)²"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫dx/(x² + 2x + 2)?",
+     "options": [
+      "tan⁻¹(x + 2) + C",
+      "log|x² + 2x + 2| + C",
+      "(1/2) tan⁻¹((x + 1)/2) + C",
+      "tan⁻¹(x + 1) + C"
+     ],
+     "answer": 3,
+     "explain": "x² + 2x + 2 = (x + 1)² + 1, so ∫ = tan⁻¹(x + 1) + C.",
+     "mistake": "Completes the square incorrectly"
+    },
+    {
+     "q": "What is ∫dx/√(5 − 4x − x²)?",
+     "options": [
+      "sin⁻¹((x − 2)/3) + C",
+      "log|x + 2 + √(5 − 4x − x²)| + C",
+      "(1/3) sin⁻¹((x + 2)/3) + C",
+      "sin⁻¹((x + 2)/3) + C"
+     ],
+     "answer": 3,
+     "explain": "5 − 4x − x² = 9 − (x + 2)², so ∫dx/√(3² − (x + 2)²) = sin⁻¹((x + 2)/3) + C.",
+     "mistake": "Gets the sign inside the square wrong"
+    },
+    {
+     "q": "To find ∫(x + 2)/(2x² + 6x + 5) dx, we write x + 2 = A(4x + 6) + B. What is A?",
+     "options": [
+      "1/2",
+      "4",
+      "1/6",
+      "1/4"
+     ],
+     "answer": 3,
+     "explain": "Comparing x-coefficients: 4A = 1, so A = 1/4.",
+     "steps": [
+      "4A = 1",
+      "A = 1/4"
+     ],
+     "mistake": "Compares with 2x² instead of the derivative 4x + 6",
+     "check": "Fraction(1,4)"
+    },
+    {
+     "q": "For the same split x + 2 = A(4x + 6) + B, what is B?",
+     "options": [
+      "1/4",
+      "1/2",
+      "2",
+      "−1/2"
+     ],
+     "answer": 1,
+     "explain": "Constants: 6A + B = 2 ⇒ 6/4 + B = 2 ⇒ B = 1/2.",
+     "steps": [
+      "6(1/4) + B = 2",
+      "B = 2 − 3/2 = 1/2"
+     ],
+     "mistake": "Uses A = 1 or forgets the 6A term",
+     "check": "2-Fraction(6,4)"
+    },
+    {
+     "q": "What is ∫dx/√(x² + 4x − 5)?",
+     "options": [
+      "sin⁻¹((x + 2)/3) + C",
+      "(1/3) tan⁻¹((x + 2)/3) + C",
+      "log|x − 2 + √(x² + 4x − 5)| + C",
+      "log|x + 2 + √(x² + 4x − 5)| + C"
+     ],
+     "answer": 3,
+     "explain": "x² + 4x − 5 = (x + 2)² − 3², so the form ∫dt/√(t² − a²) gives log|t + √(t² − a²)| + C.",
+     "mistake": "Uses sin⁻¹ for a t² − a² form"
+    },
+    {
+     "q": "What is ∫(2x + 1)/√(x² + x + 1) dx?",
+     "options": [
+      "log|x² + x + 1| + C",
+      "√(x² + x + 1) + C",
+      "2√(x² + x + 1) + C",
+      "(1/2)√(x² + x + 1) + C"
+     ],
+     "answer": 2,
+     "explain": "Put t = x² + x + 1, dt = (2x + 1) dx: ∫t^(−1/2) dt = 2√t + C.",
+     "mistake": "Uses the log result meant for f′/f without the square root"
+    },
+    {
+     "q": "What is ∫dx/(3x² + 13x − 10)? (Use 3x² + 13x − 10 = 3[(x + 13/6)² − (17/6)²].)",
+     "options": [
+      "(1/17) log|(x + 5)/(3x − 2)| + C",
+      "(1/3) tan⁻¹((6x + 13)/17) + C",
+      "(1/17) log|(3x − 2)/(x + 5)| + C",
+      "(1/51) log|(3x − 2)/(x + 5)| + C"
+     ],
+     "answer": 2,
+     "explain": "(1/3) × 1/(2 × 17/6) × log|(x + 13/6 − 17/6)/(x + 13/6 + 17/6)| = (1/17) log|(x − 2/3)/(x + 5)| = (1/17) log|(3x − 2)/(x + 5)| + C (the 3 is absorbed into C).",
+     "mistake": "Forgets the factor 1/3 or flips the fraction"
+    },
+    {
+     "q": "Assertion (A): To integrate (px + q)/(ax² + bx + c), we write the numerator as A times the derivative of the denominator plus B.\nReason (R): ∫f′(x)/f(x) dx = log|f(x)| + C.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The A part becomes an f′/f integral, which R handles directly; that is why we split this way.",
+     "mistake": "Does not see why the derivative is chosen"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'How do I integrate 1 over a messy quadratic?'",
+    "must": [
+     [
+      "complete the square",
+      "completing the square",
+      "perfect square"
+     ],
+     [
+      "standard",
+      "formula",
+      "form"
+     ],
+     [
+      "substitute",
+      "t =",
+      "shift"
+     ]
+    ],
+    "praise": "Chirp! Complete the square, shift the variable, and a standard formula finishes it!",
+    "nudge": "What do you do to the quadratic before using a formula?"
+   },
+   "covers": [
+    "c7.4.3",
+    "c7.4.4"
+   ]
+  },
+  {
+   "id": "g12-maths-07-06",
+   "title": "Integration by partial fractions",
+   "learn": {
+    "hook": "1/((x + 1)(x + 2)) splits into 1/(x + 1) − 1/(x + 2), and each piece is just a log. Breaking fractions apart is the trick.",
+    "points": [
+     "P(x)/Q(x) is proper if deg P < deg Q. If improper, divide first to get a polynomial plus a proper fraction.",
+     "Distinct linear factors: (px + q)/((x − a)(x − b)) = A/(x − a) + B/(x − b).",
+     "Repeated factor: (px² + qx + r)/((x − a)²(x − b)) = A/(x − a) + B/(x − a)² + C/(x − b).",
+     "Quadratic factor x² + bx + c that does not factor: (px² + qx + r)/((x − a)(x² + bx + c)) = A/(x − a) + (Bx + C)/(x² + bx + c).",
+     "Substitute first when needed: with t = sin x or t = eˣ, many trig or exponential integrals become rational functions of t."
+    ],
+    "example": {
+     "q": "Find ∫dx/((x + 1)(x + 2)).",
+     "steps": [
+      "1/((x + 1)(x + 2)) = A/(x + 1) + B/(x + 2) ⇒ 1 = A(x + 2) + B(x + 1).",
+      "x = −1: A = 1. x = −2: B = −1.",
+      "∫ = log|x + 1| − log|x + 2| + C."
+     ],
+     "answer": "log|(x + 1)/(x + 2)| + C"
+    },
+    "reallife": "In medicine, the amount of a drug in the blood is often modelled by simple exponential pieces, and partial fractions are one way of splitting a complicated model into those pieces."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Partial fractions for (3x − 2)/((x + 1)²(x + 3))",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Write A/(x + 1) + B/(x + 1)² + C/(x + 3)",
+      "3x − 2 = A(x + 1)(x + 3) + B(x + 3) + C(x + 1)²",
+      "x = −1 gives B = −5/2; x = −3 gives C = −11/4",
+      "Comparing x² terms: A + C = 0, so A = 11/4",
+      "Integrate each term"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Proper or improper?",
+     "buckets": [
+      "Proper",
+      "Improper"
+     ],
+     "items": [
+      [
+       "(x + 1)/(x² + 3)",
+       0
+      ],
+      [
+       "x²/(x² − 1)",
+       1
+      ],
+      [
+       "(x³ + 1)/(x² + x)",
+       1
+      ],
+      [
+       "5/((x − 1)(x + 2))",
+       0
+      ],
+      [
+       "(2x² + 1)/(x³ − x)",
+       0
+      ],
+      [
+       "(x² + 1)/(x² − 5x + 6)",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫dx/((x + 1)(x + 2))?",
+     "options": [
+      "log|(x + 1)/(x + 2)| + C",
+      "log|(x + 2)/(x + 1)| + C",
+      "log|(x + 1)(x + 2)| + C",
+      "1/((x + 1)(x + 2)) + C"
+     ],
+     "answer": 0,
+     "explain": "1/((x + 1)(x + 2)) = 1/(x + 1) − 1/(x + 2), which integrates to log|x + 1| − log|x + 2|.",
+     "mistake": "Gets the signs of A and B swapped"
+    },
+    {
+     "q": "In (3x − 2)/((x + 1)²(x + 3)) = A/(x + 1) + B/(x + 1)² + C/(x + 3), what is B?",
+     "options": [
+      "5/2",
+      "−11/4",
+      "11/4",
+      "−5/2"
+     ],
+     "answer": 3,
+     "explain": "Put x = −1 in 3x − 2 = A(x + 1)(x + 3) + B(x + 3) + C(x + 1)²: −5 = 2B, so B = −5/2.",
+     "steps": [
+      "x = −1: −5 = B(2)",
+      "B = −5/2"
+     ],
+     "mistake": "Substitutes the wrong root",
+     "check": "Fraction(-5,2)"
+    },
+    {
+     "q": "For the same decomposition, what is C?",
+     "options": [
+      "−11/4",
+      "11/4",
+      "−5/2",
+      "−11/2"
+     ],
+     "answer": 0,
+     "explain": "Put x = −3: −11 = C(−2)² = 4C, so C = −11/4.",
+     "steps": [
+      "x = −3: −11 = 4C",
+      "C = −11/4"
+     ],
+     "mistake": "Forgets to square (x + 1)",
+     "check": "Fraction(-11,4)"
+    },
+    {
+     "q": "Which partial-fraction form is correct for (x² + 1)/((x − 1)(x² + 4))?",
+     "options": [
+      "A/(x − 1) + B/(x² + 4)",
+      "A/(x − 1) + B/(x − 2) + C/(x + 2)",
+      "A/(x − 1) + (Bx + C)/(x² + 4)",
+      "A/(x − 1) + B/(x − 1)² + C/(x² + 4)"
+     ],
+     "answer": 2,
+     "explain": "x² + 4 cannot be factored over reals, so its numerator must be linear, Bx + C.",
+     "mistake": "Uses a constant numerator over a quadratic factor"
+    },
+    {
+     "q": "What is the first step for ∫(x² + 1)/(x² − 5x + 6) dx?",
+     "options": [
+      "Write A/(x − 2) + B/(x − 3) directly",
+      "Substitute t = x² + 1",
+      "Integrate by parts",
+      "Divide, since the fraction is improper: 1 + (5x − 5)/(x² − 5x + 6)"
+     ],
+     "answer": 3,
+     "explain": "The numerator's degree equals the denominator's, so divide first; then split the proper part.",
+     "mistake": "Applies partial fractions to an improper fraction"
+    },
+    {
+     "q": "For ∫x²/((x² + 1)(x² + 4)) dx, put y = x². If y/((y + 1)(y + 4)) = A/(y + 1) + B/(y + 4), what is B?",
+     "options": [
+      "4/3",
+      "−1/3",
+      "1/3",
+      "−4/3"
+     ],
+     "answer": 0,
+     "explain": "y = A(y + 4) + B(y + 1). At y = −4: −4 = −3B, so B = 4/3 (and A = −1/3).",
+     "steps": [
+      "y = −4: −4 = B(−3)",
+      "B = 4/3"
+     ],
+     "mistake": "Makes a sign slip at y = −4",
+     "check": "Fraction(4,3)"
+    },
+    {
+     "q": "Hence ∫x²/((x² + 1)(x² + 4)) dx equals",
+     "options": [
+      "−(1/3) tan⁻¹ x + (4/3) tan⁻¹(x/2) + C",
+      "(1/3) tan⁻¹ x − (2/3) tan⁻¹(x/2) + C",
+      "−(1/3) tan⁻¹ x + (2/3) tan⁻¹(x/2) + C",
+      "−(1/3) log(x² + 1) + (4/3) log(x² + 4) + C"
+     ],
+     "answer": 2,
+     "explain": "−(1/3)∫dx/(x² + 1) + (4/3)∫dx/(x² + 4) = −(1/3) tan⁻¹ x + (4/3)(1/2) tan⁻¹(x/2) + C.",
+     "mistake": "Forgets the 1/a factor in ∫dx/(x² + a²)"
+    },
+    {
+     "q": "What is ∫cos x dx/((1 − sin x)(2 − sin x))?",
+     "options": [
+      "log|(1 − sin x)/(2 − sin x)| + C",
+      "log|(2 − sin x)/(1 − sin x)| + C",
+      "log|(1 − sin x)(2 − sin x)| + C",
+      "tan⁻¹(sin x) + C"
+     ],
+     "answer": 1,
+     "explain": "With t = sin x: ∫dt/((1 − t)(2 − t)) = ∫[1/(1 − t) − 1/(2 − t)] dt = −log|1 − t| + log|2 − t| + C.",
+     "mistake": "Forgets that ∫dt/(1 − t) = −log|1 − t|"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I integrate a fraction whose bottom is a product of factors?'",
+    "must": [
+     [
+      "split",
+      "break",
+      "partial fractions",
+      "decompose"
+     ],
+     [
+      "constants",
+      "find a and b",
+      "coefficients",
+      "unknowns"
+     ],
+     [
+      "log",
+      "logarithm"
+     ],
+     [
+      "proper",
+      "divide",
+      "degree"
+     ]
+    ],
+    "praise": "Tweet! Make sure it is proper, split into simple fractions, find the constants, and each piece integrates to a log or tan⁻¹!",
+    "nudge": "What must you check about the degrees before splitting?"
+   },
+   "covers": [
+    "c7.5.1",
+    "c7.5.2",
+    "c7.5.3",
+    "c7.5.4",
+    "c7.5.5"
+   ]
+  },
+  {
+   "id": "g12-maths-07-07",
+   "title": "Integration by parts",
+   "learn": {
+    "hook": "The product rule has a reverse twin. When an integral is a product like x cos x, integration by parts swaps a hard problem for an easy one.",
+    "points": [
+     "∫u·v dx = u∫v dx − ∫[u′ · ∫v dx] dx, where u is the first function and v the second.",
+     "Choose the first function by ILATE: Inverse trig, Logarithmic, Algebraic, Trigonometric, Exponential (earlier in the list = first function).",
+     "For ∫log x dx or ∫sin⁻¹x dx, take 1 as the second function.",
+     "Results: ∫x cos x dx = x sin x + cos x + C; ∫x eˣ dx = eˣ(x − 1) + C; ∫log x dx = x log x − x + C.",
+     "For ∫eˣ sin x dx, apply parts twice; the original integral reappears, and you solve for it: ∫eˣ sin x dx = (eˣ/2)(sin x − cos x) + C."
+    ],
+    "example": {
+     "q": "Find ∫x cos x dx.",
+     "steps": [
+      "u = x (algebraic), v = cos x (trigonometric).",
+      "∫x cos x dx = x sin x − ∫1 · sin x dx.",
+      "= x sin x − (−cos x) + C."
+     ],
+     "answer": "x sin x + cos x + C"
+    },
+    "reallife": "Signal-processing engineers meet integrals like ∫t e^(−t) sin t dt when analysing radio and radar signals, and they apply integration by parts more than once."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "First function by ILATE",
+     "buckets": [
+      "Take the first factor as u",
+      "Take the second factor as u"
+     ],
+     "items": [
+      [
+       "∫x · eˣ dx (x first)",
+       0
+      ],
+      [
+       "∫sin x · x² dx (sin x first)",
+       1
+      ],
+      [
+       "∫log x · x dx (log x first)",
+       0
+      ],
+      [
+       "∫eˣ · tan⁻¹x dx (eˣ first)",
+       1
+      ],
+      [
+       "∫sin⁻¹x · x dx (sin⁻¹x first)",
+       0
+      ],
+      [
+       "∫cos x · log x dx (cos x first)",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Integral ↔ result (+ C)",
+     "pairs": [
+      [
+       "∫x eˣ dx",
+       "eˣ(x − 1)"
+      ],
+      [
+       "∫log x dx",
+       "x log x − x"
+      ],
+      [
+       "∫x sin x dx",
+       "−x cos x + sin x"
+      ],
+      [
+       "∫sin⁻¹x dx",
+       "x sin⁻¹x + √(1 − x²)"
+      ],
+      [
+       "∫tan⁻¹x dx",
+       "x tan⁻¹x − (1/2) log(1 + x²)"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫x eˣ dx?",
+     "options": [
+      "eˣ(x + 1) + C",
+      "eˣ(x − 1) + C",
+      "x² eˣ/2 + C",
+      "x eˣ + C"
+     ],
+     "answer": 1,
+     "explain": "u = x, v = eˣ: x eˣ − ∫eˣ dx = x eˣ − eˣ + C.",
+     "mistake": "Gets the sign of the second term wrong"
+    },
+    {
+     "q": "What is ∫log x dx?",
+     "options": [
+      "1/x + C",
+      "x log x + C",
+      "x log x − x + C",
+      "(log x)²/2 + C"
+     ],
+     "answer": 2,
+     "explain": "Take log x as u and 1 as v: x log x − ∫x · (1/x) dx = x log x − x + C.",
+     "mistake": "Thinks ∫log x is the derivative 1/x"
+    },
+    {
+     "q": "What is ∫x log x dx?",
+     "options": [
+      "(x²/2) log x + x²/4 + C",
+      "(x²/2) log x − x²/4 + C",
+      "x log x − x + C",
+      "x²/2 · 1/x + C"
+     ],
+     "answer": 1,
+     "explain": "u = log x (L before A): (x²/2) log x − ∫(x²/2)(1/x) dx = (x²/2) log x − x²/4 + C.",
+     "mistake": "Chooses x as the first function and gets stuck integrating log x"
+    },
+    {
+     "q": "What is ∫sin⁻¹x dx?",
+     "options": [
+      "x sin⁻¹x − √(1 − x²) + C",
+      "x sin⁻¹x + √(1 − x²) + C",
+      "1/√(1 − x²) + C",
+      "(sin⁻¹x)²/2 + C"
+     ],
+     "answer": 1,
+     "explain": "x sin⁻¹x − ∫x/√(1 − x²) dx, and ∫x/√(1 − x²) dx = −√(1 − x²), so the result is x sin⁻¹x + √(1 − x²) + C.",
+     "mistake": "Loses the sign while integrating x/√(1 − x²)"
+    },
+    {
+     "q": "What is ∫eˣ sin x dx?",
+     "options": [
+      "(eˣ/2)(sin x − cos x) + C",
+      "(eˣ/2)(sin x + cos x) + C",
+      "eˣ cos x + C",
+      "−eˣ cos x + C"
+     ],
+     "answer": 0,
+     "explain": "Parts twice gives I = eˣ sin x − eˣ cos x − I, so 2I = eˣ(sin x − cos x).",
+     "mistake": "Stops after one application of parts"
+    },
+    {
+     "q": "What is ∫x² eˣ dx?",
+     "options": [
+      "eˣ(x² + 2x + 2) + C",
+      "eˣ(x² − 2x) + C",
+      "eˣ(x² − 2x + 2) + C",
+      "x³eˣ/3 + C"
+     ],
+     "answer": 2,
+     "explain": "Parts: x²eˣ − 2∫x eˣ dx = x²eˣ − 2eˣ(x − 1) + C = eˣ(x² − 2x + 2) + C.",
+     "mistake": "Forgets the second application of parts"
+    },
+    {
+     "q": "Which choice of first function is right for ∫x sec²x dx?",
+     "options": [
+      "sec²x, giving x sec²x + C",
+      "x, giving x tan x + log|sec x| + C",
+      "x, giving x tan x − log|sec x| + C",
+      "sec²x, because it is trigonometric"
+     ],
+     "answer": 2,
+     "explain": "A comes before T in ILATE. ∫x sec²x dx = x tan x − ∫tan x dx = x tan x − log|sec x| + C.",
+     "mistake": "Gets the sign of ∫tan x wrong"
+    },
+    {
+     "q": "Assertion (A): In ∫x eˣ dx we take x as the first function.\nReason (R): In ILATE, algebraic functions come before exponential functions.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Differentiating x makes it simpler while eˣ is easy to integrate; ILATE encodes this choice.",
+     "mistake": "Chooses eˣ as u because it comes first in the product"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is confused: 'In integration by parts, which function do I pick first?'",
+    "must": [
+     [
+      "ilate"
+     ],
+     [
+      "inverse",
+      "logarithmic",
+      "algebraic"
+     ],
+     [
+      "differentiate",
+      "simpler",
+      "derivative"
+     ],
+     [
+      "integrate",
+      "easy to integrate",
+      "second"
+     ]
+    ],
+    "praise": "Chirp! ILATE picks the first function: differentiate it, integrate the other. Parts made easy!",
+    "nudge": "What does each letter of ILATE stand for?"
+   },
+   "covers": [
+    "c7.6.1",
+    "c7.6.2",
+    "c7.6.5"
+   ]
+  },
+  {
+   "id": "g12-maths-07-08",
+   "title": "Special parts: eˣ[f(x) + f′(x)] and √ forms",
+   "learn": {
+    "hook": "Some integrals look terrible but collapse in one line, because they are secretly the derivative of eˣ f(x).",
+    "points": [
+     "∫eˣ[f(x) + f′(x)] dx = eˣ f(x) + C, since d/dx[eˣ f(x)] = eˣ[f(x) + f′(x)].",
+     "Spot the pair: sin x and cos x, tan⁻¹x and 1/(1 + x²), 1/x and −1/x², x and 1.",
+     "∫√(a² − x²) dx = (x/2)√(a² − x²) + (a²/2) sin⁻¹(x/a) + C.",
+     "∫√(x² + a²) dx = (x/2)√(x² + a²) + (a²/2) log|x + √(x² + a²)| + C.",
+     "∫√(x² − a²) dx = (x/2)√(x² − a²) − (a²/2) log|x + √(x² − a²)| + C. For quadratics under a root, complete the square first."
+    ],
+    "example": {
+     "q": "Find ∫eˣ(tan⁻¹x + 1/(1 + x²)) dx.",
+     "steps": [
+      "Let f(x) = tan⁻¹x; then f′(x) = 1/(1 + x²).",
+      "The integrand is eˣ[f(x) + f′(x)]."
+     ],
+     "answer": "eˣ tan⁻¹x + C"
+    },
+    "reallife": "Civil engineers find the area of a semicircular arch or gate using ∫√(a² − x²) dx, the formula you learn here."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "eˣ[f + f′] pairs",
+     "pairs": [
+      [
+       "∫eˣ(sin x + cos x) dx",
+       "eˣ sin x"
+      ],
+      [
+       "∫eˣ(1/x − 1/x²) dx",
+       "eˣ/x"
+      ],
+      [
+       "∫eˣ(x + 1) dx",
+       "x eˣ"
+      ],
+      [
+       "∫eˣ(tan x + sec²x) dx",
+       "eˣ tan x"
+      ],
+      [
+       "∫eˣ(log x + 1/x) dx",
+       "eˣ log x"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "√ forms",
+     "items": [
+      {
+       "text": "∫√(a² − x²) dx = (x/2)√(a² − x²) + (a²/2) ___ + C",
+       "answer": "sin⁻¹(x/a)",
+       "options": [
+        "sin⁻¹(x/a)",
+        "tan⁻¹(x/a)",
+        "log|x + √(a² − x²)|"
+       ]
+      },
+      {
+       "text": "∫√(x² + a²) dx = (x/2)√(x² + a²) ___ (a²/2) log|x + √(x² + a²)| + C",
+       "answer": "+",
+       "options": [
+        "+",
+        "−"
+       ]
+      },
+      {
+       "text": "∫√(x² − a²) dx = (x/2)√(x² − a²) ___ (a²/2) log|x + √(x² − a²)| + C",
+       "answer": "−",
+       "options": [
+        "−",
+        "+"
+       ]
+      },
+      {
+       "text": "∫√(4 − x²) dx = (x/2)√(4 − x²) + ___ sin⁻¹(x/2) + C",
+       "answer": "2",
+       "options": [
+        "2",
+        "4",
+        "1/2"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is ∫eˣ(sin x + cos x) dx?",
+     "options": [
+      "eˣ cos x + C",
+      "eˣ sin x + C",
+      "eˣ(sin x − cos x) + C",
+      "−eˣ cos x + C"
+     ],
+     "answer": 1,
+     "explain": "With f = sin x, f′ = cos x, the integral is eˣ f(x) + C.",
+     "mistake": "Picks cos x as f, but then f′ = −sin x does not match"
+    },
+    {
+     "q": "What is ∫eˣ(1/x − 1/x²) dx?",
+     "options": [
+      "eˣ/x + C",
+      "−eˣ/x² + C",
+      "eˣ log x + C",
+      "eˣ/x² + C"
+     ],
+     "answer": 0,
+     "explain": "f(x) = 1/x has f′(x) = −1/x², so the answer is eˣ/x + C.",
+     "mistake": "Chooses −1/x² as f"
+    },
+    {
+     "q": "What is ∫eˣ(x − 1)/x² dx?",
+     "options": [
+      "eˣ/x + C",
+      "eˣ/x² + C",
+      "eˣ(x − 1) + C",
+      "x eˣ + C"
+     ],
+     "answer": 0,
+     "explain": "(x − 1)/x² = 1/x − 1/x², which is f + f′ with f = 1/x.",
+     "mistake": "Does not split the fraction to see the f + f′ pattern"
+    },
+    {
+     "q": "What is ∫√(4 − x²) dx?",
+     "options": [
+      "(x/2)√(4 − x²) + 4 sin⁻¹(x/2) + C",
+      "(x/2)√(4 − x²) − 2 sin⁻¹(x/2) + C",
+      "sin⁻¹(x/2) + C",
+      "(x/2)√(4 − x²) + 2 sin⁻¹(x/2) + C"
+     ],
+     "answer": 3,
+     "explain": "a = 2: (x/2)√(4 − x²) + (4/2) sin⁻¹(x/2) + C.",
+     "mistake": "Uses a² instead of a²/2"
+    },
+    {
+     "q": "What is ∫√(x² + 9) dx?",
+     "options": [
+      "(x/2)√(x² + 9) + (9/2) log|x + √(x² + 9)| + C",
+      "(x/2)√(x² + 9) − (9/2) log|x + √(x² + 9)| + C",
+      "(x/2)√(x² + 9) + (9/2) sin⁻¹(x/3) + C",
+      "(1/3)(x² + 9)^(3/2) + C"
+     ],
+     "answer": 0,
+     "explain": "Use the √(x² + a²) formula with a = 3; the log term has a plus sign.",
+     "mistake": "Uses the minus sign belonging to the √(x² − a²) form"
+    },
+    {
+     "q": "What is ∫√(x² − 16) dx?",
+     "options": [
+      "(x/2)√(x² − 16) + 8 log|x + √(x² − 16)| + C",
+      "(x/2)√(x² − 16) − 8 log|x + √(x² − 16)| + C",
+      "(x/2)√(x² − 16) − 16 log|x + √(x² − 16)| + C",
+      "(x/2)√(x² − 16) + 8 sin⁻¹(x/4) + C"
+     ],
+     "answer": 1,
+     "explain": "a² = 16, so the log term is −(16/2) = −8 times log|x + √(x² − 16)|.",
+     "mistake": "Forgets to halve a²"
+    },
+    {
+     "q": "What is ∫eˣ(sec x)(1 + tan x) dx?",
+     "options": [
+      "eˣ sec x + C",
+      "eˣ tan x + C",
+      "eˣ sec x tan x + C",
+      "eˣ(sec x + tan x) + C"
+     ],
+     "answer": 0,
+     "explain": "sec x(1 + tan x) = sec x + sec x tan x, and d/dx(sec x) = sec x tan x. So f = sec x.",
+     "mistake": "Picks tan x as f"
+    },
+    {
+     "q": "Assertion (A): ∫eˣ(x + 1) dx = x eˣ + C.\nReason (R): d/dx(x eˣ) = eˣ(x + 1).",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "By the product rule, d/dx(x eˣ) = eˣ + x eˣ = eˣ(x + 1). That is the f + f′ pattern with f = x.",
+     "mistake": "Integrates x + 1 and eˣ separately"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What is the eˣ times f plus f-dash shortcut?'",
+    "must": [
+     [
+      "derivative",
+      "f′",
+      "f'",
+      "f dash"
+     ],
+     [
+      "e^x f(x)",
+      "eˣ f(x)",
+      "e^x times f",
+      "product"
+     ],
+     [
+      "pair",
+      "match",
+      "spot"
+     ]
+    ],
+    "praise": "Tweet! If the bracket is f plus its derivative, the answer is just eˣ f(x) + C. One-line integral!",
+    "nudge": "How do you check that the bracket really is f + f′?"
+   },
+   "covers": [
+    "c7.6.3",
+    "c7.6.4"
+   ]
+  },
+  {
+   "id": "g12-maths-07-09",
+   "title": "Definite integrals and the fundamental theorem",
+   "learn": {
+    "hook": "How much rain fell over a day if you know the rate every hour? Add up rate × time: that is a definite integral, and one theorem makes it easy.",
+    "points": [
+     "∫ₐᵇ f(x) dx is the area under y = f(x) between x = a and x = b, above the x-axis, when f ≥ 0. a and b are the lower and upper limits.",
+     "Area function: A(x) = ∫ₐˣ f(t) dt.",
+     "First fundamental theorem: A′(x) = f(x) for continuous f.",
+     "Second fundamental theorem: if F′ = f, then ∫ₐᵇ f(x) dx = F(b) − F(a). The constant C cancels, so ignore it.",
+     "Definite integral as the limit of a sum is not in the current CBSE syllabus."
+    ],
+    "example": {
+     "q": "Evaluate ∫₁² x³ dx.",
+     "steps": [
+      "An anti-derivative is F(x) = x⁴/4.",
+      "F(2) − F(1) = 16/4 − 1/4."
+     ],
+     "answer": "15/4"
+    },
+    "reallife": "If a rain gauge records the rainfall rate (mm per hour) through the day, the total rainfall for the day is the definite integral of that rate over time."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Definite integral dash",
+     "items": [
+      {
+       "q": "∫₀¹ x² dx",
+       "a": "1/3",
+       "check": "Fraction(1,3)"
+      },
+      {
+       "q": "∫₁² x³ dx",
+       "a": "15/4",
+       "check": "Fraction(15,4)"
+      },
+      {
+       "q": "∫₀^(π/2) sin x dx",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "∫₀^(π/4) sec²x dx",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "∫₁⁴ √x dx",
+       "a": "14/3",
+       "check": "Fraction(14,3)"
+      },
+      {
+       "q": "∫₋₁¹ (x + 1) dx",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "∫₀^π cos x dx",
+       "a": "0",
+       "check": "0"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Fundamental theorem facts",
+     "items": [
+      [
+       "d/dx ∫₀ˣ t² dt = x².",
+       true,
+       "By the first fundamental theorem, A′(x) = f(x)."
+      ],
+      [
+       "We must add + C in a definite integral.",
+       false,
+       "C cancels in F(b) − F(a)."
+      ],
+      [
+       "∫ₐᵇ f(x) dx = F(a) − F(b).",
+       false,
+       "It is F(b) − F(a): upper limit minus lower limit."
+      ],
+      [
+       "∫₀¹ eˣ dx = e − 1.",
+       true,
+       "e¹ − e⁰ = e − 1."
+      ],
+      [
+       "∫₂³ dx/x = log(3/2).",
+       true,
+       "log 3 − log 2 = log(3/2)."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate ∫₀² (x² + 1) dx.",
+     "options": [
+      "14/3",
+      "8/3",
+      "5",
+      "10/3"
+     ],
+     "answer": 0,
+     "explain": "[x³/3 + x]₀² = 8/3 + 2 = 14/3.",
+     "steps": [
+      "F(x) = x³/3 + x",
+      "F(2) − F(0) = 8/3 + 2",
+      "= 14/3"
+     ],
+     "mistake": "Forgets to integrate the constant 1",
+     "check": "Fraction(8,3)+2"
+    },
+    {
+     "q": "Evaluate ∫₀^(π/2) cos x dx.",
+     "options": [
+      "0",
+      "−1",
+      "1",
+      "π/2"
+     ],
+     "answer": 2,
+     "explain": "[sin x]₀^(π/2) = 1 − 0 = 1.",
+     "steps": [
+      "F(x) = sin x",
+      "sin(π/2) − sin 0 = 1"
+     ],
+     "mistake": "Uses −sin x as the anti-derivative",
+     "check": "1"
+    },
+    {
+     "q": "Evaluate ∫₀¹ dx/(1 + x²).",
+     "options": [
+      "π/2",
+      "1",
+      "π/4",
+      "log 2"
+     ],
+     "answer": 2,
+     "explain": "[tan⁻¹x]₀¹ = π/4 − 0.",
+     "mistake": "Confuses tan⁻¹ with log"
+    },
+    {
+     "q": "Evaluate ∫₀¹ x eˣ dx.",
+     "options": [
+      "1",
+      "e",
+      "e − 1",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "∫x eˣ dx = eˣ(x − 1). At 1: 0; at 0: −1. So 0 − (−1) = 1.",
+     "steps": [
+      "F(x) = eˣ(x − 1)",
+      "F(1) = 0, F(0) = −1",
+      "F(1) − F(0) = 1"
+     ],
+     "mistake": "Subtracts in the wrong order",
+     "check": "0-(-1)"
+    },
+    {
+     "q": "Evaluate ∫₁^e log x dx.",
+     "options": [
+      "e",
+      "e − 1",
+      "0",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "[x log x − x]₁^e = (e − e) − (0 − 1) = 1.",
+     "steps": [
+      "F(x) = x log x − x",
+      "F(e) = 0, F(1) = −1",
+      "0 − (−1) = 1"
+     ],
+     "mistake": "Forgets that log 1 = 0 and log e = 1",
+     "check": "1"
+    },
+    {
+     "q": "If F(x) = ∫₀ˣ cos t dt, what is F′(π/3)?",
+     "options": [
+      "√3/2",
+      "−1/2",
+      "1/2",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "By the first fundamental theorem, F′(x) = cos x, so F′(π/3) = cos(π/3) = 1/2.",
+     "steps": [
+      "F′(x) = cos x",
+      "cos(π/3) = 1/2"
+     ],
+     "mistake": "Integrates cos t again instead of using A′(x) = f(x)",
+     "check": "Fraction(1,2)"
+    },
+    {
+     "q": "Evaluate ∫₂³ dx/(x² − 1).",
+     "options": [
+      "log(3/2)",
+      "(1/2) log 2",
+      "2 log(3/2)",
+      "(1/2) log(3/2)"
+     ],
+     "answer": 3,
+     "explain": "∫dx/(x² − 1) = (1/2) log|(x − 1)/(x + 1)|. At 3: (1/2) log(1/2); at 2: (1/2) log(1/3). Difference = (1/2) log(3/2).",
+     "mistake": "Forgets the 1/(2a) factor"
+    },
+    {
+     "q": "Assertion (A): ∫₀^π sin x dx = 2.\nReason (R): The anti-derivative of sin x is −cos x, so the integral is −cos π + cos 0.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "−cos π + cos 0 = 1 + 1 = 2. R is the fundamental-theorem calculation behind A.",
+     "mistake": "Uses +cos x as the anti-derivative and gets 0"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I evaluate ∫ from a to b without adding up tiny strips?'",
+    "must": [
+     [
+      "anti-derivative",
+      "antiderivative",
+      "integrate",
+      "primitive"
+     ],
+     [
+      "upper",
+      "f(b)"
+     ],
+     [
+      "lower",
+      "f(a)"
+     ],
+     [
+      "subtract",
+      "minus",
+      "difference"
+     ]
+    ],
+    "praise": "Chirp! Find any anti-derivative F, then F(b) − F(a). The fundamental theorem does the strip-adding for you!",
+    "nudge": "Which limit goes first in the subtraction?"
+   },
+   "covers": [
+    "c7.7.1",
+    "c7.8.1",
+    "c7.8.2",
+    "c7.8.3",
+    "c7.8.4",
+    "c7.10.10"
+   ]
+  },
+  {
+   "id": "g12-maths-07-10",
+   "title": "Definite integrals by substitution",
+   "learn": {
+    "hook": "When you substitute in a definite integral, change the limits too. Then you never have to switch back to x.",
+    "points": [
+     "Put t = g(x), dt = g′(x) dx, and change the limits: x = a gives t = g(a), x = b gives t = g(b).",
+     "Then ∫ₐᵇ f(g(x)) g′(x) dx = ∫ from g(a) to g(b) of f(t) dt.",
+     "Do not mix: either change limits and stay in t, or go back to x and use the old limits.",
+     "∫₀¹ 2x/(1 + x²) dx = log 2 (t = 1 + x², t from 1 to 2).",
+     "∫₀¹ tan⁻¹x/(1 + x²) dx = π²/32 (t = tan⁻¹x, t from 0 to π/4)."
+    ],
+    "example": {
+     "q": "Evaluate ∫₀^(π/2) sin x cos x dx.",
+     "steps": [
+      "Put t = sin x, dt = cos x dx.",
+      "x = 0 → t = 0; x = π/2 → t = 1.",
+      "∫₀¹ t dt = [t²/2]₀¹ = 1/2."
+     ],
+     "answer": "1/2"
+    },
+    "reallife": "Railway engineers converting a curved track's length integral into a simpler one change the variable and limits together, exactly as here."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Evaluate ∫₀¹ 2x(x² + 1)³ dx",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Put t = x² + 1, so dt = 2x dx",
+      "Change limits: x = 0 → t = 1, x = 1 → t = 2",
+      "Integral becomes ∫₁² t³ dt",
+      "= [t⁴/4]₁² = 4 − 1/4",
+      "= 15/4"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Substitute and evaluate",
+     "items": [
+      {
+       "q": "∫₀^(π/2) sin x cos x dx",
+       "a": "1/2",
+       "check": "Fraction(1,2)"
+      },
+      {
+       "q": "∫₀¹ 2x(x² + 1)³ dx",
+       "a": "15/4",
+       "check": "Fraction(15,4)"
+      },
+      {
+       "q": "∫₀¹ 3x²(x³ + 1) dx",
+       "a": "3/2",
+       "check": "Fraction(3,2)"
+      },
+      {
+       "q": "∫₀^(π/2) cos x sin²x dx",
+       "a": "1/3",
+       "check": "Fraction(1,3)"
+      },
+      {
+       "q": "∫₁^e (log x)/x dx",
+       "a": "1/2",
+       "check": "Fraction(1,2)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate ∫₀¹ x/(x² + 1) dx.",
+     "options": [
+      "(1/2) log 2",
+      "log 2",
+      "π/4",
+      "2 log 2"
+     ],
+     "answer": 0,
+     "explain": "t = x² + 1, dt = 2x dx, limits 1 to 2: (1/2)∫₁² dt/t = (1/2) log 2.",
+     "mistake": "Forgets the 1/2 from dt = 2x dx"
+    },
+    {
+     "q": "Evaluate ∫₀¹ tan⁻¹x/(1 + x²) dx.",
+     "options": [
+      "π²/16",
+      "π/4",
+      "π²/32",
+      "π²/8"
+     ],
+     "answer": 2,
+     "explain": "t = tan⁻¹x, t from 0 to π/4: ∫t dt = (π/4)²/2 = π²/32.",
+     "mistake": "Forgets to halve when integrating t"
+    },
+    {
+     "q": "Evaluate ∫₀¹ sin⁻¹x/√(1 − x²) dx.",
+     "options": [
+      "π²/4",
+      "π/2",
+      "π²/2",
+      "π²/8"
+     ],
+     "answer": 3,
+     "explain": "t = sin⁻¹x, t from 0 to π/2: [t²/2] = π²/8.",
+     "mistake": "Forgets to change the limits"
+    },
+    {
+     "q": "Evaluate ∫₀¹ x e^(x²) dx.",
+     "options": [
+      "e − 1",
+      "(e − 1)/2",
+      "e/2",
+      "(e + 1)/2"
+     ],
+     "answer": 1,
+     "explain": "t = x², dt = 2x dx: (1/2)∫₀¹ eᵗ dt = (e − 1)/2.",
+     "mistake": "Forgets the factor 1/2"
+    },
+    {
+     "q": "Evaluate ∫₁^e (log x)/x dx.",
+     "options": [
+      "1",
+      "e/2",
+      "1/2",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "t = log x, from 0 to 1: ∫₀¹ t dt = 1/2.",
+     "steps": [
+      "t = log x: limits 0 to 1",
+      "[t²/2]₀¹ = 1/2"
+     ],
+     "mistake": "Keeps the old limits 1 and e after substituting",
+     "check": "Fraction(1,2)"
+    },
+    {
+     "q": "Evaluate ∫₀^(π/2) cos x/(1 + sin x) dx.",
+     "options": [
+      "log 2",
+      "1",
+      "(1/2) log 2",
+      "π/2"
+     ],
+     "answer": 0,
+     "explain": "t = 1 + sin x, from 1 to 2: ∫dt/t = log 2.",
+     "mistake": "Loses track of the limits"
+    },
+    {
+     "q": "Evaluate ∫₀^(π/2) √(sin x) cos⁵x dx using t = sin x. The resulting t-integral is",
+     "options": [
+      "∫₀^(π/2) √t (1 − t²)² dt",
+      "∫₀¹ √t (1 − t)² dt",
+      "∫₀¹ √t (1 − t²)² dt",
+      "∫₀¹ √t (1 − t²)^(5/2) dt"
+     ],
+     "answer": 2,
+     "explain": "cos⁵x dx = cos⁴x · cos x dx = (1 − t²)² dt, and limits become 0 to 1.",
+     "mistake": "Keeps the x-limits after substitution"
+    },
+    {
+     "q": "Assertion (A): After substituting t = g(x) in ∫ₐᵇ f(g(x)) g′(x) dx, we may evaluate the t-integral using the new limits g(a) and g(b), without returning to x.\nReason (R): As x runs from a to b, t = g(x) runs from g(a) to g(b), and f(g(x)) g′(x) dx becomes f(t) dt.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "R is exactly the substitution rule for definite integrals: the integrand turns into f(t) dt and the limits turn into g(a) and g(b). So A is true and R is its reason.",
+     "mistake": "Thinks the old x-limits must be used after substituting"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu flaps: 'When I substitute in a definite integral, what happens to the limits?'",
+    "must": [
+     [
+      "change",
+      "new limits",
+      "convert"
+     ],
+     [
+      "t = g(a)",
+      "plug in",
+      "substitute the limits",
+      "put x ="
+     ],
+     [
+      "no need",
+      "stay in t",
+      "don't go back",
+      "do not return"
+     ]
+    ],
+    "praise": "Tweet! Change the limits along with the variable, then finish in t. No need to go back to x!",
+    "nudge": "If x runs from 0 to 1 and t = x² + 1, where does t run?"
+   },
+   "covers": [
+    "c7.9.1",
+    "c7.9.2"
+   ]
+  },
+  {
+   "id": "g12-maths-07-11",
+   "title": "Properties of definite integrals I and modulus integrals",
+   "learn": {
+    "hook": "Some definite integrals that look impossible fall in two lines, not by integrating harder but by using a property cleverly.",
+    "points": [
+     "P0: ∫ₐᵇ f(x) dx = ∫ₐᵇ f(t) dt (the variable is a dummy).",
+     "P1: ∫ₐᵇ f(x) dx = −∫ from b to a of f(x) dx; in particular ∫ₐᵃ f(x) dx = 0.",
+     "P2: ∫ₐᵇ f(x) dx = ∫ₐᶜ f(x) dx + ∫ from c to b of f(x) dx for any c.",
+     "P3: ∫ₐᵇ f(x) dx = ∫ₐᵇ f(a + b − x) dx. Adding the two versions often cancels the hard part.",
+     "Modulus: split at the zeros of the expression inside |…| and integrate each piece with the correct sign."
+    ],
+    "example": {
+     "q": "Evaluate ∫ from π/6 to π/3 of dx/(1 + √(tan x)).",
+     "steps": [
+      "Write tan x = sin x/cos x: I = ∫√cos x/(√cos x + √sin x) dx.",
+      "P3 (a + b = π/2) turns cos ↔ sin: I = ∫√sin x/(√sin x + √cos x) dx.",
+      "Add: 2I = ∫ from π/6 to π/3 of 1 dx = π/6."
+     ],
+     "answer": "I = π/12"
+    },
+    "reallife": "A scooter goes forward and then comes back. To find the total distance (not the net displacement), you split the velocity integral where the velocity changes sign, just like a modulus integral."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Evaluate ∫₀⁴ |x − 1| dx",
+     "prompt": "Arrange the steps",
+     "items": [
+      "x − 1 = 0 at x = 1, so split at 1",
+      "On [0, 1], |x − 1| = 1 − x; on [1, 4], |x − 1| = x − 1",
+      "∫₀¹ (1 − x) dx = 1/2",
+      "∫₁⁴ (x − 1) dx = 9/2",
+      "Total = 5"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Modulus integrals",
+     "items": [
+      {
+       "q": "∫₋₁² |x| dx",
+       "a": "5/2",
+       "check": "Fraction(1,2)+2"
+      },
+      {
+       "q": "∫₀² |x − 1| dx",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "∫₀⁴ |x − 1| dx",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "∫₋₁¹ |x| dx",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "∫₀^π |cos x| dx",
+       "a": "2",
+       "check": "2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate ∫₋₁² |x³ − x| dx.",
+     "options": [
+      "11/4",
+      "9/4",
+      "5/4",
+      "3/4"
+     ],
+     "answer": 0,
+     "explain": "Sign of x³ − x: + on [−1, 0], − on [0, 1], + on [1, 2]. The pieces are 1/4, 1/4 and 9/4, total 11/4.",
+     "steps": [
+      "∫₋₁⁰ (x³ − x) = 1/4",
+      "∫₀¹ (x − x³) = 1/4",
+      "∫₁² (x³ − x) = 9/4",
+      "Sum = 11/4"
+     ],
+     "mistake": "Integrates x³ − x without splitting and gets 9/4",
+     "check": "Fraction(1,4)+Fraction(1,4)+Fraction(9,4)"
+    },
+    {
+     "q": "Evaluate ∫₀⁴ |x − 1| dx.",
+     "options": [
+      "4",
+      "5",
+      "3",
+      "9/2"
+     ],
+     "answer": 1,
+     "explain": "∫₀¹ (1 − x) dx + ∫₁⁴ (x − 1) dx = 1/2 + 9/2 = 5.",
+     "steps": [
+      "Split at x = 1",
+      "1/2 + 9/2 = 5"
+     ],
+     "mistake": "Ignores the modulus and gets 4",
+     "check": "Fraction(1,2)+Fraction(9,2)"
+    },
+    {
+     "q": "If ∫₀³ f(x) dx = 7 and ∫₀¹ f(x) dx = 2, what is ∫₁³ f(x) dx?",
+     "options": [
+      "9",
+      "5",
+      "−5",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "By P2, ∫₀³ = ∫₀¹ + ∫₁³, so ∫₁³ f = 7 − 2 = 5.",
+     "steps": [
+      "∫₀³ = ∫₀¹ + ∫₁³",
+      "7 = 2 + ∫₁³",
+      "∫₁³ = 5"
+     ],
+     "mistake": "Adds the integrals instead of subtracting",
+     "check": "7-2"
+    },
+    {
+     "q": "If ∫₁⁴ f(x) dx = 6, what is ∫₄¹ f(x) dx?",
+     "options": [
+      "6",
+      "0",
+      "1/6",
+      "−6"
+     ],
+     "answer": 3,
+     "explain": "Reversing the limits changes the sign (P1).",
+     "mistake": "Thinks the order of limits does not matter",
+     "check": "-6"
+    },
+    {
+     "q": "Evaluate ∫ from π/6 to π/3 of dx/(1 + √(tan x)).",
+     "options": [
+      "π/6",
+      "π/4",
+      "π/12",
+      "π/3"
+     ],
+     "answer": 2,
+     "explain": "Using P3 and adding the two forms, 2I = π/3 − π/6 = π/6, so I = π/12.",
+     "mistake": "Forgets to halve after adding the two integrals"
+    },
+    {
+     "q": "Evaluate ∫₂⁸ |x − 5| dx.",
+     "options": [
+      "6",
+      "9",
+      "18",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "Split at 5: ∫₂⁵ (5 − x) dx = 9/2 and ∫₅⁸ (x − 5) dx = 9/2. Total 9.",
+     "steps": [
+      "Each triangle: (1/2)(3)(3) = 9/2",
+      "Total = 9"
+     ],
+     "mistake": "Ignores the modulus and gets 0 or a wrong value",
+     "check": "Fraction(9,2)*2"
+    },
+    {
+     "q": "Applying P3 to ∫₀² x(2 − x) dx gives which integral?",
+     "options": [
+      "∫₀² x² dx",
+      "∫₀² (2 − x)x dx, the same integral",
+      "−∫₀² x(2 − x) dx",
+      "∫₀¹ x(2 − x) dx"
+     ],
+     "answer": 1,
+     "explain": "P3 replaces x by 0 + 2 − x = 2 − x, turning x(2 − x) into (2 − x)x, the same function.",
+     "mistake": "Thinks P3 always changes the integrand"
+    },
+    {
+     "q": "Assertion (A): ∫ₐᵃ f(x) dx = 0 for any integrable f.\nReason (R): ∫ₐᵇ f(x) dx = −∫ from b to a of f(x) dx.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Put b = a in R: I = −I, so I = 0. R gives A directly.",
+     "mistake": "Thinks equal limits give f(a)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I integrate |x − 1| from 0 to 4?'",
+    "must": [
+     [
+      "split",
+      "break",
+      "divide"
+     ],
+     [
+      "zero",
+      "where it changes sign",
+      "x = 1"
+     ],
+     [
+      "sign",
+      "positive",
+      "negative"
+     ],
+     [
+      "add",
+      "sum",
+      "total"
+     ]
+    ],
+    "praise": "Chirp! Split where the inside is zero, use the right sign on each piece, and add. Modulus tamed!",
+    "nudge": "Where do you split the interval?"
+   },
+   "covers": [
+    "c7.10.1",
+    "c7.10.2",
+    "c7.10.3",
+    "c7.10.7"
+   ]
+  },
+  {
+   "id": "g12-maths-07-12",
+   "title": "Properties II: even, odd and classic results",
+   "learn": {
+    "hook": "∫ from −1 to 1 of sin⁵x cos⁴x dx: no integration needed. The answer is 0, and symmetry tells you why.",
+    "points": [
+     "P4: ∫₀ᵃ f(x) dx = ∫₀ᵃ f(a − x) dx.",
+     "P5: ∫₀^(2a) f(x) dx = 2∫₀ᵃ f(x) dx if f(2a − x) = f(x), and = 0 if f(2a − x) = −f(x).",
+     "P6: ∫₋ₐᵃ f(x) dx = 2∫₀ᵃ f(x) dx if f is even (f(−x) = f(x)), and = 0 if f is odd (f(−x) = −f(x)).",
+     "Classic: ∫₀^(π/2) sinⁿx/(sinⁿx + cosⁿx) dx = π/4 for every n; ∫₀^(π/2) log sin x dx = −(π/2) log 2.",
+     "Strategy for any integral: simplify, try substitution, partial fractions, parts, then properties."
+    ],
+    "example": {
+     "q": "Evaluate ∫₀^(π/2) √(sin x)/(√(sin x) + √(cos x)) dx.",
+     "steps": [
+      "Call it I. By P4, replacing x with π/2 − x: I = ∫₀^(π/2) √(cos x)/(√(cos x) + √(sin x)) dx.",
+      "Add: 2I = ∫₀^(π/2) 1 dx = π/2."
+     ],
+     "answer": "I = π/4"
+    },
+    "reallife": "Physicists use symmetry all the time: an odd function integrates to zero over symmetric limits, so whole parts of a long calculation cancel instantly."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Over [−a, a], the integral is…",
+     "buckets": [
+      "0 (odd function)",
+      "2∫₀ᵃ f (even function)"
+     ],
+     "items": [
+      [
+       "x³",
+       0
+      ],
+      [
+       "x²",
+       1
+      ],
+      [
+       "sin⁵x cos⁴x",
+       0
+      ],
+      [
+       "cos x",
+       1
+      ],
+      [
+       "x|x|",
+       0
+      ],
+      [
+       "|x|",
+       1
+      ],
+      [
+       "x⁵ + x",
+       0
+      ],
+      [
+       "x sin x",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Classic results",
+     "pairs": [
+      [
+       "∫₀^(π/2) sinⁿx/(sinⁿx + cosⁿx) dx",
+       "π/4"
+      ],
+      [
+       "∫₀^(π/2) log sin x dx",
+       "−(π/2) log 2"
+      ],
+      [
+       "∫₀^(2π) cos⁵x dx",
+       "0"
+      ],
+      [
+       "∫₀^π x sin x/(1 + cos²x) dx",
+       "π²/4"
+      ],
+      [
+       "∫₋π/2^π/2 sin²x dx",
+       "π/2"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate ∫₋₁¹ sin⁵x cos⁴x dx.",
+     "options": [
+      "2",
+      "1",
+      "0",
+      "π"
+     ],
+     "answer": 2,
+     "explain": "f(−x) = (−sin x)⁵ cos⁴x = −f(x), so f is odd and the integral over [−1, 1] is 0.",
+     "mistake": "Tries to integrate directly instead of using odd symmetry",
+     "check": "0"
+    },
+    {
+     "q": "Evaluate ∫₋₂² x² dx.",
+     "options": [
+      "8/3",
+      "16/3",
+      "0",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "x² is even: 2∫₀² x² dx = 2 × 8/3 = 16/3.",
+     "steps": [
+      "Even function: 2∫₀²",
+      "2 × 8/3 = 16/3"
+     ],
+     "mistake": "Thinks every integral over symmetric limits is 0",
+     "check": "2*Fraction(8,3)"
+    },
+    {
+     "q": "Evaluate ∫₀¹ x(1 − x)⁵ dx.",
+     "options": [
+      "1/42",
+      "1/30",
+      "1/6",
+      "1/7"
+     ],
+     "answer": 0,
+     "explain": "By P4, it equals ∫₀¹ (1 − x)x⁵ dx = 1/6 − 1/7 = 1/42.",
+     "steps": [
+      "Use P4: ∫₀¹ (1 − x)x⁵ dx",
+      "= 1/6 − 1/7",
+      "= 1/42"
+     ],
+     "mistake": "Expands (1 − x)⁵ and makes an arithmetic slip",
+     "check": "Fraction(1,6)-Fraction(1,7)"
+    },
+    {
+     "q": "Evaluate ∫₀^(π/2) sin⁴x/(sin⁴x + cos⁴x) dx.",
+     "options": [
+      "π/2",
+      "1",
+      "π/4",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "Adding I with its P4 version gives 2I = π/2, so I = π/4, whatever the power.",
+     "mistake": "Forgets to halve"
+    },
+    {
+     "q": "Evaluate ∫₀^(2π) cos⁵x dx.",
+     "options": [
+      "2π",
+      "0",
+      "π",
+      "16/15"
+     ],
+     "answer": 1,
+     "explain": "cos(2π − x) = cos x gives 2∫₀^π cos⁵x dx, and cos(π − x) = −cos x makes ∫₀^π cos⁵x dx = 0.",
+     "mistake": "Applies only the first half of P5",
+     "check": "0"
+    },
+    {
+     "q": "Evaluate ∫₀^(π/2) log sin x dx.",
+     "options": [
+      "(π/2) log 2",
+      "−π log 2",
+      "0",
+      "−(π/2) log 2"
+     ],
+     "answer": 3,
+     "explain": "Adding I with ∫ log cos x and using sin x cos x = (sin 2x)/2 gives 2I = I − (π/2) log 2, so I = −(π/2) log 2.",
+     "mistake": "Gets the sign wrong; log sin x ≤ 0 on (0, π/2)"
+    },
+    {
+     "q": "Evaluate ∫₀^π x sin x/(1 + cos²x) dx.",
+     "options": [
+      "π²/2",
+      "π²/4",
+      "π/4",
+      "π²"
+     ],
+     "answer": 1,
+     "explain": "P4 gives I = π∫₀^π sin x/(1 + cos²x) dx − I, so 2I = π[−tan⁻¹(cos x)]₀^π = π(π/2), and I = π²/4.",
+     "mistake": "Forgets to halve after moving I across"
+    },
+    {
+     "q": "Assertion (A): ∫₋π/2^π/2 sin⁷x dx = 0.\nReason (R): sin⁷x is an odd function.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "sin⁷(−x) = −sin⁷x, so by P6 the integral over a symmetric interval is 0.",
+     "mistake": "Thinks odd powers of sin are even functions"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'How can an integral be zero without integrating at all?'",
+    "must": [
+     [
+      "odd",
+      "odd function"
+     ],
+     [
+      "symmetric",
+      "-a to a",
+      "−a to a",
+      "equal limits"
+     ],
+     [
+      "cancel",
+      "cancels",
+      "opposite"
+     ]
+    ],
+    "praise": "Tweet! An odd function over −a to a has equal and opposite areas that cancel to zero. Symmetry is a superpower!",
+    "nudge": "What kind of function gives zero, and over what kind of limits?"
+   },
+   "covers": [
+    "c7.10.4",
+    "c7.10.5",
+    "c7.10.6",
+    "c7.10.8",
+    "c7.10.9"
+   ]
+  }
+ ]
+}

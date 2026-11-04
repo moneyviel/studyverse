@@ -1,0 +1,1498 @@
+{
+ "n": 9,
+ "title": "Differential Equations",
+ "emoji": "🌱",
+ "topics": [
+  {
+   "id": "g12-maths-09-01",
+   "title": "Order and degree of a differential equation",
+   "learn": {
+    "hook": "Population growth, cooling chai, a swinging pendulum: each is described by an equation that involves a rate of change, a differential equation.",
+    "points": [
+     "Differential equations model growth, decay, motion and many other changing quantities.",
+     "A differential equation involves derivatives of a dependent variable (y) with respect to an independent variable (x). If there is only one independent variable, it is an ordinary differential equation.",
+     "Order: the order of the highest derivative present.",
+     "Degree: when the equation is a polynomial in its derivatives, the power of the highest-order derivative (after clearing radicals and fractions in the derivatives).",
+     "Degree is not defined if a derivative appears inside a function like sin(y′), e^(y″) or log(y′). Order and degree (when defined) are always positive integers."
+    ],
+    "example": {
+     "q": "Find the order and degree of (d²y/dx²)³ + (dy/dx)⁴ + y = 0.",
+     "steps": [
+      "The highest derivative is d²y/dx², so the order is 2.",
+      "The equation is a polynomial in the derivatives.",
+      "The power of d²y/dx² is 3, so the degree is 3."
+     ],
+     "answer": "Order 2, degree 3"
+    },
+    "reallife": "Newton's law of cooling, which describes how a cup of hot chai cools, dT/dt = −k(T − Tₛ), is a first-order, first-degree differential equation."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Is the degree defined?",
+     "buckets": [
+      "Degree defined",
+      "Degree not defined"
+     ],
+     "items": [
+      [
+       "y″ + (y′)² + 2y = 0",
+       0
+      ],
+      [
+       "y‴ + y² + e^(y′) = 0",
+       1
+      ],
+      [
+       "(y′)³ + y = x",
+       0
+      ],
+      [
+       "y″ + sin(y′) = 0",
+       1
+      ],
+      [
+       "(y‴)² + (y″)³ + y = 0",
+       0
+      ],
+      [
+       "log(y′) = x",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Equation ↔ order, degree",
+     "pairs": [
+      [
+       "dy/dx + 5y = 0",
+       "Order 1, degree 1"
+      ],
+      [
+       "(d²y/dx²)³ + y = 0",
+       "Order 2, degree 3"
+      ],
+      [
+       "y‴ + 2y″ + y′ = 0",
+       "Order 3, degree 1"
+      ],
+      [
+       "(y′)⁴ + 3y y″ = 0",
+       "Order 2, degree 1"
+      ],
+      [
+       "(y‴)² + (y″)³ + (y′)⁴ + y⁵ = 0",
+       "Order 3, degree 2"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the order of y‴ + 2y″ + y′ = 0?",
+     "options": [
+      "2",
+      "1",
+      "0",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "The highest derivative is the third derivative y‴.",
+     "mistake": "Counts the number of terms instead",
+     "check": "3"
+    },
+    {
+     "q": "What is the degree of (y‴)² + (y″)³ + (y′)⁴ + y⁵ = 0?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "The highest-order derivative is y‴ and its power is 2.",
+     "steps": [
+      "Highest order: y‴",
+      "Its power: 2"
+     ],
+     "mistake": "Takes the highest power anywhere in the equation",
+     "check": "2"
+    },
+    {
+     "q": "What is the degree of y″ + (y′)² + 2y = 0?",
+     "options": [
+      "2",
+      "0",
+      "Not defined",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "The highest-order derivative y″ appears to the first power.",
+     "mistake": "Uses the power of y′ instead of the highest-order derivative",
+     "check": "1"
+    },
+    {
+     "q": "For y‴ + y² + e^(y′) = 0, which statement is correct?",
+     "options": [
+      "Order 3, degree 1",
+      "Order 3, degree not defined",
+      "Order 1, degree 2",
+      "Order 2, degree not defined"
+     ],
+     "answer": 1,
+     "explain": "y‴ gives order 3. The term e^(y′) is not a polynomial in y′, so degree is not defined.",
+     "mistake": "Gives a degree even though a derivative sits inside an exponential"
+    },
+    {
+     "q": "What is the degree of √(1 + (dy/dx)²) = d²y/dx² after removing the radical?",
+     "options": [
+      "1",
+      "4",
+      "2",
+      "Not defined"
+     ],
+     "answer": 2,
+     "explain": "Squaring: 1 + (dy/dx)² = (d²y/dx²)². The highest-order derivative has power 2.",
+     "steps": [
+      "Square both sides",
+      "(d²y/dx²)² = 1 + (dy/dx)²",
+      "Degree 2"
+     ],
+     "mistake": "Finds the degree before clearing the square root",
+     "check": "2"
+    },
+    {
+     "q": "What is the order of (dy/dx)⁴ + 3y (d²y/dx²) = 0?",
+     "options": [
+      "4",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "The highest derivative is d²y/dx², so the order is 2 (and the degree is 1).",
+     "mistake": "Uses the power 4 of dy/dx as the order",
+     "check": "2"
+    },
+    {
+     "q": "Why is the degree of y″ + sin(y′) = 0 not defined?",
+     "options": [
+      "Because the equation is not a polynomial in the derivatives",
+      "Because the order is 2",
+      "Because sin(y′) can be zero",
+      "Because y is missing"
+     ],
+     "answer": 0,
+     "explain": "Degree needs a polynomial form in y′, y″, …; sin(y′) is not a polynomial in y′.",
+     "mistake": "Thinks every differential equation has a degree"
+    },
+    {
+     "q": "Assertion (A): The order of (dy/dx)⁵ + y = 0 is 5.\nReason (R): The degree of (dy/dx)⁵ + y = 0 is 5.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "A is false but R is true",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false"
+     ],
+     "answer": 1,
+     "explain": "The highest derivative is dy/dx, so the order is 1, and A is false. Its power is 5, so the degree is 5, and R is true.",
+     "mistake": "Mixes up order (which derivative) with degree (which power)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu peeps: 'What is the difference between the order and the degree of a differential equation?'",
+    "must": [
+     [
+      "highest derivative",
+      "highest order"
+     ],
+     [
+      "power",
+      "exponent"
+     ],
+     [
+      "polynomial",
+      "not defined",
+      "sin",
+      "exponential"
+     ]
+    ],
+    "praise": "Tweet! Order is the highest derivative; degree is its power, but only when the equation is a polynomial in derivatives!",
+    "nudge": "When can't we talk about the degree at all?"
+   },
+   "covers": [
+    "c9.1.1",
+    "c9.2.1",
+    "c9.2.2",
+    "c9.2.3",
+    "c9.2.4",
+    "c9.2.5",
+    "c9.2.6"
+   ]
+  },
+  {
+   "id": "g12-maths-09-02",
+   "title": "General and particular solutions",
+   "learn": {
+    "hook": "y = A cos x + B sin x solves y″ + y = 0 for every A and B. A whole family of curves, one equation. Pick A and B, and you get one particular member.",
+    "points": [
+     "A solution of a differential equation is a function that satisfies it.",
+     "General solution: contains arbitrary constants. Particular solution: obtained by giving the constants definite values (no arbitrary constants left).",
+     "The number of arbitrary constants in the general solution equals the order of the equation.",
+     "To verify a solution: differentiate the given function as many times as needed, substitute into the equation, and check both sides match.",
+     "Forming a differential equation from a given general solution (eliminating constants) is not in the current CBSE syllabus."
+    ],
+    "example": {
+     "q": "Verify that y = eˣ + 1 is a solution of y″ − y′ = 0.",
+     "steps": [
+      "y′ = eˣ and y″ = eˣ.",
+      "y″ − y′ = eˣ − eˣ = 0 ✓."
+     ],
+     "answer": "Yes, y = eˣ + 1 satisfies y″ − y′ = 0."
+    },
+    "reallife": "The equation of motion of a thrown cricket ball has a general solution that covers every possible throw; the release point and speed (the initial conditions) pick out one particular path."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Solution facts",
+     "items": [
+      [
+       "The general solution of a second-order equation has two arbitrary constants.",
+       true,
+       "Number of constants = order."
+      ],
+      [
+       "A particular solution can contain arbitrary constants.",
+       false,
+       "All constants are fixed in a particular solution."
+      ],
+      [
+       "y = A cos x + B sin x solves y″ + y = 0 for all A and B.",
+       true,
+       "y″ = −A cos x − B sin x = −y."
+      ],
+      [
+       "y = x² solves dy/dx = 2y.",
+       false,
+       "dy/dx = 2x, not 2x²."
+      ],
+      [
+       "Initial conditions are used to find particular solutions.",
+       true,
+       "They fix the values of the constants."
+      ],
+      [
+       "A fourth-order equation's general solution has three constants.",
+       false,
+       "It has four."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Equation ↔ a solution",
+     "pairs": [
+      [
+       "y″ + y = 0",
+       "y = 3 sin x"
+      ],
+      [
+       "y′ = y",
+       "y = 5eˣ"
+      ],
+      [
+       "x y′ = y",
+       "y = 4x"
+      ],
+      [
+       "y″ − y′ = 0",
+       "y = eˣ + 1"
+      ],
+      [
+       "y′ = 2x",
+       "y = x² + 7"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many arbitrary constants are in the general solution of a third-order differential equation?",
+     "options": [
+      "2",
+      "1",
+      "0",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "The number of arbitrary constants equals the order.",
+     "mistake": "Confuses order with degree",
+     "check": "3"
+    },
+    {
+     "q": "How many arbitrary constants are there in a particular solution of a fourth-order differential equation?",
+     "options": [
+      "0",
+      "4",
+      "1",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "A particular solution has all its constants fixed, so it has none.",
+     "mistake": "Confuses particular solution with general solution",
+     "check": "0"
+    },
+    {
+     "q": "Which function is a solution of y″ + y = 0?",
+     "options": [
+      "y = 2 cos x − 3 sin x",
+      "y = eˣ",
+      "y = x²",
+      "y = e⁻ˣ"
+     ],
+     "answer": 0,
+     "explain": "For y = 2 cos x − 3 sin x, y″ = −2 cos x + 3 sin x = −y.",
+     "mistake": "Picks a function whose second derivative equals itself, not its negative"
+    },
+    {
+     "q": "Which differential equation has y = √(1 + x²) as a solution?",
+     "options": [
+      "y′ = x/y²",
+      "y′ = xy/(1 + x²)",
+      "y′ = y/x",
+      "y′ = 2xy"
+     ],
+     "answer": 1,
+     "explain": "y′ = x/√(1 + x²) = x√(1 + x²)/(1 + x²) = xy/(1 + x²).",
+     "mistake": "Differentiates without the chain rule"
+    },
+    {
+     "q": "Which function is a solution of x dy/dx = y?",
+     "options": [
+      "y = A/x",
+      "y = Ax²",
+      "y = Ax",
+      "y = A + x"
+     ],
+     "answer": 2,
+     "explain": "y = Ax gives x · A = Ax = y.",
+     "mistake": "Checks only one value of x"
+    },
+    {
+     "q": "y = x² + 2x + C is the general solution of which differential equation?",
+     "options": [
+      "y′ − 2x − 2 = 0",
+      "y′ − x² − 2x = 0",
+      "y″ = 2x",
+      "y′ = y"
+     ],
+     "answer": 0,
+     "explain": "Differentiating gives y′ = 2x + 2.",
+     "mistake": "Forgets to differentiate and matches the function itself"
+    },
+    {
+     "q": "The general solution of y′ = 2x is y = x² + C. Which particular solution passes through (1, 4)?",
+     "options": [
+      "y = x² + 4",
+      "y = x² − 3",
+      "y = 4x²",
+      "y = x² + 3"
+     ],
+     "answer": 3,
+     "explain": "4 = 1 + C gives C = 3.",
+     "mistake": "Uses the y-value directly as C"
+    },
+    {
+     "q": "Assertion (A): y = A e^(2x) + B e^(−2x) is the general solution of y″ − 4y = 0.\nReason (R): It contains two arbitrary constants and satisfies the second-order equation.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "y″ = 4A e^(2x) + 4B e^(−2x) = 4y, and two constants match the order 2. R explains A.",
+     "mistake": "Thinks the number of constants does not matter"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What is the difference between a general solution and a particular solution?'",
+    "must": [
+     [
+      "arbitrary constants",
+      "constants",
+      "constant"
+     ],
+     [
+      "family",
+      "many curves",
+      "all"
+     ],
+     [
+      "initial",
+      "condition",
+      "fixed",
+      "specific"
+     ]
+    ],
+    "praise": "Chirp! General has arbitrary constants for a whole family; particular fixes them with conditions. One curve chosen!",
+    "nudge": "How do we turn a general solution into a particular one?"
+   },
+   "covers": [
+    "c9.3.1",
+    "c9.3.2",
+    "c9.3.3",
+    "c9.3.4",
+    "c9.4.14"
+   ]
+  },
+  {
+   "id": "g12-maths-09-03",
+   "title": "Variable separable equations",
+   "learn": {
+    "hook": "If dy/dx = g(x)h(y), you can put every y on one side and every x on the other, then integrate both. It is the first method every board paper tests.",
+    "points": [
+     "Form: dy/dx = F(x, y) = g(x) h(y).",
+     "Separate: dy/h(y) = g(x) dx (with h(y) ≠ 0).",
+     "Integrate both sides: ∫dy/h(y) = ∫g(x) dx + C. That is the general solution.",
+     "For a particular solution, substitute the initial condition to find C.",
+     "Common results: dy/dx = ky gives y = Ae^(kx); dy/dx = (1 + y²)/(1 + x²) gives tan⁻¹ y = tan⁻¹ x + C."
+    ],
+    "example": {
+     "q": "Find the particular solution of dy/dx = −4xy², given y = 1 when x = 0.",
+     "steps": [
+      "Separate: dy/y² = −4x dx.",
+      "Integrate: −1/y = −2x² + C.",
+      "x = 0, y = 1: −1 = C.",
+      "−1/y = −2x² − 1 ⇒ y = 1/(2x² + 1)."
+     ],
+     "answer": "y = 1/(2x² + 1)"
+    },
+    "reallife": "Drug half-life calculations start from dC/dt = −kC, a variable separable equation whose solution is exponential decay."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Solve dy/dx = 2xy, y(0) = 3",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Separate: dy/y = 2x dx",
+      "Integrate: log|y| = x² + C",
+      "So y = A e^(x²)",
+      "y(0) = 3 gives A = 3",
+      "y = 3e^(x²)"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Equation ↔ general solution",
+     "pairs": [
+      [
+       "dy/dx = (1 + y²)/(1 + x²)",
+       "tan⁻¹ y = tan⁻¹ x + C"
+      ],
+      [
+       "dy/dx = e^(x + y)",
+       "eˣ + e⁻ʸ = C"
+      ],
+      [
+       "dy/dx = x/y",
+       "y² − x² = C"
+      ],
+      [
+       "dy/dx = y",
+       "y = Aeˣ"
+      ],
+      [
+       "dy/dx = sec²x",
+       "y = tan x + C"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the general solution of dy/dx = (1 + y²)/(1 + x²)?",
+     "options": [
+      "y = x + C",
+      "tan⁻¹ y = tan⁻¹ x · C",
+      "log(1 + y²) = log(1 + x²) + C",
+      "tan⁻¹ y = tan⁻¹ x + C"
+     ],
+     "answer": 3,
+     "explain": "dy/(1 + y²) = dx/(1 + x²); integrating both sides gives tan⁻¹ y = tan⁻¹ x + C.",
+     "mistake": "Uses log instead of tan⁻¹"
+    },
+    {
+     "q": "What is the general solution of dy/dx = e^(x + y)?",
+     "options": [
+      "eˣ − e⁻ʸ = C",
+      "eˣ + e⁻ʸ = C",
+      "eˣ + eʸ = C",
+      "y = x + C"
+     ],
+     "answer": 1,
+     "explain": "e⁻ʸ dy = eˣ dx ⇒ −e⁻ʸ = eˣ + C₁ ⇒ eˣ + e⁻ʸ = C.",
+     "mistake": "Loses the minus sign when integrating e⁻ʸ"
+    },
+    {
+     "q": "For dy/dx = −4xy² with y(0) = 1, what is y at x = 1?",
+     "options": [
+      "1/3",
+      "1/5",
+      "3",
+      "−1/3"
+     ],
+     "answer": 0,
+     "explain": "The particular solution is y = 1/(2x² + 1), so y(1) = 1/3.",
+     "steps": [
+      "y = 1/(2x² + 1)",
+      "y(1) = 1/(2 + 1) = 1/3"
+     ],
+     "mistake": "Uses 4x² instead of 2x²",
+     "check": "Fraction(1,3)"
+    },
+    {
+     "q": "What is the general solution of dy/dx = x/y?",
+     "options": [
+      "y² + x² = C",
+      "y = x + C",
+      "y² − x² = C",
+      "y = Cx"
+     ],
+     "answer": 2,
+     "explain": "y dy = x dx ⇒ y²/2 = x²/2 + C₁ ⇒ y² − x² = C.",
+     "mistake": "Makes a sign slip moving x² across"
+    },
+    {
+     "q": "Which equation is variable separable?",
+     "options": [
+      "dy/dx = (x + 1)(y − 2)",
+      "dy/dx = x + y",
+      "dy/dx = (x + y)/(x − y)",
+      "dy/dx + y = x"
+     ],
+     "answer": 0,
+     "explain": "(x + 1)(y − 2) is a product of a function of x and a function of y.",
+     "mistake": "Thinks any equation with x and y is separable"
+    },
+    {
+     "q": "Solve dy/dx = y with y(0) = 2. What is y(1)?",
+     "options": [
+      "e",
+      "e²",
+      "2e",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "y = Aeˣ, A = 2, so y(1) = 2e.",
+     "mistake": "Forgets the constant A"
+    },
+    {
+     "q": "What is the general solution of dy/dx = sin x/cos y?",
+     "options": [
+      "cos y = cos x + C",
+      "sin y = −cos x + C",
+      "sin y = cos x + C",
+      "tan y = x + C"
+     ],
+     "answer": 1,
+     "explain": "cos y dy = sin x dx ⇒ sin y = −cos x + C.",
+     "mistake": "Gets the sign of ∫sin x dx wrong"
+    },
+    {
+     "q": "Assertion (A): dy/dx = 1 + x + y + xy is variable separable.\nReason (R): 1 + x + y + xy = (1 + x)(1 + y).",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The factorisation in R shows the right side is g(x)h(y), which is why the equation separates.",
+     "mistake": "Does not try factorising before deciding"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I solve a variable separable differential equation?'",
+    "must": [
+     [
+      "separate",
+      "separating",
+      "one side"
+     ],
+     [
+      "integrate",
+      "both sides"
+     ],
+     [
+      "constant",
+      "+ c"
+     ],
+     [
+      "initial condition",
+      "condition",
+      "particular"
+     ]
+    ],
+    "praise": "Tweet! Put y's with dy and x's with dx, integrate both sides, add + C, then use the condition. Separated and solved!",
+    "nudge": "After separating, what do you do to both sides?"
+   },
+   "covers": [
+    "c9.4.1",
+    "c9.4.2"
+   ]
+  },
+  {
+   "id": "g12-maths-09-04",
+   "title": "Separable equations in real life",
+   "learn": {
+    "hook": "Money, microbes and mountains: compound interest, bacterial growth and the shape of a curve all fall to the same separate-and-integrate idea.",
+    "points": [
+     "'Rate proportional to amount' means dN/dt = kN, which gives N = N₀ e^(kt): growth if k > 0, decay if k < 0.",
+     "Continuous compounding at r% per year: dP/dt = (r/100)P, so P = P₀ e^(rt/100).",
+     "If a quantity grows by a fixed factor in a fixed time, use that to find k, e.g. doubling: e^(kT) = 2 ⇒ k = (log 2)/T.",
+     "A curve whose slope at (x, y) is given: write dy/dx = (given expression), solve, and use the given point to find C.",
+     "Always state what each variable means and include units in the final answer."
+    ],
+    "example": {
+     "q": "Find the curve through (−2, 3) whose slope at (x, y) is 2x/y².",
+     "steps": [
+      "dy/dx = 2x/y² ⇒ y² dy = 2x dx.",
+      "Integrate: y³/3 = x² + C.",
+      "At (−2, 3): 9 = 4 + C ⇒ C = 5.",
+      "y³ = 3x² + 15."
+     ],
+     "answer": "y = (3x² + 15)^(1/3)"
+    },
+    "reallife": "A fixed deposit with continuous compounding would grow by dP/dt = (r/100)P. Banks usually compound fixed deposits quarterly, but the continuous model is a close and simple estimate."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Bacteria doubling problem",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Let N be the number at time t: dN/dt = kN",
+      "Separate and integrate: N = N₀ e^(kt)",
+      "Use the given data to find k",
+      "Set N equal to the target and solve for t"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Growth model facts",
+     "items": [
+      [
+       "If dN/dt = kN with k > 0, N grows exponentially.",
+       true,
+       "N = N₀e^(kt) with k > 0 increases without bound."
+      ],
+      [
+       "Continuous compounding at 5% per year means dP/dt = 5P.",
+       false,
+       "It means dP/dt = (5/100)P = 0.05P."
+      ],
+      [
+       "A quantity that doubles every T hours has k = (log 2)/T.",
+       true,
+       "e^(kT) = 2 gives kT = log 2."
+      ],
+      [
+       "dN/dt = kN has the solution N = kt + C.",
+       false,
+       "That would be the solution of dN/dt = k, a constant rate."
+      ],
+      [
+       "A slope condition plus one point gives one particular curve.",
+       true,
+       "The point fixes the constant."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Money grows continuously at 5% per year. Which differential equation models the principal P?",
+     "options": [
+      "dP/dt = 5P",
+      "dP/dt = 5",
+      "dP/dt = P/20",
+      "dP/dt = P + 5"
+     ],
+     "answer": 2,
+     "explain": "Rate = 5% of P = (5/100)P = P/20.",
+     "mistake": "Forgets to convert the percentage"
+    },
+    {
+     "q": "For dP/dt = P/20 with P(0) = ₹1000, what is P after 20 years?",
+     "options": [
+      "1000e²",
+      "2000",
+      "1000e^(1/20)",
+      "1000e"
+     ],
+     "answer": 3,
+     "explain": "P = 1000 e^(t/20); at t = 20, P = 1000e.",
+     "mistake": "Uses simple interest instead"
+    },
+    {
+     "q": "A bacteria culture doubles every 3 hours under dN/dt = kN. What is k?",
+     "options": [
+      "3 log 2",
+      "2/3",
+      "(log 2)/3",
+      "log 3/2"
+     ],
+     "answer": 2,
+     "explain": "e^(3k) = 2 ⇒ 3k = log 2 ⇒ k = (log 2)/3.",
+     "mistake": "Inverts the relation"
+    },
+    {
+     "q": "With N = N₀ e^(kt) and doubling every 3 hours, how many times larger is N after 9 hours?",
+     "options": [
+      "6",
+      "8",
+      "3",
+      "9"
+     ],
+     "answer": 1,
+     "explain": "9 hours is three doublings: 2³ = 8.",
+     "steps": [
+      "9/3 = 3 doublings",
+      "2³ = 8"
+     ],
+     "mistake": "Multiplies 2 by 3 instead of raising 2 to the power 3",
+     "check": "2**3"
+    },
+    {
+     "q": "A curve passes through (0, 1) and its slope at (x, y) is y. What is its equation?",
+     "options": [
+      "y = eˣ",
+      "y = x + 1",
+      "y = e⁻ˣ",
+      "y = 2eˣ"
+     ],
+     "answer": 0,
+     "explain": "dy/dx = y ⇒ y = Aeˣ, and y(0) = 1 gives A = 1.",
+     "mistake": "Treats slope y as a constant slope"
+    },
+    {
+     "q": "For the curve through (−2, 3) with slope 2x/y², what is y³ when x = 1?",
+     "options": [
+      "15",
+      "18",
+      "16",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "y³ = 3x² + 15, so at x = 1, y³ = 18.",
+     "steps": [
+      "y³ = 3x² + 15",
+      "3 + 15 = 18"
+     ],
+     "mistake": "Forgets the 3 multiplying x²",
+     "check": "3*1+15"
+    },
+    {
+     "q": "A population falls according to dN/dt = −kN (k > 0). Which graph shape fits?",
+     "options": [
+      "A straight line falling",
+      "Exponential growth",
+      "A parabola",
+      "Exponential decay towards zero"
+     ],
+     "answer": 3,
+     "explain": "N = N₀e^(−kt) decreases and approaches 0 but never reaches it.",
+     "mistake": "Confuses exponential decay with a constant rate of fall"
+    },
+    {
+     "q": "Assertion (A): In a bank paying continuous interest at r% per annum, P = P₀e^(rt/100).\nReason (R): The rate of growth of principal is proportional to the principal, dP/dt = (r/100)P.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "Both A and R are true and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Separating dP/P = (r/100) dt and integrating gives log P = rt/100 + C, which leads to A.",
+     "mistake": "Thinks continuous interest is linear"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'How do I turn a word problem about growth into a differential equation?'",
+    "must": [
+     [
+      "proportional",
+      "rate",
+      "dn/dt"
+     ],
+     [
+      "kn",
+      "k times",
+      "constant k"
+     ],
+     [
+      "exponential",
+      "e^",
+      "e to the"
+     ],
+     [
+      "condition",
+      "find k",
+      "given data"
+     ]
+    ],
+    "praise": "Chirp! 'Rate proportional to amount' means dN/dt = kN, which gives exponential growth. Use the data to find k!",
+    "nudge": "What does 'the rate is proportional to the amount' look like as an equation?"
+   },
+   "covers": [
+    "c9.4.3"
+   ]
+  },
+  {
+   "id": "g12-maths-09-05",
+   "title": "Homogeneous differential equations",
+   "learn": {
+    "hook": "dy/dx = (x + y)/x does not separate. But substitute y = vx and suddenly it does. That trick is the whole method.",
+    "points": [
+     "F(x, y) is homogeneous of degree n if F(λx, λy) = λⁿ F(x, y) for all λ ≠ 0.",
+     "dy/dx = F(x, y) is homogeneous if F is homogeneous of degree 0, i.e. F(x, y) = g(y/x).",
+     "Method: put y = vx, so dy/dx = v + x dv/dx. The equation becomes separable in v and x.",
+     "If dx/dy = G(x, y) with G of degree 0, put x = vy instead.",
+     "After integrating, replace v by y/x, then use any initial condition to find C."
+    ],
+    "example": {
+     "q": "Solve dy/dx = (x + y)/x.",
+     "steps": [
+      "Degree 0: (λx + λy)/(λx) = (x + y)/x. Put y = vx.",
+      "v + x dv/dx = 1 + v ⇒ x dv/dx = 1 ⇒ dv = dx/x.",
+      "v = log|x| + C ⇒ y/x = log|x| + C."
+     ],
+     "answer": "y = x log|x| + Cx"
+    },
+    "reallife": "Homogeneous equations appear whenever a rate depends only on the direction y/x and not on the distance from the origin, for example in some curve-tracing and flow problems."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Homogeneous function?",
+     "buckets": [
+      "Homogeneous",
+      "Not homogeneous"
+     ],
+     "items": [
+      [
+       "x² + 2xy",
+       0
+      ],
+      [
+       "x + y + 1",
+       1
+      ],
+      [
+       "sin(y/x)",
+       0
+      ],
+      [
+       "√(x² + y²)",
+       0
+      ],
+      [
+       "x² + y",
+       1
+      ],
+      [
+       "(x³ + y³)/(x + y)",
+       0
+      ],
+      [
+       "cos x + y",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Solve (x² + y²) dx = 2xy dy",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Write dy/dx = (x² + y²)/(2xy), degree 0",
+      "Put y = vx: v + x dv/dx = (1 + v²)/(2v)",
+      "Separate: 2v dv/(1 − v²) = dx/x",
+      "Integrate: −log|1 − v²| = log|x| + C",
+      "Simplify: x² − y² = Cx"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the degree of the homogeneous function F(x, y) = x³ + 3x²y?",
+     "options": [
+      "2",
+      "1",
+      "0",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "F(λx, λy) = λ³(x³ + 3x²y), so the degree is 3.",
+     "steps": [
+      "Replace x, y by λx, λy",
+      "Factor out λ³"
+     ],
+     "mistake": "Counts the number of terms",
+     "check": "3"
+    },
+    {
+     "q": "What is the degree of F(x, y) = (x³ + y³)/(x + y)?",
+     "options": [
+      "3",
+      "1",
+      "2",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "λ³/λ = λ², so the degree is 2.",
+     "steps": [
+      "Numerator: λ³",
+      "Denominator: λ",
+      "λ²: degree 2"
+     ],
+     "mistake": "Takes the degree of the numerator only",
+     "check": "2"
+    },
+    {
+     "q": "Which differential equation is homogeneous?",
+     "options": [
+      "dy/dx = x + y + 1",
+      "dy/dx = x² + y",
+      "dy/dx = (x² + y²)/(xy)",
+      "dy/dx = sin x + y"
+     ],
+     "answer": 2,
+     "explain": "(x² + y²)/(xy) is homogeneous of degree 0, so the equation is homogeneous.",
+     "mistake": "Ignores the constant or mixed-degree terms"
+    },
+    {
+     "q": "In a homogeneous equation, the substitution y = vx gives dy/dx =",
+     "options": [
+      "x dv/dx",
+      "v dv/dx",
+      "v + dv/dx",
+      "v + x dv/dx"
+     ],
+     "answer": 3,
+     "explain": "By the product rule, d(vx)/dx = v + x dv/dx.",
+     "mistake": "Forgets the product rule"
+    },
+    {
+     "q": "What is the general solution of (x² + y²) dx = 2xy dy?",
+     "options": [
+      "x² + y² = Cx",
+      "y² − x² = Cx²",
+      "x² − y² = Cx",
+      "x² − y² = C"
+     ],
+     "answer": 2,
+     "explain": "With y = vx, 2v dv/(1 − v²) = dx/x gives (1 − v²)x = C, i.e. x² − y² = Cx.",
+     "mistake": "Drops the x on the right after replacing v"
+    },
+    {
+     "q": "Solve dy/dx = (x + y)/x with y(1) = 1. Which is the particular solution?",
+     "options": [
+      "y = x log|x| + x",
+      "y = x log|x|",
+      "y = x log|x| − x",
+      "y = log|x| + 1"
+     ],
+     "answer": 0,
+     "explain": "General: y = x log|x| + Cx. At x = 1: 1 = 0 + C, so C = 1.",
+     "mistake": "Forgets the Cx term"
+    },
+    {
+     "q": "For dx/dy = (x + y)/y, which substitution is natural?",
+     "options": [
+      "y = vx",
+      "v = x + y",
+      "v = xy",
+      "x = vy"
+     ],
+     "answer": 3,
+     "explain": "When the equation is in the form dx/dy = G(x/y), use x = vy.",
+     "mistake": "Always uses y = vx"
+    },
+    {
+     "q": "Assertion (A): dy/dx = (y/x) + tan(y/x) is homogeneous.\nReason (R): Its right side is a function of y/x alone.",
+     "options": [
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true and R explains A"
+     ],
+     "answer": 3,
+     "explain": "Any F(x, y) = g(y/x) is homogeneous of degree 0, which makes the equation homogeneous.",
+     "mistake": "Thinks trigonometric terms prevent homogeneity"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What is a homogeneous differential equation and how do I solve it?'",
+    "must": [
+     [
+      "degree zero",
+      "degree 0",
+      "y/x",
+      "lambda",
+      "function of y/x"
+     ],
+     [
+      "y = vx",
+      "substitute",
+      "y=vx"
+     ],
+     [
+      "separable",
+      "separate"
+     ]
+    ],
+    "praise": "Tweet! If it depends only on y/x, put y = vx, separate the variables, and integrate. Homogeneous handled!",
+    "nudge": "Which substitution turns it into a separable equation?"
+   },
+   "covers": [
+    "c9.4.4",
+    "c9.4.5",
+    "c9.4.6",
+    "c9.4.7"
+   ]
+  },
+  {
+   "id": "g12-maths-09-06",
+   "title": "Linear differential equations",
+   "learn": {
+    "hook": "dy/dx + Py = Q: one magic multiplier, the integrating factor, turns the left side into the derivative of a single product.",
+    "points": [
+     "Linear form: dy/dx + Py = Q, where P and Q are functions of x only (or constants).",
+     "Integrating factor IF = e^(∫P dx).",
+     "Solution: y · IF = ∫(Q · IF) dx + C.",
+     "If the equation is linear in x: dx/dy + P₁x = Q₁ (P₁, Q₁ functions of y), then IF = e^(∫P₁ dy) and x · IF = ∫(Q₁ · IF) dy + C.",
+     "Always rewrite into standard form first (divide by the coefficient of dy/dx)."
+    ],
+    "example": {
+     "q": "Solve x dy/dx + 2y = x² (x ≠ 0).",
+     "steps": [
+      "Standard form: dy/dx + (2/x)y = x. So P = 2/x, Q = x.",
+      "IF = e^(∫2/x dx) = e^(2 log x) = x².",
+      "y · x² = ∫x · x² dx = x⁴/4 + C."
+     ],
+     "answer": "y = x²/4 + C/x²"
+    },
+    "reallife": "In electrical circuits, an inductor–resistor (RL) circuit obeys L di/dt + Ri = E, a linear equation solved with the same integrating factor."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Equation ↔ integrating factor",
+     "pairs": [
+      [
+       "dy/dx + 2y = sin x",
+       "e^(2x)"
+      ],
+      [
+       "dy/dx − y = cos x",
+       "e^(−x)"
+      ],
+      [
+       "dy/dx + y/x = x²",
+       "x"
+      ],
+      [
+       "dy/dx + y tan x = sec x",
+       "sec x"
+      ],
+      [
+       "dx/dy − x/y = 2y",
+       "1/y"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Solve dy/dx + y tan x = sec x",
+     "prompt": "Arrange the steps",
+     "items": [
+      "P = tan x, Q = sec x",
+      "IF = e^(∫tan x dx) = sec x",
+      "y sec x = ∫sec²x dx",
+      "y sec x = tan x + C",
+      "y = sin x + C cos x"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the integrating factor of dy/dx + 3y = eˣ?",
+     "options": [
+      "eˣ",
+      "e^(3x)",
+      "e^(−3x)",
+      "3x"
+     ],
+     "answer": 1,
+     "explain": "IF = e^(∫3 dx) = e^(3x).",
+     "mistake": "Uses Q instead of P"
+    },
+    {
+     "q": "What is the integrating factor of x dy/dx − y = x² (x > 0)?",
+     "options": [
+      "x",
+      "e^(−x)",
+      "−x",
+      "1/x"
+     ],
+     "answer": 3,
+     "explain": "Standard form: dy/dx − y/x = x, so P = −1/x and IF = e^(−log x) = 1/x.",
+     "mistake": "Forgets to divide by x before reading P"
+    },
+    {
+     "q": "What is the general solution of dy/dx + y/x = x² (x > 0)?",
+     "options": [
+      "y = x³/3 + C",
+      "y = x⁴/4 + C",
+      "y = x³/4 + Cx",
+      "y = x³/4 + C/x"
+     ],
+     "answer": 3,
+     "explain": "IF = x. yx = ∫x³ dx = x⁴/4 + C ⇒ y = x³/4 + C/x.",
+     "mistake": "Forgets to divide C by x"
+    },
+    {
+     "q": "What is the general solution of dy/dx + y tan x = sec x?",
+     "options": [
+      "y = sin x + C cos x",
+      "y = cos x + C sin x",
+      "y = tan x + C",
+      "y sec x = sec x + C"
+     ],
+     "answer": 0,
+     "explain": "IF = sec x; y sec x = tan x + C; multiply by cos x.",
+     "mistake": "Uses log|sec x| itself as the IF"
+    },
+    {
+     "q": "Solve dy/dx + 2y tan x = sin x, y = 0 at x = π/3. What is C in y = cos x + C cos²x?",
+     "options": [
+      "2",
+      "−2",
+      "−1/2",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "IF = sec²x; y sec²x = sec x + C ⇒ y = cos x + C cos²x. At π/3: 0 = 1/2 + C/4 ⇒ C = −2.",
+     "steps": [
+      "0 = cos(π/3) + C cos²(π/3)",
+      "0 = 1/2 + C/4",
+      "C = −2"
+     ],
+     "mistake": "Makes a slip with cos²(π/3) = 1/4",
+     "check": "-2"
+    },
+    {
+     "q": "For y dx − (x + 2y²) dy = 0, the equation is best written as",
+     "options": [
+      "dy/dx − y/x = 2x",
+      "dy/dx + y/x = 2y²",
+      "dx/dy − x/y = 2y",
+      "dx/dy + x/y = 2y"
+     ],
+     "answer": 2,
+     "explain": "y dx = (x + 2y²) dy ⇒ dx/dy = x/y + 2y ⇒ dx/dy − x/y = 2y, a linear equation in x.",
+     "mistake": "Forces the equation into dy/dx form"
+    },
+    {
+     "q": "Hence the general solution of y dx − (x + 2y²) dy = 0 is",
+     "options": [
+      "x = 2y² + Cy",
+      "x = y² + Cy",
+      "y = 2x² + Cx",
+      "x = 2y + C"
+     ],
+     "answer": 0,
+     "explain": "IF = e^(−∫dy/y) = 1/y. x/y = ∫2 dy = 2y + C ⇒ x = 2y² + Cy.",
+     "mistake": "Forgets to multiply C by y"
+    },
+    {
+     "q": "Assertion (A): The integrating factor of dy/dx + Py = Q is e^(∫P dx).\nReason (R): Multiplying by e^(∫P dx) makes the left side the derivative of y · e^(∫P dx).",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "d/dx[y e^(∫P dx)] = e^(∫P dx)(dy/dx + Py), which is why this factor is chosen.",
+     "mistake": "Memorises the IF without knowing why it works"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu flaps: 'How do I solve dy/dx + Py = Q?'",
+    "must": [
+     [
+      "integrating factor",
+      "i.f."
+     ],
+     [
+      "e^",
+      "e to the",
+      "exponential"
+     ],
+     [
+      "y times",
+      "y ·",
+      "y × if",
+      "product"
+     ],
+     [
+      "standard form",
+      "divide",
+      "dy/dx + py"
+     ]
+    ],
+    "praise": "Chirp! Put it in standard form, IF = e^(∫P dx), then y · IF = ∫Q · IF dx + C. Linear solved!",
+    "nudge": "What is the formula for the integrating factor?"
+   },
+   "covers": [
+    "c9.4.8",
+    "c9.4.9",
+    "c9.4.10",
+    "c9.4.11"
+   ]
+  },
+  {
+   "id": "g12-maths-09-07",
+   "title": "Curves from slopes and choosing the method",
+   "learn": {
+    "hook": "In the exam, the hardest step is often deciding which method to use. A quick checklist turns panic into a plan.",
+    "points": [
+     "Checklist: Can it be written as g(x) h(y)? Use separation. Is it a function of y/x only? Use y = vx. Is it dy/dx + Py = Q? Use the integrating factor.",
+     "Slope problems: 'slope at (x, y) is …' means dy/dx = … . Solve, then use the given point.",
+     "Example: the curve through the origin with slope x + y at (x, y) satisfies dy/dx − y = x.",
+     "Some equations fit more than one type; choose the easiest.",
+     "Always verify the final answer by substituting back if time allows."
+    ],
+    "example": {
+     "q": "Find the curve through the origin whose slope at every point (x, y) is x + y.",
+     "steps": [
+      "dy/dx = x + y ⇒ dy/dx − y = x (linear, P = −1, Q = x).",
+      "IF = e^(−x). y e^(−x) = ∫x e^(−x) dx = −x e^(−x) − e^(−x) + C.",
+      "y = −x − 1 + C eˣ. At (0, 0): 0 = −1 + C ⇒ C = 1."
+     ],
+     "answer": "y = eˣ − x − 1"
+    },
+    "reallife": "Weather forecasting models solve many differential equations together; recognising the type of each piece and picking the right method is a key skill there too."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which method?",
+     "buckets": [
+      "Variable separable",
+      "Homogeneous",
+      "Linear"
+     ],
+     "items": [
+      [
+       "dy/dx = e^(x − y)",
+       0
+      ],
+      [
+       "dy/dx = (x² + y²)/(xy)",
+       1
+      ],
+      [
+       "dy/dx + 2y = x",
+       2
+      ],
+      [
+       "dy/dx = xy²",
+       0
+      ],
+      [
+       "dy/dx − y/x = x²",
+       2
+      ],
+      [
+       "dy/dx = (y/x) + sin(y/x)",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Method check",
+     "items": [
+      [
+       "dy/dx = x + y is linear.",
+       true,
+       "It is dy/dx − y = x."
+      ],
+      [
+       "dy/dx = x + y is variable separable.",
+       false,
+       "x + y is not a product g(x)h(y)."
+      ],
+      [
+       "dy/dx = y/x is both separable and homogeneous.",
+       true,
+       "dy/y = dx/x, and y/x has degree 0."
+      ],
+      [
+       "dy/dx + y² = x is linear in y.",
+       false,
+       "y² is not first degree in y."
+      ],
+      [
+       "A slope condition 'slope = 2x' gives dy/dx = 2x.",
+       true,
+       "The slope of the tangent is dy/dx."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which method suits dy/dx = e^(x − y)?",
+     "options": [
+      "Homogeneous",
+      "Variable separable",
+      "Linear with IF",
+      "No method works"
+     ],
+     "answer": 1,
+     "explain": "e^(x − y) = eˣ · e⁻ʸ, so eʸ dy = eˣ dx.",
+     "mistake": "Does not split the exponential"
+    },
+    {
+     "q": "Which method suits dy/dx − y/x = x²?",
+     "options": [
+      "Variable separable",
+      "Homogeneous",
+      "Integration by parts only",
+      "Linear with IF"
+     ],
+     "answer": 3,
+     "explain": "It is in the form dy/dx + Py = Q with P = −1/x, Q = x².",
+     "mistake": "Calls it homogeneous because of y/x"
+    },
+    {
+     "q": "For the curve through the origin with slope x + y, what is y at x = 1?",
+     "options": [
+      "e − 1",
+      "e − 2",
+      "e",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "y = eˣ − x − 1, so y(1) = e − 2.",
+     "mistake": "Forgets the −x term"
+    },
+    {
+     "q": "A curve has slope 2x at each point (x, y) and passes through (1, 3). What is y at x = 2?",
+     "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+     ],
+     "answer": 2,
+     "explain": "y = x² + C, 3 = 1 + C ⇒ C = 2. y(2) = 4 + 2 = 6.",
+     "steps": [
+      "y = x² + C",
+      "C = 2",
+      "y(2) = 6"
+     ],
+     "mistake": "Forgets the constant",
+     "check": "4+2"
+    },
+    {
+     "q": "A curve passes through (0, 2) and its slope at (x, y) is −y. What is y(0) · y′(0)?",
+     "options": [
+      "−4",
+      "4",
+      "−2",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "y′ = −y, so y′(0) = −2, and y(0) · y′(0) = 2 × (−2) = −4.",
+     "steps": [
+      "y(0) = 2",
+      "y′(0) = −2",
+      "Product = −4"
+     ],
+     "mistake": "Forgets the negative sign in the slope",
+     "check": "2*(-2)"
+    },
+    {
+     "q": "Which is the general solution of dy/dx = y/x?",
+     "options": [
+      "y = C/x",
+      "y = x + C",
+      "y = Cx",
+      "y = Ceˣ"
+     ],
+     "answer": 2,
+     "explain": "dy/y = dx/x ⇒ log|y| = log|x| + log|C| ⇒ y = Cx.",
+     "mistake": "Mixes the logs and gets y = C/x"
+    },
+    {
+     "q": "Solve dy/dx + y = eˣ. Which is the general solution?",
+     "options": [
+      "y = eˣ + C",
+      "y = x eˣ + C",
+      "y = eˣ/2 + C",
+      "y = eˣ/2 + Ce⁻ˣ"
+     ],
+     "answer": 3,
+     "explain": "IF = eˣ. y eˣ = ∫e^(2x) dx = e^(2x)/2 + C ⇒ y = eˣ/2 + Ce⁻ˣ.",
+     "mistake": "Forgets to divide C by the IF"
+    },
+    {
+     "q": "Assertion (A): dy/dx = (x + y)² is a linear differential equation.\nReason (R): The right side contains y.",
+     "options": [
+      "A is false but R is true",
+      "Both A and R are false",
+      "Both A and R are true and R explains A",
+      "A is true but R is false"
+     ],
+     "answer": 0,
+     "explain": "(x + y)² contains y² terms, so the equation is not linear; A is false. R is true: the right side does contain y.",
+     "mistake": "Thinks containing y makes an equation linear"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is lost: 'Three methods! How do I choose which one to use?'",
+    "must": [
+     [
+      "separable",
+      "g(x) h(y)",
+      "product"
+     ],
+     [
+      "homogeneous",
+      "y/x"
+     ],
+     [
+      "linear",
+      "integrating factor",
+      "py = q"
+     ]
+    ],
+    "praise": "Tweet! Product of x-part and y-part: separate. Only y/x: homogeneous. dy/dx + Py = Q: integrating factor!",
+    "nudge": "What clue tells you to use the integrating factor?"
+   },
+   "covers": [
+    "c9.4.12",
+    "c9.4.13"
+   ]
+  }
+ ]
+}
