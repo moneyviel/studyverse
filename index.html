@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StudyVerse</title>
 <meta name="theme-color" content="#0f1b3d">
-<meta name="description" content="Learn by playing — games, quizzes and squads from Class 1 to college.">
+<meta name="description" content="Learn by playing — games, quizzes and squads from Grade 1 to college.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icons/favicon.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -301,18 +301,18 @@ function go(s){
 
 /* ---------- World map ---------- */
 const ISLES=[
-  {id:'num', name:'Number Bay', cls:'Class 1–5', x:110, y:1000, state:'done', lm:'lighthouse', g:['#7ee081','#2f9e5b'],
+  {id:'num', name:'Number Bay', cls:'Grade 1–5', x:110, y:1000, state:'done', lm:'lighthouse', g:['#7ee081','#2f9e5b'],
    text:'You mastered counting, place value and tables here. Replay any time to keep your 3 stars shining.'},
-  {id:'ang', name:'Angle Island', cls:'Class 6', x:285, y:850, state:'current', lm:'protractor', g:['#ffe27a','#f2a93b'],
+  {id:'ang', name:'Angle Island', cls:'Grade 6', x:285, y:850, state:'current', lm:'protractor', g:['#ffe27a','#f2a93b'],
    text:'Bend light, open laptops, read clocks — and discover the secret Reflex angle. Finish it to open the treasure chest!'},
-  {id:'tri', name:'Triangle Peak', cls:'Class 7', x:115, y:690, state:'locked', lm:'peak', g:['#b8a6ff','#6d4fe0'],
+  {id:'tri', name:'Triangle Peak', cls:'Grade 7', x:115, y:690, state:'locked', lm:'peak', g:['#b8a6ff','#6d4fe0'],
    text:'Climb the mountain built from triangles. Unlocks when you finish Angle Island — angles are the rope you climb with!'},
-  {id:'phy', name:'Physics Port', cls:'Class 9', x:290, y:530, state:'locked', lm:'windmill', g:['#8fd3ff','#2f80d1'],
+  {id:'phy', name:'Physics Port', cls:'Grade 9', x:290, y:530, state:'locked', lm:'windmill', g:['#8fd3ff','#2f80d1'],
    text:'Ships, forces and motion. The angles you learn today steer the ships here.'},
-  {id:'chem', name:'Chem Volcano', cls:'Class 11', x:115, y:370, state:'locked', lm:'volcano', g:['#9ef0c8','#22a37a'],
+  {id:'chem', name:'Chem Volcano', cls:'Grade 11', x:115, y:370, state:'locked', lm:'volcano', g:['#9ef0c8','#22a37a'],
    text:'Reactions bubble and erupt. Mix elements safely and watch what happens.'},
   {id:'gal', name:'Galaxy Gate', cls:'College · CA · BTech · MBA', x:225, y:150, state:'locked', lm:'portal', g:['#e3b8ff','#8b5cf6'],
-   text:'The final portal. Everything you learn from Class 1 builds the bridge to your career up here among the stars.'}
+   text:'The final portal. Everything you learn from Grade 1 builds the bridge to your career up here among the stars.'}
 ];
 function rnd(seed){ let s=seed; return ()=>{ s=(s*9301+49297)%233280; return s/233280; }; }
 function landmark(i){
@@ -642,7 +642,7 @@ function endQuiz(){
 const mates=[{n:'Aarav',e:'🐯',x:420,c:'#ffe1cc'},{n:'Diya',e:'🦊',x:360,c:'#ffd9e8'},{n:'Kabir',e:'🐼',x:210,c:'#e1ecff'},{n:'Meera',e:'🐨',x:140,c:'#e3fbf3'}];
 function renderSquad(){
   const list=[...mates.map(m=>({...m})),{n:'You',e:'⭐',x:xp,c:'#fff3c4',me:true}].sort((a,b)=>b.x-a.x);
-  document.getElementById('board').innerHTML=list.map((m,i)=>`<div class="row ${m.me?'me':''}"><div class="rank">${i+1}</div><div class="av" style="background:${m.c}">${m.e}</div><div class="nm">${m.n}<small>${m.me?'Class 6 · Angle Island':'Class 6'}</small></div><div class="xp">${m.x} ⭐</div></div>`).join('');
+  document.getElementById('board').innerHTML=list.map((m,i)=>`<div class="row ${m.me?'me':''}"><div class="rank">${i+1}</div><div class="av" style="background:${m.c}">${m.e}</div><div class="nm">${m.n}<small>${m.me?'Grade 6 · Angle Island':'Grade 6'}</small></div><div class="xp">${m.x} ⭐</div></div>`).join('');
   const us=mates.reduce((s,m)=>s+m.x,0)+xp, them=1450;
   document.getElementById('usScore').textContent=us;
   document.getElementById('vsbar').style.width=(us/(us+them)*100)+'%';
