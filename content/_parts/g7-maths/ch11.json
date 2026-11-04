@@ -6,6 +6,13 @@
   {
    "id": "g7-maths-11-01",
    "title": "Common factors and HCF",
+   "covers": [
+    "c11.1.1",
+    "c11.1.2",
+    "c11.1.3",
+    "c11.1.4",
+    "c11.1.11"
+   ],
    "learn": {
     "hook": "What is the biggest number that divides both 18 and 24 exactly? Let's hunt for it!",
     "points": [
@@ -260,8 +267,495 @@
    }
   },
   {
+   "id": "g7-maths-11-04",
+   "title": "Jump Jackpot and Idli-Vada",
+   "covers": [
+    "c11.1.5",
+    "c11.2.3"
+   ],
+   "learn": {
+    "hook": "A frog must land on BOTH treasure stones at 28 and 70 using equal jumps. What's the longest jump that works?",
+    "points": [
+     "Jump Jackpot: starting at 0 with equal jumps, you land only on multiples of the jump size.",
+     "To land on two treasures, the jump size must be a factor of both numbers — a common factor.",
+     "The longest such jump is the HCF: for 28 and 70 it is 14.",
+     "Idli-Vada: count 1, 2, 3, ... saying 'idli' for multiples of 3, 'vada' for multiples of 5 and 'idli-vada' for multiples of both.",
+     "The first 'idli-vada' is the LCM: for 3 and 5 it is 15."
+    ],
+    "example": {
+     "q": "Treasures are at 28 and 70. What is the longest equal jump that lands on both?",
+     "steps": [
+      "Factors of 28: 1, 2, 4, 7, 14, 28",
+      "Factors of 70: 1, 2, 5, 7, 10, 14, 35, 70",
+      "Common factors: 1, 2, 7, 14"
+     ],
+     "answer": "14 (the HCF)"
+    },
+    "reallife": "Games like these are played in classrooms across India — they train your mind to find HCF and LCM fast."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Jump and call",
+     "items": [
+      {
+       "q": "Longest jump landing on 12 and 18",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "Longest jump landing on 20 and 35",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "Longest jump landing on 16 and 40",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "First idli-vada (idli 3, vada 5)",
+       "a": "15",
+       "check": "3*5"
+      },
+      {
+       "q": "First idli-vada (idli 4, vada 6)",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "First idli-vada (idli 6, vada 9)",
+       "a": "18",
+       "check": "18"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Idli = multiple of 3, Vada = multiple of 5",
+     "buckets": [
+      "Idli",
+      "Vada",
+      "Idli-Vada"
+     ],
+     "items": [
+      [
+       "9",
+       0
+      ],
+      [
+       "10",
+       1
+      ],
+      [
+       "15",
+       2
+      ],
+      [
+       "21",
+       0
+      ],
+      [
+       "25",
+       1
+      ],
+      [
+       "30",
+       2
+      ],
+      [
+       "45",
+       2
+      ],
+      [
+       "33",
+       0
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Treasures are at 28 and 70. What is the longest equal jump (starting from 0) that lands on both?",
+     "options": [
+      "2",
+      "28",
+      "14",
+      "7"
+     ],
+     "answer": 2,
+     "explain": "The jump must divide both 28 and 70. The largest such number is HCF(28, 70) = 14.",
+     "steps": [
+      "28 = 2 × 14",
+      "70 = 5 × 14"
+     ],
+     "mistake": "Picks a common factor that is not the largest",
+     "check": "14"
+    },
+    {
+     "q": "With jumps of 4 starting from 0, can the frog land on both 28 and 70?",
+     "options": [
+      "Yes, because 4 is even",
+      "No — 70 is not a multiple of 4",
+      "Yes, on both",
+      "No — 28 is not a multiple of 4"
+     ],
+     "answer": 1,
+     "explain": "28 = 4 × 7 works, but 70 ÷ 4 = 17.5, so 70 is never reached.",
+     "steps": [
+      "70 ÷ 4 = 17.5"
+     ],
+     "mistake": "Checks only one treasure"
+    },
+    {
+     "q": "Which jump sizes land on both 12 and 18?",
+     "options": [
+      "1, 2, 3 and 6",
+      "Only 6",
+      "2, 4 and 6",
+      "1, 2, 3, 4 and 6"
+     ],
+     "answer": 0,
+     "explain": "These are exactly the common factors of 12 and 18.",
+     "mistake": "Includes 4, which does not divide 18"
+    },
+    {
+     "q": "In Idli-Vada (idli for multiples of 3, vada for multiples of 5), what is said for 20?",
+     "options": [
+      "Idli",
+      "Idli-Vada",
+      "20",
+      "Vada"
+     ],
+     "answer": 3,
+     "explain": "20 is a multiple of 5 but not of 3.",
+     "mistake": "Thinks every even number is idli"
+    },
+    {
+     "q": "In a game with idli for multiples of 4 and vada for multiples of 6, what is the first number called 'idli-vada'?",
+     "options": [
+      "10",
+      "2",
+      "12",
+      "24"
+     ],
+     "answer": 2,
+     "explain": "The first common multiple of 4 and 6 is LCM(4, 6) = 12.",
+     "steps": [
+      "Multiples of 4: 4, 8, 12",
+      "Multiples of 6: 6, 12"
+     ],
+     "mistake": "Multiplies 4 × 6 instead of finding the lowest common multiple",
+     "check": "12"
+    },
+    {
+     "q": "Idli for multiples of 4, vada for multiples of 6. How many 'idli-vada' calls are there from 1 to 50?",
+     "options": [
+      "12",
+      "4",
+      "2",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "Idli-vadas are the multiples of 12: 12, 24, 36 and 48.",
+     "steps": [
+      "Multiples of 12 up to 50",
+      "12, 24, 36, 48"
+     ],
+     "mistake": "Counts multiples of 24 instead of 12",
+     "check": "48/12"
+    },
+    {
+     "q": "Treasures are at 45 and 75, and the frog uses the longest possible equal jump. How many jumps does it take to reach 75?",
+     "options": [
+      "5",
+      "15",
+      "3",
+      "45"
+     ],
+     "answer": 0,
+     "explain": "The longest jump is HCF(45, 75) = 15, and 75 ÷ 15 = 5 jumps.",
+     "steps": [
+      "HCF(45, 75) = 15",
+      "75 ÷ 15 = 5"
+     ],
+     "mistake": "Gives the jump size instead of the number of jumps",
+     "check": "75/15"
+    },
+    {
+     "q": "Why is the longest jump that lands on both treasures equal to the HCF?",
+     "options": [
+      "The HCF is always 1",
+      "The jump must be a multiple of both numbers",
+      "The HCF is the sum of the two numbers",
+      "The jump must be a factor of both numbers, and the HCF is the largest such factor"
+     ],
+     "answer": 3,
+     "explain": "Landing on a number means the jump divides it, so the jump is a common factor; the longest is the highest common factor.",
+     "mistake": "Confuses factors with multiples"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu plays Idli-Vada with idli for 3 and vada for 4. When will Gappu first say 'idli-vada'?",
+    "must": [
+     [
+      "12"
+     ],
+     [
+      "lcm",
+      "lowest common multiple",
+      "common multiple"
+     ],
+     [
+      "both",
+      "3 and 4"
+     ]
+    ],
+    "praise": "Idli-vada at 12! Gappu wins the game.",
+    "nudge": "What is the smallest number that is a multiple of both 3 and 4?"
+   }
+  },
+  {
+   "id": "g7-maths-11-05",
+   "title": "Primes, the sieve and prime factorisation",
+   "covers": [
+    "c11.1.6",
+    "c11.1.7",
+    "c11.1.8",
+    "c11.1.9",
+    "c11.1.10"
+   ],
+   "learn": {
+    "hook": "Every whole number bigger than 1 is built from primes in exactly ONE way — like a secret recipe!",
+    "points": [
+     "Sieve of Eratosthenes: in 2 to 100, keep 2 and cross its multiples, keep 3 and cross its multiples, then 5, then 7. The numbers left are the 25 primes below 100.",
+     "Prime factorisation is unique apart from order: 60 = 2 × 2 × 3 × 5 = 5 × 3 × 2 × 2.",
+     "Find it with a factor tree (60 → 6 × 10 → 2 × 3 × 2 × 5) or by dividing again and again by primes.",
+     "All factors come from the prime factors: 12 = 2 × 2 × 3, so use 0, 1 or 2 twos with 0 or 1 three: 3 × 2 = 6 factors (1, 2, 3, 4, 6, 12).",
+     "A guess (conjecture) can be broken by one counterexample: 97 > 64, yet 97 is prime while 64 = 2 × 2 × 2 × 2 × 2 × 2."
+    ],
+    "example": {
+     "q": "Find the prime factorisation of 84 by repeated division.",
+     "steps": [
+      "84 ÷ 2 = 42",
+      "42 ÷ 2 = 21",
+      "21 ÷ 3 = 7",
+      "7 is prime"
+     ],
+     "answer": "84 = 2 × 2 × 3 × 7"
+    },
+    "reallife": "Online security uses huge prime numbers — breaking a big number into its primes is very hard even for computers!"
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Prime recipes",
+     "pairs": [
+      [
+       "60",
+       "2 × 2 × 3 × 5"
+      ],
+      [
+       "84",
+       "2 × 2 × 3 × 7"
+      ],
+      [
+       "45",
+       "3 × 3 × 5"
+      ],
+      [
+       "98",
+       "2 × 7 × 7"
+      ],
+      [
+       "64",
+       "2 × 2 × 2 × 2 × 2 × 2"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Prime truths",
+     "items": [
+      [
+       "There are 25 primes less than 100",
+       true,
+       "The sieve leaves exactly 25."
+      ],
+      [
+       "In the sieve, the next number kept after 2 is 3",
+       true,
+       "3 is not a multiple of 2."
+      ],
+      [
+       "A number can have two different prime factorisations",
+       false,
+       "Apart from order, it is unique."
+      ],
+      [
+       "A bigger number always has more prime factors",
+       false,
+       "97 is prime but 64 has six prime factors."
+      ],
+      [
+       "12 has exactly 6 factors",
+       true,
+       "1, 2, 3, 4, 6 and 12."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the prime factorisation of 90?",
+     "options": [
+      "9 × 10",
+      "2 × 3 × 15",
+      "2 × 3 × 3 × 5",
+      "2 × 45"
+     ],
+     "answer": 2,
+     "explain": "90 = 2 × 45 = 2 × 9 × 5 = 2 × 3 × 3 × 5. Only this one uses primes alone.",
+     "steps": [
+      "90 ÷ 2 = 45",
+      "45 ÷ 3 = 15",
+      "15 ÷ 3 = 5"
+     ],
+     "mistake": "Stops before every factor is prime"
+    },
+    {
+     "q": "In the sieve, which of these numbers is first crossed out when we cross the multiples of 3?",
+     "options": [
+      "25",
+      "15",
+      "16",
+      "17"
+     ],
+     "answer": 1,
+     "explain": "15 = 3 × 5 and is odd, so it was not crossed for 2. 16 was crossed for 2, 17 is prime, 25 is crossed for 5.",
+     "mistake": "Forgets that even numbers were already crossed",
+     "check": "15"
+    },
+    {
+     "q": "How many prime numbers are there between 1 and 20?",
+     "options": [
+      "8",
+      "10",
+      "9",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "They are 2, 3, 5, 7, 11, 13, 17 and 19.",
+     "mistake": "Counts 1 or 9 as prime",
+     "check": "8"
+    },
+    {
+     "q": "Riya writes 60 = 2 × 2 × 3 × 5 and Arjun writes 60 = 5 × 3 × 2 × 2. Who is right?",
+     "options": [
+      "Only Riya",
+      "Only Arjun",
+      "Neither",
+      "Both — only the order is different"
+     ],
+     "answer": 3,
+     "explain": "Prime factorisation is unique except for the order of the factors.",
+     "mistake": "Thinks the order makes a different factorisation"
+    },
+    {
+     "q": "Which number has the prime factorisation 2 × 3 × 3 × 7?",
+     "options": [
+      "63",
+      "252",
+      "126",
+      "42"
+     ],
+     "answer": 2,
+     "explain": "2 × 3 = 6, 6 × 3 = 18, 18 × 7 = 126.",
+     "steps": [
+      "2 × 3 × 3 = 18",
+      "18 × 7 = 126"
+     ],
+     "mistake": "Uses 3 only once",
+     "check": "2*3*3*7"
+    },
+    {
+     "q": "18 = 2 × 3 × 3. How many factors does 18 have?",
+     "options": [
+      "5",
+      "6",
+      "4",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "Choose 0 or 1 two (2 ways) and 0, 1 or 2 threes (3 ways): 2 × 3 = 6 factors: 1, 2, 3, 6, 9, 18.",
+     "steps": [
+      "2 ways × 3 ways = 6"
+     ],
+     "mistake": "Counts only the prime factors",
+     "check": "(1+1)*(2+1)"
+    },
+    {
+     "q": "60 = 2 × 2 × 3 × 5. Which of these is NOT a factor of 60?",
+     "options": [
+      "8",
+      "12",
+      "15",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "8 = 2 × 2 × 2 needs three 2s, but 60 has only two.",
+     "steps": [
+      "12 = 2 × 2 × 3 ✓",
+      "15 = 3 × 5 ✓",
+      "20 = 2 × 2 × 5 ✓"
+     ],
+     "mistake": "Does not check how many times each prime appears",
+     "check": "8"
+    },
+    {
+     "q": "Which is a counterexample to 'a bigger number always has more prime factors'?",
+     "options": [
+      "100 = 2 × 2 × 5 × 5",
+      "64 = 2 × 32",
+      "Every number has exactly two factors",
+      "97 is bigger than 64 but is prime"
+     ],
+     "answer": 3,
+     "explain": "97 has one prime factor (itself), while the smaller 64 has six.",
+     "mistake": "Gives an example that does not test the claim"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to break 84 into primes. Teach Gappu a method, and explain why there is only one answer.",
+    "must": [
+     [
+      "prime",
+      "primes"
+     ],
+     [
+      "factor tree",
+      "divide",
+      "division"
+     ],
+     [
+      "only one",
+      "unique",
+      "same"
+     ]
+    ],
+    "praise": "Prime power! Gappu found 2 × 2 × 3 × 7.",
+    "nudge": "Which prime can Gappu divide 84 by first?"
+   }
+  },
+  {
    "id": "g7-maths-11-02",
    "title": "Common multiples and LCM",
+   "covers": [
+    "c11.2.1",
+    "c11.2.4",
+    "c11.3.3",
+    "c11.3.7"
+   ],
    "learn": {
     "hook": "Two friends skip-count — one by 6s, one by 8s. Which number will they both say first?",
     "points": [
@@ -502,6 +996,10 @@
   {
    "id": "g7-maths-11-03",
    "title": "HCF and LCM in daily life",
+   "covers": [
+    "c11.2.2",
+    "c11.3.8"
+   ],
    "learn": {
     "hook": "Two temple bells ring at different speeds. When will they ring together again? The LCM knows!",
     "points": [
@@ -774,6 +1272,512 @@
     ],
     "praise": "Super! HCF for splitting into the biggest equal parts, LCM for meeting together again. Gappu is ready!",
     "nudge": "Which one tells you when two things happen together again?"
+   }
+  },
+  {
+   "id": "g7-maths-11-06",
+   "title": "HCF and LCM patterns and the ladder method",
+   "covers": [
+    "c11.3.1",
+    "c11.3.2",
+    "c11.3.4",
+    "c11.3.5",
+    "c11.3.6"
+   ],
+   "learn": {
+    "hook": "One ladder of divisions gives you BOTH the HCF and the LCM at once!",
+    "points": [
+     "If one number divides the other (like 6 and 24), the HCF is the smaller (6) and the LCM is the larger (24).",
+     "Consecutive numbers (like 14 and 15) have HCF 1. Consecutive even numbers (like 14 and 16) have HCF 2.",
+     "Multiplying both numbers by k multiplies the HCF by k: HCF(6, 9) = 3, so HCF(12, 18) = 6.",
+     "Ladder method: divide both numbers by a common factor, write the quotients below, repeat until no common factor is left. HCF = product of the divisors; LCM = HCF × the numbers in the last row.",
+     "Shortcut: divide by a big common factor first (like 10 or 12) to finish in fewer steps."
+    ],
+    "example": {
+     "q": "Use the ladder method for 36 and 48.",
+     "steps": [
+      "÷ 2 → 18 and 24",
+      "÷ 2 → 9 and 12",
+      "÷ 3 → 3 and 4 (no common factor)",
+      "HCF = 2 × 2 × 3 = 12",
+      "LCM = 12 × 3 × 4 = 144"
+     ],
+     "answer": "HCF 12, LCM 144"
+    },
+    "reallife": "Teachers use the ladder method on the board because it finds HCF and LCM in one neat table."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Pattern gaps",
+     "items": [
+      {
+       "text": "HCF(8, 40) = ___",
+       "answer": "8",
+       "options": [
+        "8",
+        "40",
+        "4"
+       ]
+      },
+      {
+       "text": "LCM(8, 40) = ___",
+       "answer": "40",
+       "options": [
+        "40",
+        "320",
+        "8"
+       ]
+      },
+      {
+       "text": "HCF(21, 22) = ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "21",
+        "2"
+       ]
+      },
+      {
+       "text": "HCF(30, 32) = ___",
+       "answer": "2",
+       "options": [
+        "2",
+        "1",
+        "4"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Ladder sprint",
+     "items": [
+      {
+       "q": "HCF of 36 and 48",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "LCM of 36 and 48",
+       "a": "144",
+       "check": "12*3*4"
+      },
+      {
+       "q": "HCF of 60 and 90",
+       "a": "30",
+       "check": "30"
+      },
+      {
+       "q": "LCM of 60 and 90",
+       "a": "180",
+       "check": "30*2*3"
+      },
+      {
+       "q": "HCF of 24 and 36",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "LCM of 24 and 36",
+       "a": "72",
+       "check": "12*2*3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What are the HCF and LCM of 9 and 45?",
+     "options": [
+      "HCF 1, LCM 405",
+      "HCF 3, LCM 135",
+      "HCF 9, LCM 45",
+      "HCF 45, LCM 9"
+     ],
+     "answer": 2,
+     "explain": "9 divides 45, so the HCF is the smaller number (9) and the LCM is the larger (45).",
+     "mistake": "Swaps HCF and LCM"
+    },
+    {
+     "q": "What is the HCF of 99 and 100?",
+     "options": [
+      "9,900",
+      "1",
+      "99",
+      "100"
+     ],
+     "answer": 1,
+     "explain": "Consecutive numbers always have HCF 1.",
+     "mistake": "Thinks big numbers must share a big factor",
+     "check": "1"
+    },
+    {
+     "q": "What is the HCF of 46 and 48?",
+     "options": [
+      "2",
+      "1",
+      "4",
+      "46"
+     ],
+     "answer": 0,
+     "explain": "They are consecutive even numbers, so their HCF is 2.",
+     "mistake": "Applies the consecutive-number rule (HCF 1) to even numbers",
+     "check": "2"
+    },
+    {
+     "q": "HCF(10, 15) = 5. What is HCF(20, 30)?",
+     "options": [
+      "5",
+      "20",
+      "60",
+      "10"
+     ],
+     "answer": 3,
+     "explain": "Both numbers were doubled, so the HCF doubles: 2 × 5 = 10.",
+     "steps": [
+      "20 = 2 × 10, 30 = 2 × 15",
+      "HCF = 2 × 5 = 10"
+     ],
+     "mistake": "Thinks the HCF stays the same",
+     "check": "2*5"
+    },
+    {
+     "q": "HCF(4, 6) = 2. What is HCF(400, 600)?",
+     "options": [
+      "20",
+      "1,200",
+      "200",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "Both numbers were multiplied by 100, so the HCF is 100 × 2 = 200.",
+     "steps": [
+      "400 = 100 × 4, 600 = 100 × 6",
+      "HCF = 100 × 2 = 200"
+     ],
+     "mistake": "Multiplies by 10 instead of 100",
+     "check": "100*2"
+    },
+    {
+     "q": "The ladder for 36 and 48 uses divisors 2, 2 and 3 and ends with 3 and 4. What is the LCM?",
+     "options": [
+      "72",
+      "144",
+      "12",
+      "1,728"
+     ],
+     "answer": 1,
+     "explain": "LCM = (2 × 2 × 3) × 3 × 4 = 12 × 12 = 144.",
+     "steps": [
+      "HCF = 12",
+      "LCM = 12 × 3 × 4 = 144"
+     ],
+     "mistake": "Gives the HCF or the product of the two numbers",
+     "check": "2*2*3*3*4"
+    },
+    {
+     "q": "Shortcut ladder for 60 and 84: divide both by 12 first to get 5 and 7. What is the HCF?",
+     "options": [
+      "12",
+      "6",
+      "420",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "5 and 7 have no common factor, so the HCF is the single divisor 12.",
+     "steps": [
+      "60 ÷ 12 = 5",
+      "84 ÷ 12 = 7"
+     ],
+     "mistake": "Stops at a smaller common factor",
+     "check": "12"
+    },
+    {
+     "q": "Using the same shortcut ladder (÷ 12 gives 5 and 7), what is the LCM of 60 and 84?",
+     "options": [
+      "5,040",
+      "84",
+      "35",
+      "420"
+     ],
+     "answer": 3,
+     "explain": "LCM = 12 × 5 × 7 = 420.",
+     "steps": [
+      "12 × 5 × 7 = 420"
+     ],
+     "mistake": "Multiplies 60 × 84 instead",
+     "check": "12*5*7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu needs the HCF and LCM of 24 and 36 before lunch. Show Gappu the ladder trick!",
+    "must": [
+     [
+      "ladder",
+      "divide",
+      "division"
+     ],
+     [
+      "hcf",
+      "multiply the divisors",
+      "left side"
+     ],
+     [
+      "lcm",
+      "last row",
+      "bottom"
+     ]
+    ],
+    "praise": "Ladder climbed! HCF 12 and LCM 72.",
+    "nudge": "What do you do with the numbers at the bottom of the ladder?"
+   }
+  },
+  {
+   "id": "g7-maths-11-07",
+   "title": "The 1-to-10 number, adding fractions and Mystery Colours",
+   "covers": [
+    "c11.3.9",
+    "c11.3.10"
+   ],
+   "learn": {
+    "hook": "Which is the smallest number that 1, 2, 3, ... and 10 all divide exactly? It's 2,520!",
+    "points": [
+     "The smallest number divisible by every number from 1 to 10 is LCM(1, ..., 10) = 2 × 2 × 2 × 3 × 3 × 5 × 7 = 2,520.",
+     "It needs three 2s (for 8), two 3s (for 9), one 5 and one 7.",
+     "Mahāvīrāchārya (9th century) added fractions using the LCM of the denominators: 1/4 + 1/6 → LCM 12 → 3/12 + 2/12 = 5/12.",
+     "Using the LCM keeps the numbers smaller than simply multiplying the denominators.",
+     "Mystery Colours: numbers are coloured by a factor rule. Study which numbers share a colour to find the rule."
+    ],
+    "example": {
+     "q": "Add 1/6 + 3/8 using the LCM of the denominators.",
+     "steps": [
+      "LCM(6, 8) = 24",
+      "1/6 = 4/24 and 3/8 = 9/24",
+      "4/24 + 9/24 = 13/24"
+     ],
+     "answer": "13/24"
+    },
+    "reallife": "A school timetable with periods of different lengths, or adding recipe amounts in fractions, uses LCMs."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "LCM sprint",
+     "items": [
+      {
+       "q": "LCM of 1 to 6",
+       "a": "60",
+       "check": "60"
+      },
+      {
+       "q": "LCM of 1 to 10",
+       "a": "2520",
+       "check": "8*9*5*7"
+      },
+      {
+       "q": "1/4 + 1/6",
+       "a": "5/12",
+       "check": "Fraction(1,4)+Fraction(1,6)"
+      },
+      {
+       "q": "1/6 + 3/8",
+       "a": "13/24",
+       "check": "Fraction(1,6)+Fraction(3,8)"
+      },
+      {
+       "q": "1/3 + 1/5",
+       "a": "8/15",
+       "check": "Fraction(1,3)+Fraction(1,5)"
+      },
+      {
+       "q": "LCM of 8 and 12",
+       "a": "24",
+       "check": "24"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Mystery Colours: red = multiple of 2 but not 3, blue = multiple of 3 but not 2, green = multiple of both",
+     "buckets": [
+      "Red",
+      "Blue",
+      "Green"
+     ],
+     "items": [
+      [
+       "4",
+       0
+      ],
+      [
+       "9",
+       1
+      ],
+      [
+       "12",
+       2
+      ],
+      [
+       "10",
+       0
+      ],
+      [
+       "15",
+       1
+      ],
+      [
+       "18",
+       2
+      ],
+      [
+       "21",
+       1
+      ],
+      [
+       "30",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the smallest number that every number from 1 to 10 divides exactly?",
+     "options": [
+      "1260",
+      "3628800",
+      "2520",
+      "5040"
+     ],
+     "answer": 2,
+     "explain": "LCM(1, ..., 10) = 8 × 9 × 5 × 7 = 2,520. (1,260 is not divisible by 8; 5,040 works but is not the smallest.)",
+     "steps": [
+      "Need 2 × 2 × 2 (for 8), 3 × 3 (for 9), 5, 7",
+      "8 × 9 × 5 × 7 = 2,520"
+     ],
+     "mistake": "Multiplies all the numbers from 1 to 10",
+     "check": "8*9*5*7"
+    },
+    {
+     "q": "Why does 2,520 contain the factor 2 × 2 × 2?",
+     "options": [
+      "Because it has three digits that are even",
+      "Because 8 = 2 × 2 × 2 must divide it",
+      "Because 2 is the smallest prime",
+      "Because 10 is even"
+     ],
+     "answer": 1,
+     "explain": "For 8 to divide the number, it needs at least three 2s.",
+     "mistake": "Thinks one 2 is enough for every even number"
+    },
+    {
+     "q": "Which of these does NOT divide 2,520?",
+     "options": [
+      "11",
+      "9",
+      "8",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "2,520 = 2 × 2 × 2 × 3 × 3 × 5 × 7 has no factor 11.",
+     "mistake": "Thinks 2,520 is divisible by every small number",
+     "check": "11"
+    },
+    {
+     "q": "Add 1/4 + 1/6 using the LCM of the denominators.",
+     "options": [
+      "1/5",
+      "1/12",
+      "7/12",
+      "5/12"
+     ],
+     "answer": 3,
+     "explain": "LCM(4, 6) = 12. 1/4 = 3/12 and 1/6 = 2/12, so the sum is 5/12.",
+     "steps": [
+      "LCM = 12",
+      "3/12 + 2/12 = 5/12"
+     ],
+     "mistake": "Adds the numerators and the denominators",
+     "check": "Fraction(1,4)+Fraction(1,6)"
+    },
+    {
+     "q": "Add 2/9 + 1/6.",
+     "options": [
+      "1/18",
+      "11/18",
+      "7/18",
+      "1/5"
+     ],
+     "answer": 2,
+     "explain": "LCM(9, 6) = 18. 2/9 = 4/18 and 1/6 = 3/18, so the sum is 7/18.",
+     "steps": [
+      "LCM = 18",
+      "4/18 + 3/18 = 7/18"
+     ],
+     "mistake": "Adds the denominators",
+     "check": "Fraction(2,9)+Fraction(1,6)"
+    },
+    {
+     "q": "Which denominator does the LCM method use to add 1/8 + 1/12?",
+     "options": [
+      "4",
+      "24",
+      "96",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "LCM(8, 12) = 24, smaller than 8 × 12 = 96.",
+     "steps": [
+      "Multiples of 12: 12, 24",
+      "24 ÷ 8 = 3 ✓"
+     ],
+     "mistake": "Multiplies the denominators",
+     "check": "24"
+    },
+    {
+     "q": "Mystery Colours: multiples of 2 that are not multiples of 3 are red, multiples of 3 that are not multiples of 2 are blue, and multiples of both are green. What colour is 42?",
+     "options": [
+      "Green",
+      "Red",
+      "Blue",
+      "No colour"
+     ],
+     "answer": 0,
+     "explain": "42 = 2 × 3 × 7 is a multiple of both 2 and 3.",
+     "mistake": "Checks only one of the two rules"
+    },
+    {
+     "q": "In a Mystery Colours grid, the green numbers are 6, 12, 18, 24 and 30. What is the rule for green?",
+     "options": [
+      "Multiples of 4",
+      "Odd numbers",
+      "Prime numbers",
+      "Multiples of both 2 and 3, that is of 6"
+     ],
+     "answer": 3,
+     "explain": "Every green number is a multiple of 6 = LCM(2, 3).",
+     "mistake": "Looks at only one or two of the numbers"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants a number of laddoos that can be shared equally among 1, 2, 3, ..., or 10 friends. What is the smallest such number?",
+    "must": [
+     [
+      "2520"
+     ],
+     [
+      "lcm",
+      "lowest common multiple"
+     ],
+     [
+      "8",
+      "9",
+      "2 × 2 × 2"
+     ]
+    ],
+    "praise": "Laddoos for everyone! 2,520 it is.",
+    "nudge": "Which numbers from 1 to 10 need extra 2s or 3s?"
    }
   }
  ]

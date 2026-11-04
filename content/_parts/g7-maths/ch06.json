@@ -4,8 +4,241 @@
  "emoji": "🧩",
  "topics": [
   {
+   "id": "g7-maths-06-04",
+   "title": "Numbers that tell a story",
+   "covers": [
+    "c6.1.1",
+    "c6.1.2",
+    "c6.1.3"
+   ],
+   "learn": {
+    "hook": "Children in a line each shout one number. From those numbers alone, can you tell who is tallest?",
+    "points": [
+     "Children stand in a line facing forward. Each calls out how many children ahead of them are taller.",
+     "The child at the front always says 0 (no one is ahead), and so does the tallest child.",
+     "If everyone says 0, the line goes from shortest at the front to tallest at the back.",
+     "A child in position k can say at most k − 1, because only k − 1 children are ahead.",
+     "Some statements are always true, some are sometimes true and some are never true — give a reason or an example."
+    ],
+    "example": {
+     "q": "Anu is the tallest, Chotu the shortest and Bina in between. From front to back they call out 0, 0, 2. Who stands where?",
+     "steps": [
+      "The 3rd child says 2, so both children ahead are taller: the 3rd is Chotu",
+      "The 2nd child says 0, so the 1st child is shorter than the 2nd",
+      "So the 2nd is Anu and the 1st is Bina"
+     ],
+     "answer": "Bina, Anu, Chotu (front to back)"
+    },
+    "reallife": "Coaches arranging a team photo by height, or a teacher making a line for assembly, use the same kind of reasoning."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Always, sometimes or never?",
+     "buckets": [
+      "Always",
+      "Sometimes",
+      "Never"
+     ],
+     "items": [
+      [
+       "The sum of two odd numbers is even",
+       0
+      ],
+      [
+       "A multiple of 4 is even",
+       0
+      ],
+      [
+       "An even number is a multiple of 4",
+       1
+      ],
+      [
+       "The product of two odd numbers is even",
+       2
+      ],
+      [
+       "A number ending in 5 is odd",
+       0
+      ],
+      [
+       "The sum of three odd numbers is even",
+       2
+      ],
+      [
+       "A prime number is odd",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Line-up logic",
+     "items": [
+      [
+       "The child at the front always calls out 0",
+       true,
+       "Nobody is ahead of them."
+      ],
+      [
+       "The tallest child always calls out 0",
+       true,
+       "Nobody is taller than them."
+      ],
+      [
+       "If everyone calls out 0, the shortest child is at the front",
+       true,
+       "Each child has only shorter children ahead."
+      ],
+      [
+       "The child in 3rd place can call out 3",
+       false,
+       "Only 2 children are ahead."
+      ],
+      [
+       "Two children can never both call out 0",
+       false,
+       "If the shortest is in front, everyone says 0."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the height line-up, what number does the child at the front always call out?",
+     "options": [
+      "2",
+      "It depends on their height",
+      "0",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "There is nobody ahead of the front child, so there is nobody taller ahead.",
+     "mistake": "Counts the child themself",
+     "check": "0"
+    },
+    {
+     "q": "6 children stand from tallest at the front to shortest at the back. What does the last child call out?",
+     "options": [
+      "1",
+      "5",
+      "6",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "All 5 children ahead are taller than the shortest child.",
+     "steps": [
+      "Children ahead: 6 − 1 = 5",
+      "All are taller"
+     ],
+     "mistake": "Includes the child themself in the count",
+     "check": "6-1"
+    },
+    {
+     "q": "The same 6 children (tallest in front) call out their numbers. What is the total of all the numbers?",
+     "options": [
+      "15",
+      "21",
+      "6",
+      "30"
+     ],
+     "answer": 0,
+     "explain": "They call 0, 1, 2, 3, 4, 5, and 0 + 1 + 2 + 3 + 4 + 5 = 15.",
+     "steps": [
+      "0 + 1 + 2 + 3 + 4 + 5 = 15"
+     ],
+     "mistake": "Adds 1 to 6 instead of 0 to 5",
+     "check": "0+1+2+3+4+5"
+    },
+    {
+     "q": "Anu is tallest, Chotu shortest, Bina in between. From front to back they call out 0, 0, 2. Who is at the front?",
+     "options": [
+      "Anu",
+      "Chotu",
+      "Bina"
+     ],
+     "answer": 2,
+     "explain": "The 3rd child sees 2 taller children, so it is Chotu. The 2nd sees 0 taller, so the 2nd is taller than the 1st: Anu is 2nd and Bina is 1st.",
+     "mistake": "Assumes the tallest must be at the front"
+    },
+    {
+     "q": "Can 4 children (front to back) call out 0, 2, 1, 0?",
+     "options": [
+      "No — the numbers must always increase",
+      "No — 0 cannot be called twice",
+      "No — the 2nd child has only 1 child ahead",
+      "Yes"
+     ],
+     "answer": 2,
+     "explain": "A child in 2nd place can call out at most 1.",
+     "mistake": "Does not check how many children are ahead"
+    },
+    {
+     "q": "Every child in a line calls out 0. How are they arranged?",
+     "options": [
+      "In any order",
+      "Shortest at the front, tallest at the back",
+      "Tallest at the front, shortest at the back",
+      "Tallest in the middle"
+     ],
+     "answer": 1,
+     "explain": "Each child has no taller child ahead, so heights keep increasing towards the back.",
+     "mistake": "Reverses the meaning of the numbers"
+    },
+    {
+     "q": "'An even number is a multiple of 4.' Is this always, sometimes or never true?",
+     "options": [
+      "Always",
+      "Never",
+      "Sometimes"
+     ],
+     "answer": 2,
+     "explain": "8 is even and a multiple of 4, but 6 is even and not a multiple of 4.",
+     "mistake": "Tests only one example"
+    },
+    {
+     "q": "'The product of two odd numbers is even.' Is this always, sometimes or never true?",
+     "options": [
+      "Always",
+      "Sometimes",
+      "Never"
+     ],
+     "answer": 2,
+     "explain": "Odd × odd is always odd (like 3 × 5 = 15), so the statement is never true.",
+     "mistake": "Mixes up the rules for sums and products"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu and two friends call out 0, 1, 2 from front to back. Who is tallest, and how do you know?",
+    "must": [
+     [
+      "front",
+      "first"
+     ],
+     [
+      "taller",
+      "ahead"
+     ],
+     [
+      "0",
+      "zero",
+      "2",
+      "two"
+     ]
+    ],
+    "praise": "Brilliant detective work! The tallest is at the front.",
+    "nudge": "If the last child says 2, how many taller children are ahead?"
+   }
+  },
+  {
    "id": "g7-maths-06-01",
    "title": "Parity: odd and even",
+   "covers": [
+    "c6.2.1",
+    "c6.2.2",
+    "c6.2.3",
+    "c6.2.6"
+   ],
    "learn": {
     "hook": "Can you tell whether 3,457 + 8,129 is odd or even in one second, without adding? Parity makes you that fast!",
     "points": [
@@ -257,8 +490,241 @@
    }
   },
   {
+   "id": "g7-maths-06-05",
+   "title": "More parity: differences, grids and positions",
+   "covers": [
+    "c6.2.4",
+    "c6.2.5",
+    "c6.2.7",
+    "c6.2.8"
+   ],
+   "learn": {
+    "hook": "A light starts off. You press its switch 37 times. Is it on or off? Parity knows instantly!",
+    "points": [
+     "Differences follow the same parity rules as sums: odd − odd = even, even − odd = odd.",
+     "An m × n grid has m × n small squares. The count is odd only when both m and n are odd.",
+     "The nth even number is 2n and the nth odd number is 2n − 1 (the 10th odd number is 19).",
+     "1 + 2 + ... + 100 has 50 odd numbers, so the sum is even (it is 5,050).",
+     "A light that starts off is on after an odd number of presses. Facing pages in a book are consecutive, so their sum is always odd."
+    ],
+    "example": {
+     "q": "Is 1 + 2 + 3 + ... + 100 odd or even?",
+     "steps": [
+      "From 1 to 100 there are 50 odd numbers",
+      "An even count of odd numbers adds to an even number",
+      "Even numbers don't change the parity"
+     ],
+     "answer": "Even (5,050)"
+    },
+    "reallife": "Light switches, page numbers and even seating in pairs for a school trip all follow parity rules."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Parity sprint",
+     "items": [
+      {
+       "q": "7th even number",
+       "a": "14",
+       "check": "2*7"
+      },
+      {
+       "q": "7th odd number",
+       "a": "13",
+       "check": "2*7-1"
+      },
+      {
+       "q": "Small squares in a 3 × 5 grid",
+       "a": "15",
+       "check": "3*5"
+      },
+      {
+       "q": "Small squares in a 4 × 7 grid",
+       "a": "28",
+       "check": "4*7"
+      },
+      {
+       "q": "100th odd number",
+       "a": "199",
+       "check": "2*100-1"
+      },
+      {
+       "q": "25th even number",
+       "a": "50",
+       "check": "2*25"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Odd or even result?",
+     "buckets": [
+      "Odd",
+      "Even"
+     ],
+     "items": [
+      [
+       "83 − 27",
+       1
+      ],
+      [
+       "90 − 45",
+       0
+      ],
+      [
+       "Small squares in a 5 × 9 grid",
+       0
+      ],
+      [
+       "Small squares in a 6 × 9 grid",
+       1
+      ],
+      [
+       "1 + 2 + ... + 10",
+       0
+      ],
+      [
+       "2n when n = 21",
+       1
+      ],
+      [
+       "Sum of two facing page numbers",
+       0
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Without subtracting, is 345 − 128 odd or even?",
+     "options": [
+      "Odd",
+      "Even"
+     ],
+     "answer": 0,
+     "explain": "345 is odd and 128 is even. Odd − even = odd. (It is 217.)",
+     "mistake": "Thinks every difference is even"
+    },
+    {
+     "q": "Without subtracting, is 999 − 555 odd or even?",
+     "options": [
+      "Odd",
+      "Even"
+     ],
+     "answer": 1,
+     "explain": "Odd − odd = even, just like odd + odd. (It is 444.)",
+     "mistake": "Thinks two odd numbers give an odd difference"
+    },
+    {
+     "q": "Which grid has an odd number of small squares?",
+     "options": [
+      "7 × 9",
+      "6 × 9",
+      "7 × 8",
+      "4 × 4"
+     ],
+     "answer": 0,
+     "explain": "7 × 9 = 63 is odd, because both 7 and 9 are odd. The others have an even side.",
+     "mistake": "Thinks one odd side is enough for an odd count"
+    },
+    {
+     "q": "What is the 15th odd number?",
+     "options": [
+      "30",
+      "31",
+      "15",
+      "29"
+     ],
+     "answer": 3,
+     "explain": "The nth odd number is 2n − 1: 2 × 15 − 1 = 29.",
+     "steps": [
+      "2 × 15 − 1 = 29"
+     ],
+     "mistake": "Uses 2n + 1 instead of 2n − 1",
+     "check": "2*15-1"
+    },
+    {
+     "q": "What is the 40th even number?",
+     "options": [
+      "40",
+      "81",
+      "80",
+      "79"
+     ],
+     "answer": 2,
+     "explain": "The nth even number is 2n: 2 × 40 = 80.",
+     "steps": [
+      "2 × 40 = 80"
+     ],
+     "mistake": "Gives the 40th odd number instead",
+     "check": "2*40"
+    },
+    {
+     "q": "Is 1 + 2 + 3 + ... + 100 odd or even?",
+     "options": [
+      "Even — because every number is even",
+      "Even — it includes 50 odd numbers",
+      "Odd — it includes 50 odd numbers",
+      "Odd — because 100 is even"
+     ],
+     "answer": 1,
+     "explain": "An even count (50) of odd numbers adds to an even total.",
+     "mistake": "Forgets that an even count of odd numbers gives an even sum"
+    },
+    {
+     "q": "A light is off. Each press of the switch changes it. After 37 presses, is it on or off?",
+     "options": [
+      "On",
+      "Off"
+     ],
+     "answer": 0,
+     "explain": "Odd presses leave it on; even presses leave it off. 37 is odd.",
+     "mistake": "Thinks the light ends as it started"
+    },
+    {
+     "q": "A book is open and the two facing page numbers add up to 145. What are the page numbers?",
+     "options": [
+      "70 and 75",
+      "71 and 74",
+      "73 and 74",
+      "72 and 73"
+     ],
+     "answer": 3,
+     "explain": "Facing pages are consecutive. 145 − 1 = 144, and 144 ÷ 2 = 72, so pages 72 and 73.",
+     "steps": [
+      "Consecutive pages n and n + 1",
+      "2n + 1 = 145, n = 72"
+     ],
+     "mistake": "Forgets that facing pages are next to each other"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu presses a light switch 20 times, starting from off. Is it on or off now?",
+    "must": [
+     [
+      "even"
+     ],
+     [
+      "off"
+     ],
+     [
+      "odd",
+      "pairs",
+      "pair"
+     ]
+    ],
+    "praise": "Click-click! Gappu sees that every pair of presses cancels out.",
+    "nudge": "Is 20 odd or even, and what does a pair of presses do?"
+   }
+  },
+  {
    "id": "g7-maths-06-02",
    "title": "Number puzzles and magic grids",
+   "covers": [
+    "c6.3.1",
+    "c6.3.2",
+    "c6.5.1"
+   ],
    "learn": {
     "hook": "A magic square is a grid where every row, column and diagonal adds up to the same number. Spooky? No — it's maths!",
     "points": [
@@ -512,8 +978,264 @@
    }
   },
   {
+   "id": "g7-maths-06-06",
+   "title": "Building magic squares",
+   "covers": [
+    "c6.3.3",
+    "c6.3.4",
+    "c6.3.5",
+    "c6.3.7"
+   ],
+   "learn": {
+    "hook": "Take a magic square and add 10 to every number. Still magic? Yes — and even negative numbers can be magic!",
+    "points": [
+     "Adding the same number to every entry keeps a square magic; a 3 × 3 magic sum goes up by 3 times that number.",
+     "Multiplying every entry by the same number keeps it magic; the magic sum is multiplied too.",
+     "With 9 consecutive numbers, the middle one goes in the centre, and the magic sum is 3 × centre.",
+     "Letter form with centre m: m − 3, m + 2, m + 1 / m + 4, m, m − 4 / m − 1, m − 2, m + 3. Every line adds to 3m.",
+     "With m = 0, the square uses −4 to 4 and its magic sum is 0."
+    ],
+    "example": {
+     "q": "Add 10 to every number of the square 2, 7, 6 / 9, 5, 1 / 4, 3, 8. What is the new magic sum?",
+     "steps": [
+      "Old magic sum = 15",
+      "Each line has 3 numbers, each 10 bigger",
+      "New sum = 15 + 3 × 10 = 45"
+     ],
+     "answer": "45"
+    },
+    "reallife": "Puzzle books and number games love magic squares; with these rules you can make your own in seconds."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Magic changes",
+     "items": [
+      {
+       "text": "Add 3 to every entry of the 1–9 square: new magic sum ___",
+       "answer": "24",
+       "options": [
+        "24",
+        "18",
+        "15"
+       ]
+      },
+      {
+       "text": "Multiply every entry of the 1–9 square by 2: new magic sum ___",
+       "answer": "30",
+       "options": [
+        "30",
+        "17",
+        "45"
+       ]
+      },
+      {
+       "text": "Using 11 to 19, the centre number is ___",
+       "answer": "15",
+       "options": [
+        "15",
+        "11",
+        "19"
+       ]
+      },
+      {
+       "text": "Using −4 to 4, the magic sum is ___",
+       "answer": "0",
+       "options": [
+        "0",
+        "4",
+        "−4"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Magic or not?",
+     "items": [
+      [
+       "Adding 5 to every entry keeps a magic square magic",
+       true,
+       "Every line goes up by the same amount."
+      ],
+      [
+       "Doubling every entry keeps a magic square magic",
+       true,
+       "Every line sum is doubled."
+      ],
+      [
+       "A magic square can have a magic sum of 0",
+       true,
+       "Use −4 to 4 with 0 in the centre."
+      ],
+      [
+       "With numbers 2 to 10, the magic sum is 15",
+       false,
+       "The centre is 6, so the sum is 18."
+      ],
+      [
+       "In the letter form, the centre is m and the magic sum is 3m",
+       true,
+       "Each line adds up to 3m."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Add 10 to every entry of the 1–9 magic square. What is the new magic sum?",
+     "options": [
+      "150",
+      "30",
+      "45",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "Each line has 3 numbers, each 10 more: 15 + 3 × 10 = 45.",
+     "steps": [
+      "15 + 3 × 10 = 45"
+     ],
+     "mistake": "Adds 10 only once to the magic sum",
+     "check": "15+3*10"
+    },
+    {
+     "q": "A 3 × 3 magic square uses the numbers 3 to 11. What is its magic sum?",
+     "options": [
+      "63",
+      "21",
+      "15",
+      "27"
+     ],
+     "answer": 1,
+     "explain": "The middle number 7 is the centre, and the magic sum is 3 × 7 = 21. (Total 63 ÷ 3 = 21.)",
+     "steps": [
+      "Total 3 + 4 + ... + 11 = 63",
+      "63 ÷ 3 = 21"
+     ],
+     "mistake": "Gives the total instead of dividing by 3",
+     "check": "3*7"
+    },
+    {
+     "q": "Multiply every entry of the 1–9 magic square by 4. What is the new magic sum?",
+     "options": [
+      "60",
+      "19",
+      "27",
+      "15"
+     ],
+     "answer": 0,
+     "explain": "Every line sum is multiplied by 4: 15 × 4 = 60.",
+     "steps": [
+      "15 × 4 = 60"
+     ],
+     "mistake": "Adds 4 instead of multiplying",
+     "check": "15*4"
+    },
+    {
+     "q": "A 3 × 3 magic square is written with letter-numbers around a centre m. What is its magic sum?",
+     "options": [
+      "m + 3",
+      "9 × m",
+      "m",
+      "3 × m"
+     ],
+     "answer": 3,
+     "explain": "In each line the extra amounts cancel (like −3, 0, +3), leaving m + m + m = 3m.",
+     "mistake": "Adds the numbers of the square instead of the line"
+    },
+    {
+     "q": "A magic square has magic sum 0. One row is −3, 2, ☐. What goes in the box?",
+     "options": [
+      "5",
+      "0",
+      "1",
+      "−1"
+     ],
+     "answer": 2,
+     "explain": "−3 + 2 + ☐ = 0, so ☐ = 1.",
+     "steps": [
+      "−3 + 2 = −1",
+      "−1 + 1 = 0"
+     ],
+     "mistake": "Gets the sign wrong",
+     "check": "0-(-3)-2"
+    },
+    {
+     "q": "A 3 × 3 magic square uses each number from −4 to 4 once. What number is in the centre?",
+     "options": [
+      "1",
+      "0",
+      "4",
+      "−4"
+     ],
+     "answer": 1,
+     "explain": "The middle of −4, ..., 4 is 0, and the centre is always the middle number.",
+     "mistake": "Puts the biggest number in the centre",
+     "check": "0"
+    },
+    {
+     "q": "A 3 × 3 magic square of consecutive numbers has 12 in the centre. What is its magic sum?",
+     "options": [
+      "36",
+      "12",
+      "24",
+      "108"
+     ],
+     "answer": 0,
+     "explain": "Magic sum = 3 × centre = 3 × 12 = 36.",
+     "steps": [
+      "3 × 12 = 36"
+     ],
+     "mistake": "Multiplies by 9 instead of 3",
+     "check": "3*12"
+    },
+    {
+     "q": "In a 2 × 2 grid using 2, 3, 4, 5, each row adds to 7, the left column adds to 6 and the right column to 8. The top-left is 2. What is the bottom-right?",
+     "options": [
+      "5",
+      "4",
+      "2",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "Top row: 2 + 5 = 7. Left column: 2 + 4 = 6, so bottom-left is 4. Bottom row: 4 + 3 = 7, so bottom-right is 3. Right column: 5 + 3 = 8 ✓.",
+     "steps": [
+      "Top-right = 7 − 2 = 5",
+      "Bottom-left = 6 − 2 = 4",
+      "Bottom-right = 7 − 4 = 3"
+     ],
+     "mistake": "Fills one condition and forgets to check the others",
+     "check": "7-(6-2)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has a magic square with sum 15 and adds 2 to every number. Gappu says the new sum is 17. Help!",
+    "must": [
+     [
+      "3",
+      "three"
+     ],
+     [
+      "each",
+      "every",
+      "all three"
+     ],
+     [
+      "21"
+     ]
+    ],
+    "praise": "Magic! Gappu's new sum is 21.",
+    "nudge": "How many numbers in each line got 2 more?"
+   }
+  },
+  {
    "id": "g7-maths-06-03",
    "title": "Number patterns and the Virahānka numbers",
+   "covers": [
+    "c6.4.1",
+    "c6.4.2",
+    "c6.4.4"
+   ],
    "learn": {
     "hook": "Over a thousand years ago, the Indian poet Virahānka found a number pattern that also hides in sunflowers and pine cones!",
     "points": [
@@ -764,6 +1486,452 @@
     ],
     "praise": "Amazing! 5 + 8 = 13 — Gappu will count rhythms like a tabla player now!",
     "nudge": "Which numbers do we add to get the next one?"
+   }
+  },
+  {
+   "id": "g7-maths-06-07",
+   "title": "Magic squares in history and Virahānka numbers in nature",
+   "covers": [
+    "c6.3.6",
+    "c6.4.3",
+    "c6.4.5"
+   ],
+   "learn": {
+    "hook": "More than a thousand years ago, someone carved a 4 × 4 magic square into a temple wall at Khajuraho!",
+    "points": [
+     "The Chautisa Yantra at Khajuraho (about the 10th century) is one of the oldest known 4 × 4 magic squares using the numbers 1 to 16. 'Chautisa' means 34 — its magic sum.",
+     "Using 1 to 16, the total is 136, and 136 ÷ 4 = 34 for each row, column and diagonal.",
+     "Magic squares appear in many cultures, like the Lo Shu square of China (1 to 9, sum 15).",
+     "Virahānka (around the 7th century), Gopāla (about 1135) and Hemachandra (about 1150) described 1, 2, 3, 5, 8, ... long before Fibonacci's book of 1202.",
+     "These numbers show up in nature: many flowers have 3, 5, 8 or 13 petals, and sunflower seeds form 34 and 55 spirals."
+    ],
+    "example": {
+     "q": "The top row of the Chautisa Yantra is 7, 12, 1, ☐. Find the missing number.",
+     "steps": [
+      "Magic sum = 34",
+      "7 + 12 + 1 = 20",
+      "34 − 20 = 14"
+     ],
+     "answer": "14"
+    },
+    "reallife": "Next time you see a flower, count its petals — there's a good chance you'll find a Virahānka number!"
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "History and nature facts",
+     "pairs": [
+      [
+       "Chautisa Yantra magic sum",
+       "34"
+      ],
+      [
+       "Lo Shu (1 to 9) magic sum",
+       "15"
+      ],
+      [
+       "Total of 1 to 16",
+       "136"
+      ],
+      [
+       "Hemachandra wrote about the rhythm numbers",
+       "about 1150 CE"
+      ],
+      [
+       "Fibonacci's book",
+       "1202 CE"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Who came first?",
+     "prompt": "Earliest to latest",
+     "items": [
+      "Virahānka",
+      "Gopāla",
+      "Hemachandra",
+      "Fibonacci"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 4 × 4 magic square uses 1 to 16 once each. What is its magic sum?",
+     "options": [
+      "136",
+      "30",
+      "34",
+      "36"
+     ],
+     "answer": 2,
+     "explain": "1 + 2 + ... + 16 = 136. The 4 rows share it equally: 136 ÷ 4 = 34.",
+     "steps": [
+      "Total = 136",
+      "136 ÷ 4 = 34"
+     ],
+     "mistake": "Gives the total instead of dividing by 4",
+     "check": "136/4"
+    },
+    {
+     "q": "Where is the Chautisa Yantra found?",
+     "options": [
+      "On an old Chinese coin",
+      "In a temple at Khajuraho",
+      "On the walls of the Red Fort",
+      "In a museum in London"
+     ],
+     "answer": 1,
+     "explain": "It is carved in a temple at Khajuraho in Madhya Pradesh.",
+     "mistake": "Confuses it with the Lo Shu square of China"
+    },
+    {
+     "q": "The top row of the Chautisa Yantra is 7, 12, 1, ☐. What is the missing number?",
+     "options": [
+      "14",
+      "16",
+      "13",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "The magic sum is 34: 34 − (7 + 12 + 1) = 34 − 20 = 14.",
+     "steps": [
+      "7 + 12 + 1 = 20",
+      "34 − 20 = 14"
+     ],
+     "mistake": "Uses 15 as the magic sum",
+     "check": "34-7-12-1"
+    },
+    {
+     "q": "What is 1 + 2 + 3 + ... + 16?",
+     "options": [
+      "120",
+      "256",
+      "34",
+      "136"
+     ],
+     "answer": 3,
+     "explain": "Pair them: 1 + 16, 2 + 15, ... make 8 pairs of 17: 8 × 17 = 136.",
+     "steps": [
+      "8 pairs × 17 = 136"
+     ],
+     "mistake": "Multiplies 16 × 16",
+     "check": "16*17/2"
+    },
+    {
+     "q": "Which Indian scholar wrote about the rhythm numbers around 1150 CE?",
+     "options": [
+      "C. V. Raman",
+      "Brahmagupta",
+      "Hemachandra",
+      "Ramanujan"
+     ],
+     "answer": 2,
+     "explain": "Hemachandra, a Jain scholar, wrote about them around 1150, after Virahānka and Gopāla.",
+     "mistake": "Picks a famous mathematician from a different time"
+    },
+    {
+     "q": "Who described the numbers 1, 2, 3, 5, 8, ... before Fibonacci?",
+     "options": [
+      "Euclid",
+      "Virahānka, Gopāla and Hemachandra",
+      "Nobody — Fibonacci was first",
+      "Isaac Newton"
+     ],
+     "answer": 1,
+     "explain": "Indian scholars described them centuries before Fibonacci's book of 1202.",
+     "mistake": "Thinks the numbers were first found in Europe"
+    },
+    {
+     "q": "Which of these petal counts is a Virahānka number?",
+     "options": [
+      "8",
+      "6",
+      "7",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "The sequence is 1, 2, 3, 5, 8, 13, ... — 8 is in it; 6, 7 and 10 are not.",
+     "mistake": "Thinks every small number is in the sequence",
+     "check": "8"
+    },
+    {
+     "q": "A sunflower head has 21 spirals one way and 34 the other. The next pattern often has 34 and the next Virahānka number. What is it?",
+     "options": [
+      "68",
+      "44",
+      "89",
+      "55"
+     ],
+     "answer": 3,
+     "explain": "Add the two before it: 21 + 34 = 55.",
+     "steps": [
+      "21 + 34 = 55"
+     ],
+     "mistake": "Doubles 34 instead of adding the two before it",
+     "check": "21+34"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu found a flower with 5 petals and one with 8. Gappu wonders if that's a coincidence. Tell Gappu the story!",
+    "must": [
+     [
+      "virahanka",
+      "virahānka",
+      "hemachandra",
+      "gopala",
+      "gopāla"
+     ],
+     [
+      "add",
+      "sum",
+      "two before"
+     ],
+     [
+      "petal",
+      "petals",
+      "nature",
+      "flowers"
+     ]
+    ],
+    "praise": "Nature is full of maths — Gappu is amazed!",
+    "nudge": "How is each new number made, and who first wrote about them?"
+   }
+  },
+  {
+   "id": "g7-maths-06-08",
+   "title": "Cracking cryptarithms",
+   "covers": [
+    "c6.5.2",
+    "c6.5.3"
+   ],
+   "learn": {
+    "hook": "K2 + K2 = HMM. Each letter hides a digit. Can you crack the code?",
+    "points": [
+     "The same letter is always the same digit; different letters are different digits.",
+     "The first digit of a number cannot be 0.",
+     "Two 2-digit numbers add up to at most 99 + 99 = 198, so a 3-digit answer must start with 1.",
+     "Start with the ones column, then use carries to move left.",
+     "Parity helps: A + A is always even."
+    ],
+    "example": {
+     "q": "Solve K2 + K2 = HMM.",
+     "steps": [
+      "Ones: 2 + 2 = 4, so M = 4",
+      "Tens: K + K must end in 4 (= M) and make a carry into the hundreds",
+      "So K + K = 14, K = 7 and H = 1",
+      "Check: 72 + 72 = 144 ✓"
+     ],
+     "answer": "72 + 72 = 144"
+    },
+    "reallife": "Secret codes and puzzles in children's magazines use exactly these tricks."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Cryptarithm rules",
+     "items": [
+      [
+       "Two different letters can stand for the same digit",
+       false,
+       "Different letters must be different digits."
+      ],
+      [
+       "The first letter of a number cannot be 0",
+       true,
+       "Numbers don't start with 0."
+      ],
+      [
+       "Two 2-digit numbers add to at most 198",
+       true,
+       "99 + 99 = 198."
+      ],
+      [
+       "A + A is always even",
+       true,
+       "Doubling any whole number gives an even number."
+      ],
+      [
+       "In K2 + K2 = HMM, M = 4",
+       true,
+       "2 + 2 = 4 in the ones place."
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Crack it",
+     "items": [
+      {
+       "text": "K2 + K2 = 144, so K = ___",
+       "answer": "7",
+       "options": [
+        "7",
+        "4",
+        "2"
+       ]
+      },
+      {
+       "text": "AA + AA = 132, so A = ___",
+       "answer": "6",
+       "options": [
+        "6",
+        "3",
+        "1"
+       ]
+      },
+      {
+       "text": "AB × 3 = 150, so AB = ___",
+       "answer": "50",
+       "options": [
+        "50",
+        "15",
+        "30"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In K2 + K2 = HMM, what digit is K?",
+     "options": [
+      "2",
+      "1",
+      "7",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "M = 4 from the ones. K + K must end in 4 and carry 1, so K + K = 14 and K = 7.",
+     "steps": [
+      "2 + 2 = 4 → M = 4",
+      "K + K = 14 → K = 7"
+     ],
+     "mistake": "Takes K + K = 4, which gives no 3-digit answer",
+     "check": "7"
+    },
+    {
+     "q": "In K2 + K2 = HMM, what number is HMM?",
+     "options": [
+      "104",
+      "144",
+      "124",
+      "142"
+     ],
+     "answer": 1,
+     "explain": "72 + 72 = 144, so H = 1 and M = 4.",
+     "steps": [
+      "72 + 72 = 144"
+     ],
+     "mistake": "Writes the wrong digit for one of the repeated letters",
+     "check": "72+72"
+    },
+    {
+     "q": "In K2 + K2 = HMM, why must H be 1?",
+     "options": [
+      "Two 2-digit numbers add to at most 198, so a 3-digit sum starts with 1",
+      "Because H is the first letter",
+      "Because 1 is odd",
+      "Because K is 7"
+     ],
+     "answer": 0,
+     "explain": "The biggest possible sum is 99 + 99 = 198, so the hundreds digit can only be 1.",
+     "mistake": "Does not use the size of the numbers"
+    },
+    {
+     "q": "In a cryptarithm, someone sets A = 3 and B = 3. Which rule is broken?",
+     "options": [
+      "The same letter must be the same digit",
+      "No number can start with 0",
+      "Every letter must be even",
+      "Different letters must stand for different digits"
+     ],
+     "answer": 3,
+     "explain": "A and B are different letters, so they cannot both be 3.",
+     "mistake": "Mixes up the two letter rules"
+    },
+    {
+     "q": "Why can't a cryptarithm answer be written as 0A?",
+     "options": [
+      "A must be 0",
+      "Letters can't be next to 0",
+      "A number cannot start with the digit 0",
+      "0 is not a digit"
+     ],
+     "answer": 2,
+     "explain": "Leading zeros are not allowed in these puzzles.",
+     "mistake": "Forgets the no-leading-zero rule"
+    },
+    {
+     "q": "Solve AA + AA = 1B2. What digit is A?",
+     "options": [
+      "2",
+      "6",
+      "1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "AA + AA = 22 × A must end in 2 and be between 100 and 199. 22 × 6 = 132, so A = 6 (and B = 3).",
+     "steps": [
+      "22 × A ends in 2 → A = 1 or 6",
+      "22 × 1 = 22 is too small",
+      "22 × 6 = 132 ✓"
+     ],
+     "mistake": "Picks A = 1 without checking the size",
+     "check": "6"
+    },
+    {
+     "q": "Solve AB × 3 = 1AB, where AB is a 2-digit number. What is AB?",
+     "options": [
+      "50",
+      "15",
+      "25",
+      "33"
+     ],
+     "answer": 0,
+     "explain": "3 × AB = 100 + AB means 2 × AB = 100, so AB = 50. Check: 50 × 3 = 150 ✓.",
+     "steps": [
+      "3 × AB − AB = 100",
+      "2 × AB = 100",
+      "AB = 50"
+     ],
+     "mistake": "Guesses without setting up the equation",
+     "check": "100/2"
+    },
+    {
+     "q": "In P + P = Q, where P and Q are single digits, which must be true?",
+     "options": [
+      "Q is odd",
+      "P is even",
+      "P = Q",
+      "Q is even"
+     ],
+     "answer": 3,
+     "explain": "Doubling any number gives an even number, so Q must be even.",
+     "mistake": "Thinks the parity of P decides the parity of Q"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is stuck on K2 + K2 = HMM. Where should Gappu start, and why is H = 1?",
+    "must": [
+     [
+      "ones",
+      "ones column",
+      "units"
+     ],
+     [
+      "carry",
+      "198",
+      "at most"
+     ],
+     [
+      "different",
+      "same letter",
+      "same digit"
+     ]
+    ],
+    "praise": "Code cracked! 72 + 72 = 144.",
+    "nudge": "What do the ones digits add up to?"
    }
   }
  ]

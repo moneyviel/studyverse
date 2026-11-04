@@ -4,8 +4,516 @@
  "emoji": "➖",
  "topics": [
   {
+   "id": "g7-maths-10-04",
+   "title": "Integer recap: number lines, carrom and a sum-difference puzzle",
+   "covers": [
+    "c10.1.1",
+    "c10.1.2",
+    "c10.1.3"
+   ],
+   "learn": {
+    "hook": "Think of two numbers. I'll tell you only their sum and difference — and you can still find them!",
+    "points": [
+     "On a number line, adding a positive integer moves right and adding a negative integer moves left: −3 + 5 = 2, 4 + (−7) = −3.",
+     "Subtracting a positive moves left (2 − 5 = −3); subtracting a negative moves right (2 − (−5) = 7).",
+     "Carrom model: a striker moves a coin +4, then −6, then +3 from 0. Its final position is 4 + (−6) + 3 = 1.",
+     "Sum-difference puzzle: larger number = (sum + difference) ÷ 2, smaller = (sum − difference) ÷ 2.",
+     "It works with negatives too: sum −2, difference 8 gives 3 and −5."
+    ],
+    "example": {
+     "q": "Two integers have sum 3 and difference 11. Find them.",
+     "steps": [
+      "Larger = (3 + 11) ÷ 2 = 7",
+      "Smaller = (3 − 11) ÷ 2 = −4",
+      "Check: 7 + (−4) = 3 and 7 − (−4) = 11 ✓"
+     ],
+     "answer": "7 and −4"
+    },
+    "reallife": "Lifts going up and down floors, or a carrom coin pushed back and forth, are integer sums in action."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Number line dash",
+     "items": [
+      {
+       "q": "−3 + 5",
+       "a": "2",
+       "check": "-3+5"
+      },
+      {
+       "q": "4 + (−7)",
+       "a": "−3",
+       "check": "4+(-7)"
+      },
+      {
+       "q": "2 − 5",
+       "a": "−3",
+       "check": "2-5"
+      },
+      {
+       "q": "2 − (−5)",
+       "a": "7",
+       "check": "2-(-5)"
+      },
+      {
+       "q": "−6 − 4",
+       "a": "−10",
+       "check": "-6-4"
+      },
+      {
+       "q": "−8 + 8",
+       "a": "0",
+       "check": "-8+8"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Recap check",
+     "items": [
+      [
+       "Adding a negative integer moves left on the number line",
+       true,
+       "For example 4 + (−7) = −3."
+      ],
+      [
+       "2 − (−5) = −3",
+       false,
+       "Subtracting a negative moves right: 2 − (−5) = 7."
+      ],
+      [
+       "Moves of +4, −6 and +3 leave a coin at +1",
+       true,
+       "4 − 6 + 3 = 1."
+      ],
+      [
+       "Two numbers with sum 10 and difference 4 are 6 and 4",
+       false,
+       "They are 7 and 3."
+      ],
+      [
+       "−5 is to the left of −2 on the number line",
+       true,
+       "−5 is smaller than −2."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is −7 + 4?",
+     "options": [
+      "3",
+      "11",
+      "−3",
+      "−11"
+     ],
+     "answer": 2,
+     "explain": "Start at −7 and move 4 steps right: −3.",
+     "steps": [
+      "−7 + 4 = −3"
+     ],
+     "mistake": "Moves left instead of right",
+     "check": "-7+4",
+     "visual": {
+      "kind": "numberline",
+      "from": -10,
+      "to": 5,
+      "marks": [
+       -7,
+       -3
+      ],
+      "jumps": [
+       [
+        -7,
+        -3
+       ]
+      ]
+     }
+    },
+    {
+     "q": "What is 5 − 9?",
+     "options": [
+      "−14",
+      "−4",
+      "4",
+      "14"
+     ],
+     "answer": 1,
+     "explain": "Start at 5 and move 9 steps left: −4.",
+     "steps": [
+      "5 − 9 = −4"
+     ],
+     "mistake": "Subtracts the smaller from the larger and drops the sign",
+     "check": "5-9"
+    },
+    {
+     "q": "What is −3 − (−8)?",
+     "options": [
+      "5",
+      "−11",
+      "−5",
+      "11"
+     ],
+     "answer": 0,
+     "explain": "Subtracting −8 is adding 8: −3 + 8 = 5.",
+     "steps": [
+      "−3 − (−8) = −3 + 8",
+      "= 5"
+     ],
+     "mistake": "Treats − (−8) as − 8",
+     "check": "-3-(-8)"
+    },
+    {
+     "q": "A carrom coin starts at 0 and is moved +5, then −8, then +2. Where does it end?",
+     "options": [
+      "1",
+      "15",
+      "−11",
+      "−1"
+     ],
+     "answer": 3,
+     "explain": "5 + (−8) + 2 = −1.",
+     "steps": [
+      "5 − 8 = −3",
+      "−3 + 2 = −1"
+     ],
+     "mistake": "Adds all the moves as positive",
+     "check": "5-8+2"
+    },
+    {
+     "q": "A coin starts at +3 and is moved −4 and then −2. Where does it end?",
+     "options": [
+      "3",
+      "−9",
+      "−3",
+      "9"
+     ],
+     "answer": 2,
+     "explain": "3 + (−4) + (−2) = −3.",
+     "steps": [
+      "3 − 4 = −1",
+      "−1 − 2 = −3"
+     ],
+     "mistake": "Forgets the starting position",
+     "check": "3-4-2"
+    },
+    {
+     "q": "Two numbers have sum 12 and difference 4. What is the larger number?",
+     "options": [
+      "4",
+      "8",
+      "6",
+      "16"
+     ],
+     "answer": 1,
+     "explain": "Larger = (12 + 4) ÷ 2 = 8. (The smaller is 4.)",
+     "steps": [
+      "(12 + 4) ÷ 2 = 8"
+     ],
+     "mistake": "Gives the smaller number instead",
+     "check": "(12+4)/2"
+    },
+    {
+     "q": "Two integers have sum −2 and difference 8. What are they?",
+     "options": [
+      "3 and −5",
+      "5 and −3",
+      "3 and 5",
+      "−3 and −5"
+     ],
+     "answer": 0,
+     "explain": "Larger = (−2 + 8) ÷ 2 = 3, smaller = (−2 − 8) ÷ 2 = −5. Check: 3 + (−5) = −2, 3 − (−5) = 8 ✓.",
+     "steps": [
+      "(−2 + 8) ÷ 2 = 3",
+      "(−2 − 8) ÷ 2 = −5"
+     ],
+     "mistake": "Puts the negative sign on the wrong number"
+    },
+    {
+     "q": "Two integers have sum 3 and difference 11. What is the smaller one?",
+     "options": [
+      "4",
+      "7",
+      "−7",
+      "−4"
+     ],
+     "answer": 3,
+     "explain": "Smaller = (3 − 11) ÷ 2 = −8 ÷ 2 = −4.",
+     "steps": [
+      "(3 − 11) ÷ 2 = −4"
+     ],
+     "mistake": "Drops the negative sign",
+     "check": "(3-11)/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's friend says, 'My two numbers add to 5 and differ by 9.' Help Gappu find them.",
+    "must": [
+     [
+      "sum",
+      "add"
+     ],
+     [
+      "difference",
+      "subtract"
+     ],
+     [
+      "÷ 2",
+      "half",
+      "divide by 2",
+      "halve"
+     ]
+    ],
+    "praise": "Puzzle solved! The numbers are 7 and −2.",
+    "nudge": "What do you get when you add the sum and the difference and halve it?"
+   }
+  },
+  {
+   "id": "g7-maths-10-05",
+   "title": "Tokens, inverses and multiplying with tokens",
+   "covers": [
+    "c10.1.4",
+    "c10.1.5",
+    "c10.2.1",
+    "c10.2.5"
+   ],
+   "learn": {
+    "hook": "A + token and a − token hug and vanish into zero! With tokens you can SEE why (−3) × (−2) = +6.",
+    "points": [
+     "A + token is +1 and a − token is −1. One of each makes a zero pair (value 0).",
+     "Additive inverse: a + (−a) = 0, so 7 + (−7) = 0. Subtracting means adding the inverse: 3 − 8 = 3 + (−8) = −5.",
+     "3 × (−2): put in 3 groups of 2 − tokens → −6.",
+     "(−3) × (−2): start with zero pairs, take out 3 groups of 2 − tokens. 6 + tokens are left → +6.",
+     "Multiplying by −1 gives the additive inverse: (−1) × 9 = −9 and (−1) × (−9) = 9."
+    ],
+    "example": {
+     "q": "Use tokens to find (−3) × (−2).",
+     "steps": [
+      "Start with 0 shown as 6 zero pairs (6 + and 6 −)",
+      "Take out 3 groups of 2 − tokens: 6 − tokens removed",
+      "6 + tokens remain"
+     ],
+     "answer": "+6"
+    },
+    "reallife": "Money is like tokens: earning ₹1 is a + token, spending ₹1 is a − token, and earning then spending ₹1 leaves you where you started."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Inverse and tokens",
+     "pairs": [
+      [
+       "5 + (−5)",
+       "0"
+      ],
+      [
+       "Inverse of −12",
+       "12"
+      ],
+      [
+       "(−1) × 7",
+       "−7"
+      ],
+      [
+       "3 − 8",
+       "3 + (−8)"
+      ],
+      [
+       "(−1) × (−4)",
+       "4"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "What is the value?",
+     "buckets": [
+      "Positive",
+      "Negative",
+      "Zero"
+     ],
+     "items": [
+      [
+       "4 + tokens and 4 − tokens",
+       2
+      ],
+      [
+       "6 + tokens and 2 − tokens",
+       0
+      ],
+      [
+       "1 + token and 5 − tokens",
+       1
+      ],
+      [
+       "Put in 2 groups of 3 − tokens",
+       1
+      ],
+      [
+       "Take out 2 groups of 3 − tokens from zero",
+       0
+      ],
+      [
+       "(−1) × (−8)",
+       0
+      ],
+      [
+       "10 + (−10)",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A bag has 9 positive tokens and 13 negative tokens. What is its value?",
+     "options": [
+      "22",
+      "−22",
+      "−4",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "9 zero pairs cancel, leaving 4 negative tokens: −4.",
+     "steps": [
+      "9 − 13 = −4"
+     ],
+     "mistake": "Adds all the tokens as positive",
+     "check": "9-13"
+    },
+    {
+     "q": "What is the additive inverse of −15?",
+     "options": [
+      "−1",
+      "15",
+      "−15",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "−15 + 15 = 0, so the inverse is 15.",
+     "steps": [
+      "−15 + 15 = 0"
+     ],
+     "mistake": "Thinks the inverse keeps the same sign",
+     "check": "15"
+    },
+    {
+     "q": "Which expression is the same as 6 − 11?",
+     "options": [
+      "6 + (−11)",
+      "6 + 11",
+      "(−6) + 11",
+      "11 − 6"
+     ],
+     "answer": 0,
+     "explain": "Subtracting 11 is the same as adding its inverse, −11.",
+     "mistake": "Drops the minus sign when rewriting"
+    },
+    {
+     "q": "What does 3 × (−4) mean with tokens?",
+     "options": [
+      "Take out 3 groups of 4 positive tokens",
+      "Put in 4 groups of 3 positive tokens",
+      "Take out 3 negative tokens",
+      "Put in 3 groups of 4 negative tokens"
+     ],
+     "answer": 3,
+     "explain": "A positive multiplier means 'put in'; the groups are of −4, so 4 negative tokens each.",
+     "mistake": "Mixes up 'put in' and 'take out'"
+    },
+    {
+     "q": "What does (−2) × (−5) mean with tokens, and what is the result?",
+     "options": [
+      "Take out 5 positive tokens, giving −5",
+      "Put in 10 positive tokens, giving −10",
+      "Take out 2 groups of 5 negative tokens, leaving +10",
+      "Put in 2 groups of 5 negative tokens, giving −10"
+     ],
+     "answer": 2,
+     "explain": "A negative multiplier means 'take out'. Removing 10 negative tokens from zero pairs leaves 10 positive tokens.",
+     "mistake": "Thinks two negatives make a bigger negative"
+    },
+    {
+     "q": "What is (−1) × 23?",
+     "options": [
+      "22",
+      "−23",
+      "23",
+      "−1"
+     ],
+     "answer": 1,
+     "explain": "Multiplying by −1 gives the additive inverse: −23.",
+     "mistake": "Adds −1 instead of multiplying",
+     "check": "(-1)*23"
+    },
+    {
+     "q": "What is (−1) × (−1) × 45?",
+     "options": [
+      "45",
+      "−45",
+      "−1",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "(−1) × (−1) = 1, and 1 × 45 = 45.",
+     "steps": [
+      "(−1) × (−1) = 1",
+      "1 × 45 = 45"
+     ],
+     "mistake": "Counts the negatives wrongly",
+     "check": "(-1)*(-1)*45"
+    },
+    {
+     "q": "Zero is shown as 8 zero pairs. Riya takes out 4 negative tokens. What is the value now?",
+     "options": [
+      "−4",
+      "8",
+      "12",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "8 + and 4 − are left: 4 zero pairs cancel, leaving +4.",
+     "steps": [
+      "8 + tokens, 4 − tokens",
+      "8 − 4 = 4"
+     ],
+     "mistake": "Thinks taking out negatives makes the value negative",
+     "check": "0-(-4)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu can't believe that (−2) × (−3) is positive. Use tokens to convince Gappu!",
+    "must": [
+     [
+      "zero pair",
+      "zero pairs"
+     ],
+     [
+      "take out",
+      "remove"
+     ],
+     [
+      "positive",
+      "+6",
+      "6"
+     ]
+    ],
+    "praise": "Seeing is believing! Gappu now trusts the sign rule.",
+    "nudge": "What is left when Gappu removes negative tokens from zero pairs?"
+   }
+  },
+  {
    "id": "g7-maths-10-01",
    "title": "Multiplying integers",
+   "covers": [
+    "c10.2.2",
+    "c10.2.3",
+    "c10.2.4",
+    "c10.2.7",
+    "c10.2.9"
+   ],
    "learn": {
     "hook": "Can two 'minuses' make a 'plus'? In integer multiplication — yes, they can! Let's see why.",
     "points": [
@@ -329,8 +837,248 @@
    }
   },
   {
+   "id": "g7-maths-10-03",
+   "title": "Properties of integers",
+   "covers": [
+    "c10.2.6"
+   ],
+   "learn": {
+    "hook": "Some rules let you swap, regroup and split numbers to make tough sums easy — like magic shortcuts!",
+    "points": [
+     "Closure: adding, subtracting or multiplying two integers always gives an integer. Dividing may not: (−3) ÷ 2 is not an integer.",
+     "Commutative: a + b = b + a and a × b = b × a. This does NOT work for subtraction or division.",
+     "Associative: (a × b) × c = a × (b × c), and the same for addition. You can group in any way.",
+     "Distributive: a × (b + c) = a × b + a × c. Example: (−8) × 102 = (−8) × 100 + (−8) × 2.",
+     "Identities: a + 0 = a and a × 1 = a. Also a × 0 = 0 and a × (−1) = −a."
+    ],
+    "example": {
+     "q": "Find (−25) × 37 × 4 the smart way.",
+     "steps": [
+      "Swap and regroup: (−25 × 4) × 37",
+      "(−25) × 4 = −100",
+      "−100 × 37 = −3700"
+     ],
+     "answer": "−3700"
+    },
+    "reallife": "Shopkeepers use the distributive property in their heads: 99 × ₹8 = 100 × ₹8 − ₹8 = ₹792."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Property check",
+     "items": [
+      [
+       "(−3) + 5 = 5 + (−3)",
+       true,
+       "Addition is commutative. Both sides are 2."
+      ],
+      [
+       "(−8) − 3 = 3 − (−8)",
+       false,
+       "The left side is −11 and the right side is 11. Subtraction is not commutative."
+      ],
+      [
+       "Dividing one integer by another always gives an integer.",
+       false,
+       "(−3) ÷ 2 = −1.5, which is not an integer."
+      ],
+      [
+       "Multiplying two integers always gives an integer.",
+       true,
+       "Integers are closed under multiplication."
+      ],
+      [
+       "Any integer multiplied by 1 stays the same.",
+       true,
+       "1 is the multiplicative identity."
+      ],
+      [
+       "(−7) × 0 = −7",
+       false,
+       "Any integer times 0 is 0."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Property and example",
+     "pairs": [
+      [
+       "Commutative",
+       "(−4) × 3 = 3 × (−4)"
+      ],
+      [
+       "Associative",
+       "(2 × (−3)) × 5 = 2 × ((−3) × 5)"
+      ],
+      [
+       "Distributive",
+       "(−2) × (5 + 3) = (−2) × 5 + (−2) × 3"
+      ],
+      [
+       "Additive identity",
+       "(−9) + 0 = −9"
+      ],
+      [
+       "Multiplicative identity",
+       "(−9) × 1 = −9"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which property does (−6) × 4 = 4 × (−6) show?",
+     "options": [
+      "Associative",
+      "Distributive",
+      "Closure",
+      "Commutative"
+     ],
+     "answer": 3,
+     "explain": "The order of the two numbers is swapped and the product stays the same. That is the commutative property.",
+     "mistake": "Mixes up commutative (swap) with associative (regroup)"
+    },
+    {
+     "q": "Find (−25) × 37 × 4 using a smart grouping.",
+     "options": [
+      "−3700",
+      "3700",
+      "−370",
+      "−925"
+     ],
+     "answer": 0,
+     "explain": "Group (−25) × 4 = −100 first. Then −100 × 37 = −3700.",
+     "steps": [
+      "(−25) × 4 = −100",
+      "−100 × 37 = −3700"
+     ],
+     "mistake": "Loses a zero or the negative sign",
+     "check": "(-25)*37*4"
+    },
+    {
+     "q": "Use the distributive property to find (−8) × 102.",
+     "options": [
+      "−800",
+      "−816",
+      "−784",
+      "816"
+     ],
+     "answer": 1,
+     "explain": "(−8) × 102 = (−8) × 100 + (−8) × 2 = −800 + (−16) = −816.",
+     "steps": [
+      "(−8) × 100 = −800",
+      "(−8) × 2 = −16",
+      "−800 − 16 = −816"
+     ],
+     "mistake": "Multiplies only the 100 part",
+     "check": "(-8)*102"
+    },
+    {
+     "q": "a and b are integers and b is not 0. Which of these is NOT always an integer?",
+     "options": [
+      "a + b",
+      "a − b",
+      "a ÷ b",
+      "a × b"
+     ],
+     "answer": 2,
+     "explain": "a ÷ b can be a fraction, like 7 ÷ 2 = 3.5. The others always give integers.",
+     "mistake": "Thinks all four operations are closed for integers"
+    },
+    {
+     "q": "For integers, which operation is NOT commutative?",
+     "options": [
+      "Addition",
+      "Subtraction",
+      "Multiplication"
+     ],
+     "answer": 1,
+     "explain": "5 − 3 = 2 but 3 − 5 = −2, so the order matters for subtraction.",
+     "mistake": "Thinks every operation lets you swap the order"
+    },
+    {
+     "q": "What is (−15) × 0 × (−7)?",
+     "options": [
+      "105",
+      "0",
+      "−22",
+      "−105"
+     ],
+     "answer": 1,
+     "explain": "Anything multiplied by 0 is 0, whatever the other numbers are.",
+     "mistake": "Multiplies −15 by −7 and forgets the 0",
+     "check": "(-15)*0*(-7)"
+    },
+    {
+     "q": "Find 53 × (−7) + 47 × (−7) the smart way.",
+     "options": [
+      "700",
+      "−70",
+      "−700",
+      "−350"
+     ],
+     "answer": 2,
+     "explain": "Take out the common −7: (53 + 47) × (−7) = 100 × (−7) = −700.",
+     "steps": [
+      "(53 + 47) × (−7)",
+      "100 × (−7) = −700"
+     ],
+     "mistake": "Loses the negative sign when combining",
+     "check": "53*(-7)+47*(-7)"
+    },
+    {
+     "q": "Which integer can multiply any integer and leave it unchanged?",
+     "options": [
+      "0",
+      "−1",
+      "10",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "a × 1 = a for every integer a, so 1 is the multiplicative identity.",
+     "mistake": "Mixes up the identity for multiplication (1) with the one for addition (0)",
+     "check": "1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders why (−4) × 7 and 7 × (−4) give the same answer. What is this property called and what does it say?",
+    "must": [
+     [
+      "order",
+      "swap",
+      "switch",
+      "change places",
+      "any order",
+      "commutative"
+     ],
+     [
+      "same",
+      "equal",
+      "does not change",
+      "doesn't change"
+     ],
+     [
+      "multiply",
+      "multiplication",
+      "add",
+      "addition",
+      "times",
+      "plus"
+     ]
+    ],
+    "praise": "Brilliant! Swapping the order does not change a sum or a product. Gappu will use this shortcut forever!",
+    "nudge": "What happens to the answer when you swap the order of the numbers?"
+   }
+  },
+  {
    "id": "g7-maths-10-02",
    "title": "Dividing integers",
+   "covers": [
+    "c10.3.1",
+    "c10.3.2",
+    "c10.3.3"
+   ],
    "learn": {
     "hook": "Division is multiplication played backwards — so the same sign rules work again!",
     "points": [
@@ -606,235 +1354,490 @@
    }
   },
   {
-   "id": "g7-maths-10-03",
-   "title": "Properties of integers",
+   "id": "g7-maths-10-06",
+   "title": "Brahmagupta's rules and integer expressions",
+   "covers": [
+    "c10.2.8",
+    "c10.4.1",
+    "c10.4.2"
+   ],
    "learn": {
-    "hook": "Some rules let you swap, regroup and split numbers to make tough sums easy — like magic shortcuts!",
+    "hook": "About 1,400 years ago, Brahmagupta explained negative numbers using fortunes and debts!",
     "points": [
-     "Closure: adding, subtracting or multiplying two integers always gives an integer. Dividing may not: (−3) ÷ 2 is not an integer.",
-     "Commutative: a + b = b + a and a × b = b × a. This does NOT work for subtraction or division.",
-     "Associative: (a × b) × c = a × (b × c), and the same for addition. You can group in any way.",
-     "Distributive: a × (b + c) = a × b + a × c. Example: (−8) × 102 = (−8) × 100 + (−8) × 2.",
-     "Identities: a + 0 = a and a × 1 = a. Also a × 0 = 0 and a × (−1) = −a."
+     "Brahmagupta (7th century) called positive numbers 'fortunes' and negative numbers 'debts'.",
+     "Fortune × fortune = fortune, debt × debt = fortune, fortune × debt = debt. Division follows the same sign rules.",
+     "Evaluate expressions in order: brackets, then × and ÷, then + and −: (−3) × 4 + 10 ÷ (−2) = −12 + (−5) = −17.",
+     "Use one known result to get related ones: if 23 × 47 = 1081, then (−23) × 47 = −1081 and 1081 ÷ (−47) = −23."
     ],
     "example": {
-     "q": "Find (−25) × 37 × 4 the smart way.",
+     "q": "Find (−3) × 4 + 10 ÷ (−2).",
      "steps": [
-      "Swap and regroup: (−25 × 4) × 37",
-      "(−25) × 4 = −100",
-      "−100 × 37 = −3700"
+      "Multiply and divide first: (−3) × 4 = −12, 10 ÷ (−2) = −5",
+      "Then add: −12 + (−5) = −17"
      ],
-     "answer": "−3700"
+     "answer": "−17"
     },
-    "reallife": "Shopkeepers use the distributive property in their heads: 99 × ₹8 = 100 × ₹8 − ₹8 = ₹792."
+    "reallife": "Shopkeepers record money received and money owed — fortunes and debts — in the same way even today."
    },
    "games": [
     {
-     "type": "truefalse",
-     "title": "Property check",
+     "type": "sort",
+     "title": "Fortune or debt?",
+     "buckets": [
+      "Fortune (positive)",
+      "Debt (negative)"
+     ],
      "items": [
       [
-       "(−3) + 5 = 5 + (−3)",
-       true,
-       "Addition is commutative. Both sides are 2."
+       "Fortune × fortune",
+       0
       ],
       [
-       "(−8) − 3 = 3 − (−8)",
-       false,
-       "The left side is −11 and the right side is 11. Subtraction is not commutative."
+       "Debt × debt",
+       0
       ],
       [
-       "Dividing one integer by another always gives an integer.",
-       false,
-       "(−3) ÷ 2 = −1.5, which is not an integer."
+       "Fortune × debt",
+       1
       ],
       [
-       "Multiplying two integers always gives an integer.",
-       true,
-       "Integers are closed under multiplication."
+       "Debt × fortune",
+       1
       ],
       [
-       "Any integer multiplied by 1 stays the same.",
-       true,
-       "1 is the multiplicative identity."
+       "Debt ÷ debt",
+       0
       ],
       [
-       "(−7) × 0 = −7",
-       false,
-       "Any integer times 0 is 0."
+       "Debt ÷ fortune",
+       1
+      ],
+      [
+       "Fortune ÷ debt",
+       1
       ]
      ]
     },
     {
-     "type": "match",
-     "title": "Property and example",
-     "pairs": [
-      [
-       "Commutative",
-       "(−4) × 3 = 3 × (−4)"
-      ],
-      [
-       "Associative",
-       "(2 × (−3)) × 5 = 2 × ((−3) × 5)"
-      ],
-      [
-       "Distributive",
-       "(−2) × (5 + 3) = (−2) × 5 + (−2) × 3"
-      ],
-      [
-       "Additive identity",
-       "(−9) + 0 = −9"
-      ],
-      [
-       "Multiplicative identity",
-       "(−9) × 1 = −9"
-      ]
+     "type": "speed",
+     "title": "Use 23 × 47 = 1081",
+     "items": [
+      {
+       "q": "(−23) × 47",
+       "a": "−1081",
+       "check": "(-23)*47"
+      },
+      {
+       "q": "(−23) × (−47)",
+       "a": "1081",
+       "check": "(-23)*(-47)"
+      },
+      {
+       "q": "1081 ÷ (−47)",
+       "a": "−23",
+       "check": "1081/(-47)"
+      },
+      {
+       "q": "(−1081) ÷ (−23)",
+       "a": "47",
+       "check": "(-1081)/(-23)"
+      },
+      {
+       "q": "23 × (−47)",
+       "a": "−1081",
+       "check": "23*(-47)"
+      },
+      {
+       "q": "(−1081) ÷ 47",
+       "a": "−23",
+       "check": "(-1081)/47"
+      }
      ]
     }
    ],
    "quiz": [
     {
-     "q": "Which property does (−6) × 4 = 4 × (−6) show?",
+     "q": "By Brahmagupta's rules, what is the product of two debts?",
      "options": [
-      "Associative",
-      "Distributive",
-      "Closure",
-      "Commutative"
+      "Zero",
+      "Nothing — it is not allowed",
+      "A fortune",
+      "A debt"
      ],
-     "answer": 3,
-     "explain": "The order of the two numbers is swapped and the product stays the same. That is the commutative property.",
-     "mistake": "Mixes up commutative (swap) with associative (regroup)"
+     "answer": 2,
+     "explain": "Debt × debt = fortune, just as (−) × (−) = (+).",
+     "mistake": "Thinks two negatives make a bigger negative"
     },
     {
-     "q": "Find (−25) × 37 × 4 using a smart grouping.",
+     "q": "By Brahmagupta's rules, what is the product of a fortune and a debt?",
      "options": [
-      "−3700",
-      "3700",
-      "−370",
-      "−925"
+      "Two fortunes",
+      "A debt",
+      "A fortune",
+      "Zero"
+     ],
+     "answer": 1,
+     "explain": "Unlike signs give a negative: (+) × (−) = (−), a debt.",
+     "mistake": "Mixes up the rule for unlike signs"
+    },
+    {
+     "q": "Find (−3) × 4 + 10 ÷ (−2).",
+     "options": [
+      "−17",
+      "−7",
+      "1",
+      "17"
      ],
      "answer": 0,
-     "explain": "Group (−25) × 4 = −100 first. Then −100 × 37 = −3700.",
+     "explain": "First (−3) × 4 = −12 and 10 ÷ (−2) = −5. Then −12 + (−5) = −17.",
      "steps": [
-      "(−25) × 4 = −100",
-      "−100 × 37 = −3700"
+      "(−3) × 4 = −12",
+      "10 ÷ (−2) = −5",
+      "−12 − 5 = −17"
      ],
-     "mistake": "Loses a zero or the negative sign",
-     "check": "(-25)*37*4"
+     "mistake": "Works from left to right without doing × and ÷ first",
+     "check": "(-3)*4+10/(-2)"
     },
     {
-     "q": "Use the distributive property to find (−8) × 102.",
+     "q": "Find 20 − (−4) × 3.",
      "options": [
-      "−800",
-      "−816",
-      "−784",
-      "816"
-     ],
-     "answer": 1,
-     "explain": "(−8) × 102 = (−8) × 100 + (−8) × 2 = −800 + (−16) = −816.",
-     "steps": [
-      "(−8) × 100 = −800",
-      "(−8) × 2 = −16",
-      "−800 − 16 = −816"
-     ],
-     "mistake": "Multiplies only the 100 part",
-     "check": "(-8)*102"
-    },
-    {
-     "q": "a and b are integers and b is not 0. Which of these is NOT always an integer?",
-     "options": [
-      "a + b",
-      "a − b",
-      "a ÷ b",
-      "a × b"
-     ],
-     "answer": 2,
-     "explain": "a ÷ b can be a fraction, like 7 ÷ 2 = 3.5. The others always give integers.",
-     "mistake": "Thinks all four operations are closed for integers"
-    },
-    {
-     "q": "For integers, which operation is NOT commutative?",
-     "options": [
-      "Addition",
-      "Subtraction",
-      "Multiplication"
-     ],
-     "answer": 1,
-     "explain": "5 − 3 = 2 but 3 − 5 = −2, so the order matters for subtraction.",
-     "mistake": "Thinks every operation lets you swap the order"
-    },
-    {
-     "q": "What is (−15) × 0 × (−7)?",
-     "options": [
-      "105",
-      "0",
-      "−22",
-      "−105"
-     ],
-     "answer": 1,
-     "explain": "Anything multiplied by 0 is 0, whatever the other numbers are.",
-     "mistake": "Multiplies −15 by −7 and forgets the 0",
-     "check": "(-15)*0*(-7)"
-    },
-    {
-     "q": "Find 53 × (−7) + 47 × (−7) the smart way.",
-     "options": [
-      "700",
-      "−70",
-      "−700",
-      "−350"
-     ],
-     "answer": 2,
-     "explain": "Take out the common −7: (53 + 47) × (−7) = 100 × (−7) = −700.",
-     "steps": [
-      "(53 + 47) × (−7)",
-      "100 × (−7) = −700"
-     ],
-     "mistake": "Loses the negative sign when combining",
-     "check": "53*(-7)+47*(-7)"
-    },
-    {
-     "q": "Which integer can multiply any integer and leave it unchanged?",
-     "options": [
-      "0",
-      "−1",
-      "10",
-      "1"
+      "72",
+      "8",
+      "−72",
+      "32"
      ],
      "answer": 3,
-     "explain": "a × 1 = a for every integer a, so 1 is the multiplicative identity.",
-     "mistake": "Mixes up the identity for multiplication (1) with the one for addition (0)",
-     "check": "1"
+     "explain": "Multiply first: (−4) × 3 = −12. Then 20 − (−12) = 32.",
+     "steps": [
+      "(−4) × 3 = −12",
+      "20 − (−12) = 20 + 12 = 32"
+     ],
+     "mistake": "Subtracts before multiplying",
+     "check": "20-(-4)*3"
+    },
+    {
+     "q": "Find (−6) × (5 − 8).",
+     "options": [
+      "−38",
+      "22",
+      "18",
+      "−18"
+     ],
+     "answer": 2,
+     "explain": "Bracket first: 5 − 8 = −3. Then (−6) × (−3) = 18.",
+     "steps": [
+      "5 − 8 = −3",
+      "(−6) × (−3) = 18"
+     ],
+     "mistake": "Multiplies −6 by 5 only",
+     "check": "(-6)*(5-8)"
+    },
+    {
+     "q": "Given 36 × 25 = 900, find (−36) × 25.",
+     "options": [
+      "61",
+      "−900",
+      "900",
+      "−61"
+     ],
+     "answer": 1,
+     "explain": "One negative factor makes the product negative: −900.",
+     "mistake": "Forgets to change the sign",
+     "check": "(-36)*25"
+    },
+    {
+     "q": "Given 36 × 25 = 900, find (−900) ÷ (−25).",
+     "options": [
+      "36",
+      "−36",
+      "25",
+      "−25"
+     ],
+     "answer": 0,
+     "explain": "Same signs give a positive quotient: 900 ÷ 25 = 36.",
+     "steps": [
+      "900 ÷ 25 = 36",
+      "(−) ÷ (−) = (+)"
+     ],
+     "mistake": "Gives a negative answer for two negatives",
+     "check": "(-900)/(-25)"
+    },
+    {
+     "q": "Given 17 × 13 = 221, find (−17) × (−13) + 221.",
+     "options": [
+      "0",
+      "−442",
+      "221",
+      "442"
+     ],
+     "answer": 3,
+     "explain": "(−17) × (−13) = 221, and 221 + 221 = 442.",
+     "steps": [
+      "(−17) × (−13) = 221",
+      "221 + 221 = 442"
+     ],
+     "mistake": "Thinks (−17) × (−13) = −221",
+     "check": "(-17)*(-13)+221"
     }
    ],
    "teach": {
-    "ask": "Gappu wonders why (−4) × 7 and 7 × (−4) give the same answer. What is this property called and what does it say?",
+    "ask": "Gappu read that Brahmagupta said 'debt times debt is fortune'. What does that mean in today's maths?",
     "must": [
      [
-      "order",
-      "swap",
-      "switch",
-      "change places",
-      "any order",
-      "commutative"
+      "negative",
+      "debt"
      ],
      [
-      "same",
-      "equal",
-      "does not change",
-      "doesn't change"
+      "positive",
+      "fortune"
      ],
      [
       "multiply",
-      "multiplication",
-      "add",
-      "addition",
+      "product",
       "times",
-      "plus"
+      "×"
      ]
     ],
-    "praise": "Brilliant! Swapping the order does not change a sum or a product. Gappu will use this shortcut forever!",
-    "nudge": "What happens to the answer when you swap the order of the numbers?"
+    "praise": "Great history lesson! Gappu sees that (−) × (−) = (+).",
+    "nudge": "Which sign stands for a debt, and which for a fortune?"
+   }
+  },
+  {
+   "id": "g7-maths-10-07",
+   "title": "Integer puzzles: biggest, smallest, grids and loops",
+   "covers": [
+    "c10.4.3",
+    "c10.4.4",
+    "c10.4.5",
+    "c10.4.6"
+   ],
+   "learn": {
+    "hook": "Start at −5. If odd, triple it and add 1; if even, halve it. Keep going... you'll end up right back at −5!",
+    "points": [
+     "To get the biggest product of two numbers from −5, −4, 3, 2, try two negatives: (−5) × (−4) = 20. The smallest is (−5) × 3 = −15.",
+     "The biggest value of a − b comes from the biggest a and the most negative b: 3 − (−5) = 8.",
+     "Magic grid: in −1, 2, −3 / 2, −4, 6 / −3, 6, −9, circle one number in each row and column. The product is always −36!",
+     "Machine rule 'odd → 3n + 1, even → n ÷ 2' from −5 gives −14, −7, −20, −10, −5 — a loop.",
+     "To order integer expressions, work out each value first, then arrange them."
+    ],
+    "example": {
+     "q": "In the grid −1, 2, −3 / 2, −4, 6 / −3, 6, −9, circle −3 (row 1), −4 (row 2) and −3 (row 3). Find the product.",
+     "steps": [
+      "One number from each row and each column ✓",
+      "(−3) × (−4) = 12",
+      "12 × (−3) = −36"
+     ],
+     "answer": "−36"
+    },
+    "reallife": "Puzzle apps and maths olympiads love these integer tricks — try the magic grid on a friend!"
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Order by value",
+     "prompt": "Smallest to largest",
+     "items": [
+      "(−2) × 5",
+      "(−12) ÷ 3",
+      "0 × (−9)",
+      "(−3) × (−2)",
+      "4 × 3"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Puzzle sprint",
+     "items": [
+      {
+       "q": "Rule odd → 3n + 1: next after −5",
+       "a": "−14",
+       "check": "3*(-5)+1"
+      },
+      {
+       "q": "Rule even → n ÷ 2: next after −14",
+       "a": "−7",
+       "check": "-14/2"
+      },
+      {
+       "q": "Next after −7",
+       "a": "−20",
+       "check": "3*(-7)+1"
+      },
+      {
+       "q": "Biggest product of two from −5, −4, 3, 2",
+       "a": "20",
+       "check": "(-5)*(-4)"
+      },
+      {
+       "q": "Smallest product of two from −5, −4, 3, 2",
+       "a": "−15",
+       "check": "(-5)*3"
+      },
+      {
+       "q": "Biggest a − b from −5, −4, 3, 2",
+       "a": "8",
+       "check": "3-(-5)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Using two of −6, −2, 1, 5, what is the largest product you can make?",
+     "options": [
+      "−30",
+      "10",
+      "12",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "Two negatives give a positive: (−6) × (−2) = 12, which beats 1 × 5 = 5.",
+     "steps": [
+      "(−6) × (−2) = 12",
+      "1 × 5 = 5"
+     ],
+     "mistake": "Ignores that two negatives make a positive",
+     "check": "(-6)*(-2)"
+    },
+    {
+     "q": "Using two of −6, −2, 1, 5, what is the smallest product you can make?",
+     "options": [
+      "12",
+      "−30",
+      "−6",
+      "−10"
+     ],
+     "answer": 1,
+     "explain": "The most negative product uses the biggest positive and the most negative number: (−6) × 5 = −30.",
+     "steps": [
+      "(−6) × 5 = −30"
+     ],
+     "mistake": "Picks a product that is negative but not the smallest",
+     "check": "(-6)*5"
+    },
+    {
+     "q": "a and b are chosen from −6, −2, 1, 5 (different numbers). What is the largest possible value of a − b?",
+     "options": [
+      "11",
+      "4",
+      "−1",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "Take the biggest a = 5 and the smallest b = −6: 5 − (−6) = 11.",
+     "steps": [
+      "5 − (−6) = 5 + 6 = 11"
+     ],
+     "mistake": "Subtracts the smallest positive number instead of the most negative",
+     "check": "5-(-6)"
+    },
+    {
+     "q": "In the grid −1, 2, −3 / 2, −4, 6 / −3, 6, −9, you circle −1, −4 and −9 (one from each row and column). What is their product?",
+     "options": [
+      "36",
+      "−14",
+      "14",
+      "−36"
+     ],
+     "answer": 3,
+     "explain": "(−1) × (−4) = 4, and 4 × (−9) = −36.",
+     "steps": [
+      "(−1) × (−4) = 4",
+      "4 × (−9) = −36"
+     ],
+     "mistake": "Adds the numbers instead of multiplying",
+     "check": "(-1)*(-4)*(-9)"
+    },
+    {
+     "q": "In the same grid, you circle 2 (row 1, column 2), 2 (row 2, column 1) and −9 (row 3, column 3). What is the product?",
+     "options": [
+      "−5",
+      "−18",
+      "−36",
+      "36"
+     ],
+     "answer": 2,
+     "explain": "2 × 2 × (−9) = −36 — the same as before. That is the magic of this grid!",
+     "steps": [
+      "2 × 2 = 4",
+      "4 × (−9) = −36"
+     ],
+     "mistake": "Thinks a different choice must give a different product",
+     "check": "2*2*(-9)"
+    },
+    {
+     "q": "Rule: if a number is odd, multiply by 3 and add 1; if even, halve it. What comes after −7?",
+     "options": [
+      "−3.5",
+      "−20",
+      "−22",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "−7 is odd: 3 × (−7) + 1 = −21 + 1 = −20.",
+     "steps": [
+      "3 × (−7) = −21",
+      "−21 + 1 = −20"
+     ],
+     "mistake": "Subtracts 1 instead of adding",
+     "check": "3*(-7)+1"
+    },
+    {
+     "q": "Using the same rule, starting at −5 you get −14, −7, −20, −10, ... How many steps does it take to come back to −5?",
+     "options": [
+      "5",
+      "4",
+      "6",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "−5 → −14 → −7 → −20 → −10 → −5: that is 5 steps.",
+     "steps": [
+      "−10 ÷ 2 = −5",
+      "Count the arrows: 5"
+     ],
+     "mistake": "Counts the numbers instead of the steps",
+     "check": "5"
+    },
+    {
+     "q": "Which list puts these integer expressions in order from smallest to largest value?",
+     "options": [
+      "18 ÷ (−3), (−3) × 4, (−1) × 0, (−20) ÷ (−5)",
+      "(−1) × 0, 18 ÷ (−3), (−3) × 4, (−20) ÷ (−5)",
+      "(−20) ÷ (−5), (−1) × 0, 18 ÷ (−3), (−3) × 4",
+      "(−3) × 4, 18 ÷ (−3), (−1) × 0, (−20) ÷ (−5)"
+     ],
+     "answer": 3,
+     "explain": "Values: −12, −6, 0, 4. So (−3) × 4 < 18 ÷ (−3) < (−1) × 0 < (−20) ÷ (−5).",
+     "steps": [
+      "(−3) × 4 = −12",
+      "18 ÷ (−3) = −6",
+      "(−1) × 0 = 0",
+      "(−20) ÷ (−5) = 4"
+     ],
+     "mistake": "Orders by the numbers shown instead of the values"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must pick two numbers from −7, −3, 2, 4 to get the biggest product. Gappu chose 2 and 4. Is that best?",
+    "must": [
+     [
+      "negative",
+      "negatives"
+     ],
+     [
+      "21",
+      "−7 and −3",
+      "positive"
+     ],
+     [
+      "biggest",
+      "largest",
+      "more"
+     ]
+    ],
+    "praise": "Smart pick! (−7) × (−3) = 21 beats 8.",
+    "nudge": "What happens when Gappu multiplies the two negative numbers?"
    }
   }
  ]

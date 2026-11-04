@@ -6,6 +6,12 @@
   {
    "id": "g7-maths-14-01",
    "title": "Bisectors with ruler and compass",
+   "covers": [
+    "c14.1.2",
+    "c14.1.3",
+    "c14.1.6",
+    "c14.1.7"
+   ],
    "lab": "angle",
    "learn": {
     "hook": "Can you find the exact middle of a line without measuring? A compass can do it — like a magic trick!",
@@ -229,8 +235,656 @@
    }
   },
   {
+   "id": "g7-maths-14-04",
+   "title": "Perpendiculars at a point, from outside, and with ropes",
+   "covers": [
+    "c14.1.4",
+    "c14.1.5",
+    "c14.1.15"
+   ],
+   "learn": {
+    "hook": "More than 2,500 years ago, builders in India made perfect right angles with just a knotted rope!",
+    "points": [
+     "90° at a point P on a line: with centre P, draw an arc cutting the line at A and B (so PA = PB). Then draw arcs from A and B with a bigger radius; they cross at Q. PQ is perpendicular to the line.",
+     "It works because Q is equally far from A and B, so PQ is the perpendicular bisector of AB.",
+     "Perpendicular from an outside point Q: with centre Q, draw an arc cutting the line at A and B. From A and B draw equal arcs crossing at R on the other side. QR is perpendicular to the line.",
+     "The Sulba-Sutras, ancient Indian texts for building fire altars, used ropes. A rope knotted into 3 + 4 + 5 = 12 equal parts, pulled into a triangle, gives a right angle.",
+     "Other rope triangles such as 5, 12, 13 also give right angles."
+    ],
+    "example": {
+     "q": "Draw a perpendicular to line l from a point Q outside it.",
+     "steps": [
+      "With centre Q, draw an arc cutting l at A and B",
+      "With centres A and B and the same radius, draw arcs crossing at R on the other side of l",
+      "Join QR"
+     ],
+     "answer": "QR ⊥ l"
+    },
+    "reallife": "Masons still use a knotted string or a 3-4-5 check to make sure walls meet at a right angle."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Perpendicular at a point on a line",
+     "prompt": "First step to last step",
+     "items": [
+      "Mark point P on line l",
+      "With centre P, draw an arc cutting l at A and B",
+      "With a bigger radius, draw arcs from A and B that cross at Q",
+      "Join PQ — it is perpendicular to l"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Ropes and arcs",
+     "items": [
+      [
+       "A rope knotted into 3, 4 and 5 equal parts makes a right angle",
+       true,
+       "3, 4, 5 is a right-triangle set."
+      ],
+      [
+       "The Sulba-Sutras were written for building fire altars",
+       true,
+       "They give exact rules for altar shapes."
+      ],
+      [
+       "For a perpendicular from an outside point, the first arc is drawn with centre at that point",
+       true,
+       "It cuts the line at two points."
+      ],
+      [
+       "A rope knotted into 2, 3 and 4 parts makes a right angle",
+       false,
+       "2, 3, 4 does not give a right angle."
+      ],
+      [
+       "In the perpendicular-at-a-point method, PA must equal PB",
+       true,
+       "P must be the midpoint of AB."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "To construct a 90° angle at point P on a line, what is the first step?",
+     "options": [
+      "Measure 90° with a protractor",
+      "Draw a line from P at any slant",
+      "With centre P, draw an arc cutting the line at two points A and B",
+      "Draw a circle anywhere"
+     ],
+     "answer": 2,
+     "explain": "The arc makes PA = PB, so P becomes the midpoint of AB.",
+     "mistake": "Reaches for a protractor instead of compass steps"
+    },
+    {
+     "q": "In that construction, why is PQ perpendicular to the line?",
+     "options": [
+      "Because PQ is long",
+      "Q is equally far from A and B, so PQ is the perpendicular bisector of AB",
+      "Because Q is above the line",
+      "Because all arcs are circles"
+     ],
+     "answer": 1,
+     "explain": "Points equidistant from A and B lie on the perpendicular bisector of AB, which passes through the midpoint P.",
+     "mistake": "Gives a reason that does not use equal distances"
+    },
+    {
+     "q": "To draw a perpendicular from a point Q outside a line, what is the first step?",
+     "options": [
+      "With centre Q, draw an arc cutting the line at two points",
+      "Draw a line parallel to the given line",
+      "Bisect an angle at Q",
+      "Draw a circle with centre on the line"
+     ],
+     "answer": 0,
+     "explain": "The two cutting points are equally far from Q; then we find another point equally far from them.",
+     "mistake": "Starts the construction on the line instead of at Q"
+    },
+    {
+     "q": "A rope is knotted into 12 equal parts to make a right angle. How are the parts shared among the three sides?",
+     "options": [
+      "4, 4 and 4 parts",
+      "2, 5 and 5 parts",
+      "1, 5 and 6 parts",
+      "3, 4 and 5 parts"
+     ],
+     "answer": 3,
+     "explain": "3 + 4 + 5 = 12, and a 3-4-5 triangle has a right angle.",
+     "mistake": "Splits the rope equally, which gives 60° angles"
+    },
+    {
+     "q": "In a 3-4-5 rope triangle, each part is 50 cm. How long is the longest side?",
+     "options": [
+      "150 cm",
+      "600 cm",
+      "250 cm",
+      "200 cm"
+     ],
+     "answer": 2,
+     "explain": "5 parts × 50 cm = 250 cm.",
+     "steps": [
+      "5 × 50 = 250"
+     ],
+     "mistake": "Uses the 4-part side",
+     "check": "5*50"
+    },
+    {
+     "q": "What were the Sulba-Sutras used for?",
+     "options": [
+      "Measuring rainfall",
+      "Building fire altars of exact shapes and sizes",
+      "Writing poems about rivers",
+      "Counting money in markets"
+     ],
+     "answer": 1,
+     "explain": "They gave geometric rules, including right angles made with ropes, for building altars.",
+     "mistake": "Does not know the purpose of these ancient texts"
+    },
+    {
+     "q": "Which other knotted-rope triangle also gives a right angle?",
+     "options": [
+      "5, 12 and 13 parts",
+      "5, 12 and 14 parts",
+      "6, 7 and 8 parts",
+      "4, 5 and 6 parts"
+     ],
+     "answer": 0,
+     "explain": "5 × 5 + 12 × 12 = 25 + 144 = 169 = 13 × 13, so 5, 12, 13 makes a right angle.",
+     "steps": [
+      "25 + 144 = 169 = 13 × 13"
+     ],
+     "mistake": "Picks lengths that just look close"
+    },
+    {
+     "q": "How many equal parts are needed in total for a 5-12-13 rope triangle?",
+     "options": [
+      "25",
+      "17",
+      "60",
+      "30"
+     ],
+     "answer": 3,
+     "explain": "5 + 12 + 13 = 30 parts.",
+     "steps": [
+      "5 + 12 + 13 = 30"
+     ],
+     "mistake": "Adds only two of the sides",
+     "check": "5+12+13"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has no protractor, only a compass and a ruler. How can Gappu make a right angle at a point on a line?",
+    "must": [
+     [
+      "arc",
+      "arcs"
+     ],
+     [
+      "equal",
+      "same distance",
+      "equidistant"
+     ],
+     [
+      "perpendicular",
+      "90",
+      "right angle"
+     ]
+    ],
+    "praise": "Right angle made! Gappu's corner is perfect.",
+    "nudge": "What should Gappu draw first, with the compass point on P?"
+   }
+  },
+  {
+   "id": "g7-maths-14-05",
+   "title": "Copying an angle and drawing parallel lines",
+   "covers": [
+    "c14.1.8",
+    "c14.1.9"
+   ],
+   "learn": {
+    "hook": "Copy any angle exactly — no protractor, no measuring — just a compass and a ruler!",
+    "points": [
+     "To copy ∠ABC at point Q on a ray: with centre B draw an arc cutting the arms at D and E.",
+     "With the same radius and centre Q, draw an arc cutting the ray at R.",
+     "Open the compass to the distance DE. With centre R, cut the second arc at S. Join QS: ∠SQR = ∠ABC.",
+     "It works because triangles DBE and SQR have three equal sides, so they are congruent (SSS).",
+     "To draw a parallel through P: draw a transversal through P cutting line l, then copy the angle at l to P in the corresponding position."
+    ],
+    "example": {
+     "q": "Draw a line through P parallel to l without a protractor.",
+     "steps": [
+      "Draw a line through P cutting l at Q",
+      "Copy the angle at Q to P, in the corresponding position",
+      "The new line makes equal corresponding angles, so it is parallel to l"
+     ],
+     "answer": "A line through P parallel to l"
+    },
+    "reallife": "Tailors copy the angle of a collar from one shirt to another with just a measuring tape and a marker — the same idea."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Copying an angle",
+     "prompt": "First step to last step",
+     "items": [
+      "With centre B, draw an arc cutting the arms of ∠B at D and E",
+      "With the same radius and centre Q, draw an arc cutting the ray at R",
+      "Open the compass to the distance DE",
+      "With centre R, cut the second arc at S",
+      "Join QS"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Copy check",
+     "items": [
+      [
+       "Copying an angle needs a protractor",
+       false,
+       "Only a compass and ruler are needed."
+      ],
+      [
+       "The copy works because of SSS congruence",
+       true,
+       "The two triangles have three equal sides."
+      ],
+      [
+       "The first two arcs must have the same radius",
+       true,
+       "That makes two pairs of equal sides."
+      ],
+      [
+       "To draw a parallel, copy the angle in the corresponding position",
+       true,
+       "Equal corresponding angles mean parallel lines."
+      ],
+      [
+       "Copying an angle anywhere always gives a parallel line",
+       false,
+       "It must be in the corresponding (or alternate) position."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which tools are needed to copy an angle exactly?",
+     "options": [
+      "A set square only",
+      "String and tape",
+      "A ruler and a compass only",
+      "A protractor only"
+     ],
+     "answer": 2,
+     "explain": "Arcs of equal radius and one copied distance are enough.",
+     "mistake": "Thinks a protractor is always needed"
+    },
+    {
+     "q": "What is the first step in copying ∠ABC?",
+     "options": [
+      "Extend both arms",
+      "With centre B, draw an arc cutting both arms",
+      "Measure ∠ABC with a protractor",
+      "Draw a circle around the whole angle"
+     ],
+     "answer": 1,
+     "explain": "The arc from the vertex marks equal distances on both arms.",
+     "mistake": "Starts at the wrong point"
+    },
+    {
+     "q": "After the first arc, what is drawn at the new point Q?",
+     "options": [
+      "An arc with centre Q and the same radius",
+      "An arc with centre Q and a bigger radius",
+      "A perpendicular at Q",
+      "A circle of any size"
+     ],
+     "answer": 0,
+     "explain": "Using the same radius makes QR equal to BD.",
+     "mistake": "Changes the compass opening"
+    },
+    {
+     "q": "Which distance is copied with the compass in the third step?",
+     "options": [
+      "The length of arm BA",
+      "The distance from B to Q",
+      "Any distance",
+      "The distance DE between the points where the first arc cut the arms"
+     ],
+     "answer": 3,
+     "explain": "Copying DE gives the third pair of equal sides.",
+     "mistake": "Copies an arm length instead"
+    },
+    {
+     "q": "Why is the copied angle equal to the original?",
+     "options": [
+      "All arcs are curved",
+      "The rays are long",
+      "The two triangles are congruent by SSS",
+      "Both angles were measured"
+     ],
+     "answer": 2,
+     "explain": "BD = QR, BE = QS and DE = RS, so the triangles are congruent and the matching angles are equal.",
+     "mistake": "Does not link the construction to congruence"
+    },
+    {
+     "q": "To draw a line through P parallel to l, which angle do we copy?",
+     "options": [
+      "The angle between l and itself",
+      "The angle a transversal makes with l, placed at P in the corresponding position",
+      "Any 90° angle",
+      "An angle of 45° at P"
+     ],
+     "answer": 1,
+     "explain": "Equal corresponding angles make the lines parallel.",
+     "mistake": "Copies the angle in the wrong position"
+    },
+    {
+     "q": "A transversal makes 72° with l. What angle must be copied at P, in the corresponding position, for a parallel line?",
+     "options": [
+      "72°",
+      "108°",
+      "18°",
+      "144°"
+     ],
+     "answer": 0,
+     "explain": "Corresponding angles must be equal: 72°.",
+     "mistake": "Uses the linear-pair angle",
+     "check": "72"
+    },
+    {
+     "q": "Suppose you copy the 72° angle at P in the alternate position instead. Is the new line still parallel to l?",
+     "options": [
+      "No — only corresponding angles work",
+      "No — it will be perpendicular",
+      "Only if the angle is 90°",
+      "Yes — equal alternate angles also give parallel lines"
+     ],
+     "answer": 3,
+     "explain": "Equal alternate angles also show that two lines are parallel.",
+     "mistake": "Thinks only one angle rule proves lines parallel"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to copy a 50° angle but lost the protractor. Teach Gappu the compass trick!",
+    "must": [
+     [
+      "arc",
+      "arcs"
+     ],
+     [
+      "same radius",
+      "same opening",
+      "same"
+     ],
+     [
+      "sss",
+      "congruent"
+     ]
+    ],
+    "praise": "Copied perfectly! Gappu's angle matches exactly.",
+    "nudge": "Which two distances must Gappu keep the same?"
+   }
+  },
+  {
+   "id": "g7-maths-14-06",
+   "title": "Eyes, arches, hexagons and stars",
+   "covers": [
+    "c14.1.1",
+    "c14.1.10",
+    "c14.1.11",
+    "c14.1.12",
+    "c14.1.14"
+   ],
+   "learn": {
+    "hook": "Step a compass around a circle using its own radius — it fits exactly 6 times and draws a perfect hexagon!",
+    "points": [
+     "Eye design: two equal arcs join the same two points A and B, one curving up and one curving down. Each arc's centre lies on the perpendicular bisector of AB.",
+     "Pointed arch: with centres at the two ends of the span and radius equal to the span, draw arcs meeting at the top. The top and the two ends form an equilateral triangle. A trefoil arch fits three equal round lobes inside an arch.",
+     "Angles around a point add up to 360°.",
+     "Six equilateral triangles around a point (6 × 60° = 360°) make a regular hexagon; each of its angles is 60° + 60° = 120°.",
+     "A 6-pointed star: draw two overlapping equilateral triangles, or put an equilateral triangle on each side of a regular hexagon."
+    ],
+    "example": {
+     "q": "Construct a regular hexagon of side 3 cm.",
+     "steps": [
+      "Draw a circle of radius 3 cm",
+      "Keeping the compass at 3 cm, step around the circle: it fits 6 times",
+      "Join the 6 points"
+     ],
+     "answer": "A regular hexagon with perimeter 18 cm"
+    },
+    "reallife": "Temple and mosque arches, jaali windows and rangoli stars across India are built from these compass designs."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Design sprint",
+     "items": [
+      {
+       "q": "Angles around a point",
+       "a": "360°",
+       "check": "360"
+      },
+      {
+       "q": "Each angle of a regular hexagon",
+       "a": "120°",
+       "check": "2*60"
+      },
+      {
+       "q": "Equilateral triangles meeting at a hexagon's centre",
+       "a": "6",
+       "check": "360/60"
+      },
+      {
+       "q": "Perimeter of a regular hexagon with side 3 cm",
+       "a": "18",
+       "check": "6*3"
+      },
+      {
+       "q": "Missing angle: 120°, 90°, 60° and ? around a point",
+       "a": "90°",
+       "check": "360-120-90-60"
+      },
+      {
+       "q": "Points on a 6-pointed star",
+       "a": "6",
+       "check": "6"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Design truths",
+     "items": [
+      [
+       "Angles around a point add up to 360°",
+       true,
+       "A full turn is 360°."
+      ],
+      [
+       "A regular hexagon can be made from 6 equilateral triangles",
+       true,
+       "6 × 60° = 360° at the centre."
+      ],
+      [
+       "In a pointed arch, each arc's radius is half the span",
+       false,
+       "The radius equals the whole span."
+      ],
+      [
+       "An eye design uses two equal arcs through the same two points",
+       true,
+       "One curves up and one curves down."
+      ],
+      [
+       "A 6-pointed star can be made from two overlapping equilateral triangles",
+       true,
+       "One points up and one points down."
+      ],
+      [
+       "Each angle of a regular hexagon is 60°",
+       false,
+       "Each is 120°."
+      ],
+      [
+       "A trefoil arch has three rounded lobes",
+       true,
+       "'Tri' means three and 'foil' means leaf: three equal lobes."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Four angles meet at a point: 150°, 90°, 70° and x. What is x?",
+     "options": [
+      "30°",
+      "70°",
+      "50°",
+      "140°"
+     ],
+     "answer": 2,
+     "explain": "Angles around a point add to 360°: 360° − 150° − 90° − 70° = 50°.",
+     "steps": [
+      "150 + 90 + 70 = 310",
+      "360 − 310 = 50"
+     ],
+     "mistake": "Uses 180° instead of 360°",
+     "check": "360-150-90-70"
+    },
+    {
+     "q": "A regular hexagon is made of 6 equilateral triangles. What is each angle of the hexagon?",
+     "options": [
+      "108°",
+      "120°",
+      "60°",
+      "90°"
+     ],
+     "answer": 1,
+     "explain": "At each corner of the hexagon, two triangle angles meet: 60° + 60° = 120°.",
+     "steps": [
+      "60° + 60° = 120°"
+     ],
+     "mistake": "Takes just one triangle's angle",
+     "check": "2*60"
+    },
+    {
+     "q": "With the compass open to the circle's radius, how many steps fit around the circle?",
+     "options": [
+      "6",
+      "5",
+      "8",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "Each step makes an equilateral triangle with the centre, so 360° ÷ 60° = 6 steps.",
+     "steps": [
+      "360 ÷ 60 = 6"
+     ],
+     "mistake": "Guesses 4 like the corners of a square",
+     "check": "360/60"
+    },
+    {
+     "q": "What is the perimeter of a regular hexagon with side 5 cm?",
+     "options": [
+      "25 cm",
+      "36 cm",
+      "10 cm",
+      "30 cm"
+     ],
+     "answer": 3,
+     "explain": "6 equal sides: 6 × 5 = 30 cm.",
+     "steps": [
+      "6 × 5 = 30"
+     ],
+     "mistake": "Uses 5 sides instead of 6",
+     "check": "6*5"
+    },
+    {
+     "q": "A pointed arch has a span of 6 m. What radius should each arc have?",
+     "options": [
+      "12 m",
+      "9 m",
+      "6 m",
+      "3 m"
+     ],
+     "answer": 2,
+     "explain": "In a pointed arch, each arc's radius equals the span.",
+     "mistake": "Uses half the span, which gives a round arch",
+     "check": "6"
+    },
+    {
+     "q": "In a pointed arch with span AB, the arc with centre A and the arc with centre B (both of radius AB) meet at the top point C. What kind of triangle is ABC?",
+     "options": [
+      "Right-angled",
+      "Equilateral — AC = BC = AB",
+      "Scalene",
+      "Isosceles with AC = BC = half of AB"
+     ],
+     "answer": 1,
+     "explain": "AC is a radius of the arc centred at A, and BC is a radius of the arc centred at B. Both radii equal the span AB, so all three sides are equal.",
+     "mistake": "Does not see that both arcs have radius equal to the span"
+    },
+    {
+     "q": "In an eye design, two equal arcs pass through A and B. Where are the centres of the two arcs?",
+     "options": [
+      "On the perpendicular bisector of AB",
+      "At A and B",
+      "On the line AB, beyond A or B",
+      "Anywhere on the line AB"
+     ],
+     "answer": 0,
+     "explain": "Each centre is equally far from A and B, so it lies on the perpendicular bisector.",
+     "mistake": "Thinks the centres are at the ends A and B"
+    },
+    {
+     "q": "A 6-pointed star is drawn from two overlapping equilateral triangles. How many points does it have?",
+     "options": [
+      "3",
+      "12",
+      "8",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "Each triangle gives 3 points, and they don't overlap: 3 + 3 = 6.",
+     "steps": [
+      "3 + 3 = 6"
+     ],
+     "mistake": "Counts the points of only one triangle",
+     "check": "3+3"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to draw a rangoli hexagon with sides of 4 cm. What steps should Gappu follow?",
+    "must": [
+     [
+      "circle"
+     ],
+     [
+      "4 cm",
+      "radius",
+      "same"
+     ],
+     [
+      "6",
+      "six",
+      "step"
+     ]
+    ],
+    "praise": "Hexagon complete! Gappu's rangoli looks amazing.",
+    "nudge": "What radius should Gappu use, and how many times does it step around the circle?"
+   }
+  },
+  {
    "id": "g7-maths-14-02",
    "title": "Constructing angles and shapes",
+   "covers": [
+    "c14.1.13"
+   ],
    "lab": "angle",
    "learn": {
     "hook": "No protractor? No problem! With only a compass you can make 60°, 30°, 90°, 45° and even 120°.",
@@ -483,6 +1137,11 @@
   {
    "id": "g7-maths-14-03",
    "title": "Tiling patterns",
+   "covers": [
+    "c14.2.1",
+    "c14.2.5",
+    "c14.2.6"
+   ],
    "learn": {
     "hook": "Why are bathroom tiles squares and beehive cells hexagons — but never pentagons? Let's crack the tiling code!",
     "points": [
@@ -756,6 +1415,474 @@
     ],
     "praise": "Ahaa! No gaps, no overlaps, and the corners make 360°. Gappu's nest looks like a honeycomb now!",
     "nudge": "What must the angles at a meeting point add up to?"
+   }
+  },
+  {
+   "id": "g7-maths-14-07",
+   "title": "Tangrams, dominoes and the chessboard trick",
+   "covers": [
+    "c14.2.2",
+    "c14.2.3",
+    "c14.2.4"
+   ],
+   "learn": {
+    "hook": "Remove two opposite corners from a chessboard. Can 31 dominoes cover the rest? Colours give a surprising answer!",
+    "points": [
+     "A tangram is a square cut into 7 pieces: 2 large triangles, 1 medium triangle, 2 small triangles, 1 square and 1 parallelogram.",
+     "If the whole square has area 16 units, each large triangle is 4, the medium triangle 2, each small triangle 1, the square 2 and the parallelogram 2.",
+     "A 2 × 1 domino always covers 2 squares, so a region with an odd number of squares (like 5 × 5 = 25) can never be tiled by dominoes.",
+     "Colouring argument: on a chessboard each domino covers one black and one white square.",
+     "Removing two opposite corners (both the same colour) leaves 32 squares of one colour and 30 of the other, so no domino tiling exists — even though 62 is even."
+    ],
+    "example": {
+     "q": "Can a 3 × 5 grid be tiled by 2 × 1 dominoes?",
+     "steps": [
+      "3 × 5 = 15 squares",
+      "Each domino covers 2 squares",
+      "15 is odd, so some square is always left over"
+     ],
+     "answer": "No"
+    },
+    "reallife": "Puzzle lovers have played with tangrams for centuries, and engineers use colouring arguments to prove when designs are impossible."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Domino tiling possible?",
+     "buckets": [
+      "Can be tiled by dominoes",
+      "Cannot be tiled"
+     ],
+     "items": [
+      [
+       "2 × 3 grid",
+       0
+      ],
+      [
+       "3 × 3 grid",
+       1
+      ],
+      [
+       "4 × 5 grid",
+       0
+      ],
+      [
+       "5 × 5 grid",
+       1
+      ],
+      [
+       "8 × 8 board",
+       0
+      ],
+      [
+       "8 × 8 board with two opposite corners removed",
+       1
+      ],
+      [
+       "1 × 7 strip",
+       1
+      ],
+      [
+       "2 × 7 strip",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Tangram and domino truths",
+     "items": [
+      [
+       "A tangram has 7 pieces",
+       true,
+       "5 triangles, 1 square and 1 parallelogram."
+      ],
+      [
+       "The tangram square piece is bigger than a large triangle",
+       false,
+       "The square is 2 units; a large triangle is 4."
+      ],
+      [
+       "Any region with an even number of squares can be tiled by dominoes",
+       false,
+       "The cut chessboard has 62 squares but cannot be tiled."
+      ],
+      [
+       "Each domino on a chessboard covers one black and one white square",
+       true,
+       "Neighbouring squares have different colours."
+      ],
+      [
+       "A 3 × 5 grid can be covered by dominoes",
+       false,
+       "15 squares is odd."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many pieces does a tangram have?",
+     "options": [
+      "8",
+      "6",
+      "7",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "2 large, 1 medium and 2 small triangles, 1 square and 1 parallelogram: 7 pieces.",
+     "steps": [
+      "2 + 1 + 2 + 1 + 1 = 7"
+     ],
+     "mistake": "Forgets the square or the parallelogram",
+     "check": "2+1+2+1+1"
+    },
+    {
+     "q": "How many of the tangram pieces are triangles?",
+     "options": [
+      "7",
+      "5",
+      "3",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "2 large + 1 medium + 2 small = 5 triangles.",
+     "steps": [
+      "2 + 1 + 2 = 5"
+     ],
+     "mistake": "Counts only the large triangles",
+     "check": "2+1+2"
+    },
+    {
+     "q": "The whole tangram square has area 16 units. What is the area of one large triangle?",
+     "options": [
+      "4",
+      "2",
+      "8",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "Each large triangle is a quarter of the whole square: 16 ÷ 4 = 4.",
+     "steps": [
+      "16 ÷ 4 = 4"
+     ],
+     "mistake": "Thinks a large triangle is half the square",
+     "check": "16/4"
+    },
+    {
+     "q": "The whole tangram square has area 16 units. What is the area of the small square piece?",
+     "options": [
+      "4",
+      "1",
+      "8",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "The square piece is made of two small triangles (1 unit each): 2 units.",
+     "steps": [
+      "1 + 1 = 2"
+     ],
+     "mistake": "Thinks the square is the biggest piece",
+     "check": "2"
+    },
+    {
+     "q": "Can a 5 × 5 grid be tiled exactly by 2 × 1 dominoes?",
+     "options": [
+      "Yes, with 13 dominoes",
+      "Yes, if we turn some dominoes",
+      "No — 25 squares is odd, but each domino covers 2",
+      "Yes, with 12 dominoes"
+     ],
+     "answer": 2,
+     "explain": "12 dominoes cover 24 squares, leaving 1 square; 13 would need 26 squares.",
+     "steps": [
+      "5 × 5 = 25 (odd)"
+     ],
+     "mistake": "Ignores whether the total is odd or even"
+    },
+    {
+     "q": "How many 2 × 1 dominoes are needed to tile a 4 × 6 grid?",
+     "options": [
+      "6",
+      "12",
+      "24",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "4 × 6 = 24 squares, and each domino covers 2: 24 ÷ 2 = 12.",
+     "steps": [
+      "24 ÷ 2 = 12"
+     ],
+     "mistake": "Gives the number of squares",
+     "check": "4*6/2"
+    },
+    {
+     "q": "Two opposite corners are removed from an 8 × 8 chessboard. How many squares are left?",
+     "options": [
+      "62",
+      "64",
+      "60",
+      "31"
+     ],
+     "answer": 0,
+     "explain": "64 − 2 = 62 squares.",
+     "steps": [
+      "64 − 2 = 62"
+     ],
+     "mistake": "Forgets to subtract the removed corners",
+     "check": "64-2"
+    },
+    {
+     "q": "Why can't 31 dominoes cover the chessboard with two opposite corners removed?",
+     "options": [
+      "62 is an odd number",
+      "Dominoes cannot be placed near corners",
+      "There are too many squares",
+      "Both removed squares are the same colour, leaving 32 of one colour and 30 of the other"
+     ],
+     "answer": 3,
+     "explain": "Each domino covers one black and one white square, so we would need equal numbers of each colour.",
+     "mistake": "Thinks every even-sized region can be tiled"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to cover a 3 × 3 board with dominoes. Can Gappu do it? Explain why.",
+    "must": [
+     [
+      "odd",
+      "9"
+     ],
+     [
+      "2",
+      "two squares",
+      "covers 2"
+     ],
+     [
+      "no",
+      "cannot",
+      "can't"
+     ]
+    ],
+    "praise": "Exactly! 9 squares can't be split into pairs.",
+    "nudge": "How many squares does the board have, and how many does each domino cover?"
+   }
+  },
+  {
+   "id": "g7-maths-14-08",
+   "title": "Tilings in art and nature",
+   "covers": [
+    "c14.2.7",
+    "c14.2.8"
+   ],
+   "learn": {
+    "hook": "In 2023 a shape called the 'hat' was discovered — it covers a floor forever but NEVER repeats its pattern!",
+    "points": [
+     "The Dutch artist M. C. Escher made tilings of interlocking birds, fish and lizards.",
+     "Trick: cut a piece from one side of a square tile and stick it on the opposite side — the new wiggly tile still tiles.",
+     "In 2023 a 13-sided shape called the 'hat' was found that tiles a flat surface but never in a repeating pattern.",
+     "Honeybees build hexagonal cells. Hexagons fit together with no gaps and use less wax for the space they hold than squares or triangles.",
+     "Wasp nests also have hexagonal cells — nature loves hexagons!"
+    ],
+    "example": {
+     "q": "How can you make an Escher-style tile from a square?",
+     "steps": [
+      "Cut a shape out of the left side of a square",
+      "Slide it across and stick it on the right side",
+      "Do the same for the top and bottom if you like",
+      "The new tile still fits together with no gaps"
+     ],
+     "answer": "Cut from one side and add to the opposite side"
+    },
+    "reallife": "Look closely at a honeycomb, a football's patches or the floor tiles at a railway station — tilings are everywhere."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Art and nature",
+     "items": [
+      [
+       "Escher's tilings are made by changing the edges of basic tiling shapes",
+       true,
+       "What is cut from one side is added to the opposite side."
+      ],
+      [
+       "The 'hat' tile found in 2023 tiles only in a repeating pattern",
+       false,
+       "It tiles, but the pattern never repeats."
+      ],
+      [
+       "Beehive cells are hexagons",
+       true,
+       "Bees build six-sided cells."
+      ],
+      [
+       "Hexagons leave gaps between them",
+       false,
+       "Three 120° corners fill 360° exactly."
+      ],
+      [
+       "A square tile with a piece moved from one side to the opposite side can still tile",
+       true,
+       "The bump fits the dent of the next tile."
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Nature or people?",
+     "buckets": [
+      "Found in nature",
+      "Made by people"
+     ],
+     "items": [
+      [
+       "Honeycomb cells",
+       0
+      ],
+      [
+       "Wasp nest cells",
+       0
+      ],
+      [
+       "Cracks in dried mud",
+       0
+      ],
+      [
+       "Escher's bird tilings",
+       1
+      ],
+      [
+       "Kitchen floor tiles",
+       1
+      ],
+      [
+       "A mosaic floor in a palace",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which artist is famous for tilings made of interlocking birds, fish and lizards?",
+     "options": [
+      "Leonardo da Vinci",
+      "Amrita Sher-Gil",
+      "M. C. Escher",
+      "Raja Ravi Varma"
+     ],
+     "answer": 2,
+     "explain": "M. C. Escher, a Dutch artist, created many such tilings.",
+     "mistake": "Mixes up famous artists"
+    },
+    {
+     "q": "What shape are the cells in a honeycomb?",
+     "options": [
+      "Circles",
+      "Hexagons",
+      "Squares",
+      "Triangles"
+     ],
+     "answer": 1,
+     "explain": "Bees build six-sided (hexagonal) cells.",
+     "mistake": "Thinks the cells are round"
+    },
+    {
+     "q": "Why are hexagons a good shape for bees?",
+     "options": [
+      "They fit with no gaps and use less wax for the space they hold",
+      "They are the easiest shape to count",
+      "They have the most corners of any shape",
+      "They are always the same colour"
+     ],
+     "answer": 0,
+     "explain": "Hexagons tile without gaps and need less wall material than squares or triangles holding the same space.",
+     "mistake": "Gives a reason that has nothing to do with gaps or wax"
+    },
+    {
+     "q": "What was special about the 'hat' tile discovered in 2023?",
+     "options": [
+      "It cannot tile at all",
+      "It is a perfect circle",
+      "It has only 3 sides",
+      "It tiles a floor but never in a repeating pattern"
+     ],
+     "answer": 3,
+     "explain": "It is the first known single shape that can only tile without ever repeating.",
+     "mistake": "Thinks every tiling must repeat"
+    },
+    {
+     "q": "How many sides does the 'hat' tile have?",
+     "options": [
+      "8",
+      "12",
+      "13",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "The hat is a 13-sided shape.",
+     "mistake": "Guesses a common polygon",
+     "check": "13"
+    },
+    {
+     "q": "How can you make an Escher-style tile from a square?",
+     "options": [
+      "Colour it in two colours",
+      "Cut a piece from one side and stick it on the opposite side",
+      "Cut off all four corners",
+      "Fold the square in half"
+     ],
+     "answer": 1,
+     "explain": "The bump on one side matches the dent on the next tile, so there are still no gaps.",
+     "mistake": "Removes pieces without adding them back"
+    },
+    {
+     "q": "In the middle of a honeycomb, how many neighbouring cells does each hexagonal cell touch?",
+     "options": [
+      "6",
+      "4",
+      "3",
+      "8"
+     ],
+     "answer": 0,
+     "explain": "Each of its 6 sides is shared with one neighbouring cell.",
+     "mistake": "Counts the cells meeting at one corner instead",
+     "check": "6"
+    },
+    {
+     "q": "What shape are the cells of a paper wasp's nest?",
+     "options": [
+      "Squares",
+      "Circles with gaps",
+      "Pentagons",
+      "Hexagons, like a honeycomb"
+     ],
+     "answer": 3,
+     "explain": "Wasps also build hexagonal cells that fit together without gaps.",
+     "mistake": "Thinks only bees use hexagons"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu found a honeycomb and asked why the cells are hexagons and not circles. Explain!",
+    "must": [
+     [
+      "hexagon",
+      "hexagons",
+      "six"
+     ],
+     [
+      "no gaps",
+      "gaps",
+      "fit"
+     ],
+     [
+      "wax",
+      "less",
+      "material"
+     ]
+    ],
+    "praise": "Buzz-worthy answer! Gappu now admires the bees.",
+    "nudge": "What happens between circles when you pack them together?"
    }
   }
  ]
