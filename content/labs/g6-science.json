@@ -85,117 +85,93 @@
   }
  },
  "g6-science-02-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Plant key: herb, shrub, tree, climber or creeper?",
-   "task": "play",
-   "challenge": "Meena's plant is about her height, with a hard woody stem and many branches just above the soil. Follow the key: answer each question to find its type.",
-   "nodes": [
+   "title": "Herb, shrub, tree, climber or creeper?",
+   "challenge": "Sort Meena's garden plants by their height and stem",
+   "mode": "sort",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🌿",
-     "text": "Look at the plant's stem",
-     "info": "Is it soft and green, or hard and woody? Is it strong enough to stand up on its own?"
-    },
-    {
-     "id": "d1",
-     "emoji": "❓",
-     "text": "Is the stem too weak to stand up on its own?",
-     "type": "decision"
-    },
-    {
-     "id": "d2",
-     "emoji": "❓",
-     "text": "Does it climb up a support?",
-     "type": "decision"
-    },
-    {
-     "id": "cl",
-     "emoji": "🪴",
-     "text": "Climber",
-     "info": "Weak stem that climbs up with support, like money plant and grapevine."
-    },
-    {
-     "id": "cr",
-     "emoji": "🍉",
-     "text": "Creeper",
-     "info": "Weak stem that spreads along the ground, like watermelon and pumpkin."
-    },
-    {
-     "id": "d3",
-     "emoji": "❓",
-     "text": "Is it short with a soft, green stem?",
-     "type": "decision"
-    },
-    {
-     "id": "he",
+     "name": "Herb",
      "emoji": "🌾",
-     "text": "Herb",
-     "info": "Short plant with a soft green stem, like wheat and mint."
+     "color": "#2ed3a5"
     },
     {
-     "id": "d4",
-     "emoji": "❓",
-     "text": "Is it tall with one thick woody trunk?",
-     "type": "decision"
-    },
-    {
-     "id": "tr",
-     "emoji": "🌳",
-     "text": "Tree",
-     "info": "Tall, with a thick woody trunk, like neem and mango."
-    },
-    {
-     "id": "sh",
+     "name": "Shrub",
      "emoji": "🌺",
-     "text": "Shrub",
-     "info": "Woody stem with branches starting near the ground, like rose and hibiscus."
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Tree",
+     "emoji": "🌳",
+     "color": "#3b82f6"
+    },
+    {
+     "name": "Climber or creeper",
+     "emoji": "🪴",
+     "color": "#8b5cf6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "d1"
+     "text": "Wheat",
+     "bin": 0,
+     "why": "Short, with a soft green stem."
     },
     {
-     "from": "d1",
-     "to": "d2",
-     "label": "Yes"
+     "text": "Mint (pudina)",
+     "bin": 0,
+     "why": "Short, with a soft green stem."
     },
     {
-     "from": "d1",
-     "to": "d3",
-     "label": "No"
+     "text": "Grass",
+     "bin": 0,
+     "why": "Short, with a soft green stem."
     },
     {
-     "from": "d2",
-     "to": "cl",
-     "label": "Yes"
+     "text": "Rose",
+     "bin": 1,
+     "why": "Woody stem with branches near the ground."
     },
     {
-     "from": "d2",
-     "to": "cr",
-     "label": "No"
+     "text": "Hibiscus (gudhal)",
+     "bin": 1,
+     "why": "Woody stem with branches near the ground."
     },
     {
-     "from": "d3",
-     "to": "he",
-     "label": "Yes"
+     "text": "Henna (mehendi)",
+     "bin": 1,
+     "why": "Woody stem with branches near the ground."
     },
     {
-     "from": "d3",
-     "to": "d4",
-     "label": "No"
+     "text": "Neem",
+     "bin": 2,
+     "why": "Tall, with a thick woody trunk."
     },
     {
-     "from": "d4",
-     "to": "tr",
-     "label": "Yes"
+     "text": "Mango",
+     "bin": 2,
+     "why": "Tall, with a thick woody trunk."
     },
     {
-     "from": "d4",
-     "to": "sh",
-     "label": "No"
+     "text": "Banyan",
+     "bin": 2,
+     "why": "Tall, with a thick woody trunk."
+    },
+    {
+     "text": "Money plant",
+     "bin": 3,
+     "why": "A climber: its weak stem climbs up a support."
+    },
+    {
+     "text": "Grapevine",
+     "bin": 3,
+     "why": "A climber: it climbs up with support."
+    },
+    {
+     "text": "Pumpkin",
+     "bin": 3,
+     "why": "A creeper: its weak stem spreads along the ground."
     }
    ]
   }
@@ -234,288 +210,254 @@
   }
  },
  "g6-science-02-03": {
-  "type": "wordbuilder",
+  "type": "matchpairs",
   "p": {
-   "challenge": "Spin the wheels to match each living thing with the adaptation that helps it survive in its habitat (find all 6)",
-   "slots": [
+   "title": "Adaptations",
+   "challenge": "Match each living thing with the adaptation that helps it survive in its habitat",
+   "leftTitle": "Living thing",
+   "rightTitle": "Adaptation",
+   "mode": "instant",
+   "pairs": [
     [
-     "Camel⠀",
-     "Cactus⠀",
-     "Fish⠀",
-     "Yak⠀",
-     "Deodar tree⠀",
-     "Lotus⠀"
+     "Camel 🐪",
+     "wide padded feet for hot sand"
     ],
     [
-     "padded feet",
-     "spines",
-     "gills",
-     "thick fur",
-     "cone shape",
-     "floating leaf"
+     "Cactus 🌵",
+     "leaves turned into spines"
+    ],
+    [
+     "Fish 🐟",
+     "gills to take in oxygen from water"
+    ],
+    [
+     "Yak 🐂",
+     "thick fur to keep warm"
+    ],
+    [
+     "Deodar tree 🌲",
+     "cone shape so snow slides off"
+    ],
+    [
+     "Lotus 🪷",
+     "leaves that float on water"
     ]
-   ],
-   "slotLabels": [
-    "Living thing",
-    "Adaptation"
-   ],
-   "rootSlot": 0,
-   "words": [
-    {
-     "parts": [
-      "Camel⠀",
-      "padded feet"
-     ],
-     "word": "Camel⠀padded feet",
-     "meaning": "Wide padded feet do not sink in the hot sand of the Thar desert."
-    },
-    {
-     "parts": [
-      "Cactus⠀",
-      "spines"
-     ],
-     "word": "Cactus⠀spines",
-     "meaning": "Leaves turned into spines reduce water loss in the desert."
-    },
-    {
-     "parts": [
-      "Fish⠀",
-      "gills"
-     ],
-     "word": "Fish⠀gills",
-     "meaning": "Gills take in oxygen dissolved in water."
-    },
-    {
-     "parts": [
-      "Yak⠀",
-      "thick fur"
-     ],
-     "word": "Yak⠀thick fur",
-     "meaning": "Thick fur keeps it warm in the cold mountains."
-    },
-    {
-     "parts": [
-      "Deodar tree⠀",
-      "cone shape"
-     ],
-     "word": "Deodar tree⠀cone shape",
-     "meaning": "A cone shape with sloping branches lets snow slide off."
-    },
-    {
-     "parts": [
-      "Lotus⠀",
-      "floating leaf"
-     ],
-     "word": "Lotus⠀floating leaf",
-     "meaning": "Its leaves float on the water of ponds."
-    }
-   ],
-   "goal": 6
+   ]
   }
  },
  "g6-science-03-01": {
-  "type": "wordbuilder",
+  "type": "matchpairs",
   "p": {
-   "challenge": "Match each food with the main nutrient it gives us (find all 5)",
-   "slots": [
+   "title": "Nutrients in food",
+   "challenge": "Match each food with the main nutrient it gives us",
+   "leftTitle": "Food",
+   "rightTitle": "Main nutrient",
+   "mode": "instant",
+   "pairs": [
     [
-     "Rice and roti⠀",
-     "Ghee and nuts⠀",
-     "Dal and paneer⠀",
-     "Fruits and vegetables⠀",
-     "Whole grains⠀"
+     "Rice and roti 🍚",
+     "carbohydrates (energy)"
     ],
     [
-     "carbohydrates",
-     "fats",
-     "proteins",
-     "vitamins and minerals",
-     "dietary fibre"
+     "Ghee and nuts 🥜",
+     "fats (even more energy)"
+    ],
+    [
+     "Dal and paneer 🧀",
+     "proteins (body-building)"
+    ],
+    [
+     "Fruits and vegetables 🥕",
+     "vitamins and minerals"
+    ],
+    [
+     "Whole grains 🌾",
+     "dietary fibre (roughage)"
     ]
-   ],
-   "slotLabels": [
-    "Food",
-    "Main nutrient"
-   ],
-   "rootSlot": 0,
-   "words": [
+   ]
+  }
+ },
+ "g6-science-03-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Mindful eating",
+   "challenge": "Raju is learning to eat mindfully. Sort his habits into the right bin",
+   "mode": "sort",
+   "bins": [
     {
-     "parts": [
-      "Rice and roti⠀",
-      "carbohydrates"
-     ],
-     "word": "Rice and roti⠀carbohydrates",
-     "meaning": "Carbohydrates give us energy."
+     "name": "Mindful eating",
+     "emoji": "🧘",
+     "color": "#2ed3a5"
     },
     {
-     "parts": [
-      "Ghee and nuts⠀",
-      "fats"
-     ],
-     "word": "Ghee and nuts⠀fats",
-     "meaning": "Fats give even more energy."
-    },
-    {
-     "parts": [
-      "Dal and paneer⠀",
-      "proteins"
-     ],
-     "word": "Dal and paneer⠀proteins",
-     "meaning": "Proteins are body-building foods: they help us grow and repair the body."
-    },
-    {
-     "parts": [
-      "Fruits and vegetables⠀",
-      "vitamins and minerals"
-     ],
-     "word": "Fruits and vegetables⠀vitamins and minerals",
-     "meaning": "Vitamins and minerals protect us from diseases."
-    },
-    {
-     "parts": [
-      "Whole grains⠀",
-      "dietary fibre"
-     ],
-     "word": "Whole grains⠀dietary fibre",
-     "meaning": "Fibre (roughage) helps the body get rid of undigested food."
+     "name": "Not mindful",
+     "emoji": "🙅",
+     "color": "#ff6b6b"
     }
    ],
-   "goal": 5
+   "items": [
+    {
+     "text": "Eating slowly",
+     "bin": 0,
+     "why": "Eating slowly helps digestion."
+    },
+    {
+     "text": "Chewing food well",
+     "bin": 0,
+     "why": "Chewing well helps digestion."
+    },
+    {
+     "text": "Stopping when full",
+     "bin": 0,
+     "why": "Listening to your body is mindful eating."
+    },
+    {
+     "text": "Fresh home-cooked food",
+     "bin": 0,
+     "why": "Fresh home food is part of mindful eating."
+    },
+    {
+     "text": "Taking only what you can finish",
+     "bin": 0,
+     "why": "This avoids wasting food."
+    },
+    {
+     "text": "Gulping food very fast",
+     "bin": 1,
+     "why": "Mindful eating means eating slowly."
+    },
+    {
+     "text": "Eating after you feel full",
+     "bin": 1,
+     "why": "Mindful eaters stop when full."
+    },
+    {
+     "text": "Chips and cola every day",
+     "bin": 1,
+     "why": "Eat less junk food; choose water instead of cola."
+    },
+    {
+     "text": "Throwing away half the plate",
+     "bin": 1,
+     "why": "Mindful eating means not wasting food."
+    }
+   ]
   }
  },
  "g6-science-03-03": {
-  "type": "flowchart",
+  "type": "matchpairs",
   "p": {
-   "title": "Which nutrient is missing?",
-   "task": "play",
-   "challenge": "Raju's gums bleed often. Follow the doctor's questions to find which nutrient he lacks and what he should eat.",
-   "nodes": [
+   "title": "Deficiency diseases",
+   "challenge": "Match each deficiency disease with the nutrient that is lacking",
+   "leftTitle": "Disease",
+   "rightTitle": "Lacking nutrient",
+   "mode": "instant",
+   "pairs": [
+    [
+     "Night blindness 🌙",
+     "Vitamin A"
+    ],
+    [
+     "Beriberi (weak muscles)",
+     "Vitamin B1"
+    ],
+    [
+     "Scurvy (bleeding gums)",
+     "Vitamin C"
+    ],
+    [
+     "Rickets (soft, bent bones)",
+     "Vitamin D"
+    ],
+    [
+     "Goitre (swelling in the neck)",
+     "Iodine"
+    ],
+    [
+     "Anaemia (tired and weak)",
+     "Iron"
+    ]
+   ]
+  }
+ },
+ "g6-science-04-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Will a magnet attract it?",
+   "challenge": "Kavya tests things with a magnet. Sort them: magnetic or non-magnetic?",
+   "mode": "sort",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🩺",
-     "text": "Check the sign of the deficiency disease"
+     "name": "Magnetic",
+     "emoji": "🧲",
+     "color": "#ff6b6b"
     },
     {
-     "id": "a",
-     "emoji": "❓",
-     "text": "Bleeding gums?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
-     "emoji": "🍊",
-     "text": "Vitamin C → scurvy",
-     "info": "Eat amla, guava, oranges and lemons."
-    },
-    {
-     "id": "b",
-     "emoji": "❓",
-     "text": "Poor eyesight at night?",
-     "type": "decision"
-    },
-    {
-     "id": "va",
-     "emoji": "🥕",
-     "text": "Vitamin A → night blindness",
-     "info": "Eat carrots, papaya, mango and milk."
-    },
-    {
-     "id": "d",
-     "emoji": "❓",
-     "text": "Soft, bent bones?",
-     "type": "decision"
-    },
-    {
-     "id": "vd",
-     "emoji": "☀️",
-     "text": "Vitamin D → rickets",
-     "info": "Get sunlight; drink milk; eat eggs and fish."
-    },
-    {
-     "id": "e",
-     "emoji": "❓",
-     "text": "Swelling in the neck?",
-     "type": "decision"
-    },
-    {
-     "id": "io",
-     "emoji": "🧂",
-     "text": "Iodine → goitre",
-     "info": "Use iodised salt."
-    },
-    {
-     "id": "f",
-     "emoji": "❓",
-     "text": "Feeling tired and weak?",
-     "type": "decision"
-    },
-    {
-     "id": "fe",
-     "emoji": "🥬",
-     "text": "Iron → anaemia",
-     "info": "Eat green leafy vegetables and pulses."
-    },
-    {
-     "id": "ca",
-     "emoji": "🥛",
-     "text": "Weak bones and teeth? Calcium",
-     "info": "Drink milk; eat curd and ragi."
+     "name": "Non-magnetic",
+     "emoji": "🚫",
+     "color": "#3b82f6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "a"
+     "text": "Iron nail 🔩",
+     "bin": 0,
+     "why": "Iron is a magnetic material."
     },
     {
-     "from": "a",
-     "to": "c",
-     "label": "Yes"
+     "text": "Iron pins 📌",
+     "bin": 0,
+     "why": "Pins made of iron are attracted."
     },
     {
-     "from": "a",
-     "to": "b",
-     "label": "No"
+     "text": "Nickel",
+     "bin": 0,
+     "why": "Iron, nickel and cobalt are magnetic."
     },
     {
-     "from": "b",
-     "to": "va",
-     "label": "Yes"
+     "text": "Cobalt",
+     "bin": 0,
+     "why": "Iron, nickel and cobalt are magnetic."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "Wooden scale 📏",
+     "bin": 1,
+     "why": "Wood is not attracted by a magnet."
     },
     {
-     "from": "d",
-     "to": "vd",
-     "label": "Yes"
+     "text": "Plastic comb",
+     "bin": 1,
+     "why": "Plastic is non-magnetic."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "No"
+     "text": "Rubber eraser",
+     "bin": 1,
+     "why": "Rubber is non-magnetic."
     },
     {
-     "from": "e",
-     "to": "io",
-     "label": "Yes"
+     "text": "Glass bangle",
+     "bin": 1,
+     "why": "Glass is non-magnetic."
     },
     {
-     "from": "e",
-     "to": "f",
-     "label": "No"
+     "text": "Paper 📄",
+     "bin": 1,
+     "why": "Paper is non-magnetic."
     },
     {
-     "from": "f",
-     "to": "fe",
-     "label": "Yes"
+     "text": "Copper wire",
+     "bin": 1,
+     "why": "Not every metal is magnetic! Copper is not attracted."
     },
     {
-     "from": "f",
-     "to": "ca",
-     "label": "No"
+     "text": "Aluminium foil",
+     "bin": 1,
+     "why": "Aluminium is a metal, but it is not magnetic."
+    },
+    {
+     "text": "Silver anklet",
+     "bin": 1,
+     "why": "Silver is a metal, but it is not magnetic."
     }
    ]
   }
@@ -602,6 +544,68 @@
    "challenge": "A pendulum (like a jhula) shows periodic motion: it repeats after a fixed time. Start it, time 10 oscillations and find the time for one."
   }
  },
+ "g6-science-06-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Lustrous or non-lustrous?",
+   "challenge": "Sort the materials: do they shine (lustrous) or look dull?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Lustrous (shiny)",
+     "emoji": "✨",
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Non-lustrous (dull)",
+     "emoji": "🪵",
+     "color": "#8b5cf6"
+    }
+   ],
+   "items": [
+    {
+     "text": "Gold ring 💍",
+     "bin": 0,
+     "why": "Gold shines: it is lustrous."
+    },
+    {
+     "text": "New copper wire",
+     "bin": 0,
+     "why": "New copper shines."
+    },
+    {
+     "text": "Aluminium foil",
+     "bin": 0,
+     "why": "Aluminium foil shines."
+    },
+    {
+     "text": "Silver anklet (payal)",
+     "bin": 0,
+     "why": "Silver shines: it is lustrous."
+    },
+    {
+     "text": "Piece of wood",
+     "bin": 1,
+     "why": "Wood does not shine."
+    },
+    {
+     "text": "Chalk",
+     "bin": 1,
+     "why": "Chalk is dull."
+    },
+    {
+     "text": "Cotton cloth",
+     "bin": 1,
+     "why": "Cloth does not shine."
+    },
+    {
+     "text": "Paper",
+     "bin": 1,
+     "why": "Paper is dull."
+    }
+   ]
+  }
+ },
  "g6-science-06-02": {
   "type": "density",
   "p": {
@@ -660,6 +664,38 @@
     }
    ],
    "liquid": "Water"
+  }
+ },
+ "g6-science-06-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Pick the right material",
+   "challenge": "Match each object with the material we choose for it, and why",
+   "leftTitle": "Object",
+   "rightTitle": "Material and property",
+   "mode": "instant",
+   "pairs": [
+    [
+     "Window pane 🪟",
+     "glass: it is transparent"
+    ],
+    [
+     "Summer clothes 👕",
+     "cotton: soft and comfortable"
+    ],
+    [
+     "Iron gate 🚪",
+     "iron: hard and strong"
+    ],
+    [
+     "Life jacket 🦺",
+     "a material that floats"
+    ],
+    [
+     "Kite 🪁",
+     "paper: it is light"
+    ]
+   ]
   }
  },
  "g6-science-07-02": {
@@ -766,94 +802,73 @@
   }
  },
  "g6-science-09-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Which separation method?",
-   "task": "play",
-   "challenge": "Grandpa's wheat grains are mixed with light, dry husk. Answer the questions to choose the right method.",
-   "nodes": [
+   "challenge": "Grandpa needs help! Sort each job into the right separation method",
+   "mode": "sort",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🌾",
-     "text": "Look at the mixture"
-    },
-    {
-     "id": "a",
-     "emoji": "❓",
-     "text": "Are the unwanted bits big and few, like stones in rice?",
-     "type": "decision"
-    },
-    {
-     "id": "hp",
+     "name": "Handpicking",
      "emoji": "✋",
-     "text": "Handpicking",
-     "info": "Pick them out by hand."
+     "color": "#ff9f1c"
     },
     {
-     "id": "b",
-     "emoji": "❓",
-     "text": "Are the grains still on their stalks?",
-     "type": "decision"
-    },
-    {
-     "id": "th",
+     "name": "Threshing",
      "emoji": "🔨",
-     "text": "Threshing",
-     "info": "Beat the stalks to free the grains."
+     "color": "#8b5cf6"
     },
     {
-     "id": "c",
-     "emoji": "❓",
-     "text": "Is one part light (husk) and the other heavy (grain)?",
-     "type": "decision"
-    },
-    {
-     "id": "wi",
+     "name": "Winnowing",
      "emoji": "💨",
-     "text": "Winnowing",
-     "info": "Drop the mixture from a height in the wind (using a soop): husk blows away, grains fall close by."
+     "color": "#3b82f6"
     },
     {
-     "id": "sv",
+     "name": "Sieving",
      "emoji": "🥣",
-     "text": "Sieving",
-     "info": "Particles of different sizes: fine ones pass through the chhalni, big ones stay behind."
+     "color": "#2ed3a5"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "a"
+     "text": "Stones from rice",
+     "bin": 0,
+     "why": "Stones are big and few: pick them out by hand."
     },
     {
-     "from": "a",
-     "to": "hp",
-     "label": "Yes"
+     "text": "Stones from dal",
+     "bin": 0,
+     "why": "Stones are big and few: pick them out by hand."
     },
     {
-     "from": "a",
-     "to": "b",
-     "label": "No"
+     "text": "Wheat grains from their stalks",
+     "bin": 1,
+     "why": "Beating the stalks frees the grains."
     },
     {
-     "from": "b",
-     "to": "th",
-     "label": "Yes"
+     "text": "Rice grains from paddy stalks",
+     "bin": 1,
+     "why": "Beating the stalks frees the grains."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "No"
+     "text": "Light husk from wheat grains",
+     "bin": 2,
+     "why": "In the wind, light husk blows away; heavy grains fall close by."
     },
     {
-     "from": "c",
-     "to": "wi",
-     "label": "Yes"
+     "text": "Husk from grains, using a soop",
+     "bin": 2,
+     "why": "A soop is a winnowing basket."
     },
     {
-     "from": "c",
-     "to": "sv",
-     "label": "No"
+     "text": "Bran from flour",
+     "bin": 3,
+     "why": "Fine flour passes through the chhalni; bran stays behind."
+    },
+    {
+     "text": "Pebbles from sand",
+     "bin": 3,
+     "why": "Fine sand passes through; pebbles stay behind."
     }
    ]
   }
@@ -924,6 +939,88 @@
      "emoji": "✅",
      "text": "Sand and salt are both back",
      "info": "Using more than one method together."
+    }
+   ]
+  }
+ },
+ "g6-science-10-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Living or non-living?",
+   "challenge": "Sort each thing: does it show ALL the features of life?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Living",
+     "emoji": "🌱",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Non-living",
+     "emoji": "🪨",
+     "color": "#64748b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Neem tree 🌳",
+     "bin": 0,
+     "why": "It grows, breathes and reproduces."
+    },
+    {
+     "text": "Earthworm 🪱",
+     "bin": 0,
+     "why": "It eats, grows and reproduces."
+    },
+    {
+     "text": "Mushroom 🍄",
+     "bin": 0,
+     "why": "A mushroom grows and reproduces."
+    },
+    {
+     "text": "Sparrow 🐦",
+     "bin": 0,
+     "why": "It eats, breathes, grows and lays eggs."
+    },
+    {
+     "text": "Moong seed 🌱",
+     "bin": 0,
+     "why": "A seed is alive: it grows into a new plant."
+    },
+    {
+     "text": "Chhui-mui plant",
+     "bin": 0,
+     "why": "It even responds to touch."
+    },
+    {
+     "text": "Bicycle 🚲",
+     "bin": 1,
+     "why": "It moves only when pushed; it does not grow."
+    },
+    {
+     "text": "Cloud ☁️",
+     "bin": 1,
+     "why": "A cloud is made of tiny water drops; it is not alive."
+    },
+    {
+     "text": "Candle flame 🕯️",
+     "bin": 1,
+     "why": "A flame does not breathe, grow or reproduce."
+    },
+    {
+     "text": "Rock 🪨",
+     "bin": 1,
+     "why": "A rock shows none of the features of life."
+    },
+    {
+     "text": "Robot toy 🤖",
+     "bin": 1,
+     "why": "It moves but does not grow or reproduce."
+    },
+    {
+     "text": "Car 🚗",
+     "bin": 1,
+     "why": "A car moves and uses fuel, but shows only a few features."
     }
    ]
   }
@@ -1062,6 +1159,157 @@
     "answer": "Nitrogen"
    },
    "challenge": "Air is a mixture of gases. Read the chart: which gas makes up the biggest part of air?"
+  }
+ },
+ "g6-science-11-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Renewable or non-renewable?",
+   "challenge": "Sort nature's treasures: will nature soon replace them?",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Renewable",
+     "emoji": "♻️",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Non-renewable",
+     "emoji": "⛏️",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Sunlight ☀️",
+     "bin": 0,
+     "why": "Sunlight will not run out."
+    },
+    {
+     "text": "Wind 🌬️",
+     "bin": 0,
+     "why": "Wind will not run out."
+    },
+    {
+     "text": "Water 💧",
+     "bin": 0,
+     "why": "Water is renewed by the water cycle."
+    },
+    {
+     "text": "Coal",
+     "bin": 1,
+     "why": "Coal took millions of years to form."
+    },
+    {
+     "text": "Petroleum 🛢️",
+     "bin": 1,
+     "why": "A fossil fuel: it cannot be replaced quickly."
+    },
+    {
+     "text": "Natural gas",
+     "bin": 1,
+     "why": "A fossil fuel: it cannot be replaced quickly."
+    },
+    {
+     "text": "Minerals (like iron ore)",
+     "bin": 1,
+     "why": "Minerals cannot be replaced quickly once used up."
+    }
+   ]
+  }
+ },
+ "g6-science-11-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Reduce, reuse or recycle?",
+   "challenge": "Help Anu's family save resources: sort each idea",
+   "mode": "sort",
+   "bins": [
+    {
+     "name": "Reduce",
+     "emoji": "⬇️",
+     "color": "#3b82f6"
+    },
+    {
+     "name": "Reuse",
+     "emoji": "🔁",
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Recycle",
+     "emoji": "♻️",
+     "color": "#2ed3a5"
+    }
+   ],
+   "items": [
+    {
+     "text": "Switch off fans when you leave",
+     "bin": 0,
+     "why": "Using less electricity is reducing."
+    },
+    {
+     "text": "Turn off the tap while brushing",
+     "bin": 0,
+     "why": "Using less water is reducing."
+    },
+    {
+     "text": "Old jar to store pencils",
+     "bin": 1,
+     "why": "Using the same jar again is reusing."
+    },
+    {
+     "text": "Back of used paper for rough work",
+     "bin": 1,
+     "why": "Using the paper again is reusing."
+    },
+    {
+     "text": "Vegetable-wash water for plants",
+     "bin": 1,
+     "why": "Using the same water again is reusing."
+    },
+    {
+     "text": "Old newspapers made into new paper",
+     "bin": 2,
+     "why": "Making new things from old is recycling."
+    },
+    {
+     "text": "Glass bottles melted into new ones",
+     "bin": 2,
+     "why": "Making new bottles from old glass is recycling."
+    }
+   ]
+  }
+ },
+ "g6-science-12-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Sky names",
+   "challenge": "Match each star or constellation with its description",
+   "leftTitle": "Name",
+   "rightTitle": "What it is",
+   "mode": "instant",
+   "pairs": [
+    [
+     "Saptarishi",
+     "seven bright stars of Ursa Major"
+    ],
+    [
+     "Dhruva tara",
+     "the Pole Star"
+    ],
+    [
+     "Mriga",
+     "Orion"
+    ],
+    [
+     "Cassiopeia",
+     "stars shaped like W or M"
+    ],
+    [
+     "Pointer stars",
+     "point towards the Pole Star"
+    ]
+   ]
   }
  },
  "g6-science-12-02": {

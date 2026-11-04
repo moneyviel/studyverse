@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=7'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=10'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -290,7 +290,7 @@ async function chapterScreen(sid, ci) {
     <div class="card chead"><div class="cemoji">${esc(c.emoji || '📘')}</div><div><span class="tag">Chapter ${c.n}</span><h2>${esc(c.title)}</h2></div></div>
     ${c.topics.map((t, ti) => { const s = topicStars(t.id); return `<button class="tcard ${s ? 'done' : ''}" data-t="${ti}">
       <div class="tnum">${s ? '✓' : ti + 1}</div><div class="tbody"><b>${esc(t.title)}</b><span>${esc(t.learn?.hook || '')}</span></div>
-      <div class="tstars">${'⭐'.repeat(s)}${'☆'.repeat(3 - s)}</div></button>`; }).join('')}`;
+      <div class="tstars">${window.Garden ? Garden.badge(t.id) : ''}${'⭐'.repeat(s)}${'☆'.repeat(3 - s)}</div></button>`; }).join('')}`;
   $('#chBack').onclick = () => subjectScreen(sid);
   el.querySelectorAll('.tcard').forEach(b => b.onclick = () => { sfx('open'); playTopic(sid, ci, +b.dataset.t); });
 }
@@ -414,6 +414,7 @@ function doneStep(b) {
   const stars = pct >= .9 ? 3 : pct >= .7 ? 2 : pct >= .4 ? 1 : 1;
   const prev = ST.topics[RUN.t.id]?.stars || 0;
   ST.topics[RUN.t.id] = { stars: Math.max(prev, stars), last: today() }; bumpStreak(); save();
+  if (window.Garden) Garden.learned(RUN.t.id, pct);
   sfx('unlock');
   const uniq = [...new Set(q.mistakes)];
   const c = RUN.c, nextTi = RUN.ti + 1 < c.topics.length ? RUN.ti + 1 : null;
@@ -421,11 +422,12 @@ function doneStep(b) {
     <h2>Quest complete!</h2><div class="bigstars">${[0, 1, 2].map(i => `<span class="${i < stars ? 'on' : ''}" style="animation-delay:${i * .25}s">⭐</span>`).join('')}</div>
     <p class="sub">Quiz: ${q.right} of ${q.total} correct${RUN.taught ? ' · You taught Gappu 🐥' : ''}</p>
     ${uniq.length ? `<h3>🧬 Your Mistake DNA</h3><p class="sub">We'll bring these back in Practice until they're fixed.</p>${uniq.map(m => `<div class="dna">🔍 ${esc(m)}</div>`).join('')}` : '<p class="sub">No mistakes. Superstar! 🌟</p>'}
-    <div style="height:12px"></div>
+    <div style="height:12px"></div><div id="dExtra"></div>
     ${nextTi !== null ? `<button class="btn" id="dNext">Next quest: ${esc(c.topics[nextTi].title)} ▶</button><div style="height:8px"></div>` : ''}
     <button class="btn ghost" id="dBack">Back to chapter</button></div>`;
   if (nextTi !== null) $('#dNext').onclick = () => playTopic(RUN.sid, RUN.ci, nextTi);
   $('#dBack').onclick = () => chapterScreen(RUN.sid, RUN.ci);
+  if (window.Garden) Garden.doneExtra($('#dExtra'));
 }
 
 /* ================= Practice: daily mix that targets mistakes ================= */
