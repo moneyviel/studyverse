@@ -4,6 +4,692 @@
  "emoji": "🎲",
  "topics": [
   {
+   "id": "g6-maths-03-04",
+   "title": "Numbers that carry information",
+   "covers": [
+    "c3.1.1",
+    "c3.2.1",
+    "c3.2.2"
+   ],
+   "learn": {
+    "hook": "Five friends stand in a line and each shouts one number. From just those numbers, can you work out who is tallest?",
+    "points": [
+     "We use numbers to count (5 mangoes), measure (3 kg), label (bus number 42) and compare (Riya is 2 cm taller).",
+     "Game: children stand in a row (all of different heights). Each child says how many of their neighbours are taller: 0, 1 or 2.",
+     "A child at either end has only one neighbour, so they can only say 0 or 1. Only a middle child can say 2.",
+     "The tallest child always says 0, because nobody is taller than them.",
+     "Some lists of numbers are impossible. In a row of 3, '1, 1, 1' cannot happen: if both end children say 1, the middle child is tallest and must say 0."
+    ],
+    "example": {
+     "q": "Three children stand in a row and say 0, 2, 0. Is this possible? If so, who is shortest?",
+     "steps": [
+      "The middle child says 2, so both neighbours are taller than the middle child.",
+      "The end children say 0, so nobody next to them is taller. That fits.",
+      "So it is possible, and the middle child is the shortest."
+     ],
+     "answer": "Possible; the middle child is shortest"
+    },
+    "reallife": "A bus number (label), a cricket score (count), a height (measure) and a rank in a race (order) all use numbers in different ways."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "How is the number used?",
+     "buckets": [
+      "Counting",
+      "Measuring",
+      "Labelling"
+     ],
+     "items": [
+      [
+       "12 students in a van",
+       0
+      ],
+      [
+       "7 kites in the sky",
+       0
+      ],
+      [
+       "2 litres of milk",
+       1
+      ],
+      [
+       "45 kg of rice",
+       1
+      ],
+      [
+       "A 3 km walk",
+       1
+      ],
+      [
+       "Train number 12951",
+       2
+      ],
+      [
+       "Roll number 23",
+       2
+      ],
+      [
+       "PIN code 110001",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Taller-neighbour game",
+     "items": [
+      [
+       "A child at the end of the row can say 2.",
+       false,
+       "An end child has only one neighbour."
+      ],
+      [
+       "The tallest child always says 0.",
+       true,
+       "No one is taller than the tallest."
+      ],
+      [
+       "In a row of 3, the answers 1, 1, 1 are possible.",
+       false,
+       "Then the middle child would be the tallest and say 0."
+      ],
+      [
+       "The shortest child in the middle of a row says 2.",
+       true,
+       "Both neighbours are taller."
+      ],
+      [
+       "Every row has at least one child who says 0.",
+       true,
+       "The tallest child says 0."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In 'Platform number 4', the number is used to…",
+     "options": [
+      "label",
+      "count",
+      "measure",
+      "compare"
+     ],
+     "answer": 0,
+     "explain": "The number names the platform; it does not count anything.",
+     "mistake": "Thinks every number counts something"
+    },
+    {
+     "q": "Which sentence uses a number to measure?",
+     "options": [
+      "Room 12 is on the left",
+      "The rope is 6 m long",
+      "I have 3 pencils",
+      "Bus 501 is late"
+     ],
+     "answer": 1,
+     "explain": "6 m is a length, so it measures.",
+     "mistake": "Mixes up labels and measures"
+    },
+    {
+     "q": "Four children in a row say 0, 1, ?, 0. What must the third child say?",
+     "options": [
+      "0",
+      "1",
+      "2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "Child 4 says 0, so child 4 is taller than child 3. Child 1 says 0, so child 1 is taller than child 2; child 2 says 1, so child 3 is shorter than child 2. Both neighbours of child 3 are taller: it says 2.",
+     "steps": [
+      "Child 4 taller than child 3",
+      "Child 2 already has one taller neighbour (child 1), so child 3 is shorter than child 2",
+      "Child 3 has 2 taller neighbours"
+     ],
+     "mistake": "Forgets to check both neighbours",
+     "check": "2"
+    },
+    {
+     "q": "In the taller-neighbour game, which child must say 0?",
+     "options": [
+      "The shortest child",
+      "The last child",
+      "The first child",
+      "The tallest child"
+     ],
+     "answer": 3,
+     "explain": "No one is taller than the tallest child.",
+     "mistake": "Mixes up tallest and shortest"
+    },
+    {
+     "q": "Can a child at the end of the row say 2?",
+     "options": [
+      "No, an end child has only one neighbour",
+      "Yes, always",
+      "Yes, if they are short",
+      "Only on Mondays"
+     ],
+     "answer": 0,
+     "explain": "An end child has one neighbour, so at most 1.",
+     "mistake": "Forgets that ends have one neighbour"
+    },
+    {
+     "q": "Five children in a row say 1, 0, 2, 0, 1. Which children are taller than both their neighbours?",
+     "options": [
+      "Only the 1st",
+      "The 2nd and 4th",
+      "The 1st, 3rd and 5th",
+      "All of them"
+     ],
+     "answer": 1,
+     "explain": "Children saying 0 have no taller neighbour, so the 2nd and 4th are the 'peaks'.",
+     "mistake": "Thinks saying 1 means being tall"
+    },
+    {
+     "q": "Three children say 1, 1, 1. Why is this impossible?",
+     "options": [
+      "Because 1 is odd",
+      "Because nobody can say 1",
+      "If both ends say 1, the middle child is taller than both and must say 0",
+      "Because three children cannot stand in a row"
+     ],
+     "answer": 2,
+     "explain": "Both end children have only the middle child as a neighbour, so the middle one is taller than both and says 0.",
+     "mistake": "Does not reason about who is taller than whom"
+    },
+    {
+     "q": "A row of 4 children says 0, 1, 2, 0. Is this possible?",
+     "options": [
+      "No, a child can never say 2",
+      "No, the 3rd child would have to be the tallest",
+      "No, two children cannot both say 0",
+      "Yes"
+     ],
+     "answer": 3,
+     "explain": "Heights 4, 3, 1, 2 (in that order) work: the answers are 0, 1, 2, 0.",
+     "steps": [
+      "Child 1 (4): neighbour 3 is shorter → 0",
+      "Child 2 (3): neighbours 4 and 1 → 1",
+      "Child 3 (1): neighbours 3 and 2 → 2",
+      "Child 4 (2): neighbour 1 → 0"
+     ],
+     "mistake": "Gives up without trying an example"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'In the taller-neighbour game, why can't the end child ever say 2?'",
+    "must": [
+     [
+      "one neighbour",
+      "only one",
+      "1 neighbour"
+     ],
+     [
+      "end",
+      "edge"
+     ],
+     [
+      "2",
+      "two"
+     ]
+    ],
+    "praise": "Chirp! The end child has just one neighbour, so 1 is the most they can say.",
+    "nudge": "How many neighbours does the child at the end have?"
+   }
+  },
+  {
+   "id": "g6-maths-03-05",
+   "title": "Supercells in a table",
+   "covers": [
+    "c3.3.1",
+    "c3.3.2",
+    "c3.3.3",
+    "c3.3.4"
+   ],
+   "learn": {
+    "hook": "Be the boss of your neighbours! A supercell beats everyone next to it.",
+    "points": [
+     "In a table of numbers, a cell's neighbours are the cells just left, right, above and below it (not the diagonal ones).",
+     "A supercell is a cell whose number is greater than all of its neighbours.",
+     "The largest number in the table is always a supercell. The smallest number can never be a supercell.",
+     "Two neighbouring cells can never both be supercells, because one of them is smaller than the other.",
+     "To get the most supercells, put big numbers in cells that do not touch, like the black squares of a chessboard."
+    ],
+    "example": {
+     "q": "In the table 3 8 2 / 9 1 7 / 4 6 5, which cells are supercells?",
+     "steps": [
+      "8: neighbours 3, 2, 1 → all smaller, supercell.",
+      "9: neighbours 3, 1, 4 → supercell.",
+      "7: neighbours 2, 1, 5 → supercell.",
+      "6: neighbours 1, 4, 5 → supercell. 5: neighbours 7 and 6 are bigger → not."
+     ],
+     "answer": "8, 9, 7 and 6"
+    },
+    "reallife": "Like the tallest tree in a garden that stands above every tree around it, a supercell stands above its neighbours."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Supercell facts",
+     "items": [
+      [
+       "The biggest number in a table is always a supercell.",
+       true,
+       "Nothing near it is bigger."
+      ],
+      [
+       "The smallest number can be a supercell.",
+       false,
+       "Each of its neighbours is bigger."
+      ],
+      [
+       "Two cells side by side can both be supercells.",
+       false,
+       "One of them is smaller than the other."
+      ],
+      [
+       "Diagonal cells count as neighbours.",
+       false,
+       "Only left, right, above and below count."
+      ],
+      [
+       "In a row of 5 cells, at most 3 can be supercells.",
+       true,
+       "Cells 1, 3 and 5 can be; neighbours cannot both be."
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Find the supercells",
+     "items": [
+      {
+       "text": "Row 4, 9, 2, 7: supercells 9 and ___",
+       "answer": "7",
+       "options": [
+        "7",
+        "4",
+        "2"
+       ]
+      },
+      {
+       "text": "Row 5, 1, 6, 3, 8: number of supercells = ___",
+       "answer": "3",
+       "options": [
+        "2",
+        "3",
+        "4"
+       ]
+      },
+      {
+       "text": "In 2 6 / 5 1, the supercells are 6 and ___",
+       "answer": "5",
+       "options": [
+        "5",
+        "2",
+        "1"
+       ]
+      },
+      {
+       "text": "A 3 by 3 table can have at most ___ supercells",
+       "answer": "5",
+       "options": [
+        "4",
+        "5",
+        "9"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the row 12, 30, 25, 41, 18, how many supercells are there?",
+     "options": [
+      "2",
+      "1",
+      "3",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "30 beats 12 and 25; 41 beats 25 and 18. 12, 25 and 18 each have a bigger neighbour. So 2.",
+     "steps": [
+      "30 > 12 and 30 > 25 ✓",
+      "41 > 25 and 41 > 18 ✓",
+      "12 < 30, 25 < 41, 18 < 41 ✗"
+     ],
+     "mistake": "Counts the end numbers as supercells without checking",
+     "check": "2"
+    },
+    {
+     "q": "Why can the smallest number in a table never be a supercell?",
+     "options": [
+      "Because it is odd",
+      "Because all its neighbours are bigger",
+      "Because it is in a corner",
+      "Because it has no neighbours"
+     ],
+     "answer": 1,
+     "explain": "Every other number is bigger, so its neighbours are bigger.",
+     "mistake": "Thinks position decides it"
+    },
+    {
+     "q": "In the table 7 2 / 3 9, which numbers are supercells?",
+     "options": [
+      "7 only",
+      "2 and 3",
+      "7 and 9",
+      "9 only"
+     ],
+     "answer": 2,
+     "explain": "7: neighbours 2 and 3 → supercell. 9: neighbours 2 and 3 → supercell.",
+     "mistake": "Counts diagonal cells as neighbours"
+    },
+    {
+     "q": "What is the greatest number of supercells possible in a row of 7 cells?",
+     "options": [
+      "3",
+      "7",
+      "5",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "Supercells cannot sit side by side, so use cells 1, 3, 5, 7: 4 supercells.",
+     "steps": [
+      "Cells 1, 3, 5, 7 can be supercells",
+      "That is 4"
+     ],
+     "mistake": "Thinks every other cell starting from cell 2",
+     "check": "4"
+    },
+    {
+     "q": "A 3 by 3 table holds 1 to 9. To get 5 supercells, where should 5, 6, 7, 8 and 9 go?",
+     "options": [
+      "In the four corners and the centre",
+      "Along the top row",
+      "In the middle row",
+      "Anywhere"
+     ],
+     "answer": 0,
+     "explain": "Corners and the centre never touch each other, and each touches only edge cells holding 1 to 4.",
+     "mistake": "Puts big numbers next to each other"
+    },
+    {
+     "q": "Fill the row 4, ?, 6 so that the middle cell is a supercell. Which number works?",
+     "options": [
+      "5",
+      "7",
+      "3",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "The middle number must beat both 4 and 6, so it must be more than 6: 7.",
+     "mistake": "Picks a number between the neighbours",
+     "check": "7"
+    },
+    {
+     "q": "In the table 5 8 1 / 2 6 9, how many supercells are there?",
+     "options": [
+      "1",
+      "3",
+      "2",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "8: neighbours 5, 1, 6 → yes. 9: neighbours 1, 6 → yes. 5 (8 bigger), 1, 2, 6 (8 and 9 bigger) → no. So 2.",
+     "mistake": "Forgets to check the cell below or above",
+     "check": "2"
+    },
+    {
+     "q": "Raju says: 'In my table no cell is a supercell.' Can he be right?",
+     "options": [
+      "Yes, if all numbers are different",
+      "Yes, if there are no even numbers",
+      "Yes, if the table is big",
+      "No, the largest number is always a supercell"
+     ],
+     "answer": 3,
+     "explain": "With different numbers, the largest one beats all its neighbours, so there is always at least one supercell.",
+     "mistake": "Does not see that the biggest number is always a supercell"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Can the tiniest number in my table be a supercell if it sits in a corner?'",
+    "must": [
+     [
+      "neighbour",
+      "neighbours"
+     ],
+     [
+      "bigger",
+      "greater",
+      "larger"
+     ],
+     [
+      "never",
+      "no",
+      "cannot"
+     ]
+    ],
+    "praise": "Tweet! Its neighbours are all bigger, so the smallest can never be a supercell!",
+    "nudge": "Are its neighbours bigger or smaller than it?"
+   }
+  },
+  {
+   "id": "g6-maths-03-06",
+   "title": "Making numbers and reading number lines",
+   "covers": [
+    "c3.3.5",
+    "c3.4.1",
+    "c3.4.2"
+   ],
+   "learn": {
+    "hook": "With the digits 4, 0, 7, 2 and 9, how big a number can you build? How small?",
+    "points": [
+     "Largest number from given digits: write the digits from largest to smallest: 4, 0, 7, 2, 9 → 97,420.",
+     "Smallest 5-digit number: smallest non-zero digit first, then the rest from smallest: 20,479. A number cannot start with 0.",
+     "Smallest even number: the last digit must be even. Using 4, 0, 7, 2, 9 it is 20,794.",
+     "In the Indian system, commas go after the first three digits from the right, then every two digits: 97,420 and 1,23,456.",
+     "On a number line, find the scale first: if 0 and 100 are 10 gaps apart, each gap is 10. Then read the marks."
+    ],
+    "example": {
+     "q": "Using 4, 0, 7, 2, 9 once each, which 5-digit number is closest to 50,000?",
+     "steps": [
+      "Just below 50,000: start with 4, then the largest arrangement of the rest: 49,720.",
+      "Just above 50,000: the next possible first digit is 7: 70,249, which is far away.",
+      "50,000 − 49,720 = 280, so 49,720 is closest."
+     ],
+     "answer": "49,720"
+    },
+    "reallife": "Bank token numbers, house numbers and the kilometre stones on a highway are read and compared using place value and number lines."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Smallest to largest",
+     "prompt": "Numbers made from 4, 0, 7, 2, 9",
+     "items": [
+      "20,479",
+      "20,794",
+      "49,720",
+      "70,249",
+      "97,420"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Build it",
+     "items": [
+      {
+       "q": "Largest number from 5, 1, 8, 3, 6",
+       "a": "86531",
+       "check": "86531"
+      },
+      {
+       "q": "Smallest 5-digit number from 3, 0, 5, 1, 4",
+       "a": "10345",
+       "check": "10345"
+      },
+      {
+       "q": "Largest 5-digit even number from 2, 7, 1, 9, 5",
+       "a": "97512",
+       "check": "97512"
+      },
+      {
+       "q": "Gap size if 0 to 500 has 5 equal gaps",
+       "a": "100",
+       "check": "500/5"
+      },
+      {
+       "q": "Mark 3 gaps after 200 when each gap is 50",
+       "a": "350",
+       "check": "200+3*50"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Using 3, 8, 0, 6, 1 once each, what is the largest 5-digit number?",
+     "options": [
+      "86,310",
+      "86,301",
+      "10,368",
+      "83,610"
+     ],
+     "answer": 0,
+     "explain": "Write the digits from largest to smallest: 8, 6, 3, 1, 0 → 86,310.",
+     "mistake": "Does not put the digits in strict decreasing order",
+     "check": "86310"
+    },
+    {
+     "q": "Using 3, 8, 0, 6, 1 once each, what is the smallest 5-digit number?",
+     "options": [
+      "01,368",
+      "10,368",
+      "13,068",
+      "10,386"
+     ],
+     "answer": 1,
+     "explain": "A number cannot start with 0, so start with 1, then 0, 3, 6, 8: 10,368.",
+     "mistake": "Puts 0 first",
+     "check": "10368"
+    },
+    {
+     "q": "Using 5, 2, 9, 4, 7 once each, what is the smallest even number?",
+     "options": [
+      "24,579",
+      "24,759",
+      "25,794",
+      "25,974"
+     ],
+     "answer": 2,
+     "explain": "An even number must end in 2 or 4. Ending in 4 gives 25,794; ending in 2 gives 45,792. The smaller is 25,794.",
+     "steps": [
+      "End in 4: 2,5,7,9 in front → 25,794",
+      "End in 2: 4,5,7,9 in front → 45,792",
+      "Smaller: 25,794"
+     ],
+     "mistake": "Ignores the even last digit (24,579 is odd)",
+     "check": "25794"
+    },
+    {
+     "q": "Which number is written correctly with commas in the Indian system?",
+     "options": [
+      "12,34,5",
+      "1,234,567",
+      "98,7654",
+      "3,45,678"
+     ],
+     "answer": 3,
+     "explain": "In the Indian system the first comma comes after three digits from the right, then after every two digits: 3,45,678.",
+     "mistake": "Uses the international system or puts commas at random",
+     "check": "345678"
+    },
+    {
+     "q": "On a number line, 0 and 1000 are 5 equal gaps apart. What number is at the 3rd mark after 0?",
+     "options": [
+      "600",
+      "300",
+      "500",
+      "750"
+     ],
+     "answer": 0,
+     "explain": "Each gap is 1000 ÷ 5 = 200, so the 3rd mark is 600.",
+     "steps": [
+      "1000 ÷ 5 = 200",
+      "3 × 200 = 600"
+     ],
+     "mistake": "Assumes each gap is 100",
+     "check": "3*1000/5"
+    },
+    {
+     "q": "A number line runs from 2000 to 3000 with 10 equal gaps. A dot is on the 7th mark after 2000. What is it?",
+     "options": [
+      "2007",
+      "2700",
+      "2070",
+      "2600"
+     ],
+     "answer": 1,
+     "explain": "Each gap is 100, so the 7th mark is 2000 + 700 = 2700.",
+     "mistake": "Uses gaps of 1 or 10",
+     "check": "2000+7*100"
+    },
+    {
+     "q": "Marks show 4,500, 4,800, 5,100 and 5,400 on a number line. Which is largest and what is the gap?",
+     "options": [
+      "5,400; 100",
+      "4,500; 300",
+      "5,400; 300",
+      "5,100; 300"
+     ],
+     "answer": 2,
+     "explain": "The largest is the furthest right: 5,400. The gap is 4,800 − 4,500 = 300.",
+     "mistake": "Picks the leftmost number as largest"
+    },
+    {
+     "q": "Using 6, 1, 0, 8, 3 once each, which 5-digit number is closest to 60,000?",
+     "options": [
+      "38,610",
+      "60,183",
+      "61,038",
+      "60,138"
+     ],
+     "answer": 3,
+     "explain": "60,138 is only 138 above 60,000. The best below would start with 3 (38,610), which is far away.",
+     "steps": [
+      "Start with 6, then the smallest rest: 60,138",
+      "60,138 − 60,000 = 138"
+     ],
+     "mistake": "Does not look just above the target",
+     "check": "60138"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'I have digits 2, 0, 5, 9, 1. How do I make the smallest 5-digit number?'",
+    "must": [
+     [
+      "smallest",
+      "1"
+     ],
+     [
+      "not 0",
+      "cannot start",
+      "not start with 0",
+      "zero first"
+     ],
+     [
+      "10259",
+      "10,259"
+     ]
+    ],
+    "praise": "Chirp! Start with the smallest non-zero digit, then the rest in order: 10,259!",
+    "nudge": "Can a 5-digit number start with 0?"
+   }
+  },
+  {
    "id": "g6-maths-03-01",
    "title": "Numbers and their properties",
    "learn": {
@@ -273,6 +959,266 @@
     ],
     "praise": "Tweet! Odd + odd makes even because the two leftover ones pair up. Clever!",
     "nudge": "Why does odd + odd turn out even? What happens to the leftovers?"
+   },
+   "covers": [
+    "c3.5.2",
+    "c3.11.1"
+   ]
+  },
+  {
+   "id": "g6-maths-03-07",
+   "title": "Counting digits and digit sums",
+   "covers": [
+    "c3.5.1",
+    "c3.5.3",
+    "c3.5.4",
+    "c3.5.5"
+   ],
+   "learn": {
+    "hook": "How many times do you write the digit 7 when you number the pages of a 100-page notebook? Guess first!",
+    "points": [
+     "2-digit numbers go from 10 to 99: there are 90 of them. 3-digit numbers: 100 to 999, so 900. 4-digit: 9000. 5-digit: 90,000.",
+     "To find the smallest number with a given digit sum, use as few digits as possible and make the last digits 9s: digit sum 14 → 59.",
+     "To find the largest 3-digit number with a digit sum, put the biggest digits first: digit sum 20 → 992.",
+     "Digit sums of consecutive numbers go up by 1 each time, except when a 9 rolls over: 28 → 10, 29 → 11, but 30 → 3.",
+     "Digit detective: from 1 to 100, the digit 7 appears 10 times in the ones place and 10 times in the tens place: 20 times in all."
+    ],
+    "example": {
+     "q": "What is the smallest 3-digit number whose digit sum is 20?",
+     "steps": [
+      "We want the hundreds digit as small as possible.",
+      "The tens and ones can give at most 9 + 9 = 18, so the hundreds digit must be at least 20 − 18 = 2.",
+      "The number is 299 (2 + 9 + 9 = 20)."
+     ],
+     "answer": "299"
+    },
+    "reallife": "Page numbers in books, house numbers on a long street and seat numbers in a stadium are all counted using these ideas."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Digit counting",
+     "items": [
+      {
+       "q": "How many 2-digit numbers?",
+       "a": "90",
+       "check": "99-10+1"
+      },
+      {
+       "q": "How many 3-digit numbers?",
+       "a": "900",
+       "check": "999-100+1"
+      },
+      {
+       "q": "How many 4-digit numbers?",
+       "a": "9000",
+       "check": "9999-1000+1"
+      },
+      {
+       "q": "Digit sum of 4567",
+       "a": "22",
+       "check": "4+5+6+7"
+      },
+      {
+       "q": "Smallest number with digit sum 17",
+       "a": "89",
+       "check": "89"
+      },
+      {
+       "q": "Times the digit 5 is written from 1 to 100",
+       "a": "20",
+       "check": "20"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Digit sum 10 or not?",
+     "buckets": [
+      "Digit sum is 10",
+      "Digit sum is not 10"
+     ],
+     "items": [
+      [
+       "19",
+       0
+      ],
+      [
+       "235",
+       0
+      ],
+      [
+       "4006",
+       0
+      ],
+      [
+       "91",
+       0
+      ],
+      [
+       "55",
+       0
+      ],
+      [
+       "38",
+       1
+      ],
+      [
+       "444",
+       1
+      ],
+      [
+       "1001",
+       1
+      ],
+      [
+       "73",
+       0
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many 3-digit numbers are there?",
+     "options": [
+      "900",
+      "999",
+      "899",
+      "1000"
+     ],
+     "answer": 0,
+     "explain": "From 100 to 999: 999 − 100 + 1 = 900.",
+     "steps": [
+      "999 − 100 = 899",
+      "899 + 1 = 900"
+     ],
+     "mistake": "Forgets the +1 or counts from 1",
+     "check": "999-100+1"
+    },
+    {
+     "q": "How many 5-digit numbers are there?",
+     "options": [
+      "99,999",
+      "90,000",
+      "10,000",
+      "89,999"
+     ],
+     "answer": 1,
+     "explain": "From 10,000 to 99,999: 99,999 − 10,000 + 1 = 90,000.",
+     "mistake": "Counts all numbers up to 99,999",
+     "check": "99999-10000+1"
+    },
+    {
+     "q": "What is the smallest number whose digit sum is 23?",
+     "options": [
+      "2399",
+      "689",
+      "599",
+      "1499"
+     ],
+     "answer": 2,
+     "explain": "With two digits the most is 18, so we need 3 digits. Make the end 9s: 5 + 9 + 9 = 23 → 599.",
+     "steps": [
+      "Two digits give at most 18",
+      "Three digits: _ 9 9 → 23 − 18 = 5",
+      "599"
+     ],
+     "mistake": "Uses more digits than needed",
+     "check": "599"
+    },
+    {
+     "q": "What is the largest 3-digit number whose digit sum is 12?",
+     "options": [
+      "840",
+      "921",
+      "993",
+      "930"
+     ],
+     "answer": 3,
+     "explain": "Put 9 first, then the rest (3) next: 9, 3, 0 → 930.",
+     "mistake": "Does not keep the biggest digits at the front",
+     "check": "930"
+    },
+    {
+     "q": "The digit sum of 39 is 12. What is the digit sum of the next number, 40?",
+     "options": [
+      "4",
+      "13",
+      "12",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "40 has digits 4 and 0, so its digit sum is 4. The 9 rolled over.",
+     "mistake": "Adds 1 without noticing the roll-over",
+     "check": "4+0"
+    },
+    {
+     "q": "Digit sums of 123, 234, 345, 456 are 6, 9, 12, 15. What is the digit sum of 567?",
+     "options": [
+      "16",
+      "18",
+      "17",
+      "21"
+     ],
+     "answer": 1,
+     "explain": "Each one goes up by 3: 15 + 3 = 18. Check: 5 + 6 + 7 = 18.",
+     "mistake": "Adds 1 or 2 instead of 3",
+     "check": "5+6+7"
+    },
+    {
+     "q": "How many times is the digit 7 written when you write all the numbers from 1 to 100?",
+     "options": [
+      "10",
+      "11",
+      "20",
+      "19"
+     ],
+     "answer": 2,
+     "explain": "Ones place: 7, 17, ..., 97 → 10 times. Tens place: 70 to 79 → 10 times (77 counts twice). Total 20.",
+     "steps": [
+      "Ones place: 10",
+      "Tens place: 10",
+      "10 + 10 = 20"
+     ],
+     "mistake": "Counts 77 only once or forgets the tens place",
+     "check": "10+10"
+    },
+    {
+     "q": "How many numbers from 1 to 50 have a digit sum of 7?",
+     "options": [
+      "4",
+      "7",
+      "6",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "7, 16, 25, 34, 43: five numbers.",
+     "steps": [
+      "7, 16, 25, 34, 43",
+      "That is 5"
+     ],
+     "mistake": "Misses one of the numbers",
+     "check": "5"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the smallest number with digit sum 15. 'Should I write 1 + 1 + 1 + ...?'",
+    "must": [
+     [
+      "few digits",
+      "fewest",
+      "as few"
+     ],
+     [
+      "9"
+     ],
+     [
+      "69"
+     ]
+    ],
+    "praise": "Tweet! Fewest digits with 9 at the end: 69. Clever!",
+    "nudge": "Will lots of small digits make the number small or big?"
    }
   },
   {
@@ -542,6 +1488,266 @@
     ],
     "praise": "Chirp! It reads the same forwards and backwards, like MALAYALAM. I'll spot them on number plates!",
     "nudge": "What happens when you read it from the other end?"
+   },
+   "covers": [
+    "c3.6.1",
+    "c3.6.3",
+    "c3.8.1"
+   ]
+  },
+  {
+   "id": "g6-maths-03-08",
+   "title": "Palindrome puzzles",
+   "covers": [
+    "c3.6.2",
+    "c3.6.4",
+    "c3.8.4"
+   ],
+   "learn": {
+    "hook": "I read the same both ways and I'm hiding in a riddle. Can you find me?",
+    "points": [
+     "To list palindromes with given digits, choose the outer digits first (they must match), then the middle.",
+     "3-digit palindromes using only the digits 1, 2, 3 (repeats allowed): 3 choices for the first-and-last digit × 3 choices for the middle = 9.",
+     "Clue puzzles: a 5-digit palindrome looks like a b c b a. Use the clues to find a, b and c.",
+     "The smallest 5-digit palindrome is 10,001 and the largest is 99,999."
+    ],
+    "example": {
+     "q": "I am a 5-digit palindrome. My first digit is 2. My second digit is 3 more than my first. My middle digit is the sum of my first two digits. Who am I?",
+     "steps": [
+      "Pattern: a b c b a with a = 2.",
+      "b = 2 + 3 = 5.",
+      "c = 2 + 5 = 7.",
+      "The number is 25,752: twenty-five thousand seven hundred fifty-two."
+     ],
+     "answer": "25,752"
+    },
+    "reallife": "Car number plates like 4334 and festival dates like 22/02/2022 become fun when you spot palindromes in them."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Palindrome puzzles",
+     "items": [
+      {
+       "text": "Smallest 5-digit palindrome: ___",
+       "answer": "10,001",
+       "options": [
+        "10,001",
+        "10,000",
+        "11,111"
+       ]
+      },
+      {
+       "text": "Largest 5-digit palindrome: ___",
+       "answer": "99,999",
+       "options": [
+        "99,999",
+        "99,990",
+        "98,889"
+       ]
+      },
+      {
+       "text": "3-digit palindromes from 1, 2, 3: ___",
+       "answer": "9",
+       "options": [
+        "6",
+        "9",
+        "27"
+       ]
+      },
+      {
+       "text": "4-digit palindrome 7 _ 3 7 needs ___ in the blank",
+       "answer": "3",
+       "options": [
+        "3",
+        "7",
+        "0"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Palindrome or not?",
+     "items": [
+      [
+       "12,321 is a palindrome.",
+       true,
+       "It reads 12321 both ways."
+      ],
+      [
+       "10,010 is a palindrome.",
+       false,
+       "Reversed it is 01001."
+      ],
+      [
+       "Every 5-digit palindrome has the same first and last digit.",
+       true,
+       "That is what makes it read the same."
+      ],
+      [
+       "There are only 9 three-digit palindromes in all.",
+       false,
+       "There are 9 × 10 = 90."
+      ],
+      [
+       "99,999 + 10,001 = 1,10,000",
+       true,
+       "99,999 + 10,001 = 110,000, written 1,10,000 in the Indian system."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the sum of the smallest and largest 5-digit palindromes?",
+     "options": [
+      "1,10,000",
+      "1,09,999",
+      "89,998",
+      "1,10,001"
+     ],
+     "answer": 0,
+     "explain": "10,001 + 99,999 = 1,10,000.",
+     "steps": [
+      "Smallest: 10,001",
+      "Largest: 99,999",
+      "Sum: 1,10,000"
+     ],
+     "mistake": "Uses 10,000 as the smallest palindrome",
+     "check": "10001+99999"
+    },
+    {
+     "q": "What is the difference between the largest and smallest 5-digit palindromes?",
+     "options": [
+      "89,999",
+      "89,998",
+      "90,000",
+      "88,888"
+     ],
+     "answer": 1,
+     "explain": "99,999 − 10,001 = 89,998.",
+     "mistake": "Uses 10,000 instead of 10,001",
+     "check": "99999-10001"
+    },
+    {
+     "q": "How many 3-digit palindromes can be made using only the digits 4 and 7 (repeats allowed)?",
+     "options": [
+      "2",
+      "6",
+      "4",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "First-and-last digit: 2 choices; middle: 2 choices. 2 × 2 = 4: 444, 474, 747, 777.",
+     "steps": [
+      "2 choices for the outer digit",
+      "2 choices for the middle",
+      "2 × 2 = 4"
+     ],
+     "mistake": "Lists only palindromes using both digits",
+     "check": "2*2"
+    },
+    {
+     "q": "How many 4-digit palindromes can be made with the digits 1, 2 and 3 (repeats allowed)?",
+     "options": [
+      "6",
+      "27",
+      "12",
+      "9"
+     ],
+     "answer": 3,
+     "explain": "A 4-digit palindrome is a b b a: 3 choices for a and 3 for b. 3 × 3 = 9.",
+     "mistake": "Thinks all four digits can be chosen freely",
+     "check": "3*3"
+    },
+    {
+     "q": "I am a 3-digit palindrome. My digits add up to 13 and my middle digit is 5. Who am I?",
+     "options": [
+      "454",
+      "535",
+      "444",
+      "565"
+     ],
+     "answer": 0,
+     "explain": "Outer digits are the same: a + 5 + a = 13, so a = 4: 454.",
+     "steps": [
+      "2a + 5 = 13",
+      "2a = 8, a = 4",
+      "454"
+     ],
+     "mistake": "Does not use both clues",
+     "check": "454"
+    },
+    {
+     "q": "I am a 5-digit palindrome. My first digit is 3, my second is double my first, and my middle digit is 0. How do you write me in words?",
+     "options": [
+      "Thirty-six thousand six hundred thirty",
+      "Thirty-six thousand sixty-three",
+      "Sixty-three thousand thirty-six",
+      "Thirty thousand six hundred three"
+     ],
+     "answer": 1,
+     "explain": "a = 3, b = 6, c = 0 → 36,063: thirty-six thousand sixty-three.",
+     "mistake": "Puts the digits in the wrong places"
+    },
+    {
+     "q": "How many 5-digit palindromes start with 9?",
+     "options": [
+      "10",
+      "90",
+      "100",
+      "1000"
+     ],
+     "answer": 2,
+     "explain": "9 b c b 9: 10 choices for b and 10 for c → 100.",
+     "steps": [
+      "b: 10 choices",
+      "c: 10 choices",
+      "10 × 10 = 100"
+     ],
+     "mistake": "Chooses only one inner digit",
+     "check": "10*10"
+    },
+    {
+     "q": "Which is the largest 5-digit palindrome that is even?",
+     "options": [
+      "99,998",
+      "88,888",
+      "98,889",
+      "89,998"
+     ],
+     "answer": 3,
+     "explain": "An even palindrome ends in an even digit, so it also starts with that digit. The largest start is 8: 89,998.",
+     "mistake": "Forgets that the first digit must match the even last digit",
+     "check": "89998"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to list all 3-digit palindromes with digits 5 and 6. 'How do I make sure I get them all?'",
+    "must": [
+     [
+      "first",
+      "last",
+      "outer",
+      "ends"
+     ],
+     [
+      "same",
+      "match"
+     ],
+     [
+      "middle",
+      "centre",
+      "center"
+     ],
+     [
+      "4",
+      "four"
+     ]
+    ],
+    "praise": "Tweet! Outer digit 2 ways, middle 2 ways: 555, 565, 656, 666. All four!",
+    "nudge": "What must be true about the first and last digit?"
    }
   },
   {
@@ -767,6 +1973,1391 @@
     ],
     "praise": "Wow! Biggest minus smallest, again and again, and I reached 6174. Magic maths!",
     "nudge": "After arranging the digits two ways, what do I do with those two numbers?"
+   },
+   "covers": [
+    "c3.7.1",
+    "c3.7.2",
+    "c3.7.3"
+   ]
+  },
+  {
+   "id": "g6-maths-03-09",
+   "title": "Kaprekar rounds, clock and calendar patterns",
+   "covers": [
+    "c3.7.4",
+    "c3.8.2",
+    "c3.8.3"
+   ],
+   "learn": {
+    "hook": "Your birth year can be turned into 6174 in just a few rounds. Ready?",
+    "points": [
+     "Counting rounds: run Kaprekar's routine and count each subtraction until you get 6174. For 2013: 3210 − 0123 = 3087, 8730 − 0378 = 8352, 8532 − 2358 = 6174 → 3 rounds.",
+     "Dates written DD/MM/YYYY can be palindromes: 12/02/2021 reads 12022021 both ways.",
+     "Dates can also repeat: 20/12/2012 has '2012' twice, and 11/11/1111 repeats 1.",
+     "Palindromic clock times on a 12-hour clock: 1:01, 1:11, ..., 9:59, 10:01, 11:11, 12:21. Find the next one and count the minutes to it."
+    ],
+    "example": {
+     "q": "A clock shows 3:15. How many minutes until the next palindromic time?",
+     "steps": [
+      "Palindromic times after 3:00 look like 3:x3: 3:03, 3:13, 3:23, ...",
+      "3:13 has passed, so the next is 3:23.",
+      "3:23 − 3:15 = 8 minutes."
+     ],
+     "answer": "8 minutes"
+    },
+    "reallife": "People love booking weddings and events on palindrome dates, and some digital clocks flash at 12:21!"
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Rounds to 6174",
+     "pairs": [
+      [
+       "2013",
+       "3 rounds"
+      ],
+      [
+       "6264",
+       "2 rounds"
+      ],
+      [
+       "1000 (as 1000 → 0999)",
+       "5 rounds"
+      ],
+      [
+       "6174 itself",
+       "0 rounds"
+      ],
+      [
+       "7641",
+       "1 round"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Palindrome date?",
+     "buckets": [
+      "Palindrome",
+      "Not a palindrome"
+     ],
+     "items": [
+      [
+       "12/02/2021",
+       0
+      ],
+      [
+       "02/02/2020",
+       0
+      ],
+      [
+       "22/02/2022",
+       0
+      ],
+      [
+       "11/02/2011",
+       0
+      ],
+      [
+       "20/12/2012",
+       1
+      ],
+      [
+       "15/08/1947",
+       1
+      ],
+      [
+       "26/01/1950",
+       1
+      ],
+      [
+       "01/01/2001",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Run Kaprekar's routine on 2012. How many rounds to reach 6174?",
+     "options": [
+      "3",
+      "2",
+      "4",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "2210 − 0122 = 2088; 8820 − 0288 = 8532; 8532 − 2358 = 6174. 3 rounds.",
+     "steps": [
+      "2210 − 0122 = 2088",
+      "8820 − 0288 = 8532",
+      "8532 − 2358 = 6174"
+     ],
+     "mistake": "Stops a round early or makes a subtraction slip",
+     "check": "3"
+    },
+    {
+     "q": "Kaprekar's routine on 6264: 6642 − 2466 = 4176. What is the next answer?",
+     "options": [
+      "7641",
+      "6174",
+      "4176",
+      "3087"
+     ],
+     "answer": 1,
+     "explain": "Arrange 4176: 7641 − 1467 = 6174.",
+     "mistake": "Makes a subtraction slip",
+     "check": "7641-1467"
+    },
+    {
+     "q": "Which date (DD/MM/YYYY) is a palindrome?",
+     "options": [
+      "21/12/2021",
+      "12/12/2012",
+      "10/02/2001",
+      "13/03/2031"
+     ],
+     "answer": 2,
+     "explain": "10/02/2001 → 10022001, which reads the same backwards.",
+     "mistake": "Thinks a repeated date is always a palindrome"
+    },
+    {
+     "q": "The date 20/12/2012 is special because…",
+     "options": [
+      "it is a palindrome",
+      "it has no 0",
+      "it is a Sunday",
+      "'2012' appears twice in a row"
+     ],
+     "answer": 3,
+     "explain": "Written as 20122012, the block 2012 repeats.",
+     "mistake": "Mixes up repeating and palindromic patterns"
+    },
+    {
+     "q": "A clock shows 10:30. How many minutes until the next palindromic time?",
+     "options": [
+      "41",
+      "31",
+      "51",
+      "71"
+     ],
+     "answer": 0,
+     "explain": "After 10:01 the next palindrome is 11:11. From 10:30 to 11:11 is 41 minutes.",
+     "steps": [
+      "10:30 → 11:00 is 30 min",
+      "11:00 → 11:11 is 11 min",
+      "30 + 11 = 41"
+     ],
+     "mistake": "Thinks 10:31 or 11:01 are palindromes",
+     "check": "30+11"
+    },
+    {
+     "q": "The clock shows 12:21. How many minutes until the next palindromic time (12-hour clock)?",
+     "options": [
+      "39",
+      "40",
+      "60",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "After 12:21 comes 1:01. 12:21 → 1:00 is 39 minutes, plus 1 = 40.",
+     "steps": [
+      "12:21 → 1:00 is 39 min",
+      "1:00 → 1:01 is 1 min",
+      "39 + 1 = 40"
+     ],
+     "mistake": "Forgets that 12 changes to 1",
+     "check": "39+1",
+     "visual": {
+      "kind": "clock",
+      "h": 1,
+      "m": 1
+     }
+    },
+    {
+     "q": "A clock shows 5:47. How many minutes until the next palindromic time?",
+     "options": [
+      "14",
+      "11",
+      "8",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "Times after 5:00 look like 5:x5. 5:45 has passed, so the next is 5:55, which is 8 minutes away.",
+     "mistake": "Counts to the wrong palindrome",
+     "check": "55-47"
+    },
+    {
+     "q": "Shreya was born in 2014. How many rounds of Kaprekar's routine turn 2014 into 6174?",
+     "options": [
+      "3",
+      "5",
+      "9",
+      "7"
+     ],
+     "answer": 3,
+     "explain": "4210 − 0124 = 4086, 8640 − 0468 = 8172, 8721 − 1278 = 7443, 7443 − 3447 = 3996, 9963 − 3699 = 6264, 6642 − 2466 = 4176, 7641 − 1467 = 6174: 7 rounds.",
+     "mistake": "Stops counting too early",
+     "check": "7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wakes at 4:50. 'When is the next palindrome time on my clock?'",
+    "must": [
+     [
+      "4:54",
+      "454"
+     ],
+     [
+      "4",
+      "four"
+     ],
+     [
+      "minutes",
+      "minute"
+     ]
+    ],
+    "praise": "Chirp! 4:54 reads 454 both ways, just 4 minutes away!",
+    "nudge": "What must the last digit be to match the hour 4?"
+   }
+  },
+  {
+   "id": "g6-maths-03-10",
+   "title": "Building numbers with + and −",
+   "covers": [
+    "c3.9.1",
+    "c3.9.2",
+    "c3.9.3",
+    "c3.9.4",
+    "c3.10.1"
+   ],
+   "learn": {
+    "hook": "With only ₹5 and ₹3 coins, can you pay exactly ₹7? Try it!",
+    "points": [
+     "You can build a target by adding chosen numbers again and again: with 5s and 3s, 11 = 5 + 3 + 3. But 7 cannot be made by adding them.",
+     "Allowing subtraction makes more targets possible: 7 = 5 + 5 − 3.",
+     "Digits and sizes: two 3-digit numbers add to at least 100 + 100 = 200 and at most 999 + 999 = 1998, so the sum is never a 2-digit number.",
+     "Always, sometimes or never? The sum of two 4-digit numbers is SOMETIMES a 5-digit number (6000 + 7000 = 13,000, but 1000 + 2000 = 3000).",
+     "To find a total quickly, look for groups: 6 rows of 8 coins is 6 × 8 = 48, much faster than counting one by one."
+    ],
+    "example": {
+     "q": "Using the digits 1 to 8 once each, make two 4-digit numbers with the largest possible sum.",
+     "steps": [
+      "Put the biggest digits in the thousands places: 8 and 7.",
+      "Next biggest in the hundreds: 6 and 5; tens: 4 and 3; ones: 2 and 1.",
+      "8642 + 7531 = 16,173."
+     ],
+     "answer": "16,173"
+    },
+    "reallife": "Paying with a few kinds of coins, packing items in boxes of fixed sizes and counting chairs in rows all use these ideas."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Always, sometimes or never?",
+     "buckets": [
+      "Always",
+      "Sometimes",
+      "Never"
+     ],
+     "items": [
+      [
+       "Two 3-digit numbers add to a 2-digit number",
+       2
+      ],
+      [
+       "Two 2-digit numbers add to a 3-digit number",
+       1
+      ],
+      [
+       "Two 4-digit numbers add to a 5-digit number",
+       1
+      ],
+      [
+       "Two 3-digit numbers add to at least 200",
+       0
+      ],
+      [
+       "Two 2-digit numbers add to a 4-digit number",
+       2
+      ],
+      [
+       "A 5-digit number minus a 4-digit number is a 1-digit number",
+       1
+      ],
+      [
+       "A 2-digit number plus a 2-digit number is more than 19",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Quick totals",
+     "items": [
+      {
+       "q": "6 rows of 8 coins",
+       "a": "48",
+       "check": "6*8"
+      },
+      {
+       "q": "1 + 2 + 3 + ... + 10",
+       "a": "55",
+       "check": "10*11/2"
+      },
+      {
+       "q": "5 + 5 + 3 + 3 + 3",
+       "a": "19",
+       "check": "5+5+3+3+3"
+      },
+      {
+       "q": "5 + 5 − 3",
+       "a": "7",
+       "check": "5+5-3"
+      },
+      {
+       "q": "10,000 − 9,999",
+       "a": "1",
+       "check": "10000-9999"
+      },
+      {
+       "q": "12 boxes of 25 pencils",
+       "a": "300",
+       "check": "12*25"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Using only 3s and 5s and adding (repeats allowed), which number CANNOT be made?",
+     "options": [
+      "7",
+      "8",
+      "11",
+      "13"
+     ],
+     "answer": 0,
+     "explain": "8 = 5 + 3, 11 = 5 + 3 + 3, 13 = 5 + 5 + 3. With 3s and 5s you get 3, 5, 6, 8, 9, ... but never 7.",
+     "mistake": "Does not test each number carefully",
+     "check": "7"
+    },
+    {
+     "q": "Using 25s and 10s and adding, what is the fewest number of terms that make 70?",
+     "options": [
+      "3",
+      "4",
+      "5",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "25 + 25 + 10 + 10 = 70 uses 4 terms. Three terms can make 60 or 75, but not 70.",
+     "steps": [
+      "Three 25s = 75, too much",
+      "25 + 25 + 10 = 60, too little",
+      "25 + 25 + 10 + 10 = 70 ✓"
+     ],
+     "mistake": "Uses only 10s (7 terms)",
+     "check": "4"
+    },
+    {
+     "q": "Which uses 9 and 4 (with + or −, repeats allowed) to make exactly 1?",
+     "options": [
+      "4 + 4 + 4 − 9",
+      "9 + 4 − 4",
+      "9 − 4 − 4",
+      "9 − 4"
+     ],
+     "answer": 2,
+     "explain": "9 − 4 − 4 = 1. The others give 9, 3 and 5.",
+     "mistake": "Makes a subtraction slip"
+    },
+    {
+     "q": "The sum of two 3-digit numbers is…",
+     "options": [
+      "always a 3-digit number",
+      "sometimes a 5-digit number",
+      "always a 4-digit number",
+      "never a 2-digit number"
+     ],
+     "answer": 3,
+     "explain": "The smallest sum is 100 + 100 = 200 and the largest is 999 + 999 = 1998. So it is a 3- or 4-digit number, never 2-digit.",
+     "mistake": "Tests only one example"
+    },
+    {
+     "q": "Two 4-digit numbers are added. Can the answer be a 5-digit number?",
+     "options": [
+      "Sometimes",
+      "Always",
+      "Never",
+      "Only if both are even"
+     ],
+     "answer": 0,
+     "explain": "6000 + 7000 = 13,000 (5 digits) but 1000 + 2000 = 3000 (4 digits).",
+     "mistake": "Checks only one example"
+    },
+    {
+     "q": "What is the largest possible sum of two 2-digit numbers?",
+     "options": [
+      "99",
+      "198",
+      "200",
+      "189"
+     ],
+     "answer": 1,
+     "explain": "99 + 99 = 198, so two 2-digit numbers can never add to 200 or more.",
+     "mistake": "Adds 99 + 100",
+     "check": "99+99"
+    },
+    {
+     "q": "A hall has 12 rows of 15 chairs, and 4 more chairs are added at the front. How many chairs in all?",
+     "options": [
+      "194",
+      "180",
+      "184",
+      "176"
+     ],
+     "answer": 2,
+     "explain": "12 × 15 = 180, and 180 + 4 = 184.",
+     "steps": [
+      "12 × 15 = 180",
+      "180 + 4 = 184"
+     ],
+     "mistake": "Forgets the extra chairs",
+     "check": "12*15+4"
+    },
+    {
+     "q": "Using digits 1 to 8 once each, Raghav makes two 4-digit numbers with the largest sum. What is the sum?",
+     "options": [
+      "15,999",
+      "15,173",
+      "16,137",
+      "16,173"
+     ],
+     "answer": 3,
+     "explain": "8642 + 7531 = 16,173: the biggest digits go in the biggest places.",
+     "mistake": "Puts a big digit in a small place",
+     "check": "8642+7531"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'When I add two 3-digit numbers, could I ever get a 2-digit answer?'",
+    "must": [
+     [
+      "never",
+      "no"
+     ],
+     [
+      "200",
+      "100 + 100",
+      "smallest"
+     ],
+     [
+      "at least",
+      "more than",
+      "bigger"
+     ]
+    ],
+    "praise": "Tweet! The smallest sum is 100 + 100 = 200, so never!",
+    "nudge": "What is the smallest sum you can make?"
+   }
+  },
+  {
+   "id": "g6-maths-03-11",
+   "title": "Collatz chains and mixed number puzzles",
+   "covers": [
+    "c3.11.3",
+    "c3.13.4"
+   ],
+   "learn": {
+    "hook": "Start with 7 and keep playing Collatz: you'll climb to 52 before you crash down to 1!",
+    "points": [
+     "Collatz rule: even → halve it; odd → multiply by 3 and add 1. Keep going until you reach 1.",
+     "From 12: 12, 6, 3, 10, 5, 16, 8, 4, 2, 1. It reaches 1 after 9 steps.",
+     "A power of 2 (2, 4, 8, 16, 32, 64, ...) only ever halves, so it falls straight to 1. 64 → 32 → 16 → 8 → 4 → 2 → 1 takes 6 steps.",
+     "Once a chain reaches any power of 2, it will drop straight to 1.",
+     "Odd-digit puzzles: from 100 to 199, numbers with all digits odd have hundreds digit 1, tens digit 1, 3, 5, 7 or 9 and ones digit 1, 3, 5, 7 or 9: 5 × 5 = 25 numbers."
+    ],
+    "example": {
+     "q": "Make the Collatz chain from 100 until it reaches a power of 2.",
+     "steps": [
+      "100 → 50 → 25 → 76 → 38 → 19 → 58 → 29 → 88 → 44 → 22 → 11 → 34 → 17 → 52 → 26 → 13 → 40 → 20 → 10 → 5 → 16",
+      "16 is a power of 2.",
+      "Then 8, 4, 2, 1: the chain reaches 1."
+     ],
+     "answer": "It reaches 16, then 1"
+    },
+    "reallife": "Computer scientists still test the Collatz rule on huge numbers. It is a famous puzzle that kids can try too!"
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Collatz from 6",
+     "prompt": "In chain order",
+     "items": [
+      "6",
+      "3",
+      "10",
+      "5",
+      "16",
+      "8"
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Collatz next step",
+     "items": [
+      {
+       "text": "After 13 comes ___",
+       "answer": "40",
+       "options": [
+        "40",
+        "26",
+        "14"
+       ]
+      },
+      {
+       "text": "After 40 comes ___",
+       "answer": "20",
+       "options": [
+        "20",
+        "121",
+        "80"
+       ]
+      },
+      {
+       "text": "After 7 comes ___",
+       "answer": "22",
+       "options": [
+        "22",
+        "14",
+        "21"
+       ]
+      },
+      {
+       "text": "After 32 comes ___",
+       "answer": "16",
+       "options": [
+        "16",
+        "97",
+        "64"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the Collatz game, what comes after 9?",
+     "options": [
+      "28",
+      "27",
+      "4.5",
+      "18"
+     ],
+     "answer": 0,
+     "explain": "9 is odd: 3 × 9 + 1 = 28.",
+     "mistake": "Halves an odd number or forgets the +1",
+     "check": "3*9+1"
+    },
+    {
+     "q": "How many steps does 64 take to reach 1 in the Collatz game?",
+     "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "64 → 32 → 16 → 8 → 4 → 2 → 1: 6 halvings.",
+     "mistake": "Counts the numbers instead of the steps",
+     "check": "6"
+    },
+    {
+     "q": "Why does every power of 2 reach 1 in the Collatz game?",
+     "options": [
+      "Because it is odd",
+      "Because it multiplies by 3",
+      "Because each halving gives another power of 2 until 1",
+      "It never does"
+     ],
+     "answer": 2,
+     "explain": "Halving 2, 4, 8, 16, ... always gives a smaller power of 2, ending at 1.",
+     "mistake": "Thinks odd steps are used"
+    },
+    {
+     "q": "Start the Collatz game at 12. How many steps until you reach 1?",
+     "options": [
+      "8",
+      "12",
+      "10",
+      "9"
+     ],
+     "answer": 3,
+     "explain": "12, 6, 3, 10, 5, 16, 8, 4, 2, 1: 9 steps.",
+     "mistake": "Counts the starting number as a step",
+     "check": "9"
+    },
+    {
+     "q": "What is the largest number reached in the Collatz chain starting at 7?",
+     "options": [
+      "52",
+      "34",
+      "22",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1. The largest is 52.",
+     "mistake": "Stops the chain too early",
+     "check": "52"
+    },
+    {
+     "q": "How many numbers from 100 to 199 have all their digits odd?",
+     "options": [
+      "50",
+      "25",
+      "20",
+      "45"
+     ],
+     "answer": 1,
+     "explain": "Hundreds digit is 1 (odd). Tens: 5 choices, ones: 5 choices. 5 × 5 = 25.",
+     "steps": [
+      "Hundreds digit 1",
+      "Tens: 1, 3, 5, 7, 9",
+      "Ones: 1, 3, 5, 7, 9",
+      "5 × 5 = 25"
+     ],
+     "mistake": "Counts only the ones digit",
+     "check": "5*5"
+    },
+    {
+     "q": "Which three of 16, 21, 35, 44, 50 add up to exactly 100?",
+     "options": [
+      "16, 35, 50",
+      "16, 21, 50",
+      "21, 35, 44",
+      "35, 44, 21 and 16"
+     ],
+     "answer": 2,
+     "explain": "21 + 35 + 44 = 100. 16 + 35 + 50 = 101 and 16 + 21 + 50 = 87.",
+     "mistake": "Adds wrongly or uses four numbers"
+    },
+    {
+     "q": "Divya says the Collatz chain from 6 is 6, 3, 10, 5, 15, ... What is her mistake?",
+     "options": [
+      "None",
+      "6 is odd",
+      "After 3 she should halve",
+      "After 5 she should get 16 (3 × 5 + 1), not 15"
+     ],
+     "answer": 3,
+     "explain": "5 is odd, so 3 × 5 + 1 = 16.",
+     "mistake": "Forgets to add 1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does 32 drop to 1 so quickly in the Collatz game?'",
+    "must": [
+     [
+      "power of 2",
+      "powers of 2"
+     ],
+     [
+      "halve",
+      "half",
+      "halving"
+     ],
+     [
+      "even"
+     ]
+    ],
+    "praise": "Chirp! 32 is a power of 2, so it keeps halving: 16, 8, 4, 2, 1!",
+    "nudge": "What do you do with an even number in the game?"
+   }
+  },
+  {
+   "id": "g6-maths-03-12",
+   "title": "Estimating numbers",
+   "covers": [
+    "c3.12.1",
+    "c3.12.2",
+    "c3.12.3",
+    "c3.12.4"
+   ],
+   "learn": {
+    "hook": "How many times do you blink in a day? You don't need to count all day to find out!",
+    "points": [
+     "We estimate when an exact count is not needed: the crowd at a mela, rice for a party, or time to walk to school.",
+     "Exact answers are needed for money change, exam marks and medicine doses.",
+     "Estimate big numbers from small ones: if you blink about 15 times a minute, in an hour that is about 15 × 60 = 900 blinks.",
+     "A quick 30-second estimate uses easy round numbers: 98 + 203 is about 100 + 200 = 300.",
+     "Make your own estimation questions: pick something you can measure for a short time, then multiply up."
+    ],
+    "example": {
+     "q": "Mohan takes about 20 breaths a minute. About how many breaths does he take in one hour?",
+     "steps": [
+      "1 hour = 60 minutes.",
+      "20 × 60 = 1200.",
+      "About 1200 breaths an hour."
+     ],
+     "answer": "About 1200"
+    },
+    "reallife": "Shopkeepers estimate how many sweets to make for Diwali, and cooks estimate rice for a wedding feast."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Estimate or exact?",
+     "buckets": [
+      "Estimate is fine",
+      "Must be exact"
+     ],
+     "items": [
+      [
+       "People at a cricket match",
+       0
+      ],
+      [
+       "Stars you can see tonight",
+       0
+      ],
+      [
+       "Leaves on a mango tree",
+       0
+      ],
+      [
+       "Time to walk to the market",
+       0
+      ],
+      [
+       "Change from a ₹500 note",
+       1
+      ],
+      [
+       "Your marks in a test",
+       1
+      ],
+      [
+       "Medicine dose for a baby",
+       1
+      ],
+      [
+       "Train ticket fare",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Quick estimates",
+     "items": [
+      {
+       "q": "About 15 blinks a minute: blinks in an hour",
+       "a": "900",
+       "check": "15*60"
+      },
+      {
+       "q": "40 students in each of 25 classes",
+       "a": "1000",
+       "check": "40*25"
+      },
+      {
+       "q": "About 2 steps a metre: steps in 1 km",
+       "a": "2000",
+       "check": "2*1000"
+      },
+      {
+       "q": "About 98 + 203",
+       "a": "300",
+       "check": "100+200"
+      },
+      {
+       "q": "About 49 × 10",
+       "a": "500",
+       "check": "50*10"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "When is an estimate good enough?",
+     "options": [
+      "Guessing the number of people at a Diwali mela",
+      "Paying a bill",
+      "Giving medicine",
+      "Writing a cheque"
+     ],
+     "answer": 0,
+     "explain": "We don't need the exact number of people at a mela, but bills and medicine must be exact.",
+     "mistake": "Thinks every number must be exact"
+    },
+    {
+     "q": "Ishaan's heart beats about 80 times a minute. About how many times does it beat in an hour?",
+     "options": [
+      "800",
+      "4800",
+      "8000",
+      "480"
+     ],
+     "answer": 1,
+     "explain": "80 × 60 = 4800.",
+     "steps": [
+      "80 × 60 = 4800"
+     ],
+     "mistake": "Multiplies by 10 instead of 60",
+     "check": "80*60"
+    },
+    {
+     "q": "A school has 32 classes with about 30 students each. About how many students are there?",
+     "options": [
+      "96",
+      "320",
+      "960",
+      "9600"
+     ],
+     "answer": 2,
+     "explain": "32 × 30 = 960, so there are about 960 students.",
+     "mistake": "Multiplies by 3 instead of 30, or adds an extra zero",
+     "check": "32*30"
+    },
+    {
+     "q": "Ritu walks about 2 steps for every metre. About how many steps does she take to walk 3 km?",
+     "options": [
+      "600",
+      "1500",
+      "3000",
+      "6000"
+     ],
+     "answer": 3,
+     "explain": "3 km = 3000 m, and 3000 × 2 = 6000 steps.",
+     "steps": [
+      "3 km = 3000 m",
+      "3000 × 2 = 6000"
+     ],
+     "mistake": "Forgets that 1 km = 1000 m",
+     "check": "3000*2"
+    },
+    {
+     "q": "In 30 seconds, estimate 498 + 301.",
+     "options": [
+      "About 800",
+      "About 700",
+      "About 900",
+      "About 1000"
+     ],
+     "answer": 0,
+     "explain": "498 is about 500 and 301 is about 300: 500 + 300 = 800.",
+     "mistake": "Rounds both down"
+    },
+    {
+     "q": "A tap fills 1 bucket of 15 litres in 3 minutes. About how many litres does it give in an hour?",
+     "options": [
+      "150",
+      "300",
+      "450",
+      "900"
+     ],
+     "answer": 1,
+     "explain": "In 60 minutes it fills 60 ÷ 3 = 20 buckets: 20 × 15 = 300 litres.",
+     "steps": [
+      "60 ÷ 3 = 20 buckets",
+      "20 × 15 = 300"
+     ],
+     "mistake": "Multiplies 15 by 60",
+     "check": "60/3*15"
+    },
+    {
+     "q": "Which is the best way to estimate how many words are on a 200-page book?",
+     "options": [
+      "Count every word",
+      "Guess any number",
+      "Count the words on one page and multiply by 200",
+      "Count only the title"
+     ],
+     "answer": 2,
+     "explain": "Count a sample page, then multiply up to the whole book.",
+     "mistake": "Thinks estimating means wild guessing"
+    },
+    {
+     "q": "Neha wants to make her own estimation question. Which one can she estimate sensibly?",
+     "options": [
+      "What is today's date?",
+      "What is my exact roll number?",
+      "What is 2 + 2?",
+      "How many times does the school bell ring in a year?"
+     ],
+     "answer": 3,
+     "explain": "She can count rings in a day and multiply by the number of school days.",
+     "mistake": "Chooses a question with an exact, known answer"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How can I guess how many times I flap my wings in an hour without counting all hour?'",
+    "must": [
+     [
+      "minute",
+      "one minute",
+      "short time"
+     ],
+     [
+      "multiply",
+      "times",
+      "60"
+     ],
+     [
+      "about",
+      "estimate",
+      "roughly",
+      "approximately"
+     ]
+    ],
+    "praise": "Tweet! Count for one minute, then multiply by 60. That's a smart estimate!",
+    "nudge": "Can you count for a short time first?"
+   }
+  },
+  {
+   "id": "g6-maths-03-13",
+   "title": "Winning number games: 21 and 99",
+   "covers": [
+    "c3.13.1",
+    "c3.13.2",
+    "c3.13.3"
+   ],
+   "learn": {
+    "hook": "Play the game of 21 with a friend. With one secret, you can win every single time!",
+    "points": [
+     "Game of 21: start at 0. Players take turns adding 1, 2 or 3 to the total. Whoever reaches 21 wins.",
+     "Work backwards: if you say 17, your friend can only reach 18, 19 or 20, and then you reach 21. So 17 is a key number.",
+     "Going back in 4s, the key numbers are 1, 5, 9, 13, 17, 21. Go first, say 1, and then always land on the next key number.",
+     "Game of 99: players add any number from 1 to 10. Going back in 11s, the key numbers are 11, 22, 33, ..., 88, 99.",
+     "In the game of 99, the first player cannot reach 11 in one move, so the second player can always win by landing on the multiples of 11."
+    ],
+    "example": {
+     "q": "In the game of 21, your friend just made the total 10. What should you add?",
+     "steps": [
+      "Key numbers are 1, 5, 9, 13, 17, 21.",
+      "The next key number after 10 is 13.",
+      "Add 13 − 10 = 3."
+     ],
+     "answer": "Add 3 to reach 13"
+    },
+    "reallife": "Strategy games like these train you to plan ahead, just like a chess player or a cricket captain setting a field."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Hit the key number (game of 21)",
+     "items": [
+      {
+       "text": "Total is 6: add ___",
+       "answer": "3",
+       "options": [
+        "1",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "text": "Total is 14: add ___",
+       "answer": "3",
+       "options": [
+        "1",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "text": "Total is 11: add ___",
+       "answer": "2",
+       "options": [
+        "1",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "text": "Total is 16: add ___",
+       "answer": "1",
+       "options": [
+        "1",
+        "2",
+        "3"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Game strategy",
+     "items": [
+      [
+       "In the game of 21, 17 is a key number.",
+       true,
+       "From 17 the opponent can't reach 21, but you can after them."
+      ],
+      [
+       "In the game of 99, 50 is a key number.",
+       false,
+       "Key numbers are multiples of 11."
+      ],
+      [
+       "Working backwards helps find winning moves.",
+       true,
+       "Start from the target and step back."
+      ],
+      [
+       "In the game of 21, the first player can always win.",
+       true,
+       "Say 1, then keep landing on 5, 9, 13, 17, 21."
+      ],
+      [
+       "In the game of 99, the first player can reach 11 on the first move.",
+       false,
+       "The most you can add is 10."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the game of 21 (add 1, 2 or 3), which number should you try to say just before 21?",
+     "options": [
+      "17",
+      "18",
+      "19",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "From 17, the other player reaches 18, 19 or 20, and you can then reach 21.",
+     "mistake": "Picks a number from which the opponent can reach 21",
+     "check": "17"
+    },
+    {
+     "q": "In the game of 21, your friend makes the total 7. What should you add?",
+     "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "The next key number is 9: 9 − 7 = 2.",
+     "mistake": "Does not know the key numbers",
+     "check": "9-7"
+    },
+    {
+     "q": "Why are the key numbers in the game of 21 four apart?",
+     "options": [
+      "Because 4 is even",
+      "Because 21 is odd",
+      "Whatever the friend adds (1, 2 or 3), you can add enough to make 4",
+      "Because you start at 4"
+     ],
+     "answer": 2,
+     "explain": "If they add 1 you add 3; if 2 you add 2; if 3 you add 1. Each round adds exactly 4.",
+     "mistake": "Does not see the pairing to 4"
+    },
+    {
+     "q": "In the game of 99 (add 1 to 10), the total is 80. What should you add to win?",
+     "options": [
+      "9",
+      "19",
+      "10",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "The next key number is 88: 88 − 80 = 8.",
+     "mistake": "Aims for 90 instead of a multiple of 11",
+     "check": "88-80"
+    },
+    {
+     "q": "What are the key numbers in the game of 99?",
+     "options": [
+      "Multiples of 11",
+      "Multiples of 10",
+      "Odd numbers",
+      "Multiples of 9"
+     ],
+     "answer": 0,
+     "explain": "Each round can be made to add up to 11 (1 + 10, 2 + 9, ...). So the key numbers are 11, 22, ..., 99.",
+     "mistake": "Thinks the key gap is 10"
+    },
+    {
+     "q": "In the game of 99, who can always win if they play perfectly?",
+     "options": [
+      "The first player",
+      "The second player",
+      "Nobody",
+      "Whoever adds 10"
+     ],
+     "answer": 1,
+     "explain": "The first player can't reach 11, so the second player lands on 11 and keeps landing on multiples of 11.",
+     "mistake": "Assumes the first player always has the advantage"
+    },
+    {
+     "q": "In a new game players add 1 or 2, and whoever reaches 20 wins. What is the first key number below 20?",
+     "options": [
+      "19",
+      "18",
+      "17",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "Each round can add 3, so key numbers are 20, 17, 14, 11, ... 17 is just below 20.",
+     "mistake": "Uses a gap of 4 as in the game of 21",
+     "check": "20-3"
+    },
+    {
+     "q": "In the game of 21, the total is 18 on your turn. Can you win now?",
+     "options": [
+      "No",
+      "Only if you add 4",
+      "Yes, add 2",
+      "Yes, add 3"
+     ],
+     "answer": 3,
+     "explain": "18 + 3 = 21. You win straight away.",
+     "mistake": "Forgets that 3 is allowed"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do you always win the game of 21?'",
+    "must": [
+     [
+      "key",
+      "17",
+      "13",
+      "9"
+     ],
+     [
+      "backwards",
+      "back",
+      "from 21"
+     ],
+     [
+      "4",
+      "four"
+     ]
+    ],
+    "praise": "Chirp! Work back from 21 in 4s and land on 1, 5, 9, 13, 17. Unbeatable!",
+    "nudge": "Which number should you say just before 21?"
+   }
+  },
+  {
+   "id": "g6-maths-03-14",
+   "title": "Big ideas from number play",
+   "covers": [
+    "c3.14.1",
+    "c3.14.2",
+    "c3.14.3",
+    "c3.11.2"
+   ],
+   "learn": {
+    "hook": "Some puzzles a Class 6 student can understand are so hard that no mathematician in the world has solved them yet!",
+    "points": [
+     "Numbers carry information, make patterns, help us estimate and power many puzzles and games.",
+     "A clear list of steps for a task, like Kaprekar's routine or the Collatz rule, is called a procedure (an algorithm). Thinking in such steps is called computational thinking.",
+     "Computers follow procedures exactly, so writing good step-by-step rules is how we tell computers what to do.",
+     "Some easy-to-say number problems are still unsolved. Nobody has proved that every number reaches 1 in the Collatz game."
+    ],
+    "example": {
+     "q": "Write a step-by-step procedure for finding the digit sum of any number.",
+     "steps": [
+      "Step 1: Write down the number.",
+      "Step 2: Take its digits one by one.",
+      "Step 3: Add them together.",
+      "Step 4: The total is the digit sum."
+     ],
+     "answer": "A 4-step procedure"
+    },
+    "reallife": "Recipes, the steps to withdraw money from an ATM and directions to a friend's house are all procedures."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Name the idea",
+     "pairs": [
+      [
+       "Kaprekar's routine",
+       "A step-by-step procedure"
+      ],
+      [
+       "Collatz conjecture",
+       "An unsolved problem"
+      ],
+      [
+       "A mela crowd of about 2000",
+       "An estimate"
+      ],
+      [
+       "Train number 12627",
+       "A label"
+      ],
+      [
+       "Game of 21",
+       "A strategy game"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Big ideas",
+     "items": [
+      [
+       "A procedure is a clear list of steps.",
+       true,
+       "Each step says exactly what to do."
+      ],
+      [
+       "Every easy-to-say maths question has been solved.",
+       false,
+       "The Collatz conjecture is still open."
+      ],
+      [
+       "Computational thinking means breaking a task into exact steps.",
+       true,
+       "Like a recipe for solving."
+      ],
+      [
+       "Numbers are only used for counting.",
+       false,
+       "They also measure, label, compare and more."
+      ],
+      [
+       "A recipe is an example of a procedure.",
+       true,
+       "It lists steps in order."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is computational thinking?",
+     "options": [
+      "Solving tasks with clear step-by-step procedures",
+      "Using a calculator for everything",
+      "Guessing quickly",
+      "Writing big numbers"
+     ],
+     "answer": 0,
+     "explain": "It means planning exact steps that can be followed, by a person or a computer.",
+     "mistake": "Thinks it just means using computers"
+    },
+    {
+     "q": "Which of these is still an unsolved problem?",
+     "options": [
+      "Whether every 4-digit number reaches 6174",
+      "Whether every starting number reaches 1 in the Collatz game",
+      "Whether 2 + 2 = 4",
+      "Whether 6174 is even"
+     ],
+     "answer": 1,
+     "explain": "Nobody has proved the Collatz conjecture, though it works for every number tested.",
+     "mistake": "Confuses Kaprekar's result with Collatz"
+    },
+    {
+     "q": "Which is a procedure?",
+     "options": [
+      "'I like 7'",
+      "'Numbers are fun'",
+      "'Arrange digits largest-first and smallest-first, subtract, repeat'",
+      "'Maths is old'"
+     ],
+     "answer": 2,
+     "explain": "It is a clear list of steps, like Kaprekar's routine.",
+     "mistake": "Picks a statement instead of a list of steps"
+    },
+    {
+     "q": "Why must a procedure for a computer be very exact?",
+     "options": [
+      "Computers guess what you mean",
+      "It does not need to be exact",
+      "Computers skip steps",
+      "Computers follow each step exactly as written"
+     ],
+     "answer": 3,
+     "explain": "A computer cannot guess. Every step must be clear.",
+     "mistake": "Thinks computers understand intent"
+    },
+    {
+     "q": "In this chapter, numbers helped us do all of these EXCEPT…",
+     "options": [
+      "change the weather",
+      "estimate crowds",
+      "win games like 21",
+      "make patterns like palindromes"
+     ],
+     "answer": 0,
+     "explain": "Numbers help with patterns, estimates and games, but they don't change the weather.",
+     "mistake": "Thinks maths can do anything"
+    },
+    {
+     "q": "A friend says the Collatz rule works for every number because it worked for 1 to 100. Is that a proof?",
+     "options": [
+      "Yes",
+      "No, checking many examples is not a proof for all numbers",
+      "Yes, 100 is enough",
+      "Only if done twice"
+     ],
+     "answer": 1,
+     "explain": "Examples suggest a pattern, but a proof must explain why it always works.",
+     "mistake": "Thinks many examples prove a rule"
+    },
+    {
+     "q": "How many steps are in this procedure: 'Pick a number. Double it. Add 6. Halve it. Subtract the number you picked.'?",
+     "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "Pick, double, add 6, halve, subtract: 5 steps.",
+     "mistake": "Miscounts the steps",
+     "check": "5"
+    },
+    {
+     "q": "Follow the procedure: pick 8, double it, add 6, halve it, subtract 8. What do you get?",
+     "options": [
+      "11",
+      "8",
+      "6",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "8 → 16 → 22 → 11 → 11 − 8 = 3. You always get 3!",
+     "steps": [
+      "8 × 2 = 16",
+      "16 + 6 = 22",
+      "22 ÷ 2 = 11",
+      "11 − 8 = 3"
+     ],
+     "mistake": "Makes a slip in one step",
+     "check": "(8*2+6)/2-8"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What does computational thinking mean?'",
+    "must": [
+     [
+      "step",
+      "steps"
+     ],
+     [
+      "procedure",
+      "algorithm",
+      "order",
+      "instructions"
+     ],
+     [
+      "exact",
+      "clear"
+     ]
+    ],
+    "praise": "Tweet! Breaking a job into clear steps that anyone (or any computer) can follow!",
+    "nudge": "How should the instructions be written?"
    }
   }
  ]
