@@ -1,0 +1,102 @@
+{"n": 1, "title": "A Square and A Cube", "emoji": "🧊",
+"topics": [
+{"id": "g8-maths-01-01", "title": "Square numbers and their patterns",
+ "learn": {
+  "hook": "A school has 100 lockers and 100 students. Student 1 opens every locker, student 2 flips every 2nd locker, student 3 flips every 3rd... At the end only a few lockers are open. Which ones? The square numbers!",
+  "points": [
+   "A square number is a whole number multiplied by itself: 1, 4, 9, 16, 25, 36, ... We write 7 × 7 as 7² and read it as '7 squared'.",
+   "A square number can only end in 0, 1, 4, 5, 6 or 9. So a number ending in 2, 3, 7 or 8 is never a perfect square.",
+   "Adding odd numbers from 1 builds squares: 1 + 3 + 5 + 7 = 16 = 4². The sum of the first n odd numbers is n².",
+   "Between n² and (n + 1)² there are exactly 2n numbers that are not squares.",
+   "Factors come in pairs (2 × 18 = 36). In a square number one pair is a number with itself (6 × 6), so a square number has an odd count of factors. That is why only square-numbered lockers stay open!"
+  ],
+  "example": {"q": "How many non-square numbers lie between 9² and 10²?", "steps": ["9² = 81 and 10² = 100", "The numbers in between are 82, 83, ..., 99", "Count them: 99 − 82 + 1 = 18", "Check with the rule: 2 × 9 = 18"], "answer": "18"},
+  "reallife": "A chessboard has 8 × 8 = 64 small squares. Square floor tiles, rangoli dot grids and seating in a square hall all use square numbers."
+ },
+ "games": [
+  {"type": "match", "title": "Number and its square", "pairs": [["11", "121"], ["13", "169"], ["15", "225"], ["20", "400"], ["25", "625"]]},
+  {"type": "sort", "title": "Perfect square or not?", "buckets": ["Perfect square", "Not a perfect square"], "items": [["529", 0], ["841", 0], ["10000", 0], ["438", 1], ["1297", 1], ["6252", 1], ["1000", 1]]}
+ ],
+ "quiz": [
+  {"q": "Which of these is a perfect square?", "options": ["324", "328", "322", "327"], "answer": 0, "explain": "18 × 18 = 324. The others end in 8, 2 and 7, and squares never end in those digits.", "steps": ["Squares cannot end in 2, 3, 7 or 8", "Only 324 is left", "18 × 18 = 324"], "mistake": "Does not use the last-digit rule for squares", "check": "18*18"},
+  {"q": "What is 1 + 3 + 5 + ... + 19 (the first 10 odd numbers)?", "options": ["81", "110", "100", "190"], "answer": 2, "explain": "The sum of the first n odd numbers is n². Here n = 10, so the sum is 10² = 100.", "steps": ["Odd numbers from 1 to 19: there are 10 of them", "Sum = 10² = 100"], "mistake": "Counts only 9 odd numbers, or multiplies 10 by 19", "check": "10*10"},
+  {"q": "How many non-square numbers are there between 15² and 16²?", "options": ["30", "31", "15", "32"], "answer": 0, "explain": "Between n² and (n + 1)² there are 2n non-square numbers. 2 × 15 = 30 (they are 226 to 255).", "steps": ["15² = 225, 16² = 256", "Numbers in between: 226 to 255", "255 − 226 + 1 = 30 = 2 × 15"], "mistake": "Includes one of the end squares in the count", "check": "2*15"},
+  {"q": "Meena arranges 36 laddoos in a square tray with equal rows and columns. How many laddoos are in each row?", "options": ["9", "6", "18", "12"], "answer": 1, "explain": "A square arrangement needs rows = columns. 6 × 6 = 36, so each row has 6 laddoos.", "steps": ["Find a number that times itself makes 36", "6 × 6 = 36"], "mistake": "Halves 36 instead of finding its square root", "check": "6", "visual": {"kind": "count", "emoji": "🟡", "n": 36, "groups": 6}},
+  {"q": "A perfect square can NEVER end in which digit?", "options": ["1", "6", "7", "9"], "answer": 2, "explain": "Squares end only in 0, 1, 4, 5, 6 or 9. For example 1² = 1, 4² = 16, 3² = 9. No square ends in 7.", "mistake": "Thinks 6 or 9 cannot be the last digit of a square", "check": "7"},
+  {"q": "What is (0.3)²?", "options": ["0.09", "0.9", "0.6", "0.03"], "answer": 0, "explain": "0.3 × 0.3 = 0.09. Squaring means multiplying the number by itself, not doubling it.", "steps": ["3 × 3 = 9", "One decimal place + one decimal place = two decimal places", "0.3 × 0.3 = 0.09"], "mistake": "Doubles the number or puts the decimal point in the wrong place", "check": "0.3*0.3"},
+  {"q": "How many factors does 49 have?", "options": ["2", "3", "4", "7"], "answer": 1, "explain": "The factors of 49 are 1, 7 and 49. The pair 7 × 7 gives only one factor, so the count is odd: 3.", "steps": ["1 × 49 = 49", "7 × 7 = 49", "Factors: 1, 7, 49 → 3 factors"], "mistake": "Counts 7 twice, or forgets it", "check": "3", "visual": {"kind": "count", "emoji": "🔑", "n": 3}},
+  {"q": "In the locker game with 50 lockers and 50 students, how many lockers stay open at the end?", "options": ["5", "25", "7", "10"], "answer": 2, "explain": "Only lockers with square numbers stay open: 1, 4, 9, 16, 25, 36, 49. That is 7 lockers.", "steps": ["Square numbers up to 50: 1, 4, 9, 16, 25, 36, 49", "Count them: 7"], "mistake": "Thinks half the lockers stay open", "check": "7"}
+ ],
+ "teach": {"ask": "Gappu flaps: Why does a square number like 36 have an odd number of factors? Explain it to me!", "must": [["pair", "pairs", "partner", "two by two"], ["itself", "same number", "6 × 6", "6 x 6", "6*6", "repeat", "repeats"], ["odd"]], "praise": "Wow! Factors make pairs, but the square root pairs with itself, so one is left over. Odd! I get it now!", "nudge": "But how do factors usually come — alone or in pairs? And what happens with 6 × 6?"}
+},
+{"id": "g8-maths-01-02", "title": "Square roots",
+ "learn": {
+  "hook": "Arjun's square garden has an area of 196 m². How long is each side? Finding a square root is like running the squaring machine backwards!",
+  "points": [
+   "The square root is the opposite of squaring: √81 = 9 because 9² = 81.",
+   "Prime factor method: write the number as primes, make pairs of equal primes, and take one prime from each pair. 324 = (2 × 2) × (3 × 3) × (3 × 3), so √324 = 2 × 3 × 3 = 18.",
+   "Subtraction trick: keep subtracting 1, 3, 5, 7, ... If you reach 0 after n steps, the number is n².",
+   "If a prime has no partner, multiply (or divide) by it to get a perfect square.",
+   "Estimating: √50 is between 7 and 8 because 49 < 50 < 64, and it is closer to 7."
+  ],
+  "example": {"q": "Find the smallest number by which 72 must be multiplied to get a perfect square.", "steps": ["72 = 2 × 2 × 2 × 3 × 3", "Pairs: (2 × 2), (3 × 3); one 2 is left alone", "Multiply by 2: 72 × 2 = 144", "144 = 12², a perfect square"], "answer": "2 (giving 144 = 12²)"},
+  "reallife": "When a carpenter knows a square tabletop's area and needs the side, or when you plan a square rangoli of 400 dots, you use square roots."
+ },
+ "games": [
+  {"type": "fill", "title": "Root it out", "items": [
+   {"text": "√169 = ___", "answer": "13", "options": ["13", "14", "84.5"]},
+   {"text": "√2500 = ___", "answer": "50", "options": ["50", "25", "500"]},
+   {"text": "√___ = 15", "answer": "225", "options": ["225", "30", "150"]},
+   {"text": "√0.49 = ___", "answer": "0.7", "options": ["0.7", "0.07", "7"]}
+  ]},
+  {"type": "order", "title": "Line them up", "prompt": "Smallest to largest", "items": ["√16", "5", "√30", "6", "√49"]}
+ ],
+ "quiz": [
+  {"q": "What is √576?", "options": ["24", "26", "34", "288"], "answer": 0, "explain": "576 = 2⁶ × 3². Taking one from each pair gives 2 × 2 × 2 × 3 = 24, and 24 × 24 = 576.", "steps": ["576 = (2×2) × (2×2) × (2×2) × (3×3)", "One from each pair: 2 × 2 × 2 × 3 = 24"], "mistake": "Halves the number instead of taking the square root", "check": "24"},
+  {"q": "What is the smallest number by which 180 must be multiplied to get a perfect square?", "options": ["2", "3", "10", "5"], "answer": 3, "explain": "180 = (2 × 2) × (3 × 3) × 5. Only 5 has no partner, so multiply by 5: 180 × 5 = 900 = 30².", "steps": ["180 = 2 × 2 × 3 × 3 × 5", "5 is unpaired", "180 × 5 = 900 = 30²"], "mistake": "Picks a prime that is already in a pair", "check": "5"},
+  {"q": "By which smallest number should 252 be divided to get a perfect square?", "options": ["3", "7", "2", "9"], "answer": 1, "explain": "252 = (2 × 2) × (3 × 3) × 7. Dividing out the lonely 7 leaves 36 = 6².", "steps": ["252 = 2 × 2 × 3 × 3 × 7", "Remove the unpaired 7", "252 ÷ 7 = 36 = 6²"], "mistake": "Divides by a prime that is already paired", "check": "7"},
+  {"q": "Harpreet subtracts 1, 3, 5, 7, ... from 64, one after another. After how many subtractions does she reach 0?", "options": ["8", "32", "7", "16"], "answer": 0, "explain": "64 = 8², and n² is the sum of the first n odd numbers, so it takes 8 subtractions.", "steps": ["64 − 1 − 3 − 5 − 7 − 9 − 11 − 13 − 15 = 0", "That is 8 subtractions"], "mistake": "Halves 64 instead of using square roots", "check": "8"},
+  {"q": "Between which two whole numbers does √70 lie?", "options": ["8 and 9", "7 and 8", "9 and 10", "6 and 7"], "answer": 0, "explain": "8² = 64 and 9² = 81. Since 64 < 70 < 81, √70 is between 8 and 9.", "steps": ["8² = 64", "9² = 81", "64 < 70 < 81"], "mistake": "Thinks √70 is about 70 ÷ 10 = 7", "visual": {"kind": "numberline", "from": 60, "to": 85, "marks": [64, 70, 81]}},
+  {"q": "Arjun's square garden has an area of 196 m². How long is one side?", "options": ["49 m", "98 m", "14 m", "16 m"], "answer": 2, "explain": "Area of a square = side × side. 14 × 14 = 196, so the side is 14 m.", "steps": ["side × side = 196", "14 × 14 = 196", "side = 14 m"], "mistake": "Divides the area by 4 or by 2 instead of taking the square root", "check": "14", "visual": {"kind": "shape", "name": "square"}},
+  {"q": "What is √(4/9)?", "options": ["2/3", "4/3", "2/9", "16/81"], "answer": 0, "explain": "Take the square root of the top and the bottom: √4 = 2 and √9 = 3, so the answer is 2/3. Check: (2/3)² = 4/9.", "steps": ["√4 = 2", "√9 = 3", "√(4/9) = 2/3"], "mistake": "Takes the root of only the top or only the bottom", "check": "Fraction(2,3)", "visual": {"kind": "fraction", "num": 2, "den": 3}},
+  {"q": "What is √1.44?", "options": ["0.12", "12", "0.72", "1.2"], "answer": 3, "explain": "1.2 × 1.2 = 1.44. A number with 2 decimal places has a square root with 1 decimal place.", "steps": ["√144 = 12", "1.44 has 2 decimal places, so the root has 1", "√1.44 = 1.2"], "mistake": "Halves 1.44 or misplaces the decimal point", "check": "1.2"}
+ ],
+ "teach": {"ask": "Gappu tilts his head: How do I find √144 using prime factors? Please show me the trick!", "must": [["pair", "pairs", "group of two", "twos"], ["prime", "factor", "factors"], ["one from each", "take one", "multiply", "one of each"]], "praise": "Pairs of primes, one from each pair, multiply! √144 = 12. You are a great teacher!", "nudge": "After breaking 144 into primes, how do you group them? And what do you take from each group?"}
+},
+{"id": "g8-maths-01-03", "title": "Cubes, cube roots and the taxi number",
+ "learn": {
+  "hook": "When the great mathematician Ramanujan was told a taxi's number, 1729, looked boring, he smiled: it is the smallest number that is a sum of two cubes in two different ways!",
+  "points": [
+   "A cube number is a number multiplied by itself three times: 4³ = 4 × 4 × 4 = 64. A big cube with side 4 is built from 64 small unit cubes.",
+   "The first ten cubes: 1, 8, 27, 64, 125, 216, 343, 512, 729, 1000.",
+   "Cube root is the reverse: ∛343 = 7. With prime factors, make groups of three equal primes and take one from each group.",
+   "Odd numbers make cubes too: 1 = 1³, 3 + 5 = 2³, 7 + 9 + 11 = 3³, 13 + 15 + 17 + 19 = 4³.",
+   "1729 = 1³ + 12³ = 9³ + 10³. It is called the Hardy–Ramanujan number."
+  ],
+  "example": {"q": "Is 1728 a perfect cube? If yes, find ∛1728.", "steps": ["1728 = 2 × 2 × 2 × 2 × 2 × 2 × 3 × 3 × 3", "Groups of three: (2×2×2), (2×2×2), (3×3×3) — nothing left over", "Take one from each group: 2 × 2 × 3 = 12"], "answer": "Yes, ∛1728 = 12"},
+  "reallife": "Ice cubes, dice and Rubik's cubes are cubes. A 3 × 3 × 3 Rubik's cube looks like 27 small cubes stacked together."
+ },
+ "games": [
+  {"type": "match", "title": "Cube connections", "pairs": [["2³", "8"], ["5³", "125"], ["∛729", "9"], ["∛1000", "10"], ["6³", "216"]]},
+  {"type": "truefalse", "title": "Cube facts", "items": [
+   ["The cube of an odd number is always odd.", true, "odd × odd × odd is always odd, e.g. 3³ = 27."],
+   ["Every cube number ends in 0, 1, 5 or 6.", false, "2³ = 8 ends in 8 and 3³ = 27 ends in 7."],
+   ["Every number ending in 3 has a cube ending in 7.", true, "The last digit of the cube depends only on the last digit: 3 × 3 × 3 = 27, so it ends in 7."],
+   ["(−2)³ = −8", true, "(−2) × (−2) × (−2) = 4 × (−2) = −8."],
+   ["1729 can be written as a sum of two cubes in two different ways.", true, "1729 = 1³ + 12³ = 9³ + 10³."],
+   ["A solid cube of side 3 units is made of 9 unit cubes.", false, "It needs 3 × 3 × 3 = 27 unit cubes; 9 is just one layer."]
+  ]}
+ ],
+ "quiz": [
+  {"q": "What is ∛512?", "options": ["16", "8", "9", "256"], "answer": 1, "explain": "8 × 8 × 8 = 64 × 8 = 512, so ∛512 = 8.", "steps": ["512 = 2⁹", "Three groups of (2 × 2 × 2)", "∛512 = 2 × 2 × 2 = 8"], "mistake": "Halves the number, or confuses cube root with square root", "check": "8"},
+  {"q": "Joseph builds a solid cube that is 5 blocks long, 5 blocks wide and 5 blocks tall. How many blocks does he use?", "options": ["125", "25", "15", "75"], "answer": 0, "explain": "A solid cube of side 5 needs 5 × 5 × 5 = 125 blocks: 5 layers of 25.", "steps": ["One layer: 5 × 5 = 25 blocks", "5 layers: 25 × 5 = 125"], "mistake": "Counts only one layer (25) or adds 5 + 5 + 5", "check": "5**3", "visual": {"kind": "shape", "name": "cube"}},
+  {"q": "What is the smallest number by which 72 must be multiplied to get a perfect cube?", "options": ["2", "9", "3", "6"], "answer": 2, "explain": "72 = (2 × 2 × 2) × 3 × 3. The 3s need one more to make a group of three, so multiply by 3: 72 × 3 = 216 = 6³.", "steps": ["72 = 2 × 2 × 2 × 3 × 3", "Group of 2s is complete; 3s have only two", "72 × 3 = 216 = 6³"], "mistake": "Uses the pairing rule for squares instead of groups of three", "check": "3"},
+  {"q": "Which of these is a perfect cube?", "options": ["243", "441", "144", "343"], "answer": 3, "explain": "343 = 7 × 7 × 7. 243 = 3⁵, 441 = 21² and 144 = 12² are not cubes.", "steps": ["7 × 7 = 49", "49 × 7 = 343"], "mistake": "Confuses perfect squares like 144 or 441 with perfect cubes", "check": "7**3"},
+  {"q": "4³ = 64 is the sum of which consecutive odd numbers?", "options": ["13 + 15 + 17 + 19", "7 + 9 + 11", "15 + 17 + 19 + 21", "1 + 3 + 5 + 7"], "answer": 0, "explain": "13 + 15 + 17 + 19 = 64. In the pattern, row 4 has four odd numbers starting right after 11.", "steps": ["Row 1: 1, row 2: 3 + 5, row 3: 7 + 9 + 11", "Row 4 starts at 13: 13 + 15 + 17 + 19 = 64"], "mistake": "Mixes up the cube pattern with the square pattern (1 + 3 + 5 + 7 = 16)"},
+  {"q": "What is the last digit of 7³?", "options": ["9", "3", "1", "7"], "answer": 1, "explain": "7³ = 343, which ends in 3. Quick way: 7 × 7 = 49 (ends in 9), 9 × 7 = 63 (ends in 3).", "steps": ["7 × 7 = 49", "49 × 7 = 343", "Last digit: 3"], "mistake": "Thinks a cube ends in the same digit as the number", "check": "3"},
+  {"q": "What is ∛(−27)?", "options": ["3", "−9", "−3", "9"], "answer": 2, "explain": "(−3) × (−3) × (−3) = 9 × (−3) = −27. The cube root of a negative number is negative.", "steps": ["(−3) × (−3) = 9", "9 × (−3) = −27"], "mistake": "Thinks a cube root can never be negative", "check": "-3"},
+  {"q": "1729 = 9³ + 10³. Which other pair of cubes also adds up to 1729?", "options": ["2³ + 11³", "1³ + 12³", "3³ + 12³", "6³ + 11³"], "answer": 1, "explain": "1³ + 12³ = 1 + 1728 = 1729. This is why 1729 is called the taxicab (Hardy–Ramanujan) number.", "steps": ["12³ = 1728", "1 + 1728 = 1729"], "mistake": "Guesses without computing the cubes (2³ + 11³ = 1339)"}
+ ],
+ "teach": {"ask": "Gappu is puzzled: How do I find a cube root like ∛216 with prime factors? Is it the same as square roots?", "must": [["three", "triple", "groups of three", "3"], ["prime", "factor", "factors"], ["one from each", "take one", "multiply", "one of each"]], "praise": "Groups of three instead of pairs! 216 = (2×2×2)(3×3×3), so ∛216 = 6. Brilliant!", "nudge": "For square roots we made pairs. How big should the groups be for cube roots?"}
+}
+]}

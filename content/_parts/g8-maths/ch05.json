@@ -1,0 +1,110 @@
+{"n": 5, "title": "Number Play", "emoji": "🧩",
+"topics": [
+{"id": "g8-maths-05-01", "title": "Divisibility by 2, 4, 5, 8 and 10",
+ "learn": {
+  "hook": "Can you tell whether 7,35,816 is divisible by 8 without dividing at all? Just peek at the last three digits!",
+  "points": [
+   "A number is divisible by 2 if its last digit is even, by 5 if it ends in 0 or 5, and by 10 if it ends in 0.",
+   "Divisible by 4: check the number made by the last two digits. This works because 100 is a multiple of 4.",
+   "Divisible by 8: check the number made by the last three digits. This works because 1000 = 8 × 125.",
+   "A number divisible by 8 is also divisible by 4 and 2, but a number divisible by 4 need not be divisible by 8 (like 12).",
+   "The remainder on dividing by 4 is the same as the remainder for the last two digits: 9,147 → 47 → remainder 3."
+  ],
+  "example": {"q": "Is 73,512 divisible by 8? Is it divisible by 4?", "steps": ["Last three digits: 512", "512 = 8 × 64, so 73,512 is divisible by 8", "Every multiple of 8 is a multiple of 4", "Check: last two digits 12 = 4 × 3"], "answer": "Yes, it is divisible by both 8 and 4"},
+  "reallife": "Leap years use the rule for 4: the year 2028 is a leap year because 28 is divisible by 4."
+ },
+ "games": [
+  {"type": "sort", "title": "The rule of 4", "buckets": ["Divisible by 4", "Not divisible by 4"], "items": [["1316", 0], ["2738", 1], ["5500", 0], ["9102", 1], ["4724", 0], ["6150", 1], ["8888", 0], ["7110", 1]]},
+  {"type": "truefalse", "title": "Divisibility detective", "items": [
+   ["If a number is divisible by 4, it is divisible by 8.", false, "12 is divisible by 4 but not by 8."],
+   ["If a number is divisible by 8, it is divisible by 4.", true, "8 = 4 × 2, so every multiple of 8 is a multiple of 4."],
+   ["2,46,000 is divisible by 8.", true, "Its last three digits are 000, and 0 is divisible by 8."],
+   ["A number ending in 5 can be even.", false, "Even numbers end in 0, 2, 4, 6 or 8."],
+   ["3,130 is divisible by 4.", false, "The last two digits make 30, and 30 is not a multiple of 4."],
+   ["Every number divisible by 10 is divisible by both 2 and 5.", true, "10 = 2 × 5, so any multiple of 10 is a multiple of 2 and of 5."]
+  ]}
+ ],
+ "quiz": [
+  {"q": "Which of these numbers is divisible by 4?", "options": ["5,318", "4,422", "7,236", "9,610"], "answer": 2, "explain": "Look at the last two digits: 18, 22, 36 and 10. Only 36 is a multiple of 4 (4 × 9), so 7,236 is divisible by 4.", "steps": ["Last two digits: 18, 22, 36, 10", "36 = 4 × 9", "7,236 = 4 × 1809"], "mistake": "Thinks every even number is divisible by 4", "check": "4*1809"},
+  {"q": "What is the smallest digit that can fill the blank in 52_4 to make it divisible by 8?", "options": ["0", "2", "4", "6"], "answer": 1, "explain": "Check the last three digits 2_4. 204 and 214 are not multiples of 8, but 224 = 8 × 28. So the smallest digit is 2.", "steps": ["204 ÷ 8 = 25.5 (no)", "214 ÷ 8 = 26.75 (no)", "224 ÷ 8 = 28 (yes)"], "mistake": "Picks 0 without checking, or looks only at the last two digits", "check": "2"},
+  {"q": "Kabir checks whether 1,236 is divisible by 4. Which reasoning is correct?", "options": ["No, because 6 is not divisible by 4", "Yes, because its last two digits make 36, which is divisible by 4", "No, because 1,236 is odd", "Yes, because its digits add up to 12"], "answer": 1, "explain": "The test for 4 uses the number made by the last two digits. 36 = 4 × 9, so 1,236 is divisible by 4.", "mistake": "Uses only the last digit, or uses the digit-sum test that belongs to 3 and 9"},
+  {"q": "How many numbers from 1 to 100 are divisible by 4?", "options": ["24", "4", "25", "50"], "answer": 2, "explain": "The multiples of 4 up to 100 are 4, 8, ..., 100. That is 100 ÷ 4 = 25 numbers.", "steps": ["Largest multiple of 4 up to 100 is 100 = 4 × 25", "So there are 25 multiples"], "mistake": "Leaves out 100 itself, or counts even numbers instead", "check": "100/4"},
+  {"q": "Which of these numbers is divisible by 8?", "options": ["3,108", "7,324", "2,220", "5,416"], "answer": 3, "explain": "Check the last three digits: 108, 324, 220 and 416. Only 416 = 8 × 52 is a multiple of 8.", "steps": ["416 ÷ 8 = 52", "So 5,416 = 8 × 677"], "mistake": "Checks only the last two digits, which is the test for 4", "check": "8*677"},
+  {"q": "Why does the test for 4 only look at the last two digits?", "options": ["Because 100 is a multiple of 4, so the hundreds and higher places never leave a remainder", "Because 4 is an even number", "Because the last two digits are always the largest", "It is just a rule with no reason"], "answer": 0, "explain": "Any number = (hundreds part) + (last two digits). The hundreds part is a multiple of 100 = 4 × 25, so only the last two digits decide.", "mistake": "Believes divisibility rules are magic instead of place value"},
+  {"q": "Riya's number is divisible by both 2 and 5. What must its last digit be?", "options": ["5", "0", "2", "8"], "answer": 1, "explain": "Divisible by 5 means it ends in 0 or 5. Divisible by 2 means it is even. Only 0 does both.", "mistake": "Picks 5, forgetting the number must also be even", "check": "0"},
+  {"q": "What is the remainder when 9,147 is divided by 4?", "options": ["1", "3", "7", "0"], "answer": 1, "explain": "The remainder is the same as for the last two digits, 47. 47 = 4 × 11 + 3, so the remainder is 3.", "steps": ["Last two digits: 47", "44 is a multiple of 4", "47 − 44 = 3"], "mistake": "Uses only the last digit (7) as the remainder", "check": "47-44"}
+ ],
+ "teach": {"ask": "Gappu asks: How can I check if 5,732 is divisible by 4 without long division?", "must": [["last two digits", "last two", "32"], ["divisible", "multiple", "4 × 8", "goes into"], ["100", "hundred"]], "praise": "The last two digits make 32 = 4 × 8, and 100 is a multiple of 4 anyway. So yes! Easy peasy!", "nudge": "Which part of the number do you need to look at for 4? Why can we ignore the rest?"}
+},
+{"id": "g8-maths-05-02", "title": "Digit sums: divisibility by 3, 9 and 11",
+ "learn": {
+  "hook": "Add the digits of 61,875: 6 + 1 + 8 + 7 + 5 = 27. Because 27 is a multiple of 9, so is 61,875. Magic? No, place value!",
+  "points": [
+   "A number is divisible by 3 if its digit sum is divisible by 3, and divisible by 9 if its digit sum is divisible by 9.",
+   "Why it works: 10 = 9 + 1, 100 = 99 + 1, 1000 = 999 + 1. So a number and its digit sum leave the same remainder when divided by 9 (or by 3).",
+   "Digital root: keep adding the digits until one digit is left. For 9,875: 29 → 11 → 2, so 9,875 leaves remainder 2 when divided by 9.",
+   "Divisible by 6: the number must be divisible by both 2 and 3.",
+   "Divisible by 11: starting from the right, subtract and add the digits in turn. If the result is 0 or a multiple of 11, so is the number."
+  ],
+  "example": {"q": "Is 61,875 divisible by 9? Is it divisible by 6?", "steps": ["Digit sum: 6 + 1 + 8 + 7 + 5 = 27", "27 = 9 × 3, so 61,875 is divisible by 9 (61,875 = 9 × 6,875)", "61,875 is odd, so it is not divisible by 2", "So it is not divisible by 6"], "answer": "Divisible by 9, but not by 6"},
+  "reallife": "Shopkeepers use digit sums to quickly check bills: if the digital roots do not match, there is a mistake somewhere."
+ },
+ "games": [
+  {"type": "match", "title": "Number and its digit sum", "pairs": [["4,572", "18"], ["999", "27"], ["1,203", "6"], ["80,001", "9"], ["7,777", "28"]]},
+  {"type": "fill", "title": "Missing digits", "items": [
+   {"text": "5_1 is divisible by 9. The missing digit is ___", "answer": "3", "options": ["3", "4", "6"]},
+   {"text": "The digital root of 9,875 is ___", "answer": "2", "options": ["2", "11", "29"]},
+   {"text": "A number is divisible by 6 if it is divisible by 2 and by ___", "answer": "3", "options": ["3", "4", "6"]},
+   {"text": "Test for 11 on 8,294: 4 − 9 + 2 − 8 = ___", "answer": "−11", "options": ["−11", "11", "0"]}
+  ]}
+ ],
+ "quiz": [
+  {"q": "Which of these numbers is divisible by 9?", "options": ["6,103", "4,518", "2,222", "5,141"], "answer": 1, "explain": "Digit sums: 6,103 → 10, 4,518 → 18, 2,222 → 8, 5,141 → 11. Only 18 is a multiple of 9.", "steps": ["4 + 5 + 1 + 8 = 18", "18 = 9 × 2", "4,518 = 9 × 502"], "mistake": "Thinks a number ending in 8 or 9 must be divisible by 9", "check": "9*502"},
+  {"q": "What is the digital root of 58,463?", "options": ["26", "6", "8", "2"], "answer": 2, "explain": "5 + 8 + 4 + 6 + 3 = 26, and 2 + 6 = 8. The digital root is 8.", "steps": ["5 + 8 + 4 + 6 + 3 = 26", "2 + 6 = 8"], "mistake": "Stops after the first digit sum (26)", "check": "8"},
+  {"q": "What is the remainder when 1,234 is divided by 9?", "options": ["4", "1", "10", "0"], "answer": 1, "explain": "The digit sum is 1 + 2 + 3 + 4 = 10, and 10 leaves remainder 1 when divided by 9. Check: 9 × 137 = 1233, and 1234 − 1233 = 1.", "steps": ["Digit sum = 10", "10 = 9 + 1", "Remainder = 1"], "mistake": "Uses the last digit as the remainder", "check": "1234-9*137"},
+  {"q": "Which of these numbers is divisible by 11?", "options": ["4,321", "3,425", "8,103", "9,152"], "answer": 3, "explain": "For 9,152, from the right: 2 − 5 + 1 − 9 = −11, a multiple of 11. Indeed 9,152 = 11 × 832.", "steps": ["Digits from the right: 2, 5, 1, 9", "2 − 5 + 1 − 9 = −11", "−11 is a multiple of 11"], "mistake": "Adds all the digits, which is the test for 3 and 9", "check": "11*832"},
+  {"q": "Arjun wants 74_5 to be divisible by 3. Which of these digits can fill the blank?", "options": ["3", "4", "6", "2"], "answer": 3, "explain": "Digit sum = 7 + 4 + _ + 5 = 16 + _. With 2 it becomes 18, a multiple of 3. With 3, 4 or 6 it becomes 19, 20 or 22.", "steps": ["16 + 2 = 18 (multiple of 3)", "16 + 3 = 19, 16 + 4 = 20, 16 + 6 = 22 (not multiples)"], "mistake": "Forgets to include the fixed digits in the digit sum", "check": "2"},
+  {"q": "Is 2,346 divisible by 6?", "options": ["No, because its digit sum 15 is not divisible by 6", "Yes, because it is even and its digit sum 15 is divisible by 3", "Yes, only because its last digit is 6", "No, because it is not divisible by 3"], "answer": 1, "explain": "6 = 2 × 3. 2,346 is even, and 2 + 3 + 4 + 6 = 15 is divisible by 3, so 2,346 is divisible by 6 (2,346 = 6 × 391).", "mistake": "Thinks the digit sum must be divisible by 6"},
+  {"q": "Meena says: every number divisible by 3 is also divisible by 9. Which number proves her wrong?", "options": ["18", "27", "12", "81"], "answer": 2, "explain": "12 = 3 × 4 is divisible by 3, but 12 ÷ 9 is not a whole number. The other three are all multiples of 9.", "mistake": "Picks a multiple of 9, which agrees with Meena instead of proving her wrong", "check": "3*4"},
+  {"q": "Why does the digit-sum test work for 9?", "options": ["Because 9 is the largest digit", "Because 9 is an odd number", "Because 10, 100, 1000, ... are each 1 more than a multiple of 9", "Because 3 × 3 = 9"], "answer": 2, "explain": "Each 1 ten, 1 hundred or 1 thousand is a multiple of 9 plus 1. So each digit adds just itself to the remainder, and the digit sum gives the same remainder.", "mistake": "Links the rule to 9 being a big digit instead of to place value"}
+ ],
+ "teach": {"ask": "Gappu asks: How can I find out whether 4,518 is divisible by 9 without dividing?", "must": [["add", "sum", "digit sum", "adding the digits"], ["digits", "digit"], ["9", "nine", "multiple"]], "praise": "Add the digits: 4 + 5 + 1 + 8 = 18, a multiple of 9, so 4,518 is too. That is a cool shortcut!", "nudge": "What should you do with the digits 4, 5, 1 and 8? Then what do you check?"}
+},
+{"id": "g8-maths-05-03", "title": "Number puzzles and patterns",
+ "learn": {
+  "hook": "Pick any 2-digit number, reverse its digits and subtract the smaller from the larger. Your friend can bet the answer is in the 9 times table, every single time!",
+  "points": [
+   "Parity means odd or even. Even + even = even, odd + odd = even, odd + even = odd, odd × odd = odd.",
+   "The sum of any 3 consecutive numbers is 3 times the middle one: (n − 1) + n + (n + 1) = 3n.",
+   "Triangular numbers 1, 3, 6, 10, 15, ... are sums 1 + 2 + ... + n, and equal n(n + 1) ÷ 2.",
+   "The reverse-and-subtract trick: (10a + b) − (10b + a) = 9(a − b), so the answer is always a multiple of 9.",
+   "In a cryptarithm, letters stand for digits. Use carries, last digits and parity to crack it."
+  ],
+  "example": {"q": "In the puzzle A + A + A = BA, each letter is a different digit. Find A and B.", "steps": ["3 × A ends in the digit A, so 2 × A must end in 0", "So A is 0 or 5", "A = 0 gives 0 + 0 + 0 = 0, which is not a 2-digit number", "A = 5: 5 + 5 + 5 = 15, so B = 1"], "answer": "A = 5, B = 1"},
+  "reallife": "Puzzle pages in newspapers, Sudoku and magic tricks at a Diwali party all use these number patterns."
+ },
+ "games": [
+  {"type": "sort", "title": "Odd or even result?", "buckets": ["Always even", "Always odd"], "items": [["odd + odd", 0], ["even + even", 0], ["odd × odd", 1], ["even + odd", 1], ["even × odd", 0], ["odd + odd + odd", 1], ["sum of two consecutive numbers", 1], ["product of two consecutive numbers", 0]]},
+  {"type": "speed", "title": "Pattern sprint", "items": [
+   {"q": "1 + 2 + ... + 10", "a": "55", "check": "10*11/2"},
+   {"q": "1 + 2 + ... + 20", "a": "210", "check": "20*21/2"},
+   {"q": "3 consecutive numbers add to 45. Middle one?", "a": "15", "check": "45/3"},
+   {"q": "73 − 37", "a": "36", "check": "73-37"},
+   {"q": "91 − 19", "a": "72", "check": "91-19"},
+   {"q": "5th triangular number", "a": "15", "check": "5*6/2"},
+   {"q": "1 + 3 + 5 + 7 + 9", "a": "25", "check": "1+3+5+7+9"}
+  ]}
+ ],
+ "quiz": [
+  {"q": "Three consecutive numbers add up to 72. What is the largest of them?", "options": ["24", "23", "26", "25"], "answer": 3, "explain": "The sum is 3 times the middle number, so the middle is 72 ÷ 3 = 24. The numbers are 23, 24, 25, so the largest is 25.", "steps": ["Middle = 72 ÷ 3 = 24", "Numbers: 23, 24, 25", "Largest = 25"], "mistake": "Gives the middle number instead of the largest", "check": "72/3+1"},
+  {"q": "Is the sum of 13 odd numbers odd or even?", "options": ["Even", "Odd", "It depends on which odd numbers", "It is always zero"], "answer": 1, "explain": "Two odd numbers make an even sum. 13 odd numbers make 6 pairs (even) plus one odd number left over, so the total is odd.", "steps": ["6 pairs of odd numbers → even", "even + one odd = odd"], "mistake": "Thinks adding odd numbers always gives an even answer"},
+  {"q": "Harpreet adds all the numbers from 1 to 50. What total does she get?", "options": ["2550", "1275", "1250", "1300"], "answer": 1, "explain": "1 + 2 + ... + n = n(n + 1) ÷ 2. So 50 × 51 ÷ 2 = 1275.", "steps": ["Pair 1 + 50, 2 + 49, ...: each pair is 51", "There are 25 pairs", "25 × 51 = 1275"], "mistake": "Forgets to divide by 2 (gets 2550)", "check": "50*51/2"},
+  {"q": "Joseph takes any 2-digit number, reverses its digits and subtracts the smaller from the larger. The answer is always a multiple of which number?", "options": ["2", "9", "5", "4"], "answer": 1, "explain": "(10a + b) − (10b + a) = 9a − 9b = 9(a − b). For example, 41 − 14 = 27 = 9 × 3, which is not a multiple of 2, 4 or 5.", "steps": ["Number = 10a + b, reversed = 10b + a", "Difference = 9a − 9b = 9(a − b)"], "mistake": "Generalises from one example such as 82 − 28 = 54, which is also even", "check": "9"},
+  {"q": "In the sum 4A + A4 = 99, A stands for one digit. What is A?", "options": ["4", "9", "6", "5"], "answer": 3, "explain": "4A means 40 + A and A4 means 10A + 4. So 44 + 11A = 99, giving 11A = 55 and A = 5. Check: 45 + 54 = 99.", "steps": ["(40 + A) + (10A + 4) = 99", "44 + 11A = 99", "11A = 55", "A = 5"], "mistake": "Treats 4A as 4 × A instead of a 2-digit number", "check": "(99-44)/11"},
+  {"q": "Is (odd × even) + odd always odd or always even?", "options": ["Always even", "Always odd", "Sometimes odd, sometimes even"], "answer": 1, "explain": "Odd × even is even. Then even + odd is odd. For example, 3 × 4 + 5 = 17.", "steps": ["odd × even = even", "even + odd = odd"], "mistake": "Thinks multiplying by an odd number keeps a number odd"},
+  {"q": "The 7th triangular number is 1 + 2 + 3 + 4 + 5 + 6 + 7. What is it?", "options": ["21", "28", "36", "49"], "answer": 1, "explain": "7 × 8 ÷ 2 = 28. You can stack 28 dots into a triangle with rows of 1, 2, ..., 7.", "steps": ["n(n + 1) ÷ 2", "7 × 8 ÷ 2 = 28"], "mistake": "Gives the 6th triangular number (21) or the square 7² = 49", "check": "7*8/2", "visual": {"kind": "count", "emoji": "🔵", "n": 28}},
+  {"q": "Aisha says the sum of any 4 consecutive numbers is a multiple of 4. She tests 1 + 2 + 3 + 4. What does she find?", "options": ["The sum is 10, so she is right", "The sum is 10, so she is wrong", "The sum is 12, so she is right", "The sum is 8, so she is right"], "answer": 1, "explain": "1 + 2 + 3 + 4 = 10, and 10 is not a multiple of 4. One counter-example is enough to show the claim is false.", "steps": ["1 + 2 + 3 + 4 = 10", "10 ÷ 4 = 2.5, not a whole number"], "mistake": "Mixes this up with the true rule for 3 consecutive numbers"}
+ ],
+ "teach": {"ask": "Gappu asks: Why is the sum of three numbers in a row, like 7 + 8 + 9, always in the 3 times table?", "must": [["middle", "centre", "center"], ["3 times", "three times", "×3", "x3", "multiple of 3", "3 ×", "3 x", "divisible by 3"], ["one less", "one more", "balance", "cancel", "minus 1", "plus 1"]], "praise": "The first is one less and the last is one more than the middle, so they balance out. 3 times the middle! Brilliant!", "nudge": "Compare the first and last numbers with the middle one. What happens when you add them?"}
+}
+]}
