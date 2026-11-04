@@ -228,13 +228,6 @@
    "challenge": "A birthday cap is a cone. Spin it and find its pointed tip (tap Corners) and its round flat bottom (tap Faces)."
   }
  },
- "g2-maths-02-03": {
-  "type": "solid3d",
-  "p": {
-   "shape": "cube",
-   "challenge": "A dice is a cube. Tap Faces, Edges and Corners and count: 6 faces, 12 edges, 8 corners. Then unfold the net!"
-  }
- },
  "g2-maths-02-05": {
   "type": "datachart",
   "p": {
@@ -265,6 +258,13 @@
     ]
    },
    "challenge": "Sort: a ball, a dice, a circle drawn on paper, a square drawn on paper, a laddoo. Show how many are flat and how many are solid."
+  }
+ },
+ "g2-maths-02-03": {
+  "type": "solid3d",
+  "p": {
+   "shape": "cube",
+   "challenge": "A dice is a cube. Tap Faces, Edges and Corners and count: 6 faces, 12 edges, 8 corners. Then unfold the net!"
   }
  },
  "g2-maths-02-06": {
@@ -341,75 +341,68 @@
   }
  },
  "g2-maths-02-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Roll, slide or stack?",
-   "task": "play",
-   "challenge": "Pick a shape in your mind: a ball, a can or a box. Follow the arrows and answer the questions. Does it roll?",
-   "nodes": [
+   "challenge": "Push each shape in your mind: does it only roll, only slide, or do both?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🫳",
-     "text": "Give the shape a push",
-     "info": "Push the shape gently on the floor."
+     "name": "Only rolls",
+     "emoji": "🌀",
+     "color": "#8b5cf6"
     },
     {
-     "id": "b",
-     "emoji": "❓",
-     "text": "Is it curved all over?",
-     "type": "decision",
-     "info": "A sphere is curved all over. It has no flat face."
+     "name": "Only slides",
+     "emoji": "➡️",
+     "color": "#3b82f6"
     },
     {
-     "id": "c",
-     "emoji": "⚽",
-     "text": "Sphere: it rolls",
-     "info": "A ball or a laddoo rolls in any direction."
-    },
-    {
-     "id": "d",
-     "emoji": "❓",
-     "text": "Curved side and flat faces?",
-     "type": "decision",
-     "info": "A cylinder has a curved side and 2 flat faces."
-    },
-    {
-     "id": "e",
-     "emoji": "🥫",
-     "text": "Cylinder: rolls on its side, slides on its flat face",
-     "info": "A juice can rolls when lying down and slides when standing."
-    },
-    {
-     "id": "f",
-     "emoji": "📦",
-     "text": "Cube or cuboid: slides and stacks, does not roll",
-     "info": "Flat faces make boxes easy to stack, one on top of another."
+     "name": "Rolls and slides",
+     "emoji": "🔁",
+     "color": "#2ed3a5"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "Ball",
+     "bin": 0,
+     "emoji": "⚽",
+     "why": "A sphere is curved all over. It rolls."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "Marble",
+     "bin": 0,
+     "why": "A marble is a sphere. It rolls."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "Dice",
+     "bin": 1,
+     "emoji": "🎲",
+     "why": "A cube has only flat faces. It slides, it does not roll."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "Yes"
+     "text": "Brick",
+     "bin": 1,
+     "emoji": "🧱",
+     "why": "A cuboid has flat faces. It slides."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "No"
+     "text": "Matchbox",
+     "bin": 1,
+     "why": "A cuboid has flat faces. It slides."
+    },
+    {
+     "text": "Juice can",
+     "bin": 2,
+     "emoji": "🥫",
+     "why": "A cylinder rolls on its curved side and slides on its flat face."
+    },
+    {
+     "text": "Gas cylinder",
+     "bin": 2,
+     "why": "A cylinder rolls on its curved side and slides on its flat face."
     }
    ]
   }
@@ -759,75 +752,63 @@
   }
  },
  "g2-maths-04-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Circle or triangle?",
-   "task": "play",
-   "challenge": "Think of a bangle, a coin or a samosa. Answer the questions to find its shape.",
-   "nodes": [
+   "challenge": "Sort each thing: does it look like a circle or a triangle?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
     {
-     "id": "a",
-     "emoji": "👀",
-     "text": "Look at the flat shape",
-     "info": "Bangle, coin or samosa?"
+     "name": "Circle",
+     "emoji": "⚪",
+     "color": "#8b5cf6"
     },
     {
-     "id": "b",
-     "emoji": "❓",
-     "text": "Any straight sides?",
-     "type": "decision",
-     "info": "A straight side does not bend."
-    },
-    {
-     "id": "c",
-     "emoji": "⭕",
-     "text": "Circle: round, no sides, no corners",
-     "info": "A bangle and a coin look like circles."
-    },
-    {
-     "id": "d",
-     "emoji": "❓",
-     "text": "3 sides and 3 corners?",
-     "type": "decision",
-     "info": "Count the sides and the corners."
-    },
-    {
-     "id": "e",
+     "name": "Triangle",
      "emoji": "🔺",
-     "text": "Triangle: 3 sides, 3 corners",
-     "info": "A samosa looks like a triangle."
-    },
-    {
-     "id": "f",
-     "emoji": "🟦",
-     "text": "It is another shape",
-     "info": "With 4 sides it could be a square or a rectangle."
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "Bangle",
+     "bin": 0,
+     "why": "Round, no straight sides, no corners."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "Yes"
+     "text": "Coin",
+     "bin": 0,
+     "emoji": "🪙",
+     "why": "A coin is round like a circle."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "No"
+     "text": "Roti",
+     "bin": 0,
+     "why": "A roti is round like a circle."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "Yes"
+     "text": "Wheel",
+     "bin": 0,
+     "emoji": "🛞",
+     "why": "A wheel is round like a circle."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "No"
+     "text": "Samosa",
+     "bin": 1,
+     "why": "A samosa has 3 straight sides and 3 corners."
+    },
+    {
+     "text": "Pizza slice",
+     "bin": 1,
+     "emoji": "🍕",
+     "why": "3 sides and 3 corners: a triangle."
+    },
+    {
+     "text": "Front of a tent",
+     "bin": 1,
+     "emoji": "⛺",
+     "why": "3 sides and 3 corners: a triangle."
     }
    ]
   }
@@ -962,6 +943,20 @@
    ]
   }
  },
+ "g2-maths-04-08": {
+  "type": "patternbuilder",
+  "p": {
+   "core": [
+    "🍃",
+    "🍃",
+    "✋"
+   ],
+   "mode": "extend",
+   "show": 5,
+   "blanks": 4,
+   "challenge": "Leaf print, leaf print, hand print… Keep printing in the same order: fill the 4 boxes."
+  }
+ },
  "g2-maths-04-09": {
   "type": "patterns",
   "p": {
@@ -980,36 +975,33 @@
    "challenge": "Jumps on tiles: 1, 6, 11, 16 ... Find the jump, then add it again. Which tile is the 6th jump on?"
   }
  },
- "g2-maths-05-01": {
-  "type": "datachart",
+ "g2-maths-05-04": {
+  "type": "matchpairs",
   "p": {
-   "title": "Lines in the letter B",
-   "labels": [
-    "Straight lines",
-    "Curved lines"
-   ],
-   "values": [
-    0,
-    0
-   ],
-   "views": [
-    "tally",
-    "bar"
-   ],
-   "icon": "✏️",
-   "key": 1,
-   "unit": "lines",
-   "editable": true,
-   "max": 5,
-   "statsOf": "none",
-   "ask": {
-    "type": "build",
-    "values": [
-     1,
-     2
+   "title": "Lines in yoga",
+   "leftTitle": "Asana",
+   "rightTitle": "Line",
+   "mode": "instant",
+   "speak": false,
+   "challenge": "Join each yoga asana to the line our body makes.",
+   "pairs": [
+    [
+     "Tadasana (standing tall)",
+     "Standing line"
+    ],
+    [
+     "Shavasana (lying flat)",
+     "Sleeping line"
+    ],
+    [
+     "Trikonasana (legs wide)",
+     "Slanting lines"
+    ],
+    [
+     "Bhujangasana (cobra)",
+     "Curved line"
     ]
-   },
-   "challenge": "The letter D has 1 straight line and 1 curved line. Now look at the letter B. Show how many straight and curved lines it has."
+   ]
   }
  },
  "g2-maths-05-02": {
@@ -1045,6 +1037,38 @@
     ]
    },
    "challenge": "H has 2 standing lines and 1 sleeping line. Now count the lines in the letter E: standing, sleeping and slanting."
+  }
+ },
+ "g2-maths-05-01": {
+  "type": "datachart",
+  "p": {
+   "title": "Lines in the letter B",
+   "labels": [
+    "Straight lines",
+    "Curved lines"
+   ],
+   "values": [
+    0,
+    0
+   ],
+   "views": [
+    "tally",
+    "bar"
+   ],
+   "icon": "✏️",
+   "key": 1,
+   "unit": "lines",
+   "editable": true,
+   "max": 5,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     1,
+     2
+    ]
+   },
+   "challenge": "The letter D has 1 straight line and 1 curved line. Now look at the letter B. Show how many straight and curved lines it has."
   }
  },
  "g2-maths-05-03": {
@@ -1323,6 +1347,25 @@
    "challenge": "Gopal says 38 + 25 = 53. Is he right? Hop 25 from 38 and check. (Did he forget to carry?)"
   }
  },
+ "g2-maths-07-04": {
+  "type": "compare",
+  "p": {
+   "mode": "length",
+   "goal": "measure",
+   "target": 0,
+   "unit": "blocks",
+   "unitSize": 2,
+   "unitEmoji": "🧊",
+   "objects": [
+    {
+     "name": "Pencil",
+     "emoji": "✏️",
+     "value": 16
+    }
+   ],
+   "challenge": "Measure the pencil with blocks placed end to end, with no gaps. Count the blocks."
+  }
+ },
  "g2-maths-07-06": {
   "type": "datachart",
   "p": {
@@ -1353,6 +1396,51 @@
    "challenge": "A giraffe is 9 blocks tall, a camel 7 and a monkey 2. Which animal is the shortest? Tap it."
   }
  },
+ "g2-maths-07-01": {
+  "type": "compare",
+  "p": {
+   "mode": "length",
+   "goal": "measure",
+   "target": 0,
+   "unit": "hand spans",
+   "unitSize": 15,
+   "unitEmoji": "✋",
+   "objects": [
+    {
+     "name": "Table",
+     "emoji": "🪑",
+     "value": 90
+    }
+   ],
+   "challenge": "Measure the table with hand-spans. Lay them end to end with no gaps. How many spans long is it?"
+  }
+ },
+ "g2-maths-07-02": {
+  "type": "compare",
+  "p": {
+   "mode": "weight",
+   "goal": "lightest",
+   "unit": "g",
+   "objects": [
+    {
+     "name": "Balloon",
+     "emoji": "🎈",
+     "value": 5
+    },
+    {
+     "name": "Pumpkin",
+     "emoji": "🎃",
+     "value": 2000
+    },
+    {
+     "name": "Bag of books",
+     "emoji": "🎒",
+     "value": 3000
+    }
+   ],
+   "challenge": "The balloon is big. Is it heavy? Put things on the balance: the heavier side goes down. Find the LIGHTEST."
+  }
+ },
  "g2-maths-07-07": {
   "type": "storysequence",
   "p": {
@@ -1378,6 +1466,27 @@
      "A bag of books"
     ]
    ]
+  }
+ },
+ "g2-maths-07-08": {
+  "type": "compare",
+  "p": {
+   "mode": "weight",
+   "goal": "heaviest",
+   "unit": "g",
+   "objects": [
+    {
+     "name": "Bag of sand",
+     "emoji": "🟫",
+     "value": 2000
+    },
+    {
+     "name": "Bag of dry leaves",
+     "emoji": "🍂",
+     "value": 300
+    }
+   ],
+   "challenge": "Two bags of the same size: one has sand, one has dry leaves. Put them on the balance. Which is heavier?"
   }
  },
  "g2-maths-07-09": {
@@ -1945,6 +2054,38 @@
    "challenge": "You have only ₹2 coins. Make ₹10. How many ₹2 coins do you need?"
   }
  },
+ "g2-maths-10-05": {
+  "type": "matchpairs",
+  "p": {
+   "title": "A closer look at our notes",
+   "leftTitle": "Note",
+   "rightTitle": "On the note",
+   "mode": "instant",
+   "challenge": "Join each note to what it shows.",
+   "pairs": [
+    [
+     "₹10 note (back)",
+     "Konark Sun Temple"
+    ],
+    [
+     "₹100 note (back)",
+     "Rani ki Vav"
+    ],
+    [
+     "₹500 note (back)",
+     "Red Fort"
+    ],
+    [
+     "Front of our notes",
+     "Mahatma Gandhi"
+    ],
+    [
+     "₹200 in words",
+     "Two Hundred Rupees"
+    ]
+   ]
+  }
+ },
  "g2-maths-10-06": {
   "type": "moneycounter",
   "p": {
@@ -2306,6 +2447,34 @@
    "challenge": "Both grandparents 4, one grandparent 3, none 5. Add every row: how many families were asked?"
   }
  },
+ "g2-maths-11-09": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Shape riddles",
+   "leftTitle": "Riddle",
+   "rightTitle": "Shape",
+   "mode": "instant",
+   "challenge": "Solve each riddle: join it to the right shape.",
+   "pairs": [
+    [
+     "I have 3 sides and 3 corners.",
+     "Triangle"
+    ],
+    [
+     "No corners, no edges, and I roll.",
+     "Sphere"
+    ],
+    [
+     "A ball makes this shadow.",
+     "Circle"
+    ],
+    [
+     "4 matchsticks make me.",
+     "Square"
+    ]
+   ]
+  }
+ },
  "g2-maths-11-10": {
   "type": "patterns",
   "p": {
@@ -2399,180 +2568,6 @@
    "item": "🛣️",
    "itemName": "ways",
    "challenge": "2 roads go from home to the shop and 3 roads go from the shop to school. Make 2 rows of 3: each one is a way. How many ways in all?"
-  }
- },
- "g2-maths-07-01": {
-  "type": "compare",
-  "p": {
-   "mode": "length",
-   "goal": "measure",
-   "target": 0,
-   "unit": "hand spans",
-   "unitSize": 15,
-   "unitEmoji": "✋",
-   "objects": [
-    {
-     "name": "Table",
-     "emoji": "🪑",
-     "value": 90
-    }
-   ],
-   "challenge": "Measure the table with hand-spans. Lay them end to end with no gaps. How many spans long is it?"
-  }
- },
- "g2-maths-07-04": {
-  "type": "compare",
-  "p": {
-   "mode": "length",
-   "goal": "measure",
-   "target": 0,
-   "unit": "blocks",
-   "unitSize": 2,
-   "unitEmoji": "🧊",
-   "objects": [
-    {
-     "name": "Pencil",
-     "emoji": "✏️",
-     "value": 16
-    }
-   ],
-   "challenge": "Measure the pencil with blocks placed end to end, with no gaps. Count the blocks."
-  }
- },
- "g2-maths-07-02": {
-  "type": "compare",
-  "p": {
-   "mode": "weight",
-   "goal": "lightest",
-   "unit": "g",
-   "objects": [
-    {
-     "name": "Balloon",
-     "emoji": "🎈",
-     "value": 5
-    },
-    {
-     "name": "Pumpkin",
-     "emoji": "🎃",
-     "value": 2000
-    },
-    {
-     "name": "Bag of books",
-     "emoji": "🎒",
-     "value": 3000
-    }
-   ],
-   "challenge": "The balloon is big. Is it heavy? Put things on the balance: the heavier side goes down. Find the LIGHTEST."
-  }
- },
- "g2-maths-07-08": {
-  "type": "compare",
-  "p": {
-   "mode": "weight",
-   "goal": "heaviest",
-   "unit": "g",
-   "objects": [
-    {
-     "name": "Bag of sand",
-     "emoji": "🟫",
-     "value": 2000
-    },
-    {
-     "name": "Bag of dry leaves",
-     "emoji": "🍂",
-     "value": 300
-    }
-   ],
-   "challenge": "Two bags of the same size: one has sand, one has dry leaves. Put them on the balance. Which is heavier?"
-  }
- },
- "g2-maths-05-04": {
-  "type": "matchpairs",
-  "p": {
-   "title": "Lines in yoga",
-   "leftTitle": "Asana",
-   "rightTitle": "Line",
-   "mode": "instant",
-   "speak": false,
-   "challenge": "Join each yoga asana to the line our body makes.",
-   "pairs": [
-    [
-     "Tadasana (standing tall)",
-     "Standing line"
-    ],
-    [
-     "Shavasana (lying flat)",
-     "Sleeping line"
-    ],
-    [
-     "Trikonasana (legs wide)",
-     "Slanting lines"
-    ],
-    [
-     "Bhujangasana (cobra)",
-     "Curved line"
-    ]
-   ]
-  }
- },
- "g2-maths-10-05": {
-  "type": "matchpairs",
-  "p": {
-   "title": "A closer look at our notes",
-   "leftTitle": "Note",
-   "rightTitle": "On the note",
-   "mode": "instant",
-   "challenge": "Join each note to what it shows.",
-   "pairs": [
-    [
-     "₹10 note (back)",
-     "Konark Sun Temple"
-    ],
-    [
-     "₹100 note (back)",
-     "Rani ki Vav"
-    ],
-    [
-     "₹500 note (back)",
-     "Red Fort"
-    ],
-    [
-     "Front of our notes",
-     "Mahatma Gandhi"
-    ],
-    [
-     "₹200 in words",
-     "Two Hundred Rupees"
-    ]
-   ]
-  }
- },
- "g2-maths-11-09": {
-  "type": "matchpairs",
-  "p": {
-   "title": "Shape riddles",
-   "leftTitle": "Riddle",
-   "rightTitle": "Shape",
-   "mode": "instant",
-   "challenge": "Solve each riddle: join it to the right shape.",
-   "pairs": [
-    [
-     "I have 3 sides and 3 corners.",
-     "Triangle"
-    ],
-    [
-     "No corners, no edges, and I roll.",
-     "Sphere"
-    ],
-    [
-     "A ball makes this shadow.",
-     "Circle"
-    ],
-    [
-     "4 matchsticks make me.",
-     "Square"
-    ]
-   ]
   }
  }
 }

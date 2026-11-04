@@ -331,98 +331,76 @@
   }
  },
  "g3-maths-02-07": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Straight or curved?",
-   "task": "play",
-   "challenge": "Pick a cube, cuboid, sphere, cylinder or cone. Answer the questions to name it.",
-   "nodes": [
+   "challenge": "Sort the shapes: only flat faces and straight edges, or a curved surface?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🖐️",
-     "text": "Hold the shape",
-     "info": "Look at its faces and edges."
+     "name": "Only flat faces, straight edges",
+     "emoji": "📐",
+     "color": "#3b82f6"
     },
     {
-     "id": "b",
-     "emoji": "❓",
-     "text": "Any curved surface?",
-     "info": "A curved surface bends. A flat face does not.",
-     "type": "decision"
-    },
-    {
-     "id": "c",
-     "emoji": "❓",
-     "text": "A flat face too?",
-     "info": "Check the bottom of the shape.",
-     "type": "decision"
-    },
-    {
-     "id": "d",
-     "emoji": "⚽",
-     "text": "Sphere: only a curved surface",
-     "info": "A ball or a laddoo."
-    },
-    {
-     "id": "e",
-     "emoji": "🥫",
-     "text": "Cylinder or cone: flat faces and a curved surface",
-     "info": "A candle is a cylinder. A birthday cap is a cone."
-    },
-    {
-     "id": "f",
-     "emoji": "❓",
-     "text": "All 6 faces equal squares?",
-     "info": "Measure the faces.",
-     "type": "decision"
-    },
-    {
-     "id": "g",
-     "emoji": "🎲",
-     "text": "Cube: a special cuboid",
-     "info": "Every cube is a cuboid."
-    },
-    {
-     "id": "h",
-     "emoji": "📦",
-     "text": "Cuboid: flat faces, straight edges",
-     "info": "A brick or a matchbox. Not every cuboid is a cube."
+     "name": "Has a curved surface",
+     "emoji": "〰️",
+     "color": "#8b5cf6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "Dice",
+     "bin": 0,
+     "emoji": "🎲",
+     "why": "A cube: 6 flat square faces, straight edges."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "Brick",
+     "bin": 0,
+     "emoji": "🧱",
+     "why": "A cuboid: only flat faces and straight edges."
     },
     {
-     "from": "b",
-     "to": "f",
-     "label": "No"
+     "text": "Matchbox",
+     "bin": 0,
+     "why": "A cuboid: only flat faces."
     },
     {
-     "from": "c",
-     "to": "e",
-     "label": "Yes"
+     "text": "Book",
+     "bin": 0,
+     "emoji": "📕",
+     "why": "A cuboid: only flat faces."
     },
     {
-     "from": "c",
-     "to": "d",
-     "label": "No"
+     "text": "Ball",
+     "bin": 1,
+     "emoji": "⚽",
+     "why": "A sphere has only a curved surface."
     },
     {
-     "from": "f",
-     "to": "g",
-     "label": "Yes"
+     "text": "Laddoo",
+     "bin": 1,
+     "why": "A sphere: only a curved surface."
     },
     {
-     "from": "f",
-     "to": "h",
-     "label": "No"
+     "text": "Tin can",
+     "bin": 1,
+     "emoji": "🥫",
+     "why": "A cylinder: 2 flat faces and a curved surface."
+    },
+    {
+     "text": "Ice-cream cone",
+     "bin": 1,
+     "emoji": "🍦",
+     "why": "A cone: a curved surface."
+    },
+    {
+     "text": "Birthday cap",
+     "bin": 1,
+     "emoji": "🥳",
+     "why": "A cone has a curved surface."
     }
    ]
   }
@@ -1120,6 +1098,38 @@
    "challenge": "A (top-left) and B (bottom-right) are opposite corners of a rectangle. Go across from one and down from the other. Tap the 2 missing corners!"
   }
  },
+ "g3-maths-05-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "The 7 tangram pieces",
+   "leftTitle": "Piece",
+   "rightTitle": "How many",
+   "mode": "instant",
+   "challenge": "A tangram is a square cut into 7 pieces. Join each piece to how many there are.",
+   "pairs": [
+    [
+     "Big triangles",
+     "2"
+    ],
+    [
+     "Middle-sized triangle",
+     "1"
+    ],
+    [
+     "Small triangles",
+     "2"
+    ],
+    [
+     "Square",
+     "1"
+    ],
+    [
+     "Parallelogram",
+     "1"
+    ]
+   ]
+  }
+ },
  "g3-maths-06-04": {
   "type": "numberline",
   "p": {
@@ -1682,6 +1692,89 @@
    "challenge": "900, 875, 850 ... goes down by 25 each time. What is the 6th number?"
   }
  },
+ "g3-maths-09-09": {
+  "type": "sortbins",
+  "p": {
+   "title": "The number detective",
+   "challenge": "Look at the digits. Going up, going down, or a palindrome?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
+    {
+     "name": "Digits increase",
+     "emoji": "📈",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Digits decrease",
+     "emoji": "📉",
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Palindrome",
+     "emoji": "🔁",
+     "color": "#8b5cf6"
+    }
+   ],
+   "items": [
+    {
+     "text": "123",
+     "bin": 0,
+     "why": "1 < 2 < 3: increasing."
+    },
+    {
+     "text": "258",
+     "bin": 0,
+     "why": "2 < 5 < 8: increasing."
+    },
+    {
+     "text": "479",
+     "bin": 0,
+     "why": "4 < 7 < 9: increasing."
+    },
+    {
+     "text": "321",
+     "bin": 1,
+     "why": "3 > 2 > 1: decreasing."
+    },
+    {
+     "text": "852",
+     "bin": 1,
+     "why": "8 > 5 > 2: decreasing."
+    },
+    {
+     "text": "974",
+     "bin": 1,
+     "why": "9 > 7 > 4: decreasing."
+    },
+    {
+     "text": "353",
+     "bin": 2,
+     "why": "353 reads the same both ways."
+    },
+    {
+     "text": "868",
+     "bin": 2,
+     "why": "868 reads the same both ways."
+    },
+    {
+     "text": "101",
+     "bin": 2,
+     "why": "101 reads the same both ways."
+    },
+    {
+     "text": "727",
+     "bin": 2,
+     "why": "727 reads the same both ways (it also has twin 7s)."
+    },
+    {
+     "text": "474",
+     "bin": 2,
+     "why": "474 reads the same both ways."
+    }
+   ]
+  }
+ },
  "g3-maths-09-10": {
   "type": "placevalue",
   "p": {
@@ -1852,6 +1945,25 @@
    "challenge": "Complete the moustache! Make the other half the same length, on the other side of the middle line."
   }
  },
+ "g3-maths-10-09": {
+  "type": "compare",
+  "p": {
+   "mode": "length",
+   "goal": "measure",
+   "target": 0,
+   "unit": "metre ropes",
+   "unitSize": 100,
+   "unitEmoji": "🪢",
+   "objects": [
+    {
+     "name": "Mat",
+     "emoji": "🟫",
+     "value": 300
+    }
+   ],
+   "challenge": "Lay the 1-metre rope along the mat again and again, end to end. How many metres long is the mat?"
+  }
+ },
  "g3-maths-10-10": {
   "type": "datachart",
   "p": {
@@ -1917,6 +2029,20 @@
     "term": 10
    },
    "challenge": "3, 7, 11, 15 ... Find the rule. What is the 10th number?"
+  }
+ },
+ "g3-maths-10-02": {
+  "type": "patternbuilder",
+  "p": {
+   "core": [
+    "green",
+    "yellow",
+    "yellow"
+   ],
+   "mode": "extend",
+   "show": 6,
+   "blanks": 3,
+   "challenge": "Party flags go green, yellow, yellow, green, yellow, yellow… Find the core, then fill the next 3 flags."
   }
  },
  "g3-maths-10-03": {
@@ -1990,6 +2116,24 @@
    "challenge": "1 glass takes 3 ladles of buttermilk. Add a row of 3 for each glass. How many ladles fill 4 glasses?"
   }
  },
+ "g3-maths-11-06": {
+  "type": "compare",
+  "p": {
+   "mode": "capacity",
+   "goal": "measure",
+   "target": 0,
+   "unit": "bottles",
+   "unitSize": 1000,
+   "objects": [
+    {
+     "name": "Bucket",
+     "emoji": "🪣",
+     "value": 12000
+    }
+   ],
+   "challenge": "Fill the bucket using a 1-litre bottle. Count the bottles. How many litres does it hold?"
+  }
+ },
  "g3-maths-11-07": {
   "type": "fractionbar",
   "p": {
@@ -2014,6 +2158,32 @@
    "item": "📕",
    "itemName": "books",
    "challenge": "Bag A has 5 books and Bag B has 3. Share all 8 books so both bags weigh the same. How many books moved from A to B?"
+  }
+ },
+ "g3-maths-11-02": {
+  "type": "compare",
+  "p": {
+   "mode": "weight",
+   "goal": "heaviest",
+   "unit": "g",
+   "objects": [
+    {
+     "name": "Bag of potatoes",
+     "emoji": "🥔",
+     "value": 2000
+    },
+    {
+     "name": "Packet of chips",
+     "emoji": "🍟",
+     "value": 50
+    },
+    {
+     "name": "Balloon",
+     "emoji": "🎈",
+     "value": 5
+    }
+   ],
+   "challenge": "Put them on the balance. The heavier side goes down. Which is the heaviest? (Big is not always heavy!)"
   }
  },
  "g3-maths-11-09": {
@@ -2283,6 +2453,34 @@
    "challenge": "389 is closest to which hundred? Its tens digit is 8, so round up. Drag the frog to that hundred."
   }
  },
+ "g3-maths-12-11": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Same value",
+   "leftTitle": "This",
+   "rightTitle": "equals",
+   "mode": "instant",
+   "challenge": "Think, do not calculate! Join each pair that has the same value.",
+   "pairs": [
+    [
+     "300 + 50",
+     "250 + 100"
+    ],
+    [
+     "199 + 51",
+     "200 + 50"
+    ],
+    [
+     "245 + 250",
+     "250 + 245"
+    ],
+    [
+     "500 − 99",
+     "501 − 100"
+    ]
+   ]
+  }
+ },
  "g3-maths-12-12": {
   "type": "numberline",
   "p": {
@@ -2319,6 +2517,36 @@
    "days": 7,
    "challenge": "12 November 2026 is a Thursday. The same day comes again every 7 days. Tap the next Thursday.",
    "from": 12
+  }
+ },
+ "g3-maths-13-05": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Days, weeks and years",
+   "mode": "instant",
+   "challenge": "Join each one to the right number of days.",
+   "pairs": [
+    [
+     "A year",
+     "365 days"
+    ],
+    [
+     "A leap year",
+     "366 days"
+    ],
+    [
+     "52 weeks",
+     "364 days"
+    ],
+    [
+     "February in a leap year",
+     "29 days"
+    ],
+    [
+     "1 week",
+     "7 days"
+    ]
+   ]
   }
  },
  "g3-maths-13-06": {
@@ -2588,6 +2816,19 @@
    "challenge": "The left side had 7 balls and the right side 3. Share all 10 so both sides match. How many balls had to move across?"
   }
  },
+ "g3-maths-14-09": {
+  "type": "patternbuilder",
+  "p": {
+   "core": [
+    "shape:square:red",
+    "shape:triangle:blue",
+    "shape:triangle:blue"
+   ],
+   "mode": "find",
+   "show": 9,
+   "challenge": "This tile path repeats. Tap the repeating unit: the smallest part that repeats."
+  }
+ },
  "g3-maths-14-01": {
   "type": "datachart",
   "p": {
@@ -2661,159 +2902,6 @@
    "item": "🏺",
    "itemName": "clay pots",
    "challenge": "20 clay pots are packed with 5 pots in each box. Add one box (row of 5) at a time. How many boxes are needed?"
-  }
- },
- "g3-maths-11-02": {
-  "type": "compare",
-  "p": {
-   "mode": "weight",
-   "goal": "heaviest",
-   "unit": "g",
-   "objects": [
-    {
-     "name": "Bag of potatoes",
-     "emoji": "🥔",
-     "value": 2000
-    },
-    {
-     "name": "Packet of chips",
-     "emoji": "🍟",
-     "value": 50
-    },
-    {
-     "name": "Balloon",
-     "emoji": "🎈",
-     "value": 5
-    }
-   ],
-   "challenge": "Put them on the balance. The heavier side goes down. Which is the heaviest? (Big is not always heavy!)"
-  }
- },
- "g3-maths-11-06": {
-  "type": "compare",
-  "p": {
-   "mode": "capacity",
-   "goal": "measure",
-   "target": 0,
-   "unit": "bottles",
-   "unitSize": 1000,
-   "objects": [
-    {
-     "name": "Bucket",
-     "emoji": "🪣",
-     "value": 12000
-    }
-   ],
-   "challenge": "Fill the bucket using a 1-litre bottle. Count the bottles. How many litres does it hold?"
-  }
- },
- "g3-maths-10-09": {
-  "type": "compare",
-  "p": {
-   "mode": "length",
-   "goal": "measure",
-   "target": 0,
-   "unit": "metre ropes",
-   "unitSize": 100,
-   "unitEmoji": "🪢",
-   "objects": [
-    {
-     "name": "Mat",
-     "emoji": "🟫",
-     "value": 300
-    }
-   ],
-   "challenge": "Lay the 1-metre rope along the mat again and again, end to end. How many metres long is the mat?"
-  }
- },
- "g3-maths-12-11": {
-  "type": "matchpairs",
-  "p": {
-   "title": "Same value",
-   "leftTitle": "This",
-   "rightTitle": "equals",
-   "mode": "instant",
-   "challenge": "Think, do not calculate! Join each pair that has the same value.",
-   "pairs": [
-    [
-     "300 + 50",
-     "250 + 100"
-    ],
-    [
-     "199 + 51",
-     "200 + 50"
-    ],
-    [
-     "245 + 250",
-     "250 + 245"
-    ],
-    [
-     "500 − 99",
-     "501 − 100"
-    ]
-   ]
-  }
- },
- "g3-maths-13-05": {
-  "type": "matchpairs",
-  "p": {
-   "title": "Days, weeks and years",
-   "mode": "instant",
-   "challenge": "Join each one to the right number of days.",
-   "pairs": [
-    [
-     "A year",
-     "365 days"
-    ],
-    [
-     "A leap year",
-     "366 days"
-    ],
-    [
-     "52 weeks",
-     "364 days"
-    ],
-    [
-     "February in a leap year",
-     "29 days"
-    ],
-    [
-     "1 week",
-     "7 days"
-    ]
-   ]
-  }
- },
- "g3-maths-05-03": {
-  "type": "matchpairs",
-  "p": {
-   "title": "The 7 tangram pieces",
-   "leftTitle": "Piece",
-   "rightTitle": "How many",
-   "mode": "instant",
-   "challenge": "A tangram is a square cut into 7 pieces. Join each piece to how many there are.",
-   "pairs": [
-    [
-     "Big triangles",
-     "2"
-    ],
-    [
-     "Middle-sized triangle",
-     "1"
-    ],
-    [
-     "Small triangles",
-     "2"
-    ],
-    [
-     "Square",
-     "1"
-    ],
-    [
-     "Parallelogram",
-     "1"
-    ]
-   ]
   }
  }
 }

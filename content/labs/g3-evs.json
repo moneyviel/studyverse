@@ -145,6 +145,50 @@
    "challenge": "At the mela, Tara buys a balloon (₹10) and jalebi (₹30). She pays ₹50. Give her the right change."
   }
  },
+ "g3-evs-02-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "People at the mela",
+   "leftTitle": "Worker",
+   "rightTitle": "Their work",
+   "mode": "instant",
+   "challenge": "Join each worker to the work they do",
+   "pairs": [
+    [
+     "Potter",
+     "Makes clay pots and diyas"
+    ],
+    [
+     "Bangle seller",
+     "Sells glass bangles"
+    ],
+    [
+     "Mehendi artist",
+     "Henna designs on hands"
+    ],
+    [
+     "Puppeteer",
+     "Puts on a puppet show"
+    ],
+    [
+     "Ride operator",
+     "Runs the giant wheel safely"
+    ],
+    [
+     "Tailor",
+     "Stitches clothes"
+    ],
+    [
+     "Cobbler",
+     "Repairs shoes"
+    ],
+    [
+     "Carpenter",
+     "Makes wooden furniture"
+    ]
+   ]
+  }
+ },
  "g3-evs-02-03": {
   "type": "flowchart",
   "p": {
@@ -300,6 +344,42 @@
    "radius": 180
   }
  },
+ "g3-evs-03-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Festival foods",
+   "leftTitle": "Festival",
+   "rightTitle": "Special food",
+   "mode": "instant",
+   "challenge": "Join each festival to its special food",
+   "pairs": [
+    [
+     "Ganesh Chaturthi",
+     "Modak"
+    ],
+    [
+     "Eid ul-Fitr",
+     "Sevaiyan"
+    ],
+    [
+     "Christmas",
+     "Plum cake"
+    ],
+    [
+     "Makar Sankranti",
+     "Til-gur laddoo"
+    ],
+    [
+     "Onam",
+     "Sadya on a banana leaf"
+    ],
+    [
+     "Holi",
+     "Gujiya"
+    ]
+   ]
+  }
+ },
  "g3-evs-04-01": {
   "type": "flowchart",
   "p": {
@@ -371,72 +451,60 @@
   }
  },
  "g3-evs-04-03": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "How do seeds travel?",
-   "task": "play",
-   "challenge": "Try every path: how do cotton seeds, coconuts and fruit seeds reach new places?",
-   "nodes": [
+   "challenge": "How does each seed reach a new place? Sort the seeds.",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🌰",
-     "text": "A seed needs to travel to a new place"
-    },
-    {
-     "id": "b",
-     "emoji": "🪶",
-     "text": "Is it light and fluffy?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
+     "name": "Flies with the wind",
      "emoji": "🌬️",
-     "text": "It flies with the wind",
-     "info": "Cotton and aak (madar) seeds fly with the wind."
+     "color": "#3b82f6"
     },
     {
-     "id": "d",
-     "emoji": "🥥",
-     "text": "Can it float?",
-     "type": "decision"
-    },
-    {
-     "id": "e",
+     "name": "Floats on water",
      "emoji": "🌊",
-     "text": "It floats on water",
-     "info": "Coconuts float on water to new places."
+     "color": "#2ed3a5"
     },
     {
-     "id": "f",
+     "name": "Carried by animals",
      "emoji": "🐦",
-     "text": "Birds eat the fruit and drop the seed",
-     "info": "Birds drop seeds of fruits they eat."
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "Cotton seed",
+     "bin": 0,
+     "why": "Light, fluffy cotton seeds are blown by the wind."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "Aak (madar) seed",
+     "bin": 0,
+     "why": "Aak seeds have silky hairs and fly with the wind."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "Dandelion seed",
+     "bin": 0,
+     "why": "Its tiny fluffy top lets the wind carry it."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "Yes"
+     "text": "Coconut",
+     "bin": 1,
+     "emoji": "🥥",
+     "why": "A coconut floats on water to new shores."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "No"
+     "text": "Guava seeds",
+     "bin": 2,
+     "why": "Birds eat the guava and drop its seeds far away."
+    },
+    {
+     "text": "Seeds with tiny hooks",
+     "bin": 2,
+     "why": "The hooks stick to animal fur."
     }
    ]
   }
@@ -554,6 +622,92 @@
      "emoji": "🌱",
      "text": "The seed is dropped far away and grows",
      "info": "New plants can grow in new places."
+    }
+   ]
+  }
+ },
+ "g3-evs-05-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Where do they live?",
+   "challenge": "Sort each living thing by its habitat",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
+    {
+     "name": "Water",
+     "emoji": "💧",
+     "color": "#3b82f6"
+    },
+    {
+     "name": "Land",
+     "emoji": "🏜️",
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Land and water",
+     "emoji": "🏞️",
+     "color": "#2ed3a5"
+    }
+   ],
+   "items": [
+    {
+     "text": "Fish",
+     "bin": 0,
+     "emoji": "🐟",
+     "why": "Fish breathe in water using gills."
+    },
+    {
+     "text": "Ganges river dolphin",
+     "bin": 0,
+     "why": "It lives in rivers."
+    },
+    {
+     "text": "Lotus",
+     "bin": 0,
+     "emoji": "🪷",
+     "why": "The lotus grows in ponds."
+    },
+    {
+     "text": "Camel",
+     "bin": 1,
+     "emoji": "🐫",
+     "why": "Camels live in deserts. Wide, padded feet help on sand."
+    },
+    {
+     "text": "Yak",
+     "bin": 1,
+     "why": "Yaks live in cold mountains. Thick hair keeps them warm."
+    },
+    {
+     "text": "Cactus",
+     "bin": 1,
+     "emoji": "🌵",
+     "why": "A cactus stores water in its thick stem to live in the desert."
+    },
+    {
+     "text": "Tiger",
+     "bin": 1,
+     "emoji": "🐅",
+     "why": "Tigers live in forests."
+    },
+    {
+     "text": "Frog",
+     "bin": 2,
+     "emoji": "🐸",
+     "why": "Frogs live in ponds and on their banks."
+    },
+    {
+     "text": "Crocodile",
+     "bin": 2,
+     "emoji": "🐊",
+     "why": "Crocodiles swim in water and rest on land."
+    },
+    {
+     "text": "Duck",
+     "bin": 2,
+     "emoji": "🦆",
+     "why": "Ducks swim in water and walk on land."
     }
    ]
   }
@@ -759,140 +913,247 @@
    ]
   }
  },
- "g3-evs-08-02": {
-  "type": "flowchart",
+ "g3-evs-07-03": {
+  "type": "sortbins",
   "p": {
-   "title": "How is it cooked?",
-   "task": "play",
-   "challenge": "Idli batter sits over boiling water and never touches it. Answer the questions to find how idlis are cooked.",
-   "nodes": [
+   "title": "Saving or wasting water?",
+   "challenge": "Fresh water is limited. Does each habit save water or waste it?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🍽️",
-     "text": "How is this food cooked?",
-     "info": "Cooking is always done by or with an adult!"
-    },
-    {
-     "id": "b",
-     "emoji": "🥕",
-     "text": "Is it eaten raw?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
-     "emoji": "🥗",
-     "text": "Eaten raw: fruits, salad",
-     "info": "Fruits, cucumbers and carrots in a salad are eaten raw."
-    },
-    {
-     "id": "d",
-     "emoji": "🫗",
-     "text": "Cooked in hot oil?",
-     "type": "decision"
-    },
-    {
-     "id": "e",
-     "emoji": "🍳",
-     "text": "Frying: puris, pakoras, samosas",
-     "info": "Frying: cooking in hot oil."
-    },
-    {
-     "id": "f",
+     "name": "Saves water",
      "emoji": "💧",
-     "text": "Cooked in hot bubbling water?",
-     "type": "decision"
+     "color": "#2ed3a5"
     },
     {
-     "id": "g",
-     "emoji": "🍲",
-     "text": "Boiling: rice, dal, eggs",
-     "info": "Boiling: cooking in hot bubbling water."
-    },
-    {
-     "id": "h",
-     "emoji": "♨️",
-     "text": "Cooked with steam from boiling water?",
-     "type": "decision"
-    },
-    {
-     "id": "i",
-     "emoji": "🍥",
-     "text": "Steaming: idlis, dhoklas, modaks",
-     "info": "Steaming: cooking with steam from boiling water. Idlis never touch the water!"
-    },
-    {
-     "id": "j",
-     "emoji": "🔥",
-     "text": "Cooked over a flame?",
-     "type": "decision"
-    },
-    {
-     "id": "k",
-     "emoji": "🌽",
-     "text": "Roasting: bhutta",
-     "info": "Roasting cooks food over a flame."
-    },
-    {
-     "id": "l",
-     "emoji": "🍞",
-     "text": "Baking in an oven: bread, cake",
-     "info": "Baking cooks food in an oven."
+     "name": "Wastes water",
+     "emoji": "🚱",
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "Bathing with a bucket and mug",
+     "bin": 0,
+     "emoji": "🪣",
+     "why": "A bucket uses far less water than a running tap."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "Fixing a leaking tap",
+     "bin": 0,
+     "why": "Drops add up to buckets of wasted water."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "Watering plants with veg-washing water",
+     "bin": 0,
+     "emoji": "🪴",
+     "why": "Reusing water saves fresh water."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "Yes"
+     "text": "Collecting rainwater",
+     "bin": 0,
+     "emoji": "🌧️",
+     "why": "Rainwater harvesting stores rain for later use."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "No"
+     "text": "Tap on while brushing",
+     "bin": 1,
+     "emoji": "🪥",
+     "why": "Turn off the tap while brushing."
     },
     {
-     "from": "f",
-     "to": "g",
-     "label": "Yes"
+     "text": "Washing a car with a running pipe",
+     "bin": 1,
+     "emoji": "🚗",
+     "why": "A bucket and cloth use much less water."
     },
     {
-     "from": "f",
-     "to": "h",
-     "label": "No"
+     "text": "Letting the tank overflow",
+     "bin": 1,
+     "why": "Overflowing water is wasted."
     },
     {
-     "from": "h",
-     "to": "i",
-     "label": "Yes"
+     "text": "Throwing away half-full glasses",
+     "bin": 1,
+     "why": "Take only as much water as you need."
+    }
+   ]
+  }
+ },
+ "g3-evs-08-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Plant or animal?",
+   "challenge": "Where does each food come from? Sort the cards.",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
+    {
+     "name": "From plants",
+     "emoji": "🌱",
+     "color": "#2ed3a5"
     },
     {
-     "from": "h",
-     "to": "j",
-     "label": "No"
+     "name": "From animals",
+     "emoji": "🐄",
+     "color": "#ff9f1c"
+    }
+   ],
+   "items": [
+    {
+     "text": "Rice",
+     "bin": 0,
+     "emoji": "🍚",
+     "why": "Rice is a cereal from a plant."
     },
     {
-     "from": "j",
-     "to": "k",
-     "label": "Yes"
+     "text": "Wheat",
+     "bin": 0,
+     "emoji": "🌾",
+     "why": "Wheat is a cereal from a plant."
     },
     {
-     "from": "j",
-     "to": "l",
-     "label": "No"
+     "text": "Moong dal",
+     "bin": 0,
+     "why": "Dal (pulse) comes from a plant."
+    },
+    {
+     "text": "Ragi",
+     "bin": 0,
+     "why": "Ragi is a millet from a plant."
+    },
+    {
+     "text": "Banana",
+     "bin": 0,
+     "emoji": "🍌",
+     "why": "Fruits come from plants."
+    },
+    {
+     "text": "Mustard oil",
+     "bin": 0,
+     "why": "This oil comes from mustard seeds."
+    },
+    {
+     "text": "Milk",
+     "bin": 1,
+     "emoji": "🥛",
+     "why": "Milk comes from cows, buffaloes and goats."
+    },
+    {
+     "text": "Paneer",
+     "bin": 1,
+     "why": "Paneer is made from milk."
+    },
+    {
+     "text": "Curd",
+     "bin": 1,
+     "why": "Curd is made from milk."
+    },
+    {
+     "text": "Egg",
+     "bin": 1,
+     "emoji": "🥚",
+     "why": "Eggs come from hens."
+    },
+    {
+     "text": "Honey",
+     "bin": 1,
+     "emoji": "🍯",
+     "why": "Honey is made by bees."
+    },
+    {
+     "text": "Fish",
+     "bin": 1,
+     "emoji": "🐟",
+     "why": "Fish is an animal food."
+    }
+   ]
+  }
+ },
+ "g3-evs-08-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "How is it cooked?",
+   "challenge": "Is each food eaten raw, boiled, fried or steamed?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
+    {
+     "name": "Eaten raw",
+     "emoji": "🥗",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Boiled",
+     "emoji": "♨️",
+     "color": "#3b82f6"
+    },
+    {
+     "name": "Fried",
+     "emoji": "🍳",
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Steamed",
+     "emoji": "💨",
+     "color": "#8b5cf6"
+    }
+   ],
+   "items": [
+    {
+     "text": "Cucumber in a salad",
+     "bin": 0,
+     "emoji": "🥒",
+     "why": "Cucumbers are often eaten raw in a salad."
+    },
+    {
+     "text": "Fruits",
+     "bin": 0,
+     "emoji": "🍎",
+     "why": "Fruits are eaten raw."
+    },
+    {
+     "text": "Plain rice",
+     "bin": 1,
+     "emoji": "🍚",
+     "why": "Rice is cooked in hot bubbling water."
+    },
+    {
+     "text": "Dal",
+     "bin": 1,
+     "why": "Dal is boiled."
+    },
+    {
+     "text": "Boiled egg",
+     "bin": 1,
+     "emoji": "🥚",
+     "why": "The egg is cooked in hot bubbling water."
+    },
+    {
+     "text": "Puri",
+     "bin": 2,
+     "why": "Puris are cooked in hot oil."
+    },
+    {
+     "text": "Pakora",
+     "bin": 2,
+     "why": "Pakoras are fried in hot oil."
+    },
+    {
+     "text": "Samosa",
+     "bin": 2,
+     "why": "Samosas are fried in hot oil."
+    },
+    {
+     "text": "Idli",
+     "bin": 3,
+     "why": "Idlis are cooked with steam from boiling water."
+    },
+    {
+     "text": "Dhokla",
+     "bin": 3,
+     "why": "Dhoklas are steamed."
     }
    ]
   }
@@ -1099,6 +1360,138 @@
    ]
   }
  },
+ "g3-evs-10-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Natural or human-made?",
+   "challenge": "Is it found in nature, or did people make it?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
+    {
+     "name": "Natural",
+     "emoji": "🍃",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Human-made",
+     "emoji": "🛠️",
+     "color": "#3b82f6"
+    }
+   ],
+   "items": [
+    {
+     "text": "Sun",
+     "bin": 0,
+     "emoji": "☀️",
+     "why": "The sun is found in nature."
+    },
+    {
+     "text": "River",
+     "bin": 0,
+     "why": "A river is found in nature."
+    },
+    {
+     "text": "Pebble",
+     "bin": 0,
+     "why": "Stones are found in nature."
+    },
+    {
+     "text": "Feather",
+     "bin": 0,
+     "emoji": "🪶",
+     "why": "A feather comes from a bird."
+    },
+    {
+     "text": "Sea shell",
+     "bin": 0,
+     "emoji": "🐚",
+     "why": "Shells are found in nature."
+    },
+    {
+     "text": "Tree",
+     "bin": 0,
+     "emoji": "🌳",
+     "why": "A tree grows in nature."
+    },
+    {
+     "text": "Bicycle",
+     "bin": 1,
+     "emoji": "🚲",
+     "why": "People make bicycles."
+    },
+    {
+     "text": "Pencil",
+     "bin": 1,
+     "emoji": "✏️",
+     "why": "People make pencils."
+    },
+    {
+     "text": "Plastic bucket",
+     "bin": 1,
+     "emoji": "🪣",
+     "why": "People make buckets."
+    },
+    {
+     "text": "Wooden chair",
+     "bin": 1,
+     "emoji": "🪑",
+     "why": "The tree is natural, but a chair is made by people."
+    },
+    {
+     "text": "Clay matka",
+     "bin": 1,
+     "why": "A potter makes it from natural clay."
+    },
+    {
+     "text": "Notebook",
+     "bin": 1,
+     "emoji": "📓",
+     "why": "Paper is made by people from wood."
+    }
+   ]
+  }
+ },
+ "g3-evs-10-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "What is it made of?",
+   "leftTitle": "Thing",
+   "rightTitle": "Material",
+   "mode": "instant",
+   "challenge": "Join each thing to the material it is made of",
+   "pairs": [
+    [
+     "Car tyre",
+     "Rubber"
+    ],
+    [
+     "Window pane",
+     "Glass"
+    ],
+    [
+     "Matka",
+     "Clay"
+    ],
+    [
+     "Notebook",
+     "Paper"
+    ],
+    [
+     "Cricket bat",
+     "Wood"
+    ],
+    [
+     "Iron nail",
+     "Metal"
+    ],
+    [
+     "Pencil",
+     "Wood and graphite"
+    ]
+   ]
+  }
+ },
  "g3-evs-10-03": {
   "type": "density",
   "p": {
@@ -1300,72 +1693,98 @@
   }
  },
  "g3-evs-12-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "What kind of waste?",
-   "task": "play",
-   "challenge": "Sort the waste! Is a banana peel wet or dry? A plastic wrapper? An old battery? Play each path.",
-   "nodes": [
+   "challenge": "Sort the waste: wet, dry, or harmful?",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🗑️",
-     "text": "What kind of waste is it?"
+     "name": "Wet waste",
+     "emoji": "🌱",
+     "color": "#2ed3a5"
     },
     {
-     "id": "b",
-     "emoji": "🍌",
-     "text": "Does it come from plants or food?",
-     "type": "decision"
+     "name": "Dry waste",
+     "emoji": "♻️",
+     "color": "#3b82f6"
     },
     {
-     "id": "c",
-     "emoji": "🟢",
-     "text": "Wet waste: it rots and mixes with soil",
-     "info": "Peels, leftover food, tea leaves, fallen leaves."
-    },
-    {
-     "id": "d",
-     "emoji": "🔋",
-     "text": "Is it a battery, medicine or broken bulb?",
-     "type": "decision"
-    },
-    {
-     "id": "e",
+     "name": "Harmful: give to an adult",
      "emoji": "⚠️",
-     "text": "Harmful waste: an adult must hand it over",
-     "info": "Never play with it."
-    },
-    {
-     "id": "f",
-     "emoji": "🔵",
-     "text": "Dry waste: paper, plastic, glass, metal, cloth",
-     "info": "Most dry waste does not rot quickly. Plastic does not rot at all."
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "Banana peel",
+     "bin": 0,
+     "emoji": "🍌",
+     "why": "It comes from food. It rots and mixes with soil."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "Leftover rice",
+     "bin": 0,
+     "emoji": "🍚",
+     "why": "Food waste is wet waste."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "Used tea leaves",
+     "bin": 0,
+     "why": "Tea leaves rot. Wet waste."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "Yes"
+     "text": "Fallen leaves",
+     "bin": 0,
+     "emoji": "🍂",
+     "why": "Leaves come from plants and rot."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "No"
+     "text": "Chips packet",
+     "bin": 1,
+     "why": "Plastic does not rot. Dry waste."
+    },
+    {
+     "text": "Old newspaper",
+     "bin": 1,
+     "emoji": "📰",
+     "why": "Paper is dry waste and can be recycled."
+    },
+    {
+     "text": "Glass bottle",
+     "bin": 1,
+     "emoji": "🍾",
+     "why": "Glass is dry waste."
+    },
+    {
+     "text": "Empty soft drink can",
+     "bin": 1,
+     "emoji": "🥫",
+     "why": "Metal is dry waste."
+    },
+    {
+     "text": "Old cloth",
+     "bin": 1,
+     "why": "Old cloth is dry waste."
+    },
+    {
+     "text": "Old battery",
+     "bin": 2,
+     "emoji": "🔋",
+     "why": "Batteries are harmful. An adult must hand them over."
+    },
+    {
+     "text": "Old medicines",
+     "bin": 2,
+     "emoji": "💊",
+     "why": "Medicines are harmful waste."
+    },
+    {
+     "text": "Broken bulb",
+     "bin": 2,
+     "emoji": "💡",
+     "why": "Broken bulbs are harmful. An adult must handle them."
     }
    ]
   }

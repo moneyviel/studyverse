@@ -956,95 +956,89 @@
   }
  },
  "g3-english-08-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Which polite word?",
-   "task": "play",
-   "challenge": "Try the paths. Which polite word fits each moment: please, sorry, excuse me or thank you?",
-   "nodes": [
+   "challenge": "Which magic word fits each moment? Sort the cards.",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🙂",
-     "text": "You are with other people",
-     "info": "Polite words: please, thank you, sorry, excuse me."
-    },
-    {
-     "id": "b",
-     "emoji": "🙋",
-     "text": "Do you want to ask for something?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
+     "name": "Please",
      "emoji": "🙏",
-     "text": "Say 'please'",
-     "info": "Then say 'thank you' when you get it."
+     "color": "#8b5cf6"
     },
     {
-     "id": "d",
-     "emoji": "😬",
-     "text": "Did you make a mistake?",
-     "type": "decision"
-    },
-    {
-     "id": "e",
-     "emoji": "💛",
-     "text": "Say 'sorry'",
-     "info": "Say sorry when you make a mistake."
-    },
-    {
-     "id": "f",
-     "emoji": "🚶",
-     "text": "Do you need to pass or interrupt?",
-     "type": "decision"
-    },
-    {
-     "id": "g",
-     "emoji": "👋",
-     "text": "Say 'excuse me'",
-     "info": "Say excuse me when you need to pass or to interrupt."
-    },
-    {
-     "id": "h",
+     "name": "Thank you",
      "emoji": "🎁",
-     "text": "Someone helped you? Say 'thank you'",
-     "info": "They can reply, 'You're welcome.'"
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Sorry",
+     "emoji": "💛",
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Excuse me",
+     "emoji": "🚶",
+     "color": "#3b82f6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "asking for a glass of water",
+     "bin": 0,
+     "why": "We say 'please' when we ask for something."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "asking to borrow a pencil",
+     "bin": 0,
+     "why": "Asking for something: say 'please'."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "asking a friend to help you",
+     "bin": 0,
+     "why": "Asking for help: say 'please'."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "Yes"
+     "text": "getting a birthday gift",
+     "bin": 1,
+     "why": "We say 'thank you' when we get something."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "No"
+     "text": "someone carries your bag",
+     "bin": 1,
+     "why": "Someone helped you: say 'thank you'."
     },
     {
-     "from": "f",
-     "to": "g",
-     "label": "Yes"
+     "text": "the auto driver drops you home",
+     "bin": 1,
+     "why": "Thank the people who help us."
     },
     {
-     "from": "f",
-     "to": "h",
-     "label": "No"
+     "text": "stepping on a friend's toe",
+     "bin": 2,
+     "why": "You made a mistake: say 'sorry'."
+    },
+    {
+     "text": "breaking a friend's crayon",
+     "bin": 2,
+     "why": "You made a mistake: say 'sorry'."
+    },
+    {
+     "text": "coming late to class",
+     "bin": 2,
+     "why": "Say 'sorry' when you are late."
+    },
+    {
+     "text": "you need to get past people",
+     "bin": 3,
+     "why": "Say 'excuse me' when you need to pass."
+    },
+    {
+     "text": "you must interrupt Mummy on the phone",
+     "bin": 3,
+     "why": "Say 'excuse me' when you need to interrupt."
     }
    ]
   }
@@ -1119,6 +1113,46 @@
     [
      "👏",
      "The whole family clapped and cheered."
+    ]
+   ]
+  }
+ },
+ "g3-english-09-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "My family",
+   "leftTitle": "Family word",
+   "rightTitle": "Who is it?",
+   "mode": "instant",
+   "challenge": "Join each family word to the right relation",
+   "pairs": [
+    [
+     "Dadi",
+     "father's mother"
+    ],
+    [
+     "Nani",
+     "mother's mother"
+    ],
+    [
+     "Dada",
+     "father's father"
+    ],
+    [
+     "Nana",
+     "mother's father"
+    ],
+    [
+     "Bua",
+     "father's sister"
+    ],
+    [
+     "Mausi",
+     "mother's sister"
+    ],
+    [
+     "Cousin",
+     "your aunt's or uncle's child"
     ]
    ]
   }
@@ -1526,6 +1560,83 @@
     "fifteen",
     "twenty",
     "eighteen"
+   ]
+  }
+ },
+ "g3-english-11-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Real or imagination?",
+   "challenge": "Can it really happen, or only in our imagination? Sort the cards.",
+   "mode": "sort",
+   "shuffle": true,
+   "bins": [
+    {
+     "name": "Real",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Imagination",
+     "emoji": "💭",
+     "color": "#8b5cf6"
+    }
+   ],
+   "items": [
+    {
+     "text": "Stars twinkle at night",
+     "bin": 0,
+     "emoji": "⭐",
+     "why": "This really happens."
+    },
+    {
+     "text": "The Moon goes around the Earth",
+     "bin": 0,
+     "why": "This is a real fact."
+    },
+    {
+     "text": "Birds fly in the sky",
+     "bin": 0,
+     "emoji": "🐦",
+     "why": "This really happens."
+    },
+    {
+     "text": "Rain falls from clouds",
+     "bin": 0,
+     "emoji": "🌧️",
+     "why": "This really happens."
+    },
+    {
+     "text": "Clouds float in the sky",
+     "bin": 0,
+     "emoji": "☁️",
+     "why": "This really happens."
+    },
+    {
+     "text": "The Moon counts the stars",
+     "bin": 1,
+     "why": "The Moon cannot count. Make-believe!"
+    },
+    {
+     "text": "A star giggles",
+     "bin": 1,
+     "why": "Stars cannot giggle. Make-believe!"
+    },
+    {
+     "text": "A cloud eats laddoos",
+     "bin": 1,
+     "why": "Clouds cannot eat. Make-believe!"
+    },
+    {
+     "text": "A teddy bear drives a car",
+     "bin": 1,
+     "why": "Toys cannot drive. Make-believe!"
+    },
+    {
+     "text": "The cloud plays hide and seek",
+     "bin": 1,
+     "why": "Clouds do not play games. Make-believe!"
+    }
    ]
   }
  },
