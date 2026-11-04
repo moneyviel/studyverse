@@ -719,72 +719,73 @@
   }
  },
  "g8-social-06-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Which House is this member in?",
-   "task": "play",
-   "challenge": "Follow the questions to find out how members of Parliament are chosen",
-   "nodes": [
+   "title": "Lok Sabha or Rajya Sabha?",
+   "mode": "check",
+   "challenge": "Sort each fact under the right House of Parliament, then press Check.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🏛️",
-     "text": "A member of Parliament"
-    },
-    {
-     "id": "a",
-     "emoji": "🗳️",
-     "text": "Elected directly by the people?",
-     "type": "decision"
-    },
-    {
-     "id": "l",
+     "name": "Lok Sabha",
      "emoji": "🟢",
-     "text": "Lok Sabha: one of 543 elected members, 5-year term",
-     "info": "The Speaker presides. The Lok Sabha can be dissolved earlier."
+     "color": "#2ed3a5"
     },
     {
-     "id": "b",
-     "emoji": "🎨",
-     "text": "Nominated by the President?",
-     "type": "decision",
-     "info": "For art, literature, science or social service."
-    },
-    {
-     "id": "n",
-     "emoji": "🌟",
-     "text": "Rajya Sabha: one of 12 nominated members"
-    },
-    {
-     "id": "r",
+     "name": "Rajya Sabha",
      "emoji": "🔴",
-     "text": "Rajya Sabha: elected by MLAs of a state, 6-year term",
-     "info": "A permanent House; one-third retire every two years. The Vice-President is Chairman."
+     "color": "#ff6b6b"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "a"
+     "text": "Members elected directly by the people",
+     "bin": 0,
+     "why": "Lok Sabha members are elected directly, one from each constituency."
     },
     {
-     "from": "a",
-     "to": "l",
-     "label": "Yes"
+     "text": "543 elected members",
+     "bin": 0,
+     "why": "543 Lok Sabha members are elected."
     },
     {
-     "from": "a",
-     "to": "b",
-     "label": "No"
+     "text": "Term of five years",
+     "bin": 0,
+     "why": "Lok Sabha members are elected for five years."
     },
     {
-     "from": "b",
-     "to": "n",
-     "label": "Yes"
+     "text": "Can be dissolved earlier",
+     "bin": 0,
+     "why": "The Lok Sabha can be dissolved before five years."
     },
     {
-     "from": "b",
-     "to": "r",
-     "label": "No"
+     "text": "The Speaker presides",
+     "bin": 0,
+     "why": "The Speaker, elected by its members, presides over the Lok Sabha."
+    },
+    {
+     "text": "Most members elected by MLAs",
+     "bin": 1,
+     "why": "Elected members of State Legislative Assemblies elect most Rajya Sabha members."
+    },
+    {
+     "text": "12 members nominated by the President",
+     "bin": 1,
+     "why": "The President nominates 12 members known for art, literature, science or social service."
+    },
+    {
+     "text": "A permanent House, never dissolved",
+     "bin": 1,
+     "why": "The Rajya Sabha is never dissolved."
+    },
+    {
+     "text": "One-third retire every two years",
+     "bin": 1,
+     "why": "Members serve six years; one-third retire every two years."
+    },
+    {
+     "text": "The Vice-President is Chairman",
+     "bin": 1,
+     "why": "The Vice-President of India chairs the Rajya Sabha."
     }
    ]
   }
@@ -898,50 +899,71 @@
   }
  },
  "g8-social-07-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Fixed or working capital?",
-   "task": "play",
-   "challenge": "Sort the baker's things: answer the question to see what kind of capital each is",
-   "nodes": [
+   "mode": "sort",
+   "challenge": "Used again and again for many years, or used up in production? Sort each item.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🥖",
-     "text": "A baker in Bengaluru: oven, flour, sugar, ₹5,000 cash"
-    },
-    {
-     "id": "d",
-     "emoji": "🔁",
-     "text": "Used again and again for many years?",
-     "type": "decision"
-    },
-    {
-     "id": "f",
+     "name": "Fixed capital",
      "emoji": "🏭",
-     "text": "Fixed capital: the oven",
-     "info": "Like a tractor, a loom or a factory shed. It wears out and must be repaired or replaced."
+     "color": "#3b82f6"
     },
     {
-     "id": "w",
+     "name": "Working capital",
      "emoji": "🌾",
-     "text": "Working capital: flour, sugar and cash",
-     "info": "Used up in production, like cotton yarn for a weaver."
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "d"
+     "text": "Baker's oven",
+     "emoji": "🔥",
+     "bin": 0,
+     "why": "Used again and again for many years: fixed capital."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "Yes"
+     "text": "Tractor",
+     "emoji": "🚜",
+     "bin": 0,
+     "why": "A machine used for many years: fixed capital."
     },
     {
-     "from": "d",
-     "to": "w",
-     "label": "No"
+     "text": "Weaver's loom",
+     "emoji": "🧵",
+     "bin": 0,
+     "why": "A tool used again and again: fixed capital."
+    },
+    {
+     "text": "Factory shed",
+     "emoji": "🏚️",
+     "bin": 0,
+     "why": "A building used for many years: fixed capital."
+    },
+    {
+     "text": "Flour for the baker",
+     "emoji": "🌾",
+     "bin": 1,
+     "why": "Used up in production: working capital."
+    },
+    {
+     "text": "Sugar for the baker",
+     "emoji": "🍬",
+     "bin": 1,
+     "why": "Used up in production: working capital."
+    },
+    {
+     "text": "Cotton yarn for a weaver",
+     "emoji": "🧶",
+     "bin": 1,
+     "why": "A raw material that is used up: working capital."
+    },
+    {
+     "text": "₹5,000 cash to pay for gas",
+     "emoji": "💵",
+     "bin": 1,
+     "why": "Money in hand that gets used up: working capital."
     }
    ]
   }
@@ -1359,72 +1381,68 @@
   }
  },
  "g8-social-10-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Which temple style?",
-   "task": "play",
-   "challenge": "Use the clues to name the temple style",
-   "nodes": [
+   "title": "Nagara, Dravida or Vesara?",
+   "mode": "check",
+   "challenge": "Sort each feature or temple into its temple style, then press Check.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🛕",
-     "text": "Look at the temple's towers"
-    },
-    {
-     "id": "a",
-     "emoji": "🔺",
-     "text": "Pyramid-like vimana and big gopurams?",
-     "type": "decision"
-    },
-    {
-     "id": "d",
-     "emoji": "🌴",
-     "text": "Dravida style (south India)",
-     "info": "Like the Brihadeeswara temple, Thanjavur, built by Rajaraja I."
-    },
-    {
-     "id": "b",
-     "emoji": "🌙",
-     "text": "Curved shikhara over the sanctum?",
-     "type": "decision"
-    },
-    {
-     "id": "n",
+     "name": "Nagara (north)",
      "emoji": "🏔️",
-     "text": "Nagara style (north India)",
-     "info": "Like Kandariya Mahadeva, Khajuraho, and the Sun Temple, Konark."
+     "color": "#ff9f1c"
     },
     {
-     "id": "v",
+     "name": "Dravida (south)",
+     "emoji": "🌴",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Vesara (Deccan)",
      "emoji": "🔀",
-     "text": "Vesara style: a mix of both",
-     "info": "Developed in the Deccan under the Chalukyas and Hoysalas."
+     "color": "#8b5cf6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "a"
+     "text": "Curved shikhara over the sanctum",
+     "bin": 0,
+     "why": "The Nagara tower is a curved shikhara."
     },
     {
-     "from": "a",
-     "to": "d",
-     "label": "Yes"
+     "text": "Kandariya Mahadeva temple, Khajuraho",
+     "bin": 0,
+     "why": "Built by the Chandelas in the Nagara style."
     },
     {
-     "from": "a",
-     "to": "b",
-     "label": "No"
+     "text": "Sun Temple, Konark",
+     "bin": 0,
+     "why": "The Konark Sun Temple is a Nagara-style example."
     },
     {
-     "from": "b",
-     "to": "n",
-     "label": "Yes"
+     "text": "Pyramid-like vimana over the sanctum",
+     "bin": 1,
+     "why": "The Dravida tower is a pyramid-like vimana."
     },
     {
-     "from": "b",
-     "to": "v",
-     "label": "No"
+     "text": "Big gateway towers (gopurams)",
+     "bin": 1,
+     "why": "Gopurams at the entrances are a Dravida feature."
+    },
+    {
+     "text": "Brihadeeswara temple, Thanjavur",
+     "bin": 1,
+     "why": "Built by the Chola king Rajaraja I in the Dravida style."
+    },
+    {
+     "text": "Mixes Nagara and Dravida features",
+     "bin": 2,
+     "why": "Vesara is a mix of both styles."
+    },
+    {
+     "text": "Grew under the Chalukyas and Hoysalas",
+     "bin": 2,
+     "why": "The Vesara style developed in the Deccan under them."
     }
    ]
   }
@@ -1677,81 +1695,58 @@
   }
  },
  "g8-social-11-03": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Which kind of case?",
-   "task": "play",
-   "challenge": "Ravi's tenant has not paid rent for six months. Play the questions: civil or criminal?",
-   "nodes": [
+   "title": "Civil case or criminal case?",
+   "mode": "sort",
+   "challenge": "Is it a crime, or a dispute about rights? Sort each problem.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "📄",
-     "text": "A problem reaches the law"
-    },
-    {
-     "id": "a",
-     "emoji": "🚨",
-     "text": "Is it a crime like theft or assault?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
+     "name": "Criminal case",
      "emoji": "👮",
-     "text": "Criminal case: an FIR is filed with the police",
-     "info": "The guilty can be punished."
+     "color": "#ff6b6b"
     },
     {
-     "id": "v",
+     "name": "Civil case",
      "emoji": "🏠",
-     "text": "Civil case: a dispute about rights (property, rent, contracts)",
-     "info": "The affected person files the case; the court gives relief such as compensation."
-    },
-    {
-     "id": "l",
-     "emoji": "🤝",
-     "text": "Can it be settled quickly by agreement?",
-     "type": "decision"
-    },
-    {
-     "id": "k",
-     "emoji": "🏛️",
-     "text": "Lok Adalat: settled by agreement, no court fee"
-    },
-    {
-     "id": "t",
-     "emoji": "⚖️",
-     "text": "Court hears the case; free legal aid if needed",
-     "info": "Article 39A: free legal aid so poverty does not deny justice."
+     "color": "#3b82f6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "a"
+     "text": "A phone is stolen from a shop",
+     "bin": 0,
+     "why": "Theft is a crime: an FIR is filed with the police."
     },
     {
-     "from": "a",
-     "to": "c",
-     "label": "Yes"
+     "text": "A man attacks his neighbour",
+     "bin": 0,
+     "why": "Assault is a crime: the guilty can be punished."
     },
     {
-     "from": "a",
-     "to": "v",
-     "label": "No"
+     "text": "A chain-snatcher grabs a gold chain",
+     "bin": 0,
+     "why": "Snatching is theft, a crime."
     },
     {
-     "from": "v",
-     "to": "l"
+     "text": "Tenant has not paid rent for six months",
+     "bin": 1,
+     "why": "A dispute about rent: a civil case."
     },
     {
-     "from": "l",
-     "to": "k",
-     "label": "Yes"
+     "text": "Two brothers dispute who owns a field",
+     "bin": 1,
+     "why": "A dispute about property: a civil case."
     },
     {
-     "from": "l",
-     "to": "t",
-     "label": "No"
+     "text": "A builder breaks a written contract",
+     "bin": 1,
+     "why": "A dispute about a contract: a civil case."
+    },
+    {
+     "text": "A couple asks the court for a divorce",
+     "bin": 1,
+     "why": "Divorce is a civil matter."
     }
    ]
   }
@@ -1834,6 +1829,46 @@
    ]
   }
  },
+ "g8-social-12-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Fundamental Duties in action",
+   "leftTitle": "What a citizen does",
+   "rightTitle": "Fundamental Duty",
+   "mode": "check",
+   "challenge": "Join each action to the Fundamental Duty (Article 51A) it shows, then press Check.",
+   "pairs": [
+    [
+     "Standing up for the National Anthem",
+     "Respect the Constitution, Flag and Anthem"
+    ],
+    [
+     "Planting trees on Van Mahotsav",
+     "Protect the natural environment"
+    ],
+    [
+     "Stopping people scratching a monument",
+     "Safeguard public property"
+    ],
+    [
+     "Testing a rumour by checking facts",
+     "Develop a scientific temper"
+    ],
+    [
+     "Parents sending an 8-year-old to school",
+     "Give children aged 6–14 a chance to learn"
+    ],
+    [
+     "Celebrating festivals of all communities",
+     "Promote harmony and brotherhood"
+    ],
+    [
+     "Practising hard to do your very best",
+     "Strive for excellence in all activities"
+    ]
+   ]
+  }
+ },
  "g8-social-13-01": {
   "type": "numberline",
   "p": {
@@ -1913,6 +1948,46 @@
     "Ladakh"
    ],
    "goal": 5
+  }
+ },
+ "g8-social-13-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Population composition words",
+   "leftTitle": "Term",
+   "rightTitle": "Meaning",
+   "mode": "instant",
+   "challenge": "Join each population term to its meaning.",
+   "pairs": [
+    [
+     "Population composition",
+     "Make-up by age, sex, literacy, occupation"
+    ],
+    [
+     "Sex ratio",
+     "Females per 1,000 males"
+    ],
+    [
+     "943",
+     "India's sex ratio, Census 2011"
+    ],
+    [
+     "Population pyramid",
+     "Graph of males and females by age group"
+    ],
+    [
+     "Wide base of a pyramid",
+     "Many children"
+    ],
+    [
+     "Demographic dividend",
+     "Strength from a young, skilled population"
+    ],
+    [
+     "Children and the elderly",
+     "Depend on working-age people"
+    ]
+   ]
   }
  },
  "g8-social-14-01": {
@@ -2201,6 +2276,50 @@
      "label": "Guru Gobind Singh founds the Khalsa",
      "emoji": "⚔️"
     }
+   ]
+  }
+ },
+ "g8-social-15-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Art and literature, 13th–17th centuries",
+   "leftTitle": "Person / book",
+   "rightTitle": "Known for",
+   "mode": "check",
+   "challenge": "Join each person or book to what it is known for, then press Check.",
+   "pairs": [
+    [
+     "Babur",
+     "Baburnama, memoirs in Turkish"
+    ],
+    [
+     "Abul Fazl",
+     "Akbarnama, in Persian"
+    ],
+    [
+     "Razmnama",
+     "Mahabharata in Persian"
+    ],
+    [
+     "Hamzanama",
+     "Adventure stories painted for Akbar"
+    ],
+    [
+     "Ustad Mansur",
+     "Jahangir's painter of birds and animals"
+    ],
+    [
+     "Krishnadevaraya",
+     "Amuktamalyada, in Telugu"
+    ],
+    [
+     "Purandara Dasa",
+     "Father of Carnatic music"
+    ],
+    [
+     "Tansen",
+     "Musician at Akbar's court"
+    ]
    ]
   }
  }

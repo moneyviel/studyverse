@@ -520,6 +520,38 @@
    ]
   }
  },
+ "g7-social-02-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Elements of weather",
+   "leftTitle": "Element",
+   "rightTitle": "What it tells us",
+   "mode": "instant",
+   "challenge": "Join each element of weather to what it describes.",
+   "pairs": [
+    [
+     "Temperature 🌡️",
+     "How hot or cold the air is"
+    ],
+    [
+     "Humidity 💧",
+     "Amount of water vapour in the air"
+    ],
+    [
+     "Air pressure ⬇️",
+     "Weight of the air pressing down on us"
+    ],
+    [
+     "Wind 🌬️",
+     "Moving air, from high to low pressure"
+    ],
+    [
+     "Precipitation 🌧️",
+     "Rain, snow or hail"
+    ]
+   ]
+  }
+ },
  "g7-social-02-02": {
   "type": "datachart",
   "p": {
@@ -1708,73 +1740,70 @@
   }
  },
  "g7-social-09-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Who rules? Monarchy or not?",
-   "task": "play",
-   "challenge": "Bhutan has a king and an elected parliament. Press Next and answer the questions to classify its government",
-   "nodes": [
+   "mode": "check",
+   "challenge": "Sort each country or description by its kind of government, then press Check.",
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🏛️",
-     "text": "Look at a country's government"
-    },
-    {
-     "id": "b",
-     "emoji": "👑",
-     "text": "Is a king or queen head of the state (by inheritance)?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
+     "name": "Constitutional monarchy",
      "emoji": "📜",
-     "text": "Powers limited by law?",
-     "type": "decision",
-     "info": "Are the monarch's powers limited by a constitution, with an elected parliament making laws?"
+     "color": "#3b82f6"
     },
     {
-     "id": "d",
-     "emoji": "🇧🇹",
-     "text": "CONSTITUTIONAL MONARCHY",
-     "info": "Like the United Kingdom, Japan and Bhutan."
-    },
-    {
-     "id": "e",
+     "name": "Absolute monarchy",
      "emoji": "⚜️",
-     "text": "ABSOLUTE MONARCHY",
-     "info": "The monarch holds almost all power."
+     "color": "#ff9f1c"
     },
     {
-     "id": "f",
+     "name": "Not a monarchy",
      "emoji": "🗳️",
-     "text": "Not a monarchy",
-     "info": "Look at who holds power and how rulers are chosen."
+     "color": "#2ed3a5"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "United Kingdom",
+     "emoji": "🇬🇧",
+     "bin": 0,
+     "why": "The UK has a monarch whose powers are limited by law."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "Japan",
+     "emoji": "🇯🇵",
+     "bin": 0,
+     "why": "Japan is a constitutional monarchy."
     },
     {
-     "from": "b",
-     "to": "f",
-     "label": "No"
+     "text": "Bhutan",
+     "emoji": "🇧🇹",
+     "bin": 0,
+     "why": "Bhutan has a king and an elected parliament that makes laws under a constitution."
     },
     {
-     "from": "c",
-     "to": "d",
-     "label": "Yes"
+     "text": "King's powers limited; parliament makes laws",
+     "emoji": "🏛️",
+     "bin": 0,
+     "why": "A monarch limited by a constitution: constitutional monarchy."
     },
     {
-     "from": "c",
-     "to": "e",
-     "label": "No"
+     "text": "The monarch holds almost all power",
+     "emoji": "👑",
+     "bin": 1,
+     "why": "That is an absolute monarchy."
+    },
+    {
+     "text": "Head of state is elected, not born to rule",
+     "emoji": "🗳️",
+     "bin": 2,
+     "why": "In a monarchy the position passes down in the family; an elected head is not a monarch."
+    },
+    {
+     "text": "A gaṇa: power shared among a group",
+     "emoji": "👥",
+     "bin": 2,
+     "why": "Ancient Indian gaṇas shared power among a group, not one monarch."
     }
    ]
   }
@@ -1822,95 +1851,73 @@
   }
  },
  "g7-social-09-03": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Compare governments",
-   "task": "play",
-   "challenge": "A ruler took power without an election and bans critical newspapers. Press Next and answer to find the type of government",
-   "nodes": [
+   "mode": "check",
+   "challenge": "Who holds power, and how are rulers chosen? Sort each clue into the right type of government, then press Check.",
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🔍",
-     "text": "Ask: who holds power, and how are rulers chosen?"
-    },
-    {
-     "id": "b",
-     "emoji": "🗳️",
-     "text": "Are rulers chosen in free and fair elections?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
+     "name": "Democracy",
      "emoji": "✅",
-     "text": "DEMOCRACY",
-     "info": "Rulers can be changed peacefully; there are courts, a free press and rights."
+     "color": "#2ed3a5"
     },
     {
-     "id": "d",
-     "emoji": "🛐",
-     "text": "Religious rule?",
-     "type": "decision",
-     "info": "Do religious leaders rule, or are laws based on one religion?"
-    },
-    {
-     "id": "e",
-     "emoji": "📿",
-     "text": "THEOCRACY"
-    },
-    {
-     "id": "f",
-     "emoji": "👤",
-     "text": "One person in power?",
-     "type": "decision",
-     "info": "Does ONE person (or a tiny group) hold all power without free elections?"
-    },
-    {
-     "id": "g",
+     "name": "Dictatorship",
      "emoji": "✊",
-     "text": "DICTATORSHIP",
-     "info": "People usually cannot criticise the ruler freely."
+     "color": "#ff6b6b"
     },
     {
-     "id": "h",
+     "name": "Oligarchy",
      "emoji": "💰",
-     "text": "OLIGARCHY",
-     "info": "A small group of powerful people, such as the very rich or military leaders, rules."
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Theocracy",
+     "emoji": "📿",
+     "color": "#8b5cf6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "Rulers changed peacefully by elections",
+     "bin": 0,
+     "why": "In a democracy people choose and change rulers through elections."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "Free press, courts and rights for citizens",
+     "bin": 0,
+     "why": "A democracy protects citizens with courts, a free press and rights."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "No"
+     "text": "One person took power without an election",
+     "bin": 1,
+     "why": "One ruler not chosen in free and fair elections: dictatorship."
     },
     {
-     "from": "d",
-     "to": "e",
-     "label": "Yes"
+     "text": "Ruler bans newspapers that criticise him",
+     "bin": 1,
+     "why": "In a dictatorship people usually cannot criticise the ruler freely."
     },
     {
-     "from": "d",
-     "to": "f",
-     "label": "No"
+     "text": "A small group of the very rich rules",
+     "bin": 2,
+     "why": "Rule by a small group of powerful people: oligarchy."
     },
     {
-     "from": "f",
-     "to": "g",
-     "label": "Yes"
+     "text": "A few military leaders rule together",
+     "bin": 2,
+     "why": "A small group such as military leaders rules: oligarchy."
     },
     {
-     "from": "f",
-     "to": "h",
-     "label": "No"
+     "text": "Religious leaders rule",
+     "bin": 3,
+     "why": "Rule by religious leaders: theocracy."
+    },
+    {
+     "text": "Laws based on the rules of one religion",
+     "bin": 3,
+     "why": "Laws based on one religion: theocracy."
     }
    ]
   }
@@ -2139,61 +2146,64 @@
   }
  },
  "g7-social-12-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "What kind of market is it?",
-   "task": "play",
-   "challenge": "A town has only one company that supplies electricity. Press Next and choose how many sellers there are",
-   "nodes": [
+   "mode": "sort",
+   "challenge": "Count the sellers! Sort each market into monopoly, oligopoly or competitive market.",
+   "bins": [
     {
-     "id": "a",
-     "emoji": "🛒",
-     "text": "Buyers and sellers meet in a market"
-    },
-    {
-     "id": "b",
-     "emoji": "🔢",
-     "text": "How many sellers are there?",
-     "type": "decision"
-    },
-    {
-     "id": "c",
+     "name": "Monopoly (one seller)",
      "emoji": "⚡",
-     "text": "Monopoly",
-     "info": "Only one seller, like the town's electricity company."
+     "color": "#ff6b6b"
     },
     {
-     "id": "d",
+     "name": "Oligopoly (a few big sellers)",
      "emoji": "🏢",
-     "text": "Oligopoly",
-     "info": "A few big sellers control the market."
+     "color": "#ff9f1c"
     },
     {
-     "id": "e",
+     "name": "Competitive (many sellers)",
      "emoji": "🥕",
-     "text": "Compe­titive",
-     "info": "Competitive market: many sellers of similar goods, like a vegetable market."
+     "color": "#2ed3a5"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "a",
-     "to": "b"
+     "text": "The town's only electricity company",
+     "emoji": "💡",
+     "bin": 0,
+     "why": "People cannot buy electricity from anyone else: only one seller."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "One"
+     "text": "Only one company sells water in a town",
+     "emoji": "🚰",
+     "bin": 0,
+     "why": "A single seller: monopoly."
     },
     {
-     "from": "b",
-     "to": "d",
-     "label": "A few"
+     "text": "Three big firms sell all the cars",
+     "emoji": "🚗",
+     "bin": 1,
+     "why": "A few big sellers control the market: oligopoly."
     },
     {
-     "from": "b",
-     "to": "e",
-     "label": "Many"
+     "text": "Two big companies run all the flights",
+     "emoji": "✈️",
+     "bin": 1,
+     "why": "A few big sellers: oligopoly."
+    },
+    {
+     "text": "A vegetable market with many sellers",
+     "emoji": "🥬",
+     "bin": 2,
+     "why": "Many sellers of similar goods: competitive market."
+    },
+    {
+     "text": "Fifty fruit sellers at a weekly haat",
+     "emoji": "🍌",
+     "bin": 2,
+     "why": "Many sellers of similar goods compete: competitive market."
     }
    ]
   }
@@ -3080,6 +3090,42 @@
    ]
   }
  },
+ "g7-social-18-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "The State and the government",
+   "leftTitle": "Word",
+   "rightTitle": "Meaning",
+   "mode": "instant",
+   "challenge": "Join each word to its meaning. The first four are the elements of a State.",
+   "pairs": [
+    [
+     "Territory",
+     "A defined area of land"
+    ],
+    [
+     "Population",
+     "The people who live in the State"
+    ],
+    [
+     "Government",
+     "People and institutions that run the State"
+    ],
+    [
+     "Sovereignty",
+     "Power to decide without outside control"
+    ],
+    [
+     "Democracy",
+     "Citizens elect their representatives"
+    ],
+    [
+     "Republic",
+     "Head of state is elected, not born to the post"
+    ]
+   ]
+  }
+ },
  "g7-social-18-02": {
   "type": "flowchart",
   "p": {
@@ -3182,6 +3228,76 @@
     {
      "from": "e",
      "to": "f"
+    }
+   ]
+  }
+ },
+ "g7-social-19-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Physical or social infrastructure?",
+   "mode": "sort",
+   "challenge": "Sort each facility: is it physical infrastructure or social infrastructure?",
+   "bins": [
+    {
+     "name": "Physical infrastructure",
+     "emoji": "🛤️",
+     "color": "#3b82f6"
+    },
+    {
+     "name": "Social infrastructure",
+     "emoji": "🏫",
+     "color": "#2ed3a5"
+    }
+   ],
+   "items": [
+    {
+     "text": "Roads",
+     "emoji": "🛣️",
+     "bin": 0,
+     "why": "Transport networks are physical infrastructure."
+    },
+    {
+     "text": "Railways",
+     "emoji": "🚆",
+     "bin": 0,
+     "why": "Transport: physical infrastructure."
+    },
+    {
+     "text": "Ports and airports",
+     "emoji": "⚓",
+     "bin": 0,
+     "why": "Transport: physical infrastructure."
+    },
+    {
+     "text": "Electricity supply",
+     "emoji": "⚡",
+     "bin": 0,
+     "why": "Energy networks are physical infrastructure."
+    },
+    {
+     "text": "Water supply",
+     "emoji": "🚰",
+     "bin": 0,
+     "why": "Water networks are physical infrastructure."
+    },
+    {
+     "text": "Telephones and internet",
+     "emoji": "📶",
+     "bin": 0,
+     "why": "Communication networks are physical infrastructure."
+    },
+    {
+     "text": "Schools",
+     "emoji": "🏫",
+     "bin": 1,
+     "why": "Schools are services for people: social infrastructure."
+    },
+    {
+     "text": "Hospitals",
+     "emoji": "🏥",
+     "bin": 1,
+     "why": "Hospitals are services for people: social infrastructure."
     }
    ]
   }
@@ -3320,6 +3436,64 @@
        21.64
       ]
      ]
+    }
+   ]
+  }
+ },
+ "g7-social-19-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Where does our electricity come from?",
+   "mode": "sort",
+   "challenge": "Sort each source of electricity: renewable (does not run out) or non-renewable?",
+   "bins": [
+    {
+     "name": "Renewable",
+     "emoji": "♻️",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Non-renewable",
+     "emoji": "⛏️",
+     "color": "#ff9f1c"
+    }
+   ],
+   "items": [
+    {
+     "text": "Solar energy",
+     "emoji": "☀️",
+     "bin": 0,
+     "why": "Sunlight does not run out. Rajasthan and Gujarat have large solar parks."
+    },
+    {
+     "text": "Wind energy",
+     "emoji": "🌬️",
+     "bin": 0,
+     "why": "Wind does not run out and causes less pollution."
+    },
+    {
+     "text": "Hydroelectric (flowing water)",
+     "emoji": "💧",
+     "bin": 0,
+     "why": "Flowing water is renewed by rain."
+    },
+    {
+     "text": "Thermal power from coal",
+     "emoji": "🪨",
+     "bin": 1,
+     "why": "Coal is used up and will run out."
+    },
+    {
+     "text": "Thermal power from gas",
+     "emoji": "🔥",
+     "bin": 1,
+     "why": "Natural gas is used up and will run out."
+    },
+    {
+     "text": "Nuclear power",
+     "emoji": "⚛️",
+     "bin": 1,
+     "why": "Nuclear fuel (uranium) is mined and will run out."
     }
    ]
   }

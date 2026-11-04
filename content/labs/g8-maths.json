@@ -392,93 +392,73 @@
   }
  },
  "g8-maths-02-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Which law of exponents?",
-   "task": "play",
-   "nodes": [
+   "mode": "check",
+   "challenge": "Look at the bases and the exponents. Which law simplifies each one? Sort them all, then press Check.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🔢",
-     "text": "Combine two powers",
-     "info": "Look at the bases and the exponents first."
-    },
-    {
-     "id": "d1",
-     "emoji": "❓",
-     "text": "Is the base the same?",
-     "info": "3² and 3⁴ have the same base 3. 2³ and 5³ do not, but they have the same exponent.",
-     "type": "decision"
-    },
-    {
-     "id": "d2",
-     "emoji": "❓",
-     "text": "Multiply or divide?",
-     "info": "Choose one, then play again for the other.",
-     "type": "decision"
-    },
-    {
-     "id": "m",
+     "name": "Same base × → add exponents",
      "emoji": "✖️",
-     "text": "3² × 3⁴ = 3⁶",
-     "info": "Same base, multiply → add the exponents: 2 + 4 = 6."
+     "color": "#3b82f6"
     },
     {
-     "id": "v",
+     "name": "Same base ÷ → subtract exponents",
      "emoji": "➗",
-     "text": "7⁹ ÷ 7⁴ = 7⁵",
-     "info": "Same base, divide → subtract the exponents: 9 − 4 = 5."
+     "color": "#ff9f1c"
     },
     {
-     "id": "q",
-     "emoji": "🤝",
-     "text": "Same exponent: 2³ × 5³ = 10³",
-     "info": "Multiply the bases: (2 × 5)³ = 10³ = 1000."
-    },
-    {
-     "id": "e",
+     "name": "Power of a power → multiply exponents",
      "emoji": "🔁",
-     "text": "One more law: (5²)³ = 5⁶",
-     "info": "Power of a power → multiply the exponents. And 9⁰ = 1, 2⁻³ = 1/8."
+     "color": "#8b5cf6"
+    },
+    {
+     "name": "Same exponent → multiply bases",
+     "emoji": "🤝",
+     "color": "#2ed3a5"
     }
    ],
-   "challenge": "Follow the questions to pick the right law of exponents. Play again until you have reached all three answers.",
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "d1"
+     "text": "3² × 3⁴",
+     "bin": 0,
+     "why": "Same base 3: 2 + 4 = 6, so 3⁶."
     },
     {
-     "from": "d1",
-     "to": "d2",
-     "label": "Yes"
+     "text": "a⁵ × a²",
+     "bin": 0,
+     "why": "Same base a: 5 + 2 = 7, so a⁷."
     },
     {
-     "from": "d1",
-     "to": "q",
-     "label": "No"
+     "text": "7⁹ ÷ 7⁴",
+     "bin": 1,
+     "why": "Same base 7: 9 − 4 = 5, so 7⁵."
     },
     {
-     "from": "d2",
-     "to": "m",
-     "label": "×"
+     "text": "x⁸ ÷ x³",
+     "bin": 1,
+     "why": "Same base x: 8 − 3 = 5, so x⁵."
     },
     {
-     "from": "d2",
-     "to": "v",
-     "label": "÷"
+     "text": "(5²)³",
+     "bin": 2,
+     "why": "Power of a power: 2 × 3 = 6, so (5²)³ = 5⁶."
     },
     {
-     "from": "m",
-     "to": "e"
+     "text": "(2⁴)²",
+     "bin": 2,
+     "why": "Power of a power: 4 × 2 = 8, so (2⁴)² = 2⁸."
     },
     {
-     "from": "v",
-     "to": "e"
+     "text": "2³ × 5³",
+     "bin": 3,
+     "why": "Same exponent 3: (2 × 5)³ = 10³."
     },
     {
-     "from": "q",
-     "to": "e"
+     "text": "4² × 25²",
+     "bin": 3,
+     "why": "Same exponent 2: (4 × 25)² = 100²."
     }
    ]
   }

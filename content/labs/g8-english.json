@@ -662,69 +662,63 @@
   }
  },
  "g8-english-07-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Fact, inference or guess?",
-   "task": "play",
-   "challenge": "\"Her umbrella dripped on the floor, so it was raining.\" Test this idea like a detective",
-   "nodes": [
+   "mode": "check",
+   "challenge": "Think like a detective: can it be checked (fact), does a clue support it (inference), or is there no clue at all (guess)? Then press Check.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "☂️",
-     "text": "\"It was raining outside.\""
-    },
-    {
-     "id": "a",
-     "emoji": "✅",
-     "text": "Can you check it directly?",
-     "type": "decision"
-    },
-    {
-     "id": "f",
+     "name": "Fact",
      "emoji": "📌",
-     "text": "Fact: it can be checked"
+     "color": "#3b82f6"
     },
     {
-     "id": "b",
-     "emoji": "🔎",
-     "text": "Is it supported by a clue (the dripping umbrella)?",
-     "type": "decision"
-    },
-    {
-     "id": "i",
+     "name": "Inference",
      "emoji": "💡",
-     "text": "Inference: a sensible conclusion from clues"
+     "color": "#2ed3a5"
     },
     {
-     "id": "g",
+     "name": "Guess",
      "emoji": "🎲",
-     "text": "Guess: no clue supports it"
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "a"
+     "text": "Her umbrella is dripping on the floor.",
+     "bin": 0,
+     "why": "You can look and check it directly: a fact."
     },
     {
-     "from": "a",
-     "to": "f",
-     "label": "Yes"
+     "text": "The clock in the hall shows 4 o'clock.",
+     "bin": 0,
+     "why": "Anyone can check the clock: a fact."
     },
     {
-     "from": "a",
-     "to": "b",
-     "label": "No"
+     "text": "Umbrella dripping, so it was raining.",
+     "bin": 1,
+     "why": "A sensible conclusion from a clue (the wet umbrella): an inference."
     },
     {
-     "from": "b",
-     "to": "i",
-     "label": "Yes"
+     "text": "He keeps yawning, so he is sleepy.",
+     "bin": 1,
+     "why": "The yawning is a clue that supports it: an inference."
     },
     {
-     "from": "b",
-     "to": "g",
-     "label": "No"
+     "text": "Muddy shoes, so he walked through mud.",
+     "bin": 1,
+     "why": "The muddy shoes are the clue: an inference."
+    },
+    {
+     "text": "The new boy's favourite colour is blue.",
+     "bin": 2,
+     "why": "No clue supports it: a guess."
+    },
+    {
+     "text": "The visitor is probably a famous singer.",
+     "bin": 2,
+     "why": "Nothing in the scene points to it: a guess."
     }
    ]
   }
@@ -1618,72 +1612,68 @@
   }
  },
  "g8-english-13-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Sci-fi or fantasy?",
-   "task": "play",
-   "challenge": "\"In 2090, Asha took a solar-powered shuttle to a robot farm on Mars.\" Test the story",
-   "nodes": [
+   "title": "Sci-fi, fantasy or realistic?",
+   "mode": "check",
+   "challenge": "Magic means fantasy; science and technology mean sci-fi; neither means a realistic story. Sort each story idea, then press Check.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "📖",
-     "text": "A story to sort"
-    },
-    {
-     "id": "a",
-     "emoji": "🪄",
-     "text": "Is anything done by magic?",
-     "type": "decision"
-    },
-    {
-     "id": "f",
-     "emoji": "🐉",
-     "text": "Fantasy",
-     "info": "Magic objects, magical powers, talking animals."
-    },
-    {
-     "id": "b",
-     "emoji": "🔬",
-     "text": "Explained by science and technology?",
-     "type": "decision",
-     "info": "Future or space settings, inventions, scientists."
-    },
-    {
-     "id": "c",
+     "name": "Science fiction",
      "emoji": "🚀",
-     "text": "Science fiction!",
-     "info": "It asks \"What if…?\" using science."
+     "color": "#3b82f6"
     },
     {
-     "id": "r",
+     "name": "Fantasy",
+     "emoji": "🪄",
+     "color": "#8b5cf6"
+    },
+    {
+     "name": "Realistic",
      "emoji": "🏡",
-     "text": "Realistic story"
+     "color": "#2ed3a5"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "a"
+     "text": "In 2090 robots grow wheat on Mars",
+     "bin": 0,
+     "why": "A future, space setting with technology: sci-fi."
     },
     {
-     "from": "a",
-     "to": "f",
-     "label": "Yes"
+     "text": "A solar-powered shuttle flies Asha to Mars",
+     "bin": 0,
+     "why": "It is explained by (imagined) science: sci-fi."
     },
     {
-     "from": "a",
-     "to": "b",
-     "label": "No"
+     "text": "Professor Shonku builds a new invention",
+     "bin": 0,
+     "why": "Satyajit Ray's inventor stories are Indian sci-fi."
     },
     {
-     "from": "b",
-     "to": "c",
-     "label": "Yes"
+     "text": "A wizard turns a frog into a prince",
+     "bin": 1,
+     "why": "Things happen by magic: fantasy."
     },
     {
-     "from": "b",
-     "to": "r",
-     "label": "No"
+     "text": "A magic carpet carries a boy to a palace",
+     "bin": 1,
+     "why": "Magic objects belong to fantasy."
+    },
+    {
+     "text": "A talking dragon guards a cave of gold",
+     "bin": 1,
+     "why": "Talking magical animals belong to fantasy."
+    },
+    {
+     "text": "A girl practises daily to win a race",
+     "bin": 2,
+     "why": "No magic and no special science: a realistic story."
+    },
+    {
+     "text": "A boy helps his grandmother sell vegetables",
+     "bin": 2,
+     "why": "An everyday event: a realistic story."
     }
    ]
   }

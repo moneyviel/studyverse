@@ -400,85 +400,77 @@
   }
  },
  "g7-science-04-01": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Metal or non-metal? Test a lump",
-   "task": "play",
-   "challenge": "A shopkeeper tests a shiny lump. Press Next and choose each test result to see what it tells you",
-   "nodes": [
+   "title": "Metal or non-metal?",
+   "mode": "sort",
+   "challenge": "Use lustre, malleability, ductility and sound to sort each material. Watch out for the tricky ones!",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🪨",
-     "text": "Take an unknown lump of material"
-    },
-    {
-     "id": "l",
-     "emoji": "✨",
-     "text": "Shiny when freshly cut or polished?",
-     "type": "decision",
-     "info": "Lustre: metals are shiny."
-    },
-    {
-     "id": "m",
-     "emoji": "🔨",
-     "text": "Hammer: thin sheet?",
-     "type": "decision",
-     "info": "Hammer it: does it spread into a thin sheet? Malleable: like aluminium foil and silver vark. Brittle solids like sulphur and coal break into powder."
-    },
-    {
-     "id": "r",
-     "emoji": "🔔",
-     "text": "Tap it: does it ring?",
-     "type": "decision",
-     "info": "Sonorous: that is why bells are made of metal."
-    },
-    {
-     "id": "y",
+     "name": "Metal",
      "emoji": "🥇",
-     "text": "Most likely a METAL",
-     "info": "Metals are also ductile (drawn into wires) and good conductors of heat and electricity."
+     "color": "#3b82f6"
     },
     {
-     "id": "n",
+     "name": "Non-metal",
      "emoji": "🧱",
-     "text": "Most likely a NON-METAL",
-     "info": "Non-metals are usually dull, brittle, not sonorous and poor conductors (exceptions: iodine is shiny, graphite conducts)."
+     "color": "#ff9f1c"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "l"
+     "text": "Aluminium (beaten into foil)",
+     "emoji": "🌯",
+     "bin": 0,
+     "why": "Metals are malleable: aluminium is beaten into thin foil."
     },
     {
-     "from": "l",
-     "to": "m",
-     "label": "Yes"
+     "text": "Silver (beaten into vark)",
+     "emoji": "🍬",
+     "bin": 0,
+     "why": "Silver is a malleable metal; vark is a very thin sheet of it."
     },
     {
-     "from": "l",
-     "to": "n",
-     "label": "No"
+     "text": "Copper (drawn into wires)",
+     "emoji": "🔌",
+     "bin": 0,
+     "why": "Metals are ductile: copper is drawn into thin wires."
     },
     {
-     "from": "m",
-     "to": "r",
-     "label": "Yes"
+     "text": "Sulphur (breaks into powder)",
+     "emoji": "🟡",
+     "bin": 1,
+     "why": "Sulphur is brittle: it breaks into powder when hammered."
     },
     {
-     "from": "m",
-     "to": "n",
-     "label": "No"
+     "text": "Coal (breaks when hammered)",
+     "emoji": "⚫",
+     "bin": 1,
+     "why": "Coal is brittle and dull: a non-metal."
     },
     {
-     "from": "r",
-     "to": "y",
-     "label": "Yes"
+     "text": "Mercury (a liquid)",
+     "emoji": "🌡️",
+     "bin": 0,
+     "why": "Mercury is a metal that is liquid at room temperature."
     },
     {
-     "from": "r",
-     "to": "n",
-     "label": "No"
+     "text": "Sodium (cut with a knife)",
+     "emoji": "🔪",
+     "bin": 0,
+     "why": "Sodium is a metal, but so soft it can be cut with a knife."
+    },
+    {
+     "text": "Iodine (shiny crystals)",
+     "emoji": "💜",
+     "bin": 1,
+     "why": "Iodine is shiny, but it is a non-metal — an exception."
+    },
+    {
+     "text": "Graphite (conducts electricity)",
+     "emoji": "✏️",
+     "bin": 1,
+     "why": "Graphite conducts electricity, but it is a non-metal — an exception."
     }
    ]
   }
@@ -518,6 +510,46 @@
    },
    "showPH": "never",
    "challenge": "Oxides of magnesium and calcium (metals) and of sulphur and carbon (non-metals) are dissolved in water. Test with litmus and sort them"
+  }
+ },
+ "g7-science-04-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Uses of metals and non-metals",
+   "leftTitle": "Element",
+   "rightTitle": "Use",
+   "mode": "instant",
+   "challenge": "Join each metal or non-metal to the use that depends on its properties.",
+   "pairs": [
+    [
+     "Iron (as steel)",
+     "Bridges and railway tracks"
+    ],
+    [
+     "Aluminium",
+     "Aeroplane parts, as it is light"
+    ],
+    [
+     "Gold",
+     "Jewellery that keeps its shine"
+    ],
+    [
+     "Nitrogen",
+     "Fertilisers and filling food packets"
+    ],
+    [
+     "Chlorine",
+     "Cleaning drinking water"
+    ],
+    [
+     "Graphite (carbon)",
+     "Pencils"
+    ],
+    [
+     "Iodine",
+     "Antiseptic on wounds"
+    ]
+   ]
   }
  },
  "g7-science-05-01": {
@@ -655,6 +687,82 @@
    ]
   }
  },
+ "g7-science-06-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Healthy habits in adolescence",
+   "mode": "sort",
+   "challenge": "Sort each habit: does it keep a growing body clean and healthy, or should you avoid it?",
+   "bins": [
+    {
+     "name": "Healthy habit",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Avoid",
+     "emoji": "❌",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Bathe every day",
+     "emoji": "🚿",
+     "bin": 0,
+     "why": "More sweat and oil at this age: a daily bath keeps you clean."
+    },
+    {
+     "text": "Wear clean, washed clothes",
+     "emoji": "👕",
+     "bin": 0,
+     "why": "Washed clothes keep sweat and germs away."
+    },
+    {
+     "text": "Squeeze pimples",
+     "emoji": "😣",
+     "bin": 1,
+     "why": "Squeezing pimples can cause marks and infection. Wash your face gently instead."
+    },
+    {
+     "text": "Eat green leafy vegetables and jaggery",
+     "emoji": "🥬",
+     "bin": 0,
+     "why": "They give iron for healthy blood."
+    },
+    {
+     "text": "Drink milk or eat curd or ragi",
+     "emoji": "🥛",
+     "bin": 0,
+     "why": "They give calcium for strong bones."
+    },
+    {
+     "text": "Have chips and fizzy drinks daily",
+     "emoji": "🥤",
+     "bin": 1,
+     "why": "Too much junk food and fizzy drinks is not healthy."
+    },
+    {
+     "text": "Change sanitary pads regularly",
+     "emoji": "🩹",
+     "bin": 0,
+     "why": "Clean pads, changed regularly, keep you clean and healthy during periods."
+    },
+    {
+     "text": "Sleep very late every night",
+     "emoji": "🌙",
+     "bin": 1,
+     "why": "A growing body needs enough sleep."
+    },
+    {
+     "text": "Play or exercise every day",
+     "emoji": "⚽",
+     "bin": 0,
+     "why": "Daily play or exercise keeps the body fit."
+    }
+   ]
+  }
+ },
  "g7-science-06-03": {
   "type": "flowchart",
   "p": {
@@ -751,74 +859,70 @@
   }
  },
  "g7-science-07-02": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
    "title": "Conduction, convection or radiation?",
-   "task": "play",
-   "challenge": "Pick an example, like the Sun warming your face or water circulating in a pan. Press Next and answer the questions to find how the heat travels",
-   "nodes": [
+   "mode": "check",
+   "challenge": "How does the heat travel in each case? Sort them all, then press Check.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "🌡️",
-     "text": "Heat moves from a hotter place to a colder one"
-    },
-    {
-     "id": "m",
-     "emoji": "❓",
-     "text": "Does it need any material in between?",
-     "type": "decision",
-     "info": "The Sun's heat crosses empty space to reach the Earth."
-    },
-    {
-     "id": "r",
-     "emoji": "☀️",
-     "text": "RADIATION",
-     "info": "Sun's heat through space; warmth in front of a fire or heater. Dark surfaces absorb more of it."
-    },
-    {
-     "id": "v",
-     "emoji": "🔄",
-     "text": "Does the material move?",
-     "type": "decision",
-     "info": "Does the material itself move? In liquids and gases, warm parts rise and cool parts sink."
-    },
-    {
-     "id": "c",
-     "emoji": "♨️",
-     "text": "CONVECTION",
-     "info": "Water circulating in a heated pan; warm air rising from a stove and out of a high ventilator."
-    },
-    {
-     "id": "k",
+     "name": "Conduction",
      "emoji": "🥄",
-     "text": "CONDUCTION",
-     "info": "Particle to particle while the material stays in place, like the handle of a steel ladle getting hot."
+     "color": "#ff9f1c"
+    },
+    {
+     "name": "Convection",
+     "emoji": "♨️",
+     "color": "#3b82f6"
+    },
+    {
+     "name": "Radiation",
+     "emoji": "☀️",
+     "color": "#ff6b6b"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "m"
+     "text": "Steel ladle handle gets hot in dal",
+     "emoji": "🥄",
+     "bin": 0,
+     "why": "Heat passes particle to particle while the steel stays in place: conduction."
     },
     {
-     "from": "m",
-     "to": "v",
-     "label": "Yes"
+     "text": "Water circulating in a heated pan",
+     "emoji": "🍲",
+     "bin": 1,
+     "why": "Warm water rises and cooler water sinks: a convection current."
     },
     {
-     "from": "m",
-     "to": "r",
-     "label": "No"
+     "text": "Warm air rising from a stove",
+     "emoji": "🔥",
+     "bin": 1,
+     "why": "Warm air is lighter and rises: convection."
     },
     {
-     "from": "v",
-     "to": "c",
-     "label": "Yes"
+     "text": "Hot air leaving by a high ventilator",
+     "emoji": "🪟",
+     "bin": 1,
+     "why": "Warm air rises and goes out from high up: convection."
     },
     {
-     "from": "v",
-     "to": "k",
-     "label": "No"
+     "text": "The Sun's heat reaching the Earth",
+     "emoji": "🌍",
+     "bin": 2,
+     "why": "It crosses empty space with no material in between: radiation."
+    },
+    {
+     "text": "Warmth on your face in front of a fire",
+     "emoji": "🪵",
+     "bin": 2,
+     "why": "We feel radiation from a fire or heater."
+    },
+    {
+     "text": "Black solar panel getting hot in sunlight",
+     "emoji": "⬛",
+     "bin": 2,
+     "why": "Dark surfaces absorb more of the Sun's radiation."
     }
    ]
   }
@@ -1110,6 +1214,68 @@
    ]
   }
  },
+ "g7-science-11-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "How much light passes through?",
+   "mode": "sort",
+   "challenge": "Sort each material: does it let almost all light, some light or no light through?",
+   "bins": [
+    {
+     "name": "Transparent",
+     "emoji": "🪟",
+     "color": "#3b82f6"
+    },
+    {
+     "name": "Translucent",
+     "emoji": "🌫️",
+     "color": "#8b5cf6"
+    },
+    {
+     "name": "Opaque",
+     "emoji": "🧱",
+     "color": "#ff9f1c"
+    }
+   ],
+   "items": [
+    {
+     "text": "Clear glass",
+     "bin": 0,
+     "why": "Clear glass lets almost all light through."
+    },
+    {
+     "text": "Clean water",
+     "bin": 0,
+     "why": "Clean water lets almost all light through."
+    },
+    {
+     "text": "Butter paper",
+     "bin": 1,
+     "why": "Butter paper lets some light through: translucent."
+    },
+    {
+     "text": "Frosted glass",
+     "bin": 1,
+     "why": "Frosted glass lets only some light through."
+    },
+    {
+     "text": "Wood",
+     "bin": 2,
+     "why": "Wood lets no light through, so it casts a shadow."
+    },
+    {
+     "text": "Cardboard",
+     "bin": 2,
+     "why": "Cardboard blocks light: opaque."
+    },
+    {
+     "text": "Your hand",
+     "bin": 2,
+     "why": "Your body is opaque — that is how shadow puppets work."
+    }
+   ]
+  }
+ },
  "g7-science-11-02": {
   "type": "anglemaker",
   "p": {
@@ -1214,71 +1380,68 @@
   }
  },
  "g7-science-12-03": {
-  "type": "flowchart",
+  "type": "sortbins",
   "p": {
-   "title": "Which eclipse is it?",
-   "task": "play",
-   "challenge": "Sun, Earth and Moon are in a straight line. Press Next and choose which body is in the middle",
-   "nodes": [
+   "title": "Solar eclipse or lunar eclipse?",
+   "mode": "check",
+   "challenge": "Sort each fact under the eclipse it describes, then press Check.",
+   "bins": [
     {
-     "id": "s",
-     "emoji": "☀️🌍🌙",
-     "text": "Sun, Earth and Moon line up",
-     "info": "This does not happen every month, because the Moon's path is slightly tilted."
-    },
-    {
-     "id": "d",
-     "emoji": "❓",
-     "text": "Which body is in the middle?",
-     "type": "decision"
-    },
-    {
-     "id": "a",
+     "name": "Solar eclipse",
      "emoji": "🌑",
-     "text": "SOLAR ECLIPSE",
-     "info": "The Moon's shadow falls on the Earth. It can happen only on a new moon day."
+     "color": "#ff9f1c"
     },
     {
-     "id": "b",
-     "emoji": "🕶️",
-     "text": "Use eclipse glasses",
-     "info": "Never look at the Sun directly, even during a solar eclipse. Use certified solar eclipse glasses."
-    },
-    {
-     "id": "c",
-     "emoji": "🔴",
-     "text": "LUNAR ECLIPSE",
-     "info": "The Earth's shadow falls on the Moon. It can happen only on a full moon night. In a total lunar eclipse the Moon often looks reddish."
-    },
-    {
-     "id": "e",
-     "emoji": "👀",
-     "text": "Safe to watch",
-     "info": "A lunar eclipse is safe to watch with bare eyes."
+     "name": "Lunar eclipse",
+     "emoji": "🌕",
+     "color": "#3b82f6"
     }
    ],
-   "edges": [
+   "items": [
     {
-     "from": "s",
-     "to": "d"
+     "text": "Moon comes between Sun and Earth",
+     "bin": 0,
+     "why": "In a solar eclipse the Moon is in the middle."
     },
     {
-     "from": "d",
-     "to": "a",
-     "label": "Moon"
+     "text": "Moon's shadow falls on the Earth",
+     "bin": 0,
+     "why": "The Moon blocks the Sun, so its shadow falls on the Earth."
     },
     {
-     "from": "d",
-     "to": "c",
-     "label": "Earth"
+     "text": "Can happen only on a new moon day",
+     "bin": 0,
+     "why": "Only at new moon is the Moon between the Sun and the Earth."
     },
     {
-     "from": "a",
-     "to": "b"
+     "text": "Watch only with eclipse glasses",
+     "bin": 0,
+     "why": "Never look at the Sun directly, even during a solar eclipse."
     },
     {
-     "from": "c",
-     "to": "e"
+     "text": "Earth comes between Sun and Moon",
+     "bin": 1,
+     "why": "In a lunar eclipse the Earth is in the middle."
+    },
+    {
+     "text": "Earth's shadow falls on the Moon",
+     "bin": 1,
+     "why": "The Earth blocks sunlight from reaching the Moon."
+    },
+    {
+     "text": "Can happen only on a full moon night",
+     "bin": 1,
+     "why": "Only at full moon is the Earth between the Sun and the Moon."
+    },
+    {
+     "text": "Moon may look reddish",
+     "bin": 1,
+     "why": "In a total lunar eclipse the Moon often looks reddish."
+    },
+    {
+     "text": "Safe to watch with bare eyes",
+     "bin": 1,
+     "why": "A lunar eclipse is safe to watch without glasses."
     }
    ]
   }

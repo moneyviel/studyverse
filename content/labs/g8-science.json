@@ -168,110 +168,42 @@
   }
  },
  "g8-science-02-01": {
-  "type": "flowchart",
+  "type": "matchpairs",
   "p": {
-   "title": "Which microbe is it?",
-   "task": "play",
-   "challenge": "Use this key like a scientist: answer each question to sort a microbe into its group",
-   "nodes": [
-    {
-     "id": "a",
-     "emoji": "🔬",
-     "text": "Multiplies only inside other living cells?",
-     "type": "decision",
-     "info": "Viruses are even smaller than bacteria."
-    },
-    {
-     "id": "v",
-     "emoji": "🦠",
-     "text": "Virus (causes cold and flu)",
-     "info": "It can multiply only inside living cells."
-    },
-    {
-     "id": "b",
-     "emoji": "🌿",
-     "text": "Green? Makes food from sunlight?",
-     "type": "decision"
-    },
-    {
-     "id": "al",
-     "emoji": "🟢",
-     "text": "Alga, like Spirogyra",
-     "info": "Algae have chlorophyll and make their own food."
-    },
-    {
-     "id": "c",
-     "emoji": "🍞",
-     "text": "Fuzzy threads or budding cells?",
-     "type": "decision",
-     "info": "Think of bread mould and yeast."
-    },
-    {
-     "id": "fu",
-     "emoji": "🍄",
-     "text": "Fungus, like yeast or bread mould",
-     "info": "Bread mould grows as fuzzy threads on damp bread."
-    },
-    {
-     "id": "e",
-     "emoji": "💧",
-     "text": "Moves and catches food, like Amoeba?",
-     "type": "decision"
-    },
-    {
-     "id": "pr",
-     "emoji": "🫧",
-     "text": "Protozoan, like Amoeba or Paramecium",
-     "info": "A protozoan causes malaria."
-    },
-    {
-     "id": "ba",
-     "emoji": "🥛",
-     "text": "Bacterium, like Lactobacillus",
-     "info": "Lactobacillus turns milk into curd."
-    }
-   ],
-   "edges": [
-    {
-     "from": "a",
-     "to": "v",
-     "label": "Yes"
-    },
-    {
-     "from": "a",
-     "to": "b",
-     "label": "No"
-    },
-    {
-     "from": "b",
-     "to": "al",
-     "label": "Yes"
-    },
-    {
-     "from": "b",
-     "to": "c",
-     "label": "No"
-    },
-    {
-     "from": "c",
-     "to": "fu",
-     "label": "Yes"
-    },
-    {
-     "from": "c",
-     "to": "e",
-     "label": "No"
-    },
-    {
-     "from": "e",
-     "to": "pr",
-     "label": "Yes"
-    },
-    {
-     "from": "e",
-     "to": "ba",
-     "label": "No"
-    }
+   "title": "Which microbe group?",
+   "leftTitle": "Microbe",
+   "rightTitle": "Group",
+   "mode": "check",
+   "challenge": "Join each microbe to its group, then press Check. Some groups have more than one member!",
+   "pairs": [
+    [
+     "Lactobacillus (turns milk into curd)",
+     "Bacterium"
+    ],
+    [
+     "Yeast",
+     "Fungus"
+    ],
+    [
+     "Bread mould (fuzzy threads)",
+     "Fungus"
+    ],
+    [
+     "Amoeba",
+     "Protozoan"
+    ],
+    [
+     "Paramecium",
+     "Protozoan"
+    ],
+    [
+     "Spirogyra (green, makes food)",
+     "Alga"
+    ],
+    [
+     "Multiplies only inside living cells",
+     "Virus"
+    ]
    ]
   }
  },
@@ -846,6 +778,75 @@
    "unit": "g",
    "challenge": "Salt (x g) is dissolved in 15 g of water to make 20 g of solution. Mass is not lost! Find x",
    "hint": "Mass of solution = mass of solute + mass of solvent"
+  }
+ },
+ "g8-science-09-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "What changes the solubility?",
+   "mode": "check",
+   "challenge": "Does each change let MORE dissolve, LESS dissolve, or only make it dissolve FASTER (same amount)? Sort them, then press Check.",
+   "bins": [
+    {
+     "name": "More can dissolve",
+     "emoji": "⬆️",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Less can dissolve",
+     "emoji": "⬇️",
+     "color": "#ff6b6b"
+    },
+    {
+     "name": "Only faster, same amount",
+     "emoji": "⏩",
+     "color": "#3b82f6"
+    }
+   ],
+   "items": [
+    {
+     "text": "Heating water to dissolve sugar",
+     "emoji": "🔥",
+     "bin": 0,
+     "why": "For most solids like sugar, solubility rises with temperature."
+    },
+    {
+     "text": "Chilling soda (a dissolved gas)",
+     "emoji": "🧊",
+     "bin": 0,
+     "why": "Gases are more soluble in cold water than in warm water."
+    },
+    {
+     "text": "Cooling water before adding sugar",
+     "emoji": "❄️",
+     "bin": 1,
+     "why": "Less sugar dissolves in colder water."
+    },
+    {
+     "text": "Warming water that holds oxygen",
+     "emoji": "🐟",
+     "bin": 1,
+     "why": "Warm water holds less dissolved oxygen."
+    },
+    {
+     "text": "Leaving a soda bottle in the sun",
+     "emoji": "☀️",
+     "bin": 1,
+     "why": "A warm soda holds less gas, so it fizzes more when opened."
+    },
+    {
+     "text": "Stirring the sugar solution",
+     "emoji": "🥄",
+     "bin": 2,
+     "why": "Stirring speeds up dissolving but does not change the solubility."
+    },
+    {
+     "text": "Powdering the sugar crystals",
+     "emoji": "🧂",
+     "bin": 2,
+     "why": "Powdering speeds up dissolving but does not change how much can dissolve."
+    }
+   ]
   }
  },
  "g8-science-09-03": {
