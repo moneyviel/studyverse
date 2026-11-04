@@ -1,8 +1,8 @@
 /* StudyVerse service worker: makes the app installable and work offline.
    Pages: always try the internet first (so updates show up), fall back to saved copy. */
-const CACHE = 'studyverse-v2';
+const CACHE = 'studyverse-v3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
-  './css/base.css?v=2', './css/app.css?v=2', './js/worlds.js?v=2', './js/visuals.js?v=2', './js/games.js?v=2', './js/app.js?v=2', './js/audio.js?v=2', './content/curriculum.json'];
+  './css/base.css?v=3', './css/app.css?v=3', './js/worlds.js?v=3', './js/visuals.js?v=3', './js/games.js?v=3', './js/app.js?v=3', './js/audio.js?v=3', './content/curriculum.json'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => Promise.all(CORE.map(u => c.add(u).catch(() => {}))))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));

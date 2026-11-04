@@ -226,7 +226,10 @@ function teachStep(b) {
   $('#tSkip').onclick = nextStep;
   $('#tBtn').onclick = () => {
     const txt = $('#ans').value.toLowerCase(); tries++;
-    const miss = (T.must || []).filter(grp => !grp.some(w => txt.includes(String(w).toLowerCase())));
+    const hasWord = w => { w = String(w).toLowerCase().trim(); if (!w) return false;
+      if (/[^\x00-\x7f]/.test(w)) return txt.includes(w); // Hindi/Sanskrit: match inside text
+      const e = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); return new RegExp(`(^|[^a-z0-9])${e}(s|es)?([^a-z0-9]|$)`).test(txt); };
+    const miss = (T.must || []).filter(grp => !grp.some(hasWord));
     const f = $('#gf'), s = $('#gs');
     if (txt.trim().length < 6) { f.textContent = '🐣'; s.textContent = 'Hmm, tell me a little more please! 🥺'; return; }
     if (!miss.length) {
