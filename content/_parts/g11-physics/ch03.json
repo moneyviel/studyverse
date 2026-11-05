@@ -1,0 +1,2992 @@
+{
+ "n": 3,
+ "title": "Motion in a Plane",
+ "emoji": "🎯",
+ "topics": [
+  {
+   "id": "g11-physics-03-01",
+   "title": "Scalars and vectors",
+   "covers": [
+    "c3.1.1",
+    "c3.1.2",
+    "c3.2.1",
+    "c3.2.2",
+    "c3.2.3"
+   ],
+   "learn": {
+    "hook": "Tell a pilot '500 km' and she'll ask: 'Which way?' Many quantities need a direction to make sense.",
+    "points": [
+     "Motion in two or three dimensions needs vectors to describe position, velocity and acceleration. This chapter builds vector tools, then applies them to constant-acceleration motion, projectiles and uniform circular motion.",
+     "Scalars have only magnitude and combine by ordinary algebra: mass, time, temperature, work, energy, speed.",
+     "Vectors have magnitude and direction and add by the triangle or parallelogram law: displacement, velocity, acceleration, force, momentum.",
+     "Notation: a vector is written in bold (A) or with an arrow (A⃗). Its magnitude is |A| or simply A, always non-negative."
+    ],
+    "example": {
+     "q": "A box of mass 5 kg and another of 3 kg are put together. Two forces of 5 N and 3 N act on a body. Why is the total mass surely 8 kg but the total force not surely 8 N?",
+     "steps": [
+      "Mass is a scalar: masses add by ordinary algebra, 5 + 3 = 8 kg.",
+      "Force is a vector: the result depends on the angle between the forces.",
+      "It can be anything from 2 N (opposite) to 8 N (same direction)."
+     ],
+     "answer": "Mass adds simply; forces add as vectors (2 N to 8 N)"
+    },
+    "reallife": "Air-traffic controllers at Delhi's IGI Airport give pilots headings and speeds: velocity vectors, not just speeds."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Scalar or vector?",
+     "buckets": [
+      "Scalar",
+      "Vector"
+     ],
+     "items": [
+      [
+       "Mass",
+       0
+      ],
+      [
+       "Temperature",
+       0
+      ],
+      [
+       "Work",
+       0
+      ],
+      [
+       "Speed",
+       0
+      ],
+      [
+       "Displacement",
+       1
+      ],
+      [
+       "Force",
+       1
+      ],
+      [
+       "Acceleration",
+       1
+      ],
+      [
+       "Momentum",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Scalar–vector facts",
+     "items": [
+      [
+       "Time is a vector because it flows forward.",
+       false,
+       "Time has no direction in space; it is a scalar."
+      ],
+      [
+       "Two vectors of 3 N and 4 N can give a resultant of 5 N.",
+       true,
+       "If they are at right angles."
+      ],
+      [
+       "The magnitude of a vector can be negative.",
+       false,
+       "Magnitude is never negative."
+      ],
+      [
+       "Work is a scalar even though force and displacement are vectors.",
+       true,
+       "Work = F·d is a scalar product."
+      ],
+      [
+       "Vectors obey the triangle law of addition.",
+       true,
+       "That is part of their definition."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is a vector quantity?",
+     "options": [
+      "Mass",
+      "Momentum",
+      "Energy",
+      "Temperature"
+     ],
+     "answer": 1,
+     "explain": "Momentum p = mv has the direction of velocity. Energy, temperature and mass have no direction.",
+     "mistake": "Thinks any quantity linked to motion is a vector"
+    },
+    {
+     "q": "Which of these is a scalar quantity?",
+     "options": [
+      "Velocity",
+      "Force",
+      "Work",
+      "Displacement"
+     ],
+     "answer": 2,
+     "explain": "Work is a scalar, even though it is calculated from force and displacement.",
+     "mistake": "Assumes work must be a vector because force is"
+    },
+    {
+     "q": "Two forces of 6 N and 8 N act on a body. Which value (in N) can the magnitude of their resultant NOT have?",
+     "options": [
+      "15",
+      "14",
+      "10",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "The resultant lies between 8 − 6 = 2 N and 8 + 6 = 14 N, so 15 N is impossible.",
+     "mistake": "Thinks the resultant can exceed the sum of magnitudes",
+     "check": "15"
+    },
+    {
+     "q": "Why do we need vectors to describe motion in a plane?",
+     "options": [
+      "Motion in a plane has no speed",
+      "Scalars cannot be measured in a plane",
+      "Position, velocity and acceleration need both magnitude and direction in two dimensions",
+      "Vectors are only needed for circular motion"
+     ],
+     "answer": 2,
+     "explain": "In 1D a sign is enough; in 2D or 3D direction can be any angle, so we need vectors.",
+     "mistake": "Thinks plus/minus signs are always enough for direction"
+    },
+    {
+     "q": "The notation |A| represents",
+     "options": [
+      "The magnitude of vector A",
+      "The negative of A",
+      "The direction of A",
+      "A unit vector"
+     ],
+     "answer": 0,
+     "explain": "|A| is the size of A, a non-negative scalar.",
+     "mistake": "Confuses magnitude with direction"
+    },
+    {
+     "q": "A student adds 3 kg and 4 kg to get 7 kg, and 3 m east and 4 m north to get 7 m. What is wrong?",
+     "options": [
+      "The masses should give 5 kg",
+      "Masses should be added as vectors",
+      "Both answers are correct",
+      "Displacements are vectors; the resultant is 5 m, not 7 m"
+     ],
+     "answer": 3,
+     "explain": "Masses are scalars (7 kg is right). Perpendicular displacements combine to √(3² + 4²) = 5 m.",
+     "mistake": "Adds vectors like scalars"
+    },
+    {
+     "q": "Which pair contains one scalar and one vector?",
+     "options": [
+      "Displacement and momentum",
+      "Force and acceleration",
+      "Speed and velocity",
+      "Mass and time"
+     ],
+     "answer": 2,
+     "explain": "Speed is a scalar; velocity is a vector.",
+     "mistake": "Treats speed and velocity as the same type of quantity"
+    },
+    {
+     "q": "Assertion (A): Temperature is a scalar quantity.\nReason (R): Temperature can have negative values on the Celsius scale.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Temperature has no direction, so it is a scalar (A true). R is also true, but a negative sign does not decide whether something is a vector, so R does not explain A.",
+     "mistake": "Thinks a negative value implies a direction"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu says 'speed and velocity are the same thing, and force is just a number'. Explain scalars and vectors to him.",
+    "must": [
+     [
+      "magnitude",
+      "size"
+     ],
+     [
+      "direction"
+     ],
+     [
+      "triangle law",
+      "parallelogram",
+      "add differently"
+     ]
+    ],
+    "praise": "So vectors need direction and add with triangles. Velocity has direction, speed doesn't!",
+    "nudge": "What does a vector have that a scalar does not? And how do vectors add?"
+   }
+  },
+  {
+   "id": "g11-physics-03-02",
+   "title": "Position and displacement vectors, equality and scaling",
+   "covers": [
+    "c3.2.4",
+    "c3.2.5",
+    "c3.2.6",
+    "c3.3.1",
+    "c3.3.2"
+   ],
+   "learn": {
+    "hook": "Whether you take the highway or the village road from Jaipur to Ajmer, your displacement vector is exactly the same.",
+    "points": [
+     "The position vector r of a point P is the arrow from the origin O to P.",
+     "Displacement is the vector from the initial position P to the final position Q: Δr = r_Q − r_P. It depends only on the end points, not on the path.",
+     "Two vectors are equal if they have the same magnitude and the same direction. Such free vectors can be shifted parallel to themselves.",
+     "λA: if λ > 0, the magnitude becomes λ|A| and the direction is unchanged. If λ < 0, the magnitude becomes |λ||A| and the direction reverses."
+    ],
+    "example": {
+     "q": "A = 3 m due east. Describe 2A and −1.5A.",
+     "steps": [
+      "2A: magnitude 2 × 3 = 6 m, direction east.",
+      "−1.5A: magnitude 1.5 × 3 = 4.5 m.",
+      "The minus sign reverses the direction: west."
+     ],
+     "answer": "6 m east; 4.5 m west"
+    },
+    "reallife": "Google Maps may show three routes from Bengaluru to Mysuru with different distances, but the straight-line displacement between the cities is fixed."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Equal vectors and scaling",
+     "items": [
+      [
+       "Two vectors are equal if they have the same magnitude, whatever their directions.",
+       false,
+       "Direction must match too."
+      ],
+      [
+       "Displacement between two points is the same for every path joining them.",
+       true,
+       "It depends only on the end points."
+      ],
+      [
+       "Multiplying a vector by −2 doubles its magnitude and reverses its direction.",
+       true,
+       "λ < 0 reverses direction."
+      ],
+      [
+       "A vector shifted parallel to itself is a different vector.",
+       false,
+       "Free vectors keep the same magnitude and direction."
+      ],
+      [
+       "Path length can be greater than the magnitude of displacement.",
+       true,
+       "Equal only for straight-line motion without turning back."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Operation ↔ result for A = 4 N north",
+     "pairs": [
+      [
+       "2A",
+       "8 N north"
+      ],
+      [
+       "−A",
+       "4 N south"
+      ],
+      [
+       "0.5A",
+       "2 N north"
+      ],
+      [
+       "−3A",
+       "12 N south"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A vector of magnitude 5 units is multiplied by −3. The new vector has",
+     "options": [
+      "Magnitude 15 units, same direction",
+      "Magnitude −15 units, same direction",
+      "Magnitude 15 units, opposite direction",
+      "Magnitude 5 units, opposite direction"
+     ],
+     "answer": 2,
+     "explain": "|−3| × 5 = 15 and the negative sign reverses the direction.",
+     "mistake": "Thinks a magnitude can be negative"
+    },
+    {
+     "q": "A man walks 4 m east and then 3 m north. The magnitude of his displacement in m is",
+     "options": [
+      "1",
+      "5",
+      "7",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "Displacement joins start and end: √(4² + 3²) = 5 m.",
+     "mistake": "Adds the path lengths",
+     "check": "(4**2+3**2)**0.5"
+    },
+    {
+     "q": "Two vectors A and B are equal when",
+     "options": [
+      "They start from the same point",
+      "They have the same magnitude and the same direction",
+      "They have the same magnitude only",
+      "They are parallel"
+     ],
+     "answer": 1,
+     "explain": "Equality needs both magnitude and direction to match; the starting point does not matter.",
+     "mistake": "Thinks the tails must coincide"
+    },
+    {
+     "q": "Which statement about displacement is correct?",
+     "options": [
+      "It is always equal to path length",
+      "It is a scalar",
+      "It depends on the path followed",
+      "It depends only on the initial and final positions"
+     ],
+     "answer": 3,
+     "explain": "Displacement is r_final − r_initial, independent of the path.",
+     "mistake": "Confuses displacement with distance"
+    },
+    {
+     "q": "The position vector of a point is the vector",
+     "options": [
+      "From the origin to the point",
+      "Along the path travelled",
+      "Perpendicular to the x-axis",
+      "From the point to the origin"
+     ],
+     "answer": 0,
+     "explain": "It starts at the origin O and ends at the point.",
+     "mistake": "Reverses the direction of the position vector"
+    },
+    {
+     "q": "A particle moves along a semicircle of radius 7 m from one end of a diameter to the other. Its displacement magnitude in m is",
+     "options": [
+      "22",
+      "14",
+      "44",
+      "7"
+     ],
+     "answer": 1,
+     "explain": "Displacement is the diameter: 2 × 7 = 14 m. (The path length is π × 7 ≈ 22 m.)",
+     "mistake": "Gives the arc length",
+     "check": "2*7"
+    },
+    {
+     "q": "Vector A is 6 m s⁻¹ west. The vector −A/2 is",
+     "options": [
+      "3 m s⁻¹ west",
+      "−3 m s⁻¹ west",
+      "3 m s⁻¹ east",
+      "12 m s⁻¹ east"
+     ],
+     "answer": 2,
+     "explain": "Dividing by 2 halves the magnitude; the minus sign reverses west to east.",
+     "mistake": "Forgets to reverse the direction"
+    },
+    {
+     "q": "Assertion (A): A vector can be moved parallel to itself without changing it.\nReason (R): A vector is fully specified by its magnitude and direction.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Since only magnitude and direction define the vector, a parallel shift keeps it the same. R explains A.",
+     "mistake": "Thinks the location of a vector is part of its definition"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks his displacement from his nest to the river depends on how many trees he flies around. Explain position vector, displacement and equal vectors.",
+    "must": [
+     [
+      "origin",
+      "position vector"
+     ],
+     [
+      "initial and final",
+      "end points",
+      "start and end"
+     ],
+     [
+      "same magnitude",
+      "same direction",
+      "equal vectors"
+     ]
+    ],
+    "praise": "Displacement only cares about start and finish, and equal vectors match in size and direction. Got it!",
+    "nudge": "Does the path matter for displacement? And when are two vectors equal?"
+   }
+  },
+  {
+   "id": "g11-physics-03-03",
+   "title": "Graphical addition of vectors",
+   "covers": [
+    "c3.3.3",
+    "c3.4.1",
+    "c3.4.2",
+    "c3.4.3",
+    "c3.4.4"
+   ],
+   "learn": {
+    "hook": "Ships at Visakhapatnam port used to plot courses with rulers and protractors: arrows placed head to tail on a chart.",
+    "points": [
+     "Multiplying a vector by a scalar with dimensions gives a new physical quantity: velocity v × time t = displacement; mass × velocity = momentum.",
+     "Triangle (head-to-tail) method: place the tail of B at the head of A; the resultant R = A + B runs from the tail of A to the head of B.",
+     "Parallelogram method: draw A and B from a common point; the diagonal from that point is A + B. It gives the same result as the triangle method.",
+     "Addition is commutative (A + B = B + A) and associative ((A + B) + C = A + (B + C)).",
+     "Null vector 0 has zero magnitude: A + 0 = A, λ0 = 0, 0A = 0. Also A + (−A) = 0."
+    ],
+    "example": {
+     "q": "A car moves at 20 m s⁻¹ due north for 30 s. What displacement vector results?",
+     "steps": [
+      "Displacement = v × t (vector × scalar with dimension of time).",
+      "Magnitude = 20 × 30 = 600 m.",
+      "Direction = north (t > 0 keeps direction)."
+     ],
+     "answer": "600 m due north"
+    },
+    "reallife": "Rowing teams on the Hooghly feel vector addition directly: the boat's velocity relative to water adds to the river's flow."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Head-to-tail addition of A and B",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Draw A to scale in its direction",
+      "Place the tail of B at the head of A",
+      "Draw B to scale in its direction",
+      "Join the tail of A to the head of B",
+      "That arrow is R = A + B"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Addition laws",
+     "items": [
+      [
+       "A + B = B + A for all vectors.",
+       true,
+       "Vector addition is commutative."
+      ],
+      [
+       "The parallelogram and triangle methods can give different resultants.",
+       false,
+       "They are equivalent."
+      ],
+      [
+       "0 × A gives the number zero, a scalar.",
+       false,
+       "It gives the null vector 0."
+      ],
+      [
+       "Momentum is obtained by multiplying the velocity vector by mass, a scalar.",
+       true,
+       "p = mv."
+      ],
+      [
+       "(A + B) + C = A + (B + C).",
+       true,
+       "Addition is associative."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the triangle method, the resultant of A + B is drawn from",
+     "options": [
+      "The head of A to the tail of B",
+      "The head of B to the head of A",
+      "The tail of A to the head of B",
+      "The tail of B to the head of A"
+     ],
+     "answer": 2,
+     "explain": "Place B's tail at A's head; the resultant joins the free tail (of A) to the free head (of B).",
+     "mistake": "Joins the wrong ends"
+    },
+    {
+     "q": "In the parallelogram method, A + B is represented by",
+     "options": [
+      "The longer side",
+      "The diagonal from the common tail of A and B",
+      "The perpendicular from A to B",
+      "The other diagonal"
+     ],
+     "answer": 1,
+     "explain": "With A and B drawn from a common point, the diagonal through that point is A + B. The other diagonal is A − B (or B − A).",
+     "mistake": "Takes the wrong diagonal"
+    },
+    {
+     "q": "Vector addition being commutative means",
+     "options": [
+      "A + B = B + A",
+      "A + 0 = A",
+      "A + (B + C) = (A + B) + C",
+      "A − B = B − A"
+     ],
+     "answer": 0,
+     "explain": "Commutative means the order does not matter.",
+     "mistake": "Confuses commutative with associative"
+    },
+    {
+     "q": "Multiplying a velocity vector by a time interval gives",
+     "options": [
+      "A force vector",
+      "An acceleration vector",
+      "A displacement vector",
+      "A scalar distance"
+     ],
+     "answer": 2,
+     "explain": "v (m s⁻¹) × t (s) gives a vector in metres: a displacement.",
+     "mistake": "Thinks multiplying by time removes direction"
+    },
+    {
+     "q": "A + (−A) equals",
+     "options": [
+      "A unit vector",
+      "The null vector",
+      "2A",
+      "The number zero, a scalar"
+     ],
+     "answer": 1,
+     "explain": "A vector plus its negative gives the zero (null) vector, which is still a vector.",
+     "mistake": "Thinks the result is a scalar"
+    },
+    {
+     "q": "A boy walks 6 m east, then 8 m north, then 6 m west. The magnitude of his net displacement in m is",
+     "options": [
+      "14",
+      "20",
+      "8",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "East and west cancel, leaving 8 m north.",
+     "mistake": "Adds all distances",
+     "check": "8"
+    },
+    {
+     "q": "Which property of the null vector is correct?",
+     "options": [
+      "A + 0 = 0",
+      "0A = A",
+      "λ0 = 0 for any real λ",
+      "|0| = 1"
+     ],
+     "answer": 2,
+     "explain": "Scaling the null vector by any number still gives the null vector.",
+     "mistake": "Mixes up the null vector with the identity for multiplication"
+    },
+    {
+     "q": "Assertion (A): The resultant of three vectors forming a closed triangle taken in order is zero.\nReason (R): When vectors are placed head to tail and the last head meets the first tail, the resultant is the null vector.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Head-to-tail addition that returns to the start gives no net arrow. R explains A.",
+     "mistake": "Thinks three non-zero vectors cannot add to zero"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has two arrows, 3 cm and 4 cm long, and wants to add them. Show him the triangle and parallelogram methods.",
+    "must": [
+     [
+      "head to tail",
+      "head-to-tail",
+      "triangle"
+     ],
+     [
+      "parallelogram",
+      "diagonal"
+     ],
+     [
+      "commutative",
+      "order does not matter",
+      "a + b = b + a"
+     ]
+    ],
+    "praise": "Head to tail, or draw a parallelogram and take the diagonal. Same answer either way!",
+    "nudge": "Where do you place the second arrow? And which diagonal of the parallelogram is the sum?"
+   }
+  },
+  {
+   "id": "g11-physics-03-04",
+   "title": "Vector subtraction and the rain–umbrella problem",
+   "covers": [
+    "c3.4.5",
+    "c3.4.6"
+   ],
+   "learn": {
+    "hook": "Standing at a bus stop in a Mumbai monsoon with the wind blowing? Vector addition tells you exactly how to tilt your umbrella.",
+    "points": [
+     "Subtraction is addition of the negative: A − B = A + (−B).",
+     "In the parallelogram of A and B, the second diagonal gives A − B (from the head of B to the head of A).",
+     "|A − B| = √(A² + B² − 2AB cos θ), where θ is the angle between A and B.",
+     "Rain falling vertically at v_r and wind blowing horizontally at v_w give the rain a resultant velocity at angle θ to the vertical with tan θ = v_w/v_r. Tilt the umbrella towards where the rain comes from, at angle θ from the vertical."
+    ],
+    "example": {
+     "q": "Rain falls vertically at 8 m s⁻¹. Wind starts blowing from west to east at 6 m s⁻¹. How should you hold your umbrella?",
+     "steps": [
+      "The rain now has components 8 m s⁻¹ down and 6 m s⁻¹ eastward.",
+      "Resultant speed = √(64 + 36) = 10 m s⁻¹.",
+      "tan θ = 6/8 = 0.75, θ ≈ 37° from the vertical.",
+      "The rain comes from the west, so tilt the umbrella towards the west at about 37° from the vertical."
+     ],
+     "answer": "Tilted ~37° from the vertical towards the west"
+    },
+    "reallife": "During the Kerala monsoon, slanting rain against shopfronts is just the resultant of the falling speed and the wind velocity."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Subtraction and umbrella gaps",
+     "items": [
+      {
+       "text": "A − B = A + ___",
+       "answer": "(−B)",
+       "options": [
+        "(−B)",
+        "B",
+        "(−A)"
+       ]
+      },
+      {
+       "text": "Rain 4 m/s down, wind 3 m/s: resultant speed = ___ m/s",
+       "answer": "5",
+       "options": [
+        "1",
+        "7",
+        "5"
+       ]
+      },
+      {
+       "text": "tan θ (from vertical) = wind speed ÷ ___ speed",
+       "answer": "rain",
+       "options": [
+        "wind",
+        "rain",
+        "resultant"
+       ]
+      },
+      {
+       "text": "For A ⊥ B, |A − B| = ___",
+       "answer": "√(A² + B²)",
+       "options": [
+        "√(A² + B²)",
+        "A + B",
+        "A − B"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Subtraction facts",
+     "items": [
+      [
+       "A − B = B − A.",
+       false,
+       "They are equal in size but opposite in direction."
+      ],
+      [
+       "|A − B| = |B − A|.",
+       true,
+       "They differ only in direction."
+      ],
+      [
+       "If A and B are equal vectors, A − B is the null vector.",
+       true,
+       "A + (−A) = 0."
+      ],
+      [
+       "In rain–wind problems, the umbrella is tilted away from the direction the rain comes from.",
+       false,
+       "Tilt it towards where the rain comes from."
+      ],
+      [
+       "For two perpendicular vectors, |A + B| = |A − B|.",
+       true,
+       "Both equal √(A² + B²)."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Two vectors of magnitude 3 and 4 are perpendicular. The magnitude of their difference is",
+     "options": [
+      "7",
+      "12",
+      "5",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "With θ = 90°, |A − B| = √(9 + 16 − 0) = 5.",
+     "mistake": "Subtracts magnitudes directly",
+     "check": "(3**2+4**2)**0.5"
+    },
+    {
+     "q": "Rain falls vertically at 12 m s⁻¹ and wind blows horizontally at 5 m s⁻¹. The speed of the rain relative to the ground in m s⁻¹ is",
+     "options": [
+      "13",
+      "8.5",
+      "7",
+      "17"
+     ],
+     "answer": 0,
+     "explain": "Resultant = √(12² + 5²) = √169 = 13 m s⁻¹.",
+     "mistake": "Adds the speeds directly",
+     "check": "(12**2+5**2)**0.5"
+    },
+    {
+     "q": "Rain falls vertically at 12 m s⁻¹ and a wind blows towards the east at 5 m s⁻¹. To keep dry, a person standing still should tilt the umbrella",
+     "options": [
+      "Towards the west, at tan⁻¹(12/5) from the vertical",
+      "Vertically",
+      "Towards the west, at tan⁻¹(5/12) from the vertical",
+      "Towards the east, at tan⁻¹(5/12) from the vertical"
+     ],
+     "answer": 2,
+     "explain": "The rain moves east and down, so it comes from the west. Tilt into it at θ with tan θ = 5/12.",
+     "mistake": "Tilts along the wind or inverts the tangent"
+    },
+    {
+     "q": "A − B can be found by",
+     "options": [
+      "Subtracting magnitudes only",
+      "Adding −B to A",
+      "Adding B to −A",
+      "Reversing A and adding B"
+     ],
+     "answer": 1,
+     "explain": "A − B = A + (−B).",
+     "mistake": "Reverses the wrong vector"
+    },
+    {
+     "q": "Two equal vectors of magnitude 10 have an angle of 60° between them. The magnitude of their difference is",
+     "options": [
+      "0",
+      "10",
+      "17.32",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "|A − B|² = 100 + 100 − 2 × 100 × 0.5 = 100, so |A − B| = 10.",
+     "mistake": "Uses the addition formula",
+     "check": "(100+100-2*100*0.5)**0.5"
+    },
+    {
+     "q": "A velocity changes from 4 m s⁻¹ east to 3 m s⁻¹ north. The magnitude of the change in velocity in m s⁻¹ is",
+     "options": [
+      "0",
+      "7",
+      "5",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "Δv = v₂ − v₁ = 3 north + 4 west, magnitude √(9 + 16) = 5 m s⁻¹.",
+     "mistake": "Subtracts the speeds",
+     "check": "(3**2+4**2)**0.5"
+    },
+    {
+     "q": "Which is true for any two vectors A and B?",
+     "options": [
+      "A − B = −(B − A)",
+      "|A − B| = |A| − |B|",
+      "A − B = B − A",
+      "A − B is always perpendicular to A + B"
+     ],
+     "answer": 0,
+     "explain": "B − A is the negative of A − B.",
+     "mistake": "Treats vector subtraction like scalar subtraction of magnitudes"
+    },
+    {
+     "q": "Assertion (A): When wind blows, rain falling vertically appears slanted to a person standing still.\nReason (R): The rain's velocity becomes the vector sum of its vertical velocity and the wind's horizontal velocity.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The horizontal push of the wind adds a component, so the resultant is slanted. R explains A.",
+     "mistake": "Thinks the person's view alone causes the slant"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu holds his leaf-umbrella straight up in windy rain and gets soaked. Explain how to subtract vectors and find the right tilt.",
+    "must": [
+     [
+      "negative",
+      "a + (−b)",
+      "reverse"
+     ],
+     [
+      "resultant",
+      "vector sum",
+      "pythagoras"
+     ],
+     [
+      "tan",
+      "angle with vertical",
+      "tilt"
+     ]
+    ],
+    "praise": "I'll tilt my leaf into the rain at the angle whose tangent is wind over rain speed. Stay dry, Gappu!",
+    "nudge": "How do you find the rain's actual velocity? And which way and how much should you tilt?"
+   }
+  },
+  {
+   "id": "g11-physics-03-05",
+   "title": "Resolution of vectors and unit vectors",
+   "covers": [
+    "c3.5.1",
+    "c3.5.2",
+    "c3.5.3",
+    "c3.5.4",
+    "c3.5.5"
+   ],
+   "learn": {
+    "hook": "A rope pulling a cart at an angle does two jobs at once: it drags it forward and lifts it slightly. Resolving the force reveals both.",
+    "points": [
+     "Any vector in a plane can be written as a sum of two vectors along any two non-collinear directions: A = λa + μb.",
+     "Unit vectors î, ĵ, k̂ point along x, y, z, have magnitude 1 and no dimensions or units; they only show direction.",
+     "Rectangular components: Aₓ = A cos θ, A_y = A sin θ, where θ is the angle with the +x axis. A = Aₓî + A_yĵ.",
+     "Back from components: A = √(Aₓ² + A_y²), tan θ = A_y/Aₓ.",
+     "In 3D: A = Aₓî + A_yĵ + A_zk̂, A = √(Aₓ² + A_y² + A_z²); direction cosines cos α = Aₓ/A, cos β = A_y/A, cos γ = A_z/A, with cos²α + cos²β + cos²γ = 1."
+    ],
+    "example": {
+     "q": "A force of 10 N acts at 30° above the +x axis. Find its components.",
+     "steps": [
+      "Fₓ = 10 cos 30° = 10 × 0.866 = 8.66 N.",
+      "F_y = 10 sin 30° = 10 × 0.5 = 5 N.",
+      "F = 8.66 î + 5 ĵ N."
+     ],
+     "answer": "8.66 î + 5 ĵ N"
+    },
+    "reallife": "Civil engineers designing the cable-stayed Signature Bridge in Delhi resolve each cable's tension into vertical (holding the deck) and horizontal parts."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Vector ↔ magnitude",
+     "pairs": [
+      [
+       "3î + 4ĵ",
+       "5"
+      ],
+      [
+       "6î + 8ĵ",
+       "10"
+      ],
+      [
+       "5î + 12ĵ",
+       "13"
+      ],
+      [
+       "2î + 3ĵ + 6k̂",
+       "7"
+      ],
+      [
+       "î + ĵ + k̂",
+       "√3"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Components (A = 20 units)",
+     "items": [
+      {
+       "q": "Aₓ at θ = 60° (cos 60° = 0.5)",
+       "a": "10",
+       "check": "20*0.5"
+      },
+      {
+       "q": "A_y at θ = 30° (sin 30° = 0.5)",
+       "a": "10",
+       "check": "20*0.5"
+      },
+      {
+       "q": "Aₓ at θ = 90°",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "|3î − 4ĵ|",
+       "a": "5",
+       "check": "(9+16)**0.5"
+      },
+      {
+       "q": "Magnitude of unit vector î",
+       "a": "1",
+       "check": "1"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The magnitude of the vector 6î − 8ĵ is",
+     "options": [
+      "10",
+      "14",
+      "100",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "√(6² + 8²) = √100 = 10.",
+     "mistake": "Adds or subtracts the components",
+     "check": "(6**2+8**2)**0.5"
+    },
+    {
+     "q": "A vector of magnitude 20 units makes 60° with the x-axis. Its y-component (sin 60° = 0.866) is",
+     "options": [
+      "20",
+      "10",
+      "17.32",
+      "11.55"
+     ],
+     "answer": 2,
+     "explain": "A_y = A sin θ = 20 × 0.866 = 17.32.",
+     "mistake": "Uses cos instead of sin",
+     "check": "20*0.866"
+    },
+    {
+     "q": "A unit vector has",
+     "options": [
+      "Any magnitude but fixed direction",
+      "Magnitude 1 and no dimensions",
+      "Magnitude 1 and the unit of the quantity",
+      "Zero magnitude"
+     ],
+     "answer": 1,
+     "explain": "Unit vectors only give direction; they are pure numbers of size 1.",
+     "mistake": "Thinks unit vectors carry units"
+    },
+    {
+     "q": "A = 3î + 4ĵ. The angle θ it makes with the x-axis satisfies tan θ =",
+     "options": [
+      "4/3",
+      "5/3",
+      "3/4",
+      "3/5"
+     ],
+     "answer": 0,
+     "explain": "tan θ = A_y/Aₓ = 4/3.",
+     "mistake": "Inverts the ratio",
+     "check": "Fraction(4,3)"
+    },
+    {
+     "q": "For A = 2î + 3ĵ + 6k̂, the direction cosine with the z-axis is",
+     "options": [
+      "6/11",
+      "6/7",
+      "1/7",
+      "1/6"
+     ],
+     "answer": 1,
+     "explain": "|A| = √(4 + 9 + 36) = 7, so cos γ = A_z/A = 6/7.",
+     "steps": [
+      "|A| = √49 = 7",
+      "cos γ = 6/7"
+     ],
+     "mistake": "Divides by the sum of components",
+     "check": "Fraction(6,7)"
+    },
+    {
+     "q": "The sum of the squares of the direction cosines of any vector is",
+     "options": [
+      "3",
+      "1",
+      "Depends on the vector",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "cos²α + cos²β + cos²γ = (Aₓ² + A_y² + A_z²)/A² = 1.",
+     "mistake": "Thinks the sum depends on the vector",
+     "check": "1"
+    },
+    {
+     "q": "A force of 50 N acts at 37° to the horizontal (cos 37° = 0.8). Its horizontal component in N is",
+     "options": [
+      "50",
+      "30",
+      "40",
+      "62.5"
+     ],
+     "answer": 2,
+     "explain": "Fₓ = 50 × 0.8 = 40 N.",
+     "mistake": "Uses sin 37° = 0.6",
+     "check": "50*0.8"
+    },
+    {
+     "q": "Assertion (A): A vector can be resolved along any two non-collinear directions in its plane.\nReason (R): Any two non-collinear vectors can be scaled and added to give any vector in that plane.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Using the parallelogram law with two non-parallel directions, any planar vector can be built. R explains A.",
+     "mistake": "Thinks resolution is possible only along perpendicular axes"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to break a slanted force into 'how much forward' and 'how much up'. Teach him resolution and unit vectors.",
+    "must": [
+     [
+      "cos",
+      "a cos θ",
+      "cosine"
+     ],
+     [
+      "sin",
+      "a sin θ",
+      "sine"
+     ],
+     [
+      "unit vector",
+      "magnitude one"
+     ],
+     [
+      "square root",
+      "pythagoras"
+     ]
+    ],
+    "praise": "Cos for the side next to the angle, sin for the opposite side, and î, ĵ just point the way!",
+    "nudge": "Which trig function gives the x-component? How do you get the magnitude back from the components?"
+   }
+  },
+  {
+   "id": "g11-physics-03-06",
+   "title": "Analytical addition of vectors",
+   "covers": [
+    "c3.6.1",
+    "c3.6.2",
+    "c3.6.3",
+    "c3.6.4"
+   ],
+   "learn": {
+    "hook": "A motorboat aiming straight across the Brahmaputra lands far downstream. The analytical method tells you exactly where.",
+    "points": [
+     "Component method: if A = Aₓî + A_yĵ and B = Bₓî + B_yĵ, then R = (Aₓ + Bₓ)î + (A_y + B_y)ĵ.",
+     "Law of cosines: R² = A² + B² + 2AB cos θ, where θ is the angle between A and B.",
+     "Law of sines: R/sin θ = A/sin β = B/sin α, where α is the angle between R and A. Also tan α = B sin θ/(A + B cos θ).",
+     "Special cases: θ = 0 → R = A + B; θ = 180° → R = |A − B|; θ = 90° → R = √(A² + B²)."
+    ],
+    "example": {
+     "q": "A boat moves at 8 km h⁻¹ due north in still water. The river flows east at 6 km h⁻¹. Find the boat's resultant velocity.",
+     "steps": [
+      "The two velocities are perpendicular.",
+      "R = √(8² + 6²) = 10 km h⁻¹.",
+      "tan α = 6/8 = 0.75, α ≈ 37° east of north."
+     ],
+     "answer": "10 km h⁻¹ at about 37° east of north"
+    },
+    "reallife": "Ferries crossing from Mumbai's Gateway of India to Elephanta adjust their heading for the tidal current using this exact calculation."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Angle between equal vectors A and A ↔ resultant",
+     "pairs": [
+      [
+       "0°",
+       "2A"
+      ],
+      [
+       "60°",
+       "√3 A"
+      ],
+      [
+       "90°",
+       "√2 A"
+      ],
+      [
+       "120°",
+       "A"
+      ],
+      [
+       "180°",
+       "0"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Resultant sprint",
+     "items": [
+      {
+       "q": "(2î + 3ĵ) + (4î − ĵ): x-component",
+       "a": "6",
+       "check": "2+4"
+      },
+      {
+       "q": "Same sum: y-component",
+       "a": "2",
+       "check": "3-1"
+      },
+      {
+       "q": "3 N and 4 N at 90°: R (N)",
+       "a": "5",
+       "check": "(9+16)**0.5"
+      },
+      {
+       "q": "5 N and 5 N at 180°: R (N)",
+       "a": "0",
+       "check": "5-5"
+      },
+      {
+       "q": "7 N and 3 N at 0°: R (N)",
+       "a": "10",
+       "check": "7+3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A = 3î + 2ĵ and B = î − 5ĵ. The magnitude of A + B is",
+     "options": [
+      "7",
+      "25",
+      "1",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "A + B = 4î − 3ĵ, magnitude √(16 + 9) = 5.",
+     "steps": [
+      "x: 3 + 1 = 4",
+      "y: 2 − 5 = −3",
+      "√(16 + 9) = 5"
+     ],
+     "mistake": "Adds magnitudes instead of components",
+     "check": "(4**2+3**2)**0.5"
+    },
+    {
+     "q": "Two forces of 5 N each act at 120° to each other. The resultant in N is",
+     "options": [
+      "5",
+      "8.66",
+      "0",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "R² = 25 + 25 + 2 × 25 × (−0.5) = 25, so R = 5 N.",
+     "mistake": "Uses cos 120° = +0.5",
+     "check": "(25+25+2*25*(-0.5))**0.5"
+    },
+    {
+     "q": "Two forces of 3 N and 5 N act at 60°. The resultant in N (cos 60° = 0.5) is",
+     "options": [
+      "7",
+      "4.36",
+      "5.83",
+      "8"
+     ],
+     "answer": 0,
+     "explain": "R² = 9 + 25 + 2 × 15 × 0.5 = 49, so R = 7 N.",
+     "mistake": "Forgets the cross term",
+     "check": "(9+25+2*3*5*0.5)**0.5"
+    },
+    {
+     "q": "The resultant of two vectors has the greatest magnitude when the angle between them is",
+     "options": [
+      "45°",
+      "180°",
+      "0°",
+      "90°"
+     ],
+     "answer": 2,
+     "explain": "cos θ is largest (= 1) at θ = 0°, giving R = A + B.",
+     "mistake": "Thinks perpendicular vectors give the largest resultant",
+     "check": "0"
+    },
+    {
+     "q": "Two vectors of magnitudes A and B add up to a resultant perpendicular to A. Then",
+     "options": [
+      "A + B cos θ = 0",
+      "θ = 90°",
+      "B sin θ = 0",
+      "A = B"
+     ],
+     "answer": 0,
+     "explain": "tan α = B sin θ/(A + B cos θ); for α = 90° the denominator must be zero.",
+     "mistake": "Thinks the vectors must be equal"
+    },
+    {
+     "q": "A boat heads due north at 4 m s⁻¹ across a river flowing east at 3 m s⁻¹. Its resultant speed in m s⁻¹ is",
+     "options": [
+      "3.5",
+      "7",
+      "1",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "√(4² + 3²) = 5 m s⁻¹.",
+     "mistake": "Adds the speeds",
+     "check": "(16+9)**0.5"
+    },
+    {
+     "q": "In the law of sines for vector addition, R/sin θ equals",
+     "options": [
+      "A + B",
+      "A/cos β",
+      "A/sin β = B/sin α",
+      "A sin β = B sin α"
+     ],
+     "answer": 2,
+     "explain": "In the triangle of A, B and R, each side divided by the sine of the opposite angle is the same.",
+     "mistake": "Mixes up which angle is opposite which side"
+    },
+    {
+     "q": "Assertion (A): Two vectors of magnitudes 4 and 7 can give a resultant of magnitude 2.\nReason (R): The resultant of two vectors always lies between |A − B| and A + B.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "A is false: the resultant must lie between 3 and 11. R is true.",
+     "mistake": "Thinks any value below A + B is possible"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu needs the resultant of 3 N and 5 N at 60°. Teach him the component method and the law of cosines.",
+    "must": [
+     [
+      "add components",
+      "components",
+      "x and y"
+     ],
+     [
+      "cos θ",
+      "law of cosines",
+      "2ab cos"
+     ],
+     [
+      "tan",
+      "direction",
+      "law of sines"
+     ]
+    ],
+    "praise": "R² = A² + B² + 2AB cos θ: 9 + 25 + 15 = 49, so 7 N! And components work too.",
+    "nudge": "How do you get the size of the resultant from the angle? How do you find its direction?"
+   }
+  },
+  {
+   "id": "g11-physics-03-07",
+   "title": "Position and velocity in a plane",
+   "covers": [
+    "c3.7.1",
+    "c3.7.2",
+    "c3.7.3"
+   ],
+   "learn": {
+    "hook": "A drone delivering medicines in Telangana's 'Medicine from the Sky' project needs its x and y coordinates and velocity components every second.",
+    "points": [
+     "Position vector r = xî + yĵ; displacement Δr = Δxî + Δyĵ.",
+     "Average velocity v̄ = Δr/Δt. Instantaneous velocity v = dr/dt = vₓî + v_yĵ, with vₓ = dx/dt and v_y = dy/dt.",
+     "Instantaneous velocity is always along the tangent to the path, in the direction of motion.",
+     "Speed |v| = √(vₓ² + v_y²) and direction tan θ = v_y/vₓ (θ measured from the x-axis)."
+    ],
+    "example": {
+     "q": "r = 3t î + 2t² ĵ (SI units). Find the velocity and speed at t = 1 s.",
+     "steps": [
+      "v = dr/dt = 3 î + 4t ĵ.",
+      "At t = 1 s: v = 3 î + 4 ĵ m s⁻¹.",
+      "Speed = √(9 + 16) = 5 m s⁻¹, at tan⁻¹(4/3) ≈ 53° to the x-axis."
+     ],
+     "answer": "3î + 4ĵ m s⁻¹; 5 m s⁻¹"
+    },
+    "reallife": "A Formula Bharat student race car's GPS logs x and y every 0.1 s; dividing each Δr by Δt gives the velocity arrows shown on the team's laptop."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Quantity ↔ formula",
+     "pairs": [
+      [
+       "Position vector",
+       "xî + yĵ"
+      ],
+      [
+       "Displacement",
+       "Δxî + Δyĵ"
+      ],
+      [
+       "Average velocity",
+       "Δr/Δt"
+      ],
+      [
+       "Instantaneous velocity",
+       "dr/dt"
+      ],
+      [
+       "Speed",
+       "√(vₓ² + v_y²)"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Velocity in a plane",
+     "items": [
+      [
+       "Instantaneous velocity is tangent to the path.",
+       true,
+       "It points along the direction of motion."
+      ],
+      [
+       "Average velocity always points along the path.",
+       false,
+       "It points along Δr, the chord."
+      ],
+      [
+       "vₓ = dx/dt and v_y = dy/dt.",
+       true,
+       "Components are derivatives of coordinates."
+      ],
+      [
+       "Speed can be found by adding vₓ and v_y.",
+       false,
+       "Use √(vₓ² + v_y²)."
+      ],
+      [
+       "For r = 5î + 2ĵ (constant), the velocity is zero.",
+       true,
+       "r does not change with time."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A particle moves from (1 m, 2 m) to (4 m, 6 m) in 2 s. The magnitude of its average velocity in m s⁻¹ is",
+     "options": [
+      "7",
+      "3.5",
+      "2.5",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "Δr = 3î + 4ĵ, |Δr| = 5 m, so |v̄| = 5/2 = 2.5 m s⁻¹.",
+     "mistake": "Forgets to divide by time",
+     "check": "((3**2+4**2)**0.5)/2"
+    },
+    {
+     "q": "For r = 4t î + 3t ĵ (SI units), the speed in m s⁻¹ is",
+     "options": [
+      "5",
+      "1",
+      "7",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "v = 4î + 3ĵ, speed = √(16 + 9) = 5 m s⁻¹.",
+     "mistake": "Adds the components",
+     "check": "(16+9)**0.5"
+    },
+    {
+     "q": "For r = 2t² î + 5t ĵ (SI units), vₓ at t = 2 s in m s⁻¹ is",
+     "options": [
+      "5",
+      "16",
+      "8",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "vₓ = dx/dt = 4t = 8 m s⁻¹.",
+     "mistake": "Substitutes t into x instead of differentiating",
+     "check": "4*2"
+    },
+    {
+     "q": "The direction of the instantaneous velocity of a particle moving on a curved path is",
+     "options": [
+      "Perpendicular to the path",
+      "Along the position vector",
+      "Towards the centre of curvature",
+      "Along the tangent to the path at that point"
+     ],
+     "answer": 3,
+     "explain": "v = dr/dt is the limit of chords, which becomes the tangent.",
+     "mistake": "Thinks velocity points towards the centre"
+    },
+    {
+     "q": "For r = 3t î + 2t² ĵ (SI units), the velocity at t = 2 s is",
+     "options": [
+      "3î + 4ĵ m s⁻¹",
+      "6î + 8ĵ m s⁻¹",
+      "3î + 2ĵ m s⁻¹",
+      "3î + 8ĵ m s⁻¹"
+     ],
+     "answer": 3,
+     "explain": "v = 3î + 4tĵ; at t = 2 s, v = 3î + 8ĵ m s⁻¹.",
+     "mistake": "Puts t into r rather than v"
+    },
+    {
+     "q": "Average velocity over an interval is directed along",
+     "options": [
+      "The acceleration",
+      "The displacement Δr",
+      "The path at the start",
+      "The path at the end"
+     ],
+     "answer": 1,
+     "explain": "v̄ = Δr/Δt has the direction of Δr.",
+     "mistake": "Confuses average and instantaneous velocity"
+    },
+    {
+     "q": "A particle has vₓ = 6 m s⁻¹ and v_y = 8 m s⁻¹. Its speed in m s⁻¹ is",
+     "options": [
+      "14",
+      "10",
+      "2",
+      "48"
+     ],
+     "answer": 1,
+     "explain": "√(36 + 64) = 10 m s⁻¹.",
+     "mistake": "Adds the components",
+     "check": "(36+64)**0.5"
+    },
+    {
+     "q": "Assertion (A): In uniform circular motion, the velocity at each point is along the tangent to the circle.\nReason (R): Instantaneous velocity is always along the tangent to the path of motion.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "R is the general rule; the circle is one case. R explains A.",
+     "mistake": "Thinks the velocity points inward on a circle"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu knows his x and y at every second as he flies. Teach him how to get his velocity vector and speed.",
+    "must": [
+     [
+      "dr/dt",
+      "dx/dt",
+      "differentiate"
+     ],
+     [
+      "components",
+      "vx",
+      "vy"
+     ],
+     [
+      "tangent",
+      "along the path"
+     ],
+     [
+      "square root",
+      "pythagoras"
+     ]
+    ],
+    "praise": "Differentiate x and y, then use Pythagoras for speed. And my velocity always hugs the tangent!",
+    "nudge": "How do you get vₓ and v_y from x and y? Which way does the velocity point?"
+   }
+  },
+  {
+   "id": "g11-physics-03-08",
+   "title": "Acceleration in a plane",
+   "covers": [
+    "c3.7.4",
+    "c3.7.5",
+    "c3.7.6"
+   ],
+   "learn": {
+    "hook": "At the top of a cricket ball's flight, velocity is horizontal but acceleration is straight down: they can be at any angle.",
+    "points": [
+     "Average acceleration ā = Δv/Δt. Instantaneous acceleration a = dv/dt = aₓî + a_yĵ, with aₓ = dvₓ/dt, a_y = dv_y/dt.",
+     "In two dimensions v and a can make any angle: 0° (speeding up straight), 180° (slowing straight), 90° (uniform circular motion), or anything else (projectile).",
+     "Recipe: from r(t), differentiate once for v(t), again for a(t); then find magnitudes with Pythagoras and directions with tan θ.",
+     "Acceleration is not necessarily along velocity; it points the way velocity is changing."
+    ],
+    "example": {
+     "q": "r = 2t î + t³ ĵ (SI units). Find a at t = 1 s.",
+     "steps": [
+      "v = 2 î + 3t² ĵ.",
+      "a = dv/dt = 6t ĵ.",
+      "At t = 1 s, a = 6 ĵ m s⁻², i.e. 6 m s⁻² along +y."
+     ],
+     "answer": "6 ĵ m s⁻²"
+    },
+    "reallife": "A Chandrayaan orbiter's velocity is along its orbit while its acceleration points towards the Moon's centre: perpendicular, not parallel."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Angle between v and a",
+     "buckets": [
+      "0° (same direction)",
+      "90°",
+      "Other angle"
+     ],
+     "items": [
+      [
+       "Car speeding up on a straight road",
+       0
+      ],
+      [
+       "Stone whirled at constant speed in a circle",
+       1
+      ],
+      [
+       "Ball in flight just after being thrown at 30°",
+       2
+      ],
+      [
+       "Satellite in a circular orbit",
+       1
+      ],
+      [
+       "Body falling from rest",
+       0
+      ],
+      [
+       "Projectile on the way down",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Differentiate twice (SI units)",
+     "items": [
+      {
+       "q": "r = 3t²î: aₓ",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "r = t³ĵ: a_y at t = 2 s",
+       "a": "12",
+       "check": "6*2"
+      },
+      {
+       "q": "r = 5tî + 2t²ĵ: |a|",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "v = 3î + 4tĵ: |a|",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "v = 6tî + 8tĵ: |a|",
+       "a": "10",
+       "check": "(36+64)**0.5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "r = (2t²) î + (3t) ĵ (SI units). The acceleration is",
+     "options": [
+      "4 î m s⁻²",
+      "2 î m s⁻²",
+      "4t î m s⁻²",
+      "4 î + 3 ĵ m s⁻²"
+     ],
+     "answer": 0,
+     "explain": "v = 4t î + 3 ĵ; a = 4 î m s⁻², constant and along x.",
+     "mistake": "Differentiates only once"
+    },
+    {
+     "q": "v = 3t î + 4t ĵ (SI units). The magnitude of acceleration in m s⁻² is",
+     "options": [
+      "5",
+      "7",
+      "1",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "a = 3 î + 4 ĵ, magnitude 5 m s⁻².",
+     "mistake": "Adds the components",
+     "check": "(9+16)**0.5"
+    },
+    {
+     "q": "Velocity changes from 6î m s⁻¹ to 8ĵ m s⁻¹ in 2 s. The magnitude of average acceleration in m s⁻² is",
+     "options": [
+      "10",
+      "5",
+      "7",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "Δv = −6î + 8ĵ, |Δv| = 10 m s⁻¹, so |ā| = 10/2 = 5 m s⁻².",
+     "mistake": "Subtracts the speeds 8 − 6",
+     "check": "((36+64)**0.5)/2"
+    },
+    {
+     "q": "For a body in uniform circular motion, the angle between v and a is",
+     "options": [
+      "0°",
+      "90°",
+      "45°",
+      "180°"
+     ],
+     "answer": 1,
+     "explain": "v is tangential and a points to the centre, so they are perpendicular.",
+     "mistake": "Thinks acceleration is along the velocity",
+     "check": "90"
+    },
+    {
+     "q": "In two-dimensional motion, the angle between velocity and acceleration",
+     "options": [
+      "Is always 0°",
+      "Is always 180°",
+      "Can be anything from 0° to 180°",
+      "Is always 90°"
+     ],
+     "answer": 2,
+     "explain": "Acceleration points the way the velocity changes, which can be at any angle.",
+     "mistake": "Carries over the 1D idea that a is along v"
+    },
+    {
+     "q": "r = t² î + t² ĵ (SI units). The direction of acceleration makes what angle with the x-axis?",
+     "options": [
+      "90°",
+      "0°",
+      "45°",
+      "60°"
+     ],
+     "answer": 2,
+     "explain": "a = 2î + 2ĵ; equal components give 45°.",
+     "mistake": "Ignores one component",
+     "check": "45"
+    },
+    {
+     "q": "For r = (t³) î + (2t²) ĵ (SI units), aₓ at t = 1 s in m s⁻² is",
+     "options": [
+      "1",
+      "6",
+      "4",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "vₓ = 3t², aₓ = 6t = 6 m s⁻².",
+     "mistake": "Uses vₓ instead of aₓ",
+     "check": "6*1"
+    },
+    {
+     "q": "Assertion (A): A body can have acceleration perpendicular to its velocity.\nReason (R): In uniform circular motion, acceleration is towards the centre while velocity is tangential.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Uniform circular motion is the standard example, so R explains A.",
+     "mistake": "Thinks acceleration must be along velocity"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks acceleration always points where he is flying. Explain acceleration in a plane with an example where it doesn't.",
+    "must": [
+     [
+      "dv/dt",
+      "change in velocity",
+      "differentiate velocity"
+     ],
+     [
+      "any angle",
+      "perpendicular",
+      "not along"
+     ],
+     [
+      "circular",
+      "projectile",
+      "top of"
+     ]
+    ],
+    "praise": "So my acceleration points where my velocity is changing, which can be sideways! Like circling a tree.",
+    "nudge": "How is acceleration defined in 2D? Does it always point along the velocity?"
+   }
+  },
+  {
+   "id": "g11-physics-03-09",
+   "title": "Motion in a plane with constant acceleration",
+   "covers": [
+    "c3.8.1",
+    "c3.8.2",
+    "c3.8.3"
+   ],
+   "learn": {
+    "hook": "A puck pushed across ice while a steady wind blows sideways: two simple 1D problems hiding inside one 2D problem.",
+    "points": [
+     "With constant acceleration a: v = v₀ + at and r = r₀ + v₀t + ½at² (vector forms).",
+     "Component form: x = x₀ + v₀ₓt + ½aₓt² and y = y₀ + v₀ᵧt + ½a_yt². The x and y motions are independent; time t links them.",
+     "To find something at a given x-coordinate, first solve the x-equation for t, then use that t in the y-equations.",
+     "Speed = √(vₓ² + v_y²) at the required time."
+    ],
+    "example": {
+     "q": "A particle starts from the origin with v₀ = 4 î m s⁻¹ and constant a = 2 ĵ m s⁻². Find its position and speed at t = 3 s.",
+     "steps": [
+      "x = 4 × 3 = 12 m; y = ½ × 2 × 9 = 9 m.",
+      "|r| = √(144 + 81) = 15 m.",
+      "vₓ = 4, v_y = 2 × 3 = 6 m s⁻¹; speed = √(16 + 36) = √52 ≈ 7.2 m s⁻¹."
+     ],
+     "answer": "r = 12î + 9ĵ m; speed ≈ 7.2 m s⁻¹"
+    },
+    "reallife": "Satellite launch trajectories from Sriharikota are split into downrange and altitude components, each solved with 1D kinematics in short steps."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Find y when the particle reaches a given x",
+     "prompt": "Arrange the method",
+     "items": [
+      "Write x(t) = x₀ + v₀ₓt + ½aₓt²",
+      "Put in the given x and solve for t",
+      "Write y(t) = y₀ + v₀ᵧt + ½a_yt²",
+      "Substitute that t to get y",
+      "Use vₓ and v_y at that t for speed if needed"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Independent motions",
+     "items": [
+      [
+       "In 2D constant-acceleration motion, x and y motions affect each other's acceleration.",
+       false,
+       "They are independent."
+      ],
+      [
+       "The same time t appears in both x and y equations.",
+       true,
+       "Time links the components."
+      ],
+      [
+       "r = r₀ + v₀t + ½at² is valid only for constant a.",
+       true,
+       "Like its 1D version."
+      ],
+      [
+       "If aₓ = 0, the x-velocity stays constant.",
+       true,
+       "No acceleration along x."
+      ],
+      [
+       "Speed in 2D equals vₓ + v_y.",
+       false,
+       "Use √(vₓ² + v_y²)."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A particle starts from rest at the origin with a = 3î + 4ĵ m s⁻². Its distance from the origin after 2 s, in m, is",
+     "options": [
+      "10",
+      "14",
+      "20",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "r = ½at² = ½(3î + 4ĵ)(4) = 6î + 8ĵ, |r| = 10 m.",
+     "mistake": "Forgets the ½ or the t²",
+     "check": "0.5*5*4"
+    },
+    {
+     "q": "A particle has v₀ = 5 î m s⁻¹ and a = 2 ĵ m s⁻² (constant), starting at the origin. Its y-coordinate when x = 10 m, in m, is",
+     "options": [
+      "10",
+      "2",
+      "4",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "x = 5t = 10 → t = 2 s; y = ½ × 2 × 4 = 4 m.",
+     "steps": [
+      "x = 5t → t = 2 s",
+      "y = ½ a_y t² = ½ × 2 × 2²",
+      "y = 4 m"
+     ],
+     "mistake": "Uses x as time directly",
+     "check": "0.5*2*2**2"
+    },
+    {
+     "q": "For the same particle (v₀ = 5î m s⁻¹, a = 2ĵ m s⁻²), its speed at t = 2 s in m s⁻¹ is (√41 ≈ 6.40)",
+     "options": [
+      "4",
+      "5",
+      "6.40",
+      "9"
+     ],
+     "answer": 2,
+     "explain": "vₓ = 5, v_y = 2 × 2 = 4, speed = √(25 + 16) = √41 ≈ 6.40 m s⁻¹.",
+     "mistake": "Adds the components",
+     "check": "41**0.5"
+    },
+    {
+     "q": "A particle has v₀ = 10ĵ m s⁻¹ and a = 2î m s⁻². Its velocity at t = 5 s is",
+     "options": [
+      "20î + 10ĵ m s⁻¹",
+      "10ĵ m s⁻¹",
+      "10î m s⁻¹",
+      "10î + 10ĵ m s⁻¹"
+     ],
+     "answer": 3,
+     "explain": "v = v₀ + at = 10ĵ + 10î.",
+     "mistake": "Forgets the initial velocity"
+    },
+    {
+     "q": "Why can 2D constant-acceleration motion be treated as two 1D motions?",
+     "options": [
+      "The x and y components of the vector equations are independent",
+      "Because the path is always straight",
+      "Because x and y are always equal",
+      "Because the acceleration is zero"
+     ],
+     "answer": 0,
+     "explain": "Each component equation contains only its own components, linked only by t.",
+     "mistake": "Thinks the path must be straight"
+    },
+    {
+     "q": "A particle starts at r₀ = 2î m with v₀ = 3ĵ m s⁻¹ and a = 0. Its position at t = 4 s is",
+     "options": [
+      "14î m",
+      "12ĵ m",
+      "2î + 12ĵ m",
+      "2î + 3ĵ m"
+     ],
+     "answer": 2,
+     "explain": "r = r₀ + v₀t = 2î + 12ĵ m.",
+     "mistake": "Forgets r₀"
+    },
+    {
+     "q": "A particle starts from rest at the origin with a = 6î + 8ĵ m s⁻². Its speed after 3 s in m s⁻¹ is",
+     "options": [
+      "10",
+      "30",
+      "15",
+      "42"
+     ],
+     "answer": 1,
+     "explain": "|a| = 10 m s⁻², v = at = 30 m s⁻¹ (from rest, along a).",
+     "mistake": "Adds the components before multiplying",
+     "check": "10*3"
+    },
+    {
+     "q": "Assertion (A): A body with v₀ = 4î m s⁻¹ and constant a = 2ĵ m s⁻² keeps vₓ = 4 m s⁻¹ throughout.\nReason (R): The magnitude of its acceleration is 2 m s⁻².",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both are true, but the size of the acceleration is not the reason; vₓ stays fixed because the acceleration has no x-component.",
+     "mistake": "Uses a true but irrelevant fact as the reason"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is pushed east and a steady breeze accelerates him north. He can't work out where he'll be. Show him the component method.",
+    "must": [
+     [
+      "independent",
+      "separately",
+      "two 1d"
+     ],
+     [
+      "components",
+      "x and y"
+     ],
+     [
+      "same time",
+      "time links",
+      "solve for t"
+     ]
+    ],
+    "praise": "Split into x and y, solve each, and use the same time. 2D problems are just two 1D problems!",
+    "nudge": "Can you treat x and y separately? What connects them?"
+   }
+  },
+  {
+   "id": "g11-physics-03-10",
+   "title": "Projectile motion: independence and the parabolic path",
+   "covers": [
+    "c3.9.1",
+    "c3.9.2",
+    "c3.9.3",
+    "c3.9.4"
+   ],
+   "learn": {
+    "hook": "Hit a ball and drop another at the same instant from the same height: both land together. Horizontal speed doesn't change falling time.",
+    "points": [
+     "A projectile moves under gravity alone after launch (air resistance ignored).",
+     "Horizontal motion is uniform (aₓ = 0); vertical motion is uniformly accelerated (a_y = −g). They are independent.",
+     "Launched with speed v₀ at angle θ₀: vₓ = v₀ cos θ₀ (constant), v_y = v₀ sin θ₀ − gt; x = (v₀ cos θ₀)t, y = (v₀ sin θ₀)t − ½gt².",
+     "Eliminating t: y = x tan θ₀ − gx²/(2v₀² cos²θ₀). This is of the form y = ax − bx², a parabola."
+    ],
+    "example": {
+     "q": "A ball is projected at 20 m s⁻¹ at 30° (g = 10 m s⁻²). Find vₓ, v_y and the position at t = 1 s.",
+     "steps": [
+      "vₓ = 20 cos 30° = 17.32 m s⁻¹ (constant).",
+      "v_y = 20 sin 30° − 10 × 1 = 10 − 10 = 0 m s⁻¹.",
+      "x = 17.32 m; y = 10 × 1 − 5 × 1 = 5 m."
+     ],
+     "answer": "vₓ ≈ 17.3 m s⁻¹, v_y = 0, (17.3 m, 5 m)"
+    },
+    "reallife": "Javelin star Neeraj Chopra's throw follows a near-parabolic path; air drag and lift make the real path a bit shorter and lopsided."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Constant or changing during projectile flight?",
+     "buckets": [
+      "Constant",
+      "Changes"
+     ],
+     "items": [
+      [
+       "Horizontal velocity",
+       0
+      ],
+      [
+       "Acceleration",
+       0
+      ],
+      [
+       "Vertical velocity",
+       1
+      ],
+      [
+       "Speed",
+       1
+      ],
+      [
+       "Height",
+       1
+      ],
+      [
+       "Direction of velocity",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Projectile basics",
+     "items": [
+      [
+       "A projectile's acceleration is g downward throughout the flight.",
+       true,
+       "Only gravity acts."
+      ],
+      [
+       "The horizontal velocity decreases as the projectile rises.",
+       false,
+       "With no air resistance, vₓ is constant."
+      ],
+      [
+       "The path of a projectile is a parabola.",
+       true,
+       "y = ax − bx²."
+      ],
+      [
+       "At the highest point, the speed of a projectile is zero.",
+       false,
+       "vₓ = v₀ cos θ₀ remains."
+      ],
+      [
+       "A ball dropped and a ball thrown horizontally from the same height land at the same time.",
+       true,
+       "Vertical motions are identical."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "At the highest point of a projectile's path, the velocity is",
+     "options": [
+      "Equal to v₀",
+      "Vertical",
+      "Zero",
+      "Horizontal, equal to v₀ cos θ₀"
+     ],
+     "answer": 3,
+     "explain": "v_y = 0 at the top, but vₓ = v₀ cos θ₀ remains.",
+     "mistake": "Thinks the projectile stops at the top"
+    },
+    {
+     "q": "A projectile is launched at 40 m s⁻¹ at 60° (cos 60° = 0.5). Its horizontal velocity after 2 s, in m s⁻¹, is",
+     "options": [
+      "0",
+      "34.64",
+      "20",
+      "40"
+     ],
+     "answer": 2,
+     "explain": "vₓ = v₀ cos θ₀ = 20 m s⁻¹ and never changes.",
+     "mistake": "Thinks gravity reduces horizontal velocity",
+     "check": "40*0.5"
+    },
+    {
+     "q": "The acceleration of a projectile at the top of its path is",
+     "options": [
+      "g upward",
+      "Horizontal",
+      "Zero",
+      "g downward"
+     ],
+     "answer": 3,
+     "explain": "Gravity acts all the time, so a = g downward everywhere.",
+     "mistake": "Thinks a = 0 when v_y = 0"
+    },
+    {
+     "q": "The trajectory y = x tan θ₀ − gx²/(2v₀² cos²θ₀) shows that the path is a",
+     "options": [
+      "Straight line",
+      "Hyperbola",
+      "Circle",
+      "Parabola"
+     ],
+     "answer": 3,
+     "explain": "y = ax − bx² is the equation of a parabola.",
+     "mistake": "Confuses the path with a circular arc"
+    },
+    {
+     "q": "A ball is thrown at 20 m s⁻¹ at 30° (g = 10 m s⁻²). Its vertical velocity after 0.5 s in m s⁻¹ is",
+     "options": [
+      "15",
+      "10",
+      "-5",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "v_y = v₀ sin θ₀ − gt = 10 − 5 = 5 m s⁻¹.",
+     "mistake": "Forgets the gt term",
+     "check": "20*0.5-10*0.5"
+    },
+    {
+     "q": "For the same ball (20 m s⁻¹ at 30°, g = 10 m s⁻²), the height after 1 s in m is",
+     "options": [
+      "0",
+      "5",
+      "10",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "y = (v₀ sin θ₀)t − ½gt² = 10 − 5 = 5 m.",
+     "mistake": "Forgets ½gt²",
+     "check": "10*1-0.5*10*1"
+    },
+    {
+     "q": "Which assumption is made in simple projectile motion?",
+     "options": [
+      "The Earth's rotation dominates",
+      "The projectile has no mass",
+      "Air resistance is negligible and g is constant",
+      "Horizontal acceleration equals g"
+     ],
+     "answer": 2,
+     "explain": "Ignoring air drag and taking g constant gives the clean parabolic equations.",
+     "mistake": "Thinks horizontal acceleration is present"
+    },
+    {
+     "q": "Assertion (A): The horizontal and vertical motions of a projectile are independent.\nReason (R): Gravity acts only vertically, so it changes v_y but not vₓ.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Since the only force is vertical, the horizontal motion is unaffected. R explains A.",
+     "mistake": "Thinks gravity slows the forward motion"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu throws a berry forward and thinks gravity slows it horizontally too. Explain independence of motions and why the path is a parabola.",
+    "must": [
+     [
+      "independent",
+      "separately"
+     ],
+     [
+      "horizontal",
+      "constant velocity",
+      "v cos"
+     ],
+     [
+      "vertical",
+      "gravity",
+      "-g",
+      "g downward"
+     ],
+     [
+      "parabola",
+      "parabolic"
+     ]
+    ],
+    "praise": "Horizontal stays steady, vertical feels gravity, and together they draw a parabola. Berry physics!",
+    "nudge": "What happens to horizontal velocity during flight? And what shape does the path make?"
+   }
+  },
+  {
+   "id": "g11-physics-03-11",
+   "title": "Time of flight, maximum height and range",
+   "covers": [
+    "c3.9.5",
+    "c3.9.6",
+    "c3.9.7",
+    "c3.9.8",
+    "c3.9.10"
+   ],
+   "learn": {
+    "hook": "Why does a fielder's throw angle matter so much? Because range depends on sin 2θ, and for a launch from ground level without air resistance, 45° gives the maximum range.",
+    "points": [
+     "Time to reach maximum height t_m = v₀ sin θ₀/g; total time of flight T_f = 2v₀ sin θ₀/g.",
+     "Maximum height h_m = v₀² sin²θ₀/(2g).",
+     "Horizontal range R = v₀² sin 2θ₀/g. It is maximum at θ₀ = 45°: R_max = v₀²/g.",
+     "Complementary angles θ and (90° − θ) give the same range (sin 2θ = sin(180° − 2θ)), but different heights and flight times.",
+     "Real throws (cricket ball, javelin) face air resistance, which reduces range and height; the best angle is then a little less than 45°."
+    ],
+    "example": {
+     "q": "A cricketer can throw a ball to a maximum horizontal distance of 100 m. How high can he throw it vertically with the same speed? (g = 10 m s⁻²)",
+     "steps": [
+      "R_max = v₀²/g = 100 m → v₀² = 1000 m² s⁻².",
+      "Vertical throw: h = v₀²/(2g) = 1000/20.",
+      "h = 50 m."
+     ],
+     "answer": "50 m"
+    },
+    "reallife": "A fielder's throw from the boundary at the Eden Gardens is slightly flatter than 45° because air drag steals more range from higher throws."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Quantity ↔ formula",
+     "pairs": [
+      [
+       "Time of flight",
+       "2v₀ sin θ₀/g"
+      ],
+      [
+       "Maximum height",
+       "v₀² sin²θ₀/(2g)"
+      ],
+      [
+       "Range",
+       "v₀² sin 2θ₀/g"
+      ],
+      [
+       "Maximum range",
+       "v₀²/g"
+      ],
+      [
+       "Time to top",
+       "v₀ sin θ₀/g"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Projectile sprint (g = 10 m s⁻²)",
+     "items": [
+      {
+       "q": "v₀ = 20 m/s at 45°: range (m)",
+       "a": "40",
+       "check": "400/10"
+      },
+      {
+       "q": "v₀ = 20 m/s at 30°: time of flight (s)",
+       "a": "2",
+       "check": "2*20*0.5/10"
+      },
+      {
+       "q": "v₀ = 20 m/s at 30°: max height (m)",
+       "a": "5",
+       "check": "400*0.25/20"
+      },
+      {
+       "q": "Angle with same range as 30°",
+       "a": "60°",
+       "check": "60"
+      },
+      {
+       "q": "v₀ = 10 m/s vertical: max height (m)",
+       "a": "5",
+       "check": "100/20"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A ball is projected at 30 m s⁻¹ at 45° (g = 10 m s⁻²). Its range in m is",
+     "options": [
+      "30",
+      "45",
+      "90",
+      "180"
+     ],
+     "answer": 2,
+     "explain": "R = v₀² sin 90°/g = 900/10 = 90 m.",
+     "mistake": "Uses sin 45° instead of sin 90°",
+     "check": "30**2/10"
+    },
+    {
+     "q": "A projectile is launched at 50 m s⁻¹ at 30° (g = 10 m s⁻²). The time of flight in s is",
+     "options": [
+      "5",
+      "10",
+      "8.66",
+      "2.5"
+     ],
+     "answer": 0,
+     "explain": "T_f = 2v₀ sin θ₀/g = 2 × 50 × 0.5/10 = 5 s.",
+     "mistake": "Gives the time to reach the top",
+     "check": "2*50*0.5/10"
+    },
+    {
+     "q": "For the same projectile (50 m s⁻¹ at 30°, g = 10 m s⁻²), the maximum height in m is",
+     "options": [
+      "31.25",
+      "125",
+      "15.6",
+      "62.5"
+     ],
+     "answer": 0,
+     "explain": "h_m = v₀² sin²θ₀/(2g) = 2500 × 0.25/20 = 31.25 m.",
+     "mistake": "Forgets to square sin θ₀ or the 2 in 2g",
+     "check": "2500*0.25/20"
+    },
+    {
+     "q": "Two projectiles are launched with the same speed at 25° and 65°. Their ranges are",
+     "options": [
+      "In the ratio 25 : 65",
+      "Equal",
+      "Greater for 25°",
+      "Greater for 65°"
+     ],
+     "answer": 1,
+     "explain": "25° and 65° are complementary, so sin 2θ is the same (sin 50° = sin 130°).",
+     "mistake": "Thinks the higher angle always goes farther"
+    },
+    {
+     "q": "At what angle of projection are the horizontal range and the maximum height equal?",
+     "options": [
+      "45°",
+      "tan⁻¹ (1/4)",
+      "60°",
+      "tan⁻¹ 4"
+     ],
+     "answer": 3,
+     "explain": "v₀² sin 2θ/g = v₀² sin²θ/(2g) → 2 sin θ cos θ = sin²θ/2 → tan θ = 4.",
+     "mistake": "Assumes 45° makes everything equal"
+    },
+    {
+     "q": "The maximum range of a gun is 2 km. The shell's launch speed in m s⁻¹ (g = 10 m s⁻²) is about",
+     "options": [
+      "141.42",
+      "447.2",
+      "100",
+      "200"
+     ],
+     "answer": 0,
+     "explain": "R_max = v₀²/g → v₀ = √(2000 × 10) = √20000 ≈ 141.4 m s⁻¹.",
+     "mistake": "Forgets to convert km to m or the square root",
+     "check": "(2000*10)**0.5"
+    },
+    {
+     "q": "When air resistance is included, the range of a long throw",
+     "options": [
+      "Increases",
+      "Is maximum at 60°",
+      "Is unchanged",
+      "Decreases, and the best angle is a little less than 45°"
+     ],
+     "answer": 3,
+     "explain": "Drag removes energy and momentum, cutting range; the optimum angle drops below 45°.",
+     "mistake": "Ignores air resistance in real sports"
+    },
+    {
+     "q": "Assertion (A): For a given launch speed, the horizontal range is maximum at 45°.\nReason (R): At 45° the time of flight is maximum.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true (sin 2θ₀ = 1). R is false: the time of flight 2v₀ sin θ₀/g is greatest at 90°.",
+     "mistake": "Thinks maximum range means maximum flight time"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to fling a seed as far as possible. Teach him time of flight, maximum height and range, and the best angle.",
+    "must": [
+     [
+      "sin 2θ",
+      "range",
+      "v₀² sin 2θ/g"
+     ],
+     [
+      "45",
+      "forty five"
+     ],
+     [
+      "complementary",
+      "90° − θ",
+      "same range"
+     ],
+     [
+      "time of flight",
+      "2v₀ sin θ/g",
+      "maximum height"
+     ]
+    ],
+    "praise": "45° gives the longest flight, and 30° and 60° tie on range. My seeds will travel far!",
+    "nudge": "Which angle gives the greatest range? Which pairs of angles give equal ranges?"
+   }
+  },
+  {
+   "id": "g11-physics-03-12",
+   "title": "Horizontal projection and target problems",
+   "covers": [
+    "c3.9.9",
+    "c3.9.11"
+   ],
+   "learn": {
+    "hook": "A relief helicopter over flooded Assam must release a food packet BEFORE it is directly above the target. Here's why.",
+    "points": [
+     "Thrown horizontally from height h with speed u: x = ut, y = ½gt² (measuring downward).",
+     "Time to land t = √(2h/g); horizontal distance = u√(2h/g); speed on landing = √(u² + (gt)²).",
+     "A packet dropped from a moving aircraft keeps the aircraft's horizontal velocity, so (without air drag) it stays vertically below the aircraft while falling.",
+     "To hit a target at the same level, a bullet must be aimed slightly above it, because it falls ½gt² during flight time t. A gun can reach a target only if its distance ≤ R_max = v₀²/g."
+    ],
+    "example": {
+     "q": "A stone is thrown horizontally at 10 m s⁻¹ from a 45 m high cliff (g = 10 m s⁻²). Find the time of flight and where it lands.",
+     "steps": [
+      "t = √(2h/g) = √(90/10) = 3 s.",
+      "x = ut = 10 × 3 = 30 m from the foot of the cliff.",
+      "At impact v_y = gt = 30 m s⁻¹, speed = √(100 + 900) ≈ 31.6 m s⁻¹."
+     ],
+     "answer": "3 s; 30 m from the base"
+    },
+    "reallife": "Indian Air Force supply drops in Ladakh use this physics (plus parachutes and wind corrections) to land loads on target."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Solving a horizontal-throw problem",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Use vertical motion: h = ½gt²",
+      "Solve t = √(2h/g)",
+      "Horizontal distance x = ut",
+      "Vertical speed at landing v_y = gt",
+      "Landing speed = √(u² + v_y²)"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Target facts",
+     "items": [
+      [
+       "A bomb released from a plane flying horizontally lands directly below the release point.",
+       false,
+       "It moves forward with the plane's horizontal speed."
+      ],
+      [
+       "Horizontal launch speed does not affect the time to fall from a given height.",
+       true,
+       "Time depends only on h and g."
+      ],
+      [
+       "A bullet fired horizontally at a target 100 m away hits slightly below the aim point.",
+       true,
+       "It falls under gravity during the flight."
+      ],
+      [
+       "A gun whose maximum range is 3 km can hit a target 5 km away by changing the angle.",
+       false,
+       "No angle gives more than R_max."
+      ],
+      [
+       "Without air drag, a dropped packet stays vertically below the plane.",
+       true,
+       "Same horizontal velocity."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A ball rolls off a 20 m high table-top cliff at 5 m s⁻¹ (g = 10 m s⁻²). The time to reach the ground in s is",
+     "options": [
+      "4",
+      "2",
+      "1",
+      "0.4"
+     ],
+     "answer": 1,
+     "explain": "t = √(2h/g) = √(40/10) = 2 s; the horizontal speed does not matter.",
+     "mistake": "Divides height by horizontal speed",
+     "check": "(2*20/10)**0.5"
+    },
+    {
+     "q": "A ball rolls off the edge of a 20 m high cliff at 5 m s⁻¹ (g = 10 m s⁻²). The horizontal distance it covers before landing in m is",
+     "options": [
+      "5",
+      "40",
+      "20",
+      "10"
+     ],
+     "answer": 3,
+     "explain": "x = ut = 5 × 2 = 10 m.",
+     "mistake": "Uses height instead of time",
+     "check": "5*2"
+    },
+    {
+     "q": "A plane flying horizontally at 100 m s⁻¹ at a height of 500 m drops a packet (g = 10 m s⁻²). How far ahead of the target (horizontally) should it be released, in m?",
+     "options": [
+      "10000",
+      "500",
+      "100",
+      "1000"
+     ],
+     "answer": 3,
+     "explain": "t = √(2 × 500/10) = 10 s; horizontal distance = 100 × 10 = 1000 m.",
+     "mistake": "Releases directly above the target",
+     "check": "100*(2*500/10)**0.5"
+    },
+    {
+     "q": "A bullet is fired horizontally at 200 m s⁻¹ at a target 100 m away at the same height (g = 9.8 m s⁻²). By how much (in m) does it fall below the aim point?",
+     "options": [
+      "2.45",
+      "0.5",
+      "1.225",
+      "4.9"
+     ],
+     "answer": 2,
+     "explain": "t = 100/200 = 0.5 s; drop = ½ × 9.8 × 0.25 = 1.225 m.",
+     "mistake": "Forgets the ½ in ½gt²",
+     "check": "0.5*9.8*0.5**2"
+    },
+    {
+     "q": "A bullet fired at 30° lands 3 km away. The maximum range with the same speed (sin 60° = 0.866) is about (in km)",
+     "options": [
+      "1.73",
+      "3.46",
+      "6",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "R = R_max sin 60° → R_max = 3/0.866 ≈ 3.46 km.",
+     "mistake": "Assumes 30° already gives the maximum",
+     "check": "3/0.866"
+    },
+    {
+     "q": "A gun's shell fired at 30° lands 3 km away. Can the same gun, with the same muzzle speed, hit a target 5 km away by changing only the angle?",
+     "options": [
+      "No, because 5 km exceeds the maximum range of about 3.46 km",
+      "Yes, at 45°",
+      "Yes, at any angle above 45°",
+      "Yes, at 60°"
+     ],
+     "answer": 0,
+     "explain": "No angle gives more than R_max ≈ 3.46 km.",
+     "mistake": "Thinks changing the angle can always increase range"
+    },
+    {
+     "q": "A stone thrown horizontally at 15 m s⁻¹ hits the ground after 2 s (g = 10 m s⁻²). Its landing speed in m s⁻¹ is",
+     "options": [
+      "20",
+      "25",
+      "15",
+      "35"
+     ],
+     "answer": 1,
+     "explain": "v_y = gt = 20 m s⁻¹; speed = √(15² + 20²) = 25 m s⁻¹.",
+     "mistake": "Adds the components",
+     "check": "(15**2+20**2)**0.5"
+    },
+    {
+     "q": "Assertion (A): Two stones thrown horizontally with different speeds from the same height land at the same time.\nReason (R): The time of fall depends only on the height and g, not on the horizontal velocity.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "t = √(2h/g) for both. R explains A.",
+     "mistake": "Thinks the faster stone takes longer"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to drop a berry on his friend below while flying forward. He plans to drop it when he is right above. Explain why that fails.",
+    "must": [
+     [
+      "horizontal velocity",
+      "same horizontal speed",
+      "keeps moving forward"
+     ],
+     [
+      "√(2h/g)",
+      "time to fall",
+      "height"
+     ],
+     [
+      "release early",
+      "before",
+      "ahead"
+     ]
+    ],
+    "praise": "The berry keeps my forward speed, so I must let go early. My friend is in for a treat!",
+    "nudge": "Does the berry keep moving forward after release? How do you find how long it falls?"
+   }
+  },
+  {
+   "id": "g11-physics-03-13",
+   "title": "Uniform circular motion: angular speed, period and frequency",
+   "covers": [
+    "c3.10.1",
+    "c3.10.3",
+    "c3.10.4",
+    "c3.10.6"
+   ],
+   "learn": {
+    "hook": "A ceiling fan, a Ferris wheel at a Dussehra mela and the Earth's spin all share one set of simple formulas.",
+    "points": [
+     "Uniform circular motion (UCM): constant speed on a circle. Speed is constant but velocity keeps changing direction.",
+     "Angular displacement Δθ (in radians); angular speed ω = dθ/dt (rad s⁻¹). Linear speed v = Rω.",
+     "Period T is the time for one revolution; frequency ν = 1/T (Hz or rev s⁻¹). ω = 2π/T = 2πν, v = 2πRν.",
+     "Centripetal acceleration a_c = v²/R = ω²R = 4π²ν²R."
+    ],
+    "example": {
+     "q": "A stone tied to a 0.5 m string is whirled at ω = 4 rad s⁻¹. Find its speed and centripetal acceleration.",
+     "steps": [
+      "v = Rω = 0.5 × 4 = 2 m s⁻¹.",
+      "a_c = ω²R = 16 × 0.5 = 8 m s⁻².",
+      "Check: v²/R = 4/0.5 = 8 m s⁻²."
+     ],
+     "answer": "2 m s⁻¹; 8 m s⁻²"
+    },
+    "reallife": "A washing machine's drum spinning at 1200 rpm (20 rev s⁻¹) has ω = 40π rad s⁻¹, enough to fling water out of clothes."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Quantity ↔ formula",
+     "pairs": [
+      [
+       "Angular speed",
+       "dθ/dt"
+      ],
+      [
+       "Linear speed",
+       "Rω"
+      ],
+      [
+       "Frequency",
+       "1/T"
+      ],
+      [
+       "ω in terms of ν",
+       "2πν"
+      ],
+      [
+       "Centripetal acceleration",
+       "ω²R"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Circle sprint",
+     "items": [
+      {
+       "q": "R = 2 m, ω = 3 rad/s: v (m/s)",
+       "a": "6",
+       "check": "2*3"
+      },
+      {
+       "q": "v = 10 m/s, R = 5 m: a (m/s²)",
+       "a": "20",
+       "check": "100/5"
+      },
+      {
+       "q": "ω = 5 rad/s, R = 0.4 m: a (m/s²)",
+       "a": "10",
+       "check": "25*0.4"
+      },
+      {
+       "q": "T = 0.5 s: ν (Hz)",
+       "a": "2",
+       "check": "1/0.5"
+      },
+      {
+       "q": "v = 6 m/s, R = 2 m: ω (rad/s)",
+       "a": "3",
+       "check": "6/2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A particle moves on a circle of radius 3 m with angular speed 2 rad s⁻¹. Its linear speed in m s⁻¹ is",
+     "options": [
+      "12",
+      "0.67",
+      "6",
+      "1.5"
+     ],
+     "answer": 2,
+     "explain": "v = Rω = 3 × 2 = 6 m s⁻¹.",
+     "mistake": "Divides instead of multiplying",
+     "check": "3*2"
+    },
+    {
+     "q": "A wheel makes 10 revolutions in 5 s. Its frequency in Hz is",
+     "options": [
+      "10",
+      "50",
+      "0.5",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "ν = revolutions/time = 10/5 = 2 Hz.",
+     "mistake": "Inverts to get the period",
+     "check": "10/5"
+    },
+    {
+     "q": "A body moves on a circle of radius 2 m at 4 m s⁻¹. Its centripetal acceleration in m s⁻² is",
+     "options": [
+      "16",
+      "2",
+      "32",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "a_c = v²/R = 16/2 = 8 m s⁻².",
+     "mistake": "Forgets to square v",
+     "check": "4**2/2"
+    },
+    {
+     "q": "A stone in a circular groove of radius 0.25 m completes one round every 2 s. Its angular speed in units of π rad s⁻¹ is",
+     "options": [
+      "4",
+      "0.5",
+      "1",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "ω = 2π/T = 2π/2 = π rad s⁻¹.",
+     "mistake": "Uses ω = 1/T",
+     "check": "2/2"
+    },
+    {
+     "q": "For a particle in uniform circular motion, which quantity is constant?",
+     "options": [
+      "Speed",
+      "Velocity",
+      "Acceleration vector",
+      "Position vector"
+     ],
+     "answer": 0,
+     "explain": "Only the magnitude of velocity (speed) is constant; directions keep changing.",
+     "mistake": "Thinks velocity is constant when speed is"
+    },
+    {
+     "q": "ω = 10 rad s⁻¹ and R = 0.2 m. The centripetal acceleration in m s⁻² is",
+     "options": [
+      "200",
+      "2",
+      "20",
+      "50"
+     ],
+     "answer": 2,
+     "explain": "a_c = ω²R = 100 × 0.2 = 20 m s⁻².",
+     "mistake": "Uses ωR (the speed)",
+     "check": "100*0.2"
+    },
+    {
+     "q": "The period of a body in UCM is 0.2 s. Its frequency in Hz is",
+     "options": [
+      "0.2",
+      "2",
+      "10",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "ν = 1/T = 1/0.2 = 5 Hz.",
+     "mistake": "Copies the period as frequency",
+     "check": "1/0.2"
+    },
+    {
+     "q": "Assertion (A): In uniform circular motion, the velocity of the body changes continuously.\nReason (R): The direction of motion changes at every point even though the speed is constant.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Velocity is a vector; its direction changes along the circle. R explains A.",
+     "mistake": "Thinks constant speed means constant velocity"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu spins on a merry-go-round and is puzzled: 'My speed is constant, so where is the acceleration?' Explain angular speed, period, frequency and v = Rω.",
+    "must": [
+     [
+      "direction changes",
+      "changing direction",
+      "velocity changes"
+     ],
+     [
+      "angular speed",
+      "omega"
+     ],
+     [
+      "v = rω",
+      "rω",
+      "r omega"
+     ],
+     [
+      "period",
+      "frequency",
+      "2π"
+     ]
+    ],
+    "praise": "Speed steady, direction changing, so velocity changes. And ω = 2π/T links it all!",
+    "nudge": "If speed is constant, what about velocity changes? How are ω, T and ν connected?"
+   }
+  },
+  {
+   "id": "g11-physics-03-14",
+   "title": "Centripetal acceleration: derivation and nature",
+   "covers": [
+    "c3.10.2",
+    "c3.10.5",
+    "c3.10.7"
+   ],
+   "learn": {
+    "hook": "A centrifuge at an AIIMS blood bank can produce accelerations over 1000 times g, all pointing towards the centre.",
+    "points": [
+     "Derivation: in time Δt the velocity turns through Δθ; the triangle of velocity vectors is similar to the triangle of position vectors, so |Δv|/v = |Δr|/R.",
+     "Dividing by Δt and letting Δt → 0: a = v·(v/R) = v²/R, directed towards the centre (Δv points inward in the limit).",
+     "Magnitude v²/R is constant, but the direction keeps changing (always towards the centre), so the centripetal acceleration is NOT a constant vector.",
+     "Only in uniform circular motion is the net acceleration purely radial; if speed changes, there is also a tangential component."
+    ],
+    "example": {
+     "q": "A centrifuge spins a tube at radius 0.1 m with ω = 100 rad s⁻¹. Find the centripetal acceleration in units of g (g = 10 m s⁻²).",
+     "steps": [
+      "a = ω²R = 10⁴ × 0.1 = 1000 m s⁻².",
+      "In units of g: 1000/10 = 100 g."
+     ],
+     "answer": "1000 m s⁻² ≈ 100 g"
+    },
+    "reallife": "The Moon's centripetal acceleration towards the Earth is only about 0.0027 m s⁻², yet it keeps the Moon in orbit around us."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Derivation of a = v²/R",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Draw positions r and r′ and velocities v and v′ separated by angle Δθ",
+      "Note the velocity triangle is similar to the position triangle",
+      "Write |Δv|/v = |Δr|/R",
+      "Divide by Δt and take the limit Δt → 0",
+      "Get a = v²/R towards the centre"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Circular-motion statements",
+     "items": [
+      [
+       "In uniform circular motion, the acceleration is constant in magnitude.",
+       true,
+       "a = v²/R stays the same."
+      ],
+      [
+       "The centripetal acceleration vector is constant in uniform circular motion.",
+       false,
+       "Its direction changes continuously."
+      ],
+      [
+       "The net acceleration of a particle in any circular motion is always towards the centre.",
+       false,
+       "Only for uniform circular motion."
+      ],
+      [
+       "The velocity and acceleration are perpendicular in uniform circular motion.",
+       true,
+       "Tangent vs radius."
+      ],
+      [
+       "A body on a circle with increasing speed has a tangential acceleration component.",
+       true,
+       "Speed is changing."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The centripetal acceleration of a body in uniform circular motion is directed",
+     "options": [
+      "Along the tangent",
+      "Along the axis of rotation",
+      "Towards the centre of the circle",
+      "Away from the centre"
+     ],
+     "answer": 2,
+     "explain": "Δv points inward in the limit, so a is towards the centre.",
+     "mistake": "Thinks it is directed outward"
+    },
+    {
+     "q": "If the speed of a body in UCM is doubled (same radius), its centripetal acceleration becomes how many times the original?",
+     "options": [
+      "4",
+      "0.5",
+      "2",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "a = v²/R, so doubling v gives 4 times a.",
+     "mistake": "Thinks a ∝ v",
+     "check": "2**2"
+    },
+    {
+     "q": "Which statement about centripetal acceleration in UCM is correct?",
+     "options": [
+      "Its magnitude is constant but its direction changes",
+      "It is parallel to velocity",
+      "It is a constant vector",
+      "It is zero because speed is constant"
+     ],
+     "answer": 0,
+     "explain": "Magnitude v²/R is fixed, but it always points to the centre, a changing direction.",
+     "mistake": "Treats constant magnitude as a constant vector"
+    },
+    {
+     "q": "A car goes round a circular track of radius 100 m at 20 m s⁻¹. Its centripetal acceleration in m s⁻² is",
+     "options": [
+      "2000",
+      "4",
+      "0.2",
+      "40"
+     ],
+     "answer": 1,
+     "explain": "a = v²/R = 400/100 = 4 m s⁻².",
+     "mistake": "Divides v by R",
+     "check": "20**2/100"
+    },
+    {
+     "q": "A particle moves on a circle with increasing speed. Its acceleration is",
+     "options": [
+      "Purely tangential",
+      "Neither purely radial nor purely tangential",
+      "Zero",
+      "Purely towards the centre"
+     ],
+     "answer": 1,
+     "explain": "It has a centripetal (radial) part v²/R and a tangential part dv/dt.",
+     "mistake": "Applies the UCM result to non-uniform motion"
+    },
+    {
+     "q": "In the derivation of a = v²/R, the key step uses",
+     "options": [
+      "Newton's third law",
+      "Conservation of energy",
+      "Similar triangles formed by position and velocity vectors",
+      "The equation of a parabola"
+     ],
+     "answer": 2,
+     "explain": "The angle between r and r′ equals that between v and v′, so the triangles are similar.",
+     "mistake": "Thinks the derivation needs forces"
+    },
+    {
+     "q": "A centrifuge has R = 0.05 m and ω = 200 rad s⁻¹. The centripetal acceleration in m s⁻² is",
+     "options": [
+      "200",
+      "10",
+      "2000",
+      "40000"
+     ],
+     "answer": 2,
+     "explain": "a = ω²R = 40000 × 0.05 = 2000 m s⁻².",
+     "mistake": "Uses ωR",
+     "check": "200**2*0.05"
+    },
+    {
+     "q": "Assertion (A): The centripetal acceleration in uniform circular motion is not a constant vector.\nReason (R): Its magnitude v²/R keeps changing during the motion.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true because its direction changes. R is false: in uniform circular motion the magnitude v²/R is constant.",
+     "mistake": "Thinks the magnitude changes"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu circles a tree at constant speed and insists his acceleration is a constant vector because its size doesn't change. Correct him and show where a = v²/R comes from.",
+    "must": [
+     [
+      "towards the centre",
+      "centre",
+      "centripetal"
+     ],
+     [
+      "v²/r",
+      "v squared by r",
+      "ω²r"
+     ],
+     [
+      "direction changes",
+      "not constant vector",
+      "changing direction"
+     ],
+     [
+      "similar triangles",
+      "velocity triangle"
+     ]
+    ],
+    "praise": "So my acceleration's size is fixed, but it keeps swivelling to face the tree. Not a constant vector!",
+    "nudge": "Where does the acceleration point? Its size is fixed, but what about its direction?"
+   }
+  }
+ ]
+}

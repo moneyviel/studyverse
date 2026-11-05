@@ -1,0 +1,2992 @@
+{
+ "n": 5,
+ "title": "Work, Energy and Power",
+ "emoji": "⚡",
+ "topics": [
+  {
+   "id": "g11-physics-05-01",
+   "title": "The scalar (dot) product",
+   "covers": [
+    "c5.1.1",
+    "c5.1.2",
+    "c5.1.3",
+    "c5.1.4"
+   ],
+   "learn": {
+    "hook": "A coolie carrying a heavy bag on his head across a level platform is tired, yet in physics he did zero work on the bag. The dot product explains why.",
+    "points": [
+     "In everyday language 'work', 'energy' and 'power' are loose words; in physics they have exact definitions built on the scalar product.",
+     "Scalar (dot) product: A·B = AB cos θ, where θ is the angle between A and B. The result is a scalar.",
+     "Properties: commutative (A·B = B·A) and distributive (A·(B + C) = A·B + A·C).",
+     "Unit vectors: î·î = ĵ·ĵ = k̂·k̂ = 1 and î·ĵ = ĵ·k̂ = k̂·î = 0.",
+     "Component form: A·B = AₓBₓ + A_yB_y + A_zB_z."
+    ],
+    "example": {
+     "q": "Find A·B for A = 2î + 3ĵ − k̂ and B = 4î − ĵ + 2k̂.",
+     "steps": [
+      "A·B = AₓBₓ + A_yB_y + A_zB_z.",
+      "= (2)(4) + (3)(−1) + (−1)(2).",
+      "= 8 − 3 − 2 = 3."
+     ],
+     "answer": "3"
+    },
+    "reallife": "Solar panel installers in Rajasthan tilt panels so that the sunlight direction and the panel's normal have the largest dot product, maximising captured energy."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Dot product ↔ value",
+     "pairs": [
+      [
+       "î·î",
+       "1"
+      ],
+      [
+       "î·ĵ",
+       "0"
+      ],
+      [
+       "A·A",
+       "A²"
+      ],
+      [
+       "A·B for A ⊥ B",
+       "0 (perpendicular)"
+      ],
+      [
+       "A·B for A ∥ B",
+       "AB"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Dot-product sprint",
+     "items": [
+      {
+       "q": "(2î + 3ĵ)·(î + ĵ)",
+       "a": "5",
+       "check": "2+3"
+      },
+      {
+       "q": "(î − ĵ)·(î + ĵ)",
+       "a": "0",
+       "check": "1-1"
+      },
+      {
+       "q": "(3î)·(4î)",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "|A| = 2, |B| = 5, θ = 60°: A·B",
+       "a": "5",
+       "check": "2*5*0.5"
+      },
+      {
+       "q": "(î + 2ĵ + 3k̂)·(3î + 2ĵ + k̂)",
+       "a": "10",
+       "check": "3+4+3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "If A = 3î + 4ĵ and B = 2î − ĵ, then A·B equals",
+     "options": [
+      "5",
+      "2",
+      "-2",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "A·B = (3)(2) + (4)(−1) = 6 − 4 = 2.",
+     "mistake": "Ignores the negative sign of a component",
+     "check": "3*2+4*(-1)"
+    },
+    {
+     "q": "The scalar product of two vectors is",
+     "options": [
+      "A scalar",
+      "A vector perpendicular to both",
+      "A unit vector",
+      "A vector along A"
+     ],
+     "answer": 0,
+     "explain": "A·B = AB cos θ is a number with no direction.",
+     "mistake": "Confuses dot product with cross product"
+    },
+    {
+     "q": "î·k̂ equals",
+     "options": [
+      "1",
+      "0",
+      "-1",
+      "ĵ"
+     ],
+     "answer": 1,
+     "explain": "î and k̂ are perpendicular, so cos 90° = 0.",
+     "mistake": "Treats it like a cross product",
+     "check": "0"
+    },
+    {
+     "q": "Two vectors of magnitudes 4 and 5 have an angle of 60° between them. Their dot product is",
+     "options": [
+      "10",
+      "0",
+      "17.32",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "A·B = 4 × 5 × cos 60° = 20 × 0.5 = 10.",
+     "mistake": "Forgets cos θ",
+     "check": "4*5*0.5"
+    },
+    {
+     "q": "Which property does the scalar product have?",
+     "options": [
+      "A·B = −B·A",
+      "A·B is always positive",
+      "A·A = 0",
+      "A·B = B·A"
+     ],
+     "answer": 3,
+     "explain": "Since cos θ is the same either way, the dot product is commutative.",
+     "mistake": "Confuses with the anticommutative cross product"
+    },
+    {
+     "q": "A·(B + C) equals",
+     "options": [
+      "A·B + A·C",
+      "(A·B)C",
+      "A·B × A·C",
+      "A + B·C"
+     ],
+     "answer": 0,
+     "explain": "The scalar product is distributive over addition.",
+     "mistake": "Mixes up the order of operations"
+    },
+    {
+     "q": "If A·B = 0 for two non-zero vectors, then",
+     "options": [
+      "A = B",
+      "A is parallel to B",
+      "One of them must be zero",
+      "A is perpendicular to B"
+     ],
+     "answer": 3,
+     "explain": "AB cos θ = 0 with A, B ≠ 0 means cos θ = 0, θ = 90°.",
+     "mistake": "Thinks a zero product needs a zero vector"
+    },
+    {
+     "q": "Assertion (A): A·A = A².\nReason (R): The scalar product is commutative.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both are true, but commutativity does not explain A·A = A²; that follows from cos 0° = 1.",
+     "mistake": "Picks a true property as the reason"
+    },
+    {
+     "q": "Riya says she did a lot of 'work' by reading notes for two hours at her desk. In physics, work is done on a body only when",
+     "options": [
+      "A force acts on it and its point of application moves with a component of displacement along the force",
+      "A person feels tired after an activity",
+      "A lot of time is spent on a task",
+      "Any force acts on it, even if nothing moves"
+     ],
+     "answer": 0,
+     "explain": "In physics, work W = F·d needs a force and a displacement with a component along it. Everyday 'work' (reading, effort, tiredness) is not physics work.",
+     "mistake": "Uses the everyday meaning of 'work' instead of the physics definition"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks multiplying two vectors always gives another vector. Explain the dot product, its formula and how to compute it from components.",
+    "must": [
+     [
+      "ab cos θ",
+      "cos",
+      "a b cos"
+     ],
+     [
+      "scalar",
+      "number"
+     ],
+     [
+      "components",
+      "axbx",
+      "ax bx + ay by"
+     ]
+    ],
+    "praise": "So the dot product is just a number: AB cos θ, or multiply matching components and add!",
+    "nudge": "What kind of answer does a dot product give? How does the angle come in?"
+   }
+  },
+  {
+   "id": "g11-physics-05-02",
+   "title": "Work done by a constant force",
+   "covers": [
+    "c5.1.5",
+    "c5.1.6",
+    "c5.3.1",
+    "c5.3.2"
+   ],
+   "learn": {
+    "hook": "Pulling a suitcase by its handle at an angle: only the part of your pull along the floor does work.",
+    "points": [
+     "Angle between vectors: cos θ = A·B/(AB).",
+     "Component of F along d = F·d/|d| = F cos θ.",
+     "Work by a constant force: W = F·d = Fd cos θ. It is a scalar; SI unit joule (1 J = 1 N m).",
+     "Zero work in three cases: no displacement (pushing a wall), no force (a body moving uniformly in free space), or force perpendicular to displacement (θ = 90°: coolie carrying a load horizontally, gravity on a body moving horizontally)."
+    ],
+    "example": {
+     "q": "F = 2î + ĵ + 2k̂ N and d = 2î − 2ĵ + k̂ m. Find the work done and the angle between F and d.",
+     "steps": [
+      "W = F·d = 4 − 2 + 2 = 4 J.",
+      "|F| = √(4 + 1 + 4) = 3 N; |d| = √(4 + 4 + 1) = 3 m.",
+      "cos θ = 4/(3 × 3) = 4/9, so θ = cos⁻¹(4/9) ≈ 64°."
+     ],
+     "answer": "4 J; cos θ = 4/9"
+    },
+    "reallife": "Porters at Indian railway stations do zero work (in physics) on a head-load while walking on the level, but plenty of work while climbing the stairs to the foot-over-bridge."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Is the work done zero?",
+     "buckets": [
+      "Zero work",
+      "Non-zero work"
+     ],
+     "items": [
+      [
+       "Pushing a wall that doesn't move",
+       0
+      ],
+      [
+       "Carrying a bag horizontally at constant height",
+       0
+      ],
+      [
+       "Gravity on a satellite in a circular orbit",
+       0
+      ],
+      [
+       "Lifting a bucket from a well",
+       1
+      ],
+      [
+       "Friction on a sliding box",
+       1
+      ],
+      [
+       "Pulling a cart along a road",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Work formula gaps",
+     "items": [
+      {
+       "text": "W = F d cos ___",
+       "answer": "θ",
+       "options": [
+        "F",
+        "d",
+        "θ"
+       ]
+      },
+      {
+       "text": "If θ = 90°, W = ___",
+       "answer": "0",
+       "options": [
+        "0",
+        "−Fd",
+        "Fd"
+       ]
+      },
+      {
+       "text": "1 joule = 1 newton × 1 ___",
+       "answer": "metre",
+       "options": [
+        "metre",
+        "kilogram",
+        "second"
+       ]
+      },
+      {
+       "text": "Component of F along d = F·d ÷ ___",
+       "answer": "|d|",
+       "options": [
+        "|F|",
+        "θ",
+        "|d|"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A force of 10 N moves a body 5 m in the direction of the force. The work done in J is",
+     "options": [
+      "0",
+      "15",
+      "2",
+      "50"
+     ],
+     "answer": 3,
+     "explain": "W = Fd cos 0° = 10 × 5 = 50 J.",
+     "mistake": "Divides force by distance",
+     "check": "10*5"
+    },
+    {
+     "q": "A force of 20 N pulls a box 4 m along the floor at 60° to the horizontal. The work done in J is",
+     "options": [
+      "69.28",
+      "80",
+      "40",
+      "20"
+     ],
+     "answer": 2,
+     "explain": "W = Fd cos 60° = 20 × 4 × 0.5 = 40 J.",
+     "mistake": "Forgets the cos θ factor",
+     "check": "20*4*0.5"
+    },
+    {
+     "q": "F = (3î + 4ĵ) N acts on a body displaced by d = (2î + 3ĵ) m. The work done in J is",
+     "options": [
+      "18",
+      "12",
+      "7",
+      "25"
+     ],
+     "answer": 0,
+     "explain": "W = F·d = 6 + 12 = 18 J.",
+     "mistake": "Multiplies magnitudes or adds components",
+     "check": "3*2+4*3"
+    },
+    {
+     "q": "A = 3î + 4ĵ and B = 4î + 3ĵ. The cosine of the angle between them is",
+     "options": [
+      "0.48",
+      "0.8",
+      "0.96",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "A·B = 12 + 12 = 24; |A||B| = 25; cos θ = 24/25 = 0.96.",
+     "mistake": "Forgets to divide by the product of magnitudes",
+     "check": "24/25"
+    },
+    {
+     "q": "A man holds a 20 kg suitcase and walks 10 m on a level platform. The work done by him on the suitcase against gravity is",
+     "options": [
+      "Zero",
+      "2000 J",
+      "1960 J",
+      "200 J"
+     ],
+     "answer": 0,
+     "explain": "His upward force is perpendicular to the horizontal displacement, so W = 0.",
+     "mistake": "Multiplies weight by horizontal distance"
+    },
+    {
+     "q": "Gravity does no work on a satellite in a circular orbit because",
+     "options": [
+      "The orbit is a closed path",
+      "The satellite is weightless",
+      "Gravity is zero in orbit",
+      "Gravity is perpendicular to the satellite's velocity at every point"
+     ],
+     "answer": 3,
+     "explain": "Gravity points to the centre, velocity is tangential: θ = 90°.",
+     "mistake": "Thinks gravity vanishes in orbit"
+    },
+    {
+     "q": "F = 6î N acts on a body that moves through d = 3î + 4ĵ m. The component of F along d in N is",
+     "options": [
+      "4.8",
+      "18",
+      "6",
+      "3.6"
+     ],
+     "answer": 3,
+     "explain": "F·d/|d| = 18/5 = 3.6 N.",
+     "mistake": "Gives F·d instead of dividing by |d|",
+     "check": "18/5"
+    },
+    {
+     "q": "Assertion (A): No work is done when you push hard against a fixed wall.\nReason (R): Work requires a displacement of the point of application of the force.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The wall does not move, so d = 0 and W = 0. R explains A.",
+     "mistake": "Equates tiredness with work done"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu pushed a huge rock all morning; it didn't budge. He says he did lots of work. Explain W = Fd cos θ and the cases of zero work.",
+    "must": [
+     [
+      "fd cos θ",
+      "f·d",
+      "force times displacement"
+     ],
+     [
+      "no displacement",
+      "doesn't move",
+      "zero displacement"
+     ],
+     [
+      "perpendicular",
+      "90",
+      "right angle"
+     ]
+    ],
+    "praise": "So I got tired but did zero work on the rock! Work needs displacement along the force.",
+    "nudge": "What does work depend on besides force? What if the rock never moves?"
+   }
+  },
+  {
+   "id": "g11-physics-05-03",
+   "title": "Positive and negative work, and units of energy",
+   "covers": [
+    "c5.3.3",
+    "c5.3.4",
+    "c5.3.5"
+   ],
+   "learn": {
+    "hook": "When you lower a heavy suitcase from a train's upper berth, gravity does positive work and your hands do negative work.",
+    "points": [
+     "0° ≤ θ < 90°: W > 0 (force helps motion). 90° < θ ≤ 180°: W < 0 (force opposes motion).",
+     "Kinetic friction opposes relative motion, so it does negative work on a sliding body.",
+     "Units of work and energy: joule (J); erg = 10⁻⁷ J; electron volt eV = 1.6 × 10⁻¹⁹ J; kilowatt hour kWh = 3.6 × 10⁶ J; calorie = 4.186 J.",
+     "Net work = sum of works by all forces (each with its sign)."
+    ],
+    "example": {
+     "q": "A 50 N push moves a box 5 m on a floor where friction is 20 N. Find the work done by each force and the net work.",
+     "steps": [
+      "Push: W₁ = 50 × 5 = +250 J.",
+      "Friction: W₂ = 20 × 5 × cos 180° = −100 J.",
+      "Gravity and normal force: 0 (perpendicular).",
+      "Net work = +150 J."
+     ],
+     "answer": "+250 J, −100 J, net +150 J"
+    },
+    "reallife": "Your electricity bill counts energy in 'units', and 1 unit = 1 kWh = 3.6 × 10⁶ J. A 2 kW geyser running for 30 minutes uses 1 unit."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Sign of the work done",
+     "buckets": [
+      "Positive work",
+      "Negative work"
+     ],
+     "items": [
+      [
+       "Gravity on a falling stone",
+       0
+      ],
+      [
+       "Gravity on a ball thrown upward (while rising)",
+       1
+      ],
+      [
+       "Friction on a sliding block",
+       1
+      ],
+      [
+       "Your hand lifting a book",
+       0
+      ],
+      [
+       "Brakes on a moving car",
+       1
+      ],
+      [
+       "Engine force on an accelerating bus",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Energy unit ↔ value in joules",
+     "pairs": [
+      [
+       "1 erg",
+       "10⁻⁷ J"
+      ],
+      [
+       "1 eV",
+       "1.6 × 10⁻¹⁹ J"
+      ],
+      [
+       "1 kWh",
+       "3.6 × 10⁶ J"
+      ],
+      [
+       "1 calorie",
+       "4.186 J"
+      ],
+      [
+       "1 N m",
+       "1 J"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A cyclist skids to a stop over 10 m. The road's friction force on the cycle is 200 N. The work done by the road on the cycle in J is",
+     "options": [
+      "2000",
+      "-20",
+      "-2000",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "Friction opposes the displacement: W = 200 × 10 × cos 180° = −2000 J.",
+     "mistake": "Forgets that friction does negative work",
+     "check": "-200*10"
+    },
+    {
+     "q": "When a ball is thrown upward, the work done by gravity during the upward motion is",
+     "options": [
+      "Infinite",
+      "Zero",
+      "Positive",
+      "Negative"
+     ],
+     "answer": 3,
+     "explain": "Gravity (down) opposes the displacement (up), θ = 180°.",
+     "mistake": "Thinks gravity does positive work always"
+    },
+    {
+     "q": "How many joules are there in 2 kWh?",
+     "options": [
+      "3600000",
+      "2000",
+      "7200000",
+      "7200"
+     ],
+     "answer": 2,
+     "explain": "1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J, so 2 kWh = 7.2 × 10⁶ J.",
+     "mistake": "Forgets to convert hours to seconds",
+     "check": "2*1000*3600"
+    },
+    {
+     "q": "An electron gains 100 eV of energy. In units of 10⁻¹⁹ J this is",
+     "options": [
+      "16",
+      "1.6",
+      "100",
+      "160"
+     ],
+     "answer": 3,
+     "explain": "100 × 1.6 × 10⁻¹⁹ J = 160 × 10⁻¹⁹ J.",
+     "mistake": "Forgets to multiply by 1.6",
+     "check": "100*1.6"
+    },
+    {
+     "q": "A force does negative work on a body when the angle between force and displacement is",
+     "options": [
+      "Less than 90°",
+      "Zero",
+      "Greater than 90°",
+      "Exactly 90°"
+     ],
+     "answer": 2,
+     "explain": "cos θ < 0 for 90° < θ ≤ 180°.",
+     "mistake": "Thinks 90° gives negative work"
+    },
+    {
+     "q": "A 60 N push moves a crate 3 m while 40 N of friction acts. The net work done on the crate in J is",
+     "options": [
+      "300",
+      "-120",
+      "180",
+      "60"
+     ],
+     "answer": 3,
+     "explain": "W_net = 60 × 3 − 40 × 3 = 180 − 120 = 60 J.",
+     "mistake": "Ignores friction's negative work",
+     "check": "60*3-40*3"
+    },
+    {
+     "q": "1 erg equals 10ⁿ J. What is n?",
+     "options": [
+      "5",
+      "-5",
+      "7",
+      "-7"
+     ],
+     "answer": 3,
+     "explain": "1 J = 10⁷ erg, so 1 erg = 10⁻⁷ J.",
+     "mistake": "Inverts the conversion",
+     "check": "-7"
+    },
+    {
+     "q": "Assertion (A): Kinetic friction always does negative work on a body sliding over a fixed surface.\nReason (R): Kinetic friction acts opposite to the velocity of the body relative to the surface.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Force opposite to displacement means θ = 180°, so W < 0. R explains A.",
+     "mistake": "Thinks friction can help a sliding body on a fixed floor"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks work can never be negative because 'work is always effort'. Explain when work is negative, with friction as an example, and name the units of energy.",
+    "must": [
+     [
+      "opposite",
+      "180",
+      "opposes"
+     ],
+     [
+      "negative",
+      "minus"
+     ],
+     [
+      "joule",
+      "kwh",
+      "electron volt",
+      "erg",
+      "calorie"
+     ]
+    ],
+    "praise": "When a force fights the motion, its work is negative, like friction or gravity on a rising ball!",
+    "nudge": "What happens to the sign of work when the force opposes the motion? What units of energy do you know?"
+   }
+  },
+  {
+   "id": "g11-physics-05-04",
+   "title": "Kinetic energy and the work–energy theorem",
+   "covers": [
+    "c5.2.1",
+    "c5.2.2",
+    "c5.2.3",
+    "c5.4.1",
+    "c5.4.2"
+   ],
+   "learn": {
+    "hook": "A raindrop falling from a cloud a kilometre up should hit you at over 140 m s⁻¹. It doesn't, because air resistance does a lot of negative work.",
+    "points": [
+     "Start with v² − u² = 2as and multiply by m/2: ½mv² − ½mu² = mas = Fs.",
+     "Kinetic energy K = ½mv² (a scalar, never negative).",
+     "Work–energy theorem: the change in kinetic energy equals the net work done by all forces: K_f − K_i = W_net.",
+     "Typical kinetic energies span a huge range: a falling raindrop ~10⁻³ J, a running person ~10³ J, a car on a highway ~10⁵–10⁶ J."
+    ],
+    "example": {
+     "q": "A 2 g raindrop falls 500 m and lands at 20 m s⁻¹ (g = 10 m s⁻²). Find the work done by gravity and by air resistance.",
+     "steps": [
+      "W_gravity = mgh = 0.002 × 10 × 500 = 10 J.",
+      "K_f = ½ × 0.002 × 400 = 0.4 J (K_i = 0).",
+      "W_net = 0.4 J = W_gravity + W_air.",
+      "W_air = 0.4 − 10 = −9.6 J."
+     ],
+     "answer": "+10 J; −9.6 J"
+    },
+    "reallife": "A Vande Bharat train of about 4 × 10⁵ kg at 30 m s⁻¹ carries nearly 2 × 10⁸ J of kinetic energy, which its brakes must remove to stop."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Deriving the work–energy theorem (constant force)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Start from v² − u² = 2as",
+      "Multiply both sides by m/2",
+      "½mv² − ½mu² = mas",
+      "Replace ma by F: ½mv² − ½mu² = Fs",
+      "So ΔK = work done"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "KE sprint (K = ½mv²)",
+     "items": [
+      {
+       "q": "m = 2 kg, v = 3 m/s: K (J)",
+       "a": "9",
+       "check": "0.5*2*9"
+      },
+      {
+       "q": "m = 1000 kg, v = 20 m/s: K (J)",
+       "a": "200000",
+       "check": "0.5*1000*400"
+      },
+      {
+       "q": "v doubles: K becomes × ?",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "m = 0.1 kg, v = 10 m/s: K (J)",
+       "a": "5",
+       "check": "0.5*0.1*100"
+      },
+      {
+       "q": "K = 50 J, m = 1 kg: v (m/s)",
+       "a": "10",
+       "check": "(2*50/1)**0.5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 4 kg block moving at 5 m s⁻¹ has kinetic energy (in J)",
+     "options": [
+      "10",
+      "100",
+      "50",
+      "20"
+     ],
+     "answer": 2,
+     "explain": "K = ½ × 4 × 25 = 50 J.",
+     "mistake": "Forgets the ½ or the square",
+     "check": "0.5*4*25"
+    },
+    {
+     "q": "If the speed of a car is tripled, its kinetic energy becomes how many times the original?",
+     "options": [
+      "9",
+      "3",
+      "6",
+      "27"
+     ],
+     "answer": 0,
+     "explain": "K ∝ v², so 3² = 9.",
+     "mistake": "Thinks K ∝ v",
+     "check": "3**2"
+    },
+    {
+     "q": "A 2 kg body is accelerated from 3 m s⁻¹ to 7 m s⁻¹. The net work done on it in J is",
+     "options": [
+      "8",
+      "16",
+      "40",
+      "58"
+     ],
+     "answer": 2,
+     "explain": "W = ΔK = ½ × 2 × (49 − 9) = 40 J.",
+     "mistake": "Uses (v − u)² instead of v² − u²",
+     "check": "0.5*2*(49-9)"
+    },
+    {
+     "q": "The work–energy theorem states that",
+     "options": [
+      "Work done by friction is zero",
+      "Work done equals potential energy",
+      "Net work done on a body equals the change in its kinetic energy",
+      "Kinetic energy is always conserved"
+     ],
+     "answer": 2,
+     "explain": "W_net = K_f − K_i.",
+     "mistake": "Confuses it with conservation of mechanical energy"
+    },
+    {
+     "q": "A 1 g raindrop falls from 1 km and lands at 50 m s⁻¹ (g = 10 m s⁻²). The work done by air resistance in J is",
+     "options": [
+      "-10",
+      "1.25",
+      "10",
+      "-8.75"
+     ],
+     "answer": 3,
+     "explain": "W_g = 10⁻³ × 10 × 1000 = 10 J; K_f = ½ × 10⁻³ × 2500 = 1.25 J; W_air = 1.25 − 10 = −8.75 J.",
+     "mistake": "Forgets that air resistance does negative work",
+     "check": "0.5*0.001*2500-0.001*10*1000"
+    },
+    {
+     "q": "A body has kinetic energy 100 J and momentum 20 kg m s⁻¹. Its mass in kg is",
+     "options": [
+      "5",
+      "0.2",
+      "4",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "K = p²/2m → m = p²/(2K) = 400/200 = 2 kg.",
+     "mistake": "Uses K = p/2m",
+     "check": "400/200"
+    },
+    {
+     "q": "Kinetic energy can never be negative because",
+     "options": [
+      "Mass is positive and v² is never negative",
+      "Energy is a vector",
+      "Velocity is always positive",
+      "It is defined only for bodies at rest"
+     ],
+     "answer": 0,
+     "explain": "K = ½mv² with m > 0 and v² ≥ 0.",
+     "mistake": "Thinks negative velocity gives negative K"
+    },
+    {
+     "q": "Assertion (A): If the net work done on a body is zero, its velocity must stay constant.\nReason (R): The net work done on a body equals the change in its kinetic energy.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "A is false: only the speed stays constant; the direction can change (as in uniform circular motion). R is true.",
+     "mistake": "Confuses speed with velocity"
+    },
+    {
+     "q": "Which of these has kinetic energy closest to 10⁵–10⁶ J?",
+     "options": [
+      "A falling raindrop",
+      "A person walking",
+      "A car moving on a highway",
+      "A cricket ball tossed gently to a friend"
+     ],
+     "answer": 2,
+     "explain": "A car of about 1000 kg at 20–30 m s⁻¹ has K = ½mv² ≈ 2–5 × 10⁵ J. A raindrop has ~10⁻³ J, a walking person ~10² J and a gently tossed ball only a few joules.",
+     "steps": [
+      "Car: m ≈ 1000 kg, v ≈ 25 m s⁻¹",
+      "K = ½ × 1000 × 625 ≈ 3 × 10⁵ J"
+     ],
+     "mistake": "Has no feel for the size of kinetic energies of everyday objects"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks a falling raindrop should hit him extremely fast. Explain kinetic energy and the work–energy theorem, including air resistance.",
+    "must": [
+     [
+      "½mv²",
+      "half m v square",
+      "kinetic energy"
+     ],
+     [
+      "change in kinetic energy",
+      "δk",
+      "kf − ki"
+     ],
+     [
+      "net work",
+      "all forces",
+      "total work"
+     ],
+     [
+      "air resistance",
+      "negative work"
+     ]
+    ],
+    "praise": "Gravity does positive work, air does negative work, and the change in KE is the total. The drop lands gently!",
+    "nudge": "What is kinetic energy? How does net work relate to it?"
+   }
+  },
+  {
+   "id": "g11-physics-05-05",
+   "title": "Work done by a variable force",
+   "covers": [
+    "c5.5.1",
+    "c5.5.2",
+    "c5.5.3"
+   ],
+   "learn": {
+    "hook": "Stretching a resistance band at the gym gets harder the further you pull. You can't just use W = Fd here.",
+    "points": [
+     "For a force that changes with position, break the displacement into small steps Δx where F is nearly constant: W ≈ Σ F(x)Δx.",
+     "In the limit Δx → 0: W = ∫ F(x) dx from x_i to x_f.",
+     "Graphically, work done = area under the force–displacement (F–x) graph; area below the x-axis is negative work.",
+     "Use simple shapes (rectangles, triangles, trapeziums) to find areas for piecewise-linear graphs."
+    ],
+    "example": {
+     "q": "A woman pushes a trunk with 100 N for the first 10 m; then her push falls linearly to 50 N over the next 10 m. Find the work done by her.",
+     "steps": [
+      "0–10 m: rectangle = 100 × 10 = 1000 J.",
+      "10–20 m: trapezium = ½(100 + 50) × 10 = 750 J.",
+      "Total = 1750 J."
+     ],
+     "answer": "1750 J"
+    },
+    "reallife": "Engineers testing car crash barriers at the Automotive Research Association of India (ARAI), Pune, find the energy absorbed from the area under force–crush graphs."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Finding work from an F–x graph",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Plot F against x",
+      "Mark the start and end positions",
+      "Split the region into simple shapes",
+      "Find each area (with sign)",
+      "Add the areas to get the work"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Variable-force work",
+     "items": [
+      [
+       "Work by a variable force equals the area under the F–x graph.",
+       true,
+       "W = ∫F dx."
+      ],
+      [
+       "W = F × d works for any force if you use the final force.",
+       false,
+       "Only for constant force."
+      ],
+      [
+       "Area under an F–x graph below the x-axis counts as negative work.",
+       true,
+       "F is opposite to the displacement there."
+      ],
+      [
+       "The integral ∫F dx is the limit of ΣF Δx as Δx → 0.",
+       true,
+       "That is how work is defined."
+      ],
+      [
+       "A triangular F–x graph from 0 to 10 N over 2 m gives 20 J.",
+       false,
+       "Area = ½ × 2 × 10 = 10 J."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A force rises linearly from 0 to 20 N as a body moves from x = 0 to x = 4 m. The work done in J is",
+     "options": [
+      "5",
+      "80",
+      "20",
+      "40"
+     ],
+     "answer": 3,
+     "explain": "Area of triangle = ½ × 4 × 20 = 40 J.",
+     "mistake": "Forgets the ½",
+     "check": "0.5*4*20"
+    },
+    {
+     "q": "Work done by a variable force F(x) from x₁ to x₂ is",
+     "options": [
+      "F(x₂) × (x₂ − x₁)",
+      "∫ F(x) dx from x₁ to x₂",
+      "F(x₁) + F(x₂)",
+      "dF/dx"
+     ],
+     "answer": 1,
+     "explain": "Work is the integral of force over displacement.",
+     "mistake": "Uses the final force times the full distance"
+    },
+    {
+     "q": "F = 3x² N (x in m). The work done from x = 0 to x = 2 m in J is",
+     "options": [
+      "24",
+      "12",
+      "8",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "W = ∫₀² 3x² dx = [x³]₀² = 8 J.",
+     "mistake": "Evaluates F at x = 2 and multiplies by 2",
+     "check": "2**3"
+    },
+    {
+     "q": "On an F–x graph, F = 10 N from x = 0 to 3 m, then F = −5 N from 3 to 5 m. The net work in J is",
+     "options": [
+      "30",
+      "40",
+      "20",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "W = 10 × 3 + (−5) × 2 = 30 − 10 = 20 J.",
+     "mistake": "Adds all areas as positive",
+     "check": "10*3-5*2"
+    },
+    {
+     "q": "A trunk is pushed with 80 N for 6 m, then with a force decreasing linearly from 80 N to 0 over the next 4 m. Total work in J is",
+     "options": [
+      "800",
+      "640",
+      "560",
+      "480"
+     ],
+     "answer": 1,
+     "explain": "480 J (rectangle) + ½ × 4 × 80 = 160 J (triangle) = 640 J.",
+     "mistake": "Misses the triangle",
+     "check": "80*6+0.5*4*80"
+    },
+    {
+     "q": "Friction on the same trunk is a constant 50 N over the whole 10 m. The work done by friction in J is",
+     "options": [
+      "-500",
+      "500",
+      "-50",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "W = −50 × 10 = −500 J; friction opposes motion.",
+     "mistake": "Gives the friction work a positive sign",
+     "check": "-50*10"
+    },
+    {
+     "q": "The work done by a spring force F = −kx when it is stretched from 0 to x is found by",
+     "options": [
+      "Zero, as the force varies",
+      "kx × x",
+      "kx",
+      "The area of the triangle under the F–x line: −½kx²"
+     ],
+     "answer": 3,
+     "explain": "Integrating −kx gives −½kx².",
+     "mistake": "Uses F × x with the final force"
+    },
+    {
+     "q": "Assertion (A): For a variable force, work is the area under the force–displacement graph.\nReason (R): Work is the sum of small products F Δx, which in the limit equals the area under the curve.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The area is exactly ∫F dx. R explains A.",
+     "mistake": "Thinks area under F–x has no meaning"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu tugs a vine that pulls back harder the further he goes. He wants to know how much work he did. Explain work by a variable force.",
+    "must": [
+     [
+      "area",
+      "area under",
+      "graph"
+     ],
+     [
+      "integral",
+      "∫f dx",
+      "sum of small"
+     ],
+     [
+      "small steps",
+      "δx",
+      "tiny pieces"
+     ]
+    ],
+    "praise": "Chop the stretch into tiny bits, add F × Δx, and that's the area under the graph!",
+    "nudge": "Can you use force × distance if the force keeps changing? What can you do with the graph?"
+   }
+  },
+  {
+   "id": "g11-physics-05-06",
+   "title": "Work–energy theorem for variable forces and its uses",
+   "covers": [
+    "c5.4.3",
+    "c5.6.1",
+    "c5.6.2",
+    "c5.6.3"
+   ],
+   "learn": {
+    "hook": "A bullet punching through a plank loses most of its energy in a split second. The work–energy theorem tells you how much without knowing the messy force.",
+    "points": [
+     "Proof for a variable force: dK/dt = mv dv/dt = Fv = F dx/dt, so dK = F dx. Integrating, K_f − K_i = ∫F dx = W.",
+     "The theorem is the integral form of Newton's second law. It is a scalar equation (no direction needed) and holds in inertial frames.",
+     "It is powerful when the force is complicated: you only need the work.",
+     "Bullet through a plank: kinetic energy lost = work done by the plank's resistance. Block entering a rough region: K_f = K_i + W_friction (W_friction < 0)."
+    ],
+    "example": {
+     "q": "A 20 g bullet enters a plank at 300 m s⁻¹ and emerges at 100 m s⁻¹. Find the kinetic energy lost and the fraction lost.",
+     "steps": [
+      "K_i = ½ × 0.02 × 90000 = 900 J.",
+      "K_f = ½ × 0.02 × 10000 = 100 J.",
+      "Loss = 800 J; fraction = 800/900 = 8/9."
+     ],
+     "answer": "800 J, 8/9 of the initial KE"
+    },
+    "reallife": "Bulletproof jackets used by the CRPF are tested by how much kinetic energy their layers absorb, which is the work done against the bullet."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Proof of the work–energy theorem (variable force)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Write K = ½mv²",
+      "dK/dt = mv (dv/dt)",
+      "Use F = m dv/dt: dK/dt = Fv",
+      "Write v = dx/dt: dK = F dx",
+      "Integrate: K_f − K_i = ∫F dx = W"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Theorem facts",
+     "items": [
+      [
+       "The work–energy theorem is the integral form of Newton's second law.",
+       true,
+       "It comes from F = m dv/dt."
+      ],
+      [
+       "The work–energy theorem is a vector equation.",
+       false,
+       "It is scalar."
+      ],
+      [
+       "It can be applied without knowing the detailed time-variation of the force.",
+       true,
+       "Only the work is needed."
+      ],
+      [
+       "It applies only to constant forces.",
+       false,
+       "It holds for variable forces too."
+      ],
+      [
+       "Work by friction reduces the kinetic energy of a sliding block.",
+       true,
+       "W_friction < 0."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 50 g bullet moving at 200 m s⁻¹ passes through a plank and emerges with 10% of its initial kinetic energy. Its emergent speed in m s⁻¹ is about",
+     "options": [
+      "100",
+      "63.25",
+      "180",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "v_f = v_i √0.1 = 200 × 0.3162 ≈ 63.25 m s⁻¹.",
+     "mistake": "Takes 10% of the speed instead of the energy",
+     "check": "200*0.1**0.5"
+    },
+    {
+     "q": "A 1 kg block with 10 J of kinetic energy enters a 2 m rough region where friction rises linearly from 0 to 6 N. Its kinetic energy on leaving, in J, is",
+     "options": [
+      "16",
+      "6",
+      "10",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "W_friction = −(½ × 2 × 6) = −6 J; K_f = 10 − 6 = 4 J.",
+     "mistake": "Adds the friction work",
+     "check": "10-0.5*2*6"
+    },
+    {
+     "q": "The work–energy theorem is",
+     "options": [
+      "A scalar form of Newton's second law, integrated over displacement",
+      "A form of Newton's third law",
+      "Valid only in non-inertial frames",
+      "A vector equation"
+     ],
+     "answer": 0,
+     "explain": "Integrating F = m dv/dt along the path gives ΔK = W, a scalar equation.",
+     "mistake": "Thinks it is a separate law of nature"
+    },
+    {
+     "q": "A 0.01 kg bullet at 400 m s⁻¹ stops inside a block. The work done by the block on the bullet in J is",
+     "options": [
+      "800",
+      "4",
+      "-800",
+      "-4"
+     ],
+     "answer": 2,
+     "explain": "W = ΔK = 0 − ½ × 0.01 × 160000 = −800 J.",
+     "mistake": "Forgets the negative sign",
+     "check": "-0.5*0.01*400**2"
+    },
+    {
+     "q": "In the proof of the theorem for a variable force, the key substitution is",
+     "options": [
+      "F = −kx",
+      "W = Fd",
+      "p = mv only",
+      "F = m dv/dt and v = dx/dt, giving dK = F dx"
+     ],
+     "answer": 3,
+     "explain": "dK/dt = mv dv/dt = Fv = F dx/dt.",
+     "mistake": "Uses a constant-force formula"
+    },
+    {
+     "q": "A 2 kg block slides 5 m on a rough floor and its speed falls from 6 m s⁻¹ to 4 m s⁻¹. The average friction force in N is",
+     "options": [
+      "2",
+      "8",
+      "4",
+      "20"
+     ],
+     "answer": 2,
+     "explain": "ΔK = ½ × 2 × (16 − 36) = −20 J = −f × 5 → f = 4 N.",
+     "mistake": "Forgets to divide by distance",
+     "check": "0.5*2*(36-16)/5"
+    },
+    {
+     "q": "A bullet emerges from a plank with half its initial speed. The fraction of initial kinetic energy lost is",
+     "options": [
+      "1/4",
+      "3/4",
+      "1/8",
+      "1/2"
+     ],
+     "answer": 1,
+     "explain": "K ∝ v²: (1/2)² = 1/4 remains, so 3/4 is lost.",
+     "mistake": "Thinks half speed means half energy",
+     "check": "Fraction(3,4)"
+    },
+    {
+     "q": "Assertion (A): We can find the kinetic energy lost by a bullet in a plank without knowing how the resistive force varies.\nReason (R): The work–energy theorem relates the change in kinetic energy only to the total work done.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "ΔK depends only on initial and final speeds, which equals the total work. R explains A.",
+     "mistake": "Thinks the force law must be known"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu shot a seed through a leaf and wants to know how much energy the leaf absorbed, but doesn't know the leaf's force. Show him how the work–energy theorem helps.",
+    "must": [
+     [
+      "change in kinetic energy",
+      "δk",
+      "kinetic energy lost"
+     ],
+     [
+      "work done",
+      "total work"
+     ],
+     [
+      "second law",
+      "integral",
+      "f = m dv/dt"
+     ]
+    ],
+    "praise": "I only need the speeds before and after; the energy lost is the work done by the leaf!",
+    "nudge": "What two speeds do you need? What does the change in kinetic energy equal?"
+   }
+  },
+  {
+   "id": "g11-physics-05-07",
+   "title": "Potential energy and conservative forces",
+   "covers": [
+    "c5.7.1",
+    "c5.7.2",
+    "c5.7.3",
+    "c5.7.4",
+    "c5.7.5"
+   ],
+   "learn": {
+    "hook": "Water held behind the Bhakra Dam stores energy simply because of where it is. Release it and the turbines spin.",
+    "points": [
+     "Potential energy is stored energy due to position or configuration (a raised stone, a stretched bow).",
+     "Near the Earth's surface, gravitational PE V = mgh (taking V = 0 at the reference level). In 1D, F = −dV/dx (force points towards lower PE).",
+     "A force is conservative if the work done by it depends only on the initial and final positions (not on the path), and is zero over any closed path. Gravity and spring force are conservative.",
+     "Friction is non-conservative: its work depends on the path and is not zero over a closed path, so no potential energy can be defined for it.",
+     "PE has the same dimensions [M L² T⁻²] and unit (joule) as kinetic energy."
+    ],
+    "example": {
+     "q": "A 2 kg stone is raised 5 m (g = 9.8 m s⁻²). Find its gain in PE, and show F = −dV/dx gives its weight.",
+     "steps": [
+      "V = mgh = 2 × 9.8 × 5 = 98 J.",
+      "V(h) = mgh, so F = −dV/dh = −mg = −19.6 N.",
+      "The minus sign means the force points downward (towards lower V)."
+     ],
+     "answer": "98 J; F = −19.6 N (downward)"
+    },
+    "reallife": "In pumped-storage plants like Tehri, water is pumped uphill at night (storing PE) and released through turbines during peak demand."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Conservative or non-conservative?",
+     "buckets": [
+      "Conservative",
+      "Non-conservative"
+     ],
+     "items": [
+      [
+       "Gravitational force",
+       0
+      ],
+      [
+       "Spring force",
+       0
+      ],
+      [
+       "Electrostatic force",
+       0
+      ],
+      [
+       "Kinetic friction",
+       1
+      ],
+      [
+       "Air resistance",
+       1
+      ],
+      [
+       "Viscous drag",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "PE and conservative forces",
+     "items": [
+      [
+       "Work done by gravity in taking a body around a closed loop is zero.",
+       true,
+       "Gravity is conservative."
+      ],
+      [
+       "Work done by friction depends on the path taken.",
+       true,
+       "Longer path, more negative work."
+      ],
+      [
+       "Potential energy can be defined for friction.",
+       false,
+       "Only for conservative forces."
+      ],
+      [
+       "F = −dV/dx means force points towards decreasing potential energy.",
+       true,
+       "Bodies tend to move to lower PE."
+      ],
+      [
+       "Potential energy and kinetic energy have different dimensions.",
+       false,
+       "Both are [M L² T⁻²]."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 5 kg body is lifted 4 m (g = 10 m s⁻²). Its gain in gravitational potential energy in J is",
+     "options": [
+      "200",
+      "50",
+      "20",
+      "2000"
+     ],
+     "answer": 0,
+     "explain": "ΔV = mgh = 5 × 10 × 4 = 200 J.",
+     "mistake": "Forgets g",
+     "check": "5*10*4"
+    },
+    {
+     "q": "A force is conservative if the work done by it",
+     "options": [
+      "Depends on the path",
+      "Depends only on the initial and final positions",
+      "Is always zero",
+      "Is always positive"
+     ],
+     "answer": 1,
+     "explain": "Path-independence (and zero work round a closed path) defines a conservative force.",
+     "mistake": "Thinks conservative means zero work always"
+    },
+    {
+     "q": "Which force is non-conservative?",
+     "options": [
+      "Gravity",
+      "Spring force",
+      "Kinetic friction",
+      "Electrostatic force"
+     ],
+     "answer": 2,
+     "explain": "Friction's work depends on path and converts energy to heat.",
+     "mistake": "Thinks every natural force is conservative"
+    },
+    {
+     "q": "V(x) = 3x² J (x in m). The force on the particle at x = 2 m in N is",
+     "options": [
+      "6",
+      "-6",
+      "-12",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "F = −dV/dx = −6x = −12 N.",
+     "mistake": "Drops the minus sign",
+     "check": "-6*2"
+    },
+    {
+     "q": "A ball is carried from the ground to a shelf 2 m high by two different routes. The work done by gravity is",
+     "options": [
+      "The same for both routes",
+      "Zero for the shorter route",
+      "Positive for both",
+      "Greater for the longer route"
+     ],
+     "answer": 0,
+     "explain": "Gravity is conservative: W = −mgh, path-independent.",
+     "mistake": "Thinks a longer path means more work by gravity"
+    },
+    {
+     "q": "The SI unit of potential energy is",
+     "options": [
+      "joule",
+      "kg m s⁻¹",
+      "watt",
+      "newton"
+     ],
+     "answer": 0,
+     "explain": "Like all energy, PE is in joules.",
+     "mistake": "Confuses energy with power or force"
+    },
+    {
+     "q": "A block is dragged around a closed path on a rough floor and returned to its start. The total work done by friction is",
+     "options": [
+      "Positive",
+      "Zero",
+      "Negative and non-zero",
+      "Equal to mgh"
+     ],
+     "answer": 2,
+     "explain": "Friction opposes motion everywhere along the path; the works add up negatively.",
+     "mistake": "Applies the closed-path rule to friction"
+    },
+    {
+     "q": "Assertion (A): Potential energy cannot be defined for kinetic friction.\nReason (R): The work done by friction depends on the path followed.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "PE requires work to depend only on end points; friction fails this. R explains A.",
+     "mistake": "Thinks every force has a PE"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks why we talk about 'gravitational potential energy' but never 'friction potential energy'. Explain PE and conservative forces.",
+    "must": [
+     [
+      "position",
+      "configuration",
+      "stored"
+     ],
+     [
+      "mgh",
+      "m g h"
+     ],
+     [
+      "path",
+      "closed path",
+      "initial and final"
+     ],
+     [
+      "friction",
+      "non-conservative"
+     ]
+    ],
+    "praise": "PE is stored by position, and only conservative forces like gravity get one. Friction just wastes energy as heat!",
+    "nudge": "What makes a force conservative? Does friction's work depend on the path?"
+   }
+  },
+  {
+   "id": "g11-physics-05-08",
+   "title": "Conservation of mechanical energy",
+   "covers": [
+    "c5.8.1",
+    "c5.8.2",
+    "c5.8.3"
+   ],
+   "learn": {
+    "hook": "A coconut falling from a 20 m palm tree trades potential energy for kinetic energy all the way down. The total? Unchanged.",
+    "points": [
+     "If only conservative forces act, total mechanical energy E = K + V remains constant.",
+     "Derivation: for a conservative force, W = −ΔV; by the work–energy theorem W = ΔK. So ΔK = −ΔV, i.e. Δ(K + V) = 0.",
+     "Ball dropped from height H: at height h, V = mgh and K = mg(H − h); just before the ground, K = mgH and v = √(2gH).",
+     "With friction or air resistance, mechanical energy is not conserved: some becomes heat."
+    ],
+    "example": {
+     "q": "A 1 kg coconut falls from a 20 m tree (g = 10 m s⁻²). Find its kinetic energy and speed at 5 m above the ground.",
+     "steps": [
+      "Total E = mgH = 1 × 10 × 20 = 200 J.",
+      "At 5 m: V = 1 × 10 × 5 = 50 J.",
+      "K = 200 − 50 = 150 J.",
+      "v = √(2K/m) = √300 ≈ 17.3 m s⁻¹."
+     ],
+     "answer": "150 J; ≈ 17.3 m s⁻¹"
+    },
+    "reallife": "A child on a swing at a village fair keeps converting PE at the ends to KE at the bottom; friction and air drag slowly steal energy, so someone has to keep pushing."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Energy of a ball dropped from H (no air)",
+     "prompt": "Arrange from release to just before impact",
+     "items": [
+      "At release: all PE (mgH), K = 0",
+      "At H/2: PE = KE = mgH/2",
+      "Just above ground: nearly all KE",
+      "At ground: K = mgH, v = √(2gH)"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Energy sprint (g = 10 m/s², no air)",
+     "items": [
+      {
+       "q": "Drop from 5 m: speed at ground (m/s)",
+       "a": "10",
+       "check": "(2*10*5)**0.5"
+      },
+      {
+       "q": "Drop from 20 m: speed at ground (m/s)",
+       "a": "20",
+       "check": "(2*10*20)**0.5"
+      },
+      {
+       "q": "2 kg from 10 m: KE at ground (J)",
+       "a": "200",
+       "check": "2*10*10"
+      },
+      {
+       "q": "2 kg from 10 m: KE at 4 m height (J)",
+       "a": "120",
+       "check": "2*10*6"
+      },
+      {
+       "q": "Thrown up at 10 m/s: max height (m)",
+       "a": "5",
+       "check": "100/20"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 2 kg ball is dropped from 45 m (g = 10 m s⁻², no air resistance). Its speed just before hitting the ground in m s⁻¹ is",
+     "options": [
+      "15",
+      "45",
+      "30",
+      "900"
+     ],
+     "answer": 2,
+     "explain": "v = √(2gH) = √900 = 30 m s⁻¹.",
+     "mistake": "Forgets the square root",
+     "check": "(2*10*45)**0.5"
+    },
+    {
+     "q": "For the same ball (2 kg from 45 m), its kinetic energy at a height of 25 m in J is",
+     "options": [
+      "500",
+      "900",
+      "400",
+      "250"
+     ],
+     "answer": 2,
+     "explain": "K = mg(H − h) = 2 × 10 × 20 = 400 J.",
+     "mistake": "Uses the current height instead of the drop",
+     "check": "2*10*(45-25)"
+    },
+    {
+     "q": "Mechanical energy is conserved when",
+     "options": [
+      "External forces are present",
+      "Only conservative forces do work",
+      "The body is at rest",
+      "Friction acts"
+     ],
+     "answer": 1,
+     "explain": "Non-conservative forces like friction change mechanical energy into heat.",
+     "mistake": "Thinks energy is conserved in every situation as mechanical energy"
+    },
+    {
+     "q": "At what height above the ground is the KE of a falling ball equal to its PE, if dropped from 40 m?",
+     "options": [
+      "10 m",
+      "30 m",
+      "20 m",
+      "40 m"
+     ],
+     "answer": 2,
+     "explain": "K = V means mgh = mg(40 − h) → h = 20 m.",
+     "mistake": "Picks a quarter of the height",
+     "check": "40/2"
+    },
+    {
+     "q": "The derivation of energy conservation uses",
+     "options": [
+      "ΔK = W (work–energy theorem) and W = −ΔV (conservative force)",
+      "Newton's third law",
+      "Conservation of momentum",
+      "F = −kx only"
+     ],
+     "answer": 0,
+     "explain": "Combining the two gives Δ(K + V) = 0.",
+     "mistake": "Uses momentum conservation"
+    },
+    {
+     "q": "A pendulum bob is released from 0.45 m above its lowest point (g = 10 m s⁻²). Its speed at the lowest point in m s⁻¹ is",
+     "options": [
+      "0.9",
+      "9",
+      "3",
+      "4.5"
+     ],
+     "answer": 2,
+     "explain": "v = √(2gh) = √9 = 3 m s⁻¹.",
+     "mistake": "Forgets the square root",
+     "check": "(2*10*0.45)**0.5"
+    },
+    {
+     "q": "A ball thrown up at 20 m s⁻¹ (g = 10 m s⁻²) reaches a maximum height (in m) of",
+     "options": [
+      "20",
+      "2",
+      "10",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "At the top K = 0: ½mv² = mgh → h = v²/(2g) = 400/20 = 20 m.",
+     "mistake": "Forgets the 2 in 2g",
+     "check": "20**2/(2*10)"
+    },
+    {
+     "q": "Assertion (A): A ball dropped from a height reaches the ground with the same speed whatever its mass (ignoring air).\nReason (R): A heavier ball experiences a larger gravitational force.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both are true, but R alone doesn't explain A; the larger force is balanced by larger inertia, so mass cancels in mgh = ½mv².",
+     "mistake": "Takes a true but incomplete fact as the explanation"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu drops a nut from a branch and wonders where its energy goes. Explain conservation of mechanical energy, and when it fails.",
+    "must": [
+     [
+      "k + v",
+      "total mechanical energy",
+      "kinetic plus potential"
+     ],
+     [
+      "constant",
+      "conserved",
+      "same"
+     ],
+     [
+      "conservative",
+      "no friction",
+      "only gravity"
+     ]
+    ],
+    "praise": "PE turns into KE, but K + V stays the same if only gravity acts. Friction would spoil the party!",
+    "nudge": "What stays constant as the nut falls? When does that rule stop working?"
+   }
+  },
+  {
+   "id": "g11-physics-05-09",
+   "title": "Vertical circles and potential-energy graphs",
+   "covers": [
+    "c5.8.4",
+    "c5.8.5"
+   ],
+   "learn": {
+    "hook": "A 'loop-the-loop' ride at an amusement park is designed so the car is fast enough at the top. Energy conservation decides how fast it must be at the bottom.",
+    "points": [
+     "Bob on a string of length L in a vertical circle: at the top, tension ≥ 0 needs mv_t²/L ≥ mg, so v_top(min) = √(gL).",
+     "Energy conservation between bottom and top (height 2L): v_b² = v_t² + 4gL. So v_bottom(min) = √(5gL).",
+     "With v_b = √(5gL): tension at the bottom = mg + mv_b²/L = 6mg; tension at the top = 0.",
+     "Potential-energy graph: K = E − V(x) ≥ 0. Regions where V(x) > E are forbidden; the particle turns back where V = E (turning points)."
+    ],
+    "example": {
+     "q": "A 0.2 kg bob on a 1 m string must just complete a vertical circle (g = 10 m s⁻²). Find the minimum speeds at the top and bottom.",
+     "steps": [
+      "v_top = √(gL) = √10 ≈ 3.16 m s⁻¹.",
+      "v_bottom = √(5gL) = √50 ≈ 7.07 m s⁻¹.",
+      "Tension at the bottom = 6mg = 12 N."
+     ],
+     "answer": "≈ 3.16 m s⁻¹ (top), ≈ 7.07 m s⁻¹ (bottom)"
+    },
+    "reallife": "Stunt riders in a 'maut ka kuan' (wall of death) at Indian melas must keep their speed above a minimum, or gravity wins."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Deriving v_bottom(min) = √(5gL)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "At the top, tension can just become zero",
+      "Then mg = mv_t²/L, so v_t² = gL",
+      "Energy: ½mv_b² = ½mv_t² + mg(2L)",
+      "v_b² = gL + 4gL = 5gL",
+      "v_b = √(5gL)"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Vertical circles and PE graphs",
+     "items": [
+      [
+       "At the minimum speed, the tension at the top of the circle is zero.",
+       true,
+       "Gravity alone provides the centripetal force."
+      ],
+      [
+       "Minimum speed at the bottom to complete the loop is √(2gL).",
+       false,
+       "It is √(5gL)."
+      ],
+      [
+       "A particle can be found where its potential energy exceeds its total energy.",
+       false,
+       "That would need negative K."
+      ],
+      [
+       "Turning points occur where V(x) = E.",
+       true,
+       "K = 0 there."
+      ],
+      [
+       "Tension is greatest at the lowest point of a vertical circle.",
+       true,
+       "There T must also balance the weight."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A stone on a 0.9 m string just completes a vertical circle (g = 10 m s⁻²). Its speed at the top in m s⁻¹ is",
+     "options": [
+      "6.71",
+      "9",
+      "3",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "v_top = √(gL) = √9 = 3 m s⁻¹.",
+     "mistake": "Thinks the speed at the top can be zero for a string",
+     "check": "(10*0.9)**0.5"
+    },
+    {
+     "q": "For the same stone (L = 0.9 m), the minimum speed at the bottom in m s⁻¹ is (√45 ≈ 6.71)",
+     "options": [
+      "6.71",
+      "3",
+      "4.24",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "v_b = √(5gL) = √45 ≈ 6.71 m s⁻¹.",
+     "mistake": "Uses √(2gL) or √(gL)",
+     "check": "45**0.5"
+    },
+    {
+     "q": "A 0.5 kg bob moves in a vertical circle with the minimum speed needed. The tension at the bottom (g = 10 m s⁻²) in N is",
+     "options": [
+      "30",
+      "25",
+      "0",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "T_bottom = 6mg = 6 × 0.5 × 10 = 30 N.",
+     "mistake": "Forgets to add mg to mv²/L",
+     "check": "6*0.5*10"
+    },
+    {
+     "q": "Why can't the bob on a string have zero speed at the top of the circle?",
+     "options": [
+      "Energy would not be conserved",
+      "Momentum would be lost",
+      "The string would go slack because gravity needs a speed of at least √(gL) to keep it moving in the circle",
+      "The tension would be infinite"
+     ],
+     "answer": 2,
+     "explain": "Tension cannot be negative; at the top mg ≤ mv²/L must hold.",
+     "mistake": "Thinks a rod and a string behave the same"
+    },
+    {
+     "q": "A particle has total energy E = 5 J. Its potential energy is V = 8 J at x = 2 m. At x = 2 m, the particle",
+     "options": [
+      "Has K = 3 J",
+      "Is at rest",
+      "Can never be found",
+      "Has K = 13 J"
+     ],
+     "answer": 2,
+     "explain": "K = E − V = −3 J, impossible. That region is forbidden.",
+     "mistake": "Takes the magnitude of E − V"
+    },
+    {
+     "q": "On a PE graph, a particle with energy E turns back at points where",
+     "options": [
+      "K is maximum",
+      "V(x) = E",
+      "dV/dx = 0",
+      "V(x) = 0"
+     ],
+     "answer": 1,
+     "explain": "At turning points K = 0, so V = E.",
+     "mistake": "Thinks turning points are at the minimum of V"
+    },
+    {
+     "q": "A bob on a 2 m string has speed √(5gL) at the bottom (g = 10 m s⁻²). Its speed at the side (height L) in m s⁻¹ is (√60 ≈ 7.75)",
+     "options": [
+      "10",
+      "0",
+      "4.47",
+      "7.75"
+     ],
+     "answer": 3,
+     "explain": "v² = 5gL − 2gL = 3gL = 60, so v ≈ 7.75 m s⁻¹.",
+     "mistake": "Subtracts 4gL instead of 2gL",
+     "check": "(3*10*2)**0.5"
+    },
+    {
+     "q": "Assertion (A): For a bob just completing a vertical circle on a string, the tension at the top is zero.\nReason (R): At the top, the weight alone can provide the required centripetal force mv²/L.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "With v_top = √(gL), mg = mv²/L exactly, so T = 0. R explains A.",
+     "mistake": "Thinks tension is largest at the top"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu whirls a berry on a vine in a vertical circle and it keeps flopping at the top. Explain the minimum speeds using energy conservation.",
+    "must": [
+     [
+      "√(gl)",
+      "gl",
+      "top"
+     ],
+     [
+      "√(5gl)",
+      "5gl",
+      "bottom"
+     ],
+     [
+      "tension zero",
+      "string slack",
+      "slack"
+     ],
+     [
+      "energy conservation",
+      "2l",
+      "height 2l"
+     ]
+    ],
+    "praise": "√(gL) at the top, √(5gL) at the bottom. No more floppy berries!",
+    "nudge": "What speed is needed at the top so the vine stays tight? How does energy connect top and bottom?"
+   }
+  },
+  {
+   "id": "g11-physics-05-10",
+   "title": "Spring potential energy",
+   "covers": [
+    "c5.9.1",
+    "c5.9.2",
+    "c5.9.3",
+    "c5.9.4",
+    "c5.9.5"
+   ],
+   "learn": {
+    "hook": "Railway platforms end in spring buffers. A slow-moving coach that overshoots is stopped by a spring that stores its kinetic energy.",
+    "points": [
+     "Spring force (Hooke's law): F = −kx, where k is the spring constant (N m⁻¹) and x is the extension or compression.",
+     "Work done in stretching from 0 to x = area of triangle under the F–x line = ½kx².",
+     "Spring PE: V = ½kx². The spring force is conservative (work depends only on start and end x).",
+     "Energy swaps between ½mv² and ½kx²: speed is maximum at x = 0 (equilibrium), v_max = x_m √(k/m).",
+     "Car hitting a spring: ½mv² = ½kx_m²; with friction μ, ½mv² = ½kx_m² + μmg x_m."
+    ],
+    "example": {
+     "q": "A 1000 kg car hits a spring buffer (k = 16000 N m⁻¹) at 4 m s⁻¹. Find the maximum compression (ignore friction).",
+     "steps": [
+      "½mv² = ½ × 1000 × 16 = 8000 J.",
+      "½kx² = 8000 → 8000x² = 8000.",
+      "x = 1 m."
+     ],
+     "answer": "1 m"
+    },
+    "reallife": "Scooter suspensions and the bogie springs of a Rajdhani coach store and release elastic potential energy with every bump."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Spring quantity ↔ formula",
+     "pairs": [
+      [
+       "Spring force",
+       "−kx"
+      ],
+      [
+       "Spring PE at extension x",
+       "½kx²"
+      ],
+      [
+       "Max speed of attached mass",
+       "x_m√(k/m)"
+      ],
+      [
+       "Unit of k",
+       "N m⁻¹"
+      ],
+      [
+       "Energy at x = 0",
+       "All kinetic"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Spring sprint",
+     "items": [
+      {
+       "q": "k = 200 N/m, x = 0.1 m: PE (J)",
+       "a": "1",
+       "check": "0.5*200*0.01"
+      },
+      {
+       "q": "k = 800 N/m, x = 0.05 m: PE (J)",
+       "a": "1",
+       "check": "0.5*800*0.0025"
+      },
+      {
+       "q": "x doubled: PE becomes × ?",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "k = 100 N/m, x_m = 0.2 m, m = 1 kg: v_max (m/s)",
+       "a": "2",
+       "check": "0.2*(100/1)**0.5"
+      },
+      {
+       "q": "PE = 8 J, k = 400 N/m: x (m)",
+       "a": "0.2",
+       "check": "(2*8/400)**0.5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A spring with k = 500 N m⁻¹ is compressed by 4 cm. The potential energy stored in J is",
+     "options": [
+      "0.4",
+      "20",
+      "4",
+      "0.04"
+     ],
+     "answer": 0,
+     "explain": "V = ½kx² = ½ × 500 × 0.0016 = 0.4 J.",
+     "mistake": "Forgets to convert cm to m or square x",
+     "check": "0.5*500*0.04**2"
+    },
+    {
+     "q": "The spring constant k of a spring that stores 2 J when stretched by 0.1 m is (in N m⁻¹)",
+     "options": [
+      "40",
+      "20",
+      "200",
+      "400"
+     ],
+     "answer": 3,
+     "explain": "k = 2V/x² = 4/0.01 = 400 N m⁻¹.",
+     "mistake": "Forgets the ½",
+     "check": "2*2/0.1**2"
+    },
+    {
+     "q": "A 1000 kg car hits a spring buffer of k = 25000 N m⁻¹ at 5 m s⁻¹. The maximum compression in m is",
+     "options": [
+      "5",
+      "0.2",
+      "0.04",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "½mv² = 12500 J = ½kx² → x² = 1 → x = 1 m.",
+     "mistake": "Equates mv to kx",
+     "check": "(1000*25/25000)**0.5"
+    },
+    {
+     "q": "Same car (1000 kg, 4 m s⁻¹) hits a spring of k = 44000 N m⁻¹ on a road with μ = 0.5 (g = 10 m s⁻²). The maximum compression (solve 22000x² + 5000x − 8000 = 0) in m is",
+     "options": [
+      "0.43",
+      "1",
+      "0.5",
+      "0.25"
+     ],
+     "answer": 2,
+     "explain": "x = [−5000 + √(25 × 10⁶ + 704 × 10⁶)]/44000 = (−5000 + 27000)/44000 = 0.5 m.",
+     "mistake": "Ignores the friction term",
+     "check": "(-5000+(25000000+704000000)**0.5)/44000"
+    },
+    {
+     "q": "A 0.5 kg block on a spring (k = 200 N m⁻¹) oscillates with amplitude 0.1 m on a frictionless floor. Its maximum speed in m s⁻¹ is",
+     "options": [
+      "4",
+      "2",
+      "20",
+      "0.2"
+     ],
+     "answer": 1,
+     "explain": "v_max = x_m √(k/m) = 0.1 × √400 = 2 m s⁻¹.",
+     "mistake": "Uses k/m without the square root",
+     "check": "0.1*(200/0.5)**0.5"
+    },
+    {
+     "q": "The spring force is conservative because",
+     "options": [
+      "It is constant",
+      "It does no work",
+      "The work it does depends only on the initial and final extensions",
+      "It is always attractive"
+     ],
+     "answer": 2,
+     "explain": "W = −(½kx_f² − ½kx_i²), independent of the path.",
+     "mistake": "Thinks variable forces cannot be conservative"
+    },
+    {
+     "q": "A block attached to a spring moves fastest",
+     "options": [
+      "At the equilibrium position x = 0",
+      "At maximum compression",
+      "At maximum extension",
+      "Midway between x = 0 and x_m"
+     ],
+     "answer": 0,
+     "explain": "There all the energy is kinetic (V = 0).",
+     "mistake": "Thinks speed is greatest where force is greatest"
+    },
+    {
+     "q": "Assertion (A): The work done in stretching a spring by x from its natural length is ½kx².\nReason (R): The spring force increases linearly from 0 to kx, so the work is the area of a triangle.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Area = ½ × x × kx = ½kx². R explains A.",
+     "mistake": "Uses F × x with the final force, getting kx²"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu squeezed a spring and it shot his berry across the forest. Explain spring force, spring potential energy and where the speed is maximum.",
+    "must": [
+     [
+      "−kx",
+      "-kx",
+      "hooke"
+     ],
+     [
+      "½kx²",
+      "half k x square",
+      "area of triangle"
+     ],
+     [
+      "equilibrium",
+      "x = 0",
+      "natural length"
+     ],
+     [
+      "kinetic",
+      "converted",
+      "exchange"
+     ]
+    ],
+    "praise": "½kx² stored, then turned into kinetic energy, fastest at the natural length. Berry launcher!",
+    "nudge": "How much energy does a spring store? Where does the attached mass move fastest?"
+   }
+  },
+  {
+   "id": "g11-physics-05-11",
+   "title": "Power",
+   "covers": [
+    "c5.10.1",
+    "c5.10.2",
+    "c5.10.3",
+    "c5.10.4",
+    "c5.10.5"
+   ],
+   "learn": {
+    "hook": "Two students climb the same stairs. Same work, but the one who sprints up uses more power. Power is about speed of doing work.",
+    "points": [
+     "Average power P = W/t; instantaneous power P = dW/dt.",
+     "Since dW = F·dr, P = F·v.",
+     "SI unit: watt (1 W = 1 J s⁻¹). 1 horsepower (hp) = 746 W.",
+     "Kilowatt hour (kWh) is a unit of ENERGY: 1 kWh = 3.6 × 10⁶ J.",
+     "Lifting a load at constant speed against friction: P = (mg + f)v."
+    ],
+    "example": {
+     "q": "A 1000 kg lift moves up at constant 3 m s⁻¹ against a friction force of 2000 N (g = 10 m s⁻²). Find the motor's power.",
+     "steps": [
+      "Force needed = mg + f = 10000 + 2000 = 12000 N.",
+      "P = Fv = 12000 × 3 = 36000 W = 36 kW.",
+      "In hp: 36000/746 ≈ 48 hp."
+     ],
+     "answer": "36 kW (≈ 48 hp)"
+    },
+    "reallife": "BEE star labels on Indian ACs and fridges compare power ratings and yearly energy use in kWh to show which appliance saves more electricity."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Quantity ↔ unit",
+     "pairs": [
+      [
+       "Power",
+       "watt"
+      ],
+      [
+       "Energy",
+       "kilowatt hour"
+      ],
+      [
+       "1 hp",
+       "746 W"
+      ],
+      [
+       "Work",
+       "joule"
+      ],
+      [
+       "1 kWh",
+       "3.6 × 10⁶ J"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Power sprint",
+     "items": [
+      {
+       "q": "600 J in 2 s: P (W)",
+       "a": "300",
+       "check": "600/2"
+      },
+      {
+       "q": "F = 500 N, v = 4 m/s: P (W)",
+       "a": "2000",
+       "check": "500*4"
+      },
+      {
+       "q": "2 hp in W",
+       "a": "1492",
+       "check": "2*746"
+      },
+      {
+       "q": "1 kW for 3 h: energy (kWh)",
+       "a": "3",
+       "check": "1*3"
+      },
+      {
+       "q": "100 W bulb for 10 h: energy (kWh)",
+       "a": "1",
+       "check": "100*10/1000"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A boy of mass 50 kg climbs 6 m of stairs in 10 s (g = 10 m s⁻²). His average power in W is",
+     "options": [
+      "3000",
+      "500",
+      "30",
+      "300"
+     ],
+     "answer": 3,
+     "explain": "P = mgh/t = 50 × 10 × 6/10 = 300 W.",
+     "mistake": "Forgets to divide by time",
+     "check": "50*10*6/10"
+    },
+    {
+     "q": "A car engine exerts 2000 N while the car moves at 25 m s⁻¹. The power in kW is",
+     "options": [
+      "500",
+      "50",
+      "5",
+      "80"
+     ],
+     "answer": 1,
+     "explain": "P = Fv = 2000 × 25 = 50000 W = 50 kW.",
+     "mistake": "Divides force by speed",
+     "check": "2000*25/1000"
+    },
+    {
+     "q": "The kilowatt hour is a unit of",
+     "options": [
+      "Energy",
+      "Power",
+      "Time",
+      "Force"
+     ],
+     "answer": 0,
+     "explain": "kW × h = (J/s) × s = J, so it measures energy.",
+     "mistake": "Thinks 'kilowatt' in the name makes it a power unit"
+    },
+    {
+     "q": "A 1.5 kW geyser runs for 40 minutes a day. The energy used in kWh per day is",
+     "options": [
+      "0.6",
+      "1",
+      "60",
+      "1.5"
+     ],
+     "answer": 1,
+     "explain": "E = 1.5 kW × (40/60) h = 1 kWh.",
+     "mistake": "Multiplies by minutes instead of hours",
+     "check": "1.5*40/60"
+    },
+    {
+     "q": "A 1800 kg elevator carries a load upward at 2 m s⁻¹ against 4000 N friction (g = 10 m s⁻²). The minimum power in kW is",
+     "options": [
+      "8",
+      "44",
+      "36",
+      "22"
+     ],
+     "answer": 1,
+     "explain": "P = (mg + f)v = (18000 + 4000) × 2 = 44000 W = 44 kW.",
+     "mistake": "Forgets friction or the speed",
+     "check": "(18000+4000)*2/1000"
+    },
+    {
+     "q": "Instantaneous power delivered by a force F to a body moving with velocity v is",
+     "options": [
+      "F × v (cross product)",
+      "F·v",
+      "F/v",
+      "Fv²"
+     ],
+     "answer": 1,
+     "explain": "P = dW/dt = F·dr/dt = F·v.",
+     "mistake": "Uses a cross product"
+    },
+    {
+     "q": "A motor of 1 hp runs for 1 hour. The energy used in kWh is (1 hp = 746 W)",
+     "options": [
+      "746",
+      "0.746",
+      "2.69",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "746 W × 1 h = 0.746 kWh.",
+     "mistake": "Forgets to convert W to kW",
+     "check": "746/1000"
+    },
+    {
+     "q": "Assertion (A): Two cranes lifting identical loads to the same height do equal work, but the faster one has more power.\nReason (R): Power is the total work done by a machine.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true. R is false: power is the rate of doing work, not the total work.",
+     "mistake": "Confuses power with work"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu says, 'My sister and I both carried water up the hill, so we used the same power.' But she was twice as fast. Explain power.",
+    "must": [
+     [
+      "rate",
+      "per second",
+      "work per time",
+      "w/t"
+     ],
+     [
+      "watt",
+      "joule per second"
+     ],
+     [
+      "f·v",
+      "force times velocity",
+      "fv"
+     ]
+    ],
+    "praise": "Same work, but she did it in half the time, so double the power! Power is how fast work is done.",
+    "nudge": "Is power about how much work, or how fast? What is its unit?"
+   }
+  },
+  {
+   "id": "g11-physics-05-12",
+   "title": "Collisions: elastic, inelastic and perfectly inelastic",
+   "covers": [
+    "c5.11.1",
+    "c5.11.2",
+    "c5.11.3",
+    "c5.11.10"
+   ],
+   "learn": {
+    "hook": "When two kabaddi players crash and grab each other, they move off together. Momentum survives the crash; kinetic energy doesn't.",
+    "points": [
+     "In every collision where external forces are negligible during the brief impact, total momentum is conserved.",
+     "Elastic collision: total kinetic energy is also conserved (e.g. ideal billiard balls, atomic collisions). Inelastic: some KE is converted to heat, sound or deformation.",
+     "Perfectly inelastic: the bodies stick together. Common velocity v = (m₁u₁ + m₂u₂)/(m₁ + m₂).",
+     "KE lost in a perfectly inelastic collision: ΔK = ½ [m₁m₂/(m₁ + m₂)] (u₁ − u₂)².",
+     "Total energy is always conserved; it is only kinetic energy that may not be."
+    ],
+    "example": {
+     "q": "A 2 kg trolley at 6 m s⁻¹ hits a 1 kg trolley at rest and they stick. Find the common velocity and the KE lost.",
+     "steps": [
+      "v = (2 × 6)/(2 + 1) = 4 m s⁻¹.",
+      "K_i = ½ × 2 × 36 = 36 J; K_f = ½ × 3 × 16 = 24 J.",
+      "Loss = 12 J. Check: ½ × (2 × 1/3) × 36 = 12 J ✓."
+     ],
+     "answer": "4 m s⁻¹; 12 J lost"
+    },
+    "reallife": "Railway wagons coupling in a shunting yard are a perfectly inelastic collision: they move off together and some kinetic energy becomes sound and heat."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Elastic or inelastic?",
+     "buckets": [
+      "Elastic (KE conserved)",
+      "Inelastic (KE not conserved)"
+     ],
+     "items": [
+      [
+       "Two ideal steel balls bouncing off each other",
+       0
+      ],
+      [
+       "Collision between gas molecules",
+       0
+      ],
+      [
+       "A bullet embedding in a block",
+       1
+      ],
+      [
+       "Two cars crumpling in a crash",
+       1
+      ],
+      [
+       "Mud ball sticking to a wall",
+       1
+      ],
+      [
+       "Neutron bouncing off a nucleus without exciting it",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Collision truths",
+     "items": [
+      [
+       "Momentum is conserved in an inelastic collision (no external force).",
+       true,
+       "Always, if external impulse is negligible."
+      ],
+      [
+       "Kinetic energy is conserved in every collision.",
+       false,
+       "Only in elastic collisions."
+      ],
+      [
+       "In a perfectly inelastic collision the bodies move together afterwards.",
+       true,
+       "They stick."
+      ],
+      [
+       "Total energy is lost in an inelastic collision.",
+       false,
+       "Total energy is conserved; KE changes form."
+      ],
+      [
+       "A bob released from a height that hits an identical bob at rest elastically comes to rest.",
+       true,
+       "Equal masses exchange velocities."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 3 kg ball at 4 m s⁻¹ collides with and sticks to a 1 kg ball at rest. The common velocity in m s⁻¹ is",
+     "options": [
+      "3",
+      "1",
+      "4",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "v = 3 × 4/(3 + 1) = 3 m s⁻¹.",
+     "mistake": "Ignores the second mass",
+     "check": "3*4/(3+1)"
+    },
+    {
+     "q": "For the same collision (3 kg at 4 m s⁻¹ sticking to 1 kg at rest), the kinetic energy lost in J is",
+     "options": [
+      "24",
+      "0",
+      "18",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "K_i = 24 J; K_f = ½ × 4 × 9 = 18 J; loss = 6 J.",
+     "mistake": "Assumes no loss",
+     "check": "0.5*3*16-0.5*4*9"
+    },
+    {
+     "q": "Which quantity is conserved in all collisions of an isolated system?",
+     "options": [
+      "Speed of each body",
+      "Velocity of each body",
+      "Total linear momentum",
+      "Total kinetic energy"
+     ],
+     "answer": 2,
+     "explain": "With no external impulse, momentum is always conserved.",
+     "mistake": "Thinks KE is always conserved"
+    },
+    {
+     "q": "A 0.01 kg bullet at 500 m s⁻¹ embeds in a 0.99 kg block at rest. The block's speed after impact in m s⁻¹ is",
+     "options": [
+      "500",
+      "5",
+      "50",
+      "0.5"
+     ],
+     "answer": 1,
+     "explain": "v = 0.01 × 500/(0.01 + 0.99) = 5 m s⁻¹.",
+     "mistake": "Uses only the block's mass",
+     "check": "0.01*500/1"
+    },
+    {
+     "q": "In an elastic collision",
+     "options": [
+      "Only momentum is conserved",
+      "Only kinetic energy is conserved",
+      "Both momentum and kinetic energy are conserved",
+      "Neither is conserved"
+     ],
+     "answer": 2,
+     "explain": "That is the definition of an elastic collision.",
+     "mistake": "Forgets momentum is conserved too"
+    },
+    {
+     "q": "Two bodies of 1 kg each move towards each other at 2 m s⁻¹ each and stick. The KE lost in J is",
+     "options": [
+      "4",
+      "8",
+      "0",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "Total momentum = 0, so they stop; all 4 J of KE is lost.",
+     "mistake": "Thinks equal masses lose nothing",
+     "check": "0.5*1*4*2"
+    },
+    {
+     "q": "In a perfectly inelastic collision, the kinetic energy lost is greatest when",
+     "options": [
+      "One body is at rest",
+      "The final common velocity is zero (total momentum zero)",
+      "Masses are very different",
+      "Speeds are low"
+     ],
+     "answer": 1,
+     "explain": "If total momentum is zero, the bodies stop and all KE is lost.",
+     "mistake": "Thinks a body at rest maximises the loss"
+    },
+    {
+     "q": "Assertion (A): In an inelastic collision, total momentum is conserved but total kinetic energy is not.\nReason (R): Some kinetic energy is converted into heat, sound or deformation, while no external impulse acts.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "R explains both parts of A: no external impulse (momentum) and conversion of KE.",
+     "mistake": "Thinks energy vanishes"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu bumped into a sparrow mid-air and they flew off together, slower. He thinks energy was destroyed. Explain types of collisions and what is conserved.",
+    "must": [
+     [
+      "momentum conserved",
+      "momentum",
+      "total momentum"
+     ],
+     [
+      "kinetic energy",
+      "ke lost",
+      "not conserved"
+     ],
+     [
+      "elastic",
+      "inelastic",
+      "stick together"
+     ],
+     [
+      "heat",
+      "sound",
+      "deformation"
+     ]
+    ],
+    "praise": "Momentum always survives; KE turns into heat and sound when we stick. Energy isn't destroyed, just changed!",
+    "nudge": "What is always conserved in a collision? What happens to the 'lost' kinetic energy?"
+   }
+  },
+  {
+   "id": "g11-physics-05-13",
+   "title": "Elastic collisions in one dimension and neutron moderators",
+   "covers": [
+    "c5.11.4",
+    "c5.11.5",
+    "c5.11.6"
+   ],
+   "learn": {
+    "hook": "Nuclear reactors in Kudankulam use water to slow down fast neutrons. Why water and not lead? One-dimensional collisions explain it.",
+    "points": [
+     "For m₁ moving at u₁ hitting m₂ at rest elastically: v₁ = (m₁ − m₂)u₁/(m₁ + m₂), v₂ = 2m₁u₁/(m₁ + m₂).",
+     "Equal masses: v₁ = 0, v₂ = u₁. They exchange velocities.",
+     "Heavy hits light (m₁ ≫ m₂): v₁ ≈ u₁, v₂ ≈ 2u₁. Light hits heavy (m₁ ≪ m₂): v₁ ≈ −u₁ (bounces back), v₂ ≈ 0.",
+     "Moderator: a neutron loses most KE when it hits a nucleus of similar mass. Fraction of KE kept = [(m₁ − m₂)/(m₁ + m₂)]². With deuterium (2m) it keeps 1/9; with carbon (12m) it keeps (11/13)² ≈ 0.72."
+    ],
+    "example": {
+     "q": "A 2 kg ball at 6 m s⁻¹ collides elastically head-on with a 1 kg ball at rest. Find the final velocities.",
+     "steps": [
+      "v₁ = (2 − 1) × 6/3 = 2 m s⁻¹.",
+      "v₂ = 2 × 2 × 6/3 = 8 m s⁻¹.",
+      "Check KE: 36 J before; ½·2·4 + ½·1·64 = 4 + 32 = 36 J ✓."
+     ],
+     "answer": "v₁ = 2 m s⁻¹, v₂ = 8 m s⁻¹"
+    },
+    "reallife": "India's pressurised heavy-water reactors (PHWRs), like those at Rawatbhata, use heavy water (deuterium) as the moderator."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Elastic collision case ↔ result",
+     "pairs": [
+      [
+       "Equal masses, target at rest",
+       "Velocities exchange"
+      ],
+      [
+       "Very heavy hits very light at rest",
+       "Light one moves at about 2u₁"
+      ],
+      [
+       "Very light hits very heavy at rest",
+       "Light one bounces back at about u₁"
+      ],
+      [
+       "Neutron hits deuteron (2m)",
+       "Keeps 1/9 of its KE"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "1D elastic sprint (target at rest)",
+     "items": [
+      {
+       "q": "m₁ = m₂, u₁ = 5 m/s: v₂ (m/s)",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "m₁ = 3, m₂ = 1 kg, u₁ = 4: v₁ (m/s)",
+       "a": "2",
+       "check": "(3-1)*4/4"
+      },
+      {
+       "q": "m₁ = 3, m₂ = 1 kg, u₁ = 4: v₂ (m/s)",
+       "a": "6",
+       "check": "2*3*4/4"
+      },
+      {
+       "q": "m₁ = 1, m₂ = 3 kg, u₁ = 4: v₁ (m/s)",
+       "a": "-2",
+       "check": "(1-3)*4/4"
+      },
+      {
+       "q": "Neutron on deuteron: fraction of KE lost",
+       "a": "8/9",
+       "check": "Fraction(8,9)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A 1 kg ball at 3 m s⁻¹ hits an identical ball at rest elastically. The speed of the second ball afterwards in m s⁻¹ is",
+     "options": [
+      "0",
+      "6",
+      "1.5",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "Equal masses exchange velocities: v₂ = 3 m s⁻¹, v₁ = 0.",
+     "mistake": "Assumes they share the speed",
+     "check": "3"
+    },
+    {
+     "q": "A 4 kg body at 5 m s⁻¹ collides elastically with a 1 kg body at rest. The velocity of the 4 kg body after collision in m s⁻¹ is",
+     "options": [
+      "5",
+      "8",
+      "3",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "v₁ = (4 − 1) × 5/5 = 3 m s⁻¹.",
+     "mistake": "Swaps the formulas",
+     "check": "(4-1)*5/5"
+    },
+    {
+     "q": "For the same collision (4 kg at 5 m s⁻¹, 1 kg at rest), the velocity of the 1 kg body in m s⁻¹ is",
+     "options": [
+      "5",
+      "3",
+      "8",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "v₂ = 2 × 4 × 5/5 = 8 m s⁻¹.",
+     "mistake": "Forgets the factor 2",
+     "check": "2*4*5/5"
+    },
+    {
+     "q": "A ping-pong ball hits a stationary bowling ball elastically. The ping-pong ball",
+     "options": [
+      "Bounces back with nearly the same speed",
+      "Sticks to the bowling ball",
+      "Moves on at twice the speed",
+      "Stops"
+     ],
+     "answer": 0,
+     "explain": "m₁ ≪ m₂: v₁ ≈ −u₁, v₂ ≈ 0.",
+     "mistake": "Thinks the light ball stops"
+    },
+    {
+     "q": "A neutron collides head-on elastically with a deuteron (mass 2m) at rest. The fraction of its kinetic energy it loses is",
+     "options": [
+      "1/9",
+      "2/3",
+      "8/9",
+      "1/2"
+     ],
+     "answer": 2,
+     "explain": "It keeps [(m − 2m)/(m + 2m)]² = 1/9, so loses 8/9.",
+     "mistake": "Gives the fraction kept",
+     "check": "Fraction(8,9)"
+    },
+    {
+     "q": "Why are light nuclei (like hydrogen or deuterium) good moderators?",
+     "options": [
+      "They speed up neutrons",
+      "Neutrons transfer most of their KE to nuclei of similar mass",
+      "They are heavy",
+      "They absorb neutrons"
+     ],
+     "answer": 1,
+     "explain": "Energy transfer is greatest when masses are nearly equal.",
+     "mistake": "Thinks moderators absorb neutrons"
+    },
+    {
+     "q": "A 1 kg ball at 6 m s⁻¹ hits a 2 kg ball at rest elastically. The velocity of the 1 kg ball after collision in m s⁻¹ is",
+     "options": [
+      "-2",
+      "2",
+      "-6",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "v₁ = (1 − 2) × 6/3 = −2 m s⁻¹: it bounces back.",
+     "mistake": "Drops the sign",
+     "check": "(1-2)*6/3"
+    },
+    {
+     "q": "Assertion (A): In a head-on elastic collision of two equal masses with one at rest, the moving body stops.\nReason (R): With m₁ = m₂, v₁ = (m₁ − m₂)u₁/(m₁ + m₂) = 0.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The formula gives v₁ = 0 and v₂ = u₁. R explains A.",
+     "mistake": "Thinks both move together"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's teacher said reactors slow neutrons using water, not heavy lead blocks. Gappu is confused. Explain 1D elastic collisions and the moderator idea.",
+    "must": [
+     [
+      "exchange velocities",
+      "equal masses",
+      "exchange"
+     ],
+     [
+      "similar mass",
+      "comparable mass",
+      "light nuclei"
+     ],
+     [
+      "bounces back",
+      "heavy",
+      "light"
+     ],
+     [
+      "moderator",
+      "slow down",
+      "kinetic energy lost"
+     ]
+    ],
+    "praise": "Hitting something of similar mass steals the most energy. Lead would just bounce the neutron back!",
+    "nudge": "What happens when equal masses collide elastically? Why does mass matter for slowing neutrons?"
+   }
+  },
+  {
+   "id": "g11-physics-05-14",
+   "title": "Collisions in two dimensions",
+   "covers": [
+    "c5.11.7",
+    "c5.11.8",
+    "c5.11.9"
+   ],
+   "learn": {
+    "hook": "On a carrom board, the striker hits a coin off-centre and both fly away at an angle. Momentum is conserved along x and y separately.",
+    "points": [
+     "In 2D, conserve momentum along each axis: m₁u₁ = m₁v₁ cos θ₁ + m₂v₂ cos θ₂ and 0 = m₁v₁ sin θ₁ − m₂v₂ sin θ₂ (target at rest, angles on opposite sides).",
+     "With the KE equation for elastic collisions, there are 3 equations but 4 unknowns (v₁, v₂, θ₁, θ₂), so one quantity (e.g. an angle) must be given.",
+     "Equal masses, elastic, one at rest: the two final velocities are perpendicular, θ₁ + θ₂ = 90°.",
+     "Billiards: if the cue ball is deflected by 37°, the target ball moves off at 53° on the other side."
+    ],
+    "example": {
+     "q": "A billiard ball hits an identical ball at rest elastically and is deflected by 30°. At what angle does the target ball move?",
+     "steps": [
+      "Equal masses, elastic, target at rest: θ₁ + θ₂ = 90°.",
+      "θ₂ = 90° − 30° = 60°, on the other side of the original line."
+     ],
+     "answer": "60°"
+    },
+    "reallife": "Snooker players use the 90° rule: when the cue ball (without spin) hits an identical object ball glancingly, the two balls separate at nearly right angles."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Solving a 2D collision",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Choose x along the initial velocity",
+      "Write momentum conservation along x",
+      "Write momentum conservation along y",
+      "If elastic, write KE conservation",
+      "Use the given angle or speed to solve"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "2D collision facts",
+     "items": [
+      [
+       "In a 2D collision, momentum is conserved separately along x and y.",
+       true,
+       "Momentum is a vector."
+      ],
+      [
+       "For equal masses in an elastic glancing collision (one at rest), the balls move off at 90° to each other.",
+       true,
+       "θ₁ + θ₂ = 90°."
+      ],
+      [
+       "A 2D elastic collision can always be solved without any extra information.",
+       false,
+       "3 equations, 4 unknowns."
+      ],
+      [
+       "In a 2D collision the y-momentum after collision is non-zero if the initial motion was along x.",
+       false,
+       "Total y-momentum stays zero."
+      ],
+      [
+       "If equal balls collide elastically and one deflects at 40°, the other moves at 50°.",
+       true,
+       "They add to 90°."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A ball hits an identical ball at rest elastically and moves off at 37° to its original direction. The other ball moves off at",
+     "options": [
+      "37°",
+      "45°",
+      "53°",
+      "90°"
+     ],
+     "answer": 2,
+     "explain": "θ₁ + θ₂ = 90°, so θ₂ = 53°.",
+     "mistake": "Thinks both angles are equal",
+     "check": "90-37"
+    },
+    {
+     "q": "A 2 kg ball moving at 5 m s⁻¹ along x collides with a ball at rest. Afterwards, the total momentum along x in kg m s⁻¹ is",
+     "options": [
+      "0",
+      "20",
+      "5",
+      "10"
+     ],
+     "answer": 3,
+     "explain": "Momentum along x is conserved: 2 × 5 = 10 kg m s⁻¹.",
+     "mistake": "Thinks momentum is shared away",
+     "check": "2*5"
+    },
+    {
+     "q": "A ball moving along the x-axis strikes a ball at rest, and both fly off at angles to the x-axis. The total momentum along y after the collision is",
+     "options": [
+      "10 kg m s⁻¹",
+      "0",
+      "Depends on the angles",
+      "5 kg m s⁻¹"
+     ],
+     "answer": 1,
+     "explain": "Initially there was no y-momentum, so the y-components cancel afterwards.",
+     "mistake": "Thinks deflection creates y-momentum",
+     "check": "0"
+    },
+    {
+     "q": "In a 2D elastic collision, why is one extra piece of information (like an angle) needed?",
+     "options": [
+      "KE is not conserved",
+      "Momentum is not conserved",
+      "There are only three equations for four unknowns",
+      "Angles are always 45°"
+     ],
+     "answer": 2,
+     "explain": "Two momentum components and one energy equation cannot fix four unknowns.",
+     "mistake": "Thinks the equations are always enough"
+    },
+    {
+     "q": "A 1 kg ball at 4 m s⁻¹ (along x) hits an identical ball at rest. After an elastic collision, the first moves at 2 m s⁻¹ at 60° to x. The x-component of the second ball's velocity in m s⁻¹ is",
+     "options": [
+      "2",
+      "4",
+      "3",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "x-momentum: 4 = 2 cos 60° + vₓ → vₓ = 4 − 1 = 3 m s⁻¹.",
+     "mistake": "Ignores the cos 60° factor",
+     "check": "4-2*0.5"
+    },
+    {
+     "q": "A 2 kg ball moving along x hits a 1 kg ball at rest. Afterwards the 1 kg ball moves along +y at 2 m s⁻¹. The y-component of the 2 kg ball's momentum in kg m s⁻¹ is",
+     "options": [
+      "0",
+      "2",
+      "-2",
+      "-4"
+     ],
+     "answer": 2,
+     "explain": "Total y-momentum stays zero: p_y + 1 × 2 = 0, so p_y = −2 kg m s⁻¹.",
+     "mistake": "Forgets that y-momenta must cancel",
+     "check": "-1*2"
+    },
+    {
+     "q": "Momentum in a 2D collision is conserved",
+     "options": [
+      "As a vector, so along each axis separately",
+      "Only if the collision is elastic",
+      "Only as a scalar total",
+      "Only along the initial direction"
+     ],
+     "answer": 0,
+     "explain": "Momentum is a vector; each component is conserved independently.",
+     "mistake": "Thinks only the magnitude is conserved"
+    },
+    {
+     "q": "Assertion (A): Two identical balls, one at rest, separate at right angles after an elastic glancing collision.\nReason (R): Momentum and kinetic energy conservation for equal masses give v₁·v₂ = 0.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "u₁ = v₁ + v₂ and u₁² = v₁² + v₂² together give v₁·v₂ = 0. R explains A.",
+     "mistake": "Thinks the angle depends on the speed"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu watched a carrom striker hit a coin off-centre and both shot away at an angle. Explain how momentum works in 2D and the 90° rule.",
+    "must": [
+     [
+      "x and y",
+      "components",
+      "each axis"
+     ],
+     [
+      "momentum conserved",
+      "conservation of momentum"
+     ],
+     [
+      "90",
+      "right angle",
+      "perpendicular"
+     ],
+     [
+      "equal masses",
+      "elastic"
+     ]
+    ],
+    "praise": "Momentum is conserved along x and y separately, and equal balls fly off at 90°. Collisions are pure physics!",
+    "nudge": "How is momentum conserved when things fly off at angles? What special angle appears for equal masses?"
+   }
+  }
+ ]
+}
