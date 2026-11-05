@@ -1,0 +1,1915 @@
+{
+ "n": 5,
+ "title": "Statistics: Measures of Central Tendency",
+ "emoji": "🎯",
+ "topics": [
+  {
+   "id": "g11-economics-05-01",
+   "title": "Averages and the arithmetic mean of ungrouped data",
+   "covers": [
+    "c5.1.1",
+    "c5.1.2",
+    "c5.2.1",
+    "c5.2.2",
+    "c5.2.3",
+    "c5.2.4"
+   ],
+   "learn": {
+    "hook": "A batter scores 12, 98, 45, 0 and 70 in five innings. One number, the average, sums up the whole series. But which way of computing it is fastest?",
+    "points": [
+     "An average (measure of central tendency) is a single value that represents the whole data set. We study three: arithmetic mean, median and mode. (Geometric and harmonic means exist but are not studied here.)",
+     "Arithmetic mean = sum of observations ÷ number of observations: X̄ = ΣX / N (direct method).",
+     "Assumed mean method: pick a convenient A, find deviations d = X − A, then X̄ = A + Σd / N.",
+     "Step deviation method: if deviations share a common factor c, use d′ = (X − A)/c, then X̄ = A + (Σd′ / N) × c.",
+     "All three methods give exactly the same answer; the short-cut methods only reduce arithmetic."
+    ],
+    "example": {
+     "q": "Find the mean of 40, 50, 55, 78 and 58 by the direct and assumed mean (A = 55) methods.",
+     "steps": [
+      "Direct: ΣX = 40 + 50 + 55 + 78 + 58 = 281, X̄ = 281/5 = 56.2",
+      "Assumed mean: d = −15, −5, 0, 23, 3, so Σd = 6",
+      "X̄ = 55 + 6/5 = 55 + 1.2 = 56.2"
+     ],
+     "answer": "Mean = 56.2 by both methods"
+    },
+    "reallife": "Cricket's batting average and a city's average daily AQI reported by the CPCB are both arithmetic means."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Mean sprint",
+     "items": [
+      {
+       "q": "Mean of 4, 8, 12",
+       "a": "8",
+       "check": "(4+8+12)/3"
+      },
+      {
+       "q": "Mean of 10, 20, 30, 40",
+       "a": "25",
+       "check": "(10+20+30+40)/4"
+      },
+      {
+       "q": "A = 50, Σd = 10, N = 5. Mean?",
+       "a": "52",
+       "check": "50+10/5"
+      },
+      {
+       "q": "A = 30, Σd = −12, N = 6. Mean?",
+       "a": "28",
+       "check": "30-12/6"
+      },
+      {
+       "q": "A = 100, Σd′ = 4, N = 8, c = 10. Mean?",
+       "a": "105",
+       "check": "100+4/8*10"
+      },
+      {
+       "q": "Mean of the first 5 natural numbers",
+       "a": "3",
+       "check": "(1+2+3+4+5)/5"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the method to its formula",
+     "pairs": [
+      [
+       "Direct method",
+       "X̄ = ΣX / N"
+      ],
+      [
+       "Assumed mean method",
+       "X̄ = A + Σd / N"
+      ],
+      [
+       "Step deviation method",
+       "X̄ = A + (Σd′ / N) × c"
+      ],
+      [
+       "Deviation d",
+       "X − A"
+      ],
+      [
+       "Step deviation d′",
+       "(X − A) / c"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the arithmetic mean of 12, 15, 18, 21 and 24.",
+     "options": [
+      "15",
+      "18",
+      "21",
+      "90"
+     ],
+     "answer": 1,
+     "explain": "ΣX = 90 and N = 5, so X̄ = 90/5 = 18.",
+     "steps": [
+      "ΣX = 12 + 15 + 18 + 21 + 24 = 90",
+      "X̄ = 90/5 = 18"
+     ],
+     "mistake": "Gives the total instead of dividing by N",
+     "check": "(12+15+18+21+24)/5"
+    },
+    {
+     "q": "Using an assumed mean A = 50, the sum of deviations of 10 observations is 20. What is the mean?",
+     "options": [
+      "52",
+      "70",
+      "48",
+      "50.2"
+     ],
+     "answer": 0,
+     "explain": "X̄ = A + Σd/N = 50 + 20/10 = 52.",
+     "steps": [
+      "X̄ = 50 + 20/10",
+      "= 52"
+     ],
+     "mistake": "Adds Σd directly to A without dividing by N",
+     "check": "50+20/10"
+    },
+    {
+     "q": "By the step deviation method: A = 50, c = 10, Σd′ = −3, N = 6. Find the mean.",
+     "options": [
+      "55",
+      "49.5",
+      "47",
+      "45"
+     ],
+     "answer": 3,
+     "explain": "X̄ = 50 + (−3/6) × 10 = 50 − 5 = 45.",
+     "steps": [
+      "Σd′/N = −3/6 = −0.5",
+      "× c = −0.5 × 10 = −5",
+      "X̄ = 50 − 5 = 45"
+     ],
+     "mistake": "Forgets to multiply by c, or ignores the negative sign",
+     "check": "50+(-3/6)*10"
+    },
+    {
+     "q": "Marks: 60, 70, 80, 90, 100. Using A = 80 and c = 10, Σd′ equals:",
+     "options": [
+      "10",
+      "−2",
+      "0",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "d′ = −2, −1, 0, 1, 2, which sum to 0, so X̄ = 80.",
+     "steps": [
+      "d′ = (X − 80)/10 = −2, −1, 0, 1, 2",
+      "Σd′ = 0"
+     ],
+     "mistake": "Adds only the positive deviations",
+     "check": "(-2)+(-1)+0+1+2"
+    },
+    {
+     "q": "Daily earnings of 4 auto drivers are ₹600, ₹750, ₹820 and ₹830. What is their mean earning?",
+     "options": [
+      "₹775",
+      "₹750",
+      "₹800",
+      "₹3,000"
+     ],
+     "answer": 1,
+     "explain": "Sum = ₹3,000; mean = 3,000/4 = ₹750.",
+     "steps": [
+      "Sum = 600 + 750 + 820 + 830 = 3,000",
+      "Mean = 3,000/4 = 750"
+     ],
+     "mistake": "Takes the middle values' average or forgets to divide",
+     "check": "(600+750+820+830)/4"
+    },
+    {
+     "q": "Which of the following is NOT one of the three averages studied in this chapter?",
+     "options": [
+      "Geometric mean",
+      "Arithmetic mean",
+      "Median",
+      "Mode"
+     ],
+     "answer": 0,
+     "explain": "Geometric and harmonic means exist but are outside this chapter.",
+     "mistake": "Assumes every mean is part of the syllabus"
+    },
+    {
+     "q": "Assertion (A): The assumed mean and direct methods give the same arithmetic mean.\nReason (R): The assumed mean method simply shifts the origin to A and then adds A back.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Subtracting A and adding it back cannot change the mean; it only makes the arithmetic easier.",
+     "mistake": "Thinks short-cut methods give approximate answers"
+    },
+    {
+     "q": "What is the mean of the first 10 natural numbers?",
+     "options": [
+      "5",
+      "10",
+      "5.5",
+      "55"
+     ],
+     "answer": 2,
+     "explain": "Sum = 55, N = 10, mean = 5.5.",
+     "steps": [
+      "1 + 2 + … + 10 = 55",
+      "55/10 = 5.5"
+     ],
+     "mistake": "Picks the middle number 5 or the sum 55",
+     "check": "55/10"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'I counted 3, 5, 6, 8 and 8 seeds in five nests. How do I find one number for all of them? Is there a shortcut?'",
+    "must": [
+     [
+      "sum",
+      "add",
+      "total"
+     ],
+     [
+      "divide",
+      "number of observations",
+      "how many"
+     ],
+     [
+      "assumed mean",
+      "deviation",
+      "deviations",
+      "step deviation"
+     ]
+    ],
+    "praise": "Tweet! Add them, divide by 5: 6 seeds. And the assumed mean shortcut gives the same answer!",
+    "nudge": "Good! After adding the values, what do you divide by? And is there a shortcut using deviations?"
+   }
+  },
+  {
+   "id": "g11-economics-05-02",
+   "title": "Mean of discrete and continuous series",
+   "covers": [
+    "c5.2.5",
+    "c5.2.6",
+    "c5.2.7",
+    "c5.2.8",
+    "c5.6.3"
+   ],
+   "learn": {
+    "hook": "When 50 families report their sizes or 200 workers report wages in classes, you can't add values one by one. Frequencies and mid-points do the heavy lifting.",
+    "points": [
+     "Discrete series: X̄ = ΣfX / Σf. Short cuts: X̄ = A + Σfd / Σf, or X̄ = A + (Σfd′ / Σf) × c.",
+     "Continuous series: replace each class by its mid-point m, then X̄ = Σfm / Σf (or the same short cuts with d = m − A).",
+     "Inclusive classes: mid-points are the same before and after adjustment, so the mean is unaffected. Unequal classes: just use each class's own mid-point.",
+     "Cumulative tables: first convert 'less than' or 'more than' cumulative frequencies back into simple class frequencies by subtraction, then find the mean."
+    ],
+    "example": {
+     "q": "Classes 0–10, 10–20, 20–30, 30–40 have f = 5, 10, 20, 15. Find the mean by direct and step deviation methods.",
+     "steps": [
+      "Mid-points m: 5, 15, 25, 35; fm: 25, 150, 500, 525; Σfm = 1,200; Σf = 50",
+      "Direct: X̄ = 1,200/50 = 24",
+      "Step deviation, A = 25, c = 10: d′ = −2, −1, 0, 1; fd′ = −10, −10, 0, 15; Σfd′ = −5",
+      "X̄ = 25 + (−5/50) × 10 = 25 − 1 = 24"
+     ],
+     "answer": "Mean = 24"
+    },
+    "reallife": "Labour Bureau wage surveys group workers into wage classes; average wages are computed exactly this way using mid-points."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Mean of a continuous series",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Find the mid-point m of each class",
+      "Multiply each mid-point by its frequency (fm)",
+      "Add to get Σfm and Σf",
+      "Divide Σfm by Σf"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Mid-point and fm sprint",
+     "items": [
+      {
+       "q": "Mid-point of 40–60",
+       "a": "50",
+       "check": "(40+60)/2"
+      },
+      {
+       "q": "f = 4, m = 25. fm?",
+       "a": "100",
+       "check": "4*25"
+      },
+      {
+       "q": "Σfm = 600, Σf = 20. Mean?",
+       "a": "30",
+       "check": "600/20"
+      },
+      {
+       "q": "Mid-point of 10–19 (inclusive)",
+       "a": "14.5",
+       "check": "(10+19)/2"
+      },
+      {
+       "q": "A = 45, c = 10, Σfd′ = 6, Σf = 30. Mean?",
+       "a": "47",
+       "check": "45+6/30*10"
+      },
+      {
+       "q": "ΣfX = 53, Σf = 20. Mean?",
+       "a": "2.65",
+       "check": "53/20"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "X: 10, 20, 30 with f: 2, 3, 5. Find the mean.",
+     "options": [
+      "20",
+      "23",
+      "25",
+      "60"
+     ],
+     "answer": 1,
+     "explain": "ΣfX = 20 + 60 + 150 = 230; Σf = 10; mean = 23.",
+     "steps": [
+      "fX = 20, 60, 150",
+      "ΣfX = 230, Σf = 10",
+      "X̄ = 230/10 = 23"
+     ],
+     "mistake": "Takes the simple mean of the X values (20) ignoring frequencies",
+     "check": "(10*2+20*3+30*5)/10"
+    },
+    {
+     "q": "Classes 0–20, 20–40, 40–60 have frequencies 4, 6, 10. Find the mean.",
+     "options": [
+      "36",
+      "30",
+      "40",
+      "720"
+     ],
+     "answer": 0,
+     "explain": "m = 10, 30, 50; fm = 40, 180, 500; Σfm = 720; Σf = 20; X̄ = 36.",
+     "steps": [
+      "m = 10, 30, 50",
+      "Σfm = 40 + 180 + 500 = 720",
+      "X̄ = 720/20 = 36"
+     ],
+     "mistake": "Uses class limits instead of mid-points, or forgets to divide",
+     "check": "(4*10+6*30+10*50)/20"
+    },
+    {
+     "q": "Using step deviation: A = 45, c = 10, Σfd′ = 6 and Σf = 30. What is the mean?",
+     "options": [
+      "51",
+      "45.2",
+      "43",
+      "47"
+     ],
+     "answer": 3,
+     "explain": "X̄ = 45 + (6/30) × 10 = 45 + 2 = 47.",
+     "steps": [
+      "6/30 = 0.2",
+      "0.2 × 10 = 2",
+      "45 + 2 = 47"
+     ],
+     "mistake": "Forgets to multiply by c (gets 45.2) or adds Σfd′ directly",
+     "check": "45+6/30*10"
+    },
+    {
+     "q": "Less-than cumulative frequencies: <10: 3, <20: 8, <30: 15, <40: 20. What is the frequency of the class 20–30?",
+     "options": [
+      "15",
+      "5",
+      "7",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "f(20–30) = 15 − 8 = 7.",
+     "steps": [
+      "f(20–30) = cf(<30) − cf(<20)",
+      "= 15 − 8 = 7"
+     ],
+     "mistake": "Reads the cumulative figure as the class frequency",
+     "check": "15-8"
+    },
+    {
+     "q": "More-than cumulative frequencies: >0: 50, >10: 45, >20: 35, >30: 15, >40: 0. Find the mean (classes 0–10 to 30–40).",
+     "options": [
+      "25",
+      "24",
+      "20",
+      "31.25"
+     ],
+     "answer": 1,
+     "explain": "Frequencies: 5, 10, 20, 15. Σfm = 25 + 150 + 500 + 525 = 1,200; mean = 1,200/50 = 24.",
+     "steps": [
+      "f = 50−45, 45−35, 35−15, 15−0 = 5, 10, 20, 15",
+      "m = 5, 15, 25, 35",
+      "Σfm = 1,200, Σf = 50",
+      "X̄ = 24"
+     ],
+     "mistake": "Uses the cumulative frequencies directly as frequencies",
+     "check": "(5*5+10*15+20*25+15*35)/50"
+    },
+    {
+     "q": "Unequal classes 0–10, 10–30, 30–60 have frequencies 5, 10, 5. Find the mean.",
+     "options": [
+      "22.5",
+      "20",
+      "25",
+      "30"
+     ],
+     "answer": 0,
+     "explain": "m = 5, 20, 45; Σfm = 25 + 200 + 225 = 450; Σf = 20; X̄ = 22.5.",
+     "steps": [
+      "m = 5, 20, 45",
+      "Σfm = 450",
+      "X̄ = 450/20 = 22.5"
+     ],
+     "mistake": "Assumes equal class widths and uses wrong mid-points",
+     "check": "(5*5+10*20+5*45)/20"
+    },
+    {
+     "q": "For inclusive classes 10–19, 20–29, 30–39, the mid-point used for the class 20–29 is:",
+     "options": [
+      "25",
+      "20",
+      "29.5",
+      "24.5"
+     ],
+     "answer": 3,
+     "explain": "(20 + 29)/2 = 24.5, and adjustment to 19.5–29.5 gives the same 24.5.",
+     "steps": [
+      "(20 + 29)/2 = 24.5"
+     ],
+     "mistake": "Assumes the mid-point is a round number",
+     "check": "(20+29)/2"
+    },
+    {
+     "q": "Assertion (A): Adjusting inclusive classes does not change the arithmetic mean.\nReason (R): Adjustment changes all class mid-points by half the gap.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Adjustment lowers each lower limit and raises each upper limit by the same amount, so mid-points do not change; R is false.",
+     "mistake": "Thinks adjustment shifts the mid-points"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'I grouped birds by weight into classes with frequencies. How do I find the mean weight now?'",
+    "must": [
+     [
+      "mid-point",
+      "midpoint",
+      "class mark"
+     ],
+     [
+      "frequency",
+      "fm",
+      "multiply"
+     ],
+     [
+      "sum",
+      "divide",
+      "total frequency",
+      "sum of frequencies"
+     ]
+    ],
+    "praise": "Tweet! Mid-points times frequencies, add them up, and divide by the total frequency!",
+    "nudge": "Good! But what value represents each class? And what do you divide by at the end?"
+   }
+  },
+  {
+   "id": "g11-economics-05-03",
+   "title": "Properties of the mean, weighted mean and missing frequencies",
+   "covers": [
+    "c5.2.9",
+    "c5.2.10",
+    "c5.2.11",
+    "c5.2.12",
+    "c5.2.13",
+    "c5.6.5"
+   ],
+   "learn": {
+    "hook": "If a billionaire walks into a village tea stall, the average wealth of the people inside jumps to thousands of crores. Nobody got richer. That is the mean's biggest weakness.",
+    "points": [
+     "Property 1: the sum of deviations of observations from their arithmetic mean is always zero: Σ(X − X̄) = 0.",
+     "Property 2: the mean is affected by extreme values; one very large or small item can pull it a long way.",
+     "Weighted mean X̄w = ΣwX / Σw, where weights w reflect the relative importance of items (e.g. budget shares, credits of subjects).",
+     "Missing frequency: write ΣfX and Σf in terms of the unknown, set ΣfX / Σf equal to the given mean, and solve.",
+     "Changes: adding k to every value raises the mean by k; multiplying every value by k multiplies the mean by k; replacing one value changes the sum and hence the mean."
+    ],
+    "example": {
+     "q": "X: 10, 20, 30, 40 with f: 5, f₁, 10, 5. The mean is 25. Find f₁.",
+     "steps": [
+      "ΣfX = 50 + 20f₁ + 300 + 200 = 550 + 20f₁",
+      "Σf = 20 + f₁",
+      "25(20 + f₁) = 550 + 20f₁",
+      "500 + 25f₁ = 550 + 20f₁, so 5f₁ = 50"
+     ],
+     "answer": "f₁ = 10"
+    },
+    "reallife": "Your CGPA is a weighted mean: a 4-credit subject counts twice as much as a 2-credit one."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Properties of the mean",
+     "items": [
+      [
+       "The sum of deviations from the mean is always zero.",
+       true,
+       "Positive and negative deviations exactly cancel."
+      ],
+      [
+       "The mean is not affected by extreme values.",
+       false,
+       "The mean uses every value, so extremes pull it."
+      ],
+      [
+       "If 5 is added to every observation, the mean rises by 5.",
+       true,
+       "The total rises by 5N, so the mean rises by 5."
+      ],
+      [
+       "In a weighted mean, all items always get equal weight.",
+       false,
+       "Weights reflect different importance."
+      ],
+      [
+       "Doubling every observation doubles the mean.",
+       true,
+       "The sum doubles while N is unchanged."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Mean changes sprint",
+     "items": [
+      {
+       "q": "Mean of 5 values is 20. Sum?",
+       "a": "100",
+       "check": "5*20"
+      },
+      {
+       "q": "Mean 20 of 5 values; one value 30 changed to 80. New mean?",
+       "a": "30",
+       "check": "(100-30+80)/5"
+      },
+      {
+       "q": "Mean is 12. Add 3 to every value. New mean?",
+       "a": "15",
+       "check": "12+3"
+      },
+      {
+       "q": "Mean is 7. Multiply every value by 4. New mean?",
+       "a": "28",
+       "check": "7*4"
+      },
+      {
+       "q": "Deviations from mean: −3, −1, 4 and x. x?",
+       "a": "0",
+       "check": "0-(-3-1+4)"
+      },
+      {
+       "q": "Weights 3, 2, 1 for marks 80, 70, 40. Weighted mean?",
+       "a": "70",
+       "check": "(3*80+2*70+1*40)/6"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "For the data 4, 6, 8, 10, 12, what is the sum of deviations from the mean?",
+     "options": [
+      "8",
+      "0",
+      "40",
+      "−8"
+     ],
+     "answer": 1,
+     "explain": "Mean = 8; deviations −4, −2, 0, 2, 4 sum to 0. This always holds for the mean.",
+     "steps": [
+      "Mean = 40/5 = 8",
+      "Deviations: −4, −2, 0, 2, 4",
+      "Sum = 0"
+     ],
+     "mistake": "Adds absolute deviations or the values themselves",
+     "check": "(4-8)+(6-8)+(8-8)+(10-8)+(12-8)"
+    },
+    {
+     "q": "A student scores 80 in Economics (weight 3), 70 in English (weight 2) and 40 in Hindi (weight 1). Find the weighted mean.",
+     "options": [
+      "70",
+      "63.33",
+      "60",
+      "65"
+     ],
+     "answer": 0,
+     "explain": "ΣwX = 240 + 140 + 40 = 420; Σw = 6; weighted mean = 70.",
+     "steps": [
+      "ΣwX = 3×80 + 2×70 + 1×40 = 420",
+      "Σw = 6",
+      "420/6 = 70"
+     ],
+     "mistake": "Takes the simple mean (190/3 = 63.33) ignoring weights",
+     "check": "(3*80+2*70+1*40)/6"
+    },
+    {
+     "q": "The mean of 10 observations is 15. Later it is found that one value 24 was wrongly recorded as 42. What is the correct mean?",
+     "options": [
+      "16.8",
+      "15",
+      "12.6",
+      "13.2"
+     ],
+     "answer": 3,
+     "explain": "Wrong sum = 150; correct sum = 150 − 42 + 24 = 132; correct mean = 13.2.",
+     "steps": [
+      "Wrong sum = 10 × 15 = 150",
+      "Correct sum = 150 − 42 + 24 = 132",
+      "Mean = 132/10 = 13.2"
+     ],
+     "mistake": "Adds the difference instead of subtracting it",
+     "check": "(150-42+24)/10"
+    },
+    {
+     "q": "X: 1, 2, 3, 4 with f: 4, f₁, 6, 4. The mean is 2.5. Find f₁.",
+     "options": [
+      "4",
+      "5",
+      "6",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "ΣfX = 4 + 2f₁ + 18 + 16 = 38 + 2f₁ and Σf = 14 + f₁. Then 2.5(14 + f₁) = 38 + 2f₁, so 35 + 2.5f₁ = 38 + 2f₁, giving 0.5f₁ = 3 and f₁ = 6.",
+     "steps": [
+      "ΣfX = 38 + 2f₁, Σf = 14 + f₁",
+      "2.5(14 + f₁) = 38 + 2f₁",
+      "35 + 2.5f₁ = 38 + 2f₁",
+      "0.5f₁ = 3, f₁ = 6"
+     ],
+     "mistake": "Sets up ΣfX or Σf incorrectly, e.g. forgets to multiply f₁ by its X value",
+     "check": "(38-35)/(2.5-2)"
+    },
+    {
+     "q": "Five workers earn ₹10,000 each. A sixth worker who earns ₹70,000 joins. What happens to the mean wage?",
+     "options": [
+      "Stays ₹10,000",
+      "Rises to ₹20,000",
+      "Rises to ₹13,333",
+      "Rises to ₹80,000"
+     ],
+     "answer": 1,
+     "explain": "New total = 50,000 + 70,000 = ₹1,20,000; mean = 1,20,000/6 = ₹20,000. One extreme value doubles the mean.",
+     "steps": [
+      "Total = 5 × 10,000 + 70,000 = 1,20,000",
+      "Mean = 1,20,000/6 = 20,000"
+     ],
+     "mistake": "Thinks one person cannot change the average much"
+    },
+    {
+     "q": "The mean of 6 observations is 40. If 5 is added to each observation, the new mean is:",
+     "options": [
+      "45",
+      "40",
+      "70",
+      "200"
+     ],
+     "answer": 0,
+     "explain": "Adding a constant to every value raises the mean by that constant.",
+     "mistake": "Adds 5 × 6 = 30 to the mean",
+     "check": "40+5"
+    },
+    {
+     "q": "Assertion (A): The arithmetic mean may not represent data with extreme values well.\nReason (R): The sum of deviations of items from the mean is zero.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both are true, but the zero-sum property does not explain why extremes distort the mean; the reason is that every value enters the sum.",
+     "mistake": "Links two true statements that are not cause and effect"
+    },
+    {
+     "q": "A household index uses weights 50 for food, 30 for housing and 20 for others. Price relatives are 120, 110 and 130. Find the weighted mean relative.",
+     "options": [
+      "120",
+      "118",
+      "119",
+      "360"
+     ],
+     "answer": 2,
+     "explain": "ΣwX = 6,000 + 3,300 + 2,600 = 11,900; Σw = 100; weighted mean = 119.",
+     "steps": [
+      "50×120 = 6,000; 30×110 = 3,300; 20×130 = 2,600",
+      "Sum = 11,900",
+      "11,900/100 = 119"
+     ],
+     "mistake": "Uses the simple mean 120 and ignores the weights",
+     "check": "(50*120+30*110+20*130)/100"
+    },
+    {
+     "q": "X: 10, 20, 30 with f: 3, f₁, 4. The mean is 21. Find f₁ and then the median.",
+     "options": [
+      "20",
+      "30",
+      "21",
+      "25"
+     ],
+     "answer": 0,
+     "explain": "ΣfX = 30 + 20f₁ + 120 = 150 + 20f₁ and Σf = 7 + f₁. 21(7 + f₁) = 150 + 20f₁ gives f₁ = 3. Then N = 10, cf = 3, 6, 10, and the 5th and 6th items are both 20, so the median is 20.",
+     "steps": [
+      "21(7 + f₁) = 150 + 20f₁",
+      "147 + 21f₁ = 150 + 20f₁, so f₁ = 3",
+      "N = 10; (N + 1)/2 = 5.5th item",
+      "cf: 3, 6, 10 → 5th and 6th items are both 20",
+      "Median = 20"
+     ],
+     "mistake": "Stops after finding f₁, or gives the mean (21) instead of the median",
+     "check": "20"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'My flock's average weight shot up when one giant eagle joined. Why? And how do I give some birds more importance?'",
+    "must": [
+     [
+      "extreme",
+      "extreme values",
+      "outlier",
+      "affected"
+     ],
+     [
+      "weighted",
+      "weights",
+      "importance"
+     ],
+     [
+      "deviations",
+      "zero",
+      "sum of deviations"
+     ]
+    ],
+    "praise": "Tweet! The mean is pulled by extreme values, a weighted mean gives importance, and deviations from the mean sum to zero!",
+    "nudge": "Good! Why did one eagle change the mean so much? And how would weights work?"
+   }
+  },
+  {
+   "id": "g11-economics-05-04",
+   "title": "Median of ungrouped and discrete data",
+   "covers": [
+    "c5.3.1",
+    "c5.3.2",
+    "c5.3.3"
+   ],
+   "learn": {
+    "hook": "Line up five friends by height. The one in the middle is the median, and she stays the middle even if the tallest friend is swapped for a basketball star.",
+    "points": [
+     "The median is the middle value of data arranged in ascending or descending order; it divides the data into two equal halves. It is a positional average.",
+     "It is not affected by extreme values, since only position matters.",
+     "Ungrouped data: median = size of the ((N + 1)/2)th item. If N is even, it is the mean of the two middle items (N/2 and N/2 + 1).",
+     "Discrete series: arrange X in order, find cumulative frequencies (cf), locate the ((N + 1)/2)th item; the X whose cf first equals or exceeds this position is the median."
+    ],
+    "example": {
+     "q": "X: 1, 2, 3, 4, 5 with f: 2, 5, 8, 6, 4. Find the median.",
+     "steps": [
+      "N = 25; cf: 2, 7, 15, 21, 25",
+      "Position = (N + 1)/2 = 13th item",
+      "cf first reaches 13 or more at 15, where X = 3"
+     ],
+     "answer": "Median = 3"
+    },
+    "reallife": "Household income reports often quote the median income, because a few billionaires would distort the mean."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Finding the median of raw data",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Arrange the data in ascending order",
+      "Count the number of items N",
+      "Find the position (N + 1)/2",
+      "Read the value at that position (average the two middle values if N is even)"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Median sprint",
+     "items": [
+      {
+       "q": "Median of 3, 7, 9",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "Median of 2, 4, 6, 8",
+       "a": "5",
+       "check": "(4+6)/2"
+      },
+      {
+       "q": "Median of 9, 1, 5, 3, 7",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "Position of median when N = 21",
+       "a": "11",
+       "check": "(21+1)/2"
+      },
+      {
+       "q": "Median of 10, 20, 30, 40, 50, 60",
+       "a": "35",
+       "check": "(30+40)/2"
+      },
+      {
+       "q": "Median of 4, 4, 5, 100, 6",
+       "a": "5",
+       "check": "5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the median of 7, 3, 9, 5, 11.",
+     "options": [
+      "9",
+      "7",
+      "5",
+      "35"
+     ],
+     "answer": 1,
+     "explain": "Ordered: 3, 5, 7, 9, 11. The 3rd item is 7.",
+     "steps": [
+      "Arrange: 3, 5, 7, 9, 11",
+      "Position = (5 + 1)/2 = 3rd",
+      "Median = 7"
+     ],
+     "mistake": "Picks the middle value without arranging the data first",
+     "check": "7"
+    },
+    {
+     "q": "Find the median of 12, 5, 8, 20, 15, 10.",
+     "options": [
+      "11",
+      "10",
+      "12",
+      "8"
+     ],
+     "answer": 0,
+     "explain": "Ordered: 5, 8, 10, 12, 15, 20. Middle items are 10 and 12, so median = 11.",
+     "steps": [
+      "Arrange: 5, 8, 10, 12, 15, 20",
+      "N = 6, so take the 3rd and 4th items",
+      "(10 + 12)/2 = 11"
+     ],
+     "mistake": "Takes only one of the two middle items",
+     "check": "(10+12)/2"
+    },
+    {
+     "q": "In ungrouped data with N = 15 items arranged in order, the median is the:",
+     "options": [
+      "7th item",
+      "7.5th item",
+      "15th item",
+      "8th item"
+     ],
+     "answer": 3,
+     "explain": "(15 + 1)/2 = 8th item.",
+     "mistake": "Uses N/2 instead of (N + 1)/2 for ungrouped data"
+    },
+    {
+     "q": "X: 1, 2, 3, 4, 5 with f: 2, 5, 8, 6, 4. What is the median?",
+     "options": [
+      "2",
+      "4",
+      "3",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "N = 25, cf = 2, 7, 15, 21, 25. The 13th item falls where cf = 15, at X = 3.",
+     "steps": [
+      "cf: 2, 7, 15, 21, 25",
+      "(25 + 1)/2 = 13th item",
+      "13 ≤ 15 → X = 3"
+     ],
+     "mistake": "Picks the X with the highest frequency (that is the mode)",
+     "check": "3"
+    },
+    {
+     "q": "X: 10, 20, 30, 40 with f: 3, 4, 5, 4. Find the median.",
+     "options": [
+      "20",
+      "30",
+      "25",
+      "35"
+     ],
+     "answer": 1,
+     "explain": "N = 16; (N + 1)/2 = 8.5th item. cf: 3, 7, 12, 16. Both the 8th and 9th items are 30, so median = 30.",
+     "steps": [
+      "cf: 3, 7, 12, 16",
+      "8th and 9th items both lie in cf 8–12 → X = 30",
+      "Median = 30"
+     ],
+     "mistake": "Averages two X values without checking where the items fall",
+     "check": "30"
+    },
+    {
+     "q": "Data: 3, 5, 7, 9, 1000. The median is:",
+     "options": [
+      "7",
+      "204.8",
+      "500",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "The median is the middle item, 7; the extreme value 1000 does not affect it. (The mean would be 204.8.)",
+     "mistake": "Computes the mean instead of the median",
+     "check": "7"
+    },
+    {
+     "q": "Why is the median called a positional average?",
+     "options": [
+      "Because it uses all values in the calculation",
+      "Because it is the most frequent value",
+      "Because it is always the largest value",
+      "Because its value depends on the position of the middle item in ordered data"
+     ],
+     "answer": 3,
+     "explain": "It is located by position, not computed from all values.",
+     "mistake": "Confuses the median with the mean or mode"
+    },
+    {
+     "q": "Assertion (A): The median is not affected by extreme values.\nReason (R): The median depends only on the middle position of the ordered data.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Since only the middle position matters, changing an extreme value does not move it.",
+     "mistake": "Thinks the median is sensitive like the mean"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu lined up seven birds by weight. 'Which bird is the median? What if one bird is a giant eagle?'",
+    "must": [
+     [
+      "middle",
+      "centre",
+      "middle value"
+     ],
+     [
+      "order",
+      "arrange",
+      "ascending",
+      "sorted"
+     ],
+     [
+      "extreme",
+      "not affected",
+      "unaffected"
+     ],
+     [
+      "position",
+      "positional",
+      "n+1"
+     ]
+    ],
+    "praise": "Tweet! Arrange them, pick the middle one, and the giant eagle doesn't move the median at all!",
+    "nudge": "Good! But do you need to arrange the birds first? And what if one is huge?"
+   }
+  },
+  {
+   "id": "g11-economics-05-05",
+   "title": "Median of a continuous series",
+   "covers": [
+    "c5.3.4",
+    "c5.3.5",
+    "c5.6.4"
+   ],
+   "learn": {
+    "hook": "With 10 lakh board candidates in mark classes, you can't line them up. One neat formula finds the median mark from the class table.",
+    "points": [
+     "Find cumulative frequencies (cf) and N = Σf. The median class is the class containing the (N/2)th item (use N/2 for continuous series).",
+     "Median = L + ((N/2 − c.f.) / f) × h",
+     "L = lower limit of the median class; c.f. = cumulative frequency of the class just before the median class; f = frequency of the median class; h = width of the median class.",
+     "For less-than cumulative data, the given figures already are cf; find simple frequencies by subtraction. For inclusive classes, adjust first so L is the true lower limit (e.g. 19.5)."
+    ],
+    "example": {
+     "q": "Classes 0–10, 10–20, 20–30, 30–40, 40–50 with f = 5, 10, 20, 10, 5. Find the median.",
+     "steps": [
+      "N = 50, N/2 = 25",
+      "cf: 5, 15, 35, 45, 50 → median class 20–30",
+      "L = 20, c.f. = 15, f = 20, h = 10",
+      "Median = 20 + ((25 − 15)/20) × 10 = 20 + 5 = 25"
+     ],
+     "answer": "Median = 25"
+    },
+    "reallife": "NSS reports on household consumption give the median monthly per capita expenditure in addition to the mean, from class-wise tables."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match each symbol in the median formula",
+     "pairs": [
+      [
+       "L",
+       "Lower limit of the median class"
+      ],
+      [
+       "c.f.",
+       "Cumulative frequency before the median class"
+      ],
+      [
+       "f",
+       "Frequency of the median class"
+      ],
+      [
+       "h",
+       "Width of the median class"
+      ],
+      [
+       "N/2",
+       "Position of the median item"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Median of a grouped distribution",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Find cumulative frequencies",
+      "Compute N/2",
+      "Locate the median class",
+      "Note L, c.f., f and h",
+      "Apply Median = L + ((N/2 − c.f.)/f) × h"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Classes 10–20, 20–30, 30–40, 40–50 have f = 5, 15, 20, 10. Find the median.",
+     "options": [
+      "30",
+      "32.5",
+      "35",
+      "31.25"
+     ],
+     "answer": 1,
+     "explain": "N = 50, N/2 = 25; cf: 5, 20, 40, 50 → class 30–40; Median = 30 + ((25 − 20)/20) × 10 = 32.5.",
+     "steps": [
+      "N/2 = 25",
+      "cf: 5, 20, 40 → median class 30–40",
+      "L = 30, c.f. = 20, f = 20, h = 10",
+      "30 + (5/20) × 10 = 32.5"
+     ],
+     "mistake": "Uses the cf of the median class itself instead of the class before it",
+     "check": "30+(25-20)/20*10"
+    },
+    {
+     "q": "Given L = 40, N/2 = 50, c.f. = 38, f = 24 and h = 10, the median is:",
+     "options": [
+      "45",
+      "50",
+      "42.4",
+      "44"
+     ],
+     "answer": 0,
+     "explain": "40 + ((50 − 38)/24) × 10 = 40 + 5 = 45.",
+     "steps": [
+      "50 − 38 = 12",
+      "12/24 = 0.5",
+      "0.5 × 10 = 5",
+      "40 + 5 = 45"
+     ],
+     "mistake": "Forgets to multiply by h",
+     "check": "40+(50-38)/24*10"
+    },
+    {
+     "q": "Less than 10: 5, less than 20: 15, less than 30: 30, less than 40: 36, less than 50: 40. Find the median.",
+     "options": [
+      "25",
+      "26.67",
+      "20",
+      "23.33"
+     ],
+     "answer": 3,
+     "explain": "N = 40, N/2 = 20 → class 20–30. f = 30 − 15 = 15, c.f. = 15. Median = 20 + (5/15) × 10 = 23.33.",
+     "steps": [
+      "N/2 = 20",
+      "Median class 20–30, f = 30 − 15 = 15, c.f. = 15",
+      "20 + (5/15) × 10 = 23.33"
+     ],
+     "mistake": "Uses the cumulative figure 30 as the class frequency",
+     "check": "20+(20-15)/15*10"
+    },
+    {
+     "q": "A distribution has N = 60. The median item for a continuous series is the:",
+     "options": [
+      "30.5th item",
+      "31st item",
+      "30th item",
+      "60th item"
+     ],
+     "answer": 2,
+     "explain": "For a continuous series, the median position is N/2 = 30.",
+     "mistake": "Uses (N + 1)/2 for a continuous series"
+    },
+    {
+     "q": "cf of classes 0–10, 10–20, 20–30, 30–40 are 8, 18, 34, 40. Which is the median class?",
+     "options": [
+      "0–10",
+      "20–30",
+      "10–20",
+      "30–40"
+     ],
+     "answer": 1,
+     "explain": "N = 40, N/2 = 20. The first cf that equals or exceeds 20 is 34, in the class 20–30.",
+     "mistake": "Picks the class whose cf is closest to 20 from below (10–20)"
+    },
+    {
+     "q": "In the median formula, c.f. stands for the cumulative frequency of:",
+     "options": [
+      "The class just before the median class",
+      "The median class",
+      "The last class",
+      "The modal class"
+     ],
+     "answer": 0,
+     "explain": "c.f. is the cumulative frequency of the class preceding the median class.",
+     "mistake": "Uses the median class's own cf"
+    },
+    {
+     "q": "The median class is the inclusive class 30–39 (next class 40–49). Which value of L should be used?",
+     "options": [
+      "30",
+      "39.5",
+      "29",
+      "29.5"
+     ],
+     "answer": 3,
+     "explain": "Adjust first: 30 − 0.5 = 29.5.",
+     "mistake": "Uses the unadjusted lower limit",
+     "check": "30-0.5"
+    },
+    {
+     "q": "Assertion (A): The median can be calculated even when the first and last classes are open-ended.\nReason (R): The median formula uses only the median class and the cumulative frequency before it.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The end classes' limits are not needed unless one of them is the median class.",
+     "mistake": "Thinks every class limit is required"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has bird weights in classes with frequencies. 'How do I find the median weight without lining up all the birds?'",
+    "must": [
+     [
+      "cumulative frequency",
+      "cumulative",
+      "cf"
+     ],
+     [
+      "n/2",
+      "half",
+      "median class"
+     ],
+     [
+      "lower limit",
+      "formula",
+      "l +"
+     ],
+     [
+      "width",
+      "frequency of median class",
+      "class width"
+     ]
+    ],
+    "praise": "Tweet! Cumulative frequencies, find N/2, locate the median class, and apply L + ((N/2 − cf)/f) × h!",
+    "nudge": "Good! Which class holds the middle item? How do you find it from the frequencies?"
+   }
+  },
+  {
+   "id": "g11-economics-05-06",
+   "title": "Quartiles and percentiles",
+   "covers": [
+    "c5.3.6",
+    "c5.3.7",
+    "c5.3.8"
+   ],
+   "learn": {
+    "hook": "'You scored in the 98th percentile' does not mean you got 98 marks. It means you did better than (or as well as) about 98% of test takers.",
+    "points": [
+     "Note: quartiles and percentiles are in the NCERT book; check whether your school examines them this year.",
+     "Quartiles divide ordered data into four equal parts. There are three quartiles: Q1 (lower quartile), Q2 (the median) and Q3 (upper quartile).",
+     "For ungrouped data: Q1 = size of the ((N + 1)/4)th item; Q3 = size of the (3(N + 1)/4)th item.",
+     "Percentiles divide data into 100 equal parts (99 percentiles). P50 is the median, P25 = Q1, P75 = Q3.",
+     "Use: 25% of items lie below Q1 and 25% above Q3; e.g. if Q3 of incomes is ₹60,000, the top 25% earn more than ₹60,000."
+    ],
+    "example": {
+     "q": "Data: 2, 4, 6, 8, 10, 12, 14. Find Q1, median and Q3.",
+     "steps": [
+      "N = 7",
+      "Q1 = ((7 + 1)/4)th = 2nd item = 4",
+      "Median = 4th item = 8",
+      "Q3 = (3 × 8/4)th = 6th item = 12"
+     ],
+     "answer": "Q1 = 4, Median = 8, Q3 = 12"
+    },
+    "reallife": "Entrance exams like JEE Main report scores as percentiles, so candidates from different shifts can be compared fairly."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the measure",
+     "pairs": [
+      [
+       "Q1",
+       "Lower quartile, 25% of items below"
+      ],
+      [
+       "Q2",
+       "Median"
+      ],
+      [
+       "Q3",
+       "Upper quartile, 75% of items below"
+      ],
+      [
+       "P50",
+       "Same as the median"
+      ],
+      [
+       "Percentiles",
+       "Divide data into 100 equal parts"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Quartile facts",
+     "items": [
+      [
+       "There are three quartiles.",
+       true,
+       "Q1, Q2 and Q3 split data into four parts."
+      ],
+      [
+       "Q2 is the same as the median.",
+       true,
+       "It divides data into two halves."
+      ],
+      [
+       "The 90th percentile means a score of 90%.",
+       false,
+       "It means 90% of values lie at or below it."
+      ],
+      [
+       "Q3 is also called the upper quartile.",
+       true,
+       "75% of items lie below Q3."
+      ],
+      [
+       "Percentiles divide data into 10 parts.",
+       false,
+       "Deciles do that; percentiles divide into 100 parts."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many quartiles divide a data set into four equal parts?",
+     "options": [
+      "4",
+      "3",
+      "2",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "Three cut points (Q1, Q2, Q3) make four parts.",
+     "mistake": "Counts parts instead of cut points",
+     "check": "3"
+    },
+    {
+     "q": "For N = 15 ordered items, Q1 is the size of which item?",
+     "options": [
+      "4th",
+      "3rd",
+      "3.75th",
+      "5th"
+     ],
+     "answer": 0,
+     "explain": "(15 + 1)/4 = 4th item.",
+     "mistake": "Uses N/4 = 3.75"
+    },
+    {
+     "q": "Data: 3, 5, 7, 9, 11, 13, 15. Find Q3.",
+     "options": [
+      "11",
+      "15",
+      "12",
+      "13"
+     ],
+     "answer": 3,
+     "explain": "Q3 = (3 × 8/4)th = 6th item = 13.",
+     "steps": [
+      "N = 7, 3(N + 1)/4 = 6",
+      "6th item = 13"
+     ],
+     "mistake": "Picks the 5th item or averages two values",
+     "check": "13"
+    },
+    {
+     "q": "Data: 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 (11 items). Find Q1.",
+     "options": [
+      "3",
+      "7",
+      "5",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "(11 + 1)/4 = 3rd item = 5.",
+     "steps": [
+      "(N + 1)/4 = 12/4 = 3",
+      "3rd item = 5"
+     ],
+     "mistake": "Uses the 2nd item or N/4",
+     "check": "5"
+    },
+    {
+     "q": "P50 (the 50th percentile) is equal to:",
+     "options": [
+      "Q1",
+      "The median",
+      "The mean",
+      "Q3"
+     ],
+     "answer": 1,
+     "explain": "The 50th percentile splits data in half, like the median.",
+     "mistake": "Confuses the median with the mean"
+    },
+    {
+     "q": "A student is at the 85th percentile of a test. This means:",
+     "options": [
+      "About 85% of candidates scored at or below her",
+      "She scored 85 marks out of 100",
+      "She got 85% of questions right",
+      "She is in the top 85%"
+     ],
+     "answer": 0,
+     "explain": "A percentile rank tells the share of values at or below that score.",
+     "mistake": "Confuses percentile with percentage marks"
+    },
+    {
+     "q": "The upper quartile (Q3) of monthly incomes in a town is ₹60,000. What can we say?",
+     "options": [
+      "75% earn more than ₹60,000",
+      "Half earn more than ₹60,000",
+      "Everyone earns ₹60,000",
+      "25% of people earn more than ₹60,000"
+     ],
+     "answer": 3,
+     "explain": "75% lie below Q3, so the top 25% earn above it.",
+     "mistake": "Reverses the shares above and below Q3"
+    },
+    {
+     "q": "Assertion (A): Like the median, quartiles are positional measures.\nReason (R): Quartiles are located by the positions of items in ordered data.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Quartiles, like the median, depend on position, not on adding all values.",
+     "mistake": "Thinks quartiles are computed from the sum of values"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu heard that he is in the 90th percentile for singing. 'Did I get 90 marks? Teach me quartiles and percentiles!'",
+    "must": [
+     [
+      "four parts",
+      "four equal parts",
+      "quartile",
+      "quartiles"
+     ],
+     [
+      "100 parts",
+      "percentile",
+      "hundred"
+     ],
+     [
+      "below",
+      "at or below",
+      "90%"
+     ],
+     [
+      "median",
+      "q2",
+      "p50"
+     ]
+    ],
+    "praise": "Tweet! The 90th percentile means 90% scored at or below me. Quartiles split data into four parts, and Q2 is the median!",
+    "nudge": "Hmm, is the 90th percentile the same as 90 marks? What does a percentile tell me?"
+   }
+  },
+  {
+   "id": "g11-economics-05-07",
+   "title": "Mode",
+   "covers": [
+    "c5.4.1",
+    "c5.4.2",
+    "c5.4.3",
+    "c5.4.4",
+    "c5.4.5"
+   ],
+   "learn": {
+    "hook": "A shoe shop doesn't care about the average foot size. It wants the size most customers ask for. That's the mode.",
+    "points": [
+     "Mode is the value that occurs most frequently. Data may be unimodal (one mode), bimodal (two), multimodal (more), or have no mode if all values occur equally.",
+     "Discrete series: the mode is the value with the highest frequency.",
+     "Continuous series: the modal class has the highest frequency. Mode = L + (D1 / (D1 + D2)) × h, where D1 = f1 − f0 and D2 = f1 − f2 (f1 = modal class frequency, f0 = previous class, f2 = next class).",
+     "The formula needs equal, exclusive class intervals; convert cumulative or inclusive data first.",
+     "Mode suits qualitative data and choices like the most popular shoe, garment or collar size. It can also be located graphically from a histogram."
+    ],
+    "example": {
+     "q": "Classes 0–10, 10–20, 20–30, 30–40, 40–50 have f = 5, 8, 14, 10, 3. Find the mode.",
+     "steps": [
+      "Modal class = 20–30 (f1 = 14), f0 = 8, f2 = 10",
+      "D1 = 14 − 8 = 6, D2 = 14 − 10 = 4, h = 10",
+      "Mode = 20 + (6/(6 + 4)) × 10 = 20 + 6 = 26"
+     ],
+     "answer": "Mode = 26"
+    },
+    "reallife": "Clothing brands decide how many M, L and XL shirts to stock using the modal size in each city."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Mode sprint",
+     "items": [
+      {
+       "q": "Mode of 2, 3, 3, 5, 7, 3, 5",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "Mode of 9, 8, 8, 9, 9, 1",
+       "a": "9",
+       "check": "9"
+      },
+      {
+       "q": "D1 = 4, D2 = 6, L = 10, h = 10. Mode?",
+       "a": "14",
+       "check": "10+4/10*10"
+      },
+      {
+       "q": "D1 = 8, D2 = 4, L = 40, h = 6. Mode?",
+       "a": "44",
+       "check": "40+8/12*6"
+      },
+      {
+       "q": "f1 = 20, f0 = 12, f2 = 16. D1 + D2?",
+       "a": "12",
+       "check": "(20-12)+(20-16)"
+      },
+      {
+       "q": "X with frequencies 3, 9, 6, 2 for X = 5, 10, 15, 20. Mode?",
+       "a": "10",
+       "check": "10"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "How many modes?",
+     "buckets": [
+      "Unimodal",
+      "Bimodal",
+      "No mode"
+     ],
+     "items": [
+      [
+       "4, 5, 5, 6, 7",
+       0
+      ],
+      [
+       "2, 2, 4, 4, 6",
+       1
+      ],
+      [
+       "1, 2, 3, 4",
+       2
+      ],
+      [
+       "8, 8, 8, 9, 10, 10",
+       0
+      ],
+      [
+       "3, 3, 7, 7, 9, 1",
+       1
+      ],
+      [
+       "10, 20, 30, 40, 50",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the mode of 2, 3, 3, 5, 7, 3, 5.",
+     "options": [
+      "5",
+      "3",
+      "7",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "3 occurs three times, more than any other value.",
+     "mistake": "Picks the median or mean instead",
+     "check": "3"
+    },
+    {
+     "q": "The data 2, 2, 4, 4, 6 are:",
+     "options": [
+      "Bimodal",
+      "Unimodal",
+      "Without a mode",
+      "Multimodal with three modes"
+     ],
+     "answer": 0,
+     "explain": "Both 2 and 4 occur twice, so there are two modes.",
+     "mistake": "Thinks a data set can have only one mode"
+    },
+    {
+     "q": "Classes 10–20, 20–30, 30–40, 40–50, 50–60 have f = 4, 10, 16, 12, 6. Find the mode.",
+     "options": [
+      "35",
+      "34",
+      "40",
+      "36"
+     ],
+     "answer": 3,
+     "explain": "Modal class 30–40: D1 = 16 − 10 = 6, D2 = 16 − 12 = 4. Mode = 30 + (6/10) × 10 = 36.",
+     "steps": [
+      "Modal class 30–40, f1 = 16",
+      "D1 = 6, D2 = 4",
+      "30 + 6/10 × 10 = 36"
+     ],
+     "mistake": "Uses the mid-point of the modal class (35)",
+     "check": "30+6/(6+4)*10"
+    },
+    {
+     "q": "Given L = 40, D1 = 8, D2 = 4 and h = 6, the mode is:",
+     "options": [
+      "48",
+      "42",
+      "44",
+      "46"
+     ],
+     "answer": 2,
+     "explain": "40 + (8/12) × 6 = 40 + 4 = 44.",
+     "steps": [
+      "8/(8 + 4) = 2/3",
+      "2/3 × 6 = 4",
+      "40 + 4 = 44"
+     ],
+     "mistake": "Uses D1/D2 instead of D1/(D1 + D2)",
+     "check": "40+8/(8+4)*6"
+    },
+    {
+     "q": "X: 5, 10, 15, 20 with f: 3, 9, 6, 2. What is the mode?",
+     "options": [
+      "9",
+      "10",
+      "15",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "The value with the highest frequency (9) is X = 10.",
+     "mistake": "Reports the highest frequency instead of the value",
+     "check": "10"
+    },
+    {
+     "q": "A shoe company wants to decide which size to produce in the largest quantity. Which average should it use?",
+     "options": [
+      "Mode",
+      "Mean",
+      "Median",
+      "Weighted mean"
+     ],
+     "answer": 0,
+     "explain": "The most frequently demanded size is the mode.",
+     "mistake": "Thinks the mean size is what most customers wear"
+    },
+    {
+     "q": "Why must class intervals be equal before applying the mode formula?",
+     "options": [
+      "Because the mode is always a whole number",
+      "Because unequal classes have no frequencies",
+      "Because the mean needs it",
+      "Because the formula compares frequencies of neighbouring classes, which is fair only when widths are equal"
+     ],
+     "answer": 3,
+     "explain": "Frequencies of classes of different widths are not comparable, so the modal class could be misjudged.",
+     "mistake": "Does not see why equal widths matter"
+    },
+    {
+     "q": "Assertion (A): Mode can be found for qualitative data such as the most popular colour.\nReason (R): Mode is based on frequency of occurrence, not on numerical values.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Counting which category occurs most needs no numbers, so mode works for attributes.",
+     "mistake": "Thinks every average needs numeric data"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Most birds in my flock like mango seeds. Is that the mode? How do I find the mode of grouped weights?'",
+    "must": [
+     [
+      "most frequent",
+      "most often",
+      "highest frequency",
+      "most common"
+     ],
+     [
+      "modal class"
+     ],
+     [
+      "d1",
+      "d2",
+      "formula",
+      "l +"
+     ],
+     [
+      "shoe",
+      "size",
+      "qualitative",
+      "popular"
+     ]
+    ],
+    "praise": "Tweet! Mode is the most frequent value, the modal class has the highest frequency, and the formula is L + D1/(D1 + D2) × h!",
+    "nudge": "Good! For grouped data, which class do you start from? And what are D1 and D2?"
+   }
+  },
+  {
+   "id": "g11-economics-05-08",
+   "title": "Comparing mean, median and mode",
+   "covers": [
+    "c5.5.1",
+    "c5.5.2",
+    "c5.5.3",
+    "c5.6.1",
+    "c5.6.2"
+   ],
+   "learn": {
+    "hook": "A start-up says 'average salary ₹18 lakh'. The intern says 'most of us earn ₹4 lakh'. Both are telling the truth, using different averages.",
+    "points": [
+     "In a symmetric distribution, mean = median = mode.",
+     "In an asymmetric (skewed) distribution, the median lies between the mean and the mode.",
+     "Mean: uses all values and suits further algebraic work, but is pulled by extremes and cannot be found with open-ended classes.",
+     "Median: unaffected by extremes, works with open-ended classes, suits qualitative ranking (e.g. intelligence) and income or wage data with a few very high values.",
+     "Mode: best for the most popular item or size (shoes, garments) and for qualitative data; may not be unique or may not exist."
+    ],
+    "example": {
+     "q": "Choose the best average: (a) typical wage in a firm where the owner earns ₹50 lakh and 40 workers earn ₹2–3 lakh; (b) the most popular collar size; (c) average marks of a class for computing total marks.",
+     "steps": [
+      "(a) Extreme value present → median",
+      "(b) Most frequent size → mode",
+      "(c) Need a value that relates to the total → mean"
+     ],
+     "answer": "(a) median, (b) mode, (c) mean"
+    },
+    "reallife": "Real-estate portals often quote median home prices, because a few luxury homes would push the mean up."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which average fits best?",
+     "buckets": [
+      "Mean",
+      "Median",
+      "Mode"
+     ],
+     "items": [
+      [
+       "Average runs to compute total runs for a season",
+       0
+      ],
+      [
+       "Typical income where a few earn crores",
+       1
+      ],
+      [
+       "Most popular shirt size",
+       2
+      ],
+      [
+       "Most common mode of travel among students",
+       2
+      ],
+      [
+       "Middle value of data with open-ended classes",
+       1
+      ],
+      [
+       "Average daily output for further calculations",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Mean, median, mode",
+     "items": [
+      [
+       "In a symmetric distribution, mean, median and mode are equal.",
+       true,
+       "The data balance around the centre."
+      ],
+      [
+       "The median lies between the mean and the mode in a skewed distribution.",
+       true,
+       "This is a standard relation."
+      ],
+      [
+       "The mean can be computed easily for open-ended classes.",
+       false,
+       "Open-ended classes have no mid-points."
+      ],
+      [
+       "The upper quartile is the same as the median.",
+       false,
+       "The upper quartile is Q3; the median is Q2."
+      ],
+      [
+       "The median is a positional average.",
+       true,
+       "It depends on position in ordered data."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In a perfectly symmetric distribution, the mean is 50. The median is:",
+     "options": [
+      "Less than 50",
+      "50",
+      "More than 50",
+      "Cannot be known"
+     ],
+     "answer": 1,
+     "explain": "In a symmetric distribution mean = median = mode.",
+     "mistake": "Assumes the averages always differ",
+     "check": "50"
+    },
+    {
+     "q": "In a skewed distribution, the mean is 40 and the mode is 30. Which value could be the median?",
+     "options": [
+      "35",
+      "25",
+      "45",
+      "50"
+     ],
+     "answer": 0,
+     "explain": "The median lies between the mean and the mode, so only 35 fits.",
+     "mistake": "Thinks the median lies outside the mean–mode range",
+     "check": "35"
+    },
+    {
+     "q": "Which average is most suitable for the typical wage of workers when a few managers earn extremely high salaries?",
+     "options": [
+      "Mean",
+      "Weighted mean",
+      "Sum of wages",
+      "Median"
+     ],
+     "answer": 3,
+     "explain": "The median ignores the extreme salaries.",
+     "mistake": "Uses the mean, which is distorted by extremes"
+    },
+    {
+     "q": "Which average should a garment maker use to decide the size to produce most?",
+     "options": [
+      "Mean",
+      "Median",
+      "Mode",
+      "Quartile"
+     ],
+     "answer": 2,
+     "explain": "Mode identifies the most demanded size.",
+     "mistake": "Picks the mean size"
+    },
+    {
+     "q": "For a distribution with open-ended classes like 'below 10' and '60 and above', the best average is generally the:",
+     "options": [
+      "Mean",
+      "Median",
+      "Geometric mean",
+      "Weighted mean"
+     ],
+     "answer": 1,
+     "explain": "The median can be found without knowing the open ends' limits.",
+     "mistake": "Forgets that open-ended classes have no mid-points"
+    },
+    {
+     "q": "Five values have mean 12. Their sum of deviations from the mean is:",
+     "options": [
+      "0",
+      "12",
+      "60",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "The sum of deviations from the arithmetic mean is always zero.",
+     "mistake": "Multiplies the mean by N",
+     "check": "0"
+    },
+    {
+     "q": "Which statement is correct?",
+     "options": [
+      "The mean is a positional average",
+      "The median is affected by extreme values",
+      "The median cannot be found for qualitative data that can be ranked",
+      "The mode may not be unique"
+     ],
+     "answer": 3,
+     "explain": "Data can be bimodal or multimodal, so the mode may not be unique.",
+     "mistake": "Mixes up properties of the three averages"
+    },
+    {
+     "q": "Assertion (A): The arithmetic mean is preferred when further algebraic treatment is needed.\nReason (R): The mean is based on all observations and has useful mathematical properties.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Because it uses every value and is algebraically defined, the mean is easy to use in further calculations.",
+     "mistake": "Thinks the median is better for algebraic work"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Mean, median or mode: which one should I use to describe my flock? Does it depend?'",
+    "must": [
+     [
+      "symmetric",
+      "equal",
+      "same"
+     ],
+     [
+      "extreme",
+      "median",
+      "middle"
+     ],
+     [
+      "mode",
+      "most frequent",
+      "popular"
+     ],
+     [
+      "mean",
+      "all values",
+      "algebraic"
+     ]
+    ],
+    "praise": "Tweet! Use the median when there are extremes, the mode for the most popular, and the mean when every value matters!",
+    "nudge": "Good! When would the median beat the mean? And when should I use the mode?"
+   }
+  }
+ ]
+}

@@ -1,0 +1,1628 @@
+{
+ "n": 6,
+ "title": "Statistics: Correlation",
+ "emoji": "🔗",
+ "topics": [
+  {
+   "id": "g11-economics-06-01",
+   "title": "What correlation studies: types of relationship",
+   "covers": [
+    "c6.1.1",
+    "c6.2.1",
+    "c6.2.2",
+    "c6.2.3",
+    "c6.2.4",
+    "c6.2.5"
+   ],
+   "learn": {
+    "hook": "Ice-cream sales and drowning cases rise together every summer. Does ice-cream cause drowning? Of course not. Welcome to the trickiest idea in statistics.",
+    "points": [
+     "Correlation studies whether two variables move together, in which direction, and how strongly.",
+     "Some relationships are cause and effect (a fall in price raises quantity demanded); others are coincidental.",
+     "Spurious correlation: two variables move together because both are driven by a third variable (ice-cream sales and drowning both rise with temperature).",
+     "Correlation measures covariation, not causation. The coefficient studied here measures linear (straight-line) relationships.",
+     "Positive correlation: both move in the same direction (income and consumption). Negative correlation: they move in opposite directions (price and quantity demanded)."
+    ],
+    "example": {
+     "q": "Classify: (a) height and weight of children, (b) price of a good and quantity demanded, (c) hours of practice and errors made in typing.",
+     "steps": [
+      "(a) Taller children tend to be heavier: same direction → positive.",
+      "(b) Higher price, lower quantity demanded: opposite → negative.",
+      "(c) More practice, fewer errors: opposite → negative."
+     ],
+     "answer": "(a) positive, (b) negative, (c) negative"
+    },
+    "reallife": "When onion prices rise sharply, families buy fewer onions: a negative correlation between price and quantity demanded that markets see every year."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Positive or negative correlation?",
+     "buckets": [
+      "Positive",
+      "Negative"
+     ],
+     "items": [
+      [
+       "Family income and spending on consumption",
+       0
+      ],
+      [
+       "Price of a good and quantity demanded",
+       1
+      ],
+      [
+       "Rainfall and umbrella sales",
+       0
+      ],
+      [
+       "Hours of study and marks (usually)",
+       0
+      ],
+      [
+       "Speed of a car and time taken for a trip",
+       1
+      ],
+      [
+       "Temperature and sales of woollens",
+       1
+      ],
+      [
+       "Fertiliser use and crop yield (within limits)",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Correlation vs causation",
+     "items": [
+      [
+       "A high correlation always means one variable causes the other.",
+       false,
+       "Correlation shows covariation, not causation."
+      ],
+      [
+       "Two variables may be correlated because a third variable affects both.",
+       true,
+       "This is spurious correlation."
+      ],
+      [
+       "Correlation can tell us the direction of a relationship.",
+       true,
+       "It can be positive or negative."
+      ],
+      [
+       "Price and quantity demanded usually show negative correlation.",
+       true,
+       "They move in opposite directions."
+      ],
+      [
+       "Ice-cream sales cause drowning.",
+       false,
+       "Both are driven by hot weather."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Correlation analysis studies:",
+     "options": [
+      "Whether, in which direction and how strongly two variables move together",
+      "Whether one variable causes another",
+      "Only the average of two variables",
+      "The difference between two means"
+     ],
+     "answer": 0,
+     "explain": "Correlation measures the existence, direction and strength of covariation.",
+     "mistake": "Thinks correlation establishes causation"
+    },
+    {
+     "q": "Income and consumption expenditure usually show:",
+     "options": [
+      "Negative correlation",
+      "Zero correlation",
+      "Perfect negative correlation",
+      "Positive correlation"
+     ],
+     "answer": 3,
+     "explain": "As income rises, consumption tends to rise.",
+     "mistake": "Confuses direction of movement"
+    },
+    {
+     "q": "The price of a good and its quantity demanded usually show:",
+     "options": [
+      "Positive correlation",
+      "No relationship",
+      "Negative correlation",
+      "Spurious correlation only"
+     ],
+     "answer": 2,
+     "explain": "A higher price usually reduces quantity demanded.",
+     "mistake": "Thinks higher price leads to higher demand"
+    },
+    {
+     "q": "Sales of ice-cream and the number of drowning cases are found to be positively correlated. The best explanation is:",
+     "options": [
+      "Ice-cream causes drowning",
+      "Both rise because of a third factor, hot weather",
+      "Drowning causes people to buy ice-cream",
+      "The data must be wrong"
+     ],
+     "answer": 1,
+     "explain": "Hot weather increases both, giving a spurious correlation.",
+     "mistake": "Assumes correlation means direct cause"
+    },
+    {
+     "q": "Assertion (A): A strong correlation between two variables proves that one causes the other.\nReason (R): Correlation measures how two variables vary together.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "Correlation measures covariation (R is true) but does not prove causation (A is false).",
+     "mistake": "Equates covariation with cause and effect"
+    },
+    {
+     "q": "Which pair is most likely to show a cause-and-effect relationship?",
+     "options": [
+      "Shoe size and reading ability of children of different ages",
+      "Number of storks and number of births in towns",
+      "Height of a tree and a student's marks",
+      "Price of a good and its quantity demanded"
+     ],
+     "answer": 3,
+     "explain": "A fall in price causes buyers to buy more; the others are coincidental or driven by a third factor (age, town size).",
+     "mistake": "Treats every observed association as causal"
+    },
+    {
+     "q": "The correlation coefficient studied in this chapter measures relationships that are:",
+     "options": [
+      "Only circular",
+      "Only qualitative",
+      "Linear",
+      "Always causal"
+     ],
+     "answer": 2,
+     "explain": "It measures the degree of linear (straight-line) relationship.",
+     "mistake": "Thinks it measures any kind of relationship"
+    },
+    {
+     "q": "If one variable rises while the other falls, the correlation is:",
+     "options": [
+      "Positive",
+      "Negative",
+      "Zero",
+      "Spurious"
+     ],
+     "answer": 1,
+     "explain": "Opposite movements mean negative correlation.",
+     "mistake": "Confuses negative with zero correlation"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu notices: 'When more birds sing, more flowers bloom! Does my singing make flowers bloom? Teach me correlation!'",
+    "must": [
+     [
+      "move together",
+      "together",
+      "relationship",
+      "covariation"
+     ],
+     [
+      "positive",
+      "same direction"
+     ],
+     [
+      "negative",
+      "opposite"
+     ],
+     [
+      "causation",
+      "cause",
+      "third variable",
+      "spurious"
+     ]
+    ],
+    "praise": "Tweet! Correlation shows variables moving together, positively or negatively, but it is not causation. Spring causes both!",
+    "nudge": "Good! But does moving together prove that one causes the other? Could a third factor explain it?"
+   }
+  },
+  {
+   "id": "g11-economics-06-02",
+   "title": "Scatter diagrams",
+   "covers": [
+    "c6.3.1",
+    "c6.3.2",
+    "c6.3.3"
+   ],
+   "learn": {
+    "hook": "Plot each student's study hours against marks as a dot. Before any formula, the cloud of dots already tells the story.",
+    "points": [
+     "A scatter diagram plots each pair of values (X, Y) as a point on a graph, showing the relationship visually.",
+     "Points rising from lower left to upper right show positive correlation; falling from upper left to lower right show negative correlation.",
+     "Points scattered with no pattern show no (zero) correlation. Points lying exactly on a straight line show perfect correlation (+1 if rising, −1 if falling).",
+     "The closer the points lie to a straight line, the stronger the correlation.",
+     "A scatter diagram can reveal non-linear relationships (curves), but it does not give a numerical measure of correlation."
+    ],
+    "example": {
+     "q": "Pairs (study hours, marks): (1, 40), (2, 50), (3, 60), (4, 70), (5, 80). What will the scatter diagram show?",
+     "steps": [
+      "Each extra hour adds exactly 10 marks.",
+      "All points lie on one rising straight line."
+     ],
+     "answer": "Perfect positive correlation (r = +1)"
+    },
+    "reallife": "Economists plot inflation against interest rates for several years as a scatter to see if the two move together."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the scatter pattern to its correlation",
+     "pairs": [
+      [
+       "Points rise on a straight line",
+       "Perfect positive"
+      ],
+      [
+       "Points fall on a straight line",
+       "Perfect negative"
+      ],
+      [
+       "Points scattered with no trend",
+       "No correlation"
+      ],
+      [
+       "Points rise in a loose band",
+       "Moderate positive"
+      ],
+      [
+       "Points fall in a loose band",
+       "Moderate negative"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Scatter facts",
+     "items": [
+      [
+       "A scatter diagram gives the exact value of the correlation coefficient.",
+       false,
+       "It shows the relationship visually, not numerically."
+      ],
+      [
+       "Points clustered close to a rising line show strong positive correlation.",
+       true,
+       "Closer to a line means stronger."
+      ],
+      [
+       "A scatter diagram can show a curved relationship.",
+       true,
+       "Non-linear patterns are visible."
+      ],
+      [
+       "Points falling from left to right show positive correlation.",
+       false,
+       "That pattern is negative correlation."
+      ],
+      [
+       "Each point represents one pair of observations.",
+       true,
+       "One point per (X, Y) pair."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In a scatter diagram, each point represents:",
+     "options": [
+      "A pair of values of X and Y",
+      "One value of X only",
+      "The mean of X",
+      "The total of Y"
+     ],
+     "answer": 0,
+     "explain": "Every observation pair (X, Y) is plotted as one point.",
+     "mistake": "Thinks points represent single values"
+    },
+    {
+     "q": "Points in a scatter diagram fall from the upper left to the lower right in a narrow band. The correlation is:",
+     "options": [
+      "Strong positive",
+      "Zero",
+      "Perfect positive",
+      "Strong negative"
+     ],
+     "answer": 3,
+     "explain": "A falling, tight pattern means a strong negative relationship.",
+     "mistake": "Confuses the direction"
+    },
+    {
+     "q": "All points lie exactly on a straight line rising to the right. The correlation coefficient is:",
+     "options": [
+      "0",
+      "−1",
+      "1",
+      "0.5"
+     ],
+     "answer": 2,
+     "explain": "Points on a rising straight line indicate perfect positive correlation.",
+     "mistake": "Confuses perfect positive and perfect negative",
+     "check": "1"
+    },
+    {
+     "q": "Points are scattered all over the graph with no visible pattern. This suggests:",
+     "options": [
+      "Perfect correlation",
+      "No correlation",
+      "Strong negative correlation",
+      "Causation"
+     ],
+     "answer": 1,
+     "explain": "No trend means no (linear) correlation.",
+     "mistake": "Reads a pattern into random scatter"
+    },
+    {
+     "q": "Pairs: (1, 10), (2, 8), (3, 6), (4, 4), (5, 2). What does the scatter diagram show?",
+     "options": [
+      "Perfect negative correlation",
+      "Perfect positive correlation",
+      "No correlation",
+      "Weak positive correlation"
+     ],
+     "answer": 0,
+     "explain": "Y falls by exactly 2 for each unit rise in X: all points on a falling straight line, r = −1.",
+     "mistake": "Looks only at the first pair"
+    },
+    {
+     "q": "A main limitation of a scatter diagram is that it:",
+     "options": [
+      "Cannot show direction",
+      "Cannot be drawn for economic data",
+      "Needs ranks",
+      "Does not give a numerical measure of correlation"
+     ],
+     "answer": 3,
+     "explain": "It gives a visual idea only, not an exact figure.",
+     "mistake": "Thinks it cannot show direction"
+    },
+    {
+     "q": "Assertion (A): A scatter diagram can reveal a non-linear relationship that the correlation coefficient may miss.\nReason (R): The correlation coefficient measures only linear relationships.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "A curve may give r close to 0, but the scatter clearly shows a pattern.",
+     "mistake": "Thinks r captures every kind of relationship"
+    },
+    {
+     "q": "Points form a U-shaped curve on a scatter diagram. The correct conclusion is:",
+     "options": [
+      "There is no relationship",
+      "There is a non-linear relationship",
+      "There is perfect positive correlation",
+      "There is perfect negative correlation"
+     ],
+     "answer": 1,
+     "explain": "A U-shape is a clear curved relationship, even though linear correlation may be low.",
+     "mistake": "Equates low linear correlation with no relationship"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu plotted dots for how high birds fly and how cold they feel. 'The dots go up to the right. What does that mean?'",
+    "must": [
+     [
+      "scatter",
+      "points",
+      "dots",
+      "plot"
+     ],
+     [
+      "upward",
+      "rising",
+      "positive"
+     ],
+     [
+      "downward",
+      "falling",
+      "negative"
+     ],
+     [
+      "straight line",
+      "line",
+      "pattern",
+      "no pattern"
+     ]
+    ],
+    "praise": "Tweet! Rising dots mean positive correlation, falling dots negative, no pattern means none, and a straight line is perfect!",
+    "nudge": "Good! What would falling dots mean? And what if the dots form a perfect line?"
+   }
+  },
+  {
+   "id": "g11-economics-06-03",
+   "title": "Karl Pearson's coefficient of correlation",
+   "covers": [
+    "c6.4.1",
+    "c6.4.2",
+    "c6.4.3",
+    "c6.4.4",
+    "c6.4.5",
+    "c6.4.11"
+   ],
+   "learn": {
+    "hook": "One number between −1 and +1 sums up how tightly two variables move together. Karl Pearson gave us the formula that does it.",
+    "points": [
+     "Karl Pearson's coefficient (product moment or simple correlation coefficient) r measures the degree of linear relationship between two variables.",
+     "Covariance: cov(X, Y) = Σ(X − X̄)(Y − Ȳ)/N = Σxy/N, where x = X − X̄ and y = Y − Ȳ. Standard deviations: σx = √(Σx²/N), σy = √(Σy²/N).",
+     "r = Σxy / (N σx σy), which simplifies to r = Σxy / (√Σx² × √Σy²).",
+     "Direct (actual values) formula: r = [NΣXY − ΣXΣY] / [√(NΣX² − (ΣX)²) × √(NΣY² − (ΣY)²)].",
+     "Typical uses: years of schooling of farmers vs farm yield; price index vs money supply."
+    ],
+    "example": {
+     "q": "X: 1, 2, 3, 4, 5 and Y: 8, 6, 12, 10, 14. Find r.",
+     "steps": [
+      "X̄ = 3, Ȳ = 10",
+      "x = −2, −1, 0, 1, 2; y = −2, −4, 2, 0, 4",
+      "Σxy = 4 + 4 + 0 + 0 + 8 = 16",
+      "Σx² = 10, Σy² = 4 + 16 + 4 + 0 + 16 = 40",
+      "r = 16 / (√10 × √40) = 16/20 = 0.8"
+     ],
+     "answer": "r = 0.8 (high positive correlation)"
+    },
+    "reallife": "Studies of Indian farmers have used Pearson's r to check whether more years of schooling go along with higher crop yields."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the symbol to its meaning",
+     "pairs": [
+      [
+       "x",
+       "X − X̄"
+      ],
+      [
+       "Σxy / N",
+       "Covariance of X and Y"
+      ],
+      [
+       "√(Σx² / N)",
+       "Standard deviation of X"
+      ],
+      [
+       "Σxy / (√Σx² √Σy²)",
+       "Pearson's r"
+      ],
+      [
+       "NΣXY − ΣXΣY",
+       "Numerator of the direct formula"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Computing r from deviations",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Find the means X̄ and Ȳ",
+      "Find deviations x = X − X̄ and y = Y − Ȳ",
+      "Compute xy, x² and y² for each pair",
+      "Add to get Σxy, Σx² and Σy²",
+      "Apply r = Σxy / (√Σx² × √Σy²)"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Given Σxy = 16, Σx² = 10 and Σy² = 40, find r.",
+     "options": [
+      "0.8",
+      "0.4",
+      "1.6",
+      "0.16"
+     ],
+     "answer": 0,
+     "explain": "r = 16 / (√10 × √40) = 16 / √400 = 16/20 = 0.8.",
+     "steps": [
+      "√10 × √40 = √400 = 20",
+      "r = 16/20 = 0.8"
+     ],
+     "mistake": "Forgets the square roots in the denominator",
+     "check": "16/20"
+    },
+    {
+     "q": "Σxy = 30, N = 10, σx = 2, σy = 3. Find r.",
+     "options": [
+      "1",
+      "5",
+      "0.25",
+      "0.5"
+     ],
+     "answer": 3,
+     "explain": "r = Σxy / (N σx σy) = 30 / (10 × 2 × 3) = 30/60 = 0.5.",
+     "steps": [
+      "N σx σy = 10 × 2 × 3 = 60",
+      "r = 30/60 = 0.5"
+     ],
+     "mistake": "Leaves out N from the denominator",
+     "check": "30/(10*2*3)"
+    },
+    {
+     "q": "For 5 pairs, Σxy = 16. What is the covariance of X and Y?",
+     "options": [
+      "16",
+      "80",
+      "3.2",
+      "0.8"
+     ],
+     "answer": 2,
+     "explain": "cov = Σxy/N = 16/5 = 3.2.",
+     "steps": [
+      "cov = Σxy/N",
+      "16/5 = 3.2"
+     ],
+     "mistake": "Gives Σxy without dividing by N",
+     "check": "16/5"
+    },
+    {
+     "q": "Covariance is 3.2, σx = √2 and σy = √8. Find r.",
+     "options": [
+      "3.2",
+      "0.8",
+      "0.4",
+      "1.6"
+     ],
+     "answer": 1,
+     "explain": "σx σy = √16 = 4, so r = 3.2/4 = 0.8.",
+     "steps": [
+      "σx × σy = √2 × √8 = 4",
+      "r = 3.2/4 = 0.8"
+     ],
+     "mistake": "Divides by only one standard deviation",
+     "check": "3.2/4"
+    },
+    {
+     "q": "N = 5, ΣX = 15, ΣY = 50, ΣXY = 166, ΣX² = 55, ΣY² = 540. Find r by the direct method.",
+     "options": [
+      "0.8",
+      "0.6",
+      "0.9",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "Numerator = 5×166 − 15×50 = 80. Denominator = √(275 − 225) × √(2,700 − 2,500) = √50 × √200 = 100. r = 0.8.",
+     "steps": [
+      "NΣXY − ΣXΣY = 830 − 750 = 80",
+      "NΣX² − (ΣX)² = 275 − 225 = 50",
+      "NΣY² − (ΣY)² = 2,700 − 2,500 = 200",
+      "r = 80/√(50 × 200) = 80/100 = 0.8"
+     ],
+     "mistake": "Squares ΣX wrongly or forgets to multiply by N",
+     "check": "80/100"
+    },
+    {
+     "q": "Karl Pearson's coefficient is also known as the:",
+     "options": [
+      "Rank correlation coefficient",
+      "Coefficient of variation",
+      "Index number",
+      "Product moment correlation coefficient"
+     ],
+     "answer": 3,
+     "explain": "It is also called the product moment or simple correlation coefficient.",
+     "mistake": "Confuses it with Spearman's rank correlation"
+    },
+    {
+     "q": "Σxy = −24, Σx² = 16 and Σy² = 64. Find r.",
+     "options": [
+      "0.75",
+      "−0.375",
+      "−0.75",
+      "−24"
+     ],
+     "answer": 2,
+     "explain": "r = −24 / (4 × 8) = −24/32 = −0.75.",
+     "steps": [
+      "√16 × √64 = 4 × 8 = 32",
+      "r = −24/32 = −0.75"
+     ],
+     "mistake": "Drops the negative sign",
+     "check": "-24/32"
+    },
+    {
+     "q": "Assertion (A): Pearson's r is a better measure of the degree of relationship than covariance.\nReason (R): Covariance depends on the units of X and Y, while r is a pure number.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Dividing covariance by both standard deviations removes units, so r can be compared across data sets.",
+     "mistake": "Thinks covariance and r are equally comparable"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I turn my scatter of dots into one number? Teach me Karl Pearson's formula!'",
+    "must": [
+     [
+      "deviations",
+      "deviation",
+      "from mean",
+      "x minus mean"
+     ],
+     [
+      "sum of xy",
+      "product",
+      "covariance"
+     ],
+     [
+      "square root",
+      "standard deviation"
+     ],
+     [
+      "divide",
+      "r ="
+     ]
+    ],
+    "praise": "Tweet! Find deviations from the means, multiply and add them, divide by the square roots of the squared sums. That's r!",
+    "nudge": "Good! After finding deviations, what do you multiply? And what goes in the denominator?"
+   }
+  },
+  {
+   "id": "g11-economics-06-04",
+   "title": "Properties and interpretation of r",
+   "covers": [
+    "c6.4.6",
+    "c6.4.7",
+    "c6.4.8",
+    "c6.4.9",
+    "c6.4.12",
+    "c6.6.1",
+    "c6.6.2"
+   ],
+   "learn": {
+    "hook": "A student computes r = 1.4 and proudly calls it 'super strong correlation'. A strict examiner circles it in red, because it is impossible.",
+    "points": [
+     "r is a pure number with no units, so relationships measured in different units can be compared. This is why it is preferred to covariance.",
+     "−1 ≤ r ≤ +1. Any value outside this range means a calculation error.",
+     "r is unaffected by a change of origin (adding or subtracting a constant) and of scale (multiplying or dividing by a positive constant).",
+     "r = +1: perfect positive; r = −1: perfect negative; r close to ±1: strong; r close to 0: weak; r = 0: no LINEAR relationship (a non-linear one may still exist, so it does not prove independence).",
+     "Use common sense: areas with more doctors may show more deaths during an epidemic (doctors are sent where the disease is), but doctors do not cause deaths."
+    ],
+    "example": {
+     "q": "Heights in cm give r = 0.6 between brothers and sisters. If heights are converted to inches (÷ 2.54), what is r?",
+     "steps": [
+      "Converting units is a change of scale.",
+      "r is unaffected by change of scale."
+     ],
+     "answer": "r stays 0.6"
+    },
+    "reallife": "Market analysts report r between rainfall and kharif output; a value of 0.7 means a fairly strong positive linear link, not that rain is the only cause."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Properties of r",
+     "items": [
+      [
+       "r can be 1.2 if the relationship is very strong.",
+       false,
+       "r cannot exceed +1; 1.2 means an error."
+      ],
+      [
+       "r has no units.",
+       true,
+       "It is a pure number."
+      ],
+      [
+       "Adding 10 to every X value changes r.",
+       false,
+       "Change of origin does not affect r."
+      ],
+      [
+       "r = 0 means the variables are definitely independent.",
+       false,
+       "It only means no linear relation; a curved relation is possible."
+      ],
+      [
+       "r = −1 means perfect negative correlation.",
+       true,
+       "All points lie on a falling straight line."
+      ],
+      [
+       "Multiplying every Y by 5 leaves r unchanged.",
+       true,
+       "Change of scale by a positive constant does not affect r."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match r to its meaning",
+     "pairs": [
+      [
+       "r = +1",
+       "Perfect positive linear correlation"
+      ],
+      [
+       "r = −1",
+       "Perfect negative linear correlation"
+      ],
+      [
+       "r = 0",
+       "No linear correlation"
+      ],
+      [
+       "r = 0.9",
+       "High positive correlation"
+      ],
+      [
+       "r = −0.2",
+       "Low negative correlation"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The unit of the correlation coefficient is:",
+     "options": [
+      "It has no unit",
+      "Same as that of X",
+      "Same as that of Y",
+      "Product of the units of X and Y"
+     ],
+     "answer": 0,
+     "explain": "r is a pure number.",
+     "mistake": "Confuses r with covariance, which has units"
+    },
+    {
+     "q": "Which of the following values of r is impossible?",
+     "options": [
+      "−0.95",
+      "0",
+      "0.5",
+      "1.05"
+     ],
+     "answer": 3,
+     "explain": "r must lie between −1 and +1; 1.05 indicates a calculation error.",
+     "mistake": "Thinks stronger relationships can exceed 1",
+     "check": "1.05"
+    },
+    {
+     "q": "r between X and Y is 0.6. If every X is increased by 50 and every Y is divided by 10, the new r is:",
+     "options": [
+      "0.06",
+      "6",
+      "0.6",
+      "50.6"
+     ],
+     "answer": 2,
+     "explain": "r is unaffected by change of origin and (positive) scale.",
+     "mistake": "Applies the transformations to r itself",
+     "check": "0.6"
+    },
+    {
+     "q": "r = 0 between two variables means:",
+     "options": [
+      "They are independent in every sense",
+      "There is no linear relationship between them",
+      "There is perfect correlation",
+      "There is a calculation error"
+     ],
+     "answer": 1,
+     "explain": "There could still be a non-linear relationship.",
+     "mistake": "Equates zero correlation with independence"
+    },
+    {
+     "q": "Assertion (A): Correlation coefficient r is preferred to covariance for measuring the degree of relationship.\nReason (R): r can lie outside the range −1 to +1.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "r is preferred because it is unit-free, but it always lies between −1 and +1; R is false.",
+     "mistake": "Does not know the range of r"
+    },
+    {
+     "q": "During an epidemic, districts with more doctors record more deaths. The correct interpretation is:",
+     "options": [
+      "Doctors cause deaths",
+      "The data must be fake",
+      "Doctors and deaths are negatively correlated",
+      "More doctors were sent to districts where the disease was worse"
+     ],
+     "answer": 3,
+     "explain": "The epidemic's severity drives both; common sense rejects a causal reading.",
+     "mistake": "Interprets correlation as causation"
+    },
+    {
+     "q": "Which value of r shows the strongest relationship?",
+     "options": [
+      "0.75",
+      "0.50",
+      "−0.90",
+      "−0.10"
+     ],
+     "answer": 2,
+     "explain": "Strength depends on the absolute value; |−0.90| is the largest.",
+     "mistake": "Thinks negative values are always weaker",
+     "check": "-0.90"
+    },
+    {
+     "q": "A positive value of r indicates that:",
+     "options": [
+      "X causes Y",
+      "X and Y tend to move in the same direction",
+      "X and Y move in opposite directions",
+      "There is no relationship"
+     ],
+     "answer": 1,
+     "explain": "Positive r means both tend to rise or fall together.",
+     "mistake": "Reads positive r as causation"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu got r = 1.3 for wing size and flight speed. 'Wow, super strong! Is that right?' Teach Gappu the properties of r.",
+    "must": [
+     [
+      "between -1 and 1",
+      "between −1 and +1",
+      "minus one",
+      "cannot exceed",
+      "range"
+     ],
+     [
+      "no unit",
+      "pure number",
+      "unitless"
+     ],
+     [
+      "origin",
+      "scale",
+      "unaffected"
+     ],
+     [
+      "not causation",
+      "linear",
+      "zero",
+      "common sense"
+     ]
+    ],
+    "praise": "Tweet! r lies between −1 and +1, has no units, ignores changes of origin and scale, and r = 0 means no linear relation!",
+    "nudge": "Hmm, can r ever be more than 1? What range must it stay within?"
+   }
+  },
+  {
+   "id": "g11-economics-06-05",
+   "title": "Step deviation method and computing r",
+   "covers": [
+    "c6.4.10",
+    "c6.6.3"
+   ],
+   "learn": {
+    "hook": "Big numbers like 1,20,000 and 3,40,000 make Pearson's formula painful. Shift and shrink them first: r won't even notice.",
+    "points": [
+     "Because r is unaffected by change of origin and scale, define U = (X − A)/B and V = (Y − C)/D for convenient A, B, C, D (B, D > 0).",
+     "Compute r using U and V exactly as with X and Y: r_UV = r_XY.",
+     "Perfectly linear data (e.g. Y = 2X + 3) give r = +1; Y = −3X + 10 gives r = −1.",
+     "Symmetric data such as X: −2, −1, 0, 1, 2 with Y = X² (4, 1, 0, 1, 4) give r = 0, although Y depends exactly on X (non-linear)."
+    ],
+    "example": {
+     "q": "X: 10, 20, 30, 40, 50 and Y: 80, 60, 120, 100, 140. Find r using U = (X − 30)/10 and V = (Y − 100)/20.",
+     "steps": [
+      "U = −2, −1, 0, 1, 2; V = −1, −2, 1, 0, 2",
+      "ΣU = 0, ΣV = 0, so means are 0",
+      "ΣUV = 2 + 2 + 0 + 0 + 4 = 8; ΣU² = 10; ΣV² = 1 + 4 + 1 + 0 + 4 = 10",
+      "r = 8/√(10 × 10) = 8/10 = 0.8"
+     ],
+     "answer": "r = 0.8"
+    },
+    "reallife": "Analysts studying the price index and money supply (in lakh crore) shift and scale the figures first to make hand calculations manageable."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Step deviation and special cases",
+     "items": [
+      [
+       "r calculated from U and V equals r calculated from X and Y.",
+       true,
+       "r is unaffected by change of origin and scale."
+      ],
+      [
+       "Y = 2X + 3 for all observations gives r = +1.",
+       true,
+       "Exactly linear and rising."
+      ],
+      [
+       "Y = X² for X = −2, −1, 0, 1, 2 gives r = +1.",
+       false,
+       "It gives r = 0 because the relation is non-linear and symmetric."
+      ],
+      [
+       "Y = 10 − 3X for all observations gives r = −1.",
+       true,
+       "Exactly linear and falling."
+      ],
+      [
+       "Step deviation changes the strength of correlation.",
+       false,
+       "It only simplifies arithmetic."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Quick r",
+     "items": [
+      {
+       "q": "ΣUV = 8, ΣU² = 10, ΣV² = 10 (means zero). r?",
+       "a": "0.8",
+       "check": "8/10"
+      },
+      {
+       "q": "ΣUV = 6, ΣU² = 4, ΣV² = 9 (means zero). r?",
+       "a": "1",
+       "check": "6/(2*3)"
+      },
+      {
+       "q": "ΣUV = −9, ΣU² = 9, ΣV² = 25 (means zero). r?",
+       "a": "−0.6",
+       "check": "-9/(3*5)"
+      },
+      {
+       "q": "ΣUV = 0. r?",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "ΣUV = 12, ΣU² = 16, ΣV² = 25 (means zero). r?",
+       "a": "0.6",
+       "check": "12/(4*5)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "U = (X − 30)/10 and V = (Y − 100)/20. If r between U and V is 0.8, then r between X and Y is:",
+     "options": [
+      "0.8",
+      "0.04",
+      "16",
+      "0.4"
+     ],
+     "answer": 0,
+     "explain": "Change of origin and scale (positive factors) does not alter r.",
+     "mistake": "Adjusts r by the scale factors",
+     "check": "0.8"
+    },
+    {
+     "q": "U: −2, −1, 0, 1, 2 and V: −1, −2, 1, 0, 2 (both means zero). Find r.",
+     "options": [
+      "0.6",
+      "1",
+      "0.4",
+      "0.8"
+     ],
+     "answer": 3,
+     "explain": "ΣUV = 8, ΣU² = 10, ΣV² = 10, so r = 8/10 = 0.8.",
+     "steps": [
+      "UV = 2, 2, 0, 0, 4 → ΣUV = 8",
+      "ΣU² = 10, ΣV² = 10",
+      "r = 8/√100 = 0.8"
+     ],
+     "mistake": "Miscomputes ΣUV by ignoring signs",
+     "check": "8/10"
+    },
+    {
+     "q": "X: 1, 2, 3, 4 and Y: 5, 7, 9, 11. What is r?",
+     "options": [
+      "0.5",
+      "−1",
+      "1",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "Y = 2X + 3 exactly, a rising straight line, so r = +1.",
+     "mistake": "Thinks r must be computed only from the full formula and expects a fraction",
+     "check": "1"
+    },
+    {
+     "q": "X: 1, 2, 3, 4, 5 and Y: 13, 10, 7, 4, 1. What is r?",
+     "options": [
+      "1",
+      "−1",
+      "0",
+      "−0.5"
+     ],
+     "answer": 1,
+     "explain": "Y = 16 − 3X exactly, a falling straight line, so r = −1.",
+     "mistake": "Drops the negative sign",
+     "check": "-1"
+    },
+    {
+     "q": "X: −2, −1, 0, 1, 2 and Y = X², i.e. 4, 1, 0, 1, 4. What is r?",
+     "options": [
+      "0",
+      "1",
+      "−1",
+      "0.5"
+     ],
+     "answer": 0,
+     "explain": "x = X (mean 0), y = Y − 2 = 2, −1, −2, −1, 2. Σxy = −4 + 1 + 0 − 1 + 4 = 0, so r = 0, even though Y depends on X.",
+     "steps": [
+      "X̄ = 0, Ȳ = 2",
+      "Σxy = (−2)(2) + (−1)(−1) + 0 + (1)(−1) + (2)(2) = 0",
+      "r = 0"
+     ],
+     "mistake": "Assumes an exact relationship always gives r = ±1",
+     "check": "0"
+    },
+    {
+     "q": "Why is the step deviation method used for computing r?",
+     "options": [
+      "To change the value of r",
+      "To convert r into a percentage",
+      "To find ranks",
+      "To simplify calculations with large numbers, without changing r"
+     ],
+     "answer": 3,
+     "explain": "Shifting and scaling makes numbers small; r stays the same.",
+     "mistake": "Thinks it changes the result"
+    },
+    {
+     "q": "Σuv = 12, Σu² = 16 and Σv² = 25, where u and v are deviations from their means. Find r.",
+     "options": [
+      "0.48",
+      "0.75",
+      "0.6",
+      "1.2"
+     ],
+     "answer": 2,
+     "explain": "r = 12/(4 × 5) = 0.6.",
+     "steps": [
+      "√16 × √25 = 20",
+      "12/20 = 0.6"
+     ],
+     "mistake": "Divides by Σu² × Σv² without square roots",
+     "check": "12/(4*5)"
+    },
+    {
+     "q": "Assertion (A): The Y = X² data with X symmetric around zero give r = 0.\nReason (R): r measures only the linear relationship between variables.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The relation is perfect but curved, and r captures only linear relationships.",
+     "mistake": "Thinks r = 0 means no relationship at all"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has huge numbers like 12,000 and 34,000 for nest heights and egg weights. 'Must I square these monsters? Is there a shortcut?'",
+    "must": [
+     [
+      "origin",
+      "subtract",
+      "shift"
+     ],
+     [
+      "scale",
+      "divide",
+      "step deviation"
+     ],
+     [
+      "unchanged",
+      "same r",
+      "not affected",
+      "unaffected"
+     ]
+    ],
+    "praise": "Tweet! Subtract a constant and divide by another: r stays the same and the numbers become tiny!",
+    "nudge": "Good idea! But will shifting and dividing the numbers change r? Why or why not?"
+   }
+  },
+  {
+   "id": "g11-economics-06-06",
+   "title": "Spearman's rank correlation",
+   "covers": [
+    "c6.5.1",
+    "c6.5.2",
+    "c6.5.3",
+    "c6.5.4"
+   ],
+   "learn": {
+    "hook": "Three judges at a college dance contest rank ten performers. Which two judges think most alike? You can't measure 'grace' in centimetres, but you can rank it.",
+    "points": [
+     "Use rank correlation when attributes cannot be measured (beauty, honesty, intelligence), when only ranks are available, when data have extreme values, or when the relationship is monotonic but not linear.",
+     "Spearman's formula: r_s = 1 − 6ΣD² / (n³ − n), where D = difference between the two ranks of each item and n = number of pairs.",
+     "Case 1, ranks given: find D for each item, square, add, apply the formula.",
+     "Case 2, ranks not given: first rank each series (e.g. highest marks = rank 1), then proceed as in Case 1.",
+     "Comparing judges: compute r_s for each pair of judges; the pair with the highest r_s agree most."
+    ],
+    "example": {
+     "q": "Two judges rank 5 dancers: Judge A: 1, 2, 3, 4, 5; Judge B: 2, 1, 4, 3, 5. Find r_s.",
+     "steps": [
+      "D = −1, 1, −1, 1, 0",
+      "ΣD² = 1 + 1 + 1 + 1 + 0 = 4",
+      "n³ − n = 125 − 5 = 120",
+      "r_s = 1 − (6 × 4)/120 = 1 − 0.2 = 0.8"
+     ],
+     "answer": "r_s = 0.8"
+    },
+    "reallife": "Rankings such as NIRF college rankings can be compared year to year with rank correlation to see how stable the list is."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Rank correlation sprint",
+     "items": [
+      {
+       "q": "n = 5. n³ − n?",
+       "a": "120",
+       "check": "5**3-5"
+      },
+      {
+       "q": "n = 5, ΣD² = 4. r_s?",
+       "a": "0.8",
+       "check": "1-6*4/120"
+      },
+      {
+       "q": "n = 10. n³ − n?",
+       "a": "990",
+       "check": "10**3-10"
+      },
+      {
+       "q": "n = 10, ΣD² = 33. r_s?",
+       "a": "0.8",
+       "check": "1-6*33/990"
+      },
+      {
+       "q": "n = 6, ΣD² = 14. r_s?",
+       "a": "0.6",
+       "check": "1-6*14/210"
+      },
+      {
+       "q": "n = 7, ΣD² = 28. r_s?",
+       "a": "0.5",
+       "check": "1-6*28/336"
+      }
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Rank correlation or Pearson's r?",
+     "buckets": [
+      "Spearman's rank correlation",
+      "Karl Pearson's r"
+     ],
+     "items": [
+      [
+       "Judges ranking beauty contestants",
+       0
+      ],
+      [
+       "Heights and weights of 50 students",
+       1
+      ],
+      [
+       "Honesty and intelligence ratings",
+       0
+      ],
+      [
+       "Income and consumption of households",
+       1
+      ],
+      [
+       "Only the merit-list positions of students are known",
+       0
+      ],
+      [
+       "Price and quantity data from a market survey",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Two judges rank 5 items; ΣD² = 10. Find Spearman's rank correlation.",
+     "options": [
+      "0.5",
+      "0.8",
+      "−0.5",
+      "0.4"
+     ],
+     "answer": 0,
+     "explain": "r_s = 1 − (6 × 10)/(125 − 5) = 1 − 60/120 = 0.5.",
+     "steps": [
+      "n³ − n = 120",
+      "6 × 10 = 60",
+      "1 − 60/120 = 0.5"
+     ],
+     "mistake": "Uses n² − 1 or forgets to multiply ΣD² by 6",
+     "check": "1-6*10/120"
+    },
+    {
+     "q": "For 10 pairs of ranks, ΣD² = 33. Find r_s.",
+     "options": [
+      "0.67",
+      "0.2",
+      "0.97",
+      "0.8"
+     ],
+     "answer": 3,
+     "explain": "r_s = 1 − (6 × 33)/(1000 − 10) = 1 − 198/990 = 1 − 0.2 = 0.8.",
+     "steps": [
+      "n³ − n = 990",
+      "6 × 33 = 198",
+      "198/990 = 0.2",
+      "1 − 0.2 = 0.8"
+     ],
+     "mistake": "Uses n³ instead of n³ − n",
+     "check": "1-6*33/990"
+    },
+    {
+     "q": "Ranks by two judges for 4 contestants: A: 1, 2, 3, 4 and B: 4, 3, 2, 1. Find r_s.",
+     "options": [
+      "1",
+      "0",
+      "−1",
+      "0.5"
+     ],
+     "answer": 2,
+     "explain": "D = −3, −1, 1, 3; ΣD² = 20; n³ − n = 60; r_s = 1 − 120/60 = −1. Complete disagreement.",
+     "steps": [
+      "D = −3, −1, 1, 3",
+      "ΣD² = 9 + 1 + 1 + 9 = 20",
+      "1 − (6 × 20)/60 = 1 − 2 = −1"
+     ],
+     "mistake": "Forgets to square D, giving ΣD = 0",
+     "check": "1-6*20/60"
+    },
+    {
+     "q": "Marks of 5 students in Economics: 85, 70, 92, 60, 78. If the highest marks get rank 1, what is the rank of the student who scored 78?",
+     "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "In descending order: 92 (1), 85 (2), 78 (3), 70 (4), 60 (5).",
+     "mistake": "Ranks in ascending order by mistake",
+     "check": "3"
+    },
+    {
+     "q": "Spearman's rank correlation is most appropriate when:",
+     "options": [
+      "Variables are qualitative attributes like honesty that can only be ranked",
+      "Both variables are measured precisely in units",
+      "We need covariance",
+      "Data are only on one variable"
+     ],
+     "answer": 0,
+     "explain": "Attributes that cannot be measured can still be ranked.",
+     "mistake": "Uses rank correlation only for numerical data"
+    },
+    {
+     "q": "Judges P and Q have r_s = 0.62, Q and R have 0.35, P and R have 0.81. Which pair of judges agree most?",
+     "options": [
+      "P and Q",
+      "Q and R",
+      "All agree equally",
+      "P and R"
+     ],
+     "answer": 3,
+     "explain": "The highest rank correlation (0.81) shows the closest agreement.",
+     "mistake": "Picks the first pair listed"
+    },
+    {
+     "q": "Ranks of 5 items by two judges are identical (D = 0 for all). Find r_s.",
+     "options": [
+      "0",
+      "−1",
+      "1",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "ΣD² = 0, so r_s = 1 − 0 = 1: perfect agreement.",
+     "mistake": "Thinks D = 0 means no correlation",
+     "check": "1-0"
+    },
+    {
+     "q": "Assertion (A): Rank correlation can be used when data contain extreme values.\nReason (R): Ranks are not affected by how extreme a value is, only by its order.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "An extreme value just becomes rank 1 or rank n, so it does not distort the measure.",
+     "mistake": "Thinks ranks magnify extremes"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu and his friend ranked 5 songs differently. 'How can we tell how much we agree? We can't measure niceness!'",
+    "must": [
+     [
+      "rank",
+      "ranks",
+      "ranking"
+     ],
+     [
+      "difference",
+      "d squared",
+      "square"
+     ],
+     [
+      "six",
+      "n cube",
+      "n³",
+      "formula",
+      "1 minus"
+     ]
+    ],
+    "praise": "Tweet! Rank the songs, find the rank differences, square and add them, and use 1 − 6ΣD²/(n³ − n)!",
+    "nudge": "Good! We can rank the songs. What do we do with the differences in our ranks?"
+   }
+  },
+  {
+   "id": "g11-economics-06-07",
+   "title": "Tied ranks and comparing the two measures",
+   "covers": [
+    "c6.5.5",
+    "c6.5.6",
+    "c6.6.4"
+   ],
+   "learn": {
+    "hook": "Two students both score 60 and tie for 2nd place. Who gets rank 2 and who gets rank 3? Neither: both get 2.5.",
+    "points": [
+     "Tied (repeated) ranks: give each tied item the average of the ranks they would have occupied. Two items tied for 2nd and 3rd place each get 2.5; three tied for 4th, 5th, 6th each get 5.",
+     "Correction: for each group of m tied items, add (m³ − m)/12 to ΣD².",
+     "Formula with ties: r_s = 1 − 6[ΣD² + Σ(m³ − m)/12] / (n³ − n).",
+     "Like r, the rank correlation coefficient lies between −1 and +1.",
+     "Rank correlation is generally less precise than Pearson's r because it uses ranks rather than actual values, and so uses less information."
+    ],
+    "example": {
+     "q": "X marks: 50, 60, 60, 70, 80 (ranked ascending: 1, 2.5, 2.5, 4, 5); Y ranks: 2, 1, 3, 5, 4. Find r_s.",
+     "steps": [
+      "D = −1, 1.5, −0.5, −1, 1; D² = 1, 2.25, 0.25, 1, 1",
+      "ΣD² = 5.5",
+      "One tie with m = 2: correction = (8 − 2)/12 = 0.5",
+      "r_s = 1 − 6(5.5 + 0.5)/(125 − 5) = 1 − 36/120 = 0.7"
+     ],
+     "answer": "r_s = 0.7"
+    },
+    "reallife": "You can try it: rank the prices of 6 vegetables in two different markets of your city and compute rank correlation, handling equal prices as ties."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Ties sprint",
+     "items": [
+      {
+       "q": "Two items tied at ranks 2 and 3. Rank each?",
+       "a": "2.5",
+       "check": "(2+3)/2"
+      },
+      {
+       "q": "Three items tied at ranks 4, 5, 6. Rank each?",
+       "a": "5",
+       "check": "(4+5+6)/3"
+      },
+      {
+       "q": "Correction for m = 2",
+       "a": "0.5",
+       "check": "(2**3-2)/12"
+      },
+      {
+       "q": "Correction for m = 3",
+       "a": "2",
+       "check": "(3**3-3)/12"
+      },
+      {
+       "q": "Two items tied at ranks 7 and 8. Rank each?",
+       "a": "7.5",
+       "check": "(7+8)/2"
+      },
+      {
+       "q": "Correction for m = 4",
+       "a": "5",
+       "check": "(4**3-4)/12"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Ties and comparison",
+     "items": [
+      [
+       "Tied items get the average of the ranks they would occupy.",
+       true,
+       "E.g. ranks 2 and 3 become 2.5 each."
+      ],
+      [
+       "The correction for a tie of m items is (m³ − m)/12.",
+       true,
+       "It is added to ΣD² for each tie."
+      ],
+      [
+       "Rank correlation can be 1.5 when there are many ties.",
+       false,
+       "It always lies between −1 and +1."
+      ],
+      [
+       "Rank correlation uses more information than Pearson's r.",
+       false,
+       "It uses only ranks, so it uses less information."
+      ],
+      [
+       "Three items tied for 1st, 2nd and 3rd place each get rank 2.",
+       true,
+       "(1 + 2 + 3)/3 = 2."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Marks 45, 52, 52, 60 are ranked in ascending order. What rank does each 52 receive?",
+     "options": [
+      "2.5",
+      "2",
+      "3",
+      "1.5"
+     ],
+     "answer": 0,
+     "explain": "They would occupy ranks 2 and 3, so each gets (2 + 3)/2 = 2.5.",
+     "mistake": "Gives both the same lower rank 2",
+     "check": "(2+3)/2"
+    },
+    {
+     "q": "Three items tie for ranks 5, 6 and 7. Each gets the rank:",
+     "options": [
+      "5",
+      "7",
+      "18",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "(5 + 6 + 7)/3 = 6.",
+     "mistake": "Gives each the first rank of the group",
+     "check": "(5+6+7)/3"
+    },
+    {
+     "q": "What is the correction factor added to ΣD² for one tie of 3 items?",
+     "options": [
+      "0.5",
+      "3",
+      "2",
+      "24"
+     ],
+     "answer": 2,
+     "explain": "(3³ − 3)/12 = 24/12 = 2.",
+     "steps": [
+      "m³ − m = 27 − 3 = 24",
+      "24/12 = 2"
+     ],
+     "mistake": "Forgets to divide by 12",
+     "check": "(3**3-3)/12"
+    },
+    {
+     "q": "n = 5, ΣD² = 5.5 and there is one tie of 2 items. Find r_s.",
+     "options": [
+      "0.725",
+      "0.7",
+      "0.75",
+      "0.45"
+     ],
+     "answer": 1,
+     "explain": "Correction = 0.5; r_s = 1 − 6(5.5 + 0.5)/120 = 1 − 36/120 = 0.7.",
+     "steps": [
+      "ΣD² + correction = 6",
+      "6 × 6 = 36",
+      "1 − 36/120 = 0.7"
+     ],
+     "mistake": "Forgets the tie correction (gets 0.725)",
+     "check": "1-6*(5.5+0.5)/120"
+    },
+    {
+     "q": "n = 6, ΣD² = 12, with one tie of 2 items and another tie of 3 items. Find r_s.",
+     "options": [
+      "0.59",
+      "0.66",
+      "0.50",
+      "0.45"
+     ],
+     "answer": 0,
+     "explain": "Corrections = 0.5 + 2 = 2.5; r_s = 1 − 6(12 + 2.5)/(216 − 6) = 1 − 87/210 ≈ 0.586, i.e. about 0.59.",
+     "steps": [
+      "Corrections: 0.5 (m = 2) + 2 (m = 3) = 2.5",
+      "6 × 14.5 = 87",
+      "n³ − n = 210",
+      "1 − 87/210 ≈ 0.586 ≈ 0.59"
+     ],
+     "mistake": "Leaves out one of the corrections",
+     "check": "1-6*(12+2.5)/210"
+    },
+    {
+     "q": "Rank correlation, like Pearson's r, always lies between:",
+     "options": [
+      "0 and 1",
+      "−∞ and +∞",
+      "0 and 100",
+      "−1 and +1"
+     ],
+     "answer": 3,
+     "explain": "Both coefficients lie in the range −1 to +1.",
+     "mistake": "Thinks correlation cannot be negative"
+    },
+    {
+     "q": "Why is rank correlation generally less precise than Pearson's r for measurable data?",
+     "options": [
+      "It uses more information",
+      "It cannot be negative",
+      "It ignores the actual size of differences between values and uses only their order",
+      "It needs larger samples by law"
+     ],
+     "answer": 2,
+     "explain": "Converting values to ranks discards information about magnitudes.",
+     "mistake": "Thinks ranks hold all the information in the values"
+    },
+    {
+     "q": "Assertion (A): When ranks are tied, a correction is added to ΣD².\nReason (R): Averaging tied ranks alters the sum of squares of ranks, so the formula needs adjusting.",
+     "options": [
+      "Both A and R are true and R explains A",
+      "Both A and R are true but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "The correction (m³ − m)/12 compensates for the effect of averaged ranks.",
+     "mistake": "Thinks ties need no special treatment"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's two favourite songs got exactly the same score. 'Which one gets rank 1? What happens to the formula?'",
+    "must": [
+     [
+      "average",
+      "average rank",
+      "mean of ranks",
+      "1.5"
+     ],
+     [
+      "correction",
+      "m cube",
+      "m³",
+      "12"
+     ],
+     [
+      "between -1 and 1",
+      "between −1 and +1",
+      "less precise",
+      "less information"
+     ]
+    ],
+    "praise": "Tweet! Tied songs share the average rank 1.5, and we add (m³ − m)/12 to ΣD². Fair for everyone!",
+    "nudge": "Good! But what rank do the tied songs get? And how does the formula change?"
+   }
+  }
+ ]
+}
