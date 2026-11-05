@@ -1,0 +1,1453 @@
+{
+ "n": 13,
+ "title": "Statistics",
+ "emoji": "📊",
+ "topics": [
+  {
+   "id": "g11-maths-13-01",
+   "title": "Why spread matters; the range",
+   "covers": [
+    "c13.1.1",
+    "c13.1.2",
+    "c13.2.1",
+    "c13.2.2",
+    "c13.3.1"
+   ],
+   "learn": {
+    "hook": "Two batters both average 50. One scores 48, 50, 52 every match; the other scores 0, 100, 0, 100. Same mean — very different reliability. That difference is dispersion.",
+    "points": [
+     "Statistics collects, organises and interprets data. Mean, median and mode (from Class 10) are measures of central tendency: they give a typical value.",
+     "Data sets with the same mean can be spread very differently, so we also need measures of dispersion.",
+     "Dispersion is the scatter (variability) of observations about a central value.",
+     "Measures of dispersion: range, quartile deviation, mean deviation and standard deviation (with variance).",
+     "Range = maximum value − minimum value. It is quick but uses only the two extreme values."
+    ],
+    "example": {
+     "q": "Batter A's scores: 45, 12, 78, 30, 92, 8, 55. Batter B's: 40, 52, 61, 35, 70, 48, 58. Compare their ranges.",
+     "steps": [
+      "A: max 92, min 8, range 84.",
+      "B: max 70, min 35, range 35.",
+      "A's scores are far more spread out; B is more consistent."
+     ],
+     "answer": "Range A = 84, range B = 35"
+    },
+    "reallife": "IMD reports the daily temperature range (max − min) for cities; a desert town like Jaisalmer often has a much larger daily range than coastal Mumbai."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Central tendency or dispersion?",
+     "buckets": [
+      "Central tendency",
+      "Dispersion"
+     ],
+     "items": [
+      [
+       "Mean",
+       0
+      ],
+      [
+       "Median",
+       0
+      ],
+      [
+       "Mode",
+       0
+      ],
+      [
+       "Range",
+       1
+      ],
+      [
+       "Mean deviation",
+       1
+      ],
+      [
+       "Standard deviation",
+       1
+      ],
+      [
+       "Variance",
+       1
+      ],
+      [
+       "Quartile deviation",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Find the range",
+     "items": [
+      {
+       "q": "4, 9, 2, 15, 7",
+       "a": "13",
+       "check": "15-2"
+      },
+      {
+       "q": "−3, 5, 0, 8",
+       "a": "11",
+       "check": "8-(-3)"
+      },
+      {
+       "q": "12, 12, 12",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "Max temp 41 °C, min 26 °C",
+       "a": "15",
+       "check": "41-26"
+      },
+      {
+       "q": "100, 250, 175, 90",
+       "a": "160",
+       "check": "250-90"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the range of 23, 45, 12, 67, 34, 18.",
+     "options": [
+      "55",
+      "33.5",
+      "45",
+      "67"
+     ],
+     "answer": 0,
+     "explain": "Range = 67 − 12 = 55.",
+     "mistake": "Gives the maximum value",
+     "check": "67-12"
+    },
+    {
+     "q": "Why do we need measures of dispersion if we already have the mean?",
+     "options": [
+      "Because the mean is always wrong",
+      "Because the mean cannot be calculated for large data",
+      "Because dispersion gives the most frequent value",
+      "Data sets with the same mean can have very different spreads"
+     ],
+     "answer": 3,
+     "explain": "The mean gives a centre; dispersion tells how tightly the data cluster around it.",
+     "mistake": "Thinks the mean describes everything about data"
+    },
+    {
+     "q": "Which is NOT a measure of dispersion?",
+     "options": [
+      "Median",
+      "Standard deviation",
+      "Mean deviation",
+      "Range"
+     ],
+     "answer": 0,
+     "explain": "The median is a measure of central tendency.",
+     "mistake": "Confuses centre with spread"
+    },
+    {
+     "q": "Two sets: P = 48, 50, 52 and Q = 0, 50, 100. Both have mean 50. Which is more dispersed?",
+     "options": [
+      "P",
+      "Cannot be decided",
+      "Both are equally dispersed",
+      "Q"
+     ],
+     "answer": 3,
+     "explain": "Q's values lie much farther from 50; its range is 100 versus 4 for P.",
+     "mistake": "Thinks equal means imply equal spread"
+    },
+    {
+     "q": "The range of a data set is 20 and its smallest value is 35. What is the largest value?",
+     "options": [
+      "45",
+      "55",
+      "15",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "Largest = smallest + range = 35 + 20.",
+     "mistake": "Subtracts the range",
+     "check": "35+20"
+    },
+    {
+     "q": "What is the main drawback of the range?",
+     "options": [
+      "It is hard to compute",
+      "It depends only on the two extreme values",
+      "It is always zero",
+      "It uses every observation"
+     ],
+     "answer": 1,
+     "explain": "One unusual value can change the range a lot while the rest of the data stays the same.",
+     "mistake": "Thinks range uses all the data"
+    },
+    {
+     "q": "Dispersion measures:",
+     "options": [
+      "the total of the observations",
+      "the middle value",
+      "the most common value",
+      "how scattered the observations are about a central value"
+     ],
+     "answer": 3,
+     "explain": "That is the meaning of dispersion.",
+     "mistake": "Confuses dispersion with a measure of centre"
+    },
+    {
+     "q": "Monthly rainfall (mm) in a town: 10, 22, 180, 310, 270, 95, 15. What is the range?",
+     "options": [
+      "300",
+      "280",
+      "310",
+      "170"
+     ],
+     "answer": 0,
+     "explain": "310 − 10 = 300 mm.",
+     "mistake": "Uses the second-smallest value",
+     "check": "310-10"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu says two cricketers with the same average are equally reliable. Explain why we need dispersion and what the range tells us.",
+    "must": [
+     [
+      "spread",
+      "scatter",
+      "variability",
+      "dispersion"
+     ],
+     [
+      "same mean",
+      "same average"
+     ],
+     [
+      "range",
+      "maximum minus minimum",
+      "max − min"
+     ]
+    ],
+    "praise": "Same average, different consistency! Spread matters, and range is the quickest way to see it.",
+    "nudge": "If two data sets have the same mean, how could they still be different?"
+   }
+  },
+  {
+   "id": "g11-maths-13-02",
+   "title": "Mean deviation for ungrouped data",
+   "covers": [
+    "c13.4.1",
+    "c13.4.2",
+    "c13.4.3"
+   ],
+   "learn": {
+    "hook": "How far, on average, is each score from the centre? Take the distances (ignoring direction) and average them — that's the mean deviation.",
+    "points": [
+     "Deviations xᵢ − a from a central value a can be positive or negative; about the mean they add up to 0. So we use absolute values |xᵢ − a|.",
+     "Mean deviation about a: M.D.(a) = (1/n) Σ |xᵢ − a|. Usually a is the mean or the median.",
+     "About the mean: find x̄, then the absolute deviations, then their average.",
+     "About the median: arrange the data, find the median M, then (1/n) Σ |xᵢ − M|.",
+     "Mean deviation about the median is never more than mean deviation about the mean."
+    ],
+    "example": {
+     "q": "Find the mean deviation about the mean of 3, 7, 8, 10, 12.",
+     "steps": [
+      "x̄ = 40/5 = 8.",
+      "|xᵢ − 8|: 5, 1, 0, 2, 4.",
+      "Sum = 12.",
+      "M.D. = 12/5 = 2.4."
+     ],
+     "answer": "2.4"
+    },
+    "reallife": "Quality-control engineers at a Pune auto plant use mean deviation to check how much bolt lengths vary from the target."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Mean deviation about the median of 2, 5, 6, 8, 9, 11, 14",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Data already in order; n = 7",
+      "Median = 4th value = 8",
+      "|xᵢ − 8|: 6, 3, 2, 0, 1, 3, 6",
+      "Sum = 21",
+      "M.D. = 21/7 = 3"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Mean deviation facts",
+     "items": [
+      [
+       "Σ(xᵢ − x̄) = 0 for any data set.",
+       true,
+       "Positive and negative deviations from the mean cancel."
+      ],
+      [
+       "Mean deviation uses absolute values of deviations.",
+       true,
+       "That prevents cancellation."
+      ],
+      [
+       "Mean deviation can be negative.",
+       false,
+       "It is an average of absolute values, so it is never negative."
+      ],
+      [
+       "M.D. about the median is less than or equal to M.D. about the mean.",
+       true,
+       "The sum of absolute deviations is smallest about the median."
+      ],
+      [
+       "For 5, 5, 5, 5 the mean deviation is 5.",
+       false,
+       "Every value equals the mean, so the M.D. is 0."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the mean deviation about the mean of 5, 6, 9, 10, 11, 13, 16.",
+     "options": [
+      "20",
+      "10",
+      "3",
+      "20/7"
+     ],
+     "answer": 3,
+     "explain": "x̄ = 70/7 = 10. |d|: 5, 4, 1, 0, 1, 3, 6 → sum 20. M.D. = 20/7.",
+     "mistake": "Gives the mean or the sum instead",
+     "check": "Fraction(20,7)"
+    },
+    {
+     "q": "Find the mean deviation about the median of 8, 2, 15, 5, 10, 4, 7.",
+     "options": [
+      "4",
+      "22/7",
+      "7",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "Ordered: 2, 4, 5, 7, 8, 10, 15; median = 7. |d|: 5, 3, 2, 0, 1, 3, 8 → 22. M.D. = 22/7.",
+     "mistake": "Uses the middle of the unsorted list",
+     "check": "Fraction(22,7)"
+    },
+    {
+     "q": "Why do we take absolute values of deviations in the mean deviation?",
+     "options": [
+      "To make the numbers smaller",
+      "Because deviations about the mean add up to zero otherwise",
+      "Because negative numbers are not allowed in data",
+      "Because the mean is always positive"
+     ],
+     "answer": 1,
+     "explain": "Without | |, positive and negative deviations cancel and the average is 0.",
+     "mistake": "Thinks negative data values are the problem"
+    },
+    {
+     "q": "The mean deviation about the mean of 10, 10, 10, 10 is:",
+     "options": [
+      "10",
+      "40",
+      "1",
+      "0"
+     ],
+     "answer": 3,
+     "explain": "Every observation equals the mean.",
+     "mistake": "Gives the mean",
+     "check": "0"
+    },
+    {
+     "q": "Find M.D. about the mean of 2, 4, 6, 8, 10.",
+     "options": [
+      "2",
+      "2.4",
+      "6",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "x̄ = 6. |d|: 4, 2, 0, 2, 4 = 12; 12/5 = 2.4.",
+     "mistake": "Divides by n − 1",
+     "check": "12/5"
+    },
+    {
+     "q": "Find the mean deviation about the median of 21, 23, 25, 28, 30, 32, 35, 40.",
+     "options": [
+      "5",
+      "4",
+      "29",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "Median = (28 + 30)/2 = 29. |d|: 8, 6, 4, 1, 1, 3, 6, 11 → sum 40. M.D. = 40/8 = 5.",
+     "steps": [
+      "n = 8, median = average of 4th and 5th = 29",
+      "Absolute deviations sum to 40",
+      "40 ÷ 8 = 5"
+     ],
+     "mistake": "Takes the median as one of the two middle values only",
+     "check": "40/8"
+    },
+    {
+     "q": "For a data set, M.D. about the mean is 4.2 and M.D. about the median is:",
+     "options": [
+      "exactly 4.2",
+      "more than 4.2",
+      "at most 4.2",
+      "always 0"
+     ],
+     "answer": 2,
+     "explain": "Σ|xᵢ − a| is least when a is the median, so M.D.(median) ≤ M.D.(mean).",
+     "mistake": "Thinks the two are always equal"
+    },
+    {
+     "q": "Which formula gives the mean deviation about a central value a for n observations?",
+     "options": [
+      "(1/n) Σ (xᵢ − a)",
+      "(1/n) Σ (xᵢ − a)²",
+      "Σ |xᵢ − a|",
+      "(1/n) Σ |xᵢ − a|"
+     ],
+     "answer": 3,
+     "explain": "Average of the absolute deviations.",
+     "mistake": "Forgets the absolute value or the division by n"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu added the deviations from the mean and got zero every time. Explain why, and how mean deviation fixes it.",
+    "must": [
+     [
+      "cancel",
+      "add up to zero",
+      "sum is zero"
+     ],
+     [
+      "absolute",
+      "modulus",
+      "ignore sign"
+     ],
+     [
+      "average",
+      "divide by n",
+      "mean of"
+     ]
+    ],
+    "praise": "Positive and negative deviations cancel, so take absolute values and average them. Spread measured!",
+    "nudge": "What happens if you add the deviations from the mean without taking absolute values?"
+   }
+  },
+  {
+   "id": "g11-maths-13-03",
+   "title": "Mean deviation for frequency distributions",
+   "covers": [
+    "c13.4.4",
+    "c13.4.5",
+    "c13.4.7"
+   ],
+   "learn": {
+    "hook": "Marks of 40 students come as a table, not a list. With frequencies, every deviation is simply counted as many times as it occurs.",
+    "points": [
+     "Discrete frequency distribution: x̄ = Σfᵢxᵢ/N where N = Σfᵢ; M.D.(x̄) = (1/N) Σ fᵢ|xᵢ − x̄|.",
+     "About the median: find M from cumulative frequencies, then M.D.(M) = (1/N) Σ fᵢ|xᵢ − M|.",
+     "Continuous (class) distribution: take each class mark (mid-value) as xᵢ and proceed as for discrete data.",
+     "Step-deviation (assumed mean) method: yᵢ = (xᵢ − A)/h; then x̄ = A + h(Σfᵢyᵢ/N).",
+     "Organise the work in a table: xᵢ, fᵢ, fᵢxᵢ, |xᵢ − x̄|, fᵢ|xᵢ − x̄|."
+    ],
+    "example": {
+     "q": "Find the mean deviation about the mean for x: 1, 2, 3, 4, 5 with f: 2, 3, 5, 3, 2.",
+     "steps": [
+      "N = 15, Σfx = 2 + 6 + 15 + 12 + 10 = 45, x̄ = 3.",
+      "|x − 3|: 2, 1, 0, 1, 2.",
+      "Σf|x − 3| = 4 + 3 + 0 + 3 + 4 = 14.",
+      "M.D. = 14/15."
+     ],
+     "answer": "14/15"
+    },
+    "reallife": "Census planners summarise household sizes as a frequency table and use mean deviation to describe how varied family sizes are across districts."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Mean by step-deviation for classes 0–10, …, 40–50 with f = 5, 10, 20, 10, 5",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Class marks 5, 15, 25, 35, 45; take A = 25, h = 10",
+      "yᵢ = (xᵢ − 25)/10: −2, −1, 0, 1, 2",
+      "Σfᵢyᵢ = −10 − 10 + 0 + 10 + 10 = 0",
+      "x̄ = 25 + 10 × (0/50) = 25"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Symbol ↔ meaning",
+     "pairs": [
+      [
+       "N",
+       "Σfᵢ, total frequency"
+      ],
+      [
+       "xᵢ for a class",
+       "Class mark (mid-value)"
+      ],
+      [
+       "A",
+       "Assumed mean"
+      ],
+      [
+       "h",
+       "Class width (common factor)"
+      ],
+      [
+       "yᵢ",
+       "(xᵢ − A)/h"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "For x: 2, 4, 6 with f: 1, 2, 1, what is the mean deviation about the mean?",
+     "options": [
+      "0",
+      "2",
+      "1",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "N = 4, x̄ = 16/4 = 4. Σf|x − 4| = 2 + 0 + 2 = 4. M.D. = 4/4 = 1.",
+     "mistake": "Forgets to weight by frequency",
+     "check": "1"
+    },
+    {
+     "q": "Classes 0–10, 10–20, 20–30, 30–40 have frequencies 2, 3, 4, 1. What is the mean?",
+     "options": [
+      "25",
+      "19",
+      "17.5",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "Class marks 5, 15, 25, 35. Σfx = 10 + 45 + 100 + 35 = 190; N = 10. Mean = 19.",
+     "mistake": "Uses class limits instead of class marks",
+     "check": "190/10"
+    },
+    {
+     "q": "For the same table (mean 19), the mean deviation about the mean is:",
+     "options": [
+      "6",
+      "10",
+      "8",
+      "19"
+     ],
+     "answer": 2,
+     "explain": "|x − 19|: 14, 4, 6, 16. Σf|d| = 28 + 12 + 24 + 16 = 80; 80/10 = 8.",
+     "mistake": "Forgets to multiply by frequencies",
+     "check": "80/10"
+    },
+    {
+     "q": "In the step-deviation method with A = 50 and h = 10, a class mark of 30 gives y =",
+     "options": [
+      "−20",
+      "3",
+      "−2",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "y = (30 − 50)/10 = −2.",
+     "mistake": "Subtracts in the wrong order",
+     "check": "-2"
+    },
+    {
+     "q": "Using step deviation, A = 40, h = 5, N = 20 and Σfy = 8. What is the mean?",
+     "options": [
+      "42",
+      "38",
+      "40.4",
+      "48"
+     ],
+     "answer": 0,
+     "explain": "x̄ = A + h(Σfy/N) = 40 + 5 × 0.4 = 42.",
+     "mistake": "Forgets to multiply by h",
+     "check": "40+5*Fraction(8,20)"
+    },
+    {
+     "q": "For grouped data, which value represents each class when computing the mean deviation?",
+     "options": [
+      "The class mark (mid-point)",
+      "The upper limit",
+      "The frequency",
+      "The lower limit"
+     ],
+     "answer": 0,
+     "explain": "Each class is represented by its mid-value.",
+     "mistake": "Uses a class limit"
+    },
+    {
+     "q": "x: 10, 20, 30 with f: 3, 4, 3. Mean deviation about the mean is:",
+     "options": [
+      "3",
+      "20",
+      "10",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "x̄ = (30 + 80 + 90)/10 = 20. Σf|d| = 30 + 0 + 30 = 60; 60/10 = 6.",
+     "mistake": "Divides by the number of distinct values (3)",
+     "check": "60/10"
+    },
+    {
+     "q": "Why is the step-deviation method useful?",
+     "options": [
+      "It removes the need for frequencies",
+      "It makes calculations simpler by working with small numbers",
+      "It changes the value of the mean",
+      "It gives the median directly"
+     ],
+     "answer": 1,
+     "explain": "Shifting by A and scaling by h simplifies arithmetic; the formula then restores the true mean.",
+     "mistake": "Thinks it gives a different mean"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has marks in a frequency table and wants the mean deviation. Explain how frequencies, class marks and the step-deviation method fit in.",
+    "must": [
+     [
+      "frequency",
+      "multiply by f",
+      "weight"
+     ],
+     [
+      "class mark",
+      "mid-point",
+      "midpoint",
+      "mid value"
+     ],
+     [
+      "assumed mean",
+      "step deviation",
+      "(x − a)/h"
+     ]
+    ],
+    "praise": "Use mid-points for classes, multiply each deviation by its frequency, and step deviation keeps numbers small. Table tamed!",
+    "nudge": "For a class like 10–20, which single value do you use as x?"
+   }
+  },
+  {
+   "id": "g11-maths-13-04",
+   "title": "Grouped median, M.D. about the median, and limitations",
+   "covers": [
+    "c13.4.6",
+    "c13.4.8"
+   ],
+   "learn": {
+    "hook": "For a big class table, the median isn't a value you can just spot — it's found with a formula, and then you measure spread around it.",
+    "points": [
+     "Median of grouped data: find N/2, locate the median class (first cumulative frequency ≥ N/2).",
+     "Median = l + [(N/2 − C)/f] × h, where l = lower limit of the median class, C = cumulative frequency before it, f = its frequency, h = class width.",
+     "M.D. about the median = (1/N) Σ fᵢ|xᵢ − M|, using class marks xᵢ.",
+     "Limitations of M.D.: absolute values are awkward to handle algebraically; it is not well suited to further statistical work.",
+     "Also, if the data are very variable, the median is not a good representative, and the sum of absolute deviations about the mean is larger than about the median, so the choice of centre matters."
+    ],
+    "example": {
+     "q": "Classes 0–10, 10–20, 20–30, 30–40, 40–50 have frequencies 5, 10, 20, 10, 5. Find the median and the mean deviation about it.",
+     "steps": [
+      "N = 50, N/2 = 25. Cumulative: 5, 15, 35 → median class 20–30.",
+      "Median = 20 + (25 − 15)/20 × 10 = 25.",
+      "|x − 25| for marks 5, 15, 25, 35, 45: 20, 10, 0, 10, 20.",
+      "Σf|d| = 100 + 100 + 0 + 100 + 100 = 400.",
+      "M.D. = 400/50 = 8."
+     ],
+     "answer": "Median 25; M.D. about median = 8"
+    },
+    "reallife": "Salary surveys report the median income (less affected by a few very high earners) and the spread around it."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Median of a grouped distribution",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Make the cumulative frequencies; the last one is N",
+      "Work out N/2",
+      "Pick the median class (first cf ≥ N/2)",
+      "Apply l + [(N/2 − C)/f] × h"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Limitations of mean deviation",
+     "items": [
+      [
+       "Mean deviation is difficult to use in further algebraic work because of absolute values.",
+       true,
+       "|x| is not as convenient as squares."
+      ],
+      [
+       "Mean deviation about the median is always less than or equal to that about the mean.",
+       true,
+       "Σ|xᵢ − a| is smallest when a is the median."
+      ],
+      [
+       "Mean deviation is the measure of dispersion most used in advanced statistics.",
+       false,
+       "Standard deviation is preferred for further analysis."
+      ],
+      [
+       "In the median formula, C is the frequency of the median class.",
+       false,
+       "C is the cumulative frequency of the class just before; f is the median class frequency."
+      ],
+      [
+       "The median class is the first class whose cumulative frequency is at least N/2.",
+       true,
+       "That class contains the middle observation."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Classes 10–20, 20–30, 30–40, 40–50 have frequencies 3, 6, 8, 3. What is the median class?",
+     "options": [
+      "30–40",
+      "10–20",
+      "40–50",
+      "20–30"
+     ],
+     "answer": 0,
+     "explain": "N = 20, N/2 = 10. Cumulative: 3, 9, 17, 20 → the first cf ≥ 10 is 17, class 30–40.",
+     "mistake": "Picks the class with the largest frequency without checking N/2"
+    },
+    {
+     "q": "For that table (median class 30–40, l = 30, C = 9, f = 8, h = 10, N/2 = 10), the median is:",
+     "options": [
+      "30",
+      "35",
+      "32.5",
+      "31.25"
+     ],
+     "answer": 3,
+     "explain": "30 + (10 − 9)/8 × 10 = 30 + 1.25 = 31.25.",
+     "mistake": "Uses C = 17",
+     "check": "30+Fraction(10,8)"
+    },
+    {
+     "q": "In Median = l + [(N/2 − C)/f] × h, what is C?",
+     "options": [
+      "Cumulative frequency of the class before the median class",
+      "Class mark of the median class",
+      "Frequency of the median class",
+      "Total frequency"
+     ],
+     "answer": 0,
+     "explain": "C counts all observations below the median class.",
+     "mistake": "Uses the median class's own frequency"
+    },
+    {
+     "q": "Classes 0–10, …, 40–50 with f = 5, 10, 20, 10, 5 have median 25. What is the mean deviation about the median?",
+     "options": [
+      "6",
+      "10",
+      "8",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "Σf|x − 25| = 400 and N = 50, so 8.",
+     "mistake": "Forgets the frequencies",
+     "check": "400/50"
+    },
+    {
+     "q": "Which is a limitation of mean deviation?",
+     "options": [
+      "It cannot be computed for grouped data",
+      "It uses absolute values, which are awkward for further algebraic treatment",
+      "It ignores some observations",
+      "It is always zero"
+     ],
+     "answer": 1,
+     "explain": "This is the main reason standard deviation is preferred.",
+     "mistake": "Thinks M.D. ignores data"
+    },
+    {
+     "q": "Classes 0–20, 20–40, 40–60 have frequencies 6, 8, 6. Median = ?",
+     "options": [
+      "30",
+      "20",
+      "35",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "N = 20, N/2 = 10; cumulative 6, 14 → median class 20–40: 20 + (10 − 6)/8 × 20 = 30.",
+     "mistake": "Uses h = 10",
+     "check": "20+Fraction(4,8)*20"
+    },
+    {
+     "q": "For the table 0–20 (6), 20–40 (8), 40–60 (6) with median 30, the mean deviation about the median is:",
+     "options": [
+      "12",
+      "15",
+      "10",
+      "20"
+     ],
+     "answer": 0,
+     "explain": "Class marks 10, 30, 50: |d| = 20, 0, 20. Σf|d| = 120 + 0 + 120 = 240; 240/20 = 12.",
+     "mistake": "Divides by 3 classes",
+     "check": "240/20"
+    },
+    {
+     "q": "Why is standard deviation preferred over mean deviation for further statistical analysis?",
+     "options": [
+      "SD does not need the mean",
+      "SD is always smaller",
+      "SD ignores extreme values",
+      "Squares of deviations are easier to handle algebraically than absolute values"
+     ],
+     "answer": 3,
+     "explain": "Squaring avoids the awkwardness of | | and leads to neat formulas.",
+     "mistake": "Thinks SD is preferred because it is smaller"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must find the median from a class table and then the spread around it. Explain the grouped median formula and one limitation of mean deviation.",
+    "must": [
+     [
+      "n/2",
+      "half of n",
+      "cumulative frequency"
+     ],
+     [
+      "median class",
+      "l + ",
+      "lower limit"
+     ],
+     [
+      "absolute values",
+      "algebraically awkward",
+      "limitation"
+     ]
+    ],
+    "praise": "N/2, cumulative frequencies, then l + [(N/2 − C)/f] × h. And M.D.'s absolute values are its weak spot!",
+    "nudge": "How do you decide which class is the median class?"
+   }
+  },
+  {
+   "id": "g11-maths-13-05",
+   "title": "Variance and standard deviation for raw data",
+   "covers": [
+    "c13.5.1",
+    "c13.5.2",
+    "c13.5.3",
+    "c13.5.6",
+    "c13.5.12"
+   ],
+   "learn": {
+    "hook": "Squaring deviations removes the sign problem AND gives a measure with beautiful algebra. That's why standard deviation rules statistics.",
+    "points": [
+     "Squaring deviations makes them non-negative and avoids absolute values. Variance σ² = (1/n) Σ (xᵢ − x̄)², the mean of squared deviations.",
+     "Standard deviation σ = +√(variance). It has the same units as the data.",
+     "Shortcut: σ² = (1/n)Σxᵢ² − (x̄)² = [nΣxᵢ² − (Σxᵢ)²]/n².",
+     "σ = 0 exactly when all observations are equal.",
+     "Syllabus note: analysis of frequency distributions using the coefficient of variation is not part of the current rationalised syllabus for this chapter."
+    ],
+    "example": {
+     "q": "Find the variance and standard deviation of 3, 5, 7, 9, 11, 13.",
+     "steps": [
+      "x̄ = 48/6 = 8.",
+      "(xᵢ − 8)²: 25, 9, 1, 1, 9, 25 → sum 70.",
+      "σ² = 70/6 = 35/3.",
+      "σ = √(35/3) ≈ 3.42."
+     ],
+     "answer": "Variance 35/3, SD √(35/3) ≈ 3.42"
+    },
+    "reallife": "Sports analysts compare bowlers' economy rates using standard deviation: a low σ means a reliably tight bowler."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Variance by the definition",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Find the mean x̄",
+      "Find each deviation xᵢ − x̄",
+      "Square each deviation",
+      "Add the squares",
+      "Divide by n"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Variance of small data sets",
+     "items": [
+      {
+       "q": "2, 4, 6",
+       "a": "8/3",
+       "check": "Fraction(8,3)"
+      },
+      {
+       "q": "5, 5, 5, 5",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "1, 3",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "6, 8, 10, 12, 14",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "2, 4, 6, 8 (shortcut: 120/4 − 5²)",
+       "a": "5",
+       "check": "30-25"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the variance of 6, 8, 10, 12, 14.",
+     "options": [
+      "2√2",
+      "8",
+      "40",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "x̄ = 10. Squared deviations 16, 4, 0, 4, 16 → 40; 40/5 = 8.",
+     "mistake": "Gives the sum 40 or the SD",
+     "check": "40/5"
+    },
+    {
+     "q": "The standard deviation of 6, 8, 10, 12, 14 is:",
+     "options": [
+      "8",
+      "√10",
+      "2√2",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "σ = √8 = 2√2.",
+     "mistake": "Forgets the square root"
+    },
+    {
+     "q": "Using the shortcut, n = 5, Σx = 30, Σx² = 220. Find the variance.",
+     "options": [
+      "36",
+      "√8",
+      "8",
+      "44"
+     ],
+     "answer": 2,
+     "explain": "σ² = 220/5 − (30/5)² = 44 − 36 = 8.",
+     "mistake": "Forgets to square the mean",
+     "check": "44-36"
+    },
+    {
+     "q": "Why are deviations squared in the variance?",
+     "options": [
+      "Because the mean is a square",
+      "To make the answer bigger",
+      "To make them non-negative and easy to handle algebraically",
+      "To remove the effect of n"
+     ],
+     "answer": 2,
+     "explain": "Squares avoid cancellation and avoid awkward absolute values.",
+     "mistake": "Thinks squaring is just to enlarge the numbers"
+    },
+    {
+     "q": "If every observation in a set is 7, the standard deviation is:",
+     "options": [
+      "7",
+      "49",
+      "0",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "All deviations are 0.",
+     "mistake": "Gives the common value",
+     "check": "0"
+    },
+    {
+     "q": "Find the variance of 1, 2, 3, 4, 5.",
+     "options": [
+      "3",
+      "2.5",
+      "2",
+      "√2"
+     ],
+     "answer": 2,
+     "explain": "x̄ = 3. Squared deviations 4, 1, 0, 1, 4 → 10; 10/5 = 2.",
+     "mistake": "Divides by n − 1 = 4",
+     "check": "2"
+    },
+    {
+     "q": "The variance of a data set is 16. Its standard deviation is:",
+     "options": [
+      "16",
+      "8",
+      "256",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "σ = √16 = 4.",
+     "mistake": "Squares the variance",
+     "check": "4"
+    },
+    {
+     "q": "Which formula equals the variance (1/n)Σ(xᵢ − x̄)²?",
+     "options": [
+      "(1/n)Σxᵢ² + x̄²",
+      "(Σxᵢ)²/n",
+      "(1/n)Σxᵢ² − x̄²",
+      "(1/n)Σxᵢ − x̄"
+     ],
+     "answer": 2,
+     "explain": "Expanding the squares gives (1/n)Σxᵢ² − 2x̄·x̄ + x̄² = (1/n)Σxᵢ² − x̄².",
+     "mistake": "Gets the sign of x̄² wrong"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders why statisticians square the deviations. Explain variance, standard deviation and the shortcut formula.",
+    "must": [
+     [
+      "square",
+      "squared deviations",
+      "squares"
+     ],
+     [
+      "mean of squares",
+      "divide by n",
+      "average"
+     ],
+     [
+      "square root",
+      "standard deviation",
+      "sd"
+     ]
+    ],
+    "praise": "Square, average, square-root. Variance and SD unlocked — with a neat shortcut too!",
+    "nudge": "After finding the variance, how do you get the standard deviation?"
+   }
+  },
+  {
+   "id": "g11-maths-13-06",
+   "title": "Variance and SD for frequency distributions",
+   "covers": [
+    "c13.5.4",
+    "c13.5.5",
+    "c13.5.7"
+   ],
+   "learn": {
+    "hook": "Thousands of exam scores in a table? Use frequencies, class marks and the step-deviation shortcut — and SD comes out cleanly.",
+    "points": [
+     "Discrete: σ² = (1/N) Σ fᵢ(xᵢ − x̄)², N = Σfᵢ.",
+     "Continuous: use class marks as xᵢ, same formula.",
+     "Shortcut: σ² = (1/N)Σfᵢxᵢ² − x̄², or σ = (1/N)√(NΣfᵢxᵢ² − (Σfᵢxᵢ)²).",
+     "Step deviation: yᵢ = (xᵢ − A)/h. Then σₓ = h σᵧ = (h/N)√(NΣfᵢyᵢ² − (Σfᵢyᵢ)²).",
+     "Changing origin (subtracting A) does not change σ; changing scale (dividing by h) divides σ by h — which is why we multiply back by h."
+    ],
+    "example": {
+     "q": "x: 2, 4, 6, 8 with f: 1, 2, 3, 4. Find the variance and SD.",
+     "steps": [
+      "N = 10, Σfx = 2 + 8 + 18 + 32 = 60, x̄ = 6.",
+      "(x − 6)²: 16, 4, 0, 4.",
+      "Σf(x − 6)² = 16 + 8 + 0 + 16 = 40.",
+      "σ² = 40/10 = 4, σ = 2."
+     ],
+     "answer": "Variance 4, SD 2"
+    },
+    "reallife": "Board examiners analysing result data at CBSE use the SD of marks to spot unusually easy or tough papers."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "SD by step deviation, classes 0–10, …, 40–50, f = 5, 10, 20, 10, 5",
+     "prompt": "Arrange the steps",
+     "items": [
+      "A = 25, h = 10; y = −2, −1, 0, 1, 2",
+      "Σfy = 0, Σfy² = 20 + 10 + 0 + 10 + 20 = 60",
+      "σ = (h/N)√(NΣfy² − (Σfy)²) = (10/50)√(3000)",
+      "σ = (1/5) × 10√30 = 2√30"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Effect on SD",
+     "pairs": [
+      [
+       "Subtract a constant A from each value",
+       "SD unchanged"
+      ],
+      [
+       "Divide each value by h",
+       "SD divided by h"
+      ],
+      [
+       "Multiply each value by 3",
+       "SD multiplied by 3"
+      ],
+      [
+       "Variance is 49",
+       "SD = 7"
+      ],
+      [
+       "All values equal",
+       "SD = 0"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "x: 1, 2, 3 with f: 1, 2, 1. What is the variance?",
+     "options": [
+      "2/3",
+      "1",
+      "1/2",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "N = 4, x̄ = 8/4 = 2. Σf(x − 2)² = 1 + 0 + 1 = 2; 2/4 = 1/2.",
+     "mistake": "Ignores frequencies",
+     "check": "Fraction(2,4)"
+    },
+    {
+     "q": "For classes 0–10, 10–20, 20–30, 30–40, 40–50 with f = 5, 10, 20, 10, 5 (mean 25), the variance is:",
+     "options": [
+      "6000",
+      "120",
+      "√120",
+      "60"
+     ],
+     "answer": 1,
+     "explain": "Σf(x − 25)² = 5(400) + 10(100) + 0 + 10(100) + 5(400) = 6000; 6000/50 = 120.",
+     "mistake": "Forgets to divide by N",
+     "check": "6000/50"
+    },
+    {
+     "q": "Using step deviation with h = 5, the SD of the y-values is 3. The SD of the original data is:",
+     "options": [
+      "3",
+      "5/3",
+      "15",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "σₓ = hσᵧ = 5 × 3.",
+     "mistake": "Forgets to multiply back by h",
+     "check": "15"
+    },
+    {
+     "q": "N = 10, Σfx = 50, Σfx² = 290. What is the variance?",
+     "options": [
+      "4",
+      "29",
+      "2",
+      "25"
+     ],
+     "answer": 0,
+     "explain": "x̄ = 5; σ² = 290/10 − 25 = 4.",
+     "mistake": "Forgets to subtract x̄²",
+     "check": "29-25"
+    },
+    {
+     "q": "x: 5, 10, 15, 20 with f: 2, 3, 3, 2. The mean is 12.5 and Σf(x − 12.5)² = 262.5. What is the variance?",
+     "options": [
+      "65.625",
+      "5.12",
+      "262.5",
+      "26.25"
+     ],
+     "answer": 3,
+     "explain": "N = 10; 262.5/10 = 26.25.",
+     "mistake": "Divides by the number of distinct values (4)",
+     "check": "262.5/10"
+    },
+    {
+     "q": "In the step-deviation formula σ = (h/N)√(NΣfy² − (Σfy)²), if Σfy = 0 and N = 20, Σfy² = 45, h = 4, then σ is:",
+     "options": [
+      "3",
+      "6",
+      "9",
+      "36"
+     ],
+     "answer": 1,
+     "explain": "(4/20)√(20 × 45) = (1/5)√900 = 30/5 = 6.",
+     "mistake": "Forgets to multiply by h/N",
+     "check": "Fraction(4,20)*30"
+    },
+    {
+     "q": "Subtracting an assumed mean A from every observation changes:",
+     "options": [
+      "neither",
+      "the standard deviation but not the mean",
+      "both the mean and the SD",
+      "the mean but not the standard deviation"
+     ],
+     "answer": 3,
+     "explain": "Shifting all values moves the centre but not the spread.",
+     "mistake": "Thinks any change in data changes the SD"
+    },
+    {
+     "q": "x: 10, 20, 30 with f: 2, 6, 2. The SD is:",
+     "options": [
+      "20",
+      "√20",
+      "40",
+      "√40"
+     ],
+     "answer": 3,
+     "explain": "x̄ = 20. Σf(x − 20)² = 200 + 0 + 200 = 400; σ² = 400/10 = 40; σ = √40 = 2√10.",
+     "mistake": "Forgets the square root"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the SD of a big frequency table quickly. Explain the frequency formula and how the step-deviation method saves work.",
+    "must": [
+     [
+      "frequency",
+      "multiply by f",
+      "weighted"
+     ],
+     [
+      "assumed mean",
+      "step deviation",
+      "(x − a)/h"
+     ],
+     [
+      "multiply by h",
+      "times h",
+      "scale back"
+     ]
+    ],
+    "praise": "Shift by A, divide by h, compute, then multiply back by h. Big tables, small numbers!",
+    "nudge": "After working with y = (x − A)/h, what must you do to get the SD of x?"
+   }
+  },
+  {
+   "id": "g11-maths-13-07",
+   "title": "Mixed problems on mean and variance",
+   "covers": [
+    "c13.5.8",
+    "c13.5.9",
+    "c13.5.10",
+    "c13.5.11"
+   ],
+   "learn": {
+    "hook": "A teacher discovers one mark was entered as 15 instead of 25. Do you redo everything? No — fix the sums Σx and Σx², and recompute in a minute.",
+    "points": [
+     "First n natural numbers: mean (n + 1)/2, variance (n² − 1)/12. Multiples k, 2k, …, nk: mean k(n + 1)/2, variance k²(n² − 1)/12.",
+     "Missing observations: use Σx = n x̄ and Σx² = n(σ² + x̄²) to form equations.",
+     "Adding a constant c to every value: mean increases by c, variance unchanged. Multiplying by k: mean × k, variance × k², SD × |k|.",
+     "Correcting errors: correct Σx and Σx² (subtract the wrong value, add the right one), then recompute x̄ and σ² = Σx²/n − x̄².",
+     "Always keep n the same unless observations are actually added or removed."
+    ],
+    "example": {
+     "q": "10 observations have mean 20 and SD 3. One value 25 was wrongly read as 15. Find the correct mean and SD.",
+     "steps": [
+      "Σx = 200; corrected Σx = 200 − 15 + 25 = 210, so mean = 21.",
+      "Σx² = 10(9 + 400) = 4090; corrected Σx² = 4090 − 225 + 625 = 4490.",
+      "σ² = 4490/10 − 21² = 449 − 441 = 8.",
+      "σ = √8 = 2√2."
+     ],
+     "answer": "Mean 21, SD 2√2"
+    },
+    "reallife": "Bank auditors re-run statistics on loan data after correcting entry errors using exactly this Σx and Σx² fix."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Transformation ↔ effect (original mean 10, variance 4)",
+     "pairs": [
+      [
+       "Add 5 to each value",
+       "Mean 15, variance 4"
+      ],
+      [
+       "Multiply each value by 3",
+       "Mean 30, variance 36"
+      ],
+      [
+       "Subtract 10 from each value",
+       "Mean 0, variance 4"
+      ],
+      [
+       "Multiply each value by −1",
+       "Mean −10, variance 4"
+      ],
+      [
+       "Multiply each by 2 and add 1",
+       "Mean 21, variance 16"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Natural-number facts",
+     "items": [
+      {
+       "q": "Mean of 1, 2, …, 9",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "Variance of 1, 2, …, 10",
+       "a": "33/4",
+       "check": "Fraction(99,12)"
+      },
+      {
+       "q": "Mean of 3, 6, …, 30",
+       "a": "33/2",
+       "check": "Fraction(33,2)"
+      },
+      {
+       "q": "Variance of 3, 6, …, 30",
+       "a": "297/4",
+       "check": "Fraction(297,4)"
+      },
+      {
+       "q": "Variance of 1, 2, …, 5",
+       "a": "2",
+       "check": "2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the variance of the first 10 natural numbers?",
+     "options": [
+      "9.17",
+      "8.25",
+      "5.5",
+      "82.5"
+     ],
+     "answer": 1,
+     "explain": "(n² − 1)/12 = 99/12 = 8.25.",
+     "mistake": "Uses (n + 1)/2, which is the mean",
+     "check": "Fraction(99,12)"
+    },
+    {
+     "q": "The mean of 1, 2, 4, x, y is 4 and the variance is 6. Which are x and y?",
+     "options": [
+      "3 and 10",
+      "6 and 7",
+      "4 and 9",
+      "5 and 8"
+     ],
+     "answer": 3,
+     "explain": "x + y = 20 − 7 = 13. Σx² = 5(6 + 16) = 110, so x² + y² = 110 − 21 = 89. Then xy = (169 − 89)/2 = 40: x, y = 5, 8.",
+     "mistake": "Satisfies only the mean condition"
+    },
+    {
+     "q": "A data set has mean 12 and variance 9. Each value is multiplied by 2. What is the new variance?",
+     "options": [
+      "18",
+      "36",
+      "81",
+      "9"
+     ],
+     "answer": 1,
+     "explain": "Variance is multiplied by k² = 4.",
+     "mistake": "Multiplies the variance by k instead of k²",
+     "check": "36"
+    },
+    {
+     "q": "A data set has mean 12 and SD 3. If 5 is added to every value, the new SD is:",
+     "options": [
+      "9",
+      "8",
+      "3",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "Adding a constant does not change the spread.",
+     "mistake": "Adds 5 to the SD too",
+     "check": "3"
+    },
+    {
+     "q": "20 observations have mean 10 and variance 4. One observation 8 was misread as 12. What is the correct mean?",
+     "options": [
+      "10",
+      "10.2",
+      "9.8",
+      "9.6"
+     ],
+     "answer": 2,
+     "explain": "Σx = 200 − 12 + 8 = 196; 196/20 = 9.8.",
+     "mistake": "Adds the error instead of subtracting",
+     "check": "196/20"
+    },
+    {
+     "q": "For the same correction, the original Σx² = 20(4 + 100) = 2080. What is the corrected Σx²?",
+     "options": [
+      "2000",
+      "2144",
+      "2080",
+      "2016"
+     ],
+     "answer": 0,
+     "explain": "2080 − 12² + 8² = 2080 − 144 + 64 = 2000.",
+     "mistake": "Adds 144 and subtracts 64 (swapping the wrong and right values)",
+     "check": "2080-144+64"
+    },
+    {
+     "q": "Hence the corrected variance (n = 20, Σx² = 2000, mean 9.8) is:",
+     "options": [
+      "4",
+      "100",
+      "3.96",
+      "4.04"
+     ],
+     "answer": 2,
+     "explain": "σ² = 2000/20 − 9.8² = 100 − 96.04 = 3.96.",
+     "mistake": "Keeps the old variance",
+     "check": "100-Fraction(9604,100)"
+    },
+    {
+     "q": "The mean and variance of 3, 6, 9, …, 30 (first 10 multiples of 3) are:",
+     "options": [
+      "16.5 and 74.25",
+      "16.5 and 8.25",
+      "15 and 74.25",
+      "16.5 and 24.75"
+     ],
+     "answer": 0,
+     "explain": "Mean 3 × 5.5 = 16.5; variance 9 × 8.25 = 74.25.",
+     "mistake": "Multiplies the variance by 3 instead of 9"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's teacher found a wrongly entered mark after computing the mean and SD. Explain how to correct them quickly, and how adding or multiplying all data affects mean and variance.",
+    "must": [
+     [
+      "sum of x",
+      "sum",
+      "total"
+     ],
+     [
+      "sum of squares",
+      "squares",
+      "sum of x squared"
+     ],
+     [
+      "add constant",
+      "unchanged",
+      "shift"
+     ],
+     [
+      "multiply",
+      "k squared",
+      "k²"
+     ]
+    ],
+    "praise": "Fix the sums, recompute — no need to start over. And scaling squares the variance. Smart stats!",
+    "nudge": "When every value is multiplied by k, by how much does the variance change?"
+   }
+  }
+ ]
+}

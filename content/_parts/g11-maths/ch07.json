@@ -1,0 +1,1024 @@
+{
+ "n": 7,
+ "title": "Binomial Theorem",
+ "emoji": "🔺",
+ "topics": [
+  {
+   "id": "g11-maths-07-01",
+   "title": "Patterns in powers and Pascal's triangle",
+   "covers": [
+    "c7.1.1",
+    "c7.2.1",
+    "c7.2.2",
+    "c7.2.3"
+   ],
+   "learn": {
+    "hook": "Can you find 98⁵ without multiplying 98 by itself five times? A triangle of numbers known in India as Meru Prastaara, centuries before Pascal, makes it easy.",
+    "points": [
+     "Repeated multiplication of big powers like (98)⁵ or (a + b)ⁿ is slow; we want a formula.",
+     "(a + b)⁰ = 1, (a + b)¹ = a + b, (a + b)² = a² + 2ab + b², (a + b)³ = a³ + 3a²b + 3ab² + b³, (a + b)⁴ = a⁴ + 4a³b + 6a²b² + 4ab³ + b⁴.",
+     "The coefficients form Pascal's triangle: each row starts and ends with 1, and every inner entry is the sum of the two entries just above it.",
+     "Rows: 1 | 1 1 | 1 2 1 | 1 3 3 1 | 1 4 6 4 1 | 1 5 10 10 5 1 | 1 6 15 20 15 6 1.",
+     "The entries of row n are ⁿC₀, ⁿC₁, …, ⁿCₙ — Pascal's rule ⁿCᵣ + ⁿCᵣ₋₁ = ⁿ⁺¹Cᵣ is exactly 'add the two above'."
+    ],
+    "example": {
+     "q": "Use Pascal's triangle to expand (a + b)⁵.",
+     "steps": [
+      "Row 5: 1, 5, 10, 10, 5, 1.",
+      "Powers of a fall 5 → 0; powers of b rise 0 → 5."
+     ],
+     "answer": "a⁵ + 5a⁴b + 10a³b² + 10a²b³ + 5ab⁴ + b⁵"
+    },
+    "reallife": "Counting Sanskrit verse metres in Pingala's Chhandaḥśāstra led to this pattern; the commentator Halayudha (10th century CE) described it as Meru Prastaara, long before Pascal."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Build row 6 of Pascal's triangle",
+     "prompt": "Rows in order, top to bottom",
+     "items": [
+      "1 2 1",
+      "1 3 3 1",
+      "1 4 6 4 1",
+      "1 5 10 10 5 1",
+      "1 6 15 20 15 6 1"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Entry ↔ nCr",
+     "pairs": [
+      [
+       "Middle entry of row 4",
+       "⁴C₂ = 6"
+      ],
+      [
+       "Second entry of row 5",
+       "⁵C₁ = 5"
+      ],
+      [
+       "Third entry of row 6",
+       "⁶C₂ = 15"
+      ],
+      [
+       "Middle entry of row 6",
+       "⁶C₃ = 20"
+      ],
+      [
+       "Last entry of any row n",
+       "ⁿCₙ = 1"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the coefficient of a²b² in (a + b)⁴?",
+     "options": [
+      "4",
+      "6",
+      "2",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "Row 4 of Pascal's triangle is 1, 4, 6, 4, 1; the middle term is 6a²b².",
+     "mistake": "Uses the power 4 as the coefficient",
+     "check": "6"
+    },
+    {
+     "q": "In Pascal's triangle, the entry below 10 and 10 in row 5 is:",
+     "options": [
+      "10",
+      "100",
+      "20",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "Each entry is the sum of the two above it: 10 + 10 = 20 (the middle of row 6).",
+     "mistake": "Multiplies instead of adds",
+     "check": "10+10"
+    },
+    {
+     "q": "Which row of Pascal's triangle gives the coefficients of (x + y)⁶?",
+     "options": [
+      "1 6 12 18 12 6 1",
+      "1 5 10 10 5 1",
+      "1 6 15 15 6 1",
+      "1 6 15 20 15 6 1"
+     ],
+     "answer": 3,
+     "explain": "Row 6 (counting the top 1 as row 0) has 7 entries: 1, 6, 15, 20, 15, 6, 1.",
+     "mistake": "Picks row 5 or invents a pattern"
+    },
+    {
+     "q": "What is the sum of the entries in row 5 of Pascal's triangle?",
+     "options": [
+      "25",
+      "16",
+      "31",
+      "32"
+     ],
+     "answer": 3,
+     "explain": "1 + 5 + 10 + 10 + 5 + 1 = 32 = 2⁵.",
+     "mistake": "Forgets one of the end 1s",
+     "check": "1+5+10+10+5+1"
+    },
+    {
+     "q": "Which expression gives the 3rd entry of row 7 in Pascal's triangle?",
+     "options": [
+      "⁷C₂",
+      "⁷P₂",
+      "⁷C₃",
+      "⁶C₂"
+     ],
+     "answer": 0,
+     "explain": "Entries of row 7 are ⁷C₀, ⁷C₁, ⁷C₂, …, so the 3rd entry is ⁷C₂ = 21.",
+     "mistake": "Starts counting from ⁷C₁"
+    },
+    {
+     "q": "The coefficients in (a + b)³ are:",
+     "options": [
+      "1, 3, 1",
+      "1, 3, 3, 1",
+      "1, 2, 1",
+      "3, 3, 3"
+     ],
+     "answer": 1,
+     "explain": "(a + b)³ = a³ + 3a²b + 3ab² + b³.",
+     "mistake": "Uses row 2"
+    },
+    {
+     "q": "Pascal's rule ⁿCᵣ + ⁿCᵣ₋₁ = ⁿ⁺¹Cᵣ corresponds to which feature of Pascal's triangle?",
+     "options": [
+      "Each row starts with 1",
+      "Each row has one more entry than the previous",
+      "Each row is symmetric",
+      "Each entry is the sum of the two entries above it"
+     ],
+     "answer": 3,
+     "explain": "The two entries above position r in row n + 1 are ⁿCᵣ₋₁ and ⁿCᵣ.",
+     "mistake": "Links the rule to symmetry instead"
+    },
+    {
+     "q": "How many entries are there in row 9 of Pascal's triangle?",
+     "options": [
+      "9",
+      "11",
+      "8",
+      "10"
+     ],
+     "answer": 3,
+     "explain": "Row n has n + 1 entries (ⁿC₀ to ⁿCₙ).",
+     "mistake": "Counts n entries",
+     "check": "9+1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to write row 6 of Pascal's triangle from memory. Explain how the triangle is built and how it links to (a + b)ⁿ.",
+    "must": [
+     [
+      "sum of the two above",
+      "add the two above",
+      "two numbers above"
+     ],
+     [
+      "starts and ends with 1",
+      "ends with 1",
+      "ones on the edge"
+     ],
+     [
+      "coefficients",
+      "ncr",
+      "binomial coefficients"
+     ]
+    ],
+    "praise": "Add the two above, put 1s at the ends, and you get the coefficients of (a + b)ⁿ. Triangle power!",
+    "nudge": "How do you get an inside number of Pascal's triangle from the row above?"
+   }
+  },
+  {
+   "id": "g11-maths-07-02",
+   "title": "The binomial theorem",
+   "covers": [
+    "c7.2.4",
+    "c7.2.5",
+    "c7.2.6",
+    "c7.2.7",
+    "c7.2.17"
+   ],
+   "learn": {
+    "hook": "One formula expands (a + b)ⁿ for every positive integer n — no matter how big. That's the binomial theorem.",
+    "points": [
+     "(a + b)ⁿ = ⁿC₀ aⁿ + ⁿC₁ aⁿ⁻¹ b + ⁿC₂ aⁿ⁻² b² + … + ⁿCₙ bⁿ, for any positive integer n.",
+     "Why: (a + b)ⁿ is n brackets multiplied. A term aⁿ⁻ʳ bʳ appears once for every way of choosing b from r of the n brackets — ⁿCᵣ ways.",
+     "There are n + 1 terms. Powers of a fall from n to 0, powers of b rise from 0 to n, and in each term the indices add up to n.",
+     "The numbers ⁿCᵣ are the binomial coefficients; they read the same from both ends because ⁿCᵣ = ⁿCₙ₋ᵣ.",
+     "Syllabus note: the general-term and middle-term formulas are not part of the current CBSE syllabus for this chapter."
+    ],
+    "example": {
+     "q": "Expand (x + 2)⁴ using the binomial theorem.",
+     "steps": [
+      "⁴C₀x⁴ + ⁴C₁x³(2) + ⁴C₂x²(2²) + ⁴C₃x(2³) + ⁴C₄(2⁴).",
+      "= x⁴ + 4·2x³ + 6·4x² + 4·8x + 16."
+     ],
+     "answer": "x⁴ + 8x³ + 24x² + 32x + 16"
+    },
+    "reallife": "Actuaries at LIC use binomial expansions to estimate probabilities of many independent events, like several policies maturing together."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Why the coefficient of aⁿ⁻ʳbʳ is ⁿCᵣ",
+     "prompt": "Arrange the reasoning",
+     "items": [
+      "Write (a + b)ⁿ as n brackets (a + b)(a + b)…(a + b)",
+      "Each term comes from picking a or b from every bracket",
+      "To get aⁿ⁻ʳ bʳ, pick b from exactly r brackets",
+      "This can be done in ⁿCᵣ ways",
+      "So the term is ⁿCᵣ aⁿ⁻ʳ bʳ"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Facts about (a + b)ⁿ",
+     "items": [
+      [
+       "(a + b)ⁿ has n terms.",
+       false,
+       "It has n + 1 terms."
+      ],
+      [
+       "In every term, the powers of a and b add up to n.",
+       true,
+       "aⁿ⁻ʳ bʳ: (n − r) + r = n."
+      ],
+      [
+       "The coefficients read the same from both ends.",
+       true,
+       "ⁿCᵣ = ⁿCₙ₋ᵣ."
+      ],
+      [
+       "The first term of (a + b)ⁿ is ⁿC₁ aⁿ.",
+       false,
+       "The first term is ⁿC₀ aⁿ = aⁿ."
+      ],
+      [
+       "(a + b)¹⁰ has 11 terms.",
+       true,
+       "n + 1 = 11."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many terms are there in the expansion of (2x + 3y)⁹?",
+     "options": [
+      "10",
+      "9",
+      "11",
+      "18"
+     ],
+     "answer": 0,
+     "explain": "(a + b)ⁿ has n + 1 terms, so 9 + 1 = 10.",
+     "mistake": "Counts n terms",
+     "check": "10"
+    },
+    {
+     "q": "The coefficient of x³ in (x + 1)⁵ is:",
+     "options": [
+      "3",
+      "5",
+      "10",
+      "15"
+     ],
+     "answer": 2,
+     "explain": "The term is ⁵C₂ x³ (1)² = 10x³.",
+     "mistake": "Uses ⁵C₁",
+     "check": "10"
+    },
+    {
+     "q": "In (a + b)⁷, the term containing a³ also contains:",
+     "options": [
+      "b³",
+      "b¹⁰",
+      "b⁴",
+      "b⁷"
+     ],
+     "answer": 2,
+     "explain": "The powers add to 7, so a³ goes with b⁴.",
+     "mistake": "Makes the powers equal"
+    },
+    {
+     "q": "The expansion of (x + 3)³ is:",
+     "options": [
+      "x³ + 3x² + 3x + 27",
+      "x³ + 9x² + 9x + 27",
+      "x³ + 27",
+      "x³ + 9x² + 27x + 27"
+     ],
+     "answer": 3,
+     "explain": "x³ + 3x²(3) + 3x(9) + 27 = x³ + 9x² + 27x + 27.",
+     "mistake": "Forgets to raise 3 to the right powers"
+    },
+    {
+     "q": "The coefficient of a²b⁴ in (a + b)⁶ is:",
+     "options": [
+      "20",
+      "15",
+      "6",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "⁶C₄ = ⁶C₂ = 15.",
+     "mistake": "Takes the power of b as the coefficient",
+     "check": "15"
+    },
+    {
+     "q": "Which is the correct statement of the binomial theorem for positive integer n?",
+     "options": [
+      "(a + b)ⁿ = Σ ⁿCᵣ aʳ bʳ",
+      "(a + b)ⁿ = Σ ⁿPᵣ aⁿ⁻ʳ bʳ",
+      "(a + b)ⁿ = aⁿ + bⁿ",
+      "(a + b)ⁿ = Σ ⁿCᵣ aⁿ⁻ʳ bʳ, r = 0 to n"
+     ],
+     "answer": 3,
+     "explain": "Coefficients are combinations, powers of a fall and powers of b rise.",
+     "mistake": "Uses permutations or equal powers"
+    },
+    {
+     "q": "In the expansion of (x + 2)⁴, what is the coefficient of x²?",
+     "options": [
+      "6",
+      "16",
+      "24",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "⁴C₂ x² (2)² = 6 × 4 x² = 24x².",
+     "mistake": "Forgets to square 2",
+     "check": "6*4"
+    },
+    {
+     "q": "Assertion (A): The coefficient of a²b³ in (a + b)⁵ equals the coefficient of a³b².\nReason (R): ⁿCᵣ = ⁿCₙ₋ᵣ.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "a²b³ has coefficient ⁵C₃ and a³b² has ⁵C₂; these are equal by the symmetry rule R.",
+     "mistake": "Thinks the coefficients depend on which letter is first"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know why the coefficient of a³b² in (a + b)⁵ is ⁵C₂. Explain the binomial theorem and the counting reason behind it.",
+    "must": [
+     [
+      "n + 1 terms",
+      "n plus one",
+      "number of terms"
+     ],
+     [
+      "choose",
+      "ncr",
+      "combination"
+     ],
+     [
+      "powers add",
+      "sum of powers",
+      "add up to n",
+      "decrease",
+      "increase"
+     ]
+    ],
+    "praise": "Pick b from 2 of the 5 brackets — ⁵C₂ ways. The theorem is just counting!",
+    "nudge": "From how many brackets do you choose b to get b² in (a + b)⁵?"
+   }
+  },
+  {
+   "id": "g11-maths-07-03",
+   "title": "Special cases and full expansions",
+   "covers": [
+    "c7.2.8",
+    "c7.2.9",
+    "c7.2.10",
+    "c7.2.11"
+   ],
+   "learn": {
+    "hook": "Put a minus sign in (x − y)ⁿ and the signs start alternating: + − + − … Spot that and expansions become automatic.",
+    "points": [
+     "(x − y)ⁿ = ⁿC₀xⁿ − ⁿC₁xⁿ⁻¹y + ⁿC₂xⁿ⁻²y² − … + (−1)ⁿ ⁿCₙ yⁿ: signs alternate.",
+     "(1 + x)ⁿ = ⁿC₀ + ⁿC₁x + ⁿC₂x² + … + ⁿCₙxⁿ and (1 − x)ⁿ = ⁿC₀ − ⁿC₁x + ⁿC₂x² − … + (−1)ⁿ ⁿCₙxⁿ.",
+     "Put x = 1 in (1 + x)ⁿ: ⁿC₀ + ⁿC₁ + … + ⁿCₙ = 2ⁿ. The sum of the coefficients of any expansion = its value at x = 1.",
+     "For terms like (x² + 3/x)⁴, write a = x², b = 3/x and simplify powers carefully: (3/x)² = 9/x².",
+     "(1 − 2x)⁵ = 1 − 10x + 40x² − 80x³ + 80x⁴ − 32x⁵."
+    ],
+    "example": {
+     "q": "Expand (x + 2/x)⁴ and find the term independent of x.",
+     "steps": [
+      "x⁴ + 4x³(2/x) + 6x²(4/x²) + 4x(8/x³) + 16/x⁴.",
+      "= x⁴ + 8x² + 24 + 32/x² + 16/x⁴.",
+      "The constant term is 24."
+     ],
+     "answer": "x⁴ + 8x² + 24 + 32/x² + 16/x⁴; independent term 24"
+    },
+    "reallife": "Engineers use (1 + x)ⁿ ≈ 1 + nx for small x — e.g. a 1% expansion of a rail track repeated over many segments."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the expansion",
+     "pairs": [
+      [
+       "(1 + x)³",
+       "1 + 3x + 3x² + x³"
+      ],
+      [
+       "(1 − x)³",
+       "1 − 3x + 3x² − x³"
+      ],
+      [
+       "(x − 2)³",
+       "x³ − 6x² + 12x − 8"
+      ],
+      [
+       "(2x − 3)⁴ leading terms",
+       "16x⁴ − 96x³ + 216x² − …"
+      ],
+      [
+       "(x² − 1/x)³",
+       "x⁶ − 3x³ + 3 − 1/x³"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Sum of coefficients (put x = 1)",
+     "items": [
+      {
+       "q": "(1 + x)⁶",
+       "a": "64",
+       "check": "2**6"
+      },
+      {
+       "q": "(2x − 1)⁵",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "(x + 2)⁴",
+       "a": "81",
+       "check": "3**4"
+      },
+      {
+       "q": "(1 − x)⁷",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "(3x − 1)³",
+       "a": "8",
+       "check": "2**3"
+      },
+      {
+       "q": "(x + 1)¹⁰",
+       "a": "1024",
+       "check": "2**10"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the coefficient of x³ in (1 − 2x)⁵?",
+     "options": [
+      "−40",
+      "−10",
+      "80",
+      "−80"
+     ],
+     "answer": 3,
+     "explain": "⁵C₃ (−2x)³ = 10 × (−8)x³ = −80x³.",
+     "mistake": "Forgets the minus sign from (−2)³",
+     "check": "10*(-8)"
+    },
+    {
+     "q": "The sum ⁷C₀ + ⁷C₁ + … + ⁷C₇ equals:",
+     "options": [
+      "49",
+      "128",
+      "64",
+      "256"
+     ],
+     "answer": 1,
+     "explain": "The sum of all binomial coefficients of (1 + x)⁷ is 2⁷ = 128.",
+     "mistake": "Uses 7²",
+     "check": "2**7"
+    },
+    {
+     "q": "What is the constant term in the expansion of (x − 1/x)⁶?",
+     "options": [
+      "20",
+      "15",
+      "−15",
+      "−20"
+     ],
+     "answer": 3,
+     "explain": "The x⁰ term needs x³ · (−1/x)³: ⁶C₃ (−1)³ = −20.",
+     "mistake": "Ignores the alternating sign",
+     "check": "-20"
+    },
+    {
+     "q": "Which is the expansion of (x − y)⁴?",
+     "options": [
+      "x⁴ − y⁴",
+      "x⁴ − 4x³y − 6x²y² − 4xy³ − y⁴",
+      "x⁴ − 4x³y + 6x²y² − 4xy³ + y⁴",
+      "x⁴ + 4x³y + 6x²y² + 4xy³ + y⁴"
+     ],
+     "answer": 2,
+     "explain": "Signs alternate starting with +; the y⁴ term has (−1)⁴ = +1.",
+     "mistake": "Makes every term after the first negative"
+    },
+    {
+     "q": "The coefficient of x² in (2x − 3)⁴ is:",
+     "options": [
+      "216",
+      "36",
+      "54",
+      "−216"
+     ],
+     "answer": 0,
+     "explain": "⁴C₂ (2x)² (−3)² = 6 × 4 × 9 = 216x².",
+     "mistake": "Forgets to square both 2 and −3",
+     "check": "6*4*9"
+    },
+    {
+     "q": "What is the sum of the coefficients in (3x − 2)⁵?",
+     "options": [
+      "243",
+      "−1",
+      "32",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "Put x = 1: (3 − 2)⁵ = 1.",
+     "mistake": "Adds only the positive coefficients",
+     "check": "1"
+    },
+    {
+     "q": "In the expansion of (x² + 3/x)⁴, which term contains x²?",
+     "options": [
+      "6x²",
+      "12x²",
+      "108x²",
+      "54x²"
+     ],
+     "answer": 3,
+     "explain": "⁴C₂ (x²)² (3/x)² = 6 × x⁴ × 9/x² = 54x².",
+     "steps": [
+      "Term with (x²)² and (3/x)²",
+      "⁴C₂ = 6",
+      "x⁴ × 9/x² = 9x²",
+      "6 × 9x² = 54x²"
+     ],
+     "mistake": "Forgets to square the 3"
+    },
+    {
+     "q": "(1 + x)ⁿ − (1 − x)ⁿ contains only:",
+     "options": [
+      "even powers of x",
+      "no terms",
+      "odd powers of x",
+      "the constant term"
+     ],
+     "answer": 2,
+     "explain": "Even-power terms have the same sign in both and cancel; odd-power terms double.",
+     "mistake": "Thinks the even powers survive"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu expanded (x − 2)³ and made every term negative. Explain the sign pattern in (x − y)ⁿ and how to find the sum of the coefficients.",
+    "must": [
+     [
+      "alternate",
+      "alternating",
+      "plus minus"
+     ],
+     [
+      "(−1)",
+      "minus one power",
+      "odd power negative"
+     ],
+     [
+      "put x = 1",
+      "x equals 1",
+      "substitute 1",
+      "2^n"
+     ]
+    ],
+    "praise": "Signs flip-flop: + − + −. And x = 1 gives the sum of the coefficients. Easy!",
+    "nudge": "Which terms of (x − y)ⁿ get a minus sign?"
+   }
+  },
+  {
+   "id": "g11-maths-07-04",
+   "title": "Using the theorem: big powers, comparisons, divisibility",
+   "covers": [
+    "c7.2.12",
+    "c7.2.13",
+    "c7.2.14"
+   ],
+   "learn": {
+    "hook": "96³ in your head? Write it as (100 − 4)³ and the binomial theorem does it in four easy terms.",
+    "points": [
+     "Write the base near a round number: 96 = 100 − 4, 101 = 100 + 1, 0.98 = 1 − 0.02.",
+     "(100 − 4)³ = 100³ − 3·100²·4 + 3·100·16 − 64 = 1000000 − 120000 + 4800 − 64 = 884736.",
+     "Comparisons: (1.01)¹⁰⁰⁰⁰⁰⁰ = (1 + 0.01)¹⁰⁰⁰⁰⁰⁰ = 1 + 1000000 × 0.01 + (positive terms) > 1 + 10000 > 10000.",
+     "Divisibility: write the base as 1 + k. Then (1 + k)ⁿ = 1 + nk + k²(…), so (1 + k)ⁿ − nk − 1 is a multiple of k².",
+     "Example: 6ⁿ = (1 + 5)ⁿ = 1 + 5n + 25(…), so 6ⁿ − 5n leaves remainder 1 on division by 25."
+    ],
+    "example": {
+     "q": "Show that 9ⁿ − 8n − 1 is divisible by 64 for every positive integer n.",
+     "steps": [
+      "9ⁿ = (1 + 8)ⁿ = 1 + ⁿC₁·8 + ⁿC₂·8² + ⁿC₃·8³ + …",
+      "= 1 + 8n + 64[ⁿC₂ + ⁿC₃·8 + …].",
+      "So 9ⁿ − 8n − 1 = 64 × (an integer)."
+     ],
+     "answer": "9ⁿ − 8n − 1 is a multiple of 64"
+    },
+    "reallife": "Bank interest compounding, (1 + r)ⁿ, is approximated by 1 + nr + ⁿC₂r² — quick mental maths for loan officers."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Compute (101)³ with the binomial theorem",
+     "prompt": "Arrange the steps",
+     "items": [
+      "(101)³ = (100 + 1)³",
+      "= 100³ + 3·100²·1 + 3·100·1² + 1³",
+      "= 1000000 + 30000 + 300 + 1",
+      "= 1030301"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Write the base as round number ± small",
+     "items": [
+      {
+       "q": "96³",
+       "a": "884736",
+       "check": "96**3"
+      },
+      {
+       "q": "101³",
+       "a": "1030301",
+       "check": "101**3"
+      },
+      {
+       "q": "99²",
+       "a": "9801",
+       "check": "99**2"
+      },
+      {
+       "q": "(1.1)⁴",
+       "a": "1.4641",
+       "check": "Fraction(11,10)**4"
+      },
+      {
+       "q": "98³",
+       "a": "941192",
+       "check": "98**3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Using (100 − 1)⁴, find 99⁴.",
+     "options": [
+      "96059601",
+      "96059401",
+      "97059601",
+      "96060601"
+     ],
+     "answer": 0,
+     "explain": "100⁴ − 4·100³ + 6·100² − 4·100 + 1 = 100000000 − 4000000 + 60000 − 400 + 1 = 96,059,601.",
+     "mistake": "Gets a sign wrong in the alternating terms",
+     "check": "99**4"
+    },
+    {
+     "q": "Using the binomial theorem, (0.98)³ equals:",
+     "options": [
+      "0.941192",
+      "0.881192",
+      "0.96",
+      "1.058808"
+     ],
+     "answer": 0,
+     "explain": "(1 − 0.02)³ = 1 − 0.06 + 0.0012 − 0.000008 = 0.941192.",
+     "mistake": "Stops after the first two terms",
+     "check": "Fraction(98,100)**3"
+    },
+    {
+     "q": "Which is larger, (1.01)¹⁰⁰⁰⁰⁰⁰ or 10000?",
+     "options": [
+      "They are equal",
+      "(1.01)¹⁰⁰⁰⁰⁰⁰",
+      "Cannot be decided without a calculator",
+      "10000"
+     ],
+     "answer": 1,
+     "explain": "(1 + 0.01)¹⁰⁰⁰⁰⁰⁰ > 1 + 1000000 × 0.01 = 10001 > 10000, since the other terms are positive.",
+     "mistake": "Thinks powers of a number close to 1 stay close to 1"
+    },
+    {
+     "q": "What is the remainder when 7ⁿ − 6n is divided by 36, for any positive integer n?",
+     "options": [
+      "1",
+      "7",
+      "0",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "7ⁿ = (1 + 6)ⁿ = 1 + 6n + 36(…). So 7ⁿ − 6n = 1 + 36k: remainder 1. (Check n = 2: 49 − 12 = 37.)",
+     "mistake": "Thinks the expression is an exact multiple of 36",
+     "check": "1"
+    },
+    {
+     "q": "Which expression shows 9ⁿ − 8n − 1 is divisible by 64?",
+     "options": [
+      "64[ⁿC₂ + 8 ⁿC₃ + …]",
+      "8[ⁿC₁ + ⁿC₂ + …]",
+      "9ⁿ − 1",
+      "64n"
+     ],
+     "answer": 0,
+     "explain": "After removing 1 and 8n, every remaining term of (1 + 8)ⁿ has a factor 8² = 64.",
+     "mistake": "Stops at a factor of 8"
+    },
+    {
+     "q": "Using (2 − 0.1)², compute (1.9)².",
+     "options": [
+      "4.01",
+      "3.21",
+      "3.61",
+      "3.81"
+     ],
+     "answer": 2,
+     "explain": "(2 − 0.1)² = 4 − 0.4 + 0.01 = 3.61.",
+     "mistake": "Forgets the middle term or its sign",
+     "check": "Fraction(19,10)**2"
+    },
+    {
+     "q": "Find (102)³ using the binomial theorem.",
+     "options": [
+      "1016208",
+      "1060208",
+      "1061200",
+      "1061208"
+     ],
+     "answer": 3,
+     "explain": "(100 + 2)³ = 1000000 + 3·10000·2 + 3·100·4 + 8 = 1000000 + 60000 + 1200 + 8 = 1061208.",
+     "mistake": "Forgets to square or cube the 2",
+     "check": "102**3"
+    },
+    {
+     "q": "Assertion (A): 6ⁿ − 5n leaves remainder 1 when divided by 25, for every positive integer n.\nReason (R): 6ⁿ = (1 + 5)ⁿ = 1 + 5n + 25 × (an integer).",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Subtracting 5n from R gives 6ⁿ − 5n = 1 + 25k, which is exactly A.",
+     "mistake": "Does not see that R directly proves A"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must compute 99⁴ without a calculator and prove 9ⁿ − 8n − 1 is divisible by 64. Explain the trick of writing the base as 'round ± small'.",
+    "must": [
+     [
+      "round number",
+      "100",
+      "near"
+     ],
+     [
+      "expand",
+      "binomial",
+      "terms"
+     ],
+     [
+      "factor",
+      "multiple",
+      "divisible",
+      "remaining terms"
+     ]
+    ],
+    "praise": "99 = 100 − 1, expand, and the big powers are easy. Same trick proves divisibility. Wow!",
+    "nudge": "How can you write 99 using a nice round number?"
+   }
+  },
+  {
+   "id": "g11-maths-07-05",
+   "title": "Surd expressions and mixed problems",
+   "covers": [
+    "c7.2.15",
+    "c7.2.16"
+   ],
+   "learn": {
+    "hook": "(√2 + 1)⁴ + (√2 − 1)⁴ looks messy — but add the two expansions and half the terms vanish, leaving a whole number.",
+    "points": [
+     "(a + b)ⁿ + (a − b)ⁿ = 2[terms with even powers of b]; (a + b)ⁿ − (a − b)ⁿ = 2[terms with odd powers of b].",
+     "Example: (√3 + 1)⁴ − (√3 − 1)⁴ = 2[4(√3)³ + 4(√3)] = 2[12√3 + 4√3] = 32√3.",
+     "To find n and a from given terms: compare coefficients, e.g. if (1 + ax)ⁿ = 1 + 8x + 24x² + …, then na = 8 and ⁿC₂ a² = 24.",
+     "Trinomials: group two terms as one, e.g. (1 + x + x²)² = ((1 + x) + x²)², then expand twice.",
+     "Always simplify surds at the end: (√2)⁴ = 4, (√3)³ = 3√3."
+    ],
+    "example": {
+     "q": "Evaluate (√2 + 1)⁴ + (√2 − 1)⁴.",
+     "steps": [
+      "Odd-power terms cancel; even-power terms double.",
+      "= 2[(√2)⁴ + ⁴C₂(√2)²(1)² + 1⁴].",
+      "= 2[4 + 6 × 2 + 1] = 2 × 17."
+     ],
+     "answer": "34"
+    },
+    "reallife": "Signal-processing engineers combine (a + b)ⁿ and (a − b)ⁿ to isolate even or odd parts of a signal."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Find n and a if (1 + ax)ⁿ = 1 + 8x + 24x² + …",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Compare coefficients: na = 8 and n(n − 1)a²/2 = 24",
+      "So n²a² = 64 and n(n − 1)a² = 48",
+      "Divide: (n − 1)/n = 48/64 = 3/4",
+      "n = 4, and then a = 2"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Surd expansions",
+     "items": [
+      [
+       "(√2 + 1)⁴ + (√2 − 1)⁴ is a whole number.",
+       true,
+       "Odd powers of 1 with √2 terms cancel; the result is 34."
+      ],
+      [
+       "(a + b)⁵ − (a − b)⁵ contains the term a⁵.",
+       false,
+       "a⁵ appears in both with the same sign and cancels."
+      ],
+      [
+       "(√3)³ = 3√3",
+       true,
+       "(√3)² × √3 = 3√3."
+      ],
+      [
+       "(1 + x + x²)² = 1 + 2x + 3x² + 2x³ + x⁴",
+       true,
+       "Expanding ((1 + x) + x²)² gives exactly this."
+      ],
+      [
+       "The coefficient of x³ in (1 + x + x²)³ is 6.",
+       false,
+       "It is 7: (1 + x + x²)³ = 1 + 3x + 6x² + 7x³ + 6x⁴ + 3x⁵ + x⁶."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate (√3 + 1)⁴ − (√3 − 1)⁴.",
+     "options": [
+      "16√3",
+      "32",
+      "56",
+      "32√3"
+     ],
+     "answer": 3,
+     "explain": "Only odd powers of 1 survive, doubled: 2[⁴C₁(√3)³ + ⁴C₃(√3)] = 2[12√3 + 4√3] = 32√3.",
+     "mistake": "Forgets to double"
+    },
+    {
+     "q": "Evaluate (√2 + 1)⁴ + (√2 − 1)⁴.",
+     "options": [
+      "24",
+      "68",
+      "17",
+      "34"
+     ],
+     "answer": 3,
+     "explain": "2[(√2)⁴ + 6(√2)² + 1] = 2[4 + 12 + 1] = 34.",
+     "mistake": "Forgets to double the surviving terms",
+     "check": "2*(4+12+1)"
+    },
+    {
+     "q": "If (1 + ax)ⁿ = 1 + 8x + 24x² + …, then n is:",
+     "options": [
+      "8",
+      "6",
+      "2",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "na = 8 gives n²a² = 64, and n(n − 1)a²/2 = 24 gives n(n − 1)a² = 48. Dividing: (n − 1)/n = 3/4, so n = 4 and a = 2.",
+     "mistake": "Takes n = 8 from the coefficient of x",
+     "check": "4"
+    },
+    {
+     "q": "What is the coefficient of x³ in (1 + x + x²)³?",
+     "options": [
+      "3",
+      "10",
+      "7",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "Ways to make x³ from three factors: (x, x, x) → 1 way; (1, x, x²) in any order → 6 ways. Total 7.",
+     "mistake": "Misses the x·x·x choice",
+     "check": "7"
+    },
+    {
+     "q": "(a + b)⁶ + (a − b)⁶ contains which powers of b?",
+     "options": [
+      "All powers",
+      "Only b⁶",
+      "Only even powers: b⁰, b², b⁴, b⁶",
+      "Only odd powers"
+     ],
+     "answer": 2,
+     "explain": "Odd-power terms have opposite signs in the two expansions and cancel.",
+     "mistake": "Thinks the odd terms survive"
+    },
+    {
+     "q": "Expand (1 + x + x²)² by grouping as ((1 + x) + x²)². The coefficient of x² is:",
+     "options": [
+      "1",
+      "4",
+      "2",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "(1 + x)² + 2(1 + x)x² + x⁴ = 1 + 2x + x² + 2x² + 2x³ + x⁴, so x² has 1 + 2 = 3.",
+     "mistake": "Forgets the cross term 2(1 + x)x²",
+     "check": "1+2"
+    },
+    {
+     "q": "If the coefficients of x and x² in (1 + x)ⁿ are equal, then n is:",
+     "options": [
+      "4",
+      "3",
+      "2",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "ⁿC₁ = ⁿC₂ ⇒ n = n(n − 1)/2 ⇒ n − 1 = 2 ⇒ n = 3.",
+     "mistake": "Uses ⁿC₁ = ⁿC₀",
+     "check": "3"
+    },
+    {
+     "q": "What is the value of (x + 1)³ + (x − 1)³ at x = 2?",
+     "options": [
+      "24",
+      "26",
+      "28",
+      "30"
+     ],
+     "answer": 2,
+     "explain": "(x + 1)³ + (x − 1)³ = 2x³ + 6x. At x = 2: 16 + 12 = 28. (Check: 27 + 1 = 28.)",
+     "mistake": "Doubles only x³",
+     "check": "27+1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must evaluate (√2 + 1)⁴ + (√2 − 1)⁴ without expanding fully twice. Explain the add-and-cancel shortcut.",
+    "must": [
+     [
+      "cancel",
+      "cancels",
+      "vanish"
+     ],
+     [
+      "even powers",
+      "odd powers"
+     ],
+     [
+      "double",
+      "twice",
+      "2 times",
+      "multiply by 2"
+     ]
+    ],
+    "praise": "Add them and the odd terms vanish — just double the rest. A whole number pops out!",
+    "nudge": "When you add (a + b)ⁿ and (a − b)ⁿ, which terms disappear?"
+   }
+  }
+ ]
+}

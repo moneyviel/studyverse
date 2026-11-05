@@ -1,0 +1,1534 @@
+{
+ "n": 4,
+ "title": "Complex Numbers and Quadratic Equations",
+ "emoji": "🌀",
+ "topics": [
+  {
+   "id": "g11-maths-04-01",
+   "title": "The imaginary unit i and complex numbers",
+   "covers": [
+    "c4.1.1",
+    "c4.1.2",
+    "c4.2.1",
+    "c4.2.2",
+    "c4.2.3"
+   ],
+   "learn": {
+    "hook": "No real number squared gives −1. So mathematicians invented one: i. Today electrical engineers at power grids use it every day.",
+    "points": [
+     "x² + 1 = 0 has no real solution, because x² ≥ 0 for every real x. We extend R by a new number i with i² = −1.",
+     "A complex number is z = a + ib with a, b real. Re z = a is the real part and Im z = b is the imaginary part. The set of complex numbers is C.",
+     "If b = 0, z = a is purely real; if a = 0 and b ≠ 0, z = ib is purely imaginary. So every real number is a complex number.",
+     "Equality: a + ib = c + id exactly when a = c AND b = d.",
+     "Note: Im z is the real number b, not ib. For z = 3 − 5i, Im z = −5."
+    ],
+    "example": {
+     "q": "Find real x and y if (2x + y) + (x + 2)i = 5 + yi.",
+     "steps": [
+      "Compare real parts: 2x + y = 5.",
+      "Compare imaginary parts: x + 2 = y.",
+      "Substitute: 2x + x + 2 = 5 ⇒ x = 1.",
+      "Then y = 1 + 2 = 3."
+     ],
+     "answer": "x = 1, y = 3"
+    },
+    "reallife": "AC circuit engineers write impedance as Z = R + iX (they often use j for i), with resistance as the real part and reactance as the imaginary part."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Purely real, purely imaginary or neither?",
+     "buckets": [
+      "Purely real",
+      "Purely imaginary",
+      "Neither"
+     ],
+     "items": [
+      [
+       "7",
+       0
+      ],
+      [
+       "−√2",
+       0
+      ],
+      [
+       "i²",
+       0
+      ],
+      [
+       "4i",
+       1
+      ],
+      [
+       "−i/3",
+       1
+      ],
+      [
+       "i³",
+       1
+      ],
+      [
+       "2 + 3i",
+       2
+      ],
+      [
+       "−1 − i",
+       2
+      ],
+      [
+       "√3 + i√3",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Real or imaginary part",
+     "items": [
+      {
+       "q": "Re(4 − 7i)",
+       "a": "4",
+       "check": "4"
+      },
+      {
+       "q": "Im(4 − 7i)",
+       "a": "−7",
+       "check": "-7"
+      },
+      {
+       "q": "Im(−3i)",
+       "a": "−3",
+       "check": "-3"
+      },
+      {
+       "q": "Re(−3i)",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "Im(√5)",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "Re(−2 + i/2)",
+       "a": "−2",
+       "check": "-2"
+      },
+      {
+       "q": "Im(−2 + i/2)",
+       "a": "1/2",
+       "check": "Fraction(1,2)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the imaginary part of z = −3 + 8i?",
+     "options": [
+      "8",
+      "−3",
+      "−8",
+      "8i"
+     ],
+     "answer": 0,
+     "explain": "For z = a + ib, Im z = b. Here b = 8 (a real number, without i).",
+     "mistake": "Writes the imaginary part with i",
+     "check": "8"
+    },
+    {
+     "q": "If (x + y) + i(x − y) = 6 + 2i, where x, y are real, then x is:",
+     "options": [
+      "3",
+      "6",
+      "2",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "x + y = 6 and x − y = 2 give 2x = 8, so x = 4 (and y = 2).",
+     "mistake": "Solves for y instead of x",
+     "check": "(6+2)/2"
+    },
+    {
+     "q": "Which number is purely imaginary?",
+     "options": [
+      "5",
+      "5 + 5i",
+      "−5i",
+      "i²"
+     ],
+     "answer": 2,
+     "explain": "−5i has real part 0 and non-zero imaginary part. i² = −1 is real.",
+     "mistake": "Thinks i² is imaginary because it contains i"
+    },
+    {
+     "q": "Why does x² + 4 = 0 have no real solution?",
+     "options": [
+      "The square of any real number is non-negative, so x² cannot equal −4",
+      "Because x must be an integer",
+      "Because the equation has degree 2",
+      "Because 4 is not a perfect square"
+     ],
+     "answer": 0,
+     "explain": "x² ≥ 0 for real x, so x² + 4 ≥ 4 > 0.",
+     "mistake": "Thinks the problem is with the number 4 itself"
+    },
+    {
+     "q": "If 2a + 3i = 8 + (b − 1)i with a, b real, what is a + b?",
+     "options": [
+      "12",
+      "7",
+      "4",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "2a = 8 gives a = 4; b − 1 = 3 gives b = 4. So a + b = 8.",
+     "mistake": "Takes b − 1 = 3 as b = 2",
+     "check": "4+4"
+    },
+    {
+     "q": "Which statement about real and complex numbers is true?",
+     "options": [
+      "Im(z) is always written with i",
+      "Every complex number is real",
+      "i is a real number",
+      "Every real number is a complex number"
+     ],
+     "answer": 3,
+     "explain": "A real number a can be written a + 0i, so R ⊂ C.",
+     "mistake": "Thinks real and complex numbers are separate sets"
+    },
+    {
+     "q": "For which real k is z = (k − 2) + (k + 3)i purely imaginary?",
+     "options": [
+      "−3",
+      "2",
+      "3",
+      "0"
+     ],
+     "answer": 1,
+     "explain": "Purely imaginary needs real part 0: k − 2 = 0, so k = 2. Then z = 5i (non-zero imaginary part).",
+     "mistake": "Sets the imaginary part to 0 instead",
+     "check": "2"
+    },
+    {
+     "q": "Assertion (A): i² = −1.\nReason (R): i is defined as a number whose square is −1.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "i is introduced precisely so that i² = −1, so R explains A.",
+     "mistake": "Thinks i = −1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks 'imaginary numbers' are made up and useless. Explain what i is and what a complex number a + ib means.",
+    "must": [
+     [
+      "i squared",
+      "i² = −1",
+      "square root of minus one",
+      "√−1"
+     ],
+     [
+      "real part",
+      "real"
+     ],
+     [
+      "imaginary part",
+      "coefficient of i",
+      "imaginary"
+     ]
+    ],
+    "praise": "i is just the number whose square is −1, and a + ib has a real part and an imaginary part. Not so imaginary after all!",
+    "nudge": "What is i²? And in 3 + 4i, which part is real and which is imaginary?"
+   }
+  },
+  {
+   "id": "g11-maths-04-02",
+   "title": "Adding and subtracting complex numbers",
+   "covers": [
+    "c4.3.1",
+    "c4.3.2",
+    "c4.3.9"
+   ],
+   "learn": {
+    "hook": "Adding complex numbers is like adding bank balances in two separate accounts — real with real, imaginary with imaginary.",
+    "points": [
+     "(a + ib) + (c + id) = (a + c) + i(b + d).",
+     "Properties of addition: closure, commutative z₁ + z₂ = z₂ + z₁, associative, additive identity 0 = 0 + 0i, additive inverse −z = −a − ib.",
+     "Subtraction: z₁ − z₂ = z₁ + (−z₂) = (a − c) + i(b − d).",
+     "Always simplify the final answer to the standard form a + ib.",
+     "Be careful with brackets: −(3 − 2i) = −3 + 2i."
+    ],
+    "example": {
+     "q": "Express (1/4 + 3i/4) − (2i + 3/2) in the form a + ib.",
+     "steps": [
+      "Real parts: 1/4 − 3/2 = 1/4 − 6/4 = −5/4.",
+      "Imaginary parts: 3/4 − 2 = −5/4.",
+      "Combine."
+     ],
+     "answer": "−5/4 − (5/4)i"
+    },
+    "reallife": "Engineers add the impedances of two components in series exactly this way: real parts add and imaginary parts add."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the sum or difference",
+     "pairs": [
+      [
+       "(2 + 3i) + (4 − i)",
+       "6 + 2i"
+      ],
+      [
+       "(5 − 2i) − (3 + 4i)",
+       "2 − 6i"
+      ],
+      [
+       "(−1 + i) + (1 − i)",
+       "0"
+      ],
+      [
+       "Additive inverse of 3 − 7i",
+       "−3 + 7i"
+      ],
+      [
+       "(7i) − (2 + 7i)",
+       "−2"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Properties of addition",
+     "items": [
+      [
+       "z₁ + z₂ = z₂ + z₁ for all complex z₁, z₂.",
+       true,
+       "Real and imaginary parts are added as real numbers, which commute."
+      ],
+      [
+       "The additive identity in C is 1.",
+       false,
+       "It is 0 = 0 + 0i, since z + 0 = z."
+      ],
+      [
+       "The sum of two complex numbers is always a complex number.",
+       true,
+       "That is the closure property."
+      ],
+      [
+       "The additive inverse of a + ib is a − ib.",
+       false,
+       "It is −a − ib; a − ib is the conjugate."
+      ],
+      [
+       "Subtraction of complex numbers is commutative.",
+       false,
+       "z₁ − z₂ = −(z₂ − z₁), which differs unless z₁ = z₂."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "(4 + 3i) + (−2 + 5i) equals:",
+     "options": [
+      "−8 + 15i",
+      "2 + 8i",
+      "2 − 2i",
+      "6 + 8i"
+     ],
+     "answer": 1,
+     "explain": "Real: 4 − 2 = 2. Imaginary: 3 + 5 = 8.",
+     "mistake": "Multiplies instead of adding"
+    },
+    {
+     "q": "(3 − 2i) − (5 − 6i) equals:",
+     "options": [
+      "2 − 4i",
+      "−2 − 8i",
+      "8 − 8i",
+      "−2 + 4i"
+     ],
+     "answer": 3,
+     "explain": "Real: 3 − 5 = −2. Imaginary: −2 − (−6) = 4.",
+     "mistake": "Forgets to change the sign of −6i when subtracting"
+    },
+    {
+     "q": "The additive inverse of −4 + 9i is:",
+     "options": [
+      "−4 − 9i",
+      "1/(−4 + 9i)",
+      "4 − 9i",
+      "4 + 9i"
+     ],
+     "answer": 2,
+     "explain": "−z = −(−4 + 9i) = 4 − 9i, so that z + (−z) = 0.",
+     "mistake": "Confuses the additive inverse with the conjugate or the reciprocal"
+    },
+    {
+     "q": "If z₁ = 2 + i and z₂ = 1 − 3i, what is Re(z₁ − 2z₂)?",
+     "options": [
+      "1",
+      "0",
+      "−1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "2z₂ = 2 − 6i. z₁ − 2z₂ = (2 − 2) + (1 + 6)i = 7i. Real part 0.",
+     "mistake": "Doubles z₁ as well",
+     "check": "2-2"
+    },
+    {
+     "q": "Express (1/2 + 5i/2) + (3 + i/2) − (−3/2 + 2i) in the form a + ib.",
+     "options": [
+      "5 + 5i",
+      "2 + i",
+      "4 + 3i",
+      "5 + i"
+     ],
+     "answer": 3,
+     "explain": "Real: 1/2 + 3 + 3/2 = 5. Imaginary: 5/2 + 1/2 − 2 = 1.",
+     "mistake": "Misses a sign when subtracting −3/2 or 2i"
+    },
+    {
+     "q": "Which property is shown by (z₁ + z₂) + z₃ = z₁ + (z₂ + z₃)?",
+     "options": [
+      "Distributive law",
+      "Commutative law",
+      "Associative law",
+      "Closure"
+     ],
+     "answer": 2,
+     "explain": "Changing the grouping without changing the order is associativity.",
+     "mistake": "Mixes up associative and commutative"
+    },
+    {
+     "q": "If z = 5 − 2i and w = −5 + 2i, then z + w is:",
+     "options": [
+      "−4i",
+      "10 − 4i",
+      "0",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "w = −z, so z + w = 0, the additive identity.",
+     "mistake": "Adds real parts but doubles the imaginary part",
+     "check": "0"
+    },
+    {
+     "q": "Find Im[(2 − 3i) − (4 + 2i) + (1 + 7i)].",
+     "options": [
+      "−2",
+      "2",
+      "12",
+      "−1"
+     ],
+     "answer": 1,
+     "explain": "Imaginary parts: −3 − 2 + 7 = 2.",
+     "mistake": "Treats the second bracket as being added",
+     "check": "-3-2+7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to add (2 + 3i) and (4 − i). Explain how to add and subtract complex numbers.",
+    "must": [
+     [
+      "real part",
+      "real with real",
+      "real parts"
+     ],
+     [
+      "imaginary part",
+      "imaginary with imaginary",
+      "imaginary parts"
+     ],
+     [
+      "a + ib",
+      "standard form"
+     ]
+    ],
+    "praise": "Real with real, imaginary with imaginary. It's like sorting socks!",
+    "nudge": "Which parts do you combine with which?"
+   }
+  },
+  {
+   "id": "g11-maths-04-03",
+   "title": "Multiplying complex numbers",
+   "covers": [
+    "c4.3.3",
+    "c4.3.8"
+   ],
+   "learn": {
+    "hook": "Multiply out (a + ib)(c + id) like any two brackets — then one tiny rule, i² = −1, does the magic.",
+    "points": [
+     "(a + ib)(c + id) = (ac − bd) + i(ad + bc).",
+     "Properties: closure, commutative, associative, multiplicative identity 1 = 1 + 0i, and distributive z₁(z₂ + z₃) = z₁z₂ + z₁z₃.",
+     "Identities from real algebra still hold: (z₁ + z₂)² = z₁² + 2z₁z₂ + z₂², (z₁ − z₂)³ = z₁³ − 3z₁²z₂ + 3z₁z₂² − z₂³, z₁² − z₂² = (z₁ + z₂)(z₁ − z₂).",
+     "Useful results: (1 + i)² = 2i, (1 − i)² = −2i, (a + ib)(a − ib) = a² + b².",
+     "Always replace i² by −1 and collect real and imaginary parts at the end."
+    ],
+    "example": {
+     "q": "Find (3 + 2i)(4 − 5i).",
+     "steps": [
+      "= 12 − 15i + 8i − 10i².",
+      "i² = −1, so −10i² = +10.",
+      "= (12 + 10) + (−15 + 8)i."
+     ],
+     "answer": "22 − 7i"
+    },
+    "reallife": "Rotating a phone screen image by 90° is the same as multiplying each point (as a complex number) by i."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the product",
+     "pairs": [
+      [
+       "(1 + i)²",
+       "2i"
+      ],
+      [
+       "(1 − i)²",
+       "−2i"
+      ],
+      [
+       "(2 + i)(2 − i)",
+       "5"
+      ],
+      [
+       "i(3 − 4i)",
+       "4 + 3i"
+      ],
+      [
+       "(3 + i)(1 + 2i)",
+       "1 + 7i"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Expand (2 − 3i)²",
+     "prompt": "Arrange the steps",
+     "items": [
+      "(2 − 3i)² = 2² − 2(2)(3i) + (3i)²",
+      "= 4 − 12i + 9i²",
+      "= 4 − 12i − 9",
+      "= −5 − 12i"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "(2 + 3i)(1 − i) equals:",
+     "options": [
+      "−1 + i",
+      "5 − i",
+      "2 − 3i",
+      "5 + i"
+     ],
+     "answer": 3,
+     "explain": "2 − 2i + 3i − 3i² = 2 + i + 3 = 5 + i.",
+     "mistake": "Takes −3i² as −3"
+    },
+    {
+     "q": "What is (1 + i)⁴?",
+     "options": [
+      "4i",
+      "−4",
+      "−4i",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "(1 + i)² = 2i, so (1 + i)⁴ = (2i)² = 4i² = −4.",
+     "mistake": "Forgets that i² = −1",
+     "check": "-4"
+    },
+    {
+     "q": "(2 − 3i)³ equals:",
+     "options": [
+      "−46 + 9i",
+      "62 − 9i",
+      "8 − 27i",
+      "−46 − 9i"
+     ],
+     "answer": 3,
+     "explain": "(2 − 3i)³ = 8 − 3(4)(3i) + 3(2)(3i)² − (3i)³ = 8 − 36i − 54 + 27i = −46 − 9i.",
+     "steps": [
+      "8 − 36i + 54i² − 27i³",
+      "i² = −1, i³ = −i",
+      "8 − 36i − 54 + 27i",
+      "−46 − 9i"
+     ],
+     "mistake": "Cubes each part separately"
+    },
+    {
+     "q": "Which is the multiplicative identity in C?",
+     "options": [
+      "0 + 0i",
+      "0 + 1i",
+      "1 + 1i",
+      "1 + 0i"
+     ],
+     "answer": 3,
+     "explain": "z · 1 = z for every complex z.",
+     "mistake": "Confuses the additive and multiplicative identities"
+    },
+    {
+     "q": "Find Re[(3 + 4i)(3 − 4i)].",
+     "options": [
+      "7",
+      "9",
+      "25",
+      "−7"
+     ],
+     "answer": 2,
+     "explain": "(a + ib)(a − ib) = a² + b² = 9 + 16 = 25, a real number.",
+     "mistake": "Computes 9 − 16 = −7",
+     "check": "9+16"
+    },
+    {
+     "q": "Find Im[(√2 + √3 i)(√3 − √2 i)].",
+     "options": [
+      "1",
+      "5",
+      "−1",
+      "−5"
+     ],
+     "answer": 0,
+     "explain": "Imaginary part = ad + bc = (√2)(−√2) + (√3)(√3) = −2 + 3 = 1.",
+     "steps": [
+      "(a + ib)(c + id): imaginary part = ad + bc",
+      "a = √2, b = √3, c = √3, d = −√2",
+      "ad = −2, bc = 3",
+      "−2 + 3 = 1"
+     ],
+     "mistake": "Adds 2 and 3 without the sign of d",
+     "check": "-2+3"
+    },
+    {
+     "q": "If z₁ = 2 + i and z₂ = 1 − i, then z₁² − z₂² equals:",
+     "options": [
+      "3 + 2i",
+      "5 + 6i",
+      "1 + 4i",
+      "3 + 6i"
+     ],
+     "answer": 3,
+     "explain": "z₁² = 3 + 4i and z₂² = −2i, so z₁² − z₂² = 3 + 6i. Check: (z₁ + z₂)(z₁ − z₂) = 3 × (1 + 2i) = 3 + 6i.",
+     "mistake": "Forgets (1 − i)² = −2i"
+    },
+    {
+     "q": "Multiplying a complex number by i once has what effect on 3 + 2i?",
+     "options": [
+      "It gives 3i + 2",
+      "It gives −2 + 3i",
+      "It gives −3 − 2i",
+      "It gives 3 − 2i"
+     ],
+     "answer": 1,
+     "explain": "i(3 + 2i) = 3i + 2i² = −2 + 3i.",
+     "mistake": "Forgets that 2i × i = −2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu multiplied (3 + 2i)(4 − 5i) and got 12 − 10. Explain how to multiply complex numbers correctly.",
+    "must": [
+     [
+      "expand",
+      "brackets",
+      "foil",
+      "distribute"
+     ],
+     [
+      "i² = −1",
+      "i squared",
+      "minus one"
+     ],
+     [
+      "collect",
+      "real part",
+      "imaginary part"
+     ]
+    ],
+    "praise": "Expand everything, turn i² into −1, then collect. My answer is 22 − 7i now!",
+    "nudge": "What happens to the i² term after you expand?"
+   }
+  },
+  {
+   "id": "g11-maths-04-04",
+   "title": "Powers of i and roots of negative numbers",
+   "covers": [
+    "c4.3.6",
+    "c4.3.7",
+    "c4.6.1"
+   ],
+   "learn": {
+    "hook": "i, −1, −i, 1, i, −1, … The powers of i repeat every four steps — like the four seasons, or the four innings of a Test match.",
+    "points": [
+     "i¹ = i, i² = −1, i³ = −i, i⁴ = 1, and then the pattern repeats.",
+     "For any integer k: i^(4k) = 1, i^(4k+1) = i, i^(4k+2) = −1, i^(4k+3) = −i. Divide the power by 4 and use the remainder.",
+     "Negative powers: 1/i = −i, so i^(−n) = 1/iⁿ. For example i^(−3) = 1/(−i) = i.",
+     "Square root of a negative real: √(−a) = i√a for a > 0, e.g. √(−9) = 3i.",
+     "√a·√b = √(ab) is FALSE when both a and b are negative: √(−4)·√(−9) = (2i)(3i) = −6, not √36 = 6."
+    ],
+    "example": {
+     "q": "Simplify i⁹ + i¹⁹.",
+     "steps": [
+      "9 = 4 × 2 + 1, so i⁹ = i.",
+      "19 = 4 × 4 + 3, so i¹⁹ = i³ = −i.",
+      "Sum: i + (−i) = 0."
+     ],
+     "answer": "0"
+    },
+    "reallife": "Digital signal processors in mobile phones use the repeating cycle 1, i, −1, −i to rotate signals in steps of 90°."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Powers of i",
+     "items": [
+      {
+       "q": "i²",
+       "a": "−1",
+       "check": "-1"
+      },
+      {
+       "q": "i⁴",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "i¹⁰",
+       "a": "−1",
+       "check": "-1"
+      },
+      {
+       "q": "i¹⁰⁰",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "i²² + i²⁴",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "i⁶",
+       "a": "−1",
+       "check": "-1"
+      },
+      {
+       "q": "i⁸",
+       "a": "1",
+       "check": "1"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the power of i",
+     "pairs": [
+      [
+       "i⁴¹",
+       "i"
+      ],
+      [
+       "i⁴²",
+       "−1"
+      ],
+      [
+       "i⁴³",
+       "−i"
+      ],
+      [
+       "i⁴⁴",
+       "1"
+      ],
+      [
+       "i^(−1)",
+       "−i (since 1/i = −i)"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is i^(−50)?",
+     "options": [
+      "−i",
+      "i",
+      "1",
+      "−1"
+     ],
+     "answer": 3,
+     "explain": "i⁵⁰ = i^(48 + 2) = i² = −1, so i^(−50) = 1/(−1) = −1.",
+     "mistake": "Thinks a negative power always flips the sign",
+     "check": "-1"
+    },
+    {
+     "q": "What is i²⁰²⁶?",
+     "options": [
+      "1",
+      "−1",
+      "i",
+      "−i"
+     ],
+     "answer": 1,
+     "explain": "2026 = 4 × 506 + 2, so i²⁰²⁶ = i² = −1.",
+     "mistake": "Uses the last digit instead of the remainder on division by 4",
+     "check": "-1"
+    },
+    {
+     "q": "√(−16) × √(−25) equals:",
+     "options": [
+      "20i",
+      "20",
+      "−20",
+      "−20i"
+     ],
+     "answer": 2,
+     "explain": "√(−16) = 4i and √(−25) = 5i. Product = 20i² = −20.",
+     "mistake": "Multiplies under one root: √400 = 20",
+     "check": "-20"
+    },
+    {
+     "q": "1 + i + i² + i³ equals:",
+     "options": [
+      "1",
+      "0",
+      "i",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "1 + i − 1 − i = 0. Any four consecutive powers of i add up to 0.",
+     "mistake": "Adds the exponents",
+     "check": "0"
+    },
+    {
+     "q": "Simplify i^(−35) and write it in the form a + ib.",
+     "options": [
+      "0 + 1i",
+      "0 − 1i",
+      "−1 + 0i",
+      "1 + 0i"
+     ],
+     "answer": 0,
+     "explain": "i³⁵ = i³² · i³ = −i, so i^(−35) = 1/(−i) = i = 0 + 1i.",
+     "mistake": "Forgets that 1/(−i) = i"
+    },
+    {
+     "q": "Write (i¹⁸ + i^(−25))² in the form a + ib.",
+     "options": [
+      "0 − 2i",
+      "−2 + 0i",
+      "0 + 2i",
+      "2 + 0i"
+     ],
+     "answer": 2,
+     "explain": "i¹⁸ = −1 and i^(−25) = 1/i²⁵ = 1/i = −i. So (−1 − i)² = 1 + 2i + i² = 2i.",
+     "mistake": "Forgets the middle term 2ab when squaring"
+    },
+    {
+     "q": "Which step in '−1 = i·i = √(−1)·√(−1) = √((−1)(−1)) = √1 = 1' is wrong?",
+     "options": [
+      "−1 = i·i",
+      "i = √(−1)",
+      "√1 = 1",
+      "√(−1)·√(−1) = √((−1)(−1))"
+     ],
+     "answer": 3,
+     "explain": "√a·√b = √(ab) is not valid when both a and b are negative, so that step breaks.",
+     "mistake": "Thinks the error is in i² = −1"
+    },
+    {
+     "q": "Simplify 3√(−25) + 5√(−9) − 2√(−4).",
+     "options": [
+      "26i",
+      "−26i",
+      "26",
+      "34i"
+     ],
+     "answer": 0,
+     "explain": "3(5i) + 5(3i) − 2(2i) = 15i + 15i − 4i = 26i.",
+     "mistake": "Drops the i, or adds the last term"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must find i⁹⁹ but can't multiply 99 times. Explain the cycle of powers of i, and warn Gappu about √(−a)·√(−b).",
+    "must": [
+     [
+      "cycle",
+      "repeat",
+      "every four",
+      "pattern"
+     ],
+     [
+      "remainder",
+      "divide by 4",
+      "divided by four"
+     ],
+     [
+      "both negative",
+      "not valid",
+      "fails"
+     ]
+    ],
+    "praise": "Divide by 4, use the remainder — i⁹⁹ = i³ = −i. And never merge two negative roots!",
+    "nudge": "What do you do with the exponent to find iⁿ quickly?"
+   }
+  },
+  {
+   "id": "g11-maths-04-05",
+   "title": "Reciprocal and division of complex numbers",
+   "covers": [
+    "c4.3.4",
+    "c4.3.5",
+    "c4.4.2"
+   ],
+   "learn": {
+    "hook": "Dividing by 3 + 4i looks scary — until you multiply top and bottom by 3 − 4i and the i disappears from the denominator.",
+    "points": [
+     "For z = a + ib ≠ 0, z·z̄ = (a + ib)(a − ib) = a² + b² = |z|², a real number.",
+     "Multiplicative inverse: z⁻¹ = 1/z = z̄/|z|² = (a − ib)/(a² + b²).",
+     "Division: z₁/z₂ = z₁ · (1/z₂) = z₁z̄₂/|z₂|², for z₂ ≠ 0.",
+     "In practice: multiply numerator and denominator by the conjugate of the denominator.",
+     "Check: z · z⁻¹ should equal 1."
+    ],
+    "example": {
+     "q": "Find the multiplicative inverse of 4 − 3i.",
+     "steps": [
+      "z̄ = 4 + 3i.",
+      "|z|² = 16 + 9 = 25.",
+      "z⁻¹ = (4 + 3i)/25 = 4/25 + (3/25)i."
+     ],
+     "answer": "4/25 + (3/25)i"
+    },
+    "reallife": "Electrical engineers find current I = V/Z by dividing a voltage by a complex impedance, using exactly this conjugate trick."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Divide (3 + 2i) by (1 − i)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Multiply top and bottom by 1 + i",
+      "Top: (3 + 2i)(1 + i) = 1 + 5i; bottom: (1 − i)(1 + i) = 2",
+      "Divide: (1 + 5i)/2",
+      "Answer: 1/2 + (5/2)i"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the reciprocal",
+     "pairs": [
+      [
+       "1/i",
+       "−i"
+      ],
+      [
+       "1/(1 + i)",
+       "(1 − i)/2"
+      ],
+      [
+       "1/(3 + 4i)",
+       "(3 − 4i)/25"
+      ],
+      [
+       "1/(2 − i)",
+       "(2 + i)/5"
+      ],
+      [
+       "1/(−i)",
+       "i"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The multiplicative inverse of 2 + 5i is:",
+     "options": [
+      "(2 − 5i)/29",
+      "(2 − 5i)/21",
+      "(−2 − 5i)/29",
+      "1/2 + (1/5)i"
+     ],
+     "answer": 0,
+     "explain": "z̄/|z|² = (2 − 5i)/(4 + 25) = (2 − 5i)/29.",
+     "mistake": "Takes reciprocals of each part separately"
+    },
+    {
+     "q": "(1 + i)/(1 − i) equals:",
+     "options": [
+      "i",
+      "1",
+      "2i",
+      "−i"
+     ],
+     "answer": 0,
+     "explain": "Multiply by (1 + i)/(1 + i): (1 + i)²/2 = 2i/2 = i.",
+     "mistake": "Forgets to multiply the numerator by the conjugate too"
+    },
+    {
+     "q": "Express (4 + √3 i)/(1 − √3 i) in the form a + ib.",
+     "options": [
+      "−1/2 − (5√3/2)i",
+      "7/4 + (5√3/4)i",
+      "1/4 − (5√3/4)i",
+      "1/4 + (5√3/4)i"
+     ],
+     "answer": 3,
+     "explain": "Multiply by 1 + √3 i: numerator 4 + 4√3 i + √3 i + 3i² = 1 + 5√3 i; denominator 1 + 3 = 4.",
+     "steps": [
+      "Numerator: (4 + √3 i)(1 + √3 i) = 4 + 5√3 i − 3 = 1 + 5√3 i",
+      "Denominator: 1² + (√3)² = 4",
+      "Divide: 1/4 + (5√3/4)i"
+     ],
+     "mistake": "Uses 1 − 3 = −2 as the denominator"
+    },
+    {
+     "q": "If z = 3 − 4i, then z·z̄ equals:",
+     "options": [
+      "5",
+      "−7",
+      "25",
+      "9 + 16i"
+     ],
+     "answer": 2,
+     "explain": "z·z̄ = a² + b² = 9 + 16 = 25 = |z|².",
+     "mistake": "Computes a² − b²",
+     "check": "9+16"
+    },
+    {
+     "q": "What is the real part of 1/(1 − 2i)?",
+     "options": [
+      "1",
+      "1/5",
+      "2/5",
+      "−1/5"
+     ],
+     "answer": 1,
+     "explain": "1/(1 − 2i) = (1 + 2i)/5, so the real part is 1/5.",
+     "mistake": "Uses the imaginary part instead",
+     "check": "Fraction(1,5)"
+    },
+    {
+     "q": "Why do we multiply by the conjugate of the denominator when dividing?",
+     "options": [
+      "Because it makes the numerator zero",
+      "Because z·z̄ is a real number, so the denominator becomes real",
+      "Because the conjugate equals the reciprocal",
+      "Because i⁴ = 1"
+     ],
+     "answer": 1,
+     "explain": "z z̄ = a² + b² is real, removing i from the denominator.",
+     "mistake": "Thinks z̄ itself is 1/z"
+    },
+    {
+     "q": "Find (3 − 2i)/(2 + i) in the form a + ib.",
+     "options": [
+      "4/5 − (7/5)i",
+      "4/3 − (7/3)i",
+      "4/5 + (7/5)i",
+      "8/5 − (7/5)i"
+     ],
+     "answer": 0,
+     "explain": "Multiply by (2 − i): numerator 6 − 3i − 4i + 2i² = 4 − 7i; denominator 5.",
+     "steps": [
+      "(3 − 2i)(2 − i) = 6 − 7i + 2i² = 4 − 7i",
+      "(2 + i)(2 − i) = 5",
+      "4/5 − (7/5)i"
+     ],
+     "mistake": "Takes 2i² as +2"
+    },
+    {
+     "q": "What is the imaginary part of the multiplicative inverse of −i?",
+     "options": [
+      "−1",
+      "1",
+      "0",
+      "i"
+     ],
+     "answer": 1,
+     "explain": "1/(−i) = i (multiply by i/i: i/(−i²) = i/1). So it is 0 + 1i, imaginary part 1.",
+     "mistake": "Thinks 1/(−i) = −i",
+     "check": "1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu doesn't know how to get rid of i in the denominator of 1/(3 + 4i). Explain the conjugate trick for division.",
+    "must": [
+     [
+      "conjugate",
+      "a − ib",
+      "change the sign"
+     ],
+     [
+      "numerator and denominator",
+      "top and bottom",
+      "both"
+     ],
+     [
+      "real",
+      "a² + b²",
+      "becomes real"
+     ]
+    ],
+    "praise": "Multiply by the conjugate, the bottom becomes real, and division is done. Brilliant!",
+    "nudge": "What do you multiply the top and bottom by, and why does it work?"
+   }
+  },
+  {
+   "id": "g11-maths-04-06",
+   "title": "Modulus and conjugate",
+   "covers": [
+    "c4.4.1",
+    "c4.4.3",
+    "c4.4.4",
+    "c4.6.3"
+   ],
+   "learn": {
+    "hook": "The modulus of a complex number is its 'size' — the straight-line distance from the origin, just like how far a drone is from its launch pad.",
+    "points": [
+     "For z = a + ib: modulus |z| = √(a² + b²) and conjugate z̄ = a − ib.",
+     "|z₁z₂| = |z₁||z₂| and |z₁/z₂| = |z₁|/|z₂| (z₂ ≠ 0).",
+     "Conjugates: (z₁ + z₂)‾ = z̄₁ + z̄₂, (z₁ − z₂)‾ = z̄₁ − z̄₂, (z₁z₂)‾ = z̄₁z̄₂, (z₁/z₂)‾ = z̄₁/z̄₂.",
+     "|z̄| = |z| and z + z̄ = 2 Re z, z − z̄ = 2i Im z.",
+     "Shortcut: to find the modulus of a product or quotient, find each modulus separately — no need to multiply out."
+    ],
+    "example": {
+     "q": "Find |(1 + i)(2 + i)/(3 + i)|.",
+     "steps": [
+      "|1 + i| = √2, |2 + i| = √5, |3 + i| = √10.",
+      "Use |z₁z₂/z₃| = |z₁||z₂|/|z₃|.",
+      "= √2 × √5/√10 = √10/√10 = 1."
+     ],
+     "answer": "1"
+    },
+    "reallife": "GPS apps calculate the straight-line distance between two places with the same √(a² + b²) idea that gives the modulus."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Find the modulus",
+     "items": [
+      {
+       "q": "|3 + 4i|",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "|5 − 12i|",
+       "a": "13",
+       "check": "13"
+      },
+      {
+       "q": "|−8i|",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "|−6|",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "|8 + 15i|",
+       "a": "17",
+       "check": "17"
+      },
+      {
+       "q": "|(3 + 4i)(5 − 12i)|",
+       "a": "65",
+       "check": "5*13"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the conjugate",
+     "pairs": [
+      [
+       "2 + 3i",
+       "2 − 3i"
+      ],
+      [
+       "−5i",
+       "5i"
+      ],
+      [
+       "−1 − i",
+       "−1 + i"
+      ],
+      [
+       "7",
+       "7 (a real number is its own conjugate)"
+      ],
+      [
+       "i(1 + i)",
+       "−1 − i"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The modulus of −√3 + i is:",
+     "options": [
+      "2",
+      "√2",
+      "4",
+      "1 + √3"
+     ],
+     "answer": 0,
+     "explain": "|z| = √(3 + 1) = √4 = 2.",
+     "mistake": "Adds the parts instead of using the square root formula",
+     "check": "2"
+    },
+    {
+     "q": "The conjugate of (3 + 2i)(1 − i) is:",
+     "options": [
+      "5 − i",
+      "−5 + i",
+      "1 − i",
+      "5 + i"
+     ],
+     "answer": 3,
+     "explain": "(3 + 2i)(1 − i) = 3 − 3i + 2i + 2 = 5 − i. Its conjugate is 5 + i.",
+     "mistake": "Conjugates only one factor or flips the real part"
+    },
+    {
+     "q": "If |z| = 5 and |w| = 2, then |z/w| is:",
+     "options": [
+      "10",
+      "7",
+      "5/2",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "|z/w| = |z|/|w| = 5/2.",
+     "mistake": "Multiplies or subtracts the moduli",
+     "check": "Fraction(5,2)"
+    },
+    {
+     "q": "Find |(3 + 4i)/(1 − i)|.",
+     "options": [
+      "5",
+      "5/√2",
+      "5√2",
+      "25/2"
+     ],
+     "answer": 1,
+     "explain": "|3 + 4i| = 5 and |1 − i| = √2, so the modulus is 5/√2.",
+     "mistake": "Forgets the modulus of the denominator"
+    },
+    {
+     "q": "For any complex z, z + z̄ equals:",
+     "options": [
+      "2 Re z",
+      "|z|²",
+      "2i Im z",
+      "2 Im z"
+     ],
+     "answer": 0,
+     "explain": "(a + ib) + (a − ib) = 2a = 2 Re z.",
+     "mistake": "Confuses z + z̄ with z z̄"
+    },
+    {
+     "q": "If z = 2 − 3i, find |z̄|².",
+     "options": [
+      "5",
+      "−5",
+      "13",
+      "√13"
+     ],
+     "answer": 2,
+     "explain": "|z̄| = |z| = √(4 + 9) = √13, so |z̄|² = 13.",
+     "mistake": "Uses a² − b²",
+     "check": "4+9"
+    },
+    {
+     "q": "Find the modulus of (1 + i)/(1 − i) − (1 − i)/(1 + i).",
+     "options": [
+      "0",
+      "1",
+      "2",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "(1 + i)/(1 − i) = i and (1 − i)/(1 + i) = −i, so the difference is 2i, whose modulus is 2.",
+     "steps": [
+      "(1 + i)/(1 − i) = (1 + i)²/2 = i",
+      "(1 − i)/(1 + i) = (1 − i)²/2 = −i",
+      "i − (−i) = 2i",
+      "|2i| = 2"
+     ],
+     "mistake": "Thinks the two fractions cancel",
+     "check": "2"
+    },
+    {
+     "q": "Assertion (A): |(2 + i)(2 − i)| = 5.\nReason (R): |z₁z₂| = |z₁||z₂| for all complex z₁, z₂.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "|2 + i| = |2 − i| = √5, so the product's modulus is √5 × √5 = 5; R is the rule used.",
+     "mistake": "Thinks the modulus of a product must be found by multiplying out first"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: what is the 'size' of a complex number, and what is its 'mirror twin'? Explain modulus and conjugate.",
+    "must": [
+     [
+      "modulus",
+      "√(a² + b²)",
+      "size",
+      "distance from origin"
+     ],
+     [
+      "conjugate",
+      "a − ib",
+      "change sign of imaginary"
+     ],
+     [
+      "product",
+      "multiply moduli",
+      "|z1||z2|"
+     ]
+    ],
+    "praise": "Modulus is size, conjugate is the mirror twin. And moduli multiply nicely!",
+    "nudge": "How do you find |3 + 4i|, and what is the conjugate of 3 + 4i?"
+   }
+  },
+  {
+   "id": "g11-maths-04-07",
+   "title": "Argand plane and mixed problems",
+   "covers": [
+    "c4.5.1",
+    "c4.5.2",
+    "c4.5.3",
+    "c4.6.2",
+    "c4.6.4"
+   ],
+   "learn": {
+    "hook": "Complex numbers live on a map! Real part across, imaginary part up — and suddenly modulus is distance and conjugate is a mirror.",
+    "points": [
+     "z = x + iy is plotted as the point (x, y). This plane is the complex plane or Argand plane.",
+     "The x-axis is the real axis (points a + 0i) and the y-axis is the imaginary axis (points 0 + ib). E.g. 2 + 4i is (2, 4) and −3 + i is (−3, 1) in quadrant II.",
+     "|z| = √(x² + y²) is the distance of the point (x, y) from the origin.",
+     "The conjugate z̄ = x − iy is the point (x, −y): the reflection of z in the real axis.",
+     "Syllabus note: polar form, square roots of complex numbers and complex roots of quadratic equations are not part of the current CBSE exam syllabus for this chapter."
+    ],
+    "example": {
+     "q": "If (x + iy)³ = u + iv, write u and v in terms of x and y, and check with x = 1, y = 2.",
+     "steps": [
+      "(x + iy)³ = x³ + 3x²(iy) + 3x(iy)² + (iy)³ = x³ + 3ix²y − 3xy² − iy³.",
+      "u = x³ − 3xy², v = 3x²y − y³.",
+      "x = 1, y = 2: u = 1 − 12 = −11, v = 6 − 8 = −2.",
+      "Direct: (1 + 2i)² = −3 + 4i; × (1 + 2i) = −11 − 2i. ✓"
+     ],
+     "answer": "u = x³ − 3xy², v = 3x²y − y³; (1 + 2i)³ = −11 − 2i"
+    },
+    "reallife": "Engineers and game designers represent 2-D positions and rotations compactly as complex numbers in a plane."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Locate the point",
+     "pairs": [
+      [
+       "3 + 2i",
+       "(3, 2), quadrant I"
+      ],
+      [
+       "−2 + 5i",
+       "(−2, 5), quadrant II"
+      ],
+      [
+       "−1 − 4i",
+       "(−1, −4), quadrant III"
+      ],
+      [
+       "4i",
+       "(0, 4), on the imaginary axis"
+      ],
+      [
+       "−6",
+       "(−6, 0), on the real axis"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Argand plane facts",
+     "items": [
+      [
+       "The conjugate of z is its reflection in the imaginary axis.",
+       false,
+       "z̄ = x − iy is the reflection in the real (x) axis."
+      ],
+      [
+       "|z| is the distance of z from the origin.",
+       true,
+       "√(x² + y²) is exactly that distance."
+      ],
+      [
+       "Every purely imaginary number lies on the y-axis.",
+       true,
+       "0 + ib is the point (0, b)."
+      ],
+      [
+       "z and z̄ are always at the same distance from the origin.",
+       true,
+       "|z̄| = |z|."
+      ],
+      [
+       "The point for −3 − 3i lies in the second quadrant.",
+       false,
+       "(−3, −3) is in the third quadrant."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The point representing −4 + 3i in the Argand plane lies in which quadrant?",
+     "options": [
+      "Second",
+      "Third",
+      "First",
+      "Fourth"
+     ],
+     "answer": 0,
+     "explain": "(−4, 3): negative x, positive y — quadrant II.",
+     "mistake": "Reads the imaginary part as the x-coordinate"
+    },
+    {
+     "q": "How far is the point for 6 − 8i from the origin?",
+     "options": [
+      "14",
+      "10",
+      "√28",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "|6 − 8i| = √(36 + 64) = 10.",
+     "mistake": "Adds or subtracts the parts directly",
+     "check": "10"
+    },
+    {
+     "q": "The conjugate of z = 2 + 5i is the reflection of z in:",
+     "options": [
+      "the imaginary axis",
+      "the line y = x",
+      "the origin",
+      "the real axis"
+     ],
+     "answer": 3,
+     "explain": "(2, 5) goes to (2, −5): a mirror image in the x-axis.",
+     "mistake": "Reflects in the wrong axis"
+    },
+    {
+     "q": "If z = x + iy and z̄ = z, then z lies:",
+     "options": [
+      "at the origin only",
+      "on the real axis",
+      "on the imaginary axis",
+      "on the unit circle"
+     ],
+     "answer": 1,
+     "explain": "z̄ = z means x − iy = x + iy, so y = 0: z is real.",
+     "mistake": "Thinks z = z̄ forces z = 0"
+    },
+    {
+     "q": "If (a + ib)(1 + i) = 2 + 4i for real a, b, then a is:",
+     "options": [
+      "3",
+      "1",
+      "2",
+      "−1"
+     ],
+     "answer": 0,
+     "explain": "(a + ib)(1 + i) = (a − b) + (a + b)i. So a − b = 2, a + b = 4, giving a = 3, b = 1.",
+     "mistake": "Solves the system for b",
+     "check": "3"
+    },
+    {
+     "q": "If x + iy = (1 + i)/(1 − i) with x, y real, then x² + y² equals:",
+     "options": [
+      "2",
+      "1",
+      "0",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "(1 + i)/(1 − i) = i, so x = 0, y = 1, and x² + y² = 1. (Or: |1 + i|²/|1 − i|² = 2/2.)",
+     "mistake": "Takes x = y = 1",
+     "check": "1"
+    },
+    {
+     "q": "If z = (2 + i)², which point represents z in the Argand plane?",
+     "options": [
+      "(4, 3)",
+      "(5, 4)",
+      "(3, 4)",
+      "(3, 2)"
+     ],
+     "answer": 2,
+     "explain": "(2 + i)² = 4 + 4i + i² = 3 + 4i, so the point is (3, 4).",
+     "mistake": "Forgets i² = −1, getting (5, 4)"
+    },
+    {
+     "q": "Points z, z̄, −z and −z̄ (for z = 2 + 3i) form the vertices of a:",
+     "options": [
+      "triangle",
+      "rectangle centred at the origin",
+      "straight line",
+      "single point"
+     ],
+     "answer": 1,
+     "explain": "They are (2, 3), (2, −3), (−2, −3) and (−2, 3) — one point in each quadrant, forming a rectangle.",
+     "mistake": "Thinks −z and z̄ are the same point"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to plot −3 + 2i on graph paper. Explain the Argand plane, and what modulus and conjugate look like on it.",
+    "must": [
+     [
+      "real axis",
+      "x-axis",
+      "horizontal"
+     ],
+     [
+      "imaginary axis",
+      "y-axis",
+      "vertical"
+     ],
+     [
+      "distance",
+      "modulus",
+      "from origin"
+     ],
+     [
+      "reflection",
+      "mirror",
+      "conjugate"
+     ]
+    ],
+    "praise": "Real across, imaginary up. Modulus is distance, conjugate is a mirror image. I can draw it now!",
+    "nudge": "Which axis shows the imaginary part, and what does the conjugate look like on the plane?"
+   }
+  }
+ ]
+}

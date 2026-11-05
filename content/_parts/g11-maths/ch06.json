@@ -1,0 +1,1778 @@
+{
+ "n": 6,
+ "title": "Permutations and Combinations",
+ "emoji": "🎲",
+ "topics": [
+  {
+   "id": "g11-maths-06-01",
+   "title": "The fundamental principle of counting",
+   "covers": [
+    "c6.1.1",
+    "c6.2.1",
+    "c6.2.2",
+    "c6.2.3"
+   ],
+   "learn": {
+    "hook": "3 kurtas and 4 pairs of jeans: how many outfits? You don't need to list them — 3 × 4 = 12. That multiplication is the most powerful idea in counting.",
+    "points": [
+     "Counting by listing is slow and error-prone; the counting principles let us count arrangements and selections without listing.",
+     "Multiplication principle: if one event can happen in m ways and, after it, another can happen in n ways, the two together can happen in m × n ways.",
+     "It extends to any number of events: m × n × p × … ways.",
+     "Use it for building codes, numbers, number plates and signals position by position: fill each place in turn and multiply the choices.",
+     "Example: signals made by hoisting 2 of 4 different flags one below the other: 4 × 3 = 12 signals."
+    ],
+    "example": {
+     "q": "How many 3-digit numbers can be formed from the digits 1, 2, 3, 4, 5 if no digit is repeated?",
+     "steps": [
+      "Hundreds place: 5 choices.",
+      "Tens place: 4 left.",
+      "Units place: 3 left.",
+      "5 × 4 × 3 = 60."
+     ],
+     "answer": "60"
+    },
+    "reallife": "An Indian vehicle number like MH 12 AB 1234 is built position by position; the multiplication principle tells the RTO how many plates a series can issue."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Multiply the choices",
+     "items": [
+      {
+       "q": "3 shirts, 5 trousers: outfits",
+       "a": "15",
+       "check": "3*5"
+      },
+      {
+       "q": "2 routes A→B, 4 routes B→C: routes A→C via B",
+       "a": "8",
+       "check": "2*4"
+      },
+      {
+       "q": "Coin tossed 3 times: outcomes",
+       "a": "8",
+       "check": "2**3"
+      },
+      {
+       "q": "Die rolled twice: outcomes",
+       "a": "36",
+       "check": "6*6"
+      },
+      {
+       "q": "4 flags, signals using 2 flags one below the other",
+       "a": "12",
+       "check": "4*3"
+      },
+      {
+       "q": "Starter (3), main (4), dessert (2): meals",
+       "a": "24",
+       "check": "3*4*2"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Counting principle check",
+     "items": [
+      [
+       "If a task has two stages with 5 and 6 ways, there are 30 ways in all.",
+       true,
+       "5 × 6 = 30 by the multiplication principle."
+      ],
+      [
+       "Tossing a coin 4 times gives 8 outcomes.",
+       false,
+       "2⁴ = 16 outcomes."
+      ],
+      [
+       "The multiplication principle works for more than two events.",
+       true,
+       "Multiply the number of ways for each stage."
+      ],
+      [
+       "Choosing 1 of 3 pens AND 1 of 4 pencils gives 7 ways.",
+       false,
+       "'And' (both choices) multiplies: 12 ways."
+      ],
+      [
+       "Signals with 3 of 5 different flags one below another: 60.",
+       true,
+       "5 × 4 × 3 = 60."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A restaurant thali offers 4 choices of dal, 3 of sabzi and 2 of dessert. How many different thalis are possible?",
+     "options": [
+      "9",
+      "24",
+      "12",
+      "36"
+     ],
+     "answer": 1,
+     "explain": "4 × 3 × 2 = 24 by the multiplication principle.",
+     "mistake": "Adds the choices instead of multiplying",
+     "check": "4*3*2"
+    },
+    {
+     "q": "How many outcomes are there when a coin is tossed 5 times?",
+     "options": [
+      "10",
+      "16",
+      "32",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "Each toss has 2 outcomes: 2⁵ = 32.",
+     "mistake": "Multiplies 2 × 5",
+     "check": "2**5"
+    },
+    {
+     "q": "How many 2-digit even numbers can be formed from the digits 1, 2, 3, 4, 5 if digits may be repeated?",
+     "options": [
+      "8",
+      "20",
+      "10",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "Units digit must be 2 or 4 (2 ways); tens digit any of 5. 2 × 5 = 10.",
+     "mistake": "Ignores the even condition and gives 25",
+     "check": "2*5"
+    },
+    {
+     "q": "A signal uses 3 of 6 different flags hoisted one below the other. How many signals are possible?",
+     "options": [
+      "216",
+      "18",
+      "20",
+      "120"
+     ],
+     "answer": 3,
+     "explain": "6 × 5 × 4 = 120 (a flag cannot be used twice).",
+     "mistake": "Uses 6³, allowing the same flag twice",
+     "check": "6*5*4"
+    },
+    {
+     "q": "How many 3-digit numbers have all their digits from 1 to 9 and no digit repeated?",
+     "options": [
+      "729",
+      "648",
+      "504",
+      "720"
+     ],
+     "answer": 2,
+     "explain": "9 × 8 × 7 = 504.",
+     "mistake": "Allows repetition: 9³ = 729",
+     "check": "9*8*7"
+    },
+    {
+     "q": "From city A to B there are 3 trains, and from B to C there are 5 buses. In how many ways can Meera go from A to C via B and return to A via B, using a different train and a different bus on the way back?",
+     "options": [
+      "15",
+      "120",
+      "60",
+      "225"
+     ],
+     "answer": 1,
+     "explain": "Going: 3 × 5 = 15. Returning with different ones: 4 × 2 = 8. Total 15 × 8 = 120.",
+     "mistake": "Allows the same train and bus on the return",
+     "check": "3*5*4*2"
+    },
+    {
+     "q": "An exam has 6 true/false questions. In how many ways can a student answer all of them?",
+     "options": [
+      "64",
+      "36",
+      "720",
+      "12"
+     ],
+     "answer": 0,
+     "explain": "2 choices for each of 6 questions: 2⁶ = 64.",
+     "mistake": "Uses 6 × 2",
+     "check": "2**6"
+    },
+    {
+     "q": "Why do we multiply, not add, the number of ways in the counting principle?",
+     "options": [
+      "Because tasks happen at the same time",
+      "Because adding is only for permutations",
+      "Because multiplication gives a bigger number",
+      "Each way of doing the first task can be combined with every way of doing the second"
+     ],
+     "answer": 3,
+     "explain": "For each of the m choices there are n follow-ups, giving m groups of n, i.e. m × n.",
+     "mistake": "Thinks the rule is arbitrary"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu has 3 caps and 4 scarves and wants to know how many combos he can wear. Explain the fundamental principle of counting.",
+    "must": [
+     [
+      "multiply",
+      "product",
+      "times"
+     ],
+     [
+      "each way",
+      "every way",
+      "for each"
+     ],
+     [
+      "stages",
+      "events",
+      "step by step",
+      "tasks"
+     ]
+    ],
+    "praise": "For every cap, 4 scarves: 3 × 4 = 12 looks. I'm the best-dressed bird in the sky!",
+    "nudge": "Why do we multiply 3 by 4 and not add them?"
+   }
+  },
+  {
+   "id": "g11-maths-06-02",
+   "title": "Counting with and without repetition",
+   "covers": [
+    "c6.2.4",
+    "c6.2.5"
+   ],
+   "learn": {
+    "hook": "A 4-digit UPI PIN can repeat digits; a lucky-draw ticket with all-different digits cannot. That one rule changes the count completely.",
+    "points": [
+     "With repetition allowed, every position has the full number of choices: 4-digit PINs from 0–9 = 10⁴ = 10,000.",
+     "Without repetition, the choices drop by one at each step: 10 × 9 × 8 × 7 = 5040.",
+     "Fill restricted positions FIRST (e.g. the units digit for even numbers, the first digit that cannot be 0).",
+     "Words from letters: 'word' means any arrangement of letters, with or without meaning.",
+     "Example: 4-letter codes from the first 10 letters of the alphabet without repetition: 10 × 9 × 8 × 7 = 5040."
+    ],
+    "example": {
+     "q": "How many 4-digit even numbers can be formed from the digits 1, 2, 3, 4, 5 without repetition?",
+     "steps": [
+      "Units digit: 2 or 4 → 2 choices (fill it first).",
+      "Thousands: 4 remaining digits.",
+      "Hundreds: 3; tens: 2.",
+      "2 × 4 × 3 × 2 = 48."
+     ],
+     "answer": "48"
+    },
+    "reallife": "Mobile numbers in India have 10 digits starting with 6, 7, 8 or 9 — counting with repetition explains why TRAI never runs out quickly."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Repetition allowed or not?",
+     "buckets": [
+      "Repetition allowed",
+      "No repetition"
+     ],
+     "items": [
+      [
+       "ATM PIN",
+       0
+      ],
+      [
+       "Ranking 3 winners from 10 runners",
+       1
+      ],
+      [
+       "Car number plate digits",
+       0
+      ],
+      [
+       "Seating 5 people in 5 chairs",
+       1
+      ],
+      [
+       "Answer key of an MCQ test",
+       0
+      ],
+      [
+       "Choosing captain and vice-captain",
+       1
+      ],
+      [
+       "Licence code letters",
+       0
+      ],
+      [
+       "Arranging the letters of MONDAY",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "With or without repetition",
+     "items": [
+      {
+       "q": "3-digit codes from 0–9, repetition allowed",
+       "a": "1000",
+       "check": "10**3"
+      },
+      {
+       "q": "3-digit codes from 0–9, no repetition",
+       "a": "720",
+       "check": "10*9*8"
+      },
+      {
+       "q": "4-letter words from A, B, C, D, E, repetition allowed",
+       "a": "625",
+       "check": "5**4"
+      },
+      {
+       "q": "4-letter words from A–E, no repetition",
+       "a": "120",
+       "check": "5*4*3*2"
+      },
+      {
+       "q": "2-digit numbers from 1–5, repetition allowed",
+       "a": "25",
+       "check": "5*5"
+      },
+      {
+       "q": "2-digit numbers from 1–5, no repetition",
+       "a": "20",
+       "check": "5*4"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many 3-digit numbers can be formed from the digits 0, 1, 2, 3, 4 with no digit repeated?",
+     "options": [
+      "100",
+      "125",
+      "48",
+      "60"
+     ],
+     "answer": 2,
+     "explain": "First digit cannot be 0: 4 choices; then 4 remaining for tens (including 0) and 3 for units. 4 × 4 × 3 = 48.",
+     "mistake": "Allows 0 in the hundreds place",
+     "check": "4*4*3"
+    },
+    {
+     "q": "How many 4-letter codes can be made from the first 8 letters of the English alphabet without repetition?",
+     "options": [
+      "4096",
+      "70",
+      "1680",
+      "32"
+     ],
+     "answer": 2,
+     "explain": "8 × 7 × 6 × 5 = 1680.",
+     "mistake": "Uses 8⁴, allowing repetition",
+     "check": "8*7*6*5"
+    },
+    {
+     "q": "6-digit phone numbers in a town all begin with 98 and use the digits 0–9 with no digit repeated. How many such numbers are possible?",
+     "options": [
+      "1680",
+      "4096",
+      "10000",
+      "5040"
+     ],
+     "answer": 0,
+     "explain": "After 9 and 8, 8 digits remain for 4 places: 8 × 7 × 6 × 5 = 1680.",
+     "mistake": "Forgets that 9 and 8 are already used",
+     "check": "8*7*6*5"
+    },
+    {
+     "q": "How many 3-digit odd numbers can be formed using 1, 2, 3, 4, 5, 6 if repetition is allowed?",
+     "options": [
+      "90",
+      "108",
+      "216",
+      "60"
+     ],
+     "answer": 1,
+     "explain": "Units digit odd: 1, 3, 5 (3 ways); hundreds and tens: 6 each. 3 × 6 × 6 = 108.",
+     "mistake": "Ignores the odd condition: 216",
+     "check": "3*6*6"
+    },
+    {
+     "q": "How many 5-letter 'words' (with or without meaning) can be formed from the letters of DELHI with no letter repeated?",
+     "options": [
+      "120",
+      "25",
+      "3125",
+      "60"
+     ],
+     "answer": 0,
+     "explain": "5 × 4 × 3 × 2 × 1 = 120.",
+     "mistake": "Allows repetition: 5⁵",
+     "check": "5*4*3*2*1"
+    },
+    {
+     "q": "In how many ways can 3 different prizes be given to 5 students if a student may win more than one prize?",
+     "options": [
+      "125",
+      "60",
+      "15",
+      "243"
+     ],
+     "answer": 0,
+     "explain": "Each prize can go to any of 5 students: 5³ = 125.",
+     "mistake": "Uses 5 × 4 × 3, assuming no student wins twice",
+     "check": "5**3"
+    },
+    {
+     "q": "How many numbers between 100 and 1000 can be formed using 1, 3, 5, 7 if repetition is allowed?",
+     "options": [
+      "24",
+      "64",
+      "81",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "Such numbers have 3 digits, each from 4 choices: 4³ = 64.",
+     "mistake": "Forbids repetition",
+     "check": "4**3"
+    },
+    {
+     "q": "To count 3-digit even numbers from 1, 2, 3, 4, 5 without repetition, which place should be filled first?",
+     "options": [
+      "The tens place",
+      "The units place",
+      "It does not matter at all",
+      "The hundreds place"
+     ],
+     "answer": 1,
+     "explain": "The units place carries the restriction (must be 2 or 4); filling it first avoids double counting.",
+     "mistake": "Fills the restricted place last and over-counts"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu doesn't know why 4-digit PINs are 10,000 but 4-digit codes with different digits are only 5040. Explain the difference.",
+    "must": [
+     [
+      "repetition",
+      "repeat",
+      "repeated"
+     ],
+     [
+      "choices",
+      "options",
+      "ways"
+     ],
+     [
+      "restriction first",
+      "fill first",
+      "restricted place",
+      "first place"
+     ]
+    ],
+    "praise": "With repetition every place has 10 choices; without it, the choices shrink. Mystery solved!",
+    "nudge": "What happens to the number of choices for the next place when digits cannot repeat?"
+   }
+  },
+  {
+   "id": "g11-maths-06-03",
+   "title": "Permutations and factorials",
+   "covers": [
+    "c6.3.1",
+    "c6.3.2",
+    "c6.3.3",
+    "c6.3.4",
+    "c6.3.5"
+   ],
+   "learn": {
+    "hook": "In how many ways can 11 players walk out in a line before a World Cup match? 11! = 39,916,800. Factorials grow FAST.",
+    "points": [
+     "A permutation is an arrangement of objects in a definite order.",
+     "n! = 1 × 2 × 3 × … × n, and 0! = 1. Also n! = n × (n − 1)!.",
+     "Number of permutations of n different objects taken r at a time (no repetition): nPr = n(n − 1)(n − 2)…(n − r + 1) = n!/(n − r)!, 0 ≤ r ≤ n.",
+     "Derivation: fill r places one by one — n choices, then n − 1, …, then n − r + 1 — and multiply.",
+     "With repetition allowed, the number of arrangements of n objects taken r at a time is nʳ."
+    ],
+    "example": {
+     "q": "Evaluate 8!/(6! × 2!).",
+     "steps": [
+      "8! = 8 × 7 × 6!.",
+      "So 8!/6! = 8 × 7 = 56.",
+      "Divide by 2! = 2: 56/2 = 28."
+     ],
+     "answer": "28"
+    },
+    "reallife": "The BCCI's selection panel ranking 3 players for 'captain, vice-captain, wicketkeeper' from 15 is ¹⁵P₃ = 2730 ordered choices."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Factorials and nPr",
+     "items": [
+      {
+       "q": "5!",
+       "a": "120",
+       "check": "5*4*3*2*1"
+      },
+      {
+       "q": "0!",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "7!/5!",
+       "a": "42",
+       "check": "7*6"
+      },
+      {
+       "q": "⁶P₂",
+       "a": "30",
+       "check": "6*5"
+      },
+      {
+       "q": "⁵P₅",
+       "a": "120",
+       "check": "120"
+      },
+      {
+       "q": "¹⁰P₃",
+       "a": "720",
+       "check": "10*9*8"
+      },
+      {
+       "q": "4! − 3!",
+       "a": "18",
+       "check": "24-6"
+      }
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Derive nPr = n!/(n − r)!",
+     "prompt": "Arrange the steps",
+     "items": [
+      "First place can be filled in n ways",
+      "Second place in (n − 1) ways, …, r-th place in (n − r + 1) ways",
+      "nPr = n(n − 1)…(n − r + 1)",
+      "Multiply and divide by (n − r)!",
+      "nPr = n!/(n − r)!"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate ⁷P₃.",
+     "options": [
+      "5040",
+      "210",
+      "343",
+      "35"
+     ],
+     "answer": 1,
+     "explain": "7 × 6 × 5 = 210.",
+     "mistake": "Computes 7C3 = 35",
+     "check": "7*6*5"
+    },
+    {
+     "q": "What is the value of 0! + 1!?",
+     "options": [
+      "1",
+      "2",
+      "0",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "0! = 1 by definition and 1! = 1, so the sum is 2.",
+     "mistake": "Thinks 0! = 0",
+     "check": "1+1"
+    },
+    {
+     "q": "Is 3! + 4! = 7!?",
+     "options": [
+      "No: 3! + 4! = 30 but 7! = 5040",
+      "No: 3! + 4! = 5040",
+      "Yes, factorials add like that",
+      "Yes, both equal 30"
+     ],
+     "answer": 0,
+     "explain": "3! + 4! = 6 + 24 = 30, while 7! = 5040. Factorials do not add like this.",
+     "mistake": "Assumes (a + b)! = a! + b!"
+    },
+    {
+     "q": "In how many ways can 4 different books be arranged on a shelf from a collection of 9 different books?",
+     "options": [
+      "6561",
+      "126",
+      "362880",
+      "3024"
+     ],
+     "answer": 3,
+     "explain": "⁹P₄ = 9 × 8 × 7 × 6 = 3024.",
+     "mistake": "Uses combinations or 9⁴",
+     "check": "9*8*7*6"
+    },
+    {
+     "q": "Find x if 1/5! + 1/6! = x/7!.",
+     "options": [
+      "7",
+      "42",
+      "56",
+      "49"
+     ],
+     "answer": 3,
+     "explain": "Multiply by 7!: 7!/5! + 7!/6! = x ⇒ 42 + 7 = 49.",
+     "steps": [
+      "7!/5! = 7 × 6 = 42",
+      "7!/6! = 7",
+      "x = 49"
+     ],
+     "mistake": "Keeps only one of the terms",
+     "check": "42+7"
+    },
+    {
+     "q": "How many 3-letter codes can be made from 26 letters if repetition is allowed?",
+     "options": [
+      "17576",
+      "78",
+      "15600",
+      "2600"
+     ],
+     "answer": 0,
+     "explain": "26³ = 17,576.",
+     "mistake": "Uses ²⁶P₃ = 15,600 (no repetition)",
+     "check": "26**3"
+    },
+    {
+     "q": "The value of n!/(n − 2)! is:",
+     "options": [
+      "n² − 2",
+      "n − 2",
+      "2n",
+      "n(n − 1)"
+     ],
+     "answer": 3,
+     "explain": "n!/(n − 2)! = n(n − 1)(n − 2)!/(n − 2)! = n(n − 1) = nP2.",
+     "mistake": "Cancels only one factor"
+    },
+    {
+     "q": "Evaluate n!/(r!(n − r)!) for n = 6, r = 2.",
+     "options": [
+      "30",
+      "360",
+      "12",
+      "15"
+     ],
+     "answer": 3,
+     "explain": "720/(2 × 24) = 15.",
+     "mistake": "Forgets r! in the denominator, getting 30",
+     "check": "720/(2*24)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks 0! should be 0 and that 3! + 4! = 7!. Explain factorials and the formula for nPr.",
+    "must": [
+     [
+      "factorial",
+      "multiply down",
+      "product of numbers"
+     ],
+     [
+      "0! = 1",
+      "zero factorial is one",
+      "0 factorial"
+     ],
+     [
+      "n!/(n − r)!",
+      "n!/(n-r)!",
+      "npr"
+     ]
+    ],
+    "praise": "0! is 1, factorials don't add, and nPr = n!/(n − r)!. My counting is sharper now!",
+    "nudge": "What is 0! defined to be, and why?"
+   }
+  },
+  {
+   "id": "g11-maths-06-04",
+   "title": "Arrangements with alike objects",
+   "covers": [
+    "c6.3.6",
+    "c6.3.7",
+    "c6.3.8"
+   ],
+   "learn": {
+    "hook": "Swap the two Os in 'BALLOON' and nothing changes. That's why arrangements of alike letters need dividing, not just multiplying.",
+    "points": [
+     "If p of n objects are alike (and the rest different), the number of arrangements of all n is n!/p!.",
+     "Reason: swapping the p alike objects among themselves (p! ways) gives the same arrangement, so n! counts each one p! times.",
+     "If p₁, p₂, …, pₖ objects are alike of k kinds, the number of arrangements is n!/(p₁! p₂! … pₖ!).",
+     "Example: MISSISSIPPI has 11 letters with I × 4, S × 4, P × 2: 11!/(4! 4! 2!) = 34,650.",
+     "ALLAHABAD has 9 letters with A × 4, L × 2: 9!/(4! 2!) = 7560."
+    ],
+    "example": {
+     "q": "How many different words can be formed from the letters of BALLOON?",
+     "steps": [
+      "7 letters: B, A, L, L, O, O, N.",
+      "L appears 2 times, O appears 2 times.",
+      "7!/(2! × 2!) = 5040/4 = 1260."
+     ],
+     "answer": "1260"
+    },
+    "reallife": "A DNA sequence of 10 bases with 4 A, 3 G, 2 C and 1 T can be arranged in 10!/(4! 3! 2! 1!) = 12,600 ways — biotech labs count exactly like this."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Words from the letters",
+     "pairs": [
+      [
+       "BANANA",
+       "60"
+      ],
+      [
+       "SCHOOL",
+       "360"
+      ],
+      [
+       "BALLOON",
+       "1260"
+      ],
+      [
+       "COMMITTEE",
+       "45360"
+      ],
+      [
+       "LEVEL",
+       "30"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Fill the formula",
+     "items": [
+      {
+       "text": "Arrangements of AABBB = 5!/(2! × ___)",
+       "answer": "3!",
+       "options": [
+        "3!",
+        "2!",
+        "5!"
+       ]
+      },
+      {
+       "text": "Arrangements of n objects, p alike = n!/___",
+       "answer": "p!",
+       "options": [
+        "p!",
+        "(n − p)!",
+        "n!"
+       ]
+      },
+      {
+       "text": "MISSISSIPPI has I repeated ___ times",
+       "answer": "4",
+       "options": [
+        "4",
+        "3",
+        "2"
+       ]
+      },
+      {
+       "text": "ALLAHABAD = 9!/(4! × ___)",
+       "answer": "2!",
+       "options": [
+        "2!",
+        "3!",
+        "4!"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many distinct arrangements of the letters of BANANA are there?",
+     "options": [
+      "60",
+      "720",
+      "36",
+      "120"
+     ],
+     "answer": 0,
+     "explain": "6 letters with A × 3 and N × 2: 6!/(3! 2!) = 720/12 = 60.",
+     "mistake": "Divides only by 3!",
+     "check": "720/12"
+    },
+    {
+     "q": "How many different words can be made from the letters of COMMITTEE?",
+     "options": [
+      "22680",
+      "45360",
+      "362880",
+      "90720"
+     ],
+     "answer": 1,
+     "explain": "9 letters with M × 2, T × 2, E × 2: 9!/(2! 2! 2!) = 362880/8 = 45,360.",
+     "mistake": "Divides by only one or two of the 2!s",
+     "check": "362880/8"
+    },
+    {
+     "q": "In how many ways can 3 red, 2 blue and 1 green ball (balls of the same colour identical) be arranged in a row?",
+     "options": [
+      "120",
+      "720",
+      "60",
+      "36"
+     ],
+     "answer": 2,
+     "explain": "6!/(3! 2! 1!) = 720/12 = 60.",
+     "mistake": "Treats all balls as different",
+     "check": "720/12"
+    },
+    {
+     "q": "How many arrangements of the letters of ALLAHABAD are there?",
+     "options": [
+      "7560",
+      "362880",
+      "15120",
+      "1890"
+     ],
+     "answer": 0,
+     "explain": "9 letters: A × 4, L × 2, others single. 9!/(4! 2!) = 7560.",
+     "mistake": "Forgets to divide by 2! for the Ls",
+     "check": "362880/(24*2)"
+    },
+    {
+     "q": "Why do we divide by p! when p objects are alike?",
+     "options": [
+      "Because p! is always 1",
+      "Because there are p places",
+      "Because permuting the alike objects among themselves gives no new arrangement",
+      "Because alike objects cannot be arranged"
+     ],
+     "answer": 2,
+     "explain": "Each distinct arrangement is counted p! times in n!, once for each order of the alike objects.",
+     "mistake": "Thinks alike objects are simply removed"
+    },
+    {
+     "q": "How many 4-digit numbers can be formed using the digits 1, 1, 2, 2 (each used once)?",
+     "options": [
+      "12",
+      "6",
+      "4",
+      "24"
+     ],
+     "answer": 1,
+     "explain": "4!/(2! 2!) = 6: 1122, 1212, 1221, 2112, 2121, 2211.",
+     "mistake": "Treats the repeated digits as different",
+     "check": "24/4"
+    },
+    {
+     "q": "How many distinct words can be made with the letters of MISSISSIPPI?",
+     "options": [
+      "39916800",
+      "34650",
+      "69300",
+      "415800"
+     ],
+     "answer": 1,
+     "explain": "11!/(4! 4! 2!) = 39916800/1152 = 34,650.",
+     "mistake": "Forgets the 2! for the two Ps",
+     "check": "39916800/(24*24*2)"
+    },
+    {
+     "q": "The letters of LEVEL are arranged in all possible ways. How many arrangements are there?",
+     "options": [
+      "20",
+      "30",
+      "60",
+      "120"
+     ],
+     "answer": 1,
+     "explain": "5 letters: L × 2, E × 2, V × 1. 5!/(2! 2!) = 120/4 = 30.",
+     "mistake": "Divides by 2! only once",
+     "check": "120/4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu counts the words from BANANA as 720. Explain why that is too many and how to correct it.",
+    "must": [
+     [
+      "alike",
+      "identical",
+      "same letters",
+      "repeated"
+     ],
+     [
+      "divide",
+      "division"
+     ],
+     [
+      "factorial",
+      "3!",
+      "2!"
+     ]
+    ],
+    "praise": "Swapping the As doesn't make a new word, so divide by 3! and 2!. Only 60 words!",
+    "nudge": "If you swap two As in BANANA, do you get a new word?"
+   }
+  },
+  {
+   "id": "g11-maths-06-05",
+   "title": "Permutations with conditions",
+   "covers": [
+    "c6.3.9",
+    "c6.3.10",
+    "c6.3.11"
+   ],
+   "learn": {
+    "hook": "'Vowels must sit together', 'the number must be divisible by 5' — exam questions love conditions. The trick: handle the condition first.",
+    "points": [
+     "Vowels together: glue them into one block, arrange the block with the other letters, then arrange the vowels inside the block.",
+     "Vowels never together = (all arrangements) − (arrangements with all vowels together), when the condition is 'not all together'.",
+     "Fixed positions: if a word must start or end with given letters, place them first, then arrange the rest.",
+     "Divisibility: even → last digit even; divisible by 5 → last digit 0 or 5; divisible by 10 → last digit 0. Fill that place first.",
+     "To find n from a relation like nP5 = 20 nP3, write both sides as products and cancel: (n − 3)(n − 4) = 20, so n = 8."
+    ],
+    "example": {
+     "q": "In how many arrangements of the letters of DAUGHTER are the vowels together? In how many are they not all together?",
+     "steps": [
+      "DAUGHTER has 8 different letters; vowels A, U, E.",
+      "Glue the vowels: 5 consonants + 1 block = 6 units → 6! = 720.",
+      "Vowels inside the block: 3! = 6. Together: 720 × 6 = 4320.",
+      "All arrangements: 8! = 40320. Not all together: 40320 − 4320 = 36000."
+     ],
+     "answer": "4320 together; 36000 not all together"
+    },
+    "reallife": "Seating plans at a wedding ('keep the family of the bride together') are vowels-together problems in disguise."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Arrangements of MONDAY starting with M and ending with Y",
+     "prompt": "Arrange the reasoning",
+     "items": [
+      "Fix M in the first place and Y in the last place",
+      "Letters left for the middle: O, N, D, A",
+      "Arrange these 4 letters: 4! ways",
+      "Total = 24 words"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Conditions",
+     "items": [
+      {
+       "q": "Words from MONDAY starting with M",
+       "a": "120",
+       "check": "120"
+      },
+      {
+       "q": "Words from 4 different letters, a given letter first",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "4-digit numbers from 1–5, no repetition, divisible by 5",
+       "a": "24",
+       "check": "4*3*2"
+      },
+      {
+       "q": "3-digit even numbers from 1, 2, 3, 4, 6, 7, no repetition",
+       "a": "60",
+       "check": "3*5*4"
+      },
+      {
+       "q": "Arrange 3 boys and 2 girls in a row, girls together",
+       "a": "48",
+       "check": "24*2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find n if ⁿP₄ = 12 × ⁿP₂.",
+     "options": [
+      "5",
+      "6",
+      "4",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "n(n − 1)(n − 2)(n − 3) = 12 n(n − 1) ⇒ (n − 2)(n − 3) = 12 ⇒ n = 6 (n = −1 is rejected).",
+     "steps": [
+      "Cancel n(n − 1)",
+      "(n − 2)(n − 3) = 12",
+      "n² − 5n − 6 = 0",
+      "n = 6"
+     ],
+     "mistake": "Solves (n − 2)(n − 3) = 12 as n = 5",
+     "check": "6"
+    },
+    {
+     "q": "Find n if ⁿP₅ = 20 × ⁿP₃.",
+     "options": [
+      "10",
+      "9",
+      "7",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "Cancel n(n − 1)(n − 2): (n − 3)(n − 4) = 20 ⇒ n = 8.",
+     "mistake": "Expands incorrectly and takes n = 9",
+     "check": "8"
+    },
+    {
+     "q": "How many 4-digit numbers divisible by 10 can be formed from 0, 1, 2, 3, 4, 5 without repetition?",
+     "options": [
+      "300",
+      "48",
+      "60",
+      "120"
+     ],
+     "answer": 2,
+     "explain": "Units digit must be 0. The other 3 places come from 5 digits: 5 × 4 × 3 = 60.",
+     "mistake": "Forgets to fix the last digit as 0",
+     "check": "5*4*3"
+    },
+    {
+     "q": "In how many arrangements of the letters of EQUATION do all the vowels occur together?",
+     "options": [
+      "4320",
+      "40320",
+      "720",
+      "2880"
+     ],
+     "answer": 3,
+     "explain": "Vowels E, U, A, I, O form one block; with Q, T, N that is 4 units → 4! = 24. Inside the block 5! = 120. Total 24 × 120 = 2880.",
+     "steps": [
+      "Units: [EUAIO], Q, T, N → 4!",
+      "Inside block: 5!",
+      "24 × 120 = 2880"
+     ],
+     "mistake": "Forgets to arrange the vowels within the block",
+     "check": "24*120"
+    },
+    {
+     "q": "In how many arrangements of DAUGHTER are the vowels NOT all together?",
+     "options": [
+      "36000",
+      "4320",
+      "35280",
+      "40320"
+     ],
+     "answer": 0,
+     "explain": "Total 8! = 40320 minus together 6! × 3! = 4320 gives 36,000.",
+     "mistake": "Gives the 'together' count",
+     "check": "40320-4320"
+    },
+    {
+     "q": "How many 3-digit even numbers can be formed from 1, 2, 3, 4, 6, 7 with no repetition?",
+     "options": [
+      "108",
+      "36",
+      "120",
+      "60"
+     ],
+     "answer": 3,
+     "explain": "Units digit from 2, 4, 6 (3 ways); then 5 and 4 for the other places: 3 × 5 × 4 = 60.",
+     "mistake": "Ignores the even condition",
+     "check": "3*5*4"
+    },
+    {
+     "q": "How many words can be made from the letters of MONDAY using all letters, if the word must start with a vowel?",
+     "options": [
+      "720",
+      "240",
+      "48",
+      "120"
+     ],
+     "answer": 1,
+     "explain": "Vowels are O and A (2 choices for the first place); the remaining 5 letters: 5! = 120. 2 × 120 = 240.",
+     "mistake": "Counts only one vowel",
+     "check": "2*120"
+    },
+    {
+     "q": "In how many ways can 4 boys and 3 girls stand in a row if the girls occupy the even places (2nd, 4th, 6th)?",
+     "options": [
+      "5040",
+      "144",
+      "288",
+      "72"
+     ],
+     "answer": 1,
+     "explain": "Girls in the 3 even places: 3! = 6; boys in the 4 odd places: 4! = 24. 6 × 24 = 144.",
+     "mistake": "Adds instead of multiplies, or ignores the condition",
+     "check": "6*24"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the number of arrangements of DAUGHTER with vowels together. Explain the 'glue the block' trick and how to get 'not together'.",
+    "must": [
+     [
+      "block",
+      "one unit",
+      "glue",
+      "single unit"
+     ],
+     [
+      "inside",
+      "among themselves",
+      "within"
+     ],
+     [
+      "subtract",
+      "total minus",
+      "minus"
+     ]
+    ],
+    "praise": "Glue, arrange, unglue — and subtract for 'not together'. That's a neat trick!",
+    "nudge": "After gluing the vowels into a block, what else must you multiply by?"
+   }
+  },
+  {
+   "id": "g11-maths-06-06",
+   "title": "Combinations and their properties",
+   "covers": [
+    "c6.4.1",
+    "c6.4.2",
+    "c6.4.3",
+    "c6.4.4",
+    "c6.4.5"
+   ],
+   "learn": {
+    "hook": "Choosing 3 friends for a trip to Goa is a combination — the order you pick them doesn't matter. Ranking them 1st, 2nd, 3rd would be a permutation.",
+    "points": [
+     "A combination is a selection where order does not matter.",
+     "nCr = n!/(r!(n − r)!), 0 ≤ r ≤ n. Each selection of r objects can be arranged in r! ways, so nPr = r! × nCr.",
+     "nC0 = nCn = 1, and nCr = nC(n − r) (choosing r to take = choosing n − r to leave).",
+     "If nCa = nCb, then a = b or a + b = n.",
+     "Pascal's rule: nCr + nC(r − 1) = (n + 1)Cr."
+    ],
+    "example": {
+     "q": "If ⁿC₇ = ⁿC₅, find ⁿC₂.",
+     "steps": [
+      "7 ≠ 5, so 7 + 5 = n, giving n = 12.",
+      "¹²C₂ = 12 × 11/2 = 66."
+     ],
+     "answer": "66"
+    },
+    "reallife": "A cricket selector picking 15 players from 25 probables for a squad is choosing a combination: ²⁵C₁₅ = 3,268,760 squads are possible."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Permutation or combination?",
+     "buckets": [
+      "Permutation (order matters)",
+      "Combination (order doesn't)"
+     ],
+     "items": [
+      [
+       "Arranging 5 books on a shelf",
+       0
+      ],
+      [
+       "Choosing 3 books to take on a trip",
+       1
+      ],
+      [
+       "Electing a president and a secretary",
+       0
+      ],
+      [
+       "Picking a 5-member committee",
+       1
+      ],
+      [
+       "Forming 4-digit PINs",
+       0
+      ],
+      [
+       "Choosing 6 numbers in a lottery",
+       1
+      ],
+      [
+       "Deciding the batting order",
+       0
+      ],
+      [
+       "Selecting 2 toppings for a pizza",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Compute nCr",
+     "items": [
+      {
+       "q": "⁵C₂",
+       "a": "10",
+       "check": "10"
+      },
+      {
+       "q": "⁶C₃",
+       "a": "20",
+       "check": "20"
+      },
+      {
+       "q": "⁸C₆",
+       "a": "28",
+       "check": "28"
+      },
+      {
+       "q": "¹⁰C₁",
+       "a": "10",
+       "check": "10"
+      },
+      {
+       "q": "⁷C₀",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "⁶C₃ + ⁶C₂",
+       "a": "35",
+       "check": "20+15"
+      },
+      {
+       "q": "¹²C₁₀",
+       "a": "66",
+       "check": "66"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate ¹⁰C₃.",
+     "options": [
+      "120",
+      "210",
+      "720",
+      "30"
+     ],
+     "answer": 0,
+     "explain": "10!/(3! 7!) = (10 × 9 × 8)/6 = 120.",
+     "mistake": "Forgets to divide by 3!, giving ¹⁰P₃ = 720",
+     "check": "10*9*8/6"
+    },
+    {
+     "q": "If ⁿC₂ = 45, then n is:",
+     "options": [
+      "45",
+      "10",
+      "9",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "n(n − 1)/2 = 45 ⇒ n(n − 1) = 90 ⇒ n = 10.",
+     "mistake": "Solves n(n − 1) = 45",
+     "check": "10"
+    },
+    {
+     "q": "If ⁿC₁₀ = ⁿC₆, then ⁿC₂ is:",
+     "options": [
+      "240",
+      "16",
+      "120",
+      "105"
+     ],
+     "answer": 2,
+     "explain": "10 + 6 = n = 16. ¹⁶C₂ = 16 × 15/2 = 120.",
+     "mistake": "Takes n = 10 − 6 = 4",
+     "check": "16*15/2"
+    },
+    {
+     "q": "Using Pascal's rule, ⁸C₅ + ⁸C₄ equals:",
+     "options": [
+      "⁸C₉",
+      "⁹C₅",
+      "¹⁶C₉",
+      "⁹C₆"
+     ],
+     "answer": 1,
+     "explain": "nCr + nC(r − 1) = (n + 1)Cr with n = 8, r = 5 gives ⁹C₅.",
+     "mistake": "Adds the upper and lower numbers"
+    },
+    {
+     "q": "If ⁿP_r = 720 and ⁿC_r = 120, then r is:",
+     "options": [
+      "2",
+      "4",
+      "6",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "nPr = r! × nCr ⇒ r! = 720/120 = 6 ⇒ r = 3.",
+     "mistake": "Takes r = 6 from r! = 6",
+     "check": "3"
+    },
+    {
+     "q": "Which is equal to ²⁰C₁₇?",
+     "options": [
+      "²⁰P₃",
+      "²⁰C₁₇ × 3",
+      "²⁰C₃",
+      "¹⁷C₃"
+     ],
+     "answer": 2,
+     "explain": "nCr = nC(n − r): ²⁰C₁₇ = ²⁰C₃.",
+     "mistake": "Confuses nCr with nPr"
+    },
+    {
+     "q": "In how many ways can a committee of 3 be chosen from 9 people?",
+     "options": [
+      "84",
+      "27",
+      "729",
+      "504"
+     ],
+     "answer": 0,
+     "explain": "⁹C₃ = (9 × 8 × 7)/6 = 84. Order does not matter in a committee.",
+     "mistake": "Uses ⁹P₃ = 504",
+     "check": "9*8*7/6"
+    },
+    {
+     "q": "If ²ⁿC₃ : ⁿC₃ = 11 : 1, then n is:",
+     "options": [
+      "5",
+      "6",
+      "11",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "²ⁿC₃/ⁿC₃ = [2n(2n − 1)(2n − 2)]/[n(n − 1)(n − 2)] = 4(2n − 1)/(n − 2) = 11 ⇒ 8n − 4 = 11n − 22 ⇒ n = 6.",
+     "steps": [
+      "2n(2n − 1)(2n − 2) = 4n(n − 1)(2n − 1)",
+      "Ratio = 4(2n − 1)/(n − 2)",
+      "4(2n − 1) = 11(n − 2)",
+      "n = 6"
+     ],
+     "mistake": "Cancels incorrectly and gets n = 11",
+     "check": "6"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks choosing 3 friends and ranking 3 friends give the same count. Explain combinations, nCr and how it links to nPr.",
+    "must": [
+     [
+      "order does not matter",
+      "order doesn't matter",
+      "selection"
+     ],
+     [
+      "ncr",
+      "n!/(r!(n − r)!)",
+      "combination formula"
+     ],
+     [
+      "r!",
+      "npr = r! ncr",
+      "divide by r factorial"
+     ]
+    ],
+    "praise": "Selecting ignores order, so divide the permutations by r!. Team picking made easy!",
+    "nudge": "If order does not matter, why do we divide nPr by r!?"
+   }
+  },
+  {
+   "id": "g11-maths-06-07",
+   "title": "Committees, cards and geometry counts",
+   "covers": [
+    "c6.4.6",
+    "c6.4.7",
+    "c6.4.9"
+   ],
+   "learn": {
+    "hook": "The school quiz team needs 2 boys and 3 girls, with at least one Class 12 student. Questions like this mix combinations with 'at least' and 'at most'.",
+    "points": [
+     "Separate groups: choose from each group and multiply, e.g. 2 boys from 7 and 3 girls from 5: ⁷C₂ × ⁵C₃.",
+     "'At least' / 'at most': add the cases, or use total − unwanted cases (e.g. at least 1 girl = total − no girls).",
+     "Cards: a deck has 52 cards, 4 suits of 13, 4 aces, 12 face cards (J, Q, K). Exactly one ace in 4 cards: ⁴C₁ × ⁴⁸C₃.",
+     "Lines through n points (no three collinear): ⁿC₂. Triangles: ⁿC₃. Diagonals of an n-gon: ⁿC₂ − n.",
+     "Read 'exactly', 'at least' and 'at most' carefully — they decide which cases to add."
+    ],
+    "example": {
+     "q": "A committee of 5 is to be formed from 6 boys and 5 girls with exactly 3 boys and 2 girls. In how many ways?",
+     "steps": [
+      "Choose 3 boys from 6: ⁶C₃ = 20.",
+      "Choose 2 girls from 5: ⁵C₂ = 10.",
+      "Multiply: 20 × 10 = 200."
+     ],
+     "answer": "200"
+    },
+    "reallife": "A Ranji Trophy squad selection ('at least 4 bowlers, at most 2 wicket-keepers') is solved with exactly these case-by-case combinations."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the count",
+     "pairs": [
+      [
+       "Lines through 10 points, no 3 collinear",
+       "45"
+      ],
+      [
+       "Triangles from 10 such points",
+       "120"
+      ],
+      [
+       "Diagonals of a hexagon",
+       "9"
+      ],
+      [
+       "Ways to pick 2 aces from 4",
+       "6"
+      ],
+      [
+       "5-card hands from 52 cards",
+       "2598960"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "At least 1 girl in a team of 3 from 5 boys and 4 girls",
+     "prompt": "Arrange the solution",
+     "items": [
+      "Use the complement: at least 1 girl = total − teams with no girl",
+      "Total teams: ⁹C₃ = 84",
+      "Subtract the no-girl teams (⁵C₃ = 10) from this total",
+      "Answer: 84 − 10 = 74"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In how many ways can a team of 3 boys and 2 girls be chosen from 7 boys and 5 girls?",
+     "options": [
+      "792",
+      "45",
+      "35",
+      "350"
+     ],
+     "answer": 3,
+     "explain": "⁷C₃ × ⁵C₂ = 35 × 10 = 350.",
+     "mistake": "Adds the two counts",
+     "check": "35*10"
+    },
+    {
+     "q": "From 5 boys and 4 girls, how many teams of 3 have at least one girl?",
+     "options": [
+      "40",
+      "84",
+      "74",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "Total ⁹C₃ = 84; teams with no girls ⁵C₃ = 10. 84 − 10 = 74.",
+     "mistake": "Counts only teams with exactly one girl",
+     "check": "84-10"
+    },
+    {
+     "q": "In how many ways can 4 cards be drawn from a deck of 52 so that exactly one is an ace?",
+     "options": [
+      "69184",
+      "194580",
+      "270725",
+      "17296"
+     ],
+     "answer": 0,
+     "explain": "Choose the ace: ⁴C₁ = 4. Choose 3 non-aces from 48: ⁴⁸C₃ = 17,296. 4 × 17,296 = 69,184.",
+     "mistake": "Forgets to choose which ace",
+     "check": "4*17296"
+    },
+    {
+     "q": "In how many ways can 4 cards of the same suit be chosen from a deck?",
+     "options": [
+      "715",
+      "270725",
+      "52",
+      "2860"
+     ],
+     "answer": 3,
+     "explain": "Choose the suit (4 ways) and 4 of its 13 cards: 4 × ¹³C₄ = 4 × 715 = 2860.",
+     "mistake": "Forgets to multiply by the 4 suits",
+     "check": "4*715"
+    },
+    {
+     "q": "How many triangles can be formed using 12 points in a plane, no three of which are collinear?",
+     "options": [
+      "220",
+      "36",
+      "1320",
+      "66"
+     ],
+     "answer": 0,
+     "explain": "¹²C₃ = 12 × 11 × 10/6 = 220.",
+     "mistake": "Uses ¹²C₂ (lines) or ¹²P₃",
+     "check": "12*11*10/6"
+    },
+    {
+     "q": "How many diagonals does an octagon have?",
+     "options": [
+      "8",
+      "20",
+      "16",
+      "28"
+     ],
+     "answer": 1,
+     "explain": "⁸C₂ − 8 = 28 − 8 = 20 (remove the 8 sides).",
+     "mistake": "Forgets to subtract the sides",
+     "check": "28-8"
+    },
+    {
+     "q": "A student must answer 7 of 10 questions, choosing at least 3 from the first 5. In how many ways can she choose? (She can take 3, 4 or 5 from the first group.)",
+     "options": [
+      "50",
+      "100",
+      "110",
+      "120"
+     ],
+     "answer": 2,
+     "explain": "3 from first: ⁵C₃ × ⁵C₄ = 50; 4: ⁵C₄ × ⁵C₃ = 50; 5: ⁵C₅ × ⁵C₂ = 10. Total 110.",
+     "steps": [
+      "Case 3 + 4: 10 × 5 = 50",
+      "Case 4 + 3: 5 × 10 = 50",
+      "Case 5 + 2: 1 × 10 = 10",
+      "Total 110"
+     ],
+     "mistake": "Misses the case of all 5 from the first group",
+     "check": "50+50+10"
+    },
+    {
+     "q": "In how many ways can a hand of 4 cards be all face cards?",
+     "options": [
+      "12",
+      "1820",
+      "48",
+      "495"
+     ],
+     "answer": 3,
+     "explain": "There are 12 face cards; ¹²C₄ = 495.",
+     "mistake": "Uses 16 'picture' cards including aces",
+     "check": "495"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must pick a team with 'at least one girl' and is counting case by case. Show a faster way and explain how to handle 'at least' and 'at most'.",
+    "must": [
+     [
+      "at least",
+      "at most"
+     ],
+     [
+      "total minus",
+      "subtract",
+      "complement"
+     ],
+     [
+      "cases",
+      "add the cases",
+      "case by case"
+     ]
+    ],
+    "praise": "Total minus the unwanted case — so quick! And for 'at most', add the allowed cases.",
+    "nudge": "Instead of adding many cases, what could you subtract from the total?"
+   }
+  },
+  {
+   "id": "g11-maths-06-08",
+   "title": "Select then arrange; dictionary order",
+   "covers": [
+    "c6.4.8",
+    "c6.4.10"
+   ],
+   "learn": {
+    "hook": "Make 5-letter words from DAUGHTER using 2 vowels and 3 consonants: first CHOOSE the letters, then ARRANGE them. Most hard problems are two easy ones glued together.",
+    "points": [
+     "Mixed problems: number of ways = (ways to select) × (ways to arrange the selected objects).",
+     "Example: 2 vowels from 3 and 3 consonants from 5 in DAUGHTER, then arrange 5 letters: ³C₂ × ⁵C₃ × 5! = 3600.",
+     "Dictionary (rank) problems: list letters alphabetically; count words that begin with each smaller letter, then fix letters one by one.",
+     "Rows with restrictions: place the restricted group first (e.g. girls in even places), then the rest.",
+     "Always check whether letters are distinct; repeated letters need division by factorials."
+    ],
+    "example": {
+     "q": "If all arrangements of RANK are listed in dictionary order, what is the rank of RANK?",
+     "steps": [
+      "Letters in order: A, K, N, R.",
+      "Words starting with A, K, N: 3 × 3! = 18.",
+      "Starting with R: next letter A; remaining K, N give RAKN (19th), RANK (20th)."
+     ],
+     "answer": "20th"
+    },
+    "reallife": "Password-strength meters estimate how many passwords an attacker must try — select characters, then arrange them."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Rank of MOTHER in dictionary order",
+     "prompt": "Arrange the counting steps",
+     "items": [
+      "Letters: E, H, M, O, R, T",
+      "Starting with E or H: 2 × 5! = 240",
+      "M then E or H: 2 × 4! = 48",
+      "MO then E, H or R: 3 × 3! = 18",
+      "MOT then E: 2! = 2; next MOTHER itself",
+      "Rank = 240 + 48 + 18 + 2 + 1 = 309"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Select × arrange",
+     "items": [
+      {
+       "q": "Choose 2 of 4 letters, then arrange",
+       "a": "12",
+       "check": "6*2"
+      },
+      {
+       "q": "Choose 3 of 5 people, seat in a row",
+       "a": "60",
+       "check": "10*6"
+      },
+      {
+       "q": "2 vowels of 3 and 1 consonant of 4, arrange",
+       "a": "72",
+       "check": "3*4*6"
+      },
+      {
+       "q": "Choose 2 of 5 books, arrange on shelf",
+       "a": "20",
+       "check": "10*2"
+      },
+      {
+       "q": "Rank of CAT among arrangements of A, C, T",
+       "a": "3",
+       "check": "3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many 5-letter words with 2 different vowels and 3 different consonants can be formed from the letters of DAUGHTER?",
+     "options": [
+      "3600",
+      "7200",
+      "30",
+      "120"
+     ],
+     "answer": 0,
+     "explain": "Choose vowels ³C₂ = 3, consonants ⁵C₃ = 10, arrange 5 letters 5! = 120. 3 × 10 × 120 = 3600.",
+     "mistake": "Forgets to arrange the chosen letters",
+     "check": "3*10*120"
+    },
+    {
+     "q": "The letters of LEMON are arranged in dictionary order. What is the rank of LEMON?",
+     "options": [
+      "27",
+      "24",
+      "25",
+      "26"
+     ],
+     "answer": 3,
+     "explain": "Order: E, L, M, N, O. Starting with E: 24. L then E: LE + arrangements of M, N, O; LEMNO is 25th, LEMON is 26th.",
+     "mistake": "Forgets to add 1 for the word itself",
+     "check": "24+2"
+    },
+    {
+     "q": "How many 4-letter words can be formed from 6 different letters if each word must have 2 specific letters? (Choose 2 more from the other 4, then arrange.)",
+     "options": [
+      "24",
+      "72",
+      "144",
+      "360"
+     ],
+     "answer": 2,
+     "explain": "⁴C₂ × 4! = 6 × 24 = 144.",
+     "mistake": "Forgets to arrange the 4 letters",
+     "check": "6*24"
+    },
+    {
+     "q": "In how many ways can 3 boys be chosen from 6 and seated in a row of 3 chairs?",
+     "options": [
+      "216",
+      "20",
+      "120",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "⁶C₃ × 3! = 20 × 6 = 120 (= ⁶P₃).",
+     "mistake": "Stops at the selection",
+     "check": "20*6"
+    },
+    {
+     "q": "Rank of the word ACT among all arrangements of A, C, T in dictionary order:",
+     "options": [
+      "6",
+      "2",
+      "3",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "ACT is the first word: A, then C, then T in alphabetical order.",
+     "mistake": "Counts words before it instead of its position",
+     "check": "1"
+    },
+    {
+     "q": "How many 3-digit numbers with distinct digits can be formed by choosing 2 odd digits from 1, 3, 5 and 1 even digit from 2, 4?",
+     "options": [
+      "18",
+      "36",
+      "6",
+      "72"
+     ],
+     "answer": 1,
+     "explain": "³C₂ × ²C₁ × 3! = 3 × 2 × 6 = 36.",
+     "mistake": "Forgets one of the selection steps",
+     "check": "3*2*6"
+    },
+    {
+     "q": "In how many ways can 2 Physics and 2 Chemistry books be chosen from 4 Physics and 3 Chemistry books (all different) and placed on a shelf?",
+     "options": [
+      "18",
+      "24",
+      "144",
+      "432"
+     ],
+     "answer": 3,
+     "explain": "⁴C₂ × ³C₂ = 6 × 3 = 18 selections; each can be arranged in 4! = 24 ways. 18 × 24 = 432.",
+     "mistake": "Stops at 18 without arranging",
+     "check": "18*24"
+    },
+    {
+     "q": "Why is the rank of a word found by counting words that come BEFORE it and adding 1?",
+     "options": [
+      "Because every word is counted twice",
+      "Because its position is one more than the number of words ahead of it",
+      "Because dictionary order starts at 0",
+      "Because the last letter is fixed"
+     ],
+     "answer": 1,
+     "explain": "If k words come earlier, the word is in position k + 1.",
+     "mistake": "Forgets to add 1 for the word itself"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must form words with 2 vowels and 3 consonants and then find a word's dictionary rank. Explain 'select then arrange' and how ranking works.",
+    "must": [
+     [
+      "select",
+      "choose",
+      "combination"
+     ],
+     [
+      "arrange",
+      "permutation",
+      "order"
+     ],
+     [
+      "alphabetical",
+      "dictionary",
+      "words before"
+     ]
+    ],
+    "praise": "Pick first, then arrange — and count the words before mine for its rank. Chirpy clear!",
+    "nudge": "After choosing the letters, what is the next step?"
+   }
+  }
+ ]
+}

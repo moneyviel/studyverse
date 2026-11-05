@@ -1,0 +1,2222 @@
+{
+ "n": 3,
+ "title": "Trigonometric Functions",
+ "emoji": "📐",
+ "topics": [
+  {
+   "id": "g11-maths-03-01",
+   "title": "Angles as rotation: degrees and radians",
+   "covers": [
+    "c3.1.1",
+    "c3.2.1",
+    "c3.2.2",
+    "c3.2.3",
+    "c3.2.7"
+   ],
+   "learn": {
+    "hook": "A ceiling fan blade, a Ferris wheel at a Dussehra mela and the hands of a clock all sweep angles far bigger than 90° — so trigonometry must grow up beyond right triangles.",
+    "points": [
+     "In Class 10, trigonometric ratios were defined for acute angles. Now we extend them to angles of any size, and then to any real number.",
+     "An angle is the amount of rotation of a ray from its initial side to its terminal side. Anticlockwise rotation gives a positive angle; clockwise gives a negative one.",
+     "Degree measure: one full turn = 360°; 1° = 60′ (minutes), 1′ = 60″ (seconds).",
+     "Radian measure: the angle at the centre subtended by an arc whose length equals the radius is 1 radian. In general θ = l/r (θ in radians).",
+     "Convention: when no unit is written, the angle is in radians. So 'sin 2' means the sine of 2 radians, and θ = π/3 means π/3 radians."
+    ],
+    "example": {
+     "q": "An arc of length 18 cm subtends an angle θ at the centre of a circle of radius 6 cm. Find θ.",
+     "steps": [
+      "Use θ = l/r with l = 18 cm and r = 6 cm.",
+      "θ = 18/6 = 3."
+     ],
+     "answer": "θ = 3 radians"
+    },
+    "reallife": "An ISRO antenna turning 'through 2 radians' and a cricket ball spinning several full turns both use rotation measure that can exceed 360°."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the unit facts",
+     "pairs": [
+      [
+       "One full revolution",
+       "360°"
+      ],
+      [
+       "1 degree",
+       "60 minutes"
+      ],
+      [
+       "1 minute",
+       "60 seconds"
+      ],
+      [
+       "Arc length = radius",
+       "1 radian"
+      ],
+      [
+       "Clockwise rotation",
+       "Negative angle"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Angle basics",
+     "items": [
+      [
+       "An angle can be greater than 360°.",
+       true,
+       "More than one full rotation is allowed, e.g. 450°."
+      ],
+      [
+       "A clockwise rotation gives a positive angle.",
+       false,
+       "By convention anticlockwise is positive, clockwise is negative."
+      ],
+      [
+       "θ = l/r gives θ in degrees.",
+       false,
+       "θ = l/r gives the angle in radians."
+      ],
+      [
+       "If an angle is written without units, it is taken in radians.",
+       true,
+       "That is the standard convention."
+      ],
+      [
+       "1° = 60′ and 1′ = 60″.",
+       true,
+       "Degrees split into minutes, minutes into seconds."
+      ],
+      [
+       "1 radian is the angle of an arc equal to the diameter.",
+       false,
+       "It is the angle of an arc equal to the radius."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "An arc of length 12 cm subtends an angle of 1.5 radians at the centre. What is the radius?",
+     "options": [
+      "10.5 cm",
+      "6 cm",
+      "18 cm",
+      "8 cm"
+     ],
+     "answer": 3,
+     "explain": "r = l/θ = 12/1.5 = 8 cm.",
+     "steps": [
+      "θ = l/r ⇒ r = l/θ",
+      "r = 12 ÷ 1.5 = 8 cm"
+     ],
+     "mistake": "Multiplies l by θ instead of dividing",
+     "check": "12/1.5"
+    },
+    {
+     "q": "A circle has radius 10 cm. What arc length subtends an angle of 2.5 radians?",
+     "options": [
+      "25 cm",
+      "12.5 cm",
+      "250 cm",
+      "4 cm"
+     ],
+     "answer": 0,
+     "explain": "l = rθ = 10 × 2.5 = 25 cm.",
+     "mistake": "Divides r by θ",
+     "check": "10*2.5"
+    },
+    {
+     "q": "How many seconds (″) are there in 1°?",
+     "options": [
+      "3600",
+      "60",
+      "360",
+      "100"
+     ],
+     "answer": 0,
+     "explain": "1° = 60′ and 1′ = 60″, so 1° = 60 × 60 = 3600″.",
+     "mistake": "Stops at 60 minutes",
+     "check": "60*60"
+    },
+    {
+     "q": "A ray rotates three-quarters of a full turn clockwise. The angle formed is:",
+     "options": [
+      "90°",
+      "−90°",
+      "270°",
+      "−270°"
+     ],
+     "answer": 3,
+     "explain": "Three-quarters of 360° is 270°; clockwise makes it negative.",
+     "mistake": "Ignores the direction of rotation",
+     "check": "-270"
+    },
+    {
+     "q": "In the statement 'sin 1 > 0', the angle 1 is measured in:",
+     "options": [
+      "minutes",
+      "radians",
+      "degrees",
+      "grads"
+     ],
+     "answer": 1,
+     "explain": "Angles written without units are radians by convention.",
+     "mistake": "Assumes degrees whenever no unit is shown"
+    },
+    {
+     "q": "Which angle is the same as 1 full revolution plus a quarter turn anticlockwise?",
+     "options": [
+      "90°",
+      "−450°",
+      "450°",
+      "360°"
+     ],
+     "answer": 2,
+     "explain": "360° + 90° = 450°, positive because anticlockwise.",
+     "mistake": "Forgets the full revolution",
+     "check": "360+90"
+    },
+    {
+     "q": "Why do we need trigonometric functions of angles larger than 90°?",
+     "options": [
+      "Rotations such as wheels and clock hands go beyond a right angle, and right-triangle ratios only cover acute angles",
+      "Acute angles do not have trigonometric ratios",
+      "Degrees cannot measure angles above 90°",
+      "Radians only work for obtuse angles"
+     ],
+     "answer": 0,
+     "explain": "Right triangles only give ratios for 0° < θ < 90°. Defining functions for any angle lets us describe all rotations and periodic motion.",
+     "mistake": "Thinks trigonometry is only about triangles"
+    },
+    {
+     "q": "Assertion (A): An angle of 2 radians is larger than a right angle.\nReason (R): 1 radian is about 57°16′.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "2 radians ≈ 114°32′, which is more than 90°. R gives the size of 1 radian, which explains A.",
+     "mistake": "Treats 2 radians as 2°"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu says 'angles are just triangles' corners, between 0° and 90°'. Explain angles as rotation, and what a radian is.",
+    "must": [
+     [
+      "rotation",
+      "rotate",
+      "turn"
+     ],
+     [
+      "radian",
+      "arc equal to radius",
+      "arc length equals radius"
+     ],
+     [
+      "anticlockwise",
+      "positive",
+      "counterclockwise"
+     ]
+    ],
+    "praise": "So a radian is an arc as long as the radius, and angles can keep spinning past 360°!",
+    "nudge": "What exactly is 1 radian — which length equals which?"
+   }
+  },
+  {
+   "id": "g11-maths-03-02",
+   "title": "Converting degrees and radians; arc problems",
+   "covers": [
+    "c3.2.4",
+    "c3.2.5",
+    "c3.2.6"
+   ],
+   "learn": {
+    "hook": "A Ferris wheel turning 540 times a minute? That's a centrifuge! Converting revolutions, degrees and radians is daily work for engineers.",
+    "points": [
+     "A full circle is 2π radians = 360°, so π radians = 180°.",
+     "Degrees → radians: multiply by π/180. Radians → degrees: multiply by 180/π.",
+     "1 radian = 180°/π ≈ 57°16′ (approx.) and 1° = π/180 ≈ 0.01746 radian (approx.).",
+     "For degree–minute form, first change minutes to degrees: 47°30′ = 47.5° = 95/2 degrees.",
+     "Arc problems use l = rθ (θ in radians). One revolution = 2π radians; when a number is needed, NCERT often uses π = 22/7."
+    ],
+    "example": {
+     "q": "Convert −47°30′ into radians.",
+     "steps": [
+      "47°30′ = 47½° = 95/2 degrees.",
+      "Multiply by π/180: (95/2) × π/180 = 95π/360.",
+      "Simplify: 95π/360 = 19π/72.",
+      "Attach the negative sign."
+     ],
+     "answer": "−19π/72 radians"
+    },
+    "reallife": "A Mumbai local's wheel of radius 0.5 m that turns through 2π radians moves the train 2π × 0.5 ≈ 3.14 m — arc length is distance travelled."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Degrees ↔ radians",
+     "pairs": [
+      [
+       "30°",
+       "π/6"
+      ],
+      [
+       "135°",
+       "3π/4"
+      ],
+      [
+       "240°",
+       "4π/3"
+      ],
+      [
+       "300°",
+       "5π/3"
+      ],
+      [
+       "520°",
+       "26π/9"
+      ],
+      [
+       "25°",
+       "5π/36"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Radians to degrees",
+     "items": [
+      {
+       "q": "π/9 rad in degrees",
+       "a": "20°",
+       "check": "180/9"
+      },
+      {
+       "q": "5π/12 rad",
+       "a": "75°",
+       "check": "5*180/12"
+      },
+      {
+       "q": "7π/6 rad",
+       "a": "210°",
+       "check": "7*180/6"
+      },
+      {
+       "q": "−3π/4 rad",
+       "a": "−135°",
+       "check": "-3*180/4"
+      },
+      {
+       "q": "π/18 rad",
+       "a": "10°",
+       "check": "180/18"
+      },
+      {
+       "q": "11π/6 rad",
+       "a": "330°",
+       "check": "11*180/6"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A wheel makes 360 revolutions in one minute. Through how many radians does it turn in one second?",
+     "options": [
+      "12π",
+      "2π",
+      "360π",
+      "6π"
+     ],
+     "answer": 0,
+     "explain": "360 rev/min = 6 rev/s. Each revolution is 2π, so 6 × 2π = 12π radians.",
+     "mistake": "Forgets to convert minutes to seconds, or uses π per revolution"
+    },
+    {
+     "q": "Convert 5π/3 radians to degrees.",
+     "options": [
+      "600°",
+      "300°",
+      "330°",
+      "150°"
+     ],
+     "answer": 1,
+     "explain": "5π/3 × 180/π = 5 × 60 = 300°.",
+     "mistake": "Multiplies by π/180 instead of 180/π",
+     "check": "5*180/3"
+    },
+    {
+     "q": "A pendulum 60 cm long swings so that its tip moves along an arc of 15 cm. The angle of swing in radians is:",
+     "options": [
+      "1/4",
+      "4",
+      "15/π",
+      "1/2"
+     ],
+     "answer": 0,
+     "explain": "θ = l/r = 15/60 = 1/4 radian.",
+     "mistake": "Divides r by l",
+     "check": "Fraction(15,60)"
+    },
+    {
+     "q": "Find the length of the minor arc of a circle of radius 21 cm cut off by a chord equal to the radius. (Use π = 22/7.)",
+     "options": [
+      "22 cm",
+      "44 cm",
+      "21 cm",
+      "11 cm"
+     ],
+     "answer": 0,
+     "explain": "A chord equal to the radius makes an equilateral triangle, so the angle is 60° = π/3. Arc = 21 × π/3 = 7π = 22 cm.",
+     "steps": [
+      "Angle = 60° = π/3",
+      "l = rθ = 21 × π/3 = 7π",
+      "7 × 22/7 = 22 cm"
+     ],
+     "mistake": "Takes the arc as equal to the chord",
+     "check": "21*Fraction(22,7)/3"
+    },
+    {
+     "q": "Arcs of the same length in two circles subtend 45° and 60° at their centres. Find the ratio r₁ : r₂.",
+     "options": [
+      "1 : 1",
+      "4 : 3",
+      "3 : 4",
+      "9 : 16"
+     ],
+     "answer": 1,
+     "explain": "l = r₁(π/4) = r₂(π/3) gives r₁/r₂ = (π/3)/(π/4) = 4/3.",
+     "mistake": "Thinks bigger angle means bigger radius"
+    },
+    {
+     "q": "Convert 40°20′ to radians.",
+     "options": [
+      "121π/540",
+      "121π/180",
+      "40π/180",
+      "121π/1080"
+     ],
+     "answer": 0,
+     "explain": "40°20′ = 40⅓° = 121/3 degrees; × π/180 gives 121π/540.",
+     "steps": [
+      "20′ = 20/60 = 1/3°",
+      "40⅓ = 121/3 degrees",
+      "121/3 × π/180 = 121π/540"
+     ],
+     "mistake": "Uses 20′ = 0.2°"
+    },
+    {
+     "q": "Using π = 22/7, convert 11/16 radian to degrees.",
+     "options": [
+      "39°22′",
+      "40°",
+      "39°22′30″",
+      "39°13′"
+     ],
+     "answer": 2,
+     "explain": "11/16 × 180/π = 11 × 180 × 7/(16 × 22) = 315/8 = 39.375° = 39° + 0.375 × 60′ = 39°22.5′ = 39°22′30″.",
+     "steps": [
+      "11/16 × 180 × 7/22 = 315/8°",
+      "315/8 = 39 + 3/8 degrees",
+      "3/8° = 22.5′ = 22′30″"
+     ],
+     "mistake": "Stops at decimal minutes or rounds too early"
+    },
+    {
+     "q": "The minute hand of a clock is 1.5 cm long. How far does its tip move in 40 minutes? (Use π = 3.14.)",
+     "options": [
+      "12.56 cm",
+      "3.14 cm",
+      "6.28 cm",
+      "9.42 cm"
+     ],
+     "answer": 2,
+     "explain": "In 40 minutes the hand turns 40/60 × 360° = 240° = 4π/3. Distance = 1.5 × 4π/3 = 2π = 6.28 cm.",
+     "steps": [
+      "Angle = (40/60) × 2π = 4π/3",
+      "l = 1.5 × 4π/3 = 2π",
+      "2 × 3.14 = 6.28 cm"
+     ],
+     "mistake": "Uses 40° instead of 240°",
+     "check": "2*3.14"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu needs to change 135° to radians and back. Explain the rule connecting degrees and radians and how to find an arc length.",
+    "must": [
+     [
+      "pi radians",
+      "π radians",
+      "180"
+     ],
+     [
+      "multiply",
+      "pi by 180",
+      "π/180",
+      "180/π"
+     ],
+     [
+      "arc length",
+      "l = rθ",
+      "r theta",
+      "radius times angle"
+     ]
+    ],
+    "praise": "π radians = 180°, and arc = radius × angle. Converting is a breeze now!",
+    "nudge": "What is π radians equal to in degrees?"
+   }
+  },
+  {
+   "id": "g11-maths-03-03",
+   "title": "Trigonometric functions on the unit circle",
+   "covers": [
+    "c3.3.1",
+    "c3.3.2",
+    "c3.3.3",
+    "c3.3.4",
+    "c3.3.5"
+   ],
+   "learn": {
+    "hook": "Watch a point riding a circle of radius 1 — its x-coordinate is cos x and its y-coordinate is sin x. Every trig fact follows from that one picture.",
+    "points": [
+     "Take the unit circle centred at O. If the arc from (1, 0) to P has length x (radians), then P = (cos x, sin x). Since P is on the circle, cos²x + sin²x = 1.",
+     "tan x = sin x/cos x (cos x ≠ 0), cot x = cos x/sin x (sin x ≠ 0), sec x = 1/cos x, cosec x = 1/sin x.",
+     "Quadrantal values: sin 0 = 0, sin π/2 = 1, sin π = 0, sin 3π/2 = −1, sin 2π = 0; cos 0 = 1, cos π/2 = 0, cos π = −1, cos 3π/2 = 0, cos 2π = 1.",
+     "sin x = 0 exactly when x = nπ; cos x = 0 exactly when x = (2n + 1)π/2, where n is any integer.",
+     "Dividing cos²x + sin²x = 1 by cos²x or sin²x: 1 + tan²x = sec²x and 1 + cot²x = cosec²x."
+    ],
+    "example": {
+     "q": "Find the value of sin²(π/4) + cos²(π/6) − tan²(π/3).",
+     "steps": [
+      "sin(π/4) = 1/√2, so sin² = 1/2.",
+      "cos(π/6) = √3/2, so cos² = 3/4.",
+      "tan(π/3) = √3, so tan² = 3.",
+      "1/2 + 3/4 − 3 = −7/4."
+     ],
+     "answer": "−7/4"
+    },
+    "reallife": "Sound engineers at AIR model a pure tone as y = sin(ωt): the up-and-down motion of a point going round a circle."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Quadrantal values",
+     "pairs": [
+      [
+       "sin π/2",
+       "1"
+      ],
+      [
+       "cos π",
+       "−1"
+      ],
+      [
+       "sin 3π/2",
+       "−1 (on the negative y-axis)"
+      ],
+      [
+       "cos 2π",
+       "1 (back to start)"
+      ],
+      [
+       "tan π",
+       "0"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Complete the identity",
+     "items": [
+      {
+       "text": "1 + tan²x = ___",
+       "answer": "sec²x",
+       "options": [
+        "sec²x",
+        "cosec²x",
+        "cot²x"
+       ]
+      },
+      {
+       "text": "1 + cot²x = ___",
+       "answer": "cosec²x",
+       "options": [
+        "cosec²x",
+        "sec²x",
+        "tan²x"
+       ]
+      },
+      {
+       "text": "sin²x + ___ = 1",
+       "answer": "cos²x",
+       "options": [
+        "cos²x",
+        "tan²x",
+        "sec²x"
+       ]
+      },
+      {
+       "text": "cos x = 0 when x = ___",
+       "answer": "(2n + 1)π/2",
+       "options": [
+        "(2n + 1)π/2",
+        "nπ",
+        "2nπ"
+       ]
+      },
+      {
+       "text": "sin x = 0 when x = ___",
+       "answer": "nπ",
+       "options": [
+        "nπ",
+        "(2n + 1)π/2",
+        "nπ/2"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the value of sin(3π/2) + cos(π)?",
+     "options": [
+      "0",
+      "−2",
+      "2",
+      "−1"
+     ],
+     "answer": 1,
+     "explain": "sin(3π/2) = −1 and cos π = −1, so the sum is −2.",
+     "mistake": "Takes sin(3π/2) as +1",
+     "check": "-1+(-1)"
+    },
+    {
+     "q": "On the unit circle, the point reached after an arc of length x from (1, 0) is:",
+     "options": [
+      "(sin x, cos x)",
+      "(cos x, sin x)",
+      "(1, tan x)",
+      "(tan x, 1)"
+     ],
+     "answer": 1,
+     "explain": "The x-coordinate is cos x and the y-coordinate is sin x.",
+     "mistake": "Swaps sine and cosine"
+    },
+    {
+     "q": "Find 2 cos²(π/4) + cosec²(7π/6) sin²(π/6).",
+     "options": [
+      "1",
+      "3",
+      "2",
+      "5/4"
+     ],
+     "answer": 2,
+     "explain": "cos(π/4) = 1/√2 gives 2 × 1/2 = 1. cosec(7π/6) = −2 so cosec² = 4; sin²(π/6) = 1/4, product 1. Total 2.",
+     "steps": [
+      "2 × (1/√2)² = 1",
+      "cosec²(7π/6) = (−2)² = 4",
+      "4 × (1/2)² = 1",
+      "1 + 1 = 2"
+     ],
+     "mistake": "Takes cosec(7π/6) = −1/2",
+     "check": "1+1"
+    },
+    {
+     "q": "For which values of x is cos x = 0?",
+     "options": [
+      "x = nπ, n ∈ Z",
+      "x = (2n + 1)π/2, n ∈ Z",
+      "x = 2nπ, n ∈ Z",
+      "x = nπ/4, n ∈ Z"
+     ],
+     "answer": 1,
+     "explain": "cos x is the x-coordinate, which is 0 at the top and bottom of the unit circle: odd multiples of π/2.",
+     "mistake": "Mixes up the zeros of sin and cos"
+    },
+    {
+     "q": "If sec x = 13/12, what is tan²x?",
+     "options": [
+      "144/25",
+      "1/144",
+      "169/144",
+      "25/144"
+     ],
+     "answer": 3,
+     "explain": "tan²x = sec²x − 1 = 169/144 − 1 = 25/144.",
+     "mistake": "Adds 1 instead of subtracting",
+     "check": "Fraction(169,144)-1"
+    },
+    {
+     "q": "tan x is NOT defined when:",
+     "options": [
+      "cos x = 0",
+      "sin x = 0",
+      "x = π",
+      "x = 0"
+     ],
+     "answer": 0,
+     "explain": "tan x = sin x/cos x, so it fails when cos x = 0, i.e. at odd multiples of π/2.",
+     "mistake": "Confuses tan with cot"
+    },
+    {
+     "q": "What is the value of cot²(π/4) + cosec(5π/6) + 3 tan²(π/3)?",
+     "options": [
+      "12",
+      "4",
+      "8",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "cot(π/4) = 1 → 1; cosec(5π/6) = 2; tan(π/3) = √3 → 3 × 3 = 9. Total 12.",
+     "steps": [
+      "cot²(π/4) = 1",
+      "cosec(5π/6) = 1/sin(5π/6) = 2",
+      "3 × (√3)² = 9",
+      "1 + 2 + 9 = 12"
+     ],
+     "mistake": "Takes cosec(5π/6) as negative, getting 8",
+     "check": "1+2+9"
+    },
+    {
+     "q": "Assertion (A): sin²x + cos²x = 1 for every real x.\nReason (R): (cos x, sin x) lies on the circle x² + y² = 1.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Because P = (cos x, sin x) is on the unit circle, its coordinates satisfy x² + y² = 1. R explains A exactly.",
+     "mistake": "Thinks the identity only holds for acute angles"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu only knows sin as 'opposite over hypotenuse'. Explain how the unit circle defines sin x and cos x for every real x.",
+    "must": [
+     [
+      "unit circle",
+      "radius 1",
+      "circle of radius one"
+     ],
+     [
+      "x-coordinate",
+      "x coordinate",
+      "cos is x"
+     ],
+     [
+      "y-coordinate",
+      "y coordinate",
+      "sin is y"
+     ]
+    ],
+    "praise": "A point going round a circle: x is cos, y is sin. Simple and beautiful!",
+    "nudge": "On the unit circle, which coordinate gives cos x and which gives sin x?"
+   }
+  },
+  {
+   "id": "g11-maths-03-04",
+   "title": "Signs in the quadrants; finding all values from one",
+   "covers": [
+    "c3.3.7",
+    "c3.3.8"
+   ],
+   "learn": {
+    "hook": "Know one trig value and the quadrant, and you can unlock all six — like knowing a locker code and the floor number.",
+    "points": [
+     "Quadrant I (0 to π/2): all six functions positive.",
+     "Quadrant II (π/2 to π): only sin and cosec positive.",
+     "Quadrant III (π to 3π/2): only tan and cot positive.",
+     "Quadrant IV (3π/2 to 2π): only cos and sec positive.",
+     "Method: use sin²x + cos²x = 1 (or 1 + tan²x = sec²x) to find the size, then fix the sign from the quadrant."
+    ],
+    "example": {
+     "q": "If cos x = −12/13 and x lies in the third quadrant, find the other five trigonometric functions.",
+     "steps": [
+      "sin²x = 1 − 144/169 = 25/169, so sin x = ±5/13.",
+      "In quadrant III, sin x < 0, so sin x = −5/13.",
+      "tan x = (−5/13)/(−12/13) = 5/12; cot x = 12/5.",
+      "sec x = −13/12; cosec x = −13/5."
+     ],
+     "answer": "sin x = −5/13, tan x = 5/12, cot x = 12/5, sec x = −13/12, cosec x = −13/5"
+    },
+    "reallife": "Navigators reading a compass bearing in the second quadrant know at once that the east–west component (cos) is negative — signs carry direction."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which quadrant?",
+     "buckets": [
+      "Quadrant II",
+      "Quadrant III",
+      "Quadrant IV"
+     ],
+     "items": [
+      [
+       "sin > 0, cos < 0",
+       0
+      ],
+      [
+       "tan > 0, sin < 0",
+       1
+      ],
+      [
+       "cos > 0, sin < 0",
+       2
+      ],
+      [
+       "cosec > 0, tan < 0",
+       0
+      ],
+      [
+       "sec > 0, cot < 0",
+       2
+      ],
+      [
+       "sin < 0, cos < 0",
+       1
+      ],
+      [
+       "x = 2π/3",
+       0
+      ],
+      [
+       "x = 5π/4",
+       1
+      ],
+      [
+       "x = 7π/4",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Sign check",
+     "items": [
+      [
+       "sin 200° is negative.",
+       true,
+       "200° is in quadrant III, where sin is negative."
+      ],
+      [
+       "cos 100° is positive.",
+       false,
+       "100° is in quadrant II, where cos is negative."
+      ],
+      [
+       "tan 230° is positive.",
+       true,
+       "In quadrant III, tan = sin/cos = (−)/(−) > 0."
+      ],
+      [
+       "sec 300° is negative.",
+       false,
+       "300° is in quadrant IV where cos, and hence sec, is positive."
+      ],
+      [
+       "cosec 150° is positive.",
+       true,
+       "150° is in quadrant II, where sin and cosec are positive."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "If sin x = 3/5 and x lies in the second quadrant, then cos x is:",
+     "options": [
+      "4/5",
+      "−3/4",
+      "−4/5",
+      "3/4"
+     ],
+     "answer": 2,
+     "explain": "cos²x = 1 − 9/25 = 16/25, and cos x < 0 in quadrant II, so cos x = −4/5.",
+     "mistake": "Keeps the positive square root regardless of quadrant",
+     "check": "Fraction(-4,5)"
+    },
+    {
+     "q": "If tan x = −5/12 and x lies in the fourth quadrant, then sec x is:",
+     "options": [
+      "12/13",
+      "−13/5",
+      "−13/12",
+      "13/12"
+     ],
+     "answer": 3,
+     "explain": "sec²x = 1 + 25/144 = 169/144. In quadrant IV cos x > 0, so sec x = 13/12.",
+     "mistake": "Copies the negative sign of tan onto sec",
+     "check": "Fraction(13,12)"
+    },
+    {
+     "q": "If cot x = 3/4 and x lies in the third quadrant, then sin x is:",
+     "options": [
+      "−3/5",
+      "4/5",
+      "3/5",
+      "−4/5"
+     ],
+     "answer": 3,
+     "explain": "cosec²x = 1 + 9/16 = 25/16, cosec x = −5/4 in quadrant III, so sin x = −4/5.",
+     "mistake": "Picks the cosine value instead of sine",
+     "check": "Fraction(-4,5)"
+    },
+    {
+     "q": "In which quadrant are both sin x and tan x negative?",
+     "options": [
+      "Second",
+      "Fourth",
+      "Third",
+      "First"
+     ],
+     "answer": 1,
+     "explain": "In quadrant IV, sin < 0 and cos > 0, so tan < 0 too. In II tan < 0 but sin > 0; in III tan > 0.",
+     "mistake": "Thinks negative sin always means quadrant III"
+    },
+    {
+     "q": "If sec x = 13/5 and x lies in the fourth quadrant, then tan x is:",
+     "options": [
+      "−12/5",
+      "−5/12",
+      "12/13",
+      "12/5"
+     ],
+     "answer": 0,
+     "explain": "tan²x = sec²x − 1 = 144/25, and tan < 0 in quadrant IV, so tan x = −12/5.",
+     "mistake": "Forgets the sign rule for quadrant IV",
+     "check": "Fraction(-12,5)"
+    },
+    {
+     "q": "If cos x = −1/2 and x lies in the third quadrant, then tan x is:",
+     "options": [
+      "1/√3",
+      "−√3",
+      "√3",
+      "−1/√3"
+     ],
+     "answer": 2,
+     "explain": "sin x = −√3/2 in quadrant III, so tan x = (−√3/2)/(−1/2) = √3.",
+     "mistake": "Makes tan negative because cos is negative"
+    },
+    {
+     "q": "If cosec x = −41/9 and x lies in the fourth quadrant, then cos x is:",
+     "options": [
+      "−40/41",
+      "−9/40",
+      "40/41",
+      "9/41"
+     ],
+     "answer": 2,
+     "explain": "sin x = −9/41, cos²x = 1 − 81/1681 = 1600/1681, and cos > 0 in quadrant IV, so cos x = 40/41.",
+     "mistake": "Uses the sign of cosec for cos",
+     "check": "Fraction(40,41)"
+    },
+    {
+     "q": "Which function is positive in quadrant III?",
+     "options": [
+      "sec x",
+      "cos x",
+      "sin x",
+      "cot x"
+     ],
+     "answer": 3,
+     "explain": "In quadrant III, sin and cos are both negative, so their ratios tan and cot are positive.",
+     "mistake": "Assumes everything is negative in quadrant III"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu knows cos x = −12/13 but can't decide whether sin x is +5/13 or −5/13. Explain how the quadrant decides the sign.",
+    "must": [
+     [
+      "quadrant",
+      "which quarter"
+     ],
+     [
+      "sign",
+      "positive",
+      "negative"
+     ],
+     [
+      "sin² + cos² = 1",
+      "identity",
+      "pythagorean",
+      "sin squared"
+     ]
+    ],
+    "praise": "Use the identity for the size, the quadrant for the sign. Locker unlocked!",
+    "nudge": "Which quadrant are we in, and which functions are positive there?"
+   }
+  },
+  {
+   "id": "g11-maths-03-05",
+   "title": "Domain, range and periodicity",
+   "covers": [
+    "c3.3.6",
+    "c3.3.9",
+    "c3.3.12"
+   ],
+   "learn": {
+    "hook": "The monsoon returns every year, a pendulum every few seconds, and sin x every 2π. Periodicity lets you tame angles like 765° in one step.",
+    "points": [
+     "sin and cos: domain R, range [−1, 1]. tan: domain R − {(2n + 1)π/2}, range R. cot: domain R − {nπ}, range R.",
+     "sec: domain R − {(2n + 1)π/2}; cosec: domain R − {nπ}. Both have range R − (−1, 1), i.e. |y| ≥ 1.",
+     "sin(2nπ + x) = sin x and cos(2nπ + x) = cos x: period 2π. tan(nπ + x) = tan x and cot(nπ + x) = cot x: period π.",
+     "Large angles: remove whole turns (multiples of 360° or 2π) first. sin 765° = sin(720° + 45°) = sin 45° = 1/√2.",
+     "Negative angles: cos(−x) = cos x and sin(−x) = −sin x. So cos(−1710°) = cos 1710° = cos(4 × 360° + 270°) = cos 270° = 0."
+    ],
+    "example": {
+     "q": "Find sec(−1380°).",
+     "steps": [
+      "Add 4 full turns: −1380° + 1440° = 60°.",
+      "So sec(−1380°) = sec 60°.",
+      "sec 60° = 1/cos 60° = 2."
+     ],
+     "answer": "2"
+    },
+    "reallife": "The tides at Mumbai's coast follow an approximately periodic pattern, so planners model them with sine curves."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the function to its range",
+     "pairs": [
+      [
+       "sin x",
+       "Range [−1, 1]; equals 0 at x = 0"
+      ],
+      [
+       "cos x",
+       "Range [−1, 1]; equals 1 at x = 0"
+      ],
+      [
+       "tan x",
+       "Range R; undefined at odd multiples of π/2"
+      ],
+      [
+       "cot x",
+       "Range R; undefined at multiples of π"
+      ],
+      [
+       "sec x",
+       "Range R − (−1, 1)"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Reduce and evaluate",
+     "items": [
+      {
+       "q": "cos 1080°",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "sin 450°",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "tan 405°",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "cos(−1710°)",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "sec(−1380°)",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "sin 930°",
+       "a": "−1/2",
+       "check": "Fraction(-1,2)"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the value of tan(25π/3)?",
+     "options": [
+      "√3",
+      "−√3",
+      "1/√3",
+      "−1/√3"
+     ],
+     "answer": 0,
+     "explain": "25π/3 = 8π + π/3, and tan has period π, so tan(25π/3) = tan(π/3) = √3.",
+     "mistake": "Removes only 2π at a time and makes an arithmetic slip"
+    },
+    {
+     "q": "What is sin(−17π/3)?",
+     "options": [
+      "√3/2",
+      "−√3/2",
+      "−1/2",
+      "1/2"
+     ],
+     "answer": 0,
+     "explain": "Add 6π: −17π/3 + 18π/3 = π/3. So sin(−17π/3) = sin(π/3) = √3/2.",
+     "mistake": "Uses sin(−x) = −sin x but then reduces 17π/3 wrongly"
+    },
+    {
+     "q": "The range of cos x is:",
+     "options": [
+      "[0, 1]",
+      "(−1, 1)",
+      "R",
+      "[−1, 1]"
+     ],
+     "answer": 3,
+     "explain": "cos x is the x-coordinate of a point on the unit circle, so it lies between −1 and 1 inclusive.",
+     "mistake": "Thinks cos x is never negative"
+    },
+    {
+     "q": "The domain of tan x is:",
+     "options": [
+      "[−1, 1]",
+      "R − {nπ : n ∈ Z}",
+      "R",
+      "R − {(2n + 1)π/2 : n ∈ Z}"
+     ],
+     "answer": 3,
+     "explain": "tan x = sin x/cos x is undefined where cos x = 0, i.e. at odd multiples of π/2.",
+     "mistake": "Uses the zeros of sin instead of cos"
+    },
+    {
+     "q": "What is cot(−19π/4)?",
+     "options": [
+      "−1",
+      "0",
+      "1",
+      "√3"
+     ],
+     "answer": 2,
+     "explain": "−19π/4 + 5π = π/4, and cot has period π, so the value is cot(π/4) = 1.",
+     "mistake": "Applies cot(−x) = −cot x without reducing, getting −1",
+     "check": "1"
+    },
+    {
+     "q": "Which value can sec x NEVER take?",
+     "options": [
+      "−3",
+      "1/2",
+      "2",
+      "−1"
+     ],
+     "answer": 1,
+     "explain": "sec x = 1/cos x and |cos x| ≤ 1, so |sec x| ≥ 1. 1/2 is impossible.",
+     "mistake": "Thinks sec x has the same range as cos x",
+     "check": "Fraction(1,2)"
+    },
+    {
+     "q": "What is the period of tan x?",
+     "options": [
+      "π/2",
+      "2π",
+      "π",
+      "4π"
+     ],
+     "answer": 2,
+     "explain": "tan(x + π) = tan x for all x in its domain, and no smaller positive number works.",
+     "mistake": "Assumes all trig functions have period 2π"
+    },
+    {
+     "q": "Evaluate cos 1830°.",
+     "options": [
+      "−1/2",
+      "1/2",
+      "√3/2",
+      "−√3/2"
+     ],
+     "answer": 2,
+     "explain": "1830° = 5 × 360° + 30°, so cos 1830° = cos 30° = √3/2.",
+     "mistake": "Reduces by 360° one time too many or too few"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu panics at 'sin 765°'. Explain what periodicity means and how to reduce big or negative angles.",
+    "must": [
+     [
+      "period",
+      "periodic",
+      "repeats"
+     ],
+     [
+      "2π",
+      "360",
+      "full turn",
+      "two pi"
+     ],
+     [
+      "subtract",
+      "remove",
+      "reduce",
+      "add"
+     ]
+    ],
+    "praise": "765° is just 45° after two full spins. Big angles don't scare me now!",
+    "nudge": "After how many degrees do sin and cos repeat their values?"
+   }
+  },
+  {
+   "id": "g11-maths-03-06",
+   "title": "How trig functions behave: graphs",
+   "covers": [
+    "c3.3.10",
+    "c3.3.11"
+   ],
+   "learn": {
+    "hook": "ECG waves at AIIMS, AC current in your home, and ocean waves — all look like the graph of sin x. Let's read those curves.",
+    "points": [
+     "sin x: increases from 0 to 1 in quadrant I, decreases from 1 to 0 in II, decreases from 0 to −1 in III, increases from −1 to 0 in IV.",
+     "cos x: decreases from 1 to 0 in I and from 0 to −1 in II; increases from −1 to 0 in III and from 0 to 1 in IV.",
+     "tan x: increases in every quadrant — from 0 to ∞ in I, −∞ to 0 in II, 0 to ∞ in III and −∞ to 0 in IV — with vertical asymptotes at odd multiples of π/2.",
+     "Graphs of sin and cos are waves between −1 and 1 with period 2π; the cos graph is the sin graph shifted left by π/2.",
+     "cot has asymptotes at x = nπ; sec has asymptotes where cos x = 0 and cosec where sin x = 0, and their graphs never enter the band −1 < y < 1."
+    ],
+    "example": {
+     "q": "In which quadrants are both sin x and cos x decreasing?",
+     "steps": [
+      "sin decreases in quadrants II and III.",
+      "cos decreases in quadrants I and II.",
+      "The common quadrant is II."
+     ],
+     "answer": "Only in the second quadrant (π/2 < x < π)"
+    },
+    "reallife": "Household AC supply in India is 230 V at 50 Hz: the voltage traces a sine wave 50 times every second."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Increasing or decreasing?",
+     "buckets": [
+      "Increasing",
+      "Decreasing"
+     ],
+     "items": [
+      [
+       "sin x in quadrant I",
+       0
+      ],
+      [
+       "sin x in quadrant II",
+       1
+      ],
+      [
+       "cos x in quadrant I",
+       1
+      ],
+      [
+       "cos x in quadrant IV",
+       0
+      ],
+      [
+       "tan x in quadrant II",
+       0
+      ],
+      [
+       "sin x in quadrant III",
+       1
+      ],
+      [
+       "cos x in quadrant III",
+       0
+      ],
+      [
+       "sin x in quadrant IV",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the graph feature",
+     "pairs": [
+      [
+       "Asymptotes at odd multiples of π/2",
+       "tan x and sec x"
+      ],
+      [
+       "Asymptotes at x = nπ",
+       "cot x and cosec x"
+      ],
+      [
+       "Wave between −1 and 1 starting at (0, 0)",
+       "sin x"
+      ],
+      [
+       "Wave between −1 and 1 starting at (0, 1)",
+       "cos x"
+      ],
+      [
+       "Increasing in every quadrant",
+       "tan x"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In which quadrant does cos x increase from −1 to 0?",
+     "options": [
+      "First",
+      "Fourth",
+      "Third",
+      "Second"
+     ],
+     "answer": 2,
+     "explain": "At x = π, cos x = −1; at x = 3π/2, cos x = 0. That stretch is quadrant III.",
+     "mistake": "Thinks cos only increases in quadrant I"
+    },
+    {
+     "q": "The graph of y = sin x crosses the x-axis at:",
+     "options": [
+      "x = nπ, n ∈ Z",
+      "x = (2n + 1)π/2",
+      "x = 2nπ only",
+      "nowhere"
+     ],
+     "answer": 0,
+     "explain": "The zeros of sin x are exactly the integer multiples of π.",
+     "mistake": "Uses the zeros of cos x"
+    },
+    {
+     "q": "Which is true about tan x in quadrant II?",
+     "options": [
+      "It increases from 0 to 1",
+      "It increases from −∞ to 0",
+      "It decreases from 0 to −∞",
+      "It is constant"
+     ],
+     "answer": 1,
+     "explain": "Just after π/2, tan x is a very large negative number, and it rises to 0 at π.",
+     "mistake": "Thinks negative values must be decreasing"
+    },
+    {
+     "q": "The maximum value of y = sin x is reached at:",
+     "options": [
+      "x = 3π/2 + 2nπ",
+      "x = π/2 + 2nπ",
+      "x = π + 2nπ",
+      "x = 0 + 2nπ"
+     ],
+     "answer": 1,
+     "explain": "sin x = 1 at the top of the unit circle, x = π/2, and every 2π after that.",
+     "mistake": "Confuses with the maximum of cos x at x = 0"
+    },
+    {
+     "q": "Which graph has NO points with −1 < y < 1?",
+     "options": [
+      "y = sec x",
+      "y = cot x",
+      "y = sin x",
+      "y = tan x"
+     ],
+     "answer": 0,
+     "explain": "|sec x| = 1/|cos x| ≥ 1, so the graph avoids that band. tan and cot take every real value.",
+     "mistake": "Thinks tan has the same range as sec"
+    },
+    {
+     "q": "The graph of y = cos x can be obtained from y = sin x by:",
+     "options": [
+      "stretching it vertically by 2",
+      "reflecting it in the x-axis",
+      "shifting it π/2 to the left",
+      "shifting it π to the right"
+     ],
+     "answer": 2,
+     "explain": "cos x = sin(x + π/2), which is the sin graph moved left by π/2.",
+     "mistake": "Uses the wrong direction or a full π shift"
+    },
+    {
+     "q": "How many times does the graph of y = sin x cut the x-axis for 0 ≤ x ≤ 2π?",
+     "options": [
+      "1",
+      "2",
+      "4",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "It cuts at x = 0, π and 2π.",
+     "mistake": "Leaves out one of the end points",
+     "check": "3"
+    },
+    {
+     "q": "Where does y = tan x have vertical asymptotes?",
+     "options": [
+      "x = nπ/4",
+      "x = nπ",
+      "x = 2nπ",
+      "x = (2n + 1)π/2"
+     ],
+     "answer": 3,
+     "explain": "tan x is undefined where cos x = 0, and the graph shoots off to ±∞ near those lines.",
+     "mistake": "Mixes up the asymptotes of tan and cot"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is sketching y = sin x and y = tan x. Explain where each increases or decreases, and what the graphs look like.",
+    "must": [
+     [
+      "wave",
+      "wavy",
+      "up and down",
+      "oscillates"
+     ],
+     [
+      "increasing",
+      "increases",
+      "rises"
+     ],
+     [
+      "asymptote",
+      "vertical line",
+      "infinity"
+     ]
+    ],
+    "praise": "A smooth wave for sin, a ladder of rising curves with walls for tan. Picture perfect!",
+    "nudge": "What happens to the graph of tan x near x = π/2?"
+   }
+  },
+  {
+   "id": "g11-maths-03-07",
+   "title": "cos(x ± y) and allied angles",
+   "covers": [
+    "c3.4.1",
+    "c3.4.2"
+   ],
+   "learn": {
+    "hook": "Every allied-angle trick — cos(π − x), sin(π/2 + x) — comes out of ONE formula: cos(x + y). Learn it once, and the rest follow.",
+    "points": [
+     "cos(x + y) = cos x cos y − sin x sin y. It is proved from the unit circle by equating the distance between two pairs of points on it.",
+     "Replace y by −y: cos(x − y) = cos x cos y + sin x sin y.",
+     "cos(π/2 − x) = sin x, sin(π/2 − x) = cos x; cos(π/2 + x) = −sin x, sin(π/2 + x) = cos x.",
+     "cos(π − x) = −cos x, sin(π − x) = sin x; cos(π + x) = −cos x, sin(π + x) = −sin x.",
+     "cos(2π − x) = cos x, sin(2π − x) = −sin x."
+    ],
+    "example": {
+     "q": "Find cos 15° using cos(x − y).",
+     "steps": [
+      "cos 15° = cos(45° − 30°).",
+      "= cos 45° cos 30° + sin 45° sin 30°.",
+      "= (1/√2)(√3/2) + (1/√2)(1/2).",
+      "= (√3 + 1)/(2√2)."
+     ],
+     "answer": "cos 15° = (√3 + 1)/(2√2) = (√6 + √2)/4"
+    },
+    "reallife": "Phase-shift tricks such as cos(π/2 − x) = sin x are used in electrical engineering to compare AC voltages that are out of step."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Allied angles",
+     "pairs": [
+      [
+       "cos(π/2 − x)",
+       "sin x"
+      ],
+      [
+       "sin(π/2 + x)",
+       "cos x"
+      ],
+      [
+       "cos(π + x)",
+       "−cos x"
+      ],
+      [
+       "sin(2π − x)",
+       "−sin x"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Derive cos(x − y) from cos(x + y)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Start with cos(x + y) = cos x cos y − sin x sin y.",
+      "Replace y by −y.",
+      "Use cos(−y) = cos y and sin(−y) = −sin y.",
+      "cos(x − y) = cos x cos y + sin x sin y."
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "cos(x + y) equals:",
+     "options": [
+      "cos x cos y + sin x sin y",
+      "cos x + cos y",
+      "sin x cos y + cos x sin y",
+      "cos x cos y − sin x sin y"
+     ],
+     "answer": 3,
+     "explain": "The sign between the terms is opposite to the sign inside: '+' inside gives '−' outside for cosine.",
+     "mistake": "Uses the cos(x − y) sign"
+    },
+    {
+     "q": "cos(π − x) equals:",
+     "options": [
+      "−sin x",
+      "−cos x",
+      "sin x",
+      "cos x"
+     ],
+     "answer": 1,
+     "explain": "π − x is in quadrant II for acute x, where cos is negative. π is an even multiple of π/2, so the function stays cos: cos(π − x) = −cos x.",
+     "mistake": "Switches cos to sin for a π shift"
+    },
+    {
+     "q": "Find the value of cos 70° cos 10° + sin 70° sin 10°.",
+     "options": [
+      "0",
+      "√3/2",
+      "1/2",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "This is cos(70° − 10°) = cos 60° = 1/2.",
+     "mistake": "Uses cos(70° + 10°) = cos 80°",
+     "check": "Fraction(1,2)"
+    },
+    {
+     "q": "sin(π/2 + x) equals:",
+     "options": [
+      "−sin x",
+      "−cos x",
+      "cos x",
+      "sin x"
+     ],
+     "answer": 2,
+     "explain": "For acute x, π/2 + x is in quadrant II where sin is positive; π/2 changes sin to cos.",
+     "mistake": "Gives the sign of cos in quadrant II"
+    },
+    {
+     "q": "What is cos 105°?",
+     "options": [
+      "(√6 + √2)/4",
+      "−(√6 + √2)/4",
+      "(√6 − √2)/4",
+      "(√2 − √6)/4"
+     ],
+     "answer": 3,
+     "explain": "cos(60° + 45°) = cos 60° cos 45° − sin 60° sin 45° = (1 − √3)/(2√2) = (√2 − √6)/4, a negative number as expected in quadrant II.",
+     "mistake": "Uses the plus sign of cos(x − y)"
+    },
+    {
+     "q": "Simplify sin(π/3 + x) cos x − cos(π/3 + x) sin x.",
+     "options": [
+      "sin(π/3 + 2x)",
+      "√3/2",
+      "cos 2x",
+      "1/2"
+     ],
+     "answer": 1,
+     "explain": "This is sin[(π/3 + x) − x] = sin(π/3) = √3/2; the x cancels completely.",
+     "mistake": "Adds the angles instead of subtracting"
+    },
+    {
+     "q": "Find cos 330°.",
+     "options": [
+      "−√3/2",
+      "−1/2",
+      "√3/2",
+      "1/2"
+     ],
+     "answer": 2,
+     "explain": "cos(360° − 30°) = cos 30° = √3/2; cos is positive in quadrant IV.",
+     "mistake": "Thinks every value in quadrant IV is negative"
+    },
+    {
+     "q": "Assertion (A): cos(−x) = cos x for every x.\nReason (R): Putting x = 0 in cos(x − y) gives cos(−y) = cos 0 cos y + sin 0 sin y = cos y.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Both are true, and R actually derives A from the cos(x − y) formula.",
+     "mistake": "Does not see that R is a proof of A"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is lost in allied angles like cos(π − x) and sin(π/2 + x). Explain the cos(x + y) formula and a quick rule for allied angles.",
+    "must": [
+     [
+      "cos x cos y",
+      "cos(x + y)",
+      "minus sin x sin y"
+     ],
+     [
+      "sign",
+      "quadrant",
+      "positive",
+      "negative"
+     ],
+     [
+      "π/2 changes",
+      "co-function",
+      "sin becomes cos",
+      "switch"
+     ]
+    ],
+    "praise": "π shifts keep the function, π/2 shifts swap it, and the quadrant gives the sign. I'm a pro now!",
+    "nudge": "When does sin turn into cos — with a π shift or a π/2 shift?"
+   }
+  },
+  {
+   "id": "g11-maths-03-08",
+   "title": "sin(x ± y), tan(x ± y) and exact values",
+   "covers": [
+    "c3.4.3",
+    "c3.4.4",
+    "c3.4.9",
+    "c3.4.10"
+   ],
+   "learn": {
+    "hook": "Your calculator knows sin 15°, but can you get its exact surd value with just 45° and 30°? Sum and difference formulas say yes.",
+    "points": [
+     "sin(x + y) = sin x cos y + cos x sin y; sin(x − y) = sin x cos y − cos x sin y.",
+     "tan(x + y) = (tan x + tan y)/(1 − tan x tan y), tan(x − y) = (tan x − tan y)/(1 + tan x tan y), when the tangents and the result are defined.",
+     "cot(x + y) = (cot x cot y − 1)/(cot y + cot x); cot(x − y) = (cot x cot y + 1)/(cot y − cot x).",
+     "Exact values: sin 15° = (√6 − √2)/4, cos 75° = (√6 − √2)/4, tan 15° = 2 − √3, tan 75° = 2 + √3. tan(13π/12) = tan(π + π/12) = 2 − √3.",
+     "To prove an identity, expand the compound angles, use allied-angle values, and simplify one side to the other."
+    ],
+    "example": {
+     "q": "Find tan(π/4 + x) in terms of tan x.",
+     "steps": [
+      "tan(π/4 + x) = (tan π/4 + tan x)/(1 − tan π/4 · tan x).",
+      "tan π/4 = 1.",
+      "= (1 + tan x)/(1 − tan x)."
+     ],
+     "answer": "(1 + tan x)/(1 − tan x)"
+    },
+    "reallife": "Surveyors computing the height of a hill in the Western Ghats from two angles of elevation often combine angles with tan(x − y)."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the expansion",
+     "pairs": [
+      [
+       "sin(x + y)",
+       "sin x cos y + cos x sin y"
+      ],
+      [
+       "sin(x − y)",
+       "sin x cos y − cos x sin y"
+      ],
+      [
+       "tan(x + y)",
+       "(tan x + tan y)/(1 − tan x tan y)"
+      ],
+      [
+       "tan(x − y)",
+       "(tan x − tan y)/(1 + tan x tan y)"
+      ],
+      [
+       "cot(x + y)",
+       "(cot x cot y − 1)/(cot y + cot x)"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Exact values",
+     "items": [
+      {
+       "text": "tan 15° = ___",
+       "answer": "2 − √3",
+       "options": [
+        "2 − √3",
+        "2 + √3",
+        "√3 − 1"
+       ]
+      },
+      {
+       "text": "sin 75° = ___",
+       "answer": "(√6 + √2)/4",
+       "options": [
+        "(√6 + √2)/4",
+        "(√6 − √2)/4",
+        "(√3 + 1)/2"
+       ]
+      },
+      {
+       "text": "sin 15° = ___",
+       "answer": "(√6 − √2)/4",
+       "options": [
+        "(√6 − √2)/4",
+        "(√6 + √2)/4",
+        "(√3 − 1)/2"
+       ]
+      },
+      {
+       "text": "tan 75° = ___",
+       "answer": "2 + √3",
+       "options": [
+        "2 + √3",
+        "2 − √3",
+        "√3 + 1"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "sin(x − y) equals:",
+     "options": [
+      "sin x cos y + cos x sin y",
+      "cos x cos y − sin x sin y",
+      "sin x cos y − cos x sin y",
+      "sin x sin y − cos x cos y"
+     ],
+     "answer": 2,
+     "explain": "For sine, the sign between the terms matches the sign inside the bracket.",
+     "mistake": "Uses the cosine sign rule for sine"
+    },
+    {
+     "q": "Find sin 40° cos 20° + cos 40° sin 20°.",
+     "options": [
+      "√3/2",
+      "1/2",
+      "sin 20°",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "This is sin(40° + 20°) = sin 60° = √3/2.",
+     "mistake": "Uses sin(40° − 20°)"
+    },
+    {
+     "q": "If tan A = 1/2 and tan B = 1/3, then tan(A + B) is:",
+     "options": [
+      "5/6",
+      "5/7",
+      "1/6",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "(1/2 + 1/3)/(1 − 1/6) = (5/6)/(5/6) = 1, so A + B = π/4 for acute A, B.",
+     "steps": [
+      "Numerator: 1/2 + 1/3 = 5/6",
+      "Denominator: 1 − 1/6 = 5/6",
+      "tan(A + B) = 1"
+     ],
+     "mistake": "Forgets the denominator 1 − tan A tan B",
+     "check": "(Fraction(1,2)+Fraction(1,3))/(1-Fraction(1,6))"
+    },
+    {
+     "q": "tan(13π/12) equals:",
+     "options": [
+      "2 + √3",
+      "1/√3",
+      "2 − √3",
+      "−(2 − √3)"
+     ],
+     "answer": 2,
+     "explain": "13π/12 = π + π/12 and tan has period π, so tan(13π/12) = tan(π/12) = tan 15° = 2 − √3.",
+     "mistake": "Treats π + x like π − x and flips the sign"
+    },
+    {
+     "q": "If tan x = 3 and tan y = 2, find tan(x − y).",
+     "options": [
+      "−1/5",
+      "1/7",
+      "1/5",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "(3 − 2)/(1 + 3 × 2) = 1/7.",
+     "mistake": "Uses 1 − tan x tan y in the denominator",
+     "check": "Fraction(1,1+6)"
+    },
+    {
+     "q": "The value of sin 75° is:",
+     "options": [
+      "(√3 + 1)/2",
+      "(√6 − √2)/4",
+      "(√3 − 1)/(2√2)",
+      "(√6 + √2)/4"
+     ],
+     "answer": 3,
+     "explain": "sin(45° + 30°) = (1/√2)(√3/2) + (1/√2)(1/2) = (√3 + 1)/(2√2) = (√6 + √2)/4.",
+     "mistake": "Mixes up sin 75° with sin 15°"
+    },
+    {
+     "q": "Simplify cos 4x cos x + sin 4x sin x.",
+     "options": [
+      "sin 5x",
+      "cos 5x",
+      "cos 3x",
+      "sin 3x"
+     ],
+     "answer": 2,
+     "explain": "This is cos(4x − x) = cos 3x, using cos(A − B) = cos A cos B + sin A sin B.",
+     "mistake": "Uses cos(A + B) and gets cos 5x"
+    },
+    {
+     "q": "If sin A = 3/5 and cos B = 5/13, with A and B acute, find sin(A + B).",
+     "options": [
+      "16/65",
+      "63/65",
+      "33/65",
+      "56/65"
+     ],
+     "answer": 1,
+     "explain": "cos A = 4/5 and sin B = 12/13. sin(A + B) = (3/5)(5/13) + (4/5)(12/13) = 15/65 + 48/65 = 63/65.",
+     "steps": [
+      "cos A = 4/5, sin B = 12/13",
+      "sin A cos B = 15/65",
+      "cos A sin B = 48/65",
+      "Sum = 63/65"
+     ],
+     "mistake": "Uses sin(A − B) or cos(A + B)",
+     "check": "Fraction(15,65)+Fraction(48,65)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants sin 75° exactly, without a calculator. Explain the sin(x + y) and tan(x + y) formulas and use them.",
+    "must": [
+     [
+      "sin x cos y",
+      "cos x sin y",
+      "sin(x + y)"
+     ],
+     [
+      "45",
+      "30",
+      "split"
+     ],
+     [
+      "tan x + tan y",
+      "1 − tan x tan y",
+      "1 minus tan x tan y"
+     ]
+    ],
+    "praise": "75° = 45° + 30°, and the formula does the rest. Exact and elegant!",
+    "nudge": "Which two familiar angles add up to 75°?"
+   }
+  },
+  {
+   "id": "g11-maths-03-09",
+   "title": "Double, triple and half angles",
+   "covers": [
+    "c3.4.5",
+    "c3.4.6",
+    "c3.4.12"
+   ],
+   "learn": {
+    "hook": "Put y = x in the sum formulas and you get the double-angle formulas — the most-used identities in Class 11 and 12 calculus.",
+    "points": [
+     "sin 2x = 2 sin x cos x = 2 tan x/(1 + tan²x).",
+     "cos 2x = cos²x − sin²x = 2cos²x − 1 = 1 − 2sin²x = (1 − tan²x)/(1 + tan²x).",
+     "tan 2x = 2 tan x/(1 − tan²x).",
+     "sin 3x = 3 sin x − 4 sin³x; cos 3x = 4 cos³x − 3 cos x; tan 3x = (3 tan x − tan³x)/(1 − 3 tan²x).",
+     "Half angles: cos x = 2cos²(x/2) − 1 = 1 − 2sin²(x/2). Take the square root, then choose the sign from the quadrant of x/2."
+    ],
+    "example": {
+     "q": "If tan x = −3/4 and x lies in quadrant II, find sin(x/2), cos(x/2) and tan(x/2).",
+     "steps": [
+      "x in quadrant II ⇒ π/2 < x < π ⇒ π/4 < x/2 < π/2, so all half-angle values are positive.",
+      "sec²x = 1 + 9/16 = 25/16; cos x = −4/5 (quadrant II).",
+      "sin²(x/2) = (1 − cos x)/2 = 9/10 ⇒ sin(x/2) = 3/√10.",
+      "cos²(x/2) = (1 + cos x)/2 = 1/10 ⇒ cos(x/2) = 1/√10.",
+      "tan(x/2) = 3."
+     ],
+     "answer": "sin(x/2) = 3/√10, cos(x/2) = 1/√10, tan(x/2) = 3"
+    },
+    "reallife": "The formula sin 2x = 2 sin x cos x tells a cricket coach that a ball thrown at 45° goes farthest (ignoring air resistance), because sin 90° = 1 is the largest."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the multiple-angle formula",
+     "pairs": [
+      [
+       "sin 2x",
+       "2 sin x cos x"
+      ],
+      [
+       "cos 2x",
+       "1 − 2 sin²x"
+      ],
+      [
+       "tan 2x",
+       "2 tan x/(1 − tan²x)"
+      ],
+      [
+       "sin 3x",
+       "3 sin x − 4 sin³x"
+      ],
+      [
+       "cos 3x",
+       "4 cos³x − 3 cos x"
+      ],
+      [
+       "tan 3x",
+       "(3 tan x − tan³x)/(1 − 3 tan²x)"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Derive cos 2x = 2cos²x − 1",
+     "prompt": "Arrange the steps",
+     "items": [
+      "cos(x + y) = cos x cos y − sin x sin y",
+      "Put y = x: cos 2x = cos²x − sin²x",
+      "Replace sin²x by 1 − cos²x",
+      "cos 2x = 2cos²x − 1"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "If sin x = 3/5 and x is acute, then sin 2x is:",
+     "options": [
+      "24/25",
+      "12/25",
+      "7/25",
+      "6/5"
+     ],
+     "answer": 0,
+     "explain": "cos x = 4/5, so sin 2x = 2 × 3/5 × 4/5 = 24/25.",
+     "mistake": "Doubles sin x instead of using 2 sin x cos x",
+     "check": "2*Fraction(3,5)*Fraction(4,5)"
+    },
+    {
+     "q": "If cos x = 1/3, then cos 2x is:",
+     "options": [
+      "−1/3",
+      "2/3",
+      "7/9",
+      "−7/9"
+     ],
+     "answer": 3,
+     "explain": "cos 2x = 2cos²x − 1 = 2/9 − 1 = −7/9.",
+     "mistake": "Doubles cos x",
+     "check": "2*Fraction(1,9)-1"
+    },
+    {
+     "q": "If tan x = 1/2, then tan 2x is:",
+     "options": [
+      "2/3",
+      "4/5",
+      "1",
+      "4/3"
+     ],
+     "answer": 3,
+     "explain": "tan 2x = (2 × 1/2)/(1 − 1/4) = 1/(3/4) = 4/3.",
+     "mistake": "Forgets the denominator 1 − tan²x",
+     "check": "1/(1-Fraction(1,4))"
+    },
+    {
+     "q": "cos 3x equals:",
+     "options": [
+      "3 cos x − 4 cos³x",
+      "4 cos³x − 3 cos x",
+      "3 cos x − cos³x",
+      "4 cos³x + 3 cos x"
+     ],
+     "answer": 1,
+     "explain": "cos 3x = 4cos³x − 3cos x; note the order is reversed compared with sin 3x = 3 sin x − 4 sin³x.",
+     "mistake": "Copies the pattern of sin 3x"
+    },
+    {
+     "q": "Using sin 3x = 3 sin x − 4 sin³x, find sin 3x when sin x = 1/2.",
+     "options": [
+      "1",
+      "1/2",
+      "−1",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "3(1/2) − 4(1/8) = 3/2 − 1/2 = 1. Check: x = 30° gives sin 90° = 1.",
+     "mistake": "Cubes 1/2 as 1/6",
+     "check": "3*Fraction(1,2)-4*Fraction(1,8)"
+    },
+    {
+     "q": "If cos x = −1/3 and x lies in quadrant III, find sin(x/2).",
+     "options": [
+      "−√3/3",
+      "√6/3",
+      "−√6/3",
+      "√3/3"
+     ],
+     "answer": 1,
+     "explain": "π < x < 3π/2 ⇒ π/2 < x/2 < 3π/4, so sin(x/2) > 0. sin²(x/2) = (1 + 1/3)/2 = 2/3, so sin(x/2) = √(2/3) = √6/3.",
+     "mistake": "Takes the sign from the quadrant of x instead of x/2"
+    },
+    {
+     "q": "Which expression equals (1 − tan²x)/(1 + tan²x)?",
+     "options": [
+      "sec 2x",
+      "sin 2x",
+      "tan 2x",
+      "cos 2x"
+     ],
+     "answer": 3,
+     "explain": "Divide cos²x − sin²x by cos²x + sin²x = 1, then divide top and bottom by cos²x.",
+     "mistake": "Confuses with the tan 2x formula"
+    },
+    {
+     "q": "Simplify 2 sin 15° cos 15°.",
+     "options": [
+      "√3/2",
+      "1/2",
+      "1",
+      "1/4"
+     ],
+     "answer": 1,
+     "explain": "2 sin x cos x = sin 2x, so the value is sin 30° = 1/2.",
+     "mistake": "Doubles the angle twice to get sin 60°",
+     "check": "Fraction(1,2)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu forgot all three forms of cos 2x before the test. Explain how to get them from cos(x + y), and how to pick the sign for half angles.",
+    "must": [
+     [
+      "put y = x",
+      "y equals x",
+      "x + x"
+     ],
+     [
+      "cos²x − sin²x",
+      "2cos²x − 1",
+      "1 − 2sin²x"
+     ],
+     [
+      "quadrant of x/2",
+      "half angle quadrant",
+      "sign"
+     ]
+    ],
+    "praise": "One formula, three faces — and the half angle decides its own sign. Super!",
+    "nudge": "For sin(x/2), whose quadrant decides the sign: x or x/2?"
+   }
+  },
+  {
+   "id": "g11-maths-03-10",
+   "title": "Sum-to-product and product-to-sum",
+   "covers": [
+    "c3.4.7",
+    "c3.4.8",
+    "c3.4.11"
+   ],
+   "learn": {
+    "hook": "When two tabla notes of nearly equal pitch play together, you hear 'beats'. The maths behind it is sin x + sin y = 2 sin((x+y)/2) cos((x−y)/2).",
+    "points": [
+     "cos x + cos y = 2 cos((x + y)/2) cos((x − y)/2); cos x − cos y = −2 sin((x + y)/2) sin((x − y)/2).",
+     "sin x + sin y = 2 sin((x + y)/2) cos((x − y)/2); sin x − sin y = 2 cos((x + y)/2) sin((x − y)/2).",
+     "2 cos x cos y = cos(x + y) + cos(x − y); −2 sin x sin y = cos(x + y) − cos(x − y).",
+     "2 sin x cos y = sin(x + y) + sin(x − y); 2 cos x sin y = sin(x + y) − sin(x − y).",
+     "Proving identities: convert sums to products (or products to sums), cancel common factors, then use allied or double-angle results."
+    ],
+    "example": {
+     "q": "Prove that (cos 9x + cos 3x)/(sin 9x − sin 3x) = cot 3x.",
+     "steps": [
+      "Numerator: 2 cos 6x cos 3x.",
+      "Denominator: 2 cos 6x sin 3x.",
+      "Cancel 2 cos 6x.",
+      "Result: cos 3x/sin 3x = cot 3x."
+     ],
+     "answer": "LHS = cot 3x = RHS"
+    },
+    "reallife": "Radio engineers mix two signals by multiplying them; the product-to-sum formula 2 cos x cos y = cos(x + y) + cos(x − y) shows the new frequencies that appear."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Sum ↔ product",
+     "pairs": [
+      [
+       "sin x + sin y",
+       "2 sin((x+y)/2) cos((x−y)/2)"
+      ],
+      [
+       "sin x − sin y",
+       "2 cos((x+y)/2) sin((x−y)/2)"
+      ],
+      [
+       "cos x + cos y",
+       "2 cos((x+y)/2) cos((x−y)/2)"
+      ],
+      [
+       "cos x − cos y",
+       "−2 sin((x+y)/2) sin((x−y)/2)"
+      ],
+      [
+       "2 cos x cos y",
+       "cos(x + y) + cos(x − y)"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Spot the correct formula",
+     "items": [
+      [
+       "2 sin x cos y = sin(x + y) + sin(x − y)",
+       true,
+       "Add the expansions of sin(x + y) and sin(x − y)."
+      ],
+      [
+       "cos x − cos y = 2 sin((x + y)/2) sin((x − y)/2)",
+       false,
+       "There is a minus sign in front: −2 sin((x + y)/2) sin((x − y)/2)."
+      ],
+      [
+       "2 sin x sin y = cos(x − y) − cos(x + y)",
+       true,
+       "This is −2 sin x sin y = cos(x + y) − cos(x − y) rearranged."
+      ],
+      [
+       "sin 75° + sin 15° = 2 sin 45° cos 30°",
+       true,
+       "(75 + 15)/2 = 45 and (75 − 15)/2 = 30."
+      ],
+      [
+       "cos 9x − cos 5x = −2 sin 7x sin 2x",
+       true,
+       "(9x + 5x)/2 = 7x and (9x − 5x)/2 = 2x."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "sin 5x + sin 3x equals:",
+     "options": [
+      "2 cos 4x sin x",
+      "2 sin 4x cos x",
+      "2 cos 4x cos x",
+      "2 sin 4x sin x"
+     ],
+     "answer": 1,
+     "explain": "sin A + sin B = 2 sin((A + B)/2) cos((A − B)/2) = 2 sin 4x cos x.",
+     "mistake": "Uses the pattern for sin A − sin B"
+    },
+    {
+     "q": "cos 6x − cos 2x equals:",
+     "options": [
+      "2 cos 4x sin 2x",
+      "−2 cos 4x cos 2x",
+      "2 sin 4x sin 2x",
+      "−2 sin 4x sin 2x"
+     ],
+     "answer": 3,
+     "explain": "cos A − cos B = −2 sin((A + B)/2) sin((A − B)/2) with A = 6x, B = 2x.",
+     "mistake": "Forgets the minus sign"
+    },
+    {
+     "q": "Find the exact value of cos 75° + cos 15°.",
+     "options": [
+      "√3/2",
+      "1",
+      "√2/2",
+      "√6/2"
+     ],
+     "answer": 3,
+     "explain": "2 cos 45° cos 30° = 2 × (1/√2) × (√3/2) = √3/√2 = √6/2.",
+     "mistake": "Adds cos 75° and cos 15° as cos 90°"
+    },
+    {
+     "q": "2 cos 45° cos 15° equals:",
+     "options": [
+      "cos 30° − cos 60°",
+      "cos 60° + cos 30°",
+      "sin 60° + sin 30°",
+      "cos 60° − cos 30°"
+     ],
+     "answer": 1,
+     "explain": "2 cos x cos y = cos(x + y) + cos(x − y) = cos 60° + cos 30°.",
+     "mistake": "Mixes up with the sin product formula"
+    },
+    {
+     "q": "Find the value of sin 105° + cos 105°.",
+     "options": [
+      "1/√2",
+      "−1/√2",
+      "√3/2",
+      "0"
+     ],
+     "answer": 0,
+     "explain": "cos 105° = cos(90° + 15°) = −sin 15°, so the sum is sin 105° − sin 15° = 2 cos 60° sin 45° = 2 × (1/2) × (1/√2) = 1/√2.",
+     "mistake": "Thinks sin 105° and cos 105° cancel"
+    },
+    {
+     "q": "Simplify (sin 5x − sin 3x)/(cos 5x + cos 3x).",
+     "options": [
+      "tan x",
+      "cot 4x",
+      "tan 4x",
+      "cot x"
+     ],
+     "answer": 0,
+     "explain": "Numerator 2 cos 4x sin x, denominator 2 cos 4x cos x; the ratio is tan x.",
+     "mistake": "Cancels the wrong factor and keeps 4x"
+    },
+    {
+     "q": "2 sin 3x cos x equals:",
+     "options": [
+      "sin 4x + sin 2x",
+      "sin 4x − sin 2x",
+      "sin 3x + sin x",
+      "cos 4x + cos 2x"
+     ],
+     "answer": 0,
+     "explain": "2 sin A cos B = sin(A + B) + sin(A − B) = sin 4x + sin 2x.",
+     "mistake": "Adds the angles without forming the sum and difference"
+    },
+    {
+     "q": "Find the exact value of sin 75° − sin 15°.",
+     "options": [
+      "√6/2",
+      "1/2",
+      "1/√2",
+      "√3/2"
+     ],
+     "answer": 2,
+     "explain": "2 cos 45° sin 30° = 2 × (1/√2) × (1/2) = 1/√2.",
+     "mistake": "Uses cos 30° instead of sin 30°"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu needs to simplify (cos 9x + cos 3x)/(sin 9x − sin 3x). Explain the sum-to-product formulas and the half-sum, half-difference idea.",
+    "must": [
+     [
+      "half the sum",
+      "(x + y)/2",
+      "average"
+     ],
+     [
+      "half the difference",
+      "(x − y)/2",
+      "difference"
+     ],
+     [
+      "product",
+      "2 cos",
+      "2 sin",
+      "multiply"
+     ]
+    ],
+    "praise": "Half-sum and half-difference — sums turn into products and things cancel. Woohoo!",
+    "nudge": "When you add two cosines, which two new angles appear in the product?"
+   }
+  }
+ ]
+}

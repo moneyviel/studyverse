@@ -1,0 +1,1652 @@
+{
+ "n": 9,
+ "title": "Straight Lines",
+ "emoji": "📏",
+ "topics": [
+  {
+   "id": "g11-maths-09-01",
+   "title": "Coordinate recall and slope of a line",
+   "covers": [
+    "c9.1.1",
+    "c9.1.2",
+    "c9.2.1",
+    "c9.2.2"
+   ],
+   "learn": {
+    "hook": "Indian Railways signs say 'gradient 1 in 100' on the ghats — that is a slope. Coordinate geometry turns such steepness into a single number m.",
+    "points": [
+     "Recall: distance PQ = √((x₂ − x₁)² + (y₂ − y₁)²); internal section point ((mx₂ + nx₁)/(m + n), (my₂ + ny₁)/(m + n)); triangle area = ½|x₁(y₂ − y₃) + x₂(y₃ − y₁) + x₃(y₁ − y₂)|.",
+     "Coordinate geometry links algebra and geometry: a line becomes an equation, and geometric facts become calculations.",
+     "The inclination θ of a line is the angle it makes with the positive x-axis, measured anticlockwise, 0° ≤ θ < 180°.",
+     "Slope m = tan θ (θ ≠ 90°). A horizontal line has m = 0; the slope of a vertical line is not defined.",
+     "Through (x₁, y₁) and (x₂, y₂), x₁ ≠ x₂: m = (y₂ − y₁)/(x₂ − x₁)."
+    ],
+    "example": {
+     "q": "Find the slope of the line through (3, −2) and (−1, 4), and say whether its inclination is acute or obtuse.",
+     "steps": [
+      "m = (4 − (−2))/(−1 − 3) = 6/(−4) = −3/2.",
+      "A negative slope means tan θ < 0, so 90° < θ < 180°."
+     ],
+     "answer": "m = −3/2; obtuse inclination"
+    },
+    "reallife": "A railway gradient board reading '1 in 100' means the track rises 1 m for every 100 m — a slope of 1/100."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Slope from two points",
+     "items": [
+      {
+       "q": "(1, 2) and (3, 6)",
+       "a": "2",
+       "check": "(6-2)/(3-1)"
+      },
+      {
+       "q": "(0, 0) and (4, 2)",
+       "a": "1/2",
+       "check": "Fraction(2,4)"
+      },
+      {
+       "q": "(2, 5) and (5, −1)",
+       "a": "−2",
+       "check": "(-1-5)/(5-2)"
+      },
+      {
+       "q": "(−1, 3) and (2, 3)",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "(−2, −1) and (1, 5)",
+       "a": "2",
+       "check": "(5+1)/(1+2)"
+      },
+      {
+       "q": "(0, 4) and (2, 0)",
+       "a": "−2",
+       "check": "(0-4)/2"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Inclination ↔ slope",
+     "pairs": [
+      [
+       "θ = 0°",
+       "m = 0"
+      ],
+      [
+       "θ = 45°",
+       "m = 1"
+      ],
+      [
+       "θ = 60°",
+       "m = √3"
+      ],
+      [
+       "θ = 135°",
+       "m = −1"
+      ],
+      [
+       "θ = 90°",
+       "slope not defined"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the slope of a line inclined at 30° to the positive x-axis?",
+     "options": [
+      "1/√3",
+      "1/2",
+      "√3",
+      "√3/2"
+     ],
+     "answer": 0,
+     "explain": "m = tan 30° = 1/√3.",
+     "mistake": "Uses sin 30° instead of tan 30°"
+    },
+    {
+     "q": "Find the slope of the line through (−2, 3) and (4, −6).",
+     "options": [
+      "−2/3",
+      "2/3",
+      "−3/2",
+      "3/2"
+     ],
+     "answer": 2,
+     "explain": "m = (−6 − 3)/(4 − (−2)) = −9/6 = −3/2.",
+     "mistake": "Puts the x-difference on top",
+     "check": "Fraction(-9,6)"
+    },
+    {
+     "q": "A line has slope −1. What is its inclination?",
+     "options": [
+      "45°",
+      "−45°",
+      "225°",
+      "135°"
+     ],
+     "answer": 3,
+     "explain": "tan θ = −1 with 0° ≤ θ < 180° gives θ = 135°.",
+     "mistake": "Gives a negative angle or one outside [0°, 180°)",
+     "check": "135"
+    },
+    {
+     "q": "The slope of the line through (5, 1) and (5, 7) is:",
+     "options": [
+      "1/6",
+      "not defined",
+      "0",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "x₂ − x₁ = 0, so the line is vertical and its slope is not defined.",
+     "mistake": "Thinks a vertical line has slope 0"
+    },
+    {
+     "q": "The distance between (2, −1) and (−4, 7) is:",
+     "options": [
+      "√20",
+      "10",
+      "8",
+      "14"
+     ],
+     "answer": 1,
+     "explain": "√((−6)² + 8²) = √100 = 10.",
+     "mistake": "Adds the differences instead of squaring",
+     "check": "10"
+    },
+    {
+     "q": "The point dividing the segment from (1, 2) to (7, 8) internally in the ratio 1 : 2 is:",
+     "options": [
+      "(5, 6)",
+      "(3, 4)",
+      "(4, 5)",
+      "(2, 3)"
+     ],
+     "answer": 1,
+     "explain": "((1·7 + 2·1)/3, (1·8 + 2·2)/3) = (9/3, 12/3) = (3, 4).",
+     "mistake": "Swaps m and n and gets (5, 6)"
+    },
+    {
+     "q": "Using slopes, are A(1, 1), B(2, 3), C(4, 7) collinear?",
+     "options": [
+      "No, slopes are 2 and 4",
+      "Yes, because they have positive coordinates",
+      "Yes, slope AB = slope BC = 2",
+      "No, slope is undefined"
+     ],
+     "answer": 2,
+     "explain": "Slope AB = (3 − 1)/(2 − 1) = 2 and slope BC = (7 − 3)/(4 − 2) = 2; equal slopes through a common point B means collinear.",
+     "mistake": "Compares coordinates instead of slopes"
+    },
+    {
+     "q": "If the line through (k, 3) and (2, 7) has slope 2, then k is:",
+     "options": [
+      "4",
+      "0",
+      "−2",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "(7 − 3)/(2 − k) = 2 ⇒ 4 = 4 − 2k ⇒ k = 0.",
+     "mistake": "Solves 4/(2 − k) = 2 as k = 4",
+     "check": "0"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu thinks a vertical cliff has slope 0 because 'it doesn't go anywhere sideways'. Explain inclination and slope.",
+    "must": [
+     [
+      "tan",
+      "tangent",
+      "tan theta"
+     ],
+     [
+      "rise over run",
+      "change in y",
+      "y2 − y1"
+     ],
+     [
+      "vertical",
+      "not defined",
+      "undefined"
+     ]
+    ],
+    "praise": "Slope is rise over run, tan θ — and a vertical line has no defined slope. Cliff confusion over!",
+    "nudge": "What is the 'run' for a vertical line, and what goes wrong when you divide by it?"
+   }
+  },
+  {
+   "id": "g11-maths-09-02",
+   "title": "Parallel and perpendicular lines",
+   "covers": [
+    "c9.2.3",
+    "c9.2.4",
+    "c9.2.6",
+    "c9.2.8"
+   ],
+   "learn": {
+    "hook": "Railway tracks never meet: equal slopes. A road crossing them at a level crossing makes a right angle: slopes multiply to −1.",
+    "points": [
+     "Two non-vertical lines are parallel exactly when their slopes are equal: m₁ = m₂.",
+     "Two non-vertical lines are perpendicular exactly when m₁m₂ = −1 (slopes are negative reciprocals).",
+     "A horizontal line (m = 0) is perpendicular to every vertical line.",
+     "Three points A, B, C are collinear exactly when slope AB = slope BC.",
+     "A linear relation between two quantities (cost and units, °C and °F) has a straight-line graph; its slope is the rate of change."
+    ],
+    "example": {
+     "q": "Using slopes, show that A(0, 0), B(2, 2), C(3, −3) form a right triangle.",
+     "steps": [
+      "Slope AB = (2 − 0)/(2 − 0) = 1.",
+      "Slope AC = (−3 − 0)/(3 − 0) = −1.",
+      "(1)(−1) = −1, so AB ⊥ AC."
+     ],
+     "answer": "Right angle at A"
+    },
+    "reallife": "Hostel fees: ₹50,000 for 0 extra months and ₹62,000 for 3 extra months fit the line F = 4000m + 50,000; the slope ₹4000 per month is the rate of change."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Parallel, perpendicular or neither?",
+     "buckets": [
+      "Parallel",
+      "Perpendicular",
+      "Neither"
+     ],
+     "items": [
+      [
+       "Slopes 2 and 2",
+       0
+      ],
+      [
+       "Slopes 2 and −1/2",
+       1
+      ],
+      [
+       "Slopes 3 and 1/3",
+       2
+      ],
+      [
+       "Slopes −3/4 and 4/3",
+       1
+      ],
+      [
+       "y = 5 and y = −2",
+       0
+      ],
+      [
+       "x = 3 and y = 1",
+       1
+      ],
+      [
+       "Slopes 1 and −1",
+       1
+      ],
+      [
+       "Slopes 1/2 and 2",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Slope relationships",
+     "items": [
+      [
+       "Lines with slopes 3 and −1/3 are perpendicular.",
+       true,
+       "3 × (−1/3) = −1."
+      ],
+      [
+       "Lines with slopes 2 and −2 are perpendicular.",
+       false,
+       "2 × (−2) = −4, not −1."
+      ],
+      [
+       "If slope AB = slope BC, then A, B, C are collinear.",
+       true,
+       "Same slope and a common point B means the same line."
+      ],
+      [
+       "Two lines with slopes 0 and 0 can be perpendicular.",
+       false,
+       "Both are horizontal, so they are parallel."
+      ],
+      [
+       "In F = (9/5)C + 32, the slope is 9/5.",
+       true,
+       "F rises by 9/5 °F for every 1 °C."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A line is perpendicular to a line of slope 3/4. What is its slope?",
+     "options": [
+      "−3/4",
+      "−4/3",
+      "3/4",
+      "4/3"
+     ],
+     "answer": 1,
+     "explain": "m₁m₂ = −1 ⇒ m₂ = −1/(3/4) = −4/3.",
+     "mistake": "Takes the reciprocal but forgets the minus sign",
+     "check": "Fraction(-4,3)"
+    },
+    {
+     "q": "The line through (−1, 2) and (2, 8) is perpendicular to the line through (4, 5) and (x, 1). Find x.",
+     "options": [
+      "2",
+      "12",
+      "4",
+      "−4"
+     ],
+     "answer": 1,
+     "explain": "First slope = 6/3 = 2, so the second slope must be −1/2: (1 − 5)/(x − 4) = −1/2 ⇒ x − 4 = 8 ⇒ x = 12.",
+     "mistake": "Sets the slopes equal (parallel) instead",
+     "check": "12"
+    },
+    {
+     "q": "If A(0, 0), B(4, 1), C(6, 4), D(2, 3) are joined in order, which pairs of sides are parallel?",
+     "options": [
+      "AB ⊥ BC",
+      "Only AB ∥ BC",
+      "No sides are parallel",
+      "AB ∥ DC and BC ∥ AD"
+     ],
+     "answer": 3,
+     "explain": "Slope AB = 1/4 = slope DC; slope BC = 3/2 = slope AD. So ABCD is a parallelogram.",
+     "mistake": "Compares adjacent sides instead of opposite ones"
+    },
+    {
+     "q": "For what k are the points (1, 2), (3, 6) and (k, 10) collinear?",
+     "options": [
+      "4",
+      "5",
+      "6",
+      "8"
+     ],
+     "answer": 1,
+     "explain": "Slope from (1, 2) to (3, 6) is 2, so (10 − 6)/(k − 3) = 2 ⇒ k = 5.",
+     "mistake": "Uses the wrong pair of points",
+     "check": "5"
+    },
+    {
+     "q": "A taxi charges ₹100 for 5 km and ₹180 for 15 km, following a straight line. What is the charge per km (the slope)?",
+     "options": [
+      "₹8",
+      "₹10",
+      "₹20",
+      "₹12"
+     ],
+     "answer": 0,
+     "explain": "m = (180 − 100)/(15 − 5) = 80/10 = 8.",
+     "mistake": "Divides 180 by 15",
+     "check": "8"
+    },
+    {
+     "q": "In the taxi example above, what is the fixed charge (the value at 0 km)?",
+     "options": [
+      "₹60",
+      "₹100",
+      "₹40",
+      "₹0"
+     ],
+     "answer": 0,
+     "explain": "C = 8d + c with 100 = 40 + c, so c = 60.",
+     "mistake": "Takes the 5 km charge as the fixed charge",
+     "check": "60"
+    },
+    {
+     "q": "Lines with slopes m and −1/m (m ≠ 0) are:",
+     "options": [
+      "parallel",
+      "the same line",
+      "perpendicular",
+      "inclined at 45°"
+     ],
+     "answer": 2,
+     "explain": "m × (−1/m) = −1.",
+     "mistake": "Thinks negative slopes make lines parallel"
+    },
+    {
+     "q": "Which pair of lines is parallel?",
+     "options": [
+      "y = 2x + 3 and 4x − 2y = 7",
+      "y = 2x + 3 and y = −2x + 3",
+      "y = x and y = −x",
+      "y = 2x and x = 2"
+     ],
+     "answer": 0,
+     "explain": "4x − 2y = 7 gives y = 2x − 7/2, slope 2, same as y = 2x + 3.",
+     "mistake": "Compares the constants instead of the slopes"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to check if two roads are parallel or meet at right angles using only slopes. Explain the conditions.",
+    "must": [
+     [
+      "equal slopes",
+      "same slope",
+      "m1 = m2"
+     ],
+     [
+      "product",
+      "minus one",
+      "−1",
+      "negative reciprocal"
+     ],
+     [
+      "collinear",
+      "same line"
+     ]
+    ],
+    "praise": "Equal slopes — parallel; product −1 — perpendicular. Road planning sorted!",
+    "nudge": "What must the product of the slopes be for perpendicular lines?"
+   }
+  },
+  {
+   "id": "g11-maths-09-03",
+   "title": "Angle between two lines",
+   "covers": [
+    "c9.2.5",
+    "c9.2.7"
+   ],
+   "learn": {
+    "hook": "Two runways at an airport cross at an angle; air-traffic engineers compute it straight from the slopes.",
+    "points": [
+     "If lines have slopes m₁ and m₂ (1 + m₁m₂ ≠ 0), the acute angle θ between them satisfies tan θ = |(m₂ − m₁)/(1 + m₁m₂)|.",
+     "The obtuse angle between them is 180° − θ.",
+     "If 1 + m₁m₂ = 0, the lines are perpendicular (θ = 90°).",
+     "To find an unknown slope from the angle, remove the modulus: (m₂ − m₁)/(1 + m₁m₂) = ± tan θ, giving two answers.",
+     "Example: slopes 1/2 and 3 → tan θ = |(3 − 1/2)/(1 + 3/2)| = 1 → θ = 45°."
+    ],
+    "example": {
+     "q": "The angle between two lines is π/4 and one slope is 1/3. Find the other slope.",
+     "steps": [
+      "|(m − 1/3)/(1 + m/3)| = 1.",
+      "Case +: m − 1/3 = 1 + m/3 ⇒ 2m/3 = 4/3 ⇒ m = 2.",
+      "Case −: m − 1/3 = −1 − m/3 ⇒ 4m/3 = −2/3 ⇒ m = −1/2."
+     ],
+     "answer": "m = 2 or m = −1/2"
+    },
+    "reallife": "Crossing runways at an airport such as Mumbai's are set at an angle to suit the wind; the angle comes straight from their slopes."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Find the acute angle between slopes 2 and −3",
+     "prompt": "Arrange the steps",
+     "items": [
+      "tan θ = |(m₂ − m₁)/(1 + m₁m₂)|",
+      "= |(−3 − 2)/(1 + (2)(−3))|",
+      "= |−5/−5| = 1",
+      "θ = 45°"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "tan of the acute angle",
+     "items": [
+      {
+       "q": "Slopes 1 and 0",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "Slopes 2 and 3",
+       "a": "1/7",
+       "check": "Fraction(1,7)"
+      },
+      {
+       "q": "Slopes 1/2 and 3",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "Slopes 0 and √3 (give θ in °)",
+       "a": "60°",
+       "check": "60"
+      },
+      {
+       "q": "Slopes 3 and −1/2",
+       "a": "7",
+       "check": "7"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the acute angle between lines with slopes √3 and 1/√3.",
+     "options": [
+      "90°",
+      "60°",
+      "30°",
+      "45°"
+     ],
+     "answer": 2,
+     "explain": "These lines are inclined at 60° and 30°, so the angle between them is 30°. (tan θ = |(√3 − 1/√3)/(1 + 1)| = 1/√3.)",
+     "mistake": "Adds the inclinations",
+     "check": "30"
+    },
+    {
+     "q": "For lines with slopes m₁ and m₂, the lines are perpendicular when:",
+     "options": [
+      "m₁ − m₂ = 1",
+      "m₁ = m₂",
+      "1 + m₁m₂ = 0",
+      "m₁ + m₂ = 0"
+     ],
+     "answer": 2,
+     "explain": "Then the formula's denominator is 0, tan θ is undefined and θ = 90°.",
+     "mistake": "Uses m₁ + m₂ = 0"
+    },
+    {
+     "q": "What is tan θ for the acute angle between y = 2x + 1 and y = 3x − 4?",
+     "options": [
+      "5",
+      "1/5",
+      "1",
+      "1/7"
+     ],
+     "answer": 3,
+     "explain": "|(3 − 2)/(1 + 6)| = 1/7.",
+     "mistake": "Forgets the 1 in the denominator",
+     "check": "Fraction(1,7)"
+    },
+    {
+     "q": "The acute angle between two lines is 45° and one slope is 2. Which pair gives all possible values of the other slope?",
+     "options": [
+      "1 and −1",
+      "3 and −1/3",
+      "−1/2 only",
+      "−3 and 1/3"
+     ],
+     "answer": 3,
+     "explain": "(m − 2)/(1 + 2m) = 1 gives m = −3; (m − 2)/(1 + 2m) = −1 gives 3m = 1, m = 1/3.",
+     "mistake": "Drops the modulus and keeps only one case"
+    },
+    {
+     "q": "The obtuse angle between two lines whose acute angle is 50° is:",
+     "options": [
+      "130°",
+      "50°",
+      "140°",
+      "310°"
+     ],
+     "answer": 0,
+     "explain": "The angles between two crossing lines are θ and 180° − θ.",
+     "mistake": "Subtracts from 90° or 360°",
+     "check": "180-50"
+    },
+    {
+     "q": "Find the acute angle between the x-axis and the line through (0, 0) and (1, √3).",
+     "options": [
+      "30°",
+      "90°",
+      "60°",
+      "45°"
+     ],
+     "answer": 2,
+     "explain": "Slope √3 = tan 60°, and the x-axis has slope 0.",
+     "mistake": "Uses cot instead of tan",
+     "check": "60"
+    },
+    {
+     "q": "Lines have slopes 3 and −1/2. tan of the acute angle between them is:",
+     "options": [
+      "7",
+      "−7",
+      "1/7",
+      "5/2"
+     ],
+     "answer": 0,
+     "explain": "|(−1/2 − 3)/(1 + 3(−1/2))| = |(−7/2)/(−1/2)| = 7.",
+     "mistake": "Gets the reciprocal by swapping numerator and denominator",
+     "check": "7"
+    },
+    {
+     "q": "Assertion (A): The formula tan θ = |(m₂ − m₁)/(1 + m₁m₂)| gives the acute angle between two lines.\nReason (R): The modulus makes tan θ non-negative.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "A non-negative tangent corresponds to an angle in [0°, 90°), i.e. the acute (or zero) angle; that is why the modulus is used.",
+     "mistake": "Does not link the modulus to choosing the acute angle"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu needs the angle between two lines with slopes 1/2 and 3. Explain the formula and why it has a modulus sign.",
+    "must": [
+     [
+      "m2 − m1",
+      "difference of slopes",
+      "m₂ − m₁"
+     ],
+     [
+      "1 + m1m2",
+      "1 + m₁m₂",
+      "one plus product"
+     ],
+     [
+      "acute",
+      "modulus",
+      "positive"
+     ]
+    ],
+    "praise": "Difference over one-plus-product, with a modulus for the acute angle. 45° it is!",
+    "nudge": "What does the modulus do to the value of tan θ?"
+   }
+  },
+  {
+   "id": "g11-maths-09-04",
+   "title": "Point-slope and two-point forms",
+   "covers": [
+    "c9.3.1",
+    "c9.3.2",
+    "c9.3.3",
+    "c9.3.7"
+   ],
+   "learn": {
+    "hook": "Give a GPS one point and a direction, or two points, and it can draw your road. Those are the point-slope and two-point forms.",
+    "points": [
+     "Horizontal line through (a, b): y = b. Vertical line through (a, b): x = a. The x-axis is y = 0 and the y-axis is x = 0.",
+     "Point-slope form: the line through (x₀, y₀) with slope m is y − y₀ = m(x − x₀).",
+     "Two-point form: through (x₁, y₁) and (x₂, y₂): y − y₁ = [(y₂ − y₁)/(x₂ − x₁)](x − x₁).",
+     "A point lies on a line exactly when its coordinates satisfy the equation.",
+     "Simplify to the form Ax + By + C = 0 for the final answer."
+    ],
+    "example": {
+     "q": "Find the equation of the line through (−2, 3) with slope −4.",
+     "steps": [
+      "y − 3 = −4(x + 2).",
+      "y − 3 = −4x − 8.",
+      "4x + y + 5 = 0."
+     ],
+     "answer": "4x + y + 5 = 0"
+    },
+    "reallife": "Delhi Metro planners describe a straight track segment between two stations by the two-point form using the stations' map coordinates."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Line ↔ equation",
+     "pairs": [
+      [
+       "Through (2, 5), parallel to x-axis",
+       "y = 5"
+      ],
+      [
+       "Through (2, 5), parallel to y-axis",
+       "x = 2"
+      ],
+      [
+       "Through origin, slope 3",
+       "y = 3x"
+      ],
+      [
+       "Through (1, 2) and (3, 6)",
+       "y = 2x"
+      ],
+      [
+       "Through (0, 4), slope −1",
+       "x + y = 4"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Line through (1, −1) and (3, 5)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Slope = (5 − (−1))/(3 − 1) = 3",
+      "Point-slope: y + 1 = 3(x − 1)",
+      "y + 1 = 3x − 3",
+      "3x − y − 4 = 0"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The equation of the line through (3, −2) with slope 2 is:",
+     "options": [
+      "2x − y − 8 = 0",
+      "2x + y − 4 = 0",
+      "x − 2y − 7 = 0",
+      "2x − y + 8 = 0"
+     ],
+     "answer": 0,
+     "explain": "y + 2 = 2(x − 3) ⇒ y = 2x − 8 ⇒ 2x − y − 8 = 0.",
+     "mistake": "Uses y − 2 instead of y + 2"
+    },
+    {
+     "q": "The line through (1, 2) and (−3, 4) is:",
+     "options": [
+      "x − 2y + 3 = 0",
+      "x + 2y + 5 = 0",
+      "x + 2y − 5 = 0",
+      "2x + y − 4 = 0"
+     ],
+     "answer": 2,
+     "explain": "Slope = (4 − 2)/(−3 − 1) = −1/2. y − 2 = −(1/2)(x − 1) ⇒ 2y − 4 = −x + 1 ⇒ x + 2y − 5 = 0.",
+     "mistake": "Gets the slope sign wrong"
+    },
+    {
+     "q": "Which is the equation of the vertical line through (−4, 7)?",
+     "options": [
+      "x = 7",
+      "x = −4",
+      "y = −4",
+      "y = 7"
+     ],
+     "answer": 1,
+     "explain": "Every point on a vertical line has the same x-coordinate.",
+     "mistake": "Confuses vertical and horizontal"
+    },
+    {
+     "q": "Does the point (2, 1) lie on 3x − 4y − 2 = 0?",
+     "options": [
+      "Cannot be decided",
+      "Yes, since 2 > 1",
+      "No, since 6 − 4 − 2 ≠ 0",
+      "Yes, since 6 − 4 − 2 = 0"
+     ],
+     "answer": 3,
+     "explain": "Substituting gives 0, so the point satisfies the equation.",
+     "mistake": "Makes an arithmetic slip when substituting"
+    },
+    {
+     "q": "The line through (0, 0) and (−2, 6) is:",
+     "options": [
+      "x + 3y = 0",
+      "3x − y = 0",
+      "x − 3y = 0",
+      "3x + y = 0"
+     ],
+     "answer": 3,
+     "explain": "Slope = 6/(−2) = −3, so y = −3x, i.e. 3x + y = 0.",
+     "mistake": "Drops the negative sign of the slope"
+    },
+    {
+     "q": "A line passes through (2, 3) and has inclination 45°. Its equation is:",
+     "options": [
+      "x − y + 1 = 0",
+      "x + y − 5 = 0",
+      "y = x + 3",
+      "x − y − 1 = 0"
+     ],
+     "answer": 0,
+     "explain": "m = tan 45° = 1: y − 3 = x − 2 ⇒ x − y + 1 = 0.",
+     "mistake": "Mixes up the sign when moving terms"
+    },
+    {
+     "q": "For what value of k does the line through (1, k) and (3, 7) also pass through (5, 11)?",
+     "options": [
+      "3",
+      "5",
+      "9",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "Slope from (3, 7) to (5, 11) is 2. Then (7 − k)/(3 − 1) = 2 ⇒ k = 3.",
+     "mistake": "Uses the slope 4 between y-values",
+     "check": "3"
+    },
+    {
+     "q": "The y-coordinate of the point on the line through (1, 1) and (4, 7) with x = 3 is:",
+     "options": [
+      "3",
+      "6",
+      "4",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "Slope = 2: y − 1 = 2(x − 1). At x = 3, y = 5.",
+     "mistake": "Uses slope 3",
+     "check": "5"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu knows one point on a road and its slope. Explain how to write the road's equation, and how to do it with two points instead.",
+    "must": [
+     [
+      "point-slope",
+      "point slope",
+      "y − y0 = m(x − x0)",
+      "y - y0 = m(x - x0)"
+     ],
+     [
+      "two-point",
+      "two points",
+      "two point"
+     ],
+     [
+      "slope first",
+      "find slope",
+      "find the slope"
+     ]
+    ],
+    "praise": "One point plus slope, or two points — find the slope and plug in. Roads drawn!",
+    "nudge": "If you have two points, what do you calculate first?"
+   }
+  },
+  {
+   "id": "g11-maths-09-05",
+   "title": "Slope-intercept and intercept forms",
+   "covers": [
+    "c9.3.4",
+    "c9.3.5",
+    "c9.3.6",
+    "c9.3.9"
+   ],
+   "learn": {
+    "hook": "Your phone bill = fixed rental + rate × minutes: y = mx + c. The fixed part is the intercept, the rate is the slope.",
+    "points": [
+     "Slope-intercept form: y = mx + c, where c is the y-intercept (the line meets the y-axis at (0, c)).",
+     "With x-intercept d: y = m(x − d).",
+     "Intercept form: x/a + y/b = 1 meets the x-axis at (a, 0) and the y-axis at (0, b).",
+     "From Ax + By + C = 0 (B ≠ 0): slope = −A/B and y-intercept = −C/B; for C ≠ 0, x-intercept = −C/A and y-intercept = −C/B.",
+     "Real data: if price p and demand d are linearly related, two data points give the line, and it predicts other values."
+    ],
+    "example": {
+     "q": "Reduce 3x + 4y − 12 = 0 to slope-intercept and intercept forms.",
+     "steps": [
+      "4y = −3x + 12 ⇒ y = −(3/4)x + 3: slope −3/4, y-intercept 3.",
+      "3x + 4y = 12 ⇒ x/4 + y/3 = 1: intercepts 4 and 3."
+     ],
+     "answer": "y = −(3/4)x + 3; x/4 + y/3 = 1"
+    },
+    "reallife": "A Pune dairy sells 1000 L of milk a day at ₹40/L and 900 L at ₹45/L. Assuming a linear relation, it predicts sales of 800 L at ₹50/L."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Read off from the equation",
+     "pairs": [
+      [
+       "y = 2x − 5: slope",
+       "2"
+      ],
+      [
+       "y = 2x − 5: y-intercept",
+       "−5"
+      ],
+      [
+       "x/3 + y/6 = 1: x-intercept",
+       "3"
+      ],
+      [
+       "x/3 + y/6 = 1: y-intercept",
+       "6"
+      ],
+      [
+       "2x + 3y = 6: slope",
+       "−2/3"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Convert the equation",
+     "items": [
+      {
+       "text": "x + 7y = 0 in slope form: y = ___ x",
+       "answer": "−1/7",
+       "options": [
+        "−1/7",
+        "7",
+        "1/7"
+       ]
+      },
+      {
+       "text": "3x − 2y = 6 in intercept form: x/2 + y/___ = 1",
+       "answer": "−3",
+       "options": [
+        "−3",
+        "3",
+        "2"
+       ]
+      },
+      {
+       "text": "y-intercept of 6x + 3y − 5 = 0 is ___",
+       "answer": "5/3",
+       "options": [
+        "5/3",
+        "5/6",
+        "−5/3"
+       ]
+      },
+      {
+       "text": "Slope of 6x + 3y − 5 = 0 is ___",
+       "answer": "−2",
+       "options": [
+        "−2",
+        "2",
+        "−1/2"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the slope and y-intercept of 6x + 3y − 5 = 0.",
+     "options": [
+      "−1/2 and 5",
+      "−2 and 5/3",
+      "−2 and −5/3",
+      "2 and −5/3"
+     ],
+     "answer": 1,
+     "explain": "3y = −6x + 5 ⇒ y = −2x + 5/3.",
+     "mistake": "Forgets to divide the constant by 3"
+    },
+    {
+     "q": "The line with x-intercept 3 and y-intercept −2 is:",
+     "options": [
+      "2x − 3y = 6",
+      "2x + 3y = 6",
+      "3x − 2y = 6",
+      "x/3 + y/2 = 1"
+     ],
+     "answer": 0,
+     "explain": "x/3 + y/(−2) = 1 ⇒ 2x − 3y = 6.",
+     "mistake": "Swaps the intercepts or drops the minus sign"
+    },
+    {
+     "q": "The line through (−3, 5) that cuts off equal intercepts on the axes is:",
+     "options": [
+      "x + y = −2",
+      "x − y = 2",
+      "x + y = 8",
+      "x + y = 2"
+     ],
+     "answer": 3,
+     "explain": "x/a + y/a = 1 ⇒ x + y = a. Substitute: −3 + 5 = 2 = a.",
+     "mistake": "Uses x − y for equal intercepts"
+    },
+    {
+     "q": "What is the x-intercept of 3x − 4y + 12 = 0?",
+     "options": [
+      "−3",
+      "4",
+      "3",
+      "−4"
+     ],
+     "answer": 3,
+     "explain": "Put y = 0: 3x + 12 = 0 ⇒ x = −4.",
+     "mistake": "Puts x = 0 and finds the y-intercept",
+     "check": "-4"
+    },
+    {
+     "q": "A dairy sells 1000 L of milk a day at ₹40/L and 900 L at ₹45/L. Assuming a linear relation, how much will it sell at ₹50/L?",
+     "options": [
+      "1100 L",
+      "700 L",
+      "850 L",
+      "800 L"
+     ],
+     "answer": 3,
+     "explain": "Slope = (900 − 1000)/(45 − 40) = −20 L per rupee. At ₹50: 900 − 20 × 5 = 800 L.",
+     "mistake": "Takes the change of 100 L per ₹1 instead of per ₹5",
+     "check": "900-100"
+    },
+    {
+     "q": "The line y = mx + c passes through (1, 4) and (3, 10). What is c?",
+     "options": [
+      "4",
+      "−1",
+      "3",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "m = 6/2 = 3, so 4 = 3(1) + c ⇒ c = 1.",
+     "mistake": "Confuses c with m",
+     "check": "1"
+    },
+    {
+     "q": "Which equation has slope −3/2 and y-intercept 4?",
+     "options": [
+      "2x + 3y − 8 = 0",
+      "3x + 2y − 8 = 0",
+      "3x − 2y + 8 = 0",
+      "3x + 2y + 8 = 0"
+     ],
+     "answer": 1,
+     "explain": "y = −(3/2)x + 4 ⇒ 2y = −3x + 8 ⇒ 3x + 2y − 8 = 0.",
+     "mistake": "Mixes up the coefficients of x and y"
+    },
+    {
+     "q": "A rod's length L (cm) depends linearly on temperature T (°C): L = 120.04 at 10 °C and 120.24 at 60 °C. By how many cm does it grow per °C?",
+     "options": [
+      "0.2",
+      "0.02",
+      "0.04",
+      "0.004"
+     ],
+     "answer": 3,
+     "explain": "Slope = (120.24 − 120.04)/(60 − 10) = 0.20/50 = 0.004 cm per °C.",
+     "mistake": "Forgets to divide by the 50 °C change",
+     "check": "Fraction(20,100)/50"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's phone plan costs ₹199 fixed plus ₹1 per minute. Explain y = mx + c and the intercept form x/a + y/b = 1.",
+    "must": [
+     [
+      "slope",
+      "rate",
+      "gradient"
+     ],
+     [
+      "intercept",
+      "where it cuts",
+      "meets the axis"
+     ],
+     [
+      "x/a + y/b = 1",
+      "intercept form",
+      "a and b"
+     ]
+    ],
+    "praise": "Slope is the rate, intercept is the fixed part, and x/a + y/b = 1 shows where the axes are cut. Bill decoded!",
+    "nudge": "In y = mx + c, which letter is the fixed starting value?"
+   }
+  },
+  {
+   "id": "g11-maths-09-06",
+   "title": "Lines in triangles; parallel and perpendicular lines through a point",
+   "covers": [
+    "c9.3.8",
+    "c9.4.4"
+   ],
+   "learn": {
+    "hook": "Every triangle hides special lines — medians, altitudes, perpendicular bisectors. With slopes and midpoints you can write each one.",
+    "points": [
+     "Median from A: the line through A and the midpoint of BC.",
+     "Altitude from A: through A, perpendicular to BC (slope = −1/slope of BC).",
+     "Perpendicular bisector of PQ: through the midpoint of PQ, perpendicular to PQ.",
+     "Line parallel to Ax + By + C = 0 through (x₁, y₁): Ax + By = Ax₁ + By₁ (same A, B).",
+     "Line perpendicular to Ax + By + C = 0 through (x₁, y₁): Bx − Ay = Bx₁ − Ay₁ (swap A, B and change one sign)."
+    ],
+    "example": {
+     "q": "Find the perpendicular bisector of the segment joining (1, 2) and (5, 6).",
+     "steps": [
+      "Midpoint: (3, 4).",
+      "Slope of segment: (6 − 2)/(5 − 1) = 1, so perpendicular slope −1.",
+      "y − 4 = −(x − 3) ⇒ x + y − 7 = 0."
+     ],
+     "answer": "x + y − 7 = 0"
+    },
+    "reallife": "Surveyors locating a new well equidistant from two villages use the perpendicular bisector of the segment joining them."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Line parallel to 3x − 4y + 2 = 0 through (−2, 3)",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Parallel line: 3x − 4y + k = 0",
+      "Substitute (−2, 3): −6 − 12 + k = 0",
+      "k = 18",
+      "3x − 4y + 18 = 0"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Triangle line ↔ what it passes through",
+     "pairs": [
+      [
+       "Median from A",
+       "A and the midpoint of BC"
+      ],
+      [
+       "Altitude from A",
+       "A, perpendicular to BC"
+      ],
+      [
+       "Perpendicular bisector of BC",
+       "Midpoint of BC, perpendicular to BC"
+      ],
+      [
+       "Line parallel to BC through A",
+       "A, same slope as BC"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The line through (−2, 3) perpendicular to 3x − 4y + 2 = 0 is:",
+     "options": [
+      "3x + 4y − 6 = 0",
+      "4x − 3y + 17 = 0",
+      "4x + 3y + 1 = 0",
+      "4x + 3y − 1 = 0"
+     ],
+     "answer": 3,
+     "explain": "Perpendicular: 4x + 3y + k = 0. Substitute: −8 + 9 + k = 0 ⇒ k = −1.",
+     "mistake": "Keeps the same coefficients (parallel line)"
+    },
+    {
+     "q": "Triangle A(2, 1), B(4, 3), C(6, 1). The median from B passes through:",
+     "options": [
+      "(4, 2)",
+      "(5, 2)",
+      "(3, 2)",
+      "(4, 1)"
+     ],
+     "answer": 3,
+     "explain": "The midpoint of AC is ((2 + 6)/2, (1 + 1)/2) = (4, 1).",
+     "mistake": "Takes the midpoint of AB or BC"
+    },
+    {
+     "q": "In the same triangle, the median from B has equation:",
+     "options": [
+      "x + y = 7",
+      "y = 1",
+      "y = x − 1",
+      "x = 4"
+     ],
+     "answer": 3,
+     "explain": "B(4, 3) and (4, 1) have the same x-coordinate, so the median is the vertical line x = 4.",
+     "mistake": "Tries to compute a slope and divides by zero"
+    },
+    {
+     "q": "Triangle A(0, 0), B(4, 0), C(1, 3). The altitude from A is perpendicular to BC. Its equation is:",
+     "options": [
+      "y = −x",
+      "x = 0",
+      "y = 3",
+      "y = x"
+     ],
+     "answer": 3,
+     "explain": "Slope BC = (3 − 0)/(1 − 4) = −1, so the altitude has slope 1 and passes through the origin: y = x.",
+     "mistake": "Uses the slope of BC itself"
+    },
+    {
+     "q": "The perpendicular bisector of the segment from (3, 4) to (−1, 2) is:",
+     "options": [
+      "2x − y − 1 = 0",
+      "x − 2y + 5 = 0",
+      "2x + y − 5 = 0",
+      "x + 2y − 7 = 0"
+     ],
+     "answer": 2,
+     "explain": "Midpoint (1, 3); segment slope (2 − 4)/(−1 − 3) = 1/2, so perpendicular slope −2: y − 3 = −2(x − 1) ⇒ 2x + y − 5 = 0.",
+     "mistake": "Forgets to use the midpoint"
+    },
+    {
+     "q": "Which line is parallel to 2x + 5y − 7 = 0 and passes through the origin?",
+     "options": [
+      "5x + 2y = 0",
+      "2x + 5y = 0",
+      "2x − 5y = 0",
+      "5x − 2y = 0"
+     ],
+     "answer": 1,
+     "explain": "Same A and B for parallel lines; through (0, 0) the constant is 0.",
+     "mistake": "Swaps coefficients, giving a perpendicular line"
+    },
+    {
+     "q": "The line through (1, 2) perpendicular to the line x − 2y + 3 = 0 has slope:",
+     "options": [
+      "−2",
+      "2",
+      "−1/2",
+      "1/2"
+     ],
+     "answer": 0,
+     "explain": "Slope of x − 2y + 3 = 0 is 1/2; perpendicular slope −2.",
+     "mistake": "Takes the reciprocal without the minus sign",
+     "check": "-2"
+    },
+    {
+     "q": "For what value of p is the line px + 4y − 7 = 0 parallel to 3x + 2y + 1 = 0?",
+     "options": [
+      "−6",
+      "2",
+      "3",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "Slopes: −p/4 = −3/2 ⇒ p = 6.",
+     "mistake": "Equates p with 3 directly",
+     "check": "6"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu must find the altitude of a triangle from vertex A. Explain how to write altitudes, medians and lines parallel or perpendicular to a given line.",
+    "must": [
+     [
+      "midpoint",
+      "middle point"
+     ],
+     [
+      "perpendicular",
+      "negative reciprocal",
+      "product −1",
+      "product minus one"
+     ],
+     [
+      "parallel",
+      "same slope",
+      "same coefficients"
+     ]
+    ],
+    "praise": "Medians use midpoints, altitudes use perpendicular slopes, and parallels keep the same slope. Triangle tools ready!",
+    "nudge": "For an altitude, how is its slope related to the slope of the opposite side?"
+   }
+  },
+  {
+   "id": "g11-maths-09-07",
+   "title": "Distance of a point from a line",
+   "covers": [
+    "c9.4.1",
+    "c9.4.2",
+    "c9.4.3"
+   ],
+   "learn": {
+    "hook": "How far is your house from a straight highway? Not along any road — the shortest distance, straight across at a right angle. One formula gives it.",
+    "points": [
+     "The perpendicular distance of (x₁, y₁) from Ax + By + C = 0 is d = |Ax₁ + By₁ + C|/√(A² + B²).",
+     "It is derived by finding the area of the triangle formed by P and the intercepts of the line in two ways (½ × base × height and by coordinates).",
+     "Distance between parallel lines Ax + By + C₁ = 0 and Ax + By + C₂ = 0: |C₁ − C₂|/√(A² + B²).",
+     "Make sure both parallel lines have the SAME A and B before using the formula (e.g. rewrite 6x + 8y + 10 = 0 as 3x + 4y + 5 = 0).",
+     "Points at a given distance from a line: set the distance formula equal to the value and solve with ±."
+    ],
+    "example": {
+     "q": "Find the distance of (2, 3) from 3x + 4y − 3 = 0.",
+     "steps": [
+      "d = |3(2) + 4(3) − 3|/√(9 + 16).",
+      "= |6 + 12 − 3|/5 = 15/5."
+     ],
+     "answer": "3 units"
+    },
+    "reallife": "Mobile tower engineers check the perpendicular distance from a planned tower to a straight railway line to meet safety rules."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Distance between 6x + 8y − 5 = 0 and 3x + 4y + 5 = 0",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Make A, B equal: 3x + 4y − 5/2 = 0",
+      "C₁ = −5/2, C₂ = 5",
+      "d = |−5/2 − 5|/√(9 + 16)",
+      "d = (15/2)/5 = 3/2"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Distance from the line",
+     "items": [
+      {
+       "q": "(0, 0) from 3x + 4y − 10 = 0",
+       "a": "2",
+       "check": "10/5"
+      },
+      {
+       "q": "(1, 1) from 3x + 4y + 3 = 0",
+       "a": "2",
+       "check": "10/5"
+      },
+      {
+       "q": "(0, 0) from 5x − 12y + 26 = 0",
+       "a": "2",
+       "check": "26/13"
+      },
+      {
+       "q": "(2, 0) from x = 7",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "(3, −4) from y = 1",
+       "a": "5",
+       "check": "5"
+      },
+      {
+       "q": "Between 3x + 4y = 4 and 3x + 4y = 14",
+       "a": "2",
+       "check": "10/5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the distance of (1, −2) from 4x − 3y + 5 = 0.",
+     "options": [
+      "15",
+      "1",
+      "3",
+      "13/5"
+     ],
+     "answer": 2,
+     "explain": "|4 + 6 + 5|/√(16 + 9) = 15/5 = 3.",
+     "mistake": "Forgets to divide by √(A² + B²)",
+     "check": "15/5"
+    },
+    {
+     "q": "Find the distance between the parallel lines 3x − 4y + 7 = 0 and 3x − 4y − 8 = 0.",
+     "options": [
+      "3",
+      "1",
+      "15",
+      "1/5"
+     ],
+     "answer": 0,
+     "explain": "|7 − (−8)|/√(9 + 16) = 15/5 = 3.",
+     "mistake": "Subtracts 8 from 7 without the sign",
+     "check": "15/5"
+    },
+    {
+     "q": "Find the distance between 6x + 8y − 5 = 0 and 3x + 4y + 5 = 0.",
+     "options": [
+      "10",
+      "0",
+      "3/2",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "Rewrite the first as 3x + 4y − 5/2 = 0. d = |−5/2 − 5|/5 = (15/2)/5 = 3/2.",
+     "mistake": "Uses the formula without making A and B equal",
+     "check": "Fraction(3,2)"
+    },
+    {
+     "q": "The distance of the origin from x/3 + y/4 = 1 is:",
+     "options": [
+      "5",
+      "7",
+      "12/5",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "Line: 4x + 3y − 12 = 0. d = |−12|/5 = 12/5.",
+     "mistake": "Uses the intercepts directly",
+     "check": "Fraction(12,5)"
+    },
+    {
+     "q": "Which points on the x-axis are at distance 2 from 3x + 4y − 6 = 0?",
+     "options": [
+      "(2, 0) and (−2, 0)",
+      "(16/3, 0) and (−4/3, 0)",
+      "(4, 0) and (−4, 0)",
+      "(16/3, 0) only"
+     ],
+     "answer": 1,
+     "explain": "|3x − 6|/5 = 2 ⇒ 3x − 6 = ±10 ⇒ x = 16/3 or −4/3.",
+     "mistake": "Keeps only the + case"
+    },
+    {
+     "q": "The distance between the lines y = 2x + 3 and y = 2x − 2 is:",
+     "options": [
+      "1/√5",
+      "√5",
+      "5/2",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "Write 2x − y + 3 = 0 and 2x − y − 2 = 0. d = |3 − (−2)|/√5 = 5/√5 = √5.",
+     "mistake": "Forgets the √(A² + B²) step"
+    },
+    {
+     "q": "If the distance of (k, 1) from 3x − 4y + 1 = 0 is 2, which is a possible value of k?",
+     "options": [
+      "13/3",
+      "11/3",
+      "7/3",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "|3k − 4 + 1|/5 = 2 ⇒ 3k − 3 = ±10 ⇒ k = 13/3 or k = −7/3. Of the options, 13/3 works.",
+     "mistake": "Drops the ± and solves 3k + 3 = 10",
+     "check": "Fraction(13,3)"
+    },
+    {
+     "q": "Assertion (A): The distance of (0, 0) from 5x + 12y − 13 = 0 is 1.\nReason (R): The distance of (x₁, y₁) from Ax + By + C = 0 is |Ax₁ + By₁ + C|/√(A² + B²).",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "|−13|/√(25 + 144) = 13/13 = 1, using exactly the formula in R.",
+     "mistake": "Forgets the absolute value and gets −1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the shortest distance from his nest to a straight power line 3x + 4y − 12 = 0. Explain the distance formula and how to use it for parallel lines.",
+    "must": [
+     [
+      "perpendicular",
+      "shortest",
+      "right angle"
+     ],
+     [
+      "modulus",
+      "absolute value",
+      "|ax1 + by1 + c|"
+     ],
+     [
+      "√(a² + b²)",
+      "root of a squared plus b squared",
+      "square root"
+     ]
+    ],
+    "praise": "Substitute, take the modulus, divide by √(A² + B²). Shortest flight path found!",
+    "nudge": "After substituting the point into the line, what do you divide by?"
+   }
+  },
+  {
+   "id": "g11-maths-09-08",
+   "title": "Feet, images, concurrency and mixed problems",
+   "covers": [
+    "c9.4.5",
+    "c9.4.6"
+   ],
+   "learn": {
+    "hook": "A ray of light bounces off a mirror at the same angle it hits. Coordinate geometry finds exactly where — using images of points in lines.",
+    "points": [
+     "Foot of the perpendicular from P to a line: the point on the line where the perpendicular through P meets it.",
+     "Image (reflection) of P in a line: the line is the perpendicular bisector of P and its image P′. The midpoint of PP′ lies on the line and PP′ is perpendicular to it.",
+     "Lines with equal intercepts: x + y = a. Through a point (x₁, y₁): a = x₁ + y₁.",
+     "Three lines are concurrent if the intersection of two of them lies on the third.",
+     "Reflection problems: the image of the source in the mirror line, joined to the target point, gives the reflected ray."
+    ],
+    "example": {
+     "q": "Find the image of (2, 1) in the line x + y − 5 = 0.",
+     "steps": [
+      "Let the image be (h, k). PP′ is perpendicular to the line (slope −1), so PP′ has slope 1: (k − 1)/(h − 2) = 1 ⇒ k = h − 1.",
+      "Midpoint ((h + 2)/2, (k + 1)/2) lies on the line: (h + 2)/2 + (k + 1)/2 = 5 ⇒ h + k = 7.",
+      "Solve: h = 4, k = 3."
+     ],
+     "answer": "(4, 3)"
+    },
+    "reallife": "Snooker and carrom players aim at a cushion's 'image point' to bank a shot — the same reflection geometry."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Find k so that x + y = 3, 2x − y = 0 and kx + 3y = 8 are concurrent",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Solve the first two: 3x = 3, x = 1",
+      "y = 2, so they meet at (1, 2)",
+      "Substitute in the third: k + 6 = 8",
+      "k = 2"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Mixed line facts",
+     "items": [
+      [
+       "The image of (3, 5) in the x-axis is (3, −5).",
+       true,
+       "Reflection in y = 0 changes the sign of y."
+      ],
+      [
+       "The image of (1, 2) in the line y = x is (2, 1).",
+       true,
+       "Reflection in y = x swaps the coordinates."
+      ],
+      [
+       "The foot of the perpendicular from (0, 0) to x + y = 2 is (2, 0).",
+       false,
+       "It is (1, 1); (2, 0) is only the x-intercept."
+      ],
+      [
+       "The line through (2, 3) with equal intercepts is x + y = 5.",
+       true,
+       "a = 2 + 3 = 5."
+      ],
+      [
+       "Three lines are concurrent if all three are parallel.",
+       false,
+       "Parallel lines never meet; concurrent lines pass through one common point."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The foot of the perpendicular from (0, 0) to the line x + y = 4 is:",
+     "options": [
+      "(1, 3)",
+      "(0, 4)",
+      "(2, 2)",
+      "(4, 0)"
+     ],
+     "answer": 2,
+     "explain": "The perpendicular from the origin is y = x; it meets x + y = 4 at (2, 2).",
+     "mistake": "Picks an intercept point"
+    },
+    {
+     "q": "The image of (4, 1) in the line x + y = 0 is:",
+     "options": [
+      "(1, 4)",
+      "(4, −1)",
+      "(−1, −4)",
+      "(−4, −1)"
+     ],
+     "answer": 2,
+     "explain": "Reflection in y = −x sends (a, b) to (−b, −a), so (4, 1) → (−1, −4).",
+     "mistake": "Uses the rule for y = x"
+    },
+    {
+     "q": "Find k so that the lines x + y = 3, 2x − y = 0 and kx + 3y = 8 are concurrent.",
+     "options": [
+      "8",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 1,
+     "explain": "The first two meet at (1, 2). Then k(1) + 3(2) = 8 ⇒ k = 2.",
+     "mistake": "Substitutes into the wrong line",
+     "check": "2"
+    },
+    {
+     "q": "The equation of the line through (4, −1) making equal intercepts on the axes is:",
+     "options": [
+      "x + y = 3",
+      "x − y = 5",
+      "x + y = −3",
+      "x + y = 5"
+     ],
+     "answer": 0,
+     "explain": "x + y = a with a = 4 + (−1) = 3.",
+     "mistake": "Subtracts the coordinates"
+    },
+    {
+     "q": "Find the foot of the perpendicular from (1, 3) to the line y = x.",
+     "options": [
+      "(2, 2)",
+      "(1, 1)",
+      "(3, 1)",
+      "(3, 3)"
+     ],
+     "answer": 0,
+     "explain": "The perpendicular through (1, 3) has slope −1: y − 3 = −(x − 1), i.e. x + y = 4. It meets y = x at (2, 2).",
+     "mistake": "Gives the image (3, 1) instead of the foot"
+    },
+    {
+     "q": "If the foot of the perpendicular from P(1, 3) to a line is (2, 2), what is the image of P in that line?",
+     "options": [
+      "(2, 2)",
+      "(0, 4)",
+      "(4, 0)",
+      "(3, 1)"
+     ],
+     "answer": 3,
+     "explain": "The foot is the midpoint of P and its image: image = 2(2, 2) − (1, 3) = (3, 1).",
+     "mistake": "Confuses the foot with the image"
+    },
+    {
+     "q": "A ray from (1, 2) is reflected by the x-axis and then passes through (5, 3). At which point does it meet the x-axis?",
+     "options": [
+      "(13/5, 0)",
+      "(2, 0)",
+      "(3, 0)",
+      "(5/2, 0)"
+     ],
+     "answer": 0,
+     "explain": "Image of (1, 2) in the x-axis is (1, −2). The line through (1, −2) and (5, 3) has slope 5/4; it meets y = 0 at x = 1 + 2 × 4/5 = 13/5.",
+     "steps": [
+      "Image A′ = (1, −2)",
+      "Slope A′B = (3 + 2)/(5 − 1) = 5/4",
+      "0 + 2 = (5/4)(x − 1) ⇒ x − 1 = 8/5",
+      "x = 13/5"
+     ],
+     "mistake": "Joins (1, 2) directly to (5, 3)"
+    },
+    {
+     "q": "Find the acute angle between the lines x − √3 y = 0 and √3 x − y = 0.",
+     "options": [
+      "45°",
+      "90°",
+      "60°",
+      "30°"
+     ],
+     "answer": 3,
+     "explain": "Slopes 1/√3 and √3 (inclinations 30° and 60°), so the angle is 30°.",
+     "mistake": "Adds the inclinations",
+     "check": "30"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know where a light ray from a torch hits a mirror line before reaching his eye. Explain images of points and the foot of the perpendicular.",
+    "must": [
+     [
+      "image",
+      "reflection",
+      "mirror image"
+     ],
+     [
+      "midpoint",
+      "middle"
+     ],
+     [
+      "perpendicular",
+      "right angle"
+     ]
+    ],
+    "praise": "Reflect the source, join it to the target, and the mirror point appears. Light-bending maths!",
+    "nudge": "How are a point, its image and the foot of the perpendicular related?"
+   }
+  }
+ ]
+}

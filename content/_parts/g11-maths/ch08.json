@@ -1,0 +1,1497 @@
+{
+ "n": 8,
+ "title": "Sequences and Series",
+ "emoji": "🔢",
+ "topics": [
+  {
+   "id": "g11-maths-08-01",
+   "title": "Sequences, their terms and recurrences",
+   "covers": [
+    "c8.1.1",
+    "c8.2.1",
+    "c8.2.2",
+    "c8.2.3",
+    "c8.2.4"
+   ],
+   "learn": {
+    "hook": "India's population year by year, your SIP balance month by month, a phone's value after each year of use — all are sequences.",
+    "points": [
+     "A sequence is an ordered list of numbers a₁, a₂, a₃, …; aₙ is the nth term or general term.",
+     "A finite sequence has a last term (e.g. the marks in 5 unit tests); an infinite sequence goes on forever (e.g. 1, 1/2, 1/3, …).",
+     "Formally, a sequence is a function whose domain is N (or {1, 2, …, k} for a finite one): n ↦ aₙ.",
+     "Some sequences are given by a recurrence: earlier terms define later ones.",
+     "Fibonacci sequence: a₁ = a₂ = 1, aₙ = aₙ₋₁ + aₙ₋₂ for n > 2: 1, 1, 2, 3, 5, 8, 13, …"
+    ],
+    "example": {
+     "q": "Write the first five terms of aₙ = n(n + 3).",
+     "steps": [
+      "a₁ = 1 × 4 = 4",
+      "a₂ = 2 × 5 = 10",
+      "a₃ = 3 × 6 = 18",
+      "a₄ = 4 × 7 = 28",
+      "a₅ = 5 × 8 = 40"
+     ],
+     "answer": "4, 10, 18, 28, 40"
+    },
+    "reallife": "The Fibonacci numbers show up in sunflower seed spirals and pine cones — and in the counting of Sanskrit metres studied by Virahanka and Hemachandra long before Fibonacci."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Fibonacci terms",
+     "prompt": "Grow the sequence one term at a time (shortest list first)",
+     "items": [
+      "1",
+      "1, 1",
+      "1, 1, 2",
+      "1, 1, 2, 3",
+      "1, 1, 2, 3, 5",
+      "1, 1, 2, 3, 5, 8"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Finite or infinite sequence?",
+     "buckets": [
+      "Finite",
+      "Infinite"
+     ],
+     "items": [
+      [
+       "Marks in your 5 unit tests",
+       0
+      ],
+      [
+       "1, 1/2, 1/3, 1/4, …",
+       1
+      ],
+      [
+       "Months of 2026 in order",
+       0
+      ],
+      [
+       "Multiples of 7: 7, 14, 21, …",
+       1
+      ],
+      [
+       "Digits of the year 2026",
+       0
+      ],
+      [
+       "Prime numbers in order",
+       1
+      ],
+      [
+       "Days from 1 to 30 in June",
+       0
+      ],
+      [
+       "Powers of 2: 2, 4, 8, …",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "If aₙ = (n − 1)/(n + 1), what is a₄?",
+     "options": [
+      "4/5",
+      "3/5",
+      "3/4",
+      "1/2"
+     ],
+     "answer": 1,
+     "explain": "a₄ = (4 − 1)/(4 + 1) = 3/5.",
+     "mistake": "Substitutes n = 4 only in the numerator",
+     "check": "Fraction(3,5)"
+    },
+    {
+     "q": "What is the 6th term of the Fibonacci sequence 1, 1, 2, 3, 5, …?",
+     "options": [
+      "8",
+      "13",
+      "6",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "Each term is the sum of the two before: 3 + 5 = 8.",
+     "mistake": "Adds 1 each time",
+     "check": "3+5"
+    },
+    {
+     "q": "A sequence has a₁ = 2 and aₙ = 3aₙ₋₁ + 1 for n > 1. What is a₃?",
+     "options": [
+      "23",
+      "7",
+      "21",
+      "22"
+     ],
+     "answer": 3,
+     "explain": "a₂ = 3(2) + 1 = 7; a₃ = 3(7) + 1 = 22.",
+     "mistake": "Stops at a₂ or uses a₁ again",
+     "check": "3*7+1"
+    },
+    {
+     "q": "Which describes a sequence most precisely?",
+     "options": [
+      "A sum of numbers",
+      "Any set of numbers",
+      "A function whose domain is R",
+      "A function whose domain is the set of natural numbers (or a part of it starting at 1)"
+     ],
+     "answer": 3,
+     "explain": "The position n ∈ N is the input and the term aₙ is the output.",
+     "mistake": "Confuses a sequence with a series or a set"
+    },
+    {
+     "q": "If aₙ = n²/3ⁿ, what is a₄?",
+     "options": [
+      "8/81",
+      "4/81",
+      "16/12",
+      "16/81"
+     ],
+     "answer": 3,
+     "explain": "a₄ = 4²/3⁴ = 16/81.",
+     "mistake": "Multiplies 3 × 4 instead of raising 3 to the power 4",
+     "check": "Fraction(16,81)"
+    },
+    {
+     "q": "Which sequence is infinite?",
+     "options": [
+      "The first ten primes",
+      "The sequence of all odd natural numbers",
+      "The scores of 11 batters in an innings",
+      "The days in a week"
+     ],
+     "answer": 1,
+     "explain": "Odd natural numbers 1, 3, 5, … never end.",
+     "mistake": "Thinks a long list must be infinite"
+    },
+    {
+     "q": "For aₙ = (−1)ⁿ 2ⁿ⁺¹, what is a₃?",
+     "options": [
+      "16",
+      "−16",
+      "8",
+      "−8"
+     ],
+     "answer": 1,
+     "explain": "(−1)³ × 2⁴ = −16.",
+     "mistake": "Takes (−1)³ as +1, or uses 2³",
+     "check": "-16"
+    },
+    {
+     "q": "If a₁ = 1 and aₙ = aₙ₋₁ + 2 for n ≥ 2, what is a₅?",
+     "options": [
+      "7",
+      "11",
+      "10",
+      "9"
+     ],
+     "answer": 3,
+     "explain": "1, 3, 5, 7, 9 — so a₅ = 9.",
+     "mistake": "Counts one term too many",
+     "check": "1+2*4"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants to know what 'nth term' means and how the Fibonacci sequence works. Explain sequences and recurrences.",
+    "must": [
+     [
+      "ordered",
+      "order",
+      "position"
+     ],
+     [
+      "nth term",
+      "general term",
+      "formula"
+     ],
+     [
+      "previous terms",
+      "two before",
+      "recurrence",
+      "earlier terms"
+     ]
+    ],
+    "praise": "A list in order, a rule for the nth term, and sometimes a rule using earlier terms. Fibo-fantastic!",
+    "nudge": "How do you get the next Fibonacci number from the ones before it?"
+   }
+  },
+  {
+   "id": "g11-maths-08-02",
+   "title": "Series and sigma notation",
+   "covers": [
+    "c8.2.5",
+    "c8.3.1",
+    "c8.3.2"
+   ],
+   "learn": {
+    "hook": "Adding the terms of a sequence gives a series — like adding up your monthly pocket money to get the year's total.",
+    "points": [
+     "If a₁, a₂, a₃, … is a sequence, then a₁ + a₂ + a₃ + … is the corresponding series.",
+     "A series is finite or infinite according as the sequence is finite or infinite.",
+     "Sigma notation: Σₖ₌₁ⁿ aₖ means a₁ + a₂ + … + aₙ. Here k is the index, 1 and n are the limits.",
+     "Example: Σₖ₌₁⁴ k² = 1 + 4 + 9 + 16 = 30.",
+     "To find terms from a formula, substitute n = 1, 2, 3, …; from a recurrence, build up one term at a time."
+    ],
+    "example": {
+     "q": "Write the first five terms of a₁ = 2, aₙ = aₙ₋₁/n (n ≥ 2), and write the corresponding series.",
+     "steps": [
+      "a₂ = 2/2 = 1",
+      "a₃ = 1/3",
+      "a₄ = (1/3)/4 = 1/12",
+      "a₅ = (1/12)/5 = 1/60"
+     ],
+     "answer": "Terms: 2, 1, 1/3, 1/12, 1/60; series: 2 + 1 + 1/3 + 1/12 + 1/60 + …"
+    },
+    "reallife": "A company's annual report adds 12 monthly revenues — Σ from k = 1 to 12 of Rₖ — to get yearly turnover."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Evaluate the sigma",
+     "items": [
+      {
+       "q": "Σₖ₌₁⁴ k",
+       "a": "10",
+       "check": "1+2+3+4"
+      },
+      {
+       "q": "Σₖ₌₁³ k²",
+       "a": "14",
+       "check": "1+4+9"
+      },
+      {
+       "q": "Σₖ₌₁⁵ 2",
+       "a": "10",
+       "check": "2*5"
+      },
+      {
+       "q": "Σₖ₌₁³ 2ᵏ",
+       "a": "14",
+       "check": "2+4+8"
+      },
+      {
+       "q": "Σₖ₌₂⁴ k",
+       "a": "9",
+       "check": "2+3+4"
+      },
+      {
+       "q": "Σₖ₌₁⁴ (2k − 1)",
+       "a": "16",
+       "check": "1+3+5+7"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Series ↔ sigma form",
+     "pairs": [
+      [
+       "1 + 2 + 3 + … + 10",
+       "Σₖ₌₁¹⁰ k"
+      ],
+      [
+       "1 + 4 + 9 + 16",
+       "Σₖ₌₁⁴ k²"
+      ],
+      [
+       "2 + 4 + 8 + 16 + 32",
+       "Σₖ₌₁⁵ 2ᵏ"
+      ],
+      [
+       "1 + 3 + 5 + 7 + 9",
+       "Σₖ₌₁⁵ (2k − 1)"
+      ],
+      [
+       "1/2 + 1/3 + 1/4",
+       "Σₖ₌₁³ 1/(k + 1)"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Evaluate Σₖ₌₁⁵ k².",
+     "options": [
+      "30",
+      "55",
+      "225",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "1 + 4 + 9 + 16 + 25 = 55.",
+     "mistake": "Squares the sum 15 instead of summing squares",
+     "check": "1+4+9+16+25"
+    },
+    {
+     "q": "Which is the difference between a sequence and a series?",
+     "options": [
+      "A series is the sum of the terms of a sequence",
+      "A series has no order",
+      "A sequence is always finite",
+      "They mean the same"
+     ],
+     "answer": 0,
+     "explain": "The sequence lists terms; the series adds them.",
+     "mistake": "Uses the two words interchangeably"
+    },
+    {
+     "q": "Σₖ₌₁⁴ (3k + 1) equals:",
+     "options": [
+      "34",
+      "31",
+      "40",
+      "13"
+     ],
+     "answer": 0,
+     "explain": "4 + 7 + 10 + 13 = 34.",
+     "mistake": "Adds only one +1",
+     "check": "4+7+10+13"
+    },
+    {
+     "q": "With a₁ = a₂ = 3 and aₙ = aₙ₋₁ − 2 for n > 2, what is the sum of the first five terms?",
+     "options": [
+      "15",
+      "0",
+      "1",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "Terms: 3, 3, 1, −1, −3. Sum = 3 + 3 + 1 − 1 − 3 = 3.",
+     "mistake": "Starts subtracting from a₁ instead of a₂",
+     "check": "3+3+1-1-3"
+    },
+    {
+     "q": "The series 1 + 1/2 + 1/4 + 1/8 + … is:",
+     "options": [
+      "a finite series",
+      "not a series",
+      "a sequence, not a series",
+      "an infinite series"
+     ],
+     "answer": 3,
+     "explain": "It has no last term, so it is an infinite series.",
+     "mistake": "Thinks a series with a finite total must be finite"
+    },
+    {
+     "q": "Write 3 + 6 + 9 + … + 30 in sigma notation.",
+     "options": [
+      "Σₖ₌₁¹⁰ (k + 3)",
+      "Σₖ₌₃³⁰ 3k",
+      "Σₖ₌₁¹⁰ 3k",
+      "Σₖ₌₁³⁰ k"
+     ],
+     "answer": 2,
+     "explain": "The terms are 3k for k = 1 to 10 (3 × 10 = 30).",
+     "mistake": "Uses the last term as the upper limit"
+    },
+    {
+     "q": "If aₙ = 2n + 1, what is a₁ + a₂ + a₃?",
+     "options": [
+      "7",
+      "15",
+      "9",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "3 + 5 + 7 = 15.",
+     "mistake": "Adds the indices instead of the terms",
+     "check": "3+5+7"
+    },
+    {
+     "q": "In Σₖ₌₁ⁿ aₖ, the letter k is called the:",
+     "options": [
+      "index of summation",
+      "common ratio",
+      "upper limit",
+      "sum"
+     ],
+     "answer": 0,
+     "explain": "k runs from the lower limit 1 to the upper limit n.",
+     "mistake": "Confuses the index with the limits"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu sees Σ and freezes. Explain what a series is and how to read sigma notation.",
+    "must": [
+     [
+      "sum",
+      "add",
+      "adding"
+     ],
+     [
+      "sigma",
+      "sigma notation"
+     ],
+     [
+      "index",
+      "from 1 to n",
+      "limits",
+      "upper limit"
+     ]
+    ],
+    "praise": "Σ just means 'add these up', with k running from bottom to top. Not scary at all!",
+    "nudge": "What does the little k under Σ do, and where does it stop?"
+   }
+  },
+  {
+   "id": "g11-maths-08-03",
+   "title": "Geometric progressions",
+   "covers": [
+    "c8.5.1",
+    "c8.5.2",
+    "c8.5.4",
+    "c8.5.5"
+   ],
+   "learn": {
+    "hook": "One bacterium becomes 2, then 4, then 8 … In a GP each term is the previous one multiplied by the same number — and the numbers explode.",
+    "points": [
+     "A G.P. is a sequence in which each term (after the first) is a fixed non-zero multiple of the previous one: aₖ₊₁/aₖ = r, the common ratio.",
+     "With first term a: a, ar, ar², ar³, …; the nth term is aₙ = arⁿ⁻¹.",
+     "To find unknowns, write two given terms as arᵖ⁻¹ and arᑫ⁻¹ and divide to find r, then substitute to find a.",
+     "Three numbers in G.P. are best taken as a/r, a, ar (product a³); four as a/r³, a/r, ar, ar³.",
+     "If r > 1 (and a > 0) the terms grow; if 0 < r < 1 they shrink; if r < 0 the signs alternate."
+    ],
+    "example": {
+     "q": "Which term of the G.P. 3, 3√3, 9, … is 729?",
+     "steps": [
+      "a = 3, r = √3.",
+      "3(√3)ⁿ⁻¹ = 729 ⇒ (√3)ⁿ⁻¹ = 243 = 3⁵ = (√3)¹⁰.",
+      "n − 1 = 10 ⇒ n = 11."
+     ],
+     "answer": "The 11th term"
+    },
+    "reallife": "Computer memory sizes 1 KB, 2 KB, 4 KB, 8 KB … double each step — a G.P. with r = 2."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "nth term of a GP",
+     "items": [
+      {
+       "q": "a = 3, r = 2: 10th term",
+       "a": "1536",
+       "check": "3*2**9"
+      },
+      {
+       "q": "a = 1, r = 3: 5th term",
+       "a": "81",
+       "check": "3**4"
+      },
+      {
+       "q": "a = 64, r = 1/2: 4th term",
+       "a": "8",
+       "check": "64/8"
+      },
+      {
+       "q": "a = 2, r = −2: 4th term",
+       "a": "−16",
+       "check": "2*(-2)**3"
+      },
+      {
+       "q": "a = 5, r = 10: 3rd term",
+       "a": "500",
+       "check": "5*100"
+      },
+      {
+       "q": "Common ratio of 4, −12, 36",
+       "a": "−3",
+       "check": "-3"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "GP or not?",
+     "items": [
+      [
+       "2, 6, 18, 54 is a G.P.",
+       true,
+       "Each term is 3 times the previous one."
+      ],
+      [
+       "1, 2, 4, 7 is a G.P.",
+       false,
+       "2/1 = 2 but 7/4 ≠ 2."
+      ],
+      [
+       "5, −5, 5, −5 is a G.P.",
+       true,
+       "Common ratio −1."
+      ],
+      [
+       "The common ratio of a G.P. can be 0.",
+       false,
+       "r must be non-zero; otherwise the terms after the first are 0."
+      ],
+      [
+       "1, 1/3, 1/9, 1/27 is a G.P. with r = 1/3.",
+       true,
+       "Each term is one-third of the previous one."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the 8th term of the G.P. 5, 10, 20, …",
+     "options": [
+      "640",
+      "1280",
+      "320",
+      "40"
+     ],
+     "answer": 0,
+     "explain": "a = 5, r = 2: a₈ = 5 × 2⁷ = 640.",
+     "mistake": "Uses rⁿ instead of rⁿ⁻¹",
+     "check": "5*2**7"
+    },
+    {
+     "q": "The 4th term of a G.P. is 24 and the 7th term is 192. What is the common ratio?",
+     "options": [
+      "8",
+      "2",
+      "3",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "ar⁶/ar³ = r³ = 192/24 = 8 ⇒ r = 2.",
+     "mistake": "Takes r = 8 without the cube root",
+     "check": "2"
+    },
+    {
+     "q": "In the G.P. above (a₄ = 24, a₇ = 192), the first term is:",
+     "options": [
+      "3",
+      "12",
+      "1",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "ar³ = 24 with r = 2 gives 8a = 24, so a = 3.",
+     "mistake": "Divides 24 by 2 only once",
+     "check": "24/8"
+    },
+    {
+     "q": "Three numbers in G.P. have product 216 and sum 21. What are they?",
+     "options": [
+      "3, 6, 12",
+      "1, 6, 36",
+      "2, 6, 18",
+      "4, 6, 9"
+     ],
+     "answer": 0,
+     "explain": "Take a/r, a, ar: a³ = 216 ⇒ a = 6. 6/r + 6 + 6r = 21 ⇒ 2r² − 5r + 2 = 0 ⇒ r = 2 or 1/2.",
+     "mistake": "Picks numbers with the right product but wrong sum"
+    },
+    {
+     "q": "Which term of the G.P. 3, 6, 12, … is 768?",
+     "options": [
+      "256th",
+      "9th",
+      "10th",
+      "8th"
+     ],
+     "answer": 1,
+     "explain": "3 × 2ⁿ⁻¹ = 768 ⇒ 2ⁿ⁻¹ = 256 = 2⁸ ⇒ n = 9.",
+     "mistake": "Forgets the n − 1 in the exponent"
+    },
+    {
+     "q": "The 5th term of the G.P. 1/2, −1, 2, … is:",
+     "options": [
+      "−8",
+      "16",
+      "4",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "a = 1/2, r = −2: a₅ = (1/2)(−2)⁴ = (1/2)(16) = 8.",
+     "mistake": "Gets the sign of (−2)⁴ wrong",
+     "check": "Fraction(1,2)*16"
+    },
+    {
+     "q": "If x, 2x + 2, 3x + 3 are in G.P., then x is:",
+     "options": [
+      "2",
+      "−1",
+      "4",
+      "−4"
+     ],
+     "answer": 3,
+     "explain": "(2x + 2)² = x(3x + 3) ⇒ 4(x + 1)² = 3x(x + 1) ⇒ (x + 1)(4x + 4 − 3x) = 0 ⇒ x = −1 or x = −4. x = −1 makes the terms 0, so x = −4.",
+     "mistake": "Accepts x = −1, which gives zero terms",
+     "check": "-4"
+    },
+    {
+     "q": "If a, b, c are in G.P., which is always true?",
+     "options": [
+      "a + b = c",
+      "b² = ac",
+      "b = ac",
+      "2b = a + c"
+     ],
+     "answer": 1,
+     "explain": "b/a = c/b ⇒ b² = ac.",
+     "mistake": "Uses the AP condition 2b = a + c"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's savings grow by 10% every year and he wants the amount in year 6. Explain what a G.P. is and its nth-term formula.",
+    "must": [
+     [
+      "common ratio",
+      "ratio",
+      "multiply"
+     ],
+     [
+      "ar^(n−1)",
+      "ar^(n-1)",
+      "a r to the n minus 1",
+      "nth term"
+     ],
+     [
+      "first term",
+      "starting term"
+     ]
+    ],
+    "praise": "Multiply by r each time; the nth term is a·rⁿ⁻¹. My savings plan is ready!",
+    "nudge": "What do you multiply by to get from one term to the next?"
+   }
+  },
+  {
+   "id": "g11-maths-08-04",
+   "title": "Sum of a G.P. and special series",
+   "covers": [
+    "c8.5.3",
+    "c8.5.6",
+    "c8.5.7"
+   ],
+   "learn": {
+    "hook": "The legend of the chessboard: 1 grain on square 1, 2 on square 2, 4 on square 3, … The total on 64 squares is 2⁶⁴ − 1 — more rice than India grows in centuries!",
+    "points": [
+     "Sₙ = a(rⁿ − 1)/(r − 1) = a(1 − rⁿ)/(1 − r) for r ≠ 1. If r = 1, Sₙ = na.",
+     "Derivation: write Sₙ and rSₙ, subtract: (r − 1)Sₙ = arⁿ − a.",
+     "Series like 0.3 + 0.03 + 0.003 + … are G.P.s with r = 1/10.",
+     "5 + 55 + 555 + … to n terms: write each term as (5/9)(10ᵏ − 1); the sum is (5/81)(10ⁿ⁺¹ − 9n − 10).",
+     "Infinite G.P. with |r| < 1 (formative, for awareness): the sum approaches a/(1 − r). E.g. 1 + 1/2 + 1/4 + … = 2."
+    ],
+    "example": {
+     "q": "Find the sum of the first 8 terms of 3 + 6 + 12 + …",
+     "steps": [
+      "a = 3, r = 2, n = 8.",
+      "S₈ = 3(2⁸ − 1)/(2 − 1).",
+      "= 3 × 255 = 765."
+     ],
+     "answer": "765"
+    },
+    "reallife": "An EMI or SIP schedule with a fixed growth rate adds up as a G.P.; financial calculators at banks use Sₙ = a(rⁿ − 1)/(r − 1)."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Derive Sₙ for a G.P.",
+     "prompt": "Arrange the steps",
+     "items": [
+      "Sₙ = a + ar + ar² + … + arⁿ⁻¹",
+      "rSₙ = ar + ar² + … + arⁿ",
+      "Subtract: rSₙ − Sₙ = arⁿ − a",
+      "Sₙ = a(rⁿ − 1)/(r − 1), r ≠ 1"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Sum the G.P.",
+     "items": [
+      {
+       "q": "1 + 2 + 4 + … (10 terms)",
+       "a": "1023",
+       "check": "2**10-1"
+      },
+      {
+       "q": "3 + 6 + 12 + … (8 terms)",
+       "a": "765",
+       "check": "3*255"
+      },
+      {
+       "q": "1 + 3 + 9 + 27 + 81",
+       "a": "121",
+       "check": "1+3+9+27+81"
+      },
+      {
+       "q": "2 + 2 + 2 + … (7 terms, r = 1)",
+       "a": "14",
+       "check": "14"
+      },
+      {
+       "q": "1 + 1/2 + 1/4 + … (infinite)",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "5 + 55 + 555",
+       "a": "615",
+       "check": "5+55+555"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Find the sum of the first 6 terms of the G.P. 2, 6, 18, …",
+     "options": [
+      "364",
+      "486",
+      "1458",
+      "728"
+     ],
+     "answer": 3,
+     "explain": "S₆ = 2(3⁶ − 1)/(3 − 1) = 729 − 1 = 728.",
+     "mistake": "Uses 3⁵ instead of 3⁶",
+     "check": "2*(3**6-1)/2"
+    },
+    {
+     "q": "The sum of the G.P. 1 − 1/2 + 1/4 − 1/8 + … to 6 terms is:",
+     "options": [
+      "21/32",
+      "11/16",
+      "21/64",
+      "63/32"
+     ],
+     "answer": 0,
+     "explain": "a = 1, r = −1/2: S₆ = (1 − (1/64))/(1 + 1/2) = (63/64)/(3/2) = 21/32.",
+     "mistake": "Ignores the negative ratio",
+     "check": "(1-Fraction(1,64))/Fraction(3,2)"
+    },
+    {
+     "q": "What is the sum to n terms of 0.3 + 0.03 + 0.003 + …?",
+     "options": [
+      "3(1 − 10⁻ⁿ)",
+      "0.3n",
+      "(1/3)(1 + 10⁻ⁿ)",
+      "(1/3)(1 − 10⁻ⁿ)"
+     ],
+     "answer": 3,
+     "explain": "a = 0.3, r = 0.1: Sₙ = 0.3(1 − 0.1ⁿ)/0.9 = (1/3)(1 − 10⁻ⁿ).",
+     "mistake": "Adds the terms as if they were equal"
+    },
+    {
+     "q": "The sum to n terms of 5 + 55 + 555 + … is:",
+     "options": [
+      "(5/9)(10ⁿ − 1)",
+      "(5/81)(10ⁿ⁺¹ − 9n − 10)",
+      "(5/81)(10ⁿ − 9n)",
+      "5n(10ⁿ)/9"
+     ],
+     "answer": 1,
+     "explain": "Each term is (5/9)(10ᵏ − 1). Summing: (5/9)[(10ⁿ⁺¹ − 10)/9 − n] = (5/81)(10ⁿ⁺¹ − 9n − 10).",
+     "mistake": "Forgets the −1 in each term"
+    },
+    {
+     "q": "How many terms of the G.P. 2, 2², 2³, … are needed to give the sum 126?",
+     "options": [
+      "63",
+      "5",
+      "7",
+      "6"
+     ],
+     "answer": 3,
+     "explain": "2(2ⁿ − 1)/(2 − 1) = 126 ⇒ 2ⁿ − 1 = 63 ⇒ 2ⁿ = 64 ⇒ n = 6.",
+     "mistake": "Divides 126 by 2 and stops",
+     "check": "6"
+    },
+    {
+     "q": "The sum of the infinite G.P. 6 + 3 + 3/2 + … is:",
+     "options": [
+      "9",
+      "18",
+      "12",
+      "∞"
+     ],
+     "answer": 2,
+     "explain": "a = 6, r = 1/2, |r| < 1, so S = 6/(1 − 1/2) = 12.",
+     "mistake": "Thinks an infinite series must have an infinite sum",
+     "check": "6/(1-Fraction(1,2))"
+    },
+    {
+     "q": "If the sum of n terms of a G.P. with a = 1 and r = 1 is 15, then n is:",
+     "options": [
+      "1",
+      "15",
+      "14",
+      "16"
+     ],
+     "answer": 1,
+     "explain": "When r = 1, every term is a, so Sₙ = na = n = 15.",
+     "mistake": "Applies the formula with r − 1 = 0",
+     "check": "15"
+    },
+    {
+     "q": "In the legend, the number of grains on all 64 squares of a chessboard (1, 2, 4, …) is:",
+     "options": [
+      "2⁶³",
+      "64²",
+      "2⁶⁴ − 1",
+      "2⁶⁴"
+     ],
+     "answer": 2,
+     "explain": "S₆₄ = 1 × (2⁶⁴ − 1)/(2 − 1) = 2⁶⁴ − 1.",
+     "mistake": "Gives the grains on the last square only"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the total of 1 + 2 + 4 + … for 20 terms without adding them one by one. Explain the G.P. sum formula and why it works.",
+    "must": [
+     [
+      "multiply by r",
+      "r times",
+      "rsn"
+     ],
+     [
+      "subtract",
+      "difference",
+      "cancel"
+     ],
+     [
+      "a(r^n − 1)/(r − 1)",
+      "a(r^n-1)/(r-1)",
+      "sum formula"
+     ]
+    ],
+    "praise": "Multiply by r, subtract, and nearly everything cancels. 2²⁰ − 1 grains it is!",
+    "nudge": "What happens when you subtract Sₙ from rSₙ?"
+   }
+  },
+  {
+   "id": "g11-maths-08-05",
+   "title": "Arithmetic and geometric means",
+   "covers": [
+    "c8.4.1",
+    "c8.5.8",
+    "c8.5.9"
+   ],
+   "learn": {
+    "hook": "Average of 4 and 16? The everyday average says 10. The geometric mean says 8. Both are useful — and they are always in the same order.",
+    "points": [
+     "Arithmetic mean of a and b: A = (a + b)/2, so a, A, b are in A.P.",
+     "Geometric mean of positive a and b: G = √(ab), so a, G, b are in G.P.",
+     "Inserting n geometric means G₁, …, Gₙ between a and b makes a G.P. of n + 2 terms: b = arⁿ⁺¹, so r = (b/a)^(1/(n + 1)).",
+     "Example: 3 G.M.s between 1 and 256: r⁴ = 256, r = 4: 4, 16, 64.",
+     "The G.M. of 4 and 9 is 6; the A.M. is 6.5."
+    ],
+    "example": {
+     "q": "Insert two geometric means between 3 and 81.",
+     "steps": [
+      "Four terms: 3, G₁, G₂, 81.",
+      "81 = 3r³ ⇒ r³ = 27 ⇒ r = 3.",
+      "G₁ = 9, G₂ = 27."
+     ],
+     "answer": "9 and 27"
+    },
+    "reallife": "Economists use the geometric mean to average growth rates — a GDP growth of 10% then −10% averages out below zero, not to zero."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Means",
+     "items": [
+      {
+       "q": "A.M. of 6 and 14",
+       "a": "10",
+       "check": "10"
+      },
+      {
+       "q": "G.M. of 4 and 9",
+       "a": "6",
+       "check": "6"
+      },
+      {
+       "q": "G.M. of 2 and 32",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "A.M. of 2 and 32",
+       "a": "17",
+       "check": "17"
+      },
+      {
+       "q": "G.M. of 1 and 49",
+       "a": "7",
+       "check": "7"
+      },
+      {
+       "q": "A.M. of −3 and 9",
+       "a": "3",
+       "check": "3"
+      }
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Insert the means",
+     "items": [
+      {
+       "text": "2 G.M.s between 2 and 54: 2, ___, 18, 54",
+       "answer": "6",
+       "options": [
+        "6",
+        "9",
+        "12"
+       ]
+      },
+      {
+       "text": "3 G.M.s between 1 and 16: 1, 2, ___, 8, 16",
+       "answer": "4",
+       "options": [
+        "4",
+        "6",
+        "3"
+       ]
+      },
+      {
+       "text": "G.M. between 5 and 125 is ___",
+       "answer": "25",
+       "options": [
+        "25",
+        "65",
+        "50"
+       ]
+      },
+      {
+       "text": "A.M. between 5 and 125 is ___",
+       "answer": "65",
+       "options": [
+        "65",
+        "25",
+        "60"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the geometric mean of 3 and 27?",
+     "options": [
+      "9",
+      "12",
+      "81",
+      "15"
+     ],
+     "answer": 0,
+     "explain": "G = √(3 × 27) = √81 = 9.",
+     "mistake": "Gives the arithmetic mean 15",
+     "check": "9"
+    },
+    {
+     "q": "What is the arithmetic mean of 7 and 19?",
+     "options": [
+      "√133",
+      "13",
+      "26",
+      "12"
+     ],
+     "answer": 1,
+     "explain": "(7 + 19)/2 = 13.",
+     "mistake": "Forgets to divide by 2",
+     "check": "13"
+    },
+    {
+     "q": "Insert three geometric means between 2 and 32. The middle one is:",
+     "options": [
+      "17",
+      "4",
+      "16",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "r⁴ = 32/2 = 16 ⇒ r = 2: 2, 4, 8, 16, 32. The middle mean is 8.",
+     "mistake": "Uses r³ = 16",
+     "check": "8"
+    },
+    {
+     "q": "If 4 geometric means are inserted between 1/3 and 81, what is the common ratio?",
+     "options": [
+      "9",
+      "27",
+      "3",
+      "243"
+     ],
+     "answer": 2,
+     "explain": "6 terms: 81 = (1/3)r⁵ ⇒ r⁵ = 243 ⇒ r = 3.",
+     "mistake": "Uses r⁴ for 4 means",
+     "check": "3"
+    },
+    {
+     "q": "The geometric mean of 2 and 8 is:",
+     "options": [
+      "6",
+      "16",
+      "5",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "√(2 × 8) = √16 = 4.",
+     "mistake": "Adds and halves",
+     "check": "4"
+    },
+    {
+     "q": "If the G.M. of x and 16 is 8, then x is:",
+     "options": [
+      "8",
+      "64",
+      "4",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "√(16x) = 8 ⇒ 16x = 64 ⇒ x = 4.",
+     "mistake": "Halves 8",
+     "check": "4"
+    },
+    {
+     "q": "Between which pair of numbers is the A.M. equal to the G.M.?",
+     "options": [
+      "2 and 8",
+      "1 and 9",
+      "4 and 9",
+      "5 and 5"
+     ],
+     "answer": 3,
+     "explain": "A = G only when the numbers are equal. For 4 and 9: A = 6.5, G = 6.",
+     "mistake": "Thinks A = G for any pair of squares"
+    },
+    {
+     "q": "How many terms does the G.P. have after inserting n geometric means between a and b?",
+     "options": [
+      "n",
+      "2n",
+      "n + 2",
+      "n + 1"
+     ],
+     "answer": 2,
+     "explain": "The two given numbers a and b plus the n means make n + 2 terms.",
+     "mistake": "Forgets to include a and b"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wants the 'middle' number between 4 and 16 in a G.P. Explain arithmetic and geometric means and how to insert G.M.s.",
+    "must": [
+     [
+      "(a + b)/2",
+      "add and halve",
+      "arithmetic mean"
+     ],
+     [
+      "√(ab)",
+      "square root of ab",
+      "geometric mean",
+      "root of product"
+     ],
+     [
+      "common ratio",
+      "r^(n+1)",
+      "n + 2 terms"
+     ]
+    ],
+    "praise": "A.M. adds and halves, G.M. multiplies and roots. Inserting means is just finding r!",
+    "nudge": "To insert n means between a and b, how many terms does the G.P. have?"
+   }
+  },
+  {
+   "id": "g11-maths-08-06",
+   "title": "G.P. in real life and G.P. proofs",
+   "covers": [
+    "c8.5.10",
+    "c8.5.11"
+   ],
+   "learn": {
+    "hook": "Bacteria in a lab, money in a fixed deposit, the value of a used scooter — they all multiply by the same factor each period.",
+    "points": [
+     "Growth: P, Pk, Pk², … with k > 1 (e.g. bacteria tripling: k = 3).",
+     "Compound interest: ₹P at r% per year becomes P(1 + r/100)ⁿ after n years — the (n + 1)th term of a G.P.",
+     "Depreciation at r% per year: value after n years = P(1 − r/100)ⁿ.",
+     "Ancestors: 2 parents, 4 grandparents, 8 great-grandparents, … (assuming no common ancestors).",
+     "Proof idea: to show x, y, z are in G.P., show y² = xz (or y/x = z/y). E.g. if a, b, c are in G.P. then b² = ac, so (b²)² = a²c², and a², b², c² are in G.P."
+    ],
+    "example": {
+     "q": "A culture starts with 50 bacteria, and the number triples every hour. How many are there after 4 hours?",
+     "steps": [
+      "After 1 hour: 150; the sequence is 50, 150, 450, …",
+      "After 4 hours: 50 × 3⁴.",
+      "= 50 × 81 = 4050."
+     ],
+     "answer": "4050"
+    },
+    "reallife": "A car bought for ₹8,00,000 that loses 20% of its value each year is worth 8,00,000 × (0.8)³ = ₹4,09,600 after 3 years — used-car dealers apply this formula every day."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Model ↔ formula",
+     "pairs": [
+      [
+       "₹P at r% compound interest, n years",
+       "P(1 + r/100)ⁿ"
+      ],
+      [
+       "Value after r% depreciation, n years",
+       "P(1 − r/100)ⁿ"
+      ],
+      [
+       "Bacteria doubling, after n hours",
+       "P × 2ⁿ"
+      ],
+      [
+       "Ancestors in the kth generation back",
+       "2ᵏ"
+      ],
+      [
+       "Test for x, y, z in G.P.",
+       "y² = xz"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Prove: if a, b, c, d are in G.P., then ab, bc, cd are in G.P.",
+     "prompt": "Arrange the proof",
+     "items": [
+      "Let the common ratio be r: b = ar, c = ar², d = ar³",
+      "ab = a²r, bc = a²r³, cd = a²r⁵",
+      "bc/ab = r² and cd/bc = r²",
+      "Equal ratios, so ab, bc, cd are in G.P."
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "₹1000 is deposited at 10% per year compound interest. What is the amount after 3 years?",
+     "options": [
+      "₹1210",
+      "₹1100",
+      "₹1331",
+      "₹1300"
+     ],
+     "answer": 2,
+     "explain": "1000 × (1.1)³ = 1000 × 1.331 = 1331.",
+     "mistake": "Uses simple interest",
+     "check": "1000*Fraction(11,10)**3"
+    },
+    {
+     "q": "A scooter worth ₹60,000 depreciates by 10% every year. What is its value after 2 years?",
+     "options": [
+      "₹48,000",
+      "₹42,000",
+      "₹48,600",
+      "₹54,000"
+     ],
+     "answer": 2,
+     "explain": "60000 × (0.9)² = 60000 × 0.81 = 48,600.",
+     "mistake": "Subtracts 10% of the original value each year",
+     "check": "60000*Fraction(81,100)"
+    },
+    {
+     "q": "Counting parents, grandparents and so on (no common ancestors), how many ancestors does a person have in the previous 5 generations?",
+     "options": [
+      "32",
+      "62",
+      "64",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "2 + 4 + 8 + 16 + 32 = 2(2⁵ − 1)/(2 − 1) = 62.",
+     "mistake": "Counts only the 5th generation",
+     "check": "2*(2**5-1)"
+    },
+    {
+     "q": "A bacteria culture doubles every hour. If there are 3200 after 5 hours, how many were there at the start?",
+     "options": [
+      "160",
+      "640",
+      "100",
+      "200"
+     ],
+     "answer": 2,
+     "explain": "P × 2⁵ = 3200 ⇒ P = 100.",
+     "mistake": "Divides by 2 × 5 = 10",
+     "check": "3200/32"
+    },
+    {
+     "q": "If a, b, c are in G.P., which of these triples is also always in G.P.?",
+     "options": [
+      "a + 1, b + 1, c + 1",
+      "2a, b, 2c",
+      "a², b², c²",
+      "a + b, b + c, c + a"
+     ],
+     "answer": 2,
+     "explain": "b² = ac ⇒ (b²)² = a²c², so a², b², c² are in G.P.",
+     "mistake": "Thinks adding a constant keeps a G.P."
+    },
+    {
+     "q": "If 1, x, 9 are in G.P. with x > 0, then x is:",
+     "options": [
+      "3",
+      "5",
+      "4.5",
+      "9"
+     ],
+     "answer": 0,
+     "explain": "x² = 1 × 9 ⇒ x = 3.",
+     "mistake": "Uses the A.M. 5",
+     "check": "3"
+    },
+    {
+     "q": "A ball dropped from 81 m rebounds to 2/3 of its height each time. How high does it rise after the 3rd bounce?",
+     "options": [
+      "54 m",
+      "36 m",
+      "16 m",
+      "24 m"
+     ],
+     "answer": 3,
+     "explain": "81 × (2/3)³ = 81 × 8/27 = 24 m.",
+     "mistake": "Stops after 2 bounces (36 m)",
+     "check": "81*Fraction(8,27)"
+    },
+    {
+     "q": "The population of a town grows by 5% per year from 20,000. Which expression gives the population after 6 years?",
+     "options": [
+      "20000 × (1.05)⁵",
+      "20000 + 6 × 1000",
+      "20000 × 1.05 × 6",
+      "20000 × (1.05)⁶"
+     ],
+     "answer": 3,
+     "explain": "Each year multiplies by 1.05, six times.",
+     "mistake": "Treats compound growth as simple growth"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu's grandfather put ₹1000 in a bank at 10% compound interest. Explain why the yearly amounts form a G.P. and how to prove three numbers are in G.P.",
+    "must": [
+     [
+      "multiply",
+      "same factor",
+      "ratio"
+     ],
+     [
+      "compound",
+      "1.1",
+      "(1 + r/100)"
+     ],
+     [
+      "y² = xz",
+      "b² = ac",
+      "middle term squared"
+     ]
+    ],
+    "praise": "Each year multiplies by 1.1 — that's a G.P.! And b² = ac proves it. Grandpa will be proud.",
+    "nudge": "What do you check to prove x, y, z are in G.P.?"
+   }
+  },
+  {
+   "id": "g11-maths-08-07",
+   "title": "The A.M.–G.M. inequality",
+   "covers": [
+    "c8.6.1",
+    "c8.6.2",
+    "c8.6.3",
+    "c8.6.4"
+   ],
+   "learn": {
+    "hook": "For any two positive numbers, the arithmetic mean is never smaller than the geometric mean. This tiny fact solves optimisation puzzles from fencing to packaging.",
+    "points": [
+     "For positive a and b: A = (a + b)/2 and G = √(ab).",
+     "Proof: A − G = (a + b)/2 − √(ab) = (√a − √b)²/2 ≥ 0. So A ≥ G, with equality exactly when a = b.",
+     "Given A and G, the numbers are the roots of x² − 2Ax + G² = 0, i.e. A ± √(A² − G²).",
+     "Ratio problems: if A : G is given, write a and b in terms of √a and √b, or use a + b = 2A and ab = G².",
+     "For a G.P. of n terms with sum S, product P and sum of reciprocals R: P²Rⁿ = Sⁿ."
+    ],
+    "example": {
+     "q": "The A.M. and G.M. of two positive numbers are 10 and 8. Find the numbers.",
+     "steps": [
+      "a + b = 20 and ab = 64.",
+      "They are the roots of x² − 20x + 64 = 0.",
+      "(x − 16)(x − 4) = 0."
+     ],
+     "answer": "16 and 4"
+    },
+    "reallife": "A farmer near Nashik fencing a rectangular field with 100 m of wire gets the largest area by making it a square — AM ≥ GM says xy ≤ ((x + y)/2)²."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Prove A ≥ G",
+     "prompt": "Arrange the steps",
+     "items": [
+      "A − G = (a + b)/2 − √(ab)",
+      "= (a + b − 2√(ab))/2",
+      "= (√a − √b)²/2",
+      "A square is never negative, so A − G ≥ 0",
+      "Equality when √a = √b, i.e. a = b"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "A.M. vs G.M.",
+     "items": [
+      [
+       "For 2 and 8, A = 5 and G = 4, so A > G.",
+       true,
+       "(2 + 8)/2 = 5 and √16 = 4."
+      ],
+      [
+       "A.M. can be less than G.M. for some positive numbers.",
+       false,
+       "A − G = (√a − √b)²/2 is never negative."
+      ],
+      [
+       "A = G when the two numbers are equal.",
+       true,
+       "Then (√a − √b)² = 0."
+      ],
+      [
+       "If A = 13 and G = 12, the numbers are 18 and 8.",
+       true,
+       "a + b = 26, ab = 144: roots of x² − 26x + 144 = 0 are 18 and 8."
+      ],
+      [
+       "A.M. ≥ G.M. holds for negative numbers too.",
+       false,
+       "The result is stated for positive numbers; √(ab) may not even be real otherwise."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The A.M. of two positive numbers is 25 and their G.M. is 20. What is the larger number?",
+     "options": [
+      "45",
+      "35",
+      "40",
+      "30"
+     ],
+     "answer": 2,
+     "explain": "a + b = 50, ab = 400 ⇒ x² − 50x + 400 = 0 ⇒ x = 40 or 10.",
+     "mistake": "Doubles the G.M.",
+     "check": "40"
+    },
+    {
+     "q": "Which expression equals A − G for positive a, b?",
+     "options": [
+      "(a − b)/2",
+      "(a − b)²/2",
+      "(√a − √b)²/2",
+      "(√a + √b)²/2"
+     ],
+     "answer": 2,
+     "explain": "(a + b)/2 − √(ab) = (a − 2√(ab) + b)/2 = (√a − √b)²/2.",
+     "mistake": "Forgets the square roots"
+    },
+    {
+     "q": "If the ratio A.M. : G.M. of two positive numbers is 5 : 4, then the numbers are in the ratio:",
+     "options": [
+      "2 : 1",
+      "9 : 1",
+      "5 : 4",
+      "4 : 1"
+     ],
+     "answer": 3,
+     "explain": "Let a + b = 10k, √(ab) = 4k ⇒ ab = 16k². a, b = 8k, 2k, ratio 4 : 1. (Check 4 and 1: A = 2.5, G = 2.)",
+     "mistake": "Copies the ratio of the means"
+    },
+    {
+     "q": "For positive x, what is the least value of x + 9/x?",
+     "options": [
+      "6",
+      "9",
+      "10",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "AM ≥ GM: (x + 9/x)/2 ≥ √9 = 3, so x + 9/x ≥ 6, reached at x = 3.",
+     "mistake": "Takes the least value as 9",
+     "check": "6"
+    },
+    {
+     "q": "The A.M. and G.M. of two numbers are 15 and 9. What is their product?",
+     "options": [
+      "81",
+      "30",
+      "225",
+      "18"
+     ],
+     "answer": 0,
+     "explain": "G² = ab = 81.",
+     "mistake": "Uses A² = 225",
+     "check": "81"
+    },
+    {
+     "q": "Two positive numbers have sum 26 and G.M. 5. What is the smaller number?",
+     "options": [
+      "5",
+      "13",
+      "1",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "ab = 25, a + b = 26 ⇒ x² − 26x + 25 = 0 ⇒ x = 25 or 1.",
+     "mistake": "Takes the G.M. as one of the numbers",
+     "check": "1"
+    },
+    {
+     "q": "In a G.P. of n terms, S is the sum, P the product and R the sum of reciprocals. Which relation holds?",
+     "options": [
+      "P = SR",
+      "P²Rⁿ = Sⁿ",
+      "PRⁿ = Sⁿ",
+      "P²R = S"
+     ],
+     "answer": 1,
+     "explain": "With S = a(rⁿ − 1)/(r − 1), P = aⁿr^(n(n−1)/2) and R = (rⁿ − 1)/(a rⁿ⁻¹(r − 1)), one checks P²Rⁿ = Sⁿ.",
+     "mistake": "Forgets to square P"
+    },
+    {
+     "q": "Assertion (A): For positive a and b, (a + b)/2 ≥ √(ab).\nReason (R): (√a − √b)² ≥ 0 for all positive a, b.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Expanding R gives a + b ≥ 2√(ab), which is A. So R explains A.",
+     "mistake": "Does not connect the square with the inequality"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu doesn't believe the A.M. is always at least the G.M. Prove it and show how to find two numbers from their A.M. and G.M.",
+    "must": [
+     [
+      "(√a − √b)²",
+      "square",
+      "never negative"
+     ],
+     [
+      "equal",
+      "a = b",
+      "equality"
+     ],
+     [
+      "quadratic",
+      "x² − 2ax",
+      "sum and product"
+     ]
+    ],
+    "praise": "A perfect square can't be negative, so A ≥ G. And the numbers come out of a quadratic. Convinced!",
+    "nudge": "Why is (√a − √b)² never negative, and what does that tell us?"
+   }
+  }
+ ]
+}
