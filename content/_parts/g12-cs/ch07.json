@@ -1,0 +1,865 @@
+{
+ "n": 7,
+ "title": "Database Concepts",
+ "emoji": "🗄️",
+ "topics": [
+  {
+   "id": "g12-cs-07-01",
+   "title": "Why databases? Limits of the file system",
+   "covers": [
+    "c7.1.1",
+    "c7.2.1",
+    "c7.2.2",
+    "c7.2.3",
+    "c7.2.4"
+   ],
+   "learn": {
+    "hook": "A school keeps student details in one file, fees in another and attendance in a third. Then a student changes her phone number, and only one file gets updated. Chaos begins.",
+    "points": [
+     "Organisations such as schools, banks and hospitals must store and manage large amounts of data (student attendance, accounts, patients) in an organised way, so it can be found and updated quickly.",
+     "In a file system, data is kept in separate files, each created and handled by its own program. This leads to problems.",
+     "Difficulty in access: there is no easy way to ask a new question of the data; a new program must be written each time. Data redundancy: the same data (a student's name and address) is stored in several files, wasting space.",
+     "Data inconsistency: redundant copies stop matching when one is updated and another is not. Data isolation: related data is scattered over files of different formats, so combining it is hard. Data dependence: the programs depend on the file's exact structure, so changing the format means rewriting the programs.",
+     "Controlled data sharing is difficult: it is hard to give each kind of user (clerk, teacher, principal) access to only the data they should see."
+    ],
+    "example": {
+     "q": "A student's address is stored in both the fee file and the library file. The fee office updates it; the library does not. Name the two problems shown.",
+     "steps": [
+      "Storing the address in two files is data redundancy",
+      "The two copies now disagree, which is data inconsistency"
+     ],
+     "answer": "Data redundancy and data inconsistency"
+    },
+    "reallife": "Imagine railway booking clerks in different cities each keeping a separate register for the same train: the same berth could easily be sold twice. A single shared database prevents that."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the file-system problem to its meaning",
+     "pairs": [
+      [
+       "Data redundancy",
+       "Same data stored in several files"
+      ],
+      [
+       "Data inconsistency",
+       "Copies of the same data do not match"
+      ],
+      [
+       "Data isolation",
+       "Related data scattered in files of different formats"
+      ],
+      [
+       "Data dependence",
+       "Changing the file format forces program changes"
+      ],
+      [
+       "Difficulty in access",
+       "A new program is needed for each new query"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "File system or DBMS?",
+     "items": [
+      [
+       "In a file system, the same data is often stored in more than one file.",
+       true,
+       "That is data redundancy."
+      ],
+      [
+       "Redundant data can lead to inconsistency.",
+       true,
+       "If one copy is updated and another is not, they disagree."
+      ],
+      [
+       "In a file system, it is easy to control which user sees which data.",
+       false,
+       "Controlled sharing is a known weakness of file systems."
+      ],
+      [
+       "Data dependence means programs must change if the file structure changes.",
+       true,
+       "The programs are tied to the file format."
+      ],
+      [
+       "File systems make it easy to combine data from many files of different formats.",
+       false,
+       "That difficulty is called data isolation."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A customer's phone number is stored in both the billing file and the delivery file of a shop. What is this problem called?",
+     "options": [
+      "Data redundancy",
+      "Data dependence",
+      "Data isolation",
+      "Data security"
+     ],
+     "answer": 0,
+     "explain": "Keeping the same data in more than one file is data redundancy.",
+     "mistake": "Confuses redundancy with isolation"
+    },
+    {
+     "q": "The billing file shows a new phone number for a customer but the delivery file still has the old one. What problem is this?",
+     "options": [
+      "Data inconsistency",
+      "Data independence",
+      "Data redundancy",
+      "Data dependence"
+     ],
+     "answer": 0,
+     "explain": "When copies of the same data disagree, the data is inconsistent.",
+     "mistake": "Names the cause (redundancy) instead of the effect (inconsistency)"
+    },
+    {
+     "q": "A school changes the format of its student file to add a new column, and every program that reads the file must be rewritten. Which limitation is this?",
+     "options": [
+      "Data isolation",
+      "Data sharing",
+      "Data redundancy",
+      "Data dependence"
+     ],
+     "answer": 3,
+     "explain": "Programs tied to the exact file structure show data dependence.",
+     "mistake": "Mixes up dependence with isolation"
+    },
+    {
+     "q": "Related data is spread across a text file, a spreadsheet and a CSV file, each with its own format, making it hard to combine. What is this called?",
+     "options": [
+      "Data integrity",
+      "Data isolation",
+      "Data inconsistency",
+      "Data redundancy"
+     ],
+     "answer": 1,
+     "explain": "Data scattered in different files and formats is isolated.",
+     "mistake": "Thinks isolation means data is kept secret"
+    },
+    {
+     "q": "Why is controlled data sharing difficult in a file system?",
+     "options": [
+      "Files cannot be copied",
+      "File systems store everything in one place",
+      "Files can be opened by only one program in the world",
+      "It is hard to give different users access to only the data they are allowed to see"
+     ],
+     "answer": 3,
+     "explain": "File systems lack fine-grained access control for different kinds of users.",
+     "mistake": "Thinks the problem is copying files rather than access control"
+    },
+    {
+     "q": "A teacher wants a new report listing students with attendance below 75%. In a file system, what is usually required?",
+     "options": [
+      "The data must be deleted",
+      "The file must be converted to binary",
+      "A new program must be written to produce it",
+      "Nothing; the file answers any question"
+     ],
+     "answer": 2,
+     "explain": "Each new query in a file system needs a new application program, which makes access difficult.",
+     "mistake": "Assumes files can be queried as easily as a database"
+    },
+    {
+     "q": "Assertion (A): Data redundancy can lead to data inconsistency.\nReason (R): When the same data is stored in many places, an update made in one place may be missed in another.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Multiple copies mean an update might reach only some of them, so the copies disagree. R explains A.",
+     "mistake": "Treats redundancy and inconsistency as unrelated"
+    },
+    {
+     "q": "Which of these is NOT a limitation of the file system?",
+     "options": [
+      "Data inconsistency",
+      "Easy querying using a standard language like SQL",
+      "Data redundancy",
+      "Data dependence"
+     ],
+     "answer": 1,
+     "explain": "Easy querying with SQL is an advantage of a DBMS, not a limitation of file systems.",
+     "mistake": "Lists a DBMS benefit as a file-system problem"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why can't a school just keep student data in lots of separate files?'",
+    "must": [
+     [
+      "redundancy",
+      "duplicate",
+      "duplication",
+      "same data twice"
+     ],
+     [
+      "inconsistency",
+      "inconsistent",
+      "do not match",
+      "mismatch"
+     ],
+     [
+      "dependence",
+      "isolation",
+      "difficult to access",
+      "difficulty in access",
+      "sharing"
+     ]
+    ],
+    "praise": "Great answer! Separate files cause redundancy, which leads to inconsistency, and they also bring isolation, dependence and access problems.",
+    "nudge": "What happens when the same data sits in many files and only one copy is updated?"
+   }
+  },
+  {
+   "id": "g12-cs-07-02",
+   "title": "Database Management System and its key terms",
+   "covers": [
+    "c7.3.1",
+    "c7.3.2",
+    "c7.3.3",
+    "c7.3.4"
+   ],
+   "learn": {
+    "hook": "When you check your board result online, a DBMS finds your one record among lakhs in a fraction of a second.",
+    "points": [
+     "A database is an organised collection of related data. A DBMS (Database Management System) is software used to create, store, manage and retrieve data in databases. Examples: MySQL, Oracle, PostgreSQL, SQL Server, Microsoft Access.",
+     "Applications: banking (accounts, transactions), railway and airline reservation, library management, school records, hospital patient records, online shopping inventories.",
+     "Database schema: the design or structure of the database (names of tables, their attributes, data types, constraints and relationships). Data constraint: a rule restricting the values that can be stored, such as NOT NULL or UNIQUE. Meta-data (stored in the data dictionary or catalog): data about the data, for example the schema itself.",
+     "Database instance: the actual data in the database at a particular moment. The schema changes rarely; the instance changes with every insert, update or delete.",
+     "Query: a request to retrieve or change data (written in SQL). Data manipulation: inserting, updating and deleting data. Database engine: the core software component that stores the data, runs queries and enforces constraints."
+    ],
+    "example": {
+     "q": "A school database has a table STUDENT(RollNo, Name, Class). On Monday it holds 400 rows; on Friday, 405. What is the schema, and what changed?",
+     "steps": [
+      "The schema is the structure STUDENT(RollNo, Name, Class) with its data types and constraints",
+      "The schema stayed the same during the week",
+      "The instance (the data present at a moment) changed from 400 to 405 rows"
+     ],
+     "answer": "Schema: the table's structure; the instance changed"
+    },
+    "reallife": "IRCTC's ticketing runs on a DBMS that handles a huge number of bookings at once and stops two passengers from being given the same berth."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the DBMS term to its meaning",
+     "pairs": [
+      [
+       "Schema",
+       "Design or structure of the database"
+      ],
+      [
+       "Instance",
+       "Data stored at a particular moment"
+      ],
+      [
+       "Meta-data",
+       "Data about data"
+      ],
+      [
+       "Constraint",
+       "Rule restricting allowed values"
+      ],
+      [
+       "Query",
+       "Request to retrieve or change data"
+      ],
+      [
+       "Database engine",
+       "Core component that runs queries"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "DBMS software or not?",
+     "buckets": [
+      "DBMS software",
+      "Not a DBMS"
+     ],
+     "items": [
+      [
+       "MySQL",
+       0
+      ],
+      [
+       "Oracle",
+       0
+      ],
+      [
+       "PostgreSQL",
+       0
+      ],
+      [
+       "Microsoft Access",
+       0
+      ],
+      [
+       "Python",
+       1
+      ],
+      [
+       "Google Chrome",
+       1
+      ],
+      [
+       "Windows",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is a DBMS?",
+     "options": [
+      "Software used to create, store, manage and retrieve data in databases",
+      "Hardware that stores files",
+      "A programming language for web pages",
+      "A type of network cable"
+     ],
+     "answer": 0,
+     "explain": "A Database Management System is software such as MySQL or Oracle.",
+     "mistake": "Thinks a DBMS is hardware"
+    },
+    {
+     "q": "Which of these is a DBMS?",
+     "options": [
+      "Python",
+      "MySQL",
+      "Linux",
+      "HTML"
+     ],
+     "answer": 1,
+     "explain": "MySQL is a relational database management system.",
+     "mistake": "Confuses a programming language or operating system with a DBMS"
+    },
+    {
+     "q": "What is the 'schema' of a database?",
+     "options": [
+      "The data stored at a moment",
+      "A backup copy",
+      "A query result",
+      "The design or structure of the database"
+     ],
+     "answer": 3,
+     "explain": "The schema describes tables, attributes, data types, constraints and relationships.",
+     "mistake": "Confuses schema with instance"
+    },
+    {
+     "q": "What is a database instance?",
+     "options": [
+      "The DBMS software",
+      "A rule on attribute values",
+      "The state of the data in the database at a particular moment",
+      "The structure of the tables"
+     ],
+     "answer": 2,
+     "explain": "An instance is a snapshot of the stored data. It changes with every insert, update or delete.",
+     "mistake": "Mixes up instance and schema"
+    },
+    {
+     "q": "What is meta-data?",
+     "options": [
+      "Duplicate data",
+      "Data about data, such as the schema stored in the data dictionary",
+      "Data that is deleted",
+      "Encrypted data"
+     ],
+     "answer": 1,
+     "explain": "Meta-data describes the data, for example column names and types, and is kept in the data dictionary.",
+     "mistake": "Thinks meta-data is a backup"
+    },
+    {
+     "q": "Which of these is an example of a data constraint?",
+     "options": [
+      "Marks cannot be NULL",
+      "The query sorts by name",
+      "The database is stored on drive D",
+      "The table has 50 rows"
+     ],
+     "answer": 0,
+     "explain": "A constraint restricts the values allowed in a column, here forbidding NULL.",
+     "mistake": "Confuses a constraint with a fact about the data"
+    },
+    {
+     "q": "Inserting a new record, changing a phone number and deleting an old record are all examples of what?",
+     "options": [
+      "Database schema",
+      "Meta-data",
+      "Data manipulation",
+      "Data definition"
+     ],
+     "answer": 2,
+     "explain": "Insert, update and delete are data manipulation operations.",
+     "mistake": "Confuses changing the data with changing the structure"
+    },
+    {
+     "q": "Assertion (A): The schema of a database changes every time a new row is inserted.\nReason (R): The instance of a database is the data stored in it at a given moment.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "A is false: inserting a row changes the instance, not the schema. R is true and is the correct definition of an instance.",
+     "mistake": "Thinks schema and instance are the same thing"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between a database schema and a database instance?'",
+    "must": [
+     [
+      "schema",
+      "structure",
+      "design",
+      "blueprint"
+     ],
+     [
+      "instance",
+      "data at a moment",
+      "snapshot",
+      "current data",
+      "particular moment"
+     ]
+    ],
+    "praise": "Excellent! The schema is the structure of the database; the instance is the data it holds at a given moment.",
+    "nudge": "Which one is the design, and which one is the actual data right now?"
+   }
+  },
+  {
+   "id": "g12-cs-07-03",
+   "title": "The relational data model: relations, tuples, degree and cardinality",
+   "covers": [
+    "c7.4.1",
+    "c7.4.2",
+    "c7.4.3",
+    "c7.4.4",
+    "c7.4.5"
+   ],
+   "learn": {
+    "hook": "Every SQL question starts with a table. Learn to read a table the way the relational model does, and degree and cardinality become free marks.",
+    "points": [
+     "In the relational model, data is stored in relations (tables) made of rows and columns.",
+     "Attribute: a column (e.g. Name). Tuple: a row (one record). Domain: the set of allowed values for an attribute (e.g. Class from 1 to 12).",
+     "Degree: the number of attributes (columns). Cardinality: the number of tuples (rows). A table with 5 columns and 30 rows has degree 5 and cardinality 30.",
+     "Properties of a relation: every attribute has a unique name; the order of attributes does not matter; every tuple is distinct (no two rows are identical); the order of tuples does not matter; each value is atomic (a single value, not a list) and comes from the attribute's domain.",
+     "NULL is a special value meaning 'unknown' or 'not applicable'. It is not zero and not an empty string."
+    ],
+    "example": {
+     "q": "A table CUSTOMER has the columns CustID, Name, City, Phone and holds 120 customers. Find its degree and cardinality.",
+     "steps": [
+      "Degree = number of columns = 4",
+      "Cardinality = number of rows = 120"
+     ],
+     "answer": "Degree 4, cardinality 120"
+    },
+    "reallife": "An Aadhaar-style registry can be imagined as one giant relation: each person is a tuple and attributes such as name and date of birth are columns."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the relational term to its meaning",
+     "pairs": [
+      [
+       "Relation",
+       "Table"
+      ],
+      [
+       "Attribute",
+       "Column"
+      ],
+      [
+       "Tuple",
+       "Row"
+      ],
+      [
+       "Domain",
+       "Set of allowed values for a column"
+      ],
+      [
+       "Degree",
+       "Number of columns"
+      ],
+      [
+       "Cardinality",
+       "Number of rows"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Properties of a relation",
+     "items": [
+      [
+       "Two tuples in a relation can be exactly identical.",
+       false,
+       "Every tuple must be distinct."
+      ],
+      [
+       "The order of rows in a relation does not matter.",
+       true,
+       "A relation is a set of tuples."
+      ],
+      [
+       "Each cell must hold a single (atomic) value.",
+       true,
+       "A cell cannot hold a list of values."
+      ],
+      [
+       "Two attributes in the same relation can have the same name.",
+       false,
+       "Attribute names must be unique within a relation."
+      ],
+      [
+       "NULL means the same as zero.",
+       false,
+       "NULL means unknown or not applicable."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A table has 6 columns and 25 rows. What is its degree?",
+     "options": [
+      "25",
+      "6",
+      "150",
+      "31"
+     ],
+     "answer": 1,
+     "explain": "Degree is the number of attributes (columns).",
+     "mistake": "Swaps degree and cardinality",
+     "check": "6"
+    },
+    {
+     "q": "A table has 6 columns and 25 rows. What is its cardinality?",
+     "options": [
+      "6",
+      "25",
+      "150",
+      "31"
+     ],
+     "answer": 1,
+     "explain": "Cardinality is the number of tuples (rows).",
+     "mistake": "Multiplies rows by columns",
+     "check": "25"
+    },
+    {
+     "q": "In the relational model, what is a tuple?",
+     "options": [
+      "A table",
+      "A row",
+      "A key",
+      "A column"
+     ],
+     "answer": 1,
+     "explain": "A tuple is a single row, representing one record.",
+     "mistake": "Confuses tuple with attribute"
+    },
+    {
+     "q": "What is the domain of an attribute?",
+     "options": [
+      "The set of values the attribute is allowed to take",
+      "Its column heading",
+      "The number of rows",
+      "The website address of the database"
+     ],
+     "answer": 0,
+     "explain": "The domain lists the permissible values, such as 1 to 12 for Class.",
+     "mistake": "Confuses a database domain with an Internet domain"
+    },
+    {
+     "q": "Two rows are added and one column is dropped from a table that had degree 5 and cardinality 10. What are its new degree and cardinality?",
+     "options": [
+      "Degree 4, cardinality 10",
+      "Degree 6, cardinality 9",
+      "Degree 4, cardinality 12",
+      "Degree 7, cardinality 9"
+     ],
+     "answer": 2,
+     "explain": "Dropping a column reduces the degree to 4; adding two rows raises the cardinality to 12.",
+     "mistake": "Applies the row change to the degree"
+    },
+    {
+     "q": "A student's email address is not yet known when her record is entered. What value is stored for Email?",
+     "options": [
+      "0",
+      "The value 'NONE' in capitals is required",
+      "NULL",
+      "An error"
+     ],
+     "answer": 2,
+     "explain": "NULL represents a value that is unknown or not applicable.",
+     "mistake": "Thinks unknown values must be stored as zero"
+    },
+    {
+     "q": "Which of these is NOT a property of a relation?",
+     "options": [
+      "Each tuple is distinct",
+      "Attribute names are unique",
+      "Values are atomic",
+      "Rows must be stored in ascending order of the first column"
+     ],
+     "answer": 3,
+     "explain": "The order of rows does not matter in a relation.",
+     "mistake": "Thinks tables are always sorted"
+    },
+    {
+     "q": "Assertion (A): A cell in a relation cannot store the list ['Maths', 'Physics'].\nReason (R): Every value in a relation must be atomic.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Atomic means a single, indivisible value, so a list in one cell breaks the rule. R explains A.",
+     "mistake": "Does not link atomic values to single-valued cells"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What do degree and cardinality of a table mean?'",
+    "must": [
+     [
+      "degree",
+      "columns",
+      "attributes"
+     ],
+     [
+      "cardinality",
+      "rows",
+      "tuples",
+      "records"
+     ]
+    ],
+    "praise": "Perfect! Degree is the number of columns (attributes) and cardinality is the number of rows (tuples).",
+    "nudge": "Which one counts columns and which one counts rows?"
+   }
+  },
+  {
+   "id": "g12-cs-07-04",
+   "title": "Keys: candidate, primary, alternate, composite and foreign",
+   "covers": [
+    "c7.5.1",
+    "c7.5.2",
+    "c7.5.3",
+    "c7.5.4",
+    "c7.5.5",
+    "c7.5.6"
+   ],
+   "learn": {
+    "hook": "Two students named Priya Sharma in the same class? The database doesn't panic, because it never relies on names. It relies on keys.",
+    "points": [
+     "Candidate key: an attribute (or set of attributes) whose values uniquely identify each tuple, e.g. RollNo, AadhaarNo or Email in a STUDENT table.",
+     "Primary key: the candidate key chosen to identify tuples. It must be unique and cannot be NULL. Alternate keys: the candidate keys that were not chosen as the primary key.",
+     "Composite primary key: a primary key made of two or more attributes, used when no single attribute is unique. In ATTENDANCE(RollNo, AttDate, Status), neither RollNo nor AttDate alone is unique, but (RollNo, AttDate) is.",
+     "Foreign key: an attribute in one relation that refers to the primary key of another relation, linking the two. Referential integrity: every foreign-key value must match an existing primary-key value in the referenced table (or be NULL, where allowed).",
+     "Exam tasks: identify the candidate, primary, alternate and foreign keys and the degree and cardinality of given tables, and list the differences between a file system and a DBMS."
+    ],
+    "example": {
+     "q": "Tables: STUDENT(RollNo, Name, Email, ClassID) and CLASS(ClassID, ClassTeacher). Roll numbers and emails are both unique. Identify the keys.",
+     "steps": [
+      "Candidate keys of STUDENT: RollNo and Email",
+      "Choose RollNo as the primary key, so Email is an alternate key",
+      "ClassID is the primary key of CLASS",
+      "ClassID in STUDENT refers to CLASS, so it is a foreign key"
+     ],
+     "answer": "Primary key RollNo, alternate key Email, foreign key ClassID"
+    },
+    "reallife": "A bank uses your account number as a primary key. Your transactions table stores that account number as a foreign key, so every transaction links back to exactly one account."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which key is it? STUDENT(RollNo, Name, Email, ClassID); RollNo is the primary key",
+     "buckets": [
+      "Primary key",
+      "Alternate key",
+      "Foreign key"
+     ],
+     "items": [
+      [
+       "RollNo in STUDENT",
+       0
+      ],
+      [
+       "ClassID in CLASS",
+       0
+      ],
+      [
+       "Email in STUDENT",
+       1
+      ],
+      [
+       "ClassID in STUDENT (refers to CLASS)",
+       2
+      ],
+      [
+       "RollNo in a FEES table that refers to STUDENT",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Key facts",
+     "items": [
+      [
+       "A primary key can contain NULL values.",
+       false,
+       "A primary key must be unique and NOT NULL."
+      ],
+      [
+       "A table can have more than one candidate key.",
+       true,
+       "Any attribute set that uniquely identifies rows is a candidate key."
+      ],
+      [
+       "A candidate key that is not chosen as primary key is an alternate key.",
+       true,
+       "That is the definition of an alternate key."
+      ],
+      [
+       "A foreign key must refer to the primary key of another (or the same) table.",
+       true,
+       "It links the tables."
+      ],
+      [
+       "A composite key is made of exactly one attribute.",
+       false,
+       "A composite key has two or more attributes."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In EMPLOYEE(EmpID, Name, PAN, Dept), both EmpID and PAN are unique for every employee. If EmpID is chosen as the primary key, what is PAN?",
+     "options": [
+      "Foreign key",
+      "Composite key",
+      "Alternate key",
+      "Not a key"
+     ],
+     "answer": 2,
+     "explain": "PAN is a candidate key that was not chosen, which makes it an alternate key.",
+     "mistake": "Calls every unique non-primary attribute a foreign key"
+    },
+    {
+     "q": "Which property must a primary key always have?",
+     "options": [
+      "It must be numeric",
+      "It must be a foreign key",
+      "It must be unique and not NULL",
+      "It must be the first column"
+     ],
+     "answer": 2,
+     "explain": "A primary key uniquely identifies each tuple, so it can neither repeat nor be NULL.",
+     "mistake": "Thinks primary keys must be numbers or the first column"
+    },
+    {
+     "q": "In ATTENDANCE(RollNo, AttDate, Status), a student has one record per day. Which is the most suitable primary key?",
+     "options": [
+      "AttDate",
+      "(RollNo, AttDate)",
+      "RollNo",
+      "Status"
+     ],
+     "answer": 1,
+     "explain": "RollNo repeats across days and AttDate repeats across students; together they are unique. This is a composite primary key.",
+     "mistake": "Picks a single attribute that repeats"
+    },
+    {
+     "q": "ORDERS(OrderNo, OrderDate, CustID) and CUSTOMER(CustID, Name, City). Which attribute in ORDERS is a foreign key?",
+     "options": [
+      "Name",
+      "CustID",
+      "OrderDate",
+      "OrderNo"
+     ],
+     "answer": 1,
+     "explain": "CustID in ORDERS refers to the primary key CustID of CUSTOMER.",
+     "mistake": "Chooses the primary key of ORDERS instead"
+    },
+    {
+     "q": "What does referential integrity ensure?",
+     "options": [
+      "Data is encrypted",
+      "All columns have unique names",
+      "Every table has at least one row",
+      "A foreign-key value always matches an existing primary-key value in the referenced table (or is NULL where allowed)"
+     ],
+     "answer": 3,
+     "explain": "Referential integrity stops records from pointing to rows that do not exist.",
+     "mistake": "Confuses referential integrity with other constraints"
+    },
+    {
+     "q": "A table BOOK has the candidate keys ISBN and AccessionNo. AccessionNo is made the primary key. How many alternate keys does BOOK have?",
+     "options": [
+      "2",
+      "3",
+      "0",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "Of the two candidate keys, one is primary, so the other (ISBN) is the single alternate key.",
+     "mistake": "Counts the primary key as an alternate key too",
+     "check": "2-1"
+    },
+    {
+     "q": "Which of these is a key difference between a file system and a DBMS?",
+     "options": [
+      "A file system supports SQL queries; a DBMS does not",
+      "A DBMS cannot store large data",
+      "A DBMS reduces redundancy and allows controlled sharing; a file system does not",
+      "There is no difference"
+     ],
+     "answer": 2,
+     "explain": "A DBMS centralises data, reducing redundancy and inconsistency, and controls who can access what.",
+     "mistake": "Credits SQL support to file systems"
+    },
+    {
+     "q": "Assertion (A): A foreign key column may contain the same value in many rows.\nReason (R): A foreign key must be unique in its own table.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true: many orders can share one CustID. R is false: a foreign key need not be unique in its own table; it only has to match a primary key in the referenced table.",
+     "mistake": "Confuses the rules for foreign keys with those for primary keys"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between a primary key and a foreign key?'",
+    "must": [
+     [
+      "primary key",
+      "uniquely identifies",
+      "unique",
+      "not null"
+     ],
+     [
+      "foreign key",
+      "refers",
+      "references",
+      "another table",
+      "links"
+     ]
+    ],
+    "praise": "Brilliant! A primary key uniquely identifies rows in its own table, while a foreign key refers to the primary key of another table.",
+    "nudge": "Which key identifies rows in its own table, and which one points to another table?"
+   }
+  }
+ ]
+}

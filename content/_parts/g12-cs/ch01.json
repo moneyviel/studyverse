@@ -1,0 +1,1780 @@
+{
+ "n": 1,
+ "title": "Python Revision and Functions",
+ "emoji": "🐍",
+ "topics": [
+  {
+   "id": "g12-cs-01-01",
+   "title": "Tokens, data types and type conversion",
+   "covers": [
+    "c1.1.1",
+    "c1.1.2",
+    "c1.1.4"
+   ],
+   "learn": {
+    "hook": "Your board paper's first section loves one trap: input() looks like it reads a number, but it never does. Let's lock in the basics that every Python program is built from.",
+    "points": [
+     "Tokens are the smallest units of a program: keywords (if, def, True, None), identifiers (names you choose), literals (10, 3.5, 'Hi', True, None), operators (+, ==, and) and punctuators ( ( ) [ ] : , ).",
+     "Identifier rules: letters, digits and underscore only; cannot start with a digit; cannot be a keyword; case-sensitive (Marks and marks are different). Comments start with # and are ignored by Python.",
+     "Core data types: int, float, complex (3+4j), bool (True/False), str, list, tuple, dict and NoneType (the value None). type(x) tells you the type.",
+     "Mutable types can be changed in place: list, dict (and set). Immutable types cannot: int, float, complex, bool, str, tuple.",
+     "Implicit conversion: Python widens automatically, e.g. 2 + 3.0 gives 5.0 (float). Explicit conversion (type casting): int(), float(), str(), list(), tuple(). int(7.9) gives 7 (it drops the decimal part), and input() always returns a str."
+    ],
+    "example": {
+     "q": "Aman runs: n = input('Enter a number: ') and types 7. What do print(n * 2) and print(int(n) * 2) show?",
+     "steps": [
+      "input() returns the string '7', not the number 7.",
+      "A string times 2 repeats it: '7' * 2 = '77'.",
+      "int(n) converts '7' to 7, so int(n) * 2 = 14."
+     ],
+     "answer": "77 and then 14"
+    },
+    "reallife": "When IRCTC asks for your age in a form, it receives text. The server must convert that text to a number before checking whether you qualify for a senior-citizen concession."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Mutable or immutable?",
+     "buckets": [
+      "Mutable",
+      "Immutable"
+     ],
+     "items": [
+      [
+       "list",
+       0
+      ],
+      [
+       "dict",
+       0
+      ],
+      [
+       "set",
+       0
+      ],
+      [
+       "tuple",
+       1
+      ],
+      [
+       "str",
+       1
+      ],
+      [
+       "int",
+       1
+      ],
+      [
+       "float",
+       1
+      ],
+      [
+       "bool",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the literal to its type",
+     "pairs": [
+      [
+       "3.0",
+       "float"
+      ],
+      [
+       "'Pune'",
+       "str"
+      ],
+      [
+       "2+5j",
+       "complex"
+      ],
+      [
+       "None",
+       "NoneType"
+      ],
+      [
+       "(5,)",
+       "tuple"
+      ],
+      [
+       "{'a': 1}",
+       "dict"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is a valid Python identifier?",
+     "options": [
+      "for",
+      "total_marks",
+      "my-name",
+      "2nd_value"
+     ],
+     "answer": 1,
+     "explain": "total_marks uses only letters and an underscore and does not start with a digit. '2nd_value' starts with a digit, 'for' is a keyword and '-' is not allowed in a name.",
+     "mistake": "Forgets that identifiers cannot start with a digit or contain a hyphen"
+    },
+    {
+     "q": "What is the output?\nprint(type(7 / 2))",
+     "options": [
+      "<class 'double'>",
+      "<class 'str'>",
+      "<class 'int'>",
+      "<class 'float'>"
+     ],
+     "answer": 3,
+     "explain": "The / operator always gives a float in Python 3, even when both operands are int.",
+     "mistake": "Thinks / between two ints gives an int, as // does"
+    },
+    {
+     "q": "Which of these data types is immutable?",
+     "options": [
+      "dict",
+      "list",
+      "set",
+      "tuple"
+     ],
+     "answer": 3,
+     "explain": "A tuple cannot be changed after it is created. Lists, dictionaries and sets can be modified in place.",
+     "mistake": "Confuses tuples with lists because both hold sequences"
+    },
+    {
+     "q": "What is the output?\nx = '5'\ny = 2\nprint(x * y)",
+     "options": [
+      "55",
+      "TypeError",
+      "52",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "x is the string '5'. Multiplying a string by an int repeats it, so '5' * 2 = '55'.",
+     "mistake": "Treats the string '5' as the number 5",
+     "check": "55"
+    },
+    {
+     "q": "What is the output?\nprint(int(7.9) + int('3'))",
+     "options": [
+      "11",
+      "10",
+      "10.9",
+      "ValueError"
+     ],
+     "answer": 1,
+     "explain": "int(7.9) drops the decimal part to give 7, and int('3') converts the string to 3. 7 + 3 = 10.",
+     "steps": [
+      "int(7.9) = 7 (truncates)",
+      "int('3') = 3",
+      "7 + 3 = 10"
+     ],
+     "mistake": "Rounds 7.9 up to 8 instead of truncating it",
+     "check": "7+3"
+    },
+    {
+     "q": "What is the output?\nprint(True + 2)",
+     "options": [
+      "True2",
+      "2",
+      "3",
+      "TypeError"
+     ],
+     "answer": 2,
+     "explain": "bool is a subtype of int, so True behaves like 1 in arithmetic. 1 + 2 = 3. This is implicit conversion.",
+     "mistake": "Thinks booleans cannot take part in arithmetic",
+     "check": "1+2"
+    },
+    {
+     "q": "Assertion (A): name = input() followed by print(name + 1) raises a TypeError even if the user types 5.\nReason (R): input() always returns a string.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "input() returns '5', a str, and Python cannot add a str and an int, so a TypeError is raised. R is exactly why A happens.",
+     "mistake": "Assumes Python converts typed digits to a number automatically"
+    },
+    {
+     "q": "Which of these is NOT a Python keyword?",
+     "options": [
+      "lambda",
+      "None",
+      "print",
+      "elif"
+     ],
+     "answer": 2,
+     "explain": "print is a built-in function, not a keyword. None, elif and lambda are reserved keywords.",
+     "mistake": "Thinks every word Python knows is a keyword"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu flaps in: 'I tried to change a letter inside a string and Python got angry! Why can I change a list but not a string?'",
+    "must": [
+     [
+      "mutable",
+      "can be changed",
+      "changed in place",
+      "modifiable"
+     ],
+     [
+      "immutable",
+      "cannot be changed",
+      "can't be changed",
+      "not changeable"
+     ],
+     [
+      "list",
+      "dictionary",
+      "dict"
+     ],
+     [
+      "string",
+      "str",
+      "tuple"
+     ]
+    ],
+    "praise": "Perfect! Lists and dictionaries are mutable, while strings and tuples are immutable. Gappu will build a new string instead.",
+    "nudge": "Which types can be changed in place, and which cannot? Name one of each."
+   }
+  },
+  {
+   "id": "g12-cs-01-02",
+   "title": "Operators, precedence and control flow",
+   "covers": [
+    "c1.1.3",
+    "c1.1.5"
+   ],
+   "learn": {
+    "hook": "2 ** 3 ** 2 is not 64. If that surprises you, this topic will save you easy marks in the output-prediction questions.",
+    "points": [
+     "Arithmetic: + - * / (always float) // (floor division) % (remainder) ** (power). 17 // 5 = 3, 17 % 5 = 2, and -7 // 2 = -4 because // rounds down towards minus infinity.",
+     "Relational (==, !=, <, >, <=, >=) give True/False. Logical: not, and, or (evaluated with short-circuiting). Identity: is, is not (same object?). Membership: in, not in. Assignment: =, and augmented forms like +=, -=, *=.",
+     "Precedence, highest first: ** ; unary - ; * / // % ; + - ; relational ; not ; and ; or. ** groups right to left, so 2 ** 3 ** 2 = 2 ** 9 = 512, and -2 ** 2 = -4.",
+     "Decisions: if, if-else, if-elif-else. Loops: for with range(start, stop, step), where stop is excluded; while repeats as long as its condition is True.",
+     "break leaves the loop immediately; continue skips the rest of the current pass and goes to the next one. A loop inside another loop is a nested loop."
+    ],
+    "example": {
+     "q": "Trace: for i in range(1, 4): for j in range(i): print('*', end='') then print() after the inner loop.",
+     "steps": [
+      "i = 1: inner loop runs once, prints *",
+      "i = 2: inner loop runs twice, prints **",
+      "i = 3: inner loop runs three times, prints ***",
+      "print() after each inner loop moves to a new line"
+     ],
+     "answer": "A right-angled triangle of stars: *, **, *** on three lines"
+    },
+    "reallife": "Indian Railways' fare logic is a chain of if-elif-else checks: class of travel, distance slab, age concession. Loops then repeat the calculation for every passenger on the ticket."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Precedence ladder",
+     "prompt": "Highest precedence first",
+     "items": [
+      "** (power)",
+      "unary - (negation)",
+      "* / // %",
+      "+ -",
+      "relational (<, ==, !=)",
+      "logical not, and, or"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Mental Python",
+     "items": [
+      {
+       "q": "7 // 2",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "7 % 2",
+       "a": "1",
+       "check": "1"
+      },
+      {
+       "q": "2 ** 4",
+       "a": "16",
+       "check": "2**4"
+      },
+      {
+       "q": "9 / 3",
+       "a": "3.0",
+       "check": "3"
+      },
+      {
+       "q": "10 % 4",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "-9 // 4",
+       "a": "-3",
+       "check": "-3"
+      },
+      {
+       "q": "15 // 4",
+       "a": "3",
+       "check": "3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint(17 // 5, 17 % 5)",
+     "options": [
+      "2 3",
+      "3.4 2",
+      "3 2",
+      "3 3"
+     ],
+     "answer": 2,
+     "explain": "17 // 5 is the quotient 3 and 17 % 5 is the remainder 2.",
+     "mistake": "Confuses // with / or swaps quotient and remainder"
+    },
+    {
+     "q": "What is the output?\nprint(2 ** 3 ** 2)",
+     "options": [
+      "64",
+      "81",
+      "512",
+      "36"
+     ],
+     "answer": 2,
+     "explain": "** is evaluated right to left: 3 ** 2 = 9 first, then 2 ** 9 = 512.",
+     "steps": [
+      "3 ** 2 = 9",
+      "2 ** 9 = 512"
+     ],
+     "mistake": "Evaluates ** left to right as (2 ** 3) ** 2 = 64",
+     "check": "2**9"
+    },
+    {
+     "q": "What is the output?\nprint(-7 // 2)",
+     "options": [
+      "3",
+      "-3",
+      "-4",
+      "-3.5"
+     ],
+     "answer": 2,
+     "explain": "-7 / 2 is -3.5 and floor division rounds down to the next smaller integer, which is -4.",
+     "mistake": "Thinks // just chops off the decimal part, giving -3",
+     "check": "-4"
+    },
+    {
+     "q": "What is the output?\nfor i in range(1, 10, 3):\n    print(i, end=' ')",
+     "options": [
+      "1 4 7",
+      "1 4 7 10",
+      "3 6 9",
+      "1 3 5 7 9"
+     ],
+     "answer": 0,
+     "explain": "range(1, 10, 3) starts at 1 and steps by 3 while staying below 10: 1, 4, 7.",
+     "mistake": "Includes the stop value 10 in the range"
+    },
+    {
+     "q": "What is the output?\nfor i in range(5):\n    if i == 3:\n        break\n    if i == 1:\n        continue\n    print(i, end=' ')",
+     "options": [
+      "2",
+      "0 1 2",
+      "0 2",
+      "0 2 4"
+     ],
+     "answer": 2,
+     "explain": "i = 0 is printed, i = 1 is skipped by continue, i = 2 is printed and at i = 3 break ends the loop.",
+     "mistake": "Treats break like continue and keeps looping to 4"
+    },
+    {
+     "q": "What is the output?\nprint(5 > 3 and 2 > 4 or not False)",
+     "options": [
+      "True",
+      "SyntaxError",
+      "None",
+      "False"
+     ],
+     "answer": 0,
+     "explain": "not binds tightest, then and, then or: (True and False) or True = False or True = True.",
+     "steps": [
+      "5 > 3 is True, 2 > 4 is False, not False is True",
+      "True and False = False",
+      "False or True = True"
+     ],
+     "mistake": "Evaluates or before and"
+    },
+    {
+     "q": "How many times does the loop body run?\nn = 10\nc = 0\nwhile n > 1:\n    n = n // 2\n    c += 1\nprint(c)",
+     "options": [
+      "4",
+      "3",
+      "2",
+      "5"
+     ],
+     "answer": 1,
+     "explain": "n goes 10 → 5 → 2 → 1. The body runs 3 times and then n > 1 becomes False.",
+     "steps": [
+      "10 // 2 = 5 (c = 1)",
+      "5 // 2 = 2 (c = 2)",
+      "2 // 2 = 1 (c = 3)",
+      "1 > 1 is False, loop ends"
+     ],
+     "mistake": "Counts the starting value as a pass, or stops one step early",
+     "check": "3"
+    },
+    {
+     "q": "Which operator checks whether two names refer to the very same object in memory?",
+     "options": [
+      "=",
+      "in",
+      "is",
+      "=="
+     ],
+     "answer": 2,
+     "explain": "is is the identity operator. == only compares values, in tests membership and = assigns.",
+     "mistake": "Mixes up value equality (==) with identity (is)"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is puzzled: 'In a loop, what's the difference between break and continue? They both sound like stopping!'",
+    "must": [
+     [
+      "break",
+      "exit the loop",
+      "leave the loop",
+      "stops the loop",
+      "ends the loop"
+     ],
+     [
+      "continue",
+      "skip",
+      "next iteration",
+      "next pass",
+      "skips the rest"
+     ]
+    ],
+    "praise": "Nailed it! break leaves the whole loop, while continue only skips to the next round.",
+    "nudge": "Does continue end the whole loop, or just the current round?"
+   }
+  },
+  {
+   "id": "g12-cs-01-03",
+   "title": "Strings, lists, tuples and dictionaries",
+   "covers": [
+    "c1.1.6",
+    "c1.1.7"
+   ],
+   "learn": {
+    "hook": "Board papers almost always include a 'predict the output' question on slicing or list methods. A careful trace earns full marks.",
+    "points": [
+     "Indexing starts at 0 from the left and -1 from the right. Slicing seq[start:stop:step] stops before stop; seq[::-1] reverses.",
+     "String methods: upper(), lower(), title(), find() (gives -1 if not found), index(), count(), replace(), split(), join(), strip(), isdigit(), isalpha(). Strings are immutable, so s[0] = 'X' raises TypeError.",
+     "List methods: append(x) adds one item, extend(seq) adds each item, insert(i, x), pop() removes and returns the last item (or pop(i)), remove(x) removes the first match, sort(), reverse(), index(), count(). sorted(L) returns a new list.",
+     "Tuples are immutable. A one-element tuple needs a comma: (5,). Built-ins len(), max(), min(), sum() work on lists and tuples.",
+     "Dictionaries hold key: value pairs; keys are unique and must be immutable. d[k] = v adds or updates; d.get(k) gives None for a missing key (d[k] raises KeyError). Also keys(), values(), items(), update(), pop() and del d[k]."
+    ],
+    "example": {
+     "q": "For s = 'MONSOON', find s[1:5], s[-3:] and s[::2].",
+     "steps": [
+      "Indices: M0 O1 N2 S3 O4 O5 N6",
+      "s[1:5] takes indices 1 to 4: 'ONSO'",
+      "s[-3:] takes the last three: 'OON'",
+      "s[::2] takes indices 0, 2, 4, 6: 'MNON'"
+     ],
+     "answer": "'ONSO', 'OON' and 'MNON'"
+    },
+    "reallife": "A cricket scorecard app stores each batter as a dictionary like {'name': 'Rohit', 'runs': 57} and keeps all batters in a list, so it can sort them by runs."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the expression to its value",
+     "pairs": [
+      [
+       "'Delhi'.upper()",
+       "'DELHI'"
+      ],
+      [
+       "len('India')",
+       "5"
+      ],
+      [
+       "'a,b'.split(',')",
+       "['a', 'b']"
+      ],
+      [
+       "'  hi '.strip()",
+       "'hi'"
+      ],
+      [
+       "'abc'[::-1]",
+       "'cba'"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Pick the right method",
+     "items": [
+      {
+       "text": "To add 3 at the end of L, use L.___(3)",
+       "answer": "append",
+       "options": [
+        "append",
+        "insert",
+        "add"
+       ]
+      },
+      {
+       "text": "d.___('k') returns None if the key 'k' is missing",
+       "answer": "get",
+       "options": [
+        "get",
+        "pop",
+        "keys"
+       ]
+      },
+      {
+       "text": "'2026'.___() returns True because every character is a digit",
+       "answer": "isdigit",
+       "options": [
+        "isdigit",
+        "isalpha",
+        "isupper"
+       ]
+      },
+      {
+       "text": "L.___() arranges the list itself in ascending order",
+       "answer": "sort",
+       "options": [
+        "sort",
+        "sorted",
+        "order"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ns = 'COMPUTER'\nprint(s[1:6:2])",
+     "options": [
+      "MPTR",
+      "OMUE",
+      "OPT",
+      "OPTR"
+     ],
+     "answer": 2,
+     "explain": "s[1:6:2] takes indices 1, 3 and 5 of 'COMPUTER', which are O, P and T.",
+     "steps": [
+      "C0 O1 M2 P3 U4 T5 E6 R7",
+      "Indices 1, 3, 5 → O, P, T"
+     ],
+     "mistake": "Includes index 6 (the stop value) or starts counting from 1"
+    },
+    {
+     "q": "What is the output?\ns = 'banana'\nprint(s.find('n'), s.count('a'))",
+     "options": [
+      "1 3",
+      "2 2",
+      "2 3",
+      "3 3"
+     ],
+     "answer": 2,
+     "explain": "The first 'n' in 'banana' is at index 2, and 'a' appears 3 times.",
+     "mistake": "Starts counting positions from 1"
+    },
+    {
+     "q": "What is the output?\nL = [3, 1, 2]\nL.append([4, 5])\nprint(len(L))",
+     "options": [
+      "6",
+      "3",
+      "5",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "append adds its argument as ONE item, even when the argument is a list. The list becomes [3, 1, 2, [4, 5]].",
+     "mistake": "Confuses append with extend, which would add 4 and 5 separately",
+     "check": "4"
+    },
+    {
+     "q": "What is the output?\nL = [10, 20, 30]\nL.insert(1, 15)\nL.pop()\nprint(L)",
+     "options": [
+      "[10, 15, 20]",
+      "[10, 20, 30]",
+      "[15, 20, 30]",
+      "[10, 15, 20, 30]"
+     ],
+     "answer": 0,
+     "explain": "insert(1, 15) gives [10, 15, 20, 30]; pop() with no index removes the last item, 30.",
+     "mistake": "Thinks pop() removes the first item"
+    },
+    {
+     "q": "Which of these creates a tuple with exactly one element?",
+     "options": [
+      "(5,)",
+      "(5)",
+      "[5]",
+      "tuple(5)"
+     ],
+     "answer": 0,
+     "explain": "The trailing comma makes a tuple. (5) is just the int 5 in brackets, and tuple(5) raises TypeError because 5 is not iterable.",
+     "mistake": "Thinks brackets alone make a tuple"
+    },
+    {
+     "q": "What is the output?\nd = {'a': 1, 'b': 2}\nd['c'] = 3\nd['a'] = 10\nprint(d)",
+     "options": [
+      "{'a': 1, 'b': 2, 'c': 3}",
+      "KeyError",
+      "{'a': 1, 'b': 2, 'c': 3, 'a': 10}",
+      "{'a': 10, 'b': 2, 'c': 3}"
+     ],
+     "answer": 3,
+     "explain": "Assigning to a new key adds it; assigning to an existing key replaces its value. Keys are unique.",
+     "mistake": "Thinks a dictionary can hold the same key twice"
+    },
+    {
+     "q": "What is the output?\nprint('-'.join(['IN', 'DIA']).lower())",
+     "options": [
+      "-in-dia",
+      "india",
+      "in-dia",
+      "in dia"
+     ],
+     "answer": 2,
+     "explain": "'-'.join puts '-' between the pieces to give 'IN-DIA', and lower() converts it to 'in-dia'.",
+     "mistake": "Forgets that join inserts the separator string between items"
+    },
+    {
+     "q": "Which statement raises a TypeError?",
+     "options": [
+      "d['x'] = 5 where d = {}",
+      "L[0] = 9 where L = [1, 2]",
+      "t = (1, 2) + (3,)",
+      "s[0] = 'H' where s = 'hello'"
+     ],
+     "answer": 3,
+     "explain": "Strings are immutable, so item assignment on a string fails. Lists and dictionaries accept assignment, and adding tuples makes a new tuple.",
+     "mistake": "Thinks strings can be edited in place like lists"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'My list has 3 items and I did L.append([4, 5]). Why is the length 4 and not 5?'",
+    "must": [
+     [
+      "append",
+      "adds one item",
+      "single item",
+      "one element"
+     ],
+     [
+      "extend",
+      "adds each",
+      "separately",
+      "each item",
+      "every item"
+     ]
+    ],
+    "praise": "Exactly! append adds the whole list as one item, while extend would add 4 and 5 one by one.",
+    "nudge": "What would extend have done differently from append?"
+   }
+  },
+  {
+   "id": "g12-cs-01-04",
+   "title": "What functions are and how to create them",
+   "covers": [
+    "c1.2.1",
+    "c1.2.2",
+    "c1.2.3",
+    "c1.3.1",
+    "c1.3.2",
+    "c1.3.3"
+   ],
+   "learn": {
+    "hook": "Imagine writing the GST calculation 500 times in a billing program. Then the GST rate changes. A function lets you fix it in one place.",
+    "points": [
+     "A function is a named block of code that performs a specific task. It runs only when it is called.",
+     "Advantages: modularity (a big program split into small parts), reusability (write once, call many times), readability, easier testing and debugging, and teamwork, since different people can write different functions.",
+     "Three kinds: built-in functions (print(), len(), input()), functions defined in modules (math.sqrt(), random.randint()) and user-defined functions that you write with def.",
+     "Syntax: def function_name(parameters): followed by an indented body. The header ends with a colon. Function names follow identifier rules; use clear names like calc_gst.",
+     "A function must be defined before it is called, or Python raises NameError. A string written as the first statement of the body is the docstring; it documents the function and is available as function_name.__doc__."
+    ],
+    "example": {
+     "q": "Write a function that prints a welcome line for a student, and call it for 'Ishita'.",
+     "steps": [
+      "Header: def welcome(name):",
+      "Body (indented): print('Welcome to StudyVerse,', name)",
+      "Call after the definition: welcome('Ishita')"
+     ],
+     "answer": "Welcome to StudyVerse, Ishita"
+    },
+    "reallife": "UPI apps reuse one well-tested 'verify PIN' routine for every payment, recharge and bill. That is reusability, the core idea of functions."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "What kind of function is it?",
+     "buckets": [
+      "Built-in",
+      "Defined in a module",
+      "User-defined"
+     ],
+     "items": [
+      [
+       "len()",
+       0
+      ],
+      [
+       "print()",
+       0
+      ],
+      [
+       "input()",
+       0
+      ],
+      [
+       "math.sqrt()",
+       1
+      ],
+      [
+       "random.randint()",
+       1
+      ],
+      [
+       "statistics.mean()",
+       1
+      ],
+      [
+       "def calc_gst(amt):",
+       2
+      ],
+      [
+       "def area(r):",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Build and use a function",
+     "prompt": "In the order you do it",
+     "items": [
+      "Write def and the function name",
+      "Add parameters in brackets and end with a colon",
+      "Write the indented body",
+      "Call the function with arguments",
+      "Use the result it gives back"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which is a correct function header in Python?",
+     "options": [
+      "function area(r):",
+      "def area(r)",
+      "def area(r):",
+      "def area r:"
+     ],
+     "answer": 2,
+     "explain": "A header needs def, the name, parameters in brackets and a colon at the end.",
+     "mistake": "Forgets the colon or the brackets around parameters"
+    },
+    {
+     "q": "What happens when this script runs?\ngreet()\ndef greet():\n    print('Namaste')",
+     "options": [
+      "NameError is raised",
+      "It prints Namaste",
+      "SyntaxError is raised",
+      "Nothing is printed"
+     ],
+     "answer": 0,
+     "explain": "Python runs the script top to bottom. greet() is called on line 1, before the def statement has created the function, so the name is unknown.",
+     "mistake": "Thinks Python reads all definitions before running anything"
+    },
+    {
+     "q": "math.sqrt() is an example of which type of function?",
+     "options": [
+      "Function defined in a module",
+      "Built-in function",
+      "Keyword",
+      "User-defined function"
+     ],
+     "answer": 0,
+     "explain": "sqrt() lives in the math module, which must be imported first.",
+     "mistake": "Calls every ready-made function 'built-in'"
+    },
+    {
+     "q": "Which of these is NOT an advantage of using functions?",
+     "options": [
+      "The program is guaranteed to have no errors",
+      "Testing and debugging become easier",
+      "A large program is split into manageable parts",
+      "Code can be reused"
+     ],
+     "answer": 0,
+     "explain": "Functions make code organised and reusable, but they cannot guarantee a program is error-free.",
+     "mistake": "Overstates what modular code can achieve"
+    },
+    {
+     "q": "What is the output?\ndef f():\n    '''Adds two numbers'''\n    return 1\nprint(f.__doc__)",
+     "options": [
+      "1",
+      "Adds two numbers",
+      "f",
+      "None"
+     ],
+     "answer": 1,
+     "explain": "The first string in the body is the docstring, stored in f.__doc__.",
+     "mistake": "Thinks the docstring is just a comment that Python throws away"
+    },
+    {
+     "q": "How many times is Hi printed?\ndef show():\n    print('Hi')\nfor i in range(3):\n    show()",
+     "options": [
+      "1",
+      "0",
+      "3",
+      "4"
+     ],
+     "answer": 2,
+     "explain": "Defining show() prints nothing. The loop calls it three times.",
+     "mistake": "Counts the def statement as a call",
+     "check": "3"
+    },
+    {
+     "q": "Assertion (A): When Python runs a def statement, the statements in the function body are not executed.\nReason (R): The body of a function runs only when the function is called.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "def only creates the function object. The body executes each time the function is called, which is exactly why A is true.",
+     "mistake": "Thinks defining a function also runs it"
+    },
+    {
+     "q": "Find the error.\ndef total(a, b)\n    return a + b",
+     "options": [
+      "Function names must be in capitals",
+      "The colon is missing after the header",
+      "return cannot be used inside a function",
+      "a and b must be declared before the function"
+     ],
+     "answer": 1,
+     "explain": "Every def header must end with a colon. Without it Python reports a SyntaxError.",
+     "mistake": "Overlooks small punctuation in headers"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu chirps: 'Why should I bother writing functions? I can just copy-paste my code!'",
+    "must": [
+     [
+      "reuse",
+      "reusability",
+      "reusable",
+      "use again",
+      "call again"
+     ],
+     [
+      "modular",
+      "modularity",
+      "smaller parts",
+      "divide",
+      "break into parts"
+     ],
+     [
+      "easy to debug",
+      "debugging",
+      "testing",
+      "fix in one place",
+      "easier to correct"
+     ]
+    ],
+    "praise": "Wonderful! Functions let you reuse code, split a big program into parts, and fix a bug in just one place.",
+    "nudge": "What happens with copy-paste when you find a bug? How do functions help with that?"
+   }
+  },
+  {
+   "id": "g12-cs-01-05",
+   "title": "Parameters and arguments",
+   "covers": [
+    "c1.4.1",
+    "c1.4.2",
+    "c1.4.3",
+    "c1.4.4",
+    "c1.4.5"
+   ],
+   "learn": {
+    "hook": "def f(a=5, b): looks harmless but it will not even run. Default parameters have one strict rule, and examiners love it.",
+    "points": [
+     "A parameter is the name in the function header; an argument is the value passed in the call. In def area(l, b) and area(4, 5), l and b are parameters, and 4 and 5 are arguments.",
+     "Positional arguments are matched to parameters by order: area(4, 5) sets l = 4 and b = 5.",
+     "Default parameters get a value when the call leaves them out: def power(b, e=2). All parameters with defaults must come AFTER those without, so def f(a=5, b) is a SyntaxError.",
+     "Keyword (named) arguments are matched by name and may be in any order: info(age=17, name='Riya'). In a call, positional arguments must come before keyword arguments.",
+     "Passing objects: if a function changes a mutable argument in place (for example L.append()), the caller sees the change. Reassigning a parameter, or 'changing' an int or str, only affects the local name."
+    ],
+    "example": {
+     "q": "def bill(amount, gst=18): return amount + amount * gst / 100. Find bill(200) and bill(200, 5).",
+     "steps": [
+      "bill(200): gst takes its default 18, so 200 + 200 × 18 / 100 = 236.0",
+      "bill(200, 5): gst = 5, so 200 + 200 × 5 / 100 = 210.0"
+     ],
+     "answer": "236.0 and 210.0"
+    },
+    "reallife": "A food-delivery app's checkout function might use a default delivery fee, overridden only when a surge or a free-delivery offer applies."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the term to its meaning",
+     "pairs": [
+      [
+       "Parameter",
+       "Name in the function header"
+      ],
+      [
+       "Argument",
+       "Value passed in the call"
+      ],
+      [
+       "Positional argument",
+       "Matched by its order"
+      ],
+      [
+       "Keyword argument",
+       "Matched by name, like age=17"
+      ],
+      [
+       "Default parameter",
+       "Used when the call gives no value"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Header and call check",
+     "items": [
+      [
+       "def f(a, b=2): is a valid header.",
+       true,
+       "Default parameters come after the non-default one."
+      ],
+      [
+       "def f(a=2, b): is a valid header.",
+       false,
+       "A non-default parameter cannot follow a default one; this is a SyntaxError."
+      ],
+      [
+       "For def f(a, b), the call f(b=3, a=1) works.",
+       true,
+       "Keyword arguments can be given in any order."
+      ],
+      [
+       "A list passed to a function and appended to inside it shows the change outside too.",
+       true,
+       "Lists are mutable and the function works on the same list object."
+      ],
+      [
+       "Assigning a new value to an int parameter changes the caller's variable.",
+       false,
+       "Reassignment only rebinds the local name; ints are immutable."
+      ],
+      [
+       "In a call, keyword arguments must come before positional ones.",
+       false,
+       "It is the other way round: positional arguments come first."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ndef power(b, e=2):\n    return b ** e\nprint(power(3), power(2, 5))",
+     "options": [
+      "9 32",
+      "8 25",
+      "6 10",
+      "9 10"
+     ],
+     "answer": 0,
+     "explain": "power(3) uses e = 2, giving 9. power(2, 5) gives 2 ** 5 = 32.",
+     "mistake": "Swaps the base and the exponent"
+    },
+    {
+     "q": "Which function header is valid?",
+     "options": [
+      "def f(a=1, b):",
+      "def f(a=1, b, c=2):",
+      "def f(=a):",
+      "def f(a, b=1):"
+     ],
+     "answer": 3,
+     "explain": "Parameters with default values must come after those without defaults.",
+     "mistake": "Thinks default parameters can be placed anywhere"
+    },
+    {
+     "q": "What is the output?\ndef info(name, age):\n    print(name, 'is', age)\ninfo(age=17, name='Riya')",
+     "options": [
+      "Riya is 17",
+      "TypeError",
+      "name is age",
+      "17 is Riya"
+     ],
+     "answer": 0,
+     "explain": "Keyword arguments are matched by name, so name = 'Riya' and age = 17 whatever their order in the call.",
+     "mistake": "Matches keyword arguments by position"
+    },
+    {
+     "q": "For def info(name, age):, which call is INVALID?",
+     "options": [
+      "info('Riya', age=17)",
+      "info(name='Riya', 17)",
+      "info('Riya', 17)",
+      "info(age=17, name='Riya')"
+     ],
+     "answer": 1,
+     "explain": "A positional argument cannot follow a keyword argument in a call; Python reports a SyntaxError.",
+     "mistake": "Thinks positional and keyword arguments can be mixed in any order"
+    },
+    {
+     "q": "What is the output?\ndef add(L):\n    L.append(5)\nnums = [1, 2]\nadd(nums)\nprint(nums)",
+     "options": [
+      "[1, 2, 5]",
+      "[1, 2]",
+      "[5]",
+      "None"
+     ],
+     "answer": 0,
+     "explain": "nums and L refer to the same list object, so append inside the function changes nums.",
+     "mistake": "Thinks a function always works on a copy of the list"
+    },
+    {
+     "q": "What is the output?\ndef change(x):\n    x = x + 10\na = 5\nchange(a)\nprint(a)",
+     "options": [
+      "None",
+      "5",
+      "10",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "x = x + 10 creates a new int and binds only the local name x. The global a is still 5.",
+     "mistake": "Thinks changing a parameter changes the caller's int variable",
+     "check": "5"
+    },
+    {
+     "q": "In def area(l, b): and the call area(4, 5), what are 4 and 5?",
+     "options": [
+      "Return values",
+      "Parameters",
+      "Arguments",
+      "Keywords"
+     ],
+     "answer": 2,
+     "explain": "Values passed in a call are arguments; l and b in the header are parameters.",
+     "mistake": "Uses 'parameter' and 'argument' as if they meant the same thing"
+    },
+    {
+     "q": "What is the output?\ndef f(a, b=2, c=3):\n    return a + b + c\nprint(f(1, c=10))",
+     "options": [
+      "14",
+      "13",
+      "16",
+      "6"
+     ],
+     "answer": 1,
+     "explain": "a = 1 by position, b keeps its default 2, and c = 10 by keyword. 1 + 2 + 10 = 13.",
+     "mistake": "Gives the value 10 to b instead of c",
+     "check": "1+2+10"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'In def area(l, b) and area(4, 5), which ones are parameters and which are arguments?'",
+    "must": [
+     [
+      "parameter",
+      "parameters",
+      "in the header",
+      "in the definition"
+     ],
+     [
+      "argument",
+      "arguments",
+      "in the call",
+      "values passed",
+      "passed values"
+     ]
+    ],
+    "praise": "Spot on! l and b are parameters in the definition; 4 and 5 are arguments passed in the call.",
+    "nudge": "Which names sit in the def line, and which values are sent when calling?"
+   }
+  },
+  {
+   "id": "g12-cs-01-06",
+   "title": "Return values and flow of execution",
+   "covers": [
+    "c1.5.1",
+    "c1.5.2",
+    "c1.5.3",
+    "c1.6.1"
+   ],
+   "learn": {
+    "hook": "A function without return is like a calculator that works out the answer but never shows it. Python quietly hands back None.",
+    "points": [
+     "return sends a value back to the caller and ends the function at once; any statement after it in that path never runs.",
+     "A function with no return (or a bare return) gives back None. Such functions are often called void functions.",
+     "return a, b sends back a tuple (a, b). Unpack it with x, y = f().",
+     "By arguments and return value there are four kinds: no arguments and no return, arguments but no return, no arguments but a return, and both arguments and a return.",
+     "Flow of execution: Python runs statements top to bottom. A def is executed to create the function, but its body is skipped. A call jumps into the body; when the body finishes or hits return, control comes back to the calling statement."
+    ],
+    "example": {
+     "q": "Trace with line numbers: 1 def sq(x): 2 return x * x 3 a = 3 4 b = sq(a) 5 print(b)",
+     "steps": [
+      "Line 1 runs: the function sq is created (body skipped)",
+      "Line 3: a = 3",
+      "Line 4 calls sq(3), so control goes to line 2 and returns 9",
+      "Back at line 4, b = 9",
+      "Line 5 prints 9"
+     ],
+     "answer": "Order 1 → 3 → 4 → 2 → 4 → 5; output 9"
+    },
+    "reallife": "An ATM's 'check balance' routine returns a number that the screen code then displays, while a 'print receipt' routine just does its job and returns nothing."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Returns a value or returns None?",
+     "buckets": [
+      "Returns a useful value",
+      "Returns None"
+     ],
+     "items": [
+      [
+       "def f(): return 5",
+       0
+      ],
+      [
+       "len('abc')",
+       0
+      ],
+      [
+       "max(3, 8)",
+       0
+      ],
+      [
+       "def f(a, b): return a, b",
+       0
+      ],
+      [
+       "def f(x): print(x)",
+       1
+      ],
+      [
+       "print('hi')",
+       1
+      ],
+      [
+       "[1, 2].append(3)",
+       1
+      ],
+      [
+       "def f(): pass",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Flow of execution",
+     "prompt": "For the code 1 def sq(x): 2 return x * x 3 a = 3 4 b = sq(a) 5 print(b)",
+     "items": [
+      "Line 1: sq is defined",
+      "Line 3: a = 3",
+      "Line 4: sq(a) is called",
+      "Line 2: x * x = 9 is returned",
+      "Line 4: b gets 9",
+      "Line 5: 9 is printed"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ndef f():\n    pass\nprint(f())",
+     "options": [
+      "0",
+      "A blank line",
+      "SyntaxError",
+      "None"
+     ],
+     "answer": 3,
+     "explain": "f() has no return statement, so it returns None, and print shows None.",
+     "mistake": "Thinks a function with no return gives 0 or nothing at all"
+    },
+    {
+     "q": "What is the output?\ndef calc(a, b):\n    return a + b, a * b\nr = calc(3, 4)\nprint(r)",
+     "options": [
+      "[7, 12]",
+      "(7, 12)",
+      "7 12",
+      "19"
+     ],
+     "answer": 1,
+     "explain": "return a + b, a * b packs the two values into a tuple.",
+     "mistake": "Thinks multiple return values come back as a list or are printed separately"
+    },
+    {
+     "q": "What is the output?\ndef calc(a, b):\n    return a + b, a * b\ns, p = calc(2, 5)\nprint(p - s)",
+     "options": [
+      "-3",
+      "10",
+      "3",
+      "7"
+     ],
+     "answer": 2,
+     "explain": "calc(2, 5) returns (7, 10). Unpacking gives s = 7 and p = 10, so p - s = 3.",
+     "steps": [
+      "calc(2, 5) returns (7, 10)",
+      "s = 7, p = 10",
+      "p - s = 3"
+     ],
+     "mistake": "Unpacks the tuple in the wrong order",
+     "check": "2*5-(2+5)"
+    },
+    {
+     "q": "What is the output?\ndef f(n):\n    return n * 2\n    print('done')\nprint(f(4))",
+     "options": [
+      "None",
+      "8",
+      "8 done",
+      "done"
+     ],
+     "answer": 1,
+     "explain": "return ends the function immediately, so the print('done') line is never reached.",
+     "mistake": "Thinks statements after return still run",
+     "check": "4*2"
+    },
+    {
+     "q": "In which order are the lines executed?\n1 def sq(x):\n2     return x * x\n3 a = 3\n4 b = sq(a)\n5 print(b)",
+     "options": [
+      "1 → 3 → 4 → 5 → 2",
+      "1 → 2 → 3 → 4 → 5",
+      "1 → 3 → 4 → 2 → 4 → 5",
+      "3 → 4 → 1 → 2 → 5"
+     ],
+     "answer": 2,
+     "explain": "The def on line 1 runs but its body is skipped. Line 4 calls sq, control goes to line 2, then returns to line 4 and moves on to line 5.",
+     "mistake": "Thinks the function body runs when it is defined"
+    },
+    {
+     "q": "def greet(name): print('Hello', name) is which type of function?",
+     "options": [
+      "No arguments, no return value",
+      "With arguments, with return value",
+      "With arguments, no return value",
+      "No arguments, with return value"
+     ],
+     "answer": 2,
+     "explain": "It takes the argument name but only prints; it has no return, so it returns None.",
+     "mistake": "Thinks printing a value is the same as returning it"
+    },
+    {
+     "q": "Assertion (A): If f() has no return statement, the expression f() + 1 raises a TypeError.\nReason (R): A function without a return statement returns None.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "f() gives None, and None + 1 is an unsupported operation, so a TypeError occurs. R directly explains A.",
+     "mistake": "Thinks a missing return gives 0"
+    },
+    {
+     "q": "What is the output?\ndef m(a, b):\n    if a > b:\n        return a\n    return b\nprint(m(4, 9) + m(7, 2))",
+     "options": [
+      "13",
+      "11",
+      "16",
+      "9"
+     ],
+     "answer": 2,
+     "explain": "m returns the larger value: m(4, 9) = 9 and m(7, 2) = 7, so 9 + 7 = 16.",
+     "mistake": "Assumes the function always returns its first argument",
+     "check": "9+7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'My function printed the answer, but when I stored it in a variable I got None. What happened?'",
+    "must": [
+     [
+      "return",
+      "returns"
+     ],
+     [
+      "none",
+      "nothing returned",
+      "no return"
+     ],
+     [
+      "print",
+      "printing",
+      "only displays"
+     ]
+    ],
+    "praise": "Exactly right! print only shows a value, while return hands it back. With no return, Python gives None.",
+    "nudge": "What is the difference between printing a value and returning it?"
+   }
+  },
+  {
+   "id": "g12-cs-01-07",
+   "title": "Scope of variables: local and global",
+   "covers": [
+    "c1.7.1",
+    "c1.7.2",
+    "c1.7.3",
+    "c1.7.4"
+   ],
+   "learn": {
+    "hook": "Two variables can share a name and still be strangers. Scope decides which one Python sees, and board papers test it every year.",
+    "points": [
+     "A local variable is created inside a function (parameters are local too). It exists only while the function runs and cannot be used outside it.",
+     "A global variable is created outside all functions, at the top level. Any function can read it.",
+     "To change a global variable inside a function, declare it first: global count. Then count += 1 updates the global one.",
+     "If a function assigns to a name without declaring it global, Python treats that name as local throughout the function. A local name shadows (hides) a global with the same name.",
+     "So reading a name and then assigning to it in the same function, without global, raises UnboundLocalError (a kind of NameError)."
+    ],
+    "example": {
+     "q": "x = 50; def f(): x = 20; print('inside', x). Then f() and print('outside', x). What prints?",
+     "steps": [
+      "Inside f, x = 20 creates a new local x",
+      "print shows inside 20",
+      "The global x was never touched",
+      "print shows outside 50"
+     ],
+     "answer": "inside 20 then outside 50"
+    },
+    "reallife": "Think of a school's Wi-Fi password as a global value known to every classroom, and a teacher's whiteboard notes as local, wiped at the end of each period."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Local or global?",
+     "buckets": [
+      "Local to f",
+      "Global"
+     ],
+     "items": [
+      [
+       "a defined before def f():",
+       1
+      ],
+      [
+       "parameter n of f",
+       0
+      ],
+      [
+       "temp = n * 2 inside f",
+       0
+      ],
+      [
+       "count declared with 'global count' in f",
+       1
+      ],
+      [
+       "result created at the top level",
+       1
+      ],
+      [
+       "loop variable i used only inside f",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Scope check",
+     "items": [
+      [
+       "A function can read a global variable without the global keyword.",
+       true,
+       "Reading is allowed; only assignment needs global."
+      ],
+      [
+       "A local variable can be printed after the function has returned.",
+       false,
+       "It no longer exists outside the function, so NameError is raised."
+      ],
+      [
+       "Parameters of a function are local variables.",
+       true,
+       "They are created when the function is called and vanish when it ends."
+      ],
+      [
+       "The global keyword lets a function assign to a global variable.",
+       true,
+       "Without it, the assignment would create a new local name."
+      ],
+      [
+       "A local variable with the same name as a global one changes the global one.",
+       false,
+       "It only shadows the global inside that function."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nx = 10\ndef f():\n    x = 5\n    print(x, end=' ')\nf()\nprint(x)",
+     "options": [
+      "10 10",
+      "5 10",
+      "5 5",
+      "10 5"
+     ],
+     "answer": 1,
+     "explain": "Inside f, x = 5 is a new local variable. The global x stays 10.",
+     "mistake": "Thinks assigning inside a function changes the global variable"
+    },
+    {
+     "q": "What is the output?\nc = 0\ndef inc():\n    global c\n    c = c + 1\ninc()\ninc()\nprint(c)",
+     "options": [
+      "2",
+      "0",
+      "UnboundLocalError",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "global c lets inc() update the global c. Two calls take it from 0 to 2.",
+     "mistake": "Forgets that the global declaration makes the change stick",
+     "check": "2"
+    },
+    {
+     "q": "What happens when this code runs?\ndef f():\n    y = 7\nf()\nprint(y)",
+     "options": [
+      "7 is printed",
+      "0 is printed",
+      "None is printed",
+      "NameError is raised"
+     ],
+     "answer": 3,
+     "explain": "y is local to f and disappears when f ends, so the name y is not defined at the top level.",
+     "mistake": "Thinks variables created inside a function remain available outside"
+    },
+    {
+     "q": "What is the output?\nn = 4\ndef show():\n    print(n * 2)\nshow()",
+     "options": [
+      "8",
+      "None",
+      "NameError",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "show() only reads the global n, which is allowed without the global keyword. 4 × 2 = 8.",
+     "mistake": "Thinks a function cannot read a global variable at all",
+     "check": "4*2"
+    },
+    {
+     "q": "What happens when f() is called?\nx = 1\ndef f():\n    print(x)\n    x = 2\nf()",
+     "options": [
+      "1 is printed",
+      "2 is printed",
+      "1 and then 2 are printed",
+      "UnboundLocalError is raised"
+     ],
+     "answer": 3,
+     "explain": "Because x is assigned inside f, Python treats x as local in the whole function. print(x) runs before the local x has a value.",
+     "mistake": "Expects Python to use the global x until the local one is assigned"
+    },
+    {
+     "q": "Which statement about a local variable is correct?",
+     "options": [
+      "It stops existing once its function finishes",
+      "It can be used anywhere in the program",
+      "It always overwrites a global of the same name",
+      "It must be declared with the local keyword"
+     ],
+     "answer": 0,
+     "explain": "A local variable lives only during the function call. Python has no 'local' keyword.",
+     "mistake": "Mixes up the lifetime of local and global variables"
+    },
+    {
+     "q": "In this code, which names are local to g?\na = 5\ndef g(b):\n    c = a + b\n    return c",
+     "options": [
+      "only a",
+      "a, b and c",
+      "only c",
+      "b and c"
+     ],
+     "answer": 3,
+     "explain": "The parameter b and the variable c created inside g are local. a is global and only read.",
+     "mistake": "Forgets that parameters are local variables"
+    },
+    {
+     "q": "What is the output?\ntotal = 100\ndef spend(amt):\n    global total\n    total -= amt\n    return total\nspend(30)\nprint(spend(20))",
+     "options": [
+      "80",
+      "70",
+      "100",
+      "50"
+     ],
+     "answer": 3,
+     "explain": "With global total, each call reduces the global: 100 - 30 = 70, then 70 - 20 = 50.",
+     "mistake": "Thinks each call starts again from 100",
+     "check": "100-30-20"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu is confused: 'I wrote count = count + 1 inside my function, but Python threw an error. Why?'",
+    "must": [
+     [
+      "global",
+      "global keyword",
+      "declare global"
+     ],
+     [
+      "local",
+      "inside the function",
+      "local variable",
+      "new local"
+     ]
+    ],
+    "praise": "Brilliant! Assigning makes count local, so Python needs 'global count' to update the outer one.",
+    "nudge": "What keyword tells Python you mean the outer variable, and what does Python assume without it?"
+   }
+  },
+  {
+   "id": "g12-cs-01-08",
+   "title": "Built-in functions, modules and function programs",
+   "covers": [
+    "c1.8.1",
+    "c1.8.2",
+    "c1.8.3",
+    "c1.8.4",
+    "c1.8.5"
+   ],
+   "learn": {
+    "hook": "Why write a square-root routine when Python already ships one? The standard library is a giant toolbox; knowing what is inside saves time in every program.",
+    "points": [
+     "Built-ins need no import: input(), print(), int(), float(), str(), len(), type(), abs(), divmod(a, b) (gives (a // b, a % b)), max(), min(), pow(x, y), sum(), round(x, n) and range().",
+     "import math then math.sqrt(16) gives 4.0; also math.ceil(), math.floor(), math.pow() and math.pi. from math import sqrt lets you call sqrt() directly; import math as m creates an alias.",
+     "random: random() gives a float from 0.0 up to (not including) 1.0; randint(a, b) includes both a and b; randrange(a, b) excludes b. statistics: mean(), median(), mode().",
+     "A user-defined module is just a .py file of functions. If mymaths.py defines cube(), another program in the same folder can do import mymaths and call mymaths.cube(3).",
+     "Classic function programs: factorial, prime check, simple calculator, area of shapes, statistics of a list, counting vowels in a string."
+    ],
+    "example": {
+     "q": "Write a function fact(n) that returns n! and use it to find 5!.",
+     "steps": [
+      "Start with f = 1",
+      "Multiply f by each i from 1 to n using for i in range(1, n + 1)",
+      "Return f",
+      "fact(5) = 1 × 2 × 3 × 4 × 5"
+     ],
+     "answer": "120"
+    },
+    "reallife": "ISRO mission software relies on trusted maths libraries for square roots and trigonometry instead of rewriting them, because a library function has been tested many times over."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the call to its result",
+     "pairs": [
+      [
+       "abs(-7)",
+       "7"
+      ],
+      [
+       "pow(2, 5)",
+       "32"
+      ],
+      [
+       "max([4, 9, 2])",
+       "9"
+      ],
+      [
+       "len('Bharat')",
+       "6"
+      ],
+      [
+       "round(3.567, 2)",
+       "3.57"
+      ],
+      [
+       "divmod(17, 5)",
+       "(3, 2)"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Library lightning round",
+     "items": [
+      {
+       "q": "math.sqrt(81)",
+       "a": "9.0",
+       "check": "9"
+      },
+      {
+       "q": "math.ceil(2.1)",
+       "a": "3",
+       "check": "3"
+      },
+      {
+       "q": "math.floor(2.9)",
+       "a": "2",
+       "check": "2"
+      },
+      {
+       "q": "abs(-12)",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "sum([2, 4, 6])",
+       "a": "12",
+       "check": "2+4+6"
+      },
+      {
+       "q": "min(7, 3, 9)",
+       "a": "3",
+       "check": "3"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nprint(divmod(29, 6))",
+     "options": [
+      "(5, 4)",
+      "(4, 5)",
+      "4.83",
+      "(4, 2)"
+     ],
+     "answer": 1,
+     "explain": "divmod(29, 6) returns (29 // 6, 29 % 6) = (4, 5).",
+     "mistake": "Swaps the quotient and the remainder"
+    },
+    {
+     "q": "What is the output?\nimport math\nprint(math.ceil(4.1), math.floor(-4.1))",
+     "options": [
+      "5 -5",
+      "4 -4",
+      "5 -4",
+      "4 -5"
+     ],
+     "answer": 0,
+     "explain": "ceil rounds up to the next integer: 4.1 → 5. floor rounds down: -4.1 → -5.",
+     "mistake": "Thinks floor just removes the decimal, giving -4"
+    },
+    {
+     "q": "Which value can random.randint(3, 7) NEVER return?",
+     "options": [
+      "8",
+      "5",
+      "3",
+      "7"
+     ],
+     "answer": 0,
+     "explain": "randint(a, b) returns an integer from a to b, including both ends. 8 is outside that range.",
+     "mistake": "Thinks randint excludes the upper limit, like range()",
+     "check": "8"
+    },
+    {
+     "q": "What is the output?\nfrom math import sqrt\nprint(sqrt(49))",
+     "options": [
+      "3.5",
+      "7.0",
+      "49.0",
+      "NameError"
+     ],
+     "answer": 1,
+     "explain": "from math import sqrt makes sqrt usable directly, and math.sqrt always returns a float.",
+     "mistake": "Thinks the module name must still be written before sqrt",
+     "check": "7"
+    },
+    {
+     "q": "What is the output?\nimport statistics\nprint(statistics.median([3, 9, 1, 7]))",
+     "options": [
+      "5.0",
+      "7",
+      "5.5",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "Sorted, the data is 1, 3, 7, 9. With an even count the median is the mean of the middle two: (3 + 7) / 2 = 5.0.",
+     "steps": [
+      "Sort: 1, 3, 7, 9",
+      "Middle two values: 3 and 7",
+      "(3 + 7) / 2 = 5.0"
+     ],
+     "mistake": "Takes a middle value without sorting the data first",
+     "check": "(3+7)/2"
+    },
+    {
+     "q": "mymaths.py contains def cube(n): return n ** 3. Which code, in another file in the same folder, prints 27?",
+     "options": [
+      "include mymaths, then print(cube(3))",
+      "import mymaths, then print(mymaths.cube(3))",
+      "import cube, then print(cube(3))",
+      "import mymaths, then print(cube(3))"
+     ],
+     "answer": 1,
+     "explain": "A module is imported by its file name without .py, and its functions are reached with the module name and a dot.",
+     "mistake": "Imports the function name instead of the module name, or forgets the module prefix"
+    },
+    {
+     "q": "What is the output?\ndef fact(n):\n    f = 1\n    for i in range(1, n + 1):\n        f *= i\n    return f\nprint(fact(5))",
+     "options": [
+      "24",
+      "720",
+      "15",
+      "120"
+     ],
+     "answer": 3,
+     "explain": "The loop multiplies 1 × 2 × 3 × 4 × 5 = 120.",
+     "mistake": "Stops the range at n, multiplying only up to 4",
+     "check": "1*2*3*4*5"
+    },
+    {
+     "q": "What is the output?\ndef is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\nprint(is_prime(1), is_prime(13), is_prime(21))",
+     "options": [
+      "False True False",
+      "False True True",
+      "False False False",
+      "True True False"
+     ],
+     "answer": 0,
+     "explain": "1 is below 2, so it is not prime. 13 has no divisor from 2 to 12. 21 is divisible by 3.",
+     "mistake": "Treats 1 as a prime, or forgets that 21 = 3 × 7"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between import math and from math import sqrt?'",
+    "must": [
+     [
+      "import math",
+      "math.sqrt",
+      "module name",
+      "dot",
+      "prefix"
+     ],
+     [
+      "from math import",
+      "directly",
+      "without math",
+      "only sqrt",
+      "just sqrt"
+     ]
+    ],
+    "praise": "Super! With import math you write math.sqrt(), but from math import sqrt lets you call sqrt() directly.",
+    "nudge": "How do you call sqrt in each case? Do you need the module name in front?"
+   }
+  }
+ ]
+}

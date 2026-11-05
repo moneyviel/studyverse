@@ -1,0 +1,1466 @@
+{
+ "n": 5,
+ "title": "Computer Networks",
+ "emoji": "🌐",
+ "topics": [
+  {
+   "id": "g12-cs-05-01",
+   "title": "What a network is and how it evolved",
+   "covers": [
+    "c5.1.1",
+    "c5.1.2",
+    "c5.2.1",
+    "c5.2.2"
+   ],
+   "learn": {
+    "hook": "In 1969 four computers in the USA exchanged their first messages over a network called ARPANET. Today hundreds of millions of Indians are online. Here is how we got from there to here.",
+    "points": [
+     "A computer network is a group of interconnected devices (called nodes or hosts) that can share data and resources. Nodes include computers, phones, printers, servers and routers.",
+     "Benefits: resource sharing (one printer or internet line for many users), communication (email, video calls), and data sharing (shared files and databases).",
+     "ARPANET (1969), funded by the US Department of Defense's ARPA, was the first network of this kind; it initially linked four university and research computers.",
+     "Key milestones: email over networks in the early 1970s; the TCP/IP protocols, developed in the 1970s, became ARPANET's standard in 1983; DNS arrived in 1983; NSFNET (1986) of the US National Science Foundation linked universities and research centres with a faster backbone and helped grow the Internet.",
+     "Around 1990 Tim Berners-Lee at CERN created the World Wide Web, along with HTML and URLs, which made the Internet easy for everyone to use."
+    ],
+    "example": {
+     "q": "Arrange in order: NSFNET, ARPANET, World Wide Web.",
+     "steps": [
+      "ARPANET came first, in 1969",
+      "NSFNET followed in 1986",
+      "The World Wide Web came about 1990"
+     ],
+     "answer": "ARPANET → NSFNET → World Wide Web"
+    },
+    "reallife": "When your school lab shares one printer and one broadband line among 40 computers, that is resource sharing, the main reason networks were built."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Networking timeline",
+     "prompt": "Earliest first",
+     "items": [
+      "ARPANET connects its first computers (1969)",
+      "Email between networked computers (early 1970s)",
+      "Domain Name System introduced (1983)",
+      "NSFNET links universities (1986)",
+      "World Wide Web created at CERN (around 1990)"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Network basics",
+     "items": [
+      [
+       "A node is any device connected to a network.",
+       true,
+       "Computers, printers, phones and routers can all be nodes."
+      ],
+      [
+       "ARPANET was started in 1986.",
+       false,
+       "ARPANET began in 1969; NSFNET came in 1986."
+      ],
+      [
+       "Sharing a printer among many computers is an example of resource sharing.",
+       true,
+       "One device serves many users."
+      ],
+      [
+       "The World Wide Web was created before ARPANET.",
+       false,
+       "ARPANET came first; the Web came about two decades later."
+      ],
+      [
+       "NSFNET helped the network grow beyond military and defence research into universities.",
+       true,
+       "It connected universities and research centres."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which was the first network, set up in 1969?",
+     "options": [
+      "Internet2",
+      "ARPANET",
+      "NSFNET",
+      "ETHERNET"
+     ],
+     "answer": 1,
+     "explain": "ARPANET, funded by the US Department of Defense, began in 1969.",
+     "mistake": "Mixes up ARPANET with NSFNET"
+    },
+    {
+     "q": "In which year did NSFNET come into existence?",
+     "options": [
+      "1969",
+      "1975",
+      "1990",
+      "1986"
+     ],
+     "answer": 3,
+     "explain": "The US National Science Foundation set up NSFNET in 1986.",
+     "mistake": "Confuses NSFNET with ARPANET's year",
+     "check": "1986"
+    },
+    {
+     "q": "Who created the World Wide Web?",
+     "options": [
+      "Tim Berners-Lee",
+      "Bill Gates",
+      "Charles Babbage",
+      "Vint Cerf"
+     ],
+     "answer": 0,
+     "explain": "Tim Berners-Lee developed the Web at CERN around 1990.",
+     "mistake": "Confuses the Web's creator with a co-designer of TCP/IP (Vint Cerf)"
+    },
+    {
+     "q": "What is a computer network?",
+     "options": [
+      "A collection of software installed on one PC",
+      "A group of interconnected devices that share data and resources",
+      "A type of operating system",
+      "A single computer with many programs"
+     ],
+     "answer": 1,
+     "explain": "A network connects two or more devices so they can communicate and share.",
+     "mistake": "Confuses a network with software on one machine"
+    },
+    {
+     "q": "A school lab has 30 computers using one shared laser printer. Which benefit of networking does this show?",
+     "options": [
+      "Resource sharing",
+      "Higher electricity use",
+      "Data isolation",
+      "Data redundancy"
+     ],
+     "answer": 0,
+     "explain": "One device serving many users is resource sharing.",
+     "mistake": "Picks a database term unrelated to networking"
+    },
+    {
+     "q": "What does a 'node' in a computer network mean?",
+     "options": [
+      "Only the main server",
+      "A web page",
+      "Any device connected to the network",
+      "Only the network cable"
+     ],
+     "answer": 2,
+     "explain": "Every connected device, be it computer, printer, phone or router, is a node (host).",
+     "mistake": "Thinks only computers can be nodes"
+    },
+    {
+     "q": "Assertion (A): NSFNET helped the Internet grow beyond its defence-research origins.\nReason (R): NSFNET connected universities and research centres with a faster backbone network.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "By linking universities on a faster backbone, NSFNET widened who could use the network. R explains A.",
+     "mistake": "Does not link the backbone to the growth of users"
+    },
+    {
+     "q": "Which of these is NOT a benefit of computer networks?",
+     "options": [
+      "Sharing one internet connection",
+      "Sharing files among users",
+      "Guaranteeing that no virus can ever spread",
+      "Communicating through email"
+     ],
+     "answer": 2,
+     "explain": "Networks make sharing easy, but they can also let viruses spread; they do not guarantee safety.",
+     "mistake": "Assumes networks are automatically secure"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why did people connect computers into networks in the first place?'",
+    "must": [
+     [
+      "share",
+      "sharing",
+      "resource sharing",
+      "resources"
+     ],
+     [
+      "communicate",
+      "communication",
+      "email",
+      "messages"
+     ],
+     [
+      "data",
+      "files",
+      "information"
+     ]
+    ],
+    "praise": "Lovely! Networks let devices share resources and data, and let people communicate.",
+    "nudge": "What can computers share, and how does a network help people talk to each other?"
+   }
+  },
+  {
+   "id": "g12-cs-05-02",
+   "title": "Types of networks: PAN, LAN, MAN and WAN",
+   "covers": [
+    "c5.3.1",
+    "c5.3.2",
+    "c5.3.3",
+    "c5.3.4"
+   ],
+   "learn": {
+    "hook": "Your earbuds and phone form a network. So does the entire Internet. The difference is mostly about distance.",
+    "points": [
+     "PAN (Personal Area Network): devices around one person, within a few metres (about 10 m), e.g. a phone linked to earbuds, a smartwatch or a laptop by Bluetooth or USB.",
+     "LAN (Local Area Network): computers in a single room, building or campus, such as a school lab or an office. It is privately owned, fast and has few errors.",
+     "MAN (Metropolitan Area Network): spreads across a city or town, e.g. a cable TV network or a city-wide network of bank branches.",
+     "WAN (Wide Area Network): spans states, countries or continents, often by joining many LANs and MANs. The Internet is the largest WAN.",
+     "Order by area covered: PAN < LAN < MAN < WAN."
+    ],
+    "example": {
+     "q": "Classify: (a) a smartwatch synced with a phone, (b) 60 computers in a school building, (c) a cable TV network across Bengaluru, (d) a bank linking branches in 20 states.",
+     "steps": [
+      "(a) one person's devices, a few metres apart → PAN",
+      "(b) one building → LAN",
+      "(c) one city → MAN",
+      "(d) many states → WAN"
+     ],
+     "answer": "PAN, LAN, MAN, WAN"
+    },
+    "reallife": "Indian Railways' passenger reservation system links stations across the whole country, so it works as a WAN, while each station's own office network is a LAN."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Smallest to largest",
+     "prompt": "By the area each network covers",
+     "items": [
+      "PAN",
+      "LAN",
+      "MAN",
+      "WAN"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Which network type?",
+     "buckets": [
+      "PAN",
+      "LAN",
+      "MAN"
+     ],
+     "items": [
+      [
+       "Phone to Bluetooth earbuds",
+       0
+      ],
+      [
+       "Smartwatch synced to a phone",
+       0
+      ],
+      [
+       "Computer lab in a school",
+       1
+      ],
+      [
+       "Office floor with 20 PCs",
+       1
+      ],
+      [
+       "Cable TV network across a city",
+       2
+      ],
+      [
+       "Bank branches linked within one city",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which type of network covers the smallest area?",
+     "options": [
+      "MAN",
+      "LAN",
+      "PAN",
+      "WAN"
+     ],
+     "answer": 2,
+     "explain": "A PAN connects devices around a single person, within a few metres.",
+     "mistake": "Thinks LAN is the smallest because 'local' sounds small"
+    },
+    {
+     "q": "The computers in all the labs of a single school building are connected. What type of network is this?",
+     "options": [
+      "MAN",
+      "LAN",
+      "PAN",
+      "WAN"
+     ],
+     "answer": 1,
+     "explain": "A network within one building or campus is a LAN.",
+     "mistake": "Calls any network with many computers a WAN"
+    },
+    {
+     "q": "A cable TV operator connects homes across the city of Indore. What type of network is this?",
+     "options": [
+      "MAN",
+      "LAN",
+      "WAN",
+      "PAN"
+     ],
+     "answer": 0,
+     "explain": "A network spread across a city is a MAN.",
+     "mistake": "Confuses a city-wide network with a country-wide WAN"
+    },
+    {
+     "q": "Which is the largest WAN in the world?",
+     "options": [
+      "ARPANET",
+      "The Internet",
+      "NSFNET",
+      "A university LAN"
+     ],
+     "answer": 1,
+     "explain": "The Internet connects networks across the globe, making it the largest WAN.",
+     "mistake": "Names a historic network instead of today's Internet"
+    },
+    {
+     "q": "A company links its offices in Delhi, Chennai and Singapore. What type of network is formed?",
+     "options": [
+      "WAN",
+      "MAN",
+      "PAN",
+      "LAN"
+     ],
+     "answer": 0,
+     "explain": "Offices in different cities and countries are joined by a WAN.",
+     "mistake": "Thinks one company's network must be a LAN"
+    },
+    {
+     "q": "Which is the correct order of networks from smallest to largest coverage?",
+     "options": [
+      "LAN < PAN < MAN < WAN",
+      "PAN < MAN < LAN < WAN",
+      "MAN < LAN < PAN < WAN",
+      "PAN < LAN < MAN < WAN"
+     ],
+     "answer": 3,
+     "explain": "Personal, then local (building), then metropolitan (city), then wide (country or world).",
+     "mistake": "Swaps PAN and LAN"
+    },
+    {
+     "q": "Roughly how far does a typical PAN reach?",
+     "options": [
+      "About 10 kilometres",
+      "Across a country",
+      "About 10 metres",
+      "Across a city"
+     ],
+     "answer": 2,
+     "explain": "A PAN covers the space around one person, typically up to about 10 m.",
+     "mistake": "Overestimates the range of personal devices"
+    },
+    {
+     "q": "Assertion (A): A school's network is usually a LAN.\nReason (R): A LAN connects devices that are spread across many countries.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true because a school network sits in one building or campus. R is false: networks spread across countries are WANs.",
+     "mistake": "Confuses the coverage of LAN and WAN"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between a LAN and a WAN?'",
+    "must": [
+     [
+      "lan",
+      "local area network",
+      "building",
+      "campus",
+      "small area"
+     ],
+     [
+      "wan",
+      "wide area network",
+      "countries",
+      "large area",
+      "internet"
+     ]
+    ],
+    "praise": "Right on! A LAN covers a building or campus, while a WAN spans cities, countries or the whole world.",
+    "nudge": "How big an area does each one cover? Can you give an example of each?"
+   }
+  },
+  {
+   "id": "g12-cs-05-03",
+   "title": "Network devices",
+   "covers": [
+    "c5.4.1",
+    "c5.4.2",
+    "c5.4.3",
+    "c5.4.4",
+    "c5.4.5",
+    "c5.4.6",
+    "c5.4.7"
+   ],
+   "learn": {
+    "hook": "Every case-study question in the board paper asks 'which device, and where?' Learn what each box does and you will answer in seconds.",
+    "points": [
+     "Modem (MOdulator-DEModulator): converts digital signals from a computer into analog signals for a telephone or cable line (modulation), and back again (demodulation).",
+     "Ethernet card or NIC (Network Interface Card): lets a computer connect to a wired network; each NIC has a unique MAC address. An RJ45 is an 8-pin connector used with twisted-pair Ethernet cables. A Wi-Fi card does the same job wirelessly.",
+     "Repeater: regenerates (amplifies and restores) a weakened signal so it can travel farther. Signals on Ethernet cable weaken after about 100 m.",
+     "Hub: connects many devices but sends incoming data to ALL its ports (broadcast). Switch: also connects devices, but forwards data only to the intended device, using MAC addresses, which cuts unnecessary traffic.",
+     "Router: connects different networks (for example a LAN to the Internet) and finds the best route for packets using IP addresses. Gateway: the entry and exit point of a network, able to connect networks that use different protocols. A Wi-Fi access point lets wireless devices join a wired LAN."
+    ],
+    "example": {
+     "q": "An office LAN of 25 PCs must share one broadband connection. Which devices are needed?",
+     "steps": [
+      "Each PC needs a NIC (or Wi-Fi card)",
+      "A switch joins all 25 PCs into one LAN",
+      "A router (often combined with a modem) connects the LAN to the ISP and the Internet"
+     ],
+     "answer": "NICs, a switch, and a router/modem"
+    },
+    "reallife": "The Wi-Fi box your broadband provider installs at home is usually a modem, router, switch and access point packed into one device."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the device to its job",
+     "pairs": [
+      [
+       "Modem",
+       "Converts digital to analog and back"
+      ],
+      [
+       "Repeater",
+       "Regenerates a weak signal"
+      ],
+      [
+       "Hub",
+       "Sends data to all ports"
+      ],
+      [
+       "Switch",
+       "Sends data only to the intended device"
+      ],
+      [
+       "Router",
+       "Routes packets between networks"
+      ],
+      [
+       "Gateway",
+       "Connects networks with different protocols"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Device check",
+     "items": [
+      [
+       "A switch is more efficient than a hub because it sends data only to the destination device.",
+       true,
+       "A hub broadcasts to every port."
+      ],
+      [
+       "A repeater connects two networks that use different protocols.",
+       false,
+       "That is a gateway. A repeater only regenerates signals."
+      ],
+      [
+       "An RJ45 connector is used with twisted-pair Ethernet cable.",
+       true,
+       "It is an 8-pin connector."
+      ],
+      [
+       "A modem performs modulation and demodulation.",
+       true,
+       "That is where its name comes from."
+      ],
+      [
+       "Every NIC has a MAC address.",
+       true,
+       "The MAC address is the card's physical address."
+      ],
+      [
+       "A router works only inside a single LAN and cannot connect to the Internet.",
+       false,
+       "Connecting different networks, such as a LAN and the Internet, is its main job."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which device converts digital signals into analog signals and back?",
+     "options": [
+      "Switch",
+      "Router",
+      "Repeater",
+      "Modem"
+     ],
+     "answer": 3,
+     "explain": "Modem stands for modulator-demodulator.",
+     "mistake": "Confuses the modem with the router"
+    },
+    {
+     "q": "Which device broadcasts incoming data to every connected device?",
+     "options": [
+      "Gateway",
+      "Router",
+      "Hub",
+      "Switch"
+     ],
+     "answer": 2,
+     "explain": "A hub repeats incoming data on all its ports. A switch sends it only to the destination.",
+     "mistake": "Thinks hubs and switches work the same way"
+    },
+    {
+     "q": "Two buildings of a campus are 150 m apart and connected by Ethernet cable. Which device should be placed between them?",
+     "options": [
+      "Hub",
+      "Gateway",
+      "Modem",
+      "Repeater"
+     ],
+     "answer": 3,
+     "explain": "Signals on Ethernet cable weaken beyond about 100 m, so a repeater is needed to regenerate them.",
+     "mistake": "Uses a hub to extend distance"
+    },
+    {
+     "q": "Which device connects a school's LAN to the Internet and decides the best path for data packets?",
+     "options": [
+      "Router",
+      "RJ45",
+      "Repeater",
+      "Hub"
+     ],
+     "answer": 0,
+     "explain": "Routers connect different networks and route packets using IP addresses.",
+     "mistake": "Thinks a switch can route between networks"
+    },
+    {
+     "q": "Which hardware does a computer need to connect to a wired LAN?",
+     "options": [
+      "NIC (Ethernet card)",
+      "Repeater",
+      "Modem only",
+      "Gateway"
+     ],
+     "answer": 0,
+     "explain": "A Network Interface Card provides the physical connection to the network.",
+     "mistake": "Thinks a modem is needed inside every LAN computer"
+    },
+    {
+     "q": "Which device is used to connect two networks that use different protocols?",
+     "options": [
+      "Hub",
+      "Gateway",
+      "Repeater",
+      "Switch"
+     ],
+     "answer": 1,
+     "explain": "A gateway translates between dissimilar networks and acts as the entry and exit point of a network.",
+     "mistake": "Confuses a gateway with a simple connecting device"
+    },
+    {
+     "q": "How many pins does an RJ45 connector have?",
+     "options": [
+      "12",
+      "6",
+      "4",
+      "8"
+     ],
+     "answer": 3,
+     "explain": "RJ45 has 8 pins, matching the 8 wires of a twisted-pair Ethernet cable.",
+     "mistake": "Confuses RJ45 with the smaller telephone connector",
+     "check": "8"
+    },
+    {
+     "q": "Assertion (A): Replacing a hub with a switch reduces unnecessary traffic on a LAN.\nReason (R): A switch forwards data only to the port where the destination device is connected.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "A hub floods every port; a switch uses MAC addresses to deliver data only where it is needed. R explains A.",
+     "mistake": "Thinks a switch also broadcasts every frame"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'A hub and a switch look the same. What's the difference?'",
+    "must": [
+     [
+      "hub",
+      "all ports",
+      "broadcast",
+      "everyone",
+      "all devices"
+     ],
+     [
+      "switch",
+      "intended device",
+      "destination",
+      "specific device",
+      "only to"
+     ]
+    ],
+    "praise": "Spot on! A hub broadcasts data to all ports, while a switch sends it only to the intended device.",
+    "nudge": "Who receives the data when a hub gets it, and who receives it when a switch gets it?"
+   }
+  },
+  {
+   "id": "g12-cs-05-04",
+   "title": "Network topologies",
+   "covers": [
+    "c5.5.1",
+    "c5.5.2",
+    "c5.5.3",
+    "c5.5.4",
+    "c5.5.5",
+    "c5.5.6"
+   ],
+   "learn": {
+    "hook": "If one cable snaps, does your whole office go offline or just one desk? The answer depends on the topology.",
+    "points": [
+     "Topology is the arrangement of nodes and links in a network. Mesh: every node is connected to every other node. n nodes need n(n - 1)/2 links. Very reliable, but costly and hard to cable.",
+     "Ring: each node connects to exactly two neighbours, forming a closed loop; data usually travels in one direction. A single break can disrupt the whole ring.",
+     "Bus: all nodes share one backbone cable with terminators at the ends. Cheap and needs the least cable, but a fault in the backbone stops the whole network, and faults are hard to find.",
+     "Star: every node connects to a central hub or switch. Easy to install, extend and troubleshoot; one node's failure does not affect others, but if the central device fails, the whole network stops. Uses more cable than bus.",
+     "Tree (hierarchical): star networks joined by a bus-like backbone, as in a school with a switch on each floor. Choosing a layout in case studies: usually a star from the server building, which keeps cable short and failures contained."
+    ],
+    "example": {
+     "q": "How many direct links does a fully connected mesh of 6 computers need?",
+     "steps": [
+      "Each of 6 nodes connects to 5 others: 6 × 5 = 30 ends",
+      "Each link is counted twice, so divide by 2",
+      "30 / 2 = 15"
+     ],
+     "answer": "15 links"
+    },
+    "reallife": "An Indian bank's data centres are often linked in a mesh-like way, so that if one link fails, transactions can still flow through another path."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the topology to its feature",
+     "pairs": [
+      [
+       "Mesh",
+       "Every node linked to every other"
+      ],
+      [
+       "Ring",
+       "Closed loop of nodes"
+      ],
+      [
+       "Bus",
+       "Single backbone cable"
+      ],
+      [
+       "Star",
+       "All nodes joined to a central device"
+      ],
+      [
+       "Tree",
+       "Hierarchy of stars on a backbone"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Which topology does this describe?",
+     "buckets": [
+      "Star",
+      "Bus",
+      "Mesh"
+     ],
+     "items": [
+      [
+       "Central switch fails, whole network stops",
+       0
+      ],
+      [
+       "Easy to add a new node with its own cable to the centre",
+       0
+      ],
+      [
+       "Least cable, but backbone fault stops all",
+       1
+      ],
+      [
+       "Needs terminators at both ends",
+       1
+      ],
+      [
+       "n(n - 1)/2 links",
+       2
+      ],
+      [
+       "Most reliable, many alternate paths",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many links are needed to fully connect 5 computers in a mesh topology?",
+     "options": [
+      "10",
+      "20",
+      "5",
+      "25"
+     ],
+     "answer": 0,
+     "explain": "Mesh needs n(n - 1)/2 links: 5 × 4 / 2 = 10.",
+     "steps": [
+      "n = 5",
+      "n(n - 1)/2 = 5 × 4 / 2",
+      "= 10"
+     ],
+     "mistake": "Forgets to divide by 2, getting 20",
+     "check": "5*4/2"
+    },
+    {
+     "q": "In which topology does the failure of the central device bring the whole network down?",
+     "options": [
+      "Ring",
+      "Bus",
+      "Star",
+      "Mesh"
+     ],
+     "answer": 2,
+     "explain": "In a star, every node talks through the central hub or switch, so its failure stops everything.",
+     "mistake": "Confuses a fault in the central device with a backbone fault in a bus"
+    },
+    {
+     "q": "Which topology uses a single backbone cable to which all nodes are attached?",
+     "options": [
+      "Star",
+      "Ring",
+      "Bus",
+      "Tree"
+     ],
+     "answer": 2,
+     "explain": "In a bus topology all nodes share one backbone, terminated at both ends.",
+     "mistake": "Confuses bus with tree topology"
+    },
+    {
+     "q": "Which topology connects each node to exactly two neighbours, forming a closed loop?",
+     "options": [
+      "Ring",
+      "Mesh",
+      "Bus",
+      "Star"
+     ],
+     "answer": 0,
+     "explain": "A ring is a closed loop where each node links to the next and the previous node.",
+     "mistake": "Thinks a ring needs a central device"
+    },
+    {
+     "q": "Which statement about star topology is TRUE?",
+     "options": [
+      "A failure in one node's cable stops the whole network",
+      "It is easy to add a new node and to locate faults",
+      "Nodes are connected in a closed loop",
+      "It needs the least cable of all topologies"
+     ],
+     "answer": 1,
+     "explain": "Each node has its own cable to the centre, so adding nodes and finding faults is simple. Bus uses less cable.",
+     "mistake": "Mixes up star properties with bus or ring"
+    },
+    {
+     "q": "A school has a central server room, with a switch on each of its three floors linked to the server. Which topology is this?",
+     "options": [
+      "Mesh",
+      "Bus",
+      "Tree",
+      "Ring"
+     ],
+     "answer": 2,
+     "explain": "Several stars (one per floor) joined in a hierarchy form a tree topology.",
+     "mistake": "Sees switches and assumes a simple star"
+    },
+    {
+     "q": "Which topology offers the most alternative paths and is therefore most reliable, though most expensive?",
+     "options": [
+      "Ring",
+      "Bus",
+      "Mesh",
+      "Star"
+     ],
+     "answer": 2,
+     "explain": "In a mesh, every node has direct links to all others, so a failed link can be bypassed.",
+     "mistake": "Thinks star is the most reliable because it is the most common"
+    },
+    {
+     "q": "Assertion (A): In a bus topology, a break in the backbone cable can stop the whole network.\nReason (R): All nodes in a bus topology share the same backbone cable.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Since every node depends on the single shared backbone, a break in it affects everyone. R explains A.",
+     "mistake": "Does not connect the shared cable with the single point of failure"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What are the good and bad points of a star topology?'",
+    "must": [
+     [
+      "central",
+      "hub",
+      "switch",
+      "centre",
+      "center"
+     ],
+     [
+      "easy to add",
+      "easy to troubleshoot",
+      "easy to install",
+      "one node fails",
+      "others work"
+     ],
+     [
+      "whole network",
+      "network stops",
+      "fails",
+      "single point of failure"
+     ]
+    ],
+    "praise": "Excellent! Star is easy to set up and fix, but if the central hub or switch fails, the whole network goes down.",
+    "nudge": "What is at the centre of a star, and what happens if that device fails?"
+   }
+  },
+  {
+   "id": "g12-cs-05-05",
+   "title": "MAC and IP addresses, the Internet, the Web, IoT and DNS",
+   "covers": [
+    "c5.6.1",
+    "c5.6.2",
+    "c5.7.1",
+    "c5.7.2",
+    "c5.8.1",
+    "c5.8.2"
+   ],
+   "learn": {
+    "hook": "You type ncert.nic.in, but computers only understand numbers like 164.100.x.x. A hidden phone book called DNS makes the switch in milliseconds.",
+    "points": [
+     "MAC address: the unique 48-bit (6-byte) physical address burnt into a NIC, written as 12 hexadecimal digits in six pairs, e.g. 30-9C-23-1B-83-A5. The first half identifies the manufacturer. It does not change when the device moves.",
+     "IP address: a logical address given to a device on a network, which can change when it joins another network. IPv4 uses 32 bits written as four numbers from 0 to 255 (192.168.1.10). IPv6 uses 128 bits, written as eight groups of hexadecimal digits, because IPv4 addresses were running out.",
+     "The Internet is the global network of networks (the infrastructure). The World Wide Web is one service that runs on it: a collection of linked web pages accessed with browsers. Email and file transfer also use the Internet but are not the Web.",
+     "IoT (Internet of Things): everyday objects such as smart meters, ACs, watches and street lights connected to the Internet to send data and be controlled.",
+     "A domain name such as www.ncert.nic.in is a readable name for an IP address. The last part is the top-level domain (TLD): generic ones like .com, .org, .edu, .gov, or country codes like .in. DNS (Domain Name System) servers translate domain names into IP addresses; this is called name resolution."
+    ],
+    "example": {
+     "q": "Arun types www.isro.gov.in in his browser. Outline what happens before the page loads.",
+     "steps": [
+      "The browser asks a DNS server for the IP address of www.isro.gov.in",
+      "The DNS server resolves the name and returns the IP address",
+      "The browser contacts the web server at that IP address",
+      "The server sends the web page back to the browser"
+     ],
+     "answer": "DNS resolves the name to an IP address, then the browser fetches the page from that server"
+    },
+    "reallife": "Smart electricity meters installed by Indian power distribution companies report usage over the network automatically, a real IoT example in many cities."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "MAC or IP address?",
+     "buckets": [
+      "MAC address",
+      "IP address"
+     ],
+     "items": [
+      [
+       "48 bits long",
+       0
+      ],
+      [
+       "Burnt into the NIC by the manufacturer",
+       0
+      ],
+      [
+       "Written like 30-9C-23-1B-83-A5",
+       0
+      ],
+      [
+       "Can change when you join another network",
+       1
+      ],
+      [
+       "Written like 192.168.1.10",
+       1
+      ],
+      [
+       "Comes in 32-bit and 128-bit versions",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the term to its meaning",
+     "pairs": [
+      [
+       "DNS",
+       "Turns domain names into IP addresses"
+      ],
+      [
+       "TLD",
+       "Last part of a domain, like .in"
+      ],
+      [
+       "IoT",
+       "Everyday devices connected to the Internet"
+      ],
+      [
+       "WWW",
+       "Linked web pages on the Internet"
+      ],
+      [
+       "IPv6",
+       "128-bit logical address"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "How many bits are there in a MAC address?",
+     "options": [
+      "64",
+      "32",
+      "128",
+      "48"
+     ],
+     "answer": 3,
+     "explain": "A MAC address is 48 bits, written as 12 hexadecimal digits.",
+     "mistake": "Confuses the MAC address with IPv4 (32 bits) or IPv6 (128 bits)",
+     "check": "48"
+    },
+    {
+     "q": "How many bits does an IPv4 address have?",
+     "options": [
+      "48",
+      "128",
+      "64",
+      "32"
+     ],
+     "answer": 3,
+     "explain": "IPv4 uses 32 bits, written as four decimal numbers, each 0-255.",
+     "mistake": "Confuses IPv4 with IPv6",
+     "check": "32"
+    },
+    {
+     "q": "Which of these is a valid IPv4 address?",
+     "options": [
+      "256.1.1.1",
+      "192.168.1.300",
+      "10.0.0.25",
+      "172.16.5"
+     ],
+     "answer": 2,
+     "explain": "Each of the four numbers must be from 0 to 255. 300 and 256 are too large, and 172.16.5 has only three parts.",
+     "mistake": "Forgets that each part can be at most 255"
+    },
+    {
+     "q": "What does DNS do?",
+     "options": [
+      "Encrypts web pages",
+      "Stores web pages for websites",
+      "Assigns MAC addresses to NICs",
+      "Translates domain names into IP addresses"
+     ],
+     "answer": 3,
+     "explain": "DNS servers resolve names such as www.cbse.gov.in to the numeric IP addresses computers use.",
+     "mistake": "Confuses DNS with web hosting"
+    },
+    {
+     "q": "In the domain name www.cbse.gov.in, what is the top-level domain?",
+     "options": [
+      ".in",
+      "www",
+      ".gov",
+      "cbse"
+     ],
+     "answer": 0,
+     "explain": "The top-level domain is the last part: .in, India's country code.",
+     "mistake": "Reads the domain from left to right and picks the wrong part"
+    },
+    {
+     "q": "Which statement correctly distinguishes the Internet from the World Wide Web?",
+     "options": [
+      "The Web is the hardware, the Internet is the web pages",
+      "The Internet is a global network of networks; the Web is a service of linked pages that runs on it",
+      "They are two names for the same thing",
+      "The Internet works only with email"
+     ],
+     "answer": 1,
+     "explain": "The Internet is the infrastructure. The Web is one of the services that uses it, alongside email, file transfer and more.",
+     "mistake": "Uses 'Internet' and 'Web' as synonyms"
+    },
+    {
+     "q": "A smart AC that you can switch on from your phone while travelling home is an example of what?",
+     "options": [
+      "PAN",
+      "FTP",
+      "IoT",
+      "DNS"
+     ],
+     "answer": 2,
+     "explain": "An everyday appliance connected to the Internet and controlled remotely is part of the Internet of Things.",
+     "mistake": "Calls any phone connection a PAN"
+    },
+    {
+     "q": "Assertion (A): A laptop's IP address can change when it moves from home Wi-Fi to the school network.\nReason (R): A MAC address is a 48-bit physical address fixed in the network card.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both are true. A is true because IP is a logical address given by each network. R is true but describes the MAC address, so it does not explain why the IP address changes.",
+     "mistake": "Thinks any true statement about addresses explains A"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does my computer need both a MAC address and an IP address?'",
+    "must": [
+     [
+      "mac",
+      "physical",
+      "hardware",
+      "nic",
+      "network card"
+     ],
+     [
+      "ip",
+      "logical",
+      "changes",
+      "network address"
+     ]
+    ],
+    "praise": "Wonderful! The MAC address is the fixed physical address of the network card; the IP address is a logical address given by the network, which can change.",
+    "nudge": "Which address is fixed in the hardware, and which one is given by the network?"
+   }
+  },
+  {
+   "id": "g12-cs-05-06",
+   "title": "Web services: HTML, XML, URLs, browsers, servers and hosting",
+   "covers": [
+    "c5.9.1",
+    "c5.9.2",
+    "c5.9.3",
+    "c5.9.4"
+   ],
+   "learn": {
+    "hook": "Every time you open the DigiLocker website, a browser on your phone asks a web server somewhere for an HTML page. Let's open the hood.",
+    "points": [
+     "WWW: a system of interlinked documents and resources on the Internet. HTML (HyperText Markup Language) uses predefined tags such as <p> and <h1> to present web pages; it is not case-sensitive.",
+     "XML (eXtensible Markup Language) stores and carries data using user-defined tags such as <rollno>; it is case-sensitive and focuses on data rather than display. HTML shows data; XML describes data.",
+     "A URL (Uniform Resource Locator) is the address of a resource on the web. In https://www.ncert.nic.in/textbook.php, https is the protocol, www.ncert.nic.in is the domain name and textbook.php is the path to the document.",
+     "A web page is a single document on the web; a website is a collection of related web pages under one domain. A web browser (Chrome, Firefox, Edge, Safari) is client software that requests and displays pages; a web server is a computer and software that stores pages and sends them on request.",
+     "Web hosting is the service of storing a website's files on a server permanently connected to the Internet, so that anyone can reach the site by its domain name."
+    ],
+    "example": {
+     "q": "Identify the parts of the URL https://www.cbse.gov.in/results.html.",
+     "steps": [
+      "Protocol: https",
+      "Domain name: www.cbse.gov.in",
+      "Path / document: results.html"
+     ],
+     "answer": "https, www.cbse.gov.in, results.html"
+    },
+    "reallife": "An Indian startup launching its website pays a hosting company to keep its pages on servers that run all day and night, so customers from Kashmir to Kanyakumari can open it at any hour."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "HTML or XML?",
+     "buckets": [
+      "HTML",
+      "XML"
+     ],
+     "items": [
+      [
+       "Predefined tags",
+       0
+      ],
+      [
+       "Used to display web pages",
+       0
+      ],
+      [
+       "Not case-sensitive",
+       0
+      ],
+      [
+       "User-defined tags",
+       1
+      ],
+      [
+       "Used to store and carry data",
+       1
+      ],
+      [
+       "Case-sensitive",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the term to its meaning",
+     "pairs": [
+      [
+       "Web browser",
+       "Client software that shows web pages"
+      ],
+      [
+       "Web server",
+       "Stores and sends web pages"
+      ],
+      [
+       "Web hosting",
+       "Keeping a site's files on an Internet server"
+      ],
+      [
+       "Website",
+       "Collection of related web pages"
+      ],
+      [
+       "URL",
+       "Address of a web resource"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "In the URL https://www.ncert.nic.in/textbook.php, what is 'https'?",
+     "options": [
+      "Protocol",
+      "File name",
+      "Domain name",
+      "Top-level domain"
+     ],
+     "answer": 0,
+     "explain": "The part before :// is the protocol used to fetch the resource.",
+     "mistake": "Mixes up the protocol and the domain name"
+    },
+    {
+     "q": "Which is the main difference between HTML and XML?",
+     "options": [
+      "HTML has user-defined tags; XML has predefined tags",
+      "XML is used only for images",
+      "There is no difference",
+      "HTML presents data using predefined tags; XML stores and carries data using user-defined tags"
+     ],
+     "answer": 3,
+     "explain": "HTML focuses on how content looks; XML describes what the data is, with tags you invent.",
+     "mistake": "Swaps the tag rules of HTML and XML"
+    },
+    {
+     "q": "Which of these is a web browser?",
+     "options": [
+      "Python",
+      "Mozilla Firefox",
+      "MySQL",
+      "Apache"
+     ],
+     "answer": 1,
+     "explain": "Firefox is client software for viewing web pages. Apache is web server software and MySQL is a DBMS.",
+     "mistake": "Confuses a web server program with a browser"
+    },
+    {
+     "q": "What is web hosting?",
+     "options": [
+      "Converting domain names to IP addresses",
+      "Storing a website's files on a server connected to the Internet so it can be accessed",
+      "Browsing many websites at once",
+      "Designing a web page in HTML"
+     ],
+     "answer": 1,
+     "explain": "A hosting provider keeps the site's files on servers that are always online.",
+     "mistake": "Confuses hosting with DNS or design"
+    },
+    {
+     "q": "What is the difference between a web page and a website?",
+     "options": [
+      "They are the same",
+      "A web page is always on a local computer",
+      "A website is a single document; a web page is a collection",
+      "A web page is a single document; a website is a collection of related web pages"
+     ],
+     "answer": 3,
+     "explain": "A website groups many related pages under one domain.",
+     "mistake": "Reverses the two terms"
+    },
+    {
+     "q": "Which statement about XML is TRUE?",
+     "options": [
+      "It cannot store data",
+      "Its tags are fixed by the language",
+      "It is case-sensitive",
+      "It is used mainly to decide the colours of a web page"
+     ],
+     "answer": 2,
+     "explain": "XML tags are user-defined and case-sensitive, so <Name> and <name> are different.",
+     "mistake": "Assumes XML behaves like HTML"
+    },
+    {
+     "q": "What is the role of a web server?",
+     "options": [
+      "Display web pages on the user's screen",
+      "Store web pages and send them to browsers on request",
+      "Assign IP addresses to computers",
+      "Convert analog signals to digital"
+     ],
+     "answer": 1,
+     "explain": "Browsers request pages; web servers store and deliver them.",
+     "mistake": "Confuses the server's role with the browser's"
+    },
+    {
+     "q": "Assertion (A): XML is called 'extensible'.\nReason (R): In XML, users can define their own tags.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Because you can create new tags to suit your data, the language can be extended. R explains A.",
+     "mistake": "Does not link user-defined tags to 'extensible'"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What are the parts of a URL like https://www.cbse.gov.in/index.html?'",
+    "must": [
+     [
+      "protocol",
+      "https",
+      "http"
+     ],
+     [
+      "domain",
+      "domain name",
+      "www.cbse.gov.in"
+     ],
+     [
+      "path",
+      "file",
+      "document",
+      "page name",
+      "index.html"
+     ]
+    ],
+    "praise": "Perfect! A URL has the protocol, the domain name and the path to the document.",
+    "nudge": "What does the part before :// tell us, what is the name of the site, and what comes after the slash?"
+   }
+  },
+  {
+   "id": "g12-cs-05-07",
+   "title": "Case study: designing a network",
+   "covers": [
+    "c5.9.5"
+   ],
+   "learn": {
+    "hook": "Section E of the board paper almost always describes a company with four buildings and asks you to design its network. There is a reliable method. Here it is.",
+    "points": [
+     "Server location: put the server in the building with the MOST computers. That keeps most traffic inside one building (the 80-20 rule of thumb) and reduces cabling.",
+     "Cable layout: usually a star from the server building to every other building, which keeps cable short and failures contained. Write it as a simple diagram.",
+     "Repeater: place one on any cable run longer than about 100 m (Ethernet's limit). Hub or switch: one in EVERY building, to connect its computers. A switch is preferred over a hub.",
+     "Joining distant sites: within a campus use Ethernet cable or optical fibre; across hilly or distant places (hundreds of km) use satellite, microwave or radio links. Network type: buildings within a campus form a LAN; offices in different cities form a WAN.",
+     "Common difference questions: hub vs switch, LAN vs WAN, MAC vs IP, circuit vs packet switching, and matching each device to its function."
+    ],
+    "example": {
+     "q": "A school has four blocks with these computer counts: Admin 30, Science 90, Junior 40, Library 15. Distances from Science: Admin 120 m, Junior 80 m, Library 60 m. Where do the server and repeaters go?",
+     "steps": [
+      "The Science block has the most computers (90), so the server goes there",
+      "Use a star layout from Science to the other three blocks",
+      "Only the Science–Admin run (120 m) is longer than 100 m, so place a repeater on it",
+      "Put a switch in every block"
+     ],
+     "answer": "Server in Science; repeater on the Science–Admin link; a switch in each block"
+    },
+    "reallife": "Large Indian hospitals such as AIIMS run campus networks linking OPD blocks, labs and wards. Planners follow exactly these rules to decide where the main server and switches go."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Network design checklist",
+     "prompt": "In the order you usually answer",
+     "items": [
+      "Find the building with the most computers",
+      "Place the server there",
+      "Draw a star cable layout from that building",
+      "Add repeaters on runs over 100 m",
+      "Put a switch in every building"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the situation to the best choice",
+     "pairs": [
+      [
+       "Server location",
+       "Building with the most computers"
+      ],
+      [
+       "Link of 150 m on Ethernet cable",
+       "Use a repeater"
+      ],
+      [
+       "Connecting PCs inside one block",
+       "Switch"
+      ],
+      [
+       "Office in a remote hilly area",
+       "Satellite or microwave link"
+      ],
+      [
+       "Network across one campus",
+       "LAN"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A company has four blocks with these numbers of computers: A 25, B 110, C 40, D 15. Where should the server be placed?",
+     "options": [
+      "Block A",
+      "Block D",
+      "Block C",
+      "Block B"
+     ],
+     "answer": 3,
+     "explain": "Block B has the most computers, so most traffic stays local and cabling is minimised.",
+     "mistake": "Picks a block because it is in the middle, ignoring the number of computers"
+    },
+    {
+     "q": "In a campus, the distances from the server block are P 70 m, Q 130 m and R 90 m. On which link is a repeater required?",
+     "options": [
+      "None of the links",
+      "Server to Q",
+      "Server to R",
+      "Server to P"
+     ],
+     "answer": 1,
+     "explain": "Only the 130 m run exceeds about 100 m, beyond which Ethernet signals weaken too much.",
+     "mistake": "Puts repeaters on every link"
+    },
+    {
+     "q": "Which device should be installed in each building of a campus to connect the computers inside it?",
+     "options": [
+      "Switch",
+      "Repeater",
+      "Modem",
+      "Gateway"
+     ],
+     "answer": 0,
+     "explain": "A switch connects all the computers within a building into the LAN.",
+     "mistake": "Chooses a modem, which only links to a phone or cable line"
+    },
+    {
+     "q": "A company in Mumbai opens a branch in a remote hill town about 900 km away, where laying cable is impractical. What is the best way to connect them?",
+     "options": [
+      "Infrared",
+      "Bluetooth",
+      "Satellite link",
+      "Twisted pair cable"
+     ],
+     "answer": 2,
+     "explain": "For long distances over difficult terrain, satellite (or microwave) links are used.",
+     "mistake": "Chooses short-range wireless like Bluetooth or infrared"
+    },
+    {
+     "q": "A company's four buildings on one campus are networked together. What type of network is this?",
+     "options": [
+      "PAN",
+      "LAN",
+      "WAN",
+      "MAN"
+     ],
+     "answer": 1,
+     "explain": "Buildings within a single campus form a LAN.",
+     "mistake": "Calls a multi-building network a WAN"
+    },
+    {
+     "q": "Which cable layout is usually suggested for connecting all buildings to the server building?",
+     "options": [
+      "Star layout from the server building",
+      "A single bus with no switches",
+      "Ring through all buildings",
+      "No cables, only Bluetooth"
+     ],
+     "answer": 0,
+     "explain": "A star from the server building keeps each link independent, so a cable fault affects only one building.",
+     "mistake": "Prefers a ring or bus, where a single break affects many buildings"
+    },
+    {
+     "q": "A university wants to connect two campus buildings 400 m apart with high speed and immunity to electrical interference. Which medium is best?",
+     "options": [
+      "Optical fibre",
+      "Infrared",
+      "Coaxial cable",
+      "Bluetooth"
+     ],
+     "answer": 0,
+     "explain": "Optical fibre carries light, so it has very high bandwidth, low loss over distance and no electromagnetic interference.",
+     "mistake": "Picks a wireless option meant for very short ranges"
+    },
+    {
+     "q": "Assertion (A): In a network case study, the server is usually placed in the building with the most computers.\nReason (R): Placing it there keeps most network traffic within one building and reduces cabling.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Most requests come from that building, so traffic and cable runs are minimised. R explains A.",
+     "mistake": "Thinks the server should go in the smallest building"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'In a network case study, how do I decide where to put the server?'",
+    "must": [
+     [
+      "most computers",
+      "maximum computers",
+      "largest number",
+      "most nodes",
+      "maximum number"
+     ],
+     [
+      "traffic",
+      "cabling",
+      "less cable",
+      "cable length",
+      "reduce"
+     ]
+    ],
+    "praise": "Smart! Place the server where the most computers are, to keep traffic local and cabling short.",
+    "nudge": "Which building should get the server, and why does that help?"
+   }
+  }
+ ]
+}

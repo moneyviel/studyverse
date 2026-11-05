@@ -1,0 +1,857 @@
+{
+ "n": 4,
+ "title": "Stack",
+ "emoji": "🥞",
+ "topics": [
+  {
+   "id": "g12-cs-04-01",
+   "title": "Data structures and the stack (LIFO)",
+   "covers": [
+    "c4.1.1",
+    "c4.2.1",
+    "c4.2.2",
+    "c4.2.3"
+   ],
+   "learn": {
+    "hook": "Press Ctrl+Z three times and your last three edits vanish in reverse order. Behind that undo button sits a stack.",
+    "points": [
+     "A data structure is a way of storing and organising data so it can be used efficiently. In a linear data structure (list, stack, queue) elements are arranged one after another.",
+     "A stack is a linear data structure in which insertion and deletion happen at only one end, called the TOP.",
+     "It follows LIFO: Last In, First Out. The element added most recently is the first one removed.",
+     "Everyday stacks: a pile of plates at a wedding buffet, a stack of books, a pile of chapatis in a casserole, bangles on a stand.",
+     "Programming uses: reversing a string, undo/redo in editors, the browser back button, checking matching parentheses in an expression, and keeping track of function calls."
+    ],
+    "example": {
+     "q": "Plates P1, P2 and P3 are placed on a pile one by one. Two plates are then taken off. Which plate is left?",
+     "steps": [
+      "After pushing: P1 (bottom), P2, P3 (top)",
+      "First removal takes P3, the top",
+      "Second removal takes P2",
+      "Only P1, the first one placed, remains"
+     ],
+     "answer": "P1"
+    },
+    "reallife": "On a crowded Mumbai local, the passenger who squeezed in last stands right at the door and is first off at the next station. Last in, first out."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Is it a stack?",
+     "items": [
+      [
+       "A stack allows insertion and deletion at both ends.",
+       false,
+       "Both operations happen only at the top."
+      ],
+      [
+       "The browser's back button behaves like a stack of visited pages.",
+       true,
+       "The most recently visited page is the first one you go back to."
+      ],
+      [
+       "In a stack, the first element added is the first one removed.",
+       false,
+       "That is FIFO (a queue). A stack is LIFO."
+      ],
+      [
+       "A stack is a linear data structure.",
+       true,
+       "Its elements are arranged one after another."
+      ],
+      [
+       "Undo in a text editor uses a stack of actions.",
+       true,
+       "The last action is undone first."
+      ],
+      [
+       "A queue at a ticket counter is an example of a stack.",
+       false,
+       "A queue is first come, first served (FIFO)."
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Stack-like or not?",
+     "buckets": [
+      "Works like a stack (LIFO)",
+      "Does not work like a stack"
+     ],
+     "items": [
+      [
+       "Pile of plates",
+       0
+      ],
+      [
+       "Ctrl+Z undo history",
+       0
+      ],
+      [
+       "Bangles slid onto a stand",
+       0
+      ],
+      [
+       "Browser back button",
+       0
+      ],
+      [
+       "Queue at a railway ticket window",
+       1
+      ],
+      [
+       "Students entering a hall one by one and leaving in the same order",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What does LIFO stand for?",
+     "options": [
+      "Last In Final Output",
+      "List In First Out",
+      "Last In First Out",
+      "Linear Input First Output"
+     ],
+     "answer": 2,
+     "explain": "In a stack, the last element added is the first to come out.",
+     "mistake": "Mixes up the expansion of the acronym"
+    },
+    {
+     "q": "Where are elements added to and removed from in a stack?",
+     "options": [
+      "Both ends",
+      "Anywhere in the middle",
+      "Only the bottom",
+      "Only the top"
+     ],
+     "answer": 3,
+     "explain": "A stack has a single open end, the top, for both insertion and deletion.",
+     "mistake": "Confuses a stack with a queue or a list"
+    },
+    {
+     "q": "Elements 5, 9 and 2 are pushed onto an empty stack in that order. Which element is removed first?",
+     "options": [
+      "All three together",
+      "9",
+      "2",
+      "5"
+     ],
+     "answer": 2,
+     "explain": "2 was pushed last, so it is on top and comes out first.",
+     "mistake": "Removes the first element pushed, as in a queue",
+     "check": "2"
+    },
+    {
+     "q": "Which of these applications does NOT naturally use a stack?",
+     "options": [
+      "Checking whether brackets are balanced",
+      "Reversing a string",
+      "Undo in a word processor",
+      "Serving customers in the order they arrived"
+     ],
+     "answer": 3,
+     "explain": "Serving in order of arrival is first in, first out, which is a queue. The others rely on LIFO.",
+     "mistake": "Thinks every ordered collection is a stack"
+    },
+    {
+     "q": "What is a data structure?",
+     "options": [
+      "A programming language",
+      "A way of storing and organising data so it can be used efficiently",
+      "A hardware device",
+      "A type of loop"
+     ],
+     "answer": 1,
+     "explain": "Data structures such as lists, stacks and queues organise data so that operations on it are efficient.",
+     "mistake": "Confuses data structures with languages or hardware"
+    },
+    {
+     "q": "Using a stack to reverse 'RAIL', the letters are pushed in order and then all popped. What is produced?",
+     "options": [
+      "LRAI",
+      "LIAR",
+      "RAIL",
+      "RLIA"
+     ],
+     "answer": 1,
+     "explain": "Pushing R, A, I, L puts L on top. Popping gives L, I, A, R.",
+     "mistake": "Pops from the bottom instead of the top"
+    },
+    {
+     "q": "Assertion (A): A browser's back button can be implemented using a stack.\nReason (R): The most recently visited page is the first one you return to.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Pages are pushed as you visit them; Back pops the most recent one. That LIFO behaviour, described in R, is why a stack fits.",
+     "mistake": "Fails to link the LIFO order with the back-button behaviour"
+    },
+    {
+     "q": "Which pair of everyday things are both examples of a stack?",
+     "options": [
+      "A cinema queue and a pile of books",
+      "A bus queue and a stack of plates",
+      "A queue at an ATM and a cinema queue",
+      "A pile of books and a stack of plates"
+     ],
+     "answer": 3,
+     "explain": "In a pile of books or plates you add and remove at the top only. Queues serve people in order of arrival.",
+     "mistake": "Confuses queues with stacks"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What makes a stack different from a normal line of people?'",
+    "must": [
+     [
+      "lifo",
+      "last in first out",
+      "last in, first out"
+     ],
+     [
+      "top",
+      "one end",
+      "same end"
+     ]
+    ],
+    "praise": "Exactly! A stack is LIFO: the last item in is the first out, and everything happens at the top.",
+    "nudge": "Which item comes out first from a stack, and at which end do insertion and deletion happen?"
+   }
+  },
+  {
+   "id": "g12-cs-04-02",
+   "title": "Stack operations and implementation in Python",
+   "covers": [
+    "c4.3.1",
+    "c4.3.2",
+    "c4.3.3",
+    "c4.4.1",
+    "c4.4.2",
+    "c4.4.3"
+   ],
+   "learn": {
+    "hook": "The stack question in the board paper is almost always the same shape: write PUSH() and POP() for a list. Master the pattern once and collect those 3 marks every time.",
+    "points": [
+     "PUSH adds an element at the top. If a fixed-size stack is already full, trying to push causes OVERFLOW.",
+     "POP removes and returns the top element. Trying to pop from an empty stack causes UNDERFLOW.",
+     "Other operations: PEEK/TOP (look at the top element without removing it), isEmpty (is the stack empty?), size (number of elements) and display (show the elements from top to bottom).",
+     "A Python list works as a stack with its end as the top: stack.append(x) pushes, stack.pop() pops, stack[-1] peeks, len(stack) gives the size and len(stack) == 0 tests emptiness.",
+     "Board-style functions: PUSH(S, data) pushes only the items that meet a condition (e.g. numbers divisible by 5, names of students scoring above 75 from a dictionary); POP(S) pops and displays until the stack is empty, then prints 'Stack Empty'."
+    ],
+    "example": {
+     "q": "Write isEmpty(s) and opPop(s) so that popping an empty stack reports underflow instead of crashing.",
+     "steps": [
+      "def isEmpty(s): return len(s) == 0",
+      "def opPop(s):",
+      "    if isEmpty(s): print('Underflow')",
+      "    else: return s.pop()"
+     ],
+     "answer": "opPop returns the top element, or prints Underflow when the stack is empty"
+    },
+    "reallife": "The pile of answer sheets an examiner checks works like a stack: the copy placed last goes on top and gets marked first."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the operation to its Python code",
+     "pairs": [
+      [
+       "PUSH x",
+       "s.append(x)"
+      ],
+      [
+       "POP",
+       "s.pop()"
+      ],
+      [
+       "PEEK (top)",
+       "s[-1]"
+      ],
+      [
+       "SIZE",
+       "len(s)"
+      ],
+      [
+       "isEmpty",
+       "len(s) == 0"
+      ]
+     ]
+    },
+    {
+     "type": "order",
+     "title": "Inside a safe POP function",
+     "prompt": "Steps in the order the code runs",
+     "items": [
+      "Function opPop(stack) is called",
+      "Check whether the stack is empty",
+      "If it is empty, report Underflow and stop",
+      "Otherwise remove the top element with stack.pop()",
+      "Return the removed element to the caller"
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nS = []\nS.append(10)\nS.append(20)\nS.pop()\nS.append(30)\nprint(S)",
+     "options": [
+      "[10, 30]",
+      "[10, 20, 30]",
+      "[30]",
+      "[20, 30]"
+     ],
+     "answer": 0,
+     "explain": "After the two pushes the stack is [10, 20]. pop() removes the top, 20, and then 30 is pushed.",
+     "mistake": "Pops from the bottom of the stack"
+    },
+    {
+     "q": "What is the condition called when we try to POP from an empty stack?",
+     "options": [
+      "Underflow",
+      "Overload",
+      "Overflow",
+      "Stack Error"
+     ],
+     "answer": 0,
+     "explain": "Underflow means there is nothing to remove. Overflow is pushing onto a full fixed-size stack.",
+     "mistake": "Mixes up overflow and underflow"
+    },
+    {
+     "q": "What is the output?\ns = [5, 2, 8]\nprint(s[-1], len(s))",
+     "options": [
+      "3 3",
+      "8 2",
+      "3 2",
+      "8 3"
+     ],
+     "answer": 3,
+     "explain": "s[-1] peeks at the top, 8, without removing it, so len(s) is still 3.",
+     "mistake": "Thinks peek removes the top element"
+    },
+    {
+     "q": "What is the output?\ndef PUSH(S, N):\n    for x in N:\n        if x % 5 == 0:\n            S.append(x)\nS = []\nPUSH(S, [10, 7, 25])\nwhile S:\n    print(S.pop(), end=' ')",
+     "options": [
+      "25 10 7",
+      "10 25",
+      "10 25 7",
+      "25 10"
+     ],
+     "answer": 3,
+     "explain": "Only 10 and 25 are divisible by 5, so they are pushed in that order. Popping gives the top first: 25 then 10.",
+     "mistake": "Prints in the order pushed, forgetting LIFO"
+    },
+    {
+     "q": "What is the output?\nmarks = {'Asha': 82, 'Tina': 60, 'Ravi': 91}\nst = []\nfor name in marks:\n    if marks[name] > 75:\n        st.append(name)\nwhile st:\n    print(st.pop(), end=' ')",
+     "options": [
+      "Ravi Asha",
+      "Tina",
+      "Asha Ravi",
+      "Asha Ravi Tina"
+     ],
+     "answer": 0,
+     "explain": "Asha (82) and Ravi (91) score above 75, so they are pushed in that order; popping shows Ravi first.",
+     "mistake": "Forgets LIFO or includes Tina, who scored 60"
+    },
+    {
+     "q": "What happens when this code runs?\nst = []\nprint(st.pop())",
+     "options": [
+      "IndexError is raised",
+      "0 is printed",
+      "Underflow is printed automatically",
+      "None is printed"
+     ],
+     "answer": 0,
+     "explain": "list.pop() on an empty list raises IndexError. That is why a stack program checks isEmpty() first and reports underflow itself.",
+     "mistake": "Thinks Python prints 'Underflow' on its own"
+    },
+    {
+     "q": "Which function correctly returns the top element of a non-empty stack s WITHOUT removing it?",
+     "options": [
+      "def top(s): return s[-1]",
+      "def top(s): return s.pop()",
+      "def top(s): return len(s)",
+      "def top(s): return s[0]"
+     ],
+     "answer": 0,
+     "explain": "s[-1] reads the last element, which is the top. pop() would remove it, and s[0] is the bottom.",
+     "mistake": "Uses pop() for peek, or treats index 0 as the top"
+    },
+    {
+     "q": "Why is overflow rarely a concern when a Python list is used as a stack?",
+     "options": [
+      "Python lists are always empty",
+      "Python stacks can hold only 10 items",
+      "append() deletes old elements",
+      "Python lists can grow dynamically as elements are added"
+     ],
+     "answer": 3,
+     "explain": "A list has no fixed size, so pushing keeps working until memory runs out. Overflow matters for fixed-size stacks.",
+     "mistake": "Assumes every stack has a fixed capacity"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I push and pop if I'm using a Python list as a stack?'",
+    "must": [
+     [
+      "append",
+      "append()"
+     ],
+     [
+      "pop",
+      "pop()"
+     ],
+     [
+      "end",
+      "top",
+      "last element"
+     ]
+    ],
+    "praise": "Perfect! append() pushes onto the end, pop() removes from the end, and the end of the list is the top.",
+    "nudge": "Which list methods push and pop, and which end of the list is the top?"
+   }
+  },
+  {
+   "id": "g12-cs-04-03",
+   "title": "Infix, prefix and postfix notation (beyond the exam syllabus)",
+   "covers": [
+    "c4.5.1",
+    "c4.6.1"
+   ],
+   "learn": {
+    "hook": "Your calculator doesn't think in brackets. Long ago, Polish logician Jan Łukasiewicz showed that expressions can be written with no brackets at all. (Enrichment: in NCERT, but not in the CBSE board exam.)",
+    "points": [
+     "Note: this topic is in the NCERT book, but it is NOT part of the CBSE (083) board exam syllabus. Study it to understand how stacks are used; it will not be examined.",
+     "Infix: the operator sits between its operands, A + B. Brackets and precedence decide the order.",
+     "Prefix (Polish notation): the operator comes before its operands, + A B. Postfix (Reverse Polish notation): the operator comes after its operands, A B +. Neither needs brackets.",
+     "Precedence: * and / are higher than + and -. Operators of equal precedence are applied left to right.",
+     "Stack algorithm, scanning left to right: write each operand straight to the output. Push '('. On ')', pop operators to the output until '(' and discard both brackets. On an operator, first pop to the output any operators on top (above any '(') with precedence greater than or equal to it, then push it. At the end, pop everything left.",
+     "Examples: A + B * C → A B C * +; (A + B) * C → A B + C *; A - B + C → A B - C +."
+    ],
+    "example": {
+     "q": "Convert (x + y) / (z * 8) to postfix.",
+     "steps": [
+      "( push; x out; + push; y out; ) pops + → x y +",
+      "/ pushed (stack empty)",
+      "( push; z out; * push; 8 out; ) pops * → z 8 *",
+      "End: pop / → x y + z 8 * /"
+     ],
+     "answer": "x y + z 8 * /"
+    },
+    "reallife": "Many early scientific calculators used Reverse Polish notation, so users typed 3 ENTER 4 + instead of 3 + 4 =."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the infix expression to its postfix form",
+     "pairs": [
+      [
+       "A + B * C",
+       "A B C * +"
+      ],
+      [
+       "(A + B) * C",
+       "A B + C *"
+      ],
+      [
+       "A * B + C",
+       "A B * C +"
+      ],
+      [
+       "A - B + C",
+       "A B - C +"
+      ],
+      [
+       "A * (B - C)",
+       "A B C - *"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Which notation?",
+     "buckets": [
+      "Infix",
+      "Prefix",
+      "Postfix"
+     ],
+     "items": [
+      [
+       "A + B",
+       0
+      ],
+      [
+       "(P - Q) * R",
+       0
+      ],
+      [
+       "+ A B",
+       1
+      ],
+      [
+       "* + P Q R",
+       1
+      ],
+      [
+       "A B +",
+       2
+      ],
+      [
+       "P Q - R *",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the postfix form of A + B * C?",
+     "options": [
+      "A B + C *",
+      "A B C + *",
+      "A B C * +",
+      "+ A * B C"
+     ],
+     "answer": 2,
+     "explain": "* has higher precedence, so B * C becomes B C * first; then A is added: A B C * +.",
+     "mistake": "Applies + before * by reading strictly left to right"
+    },
+    {
+     "q": "Convert the bracketed expression (A + B) * C into postfix.",
+     "options": [
+      "A B C * +",
+      "A B + C *",
+      "A B C + *",
+      "* + A B C"
+     ],
+     "answer": 1,
+     "explain": "The brackets force A + B first, giving A B +, which is then multiplied by C.",
+     "mistake": "Ignores the brackets"
+    },
+    {
+     "q": "What is the prefix form of (A + B) * C?",
+     "options": [
+      "* A + B C",
+      "* + A B C",
+      "A B + C *",
+      "+ * A B C"
+     ],
+     "answer": 1,
+     "explain": "A + B becomes + A B, and multiplying that by C gives * + A B C.",
+     "mistake": "Writes the postfix form instead of prefix"
+    },
+    {
+     "q": "Convert A - B + C into postfix notation.",
+     "options": [
+      "A B C - +",
+      "A B - C +",
+      "A B C + -",
+      "- + A B C"
+     ],
+     "answer": 1,
+     "explain": "- and + have equal precedence and are applied left to right: (A - B) + C → A B - C +.",
+     "mistake": "Groups B + C first, which changes the value"
+    },
+    {
+     "q": "In postfix notation, where is the operator written?",
+     "options": [
+      "Between the operands",
+      "After the operands",
+      "Inside brackets",
+      "Before the operands"
+     ],
+     "answer": 1,
+     "explain": "Postfix (Reverse Polish) places the operator after its operands, e.g. A B +.",
+     "mistake": "Confuses postfix with prefix"
+    },
+    {
+     "q": "During conversion of an infix expression to postfix, what is done when a ')' is scanned?",
+     "options": [
+      "Write it to the output",
+      "Pop operators to the output until '(' is found, then discard both brackets",
+      "Pop the whole stack",
+      "Push it onto the stack"
+     ],
+     "answer": 1,
+     "explain": "A closing bracket ends a bracketed group: everything above its matching '(' is output, and the brackets are not written to postfix.",
+     "mistake": "Thinks brackets appear in the postfix output"
+    },
+    {
+     "q": "What is the postfix form of A * (B + C) / D?",
+     "options": [
+      "A B C + * D /",
+      "A B C + D / *",
+      "A B + C * D /",
+      "A B C * + D /"
+     ],
+     "answer": 0,
+     "explain": "B + C → B C +; A * that → A B C + *; then divide by D (left to right) → A B C + * D /.",
+     "mistake": "Divides by D before multiplying, ignoring left-to-right order for equal precedence"
+    },
+    {
+     "q": "Assertion (A): Postfix expressions do not need brackets.\nReason (R): In postfix notation, the order of operators itself fixes the order of evaluation.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Since each operator acts on the operands just before it, the sequence alone decides what is computed first, so brackets are unnecessary. R explains A.",
+     "mistake": "Thinks brackets are still needed to show precedence"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between infix, prefix and postfix?'",
+    "must": [
+     [
+      "infix",
+      "between"
+     ],
+     [
+      "prefix",
+      "before",
+      "polish"
+     ],
+     [
+      "postfix",
+      "after",
+      "reverse polish"
+     ]
+    ],
+    "praise": "Superb! Infix puts the operator between operands, prefix before them, and postfix after them.",
+    "nudge": "Where does the operator go in each notation: between, before or after the operands?"
+   }
+  },
+  {
+   "id": "g12-cs-04-04",
+   "title": "Evaluating postfix (enrichment) and stack-tracing exercises",
+   "covers": [
+    "c4.7.1",
+    "c4.7.2"
+   ],
+   "learn": {
+    "hook": "Give a stack the postfix expression 7 8 2 * 4 / + and it will calmly hand back 11, with no brackets and no confusion.",
+    "points": [
+     "Note: evaluating postfix expressions is in the NCERT book but NOT in the CBSE (083) board exam syllabus. Tracing push/pop sequences and writing push/pop functions, also practised here, ARE examined.",
+     "Scan the postfix expression from left to right.",
+     "If the item is an operand, push it onto the stack.",
+     "If it is an operator, pop two elements: the first popped is the RIGHT operand (B) and the second popped is the LEFT operand (A). Compute A operator B and push the result.",
+     "At the end, the single value left on the stack is the answer. More than one value left means the expression was invalid.",
+     "Typical exam tasks: trace stack contents after a series of push and pop operations, write push/pop functions, and reverse a string using a stack."
+    ],
+    "example": {
+     "q": "Evaluate the postfix expression 7 8 2 * 4 / +.",
+     "steps": [
+      "Push 7, push 8, push 2: stack [7, 8, 2]",
+      "*: pop 2 and 8, push 8 * 2 = 16: [7, 16]",
+      "Push 4: [7, 16, 4]",
+      "/: pop 4 and 16, push 16 / 4 = 4: [7, 4]",
+      "+: pop 4 and 7, push 7 + 4 = 11: [11]"
+     ],
+     "answer": "11"
+    },
+    "reallife": "Compilers that turn your Python or C code into machine instructions often convert expressions to postfix and evaluate them with a stack, exactly as you will here."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Evaluate 6 2 / 3 +",
+     "prompt": "Stack steps in order",
+     "items": [
+      "Push 6",
+      "Push 2",
+      "/ pops 2 and 6 and pushes 6 / 2 = 3",
+      "Push 3",
+      "+ pops 3 and 3 and pushes 6"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Postfix sprint",
+     "items": [
+      {
+       "q": "3 4 +",
+       "a": "7",
+       "check": "3+4"
+      },
+      {
+       "q": "5 2 *",
+       "a": "10",
+       "check": "5*2"
+      },
+      {
+       "q": "9 3 -",
+       "a": "6",
+       "check": "9-3"
+      },
+      {
+       "q": "2 3 4 * +",
+       "a": "14",
+       "check": "2+3*4"
+      },
+      {
+       "q": "8 2 / 1 -",
+       "a": "3",
+       "check": "8/2-1"
+      },
+      {
+       "q": "4 5 + 2 *",
+       "a": "18",
+       "check": "(4+5)*2"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the value of the postfix expression 5 3 + 2 *?",
+     "options": [
+      "16",
+      "13",
+      "10",
+      "11"
+     ],
+     "answer": 0,
+     "explain": "5 3 + gives 8, and 8 2 * gives 16.",
+     "steps": [
+      "Push 5, push 3",
+      "+ → 5 + 3 = 8",
+      "Push 2",
+      "* → 8 * 2 = 16"
+     ],
+     "mistake": "Multiplies 3 by 2 first, as if it were infix",
+     "check": "(5+3)*2"
+    },
+    {
+     "q": "What is the value of the postfix expression 6 2 3 + -?",
+     "options": [
+      "7",
+      "1",
+      "11",
+      "-1"
+     ],
+     "answer": 1,
+     "explain": "2 3 + gives 5; then 6 5 - gives 6 - 5 = 1.",
+     "steps": [
+      "Push 6, 2, 3",
+      "+ → 2 + 3 = 5; stack [6, 5]",
+      "- pops 5 then 6 → 6 - 5 = 1"
+     ],
+     "mistake": "Subtracts in the wrong order (5 - 6)",
+     "check": "6-(2+3)"
+    },
+    {
+     "q": "While evaluating a postfix expression, the operator - is scanned and the stack (bottom to top) is [9, 4]. What is pushed back?",
+     "options": [
+      "5",
+      "-5",
+      "13",
+      "36"
+     ],
+     "answer": 0,
+     "explain": "The first pop gives 4 (right operand) and the second gives 9 (left operand). 9 - 4 = 5.",
+     "mistake": "Uses the first popped value as the left operand",
+     "check": "9-4"
+    },
+    {
+     "q": "What is the value of 10 2 8 * + 3 -?",
+     "options": [
+      "93",
+      "27",
+      "23",
+      "13"
+     ],
+     "answer": 2,
+     "explain": "2 8 * = 16; 10 16 + = 26; 26 3 - = 23.",
+     "steps": [
+      "2 * 8 = 16",
+      "10 + 16 = 26",
+      "26 - 3 = 23"
+     ],
+     "mistake": "Applies + before *",
+     "check": "10+2*8-3"
+    },
+    {
+     "q": "A stack is empty. After push(3), push(8), pop(), push(5), push(1), pop(), what is on top?",
+     "options": [
+      "5",
+      "1",
+      "3",
+      "8"
+     ],
+     "answer": 0,
+     "explain": "The stack goes [3] → [3, 8] → [3] → [3, 5] → [3, 5, 1] → [3, 5]. The top is 5.",
+     "mistake": "Forgets one of the pops",
+     "check": "5"
+    },
+    {
+     "q": "What is the output?\nst = []\nfor op in ['push 2', 'push 5', 'pop', 'push 9']:\n    if op == 'pop':\n        st.pop()\n    else:\n        st.append(int(op.split()[1]))\nprint(st)",
+     "options": [
+      "[2, 5, 9]",
+      "[2]",
+      "[9]",
+      "[2, 9]"
+     ],
+     "answer": 3,
+     "explain": "Stack goes [2] → [2, 5] → [2] after pop → [2, 9].",
+     "mistake": "Pops from the wrong end of the list"
+    },
+    {
+     "q": "What is the value of the postfix expression 12 3 / 2 *?",
+     "options": [
+      "18",
+      "6",
+      "8",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "12 3 / gives 4, then 4 2 * gives 8.",
+     "steps": [
+      "12 / 3 = 4",
+      "4 * 2 = 8"
+     ],
+     "mistake": "Computes 3 * 2 first and then 12 / 6",
+     "check": "12/3*2"
+    },
+    {
+     "q": "Assertion (A): When evaluating a postfix expression, the first value popped for a binary operator is used as its right operand.\nReason (R): The operand written later in the expression is pushed later, so it sits on top of the stack.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "In A B -, B is pushed after A, so it is popped first and must be the right operand. R explains A.",
+     "mistake": "Uses popped values in the wrong order for - and /"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'When I evaluate a postfix expression and I see an operator, what do I do?'",
+    "must": [
+     [
+      "pop",
+      "pop two",
+      "two operands",
+      "remove two"
+     ],
+     [
+      "push",
+      "push the result",
+      "put result back"
+     ],
+     [
+      "right operand",
+      "first popped",
+      "order"
+     ]
+    ],
+    "praise": "Brilliant! Pop two operands (the first popped is the right one), apply the operator, and push the result back.",
+    "nudge": "How many values do you pop for an operator, which one is the right operand, and what happens to the result?"
+   }
+  }
+ ]
+}

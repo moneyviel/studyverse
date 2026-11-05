@@ -1,0 +1,1060 @@
+{
+ "n": 2,
+ "title": "Exception Handling in Python",
+ "emoji": "🛡️",
+ "topics": [
+  {
+   "id": "g12-cs-02-01",
+   "title": "Syntax errors and exceptions",
+   "covers": [
+    "c2.1.1",
+    "c2.1.2",
+    "c2.2.1",
+    "c2.2.2",
+    "c2.3.1",
+    "c2.3.2"
+   ],
+   "learn": {
+    "hook": "A missing colon stops your program before it starts. A file that isn't there stops it halfway. Both are errors, but Python treats them very differently.",
+    "points": [
+     "Errors can stop a program, make it give wrong output or make it behave abnormally. Python can raise errors automatically, a programmer can raise them deliberately, and both kinds can be handled.",
+     "A syntax error (also called a parsing error) means a rule of the language is broken: a missing colon, an unclosed bracket, a misspelt keyword. The program will not run at all until it is fixed.",
+     "Shell mode reports a syntax error as soon as you press Enter on the faulty statement. In script mode Python checks the whole file before running it, so a syntax error anywhere means not even the earlier lines run.",
+     "An exception is an error that happens while a syntactically correct program is running, for example dividing by zero or opening a file that does not exist. It disrupts the normal flow of the program.",
+     "In Python an exception is an object of an exception class (ZeroDivisionError, ValueError and so on). If no code handles it, the program stops and Python prints a traceback with the exception's name and message."
+    ],
+    "example": {
+     "q": "A script has three lines: print('Start'), then print('Middle', then print('End'). What happens when it runs?",
+     "steps": [
+      "Line 2 has an unclosed bracket, which is a syntax error",
+      "In script mode the whole file is parsed before anything runs",
+      "So not even 'Start' is printed; Python reports SyntaxError"
+     ],
+     "answer": "Nothing runs; Python reports a SyntaxError"
+    },
+    "reallife": "Before a satellite command is uplinked, ISRO's ground software validates its format, much like a syntax check. Faults that happen during the mission are like run-time exceptions, which must be handled live."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Syntax error or exception?",
+     "buckets": [
+      "Syntax error",
+      "Exception (run-time)"
+     ],
+     "items": [
+      [
+       "Missing colon after if",
+       0
+      ],
+      [
+       "Unclosed bracket in print(",
+       0
+      ],
+      [
+       "Writing whlie instead of while",
+       0
+      ],
+      [
+       "10 / 0",
+       1
+      ],
+      [
+       "Opening a file that does not exist",
+       1
+      ],
+      [
+       "int('abc')",
+       1
+      ],
+      [
+       "Using a list index that is too large",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Error or exception?",
+     "items": [
+      [
+       "A program with a syntax error runs until it reaches the faulty line.",
+       false,
+       "In script mode the whole file is parsed first, so nothing runs."
+      ],
+      [
+       "An exception is raised while a program is running.",
+       true,
+       "Exceptions happen during execution, not during parsing."
+      ],
+      [
+       "In Python, an exception is an object.",
+       true,
+       "It is an instance of an exception class such as ValueError."
+      ],
+      [
+       "An unhandled exception makes the program terminate.",
+       true,
+       "Python stops and prints a traceback."
+      ],
+      [
+       "Syntax errors are also called parsing errors.",
+       true,
+       "They are found while Python parses the code."
+      ],
+      [
+       "Only Python itself can raise exceptions; programmers cannot.",
+       false,
+       "Programmers can raise them with raise or assert."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is printed when this script runs?\nprint('A')\nif 5 > 2\n    print('B')",
+     "options": [
+      "B",
+      "A",
+      "A and then an error",
+      "Nothing; SyntaxError is reported"
+     ],
+     "answer": 3,
+     "explain": "The colon after if is missing. Python parses the whole script first, so it reports SyntaxError before running even print('A').",
+     "mistake": "Thinks Python runs earlier lines before reaching a syntax error"
+    },
+    {
+     "q": "Which of these is an exception rather than a syntax error?",
+     "options": [
+      "for i in range(3) print(i)",
+      "print('hi'",
+      "def f() return 1",
+      "x = 10 / 0"
+     ],
+     "answer": 3,
+     "explain": "10 / 0 is written correctly but fails while running with ZeroDivisionError. The others break grammar rules.",
+     "mistake": "Thinks every error is a syntax error"
+    },
+    {
+     "q": "What is an exception in Python?",
+     "options": [
+      "A comment that Python ignores",
+      "A warning that never stops the program",
+      "An object representing an error that occurs during execution",
+      "A keyword used to define functions"
+     ],
+     "answer": 2,
+     "explain": "Python creates an exception object when something goes wrong at run time.",
+     "mistake": "Confuses exceptions with harmless warnings"
+    },
+    {
+     "q": "What happens to a program if an exception is raised and nobody handles it?",
+     "options": [
+      "The program terminates and shows a traceback",
+      "Python retries the line automatically",
+      "The program pauses for user input",
+      "Python skips that line and continues"
+     ],
+     "answer": 0,
+     "explain": "An unhandled exception ends the program and Python prints the error name and message.",
+     "mistake": "Thinks Python silently skips faulty lines"
+    },
+    {
+     "q": "Assertion (A): A program with a syntax error does not run at all.\nReason (R): Syntax errors are detected while the program is being parsed, before execution starts.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Python parses (reads and checks) the code before executing it. A syntax error is found at that stage, so execution never begins.",
+     "mistake": "Thinks syntax errors are found only when that line is reached"
+    },
+    {
+     "q": "In the Python shell, Ravi types for i in range(3) print(i) and presses Enter. What happens?",
+     "options": [
+      "The whole shell session closes",
+      "Python adds the missing colon automatically",
+      "A SyntaxError is reported straight away for that statement",
+      "0 1 2 is printed"
+     ],
+     "answer": 2,
+     "explain": "In shell mode each statement is checked as soon as it is entered. The missing colon breaks the for syntax, so the error is shown immediately.",
+     "mistake": "Expects Python to repair small mistakes on its own"
+    },
+    {
+     "q": "Which of these is NOT a likely effect of an error in a program?",
+     "options": [
+      "The computer's hardware is permanently damaged",
+      "The program stops suddenly",
+      "The program gives wrong output",
+      "The program behaves abnormally"
+     ],
+     "answer": 0,
+     "explain": "Program errors affect the program's behaviour and output, not the hardware.",
+     "mistake": "Overestimates what a software error can do"
+    },
+    {
+     "q": "Which statement about exceptions is correct?",
+     "options": [
+      "They always need the computer to restart",
+      "They can be handled only if they are syntax errors",
+      "They can only be raised by Python itself",
+      "They can be raised by Python or by the programmer, and can be handled"
+     ],
+     "answer": 3,
+     "explain": "Python raises built-in exceptions automatically, and programmers raise them with raise or assert. Both kinds can be caught.",
+     "mistake": "Thinks programmers have no control over exceptions"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu wonders: 'What's the difference between a syntax error and an exception?'",
+    "must": [
+     [
+      "syntax error",
+      "grammar",
+      "rules",
+      "parsing",
+      "before running"
+     ],
+     [
+      "exception",
+      "while running",
+      "run time",
+      "runtime",
+      "during execution"
+     ]
+    ],
+    "praise": "Clear as day! A syntax error breaks language rules and stops the program from starting; an exception happens while it runs.",
+    "nudge": "When is each one detected: before the program runs, or while it is running?"
+   }
+  },
+  {
+   "id": "g12-cs-02-02",
+   "title": "Built-in exceptions",
+   "covers": [
+    "c2.4.1",
+    "c2.4.2",
+    "c2.4.3",
+    "c2.4.4",
+    "c2.4.5"
+   ],
+   "learn": {
+    "hook": "Python has a ready-made name for almost every way a program can fail. Identifying the right exception for a line of code is a guaranteed board question.",
+    "points": [
+     "SyntaxError: a language rule is broken. IndentationError: wrong or missing indentation (it is a kind of SyntaxError).",
+     "ValueError: the type is right but the value is not acceptable, e.g. int('abc'). TypeError: an operation is applied to the wrong type, e.g. '5' + 2.",
+     "ZeroDivisionError: the divisor of /, // or % is zero. OverflowError: a calculation's result is too large to represent, e.g. 10.0 ** 400 or math.exp(1000).",
+     "IndexError: a sequence index is out of range. NameError: a name (variable or function) is not defined. KeyError: a dictionary key is not present.",
+     "IOError: a file cannot be opened (in Python 3 it is another name for OSError; a missing file gives FileNotFoundError, a kind of IOError). EOFError: input() reaches end of file with no data. ImportError: a module cannot be found (ModuleNotFoundError is a kind of ImportError). KeyboardInterrupt: the user presses Ctrl+C."
+    ],
+    "example": {
+     "q": "Name the exception: (a) marks = [90, 85]; marks[2] (b) d = {'a': 1}; d['b'] (c) print(totl) when totl was never defined.",
+     "steps": [
+      "(a) valid indexes are 0 and 1, so index 2 is out of range",
+      "(b) the key 'b' is not in the dictionary",
+      "(c) the name totl does not exist"
+     ],
+     "answer": "(a) IndexError (b) KeyError (c) NameError"
+    },
+    "reallife": "In a railway booking app, a passenger typing 'abc' for age would trigger ValueError, and a coach number beyond the train's length would be an IndexError. Good apps catch these and show a friendly message."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the code to the exception",
+     "pairs": [
+      [
+       "int('12a')",
+       "ValueError"
+      ],
+      [
+       "'5' + 2",
+       "TypeError"
+      ],
+      [
+       "7 % 0",
+       "ZeroDivisionError"
+      ],
+      [
+       "[1, 2][5]",
+       "IndexError"
+      ],
+      [
+       "{'x': 1}['y']",
+       "KeyError"
+      ],
+      [
+       "print(undefined_name)",
+       "NameError"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Which family?",
+     "buckets": [
+      "Bad value or type",
+      "Bad name, index or key",
+      "Input, file or module"
+     ],
+     "items": [
+      [
+       "ValueError",
+       0
+      ],
+      [
+       "TypeError",
+       0
+      ],
+      [
+       "NameError",
+       1
+      ],
+      [
+       "IndexError",
+       1
+      ],
+      [
+       "KeyError",
+       1
+      ],
+      [
+       "EOFError",
+       2
+      ],
+      [
+       "IOError",
+       2
+      ],
+      [
+       "ImportError",
+       2
+      ],
+      [
+       "KeyboardInterrupt",
+       2
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which exception does this code raise?\nage = int('twelve')",
+     "options": [
+      "SyntaxError",
+      "NameError",
+      "ValueError",
+      "TypeError"
+     ],
+     "answer": 2,
+     "explain": "int() accepts a string, so the type is fine, but 'twelve' is not a valid number: the value is wrong.",
+     "mistake": "Mixes up ValueError (bad value) with TypeError (bad type)"
+    },
+    {
+     "q": "Which exception does this code raise?\ntotal = '10' + 5",
+     "options": [
+      "ValueError",
+      "SyntaxError",
+      "TypeError",
+      "IndexError"
+     ],
+     "answer": 2,
+     "explain": "Python cannot add a str and an int, so the operation is applied to an unsuitable type.",
+     "mistake": "Expects Python to convert '10' to a number automatically"
+    },
+    {
+     "q": "Which exception does this code raise?\nn = 0\nprint(25 // n)",
+     "options": [
+      "ZeroDivisionError",
+      "OverflowError",
+      "ValueError",
+      "TypeError"
+     ],
+     "answer": 0,
+     "explain": "Floor division by zero is not allowed, just like / and %.",
+     "mistake": "Thinks only the / operator can raise ZeroDivisionError"
+    },
+    {
+     "q": "Which exception does this code raise?\nstock = {'pen': 5, 'ink': 2}\nprint(stock['eraser'])",
+     "options": [
+      "KeyError",
+      "TypeError",
+      "IndexError",
+      "ValueError"
+     ],
+     "answer": 0,
+     "explain": "Dictionaries raise KeyError when the key is missing. IndexError is for sequences like lists.",
+     "mistake": "Uses IndexError for dictionaries"
+    },
+    {
+     "q": "Which exception does this code raise?\nL = [4, 8, 12]\nprint(L[-4])",
+     "options": [
+      "ValueError",
+      "IndexError",
+      "KeyError",
+      "NameError"
+     ],
+     "answer": 1,
+     "explain": "The list has indexes 0 to 2 (or -1 to -3), so -4 is out of range.",
+     "mistake": "Forgets that negative indexes also have a limit"
+    },
+    {
+     "q": "Which exception does this code raise?\nprint(10.0 ** 400)",
+     "options": [
+      "ZeroDivisionError",
+      "ValueError",
+      "OverflowError",
+      "It prints a very large number"
+     ],
+     "answer": 2,
+     "explain": "A float can only go up to about 1.8 × 10^308, so 10.0 ** 400 is too large to represent and raises OverflowError.",
+     "mistake": "Thinks floats can grow without limit like Python ints"
+    },
+    {
+     "q": "A program reaches input() but there is no more input data because the end of file has been reached. Which exception is raised?",
+     "options": [
+      "IOError",
+      "EOFError",
+      "ImportError",
+      "KeyboardInterrupt"
+     ],
+     "answer": 1,
+     "explain": "EOFError signals that input() hit end-of-file without reading any data.",
+     "mistake": "Confuses end of input with a file-opening problem (IOError)"
+    },
+    {
+     "q": "Which exception is raised by import mathss (a misspelt module name)?",
+     "options": [
+      "KeyError",
+      "SyntaxError",
+      "NameError",
+      "ImportError (ModuleNotFoundError)"
+     ],
+     "answer": 3,
+     "explain": "When Python cannot find a module, it raises ModuleNotFoundError, which is a kind of ImportError.",
+     "mistake": "Treats a misspelt module as an undefined variable"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'int('abc') and '5' + 2 both fail. Why does one give ValueError and the other TypeError?'",
+    "must": [
+     [
+      "valueerror",
+      "wrong value",
+      "right type",
+      "bad value",
+      "invalid value"
+     ],
+     [
+      "typeerror",
+      "wrong type",
+      "different types",
+      "unsupported type",
+      "bad type"
+     ]
+    ],
+    "praise": "Perfect! int('abc') gets the right type but a bad value; '5' + 2 mixes types that cannot be added.",
+    "nudge": "Is the problem with the kind of data (type) or with the particular value?"
+   }
+  },
+  {
+   "id": "g12-cs-02-03",
+   "title": "Raising exceptions: raise and assert",
+   "covers": [
+    "c2.5.1",
+    "c2.5.2",
+    "c2.5.3"
+   ],
+   "learn": {
+    "hook": "Python won't complain if someone enters -5 as the number of tickets. You have to raise the alarm yourself.",
+    "points": [
+     "Programmers raise exceptions when data is invalid for their program, even if Python itself sees nothing wrong (a negative age, marks above 100).",
+     "Syntax: raise ExceptionName('optional message'), for example raise ValueError('Age cannot be negative'). Statements after raise in that block do not run.",
+     "assert condition, message tests a condition. If it is True nothing happens; if it is False Python raises AssertionError with the message.",
+     "A raised exception behaves exactly like a built-in one: it stops the program unless an except block catches it.",
+     "Use raise for clear, deliberate error signalling; use assert as a quick self-check that something you expect to be true really is."
+    ],
+    "example": {
+     "q": "Write a check that stops a ticket-booking function when tickets is not between 1 and 6.",
+     "steps": [
+      "if tickets < 1 or tickets > 6:",
+      "    raise ValueError('Book 1 to 6 tickets only')",
+      "Any value outside the range raises ValueError with that message"
+     ],
+     "answer": "if tickets < 1 or tickets > 6: raise ValueError('Book 1 to 6 tickets only')"
+    },
+    "reallife": "An online exam portal might raise an exception if a candidate's roll number has the wrong number of digits, long before the record reaches the database."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Complete the statement",
+     "items": [
+      {
+       "text": "___ ValueError('Invalid marks') signals an error deliberately",
+       "answer": "raise",
+       "options": [
+        "raise",
+        "assert",
+        "except"
+       ]
+      },
+      {
+       "text": "assert x > 0, 'x must be positive' raises ___ when x is -3",
+       "answer": "AssertionError",
+       "options": [
+        "AssertionError",
+        "ValueError",
+        "SyntaxError"
+       ]
+      },
+      {
+       "text": "assert marks <= 100___ 'Too high' separates condition and message",
+       "answer": ",",
+       "options": [
+        ",",
+        ":",
+        ";"
+       ]
+      },
+      {
+       "text": "If an assert condition is ___, nothing happens",
+       "answer": "True",
+       "options": [
+        "True",
+        "False",
+        "None"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "raise and assert",
+     "items": [
+      [
+       "raise can be used with built-in exception classes like ValueError.",
+       true,
+       "For example raise ValueError('message')."
+      ],
+      [
+       "assert raises AssertionError when its condition is True.",
+       false,
+       "It raises only when the condition is False."
+      ],
+      [
+       "Statements after a raise in the same block still run.",
+       false,
+       "Control leaves the block as soon as the exception is raised."
+      ],
+      [
+       "A raised exception can be caught with try and except.",
+       true,
+       "It behaves like any built-in exception."
+      ],
+      [
+       "assert age >= 18, 'Adults only' is valid syntax.",
+       true,
+       "assert condition, message."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\nage = -5\nif age < 0:\n    raise ValueError('Age cannot be negative')\nprint('Checked')",
+     "options": [
+      "-5",
+      "Checked",
+      "Checked and then an error",
+      "ValueError is raised and the program stops"
+     ],
+     "answer": 3,
+     "explain": "-5 is less than 0, so raise ValueError runs and 'Checked' is never printed.",
+     "mistake": "Thinks the line after raise still runs"
+    },
+    {
+     "q": "Which exception does this code raise?\nmarks = 105\nassert marks <= 100, 'Marks out of range'",
+     "options": [
+      "SyntaxError",
+      "AssertionError",
+      "ValueError",
+      "No exception"
+     ],
+     "answer": 1,
+     "explain": "marks > 100 makes the condition marks <= 100 False, so assert raises AssertionError.",
+     "mistake": "Thinks assert raises ValueError"
+    },
+    {
+     "q": "Which is the correct way to raise an exception with a message?",
+     "options": [
+      "throw ValueError('Bad input')",
+      "raise ValueError('Bad input')",
+      "except ValueError('Bad input')",
+      "raise('Bad input')"
+     ],
+     "answer": 1,
+     "explain": "Python uses raise followed by an exception class (or object) and an optional message. throw is not a Python keyword.",
+     "mistake": "Borrows the keyword throw from other languages"
+    },
+    {
+     "q": "What is the output?\nname = 'India'\nassert len(name) == 5, 'Wrong length'\nprint('OK')",
+     "options": [
+      "OK",
+      "AssertionError is raised",
+      "SyntaxError",
+      "Nothing"
+     ],
+     "answer": 0,
+     "explain": "len('India') is 5, so the condition is True and assert lets the program continue.",
+     "mistake": "Thinks assert always raises an error"
+    },
+    {
+     "q": "What is the output?\ntry:\n    seats = 9\n    if seats > 6:\n        raise ValueError('Too many')\n    print('Booked')\nexcept ValueError as e:\n    print(e)",
+     "options": [
+      "ValueError",
+      "Booked Too many",
+      "Booked",
+      "Too many"
+     ],
+     "answer": 3,
+     "explain": "raise ValueError('Too many') is caught by except ValueError as e, and str(e) is the message 'Too many'.",
+     "mistake": "Forgets that the message is stored in the exception object"
+    },
+    {
+     "q": "Why would a programmer raise an exception for a negative age even though Python can store -5 in a variable?",
+     "options": [
+      "Negative values cause syntax errors",
+      "raise makes the program run faster",
+      "The value is valid for Python but invalid for the program's logic",
+      "Python cannot store negative numbers"
+     ],
+     "answer": 2,
+     "explain": "Python only checks its own rules. Business rules such as 'age cannot be negative' must be enforced by the programmer.",
+     "mistake": "Thinks Python checks the meaning of data automatically"
+    },
+    {
+     "q": "Assertion (A): assert x != 0, 'zero' raises AssertionError when x is 0.\nReason (R): assert raises an exception when its condition is True.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true: when x is 0 the condition x != 0 is False, so AssertionError is raised. R is false because assert raises when the condition is False, not True.",
+     "mistake": "Mixes up when assert fires"
+    },
+    {
+     "q": "Which statement about raise is correct?",
+     "options": [
+      "It can only be used inside a function",
+      "It can raise built-in exceptions such as TypeError",
+      "It prints a message but never stops the program",
+      "It must always be followed by finally"
+     ],
+     "answer": 1,
+     "explain": "raise works anywhere and with any exception class; unless caught, it stops the program.",
+     "mistake": "Thinks raise is only a print statement"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between raise and assert?'",
+    "must": [
+     [
+      "raise",
+      "raise statement",
+      "deliberately"
+     ],
+     [
+      "assert",
+      "condition",
+      "assertionerror",
+      "false"
+     ]
+    ],
+    "praise": "Great job! raise throws an exception whenever you choose, while assert raises AssertionError only if its condition is False.",
+    "nudge": "When exactly does assert raise its error, and which exception does it raise?"
+   }
+  },
+  {
+   "id": "g12-cs-02-04",
+   "title": "Handling exceptions: try, except and else",
+   "covers": [
+    "c2.6.1",
+    "c2.6.2",
+    "c2.6.3",
+    "c2.6.4",
+    "c2.6.5"
+   ],
+   "learn": {
+    "hook": "A banking app that crashes when you type a letter into the amount box would be uninstalled in minutes. try-except keeps the app alive.",
+    "points": [
+     "Why handle exceptions: to stop crashes, show friendly messages, and keep the main logic separate from error-handling code.",
+     "The process: when an error occurs Python creates an exception object and 'throws' (raises) it. The runtime searches the call stack, starting from where it happened, for a matching handler. The handler that 'catches' it runs; if none is found, the program terminates.",
+     "Code that might fail goes in try. If an exception occurs, the rest of try is skipped and the matching except block runs. If nothing goes wrong, the except blocks are skipped.",
+     "One try can have several except clauses, e.g. except ZeroDivisionError: and except ValueError:. Only the first matching one runs. A bare except: (generic) catches anything and must come last.",
+     "try ... except ... else: the else block runs only when the try block raises no exception."
+    ],
+    "example": {
+     "q": "try: x = int(input()); print(100 / x) with except ValueError: print('Not a number') and except ZeroDivisionError: print('Zero!'). What prints for inputs 'abc', '0' and '4'?",
+     "steps": [
+      "'abc': int() raises ValueError, so 'Not a number'",
+      "'0': 100 / 0 raises ZeroDivisionError, so 'Zero!'",
+      "'4': no error, 100 / 4 = 25.0 is printed"
+     ],
+     "answer": "Not a number; Zero!; 25.0"
+    },
+    "reallife": "UPI apps wrap each payment step in exception handling. A network timeout is caught, and you see 'Payment pending' instead of the app closing in the middle of a transaction."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "What happens when an exception occurs",
+     "prompt": "In the order Python does it",
+     "items": [
+      "An error occurs in the try block",
+      "Python creates an exception object",
+      "The exception is thrown (raised)",
+      "The runtime searches the call stack for a matching handler",
+      "The matching except block catches it and runs"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the block to when it runs",
+     "pairs": [
+      [
+       "try",
+       "Always attempted first"
+      ],
+      [
+       "except ValueError",
+       "Only if a ValueError occurs in try"
+      ],
+      [
+       "bare except",
+       "For any exception not caught earlier"
+      ],
+      [
+       "else",
+       "Only if try raises no exception"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ntry:\n    print('A', end=' ')\n    x = 10 / 0\n    print('B', end=' ')\nexcept ZeroDivisionError:\n    print('C')",
+     "options": [
+      "A C",
+      "B C",
+      "A B",
+      "A B C"
+     ],
+     "answer": 0,
+     "explain": "'A' prints, then 10 / 0 raises ZeroDivisionError, so print('B') is skipped and the except block prints 'C'.",
+     "mistake": "Thinks the rest of the try block still runs after an exception"
+    },
+    {
+     "q": "What is the output?\ntry:\n    r = '7' + 3\nexcept ValueError:\n    print('Value problem')\nexcept TypeError:\n    print('Type problem')\nexcept:\n    print('Zero problem')",
+     "options": [
+      "Value problem Type problem",
+      "Type problem",
+      "Value problem",
+      "Zero problem"
+     ],
+     "answer": 1,
+     "explain": "'7' + 3 raises TypeError, so the first matching handler, except TypeError, runs. Only one handler runs.",
+     "mistake": "Thinks every except block runs in turn"
+    },
+    {
+     "q": "What is the output?\ntry:\n    r = 10 / 2\nexcept ZeroDivisionError:\n    print('Error')\nelse:\n    print('Result', r, end=' ')\n    print('Done')",
+     "options": [
+      "Error",
+      "Result 5.0",
+      "Result 5.0 Done",
+      "Error Done"
+     ],
+     "answer": 2,
+     "explain": "No exception occurs, so except is skipped and else runs after the try block.",
+     "mistake": "Thinks else runs only after an exception"
+    },
+    {
+     "q": "What is the block of code that runs to deal with a particular exception called?",
+     "options": [
+      "An exception handler",
+      "The call stack",
+      "A docstring",
+      "A traceback"
+     ],
+     "answer": 0,
+     "explain": "The except block that catches and deals with an exception is its exception handler.",
+     "mistake": "Confuses the handler with the call stack that is searched to find it"
+    },
+    {
+     "q": "When an exception is raised, what does the Python runtime do to find the code that will deal with it?",
+     "options": [
+      "Asks the user which handler to use",
+      "Restarts the program",
+      "Searches the call stack for a matching exception handler",
+      "Deletes the faulty line"
+     ],
+     "answer": 2,
+     "explain": "The runtime looks back through the chain of active function calls until it finds a handler that matches the exception.",
+     "mistake": "Thinks Python handles exceptions by restarting or skipping code"
+    },
+    {
+     "q": "What is the output?\ntry:\n    n = int('4.5')\n    print(n)\nexcept ValueError:\n    print('Invalid')",
+     "options": [
+      "ValueError",
+      "0",
+      "Invalid 0",
+      "Invalid"
+     ],
+     "answer": 3,
+     "explain": "int('4.5') raises ValueError because '4.5' is not an integer string, so 'Invalid' is printed and print(n) is skipped.",
+     "mistake": "Thinks int() can convert the string '4.5' directly"
+    },
+    {
+     "q": "What is the output?\ndef get_val(d):\n    return d['c']\ntry:\n    print(get_val({'a': 1, 'b': 2}))\nexcept KeyError:\n    print('Caught')",
+     "options": [
+      "Caught 2",
+      "Caught",
+      "KeyError",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "d['c'] raises KeyError inside get_val. There is no handler there, so Python looks at the caller, whose except KeyError catches it.",
+     "mistake": "Thinks an exception can only be caught in the same function where it happened"
+    },
+    {
+     "q": "Assertion (A): A bare except: clause may be written before except ValueError: in the same try statement.\nReason (R): A bare except: clause catches every kind of exception.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 3,
+     "explain": "R is true: a bare except catches everything. That is exactly why A is false: a specific clause after it could never run, so Python insists the bare except comes last (otherwise SyntaxError).",
+     "mistake": "Thinks the order of except clauses does not matter"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'When does the else block of a try statement run?'",
+    "must": [
+     [
+      "no exception",
+      "no error",
+      "without error",
+      "no errors",
+      "nothing goes wrong"
+     ],
+     [
+      "try",
+      "try block",
+      "after try"
+     ]
+    ],
+    "praise": "Spot on! else runs only when the try block finishes without raising any exception.",
+    "nudge": "Does else run after an error, or only when the try block succeeds?"
+   }
+  },
+  {
+   "id": "g12-cs-02-05",
+   "title": "The finally clause",
+   "covers": [
+    "c2.7.1",
+    "c2.7.2",
+    "c2.7.3"
+   ],
+   "learn": {
+    "hook": "Whatever happens in the kitchen, someone has to switch off the gas. finally is that someone.",
+    "points": [
+     "finally is an optional last block of a try statement. It always runs: when there is no exception, when an exception is caught, and even when an uncaught exception is about to stop the program.",
+     "Full order: try → except (only if an exception matches) or else (only if no exception) → finally (always).",
+     "Use finally for clean-up work such as closing a file or a database connection, so resources are released whatever happens.",
+     "After an exception is handled, the program continues with the statement after the whole try statement. A loop with try inside can recover and ask the user again.",
+     "Typical exam tasks: name the exception a line raises, predict the output of try-except-else-finally code, and write a program that uses raise or assert."
+    ],
+    "example": {
+     "q": "What prints? try: print(1 / 0) except ZeroDivisionError: print('Caught') else: print('Fine') finally: print('Always')",
+     "steps": [
+      "1 / 0 raises ZeroDivisionError",
+      "except prints 'Caught'",
+      "else is skipped because there was an exception",
+      "finally prints 'Always'"
+     ],
+     "answer": "Caught, then Always"
+    },
+    "reallife": "A hospital records system that opens a patient file must close it even if an error happens midway, otherwise the file could stay locked for other doctors. That is a job for finally."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "try statement order",
+     "prompt": "The order the blocks appear in code",
+     "items": [
+      "try",
+      "except",
+      "else",
+      "finally"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "finally facts",
+     "items": [
+      [
+       "finally runs even when no exception occurs.",
+       true,
+       "It always runs."
+      ],
+      [
+       "finally runs only when an exception is caught.",
+       false,
+       "It runs in every case."
+      ],
+      [
+       "else and finally can both appear in one try statement.",
+       true,
+       "else comes before finally."
+      ],
+      [
+       "finally is a good place to close a file.",
+       true,
+       "Clean-up code there runs whatever happens."
+      ],
+      [
+       "If an exception is not caught, finally is skipped.",
+       false,
+       "finally still runs before the program stops."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "What is the output?\ntry:\n    x = 5 * 2\nexcept ZeroDivisionError:\n    print('Caught', end=' ')\nelse:\n    print('Fine', end=' ')\nfinally:\n    print('Always')",
+     "options": [
+      "Fine Always",
+      "Always",
+      "Fine",
+      "Caught Always"
+     ],
+     "answer": 0,
+     "explain": "No exception occurs, so except is skipped, else prints 'Fine' and finally prints 'Always'.",
+     "mistake": "Forgets that finally runs even when nothing went wrong"
+    },
+    {
+     "q": "What is the output?\ntry:\n    n = int('x')\nexcept ValueError:\n    print('Caught', end=' ')\nelse:\n    print('Fine', end=' ')\nfinally:\n    print('Always')",
+     "options": [
+      "Always",
+      "Caught Fine Always",
+      "Caught Always",
+      "Fine Always"
+     ],
+     "answer": 2,
+     "explain": "int('x') raises ValueError, caught by except. else is skipped because there was an exception, and finally always runs.",
+     "mistake": "Thinks else runs after the except block"
+    },
+    {
+     "q": "What is printed before the program stops?\ntry:\n    print(5 / 0)\nexcept ValueError:\n    print('Value')\nfinally:\n    print('Cleanup')",
+     "options": [
+      "Cleanup",
+      "Nothing",
+      "Cleanup and then the program continues normally",
+      "Only the error message, without Cleanup"
+     ],
+     "answer": 0,
+     "explain": "except ValueError does not match a ZeroDivisionError, so the exception is unhandled. finally still runs and prints 'Cleanup' before the program stops.",
+     "mistake": "Thinks finally is skipped when the exception is not caught"
+    },
+    {
+     "q": "Which is the correct order of blocks in a complete try statement?",
+     "options": [
+      "try, except, else, finally",
+      "try, else, except, finally",
+      "try, finally, except, else",
+      "except, try, else, finally"
+     ],
+     "answer": 0,
+     "explain": "except clauses follow try, then the optional else, and finally comes last.",
+     "mistake": "Places else before except"
+    },
+    {
+     "q": "Why is f.close() often written inside finally?",
+     "options": [
+      "finally runs faster than other blocks",
+      "So the file is closed whether or not an exception occurs",
+      "close() cannot be used anywhere else",
+      "finally automatically reopens the file"
+     ],
+     "answer": 1,
+     "explain": "finally always executes, which guarantees the clean-up step happens.",
+     "mistake": "Thinks finally is just a style choice"
+    },
+    {
+     "q": "What is the output?\ntry:\n    v = [1, 2][1]\nexcept IndexError:\n    print(1, end=' ')\nfinally:\n    print(2, end=' ')\nprint(3)",
+     "options": [
+      "1 2 3",
+      "2 3",
+      "3",
+      "1 3"
+     ],
+     "answer": 1,
+     "explain": "The first try succeeds, so its except is skipped and its finally prints 2. Then 3 is printed after the whole try statement.",
+     "mistake": "Prints except blocks even when no exception occurs"
+    },
+    {
+     "q": "What is the output?\nok = 0\nfor d in range(4):\n    try:\n        r = 12 / d\n        ok += 1\n    except ZeroDivisionError:\n        pass\nprint(ok)",
+     "options": [
+      "4",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 3,
+     "explain": "range gives 0, 1, 2, 3. Dividing 12 by 0 fails and is caught, and the loop continues, so 3 divisions succeed.",
+     "mistake": "Thinks the loop stops at the first exception",
+     "check": "3"
+    },
+    {
+     "q": "Assertion (A): finally is the right place for code that must run whether or not an error occurs.\nReason (R): The finally block runs only when no exception is raised in the try block.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true. R is false: that description fits else. finally runs in every case.",
+     "mistake": "Confuses finally with else"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If my try block works perfectly, does the finally block still run?'",
+    "must": [
+     [
+      "always",
+      "every time",
+      "in all cases",
+      "always runs",
+      "no matter"
+     ],
+     [
+      "clean up",
+      "cleanup",
+      "close",
+      "closing"
+     ]
+    ],
+    "praise": "Yes! finally always runs, which is why we put clean-up steps like closing files there.",
+    "nudge": "Is there any case where finally is skipped? What kind of code belongs in it?"
+   }
+  }
+ ]
+}

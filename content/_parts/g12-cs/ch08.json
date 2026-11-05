@@ -1,0 +1,1926 @@
+{
+ "n": 8,
+ "title": "Structured Query Language (SQL)",
+ "emoji": "🧮",
+ "topics": [
+  {
+   "id": "g12-cs-08-01",
+   "title": "SQL basics, command categories, data types and constraints",
+   "covers": [
+    "c8.1.1",
+    "c8.1.2",
+    "c8.1.3",
+    "c8.2.1",
+    "c8.2.2"
+   ],
+   "learn": {
+    "hook": "SQL is the one language that banks, railways, hospitals and your school's result system all speak. You tell it WHAT you want; it works out HOW.",
+    "points": [
+     "An RDBMS (relational DBMS) stores data in related tables. Popular ones: MySQL, Oracle, Microsoft SQL Server, PostgreSQL. CBSE uses MySQL.",
+     "SQL (Structured Query Language) is declarative: you state what data you want, not the steps to get it. Keywords are case-insensitive (SELECT = select), and each statement ends with a semicolon.",
+     "DDL (Data Definition Language) defines or changes structure: CREATE, ALTER, DROP. DML (Data Manipulation Language) works on the data: INSERT, UPDATE, DELETE; SELECT queries the data.",
+     "Data types: CHAR(n) is fixed length: it always uses n characters, padding shorter values with spaces. VARCHAR(n) is variable length, up to n characters, using only what the value needs. INT for whole numbers, FLOAT for decimals, DATE in 'YYYY-MM-DD' format.",
+     "Constraints: NOT NULL (a value is required), UNIQUE (no duplicates), DEFAULT (a value used when none is given), PRIMARY KEY (unique and not NULL; identifies each row), FOREIGN KEY (must match a primary key in another table)."
+    ],
+    "example": {
+     "q": "Choose data types for Aadhaar number (always 12 digits), name (up to 40 characters, length varies) and date of birth.",
+     "steps": [
+      "The Aadhaar number has a fixed length and is not used in arithmetic: CHAR(12)",
+      "Names vary in length: VARCHAR(40)",
+      "Date of birth: DATE, entered as 'YYYY-MM-DD'"
+     ],
+     "answer": "CHAR(12), VARCHAR(40), DATE"
+    },
+    "reallife": "A bank's accounts table might make the account number the PRIMARY KEY and declare the balance column NOT NULL, so no two accounts share a number and no account is left without a balance."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "DDL or DML?",
+     "buckets": [
+      "DDL",
+      "DML"
+     ],
+     "items": [
+      [
+       "CREATE TABLE",
+       0
+      ],
+      [
+       "ALTER TABLE",
+       0
+      ],
+      [
+       "DROP TABLE",
+       0
+      ],
+      [
+       "INSERT INTO",
+       1
+      ],
+      [
+       "UPDATE",
+       1
+      ],
+      [
+       "DELETE FROM",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the constraint to its rule",
+     "pairs": [
+      [
+       "NOT NULL",
+       "Column must have a value"
+      ],
+      [
+       "UNIQUE",
+       "No two rows may share a value"
+      ],
+      [
+       "DEFAULT",
+       "Value used when none is given"
+      ],
+      [
+       "PRIMARY KEY",
+       "Unique and not NULL, identifies each row"
+      ],
+      [
+       "FOREIGN KEY",
+       "Must match a key in another table"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is a DDL command?",
+     "options": [
+      "ALTER",
+      "UPDATE",
+      "DELETE",
+      "INSERT"
+     ],
+     "answer": 0,
+     "explain": "ALTER changes the structure of a table, so it is DDL. INSERT, UPDATE and DELETE work on the data (DML).",
+     "mistake": "Thinks any command that changes something is DDL"
+    },
+    {
+     "q": "Which of these is a DML command?",
+     "options": [
+      "UPDATE",
+      "DROP",
+      "ALTER",
+      "CREATE"
+     ],
+     "answer": 0,
+     "explain": "UPDATE changes data inside a table, which is data manipulation.",
+     "mistake": "Confuses changing data with changing structure"
+    },
+    {
+     "q": "A column is declared CHAR(10). How many characters of storage does the value 'Ram' take in that column?",
+     "options": [
+      "13",
+      "3",
+      "7",
+      "10"
+     ],
+     "answer": 3,
+     "explain": "CHAR(n) is fixed length, so the value is padded with spaces to 10 characters.",
+     "mistake": "Treats CHAR like VARCHAR",
+     "check": "10"
+    },
+    {
+     "q": "Which data type should store students' names whose lengths vary from 3 to 30 characters, without wasting space?",
+     "options": [
+      "VARCHAR(30)",
+      "CHAR(30)",
+      "INT",
+      "DATE"
+     ],
+     "answer": 0,
+     "explain": "VARCHAR(30) stores only as many characters as each name needs, up to 30.",
+     "mistake": "Uses fixed-length CHAR for variable data"
+    },
+    {
+     "q": "In which format is a DATE value written in MySQL?",
+     "options": [
+      "'YYYY-MM-DD'",
+      "'DD-MM-YYYY'",
+      "'MM/DD/YYYY'",
+      "'DD/MM/YY'"
+     ],
+     "answer": 0,
+     "explain": "MySQL dates are entered as 'YYYY-MM-DD', for example '2026-03-15'.",
+     "mistake": "Uses the everyday Indian date format"
+    },
+    {
+     "q": "Which constraint makes MySQL use a given value automatically when an INSERT does not supply one for that column?",
+     "options": [
+      "UNIQUE",
+      "FOREIGN KEY",
+      "DEFAULT",
+      "NOT NULL"
+     ],
+     "answer": 2,
+     "explain": "DEFAULT supplies a value, such as DEFAULT 'Delhi', when none is given.",
+     "mistake": "Confuses DEFAULT with NOT NULL"
+    },
+    {
+     "q": "Which statement about SQL is TRUE?",
+     "options": [
+      "SQL keywords are case-sensitive",
+      "SQL is a declarative language: you say what data you want, not how to get it",
+      "Every SQL statement must start with CREATE",
+      "SQL can be used only with Oracle"
+     ],
+     "answer": 1,
+     "explain": "SQL is declarative and its keywords are case-insensitive; it works with MySQL, Oracle, PostgreSQL and others.",
+     "mistake": "Thinks SQL keywords must be written in capitals"
+    },
+    {
+     "q": "Assertion (A): A PRIMARY KEY column cannot contain duplicate values.\nReason (R): A PRIMARY KEY combines the UNIQUE and NOT NULL rules.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Because a primary key must be unique (and not NULL), duplicates are rejected. R explains A.",
+     "mistake": "Thinks primary keys only forbid NULL"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between DDL and DML?'",
+    "must": [
+     [
+      "ddl",
+      "data definition",
+      "structure",
+      "create",
+      "alter"
+     ],
+     [
+      "dml",
+      "data manipulation",
+      "data",
+      "insert",
+      "update",
+      "delete"
+     ]
+    ],
+    "praise": "Superb! DDL defines or changes the structure (CREATE, ALTER, DROP), while DML works with the data (INSERT, UPDATE, DELETE).",
+    "nudge": "Which category changes the table's structure, and which changes the rows inside?"
+   }
+  },
+  {
+   "id": "g12-cs-08-02",
+   "title": "Data definition: CREATE, USE, DESCRIBE, ALTER and DROP",
+   "covers": [
+    "c8.3.1",
+    "c8.3.2",
+    "c8.3.3",
+    "c8.3.4",
+    "c8.3.5"
+   ],
+   "learn": {
+    "hook": "Before a single record goes in, someone has to build the shelves. DDL is SQL's carpentry.",
+    "points": [
+     "Databases: CREATE DATABASE School; SHOW DATABASES; USE School; (selects it for use) DROP DATABASE School; (deletes it and all its tables).",
+     "CREATE TABLE STUDENT (RollNo INT PRIMARY KEY, Name VARCHAR(30) NOT NULL, Class INT, City VARCHAR(20) DEFAULT 'Delhi'); SHOW TABLES; lists the tables in the current database.",
+     "DESCRIBE STUDENT; or DESC STUDENT; shows the structure: column names, data types, NULL allowed or not, keys and defaults.",
+     "ALTER TABLE changes structure: ADD Phone CHAR(10); DROP Phone; ADD PRIMARY KEY (RollNo); DROP PRIMARY KEY; ADD FOREIGN KEY (ClassID) REFERENCES CLASS(ClassID); MODIFY Name VARCHAR(40);",
+     "DROP TABLE STUDENT; removes the table completely: its structure and its data. DELETE FROM STUDENT; (DML) removes only the rows and leaves the empty table."
+    ],
+    "example": {
+     "q": "Add a column Email of type VARCHAR(50) to the table STUDENT, then view the new structure.",
+     "steps": [
+      "ALTER TABLE STUDENT ADD Email VARCHAR(50);",
+      "DESC STUDENT;"
+     ],
+     "answer": "ALTER TABLE STUDENT ADD Email VARCHAR(50); then DESC STUDENT;"
+    },
+    "reallife": "When a hospital decides to start recording each patient's ABHA health ID, the database team runs an ALTER TABLE ... ADD statement rather than rebuilding the whole patient table."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Set up a new database",
+     "prompt": "In the order you run the commands",
+     "items": [
+      "CREATE DATABASE School;",
+      "USE School;",
+      "CREATE TABLE STUDENT (...);",
+      "DESC STUDENT;",
+      "INSERT INTO STUDENT VALUES (...);"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the task to the command",
+     "pairs": [
+      [
+       "Select a database to work in",
+       "USE School;"
+      ],
+      [
+       "See a table's structure",
+       "DESC STUDENT;"
+      ],
+      [
+       "Add a column",
+       "ALTER TABLE ... ADD"
+      ],
+      [
+       "Change a column's data type",
+       "ALTER TABLE ... MODIFY"
+      ],
+      [
+       "Remove a table completely",
+       "DROP TABLE STUDENT;"
+      ],
+      [
+       "List the tables",
+       "SHOW TABLES;"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which command makes the database School the current database?",
+     "options": [
+      "USE School;",
+      "SHOW School;",
+      "OPEN School;",
+      "SELECT School;"
+     ],
+     "answer": 0,
+     "explain": "USE databasename; selects a database so that later commands work inside it.",
+     "mistake": "Invents an OPEN command"
+    },
+    {
+     "q": "Which command shows the structure (columns, types, keys) of the table STUDENT?",
+     "options": [
+      "SHOW STUDENT;",
+      "DESC STUDENT;",
+      "SELECT STUDENT;",
+      "STRUCTURE STUDENT;"
+     ],
+     "answer": 1,
+     "explain": "DESCRIBE or DESC shows a table's structure.",
+     "mistake": "Confuses viewing structure with viewing data"
+    },
+    {
+     "q": "Which statement correctly adds a column Phone of type CHAR(10) to the table STUDENT?",
+     "options": [
+      "UPDATE STUDENT ADD Phone CHAR(10);",
+      "ALTER TABLE STUDENT ADD Phone CHAR(10);",
+      "INSERT INTO STUDENT Phone CHAR(10);",
+      "ALTER STUDENT INSERT Phone CHAR(10);"
+     ],
+     "answer": 1,
+     "explain": "Adding a column changes the structure, so it needs ALTER TABLE ... ADD.",
+     "mistake": "Uses UPDATE or INSERT for structural changes"
+    },
+    {
+     "q": "Which statement increases the size of the column Name in STUDENT to VARCHAR(50)?",
+     "options": [
+      "ALTER TABLE STUDENT ADD Name VARCHAR(50);",
+      "ALTER TABLE STUDENT MODIFY Name VARCHAR(50);",
+      "UPDATE STUDENT SET Name = VARCHAR(50);",
+      "MODIFY STUDENT Name VARCHAR(50);"
+     ],
+     "answer": 1,
+     "explain": "MODIFY within ALTER TABLE changes an existing column's definition.",
+     "mistake": "Uses ADD, which would try to create a second Name column"
+    },
+    {
+     "q": "What is the difference between DROP TABLE STUDENT; and DELETE FROM STUDENT;?",
+     "options": [
+      "DROP removes the table's structure and data; DELETE removes only the rows",
+      "DELETE removes the structure; DROP removes the rows",
+      "Both remove only the rows",
+      "There is no difference"
+     ],
+     "answer": 0,
+     "explain": "DROP is DDL and removes the whole table. DELETE is DML and leaves an empty table behind.",
+     "mistake": "Thinks DELETE also removes the table"
+    },
+    {
+     "q": "Which statement makes RollNo the primary key of an existing table STUDENT?",
+     "options": [
+      "ALTER TABLE STUDENT ADD PRIMARY KEY (RollNo);",
+      "CREATE PRIMARY KEY RollNo;",
+      "ALTER TABLE STUDENT MODIFY KEY RollNo;",
+      "UPDATE STUDENT SET PRIMARY KEY = RollNo;"
+     ],
+     "answer": 0,
+     "explain": "ALTER TABLE ... ADD PRIMARY KEY (column) adds the constraint.",
+     "mistake": "Tries to set a key using UPDATE"
+    },
+    {
+     "q": "Which clause in CREATE TABLE makes ClassID in STUDENT refer to the ClassID column of the CLASS table?",
+     "options": [
+      "FOREIGN KEY (ClassID) REFERENCES CLASS(ClassID)",
+      "UNIQUE (ClassID) CLASS",
+      "PRIMARY KEY (ClassID) FROM CLASS",
+      "LINK ClassID TO CLASS"
+     ],
+     "answer": 0,
+     "explain": "FOREIGN KEY (column) REFERENCES table(column) creates the link.",
+     "mistake": "Confuses foreign key syntax with primary key syntax"
+    },
+    {
+     "q": "Assertion (A): After DROP TABLE STUDENT;, the command DESC STUDENT; gives an error.\nReason (R): DROP TABLE removes the table's structure as well as its data.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "With the structure gone, there is no table to describe. R explains A.",
+     "mistake": "Thinks DROP removes only the rows"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If I want to get rid of a table, should I use DROP or DELETE?'",
+    "must": [
+     [
+      "drop",
+      "drop table",
+      "structure"
+     ],
+     [
+      "delete",
+      "rows",
+      "data only",
+      "records"
+     ]
+    ],
+    "praise": "Exactly! DROP TABLE removes the whole table, structure and all; DELETE removes only the rows and keeps the table.",
+    "nudge": "Which command removes the table itself, and which only empties it?"
+   }
+  },
+  {
+   "id": "g12-cs-08-03",
+   "title": "Data manipulation: INSERT, UPDATE and DELETE",
+   "covers": [
+    "c8.4.1",
+    "c8.4.2",
+    "c8.4.3",
+    "c8.4.4"
+   ],
+   "learn": {
+    "hook": "Forget the WHERE clause in an UPDATE and every employee in the company gets the same salary. Ask any database admin about their worst day.",
+    "points": [
+     "INSERT INTO STUDENT VALUES (101, 'Asha', 12, 'Pune'); gives values for every column, in the table's column order.",
+     "INSERT INTO STUDENT (RollNo, Name) VALUES (102, 'Ravi'); gives values only for the listed columns; the others get NULL or their DEFAULT. Text and dates go in single quotes.",
+     "With foreign keys, insert into the referenced (parent) table first. A STUDENT row with ClassID 12 is rejected unless CLASS already has ClassID 12.",
+     "UPDATE STUDENT SET City = 'Agra' WHERE RollNo = 101; changes matching rows. Without WHERE, every row is updated. UPDATE changes data (DML); ALTER changes structure (DDL).",
+     "DELETE FROM STUDENT WHERE RollNo = 101; removes matching rows. Without WHERE, all rows are deleted, but the empty table remains."
+    ],
+    "example": {
+     "q": "Give every employee in the IT department a 10% raise in the table EMP(EmpID, Name, Dept, Salary).",
+     "steps": [
+      "Use UPDATE, because it changes existing data",
+      "SET Salary = Salary * 1.10",
+      "WHERE Dept = 'IT' limits it to IT"
+     ],
+     "answer": "UPDATE EMP SET Salary = Salary * 1.10 WHERE Dept = 'IT';"
+    },
+    "reallife": "When the government revises dearness allowance, payroll teams run a single UPDATE with a WHERE clause instead of editing lakhs of salary records by hand."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Complete the DML statement",
+     "items": [
+      {
+       "text": "___ INTO STUDENT VALUES (5, 'Om', 11);",
+       "answer": "INSERT",
+       "options": [
+        "INSERT",
+        "ADD",
+        "UPDATE"
+       ]
+      },
+      {
+       "text": "UPDATE EMP ___ Salary = 50000 WHERE EmpID = 3;",
+       "answer": "SET",
+       "options": [
+        "SET",
+        "MODIFY",
+        "CHANGE"
+       ]
+      },
+      {
+       "text": "DELETE ___ STUDENT WHERE RollNo = 9;",
+       "answer": "FROM",
+       "options": [
+        "FROM",
+        "INTO",
+        "TABLE"
+       ]
+      },
+      {
+       "text": "UPDATE EMP SET City = 'Pune' ___ EmpID = 2;",
+       "answer": "WHERE",
+       "options": [
+        "WHERE",
+        "IF",
+        "WHEN"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "DML facts",
+     "items": [
+      [
+       "UPDATE without a WHERE clause changes every row.",
+       true,
+       "No condition means all rows match."
+      ],
+      [
+       "DELETE FROM STUDENT; removes the table's structure.",
+       false,
+       "It deletes the rows only; the empty table remains."
+      ],
+      [
+       "ALTER changes data and UPDATE changes structure.",
+       false,
+       "It is the reverse: ALTER changes structure, UPDATE changes data."
+      ],
+      [
+       "Text values are written in single quotes in INSERT.",
+       true,
+       "For example 'Asha'."
+      ],
+      [
+       "A child row with a foreign key should be inserted before its parent row exists.",
+       false,
+       "The parent row must exist first."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which statement correctly inserts a row with only RollNo 7 and Name 'Isha' into STUDENT(RollNo, Name, Class, City)?",
+     "options": [
+      "INSERT STUDENT SET RollNo = 7, Name = 'Isha';",
+      "INSERT INTO STUDENT VALUES (7, 'Isha');",
+      "INSERT INTO STUDENT (RollNo, Name) VALUES (7, 'Isha');",
+      "UPDATE STUDENT VALUES (7, 'Isha');"
+     ],
+     "answer": 2,
+     "explain": "When values are given for only some columns, those columns must be listed.",
+     "mistake": "Omits the column list while supplying fewer values than columns"
+    },
+    {
+     "q": "Table EMP has rows for Asha (HR), Ravi (IT), Meena (IT) and Kabir (Sales). After DELETE FROM EMP WHERE Dept = 'IT';, how many rows remain?",
+     "options": [
+      "3",
+      "2",
+      "0",
+      "1"
+     ],
+     "answer": 1,
+     "explain": "The two IT rows (Ravi, Meena) are deleted, leaving Asha and Kabir.",
+     "mistake": "Deletes everything, forgetting the WHERE clause",
+     "check": "4-2"
+    },
+    {
+     "q": "What happens when UPDATE EMP SET Salary = 30000; is run?",
+     "options": [
+      "Every row's Salary becomes 30000",
+      "Nothing changes",
+      "An error occurs because WHERE is missing",
+      "Only the first row changes"
+     ],
+     "answer": 0,
+     "explain": "Without WHERE, UPDATE applies to every row of the table.",
+     "mistake": "Thinks WHERE is compulsory in UPDATE"
+    },
+    {
+     "q": "Tables CLASS(ClassID primary key) and STUDENT(RollNo, ClassID foreign key referencing CLASS). In which order should the first records be inserted?",
+     "options": [
+      "Any order",
+      "Both in one command only",
+      "STUDENT first, then CLASS",
+      "CLASS first, then STUDENT"
+     ],
+     "answer": 3,
+     "explain": "A student's ClassID must already exist in CLASS, so the parent table is filled first.",
+     "mistake": "Ignores the foreign-key dependency"
+    },
+    {
+     "q": "Which statement changes Ravi's city to 'Indore' in EMP(EmpID, Name, City), where Ravi's EmpID is 2?",
+     "options": [
+      "ALTER TABLE EMP SET City = 'Indore' WHERE EmpID = 2;",
+      "UPDATE EMP City = 'Indore' WHERE EmpID = 2;",
+      "INSERT INTO EMP (City) VALUES ('Indore');",
+      "UPDATE EMP SET City = 'Indore' WHERE EmpID = 2;"
+     ],
+     "answer": 3,
+     "explain": "UPDATE ... SET ... WHERE changes data in existing rows.",
+     "mistake": "Uses ALTER for a data change or forgets SET"
+    },
+    {
+     "q": "What is the difference between ALTER and UPDATE?",
+     "options": [
+      "Both are DDL commands",
+      "Both change only data",
+      "ALTER changes the table's structure; UPDATE changes the data in rows",
+      "ALTER changes data; UPDATE changes structure"
+     ],
+     "answer": 2,
+     "explain": "ALTER is DDL (structure), UPDATE is DML (data).",
+     "mistake": "Swaps the roles of ALTER and UPDATE"
+    },
+    {
+     "q": "Table PRODUCT has 50 rows. After DELETE FROM PRODUCT; what is true?",
+     "options": [
+      "The table exists but has 0 rows",
+      "Only the first row is deleted",
+      "The table is gone",
+      "The table still has 50 rows"
+     ],
+     "answer": 0,
+     "explain": "DELETE without WHERE removes all rows but keeps the table structure.",
+     "mistake": "Confuses DELETE with DROP"
+    },
+    {
+     "q": "Assertion (A): INSERT INTO STUDENT VALUES (11, 'Neel'); fails when STUDENT has four columns.\nReason (R): Without a column list, INSERT must provide a value for every column.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Only two values are given for four columns, so MySQL reports a column count mismatch. R explains A.",
+     "mistake": "Thinks missing values are filled in automatically without a column list"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the danger of writing an UPDATE or DELETE without a WHERE clause?'",
+    "must": [
+     [
+      "all rows",
+      "every row",
+      "whole table",
+      "all records",
+      "every record"
+     ],
+     [
+      "where",
+      "condition",
+      "where clause"
+     ]
+    ],
+    "praise": "Exactly! Without WHERE, UPDATE and DELETE affect every row, so always add a condition.",
+    "nudge": "Which rows are affected when there is no condition?"
+   }
+  },
+  {
+   "id": "g12-cs-08-04",
+   "title": "SELECT: columns, aliases, computed columns and DISTINCT",
+   "covers": [
+    "c8.5.1",
+    "c8.5.2",
+    "c8.5.3"
+   ],
+   "learn": {
+    "hook": "SELECT is the most-used SQL word on the planet. Every app that shows you a list, from Zomato's menus to your exam timetable, runs one.",
+    "points": [
+     "SELECT * FROM EMP; shows all columns. SELECT Name, City FROM EMP; shows only the chosen columns, in the order you list them.",
+     "Computed columns: SELECT Name, Salary * 12 FROM EMP; works out a value for each row without changing the stored data.",
+     "Column alias with AS: SELECT Name, Salary * 12 AS AnnualSalary FROM EMP; renames the column heading in the output. An alias containing spaces goes in quotes: AS \"Annual Salary\".",
+     "DISTINCT removes duplicate values from the output: SELECT DISTINCT City FROM EMP; lists each city once.",
+     "SELECT never changes the table: it only displays a result."
+    ],
+    "example": {
+     "q": "From EMP(Name, Dept, Salary, City) with cities Delhi, Pune, Delhi, Mumbai, Pune, Delhi, list each city once.",
+     "steps": [
+      "Duplicates must go, so use DISTINCT",
+      "SELECT DISTINCT City FROM EMP;",
+      "Result: Delhi, Pune and Mumbai (3 rows)"
+     ],
+     "answer": "SELECT DISTINCT City FROM EMP; gives 3 rows"
+    },
+    "reallife": "A food-delivery app shows each cuisine once in its filter menu even though thousands of restaurants serve it: that is a DISTINCT query."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the query to what it does",
+     "pairs": [
+      [
+       "SELECT * FROM EMP;",
+       "All columns of all rows"
+      ],
+      [
+       "SELECT Name FROM EMP;",
+       "Only the Name column"
+      ],
+      [
+       "SELECT DISTINCT Dept FROM EMP;",
+       "Each department once"
+      ],
+      [
+       "SELECT Salary * 12 FROM EMP;",
+       "A computed column"
+      ],
+      [
+       "SELECT Name AS Employee FROM EMP;",
+       "A renamed column heading"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "SELECT facts",
+     "items": [
+      [
+       "SELECT * displays every column of the table.",
+       true,
+       "* means all columns."
+      ],
+      [
+       "SELECT Salary * 2 FROM EMP; doubles the salaries stored in the table.",
+       false,
+       "It only displays doubled values; the data is unchanged."
+      ],
+      [
+       "An alias changes the column's name permanently in the table.",
+       false,
+       "It only renames the heading in the output."
+      ],
+      [
+       "DISTINCT removes duplicate values from the result.",
+       true,
+       "Each value appears once."
+      ],
+      [
+       "An alias containing a space must be enclosed in quotes.",
+       true,
+       "For example AS \"Annual Salary\"."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "EMP(Name, Dept, Salary, City): Asha HR 40000 Delhi; Ravi IT 55000 Pune; Meena IT 60000 Delhi; Kabir Sales 35000 Mumbai; Zoya HR NULL Pune; Dev IT 50000 Delhi. How many rows does SELECT DISTINCT City FROM EMP; return?",
+     "options": [
+      "3",
+      "4",
+      "2",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "The distinct cities are Delhi, Pune and Mumbai.",
+     "mistake": "Counts all rows instead of unique values",
+     "check": "3"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary, City): Asha HR 40000 Delhi; Ravi IT 55000 Pune; Meena IT 60000 Delhi; Kabir Sales 35000 Mumbai; Zoya HR NULL Pune; Dev IT 50000 Delhi. How many rows does SELECT DISTINCT Dept FROM EMP; return?",
+     "options": [
+      "2",
+      "1",
+      "3",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "The departments are HR, IT and Sales; each appears once in the output.",
+     "mistake": "Counts every row instead of unique departments",
+     "check": "3"
+    },
+    {
+     "q": "Which query displays only the Name and City columns of EMP?",
+     "options": [
+      "SELECT Name City EMP;",
+      "DISPLAY Name, City FROM EMP;",
+      "SELECT * FROM EMP;",
+      "SELECT Name, City FROM EMP;"
+     ],
+     "answer": 3,
+     "explain": "List the required columns, separated by commas, after SELECT.",
+     "mistake": "Uses * when only some columns are wanted"
+    },
+    {
+     "q": "What does SELECT Name, Salary * 12 AS Annual FROM EMP; display?",
+     "options": [
+      "An error, because Annual is not a column of EMP",
+      "Each name with twelve times the salary, under the heading Annual",
+      "Only the column named Annual",
+      "The salaries are permanently multiplied by 12"
+     ],
+     "answer": 1,
+     "explain": "Salary * 12 is computed for each row and AS gives it the heading Annual. The table is unchanged.",
+     "mistake": "Thinks a computed column changes the stored data"
+    },
+    {
+     "q": "Which query renames the Name column to 'Student Name' in the output?",
+     "options": [
+      "SELECT Name AS \"Student Name\" FROM STUDENT;",
+      "SELECT \"Student Name\" FROM STUDENT;",
+      "SELECT Name AS Student Name FROM STUDENT;",
+      "RENAME Name TO Student Name;"
+     ],
+     "answer": 0,
+     "explain": "An alias containing a space must be in quotes after AS.",
+     "mistake": "Forgets the quotes around an alias that has a space"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. What is the highest value shown by SELECT Name, Salary + 5000 FROM EMP;?",
+     "options": [
+      "60000",
+      "55000",
+      "65000",
+      "70000"
+     ],
+     "answer": 2,
+     "explain": "The computed column adds 5000 to each salary; the highest salary is 60000, so 65000 is shown for Meena.",
+     "mistake": "Forgets the computation and reads the stored value",
+     "check": "60000+5000"
+    },
+    {
+     "q": "What does SELECT DISTINCT Dept, City FROM EMP; return?",
+     "options": [
+      "Only distinct cities",
+      "Each distinct combination of Dept and City",
+      "Only distinct departments",
+      "An error"
+     ],
+     "answer": 1,
+     "explain": "With several columns, DISTINCT removes rows whose combination of values repeats.",
+     "mistake": "Thinks DISTINCT applies only to the first column"
+    },
+    {
+     "q": "Assertion (A): Running SELECT on a table does not change the data in it.\nReason (R): SELECT only retrieves and displays data.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "SELECT is a query; it reads data and shows a result without modifying the table. R explains A.",
+     "mistake": "Thinks computed columns in SELECT update the table"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I list each city only once, even if many rows have the same city?'",
+    "must": [
+     [
+      "distinct",
+      "select distinct"
+     ],
+     [
+      "duplicate",
+      "duplicates",
+      "once",
+      "unique",
+      "repeated"
+     ]
+    ],
+    "praise": "Spot on! SELECT DISTINCT City removes duplicates so each city appears once.",
+    "nudge": "Which keyword removes repeated values from the output?"
+   }
+  },
+  {
+   "id": "g12-cs-08-05",
+   "title": "WHERE with operators, BETWEEN, IN and NULL",
+   "covers": [
+    "c8.5.4",
+    "c8.5.5",
+    "c8.5.7"
+   ],
+   "learn": {
+    "hook": "WHERE Salary = NULL looks right but returns nothing, every single time. NULL plays by its own rules.",
+    "points": [
+     "WHERE filters rows using relational operators (=, <, >, <=, >=, <> or !=), logical operators (AND, OR, NOT) and arithmetic in conditions (e.g. WHERE Salary * 12 > 600000).",
+     "BETWEEN a AND b selects values in a range, including both ends: WHERE Salary BETWEEN 40000 AND 55000 includes 40000 and 55000.",
+     "IN checks membership in a list: WHERE City IN ('Delhi', 'Pune'). NOT IN selects values outside the list.",
+     "NULL means unknown, so = NULL and <> NULL are never true. Use IS NULL and IS NOT NULL: WHERE Salary IS NULL.",
+     "AND is evaluated before OR; use brackets to make your meaning clear."
+    ],
+    "example": {
+     "q": "EMP(Name, Dept, Salary, City): Asha HR 40000 Delhi; Ravi IT 55000 Pune; Meena IT 60000 Delhi; Kabir Sales 35000 Mumbai; Zoya HR NULL Pune; Dev IT 50000 Delhi. Which names does SELECT Name FROM EMP WHERE City = 'Delhi' AND Salary > 45000; show?",
+     "steps": [
+      "Delhi rows: Asha 40000, Meena 60000, Dev 50000",
+      "Salary > 45000 keeps Meena and Dev"
+     ],
+     "answer": "Meena and Dev"
+    },
+    "reallife": "A bank's fraud desk might query WHERE Amount > 100000 AND City NOT IN ('Mumbai', 'Delhi') to spot unusual high-value transactions."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Complete the WHERE clause",
+     "items": [
+      {
+       "text": "WHERE Salary ___ 40000 AND 50000 (inclusive range)",
+       "answer": "BETWEEN",
+       "options": [
+        "BETWEEN",
+        "IN",
+        "LIKE"
+       ]
+      },
+      {
+       "text": "WHERE City ___ ('Delhi', 'Pune')",
+       "answer": "IN",
+       "options": [
+        "IN",
+        "BETWEEN",
+        "IS"
+       ]
+      },
+      {
+       "text": "WHERE Salary IS ___ finds rows with no salary",
+       "answer": "NULL",
+       "options": [
+        "NULL",
+        "0",
+        "EMPTY"
+       ]
+      },
+      {
+       "text": "WHERE NOT City = 'Pune' is the same as WHERE City ___ 'Pune'",
+       "answer": "<>",
+       "options": [
+        "<>",
+        "=",
+        "IN"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Filter facts",
+     "items": [
+      [
+       "BETWEEN 10 AND 20 includes both 10 and 20.",
+       true,
+       "BETWEEN is inclusive at both ends."
+      ],
+      [
+       "WHERE Salary = NULL finds rows whose salary is NULL.",
+       false,
+       "Use IS NULL; comparing with = NULL is never true."
+      ],
+      [
+       "City IN ('A', 'B') is equivalent to City = 'A' OR City = 'B'.",
+       true,
+       "IN tests membership in the list."
+      ],
+      [
+       "NOT IN ('Delhi') selects rows whose city is not Delhi.",
+       true,
+       "It excludes the listed values."
+      ],
+      [
+       "AND has lower precedence than OR.",
+       false,
+       "AND is evaluated before OR."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. How many rows does SELECT * FROM EMP WHERE Salary BETWEEN 40000 AND 55000; return?",
+     "options": [
+      "4",
+      "2",
+      "3",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "BETWEEN is inclusive: 40000 (Asha), 55000 (Ravi) and 50000 (Dev). Zoya's NULL is not in any range.",
+     "mistake": "Excludes the boundary values 40000 and 55000",
+     "check": "3"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary, City): Asha HR 40000 Delhi; Ravi IT 55000 Pune; Meena IT 60000 Delhi; Kabir Sales 35000 Mumbai; Zoya HR NULL Pune; Dev IT 50000 Delhi. How many rows does SELECT * FROM EMP WHERE City IN ('Pune', 'Mumbai'); return?",
+     "options": [
+      "6",
+      "3",
+      "1",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "Pune: Ravi and Zoya; Mumbai: Kabir. That makes 3 rows.",
+     "mistake": "Counts only one of the listed cities",
+     "check": "3"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. Which name does SELECT Name FROM EMP WHERE Salary IS NULL; show?",
+     "options": [
+      "No rows",
+      "Kabir",
+      "Asha",
+      "Zoya"
+     ],
+     "answer": 3,
+     "explain": "Only Zoya's salary is NULL. IS NULL is the right way to test for it.",
+     "mistake": "Thinks NULL rows cannot be selected at all"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. How many rows does SELECT * FROM EMP WHERE Salary = NULL; return?",
+     "options": [
+      "6",
+      "5",
+      "1",
+      "0"
+     ],
+     "answer": 3,
+     "explain": "A comparison with NULL using = is never true, so no rows are returned. IS NULL would find Zoya.",
+     "mistake": "Treats = NULL like IS NULL",
+     "check": "0"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. How many rows does SELECT * FROM EMP WHERE Dept = 'IT' OR Salary < 40000; return?",
+     "options": [
+      "4",
+      "2",
+      "1",
+      "3"
+     ],
+     "answer": 0,
+     "explain": "IT gives Ravi, Meena and Dev; Salary < 40000 adds Kabir. 3 + 1 = 4 rows.",
+     "mistake": "Uses AND instead of OR, or double-counts",
+     "check": "3+1"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary, City): Asha HR 40000 Delhi; Ravi IT 55000 Pune; Meena IT 60000 Delhi; Kabir Sales 35000 Mumbai; Zoya HR NULL Pune; Dev IT 50000 Delhi. How many rows does SELECT * FROM EMP WHERE City NOT IN ('Delhi'); return?",
+     "options": [
+      "4",
+      "2",
+      "3",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "Cities other than Delhi are Pune (Ravi, Zoya) and Mumbai (Kabir).",
+     "mistake": "Counts the Delhi rows instead",
+     "check": "3"
+    },
+    {
+     "q": "Which query lists employees whose annual salary (Salary * 12) is more than 600000?",
+     "options": [
+      "SELECT * FROM EMP WHERE Salary > 600000;",
+      "SELECT * FROM EMP WHERE Salary * 12 > 600000;",
+      "SELECT * FROM EMP WHERE Salary * 12 IS 600000;",
+      "SELECT * FROM EMP WHERE Salary > 600000 * 12;"
+     ],
+     "answer": 1,
+     "explain": "Salary * 12 is the annual salary, and arithmetic can be used inside a WHERE condition on each row. Salary > 600000 tests the monthly salary, and IS works only with NULL.",
+     "mistake": "Multiplies on the wrong side of the comparison"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. How many rows does SELECT * FROM EMP WHERE Dept = 'HR' AND Salary IS NOT NULL; return?",
+     "options": [
+      "3",
+      "0",
+      "2",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "HR has Asha (40000) and Zoya (NULL); only Asha has a non-NULL salary.",
+     "mistake": "Forgets to exclude the NULL salary",
+     "check": "1"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find rows where a value is missing (NULL)?'",
+    "must": [
+     [
+      "is null",
+      "is not null"
+     ],
+     [
+      "not =",
+      "cannot use =",
+      "= null",
+      "equal to null",
+      "never true"
+     ]
+    ],
+    "praise": "Perfect! Use IS NULL, because comparing with = NULL is never true.",
+    "nudge": "Which special operator tests for NULL, and why does = NULL fail?"
+   }
+  },
+  {
+   "id": "g12-cs-08-06",
+   "title": "Pattern matching with LIKE and sorting with ORDER BY",
+   "covers": [
+    "c8.5.8",
+    "c8.5.6"
+   ],
+   "learn": {
+    "hook": "Find every customer whose name starts with 'S' and list them from the highest bill down: two tiny clauses, LIKE and ORDER BY, do it.",
+    "points": [
+     "LIKE matches text patterns using two wildcards: % stands for any number of characters (including none), and _ stands for exactly one character.",
+     "'A%' starts with A; '%a' ends with a; '%an%' contains 'an'; '_a%' has a as the second letter; '____' (four underscores) is exactly four characters long. NOT LIKE excludes a pattern.",
+     "ORDER BY sorts the result: ORDER BY Salary; is ascending (ASC, the default) and ORDER BY Salary DESC; is descending.",
+     "Sorting on several columns: ORDER BY Dept, Salary DESC; sorts by Dept first and, within each department, by Salary from high to low.",
+     "ORDER BY comes after WHERE in a query: SELECT ... FROM ... WHERE ... ORDER BY ...;"
+    ],
+    "example": {
+     "q": "From EMP, list the names starting with 'M' or ending with 'a', in alphabetical order. (Names: Asha, Ravi, Meena, Kabir, Zoya, Dev.)",
+     "steps": [
+      "WHERE Name LIKE 'M%' OR Name LIKE '%a'",
+      "'M%' matches Meena; '%a' matches Asha, Meena and Zoya",
+      "ORDER BY Name sorts them alphabetically"
+     ],
+     "answer": "Asha, Meena, Zoya"
+    },
+    "reallife": "When you type 'Pan' in a railway station search box, the app may run something like WHERE StationName LIKE 'Pan%' to suggest Panvel and Panipat."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the pattern to its meaning",
+     "pairs": [
+      [
+       "'S%'",
+       "Starts with S"
+      ],
+      [
+       "'%n'",
+       "Ends with n"
+      ],
+      [
+       "'%ar%'",
+       "Contains 'ar' anywhere"
+      ],
+      [
+       "'_e%'",
+       "Second letter is e"
+      ],
+      [
+       "'___'",
+       "Exactly three characters"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Does the name match LIKE '%a%' ?",
+     "buckets": [
+      "Matches",
+      "Does not match"
+     ],
+     "items": [
+      [
+       "Asha",
+       0
+      ],
+      [
+       "Ravi",
+       0
+      ],
+      [
+       "Meena",
+       0
+      ],
+      [
+       "Kabir",
+       0
+      ],
+      [
+       "Dev",
+       1
+      ],
+      [
+       "Om",
+       1
+      ],
+      [
+       "Lily",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Names in EMP: Asha, Ravi, Meena, Kabir, Zoya, Dev. Which names does SELECT Name FROM EMP WHERE Name LIKE '%a'; return?",
+     "options": [
+      "Asha, Meena, Zoya",
+      "Asha only",
+      "Asha, Ravi, Meena, Kabir, Zoya",
+      "Ravi, Kabir"
+     ],
+     "answer": 0,
+     "explain": "'%a' means the name ends with a: Asha, Meena and Zoya.",
+     "mistake": "Reads '%a' as 'contains a'"
+    },
+    {
+     "q": "Names in EMP: Asha, Ravi, Meena, Kabir, Zoya, Dev. How many names does WHERE Name LIKE '_a%' match?",
+     "options": [
+      "3",
+      "4",
+      "1",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "'_a%' needs a as the second letter: Ravi and Kabir.",
+     "mistake": "Reads _ as any number of characters",
+     "check": "2"
+    },
+    {
+     "q": "Which pattern matches names that are exactly 4 characters long?",
+     "options": [
+      "'4%'",
+      "'%____%'",
+      "'____'",
+      "'%%%%'"
+     ],
+     "answer": 2,
+     "explain": "Each _ matches exactly one character, so four underscores match exactly four characters.",
+     "mistake": "Uses % for a fixed number of characters"
+    },
+    {
+     "q": "Which query lists employees from the highest salary to the lowest?",
+     "options": [
+      "SELECT * FROM EMP ORDER Salary DOWN;",
+      "SELECT * FROM EMP ORDER BY Salary;",
+      "SELECT * FROM EMP SORT BY Salary DESC;",
+      "SELECT * FROM EMP ORDER BY Salary DESC;"
+     ],
+     "answer": 3,
+     "explain": "DESC gives descending order. Without it, ORDER BY sorts in ascending order.",
+     "mistake": "Forgets that the default order is ascending"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. Whose name comes first in the output of SELECT Name FROM EMP WHERE Salary IS NOT NULL ORDER BY Salary;?",
+     "options": [
+      "Kabir",
+      "Meena",
+      "Asha",
+      "Dev"
+     ],
+     "answer": 0,
+     "explain": "Ascending order puts the lowest salary first: Kabir with 35000.",
+     "mistake": "Assumes ORDER BY sorts in descending order by default"
+    },
+    {
+     "q": "What does ORDER BY Dept, Salary DESC do?",
+     "options": [
+      "Sorts by Salary first, then Dept",
+      "Gives an error because two columns are listed",
+      "Sorts by Dept ascending, and within each Dept by Salary descending",
+      "Sorts both columns descending"
+     ],
+     "answer": 2,
+     "explain": "The first column is the main sort (ascending by default); DESC applies only to Salary.",
+     "mistake": "Thinks DESC applies to every column in the list"
+    },
+    {
+     "q": "Which query finds products whose name contains the word 'pen' anywhere?",
+     "options": [
+      "WHERE PName = '%pen%'",
+      "WHERE PName LIKE '_pen_'",
+      "WHERE PName LIKE '%pen%'",
+      "WHERE PName LIKE 'pen'"
+     ],
+     "answer": 2,
+     "explain": "% on both sides allows any characters before and after 'pen'. = does not use wildcards.",
+     "mistake": "Uses = with wildcards"
+    },
+    {
+     "q": "Assertion (A): WHERE Name LIKE 'R%' matches 'Ravi' and 'R'.\nReason (R): % matches zero or more characters.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "'R%' needs R first followed by any number of characters, including none, so both match. R explains A.",
+     "mistake": "Thinks % must match at least one character"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'In LIKE patterns, what's the difference between % and _?'",
+    "must": [
+     [
+      "percent",
+      "any number",
+      "zero or more",
+      "many characters",
+      "any characters"
+     ],
+     [
+      "underscore",
+      "exactly one",
+      "single character",
+      "one character"
+     ]
+    ],
+    "praise": "Excellent! % matches any number of characters (even none), while _ matches exactly one character.",
+    "nudge": "How many characters does each wildcard stand for?"
+   }
+  },
+  {
+   "id": "g12-cs-08-07",
+   "title": "Aggregate functions and NULL",
+   "covers": [
+    "c8.6.1",
+    "c8.6.5"
+   ],
+   "learn": {
+    "hook": "COUNT(*) and COUNT(Salary) can give different answers on the same table. The difference is one NULL, and it is a favourite board question.",
+    "points": [
+     "Single-row functions work on each row separately and return one value per row (e.g. UPPER(Name)); you only need to know this difference, because single-row functions are not in the CBSE CS exam syllabus. Aggregate (multi-row) functions work on a group of rows and return one value for the whole group.",
+     "Aggregates: MAX(col) largest value, MIN(col) smallest, SUM(col) total, AVG(col) average, COUNT(col) number of non-NULL values in the column.",
+     "COUNT(*) counts all rows, including rows with NULLs. COUNT(col) skips NULLs. COUNT(DISTINCT col) counts the different non-NULL values.",
+     "SUM, AVG, MAX and MIN ignore NULL values. So AVG(col) = SUM(col) / COUNT(col), not divided by COUNT(*).",
+     "Aggregates can be combined with WHERE: SELECT AVG(Salary) FROM EMP WHERE Dept = 'IT'; averages only the IT rows."
+    ],
+    "example": {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. Find COUNT(*), COUNT(Salary), SUM(Salary) and AVG(Salary).",
+     "steps": [
+      "COUNT(*) = 6 rows",
+      "COUNT(Salary) skips Zoya's NULL: 5",
+      "SUM = 40000 + 55000 + 60000 + 35000 + 50000 = 240000",
+      "AVG = 240000 / 5 = 48000"
+     ],
+     "answer": "6, 5, 240000, 48000"
+    },
+    "reallife": "At the end of an IPL season, the stats team runs MAX(Runs) for the Orange Cap, SUM(Runs) for team totals and AVG for batting averages, all aggregate functions."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the function to its result on salaries 40000, 55000, 60000, 35000, NULL, 50000",
+     "pairs": [
+      [
+       "COUNT(*)",
+       "6"
+      ],
+      [
+       "COUNT(Salary)",
+       "5"
+      ],
+      [
+       "MAX(Salary)",
+       "60000"
+      ],
+      [
+       "MIN(Salary)",
+       "35000"
+      ],
+      [
+       "SUM(Salary)",
+       "240000"
+      ],
+      [
+       "AVG(Salary)",
+       "48000"
+      ]
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "Single-row or aggregate function?",
+     "buckets": [
+      "Single-row",
+      "Aggregate"
+     ],
+     "items": [
+      [
+       "UPPER(Name)",
+       0
+      ],
+      [
+       "ROUND(Price, 1)",
+       0
+      ],
+      [
+       "LENGTH(Name)",
+       0
+      ],
+      [
+       "SUM(Salary)",
+       1
+      ],
+      [
+       "COUNT(*)",
+       1
+      ],
+      [
+       "AVG(Marks)",
+       1
+      ],
+      [
+       "MAX(Price)",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. What does SELECT COUNT(*) FROM EMP; return?",
+     "options": [
+      "5",
+      "3",
+      "6",
+      "240000"
+     ],
+     "answer": 2,
+     "explain": "COUNT(*) counts every row, including the row where Salary is NULL.",
+     "mistake": "Thinks COUNT(*) skips rows containing NULL",
+     "check": "6"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. What does SELECT COUNT(Salary) FROM EMP; return?",
+     "options": [
+      "5",
+      "1",
+      "6",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "COUNT(column) counts only non-NULL values; Zoya's NULL is skipped.",
+     "mistake": "Treats COUNT(Salary) like COUNT(*)",
+     "check": "5"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. What does SELECT AVG(Salary) FROM EMP; return?",
+     "options": [
+      "47000",
+      "40000",
+      "48000",
+      "60000"
+     ],
+     "answer": 2,
+     "explain": "AVG ignores the NULL: 240000 / 5 = 48000.",
+     "steps": [
+      "SUM = 40000 + 55000 + 60000 + 35000 + 50000 = 240000",
+      "Non-NULL values = 5",
+      "240000 / 5 = 48000"
+     ],
+     "mistake": "Divides by all 6 rows, giving 40000",
+     "check": "240000/5"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. What does SELECT MAX(Salary) - MIN(Salary) FROM EMP; return?",
+     "options": [
+      "20000",
+      "35000",
+      "60000",
+      "25000"
+     ],
+     "answer": 3,
+     "explain": "MAX is 60000 and MIN is 35000 (NULL is ignored). 60000 - 35000 = 25000.",
+     "mistake": "Treats NULL as 0 and takes 0 as the minimum",
+     "check": "60000-35000"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. What does SELECT SUM(Salary) FROM EMP WHERE Dept = 'IT'; return?",
+     "options": [
+      "115000",
+      "240000",
+      "55000",
+      "165000"
+     ],
+     "answer": 3,
+     "explain": "The IT salaries are 55000, 60000 and 50000, totalling 165000.",
+     "mistake": "Misses one of the IT rows",
+     "check": "55000+60000+50000"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. What does SELECT COUNT(DISTINCT Dept) FROM EMP; return?",
+     "options": [
+      "3",
+      "5",
+      "6",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "The different departments are HR, IT and Sales.",
+     "mistake": "Counts all rows instead of distinct values",
+     "check": "3"
+    },
+    {
+     "q": "Which of these is an aggregate (multi-row) function?",
+     "options": [
+      "LENGTH()",
+      "UPPER()",
+      "ROUND()",
+      "AVG()"
+     ],
+     "answer": 3,
+     "explain": "AVG works on many rows and returns one value; the others return a value for each row.",
+     "mistake": "Thinks any built-in function is an aggregate"
+    },
+    {
+     "q": "Assertion (A): For a column with some NULL values, AVG(col) may differ from SUM(col) / COUNT(*).\nReason (R): AVG ignores NULL values, but COUNT(*) counts every row.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "AVG divides by the number of non-NULL values; COUNT(*) includes NULL rows, so the results differ. R explains A.",
+     "mistake": "Thinks aggregates treat NULL as zero"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why do COUNT(*) and COUNT(Salary) give different answers on my table?'",
+    "must": [
+     [
+      "null",
+      "nulls",
+      "missing"
+     ],
+     [
+      "all rows",
+      "every row",
+      "count(*)"
+     ],
+     [
+      "skip",
+      "ignore",
+      "ignores",
+      "non-null",
+      "not null"
+     ]
+    ],
+    "praise": "Brilliant! COUNT(*) counts every row, while COUNT(Salary) skips the rows where Salary is NULL.",
+    "nudge": "What does each COUNT do with rows that have NULL in Salary?"
+   }
+  },
+  {
+   "id": "g12-cs-08-08",
+   "title": "GROUP BY and HAVING",
+   "covers": [
+    "c8.7.1",
+    "c8.7.2"
+   ],
+   "learn": {
+    "hook": "'Total sales per region', 'average marks per section', 'number of trains per zone': every 'per' in a question is a hint to use GROUP BY.",
+    "points": [
+     "GROUP BY col puts rows with the same value of col into one group; aggregate functions then give one result per group: SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept;",
+     "Columns in the SELECT list should be either the grouping column(s) or aggregates.",
+     "HAVING filters groups after grouping, using aggregate conditions: ... GROUP BY Dept HAVING COUNT(*) > 1;",
+     "WHERE filters individual rows BEFORE grouping and cannot use aggregate functions; HAVING filters groups AFTER grouping.",
+     "Clause order: SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY ...;"
+    ],
+    "example": {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. Find the number of employees and total salary in each department.",
+     "steps": [
+      "SELECT Dept, COUNT(*), SUM(Salary) FROM EMP GROUP BY Dept;",
+      "HR: 2 rows, total 40000 (Zoya's NULL ignored)",
+      "IT: 3 rows, total 165000",
+      "Sales: 1 row, total 35000"
+     ],
+     "answer": "HR 2 40000; IT 3 165000; Sales 1 35000"
+    },
+    "reallife": "Indian Railways can report punctuality by zone with GROUP BY Zone and then use HAVING AVG(Delay) > 30 to flag only the zones that need attention."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Clause order in a SELECT query",
+     "prompt": "As written in the query",
+     "items": [
+      "SELECT",
+      "FROM",
+      "WHERE",
+      "GROUP BY",
+      "HAVING",
+      "ORDER BY"
+     ]
+    },
+    {
+     "type": "sort",
+     "title": "WHERE or HAVING?",
+     "buckets": [
+      "Use WHERE",
+      "Use HAVING"
+     ],
+     "items": [
+      [
+       "City = 'Delhi' (before grouping)",
+       0
+      ],
+      [
+       "Salary > 40000 for each row",
+       0
+      ],
+      [
+       "Dept <> 'HR' on rows",
+       0
+      ],
+      [
+       "COUNT(*) > 2 for each group",
+       1
+      ],
+      [
+       "SUM(Salary) > 100000 per department",
+       1
+      ],
+      [
+       "AVG(Marks) >= 75 per section",
+       1
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. How many rows does SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept; return?",
+     "options": [
+      "1",
+      "3",
+      "6",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "One row per department: HR, IT and Sales.",
+     "mistake": "Thinks GROUP BY returns every original row",
+     "check": "3"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. In SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept;, what count is shown for IT?",
+     "options": [
+      "3",
+      "1",
+      "6",
+      "2"
+     ],
+     "answer": 0,
+     "explain": "Ravi, Meena and Dev are in IT.",
+     "mistake": "Miscounts the rows in the group",
+     "check": "3"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. Which departments does SELECT Dept FROM EMP GROUP BY Dept HAVING COUNT(*) >= 2; return?",
+     "options": [
+      "IT only",
+      "Sales only",
+      "HR, IT and Sales",
+      "HR and IT"
+     ],
+     "answer": 3,
+     "explain": "HR has 2 rows and IT has 3, while Sales has only 1.",
+     "mistake": "Uses COUNT(Salary) and drops HR because of Zoya's NULL"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary): Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. In SELECT Dept, AVG(Salary) FROM EMP GROUP BY Dept;, what average is shown for HR?",
+     "options": [
+      "0",
+      "40000",
+      "48000",
+      "20000"
+     ],
+     "answer": 1,
+     "explain": "HR salaries are 40000 and NULL. AVG ignores NULL, so the average is 40000 / 1 = 40000.",
+     "mistake": "Treats NULL as 0 and divides by 2",
+     "check": "40000/1"
+    },
+    {
+     "q": "Which query lists the departments whose total salary is more than 100000?",
+     "options": [
+      "SELECT Dept FROM EMP GROUP BY Dept HAVING SUM(Salary) > 100000;",
+      "SELECT Dept FROM EMP WHERE SUM(Salary) > 100000 GROUP BY Dept;",
+      "SELECT Dept FROM EMP GROUP BY SUM(Salary) > 100000;",
+      "SELECT Dept FROM EMP HAVING Salary > 100000;"
+     ],
+     "answer": 0,
+     "explain": "A condition on an aggregate must go in HAVING, after GROUP BY. WHERE cannot use SUM().",
+     "mistake": "Puts an aggregate condition in WHERE"
+    },
+    {
+     "q": "What is the main difference between WHERE and HAVING?",
+     "options": [
+      "WHERE filters rows before grouping; HAVING filters groups after grouping",
+      "WHERE filters groups; HAVING filters rows",
+      "HAVING can only be used without GROUP BY",
+      "They are identical"
+     ],
+     "answer": 0,
+     "explain": "WHERE works on individual rows and HAVING works on the groups made by GROUP BY.",
+     "mistake": "Swaps the roles of WHERE and HAVING"
+    },
+    {
+     "q": "EMP(Name, Dept, Salary, City): Asha HR 40000 Delhi; Ravi IT 55000 Pune; Meena IT 60000 Delhi; Kabir Sales 35000 Mumbai; Zoya HR NULL Pune; Dev IT 50000 Delhi. How many rows does SELECT City, COUNT(*) FROM EMP WHERE Dept = 'IT' GROUP BY City; return?",
+     "options": [
+      "3",
+      "6",
+      "2",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "WHERE keeps Ravi (Pune), Meena (Delhi) and Dev (Delhi); grouping by city gives Delhi and Pune.",
+     "mistake": "Groups before filtering, or forgets that two IT employees share a city",
+     "check": "2"
+    },
+    {
+     "q": "Assertion (A): SELECT Dept, SUM(Salary) FROM EMP WHERE SUM(Salary) > 50000 GROUP BY Dept; gives an error.\nReason (R): Aggregate functions cannot be used in a WHERE clause.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "WHERE is applied to single rows before groups exist, so SUM() is not allowed there; the condition belongs in HAVING. R explains A.",
+     "mistake": "Thinks WHERE and HAVING are interchangeable"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'When do I use HAVING instead of WHERE?'",
+    "must": [
+     [
+      "group",
+      "groups",
+      "group by",
+      "after grouping"
+     ],
+     [
+      "aggregate",
+      "count",
+      "sum",
+      "avg"
+     ],
+     [
+      "where",
+      "rows",
+      "before grouping"
+     ]
+    ],
+    "praise": "Excellent! HAVING filters groups after GROUP BY and can use aggregates; WHERE filters rows before grouping.",
+    "nudge": "Which one works on groups and can use functions like COUNT or SUM?"
+   }
+  },
+  {
+   "id": "g12-cs-08-09",
+   "title": "Cartesian product and joins on two tables",
+   "covers": [
+    "c8.8.2",
+    "c8.9.1",
+    "c8.9.2",
+    "c8.9.3",
+    "c8.9.4",
+    "c8.9.5"
+   ],
+   "learn": {
+    "hook": "Student names live in one table and class teachers in another. A join brings them together, and the degree-and-cardinality question about it is almost guaranteed in the board paper.",
+    "points": [
+     "Cartesian product (cross join): every row of the first table is paired with every row of the second. Degree = degree1 + degree2; cardinality = cardinality1 × cardinality2. In SQL: SELECT * FROM STUDENT, CLASS;",
+     "Equi-join: keep only the pairs where the common attribute is equal: SELECT * FROM STUDENT, CLASS WHERE STUDENT.ClassID = CLASS.ClassID; or ... FROM STUDENT JOIN CLASS ON STUDENT.ClassID = CLASS.ClassID; The common column appears twice in the output.",
+     "Natural join: SELECT * FROM STUDENT NATURAL JOIN CLASS; joins on the common column(s) and shows that column only once.",
+     "Table aliases shorten queries and remove ambiguity: SELECT S.Name, C.Teacher FROM STUDENT S, CLASS C WHERE S.ClassID = C.ClassID; A column name found in both tables must be qualified with its table name or alias.",
+     "Exam tasks: write queries on given tables, predict query output, create tables with constraints, and differentiate commands (WHERE vs HAVING, DELETE vs DROP, CHAR vs VARCHAR)."
+    ],
+    "example": {
+     "q": "STUDENT(RollNo, Name, ClassID) has 3 rows: (1, Anu, 11), (2, Bilal, 12), (3, Chitra, 11). CLASS(ClassID, Teacher) has 2 rows: (11, Mr Rao), (12, Ms Iyer). Find the degree and cardinality of STUDENT × CLASS, and the rows of the equi-join.",
+     "steps": [
+      "Degree = 3 + 2 = 5 columns",
+      "Cardinality = 3 × 2 = 6 rows",
+      "The equi-join keeps the pairs with equal ClassID: Anu–Mr Rao, Bilal–Ms Iyer, Chitra–Mr Rao",
+      "So the equi-join has 3 rows"
+     ],
+     "answer": "Cartesian product: degree 5, cardinality 6; equi-join: 3 rows"
+    },
+    "reallife": "An online shopping site keeps ORDERS and CUSTOMERS in separate tables and joins them on CustomerID whenever it prints a delivery label with your name and address."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Cartesian product maths",
+     "items": [
+      {
+       "q": "Degree of A(3 cols) × B(4 cols)",
+       "a": "7",
+       "check": "3+4"
+      },
+      {
+       "q": "Cardinality of A(5 rows) × B(4 rows)",
+       "a": "20",
+       "check": "5*4"
+      },
+      {
+       "q": "Degree of P(2 cols) × Q(2 cols)",
+       "a": "4",
+       "check": "2+2"
+      },
+      {
+       "q": "Cardinality of P(10 rows) × Q(3 rows)",
+       "a": "30",
+       "check": "10*3"
+      },
+      {
+       "q": "Degree of X(5 cols) × Y(1 col)",
+       "a": "6",
+       "check": "5+1"
+      }
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the join to its description",
+     "pairs": [
+      [
+       "Cartesian product",
+       "Every row paired with every row"
+      ],
+      [
+       "Equi-join",
+       "Pairs with equal common values; common column shown twice"
+      ],
+      [
+       "Natural join",
+       "Joins on the common column and shows it once"
+      ],
+      [
+       "Table alias",
+       "Short name such as S for STUDENT"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Table A has 4 columns and 6 rows; table B has 3 columns and 5 rows. What is the degree of A × B?",
+     "options": [
+      "30",
+      "11",
+      "7",
+      "12"
+     ],
+     "answer": 2,
+     "explain": "Degree of a Cartesian product = 4 + 3 = 7.",
+     "mistake": "Multiplies the degrees",
+     "check": "4+3"
+    },
+    {
+     "q": "Table A has 4 columns and 6 rows; table B has 3 columns and 5 rows. What is the cardinality of A × B?",
+     "options": [
+      "12",
+      "11",
+      "7",
+      "30"
+     ],
+     "answer": 3,
+     "explain": "Cardinality of a Cartesian product = 6 × 5 = 30.",
+     "mistake": "Adds the cardinalities",
+     "check": "6*5"
+    },
+    {
+     "q": "STUDENT(RollNo, Name, ClassID) has rows (1, Anu, 11), (2, Bilal, 12), (3, Chitra, 11); CLASS(ClassID, Teacher) has (11, Mr Rao), (12, Ms Iyer). How many rows does SELECT * FROM STUDENT, CLASS; return?",
+     "options": [
+      "5",
+      "3",
+      "6",
+      "2"
+     ],
+     "answer": 2,
+     "explain": "Without a join condition, every student is paired with every class: 3 × 2 = 6.",
+     "mistake": "Assumes the tables are matched on ClassID automatically",
+     "check": "3*2"
+    },
+    {
+     "q": "STUDENT(RollNo, Name, ClassID): (1, Anu, 11), (2, Bilal, 12), (3, Chitra, 11). CLASS(ClassID, Teacher): (11, Mr Rao), (12, Ms Iyer). Which names does SELECT S.Name FROM STUDENT S, CLASS C WHERE S.ClassID = C.ClassID AND C.Teacher = 'Mr Rao'; show?",
+     "options": [
+      "Bilal",
+      "Mr Rao",
+      "Anu, Bilal and Chitra",
+      "Anu and Chitra"
+     ],
+     "answer": 3,
+     "explain": "The equi-join pairs each student with their class; Mr Rao teaches class 11, which has Anu and Chitra.",
+     "mistake": "Forgets the join condition or the teacher filter"
+    },
+    {
+     "q": "STUDENT(RollNo, Name, ClassID) and CLASS(ClassID, Teacher). How many columns does SELECT * FROM STUDENT NATURAL JOIN CLASS; display?",
+     "options": [
+      "5",
+      "6",
+      "4",
+      "3"
+     ],
+     "answer": 2,
+     "explain": "A natural join shows the common column ClassID only once: RollNo, Name, ClassID and Teacher.",
+     "mistake": "Counts ClassID twice, as in an equi-join",
+     "check": "3+2-1"
+    },
+    {
+     "q": "Why does SELECT Name, ClassID FROM STUDENT, CLASS WHERE STUDENT.ClassID = CLASS.ClassID; give an error?",
+     "options": [
+      "WHERE cannot compare columns",
+      "Two tables can never be used in one query",
+      "Name is not a column",
+      "ClassID is ambiguous because it is present in both tables"
+     ],
+     "answer": 3,
+     "explain": "A column name found in both tables must be qualified, e.g. STUDENT.ClassID or S.ClassID.",
+     "mistake": "Does not realise the select list also needs qualified names"
+    },
+    {
+     "q": "Which query is an equi-join using JOIN ... ON?",
+     "options": [
+      "SELECT * FROM STUDENT, CLASS;",
+      "SELECT * FROM STUDENT JOIN CLASS ON STUDENT.ClassID = CLASS.ClassID;",
+      "SELECT * FROM STUDENT JOIN CLASS;",
+      "SELECT * FROM STUDENT ON CLASS;"
+     ],
+     "answer": 1,
+     "explain": "JOIN ... ON with an equality on the common column is an equi-join. SELECT * FROM STUDENT, CLASS; (and, in MySQL, JOIN without ON) gives a plain Cartesian product.",
+     "mistake": "Mistakes a Cartesian product for a join"
+    },
+    {
+     "q": "Assertion (A): In an equi-join of STUDENT and CLASS on ClassID, the ClassID column appears twice in the output of SELECT *.\nReason (R): A natural join shows the common column only once.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both statements are true, but R describes a natural join; it does not explain why an equi-join shows the column twice (because SELECT * takes every column of both tables).",
+     "mistake": "Takes a true statement about natural joins as the reason for equi-join behaviour"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If table A has 3 rows and table B has 4 rows, how many rows are in their Cartesian product, and why?'",
+    "must": [
+     [
+      "12",
+      "twelve",
+      "3 × 4",
+      "3 x 4",
+      "multiply"
+     ],
+     [
+      "every row",
+      "each row",
+      "all combinations",
+      "every combination",
+      "paired"
+     ]
+    ],
+    "praise": "Perfect! Each of A's 3 rows pairs with each of B's 4 rows, so there are 3 × 4 = 12 rows.",
+    "nudge": "How many partners does each row of A get from B, and what do you multiply?"
+   }
+  }
+ ]
+}

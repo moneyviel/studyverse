@@ -1,0 +1,1299 @@
+{
+ "n": 6,
+ "title": "Data Communication",
+ "emoji": "📡",
+ "topics": [
+  {
+   "id": "g12-cs-06-01",
+   "title": "Data communication: components, bandwidth and data rate",
+   "covers": [
+    "c6.1.1",
+    "c6.2.1",
+    "c6.3.1",
+    "c6.3.2"
+   ],
+   "learn": {
+    "hook": "A WhatsApp message from Kolkata reaches Kochi in under a second. Five simple components make that possible, and two numbers measure how fast.",
+    "points": [
+     "Data communication is the exchange of data between two or more devices over a transmission medium.",
+     "Its five components: sender (the device that sends), receiver (the device that receives), message (the data: text, audio, video and so on), communication media (the path, wired or wireless) and protocols (the agreed rules both sides follow).",
+     "Bandwidth is the range of frequencies a channel can carry, measured in hertz (Hz). 1 KHz = 1000 Hz, 1 MHz = 1000 KHz, 1 GHz = 1000 MHz. Higher bandwidth means more data can be carried.",
+     "Data transfer rate (bit rate) is the number of bits sent per second, measured in bps. NCERT uses binary multiples: 1 Kbps = 2^10 bps = 1024 bps, 1 Mbps = 1024 Kbps, 1 Gbps = 1024 Mbps, 1 Tbps = 1024 Gbps.",
+     "Remember bytes and bits: 1 byte = 8 bits. File sizes are usually in bytes (MB), while speeds are in bits per second (Mbps)."
+    ],
+    "example": {
+     "q": "How long does it take to send a 10 MB file over an 8 Mbps link? (Use 1 MB = 1024 × 1024 bytes and 1 Mbps = 1024 × 1024 bps.)",
+     "steps": [
+      "File size in bits = 10 × 1024 × 1024 × 8",
+      "Rate = 8 × 1024 × 1024 bits per second",
+      "Time = size ÷ rate = (10 × 8) ÷ 8",
+      "= 10 seconds"
+     ],
+     "answer": "10 seconds"
+    },
+    "reallife": "When your broadband plan says '100 Mbps', it is quoting a data transfer rate. A movie file of a few GB still takes minutes, because the file size is in bytes and every byte is 8 bits."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the component to the example (an SMS from Riya to Kabir)",
+     "pairs": [
+      [
+       "Sender",
+       "Riya's phone"
+      ],
+      [
+       "Receiver",
+       "Kabir's phone"
+      ],
+      [
+       "Message",
+       "The text 'See you at 5'"
+      ],
+      [
+       "Communication media",
+       "Radio waves to the mobile tower"
+      ],
+      [
+       "Protocol",
+       "Agreed rules for format and timing"
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Unit conversions (NCERT convention)",
+     "items": [
+      {
+       "q": "1 Kbps = ? bps",
+       "a": "1024",
+       "check": "1024"
+      },
+      {
+       "q": "2 Mbps = ? Kbps",
+       "a": "2048",
+       "check": "2*1024"
+      },
+      {
+       "q": "1 byte = ? bits",
+       "a": "8",
+       "check": "8"
+      },
+      {
+       "q": "1 GHz = ? MHz",
+       "a": "1000",
+       "check": "1000"
+      },
+      {
+       "q": "3 KHz = ? Hz",
+       "a": "3000",
+       "check": "3*1000"
+      },
+      {
+       "q": "1 Gbps = ? Mbps",
+       "a": "1024",
+       "check": "1024"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is NOT one of the five components of data communication?",
+     "options": [
+      "Protocol",
+      "Sender",
+      "Message",
+      "Compiler"
+     ],
+     "answer": 3,
+     "explain": "The components are sender, receiver, message, communication media and protocols. A compiler translates programs and is not part of the model.",
+     "mistake": "Adds software unrelated to communication"
+    },
+    {
+     "q": "In what unit is bandwidth measured?",
+     "options": [
+      "Metres",
+      "Hertz",
+      "Bits per second",
+      "Bytes"
+     ],
+     "answer": 1,
+     "explain": "Bandwidth is a range of frequencies, so it is measured in hertz (Hz, KHz, MHz, GHz).",
+     "mistake": "Confuses bandwidth with data transfer rate"
+    },
+    {
+     "q": "Using NCERT's convention, how many Kbps make 1 Mbps?",
+     "options": [
+      "1000",
+      "100",
+      "1024",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "NCERT defines 1 Mbps = 2^10 Kbps = 1024 Kbps.",
+     "mistake": "Uses the decimal 1000 instead of NCERT's binary 1024",
+     "check": "2**10"
+    },
+    {
+     "q": "A link transfers 4 Mbps. How many Kbps is that? (Use 1 Mbps = 1024 Kbps.)",
+     "options": [
+      "512",
+      "32",
+      "4000",
+      "4096"
+     ],
+     "answer": 3,
+     "explain": "4 × 1024 = 4096 Kbps.",
+     "steps": [
+      "1 Mbps = 1024 Kbps",
+      "4 × 1024 = 4096"
+     ],
+     "mistake": "Multiplies by 1000 or divides by 8",
+     "check": "4*1024"
+    },
+    {
+     "q": "How many seconds does it take to send a 20 MB file over a 4 Mbps line? (1 MB = 1024 × 1024 bytes, 1 Mbps = 1024 × 1024 bps.)",
+     "options": [
+      "40",
+      "5",
+      "160",
+      "80"
+     ],
+     "answer": 0,
+     "explain": "20 MB = 20 × 8 = 160 megabits. 160 ÷ 4 = 40 seconds.",
+     "steps": [
+      "20 MB = 20 × 8 = 160 Mb",
+      "Time = 160 ÷ 4",
+      "= 40 s"
+     ],
+     "mistake": "Forgets to convert bytes to bits, getting 5 seconds",
+     "check": "20*8/4"
+    },
+    {
+     "q": "What does a protocol do in data communication?",
+     "options": [
+      "Stores the message permanently",
+      "Sets the rules both sides follow for sending and receiving data",
+      "Increases the bandwidth",
+      "Carries the signal physically"
+     ],
+     "answer": 1,
+     "explain": "A protocol is a set of agreed rules, for example about format, timing and error checking.",
+     "mistake": "Confuses the protocol with the communication medium"
+    },
+    {
+     "q": "A channel carries frequencies from 2 MHz to 5 MHz. What is its bandwidth?",
+     "options": [
+      "10 MHz",
+      "7 MHz",
+      "2.5 MHz",
+      "3 MHz"
+     ],
+     "answer": 3,
+     "explain": "Bandwidth is the width of the frequency range: 5 - 2 = 3 MHz.",
+     "mistake": "Adds the two limits instead of subtracting"
+    },
+    {
+     "q": "Assertion (A): A 'higher bandwidth' channel can carry more data per second.\nReason (R): Bandwidth is measured in bytes.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true: a wider range of frequencies can carry more data. R is false: bandwidth is measured in hertz, and data rate in bits per second.",
+     "mistake": "Mixes up the units of bandwidth and data rate"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What are the parts needed for one device to send data to another?'",
+    "must": [
+     [
+      "sender",
+      "source",
+      "transmitter"
+     ],
+     [
+      "receiver",
+      "destination"
+     ],
+     [
+      "message",
+      "data"
+     ],
+     [
+      "medium",
+      "media",
+      "channel",
+      "protocol"
+     ]
+    ],
+    "praise": "Perfect! Sender, receiver, message, communication media and protocols: all five are needed.",
+    "nudge": "Who sends, who receives, what is sent, along what path, and under what rules?"
+   }
+  },
+  {
+   "id": "g12-cs-06-02",
+   "title": "Simplex, half-duplex, full-duplex and switching",
+   "covers": [
+    "c6.4.1",
+    "c6.4.2",
+    "c6.4.3",
+    "c6.5.1",
+    "c6.5.2",
+    "c6.5.3"
+   ],
+   "learn": {
+    "hook": "A walkie-talkie makes you say 'over' after every sentence. A phone call doesn't. The difference has a name.",
+    "points": [
+     "Simplex: data flows in one direction only. Examples: keyboard to computer, computer to printer or monitor, a radio broadcast.",
+     "Half-duplex: both directions, but only one at a time. Example: a walkie-talkie.",
+     "Full-duplex: both directions at the same time. Examples: a telephone or mobile call, a video call.",
+     "Circuit switching: a dedicated path is set up between sender and receiver before communication begins and is kept for the whole session, as in a traditional landline call.",
+     "Packet switching: data is split into small packets that may travel by different routes and are reassembled in order at the destination. No dedicated path is reserved, so the links are shared efficiently. The Internet uses packet switching."
+    ],
+    "example": {
+     "q": "Classify: (a) a TV broadcast, (b) a police walkie-talkie, (c) a video call on your phone.",
+     "steps": [
+      "(a) data flows only from the station to your TV → simplex",
+      "(b) both can talk, but one at a time → half-duplex",
+      "(c) both talk and hear at once → full-duplex"
+     ],
+     "answer": "Simplex, half-duplex, full-duplex"
+    },
+    "reallife": "When you watch a cricket match stream on your phone, the video arrives as thousands of packets that may take different routes across India's networks and are reassembled in your app."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which communication mode?",
+     "buckets": [
+      "Simplex",
+      "Half-duplex",
+      "Full-duplex"
+     ],
+     "items": [
+      [
+       "Keyboard to computer",
+       0
+      ],
+      [
+       "Radio broadcast",
+       0
+      ],
+      [
+       "Walkie-talkie",
+       1
+      ],
+      [
+       "Mobile phone call",
+       2
+      ],
+      [
+       "Video call",
+       2
+      ],
+      [
+       "Computer to monitor",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Switching facts",
+     "items": [
+      [
+       "In circuit switching, a dedicated path is set up before data is sent.",
+       true,
+       "The path is reserved for the whole call."
+      ],
+      [
+       "In packet switching, all packets must follow the same route.",
+       false,
+       "Packets can take different routes and are reassembled."
+      ],
+      [
+       "The Internet is based on packet switching.",
+       true,
+       "Data is sent as independent packets."
+      ],
+      [
+       "Packet switching uses network links more efficiently than circuit switching.",
+       true,
+       "Links are shared instead of reserved."
+      ],
+      [
+       "A walkie-talkie is a full-duplex device.",
+       false,
+       "Only one person can talk at a time, so it is half-duplex."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A keyboard sends data to a computer but never receives data from it. Which mode of communication is this?",
+     "options": [
+      "Half-duplex",
+      "Simplex",
+      "Packet switching",
+      "Full-duplex"
+     ],
+     "answer": 1,
+     "explain": "Data moves in only one direction, which is simplex.",
+     "mistake": "Assumes every device communicates both ways"
+    },
+    {
+     "q": "Which device is the classic example of half-duplex communication?",
+     "options": [
+      "Mobile phone",
+      "Television",
+      "Keyboard",
+      "Walkie-talkie"
+     ],
+     "answer": 3,
+     "explain": "With a walkie-talkie both sides can talk, but only one at a time.",
+     "mistake": "Confuses half-duplex with full-duplex"
+    },
+    {
+     "q": "Both people in a phone call can speak and hear at the same moment. Which mode is this?",
+     "options": [
+      "Circuit-free",
+      "Half-duplex",
+      "Full-duplex",
+      "Simplex"
+     ],
+     "answer": 2,
+     "explain": "Simultaneous two-way communication is full-duplex.",
+     "mistake": "Thinks phone calls are half-duplex"
+    },
+    {
+     "q": "In which switching technique is a dedicated path set up between sender and receiver before the data is sent?",
+     "options": [
+      "Packet switching",
+      "Circuit switching",
+      "Message broadcasting",
+      "Simplex switching"
+     ],
+     "answer": 1,
+     "explain": "Circuit switching reserves an end-to-end path for the whole session, like a landline call.",
+     "mistake": "Mixes up circuit and packet switching"
+    },
+    {
+     "q": "Which statement about packet switching is TRUE?",
+     "options": [
+      "Data is split into packets that may take different routes and are reassembled at the destination",
+      "Packets always arrive in the order they were sent",
+      "It is used only for landline calls",
+      "A dedicated line is reserved for the entire communication"
+     ],
+     "answer": 0,
+     "explain": "Packets travel independently and may arrive out of order; the receiver reassembles them.",
+     "mistake": "Thinks packets must follow one fixed path"
+    },
+    {
+     "q": "Which switching technique does the Internet mainly use?",
+     "options": [
+      "Packet switching",
+      "Circuit switching",
+      "Manual switching",
+      "Simplex switching"
+     ],
+     "answer": 0,
+     "explain": "The Internet sends data as packets over shared links.",
+     "mistake": "Assumes the Internet works like a telephone exchange"
+    },
+    {
+     "q": "Why does packet switching use network links more efficiently than circuit switching?",
+     "options": [
+      "Because it needs no addresses",
+      "Because it uses only optical fibre",
+      "Because the links are shared by packets from many users instead of being reserved",
+      "Because packets are larger than circuits"
+     ],
+     "answer": 2,
+     "explain": "In circuit switching a reserved path sits idle during silences; in packet switching other packets can use the links.",
+     "mistake": "Thinks efficiency comes from the type of cable"
+    },
+    {
+     "q": "Assertion (A): In a landline telephone call using circuit switching, the line remains reserved even when nobody is speaking.\nReason (R): Circuit switching sets up a dedicated path for the entire duration of the communication.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Because the path is dedicated for the whole call, it stays reserved during silence. R explains A.",
+     "mistake": "Thinks the reserved path is released between sentences"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How is a walkie-talkie different from a phone call?'",
+    "must": [
+     [
+      "half duplex",
+      "half-duplex",
+      "one at a time",
+      "one way at a time"
+     ],
+     [
+      "full duplex",
+      "full-duplex",
+      "same time",
+      "simultaneously",
+      "both at once"
+     ]
+    ],
+    "praise": "Exactly! A walkie-talkie is half-duplex (one at a time), while a phone call is full-duplex (both at once).",
+    "nudge": "Can both people talk at the same moment on each device?"
+   }
+  },
+  {
+   "id": "g12-cs-06-03",
+   "title": "Guided media: twisted pair, coaxial and optical fibre",
+   "covers": [
+    "c6.6.1",
+    "c6.6.2",
+    "c6.6.3",
+    "c6.6.4"
+   ],
+   "learn": {
+    "hook": "The cable behind your router, the one into your set-top box, and the fibre that BharatNet laid to villages: three wired media, three different strengths.",
+    "points": [
+     "Transmission media are of two kinds: guided (wired), where signals travel along a physical cable, and unguided (wireless), where signals travel through air or space as electromagnetic waves.",
+     "Twisted pair cable: pairs of insulated copper wires twisted together to reduce interference. UTP (unshielded) is cheap and used in LANs and telephone lines; STP (shielded) has extra shielding for less noise. It is cheap, flexible and easy to install, but has lower bandwidth and its signal weakens over long distances.",
+     "Coaxial cable: a central copper conductor, an insulating layer, a braided metal shield and an outer jacket. Better shielding and higher bandwidth than twisted pair; used for cable TV. It is costlier and less flexible than twisted pair.",
+     "Optical fibre: carries data as pulses of light through a thin glass or plastic core, kept inside by total internal reflection. Very high bandwidth, very low loss over long distances, immune to electromagnetic interference and hard to tap, but costly and delicate to install and repair.",
+     "Choosing: twisted pair for cheap short LAN links; coaxial for cable TV; optical fibre for long, high-speed backbones and noisy places."
+    ],
+    "example": {
+     "q": "Which wired medium would you choose between two data centres 5 km apart that need very high speed and no interference from nearby power lines?",
+     "steps": [
+      "Twisted pair weakens over long runs and picks up noise",
+      "Coaxial is better shielded but still electrical",
+      "Optical fibre carries light: very high bandwidth and immune to electromagnetic interference"
+     ],
+     "answer": "Optical fibre"
+    },
+    "reallife": "BharatNet, India's project to bring broadband to gram panchayats, lays optical fibre because it carries huge amounts of data over long distances with little loss."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the medium to its feature",
+     "pairs": [
+      [
+       "Twisted pair",
+       "Cheap, used in LANs and phone lines"
+      ],
+      [
+       "Coaxial cable",
+       "Copper core with braided shield, cable TV"
+      ],
+      [
+       "Optical fibre",
+       "Light signals, highest bandwidth"
+      ],
+      [
+       "STP",
+       "Twisted pair with extra shielding"
+      ],
+      [
+       "Unguided media",
+       "Signals travel through air or space"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Wired media facts",
+     "items": [
+      [
+       "Optical fibre is immune to electromagnetic interference.",
+       true,
+       "It carries light, not electricity."
+      ],
+      [
+       "Twisted pair cable is more expensive than optical fibre.",
+       false,
+       "Twisted pair is the cheapest; fibre is the costliest."
+      ],
+      [
+       "Coaxial cable is commonly used for cable TV connections.",
+       true,
+       "Its shielding suits TV signals."
+      ],
+      [
+       "Wires in twisted pair are twisted to reduce interference.",
+       true,
+       "Twisting cancels much of the noise."
+      ],
+      [
+       "Optical fibre is very easy and cheap to repair.",
+       false,
+       "It is delicate and needs special equipment to join."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which of these is an unguided transmission medium?",
+     "options": [
+      "Optical fibre",
+      "Coaxial cable",
+      "Twisted pair",
+      "Microwave"
+     ],
+     "answer": 3,
+     "explain": "Microwaves travel through air, not along a cable.",
+     "mistake": "Thinks optical fibre is wireless because it uses light"
+    },
+    {
+     "q": "Which transmission medium carries data as light signals?",
+     "options": [
+      "Coaxial cable",
+      "Optical fibre",
+      "Twisted pair",
+      "Radio waves"
+     ],
+     "answer": 1,
+     "explain": "Optical fibre uses light pulses inside a glass or plastic core.",
+     "mistake": "Confuses light with radio signals"
+    },
+    {
+     "q": "Why are the wires in a twisted pair cable twisted?",
+     "options": [
+      "To reduce electromagnetic interference",
+      "To carry light",
+      "To increase the cable's length",
+      "To make the cable look neat"
+     ],
+     "answer": 0,
+     "explain": "Twisting the pairs helps cancel out electrical noise from outside and between wires.",
+     "mistake": "Thinks twisting is only for packaging"
+    },
+    {
+     "q": "Which cable has a central copper conductor surrounded by insulation, a braided metal shield and an outer jacket?",
+     "options": [
+      "Coaxial cable",
+      "Optical fibre",
+      "RJ45 cable",
+      "Twisted pair"
+     ],
+     "answer": 0,
+     "explain": "That layered structure is coaxial cable, used for cable TV.",
+     "mistake": "Confuses coaxial with twisted pair"
+    },
+    {
+     "q": "Which is a disadvantage of optical fibre?",
+     "options": [
+      "Picks up electrical noise easily",
+      "Costly and difficult to install and repair",
+      "Cannot be used over long distances",
+      "Low bandwidth"
+     ],
+     "answer": 1,
+     "explain": "Fibre performs excellently but is expensive and delicate to install and join.",
+     "mistake": "Lists a weakness of copper cable instead"
+    },
+    {
+     "q": "What is the difference between UTP and STP cables?",
+     "options": [
+      "STP has additional shielding to reduce noise",
+      "UTP has a copper core with a braided shield",
+      "UTP carries light",
+      "STP is wireless"
+     ],
+     "answer": 0,
+     "explain": "Both are twisted pair; STP adds a metallic shield around the pairs.",
+     "mistake": "Confuses STP with coaxial cable"
+    },
+    {
+     "q": "A factory floor has heavy electric motors that create a lot of electrical noise. Which cable should connect its computers for reliable data transfer?",
+     "options": [
+      "Optical fibre",
+      "Infrared",
+      "Telephone wire",
+      "Unshielded twisted pair"
+     ],
+     "answer": 0,
+     "explain": "Optical fibre is immune to electromagnetic interference because it carries light.",
+     "mistake": "Chooses the cheapest cable without thinking about noise"
+    },
+    {
+     "q": "Assertion (A): Optical fibre is preferred for long-distance, high-speed backbone links.\nReason (R): Optical fibre is the cheapest transmission medium.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true because fibre offers very high bandwidth and low loss. R is false: fibre is the most expensive wired medium.",
+     "mistake": "Assumes the preferred medium must also be the cheapest"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why is optical fibre so special compared to copper cables?'",
+    "must": [
+     [
+      "light",
+      "light signals",
+      "pulses of light"
+     ],
+     [
+      "bandwidth",
+      "high speed",
+      "fast",
+      "more data"
+     ],
+     [
+      "interference",
+      "noise",
+      "electromagnetic"
+     ]
+    ],
+    "praise": "Excellent! Optical fibre carries light, gives very high bandwidth and is not affected by electromagnetic interference.",
+    "nudge": "What travels inside the fibre, how fast is it, and is it disturbed by electrical noise?"
+   }
+  },
+  {
+   "id": "g12-cs-06-04",
+   "title": "Wireless media: radio waves, microwaves, infrared, Bluetooth and WLAN",
+   "covers": [
+    "c6.6.5",
+    "c6.6.6",
+    "c6.6.7",
+    "c6.6.8"
+   ],
+   "learn": {
+    "hook": "Your TV remote fails if someone stands in front of it, but your FM radio works in the kitchen. They both use waves; the difference is which waves.",
+    "points": [
+     "Radio waves: omnidirectional (spread in all directions), travel long distances and can pass through walls. Used in AM/FM radio, cordless phones and wireless networks.",
+     "Microwaves: unidirectional and need line of sight between sending and receiving antennas, which are mounted high on towers. They cannot pass through solid obstacles well. Used for satellite links, mobile phone networks and long-distance point-to-point links.",
+     "Infrared waves: very short range and line of sight; they cannot pass through walls. Used in TV remote controls and some short-range device links. A plus: the signal stays inside the room.",
+     "Bluetooth: short-range (about 10 m) wireless technology using radio waves, for PANs such as phone to earbuds, keyboards and smartwatches.",
+     "Wireless LAN (Wi-Fi): computers connect without cables through an access point, which is linked to the wired network or the Internet."
+    ],
+    "example": {
+     "q": "Which wireless medium suits each: (a) a TV remote, (b) a satellite link for a DTH service, (c) an FM radio station?",
+     "steps": [
+      "(a) very short range, line of sight, stays in the room → infrared",
+      "(b) line of sight, high frequency, dish to satellite → microwave",
+      "(c) spreads in all directions and through walls → radio waves"
+     ],
+     "answer": "Infrared, microwave, radio waves"
+    },
+    "reallife": "DTH television dishes on Indian rooftops point at a satellite in the sky: that line-of-sight microwave link is why heavy monsoon rain can briefly interrupt the signal."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Which wireless medium?",
+     "buckets": [
+      "Radio waves",
+      "Microwaves",
+      "Infrared"
+     ],
+     "items": [
+      [
+       "FM radio station",
+       0
+      ],
+      [
+       "Passes through walls",
+       0
+      ],
+      [
+       "Satellite communication",
+       1
+      ],
+      [
+       "Needs towers in line of sight",
+       1
+      ],
+      [
+       "TV remote control",
+       2
+      ],
+      [
+       "Cannot pass through walls, very short range",
+       2
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Wireless facts",
+     "items": [
+      [
+       "Radio waves are omnidirectional.",
+       true,
+       "They spread out in all directions."
+      ],
+      [
+       "Microwaves can easily pass through mountains.",
+       false,
+       "They need a clear line of sight."
+      ],
+      [
+       "Infrared signals can pass through walls.",
+       false,
+       "They are blocked by walls, so they stay in one room."
+      ],
+      [
+       "Bluetooth is suited to short-range personal networks.",
+       true,
+       "Its typical range is about 10 m."
+      ],
+      [
+       "A Wi-Fi access point lets wireless devices join a network.",
+       true,
+       "It links them to the wired LAN or the Internet."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which wireless medium is omnidirectional and can pass through walls?",
+     "options": [
+      "Radio waves",
+      "Laser",
+      "Infrared",
+      "Microwaves"
+     ],
+     "answer": 0,
+     "explain": "Radio waves spread in all directions and pass through walls, which is why radios work indoors.",
+     "mistake": "Confuses radio waves with microwaves"
+    },
+    {
+     "q": "Which wireless medium needs line of sight and is used for satellite communication?",
+     "options": [
+      "Microwaves",
+      "Bluetooth",
+      "Twisted pair",
+      "Radio waves"
+     ],
+     "answer": 0,
+     "explain": "Microwaves are unidirectional and need a clear line of sight between antennas or to a satellite.",
+     "mistake": "Thinks all wireless media are omnidirectional"
+    },
+    {
+     "q": "A TV remote control typically uses which type of waves?",
+     "options": [
+      "Radio waves",
+      "Infrared",
+      "Microwaves",
+      "Sound waves"
+     ],
+     "answer": 1,
+     "explain": "TV remotes use short-range, line-of-sight infrared signals.",
+     "mistake": "Assumes remotes use radio waves"
+    },
+    {
+     "q": "Why is infrared considered fairly secure for short-range communication inside a room?",
+     "options": [
+      "It is encrypted automatically",
+      "It cannot pass through walls, so the signal stays in the room",
+      "It travels faster than light",
+      "It uses optical fibre"
+     ],
+     "answer": 1,
+     "explain": "Because walls block infrared, it is hard to receive the signal from outside the room.",
+     "mistake": "Thinks security comes from encryption built into infrared"
+    },
+    {
+     "q": "Which technology would connect a phone to wireless earbuds?",
+     "options": [
+      "Coaxial cable",
+      "Satellite",
+      "Microwave",
+      "Bluetooth"
+     ],
+     "answer": 3,
+     "explain": "Bluetooth is a short-range radio technology made for personal area networks.",
+     "mistake": "Picks a long-distance medium for a short-range need"
+    },
+    {
+     "q": "What is the approximate range of Bluetooth for typical devices?",
+     "options": [
+      "About 10 m",
+      "Across a country",
+      "About 100 km",
+      "About 10 km"
+     ],
+     "answer": 0,
+     "explain": "Typical Bluetooth devices work over about 10 m, the scale of a PAN.",
+     "mistake": "Overestimates Bluetooth's range"
+    },
+    {
+     "q": "Microwave towers on a long-distance link are usually built tall and placed some distance apart. Why?",
+     "options": [
+      "Microwaves pass through hills",
+      "Microwaves are omnidirectional",
+      "Tall towers reduce electricity bills",
+      "Microwaves travel in straight lines and need line of sight"
+     ],
+     "answer": 3,
+     "explain": "Line-of-sight waves are blocked by the Earth's curvature and buildings, so antennas must be high.",
+     "mistake": "Thinks microwaves bend around obstacles"
+    },
+    {
+     "q": "Assertion (A): Radio waves are used for FM broadcasting.\nReason (R): Radio waves can travel long distances in all directions and pass through walls.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "A broadcast must reach many listeners in all directions, even indoors, which radio waves do. R explains A.",
+     "mistake": "Does not connect omnidirectional spread with broadcasting"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does my TV remote stop working when my brother stands in front of it, but my FM radio works anywhere?'",
+    "must": [
+     [
+      "infrared",
+      "line of sight"
+     ],
+     [
+      "radio",
+      "radio waves",
+      "all directions",
+      "through walls",
+      "omnidirectional"
+     ]
+    ],
+    "praise": "Brilliant! The remote uses infrared, which needs line of sight, while radio waves spread in all directions and pass through walls.",
+    "nudge": "Which waves does each device use, and which waves can get past obstacles?"
+   }
+  },
+  {
+   "id": "g12-cs-06-05",
+   "title": "Mobile generations and protocols: HTTP, HTTPS, FTP and PPP",
+   "covers": [
+    "c6.7.1",
+    "c6.8.1",
+    "c6.8.2",
+    "c6.8.3",
+    "c6.8.4"
+   ],
+   "learn": {
+    "hook": "India's first mobile phone call was made in 1995, and 5G was launched here on 1 October 2022. Along the way, a handful of protocols kept every device speaking the same language.",
+    "points": [
+     "1G (1980s): analog, voice calls only. 2G: digital voice with SMS and MMS (GSM, CDMA). 3G: mobile Internet, video calls and faster data. 4G: high-speed mobile broadband for HD streaming and online gaming. 5G: very high speed, very low latency, and connections for huge numbers of devices (IoT).",
+     "A protocol is a set of rules for communication: it fixes the format of messages, their timing and sequence, and how errors are checked. Without common protocols, devices from different makers could not understand each other.",
+     "HTTP (HyperText Transfer Protocol) transfers web pages between a browser (client) and a web server through requests and responses. HTTPS is the secure version: data is encrypted, shown by the padlock in the address bar. Use it for banking and payments.",
+     "FTP (File Transfer Protocol) transfers files between computers, for example uploading website files to a hosting server.",
+     "PPP (Point-to-Point Protocol) runs on a direct link between two nodes, such as a dial-up or leased line connecting a computer or router to an ISP."
+    ],
+    "example": {
+     "q": "Which protocol fits each task: (a) opening a news website, (b) paying a bill on a bank website, (c) uploading 50 files to a web server?",
+     "steps": [
+      "(a) web pages → HTTP",
+      "(b) sensitive data needs encryption → HTTPS",
+      "(c) moving files between computers → FTP"
+     ],
+     "answer": "HTTP, HTTPS, FTP"
+    },
+    "reallife": "Government sites such as the income-tax e-filing portal use HTTPS, so your PAN and bank details are encrypted on the way to the server."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Mobile generations",
+     "prompt": "Oldest first",
+     "items": [
+      "1G: analog voice",
+      "2G: digital voice and SMS",
+      "3G: mobile Internet and video calls",
+      "4G: high-speed mobile broadband",
+      "5G: very low latency and massive IoT"
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Match the protocol to its job",
+     "pairs": [
+      [
+       "HTTP",
+       "Transfers web pages"
+      ],
+      [
+       "HTTPS",
+       "Encrypted transfer of web pages"
+      ],
+      [
+       "FTP",
+       "Transfers files between computers"
+      ],
+      [
+       "PPP",
+       "Direct link between two nodes"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which mobile generation was analog and supported voice calls only?",
+     "options": [
+      "4G",
+      "2G",
+      "3G",
+      "1G"
+     ],
+     "answer": 3,
+     "explain": "1G used analog signals for voice. Digital voice and SMS arrived with 2G.",
+     "mistake": "Thinks SMS was available from the first generation",
+     "check": "1"
+    },
+    {
+     "q": "Which generation first introduced SMS through digital technology?",
+     "options": [
+      "3G",
+      "1G",
+      "2G",
+      "5G"
+     ],
+     "answer": 2,
+     "explain": "2G was the first digital generation, bringing SMS and MMS.",
+     "mistake": "Confuses 2G with 3G's mobile Internet",
+     "check": "2"
+    },
+    {
+     "q": "Which feature is most closely associated with 5G?",
+     "options": [
+      "Very low latency and support for huge numbers of connected devices",
+      "SMS only",
+      "Analog voice",
+      "Dial-up connections"
+     ],
+     "answer": 0,
+     "explain": "5G offers very high speeds, very low latency and massive device connectivity for IoT.",
+     "mistake": "Associates 5G only with faster downloads"
+    },
+    {
+     "q": "Why are protocols needed in communication?",
+     "options": [
+      "To replace the receiver",
+      "To increase cable length",
+      "To store data permanently",
+      "So that devices follow common rules for format, timing and error control"
+     ],
+     "answer": 3,
+     "explain": "Common rules let devices from different makers understand one another.",
+     "mistake": "Thinks protocols are hardware"
+    },
+    {
+     "q": "Which protocol should a website use to protect a customer's card details during online payment?",
+     "options": [
+      "HTTPS",
+      "PPP",
+      "HTTP",
+      "FTP"
+     ],
+     "answer": 0,
+     "explain": "HTTPS encrypts the data travelling between browser and server.",
+     "mistake": "Thinks plain HTTP is secure"
+    },
+    {
+     "q": "A web developer needs to upload website files from her laptop to the hosting server. Which protocol is designed for this?",
+     "options": [
+      "SMTP",
+      "FTP",
+      "POP3",
+      "VoIP"
+     ],
+     "answer": 1,
+     "explain": "FTP is the File Transfer Protocol.",
+     "mistake": "Chooses an email protocol for file transfer"
+    },
+    {
+     "q": "Which protocol is used on a direct connection between two nodes, such as a computer and an ISP over a dial-up line?",
+     "options": [
+      "PPP",
+      "TELNET",
+      "SMTP",
+      "HTTP"
+     ],
+     "answer": 0,
+     "explain": "PPP, the Point-to-Point Protocol, works on a direct link between two nodes.",
+     "mistake": "Confuses PPP with web or email protocols"
+    },
+    {
+     "q": "Assertion (A): HTTPS is safer than HTTP for online banking.\nReason (R): HTTPS encrypts the data exchanged between the browser and the web server.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 0,
+     "explain": "Encryption stops eavesdroppers from reading passwords and account details, so HTTPS is safer. R explains A.",
+     "mistake": "Thinks HTTPS is just a faster version of HTTP"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'What's the difference between HTTP and HTTPS?'",
+    "must": [
+     [
+      "secure",
+      "security",
+      "safe"
+     ],
+     [
+      "encrypt",
+      "encrypted",
+      "encryption"
+     ],
+     [
+      "web pages",
+      "web page",
+      "websites",
+      "browser"
+     ]
+    ],
+    "praise": "Spot on! Both carry web pages, but HTTPS encrypts the data, making it secure.",
+    "nudge": "What extra protection does the S in HTTPS add?"
+   }
+  },
+  {
+   "id": "g12-cs-06-06",
+   "title": "Protocols: SMTP, POP3, TCP/IP, TELNET and VoIP",
+   "covers": [
+    "c6.8.5",
+    "c6.8.6",
+    "c6.8.7",
+    "c6.8.8"
+   ],
+   "learn": {
+    "hook": "Sending an email and reading one use two different protocols. Mixing them up is one of the most common one-mark slips in the board paper.",
+    "points": [
+     "SMTP (Simple Mail Transfer Protocol) SENDS email: from your mail program to the mail server, and between mail servers.",
+     "POP3 (Post Office Protocol version 3) RECEIVES email: it downloads messages from the mail server to your device.",
+     "TCP/IP: TCP (Transmission Control Protocol) breaks a message into packets, numbers them, checks for errors and reassembles them reliably at the destination, asking for lost ones again. IP (Internet Protocol) gives each packet the address information needed to route it to the right device.",
+     "TELNET lets a user log in to a remote computer and work on it through text commands (remote login). VoIP (Voice over Internet Protocol) carries voice calls as data packets over the Internet, as in WhatsApp or Google Meet calls.",
+     "Exam-style tasks: identify the communication mode, choose a transmission medium for a case, pick the protocol for a task, and convert data-rate units."
+    ],
+    "example": {
+     "q": "Meera sends an email from Gmail to Arjun, who downloads it into his mail app. Which protocols are involved?",
+     "steps": [
+      "Meera's message travels to her mail server and on to Arjun's server using SMTP",
+      "Arjun's app downloads it from his mail server using POP3",
+      "Underneath, TCP/IP splits, routes and reassembles the packets"
+     ],
+     "answer": "SMTP to send, POP3 to receive, over TCP/IP"
+    },
+    "reallife": "Every WhatsApp voice call you make to a cousin abroad is VoIP: your voice is turned into data packets and carried over the Internet instead of the old telephone network."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Match the protocol to its task",
+     "pairs": [
+      [
+       "SMTP",
+       "Sending email"
+      ],
+      [
+       "POP3",
+       "Downloading email from a server"
+      ],
+      [
+       "TCP",
+       "Reliable delivery and reassembly of packets"
+      ],
+      [
+       "IP",
+       "Addressing and routing packets"
+      ],
+      [
+       "TELNET",
+       "Remote login to another computer"
+      ],
+      [
+       "VoIP",
+       "Voice calls over the Internet"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Pick the protocol",
+     "items": [
+      {
+       "text": "Your email app uses ___ to send a message",
+       "answer": "SMTP",
+       "options": [
+        "SMTP",
+        "POP3",
+        "FTP"
+       ]
+      },
+      {
+       "text": "___ downloads new mail from the server to your phone",
+       "answer": "POP3",
+       "options": [
+        "POP3",
+        "SMTP",
+        "HTTP"
+       ]
+      },
+      {
+       "text": "A video-conference voice stream uses ___",
+       "answer": "VoIP",
+       "options": [
+        "VoIP",
+        "PPP",
+        "FTP"
+       ]
+      },
+      {
+       "text": "An admin logs in to a remote server with text commands using ___",
+       "answer": "TELNET",
+       "options": [
+        "TELNET",
+        "SMTP",
+        "HTTPS"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Which protocol is used to SEND email?",
+     "options": [
+      "HTTP",
+      "SMTP",
+      "POP3",
+      "FTP"
+     ],
+     "answer": 1,
+     "explain": "SMTP (Simple Mail Transfer Protocol) sends and relays outgoing mail.",
+     "mistake": "Swaps the roles of SMTP and POP3"
+    },
+    {
+     "q": "Which protocol downloads email from a mail server to a user's device?",
+     "options": [
+      "POP3",
+      "TELNET",
+      "SMTP",
+      "PPP"
+     ],
+     "answer": 0,
+     "explain": "POP3 retrieves messages from the server.",
+     "mistake": "Thinks SMTP handles both sending and receiving"
+    },
+    {
+     "q": "Which part of TCP/IP is responsible for breaking data into packets and reassembling them reliably?",
+     "options": [
+      "HTTP",
+      "IP",
+      "TCP",
+      "DNS"
+     ],
+     "answer": 2,
+     "explain": "TCP handles packetising, ordering, error checking and reassembly; IP handles addressing and routing.",
+     "mistake": "Swaps the jobs of TCP and IP"
+    },
+    {
+     "q": "Which protocol lets a user log in to a remote computer and run commands on it?",
+     "options": [
+      "FTP",
+      "VoIP",
+      "TELNET",
+      "POP3"
+     ],
+     "answer": 2,
+     "explain": "TELNET provides remote login to another computer.",
+     "mistake": "Confuses remote login with file transfer"
+    },
+    {
+     "q": "A WhatsApp voice call is an example of which technology?",
+     "options": [
+      "VoIP",
+      "PPP",
+      "SMTP",
+      "FTP"
+     ],
+     "answer": 0,
+     "explain": "Voice over Internet Protocol carries voice as data packets over the Internet.",
+     "mistake": "Thinks app calls use the old circuit-switched telephone network"
+    },
+    {
+     "q": "An Internet link delivers 3 Mbps. How many Kbps is this? (Use 1 Mbps = 1024 Kbps.)",
+     "options": [
+      "3072",
+      "384",
+      "24",
+      "3000"
+     ],
+     "answer": 0,
+     "explain": "3 × 1024 = 3072 Kbps.",
+     "mistake": "Uses 1000 instead of NCERT's 1024",
+     "check": "3*1024"
+    },
+    {
+     "q": "Which pairing of task and protocol is WRONG?",
+     "options": [
+      "Uploading files to a server: FTP",
+      "Receiving email: POP3",
+      "Voice calls over the Internet: TELNET",
+      "Sending email: SMTP"
+     ],
+     "answer": 2,
+     "explain": "Voice calls over the Internet use VoIP. TELNET is for remote login.",
+     "mistake": "Mixes up TELNET and VoIP"
+    },
+    {
+     "q": "Assertion (A): Data sent over the Internet usually arrives correctly even if some packets are lost on the way.\nReason (R): IP encrypts every packet.",
+     "options": [
+      "Both A and R are true, and R is the correct explanation of A",
+      "Both A and R are true, but R is not the correct explanation of A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "A is true because TCP detects missing packets and has them sent again. R is false: IP handles addressing and routing; it does not encrypt.",
+     "mistake": "Credits reliability to IP instead of TCP"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Which protocol sends email and which one brings it to my phone?'",
+    "must": [
+     [
+      "smtp",
+      "simple mail transfer"
+     ],
+     [
+      "pop3",
+      "pop",
+      "post office protocol"
+     ],
+     [
+      "send",
+      "sending"
+     ],
+     [
+      "receive",
+      "download",
+      "receiving",
+      "downloads"
+     ]
+    ],
+    "praise": "Perfect! SMTP sends email, and POP3 downloads it from the server to your device.",
+    "nudge": "Which protocol is for outgoing mail and which for incoming mail?"
+   }
+  }
+ ]
+}
