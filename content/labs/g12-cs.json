@@ -1,0 +1,2869 @@
+{
+ "g12-cs-01-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "What type is the result?",
+   "challenge": "Sort each expression by the data type of its result",
+   "bins": [
+    {
+     "name": "str",
+     "emoji": "🧵"
+    },
+    {
+     "name": "int",
+     "emoji": "🔢"
+    },
+    {
+     "name": "float",
+     "emoji": "🌊"
+    }
+   ],
+   "items": [
+    {
+     "text": "input('Enter a number: ')",
+     "bin": 0,
+     "why": "input() always returns a str."
+    },
+    {
+     "text": "'7' * 2",
+     "bin": 0,
+     "why": "Repetition gives '77'."
+    },
+    {
+     "text": "str(25)",
+     "bin": 0
+    },
+    {
+     "text": "int('7') * 2",
+     "bin": 1,
+     "why": "14"
+    },
+    {
+     "text": "int(7.9)",
+     "bin": 1,
+     "why": "int() drops the decimal part: 7."
+    },
+    {
+     "text": "7 // 2",
+     "bin": 1
+    },
+    {
+     "text": "2 + 3.0",
+     "bin": 2,
+     "why": "Implicit conversion widens to float: 5.0."
+    },
+    {
+     "text": "10 / 2",
+     "bin": 2,
+     "why": "/ always gives a float: 5.0."
+    },
+    {
+     "text": "7.0 // 2",
+     "bin": 2,
+     "why": "3.0"
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-01-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Operators and precedence",
+   "challenge": "Match each expression to its value (** groups right to left and beats unary −)",
+   "pairs": [
+    [
+     "17 // 5",
+     "3"
+    ],
+    [
+     "17 % 5",
+     "2"
+    ],
+    [
+     "-7 // 2",
+     "-4"
+    ],
+    [
+     "17 / 5",
+     "3.4"
+    ],
+    [
+     "2 ** 3 ** 2",
+     "512"
+    ],
+    [
+     "-2 ** 2",
+     "-4"
+    ],
+    [
+     "(-2) ** 2",
+     "4"
+    ],
+    [
+     "10 / 2",
+     "5.0"
+    ]
+   ],
+   "leftTitle": "Expression",
+   "rightTitle": "Value",
+   "mode": "check"
+  }
+ },
+ "g12-cs-01-03": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "s["
+    ],
+    [
+     "",
+     "1",
+     "-3"
+    ],
+    [
+     ":",
+     ":5"
+    ],
+    [
+     "]",
+     ":2]",
+     ":-1]"
+    ]
+   ],
+   "slotLabels": [
+    "s",
+    "start",
+    "stop",
+    "step"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "s[",
+      "",
+      ":",
+      "]"
+     ],
+     "word": "s[:]",
+     "meaning": "→ 'MONSOON'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":",
+      ":2]"
+     ],
+     "word": "s[::2]",
+     "meaning": "→ 'MNON'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":",
+      ":-1]"
+     ],
+     "word": "s[::-1]",
+     "meaning": "→ 'NOOSNOM'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":5",
+      "]"
+     ],
+     "word": "s[:5]",
+     "meaning": "→ 'MONSO'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":5",
+      ":2]"
+     ],
+     "word": "s[:5:2]",
+     "meaning": "→ 'MNO'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":5",
+      ":-1]"
+     ],
+     "word": "s[:5:-1]",
+     "meaning": "→ 'N'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":",
+      "]"
+     ],
+     "word": "s[1:]",
+     "meaning": "→ 'ONSOON'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":",
+      ":2]"
+     ],
+     "word": "s[1::2]",
+     "meaning": "→ 'OSO'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":",
+      ":-1]"
+     ],
+     "word": "s[1::-1]",
+     "meaning": "→ 'OM'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":5",
+      "]"
+     ],
+     "word": "s[1:5]",
+     "meaning": "→ 'ONSO'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":5",
+      ":2]"
+     ],
+     "word": "s[1:5:2]",
+     "meaning": "→ 'OS'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":5",
+      ":-1]"
+     ],
+     "word": "s[1:5:-1]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":",
+      "]"
+     ],
+     "word": "s[-3:]",
+     "meaning": "→ 'OON'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":",
+      ":2]"
+     ],
+     "word": "s[-3::2]",
+     "meaning": "→ 'ON'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":",
+      ":-1]"
+     ],
+     "word": "s[-3::-1]",
+     "meaning": "→ 'OSNOM'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":5",
+      "]"
+     ],
+     "word": "s[-3:5]",
+     "meaning": "→ 'O'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":5",
+      ":2]"
+     ],
+     "word": "s[-3:5:2]",
+     "meaning": "→ 'O'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":5",
+      ":-1]"
+     ],
+     "word": "s[-3:5:-1]",
+     "meaning": "→ '' (empty)"
+    }
+   ],
+   "targets": [
+    "s[1:5]",
+    "s[-3:]",
+    "s[::2]",
+    "s[::-1]"
+   ],
+   "challenge": "s = 'MONSOON' (M0 O1 N2 S3 O4 O5 N6). Spin start, stop and step to make the slice in each clue"
+  }
+ },
+ "g12-cs-01-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "Valid function definition?",
+   "challenge": "Sort each line: is it a valid way to create (or use) a function?",
+   "bins": [
+    {
+     "name": "Valid",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Error",
+     "emoji": "💥",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "def area(l, b):",
+     "bin": 0
+    },
+    {
+     "text": "def calc_gst(amount):",
+     "bin": 0
+    },
+    {
+     "text": "def welcome(name):",
+     "bin": 0
+    },
+    {
+     "text": "def print_bill():",
+     "bin": 0
+    },
+    {
+     "text": "def area(l, b)",
+     "bin": 1,
+     "why": "The header must end with a colon."
+    },
+    {
+     "text": "def 2area(l):",
+     "bin": 1,
+     "why": "Names cannot start with a digit."
+    },
+    {
+     "text": "define area(l):",
+     "bin": 1,
+     "why": "The keyword is def."
+    },
+    {
+     "text": "def if(x):",
+     "bin": 1,
+     "why": "if is a keyword."
+    },
+    {
+     "text": "cube(3) called before def cube",
+     "bin": 1,
+     "why": "NameError: define before you call."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-01-05": {
+  "type": "matchpairs",
+  "p": {
+   "title": "def bill(amount, gst=18)",
+   "challenge": "bill returns amount + amount * gst / 100. Match each call or term to its result",
+   "pairs": [
+    [
+     "bill(200)",
+     "236.0"
+    ],
+    [
+     "bill(200, 5)",
+     "210.0"
+    ],
+    [
+     "bill(gst=5, amount=200)",
+     "210.0"
+    ],
+    [
+     "def f(a=5, b):",
+     "SyntaxError"
+    ],
+    [
+     "info(age=17, 'Riya')",
+     "SyntaxError"
+    ],
+    [
+     "area(4, 5) with def area(l, b) → l",
+     "4"
+    ],
+    [
+     "l and b in def area(l, b)",
+     "parameters"
+    ],
+    [
+     "4 and 5 in area(4, 5)",
+     "arguments"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Result",
+   "mode": "check"
+  }
+ },
+ "g12-cs-01-06": {
+  "type": "storysequence",
+  "p": {
+   "title": "Flow of execution",
+   "challenge": "1 def sq(x):  2 return x * x  3 a = 3  4 b = sq(a)  5 print(b). Put the steps in the order Python runs them",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "1️⃣",
+     "t": "Line 1: def sq(x) creates the function (body skipped)"
+    },
+    {
+     "e": "3️⃣",
+     "t": "Line 3: a = 3"
+    },
+    {
+     "e": "📞",
+     "t": "Line 4: calls sq(3)"
+    },
+    {
+     "e": "↩️",
+     "t": "Line 2: return x * x sends back 9"
+    },
+    {
+     "e": "📥",
+     "t": "Back at line 4: b = 9"
+    },
+    {
+     "e": "🖨️",
+     "t": "Line 5: print(b) shows 9"
+    }
+   ]
+  }
+ },
+ "g12-cs-01-07": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Local and global",
+   "challenge": "Match each program to what it prints or raises",
+   "pairs": [
+    [
+     "x = 50; f() sets x = 20 inside; print(x) after",
+     "50"
+    ],
+    [
+     "Inside that f(): print(x)",
+     "20"
+    ],
+    [
+     "count = 0; inc() does global count; count += 1; call inc() twice → count",
+     "2"
+    ],
+    [
+     "y = 7 globally; g() only does print(y)",
+     "7"
+    ],
+    [
+     "z = 1 globally; h() does print(z) then z = 5",
+     "UnboundLocalError"
+    ],
+    [
+     "k() sets t = 5; print(t) outside k",
+     "NameError"
+    ]
+   ],
+   "leftTitle": "Program",
+   "rightTitle": "Output",
+   "mode": "instant"
+  }
+ },
+ "g12-cs-01-08": {
+  "type": "sortbins",
+  "p": {
+   "title": "Built-in or needs import?",
+   "challenge": "Sort each function: can you call it straight away, or must you import a module first?",
+   "bins": [
+    {
+     "name": "Built-in (no import)",
+     "emoji": "🧰"
+    },
+    {
+     "name": "Needs import",
+     "emoji": "📦"
+    }
+   ],
+   "items": [
+    {
+     "text": "input()",
+     "bin": 0
+    },
+    {
+     "text": "len()",
+     "bin": 0
+    },
+    {
+     "text": "divmod(a, b)",
+     "bin": 0
+    },
+    {
+     "text": "round(x, n)",
+     "bin": 0
+    },
+    {
+     "text": "abs()",
+     "bin": 0
+    },
+    {
+     "text": "pow(x, y)",
+     "bin": 0
+    },
+    {
+     "text": "sum()",
+     "bin": 0
+    },
+    {
+     "text": "sqrt()",
+     "bin": 1,
+     "why": "from math"
+    },
+    {
+     "text": "ceil()",
+     "bin": 1,
+     "why": "from math"
+    },
+    {
+     "text": "randint(a, b)",
+     "bin": 1,
+     "why": "from random"
+    },
+    {
+     "text": "mean()",
+     "bin": 1,
+     "why": "from statistics"
+    },
+    {
+     "text": "mode()",
+     "bin": 1,
+     "why": "from statistics"
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-02-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Syntax error or exception?",
+   "challenge": "Sort each line: will Python refuse to run it, or fail while running?",
+   "bins": [
+    {
+     "name": "Syntax error",
+     "emoji": "📛"
+    },
+    {
+     "name": "Exception (while running)",
+     "emoji": "💥"
+    }
+   ],
+   "items": [
+    {
+     "text": "if x > 5 print(x)",
+     "bin": 0,
+     "why": "Missing colon."
+    },
+    {
+     "text": "print('Middle'",
+     "bin": 0,
+     "why": "Unclosed bracket."
+    },
+    {
+     "text": "whlie n > 0:",
+     "bin": 0,
+     "why": "Misspelt keyword."
+    },
+    {
+     "text": "for i in range(5)",
+     "bin": 0
+    },
+    {
+     "text": "print(100 / 0)",
+     "bin": 1,
+     "why": "ZeroDivisionError."
+    },
+    {
+     "text": "open('missing.txt')",
+     "bin": 1,
+     "why": "The file does not exist."
+    },
+    {
+     "text": "int('abc')",
+     "bin": 1
+    },
+    {
+     "text": "marks = [90, 85]; marks[2]",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-02-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Name the exception",
+   "challenge": "Match each line to the built-in exception it raises",
+   "pairs": [
+    [
+     "marks = [90, 85]; marks[2]",
+     "IndexError"
+    ],
+    [
+     "d = {'a': 1}; d['b']",
+     "KeyError"
+    ],
+    [
+     "print(totl)  (never defined)",
+     "NameError"
+    ],
+    [
+     "int('abc')",
+     "ValueError"
+    ],
+    [
+     "'5' + 2",
+     "TypeError"
+    ],
+    [
+     "10 % 0",
+     "ZeroDivisionError"
+    ],
+    [
+     "10.0 ** 400",
+     "OverflowError"
+    ],
+    [
+     "import mathh",
+     "ModuleNotFoundError"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Exception",
+   "mode": "check"
+  }
+ },
+ "g12-cs-02-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Is an exception raised?",
+   "challenge": "if tickets < 1 or tickets > 6: raise ValueError('Book 1 to 6 tickets only'). Sort each case",
+   "bins": [
+    {
+     "name": "Exception raised",
+     "emoji": "🚨",
+     "color": "#ff6b6b"
+    },
+    {
+     "name": "Runs on normally",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    }
+   ],
+   "items": [
+    {
+     "text": "tickets = 0",
+     "bin": 0,
+     "why": "ValueError: Book 1 to 6 tickets only"
+    },
+    {
+     "text": "tickets = 7",
+     "bin": 0
+    },
+    {
+     "text": "assert marks <= 100, 'Too high' with marks = 105",
+     "bin": 0,
+     "why": "AssertionError: Too high"
+    },
+    {
+     "text": "tickets = 1",
+     "bin": 1
+    },
+    {
+     "text": "tickets = 6",
+     "bin": 1,
+     "why": "Both ends are allowed."
+    },
+    {
+     "text": "tickets = 3",
+     "bin": 1
+    },
+    {
+     "text": "assert marks <= 100, 'Too high' with marks = 99",
+     "bin": 1
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g12-cs-02-04": {
+  "type": "flowchart",
+  "p": {
+   "title": "try with two except blocks",
+   "task": "play",
+   "challenge": "Play the code for the input 'abc', then for '0' and '4'",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "⌨️",
+     "text": "try: x = int(input())",
+     "info": "Try the inputs abc, 0 and 4."
+    },
+    {
+     "id": "b",
+     "emoji": "❓",
+     "text": "Is the input a whole number?",
+     "type": "decision"
+    },
+    {
+     "id": "c",
+     "emoji": "🚫",
+     "text": "ValueError → 'Not a number'",
+     "info": "except ValueError: print('Not a number') — input 'abc' ends here."
+    },
+    {
+     "id": "d",
+     "emoji": "❓",
+     "text": "Is x zero?",
+     "type": "decision"
+    },
+    {
+     "id": "e",
+     "emoji": "➗",
+     "text": "ZeroDivisionError → 'Zero!'",
+     "info": "except ZeroDivisionError: print('Zero!') — input '0': 100 / 0 fails."
+    },
+    {
+     "id": "f",
+     "emoji": "✅",
+     "text": "print(100 / x) → 25.0",
+     "info": "Input 4: no exception, so the except blocks are skipped."
+    },
+    {
+     "id": "g",
+     "emoji": "➡️",
+     "text": "Program continues after try"
+    }
+   ],
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "d",
+     "label": "Yes"
+    },
+    {
+     "from": "b",
+     "to": "c",
+     "label": "No"
+    },
+    {
+     "from": "d",
+     "to": "e",
+     "label": "Yes"
+    },
+    {
+     "from": "d",
+     "to": "f",
+     "label": "No"
+    },
+    {
+     "from": "c",
+     "to": "g"
+    },
+    {
+     "from": "e",
+     "to": "g"
+    },
+    {
+     "from": "f",
+     "to": "g"
+    }
+   ]
+  }
+ },
+ "g12-cs-02-05": {
+  "type": "storysequence",
+  "p": {
+   "title": "try – except – else – finally",
+   "challenge": "Put the steps in the order Python runs this try statement",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "🧪",
+     "t": "try: print(1 / 0)"
+    },
+    {
+     "e": "💥",
+     "t": "ZeroDivisionError is raised"
+    },
+    {
+     "e": "🧤",
+     "t": "except ZeroDivisionError: prints 'Caught'"
+    },
+    {
+     "e": "⏭️",
+     "t": "else is skipped (there was an exception)"
+    },
+    {
+     "e": "🔒",
+     "t": "finally: prints 'Always'"
+    },
+    {
+     "e": "➡️",
+     "t": "Program continues after try"
+    }
+   ]
+  }
+ },
+ "g12-cs-03-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Text, binary or CSV?",
+   "challenge": "Sort each file or clue into the right kind of file",
+   "bins": [
+    {
+     "name": "Text file",
+     "emoji": "📄"
+    },
+    {
+     "name": "Binary file",
+     "emoji": "🧱"
+    },
+    {
+     "name": "CSV file",
+     "emoji": "📊"
+    }
+   ],
+   "items": [
+    {
+     "text": "notes.txt",
+     "bin": 0
+    },
+    {
+     "text": "program.py",
+     "bin": 0
+    },
+    {
+     "text": "Each line ends with '\\n' (EOL)",
+     "bin": 0
+    },
+    {
+     "text": "A photo (image)",
+     "bin": 1
+    },
+    {
+     "text": "An audio clip",
+     "bin": 1
+    },
+    {
+     "text": "A pickled Python list",
+     "bin": 1
+    },
+    {
+     "text": "Shows garbage in a text editor",
+     "bin": 1
+    },
+    {
+     "text": "Lines like 101,Asha,88",
+     "bin": 2
+    },
+    {
+     "text": "Opens neatly in a spreadsheet",
+     "bin": 2
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g12-cs-03-02": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "r",
+     "w",
+     "a"
+    ],
+    [
+     "",
+     "b"
+    ],
+    [
+     "",
+     "+"
+    ]
+   ],
+   "slotLabels": [
+    "Mode",
+    "Binary?",
+    "Plus?"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "r",
+      "",
+      ""
+     ],
+     "word": "r",
+     "meaning": "text: read only; pointer at start; file must exist"
+    },
+    {
+     "parts": [
+      "r",
+      "",
+      "+"
+     ],
+     "word": "r+",
+     "meaning": "text: read and write; pointer at start; file must exist"
+    },
+    {
+     "parts": [
+      "r",
+      "b",
+      ""
+     ],
+     "word": "rb",
+     "meaning": "binary: read only; pointer at start; file must exist"
+    },
+    {
+     "parts": [
+      "r",
+      "b",
+      "+"
+     ],
+     "word": "rb+",
+     "meaning": "binary: read and write; pointer at start; file must exist"
+    },
+    {
+     "parts": [
+      "w",
+      "",
+      ""
+     ],
+     "word": "w",
+     "meaning": "text: write only; creates the file or erases it"
+    },
+    {
+     "parts": [
+      "w",
+      "",
+      "+"
+     ],
+     "word": "w+",
+     "meaning": "text: read and write; creates or erases"
+    },
+    {
+     "parts": [
+      "w",
+      "b",
+      ""
+     ],
+     "word": "wb",
+     "meaning": "binary: write only; creates the file or erases it"
+    },
+    {
+     "parts": [
+      "w",
+      "b",
+      "+"
+     ],
+     "word": "wb+",
+     "meaning": "binary: read and write; creates or erases"
+    },
+    {
+     "parts": [
+      "a",
+      "",
+      ""
+     ],
+     "word": "a",
+     "meaning": "text: append only; keeps old data (a diary adds each day here)"
+    },
+    {
+     "parts": [
+      "a",
+      "",
+      "+"
+     ],
+     "word": "a+",
+     "meaning": "text: read and append; pointer at end"
+    },
+    {
+     "parts": [
+      "a",
+      "b",
+      ""
+     ],
+     "word": "ab",
+     "meaning": "binary: append only; keeps old data; pointer at end"
+    },
+    {
+     "parts": [
+      "a",
+      "b",
+      "+"
+     ],
+     "word": "ab+",
+     "meaning": "binary: read and append; pointer at end"
+    }
+   ],
+   "targets": [
+    "a",
+    "r+",
+    "w",
+    "rb",
+    "a+"
+   ],
+   "challenge": "Spin the wheels to build the open() mode that fits each clue"
+  }
+ },
+ "g12-cs-03-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Writing to a text file",
+   "challenge": "Match each statement to what happens",
+   "pairs": [
+    [
+     "f.write('Jaipur\\n')",
+     "returns 7"
+    ],
+    [
+     "f.write(95)",
+     "TypeError"
+    ],
+    [
+     "f.write(str(95))",
+     "returns 2"
+    ],
+    [
+     "f.writelines(['a\\n', 'b\\n'])",
+     "returns None"
+    ],
+    [
+     "open('city.txt', 'w')",
+     "erases old contents"
+    ],
+    [
+     "open('city.txt', 'a')",
+     "adds after old contents"
+    ],
+    [
+     "Does write() add a newline?",
+     "No: add '\\n' yourself"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Effect",
+   "mode": "instant"
+  }
+ },
+ "g12-cs-03-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "What does it return?",
+   "challenge": "Sort each reading call by the type of value it returns",
+   "bins": [
+    {
+     "name": "A string",
+     "emoji": "🧵"
+    },
+    {
+     "name": "A list",
+     "emoji": "📋"
+    }
+   ],
+   "items": [
+    {
+     "text": "f.read()",
+     "bin": 0
+    },
+    {
+     "text": "f.read(5)",
+     "bin": 0
+    },
+    {
+     "text": "f.readline()",
+     "bin": 0,
+     "why": "One line, including its '\\n'."
+    },
+    {
+     "text": "f.readline() at end of file",
+     "bin": 0,
+     "why": "'' (empty string)."
+    },
+    {
+     "text": "line.strip()",
+     "bin": 0
+    },
+    {
+     "text": "f.read() again after reading everything",
+     "bin": 0,
+     "why": "''"
+    },
+    {
+     "text": "f.readlines()",
+     "bin": 1,
+     "why": "Each item ends with '\\n'."
+    },
+    {
+     "text": "line.split()",
+     "bin": 1,
+     "why": "A list of words."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-03-05": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": 0,
+   "max": 10,
+   "tick": 1,
+   "start": 0,
+   "target": 7,
+   "showTarget": false,
+   "newChallenge": false,
+   "labels": "all",
+   "marks": [
+    {
+     "value": 0.5,
+     "label": "A"
+    },
+    {
+     "value": 1.5,
+     "label": "B"
+    },
+    {
+     "value": 2.5,
+     "label": "C"
+    },
+    {
+     "value": 3.5,
+     "label": "D"
+    },
+    {
+     "value": 4.5,
+     "label": "E"
+    },
+    {
+     "value": 5.5,
+     "label": "F"
+    },
+    {
+     "value": 6.5,
+     "label": "G"
+    },
+    {
+     "value": 7.5,
+     "label": "H"
+    },
+    {
+     "value": 8.5,
+     "label": "I"
+    },
+    {
+     "value": 9.5,
+     "label": "J"
+    }
+   ],
+   "challenge": "alpha.txt holds ABCDEFGHIJ. After f.read(3) then f.read(4), drag the pointer to the value f.tell() returns"
+  }
+ },
+ "g12-cs-03-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "show_T(): print lines that start with 'T'",
+   "challenge": "for line in f: if line.startswith('T'): print(line.strip()). Sort each line of story.txt",
+   "bins": [
+    {
+     "name": "Printed",
+     "emoji": "🖨️",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Not printed",
+     "emoji": "🙈",
+     "color": "#6b7090"
+    }
+   ],
+   "items": [
+    {
+     "text": "The sun rose early.",
+     "bin": 0
+    },
+    {
+     "text": "Tara went to school.",
+     "bin": 0
+    },
+    {
+     "text": "Two cats played.",
+     "bin": 0
+    },
+    {
+     "text": "TV was switched off.",
+     "bin": 0
+    },
+    {
+     "text": "A bird sang.",
+     "bin": 1
+    },
+    {
+     "text": "the rain stopped.",
+     "bin": 1,
+     "why": "startswith('T') is case-sensitive."
+    },
+    {
+     "text": "Everyone smiled.",
+     "bin": 1
+    },
+    {
+     "text": "In Tokyo it rained.",
+     "bin": 1,
+     "why": "It contains a T, but does not start with one."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-03-07": {
+  "type": "storysequence",
+  "p": {
+   "title": "Pickle a record and read it back",
+   "challenge": "Put the steps in order to store the record in stu.dat and read it back",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "📦",
+     "t": "import pickle"
+    },
+    {
+     "e": "✍️",
+     "t": "open('stu.dat', 'wb')"
+    },
+    {
+     "e": "🥒",
+     "t": "pickle.dump({'roll': 1, 'name': 'Tara'}, f)"
+    },
+    {
+     "e": "🔒",
+     "t": "Close the file"
+    },
+    {
+     "e": "📖",
+     "t": "open('stu.dat', 'rb')"
+    },
+    {
+     "e": "🔓",
+     "t": "rec = pickle.load(f)"
+    },
+    {
+     "e": "🖨️",
+     "t": "print(rec) → {'roll': 1, 'name': 'Tara'}"
+    }
+   ]
+  }
+ },
+ "g12-cs-03-08": {
+  "type": "flowchart",
+  "p": {
+   "title": "Write class.csv with the csv module",
+   "task": "arrange",
+   "challenge": "Arrange the statements that write the three rows to class.csv",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "📦",
+     "text": "import csv"
+    },
+    {
+     "id": "b",
+     "emoji": "📂",
+     "text": "f = open('class.csv', 'w', newline='')",
+     "info": "newline='' stops extra blank lines between rows."
+    },
+    {
+     "id": "c",
+     "emoji": "✍️",
+     "text": "w = csv.writer(f)",
+     "info": "A writer object."
+    },
+    {
+     "id": "d",
+     "emoji": "📝",
+     "text": "w.writerows(rows)",
+     "info": "rows = [['Roll', 'Name'], ['1', 'Aditi'], ['2', 'Kunal']]"
+    },
+    {
+     "id": "e",
+     "emoji": "🔒",
+     "text": "f.close()"
+    },
+    {
+     "id": "f",
+     "emoji": "📊",
+     "text": "File: Roll,Name / 1,Aditi / 2,Kunal",
+     "info": "Three lines of comma-separated values."
+    }
+   ]
+  }
+ },
+ "g12-cs-04-01": {
+  "type": "storysequence",
+  "p": {
+   "title": "LIFO: the chapati casserole",
+   "challenge": "Chapatis 1, 2, 3, 4 go into the casserole one by one. Order them as they are taken out (Last In, First Out)",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "4️⃣",
+     "t": "Chapati 4 (placed last)"
+    },
+    {
+     "e": "3️⃣",
+     "t": "Chapati 3"
+    },
+    {
+     "e": "2️⃣",
+     "t": "Chapati 2"
+    },
+    {
+     "e": "1️⃣",
+     "t": "Chapati 1 (placed first)"
+    }
+   ]
+  }
+ },
+ "g12-cs-04-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "PUSH(S, N): push only numbers divisible by 5",
+   "challenge": "N = [12, 15, 20, 33, 45, 7, 50, 18, 0]. For each n: if n % 5 == 0: S.append(n). Sort each number",
+   "bins": [
+    {
+     "name": "Pushed",
+     "emoji": "⬆️",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Not pushed",
+     "emoji": "🚫",
+     "color": "#6b7090"
+    }
+   ],
+   "items": [
+    {
+     "text": "15",
+     "bin": 0
+    },
+    {
+     "text": "20",
+     "bin": 0
+    },
+    {
+     "text": "45",
+     "bin": 0
+    },
+    {
+     "text": "50",
+     "bin": 0
+    },
+    {
+     "text": "0",
+     "bin": 0,
+     "why": "0 % 5 == 0"
+    },
+    {
+     "text": "12",
+     "bin": 1
+    },
+    {
+     "text": "33",
+     "bin": 1
+    },
+    {
+     "text": "7",
+     "bin": 1
+    },
+    {
+     "text": "18",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-04-03": {
+  "type": "sentencebuilder",
+  "p": {
+   "mode": "transform",
+   "fromLabel": "Infix",
+   "toLabel": "Postfix",
+   "challenge": "Convert each infix expression to postfix (operator after its operands; * and / before + and −)",
+   "items": [
+    {
+     "from": "A + B * C",
+     "text": "A B C * +"
+    },
+    {
+     "from": "(A + B) * C",
+     "text": "A B + C *"
+    },
+    {
+     "from": "A - B + C",
+     "text": "A B - C +",
+     "hint": "Equal precedence: left to right"
+    },
+    {
+     "from": "(x + y) / (z * 8)",
+     "text": "x y + z 8 * /"
+    }
+   ]
+  }
+ },
+ "g12-cs-04-04": {
+  "type": "storysequence",
+  "p": {
+   "title": "Evaluate 7 8 2 * 4 / +",
+   "challenge": "Scan the postfix expression left to right and order the stack states (answer: the single value left)",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "📥",
+     "t": "Push 7 → [7]"
+    },
+    {
+     "e": "📥",
+     "t": "Push 8 → [7, 8]"
+    },
+    {
+     "e": "📥",
+     "t": "Push 2 → [7, 8, 2]"
+    },
+    {
+     "e": "✖️",
+     "t": "* : 8 * 2 = 16 → [7, 16]"
+    },
+    {
+     "e": "📥",
+     "t": "Push 4 → [7, 16, 4]"
+    },
+    {
+     "e": "➗",
+     "t": "/ : 16 / 4 = 4 → [7, 4]"
+    },
+    {
+     "e": "➕",
+     "t": "+ : 7 + 4 = 11 → [11]"
+    }
+   ]
+  }
+ },
+ "g12-cs-05-01": {
+  "type": "timeline",
+  "p": {
+   "title": "How the Internet grew",
+   "format": "plain",
+   "spacing": "linear",
+   "task": "order",
+   "count": 4,
+   "range": [
+    1965,
+    1995
+   ],
+   "events": [
+    {
+     "year": 1969,
+     "label": "ARPANET links four computers",
+     "emoji": "🖥️",
+     "info": "Funded by ARPA of the US Department of Defense."
+    },
+    {
+     "year": 1983,
+     "label": "TCP/IP becomes ARPANET’s standard",
+     "emoji": "📦",
+     "info": "DNS also arrived in 1983."
+    },
+    {
+     "year": 1986,
+     "label": "NSFNET backbone links universities",
+     "emoji": "🎓",
+     "info": "By the US National Science Foundation."
+    },
+    {
+     "year": 1990,
+     "approx": true,
+     "label": "Tim Berners-Lee creates the WWW",
+     "emoji": "🌐",
+     "info": "At CERN, with HTML and URLs."
+    }
+   ],
+   "challenge": "Drag the 4 milestones into time order, oldest on top"
+  }
+ },
+ "g12-cs-05-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "PAN, LAN, MAN or WAN?",
+   "challenge": "Sort each network by the area it covers (PAN < LAN < MAN < WAN)",
+   "bins": [
+    {
+     "name": "PAN",
+     "emoji": "⌚"
+    },
+    {
+     "name": "LAN",
+     "emoji": "🏫"
+    },
+    {
+     "name": "MAN",
+     "emoji": "🏙️"
+    },
+    {
+     "name": "WAN",
+     "emoji": "🌍"
+    }
+   ],
+   "items": [
+    {
+     "text": "Smartwatch synced with a phone",
+     "bin": 0
+    },
+    {
+     "text": "Phone and earbuds over Bluetooth",
+     "bin": 0
+    },
+    {
+     "text": "60 computers in one school building",
+     "bin": 1
+    },
+    {
+     "text": "An office on one campus",
+     "bin": 1
+    },
+    {
+     "text": "Cable TV network across Bengaluru",
+     "bin": 2
+    },
+    {
+     "text": "A city's network of bank branches",
+     "bin": 2
+    },
+    {
+     "text": "A bank linking branches in 20 states",
+     "bin": 3
+    },
+    {
+     "text": "The Internet",
+     "bin": 3
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g12-cs-05-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Network devices",
+   "challenge": "Match each device to its job",
+   "pairs": [
+    [
+     "Modem",
+     "Digital ↔ analog signals"
+    ],
+    [
+     "NIC (Ethernet card)",
+     "Connects a PC; has a MAC address"
+    ],
+    [
+     "RJ45",
+     "8-pin connector for twisted pair"
+    ],
+    [
+     "Repeater",
+     "Regenerates a weak signal"
+    ],
+    [
+     "Hub",
+     "Sends data to ALL ports"
+    ],
+    [
+     "Switch",
+     "Sends data only to the right device"
+    ],
+    [
+     "Router",
+     "Joins networks; best route by IP"
+    ],
+    [
+     "Gateway",
+     "Joins networks with different protocols"
+    ]
+   ],
+   "leftTitle": "Device",
+   "rightTitle": "Job",
+   "mode": "check"
+  }
+ },
+ "g12-cs-05-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which topology?",
+   "challenge": "Sort each feature into its network topology",
+   "bins": [
+    {
+     "name": "Mesh",
+     "emoji": "🕸️"
+    },
+    {
+     "name": "Ring",
+     "emoji": "⭕"
+    },
+    {
+     "name": "Bus",
+     "emoji": "🚌"
+    },
+    {
+     "name": "Star",
+     "emoji": "⭐"
+    }
+   ],
+   "items": [
+    {
+     "text": "Every node linked to every other",
+     "bin": 0
+    },
+    {
+     "text": "6 nodes need 15 links",
+     "bin": 0,
+     "why": "n(n − 1)/2 = 6 × 5 / 2 = 15"
+    },
+    {
+     "text": "Very reliable but costly to cable",
+     "bin": 0
+    },
+    {
+     "text": "Each node has exactly two neighbours",
+     "bin": 1
+    },
+    {
+     "text": "One break can disrupt the whole loop",
+     "bin": 1
+    },
+    {
+     "text": "One backbone cable with terminators",
+     "bin": 2
+    },
+    {
+     "text": "Needs the least cable",
+     "bin": 2
+    },
+    {
+     "text": "Every node joins a central hub or switch",
+     "bin": 3
+    },
+    {
+     "text": "Central device fails → whole network stops",
+     "bin": 3
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-05-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "What happens when you type www.isro.gov.in",
+   "task": "arrange",
+   "challenge": "Put the steps of loading the ISRO site in order",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "⌨️",
+     "text": "Arun types www.isro.gov.in",
+     "info": "A domain name: .in is the country-code TLD."
+    },
+    {
+     "id": "b",
+     "emoji": "❓",
+     "text": "Browser asks a DNS server for the IP",
+     "info": "Name resolution starts."
+    },
+    {
+     "id": "c",
+     "emoji": "📒",
+     "text": "DNS server returns the IP address",
+     "info": "The readable name is translated into an IP address."
+    },
+    {
+     "id": "d",
+     "emoji": "🖥️",
+     "text": "Browser contacts the server at that IP"
+    },
+    {
+     "id": "e",
+     "emoji": "📄",
+     "text": "Server sends back the page to show"
+    }
+   ]
+  }
+ },
+ "g12-cs-05-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "HTML or XML?",
+   "challenge": "Sort each feature into the markup language it describes",
+   "bins": [
+    {
+     "name": "HTML",
+     "emoji": "🖼️"
+    },
+    {
+     "name": "XML",
+     "emoji": "🗃️"
+    }
+   ],
+   "items": [
+    {
+     "text": "Predefined tags like <p> and <h1>",
+     "bin": 0
+    },
+    {
+     "text": "Not case-sensitive",
+     "bin": 0
+    },
+    {
+     "text": "Presents (displays) a web page",
+     "bin": 0
+    },
+    {
+     "text": "HTML shows data",
+     "bin": 0
+    },
+    {
+     "text": "User-defined tags like <rollno>",
+     "bin": 1
+    },
+    {
+     "text": "Case-sensitive",
+     "bin": 1
+    },
+    {
+     "text": "Stores and carries data",
+     "bin": 1
+    },
+    {
+     "text": "Describes data",
+     "bin": 1
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g12-cs-05-07": {
+  "type": "datachart",
+  "p": {
+   "title": "Computers in each block",
+   "labels": [
+    "Admin",
+    "Science",
+    "Junior",
+    "Library"
+   ],
+   "values": [
+    30,
+    90,
+    40,
+    15
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "computers",
+   "editable": false,
+   "statsOf": "none",
+   "ask": {
+    "type": "most"
+   },
+   "challenge": "Tap the block where the server should go (most computers keeps most traffic inside one block)"
+  }
+ },
+ "g12-cs-06-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Units of data communication",
+   "challenge": "Match each quantity to its equal value or unit (NCERT: 1 Kbps = 2¹⁰ bps)",
+   "pairs": [
+    [
+     "1 Kbps",
+     "1024 bps"
+    ],
+    [
+     "1 Mbps",
+     "1024 Kbps"
+    ],
+    [
+     "1 GHz",
+     "1000 MHz"
+    ],
+    [
+     "1 MHz",
+     "1000 KHz"
+    ],
+    [
+     "1 byte",
+     "8 bits"
+    ],
+    [
+     "10 MB file over 8 Mbps",
+     "10 seconds"
+    ],
+    [
+     "Unit of bandwidth",
+     "hertz (Hz)"
+    ],
+    [
+     "Unit of data rate",
+     "bits per second (bps)"
+    ]
+   ],
+   "leftTitle": "Quantity",
+   "rightTitle": "Equals",
+   "mode": "check"
+  }
+ },
+ "g12-cs-06-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which communication mode?",
+   "challenge": "Sort each link by how data can flow",
+   "bins": [
+    {
+     "name": "Simplex",
+     "emoji": "➡️"
+    },
+    {
+     "name": "Half-duplex",
+     "emoji": "↔️"
+    },
+    {
+     "name": "Full-duplex",
+     "emoji": "⇄"
+    }
+   ],
+   "items": [
+    {
+     "text": "Keyboard to computer",
+     "bin": 0
+    },
+    {
+     "text": "Computer to printer",
+     "bin": 0
+    },
+    {
+     "text": "Radio broadcast",
+     "bin": 0
+    },
+    {
+     "text": "TV broadcast",
+     "bin": 0
+    },
+    {
+     "text": "Police walkie-talkie",
+     "bin": 1,
+     "why": "Both can talk, but one at a time."
+    },
+    {
+     "text": "Mobile phone call",
+     "bin": 2
+    },
+    {
+     "text": "Video call",
+     "bin": 2
+    },
+    {
+     "text": "Landline telephone call",
+     "bin": 2
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g12-cs-06-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which guided medium?",
+   "challenge": "Sort each feature or use into the right cable",
+   "bins": [
+    {
+     "name": "Twisted pair",
+     "emoji": "🧶"
+    },
+    {
+     "name": "Coaxial",
+     "emoji": "📺"
+    },
+    {
+     "name": "Optical fibre",
+     "emoji": "💡"
+    }
+   ],
+   "items": [
+    {
+     "text": "UTP and STP types",
+     "bin": 0
+    },
+    {
+     "text": "Cheap, flexible, for short LAN links",
+     "bin": 0
+    },
+    {
+     "text": "Signal weakens over long distances",
+     "bin": 0
+    },
+    {
+     "text": "Braided metal shield around a copper core",
+     "bin": 1
+    },
+    {
+     "text": "Used for cable TV",
+     "bin": 1
+    },
+    {
+     "text": "Carries pulses of light",
+     "bin": 2
+    },
+    {
+     "text": "Total internal reflection keeps light inside",
+     "bin": 2
+    },
+    {
+     "text": "Immune to electromagnetic interference",
+     "bin": 2
+    },
+    {
+     "text": "5 km high-speed link between data centres",
+     "bin": 2
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-06-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Which wireless medium?",
+   "challenge": "Match each use to the wireless medium it needs",
+   "pairs": [
+    [
+     "TV remote control",
+     "Infrared"
+    ],
+    [
+     "DTH satellite link",
+     "Microwave"
+    ],
+    [
+     "FM radio station",
+     "Radio waves"
+    ],
+    [
+     "Phone to earbuds",
+     "Bluetooth"
+    ],
+    [
+     "Laptop to an access point",
+     "Wi-Fi (WLAN)"
+    ]
+   ],
+   "leftTitle": "Use",
+   "rightTitle": "Medium",
+   "mode": "instant"
+  }
+ },
+ "g12-cs-06-05": {
+  "type": "storysequence",
+  "p": {
+   "title": "Mobile generations",
+   "challenge": "Order these features from 1G to 5G",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "📞",
+     "t": "Analog; voice calls only"
+    },
+    {
+     "e": "✉️",
+     "t": "Digital voice, plus SMS and MMS (GSM, CDMA)"
+    },
+    {
+     "e": "📹",
+     "t": "Mobile Internet and video calls"
+    },
+    {
+     "e": "🎮",
+     "t": "High-speed broadband: HD streaming, online gaming"
+    },
+    {
+     "e": "🛰️",
+     "t": "Very low latency; huge numbers of IoT devices"
+    }
+   ]
+  }
+ },
+ "g12-cs-06-06": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Which protocol?",
+   "challenge": "Match each task to the protocol that does it",
+   "pairs": [
+    [
+     "Sending an email to the mail server",
+     "SMTP"
+    ],
+    [
+     "Downloading email to your device",
+     "POP3"
+    ],
+    [
+     "Logging in to a remote computer",
+     "TELNET"
+    ],
+    [
+     "A WhatsApp voice call",
+     "VoIP"
+    ],
+    [
+     "Opening a news website",
+     "HTTP"
+    ],
+    [
+     "Paying a bill on a bank site",
+     "HTTPS"
+    ],
+    [
+     "Uploading 50 files to a web server",
+     "FTP"
+    ],
+    [
+     "Packets numbered and reassembled reliably",
+     "TCP"
+    ]
+   ],
+   "leftTitle": "Task",
+   "rightTitle": "Protocol",
+   "mode": "check"
+  }
+ },
+ "g12-cs-07-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Problems of the file system",
+   "challenge": "Match each situation to the file-system problem it shows",
+   "pairs": [
+    [
+     "Same address in the fee file and library file",
+     "Data redundancy"
+    ],
+    [
+     "The two copies stop matching",
+     "Data inconsistency"
+    ],
+    [
+     "A new program for every new question",
+     "Difficulty in access"
+    ],
+    [
+     "Related data scattered in different formats",
+     "Data isolation"
+    ],
+    [
+     "Changing the file format means rewriting programs",
+     "Data dependence"
+    ],
+    [
+     "Hard to show a clerk only fee data",
+     "Controlled sharing is difficult"
+    ]
+   ],
+   "leftTitle": "Situation",
+   "rightTitle": "Problem",
+   "mode": "instant"
+  }
+ },
+ "g12-cs-07-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "DBMS key terms",
+   "challenge": "Match each term to its meaning",
+   "pairs": [
+    [
+     "MySQL",
+     "A DBMS"
+    ],
+    [
+     "Schema",
+     "Structure: tables, attributes, types"
+    ],
+    [
+     "Instance",
+     "The data at a particular moment"
+    ],
+    [
+     "Meta-data",
+     "Data about the data"
+    ],
+    [
+     "Data dictionary",
+     "Where meta-data is stored"
+    ],
+    [
+     "Data constraint",
+     "A rule like NOT NULL or UNIQUE"
+    ],
+    [
+     "Query",
+     "A request to retrieve or change data"
+    ],
+    [
+     "Database engine",
+     "Stores data and runs queries"
+    ]
+   ],
+   "leftTitle": "Term",
+   "rightTitle": "Meaning",
+   "mode": "instant"
+  }
+ },
+ "g12-cs-07-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Allowed in a relation?",
+   "challenge": "Sort each case by the properties of a relation",
+   "bins": [
+    {
+     "name": "Allowed",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Not allowed",
+     "emoji": "❌",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Rows stored in any order",
+     "bin": 0
+    },
+    {
+     "text": "Columns stored in any order",
+     "bin": 0
+    },
+    {
+     "text": "NULL in a Phone column",
+     "bin": 0,
+     "why": "NULL means unknown; it is not 0 or empty."
+    },
+    {
+     "text": "Class = 12 when the domain is 1 to 12",
+     "bin": 0
+    },
+    {
+     "text": "Two identical rows",
+     "bin": 1,
+     "why": "Every tuple must be distinct."
+    },
+    {
+     "text": "Two columns both named Name",
+     "bin": 1
+    },
+    {
+     "text": "A cell holding ['Maths', 'CS']",
+     "bin": 1,
+     "why": "Values must be atomic."
+    },
+    {
+     "text": "Class = 15 when the domain is 1 to 12",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-07-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "Find the keys",
+   "challenge": "STUDENT(RollNo, Name, Email, ClassID), CLASS(ClassID, ClassTeacher), ATTENDANCE(RollNo, AttDate, Status). Sort each attribute",
+   "bins": [
+    {
+     "name": "Primary key",
+     "emoji": "🔑"
+    },
+    {
+     "name": "Alternate key",
+     "emoji": "🗝️"
+    },
+    {
+     "name": "Foreign key",
+     "emoji": "🔗"
+    },
+    {
+     "name": "Not a key",
+     "emoji": "➖"
+    }
+   ],
+   "items": [
+    {
+     "text": "RollNo in STUDENT",
+     "bin": 0
+    },
+    {
+     "text": "ClassID in CLASS",
+     "bin": 0
+    },
+    {
+     "text": "(RollNo, AttDate) in ATTENDANCE",
+     "bin": 0,
+     "why": "A composite primary key."
+    },
+    {
+     "text": "Email in STUDENT",
+     "bin": 1,
+     "why": "Unique too, but not chosen as the primary key."
+    },
+    {
+     "text": "ClassID in STUDENT",
+     "bin": 2,
+     "why": "It refers to the primary key of CLASS."
+    },
+    {
+     "text": "Name in STUDENT",
+     "bin": 3
+    },
+    {
+     "text": "ClassTeacher in CLASS",
+     "bin": 3
+    },
+    {
+     "text": "Status in ATTENDANCE",
+     "bin": 3
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-08-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "SQL building blocks",
+   "challenge": "Sort each SQL word into its category",
+   "bins": [
+    {
+     "name": "DDL command",
+     "emoji": "🏗️"
+    },
+    {
+     "name": "DML command",
+     "emoji": "✏️"
+    },
+    {
+     "name": "Constraint",
+     "emoji": "🚧"
+    },
+    {
+     "name": "Data type",
+     "emoji": "🔤"
+    }
+   ],
+   "items": [
+    {
+     "text": "CREATE",
+     "bin": 0
+    },
+    {
+     "text": "ALTER",
+     "bin": 0
+    },
+    {
+     "text": "DROP",
+     "bin": 0
+    },
+    {
+     "text": "INSERT",
+     "bin": 1
+    },
+    {
+     "text": "UPDATE",
+     "bin": 1
+    },
+    {
+     "text": "DELETE",
+     "bin": 1
+    },
+    {
+     "text": "NOT NULL",
+     "bin": 2
+    },
+    {
+     "text": "UNIQUE",
+     "bin": 2
+    },
+    {
+     "text": "PRIMARY KEY",
+     "bin": 2
+    },
+    {
+     "text": "CHAR(12)",
+     "bin": 3
+    },
+    {
+     "text": "VARCHAR(40)",
+     "bin": 3
+    },
+    {
+     "text": "DATE",
+     "bin": 3
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-08-02": {
+  "type": "sentencebuilder",
+  "p": {
+   "mode": "transform",
+   "fromLabel": "Task",
+   "toLabel": "SQL",
+   "challenge": "Write the SQL command for each task (data definition and structure)",
+   "extra": [
+    "DELETE",
+    "UPDATE"
+   ],
+   "items": [
+    {
+     "from": "Select the database School for use",
+     "text": "USE School;"
+    },
+    {
+     "from": "Add a column Email of type VARCHAR(50) to STUDENT",
+     "text": "ALTER TABLE STUDENT ADD Email VARCHAR(50);"
+    },
+    {
+     "from": "Show the structure of STUDENT",
+     "text": "DESC STUDENT;"
+    },
+    {
+     "from": "Make RollNo the primary key of STUDENT",
+     "text": "ALTER TABLE STUDENT ADD PRIMARY KEY (RollNo);"
+    },
+    {
+     "from": "Remove the table STUDENT, structure and data",
+     "text": "DROP TABLE STUDENT;"
+    }
+   ]
+  }
+ },
+ "g12-cs-08-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "INSERT, UPDATE and DELETE",
+   "challenge": "Match each statement to its effect",
+   "pairs": [
+    [
+     "INSERT INTO STUDENT (RollNo, Name) VALUES (102, 'Ravi');",
+     "Other columns get NULL or DEFAULT"
+    ],
+    [
+     "UPDATE STUDENT SET City = 'Agra' WHERE RollNo = 101;",
+     "Changes only Asha's city"
+    ],
+    [
+     "UPDATE STUDENT SET City = 'Agra';",
+     "Changes every row"
+    ],
+    [
+     "DELETE FROM STUDENT WHERE RollNo = 101;",
+     "Removes one row"
+    ],
+    [
+     "DELETE FROM STUDENT;",
+     "Removes all rows; table stays"
+    ],
+    [
+     "DROP TABLE STUDENT;",
+     "Removes structure and data"
+    ]
+   ],
+   "leftTitle": "Statement",
+   "rightTitle": "Effect",
+   "mode": "check"
+  }
+ },
+ "g12-cs-08-04": {
+  "type": "sentencebuilder",
+  "p": {
+   "mode": "transform",
+   "fromLabel": "Task",
+   "toLabel": "SQL",
+   "challenge": "Write the SELECT query for each task on EMP(Name, Dept, Salary, City)",
+   "extra": [
+    "WHERE"
+   ],
+   "items": [
+    {
+     "from": "List each city once",
+     "text": "SELECT DISTINCT City FROM EMP;"
+    },
+    {
+     "from": "Show only Name and City",
+     "text": "SELECT Name, City FROM EMP;"
+    },
+    {
+     "from": "Show Name and yearly salary headed AnnualSalary",
+     "text": "SELECT Name, Salary * 12 AS AnnualSalary FROM EMP;"
+    },
+    {
+     "from": "Show every column",
+     "text": "SELECT * FROM EMP;"
+    }
+   ]
+  }
+ },
+ "g12-cs-08-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "WHERE Salary BETWEEN 40000 AND 55000",
+   "challenge": "SELECT Name FROM EMP WHERE Salary BETWEEN 40000 AND 55000; Sort each row of EMP",
+   "bins": [
+    {
+     "name": "In the result",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Not in the result",
+     "emoji": "❌",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Asha, HR, 40000, Delhi",
+     "bin": 0,
+     "why": "BETWEEN includes both ends."
+    },
+    {
+     "text": "Ravi, IT, 55000, Pune",
+     "bin": 0,
+     "why": "BETWEEN includes both ends."
+    },
+    {
+     "text": "Dev, IT, 50000, Delhi",
+     "bin": 0
+    },
+    {
+     "text": "Meena, IT, 60000, Delhi",
+     "bin": 1
+    },
+    {
+     "text": "Kabir, Sales, 35000, Mumbai",
+     "bin": 1
+    },
+    {
+     "text": "Zoya, HR, NULL, Pune",
+     "bin": 1,
+     "why": "NULL is unknown, so the condition is not true."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-08-06": {
+  "type": "storysequence",
+  "p": {
+   "title": "NOT LIKE 'Z%' … ORDER BY Salary DESC",
+   "challenge": "SELECT Name, Salary FROM EMP WHERE Name NOT LIKE 'Z%' ORDER BY Salary DESC; Put the result rows in order",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "👩",
+     "t": "Meena 60000"
+    },
+    {
+     "e": "👨",
+     "t": "Ravi 55000"
+    },
+    {
+     "e": "🧑",
+     "t": "Dev 50000"
+    },
+    {
+     "e": "👧",
+     "t": "Asha 40000"
+    },
+    {
+     "e": "👦",
+     "t": "Kabir 35000"
+    }
+   ]
+  }
+ },
+ "g12-cs-08-07": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Aggregates on EMP",
+   "challenge": "EMP: Asha HR 40000; Ravi IT 55000; Meena IT 60000; Kabir Sales 35000; Zoya HR NULL; Dev IT 50000. Match each aggregate to its value",
+   "pairs": [
+    [
+     "COUNT(*)",
+     "6"
+    ],
+    [
+     "COUNT(Salary)",
+     "5"
+    ],
+    [
+     "SUM(Salary)",
+     "240000"
+    ],
+    [
+     "AVG(Salary)",
+     "48000"
+    ],
+    [
+     "MAX(Salary)",
+     "60000"
+    ],
+    [
+     "MIN(Salary)",
+     "35000"
+    ],
+    [
+     "COUNT(DISTINCT Dept)",
+     "3"
+    ],
+    [
+     "AVG(Salary) WHERE Dept = 'IT'",
+     "55000"
+    ]
+   ],
+   "leftTitle": "Aggregate",
+   "rightTitle": "Value",
+   "mode": "check"
+  }
+ },
+ "g12-cs-08-08": {
+  "type": "datachart",
+  "p": {
+   "title": "COUNT(*) … GROUP BY Dept",
+   "labels": [
+    "HR",
+    "IT",
+    "Sales"
+   ],
+   "values": [
+    0,
+    0,
+    0
+   ],
+   "views": [
+    "bar",
+    "tally"
+   ],
+   "unit": "employees",
+   "max": 6,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     2,
+     3,
+     1
+    ]
+   },
+   "challenge": "EMP: Asha HR, Ravi IT, Meena IT, Kabir Sales, Zoya HR, Dev IT. Build the COUNT(*) of each group. (HAVING COUNT(*) > 1 would keep only HR and IT.)"
+  }
+ },
+ "g12-cs-08-09": {
+  "type": "sortbins",
+  "p": {
+   "title": "STUDENT × CLASS: kept by the equi-join?",
+   "challenge": "The Cartesian product has 3 × 2 = 6 rows. WHERE STUDENT.ClassID = CLASS.ClassID keeps which? Sort each pair",
+   "bins": [
+    {
+     "name": "Kept (ClassID equal)",
+     "emoji": "🔗",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Dropped",
+     "emoji": "✂️",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Anu (11) – Mr Rao (11)",
+     "bin": 0
+    },
+    {
+     "text": "Bilal (12) – Ms Iyer (12)",
+     "bin": 0
+    },
+    {
+     "text": "Chitra (11) – Mr Rao (11)",
+     "bin": 0
+    },
+    {
+     "text": "Anu (11) – Ms Iyer (12)",
+     "bin": 1
+    },
+    {
+     "text": "Bilal (12) – Mr Rao (11)",
+     "bin": 1
+    },
+    {
+     "text": "Chitra (11) – Ms Iyer (12)",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-09-01": {
+  "type": "flowchart",
+  "p": {
+   "title": "Connect Python to MySQL",
+   "task": "arrange",
+   "challenge": "Arrange the steps to connect to the library database and get a cursor",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "⬇️",
+     "text": "pip install mysql-connector-python",
+     "info": "Done once on the computer."
+    },
+    {
+     "id": "b",
+     "emoji": "📦",
+     "text": "import mysql.connector"
+    },
+    {
+     "id": "c",
+     "emoji": "🔌",
+     "text": "con = mysql.connector.connect(...)",
+     "info": "host='localhost', user='root', passwd='admin', database='library'"
+    },
+    {
+     "id": "d",
+     "emoji": "✅",
+     "text": "con.is_connected() → True",
+     "info": "if con.is_connected(): print('Connected')"
+    },
+    {
+     "id": "e",
+     "emoji": "🖱️",
+     "text": "cur = con.cursor()",
+     "info": "The cursor sends SQL to MySQL and holds the results."
+    }
+   ]
+  }
+ },
+ "g12-cs-09-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Does it need con.commit()?",
+   "challenge": "After cur.execute(...), which statements must be saved with con.commit()?",
+   "bins": [
+    {
+     "name": "Needs commit()",
+     "emoji": "💾",
+     "color": "#8b5cf6"
+    },
+    {
+     "name": "No commit needed",
+     "emoji": "👀",
+     "color": "#3b82f6"
+    }
+   ],
+   "items": [
+    {
+     "text": "INSERT INTO student VALUES (%s, %s)",
+     "bin": 0
+    },
+    {
+     "text": "UPDATE student SET name = 'Tara' WHERE rno = 1",
+     "bin": 0
+    },
+    {
+     "text": "DELETE FROM student WHERE rno = 5",
+     "bin": 0
+    },
+    {
+     "text": "SELECT * FROM student",
+     "bin": 1,
+     "why": "SELECT only reads data."
+    },
+    {
+     "text": "CREATE TABLE student (rno INT, name VARCHAR(20))",
+     "bin": 1,
+     "why": "DDL statements do not need commit()."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-cs-09-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Fetching rows (STUDENT has 5 rows)",
+   "challenge": "After cur.execute('SELECT * FROM student'), match each call to what it returns",
+   "pairs": [
+    [
+     "First fetchone()",
+     "1 row, as a tuple"
+    ],
+    [
+     "Then fetchmany(2)",
+     "Next 2 rows, as a list"
+    ],
+    [
+     "Then fetchall()",
+     "The remaining 2 rows"
+    ],
+    [
+     "Then fetchone() again",
+     "None"
+    ],
+    [
+     "Then fetchall() again",
+     "[] (empty list)"
+    ],
+    [
+     "cur.rowcount at the end",
+     "5"
+    ]
+   ],
+   "leftTitle": "Call",
+   "rightTitle": "Returns",
+   "mode": "check"
+  }
+ },
+ "g12-cs-09-04": {
+  "type": "flowchart",
+  "p": {
+   "title": "Menu-driven database program",
+   "task": "play",
+   "challenge": "Play the program: choose 2 (Display) once, then 6 (Exit)",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "📋",
+     "text": "Show menu: 1 Add … 5 Delete, 6 Exit"
+    },
+    {
+     "id": "b",
+     "emoji": "⌨️",
+     "text": "Read the choice"
+    },
+    {
+     "id": "c",
+     "emoji": "❓",
+     "text": "choice == 6?",
+     "type": "decision"
+    },
+    {
+     "id": "d",
+     "emoji": "⚙️",
+     "text": "Run the function for that choice",
+     "info": "Changes use execute() with %s placeholders, then con.commit(); display/search loop over cur.fetchall()."
+    },
+    {
+     "id": "e",
+     "emoji": "🔒",
+     "text": "cur.close(); con.close()",
+     "info": "Close the cursor, then the connection."
+    }
+   ],
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "c"
+    },
+    {
+     "from": "c",
+     "to": "e",
+     "label": "Yes"
+    },
+    {
+     "from": "c",
+     "to": "d",
+     "label": "No"
+    },
+    {
+     "from": "d",
+     "to": "a"
+    }
+   ]
+  }
+ }
+}

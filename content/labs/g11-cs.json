@@ -1,0 +1,5122 @@
+{
+ "g11-cs-01-01": {
+  "type": "flowchart",
+  "p": {
+   "title": "Trace 45 + 30 through the block diagram",
+   "task": "arrange",
+   "challenge": "Put the 5 steps of the calculator sum 45 + 30 = 75 in block-diagram order",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "⌨️",
+     "text": "Input: touch screen sends 45, +, 30",
+     "info": "The touch screen turns your taps into binary and sends them in."
+    },
+    {
+     "id": "b",
+     "emoji": "🧠",
+     "text": "RAM holds the numbers and instruction",
+     "info": "Primary memory keeps the data and the add instruction ready."
+    },
+    {
+     "id": "c",
+     "emoji": "🚦",
+     "text": "CU fetches and decodes the add",
+     "info": "The Control Unit directs the ALU; the operands sit in registers."
+    },
+    {
+     "id": "d",
+     "emoji": "➕",
+     "text": "ALU adds them: 75",
+     "info": "The ALU does arithmetic and logic; 75 goes back to a register/memory."
+    },
+    {
+     "id": "e",
+     "emoji": "🖥️",
+     "text": "Output unit: screen shows 75",
+     "info": "The output unit turns the result into a form you can read."
+    }
+   ]
+  }
+ },
+ "g11-cs-01-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Input, output or both?",
+   "challenge": "Sort each device: does it bring data IN, send results OUT, or both?",
+   "bins": [
+    {
+     "name": "Input",
+     "emoji": "⬅️"
+    },
+    {
+     "name": "Output",
+     "emoji": "➡️"
+    },
+    {
+     "name": "Both",
+     "emoji": "🔁"
+    }
+   ],
+   "items": [
+    {
+     "text": "Keyboard",
+     "bin": 0
+    },
+    {
+     "text": "Scanner",
+     "bin": 0
+    },
+    {
+     "text": "Microphone",
+     "bin": 0
+    },
+    {
+     "text": "Webcam",
+     "bin": 0
+    },
+    {
+     "text": "Fingerprint scanner",
+     "bin": 0,
+     "why": "A biometric sensor reads your finger into the computer."
+    },
+    {
+     "text": "Monitor",
+     "bin": 1
+    },
+    {
+     "text": "Printer",
+     "bin": 1
+    },
+    {
+     "text": "Speaker",
+     "bin": 1
+    },
+    {
+     "text": "Projector",
+     "bin": 1
+    },
+    {
+     "text": "3D printer",
+     "bin": 1,
+     "why": "It builds a solid object layer by layer: output."
+    },
+    {
+     "text": "Touch screen",
+     "bin": 2,
+     "why": "You tap it (input) and it displays (output)."
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-01-03": {
+  "type": "storysequence",
+  "p": {
+   "title": "Evolution of computers",
+   "challenge": "Arrange these milestones from the earliest to the most recent",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "🧮",
+     "t": "Abacus: beads on rods for counting"
+    },
+    {
+     "e": "⚙️",
+     "t": "Pascal's Pascaline (1642): mechanical adder"
+    },
+    {
+     "e": "🏭",
+     "t": "Babbage's Analytical Engine (1834): mill + store"
+    },
+    {
+     "e": "💡",
+     "t": "Computers built with vacuum tubes"
+    },
+    {
+     "e": "🔌",
+     "t": "Computers built with transistors"
+    },
+    {
+     "e": "🔲",
+     "t": "Computers built with integrated circuits (ICs)"
+    },
+    {
+     "e": "💻",
+     "t": "VLSI microprocessors: PCs and laptops"
+    }
+   ]
+  }
+ },
+ "g11-cs-01-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Memory unit conversions",
+   "challenge": "Match each amount to its equal value (each step is × 1024; bytes → bits is × 8)",
+   "pairs": [
+    [
+     "1 nibble",
+     "4 bits"
+    ],
+    [
+     "1 byte",
+     "8 bits"
+    ],
+    [
+     "2 KB",
+     "16384 bits"
+    ],
+    [
+     "1 MB",
+     "1024 KB"
+    ],
+    [
+     "1 GB",
+     "1024 MB"
+    ],
+    [
+     "1 TB",
+     "1024 GB"
+    ],
+    [
+     "1 PB",
+     "1024 TB"
+    ],
+    [
+     "4 GB",
+     "4096 MB"
+    ]
+   ],
+   "leftTitle": "Amount",
+   "rightTitle": "Equals",
+   "mode": "check"
+  }
+ },
+ "g11-cs-01-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which memory is it?",
+   "challenge": "Sort each clue into the right kind of memory",
+   "bins": [
+    {
+     "name": "RAM",
+     "emoji": "🧠"
+    },
+    {
+     "name": "ROM",
+     "emoji": "🔒"
+    },
+    {
+     "name": "Cache",
+     "emoji": "⚡"
+    },
+    {
+     "name": "Secondary",
+     "emoji": "💾"
+    }
+   ],
+   "items": [
+    {
+     "text": "Holds the programs running right now",
+     "bin": 0
+    },
+    {
+     "text": "Unsaved document lost in a power cut",
+     "bin": 0,
+     "why": "RAM is volatile: it is erased when power goes off."
+    },
+    {
+     "text": "Stores the BIOS / boot instructions",
+     "bin": 1
+    },
+    {
+     "text": "Read-only and keeps data without power",
+     "bin": 1
+    },
+    {
+     "text": "Sits between the CPU and RAM",
+     "bin": 2
+    },
+    {
+     "text": "Keeps frequently used data close to the CPU",
+     "bin": 2,
+     "why": "So the CPU does not wait for slower RAM."
+    },
+    {
+     "text": "SSD",
+     "bin": 3
+    },
+    {
+     "text": "Pen drive",
+     "bin": 3
+    },
+    {
+     "text": "Hard disk (HDD)",
+     "bin": 3
+    },
+    {
+     "text": "Largest and cheapest per GB, CPU cannot use it directly",
+     "bin": 3
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-01-06": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Buses and microprocessors",
+   "challenge": "Match each term to what it means",
+   "pairs": [
+    [
+     "Data bus",
+     "Bidirectional: carries the data"
+    ],
+    [
+     "Address bus",
+     "Unidirectional: CPU → memory"
+    ],
+    [
+     "Control bus",
+     "Read/write and timing signals"
+    ],
+    [
+     "Intel 4004 (1971)",
+     "4-bit microprocessor"
+    ],
+    [
+     "32 address bits",
+     "2³² bytes = 4 GB"
+    ],
+    [
+     "Clock speed",
+     "Cycles per second (GHz)"
+    ],
+    [
+     "Word size",
+     "Bits processed at once"
+    ],
+    [
+     "Microcontroller",
+     "One-chip computer in a washing machine"
+    ]
+   ],
+   "leftTitle": "Term",
+   "rightTitle": "Meaning",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-01-07": {
+  "type": "sortbins",
+  "p": {
+   "title": "Structured, semi-structured or unstructured?",
+   "challenge": "Sort each kind of data by how organised it is",
+   "bins": [
+    {
+     "name": "Structured",
+     "emoji": "📊"
+    },
+    {
+     "name": "Semi-structured",
+     "emoji": "🏷️"
+    },
+    {
+     "name": "Unstructured",
+     "emoji": "🎞️"
+    }
+   ],
+   "items": [
+    {
+     "text": "Marks register (rows and columns)",
+     "bin": 0
+    },
+    {
+     "text": "Attendance spreadsheet",
+     "bin": 0
+    },
+    {
+     "text": "Train timetable table",
+     "bin": 0
+    },
+    {
+     "text": "Email (To, Subject + free text)",
+     "bin": 1,
+     "why": "Tagged fields but a free-text body."
+    },
+    {
+     "text": "HTML web page",
+     "bin": 1
+    },
+    {
+     "text": "XML file",
+     "bin": 1
+    },
+    {
+     "text": "CCTV footage of the school gate",
+     "bin": 2
+    },
+    {
+     "text": "Photo from a phone",
+     "bin": 2
+    },
+    {
+     "text": "Audio recording",
+     "bin": 2
+    },
+    {
+     "text": "Free-text social media post",
+     "bin": 2
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-01-08": {
+  "type": "sortbins",
+  "p": {
+   "title": "Compiler, interpreter or assembler?",
+   "challenge": "Sort each description into the translator it describes",
+   "bins": [
+    {
+     "name": "Compiler",
+     "emoji": "📚"
+    },
+    {
+     "name": "Interpreter",
+     "emoji": "🗣️"
+    },
+    {
+     "name": "Assembler",
+     "emoji": "🔧"
+    }
+   ],
+   "items": [
+    {
+     "text": "Translates the whole program at once",
+     "bin": 0
+    },
+    {
+     "text": "Lists errors on lines 3 and 7 together",
+     "bin": 0,
+     "why": "It scans the whole program first."
+    },
+    {
+     "text": "No machine code until all errors are fixed",
+     "bin": 0
+    },
+    {
+     "text": "Translates and runs one statement at a time",
+     "bin": 1
+    },
+    {
+     "text": "Stops at the first error (line 3)",
+     "bin": 1
+    },
+    {
+     "text": "Used by Python",
+     "bin": 1
+    },
+    {
+     "text": "Turns ADD, MOV mnemonics into machine code",
+     "bin": 2
+    },
+    {
+     "text": "Converts assembly language to binary",
+     "bin": 2
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-01-09": {
+  "type": "sortbins",
+  "p": {
+   "title": "Proprietary or FOSS?",
+   "challenge": "Sort each software or licence idea: proprietary or Free and Open Source?",
+   "bins": [
+    {
+     "name": "Proprietary",
+     "emoji": "🔐"
+    },
+    {
+     "name": "FOSS",
+     "emoji": "🕊️"
+    }
+   ],
+   "items": [
+    {
+     "text": "Microsoft Windows",
+     "bin": 0
+    },
+    {
+     "text": "MS Office",
+     "bin": 0
+    },
+    {
+     "text": "MS Excel",
+     "bin": 0
+    },
+    {
+     "text": "Buy a licence; source code closed",
+     "bin": 0
+    },
+    {
+     "text": "Linux / Ubuntu",
+     "bin": 1
+    },
+    {
+     "text": "Python",
+     "bin": 1
+    },
+    {
+     "text": "LibreOffice",
+     "bin": 1
+    },
+    {
+     "text": "Mozilla Firefox",
+     "bin": 1
+    },
+    {
+     "text": "Source code can be viewed, modified and shared",
+     "bin": 1,
+     "why": "'Free' in FOSS means freedom, not just zero price."
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-01-10": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which OS function is at work?",
+   "challenge": "Sort each job into process, memory, file or device management",
+   "bins": [
+    {
+     "name": "Process",
+     "emoji": "⏱️"
+    },
+    {
+     "name": "Memory",
+     "emoji": "🧠"
+    },
+    {
+     "name": "File",
+     "emoji": "📁"
+    },
+    {
+     "name": "Device",
+     "emoji": "🖨️"
+    }
+   ],
+   "items": [
+    {
+     "text": "Sharing the CPU between a music app and a browser",
+     "bin": 0
+    },
+    {
+     "text": "Deciding how long each program gets the CPU",
+     "bin": 0
+    },
+    {
+     "text": "Giving each app its own space in RAM",
+     "bin": 1
+    },
+    {
+     "text": "Freeing RAM when an app is closed",
+     "bin": 1
+    },
+    {
+     "text": "Creating the photo’s entry on the pen drive",
+     "bin": 2
+    },
+    {
+     "text": "Renaming and deleting folders",
+     "bin": 2
+    },
+    {
+     "text": "Talking to the USB pen drive through its driver",
+     "bin": 3
+    },
+    {
+     "text": "Controlling the printer through its driver",
+     "bin": 3
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-02-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "ASCII codes",
+   "challenge": "Match each character to its ASCII code ('A' = 65, lower case is 32 more)",
+   "pairs": [
+    [
+     "'A'",
+     "65"
+    ],
+    [
+     "'E'",
+     "69"
+    ],
+    [
+     "'Z'",
+     "90"
+    ],
+    [
+     "'a'",
+     "97"
+    ],
+    [
+     "'e'",
+     "101"
+    ],
+    [
+     "'z'",
+     "122"
+    ],
+    [
+     "'0'",
+     "48"
+    ],
+    [
+     "space",
+     "32"
+    ]
+   ],
+   "leftTitle": "Character",
+   "rightTitle": "ASCII code",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-02-02": {
+  "type": "sentencebuilder",
+  "p": {
+   "mode": "order",
+   "challenge": "Encode each word in 7-bit ASCII: tap the codes in letter order",
+   "items": [
+    {
+     "text": "1000100 1000001 1010100 1000001",
+     "hint": "DATA: D = 68, A = 65, T = 84",
+     "meaning": "DATA = 68 65 84 65"
+    },
+    {
+     "text": "1000011 1000001 1010100",
+     "hint": "CAT: C = 67, A = 65, T = 84",
+     "meaning": "CAT = 67 65 84"
+    }
+   ],
+   "extra": [
+    "1100001"
+   ]
+  }
+ },
+ "g11-cs-02-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "ASCII, ISCII or Unicode?",
+   "challenge": "Sort each fact into the encoding scheme it belongs to",
+   "bins": [
+    {
+     "name": "ASCII",
+     "emoji": "🔤"
+    },
+    {
+     "name": "ISCII",
+     "emoji": "🇮🇳"
+    },
+    {
+     "name": "Unicode",
+     "emoji": "🌐"
+    }
+   ],
+   "items": [
+    {
+     "text": "7-bit code: 128 characters",
+     "bin": 0
+    },
+    {
+     "text": "Cannot represent Indian scripts",
+     "bin": 0
+    },
+    {
+     "text": "8-bit code: 256 codes",
+     "bin": 1
+    },
+    {
+     "text": "Indian aksharas at codes 160–255",
+     "bin": 1
+    },
+    {
+     "text": "Largely replaced today",
+     "bin": 1
+    },
+    {
+     "text": "A code point for every character of every script",
+     "bin": 2
+    },
+    {
+     "text": "UTF-8, UTF-16 and UTF-32",
+     "bin": 2
+    },
+    {
+     "text": "'अ' = U+0905",
+     "bin": 2
+    },
+    {
+     "text": "Devanagari block U+0900 to U+097F",
+     "bin": 2
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-02-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "Valid numeral or not?",
+   "challenge": "The base (radix) is how many symbols a system uses. Sort each numeral: valid or invalid in its base?",
+   "bins": [
+    {
+     "name": "Valid",
+     "emoji": "✅"
+    },
+    {
+     "name": "Invalid",
+     "emoji": "❌"
+    }
+   ],
+   "items": [
+    {
+     "text": "(1101)₂",
+     "bin": 0
+    },
+    {
+     "text": "(70)₈",
+     "bin": 0
+    },
+    {
+     "text": "(909)₁₀",
+     "bin": 0
+    },
+    {
+     "text": "(1A)₁₆",
+     "bin": 0
+    },
+    {
+     "text": "(FF)₁₆",
+     "bin": 0
+    },
+    {
+     "text": "(1012)₂",
+     "bin": 1,
+     "why": "Binary uses only 0 and 1."
+    },
+    {
+     "text": "(78)₈",
+     "bin": 1,
+     "why": "Octal digits are 0–7."
+    },
+    {
+     "text": "(19)₈",
+     "bin": 1,
+     "why": "Octal has no 9."
+    },
+    {
+     "text": "(1A)₁₀",
+     "bin": 1,
+     "why": "Decimal has no A."
+    },
+    {
+     "text": "(G1)₁₆",
+     "bin": 1,
+     "why": "Hex symbols stop at F."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-02-05": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "00",
+     "33",
+     "99",
+     "FF"
+    ],
+    [
+     "00",
+     "33",
+     "99",
+     "FF"
+    ],
+    [
+     "00",
+     "33",
+     "99",
+     "FF"
+    ]
+   ],
+   "slotLabels": [
+    "Red",
+    "Green",
+    "Blue"
+   ],
+   "words": [
+    {
+     "parts": [
+      "00",
+      "00",
+      "00"
+     ],
+     "word": "000000",
+     "meaning": "R 0, G 0, B 0 (Black)"
+    },
+    {
+     "parts": [
+      "00",
+      "00",
+      "33"
+     ],
+     "word": "000033",
+     "meaning": "R 0, G 0, B 51"
+    },
+    {
+     "parts": [
+      "00",
+      "00",
+      "99"
+     ],
+     "word": "000099",
+     "meaning": "R 0, G 0, B 153"
+    },
+    {
+     "parts": [
+      "00",
+      "00",
+      "FF"
+     ],
+     "word": "0000FF",
+     "meaning": "R 0, G 0, B 255 (Blue)"
+    },
+    {
+     "parts": [
+      "00",
+      "33",
+      "00"
+     ],
+     "word": "003300",
+     "meaning": "R 0, G 51, B 0"
+    },
+    {
+     "parts": [
+      "00",
+      "33",
+      "33"
+     ],
+     "word": "003333",
+     "meaning": "R 0, G 51, B 51"
+    },
+    {
+     "parts": [
+      "00",
+      "33",
+      "99"
+     ],
+     "word": "003399",
+     "meaning": "R 0, G 51, B 153"
+    },
+    {
+     "parts": [
+      "00",
+      "33",
+      "FF"
+     ],
+     "word": "0033FF",
+     "meaning": "R 0, G 51, B 255"
+    },
+    {
+     "parts": [
+      "00",
+      "99",
+      "00"
+     ],
+     "word": "009900",
+     "meaning": "R 0, G 153, B 0"
+    },
+    {
+     "parts": [
+      "00",
+      "99",
+      "33"
+     ],
+     "word": "009933",
+     "meaning": "R 0, G 153, B 51"
+    },
+    {
+     "parts": [
+      "00",
+      "99",
+      "99"
+     ],
+     "word": "009999",
+     "meaning": "R 0, G 153, B 153"
+    },
+    {
+     "parts": [
+      "00",
+      "99",
+      "FF"
+     ],
+     "word": "0099FF",
+     "meaning": "R 0, G 153, B 255"
+    },
+    {
+     "parts": [
+      "00",
+      "FF",
+      "00"
+     ],
+     "word": "00FF00",
+     "meaning": "R 0, G 255, B 0 (Green)"
+    },
+    {
+     "parts": [
+      "00",
+      "FF",
+      "33"
+     ],
+     "word": "00FF33",
+     "meaning": "R 0, G 255, B 51"
+    },
+    {
+     "parts": [
+      "00",
+      "FF",
+      "99"
+     ],
+     "word": "00FF99",
+     "meaning": "R 0, G 255, B 153"
+    },
+    {
+     "parts": [
+      "00",
+      "FF",
+      "FF"
+     ],
+     "word": "00FFFF",
+     "meaning": "R 0, G 255, B 255"
+    },
+    {
+     "parts": [
+      "33",
+      "00",
+      "00"
+     ],
+     "word": "330000",
+     "meaning": "R 51, G 0, B 0"
+    },
+    {
+     "parts": [
+      "33",
+      "00",
+      "33"
+     ],
+     "word": "330033",
+     "meaning": "R 51, G 0, B 51"
+    },
+    {
+     "parts": [
+      "33",
+      "00",
+      "99"
+     ],
+     "word": "330099",
+     "meaning": "R 51, G 0, B 153"
+    },
+    {
+     "parts": [
+      "33",
+      "00",
+      "FF"
+     ],
+     "word": "3300FF",
+     "meaning": "R 51, G 0, B 255"
+    },
+    {
+     "parts": [
+      "33",
+      "33",
+      "00"
+     ],
+     "word": "333300",
+     "meaning": "R 51, G 51, B 0"
+    },
+    {
+     "parts": [
+      "33",
+      "33",
+      "33"
+     ],
+     "word": "333333",
+     "meaning": "R 51, G 51, B 51"
+    },
+    {
+     "parts": [
+      "33",
+      "33",
+      "99"
+     ],
+     "word": "333399",
+     "meaning": "R 51, G 51, B 153"
+    },
+    {
+     "parts": [
+      "33",
+      "33",
+      "FF"
+     ],
+     "word": "3333FF",
+     "meaning": "R 51, G 51, B 255"
+    },
+    {
+     "parts": [
+      "33",
+      "99",
+      "00"
+     ],
+     "word": "339900",
+     "meaning": "R 51, G 153, B 0"
+    },
+    {
+     "parts": [
+      "33",
+      "99",
+      "33"
+     ],
+     "word": "339933",
+     "meaning": "R 51, G 153, B 51"
+    },
+    {
+     "parts": [
+      "33",
+      "99",
+      "99"
+     ],
+     "word": "339999",
+     "meaning": "R 51, G 153, B 153"
+    },
+    {
+     "parts": [
+      "33",
+      "99",
+      "FF"
+     ],
+     "word": "3399FF",
+     "meaning": "R 51, G 153, B 255"
+    },
+    {
+     "parts": [
+      "33",
+      "FF",
+      "00"
+     ],
+     "word": "33FF00",
+     "meaning": "R 51, G 255, B 0"
+    },
+    {
+     "parts": [
+      "33",
+      "FF",
+      "33"
+     ],
+     "word": "33FF33",
+     "meaning": "R 51, G 255, B 51"
+    },
+    {
+     "parts": [
+      "33",
+      "FF",
+      "99"
+     ],
+     "word": "33FF99",
+     "meaning": "R 51, G 255, B 153"
+    },
+    {
+     "parts": [
+      "33",
+      "FF",
+      "FF"
+     ],
+     "word": "33FFFF",
+     "meaning": "R 51, G 255, B 255"
+    },
+    {
+     "parts": [
+      "99",
+      "00",
+      "00"
+     ],
+     "word": "990000",
+     "meaning": "R 153, G 0, B 0"
+    },
+    {
+     "parts": [
+      "99",
+      "00",
+      "33"
+     ],
+     "word": "990033",
+     "meaning": "R 153, G 0, B 51"
+    },
+    {
+     "parts": [
+      "99",
+      "00",
+      "99"
+     ],
+     "word": "990099",
+     "meaning": "R 153, G 0, B 153"
+    },
+    {
+     "parts": [
+      "99",
+      "00",
+      "FF"
+     ],
+     "word": "9900FF",
+     "meaning": "R 153, G 0, B 255"
+    },
+    {
+     "parts": [
+      "99",
+      "33",
+      "00"
+     ],
+     "word": "993300",
+     "meaning": "R 153, G 51, B 0"
+    },
+    {
+     "parts": [
+      "99",
+      "33",
+      "33"
+     ],
+     "word": "993333",
+     "meaning": "R 153, G 51, B 51"
+    },
+    {
+     "parts": [
+      "99",
+      "33",
+      "99"
+     ],
+     "word": "993399",
+     "meaning": "R 153, G 51, B 153"
+    },
+    {
+     "parts": [
+      "99",
+      "33",
+      "FF"
+     ],
+     "word": "9933FF",
+     "meaning": "R 153, G 51, B 255"
+    },
+    {
+     "parts": [
+      "99",
+      "99",
+      "00"
+     ],
+     "word": "999900",
+     "meaning": "R 153, G 153, B 0"
+    },
+    {
+     "parts": [
+      "99",
+      "99",
+      "33"
+     ],
+     "word": "999933",
+     "meaning": "R 153, G 153, B 51"
+    },
+    {
+     "parts": [
+      "99",
+      "99",
+      "99"
+     ],
+     "word": "999999",
+     "meaning": "R 153, G 153, B 153"
+    },
+    {
+     "parts": [
+      "99",
+      "99",
+      "FF"
+     ],
+     "word": "9999FF",
+     "meaning": "R 153, G 153, B 255"
+    },
+    {
+     "parts": [
+      "99",
+      "FF",
+      "00"
+     ],
+     "word": "99FF00",
+     "meaning": "R 153, G 255, B 0"
+    },
+    {
+     "parts": [
+      "99",
+      "FF",
+      "33"
+     ],
+     "word": "99FF33",
+     "meaning": "R 153, G 255, B 51"
+    },
+    {
+     "parts": [
+      "99",
+      "FF",
+      "99"
+     ],
+     "word": "99FF99",
+     "meaning": "R 153, G 255, B 153"
+    },
+    {
+     "parts": [
+      "99",
+      "FF",
+      "FF"
+     ],
+     "word": "99FFFF",
+     "meaning": "R 153, G 255, B 255"
+    },
+    {
+     "parts": [
+      "FF",
+      "00",
+      "00"
+     ],
+     "word": "FF0000",
+     "meaning": "R 255, G 0, B 0 (Red)"
+    },
+    {
+     "parts": [
+      "FF",
+      "00",
+      "33"
+     ],
+     "word": "FF0033",
+     "meaning": "R 255, G 0, B 51"
+    },
+    {
+     "parts": [
+      "FF",
+      "00",
+      "99"
+     ],
+     "word": "FF0099",
+     "meaning": "R 255, G 0, B 153"
+    },
+    {
+     "parts": [
+      "FF",
+      "00",
+      "FF"
+     ],
+     "word": "FF00FF",
+     "meaning": "R 255, G 0, B 255"
+    },
+    {
+     "parts": [
+      "FF",
+      "33",
+      "00"
+     ],
+     "word": "FF3300",
+     "meaning": "R 255, G 51, B 0"
+    },
+    {
+     "parts": [
+      "FF",
+      "33",
+      "33"
+     ],
+     "word": "FF3333",
+     "meaning": "R 255, G 51, B 51"
+    },
+    {
+     "parts": [
+      "FF",
+      "33",
+      "99"
+     ],
+     "word": "FF3399",
+     "meaning": "R 255, G 51, B 153"
+    },
+    {
+     "parts": [
+      "FF",
+      "33",
+      "FF"
+     ],
+     "word": "FF33FF",
+     "meaning": "R 255, G 51, B 255"
+    },
+    {
+     "parts": [
+      "FF",
+      "99",
+      "00"
+     ],
+     "word": "FF9900",
+     "meaning": "R 255, G 153, B 0"
+    },
+    {
+     "parts": [
+      "FF",
+      "99",
+      "33"
+     ],
+     "word": "FF9933",
+     "meaning": "R 255, G 153, B 51 (saffron)"
+    },
+    {
+     "parts": [
+      "FF",
+      "99",
+      "99"
+     ],
+     "word": "FF9999",
+     "meaning": "R 255, G 153, B 153"
+    },
+    {
+     "parts": [
+      "FF",
+      "99",
+      "FF"
+     ],
+     "word": "FF99FF",
+     "meaning": "R 255, G 153, B 255"
+    },
+    {
+     "parts": [
+      "FF",
+      "FF",
+      "00"
+     ],
+     "word": "FFFF00",
+     "meaning": "R 255, G 255, B 0"
+    },
+    {
+     "parts": [
+      "FF",
+      "FF",
+      "33"
+     ],
+     "word": "FFFF33",
+     "meaning": "R 255, G 255, B 51"
+    },
+    {
+     "parts": [
+      "FF",
+      "FF",
+      "99"
+     ],
+     "word": "FFFF99",
+     "meaning": "R 255, G 255, B 153"
+    },
+    {
+     "parts": [
+      "FF",
+      "FF",
+      "FF"
+     ],
+     "word": "FFFFFF",
+     "meaning": "R 255, G 255, B 255 (White)"
+    }
+   ],
+   "targets": [
+    "FF0000",
+    "0000FF",
+    "FFFFFF",
+    "000000",
+    "FF9933"
+   ],
+   "challenge": "Each colour channel is 2 hex digits (00 to FF = 0 to 255). Spin the wheels to make the colour in each clue"
+  }
+ },
+ "g11-cs-02-06": {
+  "type": "flowchart",
+  "p": {
+   "title": "Convert (45)₁₀ to binary",
+   "task": "arrange",
+   "challenge": "Put the repeated-division steps for 45 in order and read the remainders bottom-up",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "➗",
+     "text": "45 ÷ 2 = 22 r 1",
+     "info": "The first remainder is the least significant bit."
+    },
+    {
+     "id": "b",
+     "emoji": "➗",
+     "text": "22 ÷ 2 = 11 r 0"
+    },
+    {
+     "id": "c",
+     "emoji": "➗",
+     "text": "11 ÷ 2 = 5 r 1"
+    },
+    {
+     "id": "d",
+     "emoji": "➗",
+     "text": "5 ÷ 2 = 2 r 1"
+    },
+    {
+     "id": "e",
+     "emoji": "➗",
+     "text": "2 ÷ 2 = 1 r 0"
+    },
+    {
+     "id": "f",
+     "emoji": "➗",
+     "text": "1 ÷ 2 = 0 r 1",
+     "info": "Quotient 0: stop. This is the most significant bit."
+    },
+    {
+     "id": "g",
+     "emoji": "⬆️",
+     "text": "Read bottom-up: (101101)₂",
+     "info": "Check: 32 + 8 + 4 + 1 = 45."
+    }
+   ]
+  }
+ },
+ "g11-cs-02-07": {
+  "type": "numberline",
+  "p": {
+   "mode": "jump",
+   "min": 0,
+   "max": 128,
+   "tick": 1,
+   "start": 0,
+   "target": 91,
+   "hops": [
+    64,
+    32,
+    16,
+    8,
+    4,
+    2,
+    1
+   ],
+   "labels": "auto",
+   "newChallenge": false,
+   "showTarget": false,
+   "challenge": "Convert (1011011)₂ to decimal: hop once by the place value (64, 32 … 1) of every bit that is 1"
+  }
+ },
+ "g11-cs-02-08": {
+  "type": "matchpairs",
+  "p": {
+   "title": "4-bit groups ↔ hex digits",
+   "challenge": "Each hex digit is exactly 4 bits. Match each group to its hex digit",
+   "pairs": [
+    [
+     "1010",
+     "A"
+    ],
+    [
+     "1111",
+     "F"
+    ],
+    [
+     "0110",
+     "6"
+    ],
+    [
+     "1101",
+     "D"
+    ],
+    [
+     "1011",
+     "B"
+    ],
+    [
+     "0111",
+     "7"
+    ],
+    [
+     "1100",
+     "C"
+    ],
+    [
+     "1001",
+     "9"
+    ]
+   ],
+   "leftTitle": "4 bits",
+   "rightTitle": "Hex",
+   "mode": "check"
+  }
+ },
+ "g11-cs-02-09": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": 0,
+   "max": 1,
+   "tick": 0.125,
+   "start": 0,
+   "target": 0.625,
+   "format": "decimal",
+   "labels": "ends",
+   "marks": [
+    {
+     "value": 0.125,
+     "label": "2⁻³"
+    },
+    {
+     "value": 0.25,
+     "label": "2⁻²"
+    },
+    {
+     "value": 0.5,
+     "label": "2⁻¹"
+    }
+   ],
+   "showTarget": false,
+   "newChallenge": false,
+   "challenge": "(0.101)₂ = 1×2⁻¹ + 0×2⁻² + 1×2⁻³. Drag the frog to its decimal value"
+  }
+ },
+ "g11-cs-02-10": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Fractional binary to octal and hex",
+   "challenge": "Group outward from the point (3 bits for octal, 4 for hex), padding only at the far ends. Match each conversion",
+   "pairs": [
+    [
+     "(1011.0111)₂ → octal",
+     "(13.34)₈"
+    ],
+    [
+     "(1011.0111)₂ → hex",
+     "(B.7)₁₆"
+    ],
+    [
+     "(10.1)₂ → octal",
+     "(2.4)₈"
+    ],
+    [
+     "(110.11)₂ → octal",
+     "(6.6)₈"
+    ],
+    [
+     "(11.101)₂ → octal",
+     "(3.5)₈"
+    ],
+    [
+     "(0.01)₂ → hex",
+     "(0.4)₁₆"
+    ],
+    [
+     "(1.1)₂ → hex",
+     "(1.8)₁₆"
+    ],
+    [
+     "(1101.1)₂ → hex",
+     "(D.8)₁₆"
+    ]
+   ],
+   "leftTitle": "Binary",
+   "rightTitle": "Result",
+   "mode": "check"
+  }
+ },
+ "g11-cs-02-11": {
+  "type": "sortbins",
+  "p": {
+   "title": "Gate outputs",
+   "challenge": "Work out each gate and sort it by its output",
+   "bins": [
+    {
+     "name": "Output 1",
+     "emoji": "💡",
+     "color": "#ffc93c"
+    },
+    {
+     "name": "Output 0",
+     "emoji": "⚫",
+     "color": "#6b7090"
+    }
+   ],
+   "items": [
+    {
+     "text": "1 AND 0",
+     "bin": 1
+    },
+    {
+     "text": "1 AND 1",
+     "bin": 0
+    },
+    {
+     "text": "1 OR 0",
+     "bin": 0
+    },
+    {
+     "text": "0 OR 0",
+     "bin": 1
+    },
+    {
+     "text": "NOT 1",
+     "bin": 1
+    },
+    {
+     "text": "1 NAND 0",
+     "bin": 0
+    },
+    {
+     "text": "1 NAND 1",
+     "bin": 1,
+     "why": "NAND is 0 only when all inputs are 1."
+    },
+    {
+     "text": "1 NOR 0",
+     "bin": 1
+    },
+    {
+     "text": "0 NOR 0",
+     "bin": 0,
+     "why": "NOR is 1 only when all inputs are 0."
+    },
+    {
+     "text": "1 XOR 0",
+     "bin": 0,
+     "why": "XOR is 1 when the inputs differ."
+    },
+    {
+     "text": "1 XOR 1",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-02-12": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Truth tables and De Morgan's laws",
+   "challenge": "Match each expression or fact to its partner (use De Morgan's laws and truth tables)",
+   "pairs": [
+    [
+     "(A·B)'",
+     "A' + B'"
+    ],
+    [
+     "(A + B)'",
+     "A'·B'"
+    ],
+    [
+     "NAND",
+     "0 only when all inputs are 1"
+    ],
+    [
+     "NOR",
+     "1 only when all inputs are 0"
+    ],
+    [
+     "Rows for 2 variables",
+     "4"
+    ],
+    [
+     "Rows for 3 variables",
+     "8"
+    ],
+    [
+     "Y = A·B + A' at A=1, B=0",
+     "0"
+    ],
+    [
+     "Y = A·B + A' at A=0, B=1",
+     "1"
+    ]
+   ],
+   "leftTitle": "Expression",
+   "rightTitle": "Equals",
+   "mode": "check"
+  }
+ },
+ "g11-cs-03-01": {
+  "type": "flowchart",
+  "p": {
+   "title": "GST bill: from problem to program",
+   "task": "arrange",
+   "challenge": "Put the problem-solving steps for the GST bill in the right order",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "🔍",
+     "text": "Analyse: inputs n, p → output total",
+     "info": "Constraint: n and p must not be negative."
+    },
+    {
+     "id": "b",
+     "emoji": "📝",
+     "text": "Algorithm: amount = n × p, add 18% GST",
+     "info": "Total = amount + 18% of amount."
+    },
+    {
+     "id": "c",
+     "emoji": "⌨️",
+     "text": "Code the algorithm in Python"
+    },
+    {
+     "id": "d",
+     "emoji": "🧪",
+     "text": "Test with data whose answer is known"
+    },
+    {
+     "id": "e",
+     "emoji": "🐞",
+     "text": "Debug: find and fix any errors"
+    }
+   ]
+  }
+ },
+ "g11-cs-03-02": {
+  "type": "storysequence",
+  "p": {
+   "title": "Testing and debugging the percentage program",
+   "challenge": "Arrange the steps from writing the code to the bug-free result",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "⌨️",
+     "t": "Write the source code in Python"
+    },
+    {
+     "e": "🔁",
+     "t": "The interpreter translates and runs it"
+    },
+    {
+     "e": "🧪",
+     "t": "Test: marks 90 in 5 subjects, expect 90%"
+    },
+    {
+     "e": "❗",
+     "t": "The program prints 450%: a bug"
+    },
+    {
+     "e": "🐞",
+     "t": "Debug: fix formula to (total / 500) × 100"
+    },
+    {
+     "e": "✅",
+     "t": "Re-test: output is now 90%"
+    }
+   ]
+  }
+ },
+ "g11-cs-03-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Characteristics of a good algorithm",
+   "challenge": "Match each characteristic or bad step to its description",
+   "pairs": [
+    [
+     "Precision",
+     "Each step is exactly stated"
+    ],
+    [
+     "Finiteness",
+     "Always stops after finite steps"
+    ],
+    [
+     "Uniqueness",
+     "Result depends only on input and earlier steps"
+    ],
+    [
+     "Input",
+     "Receives the numbers A and B"
+    ],
+    [
+     "Output",
+     "Prints Large"
+    ],
+    [
+     "Language-independent",
+     "Same steps in Python, C++ or Java"
+    ],
+    [
+     "'Add some numbers'",
+     "Breaks precision (too vague)"
+    ],
+    [
+     "'Repeat forever'",
+     "Breaks finiteness (never stops)"
+    ]
+   ],
+   "leftTitle": "Idea",
+   "rightTitle": "Means",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-03-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which flowchart symbol?",
+   "challenge": "Sort each flowchart step into the symbol it is drawn in",
+   "bins": [
+    {
+     "name": "Terminator (oval)",
+     "emoji": "⬭"
+    },
+    {
+     "name": "Process (rectangle)",
+     "emoji": "▭"
+    },
+    {
+     "name": "Decision (diamond)",
+     "emoji": "◇"
+    },
+    {
+     "name": "Input/Output (parallelogram)",
+     "emoji": "▱"
+    }
+   ],
+   "items": [
+    {
+     "text": "Start",
+     "bin": 0
+    },
+    {
+     "text": "Stop",
+     "bin": 0
+    },
+    {
+     "text": "Sum = A + B",
+     "bin": 1
+    },
+    {
+     "text": "Square = N × N",
+     "bin": 1
+    },
+    {
+     "text": "Is A > B?",
+     "bin": 2
+    },
+    {
+     "text": "Is N even?",
+     "bin": 2
+    },
+    {
+     "text": "Input A, B",
+     "bin": 3
+    },
+    {
+     "text": "Print Sum",
+     "bin": 3
+    },
+    {
+     "text": "Input N",
+     "bin": 3
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-03-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "Pseudocode: eligible to vote?",
+   "task": "play",
+   "challenge": "Play the pseudocode for age 17: at the IF, choose the branch it really takes",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "⌨️",
+     "text": "INPUT age",
+     "info": "Read the person’s age."
+    },
+    {
+     "id": "b",
+     "emoji": "❓",
+     "text": "IF age >= 18 THEN",
+     "info": "Choose Yes for age 18 or more.",
+     "type": "decision"
+    },
+    {
+     "id": "c",
+     "emoji": "✅",
+     "text": "PRINT \"Eligible to vote\""
+    },
+    {
+     "id": "d",
+     "emoji": "🚫",
+     "text": "ELSE PRINT \"Not eligible\""
+    },
+    {
+     "id": "e",
+     "emoji": "🏁",
+     "text": "End of pseudocode"
+    }
+   ],
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "c",
+     "label": "Yes"
+    },
+    {
+     "from": "b",
+     "to": "d",
+     "label": "No"
+    },
+    {
+     "from": "c",
+     "to": "e"
+    },
+    {
+     "from": "d",
+     "to": "e"
+    }
+   ]
+  }
+ },
+ "g11-cs-03-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "Sequence, selection or repetition?",
+   "challenge": "Sort each step by the flow-of-control structure it uses",
+   "bins": [
+    {
+     "name": "Sequence",
+     "emoji": "➡️"
+    },
+    {
+     "name": "Selection",
+     "emoji": "🔀"
+    },
+    {
+     "name": "Repetition",
+     "emoji": "🔁"
+    }
+   ],
+   "items": [
+    {
+     "text": "Input A and B, then print A + B",
+     "bin": 0
+    },
+    {
+     "text": "Read the number, then finally print the count",
+     "bin": 0
+    },
+    {
+     "text": "Compute area, then print it",
+     "bin": 0
+    },
+    {
+     "text": "If number MOD 2 = 0, print 'Even', else 'Odd'",
+     "bin": 1
+    },
+    {
+     "text": "If age >= 18, print 'Eligible'",
+     "bin": 1
+    },
+    {
+     "text": "If a number is negative, count it",
+     "bin": 1
+    },
+    {
+     "text": "Sum the marks of 40 students",
+     "bin": 2
+    },
+    {
+     "text": "For each of 10 numbers …",
+     "bin": 2
+    },
+    {
+     "text": "Count the digits of a number",
+     "bin": 2
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-03-07": {
+  "type": "datachart",
+  "p": {
+   "title": "Divisors tested to check if 101 is prime",
+   "labels": [
+    "2 to n − 1",
+    "2 to n/2",
+    "2 to √n"
+   ],
+   "values": [
+    99,
+    49,
+    9
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "checks",
+   "editable": false,
+   "statsOf": "none",
+   "ask": {
+    "type": "read",
+    "question": "All three correctly find 101 is prime. How many fewer checks does the √n method need than the n − 1 method?",
+    "answer": 90
+   }
+  }
+ },
+ "g11-cs-03-08": {
+  "type": "sortbins",
+  "p": {
+   "title": "Decompose a school management system",
+   "challenge": "Break the big system into modules: sort each task into its sub-problem",
+   "bins": [
+    {
+     "name": "Attendance",
+     "emoji": "📋"
+    },
+    {
+     "name": "Fee collection",
+     "emoji": "💰"
+    },
+    {
+     "name": "Examination",
+     "emoji": "📝"
+    },
+    {
+     "name": "Library",
+     "emoji": "📚"
+    }
+   ],
+   "items": [
+    {
+     "text": "Mark today's absentees",
+     "bin": 0
+    },
+    {
+     "text": "Show a student's monthly attendance %",
+     "bin": 0
+    },
+    {
+     "text": "Collect the term fee",
+     "bin": 1
+    },
+    {
+     "text": "Print a fee receipt",
+     "bin": 1
+    },
+    {
+     "text": "Enter marks of each subject",
+     "bin": 2
+    },
+    {
+     "text": "Print report cards",
+     "bin": 2
+    },
+    {
+     "text": "Issue a book",
+     "bin": 3
+    },
+    {
+     "text": "Charge a fine for late return",
+     "bin": 3
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-04-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Meet Python",
+   "challenge": "Match each Python feature to what it means",
+   "pairs": [
+    [
+     "Created by",
+     "Guido van Rossum"
+    ],
+    [
+     ">>>",
+     "Interactive-mode prompt"
+    ],
+    [
+     ".py",
+     "Script-mode file extension"
+    ],
+    [
+     "F5 in IDLE",
+     "Run → Run Module"
+    ],
+    [
+     "Marks vs marks",
+     "Different names (case-sensitive)"
+    ],
+    [
+     "Indentation",
+     "Defines blocks"
+    ],
+    [
+     "Interpreted",
+     "Runs line by line"
+    ],
+    [
+     "Portable",
+     "Same code on Windows, Linux, macOS"
+    ]
+   ],
+   "leftTitle": "Feature",
+   "rightTitle": "Meaning",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-04-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Tokens in Python",
+   "challenge": "Sort each token from code like  if marks >= 33 : print(\"Pass\")",
+   "bins": [
+    {
+     "name": "Keyword",
+     "emoji": "🔑"
+    },
+    {
+     "name": "Identifier",
+     "emoji": "🏷️"
+    },
+    {
+     "name": "Literal",
+     "emoji": "💎"
+    },
+    {
+     "name": "Operator",
+     "emoji": "➕"
+    }
+   ],
+   "items": [
+    {
+     "text": "if",
+     "bin": 0
+    },
+    {
+     "text": "True",
+     "bin": 0
+    },
+    {
+     "text": "None",
+     "bin": 0
+    },
+    {
+     "text": "def",
+     "bin": 0
+    },
+    {
+     "text": "marks",
+     "bin": 1
+    },
+    {
+     "text": "print",
+     "bin": 1,
+     "why": "print is a built-in function name, not a keyword."
+    },
+    {
+     "text": "true",
+     "bin": 1,
+     "why": "Keywords are case-sensitive: true is just a name."
+    },
+    {
+     "text": "33",
+     "bin": 2
+    },
+    {
+     "text": "\"Pass\"",
+     "bin": 2
+    },
+    {
+     "text": "3.14",
+     "bin": 2
+    },
+    {
+     "text": ">=",
+     "bin": 3
+    },
+    {
+     "text": "==",
+     "bin": 3
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-04-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Valid identifier?",
+   "challenge": "Sort each name: can it be used as a Python identifier?",
+   "bins": [
+    {
+     "name": "Valid",
+     "emoji": "✅"
+    },
+    {
+     "name": "Invalid",
+     "emoji": "❌"
+    }
+   ],
+   "items": [
+    {
+     "text": "_count",
+     "bin": 0
+    },
+    {
+     "text": "Rate",
+     "bin": 0
+    },
+    {
+     "text": "roll_no1",
+     "bin": 0
+    },
+    {
+     "text": "total_marks",
+     "bin": 0
+    },
+    {
+     "text": "If",
+     "bin": 0,
+     "why": "Keywords are case-sensitive: If is not the keyword if."
+    },
+    {
+     "text": "2nd_term",
+     "bin": 1,
+     "why": "Cannot start with a digit."
+    },
+    {
+     "text": "total-marks",
+     "bin": 1,
+     "why": "Hyphen is not allowed."
+    },
+    {
+     "text": "class",
+     "bin": 1,
+     "why": "class is a keyword."
+    },
+    {
+     "text": "first name",
+     "bin": 1,
+     "why": "No spaces allowed."
+    },
+    {
+     "text": "price$",
+     "bin": 1,
+     "why": "No special symbols like $."
+    },
+    {
+     "text": "import",
+     "bin": 1,
+     "why": "import is a keyword."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-04-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Variables and assignment",
+   "challenge": "Match each statement to its result",
+   "pairs": [
+    [
+     "a = b = c = 0",
+     "All three refer to 0"
+    ],
+    [
+     "x, y, z = 1, 2, 3",
+     "z is 3"
+    ],
+    [
+     "x, y = y, x",
+     "Swaps x and y"
+    ],
+    [
+     "5 = x",
+     "Error: 5 cannot be an l-value"
+    ],
+    [
+     "x = 10; y = x; x = x + 5 → x",
+     "15"
+    ],
+    [
+     "x = 10; y = x; x = x + 5 → y",
+     "10"
+    ],
+    [
+     "id(x)",
+     "Identity (memory location)"
+    ],
+    [
+     "type(x)",
+     "Type of the object"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Result",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-04-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which kind of data type?",
+   "challenge": "Sort each value by its kind of data type",
+   "bins": [
+    {
+     "name": "Number",
+     "emoji": "🔢"
+    },
+    {
+     "name": "Sequence",
+     "emoji": "📏"
+    },
+    {
+     "name": "Set",
+     "emoji": "🫧"
+    },
+    {
+     "name": "Mapping (dict)",
+     "emoji": "🗂️"
+    }
+   ],
+   "items": [
+    {
+     "text": "25",
+     "bin": 0
+    },
+    {
+     "text": "3.14",
+     "bin": 0
+    },
+    {
+     "text": "3 + 4j",
+     "bin": 0
+    },
+    {
+     "text": "True",
+     "bin": 0,
+     "why": "bool is a subtype of int."
+    },
+    {
+     "text": "'India'",
+     "bin": 1
+    },
+    {
+     "text": "[1, 'a', 2.5]",
+     "bin": 1
+    },
+    {
+     "text": "(10, 20)",
+     "bin": 1
+    },
+    {
+     "text": "{1, 2, 3}",
+     "bin": 2
+    },
+    {
+     "text": "{25}",
+     "bin": 2
+    },
+    {
+     "text": "{'roll': 12, 'name': 'Asha'}",
+     "bin": 3
+    },
+    {
+     "text": "{'a': 25}",
+     "bin": 3
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-04-06": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Choosing a data type",
+   "challenge": "Match each need or code to the right type or effect (mutable vs immutable)",
+   "pairs": [
+    [
+     "Shopping cart that keeps changing",
+     "list"
+    ],
+    [
+     "Days of the week (fixed)",
+     "tuple"
+    ],
+    [
+     "Roll number → name lookup",
+     "dictionary"
+    ],
+    [
+     "Only unique items",
+     "set"
+    ],
+    [
+     "Check a value's type",
+     "type()"
+    ],
+    [
+     "x = 10; x = x + 1",
+     "x refers to a NEW object"
+    ],
+    [
+     "L = [1, 2]; L.append(3)",
+     "The SAME list is changed"
+    ],
+    [
+     "s = 'ab'; s = s + 'c'",
+     "id(s) changes"
+    ]
+   ],
+   "leftTitle": "Need / code",
+   "rightTitle": "Answer",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-04-07": {
+  "type": "numberline",
+  "p": {
+   "mode": "place",
+   "min": -6,
+   "max": 2,
+   "tick": 1,
+   "start": 0,
+   "target": -4,
+   "showTarget": false,
+   "newChallenge": false,
+   "marks": [
+    {
+     "value": -3.5,
+     "label": "−7 / 2"
+    }
+   ],
+   "challenge": "−7 / 2 = −3.5 is marked. Floor division rounds DOWN. Drag the frog to −7 // 2"
+  }
+ },
+ "g11-cs-04-08": {
+  "type": "sortbins",
+  "p": {
+   "title": "Truthy or falsy?",
+   "challenge": "Sort each value: does Python treat it as True or False in a condition?",
+   "bins": [
+    {
+     "name": "Truthy",
+     "emoji": "👍",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Falsy",
+     "emoji": "👎",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "0",
+     "bin": 1
+    },
+    {
+     "text": "0.0",
+     "bin": 1
+    },
+    {
+     "text": "'' (empty string)",
+     "bin": 1
+    },
+    {
+     "text": "[]",
+     "bin": 1
+    },
+    {
+     "text": "()",
+     "bin": 1
+    },
+    {
+     "text": "{}",
+     "bin": 1
+    },
+    {
+     "text": "None",
+     "bin": 1
+    },
+    {
+     "text": "5",
+     "bin": 0
+    },
+    {
+     "text": "'Guest'",
+     "bin": 0
+    },
+    {
+     "text": "[0]",
+     "bin": 0,
+     "why": "A list with one element is not empty."
+    },
+    {
+     "text": "' ' (one space)",
+     "bin": 0,
+     "why": "A space is a character, so the string is not empty."
+    },
+    {
+     "text": "-1",
+     "bin": 0
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-04-09": {
+  "type": "flowchart",
+  "p": {
+   "title": "Evaluate 20 − 3 * 2 ** 2 + 8 // 3",
+   "task": "arrange",
+   "challenge": "Solve it by precedence: ** first, then * and // left to right, then + and − left to right. Put the steps in order",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "1️⃣",
+     "text": "2 ** 2 = 4",
+     "info": "** has the highest precedence here."
+    },
+    {
+     "id": "b",
+     "emoji": "✖️",
+     "text": "3 * 4 = 12",
+     "info": "* and // are next, left to right."
+    },
+    {
+     "id": "c",
+     "emoji": "➗",
+     "text": "8 // 3 = 2"
+    },
+    {
+     "id": "d",
+     "emoji": "➖",
+     "text": "20 − 12 = 8",
+     "info": "Then + and −, left to right."
+    },
+    {
+     "id": "e",
+     "emoji": "➕",
+     "text": "8 + 2 = 10",
+     "info": "Final value: 10"
+    }
+   ]
+  }
+ },
+ "g11-cs-04-10": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Input and output",
+   "challenge": "Match each statement to what it gives",
+   "pairs": [
+    [
+     "print(1, 2, 3, sep='-')",
+     "1-2-3"
+    ],
+    [
+     "print('Hi', end='!')",
+     "Hi! with no newline"
+    ],
+    [
+     "print(1, 2, 3)",
+     "1 2 3"
+    ],
+    [
+     "input() returns",
+     "a string"
+    ],
+    [
+     "int(input('Age: '))",
+     "age as an integer"
+    ],
+    [
+     "SI for P = 1000, R = 5, T = 2",
+     "100.0"
+    ],
+    [
+     "F = C * 9 / 5 + 32 for C = 100",
+     "212.0"
+    ],
+    [
+     "a, b = b, a",
+     "swaps a and b"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Gives",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-04-11": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "int",
+     "float",
+     "str",
+     "chr",
+     "ord"
+    ],
+    [
+     "(4.9)",
+     "('42')",
+     "(65)",
+     "('a')"
+    ]
+   ],
+   "slotLabels": [
+    "Function",
+    "Argument"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "int",
+      "(4.9)"
+     ],
+     "word": "int(4.9)",
+     "meaning": "→ 4 (the fraction is dropped)"
+    },
+    {
+     "parts": [
+      "int",
+      "('42')"
+     ],
+     "word": "int('42')",
+     "meaning": "→ 42"
+    },
+    {
+     "parts": [
+      "int",
+      "(65)"
+     ],
+     "word": "int(65)",
+     "meaning": "→ 65"
+    },
+    {
+     "parts": [
+      "int",
+      "('a')"
+     ],
+     "word": "int('a')",
+     "meaning": "→ ValueError (not a number)"
+    },
+    {
+     "parts": [
+      "float",
+      "(4.9)"
+     ],
+     "word": "float(4.9)",
+     "meaning": "→ 4.9"
+    },
+    {
+     "parts": [
+      "float",
+      "('42')"
+     ],
+     "word": "float('42')",
+     "meaning": "→ 42.0"
+    },
+    {
+     "parts": [
+      "float",
+      "(65)"
+     ],
+     "word": "float(65)",
+     "meaning": "→ 65.0"
+    },
+    {
+     "parts": [
+      "float",
+      "('a')"
+     ],
+     "word": "float('a')",
+     "meaning": "→ ValueError"
+    },
+    {
+     "parts": [
+      "str",
+      "(4.9)"
+     ],
+     "word": "str(4.9)",
+     "meaning": "→ '4.9'"
+    },
+    {
+     "parts": [
+      "str",
+      "('42')"
+     ],
+     "word": "str('42')",
+     "meaning": "→ '42'"
+    },
+    {
+     "parts": [
+      "str",
+      "(65)"
+     ],
+     "word": "str(65)",
+     "meaning": "→ '65'"
+    },
+    {
+     "parts": [
+      "str",
+      "('a')"
+     ],
+     "word": "str('a')",
+     "meaning": "→ 'a'"
+    },
+    {
+     "parts": [
+      "chr",
+      "(4.9)"
+     ],
+     "word": "chr(4.9)",
+     "meaning": "→ TypeError"
+    },
+    {
+     "parts": [
+      "chr",
+      "('42')"
+     ],
+     "word": "chr('42')",
+     "meaning": "→ TypeError"
+    },
+    {
+     "parts": [
+      "chr",
+      "(65)"
+     ],
+     "word": "chr(65)",
+     "meaning": "→ 'A'"
+    },
+    {
+     "parts": [
+      "chr",
+      "('a')"
+     ],
+     "word": "chr('a')",
+     "meaning": "→ TypeError"
+    },
+    {
+     "parts": [
+      "ord",
+      "(4.9)"
+     ],
+     "word": "ord(4.9)",
+     "meaning": "→ TypeError"
+    },
+    {
+     "parts": [
+      "ord",
+      "('42')"
+     ],
+     "word": "ord('42')",
+     "meaning": "→ TypeError"
+    },
+    {
+     "parts": [
+      "ord",
+      "(65)"
+     ],
+     "word": "ord(65)",
+     "meaning": "→ TypeError"
+    },
+    {
+     "parts": [
+      "ord",
+      "('a')"
+     ],
+     "word": "ord('a')",
+     "meaning": "→ 97"
+    }
+   ],
+   "targets": [
+    "float('42')",
+    "chr(65)",
+    "int(4.9)",
+    "ord('a')",
+    "int('a')"
+   ],
+   "challenge": "Spin a conversion function and an argument to get the result in each clue"
+  }
+ },
+ "g11-cs-04-12": {
+  "type": "sortbins",
+  "p": {
+   "title": "Syntax, logical or runtime error?",
+   "challenge": "Sort each bug by the kind of error it causes",
+   "bins": [
+    {
+     "name": "Syntax",
+     "emoji": "📛"
+    },
+    {
+     "name": "Logical",
+     "emoji": "🤔"
+    },
+    {
+     "name": "Runtime",
+     "emoji": "💥"
+    }
+   ],
+   "items": [
+    {
+     "text": "if x > 5 print(x)",
+     "bin": 0,
+     "why": "Missing colon after the condition."
+    },
+    {
+     "text": "print('Hi'",
+     "bin": 0,
+     "why": "Unmatched bracket."
+    },
+    {
+     "text": "whlie n > 0:",
+     "bin": 0,
+     "why": "Misspelt keyword."
+    },
+    {
+     "text": "avg = a + b / 2",
+     "bin": 1,
+     "why": "Runs, but only b is divided by 2."
+    },
+    {
+     "text": "area = l + b  (for a rectangle)",
+     "bin": 1
+    },
+    {
+     "text": "print(10 / n) with n = 0",
+     "bin": 2,
+     "why": "ZeroDivisionError while running."
+    },
+    {
+     "text": "int('abc')",
+     "bin": 2,
+     "why": "ValueError."
+    },
+    {
+     "text": "'5' + 2",
+     "bin": 2,
+     "why": "TypeError."
+    },
+    {
+     "text": "print(totl)  (never defined)",
+     "bin": 2,
+     "why": "NameError."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-05-01": {
+  "type": "sentencebuilder",
+  "p": {
+   "mode": "order",
+   "challenge": "Build each if / if-else statement in the right order (watch the colons and == )",
+   "items": [
+    {
+     "text": "if n % 2 == 0: print('Even') else: print('Odd')",
+     "hint": "Print Even for an even n, else Odd"
+    },
+    {
+     "text": "if age >= 18: print('Eligible')",
+     "hint": "Print Eligible only when age is 18 or more"
+    }
+   ],
+   "extra": [
+    "=",
+    "then"
+   ]
+  }
+ },
+ "g11-cs-05-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Run the elif ladder",
+   "challenge": "Ladder: if marks >= 90: 'A'  elif >= 75: 'B'  elif >= 60: 'C'  else: 'D'. Sort each mark into its grade",
+   "bins": [
+    {
+     "name": "'A'",
+     "emoji": "🥇"
+    },
+    {
+     "name": "'B'",
+     "emoji": "🥈"
+    },
+    {
+     "name": "'C'",
+     "emoji": "🥉"
+    },
+    {
+     "name": "'D'",
+     "emoji": "📘"
+    }
+   ],
+   "items": [
+    {
+     "text": "marks = 95",
+     "bin": 0
+    },
+    {
+     "text": "marks = 90",
+     "bin": 0,
+     "why": "90 >= 90 is True."
+    },
+    {
+     "text": "marks = 89",
+     "bin": 1
+    },
+    {
+     "text": "marks = 82",
+     "bin": 1
+    },
+    {
+     "text": "marks = 75",
+     "bin": 1,
+     "why": "75 >= 75 is True."
+    },
+    {
+     "text": "marks = 74",
+     "bin": 2
+    },
+    {
+     "text": "marks = 60",
+     "bin": 2
+    },
+    {
+     "text": "marks = 59",
+     "bin": 3
+    },
+    {
+     "text": "marks = 33",
+     "bin": 3
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-05-03": {
+  "type": "flowchart",
+  "p": {
+   "title": "Leap year check",
+   "task": "play",
+   "challenge": "Play the check for 1900: at each decision choose what 1900 really gives",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "📅",
+     "text": "Read year",
+     "info": "Try it with 1900, then with 2024."
+    },
+    {
+     "id": "b",
+     "emoji": "❓",
+     "text": "year % 400 == 0?",
+     "type": "decision"
+    },
+    {
+     "id": "c",
+     "emoji": "❓",
+     "text": "year % 100 == 0?",
+     "type": "decision"
+    },
+    {
+     "id": "d",
+     "emoji": "❓",
+     "text": "year % 4 == 0?",
+     "type": "decision"
+    },
+    {
+     "id": "l",
+     "emoji": "✅",
+     "text": "Leap year",
+     "info": "2000 and 2024 end here."
+    },
+    {
+     "id": "n",
+     "emoji": "🚫",
+     "text": "Not a leap year",
+     "info": "1900 and 2100 end here."
+    }
+   ],
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "l",
+     "label": "Yes"
+    },
+    {
+     "from": "b",
+     "to": "c",
+     "label": "No"
+    },
+    {
+     "from": "c",
+     "to": "n",
+     "label": "Yes"
+    },
+    {
+     "from": "c",
+     "to": "d",
+     "label": "No"
+    },
+    {
+     "from": "d",
+     "to": "l",
+     "label": "Yes"
+    },
+    {
+     "from": "d",
+     "to": "n",
+     "label": "No"
+    }
+   ]
+  }
+ },
+ "g11-cs-05-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "What does range() give?",
+   "challenge": "Match each range to the values a for loop gets (stop is never included)",
+   "pairs": [
+    [
+     "range(5)",
+     "0 1 2 3 4"
+    ],
+    [
+     "range(2, 6)",
+     "2 3 4 5"
+    ],
+    [
+     "range(1, 10, 3)",
+     "1 4 7"
+    ],
+    [
+     "range(10, 0, -2)",
+     "10 8 6 4 2"
+    ],
+    [
+     "range(2, 11, 2)",
+     "2 4 6 8 10"
+    ],
+    [
+     "range(3)",
+     "0 1 2"
+    ],
+    [
+     "range(5, 1)",
+     "nothing: the loop body never runs"
+    ],
+    [
+     "range(1, 11)",
+     "1 to 10"
+    ]
+   ],
+   "leftTitle": "range",
+   "rightTitle": "Values",
+   "mode": "check"
+  }
+ },
+ "g11-cs-05-05": {
+  "type": "storysequence",
+  "p": {
+   "title": "HCF of 48 and 18 by Euclid",
+   "challenge": "Trace  while b != 0: a, b = b, a % b  and put the values in the order the loop produces them",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "🟣",
+     "t": "a = 48, b = 18"
+    },
+    {
+     "e": "🔵",
+     "t": "a = 18, b = 12"
+    },
+    {
+     "e": "🟢",
+     "t": "a = 12, b = 6"
+    },
+    {
+     "e": "🟡",
+     "t": "a = 6, b = 0"
+    },
+    {
+     "e": "🏁",
+     "t": "b is 0: loop stops, HCF = 6"
+    }
+   ]
+  }
+ },
+ "g11-cs-05-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "Prime check with break and loop-else",
+   "challenge": "for i in range(2, n): if n % i == 0: print('Not prime'); break  else: print('Prime'). Sort each n by what it prints",
+   "bins": [
+    {
+     "name": "'Prime' (else runs)",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "'Not prime' (break)",
+     "emoji": "🛑",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "n = 7",
+     "bin": 0
+    },
+    {
+     "text": "n = 13",
+     "bin": 0
+    },
+    {
+     "text": "n = 2",
+     "bin": 0,
+     "why": "range(2, 2) is empty, so the loop ends normally and else runs."
+    },
+    {
+     "text": "n = 17",
+     "bin": 0
+    },
+    {
+     "text": "n = 15",
+     "bin": 1,
+     "why": "15 % 3 == 0: break, so else is skipped."
+    },
+    {
+     "text": "n = 9",
+     "bin": 1
+    },
+    {
+     "text": "n = 21",
+     "bin": 1
+    },
+    {
+     "text": "n = 25",
+     "bin": 1
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-05-07": {
+  "type": "patterns",
+  "p": {
+   "kind": "triangular",
+   "visual": "dots",
+   "label": "stars",
+   "n": 3,
+   "maxN": 5,
+   "ask": {
+    "term": 10
+   },
+   "showSum": false,
+   "challenge": "Row i of the triangle prints i stars (inner loop runs i times). How many stars in total for 10 rows?"
+  }
+ },
+ "g11-cs-06-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "city = 'Kolkata'",
+   "challenge": "Indices: K0 o1 l2 k3 a4 t5 a6. Match each expression to its result",
+   "pairs": [
+    [
+     "city[0]",
+     "'K'"
+    ],
+    [
+     "city[2]",
+     "'l'"
+    ],
+    [
+     "city[3]",
+     "'k'"
+    ],
+    [
+     "city[-1]",
+     "'a'"
+    ],
+    [
+     "city[-7]",
+     "'K'"
+    ],
+    [
+     "city[7]",
+     "IndexError"
+    ],
+    [
+     "city[1.5]",
+     "TypeError"
+    ],
+    [
+     "city[0] = 'C'",
+     "TypeError"
+    ]
+   ],
+   "leftTitle": "Expression",
+   "rightTitle": "Result",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-06-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "String, True/False or error?",
+   "challenge": "Sort each expression by what it produces",
+   "bins": [
+    {
+     "name": "A new string",
+     "emoji": "🧵"
+    },
+    {
+     "name": "True / False",
+     "emoji": "⚖️"
+    },
+    {
+     "name": "TypeError",
+     "emoji": "💥",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "'Ha' * 3 + '!'",
+     "bin": 0
+    },
+    {
+     "text": "'Good' + 'Day'",
+     "bin": 0
+    },
+    {
+     "text": "'ab' * 0",
+     "bin": 0,
+     "why": "Gives '' (an empty string)."
+    },
+    {
+     "text": "'pur' in 'Jaipur'",
+     "bin": 1
+    },
+    {
+     "text": "'J' not in 'Jaipur'",
+     "bin": 1
+    },
+    {
+     "text": "'a' in 'INDIA'",
+     "bin": 1,
+     "why": "Case-sensitive: False."
+    },
+    {
+     "text": "'Age' + 15",
+     "bin": 2,
+     "why": "Both operands of + must be strings."
+    },
+    {
+     "text": "'ab' * 2.5",
+     "bin": 2,
+     "why": "Repeat only a whole number of times."
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-06-03": {
+  "type": "wordbuilder",
+  "p": {
+   "slots": [
+    [
+     "s["
+    ],
+    [
+     "",
+     "1",
+     "5",
+     "-3"
+    ],
+    [
+     ":",
+     ":3",
+     ":4"
+    ],
+    [
+     "]",
+     ":2]",
+     ":-1]"
+    ]
+   ],
+   "slotLabels": [
+    "s",
+    "start",
+    "stop",
+    "step"
+   ],
+   "rootSlot": 0,
+   "words": [
+    {
+     "parts": [
+      "s[",
+      "",
+      ":",
+      "]"
+     ],
+     "word": "s[:]",
+     "meaning": "→ 'COMPUTER'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":",
+      ":2]"
+     ],
+     "word": "s[::2]",
+     "meaning": "→ 'CMUE'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":",
+      ":-1]"
+     ],
+     "word": "s[::-1]",
+     "meaning": "→ 'RETUPMOC'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":3",
+      "]"
+     ],
+     "word": "s[:3]",
+     "meaning": "→ 'COM'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":3",
+      ":2]"
+     ],
+     "word": "s[:3:2]",
+     "meaning": "→ 'CM'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":3",
+      ":-1]"
+     ],
+     "word": "s[:3:-1]",
+     "meaning": "→ 'RETU'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":4",
+      "]"
+     ],
+     "word": "s[:4]",
+     "meaning": "→ 'COMP'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":4",
+      ":2]"
+     ],
+     "word": "s[:4:2]",
+     "meaning": "→ 'CM'"
+    },
+    {
+     "parts": [
+      "s[",
+      "",
+      ":4",
+      ":-1]"
+     ],
+     "word": "s[:4:-1]",
+     "meaning": "→ 'RET'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":",
+      "]"
+     ],
+     "word": "s[1:]",
+     "meaning": "→ 'OMPUTER'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":",
+      ":2]"
+     ],
+     "word": "s[1::2]",
+     "meaning": "→ 'OPTR'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":",
+      ":-1]"
+     ],
+     "word": "s[1::-1]",
+     "meaning": "→ 'OC'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":3",
+      "]"
+     ],
+     "word": "s[1:3]",
+     "meaning": "→ 'OM'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":3",
+      ":2]"
+     ],
+     "word": "s[1:3:2]",
+     "meaning": "→ 'O'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":3",
+      ":-1]"
+     ],
+     "word": "s[1:3:-1]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":4",
+      "]"
+     ],
+     "word": "s[1:4]",
+     "meaning": "→ 'OMP'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":4",
+      ":2]"
+     ],
+     "word": "s[1:4:2]",
+     "meaning": "→ 'OP'"
+    },
+    {
+     "parts": [
+      "s[",
+      "1",
+      ":4",
+      ":-1]"
+     ],
+     "word": "s[1:4:-1]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":",
+      "]"
+     ],
+     "word": "s[5:]",
+     "meaning": "→ 'TER'"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":",
+      ":2]"
+     ],
+     "word": "s[5::2]",
+     "meaning": "→ 'TR'"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":",
+      ":-1]"
+     ],
+     "word": "s[5::-1]",
+     "meaning": "→ 'TUPMOC'"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":3",
+      "]"
+     ],
+     "word": "s[5:3]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":3",
+      ":2]"
+     ],
+     "word": "s[5:3:2]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":3",
+      ":-1]"
+     ],
+     "word": "s[5:3:-1]",
+     "meaning": "→ 'TU'"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":4",
+      "]"
+     ],
+     "word": "s[5:4]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":4",
+      ":2]"
+     ],
+     "word": "s[5:4:2]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "5",
+      ":4",
+      ":-1]"
+     ],
+     "word": "s[5:4:-1]",
+     "meaning": "→ 'T'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":",
+      "]"
+     ],
+     "word": "s[-3:]",
+     "meaning": "→ 'TER'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":",
+      ":2]"
+     ],
+     "word": "s[-3::2]",
+     "meaning": "→ 'TR'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":",
+      ":-1]"
+     ],
+     "word": "s[-3::-1]",
+     "meaning": "→ 'TUPMOC'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":3",
+      "]"
+     ],
+     "word": "s[-3:3]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":3",
+      ":2]"
+     ],
+     "word": "s[-3:3:2]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":3",
+      ":-1]"
+     ],
+     "word": "s[-3:3:-1]",
+     "meaning": "→ 'TU'"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":4",
+      "]"
+     ],
+     "word": "s[-3:4]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":4",
+      ":2]"
+     ],
+     "word": "s[-3:4:2]",
+     "meaning": "→ '' (empty)"
+    },
+    {
+     "parts": [
+      "s[",
+      "-3",
+      ":4",
+      ":-1]"
+     ],
+     "word": "s[-3:4:-1]",
+     "meaning": "→ 'T'"
+    }
+   ],
+   "targets": [
+    "s[1:4]",
+    "s[:3]",
+    "s[::2]",
+    "s[::-1]",
+    "s[:4:-1]"
+   ],
+   "challenge": "s = 'COMPUTER' (C0 O1 M2 P3 U4 T5 E6 R7). Spin start, stop and step to make the slice in each clue"
+  }
+ },
+ "g11-cs-06-04": {
+  "type": "flowchart",
+  "p": {
+   "title": "Traverse 'Goa' with while",
+   "task": "play",
+   "challenge": "Play the loop for s = 'Goa': answer the condition each time until it ends",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "0️⃣",
+     "text": "i = 0",
+     "info": "s = 'Goa', len(s) = 3"
+    },
+    {
+     "id": "b",
+     "emoji": "❓",
+     "text": "i < len(s)?",
+     "info": "True for i = 0, 1, 2; False when i = 3.",
+     "type": "decision"
+    },
+    {
+     "id": "c",
+     "emoji": "🖨️",
+     "text": "print(i, s[i]); i += 1",
+     "info": "Prints 0 G, then 1 o, then 2 a."
+    },
+    {
+     "id": "d",
+     "emoji": "🏁",
+     "text": "Loop ends: 3 lines printed",
+     "info": "Using i <= len(s) would reach s[3]: IndexError."
+    }
+   ],
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "c",
+     "label": "Yes"
+    },
+    {
+     "from": "c",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "d",
+     "label": "No"
+    }
+   ]
+  }
+ },
+ "g11-cs-06-05": {
+  "type": "matchpairs",
+  "p": {
+   "title": "String methods",
+   "challenge": "Match each method call to what it returns",
+   "pairs": [
+    [
+     "'banana'.count('a')",
+     "3"
+    ],
+    [
+     "'banana'.find('n')",
+     "2"
+    ],
+    [
+     "'banana'.find('x')",
+     "-1"
+    ],
+    [
+     "'banana'.index('x')",
+     "ValueError"
+    ],
+    [
+     "'banana'.upper()",
+     "'BANANA'"
+    ],
+    [
+     "'hello world'.title()",
+     "'Hello World'"
+    ],
+    [
+     "'hELLO'.capitalize()",
+     "'Hello'"
+    ],
+    [
+     "'PyThOn'.swapcase()",
+     "'pYtHoN'"
+    ]
+   ],
+   "leftTitle": "Call",
+   "rightTitle": "Returns",
+   "mode": "check"
+  }
+ },
+ "g11-cs-06-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "Testing methods: True or False?",
+   "challenge": "Predict each test method: sort it into True or False",
+   "bins": [
+    {
+     "name": "True",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "False",
+     "emoji": "❌",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "'abc123'.isalnum()",
+     "bin": 0
+    },
+    {
+     "text": "'abc'.isalpha()",
+     "bin": 0
+    },
+    {
+     "text": "'2026'.isdigit()",
+     "bin": 0
+    },
+    {
+     "text": "'   '.isspace()",
+     "bin": 0
+    },
+    {
+     "text": "'Hello World'.istitle()",
+     "bin": 0
+    },
+    {
+     "text": "'hello'.islower()",
+     "bin": 0
+    },
+    {
+     "text": "'abc 1'.isalnum()",
+     "bin": 1,
+     "why": "The space is neither a letter nor a digit."
+    },
+    {
+     "text": "''.isdigit()",
+     "bin": 1,
+     "why": "Empty string: False."
+    },
+    {
+     "text": "''.isspace()",
+     "bin": 1
+    },
+    {
+     "text": "'12.5'.isdigit()",
+     "bin": 1,
+     "why": "'.' is not a digit."
+    },
+    {
+     "text": "'Hello'.isupper()",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-06-07": {
+  "type": "storysequence",
+  "p": {
+   "title": "Reverse 'Agra' with r = ch + r",
+   "challenge": "Trace  for ch in s: r = ch + r  for s = 'Agra' and put the steps in order",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "🟣",
+     "t": "r = ''"
+    },
+    {
+     "e": "🔵",
+     "t": "ch = 'A' → r = 'A'"
+    },
+    {
+     "e": "🟢",
+     "t": "ch = 'g' → r = 'gA'"
+    },
+    {
+     "e": "🟡",
+     "t": "ch = 'r' → r = 'rgA'"
+    },
+    {
+     "e": "🟠",
+     "t": "ch = 'a' → r = 'argA'"
+    },
+    {
+     "e": "🏁",
+     "t": "print(r) shows argA"
+    }
+   ]
+  }
+ },
+ "g11-cs-06-08": {
+  "type": "sortbins",
+  "p": {
+   "title": "Palindrome check: s == s[::-1]",
+   "challenge": "Sort each string by what s == s[::-1] gives",
+   "bins": [
+    {
+     "name": "Palindrome",
+     "emoji": "🔁",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Not a palindrome",
+     "emoji": "↔️",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "'madam'",
+     "bin": 0
+    },
+    {
+     "text": "'level'",
+     "bin": 0
+    },
+    {
+     "text": "'MALAYALAM'",
+     "bin": 0
+    },
+    {
+     "text": "'noon'",
+     "bin": 0
+    },
+    {
+     "text": "'Madam'.lower()",
+     "bin": 0,
+     "why": "lower() gives 'madam' first."
+    },
+    {
+     "text": "'Madam'",
+     "bin": 1,
+     "why": "Its reverse is 'madaM': case matters."
+    },
+    {
+     "text": "'Level'",
+     "bin": 1
+    },
+    {
+     "text": "'Python'",
+     "bin": 1
+    },
+    {
+     "text": "'abca'",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-07-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "marks = [78, 92, 65]",
+   "challenge": "Sort each expression: does it work or raise IndexError?",
+   "bins": [
+    {
+     "name": "Works",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "IndexError",
+     "emoji": "💥",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "marks[0]",
+     "bin": 0
+    },
+    {
+     "text": "marks[2]",
+     "bin": 0
+    },
+    {
+     "text": "marks[-1]",
+     "bin": 0
+    },
+    {
+     "text": "marks[-3]",
+     "bin": 0
+    },
+    {
+     "text": "marks[1] = 95",
+     "bin": 0,
+     "why": "Lists are mutable: this changes 92 to 95."
+    },
+    {
+     "text": "marks[len(marks) - 1]",
+     "bin": 0
+    },
+    {
+     "text": "marks[3]",
+     "bin": 1,
+     "why": "Valid indices are 0 to 2."
+    },
+    {
+     "text": "marks[-4]",
+     "bin": 1
+    },
+    {
+     "text": "marks[len(marks)]",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-07-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "L = [10, 20, 30, 40, 50]",
+   "challenge": "Match each list operation to its result",
+   "pairs": [
+    [
+     "L[1:4]",
+     "[20, 30, 40]"
+    ],
+    [
+     "L[::2]",
+     "[10, 30, 50]"
+    ],
+    [
+     "L[::-1]",
+     "[50, 40, 30, 20, 10]"
+    ],
+    [
+     "L + [60]",
+     "[10, 20, 30, 40, 50, 60]"
+    ],
+    [
+     "25 in L",
+     "False"
+    ],
+    [
+     "[0] * 4",
+     "[0, 0, 0, 0]"
+    ],
+    [
+     "2 in [[1, 2], 3]",
+     "False"
+    ],
+    [
+     "[1, 2] + 3",
+     "TypeError"
+    ]
+   ],
+   "leftTitle": "Operation",
+   "rightTitle": "Result",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-07-03": {
+  "type": "storysequence",
+  "p": {
+   "title": "Double every element in place",
+   "challenge": "Trace  for i in range(len(L)): L[i] = L[i] * 2  and order the states of L",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "🟣",
+     "t": "Start: L = [3, 5, 7]"
+    },
+    {
+     "e": "🔵",
+     "t": "L = [6, 5, 7]"
+    },
+    {
+     "e": "🟢",
+     "t": "L = [6, 10, 7]"
+    },
+    {
+     "e": "🟡",
+     "t": "L = [6, 10, 14]"
+    }
+   ]
+  }
+ },
+ "g11-cs-07-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "append, extend, insert, count, index",
+   "challenge": "Match each operation to the resulting list or value",
+   "pairs": [
+    [
+     "L = [1, 2]; L.append([3, 4])",
+     "[1, 2, [3, 4]]"
+    ],
+    [
+     "L = [1, 2]; L.extend([3, 4])",
+     "[1, 2, 3, 4]"
+    ],
+    [
+     "L = [10, 30]; L.insert(1, 20)",
+     "[10, 20, 30]"
+    ],
+    [
+     "L = ['a']; L.extend('bc')",
+     "['a', 'b', 'c']"
+    ],
+    [
+     "[1, 2, 1].count(1)",
+     "2"
+    ],
+    [
+     "[5, 7, 5].index(5)",
+     "0"
+    ],
+    [
+     "[5, 7].index(9)",
+     "ValueError"
+    ],
+    [
+     "print(L.append(5))",
+     "None"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Result",
+   "mode": "check"
+  }
+ },
+ "g11-cs-07-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "L = [40, 10, 30, 20]",
+   "challenge": "Sort each call: does it change L itself, or leave L as it was?",
+   "bins": [
+    {
+     "name": "Changes L in place",
+     "emoji": "✏️"
+    },
+    {
+     "name": "Leaves L unchanged",
+     "emoji": "🧊"
+    }
+   ],
+   "items": [
+    {
+     "text": "L.sort()",
+     "bin": 0
+    },
+    {
+     "text": "L.sort(reverse=True)",
+     "bin": 0
+    },
+    {
+     "text": "L.reverse()",
+     "bin": 0
+    },
+    {
+     "text": "L.remove(10)",
+     "bin": 0
+    },
+    {
+     "text": "L.pop()",
+     "bin": 0,
+     "why": "It also returns the removed element."
+    },
+    {
+     "text": "del L[0]",
+     "bin": 0
+    },
+    {
+     "text": "L.clear()",
+     "bin": 0
+    },
+    {
+     "text": "sorted(L)",
+     "bin": 1,
+     "why": "Returns a NEW sorted list."
+    },
+    {
+     "text": "min(L)",
+     "bin": 1
+    },
+    {
+     "text": "sum(L)",
+     "bin": 1
+    },
+    {
+     "text": "L[::-1]",
+     "bin": 1,
+     "why": "A reversed copy."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-07-06": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Nested lists and copies",
+   "challenge": "M = [[10, 20], [30, 40], [50, 60]]. Match each expression to its value",
+   "pairs": [
+    [
+     "M[2][0]",
+     "50"
+    ],
+    [
+     "len(M)",
+     "3"
+    ],
+    [
+     "len(M[0])",
+     "2"
+    ],
+    [
+     "M[1]",
+     "[30, 40]"
+    ],
+    [
+     "M[-1][-1]",
+     "60"
+    ],
+    [
+     "B = A; B is A",
+     "True (alias)"
+    ],
+    [
+     "B = A[:]; B is A",
+     "False (true copy)"
+    ],
+    [
+     "B = A; B[0] = 9 → A[0]",
+     "9"
+    ]
+   ],
+   "leftTitle": "Expression",
+   "rightTitle": "Value",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-07-07": {
+  "type": "sortbins",
+  "p": {
+   "title": "marks = [80, 90] passed to a function as L",
+   "challenge": "After the function returns, is the original list marks changed?",
+   "bins": [
+    {
+     "name": "marks changes",
+     "emoji": "✏️"
+    },
+    {
+     "name": "marks unchanged",
+     "emoji": "🧊"
+    }
+   ],
+   "items": [
+    {
+     "text": "L[i] += 5 for each i",
+     "bin": 0,
+     "why": "Same list object: marks becomes [85, 95]."
+    },
+    {
+     "text": "L.append(100)",
+     "bin": 0
+    },
+    {
+     "text": "L.sort(reverse=True)",
+     "bin": 0
+    },
+    {
+     "text": "L[0] = 0",
+     "bin": 0
+    },
+    {
+     "text": "L = [0, 0]",
+     "bin": 1,
+     "why": "L now refers to a NEW list; marks is not affected."
+    },
+    {
+     "text": "L = L + [5]",
+     "bin": 1,
+     "why": "L + [5] builds a new list, then L is reassigned."
+    },
+    {
+     "text": "print(len(L))",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-07-08": {
+  "type": "flowchart",
+  "p": {
+   "title": "Linear search for 42 in [15, 8, 42, 23, 42]",
+   "task": "play",
+   "challenge": "Play the search: answer each check for the real list until you reach the result",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "0️⃣",
+     "text": "i = 0",
+     "info": "L = [15, 8, 42, 23, 42], key = 42"
+    },
+    {
+     "id": "b",
+     "emoji": "❓",
+     "text": "i < len(L)?",
+     "type": "decision"
+    },
+    {
+     "id": "c",
+     "emoji": "🔍",
+     "text": "L[i] == 42?",
+     "info": "L[0] = 15, L[1] = 8, L[2] = 42",
+     "type": "decision"
+    },
+    {
+     "id": "d",
+     "emoji": "➕",
+     "text": "i += 1"
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "Found at position i + 1 = 3",
+     "info": "Stop at the first match: 3 comparisons."
+    },
+    {
+     "id": "f",
+     "emoji": "🚫",
+     "text": "Not found"
+    }
+   ],
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "c",
+     "label": "Yes"
+    },
+    {
+     "from": "b",
+     "to": "f",
+     "label": "No"
+    },
+    {
+     "from": "c",
+     "to": "e",
+     "label": "Yes"
+    },
+    {
+     "from": "c",
+     "to": "d",
+     "label": "No"
+    },
+    {
+     "from": "d",
+     "to": "b"
+    }
+   ]
+  }
+ },
+ "g11-cs-08-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Tuples",
+   "challenge": "t = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri') where used. Match each expression to its result",
+   "pairs": [
+    [
+     "(5,)",
+     "a tuple"
+    ],
+    [
+     "(5)",
+     "the int 5"
+    ],
+    [
+     "t = 10, 20",
+     "the tuple (10, 20)"
+    ],
+    [
+     "t[1]",
+     "'Tue'"
+    ],
+    [
+     "t[-2]",
+     "'Thu'"
+    ],
+    [
+     "t[0] = 'Sun'",
+     "TypeError"
+    ],
+    [
+     "t = (1, [2, 3]); t[1].append(4)",
+     "allowed: (1, [2, 3, 4])"
+    ],
+    [
+     "()",
+     "an empty tuple"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Result",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-08-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "t = (5, 2, 8, 2, 9): what type comes back?",
+   "challenge": "Sort each expression by the type of value it returns",
+   "bins": [
+    {
+     "name": "Tuple",
+     "emoji": "🔗"
+    },
+    {
+     "name": "List",
+     "emoji": "📋"
+    },
+    {
+     "name": "Number",
+     "emoji": "🔢"
+    }
+   ],
+   "items": [
+    {
+     "text": "t[1:4]",
+     "bin": 0
+    },
+    {
+     "text": "t[::-1]",
+     "bin": 0
+    },
+    {
+     "text": "t + (3,)",
+     "bin": 0
+    },
+    {
+     "text": "t * 2",
+     "bin": 0
+    },
+    {
+     "text": "tuple([1, 2])",
+     "bin": 0
+    },
+    {
+     "text": "sorted(t)",
+     "bin": 1,
+     "why": "sorted() always returns a LIST."
+    },
+    {
+     "text": "list(t)",
+     "bin": 1
+    },
+    {
+     "text": "t.count(2)",
+     "bin": 2
+    },
+    {
+     "text": "len(t)",
+     "bin": 2
+    },
+    {
+     "text": "sum(t)",
+     "bin": 2
+    },
+    {
+     "text": "max(t)",
+     "bin": 2
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-08-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "st = ((1, 'Asha', 92), (2, 'Ravi', 85))",
+   "challenge": "Match each tuple assignment or nested index to its result",
+   "pairs": [
+    [
+     "st[1][1]",
+     "'Ravi'"
+    ],
+    [
+     "st[0][2]",
+     "92"
+    ],
+    [
+     "len(st)",
+     "2"
+    ],
+    [
+     "st[1]",
+     "(2, 'Ravi', 85)"
+    ],
+    [
+     "x, y, z = 1, 2, 3 → y",
+     "2"
+    ],
+    [
+     "a, b = 5, 9; a, b = b, a → a",
+     "9"
+    ],
+    [
+     "a, b = (1, 2, 3)",
+     "ValueError: too many values"
+    ],
+    [
+     "a, b, c = (1, 2)",
+     "ValueError: not enough values"
+    ]
+   ],
+   "leftTitle": "Code",
+   "rightTitle": "Result",
+   "mode": "check"
+  }
+ },
+ "g11-cs-08-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Can it be a dictionary key?",
+   "challenge": "Keys must be immutable. Sort each value: valid key or TypeError?",
+   "bins": [
+    {
+     "name": "Valid key",
+     "emoji": "🔑",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "TypeError",
+     "emoji": "💥",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "'roll'",
+     "bin": 0
+    },
+    {
+     "text": "12",
+     "bin": 0
+    },
+    {
+     "text": "3.5",
+     "bin": 0
+    },
+    {
+     "text": "(1, 2)",
+     "bin": 0,
+     "why": "A tuple is immutable, so it can be a key."
+    },
+    {
+     "text": "'name'",
+     "bin": 0
+    },
+    {
+     "text": "[1, 2]",
+     "bin": 1,
+     "why": "A list is mutable, so it cannot be a key."
+    },
+    {
+     "text": "['a']",
+     "bin": 1
+    },
+    {
+     "text": "{1, 2}",
+     "bin": 1,
+     "why": "A set is mutable too."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-08-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "m = {'Asha': 92, 'Ravi': 85}",
+   "challenge": "Sort each test: True or False?",
+   "bins": [
+    {
+     "name": "True",
+     "emoji": "✅",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "False",
+     "emoji": "❌",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "'Ravi' in m",
+     "bin": 0
+    },
+    {
+     "text": "'Asha' in m",
+     "bin": 0
+    },
+    {
+     "text": "92 in m.values()",
+     "bin": 0
+    },
+    {
+     "text": "'Zoya' not in m",
+     "bin": 0
+    },
+    {
+     "text": "m.get('Zoya') is None",
+     "bin": 0
+    },
+    {
+     "text": "len(m) == 2",
+     "bin": 0
+    },
+    {
+     "text": "92 in m",
+     "bin": 1,
+     "why": "in checks KEYS only."
+    },
+    {
+     "text": "85 in m",
+     "bin": 1
+    },
+    {
+     "text": "'Zoya' in m",
+     "bin": 1
+    },
+    {
+     "text": "m.get('Zoya', 0) == 85",
+     "bin": 1,
+     "why": "The default 0 is returned."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g11-cs-08-07": {
+  "type": "storysequence",
+  "p": {
+   "title": "d = {'x': 1, 'y': 2, 'z': 3}",
+   "challenge": "Put the dictionary states in the order these method calls produce them",
+   "kind": "story",
+   "speak": false,
+   "panels": [
+    {
+     "e": "🟣",
+     "t": "Start: {'x': 1, 'y': 2, 'z': 3}"
+    },
+    {
+     "e": "🔵",
+     "t": "v = d.pop('y') → v = 2, d = {'x': 1, 'z': 3}"
+    },
+    {
+     "e": "🟢",
+     "t": "p = d.popitem() → p = ('z', 3), d = {'x': 1}"
+    },
+    {
+     "e": "🟡",
+     "t": "d.setdefault('w', 0) → d = {'x': 1, 'w': 0}"
+    },
+    {
+     "e": "🏁",
+     "t": "d.clear() → d = {}"
+    }
+   ]
+  }
+ },
+ "g11-cs-08-08": {
+  "type": "datachart",
+  "p": {
+   "title": "freq of each character in 'banana'",
+   "labels": [
+    "'b'",
+    "'a'",
+    "'n'"
+   ],
+   "values": [
+    0,
+    0,
+    0
+   ],
+   "views": [
+    "bar",
+    "tally"
+   ],
+   "unit": "times",
+   "max": 6,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     1,
+     3,
+     2
+    ]
+   },
+   "challenge": "Run freq[ch] = freq.get(ch, 0) + 1 for each letter of 'banana': tap + to build the final counts"
+  }
+ },
+ "g11-cs-08-09": {
+  "type": "matchpairs",
+  "p": {
+   "title": "math module",
+   "challenge": "Match each call to its value (watch int vs float)",
+   "pairs": [
+    [
+     "math.ceil(4.2)",
+     "5"
+    ],
+    [
+     "math.floor(-4.2)",
+     "-5"
+    ],
+    [
+     "math.sqrt(49)",
+     "7.0"
+    ],
+    [
+     "math.factorial(4)",
+     "24"
+    ],
+    [
+     "math.gcd(12, 18)",
+     "6"
+    ],
+    [
+     "math.fmod(-7, 3)",
+     "-1.0"
+    ],
+    [
+     "-7 % 3",
+     "2"
+    ],
+    [
+     "math.pow(2, 3)",
+     "8.0"
+    ]
+   ],
+   "leftTitle": "Call",
+   "rightTitle": "Value",
+   "mode": "check"
+  }
+ },
+ "g11-cs-08-10": {
+  "type": "probability",
+  "p": {
+   "device": "dice",
+   "count": 1,
+   "sides": 6,
+   "ask": {
+    "type": "event",
+    "outcomes": [
+     5,
+     6
+    ],
+    "name": "more than 4"
+   },
+   "minTrials": 100,
+   "challenge": "random.randint(1, 6) includes both 1 and 6, like a die. Predict P(value > 4), then run it 100 times"
+  }
+ },
+ "g11-cs-09-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Active or passive footprint?",
+   "challenge": "Sort each trace: did you share it on purpose, or was it collected in the background?",
+   "bins": [
+    {
+     "name": "Active",
+     "emoji": "🙋"
+    },
+    {
+     "name": "Passive",
+     "emoji": "👣"
+    }
+   ],
+   "items": [
+    {
+     "text": "A reel you posted",
+     "bin": 0
+    },
+    {
+     "text": "A review you wrote",
+     "bin": 0
+    },
+    {
+     "text": "An email you sent",
+     "bin": 0
+    },
+    {
+     "text": "An online form you filled",
+     "bin": 0
+    },
+    {
+     "text": "A photo you uploaded",
+     "bin": 0
+    },
+    {
+     "text": "A shopping site remembering what you viewed",
+     "bin": 1,
+     "why": "Recorded through cookies."
+    },
+    {
+     "text": "Your phone's location history",
+     "bin": 1
+    },
+    {
+     "text": "Browsing history",
+     "bin": 1
+    },
+    {
+     "text": "Your IP address logged by a site",
+     "bin": 1
+    },
+    {
+     "text": "App usage data",
+     "bin": 1
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-09-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Net etiquette",
+   "challenge": "Match each action to the etiquette rule it follows",
+   "pairs": [
+    [
+     "Ignoring a troll's insulting comment",
+     "Be responsible (don't feed trolls)"
+    ],
+    [
+     "Crediting the photographer when sharing",
+     "Be ethical"
+    ],
+    [
+     "Not sending huge unnecessary files",
+     "Be precise"
+    ],
+    [
+     "Thinking before you comment",
+     "Be credible"
+    ],
+    [
+     "Checking who you befriend",
+     "Be secure"
+    ],
+    [
+     "Thinking before uploading a photo",
+     "Be reliable"
+    ],
+    [
+     "Respecting other cultures and opinions",
+     "Be respectful"
+    ],
+    [
+     "Replying courteously in a chat",
+     "Be polite"
+    ]
+   ],
+   "leftTitle": "Action",
+   "rightTitle": "Rule",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-09-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which IPR violation?",
+   "challenge": "Sort each case into the right violation",
+   "bins": [
+    {
+     "name": "Plagiarism",
+     "emoji": "📝"
+    },
+    {
+     "name": "Copyright infringement",
+     "emoji": "©️"
+    },
+    {
+     "name": "Trademark infringement",
+     "emoji": "™️"
+    }
+   ],
+   "items": [
+    {
+     "text": "Copying a blog post into your project without credit",
+     "bin": 0
+    },
+    {
+     "text": "Submitting a friend's essay as your own",
+     "bin": 0
+    },
+    {
+     "text": "Selling copied DVDs of a new film",
+     "bin": 1
+    },
+    {
+     "text": "Using a song in your video without permission",
+     "bin": 1
+    },
+    {
+     "text": "Installing a cracked copy of paid software",
+     "bin": 1,
+     "why": "Software piracy is copyright infringement."
+    },
+    {
+     "text": "A startup's logo almost identical to a famous brand's",
+     "bin": 2
+    },
+    {
+     "text": "Fake shoes sold with another company's brand name",
+     "bin": 2
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-09-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Name the cyber crime",
+   "challenge": "Match each scenario to the cyber crime or term",
+   "pairs": [
+    [
+     "Fake email asks for your OTP",
+     "Phishing"
+    ],
+    [
+     "Files locked until you pay",
+     "Ransomware"
+    ],
+    [
+     "Sender's address faked",
+     "Email spoofing"
+    ],
+    [
+     "Secretly intercepting network messages",
+     "Eavesdropping"
+    ],
+    [
+     "Authorised to find security weaknesses",
+     "Ethical (white hat) hacking"
+    ],
+    [
+     "Provocative comments to upset people",
+     "Cyber trolling"
+    ],
+    [
+     "Repeatedly threatening a classmate online",
+     "Cyberbullying"
+    ],
+    [
+     "Stolen details used to claim someone's treatment",
+     "Medical identity theft"
+    ]
+   ],
+   "leftTitle": "Scenario",
+   "rightTitle": "Crime",
+   "mode": "instant"
+  }
+ },
+ "g11-cs-09-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which malware?",
+   "challenge": "Sort each description into the type of malware",
+   "bins": [
+    {
+     "name": "Virus",
+     "emoji": "🦠"
+    },
+    {
+     "name": "Worm",
+     "emoji": "🪱"
+    },
+    {
+     "name": "Trojan",
+     "emoji": "🐴"
+    },
+    {
+     "name": "Spyware",
+     "emoji": "🕵️"
+    }
+   ],
+   "items": [
+    {
+     "text": "Attaches to files; spreads when they are run",
+     "bin": 0
+    },
+    {
+     "text": "An infected program spreads each time it is opened",
+     "bin": 0
+    },
+    {
+     "text": "Copies itself across networks on its own",
+     "bin": 1
+    },
+    {
+     "text": "Spreads through the school network with nobody opening a file",
+     "bin": 1
+    },
+    {
+     "text": "Pretends to be useful software but harms the system",
+     "bin": 2
+    },
+    {
+     "text": "A 'free game' that damages the system once installed",
+     "bin": 2
+    },
+    {
+     "text": "Secretly collects your information",
+     "bin": 3
+    },
+    {
+     "text": "Quietly sends your browsing details to a stranger",
+     "bin": 3
+    }
+   ],
+   "mode": "sort"
+  }
+ },
+ "g11-cs-09-06": {
+  "type": "flowchart",
+  "p": {
+   "title": "What to do with an old device",
+   "task": "play",
+   "challenge": "Play the flow for an old laptop that no longer works, then for a working tablet",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "📱",
+     "text": "Old device at home",
+     "info": "Reduce: buy only what you need and use devices longer."
+    },
+    {
+     "id": "b",
+     "emoji": "❓",
+     "text": "Does it still work?",
+     "type": "decision"
+    },
+    {
+     "id": "c",
+     "emoji": "🎁",
+     "text": "Reuse: donate or resell it",
+     "info": "e.g. donate the working tablet to a school."
+    },
+    {
+     "id": "d",
+     "emoji": "🧹",
+     "text": "Wipe your data from it",
+     "info": "Deleted data can often be recovered, so wipe it first."
+    },
+    {
+     "id": "e",
+     "emoji": "♻️",
+     "text": "Give to an authorised e-waste recycler",
+     "info": "Never burn or dump e-waste: lead, mercury and cadmium harm soil, water and air."
+    }
+   ],
+   "edges": [
+    {
+     "from": "a",
+     "to": "b"
+    },
+    {
+     "from": "b",
+     "to": "c",
+     "label": "Yes"
+    },
+    {
+     "from": "b",
+     "to": "d",
+     "label": "No"
+    },
+    {
+     "from": "d",
+     "to": "e"
+    }
+   ]
+  }
+ },
+ "g11-cs-09-07": {
+  "type": "sortbins",
+  "p": {
+   "title": "Healthy habit or strain?",
+   "challenge": "Sort each habit by its effect on your health (ergonomics)",
+   "bins": [
+    {
+     "name": "Healthy",
+     "emoji": "💚",
+     "color": "#2ed3a5"
+    },
+    {
+     "name": "Causes strain",
+     "emoji": "⚠️",
+     "color": "#ff6b6b"
+    }
+   ],
+   "items": [
+    {
+     "text": "Screen at or slightly below eye level",
+     "bin": 0
+    },
+    {
+     "text": "Screen about an arm's length away",
+     "bin": 0
+    },
+    {
+     "text": "Feet flat on the floor",
+     "bin": 0
+    },
+    {
+     "text": "Back supported by the chair",
+     "bin": 0
+    },
+    {
+     "text": "Every 20 min look 20 feet away for 20 s",
+     "bin": 0,
+     "why": "The 20-20-20 rule."
+    },
+    {
+     "text": "Laptop on your lap in bed for 3 hours",
+     "bin": 1
+    },
+    {
+     "text": "Wrists bent while typing",
+     "bin": 1
+    },
+    {
+     "text": "Phone screen right before sleep",
+     "bin": 1
+    },
+    {
+     "text": "No break for hours",
+     "bin": 1
+    }
+   ],
+   "mode": "sort"
+  }
+ }
+}

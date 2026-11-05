@@ -1,0 +1,3240 @@
+{
+ "g12-maths-01-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Empty, universal or neither?",
+   "challenge": "Empty: no pair is related. Universal: every pair (a, b) ∈ A × A is related. Sort each relation on A.",
+   "bins": [
+    {
+     "name": "Empty relation (R = φ)",
+     "emoji": "🕳️"
+    },
+    {
+     "name": "Universal relation (R = A × A)",
+     "emoji": "🌐"
+    },
+    {
+     "name": "Neither",
+     "emoji": "🔀"
+    }
+   ],
+   "items": [
+    {
+     "text": "A = students of one school; a R b: a and b study in the same school",
+     "bin": 1,
+     "why": "Every pair of students is related."
+    },
+    {
+     "text": "Same A; a R b: the difference of the heights of a and b is more than 3 km",
+     "bin": 0,
+     "why": "No two students differ in height by 3 km."
+    },
+    {
+     "text": "A = {1, 2, 3, 4}; a R b: a > b",
+     "bin": 2,
+     "why": "(2, 1) ∈ R but (1, 1) ∉ R, so R is neither φ nor A × A."
+    },
+    {
+     "text": "A = {1, 2, 3}; a R b: a + b ≥ 2",
+     "bin": 1,
+     "why": "The smallest sum is 1 + 1 = 2, so every pair is related."
+    },
+    {
+     "text": "A = {1, 2, 3}; a R b: a + b = 10",
+     "bin": 0,
+     "why": "The largest sum is 6."
+    },
+    {
+     "text": "A = Z; a R b: a − b is an integer",
+     "bin": 1,
+     "why": "The difference of two integers is always an integer."
+    },
+    {
+     "text": "A = {1, 2, 3}; R = {(1, 2), (2, 3)}",
+     "bin": 2
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-01-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which properties hold?",
+   "challenge": "Test each relation for reflexive, symmetric and transitive. One counter-example is enough to break a property.",
+   "bins": [
+    {
+     "name": "Reflexive, symmetric and transitive",
+     "emoji": "🟰"
+    },
+    {
+     "name": "Reflexive and transitive only",
+     "emoji": "≤"
+    },
+    {
+     "name": "Symmetric only",
+     "emoji": "⟂"
+    },
+    {
+     "name": "Reflexive only",
+     "emoji": "🪞"
+    }
+   ],
+   "items": [
+    {
+     "text": "R = {(1, 1), (2, 2), (3, 3), (1, 2), (2, 3)} on {1, 2, 3}",
+     "bin": 3,
+     "why": "Not symmetric: (1, 2) ∈ R but (2, 1) ∉ R. Not transitive: (1, 2), (2, 3) ∈ R but (1, 3) ∉ R."
+    },
+    {
+     "text": "a R b ⇔ a ≤ b on R",
+     "bin": 1,
+     "why": "(1, 2) ∈ R but (2, 1) ∉ R, so not symmetric."
+    },
+    {
+     "text": "L₁ R L₂ ⇔ L₁ is perpendicular to L₂ (lines in a plane)",
+     "bin": 2,
+     "why": "No line is ⟂ to itself; L₁ ⟂ L₂ and L₂ ⟂ L₃ make L₁ ∥ L₃."
+    },
+    {
+     "text": "L₁ R L₂ ⇔ L₁ is parallel to L₂ (each line counted parallel to itself)",
+     "bin": 0
+    },
+    {
+     "text": "a R b ⇔ a divides b, on N",
+     "bin": 1,
+     "why": "2 divides 4 but 4 does not divide 2."
+    },
+    {
+     "text": "a R b ⇔ |a − b| is even, on Z",
+     "bin": 0,
+     "why": "This is congruence modulo 2."
+    },
+    {
+     "text": "T₁ R T₂ ⇔ T₁ is congruent to T₂ (triangles)",
+     "bin": 0
+    },
+    {
+     "text": "R = {(1, 2), (2, 1)} on {1, 2, 3}",
+     "bin": 2,
+     "why": "(1, 1) ∉ R, and (1, 2), (2, 1) ∈ R but (1, 1) ∉ R, so not transitive."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-01-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Equivalence classes for |a − b| a multiple of 4",
+   "challenge": "A = {1, 2, …, 10}, a R b ⇔ |a − b| is a multiple of 4. Put each element into its equivalence class. The classes are disjoint and together make up A.",
+   "bins": [
+    {
+     "name": "[1]",
+     "emoji": "🔴"
+    },
+    {
+     "name": "[2]",
+     "emoji": "🔵"
+    },
+    {
+     "name": "[3]",
+     "emoji": "🟢"
+    },
+    {
+     "name": "[4]",
+     "emoji": "🟡"
+    }
+   ],
+   "items": [
+    {
+     "text": "1",
+     "bin": 0,
+     "why": "Every element is in its own class (reflexive)."
+    },
+    {
+     "text": "5",
+     "bin": 0,
+     "why": "|5 − 1| = 4, a multiple of 4."
+    },
+    {
+     "text": "9",
+     "bin": 0,
+     "why": "|9 − 1| = 8, a multiple of 4."
+    },
+    {
+     "text": "2",
+     "bin": 1,
+     "why": "Every element is in its own class (reflexive)."
+    },
+    {
+     "text": "6",
+     "bin": 1,
+     "why": "|6 − 2| = 4, a multiple of 4."
+    },
+    {
+     "text": "10",
+     "bin": 1,
+     "why": "|10 − 2| = 8, a multiple of 4."
+    },
+    {
+     "text": "3",
+     "bin": 2,
+     "why": "Every element is in its own class (reflexive)."
+    },
+    {
+     "text": "7",
+     "bin": 2,
+     "why": "|7 − 3| = 4, a multiple of 4."
+    },
+    {
+     "text": "4",
+     "bin": 3,
+     "why": "Every element is in its own class (reflexive)."
+    },
+    {
+     "text": "8",
+     "bin": 3,
+     "why": "|8 − 4| = 4, a multiple of 4."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-01-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "One-one? Onto?",
+   "challenge": "One-one: f(x₁) = f(x₂) ⇒ x₁ = x₂. Onto: range = codomain. Sort each function — the domain and codomain matter!",
+   "bins": [
+    {
+     "name": "Bijective",
+     "emoji": "✅"
+    },
+    {
+     "name": "One-one, not onto",
+     "emoji": "1️⃣"
+    },
+    {
+     "name": "Onto, not one-one",
+     "emoji": "🎯"
+    },
+    {
+     "name": "Neither",
+     "emoji": "❌"
+    }
+   ],
+   "items": [
+    {
+     "text": "f : R → R, f(x) = 3 − 4x",
+     "bin": 0,
+     "why": "f(x₁) = f(x₂) ⇒ x₁ = x₂; for any y, x = (3 − y)/4 ∈ R."
+    },
+    {
+     "text": "f : R → R, f(x) = x²",
+     "bin": 3,
+     "why": "f(−2) = f(2), and −1 has no pre-image."
+    },
+    {
+     "text": "f : N → N, f(x) = x²",
+     "bin": 1,
+     "why": "One-one on N, but 2 is not a square."
+    },
+    {
+     "text": "f : N → N, f(x) = 2x",
+     "bin": 1,
+     "why": "Odd numbers are never images."
+    },
+    {
+     "text": "f : R → R, f(x) = x³",
+     "bin": 0
+    },
+    {
+     "text": "f : N → N, f(n) = (n + 1)/2 if n odd, n/2 if n even",
+     "bin": 2,
+     "why": "f(1) = f(2) = 1, but every n is f(2n)."
+    },
+    {
+     "text": "f : R → R, f(x) = |x|",
+     "bin": 3,
+     "why": "f(−1) = f(1), and negative numbers are not images."
+    },
+    {
+     "text": "f : {1, 2, 3} → {1, 2, 3}, f = {(1, 2), (2, 3), (3, 1)}",
+     "bin": 0,
+     "why": "On a finite set, one-one ⇔ onto."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-01-05": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Counting functions",
+   "challenge": "n(A) = m, n(B) = n: all functions nᵐ; one-one n(n − 1)…(n − m + 1) if m ≤ n, else 0. Join each count to its value.",
+   "pairs": [
+    [
+     "All functions {1, 2, 3} → {a, b}",
+     "2³ = 8"
+    ],
+    [
+     "One-one functions {1, 2, 3} → {a, b}",
+     "0 (3 > 2)"
+    ],
+    [
+     "Onto functions {1, 2, 3} → {a, b}",
+     "2³ − 2 = 6"
+    ],
+    [
+     "Bijections {1, 2, 3} → {1, 2, 3}",
+     "3! = 6"
+    ],
+    [
+     "One-one functions {1, 2, 3} → {a, b, c, d}",
+     "4 × 3 × 2 = 24"
+    ],
+    [
+     "All functions {1, 2, 3} → {a, b, c, d}",
+     "4³ = 64"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Count",
+   "rightTitle": "Number"
+  }
+ },
+ "g12-maths-02-01": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "maxmin",
+   "fn": "asin(2x - 1)",
+   "xRange": [
+    -0.5,
+    1.5
+   ],
+   "yRange": [
+    -1.8,
+    1.8
+   ],
+   "interval": [
+    0,
+    1
+   ],
+   "target": {
+    "find": "absmin"
+   },
+   "challenge": "f(x) = sin⁻¹(2x − 1) exists only when −1 ≤ 2x − 1 ≤ 1 — so where does the curve start and stop? Drag P to the lowest point: the value is −π/2, the bottom of the principal branch."
+  }
+ },
+ "g12-maths-02-02": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "atan(x)",
+   "xRange": [
+    -6,
+    6
+   ],
+   "yRange": [
+    -2,
+    2
+   ],
+   "a": 3,
+   "secant": false,
+   "target": {
+    "slope": 0.5
+   },
+   "challenge": "y = tan⁻¹ x has domain R and range (−π/2, π/2): it flattens towards the asymptotes y = ±π/2 and is always increasing. Drag P to a point where the slope is 1/2."
+  }
+ },
+ "g12-maths-02-03": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Principal values",
+   "challenge": "Use the principal branches: sin⁻¹(−x) = −sin⁻¹x but cos⁻¹(−x) = π − cos⁻¹x (same for sec⁻¹, cot⁻¹). Match each to its principal value.",
+   "pairs": [
+    [
+     "sin⁻¹(−1/2)",
+     "−π/6"
+    ],
+    [
+     "cos⁻¹(−1/2)",
+     "2π/3"
+    ],
+    [
+     "tan⁻¹(−√3)",
+     "−π/3"
+    ],
+    [
+     "cosec⁻¹(2)",
+     "π/6"
+    ],
+    [
+     "cot⁻¹(−1)",
+     "3π/4"
+    ],
+    [
+     "sec⁻¹(−2)",
+     "2π/3"
+    ],
+    [
+     "tan⁻¹(1) + cos⁻¹(−1/2) + sin⁻¹(−1/2)",
+     "3π/4"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Expression",
+   "rightTitle": "Principal value"
+  }
+ },
+ "g12-maths-02-04": {
+  "type": "flowchart",
+  "p": {
+   "title": "Simplest form of tan⁻¹[(√(1 + x²) − 1)/x]",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "🔁",
+     "text": "Put x = tan θ, so θ = tan⁻¹ x",
+     "info": "The form 1 + x² suggests x = tan θ."
+    },
+    {
+     "id": "s2",
+     "emoji": "📐",
+     "text": "√(1 + x²) = sec θ",
+     "info": "1 + tan²θ = sec²θ."
+    },
+    {
+     "id": "s3",
+     "emoji": "🔄",
+     "text": "(sec θ − 1)/tan θ = (1 − cos θ)/sin θ",
+     "info": "Multiply top and bottom by cos θ."
+    },
+    {
+     "id": "s4",
+     "emoji": "✂️",
+     "text": "= 2sin²(θ/2) / (2 sin(θ/2) cos(θ/2)) = tan(θ/2)",
+     "info": "Half-angle formulas."
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "tan⁻¹(tan(θ/2)) = θ/2 = ½ tan⁻¹ x",
+     "info": "θ/2 lies in (−π/4, π/4), inside the principal branch."
+    }
+   ],
+   "challenge": "Arrange the steps that simplify tan⁻¹[(√(1 + x²) − 1)/x], x ≠ 0."
+  }
+ },
+ "g12-maths-03-01": {
+  "type": "arraygrid",
+  "p": {
+   "mode": "array",
+   "rows": 1,
+   "cols": 1,
+   "maxRows": 12,
+   "maxCols": 12,
+   "ask": "factors",
+   "target": 12,
+   "item": "🔢",
+   "itemName": "elements",
+   "newChallenge": false,
+   "challenge": "A matrix with 12 elements: rows × columns = 12. Drag to build every rectangle of 12 elements. Each factor pair r × c gives the orders r × c and c × r — how many orders in all?"
+  }
+ },
+ "g12-maths-03-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Type of square matrix",
+   "challenge": "Diagonal: every non-diagonal element is 0. Scalar: diagonal with equal diagonal elements. Identity: scalar with 1s. Sort each matrix.",
+   "bins": [
+    {
+     "name": "Identity I",
+     "emoji": "🆔"
+    },
+    {
+     "name": "Scalar (not I)",
+     "emoji": "⚖️"
+    },
+    {
+     "name": "Diagonal (not scalar)",
+     "emoji": "↘️"
+    },
+    {
+     "name": "Not diagonal",
+     "emoji": "🔲"
+    }
+   ],
+   "items": [
+    {
+     "text": "[[1, 0], [0, 1]]",
+     "bin": 0
+    },
+    {
+     "text": "[[3, 0, 0], [0, 3, 0], [0, 0, 3]]",
+     "bin": 1,
+     "why": "Diagonal with all diagonal elements equal."
+    },
+    {
+     "text": "[[−1.1, 0], [0, 2]]",
+     "bin": 2
+    },
+    {
+     "text": "[[4, 0, 0], [0, −2, 0], [0, 0, 7]]",
+     "bin": 2
+    },
+    {
+     "text": "[[0, 1], [1, 0]]",
+     "bin": 3,
+     "why": "Non-diagonal elements are not zero."
+    },
+    {
+     "text": "[[1, 0, 0], [0, 1, 0], [0, 0, 1]]",
+     "bin": 0
+    },
+    {
+     "text": "[[√3, 0], [0, √3]]",
+     "bin": 1
+    },
+    {
+     "text": "[[2, 5], [0, 2]]",
+     "bin": 3,
+     "why": "a₁₂ = 5 ≠ 0."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-03-03": {
+  "type": "flowchart",
+  "p": {
+   "title": "Solve 2A + 3X = 5B",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "📝",
+     "text": "A = [[2, 1], [0, 3]], B = [[1, 2], [3, 0]]"
+    },
+    {
+     "id": "s2",
+     "emoji": "↔️",
+     "text": "3X = 5B − 2A",
+     "info": "Treat it like an ordinary equation: subtract 2A from both sides."
+    },
+    {
+     "id": "s3",
+     "emoji": "✖️",
+     "text": "5B = [[5, 10], [15, 0]], 2A = [[4, 2], [0, 6]]",
+     "info": "kA multiplies every element by k."
+    },
+    {
+     "id": "s4",
+     "emoji": "➖",
+     "text": "5B − 2A = [[1, 8], [15, −6]]",
+     "info": "Subtract corresponding elements (same order 2 × 2)."
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "X = (1/3)[[1, 8], [15, −6]] = [[1/3, 8/3], [5, −2]]"
+    }
+   ],
+   "challenge": "Arrange the steps that find the matrix X with 2A + 3X = 5B."
+  }
+ },
+ "g12-maths-03-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Order of the product AB",
+   "challenge": "AB is defined only when columns of A = rows of B; then (m × n)(n × p) is m × p. Match each pair of orders.",
+   "pairs": [
+    [
+     "A: 2 × 3, B: 3 × 4",
+     "AB is 2 × 4"
+    ],
+    [
+     "A: 3 × 1, B: 1 × 3",
+     "AB is 3 × 3"
+    ],
+    [
+     "A: 1 × 3, B: 3 × 1",
+     "AB is 1 × 1"
+    ],
+    [
+     "A: 2 × 2, B: 3 × 2",
+     "AB is not defined"
+    ],
+    [
+     "A: 4 × 2, B: 2 × 4",
+     "AB is 4 × 4"
+    ],
+    [
+     "A: 3 × 2, B: 3 × 2",
+     "AB is not defined"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Orders",
+   "rightTitle": "Product"
+  }
+ },
+ "g12-maths-03-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Symmetric or skew-symmetric?",
+   "challenge": "Transpose each matrix in your head (rows → columns). Sort it as symmetric, skew-symmetric or neither.",
+   "bins": [
+    {
+     "name": "Symmetric (A′ = A)",
+     "emoji": "🪞"
+    },
+    {
+     "name": "Skew-symmetric (A′ = −A)",
+     "emoji": "↩️"
+    },
+    {
+     "name": "Neither",
+     "emoji": "🔀"
+    }
+   ],
+   "items": [
+    {
+     "text": "[[3, 3], [3, −1]]",
+     "bin": 0,
+     "why": "A′ = A (aᵢⱼ = aⱼᵢ)."
+    },
+    {
+     "text": "[[0, 2], [−2, 0]]",
+     "bin": 1,
+     "why": "A′ = −A: diagonal all 0 and aᵢⱼ = −aⱼᵢ."
+    },
+    {
+     "text": "[[3, 5], [1, −1]]",
+     "bin": 2,
+     "why": "Neither A′ = A nor A′ = −A. It is (1/2)(A + A′) + (1/2)(A − A′) = [[3, 3], [3, −1]] + [[0, 2], [−2, 0]]."
+    },
+    {
+     "text": "[[0, −1, 2], [1, 0, −3], [−2, 3, 0]]",
+     "bin": 1,
+     "why": "A′ = −A: diagonal all 0 and aᵢⱼ = −aⱼᵢ."
+    },
+    {
+     "text": "[[1, 2], [2, 1]]",
+     "bin": 0,
+     "why": "A′ = A (aᵢⱼ = aⱼᵢ)."
+    },
+    {
+     "text": "[[2, 1], [−1, 0]]",
+     "bin": 2,
+     "why": "Neither A′ = A nor A′ = −A."
+    },
+    {
+     "text": "[[1, 0, 0], [0, 1, 0], [0, 0, 1]]",
+     "bin": 0,
+     "why": "A′ = A (aᵢⱼ = aⱼᵢ)."
+    },
+    {
+     "text": "[[0, 5], [−5, 0]]",
+     "bin": 1,
+     "why": "A′ = −A: diagonal all 0 and aᵢⱼ = −aⱼᵢ."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-03-06": {
+  "type": "flowchart",
+  "p": {
+   "title": "The inverse is unique",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "🙋",
+     "text": "Suppose B and C are both inverses of A",
+     "info": "So AB = BA = I and AC = CA = I."
+    },
+    {
+     "id": "s2",
+     "emoji": "1️⃣",
+     "text": "B = BI",
+     "info": "I is the multiplicative identity."
+    },
+    {
+     "id": "s3",
+     "emoji": "🔁",
+     "text": "= B(AC)",
+     "info": "Replace I by AC."
+    },
+    {
+     "id": "s4",
+     "emoji": "🔗",
+     "text": "= (BA)C",
+     "info": "Matrix multiplication is associative."
+    },
+    {
+     "id": "s5",
+     "emoji": "1️⃣",
+     "text": "= IC",
+     "info": "BA = I."
+    },
+    {
+     "id": "s6",
+     "emoji": "✅",
+     "text": "= C, so the inverse is unique",
+     "info": "Example: A = [[2, 1], [1, 1]] and B = [[1, −1], [−1, 2]] give AB = BA = I, so B = A⁻¹."
+    }
+   ],
+   "challenge": "Arrange the steps of the proof that a square matrix can have only one inverse."
+  }
+ },
+ "g12-maths-04-01": {
+  "type": "flowchart",
+  "p": {
+   "title": "Evaluate Δ = |[[3, −1, −2], [0, 0, −1], [3, −5, 0]]|",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "🔍",
+     "text": "Expand along R₂: it has two zeros",
+     "info": "Choose the row or column with the most zeros."
+    },
+    {
+     "id": "s2",
+     "emoji": "🎯",
+     "text": "Only a₂₃ = −1 is non-zero in R₂"
+    },
+    {
+     "id": "s3",
+     "emoji": "✂️",
+     "text": "Minor M₂₃ = |[[3, −1], [3, −5]]| = −15 + 3 = −12",
+     "info": "Delete row 2 and column 3."
+    },
+    {
+     "id": "s4",
+     "emoji": "♟️",
+     "text": "Sign of position (2, 3) is −: A₂₃ = −M₂₃ = 12",
+     "info": "Chessboard pattern + − + / − + − / + − +."
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "Δ = a₂₃ A₂₃ = (−1)(12) = −12"
+    }
+   ],
+   "challenge": "Arrange the steps that evaluate the 3 × 3 determinant the smart way."
+  }
+ },
+ "g12-maths-04-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "|kA| = kⁿ|A| and determinant equations",
+   "challenge": "Each of the n rows of kA is multiplied by k. For equations, expand both sides and solve. Match each question to its answer.",
+   "pairs": [
+    [
+     "A is 2 × 2, |A| = 4: find |3A|",
+     "3² × 4 = 36"
+    ],
+    [
+     "A is 3 × 3, |A| = 5: find |2A|",
+     "2³ × 5 = 40"
+    ],
+    [
+     "A is 3 × 3, |A| = −2: find |−A|",
+     "(−1)³ × (−2) = 2"
+    ],
+    [
+     "|[[2, 4], [5, 1]]| = |[[2x, 4], [6, x]]|",
+     "x = ±√3"
+    ],
+    [
+     "|[[cos θ, −sin θ], [sin θ, cos θ]]|",
+     "1"
+    ],
+    [
+     "|[[x, 2], [18, x]]| = |[[6, 2], [18, 6]]|",
+     "x = ±6"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Question",
+   "rightTitle": "Answer"
+  }
+ },
+ "g12-maths-04-03": {
+  "type": "triangle",
+  "p": {
+   "points": [
+    [
+     3,
+     1
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "grid": [
+    10,
+    6
+   ],
+   "snap": true,
+   "unit": "",
+   "labels": [
+    "A",
+    "B",
+    "C"
+   ],
+   "show": [
+    "sides",
+    "area"
+   ],
+   "goal": "area",
+   "targetArea": 4,
+   "goals": [
+    4,
+    "flat"
+   ],
+   "challenge": "Keep B(4, 0) and C(0, 2) fixed and slide A(k, 0) along the line through B (the x-axis) until the area is 4 square units. ½|Δ| = 4 gives two answers for k — find both. (Then try “New challenge”: make Δ = 0, collinear points.)"
+  }
+ },
+ "g12-maths-04-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "A = [[1, −2, 3], [4, 0, 5], [−1, 6, 2]]",
+   "challenge": "Delete row i and column j for the minor Mᵢⱼ; the cofactor is Aᵢⱼ = (−1)ⁱ⁺ʲ Mᵢⱼ. Match each to its working and value.",
+   "pairs": [
+    [
+     "M₁₁",
+     "0·2 − 5·6 = −30"
+    ],
+    [
+     "A₁₂",
+     "−(4·2 − 5·(−1)) = −13"
+    ],
+    [
+     "A₁₃",
+     "4·6 − 0·(−1) = 24"
+    ],
+    [
+     "M₁₂",
+     "4·2 − 5·(−1) = 13"
+    ],
+    [
+     "|A| = a₁₁A₁₁ + a₁₂A₁₂ + a₁₃A₁₃",
+     "−30 + 26 + 72 = 68"
+    ],
+    [
+     "a₁₁A₂₁ + a₁₂A₂₂ + a₁₃A₂₃",
+     "0"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Find",
+   "rightTitle": "Working"
+  }
+ },
+ "g12-maths-04-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "Inverse of A = [[2, 3], [1, −4]]",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "🧮",
+     "text": "|A| = 2(−4) − 3(1) = −11",
+     "info": "Non-zero, so A is non-singular and invertible."
+    },
+    {
+     "id": "s2",
+     "emoji": "🔀",
+     "text": "adj A = [[−4, −3], [−1, 2]]",
+     "info": "For [[a, b], [c, d]]: swap the diagonal, negate the others."
+    },
+    {
+     "id": "s3",
+     "emoji": "➗",
+     "text": "A⁻¹ = (1/|A|) adj A = −(1/11)[[−4, −3], [−1, 2]]"
+    },
+    {
+     "id": "s4",
+     "emoji": "✅",
+     "text": "A⁻¹ = (1/11)[[4, 3], [1, −2]]",
+     "info": "Check: A·A⁻¹ = (1/11)[[11, 0], [0, 11]] = I."
+    }
+   ],
+   "challenge": "Arrange the steps of the adjoint method."
+  }
+ },
+ "g12-maths-04-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "Consistent or not?",
+   "challenge": "Write each system as AX = B. If |A| ≠ 0 there is a unique solution X = A⁻¹B; if |A| = 0, look at (adj A)B. Sort the systems.",
+   "bins": [
+    {
+     "name": "Unique solution (|A| ≠ 0)",
+     "emoji": "🎯"
+    },
+    {
+     "name": "Inconsistent (no solution)",
+     "emoji": "🚫"
+    },
+    {
+     "name": "Infinitely many solutions",
+     "emoji": "♾️"
+    }
+   ],
+   "items": [
+    {
+     "text": "x + 2y = 2, 2x + 3y = 3",
+     "bin": 0,
+     "why": "|A| = −1: x = 0, y = 1."
+    },
+    {
+     "text": "2x − y = 5, x + y = 4",
+     "bin": 0,
+     "why": "|A| = 3: x = 3, y = 1."
+    },
+    {
+     "text": "x + 3y = 5, 2x + 6y = 8",
+     "bin": 1,
+     "why": "|A| = 0 and (adj A)B ≠ O: parallel lines."
+    },
+    {
+     "text": "2x + 3y = 6, 4x + 6y = 12",
+     "bin": 2,
+     "why": "|A| = 0 and (adj A)B = O: both equations are the same line."
+    },
+    {
+     "text": "3x − y − 2z = 2, 2y − z = −1, 3x − 5y = 3",
+     "bin": 1,
+     "why": "|A| = 0 and (adj A)B ≠ O."
+    },
+    {
+     "text": "5x − y + 4z = 5, 2x + 3y + 5z = 2, 5x − 2y + 6z = −1",
+     "bin": 0,
+     "why": "|A| = 51: x = 3, y = 2, z = −2."
+    },
+    {
+     "text": "x + y + z = 6, x − y + z = 2, 2x + y − z = 1",
+     "bin": 0,
+     "why": "|A| = 6: x = 1, y = 2, z = 3."
+    },
+    {
+     "text": "5x + 2y = 4, 7x + 3y = 5",
+     "bin": 0,
+     "why": "|A| = 1: x = 2, y = −3."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-05-01": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "limit",
+   "fnLeft": "1",
+   "fnRight": "2",
+   "a": 2,
+   "valueAt": 2,
+   "xRange": [
+    1,
+    2.99
+   ],
+   "yRange": [
+    0,
+    3
+   ],
+   "challenge": "f(x) = [x], the greatest integer function, near x = 2: [x] = 1 for 1 ≤ x < 2 and 2 for 2 ≤ x < 3. Approach 2 from both sides. Is lim(x→2) [x] = [2]? If not, [x] is discontinuous at 2."
+  }
+ },
+ "g12-maths-05-02": {
+  "type": "graphplot",
+  "p": {
+   "mode": "two",
+   "m": 1,
+   "c": 1,
+   "m2": 3,
+   "c2": -5,
+   "lock": [
+    "c",
+    "m2",
+    "c2"
+   ],
+   "mRange": [
+    0,
+    3,
+    0.2
+   ],
+   "cRange": [
+    -6,
+    6,
+    1
+   ],
+   "xr": 6,
+   "yr": 12,
+   "tableX": [
+    3,
+    4,
+    5,
+    6
+   ],
+   "meet": [
+    5,
+    10
+   ],
+   "challenge": "f(x) = kx + 1 for x ≤ 5 and 3x − 5 for x > 5. For continuity at x = 5 the two pieces must join: change k (slope of line 1) until both lines pass through (5, 10)."
+  }
+ },
+ "g12-maths-05-03": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "sin(x^2)",
+   "xRange": [
+    -2.2,
+    2.2
+   ],
+   "yRange": [
+    -1.4,
+    1.4
+   ],
+   "a": 0.8,
+   "h": 0.3,
+   "target": {
+    "slope": 0
+   },
+   "challenge": "Chain rule: y = sin(x²) gives dy/dx = cos(x²) · 2x. Compare f′(a) with 2a cos(a²) as you drag P. Find a point other than x = 0 where the tangent is horizontal (cos(x²) = 0)."
+  }
+ },
+ "g12-maths-05-04": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "asin(x)",
+   "xRange": [
+    -1,
+    1
+   ],
+   "yRange": [
+    -1.8,
+    1.8
+   ],
+   "a": 0,
+   "secant": false,
+   "target": {
+    "slope": 2
+   },
+   "challenge": "d/dx (sin⁻¹ x) = 1/√(1 − x²) for −1 < x < 1. At x = 0 the slope is 1. Drag P to where the slope is 2 — solve 1/√(1 − x²) = 2 first, then check."
+  }
+ },
+ "g12-maths-05-05": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "log(x)",
+   "xRange": [
+    0.1,
+    6
+   ],
+   "yRange": [
+    -2.5,
+    2.2
+   ],
+   "a": 1,
+   "h": 0.5,
+   "target": {
+    "slope": 0.25
+   },
+   "challenge": "log x is the natural logarithm and d/dx (log x) = 1/x for x > 0. Drag P to the point where the tangent has slope 1/4."
+  }
+ },
+ "g12-maths-05-06": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "maxmin",
+   "fn": "x^x",
+   "xRange": [
+    0.05,
+    2
+   ],
+   "yRange": [
+    0,
+    4.2
+   ],
+   "interval": [
+    0.05,
+    2
+   ],
+   "target": {
+    "find": "min"
+   },
+   "challenge": "Logarithmic differentiation: y = xˣ ⇒ log y = x log x ⇒ dy/dx = xˣ(1 + log x). Drag P and find where the slope is 0 — the lowest point, where log x = −1."
+  }
+ },
+ "g12-maths-05-07": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Parametric derivatives dy/dx",
+   "challenge": "dy/dx = (dy/dt) ÷ (dx/dt). Work out each one and join it to its derivative.",
+   "pairs": [
+    [
+     "x = at², y = 2at",
+     "1/t"
+    ],
+    [
+     "x = a cos θ, y = b sin θ",
+     "−(b/a) cot θ"
+    ],
+    [
+     "x = a cos³θ, y = a sin³θ",
+     "−tan θ"
+    ],
+    [
+     "x = a(θ − sin θ), y = a(1 + cos θ)",
+     "−cot(θ/2)"
+    ],
+    [
+     "x = 4t, y = 4/t",
+     "−1/t²"
+    ],
+    [
+     "x = cos θ − cos 2θ, y = sin θ − sin 2θ",
+     "(cos θ − 2 cos 2θ)/(2 sin 2θ − sin θ)"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Curve",
+   "rightTitle": "dy/dx"
+  }
+ },
+ "g12-maths-05-08": {
+  "type": "flowchart",
+  "p": {
+   "title": "y = sin⁻¹ x ⇒ (1 − x²)y″ − xy′ = 0",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "📝",
+     "text": "y′ = 1/√(1 − x²)"
+    },
+    {
+     "id": "s2",
+     "emoji": "✖️",
+     "text": "√(1 − x²) · y′ = 1",
+     "info": "Clear the fraction before differentiating again."
+    },
+    {
+     "id": "s3",
+     "emoji": "🟥",
+     "text": "Square: (1 − x²)(y′)² = 1",
+     "info": "Squaring avoids differentiating a root."
+    },
+    {
+     "id": "s4",
+     "emoji": "📐",
+     "text": "(1 − x²) · 2y′y″ − 2x(y′)² = 0",
+     "info": "Product rule and chain rule."
+    },
+    {
+     "id": "s5",
+     "emoji": "➗",
+     "text": "Divide by 2y′ (y′ ≠ 0)"
+    },
+    {
+     "id": "s6",
+     "emoji": "✅",
+     "text": "(1 − x²)y″ − xy′ = 0"
+    }
+   ],
+   "challenge": "Arrange the steps that prove the second-order result for y = sin⁻¹ x."
+  }
+ },
+ "g12-maths-06-01": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "pi x^2",
+   "fname": "A",
+   "xLabel": "r (cm)",
+   "yLabel": "A (cm²)",
+   "xRange": [
+    0,
+    8
+   ],
+   "a": 2,
+   "h": 1,
+   "target": {
+    "slope": 31.41592653589793
+   },
+   "challenge": "Area of a circle A = πr², so dA/dr = 2πr. Drag P to the radius where the area is changing at 10π cm² per cm (≈ 31.4)."
+  }
+ },
+ "g12-maths-06-02": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "13x^2 + 26x + 15",
+   "fname": "R",
+   "xLabel": "x (units)",
+   "yLabel": "R (₹)",
+   "xRange": [
+    0,
+    12
+   ],
+   "a": 2,
+   "h": 2,
+   "target": {
+    "slope": 208
+   },
+   "challenge": "Total revenue R(x) = 13x² + 26x + 15. Marginal revenue MR = dR/dx = 26x + 26. Drag P to the number of units where MR = ₹208."
+  }
+ },
+ "g12-maths-06-03": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "x^3 - 3x^2 + 4x",
+   "xRange": [
+    -1,
+    3
+   ],
+   "a": -0.5,
+   "secant": false,
+   "target": {
+    "slope": 1
+   },
+   "challenge": "f(x) = x³ − 3x² + 4x: f′(x) = 3x² − 6x + 4 = 3(x − 1)² + 1 > 0, so f is strictly increasing on R. Drag P and find where the slope is smallest (f′ = 1)."
+  }
+ },
+ "g12-maths-06-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "f(x) = 2x³ − 3x² − 36x + 7 at this x",
+   "challenge": "f′(x) = 6x² − 6x − 36 = 6(x − 3)(x + 2) is 0 at x = −2 and 3. Test the sign of f′ in each interval and sort the points.",
+   "bins": [
+    {
+     "name": "Strictly increasing here (f′ > 0)",
+     "emoji": "📈"
+    },
+    {
+     "name": "Strictly decreasing here (f′ < 0)",
+     "emoji": "📉"
+    }
+   ],
+   "items": [
+    {
+     "text": "x = −4",
+     "bin": 0,
+     "why": "f′(−4) = 6(−4 − 3)(−4 + 2) = 84"
+    },
+    {
+     "text": "x = −2.5",
+     "bin": 0,
+     "why": "f′(−2.5) = 6(−2.5 − 3)(−2.5 + 2) = 16.5"
+    },
+    {
+     "text": "x = −1",
+     "bin": 1,
+     "why": "f′(−1) = 6(−1 − 3)(−1 + 2) = −24"
+    },
+    {
+     "text": "x = 0",
+     "bin": 1,
+     "why": "f′(0) = 6(0 − 3)(0 + 2) = −36"
+    },
+    {
+     "text": "x = 2",
+     "bin": 1,
+     "why": "f′(2) = 6(2 − 3)(2 + 2) = −24"
+    },
+    {
+     "text": "x = 2.9",
+     "bin": 1,
+     "why": "f′(2.9) = 6(2.9 − 3)(2.9 + 2) = −2.94"
+    },
+    {
+     "text": "x = 3.5",
+     "bin": 0,
+     "why": "f′(3.5) = 6(3.5 − 3)(3.5 + 2) = 16.5"
+    },
+    {
+     "text": "x = 10",
+     "bin": 0,
+     "why": "f′(10) = 6(10 − 3)(10 + 2) = 504"
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-06-05": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "maxmin",
+   "fn": "x^3 - 6x^2 + 9x + 15",
+   "xRange": [
+    -0.5,
+    4.5
+   ],
+   "interval": [
+    -0.5,
+    4.5
+   ],
+   "target": {
+    "find": "min"
+   },
+   "challenge": "f(x) = x³ − 6x² + 9x + 15, f′(x) = 3(x − 1)(x − 3). Use the f′ sign chart: where does f′ change from − to +? Drag P to that local minimum."
+  }
+ },
+ "g12-maths-06-06": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "maxmin",
+   "fn": "2x^3 - 15x^2 + 36x + 1",
+   "xRange": [
+    0.5,
+    5.5
+   ],
+   "interval": [
+    1,
+    5
+   ],
+   "target": {
+    "find": "absmax"
+   },
+   "challenge": "f(x) = 2x³ − 15x² + 36x + 1 on [1, 5]. Check f at the critical points x = 2, 3 (f″ tells max or min) AND at the end points 1 and 5. Drag P to the absolute maximum."
+  }
+ },
+ "g12-maths-06-07": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "maxmin",
+   "fn": "x(18 - 2x)^2",
+   "fname": "V",
+   "xLabel": "x (cm)",
+   "yLabel": "V (cm³)",
+   "xRange": [
+    0,
+    9
+   ],
+   "interval": [
+    0,
+    9
+   ],
+   "target": {
+    "find": "absmax"
+   },
+   "challenge": "A square tin sheet of side 18 cm: cut squares of side x from the corners and fold up. V = x(18 − 2x)². Drag P to the cut that gives the largest box."
+  }
+ },
+ "g12-maths-07-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Standard integrals",
+   "challenge": "Integration reverses differentiation. Join each integral to its anti-derivative (the last one uses the initial condition to fix C).",
+   "pairs": [
+    [
+     "∫xⁿ dx (n ≠ −1)",
+     "xⁿ⁺¹/(n + 1) + C"
+    ],
+    [
+     "∫(1/x) dx",
+     "log|x| + C"
+    ],
+    [
+     "∫aˣ dx",
+     "aˣ/log a + C"
+    ],
+    [
+     "∫sec x tan x dx",
+     "sec x + C"
+    ],
+    [
+     "∫cosec²x dx",
+     "−cot x + C"
+    ],
+    [
+     "∫dx/√(1 − x²)",
+     "sin⁻¹x + C"
+    ],
+    [
+     "∫dx/(1 + x²)",
+     "tan⁻¹x + C"
+    ],
+    [
+     "∫(3x² + 2x) dx with f(1) = 5",
+     "x³ + x² + 3"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Integral",
+   "rightTitle": "Anti-derivative"
+  }
+ },
+ "g12-maths-07-02": {
+  "type": "flowchart",
+  "p": {
+   "title": "∫(log x)²/x dx",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "🔍",
+     "text": "Spot g(x) = log x and g′(x) = 1/x in the integrand"
+    },
+    {
+     "id": "s2",
+     "emoji": "🔁",
+     "text": "Put t = log x, so dt = dx/x"
+    },
+    {
+     "id": "s3",
+     "emoji": "🧮",
+     "text": "∫(log x)²/x dx = ∫t² dt"
+    },
+    {
+     "id": "s4",
+     "emoji": "📈",
+     "text": "= t³/3 + C"
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "= (log x)³/3 + C",
+     "info": "Return to x at the end."
+    }
+   ],
+   "challenge": "Arrange the steps of the substitution."
+  }
+ },
+ "g12-maths-07-03": {
+  "type": "flowchart",
+  "p": {
+   "title": "∫sin 2x cos 3x dx",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "🔄",
+     "text": "2 sin A cos B = sin(A + B) + sin(A − B)",
+     "info": "Product to sum."
+    },
+    {
+     "id": "s2",
+     "emoji": "✍️",
+     "text": "sin 2x cos 3x = ½[sin 5x + sin(−x)]",
+     "info": "A = 2x, B = 3x."
+    },
+    {
+     "id": "s3",
+     "emoji": "➖",
+     "text": "= ½[sin 5x − sin x]",
+     "info": "sin(−x) = −sin x."
+    },
+    {
+     "id": "s4",
+     "emoji": "📈",
+     "text": "∫ = ½[−cos 5x/5 + cos x] + C"
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "= −(1/10) cos 5x + (1/2) cos x + C"
+    }
+   ],
+   "challenge": "Arrange the steps that integrate a product of trigonometric functions."
+  }
+ },
+ "g12-maths-07-04": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Integrals of particular functions",
+   "challenge": "Spot the standard form (x² ± a², a² − x², or under a root). Factor out the coefficient of x² first. Match each integral.",
+   "pairs": [
+    [
+     "∫dx/(9x² + 4)",
+     "(1/6) tan⁻¹(3x/2) + C"
+    ],
+    [
+     "∫dx/(x² − 16)",
+     "(1/8) log|(x − 4)/(x + 4)| + C"
+    ],
+    [
+     "∫dx/(x² + 25)",
+     "(1/5) tan⁻¹(x/5) + C"
+    ],
+    [
+     "∫dx/√(9 − x²)",
+     "sin⁻¹(x/3) + C"
+    ],
+    [
+     "∫dx/(1 − 4x²)",
+     "(1/4) log|(1 + 2x)/(1 − 2x)| + C"
+    ],
+    [
+     "∫dx/√(x² + 9)",
+     "log|x + √(x² + 9)| + C"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Integral",
+   "rightTitle": "Result"
+  }
+ },
+ "g12-maths-07-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "∫dx/(x² − 6x + 13)",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "🧩",
+     "text": "Complete the square: x² − 6x + 13 = (x − 3)² + 4"
+    },
+    {
+     "id": "s2",
+     "emoji": "🔁",
+     "text": "Put t = x − 3, dt = dx"
+    },
+    {
+     "id": "s3",
+     "emoji": "📚",
+     "text": "∫dt/(t² + 2²) = (1/2) tan⁻¹(t/2) + C",
+     "info": "∫dx/(x² + a²) = (1/a) tan⁻¹(x/a) + C."
+    },
+    {
+     "id": "s4",
+     "emoji": "✅",
+     "text": "= (1/2) tan⁻¹((x − 3)/2) + C"
+    }
+   ],
+   "challenge": "Arrange the steps of completing the square."
+  }
+ },
+ "g12-maths-07-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which partial-fraction form?",
+   "challenge": "Look at the denominator (and the degrees!) and sort each integrand by the partial-fraction form you would use.",
+   "bins": [
+    {
+     "name": "Distinct linear factors",
+     "emoji": "🔹"
+    },
+    {
+     "name": "Repeated linear factor",
+     "emoji": "🔁"
+    },
+    {
+     "name": "Non-factorable quadratic factor",
+     "emoji": "🌀"
+    },
+    {
+     "name": "Improper — divide first",
+     "emoji": "➗"
+    }
+   ],
+   "items": [
+    {
+     "text": "1/((x + 1)(x + 2))",
+     "bin": 0,
+     "why": "A/(x + 1) + B/(x + 2) → log|(x + 1)/(x + 2)| + C."
+    },
+    {
+     "text": "(3x − 1)/((x − 1)(x − 2)(x − 3))",
+     "bin": 0
+    },
+    {
+     "text": "x/((x − 1)²(x + 2))",
+     "bin": 1,
+     "why": "A/(x − 1) + B/(x − 1)² + C/(x + 2)."
+    },
+    {
+     "text": "(3x + 5)/(x³ − x² − x + 1)",
+     "bin": 1,
+     "why": "x³ − x² − x + 1 = (x − 1)²(x + 1)."
+    },
+    {
+     "text": "1/(x(x² + 1))",
+     "bin": 2,
+     "why": "A/x + (Bx + C)/(x² + 1)."
+    },
+    {
+     "text": "2x/((x² + 1)(x² + 3))",
+     "bin": 2,
+     "why": "Put t = x² first, or use (Bx + C) numerators."
+    },
+    {
+     "text": "(x² + 1)/(x² − 5x + 6)",
+     "bin": 3,
+     "why": "Degree of top = degree of bottom: 1 + (5x − 5)/(x² − 5x + 6)."
+    },
+    {
+     "text": "x³/(x² − 1)",
+     "bin": 3,
+     "why": "x³/(x² − 1) = x + x/(x² − 1)."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-07-07": {
+  "type": "sortbins",
+  "p": {
+   "title": "Which is the first function u? (ILATE)",
+   "challenge": "In ∫u·v dx the first function u is the one that comes earlier in I-L-A-T-E. Sort each integral by its u.",
+   "bins": [
+    {
+     "name": "I — inverse trig",
+     "emoji": "🔙"
+    },
+    {
+     "name": "L — logarithmic",
+     "emoji": "📓"
+    },
+    {
+     "name": "A — algebraic",
+     "emoji": "🔤"
+    },
+    {
+     "name": "T — trigonometric",
+     "emoji": "📐"
+    }
+   ],
+   "items": [
+    {
+     "text": "∫x tan⁻¹x dx",
+     "bin": 0
+    },
+    {
+     "text": "∫sin⁻¹x dx",
+     "bin": 0,
+     "why": "Take 1 as the second function."
+    },
+    {
+     "text": "∫x log x dx",
+     "bin": 1
+    },
+    {
+     "text": "∫log x dx",
+     "bin": 1,
+     "why": "Take 1 as the second function: x log x − x + C."
+    },
+    {
+     "text": "∫x cos x dx",
+     "bin": 2,
+     "why": "x sin x + cos x + C."
+    },
+    {
+     "text": "∫x eˣ dx",
+     "bin": 2,
+     "why": "eˣ(x − 1) + C."
+    },
+    {
+     "text": "∫x² sin x dx",
+     "bin": 2
+    },
+    {
+     "text": "∫eˣ sin x dx",
+     "bin": 3,
+     "why": "T comes before E; the integral reappears after two steps."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-07-08": {
+  "type": "matchpairs",
+  "p": {
+   "title": "∫eˣ[f(x) + f′(x)] dx = eˣ f(x) + C",
+   "challenge": "In each integrand spot f(x) and its derivative f′(x). Then the answer is eˣ f(x) + C. Match them.",
+   "pairs": [
+    [
+     "∫eˣ(sin x + cos x) dx",
+     "eˣ sin x + C"
+    ],
+    [
+     "∫eˣ(tan⁻¹x + 1/(1 + x²)) dx",
+     "eˣ tan⁻¹x + C"
+    ],
+    [
+     "∫eˣ(1/x − 1/x²) dx",
+     "eˣ/x + C"
+    ],
+    [
+     "∫eˣ(x + 1) dx",
+     "x eˣ + C"
+    ],
+    [
+     "∫eˣ(sec²x + tan x) dx",
+     "eˣ tan x + C"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Integral",
+   "rightTitle": "Answer"
+  }
+ },
+ "g12-maths-07-09": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "x^3",
+   "xRange": [
+    -0.5,
+    2.5
+   ],
+   "a": 1,
+   "b": 1.5,
+   "n": 6,
+   "method": "mid",
+   "step": 0.1,
+   "F": "x^4/4",
+   "target": {
+    "area": 3.75
+   },
+   "challenge": "F(x) = x⁴/4 is an anti-derivative of x³, so ∫ₐᵇ x³ dx = F(b) − F(a). Keep a = 1 and drag b until the integral is 15/4."
+  }
+ },
+ "g12-maths-07-10": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "2x/(1 + x^2)",
+   "xRange": [
+    -0.5,
+    3
+   ],
+   "a": 0,
+   "b": 0.5,
+   "n": 8,
+   "method": "trap",
+   "step": 0.1,
+   "F": "log(1 + x^2)",
+   "target": {
+    "area": 0.6931471805599453
+   },
+   "challenge": "With t = 1 + x², ∫ 2x/(1 + x²) dx = log(1 + x²). x = 0 gives t = 1. Drag b so that ∫₀ᵇ 2x/(1 + x²) dx = log 2 (≈ 0.693): which t, and which b?"
+  }
+ },
+ "g12-maths-07-11": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "abs(x^3 - x)",
+   "xRange": [
+    -1.5,
+    2.5
+   ],
+   "yRange": [
+    -0.5,
+    6.5
+   ],
+   "a": -1,
+   "b": 1,
+   "n": 12,
+   "method": "mid",
+   "step": 0.25,
+   "target": {
+    "area": 2.75
+   },
+   "challenge": "x³ − x changes sign at −1, 0, 1, so split ∫|x³ − x| there: 1/4 + 1/4 + … Drag b so that ∫₋₁ᵇ |x³ − x| dx = 11/4."
+  }
+ },
+ "g12-maths-07-12": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "x^2",
+   "xRange": [
+    -3,
+    3
+   ],
+   "a": 0,
+   "b": 2,
+   "n": 8,
+   "method": "mid",
+   "step": 0.25,
+   "F": "x^3/3",
+   "target": {
+    "area": 5.333333333333333
+   },
+   "challenge": "x² is even: f(−x) = f(x), so ∫₋ₐᵃ x² dx = 2∫₀ᵃ x² dx. Now ∫₀² x² dx = 8/3. Drag a to double it: make the integral 16/3."
+  }
+ },
+ "g12-maths-08-01": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "x^2",
+   "xRange": [
+    0,
+    2.5
+   ],
+   "a": 1,
+   "b": 2,
+   "n": 2,
+   "method": "mid",
+   "F": "x^3/3",
+   "target": {
+    "error": 0.005
+   },
+   "challenge": "Area between y = x², the x-axis, x = 1 and x = 2 is ∫₁² x² dx = 7/3. The vertical strips approximate it. Keep a = 1, b = 2 and add strips until the strip total is within 0.005 of 7/3."
+  }
+ },
+ "g12-maths-08-02": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "x^3",
+   "xRange": [
+    -2.5,
+    2
+   ],
+   "a": -2,
+   "b": 0,
+   "n": 8,
+   "method": "mid",
+   "step": 0.25,
+   "target": {
+    "area": -3.75
+   },
+   "challenge": "y = x³ on [−2, 1]: the region below the axis (red strips) gives ∫₋₂⁰ x³ dx = −4. Drag b to 1: the integral becomes −15/4, but the AREA is |−4| + 1/4 = 17/4. Split at the zero!"
+  }
+ },
+ "g12-maths-08-03": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "(3/4)sqrt(16 - x^2)",
+   "xRange": [
+    -4.5,
+    4.5
+   ],
+   "yRange": [
+    -0.5,
+    3.5
+   ],
+   "a": 0,
+   "b": 2,
+   "n": 8,
+   "method": "mid",
+   "step": 0.25,
+   "target": {
+    "area": 9.42477796076938
+   },
+   "challenge": "Upper half of the ellipse x²/16 + y²/9 = 1 is y = (3/4)√(16 − x²). Drag b to cover the whole first quadrant (area 3π); the full ellipse is 4 × 3π = 12π = πab."
+  }
+ },
+ "g12-maths-08-04": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "area",
+   "fn": "3sqrt(x)",
+   "xRange": [
+    0,
+    5
+   ],
+   "a": 2,
+   "b": 3,
+   "n": 6,
+   "method": "mid",
+   "step": 0.25,
+   "target": {
+    "area": 10.34314575050762
+   },
+   "challenge": "y² = 9x in the first quadrant is y = 3√x. Keep a = 2 and drag b so the area between the curve, the x-axis, x = 2 and x = b is 16 − 4√2."
+  }
+ },
+ "g12-maths-09-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Order and degree",
+   "challenge": "Order = highest derivative present. Degree = power of that derivative, only when the equation is a polynomial in the derivatives. Match each.",
+   "pairs": [
+    [
+     "(y″)³ + (y′)⁴ + y = 0",
+     "order 2, degree 3"
+    ],
+    [
+     "y′ + 5y = 0",
+     "order 1, degree 1"
+    ],
+    [
+     "y‴ + 2y″ + y′ = 0",
+     "order 3, degree 1"
+    ],
+    [
+     "(y‴)² + (y″)³ + (y′)⁴ + y⁵ = 0",
+     "order 3, degree 2"
+    ],
+    [
+     "(y″)² + cos(y′) = 0",
+     "order 2, degree not defined"
+    ],
+    [
+     "y⁗ + sin(y‴) = 0",
+     "order 4, degree not defined"
+    ],
+    [
+     "(ds/dt)⁴ + 3s (d²s/dt²) = 0",
+     "order 2, degree 1"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Equation",
+   "rightTitle": "Order, degree"
+  }
+ },
+ "g12-maths-09-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Is it a solution of y″ − y′ = 0?",
+   "challenge": "Differentiate twice, substitute into y″ − y′ and check whether you get 0.",
+   "bins": [
+    {
+     "name": "Yes, a solution",
+     "emoji": "✅"
+    },
+    {
+     "name": "No",
+     "emoji": "❌"
+    }
+   ],
+   "items": [
+    {
+     "text": "y = eˣ + 1",
+     "bin": 0,
+     "why": "y′ = eˣ, y″ = eˣ: eˣ − eˣ = 0."
+    },
+    {
+     "text": "y = 5",
+     "bin": 0,
+     "why": "y′ = y″ = 0."
+    },
+    {
+     "text": "y = 3eˣ − 2",
+     "bin": 0
+    },
+    {
+     "text": "y = x",
+     "bin": 1,
+     "why": "y″ − y′ = 0 − 1 = −1."
+    },
+    {
+     "text": "y = e⁻ˣ",
+     "bin": 1,
+     "why": "y″ − y′ = e⁻ˣ + e⁻ˣ = 2e⁻ˣ ≠ 0."
+    },
+    {
+     "text": "y = x²",
+     "bin": 1,
+     "why": "2 − 2x ≠ 0 for all x."
+    },
+    {
+     "text": "y = A + Beˣ",
+     "bin": 0,
+     "why": "The general solution: 2 arbitrary constants for a 2nd-order equation."
+    },
+    {
+     "text": "y = eˣ sin x",
+     "bin": 1
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-09-03": {
+  "type": "flowchart",
+  "p": {
+   "title": "dy/dx = −4xy², y = 1 when x = 0",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "✂️",
+     "text": "Separate: dy/y² = −4x dx",
+     "info": "g(x) = −4x, h(y) = y²."
+    },
+    {
+     "id": "s2",
+     "emoji": "∫",
+     "text": "Integrate: −1/y = −2x² + C"
+    },
+    {
+     "id": "s3",
+     "emoji": "📍",
+     "text": "x = 0, y = 1: −1 = C"
+    },
+    {
+     "id": "s4",
+     "emoji": "✍️",
+     "text": "−1/y = −2x² − 1, i.e. 1/y = 2x² + 1"
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "y = 1/(2x² + 1)",
+     "info": "Particular solution — no arbitrary constant left."
+    }
+   ],
+   "challenge": "Arrange the steps of the variable separable method."
+  }
+ },
+ "g12-maths-09-04": {
+  "type": "calculuslab",
+  "p": {
+   "mode": "tangent",
+   "fn": "1000exp(0.05x)",
+   "fname": "P",
+   "xLabel": "t (years)",
+   "yLabel": "P (₹)",
+   "xRange": [
+    0,
+    25
+   ],
+   "a": 5,
+   "secant": false,
+   "target": {
+    "slope": 100
+   },
+   "challenge": "₹1000 grows continuously at 5% a year: dP/dt = (5/100)P, so P = 1000e^(0.05t). The slope is ₹100 a year exactly when P = ₹2000. Drag P there — when does the money double? (t = 20 log 2)"
+  }
+ },
+ "g12-maths-09-05": {
+  "type": "sortbins",
+  "p": {
+   "title": "Homogeneous: F(x, y) = g(y/x)?",
+   "challenge": "dy/dx = F(x, y) is homogeneous when F(λx, λy) = λ⁰F(x, y). Then y = vx turns it into a separable equation. Sort each equation.",
+   "bins": [
+    {
+     "name": "Homogeneous (degree 0)",
+     "emoji": "✅"
+    },
+    {
+     "name": "Not homogeneous",
+     "emoji": "❌"
+    }
+   ],
+   "items": [
+    {
+     "text": "dy/dx = (x + y)/x",
+     "bin": 0,
+     "why": "= 1 + y/x."
+    },
+    {
+     "text": "dy/dx = (x² + y²)/(xy)",
+     "bin": 0,
+     "why": "= x/y + y/x."
+    },
+    {
+     "text": "dy/dx = y/x + sin(y/x)",
+     "bin": 0
+    },
+    {
+     "text": "dy/dx = (x³ + y³)/(x²y)",
+     "bin": 0,
+     "why": "Top and bottom both have degree 3."
+    },
+    {
+     "text": "dy/dx = (x + 1)/y",
+     "bin": 1,
+     "why": "F(λx, λy) = (λx + 1)/(λy) ≠ F(x, y)."
+    },
+    {
+     "text": "dy/dx = x² + y",
+     "bin": 1
+    },
+    {
+     "text": "dy/dx = xy/(x + y)",
+     "bin": 1,
+     "why": "Degree 1, not 0."
+    },
+    {
+     "text": "dy/dx = (x − y)/(x + y)",
+     "bin": 0
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-09-06": {
+  "type": "flowchart",
+  "p": {
+   "title": "x dy/dx + 2y = x² (x ≠ 0)",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "📏",
+     "text": "Standard form: dy/dx + (2/x)y = x",
+     "info": "Divide by the coefficient of dy/dx."
+    },
+    {
+     "id": "s2",
+     "emoji": "🔤",
+     "text": "P = 2/x, Q = x"
+    },
+    {
+     "id": "s3",
+     "emoji": "🔑",
+     "text": "IF = e^(∫P dx) = e^(2 log x) = x²"
+    },
+    {
+     "id": "s4",
+     "emoji": "🧮",
+     "text": "y · x² = ∫x · x² dx = x⁴/4 + C",
+     "info": "y · IF = ∫(Q · IF) dx + C."
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "y = x²/4 + C/x²"
+    }
+   ],
+   "challenge": "Arrange the steps of the integrating-factor method."
+  }
+ },
+ "g12-maths-09-07": {
+  "type": "flowchart",
+  "p": {
+   "title": "Curve through the origin with slope x + y",
+   "task": "play",
+   "nodes": [
+    {
+     "id": "a",
+     "emoji": "📝",
+     "text": "dy/dx = x + y"
+    },
+    {
+     "id": "q1",
+     "emoji": "🤔",
+     "text": "Can it be written as g(x)·h(y)?",
+     "info": "Try separating the variables.",
+     "type": "decision"
+    },
+    {
+     "id": "q2",
+     "emoji": "🤔",
+     "text": "Is F(x, y) = g(y/x)?",
+     "info": "F(λx, λy) = λ(x + y): degree 1, not 0.",
+     "type": "decision"
+    },
+    {
+     "id": "q3",
+     "emoji": "🤔",
+     "text": "Is it dy/dx + Py = Q?",
+     "type": "decision"
+    },
+    {
+     "id": "b",
+     "emoji": "🔑",
+     "text": "dy/dx − y = x: P = −1, Q = x, IF = e⁻ˣ"
+    },
+    {
+     "id": "c",
+     "emoji": "🧮",
+     "text": "ye⁻ˣ = ∫xe⁻ˣ dx = −xe⁻ˣ − e⁻ˣ + C",
+     "info": "Integration by parts."
+    },
+    {
+     "id": "d",
+     "emoji": "📍",
+     "text": "Through (0, 0): 0 = −1 + C, so C = 1"
+    },
+    {
+     "id": "e",
+     "emoji": "✅",
+     "text": "y = eˣ − x − 1"
+    },
+    {
+     "id": "x",
+     "emoji": "❌",
+     "text": "Check again — that is not true for x + y",
+     "info": "x + y is not a product g(x)·h(y) and not a function of y/x alone, but it does fit dy/dx + Py = Q."
+    }
+   ],
+   "challenge": "Press Next and answer each checklist question to choose the method, then solve.",
+   "edges": [
+    {
+     "from": "a",
+     "to": "q1"
+    },
+    {
+     "from": "q1",
+     "to": "x",
+     "label": "Yes"
+    },
+    {
+     "from": "q1",
+     "to": "q2",
+     "label": "No"
+    },
+    {
+     "from": "q2",
+     "to": "x",
+     "label": "Yes"
+    },
+    {
+     "from": "q2",
+     "to": "q3",
+     "label": "No"
+    },
+    {
+     "from": "q3",
+     "to": "b",
+     "label": "Yes"
+    },
+    {
+     "from": "q3",
+     "to": "x",
+     "label": "No"
+    },
+    {
+     "from": "x",
+     "to": "q1"
+    },
+    {
+     "from": "b",
+     "to": "c"
+    },
+    {
+     "from": "c",
+     "to": "d"
+    },
+    {
+     "from": "d",
+     "to": "e"
+    }
+   ]
+  }
+ },
+ "g12-maths-10-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Direction cosines l, m, n",
+   "challenge": "For r = ai + bj + ck: l = a/|r|, m = b/|r|, n = c/|r|. Find |r| first. Join each vector to its direction cosines.",
+   "pairs": [
+    [
+     "i + 2j + 2k",
+     "1/3, 2/3, 2/3"
+    ],
+    [
+     "2i + 3j + 6k",
+     "2/7, 3/7, 6/7"
+    ],
+    [
+     "i − 2j + 2k",
+     "1/3, −2/3, 2/3"
+    ],
+    [
+     "2i − j + 2k",
+     "2/3, −1/3, 2/3"
+    ],
+    [
+     "i + j + k",
+     "1/√3, 1/√3, 1/√3"
+    ],
+    [
+     "i + j − 2k",
+     "1/√6, 1/√6, −2/√6"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Vector",
+   "rightTitle": "l, m, n"
+  }
+ },
+ "g12-maths-10-02": {
+  "type": "sortbins",
+  "p": {
+   "title": "Square ABCD: compare the two vectors",
+   "challenge": "Free vectors are equal when they have the same magnitude AND the same direction, wherever they start. Sort the pairs in square ABCD (labelled anticlockwise).",
+   "bins": [
+    {
+     "name": "Equal vectors",
+     "emoji": "🟰"
+    },
+    {
+     "name": "Negatives of each other",
+     "emoji": "↩️"
+    },
+    {
+     "name": "Neither (not collinear)",
+     "emoji": "✖️"
+    }
+   ],
+   "items": [
+    {
+     "text": "AB and DC",
+     "bin": 0,
+     "why": "Same length, same direction."
+    },
+    {
+     "text": "AB and CD",
+     "bin": 1,
+     "why": "CD = −AB."
+    },
+    {
+     "text": "AD and BC",
+     "bin": 0
+    },
+    {
+     "text": "DA and BC",
+     "bin": 1
+    },
+    {
+     "text": "BA and CD",
+     "bin": 0,
+     "why": "Both point the opposite way to AB."
+    },
+    {
+     "text": "AB and BC",
+     "bin": 2,
+     "why": "They are perpendicular."
+    },
+    {
+     "text": "AC and BD",
+     "bin": 2,
+     "why": "The diagonals cross."
+    },
+    {
+     "text": "CB and DA",
+     "bin": 0
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-10-03": {
+  "type": "vectorlab",
+  "p": {
+   "mode": "add",
+   "law": "triangle",
+   "view": [
+    -5,
+    7,
+    -4,
+    4
+   ],
+   "snap": 1,
+   "vectors": [
+    {
+     "x": 3,
+     "y": 1,
+     "label": "AB",
+     "fixed": true
+    },
+    {
+     "x": -1,
+     "y": 2,
+     "label": "BC",
+     "fixed": true
+    },
+    {
+     "x": 1,
+     "y": -1,
+     "label": "CA"
+    }
+   ],
+   "target": {
+    "x": 0,
+    "y": 0
+   },
+   "challenge": "Triangle law: AB and BC are fixed, head to tail. Drag CA so that it closes the triangle, back to the start. Then AB + BC + CA = 0 — the resultant vanishes."
+  }
+ },
+ "g12-maths-10-04": {
+  "type": "vectorlab",
+  "p": {
+   "mode": "add",
+   "law": "triangle",
+   "view": [
+    -6,
+    6,
+    -4,
+    4
+   ],
+   "snap": 1,
+   "vectors": [
+    {
+     "x": 2,
+     "y": 1,
+     "label": "a",
+     "fixed": true
+    },
+    {
+     "x": 1,
+     "y": 2,
+     "label": "b"
+    }
+   ],
+   "target": {
+    "x": -2,
+    "y": -1
+   },
+   "challenge": "Make b = λa with λ = −2 (collinear with a, twice as long, opposite way). Then a + b = −a = −2i − j. Drag b until the resultant is −2i − j."
+  }
+ },
+ "g12-maths-10-05": {
+  "type": "coordplane",
+  "p": {
+   "task": "plot",
+   "xRange": [
+    -3,
+    5
+   ],
+   "yRange": [
+    -2,
+    6
+   ],
+   "given": [
+    [
+     -2,
+     -1
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "givenLabels": [
+    "P",
+    "Q"
+   ],
+   "targets": [
+    [
+     2,
+     3
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "targetLabels": [
+    "R (2 : 1)",
+    "M (mid)"
+   ],
+   "maxPoints": 4,
+   "show": [
+    "coords"
+   ],
+   "challenge": "In the plane: P = −2i − j, Q = 4i + 5j. Plot R dividing PQ internally in the ratio 2 : 1, using (mb + na)/(m + n) — m goes with Q! Then plot the mid-point M = (a + b)/2.",
+   "winText": "R = (2(4i + 5j) + 1(−2i − j))/3 = 2i + 3j and M = (2i + 4j)/2 = i + 2j."
+  }
+ },
+ "g12-maths-10-06": {
+  "type": "sortbins",
+  "p": {
+   "title": "Angle between a and b",
+   "challenge": "a · b = a₁b₁ + a₂b₂ + a₃b₃ = |a||b| cos θ, so its sign tells the kind of angle. Compute and sort. (For i + j and j + k, cos θ = 1/2, θ = π/3.)",
+   "bins": [
+    {
+     "name": "Acute (a · b > 0)",
+     "emoji": "📐"
+    },
+    {
+     "name": "Right angle (a · b = 0)",
+     "emoji": "⟂"
+    },
+    {
+     "name": "Obtuse (a · b < 0)",
+     "emoji": "🔓"
+    }
+   ],
+   "items": [
+    {
+     "text": "a = i + j, b = j + k",
+     "bin": 0,
+     "why": "a · b = 1"
+    },
+    {
+     "text": "a = i − j, b = i + j",
+     "bin": 1,
+     "why": "a · b = 0"
+    },
+    {
+     "text": "a = 2i − j + k, b = i + 3j + k",
+     "bin": 1,
+     "why": "a · b = 0"
+    },
+    {
+     "text": "a = i + 2j + 3k, b = 3i − 2j + k",
+     "bin": 0,
+     "why": "a · b = 2"
+    },
+    {
+     "text": "a = i − 2j + 3k, b = 3i − 2j + k",
+     "bin": 0,
+     "why": "a · b = 10"
+    },
+    {
+     "text": "a = 2i + j, b = −i + j",
+     "bin": 2,
+     "why": "a · b = −1"
+    },
+    {
+     "text": "a = i − j + k, b = −2i + j − k",
+     "bin": 2,
+     "why": "a · b = −4"
+    },
+    {
+     "text": "a = 3i − 4k, b = 4i + j + 3k",
+     "bin": 1,
+     "why": "a · b = 0"
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-10-07": {
+  "type": "vectorlab",
+  "p": {
+   "mode": "resolve",
+   "vector": {
+    "x": 3,
+    "y": 0,
+    "label": "a"
+   },
+   "axisAngle": 30,
+   "target": {
+    "x": -2
+   },
+   "challenge": "The tilted x′-axis points along b. The component of a along x′ is the projection of a on b = a · b̂ = |a| cos θ. Drag a so its projection on b is −2 — the angle must be obtuse."
+  }
+ },
+ "g12-maths-10-08": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Cross products",
+   "challenge": "Cyclic order i → j → k → i gives +, the reverse order gives −, and a × a = 0. The last one: expand |i j k; 1 −7 7; 3 −2 2|.",
+   "pairs": [
+    [
+     "i × j",
+     "k"
+    ],
+    [
+     "j × k",
+     "i"
+    ],
+    [
+     "k × i",
+     "j"
+    ],
+    [
+     "j × i",
+     "−k"
+    ],
+    [
+     "i × k",
+     "−j"
+    ],
+    [
+     "k × k",
+     "0 (zero vector)"
+    ],
+    [
+     "(i − 7j + 7k) × (3i − 2j + 2k)",
+     "19j + 19k"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Product",
+   "rightTitle": "Result"
+  }
+ },
+ "g12-maths-10-09": {
+  "type": "flowchart",
+  "p": {
+   "title": "Area of triangle A(1, 1, 2), B(2, 3, 5), C(1, 5, 5)",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "➡️",
+     "text": "AB = i + 2j + 3k",
+     "info": "Subtract position vectors: B − A."
+    },
+    {
+     "id": "s2",
+     "emoji": "➡️",
+     "text": "AC = 4j + 3k"
+    },
+    {
+     "id": "s3",
+     "emoji": "✖️",
+     "text": "AB × AC = |i j k; 1 2 3; 0 4 3| = −6i − 3j + 4k",
+     "info": "i(6 − 12) − j(3 − 0) + k(4 − 0)."
+    },
+    {
+     "id": "s4",
+     "emoji": "📏",
+     "text": "|AB × AC| = √(36 + 9 + 16) = √61"
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "Area = ½|AB × AC| = √61/2 square units"
+    }
+   ],
+   "challenge": "Arrange the steps that use the cross product to find the area of the triangle."
+  }
+ },
+ "g12-maths-11-01": {
+  "type": "sortbins",
+  "p": {
+   "title": "Direction cosines or only direction ratios?",
+   "challenge": "Direction cosines must satisfy l² + m² + n² = 1; any numbers proportional to them are direction ratios. Test and sort each triple.",
+   "bins": [
+    {
+     "name": "Direction cosines (l² + m² + n² = 1)",
+     "emoji": "🧭"
+    },
+    {
+     "name": "Only direction ratios",
+     "emoji": "📊"
+    }
+   ],
+   "items": [
+    {
+     "text": "1/3, 2/3, 2/3",
+     "bin": 0,
+     "why": "l² + m² + n² = 1 ✓"
+    },
+    {
+     "text": "1/2, 1/2, 1/2",
+     "bin": 1,
+     "why": "l² + m² + n² = 0.75 ≠ 1 — these can only be direction ratios."
+    },
+    {
+     "text": "1/√2, 1/√2, 0",
+     "bin": 0,
+     "why": "l² + m² + n² = 1 ✓"
+    },
+    {
+     "text": "2/7, 3/7, 6/7",
+     "bin": 0,
+     "why": "l² + m² + n² = 1 ✓"
+    },
+    {
+     "text": "1, 1, 1",
+     "bin": 1,
+     "why": "l² + m² + n² = 3 ≠ 1 — these can only be direction ratios."
+    },
+    {
+     "text": "3/√77, −2/√77, 8/√77",
+     "bin": 0,
+     "why": "l² + m² + n² = 1 ✓"
+    },
+    {
+     "text": "0.6, 0.8, 0",
+     "bin": 0,
+     "why": "l² + m² + n² = 1 ✓"
+    },
+    {
+     "text": "1/2, 1/2, 1/√2",
+     "bin": 0,
+     "why": "l² + m² + n² = 1 ✓"
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-11-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Cartesian ↔ vector equation",
+   "challenge": "Read the point (x₁, y₁, z₁) from the numerators — watch the signs: x + 3 means x₁ = −3 — and the direction from the denominators. Match each line.",
+   "pairs": [
+    [
+     "(x − 5)/3 = (y − 2)/2 = (z + 4)/(−8)",
+     "r = 5i + 2j − 4k + λ(3i + 2j − 8k)"
+    ],
+    [
+     "(x + 3)/2 = (y − 5)/4 = (z + 6)/2",
+     "r = −3i + 5j − 6k + λ(2i + 4j + 2k)"
+    ],
+    [
+     "(x − 5)/3 = (y + 4)/7 = (z − 6)/2",
+     "r = 5i − 4j + 6k + λ(3i + 7j + 2k)"
+    ],
+    [
+     "x/5 = y/(−2) = z/3",
+     "r = λ(5i − 2j + 3k)"
+    ],
+    [
+     "(x − 1)/3 = (y − 2)/2 = (z − 3)/(−2)",
+     "r = i + 2j + 3k + λ(3i + 2j − 2k)"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Cartesian form",
+   "rightTitle": "Vector form"
+  }
+ },
+ "g12-maths-11-03": {
+  "type": "sortbins",
+  "p": {
+   "title": "Two lines with these direction ratios are…",
+   "challenge": "Perpendicular: a₁a₂ + b₁b₂ + c₁c₂ = 0. Parallel: a₁/a₂ = b₁/b₂ = c₁/c₂. Otherwise cos θ = |a₁a₂ + b₁b₂ + c₁c₂|/(|b₁||b₂|). Sort the pairs.",
+   "bins": [
+    {
+     "name": "Parallel",
+     "emoji": "🛤️"
+    },
+    {
+     "name": "Perpendicular",
+     "emoji": "⟂"
+    },
+    {
+     "name": "Neither",
+     "emoji": "📐"
+    }
+   ],
+   "items": [
+    {
+     "text": "(1, 2, 2) and (3, 2, 6)",
+     "bin": 2,
+     "why": "a₁a₂ + b₁b₂ + c₁c₂ = 19 ≠ 0 and the ratios are not proportional. cos θ = 19/21."
+    },
+    {
+     "text": "(7, −5, 1) and (1, 2, 3)",
+     "bin": 1,
+     "why": "a₁a₂ + b₁b₂ + c₁c₂ = 0 → perpendicular."
+    },
+    {
+     "text": "(2, −3, 4) and (4, −6, 8)",
+     "bin": 0,
+     "why": "Direction ratios are proportional."
+    },
+    {
+     "text": "(1, 2, 3) and (−3, −6, −9)",
+     "bin": 0,
+     "why": "Direction ratios are proportional."
+    },
+    {
+     "text": "(1, −1, 2) and (3, 2, −1)",
+     "bin": 2,
+     "why": "a₁a₂ + b₁b₂ + c₁c₂ = −1 ≠ 0 and the ratios are not proportional."
+    },
+    {
+     "text": "(2, 1, −2) and (1, 2, 2)",
+     "bin": 1,
+     "why": "a₁a₂ + b₁b₂ + c₁c₂ = 0 → perpendicular."
+    },
+    {
+     "text": "(−3, 2, 5) and (1, 3, 4)",
+     "bin": 2,
+     "why": "a₁a₂ + b₁b₂ + c₁c₂ = 23 ≠ 0 and the ratios are not proportional."
+    },
+    {
+     "text": "(1, −3, 2) and (−3, 9, −6)",
+     "bin": 0,
+     "why": "Direction ratios are proportional."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-11-04": {
+  "type": "flowchart",
+  "p": {
+   "title": "Shortest distance between skew lines",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "📝",
+     "text": "a₁ = i + 2j + k, b₁ = i − j + k; a₂ = 2i − j − k, b₂ = 2i + j + 2k"
+    },
+    {
+     "id": "s2",
+     "emoji": "➖",
+     "text": "a₂ − a₁ = i − 3j − 2k"
+    },
+    {
+     "id": "s3",
+     "emoji": "✖️",
+     "text": "b₁ × b₂ = −3i + 0j + 3k",
+     "info": "|i j k; 1 −1 1; 2 1 2| = i(−2 − 1) − j(2 − 2) + k(1 + 2)."
+    },
+    {
+     "id": "s4",
+     "emoji": "📏",
+     "text": "|b₁ × b₂| = √(9 + 0 + 9) = 3√2"
+    },
+    {
+     "id": "s5",
+     "emoji": "•",
+     "text": "(a₂ − a₁) · (b₁ × b₂) = −3 + 0 − 6 = −9"
+    },
+    {
+     "id": "s6",
+     "emoji": "✅",
+     "text": "d = |−9|/(3√2) = 3/√2 units",
+     "info": "d ≠ 0, so the lines do not intersect."
+    }
+   ],
+   "challenge": "Arrange the steps that find the shortest distance between r = i + 2j + k + λ(i − j + k) and r = 2i − j − k + μ(2i + j + 2k)."
+  }
+ },
+ "g12-maths-11-05": {
+  "type": "flowchart",
+  "p": {
+   "title": "Distance between parallel lines",
+   "task": "play",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "📝",
+     "text": "Common direction b = 2i + 3j + 6k, |b| = 7",
+     "info": "Both lines are parallel to b."
+    },
+    {
+     "id": "s2",
+     "emoji": "➖",
+     "text": "a₂ − a₁ = (3i + 3j − 5k) − (i + 2j − 4k) = 2i + j − k"
+    },
+    {
+     "id": "s3",
+     "emoji": "✖️",
+     "text": "b × (a₂ − a₁) = −9i + 14j − 4k",
+     "info": "|i j k; 2 3 6; 2 1 −1| = i(−3 − 6) − j(−2 − 12) + k(2 − 6)."
+    },
+    {
+     "id": "s4",
+     "emoji": "📏",
+     "text": "|b × (a₂ − a₁)| = √(81 + 196 + 16) = √293"
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "d = √293/7 units",
+     "info": "d = |b × (a₂ − a₁)|/|b|. (The skew-line formula fails: b × b = 0.)"
+    }
+   ],
+   "challenge": "Press Next to find the distance between r = i + 2j − 4k + λ(2i + 3j + 6k) and r = 3i + 3j − 5k + μ(2i + 3j + 6k)."
+  }
+ },
+ "g12-maths-12-01": {
+  "type": "matchpairs",
+  "p": {
+   "title": "Formulate the dealer’s LPP",
+   "challenge": "A dealer buys tables at ₹2500 and chairs at ₹500 with ₹50,000 and space for 60 pieces. Translate each condition (2500x + 500y ≤ 50000 simplifies by 500).",
+   "pairs": [
+    [
+     "Decision variables",
+     "x tables, y chairs"
+    ],
+    [
+     "Money: ₹2500 per table, ₹500 per chair, ₹50,000 to spend",
+     "5x + y ≤ 100"
+    ],
+    [
+     "Space for at most 60 pieces",
+     "x + y ≤ 60"
+    ],
+    [
+     "Profit ₹250 per table, ₹75 per chair",
+     "Maximise Z = 250x + 75y"
+    ],
+    [
+     "You cannot buy a negative number of items",
+     "x ≥ 0, y ≥ 0"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Condition",
+   "rightTitle": "In the LPP"
+  }
+ },
+ "g12-maths-12-02": {
+  "type": "coordplane",
+  "p": {
+   "task": "plot",
+   "xRange": [
+    -1,
+    7
+   ],
+   "yRange": [
+    -1,
+    6
+   ],
+   "targets": [
+    [
+     0,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0,
+     4
+    ]
+   ],
+   "targetLabels": [
+    "O",
+    "A",
+    "B",
+    "C"
+   ],
+   "maxPoints": 5,
+   "show": [
+    "coords"
+   ],
+   "challenge": "Constraints x + 2y ≤ 8, 3x + 2y ≤ 12, x ≥ 0, y ≥ 0. Plot the four corner points of the feasible region: the origin, the two axis intercepts that satisfy both, and where x + 2y = 8 meets 3x + 2y = 12.",
+   "winText": "Corners O(0, 0), A(4, 0), B(2, 3), C(0, 4). E.g. Z = −3x + 4y is smallest (−12) at A(4, 0)."
+  }
+ },
+ "g12-maths-12-03": {
+  "type": "datachart",
+  "p": {
+   "title": "Z = 4x + y at each corner",
+   "labels": [
+    "(0, 0)",
+    "(30, 0)",
+    "(20, 30)",
+    "(0, 50)"
+   ],
+   "values": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "views": [
+    "bar"
+   ],
+   "unit": "value of Z",
+   "max": 130,
+   "step": 10,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     0,
+     120,
+     110,
+     50
+    ]
+   },
+   "challenge": "Corner point method for x + y ≤ 50, 3x + y ≤ 90, x, y ≥ 0: work out Z = 4x + y at each corner and build the bars. The tallest bar is the maximum (the region is bounded)."
+  }
+ },
+ "g12-maths-12-04": {
+  "type": "graphplot",
+  "p": {
+   "mode": "line",
+   "m": -2,
+   "c": 1,
+   "mRange": [
+    -3,
+    1,
+    0.5
+   ],
+   "cRange": [
+    0,
+    6,
+    1
+   ],
+   "xr": 7,
+   "yr": 6,
+   "tableX": [
+    0,
+    2,
+    4,
+    6
+   ],
+   "through": [
+    [
+     6,
+     0
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "challenge": "Minimise Z = x + 2y with 2x + y ≥ 3, x + 2y ≥ 6, x, y ≥ 0. Corners: (6, 0) and (0, 3), both give Z = 6. Slide the line x + 2y = 6 (y = mx + c) through both corners: it lies along the edge, so every point of that segment is optimal."
+  }
+ },
+ "g12-maths-13-01": {
+  "type": "statlab",
+  "p": {
+   "mode": "venn",
+   "sets": {
+    "A": [
+     "4"
+    ],
+    "B": [
+     "2",
+     "4",
+     "6"
+    ]
+   },
+   "universe": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "names": [
+    "E",
+    "F"
+   ],
+   "tasks": [
+    "B",
+    "A∩B"
+   ],
+   "challenge": "A die is thrown. E = “shows 4”, F = “even”. Given F, the sample space shrinks to F. Shade F, then E ∩ F. P(E|F) = n(E ∩ F)/n(F) — what is it?"
+  }
+ },
+ "g12-maths-13-02": {
+  "type": "matchpairs",
+  "p": {
+   "title": "One card from a pack of 52",
+   "challenge": "Given F, count only inside F: P(E|F) = n(E ∩ F)/n(F). (26 red cards, 2 red kings, 6 red face cards.) Match each.",
+   "pairs": [
+    [
+     "P(king | red)",
+     "2/26 = 1/13"
+    ],
+    [
+     "P(red | king)",
+     "2/4 = 1/2"
+    ],
+    [
+     "P(face card | red)",
+     "6/26 = 3/13"
+    ],
+    [
+     "P(heart | red)",
+     "13/26 = 1/2"
+    ],
+    [
+     "P(black | spade)",
+     "13/13 = 1"
+    ],
+    [
+     "P(not a king | red)",
+     "1 − 1/13 = 12/13"
+    ]
+   ],
+   "mode": "instant",
+   "leftTitle": "Conditional probability",
+   "rightTitle": "Value"
+  }
+ },
+ "g12-maths-13-03": {
+  "type": "flowchart",
+  "p": {
+   "title": "Urn: 10 black, 5 white; draw 2 without replacement",
+   "task": "play",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "⚫",
+     "text": "P(1st black) = 10/15 = 2/3"
+    },
+    {
+     "id": "s2",
+     "emoji": "🔁",
+     "text": "Now 9 black and 5 white are left (14 balls)",
+     "info": "Without replacement both numerator and denominator drop."
+    },
+    {
+     "id": "s3",
+     "emoji": "⚫",
+     "text": "P(2nd black | 1st black) = 9/14"
+    },
+    {
+     "id": "s4",
+     "emoji": "✖️",
+     "text": "P(both black) = (2/3) × (9/14)",
+     "info": "P(E ∩ F) = P(E) P(F|E)."
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "= 18/42 = 3/7",
+     "info": "Check: 3/7 is smaller than each factor."
+    }
+   ],
+   "challenge": "Press Next to use the multiplication theorem."
+  }
+ },
+ "g12-maths-13-04": {
+  "type": "sortbins",
+  "p": {
+   "title": "Independent, mutually exclusive or neither?",
+   "challenge": "Compare P(E ∩ F) with P(E)·P(F). Equal → independent. P(E ∩ F) = 0 → mutually exclusive. Sort each pair of events.",
+   "bins": [
+    {
+     "name": "Independent",
+     "emoji": "🔓"
+    },
+    {
+     "name": "Mutually exclusive",
+     "emoji": "🚧"
+    },
+    {
+     "name": "Neither",
+     "emoji": "🔗"
+    }
+   ],
+   "items": [
+    {
+     "text": "Die: E = multiple of 3, F = even",
+     "bin": 0,
+     "why": "P(E ∩ F) = 1/6 = (1/3)(1/2)."
+    },
+    {
+     "text": "Die: E = odd, F = even",
+     "bin": 1,
+     "why": "They cannot happen together: P(E ∩ F) = 0."
+    },
+    {
+     "text": "Die: E = less than 3, F = even",
+     "bin": 0,
+     "why": "P(E ∩ F) = P({2}) = 1/6 = (1/3)(1/2)."
+    },
+    {
+     "text": "Die: E = prime, F = even",
+     "bin": 2,
+     "why": "P(E ∩ F) = 1/6 but P(E)P(F) = 1/4."
+    },
+    {
+     "text": "Card: E = spade, F = ace",
+     "bin": 0,
+     "why": "P(E ∩ F) = 1/52 = (1/4)(1/13)."
+    },
+    {
+     "text": "Card: E = red, F = heart",
+     "bin": 2,
+     "why": "P(E ∩ F) = 1/4 but P(E)P(F) = 1/8."
+    },
+    {
+     "text": "Two coins: E = head on 1st, F = head on 2nd",
+     "bin": 0,
+     "why": "P(E ∩ F) = 1/4 = (1/2)(1/2)."
+    },
+    {
+     "text": "Die: E = 1 or 2, F = 5 or 6",
+     "bin": 1,
+     "why": "Disjoint events with non-zero probabilities cannot be independent."
+    }
+   ],
+   "mode": "check"
+  }
+ },
+ "g12-maths-13-05": {
+  "type": "probability",
+  "p": {
+   "device": "coin",
+   "count": 2,
+   "ask": {
+    "type": "event",
+    "outcomes": [
+     1,
+     2
+    ],
+    "name": "at least one head"
+   },
+   "minTrials": 100,
+   "challenge": "Two independent tosses: P(at least one head) = 1 − P(no head) = 1 − (1/2)(1/2). Predict it, then toss many times. (Same idea: A, B, C hit with 1/2, 1/3, 1/4 ⇒ P(at least one) = 1 − (1/2)(2/3)(3/4).)"
+  }
+ },
+ "g12-maths-13-06": {
+  "type": "flowchart",
+  "p": {
+   "title": "Bayes: which bag gave the red ball?",
+   "task": "arrange",
+   "nodes": [
+    {
+     "id": "s1",
+     "emoji": "👜",
+     "text": "E₁ = bag I (3 red, 4 black), E₂ = bag II (5 red, 6 black); P(E₁) = P(E₂) = 1/2",
+     "info": "Prior probabilities."
+    },
+    {
+     "id": "s2",
+     "emoji": "🔴",
+     "text": "P(R|E₁) = 3/7, P(R|E₂) = 5/11"
+    },
+    {
+     "id": "s3",
+     "emoji": "➕",
+     "text": "P(R) = (1/2)(3/7) + (1/2)(5/11) = 34/77",
+     "info": "Theorem of total probability."
+    },
+    {
+     "id": "s4",
+     "emoji": "🔄",
+     "text": "P(E₂|R) = P(E₂)P(R|E₂) / P(R) = (5/22)/(34/77)",
+     "info": "Bayes' theorem."
+    },
+    {
+     "id": "s5",
+     "emoji": "✅",
+     "text": "P(E₂|R) = 35/68",
+     "info": "Posterior probability."
+    }
+   ],
+   "challenge": "Arrange the steps of Bayes' theorem: a red ball was drawn — find the probability it came from bag II."
+  }
+ },
+ "g12-maths-13-07": {
+  "type": "datachart",
+  "p": {
+   "title": "Defective bolts out of 10,000 made",
+   "labels": [
+    "Machine A",
+    "Machine B",
+    "Machine C"
+   ],
+   "values": [
+    0,
+    0,
+    0
+   ],
+   "views": [
+    "bar",
+    "pie"
+   ],
+   "unit": "defective bolts",
+   "max": 160,
+   "step": 5,
+   "statsOf": "none",
+   "ask": {
+    "type": "build",
+    "values": [
+     125,
+     140,
+     80
+    ]
+   },
+   "challenge": "A, B, C make 25%, 35%, 40% of 10,000 bolts, with 5%, 4%, 2% defective. Build the number of defective bolts from each machine. Then P(B | defective) = B’s share of all defectives (see the pie)."
+  }
+ }
+}
