@@ -1,0 +1,2819 @@
+{
+ "n": 4,
+ "title": "Moving Charges and Magnetism",
+ "emoji": "🧲",
+ "topics": [
+  {
+   "id": "g12-physics-04-01",
+   "title": "Currents make magnetic fields",
+   "covers": [
+    "c4.1.1",
+    "c4.1.2",
+    "c4.1.3",
+    "c4.2.1"
+   ],
+   "learn": {
+    "hook": "In 1820, during a lecture demonstration, Hans Christian Oersted saw a compass needle twitch near a current-carrying wire. Electricity and magnetism were joined for good.",
+    "points": [
+     "Oersted's discovery (1820): a current in a straight wire deflects a nearby compass needle. The needle sets along circles around the wire.",
+     "Moving charges (currents) produce magnetic fields. Reversing the current reverses the deflection.",
+     "Later, Maxwell unified electricity and magnetism and showed light is an electromagnetic wave.",
+     "Notation: a dot ⊙ means a field or current coming out of the page (towards you); a cross ⊗ means going into the page.",
+     "Magnetic fields obey superposition: the field of several sources is the vector sum of their individual fields. Like E, B is a vector field."
+    ],
+    "example": {
+     "q": "A compass is placed just below a wire running north-south. When the current flows north, the needle's north pole swings west. What happens if the current is reversed?",
+     "steps": [
+      "Below a wire carrying current northwards, the field points west (right-hand thumb rule), so the north pole swings west.",
+      "Reversing the current reverses the field around the wire.",
+      "The force on the needle's poles reverses, so it swings the other way."
+     ],
+     "answer": "The north pole now swings east"
+    },
+    "reallife": "Railway engineers keep sensitive magnetic compasses and instruments away from heavy-current traction cables on electrified Indian Railways routes, because the current's magnetic field can deflect them."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Oersted's lessons",
+     "items": [
+      [
+       "A steady current in a wire produces a magnetic field around it.",
+       true,
+       "That was Oersted's observation."
+      ],
+      [
+       "A stationary charge produces a magnetic field.",
+       false,
+       "Only moving charges (currents) do."
+      ],
+      [
+       "The symbol ⊗ means a field directed into the page.",
+       true,
+       "Think of the tail feathers of an arrow going away."
+      ],
+      [
+       "Magnetic fields from two sources add as vectors.",
+       true,
+       "Superposition holds for B."
+      ],
+      [
+       "Reversing the current leaves the compass deflection unchanged.",
+       false,
+       "The deflection reverses."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Symbols and names",
+     "pairs": [
+      [
+       "⊙",
+       "Out of the page"
+      ],
+      [
+       "⊗",
+       "Into the page"
+      ],
+      [
+       "Oersted",
+       "Current deflects compass (1820)"
+      ],
+      [
+       "Maxwell",
+       "Unified electricity and magnetism"
+      ],
+      [
+       "B",
+       "Magnetic field vector"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Who first observed that an electric current deflects a magnetic compass needle?",
+     "options": [
+      "Michael Faraday",
+      "Hans Christian Oersted",
+      "James Clerk Maxwell",
+      "André-Marie Ampère"
+     ],
+     "answer": 1,
+     "explain": "Oersted noticed this in 1820, linking electricity and magnetism.",
+     "mistake": "Credits Faraday, who later discovered induction"
+    },
+    {
+     "q": "In a diagram, a magnetic field pointing straight towards the reader is shown by",
+     "options": [
+      "crosses (⊗)",
+      "arrows pointing right",
+      "circles with no mark",
+      "dots (⊙)"
+     ],
+     "answer": 3,
+     "explain": "A dot is like the tip of an arrow coming at you.",
+     "mistake": "Swaps the dot and cross conventions"
+    },
+    {
+     "q": "A compass placed near a straight wire with current tends to align",
+     "options": [
+      "parallel to the wire",
+      "along circles centred on the wire",
+      "radially away from the wire",
+      "randomly"
+     ],
+     "answer": 1,
+     "explain": "The field of a straight wire forms concentric circles around it.",
+     "mistake": "Thinks the field is along the wire"
+    },
+    {
+     "q": "Which of these produces a magnetic field?",
+     "options": [
+      "A proton at rest",
+      "A charged comb kept on a table",
+      "A neutral atom at rest with no magnetic moment",
+      "An electron moving through space"
+     ],
+     "answer": 3,
+     "explain": "Moving charges make magnetic fields; static charges make only electric fields.",
+     "mistake": "Thinks any charge makes a magnetic field"
+    },
+    {
+     "q": "Two wires each produce a field of 3 µT at a point, in the same direction. What is the net field there (in µT)?",
+     "options": [
+      "0",
+      "6",
+      "3",
+      "9"
+     ],
+     "answer": 1,
+     "explain": "Superposition: same direction, so the fields add: 3 + 3 = 6 µT.",
+     "mistake": "Thinks the fields cancel",
+     "check": "3+3"
+    },
+    {
+     "q": "Two wires produce fields of 3 µT (east) and 4 µT (north) at a point. What is the magnitude of the net field (in µT)?",
+     "options": [
+      "7",
+      "1",
+      "12",
+      "5"
+     ],
+     "answer": 3,
+     "explain": "Fields add as vectors: √(3² + 4²) = 5 µT.",
+     "mistake": "Adds magnitudes directly",
+     "check": "(3**2+4**2)**0.5"
+    },
+    {
+     "q": "Maxwell's work showed that",
+     "options": [
+      "magnets have isolated poles",
+      "electricity and magnetism are unified, and light is an electromagnetic wave",
+      "currents do not produce magnetic fields",
+      "light is a stream of electrons"
+     ],
+     "answer": 1,
+     "explain": "Maxwell's equations predicted EM waves moving at the speed of light.",
+     "mistake": "Credits Maxwell with Oersted's discovery"
+    },
+    {
+     "q": "Assertion (A): A compass needle deflects near a wire only while current flows. Reason (R): Only moving charges produce magnetic fields. Choose the correct option.",
+     "options": [
+      "Both A and R are true, but R does not explain A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true, and R explains A"
+     ],
+     "answer": 3,
+     "explain": "When the current stops, the charges no longer drift, so there is no magnetic field to turn the needle.",
+     "mistake": "Does not link the field to the motion of charges"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does my compass go crazy near a wire with current?'",
+    "must": [
+     [
+      "current",
+      "moving charges",
+      "moving charge"
+     ],
+     [
+      "magnetic field",
+      "field"
+     ],
+     [
+      "oersted",
+      "around the wire",
+      "circles"
+     ]
+    ],
+    "praise": "Chirp! Moving charges in the wire make a magnetic field around it, which turns the compass. Thanks, Oersted!",
+    "nudge": "Good! What does a current produce around it?"
+   }
+  },
+  {
+   "id": "g12-physics-04-02",
+   "title": "Lorentz force on a moving charge",
+   "covers": [
+    "c4.2.2",
+    "c4.2.3",
+    "c4.2.4",
+    "c4.2.7"
+   ],
+   "learn": {
+    "hook": "Charged particles from the Sun are steered by Earth's magnetic field into the polar skies, painting the auroras. The steering force is the Lorentz force.",
+    "points": [
+     "Lorentz force: F = q[E + v × B]. The magnetic part is F = q(v × B), magnitude qvB sinθ.",
+     "The magnetic force is perpendicular to both v and B. It is zero if the charge is at rest or moves along B (θ = 0 or 180°).",
+     "Direction: use the right-hand rule for v × B (fingers along v, curl towards B, thumb gives the force on a positive charge). Reverse it for a negative charge.",
+     "SI unit of B: tesla (T), where 1 T = 1 N s C⁻¹ m⁻¹ = 1 N A⁻¹ m⁻¹. Smaller unit: gauss, 1 G = 10⁻⁴ T.",
+     "Typical fields: Earth's surface about 10⁻⁵ T; a lab magnet about 1 T; a neutron star about 10⁸ T."
+    ],
+    "example": {
+     "q": "A proton moves at 2 × 10⁶ m s⁻¹ perpendicular to a 0.5 T field. Find the force on it.",
+     "steps": [
+      "F = qvB sin90°",
+      "= 1.6 × 10⁻¹⁹ × 2 × 10⁶ × 0.5",
+      "= 1.6 × 10⁻¹³ N"
+     ],
+     "answer": "1.6 × 10⁻¹³ N, perpendicular to both v and B"
+    },
+    "reallife": "Auroras are rarely seen from India, but ISRO's Aditya-L1 solar observatory studies the solar wind whose charged particles feel the Lorentz force as they reach Earth's magnetic field."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Lorentz force check",
+     "items": [
+      [
+       "The magnetic force on a charge at rest is zero.",
+       true,
+       "v = 0 means qv × B = 0."
+      ],
+      [
+       "A charge moving parallel to B feels the maximum magnetic force.",
+       false,
+       "sin 0° = 0, so the force is zero."
+      ],
+      [
+       "The magnetic force on a moving charge is perpendicular to its velocity.",
+       true,
+       "It comes from a cross product with v."
+      ],
+      [
+       "1 gauss = 10⁻⁴ tesla.",
+       true,
+       "So Earth's ~0.5 G field is ~5 × 10⁻⁵ T."
+      ],
+      [
+       "An electron and a proton moving the same way in the same field feel forces in the same direction.",
+       false,
+       "Opposite charges get opposite forces."
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Field strengths",
+     "pairs": [
+      [
+       "Earth's surface",
+       "About 10⁻⁵ T"
+      ],
+      [
+       "Laboratory electromagnet",
+       "About 1 T"
+      ],
+      [
+       "Neutron star surface",
+       "About 10⁸ T"
+      ],
+      [
+       "1 gauss",
+       "10⁻⁴ T"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "An electron moves at 3 × 10⁶ m s⁻¹ at right angles to a field of 0.2 T. What is the magnitude of the force on it (in units of 10⁻¹⁴ N)? (e = 1.6 × 10⁻¹⁹ C)",
+     "options": [
+      "4.8",
+      "0.96",
+      "9.6",
+      "96"
+     ],
+     "answer": 2,
+     "explain": "F = evB = 1.6 × 10⁻¹⁹ × 3 × 10⁶ × 0.2 = 9.6 × 10⁻¹⁴ N.",
+     "mistake": "Slips by a power of ten",
+     "check": "1.6*10**-19*3*10**6*0.2/10**-14"
+    },
+    {
+     "q": "A charge of 2 µC moves at 10⁴ m s⁻¹ at 30° to a field of 0.5 T. What is the magnetic force (in mN)?",
+     "options": [
+      "5",
+      "10",
+      "8.66",
+      "2.5"
+     ],
+     "answer": 0,
+     "explain": "F = qvB sin30° = 2 × 10⁻⁶ × 10⁴ × 0.5 × 0.5 = 5 × 10⁻³ N = 5 mN.",
+     "mistake": "Uses cos 30° instead of sin 30°",
+     "check": "2*10**-6*10**4*0.5*0.5*1000"
+    },
+    {
+     "q": "A proton moves along +x in a field along +y. What is the direction of the magnetic force on it?",
+     "options": [
+      "-z",
+      "+y",
+      "+z",
+      "-x"
+     ],
+     "answer": 2,
+     "explain": "F = q(v × B) = e(x̂ × ŷ) = +eẑ.",
+     "mistake": "Uses the left-hand order or forgets the cross product"
+    },
+    {
+     "q": "An electron moves along +x in a field along +y. The magnetic force on it points along",
+     "options": [
+      "-z",
+      "+z",
+      "+x",
+      "-y"
+     ],
+     "answer": 0,
+     "explain": "x̂ × ŷ = ẑ, and the negative charge flips it to -z.",
+     "mistake": "Forgets to reverse the direction for a negative charge"
+    },
+    {
+     "q": "A charged particle moves through a region with no deflection. Which conclusion is certain?",
+     "options": [
+      "B must be zero there",
+      "The particle must be uncharged",
+      "It cannot be concluded that B = 0, since the particle may be moving along B",
+      "The particle must be at rest"
+     ],
+     "answer": 2,
+     "explain": "A charge moving parallel to B feels no magnetic force, so the field could be non-zero.",
+     "mistake": "Assumes no deflection always means no field"
+    },
+    {
+     "q": "Why does the magnetic force not change the speed of a charge?",
+     "options": [
+      "It is always perpendicular to the velocity, so it does no work",
+      "It is too weak",
+      "It acts only on charges at rest",
+      "It is parallel to the velocity"
+     ],
+     "answer": 0,
+     "explain": "A force perpendicular to motion changes direction but not kinetic energy.",
+     "mistake": "Thinks any force must change the speed"
+    },
+    {
+     "q": "Which is the SI unit of magnetic field?",
+     "options": [
+      "weber",
+      "gauss",
+      "tesla",
+      "henry"
+     ],
+     "answer": 2,
+     "explain": "The tesla (T) is the SI unit; the gauss is a smaller non-SI unit.",
+     "mistake": "Confuses field (T) with flux (Wb)"
+    },
+    {
+     "q": "The Lorentz force on a charge q in combined fields is",
+     "options": [
+      "q(E + v × B)",
+      "q(E × B)",
+      "qvE + qB",
+      "q(v × E + B)"
+     ],
+     "answer": 0,
+     "explain": "Electric force qE plus magnetic force q(v × B).",
+     "mistake": "Mixes up which field the velocity multiplies"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If a magnetic field pushes a moving charge, why doesn't the charge speed up?'",
+    "must": [
+     [
+      "perpendicular",
+      "right angle",
+      "at 90"
+     ],
+     [
+      "no work",
+      "does no work",
+      "zero work"
+     ],
+     [
+      "direction",
+      "changes direction",
+      "turns"
+     ]
+    ],
+    "praise": "Chirp! The magnetic force is always perpendicular to the velocity, so it does no work. It only turns the charge!",
+    "nudge": "Good! What is the angle between the magnetic force and the velocity?"
+   }
+  },
+  {
+   "id": "g12-physics-04-03",
+   "title": "Force on a current-carrying conductor",
+   "covers": [
+    "c4.2.5",
+    "c4.2.6",
+    "c4.3.1"
+   ],
+   "learn": {
+    "hook": "Every electric motor, from a ceiling fan to an electric scooter, works because a current-carrying wire in a magnetic field gets a push.",
+    "points": [
+     "A straight conductor of length l carrying current I in a uniform field B feels F = I l × B, magnitude BIl sinθ.",
+     "This is just the sum of Lorentz forces on the drifting electrons in the wire.",
+     "Direction: l points along the current; use the right-hand rule (or Fleming's left-hand rule).",
+     "A horizontal wire can float if the magnetic force balances its weight: BIl = mg.",
+     "On individual charges, the magnetic force does no work, so their speed stays constant."
+    ],
+    "example": {
+     "q": "A 0.2 m wire of mass 20 g lies horizontally in a horizontal field of 0.5 T perpendicular to it. What current makes it float? (g = 9.8 m s⁻²)",
+     "steps": [
+      "BIl = mg",
+      "I = mg/(Bl) = 0.02 × 9.8/(0.5 × 0.2)",
+      "I = 1.96 A"
+     ],
+     "answer": "1.96 A"
+    },
+    "reallife": "Loudspeakers in a Bollywood cinema hall use a coil in a magnet's field. The force BIl on the coil changes with the audio current and moves the speaker cone."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "F = BIl",
+     "items": [
+      {
+       "q": "B = 1 T, I = 2 A, l = 0.5 m, 90°: F (in N)",
+       "a": "1",
+       "check": "1*2*0.5"
+      },
+      {
+       "q": "B = 0.2 T, I = 5 A, l = 1 m, 90°: F (in N)",
+       "a": "1",
+       "check": "0.2*5*1"
+      },
+      {
+       "q": "B = 0.5 T, I = 4 A, l = 0.5 m, 30°: F (in N)",
+       "a": "0.5",
+       "check": "0.5*4*0.5*0.5"
+      },
+      {
+       "q": "Wire parallel to B: F (in N)",
+       "a": "0",
+       "check": "0"
+      },
+      {
+       "q": "B = 2 T, I = 3 A, l = 0.1 m, 90°: F (in N)",
+       "a": "0.6",
+       "check": "2*3*0.1"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Force on wires",
+     "items": [
+      [
+       "The force on a current-carrying wire is maximum when it is perpendicular to B.",
+       true,
+       "sin 90° = 1."
+      ],
+      [
+       "The force on a wire is along the direction of the current.",
+       false,
+       "It is perpendicular to both the wire and B."
+      ],
+      [
+       "Doubling the current doubles the force on the wire.",
+       true,
+       "F ∝ I."
+      ],
+      [
+       "The magnetic force on moving electrons changes their speed.",
+       false,
+       "It does no work on them."
+      ],
+      [
+       "A wire carrying current parallel to B feels no force.",
+       true,
+       "sin 0° = 0."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A wire 0.5 m long carries 4 A at right angles to a field of 0.3 T. What force acts on it (in N)?",
+     "options": [
+      "6",
+      "0.15",
+      "2.4",
+      "0.6"
+     ],
+     "answer": 3,
+     "explain": "F = BIl = 0.3 × 4 × 0.5 = 0.6 N.",
+     "mistake": "Forgets one of the factors",
+     "check": "0.3*4*0.5"
+    },
+    {
+     "q": "A 10 cm wire carries 5 A at 30° to a 0.8 T field. What is the force on it (in N)?",
+     "options": [
+      "0.4",
+      "0.2",
+      "0.35",
+      "4"
+     ],
+     "answer": 1,
+     "explain": "F = BIl sinθ = 0.8 × 5 × 0.1 × 0.5 = 0.2 N.",
+     "mistake": "Uses cos 30°",
+     "check": "0.8*5*0.1*0.5"
+    },
+    {
+     "q": "A horizontal rod of mass 0.1 kg and length 0.5 m is suspended in a horizontal field of 0.49 T perpendicular to it. What current makes the tension in the support threads zero (in A)? (g = 9.8 m s⁻²)",
+     "options": [
+      "2",
+      "0.25",
+      "8",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "BIl = mg gives I = 0.1 × 9.8/(0.49 × 0.5) = 0.98/0.245 = 4 A.",
+     "steps": [
+      "mg = 0.98 N",
+      "Bl = 0.245 T m",
+      "I = 0.98/0.245 = 4 A"
+     ],
+     "mistake": "Uses mass instead of weight",
+     "check": "0.1*9.8/(0.49*0.5)"
+    },
+    {
+     "q": "A horizontal wire carries current towards the north in a magnetic field pointing vertically upward. In which direction is the force on the wire?",
+     "options": [
+      "West",
+      "East",
+      "North",
+      "Downward"
+     ],
+     "answer": 1,
+     "explain": "F = I l × B. Taking x = east, y = north and z = up: ŷ × ẑ = x̂, so the force points east.",
+     "mistake": "Reverses the order of the cross product and gets west"
+    },
+    {
+     "q": "Why does a magnetic field do no work on the charges in a wire, even though the wire itself can be pushed?",
+     "options": [
+      "The charges are at rest",
+      "The field is too weak",
+      "Work is done only on protons",
+      "The force on each charge is perpendicular to its velocity"
+     ],
+     "answer": 3,
+     "explain": "Each charge's magnetic force is perpendicular to its motion, so no work is done on it directly.",
+     "mistake": "Thinks the magnetic field directly supplies the energy"
+    },
+    {
+     "q": "The force on a straight conductor in a uniform field is given by",
+     "options": [
+      "F = I B × l",
+      "F = I l × B",
+      "F = B/(Il)",
+      "F = I l · B"
+     ],
+     "answer": 1,
+     "explain": "F = I l × B, with l along the current.",
+     "mistake": "Reverses the cross product or uses a dot product"
+    },
+    {
+     "q": "The current in a wire is doubled and the field is halved. The force on the wire",
+     "options": [
+      "doubles",
+      "halves",
+      "becomes four times",
+      "stays the same"
+     ],
+     "answer": 3,
+     "explain": "F ∝ IB: 2 × 1/2 = 1.",
+     "mistake": "Changes only one factor"
+    },
+    {
+     "q": "Assertion (A): A current-carrying wire placed along a magnetic field feels no force. Reason (R): The force on a wire is BIl sinθ, and θ = 0 here. Choose the correct option.",
+     "options": [
+      "Both A and R are true, but R does not explain A",
+      "Both A and R are true, and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "sin 0° = 0, so the force vanishes when the wire is parallel to B.",
+     "mistake": "Does not apply the sinθ factor"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How does a motor get its push from a magnet?'",
+    "must": [
+     [
+      "current",
+      "wire carrying current"
+     ],
+     [
+      "bil",
+      "b i l",
+      "force"
+     ],
+     [
+      "perpendicular",
+      "right angle",
+      "sin"
+     ]
+    ],
+    "praise": "Chirp! A current-carrying wire in a magnetic field feels F = BIl sinθ, which pushes the coil round. Vroom!",
+    "nudge": "Good! What force acts on a wire carrying current in a magnetic field?"
+   }
+  },
+  {
+   "id": "g12-physics-04-04",
+   "title": "Circular and helical motion in a magnetic field",
+   "covers": [
+    "c4.3.2",
+    "c4.3.3",
+    "c4.3.4",
+    "c4.3.5"
+   ],
+   "learn": {
+    "hook": "Particle accelerators and mass spectrometers bend charged particles into circles with magnets. The radius tells you the particle's momentum.",
+    "points": [
+     "A charge moving perpendicular to a uniform B moves in a circle: qvB = mv²/r, so r = mv/(qB) = p/(qB).",
+     "Angular frequency ω = qB/m; frequency ν = qB/(2πm); period T = 2πm/(qB). These do not depend on speed or radius (cyclotron frequency).",
+     "If v has a component v∥ along B, that part is unaffected, while v⊥ makes the circle: the path is a helix.",
+     "Pitch of the helix = distance moved along B in one revolution = v∥T = 2πm v∥/(qB). Radius r = mv⊥/(qB).",
+     "Faster particles make bigger circles but take the same time per revolution."
+    ],
+    "example": {
+     "q": "An electron moves at 4 × 10⁶ m s⁻¹ perpendicular to a field of 9.1 × 10⁻⁴ T. Find the radius of its path. (mₑ = 9.1 × 10⁻³¹ kg, e = 1.6 × 10⁻¹⁹ C)",
+     "steps": [
+      "r = mv/(eB)",
+      "= 9.1 × 10⁻³¹ × 4 × 10⁶ /(1.6 × 10⁻¹⁹ × 9.1 × 10⁻⁴)",
+      "= 4 × 10⁻²¹/1.6 × 10⁻¹⁹ = 0.025 m"
+     ],
+     "answer": "2.5 cm"
+    },
+    "reallife": "Mass spectrometers at BARC, Mumbai, separate isotopes by bending ions in a magnetic field: heavier ions of the same charge and speed curve along larger radii."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Circular motion formulas",
+     "pairs": [
+      [
+       "mv/(qB)",
+       "Radius"
+      ],
+      [
+       "qB/m",
+       "Angular frequency"
+      ],
+      [
+       "2πm/(qB)",
+       "Period"
+      ],
+      [
+       "2πm v∥/(qB)",
+       "Pitch of helix"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Circling charges",
+     "items": [
+      [
+       "The period of a charge circling in a uniform B depends on its speed.",
+       false,
+       "T = 2πm/(qB) has no v."
+      ],
+      [
+       "Doubling the speed doubles the radius.",
+       true,
+       "r ∝ v."
+      ],
+      [
+       "A charge entering at an angle to B follows a helix.",
+       true,
+       "v∥ is unchanged while v⊥ circles."
+      ],
+      [
+       "The kinetic energy of the circling charge increases each revolution.",
+       false,
+       "Magnetic force does no work."
+      ],
+      [
+       "A heavier ion with the same charge and speed moves on a larger circle.",
+       true,
+       "r ∝ m."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A proton (m = 1.6 × 10⁻²⁷ kg) moves at 10⁶ m s⁻¹ perpendicular to a field of 0.1 T. What is the radius of its circular path (in cm)? (e = 1.6 × 10⁻¹⁹ C)",
+     "options": [
+      "10",
+      "1",
+      "100",
+      "0.1"
+     ],
+     "answer": 0,
+     "explain": "r = mv/(eB) = 1.6 × 10⁻²⁷ × 10⁶/(1.6 × 10⁻¹⁹ × 0.1) = 0.1 m = 10 cm.",
+     "mistake": "Slips by a power of ten",
+     "check": "1.6*10**-27*10**6/(1.6*10**-19*0.1)*100"
+    },
+    {
+     "q": "The speed of a charged particle moving in a circle in a uniform magnetic field is doubled. Its period of revolution",
+     "options": [
+      "doubles",
+      "halves",
+      "stays the same",
+      "becomes four times"
+     ],
+     "answer": 2,
+     "explain": "T = 2πm/(qB) is independent of speed.",
+     "mistake": "Thinks a faster particle must finish the circle sooner"
+    },
+    {
+     "q": "A charged particle moving in a circle in a field B has radius 4 cm. If B is doubled (same speed), the radius becomes (in cm)",
+     "options": [
+      "2",
+      "8",
+      "1",
+      "16"
+     ],
+     "answer": 0,
+     "explain": "r = mv/(qB) ∝ 1/B, so r halves.",
+     "mistake": "Thinks r increases with B",
+     "check": "4/2"
+    },
+    {
+     "q": "A particle with v∥ = 3 × 10⁵ m s⁻¹ along B has a period of 2 × 10⁻⁶ s for its circular part. What is the pitch of its helix (in m)?",
+     "options": [
+      "0.3",
+      "1.5",
+      "0.6",
+      "6"
+     ],
+     "answer": 2,
+     "explain": "Pitch = v∥T = 3 × 10⁵ × 2 × 10⁻⁶ = 0.6 m.",
+     "mistake": "Uses the perpendicular component instead of the parallel one",
+     "check": "3*10**5*2*10**-6"
+    },
+    {
+     "q": "Which expression gives the angular frequency of a charge in a uniform magnetic field?",
+     "options": [
+      "qB/m",
+      "m/(qB)",
+      "qBv",
+      "mv/(qB)"
+     ],
+     "answer": 0,
+     "explain": "From qvB = mω²r and v = ωr: ω = qB/m.",
+     "mistake": "Writes the radius formula instead"
+    },
+    {
+     "q": "An alpha particle (charge 2e, mass 4m) and a proton (charge e, mass m) enter the same field with the same speed, perpendicular to B. What is r(alpha)/r(proton)?",
+     "options": [
+      "1/2",
+      "4",
+      "2",
+      "1"
+     ],
+     "answer": 2,
+     "explain": "r = mv/(qB): (4m/2e)/(m/e) = 2.",
+     "mistake": "Ignores the charge of the alpha particle",
+     "check": "4/2"
+    },
+    {
+     "q": "A charged particle enters a uniform magnetic field at 60° to B. Its path will be",
+     "options": [
+      "a helix with its axis along B",
+      "a circle in a plane containing B",
+      "a straight line",
+      "a parabola"
+     ],
+     "answer": 0,
+     "explain": "The component along B is unchanged; the perpendicular component gives circular motion. Together, a helix.",
+     "mistake": "Applies the projectile (parabola) picture"
+    },
+    {
+     "q": "An electron and a proton enter a uniform field perpendicularly with the same momentum. Which statement is correct?",
+     "options": [
+      "The electron's circle is much bigger",
+      "The proton's circle is much bigger",
+      "They move on circles of the same radius but in opposite senses",
+      "Both go straight"
+     ],
+     "answer": 2,
+     "explain": "r = p/(qB) is the same for equal p and |q|, but opposite charges curve in opposite directions.",
+     "mistake": "Thinks the lighter particle always curves more"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If a charge goes faster in a magnetic field, does it go round quicker?'",
+    "must": [
+     [
+      "radius",
+      "bigger circle",
+      "larger circle"
+     ],
+     [
+      "period",
+      "same time",
+      "same period",
+      "does not change"
+     ],
+     [
+      "qb/m",
+      "2πm/qb",
+      "independent of speed"
+     ]
+    ],
+    "praise": "Chirp! Faster means a bigger circle, but the period 2πm/(qB) stays the same. Tricky!",
+    "nudge": "Good! How do the radius and the period depend on speed?"
+   }
+  },
+  {
+   "id": "g12-physics-04-05",
+   "title": "Biot-Savart law",
+   "covers": [
+    "c4.4.1",
+    "c4.4.2",
+    "c4.4.3",
+    "c4.4.4",
+    "c4.4.5"
+   ],
+   "learn": {
+    "hook": "Coulomb's law gives the field of a point charge. For magnetism there are no magnetic charges, so Biot and Savart built the field from tiny pieces of current instead.",
+    "points": [
+     "Biot-Savart law: dB = (µ₀/4π) I dl × r/r³, magnitude dB = (µ₀/4π) I dl sinθ/r², where θ is between dl and r.",
+     "µ₀ = 4π × 10⁻⁷ T m A⁻¹ (permeability of free space), so µ₀/4π = 10⁻⁷ T m A⁻¹.",
+     "Similarities with Coulomb's law: both are inverse-square and long-range, and both obey superposition.",
+     "Differences: the source is a vector (I dl) not a scalar charge; dB depends on the angle θ and is perpendicular to both dl and r; dB = 0 along the line of the element.",
+     "Remarkably, µ₀ε₀ = 1/c², so c = 1/√(µ₀ε₀) ≈ 3 × 10⁸ m s⁻¹."
+    ],
+    "example": {
+     "q": "An element dl = 1 cm carrying 10 A lies along x. Find dB at 0.5 m along y from it.",
+     "steps": [
+      "θ = 90°, so sinθ = 1",
+      "dB = 10⁻⁷ × 10 × 0.01/(0.5)²",
+      "= 10⁻⁸/0.25 = 4 × 10⁻⁸ T, along z"
+     ],
+     "answer": "4 × 10⁻⁸ T, along +z"
+    },
+    "reallife": "Engineers designing MRI machines for Indian hospitals compute the field of every turn of the coils by adding Biot-Savart contributions from tiny current elements."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Coulomb, Biot-Savart or both?",
+     "buckets": [
+      "Coulomb's law only",
+      "Biot-Savart law only",
+      "Both"
+     ],
+     "items": [
+      [
+       "Inverse-square dependence",
+       2
+      ],
+      [
+       "Source is a scalar charge",
+       0
+      ],
+      [
+       "Source is a vector element I dl",
+       1
+      ],
+      [
+       "Field depends on angle sinθ",
+       1
+      ],
+      [
+       "Superposition holds",
+       2
+      ],
+      [
+       "Field along the line joining source and point",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Biot-Savart gaps",
+     "items": [
+      {
+       "text": "µ₀/4π = 10⁻___ T m A⁻¹.",
+       "answer": "7",
+       "options": [
+        "7",
+        "9",
+        "12"
+       ]
+      },
+      {
+       "text": "dB is zero along the ___ of the current element.",
+       "answer": "line",
+       "options": [
+        "line",
+        "perpendicular",
+        "circle"
+       ]
+      },
+      {
+       "text": "c = 1/√(µ₀___).",
+       "answer": "ε₀",
+       "options": [
+        "ε₀",
+        "e",
+        "q"
+       ]
+      },
+      {
+       "text": "dB depends on I dl sinθ divided by ___.",
+       "answer": "r²",
+       "options": [
+        "r²",
+        "r",
+        "r³"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A current element of 2 A and length 5 mm is perpendicular to the line joining it to a point 10 cm away. What is dB at that point (in µT)?",
+     "options": [
+      "1",
+      "0.1",
+      "0.01",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "dB = 10⁻⁷ × 2 × 5 × 10⁻³/(0.1)² = 10⁻⁹/10⁻² = 10⁻⁷ T = 0.1 µT.",
+     "mistake": "Uses r instead of r²",
+     "check": "10**-7*2*5*10**-3/0.1**2*10**6"
+    },
+    {
+     "q": "For the same element (2 A, 5 mm), what is dB at a point 10 cm away along the line of the element (in µT)?",
+     "options": [
+      "0.1",
+      "0.05",
+      "0.2",
+      "0"
+     ],
+     "answer": 3,
+     "explain": "θ = 0 along the element, and sin 0 = 0.",
+     "mistake": "Forgets the sinθ factor",
+     "check": "0"
+    },
+    {
+     "q": "What is the value of µ₀/4π in SI units?",
+     "options": [
+      "4π × 10⁻⁷ T m A⁻¹",
+      "10⁻⁷ T m A⁻¹",
+      "9 × 10⁹ N m² C⁻²",
+      "8.85 × 10⁻¹² C² N⁻¹ m⁻²"
+     ],
+     "answer": 1,
+     "explain": "µ₀ = 4π × 10⁻⁷, so dividing by 4π leaves 10⁻⁷.",
+     "mistake": "Gives µ₀ itself or the electrostatic constant"
+    },
+    {
+     "q": "In the Biot-Savart law, the direction of dB is",
+     "options": [
+      "along r",
+      "along dl",
+      "opposite to r",
+      "perpendicular to the plane containing dl and r"
+     ],
+     "answer": 3,
+     "explain": "dB ∝ dl × r, so it is perpendicular to both.",
+     "mistake": "Thinks B points along r as E does"
+    },
+    {
+     "q": "Which is a key difference between the Biot-Savart law and Coulomb's law?",
+     "options": [
+      "Only Coulomb's law is inverse-square",
+      "The magnetic field depends on the angle between the current element and the position vector",
+      "Only the Biot-Savart law obeys superposition",
+      "Coulomb's law depends on a vector source"
+     ],
+     "answer": 1,
+     "explain": "The sinθ factor and the vector source I dl are unique to Biot-Savart.",
+     "mistake": "Thinks the distance dependence differs"
+    },
+    {
+     "q": "Using µ₀ = 4π × 10⁻⁷ T m A⁻¹ and ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻², the value of 1/√(µ₀ε₀) is close to",
+     "options": [
+      "3 × 10⁶ m s⁻¹",
+      "9 × 10¹⁶ m s⁻¹",
+      "1.6 × 10⁻¹⁹ m s⁻¹",
+      "3 × 10⁸ m s⁻¹"
+     ],
+     "answer": 3,
+     "explain": "1/√(µ₀ε₀) = c, the speed of light.",
+     "mistake": "Forgets the square root"
+    },
+    {
+     "q": "A current element at the origin points along +x. What is the direction of dB at a point on the +y axis?",
+     "options": [
+      "-z",
+      "+z",
+      "+x",
+      "+y"
+     ],
+     "answer": 1,
+     "explain": "dl × r = x̂ × ŷ = ẑ.",
+     "mistake": "Reverses the order of the cross product"
+    },
+    {
+     "q": "A current element produces dB at a distance r. What is dB at 2r in the same direction (θ unchanged)?",
+     "options": [
+      "dB/2",
+      "2dB",
+      "dB/8",
+      "dB/4"
+     ],
+     "answer": 3,
+     "explain": "dB ∝ 1/r².",
+     "mistake": "Uses 1/r"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How does a tiny bit of current wire make a magnetic field?'",
+    "must": [
+     [
+      "biot-savart",
+      "biot savart"
+     ],
+     [
+      "i dl",
+      "current element",
+      "small element"
+     ],
+     [
+      "sin",
+      "angle",
+      "sinθ"
+     ],
+     [
+      "r²",
+      "r squared",
+      "inverse square"
+     ]
+    ],
+    "praise": "Chirp! By the Biot-Savart law, dB = (µ₀/4π) I dl sinθ/r². Add all the bits to get the full field!",
+    "nudge": "Good! Which law gives the field of a small current element, and how does it depend on angle and distance?"
+   }
+  },
+  {
+   "id": "g12-physics-04-06",
+   "title": "Field of a circular current loop",
+   "covers": [
+    "c4.5.1",
+    "c4.5.2",
+    "c4.5.3",
+    "c4.5.4"
+   ],
+   "learn": {
+    "hook": "Coil a wire into a loop and the field at its centre gets concentrated. Wind many loops and you have the coils of motors, speakers and MRI scanners.",
+    "points": [
+     "On the axis of a loop of radius R at distance x from the centre: B = µ₀IR²/[2(x² + R²)^(3/2)], along the axis (from Biot-Savart; the perpendicular parts cancel by symmetry).",
+     "At the centre (x = 0): B = µ₀I/(2R). For N turns: B = µ₀NI/(2R).",
+     "For an arc subtending angle θ (in radians) at its centre: B = µ₀Iθ/(4πR). A semicircle gives µ₀I/(4R).",
+     "Right-hand thumb rule for a loop: curl the fingers along the current, and the thumb points along B through the loop.",
+     "Field lines of a loop are like those of a short bar magnet: they come out of one face and go into the other."
+    ],
+    "example": {
+     "q": "A coil of 200 turns, radius 8 cm, carries 0.5 A. Find B at its centre. (π = 3.14)",
+     "steps": [
+      "B = µ₀NI/(2R)",
+      "= 4 × 3.14 × 10⁻⁷ × 200 × 0.5/(2 × 0.08)",
+      "= 1.256 × 10⁻⁴/0.16 = 7.85 × 10⁻⁴ T"
+     ],
+     "answer": "7.85 × 10⁻⁴ T"
+    },
+    "reallife": "The tangent galvanometer, once common in Indian college labs, uses the field at the centre of a circular coil, µ₀NI/2R, balanced against Earth's horizontal field."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Loop fields",
+     "pairs": [
+      [
+       "Centre of loop",
+       "µ₀I/(2R)"
+      ],
+      [
+       "N turns, centre",
+       "µ₀NI/(2R)"
+      ],
+      [
+       "Semicircle, centre",
+       "µ₀I/(4R)"
+      ],
+      [
+       "Arc of angle θ",
+       "µ₀Iθ/(4πR)"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Loop logic",
+     "items": [
+      [
+       "At the centre of a loop, the field is perpendicular to the plane of the loop.",
+       true,
+       "It is along the axis."
+      ],
+      [
+       "The field on the axis of a loop increases as you move away from the centre.",
+       false,
+       "It is largest at the centre and falls with x."
+      ],
+      [
+       "Viewed from one side, a counter-clockwise current produces a field pointing towards the viewer.",
+       true,
+       "Right-hand thumb rule."
+      ],
+      [
+       "Doubling the radius of a loop (same current) doubles the field at its centre.",
+       false,
+       "B ∝ 1/R, so it halves."
+      ],
+      [
+       "A current loop's field lines resemble those of a bar magnet.",
+       true,
+       "A loop is a magnetic dipole."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A single circular loop of radius 6.28 cm carries 10 A. What is the field at its centre (in µT)? (µ₀ = 4π × 10⁻⁷ T m A⁻¹)",
+     "options": [
+      "10",
+      "50",
+      "100",
+      "200"
+     ],
+     "answer": 2,
+     "explain": "B = µ₀I/(2R) = 4π × 10⁻⁷ × 10/(2 × 0.0628) = 4π × 10⁻⁶/(4π × 10⁻²) = 10⁻⁴ T = 100 µT.",
+     "steps": [
+      "2R = 0.1256 m = 4π × 10⁻² m",
+      "B = 4π × 10⁻⁶/(4π × 10⁻²)",
+      "= 10⁻⁴ T"
+     ],
+     "mistake": "Forgets the factor 2 in the denominator",
+     "check": "4*10**-7*10/(4*10**-2)*10**6"
+    },
+    {
+     "q": "A coil of 50 turns and radius 3.14 cm carries 2 A. What is B at its centre (in mT)? (π = 3.14)",
+     "options": [
+      "2",
+      "1",
+      "4",
+      "0.2"
+     ],
+     "answer": 0,
+     "explain": "B = µ₀NI/(2R) = 4 × 3.14 × 10⁻⁷ × 100/(0.0628) = 2 × 10⁻³ T.",
+     "mistake": "Forgets to multiply by N",
+     "check": "4*3.14*10**-7*50*2/(2*0.0314)*1000"
+    },
+    {
+     "q": "A semicircular wire of radius 5 cm carries 4 A. What is the field at its centre (in µT)? (π = 3.14)",
+     "options": [
+      "50.24",
+      "12.56",
+      "25.12",
+      "8"
+     ],
+     "answer": 2,
+     "explain": "B = µ₀I/(4R) = 4 × 3.14 × 10⁻⁷ × 4/(0.2) = 2.512 × 10⁻⁵ T = 25.12 µT.",
+     "mistake": "Uses the full-loop formula µ₀I/2R",
+     "check": "4*3.14*10**-7*4/(4*0.05)*10**6"
+    },
+    {
+     "q": "The field at the centre of a loop is B. The same wire is bent into a loop of half the radius with 2 turns, carrying the same current. The new field at the centre is",
+     "options": [
+      "4B",
+      "2B",
+      "B",
+      "B/2"
+     ],
+     "answer": 0,
+     "explain": "N doubles and R halves: B ∝ N/R gives 2/(1/2) = 4.",
+     "mistake": "Considers only one of the two changes"
+    },
+    {
+     "q": "On the axis of a loop of radius R, at a distance x = R from the centre, the field compared with the centre value B₀ is",
+     "options": [
+      "B₀/2",
+      "B₀/4",
+      "B₀/(2√2)",
+      "B₀/√2"
+     ],
+     "answer": 2,
+     "explain": "B(x)/B₀ = R³/(x² + R²)^(3/2) = R³/(2R²)^(3/2) = 1/(2√2).",
+     "mistake": "Uses the inverse-square law along the axis"
+    },
+    {
+     "q": "Why do the field components perpendicular to the axis cancel for a circular loop?",
+     "options": [
+      "Elements on opposite ends of a diameter give equal and opposite perpendicular components",
+      "The field is zero everywhere off the axis",
+      "The current is zero in half the loop",
+      "Only the axial component exists for any wire"
+     ],
+     "answer": 0,
+     "explain": "By symmetry, the perpendicular components from diametrically opposite elements cancel in pairs.",
+     "mistake": "Does not use the symmetry argument"
+    },
+    {
+     "q": "A loop lies in the plane of the page with current flowing clockwise as you look at it. The field at its centre points",
+     "options": [
+      "out of the page",
+      "to the right",
+      "into the page",
+      "to the left"
+     ],
+     "answer": 2,
+     "explain": "Curl right-hand fingers clockwise: the thumb points into the page.",
+     "mistake": "Uses the left hand"
+    },
+    {
+     "q": "A quarter-circle arc of radius R carries current I. What is B at its centre?",
+     "options": [
+      "µ₀I/(8R)",
+      "µ₀I/(2R)",
+      "µ₀I/(4R)",
+      "µ₀I/(16R)"
+     ],
+     "answer": 0,
+     "explain": "θ = π/2: B = µ₀I(π/2)/(4πR) = µ₀I/(8R).",
+     "mistake": "Uses the semicircle result"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I find the direction of the magnetic field inside a current loop?'",
+    "must": [
+     [
+      "right hand",
+      "right-hand",
+      "thumb"
+     ],
+     [
+      "curl",
+      "fingers",
+      "along the current"
+     ],
+     [
+      "axis",
+      "through the loop",
+      "centre"
+     ]
+    ],
+    "praise": "Chirp! Curl the right-hand fingers along the current and the thumb points along B through the loop. Easy!",
+    "nudge": "Good! Which hand rule do we use, and what do the fingers and thumb represent?"
+   }
+  },
+  {
+   "id": "g12-physics-04-07",
+   "title": "Ampere's circuital law and the straight wire",
+   "covers": [
+    "c4.6.1",
+    "c4.6.2",
+    "c4.6.3",
+    "c4.6.4",
+    "c4.6.5"
+   ],
+   "learn": {
+    "hook": "Gauss's law makes symmetric electric problems easy. Ampere's law does the same for magnetic fields of straight wires, cylinders and solenoids.",
+    "points": [
+     "Ampere's circuital law: ∮B·dl = µ₀I, where I is the net current passing through the closed loop (the Amperian loop).",
+     "Choose a loop where B is constant and tangent (or normal, so B·dl = 0) by symmetry, just as a Gaussian surface is chosen for Gauss's law.",
+     "Long straight wire: a circle of radius r gives B(2πr) = µ₀I, so B = µ₀I/(2πr) = 2 × 10⁻⁷ I/r.",
+     "Direction: right-hand thumb rule. Thumb along the current, curled fingers give the circular field lines.",
+     "Long solid cylinder of radius a with uniform current I: outside B = µ₀I/(2πr); inside B = µ₀Ir/(2πa²), rising linearly from zero at the axis."
+    ],
+    "example": {
+     "q": "A long straight wire carries 5 A. Find B at 10 cm.",
+     "steps": [
+      "B = µ₀I/(2πr) = 2 × 10⁻⁷ × I/r",
+      "= 2 × 10⁻⁷ × 5/0.1",
+      "= 10⁻⁵ T"
+     ],
+     "answer": "1 × 10⁻⁵ T, in circles around the wire"
+    },
+    "reallife": "Near a 765 kV transmission line carrying about 1000 A, the field 20 m below is about 10 µT, roughly a fifth of Earth's field. This is what B = µ₀I/(2πr) predicts."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "Ampere's law for a straight wire",
+     "prompt": "Steps to derive B",
+     "items": [
+      "Note the field lines are circles around the wire",
+      "Choose a circular Amperian loop of radius r",
+      "B is constant and tangent along the loop",
+      "∮B·dl = B × 2πr",
+      "Set equal to µ₀I and solve: B = µ₀I/(2πr)"
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Ampere's law check",
+     "items": [
+      [
+       "Ampere's law relates the line integral of B to the current enclosed by the loop.",
+       true,
+       "∮B·dl = µ₀I_enc."
+      ],
+      [
+       "The field of a long straight wire falls as 1/r².",
+       false,
+       "It falls as 1/r."
+      ],
+      [
+       "Inside a long uniform cylindrical conductor, B increases linearly with distance from the axis.",
+       true,
+       "B = µ₀Ir/(2πa²)."
+      ],
+      [
+       "Currents outside the Amperian loop contribute to the enclosed current.",
+       false,
+       "Only currents through the loop count."
+      ],
+      [
+       "The field at the axis of a long cylindrical conductor is zero.",
+       true,
+       "No current is enclosed at r = 0."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A long straight wire carries 10 A. What is the magnetic field 5 cm from it (in µT)?",
+     "options": [
+      "20",
+      "400",
+      "4",
+      "40"
+     ],
+     "answer": 3,
+     "explain": "B = 2 × 10⁻⁷ × 10/0.05 = 4 × 10⁻⁵ T = 40 µT.",
+     "mistake": "Forgets the factor 2 in µ₀/2π",
+     "check": "2*10**-7*10/0.05*10**6"
+    },
+    {
+     "q": "The field 2 cm from a long wire is 60 µT. What is the field 6 cm from it (in µT)?",
+     "options": [
+      "6.67",
+      "20",
+      "180",
+      "30"
+     ],
+     "answer": 1,
+     "explain": "B ∝ 1/r, so tripling r gives 60/3 = 20 µT.",
+     "mistake": "Uses 1/r²",
+     "check": "60/3"
+    },
+    {
+     "q": "A long wire carries current vertically upward. Viewed from above, the field lines around it are",
+     "options": [
+      "clockwise circles",
+      "radial lines",
+      "vertical lines",
+      "counter-clockwise circles"
+     ],
+     "answer": 3,
+     "explain": "Point the right thumb up: fingers curl counter-clockwise as seen from above.",
+     "mistake": "Applies the rule with the left hand"
+    },
+    {
+     "q": "A long solid cylinder of radius 2 cm carries 4 A uniformly. What is B at 1 cm from the axis (in µT)?",
+     "options": [
+      "40",
+      "20",
+      "80",
+      "10"
+     ],
+     "answer": 1,
+     "explain": "Inside, B = µ₀Ir/(2πa²) = 2 × 10⁻⁷ × 4 × 0.01/(0.02)² = 8 × 10⁻⁹/4 × 10⁻⁴ = 2 × 10⁻⁵ T.",
+     "steps": [
+      "B = (µ₀/2π) Ir/a²",
+      "= 2 × 10⁻⁷ × 4 × 0.01/(4 × 10⁻⁴)",
+      "= 2 × 10⁻⁵ T"
+     ],
+     "mistake": "Uses the outside formula µ₀I/(2πr)",
+     "check": "2*10**-7*4*0.01/0.02**2*10**6"
+    },
+    {
+     "q": "For the same cylinder (4 A, radius 2 cm), what is B at 4 cm from the axis (in µT)?",
+     "options": [
+      "10",
+      "40",
+      "5",
+      "20"
+     ],
+     "answer": 3,
+     "explain": "Outside, B = 2 × 10⁻⁷ × 4/0.04 = 2 × 10⁻⁵ T = 20 µT.",
+     "mistake": "Uses the inside formula outside",
+     "check": "2*10**-7*4/0.04*10**6"
+    },
+    {
+     "q": "Ampere's circuital law states that ∮B·dl equals",
+     "options": [
+      "µ₀ times the total current anywhere",
+      "µ₀ times the net current through the loop",
+      "the current divided by µ₀",
+      "zero for any loop"
+     ],
+     "answer": 1,
+     "explain": "Only current crossing the surface bounded by the loop counts.",
+     "mistake": "Includes currents outside the loop"
+    },
+    {
+     "q": "Two long wires pass through a closed loop: one carries 3 A upward and the other 5 A downward. A third wire, outside the loop, carries 10 A upward. Taking upward as positive, what is ∮B·dl in units of µ₀ (in A)?",
+     "options": [
+      "8",
+      "18",
+      "-12",
+      "-2"
+     ],
+     "answer": 3,
+     "explain": "Only enclosed currents: 3 - 5 = -2 A, so ∮B·dl = -2µ₀.",
+     "mistake": "Includes the 10 A outside",
+     "check": "3-5"
+    },
+    {
+     "q": "Ampere's law plays the same role for magnetic fields that which law plays for electric fields?",
+     "options": [
+      "Coulomb's law",
+      "Gauss's law",
+      "Ohm's law",
+      "Lenz's law"
+     ],
+     "answer": 1,
+     "explain": "Both use symmetry with a chosen surface or loop to find fields simply.",
+     "mistake": "Pairs it with Coulomb's law"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How can I find the magnetic field of a long wire without adding up every tiny bit?'",
+    "must": [
+     [
+      "ampere",
+      "ampere's law"
+     ],
+     [
+      "loop",
+      "circle",
+      "amperian"
+     ],
+     [
+      "enclosed",
+      "through the loop",
+      "enclosed current"
+     ],
+     [
+      "symmetry",
+      "constant",
+      "same everywhere"
+     ]
+    ],
+    "praise": "Chirp! Use Ampere's law with a circular loop: B × 2πr = µ₀I, so B = µ₀I/2πr. Symmetry saves the day!",
+    "nudge": "Good! Which law and which shape of loop make this easy?"
+   }
+  },
+  {
+   "id": "g12-physics-04-08",
+   "title": "The solenoid",
+   "covers": [
+    "c4.7.1",
+    "c4.7.2",
+    "c4.7.3",
+    "c4.7.4"
+   ],
+   "learn": {
+    "hook": "Wind a wire tightly into a long coil and you can create a strong, uniform magnetic field inside, a magnet you can switch on and off.",
+    "points": [
+     "A long solenoid has a nearly uniform field inside along its axis, and a nearly zero field outside.",
+     "Ampere's law with a rectangular loop (one side inside, one outside) gives BL = µ₀(nL)I, so B = µ₀nI, where n = N/L is turns per unit length.",
+     "B inside does not depend on the radius or the exact position inside (for a long solenoid).",
+     "The solenoid's field resembles a bar magnet's: one end acts as a north pole, the other as a south pole. Use the right-hand rule to find which end is north.",
+     "At each end of a long solenoid the field is about half the value inside, µ₀nI/2."
+    ],
+    "example": {
+     "q": "A solenoid 0.4 m long has 600 turns and carries 2 A. Find B inside. (π = 3.14)",
+     "steps": [
+      "n = 600/0.4 = 1500 turns m⁻¹",
+      "B = µ₀nI = 4 × 3.14 × 10⁻⁷ × 1500 × 2",
+      "= 3.768 × 10⁻³ T ≈ 3.77 × 10⁻³ T"
+     ],
+     "answer": "≈ 3.77 × 10⁻³ T"
+    },
+    "reallife": "Electric doorbells and the solenoid valves in Indian washing machines use solenoids: switching on the current magnetises the coil and pulls an iron plunger."
+   },
+   "games": [
+    {
+     "type": "fill",
+     "title": "Solenoid gaps",
+     "items": [
+      {
+       "text": "B inside a long solenoid = µ₀___I, with turns per metre n.",
+       "answer": "n",
+       "options": [
+        "n",
+        "L",
+        "r"
+       ]
+      },
+      {
+       "text": "Field outside a long solenoid is nearly ___.",
+       "answer": "zero",
+       "options": [
+        "zero",
+        "µ₀nI",
+        "double"
+       ]
+      },
+      {
+       "text": "Doubling turns per metre ___ B.",
+       "answer": "doubles",
+       "options": [
+        "doubles",
+        "halves",
+        "does not change"
+       ]
+      },
+      {
+       "text": "A solenoid's field looks like that of a ___ magnet.",
+       "answer": "bar",
+       "options": [
+        "bar",
+        "horseshoe",
+        "ring"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "B = µ₀nI (π = 3.14)",
+     "items": [
+      {
+       "q": "n = 1000 m⁻¹, I = 1 A: B (in mT)",
+       "a": "1.256",
+       "check": "4*3.14*10**-7*1000*1*1000"
+      },
+      {
+       "q": "n = 2000 m⁻¹, I = 5 A: B (in mT)",
+       "a": "12.56",
+       "check": "4*3.14*10**-7*2000*5*1000"
+      },
+      {
+       "q": "100 turns in 10 cm: n (per m)",
+       "a": "1000",
+       "check": "100/0.1"
+      },
+      {
+       "q": "Same solenoid, current doubled: B becomes",
+       "a": "double"
+      },
+      {
+       "q": "Same solenoid, radius doubled: B becomes",
+       "a": "unchanged"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A solenoid has 2000 turns per metre and carries 2.5 A. What is the field inside (in mT)? (µ₀ = 4π × 10⁻⁷ T m A⁻¹, π = 3.14)",
+     "options": [
+      "6.28",
+      "3.14",
+      "12.56",
+      "0.628"
+     ],
+     "answer": 0,
+     "explain": "B = µ₀nI = 4 × 3.14 × 10⁻⁷ × 2000 × 2.5 = 6.28 × 10⁻³ T.",
+     "mistake": "Forgets the 4π",
+     "check": "4*3.14*10**-7*2000*2.5*1000"
+    },
+    {
+     "q": "A solenoid is 40 cm long with 800 turns and carries 0.5 A. What is the field inside (in mT)? (π = 3.14)",
+     "options": [
+      "0.628",
+      "2.512",
+      "1.256",
+      "12.56"
+     ],
+     "answer": 2,
+     "explain": "n = 800/0.4 = 2000 m⁻¹. B = 4 × 3.14 × 10⁻⁷ × 2000 × 0.5 = 1.256 × 10⁻³ T.",
+     "mistake": "Uses the total number of turns instead of n",
+     "check": "4*3.14*10**-7*(800/0.4)*0.5*1000"
+    },
+    {
+     "q": "The number of turns of a solenoid is doubled while its length and current are kept the same. The field inside",
+     "options": [
+      "doubles",
+      "halves",
+      "stays the same",
+      "becomes four times"
+     ],
+     "answer": 0,
+     "explain": "B = µ₀(N/L)I ∝ N.",
+     "mistake": "Thinks more turns spread the field out"
+    },
+    {
+     "q": "Why do we take the field outside a long solenoid as zero in the Ampere's law derivation?",
+     "options": [
+      "There is no current outside",
+      "The outside is shielded by the wire",
+      "The field lines outside are spread over a very large region, so the field there is negligible",
+      "The field outside is equal and opposite to that inside"
+     ],
+     "answer": 2,
+     "explain": "The return field spreads out widely and is very weak compared with the concentrated field inside.",
+     "mistake": "Thinks there is absolutely no field outside any solenoid"
+    },
+    {
+     "q": "In the Ampere's law derivation for a solenoid, the rectangular loop has length L inside. The enclosed current is",
+     "options": [
+      "nLI",
+      "I",
+      "nI",
+      "LI/n"
+     ],
+     "answer": 0,
+     "explain": "nL turns pass through the loop, each carrying I.",
+     "mistake": "Counts only one turn"
+    },
+    {
+     "q": "A long solenoid produces 2 mT inside. What is the field near either end on the axis (in mT)?",
+     "options": [
+      "2",
+      "4",
+      "1",
+      "0"
+     ],
+     "answer": 2,
+     "explain": "At the ends of a long solenoid the field is about half the inside value.",
+     "mistake": "Thinks the field is the same at the ends",
+     "check": "2/2"
+    },
+    {
+     "q": "A solenoid's field inside depends on",
+     "options": [
+      "turns per unit length and current",
+      "its radius and length",
+      "only its radius",
+      "the material of the wire"
+     ],
+     "answer": 0,
+     "explain": "B = µ₀nI.",
+     "mistake": "Thinks a thicker solenoid has a weaker field"
+    },
+    {
+     "q": "Looking at one end of a solenoid, the current flows counter-clockwise. That end behaves as a",
+     "options": [
+      "south pole",
+      "neutral point",
+      "north pole",
+      "negative charge"
+     ],
+     "answer": 2,
+     "explain": "Right-hand rule: fingers counter-clockwise, thumb towards you, so field lines come out of that end: north pole.",
+     "mistake": "Uses the clockwise rule wrongly"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I make a strong magnetic field I can switch on and off?'",
+    "must": [
+     [
+      "solenoid",
+      "coil"
+     ],
+     [
+      "turns",
+      "more turns",
+      "turns per metre"
+     ],
+     [
+      "current"
+     ],
+     [
+      "µ₀ni",
+      "mu nought n i",
+      "μ0ni",
+      "mu0 n i"
+     ]
+    ],
+    "praise": "Chirp! Wind a solenoid: B = µ₀nI, so more turns per metre or more current makes it stronger. Switchable magnet!",
+    "nudge": "Good! Which device does this, and what does its field depend on?"
+   }
+  },
+  {
+   "id": "g12-physics-04-09",
+   "title": "Force between parallel currents",
+   "covers": [
+    "c4.8.1",
+    "c4.8.2",
+    "c4.8.3",
+    "c4.8.4"
+   ],
+   "learn": {
+    "hook": "Two parallel wires both carrying current towards the same end pull towards each other. That tiny tug was once the official definition of the ampere.",
+    "points": [
+     "Wire a creates B = µ₀Ia/(2πd) at wire b. Force per unit length on b: f = µ₀IaIb/(2πd) = 2 × 10⁻⁷ IaIb/d.",
+     "Currents in the same direction (parallel) attract; currents in opposite directions (antiparallel) repel. This is opposite to the rule for like charges.",
+     "The forces on the two wires are equal and opposite (Newton's third law).",
+     "Historical definition (used until 2019): one ampere is the current which, in two long straight parallel wires 1 m apart in vacuum, produces a force of 2 × 10⁻⁷ N per metre of length.",
+     "Since 2019, the ampere is defined by fixing the value of the elementary charge e."
+    ],
+    "example": {
+     "q": "Two long parallel wires 10 cm apart carry 5 A and 8 A in the same direction. Find the force per metre.",
+     "steps": [
+      "f = 2 × 10⁻⁷ × IaIb/d",
+      "= 2 × 10⁻⁷ × 40/0.1",
+      "= 8 × 10⁻⁵ N m⁻¹, attractive"
+     ],
+     "answer": "8 × 10⁻⁵ N per metre, attractive"
+    },
+    "reallife": "In large power stations and substations, bus bars carrying thousands of amperes are clamped firmly because the force between parallel currents can bend them during a short-circuit surge."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Parallel wire facts",
+     "items": [
+      [
+       "Two parallel wires carrying currents in the same direction attract.",
+       true,
+       "Opposite to the rule for like charges."
+      ],
+      [
+       "Antiparallel currents attract each other.",
+       false,
+       "They repel."
+      ],
+      [
+       "The force per unit length between parallel wires is inversely proportional to their separation.",
+       true,
+       "f ∝ 1/d."
+      ],
+      [
+       "The force on the wire with the bigger current is larger.",
+       false,
+       "Newton's third law: the forces are equal and opposite."
+      ],
+      [
+       "Historically, the ampere was defined using the force between parallel wires.",
+       true,
+       "2 × 10⁻⁷ N m⁻¹ at 1 m separation."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "f = 2 × 10⁻⁷ IaIb/d",
+     "items": [
+      {
+       "q": "Ia = Ib = 1 A, d = 1 m: f (in units of 10⁻⁷ N m⁻¹)",
+       "a": "2",
+       "check": "2*1*1/1"
+      },
+      {
+       "q": "Ia = 10 A, Ib = 10 A, d = 0.1 m: f (in mN m⁻¹)",
+       "a": "0.2",
+       "check": "2*10**-7*100/0.1*1000"
+      },
+      {
+       "q": "Distance doubled: force becomes",
+       "a": "half"
+      },
+      {
+       "q": "Both currents doubled: force becomes",
+       "a": "four times"
+      },
+      {
+       "q": "Ia = 2 A, Ib = 5 A, d = 0.2 m: f (in µN m⁻¹)",
+       "a": "10",
+       "check": "2*10**-7*10/0.2*10**6"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Two long parallel wires 5 cm apart carry 10 A and 20 A in the same direction. What is the force per metre on each (in mN m⁻¹)?",
+     "options": [
+      "0.4",
+      "0.8",
+      "8",
+      "1.6"
+     ],
+     "answer": 1,
+     "explain": "f = 2 × 10⁻⁷ × 200/0.05 = 8 × 10⁻⁴ N m⁻¹ = 0.8 mN m⁻¹.",
+     "mistake": "Forgets the factor 2",
+     "check": "2*10**-7*10*20/0.05*1000"
+    },
+    {
+     "q": "In the same case (10 A and 20 A in the same direction), the force is",
+     "options": [
+      "repulsive",
+      "zero",
+      "perpendicular to the plane of the wires",
+      "attractive"
+     ],
+     "answer": 3,
+     "explain": "Parallel currents attract.",
+     "mistake": "Applies the like-charges-repel rule"
+    },
+    {
+     "q": "Two parallel wires carry currents in opposite directions. The wires",
+     "options": [
+      "attract each other",
+      "repel each other",
+      "feel no force",
+      "rotate"
+     ],
+     "answer": 1,
+     "explain": "Antiparallel currents repel.",
+     "mistake": "Thinks opposite currents attract like opposite charges"
+    },
+    {
+     "q": "A wire carries 4 A and another parallel wire 1 m away carries 3 A. What is the force on a 2 m length of the second wire (in µN)?",
+     "options": [
+      "2.4",
+      "1.2",
+      "9.6",
+      "4.8"
+     ],
+     "answer": 3,
+     "explain": "f = 2 × 10⁻⁷ × 12/1 = 2.4 × 10⁻⁶ N m⁻¹. On 2 m: 4.8 × 10⁻⁶ N.",
+     "mistake": "Gives force per metre instead of the force on 2 m",
+     "check": "2*10**-7*4*3/1*2*10**6"
+    },
+    {
+     "q": "The force per unit length between two parallel wires is f. If the distance between them is halved and each current is doubled, the force becomes",
+     "options": [
+      "4f",
+      "8f",
+      "2f",
+      "f"
+     ],
+     "answer": 1,
+     "explain": "f ∝ IaIb/d: (2 × 2)/(1/2) = 8.",
+     "mistake": "Misses one of the changes"
+    },
+    {
+     "q": "According to the historical definition of the ampere, two wires 1 m apart, each carrying 1 A, experience a force per metre of",
+     "options": [
+      "1 N",
+      "4π × 10⁻⁷ N",
+      "9 × 10⁹ N",
+      "2 × 10⁻⁷ N"
+     ],
+     "answer": 3,
+     "explain": "f = 2 × 10⁻⁷ × 1 × 1/1 = 2 × 10⁻⁷ N m⁻¹.",
+     "mistake": "Uses µ₀ itself"
+    },
+    {
+     "q": "Wire A carries 8 A and wire B carries 2 A, parallel. Compare the force on A due to B with the force on B due to A.",
+     "options": [
+      "A feels 4 times more",
+      "They are equal in magnitude and opposite in direction",
+      "B feels 4 times more",
+      "A feels no force"
+     ],
+     "answer": 1,
+     "explain": "Newton's third law; the formula is symmetric in Ia and Ib.",
+     "mistake": "Thinks the bigger current feels a bigger force"
+    },
+    {
+     "q": "Assertion (A): Two parallel electron beams moving in the same direction in a vacuum repel each other on the whole. Reason (R): Parallel currents attract each other. Choose the correct option.",
+     "options": [
+      "Both A and R are true, and R explains A",
+      "A is true but R is false",
+      "A is false but R is true",
+      "Both A and R are true, but R does not explain A"
+     ],
+     "answer": 3,
+     "explain": "The beams do have a magnetic attraction (R is true), but the electrostatic repulsion between the electrons is much larger, so they repel overall. R does not explain A.",
+     "mistake": "Ignores the electric force between the beams"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Two wires with current in the same direction, do they push apart like same charges?'",
+    "must": [
+     [
+      "attract",
+      "attraction",
+      "pull"
+     ],
+     [
+      "same direction",
+      "parallel"
+     ],
+     [
+      "opposite",
+      "antiparallel",
+      "repel"
+     ]
+    ],
+    "praise": "Chirp! Surprise, parallel currents attract and antiparallel currents repel. The opposite of charges!",
+    "nudge": "Good! What happens when the currents are in the same direction? And in opposite directions?"
+   }
+  },
+  {
+   "id": "g12-physics-04-10",
+   "title": "Torque on a current loop",
+   "covers": [
+    "c4.9.1",
+    "c4.9.2",
+    "c4.9.3",
+    "c4.9.6"
+   ],
+   "learn": {
+    "hook": "Put a current loop in a magnetic field and it twists. That twist turns the shaft of every DC motor and the needle of every analogue meter.",
+    "points": [
+     "Rectangular loop in a uniform field: the forces on opposite sides cancel, so the net force is zero, but they form a couple.",
+     "Torque τ = IAB sinθ for one turn, where θ is between the normal to the loop and B. For N turns: τ = NIAB sinθ.",
+     "Vector form: τ = m × B, where the magnetic moment m = NIA (unit A m²), directed along the normal by the right-hand rule.",
+     "Stable equilibrium when m is parallel to B (θ = 0); unstable when m is antiparallel (θ = 180°). Torque is zero in both.",
+     "Torque is maximum (NIAB) when the plane of the loop is parallel to B (θ = 90°)."
+    ],
+    "example": {
+     "q": "A 100-turn coil of area 0.01 m² carries 2 A in a 0.5 T field, with its plane parallel to B. Find the torque.",
+     "steps": [
+      "Plane parallel to B means θ = 90° between normal and B",
+      "τ = NIAB sin90° = 100 × 2 × 0.01 × 0.5",
+      "= 1 N m"
+     ],
+     "answer": "1 N m"
+    },
+    "reallife": "The small DC motors in battery-powered toy cars, cordless drills and car windscreen wipers rely on τ = NIAB sinθ to turn their coils."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Loop quantities",
+     "pairs": [
+      [
+       "NIA",
+       "Magnetic moment"
+      ],
+      [
+       "m × B",
+       "Torque vector"
+      ],
+      [
+       "θ = 0°",
+       "Stable equilibrium"
+      ],
+      [
+       "θ = 180°",
+       "Unstable equilibrium"
+      ],
+      [
+       "θ = 90°",
+       "Maximum torque"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Twist test",
+     "items": [
+      [
+       "The net force on a current loop in a uniform field is zero.",
+       true,
+       "The side forces cancel."
+      ],
+      [
+       "The torque on a loop is maximum when its plane is perpendicular to B.",
+       false,
+       "Then θ = 0 and τ = 0; maximum is when the plane is parallel to B."
+      ],
+      [
+       "The unit of magnetic moment is A m².",
+       true,
+       "m = NIA."
+      ],
+      [
+       "A loop with m antiparallel to B is in stable equilibrium.",
+       false,
+       "It is unstable."
+      ],
+      [
+       "Doubling the number of turns doubles the torque.",
+       true,
+       "τ ∝ N."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A coil of 50 turns, area 4 × 10⁻³ m², carries 5 A in a field of 0.2 T, with its normal at 90° to B. What is the torque (in N m)?",
+     "options": [
+      "0.1",
+      "2",
+      "0.2",
+      "0.02"
+     ],
+     "answer": 2,
+     "explain": "τ = NIAB = 50 × 5 × 4 × 10⁻³ × 0.2 = 0.2 N m.",
+     "mistake": "Drops a factor",
+     "check": "50*5*4*10**-3*0.2"
+    },
+    {
+     "q": "The same coil (50 turns, 4 × 10⁻³ m², 5 A, 0.2 T) has its normal at 30° to B. What is the torque (in N m)?",
+     "options": [
+      "0.1",
+      "0.2",
+      "0.173",
+      "0.05"
+     ],
+     "answer": 0,
+     "explain": "τ = NIAB sin30° = 0.2 × 0.5 = 0.1 N m.",
+     "mistake": "Uses cos 30°",
+     "check": "50*5*4*10**-3*0.2*0.5"
+    },
+    {
+     "q": "What is the magnetic moment of a 200-turn coil of area 5 cm² carrying 0.5 A (in A m²)?",
+     "options": [
+      "50",
+      "0.5",
+      "0.05",
+      "0.005"
+     ],
+     "answer": 2,
+     "explain": "m = NIA = 200 × 0.5 × 5 × 10⁻⁴ = 0.05 A m².",
+     "mistake": "Forgets to convert cm² to m²",
+     "check": "200*0.5*5*10**-4"
+    },
+    {
+     "q": "What is the net force on a rectangular current loop in a uniform magnetic field?",
+     "options": [
+      "Zero",
+      "NIAB",
+      "IlB on each side added up",
+      "Depends on its orientation"
+     ],
+     "answer": 0,
+     "explain": "Forces on opposite sides are equal and opposite.",
+     "mistake": "Thinks the side forces add"
+    },
+    {
+     "q": "In which position is a current loop in stable equilibrium in a uniform field?",
+     "options": [
+      "Magnetic moment antiparallel to B",
+      "Plane of loop parallel to B",
+      "Magnetic moment parallel to B",
+      "Magnetic moment at 45° to B"
+     ],
+     "answer": 2,
+     "explain": "At θ = 0 torque is zero and any small twist produces a restoring torque.",
+     "mistake": "Confuses stable with maximum torque position"
+    },
+    {
+     "q": "A circular coil of 10 turns and radius 10 cm carries 1 A in a 2 T field, with its plane parallel to B. What is the torque (in N m)? (π = 3.14)",
+     "options": [
+      "0.628",
+      "0.314",
+      "6.28",
+      "0.0628"
+     ],
+     "answer": 0,
+     "explain": "A = πr² = 0.0314 m². τ = 10 × 1 × 0.0314 × 2 × sin90° = 0.628 N m.",
+     "mistake": "Uses the diameter in the area",
+     "check": "10*1*3.14*0.1**2*2"
+    },
+    {
+     "q": "The torque on a current loop is given in vector form by",
+     "options": [
+      "τ = B × m",
+      "τ = m · B",
+      "τ = m × B",
+      "τ = mB/2"
+     ],
+     "answer": 2,
+     "explain": "τ = m × B, like τ = p × E for an electric dipole.",
+     "mistake": "Reverses the cross product"
+    },
+    {
+     "q": "The current in a coil is doubled and its area halved, in the same field and orientation. The torque",
+     "options": [
+      "stays the same",
+      "doubles",
+      "halves",
+      "becomes four times"
+     ],
+     "answer": 0,
+     "explain": "τ ∝ IA: 2 × 1/2 = 1.",
+     "mistake": "Changes only one factor"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does a current loop turn in a magnetic field but not slide away?'",
+    "must": [
+     [
+      "couple",
+      "equal and opposite",
+      "forces cancel"
+     ],
+     [
+      "torque",
+      "twist",
+      "rotate"
+     ],
+     [
+      "m × b",
+      "nia",
+      "magnetic moment"
+     ]
+    ],
+    "praise": "Chirp! The forces cancel (no net force) but form a couple, giving torque τ = m × B. Twist, no slide!",
+    "nudge": "Good! What happens to the forces on opposite sides of the loop?"
+   }
+  },
+  {
+   "id": "g12-physics-04-11",
+   "title": "A current loop as a magnetic dipole",
+   "covers": [
+    "c4.9.4",
+    "c4.9.5",
+    "c4.10.7"
+   ],
+   "learn": {
+    "hook": "A tiny current loop behaves exactly like a tiny bar magnet. In fact, the magnetism of atoms comes from electrons looping around nuclei.",
+    "points": [
+     "Far along the axis (x ≫ R), a loop's field is B = µ₀m/(2πx³) = (µ₀/4π)(2m/x³), where m = IA.",
+     "Compare the electric dipole: E = (1/4πε₀)(2p/x³). Swap p → m and 1/ε₀ → µ₀.",
+     "A current loop is a magnetic dipole, with north and south faces.",
+     "Unlike electric charges, there are no isolated magnetic charges (monopoles): the simplest magnetic element is the current loop (dipole).",
+     "Problem toolkit: B of wires, loops and solenoids; force on wires; torque NIAB sinθ; radius mv/(qB)."
+    ],
+    "example": {
+     "q": "A loop of area 0.01 m² carries 1 A. Find the axial field 1 m away.",
+     "steps": [
+      "m = IA = 0.01 A m²",
+      "B = (µ₀/4π)(2m/x³) = 10⁻⁷ × 2 × 0.01/1",
+      "= 2 × 10⁻⁹ T"
+     ],
+     "answer": "2 × 10⁻⁹ T"
+    },
+    "reallife": "The hard disk drives in Indian data centres store bits as tiny magnetic regions that behave like small magnetic dipoles, each arising from aligned atomic current loops."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Electric vs magnetic dipole",
+     "pairs": [
+      [
+       "p",
+       "m"
+      ],
+      [
+       "1/(4πε₀)",
+       "µ₀/4π"
+      ],
+      [
+       "Electric charges +q, -q",
+       "Current loop (no monopoles)"
+      ],
+      [
+       "2p/(4πε₀x³)",
+       "µ₀2m/(4πx³)"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Dipole thinking",
+     "items": [
+      [
+       "Far from a current loop on its axis, B falls as 1/x³.",
+       true,
+       "Like the field of an electric dipole."
+      ],
+      [
+       "Isolated magnetic north poles have been found.",
+       false,
+       "No magnetic monopoles are known."
+      ],
+      [
+       "A current loop has a magnetic moment perpendicular to its plane.",
+       true,
+       "m is along the normal."
+      ],
+      [
+       "The magnetic moment of a loop is independent of its area.",
+       false,
+       "m = IA."
+      ],
+      [
+       "Atomic electrons orbiting nuclei give atoms magnetic moments.",
+       true,
+       "They act like tiny current loops."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A loop with magnetic moment 0.5 A m² is observed on its axis 1 m away. What is the field (in units of 10⁻⁷ T)?",
+     "options": [
+      "0.5",
+      "2",
+      "0.25",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "B = (µ₀/4π)(2m/x³) = 10⁻⁷ × 1/1 = 10⁻⁷ T.",
+     "mistake": "Forgets the factor 2",
+     "check": "2*0.5/1**3"
+    },
+    {
+     "q": "The axial field of a small loop is B at distance x. What is it at 2x?",
+     "options": [
+      "B/4",
+      "B/8",
+      "B/2",
+      "2B"
+     ],
+     "answer": 1,
+     "explain": "Dipole field ∝ 1/x³.",
+     "mistake": "Uses an inverse-square law"
+    },
+    {
+     "q": "Which statement correctly describes magnetic monopoles?",
+     "options": [
+      "They are found in all bar magnets",
+      "They are created by cutting a magnet",
+      "They are the source of all magnetic fields",
+      "No isolated magnetic monopole has been observed"
+     ],
+     "answer": 3,
+     "explain": "Cutting a magnet gives smaller dipoles, never an isolated pole.",
+     "mistake": "Thinks a cut magnet gives separate poles"
+    },
+    {
+     "q": "The electric dipole field formula becomes the current loop field formula if you replace p by m and 1/ε₀ by",
+     "options": [
+      "1/µ₀",
+      "µ₀",
+      "µ₀/4π",
+      "ε₀"
+     ],
+     "answer": 1,
+     "explain": "1/(4πε₀) → µ₀/(4π).",
+     "mistake": "Replaces with 1/µ₀"
+    },
+    {
+     "q": "A proton moving at 10⁷ m s⁻¹ perpendicular to a 1 T field: what is the radius of its path (in cm)? (mp = 1.6 × 10⁻²⁷ kg, e = 1.6 × 10⁻¹⁹ C)",
+     "options": [
+      "1",
+      "100",
+      "0.1",
+      "10"
+     ],
+     "answer": 3,
+     "explain": "r = mv/(eB) = 1.6 × 10⁻²⁷ × 10⁷/(1.6 × 10⁻¹⁹ × 1) = 0.1 m = 10 cm.",
+     "mistake": "Slips by a power of ten",
+     "check": "1.6*10**-27*10**7/(1.6*10**-19*1)*100"
+    },
+    {
+     "q": "A long wire carries 2 A. A second parallel wire 4 cm away carries 3 A. What is the field due to the first wire at the second wire (in µT)?",
+     "options": [
+      "15",
+      "10",
+      "5",
+      "20"
+     ],
+     "answer": 1,
+     "explain": "B = 2 × 10⁻⁷ × 2/0.04 = 10⁻⁵ T = 10 µT.",
+     "mistake": "Uses the second wire's current",
+     "check": "2*10**-7*2/0.04*10**6"
+    },
+    {
+     "q": "A 20-turn coil of area 0.05 m² carries 2 A. What is its magnetic moment (in A m²)?",
+     "options": [
+      "0.1",
+      "40",
+      "0.5",
+      "2"
+     ],
+     "answer": 3,
+     "explain": "m = NIA = 20 × 2 × 0.05 = 2 A m².",
+     "mistake": "Forgets the number of turns",
+     "check": "20*2*0.05"
+    },
+    {
+     "q": "Assertion (A): A current loop behaves like a bar magnet. Reason (R): Its field lines, far away, have the same pattern as a magnetic dipole's. Choose the correct option.",
+     "options": [
+      "Both A and R are true, but R does not explain A",
+      "Both A and R are true, and R explains A",
+      "A is true but R is false",
+      "A is false but R is true"
+     ],
+     "answer": 1,
+     "explain": "Both have dipole fields falling as 1/r³ with the same shape, so a loop acts as a magnetic dipole.",
+     "mistake": "Does not link the field pattern with dipole behaviour"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Is a little loop of current really the same as a little bar magnet?'",
+    "must": [
+     [
+      "dipole",
+      "magnetic dipole"
+     ],
+     [
+      "magnetic moment",
+      "ia",
+      "m = ia"
+     ],
+     [
+      "1/r³",
+      "cube",
+      "r cubed"
+     ],
+     [
+      "no monopole",
+      "no monopoles",
+      "no isolated pole"
+     ]
+    ],
+    "praise": "Chirp! Yes, a current loop is a magnetic dipole with moment IA; its far field falls as 1/r³, just like a tiny bar magnet!",
+    "nudge": "Good! What kind of field does a loop make far away, and what is its moment?"
+   }
+  },
+  {
+   "id": "g12-physics-04-12",
+   "title": "The moving coil galvanometer",
+   "covers": [
+    "c4.10.1",
+    "c4.10.2",
+    "c4.10.5"
+   ],
+   "learn": {
+    "hook": "The swinging needle of an old-school analogue meter is a coil, a magnet and a tiny spring working together, a beautiful use of τ = NIAB.",
+    "points": [
+     "Construction: a coil of N turns on a soft iron core, pivoted between concave pole pieces of a permanent magnet, which make the field radial so the plane of the coil is always parallel to B.",
+     "Magnetic torque NIAB is balanced by the spring's restoring torque kφ: kφ = NIAB, so φ = (NAB/k)I. Deflection is proportional to current, giving a linear scale.",
+     "Current sensitivity = φ/I = NAB/k (deflection per unit current).",
+     "Voltage sensitivity = φ/V = NAB/(kR), where R is the coil resistance.",
+     "Doubling N doubles the current sensitivity, but it also doubles R, so the voltage sensitivity stays the same."
+    ],
+    "example": {
+     "q": "A galvanometer coil has N = 100, A = 2 × 10⁻³ m², B = 0.5 T, k = 10⁻⁴ N m rad⁻¹. Find the current sensitivity.",
+     "steps": [
+      "Current sensitivity = NAB/k",
+      "= 100 × 2 × 10⁻³ × 0.5/10⁻⁴",
+      "= 1000 rad A⁻¹"
+     ],
+     "answer": "1000 rad per ampere (1 rad per mA)"
+    },
+    "reallife": "School physics labs across India still use moving coil galvanometers to find null points in bridge experiments, because they respond to very small currents."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "How a galvanometer deflects",
+     "prompt": "Put the events in order",
+     "items": [
+      "Current flows through the coil",
+      "Magnetic torque NIAB acts on the coil",
+      "The coil turns and twists the spring",
+      "Restoring torque kφ grows with the twist",
+      "Coil stops where kφ = NIAB"
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Galvanometer gaps",
+     "items": [
+      {
+       "text": "The radial field keeps sinθ = ___.",
+       "answer": "1",
+       "options": [
+        "1",
+        "0",
+        "0.5"
+       ]
+      },
+      {
+       "text": "Current sensitivity = NAB/___.",
+       "answer": "k",
+       "options": [
+        "k",
+        "R",
+        "I"
+       ]
+      },
+      {
+       "text": "Voltage sensitivity = NAB/(k___).",
+       "answer": "R",
+       "options": [
+        "R",
+        "I",
+        "N"
+       ]
+      },
+      {
+       "text": "The soft iron core ___ the field.",
+       "answer": "strengthens",
+       "options": [
+        "strengthens",
+        "weakens",
+        "reverses"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "Why are the pole pieces of a moving coil galvanometer curved (concave), with a soft iron core?",
+     "options": [
+      "To make the field radial so the coil's plane is always parallel to B and torque is NIAB at any deflection",
+      "To make the field uniform and parallel to the coil's axis",
+      "To reduce the field",
+      "To make the coil heavier"
+     ],
+     "answer": 0,
+     "explain": "With a radial field, sinθ = 1 at every position, so deflection is proportional to current.",
+     "mistake": "Thinks the field should be along the coil's normal"
+    },
+    {
+     "q": "A galvanometer has N = 50, A = 4 × 10⁻⁴ m², B = 0.25 T and k = 5 × 10⁻⁶ N m rad⁻¹. What is its current sensitivity (in rad mA⁻¹)?",
+     "options": [
+      "10",
+      "0.1",
+      "1",
+      "100"
+     ],
+     "answer": 2,
+     "explain": "NAB/k = 50 × 4 × 10⁻⁴ × 0.25/5 × 10⁻⁶ = 1000 rad A⁻¹ = 1 rad mA⁻¹.",
+     "mistake": "Forgets to convert A⁻¹ to mA⁻¹",
+     "check": "50*4*10**-4*0.25/(5*10**-6)/1000"
+    },
+    {
+     "q": "The deflection of a moving coil galvanometer is",
+     "options": [
+      "directly proportional to the current",
+      "proportional to the square of the current",
+      "inversely proportional to the current",
+      "independent of the current"
+     ],
+     "answer": 0,
+     "explain": "φ = (NAB/k)I.",
+     "mistake": "Thinks torque depends on I²"
+    },
+    {
+     "q": "The number of turns of a galvanometer coil is doubled (wire of the same thickness). What happens to its voltage sensitivity?",
+     "options": [
+      "It doubles",
+      "It halves",
+      "It stays about the same, because R also doubles",
+      "It becomes four times"
+     ],
+     "answer": 2,
+     "explain": "Current sensitivity doubles, but resistance doubles too, so NAB/(kR) is unchanged.",
+     "mistake": "Assumes both sensitivities double"
+    },
+    {
+     "q": "A galvanometer of resistance 20 Ω has a current sensitivity of 10 divisions per mA. What is its voltage sensitivity (in divisions per mV)?",
+     "options": [
+      "0.5",
+      "200",
+      "2",
+      "5"
+     ],
+     "answer": 0,
+     "explain": "Voltage sensitivity = current sensitivity/R = 10 div mA⁻¹ / 20 Ω = 0.5 div mV⁻¹.",
+     "mistake": "Multiplies by R",
+     "check": "10/20"
+    },
+    {
+     "q": "What balances the magnetic torque in a moving coil galvanometer to give a steady deflection?",
+     "options": [
+      "The weight of the coil",
+      "Friction in the bearings",
+      "The restoring torque of the spring, kφ",
+      "The electric force on the coil"
+     ],
+     "answer": 2,
+     "explain": "At equilibrium kφ = NIAB.",
+     "mistake": "Thinks friction sets the deflection"
+    },
+    {
+     "q": "Which change increases the current sensitivity of a galvanometer?",
+     "options": [
+      "Using a stronger magnet (larger B)",
+      "Using a stiffer spring (larger k)",
+      "Using fewer turns",
+      "Reducing the coil area"
+     ],
+     "answer": 0,
+     "explain": "Current sensitivity NAB/k grows with B.",
+     "mistake": "Thinks a stiffer spring increases sensitivity"
+    },
+    {
+     "q": "Assertion (A): Increasing the current sensitivity of a galvanometer by adding turns may not increase its voltage sensitivity. Reason (R): Adding turns also increases the coil resistance. Choose the correct option.",
+     "options": [
+      "Both A and R are true, but R does not explain A",
+      "A is true but R is false",
+      "Both A and R are true, and R explains A",
+      "A is false but R is true"
+     ],
+     "answer": 2,
+     "explain": "Voltage sensitivity = NAB/(kR); both N and R rise together.",
+     "mistake": "Does not see the role of the coil resistance"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does a galvanometer needle stop at a fixed angle instead of spinning forever?'",
+    "must": [
+     [
+      "spring",
+      "restoring torque",
+      "torsion"
+     ],
+     [
+      "balance",
+      "balances",
+      "equal"
+     ],
+     [
+      "proportional",
+      "linear",
+      "nab/k"
+     ]
+    ],
+    "praise": "Chirp! The spring's restoring torque kφ balances NIAB, so the deflection is proportional to current. Steady needle!",
+    "nudge": "Good! What torque opposes the magnetic torque on the coil?"
+   }
+  },
+  {
+   "id": "g12-physics-04-13",
+   "title": "Converting a galvanometer into an ammeter or voltmeter",
+   "covers": [
+    "c4.10.3",
+    "c4.10.4",
+    "c4.10.6"
+   ],
+   "learn": {
+    "hook": "A galvanometer is delicate, often going full scale at a few milliamperes. With one well-chosen resistor it becomes a sturdy ammeter or a voltmeter.",
+    "points": [
+     "Ammeter: connect a small shunt resistance S in parallel with the galvanometer (resistance G). Most current bypasses the coil.",
+     "Shunt value: S = IgG/(I - Ig), where Ig is the full-scale galvanometer current and I is the required range. The ammeter's resistance is very low, about S.",
+     "Voltmeter: connect a large resistance R in series with the galvanometer.",
+     "Series value: R = V/Ig - G for a voltmeter of range V. The voltmeter's total resistance is very high.",
+     "An ideal ammeter has zero resistance (connected in series); an ideal voltmeter has infinite resistance (connected in parallel)."
+    ],
+    "example": {
+     "q": "A galvanometer of G = 99 Ω gives full deflection at 1 mA. Find the shunt for a 0–100 mA ammeter.",
+     "steps": [
+      "S = IgG/(I - Ig)",
+      "= 0.001 × 99/(0.1 - 0.001)",
+      "= 0.099/0.099 = 1 Ω"
+     ],
+     "answer": "1 Ω in parallel"
+    },
+    "reallife": "Multimeters sold in Delhi's Lajpat Rai Market switch between ranges by connecting different shunts and series resistors to the same sensitive meter movement."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Ammeter or voltmeter?",
+     "buckets": [
+      "Ammeter",
+      "Voltmeter"
+     ],
+     "items": [
+      [
+       "Low shunt in parallel with galvanometer",
+       0
+      ],
+      [
+       "High resistance in series with galvanometer",
+       1
+      ],
+      [
+       "Connected in series in a circuit",
+       0
+      ],
+      [
+       "Connected in parallel across a component",
+       1
+      ],
+      [
+       "Ideally zero resistance",
+       0
+      ],
+      [
+       "Ideally infinite resistance",
+       1
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Convert it",
+     "items": [
+      {
+       "q": "G = 99 Ω, Ig = 1 mA, I = 100 mA: S (in Ω)",
+       "a": "1",
+       "check": "0.001*99/(0.1-0.001)"
+      },
+      {
+       "q": "G = 100 Ω, Ig = 1 mA, V = 10 V: R (in Ω)",
+       "a": "9900",
+       "check": "10/0.001-100"
+      },
+      {
+       "q": "G = 50 Ω, Ig = 2 mA, V = 5 V: R (in Ω)",
+       "a": "2450",
+       "check": "5/0.002-50"
+      },
+      {
+       "q": "G = 20 Ω, Ig = 10 mA, I = 1.01 A: S (in Ω)",
+       "a": "0.2",
+       "check": "0.01*20/(1.01-0.01)"
+      },
+      {
+       "q": "An ideal voltmeter's resistance",
+       "a": "infinite"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A galvanometer of resistance 30 Ω gives full-scale deflection at 2 mA. What shunt (in Ω) converts it into an ammeter of range 0–302 mA?",
+     "options": [
+      "0.3",
+      "0.2",
+      "30",
+      "15"
+     ],
+     "answer": 1,
+     "explain": "S = IgG/(I - Ig) = 0.002 × 30/(0.302 - 0.002) = 0.06/0.3 = 0.2 Ω.",
+     "steps": [
+      "S = IgG/(I - Ig)",
+      "= 0.06/0.3",
+      "= 0.2 Ω"
+     ],
+     "mistake": "Forgets to subtract Ig in the denominator",
+     "check": "0.002*30/(0.302-0.002)"
+    },
+    {
+     "q": "The same galvanometer (30 Ω, 2 mA) is to become a voltmeter of range 0–10 V. What series resistance is needed (in Ω)?",
+     "options": [
+      "5000",
+      "5030",
+      "20",
+      "4970"
+     ],
+     "answer": 3,
+     "explain": "R = V/Ig - G = 10/0.002 - 30 = 5000 - 30 = 4970 Ω.",
+     "mistake": "Forgets to subtract the galvanometer resistance",
+     "check": "10/0.002-30"
+    },
+    {
+     "q": "To convert a galvanometer into an ammeter, we connect",
+     "options": [
+      "a high resistance in series",
+      "a low resistance in parallel",
+      "a low resistance in series",
+      "a high resistance in parallel"
+     ],
+     "answer": 1,
+     "explain": "The shunt carries most of the current.",
+     "mistake": "Mixes up ammeter and voltmeter conversions"
+    },
+    {
+     "q": "Why must an ammeter have a very low resistance?",
+     "options": [
+      "To make it more sensitive to voltage",
+      "To protect the voltmeter",
+      "So that it heats up quickly",
+      "It is placed in series, so it must not change the current it measures"
+     ],
+     "answer": 3,
+     "explain": "Any resistance added in series would reduce the circuit current.",
+     "mistake": "Thinks an ammeter is connected in parallel"
+    },
+    {
+     "q": "Why must a voltmeter have a very high resistance?",
+     "options": [
+      "It is connected in series",
+      "It is placed in parallel, so it should draw almost no current from the circuit",
+      "To increase the current",
+      "To reduce its range"
+     ],
+     "answer": 1,
+     "explain": "A low-resistance voltmeter would draw current and change the voltage it measures.",
+     "mistake": "Thinks a voltmeter is connected in series"
+    },
+    {
+     "q": "A galvanometer (G = 99 Ω, Ig = 1 mA) is given a shunt of 1 Ω. What is the maximum current the ammeter can read (in mA)?",
+     "options": [
+      "99",
+      "1",
+      "10",
+      "100"
+     ],
+     "answer": 3,
+     "explain": "At full scale the shunt carries IgG/S = 0.001 × 99/1 = 99 mA. Total = 99 + 1 = 100 mA.",
+     "steps": [
+      "Is = IgG/S = 99 mA",
+      "I = Is + Ig = 99 + 1",
+      "= 100 mA"
+     ],
+     "mistake": "Forgets to add the current through the coil",
+     "check": "0.001*(99+1)/1*1000"
+    },
+    {
+     "q": "A voltmeter of resistance 1000 Ω is connected across a 1000 Ω resistor in series with another 1000 Ω resistor and a 30 V ideal cell. What does the voltmeter read (in V)?",
+     "options": [
+      "15",
+      "10",
+      "20",
+      "30"
+     ],
+     "answer": 1,
+     "explain": "The voltmeter and the resistor in parallel give 500 Ω. Total = 1500 Ω, I = 0.02 A, V across the pair = 0.02 × 500 = 10 V, not the expected 15 V.",
+     "steps": [
+      "1000 ∥ 1000 = 500 Ω",
+      "Total R = 1500 Ω, I = 30/1500 = 0.02 A",
+      "V = 0.02 × 500 = 10 V"
+     ],
+     "mistake": "Ignores the voltmeter's own resistance",
+     "check": "30/1500*500"
+    },
+    {
+     "q": "A galvanometer can be converted into a voltmeter of range V by connecting a resistance R in series, where R equals",
+     "options": [
+      "IgG/(I - Ig)",
+      "V/Ig + G",
+      "G - V/Ig",
+      "V/Ig - G"
+     ],
+     "answer": 3,
+     "explain": "The total resistance must be V/Ig.",
+     "mistake": "Uses the shunt formula"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How do I turn my tiny galvanometer into a big-current ammeter?'",
+    "must": [
+     [
+      "shunt",
+      "low resistance"
+     ],
+     [
+      "parallel",
+      "in parallel"
+     ],
+     [
+      "bypass",
+      "most of the current",
+      "extra current"
+     ]
+    ],
+    "praise": "Chirp! Put a low shunt in parallel so most of the current bypasses the coil. Super ammeter!",
+    "nudge": "Good! What kind of resistor do we add, and how is it connected?"
+   }
+  }
+ ]
+}

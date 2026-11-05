@@ -1,0 +1,1962 @@
+{
+ "n": 7,
+ "title": "Alternating Current",
+ "emoji": "〰️",
+ "topics": [
+  {
+   "id": "g12-physics-07-01",
+   "title": "AC voltage across a resistor",
+   "covers": [
+    "c7.1.1",
+    "c7.1.2",
+    "c7.2.1",
+    "c7.2.2",
+    "c7.2.3"
+   ],
+   "learn": {
+    "hook": "The socket in your room does not give a steady push. Its voltage swings from +311 V to -311 V and back fifty times every second.",
+    "points": [
+     "Alternating voltage varies sinusoidally with time: v = vm sin ωt, where vm is the peak value and ω = 2πν. Most power supplies in homes and industry are AC.",
+     "AC is preferred because transformers can easily step its voltage up or down, which makes long-distance transmission efficient.",
+     "Across a resistor R, i = (vm/R) sin ωt = im sin ωt: the current is in phase with the voltage.",
+     "Over a full cycle, the average current is zero (equal positive and negative halves), but the power i²R is always positive, so the average power is not zero.",
+     "Average power in a resistor: P = ½im²R, because the average of sin²ωt over a cycle is ½."
+    ],
+    "example": {
+     "q": "A 50 Ω resistor is connected to v = 100 sin(314t) V. Find the peak current and the average power.",
+     "steps": [
+      "im = vm/R = 100/50 = 2 A",
+      "P = ½im²R = ½ × 4 × 50",
+      "= 100 W"
+     ],
+     "answer": "im = 2 A; P = 100 W"
+    },
+    "reallife": "Electric geysers and irons in Indian homes are essentially resistors. They heat up on AC just as on DC because heating depends on i², which is positive in both halves of each cycle."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "AC in a resistor",
+     "items": [
+      [
+       "In a pure resistor, current and voltage are in phase.",
+       true,
+       "Both are proportional to sin ωt."
+      ],
+      [
+       "The average AC current over a full cycle is zero.",
+       true,
+       "Positive and negative halves cancel."
+      ],
+      [
+       "The average power in a resistor on AC is zero.",
+       false,
+       "i²R is never negative, so the average is ½im²R."
+      ],
+      [
+       "AC can be stepped up or down using transformers.",
+       true,
+       "This is its key advantage."
+      ],
+      [
+       "The average of sin²ωt over one cycle is 1.",
+       false,
+       "It is ½."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Resistor on AC",
+     "items": [
+      {
+       "q": "vm = 200 V, R = 100 Ω: im (in A)",
+       "a": "2",
+       "check": "200/100"
+      },
+      {
+       "q": "im = 2 A, R = 10 Ω: average power (in W)",
+       "a": "20",
+       "check": "0.5*4*10"
+      },
+      {
+       "q": "Average of sin²ωt over a cycle",
+       "a": "1/2",
+       "check": "Fraction(1,2)"
+      },
+      {
+       "q": "ω for 50 Hz, taking π = 3.14 (in rad s⁻¹)",
+       "a": "314",
+       "check": "2*3.14*50"
+      },
+      {
+       "q": "Phase difference between v and i in R (in degrees)",
+       "a": "0",
+       "check": "0"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A voltage v = 220 sin(100πt) V is applied to a 44 Ω resistor. What is the peak current (in A)?",
+     "options": [
+      "0.2",
+      "5",
+      "9680",
+      "2.5"
+     ],
+     "answer": 1,
+     "explain": "im = vm/R = 220/44 = 5 A.",
+     "mistake": "Multiplies instead of dividing",
+     "check": "220/44"
+    },
+    {
+     "q": "What is the frequency of v = 220 sin(100πt) V (in Hz)?",
+     "options": [
+      "100",
+      "314",
+      "220",
+      "50"
+     ],
+     "answer": 3,
+     "explain": "ω = 100π = 2πν, so ν = 50 Hz.",
+     "mistake": "Takes the coefficient of t as the frequency",
+     "check": "100/2"
+    },
+    {
+     "q": "A resistor of 20 Ω carries an AC current of peak value 3 A. What is the average power (in W)?",
+     "options": [
+      "180",
+      "90",
+      "60",
+      "30"
+     ],
+     "answer": 1,
+     "explain": "P = ½im²R = 0.5 × 9 × 20 = 90 W.",
+     "mistake": "Forgets the ½",
+     "check": "0.5*3**2*20"
+    },
+    {
+     "q": "The average value of an alternating current over one complete cycle is",
+     "options": [
+      "im",
+      "im/√2",
+      "2im/π",
+      "zero"
+     ],
+     "answer": 3,
+     "explain": "The positive half cancels the negative half.",
+     "mistake": "Confuses average value with rms value"
+    },
+    {
+     "q": "Why is the average power in a resistor on AC not zero, though the average current is zero?",
+     "options": [
+      "Because current is always positive",
+      "Power depends on i², which is positive in both halves of the cycle",
+      "Because AC has no negative half",
+      "Because resistance changes sign"
+     ],
+     "answer": 1,
+     "explain": "i²R ≥ 0 at every instant.",
+     "mistake": "Thinks power follows current's sign"
+    },
+    {
+     "q": "In a purely resistive AC circuit, the phase difference between current and voltage is",
+     "options": [
+      "π/2",
+      "π",
+      "π/4",
+      "zero"
+     ],
+     "answer": 3,
+     "explain": "Both vary as sin ωt.",
+     "mistake": "Confuses resistor with inductor or capacitor"
+    },
+    {
+     "q": "Which is the main reason AC is used for power distribution rather than DC?",
+     "options": [
+      "It cannot cause shocks",
+      "Its voltage can be changed easily and efficiently using transformers",
+      "It carries no energy losses",
+      "It needs no wires"
+     ],
+     "answer": 1,
+     "explain": "High-voltage transmission with step-up and step-down transformers reduces losses.",
+     "mistake": "Thinks AC is safer by nature"
+    },
+    {
+     "q": "A 100 Ω resistor dissipates 50 W on AC. What is the peak current (in A)?",
+     "options": [
+      "0.5",
+      "0.71",
+      "2",
+      "1"
+     ],
+     "answer": 3,
+     "explain": "P = ½im²R gives im² = 2P/R = 1, so im = 1 A.",
+     "mistake": "Forgets the factor ½",
+     "check": "(2*50/100)**0.5"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'If AC current averages to zero, how does my geyser get hot?'",
+    "must": [
+     [
+      "square",
+      "i²",
+      "i squared",
+      "squared"
+     ],
+     [
+      "positive",
+      "always positive"
+     ],
+     [
+      "average power",
+      "power",
+      "half"
+     ]
+    ],
+    "praise": "Chirp! Heating goes as i²R, which is positive in both halves, so average power is ½im²R. Hot water!",
+    "nudge": "Good! Does heating depend on i or on i²?"
+   }
+  },
+  {
+   "id": "g12-physics-07-02",
+   "title": "RMS values and phasors",
+   "covers": [
+    "c7.2.4",
+    "c7.2.5",
+    "c7.2.6",
+    "c7.3.1",
+    "c7.3.2"
+   ],
+   "learn": {
+    "hook": "Your meter says 220 V, but the voltage actually peaks at about 311 V. The 220 is a special average called the root mean square.",
+    "points": [
+     "RMS (effective) current I = im/√2 ≈ 0.707im, and RMS voltage V = vm/√2. The AC gives the same heating as a DC of this value: P = VI = I²R.",
+     "AC ammeters and voltmeters read RMS values. Indian mains of 220 V (RMS) has a peak of 220√2 ≈ 311 V.",
+     "A phasor is a vector that rotates anticlockwise at angular speed ω; its projection on the vertical axis gives the instantaneous value (vm sin ωt).",
+     "Phasor diagrams show the phase relation between voltage and current: in a resistor, the V and I phasors point the same way.",
+     "Phasors for different circuit elements add as vectors, which makes AC circuit analysis simple."
+    ],
+    "example": {
+     "q": "A 100 W bulb is rated for 220 V. Find its RMS current and peak current. (√2 = 1.414)",
+     "steps": [
+      "I = P/V = 100/220 ≈ 0.455 A",
+      "im = √2 × I ≈ 1.414 × 0.455",
+      "≈ 0.64 A"
+     ],
+     "answer": "I ≈ 0.45 A (RMS); im ≈ 0.64 A"
+    },
+    "reallife": "A multimeter in a Delhi electrician's kit reading 230 V on a socket is reporting the RMS value; the voltage actually peaks near 325 V."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Peak and RMS",
+     "pairs": [
+      [
+       "I = im/√2",
+       "RMS current"
+      ],
+      [
+       "V = vm/√2",
+       "RMS voltage"
+      ],
+      [
+       "220 V mains peak",
+       "≈ 311 V"
+      ],
+      [
+       "AC meter reading",
+       "RMS value"
+      ],
+      [
+       "Rotating vector for AC",
+       "Phasor"
+      ]
+     ]
+    },
+    {
+     "type": "fill",
+     "title": "Phasor facts",
+     "items": [
+      {
+       "text": "A phasor rotates ___ at angular speed ω.",
+       "answer": "anticlockwise",
+       "options": [
+        "anticlockwise",
+        "clockwise",
+        "randomly"
+       ]
+      },
+      {
+       "text": "Instantaneous value = projection on the ___ axis.",
+       "answer": "vertical",
+       "options": [
+        "vertical",
+        "horizontal",
+        "diagonal"
+       ]
+      },
+      {
+       "text": "For a resistor, V and I phasors are ___.",
+       "answer": "in phase",
+       "options": [
+        "in phase",
+        "at 90°",
+        "opposite"
+       ]
+      },
+      {
+       "text": "RMS value = peak × ___.",
+       "answer": "1/√2",
+       "options": [
+        "1/√2",
+        "√2",
+        "2"
+       ]
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "The peak value of an alternating current is 10 A. What is its RMS value (in A)? (√2 = 1.414)",
+     "options": [
+      "14.14",
+      "5",
+      "7.07",
+      "10"
+     ],
+     "answer": 2,
+     "explain": "I = im/√2 = 10/1.414 ≈ 7.07 A.",
+     "mistake": "Multiplies by √2",
+     "check": "10/1.414"
+    },
+    {
+     "q": "The RMS voltage of a supply is 230 V. What is its peak voltage (in V)? (√2 = 1.414)",
+     "options": [
+      "325.22",
+      "162.6",
+      "230",
+      "460"
+     ],
+     "answer": 0,
+     "explain": "vm = √2V = 1.414 × 230 ≈ 325.2 V.",
+     "mistake": "Divides by √2",
+     "check": "1.414*230"
+    },
+    {
+     "q": "An AC voltmeter connected to the Indian mains reads 220 V. This is the",
+     "options": [
+      "peak value",
+      "average value over a cycle",
+      "RMS value",
+      "peak-to-peak value"
+     ],
+     "answer": 2,
+     "explain": "AC meters are calibrated to show RMS values.",
+     "mistake": "Thinks the meter reads the peak"
+    },
+    {
+     "q": "A 60 W bulb runs on 240 V AC. What is the RMS current (in A)?",
+     "options": [
+      "0.25",
+      "4",
+      "0.35",
+      "0.18"
+     ],
+     "answer": 0,
+     "explain": "I = P/V = 60/240 = 0.25 A.",
+     "mistake": "Divides V by P",
+     "check": "60/240"
+    },
+    {
+     "q": "An AC of RMS value 2 A flows through 50 Ω. What average power is dissipated (in W)?",
+     "options": [
+      "100",
+      "400",
+      "200",
+      "25"
+     ],
+     "answer": 2,
+     "explain": "P = I²R using RMS current: 4 × 50 = 200 W.",
+     "mistake": "Applies the ½ to an RMS value",
+     "check": "2**2*50"
+    },
+    {
+     "q": "What does the projection of a voltage phasor on the vertical axis represent?",
+     "options": [
+      "The instantaneous voltage",
+      "The peak voltage",
+      "The RMS voltage",
+      "The phase angle"
+     ],
+     "answer": 0,
+     "explain": "Projection = vm sin ωt, the value at that instant.",
+     "mistake": "Thinks the phasor length changes with time"
+    },
+    {
+     "q": "A phasor diagram for a pure resistor shows V and I phasors that are",
+     "options": [
+      "perpendicular",
+      "opposite",
+      "along the same direction",
+      "at 45°"
+     ],
+     "answer": 2,
+     "explain": "Voltage and current are in phase in R.",
+     "mistake": "Confuses with inductor or capacitor"
+    },
+    {
+     "q": "A DC current of 3 A produces the same heating in a resistor as an AC of peak value (in A)? (√2 = 1.414)",
+     "options": [
+      "4.24",
+      "3",
+      "2.12",
+      "6"
+     ],
+     "answer": 0,
+     "explain": "Equal heating means RMS = 3 A, so im = 3√2 ≈ 4.24 A.",
+     "mistake": "Takes the peak as 3 A",
+     "check": "3*1.414"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does the meter say 220 V if the voltage actually reaches 311 V?'",
+    "must": [
+     [
+      "rms",
+      "root mean square",
+      "effective"
+     ],
+     [
+      "√2",
+      "root 2",
+      "root two",
+      "1.414"
+     ],
+     [
+      "heating",
+      "same heating",
+      "dc"
+     ]
+    ],
+    "praise": "Chirp! The meter shows RMS, the DC value that gives the same heating, which is peak/√2. 311/1.414 ≈ 220!",
+    "nudge": "Good! What does RMS mean, and how is it related to the peak value?"
+   }
+  },
+  {
+   "id": "g12-physics-07-03",
+   "title": "AC through a pure inductor",
+   "covers": [
+    "c7.4.1",
+    "c7.4.2",
+    "c7.4.3",
+    "c7.4.4"
+   ],
+   "learn": {
+    "hook": "Put an inductor on AC and something strange happens: the current always reaches its peak a quarter cycle after the voltage. The coil makes the current lag.",
+    "points": [
+     "For v = vm sin ωt across inductance L: i = im sin(ωt - π/2). The current lags the voltage by π/2 (90°).",
+     "Inductive reactance XL = ωL = 2πνL, unit ohm. Peak current im = vm/XL, and RMS I = V/XL.",
+     "XL increases with frequency: an inductor lets DC (ω = 0) pass freely but opposes high-frequency AC.",
+     "Average power over a cycle in a pure inductor is zero: energy is stored in its field in one quarter cycle and returned in the next.",
+     "The opposition comes from the back emf L di/dt, not from any resistance."
+    ],
+    "example": {
+     "q": "A pure 0.5 H inductor is connected to a 220 V, 50 Hz supply. Find XL and the RMS current. (π = 3.14)",
+     "steps": [
+      "XL = 2πνL = 2 × 3.14 × 50 × 0.5 = 157 Ω",
+      "I = V/XL = 220/157",
+      "≈ 1.4 A"
+     ],
+     "answer": "XL = 157 Ω; I ≈ 1.4 A"
+    },
+    "reallife": "Fan regulators of the older 'choke' type, still found in many Indian homes, used inductors to cut the current without wasting much power as heat."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Inductor on AC",
+     "items": [
+      [
+       "In a pure inductor, the current lags the voltage by 90°.",
+       true,
+       "i = im sin(ωt - π/2)."
+      ],
+      [
+       "Inductive reactance decreases as frequency increases.",
+       false,
+       "XL = ωL increases with ω."
+      ],
+      [
+       "A pure inductor consumes no average power.",
+       true,
+       "Energy flows in and out each cycle."
+      ],
+      [
+       "Inductive reactance for DC is zero.",
+       true,
+       "ω = 0 gives XL = 0."
+      ],
+      [
+       "Reactance is measured in henry.",
+       false,
+       "It is measured in ohm."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "XL = ωL",
+     "items": [
+      {
+       "q": "ω = 100 rad s⁻¹, L = 0.2 H: XL (in Ω)",
+       "a": "20",
+       "check": "100*0.2"
+      },
+      {
+       "q": "ω = 1000 rad s⁻¹, L = 0.05 H: XL (in Ω)",
+       "a": "50",
+       "check": "1000*0.05"
+      },
+      {
+       "q": "V = 100 V, XL = 25 Ω: I (in A)",
+       "a": "4",
+       "check": "100/25"
+      },
+      {
+       "q": "Frequency doubled: XL becomes",
+       "a": "double"
+      },
+      {
+       "q": "Phase of i relative to v in L (in degrees)",
+       "a": "-90",
+       "check": "-90"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "An inductor of 0.4 H is connected across an AC source with ω = 500 rad s⁻¹. What is its reactance (in Ω)?",
+     "options": [
+      "1250",
+      "0.0008",
+      "500.4",
+      "200"
+     ],
+     "answer": 3,
+     "explain": "XL = ωL = 500 × 0.4 = 200 Ω.",
+     "mistake": "Divides ω by L",
+     "check": "500*0.4"
+    },
+    {
+     "q": "A pure inductor with XL = 110 Ω is connected to 220 V RMS. What is the RMS current (in A)?",
+     "options": [
+      "0.5",
+      "2",
+      "24200",
+      "1.41"
+     ],
+     "answer": 1,
+     "explain": "I = V/XL = 220/110 = 2 A.",
+     "mistake": "Multiplies V and XL",
+     "check": "220/110"
+    },
+    {
+     "q": "A 0.1 H inductor is connected to a 50 Hz, 220 V supply. What is the RMS current (in A)? (π = 3.14; give to 2 decimal places)",
+     "options": [
+      "2.2",
+      "31.4",
+      "70.06",
+      "7.01"
+     ],
+     "answer": 3,
+     "explain": "XL = 2π × 50 × 0.1 = 31.4 Ω; I = 220/31.4 ≈ 7.01 A.",
+     "mistake": "Uses ω = 50 instead of 2π × 50",
+     "check": "220/(2*3.14*50*0.1)"
+    },
+    {
+     "q": "In a purely inductive AC circuit, the current",
+     "options": [
+      "leads the voltage by π/2",
+      "lags the voltage by π/2",
+      "is in phase with the voltage",
+      "lags by π"
+     ],
+     "answer": 1,
+     "explain": "The back emf delays the current by a quarter cycle.",
+     "mistake": "Confuses inductor with capacitor"
+    },
+    {
+     "q": "What is the average power consumed by a pure inductor over a complete cycle?",
+     "options": [
+      "VI",
+      "I²XL",
+      "VI/2",
+      "Zero"
+     ],
+     "answer": 3,
+     "explain": "The phase difference of 90° gives cos 90° = 0.",
+     "mistake": "Uses P = I²X as if X were a resistance"
+    },
+    {
+     "q": "The frequency of the AC supply to a pure inductor is doubled, keeping V the same. The current",
+     "options": [
+      "doubles",
+      "halves",
+      "stays the same",
+      "becomes four times"
+     ],
+     "answer": 1,
+     "explain": "XL doubles, so I = V/XL halves.",
+     "mistake": "Thinks higher frequency lets more current through"
+    },
+    {
+     "q": "Why does an inductor pass DC easily but oppose AC?",
+     "options": [
+      "DC has no electrons",
+      "AC is weaker than DC",
+      "The inductor heats up on AC",
+      "For DC, ω = 0 so XL = 0; for AC the changing current induces a back emf"
+     ],
+     "answer": 3,
+     "explain": "XL = ωL depends on how fast the current changes.",
+     "mistake": "Thinks the inductor's resistance changes"
+    },
+    {
+     "q": "The peak current through a pure inductor is 2 A at peak voltage 100 V. What is XL (in Ω)?",
+     "options": [
+      "200",
+      "50",
+      "0.02",
+      "100"
+     ],
+     "answer": 1,
+     "explain": "XL = vm/im = 100/2 = 50 Ω.",
+     "mistake": "Multiplies peak voltage and current",
+     "check": "100/2"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'An inductor has almost no resistance. Why does it limit AC current?'",
+    "must": [
+     [
+      "reactance",
+      "inductive reactance",
+      "ωl",
+      "omega l"
+     ],
+     [
+      "back emf",
+      "self-induced emf",
+      "self induced"
+     ],
+     [
+      "frequency",
+      "changing current"
+     ]
+    ],
+    "praise": "Chirp! The changing current induces a back emf, giving reactance XL = ωL that grows with frequency. Coil power!",
+    "nudge": "Good! What opposes AC in an inductor, and how does it depend on frequency?"
+   }
+  },
+  {
+   "id": "g12-physics-07-04",
+   "title": "AC through a pure capacitor",
+   "covers": [
+    "c7.5.1",
+    "c7.5.2",
+    "c7.5.3",
+    "c7.5.4"
+   ],
+   "learn": {
+    "hook": "A capacitor blocks DC completely, yet an AC current seems to flow 'through' it. Charges simply rush on and off the plates every half cycle.",
+    "points": [
+     "For v = vm sin ωt across capacitance C: i = im sin(ωt + π/2). The current leads the voltage by π/2 (90°).",
+     "Capacitive reactance XC = 1/(ωC) = 1/(2πνC), unit ohm. Peak current im = vm/XC.",
+     "XC decreases with frequency. For DC (ω = 0), XC is infinite, so a capacitor blocks DC.",
+     "Average power over a cycle in a pure capacitor is zero.",
+     "A lamp in series with a capacitor glows brighter if C or the frequency is increased (XC falls, current rises)."
+    ],
+    "example": {
+     "q": "A 100 µF capacitor is connected to an AC supply with ω = 100 rad s⁻¹ and V = 50 V (RMS). Find XC and I.",
+     "steps": [
+      "XC = 1/(ωC) = 1/(100 × 10⁻⁴)",
+      "= 100 Ω",
+      "I = V/XC = 50/100 = 0.5 A"
+     ],
+     "answer": "XC = 100 Ω; I = 0.5 A"
+    },
+    "reallife": "Ceiling fans in India use a capacitor in series with one winding to create a phase shift between currents. That shift produces the rotating field that starts the fan."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Inductor or capacitor?",
+     "buckets": [
+      "Inductor",
+      "Capacitor"
+     ],
+     "items": [
+      [
+       "Current lags voltage by 90°",
+       0
+      ],
+      [
+       "Current leads voltage by 90°",
+       1
+      ],
+      [
+       "Reactance rises with frequency",
+       0
+      ],
+      [
+       "Reactance falls with frequency",
+       1
+      ],
+      [
+       "Blocks DC",
+       1
+      ],
+      [
+       "Passes DC easily",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Capacitor on AC",
+     "items": [
+      [
+       "A capacitor offers infinite reactance to DC.",
+       true,
+       "ω = 0 makes XC infinite."
+      ],
+      [
+       "Increasing the capacitance increases XC.",
+       false,
+       "XC = 1/(ωC) falls."
+      ],
+      [
+       "A pure capacitor consumes no average power on AC.",
+       true,
+       "Phase difference of 90° gives zero average power."
+      ],
+      [
+       "A bulb in series with a capacitor glows dimmer if the frequency is increased.",
+       false,
+       "XC falls, so the current rises and it glows brighter."
+      ],
+      [
+       "In a capacitor, the current reaches its peak a quarter cycle before the voltage.",
+       true,
+       "The current leads by π/2."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A capacitor of 50 µF is connected to an AC source with ω = 200 rad s⁻¹. What is its reactance (in Ω)?",
+     "options": [
+      "100",
+      "0.01",
+      "10000",
+      "250"
+     ],
+     "answer": 0,
+     "explain": "XC = 1/(ωC) = 1/(200 × 50 × 10⁻⁶) = 1/0.01 = 100 Ω.",
+     "mistake": "Multiplies ω and C without taking the reciprocal",
+     "check": "1/(200*50*10**-6)"
+    },
+    {
+     "q": "A capacitor with XC = 40 Ω is connected to 200 V RMS. What is the RMS current (in A)?",
+     "options": [
+      "8000",
+      "0.2",
+      "5",
+      "50"
+     ],
+     "answer": 2,
+     "explain": "I = V/XC = 200/40 = 5 A.",
+     "mistake": "Multiplies V and XC",
+     "check": "200/40"
+    },
+    {
+     "q": "The current in a purely capacitive AC circuit",
+     "options": [
+      "leads the voltage by π/2",
+      "lags the voltage by π/2",
+      "is in phase with the voltage",
+      "leads by π"
+     ],
+     "answer": 0,
+     "explain": "Current flows most when the voltage is changing fastest, a quarter cycle earlier.",
+     "mistake": "Confuses capacitor with inductor"
+    },
+    {
+     "q": "The frequency of the supply to a capacitor is doubled. Its reactance",
+     "options": [
+      "doubles",
+      "stays the same",
+      "halves",
+      "becomes four times"
+     ],
+     "answer": 2,
+     "explain": "XC = 1/(ωC) ∝ 1/ω.",
+     "mistake": "Thinks XC grows with frequency"
+    },
+    {
+     "q": "A lamp is connected in series with a capacitor across an AC source. What happens when a dielectric slab is inserted into the capacitor?",
+     "options": [
+      "The lamp glows brighter",
+      "The lamp glows dimmer",
+      "The lamp goes off",
+      "No change"
+     ],
+     "answer": 0,
+     "explain": "C increases, XC falls, the current rises.",
+     "mistake": "Thinks the dielectric blocks current"
+    },
+    {
+     "q": "Why does a capacitor block DC?",
+     "options": [
+      "Its plates are insulators",
+      "DC charges are too large",
+      "For steady DC, ω = 0, so XC = 1/(ωC) is infinite and no steady current flows",
+      "It has very low resistance"
+     ],
+     "answer": 2,
+     "explain": "After charging, no further current flows for DC.",
+     "mistake": "Thinks AC passes through the dielectric"
+    },
+    {
+     "q": "A 10 µF capacitor is connected to a 220 V, 50 Hz supply. What is the RMS current (in A)? (π = 3.14; give to 2 decimal places)",
+     "options": [
+      "0.69",
+      "0.35",
+      "1.38",
+      "6.91"
+     ],
+     "answer": 0,
+     "explain": "XC = 1/(2 × 3.14 × 50 × 10⁻⁵) ≈ 318.5 Ω; I = 220/318.5 ≈ 0.69 A.",
+     "mistake": "Uses ω = 50 instead of 2π × 50",
+     "check": "220*2*3.14*50*10*10**-6"
+    },
+    {
+     "q": "What is the average power consumed in a pure capacitor connected to AC?",
+     "options": [
+      "VI",
+      "V²/XC",
+      "Zero",
+      "I²XC/2"
+     ],
+     "answer": 2,
+     "explain": "Energy stored in the field is returned to the source each half cycle.",
+     "mistake": "Treats reactance like resistance"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Electrons cannot jump across a capacitor's gap. How does AC get through?'",
+    "must": [
+     [
+      "charge",
+      "charging",
+      "discharging",
+      "plates"
+     ],
+     [
+      "reactance",
+      "1/ωc",
+      "capacitive reactance"
+     ],
+     [
+      "frequency",
+      "leads",
+      "alternating"
+     ]
+    ],
+    "praise": "Chirp! The plates keep charging and discharging, so current flows in the wires; XC = 1/(ωC) falls with frequency. Clever!",
+    "nudge": "Good! What happens on the plates as the voltage alternates?"
+   }
+  },
+  {
+   "id": "g12-physics-07-05",
+   "title": "Series LCR circuit",
+   "covers": [
+    "c7.6.1",
+    "c7.6.2",
+    "c7.6.3",
+    "c7.6.7"
+   ],
+   "learn": {
+    "hook": "Radio sets, induction furnaces and the power-factor panels in Indian factories all contain resistors, inductors and capacitors in series. Phasors make them easy.",
+    "points": [
+     "In series, the same current flows through R, L and C. VR is in phase with I, VL leads I by 90°, VC lags I by 90°.",
+     "Phasor sum: Vm² = VRm² + (VCm - VLm)², so the impedance is Z = √(R² + (XC - XL)²), with vm = imZ.",
+     "Impedance diagram: R along one axis and (XC - XL) at right angles; Z is the hypotenuse.",
+     "Phase angle: tanφ = (XC - XL)/R. If XL > XC the circuit is inductive (current lags); if XC > XL it is capacitive (current leads).",
+     "Individual voltages VR = IR, VL = IXL, VC = IXC can be larger than the supply voltage, because they are not in phase."
+    ],
+    "example": {
+     "q": "R = 30 Ω, XL = 80 Ω, XC = 40 Ω in series across 100 V (RMS). Find Z, I and VR, VL, VC.",
+     "steps": [
+      "Z = √(30² + (40 - 80)²) = √(900 + 1600) = 50 Ω",
+      "I = V/Z = 100/50 = 2 A",
+      "VR = 60 V, VL = 160 V, VC = 80 V"
+     ],
+     "answer": "Z = 50 Ω; I = 2 A; VR = 60 V, VL = 160 V, VC = 80 V"
+    },
+    "reallife": "Induction furnaces in Indian steel foundries are big LCR circuits; engineers tune the capacitor banks so the circuit's impedance and phase are just right for efficient heating."
+   },
+   "games": [
+    {
+     "type": "speed",
+     "title": "Impedance quick-fire",
+     "items": [
+      {
+       "q": "R = 3 Ω, XL = 4 Ω, XC = 0: Z (in Ω)",
+       "a": "5",
+       "check": "(3**2+4**2)**0.5"
+      },
+      {
+       "q": "R = 6 Ω, XL = 10 Ω, XC = 2 Ω: Z (in Ω)",
+       "a": "10",
+       "check": "(6**2+8**2)**0.5"
+      },
+      {
+       "q": "R = 12 Ω, XL = XC = 7 Ω: Z (in Ω)",
+       "a": "12",
+       "check": "12"
+      },
+      {
+       "q": "V = 50 V, Z = 25 Ω: I (in A)",
+       "a": "2",
+       "check": "50/25"
+      },
+      {
+       "q": "XL > XC: the circuit is",
+       "a": "inductive"
+      }
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "LCR insight",
+     "items": [
+      [
+       "In a series LCR circuit, the same current flows through every element.",
+       true,
+       "They are in series."
+      ],
+      [
+       "The supply voltage equals VR + VL + VC added as numbers.",
+       false,
+       "They add as phasors, not arithmetically."
+      ],
+      [
+       "If XC > XL, the current leads the voltage.",
+       true,
+       "The circuit is capacitive."
+      ],
+      [
+       "The voltage across the inductor can exceed the supply voltage.",
+       true,
+       "VL and VC partly cancel each other."
+      ],
+      [
+       "Impedance is always less than R.",
+       false,
+       "Z ≥ R."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A series circuit has R = 40 Ω, XL = 50 Ω and XC = 20 Ω. What is the impedance (in Ω)?",
+     "options": [
+      "110",
+      "50",
+      "70",
+      "30"
+     ],
+     "answer": 1,
+     "explain": "Z = √(40² + (20 - 50)²) = √(1600 + 900) = 50 Ω.",
+     "mistake": "Adds R, XL and XC arithmetically",
+     "check": "(40**2+30**2)**0.5"
+    },
+    {
+     "q": "That circuit (Z = 50 Ω) is connected to 200 V RMS. What is the RMS current (in A)?",
+     "options": [
+      "10000",
+      "0.25",
+      "2",
+      "4"
+     ],
+     "answer": 3,
+     "explain": "I = V/Z = 200/50 = 4 A.",
+     "mistake": "Multiplies V and Z",
+     "check": "200/50"
+    },
+    {
+     "q": "For the same circuit (I = 4 A, XL = 50 Ω), what is the RMS voltage across the inductor (in V)?",
+     "options": [
+      "80",
+      "200",
+      "12.5",
+      "50"
+     ],
+     "answer": 1,
+     "explain": "VL = IXL = 4 × 50 = 200 V, equal to the supply voltage here, which is allowed since voltages add as phasors.",
+     "mistake": "Thinks VL must be less than the supply voltage",
+     "check": "4*50"
+    },
+    {
+     "q": "In that circuit (R = 40 Ω, XL = 50 Ω, XC = 20 Ω), what is tanφ in magnitude, and is the circuit inductive or capacitive?",
+     "options": [
+      "0.75, capacitive",
+      "1.33, inductive",
+      "0.4, capacitive",
+      "0.75, inductive"
+     ],
+     "answer": 3,
+     "explain": "|tanφ| = |XC - XL|/R = 30/40 = 0.75. XL > XC, so the circuit is inductive and the current lags.",
+     "mistake": "Inverts the ratio or mixes up which reactance dominates"
+    },
+    {
+     "q": "R = 8 Ω, XL = 6 Ω and XC = 12 Ω are in series. What is the impedance (in Ω)?",
+     "options": [
+      "26",
+      "10",
+      "14",
+      "2"
+     ],
+     "answer": 1,
+     "explain": "Z = √(8² + (12 - 6)²) = √(64 + 36) = 10 Ω.",
+     "mistake": "Adds all three values",
+     "check": "(8**2+6**2)**0.5"
+    },
+    {
+     "q": "In a series LCR circuit, VR = 30 V, VL = 90 V and VC = 50 V (RMS). What is the supply voltage (in V)?",
+     "options": [
+      "170",
+      "70",
+      "110",
+      "50"
+     ],
+     "answer": 3,
+     "explain": "V = √(VR² + (VL - VC)²) = √(900 + 1600) = 50 V.",
+     "mistake": "Adds the voltages arithmetically",
+     "check": "(30**2+40**2)**0.5"
+    },
+    {
+     "q": "When XC > XL in a series LCR circuit, the current",
+     "options": [
+      "lags the applied voltage",
+      "leads the applied voltage",
+      "is in phase",
+      "is zero"
+     ],
+     "answer": 1,
+     "explain": "The capacitive part dominates, so current leads.",
+     "mistake": "Swaps the inductive and capacitive cases"
+    },
+    {
+     "q": "The formula for impedance of a series LCR circuit is",
+     "options": [
+      "Z = R + XL + XC",
+      "Z = √(R² + XL² + XC²)",
+      "Z = R(XC - XL)",
+      "Z = √(R² + (XC - XL)²)"
+     ],
+     "answer": 3,
+     "explain": "R is at 90° to the net reactance in the impedance diagram.",
+     "mistake": "Adds reactances as if in phase"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'In my LCR circuit, the voltage across the coil is bigger than the supply! Is my meter broken?'",
+    "must": [
+     [
+      "phasor",
+      "phasors",
+      "vector"
+     ],
+     [
+      "phase",
+      "out of phase",
+      "not in phase"
+     ],
+     [
+      "cancel",
+      "opposite",
+      "subtract"
+     ]
+    ],
+    "praise": "Chirp! VL and VC point opposite in the phasor diagram and partly cancel, so each can exceed the supply voltage. Meter is fine!",
+    "nudge": "Good! Do the voltages across L, R and C add as plain numbers?"
+   }
+  },
+  {
+   "id": "g12-physics-07-06",
+   "title": "Resonance in series LCR circuits",
+   "covers": [
+    "c7.6.4",
+    "c7.6.5",
+    "c7.6.6"
+   ],
+   "learn": {
+    "hook": "Turn the tuning knob of an old FM radio and one station suddenly comes in loud and clear. You have just made an LCR circuit resonate.",
+    "points": [
+     "Resonance occurs when XL = XC, i.e. ω₀L = 1/(ω₀C), so ω₀ = 1/√(LC) and ν₀ = 1/(2π√(LC)).",
+     "At resonance Z = R (minimum) and the current is maximum, im = vm/R. Current and voltage are in phase.",
+     "A graph of current against frequency peaks at ω₀. Smaller R gives a taller, sharper peak; larger R gives a flatter peak.",
+     "Resonance needs both L and C; an RL or RC circuit cannot resonate.",
+     "Radio tuning: changing C shifts ω₀ to match a station's frequency, so that station's signal produces the largest current."
+    ],
+    "example": {
+     "q": "Find the resonant angular frequency for L = 0.5 H and C = 8 µF.",
+     "steps": [
+      "ω₀ = 1/√(LC)",
+      "= 1/√(0.5 × 8 × 10⁻⁶) = 1/√(4 × 10⁻⁶)",
+      "= 1/(2 × 10⁻³) = 500 rad s⁻¹"
+     ],
+     "answer": "500 rad s⁻¹"
+    },
+    "reallife": "All India Radio and the many FM channels in Indian cities broadcast on different frequencies; your radio's tuning circuit picks one by resonance."
+   },
+   "games": [
+    {
+     "type": "truefalse",
+     "title": "Resonance facts",
+     "items": [
+      [
+       "At resonance, the impedance of a series LCR circuit is equal to R.",
+       true,
+       "XL and XC cancel."
+      ],
+      [
+       "At resonance, the current is minimum.",
+       false,
+       "It is maximum."
+      ],
+      [
+       "A smaller resistance gives a sharper resonance peak.",
+       true,
+       "The peak is taller and narrower."
+      ],
+      [
+       "An RC circuit can show resonance.",
+       false,
+       "Both L and C are needed."
+      ],
+      [
+       "At resonance, current and voltage are in phase.",
+       true,
+       "φ = 0."
+      ]
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "ω₀ = 1/√(LC)",
+     "items": [
+      {
+       "q": "L = 1 H, C = 1 µF: ω₀ (in rad s⁻¹)",
+       "a": "1000",
+       "check": "1/(1*10**-6)**0.5"
+      },
+      {
+       "q": "L = 0.1 H, C = 10 µF: ω₀ (in rad s⁻¹)",
+       "a": "1000",
+       "check": "1/(0.1*10*10**-6)**0.5"
+      },
+      {
+       "q": "L = 4 H, C = 1 µF: ω₀ (in rad s⁻¹)",
+       "a": "500",
+       "check": "1/(4*10**-6)**0.5"
+      },
+      {
+       "q": "At resonance, R = 20 Ω, V = 100 V: I (in A)",
+       "a": "5",
+       "check": "100/20"
+      },
+      {
+       "q": "C made 4 times larger: ω₀ becomes",
+       "a": "half"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A series circuit has L = 2 H and C = 2 µF. What is its resonant angular frequency (in rad s⁻¹)?",
+     "options": [
+      "250",
+      "1000",
+      "500",
+      "0.002"
+     ],
+     "answer": 2,
+     "explain": "ω₀ = 1/√(4 × 10⁻⁶) = 1/(2 × 10⁻³) = 500 rad s⁻¹.",
+     "mistake": "Forgets the square root",
+     "check": "1/(2*2*10**-6)**0.5"
+    },
+    {
+     "q": "At resonance, a series LCR circuit with R = 25 Ω is connected to 230 V RMS. What is the current (in A)?",
+     "options": [
+      "9.2",
+      "0.11",
+      "5750",
+      "4.6"
+     ],
+     "answer": 0,
+     "explain": "At resonance Z = R, so I = 230/25 = 9.2 A.",
+     "mistake": "Includes the reactances in Z",
+     "check": "230/25"
+    },
+    {
+     "q": "The capacitance in a resonant circuit is made 4 times larger. The resonant frequency",
+     "options": [
+      "doubles",
+      "becomes four times",
+      "halves",
+      "stays the same"
+     ],
+     "answer": 2,
+     "explain": "ω₀ ∝ 1/√C: √4 = 2.",
+     "mistake": "Thinks ω₀ ∝ 1/C"
+    },
+    {
+     "q": "At resonance in a series LCR circuit, the phase difference between current and voltage is",
+     "options": [
+      "zero",
+      "π/2",
+      "π",
+      "π/4"
+     ],
+     "answer": 0,
+     "explain": "XL = XC gives tanφ = 0.",
+     "mistake": "Thinks resonance means maximum phase difference"
+    },
+    {
+     "q": "Two LCR circuits have the same L and C but R₁ < R₂. Which has the sharper resonance curve?",
+     "options": [
+      "The circuit with R₂",
+      "Both equally sharp",
+      "The circuit with R₁",
+      "Neither resonates"
+     ],
+     "answer": 2,
+     "explain": "Lower resistance gives a taller, narrower current peak.",
+     "mistake": "Thinks larger resistance sharpens the peak"
+    },
+    {
+     "q": "A radio has a tuning circuit with L = 1 µH. What capacitance makes it resonate at ω₀ = 10⁸ rad s⁻¹ (in pF)?",
+     "options": [
+      "100",
+      "10",
+      "1000",
+      "1"
+     ],
+     "answer": 0,
+     "explain": "C = 1/(ω₀²L) = 1/(10¹⁶ × 10⁻⁶) = 10⁻¹⁰ F = 100 pF.",
+     "mistake": "Uses ω₀ instead of ω₀²",
+     "check": "1/(10**16*10**-6)*10**12"
+    },
+    {
+     "q": "Which statement is true for a series LCR circuit at resonance?",
+     "options": [
+      "The voltage across R is zero",
+      "The current is minimum",
+      "The voltages across L and C are equal in magnitude and opposite in phase",
+      "The impedance is maximum"
+     ],
+     "answer": 2,
+     "explain": "XL = XC with the same current, and they are 180° apart, so they cancel.",
+     "mistake": "Thinks resonance means maximum impedance"
+    },
+    {
+     "q": "Why can a series RL circuit (no capacitor) not show resonance?",
+     "options": [
+      "Without C there is no reactance to cancel XL",
+      "Because L has no resistance",
+      "Because the current is always zero",
+      "Because the frequency is fixed"
+     ],
+     "answer": 0,
+     "explain": "Resonance needs XL = XC.",
+     "mistake": "Thinks resonance is a property of any AC circuit"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How does my radio choose one station out of so many?'",
+    "must": [
+     [
+      "resonance",
+      "resonant",
+      "resonate"
+     ],
+     [
+      "xl = xc",
+      "reactances cancel",
+      "equal reactance"
+     ],
+     [
+      "maximum current",
+      "current is maximum",
+      "largest current"
+     ],
+     [
+      "capacitor",
+      "tuning",
+      "change c"
+     ]
+    ],
+    "praise": "Chirp! Tuning changes C so that ω₀ = 1/√(LC) matches the station. At resonance XL = XC and the current peaks. Radio magic!",
+    "nudge": "Good! What happens to the reactances and current at the resonant frequency?"
+   }
+  },
+  {
+   "id": "g12-physics-07-07",
+   "title": "Power in AC circuits and power factor",
+   "covers": [
+    "c7.7.1",
+    "c7.7.2",
+    "c7.7.3",
+    "c7.7.4"
+   ],
+   "learn": {
+    "hook": "Electricity boards in India charge factories a penalty if their power factor is low. A bank of capacitors can save lakhs of rupees a year.",
+    "points": [
+     "Average power in an AC circuit: P = VI cosφ (V and I are RMS), where φ is the phase difference. cosφ is the power factor.",
+     "Pure resistor: φ = 0, cosφ = 1, P = VI. Pure inductor or capacitor: φ = ±90°, cosφ = 0, P = 0. Such current is called wattless current.",
+     "Series LCR: cosφ = R/Z. At resonance Z = R, so cosφ = 1 and power is maximum.",
+     "A low power factor means a large current for the same useful power, so I²R losses in the lines rise.",
+     "Industries add capacitors to cancel the lagging current drawn by motors (inductive loads), raising the power factor towards 1."
+    ],
+    "example": {
+     "q": "A circuit with R = 60 Ω and Z = 100 Ω is connected to 200 V RMS. Find the power factor and the average power.",
+     "steps": [
+      "cosφ = R/Z = 60/100 = 0.6",
+      "I = V/Z = 2 A",
+      "P = VI cosφ = 200 × 2 × 0.6 = 240 W"
+     ],
+     "answer": "cosφ = 0.6; P = 240 W"
+    },
+    "reallife": "State electricity boards, from Maharashtra's MSEDCL to Tamil Nadu's TANGEDCO, set minimum power factor rules for industrial consumers, which is why factories install capacitor banks."
+   },
+   "games": [
+    {
+     "type": "match",
+     "title": "Power factor cases",
+     "pairs": [
+      [
+       "Pure resistor",
+       "cosφ = 1 and P = VI"
+      ],
+      [
+       "Pure inductor",
+       "Current lags by 90°, P = 0"
+      ],
+      [
+       "Pure capacitor",
+       "Current leads by 90°, P = 0"
+      ],
+      [
+       "Series LCR at resonance",
+       "Z = R, so power is maximum"
+      ],
+      [
+       "Series LCR in general",
+       "cosφ = R/Z"
+      ]
+     ]
+    },
+    {
+     "type": "truefalse",
+     "title": "Power check",
+     "items": [
+      [
+       "Average power in AC is VI cosφ, using RMS values.",
+       true,
+       "That is the general formula."
+      ],
+      [
+       "A pure inductor dissipates average power I²XL.",
+       false,
+       "It dissipates zero average power."
+      ],
+      [
+       "A current that does no net work in a cycle is called wattless current.",
+       true,
+       "It occurs when φ = 90°."
+      ],
+      [
+       "Adding a suitable capacitor can improve the power factor of an inductive load.",
+       true,
+       "It cancels the lagging reactive current."
+      ],
+      [
+       "A low power factor reduces line losses.",
+       false,
+       "It increases current and so I²R losses."
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A circuit draws 5 A RMS from 220 V RMS with a power factor of 0.8. What is the average power (in W)?",
+     "options": [
+      "1100",
+      "1375",
+      "176",
+      "880"
+     ],
+     "answer": 3,
+     "explain": "P = VI cosφ = 220 × 5 × 0.8 = 880 W.",
+     "mistake": "Forgets the power factor",
+     "check": "220*5*0.8"
+    },
+    {
+     "q": "A series circuit has R = 30 Ω and impedance 50 Ω. What is its power factor?",
+     "options": [
+      "0.8",
+      "0.6",
+      "1.67",
+      "0.4"
+     ],
+     "answer": 1,
+     "explain": "cosφ = R/Z = 30/50 = 0.6.",
+     "mistake": "Inverts the ratio",
+     "check": "30/50"
+    },
+    {
+     "q": "What is the power factor of a purely inductive circuit?",
+     "options": [
+      "1",
+      "0.5",
+      "-1",
+      "0"
+     ],
+     "answer": 3,
+     "explain": "φ = 90°, so cosφ = 0.",
+     "mistake": "Thinks inductors behave like resistors",
+     "check": "0"
+    },
+    {
+     "q": "A series LCR circuit with R = 20 Ω is at resonance and carries 3 A RMS. What average power does it consume (in W)?",
+     "options": [
+      "60",
+      "180",
+      "360",
+      "90"
+     ],
+     "answer": 1,
+     "explain": "At resonance cosφ = 1 and P = I²R = 9 × 20 = 180 W.",
+     "mistake": "Applies a ½ to an RMS value",
+     "check": "3**2*20"
+    },
+    {
+     "q": "Why is a current drawn by a pure capacitor called wattless?",
+     "options": [
+      "It has no electrons",
+      "It flows only in one direction",
+      "It is too small to measure",
+      "Its phase difference of 90° with the voltage gives zero average power"
+     ],
+     "answer": 3,
+     "explain": "cos 90° = 0, so no net energy is consumed over a cycle.",
+     "mistake": "Thinks the current itself is zero"
+    },
+    {
+     "q": "Why do industries add capacitor banks to their supply?",
+     "options": [
+      "To store energy for night use",
+      "To cancel the lagging current of inductive loads and raise the power factor",
+      "To increase the voltage",
+      "To reduce the frequency"
+     ],
+     "answer": 1,
+     "explain": "Raising cosφ reduces current and line losses for the same useful power.",
+     "mistake": "Thinks capacitors store bulk energy for later"
+    },
+    {
+     "q": "A coil with R = 40 Ω and XL = 30 Ω is connected to 250 V RMS. What is the average power (in W)?",
+     "options": [
+      "1250",
+      "750",
+      "2083",
+      "1000"
+     ],
+     "answer": 3,
+     "explain": "Z = 50 Ω, I = 5 A, cosφ = 0.8. P = 250 × 5 × 0.8 = 1000 W (or I²R = 25 × 40).",
+     "steps": [
+      "Z = √(40² + 30²) = 50 Ω",
+      "I = 250/50 = 5 A",
+      "P = I²R = 25 × 40 = 1000 W"
+     ],
+     "mistake": "Uses P = V²/R with the full voltage",
+     "check": "(250/50)**2*40"
+    },
+    {
+     "q": "For the same useful power, a factory's power factor improves from 0.5 to 1. The line current",
+     "options": [
+      "doubles",
+      "halves",
+      "stays the same",
+      "becomes four times"
+     ],
+     "answer": 1,
+     "explain": "P = VI cosφ: for fixed P and V, I ∝ 1/cosφ.",
+     "mistake": "Thinks the current is unaffected"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'My circuit has current and voltage, so why is the power sometimes zero?'",
+    "must": [
+     [
+      "power factor",
+      "cos φ",
+      "cos phi",
+      "cosφ"
+     ],
+     [
+      "phase",
+      "phase difference",
+      "90"
+     ],
+     [
+      "wattless",
+      "inductor",
+      "capacitor"
+     ]
+    ],
+    "praise": "Chirp! P = VI cosφ, so with a 90° phase difference (pure L or C) the power is zero. Wattless current!",
+    "nudge": "Good! Which factor in P = VI cosφ can make the power zero?"
+   }
+  },
+  {
+   "id": "g12-physics-07-08",
+   "title": "The transformer",
+   "covers": [
+    "c7.8.1",
+    "c7.8.2",
+    "c7.8.3",
+    "c7.8.4"
+   ],
+   "learn": {
+    "hook": "A phone charger steps 230 V down to about 5 V. The power station steps it up to 400 kV. Both use the same simple device: two coils and an iron core.",
+    "points": [
+     "Principle: mutual induction. An alternating current in the primary coil creates a changing flux in a soft iron core, which induces an emf in the secondary coil.",
+     "Ideal transformer: Vs/Vp = Ns/Np, and with no losses VpIp = VsIs, so Ip/Is = Ns/Np.",
+     "Step-up transformer: Ns > Np (voltage raised, current lowered). Step-down transformer: Ns < Np.",
+     "Energy losses: flux leakage (reduced by winding coils on top of each other), resistance of windings (thick copper wire), eddy currents in the core (laminated core) and hysteresis (soft iron with a narrow loop).",
+     "A transformer works only with AC (or changing current); steady DC gives no changing flux."
+    ],
+    "example": {
+     "q": "A step-down transformer has 2000 primary turns and 100 secondary turns. With 220 V on the primary, find Vs. If the secondary delivers 10 A, find Ip (ideal).",
+     "steps": [
+      "Vs = Vp × Ns/Np = 220 × 100/2000 = 11 V",
+      "Ip = Is × Ns/Np = 10 × 100/2000",
+      "= 0.5 A"
+     ],
+     "answer": "Vs = 11 V; Ip = 0.5 A"
+    },
+    "reallife": "The grey transformer on an electric pole in an Indian neighbourhood steps 11 kV down to about 415 V between phases (three-phase), which gives about 230-240 V between a phase and neutral for each home."
+   },
+   "games": [
+    {
+     "type": "sort",
+     "title": "Step-up or step-down?",
+     "buckets": [
+      "Step-up",
+      "Step-down"
+     ],
+     "items": [
+      [
+       "Ns > Np",
+       0
+      ],
+      [
+       "Ns < Np",
+       1
+      ],
+      [
+       "Phone charger",
+       1
+      ],
+      [
+       "At the power station output",
+       0
+      ],
+      [
+       "Doorbell transformer",
+       1
+      ],
+      [
+       "Raises voltage for transmission",
+       0
+      ]
+     ]
+    },
+    {
+     "type": "match",
+     "title": "Loss and remedy",
+     "pairs": [
+      [
+       "Eddy currents",
+       "Laminated core"
+      ],
+      [
+       "Winding resistance",
+       "Thick copper wire"
+      ],
+      [
+       "Flux leakage",
+       "Coils wound over each other"
+      ],
+      [
+       "Hysteresis loss",
+       "Soft iron core with narrow hysteresis loop"
+      ]
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A transformer has 500 primary turns and 2500 secondary turns. With 100 V on the primary, what is the secondary voltage (in V)?",
+     "options": [
+      "500",
+      "20",
+      "2500",
+      "100"
+     ],
+     "answer": 0,
+     "explain": "Vs = Vp(Ns/Np) = 100 × 5 = 500 V.",
+     "mistake": "Inverts the turns ratio",
+     "check": "100*2500/500"
+    },
+    {
+     "q": "An ideal step-down transformer changes 220 V to 22 V. If the primary current is 0.4 A, what is the secondary current (in A)?",
+     "options": [
+      "0.04",
+      "40",
+      "4",
+      "8.8"
+     ],
+     "answer": 2,
+     "explain": "VpIp = VsIs: Is = 220 × 0.4/22 = 4 A.",
+     "mistake": "Thinks current also steps down",
+     "check": "220*0.4/22"
+    },
+    {
+     "q": "Why is the core of a transformer laminated?",
+     "options": [
+      "To reduce eddy current losses",
+      "To increase the flux leakage",
+      "To reduce copper losses",
+      "To make it lighter only"
+     ],
+     "answer": 0,
+     "explain": "Thin insulated sheets break up the loops in which eddy currents flow.",
+     "mistake": "Confuses eddy currents with winding resistance"
+    },
+    {
+     "q": "A transformer is connected to a 12 V DC battery. The output voltage of the secondary is",
+     "options": [
+      "12 V times Ns/Np",
+      "12 V",
+      "zero, after the switch-on moment",
+      "infinite"
+     ],
+     "answer": 2,
+     "explain": "Steady DC gives no changing flux, so no emf is induced.",
+     "mistake": "Thinks a transformer works on DC"
+    },
+    {
+     "q": "An ideal transformer has a turns ratio Ns/Np = 1/20. It is connected to 240 V. What is the secondary voltage (in V)?",
+     "options": [
+      "12",
+      "4800",
+      "20",
+      "120"
+     ],
+     "answer": 0,
+     "explain": "Vs = 240/20 = 12 V.",
+     "mistake": "Multiplies by 20",
+     "check": "240/20"
+    },
+    {
+     "q": "The principle on which a transformer works is",
+     "options": [
+      "self-induction only",
+      "electrostatic induction",
+      "mutual induction",
+      "the photoelectric effect"
+     ],
+     "answer": 2,
+     "explain": "The changing flux from the primary induces an emf in the secondary.",
+     "mistake": "Confuses with self-induction"
+    },
+    {
+     "q": "In a step-up transformer, compared with the primary, the secondary has",
+     "options": [
+      "more turns, higher voltage and lower current",
+      "fewer turns and higher current",
+      "more turns and higher current",
+      "the same number of turns"
+     ],
+     "answer": 0,
+     "explain": "Power is (ideally) conserved, so raising V lowers I.",
+     "mistake": "Thinks both voltage and current step up"
+    },
+    {
+     "q": "A transformer takes 100 W from the supply and delivers 90 W. What is its efficiency (in %)?",
+     "options": [
+      "10",
+      "111",
+      "90",
+      "100"
+     ],
+     "answer": 2,
+     "explain": "Efficiency = output/input × 100 = 90%.",
+     "mistake": "Inverts the ratio",
+     "check": "90/100*100"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'How can two coils that are not even connected change 230 V into 5 V?'",
+    "must": [
+     [
+      "mutual induction",
+      "mutual"
+     ],
+     [
+      "changing flux",
+      "flux",
+      "iron core",
+      "core"
+     ],
+     [
+      "turns ratio",
+      "number of turns",
+      "ns/np"
+     ]
+    ],
+    "praise": "Chirp! The primary's alternating current makes a changing flux in the core, which induces a voltage in the secondary set by the turns ratio. Wow!",
+    "nudge": "Good! What links the two coils, and what decides the output voltage?"
+   }
+  },
+  {
+   "id": "g12-physics-07-09",
+   "title": "Power transmission and AC problem solving",
+   "covers": [
+    "c7.8.5",
+    "c7.8.6",
+    "c7.8.7"
+   ],
+   "learn": {
+    "hook": "Electricity from a hydro plant in Himachal reaches homes in Delhi hundreds of kilometres away. Transformers at both ends make that journey efficient.",
+    "points": [
+     "Power is generated at about 11 to 25 kV, stepped up to hundreds of kV for long-distance lines, then stepped down at substations (to 33 kV, 11 kV and finally 230 V).",
+     "For a fixed power P = VI, raising V lowers I, and the line loss I²R falls as 1/V².",
+     "Problem example: an ideal step-up transformer from 11 kV to 220 kV has Ns/Np = 20; the line current is 1/20 of the generator current.",
+     "Toolkit: V = vm/√2; XL = ωL; XC = 1/(ωC); Z = √(R² + (XC - XL)²); ω₀ = 1/√(LC); P = VI cosφ; Vs/Vp = Ns/Np.",
+     "Always check whether values given are peak or RMS before using them in formulas."
+    ],
+    "example": {
+     "q": "A plant generates 800 kW at 4 kV. It is stepped up to 40 kV for a line of resistance 10 Ω. Find the line current and loss.",
+     "steps": [
+      "I = P/V = 800000/40000 = 20 A",
+      "Loss = I²R = 400 × 10",
+      "= 4000 W, only 0.5% of the power"
+     ],
+     "answer": "20 A; 4 kW"
+    },
+    "reallife": "POWERGRID's national grid links regional grids through 400 kV and 765 kV AC lines and HVDC links, carrying power from coal belts in the east to cities in the west and north."
+   },
+   "games": [
+    {
+     "type": "order",
+     "title": "From power station to your home",
+     "prompt": "Arrange in order",
+     "items": [
+      "Generator produces power at about 11 to 25 kV",
+      "Step-up transformer raises it to 220 to 765 kV",
+      "High-voltage transmission lines carry it far",
+      "Substation steps it down to 33 kV and 11 kV",
+      "Pole transformer steps it down to about 230 V for homes"
+     ]
+    },
+    {
+     "type": "speed",
+     "title": "Mixed AC drill (√2 = 1.414)",
+     "items": [
+      {
+       "q": "vm = 141.4 V: RMS (in V)",
+       "a": "100",
+       "check": "141.4/1.414"
+      },
+      {
+       "q": "ω = 50 rad s⁻¹, L = 2 H: XL (in Ω)",
+       "a": "100",
+       "check": "50*2"
+      },
+      {
+       "q": "ω = 100 rad s⁻¹, C = 100 µF: XC (in Ω)",
+       "a": "100",
+       "check": "1/(100*100*10**-6)"
+      },
+      {
+       "q": "Np = 100, Ns = 1000, Vp = 22 V: Vs (in V)",
+       "a": "220",
+       "check": "22*1000/100"
+      },
+      {
+       "q": "V = 100 V, I = 2 A, cosφ = 0.5: P (in W)",
+       "a": "100",
+       "check": "100*2*0.5"
+      }
+     ]
+    }
+   ],
+   "quiz": [
+    {
+     "q": "A power of 1 MW is sent at 50 kV through lines of total resistance 5 Ω. What is the power lost (in W)?",
+     "options": [
+      "200",
+      "2000",
+      "20000",
+      "100"
+     ],
+     "answer": 1,
+     "explain": "I = 10⁶/(5 × 10⁴) = 20 A; loss = 400 × 5 = 2000 W.",
+     "mistake": "Uses V²/R with the transmission voltage",
+     "check": "(10**6/(5*10**4))**2*5"
+    },
+    {
+     "q": "If the same 1 MW were sent at 5 kV through the same 5 Ω line, what would the loss be (in W)?",
+     "options": [
+      "2000",
+      "20000",
+      "2000000",
+      "200000"
+     ],
+     "answer": 3,
+     "explain": "I = 200 A; loss = 40000 × 5 = 2 × 10⁵ W, 100 times more.",
+     "mistake": "Thinks loss falls only in proportion to V",
+     "check": "(10**6/(5*10**3))**2*5"
+    },
+    {
+     "q": "A transformer steps 11 kV up to 220 kV. What is the turns ratio Ns/Np?",
+     "options": [
+      "0.05",
+      "20",
+      "2.2",
+      "200"
+     ],
+     "answer": 1,
+     "explain": "Ns/Np = Vs/Vp = 220/11 = 20.",
+     "mistake": "Inverts the ratio",
+     "check": "220/11"
+    },
+    {
+     "q": "For that transformer (11 kV to 220 kV), if the generator supplies 400 A, what is the current in the line (in A), assuming it is ideal?",
+     "options": [
+      "8000",
+      "400",
+      "200",
+      "20"
+     ],
+     "answer": 3,
+     "explain": "Is = Ip × Np/Ns = 400/20 = 20 A.",
+     "mistake": "Multiplies by the turns ratio",
+     "check": "400/20"
+    },
+    {
+     "q": "A 50 Ω resistor and a pure inductor of XL = 50 Ω are in series across 100 V RMS. What is the RMS current (in A)? (√2 = 1.414)",
+     "options": [
+      "2",
+      "1.41",
+      "1",
+      "0.71"
+     ],
+     "answer": 1,
+     "explain": "Z = √(50² + 50²) = 70.7 Ω; I = 100/70.7 ≈ 1.41 A.",
+     "mistake": "Adds R and XL arithmetically",
+     "check": "100/(50*1.414)"
+    },
+    {
+     "q": "A capacitor of 20 µF and a resistor are in series across a 50 Hz supply. The capacitive reactance is about (in Ω)? (π = 3.14)",
+     "options": [
+      "318.47",
+      "0.006",
+      "1000",
+      "159.24"
+     ],
+     "answer": 3,
+     "explain": "XC = 1/(2π × 50 × 20 × 10⁻⁶) = 1/(6.28 × 10⁻³) ≈ 159.2 Ω.",
+     "mistake": "Uses ω = 50 instead of 2π × 50",
+     "check": "1/(2*3.14*50*20*10**-6)"
+    },
+    {
+     "q": "Why is the voltage stepped down in several stages (220 kV to 33 kV to 11 kV to 230 V) rather than at once?",
+     "options": [
+      "Transformers cannot step down more than twice",
+      "Each stage suits the distance and load of that part of the network, keeping currents and losses manageable",
+      "It increases the frequency",
+      "It makes AC into DC"
+     ],
+     "answer": 1,
+     "explain": "Higher voltages suit long trunk lines; lower ones suit local distribution safely.",
+     "mistake": "Thinks transformers have a fixed small ratio"
+    },
+    {
+     "q": "An appliance label says 230 V, 50 Hz. The 230 V refers to",
+     "options": [
+      "the peak value",
+      "the peak-to-peak value",
+      "the average value over a half cycle",
+      "the RMS value of the supply voltage"
+     ],
+     "answer": 3,
+     "explain": "Ratings of AC voltages are RMS values unless stated.",
+     "mistake": "Thinks the rating is the peak"
+    }
+   ],
+   "teach": {
+    "ask": "Gappu asks: 'Why does the grid send power at lakhs of volts and then step it down?'",
+    "must": [
+     [
+      "current",
+      "lower current",
+      "small current"
+     ],
+     [
+      "loss",
+      "i²r",
+      "heat loss"
+     ],
+     [
+      "step up",
+      "step down",
+      "transformer",
+      "transformers"
+     ]
+    ],
+    "praise": "Chirp! Stepping up makes the current small so I²R loss is tiny, then transformers step it down for safe use at home. Smart grid!",
+    "nudge": "Good! What does raising the voltage do to the current in the lines?"
+   }
+  }
+ ]
+}
