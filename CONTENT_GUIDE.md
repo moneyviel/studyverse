@@ -102,3 +102,17 @@ with **zero errors** before it is published.
 Language files teach reading, vocabulary, grammar and comprehension in the target language with
 original short passages (2–6 lines) written by you. Questions about a passage put the passage in
 `learn.example.q` or in the question text itself. Never reproduce textbook poems or stories.
+
+## Revision card (`revise`) — one per topic
+Shown on the topic's Revision card, in Chapter Revision Sheets and used by "Ask Gappu". It must be 100% consistent with the topic's own learn points, worked example and quiz (no new facts that the topic does not teach).
+```json
+"revise": {
+  "summary": "The whole topic in 1–2 simple sentences a student could say aloud (max 300 chars).",
+  "focus": ["2–4 bullets: exactly what to master / what exams and quizzes ask about this topic"],
+  "remember": ["1–4 must-remember items: the key formula, definition, rule, date, term or format, written exactly"],
+  "traps": ["1–3 common mistakes students make here, phrased as 'Don't …' or 'X is not Y …'"],
+  "level": "core | important | advanced"
+}
+```
+- `level`: core = foundation everyone must know; important = frequently examined; advanced = stretch/HOTS.
+- Language: the topic's language (Hindi/Sanskrit courses in Devanagari). Each item max 200 chars. Grade-appropriate wording.

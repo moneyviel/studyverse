@@ -337,6 +337,16 @@ def check_file(path, curriculum):
                 r.err(tw, "teach.must needs 2-4 non-empty word groups")
             for k in ("praise", "nudge"):
                 if not nonempty_str(T.get(k)): r.err(tw, f"teach.{k} missing")
+            R = tp.get("revise")
+            if R is not None:
+                if not isinstance(R, dict): r.err(tw, "revise must be an object")
+                else:
+                    if not nonempty_str(R.get("summary")) or len(R["summary"]) > 300: r.err(tw, "revise.summary needs 1 sentence-pair, max 300 chars")
+                    for k, lo, hi in (("focus", 2, 4), ("remember", 1, 4), ("traps", 1, 3)):
+                        v = R.get(k)
+                        if not isinstance(v, list) or not (lo <= len(v) <= hi) or not all(nonempty_str(x) and len(x) <= 200 for x in v):
+                            r.err(tw, f"revise.{k} needs {lo}-{hi} items, each max 200 chars")
+                    if R.get("level") not in (None, "core", "important", "advanced"): r.err(tw, "revise.level must be core|important|advanced")
     r.stats = {"chapters": len(chapters), "topics": len(ids), "questions": nq, "answer_positions": dict(answer_pos)}
     return r
 

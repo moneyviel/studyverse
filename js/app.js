@@ -137,7 +137,7 @@ window.ReadAlong = ReadAlong;
 const spk = (t, opts) => `<button class="spk"${opts ? ' data-opts="1"' : ''} data-say="${esc(t)}" aria-label="Read aloud">🔊</button>`;
 document.addEventListener('click', e => {
   const b = e.target.closest('.spk');
-  if (b) { e.stopPropagation(); const host = b.parentElement; const els = [host];
+  if (b) { e.stopPropagation(); const host = b.dataset.ra ? b.closest(b.dataset.ra) : b.parentElement; const els = [host];
     if (b.dataset.opts) { const scope = b.closest('.card') || document; els.push(...scope.querySelectorAll('.opt:not([disabled])')); }
     if (host && 'speechSynthesis' in window) ReadAlong.play(els, b); else speak(b.dataset.say); return; }
   if (e.target.closest('.opt,.tfb,.btn,.navb')) ReadAlong.stop();
@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=11'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=12'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -379,14 +379,27 @@ function learnStep(b) {
 
 /* ---------- Quiz with animated explanation after every answer ---------- */
 function quizRunner(b, list, done) {
-  let i = 0, right = 0; const mistakes = [];
+  let i = 0, right = 0; const mistakes = [], hist = [];
+  ST.bm = ST.bm || {};
+  const bmBtn = qid => `<button class="tst-ic qbm ${ST.bm[qid] ? 'on' : ''}" data-q="${esc(qid)}" aria-label="Bookmark this question">🔖</button>`;
+  const wireBm = () => b.querySelectorAll('.qbm').forEach(x => x.onclick = () => { const id = x.dataset.q; if (ST.bm[id]) delete ST.bm[id]; else ST.bm[id] = today(); save(); x.classList.toggle('on', !!ST.bm[id]); toast(ST.bm[id] ? '🔖 Bookmarked' : 'Bookmark removed'); });
+  const review = j => {   /* read-only look back at an answered question */
+    const { q, qid } = list[j], h = hist[j];
+    b.innerHTML = `<div class="card"><div class="tst-top"><span class="tag">Question ${j + 1} of ${list.length} · review</span>${bmBtn(qid)}</div>
+      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div>${h.order.map(k => `<button class="opt ${k === q.answer ? 'right' : k === h.k ? 'wrong' : ''}" disabled>${esc(q.options[k])}</button>`).join('')}</div>
+      <div class="explain ${h.ok ? 'good' : 'bad'}"><div class="why">${esc(q.explain)} ${spk(q.explain)}</div>${(q.steps || []).map((s, n) => `<div class="exstep">${n + 1}. ${esc(s)}</div>`).join('')}</div>
+      <div class="tst-nav"><button class="btn ghost" id="rvPrev" ${j ? '' : 'disabled'}>◀ Previous</button><button class="btn" id="rvBack">Back to question ${i + 1} ▶</button></div></div>`;
+    wireBm(); $('#rvPrev').onclick = () => j && review(j - 1); $('#rvBack').onclick = () => (hist[i] ? review(i) : render());
+    if (hist[i] && j === i) $('#rvBack').textContent = 'Continue ▶', $('#rvBack').onclick = () => { const nx = i < list.length - 1; i++; nx ? render() : done({ right, total: list.length, mistakes }); };
+  };
   const render = () => {
     const { q, qid } = list[i];
     const order = Games.shuffle(q.options.map((o, k) => k));
-    b.innerHTML = `<div class="card"><span class="tag">Question ${i + 1} of ${list.length}</span><div class="progress"><i style="width:${i / list.length * 100}%"></i></div>
+    b.innerHTML = `<div class="card"><div class="tst-top"><span class="tag">Question ${i + 1} of ${list.length}</span>${i ? '<button class="tst-ic" id="qPrev" aria-label="See previous question">◀</button>' : ''}${bmBtn(qid)}</div><div class="progress"><i style="width:${i / list.length * 100}%"></i></div>
       <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div></div>`;
+    wireBm(); const qp = $('#qPrev'); if (qp) qp.onclick = () => review(i - 1);
     b.querySelectorAll('.opt').forEach(btn => btn.onclick = () => {
-      const k = +btn.dataset.k, ok = k === q.answer;
+      const k = +btn.dataset.k, ok = k === q.answer; hist[i] = { order, k, ok };
       b.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.answer) x.classList.add('right'); });
       const qs = ST.qstats[qid] || { s: 0, w: 0 }; qs.s++;
       if (ok) { right++; sfx('correct'); addXP(10); }
@@ -398,7 +411,8 @@ function quizRunner(b, list, done) {
           ${q.visual ? `<div class="vis">${Visual.render(q.visual)}</div>` : `<div class="bigans popin">${esc(q.options[q.answer])}</div>`}
           <div class="why">${esc(q.explain)} ${spk(q.explain)}</div>
           ${(q.steps || []).map((s, j) => `<div class="exstep popin" style="animation-delay:${(.4 + j * .45).toFixed(2)}s">${j + 1}. ${esc(s)}</div>`).join('')}</div>
-          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" id="try3d" onclick="open3D()">🧪 Try it</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" id="try3d" onclick="open3D()">🧪 Try it</button>' : ''}${i ? '<button class="btn ghost" id="nxPrev" aria-label="Previous question">◀</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+        const np = $('#nxPrev'); if (np) np.onclick = () => review(i - 1);
         const rep = $('#rep'); if (rep) rep.onclick = draw;
         if (RUN) labFor(RUN.t, RUN.c).then(sp => { const t = $('#try3d'); if (t && !sp) t.remove(); });
         $('#nx').onclick = () => { i++; if (i < list.length) render(); else done({ right, total: list.length, mistakes }); };
@@ -451,12 +465,13 @@ function doneStep(b) {
     <h2>Quest complete!</h2><div class="bigstars">${[0, 1, 2].map(i => `<span class="${i < stars ? 'on' : ''}" style="animation-delay:${i * .25}s">⭐</span>`).join('')}</div>
     <p class="sub">Quiz: ${q.right} of ${q.total} correct${RUN.taught ? ' · You taught Gappu 🐥' : ''}</p>
     ${uniq.length ? `<h3>🧬 Your Mistake DNA</h3><p class="sub">We'll bring these back in Practice until they're fixed.</p>${uniq.map(m => `<div class="dna">🔍 ${esc(m)}</div>`).join('')}` : '<p class="sub">No mistakes. Superstar! 🌟</p>'}
-    <div style="height:12px"></div><div id="dExtra"></div>
+    <div id="dRev"></div><div style="height:12px"></div><div id="dExtra"></div>
     ${nextTi !== null ? `<button class="btn" id="dNext">Next quest: ${esc(c.topics[nextTi].title)} ▶</button><div style="height:8px"></div>` : ''}
     <button class="btn ghost" id="dBack">Back to chapter</button></div>`;
   if (nextTi !== null) $('#dNext').onclick = () => playTopic(RUN.sid, RUN.ci, nextTi);
   $('#dBack').onclick = () => chapterScreen(RUN.sid, RUN.ci);
   if (window.Garden) Garden.doneExtra($('#dExtra'));
+  if (window.Tests) $('#dRev').innerHTML = `<h3 style="margin-top:14px">📝 Your revision card</h3>` + Tests.revCard(RUN.t);
 }
 
 /* ================= Practice: daily mix that targets mistakes ================= */
