@@ -601,7 +601,7 @@
   D.addEventListener('keydown', e => {
     lastKeyAt = now();
     if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
-    maybeOffer('key');
+    if (!isTyping(D.activeElement)) maybeOffer('key');   // never interrupt someone typing a name or an answer
     const a = D.activeElement;
     if (e.key === 'Escape') { if (closeTop()) { e.preventDefault(); } else if (recActive()) stopRec(); else stopSpeech(); return; }
     if (isTyping(a)) return;
