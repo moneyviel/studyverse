@@ -350,3 +350,60 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 196|ratify|ratification|ratified|ratif', 'section 197|express|implied|conduct'),
+           's2': _k('section 199|whole transaction|entire transaction|ratify the whole|ratification of the whole|ratifies the whole|part amounts to whole|cannot ratify part|cannot ratify only part|not ratify a part|cannot ratify a part|ratifying part|ratification of part|whole of the transaction'),
+           's3': _k('20 sacks|sold|selling|sale', 'ratified conduct|conduct ratified|ratification conduct|implied ratification|impliedly ratified|ratified impliedly|conduct amounts|implied by conduct|ratified the purchase|ratifies the purchase|ratified the transaction|ratified the contract|amounts to ratification'),
+           's4': _k('liable for all 50|liable 50|pay for all 50|pay 50|all 50|50 sacks liable|whole 50|entire 50|pay for 50|liable for 50|price of 50|price of all 50',
+                    wrong=[{'kw': ['only 20|liable for 20|20 sacks only|pay for 20'], 'say': 'Ratifying part of a transaction ratifies the whole (Section 199) — Yusuf must pay for all 50 sacks.'}]),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('agent s control|control of the agent|under the agent|agent control|controlled by the agent', 'principal s control|control of the principal|under the principal|principal control|controlled by the principal'),
+           's2': _k('privity', 'no privity|not privity|none|no contract with principal|no direct', 'privity exists|privity exist|exists|direct privity|own agent|principal s agent|agent of the principal', n=3),
+           's3': _k('agent responsible|agent is responsible|agent liable|responsible for the sub-agent|responsible for sub agent|agent is liable', 'not responsible|not liable|ordinary prudence|section 195'),
+           's4': _k('cannot sue|not sue|no right to sue|claims from the agent|claim from the agent|only against the agent', 'can sue the principal|sue the principal|may sue|right to sue the principal|sue principal'),
+           's5': _k('delegate|delegates|delegation|improper|improperly|section 193|section 192|hands over|entirely'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 202|interest|stake', 'irrevocable|cannot be revoked|cannot be terminated|not revocable|cannot be ended|cannot end|not terminated|cannot terminate|not be revoked|prejudice'),
+           's2': _k('coupled with interest|coupled with an interest|interest in the property|interest in the subject matter|interest in the shop|arjun has an interest|arjun interest|own interest|personal interest|stake in the property|stake in the shop|creditor interest|own stake'),
+           's3': _k('revocation|revoke|revoked|neither revocation|neither zara revocation', 'death|died|dies|nor death|nor her death', 'ineffective|cannot end|cannot terminate|not end|does not end|no effect|not terminate|not affect|invalid|can end|cannot be ended|cannot be revoked|irrevocable'),
+           's4': _k('irrevocable|arjun can sell|arjun may sell|go ahead|proceed with the sale|arjun can go ahead|arjun entitled to sell|sale valid|arjun can recover|arjun sell'),
+           },
+    'q4': {'extra_ok': True,
+           's1': _k('section 230|cannot personally enforce|cannot enforce|not personally bound|not bound by contracts|agent not personally liable|not personally liable'),
+           's2': _k('foreign|outside india|abroad|resident abroad', 'undisclosed|not disclose|does not disclose|name of the principal|name not disclosed|unnamed', 'cannot be sued|minor|non existent|not in existence|incompetent', 'pretended|section 235|no authority|disown', 'exceeds|warranty of authority|beyond authority|exceeding', 'expressly agreed|agrees to be personally|special contract|agreed to be personally|contract to that effect|personally liable by contract', n=4),
+           's3': _k('section 237|estoppel|held out|holding out|conduct|induced', 'section 208|termination|known|notice|not informed|knowledge|informed|told'),
+           's4': _k('chetan liable|chetan is liable|chetan must pay|liable to pay dev|liable to pay 18000|chetan bound|chetan has to pay|liable for 18000|chetan is bound|dev stores can recover|dev can recover|chetan pay 18000|chetan cannot escape|chetan cannot deny',
+                    wrong=[{'kw': ['chetan not liable|chetan is not liable'], 'say': 'Chetan held Bina out as his agent and never told Dev Stores of the withdrawal — he is bound (Sections 237, 208).'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

@@ -262,3 +262,55 @@ def build():
                      {'k': 'Intercept rule', 'v': 'Origin → 1; price axis → >1; quantity axis → <1'}, {'k': 'Equilibrium', 'v': 'Qd = Qs'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        'extra_ok': True,
+        's1': _N(40, 25),
+        's2': _N(1.6),
+        's3': _K('greater than 1|more than 1|exceed 1|relatively elastic|relatively greater|highly elastic|fairly elastic|1.6 elastic|elastic supply 1.6'),
+        's4': _K('capacity|spare', 'raw material|limestone|input|fuel|availability', 'producer|competit|firms|number', 'time|period|long', 'technolog|cost of production|production cost', min=2),
+    },
+    'q2': {
+        's1': _N(100, 1.5),
+        's2': _N(150, 1.4),
+        's3': _K('price axis|y axis|vertical axis|p axis|positive price|p 5|negative intercept|quantity axis negative|left of origin', 'elastic throughout|elastic every|elastic at every|elastic all|es 1|greater than 1|more than 1|exceed 1'),
+    },
+    'q3': {
+        's1': _N(30, 600),
+        's2': _K('450 10p|450 10 p|450', nums=[25, 700]),
+        's3': _K('increase in supply|increase of supply|increase supply|shift', 'right|technolog|non price|other than price'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

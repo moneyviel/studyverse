@@ -192,3 +192,60 @@ def build():
                      {'k': 'Effect on profit', 'v': 'Expense up / income down → profit down; personal-account fixes → no effect'}],
         'viva': viva(),
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+INC = 'increase|increased|increases|rise|rises|up|add|added|plus|more|understated|higher'
+DEC = 'decrease|decreased|decreases|fall|falls|lower|lowered'
+
+
+def _amt(words, amount):
+    """direction word next to the amount, in either order ("increase ₹6,000", "6,000 increase", "increase by 6,000")"""
+    ws = words.split('|')
+    return '|'.join([f'{w} {amount}' for w in ws] + [f'{amount} {w}' for w in ws])
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['suspense', 'dr', 1200], ['sale', 'cr', 1200]]},
+           's2': {'rows': [['purchase', 'dr', 5000], ['sale', 'dr', 5000], ['dinesh', 'cr', 10000]]},
+           's3': {'rows': [['kamal', 'dr', 4800], ['suspense', 'cr', 4800]],
+                  'wrong': [{'kw': ['kamal 2400|2400 kamal'], 'say': 'Posting to the wrong side needs double the amount: ₹2,400 × 2 = ₹4,800.'}]},
+           's4': {'rows': [['suspense', 'dr', 3600], ['interest', 'cr', 3600]]},
+           's5': {'rows': [['furniture', 'dr', 7000], ['purchase', 'cr', 7000]]},
+           's6': {'rows': [['leela', 'dr', 900], ['suspense', 'cr', 900]]},
+           's7': {'rows': [['difference|trial balance|opening|balance b d|balance', 'dr', 900], ['sale', 'dr', 1200], ['interest', 'dr', 3600], ['kamal', 'cr', 4800], ['leela', 'cr', 900]]}},
+    'q2': {'extra_ok': False,
+           's1': {'kw': ['omission|omitted', 'omit|left out|not recorded|not entered|missed|forgot|wholly|partly|completely|not posted|never recorded'], 'min': 2},
+           's2': {'kw': ['commission', 'wrong amount|wrong account|wrong side|wrong person|wrongly|credited|debited|posted|casting|totall'], 'min': 2},
+           's3': {'kw': ['principle', 'capital revenue|revenue capital|capital expenditure|revenue expenditure|asset|van|machinery|furniture|violat|building'], 'min': 2},
+           's4': {'kw': ['compensat', 'cancel|offset|counterbalance|counter balance|nullif|neutralis|neutraliz|set off|overcast|undercast|over cast|under cast'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'kw': [_amt(INC, 6000)], 'wrong': [{'kw': [_amt(DEC, 6000)], 'say': '(a) Capitalising the wages removes an expense, so profit increases by ₹6,000.'}]},
+           's2': {'kw': ['no effect|not affect|nil|no impact|unaffected|not change|no change|unchanged|not effect|no affect'],
+                  'wrong': [{'kw': [_amt(INC + '|' + DEC, 9000)], 'say': '(b) Posting to the wrong customer affects only personal accounts — no effect on profit.'}]},
+           's3': {'kw': [_amt(INC, 2500)], 'wrong': [{'kw': [_amt(DEC, 2500)], 'say': '(c) Crediting the omitted commission received increases profit by ₹2,500.'}]},
+           's4': {'kw': [_amt(INC, 1500)], 'wrong': [{'kw': [_amt(DEC, 1500)], 'say': '(d) Reducing over-cast purchases increases profit by ₹1,500.'}]},
+           's5': {'kw': [_amt(INC, 4000)], 'wrong': [{'kw': [_amt(DEC, 4000)], 'say': '(e) Raising under-valued closing stock increases profit by ₹4,000.'}]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

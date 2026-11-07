@@ -289,3 +289,55 @@ def build():
                      {'k': 'Budget line', 'v': 'Px·X + Py·Y = M; intercepts M/Px, M/Py'}, {'k': 'Equilibrium', 'v': 'MRSxy = Px/Py, IC convex'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(16, 12, 6, -4, kw=['mu|marginal']),
+        's2': _K('5th|fifth|5 unit|unit 5|5 th|q 5|unit 5th', 'satiety|satiation|maximum|mu 0|mu zero|mu is zero'),
+        's3': _K('diminish|decreasing rate|slow', 'mu 0|mu zero|mu is zero|maximum mu 0|mu becomes zero', 'negative'),
+    },
+    'q2': {
+        's1': _N(20),
+        's2': _K('50 20 1000|50 x 20 1000|spent 1000|1000 spent|expenditure 1000|spend 1000|amount 1000|outlay 1000'),
+        's3': _N(2000),
+        's4': _K('consumer surplus 1000|cs 1000|surplus 1000|2000 1000 1000|1000 surplus|triangle 1000', nums=[2000]),
+    },
+    'q3': {
+        's1': _N(40, 60, 1.5),
+        's2': _K('2640', 'not affordable|unaffordable|outside|cannot|not within|exceed|beyond|more than|not afford'),
+        's3': _K('mrs px py|mrsxy px py|mrs xy px py|mrs 1.5|mrsxy 1.5|px py mrs|equal price ratio|price ratio'),
+        's4': _K('more x|buy more x|increase x|more of x|substitute x for y', 'less y|fewer y|reduce y|decrease y|less of y'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

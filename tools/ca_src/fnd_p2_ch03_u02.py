@@ -318,3 +318,60 @@ def build():
                      {'k': 'Section 59', 'v': 'Breach of warranty: reduce price or sue for damages; no rejection'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('section 12|stipulation|condition', 'essential to the main purpose|essential|vital|fundamental', 'collateral|subsidiary|ancillary'),
+           's2': _k('repudiate|repudiated|reject|terminate|rescind', 'damages only|only damages|claim for damages|damages', 'section 13|treated as warranty|treated as a warranty|cannot be treated as a condition|converted|conversion|convert'),
+           's3': _k('waive|waiver|waives|waived', 'elect|elects|election|chooses|opts|option|voluntarily'),
+           's4': _k('not severable|cannot be split|non severable|indivisible|cannot be divided|not divisible|accepted|acceptance', 'excused by law|law excuses|impossible|impossibility|excuse|excused'),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('buyer beware|let the buyer beware', 'section 16|no implied|own judgment|own judgement|examine|own skill'),
+           's2': _k('fitness|fit for|particular purpose|purpose', 'merchantable|merchantability|saleable'),
+           's3': _k('description', 'sample', 'sample as well as description|sample and description|both sample and description|description and sample|both'),
+           's4': _k('usage of trade|trade usage|custom|usage', 'fraud|concealment|misrepresentation', 'wholesome|wholesomeness|food|provisions|eatables'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 16 1|16(1)|implied condition of fitness|condition of fitness|fitness for purpose|fitness for the purpose|fit for purpose|implies fitness|implied fitness|condition as to fitness', 'rely|relies|reliance|skill|judgment|expertise|trade name|purpose'),
+           's2': _k('raghav', 'disclosed|told|relied|recommend|recommended', 'unfit|not fit|breach of condition|breach|condition'),
+           's3': _k('kirti', 'caveat emptor|trade name|no reliance|not rely|did not rely|own judgment|own judgement|own choice'),
+           's4': _k('raghav can reject|raghav reject|raghav may reject|raghav can recover|raghav entitled|raghav can claim|raghav succeed|raghav has a remedy|raghav remedy|raghav recover',
+                    'kirti no remedy|kirti has no remedy|kirti cannot|kirti not entitled|kirti cannot claim|kirti no claim|kirti fails|kirti has no claim|no remedy for kirti|kirti must bear|kirti bears|kirti not'),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('section 15', 'sample', 'description', 'both|as well as|not enough|not sufficient|correspond', n=3),
+           's2': _k('matched the sample|match the sample|matches the sample|correspond with sample|corresponds to the sample|same as sample|sample matched|as per sample|according to sample|matched sample|match sample',
+                    'not description|not match description|not the description|grade 2|not correspond with description|not grade 1|not correspond to description|description not|not match the description|not answer the description'),
+           's3': _k('implied condition|breach of condition|condition broken|condition is broken|breach of the implied condition|condition breached|condition violated'),
+           's4': _k('mohan can reject|mohan may reject|mohan reject|right to reject|entitled to reject|reject the rice|reject the goods|reject goods|mohan is entitled to reject',
+                    wrong=[{'kw': ['mohan cannot reject|cannot reject'], 'say': 'In a sale by sample and description the goods must meet both — matching the sample is not enough (Section 15).'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

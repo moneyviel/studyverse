@@ -365,3 +365,63 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 151|ordinary prudence|prudence', 'own goods|his own|her own|similar bulk|bulk', 'section 152|not liable|special contract', n=2),
+           's2': _k('locker|bank locker', 'condition|term|terms|agreed|special|instruction|breach|violate|violated|departed|contrary|disobey'),
+           's3': _k('own jewellery|her own|own goods|same cupboard|same care', 'no defence|not a defence|not defence|does not help|irrelevant|not lower|not reduce|not enough|not sufficient|no excuse|does not excuse|not excuse|not save|of no help|does not lower|cannot rely|cannot take shelter|cannot plead|cannot escape|cannot argue|not protect|no use'),
+           's4': _k('chitra liable|chitra is liable|liable to compensate|liable to pay|must compensate|liable for the loss|liable for the ring|bound to compensate|chitra must|chitra has to compensate|chitra responsible',
+                    wrong=[{'kw': ['chitra not liable|chitra is not liable|not liable for the loss'], 'say': 'The special condition (bank locker) fixed the care required; breaking it makes Chitra liable even though she lost her own jewellery too.'}]),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('any purpose|purpose|section 148|delivery', 'security|section 172|debt'),
+           's2': _k('bailor and bailee|bailor bailee|bailee bailor', 'pawnor and pawnee|pawnor pawnee|pledgor pledgee|pledgor and pledgee|pawnee pawnor|pledgee pledgor|pawnor pledgor|pledgor pawnor'),
+           's3': _k('gratuitous|free of charge|without consideration|need not|gratuitously', 'always|loan'),
+           's4': _k('no right to sell|cannot sell|not sell|no right of sale|right to retain|lien|retain', 'sell|sale|section 176|notice'),
+           's5': _k('may use|right to use|no right to use|cannot use|not use|use the goods|use goods', 'repayment|repaid|expiry|fulfilment|terminate|terminates|termination|ends on|purpose is over|accomplish', n=1),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 160|return|returned', 'section 161|beyond the proper time|beyond the agreed time|beyond the time|after expiry|after the expiry|after the agreed period|after the period|beyond the period|beyond agreed|beyond the stipulated|after the time|beyond proper time'),
+           's2': _k('one week|first week|1 week|7 days|after a week|end of the week', 'default|overstay|kept beyond|beyond|late|delay|wrongfully|three weeks|3 weeks'),
+           's3': _k('not caused|not his fault|without negligence|no negligence|even though|even if|irrespective|regardless|not negligent|though|accident|absolute|no fault|whether or not'),
+           's4': _k('ehsan liable|ehsan is liable|liable to compensate|liable to pay|liable for the damage|must compensate|bound to compensate|ehsan must|ehsan has to pay|liable for the loss|ehsan responsible|ehsan is responsible|ehsan bears|bear the loss',
+                    wrong=[{'kw': ['ehsan not liable|ehsan is not liable|not liable for the damage'], 'say': 'A bailee who keeps goods beyond the agreed time bears any loss after that time, even without his fault (Section 161).'}]),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('section 170|particular lien|labour or skill|labour|skill', 'retain|lien|keep|hold'),
+           's2': _k('general lien|section 171', 'garage not|not available|not entitled|not among|no general lien|only bankers|only to bankers|bankers factors|bankers|wharfinger|cannot claim general|not have general|no such contract|not a banker|banker'),
+           's3': _k('not 15000|not for 15000|cannot retain 15000|15000 not|not for the scooter|scooter dues cannot|cannot retain for scooter|not for scooter|separate suit|by suit|15000 by suit|15000 suit|not 57000|cannot 57000|cannot retain for both|not both|not for both|only for 42000|only 42000|42000 only', nums=[42000],
+                    wrong=[{'kw': ['57000|retain for both|both amounts are paid'], 'say': 'A particular lien covers only the work done on the goods retained — the car, ₹42,000. The ₹15,000 scooter dues need a separate suit.'}]),
+           's4': _k('section 178|mercantile agent', 'consent|possession', 'good faith|bona fide|without notice|no notice', 'ordinary course|normal course|course of business', n=3),
+           's5': _k('pledge valid|pledge is valid|pledge binds|binding on indu|binds indu|pledge is binding|indu bound|javed gets good title|javed valid|valid and binding|javed can retain|javed retain|indu cannot recover|pledge good|pledge binding',
+                    wrong=[{'kw': ['pledge invalid|pledge is invalid|pledge void|pledge is void|not a valid pledge'], 'say': 'All conditions of Section 178 are met, so the pledge by the mercantile agent binds the owner.'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

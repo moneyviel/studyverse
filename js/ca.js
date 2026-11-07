@@ -4,8 +4,8 @@
      home    — CA Journey: Foundation → Intermediate → Final, papers with progress rings, next unit,
                exam countdown, a daily line for the student, weak spots, group study
      paper   — chapters and units in ICAI order, progress, search within the paper
-     unit    — Learn → Examples → On the job → MCQ → Write & self-check → Revise
-     weak    — Weak spots & strengths (MCQ accuracy and self-check marks by unit and by skill)
+     unit    — Learn → Examples → On the job → MCQ → Write (checked automatically, js/ca-check.js) → Revise
+     weak    — Weak spots & strengths (MCQ accuracy and auto-checked written marks by unit, skill and topic)
      practice, group, profile — reached from the bottom navigation while in CA mode
    Content: content/ca/<level>/structure.json and unit files (schema in content/ca/README.md).
    Progress lives in ST.ca (localStorage via the app's save()). Written answers are stored as
@@ -48,12 +48,17 @@
   async function weightage() { if (WT === null) { try { WT = await loadJSON('content/ca/foundation/weightage.json'); } catch (e) { WT = false; } } return WT || null; }
   function chWeight(pid, chid) { const p = WT && WT.papers && WT.papers[pid]; return p && p.chapters[chid] ? { ...p.chapters[chid], mtps: p.mtps } : null; }
   function lastMcq(key) { const l = C().mlog || []; for (let i = l.length - 1; i >= 0; i--) if (l[i][1] === key) return !!l[i][2]; const s = C().mcq[key]; return s ? s.s > s.w : null; }
-  /* a unit's score in marks: MCQ (latest answer), written (best self-check), viva (best) — out of the unit's full marks */
+  /* written attempts that carry marks: automatically checked ('auto') and older self-marked ones ('self'); photo-only
+     attempts waiting for the AI examiners ('waiting') have no score yet */
+  const scored = h => (h || []).filter(a => a && a.score != null && a.status !== 'waiting');
+  const bestOf = h => { const s = scored(h); return s.length ? Math.max(...s.map(a => a.score)) : null; };
+  const CHK = () => window.CA || null;           // js/ca-check.js: the automatic answer checker
+  /* a unit's score in marks: MCQ (latest answer), written (best checked attempt), viva (best) — out of the unit's full marks */
   function unitMarks(uid, d) {
     const c = C(), r = { mcq: [0, 0, 0], write: [0, 0, 0], viva: [0, 0, 0] };
     (d.mcqs || []).forEach(q => { const m = mcqMarks(q), ok = lastMcq(`${uid}#${q.id}`); r.mcq[1] += m; if (ok != null) { r.mcq[2]++; if (ok) r.mcq[0] += m; } });
-    (d.questions || []).forEach(q => { const h = c.writes[`${uid}#${q.id}`] || []; r.write[1] += q.marks; if (h.length) { r.write[2]++; r.write[0] += Math.max(...h.map(a => a.score)); } });
-    (d.viva || []).forEach(v => { const tot = v.points.reduce((a, p) => a + p.w, 0), h = (c.viva || {})[`${uid}#${v.id}`] || []; r.viva[1] += tot; if (h.length) { r.viva[2]++; r.viva[0] += Math.max(...h.map(a => a.marks != null ? a.marks : Math.round(a.pct * tot / 100))); } });
+    (d.questions || []).forEach(q => { const b = bestOf(c.writes[`${uid}#${q.id}`]); r.write[1] += q.marks; if (b != null) { r.write[2]++; r.write[0] += b; } });
+    (d.viva || []).forEach(v => { const tot = v.points.reduce((a, p) => a + p.w, 0), h = ((c.viva || {})[`${uid}#${v.id}`] || []).filter(a => a.status !== 'waiting'); r.viva[1] += tot; if (h.length) { r.viva[2]++; r.viva[0] += Math.max(...h.map(a => a.marks != null ? a.marks : Math.round(a.pct * tot / 100))); } });
     return r;
   }
   const marksLine = r => ['mcq', 'write', 'viva'].filter(k => r[k][1]).map(k => `<span class="ca-mk1"><b>${fmt(Math.round(r[k][0] * 100) / 100)}/${fmt(r[k][1])}</b> ${{ mcq: 'MCQ', write: 'Written', viva: 'Viva' }[k]}</span>`).join('');
@@ -517,17 +522,17 @@
     const g = D.getElementById('caMgen'); if (g && T() && T().endless) g.onclick = () => T().endless(P, U.uid, U.d, () => mcqTab(P));
   }
 
-  /* ---------- Write & self-check ---------- */
+  /* ---------- Write — answers are checked automatically (js/ca-check.js); students never mark themselves ---------- */
   function writeTab(P, fm) {
     const d = U.d, marks = [...new Set(d.questions.map(q => q.marks))].sort((a, b) => a - b), legal = d.questions.some(q => q.pad === 'legal');
     fm = fm || U.fm || 'all'; if (fm !== 'all' && !marks.includes(+fm)) fm = 'all'; U.fm = fm;
-    const tot = d.questions.reduce((a, q) => a + q.marks, 0), got = d.questions.reduce((a, q) => { const h = C().writes[`${U.uid}#${q.id}`] || []; return a + (h.length ? Math.max(...h.map(x => x.score)) : 0); }, 0);
-    P.innerHTML = `<p class="ca-intro">Write your answer as you would in the exam — type it, or write on paper and add a 📷 photo — then mark it against the model answer and the step-wise marking scheme, the way an examiner marks.</p>
+    const tot = d.questions.reduce((a, q) => a + q.marks, 0), got = d.questions.reduce((a, q) => a + (bestOf(C().writes[`${U.uid}#${q.id}`]) || 0), 0);
+    P.innerHTML = `<p class="ca-intro">Write your answer as you would in the exam — type it and use the exam-format tables, or write on paper and add a 📷 photo. “Check my answer” marks it point by point against the ICAI-style marking scheme, like an examiner, and shows where marks were lost.</p>
       <div class="card ca-bymarks"><div class="ca-mtop"><h2 class="ca-h2s">By marks</h2><span class="ca-k">Your best: ${fmt(Math.round(got * 100) / 100)} / ${fmt(tot)} marks</span></div>
         <div class="ca-chipsel" role="group" aria-label="Show questions by marks"><button type="button" class="ca-cs" aria-pressed="${fm === 'all'}" data-fm="all">All</button>${marks.map(m => `<button type="button" class="ca-cs" aria-pressed="${String(fm) === String(m)}" data-fm="${m}">${m}-mark</button>`).join('')}<button type="button" class="ca-cs" data-fm="mcq">1-mark MCQs</button></div>
         ${fm !== 'all' ? markGuide(+fm, U.f.p, legal) : '<p class="ca-note">Pick a mark value to see only those questions and how long and how detailed such an answer should be.</p>'}</div>
-      ${d.questions.map((q, i) => { if (fm !== 'all' && q.marks !== +fm) return ''; const h = C().writes[`${U.uid}#${q.id}`] || []; const best = h.length ? Math.max(...h.map(a => a.score)) : null;
-        return `<button class="card ca-qrow" data-i="${i}"><span class="ca-qm">${fmt(q.marks)}<small>marks</small></span><span class="ca-qb"><b>Q${i + 1} (${mk(q.marks)}). ${esc(q.q.length > 130 ? q.q.slice(0, 127) + '…' : q.q)}</b><small>~${q.minutes} min · ${esc(padName(q.pad))}${best != null ? ` · best ${fmt(best)} / ${mk(q.marks)}` : ''}${h.some(a => (a.photos || []).length) ? ' · 📷' : ''}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`; }).join('')}
+      ${d.questions.map((q, i) => { if (fm !== 'all' && q.marks !== +fm) return ''; const h = C().writes[`${U.uid}#${q.id}`] || []; const best = bestOf(h), last = h[h.length - 1];
+        return `<button class="card ca-qrow" data-i="${i}"><span class="ca-qm">${fmt(q.marks)}<small>marks</small></span><span class="ca-qb"><b>Q${i + 1} (${mk(q.marks)}). ${esc(q.q.length > 130 ? q.q.slice(0, 127) + '…' : q.q)}</b><small>~${q.minutes} min · ${esc(padName(q.pad))}${best != null ? ` · best ${fmt(best)} / ${mk(q.marks)}` : ''}${last && last.status === 'waiting' ? ' · ⏳ photo waiting for AI examiners' : h.some(a => (a.photos || []).length) ? ' · 📷' : ''}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`; }).join('')}
       ${nextTabBtn('write')}`;
     P.querySelectorAll('.ca-qrow').forEach(b => b.onclick = () => { tap('open'); pad(P, d.questions[+b.dataset.i], +b.dataset.i); });
     P.querySelectorAll('[data-fm]').forEach(b => b.onclick = () => { tap('tap'); if (b.dataset.fm === 'mcq') { U.tab = 'mcq'; renderUnit(); return; } writeTab(P, b.dataset.fm); });
@@ -547,14 +552,17 @@
         <details class="ca-mgd"><summary>How to write a ${q.marks}-mark answer</summary>${markGuide(q.marks, U.f.p, q.pad === 'legal')}</details>
         ${T() && T().photos ? `<div class="ca-amode" role="radiogroup" aria-label="How will you answer?"><button role="radio" aria-checked="true" data-mode="type">✍️ Type my answer</button><button role="radio" aria-checked="false" data-mode="photo">📷 Photo of my answer</button></div>
         <div id="caPhotoBox" hidden></div>` : ''}
-        <div id="caTypeBox"><label class="ca-lab" for="caAns">Your answer</label>
+        <div id="caTypeBox"><label class="ca-lab" for="caAns" id="caAnsLab">Your answer</label>
         <textarea id="caAns" class="ca-ta" rows="10" placeholder="${q.pad === 'legal' ? 'Write under the four headings…' : 'Write your answer here… (working notes too)'}">${esc(legalStarter)}</textarea>
         <div class="ca-padbar"><span id="caWc">0 words</span><button class="ca-link" id="caTimerBtn">Start timer</button></div>
         ${usePad ? `<details class="ca-tbuild ca-pdwrap" id="caTb" ${padOpen ? 'open' : ''}><summary>📋 Exam-format table${sugN.length ? ` — suggested: ${esc(sugN.join(', '))}` : ''}</summary><div id="caTbBody" class="ca-pdhost"></div></details>` : ''}</div>
         <button class="btn" id="caCheck">Check my answer ▶</button></div><div id="caSelf"></div>`;
     P.querySelectorAll('.ca-amode [data-mode]').forEach(b => b.onclick = () => {
       mode = b.dataset.mode; P.querySelectorAll('.ca-amode [data-mode]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
-      D.getElementById('caTypeBox').hidden = mode === 'photo'; const pb = D.getElementById('caPhotoBox'); pb.hidden = mode !== 'photo';
+      const pb = D.getElementById('caPhotoBox'); pb.hidden = mode !== 'photo';
+      // a photo answer keeps the typing box: anything typed there (key figures, entries, points) is checked at once
+      D.getElementById('caAnsLab').textContent = mode === 'photo' ? 'Optional — type your key figures, entries or points to get them checked now' : 'Your answer';
+      D.getElementById('caTypeBox').classList.toggle('ca-optional', mode === 'photo');
       if (mode === 'photo' && !pb.dataset.on) { pb.dataset.on = 1; T().photos.picker(pb, key, list => { photos = list; startT(); }); }
       tap('tap');
     });
@@ -568,56 +576,62 @@
     if (usePad) PADI = CaPad.mount(D.getElementById('caTbBody'), { pad: q.pad, q: q.q, fallback: /^fnd-p1-/.test(U.uid) ? 'journal' : 'compare', onChange: startT });
     D.getElementById('caCheck').onclick = () => {
       stopT(); const words = wc();
-      const answer = mode === 'photo' ? { text: '', table: null } : { text: ta.value.replace(legalStarter, '').trim() ? ta.value : '', table: PADI && !PADI.isEmpty() ? PADI.value() : null };
-      if (mode === 'photo' && !photos.length) { toast('Add a photo of your answer first — or switch to typing'); return; }
-      if (mode !== 'photo' && !answer.text && !answer.table) toast('Nothing written — showing the model answer');
-      selfCheck(D.getElementById('caSelf'), q, key, { answer, secs, words: mode === 'photo' ? 0 : words, photos: mode === 'photo' ? photos.slice() : [] });
-      D.getElementById('caSelf').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const answer = { text: ta.value.replace(legalStarter, '').trim() ? ta.value : '', table: PADI && !PADI.isEmpty() ? PADI.value() : null };
+      const ph = mode === 'photo' ? photos.slice() : [];
+      if (mode === 'photo' && !ph.length && !answer.text && !answer.table) { toast('Add a photo of your answer first — or type it'); return; }
+      const host = D.getElementById('caSelf');
+      if (!answer.text && !answer.table && !ph.length) { toast('Nothing written yet — here is the model answer'); modelOnly(host, q); }
+      else autoCheck(host, q, key, { answer, secs, words: answer.text ? words : 0, photos: ph });
+      host.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
   }
-  function selfCheck(host, q, key, att) {
-    const ticks = {}; q.scheme.forEach(s => ticks[s.id] = 0); const ph = att.photos || [];
-    host.innerHTML = `${ph.length ? `<div class="ca-cmp"><aside class="ca-cmp-ph" aria-label="Photos of your answer"><div class="ca-k">Your answer · ${ph.length} page${ph.length > 1 ? 's' : ''} — tap to zoom</div><div class="ca-phstrip" id="caPhStrip"></div></aside><div class="ca-cmp-main">` : ''}<div class="card ca-model"><h2 class="ca-h2s">Model answer</h2>${blocks(q.model)}${checksHTML(q.checks)}</div>
-      <div class="card ca-scheme"><h2 class="ca-h2s">Mark yourself like an examiner</h2><p class="sub">For each point, compare with your answer: full marks, half, or none. Be strict — examiners are.</p>
-        <ol class="ca-pts">${q.scheme.map(s => `<li><div class="ca-pt"><span>${esc(s.pt)}</span><em>${fmt(s.m)} mark${s.m === 1 ? '' : 's'}</em></div>
-          <div class="ca-seg" role="radiogroup" aria-label="${esc(s.pt)}">${[[1, 'Full'], [0.5, 'Half'], [0, 'None']].map(([v, n]) => `<button role="radio" aria-checked="${v === 0}" tabindex="${v === 0 ? 0 : -1}" data-s="${s.id}" data-v="${v}">${n}</button>`).join('')}</div></li>`).join('')}</ol>
-        <div class="ca-score" aria-live="polite">Your score: <b id="caScore">0</b> / ${mk(q.marks)}</div>
-        <button class="btn" id="caSave">Save my score</button>
-        <button class="btn ghost ca-ai" disabled aria-describedby="caAiNote">Send to AI examiner panel</button><p class="ca-note" id="caAiNote">Coming soon: your saved answer${ph.length ? ' and its photos' : ''} can be sent for an independent AI check.</p></div>
-      <div class="card ca-exam"><h2 class="ca-h2s">Examiner remarks</h2><ul class="ca-ul">${q.remarks.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-        <h3 class="ca-h3">Common mistakes</h3><ul class="ca-ul ca-miss">${q.mistakes.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-        <h3 class="ca-h3">Presentation tips</h3><ul class="ca-ul">${q.tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-        ${hist(key, q)}</div>${ph.length ? '</div></div>' : ''}`;
+  /* the model answer and examiner notes (shown under every report, and alone when nothing was written) */
+  function notesHTML(q, open) {
+    return `<details class="card ca-exam"${open ? ' open' : ''}><summary><h2 class="ca-h2s">All examiner notes for this question</h2></summary><h3 class="ca-h3">Examiner remarks</h3><ul class="ca-ul">${q.remarks.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <h3 class="ca-h3">Common mistakes</h3><ul class="ca-ul ca-miss">${q.mistakes.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <h3 class="ca-h3">Presentation tips</h3><ul class="ca-ul">${q.tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <h3 class="ca-h3">Marking scheme</h3><ol class="ca-ul ca-schl">${q.scheme.map(p => `<li>${esc(p.pt)} <em class="ca-qmk">${mk(p.m)}</em></li>`).join('')}</ol></details>`;
+  }
+  const modelHTML = q => `<div class="card ca-model"><h2 class="ca-h2s">Model answer</h2>${blocks(q.model)}${checksHTML(q.checks)}</div>`;
+  function modelOnly(host, q) {
+    host.innerHTML = `<div class="card ca-rep ca-rep-none"><p class="ca-p">Write your answer (or add a photo) and tap “Check my answer” to have it marked against the ${mk(q.marks)} scheme.</p></div>${modelHTML(q)}${notesHTML(q, true)}`;
+  }
+  function autoCheck(host, q, key, att) {
+    const uid = key.split('#')[0], ph = att.photos || [];
+    if (!CHK()) { modelOnly(host, q); return; }
+    const res = CHK().checkAnswer({ question: q, answer: att.answer, photos: ph, unit: uid, qid: q.id });
+    const c = C(), rec = Object.assign({ d: today(), secs: att.secs, words: att.words, text: (att.answer.text || '').slice(0, 6000), table: att.answer.table,
+      photos: ph.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })) }, CHK().record(res));
+    const h = c.writes[key] = c.writes[key] || []; h.push(rec);
+    while (h.length > 5) { const old = h.shift(); if (T() && T().photos) (old.photos || []).forEach(x => T().photos.del(x.id)); }
+    if (ph.length && T() && T().photos) T().photos.keep(ph.map(x => x.id));
+    save(); markTab(uid, 'write');
+    const waiting = res.status === 'waiting';
+    addXP(waiting || !res.max ? 5 : Math.max(5, Math.round(res.total / res.max * 20)));
+    const line = CHK().scoreLine(res); toast(waiting ? 'Saved — waiting for AI examiners' : `Checked: ${line}`); say(waiting ? 'Your photo answer is saved and waits for the AI examiners.' : `Checked. ${line}`);
+    host.innerHTML = `${ph.length ? `<div class="ca-cmp"><aside class="ca-cmp-ph" aria-label="Photos of your answer"><div class="ca-k">Your answer · ${ph.length} page${ph.length > 1 ? 's' : ''} — tap to zoom</div><div class="ca-phstrip" id="caPhStrip"></div></aside><div class="ca-cmp-main">` : ''}
+      ${CHK().reportHTML(res, q)}${modelHTML(q)}
+      <div class="card ca-aibox"><button class="btn ghost ca-ai" disabled aria-describedby="caAiNote">🤖 Ask the AI examiners</button><p class="ca-note" id="caAiNote">Coming soon: three independent AI examiners will mark your saved answer${ph.length ? ' and its photos' : ''} — including the points this phone cannot judge — and agree on one score.</p></div>
+      ${notesHTML(q)}<div class="card ca-histc">${hist(key, q) || '<div class="ca-hist"></div>'}</div>${ph.length ? '</div></div>' : ''}`;
     if (ph.length && T() && T().photos) T().photos.strip(D.getElementById('caPhStrip'), ph);
     wireHist(host, key, q);
-    const calc = () => q.scheme.reduce((a, s) => a + s.m * ticks[s.id], 0);
-    host.querySelectorAll('.ca-seg button').forEach(b => b.onclick = () => {
-      ticks[b.dataset.s] = +b.dataset.v;
-      b.parentElement.querySelectorAll('button').forEach(x => { const on = x === b; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; });
-      D.getElementById('caScore').textContent = fmt(Math.round(calc() * 100) / 100);
-    });
-    D.getElementById('caSave').onclick = () => {
-      const score = Math.round(calc() * 100) / 100, c = C();
-      const rec = { d: today(), score, max: q.marks, ticks: { ...ticks }, skills: q.scheme.map(s => [s.skill, s.m, s.m * ticks[s.id]]), secs: att.secs, words: att.words,
-        text: (att.answer.text || '').slice(0, 6000), table: att.answer.table, status: 'self', photos: ph.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })) };
-      const h = c.writes[key] = c.writes[key] || []; h.push(rec);
-      while (h.length > 5) { const old = h.shift(); if (T() && T().photos) (old.photos || []).forEach(x => T().photos.del(x.id)); }
-      if (ph.length && T() && T().photos) T().photos.keep(ph.map(x => x.id));
-      save(); markTab(U.uid, 'write'); addXP(Math.max(5, Math.round(score / q.marks * 20)));
-      toast(`Saved: ${fmt(score)} / ${mk(q.marks)}`); say(`Score saved, ${score} out of ${q.marks} marks`);
-      const hb = host.querySelector('.ca-hist'); if (hb) hb.outerHTML = hist(key, q); else host.querySelector('.ca-exam').insertAdjacentHTML('beforeend', hist(key, q));
-      wireHist(host, key, q);
-      D.getElementById('caSave').disabled = true; D.getElementById('caSave').textContent = 'Score saved ✓';
-    };
   }
+  const histLine = a => a.status === 'waiting' ? '⏳ <b>Waiting for AI examiners</b> (photo answer)'
+    : a.status === 'self' ? `<b>${fmt(a.score)} / ${mk(a.max)}</b> · self-marked (before automatic checking)`
+    : `<b>${fmt(a.score)} / ${mk(a.max)}</b>${a.pend ? ` checked · ${mk(a.pend)} pending AI check` : ''}`;
   function hist(key, q) {
     const h = C().writes[key] || []; if (!h.length) return '';
-    return `<div class="ca-hist"><h3 class="ca-h3">Your attempts</h3><ul class="ca-ul ca-hl2">${h.map((a, i) => ({ a, i })).reverse().map(({ a, i }) => `<li><span>${esc(a.d)} — <b>${fmt(a.score)} / ${mk(a.max)}</b>${a.secs ? ` in ${Math.round(a.secs / 60)} min` : ''}${a.words ? ` · ${a.words} words` : ''}${(a.photos || []).length ? ` · 📷 ${a.photos.length} page${a.photos.length > 1 ? 's' : ''}` : ''}</span>
-      ${a.table && window.CaPad ? `<details class="ca-hview"><summary>📋 Your table${(a.table.sheets || []).length > 1 ? 's' : ''}</summary>${CaPad.view(a.table)}</details>` : ''}${(a.photos || []).length ? `<div class="ca-phstrip ca-phmini" data-hph="${i}"></div><button class="ca-link" data-hdelph="${i}">Delete photos</button>` : ''}<button class="ca-link" data-hdel="${i}" aria-label="Delete this attempt">Delete attempt</button></li>`).join('')}</ul></div>`;
+    return `<div class="ca-hist"><h3 class="ca-h3">Your attempts</h3><ul class="ca-ul ca-hl2">${h.map((a, i) => ({ a, i })).reverse().map(({ a, i }) => `<li><span>${esc(a.d)} — ${histLine(a)}${a.secs ? ` in ${Math.round(a.secs / 60)} min` : ''}${a.words ? ` · ${a.words} words` : ''}${(a.photos || []).length ? ` · 📷 ${a.photos.length} page${a.photos.length > 1 ? 's' : ''}` : ''}</span>
+      ${a.status !== 'self' && CHK() && q ? `<details class="ca-hview ca-hrep" data-hrep="${i}"><summary>📝 Examiner's report</summary><div class="ca-hrepb"></div></details>` : ''}
+      ${a.table && window.CaPad ? `<details class="ca-hview"><summary>📋 Your table${(a.table.sheets || []).length > 1 ? 's' : ''}</summary>${CaPad.view(a.table)}</details>` : ''}${a.text ? `<details class="ca-hview"><summary>✍️ Your text</summary><pre class="ca-myans">${esc(a.text)}</pre></details>` : ''}${(a.photos || []).length ? `<div class="ca-phstrip ca-phmini" data-hph="${i}"></div><button class="ca-link" data-hdelph="${i}">Delete photos</button>` : ''}<button class="ca-link" data-hdel="${i}" aria-label="Delete this attempt">Delete attempt</button></li>`).join('')}</ul></div>`;
   }
   function wireHist(host, key, q) {
     const box = host.querySelector('.ca-hist'); if (!box) return; const h = C().writes[key] || [];
     box.querySelectorAll('[data-hph]').forEach(el => { const a = h[+el.dataset.hph]; if (a && T() && T().photos) T().photos.strip(el, a.photos); });
+    box.querySelectorAll('[data-hrep]').forEach(el => el.addEventListener('toggle', () => {   // the report is re-computed from the saved answer
+      const b = el.querySelector('.ca-hrepb'); if (!el.open || b.dataset.on) return; const a = h[+el.dataset.hrep]; if (!a || !CHK()) return; b.dataset.on = 1;
+      b.innerHTML = CHK().reportHTML(CHK().checkAnswer({ question: q, answer: { text: a.text || '', table: a.table || null }, photos: (a.photos || []).length ? a.photos : (a.status === 'waiting' ? 1 : 0) }), q, { h: 'h4' });
+    }));
     const redraw = () => { box.outerHTML = hist(key, q) || '<div class="ca-hist"></div>'; wireHist(host, key, q); };
     box.querySelectorAll('[data-hdelph]').forEach(b => b.onclick = () => { const a = h[+b.dataset.hdelph]; if (!a) return; (a.photos || []).forEach(x => T() && T().photos && T().photos.del(x.id)); a.photos = []; save(); toast('Photos deleted'); redraw(); });
     box.querySelectorAll('[data-hdel]').forEach(b => b.onclick = function () { if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again to delete'; return; } const a = h[+b.dataset.hdel]; if (!a) return; (a.photos || []).forEach(x => T() && T().photos && T().photos.del(x.id)); h.splice(+b.dataset.hdel, 1); if (!h.length) delete C().writes[key]; save(); toast('Attempt deleted'); redraw(); });
@@ -638,35 +652,53 @@
 
   /* ================= Weak spots & strengths ================= */
   function weakData() {
-    const c = C(), units = {}, skills = {};
-    Object.entries(c.mcq).forEach(([k, v]) => { const uid = k.split('#')[0]; const u = units[uid] = units[uid] || { ms: 0, mw: 0, wg: 0, wm: 0 }; u.ms += v.s; u.mw += v.w; });
-    Object.entries(c.writes).forEach(([k, h]) => { const uid = k.split('#')[0]; const a = h[h.length - 1]; if (!a) return; const u = units[uid] = units[uid] || { ms: 0, mw: 0, wg: 0, wm: 0 }; u.wg += a.score; u.wm += a.max;
-      (a.skills || []).forEach(([sk, m, got]) => { const s = skills[sk] = skills[sk] || { m: 0, g: 0 }; s.m += m; s.g += got; }); });
-    return { units, skills };
+    const c = C(), units = {}, skills = {}, topics = {}, qs = [];
+    const U0 = uid => (units[uid] = units[uid] || { ms: 0, mw: 0, wg: 0, wm: 0 });
+    const addSk = (sk, m, got) => { const s = skills[sk] = skills[sk] || { m: 0, g: 0, n: 0 }; s.m += m; s.g += got; s.n++; };
+    Object.entries(c.mcq).forEach(([k, v]) => { const u = U0(k.split('#')[0]); u.ms += v.s; u.mw += v.w; });
+    /* written answers: the latest checked attempt of each question feeds the skill and topic (unit) totals;
+       every attempt is kept as that question's history (pending AI marks are not counted either way) */
+    Object.entries(c.writes).forEach(([k, h]) => {
+      const uid = k.split('#')[0], sc = scored(h), a = sc[sc.length - 1];
+      qs.push({ key: k, uid, qid: k.split('#')[1], hist: (h || []).map(x => ({ d: x.d, score: x.score, max: x.max, full: x.full || x.max, pend: x.pend || 0, status: x.status || 'self' })) });
+      if (!a) return;
+      const u = U0(uid); u.wg += a.score; u.wm += a.max;
+      const t = topics[uid] = topics[uid] || { m: 0, g: 0, n: 0 }; t.m += a.max; t.g += a.score; t.n++;
+      (a.skills || []).forEach(([sk, m, got]) => addSk(sk, m, got));
+    });
+    /* questions written only for a mock paper (not from a unit's bank): their points count too, from the latest paper */
+    const lm = (c.tests || []).filter(t => t.kind === 'mock' && t.wskills).pop();
+    if (lm) lm.wskills.forEach(([sk, m, got]) => addSk(sk, m, got));
+    return { units, skills, topics, qs };
   }
   const pctOf = u => { const parts = []; if (u.ms) parts.push((u.ms - u.mw) / u.ms); if (u.wm) parts.push(u.wg / u.wm); return parts.length ? parts.reduce((a, b) => a + b, 0) / parts.length : null; };
   function weakest() { const { skills } = weakData(); const l = Object.entries(skills).filter(([, s]) => s.m >= 2).map(([k, s]) => [k, s.g / s.m]).sort((a, b) => a[1] - b[1]); return l.length && l[0][1] < .6 ? (SKILL[l[0][0]] || l[0][0]).toLowerCase() : null; }
   async function weakMini(box) {
     const { units, skills } = weakData(); const ids = Object.keys(units);
-    if (!ids.length) { box.innerHTML = `<h3>Weak spots & strengths</h3><p class="sub">Answer some MCQs or self-check a written answer — your strong and weak areas will appear here.</p>`; return; }
+    if (!ids.length) { box.innerHTML = `<h3>Weak spots & strengths</h3><p class="sub">Answer some MCQs or check a written answer — your strong and weak areas will appear here.</p>`; return; }
     const names = {}; for (const uid of ids) { try { const st = await structure(levelOf(uid)); const f = findUnit(st, uid); if (f) names[uid] = f.u.title; } catch (e) {} }
     const rows = ids.map(id => [id, pctOf(units[id])]).filter(r => r[1] != null).sort((a, b) => a[1] - b[1]);
     box.innerHTML = `<h3>Weak spots & strengths</h3>${rows.slice(0, 3).map(([id, p]) => `<div class="ca-wrow"><span>${esc(names[id] || id)}</span><b class="${p < .6 ? 'w' : p >= .8 ? 's' : ''}">${Math.round(p * 100)}%</b></div>`).join('')}<button class="btn ghost" id="caWeakGo">See full analysis</button>`;
     D.getElementById('caWeakGo').onclick = weakScreen;
   }
   async function weakScreen() {
-    const el = open('practice'); const { units, skills } = weakData();
-    const names = {}; for (const uid of Object.keys(units)) { try { const f = findUnit(await structure(levelOf(uid)), uid); if (f) names[uid] = f.u.title; } catch (e) {} }
+    const el = open('practice'); const { units, skills, qs } = weakData();
+    const names = {}; for (const uid of new Set(Object.keys(units).concat(qs.map(x => x.uid)))) { try { const f = findUnit(await structure(levelOf(uid)), uid); if (f) names[uid] = f.u.title; } catch (e) {} }
     const band = p => p == null ? ['', 'Not enough data'] : p < .6 ? ['w', 'Weak spot'] : p >= .8 ? ['s', 'Strength'] : ['m', 'Getting there'];
     const urows = Object.entries(units).map(([id, u]) => ({ id, u, p: pctOf(u) })).sort((a, b) => (a.p ?? 2) - (b.p ?? 2));
-    const srows = Object.entries(skills).map(([k, s]) => ({ k, s, p: s.m ? s.g / s.m : null })).sort((a, b) => a.p - b.p);
+    const srows = Object.entries(skills).map(([k, s]) => ({ k, s, p: s.m ? s.g / s.m : null })).filter(r => r.p != null).sort((a, b) => a.p - b.p);
+    const qrows = [];
+    for (const x of qs) { let d = null; try { d = await unitData(x.uid); } catch (e) {} const q = d && (d.questions || []).find(y => y.id === x.qid); const i = d ? d.questions.indexOf(q) : -1;
+      qrows.push({ ...x, title: q ? `Q${i + 1}. ${q.q.length > 90 ? q.q.slice(0, 87) + '…' : q.q}` : x.qid, full: q ? q.marks : (x.hist[0] || {}).full || '' }); }
     el.innerHTML = `<button class="back" id="caBack">← CA Journey</button><h1 class="ca-h1 ca-onDark">Weak spots & strengths</h1>
       <div class="card"><h2 class="ca-h2s">By unit</h2>${urows.length ? urows.map(r => { const [cl, lab] = band(r.p); return `<button class="ca-wunit" data-u="${r.id}"><span><b>${esc(names[r.id] || r.id)}</b><small>${r.u.ms ? `MCQ ${Math.round((r.u.ms - r.u.mw) / r.u.ms * 100)}% (${r.u.ms} answers)` : 'No MCQs yet'}${r.u.wm ? ` · Written ${fmt(r.u.wg)}/${fmt(r.u.wm)}` : ''}</small></span><em class="ca-band ${cl}">${lab}</em></button>`; }).join('') : '<p class="sub">No data yet.</p>'}</div>
-      <div class="card"><h2 class="ca-h2s">By examiner skill</h2><p class="sub">From your self-checked written answers — which kinds of marks you are winning or losing.</p>
-        ${srows.length ? srows.map(r => { const [cl, lab] = band(r.p); return `<div class="ca-skill"><span>${esc(SKILL[r.k] || r.k)}</span>${bar(r.p)}<b class="${cl}">${Math.round(r.p * 100)}%</b></div>`; }).join('') : '<p class="sub">Self-check a written answer to see this.</p>'}
-        ${srows.length && srows[0].p < .6 ? `<p class="ca-tip"><b>Focus next</b> ${esc(SKILL[srows[0].k] || srows[0].k)} — practise one written question this week and mark it strictly.</p>` : ''}</div>`;
+      <div class="card"><h2 class="ca-h2s">Written answers — marks lost by examiner skill</h2><p class="sub">From your automatically checked written answers (latest attempt of each question, unit Write tab, question bank and mock papers) — which kinds of marks you win and lose. Points waiting for the AI examiners are not counted.</p>
+        ${srows.length ? srows.map(r => { const [cl, lab] = band(r.p); return `<div class="ca-skill"><span>${esc(SKILL[r.k] || r.k)}<small> lost ${fmt(Math.round((r.s.m - r.s.g) * 100) / 100)} of ${mk(Math.round(r.s.m * 100) / 100)}</small></span>${bar(r.p)}<b class="${cl}">${Math.round(r.p * 100)}%</b></div>`; }).join('') : '<p class="sub">Check a written answer to see this.</p>'}
+        ${srows.length && srows[0].p < .6 ? `<p class="ca-tip"><b>Focus next</b> ${esc(SKILL[srows[0].k] || srows[0].k)} — practise one written question this week and read the examiner's report closely.</p>` : ''}</div>
+      ${qrows.length ? `<div class="card"><h2 class="ca-h2s">Your written answers — history</h2><p class="sub">Every check of each question, oldest first.</p><ul class="ca-qhist">${qrows.map(r => `<li><button class="ca-qh" data-u="${esc(r.uid)}" data-q="${esc(r.qid)}"><span><b>${esc(r.title)}</b><small>${esc(names[r.uid] || r.uid)}</small></span><span class="ca-qhs">${r.hist.map(a => a.status === 'waiting' ? '<i class="pend" title="Waiting for AI examiners">⏳</i>' : `<i class="${a.max && a.score / a.max >= .8 ? 's' : a.max && a.score / a.max < .5 ? 'w' : 'm'}">${fmt(a.score)}</i>`).join('<span aria-hidden="true">→</span>')}<em>/ ${fmt(r.full)}</em></span></button></li>`).join('')}</ul></div>` : ''}`;
     D.getElementById('caBack').onclick = home;
     el.querySelectorAll('.ca-wunit').forEach(b => b.onclick = () => unit(b.dataset.u, 'mcq'));
+    el.querySelectorAll('.ca-qh').forEach(b => b.onclick = () => openQuestion(b.dataset.u, b.dataset.q));
   }
 
   /* ================= Practice (CA mode) ================= */
@@ -762,7 +794,7 @@
     const el = open('me'); const c = C(), p = ST.profile;
     const nW = Object.values(c.writes).reduce((a, h) => a + h.length, 0), nM = Object.values(c.mcq).reduce((a, s) => a + s.s, 0), nU = Object.values(c.units).filter(u => TABS.every(([k]) => u[k])).length;
     el.innerHTML = `<div class="card ca-prof"><div class="ca-avatar" aria-hidden="true">${esc((p.name || 'C').trim()[0].toUpperCase())}</div><div><h1 class="ca-h1">${esc(p.name)}</h1><p class="sub">CA ${esc(levelName(c.level))} · ICAI</p></div></div>
-      <div class="card statrow"><div><b>${nU}</b><span>Units done</span></div><div><b>${nM}</b><span>MCQs answered</span></div><div><b>${nW}</b><span>Answers self-checked</span></div></div>
+      <div class="card statrow"><div><b>${nU}</b><span>Units done</span></div><div><b>${nM}</b><span>MCQs answered</span></div><div><b>${nW}</b><span>Written answers checked</span></div></div>
       ${T() ? `<div class="card"><h2 class="ca-h2s">Your library</h2><div class="ca-btns"><button class="btn ghost" id="caPNotes">📚 My notes</button><button class="btn ghost" id="caPSearch">🔍 Search everything</button></div></div>` : ''}
       <div class="card"><h2 class="ca-h2s">Exam date</h2><label class="ca-lab" for="caExamP">Your next CA exam</label><input type="date" id="caExamP" class="ca-in" value="${esc(c.exam || '')}"><button class="btn ghost" id="caExamPS">Save</button></div>
       <div class="card"><h2 class="ca-h2s">Name</h2><label class="ca-lab" for="caNm">Shown on your journey and group results</label><input id="caNm" class="ca-in" maxlength="24" value="${esc(p.name)}" autocomplete="off"><button class="btn ghost" id="caNmS">Save</button></div>
@@ -898,10 +930,12 @@
   window.Ca = { home, paper, unit, openQuestion, weak: weakScreen, group: groupScreen, setup: caSetup, profile, isCA,
     /* Shape of a written answer for a future AI checker panel (backend). */
     submission(uid, qid, i = -1) { const h = C().writes[`${uid}#${qid}`] || []; const a = h.at(i); if (!a) return null;
-      return { schema: 'ca-submission/1', unit: uid, question: qid, marks: a.max, answer: { text: a.text, table: a.table }, self: { score: a.score, ticks: a.ticks }, meta: { secs: a.secs, words: a.words, date: a.d, app: 'studyverse' }, status: a.status }; },
+      return { schema: 'ca-submission/2', unit: uid, question: qid, marks: a.full || a.max, answer: { text: a.text, table: a.table, photos: (a.photos || []).map(x => ({ id: x.id, w: x.w, h: x.h })) },
+        offline: a.status === 'self' ? null : { status: a.status, score: a.score, max: a.max, pending: a.pend || 0, points: a.pts || [] },
+        self: a.status === 'self' ? { score: a.score, ticks: a.ticks } : undefined, meta: { secs: a.secs, words: a.words, date: a.d, app: 'studyverse' }, status: a.status }; },
     _blockHTML: blockHTML,
     /* internals shared with js/ca-tools.js */
     _: { C, LEVELS, TABS, SKILL, structure, allStructures, findUnit, levelOf, unitData, unitProg, paperProg, builtCount, unitCount, daysLeft, todayISO,
-      screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, refInfo, refChip, openRef, normT, levelName, rng, order, recordAns, weakData, pctOf, selfSchemeHTML: null,
+      screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, refInfo, refChip, openRef, normT, levelName, rng, order, recordAns, weakData, pctOf, scored, bestOf,
       markGuide, mcqMarks, unitMarks, levelOK, OWNER, practiceDaily: () => { if (window.Nav) Nav.sub(() => (T() ? T().practiceHub() : practice())); practice.daily = true; practice(); }, weakScreen, nextUnit, isCA } };
 })();

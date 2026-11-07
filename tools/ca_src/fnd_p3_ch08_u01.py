@@ -490,3 +490,59 @@ VIVA = [
        P('p2', 'TR = ∫ MR dx with constant zero (no sales, no revenue)', 3, 'marginal revenue', 'constant zero|constant is zero|constant equal zero|constant 0|zero revenue|revenue zero|revenue is zero|no revenue|nothing sold|no sale|zero when nothing', min=2),
        P('p3', 'Demand p = TR/x', 3, 'revenue divid by x|revenue divided by quantity|revenue divided by x|revenue over x|revenue by x|r by x|r over x|revenue divided by output|revenue per unit|average revenue|revenue upon x|revenue divid quantit|revenue divid output', min=1)], 'c10'),
 ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('9x 4x 3|9x 2 4x 3|9 x 2 4 x 3'),
+        's2': _N(8),
+        's3': _K('-7 2x 1|-7 over 2x 1|-7 2 x 1|minus 7 2x 1'),
+        's4': _K('2x e|2xe|e x 2x|e x 2 2x|e x2 2x|2 x e'),
+    },
+    'q2': {
+        's1': _K('120x 1.5x|120 x 1.5 x|120x 1.5', nums=[1800]),
+        's2': _N(40),
+        's3': _K('second order|second derivative|d2p|d p dx 3|dx2 3|d 2p|p 3|3 0|negative'),
+        's4': _N(110, 600),
+        's5': _N(60, 90),
+        's6': _K('mc 90|mc x 30|mc 60 30|marginal cost 90|mc ac 90|90 mc|ac mc 90|mc equal ac 90'),
+    },
+    'q3': {
+        's1': _K('3x', '2 log|2log|2 ln|2ln|2 logx', 'c|constant|k'),
+        's2': _K('1 x x4|x4 x5|x 4 x 5|1 x x 4|f 1 x|replac x|1 x x'),
+        's3': _K('1 30|0.033|0.0333|0.03'),
+        's4': _K('4x 10x|4x2 10x|4x 2 10x|4 x 2 10 x', 'k 60|c 60|60'),
+        's5': _N(192, 32),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

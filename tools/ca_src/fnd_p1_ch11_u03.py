@@ -410,3 +410,47 @@ def build():
             {'k': 'Interest with TDS', 'v': 'Interest Dr To Debenture holders; Debenture holders Dr To TDS Payable, To Bank; TDS Payable Dr To Bank; P&L Dr To Interest'},
         ],
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+# "any N" question: every point carries the same groups with min = 1 … N (N distinct correct points earn N marks).
+_DIFF = ['creditor|lender|borrowed|loan capital|borrowed capital', 'voting|vote', 'interest|dividend|fixed return', 'borrowing|share capital|shareholders funds|liabilit|owned capital',
+         'forfeit', 'repaid|repayment|redeem|redemption|winding up|maturity', 'secured|charge on assets|security|mortgage', 'convert']
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['bank', 'dr', 470000], ['discount', 'dr', 30000], ['debenture', 'cr', 500000]]},
+           's2': {'rows': [['loss', 'dr', 40000], ['premium', 'cr', 40000]],
+                  'wrong': [{'kw': ['discount on issue 40000'], 'say': 'Debentures issued at par give no discount; the ₹40,000 premium payable on redemption is a loss on issue (Loss on Issue of Debentures A/c).'}]},
+           's3': {'rows': [['bank', 'dr', 485000], ['loss|discount', 'dr', 40000], ['premium', 'cr', 25000]]}},
+    'q2': {'extra_ok': False,
+           's1': {'nums': [400000]},
+           's2': {'kw': ['5 4 3|4 3 2|3 2 1|8000000']},
+           's3': {'nums': [133333, 106667, 53333, 26667]},
+           's4': {'kw': ['equal|equally|400000 5|straight line|one lot 80000|lot 80000|80000 each year|80000 per year|80000 every year'], 'nums': [80000]}},
+    'q3': dict({'extra_ok': True}, **{f's{n}': {'kw': _DIFF, 'min': n} for n in range(1, 5)}),
+    'q4': {'extra_ok': False,
+           's1': {'kw': ['additional security|secondary security|subsidiary security|extra security|security in addition|besides primary|addition to primary|over and above|supplementary security|further security',
+                         'default|fails|failure|not repaid|unable|not paid|non payment|non-payment'], 'min': 2},
+           's2': {'kw': ['no entry|not recorded|no journal|without entry|disclos|by way of note|note|not passed'], 'nums': [600000]},
+           's3': {'rows': [['suspense', 'dr', 700000], ['debenture', 'cr', 700000]]},
+           's4': {'kw': ['less|deduct|minus|nil', 'suspense'], 'min': 2, 'nums': [700000]},
+           's5': {'kw': ['no interest|not payable|interest not|interest is not|interest only on loan|not entitled interest|nil interest|no interest payable|interest only paid loan'],
+                  'wrong': [{'kw': ['70000'], 'say': 'No interest is paid on debentures issued as collateral security; interest is paid only on the loan.'}]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

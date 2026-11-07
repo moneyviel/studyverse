@@ -1259,19 +1259,73 @@
      "id": "s1",
      "pt": "(i) Bank ₹4,70,000 and Discount ₹30,000; Debentures ₹5,00,000",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       470000
+      ],
+      [
+       "discount",
+       "dr",
+       30000
+      ],
+      [
+       "debenture",
+       "cr",
+       500000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "(ii) Loss on Issue ₹40,000; Premium on Redemption ₹40,000",
      "m": 2,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "loss",
+       "dr",
+       40000
+      ],
+      [
+       "premium",
+       "cr",
+       40000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "discount on issue 40000"
+       ],
+       "say": "Debentures issued at par give no discount; the ₹40,000 premium payable on redemption is a loss on issue (Loss on Issue of Debentures A/c)."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "(iii) Bank ₹4,85,000; Loss on Issue ₹40,000 (₹15,000 + ₹25,000); Premium on Redemption ₹25,000",
      "m": 2,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       485000
+      ],
+      [
+       "loss|discount",
+       "dr",
+       40000
+      ],
+      [
+       "premium",
+       "cr",
+       25000
+      ]
+     ]
     }
    ],
    "remarks": [
@@ -1284,7 +1338,8 @@
    ],
    "tips": [
     "Write the face value line first, then fill the side accounts."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1394,25 +1449,43 @@
      "id": "s1",
      "pt": "Total discount ₹4,00,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      400000
+     ]
     },
     {
      "id": "s2",
      "pt": "Outstanding amounts and ratio 5:4:3:2:1",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "5 4 3|4 3 2|3 2 1|8000000"
+     ]
     },
     {
      "id": "s3",
      "pt": "Yearly write-offs ₹1,33,333 … ₹26,667 (total ₹4,00,000)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      133333,
+      106667,
+      53333,
+      26667
+     ]
     },
     {
      "id": "s4",
      "pt": "One-lot alternative ₹80,000",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "equal|equally|400000 5|straight line|one lot 80000|lot 80000|80000 each year|80000 per year|80000 every year"
+     ],
+     "nums": [
+      80000
+     ]
     }
    ],
    "remarks": [
@@ -1424,7 +1497,8 @@
    ],
    "tips": [
     "Show the outstanding amount for each year in a table and add a total row."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1480,25 +1554,69 @@
      "id": "s1",
      "pt": "Point 1",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "creditor|lender|borrowed|loan capital|borrowed capital",
+      "voting|vote",
+      "interest|dividend|fixed return",
+      "borrowing|share capital|shareholders funds|liabilit|owned capital",
+      "forfeit",
+      "repaid|repayment|redeem|redemption|winding up|maturity",
+      "secured|charge on assets|security|mortgage",
+      "convert"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Point 2",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "creditor|lender|borrowed|loan capital|borrowed capital",
+      "voting|vote",
+      "interest|dividend|fixed return",
+      "borrowing|share capital|shareholders funds|liabilit|owned capital",
+      "forfeit",
+      "repaid|repayment|redeem|redemption|winding up|maturity",
+      "secured|charge on assets|security|mortgage",
+      "convert"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Point 3",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "creditor|lender|borrowed|loan capital|borrowed capital",
+      "voting|vote",
+      "interest|dividend|fixed return",
+      "borrowing|share capital|shareholders funds|liabilit|owned capital",
+      "forfeit",
+      "repaid|repayment|redeem|redemption|winding up|maturity",
+      "secured|charge on assets|security|mortgage",
+      "convert"
+     ],
+     "min": 3
     },
     {
      "id": "s4",
      "pt": "Point 4",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "creditor|lender|borrowed|loan capital|borrowed capital",
+      "voting|vote",
+      "interest|dividend|fixed return",
+      "borrowing|share capital|shareholders funds|liabilit|owned capital",
+      "forfeit",
+      "repaid|repayment|redeem|redemption|winding up|maturity",
+      "secured|charge on assets|security|mortgage",
+      "convert"
+     ],
+     "min": 4
     }
    ],
    "remarks": [
@@ -1509,7 +1627,8 @@
    ],
    "tips": [
     "Three-column table with clear bases."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q4",
@@ -1569,31 +1688,73 @@
      "id": "s1",
      "pt": "Meaning of collateral security",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "additional security|secondary security|subsidiary security|extra security|security in addition|besides primary|addition to primary|over and above|supplementary security|further security",
+      "default|fails|failure|not repaid|unable|not paid|non payment|non-payment"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Method 1 disclosure",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "no entry|not recorded|no journal|without entry|disclos|by way of note|note|not passed"
+     ],
+     "nums": [
+      600000
+     ]
     },
     {
      "id": "s3",
      "pt": "Method 2 journal entry",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "suspense",
+       "dr",
+       700000
+      ],
+      [
+       "debenture",
+       "cr",
+       700000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Method 2 balance sheet presentation",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "less|deduct|minus|nil",
+      "suspense"
+     ],
+     "min": 2,
+     "nums": [
+      700000
+     ]
     },
     {
      "id": "s5",
      "pt": "No interest on collateral debentures",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "no interest|not payable|interest not|interest is not|interest only on loan|not entitled interest|nil interest|no interest payable|interest only paid loan"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "70000"
+       ],
+       "say": "No interest is paid on debentures issued as collateral security; interest is paid only on the loan."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1605,7 +1766,8 @@
    ],
    "tips": [
     "Answer both methods side by side and end with the interest point."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "viva": [

@@ -458,3 +458,50 @@ def build():
         ],
         'viva': viva, 'cases': kcase,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['land', 'dr', 60000], ['machinery|plant', 'dr', 45000], ['stock|inventory', 'dr', 27000], ['debtor|receivable', 'dr', 30000], ['creditor|payable', 'cr', 36000]]},
+           's2': {'kw': ['89500|38000'], 'rows': [['kavi|land', 'cr', 72000]]},
+           's3': {'rows': [['creditor|bank|cash', 'dr', 34200], ['repair|outstanding|unrecorded', 'dr', 1200], ['kavi|expense', 'dr', 1900]]},
+           's4': {'rows': [['kavi|loss', 'cr', 1200], ['lata|loss', 'cr', 600]]},
+           's5': {'kw': ['profit loss|p l|accumulated profit', 'loan'], 'min': 2, 'nums': [6000, 3000]},
+           's6': {'nums': [9700, 47400]},
+           's7': {'nums': [107500]}},
+    'q2': {'extra_ok': False,
+           's1': {'rows': [['mohan current', 'dr', 5000], ['mohan capital|mohan', 'cr', 5000], ['om capital|om', 'dr', 23000], ['om current', 'cr', 23000], ['naveen current', 'cr', 2000]]},
+           's2': {'rows': [['mohan', 'dr', 12000], ['naveen', 'dr', 8000], ['om', 'dr', 4000], ['realisation|realization', 'cr', 24000]]},
+           's3': {'kw': ['bank|cash'], 'rows': [['mohan', 'cr', 12000], ['naveen', 'cr', 8000]]},
+           's4': {'rows': [['om', 'cr', 2000], ['om', 'cr', 5000]]},
+           's5': {'kw': ['capital ratio|fixed capital|garner|3 2|60000 40000'], 'rows': [['mohan', 'dr', 3000], ['om', 'cr', 5000]],
+                  'wrong': [{'kw': ['profit sharing ratio 3 2 1|3 2 1 deficiency|deficiency 3 2 1'], 'say': "Under Garner v. Murray the insolvent partner's deficiency is borne by solvent partners in their (fixed) capital ratio, not in the profit-sharing ratio."}]}},
+    'q3': {'extra_ok': False,
+           's1': {'nums': [15000, 10000, 11000]},
+           's2': {'kw': ['r first|first r|r alone|excess 6000|nil 6000|6000 r first|r only'], 'nums': [6000]},
+           's3': {'kw': ['4000 2000', '6000 3000', '6000 6000 3000'], 'min': 3},
+           's4': {'kw': ['12000 12000 6000'], 'nums': [18000, 28000, 20000]}},
+    'q4': {'extra_ok': False,
+           's1': {'kw': ['section 48|sec 48|s 48|48']},
+           's2': {'kw': ['loss|deficien', 'profit capital|out of profit|from profit|profits first|first profit', 'individual|personal|partners contribute|contributed by partners|contribution partners|partners bear|borne by partners'], 'min': 3},
+           's3': {'kw': ['outsider|third part|outside liabilit|creditor|external|debts of firm|firm debts', 'loan|advance', 'capital', 'surplus|residue|remain|balance|residual'], 'min': 4,
+                  'wrong': [{'kw': ['loans before outsiders|partners loans first|capital before loan|capital first'], 'say': "Outsiders are paid first, then partners' loans, then capital; only the residue is shared in the profit-sharing ratio."}]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

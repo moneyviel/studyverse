@@ -393,3 +393,51 @@ def build():
             {'k': 'Forfeited pref. shares', 'v': 'Capital Dr To Calls in Arrears, To Forfeited Shares; Forfeited Shares Dr To Capital Reserve'},
         ],
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['bank', 'dr', 270000], ['investment', 'cr', 250000], ['profit|p l|surplus|gain', 'cr', 20000]]},
+           's2': {'rows': [['capital', 'cr', 150000], ['premium', 'cr', 30000]]},
+           's3': {'rows': [['premium', 'dr', 40000], ['preference shareholder', 'cr', 440000], ['profit|surplus|p l', 'dr', 40000]]},
+           's4': {'rows': [['general reserve', 'dr', 250000], ['capital redemption|crr', 'cr', 250000]],
+                  'wrong': [{'kw': ['220000'], 'say': 'Only the face value of the fresh issue (₹1,50,000) reduces the CRR; the premium of ₹30,000 on it does not. CRR = ₹2,50,000.'}]},
+           's5': {'rows': [['preference shareholder', 'dr', 440000], ['bank', 'cr', 440000]]},
+           's6': {'nums': [1150000, 460000, 80000, 250000, 70000, 60000]},
+           's7': {'nums': [160000, 1760000]}},
+    'q2': {'extra_ok': False,
+           's1': {'kw': ['700000 10 50000|500000 10 50000|500000 50000|face value 50000|nominal 50000|50000 shares 10|10 50000'],
+                  'wrong': [{'kw': ['35714|35715'], 'say': 'For section 55 the shortfall in CRR is covered by the face value of new shares: ₹5,00,000 ÷ ₹10 = 50,000 shares.'}]},
+           's2': {'nums': [1260000]},
+           's3': {'kw': ['700000 14 50000|700000 50000|50000 share 14|50000 shares rs 14|14 50000'], 'nums': [560000],
+                  'wrong': [{'kw': ['70000 shares|70000 equity'], 'say': 'Funds are raised at the issue price: ₹7,00,000 ÷ ₹14 = 50,000 shares.'}]},
+           's4': {'kw': ['higher|both|equal|same|maximum|greater|larger|issue 50000|issued 50000'], 'nums': [50000]}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['20 years|20 year|20|irredeemable']},
+           's2': {'kw': ['profit|divisible', 'fresh issue|fresh share|new issue|proceeds|fresh'], 'min': 2},
+           's3': {'kw': ['fully paid|not partly|cannot partly|partly paid cannot|unless fully paid|until fully paid']},
+           's4': {'kw': ['premium', 'profit|securities premium|133'], 'min': 2},
+           's5': {'kw': ['capital redemption reserve|crr', 'nominal|face value|bonus|paid up|equal amount|amount equal'], 'min': 2}},
+    'q4': {'extra_ok': False,
+           's1': {'rows': [['capital', 'dr', 40000], ['call|arrear', 'cr', 12000], ['forfeit', 'cr', 28000]]},
+           's2': {'rows': [['forfeit', 'dr', 28000], ['capital reserve', 'cr', 28000]]},
+           's3': {'nums': [9600]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

@@ -73,7 +73,7 @@ Sources: `tools/ca_src/ca_viva.py`, `tools/ca_src/ca_cases.py` (merged into each
 ## Mock papers (`content/ca/<level>/mocks/<id>.json`, `"schema": "ca-mock/1"`)
 `id, level, paper, title, label` (must say "not an ICAI paper"), `scope, hours, marks, compulsory[], choose, rules[], questions[]`.
 Question: `{id: "Q1", marks, parts[]}`; part kinds: `tf` (`items[{id, s, answer: bool, reason}]`, 2 marks each —
-2 marks only for a correct verdict with a correct reason; verdict checked automatically, reason self-checked), `ref` (`"unit#qid"` from a unit's question bank; marks must match),
+2 marks only for a correct verdict with a correct reason; both checked automatically — the reason by the item's `kw`/`min` key points, or, without them, an approximate overlap with the model reason's own key words), , `ref` (`"unit#qid"` from a unit's question bank; marks must match),
 `q` (a new question with the unit-question fields). Validator: parts add up, compulsory + `choose` × optional = paper marks.
 Source: `tools/ca_src/mock_*.py`. Pattern for Foundation Paper 1 taken from ICAI model test papers (Q1 compulsory,
 any four of the remaining five, 3 hours, 100 marks).
@@ -105,8 +105,8 @@ no other option), every journal/ledger/trial-balance/cash-book/table total.
 **Learn** (outcomes, ICAI topics, concept cards with analogy + real-CA-work) → **Examples** (try first,
 then reveal the solution in exam format, with "figures machine-checked") → **On the job** (what a CA in
 practice or industry actually does) → **MCQ** (Papers 3 & 4: exam-style +1/−¼; Papers 1 & 2: concept check)
-→ **Write** (writing pad with timer, word count and table builder → model answer → self-marking with the
-step-mark scheme → examiner remarks, common mistakes, presentation tips) → **Revise** (one page + quick ref).
+→ **Write** (writing pad with timer, word count and table builder → “Check my answer”: automatic marking against the
+step-mark scheme → examiner's report, how to avoid the lost marks, model answer, examiner remarks) → **Revise** (one page + quick ref).
 Each tab marks itself done; a unit is complete when all six are. Home shows the next unit in ICAI order.
 
 ## Exam pattern used (from ICAI model test papers in the source folder)
@@ -123,16 +123,80 @@ mcq{"uid#mid":{s,w,last,ms}}, writes{"uid#qid":[attempt…]} (last 5), group[]`,
 `mockDraft{id:{secs, ans{}, tf{}, chosen[]}}` (resume a paper). The CA dashboard passes this to the shared engine through
 `Insights.dashboardFor(host, {mode:'ca', data})` (adapter `insData` in js/ca-tools.js) and adds exam countdown, MCQ speed,
 viva, mock history and unit progress; without the engine it draws its own version.
-An attempt keeps the answer text (≤6000 chars), table rows, time, words, ticks per scheme point and
-`status: "self"`. `Ca.submission(uid, qid)` returns the payload for a future backend checker:
+An attempt keeps the answer text (≤6000 chars), table rows, time, words, photos and the checker's compact result:
+`status: "auto" | "waiting" | "self"` (self = marked by the student before automatic checking), `score` (marks checked now; null while
+waiting), `max` (checkable marks), `full` (question marks), `pend` (marks pending AI check), `pts: [[pointId, c|h|w|m|p, marks]]`,
+`skills: [[skill, m, got]]` (checked points only — feeds Weak spots and the dashboard), `nx` (extras listed). The full report is
+re-computed from the saved answer when the student opens it. `Ca.submission(uid, qid)` returns the payload for the backend:
 ```json
-{ "schema": "ca-submission/1", "unit": "fnd-p1-ch02-u01", "question": "q1", "marks": 6,
-  "answer": {"text": "…", "table": {"schema": "ca-pad/1", "sheets": [{"tpl": "journal", "name": "Journal", "title": "…", "data": {…}, "flat": {"cols": [...], "rows": [[...]]}, "check": {"ok": true, "msg": "…"}}]}},
-  "self": {"score": 4.5, "ticks": {"s1": 1, "s2": 0.5}}, "meta": {"secs": 610, "words": 180, "date": "2026-11-07"},
-  "status": "self" }
+{ "schema": "ca-submission/2", "unit": "fnd-p1-ch02-u01", "question": "q1", "marks": 6,
+  "answer": {"text": "…", "table": {"schema": "ca-pad/1", "sheets": [{"tpl": "journal", "name": "Journal", "title": "…", "data": {…}, "flat": {"kind": "journal", "cols": [...], "rows": [[...]]}, "check": {"ok": true, "msg": "…"}}]}, "photos": [{"id": "…", "w": 1200, "h": 1600}]},
+  "offline": {"status": "auto", "score": 4.5, "max": 6, "pending": 0, "points": [["s1", "c", 1], ["s2", "h", 0.5]]},
+  "meta": {"secs": 610, "words": 180, "date": "2026-11-07"}, "status": "auto" }
 ```
-The checker can return `{status: "ai", score, ticks, remarks[]}` against the same `scheme` ids.
-(Attempts saved before the templates keep the old `table: {cols, rows}` shape.)
+(Attempts saved before the templates keep the old `table: {cols, rows}` shape; the checker reads both.)
+
+## Automatic answer checking (no self-marking)
+Students never rate their own written answers. `js/ca-check.js` marks every answer on the phone, offline, and
+`check_answer()` in `tools/ca_vivamatch.py` is its exact Python twin (the validator proves both agree on every model answer).
+Used by the unit Write tab, the question bank (opens the same pad) and mock papers.
+
+**Scheme-point fields** (`questions[].scheme[]`, besides `id, pt, m, skill`):
+| field | meaning |
+|---|---|
+| `kw`, `min` | keyword groups in the viva-matcher format (`"debit|dr"`; phrases allowed; negation-aware), `min` groups needed (default all) |
+| `nums` | figures that must appear in the text or any table cell — `₹1,50,000`, `150000`, `1.5 lakh` all count; signed (`−7`/`-7`/`minus 7` ≠ 7; in table cells and in brackets `(30)` both signs count); tolerance 0.5 but at most 0.5% for small figures (52.5 ≠ 53), 0.05% for large ones; “₹5,690 crore” matches 5690 or the scaled figure |
+| `rows` | expected table lines `[account keywords, side, amount]`; side `dr`/`cr` (journal Dr/To lines, left/right side of a ledger or two-sided statement, Dr/Cr columns), `add`/`less` (BRS sections, “Add:”/“Less:” prefixes), `""` = any side, or a column-header keyword (`"provision"`, `"capital"`, `"postage"`) matched against the student's amount column; amount `null` = any. Account names fuzzy (stems, one-letter slips, “A/c” ignored; a multi-word name may use the ledger's own name) |
+| `pad_ok` | true = the student's exam-format table passes the pad's own check (Dr = Cr, sides agree, BRS reconciles) |
+| `wrong` | `[{kw, min?, say}]` common wrong statements: when present the remark `say` is shown and the point is capped at half |
+| `ai_only` | true = not checkable offline: shown “Will be checked by AI examiners (coming soon)”, excluded from the offline total |
+Question field `extra_ok` (bool): other relevant points may earn credit (AI examiners will judge them; offline they are only listed).
+A point with none of `kw/nums/rows/pad_ok/ai_only` is shown as pending (validator warning; error with `--strict`).
+
+**What the checker reads**: the typed text; every table of the pad (`flat`, `kind`, sheet title, `check`): each table row becomes one
+plain-text line of its cells (plus a header line and “column — cell” lines for grids); table rows also become entries
+(account, side, amount); typed lines such as `Bank A/c Dr 5,00,000` / `To Capital A/c 5,00,000` / `Add: Cheques not presented 4,000`
+become entries too (mock papers have no table pad). Words copied from the question into the text (6+ words in order, figures skipped)
+earn no keyword credit. Matcher details: “Sec. 37”, “No. 5”, “e.g.”, “i.e.” do not end a sentence; “AS 10” is kept; 5:4:3 is one ratio;
+dashes and brackets end a negation window; numbers inside keywords match within 0.05% (0.5% when decimals are written).
+
+**Award rule** (per point): each component present scores 1, ½ or 0 —
+`kw` 1 if ≥ `min` groups hit, ½ if `min` ≥ 2 and at least half of `min` hit (not for points that share the same groups — “any N
+points” questions are all-or-nothing per point); `nums` 1 if every figure found, ½ if 2+ figures and at least half found; `rows` each
+line 1 (account + side + amount), ½ (right account and amount on the wrong side, or right account and side with a wrong amount), 0;
+component 1 if all lines are 1, ½ if their average ≥ ½; `pad_ok` 1 or 0. **Point = 1 if every component is 1, 0 if all are 0,
+otherwise ½**; a triggered `wrong` caps it at ½. Marks = fraction × `m`.
+
+**Report** (`CA.reportHTML`): total “x / y marks” (“x / y checked now · z pending AI check”), then per point ✅ correct (what was
+found), ½ half, ❌ wrong (what was wrong: “Sales A/c: debited instead of credited”, “₹60,000 found — expected ₹57,000”, “₹7,500 debited
+to Electricity A/c — expected Drawings”, “Stated in the negative”), ⚠️ missing (what was expected), ⏳ pending; ➖ “Extra / not
+required” — table rows and sentences that match nothing in the model or the scheme (listed, never deducted); triggered `wrong`
+remarks; “How to avoid this next time” (the question's mistakes / remarks / tips that share words with the lost points); then the
+model answer and all examiner notes. Photo-only answers are saved as “Waiting for AI examiners” (no marks); anything typed with
+the photo is checked at once. Viva photo answers wait the same way.
+
+**API** — `CA.checkAnswer({question, answer: {text, table}, photos?, unit?, qid?})` →
+`{schema: "ca-check/1", provider: "offline", status: "checked"|"partial"|"pending"|"waiting", total, max, full, pendingMarks,
+points: [{id, pt, m, skill, status, marks, found[], expected[], remark}], extras: [{kind: "row"|"sentence", text}], remarks[], pending[], tips[{kind, text}]}`.
+`CA.tfReason(item, text)` (mock true/false reasons), `CA.record(result)` (compact attempt fields), `CA.modelAttempt(q)`.
+
+**AI examiners (future, stubbed)** — `CA.provider = 'offline' | 'ai'` (saved in localStorage `sv_ca_checker`) and `CA.ai.endpoint`.
+`CA.checkAnswerAI(attempt)` always returns the offline result; with provider `ai` and an endpoint it POSTs `CA.aiRequest()` to a
+Supabase Edge Function and merges the reply point by point (AI points replace offline ones, pending points get marks):
+```json
+request  { "schema": "ca-ai-check/1", "unit": "fnd-p1-ch02-u01", "question": "q1", "marks": 6, "q": "…",
+           "scheme": [{"id": "s1", "pt": "…", "m": 1, "skill": "classification", "ai_only": false}], "model": [blocks],
+           "answer": {"text": "…", "table": {ca-pad/1}, "photos": [{"id": "…", "w": 1200, "h": 1600}]},
+           "offline": {"total": 4.5, "max": 6, "points": [{"id": "s1", "status": "correct", "marks": 1}]},
+           "examiners": 3, "consensus": "median-per-point", "transcribe": true }
+response { "schema": "ca-ai-result/1", "status": "checked",
+           "transcript": {"text": "…", "confirmed": false},
+           "points": [{"id": "s1", "status": "correct", "marks": 1, "found": ["…"], "expected": [], "remark": "…"}],
+           "remarks": ["…"], "examiners": [{"id": "A", "total": 4.5}, {"id": "B", "total": 5}, {"id": "C", "total": 4.5}], "agreement": 0.92 }
+```
+Planned flow: photos are uploaded → handwriting transcribed → the student confirms or corrects the transcript → three independent
+AI examiners mark it against the scheme → per-point median as consensus (disagreements flagged) → the attempt's `status` becomes
+`ai`. Until then nothing leaves the phone.
 
 ## Writing-pad exam formats (js/ca-pad.js)
 The Write tab's answer pad offers the formats a CA Foundation student writes, picked from the question's `pad` and its wording

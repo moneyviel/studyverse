@@ -267,3 +267,59 @@ def build():
                      {'k': 'WIR 2022 (material)', 'v': 'India 8th largest FDI recipient in 2020 (9th in 2019)'}],
         'viva': viva, 'cases': [case],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(12),
+        's2': _N(7.5),
+        's3': _K('12 percent fdi|12 fdi|fdi 12|more than 10 fdi|above 10 fdi|exceed 10 fdi|10 fdi|hence fdi|therefore fdi|fdi since|fdi because|seat fdi|board fdi|thus fdi', '7.5 percent fpi|7.5 fpi|fpi 7.5|less than 10 fpi|below 10 fpi|10 fpi|hence fpi|therefore fpi|fpi since|fpi because|thus fpi'),
+        's4': _K('equity', 'reinvest|retain', 'loan|debt|intra company|lend'),
+        's5': _N(700),
+    },
+    'q2': {
+        'extra_ok': True,
+        's1': _N(590),
+        's2': _K('-330|330', 'negative|outflow|deficit|minus|drain|net out'),
+        's3': _N(70),
+        's4': _K('drain|instab|unstable|initially|later|at entry|outflows later'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('physical', 'financial'),
+        's2': _K('long term|longer|hard to withdraw|difficult to withdraw|stable|not easy to withdraw', 'short term|easy to withdraw|easily withdrawn|volatile|hot money|quick'),
+        's3': _K('10 percent|10|control|management|enduring|influence|lasting'),
+        's4': _K('technolog|employment|job|speculat|wage'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

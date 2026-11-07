@@ -1205,37 +1205,90 @@
      "id": "s1",
      "pt": "Correct heading with name and \"as on 31 December 2026\"; starts from pass book ₹2,46,300",
      "m": 0.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "rows": [
+      [
+       "pass book|bank statement|balance|passbook",
+       "",
+       246300
+      ]
+     ],
+     "kw": [
+      "reconciliation|brs",
+      "december|dec|31.12.2026|31 12 2026"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Uncleared ₹30,500 and unbanked ₹8,000 added",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "deposited|not credited|uncleared|not yet credited|not cleared|cheques paid",
+       "add",
+       30500
+      ],
+      [
+       "not sent|not deposited|not banked|recorded|not paid bank|cheque received",
+       "add",
+       8000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Bank charges ₹650 added",
      "m": 0.5,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "charge",
+       "add",
+       650
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Unpresented ₹46,000 deducted",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "issued|not presented|unpresented|not yet presented",
+       "less",
+       46000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Bill collected ₹25,000 and interest ₹1,900 deducted",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "bill|collected|collection",
+       "less",
+       25000
+      ],
+      [
+       "interest",
+       "less",
+       1900
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Correct cash book balance ₹2,12,550",
      "m": 0.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      212550
+     ]
     }
    ],
    "remarks": [
@@ -1250,7 +1303,8 @@
    "tips": [
     "Write the starting balance with (Cr.) or (Dr.) beside it so the signs stay clear.",
     "Show partial figures (1,10,000 − 64,000) inside the particulars — they earn step marks."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1279,25 +1333,45 @@
      "id": "s1",
      "pt": "Meaning of BRS — prepared by the account holder, as on a date, reconciles the two balances",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "prepared|statement",
+      "date|particular date|given date|periodic|month end|end month",
+      "cash book|pass book|bank statement|difference|reconcil|agree|two balances"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Timing differences with example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "timing|time lag|time gap|different dates|different times|not yet presented|unpresented|not presented|not yet credited|uncleared|not cleared|later date|delay",
+      "cheque|deposit"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Items recorded by the bank first, with example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "bank charge|interest|dividend|standing instruction|direct deposit|directly|collected bank|bank first|recorded bank|ecs|nach|emi|debited bank|credited bank|by bank"
+     ],
+     "min": 1
     },
     {
      "id": "s4",
      "pt": "Errors by either party, with example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "error|mistake|wrong",
+      "business|cash book|bank|either|both|pass book"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1310,7 +1384,8 @@
    ],
    "tips": [
     "Use three or four headings — one per cause — with a one-line example under each."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1424,49 +1499,125 @@
      "id": "s1",
      "pt": "Adjusted cash book opened with overdraft ₹1,52,750 on the credit side",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "balance b d|overdraft|balance",
+       "cr",
+       152750
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Direct deposit, double-entered payment and FD interest debited",
      "m": 1.5,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "customer|direct deposit|deposit",
+       "dr",
+       36000
+      ],
+      [
+       "supplier|twice|double|creditor",
+       "dr",
+       7400
+      ],
+      [
+       "interest|fixed deposit|fd",
+       "dr",
+       4200
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Interest on overdraft, EMI and excess deposit ₹1,800 credited",
      "m": 1.5,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "interest|overdraft",
+       "cr",
+       9850
+      ],
+      [
+       "emi|loan|vehicle",
+       "cr",
+       21300
+      ],
+      [
+       "excess|deposit|debtor|wrong|error|customer",
+       "cr",
+       1800
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Adjusted overdraft ₹1,38,100 correctly balanced",
      "m": 1,
-     "skill": "balancing"
+     "skill": "balancing",
+     "rows": [
+      [
+       "balance c d|balance",
+       "dr",
+       138100
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "BRS starts from the adjusted overdraft; uncleared ₹65,000 added",
      "m": 1.5,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "overdraft|cash book|adjusted|balance",
+       "",
+       138100
+      ],
+      [
+       "deposited|not credited|uncleared|not yet credited|not cleared",
+       "add",
+       65000
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Unpresented ₹44,400 and bank's wrong credit ₹12,000 deducted",
      "m": 1.5,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "issued|not presented|unpresented|not yet presented",
+       "less",
+       44400
+      ],
+      [
+       "wrong|another customer|error|wrongly|other customer",
+       "less",
+       12000
+      ]
+     ]
     },
     {
      "id": "s7",
      "pt": "Correct pass book overdraft ₹1,46,700",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      146700
+     ]
     },
     {
      "id": "s8",
      "pt": "No item repeated in both; headings and dates proper",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "ai_only": true
     }
    ],
    "remarks": [
@@ -1482,7 +1633,8 @@
    "tips": [
     "First classify each item: \"CB\" (own error/omission) or \"BRS\" (timing or bank error). Then write.",
     "Label the final figure clearly as \"Overdraft as per Pass Book\"."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1553,37 +1705,94 @@
      "id": "s1",
      "pt": "Starts from pass book overdraft with heading and date",
      "m": 0.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "rows": [
+      [
+       "pass book|bank statement|overdraft|balance|passbook",
+       "",
+       58200
+      ]
+     ],
+     "kw": [
+      "june|30.06.2026|30 06 2026|30 6 2026"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Unpresented cheques added to the overdraft",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "issued|not presented|unpresented|not yet presented",
+       "add",
+       27300
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Casting errors ₹2,000 and ₹500 added",
      "m": 1,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "credit side|overcast|over cast|casting|credit",
+       "add",
+       2000
+      ],
+      [
+       "debit side|undercast|under cast|casting|debit",
+       "add",
+       500
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Wrong-side entry treated as ₹12,000",
      "m": 1.5,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "deposit|wrong side|credit side|cheque|6000",
+       "add",
+       12000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Uncleared cheques, charges and interest deducted",
      "m": 1.5,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "deposited|not credited|uncleared|not yet credited|not cleared",
+       "less",
+       41500
+      ],
+      [
+       "charge",
+       "less",
+       380
+      ],
+      [
+       "interest",
+       "less",
+       2140
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Correct cash book overdraft ₹55,980",
      "m": 0.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      55980
+     ]
     }
    ],
    "remarks": [
@@ -1596,7 +1805,8 @@
    ],
    "tips": [
     "Write \"Overdraft\" in the particulars each time so the reader knows the direction."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

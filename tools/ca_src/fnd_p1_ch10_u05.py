@@ -385,3 +385,55 @@ def build():
         ],
         'viva': viva, 'cases': kcase,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'kw': ['section 37|sec 37|s 37|37', 'share of profit|share profit|profit attributable|profits earned|profits made|proportionate profit', 'interest 6|6 percent|6 per cent|six percent'], 'min': 3},
+           's2': {'kw': ['continued|carried on|carry on|continue|carrying on|used firm property|use of firm property',
+                         'no settlement|without settlement|not settled|without final settlement|no final settlement|deed silent|silent|no purchase option|no option|not paid|delay|unsettled'], 'min': 2},
+           's3': {'nums': [24000]},
+           's4': {'nums': [3750]},
+           's5': {'kw': ['choose 24000|opt 24000|choose share profit|opt share profit|elect share profit|claim 24000|prefer share profit|share profit 24000|24000 higher|24000 more|claim share profit|choose profit|opt profit|prefer profit|select profit|select 24000|go for profit|profit option|24000 option|accept 24000|take 24000|entitled 24000'], 'nums': [24000],
+                  'wrong': [{'kw': ['choose interest|opt interest|claim interest 3750|prefer interest|interest option better|choose 3750|opt 3750'], 'say': 'The profit option (₹24,000) is far higher than interest (₹3,750); the executor should choose the share of profit.'}]}},
+    'q2': {'extra_ok': False,
+           's1': {'nums': [120000],
+                  'wrong': [{'kw': ['105000'], 'say': 'The deed fixes profit to death on the sales basis (15% of ₹20,00,000), not the time basis.'}]},
+           's2': {'nums': [10500]},
+           's3': {'kw': ['goodwill|dinesh fatima|dinesh and fatima'], 'nums': [100000]},
+           's4': {'nums': [82000, 18000]},
+           's5': {'rows': [['reserve', 'cr', 16000], ['drawing', 'dr', 21000], ['revaluation|loss', 'dr', 6000]]},
+           's6': {'nums': [519500]},
+           's7': {'nums': [219500, 7500, 307500]}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['capital', 'interest capital|interest on capital', 'goodwill'], 'min': 3},
+           's2': {'kw': ['reserve|undistributed|accumulated', 'revaluation profit|revaluation gain|gain revaluation|profit revaluation|profit on revaluation',
+                         'profit up to death|profit till death|profit date death|profit death|share of profit|profit upto death', 'joint life|policy|insurance'], 'min': 3},
+           's3': {'kw': ['drawing', 'interest drawing|interest on drawings'], 'min': 2},
+           's4': {'kw': ['revaluation loss|loss revaluation|loss on revaluation', 'loss up to death|loss till death|loss date death|share of loss|loss death|loss upto death|losses'], 'min': 2}},
+    'q4': {'extra_ok': False,
+           's1': {'nums': [30000]},
+           's2': {'kw': ['15|0.15|3 20']},
+           's3': {'nums': [36000],
+                  'wrong': [{'kw': ['144000'], 'say': "₹1,44,000 is the firm's profit on sales to death; Gita's 1/4 share is ₹36,000."}]},
+           's4': {'kw': ['share profit|profit up to death|profit death|profit till death'], 'rows': [['suspense', 'dr', 36000], ['gita', 'cr', 36000]],
+                  'wrong': [{'kw': ['profit loss appropriation'], 'say': "On death mid-year the share is debited to Profit and Loss Suspense A/c (not P&L Appropriation)."}]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

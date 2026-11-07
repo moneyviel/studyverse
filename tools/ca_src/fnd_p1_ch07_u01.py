@@ -459,3 +459,60 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['opening stock|stock at beginning|stock 1 april|opening inventory', 'dr', 80000], ['purchase', 'dr', 420000], ['wage', 'dr', 24000],
+                           ['freight|carriage', 'dr', 9000], ['sale|turnover', 'cr', 690000], ['closing stock|stock at end|stock 31 march|closing inventory', 'cr', 95000]]},
+           's2': {'nums': [252000]},
+           's3': {'rows': [['salar', 'dr', 100000], ['rent', 'dr', 30000]]},
+           's4': {'kw': ['provision|doubtful'], 'nums': [15000, 4000]},
+           's5': {'nums': [79000]},
+           's6': {'nums': [349000]},
+           's7': {'kw': ['prepaid|paid in advance|advance', 'outstanding|accrued|unpaid|due'], 'nums': [135000, 36000, 114000],
+                  'wrong': [{'kw': ['prepaid rent 36000|rent prepaid 36000'], 'say': 'Only the prepaid portion (₹6,000) is an asset; the P&L keeps ₹30,000 of rent.'}]},
+           's8': {'kw': ['balance sheet'], 'nums': [444000]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['charge', 'appropriation|appropriat'], 'min': 2},
+           's2': {'kw': ['known liabilit|fall value|fall in value|diminution|decline value|decrease value|loss value|anticipated loss|expected loss|meet liabilit|depreciation value',
+                         'strengthen|future need|contingenc|financial position|general purpose|unforeseen|future|expansion|working capital'], 'min': 2},
+           's3': {'kw': ['even if loss|even when loss|even loss|even in loss|irrespective profit|whether profit|regardless profit|even there loss|even if there loss|must be made',
+                         'only when profit|only if profit|only out profit|only profit|out of profit|profit earned|there profit|availability profit|only from profit|sufficient profit'], 'min': 2},
+           's4': {'kw': ['reduce net profit|reduces profit|reduce profit|debited profit loss|debit profit loss|debit side profit|deducted from asset|deducted asset|shown liabilit|decrease profit|lower profit',
+                         'not reduce|not affect profit|no effect profit|reserves surplus|reserve surplus|capital|liabilities side|after profit|set aside out|added capital'], 'min': 2},
+           's5': {'kw': ['provision doubtful|provision bad|provision depreciation|provision tax|provision for taxation|provision discount|provision repair|provision warranty',
+                         'general reserve|capital reserve|reserve fund|secret reserve|specific reserve|dividend equalisation|dividend equalization|revenue reserve|debenture redemption reserve|investment fluctuation'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'nums': [469000]},
+           's2': {'nums': [684000]},
+           's3': {'nums': [95000], 'kw': ['approval|cost'], 'min': 1,
+                  'wrong': [{'kw': ['99000'], 'say': 'Goods on approval go into closing stock at cost (₹24,000 × 100/120 = ₹20,000), not at the invoice price.'}]},
+           's4': {'nums': [213000]},
+           's5': {'kw': ['loss by fire|fire loss|loss fire|abnormal loss|loss of stock|fire 5000|loss 5000', 'insurance claim|claim receivable|claim 10000|insurance company|claim',
+                         'increase drawings|drawings increase|added drawings|add drawings|debited drawings|drawings debited|deducted capital|from capital|drawings account|less drawings capital',
+                         'advertis|sample expense|samples expense|publicity|selling expense|distribution expense', 'debtor|receivable|customer'], 'min': 4}},
+    'q4': {'extra_ok': True,
+           's1': {'kw': ['historical cost|historic cost|original cost|cost price|acquisition cost|price level|inflation|price change|changes in price|changing price|purchasing power|money value|value of money|not inflation|not price|not current value|not market value|not consider change']},
+           's2': {'kw': ['intangible|qualitative|non monetary|nonmonetary|expressed money|measured money|staff skill|employee skill|skill|human resource|customer loyalty|loyalty|management quality|morale|reputation|brand|not skill|not loyalty|not morale|not intangible|not qualitative|not reputation|not human']},
+           's3': {'kw': ['estimat|approximat|arbitrary|judgement|judgment|interim|subjective|allocation|accrual|useful life|not exact|not precise|not accurate|not final']},
+           's4': {'kw': ['accounting polic|different method|alternative method|alternative polic|valuation method|depreciation method|comparison|comparab|window dressing|manipulat|management influence|influenced by management|personal bias|not comparable']}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

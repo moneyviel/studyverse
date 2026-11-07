@@ -188,3 +188,45 @@ def build():
                      {'k': 'Card sale', 'v': 'Bank A/c Dr. To Sales A/c; Commission A/c Dr. To Bank A/c'}],
         'viva': viva(),
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['balance|opening|cash hand', 'dr', 8400], ['balance|opening|bank', 'dr', 65000], ['sale', 'dr', 14500], ['kapoor', 'dr', 24500], ['nisha', 'dr', 9750]]},
+           's2': {'rows': [['purchase', 'cr', 6200], ['joshi', 'cr', 15600], ['salar', 'cr', 21000], ['electricity', 'cr', 3300], ['drawing', 'cr', 4000]]},
+           's3': {'rows': [['bank|contra', 'dr', 10000], ['cash|contra', 'cr', 10000], ['cash|contra', 'dr', 12000], ['bank|contra', 'cr', 12000]]},
+           's4': {'rows': [['kapoor', 'dr', 500], ['nisha', 'dr', 250], ['joshi', 'cr', 400]]},
+           's5': {'rows': [['balance', 'cr', 17150], ['balance', 'cr', 54900]]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['fixed|definite|predetermined|imprest|certain sum|specific', 'beginning|start|advance|given|handed|petty cashier|begin'], 'min': 2},
+           's2': {'kw': ['reimburs|restor|replenish|refund|make good|made good', 'spent|voucher|actual|expended|expense|paid out|used'], 'min': 2,
+                  'wrong': [{'kw': ['reimburse balance|reimbursed balance|reimburses balance'], 'say': 'The reimbursement equals the amount spent (supported by vouchers), not the balance in hand.'}]},
+           's3': {'kw': ['control|check|cash vouchers|equal imprest|misuse|fraud|limit|risk|safe', 'time|main cashier|small items|small payment|petty item|free|burden|reliev|workload',
+                         'analytical|posting|totals posted|easy posting|only totals|periodic|classification', 'review|vouchers checked|regular check|scrutin|accountab'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'rows': [['bank', 'dr', 120000], ['sale', 'cr', 120000]],
+                  'wrong': [{'kw': ['118200'], 'say': 'Record the full sale of ₹1,20,000 to Bank and Sales; the commission is a separate expense entry.'}]},
+           's2': {'rows': [['commission|bank charge|card charge|charges|fee', 'dr', 1800], ['bank', 'cr', 1800]]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

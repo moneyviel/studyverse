@@ -346,3 +346,57 @@ def build():
                 M('k1d', 'Which statement about options (i) and (ii) is correct?', ['The tax fixes the price of pollution; permits fix its quantity', 'The tax fixes the quantity; permits fix the price', 'Both fix the quantity of pollution', 'Neither uses the price mechanism'], 0, 'A pollution tax fixes the price of each unit of pollution and lets firms decide how much to emit; tradable permits fix the total quantity of pollution and let the market set the permit price. The swapped version is the trap. In practice: regulators choose a tax when they want cost certainty for firms and a cap with permits when they want certainty about the environmental outcome.', 'c7', 'moderate', topic='Government Intervention to Correct Externalities'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(200, 300),
+        's2': _K('140 q|smc 140|pmc 40|add 40|plus 40|mec'),
+        's3': _N(190, 330),
+        's4': _K('10 unit|over production 10|overproduction 10|200 190 10|excess 10|10 more|10 excess|overproduc 10'),
+        's5': _K('tax 40|40 per unit|pigouvian 40|40 tax|tax rs 40|tax of 40', nums=[7600]),
+    },
+    'q2': {
+        's1': _N(100, 7000),
+        's2': _K('shortage|excess demand', nums=[7750, 6250, 1500]),
+        's3': _K('surplus|excess supply', nums=[6500, 7500, 1000]),
+        's4': _N(110000),
+    },
+    'q3': {
+        's1': _N(12000, 36000, 48000),
+        's2': _K('permit|receipt|sell|sale', nums=[24000]),
+        's3': _K('better off|both gain|both firms gain|net 0|net zero|x net 0|x zero|x 0', 'y pay 24000|y 24000|y saves|y better|y save|y gain|y pays 24000|y only 24000'),
+        's4': _K('same cut|same reduction|same 80|same total|same level|same emission|equal reduction|same amount|same abatement', 'least|lower|half|saves|saving|cheaper|minimum|reduc|24000'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

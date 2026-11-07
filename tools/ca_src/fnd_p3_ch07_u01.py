@@ -385,7 +385,7 @@ def build():
              'q': 'Let A = {1, 2, 3, 6} and R be the relation on A defined by "a R b if a divides b". (a) List R in roster form. (b) State its domain and range. (c) Is R reflexive, symmetric, transitive? Is it an equivalence relation? (d) How many relations in all can be defined on A?',
              'model': [p(f'(a) R = {fr(RD)} — {len(RD)} pairs.'),
                        p('(b) Domain = {1, 2, 3, 6}; range = {1, 2, 3, 6}.'),
-                       p('(c) Reflexive: every number divides itself — yes. Symmetric: 1 divides 2 but 2 does not divide 1 — no. Transitive: if a divides b and b divides c, then a divides c — yes. Since it is not symmetric, R is not an equivalence relation.'),
+                       p('(c) Reflexive: every number divides itself — yes. Symmetric: not symmetric, because 1 divides 2 but 2 does not divide 1. Transitive: if a divides b and b divides c, then a divides c — yes. Since it is not symmetric, R is not an equivalence relation.'),
                        p('(d) A × A has 16 pairs, so the number of relations on A is 2¹⁶ = 65,536.')],
              'scheme': [{'id': 's1', 'pt': 'All 9 pairs listed correctly', 'm': 1.5, 'skill': 'computation'},
                         {'id': 's2', 'pt': 'Domain and range', 'm': 0.5, 'skill': 'concept'},
@@ -478,3 +478,58 @@ VIVA = [
       [P('p1', 'Limit exists when LHL and RHL exist and are equal', 5, 'left hand|left-hand|lhl|left limit|from the left', 'right hand|right-hand|rhl|right limit|from the right', 'equal|same|agree|match|coincide', min=3),
        P('p2', 'Continuous: f(a) defined and limit equals f(a)', 5, 'limit equal f a|limit equals f of a|limit equal value|limit is equal to f a|limit same as f a|limit equal function value|equal to value of function|limit equal f(a)|equal f of a|equal to f a|equals the value|value equal limit|f a equal limit|f of a equal limit|f of a equals the limit', 'defined|exist|finite', min=2)], 'c10'),
 ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(74),
+        's2': _N(8, 6, 4),
+        's3': _N(22, 19, 11, 26, 52, 18),
+        's4': _K('consistent|valid|correct|accurate', 'negative|100|add|sum|total|tall'),
+    },
+    'q2': {
+        's1': _K('1 1|11', '1 2|12', '1 3|13', '1 6|16', '2 2|22', '2 6|26', '3 3|33', '3 6|36', '6 6|66'),
+        's2': _K('domain 1 2 3|domain 1236|domain same|domain set|domain whole|domain entire|domain equal', 'range 1 2 3|range 1236|range same|range set|range whole|range entire|range equal|range also'),
+        's3': _K('reflexive', 'not symmetric|symmetric no|no symmetric|not a symmetric|symmetric not|anti symmetric|antisymmetric|fails symmetr|symmetry fail|non symmetric', 'transitive', 'itself|1 divid 2|2 not divid 1|counter|example|divid c'),
+        's4': _K('not equivalence|not an equivalence|no equivalence|equivalence no|fails equivalence|cannot be equivalence|not equivalent|not be an equivalence'),
+        's5': _N(65536),
+    },
+    'q3': {
+        's1': _K('0 0|indeterminate|factori|x 3 x2 3x 9|x 3 x 3|cancel'),
+        's2': _K('9 2|4.5'),
+        's3': _K('x3|x 3|highest power|divid|x^3|leading', '0.4|limit 2 5|lim 2 5|2 5 limit|answer 2 5|x 3 2 5|ans 2 5|infinity 2 5|2 5 0.4|equal 2 5'),
+        's4': _K('lhl|left hand|left limit|lhs limit|left side limit', 'rhl|right hand|right limit|rhs limit|right side limit', 'f 2 2k|f 2 5|f 2 equal|value at 2|functional value|f2 2k|f2 5', min=3),
+        's5': _K('k 2|k equal 2|k is 2'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

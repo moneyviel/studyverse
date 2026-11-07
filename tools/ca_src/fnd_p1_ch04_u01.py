@@ -497,3 +497,55 @@ def build():
                   'Inventory is shown at the lower of cost and NRV. FIFO cost = ₹8,700; NRV = 200 × ₹45 = ₹9,000. Cost is lower, so inventory is shown at ₹8,700. The tempting ₹9,000 uses NRV even though it is higher, which would recognise an unrealised profit of ₹300. In practice: a write-down is needed only when NRV falls below cost — for example, if a new model makes old notebooks hard to sell.', 'c3', 'moderate', '150*44+50*42'), topic='Basis: lower of cost and net realisable value'),
             ]}],
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+# BRS / statement tables: side add|less = the Add or Less part of the statement ('' = any).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'nums': [10400]},
+           's2': {'nums': [14200, 5800]},
+           's3': {'nums': [2900]},
+           's4': {'nums': [53, 56.75]},
+           's5': {'nums': [2837.5]},
+           's6': {'kw': ['receipt|received|recd|purchase', 'issue', 'balance'], 'min': 3}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['physical count|physical verification|stock taking|counting|physical|stocktaking', 'book record|stores ledger|continuous record|record|stock ledger|bin card|continuous|perpetual'], 'min': 2},
+           's2': {'kw': ['cost goods sold|cogs|cost sales|cost of sales', 'closing inventory|closing stock'], 'min': 2},
+           's3': {'kw': ['loss|shortage|theft|pilferage|abnormal|wastage', 'control|hidden|come light|detect|reveal|identif|conceal|absorb|known|unknown|discover'], 'min': 2},
+           's4': {'kw': ['cost|costly|expensive|cheap|simple|economical', 'disrupt|stop|closure|interrupt|halt|suspend|without stopping|operation|work|business'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'kw': ['count|counted|physical|25 march|stock taking|stocktaking', 'add|plus'], 'min': 2},
+           's2': {'rows': [['purchase', 'add', 38000], ['return', 'less', 2000]]},
+           's3': {'rows': [['sale|cost', 'less', 41250]]},
+           's4': {'rows': [['damage|nrv|write|written|loss|realisable|realizable', 'less', 5000]]},
+           's5': {'nums': [301750]}},
+    'q4': {'extra_ok': False,
+           's1': {'kw': ['|'.join(f'{a} {b}' for a in ('gst', 'input tax', 'tax', '34200') for b in ('excluded', 'exclude', 'not included', 'recoverable', 'not part', 'ignored', 'input credit', 'credit available', 'not added', 'not cost', 'not considered'))
+                         + '|' + '|'.join(f'{b} {a}' for a in ('gst', 'tax') for b in ('excluded', 'exclude', 'excluding', 'not include', 'recoverable', 'ignore'))], 'min': 1, 'rows': [['freight|carriage', '', 6000]],
+                  'wrong': [{'kw': ['224200|gst included|including gst'], 'say': 'GST for which input credit is available is recoverable and is not part of the cost of inventory.'}]},
+           's2': {'rows': [['labour|labor|wages', '', 45000]]},
+           's3': {'kw': ['storage|administration|selling|commission', 'exclud|not included|not part|ignored|period cost|expense|not added|not cost|charged'], 'min': 2},
+           's4': {'nums': [280000, 263000]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

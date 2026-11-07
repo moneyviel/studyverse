@@ -1099,43 +1099,112 @@
      "id": "s1",
      "pt": "Raw materials consumed ₹6,20,000 (freight included)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "freight|carriage"
+     ],
+     "rows": [
+      [
+       "consum|raw material|materials used",
+       "dr",
+       620000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "605000"
+       ],
+       "say": "Freight on purchases is part of the cost of raw materials: consumption is ₹6,20,000, not ₹6,05,000."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Direct wages and machine hire as direct expense — prime cost ₹9,05,000",
      "m": 1.5,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "wage|labour",
+       "dr",
+       210000
+      ],
+      [
+       "hire|machine|direct expense|royalt",
+       "dr",
+       75000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Factory overheads ₹1,30,000",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "factory rent|rent",
+      "depreciation",
+      "indirect wage|indirect labour"
+     ],
+     "nums": [
+      60000,
+      45000,
+      25000
+     ]
     },
     {
      "id": "s4",
      "pt": "WIP adjusted correctly and by-product credited",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "opening work|opening wip|work in progress|wip|work in process",
+       "dr",
+       30000
+      ],
+      [
+       "closing work|closing wip|work in progress|wip|work in process",
+       "cr",
+       40000
+      ],
+      [
+       "by product|byproduct|scrap",
+       "cr",
+       5000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Cost of production ₹10,20,000 and ₹20.40 per unit",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      1020000,
+      20.4
+     ]
     },
     {
      "id": "s6",
      "pt": "Closing finished goods 4,000 units at ₹20.40 (FIFO)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      4000,
+      81600
+     ]
     },
     {
      "id": "s7",
      "pt": "Trading Account with gross profit ₹4,03,600",
      "m": 1.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "nums": [
+      1456000,
+      403600
+     ]
     }
    ],
    "remarks": [
@@ -1202,7 +1271,8 @@
      "value": 403600,
      "label": "Gross profit"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1278,61 +1348,91 @@
      "id": "s1",
      "pt": "Item (1) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "carriage direct material|direct material carriage|carriage cost material|carriage added cost material|carriage part cost material|carriage direct raw material"
+     ]
     },
     {
      "id": "s2",
      "pt": "Item (2) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "operator direct wage|direct wage operator|operator direct labour|operator direct labor|direct labour operator"
+     ]
     },
     {
      "id": "s3",
      "pt": "Item (3) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "royalt direct expense|royalt unit direct expense|royalt produc direct expense|direct expense royalt|royalt production direct expense|royalt direct exp"
+     ]
     },
     {
      "id": "s4",
      "pt": "Item (4) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "factory building factory overhead|building factory overhead|factory overhead depreciation factory building|depreciation factory building overhead|building indirect expense|building works overhead|building manufacturing overhead|building production overhead"
+     ]
     },
     {
      "id": "s5",
      "pt": "Item (5) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "supervisor factory overhead|supervisor indirect wage|supervisor indirect labour|supervisor indirect labor|factory overhead supervisor|indirect wage supervisor|supervisor works overhead|supervisor manufacturing overhead|supervisor production overhead"
+     ]
     },
     {
      "id": "s6",
      "pt": "Item (6) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "advertis selling|advertis distribution|advertis profit loss|advertis p l|selling expense advertis|selling advertis|advertis sell"
+     ]
     },
     {
      "id": "s7",
      "pt": "Item (7) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "lubricant factory overhead|lubricant indirect material|waste indirect material|waste factory overhead|indirect material cotton|factory overhead cotton|lubricant works overhead|lubricant manufacturing overhead|lubricant production overhead"
+     ]
     },
     {
      "id": "s8",
      "pt": "Item (8) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "hire charge machine unit produc direct expense|hire direct expense|hire unit direct expense|hire charge direct expense|machine unit produc direct expense|direct expense hire|hire produc direct expense|hire direct exp"
+     ]
     },
     {
      "id": "s9",
      "pt": "Item (9) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "office rent office|office rent administrat|office rent profit loss|office rent p l|rent administrat|administrat expense office rent|office expense office rent|office rent office expense|office rent establishment"
+     ]
     },
     {
      "id": "s10",
      "pt": "Item (10) correctly classified",
      "m": 0.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "insurance plant factory overhead|plant factory overhead|factory overhead insurance|insurance plant indirect expense|plant indirect expense|plant works overhead|plant manufacturing overhead|plant production overhead"
+     ]
     }
    ],
    "remarks": [
@@ -1344,7 +1444,8 @@
    ],
    "tips": [
     "Ask: can it be traced to each unit? Is it incurred in the factory?"
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1369,25 +1470,39 @@
      "id": "s1",
      "pt": "Total cost with elements",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "cost of production|cost production|total cost|cost of goods produced|cost of goods manufactured|cost of manufactur|manufacturing cost|factory cost",
+      "element|material|wage|overhead|component|break up|breakup|detail|item|separately"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Reconciliation with cost records",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "reconcil|cost record|cost account|costing record|tally|cost book"
+     ]
     },
     {
      "id": "s3",
      "pt": "Period-to-period comparison",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "comparison|comparative|comparab|efficien|control cost|cost control|period to period|year to year|previous|over the years|trend"
+     ]
     },
     {
      "id": "s4",
      "pt": "Manufacturing profit / bonus",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "manufacturing profit|profit on manufactur|profit manufactur|loss on manufactur|market price|bonus|incentive|transfer price"
+     ]
     }
    ],
    "remarks": [
@@ -1398,7 +1513,8 @@
    ],
    "tips": [
     "Four numbered points, one line each."
-   ]
+   ],
+   "extra_ok": true
   }
  ],
  "revision": {

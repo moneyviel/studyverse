@@ -33,37 +33,63 @@
        "id": "t1",
        "s": "Trade discount allowed on a purchase is debited to Discount Account in the books of the buyer.",
        "answer": false,
-       "reason": "False. Trade discount is deducted on the invoice itself and is never recorded; the purchase is entered at the net price."
+       "reason": "False. Trade discount is deducted on the invoice itself and is never recorded; the purchase is entered at the net price.",
+       "kw": [
+        "not recorded|never recorded|net price|net amount|deducted invoice|no entry|not entered|not passed|net invoice|not accounted|not shown books|not debited"
+       ],
+       "min": 1
       },
       {
        "id": "t2",
        "s": "A contra entry in the cash book is not posted to the ledger.",
        "answer": true,
-       "reason": "True. Both accounts affected — cash and bank — are already in the cash book, so no ledger posting is needed."
+       "reason": "True. Both accounts affected — cash and bank — are already in the cash book, so no ledger posting is needed.",
+       "kw": [
+        "cash bank|both cash|both account|both side|cash book itself|already cash book|already recorded|already appear|both appear|both affected|both recorded|same book|within cash book"
+       ],
+       "min": 1
       },
       {
        "id": "t3",
        "s": "If the trial balance agrees, the books of account are free from errors.",
        "answer": false,
-       "reason": "False. Errors of complete omission, principle, compensating errors and posting to a wrong account on the correct side do not affect agreement."
+       "reason": "False. Errors of complete omission, principle, compensating errors and posting to a wrong account on the correct side do not affect agreement.",
+       "kw": [
+        "omission|principle|compensat|commission|errors not revealed|not disclosed|undisclosed|not affect agreement|arithmetical|arithmetic|wrong account|still errors|errors remain"
+       ],
+       "min": 1
       },
       {
        "id": "t4",
        "s": "Goods taken by the proprietor for personal use are credited to Sales Account.",
        "answer": false,
-       "reason": "False. Drawings Account is debited and Purchases Account is credited, at cost, because no sale has taken place."
+       "reason": "False. Drawings Account is debited and Purchases Account is credited, at cost, because no sale has taken place.",
+       "kw": [
+        "drawing",
+        "purchase|cost|no sale|not sale|not sold"
+       ],
+       "min": 2
       },
       {
        "id": "t5",
        "s": "Nominal accounts are not carried forward to the next year.",
        "answer": true,
-       "reason": "True. Expenses, losses, incomes and gains are closed by transfer to the Trading or Profit and Loss Account at the year end."
+       "reason": "True. Expenses, losses, incomes and gains are closed by transfer to the Trading or Profit and Loss Account at the year end.",
+       "kw": [
+        "trading|profit loss|p l|closed|transfer|written off"
+       ],
+       "min": 1
       },
       {
        "id": "t6",
        "s": "A trader who deals in groceries records the credit purchase of a computer for office use in the purchases book.",
        "answer": false,
-       "reason": "False. The purchases book records only credit purchases of goods dealt in; a credit purchase of an asset is recorded in the journal proper."
+       "reason": "False. The purchases book records only credit purchases of goods dealt in; a credit purchase of an asset is recorded in the journal proper.",
+       "kw": [
+        "journal proper|journal",
+        "asset|computer|not goods|goods dealt|only goods|not dealt|not stock|fixed asset"
+       ],
+       "min": 2
       }
      ]
     },
@@ -305,25 +331,80 @@
         "id": "s1",
         "pt": "Each payment entered in the total column and the right analysis column",
         "m": 2,
-        "skill": "classification"
+        "skill": "classification",
+        "rows": [
+         [
+          "postage",
+          "postage",
+          420
+         ],
+         [
+          "paper|pen|stationery|printer",
+          "stationery",
+          860
+         ],
+         [
+          "cartage",
+          "cartage",
+          1250
+         ],
+         [
+          "auto|fare|travel|bank",
+          "travel",
+          690
+         ],
+         [
+          "courier",
+          "postage",
+          310
+         ],
+         [
+          "tea|staff|meeting|sundry",
+          "sundry",
+          540
+         ]
+        ]
        },
        {
         "id": "s2",
         "pt": "Column totals, total spent ₹4,070",
         "m": 1,
-        "skill": "computation"
+        "skill": "computation",
+        "nums": [
+         4070,
+         730
+        ]
        },
        {
         "id": "s3",
         "pt": "Balance in hand ₹930 carried down",
         "m": 1,
-        "skill": "balancing"
+        "skill": "balancing",
+        "nums": [
+         930
+        ],
+        "kw": [
+         "balance|c d|carried|in hand"
+        ],
+        "min": 1
        },
        {
         "id": "s4",
         "pt": "Reimbursement of ₹4,070 shown",
         "m": 1,
-        "skill": "presentation"
+        "skill": "presentation",
+        "kw": [
+         "reimburs 4070|reimbursement 4070|restor 4070|replenish 4070|received 4070|receive 4070|top up 4070|paid 4070|4070 reimburs|4070 reimbursed|4070 received|4070 restor|4070 replenish"
+        ],
+        "min": 1,
+        "wrong": [
+         {
+          "kw": [
+           "reimburse 930|reimbursed 930|reimbursement 930|930 reimburs"
+          ],
+          "say": "The reimbursement equals the amount spent (₹4,070), not the balance in hand."
+         }
+        ]
        }
       ],
       "remarks": [
@@ -373,7 +454,8 @@
         "value": 540,
         "label": "Sundry column total"
        }
-      ]
+      ],
+      "extra_ok": false
      }
     }
    ]
@@ -650,37 +732,235 @@
         "id": "s1",
         "pt": "Seven journal entries with correct accounts debited and credited",
         "m": 3,
-        "skill": "classification"
+        "skill": "classification",
+        "rows": [
+         [
+          "cash",
+          "dr",
+          150000
+         ],
+         [
+          "capital",
+          "cr",
+          150000
+         ],
+         [
+          "purchase",
+          "dr",
+          60000
+         ],
+         [
+          "cash",
+          "cr",
+          60000
+         ],
+         [
+          "cash",
+          "dr",
+          45000
+         ],
+         [
+          "sale",
+          "cr",
+          45000
+         ],
+         [
+          "arun",
+          "dr",
+          28000
+         ],
+         [
+          "sale",
+          "cr",
+          28000
+         ],
+         [
+          "rent",
+          "dr",
+          8000
+         ],
+         [
+          "cash",
+          "cr",
+          8000
+         ],
+         [
+          "cash",
+          "dr",
+          20000
+         ],
+         [
+          "arun",
+          "cr",
+          20000
+         ],
+         [
+          "drawing",
+          "dr",
+          5000
+         ],
+         [
+          "cash",
+          "cr",
+          5000
+         ]
+        ],
+        "wrong": [
+         {
+          "kw": [
+           "drawings expense|drawing expense|drawings profit loss"
+          ],
+          "say": "Drawings reduce capital; they are not a business expense like rent."
+         }
+        ]
        },
        {
         "id": "s2",
         "pt": "Narrations for the entries",
         "m": 1,
-        "skill": "presentation"
+        "skill": "presentation",
+        "kw": [
+         "started|commenced|brought|introduced",
+         "bought|purchased",
+         "sold",
+         "paid|payment",
+         "received|receipt",
+         "withdrawn|personal|drawn|private"
+        ],
+        "min": 4
        },
        {
         "id": "s3",
         "pt": "Cash Account posted and balanced — ₹1,42,000 Dr",
         "m": 2,
-        "skill": "posting"
+        "skill": "posting",
+        "rows": [
+         [
+          "capital",
+          "dr",
+          150000
+         ],
+         [
+          "sale",
+          "dr",
+          45000
+         ],
+         [
+          "arun",
+          "dr",
+          20000
+         ],
+         [
+          "purchase",
+          "cr",
+          60000
+         ],
+         [
+          "rent",
+          "cr",
+          8000
+         ],
+         [
+          "drawing",
+          "cr",
+          5000
+         ],
+         [
+          "balance",
+          "cr",
+          142000
+         ]
+        ]
        },
        {
         "id": "s4",
         "pt": "Sales Account — ₹73,000 Cr; Arun's Account — ₹8,000 Dr",
         "m": 2,
-        "skill": "balancing"
+        "skill": "balancing",
+        "rows": [
+         [
+          "balance",
+          "dr",
+          73000
+         ],
+         [
+          "cash",
+          "cr",
+          45000
+         ],
+         [
+          "arun",
+          "cr",
+          28000
+         ],
+         [
+          "sale",
+          "dr",
+          28000
+         ],
+         [
+          "cash",
+          "cr",
+          20000
+         ],
+         [
+          "balance",
+          "cr",
+          8000
+         ]
+        ]
        },
        {
         "id": "s5",
         "pt": "Trial balance lists every account on the correct side",
         "m": 2,
-        "skill": "classification"
+        "skill": "classification",
+        "rows": [
+         [
+          "cash",
+          "dr",
+          142000
+         ],
+         [
+          "capital",
+          "cr",
+          150000
+         ],
+         [
+          "purchase",
+          "dr",
+          60000
+         ],
+         [
+          "sale",
+          "cr",
+          73000
+         ],
+         [
+          "arun",
+          "dr",
+          8000
+         ],
+         [
+          "rent",
+          "dr",
+          8000
+         ],
+         [
+          "drawing",
+          "dr",
+          5000
+         ]
+        ]
        },
        {
         "id": "s6",
         "pt": "Trial balance totals agree at ₹2,23,000",
         "m": 2,
-        "skill": "computation"
+        "skill": "computation",
+        "nums": [
+         223000
+        ]
        }
       ],
       "remarks": [
@@ -722,7 +1002,8 @@
         "value": 223000,
         "label": "Trial balance — credit total"
        }
-      ]
+      ],
+      "extra_ok": false
      }
     },
     {

@@ -437,3 +437,51 @@ def build():
         ],
         'viva': viva, 'cases': cases_,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'nums': [311000]},
+           's2': {'nums': [95000]},
+           's3': {'rows': [['rent', '', 30000], ['stationery', '', 5000]]},
+           's4': {'kw': ['furniture'], 'nums': [29500]},
+           's5': {'rows': [['entrance', '', 8000], ['newspaper|old paper|scrap', '', 1800], ['fine', '', 2200], ['interest', '', 1500]]},
+           's6': {'kw': ['deficit|excess of expenditure over income|excess expenditure over income'], 'nums': [18300]},
+           's7': {'kw': ['book fund|fund for books|books fund|specific fund|library fund|book donation fund|fund for purchase of books'], 'rows': [['fund', '', 40000]],
+                  'wrong': [{'kw': ['21700'], 'say': 'A surplus of ₹21,700 means the ₹40,000 book donation was taken as income; it is a specific donation — credit it to a Book Fund (liabilities side).'}]},
+           's8': {'kw': ['outstanding|unpaid|due', 'advance|prepaid|unearned'], 'nums': [292700]},
+           's9': {'nums': [265500, 45000, 7000, 19700, 338700]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['summary cash|summary of cash|cash book|real account|cash account', 'profit loss|nominal account|nominal'], 'min': 2},
+           's2': {'kw': ['cash basis|cash system|actual receipt|cash received|cash receipts', 'accrual|mercantile|accrued|due basis'], 'min': 2},
+           's3': {'kw': ['capital and revenue|capital as well as revenue|both capital|capital nature|capital receipt|capital payment|capital item|capital expenditure|capital receipts',
+                         'only revenue|revenue only|revenue nature|revenue item|revenue income|revenue expense|revenue expenditure'], 'min': 2},
+           's4': {'kw': ['past|previous|future|any period|other period|whichever period|all periods|preceding|succeeding',
+                         'current period|current year|relating period|relevant period|this year|accounting period|only items relating|relates current|same period'], 'min': 2},
+           's5': {'kw': ['opening|closing|balance', 'surplus|deficit|depreciation|outstanding|non cash|accrued|excess of income'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'nums': [143500]},
+           's2': {'nums': [149500]},
+           's3': {'nums': [145500]},
+           's4': {'kw': ['fund'], 'nums': [42000]},
+           's5': {'kw': ['income expenditure|expenditure account|i e account|i e a c|ie account'], 'nums': [5000],
+                  'wrong': [{'kw': ['shown as asset|carried as asset|asset side|shown on assets|shown assets side|treated as asset'], 'say': 'The excess spending over the fund is a revenue charge to the Income and Expenditure Account; it is not an asset.'}]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

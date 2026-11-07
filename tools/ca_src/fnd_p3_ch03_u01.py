@@ -407,3 +407,55 @@ def viva():
            P('p3', 'Non-negativity constraints x, y ≥ 0', 2, 'non negativ|nonnegativ|not negative|cannot be negative|greater than or equal to zero|zero or more|can t be negative'),
            P('p4', 'Objective function to maximise or minimise', 2, 'objective|goal|profit function|cost function|maximi|minimi', min=1)], 'c3'),
     ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('5 0|50', '0 4|8 0|80|0 10', 'origin|toward|below|side', min=2),
+        's2': _K('4 2|42|x 4|y 2 x 4'),
+        's3': _K('0 4', '5 0|50', '4 2|42|x 4', min=2),
+        's4': _K('max 20|maximum 20|highest 20|largest 20|greatest 20|20 max|20 maximum|optimum 20|optimal 20'),
+    },
+    'q2': {
+        's1': _K('30x 20y|30 x 20 y', 'x 2y 40|x 2 y 40', '2x y 50|2 x y 50', 'x 0|y 0|non negativ|nonnegativ|x y 0'),
+        's2': _K('20 10|2010|x 20 y 10|p 20 q 10|20 unit p', '25 0|250|0 20', min=2),
+        's3': _K('max 800|maximum 800|optimum 800|optimal 800|best 800|highest 800|800 max|800 maximum|profit 800'),
+    },
+    'q3': {
+        's1': _K('unbounded|away from origin|not toward origin|beyond|outside|above|origin fail|origin not satisf|origin does not satisf'),
+        's2': _K('3 3|33|x 3 y 3', '12 0|120|0 6', min=2),
+        's3': _K('min 150|minimum 150|least 150|lowest 150|150 min|150 minimum|optimum 150|optimal 150'),
+        's4': _K('no maximum|maximum not exist|no max|maximum not possible|cannot be maximi|maximum infinit|no finite maximum|maximum not defined|without limit|no upper limit'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

@@ -332,3 +332,48 @@ def build():
             {'k': 'Conversion', 'v': 'Shares = redemption value of debentures converted ÷ issue price per share'},
         ],
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['debenture holder|debentureholder|holders', 'dr', 900000]]},
+           's2': {'nums': [90000], 'rows': [['profit|p l|surplus', 'cr', 50000]]},
+           's3': {'rows': [['general reserve', 'dr', 90000]]},
+           's4': {'rows': [['investment|bond', 'dr', 135000]]},
+           's5': {'nums': [45000, 945000]},
+           's6': {'nums': [10800, 40800]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['profits available for dividend|profit available dividend|out of profits|profits|profit', 'only for redemption|only redemption|used only|not for any other|solely|only purpose'], 'min': 2},
+           's2': {'kw': ['aifi|all india financial|banking compan|bank', 'listed', 'nbfc|hfc|housing finance|privately placed|private placement'], 'min': 3},
+           's3': {'kw': ['10 percent|10 per cent|10', 'outstanding|unlisted'], 'min': 2},
+           's4': {'kw': ['15 percent|15 per cent|15', '30 april|april 30|30th april|30 apr', 'scheduled bank|government securities|trust securities|deposit|invest|bonds'], 'min': 3}},
+    'q3': {'extra_ok': False,
+           's1': {'nums': [520],
+                  'wrong': [{'kw': ['500 shares|500 equity'], 'say': 'Shares are issued for the redemption value (₹104 per debenture): 200 × ₹104 ÷ ₹40 = 520 shares.'}]},
+           's2': {'nums': [62400]},
+           's3': {'rows': [['debenture holder|debentureholder|holders', 'dr', 20800], ['capital', 'cr', 5200], ['premium', 'cr', 15600]]}},
+    'q4': {'extra_ok': False,
+           's1': {'rows': [['profit|p l|surplus', 'dr', 150000], ['redemption reserve|drr', 'cr', 150000]]},
+           's2': {'rows': [['investment|deposit', 'dr', 225000], ['bank', 'cr', 225000]]},
+           's3': {'rows': [['bank', 'dr', 225000], ['investment|deposit', 'cr', 225000], ['debenture', 'dr', 1500000], ['bank', 'cr', 1500000]]},
+           's4': {'rows': [['redemption reserve|drr', 'dr', 150000], ['general reserve', 'cr', 150000]]},
+           's5': {'kw': ['30 april|april 30|apr 30|30 apr|30 04', '31 march|march 31|mar 31|31 mar|31 03'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

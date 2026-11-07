@@ -366,3 +366,58 @@ def build():
                 M('k1d', 'Announcements (i), (ii) and (iii) relate respectively to which functions?', ['Allocation, redistribution, stabilization', 'Redistribution, allocation, stabilization', 'Stabilization, redistribution, allocation', 'Allocation, stabilization, redistribution'], 0, 'The tobacco tax raises the price of a demerit good to shift resources away from it — allocation. Pensions for the poor transfer income to them — redistribution. A tax cut during a slowdown boosts aggregate demand — stabilization. The tempting trap is calling the tobacco tax redistribution because it takes money from consumers, but its aim is changing consumption. In practice: Budget commentaries by Indian CA firms often classify announcements this way.', 'c2', 'moderate', topic='The Role of Government in an Economic System'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _CR(*vals, **x):
+    """figures in Rs crore: nums matches '5,690' and '5,690 crore' alike"""
+    return _N(*vals, **x)
+
+
+AUTO = {
+    'q1': {'s1': _CR(2264000), 's2': _CR(928240), 's3': _CR(1335760), 's4': _CR(1671760)},
+    'q2': {
+        's1': _N(13.5, 31.5, 3.75, 8.75, 1.5),
+        's2': _N(32.75, 67.25),
+        's3': _CR(26200, 53800),
+        's4': _K('income distance 45 weight|45 percent weight|y poorer|poorer state|equity|y is poorer|poor state|needier|lower per capita|y poor|poorer'),
+    },
+    'q3': {
+        's1': _K('carbon allocation|carbon tax allocation|allocation carbon|pollut allocation|allocation pollut'),
+        's2': _K('b redistribution|allowance redistribution|unemployment redistribution|redistribution unemployment|redistribution transfer|transfer redistribution'),
+        's3': _K('c stabili|gst stabili|stabili gst|slump stabili|car stabili|stabili demand|stabili slump'),
+        's4': _K('d allocation|road allocation|allocation road|infrastructure allocation|allocation infrastructure|allocation public|rural roads allocation'),
+        's5': _K('e redistribution|progressive redistribution|redistribution progressive|slab redistribution|redistribution ability|redistribution higher'),
+        's6': _K('f stabili|spending stabili|stabili spending|inflation stabili|stabili inflation|stabili contraction|spending cut stabili|stabili excess demand'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

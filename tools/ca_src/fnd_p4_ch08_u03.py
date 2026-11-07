@@ -285,3 +285,62 @@ def build():
                 M('k1d', 'The MPC\'s repo hike will, through the cash-flow channel:', ['Raise EMIs on floating-rate loans, leaving borrowers less cash to spend', 'Lower EMIs', 'Increase exports immediately', 'Reduce CRR'], 0, "Through the cash-flow channel, a repo hike raises interest rates on floating-rate loans linked to the benchmark, so EMIs rise and borrowers have less cash left for other spending, reducing demand. 'Lower EMIs' is the trap — that would follow a rate cut. In practice: most new retail loans in India are linked to the repo-based external benchmark rate, so hikes pass quickly to household budgets.", 'c3', 'moderate', topic='The Monetary Policy Framework'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _CR(*vals, **x):
+    """figures in Rs crore: nums matches '5,690' and '5,690 crore' alike"""
+    return _N(*vals, **x)
+
+
+AUTO = {
+    'q1': {
+        's1': _CR(75000, 450000),
+        's2': _CR(1975000),
+        's3': _CR(6250, 100000),
+        's4': _K('expansionary|easy|accommodative|loose|dovish|expansion'),
+    },
+    'q2': {
+        'extra_ok': True,
+        's1': _K('80.55|8055000'),
+        's2': _K('84.38|8438000'),
+        's3': _K('3.83|383000'),
+        's4': _K('penal|penalty|emergency|discourage|ceiling|upper|last resort|plan|corridor'),
+    },
+    'q3': {
+        's1': _K('target 4|cpi 4|inflation 4|4 percent target|target of 4|4 percent 2 percent|4 plus minus 2', '2 6|2 percent 6|2 to 6|plus minus 2|2 percent'),
+        's2': _K('failure|fail|breach|missed', 'below 2|below lower|lower tolerance|three consecutive|3 consecutive|1.8|less than 2|lower limit'),
+        's3': _K('no failure|not a failure|not failure|no breach|not fail|within the band|within band|within tolerance|not breach', '5.9|quarter 4|only two|two quarters|q4|4th quarter|fourth quarter'),
+        's4': _K('report|explain|letter|write', 'government|centre|central', 'reason|remedial|time|action', min=3),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

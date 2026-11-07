@@ -530,3 +530,53 @@ def build():
         ],
         'viva': viva, 'cases': kcase,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'kw': ['20 15 7|20 42 15 42 7 42']},
+           's2': {'kw': ['7 4 3|42 4 3|sacrific 4 3|sacrific old ratio|sacrific ratio old|sacrific ratio 4 3|sacrific ratio same old|sacrific ratio equal old|old ratio sacrific']},
+           's3': {'kw': ['41 29 14|41 84 29 84 14 84']},
+           's4': {'kw': ['14 1 1|84 1 1|sacrific 1 1|sacrific ratio 1 1|sacrific equal|sacrific ratio equal|equal sacrific']},
+           's5': {'kw': ['6 5 3|6 14 5 14 3 14']},
+           's6': {'kw': ['5 3 2 1|3 14 2 1|sacrific 2 1|sacrific ratio 2 1']}},
+    'q2': {'extra_ok': False,
+           's1': {'rows': [['plant', 'dr', 9000], ['provision|doubtful', 'dr', 2400], ['claim|damage', 'dr', 1600], ['land|building', 'cr', 36000]],
+                  'wrong': [{'kw': ['revaluation loss|loss on revaluation'], 'say': 'Revaluation gives a profit of ₹23,000 (gain ₹36,000 less losses ₹13,000), not a loss.'}]},
+           's2': {'kw': ['profit loss|p l|accumulated profit|undistributed|reserve'], 'nums': [11500]},
+           's3': {'kw': ['goodwill|premium'], 'nums': [30000, 15000]},
+           's4': {'nums': [215500, 155500]},
+           's5': {'kw': ['claim|damage'], 'nums': [186000, 81000, 49600, 194000, 570600]},
+           's6': {'kw': ['sacrific', '1 6|1 1|equal'], 'min': 2}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['revised value|new value|new balance sheet|revised figure|revised amount|appear|altered value|changed value',
+                         'old value|old figure|original value|not change|unchanged|remain|book value|old book|historical value|not altered'], 'min': 2},
+           's2': {'kw': ['two parts|part ii|part 2|second part|2 parts|two sections|two stages|revers']},
+           's3': {'kw': ['old ratio|old partners|old profit sharing', 'new ratio|all partners|including new|new partner|new profit sharing'], 'min': 2},
+           's4': {'kw': ['changed|altered|revised|updated|appear|recorded', 'not changed|not altered|unchanged|remain same|remain old|not affect|only capital|old values stay|remain unaltered|not change|not recorded|no change|continue at old'], 'min': 2}},
+    'q4': {'extra_ok': False,
+           's1': {'nums': [450000]},
+           's2': {'kw': ['hidden|goodwill'], 'nums': [410000, 40000],
+                  'wrong': [{'kw': ['60000'], 'say': 'The ₹20,000 credit balance of P&L belongs to the old partners and is part of actual capital: hidden goodwill is ₹40,000, not ₹60,000.'}]},
+           's3': {'kw': ['sacrific', '3 2|3 15 2 15'], 'min': 2},
+           's4': {'rows': [['bank|cash', 'dr', 150000], ['usha', 'cr', 150000], ['profit loss|p l|profit and loss', 'dr', 20000], ['uday', 'cr', 12000], ['vani', 'cr', 8000]]},
+           's5': {'rows': [['usha', 'dr', 13333.33], ['uday', 'cr', 8000], ['vani', 'cr', 5333.33]]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

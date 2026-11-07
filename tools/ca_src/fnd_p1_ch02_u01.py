@@ -274,3 +274,52 @@ def build():
         ],
         'viva': viva(),
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['bank', 'dr', 500000], ['machinery', 'dr', 150000], ['capital', 'cr', 650000]]},
+           's2': {'rows': [['purchase', 'dr', 57000], ['lakshmi', 'cr', 57000]],
+                  'wrong': [{'kw': ['discount received|discount account|trade discount account'], 'say': 'Trade discount is never recorded; purchases are entered at the net ₹57,000.'}]},
+           's3': {'rows': [['furniture', 'dr', 24000], ['comfort', 'cr', 24000]]},
+           's4': {'rows': [['loss fire|fire loss|loss by fire|abnormal loss', 'dr', 9000], ['insurance', 'dr', 21000], ['purchase', 'cr', 30000]]},
+           's5': {'rows': [['drawing', 'dr', 7500], ['bank', 'cr', 7500]],
+                  'wrong': [{'kw': ['electricity account debit|electricity expense|electricity charges account'], 'say': "The proprietor's household bill is Drawings, not a business electricity expense."}]},
+           's6': {'rows': [['outstanding|payable|accrued', 'cr', 16000], ['salar', 'dr', 16000]],
+                  'kw': ['started|commenced|introduced|brought', 'bought|purchased', 'destroyed|admitted', 'household|personal|proprietor|private', 'due|not paid|unpaid|not yet paid'], 'min': 3}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['trade discount', 'list price|bulk|catalogue|large quantit|trade purchase|invoice|promote|reduction price|purchase sale|time sale|time purchase'], 'min': 2},
+           's2': {'kw': ['cash discount', 'prompt|early payment|timely payment|payment within|quick payment|pay early|paid early|before due|within agreed|immediate payment|time payment|paying within|paid within|pays within'], 'min': 2},
+           's3': {'kw': ['not recorded|never recorded|not entered|no entry|not shown books|net price|net amount|not accounted|not appear|no separate account|not passed|net invoice'], 'min': 1,
+                  'wrong': [{'kw': ['trade discount recorded|trade discount debited|trade discount credited|trade discount shown profit|trade discount profit loss|record trade discount'], 'say': 'Trade discount is not recorded in the books; the entry is made at the net price.'},
+                            {'kw': ['cash discount not recorded|cash discount never recorded|cash discount no entry'], 'say': 'Cash discount is recorded — Discount Allowed (seller) or Discount Received (buyer).'}]},
+           's4': {'kw': ['discount allowed|discount received', 'profit loss|p l|loss|gain|income|expense'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'rows': [['purchase', 'dr', 150000], ['input cgst|cgst input|input tax cgst|input tax credit cgst', 'dr', 9000], ['input sgst|sgst input|input tax sgst|input tax credit sgst', 'dr', 9000], ['om textile|om', 'cr', 168000]]},
+           's2': {'rows': [['rhea', 'dr', 268800], ['sale', 'cr', 240000], ['output cgst|cgst output|cgst payable', 'cr', 14400], ['output sgst|sgst output|sgst payable', 'cr', 14400]]},
+           's3': {'rows': [['output cgst|cgst output|cgst payable', 'dr', 9000], ['output sgst|sgst output|sgst payable', 'dr', 9000], ['input cgst|cgst input|input tax cgst|input tax credit cgst', 'cr', 9000], ['input sgst|sgst input|input tax sgst|input tax credit sgst', 'cr', 9000]],
+                  'wrong': [{'kw': ['cgst against sgst|cgst credit sgst|sgst against cgst|cgst set sgst'], 'say': 'CGST credit is set off only against CGST and SGST against SGST.'}]},
+           's4': {'rows': [['output cgst|cgst output|cgst payable', 'dr', 5400], ['output sgst|sgst output|sgst payable', 'dr', 5400], ['bank', 'cr', 10800]], 'kw': ['paid|payment|remit|deposit|paying'], 'min': 1}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

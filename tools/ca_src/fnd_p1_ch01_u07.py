@@ -277,3 +277,47 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] for table answers; side may be dr/cr/add/less or a column-header
+# keyword such as "provision"), wrong (common wrong statements → remark), ai_only (not checkable offline).
+# Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'kw': ['written|document|issued|expert|icai|regulatory|government|authoritative', 'treatment|treated|transaction|financial statement|uniform|accounting'], 'min': 2},
+           's2': {'kw': ['recognition|recognis|recogniz', 'measurement|measure|valuation', 'presentation|present', 'disclosure|disclos'], 'min': 4},
+           's3': {'kw': ['comparab|compare|reliab'], 'min': 1},
+           's4': {'kw': ['common set|common polic|standard polic|uniform polic|set polic|valuation norm|valuation rule|disclosure requirement|reduce alternative|alternative|harmonis|harmoniz|uniform'], 'min': 1}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['reduce variation|eliminate variation|confusing variation|variation|uniform|eliminate confusing|reduce confusing|diversity|alternative treatment|standardis|standardiz'], 'min': 1},
+           's2': {'kw': ['beyond law|additional disclosure|disclosures beyond|more disclosure|disclos|compar'], 'min': 1},
+           's3': {'kw': ['difficult choose|difficulty choos|difficult choice|choosing alternative|choice alternative|difficult select|choose between|choosing between|strong argument|choice between|selection between|difficult decide'], 'min': 1},
+           's4': {'kw': ['override statute|override law|cannot override|not override|within law|restricted scope|limited scope|subject law|subordinate law|prevailing law|statute prevail|law prevail|framed within|cannot go against law|cannot overrule'], 'min': 1}},
+    'q3': {'extra_ok': False,
+           's1': {'kw': ['1977', 'industry|assocham|cii|ficci|regulator|academic|government|representative|independent|ifrs'], 'min': 2},
+           's2': {'kw': ['identif|broad area|area', 'study group|preliminary draft|draft'], 'min': 2},
+           's3': {'kw': ['consider|revise|revis', 'circulat|council member|outside bod|external bod|mca|sebi|cbdt|c ag|scope|comment'], 'min': 2},
+           's4': {'kw': ['meet|meeting|discuss|views|representative', 'exposure draft|public comment'], 'min': 2},
+           's5': {'kw': ['comment|view|suggestion|response', 'final draft|finalis|finaliz|submit|submission'], 'min': 2},
+           's6': {'kw': ['council approv|council consider|council modif|council issue|consultation asb|consult asb|approved council|considered council|council final|council',
+                         'central government|notified|notif|non corporate|non company'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

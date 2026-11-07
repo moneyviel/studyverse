@@ -463,3 +463,55 @@ def viva():
            P('p2', 'a⁻ⁿ = 1/aⁿ — reciprocal', 4, 'reciprocal|1 over a power n|1 by a power n|one over a|inverse|1 divided by'),
            P('p3', 'a^(1/n) = n-th root of a', 3, 'nth root|n th root|root of a|n root|th root')], 'c5'),
     ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('lcm|common|equal|multiply|make b', nums=[12]),
+        's2': _K('8 12 15'),
+        's3': _N(56000, 84000, 105000),
+        's4': _K('check|tall|verif|total 245000|245000 total|sum 245000|105000 245000', nums=[245000]),
+    },
+    'q2': {
+        's1': _K('3 0.3010|3 log 2|3 x 0.3010|0.9030|0.903', '0.4771|log 3'),
+        's2': _N(1.3801),
+        's3': _K('-0.6199|0.3801|bar 1|1 bar|bar one'),
+        's4': _K('digit|characteristic', nums=[10]),
+    },
+    'q3': {
+        's1': _K('componendo|dividendo|c and d|c d|5 3 5 3|8 2'),
+        's2': _K('4b|4 1|b 4|a 4|4 times'),
+        's3': _K('25 23'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

@@ -289,3 +289,63 @@ def build():
                 M('k1d', 'Either option is an example of:', ['Expansionary fiscal policy', 'Contractionary fiscal policy', 'Monetary policy', 'A budget surplus policy'], 0, "More public works raises government spending, and a personal income-tax cut raises disposable income — both increase aggregate demand to close a recessionary gap, so either is expansionary fiscal policy. 'Monetary policy' is the trap: these are budget tools, not changes in money supply or interest rates. In practice: Budget announcements of higher capex or tax relief during a slowdown are classic expansionary fiscal moves.", 'c3', 'core', topic='Types of Fiscal Policy'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _CR(*vals, **x):
+    """figures in Rs crore: nums matches '5,690' and '5,690 crore' alike"""
+    return _N(*vals, **x)
+
+
+AUTO = {
+    'q1': {
+        's1': _K('recessionary|deflationary|recession', '6000|60000000000'),
+        's2': _K('k 4|multiplier 4|1 0.25 4|0.25 4|multiplier is 4|1 0.75 4|0.75 4', '1500|15000000000'),
+        's3': _K('0.75 0.25 3|tax multiplier 3|tax multiplier is 3|multiplier 3', '2000|20000000000'),
+        's4': _K('expansionary|expansionist|easy fiscal|expansion'),
+    },
+    'q2': {
+        'extra_ok': True,
+        's1': _K('k 10|multiplier 10|1 0.1 10|0.1 10|multiplier is 10|1 0.9 10|0.9 10'),
+        's2': _CR(20000, 15000),
+        's3': _CR(5000),
+        's4': _K('low|idle|plentiful|surplus|excess|spare|weak|unused', 'investment|fund|interest|saving|capacity'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _CR(4500),
+        's2': _K('-3600|3600|-36000000000|36000000000'),
+        's3': _K('net 900|900 net|4500 3600 900|net effect 900|rise 900|increase 900|income 900|net 9000000000|9000000000 net|4500 3600 9000000000|net increase 900|net rise 900'),
+        's4': _K('balanced budget multiplier 1|multiplier 1|multiplier of 1|multiplier one|raise income|increase income|income rise|income increase|not neutral|unity|expansionary'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

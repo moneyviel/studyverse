@@ -291,3 +291,55 @@ def build():
                      {'k': 'AC–MC rule', 'v': 'AC falls: MC < AC; AC rises: MC > AC; AC min: MC = AC'}, {'k': 'Economic profit', 'v': 'Revenue − explicit − implicit costs'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(340, 370, 396, 430, 475, 534, 620, 730),
+        's2': _N(32.5, 45.71, 53.75, 185, 132, 107.5, 95, 89, 88.57, 91.25),
+        's3': _N(26, 34, 59, 86, 110),
+        's4': _K('q 7|7 unit|output 7|at 7|seventh|7th', 'below|less than|exceed|above|greater|cross|cut', nums=[88.57]),
+    },
+    'q2': {
+        's1': _N(650000),
+        's2': _N(720000),
+        's3': _K('-70000|70000', 'loss|negative|minus'),
+        's4': _K('better off|leave|close|quit|exit|not continue|shut|old job|elsewhere|reconsider|not worthwhile|return|alternative|not even normal'),
+    },
+    'q3': {
+        's1': _N(2200, 50, 110),
+        's2': _N(70.5),
+        's3': _K('44.72|44.7|q2 2000|q 2 2000|sqrt 2000|root 2000'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

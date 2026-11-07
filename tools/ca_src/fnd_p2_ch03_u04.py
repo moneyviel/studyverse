@@ -331,3 +331,68 @@ def build():
                      {'k': 'Section 64 / 64A', 'v': 'Auction rules · tax changes after contract adjust the price'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('section 45|whole price|whole of the price|full price|price not paid|not been paid|not paid|not tendered|unpaid', 'bill of exchange|negotiable instrument|dishonour|dishonored|dishonoured|cheque'),
+           's2': _k('lien|retain', 'cash sale|credit expired|expiry of credit|credit period|insolvency|insolvent', 'lost|loses|carrier|waiver|waives|lawfully obtains|delivery to a carrier|lawfully gets'),
+           's3': _k('stoppage in transit|stoppage|stop the goods|transit', 'insolvency|insolvent', 'actual possession|notice to the carrier|notice|carrier|bailee'),
+           's4': _k('resale|resell|re sell|re-sale', 'perishable|notice', 'withhold|withholding|section 46 2|46(2)|property has not passed'),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 54|resell|resale|re-sell', 'perishable', 'notice'),
+           's2': _k('perishable', 'notice not required|no notice required|notice not necessary|notice is not required|notice is not necessary|need not give notice|no need of notice|no need for notice|notice unnecessary|need not be given|no notice is needed|notice not needed|not required to give notice|not bound to give notice|no notice is required|no notice is necessary|absence of notice'),
+           's3': {'nums': [60000]},
+           's4': _k('recover 60000|60000 recoverable|liable to pay 60000|varun pay 60000|claim 60000|loss of 60000|60000 from varun|varun liable 60000|varun liable for 60000|entitled to 60000|recover rs 60000|recovers 60000|must pay 60000',
+                    wrong=[{'kw': ['sharma cannot recover|cannot recover the loss|notice was necessary|notice was required'], 'say': 'For perishable goods an unpaid seller may resell without notice and still recover the loss (Section 54(2)).'}]),
+           },
+    'q3': {'extra_ok': True,
+           '_scheme': [{'id': 's1', 'pt': 'Distinction — nature: retain vs regain possession', 'm': 0.75, 'skill': 'concept'},
+                       {'id': 's2', 'pt': 'Distinction — possession with seller vs parted with to carrier', 'm': 0.75, 'skill': 'concept'},
+                       {'id': 's3', 'pt': 'Distinction — insolvency of buyer not essential vs essential', 'm': 0.75, 'skill': 'concept'},
+                       {'id': 's4', 'pt': 'Distinction — commencement and end', 'm': 0.75, 'skill': 'concept'}]
+                      + [{'id': f's{4 + i}', 'pt': f'End of transit — situation {i} of four (Section 51)', 'm': 0.75, 'skill': 'provision'} for i in range(1, 5)],
+           's1': _k('retain|retention', 'regain|resume|recover possession|get back|retake'),
+           's2': _k('seller in possession|in possession of the seller|seller has possession|seller s possession|possession of seller|seller holds|seller is in possession', 'parted with possession|carrier|in transit|bailee|parted with'),
+           's3': _k('insolvency|insolvent', 'not essential|not necessary|not required|not needed|need not|irrespective', 'essential|necessary|required|only when the buyer is insolvent|only on insolvency'),
+           's4': _k('ends when|ends on|lost when|leave|leaves|parts with|delivery to carrier|delivered to carrier|lien ends|begins when|begins where|commences|starts', 'buyer takes delivery|takes delivery|delivery to the buyer|buyer obtains delivery|buyer gets delivery'),
+           **{f's{4 + i}': _k('takes delivery at destination|delivery at the destination|destination|buyer or his agent takes delivery',
+                              'before the goods reach|before arrival|before reaching|obtains delivery before|before the destination',
+                              'acknowledges|holds on behalf|holding for him|holds the goods for the buyer|attorn|holding the goods for|holds them for|holds the goods on behalf',
+                              'wrongfully refuses|wrongful refusal|refuses to deliver',
+                              'chartered|vessel|ship|master',
+                              'part delivery|partial delivery|delivery of part', n=i) for i in range(1, 5)},
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('section 58|specific performance', 'specific relief|specific goods|ascertained|specific or ascertained'),
+           's2': _k('unique|rare|no substitute|not available|cannot be bought|cannot buy|identical|irreplaceable|one of a kind', 'damages inadequate|damages not adequate|damages would not be adequate|damages are not adequate|not adequate|inadequate|money cannot|money would not|compensation not adequate|money is not adequate|not an adequate'),
+           's3': _k('sue for specific performance|ritu can sue|ritu may sue|order kunal|kunal to deliver|direct kunal|claim specific performance|seek specific performance|ritu can claim specific|suit for specific performance|ritu can file'),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

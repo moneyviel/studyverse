@@ -873,31 +873,136 @@
      "id": "s1",
      "pt": "Opening balances and receipts on the debit side in the right columns",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "balance|opening|cash hand",
+       "dr",
+       8400
+      ],
+      [
+       "balance|opening|bank",
+       "dr",
+       65000
+      ],
+      [
+       "sale",
+       "dr",
+       14500
+      ],
+      [
+       "kapoor",
+       "dr",
+       24500
+      ],
+      [
+       "nisha",
+       "dr",
+       9750
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Payments on the credit side in the right columns",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "purchase",
+       "cr",
+       6200
+      ],
+      [
+       "joshi",
+       "cr",
+       15600
+      ],
+      [
+       "salar",
+       "cr",
+       21000
+      ],
+      [
+       "electricity",
+       "cr",
+       3300
+      ],
+      [
+       "drawing",
+       "cr",
+       4000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Both contra entries on both sides, marked C",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "bank|contra",
+       "dr",
+       10000
+      ],
+      [
+       "cash|contra",
+       "cr",
+       10000
+      ],
+      [
+       "cash|contra",
+       "dr",
+       12000
+      ],
+      [
+       "bank|contra",
+       "cr",
+       12000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Discounts ₹500, ₹250 (allowed) and ₹400 (received) in discount columns, totalled not balanced",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "kapoor",
+       "dr",
+       500
+      ],
+      [
+       "nisha",
+       "dr",
+       250
+      ],
+      [
+       "joshi",
+       "cr",
+       400
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Closing balances: cash ₹17,150, bank ₹54,900",
      "m": 1.5,
-     "skill": "balancing"
+     "skill": "balancing",
+     "rows": [
+      [
+       "balance",
+       "cr",
+       17150
+      ],
+      [
+       "balance",
+       "cr",
+       54900
+      ]
+     ]
     }
    ],
    "checks": [
@@ -934,7 +1039,8 @@
    "tips": [
     "Draw all six amount columns before you begin.",
     "Tick each contra entry once you have written both sides."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -963,19 +1069,44 @@
      "id": "s1",
      "pt": "Fixed amount advanced at the start",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "fixed|definite|predetermined|imprest|certain sum|specific",
+      "beginning|start|advance|given|handed|petty cashier|begin"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Reimbursement of actual spending against vouchers",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "reimburs|restor|replenish|refund|make good|made good",
+      "spent|voucher|actual|expended|expense|paid out|used"
+     ],
+     "min": 2,
+     "wrong": [
+      {
+       "kw": [
+        "reimburse balance|reimbursed balance|reimburses balance"
+       ],
+       "say": "The reimbursement equals the amount spent (supported by vouchers), not the balance in hand."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Any two advantages",
      "m": 2,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "control|check|cash vouchers|equal imprest|misuse|fraud|limit|risk|safe",
+      "time|main cashier|small items|small payment|petty item|free|burden|reliev|workload",
+      "analytical|posting|totals posted|easy posting|only totals|periodic|classification",
+      "review|vouchers checked|regular check|scrutin|accountab"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -986,7 +1117,8 @@
    ],
    "tips": [
     "Define, then list advantages as bullets."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1037,13 +1169,45 @@
      "id": "s1",
      "pt": "Bank debited and Sales credited with the full ₹1,20,000",
      "m": 1.5,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       120000
+      ],
+      [
+       "sale",
+       "cr",
+       120000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "118200"
+       ],
+       "say": "Record the full sale of ₹1,20,000 to Bank and Sales; the commission is a separate expense entry."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Commission ₹1,800 debited, Bank credited",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "commission|bank charge|card charge|charges|fee",
+       "dr",
+       1800
+      ],
+      [
+       "bank",
+       "cr",
+       1800
+      ]
+     ]
     }
    ],
    "checks": [
@@ -1062,7 +1226,8 @@
    ],
    "tips": [
     "Two entries: one for the sale, one for the commission."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

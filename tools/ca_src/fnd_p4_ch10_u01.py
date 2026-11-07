@@ -403,3 +403,66 @@ def build():
                      {'k': 'Debt', 'v': '≈86% of GDP FY21/22 vs EMDE average 64.5% (IMF 2022)'}],
         'viva': viva, 'cases': [case],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(6.4),
+        's2': _N(6.03),
+        's3': _N(3.81),
+        's4': _N(2.9),
+        's5': _K('2017 2021|2017 21|2020|2017', 'pandemic|covid|corona|lockdown'),
+    },
+    'q2': {
+        'extra_ok': True,
+        's1': _K('fiscal deficit|deficit|revenue expenditure', 'debt|interest|borrow'),
+        's2': _K('gulf|oil', 'balance of payment|bop|reserve|foreign exchange', '1.2|two weeks|2 weeks|weeks'),
+        's3': _K('imf|confidence|political instability|instability'),
+        's4': _K('market friendly|market oriented|market economy|liberalis|market', 'stabil|fiscal deficit|cut deficit|reduce deficit'),
+        's5': _K('licens', 'public sector|reservation|reserved', 'mrtp', 'small scale|ssi|small industr', 'fdi|foreign investment|51', 'disinvest', min=4),
+    },
+    'q3': {
+        's1': _N(2.25),
+        's2': _K('5 times|5 fold|fivefold|five times|100 20 5|multiple 5|5x|multiple of 5|rose 5'),
+        's3': _N(85.92),
+        's4': _K('1980s mrtp|mrtp 1980|1985 mrtp|mrtp threshold|raising mrtp|raise mrtp|mrtp raised|mrtp relax|1980 mrtp', '1991 tariff|tariff reduction|tariff cut|lower tariff|trade policy|trade reform|cut tariff|1991 trade'),
+    },
+    'q4': {
+        'extra_ok': True,
+        's1': _K('2014|64 years|1950', '2015|january 2015|1 january'),
+        's2': _K('centralis|top down|five year|public investment', 'think tank|co operative federalism|cooperative federalism|bottom up|village'),
+        's3': _K('state', 'enhanced|greater|more voice|increased|stronger|cooperative federalism|co operative federalism|more say|more role'),
+        's4': _K('allocat|plan resources|funds|financial power', 'no role|no financial|no power|not allocate|cannot allocate|no budget|lacks|without financial'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

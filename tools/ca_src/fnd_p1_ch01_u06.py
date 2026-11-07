@@ -328,3 +328,49 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] for table answers; side may be dr/cr/add/less or a column-header
+# keyword such as "provision"), wrong (common wrong statements → remark), ai_only (not checkable offline).
+# Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['machine', 'historical', 1600000], ['loan', 'historical', 400000]]},
+           's2': {'rows': [['machine', 'current', 2200000], ['loan', 'current', 404000]]},
+           's3': {'rows': [['machine', 'realisable|realizable|settlement', 1200000], ['loan', 'realisable|realizable|settlement', 400000]]},
+           's4': {'rows': [['machine', 'present value|pv', 950960]]},
+           's5': {'rows': [['loan', 'present value|pv', 400000]]},
+           's6': {'kw': ['historical', 'current cost|current', 'realisable|realizable|settlement', 'present value|pv'], 'min': 4}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['measurement|measure', 'object|event', 'scale|standard', 'dimension'], 'min': 3},
+           's2': {'kw': ['future', 'predict|estimat|forecast|cannot measured|uncertain|only predicted|guess'], 'min': 2},
+           's3': {'kw': ['money|rupee|currency', 'exchange rate|foreign currency|dollar|universal|different countries|denomination|pound'], 'min': 2},
+           's4': {'kw': ['purchasing power|inflation|price change|prices change|change prices|unstable|not stable|price level|changing prices|value money change|money value change|price rise|prices rise|rising prices|value money'], 'min': 1},
+           's5': {'kw': ['not measurement|recording|classifying|summarising|summarizing|communicat|assumption|going concern|polic',
+                         'not exact|inexact|not precise|not purely|not perfect|not accurate|not fully|imprecise'], 'min': 2}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['estimat', 'uncertain|cannot measured|not measured|judgement|judgment|future event|approximat|experience|latest information|reasonable|precise'], 'min': 2},
+           's2': {'kw': ['useful life|residual value|depreciation|salvage|scrap value', 'doubtful debt|bad debt|receivable|debtor', 'obsolescence|obsolete|inventor|stock', 'warranty|warranties|guarantee',
+                         'employee benefit|gratuity|pension|retirement|leave encashment', 'tax|taxation', 'patent|amortis|amortiz|intangible|copyright', 'contingen|long term contract|litigation|lawsuit|claim'], 'min': 4},
+           's3': {'kw': ['change estimate|change accounting estimate|revised estimate|re estimate|revision estimate|revise|revision|re estimated',
+                         'new information|more experience|changed circumstances|circumstances change|change circumstances|development|actual|obsolete|useful life|example|e g|life'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

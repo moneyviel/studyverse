@@ -1296,55 +1296,139 @@
      "id": "s1",
      "pt": "Opening capital fund ₹3,11,000 computed",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      311000
+     ]
     },
     {
      "id": "s2",
      "pt": "Subscription income ₹95,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      95000
+     ]
     },
     {
      "id": "s3",
      "pt": "Rent ₹30,000 and stationery consumed ₹5,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "rent",
+       "",
+       30000
+      ],
+      [
+       "stationery",
+       "",
+       5000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Depreciation on books ₹29,500 and furniture ₹5,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "furniture"
+     ],
+     "nums": [
+      29500
+     ]
     },
     {
      "id": "s5",
      "pt": "Entrance fees as revenue (per rules); old newspapers, fines, interest as income",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "entrance",
+       "",
+       8000
+      ],
+      [
+       "newspaper|old paper|scrap",
+       "",
+       1800
+      ],
+      [
+       "fine",
+       "",
+       2200
+      ],
+      [
+       "interest",
+       "",
+       1500
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Deficit ₹18,300 correctly found and shown",
      "m": 1.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "deficit|excess of expenditure over income|excess expenditure over income"
+     ],
+     "nums": [
+      18300
+     ]
     },
     {
      "id": "s7",
      "pt": "Book donation shown as Book Fund (not income)",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "book fund|fund for books|books fund|specific fund|library fund|book donation fund|fund for purchase of books"
+     ],
+     "rows": [
+      [
+       "fund",
+       "",
+       40000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "21700"
+       ],
+       "say": "A surplus of ₹21,700 means the ₹40,000 book donation was taken as income; it is a specific donation — credit it to a Book Fund (liabilities side)."
+      }
+     ]
     },
     {
      "id": "s8",
      "pt": "Capital fund ₹2,92,700 after deducting deficit; outstanding rent and advance subscriptions as liabilities",
      "m": 1.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "outstanding|unpaid|due",
+      "advance|prepaid|unearned"
+     ],
+     "nums": [
+      292700
+     ]
     },
     {
      "id": "s9",
      "pt": "Assets side: books, furniture, stationery, subscriptions outstanding, cash ₹19,700; totals agree ₹3,38,700",
      "m": 1,
-     "skill": "balancing"
+     "skill": "balancing",
+     "nums": [
+      265500,
+      45000,
+      7000,
+      19700,
+      338700
+     ]
     }
    ],
    "remarks": [
@@ -1362,7 +1446,8 @@
     "Always start with the opening balance sheet — it gives the capital fund and the opening outstanding figures you need later.",
     "Write the computation for every adjusted figure inside the particulars or as a working note.",
     "Read the \"treatment\" instructions (entrance fees, life membership) before deciding capital or revenue."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1418,31 +1503,56 @@
      "id": "s1",
      "pt": "Nature (cash summary vs P&L equivalent)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "summary cash|summary of cash|cash book|real account|cash account",
+      "profit loss|nominal account|nominal"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Cash basis vs accrual basis",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "cash basis|cash system|actual receipt|cash received|cash receipts",
+      "accrual|mercantile|accrued|due basis"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Capital and revenue vs revenue only",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "capital and revenue|capital as well as revenue|both capital|capital nature|capital receipt|capital payment|capital item|capital expenditure|capital receipts",
+      "only revenue|revenue only|revenue nature|revenue item|revenue income|revenue expense|revenue expenditure"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Any period vs current period only",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "past|previous|future|any period|other period|whichever period|all periods|preceding|succeeding",
+      "current period|current year|relating period|relevant period|this year|accounting period|only items relating|relates current|same period"
+     ],
+     "min": 2
     },
     {
      "id": "s5",
      "pt": "Balances: cash/bank vs surplus/deficit (or non-cash items point)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "opening|closing|balance",
+      "surplus|deficit|depreciation|outstanding|non cash|accrued|excess of income"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1456,7 +1566,8 @@
    "tips": [
     "Five clear bases in a table earn full marks in about nine minutes.",
     "Use contrasting words in each row: cash/accrual, all periods/current period, capital and revenue/revenue only."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1544,31 +1655,60 @@
      "id": "s1",
      "pt": "Credit purchases ₹1,43,500 via creditors",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      143500
+     ]
     },
     {
      "id": "s2",
      "pt": "Total purchases ₹1,49,500 including cash purchases",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      149500
+     ]
     },
     {
      "id": "s3",
      "pt": "Consumption ₹1,45,500 using opening and closing stock",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      145500
+     ]
     },
     {
      "id": "s4",
      "pt": "Donations added to the fund; expenses set off against it",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "fund"
+     ],
+     "nums": [
+      42000
+     ]
     },
     {
      "id": "s5",
      "pt": "Excess ₹5,000 debited to I & E Account (not an asset)",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "income expenditure|expenditure account|i e account|i e a c|ie account"
+     ],
+     "nums": [
+      5000
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "shown as asset|carried as asset|asset side|shown on assets|shown assets side|treated as asset"
+       ],
+       "say": "The excess spending over the fund is a revenue charge to the Income and Expenditure Account; it is not an asset."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1582,7 +1722,8 @@
    "tips": [
     "Do purchases first (creditors), then consumption (stock) — two clear steps.",
     "For fund questions write: fund + additions − expenses = balance (or excess to I & E)."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

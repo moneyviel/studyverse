@@ -341,3 +341,69 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] for table answers; side may be dr/cr/add/less or a column-header
+# keyword such as "capital"), wrong (common wrong statements → remark), ai_only (not checkable offline).
+# Per question: extra_ok (may points beyond the model earn credit).
+def _item(keys, verdict):
+    """item keywords next to its verdict, in either order (one table row / one sentence)"""
+    return '|'.join([f'{k} {verdict}' for k in keys] + [f'{verdict} {k}' for k in keys])
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': {'kw': ['nature business|type business|kind business|nature trade|business nature|line business|dealer', 'furniture|stock trade|dealer|computer|vehicle|car|example|e g'], 'min': 2},
+           's2': {'kw': ['recurring|recur|frequent|regular|repetitive|repeated|routine'], 'min': 1},
+           's3': {'kw': ['purpose|maintenance|maintain|repair|overhaul', 'maintenance|maintain|repair|productive capacity|increase capacity|capacity|improve|efficiency'], 'min': 2},
+           's4': {'kw': ['more than one|one period|several years|long term benefit|enduring|future benefit|future period|current period|accounting period|period benefit|benefit period|earning capacity|revenue generating|earn revenue|generate revenue|lasting benefit'], 'min': 1},
+           's5': {'kw': ['material|immaterial|small amount|small items|small value|insignificant|minor amount|petty'], 'min': 1}},
+    'q2': {'extra_ok': False,
+           's1': {'kw': [_item(['truck', 'overhaul', 'roadworthy', 'second hand', '1'], 'capital'),
+                         'working condition|roadworthy|part cost|cost truck|cost asset|ready use|put use|usable|condition use|before use|fit use|cost vehicle'], 'min': 2},
+           's2': {'kw': [_item(['new process', 'process', 'power cost', 'power', '2'], 'capital'),
+                         'enduring|long term|future|every year|reduce cost|reduces cost|reducing cost|saving|permanent|lasting|several years'], 'min': 2},
+           's3': {'kw': [_item(['legal fee', 'legal', 'instalment', 'recover', 'recovery', '3'], 'revenue'),
+                         'recurring|normal|routine|no enduring|not increase|no increase|day to day|ordinary|regular|not create'], 'min': 2},
+           's4': {'kw': [_item(['shifting', 'shift', 'godown', 'inventory', '4'], 'revenue'),
+                         'not add|no enduring|not enduring|not increase|no increase|no benefit|neither|routine|normal|recurring|no value|not improve|no lasting|not create'], 'min': 2},
+           's5': {'kw': [_item(['travel', 'travelling', 'traveling', 'director', 'abroad', '5'], 'capital'),
+                         'acquire|acquisition|cost plant|part cost|added cost|add cost|purchase plant|buy plant|buying plant|capital asset|cost asset|new plant'], 'min': 2},
+           's6': {'kw': [_item(['inauguration', 'inaugural', 'opening ceremony', 'new branch', '6'], 'revenue'),
+                         'no enduring|not enduring|no lasting|not lasting|current period|one time|publicity|advertis|attract|not create|no asset|not asset|beyond period|no long term'], 'min': 2},
+           's7': {'kw': [_item(['premium', 'share premium', 'securities premium', '7'], 'capital'),
+                         'not normal|not operation|reserve|not credited|balance sheet|issue share|not revenue|shareholder|owner|not business operation|not trading'], 'min': 2},
+           's8': {'kw': [_item(['wages', 'wage', 'tool', '8'], 'capital'),
+                         'asset|several|long|more than one|years|own use|create|construct|cost tool'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'rows': [['furniture', 'capital', 53500]]},
+           's2': {'rows': [['licence|license', 'capital', 40000], ['fine|penalty', 'revenue', 3000]]},
+           's3': {'rows': [['renewal|next year', 'prepaid', 5000]]},
+           's4': {'rows': [['insurance', 'revenue', 7500], ['insurance', 'prepaid', 7500]]},
+           's5': {'rows': [['partition', 'capital', 9000]], 'nums': [102500, 10500, 12500]}},
+    'q4': {'extra_ok': False,
+           's1': {'kw': ['revenue receipt', 'sale goods|sales|sale service|interest|commission|rent|dividend|discount received|fees', 'profit loss|p l|income statement|credited|normal course|ordinary course'], 'min': 3},
+           's2': {'kw': ['capital receipt', 'loan|capital introduced|premium|sale fixed asset|sale asset|investment|capital brought|deposit',
+                         'not credited|balance sheet|not profit loss|not taken profit|not shown profit|not p l|liabilit|not normal|not revenue nature'], 'min': 3},
+           's3': {'kw': ['profit|loss|gain', 'sale|sold|disposal|dispose', 'only profit|profit only|only loss|only gain|difference|book value|carrying amount|written down|wdv'], 'min': 3,
+                  'wrong': [{'kw': ['whole sale price profit loss|entire sale proceeds profit loss|sale proceeds credited profit loss|sale price credited profit loss'], 'say': 'Only the profit or loss on sale (sale price − book value) goes to P&L; the sale proceeds themselves are a capital receipt.'}]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

@@ -466,3 +466,50 @@ def build():
             {'k': 'Shares for assets', 'v': 'No. of shares = consideration payable in shares ÷ issue price'},
         ],
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'kw': ['pro rata|pro-rata|7 5|proportion|reject|refund'], 'nums': [80000]},
+           's2': {'rows': [['bank', 'dr', 320000], ['application', 'cr', 320000], ['capital', 'cr', 200000], ['allotment', 'cr', 80000], ['bank|refund', 'cr', 40000]]},
+           's3': {'rows': [['allotment', 'dr', 300000], ['capital', 'cr', 300000], ['bank', 'dr', 215600]]},
+           's4': {'rows': [['call', 'dr', 300000], ['bank', 'dr', 294000]]},
+           's5': {'kw': ['4400|10400'], 'rows': [['capital', 'dr', 16000], ['forfeit', 'cr', 5600]]},
+           's6': {'rows': [['bank', 'dr', 10500], ['forfeit', 'dr', 1500], ['capital', 'cr', 12000]]},
+           's7': {'rows': [['forfeit', 'dr', 2700], ['capital reserve', 'cr', 2700]],
+                  'wrong': [{'kw': ['4100'], 'say': 'Only the forfeited amount on the 1,500 re-issued shares (₹4,200) less the discount (₹1,500) goes to capital reserve: ₹2,700.'}]}},
+    'q2': {'extra_ok': False,
+           's1': {'rows': [['capital', 'dr', 8000]],
+                  'wrong': [{'kw': ['securities premium 1600|premium 1600|premium account dr|securities premium dr|premium debit'], 'say': 'The premium of ₹2 was received with allotment, so Securities Premium is not debited on forfeiture.'}]},
+           's2': {'rows': [['call', 'cr', 2400], ['forfeit', 'cr', 5600]]},
+           's3': {'rows': [['bank', 'dr', 4500], ['forfeit', 'dr', 500], ['capital', 'cr', 5000]]},
+           's4': {'rows': [['capital reserve', 'cr', 3000]], 'nums': [2100]}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['called not paid|called but not paid|not paid|unpaid|due not paid|default|not received', 'before called|before it is called|paid in advance|before due|not yet called|received before|in advance|before call'], 'min': 2},
+           's2': {'kw': ['10 percent|10 per cent|10', '12 percent|12 per cent|12'], 'min': 2},
+           's3': {'kw': ['income|waive|gain|receivable', 'expense|finance cost|no dividend|not entitled dividend|cost|payable by company'], 'min': 2},
+           's4': {'kw': ['deducted|deduct|less|subtract', 'current liabilit|liabilit'], 'min': 2}},
+    'q4': {'extra_ok': False,
+           's1': {'kw': ['bonus', 'preliminary', 'commission|discount allowed|expenses of issue|issue expenses|expenses on issue|expense issue|discount on issue', 'redemption', 'buy back|buyback|buy-back|purchase of own shares'], 'min': 5},
+           's2': {'kw': ['133|accounting standards|ind as']},
+           's3': {'kw': ['53|prohibit|void|cannot issue|not permitted|not allowed|generally no|illegal|cannot be issued']},
+           's4': {'kw': ['sweat equity|sweat', 'debt|creditor|conversion|resolution plan|restructuring'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

@@ -1052,25 +1052,39 @@
      "id": "s1",
      "pt": "Capital employed ₹11,00,000 (goodwill, non-trade investments and liabilities excluded)",
      "m": 2,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      1100000
+     ]
     },
     {
      "id": "s2",
      "pt": "Average maintainable profit ₹1,97,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      197000
+     ]
     },
     {
      "id": "s3",
      "pt": "Normal profit ₹1,10,000 and super profit ₹87,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      110000,
+      87000
+     ]
     },
     {
      "id": "s4",
      "pt": "Goodwill (a) ₹2,61,000, (b) and (c) ₹8,70,000",
      "m": 2,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      261000,
+      870000
+     ]
     }
    ],
    "remarks": [
@@ -1085,7 +1099,8 @@
    "tips": [
     "Be consistent: whatever you exclude from capital employed, exclude its income from profit.",
     "Present each method in one line with its formula."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1208,25 +1223,87 @@
      "id": "s1",
      "pt": "Existing goodwill ₹40,000 written off in old ratio 5:3",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "x capital|x",
+       "dr",
+       25000
+      ],
+      [
+       "y capital|y",
+       "dr",
+       15000
+      ],
+      [
+       "goodwill",
+       "cr",
+       40000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Sacrificing ratio 1:1 computed",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "1 1|equal|equally|same proportion"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "9000"
+       ],
+       "say": "The sacrificing ratio here is 1:1 (5/8 − 4/8 and 3/8 − 2/8), not the old ratio 5:3."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Cash entry: Z capital ₹1,50,000; goodwill ₹24,000 to X and Y equally",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "z capital|z",
+       "cr",
+       150000
+      ],
+      [
+       "x capital|x",
+       "cr",
+       12000
+      ],
+      [
+       "y capital|y",
+       "cr",
+       12000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Balance ₹16,000 debited to Z's capital, credited to X and Y equally",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "z capital|z",
+       "dr",
+       16000
+      ],
+      [
+       "x capital|x",
+       "cr",
+       8000
+      ],
+      [
+       "y capital|y",
+       "cr",
+       8000
+      ]
+     ]
     }
    ],
    "remarks": [
@@ -1241,7 +1318,8 @@
    "tips": [
     "Always compute old − new for each partner before distributing goodwill.",
     "Write the narration stating the ratio used."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1266,25 +1344,45 @@
      "id": "s1",
      "pt": "Recognition conditions under AS 26",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "as 26|accounting standard 26|standard 26|intangible asset|cannot recognised 26|not recognised 26|cannot recognized 26|not recognized 26",
+      "identifiable|reliabl|control|future benefit|future economic|probable|measured|not identifiable|cannot measured|not measured|cannot be measured"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Inherent goodwill not recognised; only purchased goodwill",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "inherent|self generated|internally generated|self created|non purchased",
+      "not recorded|cannot recorded|not recognised|cannot recognised|not recognized|cannot recognized|not shown|not raised|never recorded|not appear|only purchased|only paid|purchased goodwill|not brought in books|not be recorded"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Adjustment through capital accounts (gainers Dr, sacrificers Cr)",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "capital account|capital accounts|capital",
+      "gain|new partner|incoming|sacrific|outgoing|retiring|continuing"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Existing goodwill written off in old ratio",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "written off|write off|writing off|wipe|eliminat",
+      "old ratio|old profit sharing|old partners"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1297,7 +1395,8 @@
    ],
    "tips": [
     "Four crisp points, one per mark."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q4",
@@ -1391,25 +1490,60 @@
      "id": "s1",
      "pt": "Weighted average ₹2,05,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      205000
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "190000"
+       ],
+       "say": "That is the simple average; the question asks for the weighted average with weights 1, 2, 3 (₹12,30,000 ÷ 6 = ₹2,05,000)."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Goodwill ₹6,15,000 and G's share ₹1,23,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      615000,
+      123000
+     ]
     },
     {
      "id": "s3",
      "pt": "Gaining ratio 1:1",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "1 1|equal|equally|1 10 1 10"
+     ]
     },
     {
      "id": "s4",
      "pt": "Entry: E and F Dr ₹61,500 each, G Cr ₹1,23,000",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "e capital|e",
+       "dr",
+       61500
+      ],
+      [
+       "f capital|f",
+       "dr",
+       61500
+      ],
+      [
+       "g capital|g",
+       "cr",
+       123000
+      ]
+     ]
     }
    ],
    "remarks": [
@@ -1421,7 +1555,8 @@
    ],
    "tips": [
     "Show the weight table — it earns marks even if the arithmetic slips."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

@@ -317,3 +317,56 @@ def build():
                      {'k': 'MR and elasticity', 'v': 'MR = AR × (e − 1)/e ; e = AR ÷ (AR − MR)'}, {'k': 'Shut-down rule', 'v': 'Produce only if P ≥ minimum AVC'}, {'k': 'Profit maximum', 'v': 'MR = MC, MC cutting MR from below'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(52, 72, 88, 100, 108, 112),
+        's2': _K('52 24', '72 20', '88 16', '100 12', '108 8', '112 4', '112 0'),
+        's3': _K('7 8|7 and 8|7th 8th|7 or 8', 'mr 0|mr zero|mr is zero|mr becomes zero|mr = 0', nums=[112]),
+        's4': _K('mr below ar|mr less than ar|mr lower|below ar|less than ar|lower than ar', 'twice|double|4 per unit|rs 4|by 4|2 times|two times'),
+    },
+    'q2': {
+        's1': _K('ar e 1 e|ar x e 1 e|mr ar e 1|e 1 e|ar 1 1 e|ar 1 1/e'),
+        's2': _K('120 3 4 90|3 4 90|e 4 90|4 90|90 minus 30|90 30|90 negative', '0.2 0.8 30|minus 30|negative 30|mr 30|0.8 30|30 negative'),
+        's3': _K('90 45 2|e 2|elasticity 2|elasticity is 2|90 90 45 2|ar ar mr 2'),
+        's4': _K('mr negative|negative mr|mr less than 0|mr below 0|mr less than zero|mr below zero', 'mc positive|positive mc|mc cannot be negative|mc always positive|mc never negative|mc is positive'),
+    },
+    'q3': {
+        's1': _N(20000),
+        's2': _K('-15000|15000', '35000|shut|close'),
+        's3': _K('continue|keep produc|carry on|should produce|stay in production', 'loss|15000|20000|reduc|minimi|less|lower'),
+        's4': _K('below avc|price less than avc|price below avc|minimum avc|min avc|below 22|below rs 22|less than 22|under 22|price falls below 22|lower than avc'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

@@ -279,3 +279,63 @@ def build():
                      {'k': 'Section 464, Companies Act 2013', 'v': 'Up to 100 partners allowed by Act; Rules fix 50'}, {'k': 'Answer format', 'v': 'Provision → Facts → Analysis → Conclusion'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 28|holding out|held out|holds himself out|estoppel', 'credit|liable as a partner|answerable|liable as partner|partner by estoppel'),
+           's2': _k('knowingly|silence|silent|did not object|not object|no objection|kept quiet', 'credit|relying|relied|reliance|faith|acted'),
+           's3': _k('deed|agreement|signed|signing', 'irrelevant|not necessary|not needed|immaterial|not required|no need|does not matter|need not|not relevant|no defence|not a defence|not essential'),
+           's4': _k('manav liable|manav is liable|manav liable as a partner|nirmal can recover|nirmal recover|manav must pay|manav cannot escape|manav is a partner by|manav bound|manav is also liable|manav also liable',
+                    wrong=[{'kw': ['manav not liable|manav is not liable'], 'say': 'Manav let himself be held out as a partner and Nirmal gave credit on that — he is liable under Section 28; no deed is needed.'}]),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 4', 'share profits|sharing of profits|share the profits|share profit|profit sharing', 'business', 'mutual agency|on behalf of all|acting for all|agency', 'section 6|real relation|not conclusive|all the facts', n=4),
+           's2': _k('co-owner|co owner|co-ownership|co ownership|joint owner|flat|rent|gross return|jointly held|inherited|no partnership co-owners|co-owners are not partners|co owners not partners|co-ownership is not partnership|co ownership is not partnership', 'no business|gross return|co owners are not partners|co-owners are not partners|co-owners not partners|co owners not partners|co-ownership is not partnership|co ownership is not partnership|co-ownership does not|co ownership does not|sharing of rent does not|sharing rent does not|rent does not make|not partners merely'),
+           's3': _k('onion|onions|pallavi|qadir|venture|jointly', 'particular partnership|section 8|partnership created|partnership arises|joint venture|venture partnership|partnership for a venture|partnership is formed|partnership formed'),
+           's4': _k('manager|servant|employee|remuneration|manager is not a partner|manager not partner|employee is not a partner|no partnership manager', 'manager not partner|manager is not a partner|employee not partner|servant not partner|remuneration does not|manager does not become|not become a partner|does not become a partner|salary does not|not a partner|no partnership'),
+           's5': _k('lender|loan|rohit|lender receiving|nobody acts for him|acts for him|interest on his loan|lender is not a partner|lender not partner|no partnership lender|rohit is not a partner|lender is not', 'lender not partner|lender is not a partner|rohit not partner|rohit is not a partner|lender does not become|not become a partner|does not become a partner|loan does not|not a partner|no partnership|not partner'),
+           },
+    'q3': {'extra_ok': True,
+           '_scheme': [{'id': f's{i}', 'pt': f'Basis {i} correctly contrasted (any four)', 'm': 1, 'skill': 'concept'} for i in range(1, 5)],
+           **{f's{i}': _k('by birth|birth|status',
+                          'death of a member does not|death does not affect|not affected by death|death of a coparcener does not|not dissolve|death of member does not',
+                          'karta',
+                          'coparcener|coparceners|extent of their interest|extent of interest|limited to their share|limited to the extent',
+                          'admitted to benefits|benefits of partnership|minor becomes a member|minor is a member|minor member|minor by birth',
+                          'hindu law|partnership act 1932|indian partnership act', n=i) for i in range(1, 5)},
+           },
+    'q4': {'extra_ok': True,
+           's1': _k('section 4', 'relation|relationship', 'share profits|share the profits|sharing profits|divide the profits|share profit|sharing of profits', 'business', n=3),
+           's2': _k('two or more|2 or more|at least two|minimum two|minimum of two', '50|fifty|maximum|section 464|limit'),
+           's3': _k('agreement|contract', 'not status|not from status|not by status|section 5|status', 'business|trade|occupation|profession'),
+           's4': _k('share profits|sharing of profits|share the profits|sharing profits|profit sharing|share profit|divide the profits|profits shared|share of profits'),
+           's5': _k('mutual agency', 'true test|real test|principal and agent|agent and principal|section 6|cardinal|both principal|agent of others|agent of the others|agent for the others'),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

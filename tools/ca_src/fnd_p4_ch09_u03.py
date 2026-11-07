@@ -278,3 +278,59 @@ def build():
                      {'k': 'MFN vs NT', 'v': 'Foreign vs foreign / foreign vs local after entry'}],
         'viva': viva, 'cases': [case],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(120000, 32000),
+        's2': _N(88000),
+        's3': _K('deflection|reroute|routed|route|transship|diverted'),
+        's4': _K('rules of origin|rule of origin|origin'),
+        's5': _K('entry point|any entry|does not matter|common external|same duty|same tariff|cet|any port', nums=[80000]),
+    },
+    'q2': {
+        'extra_ok': True,
+        's1': _K('no discrimination|non discrimination|equal treatment|same treatment|favour|equally', 'trading partner|all member|all countr|other member|foreign|partners'),
+        's2': _K('import|foreign', 'local|domestic|home'),
+        's3': _K('foreign foreign|foreign vs foreign|after entering|after entry|entered|once inside|after import|after the goods|border|foreign v foreign'),
+        's4': _K('art|article|gatt|gats|trips|fta|customs union|exception|developing'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('ministerial conference|ministerial', 'two years|2 years|every two|biennial|once in 2|2 year'),
+        's2': _K('general council', 'dispute settlement|dsb', 'trade policy review|tprb'),
+        's3': _K('goods', 'services', 'trips|intellectual property'),
+        's4': _K('secretariat|director general'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

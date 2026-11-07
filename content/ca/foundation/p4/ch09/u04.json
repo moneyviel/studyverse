@@ -1041,31 +1041,50 @@
      "id": "s1",
      "pt": "Identifies dollar appreciation / rupee depreciation",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "dollar appreciat|dollar strengthen|dollar gain|dollar rise|dollar costlier",
+      "rupee depreciat|rupee weaken|rupee fall|rupee cheaper|rupee lost",
+      "appreciat 7.5|7.5 appreciat|dollar 7.5|depreciat 6.98|6.98 depreciat|rupee 6.98|7.5 percent"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Dollar appreciation %",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      7.5
+     ]
     },
     {
      "id": "s3",
      "pt": "Rupee depreciation % on the correct base",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "-6.98|6.98"
+     ],
+     "min": 1
     },
     {
      "id": "s4",
      "pt": "Importer effect",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      150000
+     ]
     },
     {
      "id": "s5",
      "pt": "Exporter effect",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      360000
+     ]
     }
    ],
    "remarks": [
@@ -1099,7 +1118,8 @@
      "value": 360000,
      "label": "exporter: extra rupees on $60,000"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1145,25 +1165,41 @@
      "id": "s1",
      "pt": "Correct formula and nominal rate form",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "0.0125|e x p p|e p p|1 80 400|1 80 x 400|nominal p p"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "RER for the good",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "0.625"
+     ],
+     "min": 1
     },
     {
      "id": "s3",
      "pt": "RER with price indices",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "0.0135|0.01354|0.0125 1.0833|1.0833|1.083"
+     ],
+     "min": 1
     },
     {
      "id": "s4",
      "pt": "Interpretation of competitiveness",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "real appreciation|appreciat|rer rose|rer higher|rer increas|less competitive|lost competitiveness|competitiveness deteriorat|competitiveness fell|competitiveness declin|competitiveness reduc|dearer|costlier"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -1187,7 +1223,8 @@
      "value": 135.42,
      "label": "RER with indices (India view) × 10,000 — RER ≈ 0.0135"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1233,25 +1270,45 @@
      "id": "s1",
      "pt": "Cause: policy vs market",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "deliberate|official|government|central bank|policy",
+      "market|demand and supply|supply demand|market forces"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Regime: fixed vs floating",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "fixed|pegged",
+      "floating|flexible"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Nature of change",
      "m": 1,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "discrete|one time|sudden|reset|par value|step",
+      "gradual|continuous|day to day"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Opposites named",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "revaluation",
+      "appreciation"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1262,7 +1319,8 @@
    ],
    "tips": [
     "Remember: DEValuation = DEcision; dePRECIATION = PRICE forces."
-   ]
+   ],
+   "extra_ok": true
   }
  ],
  "revision": {

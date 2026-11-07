@@ -312,3 +312,59 @@ def build():
                      {'k': 'VER', 'v': 'Exporter limits its own exports to appease importer'}],
         'viva': viva, 'cases': [case],
     })
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(480000),
+        's2': _N(450000),
+        's3': _K('mixed 480000|480000 mixed|higher 480000|max 480000|480000 higher|greater 480000|480000 being higher'),
+        's4': _N(930000),
+    },
+    'q2': {
+        's1': _N(600, 60, 540),
+        's2': _N(560, 80, 480),
+        's3': _N(5800),
+        's4': _N(700),
+        's5': _N(4800),
+        's6': _K('deadweight 300|net loss 300|loss 300|300 loss|300 deadweight|welfare loss 300|dwl 300|4800 300|loss of 300'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('price below|below home|below normal|lower than home|less than home|below cost|below domestic|lower price|less than normal|below fair', 'subsid'),
+        's2': _K('firm|exporter|company|producer|manufacturer', 'government|state'),
+        's3': _K('remove|offset|counteract|restore|neutrali|nullif|eliminat|protect', 'advantage|injury|unfair'),
+        's4': _K('injury|harm|material', 'domestic industry|domestic producer|local industry|home industry'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

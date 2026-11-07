@@ -377,3 +377,69 @@ def build():
                      {'k': 'Section 117', 'v': 'Compensation: amount + expenses; indorser 18% p.a.; exchange rate'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           '_scheme': [{'id': 's1', 'pt': 'Definition — Section 4', 'm': 1.5, 'skill': 'provision'}]
+                      + [{'id': f's{j + 1}', 'pt': f'Essential characteristics — mark band {j} of 4 (any five, ½ mark per band)', 'm': 0.5, 'skill': 'concept'} for j in range(1, 5)]
+                      + [{'id': f's{j + 5}', 'pt': f'Distinction from bill of exchange — basis {j} of four (½ mark each)', 'm': 0.5, 'skill': 'concept'} for j in range(1, 5)]
+                      + [{'id': 's10', 'pt': 'Presentation (table)', 'm': 0.5, 'skill': 'presentation'}],
+           's1': _k('section 4|instrument in writing|written instrument|in writing', 'unconditional|without condition|undertaking to pay|undertaking|promise to pay', 'certain sum|fixed sum|sum of money|money only|certain sum of money', 'certain person|definite person|bearer|order', n=3),
+           **{f's{j + 1}': _k('in writing|writing|written', 'unconditional|without condition|definite and unconditional', 'signed|signature', 'money only|certain sum|fixed sum|sum certain', 'payee certain|parties certain|certain and different|different persons|must be different|payee must be certain', 'stamped|stamp', n=k) for j, k in zip(range(1, 5), [2, 3, 4, 5])},
+           **{f's{j + 5}': _k('promise to pay|order to pay', 'two parties|three parties|drawer drawee|drawee|three', 'acceptance|accepted', 'bearer on demand|not payable to bearer|cannot be payable to bearer|cannot be made payable to bearer|payable to bearer on demand|cannot be drawn payable to bearer', 'primary|secondary|absolute|conditional', n=j) for j in range(1, 5)},
+           's10': {'ai_only': True},
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 138', 'insufficient|insufficiency|exceeds the arrangement|not sufficient', 'three months|3 months|validity', '30 days|thirty days', '15 days|fifteen days', 'legally enforceable|enforceable debt|debt or liability|debt', n=5),
+           's2': _k('post dated|post-dated|date it bears|date of the cheque|date on the cheque', 'stop payment|stopped|stop-payment', 'section 139|presumption|presume|section 140'),
+           's3': _k('within three months of 20 august|within 3 months of 20 august|25 august within|25th august within|presented within three months of 20|presented within 3 months of 20|within the validity of 20 august|25 august is within', '5 september within|5th september within|within 30 days of the return|within 30 days of return|within 30 days of dishonour on 25|5 september is within', '23 september|23rd september|15 days from 8 september|15 days of 8 september|15 days after 8 september|15 days expired|fifteen days expired|15 days passed|15 days lapsed'),
+           's4': _k('section 138 is attracted|138 attracted|attracted|offence|liable|guilty|complaint|prosecut|punishable', 'two years|2 years|imprisonment', 'twice|480000|fine'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('inland|section 11', 'payable in india|drawn in india|made in india|originates in india|residing in india|resident in india|drawn upon any person resident in india|drawn or made in india', 'example|for example|lucknow|patna|mumbai|delhi|kolkata|chennai|jaipur|pune|instance|drawn in'),
+           's2': _k('section 12|foreign', 'not inland|other than inland|not an inland|any instrument not', 'tokyo|new york|london|dubai|abroad|outside india|foreign country|example|for example|instance'),
+           's3': _k('section 134', 'maker law making|drawer law making|maker law made|drawer law made|maker law place making|drawer law place making|drawer country of making|maker country of making|drawer place where made|maker place where made|drawer law of the place where made|maker law where made|drawer law where made',
+                    'acceptor law payment|indorser law payment|endorser law payment|acceptor law payable|indorser law payable|endorser law payable|acceptor country of payment|indorser country of payment|indorser place of payment|acceptor place of payment|acceptor place where payable|indorser place where payable', n=2,
+                    wrong=[{'kw': ['drawer law payment|maker law payment|acceptor law making|indorser law making'], 'say': 'Section 134: the maker/drawer is bound by the law of the place of making; the acceptor/indorser by the law of the place of payment.'}]),
+           },
+    'q4': {'extra_ok': True,
+           's1': _k('prevent|prevents|obstruct|block|blocks|deliberately|avoids', 'closes|shut|shuts|closed|premises', 'not found|cannot be found|attend|attends|after due search|due search', n=2),
+           's2': _k('engaged to pay|engages to pay|agreed to pay|notwithstanding non-presentment|notwithstanding non presentment|notwithstanding|even without presentment|despite non presentment|regardless'),
+           's3': _k('part payment|promise to pay|promises to pay|waive|waives|waiver', 'after maturity|knowledge|with knowledge'),
+           's4': _k('drawer', 'no damage|could not suffer|cannot suffer|not suffer damage|no loss|suffer no damage|not be damaged|not prejudiced|not suffer any damage|not suffer any loss'),
+           },
+    'q5': {'extra_ok': False,
+           's1': _k('section 46|completed by delivery|complete only on delivery|complete only by delivery|delivery is essential|completed only by delivery|only by delivery|delivery essential', 'conditional|special purpose|condition|voluntary|intention to pass'),
+           's2': _k('half|one half|torn|tore', 'commission|condition|withheld|other half'),
+           's3': _k('not delivery|no delivery|not a delivery|not delivered|not complete delivery|incomplete delivery|not parted|control', 'conditional|condition|commission'),
+           's4': _k('not complete|incomplete|not completed|not made|pia cannot|cannot sue|cannot treat|not valid|no valid|not enforceable|not been made',
+                    wrong=[{'kw': ['pia can sue|pia may sue|pia is entitled to sue|note is complete and pia'], 'say': 'Making of a note is completed only by delivery of the whole instrument (Section 46); half a note sent subject to a condition is not delivery.'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

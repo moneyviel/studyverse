@@ -293,3 +293,56 @@ def build():
                      {'k': 'Lagging indicators', 'v': 'Unemployment, labour cost per unit of output, CPI, commercial lending'}, {'k': 'Theories', 'v': 'Hawtrey (monetary), Pigou (psychological), Schumpeter (innovation), Kaldor (cobweb), Keynes (effective demand)'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        'extra_ok': True,
+        's1': _N(6, 4.91, 1.08, -3.02, -0.92, 2.96),
+        's2': _K('peak 4|year 4 peak|peak year 4|4 peak|peak 562|562 peak|peak in year 4', 'trough 6|year 6 trough|trough year 6|6 trough|trough 540|540 trough|trough in year 6'),
+        's3': _K('expansion|boom', 'contraction|recession|downturn|depression', 'recovery|revival'),
+        's4': _K('shortage', 'input price|cost|price ris|price rise|inflation|cost of living|rising price', 'stagnat|full employment|capacity|output price|demand', min=2),
+    },
+    'q2': {
+        's1': _K('stock price leading|stock leading|leading stock|stock market leading|share price leading|stock prices are leading', 'future|expect|anticipat|before|ahead|advance|early'),
+        's2': _K('unemployment lagging|lagging unemployment|unemployment rate lagging|unemployment is lagging', 'follow|after|later|delay|behind|respond'),
+        's3': _K('retail sales coincident|retail coincident|coincident retail|sales coincident|retail sales are coincident', 'current|same time|simultaneous|along|together|move with|concurrent'),
+        's4': _K('building permit leading|permits leading|leading building|permit leading|building leading|permits are leading', 'before|precede|prior|ahead|future|construction|advance'),
+    },
+    'q3': {
+        's1': _K('internal|endogenous', 'within|inside', 'effective demand|investment|government spending|money supply|psycholog|polic'),
+        's2': _K('external|exogenous', 'outside', 'war|technolog|natural|drought|flood|population'),
+        's3': _K('monetary hawtrey|hawtrey monetary', 'psycholog pigou|pigou psycholog|optimism pessimism pigou|pessimism pigou', 'innovation schumpeter|schumpeter innovation', 'kaldor', 'effective demand keynes|keynes effective|demand keynes|keynes demand', min=4),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

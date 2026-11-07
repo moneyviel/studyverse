@@ -819,31 +819,78 @@
      "id": "s1",
      "pt": "States Section 13 default rules (a)–(d)",
      "m": 2,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 13",
+      "no remuneration|no salary|not entitled to remuneration|not entitled to salary|not entitled to any remuneration",
+      "equally|equal",
+      "interest on capital|interest on capitals",
+      "6 percent|6%|six percent|interest at 6|6 p a"
+     ],
+     "min": 4
     },
     {
      "id": "s2",
      "pt": "Rejects salary, interest on capital and capital-ratio sharing with reasons",
      "m": 1.5,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "salary not allowed|salary is not allowed|no salary|salary rejected|salary claim fails|mohan not entitled|mohan is not entitled|not entitled to salary|salary cannot|salary not|not entitled to any salary",
+      "interest on capital not allowed|no interest on capital|interest on capital is not allowed|nikhil not entitled to interest on capital|interest on capital cannot|interest on capital not|not entitled to interest on capital|no agreement for interest|without agreement|no agreement",
+      "not capital ratio|not in capital ratio|not in the capital ratio|capital ratio rejected|capital ratio not|shared equally|share equally|equally|equal"
+     ],
+     "min": 3,
+     "wrong": [
+      {
+       "kw": [
+        "salary allowed|salary is allowed|interest on capital allowed|interest at 8 percent allowed|capital ratio allowed|2 3"
+       ],
+       "say": "Without an agreement Section 13 applies: no salary, no interest on capital, profits shared equally; only the loan earns 6% p.a."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Interest on loan ₹9,000 (6% × 6 months)",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      9000
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "18000|24000"
+       ],
+       "say": "Interest on the loan is 6% p.a. for 6 months only (1 October to 31 March): ₹3,00,000 × 6% × 6/12 = ₹9,000."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "Distribution table: ₹1,20,000 / ₹1,29,000",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "mohan",
+      "nikhil"
+     ],
+     "min": 2,
+     "nums": [
+      120000,
+      129000
+     ]
     },
     {
      "id": "s5",
      "pt": "Clear conclusion",
      "m": 0.5,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "mohan 120000|mohan gets 120000|mohan rs 120000|120000 mohan|mohan s share 120000|mohan receives 120000|mohan will get 120000",
+      "nikhil 129000|nikhil gets 129000|129000 nikhil|nikhil rs 129000|nikhil total 129000|nikhil receives 129000|nikhil will get 129000|nikhil s share 129000"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -880,7 +927,8 @@
      "value": 129000,
      "label": "total due to Nikhil"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -907,31 +955,59 @@
      "id": "s1",
      "pt": "Minor cannot be partner; admission to benefits with consent of all",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 30|cannot be a partner|not a partner|minor cannot",
+      "benefits|benefit",
+      "consent of all|all partners|all the partners"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Rights before majority",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "share of property|share of profits|agreed share|share",
+      "inspect|copy|accounts",
+      "sue|severing|sever"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "Liability before majority — share only, no personal liability",
      "m": 0.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "limited to his share|limited to share|share in the property|liability limited|liability is limited|extent of his share|limited to the extent",
+      "not personally liable|no personal liability|not personally|cannot be declared insolvent|not insolvent|not be declared insolvent"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Six-month election rule and effect of silence",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "6 months|six months",
+      "elect|election|choose|option|decide|public notice",
+      "silence|silent|fails to give|does not give|no notice|deemed|becomes a partner"
+     ],
+     "min": 3
     },
     {
      "id": "s5",
      "pt": "Position on becoming / not becoming a partner",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "personally liable|personal liability|liable for all acts|unlimited",
+      "public notice|elects not|not to become|does not become|sue the partners|sue for his share|not liable for acts after|not liable for later|not become a partner"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -943,7 +1019,8 @@
    ],
    "tips": [
     "Use two headings: \"Before majority\" and \"After majority\"."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -966,25 +1043,57 @@
      "id": "s1",
      "pt": "Section 33 three conditions",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 33",
+      "majority",
+      "good faith|bona fide",
+      "contract|deed|agreement|power conferred"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Meaning of good faith — interest, notice, hearing",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "interest of the firm|firm s interest|interest of firm|benefit of the firm|firm interest",
+      "notice",
+      "hearing|heard|opportunity"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "Applies each condition to facts",
      "m": 1,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "deed|contract|power",
+      "majority|ananya and charu|two of three|2 of 3",
+      "notice|hearing|heard|explanation|good faith",
+      "conditions are met|conditions met|conditions satisfied|conditions are satisfied|all conditions|complied|fulfilled|satisfied|met"
+     ],
+     "min": 4
     },
     {
      "id": "s4",
      "pt": "Conclusion: valid expulsion",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "expulsion valid|expulsion is valid|valid expulsion|validly expelled|properly expelled|challenge fails|challenge will fail|expulsion cannot be challenged|expulsion stands|expulsion upheld|lawfully expelled|expulsion was valid"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "expulsion invalid|expulsion is invalid|expulsion void|not validly expelled"
+       ],
+       "say": "Contractual power, majority and good faith (firm's interest, notice, hearing) are all present — the expulsion is valid (Section 33)."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -995,7 +1104,8 @@
    ],
    "tips": [
     "Tick off each condition in the analysis paragraph."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1032,13 +1142,149 @@
      "id": "s1",
      "pt": "Meaning of implied authority with Sections 19(1) and 22",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 19|section 22|implied authority",
+      "ordinary course|usual way|usual course|normal course",
+      "firm name|name of the firm|intention to bind|bind the firm|binds the firm"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
-     "pt": "Any eight restricted acts (½ mark each)",
-     "m": 4,
-     "skill": "concept"
+     "pt": "Restricted act 1 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Restricted act 2 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 2
+    },
+    {
+     "id": "s4",
+     "pt": "Restricted act 3 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 3
+    },
+    {
+     "id": "s5",
+     "pt": "Restricted act 4 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 4
+    },
+    {
+     "id": "s6",
+     "pt": "Restricted act 5 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 5
+    },
+    {
+     "id": "s7",
+     "pt": "Restricted act 6 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 6
+    },
+    {
+     "id": "s8",
+     "pt": "Restricted act 7 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 7
+    },
+    {
+     "id": "s9",
+     "pt": "Restricted act 8 of eight (½ mark each)",
+     "m": 0.5,
+     "skill": "concept",
+     "kw": [
+      "arbitration|arbitrat",
+      "personal name|own name|account in his name|account in his own",
+      "compromise|relinquish",
+      "withdraw|withdrawal|withdrawing",
+      "admit|admitting|admission of liability|admits",
+      "acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable",
+      "transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable",
+      "enter into partnership|entering into partnership|partnership on behalf|enters into partnership"
+     ],
+     "min": 8
     }
    ],
    "remarks": [
@@ -1049,7 +1295,8 @@
    ],
    "tips": [
     "Hook: \"A-B-C-W-A-I-T-E\" — Arbitration, Bank account, Compromise, Withdraw suit, Admit liability, Immovable buy, Transfer immovable, Enter partnership."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q5",
@@ -1096,25 +1343,50 @@
      "id": "s1",
      "pt": "Section 37 — two options",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 37",
+      "share of profits|profits attributable|profit attributable|share of profit|profits earned",
+      "interest 6|6 percent|6%|six percent|interest at 6",
+      "option|at her option|either|choose"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Option (a) ₹1,20,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      120000
+     ]
     },
     {
      "id": "s3",
      "pt": "Option (b) ₹24,000 (8 months)",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      24000
+     ]
     },
     {
      "id": "s4",
      "pt": "Advice: choose the higher",
      "m": 0.5,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "claim 120000|choose 120000|opt 120000|120000 higher|higher 120000|120000 better|better 120000|opt for profits|choose profits|choose share of profits|opt for share|claim share of profits|share of profits higher|share of profits better|profits higher|profit option|prefer profits|select profits|choose the higher|opt for the higher|higher amount"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "claim 24000|opt for interest|choose interest|choose 24000|prefer interest"
+       ],
+       "say": "Tanvi may choose either option (Section 37); the profit share of ₹1,20,000 is far more than interest of ₹24,000."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1138,7 +1410,8 @@
      "value": 24000,
      "label": "interest at 6% p.a. for 8 months"
     }
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

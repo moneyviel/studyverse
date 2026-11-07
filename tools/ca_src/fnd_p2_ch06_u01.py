@@ -385,3 +385,84 @@ def build():
                      {'k': 'Key cases', 'v': 'Salomon · Macaura · Gilford Motor · Ashbury v Riche · Turquand · Ruben v Great Fingall'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('salomon|separate legal entity|separate entity|distinct legal person|distinct from its members|legal person distinct|separate legal person|separate from its members|separate legal personality'),
+           's2': _k('gilford|horne|lifting the veil|lift the veil|lifting of the corporate veil|lifting of veil|pierce|piercing|look behind|disregard', 'fraud|evade|evasion|evading|dodge|improper|sham|cloak|legal obligation|legal duty'),
+           's3': _k('cloak|sham|mere tool|device|facade|evade|evasion|evading|to escape|circumvent|get around|mask|alter ego', 'covenant|non compete|non-compete|obligation|agreement not to compete|restraint|promise not|undertaking'),
+           's4': _k('restrain both|restrain ravi and the company|both ravi and the company|injunction against both|injunction against the company|court will grant injunction|veil will be lifted|company will be restrained|disregard the separate|buyer will succeed|buyer succeeds|injunction will be granted|grant an injunction|ravi and the company are restrained|ravi and company restrained|restrain ravi as well as the company',
+                    wrong=[{'kw': ['company cannot be restrained|buyer will fail|buyer cannot restrain|ravi s argument succeeds'], 'say': 'A company formed to evade a personal covenant is a mere cloak — the veil is lifted (Gilford Motor v Horne) and both are restrained.'}]),
+           },
+    'q2': {'extra_ok': True,
+           '_scheme': [{'id': 's1', 'pt': 'Definition — Section 2(62), private company', 'm': 1, 'skill': 'provision'}]
+                      + [{'id': f's{j + 1}', 'pt': f'Significant points — mark band {j} of 8 (any six points, ⅔ mark each, rounded down to halves)', 'm': 0.5, 'skill': 'concept'} for j in range(1, 9)],
+           's1': _k('section 2 62|2(62)|one person as member|only one person|one member|single member|sole member|one person as a member', 'private company|private'),
+           **{f's{j + 1}': _k('natural person|indian citizen|citizen',
+                              'nominee',
+                              'change the nominee|change nominee|change of nominee|not an alteration|not alteration|nominee can be changed|nominee may be changed',
+                              'more than one opc|more than one one person company|only one opc|one opc|more than one|cannot incorporate more than one|cannot form more than one|not more than one|cannot be a nominee in more than one|no person can form more|no person can incorporate more|cannot form more|cannot incorporate more',
+                              'minor',
+                              'section 8|non-banking|nbfc|non banking|financial investment',
+                              'paid-up capital|paid up capital|minimum capital|no minimum',
+                              'director|below its name|written below|one person company in brackets', n=k) for j, k in zip(range(1, 9), [1, 2, 3, 3, 4, 5, 6, 6])},
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('name clause|name', 'limited|private limited|pvt'),
+           's2': _k('registered office|office clause', 'state'),
+           's3': _k('objects clause|objects|object clause|objects for which'),
+           's4': _k('liability', 'limited|unpaid|amount unpaid|guarantee'),
+           's5': _k('capital', 'authorised|authorized|shares|divided'),
+           's6': _k('subscription clause|association clause|subscribers|subscriber|association|table a|schedule i|schedule 1'),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('turquand|royal british bank|indoor management', 'presume|assume|regularity|internal|regular|need not inquire|not bound to inquire|outsider|outsiders'),
+           's2': _k('exception|not protect|does not protect|not available|not apply|cannot be invoked', 'suspicious|suspicion|outside the authority|beyond authority|outside authority|apparent authority|inquire|enquire|inquiry|enquiry|anand bihari'),
+           's3': _k('accounts manager|manager', 'warehouse|immovable|property|sell|sale', 'outside|beyond|not within|no authority|not authorised|unauthorised|suspicious|should have inquired|put on inquiry|should have enquired|ought to have inquired'),
+           's4': _k('joshi not protected|joshi cannot|joshi is not protected|joshi not entitled|joshi cannot claim|not protect joshi|not protect mr joshi|joshi cannot rely|joshi fails|joshi will fail|joshi s claim fails|joshi not get|joshi cannot get|claim of joshi fails|joshi gets no protection',
+                    'sale void|transfer void|transfer is void|sale is void|company not bound|company is not bound|not binding on the company|sale not binding|transfer not binding', n=1,
+                    wrong=[{'kw': ['joshi protected|joshi is protected|joshi can claim|sale valid|transfer valid|company bound|company is bound'], 'say': 'Indoor management does not help where the act is plainly outside the officer\'s authority — Mr. Joshi should have inquired.'}]),
+           },
+    'q5': {'extra_ok': False,
+           's1': _k('2 8|2(8)', '2 50|2(50)', '2 86|2(86)', '2 15|2(15)', '2 64|2(64)', n=4),
+           's2': _k('authorised|authorized', 'issued', 'subscribed', nums=[50000000, 30000000, 28000000]),
+           's3': _k('called', 'paid', nums=[19600000, 19500000],
+                    wrong=[{'kw': ['19700000|20600000|1 97 00 000'], 'say': 'Paid-up capital = called-up ₹1,96,00,000 less calls in arrears ₹1,00,000 = ₹1,95,00,000.'}]),
+           's4': {'ai_only': True},
+           },
+    'q6': {'extra_ok': True,
+           '_scheme': [{'id': f's{i}', 'pt': f'Basis {i} (any four)', 'm': 1, 'skill': 'concept'} for i in range(1, 5)],
+           **{f's{i}': _k('charter|bye-laws|bye laws|byelaws|internal management|fundamental conditions',
+                          'outsiders|outside world|between company and members|relationship with outsiders|third parties|company and its members',
+                          'special resolution|regional director|central government|tribunal',
+                          'ratified|ratify|ratification',
+                          'table a|tables a|table f|tables f|schedule i|schedule 1', n=i) for i in range(1, 5)},
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

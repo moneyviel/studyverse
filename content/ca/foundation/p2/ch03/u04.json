@@ -608,25 +608,48 @@
      "id": "s1",
      "pt": "Definition — Section 45, both limbs",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 45|whole price|whole of the price|full price|price not paid|not been paid|not paid|not tendered|unpaid",
+      "bill of exchange|negotiable instrument|dishonour|dishonored|dishonoured|cheque"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Lien — when available and when lost",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "lien|retain",
+      "cash sale|credit expired|expiry of credit|credit period|insolvency|insolvent",
+      "lost|loses|carrier|waiver|waives|lawfully obtains|delivery to a carrier|lawfully gets"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "Stoppage in transit — conditions and mode",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "stoppage in transit|stoppage|stop the goods|transit",
+      "insolvency|insolvent",
+      "actual possession|notice to the carrier|notice|carrier|bailee"
+     ],
+     "min": 3
     },
     {
      "id": "s4",
      "pt": "Resale and withholding delivery",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "resale|resell|re sell|re-sale",
+      "perishable|notice",
+      "withhold|withholding|section 46 2|46(2)|property has not passed"
+     ],
+     "min": 3
     }
    ],
    "remarks": [
@@ -638,7 +661,8 @@
    ],
    "tips": [
     "Use the headings Lien / Stoppage / Resale and cite sections."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q2",
@@ -661,25 +685,51 @@
      "id": "s1",
      "pt": "Section 54(2) — resale of perishable goods / after notice",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 54|resell|resale|re-sell",
+      "perishable",
+      "notice"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Analysis — perishable, notice not needed",
      "m": 1,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "perishable",
+      "notice not required|no notice required|notice not necessary|notice is not required|notice is not necessary|need not give notice|no need of notice|no need for notice|notice unnecessary|need not be given|no notice is needed|notice not needed|not required to give notice|not bound to give notice|no notice is required|no notice is necessary|absence of notice"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Computation 200 × 300",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      60000
+     ]
     },
     {
      "id": "s4",
      "pt": "Conclusion",
      "m": 0.5,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "recover 60000|60000 recoverable|liable to pay 60000|varun pay 60000|claim 60000|loss of 60000|60000 from varun|varun liable 60000|varun liable for 60000|entitled to 60000|recover rs 60000|recovers 60000|must pay 60000"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "sharma cannot recover|cannot recover the loss|notice was necessary|notice was required"
+       ],
+       "say": "For perishable goods an unpaid seller may resell without notice and still recover the loss (Section 54(2))."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -697,7 +747,8 @@
      "value": 60000,
      "label": "loss on resale of 200 tins"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -756,15 +807,108 @@
    "scheme": [
     {
      "id": "s1",
-     "pt": "Four distinctions (0.75 each)",
-     "m": 3,
-     "skill": "concept"
+     "pt": "Distinction — nature: retain vs regain possession",
+     "m": 0.75,
+     "skill": "concept",
+     "kw": [
+      "retain|retention",
+      "regain|resume|recover possession|get back|retake"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
-     "pt": "End of transit — any four situations (0.75 each)",
-     "m": 3,
-     "skill": "provision"
+     "pt": "Distinction — possession with seller vs parted with to carrier",
+     "m": 0.75,
+     "skill": "concept",
+     "kw": [
+      "seller in possession|in possession of the seller|seller has possession|seller s possession|possession of seller|seller holds|seller is in possession",
+      "parted with possession|carrier|in transit|bailee|parted with"
+     ],
+     "min": 2
+    },
+    {
+     "id": "s3",
+     "pt": "Distinction — insolvency of buyer not essential vs essential",
+     "m": 0.75,
+     "skill": "concept",
+     "kw": [
+      "insolvency|insolvent",
+      "not essential|not necessary|not required|not needed|need not|irrespective",
+      "essential|necessary|required|only when the buyer is insolvent|only on insolvency"
+     ],
+     "min": 3
+    },
+    {
+     "id": "s4",
+     "pt": "Distinction — commencement and end",
+     "m": 0.75,
+     "skill": "concept",
+     "kw": [
+      "ends when|ends on|lost when|leave|leaves|parts with|delivery to carrier|delivered to carrier|lien ends|begins when|begins where|commences|starts",
+      "buyer takes delivery|takes delivery|delivery to the buyer|buyer obtains delivery|buyer gets delivery"
+     ],
+     "min": 2
+    },
+    {
+     "id": "s5",
+     "pt": "End of transit — situation 1 of four (Section 51)",
+     "m": 0.75,
+     "skill": "provision",
+     "kw": [
+      "takes delivery at destination|delivery at the destination|destination|buyer or his agent takes delivery",
+      "before the goods reach|before arrival|before reaching|obtains delivery before|before the destination",
+      "acknowledges|holds on behalf|holding for him|holds the goods for the buyer|attorn|holding the goods for|holds them for|holds the goods on behalf",
+      "wrongfully refuses|wrongful refusal|refuses to deliver",
+      "chartered|vessel|ship|master",
+      "part delivery|partial delivery|delivery of part"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s6",
+     "pt": "End of transit — situation 2 of four (Section 51)",
+     "m": 0.75,
+     "skill": "provision",
+     "kw": [
+      "takes delivery at destination|delivery at the destination|destination|buyer or his agent takes delivery",
+      "before the goods reach|before arrival|before reaching|obtains delivery before|before the destination",
+      "acknowledges|holds on behalf|holding for him|holds the goods for the buyer|attorn|holding the goods for|holds them for|holds the goods on behalf",
+      "wrongfully refuses|wrongful refusal|refuses to deliver",
+      "chartered|vessel|ship|master",
+      "part delivery|partial delivery|delivery of part"
+     ],
+     "min": 2
+    },
+    {
+     "id": "s7",
+     "pt": "End of transit — situation 3 of four (Section 51)",
+     "m": 0.75,
+     "skill": "provision",
+     "kw": [
+      "takes delivery at destination|delivery at the destination|destination|buyer or his agent takes delivery",
+      "before the goods reach|before arrival|before reaching|obtains delivery before|before the destination",
+      "acknowledges|holds on behalf|holding for him|holds the goods for the buyer|attorn|holding the goods for|holds them for|holds the goods on behalf",
+      "wrongfully refuses|wrongful refusal|refuses to deliver",
+      "chartered|vessel|ship|master",
+      "part delivery|partial delivery|delivery of part"
+     ],
+     "min": 3
+    },
+    {
+     "id": "s8",
+     "pt": "End of transit — situation 4 of four (Section 51)",
+     "m": 0.75,
+     "skill": "provision",
+     "kw": [
+      "takes delivery at destination|delivery at the destination|destination|buyer or his agent takes delivery",
+      "before the goods reach|before arrival|before reaching|obtains delivery before|before the destination",
+      "acknowledges|holds on behalf|holding for him|holds the goods for the buyer|attorn|holding the goods for|holds them for|holds the goods on behalf",
+      "wrongfully refuses|wrongful refusal|refuses to deliver",
+      "chartered|vessel|ship|master",
+      "part delivery|partial delivery|delivery of part"
+     ],
+     "min": 4
     }
    ],
    "remarks": [
@@ -775,7 +919,8 @@
    ],
    "tips": [
     "Lien = retain; stoppage = regain — make it your first row."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q4",
@@ -798,19 +943,33 @@
      "id": "s1",
      "pt": "Section 58 and Specific Relief Act condition",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 58|specific performance",
+      "specific relief|specific goods|ascertained|specific or ascertained"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Analysis — unique goods, damages inadequate",
      "m": 1.5,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "unique|rare|no substitute|not available|cannot be bought|cannot buy|identical|irreplaceable|one of a kind",
+      "damages inadequate|damages not adequate|damages would not be adequate|damages are not adequate|not adequate|inadequate|money cannot|money would not|compensation not adequate|money is not adequate|not an adequate"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Conclusion — specific performance / damages as alternative",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "sue for specific performance|ritu can sue|ritu may sue|order kunal|kunal to deliver|direct kunal|claim specific performance|seek specific performance|ritu can claim specific|suit for specific performance|ritu can file"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -821,7 +980,8 @@
    ],
    "tips": [
     "Mention that specific performance is discretionary."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

@@ -301,3 +301,58 @@ def build():
                 M('k1d', 'If Ahuja and Chawla exchange seats, who will sit opposite Jain?', ['Chawla', 'Ahuja', 'Dutta', 'Bose'], 0, "Jain sits opposite seat 1, Ahuja's original seat. After Ahuja and Chawla swap, Chawla occupies seat 1, so Chawla is now opposite Jain. Ahuja is the trap: it ignores the swap and keeps the old seating. In practice: when one change is made to a seating plan, only the moved people's relations change; the rest of the diagram stays valid, which saves redrawing.", 'c4', 'moderate', topic='Circular arrangements'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+_ROW = 'w y u z v x|wyuzvx'
+AUTO = {
+    'q1': {
+        's1': _K(_ROW + '|y u z|w y u|u 3|u seat 3|seat 3 u|3 u'),
+        's2': _K(_ROW + '|w y u|w 1|w seat 1|seat 1 w|w left end'),
+        's3': _K(_ROW + '|u z v|z v x|v 5|v seat 5|seat 5 v|z 4|z seat 4|seat 4 z'),
+        's4': _K('fourth z|4th z|z fourth|z 4th|b z|z b', 'between z|z between|c z|z sit between'),
+    },
+    'q2': {
+        's1': _K('right clockwise|clockwise right|right is clockwise|right means clockwise', 'left anticlockwise|anticlockwise left|left anti clockwise|left counter clockwise|left counterclockwise'),
+        's2': _K('r w v u s t|rwvust|w 2|w seat 2|u 4|u seat 4|r w u'),
+        's3': _K('r w v u s t|rwvust|v 3|v seat 3|s 5 t 6|s seat 5'),
+        's4': _K('opposite w s|s opposite w|s opposite|seat 5 s|opposite w seat 5|s b w|opposite w is s', 'left v w|w left v|w immediate left|neighbour w|b w|w is left', 'between u t s|s between|c s|between u and t s|seat 6 s|s sits between'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('north same|north your left|north own left|north left same|north left left|north same as|north normal left|north left is left'),
+        's2': _K('south opposite|south your right|south right|south reverse|south viewer right|south observer right|south revers'),
+        's3': _K('centre clockwise|centre circle left clockwise|centre left clockwise|center clockwise|inward clockwise|centre next clockwise|clockwise centre|clockwise center|centre seat clockwise'),
+        's4': _K('outward anticlockwise|outward circle left anticlockwise|outward left anticlockwise|outward next anticlockwise|outward anti clockwise|outward counter clockwise|outward counterclockwise|anticlockwise outward|outside anticlockwise'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

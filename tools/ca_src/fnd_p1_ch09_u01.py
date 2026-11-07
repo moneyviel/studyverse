@@ -409,3 +409,51 @@ def build():
         ],
         'viva': viva, 'cases': cases_,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'nums': [249000]},
+           's2': {'nums': [571000]},
+           's3': {'nums': [360000, 682000]},
+           's4': {'kw': ['undisclos|not declared|not reasonable|understat|conceal|unreasonable|under declared|underdeclared|suppress|not disclosed|under reported|underreported|unexplained|not justified|less than earned|lower than'],
+                  'nums': [400000, 282000],
+                  'wrong': [{'kw': ['income is reasonable|declared income reasonable|declaration reasonable'], 'say': 'He earned ₹6,82,000 but declared ₹4,00,000 — the declaration is not reasonable unless the ₹2,82,000 is explained.'}]}},
+    'q2': {'extra_ok': False,
+           's1': {'nums': [109000]},
+           's2': {'nums': [26000]},
+           's3': {'nums': [334000]},
+           's4': {'nums': [255000]},
+           's5': {'nums': [126000]},
+           's6': {'kw': ['drawing|household|personal'], 'nums': [32000, 32500, 4200]},
+           's7': {'nums': [54800]},
+           's8': {'nums': [133800, 177800]}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['incomplete record|estimat|inquir|enquir|memory|single entry|guess|available information', 'ledger|double entry|complete record|books of account|proper records|accounts books'], 'min': 2},
+           's2': {'kw': ['capital', 'balancing figure|difference between|balancing|derived|residual|excess of assets|assets minus|assets less|assets over liabilit'], 'min': 2},
+           's3': {'kw': ['omission|omitted|error|mistake', 'difficult|not detect|cannot detect|detect|easily|not possible|not found|located|disagree|not agree|totals'], 'min': 2},
+           's4': {'kw': ['ascertain capital|find capital|opening capital|closing capital|calculate capital|determine capital|know capital|valuation|value|arbitrary|financial position|true and fair|true fair|position of business']}},
+    'q4': {'extra_ok': False,
+           's1': {'kw': ['bills payable|bill payable|b p'], 'nums': [53000]},
+           's2': {'rows': [['bills payable|bill payable|b p|bills accepted|acceptance', 'dr', 53000], ['discount', 'dr', 3500], ['return', 'dr', 4500], ['cash|bank', 'dr', 210000],
+                           ['purchase|balancing', 'cr', 284000]]},
+           's3': {'nums': [310000]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

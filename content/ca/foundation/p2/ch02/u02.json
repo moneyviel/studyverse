@@ -516,25 +516,43 @@
      "id": "s1",
      "pt": "States the statement is incorrect",
      "m": 0.5,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "incorrect|not correct|wrong|false|not true|untrue|need not be adequate|not necessary|not required|not need|need not"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Explanation 2 to Section 25",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "explanation 2|section 25",
+      "inadequate|inadequacy|not void|free consent|freely consented|freely"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Must have some value / real",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "some value|value|real|not illusory|genuine|illusory"
+     ],
+     "min": 1
     },
     {
      "id": "s4",
      "pt": "Inadequacy as evidence of lack of free consent",
      "m": 1,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "evidence|taken into account|take into account|into account|indicate|indication|suggest|presume",
+      "free consent|coercion|undue influence|fraud|consent"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -546,7 +564,8 @@
    ],
    "tips": [
     "Start with \"The statement is incorrect\", then provision, then the exception, then conclusion."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q2",
@@ -569,31 +588,54 @@
      "id": "s1",
      "pt": "Section 2(d) — consideration may move from any other person",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 2 d|2(d)|any other person|third party|third person|another person|other person|anyone",
+      "consideration"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Stranger to consideration vs stranger to contract / privity",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "stranger to consideration|stranger to the consideration|not furnished consideration|not given consideration|not provide consideration",
+      "stranger to contract|stranger to the contract|not a stranger to the contract|not stranger to contract|not a stranger to contract|privity|party to the contract|party to contract|party to promise|party to the promise"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Application: shop from Kamala is consideration; Dev promised Hari",
      "m": 1.5,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "shop consideration|kamala consideration|gift consideration|consideration kamala|consideration shop|consideration gift|consideration moved|consideration came|consideration for dev",
+      "hari"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Conclusion: Hari can recover",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "hari can sue|hari can recover|hari is entitled|hari entitled|hari succeed|hari can enforce|hari will succeed|dev liable|dev is liable|dev must pay|dev bound|plea fail|plea fails|plea will fail|dev cannot refuse|dev cannot escape|dev has to pay"
+     ],
+     "min": 1
     },
     {
      "id": "s5",
      "pt": "Case law cited (Chinnaya v. Ramayya)",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "chinnaya|ramayya"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -606,7 +648,8 @@
    "tips": [
     "Use the four-part Provision → Facts → Analysis → Conclusion layout.",
     "Name the case once; do not narrate its facts at length."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -629,25 +672,53 @@
      "id": "s1",
      "pt": "Section 25 rule and Section 25(1) conditions",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "without consideration|void|section 25",
+      "written|writing|registered|registration",
+      "near relation|near relative|relative|relation|natural love|love and affection"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Explanation 1 — completed gift",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "explanation 1|actually made|completed|complete|already given|already made|already handed|delivered",
+      "gift|given|handed"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "(a) applied and concluded",
      "m": 1,
-     "skill": "analysis"
+     "skill": "analysis",
+     "kw": [
+      "oral|not written|not registered|unregistered|no writing|not in writing",
+      "not enforceable|unenforceable|void|cannot enforce|cannot be enforced|brother cannot|not binding|cannot claim"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "(b) applied and concluded",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "cannot take|cannot recover|cannot get|cannot reclaim|cannot demand|cannot ask|not entitled|keep the chain|friend can keep|need not return|not return|not bound to return|no right|chain valid|valid gift|gift is complete|irrevocable"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "can take back|can recover the chain|must return|get back the chain"
+       ],
+       "say": "A gift actually made needs no consideration (Explanation 1 to Section 25) — Anu cannot take it back."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -659,7 +730,8 @@
    ],
    "tips": [
     "Answer each part separately with its own one-line conclusion."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -691,31 +763,57 @@
      "id": "s1",
      "pt": "General rule — Section 25",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 25|without consideration void|no consideration void|without consideration is void|without consideration are void"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Section 25(1) with conditions",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "natural love|love and affection|near relation|relative",
+      "written|writing|registered"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Section 25(2) with conditions",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "voluntar",
+      "compensat|past|service|legally compellable"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Section 25(3) with conditions",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "time barred|time-barred|barred by limitation|limitation",
+      "signed debtor|signed by debtor|written signed|writing signed|signed writing|written and signed|signed in writing|signed by the debtor"
+     ],
+     "min": 2
     },
     {
      "id": "s5",
      "pt": "Gift, agency, bailment, charity",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "gift|completed",
+      "agency|agent|section 185",
+      "bailment|bailee|bailor",
+      "charity|charitable|donation|subscription"
+     ],
+     "min": 3
     }
    ],
    "remarks": [
@@ -727,7 +825,8 @@
    ],
    "tips": [
     "Give the sub-section number with each exception — examiners look for it."
-   ]
+   ],
+   "extra_ok": true
   }
  ],
  "revision": {

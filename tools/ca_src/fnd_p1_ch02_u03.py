@@ -230,3 +230,44 @@ def build():
                      {'k': 'Errors not revealed', 'v': 'Omission, commission, principle, compensating'}, {'k': 'Capital (balancing figure)', 'v': 'Total debits − credits other than capital'}],
         'viva': viva(),
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['cash', 'dr', 12400], ['bank', 'dr', 86600], ['purchase', 'dr', 315000], ['carriage', 'dr', 7200], ['salar', 'dr', 54000], ['rent', 'dr', 36000],
+                           ['electricity', 'dr', 8400], ['debtor|receivable', 'dr', 72000], ['computer', 'dr', 90000], ['opening stock|stock|inventory', 'dr', 28000], ['drawing', 'dr', 30000]]},
+           's2': {'rows': [['sale', 'cr', 498000], ['creditor|payable', 'cr', 41000], ['interest', 'cr', 2600], ['loan|sen', 'cr', 60000]]},
+           's3': {'rows': [['capital', 'cr', 138000]]},
+           's4': {'kw': ['trial balance', 'march|mar|2027|31.03.2027|31 03 2027|31.3.2027|31 3 2027'], 'min': 2, 'nums': [739600]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['arithmetical accuracy|arithmetic accuracy|arithmetical|arithmetic|debits equal credits|debit equal credit|total debit equal|equality|mathematical accuracy|only proves'], 'min': 1},
+           's2': {'kw': ['omission', 'commission|wrong account|wrong person', 'principle', 'compensat', 'wrong amount|original entry|error original'], 'min': 3},
+           's3': {'kw': ['machinery|machine|furniture|asset|van|building|purchase|sale|wages|rent|cash', 'credited|debited|posted|entered|recorded|omitted|overcast|over cast|undercast|written|left'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'rows': [['drawing', 'dr', 30000], ['sales return|return inward|returns inward|sale return', 'dr', 6000], ['prepaid', 'dr', 1500]]},
+           's2': {'rows': [['purchase return|return outward|returns outward', 'cr', 7000], ['overdraft', 'cr', 28000], ['outstanding', 'cr', 3500], ['commission', 'cr', 4000]]},
+           's3': {'nums': [834500]},
+           's4': {'kw': ['trial balance', 'march|mar|2027|31.03.2027|31 03 2027|31.3.2027|31 3 2027'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

@@ -381,3 +381,56 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(-16, 48, kw=['fd']),
+        's2': _N(143.6),
+        's3': _N(18.52),
+        's4': _N(12.9),
+    },
+    'q2': {
+        's1': _N(4850),
+        's2': _N(-350, 250),
+        's3': _K('50 350|350 2|6125000|n1 d1', '70 250|250 2|4375000|n2 d2'),
+        's4': _N(467.26),
+    },
+    'q3': {
+        's1': _N(21, 41),
+        's2': _N(10, 32.26),
+        's3': _N(30, 85),
+        's4': _N(9.44, 31.48),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

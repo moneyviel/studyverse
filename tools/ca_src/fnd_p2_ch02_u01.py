@@ -231,3 +231,58 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 4|as against the acceptor|against acceptor', 'knowledge|know|reaches|reached|comes to|received|complete', n=2),
+           's2': _k('section 5', 'revoked at any time|revoke any time|revoked before|revoke before|revocable before|withdrawn before|withdraw before|revocation before communication|revoked till|revoked until|revoked prior|revocation any time', n=1),
+           's3': _k('6 march|6th march|march 6', '8 march|8th march|march 8', 'before|earlier|prior|first|in time|ahead|sooner'),
+           's4': _k('no contract|contract does not exist|no binding contract|not bound|claim fail|claim will fail|claim fails|revocation valid|revocation is valid|revocation effective|validly revoked|revocation was valid|revocation good|not liable',
+                    n=1, wrong=[{'kw': ['revocation invalid|revocation is invalid|revocation too late|revocation came too late|revocation not valid|revocation is not valid|contract was concluded on posting|complete on posting'], 'say': 'As against the acceptor, acceptance is complete only when it reaches the offeror (Section 4). The revocation reached first, so it is valid.'}]),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('section 2 e|2(e)', 'promise|promises', 'consideration|each other|one another', n=2),
+           's2': _k('agreement enforceable|enforceable agreement|agreement which is enforceable|agreement that is enforceable|agreement enforced|law will enforce|enforceable by law|enforceable at law|enforced by law|2 h|2(h)'),
+           's3': _k('section 10|free consent|consent', 'competent|capacity|lawful consideration|lawful object|lawful|legal relations|intention|legal obligation'),
+           's4': _k('balfour|social|domestic|dinner|lunch|movie|friend|wife|husband|declared void|void agreement|minor|wager|incompetent', 'hence|therefore|thus|only|all contracts|every contract|conclusion|conclude'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 2 b|section 7|communicated|communication|signified|signify|express|conveyed', 'acceptance|accept|assent'),
+           's2': _k('silence|silent|no reply|not reply', 'felthouse|bindley|not acceptance|not an acceptance|cannot|not amount|no acceptance|not equal|not treated'),
+           's3': _k('sanjay', 'never replied|never accepted|never signified|no reply|not reply|did not reply|silent|silence|did nothing|not respond|not accept|not signify|remained quiet', 'assent|accept|duty|reply|respond|communicat'),
+           's4': _k('no contract|not bound|need not pay|not liable|not required to pay|no obligation|not obliged|cannot demand|cannot claim|cannot recover', n=1),
+           },
+    'q4': {'extra_ok': True,
+           's1': _k('willingness|final|definite|section 2 a|2(a)|bound', 'invitation|negotiat|step before|preliminary|invite'),
+           's2': _k('binding|bind|contract|enforceable|agreement', 'only an offer|becomes an offer|itself an offer|itself becomes|amounts to an offer|treated as an offer|accept or reject|accepted or rejected|response is an offer|reply is an offer|response offer|reply offer|counts as an offer'),
+           's3': _k('bound|bind|assent|obtain', 'negotiat|attract|elicit|induce|start|begin|interest'),
+           's4': _k('reward|letter|car|stated price|offer to sell|lost|specific price', 'price list|catalogue|display|tender|prospectus|advertisement|menu|shop window|price tag|auction'),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

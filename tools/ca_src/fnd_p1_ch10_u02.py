@@ -362,3 +362,48 @@ def build():
         ],
         'viva': viva, 'cases': cases_,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'nums': [1100000]},
+           's2': {'nums': [197000]},
+           's3': {'nums': [110000, 87000]},
+           's4': {'nums': [261000, 870000]}},
+    'q2': {'extra_ok': False,
+           's1': {'rows': [['x capital|x', 'dr', 25000], ['y capital|y', 'dr', 15000], ['goodwill', 'cr', 40000]]},
+           's2': {'kw': ['1 1|equal|equally|same proportion'],
+                  'wrong': [{'kw': ['9000'], 'say': 'The sacrificing ratio here is 1:1 (5/8 − 4/8 and 3/8 − 2/8), not the old ratio 5:3.'}]},
+           's3': {'rows': [['z capital|z', 'cr', 150000], ['x capital|x', 'cr', 12000], ['y capital|y', 'cr', 12000]]},
+           's4': {'rows': [['z capital|z', 'dr', 16000], ['x capital|x', 'cr', 8000], ['y capital|y', 'cr', 8000]]}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['as 26|accounting standard 26|standard 26|intangible asset|cannot recognised 26|not recognised 26|cannot recognized 26|not recognized 26', 'identifiable|reliabl|control|future benefit|future economic|probable|measured|not identifiable|cannot measured|not measured|cannot be measured'], 'min': 2},
+           's2': {'kw': ['inherent|self generated|internally generated|self created|non purchased',
+                         'not recorded|cannot recorded|not recognised|cannot recognised|not recognized|cannot recognized|not shown|not raised|never recorded|not appear|only purchased|only paid|purchased goodwill|not brought in books|not be recorded'], 'min': 2},
+           's3': {'kw': ['capital account|capital accounts|capital', 'gain|new partner|incoming|sacrific|outgoing|retiring|continuing'], 'min': 2},
+           's4': {'kw': ['written off|write off|writing off|wipe|eliminat', 'old ratio|old profit sharing|old partners'], 'min': 2}},
+    'q4': {'extra_ok': False,
+           's1': {'nums': [205000],
+                  'wrong': [{'kw': ['190000'], 'say': 'That is the simple average; the question asks for the weighted average with weights 1, 2, 3 (₹12,30,000 ÷ 6 = ₹2,05,000).'}]},
+           's2': {'nums': [615000, 123000]},
+           's3': {'kw': ['1 1|equal|equally|1 10 1 10']},
+           's4': {'rows': [['e capital|e', 'dr', 61500], ['f capital|f', 'dr', 61500], ['g capital|g', 'cr', 123000]]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

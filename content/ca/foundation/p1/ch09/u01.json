@@ -1251,25 +1251,50 @@
      "id": "s1",
      "pt": "Opening capital ₹2,49,000 via statement of affairs",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      249000
+     ]
     },
     {
      "id": "s2",
      "pt": "Closing capital ₹5,71,000 (van included, loan removed)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      571000
+     ]
     },
     {
      "id": "s3",
      "pt": "Drawings ₹3,60,000 added back; income ₹6,82,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      360000,
+      682000
+     ]
     },
     {
      "id": "s4",
      "pt": "Comparison with declared income and conclusion (₹2,82,000 undisclosed)",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "undisclos|not declared|not reasonable|understat|conceal|unreasonable|under declared|underdeclared|suppress|not disclosed|under reported|underreported|unexplained|not justified|less than earned|lower than"
+     ],
+     "nums": [
+      400000,
+      282000
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "income is reasonable|declared income reasonable|declaration reasonable"
+       ],
+       "say": "He earned ₹6,82,000 but declared ₹4,00,000 — the declaration is not reasonable unless the ₹2,82,000 is explained."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1284,7 +1309,8 @@
    "tips": [
     "Prepare both statements of affairs side by side in one table — it saves time.",
     "End with a conclusion sentence; it carries a mark."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1477,49 +1503,79 @@
      "id": "s1",
      "pt": "Opening capital ₹1,09,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      109000
+     ]
     },
     {
      "id": "s2",
      "pt": "Closing cash and bank ₹26,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      26000
+     ]
     },
     {
      "id": "s3",
      "pt": "Credit sales ₹3,34,000 through Total Debtors",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      334000
+     ]
     },
     {
      "id": "s4",
      "pt": "Credit purchases ₹2,55,000 through Total Creditors",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      255000
+     ]
     },
     {
      "id": "s5",
      "pt": "Trading account — gross profit ₹1,26,000",
      "m": 1.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "nums": [
+      126000
+     ]
     },
     {
      "id": "s6",
      "pt": "Household electricity as drawings; salary outstanding added; depreciation ₹4,200",
      "m": 1.5,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "drawing|household|personal"
+     ],
+     "nums": [
+      32000,
+      32500,
+      4200
+     ]
     },
     {
      "id": "s7",
      "pt": "Net profit ₹54,800",
      "m": 0.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      54800
+     ]
     },
     {
      "id": "s8",
      "pt": "Balance sheet with capital ₹1,33,800, totals ₹1,77,800",
      "m": 1.5,
-     "skill": "balancing"
+     "skill": "balancing",
+     "nums": [
+      133800,
+      177800
+     ]
     }
    ],
    "remarks": [
@@ -1534,7 +1590,8 @@
    "tips": [
     "Order of work: opening capital → cash summary → debtors → creditors → final accounts.",
     "Label every balancing figure clearly in the working accounts."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1585,25 +1642,43 @@
      "id": "s1",
      "pt": "Source of figures",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "incomplete record|estimat|inquir|enquir|memory|single entry|guess|available information",
+      "ledger|double entry|complete record|books of account|proper records|accounts books"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Capital — balancing figure vs ledger",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "capital",
+      "balancing figure|difference between|balancing|derived|residual|excess of assets|assets minus|assets less|assets over liabilit"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Omissions",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "omission|omitted|error|mistake",
+      "difficult|not detect|cannot detect|detect|easily|not possible|not found|located|disagree|not agree|totals"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Purpose or valuation",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "ascertain capital|find capital|opening capital|closing capital|calculate capital|determine capital|know capital|valuation|value|arbitrary|financial position|true and fair|true fair|position of business"
+     ]
     }
    ],
    "remarks": [
@@ -1616,7 +1691,8 @@
    ],
    "tips": [
     "Four rows, one contrast per row — no long paragraphs needed."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q4",
@@ -1724,19 +1800,55 @@
      "id": "s1",
      "pt": "Bills Payable account — bills accepted ₹53,000",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "kw": [
+      "bills payable|bill payable|b p"
+     ],
+     "nums": [
+      53000
+     ]
     },
     {
      "id": "s2",
      "pt": "Total Creditors account with bills, discount, returns",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bills payable|bill payable|b p|bills accepted|acceptance",
+       "dr",
+       53000
+      ],
+      [
+       "discount",
+       "dr",
+       3500
+      ],
+      [
+       "return",
+       "dr",
+       4500
+      ],
+      [
+       "cash|bank",
+       "dr",
+       210000
+      ],
+      [
+       "purchase|balancing",
+       "cr",
+       284000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Total purchases ₹3,10,000 (credit + cash)",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      310000
+     ]
     }
    ],
    "remarks": [
@@ -1748,7 +1860,8 @@
    ],
    "tips": [
     "When bills are given, always open the bills account first."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

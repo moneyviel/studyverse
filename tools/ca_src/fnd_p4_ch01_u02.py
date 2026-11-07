@@ -232,3 +232,63 @@ def build():
                      {'k': 'Mixed', 'v': 'Private + public + joint sectors'}, {'k': 'How to produce', 'v': 'Least-cost technique at current factor prices'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _C(row, cap, soc, mix):
+    return _K(cap + '|' + row, soc + '|' + row, mix + '|' + row)
+
+
+AUTO = {
+    'q1': {
+        's1': _N(34000, 38000),
+        's2': _N(52000, 44000),
+        's3': _K('at 400 p|400 p|38000 p|p at 400|wage 400 p|choose p at 400|400 choose p|38000 choose p', 'at 700 q|700 q|44000 q|q at 700|wage 700 q|choose q at 700|700 choose q|52000 choose q'),
+        's4': _K('how to produce|how produce', 'price mechanism|relative factor price|factor price|price system|market mechanism|relative price'),
+    },
+    'q2': {
+        's1': _C('private collective both|private state both|private public both|private state mixed|private government both|private state private public', 'capitalis private|private capitalis', 'socialis state|socialis collective|socialis public|socialis government|state socialis|collective socialis', 'mixed both|both mixed|mixed private public|mixed public private|mixed private and public'),
+        's2': _C('price mechanism central planning|price mechanism planning|market central planning|price mechanism plan', 'capitalis price mechanism|capitalis market|price mechanism capitalis', 'socialis central planning|socialis planning|socialis plan|planning socialis', 'mixed price mechanism planning|mixed both|mixed price planning|mixed combination|mixed price mechanism and planning'),
+        's3': _C('profit social welfare profit|profit welfare profit|profit welfare both', 'capitalis profit|profit capitalis', 'socialis welfare|socialis social welfare|welfare socialis', 'mixed profit welfare|mixed both|mixed private profit|mixed profit private welfare'),
+        's4': _C('minimal complete|minimum complete|limited complete|minimal total|minimal full|negligible complete|no role complete', 'capitalis minimal|capitalis limited|capitalis minimum|capitalis negligible|capitalis little|capitalis laissez', 'socialis complete|socialis total|socialis full|socialis absolute|socialis entire', 'mixed regulat|mixed participat|mixed both|mixed active'),
+        's5': _C('wide limited|sovereignty limited|wide restricted|free limited|wide plan|sovereignty restricted', 'capitalis wide|capitalis sovereignty|capitalis free|capitalis full|capitalis high', 'socialis limited|socialis restricted|socialis plan|socialis little|socialis low', 'mixed wide regulat|mixed some regulat|mixed regulat|mixed moderate|mixed partial'),
+        's6': _C('unequal equal less unequal|unequal relatively equal|unequal equal moderate|unequal equal less|highly unequal equal', 'capitalis unequal|capitalis inequal|unequal capitalis|capitalis uneven', 'socialis equal|socialis equitable|socialis even|socialis less inequal', 'mixed less unequal|mixed moderate|mixed less inequal|mixed reduced inequal|mixed between'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('cost', 'price|sell'),
+        's2': _K('profit', 'rise|increase|higher|more|up', 'fall|lower|less|decrease|decline|down'),
+        's3': _K('producer|resource|firm|factor|capital|labour', 'move|shift|attract|toward|switch|divert|flow|transfer|realloc|leave|enter|push|pull', min=2),
+        's4': _K('consumer sovereignty|price signal|invisible hand|signal|market mechanism'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

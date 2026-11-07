@@ -403,3 +403,57 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('75 5 15|x 15|mean 15|mean x 15', '165 5 33|y 33|mean 33|mean y 33'),
+        's2': _N(68, 164, -104),
+        's3': _K('-0.9848|-0.985'),
+        's4': _K('negative|inverse|opposite|falls|decreas', '0.9698|0.97|97 percent|0.969'),
+    },
+    'q2': {
+        's1': _K('1.2', 'y 1.2x 2|y 50 1.2 x 40|y 1.2 x 2|1.2x 2'),
+        's2': _K('0.5333|0.533|0.53|8 15', 'x 0.5333y 13.33|x 40 0.5333 y 50|13.33|0.533y 13.33|13.3|x 40 0.533 y 50'),
+        's3': _N(56),
+        's4': _N(46.4),
+        's5': _K('0.64|1.2 0.5333|1.2 0.533|1.2 x 0.5333|1.2 x 0.533'),
+    },
+    'q3': {
+        's1': _K('5 5 5|rank 5|average rank 5|4 5 6 5|ranks 4 5 6|5 each|4 5 6 3 5'),
+        's2': _K('6 2 2|d2 2|d 2 2|sum d2 2|sum d 2 2|d squared 2|d 2'),
+        's3': _K('3 3 3 12|t3 t 12|t 3 t 12|27 3 12|24 12|correction 2|3 3 12'),
+        's4': _K('0.9524|0.952', 'high|strong|positive|agreement|similar'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

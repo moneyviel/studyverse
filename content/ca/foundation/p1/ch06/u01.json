@@ -1387,49 +1387,181 @@
      "id": "s1",
      "pt": "Sale and receipt of acceptance",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "mohan",
+       "dr",
+       150000
+      ],
+      [
+       "sale",
+       "cr",
+       150000
+      ],
+      [
+       "bills receivable|b r|bill receivable",
+       "dr",
+       150000
+      ],
+      [
+       "mohan",
+       "cr",
+       150000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Endorsement with discount received ₹2,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "nikhil",
+       "dr",
+       152000
+      ],
+      [
+       "bills receivable|b r|bill receivable",
+       "cr",
+       150000
+      ],
+      [
+       "discount",
+       "cr",
+       2000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Dishonour: Mohan Dr ₹1,50,300, To Nikhil; Nikhil paid by cheque",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "mohan",
+       "dr",
+       150300
+      ],
+      [
+       "nikhil",
+       "cr",
+       150300
+      ],
+      [
+       "nikhil",
+       "dr",
+       150300
+      ],
+      [
+       "bank",
+       "cr",
+       150300
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Interest ₹3,600 on renewal (on unpaid ₹1,20,000 only)",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "mohan",
+       "dr",
+       3600
+      ],
+      [
+       "interest",
+       "cr",
+       3600
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "4500|4509"
+       ],
+       "say": "Interest is charged only on the unpaid ₹1,20,000: 1,20,000 × 12% × 3/12 = ₹3,600."
+      }
+     ]
     },
     {
      "id": "s5",
      "pt": "Cash ₹30,300 and new bill ₹1,23,600 received",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "cash",
+       "dr",
+       30300
+      ],
+      [
+       "bills receivable|b r|bill receivable",
+       "dr",
+       123600
+      ],
+      [
+       "mohan",
+       "cr",
+       153900
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Dishonour of new bill on insolvency",
      "m": 0.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "mohan",
+       "dr",
+       123600
+      ],
+      [
+       "bills receivable|b r|bill receivable",
+       "cr",
+       123600
+      ]
+     ]
     },
     {
      "id": "s7",
      "pt": "Recovery ₹74,160 and bad debts ₹49,440",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "cash|bank",
+       "dr",
+       74160
+      ],
+      [
+       "bad debt",
+       "dr",
+       49440
+      ],
+      [
+       "mohan",
+       "cr",
+       123600
+      ]
+     ]
     },
     {
      "id": "s8",
      "pt": "Dates and narrations",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "4 nov|nov 4|4th nov|nov 4th|4 november|november 4|4th november|november 4th|04.11.2026|4.11.2026|04 11 2026|4 11 2026|04.11.26|4.11.26",
+      "7 feb|feb 7|7th feb|feb 7th|7 february|february 7|7th february|february 7th|07.02.2027|7.2.2027|07 02 2027|7 2 2027|07.02.27|7.2.27"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1446,7 +1578,8 @@
     "Draw a dated time-line before writing entries.",
     "Mention \"in full settlement\" items explicitly — they usually hide a discount.",
     "Show the percentage recovery working separately."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1502,31 +1635,55 @@
      "id": "s1",
      "pt": "Order vs promise",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "order",
+      "promise"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Parties",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "three|3",
+      "two|2",
+      "drawer|drawee|maker|payee"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "Acceptance",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "accept"
+     ],
+     "min": 1
     },
     {
      "id": "s4",
      "pt": "Liability of drawer vs maker",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "liabilit|liable",
+      "primary|secondary|conditional|absolute"
+     ],
+     "min": 2
     },
     {
      "id": "s5",
      "pt": "Any other valid point (dishonour formalities / bearer)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "dishonour|dishonor|noting|protest|bearer|notice|cannot payable bearer|not payable bearer|cannot made payable|never payable bearer"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -1540,7 +1697,8 @@
    "tips": [
     "One line per basis; keep the two columns parallel.",
     "Quote the RBI Act section correctly if you use the bearer point."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1591,31 +1749,72 @@
      "id": "s1",
      "pt": "Bill (i) — correct maturity with working",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "21 jul|jul 21|21st jul|jul 21st|21 july|july 21|21st july|july 21st|21.07.2026|21.7.2026|21 07 2026|21 7 2026|21.07.26|21.7.26",
+      "grace|3 days|three days"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Bill (ii) — correct maturity with working",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "3 mar|mar 3|3rd mar|mar 3rd|3 march|march 3|3rd march|march 3rd|03.03.2027|3.3.2027|03 03 2027|3 3 2027|03.03.27|3.3.27"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "2 mar|mar 2|2nd mar|mar 2nd|2 march|march 2|2nd march|march 2nd|02.03.2027|2.3.2027|02 03 2027|2 3 2027|02.03.27|2.3.27|31 mar|mar 31|31st mar|mar 31st|31 march|march 31|31st march|march 31st|31.03.2027|31.3.2027|31 03 2027|31 3 2027|31.03.27|31.3.27"
+       ],
+       "say": "(ii) February 2027 has no 31st: the bill expires on 28 February; with 3 days of grace it matures on 3 March 2027."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Bill (iii) — correct maturity with working",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "7 nov|nov 7|7th nov|nov 7th|7 november|november 7|7th november|november 7th|07.11.2026|7.11.2026|07 11 2026|7 11 2026|07.11.26|7.11.26"
+     ]
     },
     {
      "id": "s4",
      "pt": "Bill (iv) — correct maturity with working",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "5 jan|jan 5|5th jan|jan 5th|5 january|january 5|5th january|january 5th|05.01.2027|5.1.2027|05 01 2027|5 1 2027|05.01.27|5.1.27"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "28 dec|dec 28|28th dec|dec 28th|28 december|december 28|28th december|december 28th|28.12.2026|28.12.2026|28 12 2026|28 12 2026|28.12.26|28.12.26"
+       ],
+       "say": "(iv) An \"after sight\" bill runs from the date of acceptance (2 December), not from the date of drawing."
+      }
+     ]
     },
     {
      "id": "s5",
      "pt": "Bill (v) — correct maturity with working",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "1 aug|aug 1|1st aug|aug 1st|1 august|august 1|1st august|august 1st|01.08.2026|1.8.2026|01 08 2026|1 8 2026|01.08.26|1.8.26"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "4 aug|aug 4|4th aug|aug 4th|4 august|august 4|4th august|august 4th|04.08.2026|4.8.2026|04 08 2026|4 8 2026|04.08.26|4.8.26"
+       ],
+       "say": "(v) An \"after date\" bill runs from the date of drawing (29 May), not from acceptance."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1637,7 +1836,8 @@
      "value": 45,
      "label": "45 days after 20 September: 10 left in September + 31 in October + 4 in November = 45 → 4 November, +3 days = 7 November"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1796,31 +1996,136 @@
      "id": "s1",
      "pt": "Acceptance entries in both books",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bills receivable|b r|bill receivable",
+       "dr",
+       80000
+      ],
+      [
+       "gita",
+       "cr",
+       80000
+      ],
+      [
+       "farhan",
+       "dr",
+       80000
+      ],
+      [
+       "bills payable|b p|bill payable",
+       "cr",
+       80000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Discounting in Farhan's books",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       78000
+      ],
+      [
+       "discount",
+       "dr",
+       2000
+      ],
+      [
+       "bills receivable|b r|bill receivable",
+       "cr",
+       80000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Remittance ₹19,500 and discount ₹500 shared (both books)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "gita",
+       "dr",
+       20000
+      ],
+      [
+       "bank",
+       "cr",
+       19500
+      ],
+      [
+       "discount",
+       "cr",
+       500
+      ],
+      [
+       "bank",
+       "dr",
+       19500
+      ],
+      [
+       "discount",
+       "dr",
+       500
+      ],
+      [
+       "farhan",
+       "cr",
+       20000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Remittance of ₹60,000 on maturity (both books)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "gita",
+       "dr",
+       60000
+      ],
+      [
+       "bank",
+       "cr",
+       60000
+      ],
+      [
+       "bank",
+       "dr",
+       60000
+      ],
+      [
+       "farhan",
+       "cr",
+       60000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Gita meets the bill: Bills Payable Dr, To Bank",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "bills payable|b p|bill payable",
+       "dr",
+       80000
+      ],
+      [
+       "bank",
+       "cr",
+       80000
+      ]
+     ]
     }
    ],
    "remarks": [
@@ -1834,7 +2139,8 @@
    "tips": [
     "Prepare the two journals side by side so every entry has its mirror.",
     "Write the sharing ratio in a working note."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

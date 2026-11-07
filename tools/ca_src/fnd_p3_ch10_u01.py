@@ -299,3 +299,56 @@ def build():
                 M('k1d', 'In which direction must the rider head to go straight back to the depot?', ['North-West', 'South-East', 'North-East', 'West'], 0, "The gate is South-East of the depot, so the depot lies in the opposite direction from the gate: North-West. South-East is the trap: it repeats the gate's direction from the depot instead of reversing it. In practice: return-trip planning for delivery fleets always uses the reverse bearing, the same 'A from B is opposite of B from A' rule.", 'c3', 'moderate', topic='Final facing vs position from the start'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('east|e 5|e 3', 'south|s 3'),
+        's2': _K('facing east|face east|east facing|faces east|towards east|final east|finally east|end east'),
+        's3': _K('6 km north|6 north|north 6|north 9 3 6|6 km n|y 6', '8 km east|8 east|east 8|east 5 3 8|8 km e|x 8'),
+        's4': _K('10 km north east|10 north east|north east 10|10 km ne|10 ne'),
+    },
+    'q2': {
+        's1': _K('west', 'shadow east|east behind|sun west|shadow fall east|walk west|walking west|facing west|towards west|faces west'),
+        's2': _K('walk south|walking south|now south|west south|west left south|towards south|turns south|moving south|heading south|faces south|facing south'),
+        's3': _K('left hand north|left north|left hand point north'),
+        's4': _K('left hand south|left hand point south|hand south|upside down south|inverted south|head south'),
+    },
+    'q3': {
+        's1': _K('t 3 4|t 34|3 km west|3 west|west 3', 'k 3 0|k 30|m 3 4|m 34|4 km north|4 north|north 4'),
+        's2': _K('north west|nw'),
+        's3': _K('5 km|distance 5|tp 5|pt 5|5 unit|25 5'),
+        's4': _K('south east|se'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

@@ -1584,49 +1584,90 @@
      "id": "s1",
      "pt": "Erection capitalised — X at ₹6,80,000",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "nums": [
+      680000
+     ]
     },
     {
      "id": "s2",
      "pt": "Depreciation 2024-25: X ₹1,02,000 and Y ₹22,500 (6 months)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      102000,
+      22500
+     ]
     },
     {
      "id": "s3",
      "pt": "Account for 2024-25 balanced at ₹8,55,500",
      "m": 1,
-     "skill": "balancing"
+     "skill": "balancing",
+     "rows": [
+      [
+       "balance",
+       "cr",
+       855500
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Depreciation on X up to date of sale ₹43,350",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      43350
+     ]
     },
     {
      "id": "s5",
      "pt": "Loss on sale ₹84,650 transferred to P&L",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "profit loss|loss sale|p l|loss",
+       "cr",
+       84650
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Year-end depreciation Y ₹41,625 and Z ₹37,500 (6 months)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      41625,
+      37500
+     ]
     },
     {
      "id": "s7",
      "pt": "Account for 2025-26 balanced at ₹6,98,375",
      "m": 1,
-     "skill": "balancing"
+     "skill": "balancing",
+     "rows": [
+      [
+       "balance",
+       "cr",
+       698375
+      ]
+     ]
     },
     {
      "id": "s8",
      "pt": "Asset-wise working note and proper ledger format",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "nums": [
+      578000,
+      534650,
+      235875,
+      462500
+     ]
     }
    ],
    "remarks": [
@@ -1642,7 +1683,8 @@
    "tips": [
     "Prepare the working note first, then copy the figures into the ledger.",
     "Show the months (× 6/12) in the particulars column."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1693,25 +1735,44 @@
      "id": "s1",
      "pt": "Base of charge",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "original cost|cost asset|historical cost|cost",
+      "written down|book value|opening balance|reducing balance|carrying amount|diminishing|wdv"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Constant vs falling charge",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "same|equal|fixed|constant|uniform",
+      "decreas|reduc|falls|declin|diminish|lower"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Value at end of life",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "nil|zero|residual|scrap",
+      "never|not reduced zero|not become zero|cannot become zero|not nil|cannot reduced|not reach"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Effect with repairs / suitability",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "repair|maintenance|suitab|suitable|income tax|lease|schedule ii|companies act"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -1723,7 +1784,8 @@
    ],
    "tips": [
     "Four clear bases are enough; add the formula only as a bonus line."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1814,31 +1876,82 @@
      "id": "s1",
      "pt": "Trade discount deducted; GST excluded",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "list price|trade discount|net|price|machine",
+       "",
+       1425000
+      ]
+     ],
+     "kw": [
+      "gst|input tax",
+      "exclud|not cost|recoverable|not included|not part|input credit|credit available|ignored|not added"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Freight, site preparation, installation and engineer's fee capitalised",
      "m": 1.5,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "freight|transit",
+       "",
+       60000
+      ],
+      [
+       "foundation|site",
+       "",
+       45000
+      ],
+      [
+       "installation|install",
+       "",
+       30000
+      ],
+      [
+       "consult|engineer fee|engineer|professional",
+       "",
+       20000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Trial run capitalised net of sale of test output",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "trial|test",
+       "",
+       20000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Inauguration, training and advertisement expensed",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "inauguration expense|inauguration expensed|inauguration revenue|inauguration excluded|inauguration not capitalised|inauguration not capitalized|inauguration written off|inauguration charged|inauguration p l|inauguration profit loss|inauguration not included|inauguration not part|inaugural expense|inaugural expensed|inaugural revenue|inaugural excluded|inaugural not capitalised|inaugural not capitalized|inaugural written off|inaugural charged|inaugural p l|inaugural profit loss|inaugural not included|inaugural not part|ceremony expense|ceremony expensed|ceremony revenue|ceremony excluded|ceremony not capitalised|ceremony not capitalized|ceremony written off|ceremony charged|ceremony p l|ceremony profit loss|ceremony not included|ceremony not part|expense inauguration|expensed inauguration|revenue inauguration|excluded inauguration|not capitalised inauguration|not capitalized inauguration|written off inauguration|charged inauguration|p l inauguration|profit loss inauguration|not included inauguration|not part inauguration|expense inaugural|expensed inaugural|revenue inaugural|excluded inaugural|not capitalised inaugural|not capitalized inaugural|written off inaugural|charged inaugural|p l inaugural|profit loss inaugural|not included inaugural|not part inaugural|expense ceremony|expensed ceremony|revenue ceremony|excluded ceremony|not capitalised ceremony|not capitalized ceremony|written off ceremony|charged ceremony|p l ceremony|profit loss ceremony|not included ceremony|not part ceremony",
+      "training expense|training expensed|training revenue|training excluded|training not capitalised|training not capitalized|training written off|training charged|training p l|training profit loss|training not included|training not part|operator expense|operator expensed|operator revenue|operator excluded|operator not capitalised|operator not capitalized|operator written off|operator charged|operator p l|operator profit loss|operator not included|operator not part|expense training|expensed training|revenue training|excluded training|not capitalised training|not capitalized training|written off training|charged training|p l training|profit loss training|not included training|not part training|expense operator|expensed operator|revenue operator|excluded operator|not capitalised operator|not capitalized operator|written off operator|charged operator|p l operator|profit loss operator|not included operator|not part operator",
+      "advertis expense|advertis expensed|advertis revenue|advertis excluded|advertis not capitalised|advertis not capitalized|advertis written off|advertis charged|advertis p l|advertis profit loss|advertis not included|advertis not part|product expense|product expensed|product revenue|product excluded|product not capitalised|product not capitalized|product written off|product charged|product p l|product profit loss|product not included|product not part|expense advertis|expensed advertis|revenue advertis|excluded advertis|not capitalised advertis|not capitalized advertis|written off advertis|charged advertis|p l advertis|profit loss advertis|not included advertis|not part advertis|expense product|expensed product|revenue product|excluded product|not capitalised product|not capitalized product|written off product|charged product|p l product|profit loss product|not included product|not part product"
+     ],
+     "min": 3
     },
     {
      "id": "s5",
      "pt": "Cost ₹16,00,000 and depreciation ₹75,000 (6 months)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      1600000,
+      75000
+     ]
     }
    ],
    "remarks": [
@@ -1851,7 +1964,8 @@
    ],
    "tips": [
     "Use a three-column table: item | amount | treatment — it shows your reasoning."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1899,25 +2013,46 @@
      "id": "s1",
      "pt": "(a) ₹1,26,000 — carrying amount over revised life",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      126000
+     ]
     },
     {
      "id": "s2",
      "pt": "(b) increase credited to revaluation surplus, not P&L",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "revaluation surplus|revaluation reserve|surplus|reserve|other comprehensive"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "credited profit loss|profit loss credited|90000 profit loss|taken profit loss|income statement"
+       ],
+       "say": "An upward revaluation is credited to Revaluation Surplus, not to the profit and loss account."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "(b) ₹1,61,250 — revalued amount over remaining 8 years",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      161250
+     ]
     },
     {
      "id": "s4",
      "pt": "(c) ₹2,25,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      225000
+     ]
     }
    ],
    "remarks": [
@@ -1930,7 +2065,8 @@
    ],
    "tips": [
     "Write \"carrying amount ÷ remaining life\" as a formula line first; it earns a step mark."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

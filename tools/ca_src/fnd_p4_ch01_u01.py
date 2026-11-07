@@ -270,3 +270,58 @@ def build():
                      {'k': 'Economic profit', 'v': 'Revenue − (explicit + implicit costs)'}, {'k': 'Nature (8)', 'v': 'Science, art, micro-based, macro-aware, market theory, pragmatic, interdisciplinary, normative'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(750000),
+        's2': _K('salary|job|wage|540000', 'interest|90000', nums=[630000]),
+        's3': _N(120000),
+        's4': _K('continue|stay|remain|rational|worthwhile|carry on|keep running|go on', 'positive|economic profit|120000|exceed|cover|supernormal|above normal'),
+    },
+    'q2': {
+        's1': _K('positive fact|fact positive|inflation positive|positive verif|positive data|positive check|1 positive|first positive|positive statement fact'),
+        's2': _K('ii normative|normative should|should normative|repo normative|normative value|normative judgement|2 normative|second normative'),
+        's3': _K('iii positive|positive testable|testable positive|advertis positive|positive cause|3 positive|third positive|positive can be tested|positive verifiable'),
+        's4': _K('iv normative|normative ought|ought normative|normative prescri|4 normative|fourth normative|normative value'),
+    },
+    'q3': {
+        's1': _K('operational micro market|micro market|micro pricing|operational pricing|pricing micro|pricing operational|price micro|price operational|micro price|operational price|operational micro pric'),
+        's2': _K('b environmental|b macro|business cycle macro|macro business cycle|environmental business cycle|slowdown macro|slowdown environmental|macro cycle|macro stage|environmental macro stage|construction macro'),
+        's3': _K('c operational|c micro|investment micro|micro capital|operational capital|capital micro|capital operational|micro investment|operational investment|power plant micro|power plant operational'),
+        's4': _K('d environmental|d macro|monetary macro|macro monetary|interest macro|macro interest|environmental monetary|interest rate macro|rbi macro|repo macro'),
+        's5': _K('e operational|e micro|inventory micro|micro inventory|operational inventory|inventory operational|coal micro|stock micro|coal operational|micro inventory'),
+        's6': _K('f environmental|f macro|competition macro|macro government|macro competition|government macro|environmental government|law macro|competition law macro|macro law'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

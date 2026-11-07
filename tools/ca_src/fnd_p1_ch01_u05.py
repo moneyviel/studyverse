@@ -268,3 +268,48 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] for table answers; side may be dr/cr/add/less or a column-header
+# keyword such as "provision"), wrong (common wrong statements → remark), ai_only (not checkable offline).
+# Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': {'kw': ['principle|method|rule|bases|practice', 'prepar|present|financial statement'], 'min': 2},
+           's2': {'kw': ['prudence|prudent|conservat', 'lower cost|nrv|net realisable|net realizable|overstat|not overstat|understat|not anticipat|uncertain|loss|lower'], 'min': 2},
+           's3': {'kw': ['substance over form|substance form|economic reality|substance', 'legal form|form|hire purchase|lease|registration|risk reward|example'], 'min': 2},
+           's4': {'kw': ['material', 'decision|influence|small|trivial|immaterial|insignificant|tool|example|stapler'], 'min': 2},
+           's5': {'kw': ['true fair|profit|financial position|position', 'disclosure cannot|cannot rectify|not rectify|cannot correct|cannot cure|not cure|cannot make|not make|wrong treatment|not justify|cannot justify|not substitute'], 'min': 2}},
+    'q2': {'extra_ok': False,
+           's1': {'nums': [85, 127500]},
+           's2': {'nums': [135000]},
+           's3': {'nums': [202500, 210000]},
+           's4': {'nums': [7500]},
+           's5': {'kw': ['permitted|allowed|permissible|can changed|valid|justified|acceptable|permit|allow', 'appropriate|better presentation|fair presentation|true fair', 'disclos'], 'min': 3,
+                  'wrong': [{'kw': ['not permitted|not allowed|cannot changed|not permissible|violat consisten'], 'say': 'A change made for a more appropriate presentation is permitted; its reason and effect must be disclosed.'}]}},
+    'q3': {'extra_ok': False,
+           's1': {'kw': ['statute|law|legal requirement|accounting standard|standard|act'], 'min': 1},
+           's2': {'kw': ['appropriate presentation|better presentation|more appropriate|fair presentation|better reflect|appropriate'], 'min': 1},
+           's3': {'kw': ['compar|cannot compar|not compar|earlier period|previous year|past period|performance|mislead|understand|users|increase decrease|material effect'], 'min': 1},
+           's4': {'kw': ['fifo|weighted average|inventor|stock valuation|cost formula|lifo',
+                         'overhead|interest|capitalis|capitaliz|borrowing|investment|revenue recognition|cash basis|accrual basis|depreciation|straight line|written down|slm|wdv|production cost'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

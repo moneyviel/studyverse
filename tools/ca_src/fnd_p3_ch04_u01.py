@@ -510,3 +510,56 @@ def viva():
            P('p2', 'Growing perpetuity PV = R/(i − g)', 4, 'i minus g|rate minus growth|interest rate minus growth|discount rate minus growth|i less g'),
            P('p3', 'Growth rate must be less than i; no PV of principal / no future value', 2, 'less than i|lower than i|smaller than i|less than the interest|g less than|never repaid|no present value of principal|no principal|future value cannot|no future value|cannot find future value|infinite future value', min=1)], 'c8'),
     ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('annuity|p 3 0.10|2.48685|2.4869|2.487|pvaf|present value factor|present value'),
+        's2': _N(120634.44),
+        's3': _N(30000, 20936.56, 10966.77),
+        's4': _N(90634.44, 99697.88, 109667.67, kw=['nil|zero|0']),
+        's5': _K('year', 'opening', 'interest', 'principal|repayment', 'closing|balance', min=4),
+    },
+    'q2': {
+        's1': _N(54540, 57820, 60080, 34150),
+        's2': _N(6590),
+        's3': _K('accept|undertak|go ahead|should invest|viable|worthwhile|recommend|take up', 'positive|0|greater|exceed|more than'),
+    },
+    'q3': {
+        's1': _K('coupon|interest|annuity', nums=[80]),
+        's2': _N(303.26),
+        's3': _N(651.97),
+        's4': _K('value|price|worth|pay|intrinsic', nums=[955.23]),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

@@ -333,3 +333,52 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'kw': ['freight|carriage'], 'rows': [['consum|raw material|materials used', 'dr', 620000]],
+                  'wrong': [{'kw': ['605000'], 'say': 'Freight on purchases is part of the cost of raw materials: consumption is ₹6,20,000, not ₹6,05,000.'}]},
+           's2': {'rows': [['wage|labour', 'dr', 210000], ['hire|machine|direct expense|royalt', 'dr', 75000]]},
+           's3': {'kw': ['factory rent|rent', 'depreciation', 'indirect wage|indirect labour'], 'nums': [60000, 45000, 25000]},
+           's4': {'rows': [['opening work|opening wip|work in progress|wip|work in process', 'dr', 30000], ['closing work|closing wip|work in progress|wip|work in process', 'cr', 40000],
+                           ['by product|byproduct|scrap', 'cr', 5000]]},
+           's5': {'nums': [1020000, 20.4]},
+           's6': {'nums': [4000, 81600]},
+           's7': {'nums': [1456000, 403600]}},
+    'q2': {'extra_ok': False,
+           's1': {'kw': ['carriage direct material|direct material carriage|carriage cost material|carriage added cost material|carriage part cost material|carriage direct raw material']},
+           's2': {'kw': ['operator direct wage|direct wage operator|operator direct labour|operator direct labor|direct labour operator']},
+           's3': {'kw': ['royalt direct expense|royalt unit direct expense|royalt produc direct expense|direct expense royalt|royalt production direct expense|royalt direct exp']},
+           's4': {'kw': ['factory building factory overhead|building factory overhead|factory overhead depreciation factory building|depreciation factory building overhead|building indirect expense|building works overhead|building manufacturing overhead|building production overhead']},
+           's5': {'kw': ['supervisor factory overhead|supervisor indirect wage|supervisor indirect labour|supervisor indirect labor|factory overhead supervisor|indirect wage supervisor|supervisor works overhead|supervisor manufacturing overhead|supervisor production overhead']},
+           's6': {'kw': ['advertis selling|advertis distribution|advertis profit loss|advertis p l|selling expense advertis|selling advertis|advertis sell']},
+           's7': {'kw': ['lubricant factory overhead|lubricant indirect material|waste indirect material|waste factory overhead|indirect material cotton|factory overhead cotton|lubricant works overhead|lubricant manufacturing overhead|lubricant production overhead']},
+           's8': {'kw': ['hire charge machine unit produc direct expense|hire direct expense|hire unit direct expense|hire charge direct expense|machine unit produc direct expense|direct expense hire|hire produc direct expense|hire direct exp']},
+           's9': {'kw': ['office rent office|office rent administrat|office rent profit loss|office rent p l|rent administrat|administrat expense office rent|office expense office rent|office rent office expense|office rent establishment']},
+           's10': {'kw': ['insurance plant factory overhead|plant factory overhead|factory overhead insurance|insurance plant indirect expense|plant indirect expense|plant works overhead|plant manufacturing overhead|plant production overhead']}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['cost of production|cost production|total cost|cost of goods produced|cost of goods manufactured|cost of manufactur|manufacturing cost|factory cost',
+                         'element|material|wage|overhead|component|break up|breakup|detail|item|separately'], 'min': 2},
+           's2': {'kw': ['reconcil|cost record|cost account|costing record|tally|cost book']},
+           's3': {'kw': ['comparison|comparative|comparab|efficien|control cost|cost control|period to period|year to year|previous|over the years|trend']},
+           's4': {'kw': ['manufacturing profit|profit on manufactur|profit manufactur|loss on manufactur|market price|bonus|incentive|transfer price']}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

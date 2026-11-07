@@ -495,3 +495,58 @@ def build():
                   'The balance sheet shows the bank balance as per the corrected books — the adjusted cash book balance of ₹2,75,500 — not the bank statement figure. The tempting ₹2,57,500 is the bank statement balance, which differs only because of timing items (d) and (e) that will clear soon. ₹2,65,000 is wrong because it ignores the omissions. In practice: auditors verify this figure with the BRS and a balance confirmation obtained directly from the bank.', 'c6', 'moderate', '265000+30000-1500-18000'), topic='Adjusted (amended) cash book method'),
             ]}],
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+# BRS / statement tables: side add|less = the Add or Less part of the statement ('' = any).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['pass book|bank statement|balance|passbook', '', 246300]], 'kw': ['reconciliation|brs', 'december|dec|31.12.2026|31 12 2026'], 'min': 2},
+           's2': {'rows': [['deposited|not credited|uncleared|not yet credited|not cleared|cheques paid', 'add', 30500], ['not sent|not deposited|not banked|recorded|not paid bank|cheque received', 'add', 8000]]},
+           's3': {'rows': [['charge', 'add', 650]]},
+           's4': {'rows': [['issued|not presented|unpresented|not yet presented', 'less', 46000]]},
+           's5': {'rows': [['bill|collected|collection', 'less', 25000], ['interest', 'less', 1900]]},
+           's6': {'nums': [212550]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['prepared|statement', 'date|particular date|given date|periodic|month end|end month', 'cash book|pass book|bank statement|difference|reconcil|agree|two balances'], 'min': 3},
+           's2': {'kw': ['timing|time lag|time gap|different dates|different times|not yet presented|unpresented|not presented|not yet credited|uncleared|not cleared|later date|delay', 'cheque|deposit'], 'min': 2},
+           's3': {'kw': ['bank charge|interest|dividend|standing instruction|direct deposit|directly|collected bank|bank first|recorded bank|ecs|nach|emi|debited bank|credited bank|by bank'], 'min': 1},
+           's4': {'kw': ['error|mistake|wrong', 'business|cash book|bank|either|both|pass book'], 'min': 2}},
+    'q3': {'extra_ok': False,
+           's1': {'rows': [['balance b d|overdraft|balance', 'cr', 152750]]},
+           's2': {'rows': [['customer|direct deposit|deposit', 'dr', 36000], ['supplier|twice|double|creditor', 'dr', 7400], ['interest|fixed deposit|fd', 'dr', 4200]]},
+           's3': {'rows': [['interest|overdraft', 'cr', 9850], ['emi|loan|vehicle', 'cr', 21300], ['excess|deposit|debtor|wrong|error|customer', 'cr', 1800]]},
+           's4': {'rows': [['balance c d|balance', 'dr', 138100]]},
+           's5': {'rows': [['overdraft|cash book|adjusted|balance', '', 138100], ['deposited|not credited|uncleared|not yet credited|not cleared', 'add', 65000]]},
+           's6': {'rows': [['issued|not presented|unpresented|not yet presented', 'less', 44400], ['wrong|another customer|error|wrongly|other customer', 'less', 12000]]},
+           's7': {'nums': [146700]},
+           's8': {'ai_only': True}},
+    'q4': {'extra_ok': False,
+           's1': {'rows': [['pass book|bank statement|overdraft|balance|passbook', '', 58200]], 'kw': ['june|30.06.2026|30 06 2026|30 6 2026'], 'min': 1},
+           's2': {'rows': [['issued|not presented|unpresented|not yet presented', 'add', 27300]]},
+           's3': {'rows': [['credit side|overcast|over cast|casting|credit', 'add', 2000], ['debit side|undercast|under cast|casting|debit', 'add', 500]]},
+           's4': {'rows': [['deposit|wrong side|credit side|cheque|6000', 'add', 12000]]},
+           's5': {'rows': [['deposited|not credited|uncleared|not yet credited|not cleared', 'less', 41500], ['charge', 'less', 380], ['interest', 'less', 2140]]},
+           's6': {'nums': [55980]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

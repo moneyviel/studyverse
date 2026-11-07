@@ -398,3 +398,54 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] for table answers), wrong (common wrong statements → remark),
+# ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'kw': ['going concern', 'consisten', 'accrual|accrue'], 'min': 3},
+           's2': {'kw': ['going concern', 'foreseeable future|continue|continuing|indefinite|long time|no intention liquidat|no need liquidat|not liquidat|without liquidat|no intention close|not close down'], 'min': 2},
+           's3': {'kw': ['consisten', 'same polic|same method|same accounting|same principle|period to period|year to year|year after year|every year|each year|compar'], 'min': 2},
+           's4': {'kw': ['accrual|accrue', 'earn|incur|period relate|relate period|period which relate|irrespective cash|regardless cash|irrespective receipt|irrespective whether'], 'min': 2,
+                  'wrong': [{'kw': ['recognised when cash|recorded when cash|when cash received|when cash paid|on receipt cash'], 'say': 'Accrual recognises revenue and cost when earned or incurred, not when cash is received or paid.'}]},
+           's5': {'kw': ['disclos|not follow disclos|not followed disclos|not adopted disclos', 'not follow|departure|deviat|silent|assumed|taken granted|not disclosed'], 'min': 2}},
+    'q2': {'extra_ok': False,
+           's1': {'nums': [295000, 325000]},
+           's2': {'nums': [140000, 135000]},
+           's3': {'nums': [155000, 190000]},
+           's4': {'kw': ['drawing', 'additional capital|capital introduced|fresh capital|capital brought|further capital|extra capital|new capital'], 'min': 2},
+           's5': {'nums': [49000]}},
+    'q3': {'extra_ok': False,
+           's1': {'nums': [61000]},
+           's2': {'nums': [2000000, 1280000]},
+           's3': {'nums': [180000, 18000]},
+           's4': {'nums': [522000]},
+           's5': {'kw': ['unsold|closing inventory|closing stock|inventory|2000 units|stock', 'prepaid|outstanding|9 months|nine months|accrual|matching|credit sales|full sales|whole year'], 'min': 2}},
+    'q4': {'extra_ok': False,
+           's1': {'kw': ['conservat|prudence|prudent', 'provide loss|possible loss|losses|lower value|lower cost|lower of|anticipate income|anticipate profit|anticipate gain|not anticipate|lower market|whichever lower'], 'min': 2},
+           's2': {'kw': ['consisten', 'same polic|same method|same accounting|period to period|year to year|year after year|every year|each year|compar|continue use|continues use|continue follow',
+                         'standard|statute|law|appropriate|valid reason|straight line|written down|wdv|slm|depreciation|fifo|weighted average|example'], 'min': 3},
+           's3': {'kw': ['no violation|not violat|not violation|no breach|not breach|not inconsisten|not against|not affect|consistency maintained|consistency followed|not change polic|does not violat',
+                         'same rule|same policy|same basis|lower cost market|whichever lower|lower of cost|consistently applied|applied every year|every year|each year|cost market lower'], 'min': 2,
+                  'wrong': [{'kw': ['yes violat|violates consisten|violation consisten|is inconsisten|violate consisten'], 'min': 1, 'say': 'Valuing at the lower of cost and market every year is the same policy applied consistently — it is not a violation.'}]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

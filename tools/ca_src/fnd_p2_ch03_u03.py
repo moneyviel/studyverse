@@ -332,3 +332,67 @@ def build():
                      {'k': 'Section 42–44', 'v': 'Deemed acceptance · rejected goods need not be returned · buyer liable for delay in taking delivery'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('section 27|nemo dat|not the owner|non owner|not owner|non-owner', 'no better title|better title than|cannot give a better|cannot pass a better|gets no title|acquires no title|no title|not get a good title|no good title'),
+           's2': _k('mercantile agent', 'estoppel|precluded|by conduct|estopped'),
+           's3': _k('joint owner|co-owner|joint owners|co owner|section 28', 'voidable|section 29'),
+           's4': _k('seller in possession|seller continuing in possession|seller continues in possession|seller remains in possession|seller continues|seller continuing|seller retains possession', 'buyer in possession|buyer obtains possession|buyer obtained possession|buyer having possession|buyer gets possession|buyer who has obtained|buyer obtains'),
+           's5': _k('unpaid seller|section 54', 'finder|pawnee|official receiver|liquidator|court|other laws|section 169|section 176|official assignee'),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 24|approval|sale or return', 'property passes on expiry|passes on the expiry|expiry of the time|after the time fixed|beyond the time|time fixed for return|retains beyond|retained beyond|retains the goods without|without giving notice of rejection|no notice of rejection|without notice of rejection|retains the goods beyond|kept beyond|keeps beyond|retains them beyond|after expiry'),
+           's2': _k('section 26|risk follows property|risk passes with property|risk passes with ownership|risk follows ownership|risk prima facie passes|risk goes with property|risk with property|risk follows the property|risk passes with the property'),
+           's3': _k('property passed|ownership passed|property had passed|became the owner|property in all|property passes|property passed to cool homes|ownership had passed|property was transferred', '15|15th|fifteen', '20|20th|theft|stolen'),
+           's4': _k('cool homes bears|cool homes must bear|buyer bears|loss falls on cool homes|cool homes liable|loss on cool homes|cool homes bear|borne by cool homes|cool homes must pay|cool homes is liable|at the risk of cool homes|cool homes risk|risk of cool homes|cool homes has to bear|cool homes will bear', nums=[380000],
+                    wrong=[{'kw': ['266000|sunrise bears|seller bears|7 units|seven units'], 'say': 'Property — and with it risk — passed on day 15 when the approval period expired; Cool Homes bears the theft and pays for all 10 units.'}]),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('short|less', 'reject', 'contract rate|contract price|pay at the contract|pay for them|pay for the goods|pay at|pay'),
+           's2': _k('excess|larger|more than', 'reject the excess|reject excess|excess rejected|reject the extra|reject extra|reject the surplus', 'reject the whole|reject whole|reject all|reject entire', 'accept the whole|accept whole|accept all|accept entire'),
+           's3': _k('mixed|different description|mixed with goods', 'accept the goods that conform|accept conforming|accept the contracted goods|accept goods according|accept those|accept the goods which|accept the conforming|accept goods which are in accordance|accept the goods in accordance|accept the contract goods|accept goods as per|accept goods of the contract', 'reject the rest|reject the whole|reject others|reject the goods not|reject the remaining|reject the other|reject the different|reject all'),
+           's4': _k('usage|custom|special agreement|course of dealing|37(4)|37 4|contrary agreement|agreement between the parties|unless otherwise agreed|subject to agreement'),
+           },
+    'q4': {'extra_ok': True,
+           '_scheme': [{'id': f's{i}', 'pt': f'Delivery rule {i} of six (any six, with section reference)', 'm': 1, 'skill': 'provision'} for i in range(1, 7)],
+           **{f's{i}': _k('section 33|mode of delivery|symbolic|constructive|puts the goods in the possession|possession of the buyer|actual delivery',
+                          'section 32|concurrent|payment and delivery|delivery and payment',
+                          'section 34|part delivery|delivery of part|delivery of a part',
+                          'section 35|apply for delivery|applies for delivery|demand delivery|not bound to deliver until|buyer to apply|until the buyer applies',
+                          'section 36|place of delivery|time of delivery|reasonable time|where the goods are',
+                          'third party|third person|acknowledges|attornment|on behalf of the buyer|holds on behalf',
+                          'reasonable hour|expenses|deliverable state',
+                          'section 38|instalments|instalment|installments',
+                          'section 39|carrier|wharfinger',
+                          'section 40|deterioration',
+                          'section 41|examine|examination|inspect', n=i) for i in range(1, 7)},
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

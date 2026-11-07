@@ -308,3 +308,58 @@ def build():
                   'In an LLP, each partner is an agent of the LLP but not of the other partners (Section 26), and Section 28(2) says a partner is not personally liable for another partner\'s wrongful act. Kunal did nothing wrong, so the client cannot reach his personal assets. Neeraj stays liable for his own negligence. "All partners are jointly liable as in a firm" is the trap: that is the rule for a general partnership, which the LLP replaces. In practice: professional LLPs also buy indemnity insurance to cover such claims.', 'hard'), topic='Characteristics of an LLP'),
             ]}],
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('partner designated|2 1 j|2(1)(j)|designated under section 7|designated as a designated partner|designated in the incorporation document|named as designated'),
+           's2': _k('minimum of two designated|minimum two designated|at least two designated|least two designated|two individuals as designated|designated partners who are individuals|two individuals as designated partners', 'at least one resident|one resident|one must be resident|one shall be resident|at least one of them|one or more resident|least one of them must be resident'),
+           's3': _k('body corporate|bodies corporate', 'nominee|nominees'),
+           's4': _k('120 days|120', 'compulsory|mandatory|obligatory|yes|must appoint|required to appoint'),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 11|lawful business|business with a view|carry on a lawful business|carrying on lawful business|carrying on a lawful business|carry on lawful business|business for profit', 'profit'),
+           's2': _k('cannot be formed|cannot be incorporated|not be formed|not possible|cannot be registered|cannot form|not permitted|cannot incorporate|not be incorporated|cannot be set up|not allowed|not valid|cannot be created'),
+           's3': _k('section 7', 'two|2|minimum', 'individual|individuals', 'resident', n=3),
+           's4': _k('no resident|neither is resident|both non resident|both are non-residents|non resident|non-resident|not resident|non residents',
+                    'cannot both|not both|cannot be the only|at least one|one of r s t|one of ms r|ms r|ms s|ms t|one resident|must include|cannot alone|not alone|alone cannot|cannot be sole|not sufficient|not enough|one of the residents'),
+           },
+    'q3': {'extra_ok': True,
+           's1': _k('body corporate|separate legal entity|separate legal|legal entity|separate entity', 'not a body corporate|no separate|not separate|not a separate|not a legal entity|not body corporate'),
+           's2': _k('registration compulsory|compulsory registration|registration is compulsory|created by registration|registration mandatory|mandatory registration|incorporation|registration is mandatory', 'optional|not compulsory|not mandatory|agreement'),
+           's3': _k('perpetual succession|perpetual', 'dissolve|dissolution|reconstitut|no perpetual|not perpetual|affected|death'),
+           's4': _k('contribution|liability is limited|liability limited|limited to the agreed|limited to their contribution|limited to agreed', 'unlimited|personal assets|personal property'),
+           's5': _k('agent of the llp|agent of llp|not of other partners|llp only|not agent of other partners|only agent of the llp', 'agent of the firm and|agent of other partners|agent of the other partners|agent of firm and|other partners'),
+           's6': _k('name|designated partner|annual return|statement of account|solvency|foreign|minor|filing|llp act 2008|partnership act 1932|governing law'),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('sue and be sued|suing and being sued|sue|sued', 'property|acquire|own|hold', 'common seal|seal', 'body corporate|anything|other acts|lawfully do', n=3),
+           's2': _k('unsound mind', 'undischarged insolvent|undischarged', 'applied|application pending|pending|applied to be adjudicated'),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

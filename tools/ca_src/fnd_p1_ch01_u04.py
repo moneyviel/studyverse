@@ -278,3 +278,57 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] for table answers; side may be dr/cr/add/less or a column-header
+# keyword such as "provision"), wrong (common wrong statements → remark), ai_only (not checkable offline).
+# Per question: extra_ok (may points beyond the model earn credit).
+def _item(keys, verdict):
+    """item keywords next to its verdict, in either order (one table row / one sentence)"""
+    return '|'.join([f'{k} {verdict}' for k in keys] + [f'{verdict} {k}' for k in keys])
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': {'kw': ['provision', 'present liabilit|present obligation|existing liabilit|uncertain amount|estimat'], 'min': 2},
+           's2': {'kw': ['contingent liabilit', 'possible obligation|possible liabilit|may or may not|uncertain future|future event|depend'], 'min': 2},
+           's3': {'kw': ['recognition|recognis|recogniz|criteria|condition', 'probable|reliable estimat|reliabl|past event'], 'min': 2},
+           's4': {'kw': ['balance sheet|recognised books|recorded books|charge profit|charged profit|booked|liability side', 'notes|disclosed|disclosure|footnote|foot note'], 'min': 2,
+                  'wrong': [{'kw': ['contingent liabilit shown balance sheet|contingent liabilit recorded balance sheet|contingent liabilit recognised balance sheet|contingent liabilit provided'],
+                             'say': 'A contingent liability is not recognised in the balance sheet — it is only disclosed in the notes.'}]},
+           's5': {'kw': ['example|e g|suit|penalty|claim|case|court|appeal|litigation', 'probable|likely|expect|estimat|chance'], 'min': 2}},
+    'q2': {'extra_ok': False,
+           's1': {'rows': [['suit|customer|claim', 'provision', 1100000]], 'kw': ['probable|reliable|likely|estimate'], 'min': 1},
+           's2': {'rows': [['guarantee', 'contingent', 2000000]]},
+           's3': {'rows': [['tax|demand|appeal', 'contingent', 350000]]},
+           's4': {'kw': [_item(['contractor', 'own claim', 'claim against', 'iv'], 'contingent asset'),
+                         'not recognis|not recogniz|not recorded|ignored|not shown|no entry|not booked|board report|directors report|not accounted'], 'min': 2,
+                  'wrong': [{'kw': ['contractor contingent liabilit|contractor provision|own claim contingent liabilit'], 'say': "The company's own claim is a contingent asset, not a liability — it is not recognised."}]},
+           's5': {'kw': [_item(['agent', 'former agent', 'no chance', 'v'], 'remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required')],
+                  'nums': [1100000, 2350000]}},
+    'q3': {'extra_ok': False,
+           's1': {'kw': ['possible asset', 'past event', 'uncertain future|future event|not wholly control|not fully control|outside control|beyond control|not control', 'claim|court|suit|example|e g|lawsuit|litigation'], 'min': 3},
+           's2': {'kw': ['not recognis|not recogniz|not recorded|not booked|never recognis|not accounted|not shown books|no entry|not brought books'], 'min': 1,
+                  'wrong': [{'kw': ['contingent asset recognised|contingent asset recorded|contingent asset shown balance sheet|recognised asset balance sheet'], 'say': 'A contingent asset is never recognised; it may only be mentioned in the approving authority\'s (Board\'s) report.'}]},
+           's3': {'kw': ['board|directors report|approving authority|report', 'probable|likely'], 'min': 2},
+           's4': {'kw': ['virtually certain|virtual certain|virtually sure|certain', 'period|recognis|recogniz|recorded|booked|accounted'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

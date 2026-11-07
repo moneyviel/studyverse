@@ -360,3 +360,49 @@ def build():
             {'k': 'Rights entry', 'v': 'Bank Dr To Equity Share Capital To Securities Premium'},
         ],
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+# "any N" question: every point carries the same groups with min = 1 … N (N distinct correct points earn N marks).
+_BR = ['free of cost|free|without payment|no payment|pay|price|consideration|cost', 'fresh cash|new funds|raise funds|raises funds|no funds|fresh funds|capitalis|capitaliz|cash inflow|funds',
+       '63|62', 'renounce|renunciation', 'net worth|networth', 'fully paid|partly paid']
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'nums': [32000, 320000]},
+           's2': {'rows': [['capital redemption|crr', 'dr', 90000], ['premium', 'dr', 50000]],
+                  'wrong': [{'kw': ['155000|95000'], 'say': 'A listed company cannot use the ₹25,000 premium that arose on shares issued for a machine (not realised in cash); only ₹50,000 of premium is available.'}]},
+           's3': {'rows': [['general reserve', 'dr', 180000]],
+                  'wrong': [{'kw': ['revaluation reserve dr|revaluation reserve 100000 dr|revaluation reserve account dr'], 'say': 'Revaluation reserve cannot be used for a bonus issue.'}]},
+           's4': {'kw': ['bonus to shareholders|bonus shareholders|bonus to equity shareholders'], 'rows': [['bonus', 'cr', 320000], ['bonus', 'dr', 320000], ['capital', 'cr', 320000]]},
+           's5': {'nums': [70000]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['free reserve', 'securities premium|premium', 'capital redemption reserve|crr'], 'min': 3},
+           's2': {'kw': ['revaluation not|not revaluation|revaluation cannot|cannot revaluation|revaluation excluded|excluding revaluation|except revaluation|other than revaluation|revaluation not allowed|revaluation reserve not|no revaluation']},
+           's3': {'kw': ['articles', 'general meeting|recommendation of board|board', 'default fixed deposit|default interest|default principal|fixed deposit|debt securities|default repayment|no default deposit|no default fixed|not defaulted deposit|not defaulted fixed|no default debt|no default interest',
+                         'statutory dues|provident fund|gratuity|employees|no default provident|no default statutory|no default pf|not defaulted provident|no default employee|not defaulted statutory|no default gratuity', 'partly paid', 'prescribed|other conditions'], 'min': 5},
+           's4': {'kw': ['not lieu dividend|cannot lieu dividend|not in lieu|not instead dividend|not substitute dividend|cannot instead dividend|not withdrawn|cannot withdrawn|not be withdrawn|irrevocable']}},
+    'q3': {'extra_ok': False,
+           's1': {'nums': [40000]},
+           's2': {'kw': ['280000|28800000|3400000|32200000'], 'nums': [115],
+                  'wrong': [{'kw': ['102.5'], 'say': 'TERP is a weighted average by number of shares: (2,40,000 × 120 + 40,000 × 85) ÷ 2,80,000 = ₹115, not a simple average.'}]},
+           's3': {'kw': ['115 5|120 115 5|5 per existing|5 per share|right 5|existing share 5|5 per old share', '85 30|30 per right|rights share 30|right share 30|6 5 30|30 per new share'], 'min': 2},
+           's4': {'rows': [['bank', 'dr', 3400000], ['capital', 'cr', 400000], ['premium', 'cr', 3000000]]}},
+    'q4': dict({'extra_ok': True}, **{f's{n}': {'kw': _BR, 'min': n} for n in range(1, 5)}),
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

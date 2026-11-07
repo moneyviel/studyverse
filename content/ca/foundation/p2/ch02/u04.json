@@ -789,31 +789,66 @@
      "id": "s1",
      "pt": "Section 43 — promisee may compel any one",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 43|joint promis",
+      "any one|any of|entire|whole|full|all"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Equal contribution and sharing of default",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "contribute|contribution",
+      "equal|equally",
+      "default|insolvent|insolvency|loss|shortfall|deficiency"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "Equal share and recovery from insolvent estate",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "25 percent 120000|120000 25 percent|30000 from z|30000 z|z 30000|estate 30000|30000 estate|z pays 30000|z will pay 30000|25 paise 120000|120000 25 paise|z estate 30000|z s estate 30000"
+     ],
+     "min": 1,
+     "nums": [
+      120000,
+      30000
+     ]
     },
     {
      "id": "s4",
      "pt": "Recovery from X including half the shortfall",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "half|shortfall|90000|equally|share"
+     ],
+     "min": 1,
+     "nums": [
+      45000,
+      165000
+     ]
     },
     {
      "id": "s5",
      "pt": "Conclusion with Y's final burden",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "bear|bears|borne|loss|himself|own pocket|final|finally|net"
+     ],
+     "min": 1,
+     "nums": [
+      165000,
+      30000
+     ]
     }
    ],
    "checks": [
@@ -858,7 +893,8 @@
    "tips": [
     "Show a mini-table of shares in the analysis.",
     "Add a one-line arithmetic proof that totals equal the debt."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -911,25 +947,58 @@
      "id": "s1",
      "pt": "Section 59 applied to cheque (i)",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 59|debtor appropriat|debtor indicat|debtor specif|debtor s appropriation|instruction|indicated by the debtor|as directed|debtor direct|appropriated by debtor|debtor chose|specified",
+      "may 2024|second debt|debt 2|2024 bill|2024 debt"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Section 61 — order of time incl. time-barred debt",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 61|order of time|chronological|order in which|earliest|oldest|first in time|order they fell due",
+      "even if time barred|even time barred|whether or not time barred|whether time barred or not|including time barred|includes time barred|time barred debt first|2021 debt first|first to the 2021|first 18000|18000 first|first to the june 2021|first to the time barred|irrespective|even though time barred|although time barred|though time barred|even if barred|even barred by limitation|whether or not barred"
+     ],
+     "min": 2,
+     "wrong": [
+      {
+       "kw": [
+        "cannot be applied to the time barred|cannot be applied to time barred|excluding the time barred|except the time barred|ignore the time barred|time barred debt cannot be paid|cannot appropriate to time barred|not to the time barred debt"
+       ],
+       "say": "Under Section 61 the payment goes to debts in order of time, whether or not barred by limitation — the June 2021 debt is paid first."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Correct computation of balances",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "balance|outstanding|remain|left|due"
+     ],
+     "min": 1,
+     "nums": [
+      8000,
+      6000
+     ]
     },
     {
      "id": "s4",
      "pt": "Final outstanding stated",
      "m": 0.5,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "6000 outstanding|6000 remains|outstanding 6000|balance 6000|6000 due|6000 of debt 3|remains 6000|6000 balance|remaining 6000|6000 still|due 6000|6000 unpaid|6000 left|6000 jan|6000 january|6000 payable"
+     ],
+     "min": 1,
+     "nums": [
+      6000
+     ]
     }
    ],
    "checks": [
@@ -963,7 +1032,8 @@
    ],
    "tips": [
     "A running table of balances makes the answer easy to mark."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1013,25 +1083,45 @@
      "id": "s1",
      "pt": "Meaning",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "new contract|substitut|replace",
+      "change|modif|vary|variation|altered|alter terms|terms changed"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Parties",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "new parties|new party|different parties|third party|same or new|may change|parties may change|change of parties",
+      "same parties|always same|parties remain same|parties same|parties remain the same"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Effect on original contract",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "extinguish|ends|terminated|discharged|replaced|cease|no longer|comes to an end",
+      "continues|continue|remains|subsist|survive|still exists"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Examples / Section 62",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "section 62",
+      "debtor|extend|repayment|creditor|instead of|interest rate|reduce|price|date|example"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -1042,7 +1132,8 @@
    ],
    "tips": [
     "Use a 3-column table."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q4",
@@ -1071,37 +1162,63 @@
      "id": "s1",
      "pt": "Performance",
      "m": 0.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "performance|tender"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Mutual agreement (with forms)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "mutual agreement|agreement|consent",
+      "novation|rescission|alteration|remission|section 62|section 63"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Impossibility",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "impossibility|impossible|frustration|section 56"
+     ],
+     "min": 1
     },
     {
      "id": "s4",
      "pt": "Lapse of time and operation of law",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "lapse of time|limitation|time barred|lapse",
+      "operation of law|death|insolvency|material alteration"
+     ],
+     "min": 2
     },
     {
      "id": "s5",
      "pt": "Breach",
      "m": 0.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "breach"
+     ],
+     "min": 1
     },
     {
      "id": "s6",
      "pt": "Section 67 / merger",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "section 67|reasonable facilities|neglect|facility|merger|superior right|inferior right|merge"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -1112,7 +1229,8 @@
    ],
    "tips": [
     "Number the modes; give section numbers where they exist."
-   ]
+   ],
+   "extra_ok": true
   }
  ],
  "revision": {

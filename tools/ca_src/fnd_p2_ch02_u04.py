@@ -391,3 +391,61 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 43|joint promis', 'any one|any of|entire|whole|full|all'),
+           's2': _k('contribute|contribution', 'equal|equally', 'default|insolvent|insolvency|loss|shortfall|deficiency'),
+           's3': _k('25 percent 120000|120000 25 percent|30000 from z|30000 z|z 30000|estate 30000|30000 estate|z pays 30000|z will pay 30000|25 paise 120000|120000 25 paise|z estate 30000|z s estate 30000', nums=[120000, 30000]),
+           's4': _k('half|shortfall|90000|equally|share', nums=[45000, 165000]),
+           's5': _k('bear|bears|borne|loss|himself|own pocket|final|finally|net', nums=[165000, 30000]),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 59|debtor appropriat|debtor indicat|debtor specif|debtor s appropriation|instruction|indicated by the debtor|as directed|debtor direct|appropriated by debtor|debtor chose|specified', 'may 2024|second debt|debt 2|2024 bill|2024 debt'),
+           's2': _k('section 61|order of time|chronological|order in which|earliest|oldest|first in time|order they fell due', 'even if time barred|even time barred|whether or not time barred|whether time barred or not|including time barred|includes time barred|time barred debt first|2021 debt first|first to the 2021|first 18000|18000 first|first to the june 2021|first to the time barred|irrespective|even though time barred|although time barred|though time barred|even if barred|even barred by limitation|whether or not barred',
+                    wrong=[{'kw': ['cannot be applied to the time barred|cannot be applied to time barred|excluding the time barred|except the time barred|ignore the time barred|time barred debt cannot be paid|cannot appropriate to time barred|not to the time barred debt'], 'say': 'Under Section 61 the payment goes to debts in order of time, whether or not barred by limitation — the June 2021 debt is paid first.'}]),
+           's3': _k('balance|outstanding|remain|left|due', nums=[8000, 6000]),
+           's4': _k('6000 outstanding|6000 remains|outstanding 6000|balance 6000|6000 due|6000 of debt 3|remains 6000|6000 balance|remaining 6000|6000 still|due 6000|6000 unpaid|6000 left|6000 jan|6000 january|6000 payable', nums=[6000]),
+           },
+    'q3': {'extra_ok': True,
+           's1': _k('new contract|substitut|replace', 'change|modif|vary|variation|altered|alter terms|terms changed'),
+           's2': _k('new parties|new party|different parties|third party|same or new|may change|parties may change|change of parties', 'same parties|always same|parties remain same|parties same|parties remain the same'),
+           's3': _k('extinguish|ends|terminated|discharged|replaced|cease|no longer|comes to an end', 'continues|continue|remains|subsist|survive|still exists'),
+           's4': _k('section 62', 'debtor|extend|repayment|creditor|instead of|interest rate|reduce|price|date|example', n=1),
+           },
+    'q4': {'extra_ok': True,
+           's1': _k('performance|tender'),
+           's2': _k('mutual agreement|agreement|consent', 'novation|rescission|alteration|remission|section 62|section 63'),
+           's3': _k('impossibility|impossible|frustration|section 56'),
+           's4': _k('lapse of time|limitation|time barred|lapse', 'operation of law|death|insolvency|material alteration'),
+           's5': _k('breach'),
+           's6': _k('section 67|reasonable facilities|neglect|facility|merger|superior right|inferior right|merge'),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

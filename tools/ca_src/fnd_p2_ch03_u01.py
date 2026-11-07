@@ -330,3 +330,61 @@ def build():
                      {'k': 'Section 10', 'v': 'Third-party valuer fails → avoided; goods appropriated → reasonable price; party at fault → damages'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('section 4|immediately|at once|straight away|present', 'future|condition|later'),
+           's2': _k('executed', 'executory', 'immediately|at once|future|condition|passes'),
+           's3': _k('jus in rem|in rem|against all|against the whole world|rem', 'jus in personam|in personam|personam|against the other party|against the buyer only'),
+           's4': _k('risk|loss', 'buyer bears|seller bears|buyer bear|seller bear|follows ownership|follows property|risk passes|prima facie|borne by buyer|borne by the buyer|borne by seller|borne by the seller'),
+           's5': _k('suit for price|sue for price|sue for the price|price', 'damages|resell|resale'),
+           's6': _k('insolvency|insolvent|official assignee|official receiver', 'recover the goods|claim the goods|refund|creditor|rateable|ratable|dividend'),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 8|avoided|void', 'perish|perishes|perished|destroyed|stolen|theft|lost', 'before risk|risk passes|without fault|no fault|specific|without any fault'),
+           's2': _k('section 26|risk follows property|risk prima facie passes|risk passes with property|risk passes with ownership|risk follows ownership|seller s risk|risk remains with seller|risk with seller|goods remain at seller|remain at the seller s risk|risk follows the property'),
+           's3': _k('property not passed|property had not passed|ownership not passed|property was still with arjun|still with arjun|risk with arjun|arjun s risk|risk was with arjun|agreement to sell|before risk passed|property passes only on sunday', 'without fault|no fault|not due to|no negligence|without negligence|not negligent|without any fault|neither party'),
+           's4': _k('agreement avoided|agreement is avoided|contract avoided|suit fails|suit will fail|bela need not pay|bela not liable|not liable to pay|need not pay|arjun cannot recover|arjun cannot claim|bela is not liable|bela not bound|not bound to pay|arjun fails|claim fails|contract is avoided',
+                    wrong=[{'kw': ['bela must pay|bela liable|bela is liable|arjun can recover|arjun succeed'], 'say': 'Property and risk had not passed; the specific goods perished without fault, so the agreement is avoided (Sections 8, 26).'}]),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('movable|moveable', 'actionable claim|actionable claims', 'money'),
+           's2': _k('stock and shares|shares|stock', 'growing crops|crops|grass', 'attached to|forming part of|fixed to|attached|severed|sever|cut', n=2),
+           's3': _k('fixed deposit goods|fd goods|receipt goods|receipt is goods|receipt are goods|deposit receipt goods|fixed deposit receipt is goods', 'decree goods|decree is goods|decree are goods|decree treated as goods|decree movable|decree treated'),
+           's4': _k('timber goods|timber is goods|timber are goods|timber treated as goods|standing timber goods|timber treated', 'goodwill goods|goodwill is goods|goodwill are goods|goodwill included|goodwill movable|goodwill treated'),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('future goods', 'agreement to sell|section 6|2(6)|2 6|section 2 6'),
+           's2': _k('section 56|impossible|impossibility|supervening|frustrat', 'specific|particular|named|that farm|destroy|destroyed|without fault|perish|beyond control'),
+           's3': _k('farm|particular farm|named farm|agra|that farm|own farm|specific', 'blight|beyond control|beyond his control|no fault|without fault|not his fault|natural', 'no duty to buy|not bound to buy|not required to buy|elsewhere|confined|restricted|limited to'),
+           's4': _k('neeraj not liable|neeraj is not liable|not liable for the shortfall|not liable for short|not liable for 80|not liable|neeraj need not|no damages|damages not|suit fails|claim fails|fresh mart cannot|cannot claim damages|not entitled to damages',
+                    wrong=[{'kw': ['neeraj liable|neeraj is liable|liable for short delivery|liable for 80'], 'say': 'The contract was for specific future goods from one farm; the loss beyond his control made performance impossible — Neeraj is not liable for the shortfall.'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

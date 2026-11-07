@@ -336,3 +336,61 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 68', 'necessaries|necessary|necessities', 'property|estate|reimburse|reimbursed', 'not personally liable|no personal liability|not personally|not liable personally|personally not liable|cannot be personally|not personal', n=3,
+                    wrong=[{'kw': ['personally liable|dhruv must pay 35000|liable for 35000'], 'say': 'Section 68 gives only reimbursement out of the minor\'s property, never personal liability — and only for necessaries.'}]),
+           's2': _k('uniform necessar|uniforms are necessar|uniforms necessar|necessaries uniforms|uniforms are necessities|uniforms are necessary|necessary uniform', 'suits not|suits are not|suit not|suits luxur|suits are luxur|luxury|luxuries'),
+           's3': _k('recover 9000|9000 recoverable|9000 only|only 9000|claim 9000|get 9000|entitled 9000|9000 out of|limited to 9000|reimbursed 9000|entitled to 9000|recovers 9000'),
+           's4': _k('dhruv s property|dhruv property|inherited house|dhruv s house|dhruv s estate|out of dhruv|minor s house', 'cannot recover 26000|suits are not recoverable|not liable for the suits|not liable for suits|not 26000|26000 not|suits not recoverable|cannot claim 26000|not recover 26000|not for the suits|suits cannot|26000 cannot|not for suits|nothing for the suits'),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('collateral|section 31', 'money|stake|win|lose|bet|uncertain'),
+           's2': _k('reciprocal', 'need not|not necessarily|not necessary|always|mutual'),
+           's3': _k('collateral|incidental', 'interest|insurable|substance|whole|core'),
+           's4': _k('always contingent|every wager is contingent|every wagering agreement is contingent|all wagers are contingent|wager contingent|wagers contingent|wagering contingent|wagering agreement contingent', 'may or may not be wagering|may or may not be a wager|not vice versa|not every contingent|not all contingent|not necessarily|need not be wagering|contingent not wager|contingent contract not wager|contingent contracts are not wager|not always wager|not always a wager'),
+           's5': _k('wager void|wagering void|wagering agreement void|wagering agreements are void|void section 30|section 30 void|void under section 30|wagers void|wagers are void', 'contingent valid|contingent contract valid|contingent enforceable|valid enforceable|valid and enforceable|contingent contracts are valid|contingent contract is valid'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 71|finder', 'bailee|responsibility of a bailee|position of bailee|position of a bailee|same responsibility'),
+           's2': _k('care|ordinary prudence|prudence|reasonable care', 'not use|no personal use|must not use|should not use|not for his own use|cannot use|refrain from using|not to use|without using|not entitled to use', 'trace|find the owner|search|locate|reasonable efforts|return'),
+           's3': _k('wore|wearing|wear|used|unauthorised use|using', 'no effort|not try|did not try|no attempt|failed to trace|didnt trace|never tried|made no|did not trace|no efforts|not trace|not search|not traced'),
+           's4': _k('manav liable|manav is liable|liable to compensate|liable to pay|liable for the damage|must compensate|liable to return|must pay|bound to compensate|manav must|liable for damages|liable for the broken|liable to leela', n=1),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('section 31|collateral', 'uncertain|contingent', 'will of the promisor|mere will|promisor s will|not merely|collateral', n=2),
+           's2': _k('rain', 'uncertain|beyond control|outside|not within|no control|not in control', 'not merely|not mere|not solely|not entirely|partly|not only|not purely|not just'),
+           's3': _k('yes contingent|contract contingent|agreement contingent|qualifies contingent|only if both|pay only if|amounts to contingent|becomes contingent|constitutes contingent|valid contingent|hence contingent|therefore contingent|thus contingent'),
+           's4': _k('section 70', 'lawful|lawfully', 'gratuitous|gratuitously|free|gift', 'enjoy|enjoyed|benefit|accept|accepted', n=3),
+           's5': _k('no choice|no opportunity|no option|could not accept|could not reject|not voluntarily|thrust|forced|without her consent|no say|did not ask|not request|no chance|unable to reject|not given a chance|not an option|chance to reject|option to reject|not asked|not choose'),
+           's6': _k('deepa not bound|deepa is not bound|deepa need not pay|not bound to pay|not liable to pay|need not pay|deepa not liable|deepa is not liable|deepa does not have to pay|chirag cannot recover|chirag cannot claim|no obligation to pay|not required to pay|deepa not required|not obliged to pay|deepa need not'),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

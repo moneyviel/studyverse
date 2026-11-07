@@ -341,3 +341,61 @@ def build():
                      {'k': 'Four-sector', 'v': 'Y = (a − bT + I + G + X − M̄)/(1 − b + m)'}, {'k': 'Foreign trade multiplier', 'v': '1/(1 − b + m); with tax 1/[1 − b(1 − t) + m]'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _CR(*vals, **x):
+    """figures in Rs crore: nums matches '5,690' and '5,690 crore' alike"""
+    return _N(*vals, **x)
+
+
+AUTO = {
+    'q1': {
+        's1': _K('y c i|y equal c i|200 400 1 0.8|600 0.2|ad equal|aggregate supply aggregate demand|y 200 0.8y 400|s equal i|saving equal invest|s i'),
+        's2': _CR(3000, 2600),
+        's3': _K('k 5|multiplier 5|1 0.2 5|1 1 0.8 5|multiplier is 5|0.2 5'),
+        's4': _CR(3300),
+    },
+    'q2': {
+        's1': _K('120 60 30|bt btr|bt b tr|0.75 80 0.75 40|0.75 x 80|60 30 300|b t b tr|ct ctr'),
+        's2': _CR(2360),
+        's3': _CR(2320),
+        's4': _K('multiplier 4|k 4|1 0.25 4|0.25 4|1 1 0.75 4|multiplier is 4|4 times'),
+    },
+    'q3': {
+        's1': _K('c i g x m|c i g nx|y c i g|1 0.8 0.05|c i g x'),
+        's2': _CR(840),
+        's3': _K('52|70 52', 'surplus|favourable|positive|exports exceed', '18|180000000'),
+        's4': _K('multiplier 4|k 4|0.25 4|1 0.25 4|1 0.8 0.05 4|multiplier is 4'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

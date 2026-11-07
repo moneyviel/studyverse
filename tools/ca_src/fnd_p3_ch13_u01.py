@@ -429,3 +429,56 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(26, 6, kw=['range']),
+        's2': _K('20 25|2025', '45 50|4550', 'exclu|upper limit|not included|lower limit|start with|starts with', min=2),
+        's3': _K('20 25 3', '25 30 6', '30 35 6', '35 40 7', '40 45 5', '45 50 3'),
+        's4': _K('total 30|30 total|sum 30|n 30|30 observ'),
+    },
+    'q2': {
+        's1': _N(36000),
+        's2': _K('36000 360|36000 x 360|amount total 360|total x 360|item total 360|value total 360|expenditure total 360'),
+        's3': _N(135, 90, 60, 36, 39, 360),
+    },
+    'q3': {
+        's1': _N(99.5, 199.5, 299.5, 399.5, 499.5, 599.5),
+        's2': _N(149.5, 249.5, 349.5, 449.5, 549.5),
+        's3': _N(6, 20, 42, 54, 60),
+        's4': _N(60, 54, 40, 18, 6),
+        's5': _K('n 2 30|30|30th', '300 399|299.5 399.5|300 to 399'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

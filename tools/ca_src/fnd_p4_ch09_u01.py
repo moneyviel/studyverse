@@ -325,3 +325,58 @@ def build():
                      {'k': 'New trade theory', 'v': 'Krugman (Nobel 2008); economies of scale; network (bandwagon) effects'}],
         'viva': viva, 'cases': [case],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('arvia absolute|absolute arvia|arvia both|both arvia|arvia has absolute|arvia absolute advantage both'),
+        's2': _K('0.5|20 40', '0.67|0.667|0.6667|30 45'),
+        's3': _K('40 20|2 tv|2 tvs|shoe 2 1.5|2 1.5', '1.5|45 30'),
+        's4': _K('arvia export tv|arvia tv borea|arvia lower tv|arvia specialis in tv borea|arvia export tvs|arvia tvs borea|arvia lower tvs|arvia specialis in tvs borea', 'borea export shoe|borea shoe|borea lower shoe'),
+        's5': _K('0.5 0.67|0.5 and 0.67|0.5 0.667|0.5 0.6667|0.5 2 3|1 2 2 3'),
+    },
+    'q2': {
+        's1': _K('meridia coffee nortia|meridia absolute advantage coffee|6 15|meridia in coffee|meridia coffee', 'nortia tea|10 12|nortia in tea'),
+        's2': _N(18, 25),
+        's3': _K('3 coffee|coffee 3|18 6 3', '2.5 tea|tea 2.5|25 10 2.5|2.5'),
+        's4': _K('1 coffee|coffee 1|3 2 1', '0.5 tea|tea 0.5|2.5 2 0.5'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('labour theory|labour value|labour cost', 'money cost'),
+        's2': _K('one factor|single factor|only labour|labour only|1 factor', 'two factor|2 factor|labour and capital|labour capital|multiple factor|many factor'),
+        's3': _K('productiv|technolog|efficiency', 'endowment|factor abundance|abundan|factor price'),
+        's4': _K('normative|distinct|separate', 'positive|inter regional|interregional'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

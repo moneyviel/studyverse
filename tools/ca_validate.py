@@ -12,6 +12,9 @@ Checks:
   * MCQ topic + explanation rules (unit and case MCQs): `topic` must match a structure.json topic of the unit
     or a concept-card title in the unit; `explain` must have 35+ words. These are warnings for now;
     with --strict they are errors.
+  * automatic answer checking (tools/ca_vivamatch.py check_answer = js/ca-check.js): scheme-point fields kw/min, nums,
+    rows, wrong/say, pad_ok are well-formed; a point with none of kw/nums/rows/pad_ok/ai_only is a warning (error with --strict);
+    the model answer must earn every offline mark (warning; error with --strict); JS and Python checkers agree (needs node)
 
 Usage:  python3 tools/ca_validate.py [--src /tmp/ca/txt] [--strict]      exit code 1 on any error
 """
@@ -184,6 +187,60 @@ def check_question(w, q):
     check_blocks(w + '.given', q.get('given', []))
     check_blocks(w + '.model', q.get('model', []))
     check_checks(w, q.get('checks'))
+    check_autocheck(w, q)
+
+# ---------- automatic answer checking (js/ca-check.js = check_answer in tools/ca_vivamatch.py) ----------
+AUTO = {'points': 0, 'checkable': 0, 'ai_only': 0, 'questions': 0, 'model_full': 0, 'cases': []}
+STD_SIDES = ('dr', 'cr', 'add', 'less', '')
+
+def _isnumber(x): return isinstance(x, (int, float)) and not isinstance(x, bool)
+
+def _check_groups(pw, kw, mn, what):
+    if not isinstance(kw, list) or not kw or not all(isinstance(g, str) and g.strip() for g in kw): err(pw, f'{what}: kw must be a non-empty list of keyword-group strings'); return
+    for g in kw:
+        for alt in g.split('|'):
+            if alt.strip() and not VM.tokens(alt): err(pw, f'{what}: keyword "{alt}" is only stop-words — it can never match')
+    if mn is not None and (not isinstance(mn, int) or not 1 <= mn <= len(kw)): err(pw, f'{what}: min must be 1..{len(kw)}')
+
+def check_autocheck(w, q):
+    """scheme point fields kw/min, nums, rows, wrong/say, pad_ok, ai_only; the model answer must earn every offline mark"""
+    pts = q.get('scheme', []) or []; missing = []
+    AUTO['questions'] += 1
+    for p in pts:
+        pw = f'{w}.{p.get("id")}'; AUTO['points'] += 1
+        if p.get('ai_only'): AUTO['ai_only'] += 1; continue
+        if not any(p.get(k) for k in ('kw', 'nums', 'rows', 'pad_ok')): missing.append(p.get('id')); continue
+        AUTO['checkable'] += 1
+        if p.get('kw') is not None: _check_groups(pw, p['kw'], p.get('min'), 'kw')
+        elif p.get('min') is not None: err(pw, 'min given without kw')
+        if p.get('nums') is not None and (not isinstance(p['nums'], list) or not all(_isnumber(x) for x in p['nums'])): err(pw, 'nums must be a list of numbers')
+        if p.get('rows') is not None:
+            if not isinstance(p['rows'], list): err(pw, 'rows must be a list of [account keywords, side, amount]')
+            else:
+                for r in p['rows']:
+                    if not (isinstance(r, list) and len(r) == 3 and isinstance(r[0], str) and isinstance(r[1], str) and (r[2] is None or _isnumber(r[2]))):
+                        err(pw, f'row {r!r} must be [account keywords (str), side (str), amount (number or null)]'); continue
+                    for alt in r[0].split('|'):
+                        if alt.strip() and not VM.tokens(alt): err(pw, f'row account keyword "{alt}" is only stop-words')
+                    if r[1].lower() not in STD_SIDES and not VM.tokens(r[1]): err(pw, f'row side "{r[1]}" must be dr|cr|add|less|"" or a column-header keyword')
+        for wr in (p.get('wrong') or []) if isinstance(p.get('wrong'), list) else [p.get('wrong')] if p.get('wrong') else []:
+            if isinstance(wr, str): continue
+            if not isinstance(wr, dict): err(pw, 'wrong must be a list of {kw, min?, say}'); continue
+            _check_groups(pw, wr.get('kw'), wr.get('min'), 'wrong')
+            if not str(wr.get('say') or '').strip(): err(pw, 'wrong rule needs say (the remark shown)')
+    if missing: soft(w, f'{len(missing)}/{len(pts)} scheme points have none of kw/nums/rows/ai_only — shown as "pending AI check": {", ".join(map(str, missing))}')
+    if not any(p.get(k) for p in pts for k in ('kw', 'nums', 'rows', 'pad_ok')): return
+    try:
+        ma = VM.model_attempt(q); ans = {'text': ma['text'], 'sheets': ma['sheets']}
+        r = VM.check_answer(q, ans)
+        AUTO['cases'] += [[q, ans], [q, {'text': q.get('q', '')}]]
+        if r['total'] < r['max']:
+            bad = [f'{x["id"]} {x["status"]}' + (f' ({x["remark"][:80]})' if x['remark'] else (f' (missing {", ".join(x["expected"][:3])})' if x['expected'] else '')) for x in r['points'] if x['status'] not in ('correct', 'pending')]
+            soft(w, f'AUTO-CHECK: the model answer scores only {r["total"]}/{r["max"]} offline — ' + '; '.join(bad))
+        else: AUTO['model_full'] += 1
+        rq = VM.check_answer(q, {'text': q.get('q', '')})
+        if rq['max'] and rq['total'] >= 0.6 * rq['max']: warn(w, f'auto-check: reading the question back already scores {rq["total"]}/{rq["max"]} — keywords/figures too generic')
+    except Exception as e: err(w, f'answer checker failed: {type(e).__name__}: {e}')
 
 # ---------- viva key points ----------
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -445,6 +502,23 @@ def main():
                 print(f'viva matcher parity JS = Python on {len(pairs)} answers')
         else: warn('viva parity', 'node not found — JS/Python matcher parity not checked')
     except Exception as e: err('viva parity', str(e))
+    # the JS answer checker (js/ca-check.js) must give exactly the same result as check_answer() in tools/ca_vivamatch.py
+    try:
+        import subprocess, shutil
+        if shutil.which('node') and AUTO['cases']:
+            r = subprocess.run(['node', os.path.join(ROOT, 'tools', 'ca_vivaparity.js'), os.path.join(ROOT, 'js', 'ca-tools.js'), os.path.join(ROOT, 'js', 'ca-check.js')], input=json.dumps(AUTO['cases']), capture_output=True, text=True, timeout=120)
+            if r.returncode: err('checker parity', r.stderr.strip()[:300])
+            else:
+                def canon(o):
+                    if isinstance(o, bool) or o is None or isinstance(o, str): return o
+                    if isinstance(o, (int, float)): return round(float(o), 6)
+                    if isinstance(o, list): return [canon(x) for x in o]
+                    return {k: canon(v) for k, v in sorted(o.items())}
+                for (q, a), j in zip(AUTO['cases'], json.loads(r.stdout)):
+                    if canon(VM.check_answer(q, a)) != canon(j): err('checker parity', f'JS and Python answer checkers differ on question {q.get("id")} ("{str(a.get("text", ""))[:40]}")'); break
+                print(f'answer checker parity JS = Python on {len(AUTO["cases"])} answers')
+        elif AUTO['cases']: warn('checker parity', 'node not found — JS/Python answer-checker parity not checked')
+    except Exception as e: err('checker parity', str(e))
     if src: originality(units + mocks, src)
     for lv, (p, c, n) in counts.items(): print(f'{lv:10s} papers {p:2d}  chapters {c:3d}  units {n:3d}')
     nm = sum(len(u['mcqs']) for _, u in units); nq = sum(len(u['questions']) for _, u in units); ni = sum(len(u['illustrations']) for _, u in units)
@@ -452,6 +526,7 @@ def main():
     print(f'built units {len(units)} · illustrations {ni} · MCQs {nm} · descriptive questions {nq} · numeric checks {nc}')
     nv = sum(len(u.get('viva', [])) for _, u in units); ncs = sum(len(u.get('cases', [])) for _, u in units); ncm = sum(len(c['mcqs']) for _, u in units for c in u.get('cases', []))
     print(f'viva questions {nv} · key points {sum(len(v["points"]) for _, u in units for v in u.get("viva", []))} · case sets {ncs} ({ncm} linked MCQs) · mock papers {len(mocks)}')
+    print(f'auto-check: {AUTO["checkable"]}/{AUTO["points"]} scheme points checkable offline · {AUTO["ai_only"]} ai_only · model answer earns every offline mark in {AUTO["model_full"]} questions' + ('' if STRICT else '  (points without fields: warnings; errors with --strict)'))
     ts = TOPIC_STATS; print(f'MCQ topics: {ts["mcqs"] - ts["no_topic"]}/{ts["mcqs"]} have one, {ts["bad_topic"]} do not match · explanations under the minimum: {ts["short"]}' + ('' if STRICT else '  (warnings; errors with --strict)'))
     for x in warns: print('WARN ', x)
     for x in errors: print('ERROR', x)

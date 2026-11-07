@@ -951,37 +951,76 @@
      "id": "s1",
      "pt": "Debentures account closed by transfer to debenture holders",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "debenture holder|debentureholder|holders",
+       "dr",
+       900000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "DRR topped up to ₹90,000 by ₹50,000 from profit and loss",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      90000
+     ],
+     "rows": [
+      [
+       "profit|p l|surplus",
+       "cr",
+       50000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "DRR transferred to general reserve ₹90,000",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "general reserve",
+       "dr",
+       90000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "DRR investment realised ₹1,35,000",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "investment|bond",
+       "dr",
+       135000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Debenture holders: ₹9,00,000 + premium ₹45,000 = ₹9,45,000 paid",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      45000,
+      945000
+     ]
     },
     {
      "id": "s6",
      "pt": "Bank: interest ₹10,800; closing balance ₹40,800",
      "m": 2,
-     "skill": "balancing"
+     "skill": "balancing",
+     "nums": [
+      10800,
+      40800
+     ]
     }
    ],
    "remarks": [
@@ -995,7 +1034,8 @@
    "tips": [
     "Prepare the Debenture Holders account first; it gives the payment for the bank account.",
     "Write \"By/To\" correctly and date every posting."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1019,25 +1059,47 @@
      "id": "s1",
      "pt": "DRR out of profits available for dividend; use restricted",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "profits available for dividend|profit available dividend|out of profits|profits|profit",
+      "only for redemption|only redemption|used only|not for any other|solely|only purpose"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Exempt categories (AIFIs/banks, listed, unlisted NBFC/HFC private placement)",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "aifi|all india financial|banking compan|bank",
+      "listed",
+      "nbfc|hfc|housing finance|privately placed|private placement"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "10% of outstanding for other unlisted companies",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "10 percent|10 per cent|10",
+      "outstanding|unlisted"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "15% investment by 30 April, permitted forms and use",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "15 percent|15 per cent|15",
+      "30 april|april 30|30th april|30 apr",
+      "scheduled bank|government securities|trust securities|deposit|invest|bonds"
+     ],
+     "min": 3
     }
    ],
    "remarks": [
@@ -1049,7 +1111,8 @@
    ],
    "tips": [
     "Answer (a) as a small table: category → DRR."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1164,19 +1227,50 @@
      "id": "s1",
      "pt": "Shares 520 computed on redemption value",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      520
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "500 shares|500 equity"
+       ],
+       "say": "Shares are issued for the redemption value (₹104 per debenture): 200 × ₹104 ÷ ₹40 = 520 shares."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Cash ₹62,400",
      "m": 0.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      62400
+     ]
     },
     {
      "id": "s3",
      "pt": "Entries with correct split of capital and premium",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "debenture holder|debentureholder|holders",
+       "dr",
+       20800
+      ],
+      [
+       "capital",
+       "cr",
+       5200
+      ],
+      [
+       "premium",
+       "cr",
+       15600
+      ]
+     ]
     }
    ],
    "remarks": [
@@ -1188,7 +1282,8 @@
    ],
    "tips": [
     "Compute shares from redemption value ÷ issue price per share."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1307,31 +1402,94 @@
      "id": "s1",
      "pt": "DRR ₹1,50,000 out of profit and loss",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "profit|p l|surplus",
+       "dr",
+       150000
+      ],
+      [
+       "redemption reserve|drr",
+       "cr",
+       150000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Deposit ₹2,25,000 by 30 April 2027",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "investment|deposit",
+       "dr",
+       225000
+      ],
+      [
+       "bank",
+       "cr",
+       225000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Encashment and redemption entries",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       225000
+      ],
+      [
+       "investment|deposit",
+       "cr",
+       225000
+      ],
+      [
+       "debenture",
+       "dr",
+       1500000
+      ],
+      [
+       "bank",
+       "cr",
+       1500000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "DRR to general reserve",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "redemption reserve|drr",
+       "dr",
+       150000
+      ],
+      [
+       "general reserve",
+       "cr",
+       150000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Dates and narrations",
      "m": 0.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "30 april|april 30|apr 30|30 apr|30 04",
+      "31 march|march 31|mar 31|31 mar|31 03"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1343,7 +1501,8 @@
    ],
    "tips": [
     "Keep DRR (reserve) and DRR investment (asset) clearly separate."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "viva": [

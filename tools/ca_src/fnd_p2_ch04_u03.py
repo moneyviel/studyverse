@@ -310,3 +310,65 @@ def build():
                      {'k': 'Sections 50–55', 'v': 'Personal profits · premium · rescission for fraud · firm name · restraint · goodwill'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 69', 'unregistered|not registered', 'cannot sue|no suit|not sue|barred|cannot file|not maintainable|cannot enforce|cannot take|no partner can sue|cannot bring'),
+           's2': _k('third party|third parties|outsider', 'dissolution|accounts|realisation|realise|realize'),
+           's3': _k('tarun barred|tarun cannot|tarun s suit is barred|suit barred|barred section 69 1|69 1|tarun suit barred|tarun is barred',
+                    'third party can sue|third party s right|preserved|third parties can sue|right to sue the firm|third party right|waheed s suit|waheed is a third party',
+                    'dissolution saved|dissolution expressly saved|saved|expressly saved|exception|not affected|dissolution is allowed|dissolution allowed|varun s suit'),
+           's4': _k('not maintainable|tarun cannot sue|tarun s suit is not maintainable|tarun fails|tarun s suit fails',
+                    'waheed maintainable|waheed can sue|b maintainable|waheed s suit maintainable|waheed succeed|waheed s suit is maintainable',
+                    'varun maintainable|varun can sue|c maintainable|varun s suit maintainable|varun s suit is maintainable|varun succeed',
+                    wrong=[{'kw': ['tarun s suit is maintainable|tarun maintainable|tarun can file|waheed cannot sue|varun cannot sue'], 'say': 'Section 69 bars suits by partners of an unregistered firm to enforce partnership rights (a), but not suits by third parties (b) or suits for dissolution and accounts (c).'}]),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('insanity|unsound mind|insane|lunatic'),
+           's2': _k('permanent incapacity|permanently incapable|incapacity|incapable'),
+           's3': _k('misconduct'),
+           's4': _k('persistent breach|wilful breach|breach of agreement|breach|transfer of interest|transferred his whole interest|transfer|transfers|transferred'),
+           's5': _k('only at a loss|carried on only at a loss|perpetual loss|continuous loss|losses|loss'),
+           's6': _k('just and equitable', 'deadlock|substratum|speaking terms|quarrel|dispute|disagreement|talking terms|mistrust|friction|not on speaking terms|not being on speaking terms|not speaking'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('third party|outside creditors|creditors|outsiders|outside liabilities', 'advance|advances|loan', 'capital', 'residue|surplus|balance|remaining|remainder', 'first|then|thereafter|next|after'),
+           's2': _k('creditors|third party|outside|outsiders', 'loan|advance', nums=[450000, 100000]),
+           's3': _k('capital', 'residue|surplus|balance|3:2|3 2', nums=[300000, 200000, 90000, 60000]),
+           's4': _k('esha 390000|390000 esha|esha receives 390000|esha gets 390000|esha rs 390000|esha total 390000|esha s total 390000', 'dev 360000|360000 dev|dev receives 360000|dev gets 360000|dev rs 360000|dev total 360000|dev s total 360000', nums=[390000, 360000]),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('public notice', 'liable|liability|continue|responsible|answer|answerable|bound', 'section 45|dissolution|after dissolution|until|till'),
+           's2': _k('deceased|death|estate', 'insolvent|insolvency', 'retiring|retired|not known', n=2),
+           's3': _k('no public notice|public notice not|without public notice|no notice|not given public notice|public notice was not|not given|without any public notice', 'did not know|unaware|not aware|without knowledge|no knowledge|no exception|not within any exception|not fall within|act of the firm|firm name|not covered|none of the exceptions'),
+           's4': _k('zoya liable|zoya is liable|zoya is also liable|zoya also liable|zoya must pay|zoya bound|zoya jointly|zoya and yash liable|both liable|zoya cannot escape|zoya is bound|zoya will be liable',
+                    wrong=[{'kw': ['zoya not liable|zoya is not liable|kabir cannot recover'], 'say': 'Until public notice of dissolution is given, every partner remains liable for acts that would have been acts of the firm (Section 45) — Zoya is liable.'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

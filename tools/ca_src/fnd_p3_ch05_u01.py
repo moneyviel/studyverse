@@ -483,3 +483,57 @@ VIVA = [
       [P('p1', 'Multiplication rule: one job then another → m × n', 5, 'multiplication rule|multiply rule|rule of product|m times n|m multipli n|product m n|after multipl|another multipl|together multipl|both multipl|mean multipl|successive multipl|sequence multipl|multipl both|multipl when both|multipl if both|multipl one after'),
        P('p2', 'Addition rule: either/or alternatives → m + n', 5, 'addition rule|add rule|rule of sum|m plus n|m add n|m added n|sum m n|alternative add|altern add|either add|mean add|exclusive add|instead add|add when either|add if either|add altern|add for altern')], 'c1'),
 ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(100),
+        's2': _K('end 0|ending 0|end 5|ending 5|units digit|unit digit|last digit|unit place|units place|0 unit|5 unit|0 last|5 last'),
+        's3': _N(20, 16),
+        's4': _N(36),
+    },
+    'q2': {
+        's1': _K('3 ca|3 cas|3 3|3 chartered', '4 ca|4 cas|4 2|4 chartered'),
+        's2': _K('35 10', nums=[350]),
+        's3': _N(700),
+        's4': _N(150, 200),
+        's5': _K('b 350|350 b|iyer 350|350 iyer|350 way|total 350|member 350|350 total|350 panel'),
+    },
+    'q3': {
+        's1': _N(362880),
+        's2': _N(17280),
+        's3': _N(43200),
+        's4': _N(15120),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

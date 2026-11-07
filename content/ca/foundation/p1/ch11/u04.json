@@ -889,31 +889,93 @@
      "id": "s1",
      "pt": "Number and value of bonus shares (32,000; ₹3,20,000)",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      32000,
+      320000
+     ]
     },
     {
      "id": "s2",
      "pt": "CRR used fully and only cash-realised premium ₹50,000 used",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "capital redemption|crr",
+       "dr",
+       90000
+      ],
+      [
+       "premium",
+       "dr",
+       50000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "155000|95000"
+       ],
+       "say": "A listed company cannot use the ₹25,000 premium that arose on shares issued for a machine (not realised in cash); only ₹50,000 of premium is available."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "General reserve ₹1,80,000; revaluation reserve excluded",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "general reserve",
+       "dr",
+       180000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "revaluation reserve dr|revaluation reserve 100000 dr|revaluation reserve account dr"
+       ],
+       "say": "Revaluation reserve cannot be used for a bonus issue."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "Two journal entries through Bonus to Shareholders A/c with narrations",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "kw": [
+      "bonus to shareholders|bonus shareholders|bonus to equity shareholders"
+     ],
+     "rows": [
+      [
+       "bonus",
+       "cr",
+       320000
+      ],
+      [
+       "bonus",
+       "dr",
+       320000
+      ],
+      [
+       "capital",
+       "cr",
+       320000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Closing general reserve ₹70,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      70000
+     ]
     }
    ],
    "remarks": [
@@ -927,7 +989,8 @@
    "tips": [
     "List reserves in the order: CRR → eligible premium → free reserves.",
     "State why each excluded reserve is excluded — it earns concept marks."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -959,25 +1022,46 @@
      "id": "s1",
      "pt": "Three sources",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "free reserve",
+      "securities premium|premium",
+      "capital redemption reserve|crr"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Revaluation reserve excluded",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "revaluation not|not revaluation|revaluation cannot|cannot revaluation|revaluation excluded|excluding revaluation|except revaluation|other than revaluation|revaluation not allowed|revaluation reserve not|no revaluation"
+     ]
     },
     {
      "id": "s3",
      "pt": "At least five conditions of s. 63(2)",
      "m": 2.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "articles",
+      "general meeting|recommendation of board|board",
+      "default fixed deposit|default interest|default principal|fixed deposit|debt securities|default repayment|no default deposit|no default fixed|not defaulted deposit|not defaulted fixed|no default debt|no default interest",
+      "statutory dues|provident fund|gratuity|employees|no default provident|no default statutory|no default pf|not defaulted provident|no default employee|not defaulted statutory|no default gratuity",
+      "partly paid",
+      "prescribed|other conditions"
+     ],
+     "min": 5
     },
     {
      "id": "s4",
      "pt": "Not in lieu of dividend / no withdrawal",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "not lieu dividend|cannot lieu dividend|not in lieu|not instead dividend|not substitute dividend|cannot instead dividend|not withdrawn|cannot withdrawn|not be withdrawn|irrevocable"
+     ]
     }
    ],
    "remarks": [
@@ -988,7 +1072,8 @@
    ],
    "tips": [
     "Separate the answer into \"sources\" and \"conditions\" with sub-headings."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1078,25 +1163,64 @@
      "id": "s1",
      "pt": "Rights shares 40,000",
      "m": 0.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      40000
+     ]
     },
     {
      "id": "s2",
      "pt": "TERP ₹115 with formula",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "280000|28800000|3400000|32200000"
+     ],
+     "nums": [
+      115
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "102.5"
+       ],
+       "say": "TERP is a weighted average by number of shares: (2,40,000 × 120 + 40,000 × 85) ÷ 2,80,000 = ₹115, not a simple average."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Value of right ₹5 per existing share and ₹30 per rights share",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "115 5|120 115 5|5 per existing|5 per share|right 5|existing share 5|5 per old share",
+      "85 30|30 per right|rights share 30|right share 30|6 5 30|30 per new share"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Entry: Bank ₹34,00,000; Capital ₹4,00,000; Premium ₹30,00,000",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       3400000
+      ],
+      [
+       "capital",
+       "cr",
+       400000
+      ],
+      [
+       "premium",
+       "cr",
+       3000000
+      ]
+     ]
     }
    ],
    "remarks": [
@@ -1108,7 +1232,8 @@
    ],
    "tips": [
     "Write the TERP formula before substituting figures."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1164,25 +1289,61 @@
      "id": "s1",
      "pt": "Point 1",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "free of cost|free|without payment|no payment|pay|price|consideration|cost",
+      "fresh cash|new funds|raise funds|raises funds|no funds|fresh funds|capitalis|capitaliz|cash inflow|funds",
+      "63|62",
+      "renounce|renunciation",
+      "net worth|networth",
+      "fully paid|partly paid"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Point 2",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "free of cost|free|without payment|no payment|pay|price|consideration|cost",
+      "fresh cash|new funds|raise funds|raises funds|no funds|fresh funds|capitalis|capitaliz|cash inflow|funds",
+      "63|62",
+      "renounce|renunciation",
+      "net worth|networth",
+      "fully paid|partly paid"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Point 3",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "free of cost|free|without payment|no payment|pay|price|consideration|cost",
+      "fresh cash|new funds|raise funds|raises funds|no funds|fresh funds|capitalis|capitaliz|cash inflow|funds",
+      "63|62",
+      "renounce|renunciation",
+      "net worth|networth",
+      "fully paid|partly paid"
+     ],
+     "min": 3
     },
     {
      "id": "s4",
      "pt": "Point 4",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "free of cost|free|without payment|no payment|pay|price|consideration|cost",
+      "fresh cash|new funds|raise funds|raises funds|no funds|fresh funds|capitalis|capitaliz|cash inflow|funds",
+      "63|62",
+      "renounce|renunciation",
+      "net worth|networth",
+      "fully paid|partly paid"
+     ],
+     "min": 4
     }
    ],
    "remarks": [
@@ -1193,7 +1354,8 @@
    ],
    "tips": [
     "Use a three-column table; quote the sections."
-   ]
+   ],
+   "extra_ok": true
   }
  ],
  "viva": [

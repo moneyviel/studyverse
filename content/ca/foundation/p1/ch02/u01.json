@@ -987,37 +987,143 @@
      "id": "s1",
      "pt": "Opening entry: Bank and Machinery debited, Capital credited ₹6,50,000",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       500000
+      ],
+      [
+       "machinery",
+       "dr",
+       150000
+      ],
+      [
+       "capital",
+       "cr",
+       650000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Purchases recorded at ₹57,000 (trade discount not shown)",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "purchase",
+       "dr",
+       57000
+      ],
+      [
+       "lakshmi",
+       "cr",
+       57000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "discount received|discount account|trade discount account"
+       ],
+       "say": "Trade discount is never recorded; purchases are entered at the net ₹57,000."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Furniture debited, supplier (not Purchases) credited",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "furniture",
+       "dr",
+       24000
+      ],
+      [
+       "comfort",
+       "cr",
+       24000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Loss by Fire ₹9,000 and Insurance Claim ₹21,000 debited, Purchases credited ₹30,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "loss fire|fire loss|loss by fire|abnormal loss",
+       "dr",
+       9000
+      ],
+      [
+       "insurance",
+       "dr",
+       21000
+      ],
+      [
+       "purchase",
+       "cr",
+       30000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Household bill treated as Drawings",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "drawing",
+       "dr",
+       7500
+      ],
+      [
+       "bank",
+       "cr",
+       7500
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "electricity account debit|electricity expense|electricity charges account"
+       ],
+       "say": "The proprietor's household bill is Drawings, not a business electricity expense."
+      }
+     ]
     },
     {
      "id": "s6",
      "pt": "Outstanding Salary credited; narrations given for entries",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "rows": [
+      [
+       "outstanding|payable|accrued",
+       "cr",
+       16000
+      ],
+      [
+       "salar",
+       "dr",
+       16000
+      ]
+     ],
+     "kw": [
+      "started|commenced|introduced|brought",
+      "bought|purchased",
+      "destroyed|admitted",
+      "household|personal|proprietor|private",
+      "due|not paid|unpaid|not yet paid"
+     ],
+     "min": 3
     }
    ],
    "remarks": [
@@ -1034,7 +1140,8 @@
     "Rule a proper journal: Date | Particulars | L.F. | Dr (₹) | Cr (₹).",
     "Write the debit line first, the credit line indented with \"To\".",
     "Show working notes for any computed amount."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1080,25 +1187,58 @@
      "id": "s1",
      "pt": "Meaning/purpose of trade discount",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "trade discount",
+      "list price|bulk|catalogue|large quantit|trade purchase|invoice|promote|reduction price|purchase sale|time sale|time purchase"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Meaning/purpose of cash discount",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "cash discount",
+      "prompt|early payment|timely payment|payment within|quick payment|pay early|paid early|before due|within agreed|immediate payment|time payment|paying within|paid within|pays within"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Trade discount not recorded — entry at net price",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "not recorded|never recorded|not entered|no entry|not shown books|net price|net amount|not accounted|not appear|no separate account|not passed|net invoice"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "trade discount recorded|trade discount debited|trade discount credited|trade discount shown profit|trade discount profit loss|record trade discount"
+       ],
+       "say": "Trade discount is not recorded in the books; the entry is made at the net price."
+      },
+      {
+       "kw": [
+        "cash discount not recorded|cash discount never recorded|cash discount no entry"
+       ],
+       "say": "Cash discount is recorded — Discount Allowed (seller) or Discount Received (buyer)."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "Cash discount recorded as Discount Allowed/Received in P&L",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "discount allowed|discount received",
+      "profit loss|p l|loss|gain|income|expense"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1112,7 +1252,8 @@
    "tips": [
     "For \"distinguish\" questions, a table with 4 bases is the fastest way to score.",
     "End with the accounting treatment — it is usually what the question is really testing."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1224,25 +1365,120 @@
      "id": "s1",
      "pt": "Purchase entry with Input CGST and SGST ₹9,000 each",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "purchase",
+       "dr",
+       150000
+      ],
+      [
+       "input cgst|cgst input|input tax cgst|input tax credit cgst",
+       "dr",
+       9000
+      ],
+      [
+       "input sgst|sgst input|input tax sgst|input tax credit sgst",
+       "dr",
+       9000
+      ],
+      [
+       "om textile|om",
+       "cr",
+       168000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Sales entry with Output CGST and SGST ₹14,400 each",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "rhea",
+       "dr",
+       268800
+      ],
+      [
+       "sale",
+       "cr",
+       240000
+      ],
+      [
+       "output cgst|cgst output|cgst payable",
+       "cr",
+       14400
+      ],
+      [
+       "output sgst|sgst output|sgst payable",
+       "cr",
+       14400
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Set-off entry: Output debited, Input credited (CGST with CGST, SGST with SGST)",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "output cgst|cgst output|cgst payable",
+       "dr",
+       9000
+      ],
+      [
+       "output sgst|sgst output|sgst payable",
+       "dr",
+       9000
+      ],
+      [
+       "input cgst|cgst input|input tax cgst|input tax credit cgst",
+       "cr",
+       9000
+      ],
+      [
+       "input sgst|sgst input|input tax sgst|input tax credit sgst",
+       "cr",
+       9000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "cgst against sgst|cgst credit sgst|sgst against cgst|cgst set sgst"
+       ],
+       "say": "CGST credit is set off only against CGST and SGST against SGST."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "Payment of net ₹10,800 with narration",
      "m": 1.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "rows": [
+      [
+       "output cgst|cgst output|cgst payable",
+       "dr",
+       5400
+      ],
+      [
+       "output sgst|sgst output|sgst payable",
+       "dr",
+       5400
+      ],
+      [
+       "bank",
+       "cr",
+       10800
+      ]
+     ],
+     "kw": [
+      "paid|payment|remit|deposit|paying"
+     ],
+     "min": 1
     }
    ],
    "remarks": [
@@ -1257,7 +1493,8 @@
    "tips": [
     "Keep separate Input and Output accounts for each tax.",
     "Write the set-off as a working note before the entry."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

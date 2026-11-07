@@ -303,3 +303,58 @@ def build():
                      {'k': 'Rupee depreciates when', 'v': 'Demand for $ ↑ (imports, outflows) or supply of $ ↓'}, {'k': 'Devaluation vs depreciation', 'v': 'Official (fixed) vs market (floating)'}],
         'viva': viva, 'cases': [case],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('dollar appreciat|dollar strengthen|dollar gain|dollar rise|dollar costlier', 'rupee depreciat|rupee weaken|rupee fall|rupee cheaper|rupee lost', 'appreciat 7.5|7.5 appreciat|dollar 7.5|depreciat 6.98|6.98 depreciat|rupee 6.98|7.5 percent'),
+        's2': _N(7.5),
+        's3': _K('-6.98|6.98'),
+        's4': _N(150000),
+        's5': _N(360000),
+    },
+    'q2': {
+        's1': _K('0.0125|e x p p|e p p|1 80 400|1 80 x 400|nominal p p'),
+        's2': _K('0.625'),
+        's3': _K('0.0135|0.01354|0.0125 1.0833|1.0833|1.083'),
+        's4': _K('real appreciation|appreciat|rer rose|rer higher|rer increas|less competitive|lost competitiveness|competitiveness deteriorat|competitiveness fell|competitiveness declin|competitiveness reduc|dearer|costlier'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('deliberate|official|government|central bank|policy', 'market|demand and supply|supply demand|market forces'),
+        's2': _K('fixed|pegged', 'floating|flexible'),
+        's3': _K('discrete|one time|sudden|reset|par value|step', 'gradual|continuous|day to day'),
+        's4': _K('revaluation', 'appreciation'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

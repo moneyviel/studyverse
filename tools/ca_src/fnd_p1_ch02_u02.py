@@ -193,3 +193,44 @@ def build():
                      {'k': 'Usually debit balances', 'v': 'Assets, expenses, losses, drawings, debtors'}, {'k': 'Usually credit balances', 'v': 'Liabilities, capital, incomes, gains, creditors'}],
         'viva': viva(),
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['capital', 'dr', 200000], ['anita', 'dr', 35000], ['sale', 'dr', 22000], ['purchase', 'cr', 50000], ['rent', 'cr', 8000]]},
+           's2': {'rows': [['balance c d|balance carried|balance', 'cr', 199000], ['balance b d|balance brought|balance', 'dr', 199000]]},
+           's3': {'rows': [['anita', 'cr', 36000], ['cash', 'cr', 22000], ['balance', 'dr', 58000]]},
+           's4': {'rows': [['sale', 'dr', 36000], ['cash', 'cr', 35000], ['discount', 'cr', 1000]]}},
+    'q2': {'extra_ok': False,
+           's1': {'kw': ['difference|net', 'two sides|both sides|debit credit|side|debit side'], 'min': 2},
+           's2': {'kw': ['total|add|cast|sum', 'balance c d|carried down|c d|smaller side|lighter side|shorter side|smaller total|lesser side|short side', 'rule|equal total|totals equal|same line|both totals|equal'], 'min': 2},
+           's3': {'kw': ['balance b d|brought down|b d', 'opposite side|other side|next period|next day|first day|beginning|next year|next month'], 'min': 2},
+           's4': {'kw': ['nominal|expense|income|loss|gain', 'not carried forward|not carried|closed|transfer|trading|profit loss|not brought'], 'min': 2,
+                  'wrong': [{'kw': ['real account not carried|personal account not carried|real account closed|personal account closed|real accounts closed'], 'say': 'Only nominal accounts are closed to Trading/P&L; personal and real accounts are carried forward.'}]}},
+    'q3': {'extra_ok': False,
+           's1': {'rows': [['salar', 'dr', 24000], ['wage', 'dr', 16000], ['electricity', 'dr', 5000], ['bank', 'cr', 45000]], 'kw': ['paid|cheque|payment|single|one'], 'min': 1},
+           's2': {'rows': [['salar', 'cr', 24000], ['wage', 'cr', 16000], ['electricity', 'cr', 5000]]},
+           's3': {'rows': [['bank', 'dr', 24000], ['bank', 'dr', 16000], ['bank', 'dr', 5000]]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

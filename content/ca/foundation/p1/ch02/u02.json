@@ -1305,25 +1305,98 @@
      "id": "s1",
      "pt": "Cash account: receipts To Capital, To Anita, To Sales; payments By Purchases, By Rent",
      "m": 2,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "capital",
+       "dr",
+       200000
+      ],
+      [
+       "anita",
+       "dr",
+       35000
+      ],
+      [
+       "sale",
+       "dr",
+       22000
+      ],
+      [
+       "purchase",
+       "cr",
+       50000
+      ],
+      [
+       "rent",
+       "cr",
+       8000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Cash balance c/d ₹1,99,000 and b/d on 1 September",
      "m": 1,
-     "skill": "balancing"
+     "skill": "balancing",
+     "rows": [
+      [
+       "balance c d|balance carried|balance",
+       "cr",
+       199000
+      ],
+      [
+       "balance b d|balance brought|balance",
+       "dr",
+       199000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Sales account: By Anita, By Cash; balance ₹58,000",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "anita",
+       "cr",
+       36000
+      ],
+      [
+       "cash",
+       "cr",
+       22000
+      ],
+      [
+       "balance",
+       "dr",
+       58000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Anita account: To Sales; By Cash ₹35,000 and By Discount Allowed ₹1,000 — closed",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "sale",
+       "dr",
+       36000
+      ],
+      [
+       "cash",
+       "cr",
+       35000
+      ],
+      [
+       "discount",
+       "cr",
+       1000
+      ]
+     ]
     }
    ],
    "checks": [
@@ -1350,7 +1423,8 @@
    "tips": [
     "Write the account name in the centre with Dr. and Cr. at the two corners.",
     "Rule off totals on the same line on both sides."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1383,25 +1457,54 @@
      "id": "s1",
      "pt": "Meaning of balancing",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "difference|net",
+      "two sides|both sides|debit credit|side|debit side"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Steps: totalling, balance c/d on lighter side, ruling off",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "total|add|cast|sum",
+      "balance c d|carried down|c d|smaller side|lighter side|shorter side|smaller total|lesser side|short side",
+      "rule|equal total|totals equal|same line|both totals|equal"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Balance b/d on opposite side next period",
      "m": 0.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "balance b d|brought down|b d",
+      "opposite side|other side|next period|next day|first day|beginning|next year|next month"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Nominal accounts closed to Trading/P&L, not carried forward",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "nominal|expense|income|loss|gain",
+      "not carried forward|not carried|closed|transfer|trading|profit loss|not brought"
+     ],
+     "min": 2,
+     "wrong": [
+      {
+       "kw": [
+        "real account not carried|personal account not carried|real account closed|personal account closed|real accounts closed"
+       ],
+       "say": "Only nominal accounts are closed to Trading/P&L; personal and real accounts are carried forward."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1415,7 +1518,8 @@
    "tips": [
     "Number the steps.",
     "Answer every part of the question — look for the word \"and\"."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1526,19 +1630,79 @@
      "id": "s1",
      "pt": "Compound journal entry with total ₹45,000 and narration",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "salar",
+       "dr",
+       24000
+      ],
+      [
+       "wage",
+       "dr",
+       16000
+      ],
+      [
+       "electricity",
+       "dr",
+       5000
+      ],
+      [
+       "bank",
+       "cr",
+       45000
+      ]
+     ],
+     "kw": [
+      "paid|cheque|payment|single|one"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Bank account credited with three separate \"By\" lines (or By Sundries ₹45,000)",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "salar",
+       "cr",
+       24000
+      ],
+      [
+       "wage",
+       "cr",
+       16000
+      ],
+      [
+       "electricity",
+       "cr",
+       5000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Each expense account debited \"To Bank A/c\" with its own amount",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       24000
+      ],
+      [
+       "bank",
+       "dr",
+       16000
+      ],
+      [
+       "bank",
+       "dr",
+       5000
+      ]
+     ]
     }
    ],
    "checks": [
@@ -1557,7 +1721,8 @@
    ],
    "tips": [
     "In a compound entry the single account lists the others; the others each name the single account."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

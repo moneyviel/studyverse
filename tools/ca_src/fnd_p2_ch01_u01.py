@@ -318,3 +318,55 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('law', 'rules|obligations|duties|body|principles|norms', 'state|government|society|enforce|enforced|order|justice'),
+           's2': _k('bill', 'proposed|draft|proposal|introduced|introduce'),
+           's3': _k('lok sabha|lower house|house of the people', 'rajya sabha|upper house|council of states', 'pass|passed|debate|approve|approved|vote'),
+           's4': _k('president', 'assent|approve|approval|sign|signs|consent'),
+           's5': _k('gazette|notified|notification', 'act|effective date|in force|into force|enforce|commence'),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('public|society|state|community', 'private|individual|individuals|persons|between parties|organisations'),
+           's2': _k('punish|punishment|imprisonment|jail|penalty', 'compensation|compensate|remedy|damages|settle|settlement|relief|injunction|recovery'),
+           's3': _k('bharatiya nyaya sanhita|nyaya sanhita|bns|bharatiya nagarik suraksha sanhita|nagarik suraksha|bnss', 'civil procedure|cpc|code civil',
+                    wrong=[{'kw': ['indian penal code|ipc|criminal procedure 1973|crpc'], 'say': 'The IPC and CrPC have been replaced by the Bharatiya Nyaya Sanhita, 2023 and the Bharatiya Nagarik Suraksha Sanhita, 2023 — name the new codes.'}]),
+           's4': _k('murder|theft|cheating|assault|robbery|kidnapping|dacoity|rape|hurt', 'breach of contract|breach contract|non payment|unpaid|dues|landlord|tenant|property dispute|divorce|recovery|defamation|partition|tort'),
+           },
+    'q3': {'extra_ok': True,
+           's1': _k('supreme court', 'apex|highest court|top court|highest judicial', 'chief justice|cji', '34|thirty four|article 126|7 judges|seven', n=3),
+           's2': _k('article 32|art 32|writ petition', 'article 141|art 141|binding on all|binds all|bind all|binding|final'),
+           's3': _k('high court', 'article 214|214|each state|every state|state', 'original|appellate|supervisory|jurisdiction|25'),
+           's4': _k('article 226|art 226|226|writ|writs', 'persuasive|subordinate|binding|bind'),
+           's5': _k('companies act', 'llp|limited liability partnership', 'insolvency|bankruptcy|ibc', n=2),
+           's6': _k('indian corporate law service|icls|corporate law service|director general|upsc|civil services|regulates|regulation|regulating'),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

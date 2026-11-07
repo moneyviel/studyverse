@@ -363,3 +363,62 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('two|indemnifier|indemnity holder', 'three|creditor|principal debtor|surety', n=2),
+           's2': _k('primary|independent', 'secondary|collateral|contingent|on default|after default'),
+           's3': _k('loss|make good|save from loss|protect', 'secure|security|assurance|performance|debt'),
+           's4': _k('section 140|creditor s shoes|steps into|subrogat|shoes|rights of the creditor|rights of creditor', 'cannot sue|assign|assigned|own name|not sue|assignment'),
+           's5': _k('request|competent|competency|competence|minor|consideration|liability arises'),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 146|equally unless|equal unless|contribute equally|equal contribution|equally', 'section 147|as far as|limits permit|respective limits|within their limits|subject to limits|limit permits|within limits'),
+           's2': _k('each|equal|equally|share', nums=[80000]),
+           's3': dict(nums=[150000],
+                    wrong=[{'kw': ['each pays 133333|133333 each|pays 133333|133333 for each|133333 by each|133334 each|each 133333'], 'say': 'Pranav cannot be asked for more than his limit of ₹1,00,000 (Section 147); the balance ₹3,00,000 is shared equally by Qadir and Rohit.'}]),
+           's4': _k('full limit|entire limit|whole limit|respective limits|full guarantee|limit each|their limits|full amount|maximum|own limit|his limit|full extent|limits', nums=[100000, 200000, 400000]),
+           's5': {'ai_only': True},
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 134|section 139|act or omission|omission of the creditor|creditor omits|creditor s omission|omits', 'discharge|discharged|released|freed|free|impair'),
+           's2': _k('wasim|creditor', 'fail|failure|not supply|did not supply|omission|omit|no steel', 'vijay discharged|vijay is discharged|excuse|excused|excuses|vijay not liable|vijay is not liable|debtor discharged|debtor is discharged|principal debtor discharged|vijay stands discharged'),
+           's3': _k('coextensive|co-extensive|depends on the debtor|depends on principal|depends on the principal|liability of surety depends|surety s liability depends|follows the debtor|usha also discharged|usha is also discharged|usha discharged|usha freed|usha released|usha stands discharged|usha is discharged|usha too'),
+           's4': _k('usha not liable|usha is not liable|not liable to wasim|usha discharged|usha is discharged|usha need not pay|usha released|usha freed|surety not liable|claim fails|suit fails|wasim cannot|usha stands discharged|surety is not liable',
+                    wrong=[{'kw': ['usha liable|usha is liable|surety liable|surety is liable'], 'say': 'The creditor\'s own omission discharged the principal debtor, so the surety is discharged too (Sections 134/139).'}]),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('section 143|obtained concealment|obtained silence|obtained keeping silent|obtain keeping silent|obtained by concealing|obtained misrepresentation|guarantee obtained silence|obtained by keeping silence', 'invalid|void|not valid'),
+           's2': _k('material|important|relevant|vital', 'misappropriat|dishonest|dishonesty|past|earlier|previous'),
+           's3': _k('zenith|creditor|employer', 'conceal|concealed|concealment|silent|silence|did not tell|did not disclose|not inform|not told|kept quiet|hid|hiding|not disclose'),
+           's4': _k('anil not liable|anil is not liable|not liable for 60000|anil need not pay|guarantee invalid|guarantee is invalid|guarantee void|guarantee is void|guarantee not valid|anil discharged|anil is discharged|zenith cannot recover|claim fails|suit fails|anil not bound|anil is not bound|zenith cannot',
+                    wrong=[{'kw': ['anil liable|anil is liable|guarantee valid|guarantee is valid'], 'say': 'A guarantee obtained by the creditor\'s silence about a material fact is invalid (Section 143) — Anil is not liable.'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

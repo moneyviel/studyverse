@@ -1475,49 +1475,132 @@
      "id": "s1",
      "pt": "Trading Account items and closing stock",
      "m": 2,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "opening stock|stock at beginning|stock 1 april|opening inventory",
+       "dr",
+       80000
+      ],
+      [
+       "purchase",
+       "dr",
+       420000
+      ],
+      [
+       "wage",
+       "dr",
+       24000
+      ],
+      [
+       "freight|carriage",
+       "dr",
+       9000
+      ],
+      [
+       "sale|turnover",
+       "cr",
+       690000
+      ],
+      [
+       "closing stock|stock at end|stock 31 march|closing inventory",
+       "cr",
+       95000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Gross profit ₹2,52,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      252000
+     ]
     },
     {
      "id": "s3",
      "pt": "P&L: outstanding salaries and prepaid rent adjusted",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "salar",
+       "dr",
+       100000
+      ],
+      [
+       "rent",
+       "dr",
+       30000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "P&L: provision ₹6,000 and depreciation ₹19,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "provision|doubtful"
+     ],
+     "nums": [
+      15000,
+      4000
+     ]
     },
     {
      "id": "s5",
      "pt": "Net profit ₹79,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      79000
+     ]
     },
     {
      "id": "s6",
      "pt": "Capital: opening + profit − drawings = ₹3,49,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      349000
+     ]
     },
     {
      "id": "s7",
      "pt": "Assets net of depreciation/provision; prepaid rent and outstanding salaries shown",
      "m": 1.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "prepaid|paid in advance|advance",
+      "outstanding|accrued|unpaid|due"
+     ],
+     "nums": [
+      135000,
+      36000,
+      114000
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "prepaid rent 36000|rent prepaid 36000"
+       ],
+       "say": "Only the prepaid portion (₹6,000) is an asset; the P&L keeps ₹30,000 of rent."
+      }
+     ]
     },
     {
      "id": "s8",
      "pt": "Balance Sheet totals agree at ₹4,44,000 with proper headings",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "balance sheet"
+     ],
+     "nums": [
+      444000
+     ]
     }
    ],
    "remarks": [
@@ -1584,7 +1667,8 @@
      "value": 444000,
      "label": "Balance sheet total — assets"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1640,31 +1724,56 @@
      "id": "s1",
      "pt": "Charge vs appropriation",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "charge",
+      "appropriation|appropriat"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Purpose",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "known liabilit|fall value|fall in value|diminution|decline value|decrease value|loss value|anticipated loss|expected loss|meet liabilit|depreciation value",
+      "strengthen|future need|contingenc|financial position|general purpose|unforeseen|future|expansion|working capital"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Profit needed or not",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "even if loss|even when loss|even loss|even in loss|irrespective profit|whether profit|regardless profit|even there loss|even if there loss|must be made",
+      "only when profit|only if profit|only out profit|only profit|out of profit|profit earned|there profit|availability profit|only from profit|sufficient profit"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Effect on profit / presentation",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "reduce net profit|reduces profit|reduce profit|debited profit loss|debit profit loss|debit side profit|deducted from asset|deducted asset|shown liabilit|decrease profit|lower profit",
+      "not reduce|not affect profit|no effect profit|reserves surplus|reserve surplus|capital|liabilities side|after profit|set aside out|added capital"
+     ],
+     "min": 2
     },
     {
      "id": "s5",
      "pt": "Correct examples",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "provision doubtful|provision bad|provision depreciation|provision tax|provision for taxation|provision discount|provision repair|provision warranty",
+      "general reserve|capital reserve|reserve fund|secret reserve|specific reserve|dividend equalisation|dividend equalization|revenue reserve|debenture redemption reserve|investment fluctuation"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1677,7 +1786,8 @@
    "tips": [
     "Use a table with five or six bases.",
     "Give one example on each side."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q3",
@@ -1741,31 +1851,63 @@
      "id": "s1",
      "pt": "Purchases net ₹4,69,000 (returns, fire, drawings, samples deducted)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      469000
+     ]
     },
     {
      "id": "s2",
      "pt": "Sales net ₹6,84,000 (returns and goods on approval)",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      684000
+     ]
     },
     {
      "id": "s3",
      "pt": "Closing stock ₹95,000 including goods on approval at cost",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      95000
+     ],
+     "kw": [
+      "approval|cost"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "99000"
+       ],
+       "say": "Goods on approval go into closing stock at cost (₹24,000 × 100/120 = ₹20,000), not at the invoice price."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "Gross profit ₹2,13,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      213000
+     ]
     },
     {
      "id": "s5",
      "pt": "Other effects: fire loss, samples, claim, drawings, debtors",
      "m": 1.5,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "loss by fire|fire loss|loss fire|abnormal loss|loss of stock|fire 5000|loss 5000",
+      "insurance claim|claim receivable|claim 10000|insurance company|claim",
+      "increase drawings|drawings increase|added drawings|add drawings|debited drawings|drawings debited|deducted capital|from capital|drawings account|less drawings capital",
+      "advertis|sample expense|samples expense|publicity|selling expense|distribution expense",
+      "debtor|receivable|customer"
+     ],
+     "min": 4
     }
    ],
    "remarks": [
@@ -1807,7 +1949,8 @@
      "value": 5000,
      "label": "Loss by fire charged to P&L"
     }
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1832,25 +1975,37 @@
      "id": "s1",
      "pt": "Historical cost",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "historical cost|historic cost|original cost|cost price|acquisition cost|price level|inflation|price change|changes in price|changing price|purchasing power|money value|value of money|not inflation|not price|not current value|not market value|not consider change"
+     ]
     },
     {
      "id": "s2",
      "pt": "Intangibles not shown",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "intangible|qualitative|non monetary|nonmonetary|expressed money|measured money|staff skill|employee skill|skill|human resource|customer loyalty|loyalty|management quality|morale|reputation|brand|not skill|not loyalty|not morale|not intangible|not qualitative|not reputation|not human"
+     ]
     },
     {
      "id": "s3",
      "pt": "Estimates / arbitrary allocation",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "estimat|approximat|arbitrary|judgement|judgment|interim|subjective|allocation|accrual|useful life|not exact|not precise|not accurate|not final"
+     ]
     },
     {
      "id": "s4",
      "pt": "Different accounting policies",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "accounting polic|different method|alternative method|alternative polic|valuation method|depreciation method|comparison|comparab|window dressing|manipulat|management influence|influenced by management|personal bias|not comparable"
+     ]
     }
    ],
    "remarks": [
@@ -1861,7 +2016,8 @@
    ],
    "tips": [
     "Number your points and give a short example for each."
-   ]
+   ],
+   "extra_ok": true
   }
  ],
  "revision": {

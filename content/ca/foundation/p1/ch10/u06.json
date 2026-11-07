@@ -1555,43 +1555,125 @@
      "id": "s1",
      "pt": "Assets and creditors transferred at book value to the correct sides",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "land",
+       "dr",
+       60000
+      ],
+      [
+       "machinery|plant",
+       "dr",
+       45000
+      ],
+      [
+       "stock|inventory",
+       "dr",
+       27000
+      ],
+      [
+       "debtor|receivable",
+       "dr",
+       30000
+      ],
+      [
+       "creditor|payable",
+       "cr",
+       36000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Realisations ₹89,500 and land to Kavi ₹72,000 credited",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "kw": [
+      "89500|38000"
+     ],
+     "rows": [
+      [
+       "kavi|land",
+       "cr",
+       72000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Creditors paid ₹34,200, unrecorded repairs ₹1,200, expenses ₹1,900 credited to Kavi",
      "m": 1.5,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "creditor|bank|cash",
+       "dr",
+       34200
+      ],
+      [
+       "repair|outstanding|unrecorded",
+       "dr",
+       1200
+      ],
+      [
+       "kavi|expense",
+       "dr",
+       1900
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Loss on realisation ₹1,800 shared 2:1",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "kavi|loss",
+       "cr",
+       1200
+      ],
+      [
+       "lata|loss",
+       "cr",
+       600
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "P&L credit balance and loan treated outside Realisation",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "profit loss|p l|accumulated profit",
+      "loan"
+     ],
+     "min": 2,
+     "nums": [
+      6000,
+      3000
+     ]
     },
     {
      "id": "s6",
      "pt": "Capital accounts closed: Kavi ₹9,700, Lata ₹47,400",
      "m": 1.5,
-     "skill": "balancing"
+     "skill": "balancing",
+     "nums": [
+      9700,
+      47400
+     ]
     },
     {
      "id": "s7",
      "pt": "Bank account balances to nil",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "nums": [
+      107500
+     ]
     }
    ],
    "checks": [
@@ -1649,7 +1731,8 @@
    "tips": [
     "Prepare Realisation, Capital and Bank accounts side by side; the bank must end at nil.",
     "Label each Realisation entry with a short description (e.g. \"Bank — creditors\")."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1785,31 +1868,130 @@
      "id": "s1",
      "pt": "Current account balances transferred to capitals",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "mohan current",
+       "dr",
+       5000
+      ],
+      [
+       "mohan capital|mohan",
+       "cr",
+       5000
+      ],
+      [
+       "om capital|om",
+       "dr",
+       23000
+      ],
+      [
+       "om current",
+       "cr",
+       23000
+      ],
+      [
+       "naveen current",
+       "cr",
+       2000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Realisation loss ₹24,000 shared 3:2:1 including Om",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "mohan",
+       "dr",
+       12000
+      ],
+      [
+       "naveen",
+       "dr",
+       8000
+      ],
+      [
+       "om",
+       "dr",
+       4000
+      ],
+      [
+       "realisation|realization",
+       "cr",
+       24000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Solvent partners bring cash for their share of loss",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "bank|cash"
+     ],
+     "rows": [
+      [
+       "mohan",
+       "cr",
+       12000
+      ],
+      [
+       "naveen",
+       "cr",
+       8000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Om's deficiency ₹5,000 computed after estate's ₹2,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "om",
+       "cr",
+       2000
+      ],
+      [
+       "om",
+       "cr",
+       5000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Deficiency borne 3:2 in fixed capital ratio (₹3,000 / ₹2,000)",
      "m": 2,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "capital ratio|fixed capital|garner|3 2|60000 40000"
+     ],
+     "rows": [
+      [
+       "mohan",
+       "dr",
+       3000
+      ],
+      [
+       "om",
+       "cr",
+       5000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "profit sharing ratio 3 2 1|3 2 1 deficiency|deficiency 3 2 1"
+       ],
+       "say": "Under Garner v. Murray the insolvent partner's deficiency is borne by solvent partners in their (fixed) capital ratio, not in the profit-sharing ratio."
+      }
+     ]
     }
    ],
    "checks": [
@@ -1839,7 +2021,8 @@
    ],
    "tips": [
     "State the rule in one line before the entries: \"loss on realisation in profit ratio; insolvency loss in capital ratio\"."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1981,25 +2164,50 @@
      "id": "s1",
      "pt": "Base capital and proportionate capitals (round 1)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      15000,
+      10000,
+      11000
+     ]
     },
     {
      "id": "s2",
      "pt": "Round 2 between Q and R; R's excess ₹6,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "r first|first r|r alone|excess 6000|nil 6000|6000 r first|r only"
+     ],
+     "nums": [
+      6000
+     ]
     },
     {
      "id": "s3",
      "pt": "First two instalments distributed in the correct order",
      "m": 2,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "4000 2000",
+      "6000 3000",
+      "6000 6000 3000"
+     ],
+     "min": 3
     },
     {
      "id": "s4",
      "pt": "Third instalment 2:2:1; totals P ₹18,000, Q ₹28,000, R ₹20,000",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "12000 12000 6000"
+     ],
+     "nums": [
+      18000,
+      28000,
+      20000
+     ]
     }
    ],
    "checks": [
@@ -2064,7 +2272,8 @@
    ],
    "tips": [
     "Always finish with the loss check: total loss shared in profit ratio must explain each partner's total receipt."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -2087,19 +2296,43 @@
      "id": "s1",
      "pt": "Section 48 cited",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "section 48|sec 48|s 48|48"
+     ]
     },
     {
      "id": "s2",
      "pt": "Losses: profits → capital → partners individually in profit ratio",
      "m": 1.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "loss|deficien",
+      "profit capital|out of profit|from profit|profits first|first profit",
+      "individual|personal|partners contribute|contributed by partners|contribution partners|partners bear|borne by partners"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "Order of application: outsiders → advances → capital → residue",
      "m": 2,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "outsider|third part|outside liabilit|creditor|external|debts of firm|firm debts",
+      "loan|advance",
+      "capital",
+      "surplus|residue|remain|balance|residual"
+     ],
+     "min": 4,
+     "wrong": [
+      {
+       "kw": [
+        "loans before outsiders|partners loans first|capital before loan|capital first"
+       ],
+       "say": "Outsiders are paid first, then partners' loans, then capital; only the residue is shared in the profit-sharing ratio."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -2111,7 +2344,8 @@
    ],
    "tips": [
     "Number the four steps of application exactly in order."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

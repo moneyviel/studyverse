@@ -357,3 +357,78 @@ def build():
                      {'k': 'Section 37', 'v': 'Subsequent profits: profit share or 6% interest'}, {'k': 'Section 38', 'v': 'Continuing guarantee revoked for future on change'}],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 13', 'no remuneration|no salary|not entitled to remuneration|not entitled to salary|not entitled to any remuneration', 'equally|equal', 'interest on capital|interest on capitals', '6 percent|6%|six percent|interest at 6|6 p a', n=4),
+           's2': _k('salary not allowed|salary is not allowed|no salary|salary rejected|salary claim fails|mohan not entitled|mohan is not entitled|not entitled to salary|salary cannot|salary not|not entitled to any salary',
+                    'interest on capital not allowed|no interest on capital|interest on capital is not allowed|nikhil not entitled to interest on capital|interest on capital cannot|interest on capital not|not entitled to interest on capital|no agreement for interest|without agreement|no agreement',
+                    'not capital ratio|not in capital ratio|not in the capital ratio|capital ratio rejected|capital ratio not|shared equally|share equally|equally|equal',
+                    wrong=[{'kw': ['salary allowed|salary is allowed|interest on capital allowed|interest at 8 percent allowed|capital ratio allowed|2 3'], 'say': 'Without an agreement Section 13 applies: no salary, no interest on capital, profits shared equally; only the loan earns 6% p.a.'}]),
+           's3': dict(nums=[9000],
+                    wrong=[{'kw': ['18000|24000'], 'say': 'Interest on the loan is 6% p.a. for 6 months only (1 October to 31 March): ₹3,00,000 × 6% × 6/12 = ₹9,000.'}]),
+           's4': _k('mohan', 'nikhil', nums=[120000, 129000]),
+           's5': _k('mohan 120000|mohan gets 120000|mohan rs 120000|120000 mohan|mohan s share 120000|mohan receives 120000|mohan will get 120000', 'nikhil 129000|nikhil gets 129000|129000 nikhil|nikhil rs 129000|nikhil total 129000|nikhil receives 129000|nikhil will get 129000|nikhil s share 129000'),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('section 30|cannot be a partner|not a partner|minor cannot', 'benefits|benefit', 'consent of all|all partners|all the partners'),
+           's2': _k('share of property|share of profits|agreed share|share', 'inspect|copy|accounts', 'sue|severing|sever'),
+           's3': _k('limited to his share|limited to share|share in the property|liability limited|liability is limited|extent of his share|limited to the extent', 'not personally liable|no personal liability|not personally|cannot be declared insolvent|not insolvent|not be declared insolvent'),
+           's4': _k('6 months|six months', 'elect|election|choose|option|decide|public notice', 'silence|silent|fails to give|does not give|no notice|deemed|becomes a partner'),
+           's5': _k('personally liable|personal liability|liable for all acts|unlimited', 'public notice|elects not|not to become|does not become|sue the partners|sue for his share|not liable for acts after|not liable for later|not become a partner'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 33', 'majority', 'good faith|bona fide', 'contract|deed|agreement|power conferred', n=3),
+           's2': _k('interest of the firm|firm s interest|interest of firm|benefit of the firm|firm interest', 'notice', 'hearing|heard|opportunity'),
+           's3': _k('deed|contract|power', 'majority|ananya and charu|two of three|2 of 3', 'notice|hearing|heard|explanation|good faith', 'conditions are met|conditions met|conditions satisfied|conditions are satisfied|all conditions|complied|fulfilled|satisfied|met'),
+           's4': _k('expulsion valid|expulsion is valid|valid expulsion|validly expelled|properly expelled|challenge fails|challenge will fail|expulsion cannot be challenged|expulsion stands|expulsion upheld|lawfully expelled|expulsion was valid',
+                    wrong=[{'kw': ['expulsion invalid|expulsion is invalid|expulsion void|not validly expelled'], 'say': 'Contractual power, majority and good faith (firm\'s interest, notice, hearing) are all present — the expulsion is valid (Section 33).'}]),
+           },
+    'q4': {'extra_ok': True,
+           '_scheme': [{'id': 's1', 'pt': 'Meaning of implied authority with Sections 19(1) and 22', 'm': 1, 'skill': 'provision'}]
+                      + [{'id': f's{i + 1}', 'pt': f'Restricted act {i} of eight (½ mark each)', 'm': 0.5, 'skill': 'concept'} for i in range(1, 9)],
+           's1': _k('section 19|section 22|implied authority', 'ordinary course|usual way|usual course|normal course', 'firm name|name of the firm|intention to bind|bind the firm|binds the firm', n=2),
+           **{f's{i + 1}': _k('arbitration|arbitrat',
+                              'personal name|own name|account in his name|account in his own',
+                              'compromise|relinquish',
+                              'withdraw|withdrawal|withdrawing',
+                              'admit|admitting|admission of liability|admits',
+                              'acquire immovable|acquiring immovable|purchase immovable|buy immovable|purchase of immovable|acquisition of immovable',
+                              'transfer immovable|transferring immovable|sell immovable|transfer of immovable|sale of immovable|transfers immovable',
+                              'enter into partnership|entering into partnership|partnership on behalf|enters into partnership', n=i) for i in range(1, 9)},
+           },
+    'q5': {'extra_ok': False,
+           's1': _k('section 37', 'share of profits|profits attributable|profit attributable|share of profit|profits earned', 'interest 6|6 percent|6%|six percent|interest at 6', 'option|at her option|either|choose', n=3),
+           's2': {'nums': [120000]},
+           's3': {'nums': [24000]},
+           's4': _k('claim 120000|choose 120000|opt 120000|120000 higher|higher 120000|120000 better|better 120000|opt for profits|choose profits|choose share of profits|opt for share|claim share of profits|share of profits higher|share of profits better|profits higher|profit option|prefer profits|select profits|choose the higher|opt for the higher|higher amount',
+                    wrong=[{'kw': ['claim 24000|opt for interest|choose interest|choose 24000|prefer interest'], 'say': 'Tanvi may choose either option (Section 37); the profit share of ₹1,20,000 is far more than interest of ₹24,000.'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

@@ -1187,25 +1187,92 @@
      "id": "s1",
      "pt": "Gaining ratio 3:7 with working",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "3 7|3 30 7 30"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "gaining ratio 3 1|gaining ratio 3 2"
+       ],
+       "say": "The gaining ratio is new share − old share: Pari 3/30, Rhea 7/30 → 3:7 (not the old or new ratio)."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Reserve distributed 18,000 : 12,000 : 6,000 in the old ratio",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "general reserve|reserve",
+       "dr",
+       36000
+      ],
+      [
+       "pari",
+       "cr",
+       18000
+      ],
+      [
+       "qadir",
+       "cr",
+       12000
+      ],
+      [
+       "rhea",
+       "cr",
+       6000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Alternative: Pari ₹3,600 and Rhea ₹8,400 debited, Qadir credited ₹12,000",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "pari",
+       "dr",
+       3600
+      ],
+      [
+       "rhea",
+       "dr",
+       8400
+      ],
+      [
+       "qadir",
+       "cr",
+       12000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Goodwill: Qadir credited ₹30,000; Pari ₹9,000 and Rhea ₹21,000 debited",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "pari",
+       "dr",
+       9000
+      ],
+      [
+       "rhea",
+       "dr",
+       21000
+      ],
+      [
+       "qadir",
+       "cr",
+       30000
+      ]
+     ]
     }
    ],
    "checks": [
@@ -1252,7 +1319,8 @@
    "tips": [
     "Show the gaining ratio as a working note first — it is needed twice.",
     "Label alternative entries clearly as alternatives."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1454,37 +1522,88 @@
      "id": "s1",
      "pt": "Revaluation profit ₹33,000 with each item on the correct side",
      "m": 2,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "furniture",
+       "dr",
+       6000
+      ],
+      [
+       "provision|doubtful",
+       "dr",
+       5000
+      ],
+      [
+       "premises|building",
+       "cr",
+       40000
+      ],
+      [
+       "creditor",
+       "cr",
+       4000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Revaluation profit and reserve shared 2:2:1 among all three",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "nums": [
+      13200,
+      6600,
+      12000,
+      6000
+     ]
     },
     {
      "id": "s3",
      "pt": "Goodwill ₹15,000 credited to Iyer, debited ₹7,500 each to Gupta and Hegde",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "nums": [
+      15000,
+      7500
+     ]
     },
     {
      "id": "s4",
      "pt": "Iyer's claim ₹1,07,600 settled: ₹27,600 bank, ₹80,000 loan",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      107600,
+      27600,
+      80000
+     ]
     },
     {
      "id": "s5",
      "pt": "Capital accounts balanced: Gupta ₹1,77,700, Hegde ₹1,37,700",
      "m": 1.5,
-     "skill": "balancing"
+     "skill": "balancing",
+     "nums": [
+      177700,
+      137700
+     ]
     },
     {
      "id": "s6",
      "pt": "Balance sheet at revised values with loan shown, total ₹4,45,400",
      "m": 2,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "loan"
+     ],
+     "nums": [
+      240000,
+      95000,
+      50000,
+      6400,
+      445400
+     ]
     }
    ],
    "checks": [
@@ -1546,7 +1665,8 @@
    "tips": [
     "Close the retiring partner's column fully — to Bank and to Loan.",
     "Total the balance sheet before writing the final figures."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1707,31 +1827,75 @@
      "id": "s1",
      "pt": "Principal instalment ₹40,000 and interest computed on the opening balance each year",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      40000,
+      9600,
+      4800
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "14400 14400|43200"
+       ],
+       "say": "Interest is on the outstanding (reducing) balance each year: ₹14,400, ₹9,600, ₹4,800."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Year 1: interest ₹14,400, payment ₹54,400, balance ₹80,000",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "nums": [
+      14400,
+      54400,
+      80000
+     ]
     },
     {
      "id": "s3",
      "pt": "Year 2: interest ₹9,600, payment ₹49,600, balance ₹40,000",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "nums": [
+      9600,
+      49600,
+      40000
+     ]
     },
     {
      "id": "s4",
      "pt": "Year 3: interest ₹4,800, payment ₹44,800; account closed",
      "m": 1,
-     "skill": "balancing"
+     "skill": "balancing",
+     "nums": [
+      4800,
+      44800
+     ]
     },
     {
      "id": "s5",
      "pt": "Correct sides: loan and interest credited, payments debited",
      "m": 0.5,
-     "skill": "presentation"
+     "skill": "presentation",
+     "rows": [
+      [
+       "capital|ravi|balance",
+       "cr",
+       120000
+      ],
+      [
+       "interest",
+       "cr",
+       14400
+      ],
+      [
+       "bank|cash",
+       "dr",
+       54400
+      ]
+     ]
     }
    ],
    "checks": [
@@ -1781,7 +1945,8 @@
    ],
    "tips": [
     "Prepare the small schedule first; the ledger then writes itself."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1806,25 +1971,45 @@
      "id": "s1",
      "pt": "Expense method and its retirement treatment",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "expense|charged profit loss|closed profit loss|transferred profit loss|debited profit loss",
+      "surrender|old ratio|all partners"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Asset (surrender value) method and its treatment",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "asset|policy account|joint life policy account",
+      "excess|written off|written down|surrender value|write off"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Reserve method and its treatment",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "reserve",
+      "surrender value|distributed|old ratio|set aside|appropriat"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Retiring partner gets share of surrender value, not policy amount",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "retiring partner|outgoing partner|retired partner|retirement|retires",
+      "share surrender value|share of surrender|surrender value share|receives surrender|gets surrender|credited surrender|not policy amount|not sum assured|not full policy|surrender value credited"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1836,7 +2021,8 @@
    ],
    "tips": [
     "Number the three methods and give the entry in brief for each."
-   ]
+   ],
+   "extra_ok": true
   }
  ],
  "revision": {

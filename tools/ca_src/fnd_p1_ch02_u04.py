@@ -188,3 +188,61 @@ def build():
                      {'k': 'GST columns', 'v': 'Taxable value | CGST | SGST | IGST | Total'}],
         'viva': viva(),
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+def _pairs(keys, verdicts):
+    """item keywords next to its answer, in either order (one table row / one sentence)"""
+    return '|'.join([f'{k} {v}' for k in keys for v in verdicts] + [f'{v} {k}' for k in keys for v in verdicts])
+
+
+PB = ['purchases book', 'purchase book', 'purchases day book', 'purchase day book', 'purchases journal', 'purchase journal']
+CB = ['cash book']
+JP = ['journal proper', 'journal']
+SRB = ['sales returns book', 'sales return book', 'return inward book', 'returns inward book', 'sales returns journal', 'sales return journal', 'returns inwards book']
+PRB = ['purchase returns book', 'purchases returns book', 'purchase return book', 'return outward book', 'returns outward book', 'purchase returns journal', 'returns outwards book']
+SB = ['sales book', 'sale book', 'sales day book', 'sales journal']
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['jai hind', '', 11400], ['bose', '', 18000]], 'nums': [29400]},
+           's2': {'rows': [['parmar', '', 7200], ['mittal', '', 5940]], 'nums': [13140]},
+           's3': {'rows': [['jai hind', '', 760]], 'kw': ['debit note'], 'min': 1},
+           's4': {'rows': [['parmar', '', 495]], 'kw': ['credit note'], 'min': 1},
+           's5': {'ai_only': True}},
+    'q2': {'extra_ok': False,
+           's1': {'kw': [_pairs(['shirts bought credit', 'shirt credit', 'bought credit', 'credit purchase shirt'], PB) + '|' + '|'.join(PB)]},
+           's2': {'kw': [_pairs(['shirts bought cash', 'shirt cash', 'bought cash', 'cash purchase', 'b'], CB)]},
+           's3': {'kw': [_pairs(['sewing machine', 'machine', 'sewing', 'c'], JP)]},
+           's4': {'kw': [_pairs(['returned customer', 'return customer', 'customer return', 'customer', 'returned by customer', 'd'], SRB)]},
+           's5': {'kw': [_pairs(['cash sale', 'trouser', 'sale trouser', 'e'], CB)]},
+           's6': {'kw': [_pairs(['return supplier', 'returned supplier', 'supplier', 'f'], PRB)]},
+           's7': {'kw': [_pairs(['depreciation', 'g'], JP)]},
+           's8': {'kw': [_pairs(['jacket', 'sold credit', 'credit sale', 'h'], SB)]}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['cannot recorded|not recorded|cannot entered|not entered|no special book|not covered|residual|not fit|other than|cannot record|not record|left over|no other book',
+                         'subsidiary|special|other book|cash book|purchase|sale|book'], 'min': 2},
+           's2': {'kw': ['opening', 'adjust', 'rectif|correct', 'transfer|closing', 'credit purchase asset|purchase asset credit|asset credit|asset bought credit|sale asset|credit purchase fixed|credit sale asset|machinery credit|bought credit|on credit|dishonour'], 'min': 4},
+           's3': {'kw': ['outstanding|prepaid|depreciation|accrued|interest', 'machinery|furniture|asset|computer', 'wrongly|wrong|error|posted', 'profit loss|p l|trading', 'balance|last year|previous year|assets liabilities'], 'min': 3}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

@@ -462,3 +462,75 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+# BRS / statement tables: side add|less = the Add or Less part of the statement ('' = any).
+MON = {'jan': 'january', 'feb': 'february', 'mar': 'march', 'apr': 'april', 'may': 'may', 'jun': 'june', 'jul': 'july', 'aug': 'august', 'sep': 'september', 'oct': 'october', 'nov': 'november', 'dec': 'december'}
+
+
+def _date(d, m, y):
+    """'21 July 2026' written in the usual ways: 21 July, July 21, 21st July, 21-Jul-26, 21.07.2026, 21/07/2026"""
+    mm = list(MON).index(m) + 1
+    suf = {1: 'st', 2: 'nd', 3: 'rd', 21: 'st', 22: 'nd', 23: 'rd', 31: 'st'}.get(d, 'th')
+    alts = []
+    for mon in (m, MON[m]):
+        alts += [f'{d} {mon}', f'{mon} {d}', f'{d}{suf} {mon}', f'{mon} {d}{suf}']
+    alts += [f'{d:02d}.{mm:02d}.{y}', f'{d}.{mm}.{y}', f'{d:02d} {mm:02d} {y}', f'{d} {mm} {y}', f'{d:02d}.{mm:02d}.{y % 100}', f'{d}.{mm}.{y % 100}']
+    return '|'.join(alts)
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'rows': [['mohan', 'dr', 150000], ['sale', 'cr', 150000], ['bills receivable|b r|bill receivable', 'dr', 150000], ['mohan', 'cr', 150000]]},
+           's2': {'rows': [['nikhil', 'dr', 152000], ['bills receivable|b r|bill receivable', 'cr', 150000], ['discount', 'cr', 2000]]},
+           's3': {'rows': [['mohan', 'dr', 150300], ['nikhil', 'cr', 150300], ['nikhil', 'dr', 150300], ['bank', 'cr', 150300]]},
+           's4': {'rows': [['mohan', 'dr', 3600], ['interest', 'cr', 3600]],
+                  'wrong': [{'kw': ['4500|4509'], 'say': 'Interest is charged only on the unpaid ₹1,20,000: 1,20,000 × 12% × 3/12 = ₹3,600.'}]},
+           's5': {'rows': [['cash', 'dr', 30300], ['bills receivable|b r|bill receivable', 'dr', 123600], ['mohan', 'cr', 153900]]},
+           's6': {'rows': [['mohan', 'dr', 123600], ['bills receivable|b r|bill receivable', 'cr', 123600]]},
+           's7': {'rows': [['cash|bank', 'dr', 74160], ['bad debt', 'dr', 49440], ['mohan', 'cr', 123600]]},
+           's8': {'kw': [_date(4, 'nov', 2026), _date(7, 'feb', 2027)], 'min': 2}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['order', 'promise'], 'min': 2},
+           's2': {'kw': ['three|3', 'two|2', 'drawer|drawee|maker|payee'], 'min': 3},
+           's3': {'kw': ['accept'], 'min': 1},
+           's4': {'kw': ['liabilit|liable', 'primary|secondary|conditional|absolute'], 'min': 2},
+           's5': {'kw': ['dishonour|dishonor|noting|protest|bearer|notice|cannot payable bearer|not payable bearer|cannot made payable|never payable bearer'], 'min': 1}},
+    'q3': {'extra_ok': False,
+           's1': {'kw': [_date(21, 'jul', 2026), 'grace|3 days|three days'], 'min': 2},
+           's2': {'kw': [_date(3, 'mar', 2027)],
+                  'wrong': [{'kw': [_date(2, 'mar', 2027) + '|' + _date(31, 'mar', 2027)], 'say': '(ii) February 2027 has no 31st: the bill expires on 28 February; with 3 days of grace it matures on 3 March 2027.'}]},
+           's3': {'kw': [_date(7, 'nov', 2026)]},
+           's4': {'kw': [_date(5, 'jan', 2027)],
+                  'wrong': [{'kw': [_date(28, 'dec', 2026)], 'say': '(iv) An "after sight" bill runs from the date of acceptance (2 December), not from the date of drawing.'}]},
+           's5': {'kw': [_date(1, 'aug', 2026)],
+                  'wrong': [{'kw': [_date(4, 'aug', 2026)], 'say': '(v) An "after date" bill runs from the date of drawing (29 May), not from acceptance.'}]}},
+    'q4': {'extra_ok': False,
+           's1': {'rows': [['bills receivable|b r|bill receivable', 'dr', 80000], ['gita', 'cr', 80000], ['farhan', 'dr', 80000], ['bills payable|b p|bill payable', 'cr', 80000]]},
+           's2': {'rows': [['bank', 'dr', 78000], ['discount', 'dr', 2000], ['bills receivable|b r|bill receivable', 'cr', 80000]]},
+           's3': {'rows': [['gita', 'dr', 20000], ['bank', 'cr', 19500], ['discount', 'cr', 500], ['bank', 'dr', 19500], ['discount', 'dr', 500], ['farhan', 'cr', 20000]]},
+           's4': {'rows': [['gita', 'dr', 60000], ['bank', 'cr', 60000], ['bank', 'dr', 60000], ['farhan', 'cr', 60000]]},
+           's5': {'rows': [['bills payable|b p|bill payable', 'dr', 80000], ['bank', 'cr', 80000]]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

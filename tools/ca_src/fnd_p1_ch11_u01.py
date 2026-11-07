@@ -370,3 +370,54 @@ def build():
             {'k': 'Paid-up capital', 'v': 'Called-up capital − calls unpaid (calls in advance are not part of share capital)'},
         ],
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+# "any N" questions: every point carries the same feature groups with min = 1, 2, … N, so N distinct correct features earn N marks.
+_FEAT = ['incorporat|registration|registered|artificial person|artificial legal person|created by law|creation of law',
+         'separate legal entity|separate entity|distinct from members|distinct from its members|separate legal person|own name|sue|sued|own property|hold property',
+         'perpetual|continuous existence|permanent existence|not affected by death|existence not affected|continues to exist',
+         'limited liability|liability limited|liability of members limited|unpaid on shares|amount unpaid',
+         'separation of ownership|ownership and management|ownership management|board of directors|directors manage|management by directors|elected directors|elected representatives',
+         'common seal|seal', 'transferab|transfer of shares|transfer shares', 'audit', 'statutory books|annual return|statutory compliance|statutory', 'not a citizen|not citizen']
+_PUB = ['section 2 68|2 68|2 71|definition|defined', '200|maximum members|number of members|members limit|minimum members|seven members|two members|one person',
+        'transfer', 'invitation|invite|prospectus|public to subscribe|subscription from public|deposits from public', 'listed|listing|stock exchange', 'subsidiary',
+        'directors|minimum paid up|paid up capital|private limited|pvt ltd']
+AUTO = {
+    'q1': dict({'extra_ok': True}, **{f's{n}': {'kw': _FEAT, 'min': n} for n in range(1, 6)}),
+    'q2': {'extra_ok': False,
+           's1': {'kw': ['authori', 'issued|subscribed'], 'min': 2, 'nums': [1500000, 800000]},
+           's2': {'nums': [560000]},
+           's3': {'kw': ['calls unpaid|calls in arrears|arrears|unpaid'], 'nums': [5000]},
+           's4': {'kw': ['shareholders funds|shareholder funds|shareholders fund|equity'], 'nums': [555000]},
+           's5': {'kw': ['cash and cash equivalents|cash cash equivalents|cash equivalent', 'current assets', 'note'], 'min': 3, 'nums': [555000]}},
+    'q3': {'extra_ok': False,
+           's1': {'kw': ['arrears share capital|arrears shareholders funds|arrears deducted|deducted from called up|deducted called up|arrears called up capital|arrears less called']},
+           's2': {'kw': ['reserves and surplus|reserve surplus|reserves surplus|premium reserve']},
+           's3': {'kw': ['debentur non current|debentur long term|6 year non current|6 years long term|debentur long term borrow']},
+           's4': {'kw': ['current maturit|12 month current liabilit|12 month short term|months short term|term loan current liabilit|within 12 month current|12 months other current|loan short term borrow']},
+           's5': {'kw': ['dividend other current|dividend current liabilit|unpaid dividend current']},
+           's6': {'kw': ['long term provision|gratuity non current|non current provision']},
+           's7': {'kw': ['intangible']},
+           's8': {'kw': ['inventor|stock in trade|stores']},
+           's9': {'kw': ['separate head|after shareholders funds|between shareholders funds|separate item|own head|separately|pending allotment pending allotment|separate heading|distinct head']},
+           's10': {'kw': ['cash equivalent|cash and bank|cash bank balance']}},
+    'q4': dict({'extra_ok': True}, **{f's{n}': {'kw': _PUB, 'min': n} for n in range(1, 5)}),
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

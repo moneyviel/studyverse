@@ -831,43 +831,155 @@
      "id": "s1",
      "pt": "(a) Suspense Dr, To Sales ₹1,200",
      "m": 1,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "suspense",
+       "dr",
+       1200
+      ],
+      [
+       "sale",
+       "cr",
+       1200
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "(b) Purchases Dr and Sales Dr ₹5,000 each, To Dinesh ₹10,000",
      "m": 1.5,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "purchase",
+       "dr",
+       5000
+      ],
+      [
+       "sale",
+       "dr",
+       5000
+      ],
+      [
+       "dinesh",
+       "cr",
+       10000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "(c) Kamal Dr, To Suspense ₹4,800 (double)",
      "m": 1,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "kamal",
+       "dr",
+       4800
+      ],
+      [
+       "suspense",
+       "cr",
+       4800
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "kamal 2400|2400 kamal"
+       ],
+       "say": "Posting to the wrong side needs double the amount: ₹2,400 × 2 = ₹4,800."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "(d) Suspense Dr, To Interest Received ₹3,600 (double)",
      "m": 1,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "suspense",
+       "dr",
+       3600
+      ],
+      [
+       "interest",
+       "cr",
+       3600
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "(e) Furniture Dr, To Purchases ₹7,000",
      "m": 0.5,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "furniture",
+       "dr",
+       7000
+      ],
+      [
+       "purchase",
+       "cr",
+       7000
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "(f) Leela Dr, To Suspense ₹900",
      "m": 1,
-     "skill": "rectification"
+     "skill": "rectification",
+     "rows": [
+      [
+       "leela",
+       "dr",
+       900
+      ],
+      [
+       "suspense",
+       "cr",
+       900
+      ]
+     ]
     },
     {
      "id": "s7",
      "pt": "Suspense account with opening difference ₹900 (Dr) and closing to nil",
      "m": 2,
-     "skill": "presentation"
+     "skill": "presentation",
+     "rows": [
+      [
+       "difference|trial balance|opening|balance b d|balance",
+       "dr",
+       900
+      ],
+      [
+       "sale",
+       "dr",
+       1200
+      ],
+      [
+       "interest",
+       "dr",
+       3600
+      ],
+      [
+       "kamal",
+       "cr",
+       4800
+      ],
+      [
+       "leela",
+       "cr",
+       900
+      ]
+     ]
     }
    ],
    "checks": [
@@ -894,7 +1006,8 @@
    "tips": [
     "For each item write: correct entry → wrong entry → difference.",
     "Prepare the suspense account last; the balancing figure is the original difference."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -919,25 +1032,45 @@
      "id": "s1",
      "pt": "Omission — meaning and example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "omission|omitted",
+      "omit|left out|not recorded|not entered|missed|forgot|wholly|partly|completely|not posted|never recorded"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Commission — meaning and example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "commission",
+      "wrong amount|wrong account|wrong side|wrong person|wrongly|credited|debited|posted|casting|totall"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Principle — meaning and example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "principle",
+      "capital revenue|revenue capital|capital expenditure|revenue expenditure|asset|van|machinery|furniture|violat|building"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Compensating — meaning and example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "compensat",
+      "cancel|offset|counterbalance|counter balance|nullif|neutralis|neutraliz|set off|overcast|undercast|over cast|under cast"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -948,7 +1081,8 @@
    ],
    "tips": [
     "One line meaning + one line example for each."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1004,31 +1138,86 @@
      "id": "s1",
      "pt": "(a) correct direction and amount",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "increase 6000|increased 6000|increases 6000|rise 6000|rises 6000|up 6000|add 6000|added 6000|plus 6000|more 6000|understated 6000|higher 6000|6000 increase|6000 increased|6000 increases|6000 rise|6000 rises|6000 up|6000 add|6000 added|6000 plus|6000 more|6000 understated|6000 higher"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "decrease 6000|decreased 6000|decreases 6000|fall 6000|falls 6000|lower 6000|lowered 6000|6000 decrease|6000 decreased|6000 decreases|6000 fall|6000 falls|6000 lower|6000 lowered"
+       ],
+       "say": "(a) Capitalising the wages removes an expense, so profit increases by ₹6,000."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "(b) correct direction and amount",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "no effect|not affect|nil|no impact|unaffected|not change|no change|unchanged|not effect|no affect"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "increase 9000|increased 9000|increases 9000|rise 9000|rises 9000|up 9000|add 9000|added 9000|plus 9000|more 9000|understated 9000|higher 9000|decrease 9000|decreased 9000|decreases 9000|fall 9000|falls 9000|lower 9000|lowered 9000|9000 increase|9000 increased|9000 increases|9000 rise|9000 rises|9000 up|9000 add|9000 added|9000 plus|9000 more|9000 understated|9000 higher|9000 decrease|9000 decreased|9000 decreases|9000 fall|9000 falls|9000 lower|9000 lowered"
+       ],
+       "say": "(b) Posting to the wrong customer affects only personal accounts — no effect on profit."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "(c) correct direction and amount",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "increase 2500|increased 2500|increases 2500|rise 2500|rises 2500|up 2500|add 2500|added 2500|plus 2500|more 2500|understated 2500|higher 2500|2500 increase|2500 increased|2500 increases|2500 rise|2500 rises|2500 up|2500 add|2500 added|2500 plus|2500 more|2500 understated|2500 higher"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "decrease 2500|decreased 2500|decreases 2500|fall 2500|falls 2500|lower 2500|lowered 2500|2500 decrease|2500 decreased|2500 decreases|2500 fall|2500 falls|2500 lower|2500 lowered"
+       ],
+       "say": "(c) Crediting the omitted commission received increases profit by ₹2,500."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "(d) correct direction and amount",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "increase 1500|increased 1500|increases 1500|rise 1500|rises 1500|up 1500|add 1500|added 1500|plus 1500|more 1500|understated 1500|higher 1500|1500 increase|1500 increased|1500 increases|1500 rise|1500 rises|1500 up|1500 add|1500 added|1500 plus|1500 more|1500 understated|1500 higher"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "decrease 1500|decreased 1500|decreases 1500|fall 1500|falls 1500|lower 1500|lowered 1500|1500 decrease|1500 decreased|1500 decreases|1500 fall|1500 falls|1500 lower|1500 lowered"
+       ],
+       "say": "(d) Reducing over-cast purchases increases profit by ₹1,500."
+      }
+     ]
     },
     {
      "id": "s5",
      "pt": "(e) correct direction and amount",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "increase 4000|increased 4000|increases 4000|rise 4000|rises 4000|up 4000|add 4000|added 4000|plus 4000|more 4000|understated 4000|higher 4000|4000 increase|4000 increased|4000 increases|4000 rise|4000 rises|4000 up|4000 add|4000 added|4000 plus|4000 more|4000 understated|4000 higher"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "decrease 4000|decreased 4000|decreases 4000|fall 4000|falls 4000|lower 4000|lowered 4000|4000 decrease|4000 decreased|4000 decreases|4000 fall|4000 falls|4000 lower|4000 lowered"
+       ],
+       "say": "(e) Raising under-valued closing stock increases profit by ₹4,000."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1039,7 +1228,8 @@
    ],
    "tips": [
     "Ask for each item: does a nominal account (or stock) change?"
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

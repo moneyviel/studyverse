@@ -403,3 +403,51 @@ def build():
         ],
         'viva': viva, 'cases': kcase,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'kw': ['3 7|3 30 7 30'],
+                  'wrong': [{'kw': ['gaining ratio 3 1|gaining ratio 3 2'], 'say': 'The gaining ratio is new share − old share: Pari 3/30, Rhea 7/30 → 3:7 (not the old or new ratio).'}]},
+           's2': {'rows': [['general reserve|reserve', 'dr', 36000], ['pari', 'cr', 18000], ['qadir', 'cr', 12000], ['rhea', 'cr', 6000]]},
+           's3': {'rows': [['pari', 'dr', 3600], ['rhea', 'dr', 8400], ['qadir', 'cr', 12000]]},
+           's4': {'rows': [['pari', 'dr', 9000], ['rhea', 'dr', 21000], ['qadir', 'cr', 30000]]}},
+    'q2': {'extra_ok': False,
+           's1': {'rows': [['furniture', 'dr', 6000], ['provision|doubtful', 'dr', 5000], ['premises|building', 'cr', 40000], ['creditor', 'cr', 4000]]},
+           's2': {'nums': [13200, 6600, 12000, 6000]},
+           's3': {'nums': [15000, 7500]},
+           's4': {'nums': [107600, 27600, 80000]},
+           's5': {'nums': [177700, 137700]},
+           's6': {'kw': ['loan'], 'nums': [240000, 95000, 50000, 6400, 445400]}},
+    'q3': {'extra_ok': False,
+           's1': {'nums': [40000, 9600, 4800],
+                  'wrong': [{'kw': ['14400 14400|43200'], 'say': 'Interest is on the outstanding (reducing) balance each year: ₹14,400, ₹9,600, ₹4,800.'}]},
+           's2': {'nums': [14400, 54400, 80000]},
+           's3': {'nums': [9600, 49600, 40000]},
+           's4': {'nums': [4800, 44800]},
+           's5': {'rows': [['capital|ravi|balance', 'cr', 120000], ['interest', 'cr', 14400], ['bank|cash', 'dr', 54400]]}},
+    'q4': {'extra_ok': True,
+           's1': {'kw': ['expense|charged profit loss|closed profit loss|transferred profit loss|debited profit loss', 'surrender|old ratio|all partners'], 'min': 2},
+           's2': {'kw': ['asset|policy account|joint life policy account', 'excess|written off|written down|surrender value|write off'], 'min': 2},
+           's3': {'kw': ['reserve', 'surrender value|distributed|old ratio|set aside|appropriat'], 'min': 2},
+           's4': {'kw': ['retiring partner|outgoing partner|retired partner|retirement|retires',
+                         'share surrender value|share of surrender|surrender value share|receives surrender|gets surrender|credited surrender|not policy amount|not sum assured|not full policy|surrender value credited'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

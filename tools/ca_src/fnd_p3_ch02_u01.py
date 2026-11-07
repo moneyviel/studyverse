@@ -439,3 +439,56 @@ def viva():
            P('p3', 'Divide to get a quadratic and solve it', 3, 'divid|division|synthetic|reduce|reduces|quotient', 'quadratic'),
            P('p4', 'In MCQs substitute the options', 1, 'substitut|put the option|check the option|plug|try the option|options')], 'c8'),
     ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('eliminat z|eliminate x|eliminate y|eliminating z|add|subtract|1 2|multiply'),
+        's2': _K('x y 4|x 4 y', '7x y 16|7 x y 16'),
+        's3': _K('x 2', 'y 2', 'z 3'),
+        's4': _K('check|verif|substitut|satisf|tall|9 9|10 10|lhs|rhs'),
+    },
+    'q2': {
+        's1': _K('14400 n 4|14400 x 4|57600|600 n n 4|n 4 600'),
+        's2': _N(96),
+        's3': _K('n 12|12 friend|friend 12|12 original|originally 12|answer 12|12', 'reject|negative|cannot|not possible|impossibl|not negative|invalid|not valid|ignor|discard|inadmissibl|not admissible|not feasible|absurd|meaningless'),
+        's4': _N(1200, 1800),
+    },
+    'q3': {
+        's1': _K('x 1|1 root|root 1|factor'),
+        's2': _K('5x 6|5 x 6'),
+        's3': _K('-1 2 3|-1 3 2|2 3 -1|3 2 -1|2 -1 3|3 -1 2|x 1 x 2 x 3|x -1 x 2 x 3'),
+        's4': _K('sum 4|4 b a|b a 4|sum root 4|sum 1 2 3 4', 'product -6|-6 d a|d a -6|product root -6|-1 2 3 -6'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

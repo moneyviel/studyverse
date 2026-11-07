@@ -309,3 +309,49 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] for table answers), wrong (common wrong statements → remark),
+# ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': {'kw': ['record|journal|ledger', 'summar|analys|interpret|communicat'], 'min': 2,
+                  'wrong': [{'kw': ['book keeping summar|bookkeeping summar|book keeping analys|bookkeeping analys|book keeping interpret|accounting record phase|accounting record stage|accounting only record'],
+                             'say': 'Roles reversed: book-keeping is the recording phase; accounting summarises, analyses, interprets and communicates.'}]},
+           's2': {'kw': ['foundation|base book keeping|book keeping base|bookkeeping base|basis accounting|begin where|begins where|start where|starts where|language business|rests book keeping|rests bookkeeping|end where|ends where'], 'min': 1},
+           's3': {'kw': ['financial statement|final account|balance sheet|financial position|profit loss|position business'], 'min': 1,
+                  'wrong': [{'kw': ['book keeping prepare financial|bookkeeping prepare financial|book keeping shows financial position|bookkeeping shows financial position'],
+                             'say': 'Financial statements and the financial position come from accounting, not from book-keeping records alone.'}]},
+           's4': {'kw': ['decision'], 'min': 1},
+           's5': {'kw': ['management accounting|cost accounting|financial accounting|sub field|subfield|branch|human resource accounting|social responsibility|tax accounting'], 'min': 1}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['non monetary|nonmonetary|not measurable money|cannot measured money|cannot expressed money|not expressed money|not recorded money|money measurement|qualitative|human resource|skill|loyalty|morale|reputation|efficiency staff'], 'min': 1},
+           's2': {'kw': ['historical|historic|past date|particular date|one date|single date|dated|past events|future'], 'min': 1},
+           's3': {'kw': ['inflation|price level|value money|purchasing power|price change|changing prices|change prices|prices change|money value'], 'min': 1},
+           's4': {'kw': ['judgement|judgment|subjectiv|personal bias|personal opinion|alternative polic|alternative method|alternative treatment|manipulat|conflict|window dressing|estimate|different methods'], 'min': 1}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['economic', 'scarce|value|income|capital|acquisition cost|historical cost|micro|macro|resources|utility'], 'min': 2},
+           's2': {'kw': ['statistic', 'approximat|average|trend|ratio|precision|precise|exact|time series|regression|sampling|correlation|forecast|predict'], 'min': 2},
+           's3': {'kw': ['mathemat|arithmetic|algebra', 'algebra|interest|annuit|depreciation|instalment|installment|matrix|equation|formula|calculation|geometry|graph'], 'min': 2},
+           's4': {'kw': ['law|act|legal|statute', 'contract|companies act|company law|negotiable|sale goods|format|prescrib|banking|insurance|electricity|income tax|gst|partnership act|legislation'], 'min': 2},
+           's5': {'kw': ['management|manager', 'decision|planning|control|team|information'], 'min': 2}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

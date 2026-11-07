@@ -375,7 +375,7 @@
     const stk = streaks(data, X);
     const mastN = leafIds.filter(id => mastery(data, X, id) === 'mastered').length;
     const accV = bks.map(b => b.acc == null ? null : b.acc / 100), sixth = S.self != null || (PS && PS.self != null) ? 'self' : (S.tests.length || (PS && PS.tests.length)) ? 'tests' : S.xp != null ? 'xp' : null;
-    const k6 = sixth === 'self' ? kpi('self', 'Self-check', S.self, 'pct', `${S.w} written`, delta(S.self, PS && PS.self, 'pts', P), null)
+    const k6 = sixth === 'self' ? kpi('self', 'Answer checks', S.self, 'pct', `${S.w} written`, delta(S.self, PS && PS.self, 'pts', P), null)
       : sixth === 'tests' ? kpi('tests', 'Test average', S.testAvg, 'pct', `${S.tests.length} test${S.tests.length === 1 ? '' : 's'}`, delta(S.testAvg, PS && PS.testAvg, 'pts', P), null)
       : sixth === 'xp' ? kpi('xp', 'XP earned', S.xp, 'n', P.label, delta(S.xp, PS && PS.xp, 'pct', P), norm(bks.map(b => b.xp))) : '';
     const nK = k6 ? 6 : 5, perRow = cols === 1 ? 2 : cols === 2 ? 3 : nK;
@@ -459,7 +459,7 @@
       matrix(S.cells), tbl('Confidence vs correct', ['Result', 'Count'], Object.keys(CELLS).map(k => `<tr><td>${CELLS[k][1]} + ${CELLS[k][0]} (${CELLS[k][2]})</td><td>${S.cells[k]}</td></tr>`)));
     /* ----- skills (self-check) ----- */
     const sk = Object.entries(S.skills).map(([k, v]) => ({ k, name: (data.skills || {})[k] || k, v: v.sum / v.n * 100, n: v.n })).sort((a, b) => a.v - b.v);
-    const skills = sk.length ? card(st, 'skills', 'Written answers by skill', 'Self-check marks', `Weakest skill: ${H(sk[0].name)} (${Math.round(sk[0].v)}%).${sk.length > 1 ? ` Strongest: ${H(sk[sk.length - 1].name)} (${Math.round(sk[sk.length - 1].v)}%).` : ''}`,
+    const skills = sk.length ? card(st, 'skills', 'Written answers by skill', 'Checked answer marks', `Weakest skill: ${H(sk[0].name)} (${Math.round(sk[0].v)}%).${sk.length > 1 ? ` Strongest: ${H(sk[sk.length - 1].name)} (${Math.round(sk[sk.length - 1].v)}%).` : ''}`,
       hbars(sk.map(s => ({ label: s.name, v: s.v, txt: `${Math.round(s.v)}% · ${s.n} answer${s.n > 1 ? 's' : ''}`, short: `${Math.round(s.v)}%`, go: { act: 'none' }, cls: 'dk-b-' + band(s.v)[3] })), cw(1), 100),
       tbl('Skills', ['Skill', 'Average mark', 'Answers'], sk.map(s => `<tr><td>${H(s.name)}</td><td>${Math.round(s.v)}%</td><td>${s.n}</td></tr>`))) : '';
     /* ----- tests ----- */

@@ -431,3 +431,57 @@ def build():
         ],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('fd', nums=[-18]),
+        's2': _N(32.43),
+        's3': _K('n 2 35|35|35th', '30 40|3040'),
+        's4': _N(33.18),
+        's5': _N(34.12),
+        's6': _K('negative|negatively|left skew|skewed to the left|skewed left|left tail', 'skew'),
+    },
+    'q2': {
+        's1': _K('40 x', '20 30|2030'),
+        's2': _K('27 20 40 x 2 16|27 20 40 x|7x 5 40 x|7x 40 5x|2x 40|27 20 x 2 16'),
+        's3': _K('x 20|x equal 20|missing frequency 20|frequency 20'),
+    },
+    'q3': {
+        's1': _K('30 52|1560', '45 60|2700', '25 48|1200', min=2),
+        's2': _N(54.6),
+        's3': _K('gm 20|g 20|geometric mean 20|g2 400|g 2 400|25 16 400|ah 400|sqrt 25 16|25 16 20|25 x 16', nums=[20]),
+        's4': _N(40, 10, kw=['50|t2 50t|a b 50|sum 50|quadratic']),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

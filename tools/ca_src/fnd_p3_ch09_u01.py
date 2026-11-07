@@ -350,3 +350,56 @@ def build():
                 M('k1d', 'Under step 1 alone, which letter becomes A?', ['X', 'D', 'C', 'Z'], 0, 'Moving three places forward wraps around the alphabet: X → Y → Z → A. So X becomes A. The trap is D, which is what A becomes (A moved forward three), not the letter that becomes A. In practice: wrap-around works like a clock going from 12 back to 1, or month 12 rolling over to month 1 in a payroll cycle.', 'c3', 'moderate', topic='Alphabet series and letter positions'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('3 6 9|increas 3|differ 3|add 3|plus 3|by 3|step 3'),
+        's2': _N(55),
+        's3': _K('n3 1|n 3 1|cube 1|cube plus 1|cube plus one|cubes plus one|one more than cube|1 more than cube|more than a cube|cube'),
+        's4': _K('wrong 67|67 wrong|67 incorrect|incorrect 67|67 should|67 replace|67 error|error 67|odd 67|67 odd|67 is wrong', 'correct 65|65 correct|should 65|replace 65|65 instead|be 65|right 65|actual 65|correct value 65|by 65'),
+    },
+    'q2': {
+        's1': _K('nlmvb'),
+        's2': _N(57),
+        's3': _K('vdohv|reverse first|undo revers|first revers|revers first|reversal first|reverse it first|reversing first'),
+        's4': _K('sales'),
+    },
+    'q3': {
+        's1': _K('21 3 7|21 not prime|21 composite|odd 21|21 odd|21 divisible|21 non prime|21 3 x 7|21 only composite|21 is not a prime'),
+        's2': _K('k|letter k'),
+        's3': _K('abba'),
+        's4': _K('bbaa'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

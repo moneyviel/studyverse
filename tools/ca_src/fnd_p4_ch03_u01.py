@@ -293,3 +293,55 @@ def build():
                      {'k': 'Producer equilibrium', 'v': 'MRTS(L for K) = w/r'}, {'k': 'Stage boundaries', 'v': 'AP max (AP = MP); TP max (MP = 0)'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(55, 48, 40, 32.86),
+        's2': _N(70, 40, 20, -10),
+        's3': _K('1 to 3|1 3|upto 3|up to 3|first 3', '4 to 6|4 6', 'stage iii 7|stage 3 7|7 worker|l 7|7th|stage iii l 7', 'negative|mp 0|mp zero|ap max|ap maximum|maximum ap|mp ap'),
+        's4': _K('rational stage ii|operate stage ii|operate in stage 2|operates stage ii|stage ii rational|produce stage ii|rational producer stage 2|rational stage 2|operate stage 2|operat second stage|rational second stage'),
+    },
+    'q2': {
+        's1': _K('0.75 0.25 1|sum 1|sum exponent 1|a b 1|1 constant|equal 1|exponents 1', 'constant'),
+        's2': _K('1.2', 'increasing'),
+        's3': _K('2.3|2.297|130 percent|2 1.2|2.29|2.30'),
+    },
+    'q3': {
+        's1': _N(5600, 6400, 8000),
+        's2': _K('p q|p and q|both p|p or q|either', '5600'),
+        's3': _K('4800 400 12|12 labour|labour 12|l 12|labour intercept 12|12 unit labour', '4800 800 6|6 capital|capital 6|k 6|capital intercept 6|6 unit capital'),
+        's4': _K('mrts', 'w r|0.5|400 800|price ratio|factor price|pl pk'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

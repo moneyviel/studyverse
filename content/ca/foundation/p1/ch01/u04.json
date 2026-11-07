@@ -717,31 +717,64 @@
      "id": "s1",
      "pt": "Provision = present liability of uncertain amount, reliably estimable",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "provision",
+      "present liabilit|present obligation|existing liabilit|uncertain amount|estimat"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Contingent liability = possible obligation depending on uncertain future events (or fails tests)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "contingent liabilit",
+      "possible obligation|possible liabilit|may or may not|uncertain future|future event|depend"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Recognition criteria (present obligation, probable outflow, reliable estimate) met vs not met",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "recognition|recognis|recogniz|criteria|condition",
+      "probable|reliable estimat|reliabl|past event"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Provision recognised in balance sheet; contingent liability disclosed in notes",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "balance sheet|recognised books|recorded books|charge profit|charged profit|booked|liability side",
+      "notes|disclosed|disclosure|footnote|foot note"
+     ],
+     "min": 2,
+     "wrong": [
+      {
+       "kw": [
+        "contingent liabilit shown balance sheet|contingent liabilit recorded balance sheet|contingent liabilit recognised balance sheet|contingent liabilit provided"
+       ],
+       "say": "A contingent liability is not recognised in the balance sheet — it is only disclosed in the notes."
+      }
+     ]
     },
     {
      "id": "s5",
      "pt": "Example showing both treatments based on management's estimate",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "example|e g|suit|penalty|claim|case|court|appeal|litigation",
+      "probable|likely|expect|estimat|chance"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -754,7 +787,8 @@
    ],
    "tips": [
     "A four-row table plus a two-line example is ideal."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q2",
@@ -822,31 +856,76 @@
      "id": "s1",
      "pt": "Provision of ₹11,00,000 for (i), with reason",
      "m": 1.5,
-     "skill": "application"
+     "skill": "application",
+     "rows": [
+      [
+       "suit|customer|claim",
+       "provision",
+       1100000
+      ]
+     ],
+     "kw": [
+      "probable|reliable|likely|estimate"
+     ],
+     "min": 1
     },
     {
      "id": "s2",
      "pt": "Guarantee disclosed as contingent liability",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "guarantee",
+       "contingent",
+       2000000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Tax demand under appeal disclosed as contingent liability",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "rows": [
+      [
+       "tax|demand|appeal",
+       "contingent",
+       350000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Own claim = contingent asset, not recognised",
      "m": 1,
-     "skill": "classification"
+     "skill": "classification",
+     "kw": [
+      "contractor contingent asset|own claim contingent asset|claim against contingent asset|iv contingent asset|contingent asset contractor|contingent asset own claim|contingent asset claim against|contingent asset iv",
+      "not recognis|not recogniz|not recorded|ignored|not shown|no entry|not booked|board report|directors report|not accounted"
+     ],
+     "min": 2,
+     "wrong": [
+      {
+       "kw": [
+        "contractor contingent liabilit|contractor provision|own claim contingent liabilit"
+       ],
+       "say": "The company's own claim is a contingent asset, not a liability — it is not recognised."
+      }
+     ]
     },
     {
      "id": "s5",
      "pt": "Remote claim ignored; totals ₹11,00,000 and ₹23,50,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "agent remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required|former agent remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required|no chance remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required|v remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required|remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required agent|remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required former agent|remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required no chance|remote|ignored|ignore|no provision|no disclosure|not disclosed|nothing|not provided|not required v"
+     ],
+     "nums": [
+      1100000,
+      2350000
+     ]
     }
    ],
    "remarks": [
@@ -859,7 +938,8 @@
    ],
    "tips": [
     "Columns: Item | Treatment | Provision | Contingent liability — then total each column."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -887,25 +967,54 @@
      "id": "s1",
      "pt": "Definition with example",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "possible asset",
+      "past event",
+      "uncertain future|future event|not wholly control|not fully control|outside control|beyond control|not control",
+      "claim|court|suit|example|e g|lawsuit|litigation"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Not recognised (prudence)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "not recognis|not recogniz|not recorded|not booked|never recognis|not accounted|not shown books|no entry|not brought books"
+     ],
+     "min": 1,
+     "wrong": [
+      {
+       "kw": [
+        "contingent asset recognised|contingent asset recorded|contingent asset shown balance sheet|recognised asset balance sheet"
+       ],
+       "say": "A contingent asset is never recognised; it may only be mentioned in the approving authority's (Board's) report."
+      }
+     ]
     },
     {
      "id": "s3",
      "pt": "Disclosure in Board's/approving authority's report if inflow probable",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "board|directors report|approving authority|report",
+      "probable|likely"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Recognised when virtually certain, in the period of change",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "virtually certain|virtual certain|virtually sure|certain",
+      "period|recognis|recogniz|recorded|booked|accounted"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -916,7 +1025,8 @@
    ],
    "tips": [
     "Three short paragraphs: meaning, treatment, when it stops being contingent."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

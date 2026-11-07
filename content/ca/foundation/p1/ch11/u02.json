@@ -1569,43 +1569,157 @@
      "id": "s1",
      "pt": "Pro-rata working: rejected, allotted, excess ₹80,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "pro rata|pro-rata|7 5|proportion|reject|refund"
+     ],
+     "nums": [
+      80000
+     ]
     },
     {
      "id": "s2",
      "pt": "Application money received and its transfer to capital / allotment / refund",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       320000
+      ],
+      [
+       "application",
+       "cr",
+       320000
+      ],
+      [
+       "capital",
+       "cr",
+       200000
+      ],
+      [
+       "allotment",
+       "cr",
+       80000
+      ],
+      [
+       "bank|refund",
+       "cr",
+       40000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Allotment due and amount received ₹2,15,600 (net of adjustment and Sneha's default)",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "allotment",
+       "dr",
+       300000
+      ],
+      [
+       "capital",
+       "cr",
+       300000
+      ],
+      [
+       "bank",
+       "dr",
+       215600
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "First call made and received on 98,000 shares",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "call",
+       "dr",
+       300000
+      ],
+      [
+       "bank",
+       "dr",
+       294000
+      ]
+     ]
     },
     {
      "id": "s5",
      "pt": "Forfeiture entry: Capital Dr ₹16,000; Allotment ₹4,400, Call ₹6,000, Forfeited ₹5,600",
      "m": 2,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "4400|10400"
+     ],
+     "rows": [
+      [
+       "capital",
+       "dr",
+       16000
+      ],
+      [
+       "forfeit",
+       "cr",
+       5600
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Re-issue entry: Bank ₹10,500, Forfeited ₹1,500, Capital ₹12,000",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       10500
+      ],
+      [
+       "forfeit",
+       "dr",
+       1500
+      ],
+      [
+       "capital",
+       "cr",
+       12000
+      ]
+     ]
     },
     {
      "id": "s7",
      "pt": "Capital reserve ₹2,700 on 1,500 shares only",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "forfeit",
+       "dr",
+       2700
+      ],
+      [
+       "capital reserve",
+       "cr",
+       2700
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "4100"
+       ],
+       "say": "Only the forfeited amount on the 1,500 re-issued shares (₹4,200) less the discount (₹1,500) goes to capital reserve: ₹2,700."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1622,7 +1736,8 @@
     "Start with the pro-rata table and a separate working for the defaulter.",
     "Write the forfeiture entry as: Capital (called-up) = unpaid amounts + Forfeited (received).",
     "Show the capital reserve calculation in a working note."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1742,25 +1857,79 @@
      "id": "s1",
      "pt": "Forfeiture: Share Capital Dr ₹8,000 (no debit to securities premium)",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "capital",
+       "dr",
+       8000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "securities premium 1600|premium 1600|premium account dr|securities premium dr|premium debit"
+       ],
+       "say": "The premium of ₹2 was received with allotment, so Securities Premium is not debited on forfeiture."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Credits: Final call ₹2,400, Forfeited Shares ₹5,600",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "call",
+       "cr",
+       2400
+      ],
+      [
+       "forfeit",
+       "cr",
+       5600
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Re-issue: Bank ₹4,500 + Forfeited ₹500 = Capital ₹5,000",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       4500
+      ],
+      [
+       "forfeit",
+       "dr",
+       500
+      ],
+      [
+       "capital",
+       "cr",
+       5000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "Capital reserve ₹3,000 and closing balance ₹2,100",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "capital reserve",
+       "cr",
+       3000
+      ]
+     ],
+     "nums": [
+      2100
+     ]
     }
    ],
    "remarks": [
@@ -1772,7 +1941,8 @@
    ],
    "tips": [
     "Ask first: was the premium received? If yes, it stays."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1823,25 +1993,45 @@
      "id": "s1",
      "pt": "Meaning",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "called not paid|called but not paid|not paid|unpaid|due not paid|default|not received",
+      "before called|before it is called|paid in advance|before due|not yet called|received before|in advance|before call"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Interest rates and period",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "10 percent|10 per cent|10",
+      "12 percent|12 per cent|12"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Treatment of interest / dividend",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "income|waive|gain|receivable",
+      "expense|finance cost|no dividend|not entitled dividend|cost|payable by company"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Balance sheet presentation",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "kw": [
+      "deducted|deduct|less|subtract",
+      "current liabilit|liabilit"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1853,7 +2043,8 @@
    ],
    "tips": [
     "Use a three-column table and include the period for which interest runs."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q4",
@@ -1877,25 +2068,44 @@
      "id": "s1",
      "pt": "At least five uses listed correctly",
      "m": 2.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "bonus",
+      "preliminary",
+      "commission|discount allowed|expenses of issue|issue expenses|expenses on issue|expense issue|discount on issue",
+      "redemption",
+      "buy back|buyback|buy-back|purchase of own shares"
+     ],
+     "min": 5
     },
     {
      "id": "s2",
      "pt": "Restriction for s. 133 companies",
      "m": 0.5,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "133|accounting standards|ind as"
+     ]
     },
     {
      "id": "s3",
      "pt": "Discount generally prohibited — s. 53",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "53|prohibit|void|cannot issue|not permitted|not allowed|generally no|illegal|cannot be issued"
+     ]
     },
     {
      "id": "s4",
      "pt": "Exceptions: sweat equity, debt conversion",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "sweat equity|sweat",
+      "debt|creditor|conversion|resolution plan|restructuring"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1907,7 +2117,8 @@
    ],
    "tips": [
     "Number the uses; quote section numbers."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "viva": [

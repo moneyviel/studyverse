@@ -119,3 +119,53 @@ def write():
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f: json.dump(build(), f, ensure_ascii=False, indent=1)
     return path
+
+
+# ---------- Auto-check data for the Write tab / paper marking ----------
+# New questions (n1, n2): per scheme point kw (viva-matcher keyword groups, "|" = alternatives) + min, nums (figures that
+# must appear), rows ([particular keywords, side, amount]: journal/trial balance dr|cr = column, ledger dr|cr = side of the
+# account, analysis-column side = the column header, e.g. "postage"), wrong (common wrong statement → remark). extra_ok per question.
+# True/false items: the verdict is checked exactly; kw/min check the reason (2 marks only for verdict + reason).
+AUTO = {
+    'n1': {'extra_ok': False,
+           's1': {'rows': [['cash', 'dr', 150000], ['capital', 'cr', 150000], ['purchase', 'dr', 60000], ['cash', 'cr', 60000], ['cash', 'dr', 45000], ['sale', 'cr', 45000],
+                           ['arun', 'dr', 28000], ['sale', 'cr', 28000], ['rent', 'dr', 8000], ['cash', 'cr', 8000], ['cash', 'dr', 20000], ['arun', 'cr', 20000], ['drawing', 'dr', 5000], ['cash', 'cr', 5000]],
+                  'wrong': [{'kw': ['drawings expense|drawing expense|drawings profit loss'], 'say': 'Drawings reduce capital; they are not a business expense like rent.'}]},
+           's2': {'kw': ['started|commenced|brought|introduced', 'bought|purchased', 'sold', 'paid|payment', 'received|receipt', 'withdrawn|personal|drawn|private'], 'min': 4},
+           's3': {'rows': [['capital', 'dr', 150000], ['sale', 'dr', 45000], ['arun', 'dr', 20000], ['purchase', 'cr', 60000], ['rent', 'cr', 8000], ['drawing', 'cr', 5000], ['balance', 'cr', 142000]]},
+           's4': {'rows': [['balance', 'dr', 73000], ['cash', 'cr', 45000], ['arun', 'cr', 28000], ['sale', 'dr', 28000], ['cash', 'cr', 20000], ['balance', 'cr', 8000]]},
+           's5': {'rows': [['cash', 'dr', 142000], ['capital', 'cr', 150000], ['purchase', 'dr', 60000], ['sale', 'cr', 73000], ['arun', 'dr', 8000], ['rent', 'dr', 8000], ['drawing', 'dr', 5000]]},
+           's6': {'nums': [223000]}},
+    'n2': {'extra_ok': False,
+           's1': {'rows': [['postage', 'postage', 420], ['paper|pen|stationery|printer', 'stationery', 860], ['cartage', 'cartage', 1250], ['auto|fare|travel|bank', 'travel', 690],
+                           ['courier', 'postage', 310], ['tea|staff|meeting|sundry', 'sundry', 540]]},
+           's2': {'nums': [4070, 730]},
+           's3': {'nums': [930], 'kw': ['balance|c d|carried|in hand'], 'min': 1},
+           's4': {'kw': ['|'.join([f'{w} 4070' for w in ('reimburs', 'reimbursement', 'restor', 'replenish', 'received', 'receive', 'top up', 'paid')] + [f'4070 {w}' for w in ('reimburs', 'reimbursed', 'received', 'restor', 'replenish')])], 'min': 1,
+                  'wrong': [{'kw': ['reimburse 930|reimbursed 930|reimbursement 930|930 reimburs'], 'say': 'The reimbursement equals the amount spent (₹4,070), not the balance in hand.'}]}},
+    'tf': {
+        't1': {'kw': ['not recorded|never recorded|net price|net amount|deducted invoice|no entry|not entered|not passed|net invoice|not accounted|not shown books|not debited'], 'min': 1},
+        't2': {'kw': ['cash bank|both cash|both account|both side|cash book itself|already cash book|already recorded|already appear|both appear|both affected|both recorded|same book|within cash book'], 'min': 1},
+        't3': {'kw': ['omission|principle|compensat|commission|errors not revealed|not disclosed|undisclosed|not affect agreement|arithmetical|arithmetic|wrong account|still errors|errors remain'], 'min': 1},
+        't4': {'kw': ['drawing', 'purchase|cost|no sale|not sale|not sold'], 'min': 2},
+        't5': {'kw': ['trading|profit loss|p l|closed|transfer|written off'], 'min': 1},
+        't6': {'kw': ['journal proper|journal', 'asset|computer|not goods|goods dealt|only goods|not dealt|not stock|fixed asset'], 'min': 2}},
+}
+
+
+def _attach_auto(m):
+    for Q in m['questions']:
+        for part in Q['parts']:
+            if part.get('kind') == 'q':
+                q = part['question']; a = AUTO[q['id']]
+                q['extra_ok'] = a.get('extra_ok', False)
+                for s in q['scheme']: s.update(a[s['id']])
+            elif part.get('kind') == 'tf':
+                for it in part['items']: it.update(AUTO['tf'][it['id']])
+    return m
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

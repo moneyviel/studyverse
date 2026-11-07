@@ -369,3 +369,56 @@ def build():
                      {'k': 'Kinked demand', 'v': 'Elastic above the kink, inelastic below; prices sticky (Sweezy)'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('120 6q|120 6 q|mr 120 6q'),
+        's2': _N(15, 75),
+        's3': _N(675),
+        's4': _K('q 30|30 unit|output 30|competitive 30|competition 30|competitive output 30', 'restrict|less output|half|lower output|smaller|ineffici|higher price|above mc|exploit'),
+    },
+    'q2': {
+        's1': _K('900', 'loss|negative|minus'),
+        's2': _N(1500),
+        's3': _K('18 16|price exceed avc|price above avc|p avc|price more than avc|cover avc|covers avc|price greater than avc|ar avc|above avc|exceeds avc'),
+        's4': _K('continue|keep produc|should produce|carry on', '1500|fixed cost|900|less loss|minimi|smaller loss|avc'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _N(20, 40),
+        's2': _K('mra mrb|mr equal|equal mr|mrs equal|mr a mr b|mr same|equalis mr|mr a equal mr b', 'higher price a|price a rise|price rise in a|raise price in a|less elastic higher|higher price in less elastic|less elastic market higher|price higher less elastic|rise in a|charge more in a|higher in a|higher price less elastic'),
+        's3': _K('monopoly|market power|seller control|single seller|monopolist', 'separa|segment|divided', 'different elastic|elasticit differ|differ elastic|different elasticit', 'resale|arbitrage|resell|leak|resold', min=2),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

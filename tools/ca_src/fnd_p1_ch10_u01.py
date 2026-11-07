@@ -417,3 +417,49 @@ def build():
         ],
         'viva': viva, 'cases': cases_,
     }
+
+
+# ---- offline auto-check: kw/min (viva matcher), nums (figures that must appear), rows ([account, side, amount]) ----
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'nums': [36000, 20000],
+                  'wrong': [{'kw': ['40000'], 'say': "Neel's additional ₹1,00,000 came on 1 October: interest on it is for 6 months only (₹4,000), so Neel's interest is ₹36,000."}]},
+           's2': {'nums': [3250, 3300]},
+           's3': {'kw': ['salary', 'commission'], 'nums': [48000, 50000, 69930, 46620]},
+           's4': {'nums': [592680, 289320]}},
+    'q2': {'extra_ok': False,
+           's1': {'kw': ['section 13|sec 13|s 13|partnership act|act 1932|1932']},
+           's2': {'kw': ['interest capital not allow|no interest capital|interest capital not|not entitled interest capital|not entitled interest|interest capital rejected|interest capital disallow|not allowed interest|not get interest|nil interest capital',
+                         'no salary|salary not|not entitled salary|not entitled remuneration|no remuneration|remuneration not|salary rejected|salary disallow|not entitled any salary|not get salary|not entitled to salary'], 'min': 2},
+           's3': {'nums': [4500],
+                  'wrong': [{'kw': ['9000'], 'say': 'Without an agreement, interest on a partner\'s loan is 6% p.a. (s.13(d)), not 12%: ₹4,500 for six months.'}]},
+           's4': {'nums': [320000, 160000],
+                  'wrong': [{'kw': ['240000'], 'say': 'Without an agreement profits are shared equally (s.13(b)), not in the capital ratio.'}]}},
+    'q3': {'extra_ok': True,
+           's1': {'kw': ['partnership act 1932|1932|llp act|2008|act 2008|body corporate|separate legal|legal entity|separate entity|legal person|juristic']},
+           's2': {'kw': ['unlimited', 'contribution|liability limited|limited extent|limited to'], 'min': 2},
+           's3': {'kw': ['optional|compulsory|mandatory|perpetual|succession']},
+           's4': {'kw': ['maximum 50|50 partners|50 members|no maximum|no limit|no upper limit|any number|mutual agency|agent|binds|bind']}},
+    'q4': {'extra_ok': False,
+           's1': {'nums': [56000, 14000]},
+           's2': {'nums': [8750, 5250]},
+           's3': {'nums': [126000]},
+           's4': {'nums': [131250, 78750]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

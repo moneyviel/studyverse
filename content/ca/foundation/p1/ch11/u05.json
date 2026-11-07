@@ -1209,43 +1209,133 @@
      "id": "s1",
      "pt": "Sale of investments with profit ₹20,000 to P&L",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "bank",
+       "dr",
+       270000
+      ],
+      [
+       "investment",
+       "cr",
+       250000
+      ],
+      [
+       "profit|p l|surplus|gain",
+       "cr",
+       20000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Fresh issue: capital ₹1,50,000 and premium ₹30,000",
      "m": 1,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "capital",
+       "cr",
+       150000
+      ],
+      [
+       "premium",
+       "cr",
+       30000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Redemption due incl. premium ₹40,000; premium written off from surplus",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "premium",
+       "dr",
+       40000
+      ],
+      [
+       "preference shareholder",
+       "cr",
+       440000
+      ],
+      [
+       "profit|surplus|p l",
+       "dr",
+       40000
+      ]
+     ]
     },
     {
      "id": "s4",
      "pt": "CRR ₹2,50,000 from general reserve (premium on fresh issue ignored)",
      "m": 2,
-     "skill": "computation"
+     "skill": "computation",
+     "rows": [
+      [
+       "general reserve",
+       "dr",
+       250000
+      ],
+      [
+       "capital redemption|crr",
+       "cr",
+       250000
+      ]
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "220000"
+       ],
+       "say": "Only the face value of the fresh issue (₹1,50,000) reduces the CRR; the premium of ₹30,000 on it does not. CRR = ₹2,50,000."
+      }
+     ]
     },
     {
      "id": "s5",
      "pt": "Payment ₹4,40,000",
      "m": 0.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "preference shareholder",
+       "dr",
+       440000
+      ],
+      [
+       "bank",
+       "cr",
+       440000
+      ]
+     ]
     },
     {
      "id": "s6",
      "pt": "Balance sheet: share capital ₹11,50,000; reserves ₹4,60,000 correctly itemised",
      "m": 2,
-     "skill": "presentation"
+     "skill": "presentation",
+     "nums": [
+      1150000,
+      460000,
+      80000,
+      250000,
+      70000,
+      60000
+     ]
     },
     {
      "id": "s7",
      "pt": "Bank ₹1,60,000 and totals ₹17,60,000 agree",
      "m": 2,
-     "skill": "balancing"
+     "skill": "balancing",
+     "nums": [
+      160000,
+      1760000
+     ]
     }
    ],
    "remarks": [
@@ -1261,7 +1351,8 @@
    "tips": [
     "Do the CRR and bank working before writing entries.",
     "Present reserves item by item in a note, even in a summarised balance sheet."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1311,25 +1402,59 @@
      "id": "s1",
      "pt": "Section 55 test using face value — 50,000",
      "m": 2,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "700000 10 50000|500000 10 50000|500000 50000|face value 50000|nominal 50000|50000 shares 10|10 50000"
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "35714|35715"
+       ],
+       "say": "For section 55 the shortfall in CRR is covered by the face value of new shares: ₹5,00,000 ÷ ₹10 = 50,000 shares."
+      }
+     ]
     },
     {
      "id": "s2",
      "pt": "Amount payable including premium ₹12,60,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      1260000
+     ]
     },
     {
      "id": "s3",
      "pt": "Funds test using issue price — 50,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "kw": [
+      "700000 14 50000|700000 50000|50000 share 14|50000 shares rs 14|14 50000"
+     ],
+     "nums": [
+      560000
+     ],
+     "wrong": [
+      {
+       "kw": [
+        "70000 shares|70000 equity"
+       ],
+       "say": "Funds are raised at the issue price: ₹7,00,000 ÷ ₹14 = 50,000 shares."
+      }
+     ]
     },
     {
      "id": "s4",
      "pt": "Conclusion: issue the higher (here equal) number",
      "m": 0.5,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "higher|both|equal|same|maximum|greater|larger|issue 50000|issued 50000"
+     ],
+     "nums": [
+      50000
+     ]
     }
    ],
    "remarks": [
@@ -1341,7 +1466,8 @@
    ],
    "tips": [
     "Label the two tests clearly and write the rule for each."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1367,31 +1493,52 @@
      "id": "s1",
      "pt": "20-year limit / no irredeemable shares",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "20 years|20 year|20|irredeemable"
+     ]
     },
     {
      "id": "s2",
      "pt": "Sources: divisible profits or fresh issue",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "profit|divisible",
+      "fresh issue|fresh share|new issue|proceeds|fresh"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Fully paid shares only",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "fully paid|not partly|cannot partly|partly paid cannot|unless fully paid|until fully paid"
+     ]
     },
     {
      "id": "s4",
      "pt": "Treatment of redemption premium",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "premium",
+      "profit|securities premium|133"
+     ],
+     "min": 2
     },
     {
      "id": "s5",
      "pt": "CRR — amount and use",
      "m": 1,
-     "skill": "provision"
+     "skill": "provision",
+     "kw": [
+      "capital redemption reserve|crr",
+      "nominal|face value|bonus|paid up|equal amount|amount equal"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1403,7 +1550,8 @@
    ],
    "tips": [
     "Five numbered points, each one line, quoting the section."
-   ]
+   ],
+   "extra_ok": true
   },
   {
    "id": "q4",
@@ -1484,19 +1632,51 @@
      "id": "s1",
      "pt": "Forfeiture entry with correct amounts",
      "m": 1.5,
-     "skill": "posting"
+     "skill": "posting",
+     "rows": [
+      [
+       "capital",
+       "dr",
+       40000
+      ],
+      [
+       "call|arrear",
+       "cr",
+       12000
+      ],
+      [
+       "forfeit",
+       "cr",
+       28000
+      ]
+     ]
     },
     {
      "id": "s2",
      "pt": "Transfer to capital reserve (not re-issued)",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "rows": [
+      [
+       "forfeit",
+       "dr",
+       28000
+      ],
+      [
+       "capital reserve",
+       "cr",
+       28000
+      ]
+     ]
     },
     {
      "id": "s3",
      "pt": "Shares redeemed 9,600",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "nums": [
+      9600
+     ]
     }
    ],
    "remarks": [
@@ -1507,7 +1687,8 @@
    ],
    "tips": [
     "Explain why the forfeited shares are not re-issued."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "viva": [

@@ -329,3 +329,59 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('before|prior|in advance|ahead of', 'refuse|refusal|refuses|disable|disables|renounce|repudiate|repudiation', 'express|implied|conduct'),
+           's2': _k('section 39|put an end|terminate the contract|end the contract'),
+           's3': _k('rescind|rescinded|rescission|terminate|terminated|treat the contract as ended|put an end|discharged|end the contract', 'immediately|at once|without waiting|forthwith|right away|straightaway|straight away', 'sue|damages|claim|compensation'),
+           's4': _k('wait|keep the contract alive|keep alive|alive|until the due date|till the due date|affirm', 'risk|supervening|later event|excuse|excused|escape|frustrat|impossib|for both|both parties|both sides'),
+           's5': _k('section 73|mitigate|mitigation'),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 73|naturally|natural|usual course|ordinary course', 'remote|indirect|not for remote|not remote|no remote|not indirect|not for indirect'),
+           's2': _k('hadley|baxendale|special circumstances communicated|special circumstances known|notice of special|special circumstances were communicated|communicated at the time|known at the time|told at the time|informed at the time|at the time of the contract|at the time of contract'),
+           's3': {'nums': [78000]},
+           's4': _k('bonus remote|bonus is remote|remote bonus|bonus special|bonus not recoverable|bonus cannot|cannot recover bonus|not recover bonus|bonus fail|bonus not|not the bonus|not for the bonus|no bonus|bonus rejected|bonus indirect|bonus unknown|200000 remote|200000 not recoverable|200000 fail|200000 cannot|cannot recover 200000|not 200000|loss of bonus is remote|cannot claim bonus|not claim bonus',
+                    wrong=[{'kw': ['recover bonus|bonus recoverable|bonus is also recoverable|278000'], 'say': 'The lost bonus came from special circumstances never told to the seller — remote loss, not recoverable (Hadley v. Baxendale).'}]),
+           's5': _k('recover 78000|78000 recoverable|entitled 78000|78000 damages|damages 78000|get 78000|claim 78000|78000 only|only 78000|78000 as damages|78000 ordinary|awarded 78000|78000 can be recovered|liable 78000|pay 78000', nums=[78000]),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('section 74', 'reasonable compensation|reasonable', 'not exceeding|maximum|cap|capped|upper limit|ceiling|not more than|limit|exceed', n=2),
+           's2': _k('no distinction|no difference|does not matter|not matter|irrelevant|immaterial|whether|either|regardless|makes no|same', 'penalty|liquidated'),
+           's3': _k('300000 only|only 300000|limited to 300000|restricted to 300000|capped at 300000|300000 maximum|maximum 300000|b 300000|300000 b|not 410000|cannot 410000|not exceed 300000|not more than 300000|limit of 300000|up to 300000|upto 300000', nums=[180000, 300000],
+                    wrong=[{'kw': ['recover 410000|recovers 410000|entitled to 410000|gets 410000|award 410000|recover the full 410000'], 'say': 'Under Section 74 compensation can never exceed the sum named in the contract — (b) is limited to ₹3,00,000.'}]),
+           },
+    'q4': {'extra_ok': True,
+           's1': _k('as much as|earned|reasonable payment|reasonable compensation|reasonable remuneration|value of work|reasonable price|reasonable amount|reasonable sum|for the work done'),
+           's2': _k('discharged|discharge|terminated|ended|void|broken|breach|ends', 'not in default|innocent|faultless|not at fault|without default|aggrieved|not guilty|not the one'),
+           's3': _k('void', 'gratuitous|gratuitously', 'fee not fixed|not fixed|no fixed|price not fixed|remuneration not|not agreed|fee is not fixed|without fixing', 'abandon|abandons|refuse|refuses|prevents|prevented', 'divisible', 'lump sum|badly performed|bad work|defective', n=3),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

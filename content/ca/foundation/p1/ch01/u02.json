@@ -867,31 +867,65 @@
      "id": "s1",
      "pt": "Names the three assumptions correctly",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "going concern",
+      "consisten",
+      "accrual|accrue"
+     ],
+     "min": 3
     },
     {
      "id": "s2",
      "pt": "Going concern explained (foreseeable future; no intention/need to liquidate)",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "going concern",
+      "foreseeable future|continue|continuing|indefinite|long time|no intention liquidat|no need liquidat|not liquidat|without liquidat|no intention close|not close down"
+     ],
+     "min": 2
     },
     {
      "id": "s3",
      "pt": "Consistency explained (same policies; comparability; change only for valid reasons)",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "consisten",
+      "same polic|same method|same accounting|same principle|period to period|year to year|year after year|every year|each year|compar"
+     ],
+     "min": 2
     },
     {
      "id": "s4",
      "pt": "Accrual explained (when earned/incurred, not when cash moves)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "accrual|accrue",
+      "earn|incur|period relate|relate period|period which relate|irrespective cash|regardless cash|irrespective receipt|irrespective whether"
+     ],
+     "min": 2,
+     "wrong": [
+      {
+       "kw": [
+        "recognised when cash|recorded when cash|when cash received|when cash paid|on receipt cash"
+       ],
+       "say": "Accrual recognises revenue and cost when earned or incurred, not when cash is received or paid."
+      }
+     ]
     },
     {
      "id": "s5",
      "pt": "Not disclosed if followed; must be disclosed if not followed",
      "m": 1,
-     "skill": "application"
+     "skill": "application",
+     "kw": [
+      "disclos|not follow disclos|not followed disclos|not adopted disclos",
+      "not follow|departure|deviat|silent|assumed|taken granted|not disclosed"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -905,7 +939,8 @@
    "tips": [
     "Write the three names as headings, two lines under each.",
     "End with the disclosure rule in a separate sentence."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q2",
@@ -1001,31 +1036,51 @@
      "id": "s1",
      "pt": "Total assets ₹2,95,000 and ₹3,25,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      295000,
+      325000
+     ]
     },
     {
      "id": "s2",
      "pt": "Total liabilities ₹1,40,000 and ₹1,35,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      140000,
+      135000
+     ]
     },
     {
      "id": "s3",
      "pt": "Opening capital ₹1,55,000 and closing capital ₹1,90,000 using E = A − L",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      155000,
+      190000
+     ]
     },
     {
      "id": "s4",
      "pt": "Drawings added back and additional capital deducted",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "drawing",
+      "additional capital|capital introduced|fresh capital|capital brought|further capital|extra capital|new capital"
+     ],
+     "min": 2
     },
     {
      "id": "s5",
      "pt": "Profit ₹49,000 with working shown",
      "m": 1,
-     "skill": "presentation"
+     "skill": "presentation",
+     "nums": [
+      49000
+     ]
     }
    ],
    "remarks": [
@@ -1039,7 +1094,8 @@
    "tips": [
     "Write \"E = A − L\" before each computation.",
     "Present assets and liabilities in two short tables side by side for both dates."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q3",
@@ -1098,31 +1154,50 @@
      "id": "s1",
      "pt": "Cash-basis surplus ₹61,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      61000
+     ]
     },
     {
      "id": "s2",
      "pt": "Revenue ₹20,00,000 and cost of goods sold ₹12,80,000",
      "m": 1.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      2000000,
+      1280000
+     ]
     },
     {
      "id": "s3",
      "pt": "Salary ₹1,80,000 and insurance ₹18,000",
      "m": 1,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      180000,
+      18000
+     ]
     },
     {
      "id": "s4",
      "pt": "Profit ₹5,22,000",
      "m": 0.5,
-     "skill": "computation"
+     "skill": "computation",
+     "nums": [
+      522000
+     ]
     },
     {
      "id": "s5",
      "pt": "Explanation linking the difference to accrual and matching (unsold stock, outstanding salary, prepaid insurance)",
      "m": 1,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "unsold|closing inventory|closing stock|inventory|2000 units|stock",
+      "prepaid|outstanding|9 months|nine months|accrual|matching|credit sales|full sales|whole year"
+     ],
+     "min": 2
     }
    ],
    "remarks": [
@@ -1136,7 +1211,8 @@
    "tips": [
     "Show each figure with its formula (e.g. 8,000 × 160).",
     "A two-line explanation of the difference earns the concept mark."
-   ]
+   ],
+   "extra_ok": false
   },
   {
    "id": "q4",
@@ -1164,19 +1240,44 @@
      "id": "s1",
      "pt": "Conservatism explained with example",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "conservat|prudence|prudent",
+      "provide loss|possible loss|losses|lower value|lower cost|lower of|anticipate income|anticipate profit|anticipate gain|not anticipate|lower market|whichever lower"
+     ],
+     "min": 2
     },
     {
      "id": "s2",
      "pt": "Consistency explained with example and valid reasons for change",
      "m": 1.5,
-     "skill": "concept"
+     "skill": "concept",
+     "kw": [
+      "consisten",
+      "same polic|same method|same accounting|period to period|year to year|year after year|every year|each year|compar|continue use|continues use|continue follow",
+      "standard|statute|law|appropriate|valid reason|straight line|written down|wdv|slm|depreciation|fifo|weighted average|example"
+     ],
+     "min": 3
     },
     {
      "id": "s3",
      "pt": "Correct conclusion: no violation — same rule applied",
      "m": 1,
-     "skill": "conclusion"
+     "skill": "conclusion",
+     "kw": [
+      "no violation|not violat|not violation|no breach|not breach|not inconsisten|not against|not affect|consistency maintained|consistency followed|not change polic|does not violat",
+      "same rule|same policy|same basis|lower cost market|whichever lower|lower of cost|consistently applied|applied every year|every year|each year|cost market lower"
+     ],
+     "min": 2,
+     "wrong": [
+      {
+       "kw": [
+        "yes violat|violates consisten|violation consisten|is inconsisten|violate consisten"
+       ],
+       "min": 1,
+       "say": "Valuing at the lower of cost and market every year is the same policy applied consistently — it is not a violation."
+      }
+     ]
     }
    ],
    "remarks": [
@@ -1188,7 +1289,8 @@
    ],
    "tips": [
     "Give a small numerical example for conservatism — it shows understanding quickly."
-   ]
+   ],
+   "extra_ok": false
   }
  ],
  "revision": {

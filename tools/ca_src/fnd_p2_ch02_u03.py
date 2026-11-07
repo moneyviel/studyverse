@@ -367,3 +367,60 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': _k('section 11|not competent|incompetent|competent|incapable', 'void ab initio|void from the beginning|void from the start|absolutely void|void|nullity',
+                    wrong=[{'kw': ['voidable at the option of the minor|voidable'], 'say': 'An agreement with a minor is void ab initio, not voidable (Mohori Bibi v. Dharmodas Ghose).'}]),
+           's2': _k('mohori|dharmodas'),
+           's3': _k('plead minority|plea of minority|plead his minority|not estopped|estoppel does not apply|no estoppel|estoppel not apply|estoppel cannot|not stopped|cannot be stopped|estoppel not available|estoppel is not', 'despite|even|misrepresent|misrepresentation|lied|lie|false|falsely|though|wrong age'),
+           's4': _k('not liable to repay|need not repay|cannot recover|no repayment|not repay|no compensation|not compensate|cannot be made to repay|cannot claim|not liable|not recoverable', 'restitution|traceable|restore|still in his hands|still with|still has|refund'),
+           's5': _k('arnav is not liable|arnav not liable|not liable to repay|not bound to repay|need not repay|mortgage is void|mortgage void|kohli fail|argument fails|argument i fails|kohli cannot recover|kohli cannot|argument (i) fails|not liable', n=1),
+           },
+    'q2': {'extra_ok': True,
+           's1': _k('physical|criminal|penal|threat|detention|forbidden|detain', 'mental|moral|dominate|dominance|dominant|psychological'),
+           's2': _k('no relationship|not necessary|not needed|need not|not required|not essential|irrespective|any relationship', 'relationship essential|relationship necessary|relationship required|relation essential|essential|must exist|dominate the will|fiduciary|position to dominate|relationship must'),
+           's3': _k('any person|stranger|anyone|third|any one', 'party to the contract|dominant|unfair advantage|advantage|enter into'),
+           's4': _k('voidable', '19a|19 a|19|72'),
+           },
+    'q3': {'extra_ok': True,
+           's1': _k('section 30', 'void|wager|bet', 'uncertain event|uncertain future|uncertain', n=2),
+           's2': _k('promise to pay|money|money s worth', 'uncertain', 'mutual chance|gain or loss|win or lose|win|lose', 'common intention|intention to bet|bet|wager', 'control', 'no interest|insurable interest|interest other than|stake', n=5),
+           's3': _k('insurance|insurable interest', 'chit fund|chit|share|commodity|skill|competition', 'indemnify|indemnity|insurable interest|delivery|skill|interest|protect|loss', n=3),
+           },
+    'q4': {'extra_ok': False,
+           's1': _k('section 20|bilateral|both parties|both mistaken|mutual mistake|both', 'void'),
+           's2': _k('section 22|not voidable merely|unilateral mistake does not|unilateral mistake not|mistake of one party does not|one party is under a mistake|one party alone is mistaken'),
+           's3': _k('painting|copy|original|subject matter', 'bilateral|both|essential', 'raj|highway', 'unilateral|only raj|raj alone|own mistake|alone|not induced|not caused|knew nothing|did not know|neither shared|not share|not aware'),
+           's4': _k('painting void|agreement for painting is void|painting agreement void|kunal recover|kunal can recover|kunal get back|kunal refund|kunal not bound|painting contract void|contract for painting void|sale painting void|kunal is not bound',
+                    'raj bound|raj contract valid|raj s contract valid|raj valid|raj cannot avoid|raj cannot rescind|raj cannot escape|binding on raj|raj is bound|raj must|raj cannot cancel|raj contract binding|raj s contract binding|raj binding',
+                    wrong=[{'kw': ['painting voidable|raj void|raj voidable|raj can avoid|raj can rescind'], 'say': 'A bilateral mistake on an essential fact makes the agreement void (S. 20); a unilateral mistake does not affect the contract (S. 22).'}]),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

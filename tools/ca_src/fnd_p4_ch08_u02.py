@@ -301,3 +301,58 @@ def build():
                 M('k1d', 'If the digital-payments campaign lowers the currency ratio, the money multiplier will:', ['Rise', 'Fall', 'Stay the same', 'Become zero'], 0, "A lower currency ratio means less cash leaks out of the banking system and more stays as deposits that banks can lend, so the money multiplier rises. 'Fall' is the trap, which reverses the effect. In practice: the spread of UPI and digital payments in India is expected to lower the currency–deposit ratio over time, strengthening the transmission of RBI's policy actions through bank credit.", 'c6', 'core', topic='The Money Multiplier Approach to Supply of Money'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _CR(*vals, **x):
+    """figures in Rs crore: nums matches '5,690' and '5,690 crore' alike"""
+    return _N(*vals, **x)
+
+
+AUTO = {
+    'q1': {'s1': _CR(659000), 's2': _CR(694000), 's3': _CR(2479000), 's4': _CR(2599000)},
+    'q2': {
+        's1': _N(0.5, 0.005),
+        's2': _N(1500),
+        's3': _N(2.48, kw=['0.605|1.5 0.605|1 c r e c|c 1 c r e']),
+        's4': _N(2.29),
+        's5': _K('simple 10|1 0.1 10|10 times|multiplier 10|deposit multiplier 10|0.1 10', 'currency|cash|leak|smaller|less|lower'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _K('1 0.125 8|multiplier 8|8 times|k 8|0.125 8|multiplier is 8'),
+        's2': _N(4000000, 3500000),
+        's3': _CR(16000),
+        's4': _K('excess reserve|no excess|reserves', 'currency|cash drain|public hold|leak|cash', 'demand for loans|loan demand|borrower|demand for credit|credit demand', min=2),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

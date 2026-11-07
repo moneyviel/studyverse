@@ -302,3 +302,60 @@ def build():
         for q in cs['mcqs']:
             q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
     return u
+
+
+# ---------------------------------------------------------------------------------------------
+# Offline auto-check data for the Write tab (matched by tools/ca_vivamatch.py / js/ca-tools.js).
+# Per scheme point: kw = keyword groups ("a|b" = alternatives), min = groups needed, nums = figures
+# that must appear, wrong/say = remark for a common wrong statement, ai_only = left to AI examiners.
+# ---------------------------------------------------------------------------------------------
+def _k(*groups, n=None, **extra):
+    d = {'kw': list(groups), 'min': len(groups) if n is None else n}
+    d.update(extra)
+    return d
+
+
+AUTO = {
+    'q1': {'extra_ok': True,
+           's1': _k('incorrect|not correct|wrong|false|not true|untrue|need not be adequate|not necessary|not required|not need|need not', n=1),
+           's2': _k('explanation 2|section 25', 'inadequate|inadequacy|not void|free consent|freely consented|freely'),
+           's3': _k('some value|value|real|not illusory|genuine|illusory', n=1),
+           's4': _k('evidence|taken into account|take into account|into account|indicate|indication|suggest|presume', 'free consent|coercion|undue influence|fraud|consent'),
+           },
+    'q2': {'extra_ok': False,
+           's1': _k('section 2 d|2(d)|any other person|third party|third person|another person|other person|anyone', 'consideration'),
+           's2': _k('stranger to consideration|stranger to the consideration|not furnished consideration|not given consideration|not provide consideration', 'stranger to contract|stranger to the contract|not a stranger to the contract|not stranger to contract|not a stranger to contract|privity|party to the contract|party to contract|party to promise|party to the promise'),
+           's3': _k('shop consideration|kamala consideration|gift consideration|consideration kamala|consideration shop|consideration gift|consideration moved|consideration came|consideration for dev', 'hari'),
+           's4': _k('hari can sue|hari can recover|hari is entitled|hari entitled|hari succeed|hari can enforce|hari will succeed|dev liable|dev is liable|dev must pay|dev bound|plea fail|plea fails|plea will fail|dev cannot refuse|dev cannot escape|dev has to pay', n=1),
+           's5': _k('chinnaya|ramayya'),
+           },
+    'q3': {'extra_ok': False,
+           's1': _k('without consideration|void|section 25', 'written|writing|registered|registration', 'near relation|near relative|relative|relation|natural love|love and affection'),
+           's2': _k('explanation 1|actually made|completed|complete|already given|already made|already handed|delivered', 'gift|given|handed'),
+           's3': _k('oral|not written|not registered|unregistered|no writing|not in writing', 'not enforceable|unenforceable|void|cannot enforce|cannot be enforced|brother cannot|not binding|cannot claim'),
+           's4': _k('cannot take|cannot recover|cannot get|cannot reclaim|cannot demand|cannot ask|not entitled|keep the chain|friend can keep|need not return|not return|not bound to return|no right|chain valid|valid gift|gift is complete|irrevocable', n=1,
+                    wrong=[{'kw': ['can take back|can recover the chain|must return|get back the chain'], 'say': 'A gift actually made needs no consideration (Explanation 1 to Section 25) — Anu cannot take it back.'}]),
+           },
+    'q4': {'extra_ok': True,
+           's1': _k('section 25|without consideration void|no consideration void|without consideration is void|without consideration are void', n=1),
+           's2': _k('natural love|love and affection|near relation|relative', 'written|writing|registered'),
+           's3': _k('voluntar', 'compensat|past|service|legally compellable'),
+           's4': _k('time barred|time-barred|barred by limitation|limitation', 'signed debtor|signed by debtor|written signed|writing signed|signed writing|written and signed|signed in writing|signed by the debtor'),
+           's5': _k('gift|completed', 'agency|agent|section 185', 'bailment|bailee|bailor', 'charity|charitable|donation|subscription', n=3),
+           },
+}
+
+
+_build_noauto = build
+
+
+def build():
+    """Adds the offline auto-check fields (kw/min/nums/wrong) to every scheme point."""
+    u = _build_noauto()
+    for q in u['questions']:
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        if '_scheme' in a: q['scheme'] = a['_scheme']        # "any N points" split into N one-mark points
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

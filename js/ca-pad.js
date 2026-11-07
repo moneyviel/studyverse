@@ -11,7 +11,8 @@
    API: CaPad.mount(host, { pad, q, onChange }) -> { value(), isEmpty() } ; CaPad.view(payload) -> static HTML;
         CaPad.suggest(pad, text) -> [template ids] ; CaPad.titleCase / parseDate / parseAmt / inr ; CaPad.TPL.
    Saved payload (attempt.table, and Ca.submission().answer.table for a future AI checker):
-     { schema: 'ca-pad/1', sheets: [ { tpl, name, title, data, flat: { cols:[…], rows:[[…]] }, check: { ok, msg } } ] } */
+     { schema: 'ca-pad/1', sheets: [ { tpl, name, title, data, flat: { kind: 'journal'|'tacc'|'grid', cols:[…], rows:[[…]], account? }, check: { ok, msg } } ] }
+   flat + check are what js/ca-check.js marks (rows, figures, and `pad_ok` points use check.ok). */
 (function () {
   'use strict';
   const D = document;
@@ -412,17 +413,17 @@
     const t = S.t, d = S.data;
     if (t.kind === 'journal') {
       const rows = []; d.entries.forEach(en => { en.lines.forEach((l, i) => { if (!l.ac && !l.amt) return; rows.push([i === 0 ? en.date : '', l.s === 'dr' ? `${l.ac} Dr.` : `    To ${l.ac}`, l.lf, l.s === 'dr' ? l.amt : '', l.s === 'cr' ? l.amt : '']); }); if (en.narr) rows.push(['', en.narr, '', '', '']); });
-      return { cols: ['Date', 'Particulars', 'L.F.', 'Dr. Amount (₹)', 'Cr. Amount (₹)'], rows };
+      return { kind: 'journal', cols: ['Date', 'Particulars', 'L.F.', 'Dr. Amount (₹)', 'Cr. Amount (₹)'], rows };
     }
-    if (t.kind === 'grid') return { cols: d.cols.map(c => c.h), rows: d.rows.filter(r => r.k === 'h' || r.c.some(x => String(x || '').trim())).map(r => (r.k === 'h' ? [r.label].concat(Array(d.cols.length - 1).fill('')) : r.c.map((v, ci) => (d.cols[ci].t === 'label' ? r.label : v)))) };
+    if (t.kind === 'grid') return { kind: 'grid', cols: d.cols.map(c => c.h), rows: d.rows.filter(r => r.k === 'h' || r.c.some(x => String(x || '').trim())).map(r => (r.k === 'h' ? [r.label].concat(Array(d.cols.length - 1).fill('')) : r.c.map((v, ci) => (d.cols[ci].t === 'label' ? r.label : v)))) };
     if (t.kind === 'tacc') {
       const pi = d.cols.findIndex(c => c.t === 'acct'), pre = t.pre === null ? ['', ''] : ['To ', 'By '], sides = t.sides || ['Dr.', 'Cr.'];
       const side = (r, k) => r.c.map((v, ci) => (ci === pi && v ? pre[k] + v : v));
-      return { cols: d.cols.map(c => `${sides[0]} ${c.h}`).concat(d.cols.map(c => `${sides[1]} ${c.h}`)), rows: d.rows.filter(r => r.l.c.concat(r.r.c).some(x => String(x || '').trim())).map(r => side(r.l, 0).concat(side(r.r, 1))), account: d.ac || '' };
+      return { kind: 'tacc', cols: d.cols.map(c => `${sides[0]} ${c.h}`).concat(d.cols.map(c => `${sides[1]} ${c.h}`)), rows: d.rows.filter(r => r.l.c.concat(r.r.c).some(x => String(x || '').trim())).map(r => side(r.l, 0).concat(side(r.r, 1))), account: d.ac || '' };
     }
     if (t.kind === 'brs') {
       const L = brsLabels(d), c = compute(S).calc, rows = [[L.start, '', d.amt], ['Add:', '', '']].concat(d.add.filter(x => x.p || x.v).map(x => [x.p, x.v, '']), [['', '', c.addT]], [['Less:', '', '']], d.less.filter(x => x.p || x.v).map(x => [x.p, x.v, '']), [['', '', c.lessT], [c.resL, '', c.res]]);
-      return { cols: ['Particulars', 'Details (₹)', 'Amount (₹)'], rows };
+      return { kind: 'grid', cols: ['Particulars', 'Details (₹)', 'Amount (₹)'], rows };
     }
     return { cols: [], rows: [] };
   }

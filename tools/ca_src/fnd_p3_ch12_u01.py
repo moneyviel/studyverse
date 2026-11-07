@@ -324,3 +324,51 @@ def build():
                 M('k1e', 'How many female members does the family have?', ['4', '3', '5', '2'], 0, "Go through every member: Leela (Hari's wife), Bina (daughter), Kavita (Ajay's wife) and Sia (granddaughter) are female, so the count is 1 + 1 + 1 + 1 = 4. Three is the trap: it usually misses Kavita, who joined by marriage. In practice: counting members by category from a family tree is like counting heads of an HUF or partners in a family firm for a return or deed.", 'c4', 'core', '1+1+1+1', topic='Drawing the family tree'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {'s1': _K('cousin'), 's2': _K('grandmother|grand mother|nani|dadi'), 's3': _K('maternal uncle|mama'), 's4': _K('grandson|grand son')},
+    'q2': {
+        's1': _K('mohit himself|himself|father mohit|father is mohit|son is mohit|son mohit'),
+        's2': _K('girl daughter|mohit daughter|daughter mohit|daughter of mohit|girl is his daughter'),
+        's3': _K('father anita mother|anita mother father|mother father|man father|father of anita s mother'),
+        's4': _K('maternal grandfather|nana|grandfather|grand father'),
+    },
+    'q3': {
+        's1': _K('j mother k|j k mother', 'k brother l|k l brother', 'l mother n|l n mother'),
+        's2': _K('maternal uncle|mama'),
+        's3': _K('maternal grandmother|grandmother|nani|grand mother'),
+        's4': _K('grandson|grand son'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

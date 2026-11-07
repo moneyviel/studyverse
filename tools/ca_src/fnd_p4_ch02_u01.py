@@ -350,3 +350,55 @@ def build():
                      {'k': 'Ei', 'v': '(ΔQ/Q) ÷ (ΔY/Y)'}, {'k': 'Ec', 'v': '(ΔQx/Qx) ÷ (ΔPy/Py)'}, {'k': 'Ea', 'v': '(ΔQ/Q) ÷ (ΔA/A)'}, {'k': 'Demand function', 'v': 'Dx = f(Px, Py, M, T, A, U)'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(20, 10),
+        's2': _K('ep 2|elasticity 2|20 10 2|2 elastic|e 2|ed 2|pe 2|ep equal 2', 'greater than 1|more than 1|exceed 1|relatively elastic|highly elastic|2 elastic|elastic 2|elastic demand'),
+        's3': _N(150000, 162000, kw=['elastic|opposite|rise|increas|more than|greater']),
+        's4': _K('revenue|outlay', 'cost'),
+    },
+    'q2': {
+        's1': _K('q2 q1 q2 q1|q1 q2|240 160 240 160|80 400|average|25 35 35 25|60 10'),
+        's2': _N(1.2, kw=['80 400|0.2 6|0.2 x 6|60 10|0.2']),
+        's3': _K('large|big|consistent|same|direction|base|either|regardless|whichever|1.75|0.83|different'),
+    },
+    'q3': {
+        's1': _N(1.5, kw=['40 30 800|40 x 30 800|1200|b p q|dq dp|40 x 30|30 800']),
+        's2': _N(25),
+        's3': _K('ei 1|income elasticity 1|0.2 0.2 1|1 normal|unit income|0.2 0.2|unitary|equal 1|ey 1', 'normal'),
+        's4': _K('shift', 'right|increase in demand|rightward|outward'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

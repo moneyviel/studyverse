@@ -3,7 +3,7 @@
    2. Viva — speak & revise (unit tab + practice hub)       — speechSynthesis (en-IN) asks, SpeechRecognition answers (or typing),
                                                               offline key-point matching (twin of tools/ca_vivamatch.py)
    3. MCQ practice builder  (level → papers → chapters → difficulty → count → timer → mode), case-study sets, results, "Revise these"
-   4. Mock papers           (ICAI pattern, StudyVerse practice paper — not an ICAI paper), timer, self-check + auto-marking
+   4. Mock papers           (ICAI pattern, StudyVerse practice paper — not an ICAI paper), timer, automatic marking (js/ca-check.js)
    5. Notes library         (save cards, highlight text, personal notes per unit, My notes) + one smart search
    New state lives in ST.ca: mlog, viva, tests, revise, notes, time, mockDraft (see content/ca/README.md). */
 (function () {
@@ -32,6 +32,7 @@
   function stem(w) {
     if (w.length <= 3 || /^\d/.test(w)) return w;
     if (PROTECT.has(w)) return w;
+    if (w === 'willing' || w === 'willingly') return 'willing';   // not 'will'
     if (w.endsWith('s') && PROTECT.has(w.slice(0, -1))) return w.slice(0, -1);
     for (const [suf, rep] of SUFFIX) {
       if (w.endsWith(suf) && w.length - suf.length >= 3) {
@@ -56,23 +57,26 @@
     t = t.replace(/₹/g, ' rs ').replace(/&/g, ' and ').replace(/%/g, ' percent ');
     t = t.replace(/\ba\/c\b|\ba\/cs\b/g, ' account ');
     t = t.replace(/\bu\/s\b|\bs\.\s*(?=\d)/g, ' section ');
-    t = t.replace(/(?<=\d),(?=\d)/g, '');
+    t = t.replace(/(?<=\d),(?=\d{2,3}(?!\d))/g, '');   // 4,20,000 / 420,000 are one number; (4,2) is two
+    t = t.replace(/(?<![a-z0-9.])[\u2212\-](?=\d)/g, ' minus ');   // −7 / -7 keep their sign (10-15 is a range)
     t = t.replace(/[^a-z0-9.\s]/g, ' ');
     t = t.replace(/(?<!\d)\.|\.(?!\d)/g, ' ');
     const raw = t.split(/\s+/).filter(Boolean), out = [];
     for (let i = 0; i < raw.length; i++) {
       const w = raw[i]; let num = null;
-      if (/^\d+(\.\d+)?$/.test(w)) num = parseFloat(w); else if (w in SMALL) num = SMALL[w];
+      if (w === 'minus' && i + 1 < raw.length && (/^\d+(\.\d+)?$/.test(raw[i + 1]) || Object.prototype.hasOwnProperty.call(SMALL, raw[i + 1]))) { i++; num = -(Object.prototype.hasOwnProperty.call(SMALL, raw[i]) ? SMALL[raw[i]] : parseFloat(raw[i])); }
+      else if (/^\d+(\.\d+)?$/.test(w)) num = parseFloat(w); else if (w in SMALL) num = SMALL[w];
       if (num != null && i + 1 < raw.length && raw[i + 1] in MULT) { num *= MULT[raw[i + 1]]; i++; }
       if (num != null) { const n = fmtnum(num); out.push([n, n]); continue; }
       if (w in MULT) { const n = fmtnum(MULT[w]); out.push([n, n]); continue; }
       if (Object.prototype.hasOwnProperty.call(ABBR, w)) { ABBR[w].split(' ').forEach(x => out.push([x, stem(x)])); continue; }
+      if (w === 'as' && i + 1 < raw.length && /^\d+(\.\d+)?$/.test(raw[i + 1])) { out.push(['as', 'astd']); continue; }   // AS 10 (Accounting Standard)
       if (!STOP.has(w)) out.push([w, stem(w)]);
     }
     return out.filter(x => !STOP.has(x[1]));
   }
   const tokens = text => pairs(text).map(x => x[1]);
-  const isNum = w => /^\d+(\.\d+)?$/.test(w);
+  const isNum = w => /^-?\d+(\.\d+)?$/.test(w);
   function lev1(a, b) {
     if (Math.abs(a.length - b.length) > 1) return false;
     if (a.length === b.length) { let d = 0; for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) d++; return d <= 1; }
@@ -82,7 +86,7 @@
   }
   function same(a, b) {
     if (a === b) return true;
-    if (isNum(a) || isNum(b)) { if (isNum(a) && isNum(b)) { const x = +a, y = +b; return Math.abs(x - y) <= Math.max(Math.abs(y) * 0.005, 0.01); } return false; }
+    if (isNum(a) || isNum(b)) { if (isNum(a) && isNum(b)) { const x = +a, y = +b; return Math.abs(x - y) <= Math.max(Math.abs(y) * (a.includes('.') || b.includes('.') ? 0.005 : 0.0005), 0.01); } return false; }   // numbers: 0.05%, or 0.5% when decimals are written
     if (PROTECT.has(a) || PROTECT.has(b)) return false;   // party words (drawee/drawer, lessee/lessor…) must match exactly
     let n = 0; const m = Math.min(a.length, b.length); while (n < m && a[n] === b[n]) n++;
     if (n >= 5 && n >= 0.75 * m) return true;
@@ -91,12 +95,15 @@
   /* negation: a hit does not count when a negator (raw word) stands within 3 words before a matched word in the same clause,
      unless the keyword phrase itself contains a negator. Phrases match inside one sentence, crossing at most two commas or colons. (see tools/ca_vivamatch.py) */
   function clauses(text) {   // clause = split at . , ; : ! ? new line; sentence = split at . ; ! ? new line
-    const toks = [], raws = [], cl = [], sn = []; let c = 0;
-    String(text || '').split(/[;!?\n]|(?<!\d)\.|\.(?!\d)/).forEach((sent, n) => { sent.split(/:|(?<!\d),|,(?!\d)/).forEach(part => { pairs(part).forEach(([r, w]) => { toks.push(w); raws.push(r); cl.push(c); sn.push(n); }); c++; }); });
-    return { toks, raws, cl: [cl, sn] };
+    const toks = [], raws = [], cl = [], sn = [], nc = []; let c = 0, k = 0;
+    const t0 = String(text || '').replace(/(?<![a-z])no\.(?=\s*\d)/gi, 'number ').replace(/(?<![a-z])(sec|viz|cf|rs)\./gi, '$1 ').replace(/(?<![a-z])e\.g\./gi, 'eg ').replace(/(?<![a-z])i\.e\./gi, 'ie ');   // 'Sec. 37', 'No.', 'e.g.' are not sentence ends
+    t0.split(/[;!?\n]|(?<!\d)\.|\.(?!\d)/).forEach((sent, n) => { sent.split(/(?<!\d):|:(?!\d)|(?<!\d),|,(?!\d)/).forEach(part => {
+      part.split(/[\u2014\u2013()[\]]|\s-\s/).forEach(piece => { pairs(piece).forEach(([r, w]) => { toks.push(w); raws.push(r); cl.push(c); sn.push(n); nc.push(k); }); k++; });   // dashes and brackets end a negation window
+      c++; }); });
+    return { toks, raws, cl: [cl, sn, nc] };
   }
   function negated(idx, raws, cs) {
-    const cl = cs[0];
+    const cl = cs.length > 2 ? cs[2] : cs[0];
     for (const x of idx) for (let y = Math.max(0, x - 3); y < x; y++) if (!idx.includes(y) && cl[y] === cl[x] && NEG.has(raws[y]) && !(y + 1 < raws.length && NEGX.has(raws[y + 1]))) return true;
     return false;
   }
@@ -241,7 +248,8 @@
   })();
 
   /* ================= 2. VIVA ================= */
-  const vivaHist = (uid, vid) => C().viva[`${uid}#${vid}`] || [];
+  const vivaHist = (uid, vid) => (C().viva[`${uid}#${vid}`] || []).filter(a => a.status !== 'waiting');   // photo answers waiting for the AI examiners carry no marks yet
+  const vivaScored = () => Object.values(C().viva).map(h => h.filter(a => a.status !== 'waiting')).filter(h => h.length);
   const vivaBest = (uid, vid) => { const h = vivaHist(uid, vid); return h.length ? Math.max(...h.map(a => a.pct)) : null; };
   const vivaBestMarks = (uid, v) => { const h = vivaHist(uid, v.id), mx = v.points.reduce((a, p) => a + p.w, 0); return h.length ? Math.max(...h.map(a => a.marks != null ? a.marks : Math.round(a.pct * mx / 100))) : null; };
   const mk1 = n => `${fmt(n)} mark${n === 1 ? '' : 's'}`;
@@ -295,7 +303,7 @@
           <label class="ca-lab" for="cvA">Your answer</label><textarea id="cvA" class="ca-ta ca-vta" rows="5" placeholder="${SR ? 'Your spoken answer appears here — or type it' : 'Type your answer as you would say it in a viva'}"></textarea>
           <p class="ca-interim" id="cvInt" aria-hidden="true"></p>
           <button class="btn" id="cvCheck">Check my marks ▶</button></div>
-          <div id="cvPhotoBox" hidden></div><button class="btn" id="cvPhCheck" hidden>Mark my answer ▶</button></div><div id="cvRes"></div>`;
+          <div id="cvPhotoBox" hidden></div><button class="btn" id="cvPhCheck" hidden>Save for the AI examiners ▶</button></div><div id="cvRes"></div>`;
       const ta = D.getElementById('cvA'), st = D.getElementById('cvMicSt'), intEl = D.getElementById('cvInt');
       const tick = () => { secs++; const t = D.getElementById('cvT'); if (!t) { clearInterval(timer); return; } t.textContent = secsTxt(secs); };
       const startT = () => { if (!timer) timer = setInterval(tick, 1000); };
@@ -350,12 +358,12 @@
         save(); try { bumpStreak(); addXP(Math.max(3, Math.round(rec.pct / 10))); } catch (e) {}
         results[i] = { uid, v, pct: rec.pct, marks: rec.marks, max };
         const ok = rec.pct >= 80;
-        D.getElementById('cvRes').innerHTML = `<div class="card ca-vres ${ok ? 'ok' : ''}"><div class="ca-vhead">${X.ring(rec.pct / 100, 64, `${rec.marks} of ${max} marks`)}<div><h2 class="ca-h2s">You scored ${fmt(rec.marks)}/${max} marks</h2><p class="sub">${ok ? '✓ Viva-ready (80% or more)' : rec.pct >= 50 ? 'Good start — fill the gaps' : 'Keep going — revise the missed points'}${secs ? ` · ${secsTxt(secs)}` : ''}${rec.how === 'photo' ? ' · self-marked from your photo' : ''}</p></div></div>
+        D.getElementById('cvRes').innerHTML = `<div class="card ca-vres ${ok ? 'ok' : ''}"><div class="ca-vhead">${X.ring(rec.pct / 100, 64, `${rec.marks} of ${max} marks`)}<div><h2 class="ca-h2s">You scored ${fmt(rec.marks)}/${max} marks</h2><p class="sub">${ok ? '✓ Viva-ready (80% or more)' : rec.pct >= 50 ? 'Good start — fill the gaps' : 'Keep going — revise the missed points'}${secs ? ` · ${secsTxt(secs)}` : ''}</p></div></div>
             ${(rec.photos || []).length ? '<div class="ca-phstrip" id="cvPhStrip"></div>' : ''}
             <h3 class="ca-h3">Key points</h3><ul class="ca-kp">${v.points.map(p => { const hit = hitIds.includes(p.id); return `<li class="${hit ? 'hit' : 'miss'}"><span aria-hidden="true">${hit ? '✓' : '✗'}</span><span class="sr-only">${hit ? 'Covered:' : 'Missed:'}</span> ${esc(p.pt)} <em>${hit ? p.w : 0}/${p.w}</em></li>`; }).join('')}</ul>
             <h3 class="ca-h3">Model answer</h3><p class="ca-p ca-vmodel">${esc(v.model)}</p>
             <div class="ca-btns">${speakOK() ? '<button class="btn ghost" id="cvHear">🔊 Hear model answer</button>' : ''}<button class="btn ghost" id="cvAgain">↻ Answer again</button><button class="btn" id="cvNext">${i < items.length - 1 ? 'Next question ▶' : 'Finish ▶'}</button></div>
-            <p class="ca-note">${rec.how === 'photo' ? 'You marked this yourself against the key points — be as strict as an examiner.' : 'Matching is done on this device: words are compared by stem, with synonyms, number tolerance and negation (“not”, “never” …). It checks coverage of points, not grammar — be honest with yourself.'}</p></div>`;
+            <p class="ca-note">Checked on this device: words are compared by stem, with synonyms, number tolerance and negation (“not”, “never” …). It checks coverage of the key points, not grammar or delivery.</p></div>`;
         if (D.getElementById('cvPhStrip')) photos.strip(D.getElementById('cvPhStrip'), rec.photos);
         say(`${rec.marks} out of ${max} marks. ${ok ? 'Viva ready.' : ''}`);
         if (D.getElementById('cvHear')) D.getElementById('cvHear').onclick = () => sayQ(v.model);
@@ -370,17 +378,19 @@
         const r = vivaScore(v, ans), marks = v.points.filter(p => r.hit.includes(p.id)).reduce((a, p) => a + p.w, 0);
         finish({ d: today(), pct: r.pct, marks, max, hit: r.hit, secs, how, text: ans.slice(0, 2000) }, r.hit);
       };
-      D.getElementById('cvPhCheck').onclick = () => {
+      D.getElementById('cvPhCheck').onclick = () => {   // students do not mark themselves: a photo waits for the AI examiners
         if (!photosNow.length) { toast('Add a photo of your answer first'); return; }
-        stopT(); const ticks = {};
-        D.getElementById('cvRes').innerHTML = `<div class="ca-cmp"><aside class="ca-cmp-ph" aria-label="Photos of your answer"><div class="ca-k">Your answer — tap to zoom</div><div class="ca-phstrip" id="cvPhS"></div></aside><div class="ca-cmp-main"><div class="card"><h2 class="ca-h2s">Mark yourself: key points</h2><p class="sub">Tick each point your written answer really covers.</p>
-          <ol class="ca-pts">${v.points.map(p => `<li><div class="ca-pt"><span>${esc(p.pt)}</span><em>${mk1(p.w)}</em></div><div class="ca-seg" role="radiogroup" aria-label="${esc(p.pt)}">${[[1, 'Covered'], [0, 'Not covered']].map(([val, n]) => `<button role="radio" aria-checked="${val === 0}" tabindex="${val === 0 ? 0 : -1}" data-p="${p.id}" data-v="${val}">${n}</button>`).join('')}</div></li>`).join('')}</ol>
-          <div class="ca-score" aria-live="polite">Your marks: <b id="cvPS">0</b> / ${max}</div><details class="ca-given"><summary>Model answer</summary><p class="ca-p">${esc(v.model)}</p></details><button class="btn" id="cvPSave">Save my marks</button></div></div></div>`;
-        photos.strip(D.getElementById('cvPhS'), photosNow);
-        const got = () => v.points.reduce((a, p) => a + (ticks[p.id] ? p.w : 0), 0);
-        D.getElementById('cvRes').querySelectorAll('.ca-seg button').forEach(b => b.onclick = () => { ticks[b.dataset.p] = +b.dataset.v; b.parentElement.querySelectorAll('button').forEach(x => { const on = x === b; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; }); D.getElementById('cvPS').textContent = got(); });
-        D.getElementById('cvPSave').onclick = () => { const marks = got(), hit = v.points.filter(p => ticks[p.id]).map(p => p.id);
-          finish({ d: today(), pct: Math.round(marks / max * 100), marks, max, hit, secs, how: 'photo', text: '', photos: photosNow.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })), status: 'self' }, hit); };
+        stopT(); const c = C(), key = `${uid}#${v.id}`, h = c.viva[key] = c.viva[key] || [];
+        h.push({ d: today(), pct: null, marks: null, max, hit: [], secs, how: 'photo', text: '', status: 'waiting', photos: photosNow.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })) });
+        while (h.length > 5) { const old = h.shift(); (old.photos || []).forEach(x => photos.del(x.id)); }
+        photos.keep(photosNow.map(x => x.id)); save();
+        D.getElementById('cvRes').innerHTML = `<div class="ca-cmp"><aside class="ca-cmp-ph" aria-label="Photos of your answer"><div class="ca-k">Your answer — tap to zoom</div><div class="ca-phstrip" id="cvPhS"></div></aside><div class="ca-cmp-main"><div class="card ca-rep ca-rep-wait"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">⏳</span><div><h2 class="ca-h2s">Saved — waiting for AI examiners</h2><p class="sub">No marks yet. AI examiners will read your handwriting, let you confirm what they read, then mark each key point (coming soon).</p></div></div>
+          <p class="ca-p">Want marks now? Switch to “Speak or type” and say or type the same answer — it is checked at once.</p>
+          <h3 class="ca-h3">Key points the examiners look for</h3><ul class="ca-ul">${v.points.map(p => `<li>${esc(p.pt)} <em class="ca-qmk">${mk1(p.w)}</em></li>`).join('')}</ul>
+          <details class="ca-given"><summary>Model answer</summary><p class="ca-p">${esc(v.model)}</p></details>
+          <div class="ca-btns"><button class="btn" id="cvPNext">${i < items.length - 1 ? 'Next question ▶' : 'Finish ▶'}</button></div></div></div></div>`;
+        photos.strip(D.getElementById('cvPhS'), photosNow); say('Saved. Your photo answer waits for the AI examiners.');
+        D.getElementById('cvPNext').onclick = () => { hush(); i++; if (i < items.length) { render(); window.scrollTo(0, 0); } else summary(); };
         D.getElementById('cvRes').scrollIntoView({ behavior: 'smooth', block: 'start' });
       };
       if (speakOK() && opts.autoRead !== false) setTimeout(() => { if (D.getElementById('cvQ')) ask(); }, 350);
@@ -702,58 +712,53 @@
     tm = setInterval(() => { dr.secs++; const t = D.getElementById('cmT'); if (!t) { clearInterval(tm); save(); return; } const left = limit - dr.secs; t.textContent = left >= 0 ? secsTxt(left) : '+' + secsTxt(-left); t.classList.toggle('over', left < 600); if (left === 0) { toast('Time is up — finish the line and submit'); say('Time is up'); } if (dr.secs % 30 === 0) save(); }, 1000);
     draw();
   }
-  function schemeHTML(pref, scheme) {
-    return `<ol class="ca-pts">${scheme.map(s => `<li><div class="ca-pt"><span>${esc(s.pt)}</span><em>${fmt(s.m)} mark${s.m === 1 ? '' : 's'}</em></div><div class="ca-seg" role="radiogroup" aria-label="${esc(s.pt)}">${[[1, 'Full'], [0.5, 'Half'], [0, 'None']].map(([v, n]) => `<button role="radio" aria-checked="${v === 0}" tabindex="${v === 0 ? 0 : -1}" data-sc="${pref}" data-s="${s.id}" data-v="${v}">${n}</button>`).join('')}</div></li>`).join('')}</ol>`;
-  }
+  /* Marking a submitted paper — automatic, like the unit Write tab (js/ca-check.js): no self-marking.
+     True/false: the verdict is checked, the reason is matched against the model reason's key points; 2 marks only when both are right. */
   function markPaper(m, dr, qs) {
-    const el = X.open('practice');
+    const el = X.open('practice'), K = window.CA, c = C();
     const qlist = m.questions.filter(q => m.compulsory.includes(q.id) || dr.chosen.includes(q.id));
-    const ticks = {}, tfAuto = {}, tfReason = {};
-    let html = '';
+    let html = '', total = 0, checked = 0, pend = 0; const wskills = [], refRecs = [];
     for (const q of qlist) {
-      html += `<div class="card ca-mk"><h2 class="ca-h2s">Question ${esc(q.id.slice(1))} <small>(${q.marks} marks)</small></h2>`;
+      let qt = 0, qp = 0, body = '';
       for (const p of q.parts) {
-        html += `<div class="ca-mpart"><div class="ca-mph"><b>(${p.id})</b><em>${p.marks} marks</em></div>`;
+        body += `<div class="ca-mpart"><div class="ca-mph"><b>(${p.id})</b><em>${p.marks} marks</em></div>`;
         if (p.kind === 'tf') {
-          html += `<ol class="ca-tf">${p.items.map((it, k) => { const a = dr.tf[it.id] || {}, ok = a.v === it.answer; tfAuto[it.id] = ok ? 1 : 0; tfReason[it.id] = 0;
-            return `<li><p>${esc(it.s)}</p><p class="ca-tfv ${ok ? 'ok' : 'no'}">${a.v == null ? '– No verdict' : (ok ? '✓ ' : '✗ ') + (a.v ? 'You said True' : 'You said False')} · <b>${ok ? 'verdict correct' : 'verdict wrong — 0/2'}</b></p>
-              ${a.r ? `<p class="ca-note">Your reason: ${esc(a.r)}</p>` : ''}<p class="ca-p"><b>Model:</b> ${esc(it.reason)}</p>
-              <div class="ca-seg" role="radiogroup" aria-label="Reason for statement ${k + 1}">${(ok ? [[2, 'Reason right (2)'], [0, 'No / wrong reason (0)']] : [[0, 'No marks (0)']]).map(([v, n]) => `<button role="radio" data-tfm="${it.id}" data-v="${v}" aria-checked="${v === 0}" tabindex="${v === 0 ? 0 : -1}">${n}</button>`).join('')}</div></li>`; }).join('')}</ol>`;
+          body += `<p class="ca-q">${esc(p.q)}</p><ol class="ca-tf">${p.items.map((it, k) => {
+            const a = dr.tf[it.id] || {}, vOk = a.v === it.answer, rr = K ? K.tfReason(it, a.r) : { ok: false, how: 'none' }, got = vOk && rr.ok ? 2 : 0;
+            qt += got; checked += 2;
+            const vTxt = a.v == null ? '⚠️ No verdict given' : `${vOk ? '✅' : '❌'} You said ${a.v ? 'True' : 'False'} — verdict ${vOk ? 'correct' : 'wrong'}`;
+            const rTxt = !(a.r || '').trim() ? '⚠️ No reason given — a bare True/False earns nothing' : rr.ok ? `✅ Your reason covers the key point${rr.how === 'overlap' ? ' (approximate check)' : ''}` : `❌ Your reason does not cover the key point${rr.how === 'overlap' && rr.key.length ? ` — look for: ${rr.key.filter(w => !rr.hits.includes(w)).slice(0, 4).join(', ')}` : ''}`;
+            return `<li class="ca-tfm ${got ? 'ok' : 'no'}"><p>${esc(it.s)}</p><p class="ca-tfv ${vOk ? 'ok' : 'no'}">${vTxt}</p>${a.r ? `<p class="ca-note">Your reason: ${esc(a.r)}</p>` : ''}<p class="ca-tfv ${rr.ok ? 'ok' : 'no'}">${rTxt}</p>
+              <p class="ca-p"><b>Model:</b> ${esc(it.reason)}</p><p class="ca-tfmk"><b>${got} / 2 marks</b>${got ? '' : vOk ? ' — the verdict alone earns no marks' : ''}</p></li>`; }).join('')}</ol>`;
         } else {
-          const bq = qs[q.id + p.id]; if (!bq) { html += '</div>'; continue; } const pref = q.id + p.id; ticks[pref] = {}; bq.scheme.forEach(s => ticks[pref][s.id] = 0);
-          html += `<details class="ca-given"><summary>Question and your answer</summary><p class="ca-q">${esc(bq.q)}</p><pre class="ca-myans">${esc(dr.ans[pref] || '(not answered)')}</pre></details>
-            <details class="ca-given" open><summary>Model answer</summary>${X.blocks(bq.model)}${X.checksHTML(bq.checks)}</details>${p.kind === 'ref' && X.refChip ? X.refChip(p.ref.split('#')[0], bq) : ''}
-            <p class="ca-k">Mark yourself</p>${schemeHTML(pref, bq.scheme)}`;
+          const bq = qs[q.id + p.id]; if (!bq) { body += '<p class="ca-note">This part could not be loaded.</p></div>'; continue; }
+          const pref = q.id + p.id, text = dr.ans[pref] || '', uid = p.kind === 'ref' ? p.ref.split('#')[0] : null;
+          const res = K ? K.checkAnswer({ question: bq, answer: { text, table: null }, unit: uid, qid: bq.id }) : null;
+          if (res) { qt += res.total; checked += res.max; qp += res.pendingMarks; }
+          body += `<details class="ca-given"><summary>Question and your answer</summary><p class="ca-q">${esc(bq.q)}</p><pre class="ca-myans">${esc(text || '(not answered)')}</pre></details>
+            ${res ? K.reportHTML(res, bq, { h: 'h3' }) : ''}
+            <details class="ca-given"><summary>Model answer</summary>${X.blocks(bq.model)}${X.checksHTML(bq.checks)}</details>${p.kind === 'ref' && X.refChip ? X.refChip(uid, bq) : ''}`;
+          if (res && p.kind === 'ref' && text.trim()) refRecs.push([p.ref, Object.assign({ d: today(), secs: 0, words: (text.match(/\S+/g) || []).length, text: text.slice(0, 6000), table: null, photos: [], src: m.id }, K.record(res))]);
+          if (res && p.kind === 'q' && text.trim()) wskills.push(...K.record(res).skills);
         }
-        html += `</div>`;
+        body += `</div>`;
       }
-      html += `</div>`;
+      total += qt; pend += qp;
+      html += `<div class="card ca-mk"><div class="ca-mtop"><h2 class="ca-h2s">Question ${esc(q.id.slice(1))} <small>(${q.marks} marks)</small></h2><span class="ca-chip">${fmt(Math.round(qt * 100) / 100)} / ${q.marks}${qp ? ` · ${fmt(qp)} pending` : ''}</span></div>${body}</div>`;
     }
-    el.innerHTML = `<div class="ca-mbar"><span class="ca-label">${esc(m.label)}</span><div class="ca-mrow"><b>Marking: ${esc(m.title)}</b><span class="ca-score" aria-live="polite"><b id="cmScore">0</b> / ${m.marks}</span></div></div>
-      <div class="card"><p class="ca-p">True/false: as in ICAI marking, marks are given only for a correct verdict with a correct reason — a bare True/False earns nothing. For every other part, compare your answer with the model and mark each step strictly — the way an examiner would. Time used: ${secsTxt(dr.secs)}${dr.secs > m.hours * 3600 ? ' (over time)' : ''}.</p></div>
-      ${html}<button class="btn" id="cmSave">Save result</button>`;
-    const total = () => { let t = Object.values(tfReason).reduce((a, b) => a + b, 0);
-      for (const q of qlist) for (const p of q.parts) { const bq = qs[q.id + p.id]; if (bq && ticks[q.id + p.id]) t += bq.scheme.reduce((a, s) => a + s.m * ticks[q.id + p.id][s.id], 0); } return Math.round(t * 100) / 100; };
-    const upd = () => { D.getElementById('cmScore').textContent = fmt(total()); };
-    const radio = b => b.parentElement.querySelectorAll('button').forEach(x => { const on = x === b; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; });
-    el.querySelectorAll('[data-sc]').forEach(b => b.onclick = () => { ticks[b.dataset.sc][b.dataset.s] = +b.dataset.v; radio(b); upd(); });
-    el.querySelectorAll('[data-tfm]').forEach(b => b.onclick = () => { tfReason[b.dataset.tfm] = +b.dataset.v; radio(b); upd(); });
-    upd();
-    D.getElementById('cmSave').onclick = function () {
-      const c = C(), score = total();
-      for (const q of qlist) for (const p of q.parts) if (p.kind === 'ref' && (dr.ans[q.id + p.id] || '').trim()) {
-        const bq = qs[q.id + p.id], t = ticks[q.id + p.id], key = p.ref, h = c.writes[key] = c.writes[key] || [];
-        const sc = bq.scheme.reduce((a, s) => a + s.m * t[s.id], 0);
-        h.push({ d: today(), score: sc, max: bq.marks, ticks: { ...t }, skills: bq.scheme.map(s => [s.skill, s.m, s.m * t[s.id]]), secs: 0, words: (dr.ans[q.id + p.id].match(/\S+/g) || []).length, text: dr.ans[q.id + p.id].slice(0, 6000), table: null, status: 'self', src: m.id });
-        while (h.length > 5) h.shift();
-      }
-      c.tests.push({ id: 'm' + Date.now().toString(36), kind: 'mock', mock: m.id, d: today(), ts: Date.now(), title: m.title, score, max: m.marks, pct: pct(score, m.marks), secs: dr.secs, qs: qlist.map(q => q.id) });
-      delete c.mockDraft[m.id]; save(); try { bumpStreak(); addXP(Math.max(10, Math.round(score / 5))); } catch (e) {}
-      toast(`Saved: ${fmt(score)} / ${m.marks}`); say(`Result saved, ${score} out of ${m.marks}`);
-      this.disabled = true; this.textContent = 'Result saved ✓';
-      this.insertAdjacentHTML('afterend', `<div class="ca-btns"><button class="btn ghost" id="cmDash">Open dashboard</button><button class="btn ghost" id="cmList">Mock papers</button></div>`);
-      D.getElementById('cmDash').onclick = dashboard; D.getElementById('cmList').onclick = mocks;
-    };
+    total = Math.round(total * 100) / 100; pend = Math.round(pend * 100) / 100;
+    /* saved at once — nothing for the student to rate */
+    for (const [key, rec] of refRecs) { const h = c.writes[key] = c.writes[key] || []; h.push(rec); while (h.length > 5) h.shift(); }
+    c.tests.push({ id: 'm' + Date.now().toString(36), kind: 'mock', mock: m.id, d: today(), ts: Date.now(), title: m.title, score: total, max: m.marks, pend, pct: pct(total, m.marks), secs: dr.secs, qs: qlist.map(q => q.id), wskills, auto: 1 });
+    delete c.mockDraft[m.id]; save(); try { bumpStreak(); addXP(Math.max(10, Math.round(total / 5))); } catch (e) {}
+    el.innerHTML = `<div class="ca-mbar"><span class="ca-label">${esc(m.label)}</span><div class="ca-mrow"><b>Result: ${esc(m.title)}</b><span class="ca-score" aria-live="polite"><b id="cmScore">${fmt(total)}</b> / ${m.marks}</span></div></div>
+      <div class="card ca-mres"><h2 class="ca-h2s">${fmt(total)} / ${m.marks} marks${pend ? ` <small>· ${fmt(pend)} pending AI check</small>` : ''}</h2>
+        <p class="ca-p">Every answer was checked automatically against the marking scheme — no self-marking. True/false: 2 marks only for a correct verdict with a correct reason, as in ICAI marking. Time used: ${secsTxt(dr.secs)}${dr.secs > m.hours * 3600 ? ' (over time)' : ''}.</p>
+        <p class="ca-note">Result saved${refRecs.length ? ` · ${refRecs.length} answer${refRecs.length > 1 ? 's' : ''} added to your question history` : ''}.</p>
+        <div class="ca-btns"><button class="btn ghost" id="cmDash">Open dashboard</button><button class="btn ghost" id="cmList">Mock papers</button></div></div>
+      ${html}`;
+    toast(`Checked: ${fmt(total)} / ${m.marks}`); say(`Paper checked: ${total} out of ${m.marks}`);
+    D.getElementById('cmDash').onclick = dashboard; D.getElementById('cmList').onclick = mocks;
   }
 
   /* ================= 5. NOTES library: save · highlight · my notes ================= */
@@ -961,9 +966,10 @@
     /* written skills */
     const { skills } = X.weakData();
     /* viva */
-    const vu = {}; Object.entries(c.viva).forEach(([k, h]) => { const uid = k.split('#')[0]; const u = vu[uid] = vu[uid] || { n: 0, sum: 0, best: [], ready: 0 }; const b = Math.max(...h.map(a => a.pct)); u.n += h.length; u.sum += h.reduce((a, x) => a + x.pct, 0); u.best.push(b); if (b >= 80) u.ready++; });
+    const vu = {}; Object.entries(c.viva).forEach(([k, h0]) => { const h = h0.filter(a => a.status !== 'waiting'); if (!h.length) return; const uid = k.split('#')[0]; const u = vu[uid] = vu[uid] || { n: 0, sum: 0, best: [], ready: 0 }; const b = Math.max(...h.map(a => a.pct)); u.n += h.length; u.sum += h.reduce((a, x) => a + x.pct, 0); u.best.push(b); if (b >= 80) u.ready++; });
     const names = {}; for (const st of sts) st && st.papers.forEach(p => p.chapters.forEach(ch => ch.units.forEach(u => { names[u.id] = u.title; })));
-    const vAll = Object.values(c.viva).flat();
+    const vAll = vivaScored().flat();
+    const { qs: wq } = X.weakData(), wAll = wq.flatMap(x => x.hist);
     return {
       mode: 'ca', schema: 'ca-dashboard/1', student: ST.profile?.name || '', level: c.level, levelName: X.levelName(c.level),
       exam: { date: c.exam || null, daysLeft: X.daysLeft() },
@@ -973,7 +979,9 @@
       progress: { papers },
       mcq: { answered: ms, right: mr, accuracy: ms ? mr / ms : null, avgSecs: timed, byDay: d14.map(d => ({ d, n: act[d]?.ans || 0, right: act[d]?.right || 0, avgSecs: act[d]?.ans ? act[d].ms / act[d].ans / 1000 : null })),
         byChapter: Object.entries(byCh).map(([id, b]) => ({ id, title: chName[id] || id, n: b.n, accuracy: b.r / b.n })).sort((a, b) => a.accuracy - b.accuracy) },
-      skills: Object.entries(skills).map(([k, s]) => ({ key: k, label: X.SKILL[k] || k, marks: s.m, got: s.g, pct: s.m ? s.g / s.m : null })).sort((a, b) => a.pct - b.pct),
+      skills: Object.entries(skills).map(([k, s]) => ({ key: k, label: X.SKILL[k] || k, marks: s.m, got: s.g, lost: Math.round((s.m - s.g) * 100) / 100, n: s.n || 0, pct: s.m ? s.g / s.m : null })).filter(s => s.marks > 0).sort((a, b) => a.pct - b.pct),
+      written: { checked: wAll.filter(a => a.status === 'auto').length, waiting: wAll.filter(a => a.status === 'waiting').length, pending: wq.reduce((a, x) => { const l = x.hist[x.hist.length - 1]; return a + (l && l.status === 'auto' ? l.pend || 0 : 0); }, 0),
+        questions: wq.map(x => ({ key: x.key, uid: x.uid, qid: x.qid, title: names[x.uid] || x.uid, hist: x.hist })) },
       viva: { attempts: vAll.length, avg: vAll.length ? vAll.reduce((a, x) => a + x.pct, 0) / vAll.length : null, ready: Object.values(vu).reduce((a, u) => a + u.ready, 0),
         byUnit: Object.entries(vu).map(([uid, u]) => ({ uid, title: names[uid] || uid, avg: u.sum / u.n, bestAvg: u.best.reduce((a, b) => a + b, 0) / u.best.length, tried: u.best.length, ready: u.ready })) },
       tests: c.tests.filter(t => t.kind === 'mcq').slice(-12).map(t => ({ d: t.d, title: t.title, mode: t.mode, n: t.n, right: t.right, pct: t.pct, secs: Math.round(t.ms / 1000) })),
@@ -1017,8 +1025,10 @@
         ${svgBars(m.byDay.map(x => x.n ? Math.round(x.right / x.n * 100) : 0), m.byDay.map(x => dlab(x.d)), { label: 'MCQ accuracy per day, last 14 days', max: 100, fmt: (v, i) => m.byDay[i].n ? `${v}% of ${m.byDay[i].n}${m.byDay[i].avgSecs ? `, ${Math.round(m.byDay[i].avgSecs)} s each` : ''}` : 'no MCQs', cls: i => m.byDay[i].n && m.byDay[i].right / m.byDay[i].n < .6 ? 'ca-b2' : 'ca-b1', ticks: [[0, dlab(m.byDay[0].d)], [13, 'Today']] })}
         ${m.byChapter.length ? `<h3 class="ca-h3">By chapter</h3>${m.byChapter.map(ch => { const [cl, lb] = band(ch.accuracy); return `<div class="ca-skill"><span>${esc(ch.title)}</span>${X.bar(ch.accuracy)}<b class="${cl}">${Math.round(ch.accuracy * 100)}%</b></div>`; }).join('')}` : ''}
         ${tableOf(['Date', 'MCQs', 'Correct', 'Avg seconds'], m.byDay.filter(x => x.n).map(x => [dlab(x.d), x.n, x.right, x.avgSecs ? Math.round(x.avgSecs) : '–']))}</section>
-      ${engine ? '' : `<section class="card ca-dcard"><h2 class="ca-h2s">Written answers — by examiner skill</h2><p class="sub">From your self-checked answers (unit Write tab and mock papers).</p>
-        ${D_.skills.length ? D_.skills.map(s => { const [cl, lb] = band(s.pct); return `<div class="ca-skill"><span>${esc(s.label)}<small> ${fmt(s.got)}/${fmt(s.marks)} marks · ${lb}</small></span>${X.bar(s.pct)}<b class="${cl}">${Math.round(s.pct * 100)}%</b></div>`; }).join('') : '<p class="ca-p">Self-check a written answer to see which kinds of marks you win and lose — e.g. journal entries, quoting the provision.</p>'}</section>`}
+      <section class="card ca-dcard ca-dwrit"><h2 class="ca-h2s">Written answers — marks lost by skill</h2><p class="sub">${D_.written.checked ? `From ${D_.written.checked} automatically checked answer${D_.written.checked === 1 ? '' : 's'} (latest attempt of each question; unit Write tab, question bank and mock papers).` : 'Check a written answer to see which kinds of marks you win and lose — journal entries, quoting the provision, computations…'}${D_.written.waiting ? ` ⏳ ${D_.written.waiting} photo answer${D_.written.waiting === 1 ? '' : 's'} waiting for the AI examiners.` : ''}${D_.written.pending ? ` ${fmt(D_.written.pending)} mark${D_.written.pending === 1 ? '' : 's'} pending AI check are not counted.` : ''}</p>
+        ${D_.skills.map(s => { const [cl, lb] = band(s.pct); return `<div class="ca-skill"><span>${esc(s.label)}<small> lost ${fmt(s.lost)} of ${fmt(Math.round(s.marks * 100) / 100)} marks · ${lb}</small></span>${X.bar(s.pct)}<b class="${cl}">${Math.round(s.pct * 100)}%</b></div>`; }).join('')}
+        ${D_.skills.length ? tableOf(['Skill', 'Marks checked', 'Marks won', 'Marks lost'], D_.skills.map(s => [s.label, fmt(Math.round(s.marks * 100) / 100), fmt(Math.round(s.got * 100) / 100), fmt(s.lost)])) : ''}
+        ${D_.written.questions.length ? `<h3 class="ca-h3">History per question</h3><ul class="ca-qhist">${D_.written.questions.slice(-8).reverse().map(x => `<li><button class="ca-qh" data-u="${esc(x.uid)}" data-q="${esc(x.qid)}"><span><b>${esc(x.qid.toUpperCase())}</b><small>${esc(x.title)}</small></span><span class="ca-qhs">${x.hist.map(a => a.status === 'waiting' ? '<i class="pend" title="Waiting for AI examiners">⏳</i>' : `<i class="${a.max && a.score / a.max >= .8 ? 's' : a.max && a.score / a.max < .5 ? 'w' : 'm'}">${fmt(a.score)}</i>`).join('<span aria-hidden="true">→</span>')}<em>/ ${fmt((x.hist[x.hist.length - 1] || {}).full || '')}</em></span></button></li>`).join('')}</ul><button class="btn ghost" id="cdWeak">Weak spots — full analysis</button>` : ''}</section>
       <section class="card ca-dcard"><h2 class="ca-h2s">🎙️ Viva scores</h2><p class="sub">${v.attempts ? `${v.attempts} spoken answers · average ${Math.round(v.avg)}% coverage.` : 'Try a viva — answer out loud and see your coverage.'}</p>
         ${v.byUnit.map(u => `<div class="ca-skill"><span>${esc(u.title)}<small> ${u.ready}/${u.tried} viva-ready</small></span>${X.bar(u.bestAvg / 100)}<b class="${u.bestAvg >= 80 ? 's' : u.bestAvg < 50 ? 'w' : 'm'}">${Math.round(u.bestAvg)}%</b></div>`).join('')}
         <button class="btn ghost" id="cdViva">Practise viva</button></section>
@@ -1033,6 +1043,7 @@
     const on = (id, fn) => { const b = host.querySelector('#' + id); if (b) b.onclick = fn; };
     on('cdViva', vivaHub); on('cdMock', mocks); on('cdRev', revise); on('cdExam', () => Ca.profile());
     host.querySelectorAll('.ca-dun').forEach(b => b.onclick = () => Ca.unit(b.dataset.u));
+    host.querySelectorAll('.ca-qh').forEach(b => b.onclick = () => Ca.openQuestion(b.dataset.u, b.dataset.q)); on('cdWeak', X.weakScreen);
   }
   /* adapter → the shared dashboard engine's data shape (documented at the top of js/insights.js) */
   async function insData(D_) {
@@ -1047,8 +1058,10 @@
     });
     const events = [];
     c.mlog.forEach(([m, key, ok, secs]) => { const pa = path[key.split('#')[0]]; if (pa) events.push({ t: m * 6e4, path: pa, qid: key, ok: ok ? 1 : 0, secs, kind: 'mcq' }); });
-    Object.entries(c.writes).forEach(([key, h]) => { const pa = path[key.split('#')[0]]; if (pa) h.forEach(a => events.push({ t: Date.parse(a.d + 'T12:00:00Z'), path: pa, qid: key, ok: null, kind: 'write', score: a.score, max: a.max, secs: a.secs || 0, skills: [...new Set((a.skills || []).map(x => x[0]))] })); });
-    Object.entries(c.viva).forEach(([key, h]) => { const pa = path[key.split('#')[0]]; if (pa) h.forEach(a => events.push({ t: Date.parse(a.d + 'T12:00:00Z'), path: pa, qid: key, ok: null, kind: 'write', score: a.pct / 10, max: 10, secs: a.secs || 0, skills: ['viva'] })); });
+    /* written answers: one event per checked attempt (marks checked now / checkable marks); skills = the scheme skills of its points.
+       Photo answers waiting for the AI examiners carry no score and are left out. */
+    Object.entries(c.writes).forEach(([key, h]) => { const pa = path[key.split('#')[0]]; if (pa) X.scored(h).forEach(a => { if (a.max) events.push({ t: Date.parse(a.d + 'T12:00:00Z'), path: pa, qid: key, ok: null, kind: 'write', score: a.score, max: a.max, secs: a.secs || 0, skills: [...new Set((a.skills || []).map(x => x[0]))] }); }); });
+    Object.entries(c.viva).forEach(([key, h]) => { const pa = path[key.split('#')[0]]; if (pa) h.filter(a => a.status !== 'waiting').forEach(a => events.push({ t: Date.parse(a.d + 'T12:00:00Z'), path: pa, qid: key, ok: null, kind: 'write', score: a.pct / 10, max: 10, secs: a.secs || 0, skills: ['viva'] })); });
     events.sort((a, b) => a.t - b.t);
     const days = {}; Object.entries(c.time).forEach(([d, secs]) => { days[d] = { secs }; });
     const tests = c.tests.map(t => ({ d: t.d, name: t.kind === 'mock' ? `Mock: ${t.title}` : `${t.title} (${t.mode})`, pct: t.pct }));
@@ -1087,7 +1100,7 @@
         ${papers.length > 1 ? `<div class="ca-chipsel" role="group" aria-label="Paper"><button type="button" class="ca-cs" aria-pressed="${pid === 'all'}" data-pid="all">All papers</button>${papers.map(p => `<button type="button" class="ca-cs" aria-pressed="${pid === p.id}" data-pid="${p.id}">${esc(X.paperLabel(p))}</button>`).join('')}</div>` : ''}
         <div class="ca-chipsel" role="group" aria-label="Marks"><button type="button" class="ca-cs" aria-pressed="${fm === 'all'}" data-bm="all">All</button>${marks.map(m => `<button type="button" class="ca-cs" aria-pressed="${String(fm) === String(m)}" data-bm="${m}">${m}-mark <small>${inP.filter(x => x.q.marks === m).length}</small></button>`).join('')}<button type="button" class="ca-cs" data-bm="mcq">1-mark MCQs <small>${mcqN}</small></button></div>
         ${fm !== 'all' ? X.markGuide(+fm, p0 && p0, show.some(x => x.q.pad === 'legal')) : ''}</div>
-      ${show.length ? `<div class="card"><ul class="ca-rvl ca-bank">${show.map(x => { const h = C().writes[`${x.b.u.id}#${x.q.id}`] || [], best = h.length ? Math.max(...h.map(a => a.score)) : null;
+      ${show.length ? `<div class="card"><ul class="ca-rvl ca-bank">${show.map(x => { const h = C().writes[`${x.b.u.id}#${x.q.id}`] || [], best = X.bestOf(h);
         return `<li><button class="ca-nopen" data-u="${x.b.u.id}" data-q="${esc(x.q.id)}"><span class="ca-qm">${x.q.marks}<small>marks</small></span><span><b>${esc(x.q.q.length > 150 ? x.q.q.slice(0, 147) + '…' : x.q.q)}</b><small>${esc(X.paperLabel(x.b.p))} · Ch ${x.b.c.n} · ${esc(x.b.u.title)} · ~${x.q.minutes} min${best != null ? ` · best ${fmt(best)}/${x.q.marks}` : ''}</small></span></button>${X.refChip ? X.refChip(x.b.u.id, x.q) : ''}</li>`; }).join('')}</ul></div>` : '<div class="card"><p class="ca-p">No questions with these marks yet.</p></div>'}`);
     el.querySelectorAll('[data-bm]').forEach(b => b.onclick = () => { tap('tap'); if (b.dataset.bm === 'mcq') return builder(); bank(b.dataset.bm, pid); });
     el.querySelectorAll('[data-pid]').forEach(b => b.onclick = () => { tap('tap'); bank(fm, b.dataset.pid); });
@@ -1097,7 +1110,7 @@
   /* ---------- home tiles + practice hub ---------- */
   function homeTiles() {
     const c = C(); let ms = 0, mr = 0; Object.values(c.mcq).forEach(v => { ms += v.s; mr += v.s - v.w; });
-    const vAll = Object.values(c.viva).flat(), wk = dayList(7).reduce((a, d) => a + (c.time[d] || 0), 0), rv = Object.keys(c.revise).length;
+    const vAll = vivaScored().flat(), wk = dayList(7).reduce((a, d) => a + (c.time[d] || 0), 0), rv = Object.keys(c.revise).length;
     return `<button class="card ca-dtile" id="caDashTile" aria-label="Open your CA dashboard"><span class="ca-k">📊 Your dashboard</span>
         <span class="ca-dmini"><span><b>${ms ? Math.round(mr / ms * 100) + '%' : '—'}</b><small>MCQ accuracy</small></span><span><b>${vAll.length ? Math.round(vAll.reduce((a, x) => a + x.pct, 0) / vAll.length) + '%' : '—'}</b><small>Viva</small></span><span><b>${durTxt(wk)}</b><small>This week</small></span><span><b>${activity().cur}</b><small>Day streak</small></span></span>
         <span class="ca-go">Open dashboard ▶</span></button>
@@ -1130,5 +1143,6 @@
   if (window.Nav) { dashboard = Nav.route('ca.dash', dashboard); vivaHub = Nav.route('ca.vivahub', vivaHub); builder = Nav.route('ca.builder', builder); revise = Nav.route('ca.revise', revise);
     mocks = Nav.route('ca.mocks', mocks); mockPaper = Nav.route('ca.mock', mockPaper); notes = Nav.route('ca.notes', notes); search = Nav.route('ca.search', search); practiceHub = Nav.route('ca.practicehub', practiceHub); bank = Nav.route('ca.bank', bank); }
   window.CaTools = { photos, _speechMerge: speechMerge, freshOrder, endless, bank, pickSet, dashboard, dashData, vivaTab, vivaHub, vivaDone, vivaScore, builder, revise, reviseMark, casesBlock, wireCases, mocks, mockPaper,
-    saveBtn, applyHL, noteSheet, notes, hasNote, search, homeTiles, wireHome, practiceHub, _tokens: tokens };
+    saveBtn, applyHL, noteSheet, notes, hasNote, search, homeTiles, wireHome, practiceHub, _tokens: tokens,
+    _m: { pairs, tokens, clauses, phraseIn, same, kwSame, pointHit, isNum } };   // matcher for js/ca-check.js
 })();

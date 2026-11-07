@@ -495,3 +495,63 @@ def build():
                   "Profit or loss on sale = proceeds − carrying amount = ₹9,00,000 − ₹8,16,000 = profit of ₹84,000, credited to profit and loss. No depreciation is charged for 2027-28 because the press was sold on the first day of that year. The tempting 'loss ₹84,000' reverses the comparison; proceeds exceed the carrying amount, so it is a profit. In practice: such profits appear under other income, while the proceeds appear under investing activities in the cash flow statement.", 'c7', 'hard'), topic='Disposal of an asset — profit or loss'),
             ]}],
     }
+
+
+# ---------- Auto-check data for the Write tab ----------
+# Per scheme point: kw (viva-matcher keyword groups, "|" = alternatives) + min (groups needed), nums (figures that must
+# appear), rows ([particular keywords, side, amount] — the student's table lines: journal/trial balance dr|cr = debit or
+# credit column, ledger dr|cr = debit or credit side of the account; account names fuzzy, amount exact), wrong (common
+# wrong statements → remark), ai_only (not checkable offline). Per question: extra_ok (may points beyond the model earn credit).
+# BRS / statement tables: side add|less = the Add or Less part of the statement ('' = any).
+def _pairs(keys, verdicts):
+    """item keywords next to its treatment, in either order (one table row / one sentence)"""
+    return '|'.join([f'{k} {v}' for k in keys for v in verdicts] + [f'{v} {k}' for k in keys for v in verdicts])
+
+
+EXP = ['expense', 'expensed', 'revenue', 'excluded', 'not capitalised', 'not capitalized', 'written off', 'charged', 'p l', 'profit loss', 'not included', 'not part']
+
+AUTO = {
+    'q1': {'extra_ok': False,
+           's1': {'nums': [680000]},
+           's2': {'nums': [102000, 22500]},
+           's3': {'rows': [['balance', 'cr', 855500]]},
+           's4': {'nums': [43350]},
+           's5': {'rows': [['profit loss|loss sale|p l|loss', 'cr', 84650]]},
+           's6': {'nums': [41625, 37500]},
+           's7': {'rows': [['balance', 'cr', 698375]]},
+           's8': {'nums': [578000, 534650, 235875, 462500]}},
+    'q2': {'extra_ok': True,
+           's1': {'kw': ['original cost|cost asset|historical cost|cost', 'written down|book value|opening balance|reducing balance|carrying amount|diminishing|wdv'], 'min': 2},
+           's2': {'kw': ['same|equal|fixed|constant|uniform', 'decreas|reduc|falls|declin|diminish|lower'], 'min': 2},
+           's3': {'kw': ['nil|zero|residual|scrap', 'never|not reduced zero|not become zero|cannot become zero|not nil|cannot reduced|not reach'], 'min': 2},
+           's4': {'kw': ['repair|maintenance|suitab|suitable|income tax|lease|schedule ii|companies act'], 'min': 1}},
+    'q3': {'extra_ok': False,
+           's1': {'rows': [['list price|trade discount|net|price|machine', '', 1425000]], 'kw': ['gst|input tax', 'exclud|not cost|recoverable|not included|not part|input credit|credit available|ignored|not added'], 'min': 2},
+           's2': {'rows': [['freight|transit', '', 60000], ['foundation|site', '', 45000], ['installation|install', '', 30000], ['consult|engineer fee|engineer|professional', '', 20000]]},
+           's3': {'rows': [['trial|test', '', 20000]]},
+           's4': {'kw': [_pairs(['inauguration', 'inaugural', 'ceremony'], EXP), _pairs(['training', 'operator'], EXP), _pairs(['advertis', 'product'], EXP)], 'min': 3},
+           's5': {'nums': [1600000, 75000]}},
+    'q4': {'extra_ok': False,
+           's1': {'nums': [126000]},
+           's2': {'kw': ['revaluation surplus|revaluation reserve|surplus|reserve|other comprehensive'], 'min': 1,
+                  'wrong': [{'kw': ['credited profit loss|profit loss credited|90000 profit loss|taken profit loss|income statement'], 'say': 'An upward revaluation is credited to Revaluation Surplus, not to the profit and loss account.'}]},
+           's3': {'nums': [161250]},
+           's4': {'nums': [225000]}},
+}
+
+
+def _attach_auto(u):
+    """Merge AUTO into the questions: every scheme point gets its auto-check fields; every question gets extra_ok."""
+    for q in u.get('questions', []):
+        a = AUTO[q['id']]
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']: s.update(a[s['id']])
+        extra = set(a) - {'extra_ok'} - {s['id'] for s in q['scheme']}
+        assert not extra, f"AUTO[{q['id']}] has unknown scheme ids {extra}"
+    return u
+
+
+_build_core = build
+
+
+def build(): return _attach_auto(_build_core())

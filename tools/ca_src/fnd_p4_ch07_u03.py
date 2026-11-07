@@ -320,3 +320,63 @@ def build():
                 M('k1d', 'Which statement is correct for this budget?', ['Nearly half of the borrowing finances revenue (current) expenditure', 'The budget is in surplus', 'All borrowing finances asset creation', 'There is no primary deficit'], 0, "Revenue deficit ÷ fiscal deficit = 8,000 ÷ 17,500 ≈ 45.7%, so nearly half of the borrowing pays for current (revenue) expenditure rather than asset creation. 'All borrowing finances asset creation' is the trap — that would need a zero revenue deficit. There is also a primary deficit of ₹10,500 crore, and no surplus. In practice: analysts treat a high revenue-to-fiscal-deficit ratio as a sign of poor-quality borrowing.", 'c6', 'moderate', topic='Public Debt Management'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _CR(*vals, **x):
+    """figures in Rs crore: nums matches '5,690' and '5,690 crore' alike"""
+    return _N(*vals, **x)
+
+
+AUTO = {
+    'q1': {
+        's1': _CR(47500, 9400),
+        's2': _K('3500|35000000000', 'recovery|disinvest|non debt|1200 2300'),
+        's3': _CR(72000, 21000),
+        's4': _CR(12000, 11200),
+        's5': _N(44.76),
+    },
+    'q2': {
+        's1': _CR(75500, 85000, 13500, 5000),
+        's2': _K('rd 9500|revenue deficit 9500|85000 75500 9500|rd 95000000000|revenue deficit 95000000000|85000 75500 95000000000'),
+        's3': _K('98500|985000000000|85000 13500|80500|805000000000|75500 5000', '18000|180000000000'),
+        's4': _K('18000 14000 4000|18000 14000 40000000000|pd 4000|pd 40000000000|primary deficit 4000|primary deficit 40000000000|pd is 4000'),
+    },
+    'q3': {
+        'extra_ok': True,
+        's1': _N(4.85, 1.6),
+        's2': _N(1.26),
+        's3': _N(32.91),
+        's4': _K('servic|past debt|three quarter|third|consumption|current spending|unproductive|quality|74 percent|interest burden'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

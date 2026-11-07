@@ -349,3 +349,52 @@ def build():
                      {'k': 'GDP deflator', 'v': 'Nominal GDP ÷ Real GDP × 100'}, {'k': 'Personal / disposable income', 'v': 'PI = NI + transfers − earned-not-received; DI = PI − direct taxes'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+def _CR(*vals, **x):
+    """figures in Rs crore: nums matches '5,690' and '5,690 crore' alike"""
+    return _N(*vals, **x)
+
+
+AUTO = {
+    'q1': {'s1': _CR(6850), 's2': _CR(6790), 's3': _CR(6290), 's4': _CR(5690)},
+    'q2': {'s1': _CR(790), 's2': _CR(480), 's3': _CR(435), 's4': _CR(385)},
+    'q3': {
+        's1': _K('560 140 700|560 140|gdcf 700|gross domestic capital formation 700|ndcf depreciation|ndcf plus depreciation'),
+        's2': _CR(3920),
+        's3': _K('3920 140 210 30|3920 140|3920 210'),
+        's4': _K('1900', '470', '3600|36000000000'),
+        's5': _K('same|equal|agree|identical|match|tall'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

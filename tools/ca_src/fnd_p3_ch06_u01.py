@@ -402,3 +402,56 @@ VIVA = [
        P('p2', 'GM = √(ab)', 3, 'square root|root|sqrt', 'a time b|ab|product|a into b|a b|multipl', min=2),
        P('p3', 'AM ≥ GM, equal only when the numbers are equal', 4, 'arithmetic mean greater|arithmetic mean is greater|arithmetic mean always greater|arithmetic mean bigger|arithmetic mean at least|arithmetic mean never less|arithmetic mean more|arithmetic mean exceed|greater than gm|greater equal gm|least gm|exceed gm|more than gm|bigger than gm|greater than geometric|greater equal geometric|least geometric|more than geometric|exceed geometric|gm less|gm smaller|gm never greater|gm not greater|gm never more|gm at most|geometric mean less|geometric mean smaller|geometric mean never greater|geometric mean never more|geometric mean at most|geometric mean not greater', min=1)], 'c5'),
 ]
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('2a 9d 31|2a 9d 31', '2a 19d 61'),
+        's2': _K('d 3', '2a 4|first term 2|term 2|2 d 3|d 3 2'),
+        's3': _N(1365),
+    },
+    'q2': {
+        's1': _K('r 1 9|r3 1|r 3 1|r 8|r3 8|r 3 8|cube'),
+        's2': _K('r 2|ratio 2|ratio is 2'),
+        's3': _N(5115),
+        's4': _K('n 8|8 term|least 8|minimum 8|answer 8|term 8|8th', '635|128', '1275|256'),
+    },
+    'q3': {
+        's1': _K('ap|arithmetic', 'gp|geometric'),
+        's2': _K('86|8600000', '99.95|9995000'),
+        's3': _K('680|68000000', '724.33|72433000'),
+        's4': _K('b more|b sell|b higher|b greater|b by|b exceed|b ahead|company b', '44.33|4433000'),
+        's5': _K('lakh|rupees|rs', 'year 10|10 year|total|10th year'),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

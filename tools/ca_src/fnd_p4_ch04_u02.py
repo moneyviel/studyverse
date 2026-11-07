@@ -291,3 +291,55 @@ def build():
                      {'k': 'Same-direction shifts', 'v': 'Quantity certain, price uncertain'}, {'k': 'Opposite shifts', 'v': 'Price certain, quantity uncertain'}],
         'viva': viva, 'cases': cases,
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(30, 900),
+        's2': _K('shortage|excess demand', nums=[1080, 780]),
+        's3': _K('surplus|excess supply', nums=[720, 1020]),
+        's4': _K('price rise|price rising|bid up|price increase|price go up|price up|raise price|raise the price|push price up', 'price fall|cut price|price lower|price decrease|lower price|reduce price|price down|cut the price|price come down|lower the price|push price down'),
+    },
+    'q2': {
+        's1': _N(36, 256),
+        's2': _K('90 6p|90 6 p'),
+        's3': _N(31, 276),
+        's4': _K('price fall|lower price|price decreas|price declin|reduce price|price down|lowers equilibrium price|lower equilibrium price', 'quantity rise|quantity increas|higher quantity|more quantity|quantity up|rais quantity|rais equilibrium quantity|quantity go up'),
+    },
+    'q3': {
+        's1': _N(20, 140),
+        's2': _K('270 5p|270 5 p|90 10p|90 10 p', nums=[24, 150]),
+        's3': _K('price certain|price rise|price definitely|price increase|both push price|price up|price will rise', 'relative|depend|magnitude|size|extent|slope', 'indeterminate|cannot be predicted|uncertain|ambiguous|cannot predict|depends|may rise or fall|unpredict|not certain', min=2),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

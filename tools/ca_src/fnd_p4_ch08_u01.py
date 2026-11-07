@@ -295,3 +295,55 @@ def build():
                 M('k1d', 'Their behaviour illustrates that the speculative demand for money is:', ['Inversely related to the interest rate', 'Directly related to income', 'Independent of expectations', 'Perfectly inelastic'], 0, "When the current rate is low relative to what people consider normal, more of them expect rates to rise and prefer cash, so speculative money demand rises as interest rates fall — an inverse relationship. 'Directly related to income' is the trap — that describes transactions demand. In practice: when policy rates are cut sharply, money often piles up in liquid funds and bank balances awaiting better yields.", 'c5', 'core', topic='The Demand for Money'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _K('mv m v pt|mv mv pt|mv m v p t|6000 4 9000 2|6000 x 4', '42000 21000 2|p 2|price level 2|p equal 2|42000 21000'),
+        's2': _K('2.4|p 2.4', '20 percent|rise 20|20 rise|increase 20|20 increase'),
+        's3': _K('v v constant|v constant|velocity constant|t constant|t fixed|full employment|constant velocity|velocities constant|v and v constant'),
+    },
+    'q2': {
+        's1': _K('k 1 v|1 v|k 0.2|reciprocal|1 5'),
+        's2': _N(20000),
+        's3': _K('100000 5|py v|100000|py 5', nums=[20000]),
+        's4': _K('money demand fall|demand for money fall|md fall|demand fall|money demand decreas|demand for money decreas|md decreas|demand will fall|demand decreas|less money|money demand declin|demand for money declin'),
+    },
+    'q3': {
+        's1': _N(19798.99),
+        's2': _N(24.75),
+        's3': _N(9899.5),
+        's4': _N(15652.48, kw=['invers|smaller|lower|fall|less|decreas|negative']),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u

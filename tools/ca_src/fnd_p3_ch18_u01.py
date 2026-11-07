@@ -404,3 +404,55 @@ def build():
                 M('k1d', 'The value index is', [f2(kV), '88.69', f2(kL), '96.43'], 0, 'Value index = Σp1q1 ÷ Σp0q0 × 100 = 4,420 ÷ 3,920 × 100 ≈ 112.76. Spending rose less than prices because the family bought less rice and oil. The trap is 117.35, the Laspeyres price index, which holds quantities fixed. In practice: comparing value and price indices tells a business whether revenue growth came from price or from volume.', 'c5', 'moderate', 'round(4420/3920*100,2)', topic='Weighted aggregative indices'),
             ]}],
     }
+
+# ==== AUTO-CHECK: offline marking keys (kw groups / nums / ai_only per scheme point; read by the app's marker) ====
+# kw: viva-matcher keyword groups ("a|b" = alternatives), min = groups needed; nums: figures that must appear
+# (magnitudes: the matcher drops minus signs, so a sign that matters is carried by a kw group).
+
+
+def _K(*kw, min=None, nums=None, **x):
+    d = {'kw': list(kw), 'min': len(kw) if min is None else min}
+    if nums: d['nums'] = list(nums)
+    d.update(x)
+    return d
+
+
+def _N(*nums, kw=None, min=None, **x):
+    d = {'nums': list(nums)}
+    if kw: d.update(kw=list(kw), min=len(kw) if min is None else min)
+    d.update(x)
+    return d
+
+
+AUTO = {
+    'q1': {
+        's1': _N(170, 225, 188, 244),
+        's2': _N(131.06),
+        's3': _K('p10|188 244 170 225', 'p01 p10 1|p01 x p10 1|product 1|equals 1|equal 1|170 225 1|unity'),
+        's4': _K('q01|188 170 244 225', 'v01|244 170|p1q1 p0q0|value index'),
+    },
+    'q2': {
+        's1': _N(110, 120, 90),
+        's2': _N(132, 118.8, 130.68),
+        's3': _K('653.4 500|653.4 x 100 500|653.4 100 500', nums=[130.68]),
+    },
+    'q3': {
+        's1': _N(125),
+        's2': _N(42857.14),
+        's3': _N(40000),
+        's4': _K('fell|fall|decreas|declin|reduc|lower|down', nums=[6.67]),
+    },
+}
+
+
+_build_content = build
+
+
+def build():
+    u = _build_content()
+    for q in u.get('questions', []):
+        a = AUTO.get(q['id'], {})
+        q['extra_ok'] = a.get('extra_ok', False)
+        for s in q['scheme']:
+            s.update(a[s['id']])
+    return u
