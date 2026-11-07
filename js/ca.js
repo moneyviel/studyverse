@@ -28,7 +28,6 @@
   /* Owner mode: open the app with ?owner and enter the passcode. It only unlocks the "Owner tools" card (switch course
      and CA level, see every level) on this device. The passcode sits in this file, so it is NOT real security —
      it just keeps students from switching by accident. Real roles arrive with the backend. */
-  const OWNER_CODE = 'SV-OWNER-2027';
   const OWNER = () => { try { return localStorage.getItem('sv_owner') === '1'; } catch (e) { return false; } };
   const LIVE_LEVELS = ['foundation'];                       // students see CA Foundation only for now
   const levelOK = k => OWNER() || LIVE_LEVELS.includes(k);
@@ -829,21 +828,10 @@
     const clean = () => { try { const u = new URL(location.href); u.searchParams.delete('owner'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); } catch (e) {} };
     clean();                                   // strip ?owner at once, so no history entry keeps it
     if (OWNER()) { toast('Owner mode is on'); return; }
-    D.getElementById('caOwnerSheet')?.remove();
-    D.body.insertAdjacentHTML('beforeend', `<div class="sheet show ca-sheet" id="caOwnerSheet" role="dialog" aria-modal="true" aria-labelledby="caOwT"><div class="sheet-in"><div class="sheet-grab"></div>
-      <h2 id="caOwT" class="ca-h2s">🔑 Owner mode</h2><p class="sub">For the app owner only. Unlocks the Owner tools card on this device.</p>
-      <form id="caOwF" autocomplete="off"><label class="ca-lab" for="caOwP">Passcode</label><input id="caOwP" class="ca-in" type="password" autocomplete="off" autocapitalize="none" spellcheck="false">
-      <p class="ca-err" id="caOwE" role="alert"></p><div class="ca-btns"><button type="submit" class="btn">Unlock</button><button type="button" class="btn ghost" id="caOwX">Cancel</button></div></form></div></div>`);
-    const sh = D.getElementById('caOwnerSheet'), close = () => { sh.classList.remove('show'); setTimeout(() => sh.remove(), 40); clean(); };
-    D.getElementById('caOwX').onclick = close;
-    D.getElementById('caOwF').onsubmit = e => {
-      e.preventDefault();
-      if (D.getElementById('caOwP').value.trim() !== OWNER_CODE) { D.getElementById('caOwE').textContent = 'Wrong passcode.'; return; }
-      try { localStorage.setItem('sv_owner', '1'); } catch (x) {}
-      close(); toast('Owner mode on — see Owner tools in Profile / Me');
-      const a = D.querySelector('.screen.active'); if (a && a.id === 's-me') meScreen(); else if (isCA()) home();
-    };
-    setTimeout(() => { const i = D.getElementById('caOwP'); if (i) i.focus(); }, 80);
+    /* owner mode now comes only from signing in with the owner account (studyverse.admins) */
+    try { localStorage.setItem('sv_cloud_on', '1'); } catch (x) {}
+    if (window.Cloud && Cloud.signedIn()) { if (Cloud.admin()) { try { localStorage.setItem('sv_owner', '1'); } catch (x) {} toast('Owner mode is on'); const a = D.querySelector('.screen.active'); if (a && a.id === 's-me') meScreen(); } else toast('This account is not an owner account'); return; }
+    if (window.Cloud) setTimeout(() => Cloud.open('in', 'Sign in with your owner account.'), 300);
   }
   function toSchool() {
     const p = ST.profile; p.course = null; save(); navLabels(); D.querySelectorAll('nav button.on').forEach(b => b.classList.remove('on'));

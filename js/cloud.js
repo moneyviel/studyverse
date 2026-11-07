@@ -27,6 +27,8 @@
   const EXTRA = ['sv_cagen'];                       // other progress kept with sv_state
 
   let S = jget('sv_auth', null);                    // session { at, rt, exp, user:{id,email} }
+  // owner mode only comes from an owner (admin) account now — the old passcode owner mode is switched off
+  if (get('sv_owner') === '1' && !(jget('sv_cloud', {}).adm && S)) set('sv_owner', null);
   let status = 'off', lastErr = '', recovery = false, busy = false, linked = false, linkMsg = '';
 
   /* ---------- 1. login links from emails: #access_token=…&type=signup|recovery ---------- */
@@ -127,13 +129,22 @@
     try {
       if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; set('sv_auth', JSON.stringify(S)); }
       await link();
-      access();
+      access(); owner();
       if (linked) { status = status === 'saving' ? status : 'ok'; paint(); }
     } catch (e) { status = navigator.onLine === false || e.status === 0 ? 'offline' : 'error'; lastErr = e.message; paint(); }
   }
 
   async function access() {
     try { const r = await rest('course_access?select=course,valid_until'); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); } } catch (e) {}
+  }
+  async function owner() {                         // studyverse.admins: an owner account turns owner mode on (once; "turn off" is respected)
+    try {
+      const r = await rest('admins?select=user_id'); if (!Array.isArray(r)) return;
+      const adm = r.length > 0, m = meta();
+      if (adm && !m.adm) { set('sv_owner', '1'); say('Owner account — owner mode is on'); }
+      if (!adm) set('sv_owner', null);
+      if (!!m.adm !== adm) { setMeta(Object.assign(meta(), { adm })); repaintMe(); try { const a = D.querySelector('.screen.active'); if (a && a.id === 's-me') meScreen(); } catch (e) {} }
+    } catch (e) {}
   }
   const courses = () => jget('sv_access', []).filter(a => !a.valid_until || new Date(a.valid_until) > new Date());
 
@@ -149,7 +160,7 @@
   async function signOut() {
     try { await push(true); } catch (e) {}
     try { await call('/auth/v1/logout', { method: 'POST' }); } catch (e) {}
-    S = null; ['sv_auth', 'sv_cloud', 'sv_access'].forEach(k => set(k, null));
+    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner'].forEach(k => set(k, null));
     wipeLocal();
   }
 
@@ -305,5 +316,5 @@
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', () => setTimeout(start, 0)) : setTimeout(start, 0);
 
-  window.Cloud = { signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
+  window.Cloud = { admin: () => !!(S && meta().adm), signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
 })();

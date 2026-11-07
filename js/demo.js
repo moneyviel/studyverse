@@ -16,7 +16,10 @@
     set('sv_demo_swap', real == null ? '__none__' : real); set('sv_state_real', null); set('sv_demo', null);
     location.replace(location.pathname);
   }
-  if (until && now > until) { exitDemo(); return; }  // expired: restore on reload
+  /* Demo login switched OFF (owner asked to log every demo out): any device still in demo goes back to its own progress. */
+  const OFF = true;
+  if (until && (OFF || now > until)) { exitDemo(); return; }  // expired or switched off: restore on reload
+  if (OFF) { if (/[?&]demo\b/.test(location.search)) try { history.replaceState(history.state, '', location.pathname); } catch (e) {} return; }
 
   function enterDemo() {
     if (!until) set('sv_state_real', get('sv_state') || '__none__');
