@@ -1,0 +1,1629 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch09-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch09",
+ "n": 1,
+ "title": "Number Series, Coding and Decoding and Odd Man Out",
+ "outcomes": [
+  "Find a missing term or a wrong term in a number series by testing differences, ratios, powers, primes and alternate-term patterns in a fixed order.",
+  "Work with alphabet and letter series using letter positions (A = 1 … Z = 26), reverse positions (27 − n) and wrap-around.",
+  "Detect a letter-coding or number-coding rule from one example, apply it to a new word (coding) and run it backwards (decoding).",
+  "Pick the odd man out from groups of numbers, letters or words by naming the property that the rest share."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 35,
+   "practice": 50
+  },
+  "prereq": [],
+  "exam_tip": "Logical reasoning carries about 20 marks in Paper 3 and these questions are the fastest marks in the paper: aim for 30–40 seconds each. If no pattern appears within a minute, mark it for review and move on — every wrong answer costs ¼ mark."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Number series — the testing ladder",
+   "body": [
+    "A number series is a list of numbers produced by one hidden rule. The examiner hides one term (missing-term question) or plants one incorrect term (wrong-term question).",
+    "Test the rules in this order, stopping at the first one that fits every term: (1) first differences — constant means an arithmetic series; (2) second differences — differences of the differences are constant or themselves form a simple pattern; (3) ratios — each term is a fixed multiple of the previous one; (4) mixed operations such as ×2 + 1 or ×3 − 2; (5) squares, cubes and their neighbours (n² ± k, n³ ± k, n² + n, n³ + n²); (6) prime numbers; (7) two series interleaved (look at the 1st, 3rd, 5th … terms separately from the 2nd, 4th, 6th …); (8) running totals such as 1, 1+2, 1+2+3 … or sums of squares and cubes.",
+    "Rough guide: slow, steady growth points to differences; growth that roughly doubles or triples points to multiplication; numbers sitting next to perfect squares or cubes (8, 26, 63, 124 …) point to powers ± 1."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Pattern",
+      "Sample series",
+      "Clue"
+     ],
+     "rows": [
+      [
+       "Constant difference",
+       "7, 12, 17, 22, 27",
+       "add 5 every time"
+      ],
+      [
+       "Differences in A.P.",
+       "3, 8, 17, 30, 47",
+       "differences 5, 9, 13, 17"
+      ],
+      [
+       "Constant ratio",
+       "2, 6, 18, 54, 162",
+       "multiply by 3"
+      ],
+      [
+       "Mixed operation",
+       "5, 11, 23, 47, 95",
+       "× 2 + 1"
+      ],
+      [
+       "Powers ± k",
+       "3, 10, 29, 66, 127",
+       "n³ + 2"
+      ],
+      [
+       "Primes",
+       "13, 17, 19, 23, 29",
+       "consecutive primes"
+      ],
+      [
+       "Interleaved",
+       "6, 30, 9, 27, 12, 24",
+       "odd places +3, even places −3"
+      ]
+     ],
+     "title": "Common number-series patterns"
+    }
+   ],
+   "analogy": "Like a doctor running tests in a fixed order — temperature, pulse, blood test — you check the cheapest pattern first and go deeper only if it fails.",
+   "work": "Auditors test sequences every day: invoice numbers, cheque numbers and GRN numbers should run without a break. A missing number may be a cancelled document or an unrecorded sale; a number out of place may be a duplicate or a backdated entry."
+  },
+  {
+   "id": "c2",
+   "title": "Missing term vs wrong term",
+   "body": [
+    "Missing term: the rule is complete except for a blank. Find the rule from the terms on both sides of the blank and confirm the answer also produces the next given term.",
+    "Wrong term: all terms are shown but one breaks the rule. Build the rule from the majority of terms, then compute what each term should be; the one that differs is the wrong term. The answer is the term that is printed, not the corrected value — read the options carefully.",
+    "If a wrong term sits early in the series, the first differences all look broken after it. Try the power and ratio tests on individual terms instead of relying on differences."
+   ],
+   "analogy": "A missing term is an empty chair in a class photo; a wrong term is a stranger standing in the line who looks almost like the others.",
+   "work": "In analytical review a CA compares each month's figure with the trend; a month that does not fit (the \"wrong term\") is the one sent for investigation."
+  },
+  {
+   "id": "c3",
+   "title": "Alphabet series and letter positions",
+   "body": [
+    "Give every letter its position: A = 1, B = 2 … Z = 26. The reverse position (counting from Z) is 27 − forward position, so M (13) is 14th from the end and N (14) is 13th from the end.",
+    "Memory aid for quick positions: E-J-O-T-Y stand at 5, 10, 15, 20 and 25. Any other letter is one or two steps from these anchors.",
+    "In multi-letter terms (for example DPK, GNL, JLM) each letter position follows its own rule — one may move +3, another −2, another +1. Positions wrap round: one step after Z is A.",
+    "Opposite-letter pairs add to 27: A–Z, B–Y, C–X … M–N."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Letter",
+      "A",
+      "E",
+      "J",
+      "M",
+      "N",
+      "O",
+      "T",
+      "Y",
+      "Z"
+     ],
+     "rows": [
+      [
+       "Forward position",
+       "1",
+       "5",
+       "10",
+       "13",
+       "14",
+       "15",
+       "20",
+       "25",
+       "26"
+      ],
+      [
+       "Reverse position (27 − n)",
+       "26",
+       "22",
+       "17",
+       "14",
+       "13",
+       "12",
+       "7",
+       "2",
+       "1"
+      ]
+     ],
+     "title": "Anchor letters"
+    }
+   ],
+   "analogy": "The alphabet is a 26-seat circular bus: after seat 26 you are back at seat 1.",
+   "work": "Column letters in spreadsheets (A … Z, AA …) and alpha-numeric document codes use the same counting logic, so being quick with positions helps when tracing references in large working files."
+  },
+  {
+   "id": "c4",
+   "title": "Letter series (blanks in a repeating block)",
+   "body": [
+    "A string of small letters repeats a short block (such as \"abba\" or \"aabb\") with some letters removed. The options give the missing letters in order.",
+    "Method: guess the block length (try 3, 4 and 5), write the string in groups of that length, and fill the gaps so that every group is identical (or grows in a clear way, e.g. a, aa, aaa). Then read the filled letters from left to right.",
+    "Check the chosen option by writing out the full string — two options often fit the first half only."
+   ],
+   "analogy": "It is a beaded necklace with a few beads missing: once you see the repeating colour pattern, the missing beads are obvious.",
+   "work": "Spotting a repeating block in data — such as a standing instruction that posts the same amount every quarter — helps a CA separate routine entries from unusual ones."
+  },
+  {
+   "id": "c5",
+   "title": "Letter coding — finding and applying the rule",
+   "body": [
+    "In letter coding each letter of a word is replaced by another letter under a fixed rule. Write the word above its code and compare letter by letter.",
+    "Common rules: every letter shifted the same number of places (+1, −2 …); shifts that change by position (+1, +2, +3 …); the whole word written backwards; pairs of letters swapped; each letter replaced by its opposite (A↔Z, sum of positions 27); or a mix — for example shift then reverse.",
+    "Coding means applying the rule to a plain word. Decoding means running the rule backwards — a +2 shift becomes −2, a reversal is reversed again."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Rule",
+      "Word",
+      "Code"
+     ],
+     "rows": [
+      [
+       "Each letter +1",
+       "GARDEN",
+       "HBSEFO"
+      ],
+      [
+       "Each letter +2",
+       "LEDGER",
+       "NGFIGT"
+      ],
+      [
+       "Opposite letter (27 − n)",
+       "BAD",
+       "YZW"
+      ],
+      [
+       "Shift +3, then reverse",
+       "AUDIT",
+       "WLGXD"
+      ]
+     ],
+     "title": "Rules seen in this unit (generated by code)"
+    }
+   ],
+   "analogy": "A coding rule is a lock; decoding is turning the same key in the opposite direction.",
+   "work": "Client names and PAN numbers are often masked or encoded in shared files and data requests. Understanding simple substitution helps a CA judge whether masking is real protection or just a cosmetic change."
+  },
+  {
+   "id": "c6",
+   "title": "Number coding",
+   "body": [
+    "Letters to numbers: a word is coded by letter positions (A = 1, B = 2 …), by the sum of positions, or by a digit fixed for each letter in a given example.",
+    "Substitution key: when two coded words are given (for example CREDIT and DEBIT), list each letter with its digit; letters common to both words must get the same digit, which confirms the key. Then read the code of a new word straight from the key.",
+    "Numbers to letters: a table such as 2 → P, 3 → N is given; convert each digit of the number in turn. Do not reorder digits unless the question says so."
+   ],
+   "analogy": "A substitution key is a phone's contact list — once you know who is behind each number, any new call is easy to name.",
+   "work": "Ledger account codes, GL mapping keys and HSN/SAC codes are all number codes. Reading a mapping key accurately is a daily task in audits and system migrations."
+  },
+  {
+   "id": "c7",
+   "title": "Odd man out (classification)",
+   "body": [
+    "Four or five items are given; all but one share a property. Name the property first, then the odd one is the item that lacks it.",
+    "Numbers: even/odd, prime/composite, perfect squares or cubes, multiples of a number, n² + 1 type forms, digit sums. Letters: equal gaps between letters, vowels, positions. Words: category (currencies vs units), number of days in a month, function.",
+    "If two items seem odd, look for a stronger property that only one of them breaks — the examiner intends a single answer."
+   ],
+   "analogy": "In a basket of mangoes one apple stands out only once you have said the word \"mango\".",
+   "work": "Exception reporting — a vendor without a GSTIN, a payment without a purchase order — is classification in practice: define the normal group, then flag the item that does not belong."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Missing term by second differences",
+   "difficulty": "core",
+   "minutes": 2,
+   "q": "Find the missing term: 3, 8, 17, 30, ?, 68",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Terms",
+      "3",
+      "8",
+      "17",
+      "30",
+      "?",
+      "68"
+     ],
+     "rows": [
+      [
+       "First difference",
+       "",
+       "5",
+       "9",
+       "13",
+       "17",
+       "21"
+      ]
+     ],
+     "title": "Working"
+    },
+    {
+     "t": "p",
+     "text": "The first differences 5, 9, 13 … increase by 4 each time, so the next differences are 17 and 21."
+    },
+    {
+     "t": "p",
+     "text": "Missing term = 30 + 17 = 47. Check: 47 + 21 = 68, which matches the last term. Answer: 47."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "30+17",
+     "value": 47,
+     "label": "missing fifth term"
+    },
+    {
+     "expr": "47+21",
+     "value": 68,
+     "label": "sixth term confirms the pattern (68)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Wrong term near a cube",
+   "difficulty": "moderate",
+   "minutes": 2,
+   "q": "Find the wrong term: 7, 26, 63, 124, 214, 342",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "n",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+     ],
+     "rows": [
+      [
+       "n³ − 1",
+       "7",
+       "26",
+       "63",
+       "124",
+       "215",
+       "342"
+      ],
+      [
+       "Given",
+       "7",
+       "26",
+       "63",
+       "124",
+       "214",
+       "342"
+      ]
+     ],
+     "title": "Test n³ − 1"
+    },
+    {
+     "t": "p",
+     "text": "Every term is one less than a cube except the fifth: 6³ − 1 = 215, but 214 is printed. The wrong term is 214."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "6**3-1",
+     "value": 215,
+     "label": "correct fifth term"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Three-letter alphabet series",
+   "difficulty": "core",
+   "minutes": 2,
+   "q": "Find the next term: DPK, GNL, JLM, ?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Position",
+      "1st letter",
+      "2nd letter",
+      "3rd letter"
+     ],
+     "rows": [
+      [
+       "DPK",
+       "D (4)",
+       "P (16)",
+       "K (11)"
+      ],
+      [
+       "GNL",
+       "G (7)",
+       "N (14)",
+       "L (12)"
+      ],
+      [
+       "JLM",
+       "J (10)",
+       "L (12)",
+       "M (13)"
+      ],
+      [
+       "Rule",
+       "+3",
+       "−2",
+       "+1"
+      ],
+      [
+       "Next",
+       "M (13)",
+       "J (10)",
+       "N (14)"
+      ]
+     ],
+     "title": "Letter positions"
+    },
+    {
+     "t": "p",
+     "text": "Applying +3, −2 and +1 to J, L and M gives MJN."
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Coding and decoding with a +2 shift",
+   "difficulty": "core",
+   "minutes": 2,
+   "q": "In a code language LEDGER is written as NGFIGT. (a) How is TAX written? (b) Which word is written as VCZ?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Word",
+      "L",
+      "E",
+      "D",
+      "G",
+      "E",
+      "R"
+     ],
+     "rows": [
+      [
+       "Code",
+       "N",
+       "G",
+       "F",
+       "I",
+       "G",
+       "T"
+      ],
+      [
+       "Shift",
+       "+2",
+       "+2",
+       "+2",
+       "+2",
+       "+2",
+       "+2"
+      ]
+     ],
+     "title": "Find the rule"
+    },
+    {
+     "t": "p",
+     "text": "(a) Each letter moves 2 places forward, so TAX → VCZ."
+    },
+    {
+     "t": "p",
+     "text": "(b) Decoding reverses the rule: move each letter of VCZ 2 places back → TAX. Notice that the code for TAX and the word behind VCZ differ — decoding is not the same as coding again."
+    }
+   ]
+  },
+  {
+   "id": "i5",
+   "title": "Substitution number code from two words",
+   "difficulty": "moderate",
+   "minutes": 3,
+   "q": "If CREDIT is coded 742593 and DEBIT is coded 52193, how is TIRED coded?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Letter",
+      "C",
+      "R",
+      "E",
+      "D",
+      "I",
+      "T"
+     ],
+     "rows": [
+      [
+       "Digit",
+       "7",
+       "4",
+       "2",
+       "5",
+       "9",
+       "3"
+      ]
+     ],
+     "title": "Step 1 — key from CREDIT"
+    },
+    {
+     "t": "p",
+     "text": "Step 2 — confirm with DEBIT: D = 5, E = 2, I = 9 and T = 3 agree with the key, and the only new letter, B, takes the remaining digit 1. The key is consistent."
+    },
+    {
+     "t": "p",
+     "text": "Step 3 — read TIRED from the key: T 3, I 9, R 4, E 2, D 5. Code = 39425."
+    },
+    {
+     "t": "note",
+     "text": "Always confirm a substitution key with the second word before using it; if a common letter gets two different digits, the rule is not simple substitution."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "3*10000+9*1000+4*100+2*10+5",
+     "value": 39425,
+     "label": "code of TIRED read off the key: T3 I9 R4 E2 D5"
+    }
+   ]
+  },
+  {
+   "id": "i6",
+   "title": "Odd one out among multiples",
+   "difficulty": "core",
+   "minutes": 1,
+   "q": "Find the odd one out: 21, 35, 49, 63, 74, 91",
+   "solution": [
+    {
+     "t": "p",
+     "text": "21 = 7 × 3, 35 = 7 × 5, 49 = 7 × 7, 63 = 7 × 9, 91 = 7 × 13 — all multiples of 7. 74 = 7 × 10 + 4 is not. Odd one out: 74."
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Gaps in an invoice series",
+   "role": "Articled assistant on a statutory audit",
+   "situation": "The sales register of a distributor shows invoice numbers INV-2401 to INV-2460 for March, but only 57 invoices are listed.",
+   "steps": [
+    "Sort the register by invoice number and compute the first difference between consecutive numbers; every difference should be 1.",
+    "List the numbers where the difference is 2 or more — those are the missing invoices (the \"missing terms\").",
+    "Ask for the cancelled copies or system logs of the missing numbers; a cancelled invoice should show the reason and approval.",
+    "Look also for a number appearing twice or out of date order — the audit version of a \"wrong term\"."
+   ],
+   "takeaway": "A continuous number series is a control. Testing it is the same skill as a missing-term question, only with real money behind it.",
+   "think": "Sixty numbers are issued and 57 appear. If two cancelled copies are produced, what remains to be explained?",
+   "answer": "One invoice number is still unexplained; it could be an unrecorded sale, so it must be traced before the auditor signs off on completeness of revenue."
+  },
+  {
+   "id": "j2",
+   "title": "Is this \"masked\" client data really masked?",
+   "role": "CA in a consulting team handling client data",
+   "situation": "A junior has \"masked\" client names in a file shared with a vendor by moving every letter two places forward (so LEDGER Ltd appears as NGFIGT Ltd).",
+   "steps": [
+    "Recognise the rule from one known name — a constant shift is found in seconds, exactly as in a coding question.",
+    "Note that anyone can decode every other name by shifting two places back.",
+    "Replace the names with random reference numbers kept in a separate key file with restricted access.",
+    "Record the change in the data-sharing log."
+   ],
+   "takeaway": "A simple coding rule hides nothing from someone who has seen one example. Real masking needs a key that cannot be worked out from the data.",
+   "think": "Why is a random reference number safer than any letter-shift rule?",
+   "answer": "A random number has no rule linking it to the name, so knowing one pair tells you nothing about the others."
+  },
+  {
+   "id": "j3",
+   "title": "The month that does not fit",
+   "role": "CA in industry preparing a monthly MIS",
+   "situation": "Electricity cost of a plant for six months (₹ lakh): 4.2, 4.4, 4.6, 6.9, 5.0, 5.2. Production rose steadily each month.",
+   "steps": [
+    "Look for the pattern: costs rise by about 0.2 lakh a month in line with production.",
+    "The fourth month (6.9) breaks the pattern — the \"odd man out\" or \"wrong term\".",
+    "Check whether the bill includes arrears, a penalty for low power factor, or a mis-posting of another plant's bill.",
+    "Correct or explain the variance in the MIS."
+   ],
+   "takeaway": "Reasoning patterns help analytical review: define the normal pattern, then investigate the item that does not fit it.",
+   "think": "If the pattern had held, what would the fourth month's cost have been?",
+   "answer": "About ₹4.8 lakh (4.6 + 0.2), so roughly ₹2.1 lakh needs explaining.",
+   "checks": [
+    {
+     "expr": "4.6+0.2",
+     "value": 4.8,
+     "label": "expected fourth-month cost"
+    },
+    {
+     "expr": "6.9-4.8",
+     "value": 2.1,
+     "label": "unexplained excess"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Find the next term: 4, 9, 19, 34, 54, ?",
+   "options": [
+    "79",
+    "74",
+    "84",
+    "89"
+   ],
+   "answer": 0,
+   "explain": "Differences are 5, 10, 15, 20, so the next difference is 25: 54 + 25 = 79.",
+   "concept": "c1",
+   "difficulty": "core",
+   "check": "54+25"
+  },
+  {
+   "id": "m2",
+   "q": "Find the next term: 2, 6, 18, 54, ?",
+   "options": [
+    "162",
+    "108",
+    "148",
+    "216"
+   ],
+   "answer": 0,
+   "explain": "Each term is 3 times the previous one: 54 × 3 = 162. 108 comes from wrongly using × 2.",
+   "concept": "c1",
+   "difficulty": "core",
+   "check": "54*3"
+  },
+  {
+   "id": "m3",
+   "q": "Find the next term: 5, 11, 23, 47, 95, ?",
+   "options": [
+    "191",
+    "190",
+    "189",
+    "143"
+   ],
+   "answer": 0,
+   "explain": "Rule × 2 + 1: 95 × 2 + 1 = 191. 190 forgets the +1; 143 adds the last difference 48 instead of doubling the difference.",
+   "concept": "c1",
+   "difficulty": "moderate",
+   "check": "95*2+1"
+  },
+  {
+   "id": "m4",
+   "q": "Find the missing term: 1, 8, 27, 64, ?, 216",
+   "options": [
+    "125",
+    "100",
+    "144",
+    "81"
+   ],
+   "answer": 0,
+   "explain": "Cubes of 1 to 6: 5³ = 125.",
+   "concept": "c1",
+   "difficulty": "core",
+   "check": "5**3"
+  },
+  {
+   "id": "m5",
+   "q": "Find the next term: 3, 10, 29, 66, 127, ?",
+   "options": [
+    "218",
+    "216",
+    "188",
+    "210"
+   ],
+   "answer": 0,
+   "explain": "Each term is n³ + 2: 1+2, 8+2, 27+2, 64+2, 125+2, so next = 216 + 2 = 218. 216 forgets the +2.",
+   "concept": "c1",
+   "difficulty": "moderate",
+   "check": "6**3+2"
+  },
+  {
+   "id": "m6",
+   "q": "Find the next term: 6, 30, 9, 27, 12, 24, ?",
+   "options": [
+    "15",
+    "21",
+    "18",
+    "14"
+   ],
+   "answer": 0,
+   "explain": "Two series are interleaved: odd places 6, 9, 12, 15 (+3) and even places 30, 27, 24 (−3). The 7th term is an odd place: 15. 21 continues the even series by mistake.",
+   "concept": "c1",
+   "difficulty": "moderate",
+   "check": "12+3"
+  },
+  {
+   "id": "m7",
+   "q": "Find the next term: 13, 17, 19, 23, 29, ?",
+   "options": [
+    "31",
+    "33",
+    "30",
+    "35"
+   ],
+   "answer": 0,
+   "explain": "Consecutive prime numbers; the prime after 29 is 31. 33 = 3 × 11 and 35 = 5 × 7 are not prime.",
+   "concept": "c1",
+   "difficulty": "core",
+   "check": "29+2"
+  },
+  {
+   "id": "m8",
+   "q": "Find the wrong term: 3, 6, 12, 24, 46, 96",
+   "options": [
+    "46",
+    "24",
+    "96",
+    "12"
+   ],
+   "answer": 0,
+   "explain": "Each term doubles: 24 × 2 = 48, not 46; and 48 × 2 = 96 fits. Wrong term: 46.",
+   "concept": "c2",
+   "difficulty": "core",
+   "check": "46"
+  },
+  {
+   "id": "m9",
+   "q": "Find the wrong term: 4, 9, 25, 49, 121, 168",
+   "options": [
+    "168",
+    "121",
+    "25",
+    "9"
+   ],
+   "answer": 0,
+   "explain": "Squares of primes 2, 3, 5, 7, 11, 13 — the last should be 13² = 169. The printed 168 is wrong.",
+   "concept": "c2",
+   "difficulty": "moderate",
+   "check": "168"
+  },
+  {
+   "id": "m10",
+   "q": "Find the next term: 2, 3, 5, 9, 17, ?",
+   "options": [
+    "33",
+    "31",
+    "34",
+    "25"
+   ],
+   "answer": 0,
+   "explain": "Differences 1, 2, 4, 8 double each time, so the next difference is 16: 17 + 16 = 33. (Equivalently, each term = previous × 2 − 1.)",
+   "concept": "c1",
+   "difficulty": "moderate",
+   "check": "17+16"
+  },
+  {
+   "id": "m11",
+   "q": "Find the next term: 168, 143, 120, 99, ?",
+   "options": [
+    "80",
+    "81",
+    "78",
+    "84"
+   ],
+   "answer": 0,
+   "explain": "Terms are 13² − 1, 12² − 1, 11² − 1, 10² − 1, so next = 9² − 1 = 80. 81 forgets the −1.",
+   "concept": "c1",
+   "difficulty": "moderate",
+   "check": "9**2-1"
+  },
+  {
+   "id": "m12",
+   "q": "Find the next term: 1, 9, 36, 100, ?",
+   "options": [
+    "225",
+    "196",
+    "216",
+    "200"
+   ],
+   "answer": 0,
+   "explain": "Running totals of cubes: 1, 1+8, 1+8+27, 1+8+27+64, so next = 100 + 125 = 225 (also the square of 1+2+3+4+5 = 15).",
+   "concept": "c1",
+   "difficulty": "hard",
+   "check": "100+5**3"
+  },
+  {
+   "id": "m13",
+   "q": "Find the next term: 1, 2, 6, 24, 120, ?",
+   "options": [
+    "720",
+    "600",
+    "840",
+    "240"
+   ],
+   "answer": 0,
+   "explain": "Multipliers increase: × 2, × 3, × 4, × 5, so next = 120 × 6 = 720.",
+   "concept": "c1",
+   "difficulty": "core",
+   "check": "120*6"
+  },
+  {
+   "id": "m14",
+   "q": "Find the next term: 2, 12, 36, 80, 150, ?",
+   "options": [
+    "252",
+    "210",
+    "222",
+    "240"
+   ],
+   "answer": 0,
+   "explain": "Each term is n³ + n²: 1+1, 8+4, 27+9, 64+16, 125+25, so next = 216 + 36 = 252. Differences 10, 24, 44, 70 have second differences 14, 20, 26, so the next second difference is 32, the next difference 102, and 150 + 102 = 252 — the same answer.",
+   "concept": "c1",
+   "difficulty": "hard",
+   "check": "6**3+6**2"
+  },
+  {
+   "id": "m15",
+   "q": "Find the wrong term: 2, 5, 10, 17, 26, 37, 50, 64",
+   "options": [
+    "64",
+    "50",
+    "37",
+    "26"
+   ],
+   "answer": 0,
+   "explain": "Terms are n² + 1: the 8th term should be 8² + 1 = 65, so 64 is wrong.",
+   "concept": "c2",
+   "difficulty": "moderate",
+   "check": "64"
+  },
+  {
+   "id": "m16",
+   "q": "Find the next term: AZ, CX, EV, GT, ?",
+   "options": [
+    "IR",
+    "IS",
+    "HR",
+    "JR"
+   ],
+   "answer": 0,
+   "explain": "First letters move +2 (A, C, E, G, I); second letters move −2 (Z, X, V, T, R).",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m17",
+   "q": "Find the next letter: B, E, I, N, ?",
+   "options": [
+    "T",
+    "S",
+    "U",
+    "R"
+   ],
+   "answer": 0,
+   "explain": "Positions 2, 5, 9, 14 have gaps 3, 4, 5, so the next gap is 6: 14 + 6 = 20 = T.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m18",
+   "q": "Find the next letter: Z, W, T, Q, ?",
+   "options": [
+    "N",
+    "O",
+    "M",
+    "P"
+   ],
+   "answer": 0,
+   "explain": "Moving back 3 each time: 26, 23, 20, 17, 14 = N.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m19",
+   "q": "Which letter is 8th from the right end of the English alphabet?",
+   "options": [
+    "S",
+    "R",
+    "T",
+    "H"
+   ],
+   "answer": 0,
+   "explain": "Reverse position rule: forward position = 27 − 8 = 19, which is S. H is 8th from the left end.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m20",
+   "q": "Fill the blanks in order: a _ b a a _ b a _ b b _",
+   "options": [
+    "bbaa",
+    "baba",
+    "abab",
+    "bbab"
+   ],
+   "answer": 0,
+   "explain": "The block \"abba\" repeats three times: abba | abba | abba. The blanks are letters 2, 6, 9 and 12, i.e. b, b, a, a.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m21",
+   "q": "If GARDEN is coded as HBSEFO, how is FLOWER coded?",
+   "options": [
+    "GMPXFS",
+    "EKNVDQ",
+    "GMPXSF",
+    "HMPXFS"
+   ],
+   "answer": 0,
+   "explain": "Each letter moves one place forward. EKNVDQ moves backwards; GMPXSF swaps the last two letters.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m22",
+   "q": "If PLANT is written as TNALP, how is STOCK written?",
+   "options": [
+    "KCOTS",
+    "KCTOS",
+    "TSOCK",
+    "SKCOT"
+   ],
+   "answer": 0,
+   "explain": "The word is written in reverse order.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "If BAD is coded as YZW, how is CAB coded?",
+   "options": [
+    "XZY",
+    "DBC",
+    "XYZ",
+    "ZXY"
+   ],
+   "answer": 0,
+   "explain": "Each letter is replaced by its opposite (positions add to 27): C → X, A → Z, B → Y. DBC is a +1 shift, a common slip.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m24",
+   "q": "In a code, each letter of a word is moved two places forward. Which word is coded as RCRGT?",
+   "options": [
+    "PAPER",
+    "TETIV",
+    "QBQFS",
+    "PAPRE"
+   ],
+   "answer": 0,
+   "explain": "Decode by moving each letter two places back: R→P, C→A, R→P, G→E, T→R. TETIV is the result of coding again instead of decoding.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m25",
+   "q": "If A = 1, B = 2 and so on, and each letter is written as its number, how is BEAD written?",
+   "options": [
+    "2514",
+    "2541",
+    "2154",
+    "1452"
+   ],
+   "answer": 0,
+   "explain": "B = 2, E = 5, A = 1, D = 4, written in the same order: 2514.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "2*1000+5*100+1*10+4"
+  },
+  {
+   "id": "m26",
+   "q": "If MANGO is coded as 52734, how is MOAN coded?",
+   "options": [
+    "5427",
+    "5247",
+    "5472",
+    "4527"
+   ],
+   "answer": 0,
+   "explain": "From the key M = 5, A = 2, N = 7, G = 3, O = 4: MOAN = 5-4-2-7.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "5*1000+4*100+2*10+7"
+  },
+  {
+   "id": "m27",
+   "q": "If CAT = 24 because 3 + 1 + 20 = 24, what is DOG?",
+   "options": [
+    "26",
+    "24",
+    "27",
+    "25"
+   ],
+   "answer": 0,
+   "explain": "D 4 + O 15 + G 7 = 26.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "4+15+7"
+  },
+  {
+   "id": "m28",
+   "q": "In a code 1 → K, 2 → R, 3 → M, 4 → T, 5 → B. How is 32415 written?",
+   "options": [
+    "MRTKB",
+    "MRKTB",
+    "MTRKB",
+    "KRTMB"
+   ],
+   "answer": 0,
+   "explain": "Convert each digit in order: 3 M, 2 R, 4 T, 1 K, 5 B.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m29",
+   "q": "Find the odd one out: 17, 23, 29, 33, 41",
+   "options": [
+    "33",
+    "41",
+    "17",
+    "29"
+   ],
+   "answer": 0,
+   "explain": "All are prime except 33 = 3 × 11.",
+   "concept": "c7",
+   "difficulty": "core",
+   "check": "33"
+  },
+  {
+   "id": "m30",
+   "q": "Find the odd one out: 27, 64, 125, 144, 216",
+   "options": [
+    "144",
+    "64",
+    "216",
+    "27"
+   ],
+   "answer": 0,
+   "explain": "All are perfect cubes (3³, 4³, 5³, 6³) except 144, which is 12², a square. 64 is both a square and a cube, so it still belongs to the cubes.",
+   "concept": "c7",
+   "difficulty": "moderate",
+   "check": "144"
+  },
+  {
+   "id": "m31",
+   "q": "Find the odd one out: April, June, September, October",
+   "options": [
+    "October",
+    "June",
+    "April",
+    "September"
+   ],
+   "answer": 0,
+   "explain": "April, June and September have 30 days; October has 31.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m32",
+   "q": "Find the odd one out: ACE, BDF, GIK, MOP",
+   "options": [
+    "MOP",
+    "GIK",
+    "BDF",
+    "ACE"
+   ],
+   "answer": 0,
+   "explain": "In the others the letters move +2, +2 (A C E, B D F, G I K). MOP moves +2 then +1 — it would need MOQ.",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m33",
+   "q": "Find the odd one out: Rupee, Dirham, Euro, Kilogram",
+   "options": [
+    "Kilogram",
+    "Euro",
+    "Rupee",
+    "Dirham"
+   ],
+   "answer": 0,
+   "explain": "Three are currencies; a kilogram is a unit of mass.",
+   "concept": "c7",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "(a) Find the next term of 10, 13, 19, 28, 40, ? (2 marks)  (b) Find the wrong term in 2, 9, 28, 67, 126, 217 and state the correct value. (2 marks) Show your working.",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) Differences: 3, 6, 9, 12 — they increase by 3, so the next difference is 15. Next term = 40 + 15 = 55."
+    },
+    {
+     "t": "table",
+     "head": [
+      "n",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+     ],
+     "rows": [
+      [
+       "n³ + 1",
+       "2",
+       "9",
+       "28",
+       "65",
+       "126",
+       "217"
+      ],
+      [
+       "Given",
+       "2",
+       "9",
+       "28",
+       "67",
+       "126",
+       "217"
+      ]
+     ],
+     "title": "(b) Test n³ + 1"
+    },
+    {
+     "t": "p",
+     "text": "(b) Every term is one more than a cube except the 4th: 4³ + 1 = 65, but 67 is printed. Wrong term = 67; correct value = 65."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "(a) differences found and their pattern (+3) stated",
+     "m": 1,
+     "skill": "analysis"
+    },
+    {
+     "id": "s2",
+     "pt": "(a) next term 55",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "(b) rule n³ + 1 identified",
+     "m": 1,
+     "skill": "analysis"
+    },
+    {
+     "id": "s4",
+     "pt": "(b) wrong term 67 and correct value 65 both stated",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "In (b) many students compute differences (7, 19, 39, 59, 91) and get lost; when terms sit next to cubes, test the cube rule directly.",
+    "Full marks need both the wrong term and the value that should replace it."
+   ],
+   "mistakes": [
+    "Giving 65 as \"the wrong term\" — 65 is the correction; 67 is the wrong term.",
+    "Adding 12 again in (a) instead of the next difference 15."
+   ],
+   "tips": [
+    "Write the differences under the series in a second row — the pattern becomes visible at a glance.",
+    "In the MCQ paper, test the most likely option by putting it back into the series."
+   ],
+   "checks": [
+    {
+     "expr": "40+15",
+     "value": 55,
+     "label": "missing term (difference 15)"
+    },
+    {
+     "expr": "4**3+1",
+     "value": 65,
+     "label": "correct value in place of the wrong term 67"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "(a) If each letter is replaced by its opposite letter (A ↔ Z, B ↔ Y …), how is MONEY coded? (1 mark)  (b) If CAT = 24 and DOG = 26 under a letter-sum code, what is COST? (1 mark)  (c) Under a rule \"move each letter three places forward, then write the result backwards\", decode VHODV. (2 marks)",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) Opposite letter = 27 − position: M (13) → 14 N; O (15) → 12 L; N (14) → 13 M; E (5) → 22 V; Y (25) → 2 B. Code = NLMVB."
+    },
+    {
+     "t": "p",
+     "text": "(b) C 3 + O 15 + S 19 + T 20 = 57."
+    },
+    {
+     "t": "p",
+     "text": "(c) Undo the steps in reverse order. Step 1 — undo the reversal: VHODV → VDOHV. Step 2 — move each letter three places back: V→S, D→A, O→L, H→E, V→S. Decoded word = SALES. Check by coding SALES: +3 gives VDOHV, reversed VHODV ✓."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "(a) opposite-letter rule applied; NLMVB",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "(b) letter positions added correctly",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "(c) steps undone in reverse order (reverse first)",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s4",
+     "pt": "(c) shift of three places back applied to every letter",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "Part (c) separates good candidates: the second step must be undone first."
+   ],
+   "mistakes": [
+    "Shifting forward again while decoding.",
+    "Using 26 − position for the opposite letter (gives the wrong letter by one).",
+    "Adding S as 18 (that is R)."
+   ],
+   "tips": [
+    "Keep a written A–Z strip with positions on your rough sheet for the whole reasoning section."
+   ],
+   "checks": [
+    {
+     "expr": "3+15+19+20",
+     "value": 57,
+     "label": "letter-sum code of COST (3 + 15 + 19 + 20)"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "text",
+   "q": "(a) Find the odd one out: 11, 13, 17, 21, 23 and give the reason. (1 mark)  (b) Which letter is 9th to the left of the 20th letter from the left end of the alphabet? (1 mark)  (c) Fill the blanks of the letter series a _ b a a _ b a _ b b _ and state the block. (2 marks)",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) 11, 13, 17 and 23 are prime numbers; 21 = 3 × 7 is not. Odd one out: 21."
+    },
+    {
+     "t": "p",
+     "text": "(b) 20th letter from the left is T. Nine places to its left: 20 − 9 = 11 → K."
+    },
+    {
+     "t": "p",
+     "text": "(c) Try a block of four letters: a b b a | a b b a | a b b a. The blanks are positions 2, 6, 9 and 12 → bbaa. Block = \"abba\"."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "(a) 21 with the reason (not prime)",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "(b) 20 − 9 = 11 → K",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "(c) repeating block identified",
+     "m": 1,
+     "skill": "analysis"
+    },
+    {
+     "id": "s4",
+     "pt": "(c) blanks filled in order: b, b, a, a",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "In (b) \"to the left\" means subtract; candidates who add get 29 → wrap-around confusion."
+   ],
+   "mistakes": [
+    "Calling 23 odd because it is \"the largest\".",
+    "Filling the blanks without writing out the whole string to confirm."
+   ],
+   "tips": [
+    "For position questions write the arithmetic (20 − 9 = 11) — it avoids left/right slips."
+   ],
+   "checks": [
+    {
+     "expr": "20-9",
+     "value": 11,
+     "label": "position of the letter 9 places left of T (20th)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Number series: test differences → second differences → ratios → mixed operations (×2+1) → powers ± k → primes → alternate terms → running totals.",
+   "Missing term: find the rule and confirm it with the next given term. Wrong term: build the rule from the majority; the printed term that breaks it is the answer.",
+   "Letters: A = 1 … Z = 26; reverse position = 27 − n; anchors E J O T Y = 5, 10, 15, 20, 25; opposite pairs add to 27; positions wrap after Z.",
+   "Coding: compare word and code letter by letter; common rules — constant shift, varying shift, reversal, pair swap, opposite letter, combinations. Decoding runs the rule backwards and undoes the last step first.",
+   "Number coding: letter positions, letter sums, or a substitution key confirmed by a second word.",
+   "Odd man out: name the shared property first; the odd item lacks it."
+  ],
+  "remember": [
+   "Squares 1–20 and cubes 1–10 by heart (e.g. 13² = 169, 17² = 289, 7³ = 343, 9³ = 729).",
+   "Primes up to 100: 25 of them, starting 2, 3, 5, 7, 11, 13, 17, 19, 23, 29.",
+   "Each wrong MCQ answer costs ¼ mark — skip if you cannot see the rule in about a minute."
+  ],
+  "traps": [
+   "Answering the corrected value in a wrong-term question.",
+   "Coding again instead of decoding.",
+   "Treating 1 or 9 as prime; forgetting 2 is prime.",
+   "Counting the reverse position as 26 − n instead of 27 − n."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Reverse letter position",
+   "v": "27 − forward position (M 13 ↔ 14 from right)"
+  },
+  {
+   "k": "Opposite letters",
+   "v": "Positions add to 27: A–Z, B–Y, C–X … M–N"
+  },
+  {
+   "k": "Anchor letters",
+   "v": "E 5 · J 10 · O 15 · T 20 · Y 25"
+  },
+  {
+   "k": "Series test order",
+   "v": "Differences · second differences · ratio · mixed (×a ± b) · n² ± k, n³ ± k · primes · alternate terms · running totals"
+  },
+  {
+   "k": "Decoding",
+   "v": "Reverse the rule; undo the last step first"
+  },
+  {
+   "k": "Substitution key",
+   "v": "Common letters of two coded words must carry the same digit"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "How do you attack a number series where one term is missing?",
+   "model": "First I check the differences between consecutive terms, and if they are not constant I look at the second differences. If the terms grow fast I test a ratio or a multiplication such as times two plus one. Then I check squares, cubes and prime numbers, and finally I see whether alternate terms form two separate series. The answer must fit every given term.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Check first and second differences",
+     "w": 3,
+     "kw": [
+      "difference|subtract|gap between|minus the previous"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Test ratios / multiplication",
+     "w": 2,
+     "kw": [
+      "ratio|multipl|times|product|divid|doubl|tripl"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Check squares, cubes and primes",
+     "w": 2,
+     "kw": [
+      "square|cube|prime|power"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Check alternate terms (two interleaved series)",
+     "w": 2,
+     "kw": [
+      "alternate|two series|two separate|interleav|odd position|every second|altern|two different series"
+     ]
+    },
+    {
+     "id": "p5",
+     "pt": "Confirm the answer fits every term",
+     "w": 1,
+     "kw": [
+      "fit every|fits all|every term|all terms|all the terms|verify|confirm|check against|cross check"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How do you find the position of a letter counted from the right end of the alphabet, and which letters form opposite pairs?",
+   "model": "Subtract the forward position from twenty seven. For example M is thirteenth from the left and fourteenth from the right. Opposite letters are pairs whose positions add up to twenty seven, like A and Z, B and Y, and M and N. The anchor letters E J O T Y sit at five, ten, fifteen, twenty and twenty five.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Reverse position = 27 − forward position",
+     "w": 4,
+     "kw": [
+      "27|20 7",
+      "subtract|minus|less|take away|deduct|reduc"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Opposite letters add up to 27 (A–Z, B–Y, M–N)",
+     "w": 3,
+     "kw": [
+      "opposite|pair|mirror|partner",
+      "z|m n|b y|add|sum|total"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "Anchor letters E J O T Y = 5, 10, 15, 20, 25",
+     "w": 3,
+     "kw": [
+      "ejoty|e j o t y|5 10 15 20 25|5 10 15|e 5 j 10"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "What is the difference between coding and decoding? Give an example.",
+   "model": "Coding means applying the rule to a plain word to get its code, while decoding means working back from the code to the original word by reversing the rule. If the rule is move each letter two places forward, then to decode we move each letter two places backward. So LEDGER becomes NGFIGT, and VCZ decodes to TAX.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Coding: apply the rule to the word to get the code",
+     "w": 3,
+     "kw": [
+      "coding|encod|code",
+      "word|plain|original|actual",
+      "rule|appl|convert|turn|chang|transform"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Decoding: go back from code to word by reversing the rule",
+     "w": 4,
+     "kw": [
+      "decod",
+      "revers|backward|opposite|back|undo|invert"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Example: +2 forward to code, −2 back to decode",
+     "w": 3,
+     "kw": [
+      "forward|ahead|plus|add|next",
+      "backward|back|minus|subtract|behind|previous"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v4",
+   "q": "What is an odd man out question and how should you solve it?",
+   "model": "All the items except one share a common property. First identify that common property, such as all being prime numbers or all being multiples of seven, and then the item that does not have the property is the odd one out. If two items look odd, look for a stronger property so that only one answer remains.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "All but one share a common property",
+     "w": 4,
+     "kw": [
+      "common|share|same|similar|alike",
+      "propert|feature|quality|rule|characteristic|pattern|trait|thing"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Identify the property first; the item lacking it is odd",
+     "w": 4,
+     "kw": [
+      "identif|find|name|spot|first|figure out",
+      "not have|does not|doesn t|lack|break|differ|not fit|fail|not share|not follow|not satisf|without|missing"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "If two look odd, use a stronger property — one answer",
+     "w": 2,
+     "kw": [
+      "two|more than one|both|several",
+      "stronger|stricter|specific|single|only one|one answer|unique|narrow|better"
+     ]
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v5",
+   "q": "How is a wrong-term question different from a missing-term question?",
+   "model": "In a missing term question one place is blank and we find the value that fits the rule. In a wrong term question every term is printed but one of them breaks the rule. We find the rule from the majority of terms, compute what each term should be, and the term that differs is the wrong one. The answer is the printed wrong term, not the corrected value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Missing term: a blank place to be filled",
+     "w": 3,
+     "kw": [
+      "blank|gap|empty|question mark|not given|left out",
+      "fill|find|fits|value|calculat|compute|work out"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Wrong term: all terms shown, one breaks the rule",
+     "w": 3,
+     "kw": [
+      "all|every|each",
+      "break|not fit|doesn t fit|does not fit|violat|differ|incorrect|not follow|odd"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Build the rule from the majority of terms",
+     "w": 2,
+     "kw": [
+      "majority|most|rest|others|remaining|other terms"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Answer the printed term, not the corrected value",
+     "w": 2,
+     "kw": [
+      "print|given|shown|appear|actual|written|stated",
+      "not the correct|not correct|rather than|instead|not the right|not the value|never the correct"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v6",
+   "q": "If a coding rule shifts each letter three places forward and then writes the result backwards, how do you decode a code?",
+   "model": "Undo the steps in reverse order. First write the code backwards to undo the reversal, then move every letter three places back. For example HVDF reversed is FDVH, and moving each letter three back gives CASE.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Undo the reversal first (reverse order of steps)",
+     "w": 4,
+     "kw": [
+      "revers|backward|back to front|flip|undo",
+      "first|start|begin|order|initially"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Then move every letter three places back",
+     "w": 4,
+     "kw": [
+      "3 back|3 place back|3 step back|3 backward|minus 3|subtract 3|back 3|back by 3|3 behind|3 letters back|3 position back|3 earlier"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Example worked",
+     "w": 2,
+     "kw": [
+      "case|example|instance|e g|eg|like|say"
+     ]
+    }
+   ],
+   "concept": "c5"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Folder codes at a CA firm",
+   "difficulty": "moderate",
+   "case": "To keep client folder names off shared screens, a CA firm's office manager codes each name in two steps: Step 1 — move every letter three places forward in the alphabet (X → A, Y → B, Z → C); Step 2 — write the result backwards. Under this rule AUDIT appears as WLGXD.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "How is BANK coded?",
+     "options": [
+      "NQDE",
+      "EDQN",
+      "KNAB",
+      "NQED"
+     ],
+     "answer": 0,
+     "explain": "Step 1: B A N K → E D Q N. Step 2: reverse → NQDE. EDQN stops after step 1.",
+     "concept": "c5",
+     "difficulty": "core"
+    },
+    {
+     "id": "k1b",
+     "q": "Which folder name is coded as HVDF?",
+     "options": [
+      "CASE",
+      "FDVH",
+      "ESAC",
+      "KYGI"
+     ],
+     "answer": 0,
+     "explain": "Undo step 2 first: HVDF → FDVH. Then move each letter three back: F→C, D→A, V→S, H→E → CASE.",
+     "concept": "c5",
+     "difficulty": "moderate"
+    },
+    {
+     "id": "k1c",
+     "q": "How is LOAN coded?",
+     "options": [
+      "QDRO",
+      "ORDQ",
+      "NAOL",
+      "QDOR"
+     ],
+     "answer": 0,
+     "explain": "L O A N → O R D Q (+3), reversed → QDRO.",
+     "concept": "c5",
+     "difficulty": "core"
+    },
+    {
+     "id": "k1d",
+     "q": "Under step 1 alone, which letter becomes A?",
+     "options": [
+      "X",
+      "D",
+      "C",
+      "Z"
+     ],
+     "answer": 0,
+     "explain": "Moving three places forward from X gives Y, Z, A. D is what A becomes, the opposite direction.",
+     "concept": "c3",
+     "difficulty": "moderate"
+    }
+   ]
+  }
+ ]
+}

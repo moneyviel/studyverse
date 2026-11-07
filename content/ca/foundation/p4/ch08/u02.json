@@ -1,0 +1,1479 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p4-ch08-u02",
+ "level": "foundation",
+ "paper": "p4",
+ "chapter": "fnd-p4-ch08",
+ "n": 2,
+ "title": "The Concept of Money Supply",
+ "outcomes": [
+  "Define money supply and the \"public\", explain why money supply is measured, and identify its sources — the central bank (high-powered money) and commercial banks (credit money); explain CBDC and the status of crypto-currencies.",
+  "Compute the RBI's measures M1, M2, M3 and M4 and currency with the public.",
+  "Explain the money multiplier and its determinants (currency ratio, reserve ratio, excess reserves), and compute it with m = (1 + c)/(r + e + c); distinguish it from the credit (deposit) multiplier 1/r.",
+  "Explain how open market operations and government borrowing from the RBI (WMA/overdraft) change money supply."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 55,
+   "practice": 60
+  },
+  "prereq": [
+   "fnd-p4-ch08-u01"
+  ],
+  "exam_tip": "Memorise M1–M4 exactly (M2 and M4 add POST OFFICE deposits; M3 adds TIME deposits of banks). For numericals: m = (1 + c)/(r + e + c); credit multiplier = 1/r. Every ratio — c, r, e — moves inversely with the multiplier."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Introduction — money supply and who the \"public\" is",
+   "body": [
+    "Whatever its form, money is a medium of exchange, unit of account and store of value. For policy, money is the set of liquid financial assets whose changes can affect overall economic activity. Stability needs money supply kept at an optimum level — which requires measuring it accurately and regulating it.",
+    "Money supply refers to money held by the public. The \"public\" means all economic units — households, firms, institutions, local authorities, non-bank financial companies, non-departmental public undertakings, foreign central banks and governments, and the IMF's deposits with the RBI — EXCEPT the producers of money: the government (Centre, States, local bodies in this context) and the banking system (RBI and banks accepting demand deposits).",
+    "So inter-bank deposits and money held by the government and banks are excluded.",
+    "Broad money (M3) in international usage covers currency, deposits with agreed maturity up to two years, deposits redeemable at notice up to three months, repos, money-market fund units and debt securities up to two years."
+   ],
+   "analogy": "Money supply counts the water in people's buckets, not the water still in the municipal tank (the RBI and banks) or in the government's own drums.",
+   "work": "Bank treasury and economics teams track the RBI's fortnightly money-supply data to anticipate liquidity and interest-rate moves."
+  },
+  {
+   "id": "c2",
+   "title": "Rationale of measuring money supply",
+   "body": [
+    "(1) Analysis: it helps understand the causes of money growth.",
+    "(2) Policy: it tells whether the money stock is consistent with price stability, and why it deviates. Central banks stabilise prices and GDP growth by managing the monetary base; the success of monetary policy depends on how controllable the monetary base and money supply are."
+   ],
+   "analogy": "You cannot regulate the water level of a dam without a gauge — measuring money supply is the gauge.",
+   "work": "Economists use money growth as one input when forecasting inflation and RBI policy decisions for clients."
+  },
+  {
+   "id": "c3",
+   "title": "Sources of money supply; CBDC and crypto-currencies",
+   "body": [
+    "Money supply depends on (a) the central bank's decisions under its legal authority and (b) the response of commercial banks to the central bank's policy changes.",
+    "Currency is issued only by the sovereign or the central bank on its behalf, and is legal tender. Paper currency is representative money — a debt instrument: a liability of the central bank (and government) and an asset of the public. The central bank is the primary source of money; the high-powered money it issues is the base for all other money. Its fiat money is backed by reserves and guaranteed by the government.",
+    "In principle currency should be backed by assets (gold, foreign exchange); in practice most countries use a minimum reserve system — the central bank may issue any amount of currency while holding only a prescribed minimum of gold and foreign assets as backing.",
+    "The second source is commercial banks: they create credit money through lending and borrowing with the public. High-powered money plus credit money make up the common measure of money stock.",
+    "Money has evolved from commodity to metallic to paper to digital. A Central Bank Digital Currency (CBDC) is legal tender issued by a central bank in digital form — like sovereign currency, exchangeable at par, a medium of payment and safe store of value, and a liability of the central bank. The RBI is introducing the Digital Rupee (e₹) in phases through pilots.",
+    "Crypto-currencies are not legally recognised as currency in India and are not counted as money. The RBI has clarified that banks cannot rely on its 2018 circular (which barred dealing in virtual currencies) — that circular was set aside."
+   ],
+   "analogy": "The RBI pours the first jug of water (high-powered money); banks keep passing part of it from glass to glass, so the total water people can drink is many times the jug.",
+   "work": "Banks' finance teams must classify CBDC holdings and understand that crypto assets are not \"cash or cash equivalents\" for accounting or regulatory purposes in India."
+  },
+  {
+   "id": "c4",
+   "title": "Measurement of money supply — M1, M2, M3, M4",
+   "body": [
+    "Many forms of credit money make measurement hard, and measures differ by country, time and purpose. The RBI has compiled monetary statistics since July 1935. Until 1967-68 it published only narrow money M1 (currency + demand deposits with the public). From 1967-68 it added \"aggregate monetary resources\" (AMR). From April 1977, on the Second Working Group's recommendations, it publishes four measures plus reserve money.",
+    "M1 = currency notes and coins with the public + demand deposits with the banking system (current accounts and savings accounts) + other deposits with the RBI.",
+    "M2 = M1 + savings deposits with post office savings banks.",
+    "M3 = M1 + time deposits with the banking system. M3 is \"broad money\" and the most widely used measure.",
+    "M4 = M3 + total deposits with the Post Office Savings Organisation (excluding National Savings Certificates).",
+    "Liquidity falls from M1 to M4: M1 is the most liquid. Currency with the public = notes in circulation + rupee coins + small coins − cash on hand with banks.",
+    "Reserve money (monetary base, high-powered money) = currency in circulation + other deposits with the RBI + balances that banks hold with the RBI."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Definition",
+      "Type"
+     ],
+     "rows": [
+      [
+       "M1",
+       "Currency with public + demand deposits of banks + other deposits with RBI",
+       "Narrow money"
+      ],
+      [
+       "M2",
+       "M1 + post office savings bank deposits",
+       "Narrow"
+      ],
+      [
+       "M3",
+       "M1 + time deposits of banks",
+       "Broad money"
+      ],
+      [
+       "M4",
+       "M3 + all post office savings deposits (excl. NSC)",
+       "Broad"
+      ]
+     ],
+     "title": "RBI measures of money supply"
+    }
+   ],
+   "analogy": "M1 is cash in hand plus money in your current account; M3 adds your fixed deposits; M2 and M4 add post office savings.",
+   "work": "Bank auditors verify the \"demand\" and \"time\" liability classification banks report to the RBI, because those numbers feed M1 and M3 and also determine CRR/SLR."
+  },
+  {
+   "id": "c5",
+   "title": "Determinants of money supply and the money multiplier concept",
+   "body": [
+    "Two views: money supply is exogenous (fixed by the central bank) or endogenous (driven by economic activity, people's currency preferences, interest rates). Current practice uses the money-multiplier approach, linking money stock to the monetary base (currency in circulation + bank reserves); total money supply is jointly determined by the central bank, commercial banks and the public.",
+    "The RBI creates the monetary base (high-powered money, H). Banks lend out excess reserves, creating deposits, so a one-rupee rise in H raises money supply by more than one rupee.",
+    "M = C + D (currency with the public + deposits). M = m × H, so the money multiplier m = money supply ÷ monetary base. Example: if a ₹100 crore open market purchase finally adds ₹400 crore to money supply, m = 4.",
+    "Simplest case (banks hold no excess reserves and the public holds no currency): m = 1/R, where R is the reserve ratio. At R = 10%, m = 10; at R = 5%, m = 20. Higher reserve ratio → smaller multiplier.",
+    "Money that leaks into currency is not multiplied; only the part that supports deposits is. So holding more cash shrinks the multiplier."
+   ],
+   "analogy": "High-powered money is the seed; the money multiplier is how many plants grow from it. Seeds kept in the pocket (currency) never sprout.",
+   "work": "Treasury analysts estimate how much a CRR change will release or absorb — a direct multiplier calculation."
+  },
+  {
+   "id": "c6",
+   "title": "The money multiplier approach (Friedman and Schwartz)",
+   "body": [
+    "Milton Friedman and Anna Schwartz (1963) named three proximate determinants: (a) the stock of high-powered money H — behaviour of the central bank; (b) the reserve ratio r = reserves/deposits — behaviour of commercial banks; (c) the currency–deposit ratio c = C/D — behaviour of the public.",
+    "Central bank: with public and bank behaviour unchanged, money supply varies directly with H.",
+    "Commercial banks: a higher required reserve ratio forces banks to contract loans and deposits — money supply falls; a lower one expands it. Banks often hold excess reserves (ER = total reserves − required reserves) as a buffer. The excess reserve ratio e falls when market interest rates rise (higher opportunity cost of idle reserves) and rises when banks fear larger deposit withdrawals. In crises banks may refuse to lend to small firms even when policy rates are cut, slowing money growth despite easy policy (e.g. banks parked huge sums in the RBI's reverse repo window during COVID-19 despite a low 3.35% rate).",
+    "Public: when deposits are converted into currency, less credit can be created — m and money supply are inversely related to c. The currency ratio reflects banking habits, and falls with financial development, easier access, new liquid assets and innovation. A higher time-deposit to demand-deposit ratio frees reserves and enlarges deposit expansion.",
+    "Derivation: M = C + D and H = C + Reserves. With c = C/D and r = Reserves/D: M = (1 + c)D and H = (c + r)D, so m = (1 + c)/(r + c) and M = m × H. With excess reserves: m = (1 + c)/(r + e + c).",
+    "m is a function of c (set by depositors), e (set by banks) and r (set by the central bank through CRR and settlement needs). The lower these ratios, the larger the multiplier."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Ratio",
+      "Whose behaviour",
+      "If it rises, m…"
+     ],
+     "rows": [
+      [
+       "c = C/D",
+       "Public",
+       "Falls"
+      ],
+      [
+       "r = required reserves/D",
+       "Central bank (CRR)",
+       "Falls"
+      ],
+      [
+       "e = excess reserves/D",
+       "Commercial banks",
+       "Falls"
+      ],
+      [
+       "H",
+       "Central bank",
+       "M rises (m unchanged)"
+      ]
+     ],
+     "title": "Proximate determinants of money supply"
+    }
+   ],
+   "analogy": "Each ratio is a leak in a pipe: the more water leaks out as cash (c) or is held back in tanks (r, e), the less reaches the end of the pipe.",
+   "work": "Bank ALM committees decide how much excess liquidity to hold; collectively these decisions change e and the economy-wide multiplier."
+  },
+  {
+   "id": "c7",
+   "title": "Credit multiplier and its difference from the money multiplier",
+   "body": [
+    "The credit (deposit) multiplier shows how much additional deposit money the banking system creates by lending reserves above the requirement. Credit multiplier = 1 ÷ required reserve ratio. At 20%, it is 5.",
+    "It results from fractional-reserve banking: when a bank lends part of a deposit, the borrower gets a new deposit while the original depositor keeps his claim — the bank has more liabilities than cash. Example with a 10% ratio: an initial deposit of ₹1,000 supports loans of ₹900, then ₹810, ₹729 and so on, until total deposits reach 1,000 × 1/0.10 = ₹10,000.",
+    "Money created by banks is no different from money issued by the central bank, but creating money is not the same as creating wealth.",
+    "The two multipliers differ because banks usually hold more than the minimum reserves, and borrowers convert part of their loans into cash. So the actual money multiplier is smaller than 1/r."
+   ],
+   "analogy": "A rumour passed along a chain — each person repeats 90% of what they heard; the total words spoken add up to ten times the original sentence.",
+   "work": "Credit-growth projections for banks start from deposits and the reserve requirement — a practical credit multiplier exercise."
+  },
+  {
+   "id": "c8",
+   "title": "Monetary policy, government expenditure and money supply",
+   "body": [
+    "To stimulate activity the central bank injects liquidity, e.g. through an open market purchase of government securities, which adds to banks' reserves (monetary base). If banks hold no excess reserves, people do not hold extra currency and borrowers want loans, ΔMoney supply = (1/R) × ΔReserves.",
+    "An open market sale works the other way — it drains reserves and reduces money supply. (Exam note: one sentence of the study material, as printed, says an open market purchase reduces reserves; that is a slip — the material's own preceding sentences, and standard theory, show that a purchase injects reserves and a sale withdraws them. Answer on that basis.)",
+    "Can the multiplier be zero? Yes — if interest rates are very low and banks simply hold new reserves as risk-free excess reserves, nothing is lent out.",
+    "Government expenditure: when Central or State cash balances fall below the minimum, they can use the RBI's Ways and Means Advances (WMA) or overdraft. When the government spends this money, its account with the RBI is debited and the recipient's account in a commercial bank (say a government employee's salary account) is credited — banks' balances with the RBI rise. These excess reserves can expand money supply through the multiplier."
+   ],
+   "analogy": "An open market purchase is the RBI buying bonds from banks with freshly created money — like topping up every bank's tank so more water can flow out as loans.",
+   "work": "Liquidity forecasting desks in banks track government cash balances with the RBI, because government spending from WMA adds reserves to the banking system."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Computing M1, M2, M3 and M4",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Data (₹ crore): currency with the public 3,20,000; demand deposits with banks 2,80,000; other deposits with RBI 6,000; savings deposits with post office savings banks 18,000; time deposits with banks 14,50,000; total post office deposits excluding NSC 62,000. Compute M1 to M4.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "Working",
+      "₹ crore"
+     ],
+     "rows": [
+      [
+       "M1",
+       "3,20,000 + 2,80,000 + 6,000",
+       606000
+      ],
+      [
+       "M2",
+       "M1 + 18,000",
+       624000
+      ],
+      [
+       "M3",
+       "M1 + 14,50,000",
+       2056000
+      ],
+      [
+       "M4",
+       "M3 + 62,000",
+       2118000
+      ]
+     ]
+    },
+    {
+     "t": "note",
+     "text": "M2 and M3 are both built on M1, not on each other. M4 adds the total post office deposits to M3."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "320000+280000+6000",
+     "value": 606000,
+     "label": "M1"
+    },
+    {
+     "expr": "606000+18000",
+     "value": 624000,
+     "label": "M2"
+    },
+    {
+     "expr": "606000+1450000",
+     "value": 2056000,
+     "label": "M3"
+    },
+    {
+     "expr": "2056000+62000",
+     "value": 2118000,
+     "label": "M4"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Currency with the public",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "Notes in circulation ₹33,40,000 crore; rupee coins ₹31,200 crore; small coins ₹750 crore; cash on hand with banks ₹1,18,000 crore. Find currency with the public.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Currency with the public = 33,40,000 + 31,200 + 750 − 1,18,000 = ₹32,53,950 crore. Cash held by banks is excluded because banks are producers of money, not part of the \"public\"."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "3340000+31200+750-118000",
+     "value": 3253950,
+     "label": "currency with the public"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "The money multiplier with currency and excess reserves",
+   "difficulty": "hard",
+   "minutes": 8,
+   "q": "Required reserve ratio r = 8%, excess reserve ratio e = 2%, currency–deposit ratio c = 0.30; high-powered money H = ₹60,000 crore. Find m and M. What happens to m if (a) r rises to 13%, (b) c falls to 0.20? Compare with the simple multiplier.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "m = (1 + c) ÷ (r + e + c) = 1.30 ÷ 0.40 = 3.25. M = 3.25 × 60,000 = ₹1,95,000 crore."
+    },
+    {
+     "t": "p",
+     "text": "(a) r = 13%: m = 1.30 ÷ 0.45 = 2.89 — a higher reserve ratio lowers the multiplier."
+    },
+    {
+     "t": "p",
+     "text": "(b) c = 0.20: m = 1.20 ÷ 0.30 = 4 — less cash holding raises the multiplier."
+    },
+    {
+     "t": "p",
+     "text": "Simple multiplier 1/r = 1/0.08 = 12.5; the actual multiplier is much smaller because of currency drain and excess reserves."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round((1+0.3)/(0.08+0.02+0.3),2)",
+     "value": 3.25,
+     "label": "money multiplier"
+    },
+    {
+     "expr": "3.25*60000",
+     "value": 195000,
+     "label": "money supply"
+    },
+    {
+     "expr": "round((1+0.3)/(0.13+0.02+0.3),2)",
+     "value": 2.89,
+     "label": "multiplier after r rises to 13%"
+    },
+    {
+     "expr": "round((1+0.2)/(0.08+0.02+0.2),2)",
+     "value": 4,
+     "label": "multiplier when c falls to 0.2"
+    },
+    {
+     "expr": "1/0.08",
+     "value": 12.5,
+     "label": "simple deposit multiplier"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Credit creation by the banking system",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "A fresh deposit of ₹2,00,000 is made. Required reserve ratio is 8%. Show the first rounds of deposit creation and the total; repeat the total for a 20% ratio.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Round",
+      "Deposit ₹",
+      "Reserve kept (8%) ₹",
+      "Lent out ₹"
+     ],
+     "rows": [
+      [
+       "1",
+       200000,
+       16000,
+       184000
+      ],
+      [
+       "2",
+       184000,
+       14720.0,
+       169280
+      ],
+      [
+       "3",
+       169280,
+       13542.4,
+       155737.6
+      ],
+      [
+       "4",
+       155737.6,
+       12459.01,
+       143278.59
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Credit multiplier = 1/0.08 = 12.5; total deposits = 2,00,000 × 12.5 = ₹25,00,000 (new credit ₹23,00,000)."
+    },
+    {
+     "t": "p",
+     "text": "At 20%: multiplier = 5; total deposits = ₹10,00,000."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1/0.08",
+     "value": 12.5,
+     "label": "credit multiplier at 8%"
+    },
+    {
+     "expr": "200000*12.5",
+     "value": 2500000,
+     "label": "total deposits at 8%"
+    },
+    {
+     "expr": "1/0.20",
+     "value": 5,
+     "label": "credit multiplier at 20%"
+    },
+    {
+     "expr": "200000*5",
+     "value": 1000000,
+     "label": "total deposits at 20%"
+    },
+    {
+     "expr": "200000*0.92",
+     "value": 184000,
+     "label": "round 2 deposit"
+    },
+    {
+     "expr": "184000*0.92",
+     "value": 169280,
+     "label": "round 3 deposit"
+    },
+    {
+     "expr": "169280*0.92",
+     "value": 155737.6,
+     "label": "round 4 deposit"
+    },
+    {
+     "expr": "2500000-200000",
+     "value": 2300000,
+     "label": "new credit created at 8%"
+    }
+   ]
+  },
+  {
+   "id": "i5",
+   "title": "Open market purchase",
+   "difficulty": "moderate",
+   "minutes": 5,
+   "q": "The RBI buys government securities worth ₹5,000 crore from banks. Reserve ratio is 10%. Find the rise in money supply (a) if there is no currency drain or excess reserves, (b) if the public holds currency equal to 25% of deposits.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) ΔM = (1/0.1) × 5,000 = ₹50,000 crore."
+    },
+    {
+     "t": "p",
+     "text": "(b) m = 1.25 ÷ 0.35 = 3.57; ΔM = 5,000 × 1.25 ÷ 0.35 ≈ ₹17,857 crore (using the rounded multiplier 3.57 gives about ₹17,850 crore). Currency drain sharply reduces the expansion."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "5000/0.1",
+     "value": 50000,
+     "label": "money created by OMO purchase (simple)"
+    },
+    {
+     "expr": "round((1+0.25)/(0.1+0.25),2)",
+     "value": 3.57,
+     "label": "multiplier with currency drain"
+    },
+    {
+     "expr": "round(5000*(1+0.25)/(0.1+0.25))",
+     "value": 17857,
+     "label": "money created with currency drain (exact multiplier 1.25/0.35)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Explaining a CRR cut to a board",
+   "role": "CA as CFO of a small finance bank",
+   "situation": "The RBI cuts CRR by 0.5 percentage points.",
+   "steps": [
+    "Compute reserves released = 0.5% × net demand and time liabilities.",
+    "Explain that the system-wide money multiplier rises as r falls.",
+    "Plan deployment — loans if demand exists, otherwise investments (excess reserves raise e and blunt the effect)."
+   ],
+   "takeaway": "A CRR change acts directly on the reserve ratio in the money multiplier.",
+   "think": "Why might money supply not rise much after the cut?",
+   "answer": "If loan demand is weak or banks are risk-averse, they hold the released funds as excess reserves (higher e), so the multiplier barely changes."
+  },
+  {
+   "id": "j2",
+   "title": "Verifying a bank's demand and time liabilities",
+   "role": "Articled assistant on a bank branch audit",
+   "situation": "You must check the branch's return of demand and time liabilities.",
+   "steps": [
+    "Classify current accounts and the demand portion of savings as demand liabilities; fixed deposits as time liabilities.",
+    "Reconcile with the general ledger.",
+    "Note that misclassification distorts CRR/SLR and national M1/M3 statistics."
+   ],
+   "takeaway": "The building blocks of M1 and M3 come from millions of bank returns like this one."
+  },
+  {
+   "id": "j3",
+   "title": "Client asks: is crypto money?",
+   "role": "CA in practice",
+   "situation": "A client holding crypto assets calls them \"cash\" in his books.",
+   "steps": [
+    "Explain crypto-currencies are not legal tender in India and are not counted as money.",
+    "Explain the Digital Rupee (CBDC) is legal tender issued by the RBI.",
+    "Reclassify crypto holdings as investments/virtual digital assets as per applicable law."
+   ],
+   "takeaway": "Legal tender status decides what counts as money."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "For measuring money supply, the \"public\" excludes:",
+   "options": [
+    "The government and the banking system",
+    "Households",
+    "Non-bank financial companies",
+    "Local authorities"
+   ],
+   "answer": 0,
+   "explain": "Producers of money — government and banks — are excluded.",
+   "difficulty": "core",
+   "concept": "c1"
+  },
+  {
+   "id": "m2",
+   "q": "Which of the following is part of the \"public\" for money-supply purposes?",
+   "options": [
+    "Foreign central banks holding deposits with the RBI",
+    "The Reserve Bank of India",
+    "Commercial banks accepting demand deposits",
+    "The Central Government"
+   ],
+   "answer": 0,
+   "explain": "Foreign central banks, governments and the IMF's deposits with the RBI count as public.",
+   "difficulty": "moderate",
+   "concept": "c1"
+  },
+  {
+   "id": "m3",
+   "q": "Which institution is the basic (primary) source of money supply in every country?",
+   "options": [
+    "Central bank",
+    "Commercial banks",
+    "Stock exchange",
+    "Finance ministry's budget"
+   ],
+   "answer": 0,
+   "explain": "The central bank issues high-powered money — the base for all other money.",
+   "difficulty": "core",
+   "concept": "c3"
+  },
+  {
+   "id": "m4",
+   "q": "Money created by commercial banks through lending is called:",
+   "options": [
+    "Credit money",
+    "Fiat money",
+    "Commodity money",
+    "High-powered money"
+   ],
+   "answer": 0,
+   "explain": "Banks create deposits as they lend.",
+   "difficulty": "core",
+   "concept": "c3"
+  },
+  {
+   "id": "m5",
+   "q": "Under the minimum reserve system, the central bank:",
+   "options": [
+    "May issue any amount of currency while holding a prescribed minimum of gold and foreign assets",
+    "Must back every note fully with gold",
+    "Cannot issue currency without Parliament's approval for each note",
+    "Issues currency only against government deficits"
+   ],
+   "answer": 0,
+   "explain": "Most countries follow this system.",
+   "difficulty": "moderate",
+   "concept": "c3"
+  },
+  {
+   "id": "m6",
+   "q": "A CBDC is:",
+   "options": [
+    "Legal tender issued by a central bank in digital form",
+    "A private crypto-currency",
+    "A bank deposit",
+    "A government bond"
+   ],
+   "answer": 0,
+   "explain": "India's CBDC is the Digital Rupee (e₹), a liability of the RBI.",
+   "difficulty": "core",
+   "concept": "c3"
+  },
+  {
+   "id": "m7",
+   "q": "In India, crypto-currencies are:",
+   "options": [
+    "Not legally recognised as currency and not counted as money",
+    "Legal tender",
+    "Part of M1",
+    "Part of reserve money"
+   ],
+   "answer": 0,
+   "explain": "They face legal uncertainty and are not money.",
+   "difficulty": "core",
+   "concept": "c3"
+  },
+  {
+   "id": "m8",
+   "q": "M1 consists of:",
+   "options": [
+    "Currency with the public + demand deposits with banks + other deposits with the RBI",
+    "M1 + time deposits",
+    "Currency with the public only",
+    "Currency + post office savings deposits"
+   ],
+   "answer": 0,
+   "explain": "Narrow money M1.",
+   "difficulty": "core",
+   "concept": "c4"
+  },
+  {
+   "id": "m9",
+   "q": "M3 equals:",
+   "options": [
+    "M1 + time deposits with the banking system",
+    "M2 + time deposits",
+    "M1 + post office savings deposits",
+    "M3 + post office deposits"
+   ],
+   "answer": 0,
+   "explain": "M3 builds on M1, not on M2.",
+   "difficulty": "core",
+   "concept": "c4"
+  },
+  {
+   "id": "m10",
+   "q": "M2 equals:",
+   "options": [
+    "M1 + savings deposits with post office savings banks",
+    "M1 + time deposits with banks",
+    "M3 + total post office deposits",
+    "Currency + bank reserves"
+   ],
+   "answer": 0,
+   "explain": "M2 adds post office savings bank deposits.",
+   "difficulty": "core",
+   "concept": "c4"
+  },
+  {
+   "id": "m11",
+   "q": "Which measure is called broad money?",
+   "options": [
+    "M3",
+    "M1",
+    "M2",
+    "Reserve money"
+   ],
+   "answer": 0,
+   "explain": "M3 is broad money and most widely used.",
+   "difficulty": "core",
+   "concept": "c4"
+  },
+  {
+   "id": "m12",
+   "q": "The RBI began publishing four measures of money supply (M1 to M4) from:",
+   "options": [
+    "April 1977",
+    "July 1935",
+    "1967-68",
+    "August 2016"
+   ],
+   "answer": 0,
+   "explain": "Following the Second Working Group on Money Supply.",
+   "difficulty": "moderate",
+   "concept": "c4"
+  },
+  {
+   "id": "m13",
+   "q": "Currency with the public 3,20,000; demand deposits 2,80,000; other deposits with RBI 6,000; time deposits 14,50,000 (₹ crore). M3 is:",
+   "options": [
+    "₹20,56,000 crore",
+    "₹6,06,000 crore",
+    "₹20,50,000 crore",
+    "₹17,70,000 crore"
+   ],
+   "answer": 0,
+   "explain": "M1 = 6,06,000; M3 = 6,06,000 + 14,50,000 = 20,56,000. ₹20,50,000 omits other deposits with RBI; ₹17,70,000 omits demand deposits.",
+   "difficulty": "hard",
+   "concept": "c4",
+   "check": "320000+280000+6000+1450000"
+  },
+  {
+   "id": "m14",
+   "q": "Notes in circulation 33,40,000; rupee coins 31,200; small coins 750; cash with banks 1,18,000 (₹ crore). Currency with the public is:",
+   "options": [
+    "₹32,53,950 crore",
+    "₹34,89,950 crore",
+    "₹33,71,950 crore",
+    "₹32,22,000 crore"
+   ],
+   "answer": 0,
+   "explain": "Add notes and coins, subtract cash held by banks: 33,71,950 − 1,18,000 = 32,53,950.",
+   "difficulty": "moderate",
+   "concept": "c4",
+   "check": "3340000+31200+750-118000"
+  },
+  {
+   "id": "m15",
+   "q": "If R = 10% and there is no currency drain or excess reserves, the money multiplier is:",
+   "options": [
+    "10",
+    "0.1",
+    "1",
+    "100"
+   ],
+   "answer": 0,
+   "explain": "m = 1/R = 1/0.1 = 10.",
+   "difficulty": "core",
+   "concept": "c5",
+   "check": "1/0.1"
+  },
+  {
+   "id": "m16",
+   "q": "A ₹100 crore open market purchase finally raises money supply by ₹400 crore. The money multiplier is:",
+   "options": [
+    "4",
+    "0.25",
+    "400",
+    "5"
+   ],
+   "answer": 0,
+   "explain": "m = ΔM/ΔH = 400/100 = 4.",
+   "difficulty": "core",
+   "concept": "c5",
+   "check": "400/100"
+  },
+  {
+   "id": "m17",
+   "q": "The money-multiplier approach identifying H, r and c as proximate determinants was given by:",
+   "options": [
+    "Milton Friedman and Anna Schwartz",
+    "Baumol and Tobin",
+    "Keynes",
+    "Irving Fisher"
+   ],
+   "answer": 0,
+   "explain": "Friedman and Schwartz (1963).",
+   "difficulty": "core",
+   "concept": "c6"
+  },
+  {
+   "id": "m18",
+   "q": "The currency–deposit ratio reflects the behaviour of:",
+   "options": [
+    "The public",
+    "Commercial banks",
+    "The central bank",
+    "The government"
+   ],
+   "answer": 0,
+   "explain": "c = C/D shows banking habits of people.",
+   "difficulty": "core",
+   "concept": "c6"
+  },
+  {
+   "id": "m19",
+   "q": "The money multiplier is NEGATIVELY related to:",
+   "options": [
+    "The currency ratio, the reserve ratio and the excess reserve ratio",
+    "High-powered money",
+    "The time-deposit to demand-deposit ratio",
+    "Bank lending"
+   ],
+   "answer": 0,
+   "explain": "Higher c, r or e means less deposit expansion.",
+   "difficulty": "moderate",
+   "concept": "c6"
+  },
+  {
+   "id": "m20",
+   "q": "With r = 0.08, e = 0.02 and c = 0.30, the money multiplier m = (1 + c)/(r + e + c) is:",
+   "options": [
+    "3.25",
+    "12.5",
+    "2.5",
+    "4.33"
+   ],
+   "answer": 0,
+   "explain": "1.30/0.40 = 3.25. 12.5 is the simple multiplier 1/r; 4.33 (= 1.30/0.30) wrongly leaves r and e out of the denominator; 2.5 uses 1/0.40.",
+   "difficulty": "hard",
+   "concept": "c6",
+   "check": "round((1+0.3)/(0.08+0.02+0.3),2)"
+  },
+  {
+   "id": "m21",
+   "q": "Excess reserves of banks tend to FALL when:",
+   "options": [
+    "Market interest rates rise",
+    "Banks expect larger deposit withdrawals",
+    "Interest rates fall",
+    "A financial crisis begins"
+   ],
+   "answer": 0,
+   "explain": "Higher rates raise the opportunity cost of idle reserves.",
+   "difficulty": "moderate",
+   "concept": "c6"
+  },
+  {
+   "id": "m22",
+   "q": "Total reserves are ₹800 billion and required reserves ₹650 billion. Excess reserves are:",
+   "options": [
+    "₹150 billion",
+    "₹1,450 billion",
+    "₹650 billion",
+    "₹800 billion"
+   ],
+   "answer": 0,
+   "explain": "ER = TR − RR = 800 − 650 = 150.",
+   "difficulty": "core",
+   "concept": "c6",
+   "check": "800-650"
+  },
+  {
+   "id": "m23",
+   "q": "If the required reserve ratio is 12.5%, the credit multiplier is:",
+   "options": [
+    "8",
+    "12.5",
+    "0.125",
+    "80"
+   ],
+   "answer": 0,
+   "explain": "1/0.125 = 8.",
+   "difficulty": "core",
+   "concept": "c7",
+   "check": "1/0.125"
+  },
+  {
+   "id": "m24",
+   "q": "A fresh deposit of ₹2,00,000 with a 20% reserve ratio can support total deposits of:",
+   "options": [
+    "₹10,00,000",
+    "₹40,000",
+    "₹2,40,000",
+    "₹8,00,000"
+   ],
+   "answer": 0,
+   "explain": "2,00,000 × 1/0.2 = 10,00,000. ₹8,00,000 is the new credit only (excluding the initial deposit).",
+   "difficulty": "moderate",
+   "concept": "c7",
+   "check": "200000/0.2"
+  },
+  {
+   "id": "m25",
+   "q": "The money multiplier is usually smaller than the credit multiplier because:",
+   "options": [
+    "Banks hold excess reserves and borrowers convert part of loans into cash",
+    "The RBI prints too much money",
+    "Deposits earn interest",
+    "Government spending is high"
+   ],
+   "answer": 0,
+   "explain": "Both leakages reduce deposit expansion.",
+   "difficulty": "moderate",
+   "concept": "c7"
+  },
+  {
+   "id": "m26",
+   "q": "An open market SALE of securities by the RBI will:",
+   "options": [
+    "Reduce bank reserves and money supply",
+    "Increase bank reserves and money supply",
+    "Leave money supply unchanged",
+    "Increase currency with the public"
+   ],
+   "answer": 0,
+   "explain": "Banks pay for the securities from their reserves.",
+   "difficulty": "core",
+   "concept": "c8"
+  },
+  {
+   "id": "m27",
+   "q": "The money multiplier could be close to zero when:",
+   "options": [
+    "Interest rates are very low and banks hold new reserves as excess reserves",
+    "Banks lend out all reserves",
+    "CRR is cut",
+    "The public holds no currency"
+   ],
+   "answer": 0,
+   "explain": "If banks do not lend, no deposits are created.",
+   "difficulty": "hard",
+   "concept": "c8"
+  },
+  {
+   "id": "m28",
+   "q": "When the government spends money borrowed from the RBI under WMA/overdraft:",
+   "options": [
+    "Banks' reserves with the RBI rise and money supply can expand",
+    "Money supply falls",
+    "Bank reserves fall",
+    "There is no effect on money supply"
+   ],
+   "answer": 0,
+   "explain": "The government account is debited; recipients' bank accounts are credited, adding reserves.",
+   "difficulty": "moderate",
+   "concept": "c8"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "From the data (₹ crore) compute M1, M2, M3 and M4: currency with the public 2,40,000; demand deposits with banks 4,10,000; other deposits with RBI 9,000; post office savings bank deposits 35,000; time deposits with banks 18,20,000; total post office deposits (excluding NSC) 1,20,000.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Measure",
+      "₹ crore"
+     ],
+     "rows": [
+      [
+       "M1 = 2,40,000 + 4,10,000 + 9,000",
+       659000
+      ],
+      [
+       "M2 = M1 + 35,000",
+       694000
+      ],
+      [
+       "M3 = M1 + 18,20,000",
+       2479000
+      ],
+      [
+       "M4 = M3 + 1,20,000",
+       2599000
+      ]
+     ]
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "M1",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "M2 built on M1",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s3",
+     "pt": "M3 built on M1",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "M4 built on M3",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "The classic error is building M3 on M2."
+   ],
+   "mistakes": [
+    "Adding post office deposits to M3.",
+    "Leaving out other deposits with the RBI."
+   ],
+   "tips": [
+    "Write each definition before the numbers."
+   ],
+   "checks": [
+    {
+     "expr": "240000+410000+9000",
+     "value": 659000,
+     "label": "M1"
+    },
+    {
+     "expr": "659000+35000",
+     "value": 694000,
+     "label": "M2"
+    },
+    {
+     "expr": "659000+1820000",
+     "value": 2479000,
+     "label": "M3"
+    },
+    {
+     "expr": "2479000+120000",
+     "value": 2599000,
+     "label": "M4"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "hard",
+   "pad": "text",
+   "q": "Required reserve ratio 10%; currency ₹500 billion; demand deposits ₹1,000 billion; excess reserves ₹5 billion. Find (a) c and e, (b) money supply, (c) the money multiplier, (d) the multiplier if the reserve ratio rises to 15%, (e) the simple deposit multiplier. Comment.",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) c = 500/1,000 = 0.5; e = 5/1,000 = 0.005 (i.e. 0.5% of deposits). (b) M = C + D = ₹1,500 billion."
+    },
+    {
+     "t": "p",
+     "text": "(c) m = (1 + 0.5) ÷ (0.10 + 0.005 + 0.5) = 1.5 ÷ 0.605 = 2.48. (d) At 15%: 1.5 ÷ 0.655 = 2.29."
+    },
+    {
+     "t": "p",
+     "text": "(e) Simple multiplier = 1/0.1 = 10. The actual multiplier is far smaller because half of people's money is held as currency, which is not multiplied; a higher reserve ratio lowers it further."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "c and e",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Money supply",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Multiplier formula and value",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Multiplier at 15%",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s5",
+     "pt": "Simple multiplier and comment",
+     "m": 1.5,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "Show the formula with symbols first."
+   ],
+   "mistakes": [
+    "Omitting e from the denominator.",
+    "Using 1/r as the money multiplier."
+   ],
+   "tips": [
+    "Two-decimal answers are adequate."
+   ],
+   "checks": [
+    {
+     "expr": "500/1000",
+     "value": 0.5,
+     "label": "c"
+    },
+    {
+     "expr": "5/1000*100",
+     "value": 0.5,
+     "label": "e as a percentage of deposits (e = 0.005)"
+    },
+    {
+     "expr": "round((1+0.5)/(0.1+0.005+0.5),2)",
+     "value": 2.48,
+     "label": "m"
+    },
+    {
+     "expr": "500+1000",
+     "value": 1500,
+     "label": "M = C + D"
+    },
+    {
+     "expr": "round((1+0.5)/(0.15+0.005+0.5),2)",
+     "value": 2.29,
+     "label": "m at 15%"
+    },
+    {
+     "expr": "1/0.1",
+     "value": 10,
+     "label": "simple multiplier"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "The required reserve ratio is 12.5%. (a) Find the credit multiplier. (b) What total deposits can a fresh deposit of ₹5,00,000 support, and how much new credit is created? (c) If the RBI buys securities worth ₹2,000 crore from banks, what is the maximum rise in money supply? State the assumptions.",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) 1/0.125 = 8. (b) Total deposits = 5,00,000 × 8 = ₹40,00,000; new credit = ₹35,00,000. (c) ΔM = 2,000 × 8 = ₹16,000 crore."
+    },
+    {
+     "t": "p",
+     "text": "Assumptions: banks keep no excess reserves, the public holds no extra currency, and there is enough demand for loans."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Multiplier",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Total deposits and new credit",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "OMO effect",
+     "m": 1,
+     "skill": "application"
+    },
+    {
+     "id": "s4",
+     "pt": "Assumptions",
+     "m": 1,
+     "skill": "concept"
+    }
+   ],
+   "remarks": [
+    "Distinguish total deposits from new credit."
+   ],
+   "mistakes": [
+    "Treating an OMO purchase as reducing money supply."
+   ],
+   "tips": [
+    "List the assumptions — they explain why reality differs."
+   ],
+   "checks": [
+    {
+     "expr": "1/0.125",
+     "value": 8,
+     "label": "credit multiplier"
+    },
+    {
+     "expr": "500000*8",
+     "value": 4000000,
+     "label": "total deposits"
+    },
+    {
+     "expr": "4000000-500000",
+     "value": 3500000,
+     "label": "new loans/deposits"
+    },
+    {
+     "expr": "2000/0.125",
+     "value": 16000,
+     "label": "OMO effect"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Money supply = money held by the public (excludes government and banking system).",
+   "Measured to understand money growth and to guide monetary policy.",
+   "Sources: central bank (high-powered money, fiat, minimum reserve system) and banks (credit money). CBDC (e₹) is legal tender; crypto is not money in India.",
+   "M1 = C + DD + other deposits with RBI; M2 = M1 + PO savings deposits; M3 = M1 + time deposits (broad money); M4 = M3 + total PO deposits (excl. NSC). Four measures since April 1977.",
+   "Money multiplier m = M/H = (1 + c)/(r + e + c); simple 1/r. Friedman–Schwartz: H (central bank), r (banks/central bank), c (public).",
+   "Credit multiplier = 1/required reserve ratio; larger than the actual money multiplier because of excess reserves and cash drain.",
+   "OMO purchase raises reserves and money supply; sale reduces them. Government spending from WMA/OD adds bank reserves."
+  ],
+  "remember": [
+   "Currency with public = notes + rupee coins + small coins − cash with banks.",
+   "Excess reserves = total reserves − required reserves.",
+   "Money creation ≠ wealth creation."
+  ],
+  "traps": [
+   "M3 is built on M1, not M2.",
+   "Higher c, r or e → LOWER multiplier.",
+   "Cash held by banks is not currency with the public."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "M1",
+   "v": "Currency with public + demand deposits with banks + other deposits with RBI"
+  },
+  {
+   "k": "M2 / M3 / M4",
+   "v": "M1 + PO savings deposits / M1 + bank time deposits / M3 + total PO deposits (excl. NSC)"
+  },
+  {
+   "k": "Money multiplier",
+   "v": "m = (1 + c) ÷ (r + e + c); M = m × H"
+  },
+  {
+   "k": "Credit multiplier",
+   "v": "1 ÷ required reserve ratio; total deposits = initial deposit × 1/r"
+  },
+  {
+   "k": "Monetary base (H)",
+   "v": "Currency + bank reserves (reserve money)"
+  },
+  {
+   "k": "OMO",
+   "v": "Purchase → ↑reserves → ↑M; Sale → ↓reserves → ↓M"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Define M1, M2, M3 and M4.",
+   "model": "M1 is currency with the public plus demand deposits with banks plus other deposits with the RBI. M2 is M1 plus savings deposits with post office savings banks. M3 is M1 plus time deposits with banks, and it is called broad money. M4 is M3 plus total post office deposits excluding National Savings Certificates.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "M1 = currency with public + demand deposits + other deposits with RBI",
+     "w": 3,
+     "kw": [
+      "m1",
+      "currency",
+      "demand deposit",
+      "other deposit|rbi"
+     ],
+     "min": 3
+    },
+    {
+     "id": "p2",
+     "pt": "M2 = M1 + post office savings bank deposits",
+     "w": 2,
+     "kw": [
+      "m2 m1 plus post office|m2 m1 post office|m2 m1 and post office|m2 m1 plus saving deposit with post office|m2 m1 plus saving deposit of post office|m2 m1 plus post office saving|m2 is m1 plus post office|m2 is m1 post office|m2 is m1 and post office|m2 is m1 plus saving deposit with post office|m2 is m1 plus saving deposit of post office|m2 is m1 plus post office saving|m2 equal m1 plus post office|m2 equal m1 post office|m2 equal m1 and post office|m2 equal m1 plus saving deposit with post office|m2 equal m1 plus saving deposit of post office|m2 equal m1 plus post office saving"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "M3 = M1 + time deposits with banks",
+     "w": 3,
+     "kw": [
+      "m3 m1 plus time deposit|m3 m1 time deposit|m3 m1 and time deposit|m3 m1 plus fixed deposit|m3 m1 plus term deposit|m3 is m1 plus time deposit|m3 is m1 time deposit|m3 is m1 and time deposit|m3 is m1 plus fixed deposit|m3 is m1 plus term deposit|m3 equal m1 plus time deposit|m3 equal m1 time deposit|m3 equal m1 and time deposit|m3 equal m1 plus fixed deposit|m3 equal m1 plus term deposit"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "M4 = M3 + total post office deposits",
+     "w": 2,
+     "kw": [
+      "m4 m3 plus post office|m4 m3 post office|m4 m3 and post office|m4 m3 plus total post office|m4 m3 plus all post office|m4 is m3 plus post office|m4 is m3 post office|m4 is m3 and post office|m4 is m3 plus total post office|m4 is m3 plus all post office|m4 equal m3 plus post office|m4 equal m3 post office|m4 equal m3 and post office|m4 equal m3 plus total post office|m4 equal m3 plus all post office"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v2",
+   "q": "Who determines the money supply according to the money multiplier approach?",
+   "model": "According to Friedman and Schwartz, money supply is jointly determined by the central bank, which controls high-powered money; the commercial banks, through the reserve ratio and excess reserves they keep; and the public, through the currency–deposit ratio, that is how much cash people hold compared with deposits.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Central bank — high-powered money",
+     "w": 4,
+     "kw": [
+      "central bank|rbi|reserve bank",
+      "high powered|monetary base|base money|reserve money|h"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Commercial banks — reserve / excess reserve ratio",
+     "w": 3,
+     "kw": [
+      "bank",
+      "reserve ratio|excess reserve|reserves"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "Public — currency–deposit ratio",
+     "w": 3,
+     "kw": [
+      "public|people|household",
+      "currency deposit|currency ratio|cash|currency"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c6"
+  },
+  {
+   "id": "v3",
+   "q": "What is the money multiplier, and how do the currency ratio and the reserve ratio affect it?",
+   "model": "The money multiplier is the ratio of money supply to high-powered money, so it shows how much money supply rises for each rupee of monetary base; it equals one plus c divided by r plus e plus c. A higher currency ratio lowers the multiplier because cash is not multiplied, and a higher reserve ratio also lowers it because banks can lend less.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Ratio of money supply to high-powered money (formula)",
+     "w": 4,
+     "kw": [
+      "money supply|money stock|stock of money|m",
+      "high powered|monetary base|base money|reserve money"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Higher currency ratio → lower multiplier",
+     "w": 3,
+     "kw": [
+      "higher currency ratio lower|higher currency ratio lowers|higher currency ratio reduce|higher currency ratio reduces|higher currency ratio decrease|higher currency ratio decreases|higher currency ratio smaller|higher currency ratio fall|higher currency ratio falls|higher currency ratio inverse|higher currency ratio inversely|higher currency ratio negative|higher currency deposit ratio lower|higher currency deposit ratio lowers|higher currency deposit ratio reduce|higher currency deposit ratio reduces|higher currency deposit ratio decrease|higher currency deposit ratio decreases|higher currency deposit ratio smaller|higher currency deposit ratio fall|higher currency deposit ratio falls|higher currency deposit ratio inverse|higher currency deposit ratio inversely|higher currency deposit ratio negative|more currency ratio lower|more currency ratio lowers|more currency ratio reduce|more currency ratio reduces|more currency ratio decrease|more currency ratio decreases|more currency ratio smaller|more currency ratio fall|more currency ratio falls|more currency ratio inverse|more currency ratio inversely|more currency ratio negative|more currency deposit ratio lower|more currency deposit ratio lowers|more currency deposit ratio reduce|more currency deposit ratio reduces|more currency deposit ratio decrease|more currency deposit ratio decreases|more currency deposit ratio smaller|more currency deposit ratio fall|more currency deposit ratio falls|more currency deposit ratio inverse|more currency deposit ratio inversely|more currency deposit ratio negative|more cash ratio lower|more cash ratio lowers|more cash ratio reduce|more cash ratio reduces|more cash ratio decrease|more cash ratio decreases|more cash ratio smaller|more cash ratio fall|more cash ratio falls|more cash ratio inverse|more cash ratio inversely|more cash ratio negative|more cash deposit ratio lower|more cash deposit ratio lowers|more cash deposit ratio reduce|more cash deposit ratio reduces|more cash deposit ratio decrease|more cash deposit ratio decreases|more cash deposit ratio smaller|more cash deposit ratio fall|more cash deposit ratio falls|more cash deposit ratio inverse|more cash deposit ratio inversely|more cash deposit ratio negative|higher cash ratio lower|higher cash ratio lowers|higher cash ratio reduce|higher cash ratio reduces|higher cash ratio decrease|higher cash ratio decreases|higher cash ratio smaller|higher cash ratio fall|higher cash ratio falls|higher cash ratio inverse|higher cash ratio inversely|higher cash ratio negative|higher cash deposit ratio lower|higher cash deposit ratio lowers|higher cash deposit ratio reduce|higher cash deposit ratio reduces|higher cash deposit ratio decrease|higher cash deposit ratio decreases|higher cash deposit ratio smaller|higher cash deposit ratio fall|higher cash deposit ratio falls|higher cash deposit ratio inverse|higher cash deposit ratio inversely|higher cash deposit ratio negative|currency ratio rise ratio lower|currency ratio rise ratio lowers|currency ratio rise ratio reduce|currency ratio rise ratio reduces|currency ratio rise ratio decrease|currency ratio rise ratio decreases|currency ratio rise ratio smaller|currency ratio rise ratio fall|currency ratio rise ratio falls|currency ratio rise ratio inverse|currency ratio rise ratio inversely|currency ratio rise ratio negative|currency ratio rise deposit ratio lower|currency ratio rise deposit ratio lowers|currency ratio rise deposit ratio reduce|currency ratio rise deposit ratio reduces|currency ratio rise deposit ratio decrease|currency ratio rise deposit ratio decreases|currency ratio rise deposit ratio smaller|currency ratio rise deposit ratio fall|currency ratio rise deposit ratio falls|currency ratio rise deposit ratio inverse|currency ratio rise deposit ratio inversely|currency ratio rise deposit ratio negative|currency ratio increas ratio lower|currency ratio increas ratio lowers|currency ratio increas ratio reduce|currency ratio increas ratio reduces|currency ratio increas ratio decrease|currency ratio increas ratio decreases|currency ratio increas ratio smaller|currency ratio increas ratio fall|currency ratio increas ratio falls|currency ratio increas ratio inverse|currency ratio increas ratio inversely|currency ratio increas ratio negative|currency ratio increas deposit ratio lower|currency ratio increas deposit ratio lowers|currency ratio increas deposit ratio reduce|currency ratio increas deposit ratio reduces|currency ratio increas deposit ratio decrease|currency ratio increas deposit ratio decreases|currency ratio increas deposit ratio smaller|currency ratio increas deposit ratio fall|currency ratio increas deposit ratio falls|currency ratio increas deposit ratio inverse|currency ratio increas deposit ratio inversely|currency ratio increas deposit ratio negative|increase in currency ratio lower|increase in currency ratio lowers|increase in currency ratio reduce|increase in currency ratio reduces|increase in currency ratio decrease|increase in currency ratio decreases|increase in currency ratio smaller|increase in currency ratio fall|increase in currency ratio falls|increase in currency ratio inverse|increase in currency ratio inversely|increase in currency ratio negative|increase in currency deposit ratio lower|increase in currency deposit ratio lowers|increase in currency deposit ratio reduce|increase in currency deposit ratio reduces|increase in currency deposit ratio decrease|increase in currency deposit ratio decreases|increase in currency deposit ratio smaller|increase in currency deposit ratio fall|increase in currency deposit ratio falls|increase in currency deposit ratio inverse|increase in currency deposit ratio inversely|increase in currency deposit ratio negative|rise in currency ratio lower|rise in currency ratio lowers|rise in currency ratio reduce|rise in currency ratio reduces|rise in currency ratio decrease|rise in currency ratio decreases|rise in currency ratio smaller|rise in currency ratio fall|rise in currency ratio falls|rise in currency ratio inverse|rise in currency ratio inversely|rise in currency ratio negative|rise in currency deposit ratio lower|rise in currency deposit ratio lowers|rise in currency deposit ratio reduce|rise in currency deposit ratio reduces|rise in currency deposit ratio decrease|rise in currency deposit ratio decreases|rise in currency deposit ratio smaller|rise in currency deposit ratio fall|rise in currency deposit ratio falls|rise in currency deposit ratio inverse|rise in currency deposit ratio inversely|rise in currency deposit ratio negative|currency ratio ratio lower|currency ratio ratio lowers|currency ratio ratio reduce|currency ratio ratio reduces|currency ratio ratio decrease|currency ratio ratio decreases|currency ratio ratio smaller|currency ratio ratio fall|currency ratio ratio falls|currency ratio ratio inverse|currency ratio ratio inversely|currency ratio ratio negative|currency ratio deposit ratio lower|currency ratio deposit ratio lowers|currency ratio deposit ratio reduce|currency ratio deposit ratio reduces|currency ratio deposit ratio decrease|currency ratio deposit ratio decreases|currency ratio deposit ratio smaller|currency ratio deposit ratio fall|currency ratio deposit ratio falls|currency ratio deposit ratio inverse|currency ratio deposit ratio inversely|currency ratio deposit ratio negative|higher currency lower|higher currency lowers|higher currency reduce|higher currency reduces|higher currency decrease|higher currency decreases|higher currency smaller|higher currency fall|higher currency falls|higher currency inverse|higher currency inversely|higher currency negative|more currency lower|more currency lowers|more currency reduce|more currency reduces|more currency decrease|more currency decreases|more currency smaller|more currency fall|more currency falls|more currency inverse|more currency inversely|more currency negative|more cash lower|more cash lowers|more cash reduce|more cash reduces|more cash decrease|more cash decreases|more cash smaller|more cash fall|more cash falls|more cash inverse|more cash inversely|more cash negative|higher cash lower|higher cash lowers|higher cash reduce|higher cash reduces|higher cash decrease|higher cash decreases|higher cash smaller|higher cash fall|higher cash falls|higher cash inverse|higher cash inversely|higher cash negative|currency ratio rise lower|currency ratio rise lowers|currency ratio rise reduce|currency ratio rise reduces|currency ratio rise decrease|currency ratio rise decreases|currency ratio rise smaller|currency ratio rise fall|currency ratio rise falls|currency ratio rise inverse|currency ratio rise inversely|currency ratio rise negative|currency ratio increas lower|currency ratio increas lowers|currency ratio increas reduce|currency ratio increas reduces|currency ratio increas decrease|currency ratio increas decreases|currency ratio increas smaller|currency ratio increas fall|currency ratio increas falls|currency ratio increas inverse|currency ratio increas inversely|currency ratio increas negative|increase in currency lower|increase in currency lowers|increase in currency reduce|increase in currency reduces|increase in currency decrease|increase in currency decreases|increase in currency smaller|increase in currency fall|increase in currency falls|increase in currency inverse|increase in currency inversely|increase in currency negative|rise in currency lower|rise in currency lowers|rise in currency reduce|rise in currency reduces|rise in currency decrease|rise in currency decreases|rise in currency smaller|rise in currency fall|rise in currency falls|rise in currency inverse|rise in currency inversely|rise in currency negative|currency ratio lower|currency ratio lowers|currency ratio reduce|currency ratio reduces|currency ratio decrease|currency ratio decreases|currency ratio smaller|currency ratio fall|currency ratio falls|currency ratio inverse|currency ratio inversely|currency ratio negative|higher currency ratio multiplier lower|higher currency ratio multiplier lowers|higher currency ratio multiplier reduce|higher currency ratio multiplier reduces|higher currency ratio multiplier decrease|higher currency ratio multiplier decreases|higher currency ratio multiplier smaller|higher currency ratio multiplier fall|higher currency ratio multiplier falls|higher currency ratio multiplier inverse|higher currency ratio multiplier inversely|higher currency ratio multiplier negative|higher currency deposit ratio multiplier lower|higher currency deposit ratio multiplier lowers|higher currency deposit ratio multiplier reduce|higher currency deposit ratio multiplier reduces|higher currency deposit ratio multiplier decrease|higher currency deposit ratio multiplier decreases|higher currency deposit ratio multiplier smaller|higher currency deposit ratio multiplier fall|higher currency deposit ratio multiplier falls|higher currency deposit ratio multiplier inverse|higher currency deposit ratio multiplier inversely|higher currency deposit ratio multiplier negative|more currency ratio multiplier lower|more currency ratio multiplier lowers|more currency ratio multiplier reduce|more currency ratio multiplier reduces|more currency ratio multiplier decrease|more currency ratio multiplier decreases|more currency ratio multiplier smaller|more currency ratio multiplier fall|more currency ratio multiplier falls|more currency ratio multiplier inverse|more currency ratio multiplier inversely|more currency ratio multiplier negative|more currency deposit ratio multiplier lower|more currency deposit ratio multiplier lowers|more currency deposit ratio multiplier reduce|more currency deposit ratio multiplier reduces|more currency deposit ratio multiplier decrease|more currency deposit ratio multiplier decreases|more currency deposit ratio multiplier smaller|more currency deposit ratio multiplier fall|more currency deposit ratio multiplier falls|more currency deposit ratio multiplier inverse|more currency deposit ratio multiplier inversely|more currency deposit ratio multiplier negative|more cash ratio multiplier lower|more cash ratio multiplier lowers|more cash ratio multiplier reduce|more cash ratio multiplier reduces|more cash ratio multiplier decrease|more cash ratio multiplier decreases|more cash ratio multiplier smaller|more cash ratio multiplier fall|more cash ratio multiplier falls|more cash ratio multiplier inverse|more cash ratio multiplier inversely|more cash ratio multiplier negative|more cash deposit ratio multiplier lower|more cash deposit ratio multiplier lowers|more cash deposit ratio multiplier reduce|more cash deposit ratio multiplier reduces|more cash deposit ratio multiplier decrease|more cash deposit ratio multiplier decreases|more cash deposit ratio multiplier smaller|more cash deposit ratio multiplier fall|more cash deposit ratio multiplier falls|more cash deposit ratio multiplier inverse|more cash deposit ratio multiplier inversely|more cash deposit ratio multiplier negative|higher cash ratio multiplier lower|higher cash ratio multiplier lowers|higher cash ratio multiplier reduce|higher cash ratio multiplier reduces|higher cash ratio multiplier decrease|higher cash ratio multiplier decreases|higher cash ratio multiplier smaller|higher cash ratio multiplier fall|higher cash ratio multiplier falls|higher cash ratio multiplier inverse|higher cash ratio multiplier inversely|higher cash ratio multiplier negative|higher cash deposit ratio multiplier lower|higher cash deposit ratio multiplier lowers|higher cash deposit ratio multiplier reduce|higher cash deposit ratio multiplier reduces|higher cash deposit ratio multiplier decrease|higher cash deposit ratio multiplier decreases|higher cash deposit ratio multiplier smaller|higher cash deposit ratio multiplier fall|higher cash deposit ratio multiplier falls|higher cash deposit ratio multiplier inverse|higher cash deposit ratio multiplier inversely|higher cash deposit ratio multiplier negative|currency ratio rise ratio multiplier lower|currency ratio rise ratio multiplier lowers|currency ratio rise ratio multiplier reduce|currency ratio rise ratio multiplier reduces|currency ratio rise ratio multiplier decrease|currency ratio rise ratio multiplier decreases|currency ratio rise ratio multiplier smaller|currency ratio rise ratio multiplier fall|currency ratio rise ratio multiplier falls|currency ratio rise ratio multiplier inverse|currency ratio rise ratio multiplier inversely|currency ratio rise ratio multiplier negative|currency ratio rise deposit ratio multiplier lower|currency ratio rise deposit ratio multiplier lowers|currency ratio rise deposit ratio multiplier reduce|currency ratio rise deposit ratio multiplier reduces|currency ratio rise deposit ratio multiplier decrease|currency ratio rise deposit ratio multiplier decreases|currency ratio rise deposit ratio multiplier smaller|currency ratio rise deposit ratio multiplier fall|currency ratio rise deposit ratio multiplier falls|currency ratio rise deposit ratio multiplier inverse|currency ratio rise deposit ratio multiplier inversely|currency ratio rise deposit ratio multiplier negative|currency ratio increas ratio multiplier lower|currency ratio increas ratio multiplier lowers|currency ratio increas ratio multiplier reduce|currency ratio increas ratio multiplier reduces|currency ratio increas ratio multiplier decrease|currency ratio increas ratio multiplier decreases|currency ratio increas ratio multiplier smaller|currency ratio increas ratio multiplier fall|currency ratio increas ratio multiplier falls|currency ratio increas ratio multiplier inverse|currency ratio increas ratio multiplier inversely|currency ratio increas ratio multiplier negative|currency ratio increas deposit ratio multiplier lower|currency ratio increas deposit ratio multiplier lowers|currency ratio increas deposit ratio multiplier reduce|currency ratio increas deposit ratio multiplier reduces|currency ratio increas deposit ratio multiplier decrease|currency ratio increas deposit ratio multiplier decreases|currency ratio increas deposit ratio multiplier smaller|currency ratio increas deposit ratio multiplier fall|currency ratio increas deposit ratio multiplier falls|currency ratio increas deposit ratio multiplier inverse|currency ratio increas deposit ratio multiplier inversely|currency ratio increas deposit ratio multiplier negative|increase in currency ratio multiplier lower|increase in currency ratio multiplier lowers|increase in currency ratio multiplier reduce|increase in currency ratio multiplier reduces|increase in currency ratio multiplier decrease|increase in currency ratio multiplier decreases|increase in currency ratio multiplier smaller|increase in currency ratio multiplier fall|increase in currency ratio multiplier falls|increase in currency ratio multiplier inverse|increase in currency ratio multiplier inversely|increase in currency ratio multiplier negative|increase in currency deposit ratio multiplier lower|increase in currency deposit ratio multiplier lowers|increase in currency deposit ratio multiplier reduce|increase in currency deposit ratio multiplier reduces|increase in currency deposit ratio multiplier decrease|increase in currency deposit ratio multiplier decreases|increase in currency deposit ratio multiplier smaller|increase in currency deposit ratio multiplier fall|increase in currency deposit ratio multiplier falls|increase in currency deposit ratio multiplier inverse|increase in currency deposit ratio multiplier inversely|increase in currency deposit ratio multiplier negative|rise in currency ratio multiplier lower|rise in currency ratio multiplier lowers|rise in currency ratio multiplier reduce|rise in currency ratio multiplier reduces|rise in currency ratio multiplier decrease|rise in currency ratio multiplier decreases|rise in currency ratio multiplier smaller|rise in currency ratio multiplier fall|rise in currency ratio multiplier falls|rise in currency ratio multiplier inverse|rise in currency ratio multiplier inversely|rise in currency ratio multiplier negative|rise in currency deposit ratio multiplier lower|rise in currency deposit ratio multiplier lowers|rise in currency deposit ratio multiplier reduce|rise in currency deposit ratio multiplier reduces|rise in currency deposit ratio multiplier decrease|rise in currency deposit ratio multiplier decreases|rise in currency deposit ratio multiplier smaller|rise in currency deposit ratio multiplier fall|rise in currency deposit ratio multiplier falls|rise in currency deposit ratio multiplier inverse|rise in currency deposit ratio multiplier inversely|rise in currency deposit ratio multiplier negative|currency ratio ratio multiplier lower|currency ratio ratio multiplier lowers|currency ratio ratio multiplier reduce|currency ratio ratio multiplier reduces|currency ratio ratio multiplier decrease|currency ratio ratio multiplier decreases|currency ratio ratio multiplier smaller|currency ratio ratio multiplier fall|currency ratio ratio multiplier falls|currency ratio ratio multiplier inverse|currency ratio ratio multiplier inversely|currency ratio ratio multiplier negative|currency ratio deposit ratio multiplier lower|currency ratio deposit ratio multiplier lowers|currency ratio deposit ratio multiplier reduce|currency ratio deposit ratio multiplier reduces|currency ratio deposit ratio multiplier decrease|currency ratio deposit ratio multiplier decreases|currency ratio deposit ratio multiplier smaller|currency ratio deposit ratio multiplier fall|currency ratio deposit ratio multiplier falls|currency ratio deposit ratio multiplier inverse|currency ratio deposit ratio multiplier inversely|currency ratio deposit ratio multiplier negative|lower multiplier|lowers multiplier|reduce multiplier|reduces multiplier|decrease multiplier|decreases multiplier|smaller multiplier|fall multiplier|falls multiplier|inverse multiplier|inversely multiplier|negative multiplier"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Higher reserve ratio → lower multiplier",
+     "w": 3,
+     "kw": [
+      "higher reserve ratio lower|higher reserve ratio lowers|higher reserve ratio reduce|higher reserve ratio reduces|higher reserve ratio decrease|higher reserve ratio decreases|higher reserve ratio smaller|higher reserve ratio fall|higher reserve ratio falls|higher reserve ratio inverse|higher reserve ratio inversely|higher reserve ratio negative|reserve ratio rise lower|reserve ratio rise lowers|reserve ratio rise reduce|reserve ratio rise reduces|reserve ratio rise decrease|reserve ratio rise decreases|reserve ratio rise smaller|reserve ratio rise fall|reserve ratio rise falls|reserve ratio rise inverse|reserve ratio rise inversely|reserve ratio rise negative|reserve ratio increas lower|reserve ratio increas lowers|reserve ratio increas reduce|reserve ratio increas reduces|reserve ratio increas decrease|reserve ratio increas decreases|reserve ratio increas smaller|reserve ratio increas fall|reserve ratio increas falls|reserve ratio increas inverse|reserve ratio increas inversely|reserve ratio increas negative|increase in reserve ratio lower|increase in reserve ratio lowers|increase in reserve ratio reduce|increase in reserve ratio reduces|increase in reserve ratio decrease|increase in reserve ratio decreases|increase in reserve ratio smaller|increase in reserve ratio fall|increase in reserve ratio falls|increase in reserve ratio inverse|increase in reserve ratio inversely|increase in reserve ratio negative|rise in reserve ratio lower|rise in reserve ratio lowers|rise in reserve ratio reduce|rise in reserve ratio reduces|rise in reserve ratio decrease|rise in reserve ratio decreases|rise in reserve ratio smaller|rise in reserve ratio fall|rise in reserve ratio falls|rise in reserve ratio inverse|rise in reserve ratio inversely|rise in reserve ratio negative|higher reserve lower|higher reserve lowers|higher reserve reduce|higher reserve reduces|higher reserve decrease|higher reserve decreases|higher reserve smaller|higher reserve fall|higher reserve falls|higher reserve inverse|higher reserve inversely|higher reserve negative|more reserve lower|more reserve lowers|more reserve reduce|more reserve reduces|more reserve decrease|more reserve decreases|more reserve smaller|more reserve fall|more reserve falls|more reserve inverse|more reserve inversely|more reserve negative|reserve ratio lower|reserve ratio lowers|reserve ratio reduce|reserve ratio reduces|reserve ratio decrease|reserve ratio decreases|reserve ratio smaller|reserve ratio fall|reserve ratio falls|reserve ratio inverse|reserve ratio inversely|reserve ratio negative|higher reserve ratio also lower|higher reserve ratio also lowers|higher reserve ratio also reduce|higher reserve ratio also reduces|higher reserve ratio also decrease|higher reserve ratio also decreases|higher reserve ratio also smaller|higher reserve ratio also fall|higher reserve ratio also falls|higher reserve ratio also inverse|higher reserve ratio also inversely|higher reserve ratio also negative|reserve ratio rise also lower|reserve ratio rise also lowers|reserve ratio rise also reduce|reserve ratio rise also reduces|reserve ratio rise also decrease|reserve ratio rise also decreases|reserve ratio rise also smaller|reserve ratio rise also fall|reserve ratio rise also falls|reserve ratio rise also inverse|reserve ratio rise also inversely|reserve ratio rise also negative|reserve ratio increas also lower|reserve ratio increas also lowers|reserve ratio increas also reduce|reserve ratio increas also reduces|reserve ratio increas also decrease|reserve ratio increas also decreases|reserve ratio increas also smaller|reserve ratio increas also fall|reserve ratio increas also falls|reserve ratio increas also inverse|reserve ratio increas also inversely|reserve ratio increas also negative|increase in reserve ratio also lower|increase in reserve ratio also lowers|increase in reserve ratio also reduce|increase in reserve ratio also reduces|increase in reserve ratio also decrease|increase in reserve ratio also decreases|increase in reserve ratio also smaller|increase in reserve ratio also fall|increase in reserve ratio also falls|increase in reserve ratio also inverse|increase in reserve ratio also inversely|increase in reserve ratio also negative|rise in reserve ratio also lower|rise in reserve ratio also lowers|rise in reserve ratio also reduce|rise in reserve ratio also reduces|rise in reserve ratio also decrease|rise in reserve ratio also decreases|rise in reserve ratio also smaller|rise in reserve ratio also fall|rise in reserve ratio also falls|rise in reserve ratio also inverse|rise in reserve ratio also inversely|rise in reserve ratio also negative|higher reserve also lower|higher reserve also lowers|higher reserve also reduce|higher reserve also reduces|higher reserve also decrease|higher reserve also decreases|higher reserve also smaller|higher reserve also fall|higher reserve also falls|higher reserve also inverse|higher reserve also inversely|higher reserve also negative|more reserve also lower|more reserve also lowers|more reserve also reduce|more reserve also reduces|more reserve also decrease|more reserve also decreases|more reserve also smaller|more reserve also fall|more reserve also falls|more reserve also inverse|more reserve also inversely|more reserve also negative|reserve ratio also lower|reserve ratio also lowers|reserve ratio also reduce|reserve ratio also reduces|reserve ratio also decrease|reserve ratio also decreases|reserve ratio also smaller|reserve ratio also fall|reserve ratio also falls|reserve ratio also inverse|reserve ratio also inversely|reserve ratio also negative|higher reserve ratio multiplier lower|higher reserve ratio multiplier lowers|higher reserve ratio multiplier reduce|higher reserve ratio multiplier reduces|higher reserve ratio multiplier decrease|higher reserve ratio multiplier decreases|higher reserve ratio multiplier smaller|higher reserve ratio multiplier fall|higher reserve ratio multiplier falls|higher reserve ratio multiplier inverse|higher reserve ratio multiplier inversely|higher reserve ratio multiplier negative|reserve ratio rise multiplier lower|reserve ratio rise multiplier lowers|reserve ratio rise multiplier reduce|reserve ratio rise multiplier reduces|reserve ratio rise multiplier decrease|reserve ratio rise multiplier decreases|reserve ratio rise multiplier smaller|reserve ratio rise multiplier fall|reserve ratio rise multiplier falls|reserve ratio rise multiplier inverse|reserve ratio rise multiplier inversely|reserve ratio rise multiplier negative|reserve ratio increas multiplier lower|reserve ratio increas multiplier lowers|reserve ratio increas multiplier reduce|reserve ratio increas multiplier reduces|reserve ratio increas multiplier decrease|reserve ratio increas multiplier decreases|reserve ratio increas multiplier smaller|reserve ratio increas multiplier fall|reserve ratio increas multiplier falls|reserve ratio increas multiplier inverse|reserve ratio increas multiplier inversely|reserve ratio increas multiplier negative|increase in reserve ratio multiplier lower|increase in reserve ratio multiplier lowers|increase in reserve ratio multiplier reduce|increase in reserve ratio multiplier reduces|increase in reserve ratio multiplier decrease|increase in reserve ratio multiplier decreases|increase in reserve ratio multiplier smaller|increase in reserve ratio multiplier fall|increase in reserve ratio multiplier falls|increase in reserve ratio multiplier inverse|increase in reserve ratio multiplier inversely|increase in reserve ratio multiplier negative|rise in reserve ratio multiplier lower|rise in reserve ratio multiplier lowers|rise in reserve ratio multiplier reduce|rise in reserve ratio multiplier reduces|rise in reserve ratio multiplier decrease|rise in reserve ratio multiplier decreases|rise in reserve ratio multiplier smaller|rise in reserve ratio multiplier fall|rise in reserve ratio multiplier falls|rise in reserve ratio multiplier inverse|rise in reserve ratio multiplier inversely|rise in reserve ratio multiplier negative|higher reserve multiplier lower|higher reserve multiplier lowers|higher reserve multiplier reduce|higher reserve multiplier reduces|higher reserve multiplier decrease|higher reserve multiplier decreases|higher reserve multiplier smaller|higher reserve multiplier fall|higher reserve multiplier falls|higher reserve multiplier inverse|higher reserve multiplier inversely|higher reserve multiplier negative|more reserve multiplier lower|more reserve multiplier lowers|more reserve multiplier reduce|more reserve multiplier reduces|more reserve multiplier decrease|more reserve multiplier decreases|more reserve multiplier smaller|more reserve multiplier fall|more reserve multiplier falls|more reserve multiplier inverse|more reserve multiplier inversely|more reserve multiplier negative|reserve ratio multiplier lower|reserve ratio multiplier lowers|reserve ratio multiplier reduce|reserve ratio multiplier reduces|reserve ratio multiplier decrease|reserve ratio multiplier decreases|reserve ratio multiplier smaller|reserve ratio multiplier fall|reserve ratio multiplier falls|reserve ratio multiplier inverse|reserve ratio multiplier inversely|reserve ratio multiplier negative"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v4",
+   "q": "What is the credit multiplier and why is it larger than the actual money multiplier?",
+   "model": "The credit multiplier is one divided by the required reserve ratio; it shows how many times the banking system can expand an initial deposit through repeated lending under fractional reserve banking. The actual money multiplier is smaller because banks keep excess reserves above the minimum and borrowers hold part of their loans as cash.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Credit multiplier = 1 ÷ required reserve ratio",
+     "w": 4,
+     "kw": [
+      "reciprocal|one divided|1 divided|1 by|one by|one over|1 over|inverse",
+      "reserve ratio|reserve requirement|crr|reserve"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Excess reserves held by banks",
+     "w": 3,
+     "kw": [
+      "excess reserve|more than required|above the minimum|above minimum|extra reserve|more reserve"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Borrowers convert part of loans into cash (currency drain)",
+     "w": 3,
+     "kw": [
+      "cash|currency",
+      "borrower|public|people|withdraw|hold|drain|leak"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v5",
+   "q": "How does government expenditure financed by Ways and Means Advances affect money supply?",
+   "model": "When the government's cash falls short it borrows from the RBI through Ways and Means Advances or overdraft. When it spends, its account with the RBI is debited and the recipients' accounts in commercial banks are credited, so banks' reserves with the RBI rise. These excess reserves can increase money supply through the multiplier process.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Government borrows from RBI (WMA / overdraft)",
+     "w": 3,
+     "kw": [
+      "ways and means|wma|overdraft|borrow from rbi|borrow from the reserve bank"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Spending credits recipients' bank accounts — bank reserves rise",
+     "w": 4,
+     "kw": [
+      "reserve|balance with rbi|bank balanc",
+      "rise|raise|increas|more|higher|creat|add"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "Money supply expands via multiplier",
+     "w": 3,
+     "kw": [
+      "money supply",
+      "increas|rise|expand|grow|multipl"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c8"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Liquidity in a cash-loving economy",
+   "difficulty": "hard",
+   "case": "In an economy the public holds currency equal to 40% of deposits, the required reserve ratio is 10% and banks initially hold no excess reserves. High-powered money is ₹20,000 crore. During a crisis banks start holding excess reserves equal to 10% of deposits. The government is also campaigning for digital payments.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "What is the money multiplier before the crisis?",
+     "options": [
+      "2.8",
+      "10",
+      "3.5",
+      "2.33"
+     ],
+     "answer": 0,
+     "explain": "m = 1.4 ÷ 0.5 = 2.8. 10 is 1/r; 2.33 = 1.4 ÷ 0.6 (after the crisis).",
+     "difficulty": "moderate",
+     "concept": "c6",
+     "check": "round((1+0.4)/(0.1+0.4),2)"
+    },
+    {
+     "id": "k1b",
+     "q": "What is the money supply before the crisis?",
+     "options": [
+      "₹56,000 crore",
+      "₹2,00,000 crore",
+      "₹28,000 crore",
+      "₹46,600 crore"
+     ],
+     "answer": 0,
+     "explain": "M = 2.8 × 20,000 = 56,000.",
+     "difficulty": "moderate",
+     "concept": "c6",
+     "check": "2.8*20000"
+    },
+    {
+     "id": "k1c",
+     "q": "After banks start holding 10% excess reserves, the multiplier becomes:",
+     "options": [
+      "2.33",
+      "2.8",
+      "3.5",
+      "1.4"
+     ],
+     "answer": 0,
+     "explain": "m = 1.4 ÷ (0.1 + 0.1 + 0.4) = 1.4 ÷ 0.6 ≈ 2.33.",
+     "difficulty": "hard",
+     "concept": "c6",
+     "check": "round((1+0.4)/(0.1+0.1+0.4),2)"
+    },
+    {
+     "id": "k1d",
+     "q": "If the digital-payments campaign lowers the currency ratio, the money multiplier will:",
+     "options": [
+      "Rise",
+      "Fall",
+      "Stay the same",
+      "Become zero"
+     ],
+     "answer": 0,
+     "explain": "Less cash leaking out of the banking system means more deposit expansion.",
+     "difficulty": "core",
+     "concept": "c6"
+    }
+   ]
+  }
+ ]
+}

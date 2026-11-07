@@ -5,6 +5,39 @@ from shared import kavya_entries
 UID = 'fnd-p1-ch02-u03'
 
 
+import copy
+from ca_viva import VIVA, P, ALT
+
+
+def viva():
+    """Viva from ca_viva.py with key points re-tuned in the second review for the negation-aware matcher
+    (swapped-term answers must score < 80%; natural paraphrases >= 80%)."""
+    v = copy.deepcopy(VIVA[UID]); q = {x['id']: x for x in v}
+
+    def put(vid, pt): q[vid]['points'] = [pt if p['id'] == pt['id'] else p for p in q[vid]['points']]
+    # "total-cum-balance method is the most popular" contains every word of "balance method is the most popular",
+    # so the key point alone cannot separate them: the question now also asks why, and the reason (or that the
+    # other methods are used less) is a separate point the swapped answer cannot hit.
+    q['v2']['q'] = 'Name the methods of preparing a trial balance. Which one is used most, and why?'
+    q['v2']['model'] = ('There are three methods: the total method, the balance method, and the total-cum-balance method. '
+                        'The balance method is the most commonly used, because final accounts are prepared from balances; the other two are lengthier and used less.')
+    for pid, w in (('p1', 1), ('p2', 1), ('p3', 1)):
+        for p in q['v2']['points']:
+            if p['id'] == pid: p['w'] = w
+    q['v2']['points'].append(P('p5', 'Why: final accounts are prepared from balances (the other methods are lengthier, used less)', 3,
+        'final account prepar balanc|final account prepar from balanc|final account need balanc|final account based balanc|'
+        'final account made from balanc|final statement prepar balanc|balanc need final account|balanc needed final account|balanc used final account|'
+        'total method lengthy|total method long|total method less|total method rarely|other less|other two less|other method less|rarely used|seldom used|'
+        'lengthy|lengthier|less used|used less|less common|less popular|time consuming'))
+    put('v2', P('p4', 'Balance method is used most / for final accounts', 4,
+                'balanc most|balanc common|balanc popular|balanc wide|balanc general|balanc usual|balanc prefer|balanc used most|balanc use most|balanc normal|balanc mainly|balanc frequent|most balanc|most common balanc|commonly used balanc|commonly use balanc|usual balanc|popular balanc|prefer balanc|general balanc'))
+    put('v5', P('p1', 'Sales returns — debit', 3, 'sales return debit|sale return debit|return inward debit|returns inward debit|debit sales return|debit side sales return|debit side show sale return|debit sale return drawing|sale return drawing debit|sale return drawing go debit'))
+    put('v5', P('p2', 'Bank overdraft — credit', 3, 'overdraft credit|overdraft outstand credit|overdraft outstand expens credit|overdraft outstand expens go credit|overdraft outstand go credit|credit bank overdraft|credit side bank overdraft|credit side show bank overdraft|credit overdraft'))
+    put('v5', P('p3', 'Drawings — debit', 2, 'drawing debit|debit drawing|debit side drawing|debit side sale return drawing|debit sale return drawing|return drawing debit|drawing go debit'))
+    put('v5', P('p4', 'Outstanding expenses — credit', 2, 'outstanding expense credit|outstanding credit|credit outstanding|credit side outstanding|credit side bank overdraft outstand|credit bank overdraft outstand|outstand expens go credit'))
+    return v
+
+
 def tb_block(rows, date, title=None, diff=None):
     """rows: (account, 'dr'|'cr', amount)"""
     b = {'t': 'tb', 'date': date, 'rows': [{'ac': a, s: v} for a, s, v in rows]}
@@ -195,4 +228,5 @@ def build():
         'quickref': [{'k': 'Heading', 'v': 'Trial Balance of <name> as at <date>'}, {'k': 'Debit side', 'v': 'Assets, expenses, losses, drawings, purchases, sales returns, opening stock, prepaid expenses'},
                      {'k': 'Credit side', 'v': 'Capital, liabilities, incomes, gains, sales, purchase returns, outstanding expenses, bank overdraft'},
                      {'k': 'Errors not revealed', 'v': 'Omission, commission, principle, compensating'}, {'k': 'Capital (balancing figure)', 'v': 'Total debits − credits other than capital'}],
+        'viva': viva(),
     }

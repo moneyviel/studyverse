@@ -1,0 +1,1947 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch17-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch17",
+ "n": 1,
+ "title": "Correlation and Regression",
+ "outcomes": [
+  "Describe bivariate data, a bivariate frequency table and its marginal and conditional distributions.",
+  "Identify positive, negative, linear and non-linear correlation from a scatter diagram and measure it with Karl Pearson's r, Spearman's rank correlation (with ties) and the coefficient of concurrent deviations.",
+  "Use the properties of r — limits, effect of change of origin and scale, coefficient of determination — and recognise spurious correlation.",
+  "Fit the regression lines of y on x and x on y by least squares, use them to estimate values and apply the properties of regression coefficients."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 55,
+   "practice": 70
+  },
+  "prereq": [
+   "fnd-p3-ch14-u02"
+  ],
+  "exam_tip": "Expect 5–6 MCQs: r from summary data, r = ±√(byx·bxy), byx = r σy/σx, regression lines meet at the means, which given line is y on x, rank correlation from Σd², concurrent deviations, change of origin/scale. Always check that byx × bxy ≤ 1."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Bivariate data and bivariate frequency distribution",
+   "body": [
+    "When two variables are observed together on each unit — marks in two subjects, price and demand — the data are bivariate: pairs (xᵢ, yᵢ).",
+    "A bivariate (joint) frequency distribution, or two-way table, classifies the pairs by x-classes (columns) and y-classes (rows); each cell holds the frequency of that combination.",
+    "Marginal distributions: the row totals (distribution of y) and column totals (distribution of x). Conditional distribution: the distribution of one variable for a fixed class of the other (e.g. distribution of y for x in 40–50). Number of conditional distributions = number of classes of the conditioning variable."
+   ],
+   "analogy": "A two-way table is a cricket scorecard by batsman and bowler; row totals give runs per batsman, column totals runs off each bowler.",
+   "work": "A debtors ageing by region (two-way: age band × region) is a bivariate frequency table; management reads both the marginal totals and the conditional rows."
+  },
+  {
+   "id": "c2",
+   "title": "Types of correlation and the scatter diagram",
+   "body": [
+    "Correlation: the two variables tend to move together. Positive — both move in the same direction (income and spending); negative — opposite directions (price and demand); zero — no linear relationship.",
+    "Linear correlation: the points lie close to a straight line; non-linear (curvilinear): they follow a curve.",
+    "Scatter diagram: plot each pair as a point. It shows direction, rough strength and whether the relation is linear or curvilinear, and it works for any type of relation — but it does not give a numerical measure. Always draw one first: r = 0 does not mean independence (y = x² over symmetric x gives r = 0)."
+   ],
+   "analogy": "A scatter diagram is a crowd photo from above — you see at once whether people are walking in a line, in a curve or milling about.",
+   "work": "Analysts plot fuel cost against kilometres for a fleet before trusting a cost-per-km rate; outliers on the plot point to data errors or unusual trips."
+  },
+  {
+   "id": "c3",
+   "title": "Karl Pearson's product moment correlation coefficient",
+   "body": [
+    "r = Cov(x, y)/(σx σy), where Cov(x, y) = Σ(x − x̄)(y − ȳ)/n. Working forms: r = Σuv/√(Σu² Σv²) with u = x − x̄, v = y − ȳ; or r = [nΣxy − ΣxΣy]/√{[nΣx² − (Σx)²][nΣy² − (Σy)²]}.",
+    "Properties: (i) r is a pure number (unit-free); (ii) −1 ≤ r ≤ 1 — r = 1 perfect positive, r = −1 perfect negative, r = 0 no linear correlation; (iii) r is unchanged by change of origin and scale — if u = (x − a)/b and v = (y − c)/d then r(u, v) = r(x, y) when b and d have the same sign, and r(u, v) = −r(x, y) when they have opposite signs; (iv) r = ±√(byx × bxy).",
+    "Change of origin (e.g. u = x − A) simplifies arithmetic without changing r."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "x (ad spend, ₹ lakh)",
+      "y (sales, ₹ lakh)",
+      "u = x − 6",
+      "v = y − 11",
+      "u²",
+      "v²",
+      "uv"
+     ],
+     "rows": [
+      [
+       "2",
+       "6",
+       "-4",
+       "-5",
+       "16",
+       "25",
+       "20"
+      ],
+      [
+       "4",
+       "9",
+       "-2",
+       "-2",
+       "4",
+       "4",
+       "4"
+      ],
+      [
+       "5",
+       "8",
+       "-1",
+       "-3",
+       "1",
+       "9",
+       "3"
+      ],
+      [
+       "7",
+       "13",
+       "1",
+       "2",
+       "1",
+       "4",
+       "2"
+      ],
+      [
+       "8",
+       "14",
+       "2",
+       "3",
+       "4",
+       "9",
+       "6"
+      ],
+      [
+       "10",
+       "16",
+       "4",
+       "5",
+       "16",
+       "25",
+       "20"
+      ],
+      [
+       "36",
+       "66",
+       "0",
+       "0",
+       "42",
+       "76",
+       "55"
+      ]
+     ],
+     "num": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "total": true,
+     "title": "Advertising and sales of six months"
+    }
+   ],
+   "analogy": "r is a \"togetherness score\" from −1 (perfect mirror image) through 0 (strangers) to +1 (perfect twins).",
+   "work": "Correlating monthly sales with advertising, or a stock's returns with the index (the basis of beta), is everyday analytical work."
+  },
+  {
+   "id": "c4",
+   "title": "Spearman's rank correlation and concurrent deviations",
+   "body": [
+    "Spearman: rR = 1 − 6Σd²/[n(n² − 1)], d = difference between the two ranks of each item. Used for qualitative traits (beauty, honesty) or when only ranks are available. Lies between −1 and 1.",
+    "Ties: give tied items the average of the ranks they occupy; then rR = 1 − 6[Σd² + Σ(t³ − t)/12]/[n(n² − 1)], adding (t³ − t)/12 for every group of t tied values (in either series).",
+    "Coefficient of concurrent deviations: compare the direction of change of each series from one period to the next (+ or −); c = number of pairs with the same sign (concurrent), m = number of pairs of deviations (= n − 1). rC = ±√[±(2c − m)/m] — take the plus sign inside and outside when 2c − m > 0, the minus sign both places when 2c − m < 0. It too lies between −1 and 1; it shows direction quickly but is a rough measure."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Economics",
+      "Statistics",
+      "Rank (Eco)",
+      "Rank (Stats)",
+      "d",
+      "d²"
+     ],
+     "rows": [
+      [
+       "72",
+       "68",
+       "4",
+       "5",
+       "-1",
+       "1"
+      ],
+      [
+       "65",
+       "70",
+       "6",
+       "3.5",
+       "2.5",
+       "6.25"
+      ],
+      [
+       "80",
+       "78",
+       "2",
+       "2",
+       "0",
+       "0"
+      ],
+      [
+       "65",
+       "60",
+       "6",
+       "7",
+       "-1",
+       "1"
+      ],
+      [
+       "58",
+       "55",
+       "8",
+       "8",
+       "0",
+       "0"
+      ],
+      [
+       "90",
+       "85",
+       "1",
+       "1",
+       "0",
+       "0"
+      ],
+      [
+       "65",
+       "62",
+       "6",
+       "6",
+       "0",
+       "0"
+      ],
+      [
+       "74",
+       "70",
+       "3",
+       "3.5",
+       "-0.5",
+       "0.25"
+      ],
+      [
+       "",
+       "",
+       "",
+       "",
+       "0",
+       "8.5"
+      ]
+     ],
+     "num": [
+      4,
+      5
+     ],
+     "total": true,
+     "title": "Marks of 8 students with tied values"
+    }
+   ],
+   "analogy": "Rank correlation asks only \"did the two judges put the contestants in the same order?\", not by how many points.",
+   "work": "Comparing two credit-rating agencies' rankings of the same borrowers, or two interviewers' rankings of candidates, uses rank correlation."
+  },
+  {
+   "id": "c5",
+   "title": "Coefficient of determination and spurious correlation",
+   "body": [
+    "Coefficient of determination = r² = explained variance ÷ total variance: the share of variation in y accounted for by x. r = 0.8 ⇒ r² = 0.64, i.e. 64% explained. Coefficient of non-determination = 1 − r² (unexplained share).",
+    "Spurious (nonsense) correlation: a correlation between variables with no causal link, produced by a third variable affecting both — e.g. rice output and iron output both rising with time. Remove the third variable's influence before interpreting r. Correlation never proves causation by itself."
+   ],
+   "analogy": "Ice-cream sales and drowning cases rise together — not because ice-cream drowns people, but because summer drives both.",
+   "work": "Before telling a client that a marketing campaign \"caused\" higher sales, check for seasonal effects or price changes that moved both."
+  },
+  {
+   "id": "c6",
+   "title": "Regression and the method of least squares",
+   "body": [
+    "Regression estimates the average relationship between a dependent (explained) variable and an independent (explanatory) variable, so that one can be estimated from the other.",
+    "Regression line of y on x (to estimate y from x): y − ȳ = byx (x − x̄), with byx = Cov(x, y)/σx² = r σy/σx = Σuv/Σu². It minimises the sum of squared vertical deviations Σ(y − ŷ)² — the method of least squares. Normal equations for y = a + bx: Σy = na + bΣx and Σxy = aΣx + bΣx².",
+    "Regression line of x on y (to estimate x from y): x − x̄ = bxy (y − ȳ), bxy = r σx/σy = Σuv/Σv². It minimises horizontal squared deviations.",
+    "Use the y-on-x line to estimate y and the x-on-y line to estimate x — they are different lines unless r = ±1."
+   ],
+   "analogy": "The least-squares line is the \"fairest\" straight line through a cloud of points — it keeps the total squared miss as small as possible.",
+   "work": "Cost accountants split semi-variable costs into fixed and variable parts by regressing total cost on output (y = a + bx: a = fixed cost, b = variable cost per unit)."
+  },
+  {
+   "id": "c7",
+   "title": "Properties of regression coefficients and lines",
+   "body": [
+    "(i) Regression coefficients are unchanged by a shift of origin but change with scale: if u = (x − a)/p and v = (y − c)/q, then byx = (q/p) bvu and bxy = (p/q) buv.",
+    "(ii) The two lines intersect at (x̄, ȳ) — solve the two equations simultaneously to get the means.",
+    "(iii) r = ±√(byx × bxy), the geometric mean of the regression coefficients, taking their common sign. Hence both coefficients have the same sign as r, and byx × bxy = r² ≤ 1; they cannot both be numerically greater than 1.",
+    "(iv) The lines coincide (are identical) when r = ±1, and are perpendicular when r = 0.",
+    "Identifying lines from two equations: assume one is y on x, find byx and bxy; if their product is ≤ 1 (and signs agree) the assumption is right; otherwise swap."
+   ],
+   "analogy": "Two regression lines are scissors hinged at the means: fully closed when r = ±1, opened to a right angle when r = 0.",
+   "work": "When a client gives only two fitted equations, these properties let you recover the means and r in a minute — and spot an impossible pair of coefficients."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Pearson r, regression lines and an estimate",
+   "difficulty": "moderate",
+   "minutes": 15,
+   "q": "Advertising (x, ₹ lakh) and sales (y, ₹ lakh) for six months: x: 2, 4, 5, 7, 8, 10; y: 6, 9, 8, 13, 14, 16. Find r, r², both regression lines and estimate sales when advertising is ₹12 lakh.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "x (ad spend, ₹ lakh)",
+      "y (sales, ₹ lakh)",
+      "u = x − 6",
+      "v = y − 11",
+      "u²",
+      "v²",
+      "uv"
+     ],
+     "rows": [
+      [
+       "2",
+       "6",
+       "-4",
+       "-5",
+       "16",
+       "25",
+       "20"
+      ],
+      [
+       "4",
+       "9",
+       "-2",
+       "-2",
+       "4",
+       "4",
+       "4"
+      ],
+      [
+       "5",
+       "8",
+       "-1",
+       "-3",
+       "1",
+       "9",
+       "3"
+      ],
+      [
+       "7",
+       "13",
+       "1",
+       "2",
+       "1",
+       "4",
+       "2"
+      ],
+      [
+       "8",
+       "14",
+       "2",
+       "3",
+       "4",
+       "9",
+       "6"
+      ],
+      [
+       "10",
+       "16",
+       "4",
+       "5",
+       "16",
+       "25",
+       "20"
+      ],
+      [
+       "36",
+       "66",
+       "0",
+       "0",
+       "42",
+       "76",
+       "55"
+      ]
+     ],
+     "num": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "total": true,
+     "title": "Advertising and sales of six months"
+    },
+    {
+     "t": "wn",
+     "title": "Correlation",
+     "text": "x̄ = 6, ȳ = 11. r = Σuv/√(Σu²Σv²) = 55/√(42 × 76) = 0.9735; r² ≈ 0.9477 — about 95% of the variation in sales is explained by advertising."
+    },
+    {
+     "t": "wn",
+     "title": "Regression lines",
+     "text": "byx = Σuv/Σu² = 55/42 = 1.3095 ⇒ y − 11 = 1.3095(x − 6). bxy = Σuv/Σv² = 55/76 = 0.7237 ⇒ x − 6 = 0.7237(y − 11)."
+    },
+    {
+     "t": "wn",
+     "title": "Estimate and check",
+     "text": "At x = 12: ŷ = 11 + 1.3095 × 6 = ₹18.86 lakh. Check: √(byx × bxy) = √(1.3095 × 0.7237) = 0.9735 = r."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "36/6",
+     "value": 6,
+     "label": "mean of x"
+    },
+    {
+     "expr": "66/6",
+     "value": 11,
+     "label": "mean of y"
+    },
+    {
+     "expr": "round(55/(42*76)**0.5,4)",
+     "value": 0.97,
+     "label": "Pearson r"
+    },
+    {
+     "expr": "round((55/(42*76)**0.5)**2,4)",
+     "value": 0.95,
+     "label": "coefficient of determination"
+    },
+    {
+     "expr": "round(55/42,4)",
+     "value": 1.31,
+     "label": "b_yx"
+    },
+    {
+     "expr": "round(55/76,4)",
+     "value": 0.72,
+     "label": "b_xy"
+    },
+    {
+     "expr": "round(11+55/42*(12-6),2)",
+     "value": 18.86,
+     "label": "estimated sales at x = 12"
+    },
+    {
+     "expr": "round(6+55/76*(18-11),2)",
+     "value": 11.07,
+     "label": "estimated x for y = 18 (x on y)"
+    },
+    {
+     "expr": "round((55/42*55/76)**0.5,4)",
+     "value": 0.97,
+     "label": "r as GM of regression coefficients"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Rank correlation without and with ties",
+   "difficulty": "moderate",
+   "minutes": 12,
+   "q": "(a) Two judges rank 7 entries: Judge A 1, 2, 3, 4, 5, 6, 7; Judge B 2, 1, 4, 3, 7, 5, 6. Find the rank correlation. (b) Marks of 8 students in Economics: 72, 65, 80, 65, 58, 90, 65, 74; in Statistics: 68, 70, 78, 60, 55, 85, 62, 70. Find the rank correlation (rank 1 = highest).",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "d: −1, 1, −1, 1, −2, 1, 1; Σd² = 10. rR = 1 − 6 × 10/(7 × 48) = 0.8214."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Economics",
+      "Statistics",
+      "Rank (Eco)",
+      "Rank (Stats)",
+      "d",
+      "d²"
+     ],
+     "rows": [
+      [
+       "72",
+       "68",
+       "4",
+       "5",
+       "-1",
+       "1"
+      ],
+      [
+       "65",
+       "70",
+       "6",
+       "3.5",
+       "2.5",
+       "6.25"
+      ],
+      [
+       "80",
+       "78",
+       "2",
+       "2",
+       "0",
+       "0"
+      ],
+      [
+       "65",
+       "60",
+       "6",
+       "7",
+       "-1",
+       "1"
+      ],
+      [
+       "58",
+       "55",
+       "8",
+       "8",
+       "0",
+       "0"
+      ],
+      [
+       "90",
+       "85",
+       "1",
+       "1",
+       "0",
+       "0"
+      ],
+      [
+       "65",
+       "62",
+       "6",
+       "6",
+       "0",
+       "0"
+      ],
+      [
+       "74",
+       "70",
+       "3",
+       "3.5",
+       "-0.5",
+       "0.25"
+      ],
+      [
+       "",
+       "",
+       "",
+       "",
+       "0",
+       "8.5"
+      ]
+     ],
+     "num": [
+      4,
+      5
+     ],
+     "total": true,
+     "title": "Marks of 8 students with tied values"
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Economics: 65 appears three times (ranks 5, 6, 7 → 6 each). Statistics: 70 appears twice (ranks 3, 4 → 3.5 each). Correction = (3³ − 3)/12 + (2³ − 2)/12 = 2 + 0.5 = 2.5. rR = 1 − 6(8.5 + 2.5)/(8 × 63) = 0.869."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(1-6*10/(7*(7**2-1)),4)",
+     "value": 0.82,
+     "label": "rank correlation, no ties"
+    },
+    {
+     "expr": "round(1-6*(8.5+(3**3-3)/12+(2**3-2)/12)/(8*(8**2-1)),4)",
+     "value": 0.87,
+     "label": "rank correlation with tie correction"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Coefficient of concurrent deviations",
+   "difficulty": "core",
+   "minutes": 7,
+   "q": "Price index x: 100, 104, 101, 106, 110, 108, 112, 115. Demand index y: 50, 53, 52, 55, 54, 51, 56, 58. Find the coefficient of concurrent deviations.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Price index x",
+      "Sign of change",
+      "Demand y",
+      "Sign of change",
+      "Product of signs"
+     ],
+     "rows": [
+      [
+       "100",
+       "",
+       "50",
+       "",
+       ""
+      ],
+      [
+       "104",
+       "+",
+       "53",
+       "+",
+       "+"
+      ],
+      [
+       "101",
+       "−",
+       "52",
+       "−",
+       "+"
+      ],
+      [
+       "106",
+       "+",
+       "55",
+       "+",
+       "+"
+      ],
+      [
+       "110",
+       "+",
+       "54",
+       "−",
+       "−"
+      ],
+      [
+       "108",
+       "−",
+       "51",
+       "−",
+       "+"
+      ],
+      [
+       "112",
+       "+",
+       "56",
+       "+",
+       "+"
+      ],
+      [
+       "115",
+       "+",
+       "58",
+       "+",
+       "+"
+      ]
+     ]
+    },
+    {
+     "t": "wn",
+     "title": "Working",
+     "text": "m = 7 pairs of deviations, c = 6 concurrent (+ products). 2c − m = 5 > 0, so rC = +√(5/7) = 0.8452."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(((2*6-7)/7)**0.5,4)",
+     "value": 0.85,
+     "label": "coefficient of concurrent deviations"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Which line is which? Means and r from two regression equations",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "The two regression lines are x + 2y = 10 and 2x + 3y = 17, and σx = 4. Find x̄, ȳ, identify the lines, and find r and σy.",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "Means",
+     "text": "Solving: x = 10 − 2y ⇒ 20 − 4y + 3y = 17 ⇒ ȳ = 3, x̄ = 4."
+    },
+    {
+     "t": "wn",
+     "title": "Identify",
+     "text": "Assume x + 2y = 10 is y on x: y = 5 − 0.5x ⇒ byx = -0.5. Then 2x + 3y = 17 is x on y: x = 8.5 − 1.5y ⇒ bxy = -1.5. Product 0.75 ≤ 1 ✓ (the other assignment gives (−2/3)(−2) = 1.33 > 1 — impossible)."
+    },
+    {
+     "t": "wn",
+     "title": "r and σy",
+     "text": "r = −√0.75 = -0.866 (negative, the common sign). byx = r σy/σx ⇒ −0.5 = −0.866 × σy/4 ⇒ σy ≈ 2.3094."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "20-17",
+     "value": 3,
+     "label": "ybar from solving x + 2y = 10 and 2x + 3y = 17"
+    },
+    {
+     "expr": "10-2*3",
+     "value": 4,
+     "label": "xbar"
+    },
+    {
+     "expr": "-1/2",
+     "value": -0.5,
+     "label": "b_yx if x + 2y = 10 is y on x"
+    },
+    {
+     "expr": "-3/2",
+     "value": -1.5,
+     "label": "b_xy if 2x + 3y = 17 is x on y"
+    },
+    {
+     "expr": "0.5*1.5",
+     "value": 0.75,
+     "label": "product of regression coefficients (valid, <= 1)"
+    },
+    {
+     "expr": "round((2/3)*2,4)",
+     "value": 1.33,
+     "label": "product under the other assignment (> 1, invalid)"
+    },
+    {
+     "expr": "round(-(0.5*1.5)**0.5,4)",
+     "value": -0.87,
+     "label": "r (negative, common sign)"
+    },
+    {
+     "expr": "round(0.5/(0.75**0.5)*4,4)",
+     "value": 2.31,
+     "label": "sigma_y when sigma_x = 4 using b_yx = r sy/sx"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Separating fixed and variable cost by regression",
+   "role": "Cost accountant in a manufacturing unit",
+   "situation": "Monthly power cost and machine hours for 12 months are available. The plant head wants a budget formula.",
+   "steps": [
+    "Plot cost (y) against machine hours (x) — check the relation is linear and remove months with breakdowns.",
+    "Fit y = a + bx by least squares: b = Σuv/Σu² (variable cost per hour), a = ȳ − b x̄ (fixed cost).",
+    "Report r²: if 0.9, about 90% of the cost variation is explained by machine hours.",
+    "Use the y-on-x line only within the range of hours observed — extrapolation is risky."
+   ],
+   "takeaway": "Least-squares regression turns past cost data into a flexible-budget formula."
+  },
+  {
+   "id": "j2",
+   "title": "Testing an analytical review assumption",
+   "role": "Audit senior performing substantive analytics",
+   "situation": "You expect commission expense to move with sales. For 12 months r = 0.35, much lower than in prior years (0.9).",
+   "steps": [
+    "A weak r means sales explain only about 12% (r²) of the variation in commission this year.",
+    "Scatter the data — one or two months may hold large one-off commissions or misposted entries.",
+    "Investigate those months with documents before concluding.",
+    "If the scheme changed (e.g. slab-based payouts), the relation may be non-linear — r understates it."
+   ],
+   "takeaway": "A sudden fall in r is an audit signal: either the business changed or the books contain errors.",
+   "checks": [
+    {
+     "expr": "0.35**2",
+     "value": 0.12,
+     "label": "r squared"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The correlation coefficient always lies between:",
+   "options": [
+    "−1 and +1, both inclusive",
+    "0 and 1",
+    "−∞ and +∞",
+    "0 and ∞"
+   ],
+   "answer": 0,
+   "explain": "−1 ≤ r ≤ 1.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Price and quantity demanded usually show:",
+   "options": [
+    "Negative correlation",
+    "Positive correlation",
+    "Zero correlation",
+    "Perfect positive correlation"
+   ],
+   "answer": 0,
+   "explain": "As price rises, demand falls.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "A scatter diagram can be used to study:",
+   "options": [
+    "Both linear and non-linear relationships",
+    "Only linear relationships",
+    "Only the exact value of r",
+    "Only qualitative data"
+   ],
+   "answer": 0,
+   "explain": "It shows the pattern of any relationship but gives no numerical measure.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Cov(x, y) = 18, σx = 4 and σy = 5. The correlation coefficient is:",
+   "options": [
+    "0.9",
+    "3.6",
+    "4.5",
+    "0.36"
+   ],
+   "answer": 0,
+   "check": "18/(4*5)",
+   "explain": "r = Cov/(σx σy) = 18/20 = 0.9.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "For 10 pairs: Σuv = 48, Σu² = 64, Σv² = 100 (u, v deviations from means). r is:",
+   "options": [
+    "0.6",
+    "0.75",
+    "0.48",
+    "0.0075"
+   ],
+   "answer": 0,
+   "check": "48/(64*100)**0.5",
+   "explain": "r = 48/√6,400 = 48/80 = 0.6. (0.75 = 48/64 is byx.)",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m6",
+   "q": "If u = 2x + 5 and v = −3y + 1, and r(x, y) = 0.6, then r(u, v) is:",
+   "options": [
+    "−0.6",
+    "0.6",
+    "−3.6",
+    "0.4"
+   ],
+   "answer": 0,
+   "explain": "Scale factors 2 and −3 have opposite signs, so the magnitude stays and the sign flips.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m7",
+   "q": "If r = 0 between x and y, then:",
+   "options": [
+    "There is no linear relationship, though a non-linear one may exist",
+    "x and y are always independent",
+    "The regression lines coincide",
+    "r² = 1"
+   ],
+   "answer": 0,
+   "explain": "r measures only linear association; y = x² can give r = 0.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m8",
+   "q": "For 7 items, Σd² = 28. Spearman's rank correlation is:",
+   "options": [
+    "0.5",
+    "0.75",
+    "0.6667",
+    "0.1667"
+   ],
+   "answer": 0,
+   "check": "1-6*28/(7*48)",
+   "explain": "1 − 168/336 = 0.5.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m9",
+   "q": "Rank correlation is 0.4 for 10 pairs. Σd² is:",
+   "options": [
+    "99",
+    "66",
+    "165",
+    "39.6"
+   ],
+   "answer": 0,
+   "check": "(1-0.4)*10*99/6",
+   "explain": "0.4 = 1 − 6Σd²/990 ⇒ Σd² = 0.6 × 990/6 = 99.",
+   "concept": "c4",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m10",
+   "q": "Spearman's rank correlation is most suitable for:",
+   "options": [
+    "Qualitative characteristics that can be ranked, like beauty",
+    "Data with exact measurements only",
+    "Open-end classes",
+    "Time series only"
+   ],
+   "answer": 0,
+   "explain": "It uses only ranks.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m11",
+   "q": "Three items are tied in one series. The correction added to Σd² is:",
+   "options": [
+    "2",
+    "3",
+    "0.25",
+    "6"
+   ],
+   "answer": 0,
+   "check": "(3**3-3)/12",
+   "explain": "(t³ − t)/12 = 24/12 = 2.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m12",
+   "q": "For 9 pairs of observations (8 pairs of deviations), the number of concurrent deviations is 6. The coefficient of concurrent deviations is:",
+   "options": [
+    "0.7071",
+    "0.5",
+    "0.75",
+    "-0.7071"
+   ],
+   "answer": 0,
+   "check": "round(((2*6-8)/8)**0.5,4)",
+   "explain": "rC = +√((12 − 8)/8) = √0.5 = 0.7071.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m13",
+   "q": "With m = 10 deviations and c = 2 concurrent, the coefficient of concurrent deviations is:",
+   "options": [
+    "-0.7746",
+    "0.7746",
+    "-0.6",
+    "0.2"
+   ],
+   "answer": 0,
+   "check": "round(-((10-2*2)/10)**0.5,4)",
+   "explain": "2c − m = −6 < 0, so rC = −√(6/10) = -0.7746.",
+   "concept": "c4",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m14",
+   "q": "If r = 0.9, the coefficient of determination is:",
+   "options": [
+    "0.81",
+    "0.9",
+    "0.19",
+    "0.95"
+   ],
+   "answer": 0,
+   "check": "0.81",
+   "explain": "r² = 0.81: 81% of the variation in y is explained by x.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m15",
+   "q": "A high positive correlation between the number of mobile phones sold and the number of cars sold over 15 years, caused by rising incomes, is an example of:",
+   "options": [
+    "Spurious (nonsense) correlation",
+    "Negative correlation",
+    "Perfect correlation",
+    "Rank correlation"
+   ],
+   "answer": 0,
+   "explain": "A third variable (income/time) drives both.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m16",
+   "q": "r = 0.6, σx = 3, σy = 5. The regression coefficient of y on x is:",
+   "options": [
+    "1",
+    "0.36",
+    "0.6",
+    "1.8"
+   ],
+   "answer": 0,
+   "check": "0.6*5/3",
+   "explain": "byx = r σy/σx = 0.6 × 5/3 = 1. (0.36 is bxy.)",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m17",
+   "q": "byx = 0.8 and bxy = 0.45. The correlation coefficient is:",
+   "options": [
+    "0.6",
+    "0.36",
+    "0.625",
+    "-0.6"
+   ],
+   "answer": 0,
+   "check": "round((0.8*0.45)**0.5,4)",
+   "explain": "r = +√(0.36) = 0.6 (both coefficients positive).",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m18",
+   "q": "byx = −0.5 and bxy = −1.28. The correlation coefficient is:",
+   "options": [
+    "-0.8",
+    "0.8",
+    "0.64",
+    "-0.64"
+   ],
+   "answer": 0,
+   "check": "round(-(0.5*1.28)**0.5,4)",
+   "explain": "r = −√0.64 = -0.8 (common sign negative).",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m19",
+   "q": "Which pair of regression coefficients is impossible?",
+   "options": [
+    "byx = 1.6, bxy = 0.8",
+    "byx = 0.4, bxy = 0.9",
+    "byx = −0.3, bxy = −2",
+    "byx = 2, bxy = 0.25"
+   ],
+   "answer": 0,
+   "explain": "1.6 × 0.8 = 1.28 > 1 would make r² > 1.",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m20",
+   "q": "The two regression lines intersect at:",
+   "options": [
+    "(x̄, ȳ)",
+    "(0, 0)",
+    "(σx, σy)",
+    "(byx, bxy)"
+   ],
+   "answer": 0,
+   "explain": "Both lines pass through the means.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m21",
+   "q": "The regression lines are 2x − y = 1 and 3x − 2y = 0. The mean of x is:",
+   "options": [
+    "2",
+    "3",
+    "1",
+    "1.5"
+   ],
+   "answer": 0,
+   "check": "2",
+   "explain": "Solve: y = 2x − 1 ⇒ 3x − 4x + 2 = 0 ⇒ x̄ = 2 (ȳ = 3).",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m22",
+   "q": "The two regression lines are perpendicular to each other when:",
+   "options": [
+    "r = 0",
+    "r = 1",
+    "r = −1",
+    "r = 0.5"
+   ],
+   "answer": 0,
+   "explain": "Lines are perpendicular when r = 0 and coincide when r = ±1.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "The regression lines coincide when:",
+   "options": [
+    "r = ±1",
+    "r = 0",
+    "byx = 0",
+    "σx = σy"
+   ],
+   "answer": 0,
+   "explain": "Perfect correlation gives a single line.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m24",
+   "q": "Regression coefficients are:",
+   "options": [
+    "Unaffected by change of origin but affected by change of scale",
+    "Affected by change of origin only",
+    "Unaffected by both",
+    "Affected by both origin and scale equally"
+   ],
+   "answer": 0,
+   "explain": "Shifting origin leaves slopes unchanged; rescaling multiplies them by q/p.",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m25",
+   "q": "If u = (x − 10)/2 and v = (y − 20)/5 and bvu = 0.4, then byx is:",
+   "options": [
+    "1",
+    "0.16",
+    "0.4",
+    "2"
+   ],
+   "answer": 0,
+   "check": "5/2*0.4",
+   "explain": "byx = (q/p) bvu = (5/2) × 0.4 = 1.",
+   "concept": "c7",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m26",
+   "q": "The regression line of y on x is y = 4 + 1.5x. The estimate of y when x = 6 is:",
+   "options": [
+    "13",
+    "9",
+    "15",
+    "10"
+   ],
+   "answer": 0,
+   "check": "4+1.5*6",
+   "explain": "ŷ = 4 + 9 = 13.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m27",
+   "q": "x̄ = 20, ȳ = 30, byx = 0.6. The estimate of y when x = 25 is:",
+   "options": [
+    "33",
+    "33.75",
+    "15",
+    "45"
+   ],
+   "answer": 0,
+   "check": "30+0.6*(25-20)",
+   "explain": "ŷ = ȳ + byx(x − x̄) = 30 + 3 = 33.",
+   "concept": "c6",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m28",
+   "q": "The method of least squares for the regression of y on x minimises:",
+   "options": [
+    "The sum of squares of vertical deviations of y from the line",
+    "The sum of horizontal deviations",
+    "The sum of absolute deviations of x",
+    "The product of deviations"
+   ],
+   "answer": 0,
+   "explain": "Σ(y − ŷ)² is minimised.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m29",
+   "q": "In a bivariate frequency table with 5 classes of x and 4 classes of y, the number of conditional distributions of y (given x) is:",
+   "options": [
+    "5",
+    "4",
+    "20",
+    "9"
+   ],
+   "answer": 0,
+   "explain": "One conditional distribution of y for each class of x → 5.",
+   "concept": "c1",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m30",
+   "q": "Which statement about correlation and regression is correct?",
+   "options": [
+    "r is symmetric in x and y, but byx and bxy generally differ",
+    "byx always equals bxy",
+    "Regression is unit-free",
+    "r has the units of y per unit of x"
+   ],
+   "answer": 0,
+   "explain": "r(x, y) = r(y, x); the two regression coefficients differ unless σx = σy.",
+   "concept": "c6",
+   "difficulty": "moderate"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "Price (₹) and demand (units) of a product over five weeks: x: 10, 12, 15, 18, 20; y: 40, 38, 33, 30, 24. Compute Karl Pearson's coefficient of correlation and interpret it with r².",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Price x (₹)",
+      "Demand y (units)",
+      "u = x − 15",
+      "v = y − 33",
+      "u²",
+      "v²",
+      "uv"
+     ],
+     "rows": [
+      [
+       "10",
+       "40",
+       "-5",
+       "7",
+       "25",
+       "49",
+       "-35"
+      ],
+      [
+       "12",
+       "38",
+       "-3",
+       "5",
+       "9",
+       "25",
+       "-15"
+      ],
+      [
+       "15",
+       "33",
+       "0",
+       "0",
+       "0",
+       "0",
+       "0"
+      ],
+      [
+       "18",
+       "30",
+       "3",
+       "-3",
+       "9",
+       "9",
+       "-9"
+      ],
+      [
+       "20",
+       "24",
+       "5",
+       "-9",
+       "25",
+       "81",
+       "-45"
+      ],
+      [
+       "75",
+       "165",
+       "0",
+       "0",
+       "68",
+       "164",
+       "-104"
+      ]
+     ],
+     "num": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "total": true
+    },
+    {
+     "t": "wn",
+     "title": "Means",
+     "text": "x̄ = 75/5 = 15; ȳ = 165/5 = 33."
+    },
+    {
+     "t": "wn",
+     "title": "r",
+     "text": "r = Σuv/√(Σu² Σv²) = -104/√(68 × 164) = -0.9848."
+    },
+    {
+     "t": "p",
+     "text": "Very high negative correlation: as price rises demand falls. r² ≈ 0.9698 — about 97% of the variation in demand is associated with price."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Means and deviations u, v",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Σu², Σv², Σuv correct",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "r = -0.9848",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Interpretation incl. r²",
+     "m": 1,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "Losing the minus sign of Σuv is the commonest error."
+   ],
+   "mistakes": [
+    "Dividing by n in the numerator but not the denominator.",
+    "Interpreting r² as r."
+   ],
+   "tips": [
+    "Deviations from the actual means make Σu = Σv = 0 — a built-in check."
+   ],
+   "checks": [
+    {
+     "expr": "round(-104/(68*164)**0.5,4)",
+     "value": -0.98,
+     "label": "r"
+    },
+    {
+     "expr": "round((-104/(68*164)**0.5)**2,4)",
+     "value": 0.97,
+     "label": "r squared"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "For two variables, x̄ = 40, ȳ = 50, σx = 8, σy = 12 and r = 0.8. (a) Find both regression equations. (b) Estimate y when x = 45. (c) Estimate x when y = 62. (d) Verify that r is the geometric mean of the regression coefficients.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "byx = 0.8 × 12/8 = 1.2 ⇒ y − 50 = 1.2(x − 40), i.e. y = 1.2x + 2. bxy = 0.8 × 8/12 = 0.5333 ⇒ x − 40 = 0.5333(y − 50), i.e. x = 0.5333y + 13.33."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "ŷ = 50 + 1.2 × 5 = 56."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "x̂ = 40 + 0.5333 × 12 = 46.4."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "√(1.2 × 0.5333) = √0.64 = 0.8 = r ✓."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "byx = 1.2 and y-on-x equation",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "bxy = 0.5333 and x-on-y equation",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "y estimated with y-on-x line (56)",
+     "m": 1,
+     "skill": "application"
+    },
+    {
+     "id": "s4",
+     "pt": "x estimated with x-on-y line (46.4)",
+     "m": 1,
+     "skill": "application"
+    },
+    {
+     "id": "s5",
+     "pt": "Verification r = √(byx·bxy)",
+     "m": 1,
+     "skill": "concept"
+    }
+   ],
+   "remarks": [
+    "Using the y-on-x line to estimate x (by rearranging it) is wrong and is penalised."
+   ],
+   "mistakes": [
+    "byx = r σx/σy (inverted).",
+    "Rearranging one line for both estimates."
+   ],
+   "tips": [
+    "Label each line \"y on x\" or \"x on y\" before using it."
+   ],
+   "checks": [
+    {
+     "expr": "0.8*12/8",
+     "value": 1.2,
+     "label": "b_yx = r sy/sx"
+    },
+    {
+     "expr": "0.8*8/12",
+     "value": 0.53,
+     "label": "b_xy = r sx/sy"
+    },
+    {
+     "expr": "50+1.2*(45-40)",
+     "value": 56,
+     "label": "estimate y at x = 45"
+    },
+    {
+     "expr": "round(40+0.8*8/12*(62-50),4)",
+     "value": 46.4,
+     "label": "estimate x at y = 62"
+    },
+    {
+     "expr": "round(1.2*0.5333,2)",
+     "value": 0.64,
+     "label": "product approx r^2"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "hard",
+   "pad": "table",
+   "q": "Two judges scored 8 contestants. Judge A: 85, 70, 70, 62, 90, 55, 78, 70. Judge B: 80, 72, 65, 60, 88, 58, 74, 69. Compute the rank correlation coefficient (rank 1 = highest score).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Judge A score",
+      "Judge B score",
+      "Rank A",
+      "Rank B",
+      "d",
+      "d²"
+     ],
+     "rows": [
+      [
+       "85",
+       "80",
+       "2",
+       "2",
+       "0",
+       "0"
+      ],
+      [
+       "70",
+       "72",
+       "5",
+       "4",
+       "1",
+       "1"
+      ],
+      [
+       "70",
+       "65",
+       "5",
+       "6",
+       "-1",
+       "1"
+      ],
+      [
+       "62",
+       "60",
+       "7",
+       "7",
+       "0",
+       "0"
+      ],
+      [
+       "90",
+       "88",
+       "1",
+       "1",
+       "0",
+       "0"
+      ],
+      [
+       "55",
+       "58",
+       "8",
+       "8",
+       "0",
+       "0"
+      ],
+      [
+       "78",
+       "74",
+       "3",
+       "3",
+       "0",
+       "0"
+      ],
+      [
+       "70",
+       "69",
+       "5",
+       "5",
+       "0",
+       "0"
+      ],
+      [
+       "",
+       "",
+       "",
+       "",
+       "0",
+       "2"
+      ]
+     ],
+     "num": [
+      4,
+      5
+     ],
+     "total": true
+    },
+    {
+     "t": "wn",
+     "title": "Ties",
+     "text": "Judge A gives 70 to three contestants (ranks 4, 5, 6 → 5 each): correction (3³ − 3)/12 = 2. Judge B has no ties."
+    },
+    {
+     "t": "wn",
+     "title": "Result",
+     "text": "rR = 1 − 6(2 + 2)/(8 × 63) = 0.9524 — a high positive agreement between the judges."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Ranks with average rank for ties",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "d and Σd²",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Tie correction (t³ − t)/12 = 2",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s4",
+     "pt": "rR = 0.9524 and interpretation",
+     "m": 1.5,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "Many give tied scores the same integer rank (4, 4, 4) — use the average (5, 5, 5)."
+   ],
+   "mistakes": [
+    "Omitting the tie correction.",
+    "Ranking one judge ascending and the other descending."
+   ],
+   "tips": [
+    "Check Σd = 0 before squaring."
+   ],
+   "checks": [
+    {
+     "expr": "round(1-6*(2.0+(3**3-3)/12)/(8*(8**2-1)),4)",
+     "value": 0.95,
+     "label": "rank correlation with one tie of length 3"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Bivariate data; two-way table; marginal (totals) and conditional distributions.",
+   "Scatter diagram shows direction and form; r measures linear association only.",
+   "r = Cov/(σxσy) = Σuv/√(Σu²Σv²); −1 ≤ r ≤ 1; unit-free; unchanged by origin/scale (sign flips if scales have opposite signs).",
+   "Spearman 1 − 6Σd²/[n(n² − 1)], ties add (t³ − t)/12; concurrent deviations ±√[±(2c − m)/m].",
+   "r² explained share; 1 − r² unexplained; beware spurious correlation.",
+   "y on x: y − ȳ = byx(x − x̄), byx = rσy/σx; x on y: x − x̄ = bxy(y − ȳ), bxy = rσx/σy; lines meet at (x̄, ȳ); r = ±√(byx bxy)."
+  ],
+  "remember": [
+   "byx × bxy = r² ≤ 1; same sign as r.",
+   "r = ±1 → lines coincide; r = 0 → perpendicular.",
+   "m = n − 1 in concurrent deviations.",
+   "Estimate y with the y-on-x line, x with the x-on-y line."
+  ],
+  "traps": [
+   "Correlation is not causation.",
+   "r = 0 does not prove independence.",
+   "Regression coefficients DO change with scale.",
+   "Do not forget the tie correction for every tied group in either series."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Pearson r",
+   "v": "Cov(x, y)/(σxσy) = [nΣxy − ΣxΣy]/√{[nΣx² − (Σx)²][nΣy² − (Σy)²]}"
+  },
+  {
+   "k": "Spearman (ties)",
+   "v": "1 − 6[Σd² + Σ(t³ − t)/12]/[n(n² − 1)]"
+  },
+  {
+   "k": "Concurrent deviations",
+   "v": "rC = ±√[±(2c − m)/m], m = n − 1"
+  },
+  {
+   "k": "Regression y on x",
+   "v": "y − ȳ = byx(x − x̄); byx = rσy/σx = Cov/σx²"
+  },
+  {
+   "k": "Regression x on y",
+   "v": "x − x̄ = bxy(y − ȳ); bxy = rσx/σy = Cov/σy²"
+  },
+  {
+   "k": "Link",
+   "v": "r = ±√(byx · bxy); byx · bxy ≤ 1"
+  },
+  {
+   "k": "Change of origin & scale",
+   "v": "u = (x − a)/p, v = (y − c)/q: r unchanged (sign of pq); byx = (q/p)bvu, bxy = (p/q)buv"
+  },
+  {
+   "k": "Determination",
+   "v": "r² = explained/total variance; 1 − r² = non-determination"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "State the important properties of the correlation coefficient.",
+   "model": "The correlation coefficient is a pure number without units. It always lies between minus one and plus one, both included. It is unaffected by a change of origin, and a change of scale does not change its value either, only its sign can change when the two scale factors have opposite signs. It is the geometric mean of the two regression coefficients.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Lies between −1 and +1",
+     "w": 4,
+     "kw": [
+      "between minus 1 and plus 1|between minus 1 and +1|between minus 1 and 1|between negative 1 and plus 1|between negative 1 and +1|between negative 1 and 1|between - 1 and plus 1|between - 1 and +1|between - 1 and 1|minus 1 to plus 1|minus 1 to +1|minus 1 to 1|minus1 to plus 1|minus1 to +1|minus1 to 1|negative1 to plus 1|negative1 to +1|negative1 to 1|-1 to plus 1|-1 to +1|-1 to 1|minus one to plus one|minus one and plus one|from minus 1 to plus 1|cannot exceed 1|not exceed 1|not more than 1"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Unit-free / pure number",
+     "w": 2,
+     "kw": [
+      "unit free|no unit|without unit|pure number|independent of unit|free of unit|free from unit|unitless"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Unaffected by change of origin and scale (sign may change with opposite-sign scales)",
+     "w": 4,
+     "kw": [
+      "not affected by change of origin|not affected by a change of origin|not affected by shift of origin|not affected by the change of origin|not affected by  origin|unaffected by change of origin|unaffected by a change of origin|unaffected by shift of origin|unaffected by the change of origin|unaffected by  origin|independent of change of origin|independent of a change of origin|independent of shift of origin|independent of the change of origin|independent of  origin|does not change with change of origin|does not change with a change of origin|does not change with shift of origin|does not change with the change of origin|does not change with  origin|not changed by change of origin|not changed by a change of origin|not changed by shift of origin|not changed by the change of origin|not changed by  origin|invariant under change of origin|invariant under a change of origin|invariant under shift of origin|invariant under the change of origin|invariant under  origin|remains unchanged under change of origin|remains unchanged under a change of origin|remains unchanged under shift of origin|remains unchanged under the change of origin|remains unchanged under  origin|unchanged by change of origin|unchanged by a change of origin|unchanged by shift of origin|unchanged by the change of origin|unchanged by  origin|no effect of change of origin|no effect of a change of origin|no effect of shift of origin|no effect of the change of origin|no effect of  origin|does not depend on change of origin|does not depend on a change of origin|does not depend on shift of origin|does not depend on the change of origin|does not depend on  origin",
+      "origin and scale|origin or scale|invariant"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v2",
+   "q": "Explain Spearman's rank correlation coefficient. When is it preferred, and how are ties handled?",
+   "model": "Spearman's rank correlation is one minus six times the sum of squared rank differences, divided by n times n squared minus one. It is preferred for qualitative characteristics such as beauty or honesty that can only be ranked, or when the data are ranks. When values tie, each gets the average of the ranks they would have taken, and a correction of t cubed minus t over twelve is added to the sum of d squared for each tie.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "r = 1 − 6Σd² / [n(n² − 1)]",
+     "w": 4,
+     "kw": [
+      "1 minus 6 sum d square|1 minus 6 sigma d square|1 minus 6 times sum d square|1 minus 6 times sigma d square|1 minus 6 times the sum of d square|1 minus 6 sum of d square|1 minus 6 into sum d square|1 minus 6 sum d squared|1 minus 6 sigma d squared|1 minus 6 times sum d squared|1 minus 6 times sigma d squared|1 minus 6 times the sum of d squared|1 minus 6 sum of d squared|1 minus 6 into sum d squared|1 minus 6 sum d2|1 minus 6 sigma d2|1 minus 6 times sum d2|1 minus 6 times sigma d2|1 minus 6 times the sum of d2|1 minus 6 sum of d2|1 minus 6 into sum d2|one minus six sum d square|one minus six sigma d square|one minus six times sum d square|one minus six times sigma d square|one minus six times the sum of d square|one minus six sum of d square|one minus six into sum d square|one minus six times the sum of squared|1 minus 6 times sum of squared"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Used for qualitative / ranked data",
+     "w": 3,
+     "kw": [
+      "qualitative|rank|beauty|honesty|intelligence|attribute|cannot be measured|not measurable|ordinal"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Ties: average rank and correction (t³ − t)/12",
+     "w": 3,
+     "kw": [
+      "average|mean rank|tie",
+      "correction|t cube|t3|cube minus|12|twelve"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v3",
+   "q": "What is the difference between correlation and regression?",
+   "model": "Correlation measures the degree and direction of the linear relationship between two variables and is symmetric, so r of x and y equals r of y and x, and it is a pure number. Regression gives the average functional relationship, an equation used to estimate the value of a dependent variable from a known value of the independent variable. There are two regression lines, y on x and x on y, and regression coefficients have units.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Correlation: degree / strength and direction of relationship",
+     "w": 4,
+     "kw": [
+      "correlation measure|correlation degree|correlation strength|correlation extent|correlation how strongly|correlation closeness|correlation direction|correlation association|correlation tells how|correlation shows how"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Regression: equation to estimate/predict one variable from another",
+     "w": 4,
+     "kw": [
+      "regression estimate|regression predict|regression equation|regression functional|regression forecast|regression average relationship|regression cause and effect|regression dependent|regression line"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Two regression lines (y on x, x on y)",
+     "w": 2,
+     "kw": [
+      "two line|two regression|y on x|x on y|both line"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c6"
+  },
+  {
+   "id": "v4",
+   "q": "State the properties of regression coefficients and regression lines.",
+   "model": "The regression coefficients are unaffected by a change of origin but are affected by a change of scale. The two regression lines intersect at the point x bar, y bar, the means. The correlation coefficient is the geometric mean of the two regression coefficients, with the common sign, so both coefficients have the same sign and their product cannot exceed one. The lines coincide when r is plus or minus one and are perpendicular when r is zero.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Unaffected by change of origin, affected by change of scale",
+     "w": 2,
+     "kw": [
+      "origin",
+      "scale"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Lines intersect at (x̄, ȳ)",
+     "w": 3,
+     "kw": [
+      "intersect|meet|cross|cut",
+      "mean|x bar|xbar|average"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "r = ±√(byx·bxy), same sign; product ≤ 1",
+     "w": 3,
+     "kw": [
+      "geometric mean|square root of the product|square root of  product|root of the product|root of  product|square root of b y x",
+      "same sign|common sign|both positive|both negative"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p4",
+     "pt": "Coincide when r = ±1; perpendicular when r = 0",
+     "w": 2,
+     "kw": [
+      "coincid|identical|same line|one line",
+      "perpendicular|right angle|90"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v5",
+   "q": "What is the coefficient of determination, and how is it interpreted?",
+   "model": "The coefficient of determination is the square of the correlation coefficient, r squared. It is the ratio of the explained variance to the total variance, so it shows the proportion of variation in the dependent variable explained by the independent variable. For example, if r is 0.8, r squared is 0.64, so 64 percent of the variation is explained. One minus r squared is the coefficient of non-determination, the unexplained part.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Square of r",
+     "w": 4,
+     "kw": [
+      "r square|square of r|r squared|square of the correlation|square of correlation|r2|square of coefficient of correlation"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Explained variance ÷ total variance (proportion explained)",
+     "w": 4,
+     "kw": [
+      "explained",
+      "total|proportion|percent|ratio|share|fraction"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "1 − r² = non-determination (unexplained)",
+     "w": 2,
+     "kw": [
+      "non determination|nondetermination|unexplained|1 minus r"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v6",
+   "q": "What is spurious correlation? Give an example.",
+   "model": "Spurious or nonsense correlation is a correlation between two variables that have no cause and effect relationship; it appears because a third variable, such as time, influences both. For example, the production of rice and the production of iron may both rise over twenty years and show a high correlation, only because both grow with time. The influence of the third variable should be removed before reading meaning into r.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Correlation without a causal link (nonsense)",
+     "w": 4,
+     "kw": [
+      "nonsense|non sense|no cause|without cause|no causal|not causal|no real|meaningless|no logical|by chance"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Due to a third variable affecting both (e.g. time)",
+     "w": 4,
+     "kw": [
+      "third|common factor|another variable|other variable|lurking|time|both"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "An example given",
+     "w": 2,
+     "kw": [
+      "example|rice|iron|ice cream|for instance|instance|like"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c5"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Do training hours lift sales productivity?",
+   "difficulty": "hard",
+   "case": "An FMCG company records, for 40 sales executives, the training hours attended last quarter (x) and the sales achieved this quarter in ₹ lakh (y). Summary: mean x = 12 hours, mean y = ₹40 lakh, SD of x = 2 hours, SD of y = ₹6 lakh, correlation coefficient r = 0.75. The HR head wants to predict sales for an executive who attends 14 hours.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "What is the regression coefficient of y on x?",
+     "options": [
+      "2.25",
+      "0.25",
+      "0.75",
+      "4"
+     ],
+     "answer": 0,
+     "explain": "b_yx = r × σy/σx = 0.75 × 6/2 = 2.25 (₹ lakh per extra training hour). 0.25 is b_xy.",
+     "difficulty": "moderate",
+     "check": "0.75*6/2"
+    },
+    {
+     "id": "k1b",
+     "q": "What sales would you predict for an executive with 14 training hours?",
+     "options": [
+      "₹44.5 lakh",
+      "₹42.25 lakh",
+      "₹41.5 lakh",
+      "₹54 lakh"
+     ],
+     "answer": 0,
+     "explain": "ŷ = ȳ + b_yx (x − x̄) = 40 + 2.25 × (14 − 12) = 44.5.",
+     "difficulty": "moderate",
+     "check": "40+2.25*(14-12)"
+    },
+    {
+     "id": "k1c",
+     "q": "What proportion of the variation in sales is explained by training hours?",
+     "options": [
+      "56.25%",
+      "75%",
+      "43.75%",
+      "86.6%"
+     ],
+     "answer": 0,
+     "explain": "Coefficient of determination r² = 0.75² = 0.5625. The remaining 43.75% (1 − r²) is unexplained.",
+     "difficulty": "core",
+     "check": "0.75**2*100"
+    },
+    {
+     "id": "k1d",
+     "q": "Which conclusion is appropriate?",
+     "options": [
+      "Training and sales are strongly positively related, but correlation alone does not prove that training causes higher sales",
+      "Training certainly causes higher sales",
+      "There is no relationship",
+      "The relationship is negative"
+     ],
+     "answer": 0,
+     "explain": "r = 0.75 shows a strong positive linear association; a third factor (e.g. motivated executives choose more training) could drive both — spurious correlation must be ruled out.",
+     "difficulty": "hard"
+    }
+   ]
+  }
+ ]
+}

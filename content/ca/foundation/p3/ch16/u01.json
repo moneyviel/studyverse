@@ -1,0 +1,1625 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch16-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch16",
+ "n": 1,
+ "title": "Theoretical Distributions",
+ "outcomes": [
+  "Explain why theoretical probability distributions are useful and distinguish discrete (binomial, Poisson) from continuous (normal) models.",
+  "State the conditions and properties of the binomial distribution and compute probabilities, mean, variance and mode.",
+  "Use the Poisson distribution, its properties and the Poisson approximation to the binomial.",
+  "Apply the properties of the normal distribution and the standard normal table to find probabilities, quartiles and expected frequencies."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 60
+  },
+  "prereq": [
+   "fnd-p3-ch15-u01"
+  ],
+  "exam_tip": "MCQs here are mostly property-based: mean np, variance npq, mean = variance = m for Poisson, mean = median = mode for normal, QD = 0.675σ, MD = 0.8σ, inflexion at μ ± σ, and areas 68.27/95.45/99.73%. Learn these cold — each is a 30-second mark."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Theoretical distributions and the binomial model",
+   "body": [
+    "A theoretical (probability) distribution spreads the total probability 1 over the possible values of a random variable, the way a frequency distribution spreads total frequency over classes. It lets us predict frequencies, test whether data follow a model and make decisions when observation is costly.",
+    "Binomial conditions: (i) a fixed, finite number n of trials; (ii) each trial has only two outcomes — success or failure; (iii) probability of success p is constant (q = 1 − p); (iv) trials are independent.",
+    "Probability mass function: P(X = x) = ⁿCₓ pˣ qⁿ⁻ˣ, x = 0, 1, …, n. The probabilities are the successive terms of (q + p)ⁿ and add up to 1. Written X ~ B(n, p)."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "x (invoices with errors)",
+      "Formula",
+      "P(x)"
+     ],
+     "rows": [
+      [
+       "0",
+       "⁶C0 (0.1)^0 (0.9)^6",
+       "0.5314"
+      ],
+      [
+       "1",
+       "⁶C1 (0.1)^1 (0.9)^5",
+       "0.3543"
+      ],
+      [
+       "2",
+       "⁶C2 (0.1)^2 (0.9)^4",
+       "0.0984"
+      ],
+      [
+       "3",
+       "⁶C3 (0.1)^3 (0.9)^3",
+       "0.0146"
+      ]
+     ],
+     "title": "Binomial probabilities, n = 6, p = 0.1 (first four values)"
+    }
+   ],
+   "analogy": "Binomial is a series of n coin tosses with a possibly loaded coin — count the heads.",
+   "work": "In attribute sampling an auditor checks n vouchers, each either compliant or not; the number of exceptions follows a binomial model if the error rate is constant."
+  },
+  {
+   "id": "c2",
+   "title": "Properties of the binomial distribution",
+   "body": [
+    "Biparametric: n and p fix the distribution completely.",
+    "Mean μ = np; variance σ² = npq; SD = √(npq). Since q < 1, variance < mean. Variance is maximum when p = q = 0.5, and the maximum is n/4.",
+    "Mode: if (n + 1)p is not an integer, the mode is its integer part; if (n + 1)p is an integer, the distribution is bimodal with modes (n + 1)p and (n + 1)p − 1.",
+    "Symmetric when p = 0.5; positively skewed when p < 0.5 and negatively skewed when p > 0.5.",
+    "Additive property: if X ~ B(n₁, p) and Y ~ B(n₂, p) are independent (same p), X + Y ~ B(n₁ + n₂, p)."
+   ],
+   "analogy": "Variance < mean is like a binomial fingerprint — if a question says mean 4 and variance 5, it cannot be binomial.",
+   "work": "If 5% of a vendor's invoices are duplicates, out of 200 invoices you expect np = 10 duplicates with SD √9.5 ≈ 3.1 — a quick reasonableness check."
+  },
+  {
+   "id": "c3",
+   "title": "Poisson distribution",
+   "body": [
+    "P(X = x) = e⁻ᵐ mˣ / x!, x = 0, 1, 2, … (e ≈ 2.71828). Written X ~ P(m).",
+    "Uniparametric (only m). Mean = variance = m. Mode: integer part of m if m is not an integer; m and m − 1 (bimodal) if m is an integer.",
+    "Poisson approximation to binomial: when n → ∞ and p → 0 such that m = np stays finite (n large, p small, np moderate), B(n, p) ≈ P(m).",
+    "Additive property: if X ~ P(m₁) and Y ~ P(m₂) are independent, X + Y ~ P(m₁ + m₂).",
+    "Recurrence: P(x + 1) = P(x) × m/(x + 1) — handy for building a table quickly."
+   ],
+   "analogy": "Poisson counts raindrops landing on one tile in a minute: many chances, each tiny.",
+   "work": "Claims per policy, system outages per month and errors per 1,000 transactions are typically modelled as Poisson counts."
+  },
+  {
+   "id": "c4",
+   "title": "Where Poisson applies",
+   "body": [
+    "Use it when the number of opportunities is very large but the chance of the event at each one is very small: printing mistakes per page of a large book; road accidents per minute on a busy road; radioactive emissions per minute; demands per minute at a health centre; defects per metre of cloth.",
+    "Binomial needs n and p; Poisson needs only the average rate m — useful when n is unknown or practically unlimited."
+   ],
+   "analogy": "If you can count how often something happened but not how often it did not, think Poisson.",
+   "work": "A bank planning ATM cash or a call centre planning staff uses Poisson arrivals per interval."
+  },
+  {
+   "id": "c5",
+   "title": "Normal distribution",
+   "body": [
+    "The most important continuous distribution: f(x) = [1/(σ√(2π))] e^(−(x − μ)²/(2σ²)), −∞ < x < ∞. Written X ~ N(μ, σ²); biparametric (μ, σ).",
+    "Properties: bell-shaped and symmetrical about μ, so mean = median = mode = μ and skewness is zero; unimodal; QD ≈ 0.675σ (Q₁ = μ − 0.675σ, Q₃ = μ + 0.675σ); MD ≈ 0.8σ; points of inflexion at μ − σ and μ + σ; the two tails approach but never touch the x-axis; total area = 1, half on each side of μ.",
+    "Areas: P(μ − σ < X < μ + σ) ≈ 0.6827; P(μ − 2σ < X < μ + 2σ) ≈ 0.9545; P(μ − 3σ < X < μ + 3σ) ≈ 0.9973 — almost all values lie within ±3σ. (The ICAI material doubles the half-areas 0.34135 and 0.47725 and prints 0.6828 and 0.9546; the difference is only rounding, and either figure picks out the right option.)",
+    "Many distributions tend to normal: binomial when n is large and p not extreme, Poisson when m is large, and sampling distributions of means for large samples."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Interval",
+      "z-range",
+      "Area (approx.)"
+     ],
+     "rows": [
+      [
+       "μ ± σ",
+       "−1 to 1",
+       "0.6827"
+      ],
+      [
+       "μ ± 2σ",
+       "−2 to 2",
+       "0.9545"
+      ],
+      [
+       "μ ± 3σ",
+       "−3 to 3",
+       "0.9973"
+      ],
+      [
+       "μ to μ + σ",
+       "0 to 1",
+       "0.3413"
+      ]
+     ],
+     "title": "Normal curve areas to remember"
+    }
+   ],
+   "analogy": "The normal curve is a perfectly balanced hill — the peak, the middle point and the centre of gravity are all at the same spot.",
+   "work": "Value-at-risk models, process tolerances (±3σ) and grading on a curve all use normal areas."
+  },
+  {
+   "id": "c6",
+   "title": "Standard normal variate and using the table",
+   "body": [
+    "z = (x − μ)/σ converts any normal variable to the standard normal N(0, 1): mean, median and mode 0; SD 1; MD ≈ 0.8, QD ≈ 0.675; symmetrical about 0; inflexion at z = ±1.",
+    "Φ(k) = P(z ≤ k) is read from the table; by symmetry Φ(−k) = 1 − Φ(k). Many exam questions give the area from 0 to k instead; then P(z > k) = 0.5 − area(0, k) and P(−k < z < k) = 2 × area(0, k).",
+    "Steps: convert each x to z; sketch the curve and shade the region; combine table areas using symmetry; multiply by N for an expected frequency. For continuous X, P(X ≤ a) = P(X < a)."
+   ],
+   "analogy": "z is a currency converter: whatever the original unit (marks, grams, rupees), it restates the value as \"how many SDs from the mean\".",
+   "work": "A z-score of −2 for a branch's cash variance flags it as unusual (only about 2.3% of branches would be that low if all were normal) — a quick analytical review test."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Binomial: errors in a sample of invoices",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "10% of a client's invoices contain an error. An auditor picks 6 invoices at random. Find P(no error), P(exactly one), P(at most one), P(at least two), and the mean, variance and SD of the number of erroneous invoices.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "x (invoices with errors)",
+      "Formula",
+      "P(x)"
+     ],
+     "rows": [
+      [
+       "0",
+       "⁶C0 (0.1)^0 (0.9)^6",
+       "0.5314"
+      ],
+      [
+       "1",
+       "⁶C1 (0.1)^1 (0.9)^5",
+       "0.3543"
+      ],
+      [
+       "2",
+       "⁶C2 (0.1)^2 (0.9)^4",
+       "0.0984"
+      ],
+      [
+       "3",
+       "⁶C3 (0.1)^3 (0.9)^3",
+       "0.0146"
+      ]
+     ],
+     "title": "Binomial probabilities, n = 6, p = 0.1 (first four values)"
+    },
+    {
+     "t": "wn",
+     "title": "Working",
+     "text": "P(0) = 0.9⁶ = 0.5314. P(1) = 6 × 0.1 × 0.9⁵ = 0.3543. P(≤ 1) = 0.8857. P(≥ 2) = 1 − 0.8857 = 0.1143."
+    },
+    {
+     "t": "wn",
+     "title": "Moments",
+     "text": "Mean = np = 0.6; variance = npq = 0.54; SD = 0.7348."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(0.9**6,4)",
+     "value": 0.53,
+     "label": "P(X = 0)"
+    },
+    {
+     "expr": "round(6*0.1*0.9**5,4)",
+     "value": 0.35,
+     "label": "P(X = 1)"
+    },
+    {
+     "expr": "round(0.9**6+6*0.1*0.9**5,4)",
+     "value": 0.89,
+     "label": "P(X <= 1)"
+    },
+    {
+     "expr": "round(1-0.9**6-6*0.1*0.9**5,4)",
+     "value": 0.11,
+     "label": "P(X >= 2)"
+    },
+    {
+     "expr": "6*0.1",
+     "value": 0.6,
+     "label": "mean np"
+    },
+    {
+     "expr": "6*0.1*0.9",
+     "value": 0.54,
+     "label": "variance npq"
+    },
+    {
+     "expr": "round((6*0.1*0.9)**0.5,4)",
+     "value": 0.73,
+     "label": "SD"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Recovering n and p; finding the mode",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "(a) A binomial distribution has mean 6 and variance 2.4. Find n, p and P(X = 6). (b) What is the mode of this distribution? (c) What is the mode of B(9, 0.5)?",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "npq/np = q = 2.4/6 = 0.4; p = 0.6; n = 6/0.6 = 10. P(6) = ¹⁰C₆ (0.6)⁶ (0.4)⁴ = 210 × 0.046656 × 0.0256 = 0.2508."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "(n + 1)p = 11 × 0.6 = 6.6, not an integer → mode = 6."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "(n + 1)p = 10 × 0.5 = 5, an integer → bimodal: 5 and 4."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2.4/6",
+     "value": 0.4,
+     "label": "q = variance/mean"
+    },
+    {
+     "expr": "1-0.4",
+     "value": 0.6,
+     "label": "p"
+    },
+    {
+     "expr": "6/0.6",
+     "value": 10,
+     "label": "n = mean/p"
+    },
+    {
+     "expr": "(10+1)*0.6",
+     "value": 6.6,
+     "label": "(n+1)p for the mode"
+    },
+    {
+     "expr": "(9+1)*0.5",
+     "value": 5,
+     "label": "(n+1)p integer case"
+    },
+    {
+     "expr": "round(210*0.6**6*0.4**4,4)",
+     "value": 0.25,
+     "label": "P(X = 6) with n = 10, p = 0.6"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Poisson and the Poisson approximation",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "(a) A long report has on average 1.5 typing mistakes per page. Find P(a page has no mistake), P(at most 2 mistakes) and P(more than 2). (Take e = 2.71828.) (b) 1% of cheques presented are returned. Use the Poisson approximation to find P(exactly 3 returns) among 200 cheques.",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "m = 1.5; e⁻¹·⁵ ≈ 0.2231. P(0) = 0.2231. P(≤ 2) = e⁻¹·⁵ (1 + 1.5 + 1.125) = 0.8088. P(> 2) = 0.1912."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "m = np = 200 × 0.01 = 2. P(3) = e⁻² 2³/3! = 0.1804. (Exact binomial ≈ 0.1814 — the approximation is close.)"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(2.71828**(-1.5),4)",
+     "value": 0.22,
+     "label": "e^-1.5"
+    },
+    {
+     "expr": "round(2.71828**(-1.5),4)",
+     "value": 0.22,
+     "label": "P(X = 0), m = 1.5"
+    },
+    {
+     "expr": "round(2.71828**(-1.5)*(1+1.5+1.5**2/2),4)",
+     "value": 0.81,
+     "label": "P(X <= 2)"
+    },
+    {
+     "expr": "round(1-2.71828**(-1.5)*(1+1.5+1.5**2/2),4)",
+     "value": 0.19,
+     "label": "P(X > 2)"
+    },
+    {
+     "expr": "200*0.01",
+     "value": 2,
+     "label": "m = np for the approximation"
+    },
+    {
+     "expr": "round(2.71828**(-2)*2**3/6,4)",
+     "value": 0.18,
+     "label": "Poisson approximation P(X = 3)"
+    },
+    {
+     "expr": "round(3*2.71828**(-1.5),4)",
+     "value": 0.67,
+     "label": "expected pages with no mistakes in 3 pages (sample check)"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Normal distribution: marks of 1,000 students",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "Marks of 1,000 students are normally distributed with mean 60 and SD 10. Given: area from z = 0 to 1 is 0.3413 and from 0 to 1.5 is 0.4332. Find (a) how many scored above 75, (b) how many scored between 50 and 70, (c) P(50 < X < 75), (d) the quartiles, mean deviation and points of inflexion.",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "z = (75 − 60)/10 = 1.5. P(X > 75) = 0.5 − 0.4332 = 0.0668; number ≈ 1,000 × 0.0668 ≈ 67."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "z = −1 to 1: 2 × 0.3413 = 0.6826; number ≈ 683."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "z from −1 to 1.5: 0.3413 + 0.4332 = 0.5919."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "Q₁ = 60 − 0.675 × 10 = 53.25; Q₃ = 66.75; MD ≈ 0.8 × 10 = 8; inflexion at 50 and 70."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(75-60)/10",
+     "value": 1.5,
+     "label": "z for 75"
+    },
+    {
+     "expr": "0.5-0.4332",
+     "value": 0.07,
+     "label": "P(X > 75)"
+    },
+    {
+     "expr": "round(1000*0.0668)",
+     "value": 67,
+     "label": "students above 75"
+    },
+    {
+     "expr": "2*0.3413",
+     "value": 0.68,
+     "label": "P(50 < X < 70)"
+    },
+    {
+     "expr": "round(1000*0.6826)",
+     "value": 683,
+     "label": "students between 50 and 70"
+    },
+    {
+     "expr": "60-0.675*10",
+     "value": 53.25,
+     "label": "Q1"
+    },
+    {
+     "expr": "60+0.675*10",
+     "value": 66.75,
+     "label": "Q3"
+    },
+    {
+     "expr": "0.8*10",
+     "value": 8,
+     "label": "mean deviation"
+    },
+    {
+     "expr": "60-10",
+     "value": 50,
+     "label": "lower point of inflexion"
+    },
+    {
+     "expr": "60+10",
+     "value": 70,
+     "label": "upper point of inflexion"
+    },
+    {
+     "expr": "0.5-0.3413+0.4332",
+     "value": 0.59,
+     "label": "P(50 < X < 75)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Attribute sampling with a binomial model",
+   "role": "Audit associate testing a control",
+   "situation": "The client says approvals are missing on only 2% of purchase orders. You test 25 POs and find 3 without approval.",
+   "steps": [
+    "If the true rate were 2%, X ~ B(25, 0.02); expected exceptions = 0.5.",
+    "P(X ≥ 3) = 1 − [P(0) + P(1) + P(2)] ≈ 1 − (0.6035 + 0.3079 + 0.0754) ≈ 0.013.",
+    "Such a result would occur only about 1.3% of the time if the client were right — strong evidence the rate is higher.",
+    "Conclude the control is not operating as described; extend testing and report to those charged with governance."
+   ],
+   "takeaway": "A binomial tail probability tells you whether observed exceptions are \"bad luck\" or a real control failure.",
+   "checks": [
+    {
+     "expr": "round(1-(0.98**25+25*0.02*0.98**24+300*0.02**2*0.98**23),4)",
+     "value": 0.0132,
+     "label": "P(X >= 3)"
+    }
+   ]
+  },
+  {
+   "id": "j2",
+   "title": "Setting a cash buffer with the normal curve",
+   "role": "Treasury executive",
+   "situation": "Daily net cash outflow at a branch is roughly normal with mean ₹18 lakh and SD ₹4 lakh. Management wants enough cash to cover about 97.7% of days.",
+   "steps": [
+    "97.7% corresponds to z ≈ 2 (area left of z = 2 is 0.5 + 0.4772).",
+    "Required cash = μ + 2σ = 18 + 8 = ₹26 lakh.",
+    "Revisit monthly — month-end and festival days break the \"same distribution\" assumption."
+   ],
+   "takeaway": "μ + zσ turns a service level into a rupee figure.",
+   "checks": [
+    {
+     "expr": "18+2*4",
+     "value": 26,
+     "label": "cash buffer (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Which is NOT a condition of the binomial distribution?",
+   "options": [
+    "The probability of success changes from trial to trial",
+    "The number of trials is fixed",
+    "Each trial has two outcomes",
+    "Trials are independent"
+   ],
+   "answer": 0,
+   "explain": "p must remain constant; a changing p breaks the binomial model.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "For a binomial distribution with n = 20 and p = 0.3, the mean is:",
+   "options": [
+    "6",
+    "4.2",
+    "14",
+    "0.3"
+   ],
+   "answer": 0,
+   "check": "20*0.3",
+   "explain": "Mean = np = 6. (4.2 is the variance npq.)",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "For a binomial distribution with n = 20 and p = 0.3, the variance is:",
+   "options": [
+    "4.2",
+    "6",
+    "2.05",
+    "14"
+   ],
+   "answer": 0,
+   "check": "20*0.3*0.7",
+   "explain": "Variance = npq = 20 × 0.3 × 0.7 = 4.2. (2.05 is the SD.)",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "A binomial distribution has mean 8 and variance 4. The number of trials n is:",
+   "options": [
+    "16",
+    "8",
+    "32",
+    "12"
+   ],
+   "answer": 0,
+   "check": "8/(1-4/8)",
+   "explain": "q = 4/8 = 0.5, p = 0.5, n = 8/0.5 = 16.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m5",
+   "q": "A binomial distribution with mean 4 and variance 5 is:",
+   "options": [
+    "Impossible, because the variance of a binomial must be less than its mean",
+    "Possible with p = 0.8",
+    "Possible with n = 20",
+    "Possible only if n is very large"
+   ],
+   "answer": 0,
+   "explain": "npq < np always; q = 5/4 > 1 is impossible.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m6",
+   "q": "The maximum possible variance of a binomial distribution with n = 12 is:",
+   "options": [
+    "3",
+    "6",
+    "12",
+    "2.4"
+   ],
+   "answer": 0,
+   "check": "12/4",
+   "explain": "Variance is largest at p = q = 0.5: npq = 12 × 0.25 = 3.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m7",
+   "q": "Four fair coins are tossed. The probability of exactly two heads is:",
+   "options": [
+    "0.375",
+    "0.5",
+    "0.25",
+    "0.0625"
+   ],
+   "answer": 0,
+   "check": "6*0.5**4",
+   "explain": "⁴C₂ (1/2)⁴ = 6/16 = 0.375.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "In 5 independent trials with p = 0.4, the probability of no success is:",
+   "options": [
+    "0.0778",
+    "0.6",
+    "0.0102",
+    "0.4"
+   ],
+   "answer": 0,
+   "check": "round(0.6**5,4)",
+   "explain": "P(0) = q⁵ = 0.6⁵ = 0.0778. (0.0102 is p⁵.)",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m9",
+   "q": "The mode(s) of B(9, 0.5) is/are:",
+   "options": [
+    "4 and 5",
+    "4.5",
+    "5 only",
+    "4 only"
+   ],
+   "answer": 0,
+   "explain": "(n + 1)p = 5 is an integer, so the distribution is bimodal: 5 and 4.",
+   "concept": "c2",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m10",
+   "q": "If X ~ B(5, 0.3) and Y ~ B(7, 0.3) are independent, then X + Y follows:",
+   "options": [
+    "B(12, 0.3)",
+    "B(12, 0.6)",
+    "B(35, 0.3)",
+    "B(6, 0.3)"
+   ],
+   "answer": 0,
+   "explain": "Additive property: same p, add the n's.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m11",
+   "q": "A binomial distribution is symmetrical when:",
+   "options": [
+    "p = 0.5",
+    "p < 0.5",
+    "p > 0.5",
+    "n is large regardless of p"
+   ],
+   "answer": 0,
+   "explain": "Only p = q = 0.5 gives symmetry; p < 0.5 gives positive skew.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m12",
+   "q": "For a Poisson distribution the variance is 3. Its mean is:",
+   "options": [
+    "3",
+    "9",
+    "1.73",
+    "1.5"
+   ],
+   "answer": 0,
+   "check": "3",
+   "explain": "Mean = variance = m = 3.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m13",
+   "q": "For a Poisson variable, P(X = 1) = P(X = 2). The mean is:",
+   "options": [
+    "2",
+    "1",
+    "1.5",
+    "4"
+   ],
+   "answer": 0,
+   "check": "2",
+   "explain": "e⁻ᵐ m = e⁻ᵐ m²/2 ⇒ m = 2.",
+   "concept": "c3",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m14",
+   "q": "For a Poisson distribution with mean 4, the standard deviation is:",
+   "options": [
+    "2",
+    "4",
+    "16",
+    "0.5"
+   ],
+   "answer": 0,
+   "check": "4**0.5",
+   "explain": "Variance = 4, SD = √4 = 2.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m15",
+   "q": "The mode of a Poisson distribution with m = 3.6 is:",
+   "options": [
+    "3",
+    "4",
+    "3.6",
+    "3 and 4"
+   ],
+   "answer": 0,
+   "explain": "m is not an integer, so the mode is its integer part, 3.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m16",
+   "q": "The mode(s) of a Poisson distribution with m = 3 is/are:",
+   "options": [
+    "2 and 3",
+    "3 only",
+    "2 only",
+    "1.5"
+   ],
+   "answer": 0,
+   "explain": "m is an integer, so the distribution is bimodal: m and m − 1.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m17",
+   "q": "For a Poisson variable with m = 2 (e⁻² = 0.1353), P(X ≥ 1) is:",
+   "options": [
+    "0.8647",
+    "0.1353",
+    "0.2706",
+    "0.5"
+   ],
+   "answer": 0,
+   "check": "1-0.1353",
+   "explain": "P(X ≥ 1) = 1 − P(0) = 1 − e⁻² = 0.8647.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m18",
+   "q": "For m = 2 (e⁻² = 0.1353), P(X = 2) is:",
+   "options": [
+    "0.2706",
+    "0.1353",
+    "0.5412",
+    "0.0677"
+   ],
+   "answer": 0,
+   "check": "0.1353*2**2/2",
+   "explain": "e⁻² × 2²/2! = 0.1353 × 2 = 0.2706.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m19",
+   "q": "The Poisson distribution is a good approximation to the binomial when:",
+   "options": [
+    "n is large, p is small and np is moderate",
+    "n is small and p is large",
+    "p = 0.5",
+    "n = 1"
+   ],
+   "answer": 0,
+   "explain": "n → ∞, p → 0 with np finite.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m20",
+   "q": "If X ~ P(1.5) and Y ~ P(2.5) are independent, the variance of X + Y is:",
+   "options": [
+    "4",
+    "2",
+    "3.75",
+    "6.25"
+   ],
+   "answer": 0,
+   "check": "1.5+2.5",
+   "explain": "X + Y ~ P(4), whose variance is 4.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m21",
+   "q": "The number of printing mistakes per page of a large book is best described by:",
+   "options": [
+    "Poisson distribution",
+    "Normal distribution",
+    "Binomial with p = 0.5",
+    "Uniform distribution"
+   ],
+   "answer": 0,
+   "explain": "Rare events with many opportunities → Poisson.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m22",
+   "q": "For a normal distribution:",
+   "options": [
+    "Mean = median = mode",
+    "Mean > median > mode",
+    "Mean < median < mode",
+    "Mode = 3 median − 2 mean is impossible"
+   ],
+   "answer": 0,
+   "explain": "Symmetry makes all three coincide at μ.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "A normal distribution has SD 8. Its quartile deviation is approximately:",
+   "options": [
+    "5.4",
+    "6.4",
+    "8",
+    "4"
+   ],
+   "answer": 0,
+   "check": "0.675*8",
+   "explain": "QD ≈ 0.675σ = 5.4. (6.4 is the mean deviation 0.8σ.)",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m24",
+   "q": "A normal distribution has SD 15. Its mean deviation is approximately:",
+   "options": [
+    "12",
+    "10.13",
+    "15",
+    "7.5"
+   ],
+   "answer": 0,
+   "check": "0.8*15",
+   "explain": "MD ≈ 0.8σ = 12. (10.13 is the QD.)",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m25",
+   "q": "The points of inflexion of N(50, 16) are at:",
+   "options": [
+    "46 and 54",
+    "34 and 66",
+    "42 and 58",
+    "50 and 66"
+   ],
+   "answer": 0,
+   "explain": "σ = √16 = 4, so μ ± σ = 46 and 54. (34 and 66 wrongly use σ = 16.)",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m26",
+   "q": "In a normal distribution, the percentage of values within μ ± 2σ is about:",
+   "options": [
+    "95.45",
+    "68.27",
+    "99.73",
+    "50"
+   ],
+   "answer": 0,
+   "check": "95.45",
+   "explain": "About 95.45%.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m27",
+   "q": "X ~ N(60, 64). The z-value for x = 72 is:",
+   "options": [
+    "1.5",
+    "0.19",
+    "12",
+    "1.33"
+   ],
+   "answer": 0,
+   "check": "(72-60)/8",
+   "explain": "σ = 8; z = (72 − 60)/8 = 1.5.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m28",
+   "q": "Given that the area from z = 0 to z = 1 is 0.3413, P(z > 1) is:",
+   "options": [
+    "0.1587",
+    "0.3413",
+    "0.8413",
+    "0.6826"
+   ],
+   "answer": 0,
+   "check": "0.5-0.3413",
+   "explain": "P(z > 1) = 0.5 − 0.3413 = 0.1587.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m29",
+   "q": "The two quartiles of a normal distribution are 42.25 and 55.75. Its standard deviation is:",
+   "options": [
+    "10",
+    "6.75",
+    "13.5",
+    "8"
+   ],
+   "answer": 0,
+   "check": "(55.75-42.25)/2/0.675",
+   "explain": "μ = 49; QD = 6.75 = 0.675σ ⇒ σ = 10.",
+   "concept": "c5",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m30",
+   "q": "The standard normal distribution has:",
+   "options": [
+    "Mean 0 and SD 1",
+    "Mean 1 and SD 0",
+    "Mean 0 and SD 0",
+    "Mean and SD both 1"
+   ],
+   "answer": 0,
+   "explain": "z = (x − μ)/σ has mean 0 and SD 1.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m31",
+   "q": "The tails of the normal curve:",
+   "options": [
+    "Approach the x-axis but never touch it",
+    "Touch the x-axis at μ ± 3σ",
+    "Cross the x-axis at μ ± 3σ",
+    "End at the quartiles"
+   ],
+   "answer": 0,
+   "explain": "The curve is asymptotic to the x-axis on both sides.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m32",
+   "q": "Which statement is correct?",
+   "options": [
+    "Poisson is uniparametric; binomial and normal are biparametric",
+    "All three are uniparametric",
+    "Normal is uniparametric",
+    "Binomial is uniparametric"
+   ],
+   "answer": 0,
+   "explain": "Poisson: m. Binomial: n, p. Normal: μ, σ.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "The probability that a component fails a stress test is 0.2. A batch of 5 components is tested. Find (a) P(no failure), (b) P(exactly 2 failures), (c) P(at least one failure), (d) the mean and variance of failures, (e) in how many of 200 such batches you expect no failure.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "0.8⁵ = 0.3277."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "⁵C₂ (0.2)² (0.8)³ = 10 × 0.04 × 0.512 = 0.2048."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "1 − 0.8⁵ = 0.6723."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "Mean = 5 × 0.2 = 1; variance = 5 × 0.2 × 0.8 = 0.8."
+    },
+    {
+     "t": "wn",
+     "title": "(e)",
+     "text": "200 × 0.32768 ≈ 66 batches."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "n = 5, p = 0.2, q = 0.8 identified",
+     "m": 0.5,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "(a) and (b) correct",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "(c) via complement",
+     "m": 1,
+     "skill": "application"
+    },
+    {
+     "id": "s4",
+     "pt": "(d) mean 1, variance 0.8",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s5",
+     "pt": "(e) expected frequency 66",
+     "m": 0.5,
+     "skill": "application"
+    }
+   ],
+   "remarks": [
+    "Using p for the \"success\" of interest (failure) avoids confusion — define it in the first line."
+   ],
+   "mistakes": [
+    "Swapping p and q.",
+    "Computing P(at least one) as 5 × 0.2."
+   ],
+   "tips": [
+    "\"At least one\" → 1 − P(0) every time."
+   ],
+   "checks": [
+    {
+     "expr": "round(0.8**5,4)",
+     "value": 0.33,
+     "label": "P(no failure)"
+    },
+    {
+     "expr": "round(10*0.2**2*0.8**3,4)",
+     "value": 0.2,
+     "label": "P(exactly 2)"
+    },
+    {
+     "expr": "round(1-0.8**5,4)",
+     "value": 0.67,
+     "label": "P(at least one)"
+    },
+    {
+     "expr": "5*0.2",
+     "value": 1,
+     "label": "mean"
+    },
+    {
+     "expr": "5*0.2*0.8",
+     "value": 0.8,
+     "label": "variance"
+    },
+    {
+     "expr": "round(200*0.8**5)",
+     "value": 66,
+     "label": "expected number of batches with no failure out of 200"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "The probability that a transaction is flagged as suspicious is 0.004. In a day, 500 transactions are processed. Using the Poisson approximation (e⁻² = 0.1353), find (a) the mean number flagged, (b) P(none), (c) P(exactly one), (d) P(at most two), (e) P(more than two).",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "m = np = 500 × 0.004 = 2."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "e⁻² = 0.1353."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "e⁻² × 2 = 0.2706."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "e⁻² (1 + 2 + 2²/2!) = 5 × 0.1353 = 0.6765."
+    },
+    {
+     "t": "wn",
+     "title": "(e)",
+     "text": "1 − 0.6765 = 0.3235."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Justify Poisson (n large, p small); m = 2",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "P(0) and P(1)",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "P(≤ 2) = 5 × 0.1353 = 0.6765",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "P(> 2) by complement",
+     "m": 1,
+     "skill": "application"
+    }
+   ],
+   "remarks": [
+    "Write the pmf once; then each value is one line."
+   ],
+   "mistakes": [
+    "Forgetting the x! in the denominator.",
+    "Using m = 0.004."
+   ],
+   "tips": [
+    "P(x + 1) = P(x) × m/(x + 1) speeds things up."
+   ],
+   "checks": [
+    {
+     "expr": "500*0.004",
+     "value": 2,
+     "label": "m"
+    },
+    {
+     "expr": "round(0.1353,4)",
+     "value": 0.14,
+     "label": "P(0)"
+    },
+    {
+     "expr": "round(0.1353*2,4)",
+     "value": 0.27,
+     "label": "P(1)"
+    },
+    {
+     "expr": "round(0.1353*(1+2+2),4)",
+     "value": 0.68,
+     "label": "P(at most 2)"
+    },
+    {
+     "expr": "round(1-0.1353*(1+2+2),4)",
+     "value": 0.32,
+     "label": "P(more than 2)"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "hard",
+   "pad": "text",
+   "q": "The life of LED bulbs is normally distributed with mean 1,200 hours and SD 80 hours. Given: area from z = 0 to 1.25 is 0.3944 and from 0 to 1.5 is 0.4332. Out of 5,000 bulbs find (a) the probability that a bulb lasts more than 1,300 hours, (b) the probability that it lasts between 1,080 and 1,300 hours and the expected number of such bulbs, (c) the first quartile and mean deviation of life.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "z = (1,300 − 1,200)/80 = 1.25; P = 0.5 − 0.3944 = 0.1056."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "z for 1,080 = -1.5. P = 0.4332 + 0.3944 = 0.8276; number ≈ 5,000 × 0.8276 = 4,138."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "Q₁ = 1,200 − 0.675 × 80 = 1,146 hours; MD ≈ 0.8 × 80 = 64 hours."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "z-values 1.25 and −1.5",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "(a) 0.1056",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "(b) area 0.8276 using symmetry",
+     "m": 1.5,
+     "skill": "application"
+    },
+    {
+     "id": "s4",
+     "pt": "(b) expected number 4,138",
+     "m": 0.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s5",
+     "pt": "(c) Q₁ = 1,146 and MD = 64",
+     "m": 2,
+     "skill": "concept"
+    }
+   ],
+   "remarks": [
+    "A quick sketch of the curve with the shaded area prevents adding when you should subtract."
+   ],
+   "mistakes": [
+    "Subtracting the two areas in (b) although the values lie on opposite sides of the mean.",
+    "Using QD = 0.8σ."
+   ],
+   "tips": [
+    "Opposite sides of μ → add areas; same side → subtract."
+   ],
+   "checks": [
+    {
+     "expr": "(1300-1200)/80",
+     "value": 1.25,
+     "label": "z for 1300"
+    },
+    {
+     "expr": "(1080-1200)/80",
+     "value": -1.5,
+     "label": "z for 1080"
+    },
+    {
+     "expr": "0.5-0.3944",
+     "value": 0.11,
+     "label": "P(X > 1300)"
+    },
+    {
+     "expr": "0.4332+0.3944",
+     "value": 0.83,
+     "label": "P(1080 < X < 1300)"
+    },
+    {
+     "expr": "round(5000*0.8276)",
+     "value": 4138,
+     "label": "expected number of bulbs"
+    },
+    {
+     "expr": "1200-0.675*80",
+     "value": 1146,
+     "label": "Q1"
+    },
+    {
+     "expr": "0.8*80",
+     "value": 64,
+     "label": "MD"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Binomial: n fixed, two outcomes, constant p, independent trials; P(x) = ⁿCₓ pˣ qⁿ⁻ˣ.",
+   "Binomial mean np, variance npq (< mean), max variance n/4 at p = 0.5; mode from (n + 1)p.",
+   "Poisson: P(x) = e⁻ᵐ mˣ/x!; mean = variance = m; approximates binomial when n large, p small.",
+   "Normal: symmetric, mean = median = mode = μ; QD ≈ 0.675σ; MD ≈ 0.8σ; inflexion μ ± σ.",
+   "Areas: ±1σ 68.27%, ±2σ 95.45%, ±3σ 99.73%; z = (x − μ)/σ."
+  ],
+  "remember": [
+   "Binomial & normal are biparametric; Poisson is uniparametric.",
+   "Additive property needs the same p (binomial).",
+   "Integer (n + 1)p or integer m → bimodal.",
+   "Opposite sides of μ → add areas."
+  ],
+  "traps": [
+   "Variance > mean ⇒ not binomial.",
+   "σ² = 16 means σ = 4 — not 16.",
+   "QD = 0.675σ, MD = 0.8σ — do not swap.",
+   "P(X ≥ 1) = 1 − P(0), never n × p."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Binomial pmf",
+   "v": "P(x) = ⁿCₓ pˣ qⁿ⁻ˣ, x = 0 … n"
+  },
+  {
+   "k": "Binomial moments",
+   "v": "Mean np; variance npq; max variance n/4 (p = 0.5)"
+  },
+  {
+   "k": "Binomial mode",
+   "v": "Integer part of (n + 1)p; if integer, (n + 1)p and (n + 1)p − 1"
+  },
+  {
+   "k": "Poisson pmf",
+   "v": "P(x) = e⁻ᵐ mˣ / x!; mean = variance = m"
+  },
+  {
+   "k": "Poisson approx.",
+   "v": "B(n, p) ≈ P(np) for large n, small p"
+  },
+  {
+   "k": "Normal",
+   "v": "Mean = median = mode = μ; QD ≈ 0.675σ; MD ≈ 0.8σ; inflexion μ ± σ"
+  },
+  {
+   "k": "Areas",
+   "v": "μ ± σ: 68.27%; μ ± 2σ: 95.45%; μ ± 3σ: 99.73%"
+  },
+  {
+   "k": "Standard normal",
+   "v": "z = (x − μ)/σ ~ N(0, 1); Φ(−k) = 1 − Φ(k)"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What conditions must hold for a binomial distribution to apply?",
+   "model": "The experiment consists of a fixed, finite number n of trials. Each trial has only two outcomes, success and failure. The probability of success p stays constant from trial to trial, and the trials are independent of each other.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Fixed, finite number of trials n",
+     "w": 2,
+     "kw": [
+      "fixed|finite|n trial|number of trial"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Only two outcomes — success or failure",
+     "w": 3,
+     "kw": [
+      "two outcome|two result|two possible|success and failure|success or failure|dichotom|only two"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Probability of success p constant",
+     "w": 3,
+     "kw": [
+      "constant|same|does not change|remains the same|fixed",
+      "probabilit|p"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p4",
+     "pt": "Trials independent",
+     "w": 2,
+     "kw": [
+      "independent|independence"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What are the mean and variance of a binomial distribution, and how do they compare?",
+   "model": "The mean of a binomial distribution is n p and the variance is n p q, where q is one minus p. Since q is less than one, the variance is always less than the mean. The variance is greatest when p equals q equals one half, and then it equals n by four.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Mean = np",
+     "w": 3,
+     "kw": [
+      "mean is n p|mean equals n p|mean equal to n p|mean equal n p|mean = n p|mean np|mean is np|n p mean"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Variance = npq",
+     "w": 3,
+     "kw": [
+      "variance is n p q|variance equals n p q|variance equal to n p q|variance equal n p q|variance = n p q|variance npq|variance is npq"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Variance < mean",
+     "w": 2,
+     "kw": [
+      "variance less than mean|variance smaller than mean|variance lower than mean|variance below mean|variance always less than mean|variance is less than mean|variance is always less than mean|mean greater than variance|mean more than variance|mean exceeds variance|mean larger than variance|mean is greater than variance|mean always greater than variance"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Maximum variance n/4 at p = 0.5",
+     "w": 2,
+     "kw": [
+      "n by 4|n 4|n over 4|n divided by 4|quarter|half|0.5|one half"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "State the main features of the Poisson distribution and when it approximates the binomial.",
+   "model": "The Poisson distribution has a single parameter m, so it is uniparametric, and its probability of x is e to the minus m times m to the power x over x factorial. Its mean and variance are both equal to m. It approximates the binomial when n is very large and p is very small so that m equals n p stays moderate.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Single parameter m (uniparametric)",
+     "w": 2,
+     "kw": [
+      "one parameter|single parameter|uniparametric|uni parametric|only parameter|parameter m"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Mean = variance = m",
+     "w": 4,
+     "kw": [
+      "mean and variance both equal m|mean and variance are equal m|mean and variance equal m|mean and variance equal to m|mean and variance equals m|mean and variance are both m|mean equals variance both equal m|mean equals variance are equal m|mean equals variance equal m|mean equals variance equal to m|mean equals variance equals m|mean equals variance are both m|mean equal to variance both equal m|mean equal to variance are equal m|mean equal to variance equal m|mean equal to variance equal to m|mean equal to variance equals m|mean equal to variance are both m|mean = variance both equal m|mean = variance are equal m|mean = variance equal m|mean = variance equal to m|mean = variance equals m|mean = variance are both m|mean is equal to variance both equal m|mean is equal to variance are equal m|mean is equal to variance equal m|mean is equal to variance equal to m|mean is equal to variance equals m|mean is equal to variance are both m|mean both equal variance|mean are equal variance|mean equal variance|mean equal to variance|mean equals variance|mean are both variance|mean and variance are equal|mean and variance both equal|variance equals mean|mean variance equal|mean variance both m|mean variance both equal"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Approximates binomial when n large, p small, np moderate",
+     "w": 4,
+     "kw": [
+      "large|infinity|big",
+      "small|zero|rare|tiny"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "State the important properties of the normal distribution.",
+   "model": "The normal curve is bell-shaped and symmetrical about the mean, so the mean, median and mode are equal. It is defined by two parameters, mu and sigma. The quartile deviation is about 0.675 sigma and the mean deviation is about 0.8 sigma. The points of inflexion are at mu minus sigma and mu plus sigma. The two tails never touch the horizontal axis, and the total area under the curve is one.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Bell-shaped and symmetrical; mean = median = mode",
+     "w": 4,
+     "kw": [
+      "symmetric|bell",
+      "mean median mode|mean median and mode|mean equals median|equal|coincide"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "QD ≈ 0.675σ and MD ≈ 0.8σ",
+     "w": 2,
+     "kw": [
+      "0.675|0.67|0.8|four fifth|two third"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Points of inflexion at μ ± σ",
+     "w": 2,
+     "kw": [
+      "inflexion|inflection",
+      "mu minus sigma|mu plus sigma|plus or minus sigma|mu sigma|mean plus sd|mean minus sd|plus minus sigma|one standard deviation|one sigma"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p4",
+     "pt": "Tails never touch the axis; total area = 1",
+     "w": 2,
+     "kw": [
+      "never touch|asymptot|does not touch|do not touch|total area|area 1|area is one|area one"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v5",
+   "q": "What is the standard normal variate, and what share of values lie within one, two and three standard deviations of the mean?",
+   "model": "The standard normal variate z equals x minus mu divided by sigma; it has mean zero and standard deviation one. In a normal distribution about 68.27 percent of values lie within mu plus or minus one sigma, about 95.45 percent within two sigma, and about 99.73 percent within three sigma.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "z = (x − μ)/σ",
+     "w": 3,
+     "kw": [
+      "x minus mu divided by sigma|x minus mu by sigma|x minus mu over sigma|x minus mu upon sigma|x mu divided by sigma|x mu by sigma|x mu over sigma|x mu upon sigma|x minus mean divided by sd|x minus mean by sd|x minus mean over sd|x minus mean upon sd|x minus mean divided by standard deviation|x minus mean by standard deviation|x minus mean over standard deviation|x minus mean upon standard deviation"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Mean 0, SD 1",
+     "w": 2,
+     "kw": [
+      "zero|0",
+      "1|one|unit"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "68.27%, 95.45%, 99.73%",
+     "w": 5,
+     "kw": [
+      "68|68.27|68.26|two third",
+      "95|95.45|95.44|95.5",
+      "99.7|99.73|99.74|almost all"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c6"
+  },
+  {
+   "id": "v6",
+   "q": "Give practical situations where the Poisson distribution is used.",
+   "model": "The Poisson distribution is used for counts of rare events in a large number of opportunities, for example the number of printing mistakes per page of a large book, the number of road accidents per minute on a busy road, the number of calls or demands per minute at a service centre, and the number of defects in a long roll of cloth.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Rare events over many opportunities",
+     "w": 4,
+     "kw": [
+      "rare|small probabilit|low probabilit|seldom|large number|many"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "At least two examples (printing mistakes, accidents, calls/demands, defects)",
+     "w": 6,
+     "kw": [
+      "printing|misprint|typing|typo",
+      "accident",
+      "call|demand|arrival|customer",
+      "defect|flaw|fault"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Quality control at a bolt factory",
+   "difficulty": "hard",
+   "case": "Kaveri Fasteners makes bolts on an automatic line. On average 2% of bolts are defective, independently of each other. Bolts are packed in boxes of 10, and also shipped in lots of 50 for a customer who rejects a lot if it contains more than one defective. Bolt length is normally distributed with mean 40 mm and SD 0.5 mm; bolts outside 39 mm to 41 mm are scrapped. (Area under the standard normal curve from z = 0 to z = 2 is 0.4772.)",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "What is the probability that a box of 10 has no defective bolt?",
+     "options": [
+      "0.8171",
+      "0.98",
+      "0.2",
+      "0.1829"
+     ],
+     "answer": 0,
+     "explain": "Binomial with n = 10, p = 0.02: P(0) = 0.98¹⁰ ≈ 0.8171. (0.1829 is the probability of at least one defective.)",
+     "difficulty": "moderate",
+     "check": "round(0.98**10,4)"
+    },
+    {
+     "id": "k1b",
+     "q": "For a lot of 50 bolts, which approximation is appropriate and what is its parameter?",
+     "options": [
+      "Poisson with m = 1",
+      "Poisson with m = 2",
+      "Normal with mean 50",
+      "Binomial with p = 0.5"
+     ],
+     "answer": 0,
+     "explain": "n is fairly large and p small, so B(50, 0.02) ≈ Poisson with m = np = 1.",
+     "difficulty": "moderate"
+    },
+    {
+     "id": "k1c",
+     "q": "Using that approximation, what is the probability that the lot is accepted (at most one defective)?",
+     "options": [
+      "0.7358",
+      "0.3679",
+      "0.2642",
+      "0.9197"
+     ],
+     "answer": 0,
+     "explain": "P(0) + P(1) = e⁻¹(1 + 1) = 0.3679 × 2 ≈ 0.7358.",
+     "difficulty": "hard",
+     "check": "round(2.71828**(-1)*(1+1),4)"
+    },
+    {
+     "id": "k1d",
+     "q": "What proportion of bolts fall within the acceptable length of 39 mm to 41 mm?",
+     "options": [
+      "0.9544",
+      "0.4772",
+      "0.6826",
+      "0.9973"
+     ],
+     "answer": 0,
+     "explain": "39 and 41 are μ ∓ 2σ (z = ∓2). Area = 2 × 0.4772 = 0.9544, so about 4.56% are scrapped.",
+     "difficulty": "moderate",
+     "check": "2*0.4772"
+    }
+   ]
+  }
+ ]
+}

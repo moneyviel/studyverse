@@ -5,6 +5,39 @@ from shared import kavya_entries
 UID = 'fnd-p1-ch02-u02'
 
 
+import copy
+from ca_viva import VIVA, P, ALT
+
+
+def viva():
+    """Viva from ca_viva.py with key points re-tuned in the second review for the negation-aware matcher
+    (swapped-term answers must score < 80%; natural paraphrases >= 80%)."""
+    v = copy.deepcopy(VIVA[UID]); q = {x['id']: x for x in v}
+
+    def put(vid, pt): q[vid]['points'] = [pt if p['id'] == pt['id'] else p for p in q[vid]['points']]
+    put('v1', P('p1', 'Groups transactions account by account (classified record)', 4, 'account by account|account wise|each account|every account|classified|classifi|grouped|groups|group|separate account|under each'))
+    put('v1', P('p3', 'Trial balance and final accounts are prepared from it', 4,
+                ALT('{x} prepar', 'prepar {x}', '{x} drawn up from', '{x} made from', '{x} based on ledger', 'basis {x}', 'base {x}', 'basis for {x}', 'base for {x}',
+                    x=('trial balance', 'final account', 'financial statement', 'balance sheet', 'profit loss')) + '|prepared from it|prepared from ledger|prepared from the ledger'))
+    put('v4', P('p1', 'Personal and real accounts are balanced and carried forward', 5,
+                ALT('{a} {x}', a=('personal real', 'real personal', 'personal and real', 'real and personal'), x=('balanc', 'carri forward', 'carry forward', 'carried down', 'carry down', 'continu', 'opening balanc'))))
+    put('v4', P('p2', 'Nominal accounts are closed by transfer to Trading / Profit and Loss Account', 5, 'nominal',
+                'clos|transfer|not carried|not carri forward|not carry forward|written off|write off|wiped|start zero|start from zero'))
+    put('v2', P('p1', 'Debited account: entry on its debit side with "To" + name of the credited account', 4,
+                'account debit debit side|debit account debit side|debited account debit side|account debit post debit|debit side account debit|debit side of account debit|account debited goes debit side',
+                'name account credit|name credit account|name of account credited|credit account name|account credited name'))
+    put('v2', P('p2', 'Credited account: entry on its credit side with "By" + name of the debited account', 4,
+                'account credit credit side|credit account credit side|credited account credit side|account credit post credit|credit side account credit|credit side of account credit|account credited goes credit side',
+                'name account debit|name debit account|name of account debited|debit account name|account debited name'))
+    put('v5', P('p1', 'Debit balance: debit side heavier than the credit side', 4, 'debit balanc',
+                ALT('debit {s} {m}', 'debit balanc mean debit {s}', s=('side', 'total', 'side total'), m=('more', 'great', 'exceed', 'heavier', 'bigger', 'larger', 'excess')) + '|debit balanc debit side|debit balanc mean debit|debit balanc debit exceed|debit balanc debit more',
+                'more|heavier|greater|great|exceed|bigger|larger|excess'))
+    put('v5', P('p2', 'Credit balance: credit side heavier than the debit side', 4, 'credit balanc',
+                ALT('credit {s} {m}', 'credit balanc mean credit {s}', s=('side', 'total', 'side total'), m=('more', 'great', 'exceed', 'heavier', 'bigger', 'larger', 'excess')) + '|credit balanc credit side|credit balanc mean credit|credit balanc credit exceed|credit balanc credit more',
+                'more|heavier|greater|great|exceed|bigger|larger|excess'))
+    return v
+
+
 def build():
     E1 = kavya_entries()
     accs = ['Cash A/c', 'Bank A/c', 'Purchases A/c', 'Mehta & Co.', 'Rohan']
@@ -158,4 +191,5 @@ def build():
         'quickref': [{'k': 'Posting a debit', 'v': 'Debit side of that account: "To <account credited>"'}, {'k': 'Posting a credit', 'v': 'Credit side of that account: "By <account debited>"'},
                      {'k': 'Balancing', 'v': 'Difference on the lighter side as Balance c/d; Balance b/d on the opposite side next period'},
                      {'k': 'Usually debit balances', 'v': 'Assets, expenses, losses, drawings, debtors'}, {'k': 'Usually credit balances', 'v': 'Liabilities, capital, incomes, gains, creditors'}],
+        'viva': viva(),
     }

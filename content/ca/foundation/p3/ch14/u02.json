@@ -1,0 +1,1648 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch14-u02",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch14",
+ "n": 2,
+ "title": "Dispersion",
+ "outcomes": [
+  "Explain why averages need a measure of spread and distinguish absolute from relative measures of dispersion.",
+  "Compute range, mean deviation, standard deviation, variance and quartile deviation, with their coefficients, for raw and grouped data.",
+  "Use the coefficient of variation to compare consistency of two or more series.",
+  "Apply the properties — effect of change of origin and scale, SD of a constant, combined SD, corrected SD, SD of the first n natural numbers and of two numbers.",
+  "Choose the right measure (e.g. QD for open-end classes) and avoid the common traps."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 45,
+   "practice": 60
+  },
+  "prereq": [
+   "fnd-p3-ch14-u01"
+  ],
+  "exam_tip": "Dispersion MCQs are formula-driven and quick: change of origin/scale, CV comparisons, combined SD, SD of two numbers and of first n natural numbers. Remember ICAI expresses coefficients as percentages (× 100)."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Why dispersion? Absolute vs relative measures",
+   "body": [
+    "Two series can have the same average and yet look nothing alike: 50, 50, 50 and 0, 50, 100 both average 50. Dispersion measures how far observations are scattered around their central value.",
+    "Absolute measures — range, mean deviation (MD), standard deviation (SD) and quartile deviation (QD) — are in the unit of the data. Relative measures — coefficient of range, coefficient of MD, coefficient of variation (CV) and coefficient of QD — are unit-free.",
+    "To compare two or more distributions (different units or very different averages) use relative measures. Relative measures are a little harder to compute and understand than absolute ones."
+   ],
+   "analogy": "Average height tells you how tall a class is; dispersion tells you whether the class photo needs a step-stool row.",
+   "work": "Two branches with the same average debtor days but very different spreads need different credit controls. Investors look at volatility (SD of returns), not only average return."
+  },
+  {
+   "id": "c2",
+   "title": "Range and coefficient of range",
+   "body": [
+    "Range = L − S (largest − smallest). Coefficient of range = (L − S)/(L + S) × 100.",
+    "For grouped data, range = upper boundary of the last class − lower boundary of the first class; the coefficient uses the same two boundaries.",
+    "Range is unaffected by a change of origin but changes by |b| under a change of scale: if y = a + bx, R(y) = |b| × R(x).",
+    "Simple and quick (useful in quality control and price movements), but based only on two extreme values, so it is not an ideal measure."
+   ],
+   "analogy": "Range is judging a road trip only by its highest and lowest altitude — ignoring everything in between.",
+   "work": "A stock's 52-week high–low range is printed in every market report; quality control charts use the range of small samples."
+  },
+  {
+   "id": "c3",
+   "title": "Mean deviation",
+   "body": [
+    "Mean deviation is the arithmetic mean of absolute deviations from a central value A (mean, median or mode): MD = Σ|x − A|/n; grouped: Σf|x − A|/N.",
+    "Coefficient of MD = MD about A ÷ A × 100.",
+    "MD is minimum when deviations are taken from the median. It is unaffected by a change of origin and changes in the same ratio as a change of scale: MD(y) = |b| × MD(x).",
+    "It uses all observations, but ignoring signs makes it awkward for further algebra."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "x",
+      "|x − 14|",
+      "|x − 11.5|"
+     ],
+     "rows": [
+      [
+       "5",
+       "9",
+       "6.5"
+      ],
+      [
+       "8",
+       "6",
+       "3.5"
+      ],
+      [
+       "10",
+       "4",
+       "1.5"
+      ],
+      [
+       "13",
+       "1",
+       "1.5"
+      ],
+      [
+       "20",
+       "6",
+       "8.5"
+      ],
+      [
+       "28",
+       "14",
+       "16.5"
+      ],
+      [
+       "Total",
+       "40",
+       "38"
+      ]
+     ],
+     "num": [
+      1,
+      2
+     ],
+     "total": true
+    }
+   ],
+   "analogy": "MD is the average distance each house in a lane is from the lane's centre — direction does not matter.",
+   "work": "Forecast accuracy is often reported as mean absolute deviation (MAD) of actual from budgeted sales."
+  },
+  {
+   "id": "c4",
+   "title": "Standard deviation, variance and coefficient of variation",
+   "body": [
+    "SD (σ or s) is the root-mean-square deviation from the AM: s = √(Σ(x − x̄)²/n) = √(Σx²/n − x̄²). Variance = s². Grouped: s = √(Σfd²/N − (Σfd/N)²) × C with d = (x − A)/C.",
+    "CV = s/x̄ × 100. The series with the lower CV is more consistent (stable, uniform); the higher CV is more variable.",
+    "Properties: (i) if all values are equal, SD = 0 (true also for range and MD); (ii) SD is unaffected by change of origin and affected by change of scale: if y = a + bx, s(y) = |b| s(x) and variance(y) = b² variance(x); (iii) combined SD of two groups: s = √[(n₁s₁² + n₂s₂² + n₁d₁² + n₂d₂²)/(n₁ + n₂)] with dᵢ = x̄ᵢ − x̄ (combined mean). Extends to k groups; if the means are equal, d terms vanish.",
+    "Useful results: SD of the first n natural numbers = √((n² − 1)/12); SD of two numbers a and b = |a − b|/2. A wrong observation is corrected by fixing Σx and Σx² and recomputing.",
+    "SD is the best measure of dispersion — rigidly defined, based on all values and suited to algebraic treatment — though more affected by extreme values than QD."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Weekly sales (units)",
+      "f",
+      "Mid x",
+      "d = (x − 25)/10",
+      "fd",
+      "fd²"
+     ],
+     "rows": [
+      [
+       "0–10",
+       "4",
+       "5",
+       "-2",
+       "-8",
+       "16"
+      ],
+      [
+       "10–20",
+       "10",
+       "15",
+       "-1",
+       "-10",
+       "10"
+      ],
+      [
+       "20–30",
+       "16",
+       "25",
+       "0",
+       "0",
+       "0"
+      ],
+      [
+       "30–40",
+       "12",
+       "35",
+       "1",
+       "12",
+       "12"
+      ],
+      [
+       "40–50",
+       "8",
+       "45",
+       "2",
+       "16",
+       "32"
+      ],
+      [
+       "Total",
+       "50",
+       "",
+       "",
+       "10",
+       "70"
+      ]
+     ],
+     "num": [
+      1,
+      4,
+      5
+     ],
+     "total": true,
+     "title": "Weekly sales of 50 outlets"
+    }
+   ],
+   "analogy": "SD is the \"typical miss\" of an archer around the bull's-eye; CV is that miss relative to the size of the target.",
+   "work": "Portfolio risk, process capability in cost audits and sampling precision in audit all rest on SD. CV is how you compare the stability of a ₹10 crore branch with a ₹500 crore one."
+  },
+  {
+   "id": "c5",
+   "title": "Quartile deviation and choosing a measure",
+   "body": [
+    "QD (semi-interquartile range) = (Q₃ − Q₁)/2. Coefficient of QD = (Q₃ − Q₁)/(Q₃ + Q₁) × 100.",
+    "QD is the best measure for open-end classes and is less affected by extreme values and sampling fluctuations, because it uses only the middle 50% of the data. Like the others, it is unaffected by change of origin and changes by |b| with change of scale.",
+    "Choice: SD for general use and further analysis; CV for comparing consistency; QD for open-end or highly skewed data; range for a quick look."
+   ],
+   "analogy": "QD ignores the two noisiest quarters of a crowd and measures how spread the calm middle half is.",
+   "work": "Salary surveys report the interquartile band (Q₁–Q₃) because a few very high or very low pay packets would distort SD."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Range and quartile deviation",
+   "difficulty": "core",
+   "minutes": 8,
+   "q": "(a) Closing prices (₹) of a share for 7 days: 412, 398, 431, 405, 420, 389, 427. Find the range and its coefficient. (b) For inclusive classes 10–19 to 50–59, find range and coefficient. (c) For the data 22, 27, 31, 35, 38, 41, 45, 52, 58, 66, find QD and its coefficient.",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "Range = 431 − 389 = ₹42. Coefficient = 42/(431 + 389) × 100 = 5.12."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Extreme boundaries 9.5 and 59.5: range = 50; coefficient = 50/69 × 100 = 72.46."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "n = 10. Q₁ = 2.75th value = 27 + 0.75 × 4 = 30; Q₃ = 8.25th value = 52 + 0.25 × 6 = 53.5. QD = (53.5 − 30)/2 = 11.75; coefficient = 23.5/83.5 × 100 = 28.14."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "431-389",
+     "value": 42,
+     "label": "range of prices"
+    },
+    {
+     "expr": "round((431-389)/(431+389)*100,2)",
+     "value": 5.12,
+     "label": "coefficient of range"
+    },
+    {
+     "expr": "59.5-9.5",
+     "value": 50,
+     "label": "range of grouped data from extreme boundaries"
+    },
+    {
+     "expr": "round(50/(59.5+9.5)*100,2)",
+     "value": 72.46,
+     "label": "coefficient of range, grouped"
+    },
+    {
+     "expr": "27+0.75*(31-27)",
+     "value": 30,
+     "label": "Q1 = 2.75th value"
+    },
+    {
+     "expr": "52+0.25*(58-52)",
+     "value": 53.5,
+     "label": "Q3 = 8.25th value"
+    },
+    {
+     "expr": "(53.5-30)/2",
+     "value": 11.75,
+     "label": "quartile deviation"
+    },
+    {
+     "expr": "round((53.5-30)/(53.5+30)*100,2)",
+     "value": 28.14,
+     "label": "coefficient of QD"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Mean deviation about mean and about median",
+   "difficulty": "core",
+   "minutes": 8,
+   "q": "For 5, 8, 10, 13, 20, 28 find the mean deviation about the mean and about the median, and their coefficients.",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "Centres",
+     "text": "Mean = 84/6 = 14; median = (10 + 13)/2 = 11.5."
+    },
+    {
+     "t": "table",
+     "head": [
+      "x",
+      "|x − 14|",
+      "|x − 11.5|"
+     ],
+     "rows": [
+      [
+       "5",
+       "9",
+       "6.5"
+      ],
+      [
+       "8",
+       "6",
+       "3.5"
+      ],
+      [
+       "10",
+       "4",
+       "1.5"
+      ],
+      [
+       "13",
+       "1",
+       "1.5"
+      ],
+      [
+       "20",
+       "6",
+       "8.5"
+      ],
+      [
+       "28",
+       "14",
+       "16.5"
+      ],
+      [
+       "Total",
+       "40",
+       "38"
+      ]
+     ],
+     "num": [
+      1,
+      2
+     ],
+     "total": true
+    },
+    {
+     "t": "wn",
+     "title": "Result",
+     "text": "MD about mean = 40/6 = 6.67 (coefficient 47.62); MD about median = 38/6 = 6.33 (coefficient 55.07). MD about the median is smaller — as the minimum property says."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(5+8+10+13+20+28)/6",
+     "value": 14,
+     "label": "mean"
+    },
+    {
+     "expr": "(10+13)/2",
+     "value": 11.5,
+     "label": "median"
+    },
+    {
+     "expr": "round(40/6,2)",
+     "value": 6.67,
+     "label": "MD about mean"
+    },
+    {
+     "expr": "round(38/6,2)",
+     "value": 6.33,
+     "label": "MD about median"
+    },
+    {
+     "expr": "round(40/6/14*100,2)",
+     "value": 47.62,
+     "label": "coefficient of MD about mean"
+    },
+    {
+     "expr": "round(38/6/11.5*100,2)",
+     "value": 55.07,
+     "label": "coefficient of MD about median"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "SD and CV of a grouped distribution; comparing consistency",
+   "difficulty": "moderate",
+   "minutes": 12,
+   "q": "(a) Weekly sales of 50 outlets: 0–10: 4, 10–20: 10, 20–30: 16, 30–40: 12, 40–50: 8. Find mean, SD and CV. (b) Batsman A averages 48 runs with SD 12; batsman B averages 36 with SD 7.2. Who is more consistent?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Weekly sales (units)",
+      "f",
+      "Mid x",
+      "d = (x − 25)/10",
+      "fd",
+      "fd²"
+     ],
+     "rows": [
+      [
+       "0–10",
+       "4",
+       "5",
+       "-2",
+       "-8",
+       "16"
+      ],
+      [
+       "10–20",
+       "10",
+       "15",
+       "-1",
+       "-10",
+       "10"
+      ],
+      [
+       "20–30",
+       "16",
+       "25",
+       "0",
+       "0",
+       "0"
+      ],
+      [
+       "30–40",
+       "12",
+       "35",
+       "1",
+       "12",
+       "12"
+      ],
+      [
+       "40–50",
+       "8",
+       "45",
+       "2",
+       "16",
+       "32"
+      ],
+      [
+       "Total",
+       "50",
+       "",
+       "",
+       "10",
+       "70"
+      ]
+     ],
+     "num": [
+      1,
+      4,
+      5
+     ],
+     "total": true,
+     "title": "Weekly sales of 50 outlets"
+    },
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "x̄ = 25 + (10/50) × 10 = 27. s = 10 × √(70/50 − (10/50)²) = 10 × √1.36 = 11.66. CV = 11.66/27 × 100 = 43.19%."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "CV(A) = 12/48 × 100 = 25%; CV(B) = 7.2/36 × 100 = 20%. B is more consistent (lower CV), although A scores more on average."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "25+10/50*10",
+     "value": 27,
+     "label": "mean"
+    },
+    {
+     "expr": "round(10*(70/50-(10/50)**2)**0.5,2)",
+     "value": 11.66,
+     "label": "SD by step deviation"
+    },
+    {
+     "expr": "round(10*(70/50-(10/50)**2)**0.5/27*100,2)",
+     "value": 43.19,
+     "label": "CV %"
+    },
+    {
+     "expr": "12/48*100",
+     "value": 25,
+     "label": "CV batsman A"
+    },
+    {
+     "expr": "7.2/36*100",
+     "value": 20,
+     "label": "CV batsman B"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Combined SD, corrected SD and two handy results",
+   "difficulty": "hard",
+   "minutes": 12,
+   "q": "(a) Group 1: n = 40, mean 50, SD 6. Group 2: n = 60, mean 60, SD 8. Find the combined SD. (b) 20 observations have mean 40 and SD 5; one value 53 was wrongly recorded for 35. Correct the mean and SD. (c) SD of 1, 2, …, 10? (d) SD of 8 and 20?",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "Combined mean = 56; d₁ = −6, d₂ = 4. s² = (40 × 36 + 60 × 64 + 40 × 36 + 60 × 16)/100 = 76.8; s = 8.76."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Σx = 800 → 782. Σx² = 20 × (25 + 1,600) = 32,500 → 32,500 − 2,809 + 1,225 = 30,916. Mean = 39.1; SD = √(30,916/20 − 39.1²) = √16.99 = 4.12."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "√((100 − 1)/12) = 2.87."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "|8 − 20|/2 = 6."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(40*50+60*60)/100",
+     "value": 56,
+     "label": "combined mean"
+    },
+    {
+     "expr": "round(((40*36+60*64+40*(50-56)**2+60*(60-56)**2)/100)**0.5,2)",
+     "value": 8.76,
+     "label": "combined SD"
+    },
+    {
+     "expr": "20*40-53+35",
+     "value": 782,
+     "label": "corrected sum"
+    },
+    {
+     "expr": "20*(5**2+40**2)-53**2+35**2",
+     "value": 30916,
+     "label": "corrected sum of squares"
+    },
+    {
+     "expr": "782/20",
+     "value": 39.1,
+     "label": "corrected mean"
+    },
+    {
+     "expr": "round((30916/20-(782/20)**2)**0.5,2)",
+     "value": 4.12,
+     "label": "corrected SD"
+    },
+    {
+     "expr": "round(((10**2-1)/12)**0.5,2)",
+     "value": 2.87,
+     "label": "SD of first 10 natural numbers"
+    },
+    {
+     "expr": "(20-8)/2",
+     "value": 6,
+     "label": "SD of two numbers 8 and 20"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Comparing branch performance fairly",
+   "role": "Internal auditor of a cooperative bank",
+   "situation": "Branch X (large) has average monthly deposits growth of ₹40 lakh with SD ₹12 lakh; branch Y (small) ₹8 lakh with SD ₹4 lakh. The board asks which is \"more erratic\".",
+   "steps": [
+    "SDs are in the same unit but the branches differ hugely in size, so compare CVs, not SDs.",
+    "CV(X) = 12/40 × 100 = 30%; CV(Y) = 4/8 × 100 = 50%.",
+    "Branch Y is more erratic relative to its size, though its SD is smaller.",
+    "Investigate Y's volatility — concentration on a few large depositors is a typical cause."
+   ],
+   "takeaway": "Absolute spread can mislead when scales differ; CV makes the comparison fair.",
+   "checks": [
+    {
+     "expr": "12/40*100",
+     "value": 30,
+     "label": "CV X"
+    },
+    {
+     "expr": "4/8*100",
+     "value": 50,
+     "label": "CV Y"
+    }
+   ]
+  },
+  {
+   "id": "j2",
+   "title": "Fixing a statistic after a data-entry error",
+   "role": "Analyst in a corporate FP&A team",
+   "situation": "A dashboard shows mean and SD of 250 daily dispatch quantities. You find one day keyed as 9,800 instead of 980.",
+   "steps": [
+    "Do not recompute from scratch if raw data are not handy — use Σx = n x̄ and Σx² = n(s² + x̄²).",
+    "Subtract the wrong value (and its square), add the right one, then recompute mean and SD.",
+    "Document the correction and the source document, as the auditor will ask for it."
+   ],
+   "takeaway": "Means and SDs can be corrected from totals alone — keep Σx and Σx² in your working papers."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Which of these is a relative measure of dispersion?",
+   "options": [
+    "Coefficient of variation",
+    "Standard deviation",
+    "Mean deviation",
+    "Range"
+   ],
+   "answer": 0,
+   "explain": "Coefficients are unit-free relative measures; SD, MD and range are absolute.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "To compare the variability of heights (cm) and weights (kg) of the same students, use:",
+   "options": [
+    "Coefficient of variation",
+    "Standard deviation",
+    "Range",
+    "Variance"
+   ],
+   "answer": 0,
+   "explain": "Different units need a unit-free measure.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "The largest and smallest values of a series are 84 and 36. The coefficient of range is:",
+   "options": [
+    "40",
+    "48",
+    "57.14",
+    "133.33"
+   ],
+   "answer": 0,
+   "check": "round((84-36)/(84+36)*100,2)",
+   "explain": "(84 − 36)/(84 + 36) × 100 = 48/120 × 100 = 40. (48 is the range itself.)",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "For classes 20–29, 30–39, …, 60–69, the range is:",
+   "options": [
+    "50",
+    "49",
+    "40",
+    "45"
+   ],
+   "answer": 0,
+   "check": "69.5-19.5",
+   "explain": "Use extreme class boundaries: 69.5 − 19.5 = 50.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m5",
+   "q": "If the range of x is 15 and 3x + 5y = 12, the range of y is:",
+   "options": [
+    "9",
+    "-9",
+    "15",
+    "25"
+   ],
+   "answer": 0,
+   "check": "3/5*15",
+   "explain": "y = 2.4 − 0.6x; R(y) = |−0.6| × 15 = 9. Range is never negative.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m6",
+   "q": "Mean deviation is minimum when deviations are taken from the:",
+   "options": [
+    "Median",
+    "Mean",
+    "Mode",
+    "Largest value"
+   ],
+   "answer": 0,
+   "explain": "Minimum property of the median.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "The mean deviation about the mean of 2, 4, 6, 8, 10 is:",
+   "options": [
+    "2.4",
+    "3",
+    "2.83",
+    "6"
+   ],
+   "answer": 0,
+   "check": "(4+2+0+2+4)/5",
+   "explain": "Mean 6; |deviations| 4, 2, 0, 2, 4 total 12; MD = 12/5 = 2.4. (2.83 is the SD.)",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "The mean deviation about the median is 6 and the median is 40. The coefficient of mean deviation is:",
+   "options": [
+    "15",
+    "6.67",
+    "0.15",
+    "24"
+   ],
+   "answer": 0,
+   "check": "6/40*100",
+   "explain": "6/40 × 100 = 15.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m9",
+   "q": "For 10 observations, Σx = 120 and Σx² = 1,600. The standard deviation is:",
+   "options": [
+    "4",
+    "16",
+    "12",
+    "1.6"
+   ],
+   "answer": 0,
+   "check": "(1600/10-12**2)**0.5",
+   "explain": "s = √(160 − 144) = √16 = 4. (16 is the variance.)",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m10",
+   "q": "If every value of a series is 7, the standard deviation is:",
+   "options": [
+    "0",
+    "7",
+    "1",
+    "49"
+   ],
+   "answer": 0,
+   "check": "0",
+   "explain": "No observation deviates from the mean, so SD = 0.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m11",
+   "q": "The SD of x is 4. If y = 5 − 3x, the SD of y is:",
+   "options": [
+    "12",
+    "-12",
+    "7",
+    "17"
+   ],
+   "answer": 0,
+   "check": "abs(-3)*4",
+   "explain": "s(y) = |b| s(x) = 3 × 4 = 12. The constant 5 has no effect and SD cannot be negative.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m12",
+   "q": "The variance of x is 9. The variance of 2x + 7 is:",
+   "options": [
+    "36",
+    "18",
+    "25",
+    "43"
+   ],
+   "answer": 0,
+   "check": "2**2*9",
+   "explain": "Var(a + bx) = b² Var(x) = 4 × 9 = 36.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m13",
+   "q": "The mean of x is 20 and its CV is 25%. The variance of 10 − 3x is:",
+   "options": [
+    "225",
+    "15",
+    "75",
+    "135"
+   ],
+   "answer": 0,
+   "check": "9*(20*25/100)**2",
+   "explain": "s(x) = 25% of 20 = 5. Var(10 − 3x) = 9 × 25 = 225.",
+   "concept": "c4",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m14",
+   "q": "A series has mean 60 and SD 9. Its coefficient of variation is:",
+   "options": [
+    "15",
+    "6.67",
+    "0.15",
+    "51"
+   ],
+   "answer": 0,
+   "check": "9/60*100",
+   "explain": "CV = 9/60 × 100 = 15%.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m15",
+   "q": "Series A: mean 50, SD 10. Series B: mean 80, SD 12. Which is more consistent?",
+   "options": [
+    "B, because its CV (15%) is lower than A's (20%)",
+    "A, because its SD is lower",
+    "B, because its mean is higher",
+    "Both are equally consistent"
+   ],
+   "answer": 0,
+   "explain": "Compare CVs: A = 20%, B = 15%. Lower CV = more consistent.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m16",
+   "q": "Two groups of 50 and 50 have means 30 and 40 and SDs 4 and 6. The combined SD is:",
+   "options": [
+    "7.14",
+    "5",
+    "5.1",
+    "7.07"
+   ],
+   "answer": 0,
+   "check": "round(((50*16+50*36+50*25+50*25)/100)**0.5,2)",
+   "explain": "Combined mean 35; d = ±5. s² = (800 + 1,800 + 1,250 + 1,250)/100 = 51; s = 7.14. (5.1 = √26 ignores the difference in means; 5 is just the average of the two SDs.)",
+   "concept": "c4",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m17",
+   "q": "The standard deviation of the first 12 natural numbers is:",
+   "options": [
+    "3.45",
+    "3.61",
+    "11.92",
+    "6.5"
+   ],
+   "answer": 0,
+   "check": "round(((12**2-1)/12)**0.5,2)",
+   "explain": "√((n² − 1)/12) = √(143/12) = 3.45. (11.92 is the variance.)",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m18",
+   "q": "The standard deviation of the two numbers 15 and 27 is:",
+   "options": [
+    "6",
+    "12",
+    "21",
+    "8.49"
+   ],
+   "answer": 0,
+   "check": "abs(15-27)/2",
+   "explain": "For two numbers SD = |a − b|/2 = 12/2 = 6.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m19",
+   "q": "The mean of 5 observations is 8 and the mean of their squares is 73. The SD is:",
+   "options": [
+    "3",
+    "9",
+    "8.54",
+    "65"
+   ],
+   "answer": 0,
+   "check": "(73-8**2)**0.5",
+   "explain": "s = √(73 − 64) = 3.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m20",
+   "q": "If each observation is increased by 10, the standard deviation:",
+   "options": [
+    "Remains unchanged",
+    "Increases by 10",
+    "Is multiplied by 10",
+    "Decreases by 10"
+   ],
+   "answer": 0,
+   "explain": "Change of origin does not affect SD.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m21",
+   "q": "If each observation is doubled, the variance becomes:",
+   "options": [
+    "Four times",
+    "Double",
+    "Half",
+    "Unchanged"
+   ],
+   "answer": 0,
+   "explain": "Var(2x) = 4 Var(x).",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m22",
+   "q": "Which measure of dispersion is generally regarded as the best?",
+   "options": [
+    "Standard deviation",
+    "Range",
+    "Quartile deviation",
+    "Mean deviation"
+   ],
+   "answer": 0,
+   "explain": "SD is rigidly defined, uses all values and allows algebraic treatment.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "Q₁ = 32 and Q₃ = 58. The quartile deviation is:",
+   "options": [
+    "13",
+    "26",
+    "45",
+    "29"
+   ],
+   "answer": 0,
+   "check": "(58-32)/2",
+   "explain": "QD = (Q₃ − Q₁)/2 = 26/2 = 13. (26 is the interquartile range.)",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m24",
+   "q": "Q₁ = 32 and Q₃ = 58. The coefficient of quartile deviation is:",
+   "options": [
+    "28.89",
+    "44.83",
+    "13",
+    "22.41"
+   ],
+   "answer": 0,
+   "check": "round((58-32)/(58+32)*100,2)",
+   "explain": "(58 − 32)/(58 + 32) × 100 = 26/90 × 100 = 28.89.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m25",
+   "q": "The QD of x is 8 and 2x + 4y = 15. The QD of y is:",
+   "options": [
+    "4",
+    "16",
+    "-4",
+    "8"
+   ],
+   "answer": 0,
+   "check": "2/4*8",
+   "explain": "y = 3.75 − 0.5x; QD(y) = 0.5 × 8 = 4.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m26",
+   "q": "For a distribution with open-end classes, the most suitable measure of dispersion is:",
+   "options": [
+    "Quartile deviation",
+    "Standard deviation",
+    "Range",
+    "Mean deviation about mean"
+   ],
+   "answer": 0,
+   "explain": "QD needs only Q₁ and Q₃, so open ends do not matter.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m27",
+   "q": "Which measure of dispersion is most affected by extreme values?",
+   "options": [
+    "Range",
+    "Quartile deviation",
+    "Mean deviation about median",
+    "Coefficient of QD"
+   ],
+   "answer": 0,
+   "explain": "Range depends only on the two extremes.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m28",
+   "q": "All measures of dispersion (range, MD, SD, QD) are:",
+   "options": [
+    "Unaffected by change of origin but affected by change of scale",
+    "Affected by change of origin only",
+    "Unaffected by both changes",
+    "Affected by change of origin and unaffected by scale"
+   ],
+   "answer": 0,
+   "explain": "Shifting every value does not change spread; multiplying by b changes spread by |b|.",
+   "concept": "c1",
+   "difficulty": "moderate"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "Daily output of 50 machines: 100–120: 6, 120–140: 14, 140–160: 20, 160–180: 10. Compute the mean, standard deviation and coefficient of variation.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Daily output (units)",
+      "f",
+      "Mid x",
+      "d = (x − 150)/20",
+      "fd",
+      "fd²"
+     ],
+     "rows": [
+      [
+       "100–120",
+       "6",
+       "110",
+       "-2",
+       "-12",
+       "24"
+      ],
+      [
+       "120–140",
+       "14",
+       "130",
+       "-1",
+       "-14",
+       "14"
+      ],
+      [
+       "140–160",
+       "20",
+       "150",
+       "0",
+       "0",
+       "0"
+      ],
+      [
+       "160–180",
+       "10",
+       "170",
+       "1",
+       "10",
+       "10"
+      ],
+      [
+       "Total",
+       "50",
+       "",
+       "",
+       "-16",
+       "48"
+      ]
+     ],
+     "num": [
+      1,
+      4,
+      5
+     ],
+     "total": true
+    },
+    {
+     "t": "wn",
+     "title": "Mean",
+     "text": "A = 150, C = 20, Σfd = -16: x̄ = 150 + (-16/50) × 20 = 143.6."
+    },
+    {
+     "t": "wn",
+     "title": "SD",
+     "text": "s = 20 × √(48/50 − (-16/50)²) = 20 × √(0.96 − 0.1024) = 18.52."
+    },
+    {
+     "t": "wn",
+     "title": "CV",
+     "text": "CV = 18.52/143.6 × 100 = 12.9%."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "d, fd, fd² columns and totals",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Mean 143.6",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "SD 18.52 (× C not forgotten)",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "CV 12.9%",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "The most common slip is forgetting to multiply by the class width C.",
+    "Some candidates divide Σfd² by N but forget to subtract (Σfd/N)²."
+   ],
+   "mistakes": [
+    "Σfd² computed as (Σfd)².",
+    "CV computed as mean/SD."
+   ],
+   "tips": [
+    "Keep d small (−2, −1, 0, 1) to avoid arithmetic errors."
+   ],
+   "checks": [
+    {
+     "expr": "150+(-16)/50*20",
+     "value": 143.6,
+     "label": "mean"
+    },
+    {
+     "expr": "round(20*(48/50-(-16/50)**2)**0.5,2)",
+     "value": 18.52,
+     "label": "SD"
+    },
+    {
+     "expr": "round(20*(48/50-(-16/50)**2)**0.5/143.6*100,2)",
+     "value": 12.9,
+     "label": "CV"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "hard",
+   "pad": "text",
+   "q": "Factory A employs 50 workers with mean monthly bonus ₹4,500 and SD ₹300. Factory B employs 70 workers with mean ₹5,100 and SD ₹400. Find the combined mean and combined SD.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "Combined mean",
+     "text": "(50 × 4,500 + 70 × 5,100)/120 = ₹4,850."
+    },
+    {
+     "t": "wn",
+     "title": "Deviations",
+     "text": "d₁ = 4,500 − 4,850 = −350; d₂ = 5,100 − 4,850 = 250."
+    },
+    {
+     "t": "wn",
+     "title": "Combined SD",
+     "text": "s = √[(50 × 300² + 70 × 400² + 50 × 350² + 70 × 250²)/120] = √[(45,00,000 + 1,12,00,000 + 61,25,000 + 43,75,000)/120] = ₹467.26."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Combined mean ₹4,850",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "d₁ and d₂ found",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Correct combined SD formula",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s4",
+     "pt": "Combined SD ₹467.26",
+     "m": 2,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "Leaving out the n·d² terms understates the combined SD."
+   ],
+   "mistakes": [
+    "Averaging the two SDs.",
+    "Using SD instead of variance inside the formula."
+   ],
+   "tips": [
+    "Write the formula first; examiners give a step mark for it."
+   ],
+   "checks": [
+    {
+     "expr": "(50*4500+70*5100)/120",
+     "value": 4850,
+     "label": "combined mean wage"
+    },
+    {
+     "expr": "round(((50*300**2+70*400**2+50*(4500-4850)**2+70*(5100-4850)**2)/120)**0.5,2)",
+     "value": 467.26,
+     "label": "combined SD"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "text",
+   "q": "For the ordered data 14, 19, 23, 26, 30, 34, 37, 45, 51: (a) find the quartile deviation and its coefficient; (b) find the mean deviation about the median and its coefficient.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "n = 9. Q₁ = 2.5th value = 19 + 0.5 × 4 = 21; Q₃ = 7.5th value = 37 + 0.5 × 8 = 41. QD = (41 − 21)/2 = 10; coefficient = 20/62 × 100 = 32.26."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Median = 5th value = 30. Σ|x − 30| = 16 + 11 + 7 + 4 + 0 + 4 + 7 + 15 + 21 = 85. MD = 85/9 = 9.44; coefficient = 9.44/30 × 100 = 31.48."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Q₁ and Q₃ by (n + 1) rule",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "QD and coefficient",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Median and Σ|x − Me|",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "MD and coefficient",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "Many write the interquartile range (20) as QD."
+   ],
+   "mistakes": [
+    "Forgetting to halve Q₃ − Q₁.",
+    "Keeping signs when summing deviations."
+   ],
+   "tips": [
+    "Show the positions (2.5th, 7.5th) before the values."
+   ],
+   "checks": [
+    {
+     "expr": "19+0.5*(23-19)",
+     "value": 21,
+     "label": "Q1 = 2.5th value"
+    },
+    {
+     "expr": "37+0.5*(45-37)",
+     "value": 41,
+     "label": "Q3 = 7.5th value"
+    },
+    {
+     "expr": "(41-21)/2",
+     "value": 10,
+     "label": "QD"
+    },
+    {
+     "expr": "round((41-21)/(41+21)*100,2)",
+     "value": 32.26,
+     "label": "coefficient of QD"
+    },
+    {
+     "expr": "30",
+     "value": 30,
+     "label": "median = 5th value"
+    },
+    {
+     "expr": "round(85/9,2)",
+     "value": 9.44,
+     "label": "MD about median"
+    },
+    {
+     "expr": "round(85/9/30*100,2)",
+     "value": 31.48,
+     "label": "coefficient of MD about median"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Absolute (range, MD, SD, QD) vs relative (coefficients, CV) measures.",
+   "Range = L − S; coefficient (L − S)/(L + S) × 100.",
+   "MD = Σ|x − A|/n; minimum about the median.",
+   "SD = √(Σx²/n − x̄²); CV = s/x̄ × 100; lower CV = more consistent.",
+   "QD = (Q₃ − Q₁)/2; best for open-end classes.",
+   "All are unaffected by change of origin and multiplied by |b| under change of scale."
+  ],
+  "remember": [
+   "SD of first n natural numbers = √((n² − 1)/12).",
+   "SD of two numbers = |a − b|/2.",
+   "Var(a + bx) = b² Var(x).",
+   "Combined SD needs n·d² terms."
+  ],
+  "traps": [
+   "Dispersion measures are never negative — take |b|.",
+   "Grouped range uses boundaries, not limits.",
+   "A higher mean does not mean more consistent — compare CVs.",
+   "Interquartile range is Q₃ − Q₁; QD is half of it."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Range / coefficient",
+   "v": "L − S; (L − S)/(L + S) × 100"
+  },
+  {
+   "k": "Mean deviation",
+   "v": "Σf|x − A|/N; coefficient = MD/A × 100"
+  },
+  {
+   "k": "Standard deviation",
+   "v": "√(Σx²/n − x̄²); grouped √(Σfd²/N − (Σfd/N)²) × C"
+  },
+  {
+   "k": "Coefficient of variation",
+   "v": "CV = s/x̄ × 100"
+  },
+  {
+   "k": "Combined SD",
+   "v": "√[(n₁s₁² + n₂s₂² + n₁d₁² + n₂d₂²)/(n₁ + n₂)], dᵢ = x̄ᵢ − x̄"
+  },
+  {
+   "k": "Quartile deviation",
+   "v": "(Q₃ − Q₁)/2; coefficient (Q₃ − Q₁)/(Q₃ + Q₁) × 100"
+  },
+  {
+   "k": "Change of origin & scale",
+   "v": "y = a + bx ⇒ R, MD, SD, QD of y = |b| × those of x; Var(y) = b² Var(x)"
+  },
+  {
+   "k": "Special results",
+   "v": "SD(1..n) = √((n² − 1)/12); SD(a, b) = |a − b|/2"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is the difference between absolute and relative measures of dispersion?",
+   "model": "Absolute measures such as range, mean deviation, standard deviation and quartile deviation are expressed in the unit of the data, so they cannot compare series in different units or with very different averages. Relative measures, the coefficients such as the coefficient of variation, are ratios or percentages and are unit-free, so they are used for comparing two or more distributions; but they are a little harder to compute.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Absolute measures are in the units of the data (range, MD, SD, QD)",
+     "w": 4,
+     "kw": [
+      "absolute unit of|absolute same unit|absolute units of|absolute in the unit|absolute expressed in|absolute measured in|absolute original unit|absolute depend on unit|absolute dependent on unit|absolute have unit|absolute has unit|absolute in rupees|absolute unit"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Relative measures are unit-free ratios / coefficients",
+     "w": 4,
+     "kw": [
+      "relative unit free|relative free of unit|relative free from unit|relative no unit|relative without unit|relative pure number|relative ratio|relative percentage|relative coefficient|relative independent of unit"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Relative measures are used to compare distributions",
+     "w": 2,
+     "kw": [
+      "compar"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "State the properties of standard deviation.",
+   "model": "If all observations are equal, the standard deviation is zero. It is not affected by a change of origin but is affected by a change of scale: if y equals a plus b x, the SD of y is the absolute value of b times the SD of x. And the SD of two groups can be combined using their sizes, means and SDs.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "SD is zero when all values are equal",
+     "w": 3,
+     "kw": [
+      "zero|0",
+      "equal|same|constant|identical"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Unaffected by change of origin",
+     "w": 3,
+     "kw": [
+      "not affected by change of origin|not affected by a change of origin|not affected by shift of origin|not affected by the change of origin|not affected by  origin|unaffected by change of origin|unaffected by a change of origin|unaffected by shift of origin|unaffected by the change of origin|unaffected by  origin|independent of change of origin|independent of a change of origin|independent of shift of origin|independent of the change of origin|independent of  origin|does not change with change of origin|does not change with a change of origin|does not change with shift of origin|does not change with the change of origin|does not change with  origin|no effect of change of origin|no effect of a change of origin|no effect of shift of origin|no effect of the change of origin|no effect of  origin|not changed by change of origin|not changed by a change of origin|not changed by shift of origin|not changed by the change of origin|not changed by  origin|not affected due to change of origin|not affected due to a change of origin|not affected due to shift of origin|not affected due to the change of origin|not affected due to  origin|unaffected due to change of origin|unaffected due to a change of origin|unaffected due to shift of origin|unaffected due to the change of origin|unaffected due to  origin|does not depend on change of origin|does not depend on a change of origin|does not depend on shift of origin|does not depend on the change of origin|does not depend on  origin|remains same under change of origin|remains same under a change of origin|remains same under shift of origin|remains same under the change of origin|remains same under  origin",
+      "origin no effect|origin does not affect|change origin does not affect|change of origin does not change"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Affected by change of scale: s(y) = |b| s(x)",
+     "w": 2,
+     "kw": [
+      "affected by change of scale|affected by a change of scale|affected by the change of scale|affected by  scale|changes with change of scale|changes with a change of scale|changes with the change of scale|changes with  scale|depends on change of scale|depends on a change of scale|depends on the change of scale|depends on  scale|affected due to change of scale|affected due to a change of scale|affected due to the change of scale|affected due to  scale|but by change of scale|but by a change of scale|but by the change of scale|but by  scale|only by change of scale|only by a change of scale|only by the change of scale|only by  scale|varies with change of scale|varies with a change of scale|varies with the change of scale|varies with  scale",
+      "b times|mod b|absolute b|modulus of b|absolute value of b"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p4",
+     "pt": "Combined SD of groups can be found",
+     "w": 2,
+     "kw": [
+      "combin|pooled|groups"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v3",
+   "q": "What is the coefficient of variation and how is it used to compare consistency?",
+   "model": "The coefficient of variation is the standard deviation divided by the mean, multiplied by one hundred. It is a relative, unit-free measure. When comparing two series, the one with the lower coefficient of variation is more consistent or more stable, and the one with the higher CV is more variable.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "CV = SD ÷ Mean × 100",
+     "w": 5,
+     "kw": [
+      "sd divided by mean|sd divided by average|sd divided by arithmetic mean|sd divided by am|sd divided by x bar|sd by mean|sd by average|sd by arithmetic mean|sd by am|sd by x bar|sd over mean|sd over average|sd over arithmetic mean|sd over am|sd over x bar|sd upon mean|sd upon average|sd upon arithmetic mean|sd upon am|sd upon x bar|sd to mean|sd to average|sd to arithmetic mean|sd to am|sd to x bar|standard deviation divided by mean|standard deviation divided by average|standard deviation divided by arithmetic mean|standard deviation divided by am|standard deviation divided by x bar|standard deviation by mean|standard deviation by average|standard deviation by arithmetic mean|standard deviation by am|standard deviation by x bar|standard deviation over mean|standard deviation over average|standard deviation over arithmetic mean|standard deviation over am|standard deviation over x bar|standard deviation upon mean|standard deviation upon average|standard deviation upon arithmetic mean|standard deviation upon am|standard deviation upon x bar|standard deviation to mean|standard deviation to average|standard deviation to arithmetic mean|standard deviation to am|standard deviation to x bar|sigma divided by mean|sigma divided by average|sigma divided by arithmetic mean|sigma divided by am|sigma divided by x bar|sigma by mean|sigma by average|sigma by arithmetic mean|sigma by am|sigma by x bar|sigma over mean|sigma over average|sigma over arithmetic mean|sigma over am|sigma over x bar|sigma upon mean|sigma upon average|sigma upon arithmetic mean|sigma upon am|sigma upon x bar|sigma to mean|sigma to average|sigma to arithmetic mean|sigma to am|sigma to x bar"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Lower CV = more consistent / stable",
+     "w": 5,
+     "kw": [
+      "lower cv consistent|lower cv stable|lower cv uniform|lower cv steady|lower cv consistency|lower cv less variable|lower cv less variation|lower cv reliable|lower coefficient of variation consistent|lower coefficient of variation stable|lower coefficient of variation uniform|lower coefficient of variation steady|lower coefficient of variation consistency|lower coefficient of variation less variable|lower coefficient of variation less variation|lower coefficient of variation reliable|lower coefficient consistent|lower coefficient stable|lower coefficient uniform|lower coefficient steady|lower coefficient consistency|lower coefficient less variable|lower coefficient less variation|lower coefficient reliable|lower  consistent|lower  stable|lower  uniform|lower  steady|lower  consistency|lower  less variable|lower  less variation|lower  reliable|lowest cv consistent|lowest cv stable|lowest cv uniform|lowest cv steady|lowest cv consistency|lowest cv less variable|lowest cv less variation|lowest cv reliable|lowest coefficient of variation consistent|lowest coefficient of variation stable|lowest coefficient of variation uniform|lowest coefficient of variation steady|lowest coefficient of variation consistency|lowest coefficient of variation less variable|lowest coefficient of variation less variation|lowest coefficient of variation reliable|lowest coefficient consistent|lowest coefficient stable|lowest coefficient uniform|lowest coefficient steady|lowest coefficient consistency|lowest coefficient less variable|lowest coefficient less variation|lowest coefficient reliable|lowest  consistent|lowest  stable|lowest  uniform|lowest  steady|lowest  consistency|lowest  less variable|lowest  less variation|lowest  reliable|less cv consistent|less cv stable|less cv uniform|less cv steady|less cv consistency|less cv less variable|less cv less variation|less cv reliable|less coefficient of variation consistent|less coefficient of variation stable|less coefficient of variation uniform|less coefficient of variation steady|less coefficient of variation consistency|less coefficient of variation less variable|less coefficient of variation less variation|less coefficient of variation reliable|less coefficient consistent|less coefficient stable|less coefficient uniform|less coefficient steady|less coefficient consistency|less coefficient less variable|less coefficient less variation|less coefficient reliable|less  consistent|less  stable|less  uniform|less  steady|less  consistency|less  less variable|less  less variation|less  reliable|least cv consistent|least cv stable|least cv uniform|least cv steady|least cv consistency|least cv less variable|least cv less variation|least cv reliable|least coefficient of variation consistent|least coefficient of variation stable|least coefficient of variation uniform|least coefficient of variation steady|least coefficient of variation consistency|least coefficient of variation less variable|least coefficient of variation less variation|least coefficient of variation reliable|least coefficient consistent|least coefficient stable|least coefficient uniform|least coefficient steady|least coefficient consistency|least coefficient less variable|least coefficient less variation|least coefficient reliable|least  consistent|least  stable|least  uniform|least  steady|least  consistency|least  less variable|least  less variation|least  reliable|smaller cv consistent|smaller cv stable|smaller cv uniform|smaller cv steady|smaller cv consistency|smaller cv less variable|smaller cv less variation|smaller cv reliable|smaller coefficient of variation consistent|smaller coefficient of variation stable|smaller coefficient of variation uniform|smaller coefficient of variation steady|smaller coefficient of variation consistency|smaller coefficient of variation less variable|smaller coefficient of variation less variation|smaller coefficient of variation reliable|smaller coefficient consistent|smaller coefficient stable|smaller coefficient uniform|smaller coefficient steady|smaller coefficient consistency|smaller coefficient less variable|smaller coefficient less variation|smaller coefficient reliable|smaller  consistent|smaller  stable|smaller  uniform|smaller  steady|smaller  consistency|smaller  less variable|smaller  less variation|smaller  reliable|low cv consistent|low cv stable|low cv uniform|low cv steady|low cv consistency|low cv less variable|low cv less variation|low cv reliable|low coefficient of variation consistent|low coefficient of variation stable|low coefficient of variation uniform|low coefficient of variation steady|low coefficient of variation consistency|low coefficient of variation less variable|low coefficient of variation less variation|low coefficient of variation reliable|low coefficient consistent|low coefficient stable|low coefficient uniform|low coefficient steady|low coefficient consistency|low coefficient less variable|low coefficient less variation|low coefficient reliable|low  consistent|low  stable|low  uniform|low  steady|low  consistency|low  less variable|low  less variation|low  reliable|lower cv more consistent|lower cv more stable|lower cv more uniform|lower cv more steady|lower cv more consistency|lower cv more less variable|lower cv more less variation|lower cv more reliable|lower coefficient of variation more consistent|lower coefficient of variation more stable|lower coefficient of variation more uniform|lower coefficient of variation more steady|lower coefficient of variation more consistency|lower coefficient of variation more less variable|lower coefficient of variation more less variation|lower coefficient of variation more reliable|lower coefficient more consistent|lower coefficient more stable|lower coefficient more uniform|lower coefficient more steady|lower coefficient more consistency|lower coefficient more less variable|lower coefficient more less variation|lower coefficient more reliable|lower  more consistent|lower  more stable|lower  more uniform|lower  more steady|lower  more consistency|lower  more less variable|lower  more less variation|lower  more reliable|lowest cv more consistent|lowest cv more stable|lowest cv more uniform|lowest cv more steady|lowest cv more consistency|lowest cv more less variable|lowest cv more less variation|lowest cv more reliable|lowest coefficient of variation more consistent|lowest coefficient of variation more stable|lowest coefficient of variation more uniform|lowest coefficient of variation more steady|lowest coefficient of variation more consistency|lowest coefficient of variation more less variable|lowest coefficient of variation more less variation|lowest coefficient of variation more reliable|lowest coefficient more consistent|lowest coefficient more stable|lowest coefficient more uniform|lowest coefficient more steady|lowest coefficient more consistency|lowest coefficient more less variable|lowest coefficient more less variation|lowest coefficient more reliable|lowest  more consistent|lowest  more stable|lowest  more uniform|lowest  more steady|lowest  more consistency|lowest  more less variable|lowest  more less variation|lowest  more reliable|less cv more consistent|less cv more stable|less cv more uniform|less cv more steady|less cv more consistency|less cv more less variable|less cv more less variation|less cv more reliable|less coefficient of variation more consistent|less coefficient of variation more stable|less coefficient of variation more uniform|less coefficient of variation more steady|less coefficient of variation more consistency|less coefficient of variation more less variable|less coefficient of variation more less variation|less coefficient of variation more reliable|less coefficient more consistent|less coefficient more stable|less coefficient more uniform|less coefficient more steady|less coefficient more consistency|less coefficient more less variable|less coefficient more less variation|less coefficient more reliable|less  more consistent|less  more stable|less  more uniform|less  more steady|less  more consistency|less  more less variable|less  more less variation|less  more reliable|least cv more consistent|least cv more stable|least cv more uniform|least cv more steady|least cv more consistency|least cv more less variable|least cv more less variation|least cv more reliable|least coefficient of variation more consistent|least coefficient of variation more stable|least coefficient of variation more uniform|least coefficient of variation more steady|least coefficient of variation more consistency|least coefficient of variation more less variable|least coefficient of variation more less variation|least coefficient of variation more reliable|least coefficient more consistent|least coefficient more stable|least coefficient more uniform|least coefficient more steady|least coefficient more consistency|least coefficient more less variable|least coefficient more less variation|least coefficient more reliable|least  more consistent|least  more stable|least  more uniform|least  more steady|least  more consistency|least  more less variable|least  more less variation|least  more reliable|smaller cv more consistent|smaller cv more stable|smaller cv more uniform|smaller cv more steady|smaller cv more consistency|smaller cv more less variable|smaller cv more less variation|smaller cv more reliable|smaller coefficient of variation more consistent|smaller coefficient of variation more stable|smaller coefficient of variation more uniform|smaller coefficient of variation more steady|smaller coefficient of variation more consistency|smaller coefficient of variation more less variable|smaller coefficient of variation more less variation|smaller coefficient of variation more reliable|smaller coefficient more consistent|smaller coefficient more stable|smaller coefficient more uniform|smaller coefficient more steady|smaller coefficient more consistency|smaller coefficient more less variable|smaller coefficient more less variation|smaller coefficient more reliable|smaller  more consistent|smaller  more stable|smaller  more uniform|smaller  more steady|smaller  more consistency|smaller  more less variable|smaller  more less variation|smaller  more reliable|low cv more consistent|low cv more stable|low cv more uniform|low cv more steady|low cv more consistency|low cv more less variable|low cv more less variation|low cv more reliable|low coefficient of variation more consistent|low coefficient of variation more stable|low coefficient of variation more uniform|low coefficient of variation more steady|low coefficient of variation more consistency|low coefficient of variation more less variable|low coefficient of variation more less variation|low coefficient of variation more reliable|low coefficient more consistent|low coefficient more stable|low coefficient more uniform|low coefficient more steady|low coefficient more consistency|low coefficient more less variable|low coefficient more less variation|low coefficient more reliable|low  more consistent|low  more stable|low  more uniform|low  more steady|low  more consistency|low  more less variable|low  more less variation|low  more reliable|consistent lower cv|consistent lower coefficient of variation|consistent lower coefficient|consistent lower |consistent lowest cv|consistent lowest coefficient of variation|consistent lowest coefficient|consistent lowest |consistent less cv|consistent less coefficient of variation|consistent less coefficient|consistent less |consistent least cv|consistent least coefficient of variation|consistent least coefficient|consistent least |consistent smaller cv|consistent smaller coefficient of variation|consistent smaller coefficient|consistent smaller |consistent low cv|consistent low coefficient of variation|consistent low coefficient|consistent low |stable lower cv|stable lower coefficient of variation|stable lower coefficient|stable lower |stable lowest cv|stable lowest coefficient of variation|stable lowest coefficient|stable lowest |stable less cv|stable less coefficient of variation|stable less coefficient|stable less |stable least cv|stable least coefficient of variation|stable least coefficient|stable least |stable smaller cv|stable smaller coefficient of variation|stable smaller coefficient|stable smaller |stable low cv|stable low coefficient of variation|stable low coefficient|stable low |uniform lower cv|uniform lower coefficient of variation|uniform lower coefficient|uniform lower |uniform lowest cv|uniform lowest coefficient of variation|uniform lowest coefficient|uniform lowest |uniform less cv|uniform less coefficient of variation|uniform less coefficient|uniform less |uniform least cv|uniform least coefficient of variation|uniform least coefficient|uniform least |uniform smaller cv|uniform smaller coefficient of variation|uniform smaller coefficient|uniform smaller |uniform low cv|uniform low coefficient of variation|uniform low coefficient|uniform low |steady lower cv|steady lower coefficient of variation|steady lower coefficient|steady lower |steady lowest cv|steady lowest coefficient of variation|steady lowest coefficient|steady lowest |steady less cv|steady less coefficient of variation|steady less coefficient|steady less |steady least cv|steady least coefficient of variation|steady least coefficient|steady least |steady smaller cv|steady smaller coefficient of variation|steady smaller coefficient|steady smaller |steady low cv|steady low coefficient of variation|steady low coefficient|steady low |consistency lower cv|consistency lower coefficient of variation|consistency lower coefficient|consistency lower |consistency lowest cv|consistency lowest coefficient of variation|consistency lowest coefficient|consistency lowest |consistency less cv|consistency less coefficient of variation|consistency less coefficient|consistency less |consistency least cv|consistency least coefficient of variation|consistency least coefficient|consistency least |consistency smaller cv|consistency smaller coefficient of variation|consistency smaller coefficient|consistency smaller |consistency low cv|consistency low coefficient of variation|consistency low coefficient|consistency low |less variable lower cv|less variable lower coefficient of variation|less variable lower coefficient|less variable lower |less variable lowest cv|less variable lowest coefficient of variation|less variable lowest coefficient|less variable lowest |less variable less cv|less variable less coefficient of variation|less variable less coefficient|less variable less |less variable least cv|less variable least coefficient of variation|less variable least coefficient|less variable least |less variable smaller cv|less variable smaller coefficient of variation|less variable smaller coefficient|less variable smaller |less variable low cv|less variable low coefficient of variation|less variable low coefficient|less variable low |less variation lower cv|less variation lower coefficient of variation|less variation lower coefficient|less variation lower |less variation lowest cv|less variation lowest coefficient of variation|less variation lowest coefficient|less variation lowest |less variation less cv|less variation less coefficient of variation|less variation less coefficient|less variation less |less variation least cv|less variation least coefficient of variation|less variation least coefficient|less variation least |less variation smaller cv|less variation smaller coefficient of variation|less variation smaller coefficient|less variation smaller |less variation low cv|less variation low coefficient of variation|less variation low coefficient|less variation low |reliable lower cv|reliable lower coefficient of variation|reliable lower coefficient|reliable lower |reliable lowest cv|reliable lowest coefficient of variation|reliable lowest coefficient|reliable lowest |reliable less cv|reliable less coefficient of variation|reliable less coefficient|reliable less |reliable least cv|reliable least coefficient of variation|reliable least coefficient|reliable least |reliable smaller cv|reliable smaller coefficient of variation|reliable smaller coefficient|reliable smaller |reliable low cv|reliable low coefficient of variation|reliable low coefficient|reliable low "
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "What is quartile deviation, and when is it the most suitable measure of dispersion?",
+   "model": "Quartile deviation, or the semi-interquartile range, is half the difference between the third and the first quartile, that is Q3 minus Q1 divided by two. Its coefficient is Q3 minus Q1 over Q3 plus Q1, times one hundred. It is the best measure for open-end classifications and is less affected by extreme values, because it ignores the lowest and highest quarters of the data.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "QD = (Q3 − Q1)/2, semi-interquartile range",
+     "w": 4,
+     "kw": [
+      "q3 minus q1 divided by 2|q3 minus q1 by 2|q3 minus q1 over 2|q3 minus q1 upon 2|q3 q1 divided by 2|q3 q1 by 2|q3 q1 over 2|q3 q1 upon 2|half of q3 minus q1|half the difference|half of the difference|semi interquartile|semi inter quartile|half interquartile|half the interquartile|half of interquartile"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Best for open-end classes",
+     "w": 4,
+     "kw": [
+      "open"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Less affected by extreme values",
+     "w": 2,
+     "kw": [
+      "extreme|outlier|not affected by extreme|not much affected by extreme|unaffected by extreme|extreme values do not|extremes do not|outliers do not|not affected by outlier|not influenced by extreme|not sensitive to extreme"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v5",
+   "q": "What are the merits and demerits of range as a measure of dispersion?",
+   "model": "Range is the difference between the largest and smallest observations. It is very simple to understand and to calculate, and it is used in quality control and for stock price movements. But it depends only on the two extreme values, so it ignores all other observations, is greatly affected by extremes, and cannot be found for open-end classes. So it is not an ideal measure.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Range = largest − smallest",
+     "w": 3,
+     "kw": [
+      "largest|highest|maximum|biggest|greatest",
+      "smallest|lowest|minimum|least"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Merit: simple / easy to compute",
+     "w": 3,
+     "kw": [
+      "simple|easy|quick"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Demerit: based only on two extreme values / ignores the rest",
+     "w": 4,
+     "kw": [
+      "only two|two extreme|only the extreme|two value|ignore|extreme value|not based on all|not all observation|affected by extreme"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v6",
+   "q": "About which value is the mean deviation minimum, and how does it behave under change of origin and scale?",
+   "model": "Mean deviation is minimum when the deviations are taken about the median. Like other measures of dispersion, it does not change with a change of origin, but it changes in the same ratio as a change of scale: the mean deviation of y is the absolute value of b times that of x when y equals a plus b x.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Minimum about the median",
+     "w": 5,
+     "kw": [
+      "minimum about median|minimum from median|minimum around median|minimum when taken from median|minimum when taken about median|minimum taken from median|minimum taken about median|minimum measured from median|minimum measured about median|minimum with respect to median|least about median|least from median|least around median|least when taken from median|least when taken about median|least taken from median|least taken about median|least measured from median|least measured about median|least with respect to median|smallest about median|smallest from median|smallest around median|smallest when taken from median|smallest when taken about median|smallest taken from median|smallest taken about median|smallest measured from median|smallest measured about median|smallest with respect to median|lowest about median|lowest from median|lowest around median|lowest when taken from median|lowest when taken about median|lowest taken from median|lowest taken about median|lowest measured from median|lowest measured about median|lowest with respect to median|about median minimum|about median least|about median smallest|about median lowest|from median minimum|from median least|from median smallest|from median lowest|around median minimum|around median least|around median smallest|around median lowest|when taken from median minimum|when taken from median least|when taken from median smallest|when taken from median lowest|when taken about median minimum|when taken about median least|when taken about median smallest|when taken about median lowest|taken from median minimum|taken from median least|taken from median smallest|taken from median lowest|taken about median minimum|taken about median least|taken about median smallest|taken about median lowest|measured from median minimum|measured from median least|measured from median smallest|measured from median lowest|measured about median minimum|measured about median least|measured about median smallest|measured about median lowest|with respect to median minimum|with respect to median least|with respect to median smallest|with respect to median lowest|median minimum|median least|median smallest|median lowest"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Unaffected by change of origin",
+     "w": 3,
+     "kw": [
+      "not affected by change of origin|not affected by a change of origin|not affected by shift of origin|not affected by the change of origin|not affected by  origin|unaffected by change of origin|unaffected by a change of origin|unaffected by shift of origin|unaffected by the change of origin|unaffected by  origin|independent of change of origin|independent of a change of origin|independent of shift of origin|independent of the change of origin|independent of  origin|does not change with change of origin|does not change with a change of origin|does not change with shift of origin|does not change with the change of origin|does not change with  origin|not changed by change of origin|not changed by a change of origin|not changed by shift of origin|not changed by the change of origin|not changed by  origin|no effect of change of origin|no effect of a change of origin|no effect of shift of origin|no effect of the change of origin|no effect of  origin|does not depend on change of origin|does not depend on a change of origin|does not depend on shift of origin|does not depend on the change of origin|does not depend on  origin|remains same under change of origin|remains same under a change of origin|remains same under shift of origin|remains same under the change of origin|remains same under  origin|not change with change of origin|not change with a change of origin|not change with shift of origin|not change with the change of origin|not change with  origin",
+      "origin no effect|origin does not affect"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Changes in proportion to change of scale (|b| times)",
+     "w": 2,
+     "kw": [
+      "affected by change of scale|affected by a change of scale|affected by the change of scale|affected by  scale|changes with change of scale|changes with a change of scale|changes with the change of scale|changes with  scale|depends on change of scale|depends on a change of scale|depends on the change of scale|depends on  scale|changes in the same ratio as change of scale|changes in the same ratio as a change of scale|changes in the same ratio as the change of scale|changes in the same ratio as  scale|same ratio as change of scale|same ratio as a change of scale|same ratio as the change of scale|same ratio as  scale|varies with change of scale|varies with a change of scale|varies with the change of scale|varies with  scale|but by change of scale|but by a change of scale|but by the change of scale|but by  scale|only by change of scale|only by a change of scale|only by the change of scale|only by  scale|changes in proportion to change of scale|changes in proportion to a change of scale|changes in proportion to the change of scale|changes in proportion to  scale",
+      "b times|mod b|absolute value of b|absolute b"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Choosing the steadier of two mutual funds",
+   "difficulty": "moderate",
+   "case": "A client asks her CA which of two equity funds has been steadier. Over the last 36 months, Fund A gave a mean monthly return of 1.4% with a standard deviation of 4.2%; Fund B gave a mean of 1.2% with a standard deviation of 3.0%. Fund A's best and worst months were +11.5% and −9.1%. The client also asks what would happen to the figures if a flat 0.1% monthly fee were deducted from every return.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "What is the coefficient of variation of Fund A?",
+     "options": [
+      "300%",
+      "33.33%",
+      "250%",
+      "420%"
+     ],
+     "answer": 0,
+     "explain": "CV = SD/mean × 100 = 4.2/1.4 × 100 = 300%.",
+     "difficulty": "core",
+     "check": "round(4.2/1.4*100,2)"
+    },
+    {
+     "id": "k1b",
+     "q": "Which fund is more consistent, and why?",
+     "options": [
+      "Fund B — its CV (250%) is lower",
+      "Fund A — its mean is higher",
+      "Fund A — its CV is higher",
+      "Both are equally consistent"
+     ],
+     "answer": 0,
+     "explain": "Consistency is judged by the relative measure; lower CV means more consistent. Fund B: 3.0/1.2 × 100 = 250% < 300%.",
+     "difficulty": "moderate"
+    },
+    {
+     "id": "k1c",
+     "q": "What is the range of Fund A's monthly returns?",
+     "options": [
+      "20.6",
+      "2.4",
+      "11.5",
+      "10.3"
+     ],
+     "answer": 0,
+     "explain": "Range = largest − smallest = 11.5 − (−9.1) = 20.6 percentage points.",
+     "difficulty": "core",
+     "check": "11.5-(-9.1)"
+    },
+    {
+     "id": "k1d",
+     "q": "If a flat 0.1% fee is deducted from every monthly return, Fund A's standard deviation will:",
+     "options": [
+      "Remain 4.2%",
+      "Fall to 4.1%",
+      "Rise to 4.3%",
+      "Depend on the number of months"
+     ],
+     "answer": 0,
+     "explain": "Subtracting a constant is a change of origin; SD is unaffected by change of origin (the mean falls to 1.3%, so CV does change).",
+     "difficulty": "hard"
+    }
+   ]
+  }
+ ]
+}

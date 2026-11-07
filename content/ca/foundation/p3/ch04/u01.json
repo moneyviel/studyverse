@@ -1,0 +1,2017 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch04-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch04",
+ "n": 1,
+ "title": "Mathematics of Finance",
+ "outcomes": [
+  "Explain why interest is charged and compute simple interest, compound interest (any conversion period), depreciation and growth.",
+  "Distinguish nominal, effective and real rates and compute the effective rate of interest.",
+  "Compute future and present values of annuities regular and annuities due, sinking-fund deposits and loan instalments (EMIs).",
+  "Apply present value to leasing, capital expenditure (NPV) and bond valuation, value level and growing perpetuities, and compute CAGR."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 100,
+   "practice": 120
+  },
+  "prereq": [
+   "fnd-p3-ch01-u01"
+  ],
+  "exam_tip": "Learn A(n, i) and P(n, i) by heart and always decide first whether payments are at the end (regular) or at the beginning (due) of each period. Convert the rate and the number of periods to the compounding period before using any formula."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Interest — why it is charged and the basic terms",
+   "body": [
+    "Interest is the price a borrower pays for using someone else’s money. Lenders charge it because of: time value of money (a rupee today is worth more than a rupee later); opportunity cost (lending gives up other uses of the money); inflation (money loses purchasing power); liquidity preference (people prefer cash in hand); and risk (the borrower may default — riskier borrowers pay a risk premium).",
+    "Principal (P): the sum borrowed or invested. Rate of interest: the charge per ₹100 per period, usually per annum. Accumulated amount (A): principal plus interest at the end of the term."
+   ],
+   "analogy": "Interest is rent for money — just as you pay rent to use someone’s flat, you pay interest to use someone’s rupees.",
+   "work": "Every lending, deposit, lease and valuation file a CA reviews starts from these five reasons — they explain why one borrower pays 9% and another 14%."
+  },
+  {
+   "id": "c2",
+   "title": "Simple interest",
+   "body": [
+    "Simple interest is calculated on the original principal only: I = P × n × r (r as a decimal, n in years); A = P(1 + nr).",
+    "Rearranged: P = I/(nr), r = I/(Pn), n = I/(Pr). Time in months or days must be converted to years (e.g. 9 months = 0.75 year).",
+    "A sum becomes k times when interest = (k − 1)P, so n × r = k − 1. If it doubles in t years at SI, it triples in 2t years."
+   ],
+   "analogy": "Simple interest is a fixed salary — the same amount every year, no matter how long you work.",
+   "work": "Interest on delayed payments, many short-term advances and statutory interest calculations follow simple interest."
+  },
+  {
+   "id": "c3",
+   "title": "Compound interest and conversion period",
+   "body": [
+    "In compound interest, interest is added to the principal at the end of each conversion period, so later interest is earned on earlier interest. A = P(1 + i)ⁿ and CI = A − P, where i = rate per conversion period and n = number of conversion periods.",
+    "Conversion period: annual (m = 1), half-yearly (m = 2), quarterly (m = 4), monthly (m = 12). For a nominal annual rate r compounded m times a year for t years: i = r/m and n = mt.",
+    "For two years, CI − SI = P r². For n = 1 conversion period CI = SI.",
+    "Same formula, other uses: depreciation on reducing balance V = P(1 − r)ⁿ; population or sales growth A = P(1 + r)ⁿ. When the unknown is n, use logarithms: n = log(A/P)/log(1 + i)."
+   ],
+   "analogy": "Compound interest is a snowball rolling downhill — it picks up snow on the snow it already carries.",
+   "work": "Fixed-deposit maturity values, loan balances, depreciation under the written-down value method and growth projections in business plans are all compound-interest calculations."
+  },
+  {
+   "id": "c4",
+   "title": "Effective, nominal and real rates",
+   "body": [
+    "The nominal (stated) rate is the annual rate quoted, ignoring how often interest is compounded.",
+    "The effective rate is the actual annual rate earned when interest is compounded more than once a year: E = (1 + r/m)ᵐ − 1. It is higher than the nominal rate whenever m > 1 and does not depend on the principal.",
+    "The real rate adjusts the nominal rate for inflation. The study material uses: real rate = nominal rate − inflation (so nominal = real + inflation). (The exact relation is (1 + nominal) = (1 + real)(1 + inflation), which gives a slightly lower real rate.)",
+    "Comparing offers: convert every quoted rate to its effective rate first. Lenders tend to advertise the nominal rate on loans; deposit schemes tend to advertise the effective yield."
+   ],
+   "analogy": "The nominal rate is the price on the menu; the effective rate is the bill after service charges; the real rate is what that bill is worth after prices rise.",
+   "work": "When a client compares a bank loan at 10.5% monthly rests with another at 10.7% half-yearly, the effective rate settles which is cheaper."
+  },
+  {
+   "id": "c5",
+   "title": "Annuities — regular and due; future value; sinking fund",
+   "body": [
+    "An annuity is a series of equal payments (or receipts) made at equal intervals. In an annuity regular (ordinary annuity) each payment is at the end of the period; in an annuity due each payment is at the beginning. (Read every question for when the first payment falls — terminology differs between books.)",
+    "Future value of an annuity regular: FV = A × A(n, i), where A(n, i) = [(1 + i)ⁿ − 1]/i.",
+    "Future value of an annuity due = A × A(n, i) × (1 + i), because each payment earns one extra period of interest.",
+    "A sinking fund is money set aside by equal periodic deposits to build up a known sum at a future date (e.g. to replace an asset or repay debentures). Deposit = target ÷ A(n, i)."
+   ],
+   "analogy": "An annuity is a SIP: equal instalments at equal gaps. Paying at the start of each month (due) simply gives every instalment one more month to grow.",
+   "work": "Debenture redemption funds, asset replacement funds and retirement corpus planning are sinking-fund calculations."
+  },
+  {
+   "id": "c6",
+   "title": "Present value of annuities; loan amortisation (EMI)",
+   "body": [
+    "Present value of ₹1 due after n periods = (1 + i)⁻ⁿ (the discount factor).",
+    "Present value of an annuity regular: PV = A × P(n, i), where P(n, i) = [1 − (1 + i)⁻ⁿ]/i.",
+    "Present value of an annuity due = A × [1 + P(n − 1, i)] = A × P(n, i) × (1 + i): the first payment is already at today’s value.",
+    "A loan is amortised when equal instalments repay both interest and principal over its term. Instalment = Loan ÷ P(n, i). In each period, interest = rate × opening balance; principal repaid = instalment − interest. The interest part falls and the principal part rises over time."
+   ],
+   "analogy": "Present value is looking at the future through the wrong end of a telescope — everything looks smaller, and the further away it is, the smaller it looks.",
+   "work": "EMI schedules, interest-versus-principal split for income-tax claims and the valuation of rental streams all use P(n, i)."
+  },
+  {
+   "id": "c7",
+   "title": "Applications: leasing, capital expenditure, bond valuation",
+   "body": [
+    "Leasing: the owner (lessor) lets the user (lessee) use an asset for a period in return for lease rentals. For the lessor, compare the PV of rentals with the cost of the asset — a higher PV makes the lease favourable. For the lessee, compare the PV of rentals with the purchase price — a lower PV makes leasing preferable.",
+    "Capital expenditure (investment decision): compare the PV of the expected cash inflows with the PV of the outflows; invest if inflows are worth more.",
+    "Bond valuation: a bond’s value is the PV of its coupon payments (an annuity) plus the PV of the redemption amount, discounted at the investor’s required yield. If the yield is above the coupon rate, the bond sells below face value (at a discount), and vice versa."
+   ],
+   "analogy": "All three questions are the same question in different clothes: \"Is the stream of future rupees worth more than the rupees I give up today?\"",
+   "work": "Lease-versus-buy advice, capital-budgeting proposals and investment valuation (including Ind AS fair-value work later in the course) use exactly this present-value logic."
+  },
+  {
+   "id": "c8",
+   "title": "Perpetuities — level and growing",
+   "body": [
+    "A perpetuity is an annuity whose payments continue for ever. Its future value cannot be computed, but its present value is finite, and because the capital itself is never paid back, nothing is added for a principal repayment.",
+    "Level perpetuity (payments at the end of each period): PV = R/i. If the first payment is made today (perpetuity due), PV = R/i + R.",
+    "Growing perpetuity (first payment R one period from now, growing at g per period, with g < i): PV = R/(i − g).",
+    "Rate and payment must match the period: monthly payments need a monthly rate."
+   ],
+   "analogy": "A perpetuity is a fruit tree that never stops bearing: you pay for the tree, not for an infinite pile of fruit.",
+   "work": "Endowment funds, preference shares without a redemption date and the terminal value in business valuation use the perpetuity formulas."
+  },
+  {
+   "id": "c9",
+   "title": "Net present value (NPV) technique",
+   "body": [
+    "NPV is a discounted cash-flow method: all cash flows of a project are brought to their value at time 0 using a chosen discount rate, and the outflows are subtracted from the inflows.",
+    "NPV = PV of cash inflows − PV of cash outflows (when there is a single initial outlay: PV of net inflows − initial investment).",
+    "Discount rate: ideally the return available on the best alternative investment of the same risk; in practice organisations use a minimum required rate or the weighted average cost of capital (WACC).",
+    "Steps: estimate net cash flow each year → choose the rate → find the discount factor (1 + i)⁻ᵗ for each year → multiply → add. Decision: NPV > 0 accept; NPV < 0 reject."
+   ],
+   "analogy": "NPV is a profit figure measured in \"today’s rupees\" after paying the investors their required return.",
+   "work": "Capital-budgeting proposals in companies and project-finance appraisals by banks are judged on NPV."
+  },
+  {
+   "id": "c10",
+   "title": "Compound annual growth rate (CAGR) and rate of return",
+   "body": [
+    "CAGR is the constant annual rate that would take a value from its beginning level V₀ to its ending level Vₙ over n years: CAGR = (Vₙ/V₀)^(1/n) − 1.",
+    "It smooths out year-to-year swings, so it is preferred to the simple average of yearly growth rates when comparing investments or business metrics (revenue, users, units).",
+    "Calculating the rate of return on past investments helps judge how good the investment decisions were and whether to change strategy."
+   ],
+   "analogy": "CAGR is the steady speed that would have covered the same distance in the same time, however bumpy the actual drive was.",
+   "work": "Analysts and CAs quote revenue and profit CAGRs in project reports, valuation notes and equity research."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Simple interest: amount and rate",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "(a) Find the simple interest and amount on ₹48,000 at 9% p.a. for 2 years 6 months. (b) At what rate of simple interest will a sum become three times itself in 16 years?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) n = 2.5 years. I = 48,000 × 0.09 × 2.5 = ₹10,800; A = 48,000 + 10,800 = ₹58,800."
+    },
+    {
+     "t": "p",
+     "text": "(b) Tripling means interest = 2P. 2P = P × 16 × r → r = 2/16 = 0.125 = 12.5% p.a."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "48000*9/100*2.5",
+     "value": 10800,
+     "label": "SI on ₹48,000 at 9% for 2½ years"
+    },
+    {
+     "expr": "48000+48000*9/100*2.5",
+     "value": 58800,
+     "label": "amount"
+    },
+    {
+     "expr": "(3-1)/16*100",
+     "value": 12.5,
+     "label": "rate % for a sum to triple in 16 years (SI)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Compound interest with different conversion periods",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Find the amount and compound interest on ₹80,000 for 2 years at 12% p.a. when interest is compounded annually, half-yearly, quarterly and monthly.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Use A = P(1 + i)ⁿ with i = 12%/m and n = 2m."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Compounding",
+      "Rate per period × periods",
+      "Amount (₹)",
+      "Compound interest (₹)"
+     ],
+     "rows": [
+      [
+       "Annually",
+       "12% × 2",
+       100352,
+       20352
+      ],
+      [
+       "Half-yearly",
+       "6% × 4",
+       100998.16,
+       20998.16
+      ],
+      [
+       "Quarterly",
+       "3% × 8",
+       101341.61,
+       21341.61
+      ],
+      [
+       "Monthly",
+       "1% × 24",
+       101578.77,
+       21578.77
+      ]
+     ]
+    },
+    {
+     "t": "note",
+     "text": "The more frequent the compounding, the larger the amount — but the gain shrinks each time the frequency rises."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(80000*(1+0.12/1)**2,2)",
+     "value": 100352,
+     "label": "amount, compounded annually"
+    },
+    {
+     "expr": "round(80000*(1+0.12/1)**2,2)-80000",
+     "value": 20352,
+     "label": "CI, compounded annually"
+    },
+    {
+     "expr": "round(80000*(1+0.12/2)**4,2)",
+     "value": 100998.16,
+     "label": "amount, compounded half-yearly"
+    },
+    {
+     "expr": "round(80000*(1+0.12/2)**4,2)-80000",
+     "value": 20998.16,
+     "label": "CI, compounded half-yearly"
+    },
+    {
+     "expr": "round(80000*(1+0.12/4)**8,2)",
+     "value": 101341.61,
+     "label": "amount, compounded quarterly"
+    },
+    {
+     "expr": "round(80000*(1+0.12/4)**8,2)-80000",
+     "value": 21341.61,
+     "label": "CI, compounded quarterly"
+    },
+    {
+     "expr": "round(80000*(1+0.12/12)**24,2)",
+     "value": 101578.77,
+     "label": "amount, compounded monthly"
+    },
+    {
+     "expr": "round(80000*(1+0.12/12)**24,2)-80000",
+     "value": 21578.77,
+     "label": "CI, compounded monthly"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "CI − SI shortcut and reducing-balance depreciation",
+   "difficulty": "core",
+   "minutes": 4,
+   "q": "(a) Find the difference between CI and SI on ₹2,50,000 for 2 years at 8% p.a. (b) A machine costing ₹5,00,000 depreciates at 15% p.a. on the reducing balance. Find its value after 3 years.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) CI = 2,50,000(1.08² − 1) = ₹41,600; SI = 2,50,000 × 0.08 × 2 = ₹40,000. Difference = ₹1,600. Shortcut: P r² = 2,50,000 × 0.0064 = ₹1,600."
+    },
+    {
+     "t": "p",
+     "text": "(b) V = 5,00,000 × (1 − 0.15)³ = 5,00,000 × 0.614125 = ₹3,07,062.50."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "250000*(1.08**2-1)-250000*0.08*2",
+     "value": 1600,
+     "label": "CI − SI for 2 years"
+    },
+    {
+     "expr": "250000*0.08**2",
+     "value": 1600,
+     "label": "shortcut P × r²"
+    },
+    {
+     "expr": "500000*(1-0.15)**3",
+     "value": 307062.5,
+     "label": "WDV after 3 years at 15% reducing balance"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Effective rate and real rate",
+   "difficulty": "moderate",
+   "minutes": 4,
+   "q": "(a) Which is better for a depositor: 10% p.a. compounded quarterly or 10.2% p.a. compounded half-yearly? (b) A deposit yields 9% while inflation is 5.5%. What is the real rate of return?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) E₁ = (1 + 0.025)⁴ − 1 = 10.3813%. E₂ = (1 + 0.051)² − 1 = 10.4601%."
+    },
+    {
+     "t": "p",
+     "text": "The 10.2% half-yearly option has the higher effective rate, so it is better for the depositor, even though it compounds less often."
+    },
+    {
+     "t": "p",
+     "text": "(b) Real rate = 9% − 5.5% = 3.5% (the relation used in the study material)."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "((1+0.10/4)**4-1)*100",
+     "value": 10.38,
+     "label": "effective rate, 10% compounded quarterly"
+    },
+    {
+     "expr": "((1+0.102/2)**2-1)*100",
+     "value": 10.46,
+     "label": "effective rate, 10.2% compounded half-yearly"
+    },
+    {
+     "expr": "9-5.5",
+     "value": 3.5,
+     "label": "real rate = nominal − inflation"
+    }
+   ]
+  },
+  {
+   "id": "i5",
+   "title": "Future value of an annuity regular and an annuity due",
+   "difficulty": "core",
+   "minutes": 4,
+   "q": "Kavita deposits ₹20,000 a year for 5 years in a scheme paying 8% p.a. compounded annually. Find the amount at the end of 5 years if the deposits are made (a) at the end of each year; (b) at the beginning of each year.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "A(5, 0.08) = (1.08⁵ − 1)/0.08 = 5.8666."
+    },
+    {
+     "t": "p",
+     "text": "(a) Annuity regular: FV = 20,000 × 5.8666 = ₹1,17,332.02."
+    },
+    {
+     "t": "p",
+     "text": "(b) Annuity due: FV = ₹1,17,332.02 × 1.08 = ₹1,26,718.58."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(((1+0.08)**5-1)/0.08)",
+     "value": 5.87,
+     "label": "A(5, 0.08)"
+    },
+    {
+     "expr": "round(20000*(((1+0.08)**5-1)/0.08),2)",
+     "value": 117332.02,
+     "label": "FV of annuity regular"
+    },
+    {
+     "expr": "round(20000*(((1+0.08)**5-1)/0.08)*1.08,2)",
+     "value": 126718.58,
+     "label": "FV of annuity due"
+    }
+   ]
+  },
+  {
+   "id": "i6",
+   "title": "Sinking fund",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "A company must repay ₹10,00,000 of debentures after 6 years. How much should it invest at the end of each year at 9% p.a. compounded annually?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "A(6, 0.09) = (1.09⁶ − 1)/0.09 = 7.52333."
+    },
+    {
+     "t": "p",
+     "text": "Annual deposit = 10,00,000 ÷ 7.52333 = ₹1,32,919.78."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(((1+0.09)**6-1)/0.09)",
+     "value": 7.52,
+     "label": "A(6, 0.09)"
+    },
+    {
+     "expr": "round(1000000/(((1+0.09)**6-1)/0.09),2)",
+     "value": 132919.78,
+     "label": "annual sinking-fund deposit"
+    }
+   ]
+  },
+  {
+   "id": "i7",
+   "title": "EMI and amortisation schedule",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "A car loan of ₹6,00,000 at 12% p.a. is to be repaid in 36 equal monthly instalments starting one month from now. Find the EMI and prepare the first two lines of the amortisation schedule.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Monthly rate i = 1%, n = 36. P(36, 0.01) = [1 − (1.01)⁻³⁶]/0.01 = 30.10751."
+    },
+    {
+     "t": "p",
+     "text": "EMI = 6,00,000 ÷ 30.10751 = ₹19,928.59."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Month",
+      "Opening balance (₹)",
+      "EMI (₹)",
+      "Interest @1% (₹)",
+      "Principal (₹)",
+      "Closing balance (₹)"
+     ],
+     "rows": [
+      [
+       "1",
+       600000,
+       19928.59,
+       6000,
+       13928.59,
+       586071.41
+      ],
+      [
+       "2",
+       586071.41,
+       19928.59,
+       5860.71,
+       14067.88,
+       572003.53
+      ]
+     ],
+     "title": "First two lines of the amortisation schedule"
+    },
+    {
+     "t": "note",
+     "text": "Interest is always charged on the opening balance of the month; the principal part grows each month."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "((1-(1+0.01)**(-36))/0.01)",
+     "value": 30.11,
+     "label": "P(36, 0.01)"
+    },
+    {
+     "expr": "round(600000/((1-(1+0.01)**(-36))/0.01),2)",
+     "value": 19928.59,
+     "label": "monthly EMI"
+    },
+    {
+     "expr": "600000*0.01",
+     "value": 6000,
+     "label": "interest in month 1"
+    },
+    {
+     "expr": "round(600000/((1-(1+0.01)**(-36))/0.01),2)-6000",
+     "value": 13928.59,
+     "label": "principal repaid in month 1"
+    },
+    {
+     "expr": "600000-(round(600000/((1-(1+0.01)**(-36))/0.01),2)-6000)",
+     "value": 586071.41,
+     "label": "balance after month 1"
+    },
+    {
+     "expr": "round((600000-(round(600000/((1-(1+0.01)**(-36))/0.01),2)-6000))*0.01,2)",
+     "value": 5860.71,
+     "label": "interest in month 2"
+    },
+    {
+     "expr": "round(600000/((1-(1+0.01)**(-36))/0.01),2)-round((600000-(round(600000/((1-(1+0.01)**(-36))/0.01),2)-6000))*0.01,2)",
+     "value": 14067.88,
+     "label": "principal repaid in month 2"
+    }
+   ]
+  },
+  {
+   "id": "i8",
+   "title": "Present value of an annuity due",
+   "difficulty": "moderate",
+   "minutes": 4,
+   "q": "Office rent of ₹1,20,000 is payable at the beginning of each year for 4 years. Find its present value at 10% p.a.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Annuity due for 4 years = first payment today + annuity regular for 3 years. P(3, 0.10) = 2.48685."
+    },
+    {
+     "t": "p",
+     "text": "PV = 1,20,000 × (1 + 2.48685) = ₹4,18,422.24."
+    },
+    {
+     "t": "note",
+     "text": "Cross-check: 1,20,000 × P(4, 0.10) × 1.10 gives the same answer."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "((1-(1+0.1)**(-3))/0.1)",
+     "value": 2.49,
+     "label": "P(3, 0.10)"
+    },
+    {
+     "expr": "round(120000*(1+((1-(1+0.1)**(-3))/0.1)),2)",
+     "value": 418422.24,
+     "label": "PV of annuity due"
+    },
+    {
+     "expr": "round(120000*((1-(1+0.1)**(-4))/0.1)*1.10,2)",
+     "value": 418422.24,
+     "label": "cross-check: PV regular × (1 + i)"
+    }
+   ]
+  },
+  {
+   "id": "i9",
+   "title": "Leasing and a capital-expenditure decision",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "(a) Sunrise Leasing buys equipment for ₹5,00,000 and leases it for 5 years at ₹1,40,000 a year, payable at the end of each year. Its money earns 12% p.a. Is the lease favourable to Sunrise? (b) A machine costing ₹2,00,000 will contribute ₹55,000 at the end of each year for 5 years. Borrowing costs 11% p.a. Should it be bought?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) PV of rentals = 1,40,000 × P(5, 0.12) = 1,40,000 × 3.60478 = ₹5,04,668.67. This exceeds the cost of ₹5,00,000, so the lease is favourable to the lessor (only just)."
+    },
+    {
+     "t": "p",
+     "text": "(b) PV of contributions = 55,000 × P(5, 0.11) = 55,000 × 3.6959 = ₹2,03,274.34. This exceeds ₹2,00,000, so the machine should be bought."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "((1-(1+0.12)**(-5))/0.12)",
+     "value": 3.6,
+     "label": "P(5, 0.12)"
+    },
+    {
+     "expr": "round(140000*((1-(1+0.12)**(-5))/0.12),2)",
+     "value": 504668.67,
+     "label": "PV of lease rentals"
+    },
+    {
+     "expr": "((1-(1+0.11)**(-5))/0.11)",
+     "value": 3.7,
+     "label": "P(5, 0.11)"
+    },
+    {
+     "expr": "round(55000*((1-(1+0.11)**(-5))/0.11),2)",
+     "value": 203274.34,
+     "label": "PV of machine contributions"
+    }
+   ]
+  },
+  {
+   "id": "i10",
+   "title": "Valuing a bond",
+   "difficulty": "moderate",
+   "minutes": 5,
+   "q": "A ₹1,000 bond pays a 9% coupon at the end of each year and is redeemed at par after 4 years. What price should an investor pay if she requires a yield of 11%?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "PV of coupons = 90 × P(4, 0.11) = 90 × 3.10245 = ₹279.22."
+    },
+    {
+     "t": "p",
+     "text": "PV of redemption = 1,000 × (1.11)⁻⁴ = ₹658.73."
+    },
+    {
+     "t": "p",
+     "text": "Value = ₹279.22 + ₹658.73 = ₹937.95 — below par, because the required yield (11%) is above the coupon rate (9%)."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "((1-(1+0.11)**(-4))/0.11)",
+     "value": 3.1,
+     "label": "P(4, 0.11)"
+    },
+    {
+     "expr": "round(90*((1-(1+0.11)**(-4))/0.11),2)",
+     "value": 279.22,
+     "label": "PV of coupons"
+    },
+    {
+     "expr": "round(1000*1.11**(-4),2)",
+     "value": 658.73,
+     "label": "PV of redemption"
+    },
+    {
+     "expr": "round(90*((1-(1+0.11)**(-4))/0.11),2)+round(1000*1.11**(-4),2)",
+     "value": 937.95,
+     "label": "bond value"
+    }
+   ]
+  },
+  {
+   "id": "i11",
+   "title": "Perpetuities",
+   "difficulty": "core",
+   "minutes": 4,
+   "q": "At 8% p.a., value (a) ₹60,000 a year for ever, first payment after one year; (b) the same with the first payment today. (c) At 12%, value ₹40,000 next year growing at 5% a year for ever.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) PV = 60,000/0.08 = ₹7,50,000."
+    },
+    {
+     "t": "p",
+     "text": "(b) Perpetuity due = 7,50,000 + 60,000 = ₹8,10,000."
+    },
+    {
+     "t": "p",
+     "text": "(c) Growing perpetuity = 40,000/(0.12 − 0.05) = ₹5,71,428.57."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "60000/0.08",
+     "value": 750000,
+     "label": "level perpetuity"
+    },
+    {
+     "expr": "60000/0.08+60000",
+     "value": 810000,
+     "label": "perpetuity due"
+    },
+    {
+     "expr": "round(40000/(0.12-0.05),2)",
+     "value": 571428.57,
+     "label": "growing perpetuity"
+    }
+   ]
+  },
+  {
+   "id": "i12",
+   "title": "Net present value of a project",
+   "difficulty": "moderate",
+   "minutes": 5,
+   "q": "A project costs ₹3,00,000 now and will return ₹1,20,000, ₹1,50,000 and ₹1,00,000 at the end of years 1, 2 and 3. The cost of capital is 12% (PV factors 0.893, 0.797, 0.712). Find the NPV and advise.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Cash flow (₹)",
+      "PV factor @12%",
+      "Present value (₹)"
+     ],
+     "rows": [
+      [
+       "0",
+       "(3,00,000)",
+       "1.000",
+       -300000
+      ],
+      [
+       "1",
+       "1,20,000",
+       "0.893",
+       107160
+      ],
+      [
+       "2",
+       "1,50,000",
+       "0.797",
+       119550
+      ],
+      [
+       "3",
+       "1,00,000",
+       "0.712",
+       71200
+      ],
+      [
+       "Net present value",
+       "",
+       "",
+       -2090
+      ]
+     ],
+     "num": [
+      3
+     ],
+     "total": true
+    },
+    {
+     "t": "p",
+     "text": "NPV = −₹2,090, which is negative: the project earns less than 12%, so it should be rejected — even though the undiscounted inflows (₹3,70,000) exceed the cost."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "120000*0.893",
+     "value": 107160,
+     "label": "PV year 1"
+    },
+    {
+     "expr": "150000*0.797",
+     "value": 119550,
+     "label": "PV year 2"
+    },
+    {
+     "expr": "100000*0.712",
+     "value": 71200,
+     "label": "PV year 3"
+    },
+    {
+     "expr": "120000*0.893+150000*0.797+100000*0.712-300000",
+     "value": -2090,
+     "label": "NPV"
+    }
+   ]
+  },
+  {
+   "id": "i13",
+   "title": "CAGR of revenue",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "A company’s revenue grew from ₹40 crore in 2022 to ₹58.564 crore in 2026. Find the CAGR.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "n = 2026 − 2022 = 4 years. CAGR = (58.564/40)^(1/4) − 1 = (1.4641)^(1/4) − 1."
+    },
+    {
+     "t": "p",
+     "text": "1.4641 = 1.1⁴, so CAGR = 1.1 − 1 = 10% a year."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "((58.564/40)**(1/4)-1)*100",
+     "value": 10,
+     "label": "CAGR %"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Comparing two loan offers",
+   "role": "CA advising a small manufacturer",
+   "situation": "Bank A offers a term loan at 10.5% p.a. with monthly rests; Bank B offers 10.7% p.a. with half-yearly rests. The client assumes Bank A is cheaper because its quoted rate is lower.",
+   "steps": [
+    "Effective rate A = (1 + 0.105/12)¹² − 1 = 11.02%.",
+    "Effective rate B = (1 + 0.107/2)² − 1 = 10.99%.",
+    "Bank B is actually slightly cheaper: Bank A’s lower quoted rate is more than offset by monthly compounding.",
+    "Also compare processing fees and prepayment charges before recommending."
+   ],
+   "takeaway": "Always compare loans on effective, not nominal, rates — the lower quoted rate is not always the cheaper loan.",
+   "think": "Why does monthly compounding raise the effective cost of Bank A’s loan?",
+   "answer": "Interest is added to the balance every month, so interest is charged on interest twelve times a year.",
+   "checks": [
+    {
+     "expr": "((1+0.105/12)**12-1)*100",
+     "value": 11.02,
+     "label": "Bank A effective rate (10.5% monthly)"
+    },
+    {
+     "expr": "((1+0.107/2)**2-1)*100",
+     "value": 10.99,
+     "label": "Bank B effective rate (10.7% half-yearly)"
+    }
+   ]
+  },
+  {
+   "id": "j2",
+   "title": "Lease or buy office equipment",
+   "role": "Finance manager in a services company",
+   "situation": "A server room upgrade costs ₹40,00,000 to buy, or can be leased for ₹12,50,000 a year for 4 years, payable at year-end. The company can borrow at 10%.",
+   "steps": [
+    "Treat the rentals as an annuity regular: PV = 12,50,000 × P(4, 0.10).",
+    "PV of rentals = ₹39,62,331.81.",
+    "Compare with the purchase price ₹40,00,000: leasing is cheaper in present-value terms.",
+    "Note qualitative factors — technology obsolescence favours leasing."
+   ],
+   "takeaway": "For the lessee, lease if the PV of rentals is below the purchase price.",
+   "think": "What if rentals were payable at the start of each year?",
+   "answer": "Then they form an annuity due: PV = ₹39,62,331.81 × 1.10 = ₹43,58,564.99, which is more than ₹40,00,000 — buying becomes cheaper.",
+   "checks": [
+    {
+     "expr": "round(1250000*((1-(1+0.1)**(-4))/0.1),2)",
+     "value": 3962331.81,
+     "label": "PV of lease rentals at 10%"
+    }
+   ]
+  },
+  {
+   "id": "j3",
+   "title": "NPV for a capex proposal",
+   "role": "Articled assistant helping in a project report",
+   "situation": "A client plans a ₹10,00,000 packaging line expected to save ₹2,60,000 a year for 6 years. Its cost of capital is 13%.",
+   "steps": [
+    "Equal annual savings form an annuity regular: PV = 2,60,000 × P(6, 0.13).",
+    "PV of savings = ₹10,39,362.95.",
+    "NPV = ₹39,362.95 → positive, so the proposal is acceptable.",
+    "State assumptions (no scrap value, savings at year-end) in the report."
+   ],
+   "takeaway": "With equal yearly inflows, NPV is just one annuity factor minus the outlay.",
+   "think": "If the cost of capital rose to 16%, would the answer flip?",
+   "answer": "P(6, 0.16) ≈ 3.6847, so PV ≈ ₹9,58,000 — below the outlay; NPV turns negative and the proposal would be rejected.",
+   "checks": [
+    {
+     "expr": "round(260000*((1-(1+0.13)**(-6))/0.13),2)",
+     "value": 1039362.95,
+     "label": "PV of inflows at 13%"
+    },
+    {
+     "expr": "round(260000*((1-(1+0.13)**(-6))/0.13),2)-1000000",
+     "value": 39362.95,
+     "label": "NPV"
+    }
+   ]
+  },
+  {
+   "id": "j4",
+   "title": "Funding a debenture redemption",
+   "role": "Company accountant",
+   "situation": "₹50,00,000 of debentures fall due in 5 years. The board wants equal year-end investments in a fund earning 7%.",
+   "steps": [
+    "Target = ₹50,00,000; n = 5; i = 0.07.",
+    "Annual investment = 50,00,000 ÷ A(5, 0.07) = ₹8,69,453.47.",
+    "Set up a standing instruction and track the fund balance each year against the schedule."
+   ],
+   "takeaway": "A sinking-fund deposit is a target divided by A(n, i) — not by P(n, i).",
+   "think": "Why would using P(n, i) be wrong here?",
+   "answer": "P(n, i) values a stream today (used for loans); here we are building up a future sum, so the future-value factor A(n, i) is needed.",
+   "checks": [
+    {
+     "expr": "round(5000000/(((1+0.07)**5-1)/0.07),2)",
+     "value": 869453.47,
+     "label": "annual DRR investment"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Simple interest on ₹15,000 at 8% p.a. for 3 years is:",
+   "options": [
+    "₹3,600",
+    "₹3,895.68",
+    "₹1,200",
+    "₹18,600"
+   ],
+   "answer": 0,
+   "explain": "15,000 × 8% × 3 = ₹3,600. ₹3,895.68 is compound interest; ₹18,600 is the amount.",
+   "concept": "c2",
+   "difficulty": "core",
+   "check": "15000*0.08*3"
+  },
+  {
+   "id": "m2",
+   "q": "At what rate of simple interest does a sum double in 8 years?",
+   "options": [
+    "12.5%",
+    "8%",
+    "9.05%",
+    "25%"
+   ],
+   "answer": 0,
+   "explain": "Interest = principal → 1 = 8r → r = 12.5%. 9.05% is the compound-interest answer.",
+   "concept": "c2",
+   "difficulty": "core",
+   "check": "100/8"
+  },
+  {
+   "id": "m3",
+   "q": "A sum doubles in 6 years at simple interest. In how many years will it become three times?",
+   "options": [
+    "12 years",
+    "9 years",
+    "18 years",
+    "10 years"
+   ],
+   "answer": 0,
+   "explain": "Doubling means interest = P in 6 years. Tripling needs interest = 2P → 12 years.",
+   "concept": "c2",
+   "difficulty": "moderate",
+   "check": "6*2"
+  },
+  {
+   "id": "m4",
+   "q": "Compound interest on ₹10,000 at 10% p.a. for 2 years (annual compounding) is:",
+   "options": [
+    "₹2,100",
+    "₹2,000",
+    "₹12,100",
+    "₹2,050"
+   ],
+   "answer": 0,
+   "explain": "10,000(1.1² − 1) = ₹2,100.",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "10000*(1.1**2-1)"
+  },
+  {
+   "id": "m5",
+   "q": "The amount of ₹50,000 after 1 year at 8% p.a. compounded half-yearly is:",
+   "options": [
+    "₹54,080",
+    "₹54,000",
+    "₹58,320",
+    "₹54,121.61"
+   ],
+   "answer": 0,
+   "explain": "50,000 × (1.04)² = ₹54,080. ₹54,121.61 uses quarterly compounding.",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "50000*1.04**2"
+  },
+  {
+   "id": "m6",
+   "q": "The difference between CI and SI on ₹40,000 for 2 years at 5% p.a. is:",
+   "options": [
+    "₹100",
+    "₹200",
+    "₹4,100",
+    "₹50"
+   ],
+   "answer": 0,
+   "explain": "For 2 years, CI − SI = P r² = 40,000 × 0.05² = ₹100.",
+   "concept": "c3",
+   "difficulty": "moderate",
+   "check": "40000*0.05**2"
+  },
+  {
+   "id": "m7",
+   "q": "The effective rate corresponding to a nominal 12% p.a. compounded monthly is:",
+   "options": [
+    "12.68%",
+    "12%",
+    "12.36%",
+    "12.55%"
+   ],
+   "answer": 0,
+   "explain": "(1.01)¹² − 1 = 0.1268.",
+   "concept": "c4",
+   "difficulty": "moderate",
+   "check": "round((1.01**12-1)*100,2)"
+  },
+  {
+   "id": "m8",
+   "q": "The effective rate corresponding to a nominal 8% p.a. compounded quarterly is:",
+   "options": [
+    "8.24%",
+    "8.16%",
+    "8%",
+    "8.32%"
+   ],
+   "answer": 0,
+   "explain": "(1.02)⁴ − 1 = 0.0824. 8.16% is the half-yearly figure.",
+   "concept": "c4",
+   "difficulty": "moderate",
+   "check": "round((1.02**4-1)*100,2)"
+  },
+  {
+   "id": "m9",
+   "q": "A machine costing ₹1,00,000 depreciates at 10% p.a. on the reducing balance. Its value after 2 years is:",
+   "options": [
+    "₹81,000",
+    "₹80,000",
+    "₹90,000",
+    "₹1,21,000"
+   ],
+   "answer": 0,
+   "explain": "1,00,000 × (0.9)² = ₹81,000. ₹80,000 is straight-line.",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "100000*0.9**2"
+  },
+  {
+   "id": "m10",
+   "q": "A town of 2,00,000 people grows at 2% a year. Its population after 3 years (nearest whole number) is:",
+   "options": [
+    "2,12,242",
+    "2,12,000",
+    "2,08,080",
+    "2,16,486"
+   ],
+   "answer": 0,
+   "explain": "2,00,000 × 1.02³ = 2,12,241.6 → 2,12,242.",
+   "concept": "c3",
+   "difficulty": "moderate",
+   "check": "round(200000*1.02**3)"
+  },
+  {
+   "id": "m11",
+   "q": "The annual rate (compounded annually) at which money doubles in 5 years is about:",
+   "options": [
+    "14.87%",
+    "20%",
+    "15.87%",
+    "12.25%"
+   ],
+   "answer": 0,
+   "explain": "(1 + i)⁵ = 2 → i = 2^(1/5) − 1 = 0.1487. 20% is the simple-interest answer.",
+   "concept": "c3",
+   "difficulty": "hard",
+   "check": "round((2**(1/5)-1)*100,2)"
+  },
+  {
+   "id": "m12",
+   "q": "The future value of an annuity due equals the future value of the corresponding annuity regular:",
+   "options": [
+    "Multiplied by (1 + i)",
+    "Divided by (1 + i)",
+    "Plus one payment",
+    "Minus one payment"
+   ],
+   "answer": 0,
+   "explain": "Every payment of an annuity due earns interest for one extra period.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m13",
+   "q": "The future value of ₹5,000 paid at the end of each year for 3 years at 10% p.a. is:",
+   "options": [
+    "₹16,550",
+    "₹15,000",
+    "₹18,205",
+    "₹16,500"
+   ],
+   "answer": 0,
+   "explain": "5,000 × A(3, 0.10) = 5,000 × 3.31 = ₹16,550.",
+   "concept": "c5",
+   "difficulty": "core",
+   "check": "5000*(((1+0.1)**3-1)/0.1)"
+  },
+  {
+   "id": "m14",
+   "q": "If the ₹5,000 in the previous question were paid at the beginning of each year, the future value would be:",
+   "options": [
+    "₹18,205",
+    "₹16,550",
+    "₹16,640",
+    "₹15,045"
+   ],
+   "answer": 0,
+   "explain": "Annuity due = 16,550 × 1.10 = ₹18,205.",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "5000*(((1+0.1)**3-1)/0.1)*1.1"
+  },
+  {
+   "id": "m15",
+   "q": "The present value of ₹10,000 received at the end of each year for 3 years at 10% is:",
+   "options": [
+    "₹24,868.52",
+    "₹27,355.37",
+    "₹30,000",
+    "₹33,100"
+   ],
+   "answer": 0,
+   "explain": "10,000 × P(3, 0.10) = 10,000 × 2.48685 = ₹24,868.52. ₹27,355.37 is the annuity-due value.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "round(10000*((1-(1+0.1)**(-3))/0.1),2)"
+  },
+  {
+   "id": "m16",
+   "q": "The present value of ₹10,000 received at the beginning of each year for 3 years at 10% is:",
+   "options": [
+    "₹27,355.37",
+    "₹24,868.52",
+    "₹22,607.75",
+    "₹30,000"
+   ],
+   "answer": 0,
+   "explain": "10,000 × [1 + P(2, 0.10)] = 10,000 × 2.73554 = ₹27,355.37.",
+   "concept": "c6",
+   "difficulty": "moderate",
+   "check": "round(10000*(1+((1-(1+0.1)**(-2))/0.1)),2)"
+  },
+  {
+   "id": "m17",
+   "q": "How much must be invested at the end of each year at 10% p.a. to accumulate ₹1,00,000 in 4 years?",
+   "options": [
+    "₹21,547.08",
+    "₹25,000",
+    "₹31,547.08",
+    "₹19,588.25"
+   ],
+   "answer": 0,
+   "explain": "Sinking-fund deposit = 1,00,000 ÷ A(4, 0.10) = 1,00,000 ÷ 4.641 = ₹21,547.08. ₹31,547.08 is the loan instalment (uses P(4, 0.10)).",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "round(100000/(((1+0.1)**4-1)/0.1),2)"
+  },
+  {
+   "id": "m18",
+   "q": "The present value of a perpetuity of ₹12,000 a year at 8% is:",
+   "options": [
+    "₹1,50,000",
+    "₹96,000",
+    "₹1,62,000",
+    "₹1,20,000"
+   ],
+   "answer": 0,
+   "explain": "PV = R/i = 12,000/0.08 = ₹1,50,000.",
+   "concept": "c8",
+   "difficulty": "core",
+   "check": "12000/0.08"
+  },
+  {
+   "id": "m19",
+   "q": "A cash flow of ₹5,000 next year grows at 4% a year forever. At a 9% discount rate its present value is:",
+   "options": [
+    "₹1,00,000",
+    "₹55,556",
+    "₹38,462",
+    "₹1,25,000"
+   ],
+   "answer": 0,
+   "explain": "Growing perpetuity = R/(i − g) = 5,000/0.05 = ₹1,00,000.",
+   "concept": "c8",
+   "difficulty": "moderate",
+   "check": "5000/(0.09-0.04)"
+  },
+  {
+   "id": "m20",
+   "q": "The present value of ₹1 receivable after n years at rate i (compounded annually) is:",
+   "options": [
+    "(1 + i)⁻ⁿ",
+    "(1 + i)ⁿ",
+    "1 + ni",
+    "1/(1 + ni)"
+   ],
+   "answer": 0,
+   "explain": "Discounting is the reverse of compounding.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m21",
+   "q": "Under the NPV technique, a project should be accepted when:",
+   "options": [
+    "NPV is greater than zero",
+    "NPV is less than zero",
+    "PV of inflows is less than PV of outflows",
+    "The payback period is longest"
+   ],
+   "answer": 0,
+   "explain": "Positive NPV means the project earns more than the cost of capital.",
+   "concept": "c9",
+   "difficulty": "core"
+  },
+  {
+   "id": "m22",
+   "q": "If the nominal rate of return is 10% and inflation is 6%, the real rate of return (as used in the study material) is:",
+   "options": [
+    "4%",
+    "16%",
+    "1.67%",
+    "6%"
+   ],
+   "answer": 0,
+   "explain": "Real rate = nominal − inflation = 10 − 6 = 4%.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "Revenue rises from ₹100 crore to ₹144 crore in 2 years. The CAGR is:",
+   "options": [
+    "20%",
+    "22%",
+    "44%",
+    "12%"
+   ],
+   "answer": 0,
+   "explain": "(144/100)^(1/2) − 1 = 1.2 − 1 = 20%. 22% is the simple average (44/2).",
+   "concept": "c10",
+   "difficulty": "moderate",
+   "check": "((144/100)**0.5-1)*100"
+  },
+  {
+   "id": "m24",
+   "q": "A zero-coupon bond pays ₹1,000 after 2 years. If the required yield is 10%, its price today is:",
+   "options": [
+    "₹826.45",
+    "₹800",
+    "₹909.09",
+    "₹1,210"
+   ],
+   "answer": 0,
+   "explain": "1,000 × (1.1)⁻² = ₹826.45. ₹800 uses simple discounting.",
+   "concept": "c7",
+   "difficulty": "moderate",
+   "check": "round(1000*1.1**(-2),2)"
+  },
+  {
+   "id": "m25",
+   "q": "A lessor finds that the present value of lease rentals exceeds the cost of the asset. The lease is:",
+   "options": [
+    "Favourable to the lessor",
+    "Unfavourable to the lessor",
+    "Favourable to the lessee",
+    "Neither — PV is irrelevant"
+   ],
+   "answer": 0,
+   "explain": "The lessor recovers more than the asset cost in present-value terms.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m26",
+   "q": "Which of the following is NOT a reason why lenders charge interest?",
+   "options": [
+    "The going-concern assumption",
+    "Time value of money",
+    "Liquidity preference",
+    "Risk of default"
+   ],
+   "answer": 0,
+   "explain": "Time value, opportunity cost, inflation, liquidity preference and risk explain interest; going concern is an accounting assumption.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m27",
+   "q": "For a nominal rate of 12% p.a. compounded quarterly over 3 years, the rate per period and the number of periods are:",
+   "options": [
+    "3% and 12",
+    "4% and 9",
+    "12% and 3",
+    "3% and 4"
+   ],
+   "answer": 0,
+   "explain": "i = 12%/4 = 3% per quarter; n = 3 × 4 = 12 quarters.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m28",
+   "q": "A loan of ₹1,00,000 at 10% p.a. is repaid in 2 equal annual instalments (end of year). Each instalment is:",
+   "options": [
+    "₹57,619.05",
+    "₹55,000",
+    "₹60,500",
+    "₹47,619.05"
+   ],
+   "answer": 0,
+   "explain": "Instalment = 1,00,000 ÷ P(2, 0.10) = 1,00,000 ÷ 1.73554 = ₹57,619.05.",
+   "concept": "c6",
+   "difficulty": "moderate",
+   "check": "round(100000/((1-(1+0.1)**(-2))/0.1),2)"
+  },
+  {
+   "id": "m29",
+   "q": "Given log 2 = 0.3010 and log 1.08 = 0.0334, the time for money to double at 8% p.a. compound interest is about:",
+   "options": [
+    "9.01 years",
+    "12.5 years",
+    "8 years",
+    "10.8 years"
+   ],
+   "answer": 0,
+   "explain": "n = log 2 / log 1.08 = 0.3010/0.0334 = 9.01 years. 12.5 years is the simple-interest answer.",
+   "concept": "c3",
+   "difficulty": "hard",
+   "check": "round(0.3010/0.0334,2)"
+  },
+  {
+   "id": "m30",
+   "q": "₹20,000 grows to ₹23,328 in 2 years with annual compounding. The rate of interest is:",
+   "options": [
+    "8%",
+    "8.32%",
+    "16.64%",
+    "7.5%"
+   ],
+   "answer": 0,
+   "explain": "(1 + i)² = 23,328/20,000 = 1.1664 → 1 + i = 1.08. 8.32% is the simple-interest rate.",
+   "concept": "c3",
+   "difficulty": "moderate",
+   "check": "((23328/20000)**0.5-1)*100"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "A loan of ₹3,00,000 at 10% p.a. is to be repaid in 3 equal annual instalments, the first at the end of the first year. Find the instalment and prepare the complete repayment (amortisation) schedule.",
+   "model": [
+    {
+     "t": "p",
+     "text": "P(3, 0.10) = [1 − (1.10)⁻³]/0.10 = 2.48685. Instalment = 3,00,000 ÷ 2.48685 = ₹1,20,634.44."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Opening (₹)",
+      "Instalment (₹)",
+      "Interest @10% (₹)",
+      "Principal (₹)",
+      "Closing (₹)"
+     ],
+     "rows": [
+      [
+       "1",
+       300000,
+       120634.44,
+       30000,
+       90634.44,
+       209365.56
+      ],
+      [
+       "2",
+       209365.56,
+       120634.44,
+       20936.56,
+       99697.88,
+       109667.68
+      ],
+      [
+       "3",
+       109667.68,
+       120634.44,
+       10966.77,
+       109667.67,
+       0.0
+      ]
+     ]
+    },
+    {
+     "t": "note",
+     "text": "The closing balance after year 3 is nil (any paise difference is rounding)."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Recognises annuity regular and uses P(3, 0.10)",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "Instalment ₹1,20,634.44",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Interest each year on opening balance",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Principal = instalment − interest; closing balance nil",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s5",
+     "pt": "Neat schedule with headings",
+     "m": 0.5,
+     "skill": "presentation"
+    }
+   ],
+   "remarks": [
+    "Many candidates compute interest on the original loan every year — interest must be on the opening balance.",
+    "A closing balance of exactly nil is the best self-check."
+   ],
+   "mistakes": [
+    "Dividing by A(3, 0.10) instead of P(3, 0.10).",
+    "Charging interest on the original ₹3,00,000 in years 2 and 3."
+   ],
+   "tips": [
+    "Columns: Year | Opening | Instalment | Interest | Principal | Closing.",
+    "Carry paise through and round only the final figures."
+   ],
+   "checks": [
+    {
+     "expr": "((1-(1+0.1)**(-3))/0.1)",
+     "value": 2.49,
+     "label": "P(3, 0.10)"
+    },
+    {
+     "expr": "round(300000/((1-(1+0.1)**(-3))/0.1),2)",
+     "value": 120634.44,
+     "label": "annual instalment"
+    },
+    {
+     "expr": "300000*0.10",
+     "value": 30000,
+     "label": "interest year 1"
+    },
+    {
+     "expr": "round(300000/((1-(1+0.1)**(-3))/0.1),2)-30000",
+     "value": 90634.44,
+     "label": "principal year 1"
+    },
+    {
+     "expr": "300000-(round(300000/((1-(1+0.1)**(-3))/0.1),2)-30000)",
+     "value": 209365.56,
+     "label": "balance after year 1"
+    },
+    {
+     "expr": "round((300000-(round(300000/((1-(1+0.1)**(-3))/0.1),2)-30000))*0.10,2)",
+     "value": 20936.56,
+     "label": "interest year 2"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "An investment of ₹2,00,000 is expected to generate ₹60,000, ₹70,000, ₹80,000 and ₹50,000 at the end of years 1 to 4. The cost of capital is 10% (PV factors 0.909, 0.826, 0.751, 0.683). Compute the NPV and advise.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Cash flow (₹)",
+      "PV factor @10%",
+      "Present value (₹)"
+     ],
+     "rows": [
+      [
+       "0",
+       "(2,00,000)",
+       "1.000",
+       -200000
+      ],
+      [
+       "1",
+       "60,000",
+       "0.909",
+       54540
+      ],
+      [
+       "2",
+       "70,000",
+       "0.826",
+       57820
+      ],
+      [
+       "3",
+       "80,000",
+       "0.751",
+       60080
+      ],
+      [
+       "4",
+       "50,000",
+       "0.683",
+       34150
+      ],
+      [
+       "NPV",
+       "",
+       "",
+       6590
+      ]
+     ],
+     "num": [
+      3
+     ],
+     "total": true
+    },
+    {
+     "t": "p",
+     "text": "NPV = ₹6,590 > 0, so the investment should be accepted."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Discounts each year’s flow with the right factor",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Totals PV and deducts the outlay correctly",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Decision with reason (NPV > 0)",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "Show the year-0 outflow in brackets in the table — it avoids sign errors in the total."
+   ],
+   "mistakes": [
+    "Applying the year-1 factor to all years.",
+    "Forgetting to deduct the initial investment."
+   ],
+   "tips": [
+    "Four columns: Year | Cash flow | PV factor | Present value."
+   ],
+   "checks": [
+    {
+     "expr": "60000*0.909",
+     "value": 54540,
+     "label": "PV year 1"
+    },
+    {
+     "expr": "70000*0.826",
+     "value": 57820,
+     "label": "PV year 2"
+    },
+    {
+     "expr": "80000*0.751",
+     "value": 60080,
+     "label": "PV year 3"
+    },
+    {
+     "expr": "50000*0.683",
+     "value": 34150,
+     "label": "PV year 4"
+    },
+    {
+     "expr": "60000*0.909+70000*0.826+80000*0.751+50000*0.683-200000",
+     "value": 6590,
+     "label": "NPV"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "hard",
+   "pad": "text",
+   "q": "A ₹1,000 debenture carries an 8% coupon payable annually and will be redeemed at ₹1,050 at the end of 5 years. Find its value to an investor who requires 10% p.a.",
+   "model": [
+    {
+     "t": "p",
+     "text": "Coupon = 8% of face value ₹1,000 = ₹80 a year for 5 years. PV = 80 × P(5, 0.10) = ₹303.26."
+    },
+    {
+     "t": "p",
+     "text": "PV of redemption = 1,050 × (1.10)⁻⁵ = ₹651.97."
+    },
+    {
+     "t": "p",
+     "text": "Value = ₹303.26 + ₹651.97 = ₹955.23."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Coupon on face value (₹80), treated as annuity",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "PV of coupons",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "PV of redemption at ₹1,050",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Adds to the value",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "Coupon is on face value, not on the redemption value — a common slip."
+   ],
+   "mistakes": [
+    "Discounting ₹1,000 instead of the redemption amount ₹1,050.",
+    "Using the coupon rate as the discount rate."
+   ],
+   "tips": [
+    "Split the answer into two PVs and add — each line earns a step mark."
+   ],
+   "checks": [
+    {
+     "expr": "round(80*((1-(1+0.1)**(-5))/0.1),2)",
+     "value": 303.26,
+     "label": "PV of coupons (8% of ₹1,000)"
+    },
+    {
+     "expr": "round(1050*1.10**(-5),2)",
+     "value": 651.97,
+     "label": "PV of redemption at ₹1,050"
+    },
+    {
+     "expr": "round(80*((1-(1+0.1)**(-5))/0.1),2)+round(1050*1.10**(-5),2)",
+     "value": 955.23,
+     "label": "value of the bond"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "SI = Pnr; A = P(1 + nr).",
+   "CI: A = P(1 + i)ⁿ with i = r/m and n = mt; CI − SI (2 years) = Pr².",
+   "Effective rate E = (1 + r/m)ᵐ − 1; real ≈ nominal − inflation.",
+   "A(n, i) = [(1 + i)ⁿ − 1]/i; P(n, i) = [1 − (1 + i)⁻ⁿ]/i. Due = regular × (1 + i).",
+   "Sinking fund deposit = target ÷ A(n, i); loan instalment = loan ÷ P(n, i).",
+   "Perpetuity R/i; due R/i + R; growing R/(i − g).",
+   "NPV = PV inflows − PV outflows; accept if positive. CAGR = (Vₙ/V₀)^(1/n) − 1."
+  ],
+  "remember": [
+   "Lessor: lease favourable if PV of rentals > cost. Lessee: lease if PV of rentals < purchase price.",
+   "Bond value = PV of coupons + PV of redemption.",
+   "Depreciation on reducing balance: P(1 − r)ⁿ."
+  ],
+  "traps": [
+   "Using the annual rate with monthly periods.",
+   "Dividing a sinking-fund target by P(n, i).",
+   "Treating beginning-of-period payments as an annuity regular.",
+   "Averaging yearly growth rates instead of computing CAGR."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Simple interest",
+   "v": "I = Pnr; A = P(1 + nr)"
+  },
+  {
+   "k": "Compound amount",
+   "v": "A = P(1 + r/m)^(mt)"
+  },
+  {
+   "k": "CI − SI (2 years)",
+   "v": "P r²"
+  },
+  {
+   "k": "Effective rate",
+   "v": "E = (1 + r/m)ᵐ − 1"
+  },
+  {
+   "k": "FV annuity regular",
+   "v": "A × [(1 + i)ⁿ − 1]/i"
+  },
+  {
+   "k": "PV annuity regular",
+   "v": "A × [1 − (1 + i)⁻ⁿ]/i"
+  },
+  {
+   "k": "Annuity due",
+   "v": "Regular value × (1 + i)"
+  },
+  {
+   "k": "Perpetuity",
+   "v": "R/i; growing R/(i − g)"
+  },
+  {
+   "k": "NPV",
+   "v": "PV of inflows − PV of outflows"
+  },
+  {
+   "k": "CAGR",
+   "v": "(Vₙ/V₀)^(1/n) − 1"
+  },
+  {
+   "k": "Real rate (study material)",
+   "v": "Nominal − inflation"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Why do lenders charge interest? Give the reasons.",
+   "model": "Lenders charge interest because of the time value of money, since a rupee today is worth more than a rupee in future; opportunity cost, because they give up other uses of the money; inflation, which reduces purchasing power; liquidity preference, because people prefer to keep cash; and risk, because the borrower may default.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Time value of money",
+     "w": 2,
+     "kw": [
+      "time value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Opportunity cost",
+     "w": 2,
+     "kw": [
+      "opportunity cost|alternative use|other use|forgo|forego|give up other"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Inflation (fall in purchasing power)",
+     "w": 2,
+     "kw": [
+      "inflation|purchasing power|price rise|prices rise"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Liquidity preference",
+     "w": 2,
+     "kw": [
+      "liquidity|prefer cash|cash in hand|keep cash"
+     ]
+    },
+    {
+     "id": "p5",
+     "pt": "Risk of default",
+     "w": 2,
+     "kw": [
+      "risk|default|bankrupt|not repay|not pay back"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is the difference between simple interest and compound interest?",
+   "model": "Simple interest is calculated only on the original principal, so it is the same every year. Compound interest is calculated on the principal plus the interest already added, so interest is earned on interest. For more than one period, compound interest is therefore higher than simple interest.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "SI is on the original principal only",
+     "w": 4,
+     "kw": [
+      "simple  only principal|simple  original principal|simple  principal only|simple  same every year|simple  same each year|simple  fixed|simple  only initial|simple  initial principal|simple interest only principal|simple interest original principal|simple interest principal only|simple interest same every year|simple interest same each year|simple interest fixed|simple interest only initial|simple interest initial principal|simple interest calculat only principal|simple interest calculat original principal|simple interest calculat principal only|simple interest calculat same every year|simple interest calculat same each year|simple interest calculat fixed|simple interest calculat only initial|simple interest calculat initial principal|simple interest charg only principal|simple interest charg original principal|simple interest charg principal only|simple interest charg same every year|simple interest charg same each year|simple interest charg fixed|simple interest charg only initial|simple interest charg initial principal|simple interest comput only principal|simple interest comput original principal|simple interest comput principal only|simple interest comput same every year|simple interest comput same each year|simple interest comput fixed|simple interest comput only initial|simple interest comput initial principal|simple interest paid only principal|simple interest paid original principal|simple interest paid principal only|simple interest paid same every year|simple interest paid same each year|simple interest paid fixed|simple interest paid only initial|simple interest paid initial principal|simple calculat only principal|simple calculat original principal|simple calculat principal only|simple calculat same every year|simple calculat same each year|simple calculat fixed|simple calculat only initial|simple calculat initial principal"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "CI is on principal plus accumulated interest (interest on interest)",
+     "w": 4,
+     "kw": [
+      "compound  interest on interest|compound  principal plus interest|compound  principal and interest|compound  accumulated interest|compound  interest added|compound  added interest|compound  previous interest|compound  accumulated amount|compound  principal plus accumulated|compound  amount|compound interest interest on interest|compound interest principal plus interest|compound interest principal and interest|compound interest accumulated interest|compound interest interest added|compound interest added interest|compound interest previous interest|compound interest accumulated amount|compound interest principal plus accumulated|compound interest amount|compound interest calculat interest on interest|compound interest calculat principal plus interest|compound interest calculat principal and interest|compound interest calculat accumulated interest|compound interest calculat interest added|compound interest calculat added interest|compound interest calculat previous interest|compound interest calculat accumulated amount|compound interest calculat principal plus accumulated|compound interest calculat amount|compound interest charg interest on interest|compound interest charg principal plus interest|compound interest charg principal and interest|compound interest charg accumulated interest|compound interest charg interest added|compound interest charg added interest|compound interest charg previous interest|compound interest charg accumulated amount|compound interest charg principal plus accumulated|compound interest charg amount|compound interest comput interest on interest|compound interest comput principal plus interest|compound interest comput principal and interest|compound interest comput accumulated interest|compound interest comput interest added|compound interest comput added interest|compound interest comput previous interest|compound interest comput accumulated amount|compound interest comput principal plus accumulated|compound interest comput amount|compound calculat interest on interest|compound calculat principal plus interest|compound calculat principal and interest|compound calculat accumulated interest|compound calculat interest added|compound calculat added interest|compound calculat previous interest|compound calculat accumulated amount|compound calculat principal plus accumulated|compound calculat amount"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "CI exceeds SI for more than one period",
+     "w": 2,
+     "kw": [
+      "compound  higher|compound  more|compound  greater|compound  larger|compound  exceed|compound  bigger|compound interest higher|compound interest more|compound interest greater|compound interest larger|compound interest exceed|compound interest bigger|compound interest is higher|compound interest is more|compound interest is greater|compound interest is larger|compound interest is exceed|compound interest is bigger|compound is higher|compound is more|compound is greater|compound is larger|compound is exceed|compound is bigger|compound therefore higher|compound therefore more|compound therefore greater|compound therefore larger|compound therefore exceed|compound therefore bigger|compound interest therefore higher|compound interest therefore more|compound interest therefore greater|compound interest therefore larger|compound interest therefore exceed|compound interest therefore bigger|compound interest will be higher|compound interest will be more|compound interest will be greater|compound interest will be larger|compound interest will be exceed|compound interest will be bigger"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Distinguish an annuity regular from an annuity due.",
+   "model": "In an annuity regular each payment is made at the end of the period, so the first payment comes at the end of the first period. In an annuity due each payment is made at the beginning of the period, so the first payment is made immediately. The value of an annuity due equals the value of the annuity regular multiplied by one plus i.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Annuity regular: payments at the end of each period",
+     "w": 4,
+     "kw": [
+      "regular  end|regular payment end|regular payments end|regular payment at the end|regular payments at the end|regular paid at the end|regular made at the end|regular payment is made at the end|regular each payment is made at the end|regular annuity payment at the end|ordinary  end|ordinary payment end|ordinary payments end|ordinary payment at the end|ordinary payments at the end|ordinary paid at the end|ordinary made at the end|ordinary payment is made at the end|ordinary each payment is made at the end|ordinary annuity payment at the end|end of period regular|end of each period regular|end of the period regular|end means regular"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Annuity due: payments at the beginning of each period",
+     "w": 4,
+     "kw": [
+      "due  beginning|due  start|due  starting|due  immediately|due  in advance|due payment beginning|due payment start|due payment starting|due payment immediately|due payment in advance|due payments beginning|due payments start|due payments starting|due payments immediately|due payments in advance|due payment at the beginning|due payment at the start|due payment at the starting|due payment at the immediately|due payment at the in advance|due payments at the beginning|due payments at the start|due payments at the starting|due payments at the immediately|due payments at the in advance|due paid at the beginning|due paid at the start|due paid at the starting|due paid at the immediately|due paid at the in advance|due made at the beginning|due made at the start|due made at the starting|due made at the immediately|due made at the in advance|due payment is made at the beginning|due payment is made at the start|due payment is made at the starting|due payment is made at the immediately|due payment is made at the in advance|due each payment is made at the beginning|due each payment is made at the start|due each payment is made at the starting|due each payment is made at the immediately|due each payment is made at the in advance|due annuity payment at the beginning|due annuity payment at the start|due annuity payment at the starting|due annuity payment at the immediately|due annuity payment at the in advance|beginning of period due|beginning of each period due|beginning of the period due|beginning means due|start of period due|start of each period due|start of the period due|start means due|starting of period due|starting of each period due|starting of the period due|starting means due|immediately of period due|immediately of each period due|immediately of the period due|immediately means due|in advance of period due|in advance of each period due|in advance of the period due|in advance means due"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Due value = regular value × (1 + i)",
+     "w": 2,
+     "kw": [
+      "multipli by 1 plus i|multiplied by one plus i|times 1 plus i|times one plus i|into 1 plus i|1 plus i|one plus i|one extra period|extra period|one more period"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v4",
+   "q": "What is the effective rate of interest and how is it calculated?",
+   "model": "The effective rate is the actual annual rate earned when interest is compounded more than once a year. It equals one plus r by m, raised to the power m, minus one, where r is the nominal annual rate and m is the number of compounding periods in a year. It is higher than the nominal rate whenever compounding is more frequent than yearly, and it does not depend on the principal.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Actual annual rate when compounding is more than once a year",
+     "w": 4,
+     "kw": [
+      "actual|true|real annual|equivalent annual|annual equivalent",
+      "more than once|several times|more frequent|frequent|half yearly|quarterly|monthly|m times"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "E = (1 + r/m)^m − 1",
+     "w": 4,
+     "kw": [
+      "1 plus r by m|one plus r by m|1 plus r over m|one plus r over m|1 plus r m|one plus r m|r by m|r over m",
+      "power m|to the m|raised to m|raise to m|to power m|whole power m",
+      "minus 1|minus one|less one|less 1"
+     ],
+     "min": 3
+    },
+    {
+     "id": "p3",
+     "pt": "Higher than the nominal rate",
+     "w": 2,
+     "kw": [
+      "higher than nominal|more than nominal|greater than nominal|higher than the nominal|more than the nominal|greater than the nominal|exceeds the nominal|exceeds nominal|above the nominal|above nominal"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Explain the net present value technique and its decision rule.",
+   "model": "Net present value discounts all the cash flows of a project to their value today, using the cost of capital or required rate of return as the discount rate. NPV equals the present value of cash inflows minus the present value of cash outflows. If NPV is positive the project is accepted; if NPV is negative it is rejected.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Discount all cash flows to present value at the cost of capital",
+     "w": 3,
+     "kw": [
+      "discount|present value|today",
+      "cost of capital|required rate|desired rate|wacc|discount rate|hurdle rate|rate of return"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "NPV = PV of inflows − PV of outflows",
+     "w": 3,
+     "kw": [
+      "inflow",
+      "outflow",
+      "minus|less|subtract|deduct|difference"
+     ],
+     "min": 3
+    },
+    {
+     "id": "p3",
+     "pt": "Positive NPV → accept",
+     "w": 2,
+     "kw": [
+      "positive  accept|positive then accept|positive project accept|positive then project accept|positive then the project accept|positive project is accept|positive we accept|positive then we accept|positive is accept|greater than zero  accept|greater than zero then accept|greater than zero project accept|greater than zero then project accept|greater than zero then the project accept|greater than zero project is accept|greater than zero we accept|greater than zero then we accept|greater than zero is accept|more than zero  accept|more than zero then accept|more than zero project accept|more than zero then project accept|more than zero then the project accept|more than zero project is accept|more than zero we accept|more than zero then we accept|more than zero is accept|above zero  accept|above zero then accept|above zero project accept|above zero then project accept|above zero then the project accept|above zero project is accept|above zero we accept|above zero then we accept|above zero is accept|accept if positive|accept if greater than zero|accept if more than zero|accept if above zero|accept when positive|accept when greater than zero|accept when more than zero|accept when above zero|accept if npv is positive|accept if npv is greater than zero|accept if npv is more than zero|accept if npv is above zero|accept when npv is positive|accept when npv is greater than zero|accept when npv is more than zero|accept when npv is above zero|accept if it is positive|accept if it is greater than zero|accept if it is more than zero|accept if it is above zero"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Negative NPV → reject",
+     "w": 2,
+     "kw": [
+      "negative  reject|negative then reject|negative project reject|negative then project reject|negative then the project reject|negative project is reject|negative we reject|negative then we reject|negative is reject|negative it is reject|less than zero  reject|less than zero then reject|less than zero project reject|less than zero then project reject|less than zero then the project reject|less than zero project is reject|less than zero we reject|less than zero then we reject|less than zero is reject|less than zero it is reject|below zero  reject|below zero then reject|below zero project reject|below zero then project reject|below zero then the project reject|below zero project is reject|below zero we reject|below zero then we reject|below zero is reject|below zero it is reject|reject if negative|reject if less than zero|reject if below zero|reject when negative|reject when less than zero|reject when below zero|reject if npv is negative|reject if npv is less than zero|reject if npv is below zero|reject when npv is negative|reject when npv is less than zero|reject when npv is below zero|reject if it is negative|reject if it is less than zero|reject if it is below zero"
+     ]
+    }
+   ],
+   "concept": "c9"
+  },
+  {
+   "id": "v6",
+   "q": "How do you value a perpetuity and a growing perpetuity?",
+   "model": "A perpetuity pays the same amount for ever, so its future value cannot be found but its present value is the payment divided by the interest rate, R by i. For a growing perpetuity, where payments grow at a constant rate g that is less than i, the present value is R divided by i minus g. The original capital is never paid back, so no principal is discounted.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Level perpetuity PV = R/i",
+     "w": 4,
+     "kw": [
+      "r by i|r over i|r divided by i|payment divided by the interest rate|payment divided by interest rate|payment divided by rate|payment by rate|cash flow divided by rate|amount divided by rate"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Growing perpetuity PV = R/(i − g)",
+     "w": 4,
+     "kw": [
+      "i minus g|rate minus growth|interest rate minus growth|discount rate minus growth|i less g"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Growth rate must be less than i; no PV of principal / no future value",
+     "w": 2,
+     "kw": [
+      "less than i|lower than i|smaller than i|less than the interest|g less than|never repaid|no present value of principal|no principal|future value cannot|no future value|cannot find future value|infinite future value"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c8"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Buy or lease a delivery truck",
+   "difficulty": "hard",
+   "case": "Vardhan Logistics needs a truck for five years. It can buy the truck for ₹24,00,000 cash (no scrap value), or lease it for ₹6,60,000 a year payable at the end of each year. The company can borrow at 12% a year compounded annually. The truck is expected to generate net cash inflows of ₹7,00,000 at the end of each year for five years.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The present value of ₹1 a year for 5 years at 12%, P(5, 0.12), is closest to:",
+     "options": [
+      "3.6048",
+      "6.3528",
+      "4.1114",
+      "3.0373"
+     ],
+     "answer": 0,
+     "explain": "P(5, 0.12) = [1 − (1.12)⁻⁵]/0.12 = 3.6048. 6.3528 is the future-value factor A(5, 0.12).",
+     "concept": "c6",
+     "difficulty": "moderate",
+     "check": "round(((1-(1+0.12)**(-5))/0.12),4)"
+    },
+    {
+     "id": "k1b",
+     "q": "The present value of the lease rentals is:",
+     "options": [
+      "₹23,79,152.29",
+      "₹33,00,000",
+      "₹41,92,879.26",
+      "₹26,64,650.57"
+     ],
+     "answer": 0,
+     "explain": "6,60,000 × 3.60478 = ₹23,79,152.29. Multiplying by 1.12 would treat the rentals as payable in advance; 33,00,000 ignores discounting.",
+     "concept": "c7",
+     "difficulty": "hard",
+     "check": "round(660000*((1-(1+0.12)**(-5))/0.12),2)"
+    },
+    {
+     "id": "k1c",
+     "q": "On cost alone, which option should the company choose?",
+     "options": [
+      "Lease — the PV of rentals is below the purchase price",
+      "Buy — the purchase price is below the PV of rentals",
+      "Indifferent — both cost the same",
+      "Buy — leasing never saves money"
+     ],
+     "answer": 0,
+     "explain": "PV of lease rentals ₹23,79,152.29 < ₹24,00,000 purchase price, so leasing is cheaper in present-value terms.",
+     "concept": "c7",
+     "difficulty": "moderate"
+    },
+    {
+     "id": "k1d",
+     "q": "The NPV of buying the truck (inflows ₹7,00,000 a year) is:",
+     "options": [
+      "₹1,23,343.34",
+      "₹11,00,000",
+      "₹25,23,343.34",
+      "−₹2,73,855.46"
+     ],
+     "answer": 0,
+     "explain": "7,00,000 × 3.60478 − 24,00,000 = ₹1,23,343.34. Positive, so the truck is worth acquiring; the lease is an even cheaper way to get it.",
+     "concept": "c9",
+     "difficulty": "hard",
+     "check": "round(700000*((1-(1+0.12)**(-5))/0.12),2)-2400000"
+    },
+    {
+     "id": "k1e",
+     "q": "If the lessor quoted 12% a year compounded monthly instead, the effective annual rate would be:",
+     "options": [
+      "12.68%",
+      "12%",
+      "12.36%",
+      "1%"
+     ],
+     "answer": 0,
+     "explain": "(1 + 0.12/12)¹² − 1 = 0.1268 → 12.68%. 12.36% is the half-yearly figure.",
+     "concept": "c4",
+     "difficulty": "moderate",
+     "check": "round(((1+0.01)**12-1)*100,2)"
+    }
+   ]
+  }
+ ]
+}

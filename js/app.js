@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=18'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=20'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -185,7 +185,125 @@ function hud() { $('#xp').textContent = ST.xp; $('#streak').textContent = ST.str
 function addXP(n, msg) { ST.xp += n; save(); hud(); if (msg) toast(`${msg}  +${n} ⭐`); }
 function bumpStreak() { const d = today(); if (ST.streak.last === d) return; const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); ST.streak.n = ST.streak.last === y ? ST.streak.n + 1 : 1; ST.streak.last = d; save(); hud(); }
 
+/* ================= Back button & history (Android back gesture / browser back) =================
+   Every screen change and every open sheet gets a browser history entry, so the system Back button
+   goes to the previous screen or closes the sheet instead of closing the app. On the first screen,
+   Back shows "Press back again to exit" and only a second Back within 2 s leaves.
+   - Screens: the main screen functions are wrapped as "routes" (Nav.route) — replayed on Back.
+     show() calls made outside a route (other modules) get an "anonymous" entry that re-shows that section.
+   - Sub-states (quiz/test runners inside a screen): Nav.sub(restore) — Back calls restore().
+   - Sheets (.sheet.show / .asksheet.show) are detected automatically; Back closes them.
+   history.state = { sv: <session id>, pos: n }; pos 0 is the guard entry, stack[i] lives at pos i+1. */
+const Nav = (() => {
+  const SID = Math.random().toString(36).slice(2, 8), now = () => Date.now();
+  let stack = [], pos = 0, depth = 0, restoring = false, expect = null, lastRouteAt = 0, routeShown = true, started = false, armTimer = null, anonN = 0, pendingReplay = null;
+  const S = p => ({ sv: SID, pos: p });
+  const isOpen = el => !!(el && el.isConnected && el.classList.contains('show'));
+  const keyOf = (name, args) => { const a = Array.from(args || []); while (a.length && (a[a.length - 1] == null || a[a.length - 1] === '')) a.pop();
+    try { return name + JSON.stringify(a, (k, v) => typeof v === 'function' ? undefined : v); } catch (e) { return name + '#' + (++anonN); } };
+  function start() { if (started) return; started = true; try { history.replaceState(S(0), ''); } catch (e) {} pos = 0; }
+  function disarm() { clearTimeout(armTimer); armTimer = null; }
+  function rearm() { if (pos === 0 && stack.length) { try { history.pushState(S(1), ''); } catch (e) {} pos = 1; } }
+  function push(entry) {
+    start(); disarm(); rearm(); stack.length = pos;
+    const top = stack[stack.length - 1];
+    if (top && top.sheet && !isOpen(top.sheet)) { stack[stack.length - 1] = entry; try { history.replaceState(S(pos), ''); } catch (e) {} return; }  // reuse a just-closed sheet's entry
+    stack.push(entry); pos = stack.length; try { history.pushState(S(pos), ''); } catch (e) {}
+  }
+  function rewindTo(j) {            // the route at stack[j] is being opened again (in-app back button, bottom nav): behave like Back
+    start(); disarm(); rearm();
+    const n = pos - (j + 1); stack.length = j + 1;
+    if (n > 0) { pos = j + 1; expect = pos; try { history.go(-n); } catch (e) {} }
+  }
+  function route(name, fn) {
+    if (fn && fn._nav) return fn;
+    const w = function (...args) {
+      if (restoring || depth > 0) { depth++; try { return fn.apply(this, args); } finally { depth--; } }
+      const key = keyOf(name, args); let j = -1;
+      for (let i = Math.min(pos, stack.length) - 1; i >= 0; i--) { const e = stack[i]; if (e.key === key && !e.sheet && !e.dead && !e.sub) { j = i; break; } }
+      if (j >= 0) rewindTo(j); else push({ key, name, fn: w, args });
+      lastRouteAt = now(); routeShown = false;
+      depth++; try { return fn.apply(this, args); } finally { depth--; }
+    };
+    w._nav = true; w._raw = fn; return w;
+  }
+  function shown(id, navKey, prev) {   // called by show(): attribute it to a route, or give it its own entry
+    if (restoring || depth > 0) { routeShown = true; return; }
+    if (!routeShown && now() - lastRouteAt < 4000) { routeShown = true; return; }
+    routeShown = true;
+    if (prev === id || !ST.profile) return;
+    push({ key: 'show:' + id + '#' + (++anonN), anon: id, navKey });
+  }
+  function sub(restore) { if (restoring || depth > 0) return; push({ key: 'sub#' + (++anonN), sub: true, restore }); }
+  function replay(en) {
+    restoring = true; lastRouteAt = now(); routeShown = false;
+    try { if (en.fn) en.fn.apply(null, en.args); else if (en.anon) show(en.anon, en.navKey); } catch (e) { console.warn('Back navigation could not restore a screen', e); }
+    finally { restoring = false; }
+  }
+  function closeSheet(el) {
+    const btn = [...el.querySelectorAll('button')].find(b => b.matches('.ask-x,#rvX,#uxDone,[data-close]') || /^(close|done|got it|cancel|no thanks|not now)$/i.test(b.textContent.trim()));
+    if (btn) btn.click(); else el.classList.remove('show');
+  }
+  function atGuard() {
+    pos = 0; disarm();
+    const base = stack[0];
+    if (base && base.name !== 'world' && base.name !== 'onboard' && ST.profile) { stack = []; try { worldScreen(); } catch (e) {} return; }   // deep link: Back goes home first
+    toast('Press back again to exit');
+    armTimer = setTimeout(() => { armTimer = null; if (pos === 0 && stack.length) { try { history.pushState(S(1), ''); } catch (e) {} pos = 1; } }, 2000);
+  }
+  window.addEventListener('popstate', e => {
+    const s = e.state;
+    if (s && s.sv && s.sv !== SID) { if (s.pos > 0) { expect = null; try { history.go(-s.pos); } catch (x) {} } return; }   // entries left from before a reload
+    const p = s && s.sv === SID ? s.pos : 0;
+    if (expect !== null) { const ex = expect; expect = null; if (p === ex) return; }
+    try { speechSynthesis.cancel(); } catch (x) {}
+    try { document.dispatchEvent(new CustomEvent('sv:back')); } catch (x) {}
+    if (p === 0) {
+      if (!stack.length) { pos = 0; return; }
+      if (stack[0].sheet) { stack.forEach(en => { if (en.sheet && isOpen(en.sheet)) closeSheet(en.sheet); }); stack = []; pos = 0; return; }
+      const leaving = stack.slice(1); stack.length = 1;
+      leaving.forEach(en => { if (en.sheet && isOpen(en.sheet)) { en.dead = true; closeSheet(en.sheet); } });
+      if (leaving.some(en => !en.sheet && !en.dead) || pendingReplay) { pendingReplay = null; replay(stack[0]); }
+      atGuard(); return;
+    }
+    if (p > stack.length) { pos = Math.min(p, stack.length); return; }
+    const leaving = stack.slice(p); stack.length = p; pos = p;
+    leaving.forEach(en => { if (en.sheet && isOpen(en.sheet)) { en.dead = true; closeSheet(en.sheet); } });
+    const top = stack[p - 1];
+    const needs = pendingReplay || leaving.some(en => !en.sheet && !en.dead);
+    if (top.dead || top.sheet) { pendingReplay = needs ? (pendingReplay || leaving.find(en => en.sub && en.restore) || true) : null; stack.length = p - 1; pos = p - 1; expect = null; try { history.back(); } catch (x) {} return; }
+    const low = leaving[0]; pendingReplay = null;
+    if (!needs) return;
+    if (low && low.sub && low.restore) { restoring = true; try { low.restore(); } catch (x) { replay(top); } finally { restoring = false; } }
+    else replay(top);
+  });
+  /* sheets: an opened sheet gets an entry; closing it from its own button removes the entry again */
+  const tracked = new Set();
+  function scanSheets() {
+    document.querySelectorAll('.sheet.show, .asksheet.show').forEach(el => { if (tracked.has(el)) return; tracked.add(el); if (ST.profile || started) push({ key: 'sheet:' + (el.id || '') + '#' + (++anonN), sheet: el }); });
+    [...tracked].forEach(el => {
+      if (isOpen(el)) return; tracked.delete(el);
+      const i = stack.findIndex(en => en.sheet === el); if (i < 0) return;
+      if (i === stack.length - 1 && pos === stack.length) { stack.pop(); pos = stack.length; expect = pos; try { history.back(); } catch (x) {} }
+      else stack[i].dead = true;
+    });
+  }
+  let scanT = 0;
+  new MutationObserver(() => { if (!scanT) scanT = requestAnimationFrame(() => { scanT = 0; scanSheets(); }); }).observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
+  /* wrap the main screen functions once every script has loaded (outermost wrapper = includes every module's additions) */
+  function wrapGlobals() {
+    [['worldScreen', 'world'], ['subjectScreen'], ['chapterScreen'], ['playTopic'], ['practiceScreen'], ['squadScreen'], ['meScreen'], ['onboard'], ['pickStream']].forEach(([n, k]) => {
+      if (typeof window[n] === 'function' && !window[n]._nav) window[n] = route(k || n, window[n]);
+    });
+    if (!stack.length && ST.profile) { start(); stack.push({ key: keyOf('world', []), name: 'world', fn: window.worldScreen, args: [] }); pos = 1; try { history.pushState(S(1), ''); } catch (e) {} }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wrapGlobals); else setTimeout(wrapGlobals, 0);
+  return { route, sub, shown, get depth() { return stack.length; }, get pos() { return pos; }, _stack: () => stack.map(e => e.key) };
+})();
+window.Nav = Nav;
+
 function show(id, navKey) {
+  const prevScr = document.querySelector('.screen.active'); try { Nav.shown(id, navKey, prevScr && prevScr.id.slice(2)); } catch (e) {}
   document.querySelectorAll('.screen').forEach(e => e.classList.remove('active'));
   $('#s-' + id).classList.add('active');
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.s === navKey));
@@ -381,6 +499,7 @@ function learnStep(b) {
 
 /* ---------- Quiz with animated explanation after every answer ---------- */
 function quizRunner(b, list, done) {
+  if (!$('#s-topic').classList.contains('active')) Nav.sub();      // Back leaves the quiz and returns to the screen it started from
   let i = 0, right = 0; const mistakes = [], hist = [];
   ST.bm = ST.bm || {};
   const bmBtn = qid => `<button class="tst-ic qbm ${ST.bm[qid] ? 'on' : ''}" data-q="${esc(qid)}" aria-label="Bookmark this question">🔖</button>`;
@@ -563,7 +682,28 @@ async function installApp() {
   $('#installSheet').classList.add('show');
 }
 if (!isStandalone() && !inFrame) setTimeout(() => { if (!deferredPrompt) showInstall(); }, 2500);
-if ('serviceWorker' in navigator && !inFrame && (location.protocol === 'https:' || location.hostname === 'localhost')) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+/* Service worker + updates reaching installed phones: check for a new version on load and whenever the app comes
+   back to the screen; when a new worker takes control, reload once (never in a loop; deferred while the student is
+   writing or in a test — then it applies the next time the app is reopened). */
+if ('serviceWorker' in navigator && !inFrame && (location.protocol === 'https:' || location.hostname === 'localhost')) window.addEventListener('load', () => {
+  const hadCtl = !!navigator.serviceWorker.controller; let lastCheck = 0, pending = false, done = false;
+  navigator.serviceWorker.register('sw.js').then(reg => {
+    const check = () => { if (Date.now() - lastCheck < 60000) return; lastCheck = Date.now(); try { const p = reg.update(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
+    check();
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') return; if (pending) reloadNow(); else check(); });
+  }).catch(() => {});
+  const busy = () => !!document.querySelector('.ca-pad, .ca-viva, .ca-set, .ca-mbar, .ca-mcq, textarea:focus');
+  function reloadNow() {
+    if (done) return; let last = 0; try { last = +sessionStorage.getItem('sv_swreload') || 0; } catch (e) {}
+    if (Date.now() - last < 20000) return;          // loop guard
+    done = true; try { sessionStorage.setItem('sv_swreload', String(Date.now())); } catch (e) {}
+    location.reload();
+  }
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadCtl || done) return;                    // first install: nothing to refresh
+    if (busy()) { pending = true; toast('Update ready — it applies next time you open the app'); } else reloadNow();
+  });
+});
 
 /* ================= Start ================= */
 (async function init() {

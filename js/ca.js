@@ -25,14 +25,46 @@
   const fmt = n => (n == null || n === '' ? '' : (typeof n === 'number' ? n.toLocaleString('en-IN', { maximumFractionDigits: 2 }) : String(n)));
   const isCA = () => !!(ST.profile && ST.profile.course === 'ca');
   const DEMO = () => { try { return !!localStorage.getItem('sv_demo'); } catch (e) { return false; } };  // temporary demo login: locked to its course
+  /* Owner mode: open the app with ?owner and enter the passcode. It only unlocks the "Owner tools" card (switch course
+     and CA level, see every level) on this device. The passcode sits in this file, so it is NOT real security —
+     it just keeps students from switching by accident. Real roles arrive with the backend. */
+  const OWNER_CODE = 'SV-OWNER-2027';
+  const OWNER = () => { try { return localStorage.getItem('sv_owner') === '1'; } catch (e) { return false; } };
+  const LIVE_LEVELS = ['foundation'];                       // students see CA Foundation only for now
+  const levelOK = k => OWNER() || LIVE_LEVELS.includes(k);
   const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
   function C() {
     ST.ca = ST.ca || {}; const c = ST.ca;
     c.units = c.units || {}; c.mcq = c.mcq || {}; c.writes = c.writes || {}; c.group = c.group || []; c.level = c.level || 'foundation';
+    if (!levelOK(c.level)) c.level = LIVE_LEVELS[0];
     return c;
   }
   async function structure(level) { if (!cache.st[level]) cache.st[level] = await loadJSON(`content/ca/${level}/structure.json`); return cache.st[level]; }
-  async function allStructures() { return Promise.all(LEVELS.map(([k]) => structure(k).catch(() => null))); }
+  async function allStructures() { return Promise.all(LEVELS.map(([k]) => levelOK(k) ? structure(k).catch(() => null) : Promise.resolve(null))); }
+  /* marks: every MCQ carries marks (default 1, as in ICAI's objective papers); written questions and viva key points carry their own */
+  const mcqMarks = q => (q && +q.marks) || 1;
+  const mk = n => `${fmt(n)} mark${n === 1 ? '' : 's'}`;
+  let WT = null;   // ICAI MTP-derived chapter marks (content/ca/foundation/weightage.json)
+  async function weightage() { if (WT === null) { try { WT = await loadJSON('content/ca/foundation/weightage.json'); } catch (e) { WT = false; } } return WT || null; }
+  function chWeight(pid, chid) { const p = WT && WT.papers && WT.papers[pid]; return p && p.chapters[chid] ? { ...p.chapters[chid], mtps: p.mtps } : null; }
+  function lastMcq(key) { const l = C().mlog || []; for (let i = l.length - 1; i >= 0; i--) if (l[i][1] === key) return !!l[i][2]; const s = C().mcq[key]; return s ? s.s > s.w : null; }
+  /* a unit's score in marks: MCQ (latest answer), written (best self-check), viva (best) — out of the unit's full marks */
+  function unitMarks(uid, d) {
+    const c = C(), r = { mcq: [0, 0, 0], write: [0, 0, 0], viva: [0, 0, 0] };
+    (d.mcqs || []).forEach(q => { const m = mcqMarks(q), ok = lastMcq(`${uid}#${q.id}`); r.mcq[1] += m; if (ok != null) { r.mcq[2]++; if (ok) r.mcq[0] += m; } });
+    (d.questions || []).forEach(q => { const h = c.writes[`${uid}#${q.id}`] || []; r.write[1] += q.marks; if (h.length) { r.write[2]++; r.write[0] += Math.max(...h.map(a => a.score)); } });
+    (d.viva || []).forEach(v => { const tot = v.points.reduce((a, p) => a + p.w, 0), h = (c.viva || {})[`${uid}#${v.id}`] || []; r.viva[1] += tot; if (h.length) { r.viva[2]++; r.viva[0] += Math.max(...h.map(a => a.marks != null ? a.marks : Math.round(a.pct * tot / 100))); } });
+    return r;
+  }
+  const marksLine = r => ['mcq', 'write', 'viva'].filter(k => r[k][1]).map(k => `<span class="ca-mk1"><b>${fmt(Math.round(r[k][0] * 100) / 100)}/${fmt(r[k][1])}</b> ${{ mcq: 'MCQ', write: 'Written', viva: 'Viva' }[k]}</span>`).join('');
+  /* how to write an answer worth m marks (StudyVerse guidance; time follows the paper: 3 h for 100 marks ≈ 1.8 min per mark) */
+  function markGuide(m, p, legal) {
+    const per = p && p.pattern ? p.pattern.hours * 60 / p.pattern.marks : 1.8, min = Math.max(1, Math.round(m * per));
+    const lo = m * 25, hi = m * 35;
+    const pts = m <= 2 ? 'one precise point with a one-line reason (or one correct entry)' : m <= 4 ? `about ${m} separate points, or a short working` : m <= 6 ? `about ${m} points, or a complete working with notes` : 'a complete answer: the right format, every working note and a clear final figure or conclusion';
+    const shape = legal ? 'Provision → Facts → Analysis → Conclusion — one short paragraph each.' : 'Use the exam format (journal / ledger / statement), show working notes, and total the columns.';
+    return `<div class="ca-mguide"><b>How to write a ${m}-mark answer</b><ul class="ca-ul"><li><b>Time:</b> about ${min} min (${fmt(Math.round(per * 10) / 10)} min per mark)</li><li><b>Length:</b> roughly ${lo}–${hi} words of theory, or ${pts}</li><li><b>Structure:</b> ${shape}</li></ul><p class="ca-note">StudyVerse guidance from the paper pattern — not an ICAI rule.</p></div>`;
+  }
   function findUnit(st, uid) {
     for (const p of st.papers) for (const c of p.chapters) for (const u of c.units) if (u.id === uid) return { p, c, u };
     return null;
@@ -183,7 +215,7 @@
         <div class="card ca-count" id="caCount">${countHTML(dl)}</div>
         ${nx ? `<button class="card ca-next" id="caNext" aria-label="Continue: ${esc(nx.u.title)}"><span class="ca-k">Continue</span><b>${esc(nx.u.title)}</b><small>${esc(paperLabel(nx.p))} · Ch ${nx.c.n} · Unit ${nx.u.n}</small>${bar(unitProg(nx.u.id))}<span class="ca-go">Resume ▶</span></button>` : ''}
       </div>
-      <h2 class="ca-h2">Your CA journey</h2>
+      <h2 class="ca-h2">${OWNER() ? 'Your CA journey <small class="ca-ownt">owner view — all levels</small>' : `Your course: CA ${esc(levelName(lvl))}`}</h2>
       <ol class="ca-journey">${LEVELS.map(([k, n], i) => { const s = sts[i]; if (!s) return ''; return `<li class="ca-lvl ${k === lvl ? 'cur' : ''}">
         <details ${k === lvl ? 'open' : ''}><summary><span class="ca-step">${i + 1}</span><span class="ca-lvln"><b>CA ${esc(n)}</b><small>${s.counts.papers} papers · ${s.counts.chapters} chapters · ${s.counts.built ? `${s.counts.built} of ${s.counts.units} units live` : 'coming soon'}</small></span></summary>
         <div class="ca-papers">${s.papers.map((p, pi) => paperCard(k, p, pi, s)).join('')}</div></details></li>`; }).join('')}</ol>
@@ -229,8 +261,10 @@
 
   /* ================= PAPER: chapters → units ================= */
   async function paper(level, pid, q = '') {
+    if (!levelOK(level)) return home();
     const el = open('world'); const st = await structure(level); const p = st.papers.find(x => x.id === pid); if (!p) return home();
-    C().paper = pid; save();
+    C().paper = pid; save(); await weightage();
+    const wtp = WT && WT.papers && WT.papers[pid];
     let lastGroup = null;
     const groups = p.chapters.map(ch => {
       const g = [ch.part, ch.module, ch.sec && p.sections ? `Section ${ch.sec}: ${(p.sections.find(s => s.key === ch.sec) || {}).name || ''}` : ''].filter(Boolean).join(' · ');
@@ -238,19 +272,27 @@
       const built = ch.units.filter(u => u.status === 'built').length, pr = ch.units.reduce((a, u) => a + unitProg(u.id), 0) / ch.units.length;
       const units = ch.units.map(u => `<li><button class="ca-urow ${u.status}" data-u="${u.id}" ${u.status === 'built' ? '' : 'aria-disabled="true"'} data-search="${esc((u.title + ' ' + (u.topics || []).join(' ')).toLowerCase())}">
           <span class="ca-un">${u.implicit ? '•' : u.n}</span><span class="ca-ub"><b>${esc(u.implicit ? 'Study the chapter' : 'Unit ' + u.n + ': ' + u.title)}</b>${u.topics ? `<small class="ca-topics">${esc(u.topics.slice(0, 6).join(' · '))}${u.topics.length > 6 ? ' …' : ''}</small>` : ''}${u.status === 'built' ? bar(unitProg(u.id)) : '<span class="ca-soon">Coming soon</span>'}</span></button></li>`).join('');
-      return `${head}<details class="ca-ch" ${built ? 'open' : ''} data-search="${esc(ch.title.toLowerCase())}"><summary><span class="ca-chn">${ch.sec && p.sections ? ch.sec + '·' : ''}${ch.n}</span><span class="ca-chb"><b>${esc(ch.title)}</b><small>${ch.units.length} unit${ch.units.length > 1 ? 's' : ''}${built ? ` · ${built} live · ${Math.round(pr * 100)}% done` : ' · coming soon'}</small></span></summary><ul class="ca-units">${units}</ul></details>`;
+      const w = chWeight(pid, ch.id);
+      return `${head}<details class="ca-ch" ${built ? 'open' : ''} data-search="${esc(ch.title.toLowerCase())}"><summary><span class="ca-chn">${ch.sec && p.sections ? ch.sec + '·' : ''}${ch.n}</span><span class="ca-chb"><b>${esc(ch.title)}</b><small>${ch.units.length} unit${ch.units.length > 1 ? 's' : ''}${built ? ` · ${built} live · ${Math.round(pr * 100)}% done` : ' · coming soon'}</small>${w ? `<small class="ca-wt">In ICAI model test papers this chapter carried ~${fmt(w.avg_per_paper)} marks per paper <span class="ca-wtn">(in ${w.in_papers} of ${w.mtps} papers)</span></small>` : ''}${built ? `<small class="ca-chmarks" data-ch="${ch.id}"></small>` : ''}</span></summary><ul class="ca-units">${units}</ul></details>`;
     }).join('');
     const ed = (st.editions || {})[pid] || Object.entries(st.editions || {}).filter(([k]) => k.startsWith(pid)).map(([k, v]) => `${k.endsWith('-A') ? 'Section A' : k.endsWith('-B') ? 'Section B' : ''} ${v}`).join(' · ');
     el.innerHTML = `<button class="back" id="caBack">← CA Journey</button>
       <div class="card ca-phead"><span class="ca-k">CA ${esc(levelName(level))} · ${esc(paperLabel(p))}</span><h1 class="ca-h1">${esc(p.name)}</h1>
         <div class="ca-chips">${patternChip(p)}<span class="ca-chip">${p.chapters.length} chapters · ${unitCount(p)} units</span></div>
         ${p.pattern?.note ? `<p class="sub">${esc(p.pattern.note)}</p>` : ''}${p.note ? `<p class="sub">${esc(p.note)}</p>` : ''}${ed ? `<p class="ca-note">ICAI study material: ${esc(ed)}</p>` : ''}</div>
+      ${wtp ? `<details class="card ca-wtabout"><summary>Chapter marks: derived from ICAI's ${wtp.mtps} Model Test Papers</summary><p class="ca-p">${esc(WT.label)} Each paper offers ${fmt(Math.round(wtp.offered_marks / wtp.mtps))} marks (you answer questions worth 100); “~X marks” is the average a chapter carried per paper. ${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100) ? `${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100)}% of marks could not be tied to one chapter and are left out.` : ''}</p><p class="ca-note">${esc(WT.source)}</p></details>` : ''}
       <div class="gsearch ca-search"><span aria-hidden="true">🔍</span><input id="caQ" placeholder="Search chapters, units, topics…" autocomplete="off" aria-label="Search in this paper" value="${esc(q)}"></div>
       <p class="ca-none" id="caNone" hidden>No match in this paper.</p>
       <div id="caChs">${groups}</div>`;
     D.getElementById('caBack').onclick = home;
     el.querySelectorAll('.ca-urow').forEach(b => b.onclick = () => { if (b.classList.contains('built')) { tap('open'); unit(b.dataset.u); } else { tap('hmm'); toast('This unit is being written — coming soon'); } });
     const qi = D.getElementById('caQ'); qi.oninput = () => filterPaper(qi.value); if (q) filterPaper(q);
+    for (const ch of p.chapters) {    // your marks per chapter (sum of the chapter's live units)
+      const box = el.querySelector(`.ca-chmarks[data-ch="${ch.id}"]`); if (!box) continue;
+      const tot = { mcq: [0, 0, 0], write: [0, 0, 0], viva: [0, 0, 0] };
+      for (const u of ch.units) { if (u.status !== 'built') continue; const d = await unitData(u.id).catch(() => null); if (!d) continue; const r = unitMarks(u.id, d); ['mcq', 'write', 'viva'].forEach(k => r[k].forEach((v, i) => tot[k][i] += v)); }
+      if (box.isConnected && (tot.mcq[2] || tot.write[2] || tot.viva[2])) box.innerHTML = `Your marks: ${marksLine(tot)}`;
+    }
   }
   function filterPaper(v) {
     v = v.trim().toLowerCase(); let any = false;
@@ -268,6 +310,7 @@
   async function unit(uid, tab) {
     const el = open('world');
     el.innerHTML = `<p class="ca-load">Opening unit…</p>`;
+    if (!levelOK(levelOf(uid))) { toast(`That unit is from CA ${levelName(levelOf(uid))} — your course is CA ${levelName(LIVE_LEVELS[0])}`); return home(); }
     const d = await unitData(uid); const st = await structure(levelOf(uid)); const f = findUnit(st, uid);
     if (!d || !f) { toast('This unit is not available yet'); return home(); }
     const c = C(); c.last = uid; c.level = levelOf(uid); save();
@@ -281,6 +324,7 @@
       <div class="card ca-uhead"><span class="ca-k">Chapter ${f.c.n}: ${esc(f.c.title)} · Unit ${f.u.n}</span><h1 class="ca-h1">${esc(d.title)}</h1>
         <div class="ca-chips"><span class="ca-chip">${esc({ core: 'Core', moderate: 'Moderate', hard: 'Challenging' }[d.meta.difficulty] || d.meta.difficulty)}</span><span class="ca-chip">Learn ~${d.meta.minutes.learn} min · Practice ~${d.meta.minutes.practice} min</span>${u.write ? '' : ''}</div>
         <div class="ca-uprog">${bar(unitProg(U.uid))}<small>${Math.round(unitProg(U.uid) * 100)}% of this unit done</small></div>
+        <div class="ca-umarks" aria-label="Your marks in this unit"><span class="ca-k">Your marks</span>${marksLine(unitMarks(U.uid, d))}</div>
         ${T() ? `<div class="ca-uacts"><button class="ca-link" id="caMyNote" aria-haspopup="dialog">📝 My notes${T().hasNote(U.uid) ? ' ✓' : ''}</button><button class="ca-link" id="caUSearch">🔍 Search</button></div>` : ''}</div>
       <div class="ca-tabs" role="tablist" aria-label="Unit sections">${VTABS.filter(([k]) => k !== 'viva' || (T() && (d.viva || []).length)).map(([k, n], i) => { const dn = k === 'viva' ? T().vivaDone(U.uid) : u[k]; return `<button role="tab" id="caTab-${k}" aria-controls="caPanel" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}" data-k="${k}" class="${dn ? 'done' : ''}${k === 'viva' ? ' ca-vtab' : ''}"><span class="ca-tn" aria-hidden="true">${dn ? '✓' : k === 'viva' ? '🎙' : i + 1}</span>${n}</button>`; }).join('')}</div>
       <div id="caPanel" role="tabpanel" aria-labelledby="caTab-${tab}" tabindex="-1"></div>`;
@@ -347,7 +391,7 @@
     let i = 0, right = 0, wrong = 0, qt0 = Date.now(); const t0 = Date.now(), log = [];
     const render = () => {
       const { q, key } = list[i], ord = order(q.options.length, seed + key); qt0 = Date.now();
-      host.innerHTML = `<div class="card ca-mcq"><div class="ca-mtop"><span class="ca-k">Question ${i + 1} of ${list.length}</span><span class="ca-k">${right} correct</span></div>${bar(i / list.length)}
+      host.innerHTML = `<div class="card ca-mcq"><div class="ca-mtop"><span class="ca-k">Question ${i + 1} of ${list.length} · <span class="ca-qmk">${mk(mcqMarks(q))}</span></span><span class="ca-k">${right} correct</span></div>${bar(i / list.length)}
         <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts">${ord.map((k, j) => `<button class="opt" data-k="${k}"><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div><div id="caMx"></div></div>`;
       host.querySelectorAll('.opt').forEach(b => b.onclick = () => {
         const k = +b.dataset.k, ok = k === q.answer;
@@ -365,56 +409,76 @@
   }
   function mcqTab(P) {
     const d = U.d, list = d.mcqs.map(q => ({ q, key: `${U.uid}#${q.id}` }));
-    const obj = objectivePaper(U.uid);
+    const obj = objectivePaper(U.uid), totM = list.reduce((a, x) => a + mcqMarks(x.q), 0);
     const prev = list.filter(x => C().mcq[x.key]); const acc = prev.length ? Math.round(prev.reduce((a, x) => a + (C().mcq[x.key].s - C().mcq[x.key].w) / C().mcq[x.key].s, 0) / prev.length * 100) : null;
-    P.innerHTML = `<div class="card"><h2 class="ca-h2s">${obj ? 'Exam-style MCQs' : 'Concept check'}</h2><p class="sub">${list.length} questions.${obj ? ' Scored like the exam: +1 for correct, −¼ for wrong.' : ' This paper is descriptive in the exam; these MCQs make sure the concepts behind your written answers are solid.'}${acc != null ? ` Your accuracy so far: ${acc}%.` : ''}</p>
-      <button class="btn" id="caMgo">Start ▶</button></div><div id="caMhost"></div>${T() && (d.cases || []).length ? T().casesBlock(U.uid, d) : ''}`;
+    P.innerHTML = `<div class="card"><h2 class="ca-h2s">${obj ? 'Exam-style MCQs' : 'Concept check'}</h2><p class="sub">${list.length} questions · ${mk(totM)} (each question shows its marks).${obj ? ' Scored like the exam: full marks for correct, −¼ of the marks for a wrong answer.' : ' This paper is descriptive in the exam; these MCQs make sure the concepts behind your written answers are solid.'}${acc != null ? ` Your accuracy so far: ${acc}%.` : ''}</p>
+      <div class="ca-btns"><button class="btn" id="caMgo">Start ▶</button>${window.CAGen ? '<button class="btn ghost" id="caMgen">♾️ Endless practice</button>' : ''}</div></div><div id="caMhost"></div>${T() && (d.cases || []).length ? T().casesBlock(U.uid, d) : ''}`;
     if (T()) T().wireCases(P, U.uid, d);
     D.getElementById('caMgo').onclick = () => {
       P.querySelector('.card').remove(); const cb = P.querySelector('.ca-cases'); if (cb) cb.remove(); const seed = 'u' + Date.now().toString(36);
-      runMCQ(D.getElementById('caMhost'), list, seed, r => {
-        const score = obj ? r.right - r.wrong * 0.25 : r.right;
-        D.getElementById('caMhost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">${r.right} of ${r.total} correct</h2>${obj ? `<p class="sub">Exam score: ${fmt(score)} / ${r.total} (with negative marking)</p>` : ''}<p class="sub">Time: ${Math.round(r.ms / 1000)} s</p>
-          ${r.log.filter(x => !x.ok).length ? `<h3 class="ca-h3">Review these</h3><ul class="ca-ul">${r.log.filter(x => !x.ok).map(x => `<li>${esc(list.find(l => l.key === x.key).q.q)}</li>`).join('')}</ul>` : '<p class="sub">All correct — excellent.</p>'}
+      if (window.Nav) Nav.sub(() => { if (P.isConnected) mcqTab(P); else renderUnit(); });
+      const set = T() && T().freshOrder ? T().freshOrder(list, 'unit:' + U.uid) : list;
+      runMCQ(D.getElementById('caMhost'), set, seed, r => {
+        const got = r.log.reduce((a, x) => { const m = mcqMarks(set.find(l => l.key === x.key).q); return a + (x.ok ? m : obj ? -m * 0.25 : 0); }, 0);
+        D.getElementById('caMhost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">You scored ${fmt(Math.round(got * 100) / 100)} / ${fmt(totM)} marks</h2><p class="sub">${r.right} of ${r.total} correct${obj ? ' · −¼ of the marks for each wrong answer' : ''} · time ${Math.round(r.ms / 1000)} s</p>
+          ${r.log.filter(x => !x.ok).length ? `<h3 class="ca-h3">Review these</h3><ul class="ca-ul">${r.log.filter(x => !x.ok).map(x => `<li>${esc(set.find(l => l.key === x.key).q.q)} <em class="ca-qmk">${mk(mcqMarks(set.find(l => l.key === x.key).q))}</em></li>`).join('')}</ul>` : '<p class="sub">All correct — excellent.</p>'}
           <div class="ca-btns"><button class="btn ghost" id="caMagain">Try again</button><button class="btn ghost" id="caMgrp">Challenge your study group</button></div></div>${nextTabBtn('mcq')}`;
         D.getElementById('caMagain').onclick = () => mcqTab(P);
         D.getElementById('caMgrp').onclick = () => groupCreate(U.uid, { seed, s: r.right, ms: r.ms, k: r.total });
         wireNext(P, 'mcq');
       });
     };
+    const g = D.getElementById('caMgen'); if (g && T() && T().endless) g.onclick = () => T().endless(P, U.uid, U.d, () => mcqTab(P));
   }
 
   /* ---------- Write & self-check ---------- */
-  function writeTab(P) {
-    const d = U.d;
-    P.innerHTML = `<p class="ca-intro">Write your answer as you would in the exam, then check it against the model answer and the step-wise marking scheme — the way an examiner marks.</p>
-      ${d.questions.map((q, i) => { const h = C().writes[`${U.uid}#${q.id}`] || []; const best = h.length ? Math.max(...h.map(a => a.score)) : null;
-        return `<button class="card ca-qrow" data-i="${i}"><span class="ca-qm">${fmt(q.marks)}<small>marks</small></span><span class="ca-qb"><b>Q${i + 1}. ${esc(q.q.length > 140 ? q.q.slice(0, 137) + '…' : q.q)}</b><small>~${q.minutes} min · ${esc(padName(q.pad))}${best != null ? ` · best ${fmt(best)}/${fmt(q.marks)}` : ''}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`; }).join('')}
+  function writeTab(P, fm) {
+    const d = U.d, marks = [...new Set(d.questions.map(q => q.marks))].sort((a, b) => a - b), legal = d.questions.some(q => q.pad === 'legal');
+    fm = fm || U.fm || 'all'; if (fm !== 'all' && !marks.includes(+fm)) fm = 'all'; U.fm = fm;
+    const tot = d.questions.reduce((a, q) => a + q.marks, 0), got = d.questions.reduce((a, q) => { const h = C().writes[`${U.uid}#${q.id}`] || []; return a + (h.length ? Math.max(...h.map(x => x.score)) : 0); }, 0);
+    P.innerHTML = `<p class="ca-intro">Write your answer as you would in the exam — type it, or write on paper and add a 📷 photo — then mark it against the model answer and the step-wise marking scheme, the way an examiner marks.</p>
+      <div class="card ca-bymarks"><div class="ca-mtop"><h2 class="ca-h2s">By marks</h2><span class="ca-k">Your best: ${fmt(Math.round(got * 100) / 100)} / ${fmt(tot)} marks</span></div>
+        <div class="ca-chipsel" role="group" aria-label="Show questions by marks"><button type="button" class="ca-cs" aria-pressed="${fm === 'all'}" data-fm="all">All</button>${marks.map(m => `<button type="button" class="ca-cs" aria-pressed="${String(fm) === String(m)}" data-fm="${m}">${m}-mark</button>`).join('')}<button type="button" class="ca-cs" data-fm="mcq">1-mark MCQs</button></div>
+        ${fm !== 'all' ? markGuide(+fm, U.f.p, legal) : '<p class="ca-note">Pick a mark value to see only those questions and how long and how detailed such an answer should be.</p>'}</div>
+      ${d.questions.map((q, i) => { if (fm !== 'all' && q.marks !== +fm) return ''; const h = C().writes[`${U.uid}#${q.id}`] || []; const best = h.length ? Math.max(...h.map(a => a.score)) : null;
+        return `<button class="card ca-qrow" data-i="${i}"><span class="ca-qm">${fmt(q.marks)}<small>marks</small></span><span class="ca-qb"><b>Q${i + 1} (${mk(q.marks)}). ${esc(q.q.length > 130 ? q.q.slice(0, 127) + '…' : q.q)}</b><small>~${q.minutes} min · ${esc(padName(q.pad))}${best != null ? ` · best ${fmt(best)} / ${mk(q.marks)}` : ''}${h.some(a => (a.photos || []).length) ? ' · 📷' : ''}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`; }).join('')}
       ${nextTabBtn('write')}`;
     P.querySelectorAll('.ca-qrow').forEach(b => b.onclick = () => { tap('open'); pad(P, d.questions[+b.dataset.i], +b.dataset.i); });
+    P.querySelectorAll('[data-fm]').forEach(b => b.onclick = () => { tap('tap'); if (b.dataset.fm === 'mcq') { U.tab = 'mcq'; renderUnit(); return; } writeTab(P, b.dataset.fm); });
     wireNext(P, 'write');
   }
   const padName = k => ({ text: 'Written answer', journal: 'Journal entries', ledger: 'Ledger accounts', tb: 'Trial balance', table: 'Table / statement', legal: 'Legal answer' })[k] || 'Answer';
   const TEMPL = { journal: ['Date', 'Particulars', 'Dr/Cr', 'Amount (₹)'], ledger: ['Side (Dr/Cr)', 'Date', 'Particulars', 'Amount (₹)'], tb: ['Ledger account', 'Dr (₹)', 'Cr (₹)'], table: ['Column 1', 'Column 2', 'Amount (₹)'] };
   function pad(P, q, qi) {
-    const key = `${U.uid}#${q.id}`; let secs = 0, timer = null, rows = [];
+    const key = `${U.uid}#${q.id}`; let secs = 0, timer = null, rows = [], mode = 'type', photos = [];
+    if (window.Nav) Nav.sub(() => { clearInterval(timer); if (P.isConnected) writeTab(P); else renderUnit(); });
+    const subPos = window.Nav ? Nav.pos : -1;
     const legalStarter = q.pad === 'legal' ? 'Provision:\n\nFacts:\n\nAnalysis:\n\nConclusion:\n' : '';
     const tcols = TEMPL[q.pad];
     P.innerHTML = `<button class="back" id="caPadBack">← All questions</button>
-      <div class="card ca-pad"><div class="ca-mtop"><span class="ca-k">Q${qi + 1} · ${fmt(q.marks)} marks · suggested ${q.minutes} min</span><span class="ca-timer" id="caTimer" aria-live="off">00:00</span></div>
+      <div class="card ca-pad"><div class="ca-mtop"><span class="ca-k">Q${qi + 1} (${mk(q.marks)}) · suggested ${q.minutes} min</span><span class="ca-timer" id="caTimer" aria-live="off">00:00</span></div>
         <p class="ca-q">${esc(q.q)}</p>${q.given ? `<details class="ca-given" open><summary>Given</summary>${blocks(q.given)}</details>` : ''}
-        <label class="ca-lab" for="caAns">Your answer</label>
+        <details class="ca-mgd"><summary>How to write a ${q.marks}-mark answer</summary>${markGuide(q.marks, U.f.p, q.pad === 'legal')}</details>
+        ${T() && T().photos ? `<div class="ca-amode" role="radiogroup" aria-label="How will you answer?"><button role="radio" aria-checked="true" data-mode="type">✍️ Type my answer</button><button role="radio" aria-checked="false" data-mode="photo">📷 Photo of my answer</button></div>
+        <div id="caPhotoBox" hidden></div>` : ''}
+        <div id="caTypeBox"><label class="ca-lab" for="caAns">Your answer</label>
         <textarea id="caAns" class="ca-ta" rows="10" placeholder="${q.pad === 'legal' ? 'Write under the four headings…' : 'Write your answer here… (working notes too)'}">${esc(legalStarter)}</textarea>
         <div class="ca-padbar"><span id="caWc">0 words</span><button class="ca-link" id="caTimerBtn">Start timer</button></div>
-        ${tcols ? `<details class="ca-tbuild" id="caTb"><summary>Table builder (${esc(padName(q.pad))})</summary><div id="caTbBody"></div></details>` : ''}
+        ${tcols ? `<details class="ca-tbuild" id="caTb"><summary>Table builder (${esc(padName(q.pad))})</summary><div id="caTbBody"></div></details>` : ''}</div>
         <button class="btn" id="caCheck">Check my answer ▶</button></div><div id="caSelf"></div>`;
+    P.querySelectorAll('.ca-amode [data-mode]').forEach(b => b.onclick = () => {
+      mode = b.dataset.mode; P.querySelectorAll('.ca-amode [data-mode]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
+      D.getElementById('caTypeBox').hidden = mode === 'photo'; const pb = D.getElementById('caPhotoBox'); pb.hidden = mode !== 'photo';
+      if (mode === 'photo' && !pb.dataset.on) { pb.dataset.on = 1; T().photos.picker(pb, key, list => { photos = list; startT(); }); }
+      tap('tap');
+    });
     const ta = D.getElementById('caAns'), wc = () => { const n = (ta.value.replace(legalStarter, '').trim().match(/\S+/g) || []).length; D.getElementById('caWc').textContent = `${n} word${n === 1 ? '' : 's'}`; return n; };
     const tick = () => { secs++; const t = D.getElementById('caTimer'); if (!t) { clearInterval(timer); return; } t.textContent = `${String(Math.floor(secs / 60)).padStart(2, '0')}:${String(secs % 60).padStart(2, '0')}`; t.classList.toggle('over', secs > q.minutes * 60); };
     const startT = () => { if (timer) return; timer = setInterval(tick, 1000); D.getElementById('caTimerBtn').textContent = 'Pause timer'; };
     const stopT = () => { clearInterval(timer); timer = null; const b = D.getElementById('caTimerBtn'); if (b) b.textContent = 'Resume timer'; };
     D.getElementById('caTimerBtn').onclick = () => timer ? stopT() : startT();
     ta.oninput = () => { wc(); startT(); };
-    D.getElementById('caPadBack').onclick = () => { stopT(); writeTab(P); };
+    D.getElementById('caPadBack').onclick = () => { stopT(); if (window.Nav && Nav.pos === subPos && subPos > 0) history.back(); else writeTab(P); };
     if (tcols) {
       rows = [Array(tcols.length).fill(''), Array(tcols.length).fill('')];
       const drawTb = () => {
@@ -437,25 +501,28 @@
     }
     D.getElementById('caCheck').onclick = () => {
       stopT(); const words = wc();
-      const answer = { text: ta.value.replace(legalStarter, '').trim() ? ta.value : '', table: tcols ? { cols: tcols, rows: rows.filter(r => r.some(x => String(x).trim())) } : null };
-      if (!answer.text && !(answer.table && answer.table.rows.length)) toast('Nothing written — showing the model answer');
-      selfCheck(D.getElementById('caSelf'), q, key, { answer, secs, words });
+      const answer = mode === 'photo' ? { text: '', table: null } : { text: ta.value.replace(legalStarter, '').trim() ? ta.value : '', table: tcols ? { cols: tcols, rows: rows.filter(r => r.some(x => String(x).trim())) } : null };
+      if (mode === 'photo' && !photos.length) { toast('Add a photo of your answer first — or switch to typing'); return; }
+      if (mode !== 'photo' && !answer.text && !(answer.table && answer.table.rows.length)) toast('Nothing written — showing the model answer');
+      selfCheck(D.getElementById('caSelf'), q, key, { answer, secs, words: mode === 'photo' ? 0 : words, photos: mode === 'photo' ? photos.slice() : [] });
       D.getElementById('caSelf').scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
   }
   function selfCheck(host, q, key, att) {
-    const ticks = {}; q.scheme.forEach(s => ticks[s.id] = 0);
-    host.innerHTML = `<div class="card ca-model"><h2 class="ca-h2s">Model answer</h2>${blocks(q.model)}${checksHTML(q.checks)}</div>
+    const ticks = {}; q.scheme.forEach(s => ticks[s.id] = 0); const ph = att.photos || [];
+    host.innerHTML = `${ph.length ? `<div class="ca-cmp"><aside class="ca-cmp-ph" aria-label="Photos of your answer"><div class="ca-k">Your answer · ${ph.length} page${ph.length > 1 ? 's' : ''} — tap to zoom</div><div class="ca-phstrip" id="caPhStrip"></div></aside><div class="ca-cmp-main">` : ''}<div class="card ca-model"><h2 class="ca-h2s">Model answer</h2>${blocks(q.model)}${checksHTML(q.checks)}</div>
       <div class="card ca-scheme"><h2 class="ca-h2s">Mark yourself like an examiner</h2><p class="sub">For each point, compare with your answer: full marks, half, or none. Be strict — examiners are.</p>
         <ol class="ca-pts">${q.scheme.map(s => `<li><div class="ca-pt"><span>${esc(s.pt)}</span><em>${fmt(s.m)} mark${s.m === 1 ? '' : 's'}</em></div>
           <div class="ca-seg" role="radiogroup" aria-label="${esc(s.pt)}">${[[1, 'Full'], [0.5, 'Half'], [0, 'None']].map(([v, n]) => `<button role="radio" aria-checked="${v === 0}" tabindex="${v === 0 ? 0 : -1}" data-s="${s.id}" data-v="${v}">${n}</button>`).join('')}</div></li>`).join('')}</ol>
-        <div class="ca-score" aria-live="polite">Your score: <b id="caScore">0</b> / ${fmt(q.marks)}</div>
+        <div class="ca-score" aria-live="polite">Your score: <b id="caScore">0</b> / ${mk(q.marks)}</div>
         <button class="btn" id="caSave">Save my score</button>
-        <button class="btn ghost ca-ai" disabled aria-describedby="caAiNote">Send to AI examiner panel</button><p class="ca-note" id="caAiNote">Coming soon: your saved answer can be sent for an independent AI check.</p></div>
+        <button class="btn ghost ca-ai" disabled aria-describedby="caAiNote">Send to AI examiner panel</button><p class="ca-note" id="caAiNote">Coming soon: your saved answer${ph.length ? ' and its photos' : ''} can be sent for an independent AI check.</p></div>
       <div class="card ca-exam"><h2 class="ca-h2s">Examiner remarks</h2><ul class="ca-ul">${q.remarks.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
         <h3 class="ca-h3">Common mistakes</h3><ul class="ca-ul ca-miss">${q.mistakes.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
         <h3 class="ca-h3">Presentation tips</h3><ul class="ca-ul">${q.tips.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-        ${hist(key, q)}</div>`;
+        ${hist(key, q)}</div>${ph.length ? '</div></div>' : ''}`;
+    if (ph.length && T() && T().photos) T().photos.strip(D.getElementById('caPhStrip'), ph);
+    wireHist(host, key, q);
     const calc = () => q.scheme.reduce((a, s) => a + s.m * ticks[s.id], 0);
     host.querySelectorAll('.ca-seg button').forEach(b => b.onclick = () => {
       ticks[b.dataset.s] = +b.dataset.v;
@@ -465,17 +532,28 @@
     D.getElementById('caSave').onclick = () => {
       const score = Math.round(calc() * 100) / 100, c = C();
       const rec = { d: today(), score, max: q.marks, ticks: { ...ticks }, skills: q.scheme.map(s => [s.skill, s.m, s.m * ticks[s.id]]), secs: att.secs, words: att.words,
-        text: (att.answer.text || '').slice(0, 6000), table: att.answer.table, status: 'self' };
-      const h = c.writes[key] = c.writes[key] || []; h.push(rec); while (h.length > 5) h.shift();
+        text: (att.answer.text || '').slice(0, 6000), table: att.answer.table, status: 'self', photos: ph.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })) };
+      const h = c.writes[key] = c.writes[key] || []; h.push(rec);
+      while (h.length > 5) { const old = h.shift(); if (T() && T().photos) (old.photos || []).forEach(x => T().photos.del(x.id)); }
+      if (ph.length && T() && T().photos) T().photos.keep(ph.map(x => x.id));
       save(); markTab(U.uid, 'write'); addXP(Math.max(5, Math.round(score / q.marks * 20)));
-      toast(`Saved: ${fmt(score)} / ${fmt(q.marks)}`); say(`Score saved, ${score} out of ${q.marks}`);
+      toast(`Saved: ${fmt(score)} / ${mk(q.marks)}`); say(`Score saved, ${score} out of ${q.marks} marks`);
       const hb = host.querySelector('.ca-hist'); if (hb) hb.outerHTML = hist(key, q); else host.querySelector('.ca-exam').insertAdjacentHTML('beforeend', hist(key, q));
+      wireHist(host, key, q);
       D.getElementById('caSave').disabled = true; D.getElementById('caSave').textContent = 'Score saved ✓';
     };
   }
   function hist(key, q) {
     const h = C().writes[key] || []; if (!h.length) return '';
-    return `<div class="ca-hist"><h3 class="ca-h3">Your attempts</h3><ul class="ca-ul">${h.slice().reverse().map(a => `<li>${esc(a.d)} — ${fmt(a.score)}/${fmt(a.max)}${a.secs ? ` in ${Math.round(a.secs / 60)} min` : ''}${a.words ? ` · ${a.words} words` : ''}</li>`).join('')}</ul></div>`;
+    return `<div class="ca-hist"><h3 class="ca-h3">Your attempts</h3><ul class="ca-ul ca-hl2">${h.map((a, i) => ({ a, i })).reverse().map(({ a, i }) => `<li><span>${esc(a.d)} — <b>${fmt(a.score)} / ${mk(a.max)}</b>${a.secs ? ` in ${Math.round(a.secs / 60)} min` : ''}${a.words ? ` · ${a.words} words` : ''}${(a.photos || []).length ? ` · 📷 ${a.photos.length} page${a.photos.length > 1 ? 's' : ''}` : ''}</span>
+      ${(a.photos || []).length ? `<div class="ca-phstrip ca-phmini" data-hph="${i}"></div><button class="ca-link" data-hdelph="${i}">Delete photos</button>` : ''}<button class="ca-link" data-hdel="${i}" aria-label="Delete this attempt">Delete attempt</button></li>`).join('')}</ul></div>`;
+  }
+  function wireHist(host, key, q) {
+    const box = host.querySelector('.ca-hist'); if (!box) return; const h = C().writes[key] || [];
+    box.querySelectorAll('[data-hph]').forEach(el => { const a = h[+el.dataset.hph]; if (a && T() && T().photos) T().photos.strip(el, a.photos); });
+    const redraw = () => { box.outerHTML = hist(key, q) || '<div class="ca-hist"></div>'; wireHist(host, key, q); };
+    box.querySelectorAll('[data-hdelph]').forEach(b => b.onclick = () => { const a = h[+b.dataset.hdelph]; if (!a) return; (a.photos || []).forEach(x => T() && T().photos && T().photos.del(x.id)); a.photos = []; save(); toast('Photos deleted'); redraw(); });
+    box.querySelectorAll('[data-hdel]').forEach(b => b.onclick = function () { if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again to delete'; return; } const a = h[+b.dataset.hdel]; if (!a) return; (a.photos || []).forEach(x => T() && T().photos && T().photos.del(x.id)); h.splice(+b.dataset.hdel, 1); if (!h.length) delete C().writes[key]; save(); toast('Attempt deleted'); redraw(); });
   }
 
   function reviseTab(P) {
@@ -619,17 +697,54 @@
     el.innerHTML = `<div class="card ca-prof"><div class="ca-avatar" aria-hidden="true">${esc((p.name || 'C').trim()[0].toUpperCase())}</div><div><h1 class="ca-h1">${esc(p.name)}</h1><p class="sub">CA ${esc(levelName(c.level))} · ICAI</p></div></div>
       <div class="card statrow"><div><b>${nU}</b><span>Units done</span></div><div><b>${nM}</b><span>MCQs answered</span></div><div><b>${nW}</b><span>Answers self-checked</span></div></div>
       ${T() ? `<div class="card"><h2 class="ca-h2s">Your library</h2><div class="ca-btns"><button class="btn ghost" id="caPNotes">📚 My notes</button><button class="btn ghost" id="caPSearch">🔍 Search everything</button></div></div>` : ''}
-      ${DEMO() ? '' : `<div class="card"><h2 class="ca-h2s">Current level</h2><div class="ca-seg ca-segw" role="radiogroup" aria-label="CA level">${LEVELS.map(([k, n]) => `<button role="radio" aria-checked="${k === c.level}" tabindex="${k === c.level ? 0 : -1}" data-l="${k}">${n}</button>`).join('')}</div></div>`}
       <div class="card"><h2 class="ca-h2s">Exam date</h2><label class="ca-lab" for="caExamP">Your next CA exam</label><input type="date" id="caExamP" class="ca-in" value="${esc(c.exam || '')}"><button class="btn ghost" id="caExamPS">Save</button></div>
       <div class="card"><h2 class="ca-h2s">Name</h2><label class="ca-lab" for="caNm">Shown on your journey and group results</label><input id="caNm" class="ca-in" maxlength="24" value="${esc(p.name)}" autocomplete="off"><button class="btn ghost" id="caNmS">Save</button></div>
-      ${DEMO() ? '' : `<div class="card"><h2 class="ca-h2s">Switch course</h2><p class="sub">Your CA progress is kept if you switch.</p><button class="btn ghost" id="caToSchool">Go to school mode (Grades 1–12)</button></div>`}
+      ${T() && T().photos ? '<div class="card" id="caPhUse"><h2 class="ca-h2s">📷 Answer photos</h2><p class="sub" id="caPhUseT">Checking storage…</p></div>' : ''}
+      ${ownerCard()}
       <div class="card"><button class="btn ghost" onclick="openSound()">Sound settings</button><div style="height:8px"></div><button class="btn ghost" id="caReset">Erase all progress</button></div>`;
-    el.querySelectorAll('.ca-segw button').forEach(b => b.onclick = () => { c.level = b.dataset.l; save(); profile(); toast(`CA ${levelName(c.level)} selected`); });
+    wireOwner(profile);
+    if (T() && T().photos) T().photos.usageCard(D.getElementById('caPhUse'));
     D.getElementById('caExamPS').onclick = () => { c.exam = D.getElementById('caExamP').value || null; save(); toast(c.exam ? 'Exam date saved' : 'Exam date cleared'); };
     D.getElementById('caNmS').onclick = () => { const v = D.getElementById('caNm').value.trim(); if (v) { p.name = v; save(); toast('Name saved'); } };
-    if (!DEMO()) D.getElementById('caToSchool').onclick = toSchool;
     if (T()) { D.getElementById('caPNotes').onclick = () => T().notes(); D.getElementById('caPSearch').onclick = () => T().search(''); }
     D.getElementById('caReset').onclick = function () { if (this.dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { this.dataset.sure = 1; this.textContent = 'Tap again to erase everything'; } };
+  }
+  /* ---------- owner tools (owner mode only) ---------- */
+  function ownerCard() {
+    if (!OWNER()) return '';
+    const c = C();
+    return `<div class="card ca-owner" id="caOwner"><h2 class="ca-h2s">🔑 Owner tools</h2><p class="sub">Only visible in owner mode on this device. Students cannot switch course or level.</p>
+      <h3 class="ca-h3">Course</h3><div class="ca-btns"><button class="btn ghost" id="caOwSchool" ${isCA() ? '' : 'disabled'}>School mode (Grades 1–12)</button><button class="btn ghost" id="caOwCA" ${isCA() ? 'disabled' : ''}>CA mode</button></div>
+      <h3 class="ca-h3">CA level</h3><div class="ca-seg ca-segw" role="radiogroup" aria-label="CA level">${LEVELS.map(([k, n]) => `<button role="radio" aria-checked="${k === c.level}" tabindex="${k === c.level ? 0 : -1}" data-l="${k}">${n}</button>`).join('')}</div>
+      <div style="height:10px"></div><button class="btn ghost" id="caOwOff">Turn owner mode off</button></div>`;
+  }
+  function wireOwner(again) {
+    const box = D.getElementById('caOwner'); if (!box) return;
+    box.querySelectorAll('.ca-segw button').forEach(b => b.onclick = () => { C().level = b.dataset.l; save(); toast(`CA ${levelName(b.dataset.l)} selected`); again(); });
+    const sc = D.getElementById('caOwSchool'); if (sc) sc.onclick = toSchool;
+    const ca = D.getElementById('caOwCA'); if (ca) ca.onclick = () => { if (ST.ca && ST.ca.level) { ST.profile.course = 'ca'; save(); if (window.Look) Look.apply(); home(); } else caSetup(1); };
+    D.getElementById('caOwOff').onclick = () => { try { localStorage.removeItem('sv_owner'); } catch (e) {} C(); save(); toast('Owner mode off'); again(); };
+  }
+  function ownerGate() {
+    if (!/[?&]owner\b/.test(location.search)) return;
+    const clean = () => { try { const u = new URL(location.href); u.searchParams.delete('owner'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); } catch (e) {} };
+    clean();                                   // strip ?owner at once, so no history entry keeps it
+    if (OWNER()) { toast('Owner mode is on'); return; }
+    D.getElementById('caOwnerSheet')?.remove();
+    D.body.insertAdjacentHTML('beforeend', `<div class="sheet show ca-sheet" id="caOwnerSheet" role="dialog" aria-modal="true" aria-labelledby="caOwT"><div class="sheet-in"><div class="sheet-grab"></div>
+      <h2 id="caOwT" class="ca-h2s">🔑 Owner mode</h2><p class="sub">For the app owner only. Unlocks the Owner tools card on this device.</p>
+      <form id="caOwF" autocomplete="off"><label class="ca-lab" for="caOwP">Passcode</label><input id="caOwP" class="ca-in" type="password" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <p class="ca-err" id="caOwE" role="alert"></p><div class="ca-btns"><button type="submit" class="btn">Unlock</button><button type="button" class="btn ghost" id="caOwX">Cancel</button></div></form></div></div>`);
+    const sh = D.getElementById('caOwnerSheet'), close = () => { sh.classList.remove('show'); setTimeout(() => sh.remove(), 40); clean(); };
+    D.getElementById('caOwX').onclick = close;
+    D.getElementById('caOwF').onsubmit = e => {
+      e.preventDefault();
+      if (D.getElementById('caOwP').value.trim() !== OWNER_CODE) { D.getElementById('caOwE').textContent = 'Wrong passcode.'; return; }
+      try { localStorage.setItem('sv_owner', '1'); } catch (x) {}
+      close(); toast('Owner mode on — see Owner tools in Profile / Me');
+      const a = D.querySelector('.screen.active'); if (a && a.id === 's-me') meScreen(); else if (isCA()) home();
+    };
+    setTimeout(() => { const i = D.getElementById('caOwP'); if (i) i.focus(); }, 80);
   }
   function toSchool() {
     const p = ST.profile; p.course = null; save(); navLabels(); D.querySelectorAll('nav button.on').forEach(b => b.classList.remove('on'));
@@ -643,7 +758,7 @@
     show('onboard'); const el = D.getElementById('s-onboard'); D.documentElement.dataset.age = 'pro';
     if (step === 1) {
       el.innerHTML = `<div class="ob ca-ob"><h1>CA — Chartered Accountancy</h1><p>Study material structure as per ICAI. Pick where you are in the journey.</p>
-        <div class="card">${LEVELS.map(([k, n], i) => `<button class="choice ca-lvlpick" data-l="${k}"><b>${i + 1}. CA ${n}</b><small>${['4 papers · the entry level', '6 papers in two groups', '6 papers in two groups'][i]}</small></button>`).join('')}</div>
+        <div class="card">${LEVELS.map(([k, n], i) => levelOK(k) ? `<button class="choice ca-lvlpick" data-l="${k}"><b>${i + 1}. CA ${n}</b><small>${['4 papers · the entry level', '6 papers in two groups', '6 papers in two groups'][i]}</small></button>` : '').join('')}</div>
         <button class="btn ghost" id="caObBack">← Back</button></div>`;
       el.querySelectorAll('.ca-lvlpick').forEach(b => b.onclick = () => { tap('tap'); caSetup(2, { ...draft, level: b.dataset.l }); });
       D.getElementById('caObBack').onclick = () => { if (window.Look) Look.apply(); ST.profile ? (isCA() ? home() : meScreen()) : onboardOrig(1); };
@@ -685,8 +800,7 @@
     if (isCA()) return profile();
     navLabels(); const r = _me.apply(this, arguments);
     const host = D.getElementById('s-me');
-    if (host && !D.getElementById('caMeCard')) host.insertAdjacentHTML('beforeend', `<div class="card" id="caMeCard"><h3>Professional courses</h3><p class="sub">Preparing for CA (ICAI)? Switch to the professional CA interface — your school progress is kept.</p><button class="btn ghost" id="caMeGo">CA — Chartered Accountancy</button></div>`);
-    const b = D.getElementById('caMeGo'); if (b) b.onclick = () => { if (ST.ca && ST.ca.level) { ST.profile.course = 'ca'; save(); if (window.Look) Look.apply(); home(); } else caSetup(1); };
+    if (host && OWNER() && !D.getElementById('caOwner')) { host.insertAdjacentHTML('beforeend', ownerCard()); wireOwner(() => meScreen()); }
     return r;
   };
 
@@ -701,12 +815,20 @@
   }
   window.addEventListener('hashchange', route);
   function boot() {
+    ownerGate();
     if (/^#(cau|cagrp|cagrpr)=/.test(location.hash)) { setTimeout(route, 80); return; }
     if (isCA()) { const s = D.querySelector('.screen.active'); if (!s || s.id === 's-world' || s.id === 's-onboard') home(); else navLabels(); }
   }
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', () => setTimeout(boot, 0)); else setTimeout(boot, 0);
 
-  window.Ca = { home, paper, unit, weak: weakScreen, group: groupScreen, setup: caSetup, profile, isCA,
+  async function openQuestion(uid, qid) {     // question bank → the unit's Write tab, straight into the answer pad
+    await unit(uid, 'write'); if (!U || U.uid !== uid) return;
+    const i = U.d.questions.findIndex(q => q.id === qid), P = D.getElementById('caPanel'); if (i >= 0 && P) pad(P, U.d.questions[i], i);
+  }
+  /* every CA screen is a history route (Back returns to it — see Nav in js/app.js); 'world' = the CA home */
+  if (window.Nav) { home = Nav.route('world', home); paper = Nav.route('ca.paper', paper); unit = Nav.route('ca.unit', unit); weakScreen = Nav.route('ca.weak', weakScreen);
+    groupScreen = Nav.route('ca.group', groupScreen); profile = Nav.route('ca.profile', profile); caSetup = Nav.route('onboard', caSetup); }
+  window.Ca = { home, paper, unit, openQuestion, weak: weakScreen, group: groupScreen, setup: caSetup, profile, isCA,
     /* Shape of a written answer for a future AI checker panel (backend). */
     submission(uid, qid, i = -1) { const h = C().writes[`${uid}#${qid}`] || []; const a = h.at(i); if (!a) return null;
       return { schema: 'ca-submission/1', unit: uid, question: qid, marks: a.max, answer: { text: a.text, table: a.table }, self: { score: a.score, ticks: a.ticks }, meta: { secs: a.secs, words: a.words, date: a.d, app: 'studyverse' }, status: a.status }; },
@@ -714,5 +836,5 @@
     /* internals shared with js/ca-tools.js */
     _: { C, LEVELS, TABS, SKILL, structure, allStructures, findUnit, levelOf, unitData, unitProg, paperProg, builtCount, unitCount, daysLeft, todayISO,
       screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, levelName, rng, order, recordAns, weakData, pctOf, selfSchemeHTML: null,
-      practiceDaily: () => { practice.daily = true; practice(); }, weakScreen, nextUnit, isCA } };
+      markGuide, mcqMarks, unitMarks, levelOK, OWNER, practiceDaily: () => { if (window.Nav) Nav.sub(() => (T() ? T().practiceHub() : practice())); practice.daily = true; practice(); }, weakScreen, nextUnit, isCA } };
 })();

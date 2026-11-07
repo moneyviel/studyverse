@@ -4,6 +4,19 @@ from lib import *
 UID = 'fnd-p1-ch02-u05'
 
 
+import copy
+from ca_viva import VIVA, P, ALT
+
+
+def viva():
+    """Viva from ca_viva.py with key points re-tuned in the second review for the negation-aware matcher."""
+    v = copy.deepcopy(VIVA[UID]); q = {x['id']: x for x in v}
+
+    def put(vid, pt): q[vid]['points'] = [pt if p['id'] == pt['id'] else p for p in q[vid]['points']]
+    put('v2', P('p4', 'Not posted to the ledger', 4, 'not posted|no posting|no ledger posting|not post|never post|isn t post|need not post|no need post|without posting|nothing is posted|not taken to ledger|not carried to ledger', min=1))
+    return v
+
+
 def cashbook(title, dr, cr, end, nxt, cols=('Discount', 'Cash', 'Bank'), balanced=(1, 2)):
     """dr/cr rows: (date, particulars, lf, [disc, cash, bank]). Adds balance c/d to balanced columns."""
     D = [{'date': d, 'part': p_, 'lf': lf, 'v': list(v)} for d, p_, lf, v in dr]
@@ -173,4 +186,5 @@ def build():
         'quickref': [{'k': 'Contra: cash into bank', 'v': 'Dr side bank column "To Cash (C)"; Cr side cash column "By Bank (C)"'}, {'k': 'Discount allowed total', 'v': 'Debited to Discount Allowed A/c'},
                      {'k': 'Discount received total', 'v': 'Credited to Discount Received A/c'}, {'k': 'Imprest', 'v': 'Reimbursement = amount spent; cash + vouchers = imprest'},
                      {'k': 'Card sale', 'v': 'Bank A/c Dr. To Sales A/c; Commission A/c Dr. To Bank A/c'}],
+        'viva': viva(),
     }

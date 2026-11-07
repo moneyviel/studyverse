@@ -1,0 +1,419 @@
+"""CA Foundation · Paper 1 Accounting · Chapter 10 Partnership and LLP Accounts · Unit 1 Introduction to Partnership Accounts.
+Original explanations, names and numbers; scope and topic order follow the ICAI study material (May 2027 onwards)."""
+from lib import *
+from ca_viva import P, V, ALT
+from ca_cases import M
+
+UID = 'fnd-p1-ch10-u01'
+
+
+def two_side(title, left, right, lh='Dr', rh='Cr', note_=None):
+    n = max(len(left), len(right))
+    rows = []
+    for i in range(n):
+        l = left[i] if i < len(left) else ('', None)
+        r = right[i] if i < len(right) else ('', None)
+        rows.append([l[0], inr(l[1]) if l[1] is not None else '', r[0], inr(r[1]) if r[1] is not None else ''])
+    tl = round(sum(a for _, a in left if a is not None), 2)
+    tr = round(sum(a for _, a in right if a is not None), 2)
+    assert tl == tr, (title, tl, tr)
+    rows.append(['Total', inr(tl), 'Total', inr(tr)])
+    return table([lh, '₹', rh, '₹'], rows, num=[1, 3], total=True, title=title, note=note_)
+
+
+def tacc(ac, dr, cr, date='2026 Mar 31'):
+    """Partner's capital/current account as a ledger block; last item of the lighter side is the balance c/d."""
+    sd, sc = sum(a for _, a in dr), sum(a for _, a in cr)
+    D = [{'date': date, 'part': p_, 'amt': a} for p_, a in dr]
+    C = [{'date': date, 'part': p_, 'amt': a} for p_, a in cr]
+    b = {'t': 'ledger', 'ac': ac, 'dr': D, 'cr': C}
+    if sd != sc:
+        bal = abs(sd - sc)
+        if sc > sd: D.append({'date': date, 'part': 'To Balance c/d', 'amt': bal, 'bal': True}); b['next'] = {'date': '2026 Apr 1', 'side': 'cr', 'amt': bal}
+        else: C.append({'date': date, 'part': 'By Balance c/d', 'amt': bal, 'bal': True}); b['next'] = {'date': '2026 Apr 1', 'side': 'dr', 'amt': bal}
+    return b
+
+
+def build():
+    # ============ Illustration 1: appropriation with fixed capitals ============
+    c1 = Checks()
+    loan_int = c1.add('100000*6/100*9/12', 'Interest on Aarav\'s loan at 6% for 9 months (deed silent) — charge against profit')
+    npf = c1.add('484500-4500', 'Net profit after interest on partner\'s loan')
+    ia = c1.add('500000*10/100', 'Interest on capital — Aarav'); ib = c1.add('300000*10/100', 'Interest on capital — Bhavna'); ic = c1.add('200000*10/100', 'Interest on capital — Chirag')
+    da = c1.add('60000*12/100*5.5/12', 'Interest on drawings — Aarav (end of each month, 5.5 months)')
+    db = c1.add('48000*12/100*7.5/12', 'Interest on drawings — Bhavna (beginning of each quarter, 7.5 months)')
+    dc = c1.add('30000*12/100*6/12', 'Interest on drawings — Chirag (dates not known, 6 months)')
+    sal = c1.add('8000*12', 'Salary to Bhavna')
+    com = c1.add('480000*5/100', 'Commission to Chirag (5% of net profit before appropriations)')
+    div = c1.add('480000+3300+3600+1800-(50000+30000+20000)-96000-24000', 'Profit available after interest, salary and commission')
+    res = c1.add('268700*10/100', 'Transfer to general reserve (10%)')
+    sh = c1.add('(268700-26870)*2/5', 'Share of profit — Aarav (2/5) and Bhavna (2/5)')
+    shc = c1.add('(268700-26870)*1/5', 'Share of profit — Chirag (1/5)')
+    c1.add('20000+50000+96732-60000-3300', 'Aarav current account closing (Cr)')
+    c1.add('15000+30000+96000+96732-48000-3600', 'Bhavna current account closing (Cr)')
+    c1.add('20000+24000+48366-8000-30000-1800', 'Chirag current account closing (Cr)')
+    PLA = two_side('Profit and Loss Appropriation Account — 2025-26', [
+        ('To Interest on capital — Aarav', ia), ('To Interest on capital — Bhavna', ib), ('To Interest on capital — Chirag', ic), ('To Salary — Bhavna', sal),
+        ('To Commission — Chirag', com), ('To General Reserve', res), ('To Share of profit — Aarav (2/5)', sh), ('To Share of profit — Bhavna (2/5)', sh), ('To Share of profit — Chirag (1/5)', shc)],
+        [('By Profit and Loss A/c — net profit', npf), ('By Interest on drawings — Aarav', da), ('By Interest on drawings — Bhavna', db), ('By Interest on drawings — Chirag', dc)])
+    CA_ = tacc("Aarav's Current Account", [('To Drawings', 60000), ('To Interest on drawings', da)], [('By Balance b/d', 20000), ('By Interest on capital', ia), ('By Share of profit', sh)])
+    CB_ = tacc("Bhavna's Current Account", [('To Drawings', 48000), ('To Interest on drawings', db)], [('By Balance b/d', 15000), ('By Interest on capital', ib), ('By Salary', sal), ('By Share of profit', sh)])
+    CC_ = tacc("Chirag's Current Account", [('To Balance b/d', 8000), ('To Drawings', 30000), ('To Interest on drawings', dc)], [('By Interest on capital', ic), ('By Commission', com), ('By Share of profit', shc)])
+
+    # ============ Illustration 2: interest on drawings and on capital ============
+    c2 = Checks()
+    prod = c2.add('20000*11+15000*8+25000*6+10000*2', 'Sum of products (amount × months to 31 March)')
+    iod = c2.add('510000*10/100/12', 'Interest on drawings by product method @10%')
+    avg = {k: c2.add(f'120000*10/100*{m}/12', f'Interest on ₹1,20,000 drawn evenly — {k}') for k, m in
+           [('beginning of each month (6.5 months)', 6.5), ('end of each month (5.5 months)', 5.5), ('middle of each month / dates unknown (6 months)', 6),
+            ('beginning of each quarter (7.5 months)', 7.5), ('end of each quarter (4.5 months)', 4.5)]}
+    ioc = c2.add('400000*9/100+100000*9/100*8/12-50000*9/100*3/12', 'Interest on capital with an addition and a withdrawal')
+    PT = table(['Date', 'Amount (₹)', 'Months to 31 March', 'Product (₹)'], [
+        ['1 May 2025', '20,000', '11', '2,20,000'], ['31 July 2025', '15,000', '8', '1,20,000'], ['1 October 2025', '25,000', '6', '1,50,000'], ['31 January 2026', '10,000', '2', '20,000'],
+        ['Total', '70,000', '', inr(prod)]], num=[1, 3], total=True, title='Product method')
+    AV = table(['Pattern of drawings (₹10,000 a month or ₹30,000 a quarter, ₹1,20,000 a year)', 'Average period', 'Interest @10% (₹)'],
+               [[k.split(' (')[0], k.split('(')[1].rstrip(')'), inr(v)] for k, v in avg.items()], title='Average-period short cuts')
+
+    # ============ Illustration 3: guarantee & insufficient profit ============
+    c3 = Checks()
+    zs = c3.add('360000*1/6', "Z's share at 1/6")
+    defi = c3.add('80000-60000', 'Deficiency to be made good')
+    xb = c3.add('20000*3/5', 'Borne by X (3/5)'); yb = c3.add('20000*2/5', 'Borne by Y (2/5)')
+    xf = c3.add('360000*3/6-12000', 'X final share'); yf = c3.add('360000*2/6-8000', 'Y final share')
+    xf2 = c3.add('180000-20000', 'X final share when X alone gives the guarantee')
+    ins_a = c3.add('30000*24000/40000', 'Insufficient profit: A gets profit in ratio of interest due')
+    ins_b = c3.add('30000*16000/40000', 'Insufficient profit: B')
+    GT = table(['Partner', 'Normal share (₹)', 'Deficiency (₹)', 'Final share (₹)'], [
+        ['X (3/6)', '1,80,000', '(12,000)', inr(xf)], ['Y (2/6)', '1,20,000', '(8,000)', inr(yf)], ['Z (1/6)', inr(zs), '+20,000', '80,000'],
+        ['Total', '3,60,000', '0', '3,60,000']], num=[1, 3], total=True, title='Case (a): guarantee borne by X and Y in their mutual ratio 3:2')
+
+    # ============ Illustration 4: past adjustment ============
+    c4 = Checks()
+    tot_omit = c4.add('(300000+200000+100000)*8/100+30000', 'Total omitted: interest on capital + salary to R')
+    PA = table(['Particulars', 'P (₹)', 'Q (₹)', 'R (₹)', 'Firm (₹)'], [
+        ['Interest on capital @8% (should have been credited)', '24,000', '16,000', '8,000', '48,000'],
+        ['Salary to R (should have been credited)', '0', '0', '30,000', '30,000'],
+        ['Total that should have been credited', '24,000', '16,000', '38,000', inr(tot_omit)],
+        ['Less: same amount wrongly given as profit in 3:2:1', '(39,000)', '(26,000)', '(13,000)', '(78,000)'],
+        ['Net effect', '(15,000)', '(10,000)', '25,000', '0']], title='Adjustment table')
+    c4.add('24000-39000', 'Net effect — P (debit)'); c4.add('16000-26000', 'Net effect — Q (debit)'); c4.add('38000-13000', 'Net effect — R (credit)')
+    E4 = [je('2026 Apr 1', [("P's Current A/c", 15000), ("Q's Current A/c", 10000)], [("R's Current A/c", 25000)], 'Being interest on capital and salary omitted last year, now adjusted through current accounts')]
+
+    # ============ Q1: fluctuating capitals ============
+    q1 = Checks()
+    q1_in = q1.add('400000*8/100+100000*8/100*6/12', 'Interest on capital — Neel'); q1_io = q1.add('250000*8/100', 'Interest on capital — Ojas')
+    q1_dn = q1.add('60000*10/100*6.5/12', 'Interest on drawings — Neel (beginning of month)'); q1_do = q1.add('72000*10/100*5.5/12', 'Interest on drawings — Ojas (end of month)')
+    q1_div = q1.add('264000+3250+3300-36000-20000-48000-50000', 'Divisible profit')
+    q1_sn = q1.add('116550*3/5', 'Neel 3/5'); q1_so = q1.add('116550*2/5', 'Ojas 2/5')
+    q1_cn = q1.add('400000+100000+36000+50000+69930-60000-3250', 'Neel capital closing')
+    q1_co = q1.add('250000+20000+48000+46620-72000-3300', 'Ojas capital closing')
+    Q1A = two_side('Profit and Loss Appropriation Account for 2025-26', [
+        ('To Interest on capital — Neel', q1_in), ('To Interest on capital — Ojas', q1_io), ('To Salary — Ojas', 48000), ('To Commission — Neel', 50000),
+        ('To Share of profit — Neel (3/5)', q1_sn), ('To Share of profit — Ojas (2/5)', q1_so)],
+        [('By Net profit b/d', 264000), ('By Interest on drawings — Neel', q1_dn), ('By Interest on drawings — Ojas', q1_do)])
+    Q1N = tacc("Neel's Capital Account", [('To Drawings', 60000), ('To Interest on drawings', q1_dn)], [('By Balance b/d', 400000), ('By Bank (additional capital)', 100000), ('By Interest on capital', q1_in), ('By Commission', 50000), ('By Share of profit', q1_sn)])
+    Q1O = tacc("Ojas's Capital Account", [('To Drawings', 72000), ('To Interest on drawings', q1_do)], [('By Balance b/d', 250000), ('By Interest on capital', q1_io), ('By Salary', 48000), ('By Share of profit', q1_so)])
+
+    # ============ Q2: no deed ============
+    q2 = Checks()
+    q2_li = q2.add('150000*6/100*6/12', 'Interest on Kunal\'s loan @6% for 6 months')
+    q2_np = q2.add('324500-4500', 'Profit to be shared')
+    q2_sh = q2.add('320000/2', 'Each partner\'s share')
+
+    # ============ Q4: guarantee ============
+    q4 = Checks()
+    q4_f = q4.add('280000*2/10', "F's normal share")
+    q4_def = q4.add('70000-56000', 'Deficiency')
+    q4_d = q4.add('280000*5/10-14000*5/8', 'D final (a)'); q4_e = q4.add('280000*3/10-14000*3/8', 'E final (a)')
+    q4_d2 = q4.add('280000*5/10-14000', 'D final (b)')
+
+    # ============ Case ============
+    k = Checks()
+    k_li = k.add('200000*6/100*9/12', 'interest on loan')
+    k_np = k.add('411000-9000', 'profit to share')
+
+    concepts = [
+        {'id': 'c1', 'title': 'Why partnership? Definition and features',
+         'body': ['A sole trader soon runs short of money, skills and time. Two or more people pool resources and share the results — that is a partnership.',
+                  'Section 4 of the Indian Partnership Act, 1932 defines partnership, in substance, as a relationship among persons who agree to divide the profits of a business that is run by all of them, or by one or more of them on behalf of all.',
+                  'Essential features: (1) an agreement — the relation arises from contract, not from status (unlike an HUF), and need not be in writing (section 5); (2) a business — "business" includes every trade, occupation and profession (section 2(b)); (3) sharing of profits — an agreement to share losses is not essential; (4) mutual agency — each partner is both an agent and a principal for the others.',
+                  'A minor cannot be a full partner but may be admitted to the benefits of partnership if every partner agrees; such a minor shares profits but is not personally liable for losses beyond his share in the firm.',
+                  'Number: at least 2. The maximum is 50 — section 464 of the Companies Act, 2013 allows up to 100 and Rule 10 of the Companies (Incorporation) Rules, 2014 prescribes 50.'],
+         'analogy': 'A partnership is like a band: each member brings a skill, they share the fee, and when one signs a contract for a show, the whole band is bound.',
+         'work': 'Most CA practices, many small manufacturers and traders run as partnership firms. Drafting the deed and maintaining partners\' accounts is routine CA work.'},
+        {'id': 'c2', 'title': 'Limited Liability Partnership (LLP)',
+         'body': ['In an ordinary firm every partner has unlimited liability, jointly and severally, even for a co-partner\'s wrongful acts. The Limited Liability Partnership Act, 2008 (amended in 2021) created a hybrid: partnership flexibility with corporate-style limited liability.',
+                  'An LLP is a body corporate and a legal entity separate from its partners, with perpetual succession; a change of partners does not affect its existence. The Indian Partnership Act, 1932 does not apply to it unless provided otherwise.',
+                  'Partners: any individual or body corporate (not a person of unsound mind declared by a court, an undischarged insolvent, or one whose insolvency application is pending). At least two partners; if it carries on business for more than six months with only one partner, that partner (knowing this) becomes personally liable for obligations incurred in that period.',
+                  'Designated partners (section 7): at least two individuals, at least one resident in India — as per the study material, a person who stayed in India for at least 120 days in the immediately preceding year (write this in the exam). Real-world note: the LLP (Amendment) Act, 2021 worded it as at least 120 days during the financial year; the 120-day figure is the same. They are responsible for compliance and liable for penalties.',
+                  'Liability: obligations of the LLP are met from its own property; a partner is not personally liable merely because he is a partner, nor for another partner\'s unauthorised acts. Liability becomes unlimited for anyone acting with intent to defraud.',
+                  'Accounts: proper books on cash or accrual basis under double entry, kept at the registered office; a Statement of Account and Solvency within six months of the year end, signed by designated partners and filed with the Registrar; audit as per rules (some classes exempted). A small LLP is one with contribution up to ₹25 lakh (or a higher prescribed limit up to ₹5 crore) and turnover up to ₹40 lakh (or a higher prescribed limit up to ₹50 crore).',
+                  'Advantages: agreement-based structure, limited liability, lower formation cost, audit not always mandatory. Challenges: public disclosure of accounts, no equity investment route, heavy penalties for non-compliance.'],
+         'analogy': 'An LLP is a partnership wearing a company\'s seatbelt — it drives like a partnership but the partners are protected if it crashes.',
+         'work': 'CA firms themselves are increasingly LLPs. Advising clients whether to form a firm or an LLP, and filing the annual Statement of Account and Solvency, are standard assignments.'},
+        {'id': 'c3', 'title': 'Ordinary partnership firm vs LLP',
+         'body': ['A frequent short-note or "distinguish" question.'],
+         'blocks': [table(['Basis', 'LLP', 'Partnership firm'], [
+             ['Law', 'Limited Liability Partnership Act, 2008', 'Indian Partnership Act, 1932'],
+             ['Legal status', 'Body corporate, separate legal entity', 'Not a body corporate; no separate entity'],
+             ['Creation / registration', 'Only by registration (mandatory)', 'By agreement; registration optional (only a registered firm can sue third parties)'],
+             ['Succession', 'Perpetual — unaffected by death, retirement or insolvency of partners', 'Existence may be affected by such events'],
+             ['Name', 'Must end with "LLP" / Limited Liability Partnership', 'Any name chosen by partners'],
+             ['Liability', 'Limited to agreed contribution (except fraud)', 'Unlimited — extends to personal assets'],
+             ['Mutual agency', 'A partner binds the LLP but not other partners', 'A partner binds the firm and all other partners'],
+             ['Designated partners', 'At least two, one resident in India', 'No such concept'],
+             ['Number of partners', 'Minimum 2, no maximum', 'Minimum 2, maximum 50'],
+             ['Compliance', 'Designated partners responsible', 'All partners responsible'],
+             ['Foreign nationals', 'Can be partners', 'Cannot be partners'],
+             ['Minor', 'Cannot be admitted', 'Can be admitted to benefits with consent of all partners'],
+         ])],
+         'analogy': 'Same family, different houses: the firm lives with its partners; the LLP has its own address.',
+         'work': 'Bankers and investors ask for this comparison when a client converts a firm into an LLP; the CA explains the change in liability and compliance.'},
+        {'id': 'c4', 'title': 'The partnership deed and rules when the deed is silent',
+         'body': ['The deed (written agreement) usually covers: name of the firm and partners; date of commencement and duration; capital by each partner; drawings allowed and their timing; interest on capital and on partners\' loans; profit-sharing ratio; salaries or commission to partners; changes in mutual rights and duties; method of valuing goodwill; procedure for retirement and settlement of dues; method of paying a deceased partner\'s representatives; treatment of loss from a partner\'s insolvency; dispute settlement; preparation and audit of accounts.',
+                  'If there is no deed, or it is silent on a point, the Act applies (section 13): (a) no partner gets a salary or remuneration; (b) profits and losses are shared equally; (c) no interest on capital (and where interest is agreed, it is paid only out of profits); (d) interest at 6% per annum on a partner\'s loan/advance to the firm; and no interest is charged on drawings.',
+                  'Interest on a partner\'s loan is a charge against profit — debited to the Profit and Loss Account even when there is a loss. Interest on capital, salary and commission are appropriations — they need profits.'],
+         'analogy': 'The deed is the house rules your family writes down; the Act is the default setting that switches on when no rule is written.',
+         'work': 'Disputes between partners over salary or interest often reach the CA first. Quoting the deed — or section 13 where it is silent — settles most of them.'},
+        {'id': 'c5', 'title': 'Powers of partners (implied authority)',
+         'body': ['Unless a public notice restricts it, a partner of a trading firm can bind the firm by acts done in the usual way of business: buying and selling goods; receiving payments and giving receipts; drawing cheques and drawing, accepting and endorsing bills and promissory notes; borrowing for the firm with or without pledging stock; engaging employees.',
+                  'Without the consent of the others, a partner\'s implied authority does not extend to: referring a firm dispute to arbitration; opening a bank account in his own name for the firm; compromising or giving up a claim of the firm; withdrawing a suit filed by the firm; admitting a liability in a suit against the firm; acquiring immovable property for the firm; transferring the firm\'s immovable property; entering into a partnership on behalf of the firm.',
+                  'Partners can widen or narrow these rights and duties by mutual agreement.'],
+         'analogy': 'Each partner holds the shop keys for day-to-day work — but not the keys to the safe-deposit locker that holds the property deeds.',
+         'work': 'Banks ask for a partnership letter signed by all partners before opening an account or granting a loan — because a single partner\'s implied authority is limited.'},
+        {'id': 'c6', 'title': 'Partners\' accounts and the Profit and Loss Appropriation Account',
+         'body': ['Accounts of a firm are like a sole trader\'s, except that each partner has a capital account (and often a drawings or current account).',
+                  'The Profit and Loss Account finds net profit (after charges such as interest on partners\' loans). The net profit is then carried to the Profit and Loss Appropriation Account, which shows how it is distributed: interest on capital, salary and commission to partners and transfers to reserve are debited; interest on drawings is credited; the balance is divided in the profit-sharing ratio.',
+                  'Entries: P&L Appropriation A/c Dr, To Partners\' Capital/Current A/cs (interest on capital, salary, commission, share of profit). Partners\' Capital/Current A/cs Dr, To P&L Appropriation A/c (interest on drawings).',
+                  'Commission based on profit: if "on net profit before charging such commission", take the percentage of profit; if "after charging such commission", commission = profit × rate ÷ (100 + rate).'],
+         'analogy': 'The P&L Account bakes the cake; the appropriation account slices it — interest and salary slices first, then the rest in the agreed ratio.',
+         'work': 'Partners\' remuneration and interest also matter for income tax (allowed within limits in the firm\'s hands), so the appropriation must strictly follow the deed.'},
+        {'id': 'c7', 'title': 'Fixed vs fluctuating capital',
+         'body': ['Fixed capital method: capital accounts show only the agreed capital (changed only by a decision to add or withdraw capital). Interest, salary, commission, share of profit, drawings and interest on drawings go to a separate current account, which may have a debit or credit balance. Interest on capital is computed on the fixed capital only, not on current account balances.',
+                  'Fluctuating capital method: there is no current account; all these items pass through the capital account, whose balance changes every year (and should not normally be debit).'],
+         'blocks': [table(['Basis', 'Fixed capital', 'Fluctuating capital'], [
+             ['Accounts kept', 'Capital account + current account', 'Capital account only'],
+             ['Balance', 'Capital stays the same unless capital is added/withdrawn', 'Changes every year'],
+             ['Adjustments (interest, salary, profit, drawings)', 'Current account', 'Capital account'],
+             ['Debit balance', 'Current account can be debit', 'Capital account normally credit']])],
+         'analogy': 'Fixed capital is the deposit you never touch; the current account is your everyday wallet.',
+         'work': 'Most firms prefer fixed capitals with current accounts — it keeps each partner\'s committed money clear for interest calculations and bank appraisal.'},
+        {'id': 'c8', 'title': 'Interest on capital and on drawings',
+         'body': ['Interest on capital is not a right; it is allowed only if the deed provides, at the agreed rate, and only out of profits. Calculate on the opening balance for the full year plus additions for the period used, less withdrawals for the remaining period. If there is a loss, no interest; if profit is less than the interest due, the profit is shared in the ratio of interest due (i.e. effectively the capital ratio).',
+                  'Interest on drawings is charged only if the deed says so, from the date of each drawing to the year end. Product method: Σ(amount × months) × rate ÷ 12.',
+                  'Short cuts for equal drawings over a year: beginning of each month — 6½ months; end of each month — 5½ months; middle of each month or dates not given — 6 months; beginning of each quarter — 7½ months; end of each quarter — 4½ months.'],
+         'analogy': 'Interest on capital pays a partner for money kept in the firm; interest on drawings charges him for money taken out early — like rent on a borrowed umbrella, counted from the day you took it.',
+         'work': 'Interest is mechanical but easy to get wrong on dates; reviewers recompute it with a product table before finalising partners\' accounts.'},
+        {'id': 'c9', 'title': 'Guarantee of minimum profit, capital ratio and past adjustments',
+         'body': ['Guarantee: a partner may be promised a minimum share. If his actual share is lower, he gets the guaranteed amount and the shortfall is borne by the guarantor(s) — one partner, several partners in an agreed ratio, or (if the deed is silent) the other partners in their mutual profit-sharing ratio.',
+                  'Capital ratio: if profits are shared in the capital ratio and capitals change during the year, use weighted (time-based) capitals — each balance multiplied by the months it remained.',
+                  'Past adjustments: when interest, salary or the ratio was wrongly applied after accounts were closed, do not reopen the accounts. Prepare a table: what each partner should have got minus what he wrongly got, and pass a single adjustment entry through capital/current accounts (gainers debited, losers credited).'],
+         'analogy': 'A guarantee is a safety net under one trapeze artist; whoever holds the net pays for the fall.',
+         'work': 'New partners in professional firms are often given a guaranteed minimum for the first few years; the deed must say who bears the shortfall.'},
+    ]
+
+    illustrations = [
+        {'id': 'i1', 'title': 'Appropriation of profit with fixed capitals and current accounts', 'difficulty': 'hard', 'minutes': 25,
+         'q': ('Aarav, Bhavna and Chirag share profits 2:2:1 with fixed capitals of ₹5,00,000, ₹3,00,000 and ₹2,00,000. Current accounts on 1 April 2025: Aarav ₹20,000 (Cr), Bhavna ₹15,000 (Cr), Chirag ₹8,000 (Dr). '
+               'The deed provides: interest on capital 10% p.a.; interest on drawings 12% p.a.; salary to Bhavna ₹8,000 a month; commission to Chirag 5% of net profit (before any appropriation); 10% of the profit remaining after interest, salary and commission is to go to General Reserve. The deed is silent on interest on partners\' loans. '
+               'Aarav lent the firm ₹1,00,000 on 1 July 2025. Profit for 2025-26 before interest on this loan was ₹4,84,500. Drawings: Aarav ₹5,000 at the end of every month; Bhavna ₹12,000 at the beginning of every quarter; Chirag ₹30,000 (dates not known). Prepare the Profit and Loss Appropriation Account and the partners\' current accounts.'),
+         'solution': [wn('Step 1 — Loan interest is a charge, not an appropriation', f'Deed silent → 6% p.a. (section 13(d)): 1,00,000 × 6% × 9/12 = ₹{inr(loan_int)}. Net profit = 4,84,500 − 4,500 = ₹{inr(npf)}.'),
+                      PLA, CA_, CB_, CC_,
+                      wn('Workings', f'Interest on drawings: Aarav 60,000 × 12% × 5.5/12 = ₹{inr(da)}; Bhavna 48,000 × 12% × 7.5/12 = ₹{inr(db)}; Chirag 30,000 × 12% × 6/12 = ₹{inr(dc)}. Commission 5% × 4,80,000 = ₹{inr(com)}. Profit after interest, salary and commission ₹{inr(div)}; reserve ₹{inr(res)}; balance ₹{inr(div - res)} shared 2:2:1.')],
+         'checks': c1},
+        {'id': 'i2', 'title': 'Interest on drawings (product and average methods) and interest on capital', 'difficulty': 'moderate', 'minutes': 12,
+         'q': '(a) A partner withdrew ₹20,000 on 1 May 2025, ₹15,000 on 31 July 2025, ₹25,000 on 1 October 2025 and ₹10,000 on 31 January 2026. Books close on 31 March; interest on drawings is 10% p.a. Find the interest. (b) Find interest at 10% on drawings of ₹1,20,000 made evenly in each of the usual patterns. (c) A partner\'s capital was ₹4,00,000 on 1 April 2025; he added ₹1,00,000 on 1 August 2025 and withdrew ₹50,000 of capital on 1 January 2026. Interest on capital is 9% p.a. Find the interest.',
+         'solution': [PT, p(f'(a) Interest = {inr(prod)} × 10% × 1/12 = ₹{inr(iod)}.'), AV,
+                      p(f'(c) 4,00,000 × 9% = 36,000; plus 1,00,000 × 9% × 8/12 = 6,000; less 50,000 × 9% × 3/12 = 1,125. Interest on capital = ₹{inr(ioc)}.')],
+         'checks': c2},
+        {'id': 'i3', 'title': 'Guarantee of minimum profit and insufficient profit for interest', 'difficulty': 'moderate', 'minutes': 10,
+         'q': '(a) X, Y and Z share profits 3:2:1. Z is guaranteed a minimum of ₹80,000 a year. Profit for the year is ₹3,60,000. Distribute the profit if the deed is silent on who bears the guarantee. (b) What if X alone gave the guarantee? (c) A and B have capitals of ₹3,00,000 and ₹2,00,000; interest on capital is 8% p.a.; profit before interest is only ₹30,000. How is it shared?',
+         'solution': [GT, p(f'(b) If X alone guarantees: X = 1,80,000 − 20,000 = ₹{inr(xf2)}; Y keeps ₹1,20,000; Z gets ₹80,000.'),
+                      p(f'(c) Interest due: A ₹24,000, B ₹16,000 = ₹40,000, which exceeds the profit. Interest is payable only out of profits, so the ₹30,000 is shared in the ratio of interest due 3:2 — A ₹{inr(ins_a)}, B ₹{inr(ins_b)}; nothing is left for the profit-sharing ratio.')],
+         'checks': c3},
+        {'id': 'i4', 'title': 'Adjustment for omissions after accounts were closed', 'difficulty': 'moderate', 'minutes': 10,
+         'q': 'P, Q and R share profits 3:2:1 with fixed capitals of ₹3,00,000, ₹2,00,000 and ₹1,00,000. After the 2025-26 accounts were closed it was found that interest on capital at 8% p.a. and R\'s salary of ₹30,000 had been omitted. Pass a single adjusting entry.',
+         'solution': [PA, journal(E4, 'Adjusting entry', 'j4'), note('Only the net effect is passed; the closed Profit and Loss Appropriation Account is not reopened.')],
+         'checks': c4},
+    ]
+
+    jobs = [
+        {'id': 'j1', 'title': 'Finalising partners\' accounts for a trading firm', 'role': 'Accounts executive at a CA firm',
+         'situation': 'A three-partner firm sends its trial balance. The deed (scanned PDF) provides interest on capital at 12%, salary to the working partner and commission to another. The client\'s accountant has deducted interest on a partner\'s loan in the appropriation account and charged interest on drawings for a full year.',
+         'steps': ['Read the deed clause by clause and list every appropriation it allows.',
+                   'Move interest on the partner\'s loan to the Profit and Loss Account — it is a charge, not an appropriation.',
+                   'Recompute interest on drawings using the actual dates (product method).',
+                   'Prepare the appropriation account and current accounts; reconcile closing current-account balances with the partners\' confirmations.'],
+         'takeaway': 'Charge or appropriation? That one question decides whether an item reduces the firm\'s profit or only divides it.',
+         'think': 'The firm made a loss this year. Will the partner still get interest on his loan? Interest on capital?',
+         'answer': 'Interest on the loan — yes, it is a charge against profit. Interest on capital — no, it is an appropriation payable only out of profits (unless the deed provides otherwise).'},
+        {'id': 'j2', 'title': 'Advising on conversion of a firm to an LLP', 'role': 'Associate in a CA practice (advisory)',
+         'situation': 'Two doctors running a diagnostic centre as a partnership worry about personal liability from a malpractice claim against one of them. They ask whether an LLP helps.',
+         'steps': ['Explain that in a firm each partner\'s liability is unlimited and joint and several — the other doctor\'s house is at risk.',
+                   'Explain that in an LLP a partner is not personally liable for another partner\'s wrongful act; liability is limited to contribution (except fraud).',
+                   'List compliance: at least two designated partners (one resident in India), annual Statement of Account and Solvency within six months of year end, annual return, audit if limits are crossed.',
+                   'Compare costs and recommend.'],
+         'takeaway': 'Choosing the business form is a risk decision as much as a tax decision.',
+         'think': 'Will the LLP protect the doctor who personally committed the negligence?',
+         'answer': 'Not necessarily — the LLP shields partners from each other\'s acts, but a partner remains liable for his own wrongful act; the LLP itself is also liable.'},
+    ]
+
+    mcqs = [
+        {'id': 'm1', 'q': 'In the absence of a partnership deed, interest on a partner\'s loan to the firm is allowed at:', 'options': ['6% per annum', '12% per annum', 'The bank rate', 'Nil — no interest is allowed'], 'answer': 0, 'explain': 'Section 13(d): 6% p.a. on advances beyond capital.', 'concept': 'c4', 'difficulty': 'core'},
+        {'id': 'm2', 'q': 'There is no deed. A contributed ₹5,00,000 and B ₹1,00,000 as capital. Profits will be shared:', 'options': ['Equally', 'In the ratio 5:1', 'In the ratio of time devoted', 'After allowing 6% interest on capital'], 'answer': 0, 'explain': 'Without agreement profits are shared equally, whatever the capitals; no interest on capital is allowed.', 'concept': 'c4', 'difficulty': 'core'},
+        {'id': 'm3', 'q': 'A partner draws ₹6,000 at the end of every month. Interest on drawings at 10% p.a. is:', 'options': ['₹3,300', '₹3,900', '₹3,600', '₹7,200'], 'answer': 0, 'check': '72000*10/100*5.5/12', 'explain': 'Total ₹72,000; end of month → 5½ months: 72,000 × 10% × 5.5/12 = ₹3,300. Beginning of month (6½ months) gives ₹3,900.', 'concept': 'c8', 'difficulty': 'moderate'},
+        {'id': 'm4', 'q': 'Capital ₹2,00,000 on 1 April; additional capital ₹60,000 on 1 October. Interest on capital at 10% p.a. for the year ending 31 March is:', 'options': ['₹23,000', '₹26,000', '₹20,000', '₹21,500'], 'answer': 0, 'check': '200000*10/100+60000*10/100*6/12', 'explain': '20,000 + 60,000 × 10% × 6/12 = 20,000 + 3,000 = ₹23,000.', 'concept': 'c8', 'difficulty': 'core'},
+        {'id': 'm5', 'q': 'Interest on a partner\'s loan is:', 'options': ['Debited to the Profit and Loss Account as a charge', 'Debited to the Profit and Loss Appropriation Account', 'Credited to the partner\'s drawings account', 'Allowed only if there are profits'], 'answer': 0, 'explain': 'It is a charge against profit — payable even in a loss year.', 'concept': 'c4', 'difficulty': 'core'},
+        {'id': 'm6', 'q': 'Under the fixed capital method, the share of profit is credited to the partner\'s:', 'options': ['Current account', 'Capital account', 'Loan account', 'Drawings account only'], 'answer': 0, 'explain': 'With fixed capitals, all adjustments (interest, salary, profit, drawings) go through current accounts.', 'concept': 'c7', 'difficulty': 'core'},
+        {'id': 'm7', 'q': 'A, B and C share profits 2:2:1. C is guaranteed ₹50,000. Profit is ₹2,00,000. The deed is silent on who bears the deficiency. A will finally get:', 'options': ['₹75,000', '₹80,000', '₹70,000', '₹66,667'], 'answer': 0, 'check': '200000*2/5-(50000-40000)*1/2', 'explain': 'C\'s share 40,000; deficiency 10,000 borne by A and B in 2:2 → 5,000 each. A = 80,000 − 5,000 = ₹75,000.', 'concept': 'c9', 'difficulty': 'moderate'},
+        {'id': 'm8', 'q': 'The maximum number of partners in a partnership firm (Companies Act, 2013 with the 2014 Rules) is:', 'options': ['50', '100', '20', 'No limit'], 'answer': 0, 'check': '50', 'explain': 'Section 464 allows the government to prescribe up to 100; Rule 10 of the Companies (Incorporation) Rules, 2014 prescribes 50.', 'concept': 'c1', 'difficulty': 'core'},
+        {'id': 'm9', 'q': 'Every LLP must have at least two designated partners, of whom at least one must be resident in India. "Resident" here means stayed in India for at least:', 'options': ['120 days in the immediately preceding year', '182 days in the immediately preceding year', '60 days in the current year', '365 days in the last two years'], 'answer': 0, 'check': '120', 'explain': 'After the 2021 amendment the period is 120 days (earlier 182). The study material describes it as 120 days in the immediately preceding year; the amended Act words it as 120 days during the financial year — either way, 120 days is the answer.', 'concept': 'c2', 'difficulty': 'moderate'},
+        {'id': 'm10', 'q': 'Without the consent of the other partners, a partner of a trading firm CANNOT:', 'options': ['Submit a dispute of the firm to arbitration', 'Buy goods for the firm', 'Receive payment from a customer and give a receipt', 'Engage a salesman for the firm'], 'answer': 0, 'explain': 'Referring disputes to arbitration is outside implied authority; the others are usual business acts.', 'concept': 'c5', 'difficulty': 'moderate'},
+        {'id': 'm11', 'q': 'Which statement about an LLP is correct?', 'options': ['It is a body corporate with perpetual succession', 'Its partners have unlimited liability', 'A minor can be admitted to its benefits', 'It is governed by the Indian Partnership Act, 1932'], 'answer': 0, 'explain': 'An LLP is a separate legal entity with perpetual succession; liability is limited; minors cannot be admitted; the 1932 Act does not apply.', 'concept': 'c3', 'difficulty': 'core'},
+        {'id': 'm12', 'q': 'Commission to a manager-partner is 10% of net profit after charging such commission. Profit before commission is ₹2,20,000. Commission is:', 'options': ['₹20,000', '₹22,000', '₹24,200', '₹19,800'], 'answer': 0, 'check': '220000*10/110', 'explain': 'After charging: 2,20,000 × 10/110 = ₹20,000. ₹22,000 is the "before charging" answer.', 'concept': 'c6', 'difficulty': 'hard'},
+        {'id': 'm13', 'q': 'Within how many months of the end of a financial year must an LLP prepare its Statement of Account and Solvency?', 'options': ['Six months', 'Three months', 'Nine months', 'Twelve months'], 'answer': 0, 'explain': 'Within six months of the year end, signed by the designated partners, and filed with the Registrar.', 'concept': 'c2', 'difficulty': 'moderate'},
+    ]
+
+    questions = [
+        {'id': 'q1', 'marks': 10, 'minutes': minutes(10), 'difficulty': 'hard', 'pad': 'ledger',
+         'q': ('Neel and Ojas share profits 3:2. Their capitals (fluctuating) on 1 April 2025 were ₹4,00,000 and ₹2,50,000; Neel introduced ₹1,00,000 more on 1 October 2025. The deed provides: interest on capital 8% p.a.; interest on drawings 10% p.a.; salary to Ojas ₹4,000 a month; commission to Neel ₹50,000 for the year. '
+               'Neel drew ₹5,000 at the beginning of every month and Ojas ₹6,000 at the end of every month. Net profit for 2025-26 before these items was ₹2,64,000. Prepare the Profit and Loss Appropriation Account and the partners\' capital accounts.'),
+         'model': [wn('Interest', f'On capital — Neel: 4,00,000 × 8% + 1,00,000 × 8% × 6/12 = ₹{inr(q1_in)}; Ojas: ₹{inr(q1_io)}. On drawings — Neel: 60,000 × 10% × 6.5/12 = ₹{inr(q1_dn)}; Ojas: 72,000 × 10% × 5.5/12 = ₹{inr(q1_do)}.'),
+                   Q1A, Q1N, Q1O],
+         'checks': q1,
+         'scheme': [{'id': 's1', 'pt': 'Interest on capital ₹36,000 and ₹20,000 (time basis on additional capital)', 'm': 2, 'skill': 'computation'},
+                    {'id': 's2', 'pt': 'Interest on drawings ₹3,250 (6.5 months) and ₹3,300 (5.5 months)', 'm': 2, 'skill': 'computation'},
+                    {'id': 's3', 'pt': 'Appropriation account with salary, commission and divisible profit ₹1,16,550 shared 3:2', 'm': 3, 'skill': 'presentation'},
+                    {'id': 's4', 'pt': 'Capital accounts balanced: Neel ₹5,92,680, Ojas ₹2,89,320', 'm': 3, 'skill': 'posting'}],
+         'remarks': ['Most errors came from using 6 months for all drawings instead of the patterns given.', 'Several candidates ignored the additional capital when computing interest, or charged interest on it for the full year.'],
+         'mistakes': ['Crediting interest on drawings to the partner.', 'Showing salary and commission in the Profit and Loss Account instead of the appropriation account.', 'Opening current accounts although capitals are fluctuating.'],
+         'tips': ['Compute all interest figures in a working note first.', 'In fluctuating capitals, every item goes to the capital account — no current account.']},
+        {'id': 'q2', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'moderate', 'pad': 'text',
+         'q': 'Kunal and Leena are partners without any agreement. Kunal contributed ₹6,00,000 and Leena ₹2,00,000 as capital; Kunal also lent ₹1,50,000 to the firm on 1 October 2025. Leena works full time; Kunal does not. Profit for 2025-26 before any of the claims below is ₹3,24,500. Kunal claims interest on capital at 10% and profits in the capital ratio; Leena claims a salary of ₹10,000 a month; Kunal claims interest on his loan at 12%. Settle the dispute and distribute the profit.',
+         'model': [ul(['Since there is no agreement, section 13 of the Indian Partnership Act, 1932 applies.',
+                       'Interest on capital: not allowed — Kunal\'s claim rejected.',
+                       'Profit-sharing: equally, not in the capital ratio — Kunal\'s claim rejected.',
+                       'Salary: no partner is entitled to remuneration — Leena\'s claim rejected.',
+                       f'Interest on loan: allowed at 6% p.a., not 12% — 1,50,000 × 6% × 6/12 = ₹{inr(q2_li)}, charged before dividing profit.']),
+                   table(['Particulars', '₹'], [['Profit before claims', '3,24,500'], ['Less: interest on Kunal\'s loan', '(4,500)'], ['Profit to be shared', inr(q2_np)],
+                                                ['Kunal (1/2)', inr(q2_sh)], ['Leena (1/2)', inr(q2_sh)]], title='Distribution')],
+         'checks': q2,
+         'scheme': [{'id': 's1', 'pt': 'States that section 13 / the Act applies in absence of agreement', 'm': 1, 'skill': 'provision'},
+                    {'id': 's2', 'pt': 'No interest on capital and no salary — with reasons', 'm': 1.5, 'skill': 'application'},
+                    {'id': 's3', 'pt': 'Interest on loan at 6% for 6 months = ₹4,500', 'm': 1, 'skill': 'computation'},
+                    {'id': 's4', 'pt': 'Profit ₹3,20,000 shared equally — ₹1,60,000 each', 'm': 1.5, 'skill': 'conclusion'}],
+         'remarks': ['Many candidates allowed loan interest for the full year; the loan was given only on 1 October.', 'Reasons must be stated for rejecting each claim — bare figures lose marks.'],
+         'mistakes': ['Allowing 6% interest on capital (confusing it with the loan rule).', 'Sharing in capital ratio 3:1.'],
+         'tips': ['Answer each claim in one line: claim → rule → decision.', 'Show the profit distribution in a small table.']},
+        {'id': 'q3', 'marks': 4, 'minutes': minutes(4), 'difficulty': 'core', 'pad': 'table',
+         'q': 'Distinguish between an ordinary partnership firm and a Limited Liability Partnership on any four bases.',
+         'model': [table(['Basis', 'Partnership firm', 'LLP'], [
+             ['Governing law', 'Indian Partnership Act, 1932', 'LLP Act, 2008'],
+             ['Legal status', 'No separate legal entity; not a body corporate', 'Body corporate; separate legal entity with perpetual succession'],
+             ['Liability', 'Unlimited, joint and several', 'Limited to agreed contribution (except fraud)'],
+             ['Registration', 'Optional', 'Compulsory'],
+             ['Number of partners', 'Minimum 2, maximum 50', 'Minimum 2, no maximum'],
+             ['Mutual agency', 'A partner binds the firm and other partners', 'A partner binds the LLP but not other partners']])],
+         'scheme': [{'id': f's{i}', 'pt': t, 'm': 1, 'skill': 'concept'} for i, t in enumerate(['Law / legal status', 'Liability', 'Registration or succession', 'Number of partners or mutual agency'], 1)],
+         'remarks': ['Good answers kept the same basis on both sides of each row.', 'Some candidates stated that an LLP has a maximum of 50 partners — there is no maximum.'],
+         'mistakes': ['Saying a partnership firm is a separate legal entity.', 'Saying LLP partners are liable for each other\'s misconduct.'],
+         'tips': ['Lead with liability and legal status — they are the core differences.']},
+        {'id': 'q4', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'moderate', 'pad': 'table',
+         'q': 'D, E and F share profits 5:3:2. F is guaranteed a minimum profit of ₹70,000. Profit for the year is ₹2,80,000. Show the distribution if (a) the guarantee is given by the firm and the deed does not say how the deficiency is shared; (b) the guarantee is given by D alone.',
+         'model': [table(['Partner', 'Normal share (₹)', '(a) Deficiency (₹)', '(a) Final (₹)', '(b) Final (₹)'], [
+             ['D', '1,40,000', '(8,750)', inr(q4_d), inr(q4_d2)], ['E', '84,000', '(5,250)', inr(q4_e), '84,000'], ['F', inr(q4_f), '+14,000', '70,000', '70,000'],
+             ['Total', '2,80,000', '0', '2,80,000', '2,80,000']], num=[1, 3, 4], total=True, title='Distribution of profit'),
+             p(f'F\'s normal share is ₹{inr(q4_f)}; deficiency ₹{inr(q4_def)}. In (a) D and E bear it 5:3 (their mutual ratio); in (b) D bears all of it.')],
+         'checks': q4,
+         'scheme': [{'id': 's1', 'pt': "F's share ₹56,000 and deficiency ₹14,000", 'm': 1, 'skill': 'computation'},
+                    {'id': 's2', 'pt': '(a) Deficiency shared 5:3 — D ₹8,750, E ₹5,250', 'm': 2, 'skill': 'application'},
+                    {'id': 's3', 'pt': '(b) D bears full deficiency — D ₹1,26,000', 'm': 1, 'skill': 'application'},
+                    {'id': 's4', 'pt': 'Presentation in a distribution table', 'm': 1, 'skill': 'presentation'}],
+         'remarks': ['A common error in (a) was sharing the deficiency 5:3:2 — including F himself.'],
+         'mistakes': ['Including the guaranteed partner in sharing the deficiency.', 'Giving F his normal share plus ₹70,000.'],
+         'tips': ['Always check that the final shares add back to the total profit.']},
+    ]
+
+    viva = [
+        V('v1', 'If there is no partnership deed, what rules apply to the division of profit?',
+          'If there is no deed, section 13 of the Indian Partnership Act applies. Profits and losses are shared equally, no partner gets a salary or remuneration, no interest is allowed on capital and none is charged on drawings, and a partner who gives a loan to the firm gets interest at six percent per annum.',
+          [P('p1', 'Profits and losses shared equally', 3, 'equal|equally|same ratio|fifty fifty|50 50'),
+           P('p2', 'No salary / remuneration to any partner', 2, 'no salary|not get salary|no remuneration|not entitled to salary|not entitled to remuneration|salary not allowed|salary is not allowed|no partner salary|not get any salary|without salary'),
+           P('p3', 'No interest on capital; no interest on drawings', 2, 'no interest on capital|interest on capital not|not interest on capital|interest on capital is not|without interest on capital|no interest capital|not allowed interest on capital'),
+           P('p4', 'Interest on partner\'s loan at 6% p.a.', 3, 'loan|advance', '6')], 'c4'),
+        V('v2', 'Distinguish between the fixed capital method and the fluctuating capital method.',
+          'Under the fixed capital method, the capital account shows only the agreed capital and stays the same unless capital is added or withdrawn; interest, salary, share of profit and drawings go to a separate current account, which can show a debit balance. Under the fluctuating capital method there is no current account, all these items go to the capital account, and its balance changes every year.',
+          [P('p1', 'Fixed: capital unchanged; separate current account for adjustments', 4, 'fixed capital same|fixed capital remain|fixed capital unchanged|fixed capital constant|fixed capital not change|capital stay same|capital remain same|capital remain unchanged|capital stay unchanged|capital account remain same|capital does not change|capital not change|capital stay fixed', 'separate current account|current account separate|open current account|opened current account|open a current account|current account opened|current account maintained|maintain current account|go to current account|goes to current account|separate current|keep current account|current account kept'),
+           P('p2', 'Fluctuating: no current account; all items in capital account; balance changes', 4, 'fluctuating no current|fluctuating capital no current|fluctuating method no current|fluctuating capital method no current|fluctuating only capital|fluctuating capital only capital|fluctuating capital mean only capital|fluctuating without current|fluctuating capital without current|fluctuating method without current|fluctuating capital everything capital account|fluctuating capital all items capital|fluctuating method all items capital'),
+           P('p3', 'Current account may show a debit balance', 2, 'debit balance|debit|negative')], 'c7'),
+        V('v3', 'How is interest on drawings calculated when the dates are not given, and what are the short-cut periods?',
+          'Interest on drawings is charged from the date of each drawing to the end of the year. If the dates are not given, interest is charged for six months on the total drawings. If equal amounts are drawn at the beginning of each month, take six and a half months; at the end of each month, five and a half months; at the beginning of each quarter, seven and a half months; and at the end of each quarter, four and a half months.',
+          [P('p1', 'Dates not given → 6 months on total', 3, ALT('{d} 6 month|6 month{s}', d=['not given', 'unknown', 'not known', 'no dates', 'not mentioned', 'not available'], s=['', 's', ' average', ' on total', ' on the total'])),
+           P('p2', 'Beginning of month 6½; end of month 5½', 4, '6.5|six and half|six and a half|6 and half|6 and a half', '5.5|five and half|five and a half|5 and half|5 and a half'),
+           P('p3', 'Beginning of quarter 7½; end of quarter 4½', 3, '7.5|seven and half|seven and a half|7 and half|7 and a half', '4.5|four and half|four and a half|4 and half|4 and a half')], 'c8'),
+        V('v4', 'What are the key differences between an LLP and an ordinary partnership firm?',
+          'An LLP is a body corporate and a separate legal entity with perpetual succession, registered under the LLP Act 2008, while a partnership firm under the 1932 Act has no separate legal existence. In an LLP the liability of partners is limited to their agreed contribution, while in a firm it is unlimited. Registration is compulsory for an LLP but optional for a firm. An LLP needs at least two designated partners and has no maximum number of partners, while a firm can have at most fifty.',
+          [P('p1', 'LLP is a body corporate / separate legal entity; a firm is not', 3, 'body corporate|separate legal|legal entity|separate entity|legal person|perpetual'),
+           P('p2', 'Liability limited (LLP) vs unlimited (firm)', 4, 'limited', 'unlimited|not limited|personal assets'),
+           P('p3', 'Registration compulsory vs optional; designated partners; partner limits', 3, 'registration|register|designated|maximum|50|no limit|fifty|no maximum|without limit|without any limit', min=1)], 'c3'),
+        V('v5', 'Explain guarantee of minimum profit to a partner and who bears the deficiency.',
+          'Sometimes a partner is guaranteed a minimum amount of profit. If his actual share is less than the guaranteed amount, he is given the guaranteed amount, and the shortfall is borne by the partner or partners who gave the guarantee in the agreed ratio. If the deed is silent, the remaining partners bear the deficiency in their mutual profit sharing ratio.',
+          [P('p1', 'If actual share is less, the partner gets the guaranteed amount', 4, 'less|lower|short|below|falls', 'guarantee|minimum'),
+           P('p2', 'Deficiency borne by guarantor(s) in agreed ratio', 3, 'deficiency|shortfall|difference|short|gap', 'guarantor|who gave|who give|given by|agreed ratio|agreed|promised', min=2),
+           P('p3', 'If silent — other partners in their mutual profit-sharing ratio', 3, 'silent|not specified|nothing specified|nothing is specified|unspecified|nothing said|not mention|no agreement|deed does not say|not stated|nothing is said', 'mutual|their ratio|remaining partners|other partners|profit sharing ratio', min=2)], 'c9'),
+        V('v6', 'Is interest on a partner\'s loan an appropriation of profit? Explain with the treatment of interest on capital.',
+          'No. Interest on a partner\'s loan is a charge against profit, so it is debited to the Profit and Loss Account and is payable even if there is a loss. Interest on capital is an appropriation of profit; it is debited to the Profit and Loss Appropriation Account and is allowed only out of profits, and only if the deed provides for it.',
+          [P('p1', 'Loan interest is a charge, debited to P&L, payable even in loss', 5, 'loan charge|loan expense|loan charged|charge loan', 'profit and loss account|profit loss account|even loss|even if loss|even in loss|even when loss|loss year', min=2),
+           P('p2', 'Interest on capital goes to the P&L Appropriation Account', 2, 'interest on capital', 'appropriation account'),
+           P('p3', 'Allowed only out of profits and only if the deed provides', 3, 'out of profit|only from profit|only if profit|only when profit|only if there is profit|only if there are profit|deed provides|if deed|agreement|provided in deed|deed allows')], 'c4'),
+    ]
+
+    cases_ = [{
+        'id': 'k1', 'title': 'Mehra & Sons — a firm without a written deed', 'difficulty': 'hard',
+        'case': ('Ravi Mehra and his cousin Sunita started a firm on 1 April 2025 without any written or oral agreement on profits. Ravi brought ₹8,00,000 and Sunita ₹2,00,000 as capital. '
+                 'On 1 July 2025 Ravi lent the firm a further ₹2,00,000. Sunita looked after the business full-time. For 2025-26 the profit before considering any interest or remuneration was ₹4,11,000. Ravi withdrew ₹60,000 during the year.'),
+        'mcqs': [
+            M('k1a', 'Interest on Ravi\'s loan for the year is:', [R(k_li), R(12000), R(18000), R(24000)], 0,
+              f'6% p.a. for 9 months: 2,00,000 × 6% × 9/12 = {R(k_li)}.', 'moderate', '200000*6/100*9/12'),
+            M('k1b', 'The profit to be shared between the partners is:', [R(k_np), R(411000), R(399000), R(351000)], 0,
+              f'4,11,000 − loan interest 9,000 = {R(k_np)}. No interest on capital and no salary are deducted.', 'hard', '411000-9000'),
+            M('k1c', 'Sunita\'s share of profit will be:', [R(201000), R(80400), R(160800), R(100500)], 0,
+              'Profits are shared equally in the absence of agreement: 4,02,000 ÷ 2 = ₹2,01,000.', 'moderate', '402000/2'),
+            M('k1d', 'Interest on Ravi\'s drawings is:', ['Nil', R(3600), R(1800), R(7200)], 0,
+              'No interest is charged on drawings unless the partners have agreed to it.', 'core'),
+        ]}]
+
+    return {
+        'schema': 'ca-unit/1', 'id': UID, 'level': 'foundation', 'paper': 'p1', 'chapter': 'fnd-p1-ch10', 'n': 1,
+        'title': 'Introduction to Partnership Accounts',
+        'outcomes': [
+            'Explain the definition and features of partnership and the rules that apply when there is no deed.',
+            'Describe the Limited Liability Partnership and distinguish it from an ordinary partnership firm.',
+            'List the main clauses of a partnership deed and the implied powers (and limits) of partners.',
+            'Prepare the Profit and Loss Appropriation Account with interest on capital and drawings, salary, commission, reserve, guarantee of profit and past adjustments.',
+            'Maintain partners\' capital accounts under the fixed and fluctuating capital methods.',
+        ],
+        'meta': {'difficulty': 'moderate', 'minutes': {'learn': 50, 'practice': 70}, 'prereq': ['fnd-p1-ch06-u01'],
+                 'exam_tip': 'Before writing the appropriation account, decide for every item: charge (P&L) or appropriation? Loan interest is a charge; interest on capital, salary and commission are appropriations.'},
+        'concepts': concepts, 'illustrations': illustrations, 'jobs': jobs, 'mcqs': mcqs, 'questions': questions,
+        'revision': {
+            'summary': ['Partnership: agreement + business + profit sharing + mutual agency (section 4); 2 to 50 partners.',
+                        'No deed: equal profits, no salary, no interest on capital or drawings, 6% p.a. on partner\'s loan.',
+                        'LLP: body corporate, limited liability, perpetual succession, at least 2 designated partners (one resident — 120 days), Statement of Account and Solvency within 6 months.',
+                        'Appropriation account: interest on capital, salary, commission, reserve debited; interest on drawings credited; balance in PSR.',
+                        'Fixed capitals use current accounts; fluctuating capitals take everything to the capital account.'],
+            'remember': ['Drawings periods: beginning of month 6½, end 5½, unknown 6, beginning of quarter 7½, end 4½.', 'Commission after charging = profit × r/(100 + r).', 'Insufficient profit → share it in the ratio of interest due.', 'Guarantee deficiency (silent deed) → other partners in their mutual ratio.'],
+            'traps': ['Don\'t put loan interest in the appropriation account.', 'Don\'t allow interest on capital in a loss year.', 'Don\'t include the guaranteed partner in sharing his own deficiency.', 'Don\'t compute interest on capital on current-account balances.'],
+        },
+        'quickref': [
+            {'k': 'Partnership (s. 4)', 'v': 'Persons agreeing to divide the profits of a business run by all of them, or by some acting for all (in substance)'},
+            {'k': 'Section 13 defaults', 'v': 'Equal shares; no salary; no interest on capital; 6% p.a. on partner\'s loan; no interest on drawings'},
+            {'k': 'Interest on drawings (product)', 'v': 'Σ(amount × months to year end) × rate ÷ 12'},
+            {'k': 'Interest on capital', 'v': 'Opening capital × rate + additions × rate × months/12 − withdrawals × rate × months/12'},
+            {'k': 'Commission after charging', 'v': 'Profit before commission × rate ÷ (100 + rate)'},
+            {'k': 'Max partners', 'v': '50 (s. 464 Companies Act, 2013 + Rule 10, 2014 Rules); LLP — no maximum'},
+            {'k': 'LLP designated partners (s. 7)', 'v': 'At least 2 individuals, one resident in India (120 days in preceding year)'},
+            {'k': 'Past adjustment', 'v': 'Should-have-got − wrongly-got per partner → one entry through capital/current accounts'},
+        ],
+        'viva': viva, 'cases': cases_,
+    }

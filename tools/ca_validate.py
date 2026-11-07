@@ -326,7 +326,7 @@ def check_unit(path, built_ids):
         if q.get('difficulty') not in ('core', 'moderate', 'hard'): err(f'{w0}#{q.get("id")}', 'difficulty must be core|moderate|hard')
     # no leftover placeholders
     for t in text_of(u):
-        if re.search(r'TODO|XXX|lorem|\{\w+\}', t): err(w0, f'placeholder text: {t[:60]}')
+        if re.search(r'TODO|XXX|\blorem\b|\{\w+\}', t): err(w0, f'placeholder text: {t[:60]}')
     return u
 
 # ---------- originality guard ----------
@@ -339,7 +339,9 @@ def originality(units, src, n=10):
     for ws in texts.values():
         for i in range(len(ws) - n + 1): grams.add(' '.join(ws[i:i + n]))
     for path, u in units:
-        for t in text_of(u):
+        # the unit's official ICAI title/topic list is meant to match ICAI exactly (navigation labels), so skip those
+        body = {k: v for k, v in u.items() if k not in ('title', 'topics', 'chapter_title', 'paper_title')} if isinstance(u, dict) else u
+        for t in text_of(body):
             ws = words(t)
             for i in range(len(ws) - n + 1):
                 g = ' '.join(ws[i:i + n])
@@ -379,7 +381,10 @@ def main():
         if u: units.append((f, u))
     # every unit file on disk must be listed
     for f in glob.glob(os.path.join(CA, '*', 'p*', 'ch*', 'u*.json')):
-        if os.path.abspath(f) not in {os.path.abspath(x) for x in built.values()}: err(os.path.relpath(f, ROOT), 'unit file not marked built in structure.json')
+        if os.path.abspath(f) not in {os.path.abspath(x) for x in built.values()}:
+            # new unit not yet in structure.json (writers run in parallel; structure is regenerated before publishing): validate it too
+            u = check_unit(f, set(built)); warn(os.path.relpath(f, ROOT), 'not yet marked built in structure.json (run tools/ca_build_structure.py)')
+            if u: units.append((f, u))
     # MCQ / question ids unique across units (used as keys for progress and future AI checking)
     seen = {}
     for f, u in units:

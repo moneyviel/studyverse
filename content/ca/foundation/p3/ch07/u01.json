@@ -1,0 +1,1776 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch07-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch07",
+ "n": 1,
+ "title": "Sets, Relations and Functions, Basics of Limits and Continuity functions",
+ "outcomes": [
+  "Write sets in roster and set-builder form, recognise types of sets and count subsets and proper subsets.",
+  "Perform union, intersection, difference and complement, apply De Morgan's laws and solve two- and three-set survey problems with Venn diagrams.",
+  "Form Cartesian products and relations; find domain, range and inverse; test a relation for reflexive, symmetric, transitive and equivalence properties.",
+  "Identify functions and classify them as one-one, many-one, onto, into or bijective; work with identity, constant, composite and inverse functions.",
+  "Evaluate limits using left- and right-hand limits, the algebra of limits and standard results, and test a function for continuity at a point."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 55,
+   "practice": 70
+  },
+  "prereq": [
+   "fnd-p3-ch02-u01"
+  ],
+  "exam_tip": "Venn-diagram survey questions are the most frequent; draw the three circles and fill the centre first, then work outwards. For relations, test each property on the given pairs — do not guess from the wording."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Sets, elements and the two ways of writing a set",
+   "body": [
+    "A set is a collection of distinct objects described clearly enough that, for any object, we can say for certain whether it belongs. \"The vowels of English\" is a set; \"the good books in the library\" is not, because \"good\" is a matter of opinion.",
+    "Objects in a set are its elements; x ∈ A means x belongs to A and x ∉ A means it does not. Sets are named by capital letters and elements by small letters.",
+    "Roster (tabular) form lists the elements inside braces: {2, 4, 6, 8}. Set-builder (rule) form states the property: {x : x is an even natural number less than 10}. Repeating an element or changing the order does not change a set."
+   ],
+   "analogy": "A guest list with a clear rule — \"all partners of the firm\" — is a set; \"people the host likes\" is not well-defined.",
+   "work": "Defining a population precisely (\"all purchase invoices above ₹1 lakh dated in FY 2025-26\") is the first step of any audit sample — it is set-builder form in practice."
+  },
+  {
+   "id": "c2",
+   "title": "Types of sets",
+   "body": [
+    "Empty (null) set ∅: no elements, e.g. {x : x is a natural number and x < 1}. A singleton set has exactly one element, such as { 0 } — which is not empty.",
+    "Finite sets have a countable last element; infinite sets do not (the natural numbers). n(A), the cardinal number, is the number of distinct elements of a finite set.",
+    "Equal sets (A = B) have exactly the same elements. Equivalent sets have the same number of elements, n(A) = n(B), even if the elements differ. Equal sets are always equivalent; equivalent sets need not be equal.",
+    "The universal set U contains every element under discussion in a given problem; all other sets are subsets of it."
+   ],
+   "analogy": "Two teams of eleven players are equivalent (same count) but not equal (different players).",
+   "work": "Reconciliations compare equivalent-looking lists: the same number of entries in the bank statement and the cash book does not mean the entries are equal."
+  },
+  {
+   "id": "c3",
+   "title": "Subsets and the power set",
+   "body": [
+    "A ⊆ B (A is a subset of B) when every element of A is also in B. A is a proper subset (A ⊂ B) if, in addition, B has at least one element not in A.",
+    "The empty set is a subset of every set, and every set is a subset of itself.",
+    "A set with n elements has 2ⁿ subsets (each element is either in or out) and 2ⁿ − 1 proper subsets. The power set P(A) is the set of all subsets of A, so n(P(A)) = 2ⁿ."
+   ],
+   "analogy": "Choosing toppings for a pizza from 3 options: each topping is on or off, so 2 × 2 × 2 = 8 possible pizzas, including the plain one (∅).",
+   "work": "The 2ⁿ idea tells you how fast the number of possible combinations of controls, user permissions or product features grows."
+  },
+  {
+   "id": "c4",
+   "title": "Operations on sets and De Morgan's laws",
+   "body": [
+    "Union A ∪ B: elements in A or B or both. Intersection A ∩ B: elements common to both. Disjoint sets have A ∩ B = ∅.",
+    "Difference A − B: elements of A that are not in B (A − B ≠ B − A in general). Complement A′ = U − A: elements of U not in A.",
+    "Laws: union and intersection are commutative and associative; A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C) and A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C); A ∪ A′ = U, A ∩ A′ = ∅.",
+    "De Morgan's laws: (A ∪ B)′ = A′ ∩ B′ and (A ∩ B)′ = A′ ∪ B′ — complement each set and swap ∪ with ∩."
+   ],
+   "analogy": "De Morgan in plain words: \"not (tea or coffee)\" means \"no tea and no coffee\"; \"not (tea and coffee)\" means \"no tea, or no coffee, or neither\".",
+   "work": "Database filters and spreadsheet conditions (AND, OR, NOT) are set operations. Getting De Morgan wrong is a classic cause of a filter that silently drops records."
+  },
+  {
+   "id": "c5",
+   "title": "Venn diagrams and counting",
+   "body": [
+    "Two sets: n(A ∪ B) = n(A) + n(B) − n(A ∩ B). Only A = n(A) − n(A ∩ B).",
+    "Three sets: n(A ∪ B ∪ C) = n(A) + n(B) + n(C) − n(A ∩ B) − n(B ∩ C) − n(A ∩ C) + n(A ∩ B ∩ C).",
+    "Only A = n(A) − n(A ∩ B) − n(A ∩ C) + n(A ∩ B ∩ C). Exactly two = (sum of pairwise intersections) − 3 × n(A ∩ B ∩ C). None = n(U) − n(A ∪ B ∪ C).",
+    "If any region comes out negative, or the total exceeds n(U), the data are inconsistent."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Region (three sets)",
+      "Formula"
+     ],
+     "rows": [
+      [
+       "All three",
+       "n(A ∩ B ∩ C)"
+      ],
+      [
+       "A and B only",
+       "n(A ∩ B) − n(A ∩ B ∩ C)"
+      ],
+      [
+       "A only",
+       "n(A) − n(A ∩ B) − n(A ∩ C) + n(A ∩ B ∩ C)"
+      ],
+      [
+       "None",
+       "n(U) − n(A ∪ B ∪ C)"
+      ]
+     ]
+    }
+   ],
+   "analogy": "Overlapping circles of friends at a party: people in two circles get counted twice unless you subtract the overlap once.",
+   "work": "Customer surveys, overlapping debtor lists and duplicate-vendor checks in audits are all Venn problems. A negative region is how auditors detect a fabricated survey."
+  },
+  {
+   "id": "c6",
+   "title": "Ordered pairs and the Cartesian product",
+   "body": [
+    "An ordered pair (a, b) has a first and a second element; (a, b) = (c, d) only when a = c and b = d, so (1, 2) ≠ (2, 1).",
+    "A × B = {(a, b) : a ∈ A, b ∈ B}. n(A × B) = n(A) × n(B). In general A × B ≠ B × A, though both have the same number of elements. If either set is empty, A × B = ∅.",
+    "A × B × C is the set of ordered triples, with n(A) × n(B) × n(C) elements."
+   ],
+   "analogy": "A menu with 3 starters and 4 mains gives 12 (starter, main) meal pairs — the Cartesian product.",
+   "work": "Every row of a pivot table is an element of a Cartesian product (branch × month, product × region)."
+  },
+  {
+   "id": "c7",
+   "title": "Relations: domain, range, inverse and types",
+   "body": [
+    "A relation from A to B is any subset of A × B. Since A × B has mn pairs, there are 2ᵐⁿ relations from A to B.",
+    "Domain = set of first elements; range = set of second elements. The inverse relation R⁻¹ reverses every pair, so domain of R⁻¹ = range of R and range of R⁻¹ = domain of R. The identity relation on A is {(a, a) : a ∈ A}.",
+    "A relation R on a set S is reflexive if (a, a) ∈ R for every a in S; symmetric if (a, b) ∈ R always gives (b, a) ∈ R; transitive if (a, b) ∈ R and (b, c) ∈ R always give (a, c) ∈ R.",
+    "A relation that is reflexive, symmetric and transitive is an equivalence relation — e.g. \"is equal to\", \"is parallel to\" (counting a line as parallel to itself), \"has the same birthday as\"."
+   ],
+   "analogy": "\"Is a sibling of\" is symmetric but not reflexive (you are not your own sibling); \"is an ancestor of\" is transitive but not symmetric.",
+   "work": "Grouping ledger accounts by \"belongs to the same group as\" is an equivalence relation — it splits the chart of accounts into non-overlapping groups."
+  },
+  {
+   "id": "c8",
+   "title": "Functions (mappings) and their types",
+   "body": [
+    "A function f : A → B is a relation in which every element of A has exactly one image in B. A is the domain, B the co-domain, and the set of actual images f(A) is the range (a subset of B).",
+    "One-one (injective): different elements have different images, i.e. f(x₁) = f(x₂) ⇒ x₁ = x₂. Many-one: at least two elements share an image.",
+    "Onto (surjective): every element of B has at least one pre-image, i.e. range = co-domain. Into: at least one element of B has no pre-image. One-one and onto together = bijective.",
+    "Identity function I(x) = x (a bijection of A onto A). Constant function: every element has the same image. Equal functions: same domain and f(x) = g(x) for every x.",
+    "Composite: (g∘f)(x) = g(f(x)) — apply f first; in general g∘f ≠ f∘g. Inverse f⁻¹ exists only when f is one-one and onto, and then f⁻¹ is also one-one and onto. Number of functions from an m-element set to an n-element set = nᵐ."
+   ],
+   "analogy": "A function is a vending machine: each button gives exactly one item. Two buttons may give the same item (many-one), and some items may not be on any button (into).",
+   "work": "A good master-data mapping (employee → employee code) must be one-one; a mapping of ledgers to financial-statement lines is many-one and should be onto so no line is left empty."
+  },
+  {
+   "id": "c9",
+   "title": "Limit of a function",
+   "body": [
+    "lim f(x) as x → a = l means f(x) gets as close to l as we like when x is taken close enough to a (but not equal to a). The value f(a) itself does not matter for the limit.",
+    "Left-hand limit (x → a⁻, i.e. lim f(a − h) as h → 0, h > 0) and right-hand limit (x → a⁺, lim f(a + h)). The limit exists only when both exist and are equal.",
+    "Algebra of limits (when lim f = l and lim g = m are finite): the limit of a sum, difference, product or constant multiple is the sum, difference, product or constant multiple of the limits; lim f/g = l/m if m ≠ 0; lim c = c.",
+    "Standard results: lim (xⁿ − aⁿ)/(x − a) = n aⁿ⁻¹ (x → a); lim (eˣ − 1)/x = 1, lim (aˣ − 1)/x = logₑ a, lim logₑ(1 + x)/x = 1 and lim (1 + x)^(1/x) = e (all as x → 0).",
+    "Methods: substitute first; if you get 0/0, factorise and cancel or use a standard result; as x → ∞, divide numerator and denominator by the highest power of x."
+   ],
+   "analogy": "Walking towards a closed door: the limit is where you are heading, even if you never step through it — and you must arrive at the same spot whether you come from the left or the right corridor.",
+   "work": "Marginal cost and marginal revenue in the next chapter are limits of average changes; understanding limits is what makes the derivative meaningful."
+  },
+  {
+   "id": "c10",
+   "title": "Continuity at a point",
+   "body": [
+    "f is continuous at x = a if (i) f(a) is defined, (ii) lim f(x) as x → a exists (LHL = RHL), and (iii) that limit equals f(a). If any condition fails, f is discontinuous at a.",
+    "Polynomials are continuous everywhere; a rational function is continuous wherever its denominator is not zero. Sums, differences, products and quotients (non-zero denominator) of continuous functions are continuous.",
+    "For a function defined piece by piece, test the joining point: compute LHL with the left formula, RHL with the right formula and compare with the defined value. A change of formula alone does not make a function discontinuous."
+   ],
+   "analogy": "A continuous graph can be drawn without lifting your pen. A jump in a tax-slab chart is a point where you must lift the pen.",
+   "work": "Slab-based tax or tariff schedules are often discontinuous at the slab limits; marginal relief provisions exist precisely to smooth such jumps."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Set operations and De Morgan's laws",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "U = {1, 2, …, 12}, A = {2, 4, 6, 8, 10, 12}, B = {3, 6, 9, 12}. Find A ∪ B, A ∩ B, A − B, B − A and B′, and verify both De Morgan's laws.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Set",
+      "Elements"
+     ],
+     "rows": [
+      [
+       "A ∪ B",
+       "{2, 3, 4, 6, 8, 9, 10, 12}"
+      ],
+      [
+       "A ∩ B",
+       "{6, 12}"
+      ],
+      [
+       "A − B",
+       "{2, 4, 8, 10}"
+      ],
+      [
+       "B − A",
+       "{3, 9}"
+      ],
+      [
+       "B′",
+       "{1, 2, 4, 5, 7, 8, 10, 11}"
+      ],
+      [
+       "(A ∪ B)′",
+       "{1, 5, 7, 11}"
+      ],
+      [
+       "A′ ∩ B′",
+       "{1, 5, 7, 11}"
+      ],
+      [
+       "(A ∩ B)′",
+       "{1, 2, 3, 4, 5, 7, 8, 9, 10, 11}"
+      ],
+      [
+       "A′ ∪ B′",
+       "{1, 2, 3, 4, 5, 7, 8, 9, 10, 11}"
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "(A ∪ B)′ and A′ ∩ B′ have the same elements, and so do (A ∩ B)′ and A′ ∪ B′ — both laws verified. Also n(A ∪ B) = 6 + 4 − 2 = 8."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "6+4-2",
+     "value": 8,
+     "label": "n(A ∪ B) = n(A) + n(B) − n(A ∩ B)"
+    },
+    {
+     "expr": "12-8",
+     "value": 4,
+     "label": "n((A ∪ B)′) = 12 − 8"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Three-set survey of a CA firm's clients",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "A CA firm has 200 clients. 120 use its GST service (G), 90 income-tax service (I) and 70 audit service (A); 50 use G and I, 30 use I and A, 25 use G and A, and 15 use all three. How many clients use (a) none of the three, (b) GST only, (c) exactly one service, (d) exactly two services?",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "Fill the Venn diagram from the centre",
+     "text": "All three = 15. G and I only = 50 − 15 = 35; I and A only = 30 − 15 = 15; G and A only = 25 − 15 = 10."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Region",
+      "Working",
+      "Clients"
+     ],
+     "rows": [
+      [
+       "G only",
+       "120 − 35 − 10 − 15",
+       "60"
+      ],
+      [
+       "I only",
+       "90 − 35 − 15 − 15",
+       "25"
+      ],
+      [
+       "A only",
+       "70 − 15 − 10 − 15",
+       "30"
+      ],
+      [
+       "G and I only",
+       "50 − 15",
+       "35"
+      ],
+      [
+       "I and A only",
+       "30 − 15",
+       "15"
+      ],
+      [
+       "G and A only",
+       "25 − 15",
+       "10"
+      ],
+      [
+       "All three",
+       "given",
+       "15"
+      ],
+      [
+       "At least one service",
+       "",
+       "190"
+      ]
+     ],
+     "num": [
+      2
+     ],
+     "total": true
+    },
+    {
+     "t": "p",
+     "text": "(a) None = 200 − 190 = 10. (b) GST only = 60. (c) Exactly one = 60 + 25 + 30 = 115. (d) Exactly two = 35 + 15 + 10 = 60."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "120+90+70-50-30-25+15",
+     "value": 190,
+     "label": "n(G ∪ I ∪ A)"
+    },
+    {
+     "expr": "200-190",
+     "value": 10,
+     "label": "clients using none of the three"
+    },
+    {
+     "expr": "120-50-25+15",
+     "value": 60,
+     "label": "GST only"
+    },
+    {
+     "expr": "90-50-30+15",
+     "value": 25,
+     "label": "income tax only"
+    },
+    {
+     "expr": "70-30-25+15",
+     "value": 30,
+     "label": "audit only"
+    },
+    {
+     "expr": "(50+30+25)-3*15",
+     "value": 60,
+     "label": "exactly two services"
+    },
+    {
+     "expr": "60+25+30",
+     "value": 115,
+     "label": "exactly one service"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Power set and Cartesian product",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "A = {p, q, r} and B = {1, 2}. (a) List the power set of A and count its proper subsets. (b) Write A × B. (c) If n(C) = 4, find n(A × B × C). (d) How many relations are there from A to B?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) P(A) = {∅, { p }, { q }, { r }, {p, q}, {p, r}, {q, r}, {p, q, r}} — 2³ = 8 subsets; proper subsets = 8 − 1 = 7."
+    },
+    {
+     "t": "p",
+     "text": "(b) A × B = {(p, 1), (p, 2), (q, 1), (q, 2), (r, 1), (r, 2)} — 6 ordered pairs."
+    },
+    {
+     "t": "p",
+     "text": "(c) n(A × B × C) = 3 × 2 × 4 = 24."
+    },
+    {
+     "t": "p",
+     "text": "(d) Each of the 6 pairs of A × B may be in or out of a relation: 2⁶ = 64 relations."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2**3",
+     "value": 8,
+     "label": "number of subsets of a 3-element set"
+    },
+    {
+     "expr": "2**3-1",
+     "value": 7,
+     "label": "proper subsets"
+    },
+    {
+     "expr": "3*2",
+     "value": 6,
+     "label": "n(A × B)"
+    },
+    {
+     "expr": "3*2*4",
+     "value": 24,
+     "label": "n(A × B × C) when n(C) = 4"
+    },
+    {
+     "expr": "2**(3*2)",
+     "value": 64,
+     "label": "number of relations from A to B"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Testing relations on S = {1, 2, 3}",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Examine each relation on S = {1, 2, 3} for reflexivity, symmetry and transitivity: R₁ = {(1, 1), (2, 2), (2, 3), (3, 2), (3, 3)}; R₂ = {(1, 2), (1, 3), (2, 3)}; R₃ = {(1, 1), (2, 2), (2, 3), (3, 1), (3, 3)}. Also find the domain, range and inverse of R₂.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Relation",
+      "Pairs",
+      "Reflexive",
+      "Symmetric",
+      "Transitive",
+      "Equivalence"
+     ],
+     "rows": [
+      [
+       "R₁",
+       "{(1, 1), (2, 2), (2, 3), (3, 2), (3, 3)}",
+       "Yes",
+       "Yes",
+       "Yes",
+       "Yes"
+      ],
+      [
+       "R₂",
+       "{(1, 2), (1, 3), (2, 3)}",
+       "No",
+       "No",
+       "Yes",
+       "No"
+      ],
+      [
+       "R₃",
+       "{(1, 1), (2, 2), (2, 3), (3, 1), (3, 3)}",
+       "Yes",
+       "No",
+       "No",
+       "No"
+      ]
+     ]
+    },
+    {
+     "t": "wn",
+     "title": "Reasons",
+     "text": "R₂: (1, 1) missing → not reflexive; (1, 2) present but (2, 1) absent → not symmetric; the only chain (1, 2), (2, 3) needs (1, 3), which is present → transitive. R₃: (2, 3) and (3, 1) present but (2, 1) absent → not transitive; (3, 2) absent → not symmetric. R₁ passes all three tests, so it is an equivalence relation."
+    },
+    {
+     "t": "p",
+     "text": "For R₂: domain = {1, 2}, range = {2, 3}, R₂⁻¹ = {(2, 1), (3, 1), (3, 2)}."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2**(3*3)",
+     "value": 512,
+     "label": "number of relations on a 3-element set"
+    }
+   ]
+  },
+  {
+   "id": "i5",
+   "title": "Classifying functions; composite and inverse",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Classify: (a) f : N → N, f(x) = 2x; (b) f : R → R, f(x) = 3x + 5; (c) f : R → R, f(x) = x². (d) If f(x) = x + 2 and g(x) = x², find g(f(3)) and f(g(3)). (e) Find f⁻¹ for (b) and f⁻¹(20).",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Function",
+      "One-one?",
+      "Onto?",
+      "Type"
+     ],
+     "rows": [
+      [
+       "2x on N",
+       "Yes — 2x₁ = 2x₂ gives x₁ = x₂",
+       "No — odd numbers have no pre-image",
+       "One-one, into"
+      ],
+      [
+       "3x + 5 on R",
+       "Yes",
+       "Yes — any y has pre-image (y − 5)/3",
+       "Bijection"
+      ],
+      [
+       "x² on R",
+       "No — f(3) = f(−3)",
+       "No — negatives have no pre-image",
+       "Many-one, into"
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "(d) g(f(3)) = g(5) = 25, while f(g(3)) = f(9) = 11 — so g∘f ≠ f∘g."
+    },
+    {
+     "t": "p",
+     "text": "(e) y = 3x + 5 → x = (y − 5)/3, so f⁻¹(x) = (x − 5)/3 and f⁻¹(20) = 15/3 = 5. Only (b) has an inverse, because only (b) is one-one and onto."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(3+2)**2",
+     "value": 25,
+     "label": "g(f(3)) with f(x) = x + 2, g(x) = x²"
+    },
+    {
+     "expr": "3**2+2",
+     "value": 11,
+     "label": "f(g(3))"
+    },
+    {
+     "expr": "(20-5)/3",
+     "value": 5,
+     "label": "f⁻¹(20) for f(x) = 3x + 5"
+    },
+    {
+     "expr": "3**4",
+     "value": 81,
+     "label": "number of functions from a 4-element set to a 3-element set"
+    },
+    {
+     "expr": "5*4*3",
+     "value": 60,
+     "label": "one-one functions from a 3-element set into a 5-element set"
+    }
+   ]
+  },
+  {
+   "id": "i6",
+   "title": "Evaluating limits; when a limit fails to exist",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Evaluate (a) lim (x² − 9)/(x − 3) as x → 3; (b) lim (x⁵ − 32)/(x − 2) as x → 2; (c) lim (3x² + 5x)/(6x² − 1) as x → ∞. (d) f(x) = 2x + 3 for x < 2 and f(x) = x² for x ≥ 2. Does lim f(x) exist as x → 2?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) Substitution gives 0/0. Factorise: (x − 3)(x + 3)/(x − 3) = x + 3 → 6."
+    },
+    {
+     "t": "p",
+     "text": "(b) Standard result with n = 5, a = 2: 5 × 2⁴ = 80."
+    },
+    {
+     "t": "p",
+     "text": "(c) Divide by x²: (3 + 5/x)/(6 − 1/x²) → 3/6 = 1/2."
+    },
+    {
+     "t": "p",
+     "text": "(d) LHL = 2(2) + 3 = 7; RHL = 2² = 4. They are unequal, so the limit does not exist at x = 2 (even though f(2) = 4 is defined)."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "3+3",
+     "value": 6,
+     "label": "lim (x² − 9)/(x − 3) as x → 3 = x + 3 at x = 3"
+    },
+    {
+     "expr": "5*2**4",
+     "value": 80,
+     "label": "lim (x⁵ − 32)/(x − 2) as x → 2 = 5·2⁴"
+    },
+    {
+     "expr": "3/6",
+     "value": 0.5,
+     "label": "lim (3x² + 5x)/(6x² − 1) as x → ∞"
+    },
+    {
+     "expr": "2*2+3",
+     "value": 7,
+     "label": "left-hand limit of 2x + 3 at x = 2"
+    },
+    {
+     "expr": "2**2",
+     "value": 4,
+     "label": "right-hand limit of x² at x = 2"
+    }
+   ]
+  },
+  {
+   "id": "i7",
+   "title": "Continuity and a standard exponential limit",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "(a) f(x) = (x² − 16)/(x − 4) for x ≠ 4 and f(4) = k. Find k so that f is continuous at x = 4. (b) Evaluate lim (e³ˣ − 1)/x as x → 0. (c) Is g(x) = x² − 2x + 3 continuous at x = 1?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) lim (x² − 16)/(x − 4) = lim (x + 4) = 8. Continuity needs f(4) = 8, so k = 8."
+    },
+    {
+     "t": "p",
+     "text": "(b) Put t = 3x: (e³ˣ − 1)/x = 3 × (eᵗ − 1)/t → 3 × 1 = 3."
+    },
+    {
+     "t": "p",
+     "text": "(c) A polynomial is continuous everywhere: lim g(x) as x → 1 = 1 − 2 + 3 = 2 = g(1). Yes."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "4+4",
+     "value": 8,
+     "label": "k = lim (x² − 16)/(x − 4) as x → 4"
+    },
+    {
+     "expr": "3*1",
+     "value": 3,
+     "label": "lim (e³ˣ − 1)/x = 3 × lim (eᵗ − 1)/t"
+    },
+    {
+     "expr": "1-2+3",
+     "value": 2,
+     "label": "value at x = 1 of x² − 2x + 3 (polynomial — continuous)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Cross-selling analysis for a bank branch",
+   "role": "Management trainee in a bank's internal audit team",
+   "situation": "A branch reports 480 customers: 310 have a loan (L), 260 a fixed deposit (D), 150 a credit card (C); 140 have L and D, 90 have D and C, 70 have L and C, and 40 have all three. The branch claims every customer holds at least one product.",
+   "steps": [
+    "Use the three-set formula: n(L ∪ D ∪ C) = 310 + 260 + 150 − 140 − 90 − 70 + 40 = 460.",
+    "Customers with none = 480 − 460 = 20, so the claim is wrong.",
+    "Loan only = 310 − 140 − 70 + 40 = 140 — a target list for deposit cross-selling.",
+    "Check that no region is negative; if one were, the underlying data would be inconsistent and need investigation."
+   ],
+   "takeaway": "A Venn diagram is a quick consistency test for overlapping data.",
+   "checks": [
+    {
+     "expr": "480-(310+260+150-140-90-70+40)",
+     "value": 20,
+     "label": "customers using none of the three products"
+    },
+    {
+     "expr": "310-140-70+40",
+     "value": 140,
+     "label": "loan only"
+    }
+   ]
+  },
+  {
+   "id": "j2",
+   "title": "Is the mapping of ledgers a proper function?",
+   "role": "Accounts executive migrating to a new ERP",
+   "situation": "Each old ledger code must be mapped to a new ledger code. The import file shows one old code mapped to two new codes, and two new codes with no old code mapped to them.",
+   "steps": [
+    "A mapping is a function only if every old code has exactly one new code — the code with two targets breaks this and must be fixed.",
+    "New codes with no old code mean the mapping is into, not onto. That is acceptable for new ledgers created fresh, but should be confirmed.",
+    "If you need to trace back from new to old (an inverse), the mapping must be one-one and onto; otherwise several old ledgers merge and history is lost."
+   ],
+   "takeaway": "Function types are a practical checklist for any data-mapping exercise: exactly one image, one-one for reversibility, onto for completeness."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "How many subsets does a set with 5 elements have?",
+   "options": [
+    "25",
+    "31",
+    "32",
+    "10"
+   ],
+   "answer": 2,
+   "explain": "Each element is either in or out of a subset: 2⁵ = 32 (this includes ∅ and the set itself).",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "2**5"
+  },
+  {
+   "id": "m2",
+   "q": "The number of proper subsets of {a, b, c, d} is:",
+   "options": [
+    "16",
+    "14",
+    "4",
+    "15"
+   ],
+   "answer": 3,
+   "explain": "2⁴ − 1 = 15 — every subset except the set itself.",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "2**4-1"
+  },
+  {
+   "id": "m3",
+   "q": "If n(A) = 40, n(B) = 25 and n(A ∩ B) = 10, then n(A ∪ B) is:",
+   "options": [
+    "55",
+    "65",
+    "75",
+    "30"
+   ],
+   "answer": 0,
+   "explain": "n(A ∪ B) = 40 + 25 − 10 = 55. Adding without subtracting the overlap gives 65.",
+   "concept": "c5",
+   "difficulty": "core",
+   "check": "40+25-10"
+  },
+  {
+   "id": "m4",
+   "q": "In a group of 100 people, 60 drink tea, 45 drink coffee and 20 drink both. How many drink neither?",
+   "options": [
+    "35",
+    "15",
+    "5",
+    "0"
+   ],
+   "answer": 1,
+   "explain": "Tea or coffee = 60 + 45 − 20 = 85; neither = 100 − 85 = 15.",
+   "concept": "c5",
+   "difficulty": "core",
+   "check": "100-(60+45-20)"
+  },
+  {
+   "id": "m5",
+   "q": "Which of these is the empty set?",
+   "options": [
+    "{x : x is an even prime}",
+    "{x : x² = 4}",
+    "{x : x is a natural number less than 1}",
+    "{ 0 }"
+   ],
+   "answer": 2,
+   "explain": "No natural number is below 1. The even prime is 2; x² = 4 has two roots; { 0 } has one element (0).",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "If A ⊆ B, then A ∪ B equals:",
+   "options": [
+    "A",
+    "A ∩ B",
+    "∅",
+    "B"
+   ],
+   "answer": 3,
+   "explain": "Every element of A is already in B, so the union adds nothing new. (A ∩ B would be A.)",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "By De Morgan's law, (A ∪ B)′ equals:",
+   "options": [
+    "A′ ∩ B′",
+    "A′ ∪ B′",
+    "A ∩ B",
+    "(A ∩ B)′"
+   ],
+   "answer": 0,
+   "explain": "The complement of a union is the intersection of the complements; (A ∩ B)′ = A′ ∪ B′.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "If A = {1, 2, 3} and B = {3, 4}, then A − B is:",
+   "options": [
+    "{ 4 }",
+    "{1, 2}",
+    "{1, 2, 4}",
+    "{ 3 }"
+   ],
+   "answer": 1,
+   "explain": "A − B keeps the elements of A that are not in B. { 4 } is B − A.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m9",
+   "q": "If A has 4 elements and B has 3, the number of elements in A × B is:",
+   "options": [
+    "7",
+    "64",
+    "12",
+    "81"
+   ],
+   "answer": 2,
+   "explain": "n(A × B) = n(A) × n(B) = 12.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "4*3"
+  },
+  {
+   "id": "m10",
+   "q": "Sets P, Q and R have 3, 5 and 2 elements. The Cartesian product P × Q × R has:",
+   "options": [
+    "10",
+    "15",
+    "30",
+    "60"
+   ],
+   "answer": 2,
+   "explain": "3 × 5 × 2 = 30 ordered triples.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "3*5*2"
+  },
+  {
+   "id": "m11",
+   "q": "The number of different relations from a set with 2 elements to a set with 3 elements is:",
+   "options": [
+    "6",
+    "8",
+    "9",
+    "64"
+   ],
+   "answer": 3,
+   "explain": "A × B has 6 pairs; any subset is a relation: 2⁶ = 64.",
+   "concept": "c7",
+   "difficulty": "moderate",
+   "check": "2**(2*3)"
+  },
+  {
+   "id": "m12",
+   "q": "On the set of natural numbers, the relation \"is less than\" is:",
+   "options": [
+    "Transitive only",
+    "An equivalence relation",
+    "Reflexive and transitive",
+    "Symmetric only"
+   ],
+   "answer": 0,
+   "explain": "a < a is false (not reflexive); a < b does not give b < a (not symmetric); a < b and b < c give a < c (transitive).",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m13",
+   "q": "The relation \"has the same date of birth as\" on a set of people is:",
+   "options": [
+    "Reflexive only",
+    "An equivalence relation",
+    "Symmetric only",
+    "Transitive but not symmetric"
+   ],
+   "answer": 1,
+   "explain": "Everyone shares their own birth date, sharing is mutual, and it chains — reflexive, symmetric and transitive.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m14",
+   "q": "On S = {1, 2}, the relation R = {(1, 2), (2, 1)} is:",
+   "options": [
+    "An equivalence relation",
+    "Reflexive and symmetric",
+    "Symmetric but neither reflexive nor transitive",
+    "Transitive but not symmetric"
+   ],
+   "answer": 2,
+   "explain": "(1, 1) is missing, so not reflexive; (1, 2) and (2, 1) would need (1, 1) for transitivity, so not transitive; it is symmetric.",
+   "concept": "c7",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m15",
+   "q": "For R = {(1, 4), (2, 5), (3, 4)}, the range of R is:",
+   "options": [
+    "{1, 2, 3}",
+    "{1, 2, 3, 4, 5}",
+    "{ 4 }",
+    "{4, 5}"
+   ],
+   "answer": 3,
+   "explain": "The range is the set of second elements: 4 and 5. {1, 2, 3} is the domain.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m16",
+   "q": "The inverse of the relation R = {(1, a), (2, b), (3, b)} is:",
+   "options": [
+    "{(a, 1), (b, 2), (b, 3)}",
+    "{(1, a), (2, b), (3, b)}",
+    "{(a, 1), (b, 2)}",
+    "{(1, b), (2, a), (3, a)}"
+   ],
+   "answer": 0,
+   "explain": "Reverse every ordered pair. The domain of R⁻¹ is the range of R.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m17",
+   "q": "How many functions can be defined from a set with 3 elements to a set with 2 elements?",
+   "options": [
+    "6",
+    "8",
+    "9",
+    "5"
+   ],
+   "answer": 1,
+   "explain": "Each of the 3 elements chooses one of 2 images: 2³ = 8. 3² = 9 reverses the roles.",
+   "concept": "c8",
+   "difficulty": "moderate",
+   "check": "2**3"
+  },
+  {
+   "id": "m18",
+   "q": "How many one-one functions are there from a set with 3 elements into a set with 5 elements?",
+   "options": [
+    "125",
+    "10",
+    "60",
+    "15"
+   ],
+   "answer": 2,
+   "explain": "Distinct images: 5 × 4 × 3 = 60 (= ⁵P₃). 125 = 5³ allows repeats.",
+   "concept": "c8",
+   "difficulty": "hard",
+   "check": "5*4*3"
+  },
+  {
+   "id": "m19",
+   "q": "f : R → R defined by f(x) = x² is:",
+   "options": [
+    "One-one and onto",
+    "One-one and into",
+    "Many-one and onto",
+    "Many-one and into"
+   ],
+   "answer": 3,
+   "explain": "f(2) = f(−2) = 4, so many-one; negative real numbers have no pre-image, so into.",
+   "concept": "c8",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m20",
+   "q": "If f(x) = 2x + 1 (f : R → R), then f⁻¹(x) is:",
+   "options": [
+    "(x + 1)/2",
+    "1/(2x + 1)",
+    "2x − 1",
+    "(x − 1)/2"
+   ],
+   "answer": 3,
+   "explain": "Put y = 2x + 1 → x = (y − 1)/2. 1/(2x + 1) is the reciprocal, not the inverse.",
+   "concept": "c8",
+   "difficulty": "core"
+  },
+  {
+   "id": "m21",
+   "q": "If f(x) = x + 1 and g(x) = 2x, then f(g(3)) is:",
+   "options": [
+    "7",
+    "8",
+    "6",
+    "9"
+   ],
+   "answer": 0,
+   "explain": "g(3) = 6, then f(6) = 7. g(f(3)) = g(4) = 8 — order matters in a composite function.",
+   "concept": "c8",
+   "difficulty": "core",
+   "check": "2*3+1"
+  },
+  {
+   "id": "m22",
+   "q": "A function has an inverse function if and only if it is:",
+   "options": [
+    "One-one only",
+    "One-one and onto",
+    "Onto only",
+    "A constant function"
+   ],
+   "answer": 1,
+   "explain": "Every element of the co-domain must have exactly one pre-image — onto gives \"at least one\", one-one gives \"at most one\".",
+   "concept": "c8",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "lim (x³ − 8)/(x − 2) as x → 2 equals:",
+   "options": [
+    "4",
+    "8",
+    "12",
+    "0"
+   ],
+   "answer": 2,
+   "explain": "Standard result n aⁿ⁻¹ = 3 × 2² = 12. (Or factorise: x² + 2x + 4 at x = 2.)",
+   "concept": "c9",
+   "difficulty": "core",
+   "check": "3*2**2"
+  },
+  {
+   "id": "m24",
+   "q": "lim (4x² + 1)/(2x² − 3x) as x → ∞ equals:",
+   "options": [
+    "0",
+    "4",
+    "∞",
+    "2"
+   ],
+   "answer": 3,
+   "explain": "Divide by x²: (4 + 1/x²)/(2 − 3/x) → 4/2 = 2.",
+   "concept": "c9",
+   "difficulty": "moderate",
+   "check": "4/2"
+  },
+  {
+   "id": "m25",
+   "q": "lim (e⁵ˣ − 1)/x as x → 0 equals:",
+   "options": [
+    "5",
+    "1",
+    "0",
+    "e⁵"
+   ],
+   "answer": 0,
+   "explain": "Write it as 5 × (e⁵ˣ − 1)/(5x); since (eᵗ − 1)/t → 1, the limit is 5.",
+   "concept": "c9",
+   "difficulty": "moderate",
+   "check": "5*1"
+  },
+  {
+   "id": "m26",
+   "q": "lim (x² + 3x − 4)/(x − 1) as x → 1 equals:",
+   "options": [
+    "0",
+    "5",
+    "4",
+    "3"
+   ],
+   "answer": 1,
+   "explain": "x² + 3x − 4 = (x − 1)(x + 4); cancel (x − 1) and put x = 1: 5. Substituting directly gives 0/0, not 0.",
+   "concept": "c9",
+   "difficulty": "core",
+   "check": "1+4"
+  },
+  {
+   "id": "m27",
+   "q": "lim f(x) as x → a exists when:",
+   "options": [
+    "f(a) is defined",
+    "Only the right-hand limit exists",
+    "The left-hand and right-hand limits both exist and are equal",
+    "f(a) = 0"
+   ],
+   "answer": 2,
+   "explain": "A limit does not depend on f(a); both one-sided limits must exist and agree.",
+   "concept": "c9",
+   "difficulty": "core"
+  },
+  {
+   "id": "m28",
+   "q": "f(x) = (x² − 25)/(x − 5) for x ≠ 5 and f(5) = k. For f to be continuous at x = 5, k must be:",
+   "options": [
+    "5",
+    "0",
+    "25",
+    "10"
+   ],
+   "answer": 3,
+   "explain": "lim (x² − 25)/(x − 5) = lim (x + 5) = 10; continuity needs f(5) = 10.",
+   "concept": "c10",
+   "difficulty": "moderate",
+   "check": "5+5"
+  },
+  {
+   "id": "m29",
+   "q": "f(x) = 3x + 1 for x < 2 and f(x) = 5x − 3 for x ≥ 2. At x = 2, f is:",
+   "options": [
+    "Continuous, because both one-sided limits and f(2) equal 7",
+    "Discontinuous, because the formula changes",
+    "Discontinuous, because the left limit is 6",
+    "Continuous, because f(2) = 10"
+   ],
+   "answer": 0,
+   "explain": "LHL = 3(2) + 1 = 7, RHL = 5(2) − 3 = 7 and f(2) = 7. A change of formula alone does not break continuity.",
+   "concept": "c10",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m30",
+   "q": "Two sets A and B are equivalent when:",
+   "options": [
+    "n(A) = n(B)",
+    "A = B",
+    "A ⊆ B",
+    "A ∩ B = ∅"
+   ],
+   "answer": 0,
+   "explain": "Equivalent sets have the same number of elements; equal sets have exactly the same elements. Equal sets are always equivalent, not the other way round.",
+   "concept": "c2",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "An inspector examined 100 units from an assembly line and reported: strength defect (S) 40, flexibility defect (F) 35, radius defect (R) 25, S and F 12, S and R 10, F and R 8, all three 4. Find the number of units with (a) no defect, (b) exactly one defect, (c) exactly two defects, (d) only a radius defect. Is the report consistent?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Region",
+      "Working",
+      "Units"
+     ],
+     "rows": [
+      [
+       "All three",
+       "given",
+       "4"
+      ],
+      [
+       "S and F only",
+       "12 − 4",
+       "8"
+      ],
+      [
+       "S and R only",
+       "10 − 4",
+       "6"
+      ],
+      [
+       "F and R only",
+       "8 − 4",
+       "4"
+      ],
+      [
+       "S only",
+       "40 − 12 − 10 + 4",
+       "22"
+      ],
+      [
+       "F only",
+       "35 − 12 − 8 + 4",
+       "19"
+      ],
+      [
+       "R only",
+       "25 − 10 − 8 + 4",
+       "11"
+      ],
+      [
+       "No defect",
+       "100 − 74",
+       "26"
+      ],
+      [
+       "Total",
+       "",
+       "100"
+      ]
+     ],
+     "num": [
+      2
+     ],
+     "total": true
+    },
+    {
+     "t": "p",
+     "text": "(a) 26; (b) 22 + 19 + 11 = 52; (c) 8 + 6 + 4 = 18; (d) 11. Every region is non-negative and the regions add up to 100, so the report is consistent."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "n(S ∪ F ∪ R) = 74 by the three-set formula",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Pairwise-only regions found by subtracting the centre",
+     "m": 1,
+     "skill": "analysis"
+    },
+    {
+     "id": "s3",
+     "pt": "Single-defect regions 22, 19, 11 and answers (a)–(d)",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Consistency conclusion (no negative region; regions add to 100)",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "Candidates who start from the centre of the Venn diagram rarely go wrong.",
+    "Many forget to add back the triple overlap for the \"only\" regions."
+   ],
+   "mistakes": [
+    "Taking \"exactly two\" as 12 + 10 + 8 = 30 (the triple overlap is inside each pair).",
+    "Treating the report as inconsistent because the defect counts add to more than 100."
+   ],
+   "tips": [
+    "Draw the diagram and write every region inside it before answering.",
+    "End with a one-line consistency check — it often earns the last mark."
+   ],
+   "checks": [
+    {
+     "expr": "40+35+25-12-10-8+4",
+     "value": 74,
+     "label": "n(S ∪ F ∪ R)"
+    },
+    {
+     "expr": "100-74",
+     "value": 26,
+     "label": "pieces with no defect"
+    },
+    {
+     "expr": "40-12-10+4",
+     "value": 22,
+     "label": "strength defect only"
+    },
+    {
+     "expr": "35-12-8+4",
+     "value": 19,
+     "label": "flexibility defect only"
+    },
+    {
+     "expr": "25-10-8+4",
+     "value": 11,
+     "label": "radius defect only"
+    },
+    {
+     "expr": "22+19+11",
+     "value": 52,
+     "label": "exactly one defect"
+    },
+    {
+     "expr": "(12+10+8)-3*4",
+     "value": 18,
+     "label": "exactly two defects"
+    },
+    {
+     "expr": "52+18+4+26",
+     "value": 100,
+     "label": "regions add back to 100"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "Let A = {1, 2, 3, 6} and R be the relation on A defined by \"a R b if a divides b\". (a) List R in roster form. (b) State its domain and range. (c) Is R reflexive, symmetric, transitive? Is it an equivalence relation? (d) How many relations in all can be defined on A?",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) R = {(1, 1), (1, 2), (1, 3), (1, 6), (2, 2), (2, 6), (3, 3), (3, 6), (6, 6)} — 9 pairs."
+    },
+    {
+     "t": "p",
+     "text": "(b) Domain = {1, 2, 3, 6}; range = {1, 2, 3, 6}."
+    },
+    {
+     "t": "p",
+     "text": "(c) Reflexive: every number divides itself — yes. Symmetric: 1 divides 2 but 2 does not divide 1 — no. Transitive: if a divides b and b divides c, then a divides c — yes. Since it is not symmetric, R is not an equivalence relation."
+    },
+    {
+     "t": "p",
+     "text": "(d) A × A has 16 pairs, so the number of relations on A is 2¹⁶ = 65,536."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "All 9 pairs listed correctly",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Domain and range",
+     "m": 0.5,
+     "skill": "concept"
+    },
+    {
+     "id": "s3",
+     "pt": "Each property decided with a reason or counter-example",
+     "m": 1.5,
+     "skill": "analysis"
+    },
+    {
+     "id": "s4",
+     "pt": "Not an equivalence relation — conclusion stated",
+     "m": 0.5,
+     "skill": "conclusion"
+    },
+    {
+     "id": "s5",
+     "pt": "2¹⁶ relations",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "A single counter-example is enough to show a property fails; a general reason is needed to show it holds.",
+    "Several candidates omit the pairs (a, a) when listing R."
+   ],
+   "mistakes": [
+    "Missing (1, 1), (2, 2), … in the list.",
+    "Calling R symmetric because (1, 1) \"reverses to itself\".",
+    "Writing 2⁴ relations instead of 2¹⁶."
+   ],
+   "tips": [
+    "Test properties in the order reflexive → symmetric → transitive.",
+    "For \"not\" answers, quote the failing pair."
+   ],
+   "checks": [
+    {
+     "expr": "4+2+2+1",
+     "value": 9,
+     "label": "pairs (a, b) with a dividing b: from 1, 2, 3, 6 respectively"
+    },
+    {
+     "expr": "2**(4*4)",
+     "value": 65536,
+     "label": "number of relations on a 4-element set"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "hard",
+   "pad": "text",
+   "q": "(a) Evaluate lim (x³ − 27)/(x² − 9) as x → 3. (b) Evaluate lim (2x³ − x + 7)/(5x³ + 4x²) as x → ∞. (c) f(x) = kx + 1 for x ≤ 2 and f(x) = 3x − 1 for x > 2. Find k so that f is continuous at x = 2, and show the three continuity conditions.",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) 0/0 form. Factorise: (x − 3)(x² + 3x + 9) / [(x − 3)(x + 3)] = (x² + 3x + 9)/(x + 3) → 27/6 = 9/2 = 4.5."
+    },
+    {
+     "t": "p",
+     "text": "(b) Divide by x³: (2 − 1/x² + 7/x³)/(5 + 4/x) → 2/5 = 0.4."
+    },
+    {
+     "t": "p",
+     "text": "(c) f(2) = 2k + 1 (defined). LHL = lim (kx + 1) = 2k + 1. RHL = lim (3x − 1) = 5. Continuity requires LHL = RHL = f(2): 2k + 1 = 5 → k = 2. Then f(2) = 5 = LHL = RHL, so all three conditions hold."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "(a) 0/0 recognised and factorisation correct",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "(a) Answer 9/2",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "(b) Division by highest power; answer 2/5",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "(c) LHL, RHL and f(2) written separately",
+     "m": 1.5,
+     "skill": "application"
+    },
+    {
+     "id": "s5",
+     "pt": "(c) k = 2 with the conditions verified",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "In (a) some candidates \"cancel\" x³ with x² — not allowed; factorise first.",
+    "For (c), examiners look for all three conditions, not just an equation."
+   ],
+   "mistakes": [
+    "Answering 0 or \"not defined\" in (a) after direct substitution.",
+    "Dividing only the numerator by x³ in (b)."
+   ],
+   "tips": [
+    "Always try substitution first and write the form you get (0/0, ∞/∞).",
+    "For piecewise functions, write \"LHL = … , RHL = … , f(a) = …\" on separate lines."
+   ],
+   "checks": [
+    {
+     "expr": "(3*3**2)/(2*3)",
+     "value": 4.5,
+     "label": "(a) lim (x³ − 27)/(x² − 9) = 3x²/(2x)… = 27/6 at x = 3"
+    },
+    {
+     "expr": "2/5",
+     "value": 0.4,
+     "label": "(b) lim (2x³ − x + 7)/(5x³ + 4x²) as x → ∞"
+    },
+    {
+     "expr": "(3*2-1-1)/2",
+     "value": 2,
+     "label": "(c) k from 2k + 1 = 3(2) − 1"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Set = well-defined collection of distinct objects; roster or set-builder form.",
+   "Subsets 2ⁿ, proper subsets 2ⁿ − 1, n(P(A)) = 2ⁿ; ∅ ⊆ every set.",
+   "n(A ∪ B) = n(A) + n(B) − n(A ∩ B); three-set formula adds back the triple overlap.",
+   "De Morgan: (A ∪ B)′ = A′ ∩ B′; (A ∩ B)′ = A′ ∪ B′.",
+   "n(A × B) = n(A)n(B); relations from A to B: 2ᵐⁿ.",
+   "Equivalence = reflexive + symmetric + transitive.",
+   "Function: each element of the domain has exactly one image. Bijection = one-one + onto; only bijections have inverses. Functions from m to n elements: nᵐ.",
+   "Limit exists ⇔ LHL = RHL; continuity ⇔ f(a) defined and lim f(x) = f(a).",
+   "lim (xⁿ − aⁿ)/(x − a) = n aⁿ⁻¹; lim (eˣ − 1)/x = 1; lim (aˣ − 1)/x = logₑ a."
+  ],
+  "remember": [
+   "Equal sets ⇒ equivalent, not conversely.",
+   "Exactly two = Σ pairs − 3 × all three.",
+   "g∘f means f first, then g.",
+   "As x → ∞, divide by the highest power."
+  ],
+  "traps": [
+   "{ 0 } is not the empty set.",
+   "A − B ≠ B − A.",
+   "A relation can be symmetric and transitive yet not reflexive.",
+   "A limit can exist even if f(a) is undefined; continuity needs both and equality."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Subsets",
+   "v": "2ⁿ; proper 2ⁿ − 1; power set has 2ⁿ elements"
+  },
+  {
+   "k": "Two sets",
+   "v": "n(A ∪ B) = n(A) + n(B) − n(A ∩ B)"
+  },
+  {
+   "k": "Three sets",
+   "v": "ΣA − Σ(pairs) + n(A ∩ B ∩ C)"
+  },
+  {
+   "k": "De Morgan",
+   "v": "(A ∪ B)′ = A′ ∩ B′; (A ∩ B)′ = A′ ∪ B′"
+  },
+  {
+   "k": "Cartesian product",
+   "v": "n(A × B) = n(A) · n(B); relations 2ᵐⁿ"
+  },
+  {
+   "k": "Equivalence relation",
+   "v": "Reflexive, symmetric and transitive"
+  },
+  {
+   "k": "Function types",
+   "v": "one-one, many-one, onto, into; bijection = one-one + onto"
+  },
+  {
+   "k": "Number of functions",
+   "v": "nᵐ (m elements to n elements); one-one: ⁿPₘ"
+  },
+  {
+   "k": "Limit exists",
+   "v": "LHL = RHL (finite)"
+  },
+  {
+   "k": "Standard limits",
+   "v": "(xⁿ − aⁿ)/(x − a) → n aⁿ⁻¹; (eˣ − 1)/x → 1; (aˣ − 1)/x → logₑ a; (1 + x)^(1/x) → e"
+  },
+  {
+   "k": "Continuity at a",
+   "v": "f(a) defined, limit exists, limit = f(a)"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is the difference between equal sets and equivalent sets?",
+   "model": "Equal sets have exactly the same elements. Equivalent sets only have the same number of elements, so their cardinal numbers are equal, but the elements can be different. Every pair of equal sets is equivalent, but equivalent sets need not be equal.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Equal sets: exactly the same elements",
+     "w": 4,
+     "kw": [
+      "equal set same element|equal same element|equal set identical|equal identical element|equal exactly same|equal set exactly|equal set have same element|equal set contain same"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Equivalent sets: same number of elements (n(A) = n(B))",
+     "w": 4,
+     "kw": [
+      "equivalent same number|equivalent number of element|equivalent set same number|equivalent cardinal|equivalent set same cardinal|equivalent same count|equivalent same size|equivalent n a equal n b|equivalent set have same number|equivalent equal number"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Equal ⇒ equivalent, but not the other way round",
+     "w": 2,
+     "kw": [
+      "equal set always equivalent|equal always equivalent|equal sets are equivalent|equal set are equivalent|equivalent need not equal|equivalent not necessarily equal|equivalent not always equal|equivalent may not equal|equivalent need not be equal|not every equivalent|converse not true|converse is not true|not vice versa"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "How many subsets does a set of n elements have, and why?",
+   "model": "A set with n elements has two to the power n subsets, because while forming a subset each element can either be included or left out, giving two choices for every element. Leaving out the set itself, there are two to the power n minus one proper subsets.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "2ⁿ subsets",
+     "w": 4,
+     "kw": [
+      "2 power n|two power n|2 to power n|two to the power n|2 to the n|two to the n|2^n|2 raised n|two raised n|2 n subset|two n subset"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Each element either in or out — two choices each",
+     "w": 4,
+     "kw": [
+      "include|in or out|taken or left|either|two choice|2 choice|two option|2 option|chosen or not|select or not|present or absent"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Proper subsets 2ⁿ − 1",
+     "w": 2,
+     "kw": [
+      "2 power n minus 1|two power n minus one|2 to the power n minus 1|two to the power n minus one|2^n minus 1|2^n - 1|2 n minus 1|two n minus one"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "State De Morgan's laws.",
+   "model": "De Morgan's laws say that the complement of the union of two sets is the intersection of their complements, and the complement of the intersection of two sets is the union of their complements. In symbols, A union B whole complement equals A complement intersection B complement, and A intersection B whole complement equals A complement union B complement.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "(A ∪ B)′ = A′ ∩ B′",
+     "w": 5,
+     "kw": [
+      "complement of union is intersection|complement of the union is the intersection|complement union intersection complement|complement of union equal intersection|union complement equal intersection|union whole complement equal a complement intersection|a union b complement equal a complement intersection b complement|not a or b equal not a and not b|complement of a union b is a complement intersection"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "(A ∩ B)′ = A′ ∪ B′",
+     "w": 5,
+     "kw": [
+      "complement of intersection is union|complement of the intersection is the union|complement intersection union complement|complement of intersection equal union|intersection complement equal union|intersection whole complement equal a complement union|a intersection b complement equal a complement union b complement|not a and b equal not a or not b|complement of a intersection b is a complement union"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "When is a relation called an equivalence relation? Explain each property.",
+   "model": "A relation on a set is an equivalence relation when it is reflexive, symmetric and transitive. Reflexive means every element is related to itself. Symmetric means if a is related to b then b is related to a. Transitive means if a is related to b and b is related to c, then a is related to c.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Reflexive, symmetric and transitive",
+     "w": 4,
+     "kw": [
+      "reflexive",
+      "symmetric",
+      "transitive"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Reflexive: every element related to itself, (a, a) ∈ R",
+     "w": 2,
+     "kw": [
+      "related to itself|relate itself|itself|own self|with itself"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Symmetric: a R b ⇒ b R a",
+     "w": 2,
+     "kw": [
+      "b related to a|b relate a|b r a|b is related to a|then b a|reverse|vice versa|both way"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p4",
+     "pt": "Transitive: a R b and b R c ⇒ a R c",
+     "w": 2,
+     "kw": [
+      "a related to c|a relate c|a r c|a is related to c|then a c|chain|a to c"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v5",
+   "q": "Distinguish between a one-one function and an onto function. When does a function have an inverse?",
+   "model": "In a one-one function different elements of the domain always have different images, so no two elements share an image. In an onto function every element of the co-domain has at least one pre-image, so the range equals the co-domain. A function has an inverse only when it is both one-one and onto, that is, a bijection.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "One-one: different elements have different images",
+     "w": 4,
+     "kw": [
+      "different element different image|distinct element distinct image|different input different output|no two element same image|no two share|different images|distinct image|different output|no two have same image|unique image"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Onto: every element of the co-domain has a pre-image (range = co-domain)",
+     "w": 3,
+     "kw": [
+      "every element of co domain|every element codomain|each element of co domain|every element in co domain|range equal co domain|range equal codomain|range is co domain|range same as co domain|range is the codomain|every element of b|pre image|preimage|nothing left out|no element left"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Inverse exists only for one-one and onto (bijective) functions",
+     "w": 3,
+     "kw": [
+      "bijection|bijective|one one and onto|one-one and onto|one one onto|both one one and onto|injective and surjective"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c8"
+  },
+  {
+   "id": "v6",
+   "q": "When does the limit of a function exist at a point, and when is the function continuous there?",
+   "model": "The limit of f of x as x tends to a exists when the left-hand limit and the right-hand limit both exist and are equal. The function is continuous at a when f of a is defined, the limit exists, and the limit equals the value f of a.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Limit exists when LHL and RHL exist and are equal",
+     "w": 5,
+     "kw": [
+      "left hand|left-hand|lhl|left limit|from the left",
+      "right hand|right-hand|rhl|right limit|from the right",
+      "equal|same|agree|match|coincide"
+     ],
+     "min": 3
+    },
+    {
+     "id": "p2",
+     "pt": "Continuous: f(a) defined and limit equals f(a)",
+     "w": 5,
+     "kw": [
+      "limit equal f a|limit equals f of a|limit equal value|limit is equal to f a|limit same as f a|limit equal function value|equal to value of function|limit equal f(a)|equal f of a|equal to f a|equals the value|value equal limit|f a equal limit|f of a equal limit|f of a equals the limit",
+      "defined|exist|finite"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c10"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Return-filing survey for a tax-practice newsletter",
+   "difficulty": "moderate",
+   "case": "A tax practitioner surveyed 300 individual taxpayers. 210 filed their return online themselves, 150 took the help of a CA, and 90 did both (filed online and also consulted a CA). The newsletter wants a few headline figures.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "How many taxpayers neither filed online nor consulted a CA?",
+     "options": [
+      "60",
+      "30",
+      "0",
+      "90"
+     ],
+     "answer": 1,
+     "explain": "Either = 210 + 150 − 90 = 270; neither = 300 − 270 = 30.",
+     "concept": "c5",
+     "difficulty": "core",
+     "check": "300-(210+150-90)"
+    },
+    {
+     "id": "k1b",
+     "q": "How many filed online without consulting a CA?",
+     "options": [
+      "210",
+      "60",
+      "120",
+      "90"
+     ],
+     "answer": 2,
+     "explain": "Online only = 210 − 90 = 120.",
+     "concept": "c5",
+     "difficulty": "core",
+     "check": "210-90"
+    },
+    {
+     "id": "k1c",
+     "q": "How many used exactly one of the two?",
+     "options": [
+      "270",
+      "90",
+      "120",
+      "180"
+     ],
+     "answer": 3,
+     "explain": "Online only 120 + CA only 60 = 180.",
+     "concept": "c5",
+     "difficulty": "moderate",
+     "check": "(210-90)+(150-90)"
+    },
+    {
+     "id": "k1d",
+     "q": "What percentage of all those surveyed consulted a CA but did not file online?",
+     "options": [
+      "20%",
+      "50%",
+      "30%",
+      "40%"
+     ],
+     "answer": 0,
+     "explain": "CA only = 150 − 90 = 60; 60/300 = 20%.",
+     "concept": "c5",
+     "difficulty": "moderate",
+     "check": "(150-90)/300*100"
+    }
+   ]
+  }
+ ]
+}

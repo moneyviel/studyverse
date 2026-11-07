@@ -1,0 +1,2395 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch18-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch18",
+ "n": 1,
+ "title": "Index Numbers",
+ "outcomes": [
+  "Explain what an index number measures and the issues in constructing one — purpose and data, base period, weights, average, variables and formula.",
+  "Compute price, quantity and value relatives, link and chain relatives, and simple aggregative and simple-average-of-relatives indices.",
+  "Compute weighted indices — Laspeyres, Paasche, Marshall-Edgeworth, Fisher and the weighted average of relatives — and chain-base indices.",
+  "Apply the unit, time reversal, factor reversal and circular tests; shift the base, splice two series, deflate money values and explain how a stock-market index is computed."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 50,
+   "practice": 70
+  },
+  "prereq": [
+   "fnd-p3-ch14-u01"
+  ],
+  "exam_tip": "Set up one product table (p0q0, p1q0, p0q1, p1q1) and every weighted index — Laspeyres, Paasche, Marshall-Edgeworth, Fisher, quantity and value index — comes from the same four totals. Theory MCQs on the tests (which formula satisfies which test) appear in almost every paper."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "What an index number is",
+   "body": [
+    "An index number measures the relative change in a variable or a group of related variables between a base period (or place) and another period (or place). The base is taken as 100, so an index of 125 means a rise of 25% over the base.",
+    "Because prices of rice per kg and of cloth per metre cannot be added meaningfully, indices work with relatives (ratios to the base), which are pure numbers and can be averaged. An index number is therefore a specialised average of relatives.",
+    "Simple index: one variable (e.g. price of petrol). Composite index: many variables combined (e.g. a consumer price index). Most indices in use — WPI, CPI, Sensex, Nifty — are composite.",
+    "A run of index numbers for successive periods, all calculated on one common base, is called an index time series. Notation: P01 is the index for period 1 with period 0 as base; P10 is period 0 on base period 1."
+   ],
+   "analogy": "An index is like a report card that gives marks out of 100 for the base year and compares every later year to it.",
+   "work": "CAs use indices constantly: CPI for real-salary analysis and escalation clauses, WPI or input-price indices for cost-escalation claims in contracts, and stock indices as benchmarks for portfolio performance."
+  },
+  {
+   "id": "c2",
+   "title": "Issues in constructing an index",
+   "body": [
+    "Purpose and selection of data: decide exactly what the index must measure, then choose items relevant to it (a cost-of-living index for workers need not include machinery prices). Use a representative sample — random or stratified random — and keep the method of selection consistent so that periods are comparable.",
+    "Base period: should be normal (free from abnormal events such as war, famine, pandemic shocks), reasonably recent, and of suitable length. Bases may be fixed, chain (previous period) or an average of several periods.",
+    "Weights: each item should influence the index according to its importance — cereals must weigh more than salt in a cost-of-living index. Weights may be quantities or values.",
+    "Average: the geometric mean is theoretically best for averaging relatives (it treats rises and falls symmetrically and gives time-reversible results), but the arithmetic mean is used more often because it is simple.",
+    "Choice of variables and prices: wholesale or retail, period-average or end-of-period prices, depending on the purpose.",
+    "Formula: different formulae give different answers from the same data, so the formula must suit the purpose and pass the important tests."
+   ],
+   "analogy": "Building an index is like designing a thali to represent a region's food: choose typical dishes (items), a typical day (base), portion sizes (weights) and one way of scoring the meal (formula).",
+   "work": "When a client uses an index in a price-variation clause, the CA checks which index, which base and which month's figure the clause specifies — disputes usually arise from these choices."
+  },
+  {
+   "id": "c3",
+   "title": "Relatives — price, quantity, value, link and chain",
+   "body": [
+    "Price relative = p1 / p0 × 100. Quantity relative = q1 / q0 × 100. Value relative = (p1q1) / (p0q0) × 100.",
+    "Link relatives compare each period with the period just before it: p1/p0, p2/p1, p3/p2 … (× 100).",
+    "Chain relatives (relatives chained to a fixed base) compare each period with the same base: p1/p0, p2/p0, p3/p0 … (× 100). Chaining the link relatives by successive multiplication gives them."
+   ],
+   "analogy": "A link relative is \"how did I do compared with last year\"; a chain relative is \"how far have I come since the first year\".",
+   "work": "Year-on-year growth in an MIS is a link relative; growth since the year of acquisition is a chain relative."
+  },
+  {
+   "id": "c4",
+   "title": "Unweighted methods",
+   "body": [
+    "Simple aggregative price index = Σp1 / Σp0 × 100. Easy, but items quoted in large units or at high prices dominate, and changing a unit (per kg to per quintal) changes the index — it fails the unit test.",
+    "Simple average of price relatives = Σ(p1/p0 × 100) / N (or the geometric mean of the relatives). Relatives are pure numbers, so it passes the unit test — but every item gets equal importance, which over-weights minor items."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "p0",
+      "p1",
+      "Price relative"
+     ],
+     "rows": [
+      [
+       "A",
+       "10",
+       "12",
+       "120.00"
+      ],
+      [
+       "B",
+       "8",
+       "10",
+       "125.00"
+      ],
+      [
+       "C",
+       "5",
+       "6",
+       "120.00"
+      ],
+      [
+       "D",
+       "20",
+       "25",
+       "125.00"
+      ]
+     ],
+     "title": "Data set 1 — price relatives"
+    }
+   ],
+   "analogy": "A simple aggregative index adds apples and elephants by weight; the average of relatives scores each animal's growth out of 100 first, then averages.",
+   "work": "A quick unweighted index is fine for an internal trend line; for anything contractual or published, a weighted formula is expected."
+  },
+  {
+   "id": "c5",
+   "title": "Weighted aggregative indices",
+   "body": [
+    "Laspeyres (base-year quantities as weights): Σp1q0 / Σp0q0 × 100 — the cost of buying the base-year basket now, compared with then.",
+    "Paasche (current-year quantities as weights): Σp1q1 / Σp0q1 × 100.",
+    "Typical-period weights: Σp1qt / Σp0qt × 100, where qt are quantities of some typical period; fixed weights make the index satisfy the circular test.",
+    "Marshall-Edgeworth (average of base and current quantities): Σp1(q0 + q1) / Σp0(q0 + q1) × 100.",
+    "Fisher's ideal index: the geometric mean of Laspeyres and Paasche = √(Σp1q0/Σp0q0 × Σp1q1/Σp0q1) × 100.",
+    "Quantity indices swap the roles of p and q: Laspeyres Σq1p0 / Σq0p0, Paasche Σq1p1 / Σq0p1, Fisher = their geometric mean. Value index = Σp1q1 / Σp0q0 × 100."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "p0",
+      "q0",
+      "p1",
+      "q1",
+      "p0q0",
+      "p1q0",
+      "p0q1",
+      "p1q1"
+     ],
+     "rows": [
+      [
+       "A",
+       "10",
+       "5",
+       "12",
+       "6",
+       "50",
+       "60",
+       "60",
+       "72"
+      ],
+      [
+       "B",
+       "8",
+       "10",
+       "10",
+       "8",
+       "80",
+       "100",
+       "64",
+       "80"
+      ],
+      [
+       "C",
+       "5",
+       "8",
+       "6",
+       "10",
+       "40",
+       "48",
+       "50",
+       "60"
+      ],
+      [
+       "D",
+       "20",
+       "2",
+       "25",
+       "3",
+       "40",
+       "50",
+       "60",
+       "75"
+      ],
+      [
+       "Total",
+       "",
+       "",
+       "",
+       "",
+       "210",
+       "258",
+       "234",
+       "287"
+      ]
+     ],
+     "num": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "total": true,
+     "title": "Data set 1 — the four product totals"
+    }
+   ],
+   "analogy": "Laspeyres asks, \"What would last year's shopping bag cost today?\" Paasche asks, \"What would this year's shopping bag have cost last year?\"",
+   "work": "Inflation in a client's purchase basket (for budgeting or cost audit) is usually measured Laspeyres-style, because base-year quantities are known in advance and do not need re-collecting every period."
+  },
+  {
+   "id": "c6",
+   "title": "Weighted average of relatives",
+   "body": [
+    "Index = Σ(R × W) / ΣW, where R is the price relative of each item (or group index) and W its weight. With base-year values (p0q0) as weights the result equals the Laspeyres index.",
+    "Consumer price (cost-of-living) indices are built this way: group indices for food, clothing, fuel, housing and miscellaneous, weighted by the share of each group in the family budget, and combined by the arithmetic mean.",
+    "A weighted geometric mean of relatives can also be used."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Group",
+      "Group index (R)",
+      "Weight (W)",
+      "R × W"
+     ],
+     "rows": [
+      [
+       "Food",
+       "135",
+       "45",
+       "6075"
+      ],
+      [
+       "Clothing",
+       "120",
+       "15",
+       "1800"
+      ],
+      [
+       "Fuel and light",
+       "150",
+       "10",
+       "1500"
+      ],
+      [
+       "House rent",
+       "110",
+       "20",
+       "2200"
+      ],
+      [
+       "Miscellaneous",
+       "125",
+       "10",
+       "1250"
+      ],
+      [
+       "Total",
+       "",
+       "100",
+       "12825"
+      ]
+     ],
+     "num": [
+      2,
+      3
+     ],
+     "total": true,
+     "title": "Cost-of-living index"
+    }
+   ],
+   "analogy": "It is like a weighted exam aggregate: each paper's percentage counts in proportion to its marks.",
+   "work": "Dearness-allowance and rent-escalation calculations often use a CPI that is exactly such a weighted average of group indices."
+  },
+  {
+   "id": "c7",
+   "title": "Chain-base index numbers",
+   "body": [
+    "Step 1: link relative for each period = current price / previous price × 100. Step 2: chain index = link relative of the current period × chain index of the previous period ÷ 100, starting from 100.",
+    "For a single item the chain index equals the fixed-base index; for a group it can differ.",
+    "Use: when items or weights change often (new products, changing habits) — each year is compared with the year before, so new items can be brought in easily. Drawback: an error in any link is carried into every later chain index; and for a stable basket the chain method is an unnecessary complication."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Price",
+      "Link relative",
+      "Chain index"
+     ],
+     "rows": [
+      [
+       "2019",
+       "40",
+       "100.00",
+       "100.00"
+      ],
+      [
+       "2020",
+       "44",
+       "110.00",
+       "110.00"
+      ],
+      [
+       "2021",
+       "55",
+       "125.00",
+       "137.50"
+      ],
+      [
+       "2022",
+       "66",
+       "120.00",
+       "165.00"
+      ],
+      [
+       "2023",
+       "60",
+       "90.91",
+       "150.00"
+      ]
+     ],
+     "title": "Chain index (generated)"
+    }
+   ],
+   "analogy": "A chain index is a relay race: each runner (year) is timed against the previous runner, and the baton carries the total forward.",
+   "work": "GDP at constant prices and many official series are now chain-linked; CAs reading these series must know that each year's figure is built on the previous year's."
+  },
+  {
+   "id": "c8",
+   "title": "Tests of adequacy",
+   "body": [
+    "Unit test: the index should not depend on the units in which prices or quantities are quoted. Every formula except the simple aggregative index passes.",
+    "Time reversal test: the index computed forward and backward should be reciprocals: P01 × P10 = 1 (indices as ratios, not percentages). Fisher passes; Laspeyres and Paasche fail.",
+    "Factor reversal test: price index × quantity index = value index: P01 × Q01 = Σp1q1 / Σp0q0. Fisher passes; Laspeyres and Paasche fail. Because Fisher passes both reversal tests it is called the ideal index.",
+    "Circular test: an extension of the time reversal test to three or more periods — P01 × P12 × P20 = 1, so the base can be shifted without going back to the original data (e.g. P01 = 1.25 and P12 = 1.20 give P02 = 1.50). Laspeyres, Paasche and Fisher all fail; the simple geometric mean of relatives and the weighted aggregative index with fixed weights pass."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Formula",
+      "Unit",
+      "Time reversal",
+      "Factor reversal",
+      "Circular"
+     ],
+     "rows": [
+      [
+       "Simple aggregative",
+       "No",
+       "—",
+       "—",
+       "—"
+      ],
+      [
+       "Laspeyres",
+       "Yes",
+       "No",
+       "No",
+       "No"
+      ],
+      [
+       "Paasche",
+       "Yes",
+       "No",
+       "No",
+       "No"
+      ],
+      [
+       "Fisher",
+       "Yes",
+       "Yes",
+       "Yes",
+       "No"
+      ],
+      [
+       "Simple G.M. of relatives",
+       "Yes",
+       "Yes",
+       "—",
+       "Yes"
+      ],
+      [
+       "Fixed-weight aggregative",
+       "Yes",
+       "—",
+       "—",
+       "Yes"
+      ]
+     ],
+     "title": "Which formula passes which test"
+    }
+   ],
+   "analogy": "The time reversal test asks whether a road map gives the same distance going and returning; the factor reversal test asks whether price change × quantity change explains the whole change in spending.",
+   "work": "When choosing an index for a long-term contract, a consistent formula (one that behaves sensibly forward and backward) prevents arguments when the base is changed."
+  },
+  {
+   "id": "c9",
+   "title": "Uses, limitations, deflating, shifting and splicing",
+   "body": [
+    "Uses: framing economic and business policy; revealing trends and cyclical movements; forecasting (time-series analysis); deflating money values into real terms; measuring changes in the cost of living (and so fixing wages and allowances).",
+    "Limitations: built from samples, so errors can creep in; show broad trends, not the exact picture for every person or firm; different formulae give different values, which can confuse.",
+    "Deflating: real value = current value ÷ price index × 100. Purchasing power of a rupee = 100 ÷ price index. Nominal GNP deflated by a price index gives real GNP.",
+    "Shifting the base: new index = old index ÷ old index of the new base year × 100.",
+    "Splicing: when a series is revised (new weights, new items or a new method), the old and new series are joined at the overlap year. To carry the new series back to the old base, multiply it by (old index of the overlap year ÷ 100); to bring the old series to the new base, multiply it by (100 ÷ old index of the overlap year)."
+   ],
+   "analogy": "Deflating removes the \"price inflation filter\" from a photo so you see the real size of the object.",
+   "work": "A salary that rose from ₹36,000 to ₹54,000 while CPI rose from 120 to 180 has not risen in real terms at all — a point CAs make when reviewing pay revisions or pension adequacy."
+  },
+  {
+   "id": "c10",
+   "title": "Stock market indices",
+   "body": [
+    "A stock index tracks the overall market and serves as a benchmark: comparing a share's or a fund's return with the index shows whether it beat the market.",
+    "In India the main indices are the S&P BSE Sensex (30 stocks, base 1978-79 = 100) and the NSE Nifty 50 (50 stocks, base date 3 November 1995, base value 1000). International examples include the Dow Jones, NASDAQ and FTSE.",
+    "Computation (market-capitalisation weighting): find each constituent's market capitalisation, add them, and roll the index forward: index today = index yesterday × total market cap today ÷ total market cap yesterday. Some indices use price weighting instead, but almost all major equity indices are market-cap weighted."
+   ],
+   "analogy": "An index is the market's pulse: one number that summarises how hundreds of hearts (shares) are beating.",
+   "work": "Investment advisers and fund analysts use indices to measure alpha (return above the benchmark); auditors of mutual funds check that the scheme benchmark disclosed matches the offer document."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Simple indices from data set 1",
+   "difficulty": "core",
+   "minutes": 4,
+   "q": "Prices (₹) of four items: A 10 → 12, B 8 → 10, C 5 → 6, D 20 → 25 (base year → current year). Compute (a) the simple aggregative price index and (b) the simple average of price relatives.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) Σp0 = 10 + 8 + 5 + 20 = 43; Σp1 = 12 + 10 + 6 + 25 = 53. Simple aggregative index = 53/43 × 100 = 123.26."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "p0",
+      "p1",
+      "Relative p1/p0 × 100"
+     ],
+     "rows": [
+      [
+       "A",
+       "10",
+       "12",
+       "120.00"
+      ],
+      [
+       "B",
+       "8",
+       "10",
+       "125.00"
+      ],
+      [
+       "C",
+       "5",
+       "6",
+       "120.00"
+      ],
+      [
+       "D",
+       "20",
+       "25",
+       "125.00"
+      ],
+      [
+       "Total",
+       "43",
+       "53",
+       "490.00"
+      ]
+     ],
+     "num": [
+      1,
+      2,
+      3
+     ],
+     "total": true,
+     "title": "Working"
+    },
+    {
+     "t": "p",
+     "text": "(b) Average of relatives = 490 / 4 = 122.5."
+    },
+    {
+     "t": "note",
+     "text": "The two answers differ because the aggregative method lets the high-priced item D dominate."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round((12+10+6+25)/(10+8+5+20)*100,2)",
+     "value": 123.26,
+     "label": "simple aggregative price index"
+    },
+    {
+     "expr": "(12/10*100+10/8*100+6/5*100+25/20*100)/4",
+     "value": 122.5,
+     "label": "simple average of price relatives"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Laspeyres, Paasche, Marshall-Edgeworth and Fisher",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "For data set 1 (p0, q0, p1, q1): A (10, 5, 12, 6), B (8, 10, 10, 8), C (5, 8, 6, 10), D (20, 2, 25, 3), compute the Laspeyres, Paasche, Marshall-Edgeworth and Fisher price indices.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "p0",
+      "q0",
+      "p1",
+      "q1",
+      "p0q0",
+      "p1q0",
+      "p0q1",
+      "p1q1"
+     ],
+     "rows": [
+      [
+       "A",
+       "10",
+       "5",
+       "12",
+       "6",
+       "50",
+       "60",
+       "60",
+       "72"
+      ],
+      [
+       "B",
+       "8",
+       "10",
+       "10",
+       "8",
+       "80",
+       "100",
+       "64",
+       "80"
+      ],
+      [
+       "C",
+       "5",
+       "8",
+       "6",
+       "10",
+       "40",
+       "48",
+       "50",
+       "60"
+      ],
+      [
+       "D",
+       "20",
+       "2",
+       "25",
+       "3",
+       "40",
+       "50",
+       "60",
+       "75"
+      ],
+      [
+       "Total",
+       "",
+       "",
+       "",
+       "",
+       "210",
+       "258",
+       "234",
+       "287"
+      ]
+     ],
+     "num": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "total": true,
+     "title": "Product table"
+    },
+    {
+     "t": "list",
+     "items": [
+      "Laspeyres = Σp1q0 / Σp0q0 × 100 = 258/210 × 100 = 122.86",
+      "Paasche = Σp1q1 / Σp0q1 × 100 = 287/234 × 100 = 122.65",
+      "Marshall-Edgeworth = (Σp1q0 + Σp1q1) / (Σp0q0 + Σp0q1) × 100 = 545/444 × 100 = 122.75",
+      "Fisher = √(258/210 × 287/234) × 100 = 122.75"
+     ]
+    },
+    {
+     "t": "note",
+     "text": "Fisher always lies between Laspeyres and Paasche (it is their geometric mean)."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(258/210*100,2)",
+     "value": 122.86,
+     "label": "Laspeyres price index"
+    },
+    {
+     "expr": "round(287/234*100,2)",
+     "value": 122.65,
+     "label": "Paasche price index"
+    },
+    {
+     "expr": "round((258+287)/(210+234)*100,2)",
+     "value": 122.75,
+     "label": "Marshall-Edgeworth price index"
+    },
+    {
+     "expr": "round((258/210*287/234)**0.5*100,2)",
+     "value": 122.75,
+     "label": "Fisher ideal price index"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Fisher satisfies time and factor reversal",
+   "difficulty": "hard",
+   "minutes": 6,
+   "q": "Using the totals of data set 1, show that Fisher's index satisfies the time reversal and factor reversal tests.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Time reversal: P01 = √(258/210 × 287/234); P10 interchanges the periods: √(Σp0q1/Σp1q1 × Σp0q0/Σp1q0) = √(234/287 × 210/258)."
+    },
+    {
+     "t": "p",
+     "text": "P01 × P10 = √(258/210 × 287/234 × 234/287 × 210/258) = √1 = 1. Satisfied."
+    },
+    {
+     "t": "p",
+     "text": "Factor reversal: Q01 = √(Σq1p0/Σq0p0 × Σq1p1/Σq0p1) = √(234/210 × 287/258) = 111.33%."
+    },
+    {
+     "t": "p",
+     "text": "P01 × Q01 = √(258/210 × 287/234 × 234/210 × 287/258) = √(287² / 210²) = 287/210 = Σp1q1 / Σp0q0 = V01. Satisfied."
+    },
+    {
+     "t": "p",
+     "text": "Contrast — Laspeyres: P01 × P10 = 258/210 × 234/287 = 1.0017 ≠ 1, so Laspeyres fails the time reversal test."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round((258/210*287/234)**0.5*(234/287*210/258)**0.5,6)",
+     "value": 1,
+     "label": "P01 x P10 for Fisher (time reversal)"
+    },
+    {
+     "expr": "round((234/210*287/258)**0.5*100,2)",
+     "value": 111.33,
+     "label": "Fisher quantity index"
+    },
+    {
+     "expr": "round(287/210*100,2)",
+     "value": 136.67,
+     "label": "value index"
+    },
+    {
+     "expr": "round((258/210*287/234)**0.5*(234/210*287/258)**0.5,6)",
+     "value": 1.37,
+     "label": "P01 x Q01 for Fisher"
+    },
+    {
+     "expr": "round(287/210,6)",
+     "value": 1.37,
+     "label": "value ratio V01 = sum p1q1 / sum p0q0"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Cost-of-living index by weighted relatives",
+   "difficulty": "core",
+   "minutes": 4,
+   "q": "Group indices and weights: Food 135 (45), Clothing 120 (15), Fuel and light 150 (10), House rent 110 (20), Miscellaneous 125 (10). Compute the cost-of-living index. If a worker earned ₹20,000 in the base period, what should he earn now to maintain the same standard of living?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Group",
+      "Group index (R)",
+      "Weight (W)",
+      "R × W"
+     ],
+     "rows": [
+      [
+       "Food",
+       "135",
+       "45",
+       "6075"
+      ],
+      [
+       "Clothing",
+       "120",
+       "15",
+       "1800"
+      ],
+      [
+       "Fuel and light",
+       "150",
+       "10",
+       "1500"
+      ],
+      [
+       "House rent",
+       "110",
+       "20",
+       "2200"
+      ],
+      [
+       "Miscellaneous",
+       "125",
+       "10",
+       "1250"
+      ],
+      [
+       "Total",
+       "",
+       "100",
+       "12825"
+      ]
+     ],
+     "num": [
+      2,
+      3
+     ],
+     "total": true,
+     "title": "Working"
+    },
+    {
+     "t": "p",
+     "text": "Cost-of-living index = 12,825 / 100 = 128.25."
+    },
+    {
+     "t": "p",
+     "text": "Required income = 20,000 × 128.25 / 100 = ₹25,650."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(135*45+120*15+150*10+110*20+125*10)/(45+15+10+20+10)",
+     "value": 128.25,
+     "label": "cost of living index (weighted A.M. of group indices)"
+    },
+    {
+     "expr": "round((120*50+125*80+120*40+125*40)/210,2)",
+     "value": 122.86,
+     "label": "weighted average of relatives with base values p0q0 as weights (equals Laspeyres)"
+    },
+    {
+     "expr": "20000*128.25/100",
+     "value": 25650,
+     "label": "income needed to keep the same standard of living"
+    }
+   ]
+  },
+  {
+   "id": "i5",
+   "title": "Chain-base index from prices",
+   "difficulty": "moderate",
+   "minutes": 5,
+   "q": "Average price (₹) of an item: 2019 – 40, 2020 – 44, 2021 – 55, 2022 – 66, 2023 – 60. Compute chain-base index numbers with 2019 = 100.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Price",
+      "Link relative",
+      "Chain index (2019 = 100)"
+     ],
+     "rows": [
+      [
+       "2019",
+       "40",
+       "100.00",
+       "100.00"
+      ],
+      [
+       "2020",
+       "44",
+       "110.00",
+       "110.00"
+      ],
+      [
+       "2021",
+       "55",
+       "125.00",
+       "137.50"
+      ],
+      [
+       "2022",
+       "66",
+       "120.00",
+       "165.00"
+      ],
+      [
+       "2023",
+       "60",
+       "90.91",
+       "150.00"
+      ]
+     ],
+     "title": "Working"
+    },
+    {
+     "t": "p",
+     "text": "Chain index = link relative × previous chain index ÷ 100, e.g. 2021: 125 × 110 / 100 = 137.50."
+    },
+    {
+     "t": "p",
+     "text": "Check: fixed-base index for 2023 = 60/40 × 100 = 150 — equal to the chain index, as expected for a single item."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "44/40*100",
+     "value": 110,
+     "label": "link relative 2020"
+    },
+    {
+     "expr": "55/44*100",
+     "value": 125,
+     "label": "link relative 2021"
+    },
+    {
+     "expr": "66/55*100",
+     "value": 120,
+     "label": "link relative 2022"
+    },
+    {
+     "expr": "round(60/66*100,2)",
+     "value": 90.91,
+     "label": "link relative 2023"
+    },
+    {
+     "expr": "110*125/100",
+     "value": 137.5,
+     "label": "chain index 2021"
+    },
+    {
+     "expr": "137.5*120/100",
+     "value": 165,
+     "label": "chain index 2022"
+    },
+    {
+     "expr": "round(165*(60/66*100)/100,2)",
+     "value": 150,
+     "label": "chain index 2023"
+    },
+    {
+     "expr": "60/40*100",
+     "value": 150,
+     "label": "fixed-base index 2023 (same as chain index for one item)"
+    }
+   ]
+  },
+  {
+   "id": "i6",
+   "title": "Shifting the base and splicing",
+   "difficulty": "moderate",
+   "minutes": 5,
+   "q": "(a) An index (2018 = 100) reads 110, 125, 132, 150 for 2019–2022. Shift the base to 2020. (b) An old series (2015 = 100) reads 108, 115, 120 for 2016–2018; a new series (2018 = 100) reads 105 and 112 for 2019 and 2020. Splice the new series to the old base, and the old series to the new base.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Index (2018 = 100)",
+      "Shifted (2020 = 100)"
+     ],
+     "rows": [
+      [
+       "2018",
+       "100",
+       "80.00"
+      ],
+      [
+       "2019",
+       "110",
+       "88.00"
+      ],
+      [
+       "2020",
+       "125",
+       "100.00"
+      ],
+      [
+       "2021",
+       "132",
+       "105.60"
+      ],
+      [
+       "2022",
+       "150",
+       "120.00"
+      ]
+     ],
+     "title": "(a) Base shifted to 2020 — divide by 125"
+    },
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Old (2015 = 100)",
+      "New (2018 = 100)",
+      "New spliced to 2015 base",
+      "Old spliced to 2018 base"
+     ],
+     "rows": [
+      [
+       "2015",
+       "100",
+       "",
+       "",
+       "83.33"
+      ],
+      [
+       "2016",
+       "108",
+       "",
+       "",
+       "90.00"
+      ],
+      [
+       "2017",
+       "115",
+       "",
+       "",
+       "95.83"
+      ],
+      [
+       "2018",
+       "120",
+       "100",
+       "120.00",
+       "100.00"
+      ],
+      [
+       "2019",
+       "",
+       "105",
+       "126.00",
+       "105.00"
+      ],
+      [
+       "2020",
+       "",
+       "112",
+       "134.40",
+       "112.00"
+      ]
+     ],
+     "title": "(b) Splicing at the overlap year 2018"
+    },
+    {
+     "t": "p",
+     "text": "Forward splicing multiplies the new series by 120/100; backward splicing multiplies the old series by 100/120."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100/125*100",
+     "value": 80,
+     "label": "2018 on base 2020"
+    },
+    {
+     "expr": "132/125*100",
+     "value": 105.6,
+     "label": "2021 on base 2020"
+    },
+    {
+     "expr": "150/125*100",
+     "value": 120,
+     "label": "2022 on base 2020"
+    },
+    {
+     "expr": "105*120/100",
+     "value": 126,
+     "label": "new 2019 spliced to old base"
+    },
+    {
+     "expr": "112*120/100",
+     "value": 134.4,
+     "label": "new 2020 spliced to old base"
+    },
+    {
+     "expr": "round(100*100/120,2)",
+     "value": 83.33,
+     "label": "old 2015 spliced to new base"
+    }
+   ]
+  },
+  {
+   "id": "i7",
+   "title": "Deflating a salary",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "A manager's monthly salary was ₹36,000 in 2020 and ₹54,000 in 2024. The consumer price index (2016 = 100) was 120 in 2020 and 180 in 2024. Has her real salary changed? What is the purchasing power of a rupee when the CPI is 125?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Real salary 2020 = 36,000 × 100/120 = ₹30,000; real salary 2024 = 54,000 × 100/180 = ₹30,000."
+    },
+    {
+     "t": "p",
+     "text": "The money salary rose 50%, but prices also rose 50%: the real salary is unchanged."
+    },
+    {
+     "t": "p",
+     "text": "Purchasing power of a rupee at CPI 125 = 100/125 = ₹0.80."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "54000/180*100",
+     "value": 30000,
+     "label": "real salary 2024 at base-year prices"
+    },
+    {
+     "expr": "36000/120*100",
+     "value": 30000,
+     "label": "real salary 2020 at base-year prices"
+    },
+    {
+     "expr": "100/125",
+     "value": 0.8,
+     "label": "purchasing power of a rupee when CPI = 125"
+    }
+   ]
+  },
+  {
+   "id": "i8",
+   "title": "Rolling a market-cap index forward",
+   "difficulty": "core",
+   "minutes": 2,
+   "q": "Yesterday a market index closed at 20,000 when the total market capitalisation of its constituents was ₹4,00,000 crore. Today the total market capitalisation is ₹4,10,000 crore. Find today's index value.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Index today = 20,000 × 4,10,000 / 4,00,000 = 20,500. The 2.5% rise in market capitalisation lifts the index by 2.5%."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "20000*410000/400000",
+     "value": 20500,
+     "label": "index today = yesterday's index x today's market cap / yesterday's market cap"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Price-variation claim under a construction contract",
+   "role": "CA advising a contractor",
+   "situation": "A contract allows the price of steel work to vary with an official steel price index. The base index (month of bid) was 140; the index for the month of execution is 161. Work done at base rates: ₹50 lakh.",
+   "steps": [
+    "Read the clause: which index, which base month, which execution month, and any threshold or cap.",
+    "Escalation % = (161 − 140) / 140 × 100 = 15%.",
+    "Escalation amount = ₹50 lakh × 15% = ₹7.5 lakh (before any contractual threshold).",
+    "Attach the published index values and the computation to the claim."
+   ],
+   "takeaway": "Index arithmetic is simple; the money is in reading the clause correctly and documenting the index values.",
+   "checks": [
+    {
+     "expr": "(161-140)/140*100",
+     "value": 15,
+     "label": "escalation %"
+    },
+    {
+     "expr": "5000000*15/100",
+     "value": 750000,
+     "label": "escalation amount (₹)"
+    }
+   ],
+   "think": "If the clause applies only to escalation above 5%, what is the claim?",
+   "answer": "Only 10% (15% − 5%) is claimable: ₹5 lakh."
+  },
+  {
+   "id": "j2",
+   "title": "Is the fund beating the market?",
+   "role": "CA in an investment advisory firm",
+   "situation": "A client's equity fund NAV rose from ₹40 to ₹46 over a year; the benchmark index rose from 18,000 to 21,600.",
+   "steps": [
+    "Fund return = 46/40 − 1 = 15%.",
+    "Benchmark return = 21,600/18,000 − 1 = 20%.",
+    "The fund under-performed its benchmark by 5 percentage points — an important point in the review meeting."
+   ],
+   "takeaway": "An index is the yardstick; a return means little until it is compared with the right index.",
+   "checks": [
+    {
+     "expr": "(46/40-1)*100",
+     "value": 15,
+     "label": "fund return %"
+    },
+    {
+     "expr": "(21600/18000-1)*100",
+     "value": 20,
+     "label": "benchmark return %"
+    }
+   ]
+  },
+  {
+   "id": "j3",
+   "title": "Real growth in a client's revenue",
+   "role": "CA preparing a bank CMA / project report",
+   "situation": "Revenue grew from ₹2.0 crore to ₹2.4 crore; the relevant price index rose from 125 to 140.",
+   "steps": [
+    "Nominal growth = 2.4/2.0 − 1 = 20%.",
+    "Deflate: real revenue now = 2.4 × 125/140 = ₹2.14 crore (at last year's prices).",
+    "Real growth ≈ 2.14/2.0 − 1 ≈ 7.1% — most of the \"growth\" was price increase."
+   ],
+   "takeaway": "Deflating separates volume growth from price growth — lenders care about the difference.",
+   "checks": [
+    {
+     "expr": "round(2.4*125/140,2)",
+     "value": 2.14,
+     "label": "real revenue (₹ crore)"
+    },
+    {
+     "expr": "round((2.4*125/140/2-1)*100,1)",
+     "value": 7.1,
+     "label": "real growth %"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Data set 1 (Illustration 2): the Laspeyres price index is",
+   "options": [
+    "122.86",
+    "122.65",
+    "123.26",
+    "136.67"
+   ],
+   "answer": 0,
+   "explain": "Σp1q0/Σp0q0 × 100 = 258/210 × 100. 122.65 is Paasche; 123.26 is the simple aggregative index; 136.67 is the value index.",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "round(258/210*100,2)"
+  },
+  {
+   "id": "m2",
+   "q": "Data set 1: the Paasche price index is",
+   "options": [
+    "122.65",
+    "122.86",
+    "122.50",
+    "110.86"
+   ],
+   "answer": 0,
+   "explain": "Σp1q1/Σp0q1 × 100 = 287/234 × 100.",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "round(287/234*100,2)"
+  },
+  {
+   "id": "m3",
+   "q": "Data set 1: the Marshall-Edgeworth price index is",
+   "options": [
+    "122.75",
+    "122.70",
+    "122.86",
+    "123.26"
+   ],
+   "answer": 0,
+   "explain": "(258 + 287)/(210 + 234) × 100 = 545/444 × 100.",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "round((258+287)/(210+234)*100,2)"
+  },
+  {
+   "id": "m4",
+   "q": "Data set 1: the Fisher ideal price index is",
+   "options": [
+    "122.75",
+    "122.80",
+    "122.65",
+    "245.51"
+   ],
+   "answer": 0,
+   "explain": "√(Laspeyres × Paasche) = √(1.2286 × 1.2265) × 100. 245.51 is the sum of the two, not their geometric mean.",
+   "concept": "c5",
+   "difficulty": "hard",
+   "check": "round((258/210*287/234)**0.5*100,2)"
+  },
+  {
+   "id": "m5",
+   "q": "Data set 1: the simple aggregative price index is",
+   "options": [
+    "123.26",
+    "122.50",
+    "122.86",
+    "81.13"
+   ],
+   "answer": 0,
+   "explain": "Σp1/Σp0 × 100 = 53/43 × 100. 81.13 is the inverted ratio 43/53.",
+   "concept": "c4",
+   "difficulty": "core",
+   "check": "round((12+10+6+25)/(10+8+5+20)*100,2)"
+  },
+  {
+   "id": "m6",
+   "q": "Data set 1: the simple average of price relatives is",
+   "options": [
+    "122.50",
+    "123.26",
+    "490",
+    "125"
+   ],
+   "answer": 0,
+   "explain": "(120 + 125 + 120 + 125)/4 = 122.5. 490 is the total of relatives, not the average.",
+   "concept": "c4",
+   "difficulty": "core",
+   "check": "(120+125+120+125)/4"
+  },
+  {
+   "id": "m7",
+   "q": "Data set 1: the value index is",
+   "options": [
+    "136.67",
+    "122.86",
+    "73.17",
+    "111.43"
+   ],
+   "answer": 0,
+   "explain": "Σp1q1/Σp0q0 × 100 = 287/210 × 100.",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "round(287/210*100,2)"
+  },
+  {
+   "id": "m8",
+   "q": "Data set 1: the Laspeyres quantity index is",
+   "options": [
+    "111.43",
+    "111.24",
+    "122.86",
+    "89.74"
+   ],
+   "answer": 0,
+   "explain": "Σq1p0/Σq0p0 × 100 = 234/210 × 100. 111.24 is the Paasche quantity index (287/258).",
+   "concept": "c5",
+   "difficulty": "hard",
+   "check": "round(234/210*100,2)"
+  },
+  {
+   "id": "m9",
+   "q": "Fisher's ideal index is the",
+   "options": [
+    "Geometric mean of Laspeyres and Paasche indices",
+    "Arithmetic mean of Laspeyres and Paasche indices",
+    "Harmonic mean of Laspeyres and Paasche indices",
+    "Product of Laspeyres and Paasche indices"
+   ],
+   "answer": 0,
+   "explain": "Fisher = √(L × P).",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m10",
+   "q": "Fisher's index is called \"ideal\" because it satisfies",
+   "options": [
+    "Both the time reversal and factor reversal tests",
+    "The circular test",
+    "Only the unit test",
+    "All four tests"
+   ],
+   "answer": 0,
+   "explain": "It passes the unit, time reversal and factor reversal tests, but not the circular test.",
+   "concept": "c8",
+   "difficulty": "core"
+  },
+  {
+   "id": "m11",
+   "q": "Which of the following satisfies the circular test?",
+   "options": [
+    "Simple geometric mean of price relatives",
+    "Fisher's ideal index",
+    "Laspeyres index",
+    "Paasche index"
+   ],
+   "answer": 0,
+   "explain": "The simple G.M. of relatives and the weighted aggregative index with fixed weights satisfy it; Laspeyres, Paasche and Fisher do not.",
+   "concept": "c8",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m12",
+   "q": "Which index does NOT satisfy the unit test?",
+   "options": [
+    "Simple aggregative index",
+    "Simple average of price relatives",
+    "Laspeyres index",
+    "Fisher's index"
+   ],
+   "answer": 0,
+   "explain": "Changing the unit of quotation (per kg to per quintal) changes Σp1/Σp0.",
+   "concept": "c8",
+   "difficulty": "core"
+  },
+  {
+   "id": "m13",
+   "q": "The time reversal test is expressed as",
+   "options": [
+    "P01 × P10 = 1",
+    "P01 × Q01 = V01",
+    "P01 × P12 × P20 = 1",
+    "P01 + P10 = 1"
+   ],
+   "answer": 0,
+   "explain": "Forward and backward indices must be reciprocals. P01 × Q01 = V01 is the factor reversal test.",
+   "concept": "c8",
+   "difficulty": "core"
+  },
+  {
+   "id": "m14",
+   "q": "The factor reversal test holds when",
+   "options": [
+    "Price index × quantity index = value index",
+    "Price index × reversed price index = 1",
+    "The index does not depend on units",
+    "The base can be shifted without recomputation"
+   ],
+   "answer": 0,
+   "explain": "P01 × Q01 = Σp1q1/Σp0q0.",
+   "concept": "c8",
+   "difficulty": "core"
+  },
+  {
+   "id": "m15",
+   "q": "With 2020 as base, the 2022 index is 125. With 2022 as base, the 2024 index is 120. If the circular test holds, the 2024 index on base 2020 is",
+   "options": [
+    "150",
+    "145",
+    "245",
+    "104.17"
+   ],
+   "answer": 0,
+   "explain": "1.25 × 1.20 = 1.50 → 150. Adding (245) or dividing (104.17) are common errors.",
+   "concept": "c8",
+   "difficulty": "moderate",
+   "check": "125*120/100"
+  },
+  {
+   "id": "m16",
+   "q": "Link relatives for 2022 and 2023 are 110 and 125 (2021 = 100). The chain index for 2023 is",
+   "options": [
+    "137.50",
+    "135",
+    "235",
+    "113.64"
+   ],
+   "answer": 0,
+   "explain": "Chain index = 125 × 110 / 100 = 137.5.",
+   "concept": "c7",
+   "difficulty": "moderate",
+   "check": "110*125/100"
+  },
+  {
+   "id": "m17",
+   "q": "An index (2018 = 100) is 150 for 2022 and 125 for 2020. On base 2020, the 2022 index is",
+   "options": [
+    "120",
+    "125",
+    "187.50",
+    "83.33"
+   ],
+   "answer": 0,
+   "explain": "150/125 × 100 = 120. 83.33 is the inverted ratio.",
+   "concept": "c9",
+   "difficulty": "core",
+   "check": "150/125*100"
+  },
+  {
+   "id": "m18",
+   "q": "Money wage ₹54,000; consumer price index 180 (base = 100). The real wage is",
+   "options": [
+    "₹30,000",
+    "₹97,200",
+    "₹54,000",
+    "₹36,000"
+   ],
+   "answer": 0,
+   "explain": "Real wage = 54,000 × 100 / 180. Multiplying by 1.8 (₹97,200) inflates instead of deflating.",
+   "concept": "c9",
+   "difficulty": "core",
+   "check": "54000/180*100"
+  },
+  {
+   "id": "m19",
+   "q": "If the consumer price index is 125, the purchasing power of a rupee is",
+   "options": [
+    "₹0.80",
+    "₹1.25",
+    "₹0.25",
+    "₹1.80"
+   ],
+   "answer": 0,
+   "explain": "100 / 125 = 0.80.",
+   "concept": "c9",
+   "difficulty": "core",
+   "check": "100/125"
+  },
+  {
+   "id": "m20",
+   "q": "Group indices and weights: Food 135 (45), Clothing 120 (15), Fuel 150 (10), Rent 110 (20), Others 125 (10). The cost-of-living index is",
+   "options": [
+    "128.25",
+    "128",
+    "640",
+    "125"
+   ],
+   "answer": 0,
+   "explain": "Σ(R × W)/ΣW = 12,825/100. 128 is the unweighted average of the five indices.",
+   "concept": "c6",
+   "difficulty": "moderate",
+   "check": "(135*45+120*15+150*10+110*20+125*10)/100"
+  },
+  {
+   "id": "m21",
+   "q": "A market-cap weighted index closed at 20,000 yesterday when total market cap was ₹4,00,000 crore. Today market cap is ₹4,10,000 crore. Today's index is",
+   "options": [
+    "20,500",
+    "20,250",
+    "21,000",
+    "19,512"
+   ],
+   "answer": 0,
+   "explain": "20,000 × 4,10,000 / 4,00,000.",
+   "concept": "c10",
+   "difficulty": "core",
+   "check": "20000*410000/400000"
+  },
+  {
+   "id": "m22",
+   "q": "A base period for an index number should be",
+   "options": [
+    "Normal and reasonably recent",
+    "A year of unusually high prices",
+    "As far back in the past as possible",
+    "Any year, it does not matter"
+   ],
+   "answer": 0,
+   "explain": "The base is the point of comparison; abnormal or very old bases distort the index.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "The Laspeyres price index uses as weights",
+   "options": [
+    "Base-year quantities",
+    "Current-year quantities",
+    "The average of base and current quantities",
+    "Equal weights"
+   ],
+   "answer": 0,
+   "explain": "Laspeyres: Σp1q0/Σp0q0.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m24",
+   "q": "The Paasche price index uses as weights",
+   "options": [
+    "Current-year quantities",
+    "Base-year quantities",
+    "Base-year prices",
+    "Typical-period quantities"
+   ],
+   "answer": 0,
+   "explain": "Paasche: Σp1q1/Σp0q1.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m25",
+   "q": "The price of a commodity rose from ₹40 in the base year to ₹50. Its price relative is",
+   "options": [
+    "125",
+    "80",
+    "25",
+    "150"
+   ],
+   "answer": 0,
+   "explain": "50/40 × 100 = 125. 80 is the inverted relative; 25 is the percentage rise.",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "50/40*100"
+  },
+  {
+   "id": "m26",
+   "q": "Laspeyres index = 125 and Paasche index = 121. Fisher's index is",
+   "options": [
+    "122.98",
+    "123.00",
+    "246",
+    "121.50"
+   ],
+   "answer": 0,
+   "explain": "√(125 × 121) = 122.98 — slightly below the arithmetic mean of 123.",
+   "concept": "c5",
+   "difficulty": "hard",
+   "check": "round((125*121)**0.5,2)"
+  },
+  {
+   "id": "m27",
+   "q": "The value index is 150 and Fisher's price index is 125. By the factor reversal test, Fisher's quantity index is",
+   "options": [
+    "120",
+    "187.50",
+    "25",
+    "83.33"
+   ],
+   "answer": 0,
+   "explain": "P × Q = V → Q = 150/125 × 100 = 120.",
+   "concept": "c8",
+   "difficulty": "hard",
+   "check": "150/125*100"
+  },
+  {
+   "id": "m28",
+   "q": "An old series (2015 = 100) stands at 120 in 2018, where a new series (2018 = 100) begins. The new series is 105 in 2019. Spliced to the 2015 base, the 2019 figure is",
+   "options": [
+    "126",
+    "87.50",
+    "105",
+    "225"
+   ],
+   "answer": 0,
+   "explain": "105 × 120/100 = 126.",
+   "concept": "c9",
+   "difficulty": "moderate",
+   "check": "105*120/100"
+  },
+  {
+   "id": "m29",
+   "q": "The average theoretically most suitable for averaging relatives is the",
+   "options": [
+    "Geometric mean",
+    "Arithmetic mean",
+    "Harmonic mean",
+    "Mode"
+   ],
+   "answer": 0,
+   "explain": "The G.M. treats proportional changes symmetrically and makes indices time-reversible; the A.M. is used more for simplicity.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m30",
+   "q": "The test described as an extension of the time reversal test is the",
+   "options": [
+    "Circular test",
+    "Factor reversal test",
+    "Unit test",
+    "Chain test"
+   ],
+   "answer": 0,
+   "explain": "The circular test extends P01 × P10 = 1 to three or more periods.",
+   "concept": "c8",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m31",
+   "q": "The base value of the NSE Nifty 50 index is",
+   "options": [
+    "1000",
+    "100",
+    "500",
+    "10000"
+   ],
+   "answer": 0,
+   "explain": "Nifty 50: base date 3 November 1995, base value 1000. The BSE Sensex has base 1978-79 = 100.",
+   "concept": "c10",
+   "difficulty": "core",
+   "check": "1000"
+  },
+  {
+   "id": "m32",
+   "q": "Which of the following is a limitation of index numbers?",
+   "options": [
+    "Different formulae give different values for the same data",
+    "They cannot be used for forecasting",
+    "They can measure only prices",
+    "They cannot compare two places"
+   ],
+   "answer": 0,
+   "explain": "Index numbers are approximations built from samples, and the choice of formula changes the result.",
+   "concept": "c9",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "hard",
+   "pad": "table",
+   "q": "From the data below compute Fisher's ideal price index and show that it satisfies the time reversal and factor reversal tests. (p0, q0, p1, q1): X (6, 10, 9, 8), Y (4, 15, 5, 20), Z (10, 5, 12, 6).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "p0",
+      "q0",
+      "p1",
+      "q1",
+      "p0q0",
+      "p1q0",
+      "p0q1",
+      "p1q1"
+     ],
+     "rows": [
+      [
+       "X",
+       "6",
+       "10",
+       "9",
+       "8",
+       "60",
+       "90",
+       "48",
+       "72"
+      ],
+      [
+       "Y",
+       "4",
+       "15",
+       "5",
+       "20",
+       "60",
+       "75",
+       "80",
+       "100"
+      ],
+      [
+       "Z",
+       "10",
+       "5",
+       "12",
+       "6",
+       "50",
+       "60",
+       "60",
+       "72"
+      ],
+      [
+       "Total",
+       "",
+       "",
+       "",
+       "",
+       "170",
+       "225",
+       "188",
+       "244"
+      ]
+     ],
+     "num": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "total": true,
+     "title": "Product table"
+    },
+    {
+     "t": "p",
+     "text": "Laspeyres = 225/170 × 100 = 132.35; Paasche = 244/188 × 100 = 129.79."
+    },
+    {
+     "t": "p",
+     "text": "Fisher P01 = √(225/170 × 244/188) × 100 = 131.06."
+    },
+    {
+     "t": "p",
+     "text": "Time reversal: P10 = √(188/244 × 170/225); P01 × P10 = √(225/170 × 244/188 × 188/244 × 170/225) = 1. Satisfied."
+    },
+    {
+     "t": "p",
+     "text": "Factor reversal: Q01 = √(Σq1p0/Σq0p0 × Σq1p1/Σq0p1) = √(188/170 × 244/225). P01 × Q01 = √(225/170 × 244/188 × 188/170 × 244/225) = √(244²/170²) = 244/170 = Σp1q1/Σp0q0. Satisfied."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Product table with all four totals (170, 225, 188, 244)",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Fisher index 131.06 (via Laspeyres and Paasche)",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Time reversal: P10 formed correctly and product = 1",
+     "m": 1.5,
+     "skill": "analysis"
+    },
+    {
+     "id": "s4",
+     "pt": "Factor reversal: Q01 formed and product = V01",
+     "m": 1.5,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "Most marks are lost in P10 and Q01 — candidates interchange the wrong symbols.",
+    "Keep the indices as ratios (not × 100) while proving the tests."
+   ],
+   "mistakes": [
+    "Writing P10 as 1/P01 directly (that assumes what is to be proved).",
+    "Taking Q01 with prices and quantities in the wrong places."
+   ],
+   "tips": [
+    "Label the four totals once and refer to them by symbol in every formula.",
+    "In the MCQ paper, test-related questions are usually theory: remember the \"which formula passes which test\" table."
+   ],
+   "checks": [
+    {
+     "expr": "round(225/170*100,2)",
+     "value": 132.35,
+     "label": "Laspeyres"
+    },
+    {
+     "expr": "round(244/188*100,2)",
+     "value": 129.79,
+     "label": "Paasche"
+    },
+    {
+     "expr": "round((225/170*244/188)**0.5*100,2)",
+     "value": 131.06,
+     "label": "Fisher price index"
+    },
+    {
+     "expr": "round((225/170*244/188)**0.5*(188/244*170/225)**0.5,6)",
+     "value": 1,
+     "label": "time reversal: P01 x P10 = 1"
+    },
+    {
+     "expr": "round((225/170*244/188)**0.5*(188/170*244/225)**0.5,6)",
+     "value": 1.44,
+     "label": "factor reversal: P01 x Q01"
+    },
+    {
+     "expr": "round(244/170,6)",
+     "value": 1.44,
+     "label": "V01 = 244/170"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "The price (₹) of an item over five years was 500, 550, 660, 594 and 653.40. Compute link relatives and chain-base index numbers (Year 1 = 100), and verify the last chain index with the fixed-base method.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Price",
+      "Link relative",
+      "Chain index"
+     ],
+     "rows": [
+      [
+       "1",
+       "500",
+       "100.00",
+       "100.00"
+      ],
+      [
+       "2",
+       "550",
+       "110.00",
+       "110.00"
+      ],
+      [
+       "3",
+       "660",
+       "120.00",
+       "132.00"
+      ],
+      [
+       "4",
+       "594",
+       "90.00",
+       "118.80"
+      ],
+      [
+       "5",
+       "653.4",
+       "110.00",
+       "130.68"
+      ]
+     ],
+     "title": "Working"
+    },
+    {
+     "t": "p",
+     "text": "Fixed-base check for Year 5: 653.40/500 × 100 = 130.68 — equal to the chain index."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Link relatives 110, 120, 90, 110",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Chain indices 110, 132, 118.80, 130.68",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Fixed-base verification",
+     "m": 1,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "A neat four-column table earns full marks quickly."
+   ],
+   "mistakes": [
+    "Multiplying link relatives without dividing by 100.",
+    "Taking the link relative of Year 4 as 594/500 instead of 594/660."
+   ],
+   "tips": [
+    "A fall in price gives a link relative below 100 — the chain index then falls too."
+   ],
+   "checks": [
+    {
+     "expr": "550/500*100",
+     "value": 110,
+     "label": "LR yr 2"
+    },
+    {
+     "expr": "660/550*100",
+     "value": 120,
+     "label": "LR yr 3"
+    },
+    {
+     "expr": "594/660*100",
+     "value": 90,
+     "label": "LR yr 4"
+    },
+    {
+     "expr": "round(653.4/594*100,2)",
+     "value": 110,
+     "label": "LR yr 5"
+    },
+    {
+     "expr": "110*120/100",
+     "value": 132,
+     "label": "CI yr 3"
+    },
+    {
+     "expr": "round(132*90/100,2)",
+     "value": 118.8,
+     "label": "CI yr 4"
+    },
+    {
+     "expr": "round(118.8*110/100,2)",
+     "value": 130.68,
+     "label": "CI yr 5"
+    },
+    {
+     "expr": "round(653.4/500*100,2)",
+     "value": 130.68,
+     "label": "fixed-base check yr 5"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "A clerk's monthly wage was ₹48,000 in 2022 and ₹56,000 in 2024. The CPI (2016 = 100) was 112 in 2022 and 140 in 2024. (a) Shift the 2024 CPI to base 2022. (b) Compute the real wage of each year at 2016 prices. (c) Did the clerk's real wage rise or fall, and by what percentage?",
+   "model": [
+    {
+     "t": "p",
+     "text": "(a) 2024 CPI on base 2022 = 140/112 × 100 = 125."
+    },
+    {
+     "t": "p",
+     "text": "(b) Real wage 2022 = 48,000 × 100/112 = ₹42,857.14; real wage 2024 = 56,000 × 100/140 = ₹40,000."
+    },
+    {
+     "t": "p",
+     "text": "(c) Change = (40,000 − 42,857.14)/42,857.14 × 100 = −6.67%. The real wage fell by about 6.67%, although the money wage rose by 16.67%."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Base shifted: 125",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Real wage 2022",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Real wage 2024",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Conclusion: real wage fell 6.67%",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "The point of the question is the conclusion — a money rise can be a real fall."
+   ],
+   "mistakes": [
+    "Multiplying by the index instead of dividing.",
+    "Comparing money wages only."
+   ],
+   "tips": [
+    "Deflating always divides by the index (× 100)."
+   ],
+   "checks": [
+    {
+     "expr": "round(140/112*100,2)",
+     "value": 125,
+     "label": "2024 index shifted to base 2022"
+    },
+    {
+     "expr": "round(48000/112*100,2)",
+     "value": 42857.14,
+     "label": "real wage 2022"
+    },
+    {
+     "expr": "round(56000/140*100,2)",
+     "value": 40000,
+     "label": "real wage 2024"
+    },
+    {
+     "expr": "round((40000-42857.14)/42857.14*100,2)",
+     "value": -6.67,
+     "label": "change in real wage 2022 to 2024 (%)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Index number = relative change vs a base (= 100); a specialised average of relatives. Simple (one variable) or composite (many).",
+   "Construction issues: purpose and data (representative sample), base (normal, recent), weights, average (G.M. best, A.M. common), variables, formula.",
+   "Relatives: price p1/p0, quantity q1/q0, value p1q1/p0q0 (× 100); link (vs previous period) and chain (vs fixed base).",
+   "Simple aggregative Σp1/Σp0 (fails unit test); simple average of relatives (equal weights).",
+   "Laspeyres Σp1q0/Σp0q0; Paasche Σp1q1/Σp0q1; Marshall-Edgeworth Σp1(q0+q1)/Σp0(q0+q1); Fisher √(L × P). Quantity indices swap p and q; value index Σp1q1/Σp0q0.",
+   "Weighted average of relatives Σ RW / ΣW (base-value weights → Laspeyres); used for cost-of-living indices.",
+   "Chain index = link relative × previous chain index / 100.",
+   "Tests: unit (all but simple aggregative); time reversal P01 × P10 = 1 and factor reversal P01 × Q01 = V01 (Fisher only → ideal); circular (fixed-weight aggregative, simple G.M. of relatives; not L, P or F).",
+   "Deflating: real = money ÷ index × 100; shifting base: ÷ index of new base × 100; splicing at the overlap year.",
+   "Stock index: today = yesterday × today's market cap / yesterday's market cap. Sensex 30 stocks, base 1978-79 = 100; Nifty 50 stocks, base 3 Nov 1995 = 1000."
+  ],
+  "remember": [
+   "Fisher always lies between Laspeyres and Paasche.",
+   "Use ratios (not percentages) when proving the tests.",
+   "Purchasing power of a rupee = 100 / price index."
+  ],
+  "traps": [
+   "Calling Laspeyres \"current-year weights\".",
+   "Saying Fisher satisfies the circular test.",
+   "Multiplying by the price index when deflating.",
+   "Forgetting to divide by 100 when chaining link relatives."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Laspeyres",
+   "v": "Σp1q0 / Σp0q0 × 100"
+  },
+  {
+   "k": "Paasche",
+   "v": "Σp1q1 / Σp0q1 × 100"
+  },
+  {
+   "k": "Marshall-Edgeworth",
+   "v": "Σp1(q0+q1) / Σp0(q0+q1) × 100"
+  },
+  {
+   "k": "Fisher",
+   "v": "√(Laspeyres × Paasche)"
+  },
+  {
+   "k": "Value index",
+   "v": "Σp1q1 / Σp0q0 × 100"
+  },
+  {
+   "k": "Weighted relatives",
+   "v": "Σ(R × W) / ΣW"
+  },
+  {
+   "k": "Chain index",
+   "v": "LR(current) × CI(previous) / 100"
+  },
+  {
+   "k": "Time reversal",
+   "v": "P01 × P10 = 1"
+  },
+  {
+   "k": "Factor reversal",
+   "v": "P01 × Q01 = Σp1q1 / Σp0q0"
+  },
+  {
+   "k": "Circular",
+   "v": "P01 × P12 × P20 = 1"
+  },
+  {
+   "k": "Deflated value",
+   "v": "Current value / price index × 100"
+  },
+  {
+   "k": "Shifted index",
+   "v": "Old index / old index of new base × 100"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is an index number?",
+   "model": "An index number is a statistical measure of the relative change in a variable or a group of variables, such as prices or quantities, between a base period and another period or place. The base is taken as one hundred, so it is expressed as a percentage, and it is a specialised average of relatives.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Measures relative (percentage) change",
+     "w": 4,
+     "kw": [
+      "relative|percentage|proportion|ratio|change"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Compared with a base period / place taken as 100",
+     "w": 4,
+     "kw": [
+      "base",
+      "100|hundred"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "A specialised average of relatives / group of variables",
+     "w": 2,
+     "kw": [
+      "average|group|composite|several|many|set of"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is the difference between the Laspeyres and the Paasche price index?",
+   "model": "Laspeyres uses base year quantities as weights, so it is sum of p1 q0 over sum of p0 q0. Paasche uses current year quantities as weights, so it is sum of p1 q1 over sum of p0 q1.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Laspeyres: base-year quantities as weights",
+     "w": 5,
+     "kw": [
+      "laspeyres base|laspeyres uses base|laspeyres index base|laspeyres weights base|laspeyre base|laspeyres takes base|laspeyres is base|laspeyres based on base|laspeyres q0|laspeyres q 0|laspeyres quantities base"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Paasche: current-year quantities as weights",
+     "w": 5,
+     "kw": [
+      "paasche current|paasche uses current|paasche index current|paasche weights current|paasches current|paasche takes current|paasche is current|paasche based on current|paasche q1|paasche q 1|paasche quantities current|paasche given year"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v3",
+   "q": "Why is Fisher's index called the ideal index?",
+   "model": "Fisher's index is the geometric mean of the Laspeyres and Paasche indices, and it satisfies both the time reversal test and the factor reversal test. That is why it is called ideal, although it does not satisfy the circular test.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Geometric mean of Laspeyres and Paasche",
+     "w": 3,
+     "kw": [
+      "geometric|gm|square root|root of",
+      "laspeyres|paasche|both"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Satisfies the time reversal test",
+     "w": 3,
+     "kw": [
+      "time reversal|time revers"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Satisfies the factor reversal test",
+     "w": 3,
+     "kw": [
+      "factor reversal|factor revers"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Does not satisfy the circular test",
+     "w": 1,
+     "kw": [
+      "not circular|not the circular|not satisfy circular|not satisfy the circular|fails circular|fails the circular|does not pass circular|circular not|circular test is not|not meet circular|not meet the circular|except circular|except the circular"
+     ]
+    }
+   ],
+   "concept": "c8"
+  },
+  {
+   "id": "v4",
+   "q": "State the time reversal and factor reversal tests.",
+   "model": "The time reversal test says the index for period one on base zero multiplied by the index for period zero on base one should equal one, P01 into P10 equals one. The factor reversal test says the price index multiplied by the quantity index should equal the value index, that is sum of p1 q1 over sum of p0 q0.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Time reversal: P01 × P10 = 1",
+     "w": 5,
+     "kw": [
+      "time",
+      "p01|p 01|p zero one|p0 1|forward",
+      "p10|p 10|p one zero|p1 0|backward|reverse|recipro",
+      "1|one|unity|recipro"
+     ],
+     "min": 3
+    },
+    {
+     "id": "p2",
+     "pt": "Factor reversal: price index × quantity index = value index",
+     "w": 5,
+     "kw": [
+      "factor",
+      "price index",
+      "quantity index",
+      "value index|value|v01"
+     ]
+    }
+   ],
+   "concept": "c8"
+  },
+  {
+   "id": "v5",
+   "q": "How do you compute a chain base index, and when is it useful?",
+   "model": "First compute link relatives, each year's price divided by the previous year's price times one hundred. Then the chain index equals the link relative of the current year multiplied by the chain index of the previous year divided by one hundred. It is useful when items or weights change often, but an error in one link carries forward to all later years.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Link relative = current ÷ previous × 100",
+     "w": 3,
+     "kw": [
+      "link relative",
+      "previous|preceding|last year|year before|prior"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Chain index = LR × previous chain index ÷ 100",
+     "w": 4,
+     "kw": [
+      "chain index|chain",
+      "multipl|product|times"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Useful when items/weights change; errors carry forward",
+     "w": 3,
+     "kw": [
+      "change|new item|new commodit|weights chang|basket chang|error|carr|forward"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v6",
+   "q": "How do you deflate a money value, and why?",
+   "model": "Divide the current money value by the price index of that year and multiply by one hundred. This removes the effect of price changes and gives the real value at base year prices, for example converting money wages into real wages.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Divide by the price index and multiply by 100",
+     "w": 5,
+     "kw": [
+      "divid|divided|over|ratio",
+      "index|cpi|price level"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Removes price effect — real value at base prices (e.g. real wages)",
+     "w": 5,
+     "kw": [
+      "real|constant price|base year price|purchasing power|remove|eliminat|adjust|inflation"
+     ]
+    }
+   ],
+   "concept": "c9"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Indore Mart — household basket",
+   "difficulty": "hard",
+   "case": "A retail chain tracks a three-item household basket. Base year (p0, q0) and current year (p1, q1): Rice per kg (₹40, 50 kg; ₹46, 45 kg), Oil per litre (₹120, 10 litres; ₹150, 9 litres), Sugar per kg (₹36, 20 kg; ₹40, 25 kg).",
+   "given": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "p0",
+      "q0",
+      "p1",
+      "q1",
+      "p0q0",
+      "p1q0",
+      "p0q1",
+      "p1q1"
+     ],
+     "rows": [
+      [
+       "Rice (kg)",
+       "40",
+       "50",
+       "46",
+       "45",
+       "2000",
+       "2300",
+       "1800",
+       "2070"
+      ],
+      [
+       "Oil (litre)",
+       "120",
+       "10",
+       "150",
+       "9",
+       "1200",
+       "1500",
+       "1080",
+       "1350"
+      ],
+      [
+       "Sugar (kg)",
+       "36",
+       "20",
+       "40",
+       "25",
+       "720",
+       "800",
+       "900",
+       "1000"
+      ],
+      [
+       "Total",
+       "",
+       "",
+       "",
+       "",
+       "3920",
+       "4600",
+       "3780",
+       "4420"
+      ]
+     ],
+     "num": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "total": true,
+     "title": "Product table (computed for you)"
+    }
+   ],
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The Laspeyres price index is",
+     "options": [
+      "117.35",
+      "116.93",
+      "112.76",
+      "121.69"
+     ],
+     "answer": 0,
+     "explain": "4,600/3,920 × 100.",
+     "concept": "c5",
+     "difficulty": "moderate",
+     "check": "round(4600/3920*100,2)"
+    },
+    {
+     "id": "k1b",
+     "q": "The Paasche price index is",
+     "options": [
+      "116.93",
+      "117.35",
+      "96.43",
+      "120.00"
+     ],
+     "answer": 0,
+     "explain": "4,420/3,780 × 100.",
+     "concept": "c5",
+     "difficulty": "moderate",
+     "check": "round(4420/3780*100,2)"
+    },
+    {
+     "id": "k1c",
+     "q": "Fisher's ideal price index is",
+     "options": [
+      "117.14",
+      "117.20",
+      "234.28",
+      "116.00"
+     ],
+     "answer": 0,
+     "explain": "√(1.1735 × 1.1693) × 100. 234.28 adds the two indices instead.",
+     "concept": "c5",
+     "difficulty": "hard",
+     "check": "round((4600/3920*4420/3780)**0.5*100,2)"
+    },
+    {
+     "id": "k1d",
+     "q": "The value index is",
+     "options": [
+      "112.76",
+      "88.69",
+      "117.35",
+      "96.43"
+     ],
+     "answer": 0,
+     "explain": "4,420/3,920 × 100. Spending rose less than prices because the family bought less rice and oil.",
+     "concept": "c5",
+     "difficulty": "moderate",
+     "check": "round(4420/3920*100,2)"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,332 @@
+"""CA Foundation · Paper 2 Business Laws · Chapter 3 The Sale of Goods Act, 1930 · Unit 1 Formation of the Contract of Sale.
+Original explanations, facts and questions; sections are cited, never quoted at length."""
+from lib import *
+from ca_viva import P, V, ALT
+from ca_cases import M
+
+UID = 'fnd-p2-ch03-u01'
+
+
+def build():
+    c = Checks()
+    # i3 — valuation by a third party (Section 10)
+    gen_rate = 360000
+    delivered = 1
+    reasonable = c.add('360000*1', 'reasonable price payable for the one generator already received and used')
+    # i5 — trade-in: part money, part goods
+    new_price = c.add('92000', 'price of the new laptop')
+    old_value = c.add('27500', 'agreed value of the old laptop')
+    cash_bal = c.add('92000-27500', 'cash payable by the buyer')
+    # case: price fixed by valuer
+    k_total = c.add('4*85000', 'four looms at 85,000 each')
+
+    goods_table = table(['Item', 'Goods under Section 2(7)?', 'Why'], [
+        ['Shares of a listed company', 'Yes', 'Stock and shares are expressly included'],
+        ['Standing wheat crop agreed to be cut and sold', 'Yes', 'Growing crops and things attached to land, agreed to be severed before or under the sale, are included'],
+        ['A book debt of ₹2 lakh owed by a customer', 'No', 'An actionable claim — it can be recovered only by suing'],
+        ['Currency notes used as money', 'No', 'Money (legal tender in circulation) is excluded; old or rare coins sold as collector\'s items can be goods'],
+        ['A residential flat', 'No', 'Immovable property — governed by the Transfer of Property Act, 1882'],
+        ['Goodwill, a trademark, electricity, gas', 'Yes', 'Intangible movables and things like gas, water, electricity are treated as goods'],
+    ], title='Is it "goods"?')
+
+    sale_vs_ats = table(['Basis', 'Sale', 'Agreement to sell'], [
+        ['Ownership (property)', 'Passes to the buyer at once', 'Passes later — on a future date or when a condition is fulfilled'],
+        ['Nature', 'Executed contract — a conveyance as well as a contract', 'Executory contract — only a promise to transfer'],
+        ['Kind of right created', 'Right in rem — good against the whole world', 'Right in personam — only against the other party'],
+        ['Risk of loss', 'With the buyer (risk follows ownership)', 'With the seller'],
+        ['Seller\'s remedy if buyer defaults', 'Suit for the price (Section 55)', 'Suit for damages; price only if payable on a fixed day'],
+        ['Can the seller resell?', 'No — he would be selling the buyer\'s goods (except as an unpaid seller under the Act)', 'Yes, but he is liable to the buyer for breach'],
+        ['Seller becomes insolvent', 'Buyer can claim the goods from the official assignee/receiver', 'Buyer can only prove for a refund of price paid; goods go to the assignee'],
+        ['Buyer becomes insolvent', 'Goods form part of the buyer\'s estate; seller claims the price as a creditor', 'Seller may refuse to deliver until paid'],
+    ], title='Sale vs agreement to sell')
+
+    concepts = [
+        {'id': 'c1', 'title': 'Scope of the Act', 'body': [
+            'The Act took effect from 1 July 1930 and extends to all of India. Before it, sale of goods was a chapter of the Indian Contract Act, 1872; the new Act was modelled largely on the English Sale of Goods Act, 1893.',
+            'The Act governs contracts for the sale of movable property only. Land, buildings, shops and other immovable property are sold under the Transfer of Property Act, 1882.',
+            'The general rules of the Indian Contract Act (offer, acceptance, capacity, free consent, lawful object and so on) still apply to a sale, except where they clash with a specific rule of the Sale of Goods Act. Words not defined in this Act but defined in the Contract Act carry the Contract Act meaning.',
+            'Parties may vary many rules by express agreement, and a reasonable trade custom known to both parties binds them.'],
+         'analogy': 'The Contract Act is the general rule book for every game; the Sale of Goods Act is the special rule book for one game — selling movables. Where the special book is silent, the general book applies.',
+         'work': 'When reviewing a supply agreement, a CA first asks: is the subject matter movable goods? If yes, the implied conditions, passing of property and unpaid-seller rights of this Act apply unless the contract excludes them.'},
+        {'id': 'c2', 'title': 'Buyer, seller and the meaning of "goods" (Sections 2(1), 2(13), 2(7))', 'body': [
+            'A buyer is one who buys or agrees to buy goods; a seller is one who sells or agrees to sell goods. So the terms cover both a completed sale and a mere agreement to sell.',
+            'Goods (Section 2(7)) covers all movable property, leaving out only actionable claims and money. The definition specifically brings in shares and stock, crops still growing, grass, and anything fixed to or part of land if the parties agree it will be cut or detached before or under the sale.',
+            'An actionable claim — for example a book debt — can be enforced only by a suit, so it is not goods. Money means legal tender in circulation; old coins sold as curios are goods.',
+            'Goods may be tangible or intangible: goodwill, copyright, patents, trademarks, gas, water, steam and electricity are all treated as goods.'],
+         'blocks': [goods_table],
+         'analogy': '"Goods" is a big basket of everything movable — but two things are always kept out of the basket: money and claims you can only get through a court.',
+         'work': 'Whether an item is "goods" decides which law applies to the transfer — and often its tax treatment too (for example, sale of shares versus assignment of a receivable in a factoring deal).'},
+        {'id': 'c3', 'title': 'Kinds of goods: existing, future and contingent', 'body': [
+            'Existing goods (Section 6) are owned or possessed by the seller when the contract is made. They are of three kinds: specific goods — identified and agreed on when the contract is made (Section 2(14)); ascertained goods — identified in line with the agreement after the contract is made (a term built by courts, used much like "specific"); and unascertained goods — described only by kind, quality or sample, not yet picked out.',
+            'Future goods (Section 2(6)) are goods the seller will manufacture, produce or acquire after the contract. A contract for future goods can only be an agreement to sell — nobody can transfer today what does not yet exist or is not yet his. Even if the contract says "I hereby sell", it operates as an agreement to sell (Section 6(3)).',
+            'Contingent goods (Section 6(2)) are goods whose acquisition by the seller depends on an uncertain event. They too are always the subject of an agreement to sell.'],
+         'analogy': 'Specific = "this blue bicycle"; unascertained = "any one of the 40 blue bicycles in the godown"; ascertained = the one later tagged with your name; future = the bicycle the factory will make next month; contingent = the bicycle I will sell you if my uncle gives it to me.',
+         'work': 'Revenue and inventory cut-off depends on this: an order for goods still to be manufactured (future goods) cannot be a completed sale at the year end, however the invoice is worded.'},
+        {'id': 'c4', 'title': 'Delivery, documents of title and other definitions', 'body': [
+            'Delivery (Section 2(2)) is the voluntary transfer of possession. It may be actual (physical handing over), symbolic (handing over something that gives control — keys of the godown, a bill of lading, a railway receipt), or constructive (no physical movement: the person holding the goods, such as a warehouse-keeper, acknowledges to the buyer that he now holds them for the buyer — called attornment).',
+            'Deliverable state (Section 2(3)): the goods are ready in the condition in which the contract obliges the buyer to accept them.',
+            'Document of title to goods (Section 2(4)) includes a bill of lading, dock-warrant, warehouse-keeper\'s or wharfinger\'s certificate, railway receipt, multimodal transport document and a delivery order — and any other document used in business as proof of possession or control of goods that lets the holder transfer or receive them by endorsement or delivery. The list is illustrative. A mate\'s receipt is only an acknowledgment, not a document of title; a share certificate shows title but is not a document of title.',
+            'Mercantile agent (Section 2(9)): an agent whose normal line of business gives him authority to sell goods, send them out for sale, buy goods, or borrow against their security (e.g. brokers, auctioneers, commission agents).',
+            'Property (Section 2(11)) means the general property — full ownership — not a special property such as a pledgee\'s right to hold goods until repaid. Insolvent (Section 2(8)): someone who has stopped meeting his debts in the usual run of business or is unable to meet them on their due dates, whether or not he has committed an act of insolvency. Price (Section 2(10)): the money consideration for a sale. Quality (Section 2(12)) includes state or condition.'],
+         'analogy': 'A bill of lading is like a car key with the ownership papers attached — whoever lawfully holds it controls the cargo on the ship.',
+         'work': 'In trade finance and import-export audits, CAs check that banks hold the real document of title (bill of lading, warehouse receipt) — not a mere receipt — before goods are treated as security.'},
+        {'id': 'c5', 'title': 'Contract of sale: sale and agreement to sell (Section 4)', 'body': [
+            'Section 4(1): under a contract of sale, ownership of goods is passed — or promised to be passed — by the seller to the buyer in return for a price. A co-owner may sell to another co-owner. Section 4(2) allows the contract to be either absolute or subject to conditions.',
+            'Section 4(3): if ownership moves to the buyer by the contract itself, it is a sale; if it is to move on a later date or once a condition is satisfied, it is an agreement to sell. Section 4(4): once that date comes or that condition is satisfied, the agreement to sell turns into a sale.',
+            'Essentials: (i) two different parties — a person cannot buy from himself; (ii) goods (movables) as subject matter; (iii) price in money — it may be partly money and partly goods, but a pure exchange of goods for goods is barter, not sale; (iv) transfer, or agreement to transfer, of the general property; (v) it may be absolute or conditional; and (vi) all essentials of a valid contract — free consent, competence, lawful object and consideration.'],
+         'blocks': [sale_vs_ats],
+         'analogy': 'A sale is a key already handed over; an agreement to sell is a promise to hand over the key next week.',
+         'work': 'Auditors decide whether goods lying with the seller at year-end belong to the buyer (sale — buyer\'s stock) or to the seller (agreement to sell — seller\'s stock). The answer also fixes who bears the loss if they are destroyed.'},
+        {'id': 'c6', 'title': 'Sale distinguished from similar contracts', 'body': [
+            'Hire purchase (the ICAI material says it is governed by the Hire-Purchase Act, 1972 — write that in the exam; note that in practice that Act was never brought into force and was repealed by the Hire-Purchase (Repeal) Act, 2005, so hire-purchase deals now rest on the agreement itself and the general contract law): the owner lets goods on hire; the hirer pays instalments and may buy them by paying the last instalment. Till then the hirer is only a bailee: ownership has not passed, he cannot give good title even to an innocent buyer, he may return the goods and stop paying, and the owner can repossess on default. In a sale (even on credit) ownership passes, the buyer must pay, and he can resell.',
+            'Bailment (Indian Contract Act): goods are delivered for a purpose and are to be returned or dealt with as the bailor directs. Only possession (a special property) passes, not ownership; the same goods come back; consideration may or may not exist. In a sale the general property passes for a money price and the goods do not come back.',
+            'Contract for work and labour: where the essence is skill and labour and any material is only incidental — a tailor stitching cloth supplied by the customer, a painter painting a portrait — it is not a sale of goods.',
+            'Barter or exchange: goods for goods with no money is not a sale; goods for goods plus money is a sale.'],
+         'analogy': 'Sale = you buy the car. Hire purchase = you rent the car with an option to own it after the last EMI. Bailment = you leave the car with a valet. Work and labour = you pay a mechanic to repaint it.',
+         'work': 'The distinction drives accounting and tax: an asset on hire purchase is treated differently from one taken on operating lease or bought outright, and a works contract is taxed differently from a pure supply.'},
+        {'id': 'c7', 'title': 'How a contract of sale is made; subject matter; price (Sections 5 to 10)', 'body': [
+            'Section 5: like any contract, a sale is formed when one party offers to buy or to sell goods at a price and the other accepts. It may provide for immediate delivery, immediate payment, both, or for delivery or payment (or both) by instalments or at a future date. Subject to any other law, it may be in writing, oral, partly each, or implied from conduct.',
+            'Section 6: the goods may be existing or future; a contract may depend on a contingency; a "present sale" of future goods operates as an agreement to sell.',
+            'Section 7 — goods perished before the contract: in a contract for specific goods, if the goods had already perished (or been so damaged that they no longer match their description) at the time of the contract, without the seller\'s knowledge, the contract is void.',
+            'Section 8 — goods perished after an agreement to sell: if, after an agreement to sell identified goods, they are destroyed or damaged beyond their description through nobody\'s fault, and this happens while the risk is still with the seller, the agreement is avoided. (If specific future goods are destroyed, performance becomes impossible and the contract is void.)',
+            'Section 9 — price may be fixed by the contract, left to be fixed in an agreed manner, or determined by the course of dealing between the parties; failing all these, the buyer pays a reasonable price, which depends on the facts of each case.',
+            'Section 10 — price to be fixed by a third party: if the valuer does not or cannot fix it, the agreement is avoided; but a buyer who has received and appropriated any of the goods must pay a reasonable price for them. If one party\'s fault prevents the valuer, the other party may sue that party for damages.'],
+         'analogy': 'Section 7 is like buying a ticket for a show that had already been cancelled before you booked — there was never anything to buy.',
+         'work': 'Commodity and equipment contracts often fix price by an independent surveyor or an index. CAs advise clients to add a fallback mechanism, because Section 10 voids the agreement if the valuer fails.'},
+    ]
+
+    illustrations = [
+        {'id': 'i1', 'title': 'Specific goods already destroyed when the contract was signed', 'difficulty': 'core', 'minutes': 6,
+         'q': 'On 12 June, Harpreet agrees to sell Joseph "the 40 bales of organic cotton lying in my Ludhiana godown, lot no. L-7". Unknown to both, a short-circuit fire had burnt the godown on the night of 11 June and lot L-7 was reduced to ash. Joseph demands delivery or damages. Advise.',
+         'solution': [legal('Section 7: a contract to sell identified (specific) goods is void if, when it was made, those goods had already been destroyed or damaged so badly that they no longer fit the contract description, and the seller did not know this.',
+                            'The contract was for an identified lot (specific goods). The lot had been destroyed the previous night. Harpreet did not know of the fire when he contracted.',
+                            'All the conditions of Section 7 are satisfied: specific goods, perished before the contract, seller unaware. There was nothing in existence for the contract to operate upon.',
+                            'The contract is void. Joseph cannot demand delivery or damages; any advance he paid must be refunded.')]},
+        {'id': 'i2', 'title': 'Specific goods perish after an agreement to sell', 'difficulty': 'moderate', 'minutes': 7,
+         'q': 'Meenal agrees on 1 August to buy a specific vintage printing press from Desai & Co. for ₹6,50,000. It is agreed that ownership will pass only after Desai & Co. repaint and test the press, and Meenal will then collect it. On 9 August, before repainting is complete, a flash flood (no fault of either party) wrecks the press. Desai & Co. claim the price. Decide.',
+         'solution': [legal('Section 8: if identified goods covered by an agreement to sell are later destroyed, or damaged so that they no longer fit their description, through no fault of either side and while the risk is still the seller\'s, the agreement is avoided. Section 26: unless agreed otherwise, risk moves with ownership.',
+                            'The press was specific. Property was to pass only after repainting and testing, so on 9 August there was only an agreement to sell. The flood was no one\'s fault.',
+                            'Since property had not passed, risk was still with the seller. The goods perished before risk passed and without fault of either party — exactly the case covered by Section 8.',
+                            'The agreement is avoided. Desai & Co. cannot recover the price, and must refund any advance received from Meenal.')]},
+        {'id': 'i3', 'title': 'Price to be fixed by a valuer who withdraws (Section 10)', 'difficulty': 'moderate', 'minutes': 8,
+         'q': f'Kaveri Power agrees to sell three identical used diesel generators to Sharma Hotels "at a price to be fixed by Mr. Iyer, chartered engineer". One generator is delivered at once and Sharma Hotels installs and runs it. Mr. Iyer then falls ill and refuses to value. Comparable generators sell at {R(gen_rate)} each in the market. Kaveri asks for the delivered generator back; Sharma Hotels demands the other two. Advise both parties and state what Sharma Hotels must pay.',
+         'solution': [legal('Section 10(1): where goods are agreed to be sold at a price to be fixed by a third party and he does not or cannot fix it, the agreement is avoided; but if the buyer has received and appropriated any of the goods, he must pay a reasonable price for them. Section 10(2): a party whose fault prevents the valuation is liable in damages.',
+                            'The valuer could not fix the price because of illness — no fault of either party. One generator has been delivered and put to use; two remain with the seller.',
+                            f'For the two undelivered generators the agreement is avoided, so Sharma Hotels cannot demand them. The delivered generator has been received and appropriated (installed and used), so Kaveri cannot take it back but is entitled to a reasonable price, which on these facts is the market value of {R(gen_rate)}.',
+                            f'Sharma Hotels keeps the delivered generator and pays a reasonable price of {R(reasonable)}; neither party can enforce the contract for the other two.'),
+                      wn('Working', f'Reasonable price = {delivered} generator × market value {R(gen_rate)} = {R(reasonable)}.')],
+         'checks': c[0:1]},
+        {'id': 'i4', 'title': 'Classify the goods', 'difficulty': 'core', 'minutes': 5,
+         'q': 'Classify the goods in each contract and say whether it is a sale or an agreement to sell: (a) "My grey Activa scooter, registration MH-12-AB-1234, for ₹48,000, paid and handed over today." (b) "500 kg of basmati rice from the 20 tonnes in my warehouse." (c) "All the mangoes my orchard produces next summer." (d) "The antique clock I will sell you if I win it at Saturday\'s auction."',
+         'solution': [table(['Contract', 'Kind of goods', 'Sale or agreement to sell', 'Reason'], [
+             ['(a) Grey Activa scooter', 'Existing — specific', 'Sale', 'Identified at the time of contract; property intended to pass now (paid and handed over)'],
+             ['(b) 500 kg rice out of 20 tonnes', 'Existing — unascertained', 'Agreement to sell', 'No property passes until the 500 kg are separated and appropriated (Section 18)'],
+             ['(c) Next summer\'s mangoes', 'Future goods', 'Agreement to sell', 'Goods not yet produced — Section 6(3)'],
+             ['(d) Clock to be won at auction', 'Contingent goods', 'Agreement to sell', 'Seller\'s acquisition depends on an uncertain event — Section 6(2)'],
+         ])]},
+        {'id': 'i5', 'title': 'Trade-in: part goods, part money', 'difficulty': 'core', 'minutes': 5,
+         'q': f'Ritika buys a new laptop priced at {R(new_price)} from TechHub. TechHub accepts her old laptop at an agreed value of {R(old_value)} and she pays the balance in cash. Is this a contract of sale? How much cash does she pay?',
+         'solution': [legal('Section 4(1) requires transfer of property in goods for a price; Section 2(10) defines price as the money consideration. Consideration may be partly in money and partly in goods; a pure exchange of goods for goods is barter, not sale.',
+                            f'Ritika gives her old laptop (valued at {R(old_value)}) plus cash for a new laptop priced at {R(new_price)}.',
+                            'Part of the consideration is money, so the transaction is not a pure barter. Both the new laptop and the old one are goods.',
+                            f'It is a contract of sale. Cash payable = {R(new_price)} − {R(old_value)} = {R(cash_bal)}.')],
+         'checks': c[1:4]},
+    ]
+
+    jobs = [
+        {'id': 'j1', 'title': 'Year-end cut-off: invoiced but still in the seller\'s godown', 'role': 'Article assistant on a statutory audit of a textile trader',
+         'situation': 'On 30 March the client invoiced ₹18 lakh of fabric to a customer. The fabric is still in the client\'s godown on 31 March. The sales team says it is "sold".',
+         'steps': ['Read the contract and invoice: are the goods specific (identified rolls set aside and tagged) or just a quantity from the general stock?',
+                   'If unascertained, no property can pass until the goods are separated and appropriated — it is only an agreement to sell; the stock is still the client\'s.',
+                   'If specific and in a deliverable state with an unconditional contract, property normally passes when the contract is made (Section 20), even before delivery or payment — then the goods are the customer\'s stock held by the client as bailee.',
+                   'Document the conclusion and its effect on revenue, inventory and insurance (who bears the risk of a fire on 1 April?).'],
+         'takeaway': 'Whether property has passed — not the wording of the invoice — decides whose stock it is.',
+         'think': 'The rolls were tagged with the customer\'s name, but the contract says ownership passes only on payment. Whose stock is it on 31 March?',
+         'answer': 'The client\'s. The parties intended property to pass only on payment (Sections 19 and 4(3)), so it is still an agreement to sell; the goods remain the seller\'s stock and at the seller\'s risk unless otherwise agreed.'},
+        {'id': 'j2', 'title': 'Hire purchase or sale on instalments?', 'role': 'CA advising a transport company',
+         'situation': 'The client is buying five trucks from a dealer under a document that says: "Ownership will vest in the buyer when the last of 36 instalments is paid; the buyer may return the trucks at any time and stop further payments."',
+         'steps': ['Note the two tell-tale features: ownership passes only on the last instalment, and the hirer may terminate by returning the goods.',
+                   'Conclude that this is a hire-purchase agreement, not a sale on instalments; the client is a bailee until the last payment.',
+                   'Warn the client that it cannot sell or pledge the trucks and pass good title before the last instalment.',
+                   'Coordinate with the accounts team on recognition of the asset and the interest element in the instalments.'],
+         'takeaway': 'Label is not decisive; who owns the goods and whether the hirer can walk away are.',
+         'think': 'If the document said ownership passes at once and the buyer must pay all 36 instalments, what would it be?',
+         'answer': 'A sale (credit sale / sale on instalments): property passes immediately, the buyer is bound to pay all instalments and can resell.'},
+        {'id': 'j3', 'title': 'Is the bank holding a document of title?', 'role': 'Concurrent auditor in a bank\'s trade-finance branch',
+         'situation': 'An importer has been given an advance against goods arriving by sea. The file holds a mate\'s receipt, not the bill of lading.',
+         'steps': ['Recall Section 2(4): the bill of lading carries title to the cargo, whereas a mate\'s receipt merely confirms that the goods came on board.',
+                   'Report that the bank does not hold control over the goods — the security is weak.',
+                   'Recommend obtaining the original bill of lading, endorsed to the bank, before releasing further funds.'],
+         'takeaway': 'Only a true document of title lets its holder transfer or receive the goods by endorsement or delivery.'},
+    ]
+
+    mcqs = [
+        {'id': 'm1', 'q': 'The Sale of Goods Act, 1930 applies to the sale of:', 'options': ['Movable property only', 'Immovable property only', 'Both movable and immovable property', 'Actionable claims only'], 'answer': 0,
+         'explain': 'Only movables are "goods". Immovable property is transferred under the Transfer of Property Act, 1882.', 'concept': 'c1', 'difficulty': 'core'},
+        {'id': 'm2', 'q': 'Which of the following is NOT "goods" under Section 2(7)?', 'options': ['A book debt owed by a customer', 'Shares of a company', 'Growing crops agreed to be severed before sale', 'Electricity'], 'answer': 0,
+         'explain': 'A debt is an actionable claim — enforceable only by suit — and is expressly excluded from goods.', 'concept': 'c2', 'difficulty': 'core'},
+        {'id': 'm3', 'q': 'Goods to be manufactured by the seller after the contract is made are:', 'options': ['Future goods', 'Specific goods', 'Contingent goods', 'Ascertained goods'], 'answer': 0,
+         'explain': 'Section 2(6): goods that the seller will make, grow or obtain only after the contract has been entered into.', 'concept': 'c3', 'difficulty': 'core'},
+        {'id': 'm4', 'q': 'Where the subject matter is future goods, the contract is always:', 'options': ['An agreement to sell', 'A sale', 'A void agreement', 'A contingent contract that is void'], 'answer': 0,
+         'explain': 'No one can transfer today what does not yet exist; Section 6(3) treats even a "present sale" of future goods as an agreement to sell.', 'concept': 'c3', 'difficulty': 'core'},
+        {'id': 'm5', 'q': 'A warehouse-keeper holding the seller\'s goods tells the buyer that he now holds them on the buyer\'s behalf. This is:', 'options': ['Constructive delivery (attornment)', 'Actual delivery', 'Symbolic delivery', 'No delivery at all'], 'answer': 0,
+         'explain': 'There is no physical movement; the person in possession acknowledges that he holds for the buyer.', 'concept': 'c4', 'difficulty': 'moderate'},
+        {'id': 'm6', 'q': 'Which of these is NOT a document of title to goods?', 'options': ['Mate\'s receipt', 'Bill of lading', 'Railway receipt', 'Warehouse-keeper\'s certificate'], 'answer': 0,
+         'explain': 'A mate\'s receipt only acknowledges receipt of goods on board; it does not entitle the holder to transfer or receive the goods.', 'concept': 'c4', 'difficulty': 'moderate'},
+        {'id': 'm7', 'q': 'In a sale, as distinct from an agreement to sell, the buyer gets:', 'options': ['A right in rem', 'A right in personam only', 'Only a right to sue for damages', 'No rights until delivery'], 'answer': 0,
+         'explain': 'In a sale ownership has passed, so the buyer\'s right is good against the whole world (jus in rem).', 'concept': 'c5', 'difficulty': 'moderate'},
+        {'id': 'm8', 'q': 'Goods are exchanged for other goods with no money changing hands. This is:', 'options': ['Barter, not a sale', 'A sale', 'A hire-purchase agreement', 'A bailment'], 'answer': 0,
+         'explain': 'Price must be money (Section 2(10)). Goods plus some money would be a sale; goods alone is barter.', 'concept': 'c5', 'difficulty': 'core'},
+        {'id': 'm9', 'q': 'In a hire-purchase agreement, until the last instalment is paid, the hirer is:', 'options': ['A bailee', 'The owner', 'A pledgee', 'A mercantile agent'], 'answer': 0,
+         'explain': 'Ownership passes only on the last instalment; till then the hirer holds the goods as a bailee and may return them.', 'concept': 'c6', 'difficulty': 'core'},
+        {'id': 'm10', 'q': 'A goldsmith makes a necklace from gold supplied by the customer. The contract is:', 'options': ['A contract for work and labour', 'A sale of goods', 'An agreement to sell future goods', 'A bailment for sale'], 'answer': 0,
+         'explain': 'The essence is skill and labour; the material belongs to the customer, so no goods are sold.', 'concept': 'c6', 'difficulty': 'moderate'},
+        {'id': 'm11', 'q': 'A contract for specific goods which, unknown to the seller, had perished before the contract was made is:', 'options': ['Void', 'Voidable at the buyer\'s option', 'Valid — the buyer bears the loss', 'Valid — the seller must supply similar goods'], 'answer': 0,
+         'explain': 'Section 7: the contract is void because its subject matter did not exist when it was made.', 'concept': 'c7', 'difficulty': 'core'},
+        {'id': 'm12', 'q': 'Price was to be fixed by a named valuer, who refuses. The buyer has already received and used part of the goods. The buyer must:', 'options': ['Pay a reasonable price for the goods received', 'Return them without paying anything', 'Pay the price the seller demands', 'Pay nothing as the agreement is void from the start'], 'answer': 0,
+         'explain': 'Section 10(1): the agreement is avoided, but goods received and appropriated must be paid for at a reasonable price.', 'concept': 'c7', 'difficulty': 'moderate'},
+    ]
+
+    questions = [
+        {'id': 'q1', 'marks': 6, 'minutes': minutes(6), 'difficulty': 'core', 'pad': 'table',
+         'q': 'Distinguish between a "sale" and an "agreement to sell" (any six points), with reference to the Sale of Goods Act.',
+         'model': [p('Section 4(3): a contract under which ownership moves to the buyer straight away is a sale; one under which ownership is to move later, or after some condition is met, is an agreement to sell. Section 4(4): the agreement to sell matures into a sale once the agreed time passes or the condition is met.'),
+                   table(['Basis', 'Sale', 'Agreement to sell'], [
+                       ['1. Passing of property', 'Immediately, under the contract', 'At a future date or on a condition being fulfilled'],
+                       ['2. Nature of contract', 'Executed', 'Executory'],
+                       ['3. Rights created', 'Jus in rem (against all)', 'Jus in personam (against the other party only)'],
+                       ['4. Risk', 'Buyer bears loss — risk follows ownership', 'Seller bears loss'],
+                       ['5. Remedy of seller on default', 'Suit for price', 'Suit for damages (price only if payable on a day certain)'],
+                       ['6. Resale by seller', 'Seller cannot resell (save unpaid seller\'s rights)', 'Seller can resell; buyer may sue for breach'],
+                       ['7. Insolvency of seller', 'Buyer can recover the goods from the official assignee', 'Buyer only claims refund of price paid as a creditor'],
+                   ])],
+         'scheme': [{'id': 's1', 'pt': 'Meaning under Section 4(3)/(4)', 'm': 1, 'skill': 'provision'},
+                    {'id': 's2', 'pt': 'Passing of property and nature (executed/executory)', 'm': 1, 'skill': 'concept'},
+                    {'id': 's3', 'pt': 'Rights in rem / in personam', 'm': 1, 'skill': 'concept'},
+                    {'id': 's4', 'pt': 'Risk of loss', 'm': 1, 'skill': 'concept'},
+                    {'id': 's5', 'pt': 'Remedies / right of resale', 'm': 1, 'skill': 'analysis'},
+                    {'id': 's6', 'pt': 'Insolvency of seller or buyer; neat tabular presentation', 'm': 1, 'skill': 'presentation'}],
+         'remarks': ['A table with a clear "basis" column scores quickly; long paragraphs without bases lose marks for clarity.', 'Candidates who begin with the Section 4 meaning before the table get the provision mark.'],
+         'mistakes': ['Writing that in an agreement to sell the buyer bears the risk.', 'Repeating the same point under two bases (e.g. "ownership passes" and "property passes").'],
+         'tips': ['Six bases for six marks — one mark each.', 'Keep both columns parallel: each row compares the same feature.']},
+        {'id': 'q2', 'marks': 4, 'minutes': minutes(4), 'difficulty': 'moderate', 'pad': 'legal',
+         'q': 'Arjun agrees to sell Bela his specific racing bicycle for ₹75,000. It is agreed that Bela will pay and take delivery on Sunday, and that ownership passes only then. On Friday the bicycle is stolen from Arjun\'s locked garage without any negligence on his part. Bela refuses to pay and Arjun sues for the price. Decide with reasons.',
+         'model': [legal('Section 8: an agreement to sell identified goods is avoided if, before the risk shifts to the buyer, the goods perish through no fault of either party. Section 26: unless otherwise agreed, goods remain at the seller\'s risk until property passes to the buyer. Theft of the goods is treated as their perishing for this purpose.',
+                         'The bicycle was specific. Property was to pass only on Sunday, so on Friday there was merely an agreement to sell. It was stolen without the fault of either party.',
+                         'Property, and hence risk, was still with Arjun on Friday. The goods were lost before risk passed and without fault of either party, so Section 8 applies.',
+                         'The agreement is avoided. Arjun\'s suit for the price fails; Bela need not pay.')],
+         'scheme': [{'id': 's1', 'pt': 'Section 8 — agreement to sell specific goods avoided on perishing', 'm': 1.5, 'skill': 'provision'},
+                    {'id': 's2', 'pt': 'Risk follows property — Section 26', 'm': 0.5, 'skill': 'provision'},
+                    {'id': 's3', 'pt': 'Application: property not passed, no fault, loss before risk passed', 'm': 1, 'skill': 'analysis'},
+                    {'id': 's4', 'pt': 'Conclusion: agreement avoided, suit fails', 'm': 1, 'skill': 'conclusion'}],
+         'remarks': ['Many candidates apply Section 7 (perishing before the contract) — here the loss happened after the agreement.'],
+         'mistakes': ['Holding Bela liable because she "agreed to buy".', 'Ignoring the clause postponing ownership to Sunday.'],
+         'tips': ['First decide: sale or agreement to sell? That fixes who carried the risk.']},
+        {'id': 'q3', 'marks': 4, 'minutes': minutes(4), 'difficulty': 'core', 'pad': 'text',
+         'q': 'Define "goods" under the Sale of Goods Act, 1930. Are (i) a fixed deposit receipt pledged with a bank, (ii) a decree for money, (iii) standing timber agreed to be cut and sold, and (iv) a company\'s goodwill goods? Answer briefly.',
+         'model': [p('Section 2(7): goods are all movables except money and actionable claims. Shares and stock, growing crops, grass, and things fixed to or forming part of land that the parties agree to cut off before or under the sale are specifically included.'),
+                   ul(['(i) Fixed deposit receipt — treated as goods for the purpose of pledge (it is a movable that can be delivered as security; Section 176 of the Contract Act read with Section 2(7)).',
+                       '(ii) Decree of a court — treated as goods in the study material, as it is a movable right that can be transferred (contrast an unadjudicated debt, which is an actionable claim).',
+                       '(iii) Standing timber agreed to be cut — goods, as a thing attached to land agreed to be severed under the contract.',
+                       '(iv) Goodwill — goods; intangible movable property is included.'])],
+         'scheme': [{'id': 's1', 'pt': 'Definition with exclusions (actionable claims, money)', 'm': 1, 'skill': 'provision'},
+                    {'id': 's2', 'pt': 'Inclusions (shares, crops, things attached to land)', 'm': 1, 'skill': 'provision'},
+                    {'id': 's3', 'pt': 'Items (i) and (ii)', 'm': 1, 'skill': 'application'},
+                    {'id': 's4', 'pt': 'Items (iii) and (iv)', 'm': 1, 'skill': 'application'}],
+         'remarks': ['Most lose the inclusion mark by forgetting "things attached to land agreed to be severed".'],
+         'mistakes': ['Calling a book debt "goods".', 'Treating all intangibles as outside the Act.'],
+         'tips': ['Learn the definition as: movable − (actionable claims + money) + (shares, crops, grass, things to be severed).']},
+        {'id': 'q4', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'moderate', 'pad': 'legal',
+         'q': 'Neeraj agrees to sell 200 quintals of potatoes "to be grown on my farm at Agra this season" to Fresh Mart. Owing to a blight beyond his control, the farm produces only 120 quintals, which he delivers. Fresh Mart sues for damages for short delivery of 80 quintals. (a) What kind of goods are these? (b) Is Neeraj liable? Give reasons.',
+         'model': [legal('Section 2(6) and Section 6: goods to be produced by the seller after the contract are future goods, and a contract for them is an agreement to sell. Where the contract is for specific future goods (from a particular source) and they are destroyed without fault, performance becomes impossible — Section 56 of the Indian Contract Act (supervening impossibility), consistent with Section 8 of the Sale of Goods Act.',
+                         'The potatoes were to come from a particular farm and did not exist when the contract was made. Blight beyond Neeraj\'s control destroyed part of the crop; he delivered all that was produced.',
+                         'The goods are specific future goods. The contract was confined to the produce of that farm, so Neeraj had no duty to buy potatoes elsewhere. The shortfall resulted from an event beyond his control after the contract, making performance of the balance impossible.',
+                         '(a) Future goods (specific, from a named farm) — an agreement to sell. (b) Neeraj is not liable for the shortfall of 80 quintals; Fresh Mart must pay for the 120 quintals accepted.')],
+         'scheme': [{'id': 's1', 'pt': 'Future goods — Section 2(6)/6; agreement to sell', 'm': 1.5, 'skill': 'provision'},
+                    {'id': 's2', 'pt': 'Supervening impossibility for specific future goods', 'm': 1, 'skill': 'provision'},
+                    {'id': 's3', 'pt': 'Application: crop from named farm, loss beyond control', 'm': 1.5, 'skill': 'analysis'},
+                    {'id': 's4', 'pt': 'Conclusion on both parts', 'm': 1, 'skill': 'conclusion'}],
+         'remarks': ['Good answers notice that the contract was tied to "my farm" — if it had been for any 200 quintals of potatoes, the seller would have had to buy elsewhere.'],
+         'mistakes': ['Calling them contingent goods.', 'Holding the seller liable simply because he promised 200 quintals.'],
+         'tips': ['State the classification first, then the liability — the question has two parts; label them (a) and (b).']},
+    ]
+
+    viva = [
+        V('v1', 'What does "goods" mean under the Sale of Goods Act?',
+          'Goods means all kinds of movable property except actionable claims and money. Shares and stock, growing crops, grass, and things fixed to land that are to be cut off under the contract are also goods.',
+          [P('p1', 'Every kind of movable property', 4, 'movable|moveable'),
+           P('p2', 'Excludes actionable claims and money', 3, 'except actionable|excluding actionable|excludes actionable|exclude actionable|other than actionable|not include actionable|does not include actionable|but not actionable|except money|excluding money|excludes money|exclude money|other than money|not include money|does not include money|but not money|money and actionable claims are not|actionable claims and money are not|money is not goods|actionable claims are not goods|actionable claims excluded|money excluded'),
+           P('p3', 'Includes stock and shares, growing crops, grass, things attached to land agreed to be severed', 3, 'share|stock', 'crop|grass|attached|sever', min=1)], 'c2'),
+        V('v2', 'Distinguish between a sale and an agreement to sell.',
+          'In a sale, property passes immediately to the buyer, so it is an executed contract and the buyer bears the risk. In an agreement to sell, property is to pass at a future time or on fulfilment of a condition, so it is executory and the risk stays with the seller.',
+          [P('p1', 'Sale: property passes immediately (executed)', 4,
+             ALT('sale {pp}', 'sale property {pp}', 'sale ownership {pp}', 'sale transfer immediate', 'in sale property {pp}', 'property {pp}', 'ownership {pp}', pp=('pass immediately', 'passes immediately', 'transfer immediately', 'transferred immediately', 'passes at once', 'pass at once', 'passes now', 'passes straight away', 'immediately pass', 'immediately transfer'))),
+           P('p2', 'Agreement to sell: property passes in future / on a condition (executory)', 4,
+             ALT('agreement {s} {pp}', 'agreement {s} property {pp}', 'agreement {s} ownership {pp}', 'agreement {s} property passes only',
+                 s=('sell', 'to sell'), pp=('future', 'later', 'condition', 'pass future', 'passes later', 'pass later'))),
+           P('p3', 'Risk: buyer in a sale; seller in an agreement to sell', 2, 'risk', 'buyer bear|buyer risk|risk buyer|risk with buyer|risk stays seller|seller bear|risk seller|risk with seller|risk follows ownership|risk follow property', min=2)], 'c5'),
+        V('v3', 'What are future goods and contingent goods? Can they be the subject of a sale?',
+          'Future goods are goods the seller will manufacture, produce or acquire after the contract. Contingent goods are goods whose acquisition by the seller depends on an uncertain event. Neither can be sold at once; a contract for them is only an agreement to sell.',
+          [P('p1', 'Future goods: to be manufactured, produced or acquired after the contract', 4, 'future', 'manufactur|produc|acquir|made later|grown', 'after|later|yet to', min=2),
+           P('p2', 'Contingent goods: acquisition depends on an uncertain event', 3, 'contingent', 'uncertain|contingency|may or may not|depends|depend|condition', min=2),
+           P('p3', 'Only an agreement to sell, never a sale', 3, 'agreement to sell|agreement sell|only agreement|not a sale|not sale|never sale|never a sale|cannot be sold|can not be sold|no present sale', min=1)], 'c3'),
+        V('v4', 'How does a sale differ from a hire-purchase agreement?',
+          'In a sale ownership passes to the buyer at once and he must pay the price and can resell. In hire purchase ownership passes only when the last instalment is paid; until then the hirer is just a bailee who may return the goods and stop paying, and cannot pass good title.',
+          [P('p1', 'Sale: ownership passes at once', 3, 'sale', 'ownership pass|property pass|immediate|at once|title pass', min=2),
+           P('p2', 'Hire purchase: ownership passes only on the last instalment', 4, 'last instalment|last installment|final instalment|final installment|all instalments|all installments|last emi|final emi|not owner until|not the owner until|not become owner until|does not become owner until|not own until|no ownership until|not pass until last|not pass until final|not pass until all'),
+           P('p3', 'Hirer is a bailee; may return goods / cannot pass good title', 3, 'bailee|return the goods|return goods|give back|terminate|cannot pass|can not pass|cannot sell|no title|not owner', min=1)], 'c6'),
+        V('v5', 'What happens if the price is to be fixed by a third party who fails to fix it?',
+          'Under Section 10 the agreement is avoided. But if the buyer has already received and appropriated any of the goods, he must pay a reasonable price for them. If either party prevents the valuer from fixing the price, he is liable to the other in damages.',
+          [P('p1', 'Agreement is avoided (Section 10)', 4, 'avoided|void|cancel|ends|comes to an end|terminat'),
+           P('p2', 'Goods received and appropriated — buyer pays a reasonable price', 4, 'reasonable price|reasonable', 'receiv|appropriat|taken|used|delivered', min=2),
+           P('p3', 'Party at fault for preventing valuation pays damages', 2, 'damage|compensat|liable|fault', 'prevent|fault|default', min=1)], 'c7'),
+    ]
+
+    cases = [{
+        'id': 'k1', 'title': 'Weaving looms for Surat Silks', 'difficulty': 'hard',
+        'case': ('Patel Machines agreed on 1 September to supply four identical power looms to Surat Silks. Two looms were in Patel\'s showroom; the other two were to be '
+                 'assembled at Patel\'s factory during September. The price was to be fixed by an independent engineer, Ms. Rao, after inspection. On 5 September one showroom '
+                 'loom was delivered and Surat Silks began using it. On 20 September Ms. Rao withdrew, citing a conflict of interest, before fixing any price. Market value of a '
+                 'similar loom is ₹85,000.'),
+        'mcqs': [
+            M('k1a', 'The two looms still to be assembled at the factory are:', ['Future goods', 'Specific goods', 'Contingent goods', 'Ascertained goods'], 0,
+              'They are to be manufactured after the contract — future goods under Section 2(6).', 'core'),
+            M('k1b', 'After Ms. Rao withdrew, the contract for the three undelivered looms:', ['Is avoided', 'Continues; the seller may fix the price', 'Continues; the buyer may fix the price', 'Becomes a contract for work and labour'], 0,
+              'Section 10(1): if the third party does not or cannot fix the price, the agreement is avoided (except for goods received and appropriated).', 'moderate'),
+            M('k1c', 'What must Surat Silks pay for the loom it has been using?', ['₹85,000', '₹3,40,000', 'Nothing', '₹1,70,000'], 0,
+              'Goods received and appropriated must be paid for at a reasonable price — here the market value of one loom.', 'moderate', '85000*1'),
+            M('k1d', 'Had Ms. Rao valued all four looms at the market rate, what would the total price have been?', ['₹3,40,000', '₹2,55,000', '₹1,70,000', '₹85,000'], 0,
+              f'4 looms × ₹85,000 = {R(k_total)}.', 'core', '4*85000'),
+        ]}]
+
+    return {
+        'schema': 'ca-unit/1', 'id': UID, 'level': 'foundation', 'paper': 'p2', 'chapter': 'fnd-p2-ch03', 'n': 1, 'title': 'Formation of the Contract of Sale',
+        'outcomes': ['Explain the scope of the Sale of Goods Act, 1930 and its link with the Indian Contract Act, 1872.',
+                     'Define buyer, seller, goods, delivery, document of title, mercantile agent, property, insolvent, price and quality, and classify goods as existing (specific, ascertained, unascertained), future or contingent.',
+                     'State the essentials of a contract of sale under Section 4 and distinguish a sale from an agreement to sell, hire purchase, bailment and a contract for work and labour.',
+                     'Apply Sections 5 to 10 — formation, subject matter, perishing of goods and fixing of price — to problem questions in Provision → Facts → Analysis → Conclusion form.'],
+        'meta': {'difficulty': 'core', 'minutes': {'learn': 45, 'practice': 45}, 'prereq': ['fnd-p2-ch02-u01'],
+                 'exam_tip': 'The "sale vs agreement to sell" table and problems on Sections 7, 8 and 10 are favourites. Always decide first whether property had passed — it settles risk and remedies.'},
+        'concepts': concepts, 'illustrations': illustrations, 'jobs': jobs, 'mcqs': mcqs, 'questions': questions,
+        'revision': {
+            'summary': ['The Act covers movables only; the Contract Act fills the gaps where not inconsistent.',
+                        'Goods = movable property − actionable claims − money; includes shares, growing crops, grass and things attached to land agreed to be severed.',
+                        'Existing goods: specific, ascertained, unascertained. Future and contingent goods → always an agreement to sell.',
+                        'Section 4: contract of sale = transfer or agreement to transfer property in goods for a money price; sale (property passes now) vs agreement to sell (later / on condition).',
+                        'Sale ≠ hire purchase (hirer is bailee till last instalment), ≠ bailment (only possession passes), ≠ work and labour (skill is the essence), ≠ barter (no money).',
+                        'Section 7: specific goods perished before contract → void. Section 8: perish after agreement to sell, before risk passes, no fault → avoided.',
+                        'Section 9: price fixed by contract / agreed manner / course of dealing, else reasonable price. Section 10: valuer fails → avoided; goods appropriated → reasonable price.'],
+            'remember': ['2(1) buyer · 2(2) delivery · 2(3) deliverable state · 2(4) document of title · 2(6) future goods · 2(7) goods · 2(8) insolvent · 2(9) mercantile agent · 2(10) price · 2(11) property · 2(12) quality · 2(13) seller · 2(14) specific goods.',
+                         'Delivery: actual, symbolic (keys, bill of lading), constructive (attornment).'],
+            'traps': ['A mate\'s receipt and a share certificate are not documents of title.', 'Do not confuse Section 7 (before contract → void) with Section 8 (after agreement to sell → avoided).',
+                      'Goods for goods with no money is barter, not sale.', 'A "present sale" of future goods is still only an agreement to sell.']},
+        'quickref': [{'k': 'Section 2(7)', 'v': 'Goods: movables except actionable claims and money; includes shares, crops, grass, things to be severed from land'},
+                     {'k': 'Section 4', 'v': 'Contract of sale: sale (property passes now) / agreement to sell (future or conditional)'},
+                     {'k': 'Section 5', 'v': 'Offer + acceptance; delivery/payment immediate, future or by instalments; any form'},
+                     {'k': 'Section 6', 'v': 'Existing, future, contingent goods; present sale of future goods = agreement to sell'},
+                     {'k': 'Section 7', 'v': 'Specific goods perished before contract (seller unaware) → void'},
+                     {'k': 'Section 8', 'v': 'Specific goods perish after agreement to sell, before risk passes, no fault → avoided'},
+                     {'k': 'Section 9', 'v': 'Price: by contract, agreed manner, course of dealing; else reasonable price'},
+                     {'k': 'Section 10', 'v': 'Third-party valuer fails → avoided; goods appropriated → reasonable price; party at fault → damages'}],
+        'viva': viva, 'cases': cases,
+    }

@@ -1,0 +1,1640 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch15-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch15",
+ "n": 1,
+ "title": "Probability",
+ "outcomes": [
+  "Describe random experiments, sample spaces and events — simple, compound, mutually exclusive, exhaustive, equally likely and complementary.",
+  "Compute probabilities by the classical, statistical (relative frequency) and axiomatic approaches, and convert between odds and probability.",
+  "Apply the addition theorems, conditional probability, the compound (multiplication) theorem and the test of independence.",
+  "Build the probability distribution of a discrete random variable and find its expected value and variance, using the properties of expectation."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 70
+  },
+  "prereq": [
+   "fnd-p3-ch05-u01",
+   "fnd-p3-ch07-u01"
+  ],
+  "exam_tip": "Probability carries several MCQs every attempt. The classic marks: dice (36 cases), cards (52), coins (2ⁿ), \"at least one\" = 1 − P(none), P(A or B) formula, conditional probability and E(X). Write the sample space size first — that alone removes most errors."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Random experiments, sample space and events",
+   "body": [
+    "A random experiment can be repeated under the same conditions; all its outcomes are known in advance but the actual outcome cannot be predicted (tossing a coin, drawing a card). The set of all outcomes is the sample space S; each outcome is a sample point. An event is any subset of S.",
+    "Simple (elementary) event: a single outcome. Compound (composite) event: made of two or more outcomes — \"an even number on a die\".",
+    "Mutually exclusive (incompatible) events: no two can occur together (head and tail on one toss); P(A and B) = 0. Exhaustive events: together they cover every possible outcome; P(A or B or …) = 1. Equally likely (equi-probable) events: no reason to expect one more than another.",
+    "Complementary event A′ (or Ā): \"A does not occur\". A and A′ are mutually exclusive and exhaustive, so P(A′) = 1 − P(A).",
+    "Counting reminders: n coins → 2ⁿ outcomes; two dice → 36; a pack → 52 cards (4 suits × 13; 26 red, 26 black; 12 face cards; 4 aces); selections use ⁿCᵣ."
+   ],
+   "analogy": "The sample space is the full menu; an event is your order — one dish (simple) or a combo (compound).",
+   "work": "Risk registers list possible outcomes (events) of a project; making sure the list is exhaustive and the categories mutually exclusive is the same discipline."
+  },
+  {
+   "id": "c2",
+   "title": "Definitions of probability and odds",
+   "body": [
+    "Classical (a priori) definition — Bernoulli and Laplace: if an experiment has n mutually exclusive, exhaustive and equally likely outcomes and m are favourable to A, P(A) = m/n. Limitations: needs equally likely outcomes; fails when the number of outcomes is infinite; limited to coins, dice, cards and similar cases where no prior knowledge is required.",
+    "Statistical (empirical / relative frequency) definition: if A occurs f times in n trials, P(A) = limit of f/n as n becomes very large — provided the limit exists and is finite.",
+    "Set-theoretic form: P(A) = n(A)/n(S) for equally likely sample points. Axiomatic (modern) definition: P is a function on events with (i) P(A) ≥ 0, (ii) P(S) = 1, (iii) for mutually exclusive events, P(A₁ or A₂ or …) = P(A₁) + P(A₂) + …. Consequences: 0 ≤ P(A) ≤ 1, P(∅) = 0, P(A′) = 1 − P(A).",
+    "Odds in favour of A = m : (n − m) (favourable : unfavourable). Odds against A = (n − m) : m. If odds in favour are a : b, P(A) = a/(a + b)."
+   ],
+   "analogy": "Classical probability reads the rule book of the game; statistical probability watches the game played thousands of times.",
+   "work": "Insurance premiums rest on the relative-frequency definition — claim rates from past data. Credit-rating default probabilities are also empirical."
+  },
+  {
+   "id": "c3",
+   "title": "Mutually exclusive vs independent",
+   "body": [
+    "Mutually exclusive: A and B cannot happen together — P(A and B) = 0.",
+    "Independent: the occurrence of one does not change the probability of the other — P(B|A) = P(B), equivalently P(A and B) = P(A) × P(B). This product rule is the necessary and sufficient condition. For three events, all pairwise products and the triple product must hold.",
+    "If A and B are independent, so are (A, B′), (A′, B) and (A′, B′). Two events with non-zero probabilities cannot be both mutually exclusive and independent."
+   ],
+   "analogy": "Mutually exclusive: two people who cannot sit on the same chair. Independent: two people in different cities flipping coins.",
+   "work": "Auditors relying on two controls assume they fail independently — if both depend on the same IT system, they are not independent and the combined assurance is overstated."
+  },
+  {
+   "id": "c4",
+   "title": "Addition theorems",
+   "body": [
+    "Theorem 1 (mutually exclusive): P(A or B) = P(A) + P(B). Theorem 2: for k mutually exclusive events, add all k probabilities.",
+    "Theorem 3 (any two events): P(A or B) = P(A) + P(B) − P(A and B). It is the general rule — use it unless you are sure the events are mutually exclusive.",
+    "Theorem 4 (three events): P(at least one of A, B, C) = S₁ − S₂ + S₃, where S₁ is the sum of the three single probabilities, S₂ the sum of the three pairwise joint probabilities [P(A and B) + P(B and C) + P(C and A)], and S₃ = P(all three together).",
+    "Useful forms: P(A only) = P(A) − P(A and B); P(neither) = 1 − P(A or B); expected frequency = N × probability."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Probability",
+      "Value"
+     ],
+     "rows": [
+      [
+       "P(A)",
+       "0.5"
+      ],
+      [
+       "P(B)",
+       "0.4"
+      ],
+      [
+       "P(A and B)",
+       "0.2"
+      ],
+      [
+       "P(A or B)",
+       "0.7"
+      ],
+      [
+       "P(neither)",
+       "0.3"
+      ],
+      [
+       "P(A only)",
+       "0.3"
+      ]
+     ],
+     "title": "One Venn diagram, many answers"
+    }
+   ],
+   "analogy": "Counting people who like tea or coffee: add both lists, then remove those you counted twice.",
+   "work": "If 30% of invoices lack a PO and 20% lack approval, and 8% lack both, then 42% have at least one control gap — the addition theorem in audit sampling."
+  },
+  {
+   "id": "c5",
+   "title": "Conditional probability and compound probability",
+   "body": [
+    "Conditional probability of B given A: P(B|A) = P(A and B)/P(A), P(A) > 0. It revises probability using the information that A has happened (e.g. drawing without replacement changes the composition).",
+    "Compound (multiplication) theorem: P(A and B) = P(A) × P(B|A) = P(B) × P(A|B). For three events: P(A, B, C together) = P(A) P(B|A) P(C|A and B).",
+    "For independent events: P(A and B) = P(A) P(B); P(A, B, C together) = P(A) P(B) P(C).",
+    "\"At least one\" of independent events: 1 − P(A′) P(B′) P(C′)."
+   ],
+   "analogy": "Conditional probability is weather forecasting after seeing dark clouds — the clouds (A) change the chance of rain (B).",
+   "work": "Probability that a customer pays on time given he paid late last quarter is a conditional probability that credit teams use for collection priorities."
+  },
+  {
+   "id": "c6",
+   "title": "Random variable and probability distribution",
+   "body": [
+    "A random (stochastic) variable assigns a real number to every sample point (number of heads in three tosses). Discrete: takes isolated values (heads, accidents, defects). Continuous: takes any value in an interval (height, weight).",
+    "Probability distribution of a discrete X: the list of values xᵢ with probabilities pᵢ, where every pᵢ ≥ 0 and Σpᵢ = 1 (probability mass function). For a continuous X, a density function f(x) ≥ 0 with total area 1 gives probabilities over intervals."
+   ],
+   "analogy": "A frequency distribution describes what happened; a probability distribution describes what is expected to happen.",
+   "work": "Demand forecasts for inventory are often a probability distribution of daily demand rather than one number."
+  },
+  {
+   "id": "c7",
+   "title": "Expected value and variance",
+   "body": [
+    "Expected value (mathematical expectation, mean): E(X) = μ = Σpᵢxᵢ. E(X²) = Σpᵢxᵢ²; for any function, E[g(X)] = Σpᵢ g(xᵢ).",
+    "Variance: V(X) = σ² = E(X − μ)² = E(X²) − [E(X)]²; SD = √V(X).",
+    "Properties: E(k) = k; E(X + Y) = E(X) + E(Y); E(kX) = kE(X); E(XY) = E(X)E(Y) if X and Y are independent. For y = a + bX: E(y) = a + bE(X), V(y) = b²V(X), SD(y) = |b| SD(X)."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "x (orders per hour)",
+      "P(x)",
+      "x·P(x)",
+      "x²·P(x)"
+     ],
+     "rows": [
+      [
+       "0",
+       "0.1",
+       "0",
+       "0"
+      ],
+      [
+       "1",
+       "0.2",
+       "0.2",
+       "0.2"
+      ],
+      [
+       "2",
+       "0.4",
+       "0.8",
+       "1.6"
+      ],
+      [
+       "3",
+       "0.2",
+       "0.6",
+       "1.8"
+      ],
+      [
+       "4",
+       "0.1",
+       "0.4",
+       "1.6"
+      ],
+      [
+       "Total",
+       "1",
+       "2",
+       "5.2"
+      ]
+     ],
+     "num": [
+      1,
+      2,
+      3
+     ],
+     "total": true
+    }
+   ],
+   "analogy": "Expected value is the long-run average pay-out per play if a game is repeated many times.",
+   "work": "Expected credit loss, expected warranty cost and expected value of a contingent liability are all Σ probability × amount."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Dice, cards, coins and selections",
+   "difficulty": "core",
+   "minutes": 12,
+   "q": "Find: (a) with two dice, P(sum = 8), P(sum ≥ 10) and P(doublet); (b) P(a king or a heart) from a pack of 52; (c) P(exactly two heads) in three tosses; (d) from a bag of 4 red and 6 black balls, three are drawn: P(2 red and 1 black); (e) the probability when odds in favour are 5 : 31.",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a) 36 outcomes",
+     "text": "Sum 8: first die 2, 3, 4, 5 or 6 with the second die making up 8 — five cases → 5/36. Sum ≥ 10: 3 + 2 + 1 = 6 cases → 1/6. Doublets: 6 → 1/6."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Kings 4 + hearts 13 − king of hearts 1 = 16 → 16/52 = 4/13."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "2³ = 8 outcomes; HHT, HTH, THH → 3/8."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "⁴C₂ × ⁶C₁ / ¹⁰C₃ = 6 × 6/120 = 3/10."
+    },
+    {
+     "t": "wn",
+     "title": "(e)",
+     "text": "5/(5 + 31) = 5/36."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "5/36",
+     "value": 0.14,
+     "label": "P(sum 8)"
+    },
+    {
+     "expr": "6/36",
+     "value": 0.17,
+     "label": "P(sum at least 10)"
+    },
+    {
+     "expr": "6/36",
+     "value": 0.17,
+     "label": "P(doublet)"
+    },
+    {
+     "expr": "(4+13-1)/52",
+     "value": 0.31,
+     "label": "P(king or heart)"
+    },
+    {
+     "expr": "3/8",
+     "value": 0.38,
+     "label": "P(exactly two heads in three tosses)"
+    },
+    {
+     "expr": "(6*6)/120",
+     "value": 0.3,
+     "label": "P(2 red, 1 black from 4 red 6 black, 3 drawn)"
+    },
+    {
+     "expr": "5/(5+31)",
+     "value": 0.14,
+     "label": "odds 5:31 to probability"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Addition theorem and a test of independence",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "P(A) = 0.5, P(B) = 0.4 and P(A and B) = 0.2. Find P(A or B), P(A|B), P(neither) and P(A only). Are A and B independent?",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "Working",
+     "text": "P(A or B) = 0.5 + 0.4 − 0.2 = 0.7. P(A|B) = 0.2/0.4 = 0.5. P(neither) = 1 − 0.7 = 0.3. P(A only) = 0.5 − 0.2 = 0.3."
+    },
+    {
+     "t": "p",
+     "text": "P(A) × P(B) = 0.5 × 0.4 = 0.2 = P(A and B), so A and B are independent (equivalently, P(A|B) = P(A) = 0.5). They are not mutually exclusive, since P(A and B) ≠ 0."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "0.5+0.4-0.2",
+     "value": 0.7,
+     "label": "P(A or B)"
+    },
+    {
+     "expr": "0.2/0.4",
+     "value": 0.5,
+     "label": "P(A|B)"
+    },
+    {
+     "expr": "1-0.7",
+     "value": 0.3,
+     "label": "P(neither)"
+    },
+    {
+     "expr": "0.5-0.2",
+     "value": 0.3,
+     "label": "P(A only)"
+    },
+    {
+     "expr": "0.5*0.4",
+     "value": 0.2,
+     "label": "P(A)P(B) equals P(A and B), so independent"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "\"At least one\", \"exactly one\" and drawing without replacement",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "(a) Three reviewers independently spot a particular error with probabilities 0.6, 0.5 and 0.4. Find P(at least one spots it), P(all three) and P(exactly one). (b) A box has 3 defective and 5 good parts. Two are drawn one after another. P(both defective) without and with replacement?",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "At least one = 1 − 0.4 × 0.5 × 0.6 = 0.88. All three = 0.6 × 0.5 × 0.4 = 0.12. Exactly one = 0.6 × 0.5 × 0.6 + 0.4 × 0.5 × 0.6 + 0.4 × 0.5 × 0.4 = 0.38."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Without replacement: 3/8 × 2/7 = 3/28 (conditional probability — the second draw depends on the first). With replacement: 3/8 × 3/8 = 9/64 (independent draws)."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1-(1-0.6)*(1-0.5)*(1-0.4)",
+     "value": 0.88,
+     "label": "P(at least one detects)"
+    },
+    {
+     "expr": "0.6*0.5*0.4",
+     "value": 0.12,
+     "label": "P(all three detect)"
+    },
+    {
+     "expr": "0.6*0.5*0.6+0.4*0.5*0.6+0.4*0.5*0.4",
+     "value": 0.38,
+     "label": "P(exactly one detects)"
+    },
+    {
+     "expr": "3/8*2/7",
+     "value": 0.11,
+     "label": "both red without replacement"
+    },
+    {
+     "expr": "3/8*3/8",
+     "value": 0.14,
+     "label": "both red with replacement"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Expected value and variance of a distribution",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "(a) Orders per hour X at a help desk: 0, 1, 2, 3, 4 with probabilities 0.1, 0.2, 0.4, 0.2, 0.1. Find E(X), V(X), and the mean and variance of Y = 3X − 4. (b) A player pays ₹250 to draw one ball from a bag of 1 white and 3 red balls; he gets ₹500 for white and ₹200 for red. Expected net gain?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "x (orders per hour)",
+      "P(x)",
+      "x·P(x)",
+      "x²·P(x)"
+     ],
+     "rows": [
+      [
+       "0",
+       "0.1",
+       "0",
+       "0"
+      ],
+      [
+       "1",
+       "0.2",
+       "0.2",
+       "0.2"
+      ],
+      [
+       "2",
+       "0.4",
+       "0.8",
+       "1.6"
+      ],
+      [
+       "3",
+       "0.2",
+       "0.6",
+       "1.8"
+      ],
+      [
+       "4",
+       "0.1",
+       "0.4",
+       "1.6"
+      ],
+      [
+       "Total",
+       "1",
+       "2",
+       "5.2"
+      ]
+     ],
+     "num": [
+      1,
+      2,
+      3
+     ],
+     "total": true
+    },
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "E(X) = 2; E(X²) = 5.2; V(X) = 5.2 − 4 = 1.2. E(Y) = 3 × 2 − 4 = 2; V(Y) = 9 × 1.2 = 10.8."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "E(pay-out) = 500 × 1/4 + 200 × 3/4 = ₹275; net gain = 275 − 250 = ₹25 per game."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "0*0.1+1*0.2+2*0.4+3*0.2+4*0.1",
+     "value": 2,
+     "label": "E(X)"
+    },
+    {
+     "expr": "0*0.1+1*0.2+4*0.4+9*0.2+16*0.1",
+     "value": 5.2,
+     "label": "E(X^2)"
+    },
+    {
+     "expr": "5.2-2**2",
+     "value": 1.2,
+     "label": "V(X)"
+    },
+    {
+     "expr": "3*2-4",
+     "value": 2,
+     "label": "E(3X - 4)"
+    },
+    {
+     "expr": "9*1.2",
+     "value": 10.8,
+     "label": "V(3X - 4)"
+    },
+    {
+     "expr": "500*1/4+200*3/4-250",
+     "value": 25,
+     "label": "expected gain of the game (net of fee)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "How much assurance do two controls give?",
+   "role": "IT audit associate",
+   "situation": "A payment is released only after a system check (fails to catch an error 10% of the time) and a manager review (misses 20% of errors). Management claims a 98% catch rate.",
+   "steps": [
+    "If the two controls work independently, P(both miss) = 0.1 × 0.2 = 0.02, so P(at least one catches) = 0.98.",
+    "Test independence: the manager reviews only payments the system has passed, using the same vendor master. If the vendor master is wrong, both miss together.",
+    "Where controls share a common cause, P(both miss) > 0.02 and the 98% claim is overstated.",
+    "Report the dependency and recommend an independent check of vendor-master changes."
+   ],
+   "takeaway": "Multiplying failure probabilities is valid only for independent controls.",
+   "checks": [
+    {
+     "expr": "1-0.1*0.2",
+     "value": 0.98,
+     "label": "P(at least one control catches the error)"
+    }
+   ]
+  },
+  {
+   "id": "j2",
+   "title": "Expected value for a provision decision",
+   "role": "Finance manager",
+   "situation": "A customer dispute: legal counsel estimates 50% chance of paying ₹0, 30% of paying ₹8 lakh and 20% of paying ₹20 lakh.",
+   "steps": [
+    "Expected outflow = 0.5 × 0 + 0.3 × 8 + 0.2 × 20 = ₹6.4 lakh.",
+    "Check the probabilities sum to 1 (a valid distribution).",
+    "Accounting standards may require the most likely outcome or the expected value depending on the situation — the statistics give the input, the standard decides the measure."
+   ],
+   "takeaway": "Expected value = Σ probability × amount; it is the long-run average, not the amount that will actually be paid.",
+   "checks": [
+    {
+     "expr": "0.5*0+0.3*8+0.2*20",
+     "value": 6.4,
+     "label": "expected outflow (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Two fair dice are thrown. The probability that the sum is 7 is:",
+   "options": [
+    "1/6",
+    "7/36",
+    "5/36",
+    "1/12"
+   ],
+   "answer": 0,
+   "explain": "Six of the 36 outcomes give 7 — (6,1), (5,2), (4,3), (3,4), (2,5), (1,6) — so 6/36 = 1/6.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Two dice are thrown. The probability of getting a doublet is:",
+   "options": [
+    "1/6",
+    "1/36",
+    "1/3",
+    "5/36"
+   ],
+   "answer": 0,
+   "explain": "Doublets (1,1) … (6,6) are 6 of 36 → 1/6.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Two dice are thrown. The probability that the sum is at least 10 is:",
+   "options": [
+    "1/6",
+    "1/12",
+    "5/36",
+    "1/4"
+   ],
+   "answer": 0,
+   "explain": "Sum 10: 3 cases, 11: 2, 12: 1 → 6/36 = 1/6.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m4",
+   "q": "One card is picked at random from a well-shuffled pack of 52. The probability that it is a king or a heart is:",
+   "options": [
+    "4/13",
+    "17/52",
+    "1/52",
+    "1/4"
+   ],
+   "answer": 0,
+   "explain": "P(K) + P(H) − P(K of hearts) = 4/52 + 13/52 − 1/52 = 16/52 = 4/13. 17/52 double-counts the king of hearts.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "A card is drawn from a pack of 52. The probability that it is a face card (J, Q, K) is:",
+   "options": [
+    "3/13",
+    "1/13",
+    "1/4",
+    "3/52"
+   ],
+   "answer": 0,
+   "explain": "12 face cards → 12/52 = 3/13.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Three fair coins are tossed. The probability of getting at least one head is:",
+   "options": [
+    "7/8",
+    "1/8",
+    "3/8",
+    "1/2"
+   ],
+   "answer": 0,
+   "explain": "P(no head) = 1/8, so P(at least one) = 1 − 1/8 = 7/8.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Three coins are tossed. The probability of exactly two heads is:",
+   "options": [
+    "3/8",
+    "1/4",
+    "1/2",
+    "7/8"
+   ],
+   "answer": 0,
+   "explain": "HHT, HTH, THH: 3 of 8 outcomes → 3/8.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Two cards are drawn together from a pack of 52. The probability that both are aces is:",
+   "options": [
+    "1/221",
+    "1/169",
+    "1/13",
+    "2/13"
+   ],
+   "answer": 0,
+   "explain": "⁴C₂/⁵²C₂ = 6/1,326 = 1/221. (1/169 = (1/13)² assumes replacement.)",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m9",
+   "q": "A bag has 5 white and 4 black balls. Two balls are drawn at random together. The probability that both are white is:",
+   "options": [
+    "5/18",
+    "25/81",
+    "5/9",
+    "4/9"
+   ],
+   "answer": 0,
+   "explain": "⁵C₂/⁹C₂ = 10/36 = 5/18. (25/81 would be with replacement.)",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m10",
+   "q": "The odds in favour of an event are 4 : 7. The probability of the event is:",
+   "options": [
+    "4/11",
+    "4/7",
+    "7/11",
+    "3/11"
+   ],
+   "answer": 0,
+   "explain": "P = 4/(4 + 7) = 4/11.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m11",
+   "q": "If P(A) = 0.35, the odds against A are:",
+   "options": [
+    "13 : 7",
+    "7 : 13",
+    "35 : 100",
+    "65 : 100"
+   ],
+   "answer": 0,
+   "explain": "P(A′) = 0.65. Odds against = 0.65 : 0.35 = 13 : 7.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m12",
+   "q": "If P(A) = 0.42, then P(A′) is:",
+   "options": [
+    "0.58",
+    "0.42",
+    "0.5",
+    "1.42"
+   ],
+   "answer": 0,
+   "check": "1-0.42",
+   "explain": "P(A′) = 1 − P(A) = 0.58.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m13",
+   "q": "The classical definition of probability fails when:",
+   "options": [
+    "The outcomes are not equally likely or are infinite in number",
+    "The outcomes are equally likely",
+    "A coin is tossed",
+    "The sample space is finite"
+   ],
+   "answer": 0,
+   "explain": "It needs a finite number of equally likely outcomes.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m14",
+   "q": "The statistical (relative frequency) definition of probability is based on:",
+   "options": [
+    "The limit of the relative frequency f/n as the number of trials becomes very large",
+    "Equally likely outcomes only",
+    "Personal belief",
+    "Three axioms only"
+   ],
+   "answer": 0,
+   "explain": "P(A) = lim f/n as n → ∞, provided the limit exists and is finite.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m15",
+   "q": "Under the axiomatic approach, which of the following is NOT an axiom?",
+   "options": [
+    "P(A′) = 1 − P(A)",
+    "P(A) ≥ 0",
+    "P(S) = 1",
+    "P(A₁ or A₂ or …) = ΣP(Aᵢ) for mutually exclusive events"
+   ],
+   "answer": 0,
+   "explain": "P(A′) = 1 − P(A) is a consequence (theorem) derived from the axioms, not an axiom.",
+   "concept": "c2",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m16",
+   "q": "Events A, B, C are mutually exclusive, exhaustive and equally likely. P(A) is:",
+   "options": [
+    "1/3",
+    "1",
+    "0",
+    "1/2"
+   ],
+   "answer": 0,
+   "explain": "Exhaustive: P(A) + P(B) + P(C) = 1; equally likely: each = 1/3.",
+   "concept": "c1",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m17",
+   "q": "P(A) = 0.6, P(B) = 0.5, P(A and B) = 0.3. P(A or B) is:",
+   "options": [
+    "0.8",
+    "1.1",
+    "0.3",
+    "0.9"
+   ],
+   "answer": 0,
+   "check": "0.6+0.5-0.3",
+   "explain": "0.6 + 0.5 − 0.3 = 0.8. (1.1 forgets to subtract the overlap — a probability above 1 is impossible.)",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m18",
+   "q": "P(A or B) = 0.8, P(A) = 0.5, P(B) = 0.45. P(A and B) is:",
+   "options": [
+    "0.15",
+    "0.25",
+    "0.35",
+    "0.225"
+   ],
+   "answer": 0,
+   "check": "0.5+0.45-0.8",
+   "explain": "P(A and B) = P(A) + P(B) − P(A or B) = 0.95 − 0.8 = 0.15.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m19",
+   "q": "A and B are mutually exclusive with P(A) = 0.25 and P(B) = 0.4. P(neither A nor B) is:",
+   "options": [
+    "0.35",
+    "0.45",
+    "0.65",
+    "0.1"
+   ],
+   "answer": 0,
+   "check": "1-(0.25+0.4)",
+   "explain": "P(A or B) = 0.65 (no overlap), so P(neither) = 0.35.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m20",
+   "q": "P(A) = 0.4, P(B) = 0.5 and A, B are independent. P(A or B) is:",
+   "options": [
+    "0.7",
+    "0.9",
+    "0.2",
+    "0.5"
+   ],
+   "answer": 0,
+   "check": "0.4+0.5-0.4*0.5",
+   "explain": "P(A and B) = 0.2, so P(A or B) = 0.9 − 0.2 = 0.7.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m21",
+   "q": "P(A and B) = 0.12 and P(B) = 0.3. P(A|B) is:",
+   "options": [
+    "0.4",
+    "0.036",
+    "0.12",
+    "0.25"
+   ],
+   "answer": 0,
+   "check": "0.12/0.3",
+   "explain": "P(A|B) = P(A and B)/P(B) = 0.4.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m22",
+   "q": "Two events A and B with P(A) = 0.3, P(B) = 0.4 and P(A and B) = 0.12 are:",
+   "options": [
+    "Independent",
+    "Mutually exclusive",
+    "Exhaustive",
+    "Complementary"
+   ],
+   "answer": 0,
+   "explain": "P(A)P(B) = 0.12 = P(A and B) → independent. They are not mutually exclusive (overlap ≠ 0).",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m23",
+   "q": "If A and B are independent, which pair is NOT necessarily independent?",
+   "options": [
+    "A and the event (A or B)",
+    "A and B′",
+    "A′ and B",
+    "A′ and B′"
+   ],
+   "answer": 0,
+   "explain": "Independence carries over to complements; A and (A or B) are generally dependent.",
+   "concept": "c3",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m24",
+   "q": "Three students solve a problem independently with probabilities 1/2, 1/3 and 1/4. The probability that the problem is solved is:",
+   "options": [
+    "0.75",
+    "0.25",
+    "1.0833",
+    "0.0417"
+   ],
+   "answer": 0,
+   "check": "1-(1/2)*(2/3)*(3/4)",
+   "explain": "P(none solves) = 1/2 × 2/3 × 3/4 = 1/4; P(solved) = 1 − 1/4 = 0.75. (1.0833 adds the probabilities; 0.0417 is all three solving it.)",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m25",
+   "q": "A box has 4 defective and 6 good items. Two are drawn one by one without replacement. The probability that both are defective is:",
+   "options": [
+    "2/15",
+    "4/25",
+    "1/5",
+    "6/25"
+   ],
+   "answer": 0,
+   "explain": "4/10 × 3/9 = 2/15. (4/25 = (4/10)² assumes replacement.)",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m26",
+   "q": "Which of these can be a probability distribution of X taking values 1, 2, 3?",
+   "options": [
+    "0.2, 0.5, 0.3",
+    "0.4, 0.4, 0.4",
+    "0.5, −0.1, 0.6",
+    "0.3, 0.3, 0.3"
+   ],
+   "answer": 0,
+   "explain": "Probabilities must be non-negative and add to 1. Only 0.2 + 0.5 + 0.3 = 1 qualifies.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m27",
+   "q": "X takes values 1, 2, 3 with probabilities 0.3, 0.5, 0.2. E(X) is:",
+   "options": [
+    "1.9",
+    "2",
+    "2.1",
+    "1.5"
+   ],
+   "answer": 0,
+   "check": "1*0.3+2*0.5+3*0.2",
+   "explain": "E(X) = 0.3 + 1.0 + 0.6 = 1.9.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m28",
+   "q": "For the distribution in the previous question (values 1, 2, 3 with probabilities 0.3, 0.5, 0.2), V(X) is:",
+   "options": [
+    "0.49",
+    "4.1",
+    "3.61",
+    "0.7"
+   ],
+   "answer": 0,
+   "check": "(1*0.3+4*0.5+9*0.2)-(1.9)**2",
+   "explain": "E(X²) = 0.3 + 2 + 1.8 = 4.1; V(X) = 4.1 − 1.9² = 0.49.",
+   "concept": "c7",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m29",
+   "q": "E(X) = 5 and V(X) = 4. For Y = 2X − 3, the variance of Y is:",
+   "options": [
+    "16",
+    "5",
+    "13",
+    "8"
+   ],
+   "answer": 0,
+   "check": "2**2*4",
+   "explain": "V(a + bX) = b²V(X) = 4 × 4 = 16. The constant −3 does not affect variance.",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m30",
+   "q": "An unbiased coin is tossed three times. The expected number of heads is:",
+   "options": [
+    "1.5",
+    "3",
+    "1",
+    "0.5"
+   ],
+   "answer": 0,
+   "check": "3*0.5",
+   "explain": "Values 0, 1, 2, 3 with probabilities 1/8, 3/8, 3/8, 1/8 → E = 12/8 = 1.5.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m31",
+   "q": "A trader expects a profit of ₹40,000 with probability 0.6 and a loss of ₹15,000 with probability 0.4. His expected profit is:",
+   "options": [
+    "18,000 rupees",
+    "30,000 rupees",
+    "25,000 rupees",
+    "24,000 rupees"
+   ],
+   "answer": 0,
+   "check": "40000*0.6-15000*0.4",
+   "explain": "0.6 × 40,000 − 0.4 × 15,000 = 18,000 rupees.",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m32",
+   "q": "One number is chosen at random from 1 to 30. The probability that it is a multiple of 3 or 5 is:",
+   "options": [
+    "7/15",
+    "8/15",
+    "1/3",
+    "1/2"
+   ],
+   "answer": 0,
+   "explain": "Multiples of 3: 10; of 5: 6; of 15: 2. 10 + 6 − 2 = 14 → 14/30 = 7/15.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "text",
+   "q": "Two fair dice are thrown. Find the probability that (a) the sum is 5 or 9, (b) the product of the numbers is 12, (c) the two faces are different. (d) Two cards are drawn together from a pack of 52; find the probability that both are aces.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "Sum 5: 4 cases; sum 9: 4 cases; mutually exclusive → 8/36 = 2/9."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Product 12: (2,6), (3,4), (4,3), (6,2) → 4/36 = 1/9."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "Doublets 6, so different faces = 30/36 = 5/6."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "⁴C₂/⁵²C₂ = 6/1,326 = 1/221."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Sample space of 36 stated",
+     "m": 0.5,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "(a) 2/9 by addition of mutually exclusive events",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "(b) 1/9",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "(c) 5/6 via complement",
+     "m": 1,
+     "skill": "application"
+    },
+    {
+     "id": "s5",
+     "pt": "(d) 1/221 using combinations",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "List favourable pairs explicitly — it prevents missing (4,3) after (3,4)."
+   ],
+   "mistakes": [
+    "Counting (3,4) and (4,3) as one outcome.",
+    "Using (4/52)² for drawing together."
+   ],
+   "tips": [
+    "Ordered pairs for dice; combinations for cards drawn together."
+   ],
+   "checks": [
+    {
+     "expr": "(4+4)/36",
+     "value": 0.22,
+     "label": "P(sum 5 or 9)"
+    },
+    {
+     "expr": "4/36",
+     "value": 0.11,
+     "label": "P(product 12)"
+    },
+    {
+     "expr": "30/36",
+     "value": 0.83,
+     "label": "P(different faces)"
+    },
+    {
+     "expr": "6/1326",
+     "value": 0,
+     "label": "P(two aces)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "In a firm, 45% of employees use the metro (A), 35% use the firm's bus (B) and 15% use both on different days. For an employee chosen at random find (a) P(A or B), (b) P(A|B), (c) P(B|A), (d) P(neither). (e) Are A and B independent?",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "0.45 + 0.35 − 0.15 = 0.65."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "0.15/0.35 = 0.4286."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "0.15/0.45 = 0.3333."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "1 − 0.65 = 0.35."
+    },
+    {
+     "t": "wn",
+     "title": "(e)",
+     "text": "P(A) × P(B) = 0.1575 ≠ 0.15 = P(A and B), so A and B are not independent (they are slightly negatively associated)."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Addition theorem: 0.65",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Conditional probabilities 0.4286 and 0.3333",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "P(neither) 0.35",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Independence tested with P(A)P(B)",
+     "m": 1,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "Some candidates confuse P(A|B) with P(B|A); write which event is known."
+   ],
+   "mistakes": [
+    "Dividing by P(A) for P(A|B).",
+    "Calling the events mutually exclusive because they are not independent."
+   ],
+   "tips": [
+    "Draw a quick Venn diagram: A only 0.30, both 0.15, B only 0.20, neither 0.35."
+   ],
+   "checks": [
+    {
+     "expr": "0.45+0.35-0.15",
+     "value": 0.65,
+     "label": "P(A or B)"
+    },
+    {
+     "expr": "round(0.15/0.35,4)",
+     "value": 0.43,
+     "label": "P(A|B)"
+    },
+    {
+     "expr": "round(0.15/0.45,4)",
+     "value": 0.33,
+     "label": "P(B|A)"
+    },
+    {
+     "expr": "round(0.45*0.35,4)",
+     "value": 0.16,
+     "label": "P(A)P(B)"
+    },
+    {
+     "expr": "1-0.65",
+     "value": 0.35,
+     "label": "P(neither)"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "A random variable X takes values 1, 2, 3, 4 with probabilities k, 2k, 3k, 4k. Find k, E(X), V(X), and the mean and variance of 2X + 5.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "k",
+     "text": "k + 2k + 3k + 4k = 1 ⇒ k = 0.1."
+    },
+    {
+     "t": "table",
+     "head": [
+      "x",
+      "P(x)",
+      "xP",
+      "x²P"
+     ],
+     "rows": [
+      [
+       "1",
+       "0.1",
+       "0.1",
+       "0.1"
+      ],
+      [
+       "2",
+       "0.2",
+       "0.4",
+       "0.8"
+      ],
+      [
+       "3",
+       "0.3",
+       "0.9",
+       "2.7"
+      ],
+      [
+       "4",
+       "0.4",
+       "1.6",
+       "6.4"
+      ],
+      [
+       "Total",
+       "1",
+       "3",
+       "10"
+      ]
+     ],
+     "num": [
+      1,
+      2,
+      3
+     ],
+     "total": true
+    },
+    {
+     "t": "wn",
+     "title": "Moments",
+     "text": "E(X) = 3; E(X²) = 10; V(X) = 10 − 9 = 1."
+    },
+    {
+     "t": "wn",
+     "title": "2X + 5",
+     "text": "E = 2 × 3 + 5 = 11; V = 2² × 1 = 4."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "k = 0.1 from Σp = 1",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "E(X) = 3",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "E(X²) = 10 and V(X) = 1",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "E(2X + 5) = 11, V(2X + 5) = 4",
+     "m": 2,
+     "skill": "application"
+    }
+   ],
+   "remarks": [
+    "Adding 5 to the variance is the most common error."
+   ],
+   "mistakes": [
+    "V(2X + 5) = 2 × 1 + 5.",
+    "Forgetting to square E(X)."
+   ],
+   "tips": [
+    "A four-column table (x, P, xP, x²P) answers everything at once."
+   ],
+   "checks": [
+    {
+     "expr": "1/(1+2+3+4)",
+     "value": 0.1,
+     "label": "k"
+    },
+    {
+     "expr": "1*0.1+2*0.2+3*0.3+4*0.4",
+     "value": 3,
+     "label": "E(X)"
+    },
+    {
+     "expr": "1*0.1+4*0.2+9*0.3+16*0.4",
+     "value": 10,
+     "label": "E(X^2)"
+    },
+    {
+     "expr": "10-3**2",
+     "value": 1,
+     "label": "V(X)"
+    },
+    {
+     "expr": "2*3+5",
+     "value": 11,
+     "label": "E(2X+5)"
+    },
+    {
+     "expr": "4*1",
+     "value": 4,
+     "label": "V(2X+5)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Events: simple/compound; mutually exclusive (P(AandB) = 0); exhaustive (union = S); equally likely; complementary.",
+   "Classical P = m/n (needs equally likely, finite outcomes); statistical = limit of f/n; axiomatic: P ≥ 0, P(S) = 1, additivity.",
+   "Odds in favour m : (n − m); P = a/(a + b).",
+   "P(A or B) = P(A) + P(B) − P(A and B); three-event version adds back P(AandBandC).",
+   "P(B|A) = P(A and B)/P(A); P(A and B) = P(A)P(B|A); independent ⇔ P(A and B) = P(A)P(B).",
+   "E(X) = Σpx; V(X) = E(X²) − [E(X)]²; E(a + bX) = a + bE(X); V(a + bX) = b²V(X)."
+  ],
+  "remember": [
+   "Two dice → 36; n coins → 2ⁿ; pack → 52.",
+   "At least one = 1 − P(none).",
+   "Drawing together = without replacement → combinations.",
+   "Mutually exclusive ≠ independent."
+  ],
+  "traps": [
+   "A probability can never exceed 1 — check your addition.",
+   "P(A′) = 1 − P(A) is a theorem, not an axiom.",
+   "Constants do not change variance.",
+   "King of hearts is both a king and a heart — subtract it once."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Classical",
+   "v": "P(A) = favourable/total = n(A)/n(S)"
+  },
+  {
+   "k": "Odds",
+   "v": "In favour m : (n − m); against (n − m) : m; P = a/(a + b) for odds a : b"
+  },
+  {
+   "k": "Addition (2 events)",
+   "v": "P(A or B) = P(A) + P(B) − P(A and B)"
+  },
+  {
+   "k": "Addition (3 events)",
+   "v": "ΣP(A) − ΣP(A and B) + P(A, B, C together)"
+  },
+  {
+   "k": "Conditional",
+   "v": "P(B|A) = P(A and B)/P(A)"
+  },
+  {
+   "k": "Compound",
+   "v": "P(A and B) = P(A) P(B|A); independent: P(A)P(B)"
+  },
+  {
+   "k": "At least one (independent)",
+   "v": "1 − P(A′)P(B′)P(C′)"
+  },
+  {
+   "k": "Expectation",
+   "v": "E(X) = Σpx; V(X) = Σpx² − (Σpx)²"
+  },
+  {
+   "k": "Linear change",
+   "v": "E(a + bX) = a + bE(X); V(a + bX) = b²V(X)"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "State the classical definition of probability and its limitations.",
+   "model": "When an experiment can end in n equally likely, mutually exclusive and exhaustive ways, and m of those ways favour the event A, the probability of A is m divided by n. Its limitations are that it needs equally likely outcomes, it cannot be used when the total number of outcomes is infinite, and it applies only to simple situations like coins, dice and cards where no prior knowledge is needed.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "P(A) = favourable outcomes ÷ total outcomes",
+     "w": 4,
+     "kw": [
+      "favourable|favorable",
+      "total|exhaustive|all possible|number of outcome"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Outcomes must be mutually exclusive, exhaustive and equally likely",
+     "w": 2,
+     "kw": [
+      "equally likely|equiprobable|equi probable|equally probable"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Limitations: needs equally likely outcomes; fails for infinite outcomes; limited field",
+     "w": 4,
+     "kw": [
+      "infinite|countless|unlimited|cannot count|cannot handle infinite|cannot deal with infinite|cannot be used infinite|cannot apply infinite|not for infinite|not when infinite|not work infinite|not applicable infinite|not valid infinite|not equally likely or infinite|not equally likely infinite",
+      "limited|coin|dice|card|equally likely|not equally likely|only|simple"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "What is the difference between mutually exclusive events and independent events?",
+   "model": "Mutually exclusive events cannot occur together; the occurrence of one rules out the other, so the probability of A and B together is zero. Independent events can occur together, and the occurrence of one does not change the probability of the other, so the probability of A and B is P of A times P of B. Two events with non-zero probabilities cannot be both mutually exclusive and independent.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Mutually exclusive: cannot occur together; P(AandB) = 0",
+     "w": 4,
+     "kw": [
+      "mutually exclusive cannot occur together|mutually exclusive cannot happen together|mutually exclusive not occur together|mutually exclusive not happen together|mutually exclusive cannot occur simultaneously|mutually exclusive not occur simultaneously|mutually exclusive cannot both|mutually exclusive no common|mutually exclusive zero|mutually exclusive rules out|mutually exclusive prevents|mutually exclusive excludes|mutually exclusive never occur together|mutually exclusive never happen together|mutually exclusive cannot happen at the same time|mutually exclusive cannot occur at the same time"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Independent: one does not affect the probability of the other; P(AandB) = P(A)P(B)",
+     "w": 4,
+     "kw": [
+      "independent does not affect|independent not affect|independent no effect|independent does not change|independent not change|independent not influence|independent does not influence|independent unaffected|independent product|independent multiply|independent times|independent not depend|independent does not depend|independent can occur together|independent can happen together"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "They are different ideas (cannot be both, if probabilities are non-zero)",
+     "w": 2,
+     "kw": [
+      "cannot be both|not both|different|not the same|not same|distinct|differ"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "State the addition theorem of probability.",
+   "model": "For any two events A and B, the probability of A or B equals P of A plus P of B minus P of A and B. If A and B are mutually exclusive, the last term is zero, so the probability of A or B is simply P of A plus P of B.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "P(A or B) = P(A) + P(B) − P(A and B)",
+     "w": 6,
+     "kw": [
+      "p a plus p b minus p a and b|p a plus p b minus p a intersection b|p a plus p b minus p a intersect b|p a plus p b minus p a both b|p a plus p b minus p a n b|p a plus p b minus p a  b|p a p b minus p a and b|p a p b minus p a intersection b|p a p b minus p a intersect b|p a p b minus p a both b|p a p b minus p a n b|p a p b minus p a  b|a plus b minus a and b|a plus b minus a intersection b|a plus b minus a intersect b|a plus b minus a both b|a plus b minus a n b|a plus b minus a  b|p a plus p b minus p a b"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "For mutually exclusive events: P(A or B) = P(A) + P(B)",
+     "w": 4,
+     "kw": [
+      "mutually exclusive|cannot occur together|disjoint"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "Define conditional probability and state the multiplication (compound) theorem.",
+   "model": "The conditional probability of B given A is the probability that B occurs when we know A has occurred; it equals P of A and B divided by P of A, provided P of A is not zero. The compound theorem says P of A and B equals P of A times P of B given A. If A and B are independent, P of B given A equals P of B, so P of A and B equals P of A times P of B.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "P(B|A) = P(A and B)/P(A), given A has occurred",
+     "w": 4,
+     "kw": [
+      "p a and b divided by p a|p a and b by p a|p a and b over p a|p a and b upon p a|p a intersection b divided by p a|p a intersection b by p a|p a intersection b over p a|p a intersection b upon p a|p a both b divided by p a|p a both b by p a|p a both b over p a|p a both b upon p a|p a intersect b divided by p a|p a intersect b by p a|p a intersect b over p a|p a intersect b upon p a|p a n b divided by p a|p a n b by p a|p a n b over p a|p a n b upon p a|p of a and b over p of a|p a b divided by p a|p a b by p a|p a b over p a|p a b upon p a|p b given a equals p a and b|p b given a equals p a intersection b|p b given a equals p a both b|p b given a equals p a intersect b|p b given a equals p a n b|p b given a is p a and b|p b given a is p a intersection b|p b given a is p a both b|p b given a is p a intersect b|p b given a is p a n b|p b given a equal to p a and b|p b given a equal to p a intersection b|p b given a equal to p a both b|p b given a equal to p a intersect b|p b given a equal to p a n b|p b given a  p a and b|p b given a  p a intersection b|p b given a  p a both b|p b given a  p a intersect b|p b given a  p a n b",
+      "given|already occurred|has occurred|happened"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "P(A and B) = P(A) × P(B|A)",
+     "w": 4,
+     "kw": [
+      "p a times p b given a|p a multiplied by p b given a|p a into p b given a|p a x p b given a|p a times p of b given a|p a multiplied by p of b given a|p a into p of b given a|p a x p of b given a|p a p b given a"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Independent events: P(A and B) = P(A) P(B)",
+     "w": 2,
+     "kw": [
+      "independent"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v5",
+   "q": "What is the expected value of a random variable, and what are its main properties?",
+   "model": "The expected value, or mathematical expectation, is the sum of each value of the random variable multiplied by its probability: E of X equals sigma p x. Properties: the expectation of a constant is the constant; the expectation of a sum is the sum of the expectations; E of a plus b X equals a plus b times E of X; and for independent variables the expectation of the product is the product of the expectations. The variance is E of X squared minus the square of E of X.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "E(X) = Σ p·x (sum of values × probabilities)",
+     "w": 4,
+     "kw": [
+      "sum|sigma|total|add",
+      "probabilit",
+      "value|x"
+     ],
+     "min": 3
+    },
+    {
+     "id": "p2",
+     "pt": "E(constant) = constant; E(X + Y) = E(X) + E(Y); E(a + bX) = a + bE(X)",
+     "w": 3,
+     "kw": [
+      "constant|sum of the expectation|sum of expectation|e x plus e y|a plus b"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "E(XY) = E(X)E(Y) for independent variables",
+     "w": 1,
+     "kw": [
+      "independent|product"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "V(X) = E(X²) − [E(X)]²",
+     "w": 2,
+     "kw": [
+      "variance|e x square minus|square minus|minus square|e x2"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v6",
+   "q": "What do odds in favour and odds against an event mean? If the odds in favour are 3 to 5, what is the probability?",
+   "model": "Odds in favour of an event are the ratio of favourable cases to unfavourable cases, and odds against are the ratio of unfavourable cases to favourable cases. If the odds in favour are 3 to 5, there are 3 favourable out of 8 cases, so the probability is 3 by 8, or 0.375.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Odds in favour = favourable : unfavourable",
+     "w": 4,
+     "kw": [
+      "in favour favourable to unfavourable|in favour favourable to unfavorable|in favour favourable to not favourable|in favour favourable to failure|in favour favourable to not happening|in favour favourable to non favourable|in favour favourable is to unfavourable|in favour favourable is to unfavorable|in favour favourable is to not favourable|in favour favourable is to failure|in favour favourable is to not happening|in favour favourable is to non favourable|in favour favourable ratio to unfavourable|in favour favourable ratio to unfavorable|in favour favourable ratio to not favourable|in favour favourable ratio to failure|in favour favourable ratio to not happening|in favour favourable ratio to non favourable|in favour favourable against unfavourable|in favour favourable against unfavorable|in favour favourable against not favourable|in favour favourable against failure|in favour favourable against not happening|in favour favourable against non favourable|in favour favourable versus unfavourable|in favour favourable versus unfavorable|in favour favourable versus not favourable|in favour favourable versus failure|in favour favourable versus not happening|in favour favourable versus non favourable|in favour favourable by unfavourable|in favour favourable by unfavorable|in favour favourable by not favourable|in favour favourable by failure|in favour favourable by not happening|in favour favourable by non favourable|in favour favourable : unfavourable|in favour favourable : unfavorable|in favour favourable : not favourable|in favour favourable : failure|in favour favourable : not happening|in favour favourable : non favourable|in favour favourable  unfavourable|in favour favourable  unfavorable|in favour favourable  not favourable|in favour favourable  failure|in favour favourable  not happening|in favour favourable  non favourable|in favour favorable to unfavourable|in favour favorable to unfavorable|in favour favorable to not favourable|in favour favorable to failure|in favour favorable to not happening|in favour favorable to non favourable|in favour favorable is to unfavourable|in favour favorable is to unfavorable|in favour favorable is to not favourable|in favour favorable is to failure|in favour favorable is to not happening|in favour favorable is to non favourable|in favour favorable ratio to unfavourable|in favour favorable ratio to unfavorable|in favour favorable ratio to not favourable|in favour favorable ratio to failure|in favour favorable ratio to not happening|in favour favorable ratio to non favourable|in favour favorable against unfavourable|in favour favorable against unfavorable|in favour favorable against not favourable|in favour favorable against failure|in favour favorable against not happening|in favour favorable against non favourable|in favour favorable versus unfavourable|in favour favorable versus unfavorable|in favour favorable versus not favourable|in favour favorable versus failure|in favour favorable versus not happening|in favour favorable versus non favourable|in favour favorable by unfavourable|in favour favorable by unfavorable|in favour favorable by not favourable|in favour favorable by failure|in favour favorable by not happening|in favour favorable by non favourable|in favour favorable : unfavourable|in favour favorable : unfavorable|in favour favorable : not favourable|in favour favorable : failure|in favour favorable : not happening|in favour favorable : non favourable|in favour favorable  unfavourable|in favour favorable  unfavorable|in favour favorable  not favourable|in favour favorable  failure|in favour favorable  not happening|in favour favorable  non favourable|in favour success to unfavourable|in favour success to unfavorable|in favour success to not favourable|in favour success to failure|in favour success to not happening|in favour success to non favourable|in favour success is to unfavourable|in favour success is to unfavorable|in favour success is to not favourable|in favour success is to failure|in favour success is to not happening|in favour success is to non favourable|in favour success ratio to unfavourable|in favour success ratio to unfavorable|in favour success ratio to not favourable|in favour success ratio to failure|in favour success ratio to not happening|in favour success ratio to non favourable|in favour success against unfavourable|in favour success against unfavorable|in favour success against not favourable|in favour success against failure|in favour success against not happening|in favour success against non favourable|in favour success versus unfavourable|in favour success versus unfavorable|in favour success versus not favourable|in favour success versus failure|in favour success versus not happening|in favour success versus non favourable|in favour success by unfavourable|in favour success by unfavorable|in favour success by not favourable|in favour success by failure|in favour success by not happening|in favour success by non favourable|in favour success : unfavourable|in favour success : unfavorable|in favour success : not favourable|in favour success : failure|in favour success : not happening|in favour success : non favourable|in favour success  unfavourable|in favour success  unfavorable|in favour success  not favourable|in favour success  failure|in favour success  not happening|in favour success  non favourable|in favour happening to unfavourable|in favour happening to unfavorable|in favour happening to not favourable|in favour happening to failure|in favour happening to not happening|in favour happening to non favourable|in favour happening is to unfavourable|in favour happening is to unfavorable|in favour happening is to not favourable|in favour happening is to failure|in favour happening is to not happening|in favour happening is to non favourable|in favour happening ratio to unfavourable|in favour happening ratio to unfavorable|in favour happening ratio to not favourable|in favour happening ratio to failure|in favour happening ratio to not happening|in favour happening ratio to non favourable|in favour happening against unfavourable|in favour happening against unfavorable|in favour happening against not favourable|in favour happening against failure|in favour happening against not happening|in favour happening against non favourable|in favour happening versus unfavourable|in favour happening versus unfavorable|in favour happening versus not favourable|in favour happening versus failure|in favour happening versus not happening|in favour happening versus non favourable|in favour happening by unfavourable|in favour happening by unfavorable|in favour happening by not favourable|in favour happening by failure|in favour happening by not happening|in favour happening by non favourable|in favour happening : unfavourable|in favour happening : unfavorable|in favour happening : not favourable|in favour happening : failure|in favour happening : not happening|in favour happening : non favourable|in favour happening  unfavourable|in favour happening  unfavorable|in favour happening  not favourable|in favour happening  failure|in favour happening  not happening|in favour happening  non favourable|in favor favourable to unfavourable|in favor favourable to unfavorable|in favor favourable to not favourable|in favor favourable to failure|in favor favourable to not happening|in favor favourable to non favourable|in favor favourable is to unfavourable|in favor favourable is to unfavorable|in favor favourable is to not favourable|in favor favourable is to failure|in favor favourable is to not happening|in favor favourable is to non favourable|in favor favourable ratio to unfavourable|in favor favourable ratio to unfavorable|in favor favourable ratio to not favourable|in favor favourable ratio to failure|in favor favourable ratio to not happening|in favor favourable ratio to non favourable|in favor favourable against unfavourable|in favor favourable against unfavorable|in favor favourable against not favourable|in favor favourable against failure|in favor favourable against not happening|in favor favourable against non favourable|in favor favourable versus unfavourable|in favor favourable versus unfavorable|in favor favourable versus not favourable|in favor favourable versus failure|in favor favourable versus not happening|in favor favourable versus non favourable|in favor favourable by unfavourable|in favor favourable by unfavorable|in favor favourable by not favourable|in favor favourable by failure|in favor favourable by not happening|in favor favourable by non favourable|in favor favourable : unfavourable|in favor favourable : unfavorable|in favor favourable : not favourable|in favor favourable : failure|in favor favourable : not happening|in favor favourable : non favourable|in favor favourable  unfavourable|in favor favourable  unfavorable|in favor favourable  not favourable|in favor favourable  failure|in favor favourable  not happening|in favor favourable  non favourable|in favor favorable to unfavourable|in favor favorable to unfavorable|in favor favorable to not favourable|in favor favorable to failure|in favor favorable to not happening|in favor favorable to non favourable|in favor favorable is to unfavourable|in favor favorable is to unfavorable|in favor favorable is to not favourable|in favor favorable is to failure|in favor favorable is to not happening|in favor favorable is to non favourable|in favor favorable ratio to unfavourable|in favor favorable ratio to unfavorable|in favor favorable ratio to not favourable|in favor favorable ratio to failure|in favor favorable ratio to not happening|in favor favorable ratio to non favourable|in favor favorable against unfavourable|in favor favorable against unfavorable|in favor favorable against not favourable|in favor favorable against failure|in favor favorable against not happening|in favor favorable against non favourable|in favor favorable versus unfavourable|in favor favorable versus unfavorable|in favor favorable versus not favourable|in favor favorable versus failure|in favor favorable versus not happening|in favor favorable versus non favourable|in favor favorable by unfavourable|in favor favorable by unfavorable|in favor favorable by not favourable|in favor favorable by failure|in favor favorable by not happening|in favor favorable by non favourable|in favor favorable : unfavourable|in favor favorable : unfavorable|in favor favorable : not favourable|in favor favorable : failure|in favor favorable : not happening|in favor favorable : non favourable|in favor favorable  unfavourable|in favor favorable  unfavorable|in favor favorable  not favourable|in favor favorable  failure|in favor favorable  not happening|in favor favorable  non favourable|in favor success to unfavourable|in favor success to unfavorable|in favor success to not favourable|in favor success to failure|in favor success to not happening|in favor success to non favourable|in favor success is to unfavourable|in favor success is to unfavorable|in favor success is to not favourable|in favor success is to failure|in favor success is to not happening|in favor success is to non favourable|in favor success ratio to unfavourable|in favor success ratio to unfavorable|in favor success ratio to not favourable|in favor success ratio to failure|in favor success ratio to not happening|in favor success ratio to non favourable|in favor success against unfavourable|in favor success against unfavorable|in favor success against not favourable|in favor success against failure|in favor success against not happening|in favor success against non favourable|in favor success versus unfavourable|in favor success versus unfavorable|in favor success versus not favourable|in favor success versus failure|in favor success versus not happening|in favor success versus non favourable|in favor success by unfavourable|in favor success by unfavorable|in favor success by not favourable|in favor success by failure|in favor success by not happening|in favor success by non favourable|in favor success : unfavourable|in favor success : unfavorable|in favor success : not favourable|in favor success : failure|in favor success : not happening|in favor success : non favourable|in favor success  unfavourable|in favor success  unfavorable|in favor success  not favourable|in favor success  failure|in favor success  not happening|in favor success  non favourable|in favor happening to unfavourable|in favor happening to unfavorable|in favor happening to not favourable|in favor happening to failure|in favor happening to not happening|in favor happening to non favourable|in favor happening is to unfavourable|in favor happening is to unfavorable|in favor happening is to not favourable|in favor happening is to failure|in favor happening is to not happening|in favor happening is to non favourable|in favor happening ratio to unfavourable|in favor happening ratio to unfavorable|in favor happening ratio to not favourable|in favor happening ratio to failure|in favor happening ratio to not happening|in favor happening ratio to non favourable|in favor happening against unfavourable|in favor happening against unfavorable|in favor happening against not favourable|in favor happening against failure|in favor happening against not happening|in favor happening against non favourable|in favor happening versus unfavourable|in favor happening versus unfavorable|in favor happening versus not favourable|in favor happening versus failure|in favor happening versus not happening|in favor happening versus non favourable|in favor happening by unfavourable|in favor happening by unfavorable|in favor happening by not favourable|in favor happening by failure|in favor happening by not happening|in favor happening by non favourable|in favor happening : unfavourable|in favor happening : unfavorable|in favor happening : not favourable|in favor happening : failure|in favor happening : not happening|in favor happening : non favourable|in favor happening  unfavourable|in favor happening  unfavorable|in favor happening  not favourable|in favor happening  failure|in favor happening  not happening|in favor happening  non favourable|favour favourable to unfavourable|favour favourable to unfavorable|favour favourable to not favourable|favour favourable to failure|favour favourable to not happening|favour favourable to non favourable|favour favourable is to unfavourable|favour favourable is to unfavorable|favour favourable is to not favourable|favour favourable is to failure|favour favourable is to not happening|favour favourable is to non favourable|favour favourable ratio to unfavourable|favour favourable ratio to unfavorable|favour favourable ratio to not favourable|favour favourable ratio to failure|favour favourable ratio to not happening|favour favourable ratio to non favourable|favour favourable against unfavourable|favour favourable against unfavorable|favour favourable against not favourable|favour favourable against failure|favour favourable against not happening|favour favourable against non favourable|favour favourable versus unfavourable|favour favourable versus unfavorable|favour favourable versus not favourable|favour favourable versus failure|favour favourable versus not happening|favour favourable versus non favourable|favour favourable by unfavourable|favour favourable by unfavorable|favour favourable by not favourable|favour favourable by failure|favour favourable by not happening|favour favourable by non favourable|favour favourable : unfavourable|favour favourable : unfavorable|favour favourable : not favourable|favour favourable : failure|favour favourable : not happening|favour favourable : non favourable|favour favourable  unfavourable|favour favourable  unfavorable|favour favourable  not favourable|favour favourable  failure|favour favourable  not happening|favour favourable  non favourable|favour favorable to unfavourable|favour favorable to unfavorable|favour favorable to not favourable|favour favorable to failure|favour favorable to not happening|favour favorable to non favourable|favour favorable is to unfavourable|favour favorable is to unfavorable|favour favorable is to not favourable|favour favorable is to failure|favour favorable is to not happening|favour favorable is to non favourable|favour favorable ratio to unfavourable|favour favorable ratio to unfavorable|favour favorable ratio to not favourable|favour favorable ratio to failure|favour favorable ratio to not happening|favour favorable ratio to non favourable|favour favorable against unfavourable|favour favorable against unfavorable|favour favorable against not favourable|favour favorable against failure|favour favorable against not happening|favour favorable against non favourable|favour favorable versus unfavourable|favour favorable versus unfavorable|favour favorable versus not favourable|favour favorable versus failure|favour favorable versus not happening|favour favorable versus non favourable|favour favorable by unfavourable|favour favorable by unfavorable|favour favorable by not favourable|favour favorable by failure|favour favorable by not happening|favour favorable by non favourable|favour favorable : unfavourable|favour favorable : unfavorable|favour favorable : not favourable|favour favorable : failure|favour favorable : not happening|favour favorable : non favourable|favour favorable  unfavourable|favour favorable  unfavorable|favour favorable  not favourable|favour favorable  failure|favour favorable  not happening|favour favorable  non favourable|favour success to unfavourable|favour success to unfavorable|favour success to not favourable|favour success to failure|favour success to not happening|favour success to non favourable|favour success is to unfavourable|favour success is to unfavorable|favour success is to not favourable|favour success is to failure|favour success is to not happening|favour success is to non favourable|favour success ratio to unfavourable|favour success ratio to unfavorable|favour success ratio to not favourable|favour success ratio to failure|favour success ratio to not happening|favour success ratio to non favourable|favour success against unfavourable|favour success against unfavorable|favour success against not favourable|favour success against failure|favour success against not happening|favour success against non favourable|favour success versus unfavourable|favour success versus unfavorable|favour success versus not favourable|favour success versus failure|favour success versus not happening|favour success versus non favourable|favour success by unfavourable|favour success by unfavorable|favour success by not favourable|favour success by failure|favour success by not happening|favour success by non favourable|favour success : unfavourable|favour success : unfavorable|favour success : not favourable|favour success : failure|favour success : not happening|favour success : non favourable|favour success  unfavourable|favour success  unfavorable|favour success  not favourable|favour success  failure|favour success  not happening|favour success  non favourable|favour happening to unfavourable|favour happening to unfavorable|favour happening to not favourable|favour happening to failure|favour happening to not happening|favour happening to non favourable|favour happening is to unfavourable|favour happening is to unfavorable|favour happening is to not favourable|favour happening is to failure|favour happening is to not happening|favour happening is to non favourable|favour happening ratio to unfavourable|favour happening ratio to unfavorable|favour happening ratio to not favourable|favour happening ratio to failure|favour happening ratio to not happening|favour happening ratio to non favourable|favour happening against unfavourable|favour happening against unfavorable|favour happening against not favourable|favour happening against failure|favour happening against not happening|favour happening against non favourable|favour happening versus unfavourable|favour happening versus unfavorable|favour happening versus not favourable|favour happening versus failure|favour happening versus not happening|favour happening versus non favourable|favour happening by unfavourable|favour happening by unfavorable|favour happening by not favourable|favour happening by failure|favour happening by not happening|favour happening by non favourable|favour happening : unfavourable|favour happening : unfavorable|favour happening : not favourable|favour happening : failure|favour happening : not happening|favour happening : non favourable|favour happening  unfavourable|favour happening  unfavorable|favour happening  not favourable|favour happening  failure|favour happening  not happening|favour happening  non favourable|favor favourable to unfavourable|favor favourable to unfavorable|favor favourable to not favourable|favor favourable to failure|favor favourable to not happening|favor favourable to non favourable|favor favourable is to unfavourable|favor favourable is to unfavorable|favor favourable is to not favourable|favor favourable is to failure|favor favourable is to not happening|favor favourable is to non favourable|favor favourable ratio to unfavourable|favor favourable ratio to unfavorable|favor favourable ratio to not favourable|favor favourable ratio to failure|favor favourable ratio to not happening|favor favourable ratio to non favourable|favor favourable against unfavourable|favor favourable against unfavorable|favor favourable against not favourable|favor favourable against failure|favor favourable against not happening|favor favourable against non favourable|favor favourable versus unfavourable|favor favourable versus unfavorable|favor favourable versus not favourable|favor favourable versus failure|favor favourable versus not happening|favor favourable versus non favourable|favor favourable by unfavourable|favor favourable by unfavorable|favor favourable by not favourable|favor favourable by failure|favor favourable by not happening|favor favourable by non favourable|favor favourable : unfavourable|favor favourable : unfavorable|favor favourable : not favourable|favor favourable : failure|favor favourable : not happening|favor favourable : non favourable|favor favourable  unfavourable|favor favourable  unfavorable|favor favourable  not favourable|favor favourable  failure|favor favourable  not happening|favor favourable  non favourable|favor favorable to unfavourable|favor favorable to unfavorable|favor favorable to not favourable|favor favorable to failure|favor favorable to not happening|favor favorable to non favourable|favor favorable is to unfavourable|favor favorable is to unfavorable|favor favorable is to not favourable|favor favorable is to failure|favor favorable is to not happening|favor favorable is to non favourable|favor favorable ratio to unfavourable|favor favorable ratio to unfavorable|favor favorable ratio to not favourable|favor favorable ratio to failure|favor favorable ratio to not happening|favor favorable ratio to non favourable|favor favorable against unfavourable|favor favorable against unfavorable|favor favorable against not favourable|favor favorable against failure|favor favorable against not happening|favor favorable against non favourable|favor favorable versus unfavourable|favor favorable versus unfavorable|favor favorable versus not favourable|favor favorable versus failure|favor favorable versus not happening|favor favorable versus non favourable|favor favorable by unfavourable|favor favorable by unfavorable|favor favorable by not favourable|favor favorable by failure|favor favorable by not happening|favor favorable by non favourable|favor favorable : unfavourable|favor favorable : unfavorable|favor favorable : not favourable|favor favorable : failure|favor favorable : not happening|favor favorable : non favourable|favor favorable  unfavourable|favor favorable  unfavorable|favor favorable  not favourable|favor favorable  failure|favor favorable  not happening|favor favorable  non favourable|favor success to unfavourable|favor success to unfavorable|favor success to not favourable|favor success to failure|favor success to not happening|favor success to non favourable|favor success is to unfavourable|favor success is to unfavorable|favor success is to not favourable|favor success is to failure|favor success is to not happening|favor success is to non favourable|favor success ratio to unfavourable|favor success ratio to unfavorable|favor success ratio to not favourable|favor success ratio to failure|favor success ratio to not happening|favor success ratio to non favourable|favor success against unfavourable|favor success against unfavorable|favor success against not favourable|favor success against failure|favor success against not happening|favor success against non favourable|favor success versus unfavourable|favor success versus unfavorable|favor success versus not favourable|favor success versus failure|favor success versus not happening|favor success versus non favourable|favor success by unfavourable|favor success by unfavorable|favor success by not favourable|favor success by failure|favor success by not happening|favor success by non favourable|favor success : unfavourable|favor success : unfavorable|favor success : not favourable|favor success : failure|favor success : not happening|favor success : non favourable|favor success  unfavourable|favor success  unfavorable|favor success  not favourable|favor success  failure|favor success  not happening|favor success  non favourable|favor happening to unfavourable|favor happening to unfavorable|favor happening to not favourable|favor happening to failure|favor happening to not happening|favor happening to non favourable|favor happening is to unfavourable|favor happening is to unfavorable|favor happening is to not favourable|favor happening is to failure|favor happening is to not happening|favor happening is to non favourable|favor happening ratio to unfavourable|favor happening ratio to unfavorable|favor happening ratio to not favourable|favor happening ratio to failure|favor happening ratio to not happening|favor happening ratio to non favourable|favor happening against unfavourable|favor happening against unfavorable|favor happening against not favourable|favor happening against failure|favor happening against not happening|favor happening against non favourable|favor happening versus unfavourable|favor happening versus unfavorable|favor happening versus not favourable|favor happening versus failure|favor happening versus not happening|favor happening versus non favourable|favor happening by unfavourable|favor happening by unfavorable|favor happening by not favourable|favor happening by failure|favor happening by not happening|favor happening by non favourable|favor happening : unfavourable|favor happening : unfavorable|favor happening : not favourable|favor happening : failure|favor happening : not happening|favor happening : non favourable|favor happening  unfavourable|favor happening  unfavorable|favor happening  not favourable|favor happening  failure|favor happening  not happening|favor happening  non favourable"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Odds against = unfavourable : favourable",
+     "w": 3,
+     "kw": [
+      "against unfavourable to favourable|against unfavourable to favorable|against unfavourable to success|against unfavourable to happening|against unfavourable is to favourable|against unfavourable is to favorable|against unfavourable is to success|against unfavourable is to happening|against unfavourable ratio to favourable|against unfavourable ratio to favorable|against unfavourable ratio to success|against unfavourable ratio to happening|against unfavourable versus favourable|against unfavourable versus favorable|against unfavourable versus success|against unfavourable versus happening|against unfavourable by favourable|against unfavourable by favorable|against unfavourable by success|against unfavourable by happening|against unfavourable  favourable|against unfavourable  favorable|against unfavourable  success|against unfavourable  happening|against unfavorable to favourable|against unfavorable to favorable|against unfavorable to success|against unfavorable to happening|against unfavorable is to favourable|against unfavorable is to favorable|against unfavorable is to success|against unfavorable is to happening|against unfavorable ratio to favourable|against unfavorable ratio to favorable|against unfavorable ratio to success|against unfavorable ratio to happening|against unfavorable versus favourable|against unfavorable versus favorable|against unfavorable versus success|against unfavorable versus happening|against unfavorable by favourable|against unfavorable by favorable|against unfavorable by success|against unfavorable by happening|against unfavorable  favourable|against unfavorable  favorable|against unfavorable  success|against unfavorable  happening|against not favourable to favourable|against not favourable to favorable|against not favourable to success|against not favourable to happening|against not favourable is to favourable|against not favourable is to favorable|against not favourable is to success|against not favourable is to happening|against not favourable ratio to favourable|against not favourable ratio to favorable|against not favourable ratio to success|against not favourable ratio to happening|against not favourable versus favourable|against not favourable versus favorable|against not favourable versus success|against not favourable versus happening|against not favourable by favourable|against not favourable by favorable|against not favourable by success|against not favourable by happening|against not favourable  favourable|against not favourable  favorable|against not favourable  success|against not favourable  happening|against failure to favourable|against failure to favorable|against failure to success|against failure to happening|against failure is to favourable|against failure is to favorable|against failure is to success|against failure is to happening|against failure ratio to favourable|against failure ratio to favorable|against failure ratio to success|against failure ratio to happening|against failure versus favourable|against failure versus favorable|against failure versus success|against failure versus happening|against failure by favourable|against failure by favorable|against failure by success|against failure by happening|against failure  favourable|against failure  favorable|against failure  success|against failure  happening|against not happening to favourable|against not happening to favorable|against not happening to success|against not happening to happening|against not happening is to favourable|against not happening is to favorable|against not happening is to success|against not happening is to happening|against not happening ratio to favourable|against not happening ratio to favorable|against not happening ratio to success|against not happening ratio to happening|against not happening versus favourable|against not happening versus favorable|against not happening versus success|against not happening versus happening|against not happening by favourable|against not happening by favorable|against not happening by success|against not happening by happening|against not happening  favourable|against not happening  favorable|against not happening  success|against not happening  happening|against non favourable to favourable|against non favourable to favorable|against non favourable to success|against non favourable to happening|against non favourable is to favourable|against non favourable is to favorable|against non favourable is to success|against non favourable is to happening|against non favourable ratio to favourable|against non favourable ratio to favorable|against non favourable ratio to success|against non favourable ratio to happening|against non favourable versus favourable|against non favourable versus favorable|against non favourable versus success|against non favourable versus happening|against non favourable by favourable|against non favourable by favorable|against non favourable by success|against non favourable by happening|against non favourable  favourable|against non favourable  favorable|against non favourable  success|against non favourable  happening",
+      "reverse|inverse|opposite|other way"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Probability = 3/8 = 0.375",
+     "w": 3,
+     "kw": [
+      "3 by 8|3 8|0.375|3 out of 8|three eighth|3 over 8|3 upon 8|3 divided by 8"
+     ]
+    }
+   ],
+   "concept": "c2"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Default risk in a small loan book",
+   "difficulty": "hard",
+   "case": "A cooperative bank has 1,000 personal loans of ₹5,00,000 each. 60% of borrowers are salaried and 40% self-employed. Past data show that 2% of salaried borrowers and 5% of self-employed borrowers default. A borrower is chosen at random from the book. Assume that a defaulted loan is fully lost.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "What is the probability that the borrower is salaried and defaults?",
+     "options": [
+      "0.012",
+      "0.02",
+      "0.6",
+      "0.032"
+     ],
+     "answer": 0,
+     "explain": "Multiplication theorem: P(S and D) = P(S) × P(D|S) = 0.6 × 0.02 = 0.012.",
+     "difficulty": "moderate",
+     "check": "0.6*0.02"
+    },
+    {
+     "id": "k1b",
+     "q": "What is the probability that the borrower defaults?",
+     "options": [
+      "0.032",
+      "0.07",
+      "0.05",
+      "0.02"
+     ],
+     "answer": 0,
+     "explain": "Default happens either with a salaried or with a self-employed borrower (mutually exclusive): 0.6 × 0.02 + 0.4 × 0.05 = 0.012 + 0.020 = 0.032. 0.07 simply adds the two rates; 0.05 is the self-employed rate alone.",
+     "difficulty": "hard",
+     "check": "0.6*0.02+0.4*0.05"
+    },
+    {
+     "id": "k1c",
+     "q": "What are the odds against a randomly chosen borrower defaulting?",
+     "options": [
+      "121 : 4",
+      "4 : 121",
+      "968 : 1,000",
+      "32 : 1,000"
+     ],
+     "answer": 0,
+     "explain": "P(D) = 0.032 = 4/125, so P(not D) = 121/125. Odds against = 121 : 4.",
+     "difficulty": "hard"
+    },
+    {
+     "id": "k1d",
+     "q": "What is the expected loss on the whole book?",
+     "options": [
+      "₹1,60,00,000",
+      "₹1,00,00,000",
+      "₹3,50,00,000",
+      "₹16,00,000"
+     ],
+     "answer": 0,
+     "explain": "Expected number of defaults = 1,000 × 0.032 = 32; expected loss = 32 × ₹5,00,000 = ₹1.6 crore.",
+     "difficulty": "moderate",
+     "check": "1000*0.032*500000"
+    }
+   ]
+  }
+ ]
+}

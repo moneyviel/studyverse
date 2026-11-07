@@ -1,0 +1,403 @@
+"""CA Foundation · Paper 3 Quantitative Aptitude · Chapter 6 Sequence and Series – Arithmetic and Geometric Progressions.
+Original explanations, numbers and questions (scope and order follow the ICAI study material).
+Every figure is computed here and stored with an arithmetic check the validator re-evaluates."""
+from fractions import Fraction as F
+from lib import *
+import re
+from ca_viva import P, V
+
+UID = 'fnd-p3-ch06-u01'
+
+
+def ev(expr):
+    v = eval(expr, {'__builtins__': {}}, {'round': round})
+    v = round(v, 2)
+    return int(v) if v == int(v) else v
+
+
+def fmt(x):
+    if isinstance(x, str): return x
+    if isinstance(x, float) and x != int(x): return inr(round(x, 2))
+    return inr(int(x))
+
+
+def mq(mid, q, right, wrong, explain, concept, diff='core', check=None):
+    assert len(wrong) == 3, mid
+    k = sum(map(ord, mid)) % 4
+    opts = [fmt(w) for w in wrong]
+    opts.insert(k, fmt(right))
+    d = {'id': mid, 'q': q, 'options': opts, 'answer': k, 'explain': explain, 'concept': concept, 'difficulty': diff}
+    if check is not None:
+        v = ev(check)
+        assert abs(v - float(re.match(r'[₹\s]*(-?[\d,]*\.?\d+)', str(right)).group(1).replace(',', ''))) < 0.006, (mid, check, v, right)
+        d['check'] = check
+    return d
+
+
+def ap_sum(a, d, n): return n * (2 * a + (n - 1) * d) // 2 if (n * (2 * a + (n - 1) * d)) % 2 == 0 else n * (2 * a + (n - 1) * d) / 2
+
+
+def build():
+    # ------------------------------------------------------------------ verified figures
+    c1 = Checks()
+    d1 = c1.add('(58-23)/(11-4)', 'common difference from t4 = 23 and t11 = 58')
+    a1 = c1.add('23-3*5', 'first term a = t4 − 3d')
+    t20 = c1.add('8+19*5', 't20 = a + 19d')
+    s20 = c1.add('20/2*(8+103)', 'S20 = n/2 (a + l)')
+    assert (d1, a1, t20, s20) == (5, 8, 103, 1110) and ap_sum(8, 5, 20) == 1110
+
+    c2 = Checks()
+    c2.add('18/2*(2*54+17*(-3))', 'S18 of 54, 51, 48, …')
+    c2.add('19/2*(2*54+18*(-3))', 'S19 of 54, 51, 48, …')
+    c2.add('54+18*(-3)', 't19 = 0, which is why both 18 and 19 terms give 513')
+    assert sum(54 - 3 * k for k in range(18)) == 513 == sum(54 - 3 * k for k in range(19))
+
+    c3 = Checks()
+    d3 = c3.add('(43-7)/(5+1)', 'd for 5 AMs between 7 and 43')
+    n3 = c3.add('(497-105)/7+1', 'number of multiples of 7 from 105 to 497')
+    s3 = c3.add('57/2*(105+497)', 'sum of those multiples')
+    assert s3 == sum(k for k in range(100, 501) if k % 7 == 0)
+
+    c4 = Checks()
+    sq20 = c4.add('20*21*41/6', 'sum of squares 1 to 20')
+    cu15 = c4.add('(15*16/2)**2', 'sum of cubes 1 to 15')
+    kk = c4.add('10*11*21/6+10*11/2', 'Σ k(k+1), k = 1 to 10')
+    assert sq20 == sum(k * k for k in range(1, 21)) and cu15 == sum(k ** 3 for k in range(1, 16)) and kk == sum(k * (k + 1) for k in range(1, 11))
+
+    c5 = Checks()
+    r5 = c5.add('(192/24)**(1/3)', 'r³ = t6/t3 = 8')
+    a5 = c5.add('24/2**2', 'a = t3 / r²')
+    s8 = c5.add('6*(2**8-1)/(2-1)', 'S8')
+    c5.add('762/6+1', '2ⁿ = 762/6 + 1 = 128, so n = 7')
+    assert round(r5, 6) == 2 and sum(6 * 2 ** k for k in range(8)) == s8 and sum(6 * 2 ** k for k in range(7)) == 762
+
+    c6 = Checks()
+    c6.add('45/99', '0.454545… = 45/99 = 5/11')
+    c6.add('5/11', 'value of 5/11')
+    c6.add('1/10+(2/100)/(1-1/10)', '0.1222… = 0.1 + 0.02/(1 − 0.1)')
+    c6.add('11/90', 'value of 11/90')
+    c6.add('8/(1-(-1/2))', 'sum to infinity of 8 − 4 + 2 − 1 + …')
+    assert F(45, 99) == F(5, 11) and F(1, 10) + F(2, 100) / (1 - F(1, 10)) == F(11, 90)
+
+    c7 = Checks()
+    s7 = c7.add('5/81*(10**5-10-9*4)', '5 + 55 + 555 + 5555 by the formula')
+    c7.add('5+55+555+5555', 'direct addition')
+    assert s7 == 6170
+
+    c8 = Checks()
+    last = c8.add('30000+14*1500', 'monthly salary in year 15')
+    tot = c8.add('12*15/2*(30000+51000)', 'total salary over 15 years')
+    inst = c8.add('25500/(2**8-1)', 'first instalment when each one doubles')
+    lst = c8.add('100*2**7', 'eighth instalment')
+    wdv = c8.add('500000*0.9**4', 'machine value after 4 years at 10% WDV')
+    dep = c8.add('500000-328050', 'total depreciation over 4 years')
+    assert tot == 7290000 and inst == 100 and lst == 12800 and wdv == 328050
+
+    cj1 = Checks()
+    rd24 = cj1.add('2000+23*200', 'deposit in month 24')
+    rdt = cj1.add('24/2*(2000+6600)', 'total deposited in 24 months')
+    cj2 = Checks()
+    lease = cj2.add('round(600000*(1.05**5-1)/0.05,2)', 'total lease rent for 5 years, 5% annual escalation')
+    yr5 = cj2.add('round(600000*1.05**4,2)', 'rent in year 5')
+
+    qc1 = Checks()
+    qd = qc1.add('(61-31)/(19-9)', 'd from 2a + 9d = 31 and 2a + 19d = 61')
+    qa = qc1.add('(31-9*3)/2', 'a')
+    qs30 = qc1.add('30/2*(2*2+29*3)', 'S30')
+    assert ap_sum(2, 3, 10) == 155 and ap_sum(2, 3, 20) == 610 and qs30 == 1365
+
+    qc2 = Checks()
+    qc2.add('9-1', 'r³ = 8')
+    q2s10 = qc2.add('5*(2**10-1)', 'S10')
+    q2s7 = qc2.add('5*(2**7-1)', 'S7 (still below 1000)')
+    q2s8 = qc2.add('5*(2**8-1)', 'S8 (first sum above 1000)')
+
+    qc3 = Checks()
+    ap10 = qc3.add('50+9*4', 'AP: year-10 sales (₹ lakh)')
+    aps = qc3.add('10/2*(50+86)', 'AP: 10-year total (₹ lakh)')
+    gp10 = qc3.add('round(50*1.08**9,2)', 'GP: year-10 sales (₹ lakh)')
+    gps = qc3.add('round(50*(1.08**10-1)/0.08,2)', 'GP: 10-year total (₹ lakh)')
+    diff = qc3.add('round(50*(1.08**10-1)/0.08,2)-680', 'GP total exceeds AP total by (₹ lakh)')
+
+    ck = Checks()
+    k36 = ck.add('1500+35*100', 'deposit in month 36')
+    ktot = ck.add('36/2*(1500+5000)', 'Plan A total')
+    kb = ck.add('round(30000*(1.2**3-1)/0.2,2)', 'Plan B total')
+    kmore = ck.add('117000-109200', 'Plan A exceeds Plan B by')
+
+    # ------------------------------------------------------------------ MCQs
+    M = []
+    M.append(mq('m1', 'The 15th term of the AP 4, 9, 14, 19, … is:', 74, [79, 70, 69], 't₁₅ = a + 14d = 4 + 14 × 5 = 74. Using 15d instead of 14d gives 79.', 'c2', 'core', '4+14*5'))
+    M.append(mq('m2', 'Which of the following is an arithmetic progression?', '−7, −3, 1, 5, …', ['2, 4, 8, 16, …', '1, 4, 9, 16, …', '3, 6, 10, 15, …'], 'Each term exceeds the previous one by 4. The others have a common ratio or growing differences.', 'c2', 'core'))
+    M.append(mq('m3', 'The sum of the first 30 natural numbers is:', 465, [930, 450, 496], 'n(n + 1)/2 = 30 × 31/2 = 465. Forgetting to halve gives 930.', 'c4', 'core', '30*31/2'))
+    M.append(mq('m4', 'The sum of the first 25 odd natural numbers is:', 625, [650, 49, 325], '1 + 3 + 5 + … to n terms = n² = 625.', 'c4', 'core', '25**2'))
+    M.append(mq('m5', '1² + 2² + 3² + … + 12² equals:', 650, [78, 6084, 600], 'n(n + 1)(2n + 1)/6 = 12 × 13 × 25/6 = 650. 78 is just 1 + 2 + … + 12.', 'c4', 'core', '12*13*25/6'))
+    M.append(mq('m6', '1³ + 2³ + … + 10³ equals:', 3025, [55, 385, 1000], 'Sum of cubes = [n(n + 1)/2]² = 55² = 3025.', 'c4', 'core', '(10*11/2)**2'))
+    M.append(mq('m7', 'The arithmetic mean between 18 and 46 is:', 32, [28, 64, 30], 'AM = (18 + 46)/2 = 32.', 'c2', 'core', '(18+46)/2'))
+    M.append(mq('m8', 'The geometric mean between 4 and 25 is:', 10, [14.5, 100, 21], 'GM = √(4 × 25) = √100 = 10. 14.5 is the arithmetic mean.', 'c5', 'core', '(4*25)**0.5'))
+    M.append(mq('m9', 'If the sum of the first n terms of a series is Sₙ = 3n² + 2n, its 10th term is:', 59, [320, 62, 261], 't₁₀ = S₁₀ − S₉ = 320 − 261 = 59. (In general tₙ = 6n − 1.)', 'c3', 'moderate', '(3*100+20)-(3*81+18)'))
+    M.append(mq('m10', 'How many terms are there in the AP 7, 11, 15, …, 207?', 51, [50, 52, 200], '207 = 7 + (n − 1)4 → n − 1 = 50 → n = 51. Stopping at 50 forgets to count the first term.', 'c2', 'core', '(207-7)/4+1'))
+    M.append(mq('m11', 'The sum of 2 + 5 + 8 + … to 20 terms is:', 610, [590, 1220, 600], 'S = 20/2 [2 × 2 + 19 × 3] = 10 × 61 = 610.', 'c3', 'core', '20/2*(2*2+19*3)'))
+    M.append(mq('m12', 'The 8th term of the GP 3, 6, 12, … is:', 384, [768, 192, 48], 't₈ = ar⁷ = 3 × 128 = 384. Using r⁸ gives 768.', 'c5', 'core', '3*2**7'))
+    M.append(mq('m13', 'The 6th term of the GP 729, 243, 81, … is:', 3, [1, 9, 27], 'r = 1/3; t₆ = 729 × (1/3)⁵ = 729/243 = 3.', 'c5', 'core', '729/3**5'))
+    M.append(mq('m14', '1 + 3 + 9 + 27 + … to 7 terms equals:', 1093, [2187, 3280, 364], 'Sₙ = a(rⁿ − 1)/(r − 1) = (3⁷ − 1)/2 = 2186/2 = 1093.', 'c6', 'core', '(3**7-1)/2'))
+    M.append(mq('m15', 'The sum to infinity of 18 + 6 + 2 + … is:', 27, [26, 54, 24], 'a = 18, r = 1/3: S∞ = 18/(1 − 1/3) = 27.', 'c6', 'core', '18/(1-1/3)'))
+    M.append(mq('m16', 'The recurring decimal 0.777… expressed as a fraction is:', '7/9', ['7/10', '77/100', '7/11'], '0.7 + 0.07 + … is an infinite GP with a = 0.7, r = 0.1: 0.7/0.9 = 7/9.', 'c6', 'core'))
+    M.append(mq('m17', 'Three numbers in AP have sum 21 and product 231. The numbers are:', '3, 7, 11', ['1, 7, 13', '5, 7, 9', '3, 7, 13'], 'Take a − d, a, a + d: 3a = 21 → a = 7; 7(49 − d²) = 231 → d² = 16 → d = 4.', 'c2', 'moderate'))
+    M.append(mq('m18', 'Three numbers in GP have sum 26 and product 216. The numbers are:', '2, 6, 18', ['3, 6, 12', '4, 6, 9', '1, 6, 36'], 'Take a/r, a, ar: a³ = 216 → a = 6; 6/r + 6 + 6r = 26 → 3r² − 10r + 3 = 0 → r = 3 or 1/3.', 'c5', 'moderate'))
+    M.append(mq('m19', 'Three geometric means inserted between 2 and 162 are:', '6, 18, 54', ['42, 82, 122', '4, 16, 64', '8, 32, 128'], '162 = 2r⁴ → r⁴ = 81 → r = 3. The arithmetic means would be 42, 82, 122.', 'c5', 'moderate'))
+    M.append(mq('m20', 'In a GP the sum of the first 6 terms is 28 times the sum of the first 3 terms. The common ratio is:', 3, [2, 27, 4], 'S₆/S₃ = (r⁶ − 1)/(r³ − 1) = r³ + 1 = 28 → r³ = 27 → r = 3.', 'c6', 'hard', '(28-1)**(1/3)'))
+    M.append(mq('m21', 'An employee starts at ₹20,000 a month and gets a fixed rise of ₹1,000 a month every year. His monthly salary in the 10th year is:', '₹29,000', ['₹30,000', '₹28,000', '₹2,90,000'], 'tₙ = a + (n − 1)d = 20,000 + 9 × 1,000 = ₹29,000.', 'c8', 'core', '20000+9*1000'))
+    M.append(mq('m22', 'A machine bought for ₹2,00,000 depreciates at 10% a year on the reducing balance. Its value after 3 years is:', '₹1,45,800', ['₹1,40,000', '₹1,62,000', '₹1,31,220'], 'Values form a GP with r = 0.9: 2,00,000 × 0.9³ = ₹1,45,800. 1,40,000 uses straight-line (an AP).', 'c8', 'moderate', '200000*0.9**3'))
+    M.append(mq('m23', 'The sum of all two-digit numbers divisible by 3 is:', 1665, [1683, 1584, 1638], 'Terms 12, 15, …, 99: n = (99 − 12)/3 + 1 = 30; S = 30/2 × (12 + 99) = 1665.', 'c3', 'hard', '30/2*(12+99)'))
+    M.append(mq('m24', 'If a, b, c are in AP, then:', '2b = a + c', ['b² = ac', 'b = a + c', '2b = ac'], 'b − a = c − b gives 2b = a + c. b² = ac is the GP condition.', 'c2', 'core'))
+    M.append(mq('m25', 'The AM and GM of two positive numbers are 10 and 8. The numbers are:', '16 and 4', ['12 and 8', '18 and 2', '10 and 8'], 'x + y = 20 and xy = 64 → x, y are roots of t² − 20t + 64 = 0, i.e., 16 and 4.', 'c5', 'moderate'))
+    M.append(mq('m26', 'If 1 + 2 + 3 + … + n = 210, then n is:', 20, [21, 15, 14], 'n(n + 1)/2 = 210 → n² + n − 420 = 0 → n = 20.', 'c4', 'moderate', '(-1+(1+4*420)**0.5)/2'))
+    M.append(mq('m27', 'The sum to infinity of 1 − 1/2 + 1/4 − 1/8 + … is:', '2/3', ['2', '1/2', '3/2'], 'a = 1, r = −1/2: S∞ = 1/(1 + 1/2) = 2/3. Ignoring the sign of r gives 2.', 'c6', 'moderate'))
+    M.append(mq('m28', 'The 10th term from the end of the AP 3, 8, 13, …, 253 is:', 208, [48, 203, 213], 'From the end the AP runs 253, 248, … with d = −5: 253 − 9 × 5 = 208. (48 is the 10th term from the beginning.)', 'c2', 'moderate', '253-9*5'))
+    M.append(mq('m29', 'An AP has first term 5, last term 95 and 19 terms. Its sum is:', 950, [1000, 1900, 900], 'S = n/2 (a + l) = 19/2 × 100 = 950.', 'c3', 'core', '19/2*(5+95)'))
+    M.append(mq('m30', 'A sum of money doubles every year under a scheme. If ₹500 is invested, the amount at the end of 6 years is:', '₹32,000', ['₹16,000', '₹3,000', '₹64,000'], 'Year-end values 1,000, 2,000, … form a GP; after 6 years 500 × 2⁶ = ₹32,000.', 'c8', 'core', '500*2**6'))
+
+    return {
+        'schema': 'ca-unit/1', 'id': UID, 'level': 'foundation', 'paper': 'p3', 'chapter': 'fnd-p3-ch06', 'n': 1,
+        'title': 'Sequence and Series – Arithmetic and Geometric Progressions',
+        'outcomes': [
+            'Distinguish a sequence from a series and a finite from an infinite one; read Σ notation.',
+            'Find any term, the number of terms and the sum of an arithmetic progression, and insert arithmetic means.',
+            'Use the special sums of natural numbers, odd numbers, squares and cubes.',
+            'Find any term and the sum of a geometric progression (finite and infinite), insert geometric means and convert recurring decimals to fractions.',
+            'Sum series such as 7 + 77 + 777 + … by reducing them to a GP.',
+            'Model salary increments, instalments, depreciation and growth with AP and GP.',
+        ],
+        'meta': {'difficulty': 'moderate', 'minutes': {'learn': 40, 'practice': 60}, 'prereq': ['fnd-p3-ch01-u01'],
+                 'exam_tip': 'Most questions are a direct use of tₙ or Sₙ. Write a, d (or r) and n first — half the errors come from using n instead of n − 1 in the general term.'},
+        'concepts': [
+            {'id': 'c1', 'title': 'Sequence and series',
+             'body': ['A sequence is an ordered list of numbers produced by a definite rule, so that for every position n there is exactly one term tₙ. 1, 4, 9, 16, … (tₙ = n²) is a sequence; a random list such as 28, 2, 25, 27 is not.',
+                      'A sequence with a last term is finite; one that never ends is infinite.',
+                      'A series is the sum of the terms of a sequence: t₁ + t₂ + t₃ + … . Sₙ denotes the sum of the first n terms, written compactly with the Greek capital sigma, Σ.'],
+             'analogy': 'A sequence is a queue of numbers standing in order; a series is what you get when you add up everyone in the queue.',
+             'work': 'Cash-flow projections are sequences (one figure per year); the total of those cash flows is a series. Spotting the rule lets you project and total quickly.'},
+            {'id': 'c2', 'title': 'Arithmetic progression (AP), its general term and arithmetic means',
+             'body': ['In an AP, every term after the first equals the previous term plus a fixed number d, called the common difference: a, a + d, a + 2d, … . d = any term − the term before it, and may be positive, negative or zero.',
+                      'General term: tₙ = a + (n − 1)d. The n-th term from the end of an AP with last term l is l − (n − 1)d.',
+                      'a, b, c are in AP if and only if 2b = a + c; b = (a + c)/2 is the arithmetic mean (AM). To insert n AMs between a and b, treat it as an AP of n + 2 terms: d = (b − a)/(n + 1).',
+                      'For three unknown terms in AP, take a − d, a, a + d (four terms: a − 3d, a − d, a + d, a + 3d) — the sum then gives a immediately.'],
+             'analogy': 'Climbing stairs of equal height: after n − 1 steps from the ground floor you have risen (n − 1) step-heights — that is why the formula has n − 1, not n.',
+             'work': 'Simple interest grows in an AP: each year adds the same interest. Fixed annual increments in a salary or rent agreement also form an AP.'},
+            {'id': 'c3', 'title': 'Sum of the first n terms of an AP',
+             'body': ['Sₙ = n/2 [2a + (n − 1)d], or, when the last term l is known, Sₙ = n/2 (a + l).',
+                      'Proof idea: write the series forwards and backwards and add — every pair of terms adds to (a + l), and there are n pairs, so 2Sₙ = n(a + l).',
+                      'If Sₙ is given as a formula in n, then tₙ = Sₙ − Sₙ₋₁ (and t₁ = S₁).',
+                      'When solving Sₙ for n gives two positive integer roots, both may be valid — usually because some terms are zero or because negative terms cancel positive ones.'],
+             'analogy': 'Young Gauss added 1 to 100 by pairing 1 + 100, 2 + 99, … : 50 pairs of 101. Every AP sum is the same trick.',
+             'work': 'Totalling a 10-year salary or rent schedule with fixed increments takes one line with n/2 (first + last) instead of ten additions.'},
+            {'id': 'c4', 'title': 'Special series',
+             'body': ['Sum of the first n natural numbers: 1 + 2 + … + n = n(n + 1)/2.',
+                      'Sum of the first n odd numbers: 1 + 3 + 5 + … + (2n − 1) = n².',
+                      'Sum of squares: 1² + 2² + … + n² = n(n + 1)(2n + 1)/6.',
+                      'Sum of cubes: 1³ + 2³ + … + n³ = [n(n + 1)/2]² — the square of the sum of the first n natural numbers.',
+                      'A series with general term like k(k + 1) or (2k − 1)² is summed by splitting it: Σk(k + 1) = Σk² + Σk.'],
+             'analogy': 'Stack 1, 3, 5, 7 tiles in an L-shape and you always get a perfect square — that is why odd numbers add up to n².',
+             'work': 'The sum-of-the-years’-digits method of depreciation uses n(n + 1)/2 as its denominator — the special series in action.'},
+            {'id': 'c5', 'title': 'Geometric progression (GP), its general term and geometric means',
+             'body': ['In a GP, every term after the first equals the previous term multiplied by a fixed non-zero number r, the common ratio: a, ar, ar², … . r = any term ÷ the term before it; r ≠ 0.',
+                      'General term: tₙ = arⁿ⁻¹.',
+                      'a, b, c (all non-zero) are in GP if and only if b² = ac; b = √(ac) is the geometric mean (GM) of two positive numbers. To insert n GMs between a and b: r = (b/a)^(1/(n + 1)).',
+                      'For three unknown terms in GP, take a/r, a, ar — the product then gives a³ immediately.',
+                      'For any two positive numbers AM ≥ GM, with equality only when the numbers are equal.'],
+             'analogy': 'A rumour that every person passes on to 3 new people: 1, 3, 9, 27, … — each round multiplies, it does not add.',
+             'work': 'Compound interest, reducing-balance depreciation, inflation and constant-percentage growth in sales are all GPs.'},
+            {'id': 'c6', 'title': 'Sum of a GP — finite and infinite; recurring decimals',
+             'body': ['Sₙ = a(rⁿ − 1)/(r − 1) when r > 1, and Sₙ = a(1 − rⁿ)/(1 − r) when r < 1 (the two forms are equal; choose the one with positive numbers). If r = 1, Sₙ = na.',
+                      'Infinite GP: if −1 < r < 1, rⁿ shrinks towards 0 and S∞ = a/(1 − r). If |r| ≥ 1 the sum does not settle to a finite value.',
+                      'Recurring decimals are infinite GPs: 0.363636… = 0.36 + 0.0036 + … = 0.36/(1 − 0.01) = 36/99 = 4/11. A mixed one such as 0.1222… = 0.1 + 0.02/(1 − 0.1).'],
+             'analogy': 'Walk halfway to a wall, then half the remaining distance, and so on: you take infinitely many steps but never cover more than the original distance — an infinite GP with a finite sum.',
+             'work': 'The value of a perpetuity (a cash flow that continues forever, discounted each year) is an infinite GP — the a/(1 − r) result underlies valuation formulas you meet later.'},
+            {'id': 'c7', 'title': 'Series that reduce to a GP',
+             'body': ['7 + 77 + 777 + … to n terms: write each term as 7/9 × (10ᵏ − 1). The sum is 7/9 [ (10 + 10² + … + 10ⁿ) − n ] = 7/81 [10ⁿ⁺¹ − 10 − 9n].',
+                      '0.7 + 0.77 + 0.777 + … to n terms: each term is 7/9 × (1 − 10⁻ᵏ); the sum is 7/9 [ n − (1 − 10⁻ⁿ)/9 ] = 7/81 [9n − 1 + 10⁻ⁿ].',
+                      'Series such as (2 + 1) + (2² + 3) + (2³ + 5) + … are split into a GP part and an AP part, summed separately.'],
+             'analogy': 'Like separating a mixed fruit basket into apples and oranges before counting: split the awkward series into an AP and a GP you already know how to add.',
+             'work': 'Breaking a messy schedule into standard pieces — a fixed part (AP) plus a growing part (GP) — is exactly how analysts model escalating contracts.'},
+            {'id': 'c8', 'title': 'Applications in commerce and finance',
+             'body': ['AP: salary with a fixed annual increment, simple interest, straight-line depreciation (value falls by a fixed amount), recurring deposits that rise by a fixed amount.',
+                      'GP: compound interest (amount = P(1 + i)ⁿ), reducing-balance depreciation (value × (1 − rate) each year), population or sales growing at a fixed percentage, instalments that double.',
+                      'Always identify what one "term" means (a month? a year?) and whether the first term is at the start or end of the first period.'],
+             'analogy': 'AP is a staircase (same step each time); GP is a snowball (grows by a percentage of its own size).',
+             'work': 'Checking a client\'s depreciation schedule, an employee loan repayment plan or a lease with escalation clauses means recognising AP or GP patterns and totalling them correctly.'},
+        ],
+        'illustrations': [
+            {'id': 'i1', 'title': 'Finding an AP from two of its terms', 'difficulty': 'core', 'minutes': 5,
+             'q': 'The 4th term of an AP is 23 and the 11th term is 58. Find the AP, its 20th term and the sum of its first 20 terms.',
+             'solution': [p('t₄ = a + 3d = 23 and t₁₁ = a + 10d = 58. Subtracting: 7d = 35, so d = 5 and a = 23 − 15 = 8. The AP is 8, 13, 18, 23, … .'),
+                          p(f't₂₀ = a + 19d = 8 + 95 = {t20}.'),
+                          p(f'S₂₀ = 20/2 × (8 + 103) = 10 × 111 = {inr(s20)}.')],
+             'checks': c1},
+            {'id': 'i2', 'title': 'How many terms give a required sum?', 'difficulty': 'moderate', 'minutes': 6,
+             'q': 'How many terms of the AP 54, 51, 48, … must be taken so that their sum is 513? Explain the double answer.',
+             'solution': [p('a = 54, d = −3. Sₙ = n/2 [108 − 3(n − 1)] = n(111 − 3n)/2 = 513.'),
+                          p('n(111 − 3n) = 1026 → 3n² − 111n + 1026 = 0 → n² − 37n + 342 = 0 → (n − 18)(n − 19) = 0, so n = 18 or 19.'),
+                          wn('Why two answers?', 't₁₉ = 54 + 18(−3) = 0. Adding a zero term does not change the sum, so both 18 and 19 terms add up to 513.')],
+             'checks': c2},
+            {'id': 'i3', 'title': 'Inserting AMs; sum of multiples in a range', 'difficulty': 'core', 'minutes': 6,
+             'q': '(a) Insert 5 arithmetic means between 7 and 43. (b) Find the sum of all numbers between 100 and 500 that are divisible by 7.',
+             'solution': [p(f'(a) 7 and 43 with 5 means form an AP of 7 terms: 43 = 7 + 6d → d = {d3}. The means are 13, 19, 25, 31, 37.'),
+                          p(f'(b) The first multiple of 7 above 100 is 105 and the last below 500 is 497. n = (497 − 105)/7 + 1 = {n3}. Sum = {n3}/2 × (105 + 497) = 57 × 301 = {inr(s3)}.')],
+             'checks': c3},
+            {'id': 'i4', 'title': 'Special series', 'difficulty': 'core', 'minutes': 5,
+             'q': 'Evaluate (a) 1² + 2² + … + 20², (b) 1³ + 2³ + … + 15³, (c) 1·2 + 2·3 + 3·4 + … + 10·11.',
+             'solution': [p(f'(a) 20 × 21 × 41/6 = {inr(sq20)}.'),
+                          p(f'(b) [15 × 16/2]² = 120² = {inr(cu15)}.'),
+                          p(f'(c) General term k(k + 1) = k² + k. Sum = Σk² + Σk = 385 + 55 = {kk}.')],
+             'checks': c4},
+            {'id': 'i5', 'title': 'Finding a GP and the number of terms', 'difficulty': 'moderate', 'minutes': 6,
+             'q': 'The 3rd term of a GP is 24 and the 6th term is 192. Find the GP and the sum of its first 8 terms. How many terms of it add up to 762?',
+             'solution': [p('ar² = 24 and ar⁵ = 192. Dividing: r³ = 8, so r = 2 and a = 24/4 = 6. The GP is 6, 12, 24, 48, … .'),
+                          p(f'S₈ = 6(2⁸ − 1)/(2 − 1) = 6 × 255 = {inr(s8)}.'),
+                          p('6(2ⁿ − 1) = 762 → 2ⁿ − 1 = 127 → 2ⁿ = 128 = 2⁷ → n = 7.')],
+             'checks': c5},
+            {'id': 'i6', 'title': 'Infinite GPs and recurring decimals', 'difficulty': 'moderate', 'minutes': 6,
+             'q': 'Express (a) 0.454545… and (b) 0.1222… as fractions. (c) Find the sum to infinity of 8 − 4 + 2 − 1 + … .',
+             'solution': [p('(a) 0.45 + 0.0045 + … : a = 0.45, r = 0.01 → 0.45/0.99 = 45/99 = 5/11.'),
+                          p('(b) 0.1 + (0.02 + 0.002 + …) = 0.1 + 0.02/(1 − 0.1) = 1/10 + 2/90 = 9/90 + 2/90 = 11/90.'),
+                          p('(c) a = 8, r = −1/2, |r| < 1: S∞ = 8/(1 + 1/2) = 16/3.'),
+                          note('Check: 5/11 = 0.4545…, 11/90 = 0.1222… — always verify with a quick division.')],
+             'checks': c6},
+            {'id': 'i7', 'title': 'Sum of 5 + 55 + 555 + … to n terms', 'difficulty': 'hard', 'minutes': 7,
+             'q': 'Find the sum of n terms of 5 + 55 + 555 + … and verify your formula for n = 4.',
+             'solution': [p('Each term: 5 = 5/9 × 9, 55 = 5/9 × 99, 555 = 5/9 × 999, … so the k-th term is 5/9 × (10ᵏ − 1).'),
+                          p('Sₙ = 5/9 [(10 + 10² + … + 10ⁿ) − n] = 5/9 [10(10ⁿ − 1)/9 − n] = 5/81 [10ⁿ⁺¹ − 10 − 9n].'),
+                          p(f'n = 4: 5/81 × (1,00,000 − 10 − 36) = 5/81 × 99,954 = {inr(s7)}; directly, 5 + 55 + 555 + 5555 = 6,170. ✔')],
+             'checks': c7},
+            {'id': 'i8', 'title': 'Salary, doubling instalments and depreciation', 'difficulty': 'moderate', 'minutes': 8,
+             'q': '(a) An executive joins at ₹30,000 a month with a rise of ₹1,500 a month every year. Find her monthly salary in the 15th year and her total earnings over 15 years. (b) A debt of ₹25,500 is repaid in 8 monthly instalments, each double the previous one. Find the first and last instalments. (c) A machine costing ₹5,00,000 is depreciated at 10% a year on the reducing balance. Find its value after 4 years and the total depreciation.',
+             'solution': [p(f'(a) Monthly salaries form an AP: 30,000, 31,500, … . Year 15: 30,000 + 14 × 1,500 = ₹{inr(last)}. Annual totals are 12 times these, so total = 12 × 15/2 × (30,000 + 51,000) = ₹{inr(tot)}.'),
+                          p(f'(b) Instalments form a GP with r = 2: a(2⁸ − 1) = 25,500 → a = 25,500/255 = ₹{inr(inst)}. Last = ar⁷ = 100 × 128 = ₹{inr(lst)}.'),
+                          p(f'(c) Values form a GP with r = 0.9: 5,00,000 × 0.9⁴ = ₹{inr(wdv)}. Total depreciation = 5,00,000 − 3,28,050 = ₹{inr(dep)}.')],
+             'checks': c8},
+        ],
+        'jobs': [
+            {'id': 'j1', 'title': 'Explaining a step-up recurring deposit to a client', 'role': 'Article assistant handling personal-finance queries for a CA firm\'s individual clients',
+             'situation': 'A client plans to save ₹2,000 in the first month and raise the deposit by ₹200 every month for two years. She wants to know the last deposit and the total she will put in (ignore interest).',
+             'steps': ['Recognise a fixed monthly increase: an AP with a = 2,000, d = 200, n = 24.',
+                       f'Last deposit t₂₄ = 2,000 + 23 × 200 = ₹{inr(rd24)}.',
+                       f'Total = 24/2 × (2,000 + 6,600) = ₹{inr(rdt)}.',
+                       'Explain that interest would add to this, and that the bank\'s maturity figure should be checked against a schedule.'],
+             'takeaway': 'Fixed-amount step-ups are APs; total with n/2 (first + last).',
+             'checks': cj1},
+            {'id': 'j2', 'title': 'Totalling a lease with an escalation clause', 'role': 'Junior auditor reviewing lease commitments of a retail client',
+             'situation': 'A shop is leased for 5 years at ₹6,00,000 for the first year, with rent rising 5% every year. The client has disclosed total commitments of ₹30,00,000 (5 × 6 lakh).',
+             'steps': ['A fixed percentage rise means a GP with a = 6,00,000 and r = 1.05.',
+                       f'Rent in year 5 = 6,00,000 × 1.05⁴ = ₹{inr(yr5)}.',
+                       f'Total rent = 6,00,000 × (1.05⁵ − 1)/0.05 = ₹{inr(lease)}.',
+                       'The disclosed figure ignores escalation and understates the commitment; raise it with the client and correct the note.'],
+             'takeaway': 'Percentage escalations are GPs — multiplying the first-year amount by the number of years understates the total.',
+             'checks': cj2},
+        ],
+        'mcqs': M,
+        'questions': [
+            {'id': 'q1', 'marks': 4, 'minutes': minutes(4), 'difficulty': 'moderate', 'pad': 'text',
+             'q': 'The sum of the first 10 terms of an AP is 155 and the sum of the first 20 terms is 610. Find the first term, the common difference and the sum of the first 30 terms.',
+             'model': [p('S₁₀ = 5(2a + 9d) = 155 → 2a + 9d = 31 … (i)'),
+                       p('S₂₀ = 10(2a + 19d) = 610 → 2a + 19d = 61 … (ii)'),
+                       p(f'(ii) − (i): 10d = 30 → d = {qd}; from (i) 2a = 31 − 27 = 4 → a = {qa}.'),
+                       p(f'S₃₀ = 15(2 × 2 + 29 × 3) = 15 × 91 = {inr(qs30)}.')],
+             'scheme': [{'id': 's1', 'pt': 'Both equations formed correctly from Sₙ = n/2[2a + (n − 1)d]', 'm': 1.5, 'skill': 'concept'},
+                        {'id': 's2', 'pt': 'Solved: d = 3, a = 2', 'm': 1.5, 'skill': 'computation'},
+                        {'id': 's3', 'pt': 'S₃₀ = 1,365', 'm': 1, 'skill': 'computation'}],
+             'remarks': ['Most candidates form the equations correctly; errors creep in when halving n.', 'Verify by checking S₁₀ with the values found — it takes ten seconds.'],
+             'mistakes': ['Writing (n − 1)/2 instead of n/2.', 'Using tₙ instead of Sₙ for the given data.'],
+             'tips': ['Number the equations and say which one you subtract from which.', 'Back-substitute to verify before moving on.'],
+             'checks': qc1},
+            {'id': 'q2', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'moderate', 'pad': 'text',
+             'q': 'The first term of a GP is 5 and the sum of its first 6 terms is 9 times the sum of its first 3 terms. Find the common ratio, the sum of the first 10 terms, and the least number of terms whose sum exceeds 1,000.',
+             'model': [p('S₆/S₃ = [a(r⁶ − 1)/(r − 1)] ÷ [a(r³ − 1)/(r − 1)] = r³ + 1 = 9 → r³ = 8 → r = 2.'),
+                       p(f'S₁₀ = 5(2¹⁰ − 1) = 5 × 1023 = {inr(q2s10)}.'),
+                       p(f'Need 5(2ⁿ − 1) > 1000 → 2ⁿ > 201. 2⁷ = 128 (S₇ = {q2s7}), 2⁸ = 256 (S₈ = {inr(q2s8)}). Least n = 8.')],
+             'scheme': [{'id': 's1', 'pt': 'Ratio of sums simplified to r³ + 1', 'm': 1.5, 'skill': 'concept'},
+                        {'id': 's2', 'pt': 'r = 2', 'm': 0.5, 'skill': 'computation'},
+                        {'id': 's3', 'pt': 'S₁₀ = 5,115', 'm': 1, 'skill': 'computation'},
+                        {'id': 's4', 'pt': 'Inequality set up and tested at n = 7 and n = 8; answer 8', 'm': 2, 'skill': 'analysis'}],
+             'remarks': ['Candidates who expand r⁶ − 1 as (r³ − 1)(r³ + 1) finish in a line; others get lost in algebra.', 'Show the test values on both sides of the boundary — it proves "least".'],
+             'mistakes': ['Writing r⁶ − 1 = (r − 1)⁶.', 'Stopping at n = 7.8 instead of the next whole number.'],
+             'tips': ['For "least n", check n and n − 1 explicitly.', 'Use a(rⁿ − 1)/(r − 1) when r > 1 to keep the numbers positive.'],
+             'checks': qc2},
+            {'id': 'q3', 'marks': 6, 'minutes': minutes(6), 'difficulty': 'hard', 'pad': 'table',
+             'q': 'Two companies each have sales of ₹50 lakh in Year 1. Company A\'s sales rise by ₹4 lakh every year; Company B\'s rise by 8% every year. Find for each (a) the sales in Year 10 and (b) the total sales over the 10 years. Which company sells more in total, and by how much? (Take answers to two decimals in ₹ lakh.)',
+             'model': [table(['', 'Company A (AP: a = 50, d = 4)', 'Company B (GP: a = 50, r = 1.08)'], [
+                 ['Year 10 sales', f'50 + 9 × 4 = {ap10}', f'50 × 1.08⁹ = {gp10}'],
+                 ['10-year total', f'10/2 × (50 + 86) = {aps}', f'50 × (1.08¹⁰ − 1)/0.08 = {gps}']]),
+                 p(f'Company B sells more in total, by {gps} − {aps} = ₹{diff} lakh.')],
+             'scheme': [{'id': 's1', 'pt': 'A recognised as AP and B as GP with correct a, d and r', 'm': 1, 'skill': 'concept'},
+                        {'id': 's2', 'pt': 'Year-10 sales: 86 and 99.95', 'm': 1.5, 'skill': 'computation'},
+                        {'id': 's3', 'pt': '10-year totals: 680 and 724.33', 'm': 2, 'skill': 'computation'},
+                        {'id': 's4', 'pt': 'Comparison and difference stated', 'm': 1, 'skill': 'conclusion'},
+                        {'id': 's5', 'pt': 'Clear tabular presentation with units', 'm': 0.5, 'skill': 'presentation'}],
+             'remarks': ['Weak answers use r = 0.08 instead of 1.08.', 'Some compute B\'s year-10 sales with power 10; the first year is already 50, so the power is 9.'],
+             'mistakes': ['Using 1.08¹⁰ for the 10th term.', 'Multiplying 50 by 10 for the AP total.'],
+             'tips': ['Put the two models side by side — it makes the comparison obvious.', 'State units (₹ lakh) in the table heading.'],
+             'checks': qc3},
+        ],
+        'revision': {
+            'summary': ['Sequence = ordered list by a rule; series = sum of its terms.', 'AP: tₙ = a + (n − 1)d; Sₙ = n/2[2a + (n − 1)d] = n/2(a + l); AM = (a + b)/2.',
+                        'Special sums: Σn = n(n + 1)/2; odd numbers n²; Σn² = n(n + 1)(2n + 1)/6; Σn³ = [n(n + 1)/2]².',
+                        'GP: tₙ = arⁿ⁻¹; Sₙ = a(rⁿ − 1)/(r − 1); S∞ = a/(1 − r) for |r| < 1; GM = √(ab).',
+                        '7 + 77 + … = 7/81(10ⁿ⁺¹ − 10 − 9n); 0.7 + 0.77 + … = 7/81(9n − 1 + 10⁻ⁿ).',
+                        'Fixed-amount change → AP; fixed-percentage change → GP.'],
+            'remember': ['tₙ = Sₙ − Sₙ₋₁.', 'Three terms in AP: a − d, a, a + d; in GP: a/r, a, ar.', 'n means between a and b: AP d = (b − a)/(n + 1); GP r = (b/a)^(1/(n + 1)).'],
+            'traps': ['General term uses n − 1, not n.', 'Infinite GP sum exists only for −1 < r < 1.', 'Growth of 8% means r = 1.08, not 0.08.', 'Count terms as (last − first)/d + 1.'],
+        },
+        'quickref': [
+            {'k': 'AP n-th term', 'v': 'tₙ = a + (n − 1)d'},
+            {'k': 'AP sum', 'v': 'Sₙ = n/2[2a + (n − 1)d] = n/2(a + l)'},
+            {'k': 'Natural numbers', 'v': 'Σn = n(n + 1)/2; odd numbers n²'},
+            {'k': 'Squares and cubes', 'v': 'Σn² = n(n + 1)(2n + 1)/6; Σn³ = [n(n + 1)/2]²'},
+            {'k': 'GP n-th term', 'v': 'tₙ = arⁿ⁻¹'},
+            {'k': 'GP sum', 'v': 'Sₙ = a(rⁿ − 1)/(r − 1), r ≠ 1; Sₙ = na if r = 1'},
+            {'k': 'Infinite GP', 'v': 'S∞ = a/(1 − r), −1 < r < 1'},
+            {'k': 'Means', 'v': 'AM = (a + b)/2; GM = √(ab); AM ≥ GM'},
+            {'k': 'Term from sum', 'v': 'tₙ = Sₙ − Sₙ₋₁'},
+        ],
+        'viva': VIVA,
+        'cases': [{
+            'id': 'k1', 'title': 'Choosing a savings plan for an office team', 'difficulty': 'moderate',
+            'case': ('The staff welfare committee of a CA firm compares two 3-year savings plans (ignore interest). Plan A: deposit ₹1,500 in the first month and increase the deposit by ₹100 every month for 36 months. '
+                     'Plan B: deposit ₹30,000 in the first year and increase the yearly deposit by 20% each year for 3 years.'),
+            'mcqs': [
+                mq('k1a', 'Under Plan A, the deposit in the 36th month is:', '₹5,000', ['₹5,100', '₹4,900', '₹3,600'], 't₃₆ = 1,500 + 35 × 100 = ₹5,000.', 'c2', 'core', '1500+35*100'),
+                mq('k1b', 'Total deposited under Plan A is:', '₹1,17,000', ['₹1,20,600', '₹54,000', '₹1,08,000'], 'S₃₆ = 36/2 × (1,500 + 5,000) = 18 × 6,500 = ₹1,17,000.', 'c3', 'moderate', '36/2*(1500+5000)'),
+                mq('k1c', 'Total deposited under Plan B is:', '₹1,09,200', ['₹1,08,000', '₹90,000', '₹1,29,600'], 'GP with a = 30,000, r = 1.2: 30,000 × (1.2³ − 1)/0.2 = 30,000 × 3.64 = ₹1,09,200. 1,08,000 adds 20% of 30,000 each year (an AP).', 'c6', 'moderate', 'round(30000*(1.2**3-1)/0.2,2)'),
+                mq('k1d', 'Which plan collects more, and by how much?', 'Plan A, by ₹7,800', ['Plan B, by ₹7,800', 'Plan A, by ₹9,000', 'Both collect the same'], f'{inr(ktot)} − {inr(kb)} = ₹{inr(kmore)}, so Plan A collects more.', 'c8', 'moderate'),
+            ]}],
+    }
+
+
+VIVA = [
+    V('v1', 'What is the difference between a sequence and a series?',
+      'A sequence is an ordered list of numbers that follow a definite rule, so each position has one term. A series is the sum of the terms of a sequence. For example, two, four, six, eight is a sequence, while two plus four plus six plus eight is a series.',
+      [P('p1', 'Sequence = ordered list following a rule', 5, 'sequence', 'order|list|arrange|rule|pattern|law|one after another', min=2),
+       P('p2', 'Series = sum of the terms of a sequence', 5, 'series sum|series is sum|series total|series add|series adding|sum of term|sum of sequence|adding term|add term|terms added|sum of the sequence|total of term|series plus|adding up', min=1)], 'c1'),
+    V('v2', 'Define an arithmetic progression and give its general term.',
+      'An arithmetic progression is a sequence in which every term is obtained by adding a fixed number, called the common difference, to the previous term. Its n-th term is a plus n minus one times d, where a is the first term and d is the common difference.',
+      [P('p1', 'Each term = previous term + a fixed number (common difference)', 5, 'add|adding|plus|differ|subtract', 'fixed|constant|same|common difference', min=2),
+       P('p2', 'tₙ = a + (n − 1)d', 5, 'n minus 1 d|n minus one d|n 1 d|n-1 d|n minus 1 times d|n minus one times d|n-1 times d|n-1)d|n 1 time d', 'a plus|first term plus|first term', min=2)], 'c2'),
+    V('v3', 'State the formulas for the sum of the first n terms of an AP.',
+      'The sum of the first n terms is n by two into two a plus n minus one d. If the last term l is known, the sum is simply n by two into a plus l, that is, half the number of terms times the first term plus the last term.',
+      [P('p1', 'Sₙ = n/2 [2a + (n − 1)d]', 5, 'n by 2|n by two|n over 2|n over two|half n|n half|n/2|n divided by 2|n divided by two|half the number', '2a|2 a|two a|twice a|twice first', min=2),
+       P('p2', 'Sₙ = n/2 (a + l)', 5, 'a plus l|first plus last|first term plus last|first and last|first term and last term|first term plus the last|l plus a|last term plus first')], 'c3'),
+    V('v4', 'What is a geometric progression and what is the sum of its first n terms?',
+      'A geometric progression is a sequence in which every term is the previous term multiplied by a fixed number called the common ratio. The sum of the first n terms is a into r to the power n minus one, divided by r minus one, when r is not one; if r equals one the sum is simply n times a.',
+      [P('p1', 'Each term = previous term × fixed number (common ratio)', 4, 'multipl|times|ratio|product', 'fixed|constant|same|common ratio', min=2),
+       P('p2', 'Sₙ = a(rⁿ − 1)/(r − 1), r ≠ 1', 4, 'r power n minus 1|r to the power n minus one|r to the n minus 1|r n minus 1|r power n minus one|r to n minus 1|r raised to n minus 1|1 minus r power n|one minus r to the power n|1 minus r n|r^n - 1|r^n minus 1', 'r minus 1|r minus one|1 minus r|one minus r|r - 1|1 - r', min=2),
+       P('p3', 'If r = 1, Sₙ = na', 2, 'r equal 1|r equals one|r is 1|r is one|r equal one|ratio is one|ratio one|ratio equal 1|ratio 1', 'n time a|n a|na|n into a|a time n|n multipli a|a multipli n', min=2)], 'c6'),
+    V('v5', 'When does an infinite geometric series have a sum, and what is it?',
+      'An infinite GP has a finite sum only when the common ratio lies between minus one and one, that is, its absolute value is less than one. Then r to the power n tends to zero and the sum to infinity is a divided by one minus r. If the ratio is one or more in absolute value, the sum does not settle to a finite value.',
+      [P('p1', 'Only when −1 < r < 1 (|r| < 1)', 5, 'between minus 1 and 1|between minus one and one|between -1 and 1|less than 1|less than one|mod r less|absolute value less|numerically less|magnitude less|fraction|smaller than 1|smaller than one|below 1|below one', min=1),
+       P('p2', 'S∞ = a/(1 − r)', 5, 'a divid 1 minus r|a over 1 minus r|a divid one minus r|a over one minus r|a by 1 minus r|a by one minus r|a upon 1 minus r|a upon one minus r|first term divid 1 minus r|first term divid one minus r|first term over 1 minus r|first term over one minus r')], 'c6'),
+    V('v6', 'What are the arithmetic mean and the geometric mean of two numbers, and how do they compare?',
+      'The arithmetic mean of a and b is a plus b divided by two. The geometric mean of two positive numbers is the square root of a times b. For positive numbers the arithmetic mean is always greater than or equal to the geometric mean, and they are equal only when the two numbers are equal.',
+      [P('p1', 'AM = (a + b)/2', 3, 'a plus b|sum of the two|sum of two|sum of a and b|add|a + b|sum of number|total of|sum', 'divid 2|divid two|by 2|by two|half|over 2|over two|/2', min=2),
+       P('p2', 'GM = √(ab)', 3, 'square root|root|sqrt', 'a time b|ab|product|a into b|a b|multipl', min=2),
+       P('p3', 'AM ≥ GM, equal only when the numbers are equal', 4, 'arithmetic mean greater|arithmetic mean is greater|arithmetic mean always greater|arithmetic mean bigger|arithmetic mean at least|arithmetic mean never less|arithmetic mean more|arithmetic mean exceed|greater than gm|greater equal gm|least gm|exceed gm|more than gm|bigger than gm|greater than geometric|greater equal geometric|least geometric|more than geometric|exceed geometric|gm less|gm smaller|gm never greater|gm not greater|gm never more|gm at most|geometric mean less|geometric mean smaller|geometric mean never greater|geometric mean never more|geometric mean at most|geometric mean not greater', min=1)], 'c5'),
+]

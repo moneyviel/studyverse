@@ -1,0 +1,1637 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch03-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch03",
+ "n": 1,
+ "title": "Linear Inequalities",
+ "outcomes": [
+  "Solve linear inequalities in one variable, applying the sign-reversal rule, and show the solution space on a number line.",
+  "Graph linear inequalities in two variables and identify the common (feasible) region of a system, including non-negativity constraints.",
+  "Develop inequalities from a descriptive business problem (decision variables, objective, constraints).",
+  "Find corner points, evaluate the objective function (including by the extreme-point matrix method) and identify the optimal solution and unused resources."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 60,
+   "practice": 75
+  },
+  "prereq": [
+   "fnd-p3-ch02-u01"
+  ],
+  "exam_tip": "Optimisation MCQs are fastest by listing the corner points and substituting them in the objective function — never test points inside the region. For \"which point is feasible\", substitute each option in every constraint."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Inequalities and their rules; one-variable solution space",
+   "body": [
+    "An inequality states that one quantity is less than (<), less than or equal to (≤), greater than (>) or greater than or equal to (≥) another. A linear inequality has variables only to the first power.",
+    "Rules: adding or subtracting the same number on both sides keeps the sign; multiplying or dividing by a positive number keeps the sign; multiplying or dividing by a negative number reverses the sign.",
+    "The set of values that satisfy an inequality is its solution space (S.S.). On a number line, a strict inequality (x > 2) is shown with an open circle at 2; an inclusive one (x ≥ 2) with a filled circle.",
+    "Double inequalities such as −3 < 2x + 5 ≤ 9 are solved by doing the same operation on all three parts."
+   ],
+   "analogy": "An inequality is a speed limit — not one exact speed but a whole range that is allowed.",
+   "work": "Budgets (\"spend at most ₹5 lakh\"), capacity (\"no more than 2,000 machine hours\") and contracts (\"at least 500 units a month\") are inequalities long before they become numbers in a plan."
+  },
+  {
+   "id": "c2",
+   "title": "Graphing a linear inequality in two variables",
+   "body": [
+    "Step 1: replace the inequality sign by \"=\" and draw the line, usually through its two intercepts (put x = 0, then y = 0).",
+    "Step 2: draw the line solid if the inequality includes equality (≤, ≥) and broken (dashed) if it is strict (<, >).",
+    "Step 3: test a point not on the line — the origin is easiest. If it satisfies the inequality, shade the side containing it; otherwise shade the other side.",
+    "Standard regions: x ≥ 0, y ≥ 0 is the first quadrant; y ≤ mx + c lies on and below the line; y ≥ mx + c lies on and above it."
+   ],
+   "analogy": "The boundary line is a fence; the test point tells you which side of the fence is your garden.",
+   "work": "A simple graph shows management at a glance which combinations of output are possible with current resources."
+  },
+  {
+   "id": "c3",
+   "title": "Developing inequalities from a descriptive problem",
+   "body": [
+    "Identify the decision variables (what is to be decided — units of each product, bags of each fertiliser) and give each a symbol.",
+    "Write each limitation as an inequality: \"at most / not more than / available\" → ≤; \"at least / not less than / minimum\" → ≥.",
+    "Add the non-negativity constraints x ≥ 0, y ≥ 0 — quantities cannot be negative.",
+    "Write the objective function — the quantity to be maximised (profit, reach) or minimised (cost, time) — as a linear expression in the variables."
+   ],
+   "analogy": "Formulation is translation: business English on the left, algebra on the right — the meaning must not change.",
+   "work": "Most real errors in planning models come from mis-translating a constraint (≤ instead of ≥, per unit instead of total), not from the arithmetic."
+  },
+  {
+   "id": "c4",
+   "title": "Common region (feasible region) and corner points",
+   "body": [
+    "The region where all the inequalities of a system hold at the same time is the feasible region (solution set). Every point in it is a feasible solution.",
+    "A feasible region may be bounded (enclosed on all sides — a polygon) or unbounded (extending without limit). If no point satisfies all constraints, the system is infeasible.",
+    "Corner (extreme) points are the vertices of the feasible region. Find them as axis intercepts or by solving two boundary equations simultaneously, then check that the point satisfies all the other constraints."
+   ],
+   "analogy": "Each constraint cuts away part of a map; what is left after all the cuts is the area you may build on.",
+   "work": "Listing corner points is the core of a capacity plan: each corner is a \"pure\" plan that uses up some resources completely."
+  },
+  {
+   "id": "c5",
+   "title": "Optimal solution — corner point method and matrix method",
+   "body": [
+    "If a linear objective has an optimum over a feasible region, it is attained at a corner point. So evaluate Z at every corner: the largest value is the maximum, the smallest the minimum.",
+    "Matrix (extreme-point) method used in the study material: write the corner points as the rows of a matrix E and the objective coefficients as a column vector C. The product EC lists Z at each corner; pick the largest element for maximisation or the smallest for minimisation.",
+    "If the objective line is parallel to an edge on which the optimum lies, every point of that edge is optimal — multiple optimal solutions with the same optimal value.",
+    "In an unbounded region a minimum may exist while a maximum does not (or the reverse), depending on the direction of the objective."
+   ],
+   "analogy": "Pushing a ruler (the objective line) across the region, the last point it touches is always a corner — or a whole edge if the ruler lies flat along it.",
+   "work": "Product-mix, diet, transport and advertising-mix decisions in management accounting are solved this way (larger versions use software, but the logic is identical)."
+  },
+  {
+   "id": "c6",
+   "title": "Summary of the graphical method and unused resources",
+   "body": [
+    "(1) Formulate: variables, objective, constraints, non-negativity. (2) Graph each constraint and shade the feasible region. (3) Find the corner points. (4) Evaluate the objective at each corner and choose the optimum.",
+    "(5) Put the optimal values back into each constraint: the difference between the resource available and the resource used is the unused (idle) resource — useful when deciding whether to sell, rent out or reduce that resource."
+   ],
+   "analogy": "After choosing the best route, check the fuel gauge — how much of each resource is still in the tank.",
+   "work": "Idle-capacity figures feed straight into decisions such as accepting a special order or renting out spare machine time."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "One-variable inequalities",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "Solve (a) 3x − 7 ≤ 5x + 1; (b) −3 < 2x + 5 ≤ 9. Show each solution on a number line.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) 3x − 5x ≤ 1 + 7 → −2x ≤ 8. Divide by −2 and reverse the sign: x ≥ −4. Number line: filled circle at −4, shading to the right."
+    },
+    {
+     "t": "p",
+     "text": "(b) Subtract 5 from all three parts: −8 < 2x ≤ 4. Divide by 2: −4 < x ≤ 2. Number line: open circle at −4, filled circle at 2, shading between."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(1+7)/(3-5)",
+     "value": -4,
+     "label": "x boundary from 3x − 7 = 5x + 1 → x = −4"
+    },
+    {
+     "expr": "(-3-5)/2",
+     "value": -4,
+     "label": "lower bound −4"
+    },
+    {
+     "expr": "(9-5)/2",
+     "value": 2,
+     "label": "upper bound 2"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Graphing one inequality",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "Show the region 2x + 3y ≤ 12.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Boundary 2x + 3y = 12: x-intercept (6, 0), y-intercept (0, 4). Draw a solid line (≤ includes the line)."
+    },
+    {
+     "t": "p",
+     "text": "Test (0, 0): 0 ≤ 12 is true, so shade the side of the line containing the origin."
+    },
+    {
+     "t": "note",
+     "text": "If the question adds x ≥ 0, y ≥ 0, the region becomes the triangle with vertices (0, 0), (6, 0), (0, 4)."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "12/2",
+     "value": 6,
+     "label": "x-intercept of 2x + 3y = 12"
+    },
+    {
+     "expr": "12/3",
+     "value": 4,
+     "label": "y-intercept"
+    },
+    {
+     "expr": "2*0+3*0",
+     "value": 0,
+     "label": "test point (0, 0): LHS = 0 ≤ 12, so origin side"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Formulate and solve a product-mix problem",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "A workshop makes chairs and tables. A chair needs 2 hours of carpentry and 1 hour of polishing; a table needs 3 hours of carpentry and 2 hours of polishing. Each week 120 carpentry hours and 70 polishing hours are available. Profit is ₹400 per chair and ₹700 per table. How many of each should be made to maximise profit?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Let x = chairs, y = tables. Maximise Z = 400x + 700y subject to 2x + 3y ≤ 120 (carpentry), x + 2y ≤ 70 (polishing), x ≥ 0, y ≥ 0."
+    },
+    {
+     "t": "p",
+     "text": "Intercepts: carpentry (60, 0), (0, 40); polishing (70, 0), (0, 35). Both regions contain the origin."
+    },
+    {
+     "t": "p",
+     "text": "Intersection: x = 70 − 2y → 2(70 − 2y) + 3y = 120 → y = 20, x = 30."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Corner point",
+      "Z = 400x + 700y (₹)"
+     ],
+     "rows": [
+      [
+       "(0, 0)",
+       0
+      ],
+      [
+       "(60, 0)",
+       24000
+      ],
+      [
+       "(0, 35)",
+       24500
+      ],
+      [
+       "(30, 20)",
+       26000
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Optimal plan: 30 chairs and 20 tables a week; maximum profit ₹26,000."
+    },
+    {
+     "t": "note",
+     "text": "(60, 0) uses only 60 polishing hours — 10 hours idle. (0, 40) is not a corner because it breaks the polishing limit (80 > 70)."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "120/2",
+     "value": 60,
+     "label": "carpentry x-intercept"
+    },
+    {
+     "expr": "70/2",
+     "value": 35,
+     "label": "polishing y-intercept"
+    },
+    {
+     "expr": "(2*70-120)/(2*2-3)",
+     "value": 20,
+     "label": "y at intersection"
+    },
+    {
+     "expr": "70-2*20",
+     "value": 30,
+     "label": "x at intersection"
+    },
+    {
+     "expr": "400*60",
+     "value": 24000,
+     "label": "Z at (60, 0)"
+    },
+    {
+     "expr": "700*35",
+     "value": 24500,
+     "label": "Z at (0, 35)"
+    },
+    {
+     "expr": "400*30+700*20",
+     "value": 26000,
+     "label": "Z at (30, 20)"
+    },
+    {
+     "expr": "70-60",
+     "value": 10,
+     "label": "idle polishing hours at (60, 0)"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "A minimisation problem with an unbounded region",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Minimise Z = 6x + 10y subject to x + 2y ≥ 10, 3x + 2y ≥ 18, x ≥ 0, y ≥ 0.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Boundaries: x + 2y = 10 through (10, 0) and (0, 5); 3x + 2y = 18 through (6, 0) and (0, 9). Origin fails both, so the region lies away from the origin — unbounded."
+    },
+    {
+     "t": "p",
+     "text": "Intersection: subtract the equations → 2x = 8 → x = 4, y = 3."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Corner point",
+      "Z = 6x + 10y"
+     ],
+     "rows": [
+      [
+       "(0, 9)",
+       90
+      ],
+      [
+       "(4, 3)",
+       54
+      ],
+      [
+       "(10, 0)",
+       60
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Minimum Z = 54 at x = 4, y = 3. There is no maximum, because the region is unbounded and Z keeps rising."
+    },
+    {
+     "t": "note",
+     "text": "(0, 5) and (6, 0) are not corners: (0, 5) breaks 3x + 2y ≥ 18 and (6, 0) breaks x + 2y ≥ 10."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "18/2",
+     "value": 9,
+     "label": "(0, 9) on 3x + 2y = 18"
+    },
+    {
+     "expr": "(18-10)/(3-1)",
+     "value": 4,
+     "label": "x at intersection"
+    },
+    {
+     "expr": "(10-4)/2",
+     "value": 3,
+     "label": "y at intersection"
+    },
+    {
+     "expr": "10*9",
+     "value": 90,
+     "label": "Z at (0, 9)"
+    },
+    {
+     "expr": "6*4+10*3",
+     "value": 54,
+     "label": "Z at (4, 3)"
+    },
+    {
+     "expr": "6*10",
+     "value": 60,
+     "label": "Z at (10, 0)"
+    }
+   ]
+  },
+  {
+   "id": "i5",
+   "title": "The extreme-point matrix method",
+   "difficulty": "core",
+   "minutes": 4,
+   "q": "For the workshop in Illustration 3, use the matrix method to find the optimum.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "E is the 4 × 2 matrix of corner points; C is the column (400, 700) of objective coefficients. Each element of EC is x × 400 + y × 700 for one corner."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Corner point (row of E)",
+      "x × 400 + y × 700",
+      "Z (₹)"
+     ],
+     "rows": [
+      [
+       "(0, 0)",
+       "0 × 400 + 0 × 700",
+       0
+      ],
+      [
+       "(0, 35)",
+       "0 × 400 + 35 × 700",
+       24500
+      ],
+      [
+       "(30, 20)",
+       "30 × 400 + 20 × 700",
+       26000
+      ],
+      [
+       "(60, 0)",
+       "60 × 400 + 0 × 700",
+       24000
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "The largest element, 26,000, is in the row (30, 20): make 30 chairs and 20 tables."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "0*400+0*700",
+     "value": 0,
+     "label": "EC row for (0, 0)"
+    },
+    {
+     "expr": "0*400+35*700",
+     "value": 24500,
+     "label": "EC row for (0, 35)"
+    },
+    {
+     "expr": "30*400+20*700",
+     "value": 26000,
+     "label": "EC row for (30, 20)"
+    },
+    {
+     "expr": "60*400+0*700",
+     "value": 24000,
+     "label": "EC row for (60, 0)"
+    }
+   ]
+  },
+  {
+   "id": "i6",
+   "title": "Is this plan feasible?",
+   "difficulty": "core",
+   "minutes": 3,
+   "q": "For the workshop in Illustration 3, are the plans (10, 25) and (20, 30) feasible?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Plan (x, y)",
+      "Carpentry 2x + 3y ≤ 120",
+      "Polishing x + 2y ≤ 70",
+      "Feasible?"
+     ],
+     "rows": [
+      [
+       "(10, 25)",
+       "95 ✔",
+       "60 ✔",
+       "Yes"
+      ],
+      [
+       "(20, 30)",
+       "130 ✘",
+       "80 ✘",
+       "No"
+      ]
+     ]
+    },
+    {
+     "t": "note",
+     "text": "A plan must satisfy every constraint (including non-negativity). Failing even one makes it infeasible."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2*10+3*25",
+     "value": 95,
+     "label": "(10, 25): carpentry 95 ≤ 120"
+    },
+    {
+     "expr": "10+2*25",
+     "value": 60,
+     "label": "(10, 25): polishing 60 ≤ 70"
+    },
+    {
+     "expr": "2*20+3*30",
+     "value": 130,
+     "label": "(20, 30): carpentry 130 > 120 — infeasible"
+    },
+    {
+     "expr": "20+2*30",
+     "value": 80,
+     "label": "(20, 30): polishing 80 > 70 — infeasible"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Bakery product mix",
+   "role": "CA advising a small bakery",
+   "situation": "The owner bakes cakes and bread with a limited oven time and flour supply and asks, \"How many of each should I bake to earn the most?\"",
+   "steps": [
+    "Define x = cakes and y = loaves per day; collect oven minutes and flour per unit and the daily limits.",
+    "Write each limit as ≤, add x, y ≥ 0, and write profit per unit as the objective.",
+    "Plot, find the corners, evaluate the profit at each, and recommend the best corner.",
+    "Report idle oven time or flour at that plan — it shows where extra sales effort could pay."
+   ],
+   "takeaway": "The graphical method is a practical advisory tool for small clients with two main products.",
+   "think": "What would you check if the owner says cakes must be at least 10 a day for regular customers?",
+   "answer": "Add x ≥ 10 as a new constraint, redraw the region and recheck the corners — the optimum may move."
+  },
+  {
+   "id": "j2",
+   "title": "Advertising mix within a budget",
+   "role": "Finance manager in a consumer company",
+   "situation": "TV spots cost ₹50,000 and reach 60,000 viewers each; radio spots cost ₹10,000 and reach 15,000 listeners each. Budget ₹5,00,000; at least 2 TV spots; at most 30 radio spots.",
+   "steps": [
+    "x = TV spots, y = radio spots. Maximise reach Z = 60,000x + 15,000y.",
+    "Constraints: 50,000x + 10,000y ≤ 5,00,000 (i.e. 5x + y ≤ 50), x ≥ 2, y ≤ 30, y ≥ 0.",
+    "Corners: (2, 0), (10, 0), (2, 30), (4, 30). Reach: 1,20,000; 6,00,000; 5,70,000; 6,90,000.",
+    "Best: 4 TV and 30 radio spots, reach 6,90,000, spending the whole budget."
+   ],
+   "takeaway": "Even \"soft\" marketing decisions can be framed as a small linear programme.",
+   "think": "Why is (10, 0) a corner but not optimal?",
+   "answer": "It spends the full budget on TV (reach 6,00,000), but moving budget into radio buys reach more cheaply (1.5 per rupee vs 1.2), until the 30-spot radio limit binds at (4, 30).",
+   "checks": [
+    {
+     "expr": "(50-30)/5",
+     "value": 4,
+     "label": "x where 5x + y = 50 meets y = 30"
+    },
+    {
+     "expr": "60000*2",
+     "value": 120000,
+     "label": "reach at (2, 0)"
+    },
+    {
+     "expr": "60000*10",
+     "value": 600000,
+     "label": "reach at (10, 0)"
+    },
+    {
+     "expr": "60000*2+15000*30",
+     "value": 570000,
+     "label": "reach at (2, 30)"
+    },
+    {
+     "expr": "60000*4+15000*30",
+     "value": 690000,
+     "label": "reach at (4, 30)"
+    },
+    {
+     "expr": "50000*4+10000*30",
+     "value": 500000,
+     "label": "spend at (4, 30)"
+    }
+   ]
+  },
+  {
+   "id": "j3",
+   "title": "Idle capacity at the chosen plan",
+   "role": "Cost accountant reviewing the workshop plan",
+   "situation": "Management chose 30 chairs and 20 tables (Illustration 3). The plant head asks whether any carpentry or polishing hours will be idle.",
+   "steps": [
+    "Carpentry used = 2(30) + 3(20) = 120 of 120 → idle 0.",
+    "Polishing used = 30 + 2(20) = 70 of 70 → idle 0.",
+    "Both resources are binding — any increase in output needs more of both.",
+    "Compare with the plan (60, 0): carpentry idle 0, polishing idle 10 hours."
+   ],
+   "takeaway": "At an intersection corner both constraints are binding; at an axis corner some resource is often idle.",
+   "think": "If 10 more polishing hours could be hired, would the optimum change?",
+   "answer": "Yes — the polishing line moves outward, the intersection corner shifts, and the new corner must be re-evaluated.",
+   "checks": [
+    {
+     "expr": "120-(2*30+3*20)",
+     "value": 0,
+     "label": "carpentry hours idle at (30, 20)"
+    },
+    {
+     "expr": "70-(30+2*20)",
+     "value": 0,
+     "label": "polishing hours idle at (30, 20)"
+    },
+    {
+     "expr": "120-2*60",
+     "value": 0,
+     "label": "carpentry idle at (60, 0)"
+    },
+    {
+     "expr": "70-60",
+     "value": 10,
+     "label": "polishing idle at (60, 0)"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The solution of 4x − 3 > 2x + 7 is:",
+   "options": [
+    "x > 5",
+    "x < 5",
+    "x > 2",
+    "x ≥ 5"
+   ],
+   "answer": 0,
+   "explain": "2x > 10 → x > 5. The sign stays because we divided by +2.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "The solution of −2x + 5 ≤ 11 is:",
+   "options": [
+    "x ≥ −3",
+    "x ≤ −3",
+    "x ≥ 3",
+    "x ≤ 3"
+   ],
+   "answer": 0,
+   "explain": "−2x ≤ 6 → dividing by −2 reverses the sign: x ≥ −3.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "When both sides of an inequality are multiplied by a negative number:",
+   "options": [
+    "The inequality sign is reversed",
+    "The sign is unchanged",
+    "The inequality becomes an equation",
+    "Only the left side changes"
+   ],
+   "answer": 0,
+   "explain": "Multiplying or dividing by a negative number reverses the direction of the inequality.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "The solution of −1 ≤ (3x − 2)/4 < 2 is:",
+   "options": [
+    "−2/3 ≤ x < 10/3",
+    "−2/3 < x ≤ 10/3",
+    "−2 ≤ x < 10",
+    "2/3 ≤ x < 10/3"
+   ],
+   "answer": 0,
+   "explain": "×4: −4 ≤ 3x − 2 < 8 → −2 ≤ 3x < 10 → −2/3 ≤ x < 10/3.",
+   "concept": "c1",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m5",
+   "q": "While graphing 3x + 2y < 12, the line 3x + 2y = 12 is drawn:",
+   "options": [
+    "As a broken (dashed) line, because points on it are excluded",
+    "As a solid line",
+    "Parallel to the x-axis",
+    "Through the origin"
+   ],
+   "answer": 0,
+   "explain": "A strict inequality excludes the boundary, shown by a broken line.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "The region represented by 2x + 5y ≤ 10 is:",
+   "options": [
+    "The side of the line 2x + 5y = 10 that contains the origin, including the line",
+    "The side away from the origin",
+    "Only the line itself",
+    "The whole plane"
+   ],
+   "answer": 0,
+   "explain": "Test (0, 0): 0 ≤ 10 is true, so the origin side (with the line) is the region.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Which point satisfies both x + y ≤ 6 and x − y ≥ 2?",
+   "options": [
+    "(4, 1)",
+    "(1, 4)",
+    "(6, 2)",
+    "(2, 3)"
+   ],
+   "answer": 0,
+   "explain": "(4, 1): 5 ≤ 6 and 3 ≥ 2. (1, 4) and (2, 3) fail the second; (6, 2) fails the first.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "The inequalities x ≥ 0 and y ≥ 0 together represent:",
+   "options": [
+    "The first quadrant including the axes",
+    "The second quadrant",
+    "The whole plane",
+    "Only the origin"
+   ],
+   "answer": 0,
+   "explain": "Both coordinates non-negative: the first quadrant with its boundary axes.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m9",
+   "q": "The region x ≤ 0, y ≥ 0 lies in the:",
+   "options": [
+    "Second quadrant",
+    "First quadrant",
+    "Third quadrant",
+    "Fourth quadrant"
+   ],
+   "answer": 0,
+   "explain": "x negative or zero and y positive or zero: second quadrant.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m10",
+   "q": "The line 4x + 3y = 24 cuts the axes at:",
+   "options": [
+    "(6, 0) and (0, 8)",
+    "(8, 0) and (0, 6)",
+    "(4, 0) and (0, 3)",
+    "(24, 0) and (0, 24)"
+   ],
+   "answer": 0,
+   "explain": "y = 0 → x = 6; x = 0 → y = 8.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m11",
+   "q": "Maximise Z = 3x + 2y subject to x + y ≤ 5, x ≥ 0, y ≥ 0. The maximum value is:",
+   "options": [
+    "15",
+    "10",
+    "25",
+    "5"
+   ],
+   "answer": 0,
+   "explain": "Corners (0, 0), (5, 0), (0, 5): Z = 0, 15, 10.",
+   "concept": "c5",
+   "difficulty": "core",
+   "check": "3*5"
+  },
+  {
+   "id": "m12",
+   "q": "Maximise Z = 2x + 3y subject to x + y ≤ 4, x + 3y ≤ 6, x, y ≥ 0. The maximum value is:",
+   "options": [
+    "9",
+    "8",
+    "6",
+    "12"
+   ],
+   "answer": 0,
+   "explain": "Corners (0, 0), (4, 0), (0, 2), (3, 1): Z = 0, 8, 6, 9.",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "2*3+3*1"
+  },
+  {
+   "id": "m13",
+   "q": "Minimise Z = 3x + 5y subject to x + y ≥ 4, x + 3y ≥ 6, x, y ≥ 0. The minimum value is:",
+   "options": [
+    "14",
+    "18",
+    "20",
+    "10"
+   ],
+   "answer": 0,
+   "explain": "Corners (0, 4), (3, 1), (6, 0): Z = 20, 14, 18.",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "3*3+5*1"
+  },
+  {
+   "id": "m14",
+   "q": "If an optimal solution exists, it occurs:",
+   "options": [
+    "At a corner (extreme) point of the feasible region",
+    "Always at the origin",
+    "At the centre of the feasible region",
+    "Outside the feasible region"
+   ],
+   "answer": 0,
+   "explain": "The optimum of a linear objective over a convex polygon is attained at a vertex.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m15",
+   "q": "If the objective function line is parallel to an edge of the feasible region along which the optimum lies:",
+   "options": [
+    "There are multiple optimal solutions with the same optimal value",
+    "There is no solution",
+    "The region is unbounded",
+    "The optimum is at the origin"
+   ],
+   "answer": 0,
+   "explain": "Every point on that edge gives the same best value.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m16",
+   "q": "A feasible region that is not enclosed on all sides is called:",
+   "options": [
+    "Unbounded",
+    "Infeasible",
+    "Degenerate",
+    "Empty"
+   ],
+   "answer": 0,
+   "explain": "It extends indefinitely in some direction; a maximum may not exist (a minimum may).",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m17",
+   "q": "Shirts need 2 hours and trousers 3 hours of tailoring; at most 60 hours are available. With x shirts and y trousers:",
+   "options": [
+    "2x + 3y ≤ 60",
+    "2x + 3y ≥ 60",
+    "3x + 2y ≤ 60",
+    "x + y ≤ 60"
+   ],
+   "answer": 0,
+   "explain": "Hours used = 2x + 3y and cannot exceed 60.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m18",
+   "q": "Food P gives 4 units of protein per kg and food Q gives 5 units. A diet needs at least 20 units. The constraint is:",
+   "options": [
+    "4x + 5y ≥ 20",
+    "4x + 5y ≤ 20",
+    "5x + 4y ≥ 20",
+    "x + y ≥ 20"
+   ],
+   "answer": 0,
+   "explain": "\"At least\" → ≥.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m19",
+   "q": "Non-negativity constraints state that:",
+   "options": [
+    "x ≥ 0 and y ≥ 0",
+    "x > 0 and y > 0",
+    "x ≤ 0 and y ≤ 0",
+    "x + y ≥ 0 only"
+   ],
+   "answer": 0,
+   "explain": "Quantities produced or bought cannot be negative (zero is allowed).",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m20",
+   "q": "The region 3x − 4y ≥ 12 is:",
+   "options": [
+    "The side of the line not containing the origin",
+    "The side containing the origin",
+    "Only the first quadrant",
+    "The line only"
+   ],
+   "answer": 0,
+   "explain": "At (0, 0): 0 ≥ 12 is false, so the origin is not in the region.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m21",
+   "q": "How many integers satisfy both 2x − 3 > 0 and x < 5?",
+   "options": [
+    "3",
+    "4",
+    "2",
+    "5"
+   ],
+   "answer": 0,
+   "explain": "x > 1.5 and x < 5 → x = 2, 3, 4.",
+   "concept": "c1",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m22",
+   "q": "How many integers satisfy −3 ≤ 2x + 1 < 7?",
+   "options": [
+    "5",
+    "6",
+    "4",
+    "3"
+   ],
+   "answer": 0,
+   "explain": "−4 ≤ 2x < 6 → −2 ≤ x < 3 → −2, −1, 0, 1, 2.",
+   "concept": "c1",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m23",
+   "q": "The region x ≥ 0, y ≥ 0, x ≤ 4, y ≤ 5, x + y ≤ 7 has corner points (0, 0), (4, 0), (4, 3), (2, 5), (0, 5). The maximum of Z = x + 2y is:",
+   "options": [
+    "12",
+    "10",
+    "11",
+    "14"
+   ],
+   "answer": 0,
+   "explain": "Z = 0, 4, 10, 12, 10. Maximum 12 at (2, 5).",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "2+2*5"
+  },
+  {
+   "id": "m24",
+   "q": "At the point (3, 2), how much of the resource in the constraint 2x + y ≤ 10 is left unused?",
+   "options": [
+    "2",
+    "8",
+    "0",
+    "4"
+   ],
+   "answer": 0,
+   "explain": "Used = 2(3) + 2 = 8; unused = 10 − 8 = 2.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m25",
+   "q": "The region y ≥ x + 2 consists of points:",
+   "options": [
+    "On and above the line y = x + 2",
+    "Below the line only",
+    "On the line only",
+    "To the right of the line only"
+   ],
+   "answer": 0,
+   "explain": "For each x, y must be at least x + 2.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m26",
+   "q": "Which of these is NOT a linear inequality?",
+   "options": [
+    "x² + y ≤ 4",
+    "3x − y > 2",
+    "x ≥ 0",
+    "2x + 5y ≤ 30"
+   ],
+   "answer": 0,
+   "explain": "x² makes it non-linear.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m27",
+   "q": "On a number line, x > 2 is shown by:",
+   "options": [
+    "An open (hollow) circle at 2 with shading to the right",
+    "A filled circle at 2 with shading to the right",
+    "An open circle at 2 with shading to the left",
+    "A filled circle at 2 only"
+   ],
+   "answer": 0,
+   "explain": "Strict inequality → 2 itself excluded (open circle).",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m28",
+   "q": "Using the matrix method, the extreme points (0, 0), (5, 0), (2, 3), (0, 4) are multiplied by the objective column (3, 4) for Z = 3x + 4y. The maximum element of EC is:",
+   "options": [
+    "18",
+    "16",
+    "15",
+    "20"
+   ],
+   "answer": 0,
+   "explain": "EC = (0, 15, 18, 16). The largest, 18, is at (2, 3).",
+   "concept": "c5",
+   "difficulty": "moderate",
+   "check": "3*2+4*3"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Find the corner points of the region 2x + y ≤ 10, x + 2y ≤ 8, x ≥ 0, y ≥ 0, and find the maximum of Z = 3x + 4y over it.",
+   "model": [
+    {
+     "t": "p",
+     "text": "Intercepts: 2x + y = 10 → (5, 0), (0, 10); x + 2y = 8 → (8, 0), (0, 4). Origin satisfies both, so the region is towards the origin."
+    },
+    {
+     "t": "p",
+     "text": "Intersection: double the second equation: 2x + 4y = 16; subtract the first: 3y = 6 → y = 2, x = 4."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Corner point",
+      "Z = 3x + 4y"
+     ],
+     "rows": [
+      [
+       "(0, 0)",
+       0
+      ],
+      [
+       "(5, 0)",
+       15
+      ],
+      [
+       "(4, 2)",
+       20
+      ],
+      [
+       "(0, 4)",
+       16
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Maximum Z = 20 at (4, 2)."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Correct intercepts and side of each line",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "Intersection (4, 2)",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Correct list of corners (excludes (8, 0) and (0, 10))",
+     "m": 1,
+     "skill": "analysis"
+    },
+    {
+     "id": "s4",
+     "pt": "Evaluates Z and states the maximum",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "Including (8, 0) or (0, 10) as corners is the classic error — they violate the other constraint."
+   ],
+   "mistakes": [
+    "Not checking each candidate corner against all constraints.",
+    "Evaluating Z at the intercepts of only one line."
+   ],
+   "tips": [
+    "Put the corners and Z values in a two-column table — quick to mark and to check."
+   ],
+   "checks": [
+    {
+     "expr": "(16-10)/(4-1)",
+     "value": 2,
+     "label": "y at intersection of 2x + y = 10 and x + 2y = 8"
+    },
+    {
+     "expr": "8-2*2",
+     "value": 4,
+     "label": "x at intersection"
+    },
+    {
+     "expr": "3*5",
+     "value": 15,
+     "label": "Z at (5, 0)"
+    },
+    {
+     "expr": "3*4+4*2",
+     "value": 20,
+     "label": "Z at (4, 2)"
+    },
+    {
+     "expr": "4*4",
+     "value": 16,
+     "label": "Z at (0, 4)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "A firm makes products P and Q. P needs 1 machine hour and 2 labour hours; Q needs 2 machine hours and 1 labour hour. 40 machine hours and 50 labour hours are available. Profit is ₹30 per unit of P and ₹20 per unit of Q. Formulate and solve graphically.",
+   "model": [
+    {
+     "t": "p",
+     "text": "Let x, y be units of P and Q. Maximise Z = 30x + 20y subject to x + 2y ≤ 40, 2x + y ≤ 50, x ≥ 0, y ≥ 0."
+    },
+    {
+     "t": "p",
+     "text": "Intercepts: machine (40, 0), (0, 20); labour (25, 0), (0, 50). Intersection: x = 40 − 2y → 80 − 4y + y = 50 → y = 10, x = 20."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Corner point",
+      "Z = 30x + 20y (₹)"
+     ],
+     "rows": [
+      [
+       "(0, 0)",
+       0
+      ],
+      [
+       "(25, 0)",
+       750
+      ],
+      [
+       "(20, 10)",
+       800
+      ],
+      [
+       "(0, 20)",
+       400
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Make 20 units of P and 10 of Q; maximum profit ₹800."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Correct objective and constraints with non-negativity",
+     "m": 1.5,
+     "skill": "application"
+    },
+    {
+     "id": "s2",
+     "pt": "Correct corners including (20, 10)",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Evaluates Z, states optimum ₹800 at (20, 10)",
+     "m": 1,
+     "skill": "conclusion"
+    }
+   ],
+   "remarks": [
+    "Swapping the coefficients (writing 2x + y ≤ 40 for machine hours) is the commonest formulation error."
+   ],
+   "mistakes": [
+    "Missing x, y ≥ 0.",
+    "Choosing (40, 0) which breaks the labour constraint."
+   ],
+   "tips": [
+    "Make a small data table (product × resource) before writing constraints."
+   ],
+   "checks": [
+    {
+     "expr": "(80-50)/(4-1)",
+     "value": 10,
+     "label": "y at intersection"
+    },
+    {
+     "expr": "40-2*10",
+     "value": 20,
+     "label": "x at intersection"
+    },
+    {
+     "expr": "30*25",
+     "value": 750,
+     "label": "Z at (25, 0)"
+    },
+    {
+     "expr": "20*20",
+     "value": 400,
+     "label": "Z at (0, 20)"
+    },
+    {
+     "expr": "30*20+20*10",
+     "value": 800,
+     "label": "Z at (20, 10)"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "Minimise Z = 20x + 30y subject to x + y ≥ 6, x + 3y ≥ 12, x ≥ 0, y ≥ 0. Comment on the existence of a maximum.",
+   "model": [
+    {
+     "t": "p",
+     "text": "Lines: x + y = 6 through (6, 0), (0, 6); x + 3y = 12 through (12, 0), (0, 4). The origin fails both, so the region lies away from it and is unbounded."
+    },
+    {
+     "t": "p",
+     "text": "Intersection: subtract → 2y = 6 → y = 3, x = 3."
+    },
+    {
+     "t": "table",
+     "head": [
+      "Corner point",
+      "Z = 20x + 30y"
+     ],
+     "rows": [
+      [
+       "(0, 6)",
+       180
+      ],
+      [
+       "(3, 3)",
+       150
+      ],
+      [
+       "(12, 0)",
+       240
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Minimum Z = 150 at (3, 3). No maximum exists because the region is unbounded and Z increases without limit."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Identifies region away from origin (unbounded)",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "Corners (0, 6), (3, 3), (12, 0)",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Minimum 150 at (3, 3)",
+     "m": 1,
+     "skill": "conclusion"
+    },
+    {
+     "id": "s4",
+     "pt": "Comment: no maximum (unbounded region)",
+     "m": 0.5,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "Many candidates use (0, 4) or (6, 0) as corners — both fail the other constraint."
+   ],
+   "mistakes": [
+    "Shading towards the origin for ≥ constraints.",
+    "Stating a maximum for an unbounded region."
+   ],
+   "tips": [
+    "Always test the origin for each constraint and write the result in one line."
+   ],
+   "checks": [
+    {
+     "expr": "(12-6)/(3-1)",
+     "value": 3,
+     "label": "y at intersection"
+    },
+    {
+     "expr": "6-3",
+     "value": 3,
+     "label": "x at intersection"
+    },
+    {
+     "expr": "30*6",
+     "value": 180,
+     "label": "Z at (0, 6)"
+    },
+    {
+     "expr": "20*3+30*3",
+     "value": 150,
+     "label": "Z at (3, 3)"
+    },
+    {
+     "expr": "20*12",
+     "value": 240,
+     "label": "Z at (12, 0)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Adding/subtracting keeps the sign; multiplying/dividing by a negative reverses it.",
+   "Open circle for < or >, filled circle for ≤ or ≥ on a number line.",
+   "Graph: draw the boundary (solid for ≤/≥, broken for </>), test the origin, shade the correct side.",
+   "Feasible region = common region of all constraints including x, y ≥ 0; bounded or unbounded.",
+   "Optimum occurs at a corner point; evaluate Z at all corners (or use EC in the matrix method).",
+   "Objective parallel to an optimal edge → multiple optimal solutions with the same value.",
+   "Unused resource = available − used at the optimal point."
+  ],
+  "remember": [
+   "\"At most / not more than / available\" → ≤; \"at least / minimum\" → ≥.",
+   "A candidate corner must satisfy every constraint.",
+   "Unbounded region: a minimum may exist with no maximum."
+  ],
+  "traps": [
+   "Forgetting to reverse the sign when dividing by a negative.",
+   "Taking axis intercepts that violate another constraint as corners.",
+   "Testing interior points instead of corners."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Sign reversal",
+   "v": "Multiply or divide by a negative number → reverse <, ≤, >, ≥"
+  },
+  {
+   "k": "Boundary line",
+   "v": "Solid for ≤ / ≥; broken for < / >"
+  },
+  {
+   "k": "Test point",
+   "v": "Use (0, 0) unless the line passes through it"
+  },
+  {
+   "k": "First quadrant",
+   "v": "x ≥ 0, y ≥ 0"
+  },
+  {
+   "k": "Corner-point rule",
+   "v": "Optimum of a linear objective lies at a vertex of the feasible region"
+  },
+  {
+   "k": "Matrix method",
+   "v": "E (corner points as rows) × C (objective coefficients) → Z at each corner"
+  },
+  {
+   "k": "Multiple optima",
+   "v": "Objective line parallel to an optimal edge"
+  },
+  {
+   "k": "Unused resource",
+   "v": "Available − used at the optimal point"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What happens to an inequality when you add a number to both sides, and when you multiply both sides by a negative number?",
+   "model": "Adding or subtracting the same number on both sides does not change the inequality sign. Multiplying or dividing both sides by a positive number also keeps the sign, but multiplying or dividing by a negative number reverses the direction of the inequality.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Adding/subtracting the same number keeps the sign",
+     "w": 4,
+     "kw": [
+      "add  not change|add  no change|add  unchanged|add  same sign|add  remain|add  stay|add  keep|add  doesn t change|add  no effect|add  does not affect|add same number not change|add same number no change|add same number unchanged|add same number same sign|add same number remain|add same number stay|add same number keep|add same number doesn t change|add same number no effect|add same number does not affect|add same number both side not change|add same number both side no change|add same number both side unchanged|add same number both side same sign|add same number both side remain|add same number both side stay|add same number both side keep|add same number both side doesn t change|add same number both side no effect|add same number both side does not affect|add same quantity not change|add same quantity no change|add same quantity unchanged|add same quantity same sign|add same quantity remain|add same quantity stay|add same quantity keep|add same quantity doesn t change|add same quantity no effect|add same quantity does not affect|add same quantity both side not change|add same quantity both side no change|add same quantity both side unchanged|add same quantity both side same sign|add same quantity both side remain|add same quantity both side stay|add same quantity both side keep|add same quantity both side doesn t change|add same quantity both side no effect|add same quantity both side does not affect|add number not change|add number no change|add number unchanged|add number same sign|add number remain|add number stay|add number keep|add number doesn t change|add number no effect|add number does not affect|add number both side not change|add number both side no change|add number both side unchanged|add number both side same sign|add number both side remain|add number both side stay|add number both side keep|add number both side doesn t change|add number both side no effect|add number both side does not affect|add both side not change|add both side no change|add both side unchanged|add both side same sign|add both side remain|add both side stay|add both side keep|add both side doesn t change|add both side no effect|add both side does not affect|add same not change|add same no change|add same unchanged|add same same sign|add same remain|add same stay|add same keep|add same doesn t change|add same no effect|add same does not affect|add same both side not change|add same both side no change|add same both side unchanged|add same both side same sign|add same both side remain|add same both side stay|add same both side keep|add same both side doesn t change|add same both side no effect|add same both side does not affect|add constant not change|add constant no change|add constant unchanged|add constant same sign|add constant remain|add constant stay|add constant keep|add constant doesn t change|add constant no effect|add constant does not affect|add constant both side not change|add constant both side no change|add constant both side unchanged|add constant both side same sign|add constant both side remain|add constant both side stay|add constant both side keep|add constant both side doesn t change|add constant both side no effect|add constant both side does not affect|add subtract same number both side not change|add subtract same number both side no change|add subtract same number both side unchanged|add subtract same number both side same sign|add subtract same number both side remain|add subtract same number both side stay|add subtract same number both side keep|add subtract same number both side doesn t change|add subtract same number both side no effect|add subtract same number both side does not affect|add subtract same number not change|add subtract same number no change|add subtract same number unchanged|add subtract same number same sign|add subtract same number remain|add subtract same number stay|add subtract same number keep|add subtract same number doesn t change|add subtract same number no effect|add subtract same number does not affect|add subtract same quantity not change|add subtract same quantity no change|add subtract same quantity unchanged|add subtract same quantity same sign|add subtract same quantity remain|add subtract same quantity stay|add subtract same quantity keep|add subtract same quantity doesn t change|add subtract same quantity no effect|add subtract same quantity does not affect|adding  not change|adding  no change|adding  unchanged|adding  same sign|adding  remain|adding  stay|adding  keep|adding  doesn t change|adding  no effect|adding  does not affect|adding same number not change|adding same number no change|adding same number unchanged|adding same number same sign|adding same number remain|adding same number stay|adding same number keep|adding same number doesn t change|adding same number no effect|adding same number does not affect|adding same number both side not change|adding same number both side no change|adding same number both side unchanged|adding same number both side same sign|adding same number both side remain|adding same number both side stay|adding same number both side keep|adding same number both side doesn t change|adding same number both side no effect|adding same number both side does not affect|adding same quantity not change|adding same quantity no change|adding same quantity unchanged|adding same quantity same sign|adding same quantity remain|adding same quantity stay|adding same quantity keep|adding same quantity doesn t change|adding same quantity no effect|adding same quantity does not affect|adding same quantity both side not change|adding same quantity both side no change|adding same quantity both side unchanged|adding same quantity both side same sign|adding same quantity both side remain|adding same quantity both side stay|adding same quantity both side keep|adding same quantity both side doesn t change|adding same quantity both side no effect|adding same quantity both side does not affect|adding number not change|adding number no change|adding number unchanged|adding number same sign|adding number remain|adding number stay|adding number keep|adding number doesn t change|adding number no effect|adding number does not affect|adding number both side not change|adding number both side no change|adding number both side unchanged|adding number both side same sign|adding number both side remain|adding number both side stay|adding number both side keep|adding number both side doesn t change|adding number both side no effect|adding number both side does not affect|adding both side not change|adding both side no change|adding both side unchanged|adding both side same sign|adding both side remain|adding both side stay|adding both side keep|adding both side doesn t change|adding both side no effect|adding both side does not affect|adding same not change|adding same no change|adding same unchanged|adding same same sign|adding same remain|adding same stay|adding same keep|adding same doesn t change|adding same no effect|adding same does not affect|adding same both side not change|adding same both side no change|adding same both side unchanged|adding same both side same sign|adding same both side remain|adding same both side stay|adding same both side keep|adding same both side doesn t change|adding same both side no effect|adding same both side does not affect|adding constant not change|adding constant no change|adding constant unchanged|adding constant same sign|adding constant remain|adding constant stay|adding constant keep|adding constant doesn t change|adding constant no effect|adding constant does not affect|adding constant both side not change|adding constant both side no change|adding constant both side unchanged|adding constant both side same sign|adding constant both side remain|adding constant both side stay|adding constant both side keep|adding constant both side doesn t change|adding constant both side no effect|adding constant both side does not affect|adding subtract same number both side not change|adding subtract same number both side no change|adding subtract same number both side unchanged|adding subtract same number both side same sign|adding subtract same number both side remain|adding subtract same number both side stay|adding subtract same number both side keep|adding subtract same number both side doesn t change|adding subtract same number both side no effect|adding subtract same number both side does not affect|adding subtract same number not change|adding subtract same number no change|adding subtract same number unchanged|adding subtract same number same sign|adding subtract same number remain|adding subtract same number stay|adding subtract same number keep|adding subtract same number doesn t change|adding subtract same number no effect|adding subtract same number does not affect|adding subtract same quantity not change|adding subtract same quantity no change|adding subtract same quantity unchanged|adding subtract same quantity same sign|adding subtract same quantity remain|adding subtract same quantity stay|adding subtract same quantity keep|adding subtract same quantity doesn t change|adding subtract same quantity no effect|adding subtract same quantity does not affect|subtract  not change|subtract  no change|subtract  unchanged|subtract  same sign|subtract  remain|subtract  stay|subtract  keep|subtract  doesn t change|subtract  no effect|subtract  does not affect|subtract same number not change|subtract same number no change|subtract same number unchanged|subtract same number same sign|subtract same number remain|subtract same number stay|subtract same number keep|subtract same number doesn t change|subtract same number no effect|subtract same number does not affect|subtract same number both side not change|subtract same number both side no change|subtract same number both side unchanged|subtract same number both side same sign|subtract same number both side remain|subtract same number both side stay|subtract same number both side keep|subtract same number both side doesn t change|subtract same number both side no effect|subtract same number both side does not affect|subtract same quantity not change|subtract same quantity no change|subtract same quantity unchanged|subtract same quantity same sign|subtract same quantity remain|subtract same quantity stay|subtract same quantity keep|subtract same quantity doesn t change|subtract same quantity no effect|subtract same quantity does not affect|subtract same quantity both side not change|subtract same quantity both side no change|subtract same quantity both side unchanged|subtract same quantity both side same sign|subtract same quantity both side remain|subtract same quantity both side stay|subtract same quantity both side keep|subtract same quantity both side doesn t change|subtract same quantity both side no effect|subtract same quantity both side does not affect|subtract number not change|subtract number no change|subtract number unchanged|subtract number same sign|subtract number remain|subtract number stay|subtract number keep|subtract number doesn t change|subtract number no effect|subtract number does not affect|subtract number both side not change|subtract number both side no change|subtract number both side unchanged|subtract number both side same sign|subtract number both side remain|subtract number both side stay|subtract number both side keep|subtract number both side doesn t change|subtract number both side no effect|subtract number both side does not affect|subtract both side not change|subtract both side no change|subtract both side unchanged|subtract both side same sign|subtract both side remain|subtract both side stay|subtract both side keep|subtract both side doesn t change|subtract both side no effect|subtract both side does not affect|subtract same not change|subtract same no change|subtract same unchanged|subtract same same sign|subtract same remain|subtract same stay|subtract same keep|subtract same doesn t change|subtract same no effect|subtract same does not affect|subtract same both side not change|subtract same both side no change|subtract same both side unchanged|subtract same both side same sign|subtract same both side remain|subtract same both side stay|subtract same both side keep|subtract same both side doesn t change|subtract same both side no effect|subtract same both side does not affect|subtract constant not change|subtract constant no change|subtract constant unchanged|subtract constant same sign|subtract constant remain|subtract constant stay|subtract constant keep|subtract constant doesn t change|subtract constant no effect|subtract constant does not affect|subtract constant both side not change|subtract constant both side no change|subtract constant both side unchanged|subtract constant both side same sign|subtract constant both side remain|subtract constant both side stay|subtract constant both side keep|subtract constant both side doesn t change|subtract constant both side no effect|subtract constant both side does not affect|subtract subtract same number both side not change|subtract subtract same number both side no change|subtract subtract same number both side unchanged|subtract subtract same number both side same sign|subtract subtract same number both side remain|subtract subtract same number both side stay|subtract subtract same number both side keep|subtract subtract same number both side doesn t change|subtract subtract same number both side no effect|subtract subtract same number both side does not affect|subtract subtract same number not change|subtract subtract same number no change|subtract subtract same number unchanged|subtract subtract same number same sign|subtract subtract same number remain|subtract subtract same number stay|subtract subtract same number keep|subtract subtract same number doesn t change|subtract subtract same number no effect|subtract subtract same number does not affect|subtract subtract same quantity not change|subtract subtract same quantity no change|subtract subtract same quantity unchanged|subtract subtract same quantity same sign|subtract subtract same quantity remain|subtract subtract same quantity stay|subtract subtract same quantity keep|subtract subtract same quantity doesn t change|subtract subtract same quantity no effect|subtract subtract same quantity does not affect|added  not change|added  no change|added  unchanged|added  same sign|added  remain|added  stay|added  keep|added  doesn t change|added  no effect|added  does not affect|added same number not change|added same number no change|added same number unchanged|added same number same sign|added same number remain|added same number stay|added same number keep|added same number doesn t change|added same number no effect|added same number does not affect|added same number both side not change|added same number both side no change|added same number both side unchanged|added same number both side same sign|added same number both side remain|added same number both side stay|added same number both side keep|added same number both side doesn t change|added same number both side no effect|added same number both side does not affect|added same quantity not change|added same quantity no change|added same quantity unchanged|added same quantity same sign|added same quantity remain|added same quantity stay|added same quantity keep|added same quantity doesn t change|added same quantity no effect|added same quantity does not affect|added same quantity both side not change|added same quantity both side no change|added same quantity both side unchanged|added same quantity both side same sign|added same quantity both side remain|added same quantity both side stay|added same quantity both side keep|added same quantity both side doesn t change|added same quantity both side no effect|added same quantity both side does not affect|added number not change|added number no change|added number unchanged|added number same sign|added number remain|added number stay|added number keep|added number doesn t change|added number no effect|added number does not affect|added number both side not change|added number both side no change|added number both side unchanged|added number both side same sign|added number both side remain|added number both side stay|added number both side keep|added number both side doesn t change|added number both side no effect|added number both side does not affect|added both side not change|added both side no change|added both side unchanged|added both side same sign|added both side remain|added both side stay|added both side keep|added both side doesn t change|added both side no effect|added both side does not affect|added same not change|added same no change|added same unchanged|added same same sign|added same remain|added same stay|added same keep|added same doesn t change|added same no effect|added same does not affect|added same both side not change|added same both side no change|added same both side unchanged|added same both side same sign|added same both side remain|added same both side stay|added same both side keep|added same both side doesn t change|added same both side no effect|added same both side does not affect|added constant not change|added constant no change|added constant unchanged|added constant same sign|added constant remain|added constant stay|added constant keep|added constant doesn t change|added constant no effect|added constant does not affect|added constant both side not change|added constant both side no change|added constant both side unchanged|added constant both side same sign|added constant both side remain|added constant both side stay|added constant both side keep|added constant both side doesn t change|added constant both side no effect|added constant both side does not affect|added subtract same number both side not change|added subtract same number both side no change|added subtract same number both side unchanged|added subtract same number both side same sign|added subtract same number both side remain|added subtract same number both side stay|added subtract same number both side keep|added subtract same number both side doesn t change|added subtract same number both side no effect|added subtract same number both side does not affect|added subtract same number not change|added subtract same number no change|added subtract same number unchanged|added subtract same number same sign|added subtract same number remain|added subtract same number stay|added subtract same number keep|added subtract same number doesn t change|added subtract same number no effect|added subtract same number does not affect|added subtract same quantity not change|added subtract same quantity no change|added subtract same quantity unchanged|added subtract same quantity same sign|added subtract same quantity remain|added subtract same quantity stay|added subtract same quantity keep|added subtract same quantity doesn t change|added subtract same quantity no effect|added subtract same quantity does not affect|addition  not change|addition  no change|addition  unchanged|addition  same sign|addition  remain|addition  stay|addition  keep|addition  doesn t change|addition  no effect|addition  does not affect|addition same number not change|addition same number no change|addition same number unchanged|addition same number same sign|addition same number remain|addition same number stay|addition same number keep|addition same number doesn t change|addition same number no effect|addition same number does not affect|addition same number both side not change|addition same number both side no change|addition same number both side unchanged|addition same number both side same sign|addition same number both side remain|addition same number both side stay|addition same number both side keep|addition same number both side doesn t change|addition same number both side no effect|addition same number both side does not affect|addition same quantity not change|addition same quantity no change|addition same quantity unchanged|addition same quantity same sign|addition same quantity remain|addition same quantity stay|addition same quantity keep|addition same quantity doesn t change|addition same quantity no effect|addition same quantity does not affect|addition same quantity both side not change|addition same quantity both side no change|addition same quantity both side unchanged|addition same quantity both side same sign|addition same quantity both side remain|addition same quantity both side stay|addition same quantity both side keep|addition same quantity both side doesn t change|addition same quantity both side no effect|addition same quantity both side does not affect|addition number not change|addition number no change|addition number unchanged|addition number same sign|addition number remain|addition number stay|addition number keep|addition number doesn t change|addition number no effect|addition number does not affect|addition number both side not change|addition number both side no change|addition number both side unchanged|addition number both side same sign|addition number both side remain|addition number both side stay|addition number both side keep|addition number both side doesn t change|addition number both side no effect|addition number both side does not affect|addition both side not change|addition both side no change|addition both side unchanged|addition both side same sign|addition both side remain|addition both side stay|addition both side keep|addition both side doesn t change|addition both side no effect|addition both side does not affect|addition same not change|addition same no change|addition same unchanged|addition same same sign|addition same remain|addition same stay|addition same keep|addition same doesn t change|addition same no effect|addition same does not affect|addition same both side not change|addition same both side no change|addition same both side unchanged|addition same both side same sign|addition same both side remain|addition same both side stay|addition same both side keep|addition same both side doesn t change|addition same both side no effect|addition same both side does not affect|addition constant not change|addition constant no change|addition constant unchanged|addition constant same sign|addition constant remain|addition constant stay|addition constant keep|addition constant doesn t change|addition constant no effect|addition constant does not affect|addition constant both side not change|addition constant both side no change|addition constant both side unchanged|addition constant both side same sign|addition constant both side remain|addition constant both side stay|addition constant both side keep|addition constant both side doesn t change|addition constant both side no effect|addition constant both side does not affect|addition subtract same number both side not change|addition subtract same number both side no change|addition subtract same number both side unchanged|addition subtract same number both side same sign|addition subtract same number both side remain|addition subtract same number both side stay|addition subtract same number both side keep|addition subtract same number both side doesn t change|addition subtract same number both side no effect|addition subtract same number both side does not affect|addition subtract same number not change|addition subtract same number no change|addition subtract same number unchanged|addition subtract same number same sign|addition subtract same number remain|addition subtract same number stay|addition subtract same number keep|addition subtract same number doesn t change|addition subtract same number no effect|addition subtract same number does not affect|addition subtract same quantity not change|addition subtract same quantity no change|addition subtract same quantity unchanged|addition subtract same quantity same sign|addition subtract same quantity remain|addition subtract same quantity stay|addition subtract same quantity keep|addition subtract same quantity doesn t change|addition subtract same quantity no effect|addition subtract same quantity does not affect"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Multiplying/dividing by a negative number reverses the sign",
+     "w": 6,
+     "kw": [
+      "negative number revers|negative revers|minus number revers|negative quantity revers|negative number flip|negative flip|minus number flip|negative quantity flip|negative number chang the direction|negative chang the direction|minus number chang the direction|negative quantity chang the direction|negative number opposite|negative opposite|minus number opposite|negative quantity opposite|revers when multiplied by negative number|revers when multiplied by negative|revers when multiplied by minus number|revers when multiplied by negative quantity|revers if multiplied by negative number|revers if multiplied by negative|revers if multiplied by minus number|revers if multiplied by negative quantity|revers when we multiply by negative number|revers when we multiply by negative|revers when we multiply by minus number|revers when we multiply by negative quantity|revers on multiplying by negative number|revers on multiplying by negative|revers on multiplying by minus number|revers on multiplying by negative quantity|revers when divided by negative number|revers when divided by negative|revers when divided by minus number|revers when divided by negative quantity|revers if we multiply by negative number|revers if we multiply by negative|revers if we multiply by minus number|revers if we multiply by negative quantity|flip when multiplied by negative number|flip when multiplied by negative|flip when multiplied by minus number|flip when multiplied by negative quantity|flip if multiplied by negative number|flip if multiplied by negative|flip if multiplied by minus number|flip if multiplied by negative quantity|flip when we multiply by negative number|flip when we multiply by negative|flip when we multiply by minus number|flip when we multiply by negative quantity|flip on multiplying by negative number|flip on multiplying by negative|flip on multiplying by minus number|flip on multiplying by negative quantity|flip when divided by negative number|flip when divided by negative|flip when divided by minus number|flip when divided by negative quantity|flip if we multiply by negative number|flip if we multiply by negative|flip if we multiply by minus number|flip if we multiply by negative quantity"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How do you graph a linear inequality in two variables?",
+   "model": "Replace the inequality sign by an equals sign and draw that line, usually through its intercepts on the axes. Draw it solid if equality is included and broken if the inequality is strict. Then test a point such as the origin: if the origin satisfies the inequality, shade the side containing it, otherwise shade the other side.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Draw the boundary line by treating it as an equation (intercepts)",
+     "w": 3,
+     "kw": [
+      "equal sign|equals sign|equation|equality|replace|boundary|intercept",
+      "line|draw|plot|graph"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Solid line for ≤/≥, broken (dashed) for strict < / >",
+     "w": 3,
+     "kw": [
+      "solid  equal|solid  included|solid  inclusive|solid  or equal|solid line equal|solid line included|solid line inclusive|solid line or equal|solid line if equal|solid line if included|solid line if inclusive|solid line if or equal|solid if equal|solid if included|solid if inclusive|solid if or equal|solid for equal|solid for included|solid for inclusive|solid for or equal|solid when equal|solid when included|solid when inclusive|solid when or equal|solid line for equal|solid line for included|solid line for inclusive|solid line for or equal|solid line when equal|solid line when included|solid line when inclusive|solid line when or equal|firm  equal|firm  included|firm  inclusive|firm  or equal|firm line equal|firm line included|firm line inclusive|firm line or equal|firm line if equal|firm line if included|firm line if inclusive|firm line if or equal|firm if equal|firm if included|firm if inclusive|firm if or equal|firm for equal|firm for included|firm for inclusive|firm for or equal|firm when equal|firm when included|firm when inclusive|firm when or equal|firm line for equal|firm line for included|firm line for inclusive|firm line for or equal|firm line when equal|firm line when included|firm line when inclusive|firm line when or equal|continuous  equal|continuous  included|continuous  inclusive|continuous  or equal|continuous line equal|continuous line included|continuous line inclusive|continuous line or equal|continuous line if equal|continuous line if included|continuous line if inclusive|continuous line if or equal|continuous if equal|continuous if included|continuous if inclusive|continuous if or equal|continuous for equal|continuous for included|continuous for inclusive|continuous for or equal|continuous when equal|continuous when included|continuous when inclusive|continuous when or equal|continuous line for equal|continuous line for included|continuous line for inclusive|continuous line for or equal|continuous line when equal|continuous line when included|continuous line when inclusive|continuous line when or equal|full  equal|full  included|full  inclusive|full  or equal|full line equal|full line included|full line inclusive|full line or equal|full line if equal|full line if included|full line if inclusive|full line if or equal|full if equal|full if included|full if inclusive|full if or equal|full for equal|full for included|full for inclusive|full for or equal|full when equal|full when included|full when inclusive|full when or equal|full line for equal|full line for included|full line for inclusive|full line for or equal|full line when equal|full line when included|full line when inclusive|full line when or equal|equal draw solid|equal draw firm|equal draw continuous|equal draw full|equal draw it solid|equal draw it firm|equal draw it continuous|equal draw it full|equal use solid|equal use firm|equal use continuous|equal use full|equal use a solid|equal use a firm|equal use a continuous|equal use a full|equal line solid|equal line firm|equal line continuous|equal line full|equal draw a solid|equal draw a firm|equal draw a continuous|equal draw a full|included draw solid|included draw firm|included draw continuous|included draw full|included draw it solid|included draw it firm|included draw it continuous|included draw it full|included use solid|included use firm|included use continuous|included use full|included use a solid|included use a firm|included use a continuous|included use a full|included line solid|included line firm|included line continuous|included line full|included draw a solid|included draw a firm|included draw a continuous|included draw a full|inclusive draw solid|inclusive draw firm|inclusive draw continuous|inclusive draw full|inclusive draw it solid|inclusive draw it firm|inclusive draw it continuous|inclusive draw it full|inclusive use solid|inclusive use firm|inclusive use continuous|inclusive use full|inclusive use a solid|inclusive use a firm|inclusive use a continuous|inclusive use a full|inclusive line solid|inclusive line firm|inclusive line continuous|inclusive line full|inclusive draw a solid|inclusive draw a firm|inclusive draw a continuous|inclusive draw a full|or equal draw solid|or equal draw firm|or equal draw continuous|or equal draw full|or equal draw it solid|or equal draw it firm|or equal draw it continuous|or equal draw it full|or equal use solid|or equal use firm|or equal use continuous|or equal use full|or equal use a solid|or equal use a firm|or equal use a continuous|or equal use a full|or equal line solid|or equal line firm|or equal line continuous|or equal line full|or equal draw a solid|or equal draw a firm|or equal draw a continuous|or equal draw a full",
+      "broken  strict|broken  excluded|broken  not included|broken  less than|broken  greater than|broken line strict|broken line excluded|broken line not included|broken line less than|broken line greater than|broken line if strict|broken line if excluded|broken line if not included|broken line if less than|broken line if greater than|broken if strict|broken if excluded|broken if not included|broken if less than|broken if greater than|broken for strict|broken for excluded|broken for not included|broken for less than|broken for greater than|broken when strict|broken when excluded|broken when not included|broken when less than|broken when greater than|broken line for strict|broken line for excluded|broken line for not included|broken line for less than|broken line for greater than|broken line when strict|broken line when excluded|broken line when not included|broken line when less than|broken line when greater than|dash  strict|dash  excluded|dash  not included|dash  less than|dash  greater than|dash line strict|dash line excluded|dash line not included|dash line less than|dash line greater than|dash line if strict|dash line if excluded|dash line if not included|dash line if less than|dash line if greater than|dash if strict|dash if excluded|dash if not included|dash if less than|dash if greater than|dash for strict|dash for excluded|dash for not included|dash for less than|dash for greater than|dash when strict|dash when excluded|dash when not included|dash when less than|dash when greater than|dash line for strict|dash line for excluded|dash line for not included|dash line for less than|dash line for greater than|dash line when strict|dash line when excluded|dash line when not included|dash line when less than|dash line when greater than|dotted  strict|dotted  excluded|dotted  not included|dotted  less than|dotted  greater than|dotted line strict|dotted line excluded|dotted line not included|dotted line less than|dotted line greater than|dotted line if strict|dotted line if excluded|dotted line if not included|dotted line if less than|dotted line if greater than|dotted if strict|dotted if excluded|dotted if not included|dotted if less than|dotted if greater than|dotted for strict|dotted for excluded|dotted for not included|dotted for less than|dotted for greater than|dotted when strict|dotted when excluded|dotted when not included|dotted when less than|dotted when greater than|dotted line for strict|dotted line for excluded|dotted line for not included|dotted line for less than|dotted line for greater than|dotted line when strict|dotted line when excluded|dotted line when not included|dotted line when less than|dotted line when greater than|dot  strict|dot  excluded|dot  not included|dot  less than|dot  greater than|dot line strict|dot line excluded|dot line not included|dot line less than|dot line greater than|dot line if strict|dot line if excluded|dot line if not included|dot line if less than|dot line if greater than|dot if strict|dot if excluded|dot if not included|dot if less than|dot if greater than|dot for strict|dot for excluded|dot for not included|dot for less than|dot for greater than|dot when strict|dot when excluded|dot when not included|dot when less than|dot when greater than|dot line for strict|dot line for excluded|dot line for not included|dot line for less than|dot line for greater than|dot line when strict|dot line when excluded|dot line when not included|dot line when less than|dot line when greater than|strict draw broken|strict draw dash|strict draw dotted|strict draw dot|strict draw it broken|strict draw it dash|strict draw it dotted|strict draw it dot|strict use broken|strict use dash|strict use dotted|strict use dot|strict use a broken|strict use a dash|strict use a dotted|strict use a dot|strict line broken|strict line dash|strict line dotted|strict line dot|strict draw a broken|strict draw a dash|strict draw a dotted|strict draw a dot|excluded draw broken|excluded draw dash|excluded draw dotted|excluded draw dot|excluded draw it broken|excluded draw it dash|excluded draw it dotted|excluded draw it dot|excluded use broken|excluded use dash|excluded use dotted|excluded use dot|excluded use a broken|excluded use a dash|excluded use a dotted|excluded use a dot|excluded line broken|excluded line dash|excluded line dotted|excluded line dot|excluded draw a broken|excluded draw a dash|excluded draw a dotted|excluded draw a dot|not included draw broken|not included draw dash|not included draw dotted|not included draw dot|not included draw it broken|not included draw it dash|not included draw it dotted|not included draw it dot|not included use broken|not included use dash|not included use dotted|not included use dot|not included use a broken|not included use a dash|not included use a dotted|not included use a dot|not included line broken|not included line dash|not included line dotted|not included line dot|not included draw a broken|not included draw a dash|not included draw a dotted|not included draw a dot|less than draw broken|less than draw dash|less than draw dotted|less than draw dot|less than draw it broken|less than draw it dash|less than draw it dotted|less than draw it dot|less than use broken|less than use dash|less than use dotted|less than use dot|less than use a broken|less than use a dash|less than use a dotted|less than use a dot|less than line broken|less than line dash|less than line dotted|less than line dot|less than draw a broken|less than draw a dash|less than draw a dotted|less than draw a dot|greater than draw broken|greater than draw dash|greater than draw dotted|greater than draw dot|greater than draw it broken|greater than draw it dash|greater than draw it dotted|greater than draw it dot|greater than use broken|greater than use dash|greater than use dotted|greater than use dot|greater than use a broken|greater than use a dash|greater than use a dotted|greater than use a dot|greater than line broken|greater than line dash|greater than line dotted|greater than line dot|greater than draw a broken|greater than draw a dash|greater than draw a dotted|greater than draw a dot"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Test a point (origin) to decide the side to shade",
+     "w": 4,
+     "kw": [
+      "test|check|substitut|put|try",
+      "origin|zero zero|0 0|point",
+      "shade|side|region|half plane|half"
+     ],
+     "min": 3
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What is a feasible region in a system of linear inequalities?",
+   "model": "The feasible region is the common region where all the constraints, including the non-negativity constraints, are satisfied at the same time. Every point inside it or on its boundary is a feasible solution. It can be bounded, like a closed polygon, or unbounded.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Common region satisfying all constraints simultaneously",
+     "w": 5,
+     "kw": [
+      "common|overlap|intersection|satisf all|satisfy all|all constraint|all the constraint|all inequal|all the inequal|every constraint|every inequal|same time|simultaneous",
+      "region|area|set|part"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Every point in it is a feasible solution",
+     "w": 3,
+     "kw": [
+      "every point|each point|any point|all point",
+      "feasible|possible|valid|allowed|acceptable"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "May be bounded or unbounded",
+     "w": 2,
+     "kw": [
+      "bounded|unbounded|closed|open|polygon"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "Where does the optimal solution of a linear programme lie, and how do you find it graphically?",
+   "model": "If an optimal solution exists it lies at a corner point, or extreme point, of the feasible region. So we find all the corner points, put each one into the objective function, and pick the largest value for a maximisation problem or the smallest value for a minimisation problem.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "At a corner (extreme / vertex) point of the feasible region",
+     "w": 4,
+     "kw": [
+      "corner|vertex|vertices|extreme point|extreme|vertice"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Evaluate the objective function at every corner",
+     "w": 3,
+     "kw": [
+      "objective|z|profit function|cost function",
+      "put|substitut|evaluat|calculat|comput|find value|plug|value"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "Largest value for maximisation, smallest for minimisation",
+     "w": 3,
+     "kw": [
+      "largest  maximi|largest value maximi|largest value for maximi|largest for maximi|highest  maximi|highest value maximi|highest value for maximi|highest for maximi|greatest  maximi|greatest value maximi|greatest value for maximi|greatest for maximi|biggest  maximi|biggest value maximi|biggest value for maximi|biggest for maximi|maximum value  maximi|maximum value value maximi|maximum value value for maximi|maximum value for maximi|max value  maximi|max value value maximi|max value value for maximi|max value for maximi|maximi  largest|maximi  highest|maximi  greatest|maximi  biggest|maximi  maximum value|maximi  max value|maximi choose largest|maximi choose highest|maximi choose greatest|maximi choose biggest|maximi choose maximum value|maximi choose max value|maximi pick largest|maximi pick highest|maximi pick greatest|maximi pick biggest|maximi pick maximum value|maximi pick max value|maximi select largest|maximi select highest|maximi select greatest|maximi select biggest|maximi select maximum value|maximi select max value|maximi take largest|maximi take highest|maximi take greatest|maximi take biggest|maximi take maximum value|maximi take max value|maximi problem choose largest|maximi problem choose highest|maximi problem choose greatest|maximi problem choose biggest|maximi problem choose maximum value|maximi problem choose max value|maximi problem pick largest|maximi problem pick highest|maximi problem pick greatest|maximi problem pick biggest|maximi problem pick maximum value|maximi problem pick max value|maximi problem take largest|maximi problem take highest|maximi problem take greatest|maximi problem take biggest|maximi problem take maximum value|maximi problem take max value|maximi we choose largest|maximi we choose highest|maximi we choose greatest|maximi we choose biggest|maximi we choose maximum value|maximi we choose max value|maximi we pick largest|maximi we pick highest|maximi we pick greatest|maximi we pick biggest|maximi we pick maximum value|maximi we pick max value|maximi gives largest|maximi gives highest|maximi gives greatest|maximi gives biggest|maximi gives maximum value|maximi gives max value",
+      "smallest  minimi|smallest value minimi|smallest value for minimi|smallest for minimi|lowest  minimi|lowest value minimi|lowest value for minimi|lowest for minimi|least  minimi|least value minimi|least value for minimi|least for minimi|minimum value  minimi|minimum value value minimi|minimum value value for minimi|minimum value for minimi|min value  minimi|min value value minimi|min value value for minimi|min value for minimi|minimi  smallest|minimi  lowest|minimi  least|minimi  minimum value|minimi  min value|minimi choose smallest|minimi choose lowest|minimi choose least|minimi choose minimum value|minimi choose min value|minimi pick smallest|minimi pick lowest|minimi pick least|minimi pick minimum value|minimi pick min value|minimi select smallest|minimi select lowest|minimi select least|minimi select minimum value|minimi select min value|minimi take smallest|minimi take lowest|minimi take least|minimi take minimum value|minimi take min value|minimi problem choose smallest|minimi problem choose lowest|minimi problem choose least|minimi problem choose minimum value|minimi problem choose min value|minimi problem pick smallest|minimi problem pick lowest|minimi problem pick least|minimi problem pick minimum value|minimi problem pick min value|minimi problem take smallest|minimi problem take lowest|minimi problem take least|minimi problem take minimum value|minimi problem take min value|minimi we choose smallest|minimi we choose lowest|minimi we choose least|minimi we choose minimum value|minimi we choose min value|minimi we pick smallest|minimi we pick lowest|minimi we pick least|minimi we pick minimum value|minimi we pick min value|minimi gives smallest|minimi gives lowest|minimi gives least|minimi gives minimum value|minimi gives min value"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v5",
+   "q": "When does a linear programme have multiple optimal solutions?",
+   "model": "When the objective function line is parallel to an edge, or side, of the feasible region on which the optimum lies. Then every point on that edge gives the same optimal value, so there are many optimal solutions but only one optimal value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Objective line parallel to an edge of the feasible region",
+     "w": 6,
+     "kw": [
+      "parallel",
+      "edge|side|boundary|constraint line|binding line|constraint",
+      "objective|z line|iso profit|profit line|cost line"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "All points on that edge give the same optimal value",
+     "w": 4,
+     "kw": [
+      "same optimal value|same value|same optimum|same maximum|same minimum|equal value|identical value|same z|value remain|value is same|value is the same|same profit|same cost"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v6",
+   "q": "How do you develop, or formulate, inequalities from a word problem?",
+   "model": "First identify the decision variables and give them symbols, such as x and y units of two products. Then write each limited resource or requirement as an inequality, using less than or equal to for at most and greater than or equal to for at least. Add the non-negativity constraints x and y greater than or equal to zero, and write the objective function to be maximised or minimised.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Identify decision variables",
+     "w": 3,
+     "kw": [
+      "decision variable|variable|unknown|symbol"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Write each limit as an inequality (≤ for at most, ≥ for at least)",
+     "w": 3,
+     "kw": [
+      "constraint|inequalit|limit|restriction|resource|requirement",
+      "at most|at least|less than or equal|greater than or equal|not more than|not less than"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "Non-negativity constraints x, y ≥ 0",
+     "w": 2,
+     "kw": [
+      "non negativ|nonnegativ|not negative|cannot be negative|greater than or equal to zero|zero or more|can t be negative"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Objective function to maximise or minimise",
+     "w": 2,
+     "kw": [
+      "objective|goal|profit function|cost function|maximi|minimi"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Cheapest fertiliser mix for a farm client",
+   "difficulty": "hard",
+   "case": "Shakti Agro must supply at least 9 kg of nitrogen (N) and 8 kg of phosphate (P) to a field. Fertiliser A contains 3 kg N and 1 kg P per bag and costs ₹500 a bag. Fertiliser B contains 1 kg N and 2 kg P per bag and costs ₹400 a bag. Let x and y be the bags of A and B bought. The aim is to meet both requirements at the lowest cost.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The nitrogen requirement is written as:",
+     "options": [
+      "3x + y ≥ 9",
+      "3x + y ≤ 9",
+      "x + 2y ≥ 9",
+      "3x + 2y ≥ 9"
+     ],
+     "answer": 0,
+     "explain": "Each bag of A gives 3 kg N and each bag of B gives 1 kg N; \"at least\" means ≥.",
+     "concept": "c3",
+     "difficulty": "core"
+    },
+    {
+     "id": "k1b",
+     "q": "The two requirement lines 3x + y = 9 and x + 2y = 8 meet at:",
+     "options": [
+      "(2, 3)",
+      "(3, 2)",
+      "(1, 6)",
+      "(4, 2)"
+     ],
+     "answer": 0,
+     "explain": "From the first, y = 9 − 3x. Then x + 18 − 6x = 8 → x = 2, y = 3.",
+     "concept": "c4",
+     "difficulty": "moderate"
+    },
+    {
+     "id": "k1c",
+     "q": "The minimum cost is:",
+     "options": [
+      "₹2,200",
+      "₹3,600",
+      "₹4,000",
+      "₹1,700"
+     ],
+     "answer": 0,
+     "explain": "Corners: (0, 9) → ₹3,600; (2, 3) → 1,000 + 1,200 = ₹2,200; (8, 0) → ₹4,000.",
+     "concept": "c5",
+     "difficulty": "hard",
+     "check": "500*2+400*3"
+    },
+    {
+     "id": "k1d",
+     "q": "If the farm buys only fertiliser A (the corner (8, 0)), how much nitrogen is supplied in excess of the requirement?",
+     "options": [
+      "15 kg",
+      "24 kg",
+      "0 kg",
+      "9 kg"
+     ],
+     "answer": 0,
+     "explain": "8 bags × 3 kg = 24 kg against 9 kg needed: 15 kg extra.",
+     "concept": "c5",
+     "difficulty": "moderate",
+     "check": "8*3-9"
+    },
+    {
+     "id": "k1e",
+     "q": "Why can we not find a maximum cost for this problem?",
+     "options": [
+      "The feasible region is unbounded",
+      "There are no corner points",
+      "The constraints are inconsistent",
+      "The objective function is not linear"
+     ],
+     "answer": 0,
+     "explain": "With \"≥\" constraints the region stretches away indefinitely; cost can rise without limit, so only a minimum exists.",
+     "concept": "c4",
+     "difficulty": "moderate"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1532 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch06-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch06",
+ "n": 1,
+ "title": "Sequence and Series – Arithmetic and Geometric Progressions",
+ "outcomes": [
+  "Distinguish a sequence from a series and a finite from an infinite one; read Σ notation.",
+  "Find any term, the number of terms and the sum of an arithmetic progression, and insert arithmetic means.",
+  "Use the special sums of natural numbers, odd numbers, squares and cubes.",
+  "Find any term and the sum of a geometric progression (finite and infinite), insert geometric means and convert recurring decimals to fractions.",
+  "Sum series such as 7 + 77 + 777 + … by reducing them to a GP.",
+  "Model salary increments, instalments, depreciation and growth with AP and GP."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 40,
+   "practice": 60
+  },
+  "prereq": [
+   "fnd-p3-ch01-u01"
+  ],
+  "exam_tip": "Most questions are a direct use of tₙ or Sₙ. Write a, d (or r) and n first — half the errors come from using n instead of n − 1 in the general term."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Sequence and series",
+   "body": [
+    "A sequence is an ordered list of numbers produced by a definite rule, so that for every position n there is exactly one term tₙ. 1, 4, 9, 16, … (tₙ = n²) is a sequence; a random list such as 28, 2, 25, 27 is not.",
+    "A sequence with a last term is finite; one that never ends is infinite.",
+    "A series is the sum of the terms of a sequence: t₁ + t₂ + t₃ + … . Sₙ denotes the sum of the first n terms, written compactly with the Greek capital sigma, Σ."
+   ],
+   "analogy": "A sequence is a queue of numbers standing in order; a series is what you get when you add up everyone in the queue.",
+   "work": "Cash-flow projections are sequences (one figure per year); the total of those cash flows is a series. Spotting the rule lets you project and total quickly."
+  },
+  {
+   "id": "c2",
+   "title": "Arithmetic progression (AP), its general term and arithmetic means",
+   "body": [
+    "In an AP, every term after the first equals the previous term plus a fixed number d, called the common difference: a, a + d, a + 2d, … . d = any term − the term before it, and may be positive, negative or zero.",
+    "General term: tₙ = a + (n − 1)d. The n-th term from the end of an AP with last term l is l − (n − 1)d.",
+    "a, b, c are in AP if and only if 2b = a + c; b = (a + c)/2 is the arithmetic mean (AM). To insert n AMs between a and b, treat it as an AP of n + 2 terms: d = (b − a)/(n + 1).",
+    "For three unknown terms in AP, take a − d, a, a + d (four terms: a − 3d, a − d, a + d, a + 3d) — the sum then gives a immediately."
+   ],
+   "analogy": "Climbing stairs of equal height: after n − 1 steps from the ground floor you have risen (n − 1) step-heights — that is why the formula has n − 1, not n.",
+   "work": "Simple interest grows in an AP: each year adds the same interest. Fixed annual increments in a salary or rent agreement also form an AP."
+  },
+  {
+   "id": "c3",
+   "title": "Sum of the first n terms of an AP",
+   "body": [
+    "Sₙ = n/2 [2a + (n − 1)d], or, when the last term l is known, Sₙ = n/2 (a + l).",
+    "Proof idea: write the series forwards and backwards and add — every pair of terms adds to (a + l), and there are n pairs, so 2Sₙ = n(a + l).",
+    "If Sₙ is given as a formula in n, then tₙ = Sₙ − Sₙ₋₁ (and t₁ = S₁).",
+    "When solving Sₙ for n gives two positive integer roots, both may be valid — usually because some terms are zero or because negative terms cancel positive ones."
+   ],
+   "analogy": "Young Gauss added 1 to 100 by pairing 1 + 100, 2 + 99, … : 50 pairs of 101. Every AP sum is the same trick.",
+   "work": "Totalling a 10-year salary or rent schedule with fixed increments takes one line with n/2 (first + last) instead of ten additions."
+  },
+  {
+   "id": "c4",
+   "title": "Special series",
+   "body": [
+    "Sum of the first n natural numbers: 1 + 2 + … + n = n(n + 1)/2.",
+    "Sum of the first n odd numbers: 1 + 3 + 5 + … + (2n − 1) = n².",
+    "Sum of squares: 1² + 2² + … + n² = n(n + 1)(2n + 1)/6.",
+    "Sum of cubes: 1³ + 2³ + … + n³ = [n(n + 1)/2]² — the square of the sum of the first n natural numbers.",
+    "A series with general term like k(k + 1) or (2k − 1)² is summed by splitting it: Σk(k + 1) = Σk² + Σk."
+   ],
+   "analogy": "Stack 1, 3, 5, 7 tiles in an L-shape and you always get a perfect square — that is why odd numbers add up to n².",
+   "work": "The sum-of-the-years’-digits method of depreciation uses n(n + 1)/2 as its denominator — the special series in action."
+  },
+  {
+   "id": "c5",
+   "title": "Geometric progression (GP), its general term and geometric means",
+   "body": [
+    "In a GP, every term after the first equals the previous term multiplied by a fixed non-zero number r, the common ratio: a, ar, ar², … . r = any term ÷ the term before it; r ≠ 0.",
+    "General term: tₙ = arⁿ⁻¹.",
+    "a, b, c (all non-zero) are in GP if and only if b² = ac; b = √(ac) is the geometric mean (GM) of two positive numbers. To insert n GMs between a and b: r = (b/a)^(1/(n + 1)).",
+    "For three unknown terms in GP, take a/r, a, ar — the product then gives a³ immediately.",
+    "For any two positive numbers AM ≥ GM, with equality only when the numbers are equal."
+   ],
+   "analogy": "A rumour that every person passes on to 3 new people: 1, 3, 9, 27, … — each round multiplies, it does not add.",
+   "work": "Compound interest, reducing-balance depreciation, inflation and constant-percentage growth in sales are all GPs."
+  },
+  {
+   "id": "c6",
+   "title": "Sum of a GP — finite and infinite; recurring decimals",
+   "body": [
+    "Sₙ = a(rⁿ − 1)/(r − 1) when r > 1, and Sₙ = a(1 − rⁿ)/(1 − r) when r < 1 (the two forms are equal; choose the one with positive numbers). If r = 1, Sₙ = na.",
+    "Infinite GP: if −1 < r < 1, rⁿ shrinks towards 0 and S∞ = a/(1 − r). If |r| ≥ 1 the sum does not settle to a finite value.",
+    "Recurring decimals are infinite GPs: 0.363636… = 0.36 + 0.0036 + … = 0.36/(1 − 0.01) = 36/99 = 4/11. A mixed one such as 0.1222… = 0.1 + 0.02/(1 − 0.1)."
+   ],
+   "analogy": "Walk halfway to a wall, then half the remaining distance, and so on: you take infinitely many steps but never cover more than the original distance — an infinite GP with a finite sum.",
+   "work": "The value of a perpetuity (a cash flow that continues forever, discounted each year) is an infinite GP — the a/(1 − r) result underlies valuation formulas you meet later."
+  },
+  {
+   "id": "c7",
+   "title": "Series that reduce to a GP",
+   "body": [
+    "7 + 77 + 777 + … to n terms: write each term as 7/9 × (10ᵏ − 1). The sum is 7/9 [ (10 + 10² + … + 10ⁿ) − n ] = 7/81 [10ⁿ⁺¹ − 10 − 9n].",
+    "0.7 + 0.77 + 0.777 + … to n terms: each term is 7/9 × (1 − 10⁻ᵏ); the sum is 7/9 [ n − (1 − 10⁻ⁿ)/9 ] = 7/81 [9n − 1 + 10⁻ⁿ].",
+    "Series such as (2 + 1) + (2² + 3) + (2³ + 5) + … are split into a GP part and an AP part, summed separately."
+   ],
+   "analogy": "Like separating a mixed fruit basket into apples and oranges before counting: split the awkward series into an AP and a GP you already know how to add.",
+   "work": "Breaking a messy schedule into standard pieces — a fixed part (AP) plus a growing part (GP) — is exactly how analysts model escalating contracts."
+  },
+  {
+   "id": "c8",
+   "title": "Applications in commerce and finance",
+   "body": [
+    "AP: salary with a fixed annual increment, simple interest, straight-line depreciation (value falls by a fixed amount), recurring deposits that rise by a fixed amount.",
+    "GP: compound interest (amount = P(1 + i)ⁿ), reducing-balance depreciation (value × (1 − rate) each year), population or sales growing at a fixed percentage, instalments that double.",
+    "Always identify what one \"term\" means (a month? a year?) and whether the first term is at the start or end of the first period."
+   ],
+   "analogy": "AP is a staircase (same step each time); GP is a snowball (grows by a percentage of its own size).",
+   "work": "Checking a client's depreciation schedule, an employee loan repayment plan or a lease with escalation clauses means recognising AP or GP patterns and totalling them correctly."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Finding an AP from two of its terms",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "The 4th term of an AP is 23 and the 11th term is 58. Find the AP, its 20th term and the sum of its first 20 terms.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "t₄ = a + 3d = 23 and t₁₁ = a + 10d = 58. Subtracting: 7d = 35, so d = 5 and a = 23 − 15 = 8. The AP is 8, 13, 18, 23, … ."
+    },
+    {
+     "t": "p",
+     "text": "t₂₀ = a + 19d = 8 + 95 = 103."
+    },
+    {
+     "t": "p",
+     "text": "S₂₀ = 20/2 × (8 + 103) = 10 × 111 = 1,110."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(58-23)/(11-4)",
+     "value": 5,
+     "label": "common difference from t4 = 23 and t11 = 58"
+    },
+    {
+     "expr": "23-3*5",
+     "value": 8,
+     "label": "first term a = t4 − 3d"
+    },
+    {
+     "expr": "8+19*5",
+     "value": 103,
+     "label": "t20 = a + 19d"
+    },
+    {
+     "expr": "20/2*(8+103)",
+     "value": 1110,
+     "label": "S20 = n/2 (a + l)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "How many terms give a required sum?",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "How many terms of the AP 54, 51, 48, … must be taken so that their sum is 513? Explain the double answer.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "a = 54, d = −3. Sₙ = n/2 [108 − 3(n − 1)] = n(111 − 3n)/2 = 513."
+    },
+    {
+     "t": "p",
+     "text": "n(111 − 3n) = 1026 → 3n² − 111n + 1026 = 0 → n² − 37n + 342 = 0 → (n − 18)(n − 19) = 0, so n = 18 or 19."
+    },
+    {
+     "t": "wn",
+     "title": "Why two answers?",
+     "text": "t₁₉ = 54 + 18(−3) = 0. Adding a zero term does not change the sum, so both 18 and 19 terms add up to 513."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "18/2*(2*54+17*(-3))",
+     "value": 513,
+     "label": "S18 of 54, 51, 48, …"
+    },
+    {
+     "expr": "19/2*(2*54+18*(-3))",
+     "value": 513,
+     "label": "S19 of 54, 51, 48, …"
+    },
+    {
+     "expr": "54+18*(-3)",
+     "value": 0,
+     "label": "t19 = 0, which is why both 18 and 19 terms give 513"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Inserting AMs; sum of multiples in a range",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "(a) Insert 5 arithmetic means between 7 and 43. (b) Find the sum of all numbers between 100 and 500 that are divisible by 7.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) 7 and 43 with 5 means form an AP of 7 terms: 43 = 7 + 6d → d = 6. The means are 13, 19, 25, 31, 37."
+    },
+    {
+     "t": "p",
+     "text": "(b) The first multiple of 7 above 100 is 105 and the last below 500 is 497. n = (497 − 105)/7 + 1 = 57. Sum = 57/2 × (105 + 497) = 57 × 301 = 17,157."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(43-7)/(5+1)",
+     "value": 6,
+     "label": "d for 5 AMs between 7 and 43"
+    },
+    {
+     "expr": "(497-105)/7+1",
+     "value": 57,
+     "label": "number of multiples of 7 from 105 to 497"
+    },
+    {
+     "expr": "57/2*(105+497)",
+     "value": 17157,
+     "label": "sum of those multiples"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "Special series",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "Evaluate (a) 1² + 2² + … + 20², (b) 1³ + 2³ + … + 15³, (c) 1·2 + 2·3 + 3·4 + … + 10·11.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) 20 × 21 × 41/6 = 2,870."
+    },
+    {
+     "t": "p",
+     "text": "(b) [15 × 16/2]² = 120² = 14,400."
+    },
+    {
+     "t": "p",
+     "text": "(c) General term k(k + 1) = k² + k. Sum = Σk² + Σk = 385 + 55 = 440."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "20*21*41/6",
+     "value": 2870,
+     "label": "sum of squares 1 to 20"
+    },
+    {
+     "expr": "(15*16/2)**2",
+     "value": 14400,
+     "label": "sum of cubes 1 to 15"
+    },
+    {
+     "expr": "10*11*21/6+10*11/2",
+     "value": 440,
+     "label": "Σ k(k+1), k = 1 to 10"
+    }
+   ]
+  },
+  {
+   "id": "i5",
+   "title": "Finding a GP and the number of terms",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "The 3rd term of a GP is 24 and the 6th term is 192. Find the GP and the sum of its first 8 terms. How many terms of it add up to 762?",
+   "solution": [
+    {
+     "t": "p",
+     "text": "ar² = 24 and ar⁵ = 192. Dividing: r³ = 8, so r = 2 and a = 24/4 = 6. The GP is 6, 12, 24, 48, … ."
+    },
+    {
+     "t": "p",
+     "text": "S₈ = 6(2⁸ − 1)/(2 − 1) = 6 × 255 = 1,530."
+    },
+    {
+     "t": "p",
+     "text": "6(2ⁿ − 1) = 762 → 2ⁿ − 1 = 127 → 2ⁿ = 128 = 2⁷ → n = 7."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(192/24)**(1/3)",
+     "value": 2,
+     "label": "r³ = t6/t3 = 8"
+    },
+    {
+     "expr": "24/2**2",
+     "value": 6,
+     "label": "a = t3 / r²"
+    },
+    {
+     "expr": "6*(2**8-1)/(2-1)",
+     "value": 1530,
+     "label": "S8"
+    },
+    {
+     "expr": "762/6+1",
+     "value": 128,
+     "label": "2ⁿ = 762/6 + 1 = 128, so n = 7"
+    }
+   ]
+  },
+  {
+   "id": "i6",
+   "title": "Infinite GPs and recurring decimals",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "Express (a) 0.454545… and (b) 0.1222… as fractions. (c) Find the sum to infinity of 8 − 4 + 2 − 1 + … .",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) 0.45 + 0.0045 + … : a = 0.45, r = 0.01 → 0.45/0.99 = 45/99 = 5/11."
+    },
+    {
+     "t": "p",
+     "text": "(b) 0.1 + (0.02 + 0.002 + …) = 0.1 + 0.02/(1 − 0.1) = 1/10 + 2/90 = 9/90 + 2/90 = 11/90."
+    },
+    {
+     "t": "p",
+     "text": "(c) a = 8, r = −1/2, |r| < 1: S∞ = 8/(1 + 1/2) = 16/3."
+    },
+    {
+     "t": "note",
+     "text": "Check: 5/11 = 0.4545…, 11/90 = 0.1222… — always verify with a quick division."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "45/99",
+     "value": 0.45,
+     "label": "0.454545… = 45/99 = 5/11"
+    },
+    {
+     "expr": "5/11",
+     "value": 0.45,
+     "label": "value of 5/11"
+    },
+    {
+     "expr": "1/10+(2/100)/(1-1/10)",
+     "value": 0.12,
+     "label": "0.1222… = 0.1 + 0.02/(1 − 0.1)"
+    },
+    {
+     "expr": "11/90",
+     "value": 0.12,
+     "label": "value of 11/90"
+    },
+    {
+     "expr": "8/(1-(-1/2))",
+     "value": 5.33,
+     "label": "sum to infinity of 8 − 4 + 2 − 1 + …"
+    }
+   ]
+  },
+  {
+   "id": "i7",
+   "title": "Sum of 5 + 55 + 555 + … to n terms",
+   "difficulty": "hard",
+   "minutes": 7,
+   "q": "Find the sum of n terms of 5 + 55 + 555 + … and verify your formula for n = 4.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "Each term: 5 = 5/9 × 9, 55 = 5/9 × 99, 555 = 5/9 × 999, … so the k-th term is 5/9 × (10ᵏ − 1)."
+    },
+    {
+     "t": "p",
+     "text": "Sₙ = 5/9 [(10 + 10² + … + 10ⁿ) − n] = 5/9 [10(10ⁿ − 1)/9 − n] = 5/81 [10ⁿ⁺¹ − 10 − 9n]."
+    },
+    {
+     "t": "p",
+     "text": "n = 4: 5/81 × (1,00,000 − 10 − 36) = 5/81 × 99,954 = 6,170; directly, 5 + 55 + 555 + 5555 = 6,170. ✔"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "5/81*(10**5-10-9*4)",
+     "value": 6170,
+     "label": "5 + 55 + 555 + 5555 by the formula"
+    },
+    {
+     "expr": "5+55+555+5555",
+     "value": 6170,
+     "label": "direct addition"
+    }
+   ]
+  },
+  {
+   "id": "i8",
+   "title": "Salary, doubling instalments and depreciation",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "(a) An executive joins at ₹30,000 a month with a rise of ₹1,500 a month every year. Find her monthly salary in the 15th year and her total earnings over 15 years. (b) A debt of ₹25,500 is repaid in 8 monthly instalments, each double the previous one. Find the first and last instalments. (c) A machine costing ₹5,00,000 is depreciated at 10% a year on the reducing balance. Find its value after 4 years and the total depreciation.",
+   "solution": [
+    {
+     "t": "p",
+     "text": "(a) Monthly salaries form an AP: 30,000, 31,500, … . Year 15: 30,000 + 14 × 1,500 = ₹51,000. Annual totals are 12 times these, so total = 12 × 15/2 × (30,000 + 51,000) = ₹72,90,000."
+    },
+    {
+     "t": "p",
+     "text": "(b) Instalments form a GP with r = 2: a(2⁸ − 1) = 25,500 → a = 25,500/255 = ₹100. Last = ar⁷ = 100 × 128 = ₹12,800."
+    },
+    {
+     "t": "p",
+     "text": "(c) Values form a GP with r = 0.9: 5,00,000 × 0.9⁴ = ₹3,28,050. Total depreciation = 5,00,000 − 3,28,050 = ₹1,71,950."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "30000+14*1500",
+     "value": 51000,
+     "label": "monthly salary in year 15"
+    },
+    {
+     "expr": "12*15/2*(30000+51000)",
+     "value": 7290000,
+     "label": "total salary over 15 years"
+    },
+    {
+     "expr": "25500/(2**8-1)",
+     "value": 100,
+     "label": "first instalment when each one doubles"
+    },
+    {
+     "expr": "100*2**7",
+     "value": 12800,
+     "label": "eighth instalment"
+    },
+    {
+     "expr": "500000*0.9**4",
+     "value": 328050,
+     "label": "machine value after 4 years at 10% WDV"
+    },
+    {
+     "expr": "500000-328050",
+     "value": 171950,
+     "label": "total depreciation over 4 years"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Explaining a step-up recurring deposit to a client",
+   "role": "Article assistant handling personal-finance queries for a CA firm's individual clients",
+   "situation": "A client plans to save ₹2,000 in the first month and raise the deposit by ₹200 every month for two years. She wants to know the last deposit and the total she will put in (ignore interest).",
+   "steps": [
+    "Recognise a fixed monthly increase: an AP with a = 2,000, d = 200, n = 24.",
+    "Last deposit t₂₄ = 2,000 + 23 × 200 = ₹6,600.",
+    "Total = 24/2 × (2,000 + 6,600) = ₹1,03,200.",
+    "Explain that interest would add to this, and that the bank's maturity figure should be checked against a schedule."
+   ],
+   "takeaway": "Fixed-amount step-ups are APs; total with n/2 (first + last).",
+   "checks": [
+    {
+     "expr": "2000+23*200",
+     "value": 6600,
+     "label": "deposit in month 24"
+    },
+    {
+     "expr": "24/2*(2000+6600)",
+     "value": 103200,
+     "label": "total deposited in 24 months"
+    }
+   ]
+  },
+  {
+   "id": "j2",
+   "title": "Totalling a lease with an escalation clause",
+   "role": "Junior auditor reviewing lease commitments of a retail client",
+   "situation": "A shop is leased for 5 years at ₹6,00,000 for the first year, with rent rising 5% every year. The client has disclosed total commitments of ₹30,00,000 (5 × 6 lakh).",
+   "steps": [
+    "A fixed percentage rise means a GP with a = 6,00,000 and r = 1.05.",
+    "Rent in year 5 = 6,00,000 × 1.05⁴ = ₹7,29,303.75.",
+    "Total rent = 6,00,000 × (1.05⁵ − 1)/0.05 = ₹33,15,378.75.",
+    "The disclosed figure ignores escalation and understates the commitment; raise it with the client and correct the note."
+   ],
+   "takeaway": "Percentage escalations are GPs — multiplying the first-year amount by the number of years understates the total.",
+   "checks": [
+    {
+     "expr": "round(600000*(1.05**5-1)/0.05,2)",
+     "value": 3315378.75,
+     "label": "total lease rent for 5 years, 5% annual escalation"
+    },
+    {
+     "expr": "round(600000*1.05**4,2)",
+     "value": 729303.75,
+     "label": "rent in year 5"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The 15th term of the AP 4, 9, 14, 19, … is:",
+   "options": [
+    "79",
+    "70",
+    "74",
+    "69"
+   ],
+   "answer": 2,
+   "explain": "t₁₅ = a + 14d = 4 + 14 × 5 = 74. Using 15d instead of 14d gives 79.",
+   "concept": "c2",
+   "difficulty": "core",
+   "check": "4+14*5"
+  },
+  {
+   "id": "m2",
+   "q": "Which of the following is an arithmetic progression?",
+   "options": [
+    "2, 4, 8, 16, …",
+    "1, 4, 9, 16, …",
+    "3, 6, 10, 15, …",
+    "−7, −3, 1, 5, …"
+   ],
+   "answer": 3,
+   "explain": "Each term exceeds the previous one by 4. The others have a common ratio or growing differences.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "The sum of the first 30 natural numbers is:",
+   "options": [
+    "465",
+    "930",
+    "450",
+    "496"
+   ],
+   "answer": 0,
+   "explain": "n(n + 1)/2 = 30 × 31/2 = 465. Forgetting to halve gives 930.",
+   "concept": "c4",
+   "difficulty": "core",
+   "check": "30*31/2"
+  },
+  {
+   "id": "m4",
+   "q": "The sum of the first 25 odd natural numbers is:",
+   "options": [
+    "650",
+    "625",
+    "49",
+    "325"
+   ],
+   "answer": 1,
+   "explain": "1 + 3 + 5 + … to n terms = n² = 625.",
+   "concept": "c4",
+   "difficulty": "core",
+   "check": "25**2"
+  },
+  {
+   "id": "m5",
+   "q": "1² + 2² + 3² + … + 12² equals:",
+   "options": [
+    "78",
+    "6,084",
+    "650",
+    "600"
+   ],
+   "answer": 2,
+   "explain": "n(n + 1)(2n + 1)/6 = 12 × 13 × 25/6 = 650. 78 is just 1 + 2 + … + 12.",
+   "concept": "c4",
+   "difficulty": "core",
+   "check": "12*13*25/6"
+  },
+  {
+   "id": "m6",
+   "q": "1³ + 2³ + … + 10³ equals:",
+   "options": [
+    "55",
+    "385",
+    "1,000",
+    "3,025"
+   ],
+   "answer": 3,
+   "explain": "Sum of cubes = [n(n + 1)/2]² = 55² = 3025.",
+   "concept": "c4",
+   "difficulty": "core",
+   "check": "(10*11/2)**2"
+  },
+  {
+   "id": "m7",
+   "q": "The arithmetic mean between 18 and 46 is:",
+   "options": [
+    "32",
+    "28",
+    "64",
+    "30"
+   ],
+   "answer": 0,
+   "explain": "AM = (18 + 46)/2 = 32.",
+   "concept": "c2",
+   "difficulty": "core",
+   "check": "(18+46)/2"
+  },
+  {
+   "id": "m8",
+   "q": "The geometric mean between 4 and 25 is:",
+   "options": [
+    "14.5",
+    "10",
+    "100",
+    "21"
+   ],
+   "answer": 1,
+   "explain": "GM = √(4 × 25) = √100 = 10. 14.5 is the arithmetic mean.",
+   "concept": "c5",
+   "difficulty": "core",
+   "check": "(4*25)**0.5"
+  },
+  {
+   "id": "m9",
+   "q": "If the sum of the first n terms of a series is Sₙ = 3n² + 2n, its 10th term is:",
+   "options": [
+    "320",
+    "62",
+    "59",
+    "261"
+   ],
+   "answer": 2,
+   "explain": "t₁₀ = S₁₀ − S₉ = 320 − 261 = 59. (In general tₙ = 6n − 1.)",
+   "concept": "c3",
+   "difficulty": "moderate",
+   "check": "(3*100+20)-(3*81+18)"
+  },
+  {
+   "id": "m10",
+   "q": "How many terms are there in the AP 7, 11, 15, …, 207?",
+   "options": [
+    "50",
+    "52",
+    "51",
+    "200"
+   ],
+   "answer": 2,
+   "explain": "207 = 7 + (n − 1)4 → n − 1 = 50 → n = 51. Stopping at 50 forgets to count the first term.",
+   "concept": "c2",
+   "difficulty": "core",
+   "check": "(207-7)/4+1"
+  },
+  {
+   "id": "m11",
+   "q": "The sum of 2 + 5 + 8 + … to 20 terms is:",
+   "options": [
+    "590",
+    "1,220",
+    "600",
+    "610"
+   ],
+   "answer": 3,
+   "explain": "S = 20/2 [2 × 2 + 19 × 3] = 10 × 61 = 610.",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "20/2*(2*2+19*3)"
+  },
+  {
+   "id": "m12",
+   "q": "The 8th term of the GP 3, 6, 12, … is:",
+   "options": [
+    "384",
+    "768",
+    "192",
+    "48"
+   ],
+   "answer": 0,
+   "explain": "t₈ = ar⁷ = 3 × 128 = 384. Using r⁸ gives 768.",
+   "concept": "c5",
+   "difficulty": "core",
+   "check": "3*2**7"
+  },
+  {
+   "id": "m13",
+   "q": "The 6th term of the GP 729, 243, 81, … is:",
+   "options": [
+    "1",
+    "3",
+    "9",
+    "27"
+   ],
+   "answer": 1,
+   "explain": "r = 1/3; t₆ = 729 × (1/3)⁵ = 729/243 = 3.",
+   "concept": "c5",
+   "difficulty": "core",
+   "check": "729/3**5"
+  },
+  {
+   "id": "m14",
+   "q": "1 + 3 + 9 + 27 + … to 7 terms equals:",
+   "options": [
+    "2,187",
+    "3,280",
+    "1,093",
+    "364"
+   ],
+   "answer": 2,
+   "explain": "Sₙ = a(rⁿ − 1)/(r − 1) = (3⁷ − 1)/2 = 2186/2 = 1093.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "(3**7-1)/2"
+  },
+  {
+   "id": "m15",
+   "q": "The sum to infinity of 18 + 6 + 2 + … is:",
+   "options": [
+    "26",
+    "54",
+    "24",
+    "27"
+   ],
+   "answer": 3,
+   "explain": "a = 18, r = 1/3: S∞ = 18/(1 − 1/3) = 27.",
+   "concept": "c6",
+   "difficulty": "core",
+   "check": "18/(1-1/3)"
+  },
+  {
+   "id": "m16",
+   "q": "The recurring decimal 0.777… expressed as a fraction is:",
+   "options": [
+    "7/9",
+    "7/10",
+    "77/100",
+    "7/11"
+   ],
+   "answer": 0,
+   "explain": "0.7 + 0.07 + … is an infinite GP with a = 0.7, r = 0.1: 0.7/0.9 = 7/9.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m17",
+   "q": "Three numbers in AP have sum 21 and product 231. The numbers are:",
+   "options": [
+    "1, 7, 13",
+    "3, 7, 11",
+    "5, 7, 9",
+    "3, 7, 13"
+   ],
+   "answer": 1,
+   "explain": "Take a − d, a, a + d: 3a = 21 → a = 7; 7(49 − d²) = 231 → d² = 16 → d = 4.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m18",
+   "q": "Three numbers in GP have sum 26 and product 216. The numbers are:",
+   "options": [
+    "3, 6, 12",
+    "4, 6, 9",
+    "2, 6, 18",
+    "1, 6, 36"
+   ],
+   "answer": 2,
+   "explain": "Take a/r, a, ar: a³ = 216 → a = 6; 6/r + 6 + 6r = 26 → 3r² − 10r + 3 = 0 → r = 3 or 1/3.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m19",
+   "q": "Three geometric means inserted between 2 and 162 are:",
+   "options": [
+    "42, 82, 122",
+    "4, 16, 64",
+    "8, 32, 128",
+    "6, 18, 54"
+   ],
+   "answer": 3,
+   "explain": "162 = 2r⁴ → r⁴ = 81 → r = 3. The arithmetic means would be 42, 82, 122.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m20",
+   "q": "In a GP the sum of the first 6 terms is 28 times the sum of the first 3 terms. The common ratio is:",
+   "options": [
+    "2",
+    "27",
+    "4",
+    "3"
+   ],
+   "answer": 3,
+   "explain": "S₆/S₃ = (r⁶ − 1)/(r³ − 1) = r³ + 1 = 28 → r³ = 27 → r = 3.",
+   "concept": "c6",
+   "difficulty": "hard",
+   "check": "(28-1)**(1/3)"
+  },
+  {
+   "id": "m21",
+   "q": "An employee starts at ₹20,000 a month and gets a fixed rise of ₹1,000 a month every year. His monthly salary in the 10th year is:",
+   "options": [
+    "₹29,000",
+    "₹30,000",
+    "₹28,000",
+    "₹2,90,000"
+   ],
+   "answer": 0,
+   "explain": "tₙ = a + (n − 1)d = 20,000 + 9 × 1,000 = ₹29,000.",
+   "concept": "c8",
+   "difficulty": "core",
+   "check": "20000+9*1000"
+  },
+  {
+   "id": "m22",
+   "q": "A machine bought for ₹2,00,000 depreciates at 10% a year on the reducing balance. Its value after 3 years is:",
+   "options": [
+    "₹1,40,000",
+    "₹1,45,800",
+    "₹1,62,000",
+    "₹1,31,220"
+   ],
+   "answer": 1,
+   "explain": "Values form a GP with r = 0.9: 2,00,000 × 0.9³ = ₹1,45,800. 1,40,000 uses straight-line (an AP).",
+   "concept": "c8",
+   "difficulty": "moderate",
+   "check": "200000*0.9**3"
+  },
+  {
+   "id": "m23",
+   "q": "The sum of all two-digit numbers divisible by 3 is:",
+   "options": [
+    "1,683",
+    "1,584",
+    "1,665",
+    "1,638"
+   ],
+   "answer": 2,
+   "explain": "Terms 12, 15, …, 99: n = (99 − 12)/3 + 1 = 30; S = 30/2 × (12 + 99) = 1665.",
+   "concept": "c3",
+   "difficulty": "hard",
+   "check": "30/2*(12+99)"
+  },
+  {
+   "id": "m24",
+   "q": "If a, b, c are in AP, then:",
+   "options": [
+    "b² = ac",
+    "b = a + c",
+    "2b = ac",
+    "2b = a + c"
+   ],
+   "answer": 3,
+   "explain": "b − a = c − b gives 2b = a + c. b² = ac is the GP condition.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m25",
+   "q": "The AM and GM of two positive numbers are 10 and 8. The numbers are:",
+   "options": [
+    "16 and 4",
+    "12 and 8",
+    "18 and 2",
+    "10 and 8"
+   ],
+   "answer": 0,
+   "explain": "x + y = 20 and xy = 64 → x, y are roots of t² − 20t + 64 = 0, i.e., 16 and 4.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m26",
+   "q": "If 1 + 2 + 3 + … + n = 210, then n is:",
+   "options": [
+    "21",
+    "20",
+    "15",
+    "14"
+   ],
+   "answer": 1,
+   "explain": "n(n + 1)/2 = 210 → n² + n − 420 = 0 → n = 20.",
+   "concept": "c4",
+   "difficulty": "moderate",
+   "check": "(-1+(1+4*420)**0.5)/2"
+  },
+  {
+   "id": "m27",
+   "q": "The sum to infinity of 1 − 1/2 + 1/4 − 1/8 + … is:",
+   "options": [
+    "2",
+    "1/2",
+    "2/3",
+    "3/2"
+   ],
+   "answer": 2,
+   "explain": "a = 1, r = −1/2: S∞ = 1/(1 + 1/2) = 2/3. Ignoring the sign of r gives 2.",
+   "concept": "c6",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m28",
+   "q": "The 10th term from the end of the AP 3, 8, 13, …, 253 is:",
+   "options": [
+    "48",
+    "203",
+    "213",
+    "208"
+   ],
+   "answer": 3,
+   "explain": "From the end the AP runs 253, 248, … with d = −5: 253 − 9 × 5 = 208. (48 is the 10th term from the beginning.)",
+   "concept": "c2",
+   "difficulty": "moderate",
+   "check": "253-9*5"
+  },
+  {
+   "id": "m29",
+   "q": "An AP has first term 5, last term 95 and 19 terms. Its sum is:",
+   "options": [
+    "950",
+    "1,000",
+    "1,900",
+    "900"
+   ],
+   "answer": 0,
+   "explain": "S = n/2 (a + l) = 19/2 × 100 = 950.",
+   "concept": "c3",
+   "difficulty": "core",
+   "check": "19/2*(5+95)"
+  },
+  {
+   "id": "m30",
+   "q": "A sum of money doubles every year under a scheme. If ₹500 is invested, the amount at the end of 6 years is:",
+   "options": [
+    "₹32,000",
+    "₹16,000",
+    "₹3,000",
+    "₹64,000"
+   ],
+   "answer": 0,
+   "explain": "Year-end values 1,000, 2,000, … form a GP; after 6 years 500 × 2⁶ = ₹32,000.",
+   "concept": "c8",
+   "difficulty": "core",
+   "check": "500*2**6"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "The sum of the first 10 terms of an AP is 155 and the sum of the first 20 terms is 610. Find the first term, the common difference and the sum of the first 30 terms.",
+   "model": [
+    {
+     "t": "p",
+     "text": "S₁₀ = 5(2a + 9d) = 155 → 2a + 9d = 31 … (i)"
+    },
+    {
+     "t": "p",
+     "text": "S₂₀ = 10(2a + 19d) = 610 → 2a + 19d = 61 … (ii)"
+    },
+    {
+     "t": "p",
+     "text": "(ii) − (i): 10d = 30 → d = 3; from (i) 2a = 31 − 27 = 4 → a = 2."
+    },
+    {
+     "t": "p",
+     "text": "S₃₀ = 15(2 × 2 + 29 × 3) = 15 × 91 = 1,365."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Both equations formed correctly from Sₙ = n/2[2a + (n − 1)d]",
+     "m": 1.5,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "Solved: d = 3, a = 2",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "S₃₀ = 1,365",
+     "m": 1,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "Most candidates form the equations correctly; errors creep in when halving n.",
+    "Verify by checking S₁₀ with the values found — it takes ten seconds."
+   ],
+   "mistakes": [
+    "Writing (n − 1)/2 instead of n/2.",
+    "Using tₙ instead of Sₙ for the given data."
+   ],
+   "tips": [
+    "Number the equations and say which one you subtract from which.",
+    "Back-substitute to verify before moving on."
+   ],
+   "checks": [
+    {
+     "expr": "(61-31)/(19-9)",
+     "value": 3,
+     "label": "d from 2a + 9d = 31 and 2a + 19d = 61"
+    },
+    {
+     "expr": "(31-9*3)/2",
+     "value": 2,
+     "label": "a"
+    },
+    {
+     "expr": "30/2*(2*2+29*3)",
+     "value": 1365,
+     "label": "S30"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "The first term of a GP is 5 and the sum of its first 6 terms is 9 times the sum of its first 3 terms. Find the common ratio, the sum of the first 10 terms, and the least number of terms whose sum exceeds 1,000.",
+   "model": [
+    {
+     "t": "p",
+     "text": "S₆/S₃ = [a(r⁶ − 1)/(r − 1)] ÷ [a(r³ − 1)/(r − 1)] = r³ + 1 = 9 → r³ = 8 → r = 2."
+    },
+    {
+     "t": "p",
+     "text": "S₁₀ = 5(2¹⁰ − 1) = 5 × 1023 = 5,115."
+    },
+    {
+     "t": "p",
+     "text": "Need 5(2ⁿ − 1) > 1000 → 2ⁿ > 201. 2⁷ = 128 (S₇ = 635), 2⁸ = 256 (S₈ = 1,275). Least n = 8."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Ratio of sums simplified to r³ + 1",
+     "m": 1.5,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "r = 2",
+     "m": 0.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "S₁₀ = 5,115",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Inequality set up and tested at n = 7 and n = 8; answer 8",
+     "m": 2,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "Candidates who expand r⁶ − 1 as (r³ − 1)(r³ + 1) finish in a line; others get lost in algebra.",
+    "Show the test values on both sides of the boundary — it proves \"least\"."
+   ],
+   "mistakes": [
+    "Writing r⁶ − 1 = (r − 1)⁶.",
+    "Stopping at n = 7.8 instead of the next whole number."
+   ],
+   "tips": [
+    "For \"least n\", check n and n − 1 explicitly.",
+    "Use a(rⁿ − 1)/(r − 1) when r > 1 to keep the numbers positive."
+   ],
+   "checks": [
+    {
+     "expr": "9-1",
+     "value": 8,
+     "label": "r³ = 8"
+    },
+    {
+     "expr": "5*(2**10-1)",
+     "value": 5115,
+     "label": "S10"
+    },
+    {
+     "expr": "5*(2**7-1)",
+     "value": 635,
+     "label": "S7 (still below 1000)"
+    },
+    {
+     "expr": "5*(2**8-1)",
+     "value": 1275,
+     "label": "S8 (first sum above 1000)"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "hard",
+   "pad": "table",
+   "q": "Two companies each have sales of ₹50 lakh in Year 1. Company A's sales rise by ₹4 lakh every year; Company B's rise by 8% every year. Find for each (a) the sales in Year 10 and (b) the total sales over the 10 years. Which company sells more in total, and by how much? (Take answers to two decimals in ₹ lakh.)",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "",
+      "Company A (AP: a = 50, d = 4)",
+      "Company B (GP: a = 50, r = 1.08)"
+     ],
+     "rows": [
+      [
+       "Year 10 sales",
+       "50 + 9 × 4 = 86",
+       "50 × 1.08⁹ = 99.95"
+      ],
+      [
+       "10-year total",
+       "10/2 × (50 + 86) = 680",
+       "50 × (1.08¹⁰ − 1)/0.08 = 724.33"
+      ]
+     ]
+    },
+    {
+     "t": "p",
+     "text": "Company B sells more in total, by 724.33 − 680 = ₹44.33 lakh."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "A recognised as AP and B as GP with correct a, d and r",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "Year-10 sales: 86 and 99.95",
+     "m": 1.5,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "10-year totals: 680 and 724.33",
+     "m": 2,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Comparison and difference stated",
+     "m": 1,
+     "skill": "conclusion"
+    },
+    {
+     "id": "s5",
+     "pt": "Clear tabular presentation with units",
+     "m": 0.5,
+     "skill": "presentation"
+    }
+   ],
+   "remarks": [
+    "Weak answers use r = 0.08 instead of 1.08.",
+    "Some compute B's year-10 sales with power 10; the first year is already 50, so the power is 9."
+   ],
+   "mistakes": [
+    "Using 1.08¹⁰ for the 10th term.",
+    "Multiplying 50 by 10 for the AP total."
+   ],
+   "tips": [
+    "Put the two models side by side — it makes the comparison obvious.",
+    "State units (₹ lakh) in the table heading."
+   ],
+   "checks": [
+    {
+     "expr": "50+9*4",
+     "value": 86,
+     "label": "AP: year-10 sales (₹ lakh)"
+    },
+    {
+     "expr": "10/2*(50+86)",
+     "value": 680,
+     "label": "AP: 10-year total (₹ lakh)"
+    },
+    {
+     "expr": "round(50*1.08**9,2)",
+     "value": 99.95,
+     "label": "GP: year-10 sales (₹ lakh)"
+    },
+    {
+     "expr": "round(50*(1.08**10-1)/0.08,2)",
+     "value": 724.33,
+     "label": "GP: 10-year total (₹ lakh)"
+    },
+    {
+     "expr": "round(50*(1.08**10-1)/0.08,2)-680",
+     "value": 44.33,
+     "label": "GP total exceeds AP total by (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Sequence = ordered list by a rule; series = sum of its terms.",
+   "AP: tₙ = a + (n − 1)d; Sₙ = n/2[2a + (n − 1)d] = n/2(a + l); AM = (a + b)/2.",
+   "Special sums: Σn = n(n + 1)/2; odd numbers n²; Σn² = n(n + 1)(2n + 1)/6; Σn³ = [n(n + 1)/2]².",
+   "GP: tₙ = arⁿ⁻¹; Sₙ = a(rⁿ − 1)/(r − 1); S∞ = a/(1 − r) for |r| < 1; GM = √(ab).",
+   "7 + 77 + … = 7/81(10ⁿ⁺¹ − 10 − 9n); 0.7 + 0.77 + … = 7/81(9n − 1 + 10⁻ⁿ).",
+   "Fixed-amount change → AP; fixed-percentage change → GP."
+  ],
+  "remember": [
+   "tₙ = Sₙ − Sₙ₋₁.",
+   "Three terms in AP: a − d, a, a + d; in GP: a/r, a, ar.",
+   "n means between a and b: AP d = (b − a)/(n + 1); GP r = (b/a)^(1/(n + 1))."
+  ],
+  "traps": [
+   "General term uses n − 1, not n.",
+   "Infinite GP sum exists only for −1 < r < 1.",
+   "Growth of 8% means r = 1.08, not 0.08.",
+   "Count terms as (last − first)/d + 1."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "AP n-th term",
+   "v": "tₙ = a + (n − 1)d"
+  },
+  {
+   "k": "AP sum",
+   "v": "Sₙ = n/2[2a + (n − 1)d] = n/2(a + l)"
+  },
+  {
+   "k": "Natural numbers",
+   "v": "Σn = n(n + 1)/2; odd numbers n²"
+  },
+  {
+   "k": "Squares and cubes",
+   "v": "Σn² = n(n + 1)(2n + 1)/6; Σn³ = [n(n + 1)/2]²"
+  },
+  {
+   "k": "GP n-th term",
+   "v": "tₙ = arⁿ⁻¹"
+  },
+  {
+   "k": "GP sum",
+   "v": "Sₙ = a(rⁿ − 1)/(r − 1), r ≠ 1; Sₙ = na if r = 1"
+  },
+  {
+   "k": "Infinite GP",
+   "v": "S∞ = a/(1 − r), −1 < r < 1"
+  },
+  {
+   "k": "Means",
+   "v": "AM = (a + b)/2; GM = √(ab); AM ≥ GM"
+  },
+  {
+   "k": "Term from sum",
+   "v": "tₙ = Sₙ − Sₙ₋₁"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is the difference between a sequence and a series?",
+   "model": "A sequence is an ordered list of numbers that follow a definite rule, so each position has one term. A series is the sum of the terms of a sequence. For example, two, four, six, eight is a sequence, while two plus four plus six plus eight is a series.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Sequence = ordered list following a rule",
+     "w": 5,
+     "kw": [
+      "sequence",
+      "order|list|arrange|rule|pattern|law|one after another"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Series = sum of the terms of a sequence",
+     "w": 5,
+     "kw": [
+      "series sum|series is sum|series total|series add|series adding|sum of term|sum of sequence|adding term|add term|terms added|sum of the sequence|total of term|series plus|adding up"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Define an arithmetic progression and give its general term.",
+   "model": "An arithmetic progression is a sequence in which every term is obtained by adding a fixed number, called the common difference, to the previous term. Its n-th term is a plus n minus one times d, where a is the first term and d is the common difference.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Each term = previous term + a fixed number (common difference)",
+     "w": 5,
+     "kw": [
+      "add|adding|plus|differ|subtract",
+      "fixed|constant|same|common difference"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "tₙ = a + (n − 1)d",
+     "w": 5,
+     "kw": [
+      "n minus 1 d|n minus one d|n 1 d|n-1 d|n minus 1 times d|n minus one times d|n-1 times d|n-1)d|n 1 time d",
+      "a plus|first term plus|first term"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "State the formulas for the sum of the first n terms of an AP.",
+   "model": "The sum of the first n terms is n by two into two a plus n minus one d. If the last term l is known, the sum is simply n by two into a plus l, that is, half the number of terms times the first term plus the last term.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Sₙ = n/2 [2a + (n − 1)d]",
+     "w": 5,
+     "kw": [
+      "n by 2|n by two|n over 2|n over two|half n|n half|n/2|n divided by 2|n divided by two|half the number",
+      "2a|2 a|two a|twice a|twice first"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Sₙ = n/2 (a + l)",
+     "w": 5,
+     "kw": [
+      "a plus l|first plus last|first term plus last|first and last|first term and last term|first term plus the last|l plus a|last term plus first"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What is a geometric progression and what is the sum of its first n terms?",
+   "model": "A geometric progression is a sequence in which every term is the previous term multiplied by a fixed number called the common ratio. The sum of the first n terms is a into r to the power n minus one, divided by r minus one, when r is not one; if r equals one the sum is simply n times a.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Each term = previous term × fixed number (common ratio)",
+     "w": 4,
+     "kw": [
+      "multipl|times|ratio|product",
+      "fixed|constant|same|common ratio"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "Sₙ = a(rⁿ − 1)/(r − 1), r ≠ 1",
+     "w": 4,
+     "kw": [
+      "r power n minus 1|r to the power n minus one|r to the n minus 1|r n minus 1|r power n minus one|r to n minus 1|r raised to n minus 1|1 minus r power n|one minus r to the power n|1 minus r n|r^n - 1|r^n minus 1",
+      "r minus 1|r minus one|1 minus r|one minus r|r - 1|1 - r"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "If r = 1, Sₙ = na",
+     "w": 2,
+     "kw": [
+      "r equal 1|r equals one|r is 1|r is one|r equal one|ratio is one|ratio one|ratio equal 1|ratio 1",
+      "n time a|n a|na|n into a|a time n|n multipli a|a multipli n"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c6"
+  },
+  {
+   "id": "v5",
+   "q": "When does an infinite geometric series have a sum, and what is it?",
+   "model": "An infinite GP has a finite sum only when the common ratio lies between minus one and one, that is, its absolute value is less than one. Then r to the power n tends to zero and the sum to infinity is a divided by one minus r. If the ratio is one or more in absolute value, the sum does not settle to a finite value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Only when −1 < r < 1 (|r| < 1)",
+     "w": 5,
+     "kw": [
+      "between minus 1 and 1|between minus one and one|between -1 and 1|less than 1|less than one|mod r less|absolute value less|numerically less|magnitude less|fraction|smaller than 1|smaller than one|below 1|below one"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "S∞ = a/(1 − r)",
+     "w": 5,
+     "kw": [
+      "a divid 1 minus r|a over 1 minus r|a divid one minus r|a over one minus r|a by 1 minus r|a by one minus r|a upon 1 minus r|a upon one minus r|first term divid 1 minus r|first term divid one minus r|first term over 1 minus r|first term over one minus r"
+     ]
+    }
+   ],
+   "concept": "c6"
+  },
+  {
+   "id": "v6",
+   "q": "What are the arithmetic mean and the geometric mean of two numbers, and how do they compare?",
+   "model": "The arithmetic mean of a and b is a plus b divided by two. The geometric mean of two positive numbers is the square root of a times b. For positive numbers the arithmetic mean is always greater than or equal to the geometric mean, and they are equal only when the two numbers are equal.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "AM = (a + b)/2",
+     "w": 3,
+     "kw": [
+      "a plus b|sum of the two|sum of two|sum of a and b|add|a + b|sum of number|total of|sum",
+      "divid 2|divid two|by 2|by two|half|over 2|over two|/2"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p2",
+     "pt": "GM = √(ab)",
+     "w": 3,
+     "kw": [
+      "square root|root|sqrt",
+      "a time b|ab|product|a into b|a b|multipl"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "AM ≥ GM, equal only when the numbers are equal",
+     "w": 4,
+     "kw": [
+      "arithmetic mean greater|arithmetic mean is greater|arithmetic mean always greater|arithmetic mean bigger|arithmetic mean at least|arithmetic mean never less|arithmetic mean more|arithmetic mean exceed|greater than gm|greater equal gm|least gm|exceed gm|more than gm|bigger than gm|greater than geometric|greater equal geometric|least geometric|more than geometric|exceed geometric|gm less|gm smaller|gm never greater|gm not greater|gm never more|gm at most|geometric mean less|geometric mean smaller|geometric mean never greater|geometric mean never more|geometric mean at most|geometric mean not greater"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c5"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Choosing a savings plan for an office team",
+   "difficulty": "moderate",
+   "case": "The staff welfare committee of a CA firm compares two 3-year savings plans (ignore interest). Plan A: deposit ₹1,500 in the first month and increase the deposit by ₹100 every month for 36 months. Plan B: deposit ₹30,000 in the first year and increase the yearly deposit by 20% each year for 3 years.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Under Plan A, the deposit in the 36th month is:",
+     "options": [
+      "₹5,100",
+      "₹5,000",
+      "₹4,900",
+      "₹3,600"
+     ],
+     "answer": 1,
+     "explain": "t₃₆ = 1,500 + 35 × 100 = ₹5,000.",
+     "concept": "c2",
+     "difficulty": "core",
+     "check": "1500+35*100"
+    },
+    {
+     "id": "k1b",
+     "q": "Total deposited under Plan A is:",
+     "options": [
+      "₹1,20,600",
+      "₹54,000",
+      "₹1,17,000",
+      "₹1,08,000"
+     ],
+     "answer": 2,
+     "explain": "S₃₆ = 36/2 × (1,500 + 5,000) = 18 × 6,500 = ₹1,17,000.",
+     "concept": "c3",
+     "difficulty": "moderate",
+     "check": "36/2*(1500+5000)"
+    },
+    {
+     "id": "k1c",
+     "q": "Total deposited under Plan B is:",
+     "options": [
+      "₹1,08,000",
+      "₹90,000",
+      "₹1,29,600",
+      "₹1,09,200"
+     ],
+     "answer": 3,
+     "explain": "GP with a = 30,000, r = 1.2: 30,000 × (1.2³ − 1)/0.2 = 30,000 × 3.64 = ₹1,09,200. 1,08,000 adds 20% of 30,000 each year (an AP).",
+     "concept": "c6",
+     "difficulty": "moderate",
+     "check": "round(30000*(1.2**3-1)/0.2,2)"
+    },
+    {
+     "id": "k1d",
+     "q": "Which plan collects more, and by how much?",
+     "options": [
+      "Plan A, by ₹7,800",
+      "Plan B, by ₹7,800",
+      "Plan A, by ₹9,000",
+      "Both collect the same"
+     ],
+     "answer": 0,
+     "explain": "1,17,000 − 1,09,200 = ₹7,800, so Plan A collects more.",
+     "concept": "c8",
+     "difficulty": "moderate"
+    }
+   ]
+  }
+ ]
+}

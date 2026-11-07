@@ -22,15 +22,20 @@
   const shuffle = (a, r = Math.random) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
   /* ================= offline matcher (keep identical to tools/ca_vivamatch.py) ================= */
-  const STOP = new Set('a an the of is are was were be been being to in on at for with as that this it its by from or and which who whom will shall can may into than then so such also has have had do does did there their they he she his her them we our you your i me my am'.split(' '));
+  const STOP = new Set('a an the of is are was were be been being to in on at for with as that this it its by from or and which who whom will shall can may into than so such also has have had do does did there their they he she his her them we our you your i me my am'.split(' '));
   const ABBR = { dr: 'debit', cr: 'credit', tb: 'trial balance', rs: 'rupees', inr: 'rupees', sec: 'section', pl: 'profit loss', amt: 'amount', gst: 'gst', itc: 'input tax credit', cd: 'cash discount', td: 'trade discount', bal: 'balance', jf: 'jf', lf: 'lf' };
   const SMALL = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, fifteen: 15, twenty: 20, thirty: 30, forty: 40, fifty: 50, hundred: 100 };
   const MULT = { thousand: 1e3, lakh: 1e5, lakhs: 1e5, lac: 1e5, lacs: 1e5, crore: 1e7, crores: 1e7 };
+  const PROTECT = new Set('drawee drawer payee bailee bailor lessee lessor mortgagee mortgagor guarantee guarantor'.split(' '));   // CA terms never stemmed
+  const ORDER = new Set(['then']);   // kept as a token; inside a phrase gap it does not count as a word
   const SUFFIX = [['ational', 'ate'], ['ations', 'ate'], ['ation', 'ate'], ['ings', ''], ['ities', 'ity'], ['ies', 'y'], ['ied', 'y'], ['ing', ''], ['edly', ''], ['ed', ''], ['ers', 'er'], ['es', ''], ['ly', ''], ['s', '']];
   function stem(w) {
     if (w.length <= 3 || /^\d/.test(w)) return w;
+    if (PROTECT.has(w)) return w;
+    if (w.endsWith('s') && PROTECT.has(w.slice(0, -1))) return w.slice(0, -1);
     for (const [suf, rep] of SUFFIX) {
       if (w.endsWith(suf) && w.length - suf.length >= 3) {
+        if (suf === 'ed' && w.endsWith('eed')) break;          // exceed, proceed: not a past tense
         if (suf === 's' && w.endsWith('ss')) break;
         if (suf === 'es' && !/(ss|sh|ch|x|z)es$/.test(w)) continue;
         w = w.slice(0, -suf.length) + rep; break;
@@ -42,8 +47,12 @@
     return w;
   }
   const fmtnum = v => { v = Math.round(v * 1e4) / 1e4; return String(v); };
-  function tokens(text) {
+  const NEG = new Set('not no never cannot neither nor without cant dont doesnt isnt wont didnt arent wasnt shouldnt couldnt'.split(' '));
+  const NEGX = new Set('less more exceed exceeds exceeding later earlier only just merely fewer greater'.split(' '));   // raw words
+  function pairs(text) {          // [raw word, stem] after normalisation, stop-words removed
     let t = String(text || '').toLowerCase();
+    t = t.split('नहीं').join(' not ');
+    t = t.replace(/n['’]t\b/g, ' not');
     t = t.replace(/₹/g, ' rs ').replace(/&/g, ' and ').replace(/%/g, ' percent ');
     t = t.replace(/\ba\/c\b|\ba\/cs\b/g, ' account ');
     t = t.replace(/\bu\/s\b|\bs\.\s*(?=\d)/g, ' section ');
@@ -55,13 +64,14 @@
       const w = raw[i]; let num = null;
       if (/^\d+(\.\d+)?$/.test(w)) num = parseFloat(w); else if (w in SMALL) num = SMALL[w];
       if (num != null && i + 1 < raw.length && raw[i + 1] in MULT) { num *= MULT[raw[i + 1]]; i++; }
-      if (num != null) { out.push(fmtnum(num)); continue; }
-      if (w in MULT) { out.push(fmtnum(MULT[w])); continue; }
-      if (Object.prototype.hasOwnProperty.call(ABBR, w)) { ABBR[w].split(' ').forEach(x => out.push(stem(x))); continue; }
-      if (!STOP.has(w)) out.push(stem(w));
+      if (num != null) { const n = fmtnum(num); out.push([n, n]); continue; }
+      if (w in MULT) { const n = fmtnum(MULT[w]); out.push([n, n]); continue; }
+      if (Object.prototype.hasOwnProperty.call(ABBR, w)) { ABBR[w].split(' ').forEach(x => out.push([x, stem(x)])); continue; }
+      if (!STOP.has(w)) out.push([w, stem(w)]);
     }
-    return out.filter(x => !STOP.has(x));
+    return out.filter(x => !STOP.has(x[1]));
   }
+  const tokens = text => pairs(text).map(x => x[1]);
   const isNum = w => /^\d+(\.\d+)?$/.test(w);
   function lev1(a, b) {
     if (Math.abs(a.length - b.length) > 1) return false;
@@ -73,24 +83,43 @@
   function same(a, b) {
     if (a === b) return true;
     if (isNum(a) || isNum(b)) { if (isNum(a) && isNum(b)) { const x = +a, y = +b; return Math.abs(x - y) <= Math.max(Math.abs(y) * 0.005, 0.01); } return false; }
+    if (PROTECT.has(a) || PROTECT.has(b)) return false;   // party words (drawee/drawer, lessee/lessor…) must match exactly
     let n = 0; const m = Math.min(a.length, b.length); while (n < m && a[n] === b[n]) n++;
     if (n >= 5 && n >= 0.75 * m) return true;
-    return m >= 6 && lev1(a, b);
+    return m >= 6 && a[0] === b[0] && lev1(a, b);
   }
-  function phraseIn(ph, toks) {
+  /* negation: a hit does not count when a negator (raw word) stands within 3 words before a matched word in the same clause,
+     unless the keyword phrase itself contains a negator. Phrases match inside one sentence, crossing at most two commas or colons. (see tools/ca_vivamatch.py) */
+  function clauses(text) {   // clause = split at . , ; : ! ? new line; sentence = split at . ; ! ? new line
+    const toks = [], raws = [], cl = [], sn = []; let c = 0;
+    String(text || '').split(/[;!?\n]|(?<!\d)\.|\.(?!\d)/).forEach((sent, n) => { sent.split(/:|(?<!\d),|,(?!\d)/).forEach(part => { pairs(part).forEach(([r, w]) => { toks.push(w); raws.push(r); cl.push(c); sn.push(n); }); c++; }); });
+    return { toks, raws, cl: [cl, sn] };
+  }
+  function negated(idx, raws, cs) {
+    const cl = cs[0];
+    for (const x of idx) for (let y = Math.max(0, x - 3); y < x; y++) if (!idx.includes(y) && cl[y] === cl[x] && NEG.has(raws[y]) && !(y + 1 < raws.length && NEGX.has(raws[y + 1]))) return true;
+    return false;
+  }
+  const kwSame = (p, w) => same(p[1], w) || (p[0] !== p[1] && same(p[0], w));
+  function phraseIn(ph, toks, raws, cl) {
     if (!ph.length) return false;
+    const check = !!raws && !ph.some(p => NEG.has(p[0]));
     for (let s = 0; s < toks.length; s++) {
-      if (!same(ph[0], toks[s])) continue;
-      let j = s, ok = true;
-      for (const w of ph.slice(1)) { let k = -1; for (let x = j + 1; x < Math.min(toks.length, j + 4); x++) if (same(w, toks[x])) { k = x; break; } if (k < 0) { ok = false; break; } j = k; }
-      if (ok) return true;
+      if (!kwSame(ph[0], toks[s])) continue;
+      let j = s, ok = true; const idx = [s];
+      for (const w of ph.slice(1)) {
+        let k = -1, cnt = 0, x = j + 1;
+        while (x < toks.length && cnt < 3) { if (cl && (cl[1][x] !== cl[1][s] || cl[0][x] - cl[0][s] > 2)) break; if (kwSame(w, toks[x])) { k = x; break; } if (!ORDER.has(toks[x])) cnt++; x++; }
+        if (k < 0) { ok = false; break; } j = k; idx.push(k);
+      }
+      if (ok && !(check && negated(idx, raws, cl))) return true;
     }
     return false;
   }
-  const pointHit = (p, toks) => p.kw.filter(g => g.split('|').some(alt => alt.trim() && phraseIn(tokens(alt), toks))).length >= (p.min || p.kw.length);
+  const pointHit = (p, toks, raws, cl) => p.kw.filter(g => g.split('|').some(alt => alt.trim() && phraseIn(pairs(alt), toks, raws, cl))).length >= (p.min || p.kw.length);
   function vivaScore(v, answer) {
-    const toks = tokens(answer), tot = v.points.reduce((a, p) => a + p.w, 0);
-    const hit = v.points.filter(p => pointHit(p, toks)).map(p => p.id);
+    const { toks, raws, cl } = clauses(answer), tot = v.points.reduce((a, p) => a + p.w, 0);
+    const hit = v.points.filter(p => pointHit(p, toks, raws, cl)).map(p => p.id);
     const got = v.points.filter(p => hit.includes(p.id)).reduce((a, p) => a + p.w, 0);
     return { pct: tot ? Math.round(got / tot * 100) : 0, hit };
   }
@@ -114,87 +143,255 @@
   const hush = () => { try { speechSynthesis.cancel(); } catch (e) {} };
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+  /* ================= 📷 PHOTO ANSWERS — written answers on paper, photographed =================
+     Photos are compressed on the phone (longest side ≤ 1600 px, JPEG ~0.7) and kept in IndexedDB "sv_photos"
+     (store "photos": { id, ref, blob, w, h, bytes, ts, kept }). Attempts keep only references: photos: [{ id, w, h, bytes }],
+     so an attempt can later be sent, with its photos, to an AI checker. Photos picked but never saved are cleaned up. */
+  const photos = (() => {
+    let dbp = null; const urls = new Map();
+    const db = () => dbp || (dbp = new Promise((res, rej) => { if (!window.indexedDB) return rej(new Error('no indexedDB'));
+      const r = indexedDB.open('sv_photos', 1); r.onupgradeneeded = () => { const s = r.result.createObjectStore('photos', { keyPath: 'id' }); s.createIndex('ref', 'ref'); };
+      r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }));
+    const req = (mode, fn) => db().then(d => new Promise((res, rej) => { const t = d.transaction('photos', mode), s = t.objectStore('photos'); let out; const q = fn(s); if (q) q.onsuccess = () => { out = q.result; }; t.oncomplete = () => res(out); t.onerror = t.onabort = () => rej(t.error); }));
+    function compress(file, max = 1600, quality = 0.7) {
+      return new Promise((res, rej) => {
+        const u = URL.createObjectURL(file), img = new Image();
+        img.onload = () => { try { let w = img.naturalWidth, h = img.naturalHeight; const k = Math.min(1, max / Math.max(w, h)); w = Math.round(w * k); h = Math.round(h * k);
+          const c = D.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(img, 0, 0, w, h); URL.revokeObjectURL(u);
+          c.toBlob(b => b ? res({ blob: b, w, h }) : rej(new Error('compress failed')), 'image/jpeg', quality); } catch (e) { rej(e); } };
+        img.onerror = () => { URL.revokeObjectURL(u); rej(new Error('not an image')); }; img.src = u;
+      });
+    }
+    async function add(file, ref) {
+      const { blob, w, h } = await compress(file), id = 'ph' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      await req('readwrite', s => s.put({ id, ref, blob, w, h, bytes: blob.size, ts: Date.now(), kept: false }));
+      return { id, w, h, bytes: blob.size };
+    }
+    const get = id => req('readonly', s => s.get(id));
+    async function url(id) { if (urls.has(id)) return urls.get(id); const r = await get(id).catch(() => null); if (!r) return null; const u = URL.createObjectURL(r.blob); urls.set(id, u); return u; }
+    const del = id => { const u = urls.get(id); if (u) { URL.revokeObjectURL(u); urls.delete(id); } return req('readwrite', s => s.delete(id)).catch(() => {}); };
+    const keep = ids => Promise.all(ids.map(id => req('readwrite', s => { const g = s.get(id); g.onsuccess = () => { if (g.result) { g.result.kept = true; s.put(g.result); } }; return null; }))).catch(() => {});
+    const all = () => req('readonly', s => s.getAll()).then(l => l || []).catch(() => []);
+    async function usage() { const l = await all(); return { n: l.filter(x => x.kept).length, bytes: l.reduce((a, x) => a + (x.bytes || 0), 0), loose: l.filter(x => !x.kept && Date.now() - x.ts > 864e5) }; }
+    async function clear() { const l = await all(); for (const x of l) await del(x.id); const c = C(); [c.writes, c.viva].forEach(o => Object.values(o || {}).forEach(h => h.forEach(a => { if (a.photos) a.photos = []; }))); save(); }
+    const mb = b => b >= 1048576 ? `${(b / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1024))} KB`;
+    /* picker: take a photo or choose from the gallery, several pages, reorder by removing; onChange(list of {id,w,h,bytes}) */
+    function picker(host, ref, onChange) {
+      const list = [];
+      host.innerHTML = `<p class="ca-p">Write the answer on paper as in the exam, then add a photo of each page. Good light, the whole page in view.</p>
+        <div class="ca-btns"><label class="btn ca-phbtn"><input type="file" accept="image/*" capture="environment" id="phCam" hidden>📷 Take a photo</label><label class="btn ghost ca-phbtn"><input type="file" accept="image/*" multiple id="phGal" hidden>🖼 Choose from gallery</label></div>
+        <p class="ca-note" id="phSt" role="status" aria-live="polite">No pages yet.</p><div class="ca-phgrid" id="phGrid"></div>`;
+      const st = host.querySelector('#phSt'), grid = host.querySelector('#phGrid');
+      const draw = () => {
+        grid.innerHTML = list.map((p, i) => `<figure class="ca-phfig"><button class="ca-phth" data-i="${i}" aria-label="Page ${i + 1} — open large"><img data-ph="${p.id}" alt="Page ${i + 1} of your answer"></button><figcaption>Page ${i + 1} · ${mb(p.bytes)}</figcaption><button class="ca-x" data-rm="${i}" aria-label="Remove page ${i + 1}">✕</button></figure>`).join('');
+        hydrate(grid); st.textContent = list.length ? `${list.length} page${list.length > 1 ? 's' : ''} added (${mb(list.reduce((a, p) => a + p.bytes, 0))}). Add more pages or tap “Check my answer”.` : 'No pages yet.';
+        grid.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { const [p] = list.splice(+b.dataset.rm, 1); del(p.id); draw(); onChange(list.slice()); });
+        grid.querySelectorAll('.ca-phth').forEach(b => b.onclick = () => viewer(list, +b.dataset.i));
+      };
+      const take = async files => {
+        for (const f of files) { if (!/^image\//.test(f.type || 'image/')) continue; st.textContent = 'Compressing the photo…';
+          try { list.push(await add(f, ref)); } catch (e) { toast('That photo could not be read — try another'); } }
+        draw(); onChange(list.slice());
+      };
+      ['#phCam', '#phGal'].forEach(id => { const i = host.querySelector(id); i.onchange = () => { take([...i.files]); i.value = ''; }; });
+      draw();
+      return list;
+    }
+    function hydrate(root) { root.querySelectorAll('img[data-ph]').forEach(async im => { const u = await url(im.dataset.ph); if (u) im.src = u; else im.closest('figure, button')?.classList.add('ca-phgone'); }); }
+    function strip(host, list) {
+      if (!host) return; list = list || [];
+      host.innerHTML = list.map((p, i) => `<button class="ca-phth" data-i="${i}" aria-label="Page ${i + 1} of your answer — open large"><img data-ph="${p.id}" alt="Page ${i + 1}"></button>`).join('');
+      hydrate(host); host.querySelectorAll('.ca-phth').forEach(b => b.onclick = () => viewer(list, +b.dataset.i));
+    }
+    /* full-screen viewer: pinch / wheel / buttons to zoom, drag to pan, double-tap to toggle, swipe pages with ◀ ▶ */
+    function viewer(list, at = 0) {
+      D.getElementById('caPhView')?.remove();
+      D.body.insertAdjacentHTML('beforeend', `<div class="sheet show ca-phview" id="caPhView" role="dialog" aria-modal="true" aria-labelledby="caPhVT"><div class="ca-phvbar"><b id="caPhVT">Page 1</b><span class="ca-phvtools"><button id="phZo" aria-label="Zoom out">−</button><button id="phZr" aria-label="Fit to screen">Fit</button><button id="phZi" aria-label="Zoom in">+</button><button id="phX" data-close aria-label="Close">Close</button></span></div>
+        <div class="ca-phvstage" id="phStage"><img id="phImg" alt=""></div><div class="ca-phvnav"><button class="btn ghost" id="phPrev">◀ Previous page</button><button class="btn ghost" id="phNext">Next page ▶</button></div></div>`);
+      const sh = D.getElementById('caPhView'), img = D.getElementById('phImg'), stage = D.getElementById('phStage');
+      let sc = 1, tx = 0, ty = 0; const pts = new Map(); let pinch = null, drag = null, lastTap = 0;
+      const apply = () => { img.style.transform = `translate(${tx}px, ${ty}px) scale(${sc})`; };
+      const zoom = (k, cx, cy) => { const r = stage.getBoundingClientRect(); cx = cx == null ? r.width / 2 : cx - r.left; cy = cy == null ? r.height / 2 : cy - r.top; const n = Math.max(1, Math.min(6, sc * k)); tx = cx - (cx - tx) * n / sc; ty = cy - (cy - ty) * n / sc; sc = n; if (sc === 1) { tx = 0; ty = 0; } apply(); };
+      const show_ = async i => { at = (i + list.length) % list.length; sc = 1; tx = ty = 0; apply(); D.getElementById('caPhVT').textContent = `Page ${at + 1} of ${list.length}`; img.alt = `Page ${at + 1} of your answer`; img.src = (await url(list[at].id)) || '';
+        D.getElementById('phPrev').disabled = D.getElementById('phNext').disabled = list.length < 2; };
+      stage.addEventListener('pointerdown', e => { stage.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]);
+        if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), s: sc }; drag = null; }
+        else { drag = { x: e.clientX - tx, y: e.clientY - ty }; const t = Date.now(); if (t - lastTap < 300) zoom(sc > 1 ? 1 / sc : 2.5, e.clientX, e.clientY); lastTap = t; } });
+      stage.addEventListener('pointermove', e => { if (!pts.has(e.pointerId)) return; pts.set(e.pointerId, [e.clientX, e.clientY]);
+        if (pinch && pts.size === 2) { const [a, b] = [...pts.values()]; const d = Math.hypot(a[0] - b[0], a[1] - b[1]); zoom(pinch.s * d / pinch.d / sc, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); }
+        else if (drag && sc > 1) { tx = e.clientX - drag.x; ty = e.clientY - drag.y; apply(); } });
+      const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size) drag = null; };
+      stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
+      stage.addEventListener('wheel', e => { e.preventDefault(); zoom(e.deltaY < 0 ? 1.2 : 1 / 1.2, e.clientX, e.clientY); }, { passive: false });
+      const close = () => { sh.classList.remove('show'); setTimeout(() => sh.remove(), 50); };
+      D.getElementById('phZi').onclick = () => zoom(1.5); D.getElementById('phZo').onclick = () => zoom(1 / 1.5); D.getElementById('phZr').onclick = () => { sc = 1; tx = ty = 0; apply(); };
+      D.getElementById('phX').onclick = close; D.getElementById('phPrev').onclick = () => show_(at - 1); D.getElementById('phNext').onclick = () => show_(at + 1);
+      sh.addEventListener('keydown', e => { if (e.key === 'Escape') close(); if (e.key === 'ArrowRight') show_(at + 1); if (e.key === 'ArrowLeft') show_(at - 1); if (e.key === '+' || e.key === '=') zoom(1.5); if (e.key === '-') zoom(1 / 1.5); });
+      show_(at); setTimeout(() => D.getElementById('phX').focus(), 60);
+    }
+    async function usageCard(box) {
+      if (!box) return; const u = await usage(); const t = box.querySelector('#caPhUseT'); if (!t) return;
+      for (const x of u.loose) await del(x.id);      // pages picked but never saved, older than a day
+      t.textContent = u.n ? `${u.n} photo${u.n > 1 ? 's' : ''} of your answers are stored on this device (${mb(u.bytes)}). They stay with your attempts in each question's history.` : 'No answer photos stored yet. In any written question, choose “📷 Photo of my answer”.';
+      if (u.n && !box.querySelector('#caPhClr')) { box.insertAdjacentHTML('beforeend', '<button class="btn ghost" id="caPhClr">Delete all answer photos</button>');
+        box.querySelector('#caPhClr').onclick = async function () { if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again — your marks stay, the photos go'; return; } await clear(); toast('All answer photos deleted'); this.remove(); usageCard(box); }; }
+      try { if (navigator.storage && navigator.storage.estimate) { const e = await navigator.storage.estimate(); if (e.quota) t.insertAdjacentHTML('afterend', `<p class="ca-note">Space used by StudyVerse on this phone: ${mb(e.usage || 0)} of ${mb(e.quota)} available to it.</p>`); } } catch (e) {}
+    }
+    return { add, get, url, del, keep, all, usage, clear, picker, strip, viewer, usageCard, compress, mb };
+  })();
+
   /* ================= 2. VIVA ================= */
   const vivaHist = (uid, vid) => C().viva[`${uid}#${vid}`] || [];
   const vivaBest = (uid, vid) => { const h = vivaHist(uid, vid); return h.length ? Math.max(...h.map(a => a.pct)) : null; };
+  const vivaBestMarks = (uid, v) => { const h = vivaHist(uid, v.id), mx = v.points.reduce((a, p) => a + p.w, 0); return h.length ? Math.max(...h.map(a => a.marks != null ? a.marks : Math.round(a.pct * mx / 100))) : null; };
+  const mk1 = n => `${fmt(n)} mark${n === 1 ? '' : 's'}`;
+  const qm = q => (q && +q.marks) || 1;
   function vivaDone(uid) { return Object.keys(C().viva).some(k => k.startsWith(uid + '#')); }
   function vivaTab(P, uid, d) {
     const list = d.viva || [];
     const best = list.map(v => vivaBest(uid, v.id)), ready = best.filter(b => b != null && b >= 80).length;
     P.innerHTML = `<div class="card ca-vintro"><span class="ca-k">Viva · speak &amp; revise</span><h2 class="ca-h2s">Answer out loud, like an oral exam</h2>
-        <p class="ca-p">The app reads each question aloud. Answer by voice${SR ? '' : ' (voice input is not available in this browser — type instead)'}, then see which key points you covered. 80% or more is viva-ready.</p>
+        <p class="ca-p">The app reads each question aloud. Answer by voice${SR ? '' : ' (voice input is not available in this browser — type instead)'}, type, or write on paper and add a 📷 photo — then see your marks for each key point. 80% of the marks or more is viva-ready.</p>
         <div class="ca-vstat"><b>${ready}/${list.length}</b><span>questions viva-ready</span></div>
         <button class="btn" id="cvAll">🎙️ Start viva — ${list.length} questions</button></div>
-      <div class="card"><h3 class="ca-h3">Questions</h3><ol class="ca-vlist">${list.map((v, i) => `<li><button class="ca-vrow" data-i="${i}"><span>${esc(v.q)}</span>${best[i] == null ? '<em class="ca-band">Not tried</em>' : `<em class="ca-band ${best[i] >= 80 ? 's' : best[i] >= 50 ? 'm' : 'w'}">${best[i] >= 80 ? '✓ ' : ''}Best ${best[i]}%</em>`}</button></li>`).join('')}</ol></div>`;
+      <div class="card"><h3 class="ca-h3">Questions</h3><ol class="ca-vlist">${list.map((v, i) => `<li><button class="ca-vrow" data-i="${i}"><span>${esc(v.q)}</span><small class="ca-qmk">${vivaMax(v)} marks</small>${best[i] == null ? '<em class="ca-band">Not tried</em>' : `<em class="ca-band ${best[i] >= 80 ? 's' : best[i] >= 50 ? 'm' : 'w'}">${best[i] >= 80 ? '✓ ' : ''}Best ${vivaBestMarks(uid, v)}/${vivaMax(v)}</em>`}</button></li>`).join('')}</ol></div>`;
     D.getElementById('cvAll').onclick = () => vivaRun(P, list.map(v => ({ uid, v, title: d.title })), { back: () => vivaTab(P, uid, d) });
     P.querySelectorAll('.ca-vrow').forEach(b => b.onclick = () => vivaRun(P, [{ uid, v: list[+b.dataset.i], title: d.title }], { back: () => vivaTab(P, uid, d) }));
   }
+  /* ---------- voice input: robust against Android Chrome's cumulative / repeated results ----------
+     Android sends each result again and again as it grows ("an agreement", "an agreement when", …), sometimes as new
+     result indexes, sometimes re-finalised, and it restarts the session after every pause. So the transcript is rebuilt
+     from FINAL results only (kept per result index from event.resultIndex on), consecutive pieces are merged by removing
+     overlapping words, each session is merged into the committed text when it ends, and interim words are only shown
+     (greyed), never written into the answer. */
+  const wnorm = w => w.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+  function speechMerge(a, b) {
+    const A = String(a || '').trim().split(/\s+/).filter(Boolean), B = String(b || '').trim().split(/\s+/).filter(Boolean);
+    if (!B.length) return A.join(' '); if (!A.length) return B.join(' ');
+    const a2 = A.map(wnorm), b2 = B.map(wnorm), bs = b2.join(' ');
+    if (B.length <= A.length && a2.slice(-(B.length + 2)).join(' ').includes(bs)) return A.join(' ');     // b repeats what we already have
+    for (let s = 0; s < A.length; s++) { const k = A.length - s; if (k > B.length) continue; if (a2.slice(s).join(' ') === b2.slice(0, k).join(' ')) return A.slice(0, s).concat(B).join(' '); }   // overlap / cumulative
+    return A.concat(B).join(' ');
+  }
   let REC = null;
   function stopRec() { if (REC) { const r = REC; REC = null; r.want = false; try { r.stop(); } catch (e) {} } }
+  D.addEventListener('sv:back', () => { stopRec(); hush(); });
+  function vivaMax(v) { return v.points.reduce((a, p) => a + p.w, 0); }
   function vivaRun(host, items, opts = {}) {
     let i = 0; const results = []; let hide = false;
+    if (opts.back && window.Nav) Nav.sub(() => { stopRec(); hush(); opts.back(); });
     const render = () => {
       stopRec(); hush();
-      const { uid, v, title } = items[i]; let secs = 0, timer = null;
-      host.innerHTML = `<div class="card ca-viva"><div class="ca-mtop"><span class="ca-k">Viva · question ${i + 1} of ${items.length}</span><span class="ca-timer" id="cvT" aria-label="Time">00:00</span></div>
+      const { uid, v, title } = items[i]; let secs = 0, timer = null, mode = 'say', photosNow = [];
+      const max = vivaMax(v);
+      host.innerHTML = `<div class="card ca-viva"><div class="ca-mtop"><span class="ca-k">Viva · question ${i + 1} of ${items.length} · ${max} marks</span><span class="ca-timer" id="cvT" aria-label="Time">00:00</span></div>
           <p class="ca-vunit">${esc(title)}</p>
-          <h2 class="ca-vq" id="cvQ" ${hide ? 'hidden' : ''}>${esc(v.q)}</h2><p class="ca-vhid" id="cvQh" ${hide ? '' : 'hidden'}>🎧 Listening mode — the question is hidden. Tap “Hear question” to replay it.</p>
+          <h2 class="ca-vq" id="cvQ" ${hide ? 'hidden' : ''}>${esc(v.q)} <span class="ca-qmk">(${max} marks)</span></h2><p class="ca-vhid" id="cvQh" ${hide ? '' : 'hidden'}>🎧 Listening mode — the question is hidden. Tap “Hear question” to replay it.</p>
           <div class="ca-btns">${speakOK() ? '<button class="btn ghost" id="cvSay">🔊 Hear question</button>' : ''}<button class="btn ghost" id="cvHide" aria-pressed="${hide}">${hide ? '👁 Show text' : '🙈 Hide text'}</button></div>
+          <div class="ca-amode" role="radiogroup" aria-label="How will you answer?"><button role="radio" aria-checked="true" data-mode="say">${SR ? '🎙️ Speak or type' : '✍️ Type'}</button><button role="radio" aria-checked="false" data-mode="photo">📷 Photo of my answer</button></div>
+          <div id="cvSayBox">
           ${SR ? `<button class="ca-micb" id="cvMic" aria-pressed="false"><span class="ca-micdot" aria-hidden="true">🎙️</span><span id="cvMicL">Tap and answer out loud</span></button>` : ''}
           <p class="ca-note" id="cvMicSt" role="status" aria-live="polite">${SR ? 'Speak naturally — technical words are matched with synonyms and stems. Your words appear below; correct them if needed.' : 'Voice input is not available in this browser. Type your answer.'}</p>
           <label class="ca-lab" for="cvA">Your answer</label><textarea id="cvA" class="ca-ta ca-vta" rows="5" placeholder="${SR ? 'Your spoken answer appears here — or type it' : 'Type your answer as you would say it in a viva'}"></textarea>
-          <button class="btn" id="cvCheck">Check coverage ▶</button></div><div id="cvRes"></div>`;
-      const ta = D.getElementById('cvA'), st = D.getElementById('cvMicSt');
+          <p class="ca-interim" id="cvInt" aria-hidden="true"></p>
+          <button class="btn" id="cvCheck">Check my marks ▶</button></div>
+          <div id="cvPhotoBox" hidden></div><button class="btn" id="cvPhCheck" hidden>Mark my answer ▶</button></div><div id="cvRes"></div>`;
+      const ta = D.getElementById('cvA'), st = D.getElementById('cvMicSt'), intEl = D.getElementById('cvInt');
       const tick = () => { secs++; const t = D.getElementById('cvT'); if (!t) { clearInterval(timer); return; } t.textContent = secsTxt(secs); };
       const startT = () => { if (!timer) timer = setInterval(tick, 1000); };
       const stopT = () => { clearInterval(timer); timer = null; };
       const ask = () => { if (speakOK()) { stopRec(); sayQ(v.q); } startT(); };
       if (D.getElementById('cvSay')) D.getElementById('cvSay').onclick = ask;
       D.getElementById('cvHide').onclick = () => { hide = !hide; D.getElementById('cvQ').hidden = hide; D.getElementById('cvQh').hidden = !hide; const b = D.getElementById('cvHide'); b.setAttribute('aria-pressed', String(hide)); b.textContent = hide ? '👁 Show text' : '🙈 Hide text'; if (hide) ask(); };
-      ta.oninput = startT;
-      let how = 'type';
+      host.querySelectorAll('.ca-amode [data-mode]').forEach(b => b.onclick = () => {
+        mode = b.dataset.mode; host.querySelectorAll('.ca-amode [data-mode]').forEach(x => x.setAttribute('aria-checked', String(x === b))); stopRec();
+        D.getElementById('cvSayBox').hidden = mode === 'photo'; const pb = D.getElementById('cvPhotoBox'); pb.hidden = mode !== 'photo'; D.getElementById('cvPhCheck').hidden = mode !== 'photo';
+        if (mode === 'photo' && !pb.dataset.on) { pb.dataset.on = 1; photos.picker(pb, `${uid}#${v.id}`, l => { photosNow = l; startT(); }); }
+      });
+      let how = 'type', S = null;          // S = live speech state
+      ta.oninput = () => { startT(); if (S) { S.base = ta.value.replace(/\s*$/, ' '); S.committed = ''; S.finals = {}; S.ignoreBelow = S.len; intEl.textContent = ''; } };
       const mic = D.getElementById('cvMic');
       if (mic) mic.onclick = () => {
         if (REC) { stopRec(); return; }
         hush(); try { window.A11Y && A11Y.stopRec && A11Y.stopRec(); } catch (e) {}
-        let r; try { r = new SR(); } catch (e) { st.textContent = 'Voice input could not start. Please type your answer.'; return; }
-        REC = r; r.want = true; r.lang = 'en-IN'; r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
-        const base = ta.value ? ta.value.replace(/\s*$/, ' ') : ''; let finals = '', restarts = 0;
-        const ui = on => { if (!D.getElementById('cvMic')) return; mic.classList.toggle('on', on); mic.setAttribute('aria-pressed', String(on)); D.getElementById('cvMicL').textContent = on ? 'Listening… tap to stop' : 'Tap and answer out loud'; };
-        r.onresult = e => { let interim = ''; for (let k = e.resultIndex; k < e.results.length; k++) { const tx = e.results[k][0].transcript; if (e.results[k].isFinal) finals += tx.trim() + ' '; else interim += tx; } ta.value = (base + finals + interim).replace(/\s+/g, ' ').trimStart(); how = 'voice'; startT(); };
-        r.onerror = e => { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { r.want = false; st.textContent = 'Microphone permission was refused — you can type your answer instead.'; } else if (e.error === 'network') { r.want = false; st.textContent = 'Voice recognition needs a connection in this browser. Type your answer instead — checking still works offline.'; } };
-        r.onend = () => { if (r.want && REC === r && restarts++ < 20) { try { r.start(); return; } catch (e) {} } if (REC === r) REC = null; ui(false); };
-        try { r.start(); ui(true); st.textContent = 'Listening… speak your answer. Tap the mic again when you finish.'; startT(); tap('tap'); } catch (e) { REC = null; st.textContent = 'Voice input could not start. Please type your answer.'; }
+        const android = /android/i.test(navigator.userAgent);
+        S = { base: ta.value ? ta.value.replace(/\s*$/, ' ') : '', committed: '', finals: {}, len: 0, ignoreBelow: 0, restarts: 0, empty: 0, got: false };
+        const ui = on => { if (!D.getElementById('cvMic')) return; mic.classList.toggle('on', on); mic.setAttribute('aria-pressed', String(on)); D.getElementById('cvMicL').textContent = on ? 'Listening… tap to stop' : 'Tap and answer out loud'; if (!on) intEl.textContent = ''; };
+        const sessionText = () => Object.keys(S.finals).map(Number).sort((a, b) => a - b).reduce((acc, k) => speechMerge(acc, S.finals[k]), '');
+        const startSession = () => {
+          let r; try { r = new SR(); } catch (e) { st.textContent = 'Voice input could not start. Please type your answer.'; return false; }
+          REC = r; r.want = true; r.lang = 'en-IN'; r.continuous = !android; r.interimResults = true; r.maxAlternatives = 1; S.finals = {}; S.len = 0; S.ignoreBelow = 0; S.got = false;
+          r.onresult = e => {
+            if (REC !== r || !D.getElementById('cvA')) return;
+            S.len = e.results.length; let interim = '';
+            for (let k = Math.max(e.resultIndex || 0, S.ignoreBelow); k < e.results.length; k++) { const res = e.results[k], tx = (res[0] && res[0].transcript || '').trim(); if (!tx) continue;
+              if (res.isFinal) S.finals[k] = tx; else interim = speechMerge(interim, tx); }
+            const full = speechMerge(S.committed, sessionText());
+            ta.value = (S.base + full).replace(/\s+/g, ' ').trimStart(); how = 'voice'; S.got = true; startT();
+            const extra = speechMerge(full, interim), fw = full.split(/\s+/).filter(Boolean).length;
+            intEl.textContent = interim ? extra.split(/\s+/).slice(fw).join(' ') : '';
+          };
+          r.onerror = e => { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { r.want = false; st.textContent = 'Microphone permission was refused — you can type your answer instead.'; } else if (e.error === 'network') { r.want = false; st.textContent = 'Voice recognition needs a connection in this browser. Type your answer instead — checking still works offline.'; } else if (e.error === 'no-speech') S.empty++; };
+          r.onend = () => {
+            if (REC !== r) return;
+            S.committed = speechMerge(S.committed, sessionText()); S.finals = {}; S.len = 0; S.ignoreBelow = 0;   // commit this session once
+            if (!S.got) S.empty++; else S.empty = 0;
+            if (r.want && S.restarts++ < 60 && S.empty < 3 && D.getElementById('cvA')) { setTimeout(() => { if (REC === r && r.want) startSession(); }, android ? 120 : 60); return; }
+            REC = null; ui(false); if (S.empty >= 3) st.textContent = 'Stopped listening after a long pause. Tap the mic to continue.';
+          };
+          try { r.start(); return true; } catch (e) { REC = null; st.textContent = 'Voice input could not start. Please type your answer.'; return false; }
+        };
+        if (startSession()) { ui(true); st.textContent = 'Listening… speak your answer. Tap the mic again when you finish.'; startT(); tap('tap'); }
       };
-      D.getElementById('cvCheck').onclick = () => {
-        stopRec(); stopT(); hush();
-        const ans = ta.value.trim();
-        if (!ans) { toast('Say or type an answer first'); ta.focus(); return; }
-        const r = vivaScore(v, ans), c = C(), key = `${uid}#${v.id}`;
-        const h = c.viva[key] = c.viva[key] || []; h.push({ d: today(), pct: r.pct, hit: r.hit, secs, how, text: ans.slice(0, 2000) }); while (h.length > 5) h.shift();
-        save(); try { bumpStreak(); addXP(Math.max(3, Math.round(r.pct / 10))); } catch (e) {}
-        results[i] = { uid, v, pct: r.pct };
-        const ok = r.pct >= 80;
-        D.getElementById('cvRes').innerHTML = `<div class="card ca-vres ${ok ? 'ok' : ''}"><div class="ca-vhead">${X.ring(r.pct / 100, 64, `${r.pct}% of key points covered`)}<div><h2 class="ca-h2s">${ok ? '✓ Viva-ready' : r.pct >= 50 ? 'Good start — fill the gaps' : 'Keep going — revise the missed points'}</h2><p class="sub">${r.pct}% of the key points covered${secs ? ` in ${secsTxt(secs)}` : ''}.</p></div></div>
-            <h3 class="ca-h3">Key points</h3><ul class="ca-kp">${v.points.map(p => { const hit = r.hit.includes(p.id); return `<li class="${hit ? 'hit' : 'miss'}"><span aria-hidden="true">${hit ? '✓' : '✗'}</span><span class="sr-only">${hit ? 'Covered:' : 'Missed:'}</span> ${esc(p.pt)} <em>${p.w} pt${p.w > 1 ? 's' : ''}</em></li>`; }).join('')}</ul>
+      const finish = (rec, hitIds) => {
+        const c = C(), key = `${uid}#${v.id}`, h = c.viva[key] = c.viva[key] || []; h.push(rec);
+        while (h.length > 5) { const old = h.shift(); (old.photos || []).forEach(x => photos.del(x.id)); }
+        if ((rec.photos || []).length) photos.keep(rec.photos.map(x => x.id));
+        save(); try { bumpStreak(); addXP(Math.max(3, Math.round(rec.pct / 10))); } catch (e) {}
+        results[i] = { uid, v, pct: rec.pct, marks: rec.marks, max };
+        const ok = rec.pct >= 80;
+        D.getElementById('cvRes').innerHTML = `<div class="card ca-vres ${ok ? 'ok' : ''}"><div class="ca-vhead">${X.ring(rec.pct / 100, 64, `${rec.marks} of ${max} marks`)}<div><h2 class="ca-h2s">You scored ${fmt(rec.marks)}/${max} marks</h2><p class="sub">${ok ? '✓ Viva-ready (80% or more)' : rec.pct >= 50 ? 'Good start — fill the gaps' : 'Keep going — revise the missed points'}${secs ? ` · ${secsTxt(secs)}` : ''}${rec.how === 'photo' ? ' · self-marked from your photo' : ''}</p></div></div>
+            ${(rec.photos || []).length ? '<div class="ca-phstrip" id="cvPhStrip"></div>' : ''}
+            <h3 class="ca-h3">Key points</h3><ul class="ca-kp">${v.points.map(p => { const hit = hitIds.includes(p.id); return `<li class="${hit ? 'hit' : 'miss'}"><span aria-hidden="true">${hit ? '✓' : '✗'}</span><span class="sr-only">${hit ? 'Covered:' : 'Missed:'}</span> ${esc(p.pt)} <em>${hit ? p.w : 0}/${p.w}</em></li>`; }).join('')}</ul>
             <h3 class="ca-h3">Model answer</h3><p class="ca-p ca-vmodel">${esc(v.model)}</p>
             <div class="ca-btns">${speakOK() ? '<button class="btn ghost" id="cvHear">🔊 Hear model answer</button>' : ''}<button class="btn ghost" id="cvAgain">↻ Answer again</button><button class="btn" id="cvNext">${i < items.length - 1 ? 'Next question ▶' : 'Finish ▶'}</button></div>
-            <p class="ca-note">Matching is done on this device: words are compared by stem, with synonyms and number tolerance. It checks coverage of points, not grammar — be honest with yourself.</p></div>`;
-        say(`${r.pct} percent covered. ${ok ? 'Viva ready.' : ''}`);
+            <p class="ca-note">${rec.how === 'photo' ? 'You marked this yourself against the key points — be as strict as an examiner.' : 'Matching is done on this device: words are compared by stem, with synonyms, number tolerance and negation (“not”, “never” …). It checks coverage of points, not grammar — be honest with yourself.'}</p></div>`;
+        if (D.getElementById('cvPhStrip')) photos.strip(D.getElementById('cvPhStrip'), rec.photos);
+        say(`${rec.marks} out of ${max} marks. ${ok ? 'Viva ready.' : ''}`);
         if (D.getElementById('cvHear')) D.getElementById('cvHear').onclick = () => sayQ(v.model);
         D.getElementById('cvAgain').onclick = () => render();
         D.getElementById('cvNext').onclick = () => { hush(); i++; if (i < items.length) { render(); window.scrollTo(0, 0); } else summary(); };
         D.getElementById('cvRes').scrollIntoView({ behavior: 'smooth', block: 'start' }); D.getElementById('cvNext').focus({ preventScroll: true });
       };
+      D.getElementById('cvCheck').onclick = () => {
+        stopRec(); stopT(); hush(); intEl.textContent = '';
+        const ans = ta.value.trim();
+        if (!ans) { toast('Say or type an answer first'); ta.focus(); return; }
+        const r = vivaScore(v, ans), marks = v.points.filter(p => r.hit.includes(p.id)).reduce((a, p) => a + p.w, 0);
+        finish({ d: today(), pct: r.pct, marks, max, hit: r.hit, secs, how, text: ans.slice(0, 2000) }, r.hit);
+      };
+      D.getElementById('cvPhCheck').onclick = () => {
+        if (!photosNow.length) { toast('Add a photo of your answer first'); return; }
+        stopT(); const ticks = {};
+        D.getElementById('cvRes').innerHTML = `<div class="ca-cmp"><aside class="ca-cmp-ph" aria-label="Photos of your answer"><div class="ca-k">Your answer — tap to zoom</div><div class="ca-phstrip" id="cvPhS"></div></aside><div class="ca-cmp-main"><div class="card"><h2 class="ca-h2s">Mark yourself: key points</h2><p class="sub">Tick each point your written answer really covers.</p>
+          <ol class="ca-pts">${v.points.map(p => `<li><div class="ca-pt"><span>${esc(p.pt)}</span><em>${mk1(p.w)}</em></div><div class="ca-seg" role="radiogroup" aria-label="${esc(p.pt)}">${[[1, 'Covered'], [0, 'Not covered']].map(([val, n]) => `<button role="radio" aria-checked="${val === 0}" tabindex="${val === 0 ? 0 : -1}" data-p="${p.id}" data-v="${val}">${n}</button>`).join('')}</div></li>`).join('')}</ol>
+          <div class="ca-score" aria-live="polite">Your marks: <b id="cvPS">0</b> / ${max}</div><details class="ca-given"><summary>Model answer</summary><p class="ca-p">${esc(v.model)}</p></details><button class="btn" id="cvPSave">Save my marks</button></div></div></div>`;
+        photos.strip(D.getElementById('cvPhS'), photosNow);
+        const got = () => v.points.reduce((a, p) => a + (ticks[p.id] ? p.w : 0), 0);
+        D.getElementById('cvRes').querySelectorAll('.ca-seg button').forEach(b => b.onclick = () => { ticks[b.dataset.p] = +b.dataset.v; b.parentElement.querySelectorAll('button').forEach(x => { const on = x === b; x.setAttribute('aria-checked', String(on)); x.tabIndex = on ? 0 : -1; }); D.getElementById('cvPS').textContent = got(); });
+        D.getElementById('cvPSave').onclick = () => { const marks = got(), hit = v.points.filter(p => ticks[p.id]).map(p => p.id);
+          finish({ d: today(), pct: Math.round(marks / max * 100), marks, max, hit, secs, how: 'photo', text: '', photos: photosNow.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })), status: 'self' }, hit); };
+        D.getElementById('cvRes').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
       if (speakOK() && opts.autoRead !== false) setTimeout(() => { if (D.getElementById('cvQ')) ask(); }, 350);
     };
     const summary = () => {
-      const done = results.filter(Boolean), avg = done.length ? Math.round(done.reduce((a, r) => a + r.pct, 0) / done.length) : 0;
-      host.innerHTML = `<div class="card ca-res"><span class="ca-k">Viva finished</span><h2 class="ca-h2s">Average coverage ${avg}%</h2><p class="sub">${done.filter(r => r.pct >= 80).length} of ${done.length} answers viva-ready (80%+).</p>
-        <ul class="ca-kp">${done.map(r => `<li class="${r.pct >= 80 ? 'hit' : 'miss'}"><span aria-hidden="true">${r.pct >= 80 ? '✓' : '✗'}</span> ${esc(r.v.q)} <em>${r.pct}%</em></li>`).join('')}</ul>
+      const done = results.filter(Boolean), got = done.reduce((a, r) => a + r.marks, 0), mx = done.reduce((a, r) => a + r.max, 0);
+      host.innerHTML = `<div class="card ca-res"><span class="ca-k">Viva finished</span><h2 class="ca-h2s">You scored ${fmt(got)}/${mx} marks</h2><p class="sub">${done.filter(r => r.pct >= 80).length} of ${done.length} answers viva-ready (80%+).</p>
+        <ul class="ca-kp">${done.map(r => `<li class="${r.pct >= 80 ? 'hit' : 'miss'}"><span aria-hidden="true">${r.pct >= 80 ? '✓' : '✗'}</span> ${esc(r.v.q)} <em>${fmt(r.marks)}/${r.max}</em></li>`).join('')}</ul>
         <div class="ca-btns"><button class="btn ghost" id="cvRe">↻ Again</button><button class="btn" id="cvBack">Done</button></div></div>`;
       D.getElementById('cvRe').onclick = () => vivaRun(host, items, opts);
-      D.getElementById('cvBack').onclick = () => (opts.back || practiceHub)();
+      D.getElementById('cvBack').onclick = () => (window.Nav && opts.back ? history.back() : (opts.back || practiceHub)());
     };
     render();
   }
@@ -255,7 +452,7 @@
         tap('tap'); draw();
       });
       const cs = D.getElementById('cbSec'); if (cs) cs.onchange = () => { B.custom = Math.max(15, Math.min(300, +cs.value || 45)); cs.value = B.custom; };
-      D.getElementById('cbGo').onclick = () => { const set = pickSet(pool, B.count); startSet(set, { mode: B.mode, perQ: B.timer === 'off' ? 0 : B.timer === '60' ? 60 : B.custom, title: 'Custom MCQ set', again: () => builder() }); };
+      D.getElementById('cbGo').onclick = () => { const set = pickSet(pool, B.count, 'builder:' + B.level); startSet(set, { mode: B.mode, perQ: B.timer === 'off' ? 0 : B.timer === '60' ? 60 : B.custom, title: 'Custom MCQ set', again: () => builder() }); };
     };
     draw();
   }
@@ -270,14 +467,70 @@
     }
     return blocks;
   }
-  function pickSet(pool, n) {
-    const r = C().mcq, w = bl => bl.items.reduce((a, it) => a + ((r[it.key]?.w || 0) * 2 - Math.min(r[it.key]?.s || 0, 3) * .3), 0) + Math.random() * 3;
-    const order = pool.map(bl => [w(bl), bl]).sort((a, b) => b[0] - a[0]).map(x => x[1]);
-    const out = []; let k = 0;
-    for (const bl of order) { if (k + bl.items.length <= n) { out.push(bl); k += bl.items.length; } if (k >= n) break; }
-    return shuffle(out).flatMap(bl => bl.items);
+  /* fresh sets: unseen questions first, the ones answered wrong come back sooner, recently right ones later,
+     options are shuffled per attempt, and the same set is never served twice in a row (C().lastSets) */
+  function lastOk(key) { const l = C().mlog || []; for (let i = l.length - 1; i >= 0; i--) if (l[i][1] === key) return !!l[i][2]; return null; }
+  function priority(key) { const r = C().mcq[key]; if (!r) return 3 + Math.random(); const lo = lastOk(key); return (lo === false ? 2.2 : 0) + r.w * .4 - Math.min(r.s, 4) * .35 + Math.random() * 1.4; }
+  function sig(items) { return items.map(it => it.key).sort().join(',') + '|' + items.map(it => it.key).join(','); }
+  function freshOrder(list, tag) {
+    const c = C(); c.lastSets = c.lastSets || {}; const prev = c.lastSets[tag]; let out, k = 0;
+    do { out = list.map(x => [priority(x.key), x]).sort((a, b) => b[0] - a[0]).map(x => x[1]); } while (prev && out.length > 1 && sig(out) === prev && ++k < 6);
+    if (prev && out.length > 1 && sig(out) === prev) out = out.slice(1).concat(out[0]);
+    c.lastSets[tag] = sig(out); save(); return out;
   }
-  function startSet(items, opts) { const el = X.open('practice'); el.innerHTML = '<div id="csHost"></div>'; runSet(D.getElementById('csHost'), items, opts); }
+  function genItems(units, n, diff) {      // numeric variants from js/ca-gen.js (another module), when present
+    if (!window.CAGen || !n) return [];
+    try {
+      const ids = units.filter(u => { try { return CAGen.has(u.uid); } catch (e) { return false; } }); if (!ids.length) return [];
+      const raw = CAGen.mix(ids.map(u => u.uid), n, { difficulty: diff }) || [];
+      return raw.filter(g => g && g.q && Array.isArray(g.options) && g.options.length >= 2 && g.answer != null).map((g, i) => { const u = ids.find(x => x.uid === g.unit || x.uid === g.uid) || ids[i % ids.length];
+        return { q: g, key: `${u.uid}#gen-${g.id || Date.now().toString(36) + i}`, gen: true, uid: u.uid, ch: u.ch, chTitle: u.chTitle, unitTitle: u.unitTitle, paper: u.paper }; });
+    } catch (e) { console.warn('CAGen failed', e); return []; }
+  }
+  function pickSet(pool, n, tag = 'builder') {
+    const c = C(); c.lastSets = c.lastSets || {}; const prev = c.lastSets[tag];
+    const metas = [...new Map(pool.flatMap(bl => bl.items).map(it => [it.uid, it])).values()];
+    const gen = window.CAGen ? genItems(metas, Math.min(Math.round(n * .3), Math.max(0, n - 1)), B && B.diff && B.diff.length === 1 ? B.diff[0] : undefined) : [];
+    const room = n - gen.length; let out, k = 0;
+    do {
+      const order = pool.map(bl => [bl.items.reduce((a, it) => a + priority(it.key), 0) / bl.items.length + (bl.cs ? .3 : 0), bl]).sort((a, b) => b[0] - a[0]).map(x => x[1]);
+      const blocks = []; let m = 0;
+      for (const bl of order) { if (m + bl.items.length <= room) { blocks.push(bl); m += bl.items.length; } if (m >= room) break; }
+      out = shuffle(blocks).flatMap(bl => bl.items);
+    } while (prev && sig(out) === prev && ++k < 6);
+    if (gen.length) out = shuffle(out.concat(gen)).slice(0, n);
+    c.lastSets[tag] = sig(out); save(); return out;
+  }
+  const cgRecord = (key, ok) => { try { if (window.CAGen && CAGen.record) CAGen.record(key, ok); } catch (e) {} };
+  const stepsHTML = q => (q.steps || []).length ? `<ol class="ca-steps">${q.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>` : '';
+  /* ♾️ Endless practice for one unit: generated questions (js/ca-gen.js) with steps and marks; Previous / Next */
+  function endless(P, uid, d, back) {
+    if (window.Nav) Nav.sub(() => { if (P.isConnected) back(); else Ca.unit(uid, 'mcq'); });
+    const hist = []; let at = -1, diff = 'core', right = 0, done = 0;
+    const own = shuffle(d.mcqs);
+    const next = () => {
+      let q = null;
+      try { if (window.CAGen && CAGen.has(uid)) q = CAGen.next(uid, { difficulty: diff }); } catch (e) { q = null; }
+      if (!q || !q.q || !Array.isArray(q.options)) { const pool = own.filter(x => (x.difficulty || 'core') === diff); const src = pool.length ? pool : own; q = src[(hist.length) % src.length]; }
+      return { q, ord: X.order(q.options.length, 'e' + Date.now() + hist.length), pick: null };
+    };
+    const draw = () => {
+      const h = hist[at], q = h.q, locked = h.pick != null;
+      P.innerHTML = `<div class="card ca-mcq ca-endless"><div class="ca-mtop"><span class="ca-k">♾️ Endless practice · question ${at + 1} · <span class="ca-qmk">${mk1(qm(q))}</span></span><span class="ca-k">${right}/${done} correct</span></div>
+        <div class="ca-chipsel" role="radiogroup" aria-label="Difficulty">${DIFF.map(([k, n]) => `<button type="button" class="ca-cs" role="radio" aria-checked="${k === diff}" data-df="${k}">${n}</button>`).join('')}</div>
+        <h2 class="qtext ca-mq">${esc(q.q)}</h2>${q.given ? X.blocks(q.given) : ''}<div class="ca-opts">${h.ord.map((k, j) => `<button class="opt ${locked && k === q.answer ? 'right' : ''} ${locked && k === h.pick && k !== q.answer ? 'wrong' : ''}" data-k="${k}" ${locked ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
+        <div id="enFb">${locked ? `<div class="explain ${h.pick === q.answer ? 'good' : 'bad'}"><div class="verdict">${h.pick === q.answer ? `Correct · +${mk1(qm(q))}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}</div>` : ''}</div>
+        <div class="ca-btns ca-setnav"><button class="btn ghost" id="enPrev" ${at ? '' : 'disabled'}>◀ Previous</button><button class="btn" id="enNext" ${locked ? '' : 'disabled'}>Next ▶</button></div>
+        <button class="ca-link" id="enEnd">Stop practising</button></div>`;
+      P.querySelectorAll('.opt').forEach(b => b.onclick = () => { h.pick = +b.dataset.k; done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); D.getElementById('enNext').focus({ preventScroll: true }); });
+      P.querySelectorAll('[data-df]').forEach(b => b.onclick = () => { diff = b.dataset.df; if (!locked) { hist[at] = next(); } draw(); });
+      D.getElementById('enPrev').onclick = () => { at--; draw(); };
+      D.getElementById('enNext').onclick = () => { at++; if (at >= hist.length) hist.push(next()); draw(); window.scrollTo(0, 0); };
+      D.getElementById('enEnd').onclick = () => { if (window.Nav) history.back(); else back(); };
+    };
+    hist.push(next()); at = 0; draw();
+  }
+  function startSet(items, opts) { if (window.Nav && opts.again) Nav.sub(() => opts.again()); const el = X.open('practice'); el.innerHTML = '<div id="csHost"></div>'; runSet(D.getElementById('csHost'), items, opts); }
   function runSet(host, items, opts) {
     const N = items.length, st = items.map(it => ({ pick: null, ms: 0, out: false, left: opts.perQ || 0, ord: X.order(it.q.options.length, 'b' + it.key + Date.now().toString(36).slice(-3)) }));
     let i = 0, t0 = Date.now(), tm = null; const started = Date.now(), test = opts.mode === 'test', graded = {};
@@ -288,7 +541,7 @@
       const caseHTML = it.cs ? `<details class="ca-case" ${i === 0 || items[i - 1].cs !== it.cs ? 'open' : ''}><summary>📄 Case: ${esc(it.cs.title)}</summary><p class="ca-p">${esc(it.cs.case)}</p>${X.blocks(it.cs.given)}</details>` : '';
       host.innerHTML = `<div class="card ca-mcq ca-set"><div class="ca-mtop"><span class="ca-k">${test ? 'Test' : 'Practice'} · Q ${i + 1} of ${N}</span>${opts.perQ ? `<span class="ca-timer" id="csT" role="timer" aria-label="Seconds left">${s.left}s</span>` : `<span class="ca-timer" id="csT" aria-hidden="true">${secsTxt((Date.now() - started) / 1000)}</span>`}</div>${X.bar(i / N)}
         ${test ? `<div class="ca-pal" role="group" aria-label="Question palette">${st.map((x, j) => `<button class="${j === i ? 'cur' : ''} ${answered(x) ? 'ans' : ''}" data-j="${j}" aria-label="Question ${j + 1}${answered(x) ? ', answered' : ''}">${j + 1}</button>`).join('')}</div>` : ''}
-        ${caseHTML}<p class="ca-k ca-chtag">${esc(it.chTitle)} · ${esc(diffName(q.difficulty || 'core'))}</p>
+        ${caseHTML}<p class="ca-k ca-chtag">${esc(it.chTitle)} · ${esc(diffName(q.difficulty || 'core'))} · <span class="ca-qmk">${mk1(qm(q))}</span>${it.gen ? ' · <span class="ca-gentag">♾️ new variant</span>' : ''}</p>
         <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts" role="group" aria-label="Options">${s.ord.map((k, j) => `<button class="opt ${test && s.pick === k ? 'sel' : ''}" data-k="${k}" ${test ? `aria-pressed="${s.pick === k}"` : ''} ${locked || (test && s.out) ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
         <div id="csFb"></div>
         <div class="ca-btns ca-setnav">${test ? `<button class="btn ghost" id="csPrev" ${i ? '' : 'disabled'}>◀ Previous</button>` : ''}${test || locked ? `<button class="btn" id="csNext">${i < N - 1 ? 'Next ▶' : test ? 'Finish test ✓' : 'See results ▶'}</button>` : ''}</div>
@@ -310,27 +563,29 @@
       }, 1000);
       else if (!opts.perQ) tm = setInterval(() => { const t = D.getElementById('csT'); if (!t) { clearInterval(tm); return; } t.textContent = secsTxt((Date.now() - started) / 1000); }, 1000);
     };
-    const grade = j => { if (graded[j]) return; graded[j] = 1; const it = items[j], s = st[j], ok = s.pick === it.q.answer; if (s.pick == null && !s.out) { reviseMark(it.key, false); return; } X.recordAns(it.key, ok, s.ms); reviseMark(it.key, ok); };
+    const grade = j => { if (graded[j]) return; graded[j] = 1; const it = items[j], s = st[j], ok = s.pick === it.q.answer; if (it.gen) { if (s.pick != null) cgRecord(it.q.key || it.key, ok); return; } if (s.pick == null && !s.out) { reviseMark(it.key, false); return; } X.recordAns(it.key, ok, s.ms); reviseMark(it.key, ok); };
     const feedback = () => {
       const it = items[i], s = st[i], q = it.q, ok = s.pick === q.answer;
       host.querySelectorAll('.opt').forEach(x => { if (+x.dataset.k === q.answer) x.classList.add('right'); if (+x.dataset.k === s.pick && !ok) x.classList.add('wrong'); });
-      D.getElementById('csFb').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? 'Correct' : s.out && s.pick == null ? `Time up — answer: ${esc(q.options[q.answer])}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain)}</div></div>`;
+      D.getElementById('csFb').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? `Correct · +${mk1(qm(q))}` : s.out && s.pick == null ? `Time up — answer: ${esc(q.options[q.answer])}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}</div>`;
     };
     const finish = () => {
       clearInterval(tm); if (test) items.forEach((_, j) => grade(j));
       const res = items.map((it, j) => ({ it, s: st[j], ok: st[j].pick === it.q.answer, skip: st[j].pick == null }));
       const right = res.filter(r => r.ok).length, wrong = res.filter(r => !r.ok && !r.skip).length, skip = res.filter(r => r.skip).length, ms = res.reduce((a, r) => a + r.s.ms, 0);
+      const neg = items.some(it => /^fnd-p[34]-/.test(it.uid || it.key)), maxM = res.reduce((a, r) => a + qm(r.it.q), 0);
+      const gotM = Math.round(res.reduce((a, r) => a + (r.ok ? qm(r.it.q) : !r.skip && neg ? -qm(r.it.q) / 4 : 0), 0) * 100) / 100;
       const byCh = {}; res.forEach(r => { const k = r.it.ch; const b = byCh[k] = byCh[k] || { t: r.it.chTitle, n: 0, r: 0 }; b.n++; if (r.ok) b.r++; });
-      const c = C(); c.tests.push({ id: 't' + Date.now().toString(36), kind: 'mcq', d: today(), ts: Date.now(), title: opts.title || 'MCQ set', mode: opts.mode, n: N, right, wrong, skip, ms, pct: pct(right, N), byCh: Object.fromEntries(Object.entries(byCh).map(([k, v]) => [k, [v.n, v.r]])) });
+      const c = C(); c.tests.push({ id: 't' + Date.now().toString(36), kind: 'mcq', d: today(), ts: Date.now(), title: opts.title || 'MCQ set', mode: opts.mode, n: N, right, wrong, skip, ms, pct: pct(right, N), marks: gotM, maxMarks: maxM, keys: items.map(it => it.key), byCh: Object.fromEntries(Object.entries(byCh).map(([k, v]) => [k, [v.n, v.r]])) });
       while (c.tests.length > 80) c.tests.shift(); save(); try { bumpStreak(); addXP(Math.max(5, right * 2)); } catch (e) {}
       const mx = Math.max(1, ...res.map(r => r.s.ms));
-      host.innerHTML = `<div class="card ca-res ca-setres"><span class="ca-k">${esc(opts.title || 'MCQ set')} · ${test ? 'Test' : 'Practice'} mode</span><h2 class="ca-h2s">${right} of ${N} correct · ${pct(right, N)}%</h2>
+      host.innerHTML = `<div class="card ca-res ca-setres"><span class="ca-k">${esc(opts.title || 'MCQ set')} · ${test ? 'Test' : 'Practice'} mode</span><h2 class="ca-h2s">You scored ${fmt(gotM)} / ${mk1(maxM)}</h2><p class="sub">${right} of ${N} correct · ${pct(right, N)}%${neg ? ' · −¼ of the marks for each wrong answer, as in the exam' : ''}</p>
           <div class="ca-kpis"><div><b>${right}</b><span>Correct</span></div><div><b>${wrong}</b><span>Wrong</span></div><div><b>${skip}</b><span>Unanswered</span></div><div><b>${Math.round(ms / N / 1000)}s</b><span>Avg per Q</span></div></div>
           <p class="sub">Total time ${secsTxt(ms / 1000)}.${wrong + skip ? ` ${wrong + skip} question${wrong + skip > 1 ? 's' : ''} added to “Revise these”.` : ''}</p></div>
         <div class="card"><h3 class="ca-h3">Accuracy by chapter</h3>${Object.values(byCh).map(b => `<div class="ca-skill"><span>${esc(b.t)}</span>${X.bar(b.r / b.n)}<b>${pct(b.r, b.n)}%</b></div>`).join('')}</div>
         <div class="card"><h3 class="ca-h3">Time per question</h3><div class="ca-scroll" role="region" tabindex="0" aria-label="Time per question"><table class="ca-t ca-tpq"><thead><tr><th scope="col">Q</th><th scope="col">Chapter</th><th scope="col">Result</th><th scope="col" class="n">Seconds</th><th scope="col"><span class="sr-only">Bar</span></th></tr></thead><tbody>
           ${res.map((r, j) => `<tr><td>${j + 1}</td><td>${esc(r.it.chTitle.replace(/^Ch (\d+):.*/, 'Ch $1'))}</td><td>${r.ok ? '✓ Correct' : r.skip ? '– Skipped' : '✗ Wrong'}</td><td class="n">${Math.round(r.s.ms / 1000)}</td><td class="ca-tbar"><i style="width:${Math.round(r.s.ms / mx * 100)}%" class="${r.ok ? 'ok' : 'no'}"></i></td></tr>`).join('')}</tbody></table></div></div>
-        <div class="card"><h3 class="ca-h3">Review with explanations</h3>${res.map((r, j) => `<details class="ca-rv ${r.ok ? 'ok' : 'no'}" ${r.ok ? '' : 'open'}><summary><span aria-hidden="true">${r.ok ? '✓' : r.skip ? '–' : '✗'}</span> Q${j + 1}. ${esc(r.it.q.q)}</summary>
+        <div class="card"><h3 class="ca-h3">Review with explanations</h3>${res.map((r, j) => `<details class="ca-rv ${r.ok ? 'ok' : 'no'}" ${r.ok ? '' : 'open'}><summary><span aria-hidden="true">${r.ok ? '✓' : r.skip ? '–' : '✗'}</span> Q${j + 1} (${mk1(qm(r.it.q))}). ${esc(r.it.q.q)} <em class="ca-qmk">${r.ok ? qm(r.it.q) : 0}/${qm(r.it.q)}</em></summary>
           ${r.it.cs ? `<p class="ca-note">Case: ${esc(r.it.cs.title)}</p>` : ''}<p class="ca-p">Your answer: <b>${r.skip ? 'not answered' : esc(r.it.q.options[r.s.pick])}</b>${r.ok ? '' : `<br>Correct answer: <b>${esc(r.it.q.options[r.it.q.answer])}</b>`}</p><p class="ca-p ca-why">${esc(r.it.q.explain)}</p></details>`).join('')}</div>
         <div class="ca-btns"><button class="btn ghost" id="csRev">Revise these (${Object.keys(C().revise).length})</button><button class="btn" id="csAgain">${opts.againLabel || 'New set'}</button></div>`;
       say(`${right} of ${N} correct`);
@@ -348,7 +603,7 @@
     el.insertAdjacentHTML('beforeend', `<h1 class="ca-h1 ca-onDark">Revise these</h1><div class="card"><p class="ca-p">${found.length ? `${found.length} question${found.length > 1 ? 's' : ''} you got wrong or ran out of time on. A question leaves this list when you answer it correctly.` : 'Nothing to revise — mistakes from any MCQ set appear here.'}</p>
       ${found.length ? '<button class="btn" id="crGo">Practise all ▶</button>' : '<button class="btn" id="crB">Build an MCQ set</button>'}</div>
       ${found.length ? `<div class="card"><ul class="ca-rvl">${found.map(f => `<li><span><b>${esc(f.q.q)}</b><small>${esc(sts[f.uid] ? `${X.paperLabel(sts[f.uid].p)} · Ch ${sts[f.uid].c.n} · ${sts[f.uid].u.title}` : f.uid)}${C().revise[f.k].n > 1 ? ` · missed ${C().revise[f.k].n}×` : ''}</small></span><button class="ca-x" data-k="${esc(f.k)}" aria-label="Remove from revise list">✕</button></li>`).join('')}</ul></div>` : ''}`);
-    const g = D.getElementById('crGo'); if (g) g.onclick = () => startSet(found.map(f => { const x = sts[f.uid]; return { q: f.q, key: f.k, uid: f.uid, cs: f.cs, ch: chOf(f.uid), chTitle: x ? `Ch ${x.c.n}: ${x.c.title}` : '' }; }), { mode: 'practice', perQ: 0, title: 'Revise these', again: revise, againLabel: 'Back to list' });
+    const g = D.getElementById('crGo'); if (g) g.onclick = () => startSet(freshOrder(found.map(f => ({ key: f.k, f })), 'revise').map(({ f }) => f).map(f => { const x = sts[f.uid]; return { q: f.q, key: f.k, uid: f.uid, cs: f.cs, ch: chOf(f.uid), chTitle: x ? `Ch ${x.c.n}: ${x.c.title}` : '' }; }), { mode: 'practice', perQ: 0, title: 'Revise these', again: revise, againLabel: 'Back to list' });
     const b = D.getElementById('crB'); if (b) b.onclick = () => builder();
     el.querySelectorAll('.ca-x[data-k]').forEach(x => x.onclick = () => { delete C().revise[x.dataset.k]; save(); revise(); });
   }
@@ -539,7 +794,7 @@
       <div class="ca-padbar"><span id="caNoteSt" role="status">${cur ? 'Saved' : ''}</span><span>Saved on this device</span></div>
       <div class="ca-btns"><button class="btn ghost" id="caNoteAll">All my notes</button><button class="btn" id="caNoteX">Done</button></div></div></div>`);
     const sh = D.getElementById('caNoteSheet'), ta = D.getElementById('caNoteTa');
-    const close = () => { sh.remove(); const b = D.getElementById('caMyNote'); if (b) b.textContent = '📝 My notes' + (hasNote(uid) ? ' ✓' : ''); try { prev && prev.focus(); } catch (e) {} };
+    const close = () => { sh.classList.remove('show'); setTimeout(() => sh.remove(), 40); const b = D.getElementById('caMyNote'); if (b) b.textContent = '📝 My notes' + (hasNote(uid) ? ' ✓' : ''); try { prev && prev.focus(); } catch (e) {} };
     ta.oninput = () => { clearTimeout(ta._t); D.getElementById('caNoteSt').textContent = 'Saving…'; ta._t = setTimeout(() => { if (ta.value.trim()) C().notes.mine[uid] = { text: ta.value.slice(0, 10000), d: today() }; else delete C().notes.mine[uid]; save(); const s = D.getElementById('caNoteSt'); if (s) s.textContent = 'Saved'; }, 400); };
     D.getElementById('caNoteX').onclick = () => { ta.oninput(); setTimeout(close, 450); };
     D.getElementById('caNoteAll').onclick = () => { ta.oninput(); setTimeout(() => { close(); notes(); }, 450); };
@@ -795,6 +1050,28 @@
     renderDash(host, data, false);
   }
 
+  /* ---------- Question bank by marks: every written question of your course, grouped 2 / 3 / 4 / 5 / 6 / 8 / 10 marks ---------- */
+  async function bank(fm = 'all', pid = 'all') {
+    const el = X.open('practice'); el.innerHTML = '<p class="ca-load">Loading the question bank…</p>';
+    const list = await loadAll(await builtList()), qs = [], mcqN = list.reduce((a, b) => a + b.d.mcqs.length, 0);
+    list.forEach(b => b.d.questions.forEach((q, i) => qs.push({ b, q, i })));
+    const papers = [...new Map(list.map(b => [b.p.id, b.p])).values()];
+    const inP = qs.filter(x => pid === 'all' || x.b.p.id === pid), marks = [...new Set(inP.map(x => x.q.marks))].sort((a, b) => a - b);
+    if (fm !== 'all' && !marks.includes(+fm)) fm = 'all';
+    const show = inP.filter(x => fm === 'all' || x.q.marks === +fm), p0 = pid !== 'all' ? papers.find(p => p.id === pid) : (show[0] && show[0].b.p);
+    el.innerHTML = ''; el.appendChild(back('Practice', practiceHub));
+    el.insertAdjacentHTML('beforeend', `<h1 class="ca-h1 ca-onDark">Question bank — by marks</h1>
+      <div class="card"><p class="ca-p">${qs.length} written questions from the units built so far, plus ${mcqN} one-mark MCQs. Learn what a 4-mark answer needs compared with an 8-mark one.</p>
+        ${papers.length > 1 ? `<div class="ca-chipsel" role="group" aria-label="Paper"><button type="button" class="ca-cs" aria-pressed="${pid === 'all'}" data-pid="all">All papers</button>${papers.map(p => `<button type="button" class="ca-cs" aria-pressed="${pid === p.id}" data-pid="${p.id}">${esc(X.paperLabel(p))}</button>`).join('')}</div>` : ''}
+        <div class="ca-chipsel" role="group" aria-label="Marks"><button type="button" class="ca-cs" aria-pressed="${fm === 'all'}" data-bm="all">All</button>${marks.map(m => `<button type="button" class="ca-cs" aria-pressed="${String(fm) === String(m)}" data-bm="${m}">${m}-mark <small>${inP.filter(x => x.q.marks === m).length}</small></button>`).join('')}<button type="button" class="ca-cs" data-bm="mcq">1-mark MCQs <small>${mcqN}</small></button></div>
+        ${fm !== 'all' ? X.markGuide(+fm, p0 && p0, show.some(x => x.q.pad === 'legal')) : ''}</div>
+      ${show.length ? `<div class="card"><ul class="ca-rvl ca-bank">${show.map(x => { const h = C().writes[`${x.b.u.id}#${x.q.id}`] || [], best = h.length ? Math.max(...h.map(a => a.score)) : null;
+        return `<li><button class="ca-nopen" data-u="${x.b.u.id}" data-q="${esc(x.q.id)}"><span class="ca-qm">${x.q.marks}<small>marks</small></span><span><b>${esc(x.q.q.length > 150 ? x.q.q.slice(0, 147) + '…' : x.q.q)}</b><small>${esc(X.paperLabel(x.b.p))} · Ch ${x.b.c.n} · ${esc(x.b.u.title)} · ~${x.q.minutes} min${best != null ? ` · best ${fmt(best)}/${x.q.marks}` : ''}</small></span></button></li>`; }).join('')}</ul></div>` : '<div class="card"><p class="ca-p">No questions with these marks yet.</p></div>'}`);
+    el.querySelectorAll('[data-bm]').forEach(b => b.onclick = () => { tap('tap'); if (b.dataset.bm === 'mcq') return builder(); bank(b.dataset.bm, pid); });
+    el.querySelectorAll('[data-pid]').forEach(b => b.onclick = () => { tap('tap'); bank(fm, b.dataset.pid); });
+    el.querySelectorAll('.ca-bank [data-q]').forEach(b => b.onclick = () => { tap('open'); Ca.openQuestion(b.dataset.u, b.dataset.q); });
+  }
+
   /* ---------- home tiles + practice hub ---------- */
   function homeTiles() {
     const c = C(); let ms = 0, mr = 0; Object.values(c.mcq).forEach(v => { ms += v.s; mr += v.s - v.w; });
@@ -818,14 +1095,18 @@
       ${tile('phBuild', '🧩', 'Build an MCQ set', 'Level › papers › chapters › difficulty · timer · practice or test')}
       ${tile('phCase', '📄', 'Case-study sets', 'A short case with 3–5 linked MCQs')}
       ${tile('phViva', '🎙️', 'Viva — speak & revise', 'Hear a question, answer out loud, see the key points you covered')}
+      ${tile('phBank', '🧮', 'Question bank — by marks', '2, 4, 5, 8-mark questions and how to write each')}
       ${tile('phMock', '📝', 'Mock papers', 'Foundation Paper 1 in ICAI pattern — 3 hours, 100 marks')}
       ${tile('phRev', '🔁', `Revise these${rv ? ` (${rv})` : ''}`, 'Every MCQ you got wrong, until you get it right')}
       ${tile('phWeak', '📈', 'Weak spots & strengths', 'By unit and by examiner skill')}</div>`;
     const on = (id, fn) => { D.getElementById(id).onclick = () => { tap('open'); fn(); }; };
     on('phDaily', X.practiceDaily); on('phBuild', () => builder()); on('phCase', () => builder({ singles: false, cases: true }));
-    on('phViva', vivaHub); on('phMock', mocks); on('phRev', revise); on('phWeak', X.weakScreen);
+    on('phViva', vivaHub); on('phBank', () => bank()); on('phMock', mocks); on('phRev', revise); on('phWeak', X.weakScreen);
   }
 
-  window.CaTools = { dashboard, dashData, vivaTab, vivaHub, vivaDone, vivaScore, builder, revise, reviseMark, casesBlock, wireCases, mocks, mockPaper,
+  /* screens are history routes (Back returns to them — see Nav in js/app.js) */
+  if (window.Nav) { dashboard = Nav.route('ca.dash', dashboard); vivaHub = Nav.route('ca.vivahub', vivaHub); builder = Nav.route('ca.builder', builder); revise = Nav.route('ca.revise', revise);
+    mocks = Nav.route('ca.mocks', mocks); mockPaper = Nav.route('ca.mock', mockPaper); notes = Nav.route('ca.notes', notes); search = Nav.route('ca.search', search); practiceHub = Nav.route('ca.practicehub', practiceHub); bank = Nav.route('ca.bank', bank); }
+  window.CaTools = { photos, _speechMerge: speechMerge, freshOrder, endless, bank, pickSet, dashboard, dashData, vivaTab, vivaHub, vivaDone, vivaScore, builder, revise, reviseMark, casesBlock, wireCases, mocks, mockPaper,
     saveBtn, applyHL, noteSheet, notes, hasNote, search, homeTiles, wireHome, practiceHub, _tokens: tokens };
 })();

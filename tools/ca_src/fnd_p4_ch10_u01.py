@@ -1,0 +1,405 @@
+"""CA Foundation · Paper 4 Business Economics · Chapter 10 Indian Economy (single unit).
+Original explanations and questions. EVERY figure about India below is taken exactly as stated in the ICAI study
+material relevant for this attempt (the year/source it gives is stated); none is from memory. Derived numbers are computed in code."""
+from lib import *
+from ca_viva import P, V, ALT
+from fnd_p4_ch09_u01 import M, S, Q, fx
+
+UID = 'fnd-p4-ch10-u01'
+
+# GDP growth (annual %), India, 1991–2021 — Table 10.1 of the study material (source: Economic Survey).
+GDP = {1991: 1.056831, 1992: 5.482396, 1993: 4.750776, 1994: 6.658924, 1995: 7.574492, 1996: 7.549522, 1997: 4.049821, 1998: 6.184416,
+       1999: 8.845756, 2000: 3.840991, 2001: 4.823966, 2002: 3.803975, 2003: 7.860381, 2004: 7.922937, 2005: 7.923431, 2006: 8.060733,
+       2007: 7.660815, 2008: 3.086698, 2009: 7.861889, 2010: 8.497585, 2011: 5.241315, 2012: 5.456389, 2013: 6.386106, 2014: 7.410228,
+       2015: 7.996254, 2016: 8.256306, 2017: 6.795383, 2018: 6.453851, 2019: 3.737919, 2020: -6.59608, 2021: 8.681229}
+
+
+def avg_expr(y0, y1):
+    ys = range(y0, y1 + 1)
+    return '(' + '+'.join(str(GDP[y]) for y in ys) + f')/{len(ys)}'
+
+
+def build():
+    # ---------- Illustration 1: reading the GDP growth table ----------
+    c1 = Checks()
+    a1 = c1.add('round(' + avg_expr(1992, 1996) + ', 2)', 'average growth 1992–1996')
+    a2 = c1.add('round(' + avg_expr(2003, 2007) + ', 2)', 'average growth 2003–2007')
+    a3 = c1.add('round(' + avg_expr(2017, 2021) + ', 2)', 'average growth 2017–2021')
+    a4 = c1.add('round(' + avg_expr(1991, 2021) + ', 2)', 'average growth 1991–2021 (31 years)')
+    sw = c1.add(f'round({GDP[2021]}-({GDP[2020]}), 2)', 'swing from 2020 to 2021 (percentage points)')
+    gdp_rows = [[str(y), fx(GDP[y])] for y in (1991, 1992, 1999, 2003, 2007, 2008, 2010, 2016, 2019, 2020, 2021)]
+    ill1 = {'id': 'i1', 'title': 'What the post-1991 growth table tells us', 'difficulty': 'moderate', 'minutes': 12,
+            'q': 'Using the GDP growth table in the study material (annual %, 1991–2021, source: Economic Survey), compute (a) the average growth for 1992–1996, 2003–2007 and 2017–2021, (b) the average for the whole period 1991–2021, (c) the swing between 2020 and 2021. Compare with the "Hindu growth rate" of 3.5% (1950–80). Which year had the highest growth and which the lowest?',
+            'given': [table(['Year', 'GDP growth (%) — selected years, rounded'], gdp_rows, title='Extract (full table used in the working)')],
+            'solution': [table(['Period', 'Working', 'Average growth (%)'], [
+                ['1992–1996 (first five years after the 1991 reforms)', 'Sum of five annual rates ÷ 5', fx(a1)],
+                ['2003–2007 (pre-global-crisis boom)', 'Sum of five annual rates ÷ 5', fx(a2)],
+                ['2017–2021 (includes the 2020 pandemic contraction)', 'Sum of five annual rates ÷ 5', fx(a3)],
+                ['1991–2021 (all 31 years)', 'Sum of 31 annual rates ÷ 31', fx(a4)],
+                ['Swing 2020 → 2021', f'{fx(GDP[2021])} − ({fx(GDP[2020])})', f'{fx(sw)} percentage points'],
+            ]), p(f'Every period average after 1991 is well above the 3.5% Hindu growth rate. Highest single year: 1999 ({fx(GDP[1999])}%); lowest: 2020 ({fx(GDP[2020])}%, the pandemic year), followed by a sharp rebound in 2021 ({fx(GDP[2021])}%). Low years such as 1991 ({fx(GDP[1991])}%, the crisis year) and 2008 ({fx(GDP[2008])}%, the global financial crisis) show the effect of shocks.')],
+            'checks': c1}
+
+    # ---------- Illustration 2: 1991 reform numbers ----------
+    c2 = Checks()
+    t1 = c2.add('355-85', 'cut in top tariff 1990-91 → 1993-94 (percentage points)')
+    t2 = c2.add('round((355-85)/355*100, 2)', 'relative cut, %')
+    t3 = c2.add('round((355-10)/355*100, 2)', 'relative cut 355% → 10%, %')
+    mr = c2.add('100/20', 'MRTP asset limit: times increase')
+    mr2 = c2.add('(100-20)/20*100', 'MRTP asset limit: % increase')
+    banks = c2.add('14+6', 'banks nationalised in 1969 and 1980')
+    pa = c2.add('(5.7+5.8)/2', 'average of 6th and 7th plan growth')
+    gap = c2.add('(5.7+5.8)/2-3.5', 'excess over Hindu growth rate')
+    ill2 = {'id': 'i2', 'title': 'Putting numbers on the reform story', 'difficulty': 'moderate', 'minutes': 10,
+            'q': 'From the study material: the highest tariff was 355% in 1990-91, 85% in 1993-94, 50% in 1995-96 and 10% by 2007-08 (with exceptions); the MRTP asset limit was raised from ₹20 crore to ₹100 crore in 1985-86; 14 banks were nationalised in 1969 and 6 more in 1980; GDP grew on average 5.7% in the Sixth Plan and 5.8% in the Seventh Plan. Compute (a) the fall in the top tariff from 1990-91 to 1993-94 in percentage points and in relative terms, and the relative fall up to 2007-08; (b) the change in the MRTP limit; (c) total banks nationalised; (d) how far the 1980s plan growth exceeded the Hindu growth rate.',
+            'solution': [table(['Item', 'Working', 'Result'], [
+                ['(a) Top tariff 1990-91 → 1993-94', '355 − 85', f'{fx(t1)} percentage points'],
+                ['(a) Relative fall', '(355 − 85) ÷ 355 × 100', f'{fx(t2)}%'],
+                ['(a) Relative fall to 2007-08', '(355 − 10) ÷ 355 × 100', f'{fx(t3)}%'],
+                ['(b) MRTP asset limit', '₹100 crore ÷ ₹20 crore', f'{fx(mr)} times (an increase of {fx(mr2)}%)'],
+                ['(c) Banks nationalised', '14 (1969) + 6 (1980)', f'{banks}'],
+                ['(d) 1980s plan growth vs 3.5%', f'(5.7 + 5.8) ÷ 2 = {fx(pa)}; {fx(pa)} − 3.5', f'{fx(gap)} percentage points higher'],
+            ]), note('Distinguish "percentage points" (simple difference between two rates) from "per cent" (relative change). A cut from 355% to 85% is 270 percentage points, i.e. about 76% of the original rate.')],
+            'checks': c2}
+
+    # ---------- Illustration 3: the 1991 foreign exchange crisis ----------
+    c3 = Checks()
+    wk = c3.add('round(1.2/2, 2)', 'implied weekly import bill (US$ billion)')
+    yr = c3.add('round(1.2/2*52, 1)', 'implied annual import bill (US$ billion), rough')
+    ill3 = {'id': 'i3', 'title': 'How thin was the cushion in 1991?', 'difficulty': 'core', 'minutes': 5,
+            'q': 'The study material says that in 1991 India\'s foreign exchange reserves fell to only US$1.2 billion, barely enough for two weeks of imports. Roughly what weekly and annual import bill does this imply? Compare with the post-reform position the material describes.',
+            'solution': [table(['Step', 'Working', 'Result'], [
+                ['Weekly imports implied', '1.2 ÷ 2', f'≈ US${fx(wk)} billion a week'],
+                ['Annual imports implied (rough)', f'{fx(wk)} × 52', f'≈ US${fx(yr)} billion a year'],
+            ]), p('By contrast, the material notes that India now holds reserves close to eight months of import cover and one of the largest stocks of international reserves in the world.'),
+                note('The weekly and annual figures are rough inferences from "two weeks of imports"; the exam fact to remember is US$1.2 billion ≈ two weeks of imports (1991).')],
+            'checks': c3}
+
+    # ---------- Illustration 4: data drill on the current economy ----------
+    c4 = Checks()
+    gii = c4.add('81-40', 'places gained in the Global Innovation Index, 2015 → 2022')
+    dbr = c4.add('77-63', 'places gained in the Doing Business Report, 2019 → 2020')
+    ins = c4.add('74-49', 'rise in the FDI cap in insurance (percentage points)')
+    msp = c4.add('1.5*2000', 'MSP at 1.5 × an all-India weighted average cost of ₹2,000 per quintal (illustrative cost)')
+    ill4 = {'id': 'i4', 'title': 'Data drill: rankings, caps and MSP', 'difficulty': 'core', 'minutes': 6,
+            'q': 'Using figures from the study material: India\'s Global Innovation Index rank improved from 81st (2015) to 40th (2022); its Doing Business rank moved from 77th (2019) to 63rd (2020); the FDI ceiling in insurance was raised from 49% to 74%; and MSP for the 23 mandated crops is fixed at 1.5 times the all-India weighted average cost of production. Compute the improvements, and the MSP for a crop whose weighted average cost is ₹2,000 a quintal (an illustrative cost).',
+            'solution': [table(['Item', 'Working', 'Result'], [
+                ['GII rank', '81 − 40', f'{gii} places better'],
+                ['Doing Business rank', '77 − 63', f'{dbr} places better'],
+                ['FDI cap in insurance', '74% − 49%', f'+{ins} percentage points'],
+                ['MSP (illustrative cost ₹2,000)', '1.5 × 2,000', R(msp) + ' a quintal'],
+            ])],
+            'checks': c4}
+
+    colonial = table(['Indicator (as given in the study material)', 'Figure'], [
+        ['Cotton mill spindles, 1930s', '9 million — 5th in the world'],
+        ['Jute mill industry, end of 19th century', 'Largest in the world (raw jute consumed)'],
+        ['Iron industry', 'Set up with British capital as early as 1814; 8th in the world by output in 1930'],
+        ['Industrial rank just before the Great Depression', '12th largest industrialised country (value of manufactures)'],
+        ['Manufacturing share in NDP, 1946 (small and cottage units left out)', 'Barely about 7%'],
+        ['Factory employment as % of population', '0.4% (1900); 1.4% (1941)'],
+    ], title='Colonial-era industry in numbers')
+
+    reforms91 = table(['Area', 'What changed (as described in the study material)'], [
+        ['Industrial licensing', 'Abolished except for 18 industries (security, strategic, social, safety, environment) — about 80% of industry freed; later only 5 remain — defence goods (arms, ammunition), atomic materials, narcotics and dangerous chemicals, alcoholic beverages (distilling, brewing), and tobacco products (cigarettes, cigars)'],
+        ['Public sector reservation', 'Cut to 8 industries on security and strategic grounds; later only 2 — atomic energy (part) and railway transport (core activities)'],
+        ['MRTP Act', 'Restructured; merger, amalgamation and takeover provisions repealed; no pre-entry scrutiny or prior approval for capacity expansion'],
+        ['Small-scale reservation', 'Many items de-reserved, allowing large firms to enter'],
+        ['Foreign investment', 'Automatic approval for FDI up to 51%, later extended to nearly all industries; FDI barred only in retail trade, atomic energy, lottery, and betting and gambling'],
+        ['Imports', 'Positive list (OGL) replaced by a negative list; import licensing removed for most intermediate and capital goods; consumer goods freed 10 years later'],
+        ['Tariffs', 'Top rate 355% (1990-91) → 85% (1993-94) → 50% (1995-96) → 10% by 2007-08 (exceptions, e.g. automobiles 100%)'],
+        ['Exchange rate', 'Rupee devalued by about 18% (18–19%) in July 1991; dual exchange rate from March 1992; unified and allowed to float in March 1993; managed float since 1993; current account convertibility from 1994'],
+        ['Disinvestment', 'Part of government equity in public sector enterprises sold; more autonomy, less budgetary support'],
+        ['Capital market', 'SEBI (set up 1988) given statutory status in 1992'],
+        ['Banking', 'Interest rates freed, CRR/SLR reduced and prudential norms introduced (Narasimham Committee, 1991); new private banks; freer branch licensing'],
+        ['Fiscal', 'Stable, transparent taxes; better compliance; lower spending and subsidies; agreement with RBI (September 1994) to phase out deficit financing by money creation by 1997-98'],
+    ], title='The 1991 reform package at a glance')
+
+    concepts = [
+        {'id': 'c1', 'title': 'Pre-colonial prosperity and the colonial economy (1757–1947)', 'body': [
+            'Between the first and seventeenth centuries AD, India is believed to have been the largest economy in the world, holding between a third and a quarter of world wealth — self-reliant villages plus commercial and pilgrimage cities, and highly skilled artisans whose textiles and handicrafts sold worldwide.',
+            'Kautilya\'s Arthashastra (321–296 BCE) is the earliest known Indian treatise on economic thought and statecraft. "Artha" means material well-being, not just wealth; the text stresses productive agriculture, fair and easily understood taxes equal for private and state businesses, and a king who puts his people\'s good first. It names seven elements of the state: King, Ministers, Farmlands, Fortresses, Treasury, Military and Allies.',
+            'British rule: East India Company 1757–1858; British Crown 1858–1947. After Britain\'s industrial revolution, India was turned from an exporter of manufactures into an exporter of raw materials and a market for British machine-made goods. Discriminatory tariffs (heavy on Indian exports of finished goods, light on imports) and changing tastes destroyed Indian handicrafts — de-industrialisation.',
+            'Consequences: mass unemployment and crowding into agriculture; subdivision and fragmentation of holdings, subsistence farming, low productivity and poverty; the zamindari system creating a class loyal to British rule; high rents, absentee landlords, heavy indebtedness and exploitative moneylenders; near collapse of agriculture.',
+            'Modern industry grew from the mid-19th century — cotton mills and jute mills especially, plus brewing, paper, leather, matches and rice milling — but producer-goods industries lagged because British interests discouraged competing industries. Growth was too small to transform the economy.'],
+         'blocks': [colonial],
+         'analogy': 'A master weaver forced to sell raw cotton cheaply and buy back factory cloth at a price he cannot compete with — that was India\'s trade position under colonial rule.',
+         'work': 'Economic history explains today\'s structure — small farms, a large informal sector, regional imbalance — that analysts and CAs must factor into credit, investment and policy analysis.'},
+        {'id': 'c2', 'title': 'Post-independence strategy (1947–1991): planning, public sector, licence raj', 'body': [
+            'At independence India was overwhelmingly rural, poor and deeply stratified; in 1951 literacy was just above 18% and life expectancy barely 32 years — poverty of human capital as well as income.',
+            'The Nehruvian model: state-directed industrialisation with redistribution; central planning through the Planning Commission and Five-Year Plans; "planned modernisation" with heavy industry as the cornerstone. Policies of the 1950s blended Nehru\'s socialist vision of heavy industry with Gandhian emphasis on small-scale and cottage industry and village republics.',
+            'Industrial Policy Resolution 1948: larger public-sector role and licensing for the private sector; state monopoly in atomic energy, arms and ammunition, and railways; new investment in basic industries reserved for the state. Industrial Policy Resolution 1956: a comprehensive framework but tilted heavily towards the public sector, dampening private enterprise.',
+            'Trade and investment were fairly open until the late 1950s; a balance-of-payments crisis in 1958 led to tighter import controls (kept until 1966) and curbs on licences needing imported capital goods.',
+            '1950–80: average GDP growth of a modest 3.5% — the "Hindu growth rate". The first decade and a half stressed capital goods — dams, power plants, heavy industry.',
+            'Controls multiplied: 14 banks nationalised in 1969 (6 more in 1980); the MRTP Act, 1969 restricted licensing, capacity expansion, mergers and acquisitions by large firms; from 1967 many products were reserved for small-scale units, keeping big firms out of labour-intensive industries where India could have competed globally; rigid labour laws added to this.',
+            '1965–81 was the worst period of independent India\'s economic history: licence raj, autarkic policies, three wars (1962, 1965, 1971), droughts (1966, 1967) and oil shocks (1973, 1979) — productivity fell and India, nearly closed, missed the boom in world trade. Equity-driven policies blunted the incentive to create wealth.'],
+         'analogy': 'The licence raj was like needing a government permit to change the menu of your own restaurant — safe from competition, but slow, costly and stale.',
+         'work': 'Older companies\' structures — conglomerates, captive units, legacy public-sector holdings — often trace back to this era\'s licensing and MRTP rules; understanding them helps in restructuring and valuation work.'},
+        {'id': 'c3', 'title': 'The Green Revolution', 'body': [
+            'Agriculture got less priority in the Second Plan, and the institutional approach (land reforms, cooperatives) without enough research and irrigation gave only modest gains.',
+            'Two consecutive severe droughts in 1966 and 1967 caused negative farm growth and a food crisis; India depended on US food aid under PL 480.',
+            'The policy shifted from institutional change to raising productivity, especially of wheat: high-yielding seed varieties with intensive use of water, fertilisers and pesticides — the Green Revolution. Food-grain output rose sharply and India overcame its food problem; by today the material describes India as a food-exporting nation and among the top ten exporters of agricultural products.'],
+         'analogy': 'Instead of redistributing the same small cake (institutional reform), India learned to bake a much bigger one (technology).',
+         'work': 'Agri-input companies (seeds, fertilisers, pesticides, irrigation) and agri-lending still ride on Green Revolution technologies — sectors CAs audit and analyse.'},
+        {'id': 'c4', 'title': 'Early liberalisation in the 1980s ("reforms by stealth")', 'body': [
+            'From the early 1980s, and especially after 1985, tight money, fiscal moderation and selected structural reforms sought price stability and moved away from inward-looking trade and investment. These 1981–89 changes were ad hoc and little publicised — hence "reforms by stealth" — but growth improved: 5.7% in the Sixth Plan (1980–85) and 5.8% in the Seventh Plan (1985–90).',
+            'Measures (industry, trade, taxation, exchange rate): delicensing of 25 broad industry categories in 1985 (later more); "broad-banding" letting firms change product mix within existing capacity without a new licence (e.g. switching between trucks and cars); MRTP asset limit raised from ₹20 crore to ₹100 crore (1985-86); MODVAT replacing multipoint excise duties; SEBI set up as a non-statutory body on 12 April 1988; OGL list expanded (1,329 capital-goods items by April 1990); export incentives; a realistic exchange rate — real effective depreciation of about 30% from 1985-86 to 1989-90; decontrol of cement and aluminium; the 1986 budget cutting taxes, liberalising imports and reducing tariffs.',
+            'Limits: private investment still held back by licensing, public-sector reservations, SSI reservation and price controls; inefficient, low-return public sector; MRTP barriers; tariffs, quotas and bans on foreign investment insulating industry from competition.',
+            'Significance: they convinced policy makers that well-regulated competitive markets could deliver growth — laying the foundation for the systematic reforms of 1991.'],
+         'analogy': 'The 1980s reforms were a trial run on a side road; 1991 was taking the whole economy onto the highway.',
+         'work': 'MODVAT was the ancestor of input tax credit — the same idea now central to GST compliance that CAs handle daily.'},
+        {'id': 'c5', 'title': 'The 1991 crisis and the reform package (LPG)', 'body': [
+            'Causes (Narasimha Rao government, 1991): revenue expenditure persistently above revenue receipts in the 1980s, deficits financed by domestic and external debt; swelling public debt and heavy interest payments; oil prices spiking with the 1990 Gulf war, straining the balance of payments; foreign exchange reserves down to just US$1.2 billion — about two weeks of imports — the immediate trigger; import squeeze cutting industrial output; dependence on IMF loans with strict conditions; and political fragility creating a "crisis of confidence". The collapse of the Soviet Union and China\'s outward-oriented success were lessons.',
+            'Two objectives: reorient a centrally directed, highly controlled economy towards a market-friendly one; and macroeconomic stabilisation through a big cut in the fiscal deficit. Measures were of two kinds — short-term stabilisation (inflation, balance of payments) and long-term structural reforms (productivity and competitiveness by removing rigidities). Popularly: liberalisation, privatisation and globalisation.',
+            'Fiscal reforms; monetary and financial-sector reforms (Narasimham Committee, 1991); SEBI made statutory (1992); the New Industrial Policy of 24 July 1991; and trade-policy reforms (dismantling quantitative restrictions, phased tariff cuts, removing import licensing, removing export duties, continuing export incentives).'],
+         'blocks': [reforms91],
+         'analogy': '1991 was like a patient in the emergency room: first stop the bleeding (stabilisation), then change the lifestyle (structural reform).',
+         'work': 'Almost every compliance area a CA handles today — SEBI regulation, FDI rules, bank prudential norms, current-account convertibility — was born or reshaped by the 1991 reforms.'},
+        {'id': 'c6', 'title': 'Outcomes of three decades of reform', 'body': [
+            'Broad results listed in the material (31 years of reform): deeper integration with the world economy; a market-oriented economy with far less government intervention; strong growth of private investment; world-class competitiveness in auto components, telecom, software, pharmaceuticals, biotechnology and professional services; easier access to foreign technology, inputs and finance; steady FDI and large portfolio inflows.',
+            'External strength: reserves close to eight months of import cover, among the largest in the world; a services trade surplus of around 3.7% of GDP thanks to IT and financial services; less pressure on the rupee than in other emerging market economies; a large domestic market sustaining demand; poverty reduced substantially; more competition and choice in banking and insurance; rapid infrastructure growth; a steadily falling share of agriculture in value added; a deeper financial sector.',
+            'Constraints: high fiscal deficit, inflation and debt — about 86% of GDP in FY21/22, above the 64.5% average for emerging market and developing economies in 2022 (IMF).',
+            'Growth record (Table 10.1, Economic Survey): growth fell to about 1.06% in the 1991 crisis year, mostly stayed between 4% and 8.5% thereafter, peaked at about 8.85% in 1999, dipped in 2008 (about 3.09%), contracted by about 6.60% in the pandemic year 2020 and rebounded to about 8.68% in 2021.'],
+         'analogy': 'Three decades of reform gave India a bigger engine and a full fuel tank (reserves), but the vehicle still carries a heavy load of public debt.',
+         'work': 'Sovereign-risk analysis for investors and lenders weighs exactly these strengths (reserves, services surplus) against weaknesses (debt, deficits).'},
+        {'id': 'c7', 'title': 'NITI Aayog', 'body': [
+            'For nearly 64 years the Planning Commission drove public-investment-led planning. With a shift to market orientation, it was replaced on 1 January 2015 by the National Institution for Transforming India (NITI) Aayog — meant to spur innovative thinking by experts and promote co-operative federalism by giving states a bigger voice. It serves as the government\'s think tank and a "directional and policy dynamo".',
+            'Objectives (13 in all) include: a shared national vision with states; co-operative federalism ("strong states make a strong nation"); credible village-level plans aggregated upwards; national security in economic policy where referred; attention to groups at risk of being left behind; long-term strategic policy frameworks with monitoring; partnerships with think tanks and research institutions; a knowledge, innovation and entrepreneurship support system; a platform to resolve inter-sectoral and inter-departmental issues; a resource centre on good governance; monitoring and evaluation of programmes; technology upgradation and capacity building.',
+            'Key initiatives named in the material: LiFE (replacing the use-and-dispose economy), the National Data and Analytics Platform (NDAP), the Shoonya campaign (cleaner air through electric vehicles), E-Amrit (information portal on electric vehicles), India Policy Insights (IPI), the Methanol Economy programme (cut oil imports and emissions; convert coal and municipal waste into methanol) and a committee on Transforming India\'s Gold Market.',
+            'Criticism: a limited role — it does not make national plans, control spending or review state plans; above all it is excluded from the budget process; it lacks autonomy, and without the Planning Commission the Finance Ministry\'s short-term focus dominates, leaving no strong "voice of development".'],
+         'analogy': 'The Planning Commission was the family elder who decided and funded everything; NITI Aayog is the family advisor who suggests, coordinates and tracks — but does not hold the purse.',
+         'work': 'NITI Aayog indices and reports (on states, innovation, data) are widely used by analysts and consultants for state-level and sector research.'},
+        {'id': 'c8', 'title': 'Current state — primary sector (agriculture)', 'body': [
+            'Agriculture and allied activities are India\'s largest source of livelihood. A food-deficit, import-dependent country until the late 1960s, India is now (per the material) number one in the world for milk, pulses, jute and spices; first in area sown to wheat, rice and cotton; number two for fruits, vegetables, tea, farmed fish, cotton, sugarcane, wheat, rice and sugar; has the largest cattle herd (buffaloes); and its food and grocery market is the sixth largest in the world, with retail making up 70% of sales. Livestock grew at a record 6.6% during 2010-19.',
+            'Figures given: about 47% of the population depends directly on agriculture; the sector\'s share in GVA was 18.8% in 2021-22; 2021-22 food-grain output: 315.7 million tonnes; private investment in agriculture: 9.3% (2020-21); index of agricultural production (2021-22, base TE 2007-08 = 100): above 140 for all crops, food-grains, cereals, wheat and coarse cereals, 138.7 for rice, 196.2 for pulses and 142.9 for non-food-grains; growth of 3.5% in 2022-23 (Economic Survey 2022-23). Agri exports reached an all-time high of ₹3,74,611 crore in the latest year noted; agri and processed food exports rose 25% in April–September 2022-23 over the same period a year earlier. APEDA promotes agri exports. Its share in GVA is falling but output keeps rising in absolute terms.',
+            'Support measures: MSP for all 23 mandated crops at 1.5 times the all-India weighted average cost of production; PM-KISAN income support; concessional institutional credit; National Mission for Edible Oils; PM Fasal Bima Yojana (crop insurance); MIDH (horticulture); Soil Health Cards; Paramparagat Krishi Vikas Yojana (organic farming); Agriculture Infrastructure Fund; Farmer Producer Organisations; Per Drop More Crop and the Micro Irrigation Fund; mechanisation; e-NAM (online national market linking APMC mandis); Kisan Rail; agri start-ups; 100% FDI under the automatic route in marketing of food products and food-product e-commerce.',
+            'Problems: small, fragmented holdings and low productivity; resource-intensive, cereal-centric and regionally skewed farming straining water and soil; weak agro-processing and value chains; slow diversification and technology adoption; poor marketing, credit and warehousing; climate change and monsoon dependence; food-price volatility; unused export potential; poor post-harvest infrastructure; poverty and malnutrition.'],
+         'analogy': 'Indian agriculture is a giant with weak legs — enormous output, but too many people on too little land with too little productivity.',
+         'work': 'Agri-credit, crop insurance, FPOs and commodity businesses form a big client base; knowing MSP, e-NAM and scheme design is useful for audit and advisory work in rural finance.'},
+        {'id': 'c9', 'title': 'Current state — secondary sector (industry)', 'body': [
+            'Industry contributes about 30% of GVA and employs over 12.1 crore people (per the material); the informal sector accounts for more than 50% of GVA. Manufacturing makes up 78% of industrial production; manufacturing GVA was estimated at US$77.47 billion in Q3 of 2021-22 and has contributed about 16.3% of nominal GVA over the past ten years. The eight-core-industries index was 142.8 for 2022-23 (up to September 2022); these eight industries (coal, crude oil, natural gas, refinery products, fertilisers, steel, cement, electricity) carry 40.27% of the weight in the IIP. Manufacturing PMI was 55.4 on 31 January 2023. DPIIT reported FDI inflows of US$58.77 billion in 2021-22.',
+            'Policies: GST from 1 July 2017 replacing many indirect taxes; optional 22% corporate tax for domestic companies forgoing exemptions; Make in India (2014; Make in India 2.0 covers 27 sectors — 15 manufacturing, 12 services); Ease of Doing Business — India 63rd in the World Bank\'s Doing Business Report 2020 against 77th in 2019 (14 places up); the National Single Window System; the PM Gati Shakti master plan for multimodal infrastructure; the National Logistics Policy (September 2022); PLI scheme (launched March 2020 for 14 key sectors, later extended to white goods); industrial corridors with plug-and-play infrastructure; FAME-India for electric and hybrid vehicles; Udyami Bharat for MSMEs; PM MITRA textile parks; FDI reforms (defence, pension, e-commerce; 100% automatic route for coal sale and mining and insurance intermediaries); FIPB scrapped in May 2017, its place taken by the Foreign Investment Facilitation Portal (853 proposals disposed of in 5 years; FDI up 39% since); RoDTEP (2021) replacing MEIS; Start-up India; Public Procurement (Preference to Make in India) Order, 2017; Emergency Credit Line Guarantee Scheme. Global Innovation Index rank improved from 81st (2015) to 40th (2022). The National Manufacturing Policy aims at 25% of GDP from manufacturing by 2025; Industry 4.0 is the next frontier.',
+            'Challenges: weak infrastructure and skills; import dependence and exchange-rate risk; poor credit access for MSMEs; badly located units; loss-making public enterprises; labour disputes; weak export competitiveness and foreign NTBs; supply-chain disruption; inflation and input costs; global slowdown; monetary tightening; high fuel prices; a growing informal sector.'],
+         'analogy': 'Industry is India\'s middle floor — sturdy but never fully built; policy now tries to add the missing storeys.',
+         'work': 'PLI claims, GST, RoDTEP and FDI filings are routine CA work in manufacturing companies; knowing the policy landscape is directly billable knowledge.'},
+        {'id': 'c10', 'title': 'Current state — tertiary sector (services) and conclusion', 'body': [
+            'India\'s unusual path: growth moved from agriculture straight to services, largely bypassing the usual shift to industry.',
+            'Services (the 15 groups of the National Industrial Classification 2008 include trade, transport, accommodation and food, information and communication, finance and insurance, real estate, professional and technical services, administration, public administration and defence, education, health, arts and entertainment, household activities and extra-territorial bodies) form the largest sector: 53.89% of GVA, with services GVA at current prices estimated at ₹96.54 lakh crore in 2020-21 (per the material). It is the fastest-growing sector with the highest labour productivity, powered by knowledge-based and IT-enabled services; most start-ups are in services.',
+            'Trade and investment: India is among the top 10 WTO members in services exports and imports; services exports were US$27.0 billion in November 2022 and stayed resilient through the pandemic. Services are the largest recipient of FDI — more than 60% of FDI equity inflows. UNCTAD\'s World Investment Report 2022 ranks India 7th among the top 20 FDI host countries for 2021. For 2021-22 the material reports record FDI inflows of US$84.8 billion, of which FDI equity into services was US$7.1 billion. 100% FDI is allowed in telecom services through the automatic route; the FDI cap in insurance was raised from 49% to 74%.',
+            'Conclusion (World Bank, India Development Update, November 2022): despite the Russia–Ukraine war, high commodity prices, supply disruptions, tighter finance and domestic inflation, India\'s real GDP grew 6.3% in July–September 2022-23 on strong private consumption and investment; its large domestic market makes it more insulated from global spill-overs and more resilient than other emerging markets.'],
+         'analogy': 'India skipped a rung on the development ladder — from the farm straight to the office — which makes it strong in services but leaves the factory floor under-filled.',
+         'work': 'CAs themselves are part of this sector; IT, financial and professional services exports (including accounting outsourcing) are a growth area for Indian firms and practitioners.'},
+    ]
+
+    mcqs = [
+        M('m1', 'Between the 1st and 17th centuries AD, India is believed to have controlled roughly what share of world wealth?', ['Between one-third and one-fourth', 'About one-tenth', 'More than half', 'About 2%'], 0, 'India is believed to have been the largest economy of the ancient and medieval world.', 'c1'),
+        M('m2', 'The Arthashastra is attributed to:', ['Kautilya (Chanakya)', 'Chandragupta Maurya', 'Dadabhai Naoroji', 'Mahatma Gandhi'], 0, 'Written as a handbook of statecraft for Chandragupta Maurya.', 'c1'),
+        M('m3', 'Which is NOT one of the seven elements of the state in the Arthashastra?', ['Parliament', 'Treasury', 'Allies', 'Fortresses'], 0, 'The seven: King, Ministers, Farmlands, Fortresses, Treasury, Military, Allies.', 'c1'),
+        M('m4', 'The rule of the East India Company in India lasted from:', ['1757 to 1858', '1858 to 1947', '1600 to 1757', '1857 to 1947'], 0, 'British Crown rule followed from 1858 to 1947.', 'c1'),
+        M('m5', 'The colonial policy of discriminatory tariffs meant:', ['Heavy duties on Indian exports of finished goods and low duties on British imports', 'Low duties on Indian exports', 'Free trade on equal terms', 'Duties only on raw materials'], 0, 'This made Indian manufactures uncompetitive.', 'c1'),
+        M('m6', 'According to the material, in the 1930s India ranked ___ in the world in number of cotton spindles.', ['Fifth', 'First', 'Twelfth', 'Eighth'], 0, '9 million spindles placed India fifth. (8th was the iron industry\'s output rank in 1930.)', 'c1', 'moderate'),
+        M('m7', 'Leaving out small-scale and cottage units, manufacturing\'s share in India\'s NDP in 1946 was barely about:', ['7%', '17%', '27%', '1.4%'], 0, '1.4% was factory employment as a share of population in 1941.', 'c1', 'moderate', '7'),
+        M('m8', 'In 1951, India\'s literacy rate was just above ___ and life expectancy barely ___ years.', ['18%; 32', '32%; 18', '50%; 45', '12%; 40'], 0, 'Poverty of human capital as well as income.', 'c2', 'moderate'),
+        M('m9', 'The Industrial Policy Resolution of 1948 granted state monopoly in:', ['Atomic energy, arms and ammunition, and railways', 'Textiles and jute', 'Banking and insurance', 'Retail trade'], 0, 'It also reserved new investment in basic industries for the state.', 'c2'),
+        M('m10', 'The average annual GDP growth of about 3.5% during 1950–80 is called the:', ['Hindu growth rate', 'Green growth rate', 'Plan growth rate', 'Natural rate'], 0, 'A modest growth under a controlled, inward-looking regime.', 'c2', 'core'),
+        M('m11', 'A balance-of-payments crisis that led to tighter import controls emerged in:', ['1958', '1966', '1991', '1947'], 0, 'Comprehensive import controls were maintained until 1966.', 'c2', 'moderate', '1958'),
+        M('m12', 'How many banks were nationalised in 1969?', ['14', '6', '20', '19'], 0, '14 in 1969 and 6 more in 1980 — 20 in all.', 'c2', 'core', '14'),
+        M('m13', 'The MRTP Act was enacted in:', ['1969', '1956', '1985', '1991'], 0, 'It restricted large firms\' licensing, expansion, mergers and acquisitions.', 'c2', 'core', '1969'),
+        M('m14', 'The policy of reserving products for exclusive manufacture by the small-scale sector began in:', ['1967', '1956', '1980', '1991'], 0, 'It kept large firms out of labour-intensive industries.', 'c2', 'moderate', '1967'),
+        M('m15', 'According to the material, the worst period of economic performance in independent India was:', ['1965–81', '1950–65', '1981–91', '1991–2001'], 0, 'Licence raj, autarky, wars, droughts and oil shocks.', 'c2'),
+        M('m16', 'The Green Revolution was triggered mainly by:', ['Severe droughts in 1966 and 1967 and the resulting food crisis', 'The 1991 balance-of-payments crisis', 'The oil shock of 1973', 'Bank nationalisation'], 0, 'India depended on US food aid under PL 480.', 'c3'),
+        M('m17', 'The Green Revolution relied mainly on:', ['High-yielding seeds with intensive use of water, fertilisers and pesticides', 'Land reforms and cooperatives', 'Import of food grains', 'Abolition of MSP'], 0, 'A shift from institutional to technological strategy, especially for wheat.', 'c3'),
+        M('m18', 'The 1981–89 liberalisation is often called:', ['Reforms by stealth', 'Big-bang reforms', 'Second-generation reforms', 'Green reforms'], 0, 'Ad hoc and not widely publicised.', 'c4'),
+        M('m19', 'Average annual GDP growth in the Sixth Plan (1980–85) and Seventh Plan (1985–90) was respectively:', ['5.7% and 5.8%', '3.5% and 3.5%', '5.8% and 5.7%', '6.5% and 7%'], 0, 'Higher than the previous three decades.', 'c4', 'moderate'),
+        M('m20', '"Broad-banding" in the 1980s allowed firms to:', ['Change their product mix within existing capacity without a fresh licence', 'Raise unlimited foreign loans', 'Avoid all taxes', 'Import consumer goods freely'], 0, 'E.g. switching between trucks and cars.', 'c4'),
+        M('m21', 'In 1985-86, the asset limit for MRTP firms was raised from ₹20 crore to ₹100 crore. By how many times did it increase?', ['5 times', '4 times', '80 times', '2 times'], 0, '100 ÷ 20 = 5 times (a 400% increase).', 'c4', 'moderate', '100/20'),
+        M('m22', 'SEBI was first set up as a non-statutory body on:', ['12 April 1988', '24 July 1991', '1 January 2015', '1 July 2017'], 0, 'It got statutory status in 1992.', 'c4', 'moderate'),
+        M('m23', 'Based on REER, the rupee was depreciated from 1985-86 to 1989-90 by about:', ['30%', '18%', '10%', '50%'], 0, 'A change in official attitude towards depreciation. 18% relates to the July 1991 devaluation.', 'c4', 'hard', '30'),
+        M('m24', 'In 1991, India\'s foreign exchange reserves had fallen to about:', ['US$1.2 billion — barely two weeks of imports', 'US$12 billion — two months of imports', 'US$1.2 billion — eight months of imports', 'US$120 billion'], 0, 'The immediate trigger of the reforms. Eight months of import cover describes the post-reform position.', 'c5'),
+        M('m25', 'The twin objectives of the 1991 reforms were:', ['A market-oriented economy and macroeconomic stabilisation by cutting the fiscal deficit', 'Nationalisation and import substitution', 'Fixed exchange rate and higher tariffs', 'Bigger public sector and more licensing'], 0, 'Reorientation plus stabilisation.', 'c5'),
+        M('m26', 'Short-term measures aimed at inflation and the adverse balance of payments in 1991 are called:', ['Stabilisation measures', 'Structural reforms', 'Green revolution measures', 'Licensing measures'], 0, 'Structural reforms are long-term and continuing.', 'c5'),
+        M('m27', 'The New Industrial Policy was announced on:', ['24 July 1991', '12 April 1988', '1 January 2015', 'September 1994'], 0, 'It largely ended the licence raj.', 'c5'),
+        M('m28', 'Under the New Industrial Policy, licensing was abolished for all industries except:', ['18', '8', '5', '25'], 0, 'Later reduced to 5. 8 was the number of industries reserved for the public sector.', 'c5', 'moderate', '18'),
+        M('m29', 'Which is NOT among the industries that, as per the material, still need a licence?', ['Steel', 'Arms and ammunition', 'Cigarettes and cigars', 'Distillation and brewing of alcoholic drinks'], 0, 'The five, in short: arms/ammunition; atomic substances; narcotics and hazardous chemicals; alcoholic drinks; cigarettes/cigars.', 'c5'),
+        M('m30', 'Industries now reserved for the public sector (as per the material) are:', ['Atomic energy and railway transport', 'Banking and insurance', 'Coal and steel', 'Telecom and airlines'], 0, 'Only parts of atomic energy and core railway activities.', 'c5'),
+        M('m31', 'The 1991 policy introduced automatic approval for FDI up to:', ['51%', '26%', '74%', '100%'], 0, 'Later extended to nearly all industries.', 'c5', 'core', '51'),
+        M('m32', 'According to the material, FDI is prohibited in:', ['Retail trade, atomic energy, lottery, and betting and gambling', 'Insurance and telecom', 'Coal mining and airports', 'Food-product e-commerce'], 0, 'As stated in the study material (1991 policy context). Real-world note: retail has since been opened — single-brand retail up to 100% and multi-brand retail up to 51% with government approval — while lottery, gambling and betting, atomic energy and railway operations remain prohibited.', 'c5', 'moderate'),
+        M('m33', 'The highest tariff rate of 355% in 1990-91 was reduced to 85% in 1993-94. The cut in percentage points is:', ['270', '76.06', '85', '305'], 0, '355 − 85 = 270 percentage points (a relative cut of about 76%).', 'c5', 'moderate', '355-85'),
+        M('m34', 'In July 1991 the rupee was devalued against the dollar by about:', ['18%', '30%', '50%', '5%'], 0, 'The material puts it at 18 (between 18 and 19) per cent.', 'c5', 'core', '18'),
+        M('m35', 'India unified its exchange rate and allowed the rupee to float for the first time in:', ['March 1993', 'March 1992', 'July 1991', '1994'], 0, 'Dual rate from March 1992; current account convertibility from 1994; managed float since 1993.', 'c5', 'hard'),
+        M('m36', 'The government\'s agreement with the RBI (September 1994) aimed to:', ['Phase out deficit financing by money creation by 1997-98', 'Fix the rupee to gold', 'Nationalise banks', 'Raise CRR'], 0, 'To end the easy route of money creation to fund deficits.', 'c5', 'hard'),
+        M('m37', 'Reduction of CRR and SLR and prudential norms for banks followed the recommendations of the:', ['Narasimham Committee (1991)', 'Planning Commission', 'NITI Aayog', 'MRTP Commission'], 0, 'Monetary and financial-sector reforms.', 'c5'),
+        M('m38', 'As per the material, India\'s public debt in FY21/22 was about ___ of GDP, against an EMDE average of 64.5% (2022).', ['86%', '64.5%', '46%', '100%'], 0, 'A key constraint despite reform gains.', 'c6', 'moderate', '86'),
+        M('m39', 'Post-reform foreign exchange reserves, as per the material, provide import cover of close to:', ['Eight months', 'Two weeks', 'Two years', 'One month'], 0, 'Two weeks was the 1991 position.', 'c6'),
+        M('m40', 'According to Table 10.1 (Economic Survey), in which year did India record the highest GDP growth between 1991 and 2021?', ['1999', '2021', '2010', '2016'], 0, '1999 ≈ 8.85% (2021 ≈ 8.68%, 2010 ≈ 8.50%, 2016 ≈ 8.26%).', 'c6', 'hard', '1999'),
+        M('m41', 'According to Table 10.1, India\'s GDP growth in 2020 was about:', ['-6.60%', '-1.06%', '3.74%', '8.68%'], 0, 'The pandemic contraction; 2019 was about 3.74% and 2021 about 8.68%.', 'c6', 'moderate', str(round(GDP[2020], 2))),
+        M('m42', 'NITI Aayog replaced the Planning Commission on:', ['1 January 2015', '24 July 1991', '1 April 2014', '1 July 2017'], 0, 'After nearly 64 years of the Planning Commission.', 'c7'),
+        M('m43', 'NITI Aayog is primarily meant to act as:', ['A think tank promoting co-operative federalism', 'The body that allocates central funds to states', 'The regulator of capital markets', 'The authority that approves the Union budget'], 0, 'A major criticism is that it is excluded from the budget process.', 'c7'),
+        M('m44', 'The major shortcoming of NITI Aayog pointed out by critics is:', ['Its exclusion from the budgeting process', 'Too much control over state plans', 'Excessive spending powers', 'Running public-sector units'], 0, 'It does not make national plans, control spending or review state plans.', 'c7'),
+        M('m45', 'Which NITI Aayog initiative aims to cut the oil import bill by converting coal and municipal waste into a fuel?', ['Methanol Economy programme', 'Shoonya', 'E-Amrit', 'NDAP'], 0, 'Shoonya targets air quality via EVs; E-Amrit is an EV information portal; NDAP is a data platform.', 'c7', 'moderate'),
+        M('m46', 'As per the material, India is the world\'s largest producer of:', ['Milk, pulses, jute and spices', 'Tea and coffee', 'Wheat and rice', 'Sugar and cotton'], 0, 'It is second-largest in fruits, vegetables, tea, farmed fish, cotton, sugarcane, wheat, rice and sugar.', 'c8'),
+        M('m47', 'According to the material, about what share of India\'s population depends directly on agriculture?', ['47%', '18.8%', '53.89%', '70%'], 0, '18.8% is agriculture\'s share in GVA (2021-22); 53.89% is the services share.', 'c8', 'moderate', '47'),
+        M('m48', 'Food-grain production in 2021-22, as per the material, reached:', ['315.7 million tonnes', '196.2 million tonnes', '142.8 million tonnes', '374.6 million tonnes'], 0, '196.2 is the pulses production index; 142.8 the core-industries index.', 'c8', 'moderate', '315.7'),
+        M('m49', 'MSP for the 23 mandated crops is fixed at:', ['1.5 times the all-India weighted average cost of production', 'Equal to cost of production', '2 times the cost', 'The world price'], 0, 'As stated in the material.', 'c8'),
+        M('m50', 'A pan-India electronic trading portal linking APMC mandis into a unified national market is:', ['e-NAM', 'PM-KISAN', 'PMFBY', 'APEDA'], 0, 'PMFBY is crop insurance; PM-KISAN income support; APEDA export promotion.', 'c8'),
+        M('m51', 'Industry\'s contribution to India\'s GVA, as per the material, is about:', ['30%', '53.89%', '18.8%', '78%'], 0, '78% is manufacturing\'s share of industrial production.', 'c9', 'moderate', '30'),
+        M('m52', 'The eight core industries carry what weight in the Index of Industrial Production?', ['40.27%', '78%', '16.3%', '55.4%'], 0, '55.4 was the manufacturing PMI (January 2023).', 'c9', 'hard', '40.27'),
+        M('m53', 'GST was introduced on:', ['1 July 2017', '1 April 2017', '1 January 2015', '24 July 1991'], 0, 'A single domestic indirect tax replacing excise, VAT, service tax and others.', 'c9'),
+        M('m54', 'When it began in March 2020, the PLI scheme covered how many key sectors?', ['14', '27', '15', '23'], 0, '27 is the number of Make in India 2.0 sectors; 23 the MSP crops.', 'c9', 'moderate', '14'),
+        M('m55', 'India\'s rank in the World Bank\'s Doing Business Report 2020 was:', ['63rd', '77th', '40th', '81st'], 0, 'Up 14 places from 77th in 2019. 40th/81st are Global Innovation Index ranks. (The World Bank discontinued the Doing Business report in 2021, so DBR 2020 was the last ranking.)', 'c9', 'moderate', '63'),
+        M('m56', 'After the FIPB was scrapped in May 2017, FDI approvals moved to:', ['The Foreign Investment Facilitation Portal', 'NITI Aayog', 'DPIIT', 'The National Single Window System'], 0, 'FDI approvals were simplified under the new regime.', 'c9'),
+        M('m57', 'RoDTEP (2021) replaced which export scheme?', ['MEIS', 'PLI', 'FAME', 'ECLGS'], 0, 'It rebates hidden central, state and local duties on exported goods.', 'c9'),
+        M('m58', 'India\'s distinctive growth path, as per the material, was a shift:', ['From agriculture directly to services, largely bypassing industry', 'From agriculture to industry and then to services', 'From services to agriculture', 'From industry to agriculture'], 0, 'Unlike the usual development sequence.', 'c10'),
+        M('m59', 'The services sector\'s share of India\'s total GVA, as per the material, is:', ['53.89%', '30%', '18.8%', '60%'], 0, 'Largest sector; services GVA ₹96.54 lakh crore in 2020-21.', 'c10', 'core', '53.89'),
+        M('m60', 'FDI equity inflows into services account for what share of total FDI equity inflows into India (per the material)?', ['More than 60%', 'About 16%', 'About 30%', 'Less than 10%'], 0, 'Services are the largest recipient of FDI.', 'c10'),
+        M('m61', 'The FDI cap in insurance companies was raised from:', ['49% to 74%', '26% to 49%', '74% to 100%', '51% to 74%'], 0, 'Telecom services allow 100% FDI via the automatic route.', 'c10'),
+        M('m62', 'The World Bank\'s India Development Update (November 2022) noted that India\'s real GDP grew by ___ in July–September 2022-23.', ['6.3%', '8.7%', '3.5%', '5.7%'], 0, 'Driven by strong private consumption and investment.', 'c10', 'moderate', '6.3'),
+    ]
+
+    cq1 = Checks()
+    w1 = cq1.add('round(' + avg_expr(1992, 1996) + ', 2)', 'average 1992–96')
+    w2 = cq1.add('round(' + avg_expr(2008, 2012) + ', 2)', 'average 2008–12')
+    w3 = cq1.add('round(' + avg_expr(2017, 2021) + ', 2)', 'average 2017–21')
+    w4 = cq1.add('round(' + avg_expr(1992, 1996) + '-3.5, 2)', 'excess of 1992–96 over 3.5%')
+    q1 = Q('q1', 5, 'moderate', 'table', 'Using Table 10.1 of the study material (GDP growth %, Economic Survey), compute the average growth for 1992–1996, 2008–2012 and 2017–2021. By how many percentage points did the 1992–1996 average exceed the Hindu growth rate? Which of the three periods was most affected by an external shock, and why?',
+           [table(['Period', 'Annual rates used (%)', 'Average (%)'], [
+               ['1992–1996', ', '.join(fx(GDP[y]) for y in range(1992, 1997)), fx(w1)],
+               ['2008–2012', ', '.join(fx(GDP[y]) for y in range(2008, 2013)), fx(w2)],
+               ['2017–2021', ', '.join(fx(GDP[y]) for y in range(2017, 2022)), fx(w3)],
+               ['1992–96 vs Hindu growth rate', f'{fx(w1)} − 3.5', f'{fx(w4)} pp'],
+           ]), p(f'2017–2021 has the lowest average ({fx(w3)}%) because of the pandemic contraction of about {fx(GDP[2020])}% in 2020; 2008–2012 was pulled down by the 2008 global financial crisis (about {fx(GDP[2008])}%).')],
+           [S('s1', 'Average 1992–96', 1, 'computation'), S('s2', 'Average 2008–12', 1, 'computation'), S('s3', 'Average 2017–21 (negative year handled)', 1, 'computation'), S('s4', 'Excess over 3.5% in percentage points', 1, 'computation'), S('s5', 'Identifies shock years and reasons', 1, 'analysis')],
+           ['Many add −6.6 as +6.6, overstating the 2017–21 average.'], ['Dividing by the wrong number of years.', 'Calling a difference between two rates a "per cent" change.'], ['List the five values before averaging; keep the sign of 2020.'], checks=cq1)
+
+    q2 = Q('q2', 6, 'moderate', 'text', 'What were the causes of the 1991 economic crisis in India? State the objectives of the reforms and list the main measures of the New Industrial Policy, 1991.',
+           [p('Causes: (1) revenue expenditure persistently above revenue receipts through the 1980s, with large fiscal deficits financed by internal and external debt; (2) heavy public debt and interest burden; (3) the 1990 Gulf war raised oil prices and strained the balance of payments; (4) reserves fell to US$1.2 billion — about two weeks of imports; (5) import curbs reduced industrial output; (6) IMF loans came with strict conditions; (7) political instability caused a crisis of confidence.'),
+            p('Objectives: move from a centrally directed, controlled economy to a market-friendly one; and stabilise the economy by sharply cutting the fiscal deficit.'),
+            ul(['Licensing abolished except for 18 industries (now 5).', 'Public-sector reservation cut to 8 industries (now 2 — atomic energy, railway transport).', 'MRTP Act restructured — merger and takeover provisions removed, no pre-entry approval for expansion.',
+                'Small-scale reservation diluted.', 'Automatic approval for FDI up to 51%.', 'Disinvestment of government equity in PSUs and greater autonomy to them.'])],
+           [S('s1', 'Fiscal causes (deficits, debt, interest)', 1, 'concept'), S('s2', 'External causes (Gulf war, BoP, reserves US$1.2 bn ≈ two weeks)', 1.5, 'concept'), S('s3', 'IMF conditions / crisis of confidence', 0.5, 'concept'),
+            S('s4', 'Both objectives stated', 1, 'concept'), S('s5', 'At least four NIP measures with numbers (18/5, 8/2, 51%)', 2, 'application')],
+           ['Marks are lost for vague answers ("there was a crisis") without the reserve figure.'], ['Confusing 18 (licensing exceptions) with 8 (public sector).', 'Mixing 1980s measures (broad-banding, MODVAT) into the 1991 list.'], ['Use three headings: Causes, Objectives, Measures.'])
+
+    cq3 = Checks()
+    e1 = cq3.add('(5.7+5.8)/2-3.5', '1980s plan growth over Hindu rate')
+    e2 = cq3.add('100/20', 'MRTP limit multiple')
+    e3 = cq3.add('round((355-50)/355*100, 2)', 'relative cut 355% → 50%')
+    q3 = Q('q3', 4, 'core', 'table', 'Using the figures in the study material, compute: (a) how far the average of Sixth and Seventh Plan growth (5.7% and 5.8%) exceeded the Hindu growth rate; (b) the multiple by which the MRTP asset limit rose in 1985-86 (₹20 crore → ₹100 crore); (c) the relative reduction in the top tariff from 355% (1990-91) to 50% (1995-96). State one reform each from the 1980s and from 1991 that these figures relate to.',
+           [table(['Item', 'Working', 'Result'], [['(a)', '(5.7 + 5.8) ÷ 2 − 3.5', f'{fx(e1)} percentage points'], ['(b)', '100 ÷ 20', f'{fx(e2)} times'], ['(c)', '(355 − 50) ÷ 355 × 100', f'{fx(e3)}%']]),
+            p('1980s: raising the MRTP threshold to ease constraints on large firms. 1991: phased tariff reduction under trade-policy reform.')],
+           [S('s1', '(a) correct computation', 1, 'computation'), S('s2', '(b) correct multiple', 1, 'computation'), S('s3', '(c) relative cut', 1, 'computation'), S('s4', 'Links each figure to the right reform period', 1, 'application')],
+           ['Good answers keep the 1980s and 1991 measures separate.'], ['Reporting (c) as 305% instead of a relative cut of about 86%.'], ['Write the formula in words first.'], checks=cq3)
+
+    q4 = Q('q4', 4, 'core', 'table', 'Compare the Planning Commission and NITI Aayog on four points.',
+           [table(['Basis', 'Planning Commission', 'NITI Aayog'], [
+               ['Period', 'About 64 years, till 2014', 'From 1 January 2015'],
+               ['Approach', 'Centralised, public-investment-led planning; Five-Year Plans', 'Think tank; co-operative federalism; bottom-up (village-level) planning'],
+               ['Role of states', 'Limited voice', 'Enhanced voice and influence of states'],
+               ['Financial power', 'Allocated plan resources', 'No role in budgeting or expenditure control (a key criticism)'],
+           ])],
+           [S('s1', 'Dates', 1, 'concept'), S('s2', 'Approach', 1, 'concept'), S('s3', 'Role of states / federalism', 1, 'analysis'), S('s4', 'Financial powers / criticism', 1, 'analysis')],
+           ['Strong answers mention the exclusion from the budget process.'], ['Saying NITI Aayog prepares Five-Year Plans.'], ['Table with four rows.'])
+
+    jobs = [
+        {'id': 'j1', 'title': 'Sector note for an equity research report', 'role': 'Research analyst at a broking firm',
+         'situation': 'You are writing the macro section of an initiation report on an Indian manufacturing company and must quote official data.',
+         'steps': ['Use the official source and state the period for every figure (e.g. manufacturing PMI, core-industries index, FDI inflows).', 'Show trends with the growth table and highlight shock years (1991, 2008, 2020).', 'Link company prospects to policies (PLI, Make in India, National Logistics Policy, GST).', 'Flag risks named in policy documents — input costs, monetary tightening, global slowdown.'],
+         'takeaway': 'Macro numbers are only credible with the source and year attached — the same discipline the exam expects.'},
+        {'id': 'j2', 'title': 'Advising a farmer producer organisation', 'role': 'CA in practice with rural clients',
+         'situation': 'An FPO of wheat farmers wants to plan its finances and sales.',
+         'steps': ['Explain MSP (1.5 × all-India weighted average cost) as the price floor for mandated crops.', 'Register on e-NAM to reach buyers beyond the local mandi.', 'Use concessional institutional credit and the Agriculture Infrastructure Fund for storage.', 'Insure crops under PMFBY and keep scheme compliance records.'],
+         'takeaway': 'Knowing the scheme landscape lets a CA turn policy into cash flow for rural clients.',
+         'think': 'If the weighted average cost is ₹2,200 a quintal, what MSP does the 1.5× rule imply?', 'answer': '1.5 × 2,200 = ₹3,300 a quintal.',
+         'checks': Checks([{'expr': '1.5*2200', 'value': 3300, 'label': 'MSP at 1.5 × cost'}])},
+    ]
+
+    viva = [
+        V('v1', 'What is meant by the Hindu growth rate, and why was growth so slow?',
+          'The Hindu growth rate refers to the modest average GDP growth of about 3.5 percent a year in the three decades from 1950 to 1980. Growth was slow because of the licence raj and heavy controls, an inward-looking closed economy, a dominant and inefficient public sector, restrictions like the MRTP Act and small-scale reservation, and shocks such as wars, droughts and oil price rises.',
+          [P('p1', 'About 3.5% average growth', 4, '3.5|three point five'),
+           P('p2', 'Period 1950–1980 (first three decades)', 2, '1950|1980|three decades|thirty years|30 years|first three'),
+           P('p3', 'Causes: licence raj/controls, closed economy, public-sector dominance, MRTP/SSI curbs, shocks', 4, 'licen|control|closed|inward|autark|public sector|mrtp|small scale|reservation|war|drought|oil|protection|regulation|bureaucra')], 'c2'),
+        V('v2', 'What caused the economic crisis of 1991?',
+          'In 1991 India faced huge fiscal deficits financed by internal and external debt, with heavy interest payments. Oil prices shot up because of the Gulf war, straining the balance of payments, and foreign exchange reserves fell to about 1.2 billion dollars, enough for only two weeks of imports. India had to borrow from the IMF on strict conditions, and political instability created a crisis of confidence.',
+          [P('p1', 'Large fiscal deficits, debt and interest burden', 3, 'fiscal deficit|deficit|debt|interest|revenue expenditure|borrow'),
+           P('p2', 'Gulf war oil price rise; balance-of-payments crisis', 2, 'gulf|oil|balance of payment|bop|current account'),
+           P('p3', 'Reserves down to about US$1.2 billion — two weeks of imports', 3, '1.2|two weeks|2 weeks|fortnight|reserv'),
+           P('p4', 'IMF conditions; crisis of confidence', 2, 'imf|international monetary fund|confidence|political')], 'c5'),
+        V('v3', 'What were the main measures of the New Industrial Policy of 1991?',
+          'The New Industrial Policy of July 1991 abolished industrial licensing except for eighteen industries, now only five. It cut the industries reserved for the public sector to eight, now just atomic energy and railway transport. It restructured the MRTP Act, removing prior approval for expansion and mergers, de-reserved many small-scale items, allowed automatic approval of foreign investment up to fifty-one percent and began disinvestment of public sector enterprises.',
+          [P('p1', 'Licensing abolished except 18 (now 5) industries', 3, 'licen', '18|eighteen|5|five', min=2),
+           P('p2', 'Public-sector reservation cut to 8 (now atomic energy and railways)', 2, 'public sector|reserved|atomic|railway', '8|eight|atomic|railway|two', min=2),
+           P('p3', 'MRTP Act restructured; SSI de-reservation', 2, 'mrtp|monopol|small scale|de reserv|dereserv'),
+           P('p4', 'Automatic FDI approval up to 51%; disinvestment', 3, '51|fifty one|automatic|foreign invest|fdi|disinvest')], 'c5'),
+        V('v4', 'What is NITI Aayog and how is it different from the Planning Commission?',
+          'NITI Aayog, the National Institution for Transforming India, replaced the Planning Commission on the first of January 2015. It works as a think tank of the government and promotes co-operative federalism by giving states a greater voice, with planning from the village level upwards. Unlike the Planning Commission, it does not allocate funds or take part in the budget process, which critics see as its main weakness.',
+          [P('p1', 'Replaced the Planning Commission on 1 January 2015', 3, '2015|january'),
+           P('p2', 'Think tank / policy advisor', 3, 'think tank|advise|advises|advice|adviser|advisor|advisory|policy dynamo|knowledge|ideas'),
+           P('p3', 'Co-operative federalism — greater voice for states', 2, 'federal|states|state govern|bottom up|village'),
+           P('p4', 'No role in budget or fund allocation (criticism)', 2, 'budget|fund|allocat|spending|expenditure|money|purse|financial power|not hand out money|not give money|not allocate|no role in budget|not part of budget|no money|no fund|no financial power|without financial power|not control spending|no say in budget')], 'c7'),
+        V('v5', 'What was the Green Revolution and why was it needed?',
+          'After two severe droughts in 1966 and 1967, India faced a food crisis and depended on American food aid under PL 480. The Green Revolution shifted farm policy from land reforms to raising productivity, especially of wheat, using high-yielding seed varieties with intensive irrigation, fertilisers and pesticides. It sharply increased food grain production and solved the food problem.',
+          [P('p1', 'Droughts of 1966–67 and food crisis / PL 480 dependence', 3, '1966|1967|drought|food crisis|food shortage|pl 480|pl480|food aid|monsoon'),
+           P('p2', 'High-yielding seeds with water, fertilisers, pesticides', 4, 'high yield|hyv|seed|fertili|pesticid|irrigat|technolog'),
+           P('p3', 'Sharp rise in food-grain output / productivity, especially wheat', 3, 'productiv|output|production|wheat|self suffic|yield')], 'c3'),
+        V('v6', 'Describe the role of the services sector in the Indian economy today.',
+          'Services are India\'s largest sector, at about 53.89 percent of gross value added, and the fastest growing, with the highest labour productivity. India moved from agriculture straight to services, largely bypassing industry. Services lead in exports of software and business services and attract more than sixty percent of FDI equity inflows.',
+          [P('p1', 'Largest sector — about 53.89% of GVA', 3, '53.89|53|54|more than half|over half|servic largest|servic biggest|largest sector is servic|largest sector servic|servic sector largest'),
+           P('p2', 'Fastest growing / highest labour productivity', 2, 'fastest|highest labour productiv|labour productiv|productiv|growing'),
+           P('p3', 'Bypassed industry — moved from agriculture to services', 3, 'bypass|skip|leapfrog|directly to service|straight to service|without industr|moved from agriculture|move from agriculture|shift from agriculture|agriculture straight|agriculture directly'),
+           P('p4', 'Leads exports and attracts over 60% of FDI equity', 2, '60|sixty|fdi|foreign invest|export|software')], 'c10'),
+        V('v7', 'What were the early reforms of the nineteen eighties?',
+          'The reforms of the nineteen eighties, called reforms by stealth, included delicensing of twenty-five broad industry groups in 1985, broad-banding to let firms change their product mix, raising the MRTP asset limit from twenty crore to one hundred crore, introducing MODVAT, setting up SEBI in 1988, expanding the open general licence list and a realistic exchange rate. Growth rose to about 5.7 and 5.8 percent in the Sixth and Seventh Plans.',
+          [P('p1', 'Called "reforms by stealth" / early liberalisation', 2, 'stealth|early liberali|ad hoc|piecemeal'),
+           P('p2', 'Delicensing of 25 industry groups; broad-banding', 3, 'delicens|25|twenty five|broad band|broadband|product mix'),
+           P('p3', 'MRTP limit ₹20 → ₹100 crore; MODVAT; SEBI 1988; OGL', 3, 'mrtp|100|modvat|sebi|1988|ogl|open general|export incentiv|exchange rate'),
+           P('p4', 'Growth rose to 5.7% / 5.8%', 2, '5.7|5.8|higher growth|growth rose|growth improv|faster growth|growth increas')], 'c4'),
+        V('v8', 'How did British rule affect Indian industry and agriculture?',
+          'Under British rule India was turned from an exporter of manufactured goods into an exporter of raw materials and a market for British machine-made goods. Discriminatory tariffs and cheap imports destroyed Indian handicrafts. Displaced artisans crowded into agriculture, causing fragmentation of holdings, subsistence farming and low productivity, while the zamindari system brought high rents, absentee landlords and heavy indebtedness.',
+          [P('p1', 'India became an exporter of raw materials and a market for British goods', 3, 'raw material|market for british|market for finish|machine made|british goods|manufactured goods'),
+           P('p2', 'Discriminatory tariffs / cheap imports destroyed handicrafts (de-industrialisation)', 3, 'tariff|handicraft|artisan|deindustriali|de industriali|destroy|destruct|collapse|ruin'),
+           P('p3', 'Pressure on land: fragmentation, subsistence farming, low productivity; zamindari, rents, debt', 4, 'fragment|subdivi|subsistence|pressure on land|crowd|overcrowd|zamindar|rent|indebted|debt|moneylend|money lend|absentee|low productiv')], 'c1'),
+    ]
+
+    cc = Checks()
+    case = {'id': 'k1', 'title': 'A minister\'s briefing note on three decades of reform', 'difficulty': 'hard',
+            'case': ('A briefing note, using figures from the study material, says: "In 1991 our reserves were only US$1.2 billion. We cut the top tariff from 355% in 1990-91 to 85% by 1993-94 and devalued the rupee by about 18%. '
+                     'Licensing now applies to only five industries. Growth, which averaged 3.5% during 1950–80, reached about 8.85% in 1999 and, after a fall of about 6.6% in 2020, rebounded to about 8.68% in 2021. Public debt was about 86% of GDP in FY21/22. The Planning Commission was replaced on 1 January 2015."'),
+            'mcqs': [
+                M('k10a', 'By how many percentage points did growth swing from 2020 to 2021, as per the note?', ['15.28', '2.08', '8.68', '6.6'], 0, '8.68 − (−6.60) = 15.28 percentage points.', 'c6', 'hard', 'round(8.68-(-6.6), 2)'),
+                M('k10b', 'The relative fall in the top tariff from 355% to 85% is approximately:', ['76.06%', '270%', '23.94%', '85%'], 0, '(355 − 85) ÷ 355 × 100 ≈ 76.06%. 270 is the fall in percentage points.', 'c5', 'hard', 'round((355-85)/355*100, 2)'),
+                M('k10c', 'Which of the following still requires an industrial licence, as per the material?', ['Narcotic drugs and hazardous chemicals', 'Automobiles', 'Steel', 'Cement'], 0, 'One of the five remaining licensed industries.', 'c5', 'moderate'),
+                M('k10d', 'The body that replaced the Planning Commission is mainly criticised for:', ['Having no role in the budget process', 'Controlling state budgets', 'Running railways', 'Fixing exchange rates'], 0, 'NITI Aayog is a think tank without budgetary powers.', 'c7', 'moderate'),
+                M('k10e', 'The debt figure in the note compares with the EMDE average (IMF, 2022) of:', ['64.5%', '86%', '46%', '100%'], 0, 'India\'s debt (86%) is above the EMDE average of 64.5%.', 'c6', 'moderate', '64.5'),
+            ]}
+
+    return {
+        'schema': 'ca-unit/1', 'id': UID, 'level': 'foundation', 'paper': 'p4', 'chapter': 'fnd-p4-ch10', 'n': 1, 'title': 'Indian Economy',
+        'outcomes': ['Describe India\'s pre-colonial economy and the effects of British rule (1757–1947) on industry and agriculture.',
+                     'Trace post-independence policy (planning, IPR 1948 and 1956, licence raj, Green Revolution, MRTP, SSI reservation) and explain the Hindu growth rate.',
+                     'Explain the early reforms of the 1980s, the 1991 crisis, the objectives and measures of the 1991 reforms, and their outcomes using the growth table.',
+                     'Explain the role and criticism of NITI Aayog and summarise the current state of the primary, secondary and tertiary sectors with the figures and years given in the study material.'],
+        'meta': {'difficulty': 'moderate', 'minutes': {'learn': 70, 'practice': 60}, 'prereq': [],
+                 'exam_tip': 'This chapter is fact-heavy. Learn each figure WITH its year exactly as the study material gives it (e.g. reserves US$1.2 billion in 1991; services 53.89% of GVA; NITI Aayog 1 January 2015; licensing except 18 → 5). Distinguish 1980s measures from 1991 measures.'},
+        'concepts': concepts, 'illustrations': [ill1, ill2, ill3, ill4], 'jobs': jobs, 'mcqs': mcqs, 'questions': [q1, q2, q3, q4],
+        'revision': {'summary': ['Ancient India: largest economy (1st–17th c. AD), ⅓–¼ of world wealth; Arthashastra (Kautilya) — seven elements of the state.',
+                                 'British rule: EIC 1757–1858, Crown 1858–1947; discriminatory tariffs → de-industrialisation → pressure on land, zamindari, debt. Industry: cotton (9 mn spindles, 5th, 1930s), jute (largest), iron (1814; 8th in 1930); manufacturing ≈7% of NDP (1946).',
+                                 '1951: literacy just above 18%, life expectancy ≈32. Nehruvian planning; IPR 1948 & 1956; BoP crisis 1958; Hindu growth rate 3.5% (1950–80).',
+                                 'Droughts 1966–67 → Green Revolution. Banks nationalised 14 (1969) + 6 (1980); MRTP 1969; SSI reservation 1967; 1965–81 worst period.',
+                                 '1980s "reforms by stealth": delicensing 25 groups (1985), broad-banding, MRTP ₹20 → ₹100 crore, MODVAT, SEBI (12 April 1988), OGL 1,329 items, REER depreciation ~30%; growth 5.7% / 5.8%.',
+                                 '1991: reserves US$1.2 bn ≈ 2 weeks of imports; objectives — market orientation + stabilisation. NIP 24 July 1991: licensing except 18 (now 5); public sector 8 (now 2); FDI automatic 51%; tariffs 355% → 85% → 50% → 10%; rupee devalued ≈18%; float March 1993; current-account convertibility 1994; SEBI statutory 1992; RBI agreement Sept 1994.',
+                                 'Outcomes: reserves ≈8 months of imports; services surplus ≈3.7% of GDP; debt ≈86% of GDP (FY21/22) vs EMDE 64.5% (2022). Growth: 1999 highest (≈8.85%), 2020 lowest (≈−6.60%).',
+                                 'NITI Aayog (1 January 2015): think tank, co-operative federalism; criticised for no budget role.',
+                                 'Agriculture: 47% depend on it; 18.8% of GVA (2021-22); food grains 315.7 MT (2021-22); MSP 1.5× cost (23 crops). Industry: ≈30% of GVA, 12.1 crore jobs; core industries 40.27% of IIP. Services: 53.89% of GVA; ₹96.54 lakh crore (2020-21); >60% of FDI equity.'],
+                     'remember': ['18 → 5 licensed industries; 8 → 2 public-sector industries.', 'GST 1 July 2017; PLI March 2020 (14 sectors); Make in India 2014 (2.0: 27 sectors).', 'GII 81st (2015) → 40th (2022); Doing Business 77th (2019) → 63rd (2020).'],
+                     'traps': ['MODVAT and broad-banding are 1980s reforms, not 1991.', 'SEBI: non-statutory 1988, statutory 1992.', 'Two weeks of imports (1991) vs eight months (now).', 'Percentage points ≠ per cent.']},
+        'quickref': [{'k': 'Hindu growth rate', 'v': '≈3.5% a year, 1950–80'}, {'k': 'Bank nationalisation', 'v': '14 in 1969; 6 in 1980'},
+                     {'k': '1980s plan growth', 'v': 'Sixth 5.7%; Seventh 5.8%'}, {'k': '1991 reserves', 'v': 'US$1.2 billion ≈ two weeks of imports'},
+                     {'k': 'NIP 1991', 'v': '24 July 1991; licensing except 18 (now 5); PSU reservation 8 (now 2); FDI auto 51%'},
+                     {'k': 'Tariff peak', 'v': '355% (1990-91) → 85% (1993-94) → 50% (1995-96) → 10% (2007-08)'},
+                     {'k': 'Exchange rate', 'v': 'Devalued ≈18% (July 1991); float March 1993; convertibility on current account 1994'},
+                     {'k': 'NITI Aayog', 'v': '1 January 2015; think tank; co-operative federalism'},
+                     {'k': 'Sector shares (material)', 'v': 'Services 53.89% of GVA; industry ≈30%; agriculture 18.8% (2021-22)'},
+                     {'k': 'Debt', 'v': '≈86% of GDP FY21/22 vs EMDE average 64.5% (IMF 2022)'}],
+        'viva': viva, 'cases': [case],
+    }

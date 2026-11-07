@@ -1,0 +1,294 @@
+"""CA Foundation · Paper 4 Business Economics · Chapter 3 Theory of Production and Cost · Unit 1 Theory of Production.
+Original explanations, examples and questions (ICAI structure and scope only). Every figure is computed below."""
+from lib import *
+from ca_viva import P, V, ALT
+
+UID = 'fnd-p4-ch03-u01'
+
+
+def Q(mid, q, opts, ans, ex, c, d='core', check=None):
+    x = {'id': mid, 'q': q, 'options': opts, 'answer': ans, 'explain': ex, 'concept': c, 'difficulty': d}
+    if check: x['check'] = check
+    return x
+
+
+def build():
+    # ---------- i1 TP, AP, MP and stages ----------
+    c1 = Checks()
+    L = list(range(1, 10))
+    TP = [60, 150, 270, 380, 460, 510, 530, 530, 510]
+    AP = [c1.add(f'round({t}/{l},2)', f'AP at L = {l}') for l, t in zip(L, TP)]
+    MP = [c1.add(f'{TP[0]}-0', 'MP of 1st worker')] + [c1.add(f'{TP[i]}-{TP[i-1]}', f'MP of worker {i+1}') for i in range(1, len(TP))]
+    def stage(i):
+        if AP[i] < max(AP[:i + 1]) and MP[i] < 0: return 'III — negative returns'
+        if MP[i] < 0: return 'III — negative returns'
+        if MP[i] >= AP[i]: return 'I — increasing returns (AP rising)'
+        return 'II — diminishing returns'
+    rows1 = [[l, t, a, m, stage(i)] for i, (l, t, a, m) in enumerate(zip(L, TP, AP, MP))]
+
+    # ---------- i2 Cobb-Douglas and returns to scale ----------
+    c2 = Checks()
+    rts = [('Q = 5 L^0.6 K^0.4', 0.6, 0.4), ('Q = 2 L^0.7 K^0.5', 0.7, 0.5), ('Q = 10 L^0.3 K^0.5', 0.3, 0.5)]
+    rts_rows = []
+    for f_, a, b in rts:
+        s_ = c2.add(f'{a}+{b}', f'sum of exponents for {f_}')
+        fac = c2.add(f'round(2**{s_},2)', f'output multiple when inputs double, {f_}')
+        rts_rows.append([f_, s_, fac, 'Constant' if s_ == 1 else 'Increasing' if s_ > 1 else 'Decreasing'])
+
+    # ---------- i3 isoquant, MRTS ----------
+    c3 = Checks()
+    iso = [('A', 1, 15), ('B', 2, 10), ('C', 3, 6), ('D', 4, 3), ('E', 5, 1)]
+    mrts = [None] + [c3.add(f'{iso[i-1][2]}-{iso[i][2]}', f'MRTS {iso[i-1][0]}→{iso[i][0]}') for i in range(1, len(iso))]
+
+    # ---------- i4 least-cost combination ----------
+    c4 = Checks()
+    w, r = 500, 200   # price of labour (X) and capital (Y) per unit
+    costs = [c4.add(f'{x}*{w}+{y}*{r}', f'cost of combination {n}') for n, x, y in iso]
+    best_i = costs.index(min(costs))
+    outlay = 3000
+    lx = c4.add('3000/500', 'max labour with outlay ₹3,000'); ky = c4.add('3000/200', 'max capital with outlay ₹3,000')
+
+    # ---------- questions ----------
+    cq1 = Checks()
+    q1_tp = [50, 120, 180, 220, 240, 240, 230]
+    q1_mp = [cq1.add('50-0', 'q1 MP1')] + [cq1.add(f'{q1_tp[i]}-{q1_tp[i-1]}', f'q1 MP{i+1}') for i in range(1, 7)]
+    q1_ap = [cq1.add(f'round({t}/{i+1},2)', f'q1 AP{i+1}') for i, t in enumerate(q1_tp)]
+    cq2 = Checks()
+    q2_s = cq2.add('0.75+0.25', 'q2 sum of exponents'); q2_s2 = cq2.add('0.8+0.4', 'q2 new sum')
+    q2_mult = cq2.add('round(2**1.2,2)', 'q2 output multiple on doubling')
+    cq3 = Checks()
+    q3_c = [cq3.add(f'{x}*400+{y}*800', f'q3 cost {n}') for n, x, y in [('P', 10, 2), ('Q', 6, 4), ('R', 4, 6), ('S', 2, 9)]]
+    q3_lmax = cq3.add('4800/400', 'q3 max labour'); q3_kmax = cq3.add('4800/800', 'q3 max capital')
+
+    # ---------- case ----------
+    k = Checks()
+    k_tp = [40, 100, 150, 180, 195, 195, 185]
+    k_ap4 = k.add('180/4', 'case AP of 4 workers'); k_mp5 = k.add('195-180', 'case MP of 5th worker'); k_mp7 = k.add('185-195', 'case MP of 7th worker')
+    k_c1 = k.add('6*300+4*600', 'case cost of 6L + 4K'); k_c2 = k.add('3*300+6*600', 'case cost of 3L + 6K')
+
+    concepts = [
+        {'id': 'c1', 'title': 'Meaning of production',
+         'body': ['In everyday speech, production means making something material — growing wheat, making cement. In economics, production is wider: it is any activity that transforms inputs (men, materials, capital, time) into goods or services that satisfy human wants. A retailer delivering cloth, a doctor, a lawyer, a teacher and an actor all produce.',
+                  'Man cannot create matter; he can only create or add utility to what exists. So production is the creation or addition of utility, in four ways: utility of form (changing the shape — wood into furniture, iron ore into steel); utility of place (extracting minerals from the earth, or moving goods from where they are of little use to where they are more useful — apples from orchards to city markets); utility of time (storing grain till the next harvest, canning seasonal fruit); and personal or service utility (skills of doctors, teachers, organisers).',
+                  'Work done purely out of affection, unpaid voluntary help, and output made for one\'s own use are not counted as production in economics; the intention to exchange in the market is essential. A country\'s standard of living depends on how much and what variety it produces.'],
+         'analogy': 'A carpenter does not create wood; he turns a log into a chair. Production is adding usefulness, not creating matter.',
+         'work': 'Revenue recognition for services (audit, consulting, software support) treats these as "production" of value just like manufacturing — exactly the economist\'s wide view.'},
+        {'id': 'c2', 'title': 'Factors of production: land and labour',
+         'body': ['Factors of production are the inputs used to produce output: land, labour, capital and entrepreneur, earning rent, wages, interest and profit respectively.',
+                  'Land means all free gifts of nature — soil, water, minerals, forests, air, sunlight — not just the surface of the earth. Features: a free gift of nature (no human effort to create it); fixed in total supply; permanent and has indestructible powers; a passive factor (it produces only when labour works on it); immobile geographically; has multiple uses; and heterogeneous (no two plots are alike in fertility or location).',
+                  'Labour is any physical or mental effort undertaken, wholly or partly, for an income rather than only for the pleasure of the work. Work done out of love (a homemaker\'s housework) or for pleasure (singing for oneself) is not labour in economics; the same work done for payment (a paid cook, a paid singer) is. Features: it is human effort; perishable (a lost day cannot be stored); an active factor; inseparable from the labourer (the worker must be present, sells the service but keeps the capacity); heterogeneous in efficiency; not all labour is productive; weak bargaining power (no reserve price, cannot wait); mobile in principle though many obstacles exist; supply cannot be adjusted quickly; and the worker chooses between work and leisure, which gives the backward-bending supply curve of labour — beyond a desired income, a higher wage may reduce hours worked.'],
+         'analogy': 'Land is the stage, labour the actors, capital the props and lights, and the entrepreneur the producer who stages the show and risks the money.',
+         'work': 'Labour-intensive clients (garments, BPOs) face the "perishable labour" problem directly — idle time is a cost that CAs track through capacity-utilisation and idle-time variances.'},
+        {'id': 'c3', 'title': 'Capital and capital formation',
+         'body': ['Capital is that part of wealth which is used for further production of wealth — in short, man-made aids to further production: machines, tools, factories, dams, canals, transport equipment. Unlike land and labour (primary or original factors), capital is a produced factor. Capital is a stock; the income it yields is a flow. All capital is wealth, but wealth lying idle is not capital.',
+                  'Types: fixed capital (durable; renders services over many periods — machines, tools) vs circulating capital (used up in a single use — seeds, fuel, raw materials); real capital (physical goods) vs human capital (skills and abilities created by investment in education and training); tangible (perceivable — buildings) vs intangible (rights such as patents, copyrights, goodwill); individual capital (owned by persons) vs social capital (owned by society — roads, bridges).',
+                  'Capital formation (investment) is a sustained increase in a country\'s stock of real capital. It needs sacrifice of some present consumption. Three stages: (1) Saving — depends on the ability to save (higher incomes save more, as the propensity to consume falls) and the willingness to save (concern for the future, social set-up; government can encourage it through compulsory provident fund, insurance and tax deductions). (2) Mobilisation of savings — a widespread network of banks and financial institutions and suitable financial products to collect savings and channel them to investors, with state support. (3) Investment — an entrepreneurial class willing to bear risk converts real savings into real capital assets.'],
+         'analogy': 'Capital is a fishing net: you spend a day making it instead of fishing (saving), but afterwards you catch far more fish every day.',
+         'work': 'Capital-expenditure appraisal, depreciation policy and fixed-asset audits are all about capital in this economic sense; CAs also help mobilise savings through investment advisory and fund structuring.'},
+        {'id': 'c4', 'title': 'Entrepreneur and the objectives of an enterprise',
+         'body': ['The entrepreneur mobilises land, labour and capital, combines them in the right proportion, starts production and bears its risks. Functions: (1) initiating the enterprise and coordinating resources — spotting opportunities, conceiving projects, deciding scale, products and processes; (2) risk or uncertainty bearing — the ultimate responsibility for success or failure; insurable risks can be passed on, but uncertainty (unforeseeable changes) cannot, and profit is the reward for bearing it; (3) innovation — according to Schumpeter, the true function of the entrepreneur is to introduce innovations: new products, new methods, new markets, new sources of supply, or new organisation. Innovation profits last only until others imitate.',
+                  'Objectives of an enterprise: (1) Organic — survival first, then growth (R. L. Marris: managers aim at maximising the balanced growth rate of the firm). (2) Economic — profit maximisation, the classic assumption; economic profit counts implicit costs too; normal profit is the minimum needed to stay in business (part of cost), supernormal profit is above it. Alternatives: satisficing (H. A. Simon), sales-revenue maximisation (Baumol), managerial utility maximisation (Williamson), and multiple goals — production, inventory, sales and market share (Cyert and March); Berle and Means pointed out the separation of ownership and management. (3) Social — quality goods, no profiteering, employment, no pollution. (4) Human — fair deal to employees, skill development, participation, interesting jobs. (5) National — fair opportunity, production by national priorities, self-reliance, training apprentices. Objectives can conflict, so they must be balanced.',
+                  'Constraints on profit maximisation: lack of knowledge and information; government restrictions and immobility of factors; infrastructure bottlenecks; changing business conditions and sudden policy changes or natural calamities; inflation, interest-rate and exchange-rate movements; shortage of skilled workers.',
+                  'Problems of an enterprise: objectives (choosing and balancing them); location and size of plant; selecting and organising physical facilities; finance (amount, capital structure, timing); organisation structure; marketing (the 4 Ps — product, price, place, promotion); legal formalities; and industrial relations.'],
+         'analogy': 'The entrepreneur is the captain who decides where the ship sails and takes the blame if it sinks; the crew (labour), the ship (capital) and the sea (land) are useless without him.',
+         'work': 'CAs advise entrepreneurs on almost every enterprise problem listed — location incentives, financing structure, legal compliance and organisation design.'},
+        {'id': 'c5', 'title': 'Production function; short run and long run',
+         'body': ['A production function states the technological relationship between inputs and output: Q = f(a, b, c, …, n), where output is the dependent variable and inputs are independent variables. Samuelson describes it as the maximum output obtainable from given inputs in a given state of technology; equivalently, the minimum inputs needed for a given output.',
+                  'Assumptions: it relates to a specific period of time (a flow, not accumulated output); technology is given (an innovation changes the function); and the output from any input combination is the maximum possible (efficient use). For analysis, inputs are reduced to labour and capital: Q = f(L, K).',
+                  'Short run vs long run is not about calendar time but flexibility. In the short run at least one input (usually capital — plant and machinery) is fixed; output changes only by varying variable inputs (labour, raw material). This is studied by the law of variable proportions. In the long run all inputs are variable — the firm can build new plants; this is studied by returns to scale. Fixed factors stay unchanged as output changes within capacity; variable factors change with output.'],
+         'analogy': 'In the short run you can hire more cooks for your kitchen; in the long run you can build a bigger kitchen.',
+         'work': 'Capacity planning separates short-run decisions (overtime, extra shifts) from long-run ones (new plant) — the same split CAs use in budgeting and capex approval.'},
+        {'id': 'c6', 'title': 'Cobb-Douglas production function',
+         'body': ['Paul Douglas and C. W. Cobb studied American manufacturing and fitted the statistical production function Q = K·L^a·C^(1−a), where Q is output, L labour, C capital, and K and a positive constants. They concluded that labour contributed about three-fourths and capital about one-fourth of the increase in manufacturing output.',
+                  'In the original form the exponents add to a + (1 − a) = 1, i.e. constant returns to scale. Later they relaxed it to Q = K·L^a·C^b: if a + b > 1 — increasing returns to scale; a + b = 1 — constant returns; a + b < 1 — decreasing returns. Although it has shortcomings, it is widely used as an approximation.'],
+         'analogy': 'The exponents are like the "weights" of labour and capital in a recipe; their sum tells you whether doubling every ingredient gives more than, exactly, or less than double the dish.',
+         'work': 'Economists and industry analysts estimate Cobb-Douglas functions to judge whether expansion will bring scale advantages — an input into project feasibility reports.'},
+        {'id': 'c7', 'title': 'TP, AP, MP and the law of variable proportions',
+         'body': ['Total product (TP) is total output from all inputs; with other inputs fixed, it varies with the variable input. Average product (AP) = TP ÷ units of the variable factor. Marginal product (MP) = change in TP from one more unit of the variable factor: MPn = TPn − TPn−1.',
+                  'AP–MP relationship: when AP rises, MP > AP; when AP is maximum, MP = AP (MP cuts AP at its highest point); when AP falls, MP < AP. MP starts falling before AP does.',
+                  'Law of variable proportions (law of diminishing returns): in the short run, as more of a variable input is combined with fixed inputs, its marginal product eventually declines. Assumptions: technology unchanged; some inputs fixed (if all vary, returns to scale apply); factors can be combined in varying proportions (with fixed proportions, MP of the extra input would simply be zero); only physical quantities are considered.',
+                  'Stage I (increasing returns): TP rises first at an increasing rate (up to the point of inflexion, where MP is at its peak) and then at a diminishing rate; AP rises throughout; MP rises then falls but stays above AP. It ends where AP is maximum (AP = MP). Reasons: better use of an indivisible fixed factor, and division of labour and specialisation. Stage II (diminishing returns): TP rises at a diminishing rate to its maximum; AP and MP both fall but are positive; it ends where MP = 0 and TP is maximum. Reasons: the fixed factor becomes scarce relative to the variable factor; imperfect substitutability of factors. Stage III (negative returns): TP falls, MP is negative, AP keeps falling — too many workers get in each other\'s way.',
+                  'Stage of operation: a rational producer never operates in Stage III (cutting the variable input would raise output) or Stage I (the fixed factor is under-used and AP is still rising). Stages I and III are zones of economic absurdity. Production takes place in Stage II; the exact point depends on factor prices — where the marginal revenue product of labour equals the wage.'],
+         'analogy': 'One kitchen, more cooks: the first few speed things up (Stage I), then each extra cook helps less (Stage II), and finally they bump into each other and spoil the food (Stage III).',
+         'work': 'When a plant adds a third shift or more workers on the same line, cost accountants watch for the diminishing-returns point — labour productivity (AP) and incremental output (MP) per extra worker are standard KPIs.'},
+        {'id': 'c8', 'title': 'Returns to scale',
+         'body': ['Returns to scale describe how output responds when all inputs are changed in the same proportion — a long-run concept. (Changing one input with others fixed is the law of variable proportions — a short-run concept.) Returns to scale depend purely on technology, not on market conditions.',
+                  'Increasing returns to scale: output rises more than proportionately (inputs doubled, output more than doubled). Reasons: indivisibility of lumpy factors, specialisation of labour and machinery, and dimensional relationships — a cube-shaped box 3 ft on each side uses 9 times the material of a 1-ft box but holds 27 times as much.',
+                  'Constant returns to scale: output rises in the same proportion — a linear homogeneous production function: f(kL, kK) = k·f(L, K). Firms often pass through a long phase of constant returns.',
+                  'Decreasing returns to scale: output rises less than proportionately — mainly because management, coordination and control become harder as the firm grows very large.',
+                  'Increasing returns to scale (long run, all inputs vary) are not the same as increasing marginal returns (short run, one input varies).'],
+         'analogy': 'Scale up a pizza recipe: doubling everything may give more than double the slices (less waste), exactly double, or less (the oven gets crowded).',
+         'work': 'Feasibility studies for capacity expansion examine whether doubling plant size will more than double output — the basis for "economies of scale" claims in project reports that CAs scrutinise.'},
+        {'id': 'c9', 'title': 'Production optimisation: isoquants, isocost lines, least-cost combination',
+         'body': ['An isoquant (equal-product curve, iso-product curve, production indifference curve) shows all combinations of two inputs that produce the same output. Like indifference curves, isoquants slope downward, are convex to the origin and do not intersect; a higher isoquant means more output. Unlike indifference curves, isoquants carry measurable output numbers (100 units, 200 units).',
+                  'The marginal rate of technical substitution (MRTS) of X for Y is the amount of Y that can be given up for one more unit of X while keeping output unchanged; it is the slope of the isoquant. MRTS diminishes as X replaces Y, which makes isoquants convex.',
+                  'An isocost (equal-cost) line shows all combinations of two inputs the firm can buy with a given outlay at given input prices: w·L + r·K = C. Intercepts: C/w on the labour axis and C/r on the capital axis; a larger outlay gives a parallel line further out.',
+                  'Least-cost combination (producer\'s equilibrium): for a given output, the firm chooses the point where the isoquant is tangent to the lowest isocost line. At that point the slope of the isoquant equals the slope of the isocost line: MRTS(L for K) = w/r (price of labour ÷ price of capital). The same tangency also shows maximum output for a given outlay.'],
+         'analogy': 'Isoquants are recipes that give the same cake with different mixes of eggs and flour; the isocost line is your shopping budget. You pick the recipe your budget just touches.',
+         'work': 'Make-or-buy and automation decisions are least-cost-combination problems: CAs compute the cost of each feasible input mix for a target output and pick the cheapest.'},
+    ]
+
+    illustrations = [
+        {'id': 'i1', 'title': 'TP, AP, MP and the three stages', 'difficulty': 'moderate', 'minutes': 10,
+         'q': 'A workshop with a fixed number of machines employs more workers. Compute AP and MP and mark the stages of the law of variable proportions.',
+         'given': [table(['Workers (L)', 'TP (units)'], [[l, t] for l, t in zip(L, TP)])],
+         'solution': [table(['L', 'TP', 'AP = TP/L', 'MP = TPn − TPn−1', 'Stage'], rows1, title='Product schedule'),
+                      p(f'MP is highest ({max(MP)}) for the 3rd worker (point of inflexion). AP is highest ({max(AP)}) at L = 4; MP is still above AP there ({MP[3]}), and with the 5th worker MP ({MP[4]}) drops below AP ({AP[4]}) — so Stage I ends at the AP peak, between the 4th and 5th worker. Stage II runs from L = 5 to L = 8: AP and MP fall, MP stays ≥ 0; TP reaches its maximum ({max(TP)}) at L = 7–8 and MP of the 8th worker is 0. Stage III begins with the 9th worker (MP = {MP[-1]}, TP falls).'),
+                      note('A rational firm employs between 5 and 8 workers (Stage II); exactly how many depends on the wage and the price of output.')],
+         'checks': c1},
+        {'id': 'i2', 'title': 'Returns to scale from Cobb-Douglas functions', 'difficulty': 'moderate', 'minutes': 6,
+         'q': 'For each production function, find the sum of exponents, the output multiple when both inputs are doubled, and the type of returns to scale.',
+         'solution': [table(['Function', 'a + b', 'Output multiple when L and K double (2^(a+b))', 'Returns to scale'], rts_rows, title='Returns to scale'),
+                      p('Doubling both inputs multiplies output by 2^(a+b): exactly 2 when a + b = 1, more than 2 when a + b > 1, less than 2 when a + b < 1. The constant in front (5, 2, 10) does not affect returns to scale.')],
+         'checks': c2},
+        {'id': 'i3', 'title': 'Isoquant and diminishing MRTS', 'difficulty': 'core', 'minutes': 5,
+         'q': 'The combinations of labour (X) and capital (Y) below all produce 500 units. Compute MRTS of X for Y.',
+         'given': [table(['Combination', 'Labour (X)', 'Capital (Y)'], [[n, x, y] for n, x, y in iso])],
+         'solution': [table(['Combination', 'X', 'Y', 'MRTS (Y given up per extra X)'], [[n, x, y, '—' if i == 0 else mrts[i]] for i, (n, x, y) in enumerate(iso)], title='MRTS'),
+                      p(f'MRTS falls from {mrts[1]} to {mrts[-1]}: as labour replaces capital, each extra worker can replace less capital. Diminishing MRTS makes the isoquant convex to the origin.')],
+         'checks': c3},
+        {'id': 'i4', 'title': 'Least-cost combination for a given output', 'difficulty': 'moderate', 'minutes': 7,
+         'q': f'Using the combinations in Illustration 3 (all giving 500 units), labour costs ₹{w} a unit and capital ₹{r} a unit. (a) Find the least-cost combination. (b) Draw the isocost line for an outlay of ₹{inr(outlay)} — find its intercepts. (c) Check the tangency condition.',
+         'solution': [table(['Combination', 'Labour', 'Capital', f'Cost = {w}L + {r}K (₹)'], [[n, x, y, c_] for (n, x, y), c_ in zip(iso, costs)], title='Cost of each combination'),
+                      p(f'(a) Combination {iso[best_i][0]} ({iso[best_i][1]} L + {iso[best_i][2]} K) costs the least: {R(costs[best_i])}.'),
+                      p(f'(b) Isocost for ₹3,000: labour intercept = 3,000 ÷ 500 = {lx}; capital intercept = 3,000 ÷ 200 = {ky}. Its slope (absolute) = w/r = 500/200 = 2.5.'),
+                      p(f'(c) Moving C → D, MRTS = {mrts[3]} > w/r = 2.5: one extra worker (₹500) replaces 3 units of capital (₹600), so cost falls. Moving D → E, MRTS = {mrts[4]} < 2.5: one extra worker (₹500) replaces only 2 units of capital (₹400), so cost rises. The least-cost point D is where MRTS passes through w/r — the discrete version of the tangency condition MRTS = w/r.')],
+         'checks': c4},
+    ]
+
+    jobs = [
+        {'id': 'j1', 'title': 'Adding workers to a packing line', 'role': 'CA in industry — plant cost accountant',
+         'situation': 'The production head wants to add two more packers to a line that already has eight. Output per hour rose by 60 units with the 8th packer.',
+         'steps': ['Measure the MP of recent additions: 9th and 10th packers are expected to add 30 and 10 units.', 'Compare MP × contribution per unit with the hourly wage of a packer.', 'If MP becomes zero or negative (crowding), stop — that is Stage III.', 'Suggest a second line (changing the fixed factor) if demand keeps rising — a long-run decision.'],
+         'takeaway': 'Hire up to the point where the value of the extra output covers the extra wage, within Stage II.',
+         'think': 'If each unit gives ₹4 contribution and a packer costs ₹150 an hour, is the 10th packer worth hiring?', 'answer': 'MP 10 × ₹4 = ₹40 < ₹150, so no.',
+         'checks': [{'expr': '10*4', 'value': 40, 'label': 'value of MP of 10th packer'}]},
+        {'id': 'j2', 'title': 'Robot or workers?', 'role': 'CA advising an auto-components SME',
+         'situation': 'For a target output of 10,000 parts a month the client can use 20 workers + 1 robot or 8 workers + 3 robots.',
+         'steps': ['Treat each option as a point on the same isoquant.', 'Cost each option at current wage and robot lease rates (isocost).', 'Choose the cheaper; test sensitivity to wage increases.', 'Consider indivisibility — a robot cannot be half-leased.'],
+         'takeaway': 'The least-cost input mix depends on relative input prices, and changes when they change.'},
+        {'id': 'j3', 'title': 'Will the new, bigger plant be more efficient?', 'role': 'Articled assistant on a project-finance assignment',
+         'situation': 'A promoter claims that doubling plant size will "more than double" output.',
+         'steps': ['Ask for engineering data on output from the bigger plant with doubled inputs.', 'Estimate the returns to scale (sum of exponents if a Cobb-Douglas estimate exists).', 'Challenge the claim if managerial and coordination problems could lead to decreasing returns.'],
+         'takeaway': 'Claims of increasing returns to scale must be backed by data; very large plants may face decreasing returns.'},
+    ]
+
+    mcqs = [
+        Q('m1', 'Production in economics means:', ['Creation or addition of utility', 'Creation of matter', 'Only manufacturing of goods', 'Only agriculture'], 0, 'Man cannot create matter; he adds utility.', 'c1'),
+        Q('m2', 'Storing food grains for use in the lean season creates:', ['Time utility', 'Form utility', 'Place utility', 'Service utility'], 0, 'Making goods available when needed.', 'c1'),
+        Q('m3', 'Transporting apples from orchards to city markets creates:', ['Place utility', 'Time utility', 'Form utility', 'No utility'], 0, 'Moving goods to where they are more useful.', 'c1'),
+        Q('m4', 'Which of the following is NOT production in economics?', ['A mother cooking for her family', 'A chef cooking in a restaurant', 'A teacher teaching for salary', 'A transporter moving goods'], 0, 'Work done out of love and for self-use is excluded.', 'c1'),
+        Q('m5', 'Which is NOT a characteristic of land?', ['It is perfectly mobile geographically', 'It is a free gift of nature', 'Its supply is fixed', 'It is a passive factor'], 0, 'Land is geographically immobile.', 'c2'),
+        Q('m6', 'Labour is called perishable because:', ['A day\'s labour lost cannot be stored or recovered', 'Workers fall ill', 'Wages are low', 'It is mobile'], 0, 'Unused labour time is lost forever.', 'c2'),
+        Q('m7', 'The backward-bending supply curve of labour arises because:', ['Beyond a desired income, workers prefer more leisure as wages rise', 'Workers are immobile', 'Labour is perishable', 'Employers cut wages'], 0, 'Income vs leisure choice.', 'c2', 'moderate'),
+        Q('m8', 'Capital is defined as:', ['Produced means of production', 'A free gift of nature', 'Human effort', 'All wealth'], 0, 'Man-made instruments used for further production.', 'c3'),
+        Q('m9', 'Seeds, fuel and raw materials are examples of:', ['Circulating capital', 'Fixed capital', 'Social capital', 'Human capital'], 0, 'Used up in a single use.', 'c3'),
+        Q('m10', 'Roads and bridges owned by society are:', ['Social capital', 'Individual capital', 'Circulating capital', 'Intangible capital'], 0, 'Belong to society as a whole.', 'c3'),
+        Q('m11', 'The correct order of the stages of capital formation is:', ['Saving → mobilisation of savings → investment', 'Investment → saving → mobilisation', 'Mobilisation → investment → saving', 'Saving → investment → mobilisation'], 0, 'Savings must be collected and then invested.', 'c3'),
+        Q('m12', 'Schumpeter regarded the most essential role of the entrepreneur as:', ['Innovation', 'Risk insurance', 'Routine management', 'Supplying capital'], 0, 'Introducing new products, methods, markets, etc.', 'c4'),
+        Q('m13', 'Sales revenue maximisation as the goal of firms was proposed by:', ['Baumol', 'Marris', 'H. A. Simon', 'Schumpeter'], 0, 'Marris — growth; Simon — satisficing.', 'c4', 'moderate'),
+        Q('m14', 'The hypothesis that managers maximise the balanced growth rate of the firm is associated with:', ['R. L. Marris', 'W. J. Baumol', 'O. Williamson', 'Cyert and March'], 0, 'Organic objective of growth.', 'c4', 'moderate'),
+        Q('m15', 'Normal profit is:', ['The minimum profit needed to keep the entrepreneur in business; part of cost', 'Profit above all costs', 'Accounting profit', 'Always zero accounting profit'], 0, 'Economic profit is zero when only normal profit is earned.', 'c4'),
+        Q('m16', 'A short-run production function is one in which:', ['At least one input is fixed', 'All inputs are variable', 'Technology changes', 'Output is fixed'], 0, 'Short run is defined by input flexibility, not calendar time.', 'c5'),
+        Q('m17', 'In the original Cobb-Douglas study, labour contributed about ____ of the increase in output.', ['Three-fourths', 'One-fourth', 'One-half', 'All'], 0, 'Labour ¾, capital ¼.', 'c6'),
+        Q('m18', 'For Q = 2 L^0.7 K^0.5, returns to scale are:', ['Increasing', 'Constant', 'Decreasing', 'Negative'], 0, '0.7 + 0.5 = 1.2 > 1.', 'c6', 'moderate'),
+        Q('m19', 'For Q = 10 L^0.3 K^0.5, if both inputs are doubled, output becomes approximately:', [str(rts_rows[2][2]) + ' times', '2 times', '1.6 times', '4 times'], 0, '2^0.8 ≈ 1.74 — less than double (decreasing returns). 1.6 multiplies 2 by 0.8.', 'c6', 'hard', 'round(2**0.8,2)'),
+        Q('m20', 'TP with 3 and 4 workers is 300 and 400 units. MP of the 4th worker is:', ['100', '400', '133.33', '75'], 0, 'MP = TP4 − TP3 = 400 − 300 = 100. 133.33 wrongly divides TP of 4 workers by 3; 400 is TP, not MP; 75 is meaningless here.', 'c7', 'core', '400-300'),
+        Q('m21', 'TP of 5 workers is 470 units. AP is:', ['94', '470', '70', '5'], 0, '470 ÷ 5 = 94.', 'c7', 'core', '470/5'),
+        Q('m22', 'When AP is maximum:', ['MP = AP', 'MP = 0', 'MP is maximum', 'TP is maximum'], 0, 'MP cuts AP at its highest point.', 'c7'),
+        Q('m23', 'When TP is maximum, MP is:', ['Zero', 'Maximum', 'Equal to AP', 'Negative'], 0, 'End of Stage II.', 'c7'),
+        Q('m24', 'A rational producer operates in:', ['Stage II', 'Stage I', 'Stage III', 'Stages I and III'], 0, 'Stages I and III are zones of economic absurdity.', 'c7'),
+        Q('m25', 'In Stage I of the law of variable proportions:', ['AP rises throughout and MP stays above AP', 'MP is negative', 'TP falls', 'AP and MP both fall'], 0, 'Stage I ends where AP is maximum.', 'c7', 'moderate'),
+        Q('m26', 'The main reason for increasing returns in Stage I is:', ['Better use of an indivisible fixed factor and specialisation', 'Shortage of the fixed factor', 'Negative MP', 'Rising factor prices'], 0, 'Fixed factor is under-used at first.', 'c7', 'moderate'),
+        Q('m27', 'If all inputs are increased by 50% and output increases by 50%, returns to scale are:', ['Constant', 'Increasing', 'Decreasing', 'Diminishing marginal'], 0, 'Same proportion → constant (linear homogeneous).', 'c8'),
+        Q('m28', 'Decreasing returns to scale are mainly due to:', ['Difficulties of management, coordination and control', 'Indivisibility of factors', 'Specialisation', 'Dimensional advantages'], 0, 'Very large firms are harder to manage.', 'c8'),
+        Q('m29', 'An isoquant shows combinations of inputs that:', ['Produce the same level of output', 'Cost the same', 'Give the same satisfaction', 'Earn the same profit'], 0, 'Equal-product curve.', 'c9'),
+        Q('m30', 'With an outlay of ₹3,000 and price of labour ₹200, the labour-axis intercept of the isocost line is:', ['15', '6', '600', '0.07'], 0, '3,000 ÷ 200 = 15. 6 is the capital intercept at ₹500.', 'c9', 'core', '3000/200'),
+        Q('m31', 'The least-cost combination of inputs is where:', ['MRTS(L for K) = w/r — the isoquant is tangent to the isocost line', 'MRTS = 0', 'Isoquants intersect', 'Isocost line cuts the isoquant twice'], 0, 'Slopes are equal at tangency.', 'c9'),
+        Q('m32', 'Isoquants differ from indifference curves mainly because:', ['Output on an isoquant can be measured in units', 'Isoquants slope upward', 'Isoquants can intersect', 'Isoquants are concave'], 0, 'Satisfaction is ordinal; output is cardinal.', 'c9', 'moderate'),
+    ]
+
+    questions = [
+        {'id': 'q1', 'marks': 6, 'minutes': minutes(6), 'difficulty': 'moderate', 'pad': 'table',
+         'q': 'TP for 1 to 7 workers (fixed plant) is 50, 120, 180, 220, 240, 240 and 230 units. (a) Compute AP and MP. (b) Mark the three stages. (c) In which range will a rational producer operate? Show steps.',
+         'model': [table(['L', 'TP', 'AP', 'MP'], [[i + 1, t, a, m_] for i, (t, a, m_) in enumerate(zip(q1_tp, q1_ap, q1_mp))]),
+                   p('(b) Stage I: L = 1 to 3 — AP rises (50 → 60), MP above AP (70, 60). AP is maximum at L = 3 (60) where MP = AP = 60. Stage II: L = 4 to 6 — AP and MP fall, MP ≥ 0; TP maximum (240) at L = 5–6 where MP = 0. Stage III: L = 7 — MP = −10, TP falls.'),
+                   p('(c) A rational producer operates in Stage II (4 to 6 workers); the exact point depends on the wage and output price.')],
+         'scheme': [{'id': 's1', 'pt': 'AP column', 'm': 1.5, 'skill': 'computation'}, {'id': 's2', 'pt': 'MP column', 'm': 1.5, 'skill': 'computation'}, {'id': 's3', 'pt': 'Stages correctly marked with reasons', 'm': 2, 'skill': 'analysis'}, {'id': 's4', 'pt': 'Stage of operation', 'm': 1, 'skill': 'conclusion'}],
+         'remarks': ['Stage I ends at maximum AP, not at maximum MP — a frequent error.'], 'mistakes': ['Ending Stage I where MP peaks.', 'Putting the zero-MP point in Stage III.'], 'tips': ['Mark AP max and MP = 0 points first; the stages follow.'], 'checks': cq1},
+        {'id': 'q2', 'marks': 4, 'minutes': minutes(4), 'difficulty': 'moderate', 'pad': 'text',
+         'q': 'A firm\'s production function is Q = 20 L^0.75 K^0.25. (a) What returns to scale does it show? (b) After a technology change, it becomes Q = 20 L^0.8 K^0.4. What returns to scale now, and by about how much does output rise if both inputs are doubled?',
+         'model': [p(f'(a) a + b = 0.75 + 0.25 = {q2_s} → constant returns to scale (linear homogeneous): doubling inputs doubles output.'),
+                   p(f'(b) a + b = 0.8 + 0.4 = {q2_s2} > 1 → increasing returns to scale. Doubling both inputs multiplies output by 2^1.2 ≈ {q2_mult}, i.e. output rises by about {round((q2_mult - 1) * 100)}%.')],
+         'scheme': [{'id': 's1', 'pt': 'Sum of exponents and constant RTS', 'm': 1.5, 'skill': 'computation'}, {'id': 's2', 'pt': 'New sum and increasing RTS', 'm': 1, 'skill': 'computation'}, {'id': 's3', 'pt': 'Output multiple 2^1.2', 'm': 1.5, 'skill': 'computation'}],
+         'remarks': ['The constant (20) does not affect returns to scale.'], 'mistakes': ['Multiplying 2 × 1.2 = 2.4 instead of 2^1.2.'], 'tips': ['Output multiple on scaling by k = k^(a+b).'], 'checks': cq2},
+        {'id': 'q3', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'moderate', 'pad': 'table',
+         'q': 'Four input combinations (L, K) all produce 1,000 units: P (10, 2), Q (6, 4), R (4, 6), S (2, 9). Labour costs ₹400 and capital ₹800 per unit. (a) Which combination will a cost-minimising firm choose? (b) Find the intercepts of the isocost line for an outlay of ₹4,800. (c) State the condition of producer\'s equilibrium.',
+         'model': [table(['Combination', 'L', 'K', 'Cost (₹)'], [['P', 10, 2, q3_c[0]], ['Q', 6, 4, q3_c[1]], ['R', 4, 6, q3_c[2]], ['S', 2, 9, q3_c[3]]]),
+                   p(f'(a) P and Q both cost {R(q3_c[0])}, the minimum; either is a least-cost choice (the isocost line through them touches the isoquant along that stretch).'),
+                   p(f'(b) Labour intercept = 4,800 ÷ 400 = {q3_lmax}; capital intercept = 4,800 ÷ 800 = {q3_kmax}.'),
+                   p('(c) Equilibrium is where the isoquant is tangent to the lowest isocost line: MRTS(L for K) = w/r = 400/800 = 0.5, with the isoquant convex to the origin.')],
+         'scheme': [{'id': 's1', 'pt': 'Costs of the four combinations', 'm': 2, 'skill': 'computation'}, {'id': 's2', 'pt': 'Least-cost choice', 'm': 1, 'skill': 'analysis'}, {'id': 's3', 'pt': 'Isocost intercepts', 'm': 1, 'skill': 'computation'}, {'id': 's4', 'pt': 'Equilibrium condition MRTS = w/r', 'm': 1, 'skill': 'concept'}],
+         'remarks': ['Ties are possible with discrete data — say so.'], 'mistakes': ['Choosing the combination with fewest workers without costing it.'], 'tips': ['Cost every option in one table before choosing.'], 'checks': cq3},
+    ]
+
+    viva = [
+        V('v1', 'State the law of variable proportions.',
+          'The law of variable proportions says that in the short run, when more and more units of a variable input are combined with fixed inputs, with technology unchanged, the marginal product of the variable input eventually diminishes. Output first rises at an increasing rate, then at a diminishing rate, and finally falls.',
+          [P('p1', 'Short run: variable input added to fixed inputs', 3, 'fixed', 'variable|one input|one factor', min=2),
+           P('p2', 'Marginal product eventually diminishes', 5, ALT('{m} {x} {d}', '{m} {d}', m=['marginal product', 'mp', 'marginal physical product', 'extra output', 'additional output', 'marginal return'], x=['eventually', 'ultimately', 'finally', 'after a point', 'will', 'must', 'starts', 'begins'], d=['diminish', 'fall', 'decline', 'decreas', 'go down', 'goes down', 'reduce'])),
+           P('p3', 'Technology given / three phases', 2, 'technology|increasing rate|three stage|three phase|stage|negative', min=1)], 'c7'),
+        V('v2', 'Why does a rational producer operate only in the second stage?',
+          'A rational producer avoids Stage III because the marginal product is negative there; reducing the variable input would actually raise output. He also avoids Stage I because average product is still rising and the fixed factor is under-used, so adding more of the variable factor pays. So he produces in Stage II, where both average and marginal product are falling but positive.',
+          [P('p1', 'Not Stage III: MP negative / TP falls', 4, ALT('{s} {x} negative', '{s} {x} total product fall', '{s} {x} tp fall', 'negative {y} {s}', s=['stage 3', 'third stage', 'stage iii', 'last stage'], x=['', 'mp', 'marginal product', 'because', 'is', 'where'], y=['', 'in', 'marginal product in', 'mp in'])),
+           P('p2', 'Not Stage I: AP rising, fixed factor under-used', 4, ALT('{s} {x} {r}', s=['stage 1', 'first stage', 'stage i'], x=['', 'ap', 'average product', 'because', 'is', 'where', 'fixed factor'], r=['rising', 'increas', 'under used', 'underused', 'under utilis', 'not fully used', 'not fully utilis', 'idle', 'still rise'])),
+           P('p3', 'Stage II: AP and MP falling but positive', 2, 'positive|both fall|both diminish|both declin|diminishing returns|falling but')], 'c7'),
+        V('v3', 'Distinguish between the law of variable proportions and returns to scale.',
+          'The law of variable proportions is a short-run law: one input is varied while others are fixed, so factor proportions change. Returns to scale is a long-run concept: all inputs are changed in the same proportion, so the scale of production changes and factor proportions stay the same.',
+          [P('p1', 'Variable proportions: short run, one input varied, others fixed', 5, ALT('{v} {x} short', v=['variable proportion', 'diminishing return', 'law of variable'], x=['', 'is', 'law', 'is a', 'applies', 'operates', 'relates', 'in the']) , 'fixed|one input|one factor|some factor', min=2),
+           P('p2', 'Returns to scale: long run, all inputs in same proportion', 5, ALT('{s} {x} long', s=['returns to scale', 'return to scale', 'scale'], x=['', 'is', 'is a', 'applies', 'operates', 'relates', 'in the', 'concept']) , 'all input|all factor|same proportion|every input|every factor|all variable|all are varied|all the input|all the factor', min=2)], 'c8'),
+        V('v4', 'What is an isoquant? State its properties.',
+          'An isoquant is a curve showing all combinations of two inputs that produce the same level of output. Isoquants slope downward, are convex to the origin because of diminishing marginal rate of technical substitution, do not intersect, and a higher isoquant shows a higher output.',
+          [P('p1', 'Combinations of two inputs giving the same output', 5, 'same output|same level of output|equal output|same quantity|same production|equal product|same product|constant output|given output'),
+           P('p2', 'Downward sloping, convex (diminishing MRTS)', 3, 'downward|negative slope|convex', 'convex|mrts|marginal rate of technical substitution', min=1),
+           P('p3', 'Do not intersect / higher isoquant = higher output', 2, 'not intersect|never intersect|cannot intersect|do not cut|never cross|higher isoquant|higher output|more output', min=1)], 'c9'),
+        V('v5', 'What are the functions of an entrepreneur?',
+          'An entrepreneur initiates the business and coordinates land, labour and capital; he bears the risk and uncertainty of the business, for which profit is the reward; and, according to Schumpeter, his key function is innovation — new products, methods or markets.',
+          [P('p1', 'Initiating and coordinating / organising factors', 3, 'initiat|start|coordinat|organis|combin|mobilis|bring together', min=1),
+           P('p2', 'Bearing risk and uncertainty', 4, 'risk|uncertain'),
+           P('p3', 'Innovation (Schumpeter)', 3, 'innovat|new product|new method|schumpeter', min=1)], 'c4'),
+        V('v6', 'What are the stages of capital formation?',
+          'Capital formation has three stages: first, saving, which depends on the ability and willingness to save; second, mobilisation of savings through banks and financial institutions; and third, investment, where entrepreneurs convert real savings into real capital assets.',
+          [P('p1', 'Saving (ability and willingness)', 3, 'saving|save'), P('p2', 'Mobilisation of savings (banks, financial institutions)', 4, 'mobilis|bank|financial institution|channel|collect'),
+           P('p3', 'Investment in real capital', 3, 'invest')], 'c3'),
+    ]
+
+    cases = [{'id': 'k1', 'title': 'Sunrise Bakery adds bakers', 'difficulty': 'moderate',
+              'case': ('Sunrise Bakery has two ovens (fixed in the short run). Daily output of loaves with 1 to 7 bakers is 40, 100, 150, 180, 195, 195 and 185. A baker is paid ₹300 a day. '
+                       'For a new outlet producing the same output, the owner can choose 6 bakers + 4 small ovens or 3 bakers + 6 small ovens; an oven costs ₹600 a day.'),
+              'mcqs': [
+                  Q('k1a', 'Average product with 4 bakers is:', [str(k_ap4), '180', '30', '60'], 0, '180 ÷ 4 = 45. 30 is the MP of the 4th baker.', 'c7', 'core', '180/4'),
+                  Q('k1b', 'Marginal product of the 5th baker is:', [str(k_mp5), '195', '39', '30'], 0, '195 − 180 = 15. 39 is AP of 5 bakers.', 'c7', 'core', '195-180'),
+                  Q('k1c', 'The 7th baker puts the bakery in:', ['Stage III — MP is negative (−10)', 'Stage I — increasing returns', 'Stage II — diminishing but positive MP', 'Constant returns to scale'], 0, f'MP of the 7th = 185 − 195 = {k_mp7}; TP falls.', 'c7', 'moderate'),
+                  Q('k1d', 'For the new outlet, the cheaper combination costs:', [R(k_c1), R(k_c2), R(2400), R(1800)], 0, f'6 × 300 + 4 × 600 = {R(k_c1)} vs 3 × 300 + 6 × 600 = {R(k_c2)}; the first is cheaper.', 'c9', 'moderate', '6*300+4*600'),
+                  Q('k1e', 'Choosing between two input mixes for the same output is an application of:', ['Isoquant–isocost (least-cost combination) analysis', 'Law of demand', 'Consumer surplus', 'Returns to scale only'], 0, 'Both mixes lie on the same isoquant; cost decides.', 'c9', 'core'),
+              ]}]
+
+    return {
+        'schema': 'ca-unit/1', 'id': UID, 'level': 'foundation', 'paper': 'p4', 'chapter': 'fnd-p4-ch03', 'n': 1, 'title': 'Theory of Production',
+        'outcomes': ['Explain the meaning of production as creation of utility.', 'Describe the four factors of production, capital formation, and the entrepreneur\'s functions, objectives, constraints and problems.',
+                     'Explain the production function (short and long run) and the Cobb-Douglas function.', 'Compute TP, AP and MP, identify the stages of the law of variable proportions, and classify returns to scale.',
+                     'Use isoquants and isocost lines to find the least-cost combination of inputs.'],
+        'meta': {'difficulty': 'moderate', 'minutes': {'learn': 70, 'practice': 60}, 'prereq': ['fnd-p4-ch02-u02'],
+                 'exam_tip': 'Expect a TP/AP/MP computation, the stage boundaries (AP max, MP = 0), a Cobb-Douglas returns-to-scale question and theory MCQs on factors and enterprise objectives (Baumol, Marris, Simon, Schumpeter).'},
+        'concepts': concepts, 'illustrations': illustrations, 'jobs': jobs, 'mcqs': mcqs, 'questions': questions,
+        'revision': {'summary': ['Production = creation of utility (form, place, time, personal); needs intention to exchange.', 'Land: free gift, fixed, permanent, passive, immobile, multiple uses, heterogeneous. Labour: perishable, active, inseparable, heterogeneous, weak bargaining, backward-bending supply.',
+                                 'Capital: produced means of production; fixed/circulating, real/human, tangible/intangible, individual/social. Capital formation: saving → mobilisation → investment.', 'Entrepreneur: initiates and coordinates, bears risk/uncertainty, innovates (Schumpeter). Objectives: organic, economic, social, human, national.',
+                                 'Q = f(L, K); short run — some input fixed (variable proportions); long run — all inputs variable (returns to scale).', 'Stages: I ends at AP max (AP = MP); II ends at TP max (MP = 0); III MP < 0. Operate in II.',
+                                 'Cobb-Douglas Q = K L^a C^b: a + b >, =, < 1 → increasing, constant, decreasing RTS.', 'Least cost: isoquant tangent to isocost; MRTS = w/r.'],
+                     'remember': ['Marris — growth; Baumol — sales; Simon — satisficing; Williamson — managerial utility; Cyert & March — multiple goals; Berle & Means — separation of ownership and control.', 'Original Cobb-Douglas: labour ¾, capital ¼; constant RTS.'],
+                     'traps': ['Stage I ends where AP is maximum, not where MP is maximum.', 'Increasing returns to scale ≠ increasing marginal returns.', 'Housework and self-consumed output are not production.']},
+        'quickref': [{'k': 'AP', 'v': 'TP ÷ L'}, {'k': 'MP', 'v': 'TPn − TPn−1'}, {'k': 'Cobb-Douglas', 'v': 'Q = K L^a C^b; scale-k output multiple = k^(a+b)'}, {'k': 'Isocost', 'v': 'wL + rK = C; intercepts C/w, C/r'},
+                     {'k': 'Producer equilibrium', 'v': 'MRTS(L for K) = w/r'}, {'k': 'Stage boundaries', 'v': 'AP max (AP = MP); TP max (MP = 0)'}],
+        'viva': viva, 'cases': cases,
+    }

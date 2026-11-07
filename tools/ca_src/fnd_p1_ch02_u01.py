@@ -6,6 +6,22 @@ from shared import kavya_entries
 UID = 'fnd-p1-ch02-u01'
 
 
+import copy
+from ca_viva import VIVA, P, ALT, COME, GO
+
+
+def viva():
+    """Viva from ca_viva.py with key points re-tuned in the second review for the negation-aware,
+    clause-bound matcher (swapped-term answers must score < 80%; natural paraphrases >= 80%)."""
+    v = copy.deepcopy(VIVA[UID]); q = {x['id']: x for x in v}
+
+    def put(vid, pt): q[vid]['points'] = [pt if p['id'] == pt['id'] else p for p in q[vid]['points']]
+    put('v2', P('p1', 'Personal account: debit the receiver, credit the giver', 4, 'personal', 'debit receiver|receiver debit|debit person receiv|receiver is debit', 'credit giver|giver credit|giver is credit'))
+    put('v2', P('p2', 'Real account: debit what comes in, credit what goes out', 3, 'real', ALT('debit {c}', 'debit what {c}', '{c} debit', c=COME), ALT('credit {g}', 'credit what {g}', '{g} credit', g=GO)))
+    put('v2', P('p3', 'Nominal account: debit expenses and losses, credit incomes and gains', 3, 'nominal', 'debit expens|debit all expens|expens loss debit|expens debit|expens and loss debit|debit loss', 'credit incom|credit all incom|incom gain credit|incom credit|incom and gain credit|credit gain|gain credit'))
+    return v
+
+
 def build():
     # ---------------- Illustration 1: Kavya Traders, April 2026 ----------------
     c1 = Checks()
@@ -25,7 +41,7 @@ def build():
         ['Discount Received / Allowed', 'Nominal', 'Credit gains, debit losses', 'Revenue / Expense'],
         ['Drawings', 'Personal (the proprietor)', 'Debit the receiver', 'Reduces capital'],
     ], title='Why each account is debited or credited',
-        note='ICAI treats the Bank Account as a personal account (the bank is an artificial person), so for deposits and payments by cheque apply "debit the receiver, credit the giver". Cash is a real account.')
+        note='In the ICAI worked examples the Bank Account is treated as a personal account (the bank is an artificial person): "debit the receiver, credit the giver". The study material\'s classification paragraph also lists cash at bank among real accounts — either way the debit and credit come out the same (money into the bank: Bank Dr; out of the bank: Bank Cr). Cash is a real account.')
 
     # ---------------- Illustration 2: GST ----------------
     c2 = Checks()
@@ -256,4 +272,5 @@ def build():
             {'k': 'GST set-off', 'v': 'Output CGST A/c Dr. To Input CGST A/c (same for SGST/IGST)'},
             {'k': 'Exam time', 'v': 'About 1.8 minutes per mark (100 marks in 3 hours)'},
         ],
+        'viva': viva(),
     }

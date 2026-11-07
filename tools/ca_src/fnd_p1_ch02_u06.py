@@ -4,6 +4,23 @@ from lib import *
 UID = 'fnd-p1-ch02-u06'
 
 
+import copy
+from ca_viva import VIVA, P, ALT
+
+
+def viva():
+    """Viva from ca_viva.py with key points re-tuned in the second review for the negation-aware matcher
+    (swapped-term answers must score < 80%; natural paraphrases >= 80%)."""
+    v = copy.deepcopy(VIVA[UID]); q = {x['id']: x for x in v}
+
+    def put(vid, pt): q[vid]['points'] = [pt if p['id'] == pt['id'] else p for p in q[vid]['points']]
+    put('v2', P('p1', 'One-sided error affects only one account', 3,
+                ALT('{o} {x}', o=('one sid', 'one side', 'single sid', 'single side'), x=('one account', 'single account', 'only one', 'affect one', 'affect only', 'affect single', 'affect just', 'just one'))))
+    put('v2', P('p3', 'Two-sided error affects two accounts; trial balance still agrees', 3,
+                ALT('{t} {x}', t=('two sid', 'two side', 'both sid', 'double sid'), x=('two account', 'both account', 'affect two', 'affect both', 'still agre', 'agre', 'not affect', 'no effect', 'not disturb'))))
+    return v
+
+
 def build():
     # ---------- Illustration 1: before trial balance ----------
     E1 = [
@@ -173,4 +190,5 @@ def build():
         'quickref': [{'k': 'Error of principle', 'v': 'Capital ↔ revenue mix-up; never shown by the trial balance'}, {'k': 'Suspense opening Dr', 'v': 'Debit side of the trial balance was short'},
                      {'k': 'Wrong-side posting', 'v': 'Rectify with twice the amount'}, {'k': 'Next year (nominal items)', 'v': 'Profit & Loss Adjustment A/c → Capital'},
                      {'k': 'Effect on profit', 'v': 'Expense up / income down → profit down; personal-account fixes → no effect'}],
+        'viva': viva(),
     }

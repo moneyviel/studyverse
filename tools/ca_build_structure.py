@@ -146,7 +146,7 @@ def build_paper(level_key, paper_key, paper_name, sources, pattern=None, group=N
         if not ch['units']:
             ch['units'] = [{'id': f"{ch['id']}-u01", 'n': 1, 'title': ch['title'], 'implicit': True}]
         for u in ch['units']:
-            u['status'] = 'built' if u['id'] in BUILT else 'soon'
+            u['status'] = 'built' if (u['id'] in BUILT or os.path.exists(os.path.join(ROOT, unit_file(u['id'])))) else 'soon'  # any unit with a content file is live
             if u['status'] == 'built':
                 u['file'] = unit_file(u['id'])
     paper = {'id': f'{level_key}-{paper_key}', 'key': paper_key, 'name': paper_name, 'chapters': chapters}

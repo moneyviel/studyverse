@@ -1,0 +1,1691 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fnd-p3-ch14-u01",
+ "level": "foundation",
+ "paper": "p3",
+ "chapter": "fnd-p3-ch14",
+ "n": 1,
+ "title": "Measures of Central Tendency",
+ "outcomes": [
+  "List the requisites of an ideal average and judge AM, median, mode, GM and HM against them.",
+  "Compute the AM (direct and step-deviation), median, mode, GM, HM and weighted averages for raw and grouped data.",
+  "Use the properties of averages — deviations, change of origin and scale, combined and corrected means, minimum absolute deviation.",
+  "Find quartiles, deciles and percentiles for raw and grouped data and read them from an ogive.",
+  "Apply the empirical relation Mode ≈ 3 Median − 2 Mean and the inequality AM ≥ GM ≥ HM (with AH = G² for two numbers)."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 50,
+   "practice": 60
+  },
+  "prereq": [
+   "fnd-p3-ch13-u01"
+  ],
+  "exam_tip": "Central tendency is one of the highest-scoring areas of Part C. Expect 4–6 MCQs: combined/corrected mean, change of origin and scale, median/mode formula, empirical relation, AM–GM–HM. Learn the formulas so well that each takes under a minute."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Central tendency and the ideal average",
+   "body": [
+    "A measure of central tendency (an average) is a single value around which the observations cluster and which represents the whole set. The five measures are arithmetic mean (AM), median (Me), mode (Mo), geometric mean (GM) and harmonic mean (HM).",
+    "An ideal measure should be (i) properly and unambiguously defined, (ii) easy to understand, (iii) simple to compute, (iv) based on all observations, (v) capable of mathematical treatment, and (vi) least affected by extreme observations (and by sampling fluctuations)."
+   ],
+   "analogy": "An average is a team captain — one person who represents everyone. A good captain is chosen by clear rules, understood by all, and not swayed by one loud member.",
+   "work": "When a company reports \"average realisation per tonne\", analysts check which average was used. A mean dragged up by a few premium sales can mislead; that is why medians often appear in compensation disclosures."
+  },
+  {
+   "id": "c2",
+   "title": "Arithmetic mean and its properties",
+   "body": [
+    "Raw data: x̄ = Σx/n. Grouped data: x̄ = Σfx/N with x the mid-value. Step-deviation (short-cut) method: take an origin A and class width C, d = (x − A)/C, then x̄ = A + (Σfd/N) × C.",
+    "Properties: (i) if every value is a constant k, the AM is k; (ii) the algebraic sum of deviations from the AM is zero — Σ(x − x̄) = 0, Σf(x − x̄) = 0; (iii) change of origin and scale: if y = a + bx then ȳ = a + b x̄; (iv) combined mean of two groups x̄ = (n₁x̄₁ + n₂x̄₂)/(n₁ + n₂), extendable to more groups.",
+    "Merits: rigidly defined, based on all values, easy, mathematically tractable, stable from sample to sample. Demerits: badly affected by extreme values and cannot be found for open-end classes without assuming mid-values."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Wages (₹)",
+      "Workers (f)",
+      "Mid-value x",
+      "d = (x − 375)/50",
+      "fd",
+      "Less-than c.f."
+     ],
+     "rows": [
+      [
+       "200–250",
+       "6",
+       "225",
+       "-3",
+       "-18",
+       "6"
+      ],
+      [
+       "250–300",
+       "14",
+       "275",
+       "-2",
+       "-28",
+       "20"
+      ],
+      [
+       "300–350",
+       "25",
+       "325",
+       "-1",
+       "-25",
+       "45"
+      ],
+      [
+       "350–400",
+       "30",
+       "375",
+       "0",
+       "0",
+       "75"
+      ],
+      [
+       "400–450",
+       "15",
+       "425",
+       "1",
+       "15",
+       "90"
+      ],
+      [
+       "450–500",
+       "10",
+       "475",
+       "2",
+       "20",
+       "100"
+      ],
+      [
+       "Total",
+       "100",
+       "",
+       "",
+       "-36",
+       ""
+      ]
+     ],
+     "num": [
+      1,
+      4
+     ],
+     "total": true,
+     "title": "Daily wages of 100 workers"
+    }
+   ],
+   "analogy": "The mean is the balancing point of a see-saw loaded with the observations — deviations on the two sides cancel exactly.",
+   "work": "Correcting a mean after one wrong entry (subtract the wrong value, add the right one, divide again) is exactly how you fix an average debtor-days figure once a mis-keyed invoice is found."
+  },
+  {
+   "id": "c3",
+   "title": "Median",
+   "body": [
+    "Median is the middle value when observations are arranged in order — half lie below it and half above. Raw data: the ((n + 1)/2)th value; for even n, the AM of the two middle values.",
+    "Grouped data: find N/2 in the less-than cumulative frequency column to locate the median class. Me = l₁ + ((N/2 − Nl)/(Nu − Nl)) × C, where l₁ = lower boundary of the median class, Nl and Nu = less-than c.f. at its lower and upper boundaries (Nu − Nl = its frequency) and C = its width. Graphically, it is the x-value where the two ogives meet (or where N/2 cuts the less-than ogive).",
+    "Properties: if y = a + bx, then median of y = a + b × median of x. The sum of absolute deviations Σ|x − A| is minimum when A is the median.",
+    "Merits: easy, not affected by extreme values, the best average for open-end classes. Demerits: not based on all observations and not amenable to algebraic treatment."
+   ],
+   "analogy": "The median is the middle person in a queue sorted by height — the very tall basketball player at the end does not move him.",
+   "work": "Median house price and median salary are quoted instead of means because a few very large values distort the mean."
+  },
+  {
+   "id": "c4",
+   "title": "Partition values — quartiles, deciles, percentiles",
+   "body": [
+    "Quartiles split ordered data into 4 equal parts (Q₁, Q₂ = median, Q₃); deciles into 10 parts (D₁ … D₉); percentiles into 100 parts (P₁ … P₉₉). Hence Q₂ = D₅ = P₅₀ = median, and Q₁ = P₂₅, Q₃ = P₇₅.",
+    "Raw data (ICAI rule): Q₁ is the ((n + 1)/4)th value, Q₃ the (3(n + 1)/4)th, Dₖ the (k(n + 1)/10)th, Pₖ the (k(n + 1)/100)th. For a fractional position, interpolate: 2.75th value = 2nd value + 0.75 × (3rd − 2nd).",
+    "Grouped data: replace N/2 in the median formula by Np (N/4 for Q₁, 3N/4 for Q₃, kN/10 for Dₖ …). Graphically, draw a horizontal line at Np to the less-than ogive and drop a perpendicular."
+   ],
+   "analogy": "Cutting a sorted loaf into 4, 10 or 100 equal slices — the cut positions are the quartiles, deciles and percentiles.",
+   "work": "\"Top-quartile\" fund performance, \"90th percentile\" response times in service contracts and salary benchmarking bands are all partition values."
+  },
+  {
+   "id": "c5",
+   "title": "Mode and the empirical relationship",
+   "body": [
+    "Mode is the value that occurs most often. It may not exist (all values occur equally often) or there may be more than one (bimodal).",
+    "Grouped data: the modal class has the highest frequency. Mo = l₁ + ((f₀ − f₋₁)/(2f₀ − f₋₁ − f₁)) × C, where f₀, f₋₁, f₁ are the frequencies of the modal, pre-modal and post-modal classes. Graphically, the mode is found from the histogram.",
+    "Empirical relation (moderately skewed distributions): Mean − Mode = 3(Mean − Median), i.e. Mode ≈ 3 Median − 2 Mean. Also, if y = a + bx, the mode of y = a + b × mode of x.",
+    "Merits: easy, the most \"typical\" value, not affected by extremes, usable for qualitative data. Demerits: may be undefined or multiple, has no mathematical properties and is affected by sampling fluctuations."
+   ],
+   "analogy": "The mode is the most popular dish at a canteen — the one ordered most, not the \"average\" dish.",
+   "work": "Retailers stock to the modal size; quality teams look at the modal defect type first."
+  },
+  {
+   "id": "c6",
+   "title": "Geometric mean and harmonic mean",
+   "body": [
+    "GM of n positive values = (x₁ × x₂ × … × xₙ)^(1/n); log G = (Σ log x)/n — the log of the GM is the AM of the logs. Grouped: log G = Σf log x / N.",
+    "Properties of GM: if all values are k, GM = k; GM of a product z = xy is GM(x) × GM(y); GM of a ratio z = x/y is GM(x) ÷ GM(y). Use: average rates of growth, ratios, percentages and index numbers.",
+    "HM = n / Σ(1/x); grouped: N / Σ(f/x). If all values are k, HM = k. Combined HM of two groups = (n₁ + n₂)/(n₁/H₁ + n₂/H₂). Use: average of rates (speed, price per unit) when the distance or money spent is the same for each rate.",
+    "GM and HM are rigidly defined and based on all observations, but harder to understand and compute, so their use is limited to rates and ratios."
+   ],
+   "blocks": [
+    {
+     "t": "table",
+     "head": [
+      "Situation",
+      "Correct average",
+      "Why"
+     ],
+     "rows": [
+      [
+       "Sales grew 10%, 20%, 32% in three years",
+       "GM of 1.10, 1.20, 1.32",
+       "Growth compounds on the previous year"
+      ],
+      [
+       "Car goes 120 km at 60 km/h and returns 120 km at 40 km/h",
+       "HM of 60 and 40 = 48 km/h",
+       "Same distance at each speed"
+      ],
+      [
+       "Car runs 3 h at 60 km/h and 2 h at 40 km/h",
+       "Weighted AM = 52 km/h",
+       "Weights are times"
+      ]
+     ]
+    }
+   ],
+   "analogy": "GM is the \"compound interest\" average; HM is the \"same-distance\" average.",
+   "work": "CAGR quoted in equity research is a GM. The average cost per unit when a fixed amount is invested every month (rupee-cost averaging) is an HM of the prices."
+  },
+  {
+   "id": "c7",
+   "title": "AM ≥ GM ≥ HM, weighted averages and choosing an average",
+   "body": [
+    "For positive observations AM ≥ GM ≥ HM; equality holds only when all observations are equal. For two positive numbers a and b: A = (a + b)/2, G = √(ab), H = 2ab/(a + b), and A × H = G². This identity holds only for two numbers.",
+    "Weighted averages: weighted AM = Σwx/Σw; weighted GM = antilog(Σw log x/Σw); weighted HM = Σw/Σ(w/x). Use when observations differ in importance (marks with credit weights, prices with quantities).",
+    "Choosing: AM is usually the best (rigid, all values, stable) but avoid it with extreme values or open-end classes; median for open-end classes and skewed data; mode for the most typical value or qualitative data; GM for growth rates and ratios; HM for rates with a fixed numerator."
+   ],
+   "analogy": "Three cousins who always stand in the same order of height — AM tallest, HM shortest — unless everyone in the family is identical.",
+   "work": "A cost accountant averaging material rates weights each rate by quantity (weighted AM). An investment analyst averaging P/E ratios across a portfolio of equal investments may use an HM."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Mean, median and mode of a wage distribution",
+   "difficulty": "moderate",
+   "minutes": 14,
+   "q": "Daily wages (₹) of 100 workers: 200–250: 6, 250–300: 14, 300–350: 25, 350–400: 30, 400–450: 15, 450–500: 10. Find the mean (step-deviation method), median and mode.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Wages (₹)",
+      "Workers (f)",
+      "Mid-value x",
+      "d = (x − 375)/50",
+      "fd",
+      "Less-than c.f."
+     ],
+     "rows": [
+      [
+       "200–250",
+       "6",
+       "225",
+       "-3",
+       "-18",
+       "6"
+      ],
+      [
+       "250–300",
+       "14",
+       "275",
+       "-2",
+       "-28",
+       "20"
+      ],
+      [
+       "300–350",
+       "25",
+       "325",
+       "-1",
+       "-25",
+       "45"
+      ],
+      [
+       "350–400",
+       "30",
+       "375",
+       "0",
+       "0",
+       "75"
+      ],
+      [
+       "400–450",
+       "15",
+       "425",
+       "1",
+       "15",
+       "90"
+      ],
+      [
+       "450–500",
+       "10",
+       "475",
+       "2",
+       "20",
+       "100"
+      ],
+      [
+       "Total",
+       "100",
+       "",
+       "",
+       "-36",
+       ""
+      ]
+     ],
+     "num": [
+      1,
+      4
+     ],
+     "total": true,
+     "title": "Daily wages of 100 workers"
+    },
+    {
+     "t": "wn",
+     "title": "Mean",
+     "text": "A = 375, C = 50, Σfd = -36. x̄ = 375 + (-36/100) × 50 = ₹357."
+    },
+    {
+     "t": "wn",
+     "title": "Median",
+     "text": "N/2 = 50 lies in 350–400 (c.f. 45 → 75). Me = 350 + (50 − 45)/30 × 50 = ₹358.33."
+    },
+    {
+     "t": "wn",
+     "title": "Mode",
+     "text": "Modal class 350–400: f₀ = 30, f₋₁ = 25, f₁ = 15. Mo = 350 + (30 − 25)/(60 − 25 − 15) × 50 = ₹362.5."
+    },
+    {
+     "t": "note",
+     "text": "Mean < Median < Mode: the distribution is slightly negatively skewed. Check with the empirical relation: 3 × 358.33 − 2 × 357 ≈ 361 — close to 362.5."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "375+(-36)/100*50",
+     "value": 357,
+     "label": "mean by step-deviation method"
+    },
+    {
+     "expr": "350+(50-45)/30*50",
+     "value": 358.33,
+     "label": "median: l1 + (N/2 - Nl)/(Nu - Nl) x C"
+    },
+    {
+     "expr": "350+(30-25)/(2*30-25-15)*50",
+     "value": 362.5,
+     "label": "mode: l1 + (f0 - f-1)/(2f0 - f-1 - f1) x C"
+    },
+    {
+     "expr": "3*358.33-2*357",
+     "value": 360.99,
+     "label": "empirical mode check (approximate)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Quartiles, deciles and percentiles",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "(a) Sorted test scores of 11 trainees: 35, 39, 42, 44, 47, 50, 53, 58, 61, 66, 71. Find Q₁, Q₃, D₇ and P₃₀. (b) For the wage data of Illustration 1, find Q₁ and Q₃.",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a) Raw data — position k(n + 1)/m",
+     "text": "Q₁: 12/4 = 3rd value = 42. Q₃: 3 × 12/4 = 9th value = 61. D₇: 7 × 12/10 = 8.4th value = 58 + 0.4 × (61 − 58) = 59.2. P₃₀: 30 × 12/100 = 3.6th value = 42 + 0.6 × (44 − 42) = 43.2."
+    },
+    {
+     "t": "wn",
+     "title": "(b) Grouped",
+     "text": "Q₁: N/4 = 25 lies in 300–350 (c.f. 20 → 45): Q₁ = 300 + (25 − 20)/25 × 50 = ₹310. Q₃: 3N/4 = 75 lies in 350–400 (c.f. 45 → 75): Q₃ = 350 + (75 − 45)/30 × 50 = ₹400."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "42",
+     "value": 42,
+     "label": "Q1 = (n+1)/4 = 3rd value"
+    },
+    {
+     "expr": "61",
+     "value": 61,
+     "label": "Q3 = 3(n+1)/4 = 9th value"
+    },
+    {
+     "expr": "58+0.4*(61-58)",
+     "value": 59.2,
+     "label": "D7 = 7(n+1)/10 = 8.4th value"
+    },
+    {
+     "expr": "42+0.6*(44-42)",
+     "value": 43.2,
+     "label": "P30 = 30(n+1)/100 = 3.6th value"
+    },
+    {
+     "expr": "300+(25-20)/25*50",
+     "value": 310,
+     "label": "grouped Q1 for the wage data"
+    },
+    {
+     "expr": "350+(75-45)/30*50",
+     "value": 400,
+     "label": "grouped Q3 for the wage data"
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "title": "Combined, corrected and transformed means",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "(a) 40 trainees earn a mean of ₹21,000 and 60 seniors ₹26,000. Combined mean? (b) The mean of 50 values was 64, but 82 was wrongly read for 28. Correct mean? (c) 2x + 5y = 30 and x̄ = 18. Find ȳ. (d) The mean of 25 numbers is 48; the mean of 20 of them is 45. Mean of the other 5?",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "(40 × 21,000 + 60 × 26,000)/100 = ₹24,000."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Correct total = 50 × 64 − 82 + 28 = 3,146; mean = 62.92."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "y = 6 − 0.4x, so ȳ = 6 − 0.4 × 18 = -1.2."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "(25 × 48 − 20 × 45)/5 = 300/5 = 60."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(40*21000+60*26000)/100",
+     "value": 24000,
+     "label": "combined mean salary"
+    },
+    {
+     "expr": "(50*64-82+28)/50",
+     "value": 62.92,
+     "label": "corrected mean after replacing 82 by 28"
+    },
+    {
+     "expr": "(30-2*18)/5",
+     "value": -1.2,
+     "label": "mean of y when 2x + 5y = 30 and mean of x = 18"
+    },
+    {
+     "expr": "(25*48-20*45)/5",
+     "value": 60,
+     "label": "mean of the remaining five numbers"
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "title": "GM for growth, HM for speed, weighted mean",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "(a) Sales grew by 10%, 20% and 32% in three successive years. Average annual growth? (b) A courier drives 120 km at 60 km/h and back at 40 km/h. Average speed? (c) Verify AM ≥ GM ≥ HM and AH = G² for 4 and 9. (d) A student scores 78, 64, 85, 70 in papers with credit weights 3, 2, 4, 1. Weighted mean?",
+   "solution": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "GM of growth factors = (1.10 × 1.20 × 1.32)^(1/3) = 1.2033; average growth ≈ 20.33% per year (the AM, 20.67%, overstates it). Check: ₹1,000 → ₹1,742.40 either way."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "Equal distances → HM = 2/(1/60 + 1/40) = 48 km/h (not 50)."
+    },
+    {
+     "t": "wn",
+     "title": "(c)",
+     "text": "AM = 6.5, GM = 6, HM = 72/13 ≈ 5.54; 6.5 ≥ 6 ≥ 5.54 and 6.5 × 72/13 = 36 = 6²."
+    },
+    {
+     "t": "wn",
+     "title": "(d)",
+     "text": "Σwx/Σw = (234 + 128 + 340 + 70)/10 = 77.2."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round((1.10*1.20*1.32)**(1/3),4)",
+     "value": 1.2,
+     "label": "GM of growth factors"
+    },
+    {
+     "expr": "round(((1.10*1.20*1.32)**(1/3)-1)*100,2)",
+     "value": 20.33,
+     "label": "average annual growth %"
+    },
+    {
+     "expr": "round((10+20+32)/3,2)",
+     "value": 20.67,
+     "label": "simple AM of growth rates (wrong method)"
+    },
+    {
+     "expr": "1000*1.10*1.20*1.32",
+     "value": 1742.4,
+     "label": "value after three years"
+    },
+    {
+     "expr": "2/(1/60+1/40)",
+     "value": 48,
+     "label": "average speed over equal distances = HM"
+    },
+    {
+     "expr": "(60*3+40*2)/5",
+     "value": 52,
+     "label": "average speed over equal times = AM (3 h and 2 h)"
+    },
+    {
+     "expr": "(4+9)/2",
+     "value": 6.5,
+     "label": "AM of 4 and 9"
+    },
+    {
+     "expr": "(4*9)**0.5",
+     "value": 6,
+     "label": "GM of 4 and 9"
+    },
+    {
+     "expr": "round(2*4*9/(4+9),2)",
+     "value": 5.54,
+     "label": "HM of 4 and 9"
+    },
+    {
+     "expr": "6.5*72/13",
+     "value": 36,
+     "label": "AM x HM = GM^2 for two numbers"
+    },
+    {
+     "expr": "(78*3+64*2+85*4+70*1)/(3+2+4+1)",
+     "value": 77.2,
+     "label": "weighted mean marks"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Which \"average\" goes into the board note?",
+   "role": "Management accountant in a retail chain",
+   "situation": "Average bill value across 50,000 bills is ₹1,240, but 300 corporate bulk bills above ₹50,000 pull it up. The median bill is ₹640 and the most common bill band is ₹400–500.",
+   "steps": [
+    "Explain that the mean is distorted by a few extreme bills — it does not describe a typical customer.",
+    "Report the median (₹640) as the typical bill and the modal band for store staffing and stocking.",
+    "Keep the mean for revenue planning, because total revenue = mean × number of bills.",
+    "Show quartiles (Q₁, Q₃) so the board sees the spread of the middle 50% of bills."
+   ],
+   "takeaway": "Choose the average that answers the question: totals → mean; typical value → median; most common → mode.",
+   "think": "Which average still lets you recover total revenue?",
+   "answer": "Only the arithmetic mean: total = mean × count."
+  },
+  {
+   "id": "j2",
+   "title": "Computing CAGR for an equity research note",
+   "role": "Research associate at a broking house",
+   "situation": "A company's revenue was ₹500 crore and is ₹845 crore four years later after uneven growth each year.",
+   "steps": [
+    "Average growth of a compounding quantity needs the GM of growth factors, not the AM of percentages.",
+    "CAGR = (845/500)^(1/4) − 1 = 1.69^(1/4) − 1 ≈ 14.02%.",
+    "Cross-check by compounding ₹500 crore at 14.02% for four years.",
+    "State the base and end year clearly — CAGR is sensitive to the choice of endpoints."
+   ],
+   "takeaway": "CAGR is a geometric mean; an AM of yearly growth rates always overstates it when rates vary.",
+   "checks": [
+    {
+     "expr": "round(((845/500)**0.25-1)*100,2)",
+     "value": 14.02,
+     "label": "CAGR %"
+    }
+   ]
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The mean of the first 20 natural numbers is:",
+   "options": [
+    "10.5",
+    "10",
+    "11",
+    "210"
+   ],
+   "answer": 0,
+   "check": "(20+1)/2",
+   "explain": "Mean of 1, 2, …, n = (n + 1)/2 = 21/2 = 10.5. (210 is their sum.)",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "The algebraic sum of deviations of observations from their arithmetic mean is:",
+   "options": [
+    "Zero",
+    "Minimum but positive",
+    "One",
+    "Maximum"
+   ],
+   "answer": 0,
+   "explain": "Σ(x − x̄) = 0 always. The sum of squared deviations is minimum about the mean; the sum of absolute deviations is minimum about the median.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "If y = 3 − 2x and the mean of x is 10, the mean of y is:",
+   "options": [
+    "-17",
+    "17",
+    "23",
+    "-20"
+   ],
+   "answer": 0,
+   "check": "3-2*10",
+   "explain": "ȳ = a + b x̄ = 3 − 2 × 10 = -17.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "If 3x + 4y = 48 and x̄ = 8, then ȳ is:",
+   "options": [
+    "6",
+    "8",
+    "18",
+    "4"
+   ],
+   "answer": 0,
+   "check": "(48-3*8)/4",
+   "explain": "y = 12 − 0.75x, so ȳ = 12 − 0.75 × 8 = 6.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m5",
+   "q": "The mean weight of 30 boys is 52 kg and of 20 girls is 45 kg. The combined mean weight is:",
+   "options": [
+    "49.2",
+    "48.5",
+    "50",
+    "47.8"
+   ],
+   "answer": 0,
+   "check": "(30*52+20*45)/50",
+   "explain": "(30 × 52 + 20 × 45)/50 = 2,460/50 = 49.2 kg. (48.5 is the simple average of the two means.)",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "The mean of 40 observations was 160. Later it was found that 165 was misread as 125. The correct mean is:",
+   "options": [
+    "161",
+    "159",
+    "164",
+    "160.5"
+   ],
+   "answer": 0,
+   "check": "(40*160-125+165)/40",
+   "explain": "Correct total = 6,400 − 125 + 165 = 6,440; mean = 161.",
+   "concept": "c2",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m7",
+   "q": "The mean of 10 numbers is 30. If each number is multiplied by 3 and then 5 is added, the new mean is:",
+   "options": [
+    "95",
+    "105",
+    "90",
+    "93"
+   ],
+   "answer": 0,
+   "check": "30*3+5",
+   "explain": "Change of origin and scale: new mean = 3 × 30 + 5 = 95.",
+   "concept": "c2",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "The median of 18, 25, 11, 30, 22, 14, 27, 20 is:",
+   "options": [
+    "21",
+    "20",
+    "22",
+    "20.88"
+   ],
+   "answer": 0,
+   "check": "(20+22)/2",
+   "explain": "Sorted: 11, 14, 18, 20, 22, 25, 27, 30. n = 8, so median = (4th + 5th)/2 = (20 + 22)/2 = 21.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m9",
+   "q": "For a distribution, N = 80, the median class is 30–40, c.f. up to 30 is 32 and the median class frequency is 16. The median is:",
+   "options": [
+    "35",
+    "35.5",
+    "30.5",
+    "38"
+   ],
+   "answer": 0,
+   "check": "30+(40-32)/16*10",
+   "explain": "Me = 30 + (N/2 − 32)/16 × 10 = 30 + 8/16 × 10 = 35.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m10",
+   "q": "The sum of absolute deviations of a set of observations is minimum when taken from the:",
+   "options": [
+    "Median",
+    "Mean",
+    "Mode",
+    "Geometric mean"
+   ],
+   "answer": 0,
+   "explain": "Σ|x − A| is least for A = median.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m11",
+   "q": "The most suitable average for a distribution with open-end classes is the:",
+   "options": [
+    "Median",
+    "Arithmetic mean",
+    "Geometric mean",
+    "Harmonic mean"
+   ],
+   "answer": 0,
+   "explain": "The median uses only the middle position, so open ends do not matter.",
+   "concept": "c3",
+   "difficulty": "core"
+  },
+  {
+   "id": "m12",
+   "q": "For x and y related by 2x − 5y = 10, the median of x is 30. The median of y is:",
+   "options": [
+    "10",
+    "4",
+    "14",
+    "12"
+   ],
+   "answer": 0,
+   "check": "(2*30-10)/5",
+   "explain": "y = (2x − 10)/5 = −2 + 0.4x, so median of y = −2 + 0.4 × 30 = 10.",
+   "concept": "c3",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m13",
+   "q": "For the ordered data 8, 12, 15, 19, 23, 26, 31, the first quartile (ICAI positional rule) is:",
+   "options": [
+    "12",
+    "15",
+    "10",
+    "13.5"
+   ],
+   "answer": 0,
+   "check": "12",
+   "explain": "Q₁ = ((n + 1)/4)th = (8/4)th = 2nd value = 12.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m14",
+   "q": "For the ordered data 48, 53, 61, 70, 72, 79, 84, 92, 110, 125, the third quartile (ICAI positional rule) is:",
+   "options": [
+    "96.5",
+    "92",
+    "110",
+    "101"
+   ],
+   "answer": 0,
+   "check": "92+0.25*(110-92)",
+   "explain": "Q₃ = 3(n + 1)/4 = 8.25th value = 92 + 0.25 × (110 − 92) = 96.5.",
+   "concept": "c4",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m15",
+   "q": "Which of the following is equal to the median?",
+   "options": [
+    "D₅ and P₅₀",
+    "D₂ and P₂₀",
+    "Q₁ and P₂₅",
+    "Q₃ and P₇₅"
+   ],
+   "answer": 0,
+   "explain": "Median = Q₂ = D₅ = P₅₀.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m16",
+   "q": "The number of deciles in a distribution is:",
+   "options": [
+    "9",
+    "10",
+    "4",
+    "99"
+   ],
+   "answer": 0,
+   "explain": "Ten equal parts need nine dividing points D₁ … D₉.",
+   "concept": "c4",
+   "difficulty": "core"
+  },
+  {
+   "id": "m17",
+   "q": "For a moderately skewed distribution, mean = 54 and median = 50. The mode is approximately:",
+   "options": [
+    "42",
+    "46",
+    "58",
+    "48"
+   ],
+   "answer": 0,
+   "check": "3*50-2*54",
+   "explain": "Mode = 3 Median − 2 Mean = 150 − 108 = 42.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m18",
+   "q": "For a moderately skewed distribution, mode = 24 and mean = 30. The median is approximately:",
+   "options": [
+    "28",
+    "27",
+    "26",
+    "32"
+   ],
+   "answer": 0,
+   "check": "(24+2*30)/3",
+   "explain": "From Mode = 3Me − 2x̄: Me = (Mode + 2 Mean)/3 = (24 + 60)/3 = 28.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m19",
+   "q": "The modal class is 40–50 with frequency 28; the classes before and after have frequencies 20 and 16. The mode is:",
+   "options": [
+    "44",
+    "45",
+    "46.67",
+    "42"
+   ],
+   "answer": 0,
+   "check": "40+(28-20)/(2*28-20-16)*10",
+   "explain": "Mo = 40 + (28 − 20)/(56 − 36) × 10 = 40 + 8/20 × 10 = 44.",
+   "concept": "c5",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m20",
+   "q": "For the values 5, 9, 12, 17, 21, no value repeats. The mode:",
+   "options": [
+    "Does not exist",
+    "Is 12",
+    "Is 5",
+    "Is 21"
+   ],
+   "answer": 0,
+   "explain": "When all values occur equally often there is no mode.",
+   "concept": "c5",
+   "difficulty": "core"
+  },
+  {
+   "id": "m21",
+   "q": "The geometric mean of 4, 6 and 9 is:",
+   "options": [
+    "6",
+    "6.33",
+    "5.68",
+    "7"
+   ],
+   "answer": 0,
+   "check": "round((4*6*9)**(1/3),2)",
+   "explain": "(4 × 6 × 9)^(1/3) = 216^(1/3) = 6. (6.33 is the AM; 5.68 = 108/19 is the HM.)",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m22",
+   "q": "The harmonic mean of 2, 3 and 6 is:",
+   "options": [
+    "3",
+    "3.67",
+    "3.3",
+    "11"
+   ],
+   "answer": 0,
+   "check": "3/(1/2+1/3+1/6)",
+   "explain": "HM = 3/(1/2 + 1/3 + 1/6) = 3/1 = 3.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m23",
+   "q": "A car travels from A to B at 30 km/h and returns over the same road at 60 km/h. The average speed for the round trip is:",
+   "options": [
+    "40 kmph",
+    "45 kmph",
+    "42.43 kmph",
+    "50 kmph"
+   ],
+   "answer": 0,
+   "check": "2/(1/30+1/60)",
+   "explain": "Equal distances → HM = 2/(1/30 + 1/60) = 40 kmph km/h.",
+   "concept": "c6",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m24",
+   "q": "The most appropriate average for the average rate of growth of population is the:",
+   "options": [
+    "Geometric mean",
+    "Arithmetic mean",
+    "Harmonic mean",
+    "Mode"
+   ],
+   "answer": 0,
+   "explain": "Growth compounds, so the GM of growth factors is used.",
+   "concept": "c6",
+   "difficulty": "core"
+  },
+  {
+   "id": "m25",
+   "q": "For two positive numbers, AM = 10 and GM = 8. The HM is:",
+   "options": [
+    "6.4",
+    "6",
+    "9",
+    "7.2"
+   ],
+   "answer": 0,
+   "check": "8**2/10",
+   "explain": "For two numbers AH = G², so H = 64/10 = 6.4.",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m26",
+   "q": "The AM and GM of two positive numbers are 13 and 12. The larger number is:",
+   "options": [
+    "18",
+    "16",
+    "12",
+    "13"
+   ],
+   "answer": 0,
+   "check": "(26+(26**2-4*144)**0.5)/2",
+   "explain": "a + b = 26, ab = 144 ⇒ a, b are roots of t² − 26t + 144 = 0, i.e. 18 and 8. Larger = 18.",
+   "concept": "c7",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m27",
+   "q": "For any set of positive observations, not all equal:",
+   "options": [
+    "AM > GM > HM",
+    "AM < GM < HM",
+    "GM > AM > HM",
+    "HM > GM > AM"
+   ],
+   "answer": 0,
+   "explain": "AM ≥ GM ≥ HM, with strict inequality unless all values are equal.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m28",
+   "q": "The relation AM × HM = GM² holds:",
+   "options": [
+    "Only for two positive numbers",
+    "For any set of positive numbers",
+    "Only for three numbers",
+    "Never"
+   ],
+   "answer": 0,
+   "explain": "It is an identity for two positive numbers only.",
+   "concept": "c7",
+   "difficulty": "moderate"
+  },
+  {
+   "id": "m29",
+   "q": "Marks 60, 75 and 90 carry weights 2, 3 and 5. The weighted mean is:",
+   "options": [
+    "79.5",
+    "75",
+    "77.5",
+    "81"
+   ],
+   "answer": 0,
+   "check": "(60*2+75*3+90*5)/10",
+   "explain": "Σwx/Σw = (120 + 225 + 450)/10 = 79.5.",
+   "concept": "c7",
+   "difficulty": "core"
+  },
+  {
+   "id": "m30",
+   "q": "The mean of the frequency distribution x: 10, 20, 30, 40 with f: 3, 7, f, 2 is 25. The missing frequency f is:",
+   "options": [
+    "10",
+    "8",
+    "6",
+    "12"
+   ],
+   "answer": 0,
+   "check": "(25*12-30-140-80)/(30-25)",
+   "explain": "Σfx = 30 + 140 + 30f + 80 = 25(12 + f) ⇒ 250 + 30f = 300 + 25f ⇒ f = 10.",
+   "concept": "c2",
+   "difficulty": "hard"
+  },
+  {
+   "id": "m31",
+   "q": "Which average is most affected by extreme observations?",
+   "options": [
+    "Arithmetic mean",
+    "Median",
+    "Mode",
+    "Quartile"
+   ],
+   "answer": 0,
+   "explain": "The AM uses every value with its full size, so one extreme value pulls it.",
+   "concept": "c1",
+   "difficulty": "core"
+  },
+  {
+   "id": "m32",
+   "q": "Which average is generally considered the best measure of central tendency?",
+   "options": [
+    "Arithmetic mean",
+    "Mode",
+    "Harmonic mean",
+    "Median"
+   ],
+   "answer": 0,
+   "explain": "ICAI: the AM is usually the best — rigidly defined, based on all observations, easy and mathematically tractable.",
+   "concept": "c7",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "moderate",
+   "pad": "table",
+   "q": "Marks of 70 students: 0–10: 5, 10–20: 8, 20–30: 15, 30–40: 22, 40–50: 12, 50–60: 8. Compute the mean (step-deviation), median and mode, and comment on the shape of the distribution.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Marks",
+      "f",
+      "Mid-value",
+      "d = (x − 35)/10",
+      "fd",
+      "c.f."
+     ],
+     "rows": [
+      [
+       "0–10",
+       "5",
+       "5",
+       "-3",
+       "-15",
+       "5"
+      ],
+      [
+       "10–20",
+       "8",
+       "15",
+       "-2",
+       "-16",
+       "13"
+      ],
+      [
+       "20–30",
+       "15",
+       "25",
+       "-1",
+       "-15",
+       "28"
+      ],
+      [
+       "30–40",
+       "22",
+       "35",
+       "0",
+       "0",
+       "50"
+      ],
+      [
+       "40–50",
+       "12",
+       "45",
+       "1",
+       "12",
+       "62"
+      ],
+      [
+       "50–60",
+       "8",
+       "55",
+       "2",
+       "16",
+       "70"
+      ],
+      [
+       "Total",
+       "70",
+       "",
+       "",
+       "-18",
+       ""
+      ]
+     ],
+     "num": [
+      1,
+      4
+     ],
+     "total": true
+    },
+    {
+     "t": "wn",
+     "title": "Mean",
+     "text": "A = 35, C = 10, Σfd = -18: x̄ = 35 + (-18/70) × 10 = 32.43."
+    },
+    {
+     "t": "wn",
+     "title": "Median",
+     "text": "N/2 = 35 → class 30–40 (c.f. 28 → 50): Me = 30 + (35 − 28)/22 × 10 = 33.18."
+    },
+    {
+     "t": "wn",
+     "title": "Mode",
+     "text": "Modal class 30–40: Mo = 30 + (22 − 15)/(44 − 15 − 12) × 10 = 34.12."
+    },
+    {
+     "t": "p",
+     "text": "Mean < Median < Mode, so the distribution is negatively skewed (a longer tail towards low marks)."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Mid-values, d and fd column; Σfd correct",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s2",
+     "pt": "Mean = 32.43",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "Median class located using N/2 and c.f.",
+     "m": 1,
+     "skill": "application"
+    },
+    {
+     "id": "s4",
+     "pt": "Median = 33.18",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s5",
+     "pt": "Mode = 34.12",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s6",
+     "pt": "Shape: negatively skewed (mean < median < mode)",
+     "m": 1,
+     "skill": "analysis"
+    }
+   ],
+   "remarks": [
+    "Most errors come from using class limits instead of boundaries and from wrong Nl in the median formula."
+   ],
+   "mistakes": [
+    "Taking the c.f. of the median class itself as Nl.",
+    "Using f₀ − f₁ in the numerator of the mode formula."
+   ],
+   "tips": [
+    "Write l₁, Nl, f, C before substituting.",
+    "Mean–median–mode order tells you the skew in one line."
+   ],
+   "checks": [
+    {
+     "expr": "round(35+(-18)/70*10,2)",
+     "value": 32.43,
+     "label": "mean"
+    },
+    {
+     "expr": "round(30+(35-28)/22*10,2)",
+     "value": 33.18,
+     "label": "median"
+    },
+    {
+     "expr": "round(30+(22-15)/(44-15-12)*10,2)",
+     "value": 34.12,
+     "label": "mode"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "hard",
+   "pad": "text",
+   "q": "The median of the distribution below is 27. Find the missing frequency x. Classes: 0–10: 6, 10–20: 10, 20–30: x, 30–40: 18, 40–50: 6.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "Step 1",
+     "text": "N = 40 + x. Median 27 lies in 20–30, so l₁ = 20, Nl = 16, f = x, C = 10."
+    },
+    {
+     "t": "wn",
+     "title": "Step 2",
+     "text": "27 = 20 + ((40 + x)/2 − 16)/x × 10 ⇒ 7x = 5(40 + x) − 160 = 40 + 5x ⇒ 2x = 40."
+    },
+    {
+     "t": "wn",
+     "title": "Step 3",
+     "text": "x = 20. Check: N = 60, N/2 = 30, c.f. 16 → 36, Me = 20 + 14/20 × 10 = 27 ✓."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Median class and N = 40 + x identified",
+     "m": 1,
+     "skill": "application"
+    },
+    {
+     "id": "s2",
+     "pt": "Equation set up with the median formula",
+     "m": 1.5,
+     "skill": "concept"
+    },
+    {
+     "id": "s3",
+     "pt": "x = 20 and verified",
+     "m": 1.5,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "Forgetting that N itself contains x is the usual slip."
+   ],
+   "mistakes": [
+    "Taking N = 40.",
+    "Using Nl = 16 + x."
+   ],
+   "tips": [
+    "Always verify by recomputing the median with the value found."
+   ],
+   "checks": [
+    {
+     "expr": "40/2",
+     "value": 20,
+     "label": "missing frequency: 27 = 20 + ((40+x)/2 - 16)/x x 10 gives 2x = 40"
+    },
+    {
+     "expr": "20+((40+20)/2-16)/20*10",
+     "value": 27,
+     "label": "median check with x = 20"
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "moderate",
+   "pad": "text",
+   "q": "(a) Three sections of 30, 45 and 25 students have mean marks 52, 60 and 48. Find the combined mean. (b) Two positive numbers have AM 25 and HM 16. Find their GM and the numbers.",
+   "model": [
+    {
+     "t": "wn",
+     "title": "(a)",
+     "text": "(30 × 52 + 45 × 60 + 25 × 48)/100 = (1,560 + 2,700 + 1,200)/100 = 54.6."
+    },
+    {
+     "t": "wn",
+     "title": "(b)",
+     "text": "For two numbers G² = A × H = 25 × 16 = 400 ⇒ G = 20. a + b = 50, ab = 400 ⇒ t² − 50t + 400 = 0 ⇒ t = 40 or 10. Numbers: 40 and 10. Check: HM = 2 × 400/50 = 16 ✓."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Combined mean formula applied",
+     "m": 1,
+     "skill": "concept"
+    },
+    {
+     "id": "s2",
+     "pt": "Combined mean 54.6",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s3",
+     "pt": "G = √(AH) = 20",
+     "m": 1,
+     "skill": "computation"
+    },
+    {
+     "id": "s4",
+     "pt": "Quadratic set up and numbers 40, 10 found",
+     "m": 2,
+     "skill": "computation"
+    }
+   ],
+   "remarks": [
+    "Averaging the three means (53.33) is wrong — sizes differ."
+   ],
+   "mistakes": [
+    "Using AH = G² for three numbers.",
+    "Solving the quadratic incorrectly."
+   ],
+   "tips": [
+    "Verify the numbers by recomputing AM and HM."
+   ],
+   "checks": [
+    {
+     "expr": "(30*52+45*60+25*48)/100",
+     "value": 54.6,
+     "label": "combined mean of three groups"
+    },
+    {
+     "expr": "(25*16)**0.5",
+     "value": 20,
+     "label": "GM from AM x HM = GM^2"
+    },
+    {
+     "expr": "(50+(50**2-4*400)**0.5)/2",
+     "value": 40,
+     "label": "larger number"
+    },
+    {
+     "expr": "(50-(50**2-4*400)**0.5)/2",
+     "value": 10,
+     "label": "smaller number"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Ideal average: rigid definition, easy, all values, algebraic treatment, least affected by extremes.",
+   "AM: Σx/n; step-deviation A + (Σfd/N)C; Σ(x − x̄) = 0; ȳ = a + bx̄; combined mean.",
+   "Median: middle value; l₁ + ((N/2 − Nl)/f)C; best for open-end classes; Σ|x − A| min at median.",
+   "Partition values: Q, D, P; raw data position k(n + 1)/m; grouped Np.",
+   "Mode: l₁ + ((f₀ − f₋₁)/(2f₀ − f₋₁ − f₁))C; Mode ≈ 3Me − 2x̄.",
+   "GM for growth/ratios; HM for rates over equal distances; AM ≥ GM ≥ HM; AH = G² (two numbers)."
+  ],
+  "remember": [
+   "Mean of first n natural numbers = (n + 1)/2.",
+   "Combined mean weights by group size.",
+   "Corrected mean: (n x̄ − wrong + right)/n.",
+   "Average speed for equal distances = HM."
+  ],
+  "traps": [
+   "Do not average averages without weights.",
+   "AH = G² is only for TWO numbers.",
+   "Median of even n = mean of the two middle values.",
+   "Mode may not exist."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "AM (step deviation)",
+   "v": "x̄ = A + (Σfd/N) × C, d = (x − A)/C"
+  },
+  {
+   "k": "Combined mean",
+   "v": "(n₁x̄₁ + n₂x̄₂)/(n₁ + n₂)"
+  },
+  {
+   "k": "Median (grouped)",
+   "v": "l₁ + ((N/2 − Nl)/(Nu − Nl)) × C"
+  },
+  {
+   "k": "Quartile (grouped)",
+   "v": "l₁ + ((Np − Nl)/(Nu − Nl)) × C, p = 1/4, 3/4"
+  },
+  {
+   "k": "Raw-data positions",
+   "v": "Q₁: (n+1)/4; Q₃: 3(n+1)/4; Dₖ: k(n+1)/10; Pₖ: k(n+1)/100"
+  },
+  {
+   "k": "Mode (grouped)",
+   "v": "l₁ + ((f₀ − f₋₁)/(2f₀ − f₋₁ − f₁)) × C"
+  },
+  {
+   "k": "Empirical relation",
+   "v": "Mean − Mode = 3(Mean − Median); Mode ≈ 3Me − 2x̄"
+  },
+  {
+   "k": "GM / HM",
+   "v": "GM = (Πx)^(1/n), log G = Σlog x / n; HM = n/Σ(1/x)"
+  },
+  {
+   "k": "Two numbers",
+   "v": "AM ≥ GM ≥ HM and AM × HM = GM²"
+  },
+  {
+   "k": "Change of origin & scale",
+   "v": "y = a + bx ⇒ ȳ = a + bx̄, Me(y) = a + b Me(x), Mo(y) = a + b Mo(x)"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What are the requisites of an ideal measure of central tendency?",
+   "model": "An ideal average should be rigidly and clearly defined, easy to understand and simple to calculate. It should be based on all the observations, it should be capable of further mathematical treatment, and it should be least affected by extreme observations and by fluctuations of sampling.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Rigidly / clearly defined",
+     "w": 2,
+     "kw": [
+      "rigid|clear|unambiguous|properly defined|well defined|defined"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Easy to understand and simple to compute",
+     "w": 2,
+     "kw": [
+      "easy|simple|understand|comprehend|calculat|comput"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Based on all observations",
+     "w": 2,
+     "kw": [
+      "all observation|all the observation|all value|every observation|all item|every item|all data|whole data"
+     ]
+    },
+    {
+     "id": "p4",
+     "pt": "Amenable to mathematical treatment",
+     "w": 2,
+     "kw": [
+      "mathematical|algebraic|further treatment|further analysis"
+     ]
+    },
+    {
+     "id": "p5",
+     "pt": "Least affected by extreme values / sampling fluctuations",
+     "w": 2,
+     "kw": [
+      "extreme|outlier|sampling fluctuation|fluctuation|stable|not affected by extreme|not much affected by extreme|unaffected by extreme|extreme values do not|extremes do not|outliers do not|not affected by outlier|not influenced by extreme|not sensitive to extreme"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "State the important properties of the arithmetic mean.",
+   "model": "If all observations equal a constant, the mean is that constant. The algebraic sum of deviations of the observations from their mean is zero. The mean is affected by change of origin and scale: if y equals a plus b x, the mean of y is a plus b times the mean of x. And two groups can be combined: the combined mean is n1 x1 bar plus n2 x2 bar divided by n1 plus n2.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Sum of deviations from the mean is zero",
+     "w": 4,
+     "kw": [
+      "sum deviation zero|sum deviations from mean zero|sum deviation from the mean is zero|sum deviation from mean zero|sum deviation from mean is zero|sum deviation from the mean zero|sum deviation from arithmetic mean zero|sum deviation from am zero|sum deviation from its mean is zero|sum deviation is zero|total deviation zero|total deviations from mean zero|total deviation from the mean is zero|total deviation from mean zero|total deviation from mean is zero|total deviation from the mean zero|total deviation from arithmetic mean zero|total deviation from am zero|total deviation from its mean is zero|total deviation is zero|algebraic sum deviation zero|algebraic sum deviations from mean zero|algebraic sum deviation from the mean is zero|algebraic sum deviation from mean zero|algebraic sum deviation from mean is zero|algebraic sum deviation from the mean zero|algebraic sum deviation from arithmetic mean zero|algebraic sum deviation from am zero|algebraic sum deviation from its mean is zero|algebraic sum deviation is zero"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Affected by change of origin and scale: ȳ = a + b x̄",
+     "w": 3,
+     "kw": [
+      "origin|scale|a plus b|a b x|y a bx|a bx"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p3",
+     "pt": "Combined mean formula (n1x̄1 + n2x̄2)/(n1 + n2)",
+     "w": 3,
+     "kw": [
+      "combin|pooled|two group|groups"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "Why is the median preferred for open-ended distributions, and what is its minimum property?",
+   "model": "The median is a positional average; it needs only the cumulative frequencies up to the middle, so open-end classes do not matter, and it is not affected by extreme values. Its special property is that the total of the absolute deviations is least when they are measured from the median.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Positional — needs only middle position / cumulative frequencies; open classes do not matter",
+     "w": 4,
+     "kw": [
+      "position|middle|cumulative|open|mid value not needed|no mid"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Not affected by extreme values",
+     "w": 2,
+     "kw": [
+      "not affected by extreme|unaffected by extreme|extreme value do not|extreme values does not|extremes do not|not influenced by extreme|not disturbed by extreme|resistant to extreme|robust|insensitive to extreme|not sensitive to extreme|outlier do not|outliers does not|not affected by outlier|unaffected by outlier|no effect of extreme|not much affected by extreme|less affected by extreme|least affected by extreme"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Sum of absolute deviations is minimum about the median",
+     "w": 4,
+     "kw": [
+      "absolute",
+      "minimum|least|smallest|lowest|minimal"
+     ],
+     "min": 2
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "State the empirical relationship between mean, median and mode.",
+   "model": "For a moderately skewed distribution, mean minus mode is approximately three times mean minus median. So mode is approximately three times the median minus two times the mean.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Mean − Mode = 3 (Mean − Median)",
+     "w": 5,
+     "kw": [
+      "mean minus mode equal 3|mean minus mode equals 3|mean minus mode is 3|mean minus mode approximately 3|mean minus mode approximately equal 3|mean minus mode is approximately 3|mean minus mode  3|mean mode equal 3|mean mode equals 3|mean mode is 3|mean mode approximately 3|mean mode approximately equal 3|mean mode is approximately 3|mean mode  3",
+      "mode 3 median minus 2 mean|mode 3 median 2 mean|mode equal 3 median minus 2 mean|mode is 3 median minus 2 mean|3 times median minus 2 times mean|3 median minus twice mean|mode equal 3 times median minus 2 times mean|mode is 3 times the median minus 2 times the mean"
+     ],
+     "min": 1
+    },
+    {
+     "id": "p2",
+     "pt": "Mode = 3 Median − 2 Mean",
+     "w": 3,
+     "kw": [
+      "3 median minus 2 mean|3 median 2 mean|3 times median minus 2 times mean|three times the median minus two times the mean|3 times the median minus 2 times the mean|3 median minus twice mean|mean minus mode|3 times mean minus median|three times mean minus median"
+     ]
+    },
+    {
+     "id": "p3",
+     "pt": "Holds for moderately skewed distributions (approximately)",
+     "w": 2,
+     "kw": [
+      "moderately|approximate|skew|asymmetric|nearly"
+     ],
+     "min": 1
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v5",
+   "q": "What is the relationship between AM, GM and HM? What special result holds for two positive numbers?",
+   "model": "For positive observations, the arithmetic mean is greater than or equal to the geometric mean, which is greater than or equal to the harmonic mean; they are equal only when all observations are equal. For two positive numbers, AM multiplied by HM equals the square of GM.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "AM ≥ GM ≥ HM",
+     "w": 5,
+     "kw": [
+      "am greater than or equal to gm greater than or equal to hm|am greater than or equal to gm greater than hm|am greater than or equal to gm greater or equal hm|am greater than or equal to gm at least hm|am greater than or equal to gm not less than hm|am greater than or equal to gm more than hm|am greater than or equal to gm greater equal hm|am greater than or equal to gm exceed hm|am greater than or equal to gm ge hm|am greater than or equal to gm is greater than or equal to hm|am greater than or equal to gm is greater than hm|am greater than gm greater than or equal to hm|am greater than gm greater than hm|am greater than gm greater or equal hm|am greater than gm at least hm|am greater than gm not less than hm|am greater than gm more than hm|am greater than gm greater equal hm|am greater than gm exceed hm|am greater than gm ge hm|am greater than gm is greater than or equal to hm|am greater than gm is greater than hm|am greater or equal gm greater than or equal to hm|am greater or equal gm greater than hm|am greater or equal gm greater or equal hm|am greater or equal gm at least hm|am greater or equal gm not less than hm|am greater or equal gm more than hm|am greater or equal gm greater equal hm|am greater or equal gm exceed hm|am greater or equal gm ge hm|am greater or equal gm is greater than or equal to hm|am greater or equal gm is greater than hm|am at least gm greater than or equal to hm|am at least gm greater than hm|am at least gm greater or equal hm|am at least gm at least hm|am at least gm not less than hm|am at least gm more than hm|am at least gm greater equal hm|am at least gm exceed hm|am at least gm ge hm|am at least gm is greater than or equal to hm|am at least gm is greater than hm|am not less than gm greater than or equal to hm|am not less than gm greater than hm|am not less than gm greater or equal hm|am not less than gm at least hm|am not less than gm not less than hm|am not less than gm more than hm|am not less than gm greater equal hm|am not less than gm exceed hm|am not less than gm ge hm|am not less than gm is greater than or equal to hm|am not less than gm is greater than hm|am more than gm greater than or equal to hm|am more than gm greater than hm|am more than gm greater or equal hm|am more than gm at least hm|am more than gm not less than hm|am more than gm more than hm|am more than gm greater equal hm|am more than gm exceed hm|am more than gm ge hm|am more than gm is greater than or equal to hm|am more than gm is greater than hm|am greater equal gm greater than or equal to hm|am greater equal gm greater than hm|am greater equal gm greater or equal hm|am greater equal gm at least hm|am greater equal gm not less than hm|am greater equal gm more than hm|am greater equal gm greater equal hm|am greater equal gm exceed hm|am greater equal gm ge hm|am greater equal gm is greater than or equal to hm|am greater equal gm is greater than hm|am exceed gm greater than or equal to hm|am exceed gm greater than hm|am exceed gm greater or equal hm|am exceed gm at least hm|am exceed gm not less than hm|am exceed gm more than hm|am exceed gm greater equal hm|am exceed gm exceed hm|am exceed gm ge hm|am exceed gm is greater than or equal to hm|am exceed gm is greater than hm|am ge gm greater than or equal to hm|am ge gm greater than hm|am ge gm greater or equal hm|am ge gm at least hm|am ge gm not less than hm|am ge gm more than hm|am ge gm greater equal hm|am ge gm exceed hm|am ge gm ge hm|am ge gm is greater than or equal to hm|am ge gm is greater than hm|am is greater than or equal to gm greater than or equal to hm|am is greater than or equal to gm greater than hm|am is greater than or equal to gm greater or equal hm|am is greater than or equal to gm at least hm|am is greater than or equal to gm not less than hm|am is greater than or equal to gm more than hm|am is greater than or equal to gm greater equal hm|am is greater than or equal to gm exceed hm|am is greater than or equal to gm ge hm|am is greater than or equal to gm is greater than or equal to hm|am is greater than or equal to gm is greater than hm|am is greater than gm greater than or equal to hm|am is greater than gm greater than hm|am is greater than gm greater or equal hm|am is greater than gm at least hm|am is greater than gm not less than hm|am is greater than gm more than hm|am is greater than gm greater equal hm|am is greater than gm exceed hm|am is greater than gm ge hm|am is greater than gm is greater than or equal to hm|am is greater than gm is greater than hm|arithmetic mean greater than or equal to geometric mean greater than or equal to harmonic mean|arithmetic mean greater than or equal to geometric mean greater than harmonic mean|arithmetic mean greater than or equal to geometric mean greater or equal harmonic mean|arithmetic mean greater than or equal to geometric mean at least harmonic mean|arithmetic mean greater than or equal to geometric mean not less than harmonic mean|arithmetic mean greater than or equal to geometric mean more than harmonic mean|arithmetic mean greater than or equal to geometric mean greater equal harmonic mean|arithmetic mean greater than or equal to geometric mean exceed harmonic mean|arithmetic mean greater than or equal to geometric mean ge harmonic mean|arithmetic mean greater than or equal to geometric mean is greater than or equal to harmonic mean|arithmetic mean greater than or equal to geometric mean is greater than harmonic mean|arithmetic mean greater than geometric mean greater than or equal to harmonic mean|arithmetic mean greater than geometric mean greater than harmonic mean|arithmetic mean greater than geometric mean greater or equal harmonic mean|arithmetic mean greater than geometric mean at least harmonic mean|arithmetic mean greater than geometric mean not less than harmonic mean|arithmetic mean greater than geometric mean more than harmonic mean|arithmetic mean greater than geometric mean greater equal harmonic mean|arithmetic mean greater than geometric mean exceed harmonic mean|arithmetic mean greater than geometric mean ge harmonic mean|arithmetic mean greater than geometric mean is greater than or equal to harmonic mean|arithmetic mean greater than geometric mean is greater than harmonic mean|arithmetic mean greater or equal geometric mean greater than or equal to harmonic mean|arithmetic mean greater or equal geometric mean greater than harmonic mean|arithmetic mean greater or equal geometric mean greater or equal harmonic mean|arithmetic mean greater or equal geometric mean at least harmonic mean|arithmetic mean greater or equal geometric mean not less than harmonic mean|arithmetic mean greater or equal geometric mean more than harmonic mean|arithmetic mean greater or equal geometric mean greater equal harmonic mean|arithmetic mean greater or equal geometric mean exceed harmonic mean|arithmetic mean greater or equal geometric mean ge harmonic mean|arithmetic mean greater or equal geometric mean is greater than or equal to harmonic mean|arithmetic mean greater or equal geometric mean is greater than harmonic mean|arithmetic mean at least geometric mean greater than or equal to harmonic mean|arithmetic mean at least geometric mean greater than harmonic mean|arithmetic mean at least geometric mean greater or equal harmonic mean|arithmetic mean at least geometric mean at least harmonic mean|arithmetic mean at least geometric mean not less than harmonic mean|arithmetic mean at least geometric mean more than harmonic mean|arithmetic mean at least geometric mean greater equal harmonic mean|arithmetic mean at least geometric mean exceed harmonic mean|arithmetic mean at least geometric mean ge harmonic mean|arithmetic mean at least geometric mean is greater than or equal to harmonic mean|arithmetic mean at least geometric mean is greater than harmonic mean|arithmetic mean not less than geometric mean greater than or equal to harmonic mean|arithmetic mean not less than geometric mean greater than harmonic mean|arithmetic mean not less than geometric mean greater or equal harmonic mean|arithmetic mean not less than geometric mean at least harmonic mean|arithmetic mean not less than geometric mean not less than harmonic mean|arithmetic mean not less than geometric mean more than harmonic mean|arithmetic mean not less than geometric mean greater equal harmonic mean|arithmetic mean not less than geometric mean exceed harmonic mean|arithmetic mean not less than geometric mean ge harmonic mean|arithmetic mean not less than geometric mean is greater than or equal to harmonic mean|arithmetic mean not less than geometric mean is greater than harmonic mean|arithmetic mean more than geometric mean greater than or equal to harmonic mean|arithmetic mean more than geometric mean greater than harmonic mean|arithmetic mean more than geometric mean greater or equal harmonic mean|arithmetic mean more than geometric mean at least harmonic mean|arithmetic mean more than geometric mean not less than harmonic mean|arithmetic mean more than geometric mean more than harmonic mean|arithmetic mean more than geometric mean greater equal harmonic mean|arithmetic mean more than geometric mean exceed harmonic mean|arithmetic mean more than geometric mean ge harmonic mean|arithmetic mean more than geometric mean is greater than or equal to harmonic mean|arithmetic mean more than geometric mean is greater than harmonic mean|arithmetic mean greater equal geometric mean greater than or equal to harmonic mean|arithmetic mean greater equal geometric mean greater than harmonic mean|arithmetic mean greater equal geometric mean greater or equal harmonic mean|arithmetic mean greater equal geometric mean at least harmonic mean|arithmetic mean greater equal geometric mean not less than harmonic mean|arithmetic mean greater equal geometric mean more than harmonic mean|arithmetic mean greater equal geometric mean greater equal harmonic mean|arithmetic mean greater equal geometric mean exceed harmonic mean|arithmetic mean greater equal geometric mean ge harmonic mean|arithmetic mean greater equal geometric mean is greater than or equal to harmonic mean|arithmetic mean greater equal geometric mean is greater than harmonic mean|arithmetic mean exceed geometric mean greater than or equal to harmonic mean|arithmetic mean exceed geometric mean greater than harmonic mean|arithmetic mean exceed geometric mean greater or equal harmonic mean|arithmetic mean exceed geometric mean at least harmonic mean|arithmetic mean exceed geometric mean not less than harmonic mean|arithmetic mean exceed geometric mean more than harmonic mean|arithmetic mean exceed geometric mean greater equal harmonic mean|arithmetic mean exceed geometric mean exceed harmonic mean|arithmetic mean exceed geometric mean ge harmonic mean|arithmetic mean exceed geometric mean is greater than or equal to harmonic mean|arithmetic mean exceed geometric mean is greater than harmonic mean|arithmetic mean ge geometric mean greater than or equal to harmonic mean|arithmetic mean ge geometric mean greater than harmonic mean|arithmetic mean ge geometric mean greater or equal harmonic mean|arithmetic mean ge geometric mean at least harmonic mean|arithmetic mean ge geometric mean not less than harmonic mean|arithmetic mean ge geometric mean more than harmonic mean|arithmetic mean ge geometric mean greater equal harmonic mean|arithmetic mean ge geometric mean exceed harmonic mean|arithmetic mean ge geometric mean ge harmonic mean|arithmetic mean ge geometric mean is greater than or equal to harmonic mean|arithmetic mean ge geometric mean is greater than harmonic mean|arithmetic mean is greater than or equal to geometric mean greater than or equal to harmonic mean|arithmetic mean is greater than or equal to geometric mean greater than harmonic mean|arithmetic mean is greater than or equal to geometric mean greater or equal harmonic mean|arithmetic mean is greater than or equal to geometric mean at least harmonic mean|arithmetic mean is greater than or equal to geometric mean not less than harmonic mean|arithmetic mean is greater than or equal to geometric mean more than harmonic mean|arithmetic mean is greater than or equal to geometric mean greater equal harmonic mean|arithmetic mean is greater than or equal to geometric mean exceed harmonic mean|arithmetic mean is greater than or equal to geometric mean ge harmonic mean|arithmetic mean is greater than or equal to geometric mean is greater than or equal to harmonic mean|arithmetic mean is greater than or equal to geometric mean is greater than harmonic mean|arithmetic mean is greater than geometric mean greater than or equal to harmonic mean|arithmetic mean is greater than geometric mean greater than harmonic mean|arithmetic mean is greater than geometric mean greater or equal harmonic mean|arithmetic mean is greater than geometric mean at least harmonic mean|arithmetic mean is greater than geometric mean not less than harmonic mean|arithmetic mean is greater than geometric mean more than harmonic mean|arithmetic mean is greater than geometric mean greater equal harmonic mean|arithmetic mean is greater than geometric mean exceed harmonic mean|arithmetic mean is greater than geometric mean ge harmonic mean|arithmetic mean is greater than geometric mean is greater than or equal to harmonic mean|arithmetic mean is greater than geometric mean is greater than harmonic mean|hm less than or equal to gm less than or equal to am|hm less than or equal to gm less than am|hm less than or equal to gm less or equal am|hm less than or equal to gm at most am|hm less than or equal to gm not more than am|hm less than or equal to gm smaller than am|hm less than gm less than or equal to am|hm less than gm less than am|hm less than gm less or equal am|hm less than gm at most am|hm less than gm not more than am|hm less than gm smaller than am|hm less or equal gm less than or equal to am|hm less or equal gm less than am|hm less or equal gm less or equal am|hm less or equal gm at most am|hm less or equal gm not more than am|hm less or equal gm smaller than am|hm at most gm less than or equal to am|hm at most gm less than am|hm at most gm less or equal am|hm at most gm at most am|hm at most gm not more than am|hm at most gm smaller than am|hm not more than gm less than or equal to am|hm not more than gm less than am|hm not more than gm less or equal am|hm not more than gm at most am|hm not more than gm not more than am|hm not more than gm smaller than am|hm smaller than gm less than or equal to am|hm smaller than gm less than am|hm smaller than gm less or equal am|hm smaller than gm at most am|hm smaller than gm not more than am|hm smaller than gm smaller than am|harmonic mean less than or equal to geometric mean less than or equal to arithmetic mean|harmonic mean less than or equal to geometric mean less than arithmetic mean|harmonic mean less than or equal to geometric mean less or equal arithmetic mean|harmonic mean less than or equal to geometric mean at most arithmetic mean|harmonic mean less than or equal to geometric mean not more than arithmetic mean|harmonic mean less than or equal to geometric mean smaller than arithmetic mean|harmonic mean less than geometric mean less than or equal to arithmetic mean|harmonic mean less than geometric mean less than arithmetic mean|harmonic mean less than geometric mean less or equal arithmetic mean|harmonic mean less than geometric mean at most arithmetic mean|harmonic mean less than geometric mean not more than arithmetic mean|harmonic mean less than geometric mean smaller than arithmetic mean|harmonic mean less or equal geometric mean less than or equal to arithmetic mean|harmonic mean less or equal geometric mean less than arithmetic mean|harmonic mean less or equal geometric mean less or equal arithmetic mean|harmonic mean less or equal geometric mean at most arithmetic mean|harmonic mean less or equal geometric mean not more than arithmetic mean|harmonic mean less or equal geometric mean smaller than arithmetic mean|harmonic mean at most geometric mean less than or equal to arithmetic mean|harmonic mean at most geometric mean less than arithmetic mean|harmonic mean at most geometric mean less or equal arithmetic mean|harmonic mean at most geometric mean at most arithmetic mean|harmonic mean at most geometric mean not more than arithmetic mean|harmonic mean at most geometric mean smaller than arithmetic mean|harmonic mean not more than geometric mean less than or equal to arithmetic mean|harmonic mean not more than geometric mean less than arithmetic mean|harmonic mean not more than geometric mean less or equal arithmetic mean|harmonic mean not more than geometric mean at most arithmetic mean|harmonic mean not more than geometric mean not more than arithmetic mean|harmonic mean not more than geometric mean smaller than arithmetic mean|harmonic mean smaller than geometric mean less than or equal to arithmetic mean|harmonic mean smaller than geometric mean less than arithmetic mean|harmonic mean smaller than geometric mean less or equal arithmetic mean|harmonic mean smaller than geometric mean at most arithmetic mean|harmonic mean smaller than geometric mean not more than arithmetic mean|harmonic mean smaller than geometric mean smaller than arithmetic mean"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Equal only when all observations are equal",
+     "w": 2,
+     "kw": [
+      "equal|same|constant|identical",
+      "all|every"
+     ],
+     "min": 2
+    },
+    {
+     "id": "p3",
+     "pt": "For two numbers AM × HM = GM²",
+     "w": 3,
+     "kw": [
+      "am times hm equal gm square|am times hm equals gm square|am times hm is gm square|am times hm equal to gm square|am times hm is equal to gm square|am multiplied by hm equal gm square|am multiplied by hm equals gm square|am multiplied by hm is gm square|am multiplied by hm equal to gm square|am multiplied by hm is equal to gm square|am into hm equal gm square|am into hm equals gm square|am into hm is gm square|am into hm equal to gm square|am into hm is equal to gm square|am x hm equal gm square|am x hm equals gm square|am x hm is gm square|am x hm equal to gm square|am x hm is equal to gm square|am hm gm square|am times hm equal square gm|am times hm equals square gm|am times hm is square gm|am times hm equal to square gm|am times hm is equal to square gm|am multiplied by hm equal square gm|am multiplied by hm equals square gm|am multiplied by hm is square gm|am multiplied by hm equal to square gm|am multiplied by hm is equal to square gm|am into hm equal square gm|am into hm equals square gm|am into hm is square gm|am into hm equal to square gm|am into hm is equal to square gm|am x hm equal square gm|am x hm equals square gm|am x hm is square gm|am x hm equal to square gm|am x hm is equal to square gm|am times hm equal square of gm|am times hm equals square of gm|am times hm is square of gm|am times hm equal to square of gm|am times hm is equal to square of gm|am multiplied by hm equal square of gm|am multiplied by hm equals square of gm|am multiplied by hm is square of gm|am multiplied by hm equal to square of gm|am multiplied by hm is equal to square of gm|am into hm equal square of gm|am into hm equals square of gm|am into hm is square of gm|am into hm equal to square of gm|am into hm is equal to square of gm|am x hm equal square of gm|am x hm equals square of gm|am x hm is square of gm|am x hm equal to square of gm|am x hm is equal to square of gm|arithmetic mean times harmonic mean equal square of geometric mean|arithmetic mean times harmonic mean equals square of geometric mean|arithmetic mean times harmonic mean is square of geometric mean|arithmetic mean times harmonic mean equal to square of geometric mean|arithmetic mean times harmonic mean is equal to square of geometric mean|arithmetic mean multiplied by harmonic mean equal square of geometric mean|arithmetic mean multiplied by harmonic mean equals square of geometric mean|arithmetic mean multiplied by harmonic mean is square of geometric mean|arithmetic mean multiplied by harmonic mean equal to square of geometric mean|arithmetic mean multiplied by harmonic mean is equal to square of geometric mean|arithmetic mean into harmonic mean equal square of geometric mean|arithmetic mean into harmonic mean equals square of geometric mean|arithmetic mean into harmonic mean is square of geometric mean|arithmetic mean into harmonic mean equal to square of geometric mean|arithmetic mean into harmonic mean is equal to square of geometric mean|arithmetic mean x harmonic mean equal square of geometric mean|arithmetic mean x harmonic mean equals square of geometric mean|arithmetic mean x harmonic mean is square of geometric mean|arithmetic mean x harmonic mean equal to square of geometric mean|arithmetic mean x harmonic mean is equal to square of geometric mean|gm square equal am times hm|gm square equal am multiplied by hm|gm square equal am into hm|gm square equal am x hm|gm square equals am times hm|gm square equals am multiplied by hm|gm square equals am into hm|gm square equals am x hm|gm square is am times hm|gm square is am multiplied by hm|gm square is am into hm|gm square is am x hm|gm square equal to am times hm|gm square equal to am multiplied by hm|gm square equal to am into hm|gm square equal to am x hm|gm square is equal to am times hm|gm square is equal to am multiplied by hm|gm square is equal to am into hm|gm square is equal to am x hm|square of gm equal am times hm|square of gm equal am multiplied by hm|square of gm equal am into hm|square of gm equal am x hm|square of gm equals am times hm|square of gm equals am multiplied by hm|square of gm equals am into hm|square of gm equals am x hm|square of gm is am times hm|square of gm is am multiplied by hm|square of gm is am into hm|square of gm is am x hm|square of gm equal to am times hm|square of gm equal to am multiplied by hm|square of gm equal to am into hm|square of gm equal to am x hm|square of gm is equal to am times hm|square of gm is equal to am multiplied by hm|square of gm is equal to am into hm|square of gm is equal to am x hm|gm squared equal am times hm|gm squared equal am multiplied by hm|gm squared equal am into hm|gm squared equal am x hm|gm squared equals am times hm|gm squared equals am multiplied by hm|gm squared equals am into hm|gm squared equals am x hm|gm squared is am times hm|gm squared is am multiplied by hm|gm squared is am into hm|gm squared is am x hm|gm squared equal to am times hm|gm squared equal to am multiplied by hm|gm squared equal to am into hm|gm squared equal to am x hm|gm squared is equal to am times hm|gm squared is equal to am multiplied by hm|gm squared is equal to am into hm|gm squared is equal to am x hm|am times hm equal gm squared|am times hm equals gm squared|am times hm is gm squared|am times hm equal to gm squared|am times hm is equal to gm squared|am multiplied by hm equal gm squared|am multiplied by hm equals gm squared|am multiplied by hm is gm squared|am multiplied by hm equal to gm squared|am multiplied by hm is equal to gm squared|am into hm equal gm squared|am into hm equals gm squared|am into hm is gm squared|am into hm equal to gm squared|am into hm is equal to gm squared|am x hm equal gm squared|am x hm equals gm squared|am x hm is gm squared|am x hm equal to gm squared|am x hm is equal to gm squared|a h equal g square|a h equals g square|a h is g square|a h equal to g square|a h is equal to g square|ah equal g square|ah equals g square|ah is g square|ah equal to g square|ah is equal to g square|ah g2|ah g squared"
+     ]
+    }
+   ],
+   "concept": "c7"
+  },
+  {
+   "id": "v6",
+   "q": "When should we use the geometric mean and when the harmonic mean?",
+   "model": "The geometric mean is used to average rates of growth, ratios and percentage changes, for example average annual growth of sales or in index numbers, because the changes compound. The harmonic mean is used to average rates such as speed or price per unit when the distance or the amount spent is fixed, for example the average speed over equal distances.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "GM: growth rates, ratios, percentage changes (compounding)",
+     "w": 5,
+     "kw": [
+      "geometric mean growth|geometric mean ratio|geometric mean percentage|geometric mean compound|geometric mean rate of change|geometric mean index number|geometric mean rate of increase|geometric mean average growth|geometric mean used for growth|geometric mean used for ratio|geometric mean used to average growth|geometric mean used to average ratio|geometric mean used to average rates of growth|geometric mean is used for average growth|geometric mean is used for growth|gm growth|gm ratio|gm percentage|gm compound|gm rate of change|gm index number|gm rate of increase|gm average growth|gm used for growth|gm used for ratio|gm used to average growth|gm used to average ratio|gm used to average rates of growth|gm is used for average growth|gm is used for growth|geometric growth|geometric ratio|geometric percentage|geometric compound|geometric rate of change|geometric index number|geometric rate of increase|geometric average growth|geometric used for growth|geometric used for ratio|geometric used to average growth|geometric used to average ratio|geometric used to average rates of growth|geometric is used for average growth|geometric is used for growth"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "HM: rates like speed / price per unit when distance or amount is fixed",
+     "w": 5,
+     "kw": [
+      "harmonic mean speed|harmonic mean rate|harmonic mean per unit|harmonic mean price|harmonic mean equal distance|harmonic mean same distance|harmonic mean fixed distance|harmonic mean average speed|harmonic mean used for speed|harmonic mean used for rate|harmonic mean used to average speed|harmonic mean used to average rate|harmonic mean is used for speed|harmonic mean is used for average speed|harmonic mean is used to average speed|harmonic mean when distance|hm speed|hm rate|hm per unit|hm price|hm equal distance|hm same distance|hm fixed distance|hm average speed|hm used for speed|hm used for rate|hm used to average speed|hm used to average rate|hm is used for speed|hm is used for average speed|hm is used to average speed|hm when distance|harmonic speed|harmonic rate|harmonic per unit|harmonic price|harmonic equal distance|harmonic same distance|harmonic fixed distance|harmonic average speed|harmonic used for speed|harmonic used for rate|harmonic used to average speed|harmonic used to average rate|harmonic is used for speed|harmonic is used for average speed|harmonic is used to average speed|harmonic when distance"
+     ]
+    }
+   ],
+   "concept": "c6"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Salary analysis for an HR policy note",
+   "difficulty": "hard",
+   "case": "Tanvi, a CA in a mid-sized firm, is asked to report \"average\" salaries. The firm has three departments: Audit (12 staff, mean ₹38,000), Tax (30 staff, mean ₹24,000) and Advisory (18 staff, mean ₹29,000). The salary register is grouped with an open last class \"₹60,000 and above\". Revenue grew by 8%, 15% and 25% in the last three years. One partner wants the \"most common\" salary band highlighted.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "What is the combined mean salary of the 60 staff?",
+     "options": [
+      "₹28,300",
+      "₹30,333",
+      "₹29,000",
+      "₹27,600"
+     ],
+     "answer": 0,
+     "explain": "Combined mean = (12 × 38,000 + 30 × 24,000 + 18 × 29,000) ÷ 60 = ₹28,300. ₹30,333 is the simple average of the three means — wrong, because group sizes differ.",
+     "difficulty": "moderate",
+     "check": "(12*38000+30*24000+18*29000)/60"
+    },
+    {
+     "id": "k1b",
+     "q": "With an open-ended last class, which average can be computed from the grouped register without assuming a mid-value?",
+     "options": [
+      "Median",
+      "Arithmetic mean",
+      "Geometric mean",
+      "Harmonic mean"
+     ],
+     "answer": 0,
+     "explain": "The median needs only cumulative frequencies up to the middle; AM, GM and HM need every class mid-value, which the open class lacks.",
+     "difficulty": "moderate"
+    },
+    {
+     "id": "k1c",
+     "q": "The average annual revenue growth over the three years is closest to:",
+     "options": [
+      "15.79%",
+      "16%",
+      "55.25%",
+      "15%"
+     ],
+     "answer": 0,
+     "explain": "Growth compounds, so use the GM of growth factors: (1.08 × 1.15 × 1.25)^(1/3) − 1 = 1.5525^(1/3) − 1 ≈ 15.79%. The AM of 8, 15 and 25 (16%) overstates it; 55.25% is the total growth over three years.",
+     "difficulty": "hard",
+     "check": "round(((1.08*1.15*1.25)**(1/3)-1)*100,2)"
+    },
+    {
+     "id": "k1d",
+     "q": "The \"most common salary band\" requested by the partner is the:",
+     "options": [
+      "Modal class",
+      "Median class",
+      "Class containing the mean",
+      "Last class"
+     ],
+     "answer": 0,
+     "explain": "Mode is the value (or class) with the highest frequency — the most common one.",
+     "difficulty": "core"
+    }
+   ]
+  }
+ ]
+}

@@ -1,8 +1,44 @@
 """CA Foundation · Paper 2 Business Laws · Chapter 2 The Indian Contract Act, 1872 · Unit 1 Nature of Contracts.
 Original explanations and problems; sections and leading cases are cited by name only."""
 from lib import *
+from ca_viva import P, ALT, V, PROP
 
 UID = 'fnd-p2-ch02-u01'
+
+
+def viva():
+    """Own copy of this unit's viva (overrides tools/ca_src/ca_viva.py) — keywords re-tested under the negation matcher."""
+    return [
+        V('v1', 'Distinguish between an agreement and a contract.',
+          'An agreement is a promise or set of promises forming consideration for each other under Section 2(e); in short, offer plus acceptance. A contract is an agreement enforceable by law under Section 2(h). So every contract is an agreement but every agreement is not a contract; social and domestic agreements like the one in Balfour versus Balfour are not enforceable.',
+          [P('p1', 'Agreement = offer + acceptance / promises (Section 2(e))', 3, 'agreement', 'offer|acceptance|promise|2 e', min=2),
+           P('p2', 'Contract = agreement enforceable by law (Section 2(h))', 4, 'contract', 'enforceable|enforced|enforce|binding|2 h', min=2),
+           P('p3', 'Not every agreement is a contract — e.g. social/domestic agreements (Balfour v. Balfour)', 3,
+             'not every agreement|not all agreement|every agreement not|all agreement not|agreement not always contract|agreement not necessarily contract|agreement need not contract|agreement may not contract|agreement not every contract|agreement is not always|agreement not always|social agreement not|domestic agreement not|social not enforc|domestic not enforc|not enforceable|not legally binding|not binding|balfour', min=1)], 'c1'),
+        V('v2', 'State the essentials of a valid contract under Section 10 of the Indian Contract Act.',
+          'Under Section 10 an agreement becomes a contract when the parties are competent, their consent is free, the consideration and the object are both lawful, and the Act does not expressly declare that kind of agreement void.',
+          [P('p1', 'Competent parties', 2, 'competent|capacity|major|sound mind'),
+           P('p2', 'Free consent', 2, 'free consent|consent'),
+           P('p3', 'Lawful consideration', 2, 'consideration'),
+           P('p4', 'Lawful object', 2, 'object|purpose'),
+           P('p5', 'Not expressly declared void', 2, 'void|not prohibited|not declared')], 'c2'),
+        V('v3', 'What is the difference between an offer and an invitation to offer?',
+          'An offer shows willingness to be bound, so its acceptance creates a contract. An invitation to offer only invites others to make offers, for example a price list, a catalogue, goods displayed in a shop, an advertisement or a notice inviting tenders. In Pharmaceutical Society versus Boots, display of goods was held to be only an invitation to offer.',
+          [P('p1', 'Offer: willingness to be bound; acceptance makes a contract', 4, 'offer', 'bound|accept|acceptance|contract|willingness', min=2),
+           P('p2', 'Invitation to offer only invites others to make offers', 3, 'invitation|invite|inviting', 'make offer|to offer|offers|negotiat', min=2),
+           P('p3', 'Example — price list, catalogue, display, advertisement, tender (Boots, Harvey v Facey)', 3, 'price list|catalogue|catalog|display|advertisement|tender|boots|harvey|auction|prospectus', min=1)], 'c5'),
+        V('v4', 'Can silence amount to acceptance of an offer? Explain.',
+          'No. Acceptance must be communicated, and mere silence is not acceptance. The offeror cannot say that silence will be treated as acceptance. In Felthouse versus Bindley the uncle\'s statement that he would treat silence as acceptance did not create a contract.',
+          [P('p1', 'No — silence is not acceptance', 4, 'not acceptance|no|not amount|cannot|not an acceptance', 'silence', min=2),
+           P('p2', 'Acceptance must be communicated', 3, 'communicat|express|convey|informed'),
+           P('p3', 'Felthouse v Bindley', 3, 'felthouse|bindley')], 'c6'),
+        V('v5', 'When is communication of an acceptance complete under Section 4?',
+          'As against the proposer, the acceptance is complete when it is posted, that is, sent on its way so that the acceptor can no longer recall it. As against the acceptor, it is complete only when the proposer comes to know of it.',
+          [P('p1', 'Against the proposer: once put in the course of transmission (posted), beyond the acceptor\'s recall', 5,
+             ALT('{p} complet when put', '{p} complet when post', '{p} complet when sent', '{p} complet post', '{p} post', '{p} sent', '{p} when put', '{p} put course', '{p} course transmiss', '{p} transmiss', '{p} acceptance complet {w} {x}', '{p} complet {w} {x}', '{p} {w} {x}', w=('when', 'once', 'soon', 'as soon as'), x=('post', 'sent', 'put', 'dispatch'), p=PROP)),
+           P('p2', 'Against the acceptor: only when it comes to the knowledge of the proposer', 5,
+             ALT('{a} {p} know', '{a} {p} learn', '{a} {p} receiv', '{a} come knowledg {p}', '{a} complet when come knowledg', '{a} complet when {p} know', '{a} complet when {p} learn', '{a} knowledg {p}', '{a} complet {w} {p} {k}', '{a} {w} {p} {k}', '{a} {w} reach {p}', '{a} complet {w} reach {p}', '{a} {w} it reach {p}', a=('acceptor', 'offeree'), p=PROP, w=('when', 'only when', 'once'), k=('know', 'learn', 'receiv', 'get', 'read')))], 'c7'),
+    ]
 
 
 def build():
@@ -162,4 +198,5 @@ def build():
                      {'k': 'Section 4 — acceptance', 'v': 'Complete v. offeror on posting; v. acceptor when it reaches the offeror'}, {'k': 'Section 5', 'v': 'Offer revocable till acceptance is posted; acceptance revocable till it reaches the offeror'},
                      {'k': 'Section 6', 'v': 'Notice · lapse of time · failure of condition precedent · death/insanity of offeror known to acceptor'}, {'k': 'Section 7', 'v': 'Acceptance absolute and unqualified; prescribed or usual manner'},
                      {'k': 'Section 8', 'v': 'Performing conditions or accepting consideration = acceptance'}, {'k': 'Answer format', 'v': 'Provision → Facts → Analysis → Conclusion'}],
+        'viva': viva(),
     }

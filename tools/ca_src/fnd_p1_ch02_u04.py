@@ -4,6 +4,22 @@ from lib import *
 UID = 'fnd-p1-ch02-u04'
 
 
+import copy
+from ca_viva import VIVA, P, ALT
+
+
+def viva():
+    """Viva from ca_viva.py with key points re-tuned in the second review for the negation-aware matcher
+    (swapped-term answers must score < 80%; natural paraphrases >= 80%)."""
+    v = copy.deepcopy(VIVA[UID]); q = {x['id']: x for x in v}
+
+    def put(vid, pt): q[vid]['points'] = [pt if p['id'] == pt['id'] else p for p in q[vid]['points']]
+    put('v1', P('p2', 'Saves time — only totals posted', 3, 'save time|saves time|time saving|less time|faster|fast|quick|speed|total', min=1))
+    put('v4', P('p1', 'Each customer (debtor) account debited individually', 5, 'customer debit|debtor debit|party debit|buyer debit|debit customer|debit debtor|debit each|each debtor debit|each customer debit|debit individual|individually debit'))
+    put('v4', P('p2', 'Periodic total credited to Sales Account', 5, 'total', 'credit sale account|total credit|sale credit|credit total sale|credit total to sale|credit periodic total|credit monthly total|credit the total'))
+    return v
+
+
 def book(title, rows, note_=None, inv='Invoice No.'):
     """rows: (date, particulars, invoice, amount) -> table with total row"""
     tot = sum(r[3] for r in rows)
@@ -170,4 +186,5 @@ def build():
         'quickref': [{'k': 'Purchases book', 'v': 'Credit purchases of goods only'}, {'k': 'Sales book', 'v': 'Credit sales of goods only'}, {'k': 'Debit note', 'v': 'Sent by buyer when goods are returned to the supplier'},
                      {'k': 'Credit note', 'v': 'Issued by seller when a customer returns goods'}, {'k': 'Journal proper', 'v': 'Opening, adjustment, rectification, transfer, closing entries; credit purchase/sale of assets'},
                      {'k': 'GST columns', 'v': 'Taxable value | CGST | SGST | IGST | Total'}],
+        'viva': viva(),
     }
