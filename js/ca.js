@@ -194,7 +194,54 @@
     return `<button type="button" class="ca-ref" data-ref-u="${esc(r.uid)}" data-ref-t="${esc(r.topic)}" data-ref-c="${esc(r.concept)}" aria-label="Study this topic — ${esc(parts.concat('Topic: ' + r.topic).join(', '))}"><span class="ca-ref-i" aria-hidden="true">📖</span><span class="ca-ref-path">${parts.map(x => `<span>${esc(x)}</span>`).join('<i aria-hidden="true"> › </i>')}<i aria-hidden="true"> › </i><b>Topic: ${esc(r.topic)}</b></span></button>`;
   }
   let pendingRef = null;
-  function openRef(uid, concept, topic) { pendingRef = { uid, concept, topic }; unit(uid, 'learn'); }
+  /* Topic reference: opens ON TOP of the question as a sheet, so Back / swipe (or "Back to question") returns to the exact
+     question, answered state and all. "Open full unit" leaves for the unit itself (a normal screen; Back still returns here). */
+  function matchConcepts(d, concept, topic) {
+    const cs = d.concepts || []; let hit = concept ? cs.find(c => c.id === concept) : null;
+    if (!hit && topic) {
+      const t = normT(topic), tw = t.split(' ').filter(w => w.length > 3); let bs = 0;
+      cs.forEach(c => { const h = normT(c.title); let sc = h === t ? 3 : (h.includes(t) || t.includes(h)) && h ? 2 : 0;
+        if (!sc && tw.length) { const hw = new Set(h.split(' ')); const ov = tw.filter(w => hw.has(w) || [...hw].some(x => x.length > 4 && (x.startsWith(w.slice(0, 5)) || w.startsWith(x.slice(0, 5))))).length / tw.length; if (ov >= .5) sc = ov; }
+        if (sc > bs) { bs = sc; hit = c; } });
+    }
+    return hit;
+  }
+  async function openRef(uid, concept, topic) {
+    uid = String(uid || '').split('#')[0];
+    const old = D.getElementById('caRefSheet'); if (old) old.remove();
+    const back = D.activeElement;
+    let d = null; try { d = await unitData(uid); } catch (e) {}
+    const r = refInfo(uid, { topic }) || {};
+    const path = [r.paper, r.ch, r.unit].filter(Boolean);
+    const c = d ? matchConcepts(d, concept, topic) : null;
+    const card = c ? `<article class="card ca-concept" aria-labelledby="caRefT"><h2 class="ca-h2s" id="caRefT">${esc(c.title)}</h2>
+        ${(c.body || []).map(x => `<p class="ca-p">${esc(x)}</p>`).join('')}${blocks(c.blocks)}
+        ${c.analogy ? `<div class="ca-analogy"><b>Think of it like this</b><p>${esc(c.analogy)}</p></div>` : ''}
+        ${c.work ? `<div class="ca-work"><b>Why it matters in real CA work</b><p>${esc(c.work)}</p></div>` : ''}</article>`
+      : `<div class="card"><h2 class="ca-h2s" id="caRefT">${esc(topic || (d && d.title) || 'Topic')}</h2><p class="ca-p">This topic is covered in the unit's lessons. Open the full unit to read it.</p></div>`;
+    const sh = D.createElement('div'); sh.className = 'sheet ca-refsheet'; sh.id = 'caRefSheet';
+    sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true'); sh.setAttribute('aria-labelledby', 'caRefT');
+    sh.innerHTML = `<div class="sheet-in"><div class="sheet-grab"></div>
+      <div class="ca-refhead"><button type="button" class="btn ghost ca-refback" data-close>← Back to question</button></div>
+      <p class="ca-k">${path.map(esc).join(' › ')}${topic ? ` › <b>Topic: ${esc(topic)}</b>` : ''}</p>
+      ${card}
+      <div class="ca-btns"><button type="button" class="btn ghost" id="caRefFull">📖 Show all concepts in this unit</button><button type="button" class="btn" data-close>Back to question</button></div></div>`;
+    D.body.appendChild(sh);
+    const close = () => { sh.classList.remove('show'); setTimeout(() => sh.remove(), 250); if (back && back.focus) try { back.focus({ preventScroll: true }); } catch (e) {} };
+    sh.querySelectorAll('[data-close]').forEach(b => b.onclick = close);
+    sh.addEventListener('click', e => { if (e.target === sh) close(); });
+    sh.querySelector('#caRefFull').onclick = () => {   // show every concept of the unit inside the same sheet (Back still returns to the question)
+      if (!d || !d.concepts) return;
+      const all = d.concepts.map((x, i) => `<article class="card ca-concept${x === c ? ' ca-reflash' : ''}" ${x === c ? 'id="caRefHit"' : ''}><span class="ca-k">Concept ${i + 1} of ${d.concepts.length}</span><h2 class="ca-h2s">${esc(x.title)}</h2>
+        ${(x.body || []).map(t => `<p class="ca-p">${esc(t)}</p>`).join('')}${blocks(x.blocks)}
+        ${x.analogy ? `<div class="ca-analogy"><b>Think of it like this</b><p>${esc(x.analogy)}</p></div>` : ''}
+        ${x.work ? `<div class="ca-work"><b>Why it matters in real CA work</b><p>${esc(x.work)}</p></div>` : ''}</article>`).join('');
+      const box = sh.querySelector('.sheet-in'); box.querySelector('.ca-concept, .card').outerHTML = `<div id="caRefAll">${all}</div>`;
+      sh.querySelector('#caRefFull').remove();
+      const hit = sh.querySelector('#caRefHit'); if (hit) setTimeout(() => hit.scrollIntoView({ block: 'start' }), 30);
+    };
+    requestAnimationFrame(() => { sh.classList.add('show'); const h = sh.querySelector('.ca-refback'); if (h) h.focus({ preventScroll: true }); });
+  }
   function scrollToRef(P) {
     const r = pendingRef; if (!r || !U || r.uid !== U.uid) return; pendingRef = null;
     let el = r.concept ? P.querySelector(`[data-ref="concept:${CSS.escape(r.concept)}"]`) : null;
