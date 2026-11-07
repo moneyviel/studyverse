@@ -219,7 +219,7 @@
         ${c.analogy ? `<div class="ca-analogy"><b>Think of it like this</b><p>${esc(c.analogy)}</p></div>` : ''}
         ${c.work ? `<div class="ca-work"><b>Why it matters in real CA work</b><p>${esc(c.work)}</p></div>` : ''}</article>`
       : `<div class="card"><h2 class="ca-h2s" id="caRefT">${esc(topic || (d && d.title) || 'Topic')}</h2><p class="ca-p">This topic is covered in the unit's lessons. Open the full unit to read it.</p></div>`;
-    const sh = D.createElement('div'); sh.className = 'sheet ca-refsheet'; sh.id = 'caRefSheet';
+    const sh = D.createElement('div'); sh.className = 'sheet ca-refsheet'; sh.id = 'caRefSheet'; sh.setAttribute('data-nonav', '');
     sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true'); sh.setAttribute('aria-labelledby', 'caRefT');
     sh.innerHTML = `<div class="sheet-in"><div class="sheet-grab"></div>
       <div class="ca-refhead"><button type="button" class="btn ghost ca-refback" data-close>← Back to question</button></div>
@@ -227,9 +227,16 @@
       ${card}
       <div class="ca-btns"><button type="button" class="btn ghost" id="caRefFull">📖 Show all concepts in this unit</button><button type="button" class="btn" data-close>Back to question</button></div></div>`;
     D.body.appendChild(sh);
-    const close = () => { sh.classList.remove('show'); setTimeout(() => sh.remove(), 250); if (back && back.focus) try { back.focus({ preventScroll: true }); } catch (e) {} };
+    // own history entry: Back / swipe / the buttons all just close this sheet; the question underneath is never re-rendered
+    let closed = false;
+    const finish = () => { if (closed) return; closed = true; window.removeEventListener('popstate', onPop, true); sh.classList.remove('show'); setTimeout(() => sh.remove(), 250); if (back && back.focus) try { back.focus({ preventScroll: true }); } catch (e) {} };
+    const onPop = e => { e.stopImmediatePropagation(); finish(); };
+    try { history.pushState(Object.assign({}, history.state || {}, { caRef: 1 }), ''); } catch (e) {}
+    window.addEventListener('popstate', onPop, true);
+    const close = () => { if (closed) return; try { history.back(); } catch (e) { finish(); } setTimeout(finish, 400); };
     sh.querySelectorAll('[data-close]').forEach(b => b.onclick = close);
     sh.addEventListener('click', e => { if (e.target === sh) close(); });
+    sh.addEventListener('keydown', e => { if (e.key === 'Escape') { e.stopPropagation(); close(); } });
     sh.querySelector('#caRefFull').onclick = () => {   // show every concept of the unit inside the same sheet (Back still returns to the question)
       if (!d || !d.concepts) return;
       const all = d.concepts.map((x, i) => `<article class="card ca-concept${x === c ? ' ca-reflash' : ''}" ${x === c ? 'id="caRefHit"' : ''}><span class="ca-k">Concept ${i + 1} of ${d.concepts.length}</span><h2 class="ca-h2s">${esc(x.title)}</h2>

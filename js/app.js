@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=23'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=24'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -280,7 +280,7 @@ const Nav = (() => {
   /* sheets: an opened sheet gets an entry; closing it from its own button removes the entry again */
   const tracked = new Set();
   function scanSheets() {
-    document.querySelectorAll('.sheet.show, .asksheet.show').forEach(el => { if (tracked.has(el)) return; tracked.add(el); if (ST.profile || started) push({ key: 'sheet:' + (el.id || '') + '#' + (++anonN), sheet: el }); });
+    document.querySelectorAll('.sheet.show, .asksheet.show').forEach(el => { if (tracked.has(el) || el.hasAttribute('data-nonav')) return; /* data-nonav: the sheet handles Back itself */ tracked.add(el); if (ST.profile || started) push({ key: 'sheet:' + (el.id || '') + '#' + (++anonN), sheet: el }); });
     [...tracked].forEach(el => {
       if (isOpen(el)) return; tracked.delete(el);
       const i = stack.findIndex(en => en.sheet === el); if (i < 0) return;
