@@ -15,6 +15,8 @@
   const D = document;
   const LEVELS = [['foundation', 'Foundation'], ['inter', 'Intermediate'], ['final', 'Final']];
   const TABS = [['learn', 'Learn'], ['illus', 'Examples'], ['job', 'On the job'], ['mcq', 'MCQ'], ['write', 'Write'], ['revise', 'Revise']];
+  const VTABS = TABS.concat([['viva', 'Viva']]);   // Viva (speak & revise) is extra practice — not needed to complete a unit
+  const T = () => window.CaTools || null;           // js/ca-tools.js: dashboard, viva, MCQ builder, mock papers, notes, search
   const SKILL = { posting: 'Posting to ledger', balancing: 'Balancing accounts', classification: 'Classifying accounts', computation: 'Computation', presentation: 'Presentation & format',
     concept: 'Concept clarity', application: 'Applying concepts', rectification: 'Rectification entries', provision: 'Quoting the provision', analysis: 'Legal analysis', conclusion: 'Clear conclusion' };
   const cache = { st: {}, unit: {}, mot: null };
@@ -62,6 +64,25 @@
     return first;
   }
   function daysLeft() { const e = C().exam; if (!e) return null; const ms = new Date(e + 'T09:00:00') - new Date(todayISO() + 'T09:00:00'); return Math.round(ms / 864e5); }
+
+  function recordAns(key, ok, ms) {
+    const c = C(); const s = c.mcq[key] = c.mcq[key] || { s: 0, w: 0 }; s.s++; if (!ok) s.w++; s.last = today();
+    s.ms = (s.ms || 0) + Math.min(ms || 0, 600000);
+    c.mlog = c.mlog || []; c.mlog.push([Math.floor(Date.now() / 6e4), key, ok ? 1 : 0, Math.round(Math.min(ms || 0, 600000) / 100) / 10]);
+    if (c.mlog.length > 1500) c.mlog.splice(0, c.mlog.length - 1500);
+    save();
+  }
+  /* time studied: a 15-second heartbeat that only counts while the CA screen is visible and was touched in the last minute */
+  let lastTouch = Date.now();
+  ['pointerdown', 'keydown', 'scroll', 'input'].forEach(e => D.addEventListener(e, () => { lastTouch = Date.now(); }, { passive: true, capture: true }));
+  setInterval(() => {
+    try {
+      if (D.hidden || !isCA() || Date.now() - lastTouch > 60000) return;
+      const s = D.getElementById('s-ca'); if (!s || !s.classList.contains('active')) return;
+      const c = C(); c.time = c.time || {}; const d = todayISO(); c.time[d] = (c.time[d] || 0) + 15;
+      if (c.time[d] % 60 === 0) save();
+    } catch (e) {}
+  }, 15000);
 
   /* ---------- small UI helpers ---------- */
   function screen() {
@@ -125,8 +146,17 @@
   const checksHTML = ch => ch && ch.length ? `<details class="ca-checks"><summary>✓ ${ch.length} figure${ch.length > 1 ? 's' : ''} machine-checked</summary><ul>${ch.map(c => `<li>${esc(c.label)}: <code>${esc(c.expr)}</code> = ${fmt(c.value)}</li>`).join('')}</ul></details>` : '';
 
   /* ================= navigation chrome ================= */
-  const NAVLAB = { world: ['🧭', 'Journey'], practice: ['🎯', 'Practice'], squad: ['👥', 'Group'], me: ['👤', 'Profile'] };
+  const NAVLAB = { world: ['🧭', 'Journey'], practice: ['🎯', 'Practice'], cadash: ['📊', 'Dashboard'], squad: ['👥', 'Group'], me: ['👤', 'Profile'] };
   function navLabels() {
+    const nav = D.querySelector('nav[aria-label="Main"]') || D.querySelector('nav');
+    let db = D.getElementById('caNavDash');
+    if (nav && !db) {
+      const sq = nav.querySelector('button[data-s="squad"]');
+      nav.insertAdjacentHTML(sq ? 'beforeend' : 'beforeend', `<button data-s="cadash" id="caNavDash" hidden><b aria-hidden="true">📊</b>Dashboard</button>`);
+      db = D.getElementById('caNavDash'); if (sq) nav.insertBefore(db, sq);
+      db.onclick = () => { if (T()) T().dashboard(); };
+    }
+    if (db) { db.hidden = !isCA(); db.dataset.caOrig = db.innerHTML; D.documentElement.classList.toggle('ca-nav5', isCA()); }
     D.querySelectorAll('nav button[data-s]').forEach(b => {
       if (!b.dataset.caOrig) b.dataset.caOrig = b.innerHTML;
       const L = NAVLAB[b.dataset.s];
@@ -147,6 +177,7 @@
     const line = dailyLine(mot, { dl, nx, st });
     el.innerHTML = `<div class="ca-top"><h1 class="ca-h1">${greet}, ${esc(ST.profile.name)}</h1><span class="ca-chip lvl">CA ${esc(levelName(lvl))}</span></div>
       <div class="card ca-mot"><span class="ca-k">Today</span><p>${esc(line)}</p></div>
+      ${T() ? T().homeTiles() : ''}
       <div class="ca-row2">
         <div class="card ca-count" id="caCount">${countHTML(dl)}</div>
         ${nx ? `<button class="card ca-next" id="caNext" aria-label="Continue: ${esc(nx.u.title)}"><span class="ca-k">Continue</span><b>${esc(nx.u.title)}</b><small>${esc(paperLabel(nx.p))} · Ch ${nx.c.n} · Unit ${nx.u.n}</small>${bar(unitProg(nx.u.id))}<span class="ca-go">Resume ▶</span></button>` : ''}
@@ -162,6 +193,7 @@
     wireCount();
     D.getElementById('caGrpGo').onclick = groupScreen;
     weakMini(D.getElementById('caWeakMini'));
+    if (T()) T().wireHome(el);
   }
   function paperCard(level, p, i, st) {
     const b = builtCount(p), n = unitCount(p), pr = paperProg(p);
@@ -247,15 +279,20 @@
     el.innerHTML = `<button class="back" id="caBack">← ${esc(paperLabel(f.p))} · ${esc(f.p.name)}</button>
       <div class="card ca-uhead"><span class="ca-k">Chapter ${f.c.n}: ${esc(f.c.title)} · Unit ${f.u.n}</span><h1 class="ca-h1">${esc(d.title)}</h1>
         <div class="ca-chips"><span class="ca-chip">${esc({ core: 'Core', moderate: 'Moderate', hard: 'Challenging' }[d.meta.difficulty] || d.meta.difficulty)}</span><span class="ca-chip">Learn ~${d.meta.minutes.learn} min · Practice ~${d.meta.minutes.practice} min</span>${u.write ? '' : ''}</div>
-        <div class="ca-uprog">${bar(unitProg(U.uid))}<small>${Math.round(unitProg(U.uid) * 100)}% of this unit done</small></div></div>
-      <div class="ca-tabs" role="tablist" aria-label="Unit sections">${TABS.map(([k, n], i) => `<button role="tab" id="caTab-${k}" aria-controls="caPanel" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}" data-k="${k}" class="${u[k] ? 'done' : ''}"><span class="ca-tn" aria-hidden="true">${u[k] ? '✓' : i + 1}</span>${n}</button>`).join('')}</div>
+        <div class="ca-uprog">${bar(unitProg(U.uid))}<small>${Math.round(unitProg(U.uid) * 100)}% of this unit done</small></div>
+        ${T() ? `<div class="ca-uacts"><button class="ca-link" id="caMyNote" aria-haspopup="dialog">📝 My notes${T().hasNote(U.uid) ? ' ✓' : ''}</button><button class="ca-link" id="caUSearch">🔍 Search</button></div>` : ''}</div>
+      <div class="ca-tabs" role="tablist" aria-label="Unit sections">${VTABS.filter(([k]) => k !== 'viva' || (T() && (d.viva || []).length)).map(([k, n], i) => { const dn = k === 'viva' ? T().vivaDone(U.uid) : u[k]; return `<button role="tab" id="caTab-${k}" aria-controls="caPanel" aria-selected="${k === tab}" tabindex="${k === tab ? 0 : -1}" data-k="${k}" class="${dn ? 'done' : ''}${k === 'viva' ? ' ca-vtab' : ''}"><span class="ca-tn" aria-hidden="true">${dn ? '✓' : k === 'viva' ? '🎙' : i + 1}</span>${n}</button>`; }).join('')}</div>
       <div id="caPanel" role="tabpanel" aria-labelledby="caTab-${tab}" tabindex="-1"></div>`;
     D.getElementById('caBack').onclick = () => paper(levelOf(U.uid), f.p.id);
     el.querySelectorAll('.ca-tabs [role=tab]').forEach(b => b.onclick = () => { U.tab = b.dataset.k; tap('tap'); renderUnit(); const t = D.getElementById('caTab-' + U.tab); if (t) t.focus({ preventScroll: true }); });
     const sel = el.querySelector('.ca-tabs [aria-selected=true]'); if (sel && sel.scrollIntoView) sel.scrollIntoView({ block: 'nearest', inline: 'center' });
     const P = D.getElementById('caPanel');
+    if (T()) { D.getElementById('caMyNote').onclick = () => T().noteSheet(U.uid, U.d.title); D.getElementById('caUSearch').onclick = () => T().search(''); }
+    if (tab === 'viva' && T()) return T().vivaTab(P, U.uid, U.d);
     ({ learn: learnTab, illus: illusTab, job: jobTab, mcq: mcqTab, write: writeTab, revise: reviseTab })[tab](P);
+    if (T()) T().applyHL(P, U.uid);
   }
+  const saveBtn = (kind, id, title) => T() ? T().saveBtn(U.uid, kind, id, title) : '';
   function nextTabBtn(k) {
     const i = TABS.findIndex(t => t[0] === k), n = TABS[i + 1];
     return n ? `<button class="btn ca-nextbtn" data-next="${n[0]}">Done — next: ${n[1]} ▶</button>` : `<button class="btn ca-nextbtn" data-next="__end">Finish unit ✓</button>`;
@@ -274,7 +311,7 @@
     P.innerHTML = `<div class="card"><h2 class="ca-h2s">What you will be able to do</h2><ul class="ca-ul">${d.outcomes.map(o => `<li>${esc(o)}</li>`).join('')}</ul>
         ${U.f.u.topics ? `<details class="ca-icai"><summary>ICAI topics covered in this unit</summary><ul class="ca-tlist">${U.f.u.topics.map(t => `<li>${esc(t)}</li>`).join('')}</ul></details>` : ''}
         ${d.meta.exam_tip ? `<p class="ca-tip"><b>Exam tip</b> ${esc(d.meta.exam_tip)}</p>` : ''}</div>
-      ${d.concepts.map((c, i) => `<article class="card ca-concept" aria-labelledby="caC${i}"><span class="ca-k">Concept ${i + 1} of ${d.concepts.length}</span><h2 class="ca-h2s" id="caC${i}">${esc(c.title)}</h2>
+      ${d.concepts.map((c, i) => `<article class="card ca-concept ca-hl" data-ref="concept:${esc(c.id)}" aria-labelledby="caC${i}"><div class="ca-khead"><span class="ca-k">Concept ${i + 1} of ${d.concepts.length}</span>${saveBtn('concept', c.id, c.title)}</div><h2 class="ca-h2s" id="caC${i}">${esc(c.title)}</h2>
         ${c.body.map(x => `<p class="ca-p">${esc(x)}</p>`).join('')}${blocks(c.blocks)}
         <div class="ca-analogy"><b>Think of it like this</b><p>${esc(c.analogy)}</p></div>
         <div class="ca-work"><b>Why it matters in real CA work</b><p>${esc(c.work)}</p></div></article>`).join('')}
@@ -284,7 +321,7 @@
   function illusTab(P) {
     const d = U.d;
     P.innerHTML = `<p class="ca-intro">Try each one on paper first, then open the solution. Figures are presented the way ICAI expects them in the exam.</p>
-      ${d.illustrations.map((x, i) => `<article class="card ca-ill"><span class="ca-k">Illustration ${i + 1} · ${esc({ core: 'Core', moderate: 'Moderate', hard: 'Challenging' }[x.difficulty] || '')} · ~${x.minutes} min</span><h2 class="ca-h2s">${esc(x.title)}</h2>
+      ${d.illustrations.map((x, i) => `<article class="card ca-ill ca-hl" data-ref="illus:${esc(x.id)}"><div class="ca-khead"><span class="ca-k">Illustration ${i + 1} · ${esc({ core: 'Core', moderate: 'Moderate', hard: 'Challenging' }[x.difficulty] || '')} · ~${x.minutes} min</span>${saveBtn('illus', x.id, x.title)}</div><h2 class="ca-h2s">${esc(x.title)}</h2>
         <p class="ca-q">${esc(x.q)}</p>${x.given ? `<details class="ca-given"><summary>Given data</summary>${blocks(x.given)}</details>` : ''}
         <button class="btn ghost ca-reveal" aria-expanded="false" aria-controls="caSol${i}">Show solution</button><div class="ca-sol" id="caSol${i}" hidden><h3 class="ca-h3">Solution</h3>${blocks(x.solution)}${checksHTML(x.checks)}</div></article>`).join('')}
       ${nextTabBtn('illus')}`;
@@ -306,17 +343,17 @@
   function order(n, seed) { const r = rng(seed), a = Array.from({ length: n }, (_, i) => i); for (let i = n - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
   function objectivePaper(uid) { return /^fnd-p[34]-/.test(uid); }
   function runMCQ(host, list, seed, done) {
-    let i = 0, right = 0, wrong = 0; const t0 = Date.now(), log = [];
+    let i = 0, right = 0, wrong = 0, qt0 = Date.now(); const t0 = Date.now(), log = [];
     const render = () => {
-      const { q, key } = list[i], ord = order(q.options.length, seed + key);
+      const { q, key } = list[i], ord = order(q.options.length, seed + key); qt0 = Date.now();
       host.innerHTML = `<div class="card ca-mcq"><div class="ca-mtop"><span class="ca-k">Question ${i + 1} of ${list.length}</span><span class="ca-k">${right} correct</span></div>${bar(i / list.length)}
         <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts">${ord.map((k, j) => `<button class="opt" data-k="${k}"><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div><div id="caMx"></div></div>`;
       host.querySelectorAll('.opt').forEach(b => b.onclick = () => {
         const k = +b.dataset.k, ok = k === q.answer;
         host.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.answer) x.classList.add('right'); });
         if (!ok) b.classList.add('wrong');
-        ok ? right++ : wrong++; tap(ok ? 'correct' : 'wrong'); log.push({ key, ok });
-        const s = C().mcq[key] = C().mcq[key] || { s: 0, w: 0 }; s.s++; if (!ok) s.w++; s.last = today(); save();
+        ok ? right++ : wrong++; tap(ok ? 'correct' : 'wrong'); const ms = Date.now() - qt0; log.push({ key, ok, ms, pick: k });
+        recordAns(key, ok, ms); if (T()) T().reviseMark(key, ok);
         D.getElementById('caMx').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? 'Correct' : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain)}</div></div>
           <button class="btn ca-mnext" id="caMn">${i < list.length - 1 ? 'Next question ▶' : 'See result ▶'}</button>`;
         D.getElementById('caMn').onclick = () => { i++; if (i < list.length) render(); else done({ right, wrong, total: list.length, ms: Date.now() - t0, log }); };
@@ -330,9 +367,10 @@
     const obj = objectivePaper(U.uid);
     const prev = list.filter(x => C().mcq[x.key]); const acc = prev.length ? Math.round(prev.reduce((a, x) => a + (C().mcq[x.key].s - C().mcq[x.key].w) / C().mcq[x.key].s, 0) / prev.length * 100) : null;
     P.innerHTML = `<div class="card"><h2 class="ca-h2s">${obj ? 'Exam-style MCQs' : 'Concept check'}</h2><p class="sub">${list.length} questions.${obj ? ' Scored like the exam: +1 for correct, −¼ for wrong.' : ' This paper is descriptive in the exam; these MCQs make sure the concepts behind your written answers are solid.'}${acc != null ? ` Your accuracy so far: ${acc}%.` : ''}</p>
-      <button class="btn" id="caMgo">Start ▶</button></div><div id="caMhost"></div>`;
+      <button class="btn" id="caMgo">Start ▶</button></div><div id="caMhost"></div>${T() && (d.cases || []).length ? T().casesBlock(U.uid, d) : ''}`;
+    if (T()) T().wireCases(P, U.uid, d);
     D.getElementById('caMgo').onclick = () => {
-      P.querySelector('.card').remove(); const seed = 'u' + Date.now().toString(36);
+      P.querySelector('.card').remove(); const cb = P.querySelector('.ca-cases'); if (cb) cb.remove(); const seed = 'u' + Date.now().toString(36);
       runMCQ(D.getElementById('caMhost'), list, seed, r => {
         const score = obj ? r.right - r.wrong * 0.25 : r.right;
         D.getElementById('caMhost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">${r.right} of ${r.total} correct</h2>${obj ? `<p class="sub">Exam score: ${fmt(score)} / ${r.total} (with negative marking)</p>` : ''}<p class="sub">Time: ${Math.round(r.ms / 1000)} s</p>
@@ -441,7 +479,7 @@
 
   function reviseTab(P) {
     const r = U.d.revision;
-    P.innerHTML = `<div class="card ca-rev"><h2 class="ca-h2s">One-page revision</h2><ul class="ca-ul">${r.summary.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    P.innerHTML = `<div class="card ca-rev ca-hl" data-ref="rev:page"><div class="ca-khead"><h2 class="ca-h2s">One-page revision</h2>${saveBtn('rev', 'page', 'One-page revision: ' + U.d.title)}</div><ul class="ca-ul">${r.summary.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
         <h3 class="ca-h3">Must remember</h3><ul class="ca-ul ca-rem">${r.remember.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
         <h3 class="ca-h3">Traps</h3><ul class="ca-ul ca-miss">${r.traps.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>
       <div class="card"><h2 class="ca-h2s">Quick reference</h2><dl class="ca-qr">${U.d.quickref.map(x => `<div><dt>${esc(x.k)}</dt><dd>${esc(x.v)}</dd></div>`).join('')}</dl></div>
@@ -487,16 +525,18 @@
 
   /* ================= Practice (CA mode) ================= */
   async function practice() {
+    if (T() && !practice.daily) return T().practiceHub();
+    practice.daily = false;
     const el = open('practice'); const pool = [];
     for (const [k] of LEVELS) { let st; try { st = await structure(k); } catch (e) { continue; }
       for (const p of st.papers) for (const c of p.chapters) for (const u of c.units) { if (u.status !== 'built' || !C().units[u.id]) continue; const d = await unitData(u.id); if (!d) continue;
         d.mcqs.forEach(q => { const key = `${u.id}#${q.id}`, s = C().mcq[key] || { s: 0, w: 0 }; pool.push({ q, key, wgt: 1 + s.w * 4 - Math.min(s.s, 3) * .2 + Math.random() * 2 }); }); } }
     if (!pool.length) { el.innerHTML = `<div class="card"><h2 class="ca-h2s">Daily practice</h2><p class="sub">Open your first unit — its MCQs then join a daily mix that brings back the ones you got wrong.</p><button class="btn" id="caPgo">Go to CA Journey</button></div><div class="card" id="caWeakMini"></div>`; D.getElementById('caPgo').onclick = home; weakMini(D.getElementById('caWeakMini')); return; }
     pool.sort((a, b) => b.wgt - a.wgt); const list = pool.slice(0, 10);
-    el.innerHTML = `<div class="card"><h2 class="ca-h2s">Daily practice</h2><p class="sub">${list.length} questions from units you have opened. The ones you missed before come first.</p><button class="btn" id="caPstart">Start ▶</button></div><div class="card" id="caWeakMini"></div><div id="caPhost"></div>`;
-    weakMini(D.getElementById('caWeakMini'));
+    el.innerHTML = `${T() ? '<button class="back" id="caHubBack">← Practice</button>' : ''}<div class="card"><h2 class="ca-h2s">Daily practice</h2><p class="sub">${list.length} questions from units you have opened. The ones you missed before come first.</p><button class="btn" id="caPstart">Start ▶</button></div><div class="card" id="caWeakMini"></div><div id="caPhost"></div>`;
+    weakMini(D.getElementById('caWeakMini')); const hb = D.getElementById('caHubBack'); if (hb) hb.onclick = practice;
     D.getElementById('caPstart').onclick = () => { el.querySelectorAll('.card').forEach(x => x.remove()); runMCQ(D.getElementById('caPhost'), list, 'p' + todayISO(), r => { bumpStreak();
-      D.getElementById('caPhost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">${r.right} of ${r.total} correct</h2><p class="sub">Come back tomorrow for a fresh mix.</p><button class="btn ghost" id="caPagain">Another round</button></div>`; D.getElementById('caPagain').onclick = practice; }); };
+      D.getElementById('caPhost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">${r.right} of ${r.total} correct</h2><p class="sub">Come back tomorrow for a fresh mix.</p><button class="btn ghost" id="caPagain">Another round</button></div>`; D.getElementById('caPagain').onclick = () => { practice.daily = true; practice(); }; }); };
   }
 
   /* ================= Group study (everything lives in the link, like Duels) ================= */
@@ -577,6 +617,7 @@
     const nW = Object.values(c.writes).reduce((a, h) => a + h.length, 0), nM = Object.values(c.mcq).reduce((a, s) => a + s.s, 0), nU = Object.values(c.units).filter(u => TABS.every(([k]) => u[k])).length;
     el.innerHTML = `<div class="card ca-prof"><div class="ca-avatar" aria-hidden="true">${esc((p.name || 'C').trim()[0].toUpperCase())}</div><div><h1 class="ca-h1">${esc(p.name)}</h1><p class="sub">CA ${esc(levelName(c.level))} · ICAI</p></div></div>
       <div class="card statrow"><div><b>${nU}</b><span>Units done</span></div><div><b>${nM}</b><span>MCQs answered</span></div><div><b>${nW}</b><span>Answers self-checked</span></div></div>
+      ${T() ? `<div class="card"><h2 class="ca-h2s">Your library</h2><div class="ca-btns"><button class="btn ghost" id="caPNotes">📚 My notes</button><button class="btn ghost" id="caPSearch">🔍 Search everything</button></div></div>` : ''}
       <div class="card"><h2 class="ca-h2s">Current level</h2><div class="ca-seg ca-segw" role="radiogroup" aria-label="CA level">${LEVELS.map(([k, n]) => `<button role="radio" aria-checked="${k === c.level}" tabindex="${k === c.level ? 0 : -1}" data-l="${k}">${n}</button>`).join('')}</div></div>
       <div class="card"><h2 class="ca-h2s">Exam date</h2><label class="ca-lab" for="caExamP">Your next CA exam</label><input type="date" id="caExamP" class="ca-in" value="${esc(c.exam || '')}"><button class="btn ghost" id="caExamPS">Save</button></div>
       <div class="card"><h2 class="ca-h2s">Name</h2><label class="ca-lab" for="caNm">Shown on your journey and group results</label><input id="caNm" class="ca-in" maxlength="24" value="${esc(p.name)}" autocomplete="off"><button class="btn ghost" id="caNmS">Save</button></div>
@@ -586,10 +627,11 @@
     D.getElementById('caExamPS').onclick = () => { c.exam = D.getElementById('caExamP').value || null; save(); toast(c.exam ? 'Exam date saved' : 'Exam date cleared'); };
     D.getElementById('caNmS').onclick = () => { const v = D.getElementById('caNm').value.trim(); if (v) { p.name = v; save(); toast('Name saved'); } };
     D.getElementById('caToSchool').onclick = toSchool;
+    if (T()) { D.getElementById('caPNotes').onclick = () => T().notes(); D.getElementById('caPSearch').onclick = () => T().search(''); }
     D.getElementById('caReset').onclick = function () { if (this.dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { this.dataset.sure = 1; this.textContent = 'Tap again to erase everything'; } };
   }
   function toSchool() {
-    const p = ST.profile; p.course = null; save(); navLabels();
+    const p = ST.profile; p.course = null; save(); navLabels(); D.querySelectorAll('nav button.on').forEach(b => b.classList.remove('on'));
     if (window.Look) Look.apply();
     if (!p.grade || !p.board) { onboardOrig(2, { board: p.board || 'cbse' }); return; }
     setGrade(p.grade); worldScreen();
@@ -667,5 +709,9 @@
     /* Shape of a written answer for a future AI checker panel (backend). */
     submission(uid, qid, i = -1) { const h = C().writes[`${uid}#${qid}`] || []; const a = h.at(i); if (!a) return null;
       return { schema: 'ca-submission/1', unit: uid, question: qid, marks: a.max, answer: { text: a.text, table: a.table }, self: { score: a.score, ticks: a.ticks }, meta: { secs: a.secs, words: a.words, date: a.d, app: 'studyverse' }, status: a.status }; },
-    _blockHTML: blockHTML };
+    _blockHTML: blockHTML,
+    /* internals shared with js/ca-tools.js */
+    _: { C, LEVELS, TABS, SKILL, structure, allStructures, findUnit, levelOf, unitData, unitProg, paperProg, builtCount, unitCount, daysLeft, todayISO,
+      screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, levelName, rng, order, recordAns, weakData, pctOf, selfSchemeHTML: null,
+      practiceDaily: () => { practice.daily = true; practice(); }, weakScreen, nextUnit, isCA } };
 })();

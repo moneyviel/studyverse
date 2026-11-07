@@ -140,6 +140,113 @@ def check_checks(w, checks):
         except Exception as e: err(w, f'check "{c.get("expr")}" cannot be evaluated: {e}'); continue
         if not close(v, c['value']): err(w, f'CHECK FAILED "{c.get("label")}": {c["expr"]} = {v}, stored {c["value"]}')
 
+def check_mcq(w, q, concept_ids=None):
+    o = q.get('options', [])
+    if len(o) != 4: err(w, 'ICAI-style MCQs have exactly 4 options')
+    if len(set(map(str, o))) != len(o): err(w, 'duplicate options')
+    a = q.get('answer')
+    if not isinstance(a, int) or not 0 <= a < len(o): err(w, 'answer index out of range'); return
+    if not q.get('explain'): err(w, 'MCQ needs explain')
+    if q.get('concept') and concept_ids is not None and q['concept'] not in concept_ids: err(w, f'concept {q["concept"]} not found')
+    if 'check' in q:
+        try: v = calc(q['check'])
+        except Exception as e: err(w, f'check cannot be evaluated: {e}'); return
+        av, aside = opt_num(o[a])
+        if av is None or not close(v, av): err(w, f'ANSWER KEY WRONG: check {q["check"]} = {v}, marked "{o[a]}"')
+        for i, oo in enumerate(o):
+            ov, oside = opt_num(oo)
+            if i != a and ov is not None and close(ov, v) and oside == aside: err(w, f'wrong option "{oo}" equals the answer')
+    elif opt_num(o[a])[0] is not None and len(re.sub(r'[^0-9]', '', str(o[a]))) >= 2:
+        err(w, f'numeric answer "{o[a]}" has no check expression')
+
+def check_question(w, q):
+    for k in ('marks', 'minutes', 'q', 'model', 'scheme', 'remarks', 'mistakes', 'tips', 'pad'):
+        if k not in q or q[k] in ('', [], None): err(w, f'question missing {k}')
+    if q.get('pad') not in ('text', 'journal', 'ledger', 'tb', 'table', 'legal'): err(w, 'pad must be text|journal|ledger|tb|table|legal')
+    tot = sum(s.get('m', 0) for s in q.get('scheme', []))
+    if not close(tot, q.get('marks', 0)): err(w, f'marking scheme adds to {tot}, question carries {q.get("marks")} marks')
+    sids = set()
+    for s in q.get('scheme', []):
+        if not s.get('id') or s['id'] in sids: err(w, f'scheme point id missing/duplicate: {s.get("id")}')
+        sids.add(s.get('id'))
+        if not s.get('pt') or not s.get('skill'): err(w, f'scheme point {s.get("id")} needs pt and skill')
+        if s.get('m', 0) <= 0: err(w, f'scheme point {s.get("id")} must carry marks')
+    check_blocks(w + '.given', q.get('given', []))
+    check_blocks(w + '.model', q.get('model', []))
+    check_checks(w, q.get('checks'))
+
+# ---------- viva key points ----------
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import ca_vivamatch as VM
+
+def check_viva(w, v, concept_ids=None):
+    for k in ('q', 'model', 'points'):
+        if not v.get(k): err(w, f'viva missing {k}'); return
+    if v.get('concept') and concept_ids is not None and v['concept'] not in concept_ids: err(w, f'concept {v["concept"]} not found')
+    if len(v['points']) < 2: err(w, 'viva needs 2+ key points')
+    pids = set()
+    for p in v['points']:
+        pw = f'{w}.{p.get("id")}'
+        if not p.get('id') or p['id'] in pids: err(pw, 'key point id missing/duplicate')
+        pids.add(p.get('id'))
+        if not p.get('pt'): err(pw, 'key point needs pt (text shown to the student)')
+        if not isinstance(p.get('w'), int) or p['w'] <= 0: err(pw, 'weight w must be a positive integer')
+        kw = p.get('kw')
+        if not kw or not all(isinstance(g, str) and g.strip() for g in kw): err(pw, 'kw must be a non-empty list of keyword groups'); continue
+        for g in kw:
+            for alt in g.split('|'):
+                if alt.strip() and not VM.tokens(alt): err(pw, f'keyword "{alt}" is only stop-words — it can never match')
+        mn = p.get('min', len(kw))
+        if not isinstance(mn, int) or not 1 <= mn <= len(kw): err(pw, f'min must be 1..{len(kw)}')
+    try:
+        sc, hit = VM.score(v, v['model'])
+        if sc != 100: err(w, f'VIVA: model answer covers only {sc}% — missed {[p["id"] for p in v["points"] if p["id"] not in hit]}')
+        sq, _ = VM.score(v, v['q'])
+        if sq >= 80: err(w, f'VIVA: reading the question back already scores {sq}% — key points too generic')
+        elif sq >= 50: warn(w, f'viva: the question text alone scores {sq}%')
+    except Exception as e: err(w, f'viva matcher failed: {e}')
+
+# ---------- mock papers (content/ca/<level>/mocks/*.json, schema ca-mock/1) ----------
+def check_mock(path, units_by_id):
+    w0 = os.path.relpath(path, ROOT)
+    try: m = json.load(open(path, encoding='utf-8'))
+    except Exception as e: err(w0, f'cannot read JSON: {e}'); return None
+    if m.get('schema') != 'ca-mock/1': err(w0, 'schema must be "ca-mock/1"')
+    for k in ('id', 'level', 'paper', 'title', 'label', 'hours', 'marks', 'questions', 'rules', 'choose'):
+        if k not in m: err(w0, f'missing "{k}"')
+    if 'not an ICAI paper' not in m.get('label', ''): err(w0, 'label must say "not an ICAI paper"')
+    qs = m.get('questions', []); comp = set(m.get('compulsory', []))
+    opt = [q for q in qs if q['id'] not in comp]
+    if len({q['marks'] for q in opt}) > 1: err(w0, 'optional questions must carry equal marks')
+    if opt and m.get('choose', 0) > len(opt): err(w0, 'choose is more than the optional questions')
+    tot = sum(q['marks'] for q in qs if q['id'] in comp) + (opt[0]['marks'] * m.get('choose', 0) if opt else 0)
+    if not close(tot, m.get('marks', 0)): err(w0, f'compulsory + {m.get("choose")} optional questions = {tot}, paper says {m.get("marks")}')
+    for q in qs:
+        w = f'{w0}#{q["id"]}'
+        ps = sum(p.get('marks', 0) for p in q.get('parts', []))
+        if not close(ps, q['marks']): err(w, f'parts add to {ps}, question carries {q["marks"]}')
+        for p in q.get('parts', []):
+            pw = f'{w}({p.get("id")})'; k = p.get('kind')
+            if k == 'tf':
+                its = p.get('items', [])
+                if not its: err(pw, 'true/false part needs items')
+                if not close(len(its) * 2, p['marks']): err(pw, f'{len(its)} statements x 2 marks != {p["marks"]}')
+                for it in its:
+                    if not isinstance(it.get('answer'), bool) or not it.get('s') or not it.get('reason'): err(pw, f'statement {it.get("id")} needs s, answer (true/false) and reason')
+                    elif not it['reason'].startswith('True' if it['answer'] else 'False'): err(pw, f'statement {it.get("id")}: reason must begin with the verdict')
+            elif k == 'ref':
+                uidq, _, qid = str(p.get('ref', '')).partition('#')
+                u = units_by_id.get(uidq)
+                bq = u and next((x for x in u['questions'] if x['id'] == qid), None)
+                if not bq: err(pw, f'ref {p.get("ref")} not found in a built unit')
+                elif not close(bq['marks'], p['marks']): err(pw, f'ref {p["ref"]} carries {bq["marks"]} marks, part says {p["marks"]}')
+            elif k == 'q':
+                bq = p.get('question') or {}
+                check_question(pw, bq)
+                if not close(bq.get('marks', 0), p['marks']): err(pw, 'question marks differ from part marks')
+            else: err(pw, f'unknown part kind {k}')
+    return m
+
 # ---------- unit ----------
 TOP = ['schema', 'id', 'level', 'paper', 'chapter', 'title', 'outcomes', 'meta', 'concepts', 'illustrations', 'jobs', 'mcqs', 'questions', 'revision', 'quickref']
 
@@ -189,47 +296,34 @@ def check_unit(path, built_ids):
     if len(u.get('mcqs', [])) < 5: err(w0, 'needs 5+ MCQs')
     concept_ids = {c.get('id') for c in u.get('concepts', [])}
     for q in u.get('mcqs', []):
-        uid(q, 'mcq'); w = f'{w0}#{q.get("id")}'
-        o = q.get('options', [])
-        if len(o) != 4: err(w, 'ICAI-style MCQs have exactly 4 options')
-        if len(set(map(str, o))) != len(o): err(w, 'duplicate options')
-        a = q.get('answer')
-        if not isinstance(a, int) or not 0 <= a < len(o): err(w, 'answer index out of range'); continue
-        if not q.get('explain'): err(w, 'MCQ needs explain')
-        if q.get('concept') and q['concept'] not in concept_ids: err(w, f'concept {q["concept"]} not found')
-        if 'check' in q:
-            try: v = calc(q['check'])
-            except Exception as e: err(w, f'check cannot be evaluated: {e}'); continue
-            av, aside = opt_num(o[a])
-            if av is None or not close(v, av): err(w, f'ANSWER KEY WRONG: check {q["check"]} = {v}, marked "{o[a]}"')
-            for i, oo in enumerate(o):
-                ov, oside = opt_num(oo)
-                if i != a and ov is not None and close(ov, v) and oside == aside: err(w, f'wrong option "{oo}" equals the answer')
-        elif opt_num(o[a])[0] is not None and len(re.sub(r'[^0-9]', '', str(o[a]))) >= 2:
-            err(w, f'numeric answer "{o[a]}" has no check expression')
+        uid(q, 'mcq'); check_mcq(f'{w0}#{q.get("id")}', q, concept_ids)
     if len(u.get('questions', [])) < 2: err(w0, 'needs 2+ descriptive questions')
     for q in u.get('questions', []):
-        uid(q, 'question'); w = f'{w0}#{q.get("id")}'
-        for k in ('marks', 'minutes', 'q', 'model', 'scheme', 'remarks', 'mistakes', 'tips', 'pad'):
-            if k not in q or q[k] in ('', [], None): err(w, f'question missing {k}')
-        if q.get('pad') not in ('text', 'journal', 'ledger', 'tb', 'table', 'legal'): err(w, 'pad must be text|journal|ledger|tb|table|legal')
-        tot = sum(s.get('m', 0) for s in q.get('scheme', []))
-        if not close(tot, q.get('marks', 0)): err(w, f'marking scheme adds to {tot}, question carries {q.get("marks")} marks')
-        sids = set()
-        for s in q.get('scheme', []):
-            if not s.get('id') or s['id'] in sids: err(w, f'scheme point id missing/duplicate: {s.get("id")}')
-            sids.add(s.get('id'))
-            if not s.get('pt') or not s.get('skill'): err(w, f'scheme point {s.get("id")} needs pt and skill')
-            if s.get('m', 0) <= 0: err(w, f'scheme point {s.get("id")} must carry marks')
-        check_blocks(w + '.given', q.get('given', []))
-        check_blocks(w + '.model', q.get('model', []))
-        check_checks(w, q.get('checks'))
+        uid(q, 'question'); check_question(f'{w0}#{q.get("id")}', q)
     r = u.get('revision', {})
     for k in ('summary', 'remember', 'traps'):
         if not r.get(k): err(w0, f'revision.{k} missing')
     if len(u.get('quickref', [])) < 3: err(w0, 'quickref needs 3+ items')
     for qr in u.get('quickref', []):
         if not qr.get('k') or not qr.get('v'): err(w0, 'quickref item needs k and v')
+    # viva (speak & revise): 5+ per unit; the model answer must cover 100% of the key points; reading the question back must not pass
+    if len(u.get('viva', [])) < 5: err(w0, 'needs 5+ viva questions')
+    for v in u.get('viva', []):
+        uid(v, 'viva'); w = f'{w0}#{v.get("id")}'
+        check_viva(w, v, concept_ids)
+    # case-study MCQ sets: 1+ per unit, each 3-5 linked MCQs
+    if len(u.get('cases', [])) < 1: err(w0, 'needs 1+ case-study MCQ set')
+    for cs in u.get('cases', []):
+        uid(cs, 'case'); w = f'{w0}#{cs.get("id")}'
+        if not str(cs.get('case', '')).strip() or not cs.get('title'): err(w, 'case needs title and case text')
+        if cs.get('difficulty') not in ('core', 'moderate', 'hard'): err(w, 'case difficulty must be core|moderate|hard')
+        if not 3 <= len(cs.get('mcqs', [])) <= 5: err(w, 'a case set needs 3 to 5 linked MCQs')
+        check_blocks(w + '.given', cs.get('given', []))
+        for q in cs.get('mcqs', []):
+            uid(q, 'case mcq'); check_mcq(f'{w}.{q.get("id")}', q, concept_ids)
+            if q.get('difficulty') not in ('core', 'moderate', 'hard'): err(f'{w}.{q.get("id")}', 'difficulty must be core|moderate|hard')
+    for q in u.get('mcqs', []):
+        if q.get('difficulty') not in ('core', 'moderate', 'hard'): err(f'{w0}#{q.get("id")}', 'difficulty must be core|moderate|hard')
     # no leftover placeholders
     for t in text_of(u):
         if re.search(r'TODO|XXX|lorem|\{\w+\}', t): err(w0, f'placeholder text: {t[:60]}')
@@ -289,15 +383,36 @@ def main():
     # MCQ / question ids unique across units (used as keys for progress and future AI checking)
     seen = {}
     for f, u in units:
-        for q in u.get('mcqs', []) + u.get('questions', []):
+        for q in u.get('mcqs', []) + u.get('questions', []) + [m for cs in u.get('cases', []) for m in cs.get('mcqs', [])] + u.get('viva', []):
             k = f'{u["id"]}#{q["id"]}'
             if k in seen: err(f, f'duplicate global id {k}')
             seen[k] = 1
-    if src: originality(units, src)
+    mocks = []
+    ubid = {u['id']: u for _, u in units}
+    for f in sorted(glob.glob(os.path.join(CA, '*', 'mocks', '*.json'))):
+        mm = check_mock(f, ubid)
+        if mm: mocks.append((f, mm))
+    # the JS matcher (js/ca-tools.js) must give exactly the same result as tools/ca_vivamatch.py
+    try:
+        import subprocess, shutil
+        if shutil.which('node'):
+            pairs = [[v, a] for _, u in units for v in u.get('viva', []) for a in (v['model'], v['q'], ' '.join(v['model'].split()[::2]))]
+            r = subprocess.run(['node', os.path.join(ROOT, 'tools', 'ca_vivaparity.js'), os.path.join(ROOT, 'js', 'ca-tools.js')], input=json.dumps(pairs), capture_output=True, text=True, timeout=60)
+            if r.returncode: err('viva parity', r.stderr.strip()[:200])
+            else:
+                for (v, a), (pj, hj, tj) in zip(pairs, json.loads(r.stdout)):
+                    pp, hp = VM.score(v, a)
+                    if pp != pj or hp != hj or VM.tokens(a) != tj: err('viva parity', f'JS and Python matchers differ on "{a[:50]}"'); break
+                print(f'viva matcher parity JS = Python on {len(pairs)} answers')
+        else: warn('viva parity', 'node not found — JS/Python matcher parity not checked')
+    except Exception as e: err('viva parity', str(e))
+    if src: originality(units + mocks, src)
     for lv, (p, c, n) in counts.items(): print(f'{lv:10s} papers {p:2d}  chapters {c:3d}  units {n:3d}')
     nm = sum(len(u['mcqs']) for _, u in units); nq = sum(len(u['questions']) for _, u in units); ni = sum(len(u['illustrations']) for _, u in units)
     nc = sum(len(x.get('checks') or []) for _, u in units for x in u['illustrations'] + u['questions'] + u['jobs']) + sum(1 for _, u in units for q in u['mcqs'] if 'check' in q)
     print(f'built units {len(units)} · illustrations {ni} · MCQs {nm} · descriptive questions {nq} · numeric checks {nc}')
+    nv = sum(len(u.get('viva', [])) for _, u in units); ncs = sum(len(u.get('cases', [])) for _, u in units); ncm = sum(len(c['mcqs']) for _, u in units for c in u.get('cases', []))
+    print(f'viva questions {nv} · key points {sum(len(v["points"]) for _, u in units for v in u.get("viva", []))} · case sets {ncs} ({ncm} linked MCQs) · mock papers {len(mocks)}')
     for x in warns: print('WARN ', x)
     for x in errors: print('ERROR', x)
     print('OK' if not errors else f'{len(errors)} error(s)')

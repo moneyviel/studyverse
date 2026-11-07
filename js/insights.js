@@ -14,7 +14,41 @@
    3. My analysis (Me screen + full screen) and the Dashboard (Me screen, world-map shortcut), all drillable:
       subject → chapter → topic → the questions you got wrong (with steps).
    Charts are plain SVG; every chart has a one-line summary and a table version (for screen readers and the
-   "Table" toggle). Results are cached until something new is recorded. */
+   "Table" toggle). Results are cached until something new is recorded.
+   4. The Dashboard itself is drawn by js/dashboard.js (SVDash). This file turns its model into the generic
+      data shape below; any other module can draw the same dashboard with its own data:
+
+   ================= Generic dashboard API (for js/ca.js and others) =================
+     const dash = Insights.dashboardFor(hostElement, { mode: 'ca', data, onStart, onLeaf, leafLabel, startLabel, filters });
+       → draws into hostElement (keeps its own filters/drill state on the element); call again with a NEW data
+         object when the data changes (results are cached per data object), or dash.refresh() to repaint.
+     Insights.dashboardTile(data, { label, id }) → HTML string of the compact tile (a <button data-dk-open>);
+         wire its click yourself. SVDash.sampleData('ca'|'school') returns demo data in this shape.
+     opts: mode 'school' | 'ca' (only changes small styling) · onStart() for the empty-state button ·
+           onLeaf(path) adds an "Open …" button when the student drills to a level-3 item (path = [id1, id2, id3]) ·
+           filters: initial { period: '7'|'30'|'90'|'all'|'custom', from, to, scope: [id1, id2?], compare: bool }.
+     data = {
+       title: 'Dashboard', subtitle: 'CA Foundation', rootName: 'All papers',   // header texts (optional)
+       levels: ['Paper', 'Chapter', 'Unit'],          // names of the 3 drill levels (school: Subject, Chapter, Topic)
+       tree: [ { id, name, score?, enough?,           // level 1 (paper / subject); score = strength 0–100 if you have
+                 children: [ { id, name, score?,      //   your own model (else it is computed: smoothed MCQ accuracy,
+                   children: [ { id, name, score?, note?,   //   70%, blended with self-check marks, 30%); enough:false = "no data yet"
+                     questions?: { [qid]: { q: 'question text', a: 'correct answer text', explain?: '…' } } } ] } ] } ],
+       events: [ { t: msTimestamp, path: [id1, id2, id3], qid?: 'any id',   // ids must exist in tree
+                   ok: 1 | 0 | null,                  // MCQ right / wrong / skipped (null = skipped)
+                   conf?: 0|1|2|3,                    // 0 none · 1 sure · 2 think so · 3 guessing → confidence matrix
+                   secs?: seconds spent,              // used for time when days[] has no time for this level
+                   kind?: 'mcq' | 'write',            // 'write' = written answer marked by self-check:
+                   score?, max?, skills?: ['tag'] } ],//   score/max feeds "Self-check" KPI and the skills chart
+       days?: { 'YYYY-MM-DD': { secs, xp?, by?: { id1: secs } } },   // day keys as the app's today() (UTC ISO date)
+       tests?: [ { t | d: 'YYYY-MM-DD', name, pct: 0–100, path?: [id1, id2?] } ],   // chapter tests, mock tests
+       testLabel?: 'Mock tests',  skills?: { tag: 'Readable name' },
+       streak?: { n, best? },  overall?: { score },  nextTest?: { name, date: 'YYYY-MM-DD' },
+       minEvents?: 8,  answered?: total answers known (for the empty state when events were not tracked)
+     }
+     Everything else (KPIs and their change vs the previous period, sparklines, readiness, trend, stacked
+     correct/wrong/skipped, breakdown, radar, mastery donut, heatmap, streak calendar, time of day, confidence,
+     skills, tests, sortable table, question list) is derived from this. */
 (function () {
   'use strict';
   const DAY = 864e5, MAX_ATT = 2000, MIN_SUBJ = 5, MIN_ALL = 8;
@@ -250,13 +284,20 @@
     return s;
   }
   function open(route, replace) { if (replace && STACK.length) STACK[STACK.length - 1] = route; else STACK.push(route); return render(); }
-  function back() { STACK.pop(); if (!STACK.length) return meScreen(); render(); }
+  function back() { const from = STACK.length === 1 && STACK[0].from; STACK.pop(); if (!STACK.length) return from === 'world' ? worldScreen() : meScreen(); render(); }
   function root(route) { STACK = [route]; return render(); }
   async function render() {
     const r = STACK[STACK.length - 1]; if (!r) return meScreen();
     const el = host(); show('insights', 'me');
     const m = await model();
-    const backTxt = STACK.length > 1 ? '← Back' : '← Me';
+    const backTxt = STACK.length > 1 ? '← Back' : r.from === 'world' ? '← Home' : '← Me';
+    if (r.v === 'dash' && window.SVDash) {      /* the premium dashboard (js/dashboard.js) keeps its own state on one persistent host */
+      el.innerHTML = `<button class="back" id="insBack">${backTxt}</button>`; $('#insBack').onclick = back;
+      el.appendChild(DASH_HOST);
+      SVDash.render(DASH_HOST, { mode: 'school', data: dashData(m), onStart: () => worldScreen(), startLabel: 'Start a quest',
+        onLeaf: path => { rememberY(); open({ v: 'topic', tid: path[2] }); }, leafLabel: 'Lesson & practice' });
+      window.scrollTo(0, r.y || 0); return;
+    }
     let html = '';
     try {
       if (r.v === 'analysis') html = viewAnalysis(m, r);
@@ -644,16 +685,46 @@
     s.classList.add('show');
   }
 
+  /* ---------------- adapter: model → generic dashboard data (see the API notes at the top) ---------------- */
+  const DASH_HOST = document.createElement('div'); DASH_HOST.className = 'ins-dashhost';
+  const DD = new WeakMap();
+  function dashData(m) {
+    if (DD.has(m)) return DD.get(m);
+    const g = m.g, td = today(), yd = addD(td, -1);
+    const tree = m.subjects.map(s => ({ id: s.sid, name: s.name, score: s.enough ? s.score : null, enough: !!(s.enough && s.score != null),
+      children: s.chapters.map(c => ({ id: `${s.sid}:${c.ci}`, name: `${c.ch.n}. ${c.title}`, score: c.enough ? c.score : null, enough: !!(c.enough && c.score != null),
+        children: c.topics.map(t => { const qs = {}; for (let k = 0; k < t.T.qn; k++) { const x = m.S.Q[`${t.id}#${k}`]; if (x && x.q) qs[`${t.id}#${k}`] = { q: x.q.q, a: (x.q.options || [])[x.q.answer], explain: x.q.explain }; }
+          return { id: t.id, name: t.T.title, score: t.enough ? t.score : null, enough: !!(t.enough && t.score != null), questions: qs }; }) })) }));
+    const events = [];
+    I.att.forEach(a => { const x = m.S.Q[a[1]]; if (!x) return; events.push({ t: a[0] * 6e4, path: [x.T.sid, `${x.T.sid}:${x.T.ci}`, x.T.id], qid: a[1], ok: a[2], conf: a[3] }); });
+    const days = {}; Object.entries(I.day).forEach(([d, v]) => { const by = {}; Object.entries(v.sj || {}).forEach(([sid, a]) => { if (a[2]) by[sid] = a[2]; }); days[d] = { secs: v.s || 0, xp: v.x || 0, a: v.a || 0, by }; });
+    const tests = I.tl.filter(t => t.k.startsWith(m.pre)).map(t => { const x = /^g\d+-([a-z]+)(?:-(\d+))?$/.exec(t.k); if (!x) return null; const s = m.subjects.find(z => z.sid === x[1]); if (!s) return null;
+      const ch = x[2] != null ? s.chapters[+x[2]] : null;
+      return { d: t.d, t: t.ts, pct: t.pct, name: ch ? `${s.name} · ${ch.title}` : `${s.name} · mock test`, path: ch ? [s.sid, `${s.sid}:${ch.ci}`] : [s.sid] }; }).filter(t => t && t.pct != null);
+    const data = { title: 'My dashboard', subtitle: `Grade ${g} · ${ST.profile.name || ''}`.replace(/ · $/, ''), rootName: 'All subjects', levels: ['Subject', 'Chapter', 'Topic'],
+      tree, events, days, tests, testLabel: 'Test scores', overall: { score: m.overall.enough ? m.overall.score : null },
+      streak: { n: ST.streak && (ST.streak.last === td || ST.streak.last === yd) ? ST.streak.n || 0 : 0 }, minEvents: MIN_ALL, answered: m.overall.ans };
+    DD.set(m, data); return data;
+  }
+  function dashTile(where) {
+    const id = where === 'world' ? 'insHome' : 'meDash';
+    return model().then(m => { const box = document.getElementById(id); if (!box || !window.SVDash) return;
+      box.innerHTML = SVDash.tile(dashData(m), { label: 'Dashboard' });
+      const b = box.querySelector('[data-dk-open]'); if (b) b.onclick = () => { try { sfx('open'); } catch (e) {} root({ v: 'dash', from: where }); }; }).catch(e => console.error(e));
+  }
+
   /* ---------------- Me screen + home shortcut ---------------- */
   const _me = meScreen;
   meScreen = function () {
     _me();
     const meEl = document.querySelector('#s-me'); if (!meEl || !ST.profile) return;
     document.getElementById('anCard')?.remove();
-    const sr = meEl.querySelector('.statrow');
-    (sr ? sr.closest('.card') : meEl.firstElementChild).insertAdjacentHTML('afterend', `<button class="btn ins-mebtn" id="meDash"><span aria-hidden="true">📈</span> My dashboard</button>`);
+    document.getElementById('meDash')?.remove();
+    const top = meEl.querySelector('.mecard') || meEl.firstElementChild;
+    if (top) top.insertAdjacentHTML('afterend', `<div class="ins-tilebox" id="meDash"><button class="dk-tile ph" aria-label="Dashboard" data-dk-open="1"><span class="dk-tl1"><b><span aria-hidden="true">📊</span> Dashboard</b></span></button></div>`);
+    { const b0 = meEl.querySelector('#meDash [data-dk-open]'); if (b0) b0.onclick = () => root({ v: 'dash', from: 'me' }); }
+    dashTile('me');
     meEl.insertAdjacentHTML('beforeend', `<div class="card" id="insCard"><h3>📊 My analysis</h3><div id="insBody"><p class="sub">Loading…</p></div></div>`);
-    $('#meDash').onclick = () => root({ v: 'dash' });
     model().then(m => {
       const b = document.getElementById('insBody'); if (!b) return;
       b.innerHTML = `${overallBlock(m, false)}${m.overall.ans ? `<h4 class="ins-h4">By subject</h4>${gaugeGrid(m)}` : ''}<h4 class="ins-h4">🛠️ Needs improvement</h4>${improveList(m, 3)}
@@ -667,10 +738,15 @@
   const _world = worldScreen;
   worldScreen = async function () {
     await _world();
-    const hud = document.querySelector('#s-world .hud'); if (!hud || document.getElementById('insHome')) return;
-    hud.insertAdjacentHTML('afterend', `<button class="ins-home" id="insHome"><span aria-hidden="true">📈</span> My dashboard <span aria-hidden="true">›</span></button>`);
-    $('#insHome').onclick = () => root({ v: 'dash' });
+    const hello = document.querySelector('#s-world #worldTitle'); if (!hello || !ST.profile) return;
+    if (!document.getElementById('insHome')) {
+      hello.insertAdjacentHTML('afterend', `<div class="ins-tilebox" id="insHome"><button class="dk-tile ph" aria-label="Dashboard" data-dk-open="1"><span class="dk-tl1"><b><span aria-hidden="true">📊</span> Dashboard</b></span></button></div>`);
+      const b0 = document.querySelector('#insHome [data-dk-open]'); if (b0) b0.onclick = () => root({ v: 'dash', from: 'world' });
+    }
+    dashTile('world');
   };
 
-  window.Insights = { conf, model, open: r => root(r), dashboard: () => root({ v: 'dash' }), analysis: () => root({ v: 'analysis' }), _ds: DS, _band: band };
+  window.Insights = { conf, model, open: r => root(r), dashboard: () => root({ v: 'dash' }),
+    dashboardFor: (hostEl, opts) => window.SVDash ? SVDash.render(hostEl, Object.assign({ mode: 'ca' }, opts || {})) : null,
+    dashboardTile: (data, o) => window.SVDash ? SVDash.tile(data, o) : '', dashData: () => model().then(dashData), analysis: () => root({ v: 'analysis' }), _ds: DS, _band: band };
 })();

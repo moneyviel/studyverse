@@ -230,7 +230,7 @@ updateSndBtn();
 /* start music on the first tap (browsers block sound until the user touches the page) */
 let firstTap=true;
 document.addEventListener('pointerdown',()=>{ if(!firstTap) return; firstTap=false; initAudio(); if(SND.on) startMusic(); },{capture:true});
-setTimeout(()=>{ if(firstTap) toast('🎵 Tap anywhere to start the music'); },1200);
+setTimeout(()=>{ if(firstTap && !/^(pro|senior)$/.test(document.documentElement.dataset.age||'')) toast('🎵 Tap anywhere to start the music'); },1200);
 /* stop sound when the phone locks, the app goes to background, or the page closes */
 function pauseAll(){ if(SND.ctx && SND.ctx.state==='running') SND.ctx.suspend(); }
 function resumeAll(){ if(SND.ctx && SND.on && document.visibilityState==='visible' && SND.ctx.state==='suspended') SND.ctx.resume(); }

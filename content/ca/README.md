@@ -56,6 +56,27 @@ progress, MCQ stats and saved answers are keyed on them.
 | `questions[]` | descriptive: `id, marks, minutes (≈1.8/mark), difficulty, pad, q, given[]?, model[] (blocks), scheme[], remarks[], mistakes[], tips[], checks[]?` |
 | `revision` | one-page: `summary[], remember[], traps[]` |
 | `quickref[]` | formula / section quick reference: `{k, v}` |
+| `viva[]` | 5+ "speak & revise" questions: `id, q (read aloud), model (spoken model answer), concept?, points[]` — see below |
+| `cases[]` | 1+ case-study MCQ sets: `id, title, difficulty, case (text), given?[blocks], mcqs[3–5]` (same MCQ fields; ids unique in the unit) |
+
+### Viva key points (`viva[].points[]`)
+`{id, pt, w, kw[], min?}` — `pt` is shown to the student, `w` is an integer weight, `kw` is a list of keyword
+groups (`"debit|dr"` = synonyms; an alternative may be a short phrase), `min` = groups needed (default all).
+Matching is offline and identical in `tools/ca_vivamatch.py` and `js/ca-tools.js`: lower-case → abbreviations
+(Dr, Cr, A/c, ₹, &, u/s, lakh/crore → digits) → stop-words dropped → light stemming; a phrase matches when its
+words appear in order at most 2 words apart; words match on equality, a long shared stem, or one-letter slips
+(6+ letters); numbers within 0.5%. Score = weight covered ÷ total weight; ≥ 80% = "viva-ready".
+The validator proves every model answer scores 100%, that reading the question back scores < 80%, that no
+keyword is only stop-words, and that the JS and Python matchers agree (needs `node`).
+Sources: `tools/ca_src/ca_viva.py`, `tools/ca_src/ca_cases.py` (merged into each unit by `build.py`).
+
+## Mock papers (`content/ca/<level>/mocks/<id>.json`, `"schema": "ca-mock/1"`)
+`id, level, paper, title, label` (must say "not an ICAI paper"), `scope, hours, marks, compulsory[], choose, rules[], questions[]`.
+Question: `{id: "Q1", marks, parts[]}`; part kinds: `tf` (`items[{id, s, answer: bool, reason}]`, 2 marks each —
+2 marks only for a correct verdict with a correct reason; verdict checked automatically, reason self-checked), `ref` (`"unit#qid"` from a unit's question bank; marks must match),
+`q` (a new question with the unit-question fields). Validator: parts add up, compulsory + `choose` × optional = paper marks.
+Source: `tools/ca_src/mock_*.py`. Pattern for Foundation Paper 1 taken from ICAI model test papers (Q1 compulsory,
+any four of the remaining five, 3 hours, 100 marks).
 
 `scheme[]` = ICAI-style step marks: `{id, pt, m, skill}`; marks must add up to `marks`; half marks allowed.
 `skill` ∈ posting, balancing, classification, computation, presentation, concept, application, rectification,
@@ -95,7 +116,13 @@ deducted per wrong answer.
 
 ## Progress data and future AI checking
 Stored in `ST.ca` (localStorage `sv_state`): `level, exam, last, paper, units{uid:{learn,illus,job,mcq,write,revise,t}},
-mcq{"uid#mid":{s,w,last}}, writes{"uid#qid":[attempt…]} (last 5), group[]`.
+mcq{"uid#mid":{s,w,last,ms}}, writes{"uid#qid":[attempt…]} (last 5), group[]`, plus (js/ca-tools.js):
+`mlog[[minute, "uid#mid", ok, secs]]` (last 1500 answers — accuracy & speed), `viva{"uid#vid":[{d,pct,hit[],secs,how,text}]}` (last 5),
+`tests[{kind:'mcq'|'mock', d, title, pct, …}]` (last 80), `revise{"uid#mid":{d,n}}` ("Revise these"), `time{"YYYY-MM-DD":secs}`
+(15-second heartbeat while the CA screen is visible and touched in the last minute), `notes{saved{}, hl{uid:[{ref,text}]}, mine{uid:{text}}}`,
+`mockDraft{id:{secs, ans{}, tf{}, chosen[]}}` (resume a paper). The CA dashboard passes this to the shared engine through
+`Insights.dashboardFor(host, {mode:'ca', data})` (adapter `insData` in js/ca-tools.js) and adds exam countdown, MCQ speed,
+viva, mock history and unit progress; without the engine it draws its own version.
 An attempt keeps the answer text (≤6000 chars), table rows, time, words, ticks per scheme point and
 `status: "self"`. `Ca.submission(uid, qid)` returns the payload for a future backend checker:
 ```json
