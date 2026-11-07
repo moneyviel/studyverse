@@ -129,11 +129,30 @@
     try {
       if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; set('sv_auth', JSON.stringify(S)); }
       await link();
-      access(); owner();
+      access(); owner(); prof();
       if (linked) { status = status === 'saving' ? status : 'ok'; paint(); }
     } catch (e) { status = navigator.onLine === false || e.status === 0 ? 'offline' : 'error'; lastErr = e.message; paint(); }
   }
 
+  /* free-forever lock + discount code saved on the student's profile */
+  async function prof() {
+    try {
+      const r = await rest('profiles?select=locked_course,discount_code'); if (!Array.isArray(r)) return;
+      const p = r[0] || {}; set('sv_lock', p.locked_course || null); set('sv_disc', p.discount_code || null); enforceLock(); codeCard(true);
+    } catch (e) {}
+  }
+  const myCourse = () => { try { const p = ST.profile; if (!p) return null; return p.course === 'ca' ? 'ca-foundation' : 'school-g' + p.grade; } catch (e) { return null; } };
+  const courseName = c => c && c.startsWith('school-g') ? 'Grade ' + c.slice(8) : (COURSES[c] || c);
+  function enforceLock() {                           // a free-forever student only ever sees the course chosen at the start
+    const L = get('sv_lock'); if (!L || !S) return;
+    let p; try { p = ST.profile; } catch (e) { return; } if (!p) return;
+    if (L === 'ca-foundation') {
+      if (p.course !== 'ca') { p.course = 'ca'; ST.ca = Object.assign({}, ST.ca || {}, { level: 'foundation' }); save(); location.replace(SITE); }
+    } else {
+      const g = +L.slice(8);
+      if (p.course === 'ca' || +p.grade !== g) { p.course = null; p.grade = g; if (g < 11) { p.stream = null; p.subjects = null; } save(); location.replace(SITE); }
+    }
+  }
   async function access() {
     try { const r = await rest('course_access?select=course,valid_until'); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); } } catch (e) {}
   }
@@ -143,9 +162,10 @@
       const adm = r.length > 0, m = meta();
       if (adm && !m.adm) { set('sv_owner', '1'); say('Owner account — owner mode is on'); }
       if (!adm) set('sv_owner', null);
-      if (!!m.adm !== adm) { setMeta(Object.assign(meta(), { adm })); repaintMe(); try { const a = D.querySelector('.screen.active'); if (a && a.id === 's-me') meScreen(); } catch (e) {} }
+      if (!!m.adm !== adm) { setMeta(Object.assign(meta(), { adm })); repaintMe(); try { const a = D.querySelector('.screen.active'), typing = D.activeElement && /INPUT|TEXTAREA/.test(D.activeElement.tagName); if (a && a.id === 's-me' && !typing) meScreen(); } catch (e) {} }
     } catch (e) {}
   }
+  const locked = () => !!(S && get('sv_lock'));
   const courses = () => jget('sv_access', []).filter(a => !a.valid_until || new Date(a.valid_until) > new Date());
 
   /* ---------- 4. account actions ---------- */
@@ -160,7 +180,7 @@
   async function signOut() {
     try { await push(true); } catch (e) {}
     try { await call('/auth/v1/logout', { method: 'POST' }); } catch (e) {}
-    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner'].forEach(k => set(k, null));
+    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner', 'sv_lock', 'sv_disc'].forEach(k => set(k, null));
     wipeLocal();
   }
 
@@ -189,8 +209,8 @@
     if (!S) return `<h3>☁️ Save your progress</h3><p class="sub">Create a free account so your progress is safe and you can continue on any phone.</p>
       <div class="cl-row"><button class="btn" type="button" data-cl="up">Create account</button><button class="btn ghost" type="button" data-cl="in">Sign in</button></div>`;
     const [cls, txt] = stLine(), cs = courses();
-    return `<h3>☁️ Your account</h3><p class="sub">${esc((S.user && S.user.email) || '')}</p><p class="cl-st ${cls}" role="status">${txt}</p>
-      <p class="sub">Your courses: ${cs.length ? cs.map(c => esc(COURSES[c.course] || c.course) + (c.valid_until ? ' (till ' + new Date(c.valid_until).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ')' : '')).join(', ') : 'free courses'}</p>
+    return `<h3>☁️ ${meta().adm ? 'Owner account 🔑' : 'Your account'}</h3><p class="sub">${esc((S.user && S.user.email) || '')}</p><p class="cl-st ${cls}" role="status">${txt}</p>
+      <p class="sub">Your courses: ${cs.length ? cs.map(c => esc(courseName(c.course)) + (c.valid_until ? ' (till ' + new Date(c.valid_until).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ')' : '')).join(', ') : 'free courses'}</p>
       <div class="cl-row">${status === 'error' || status === 'offline' ? '<button class="btn ghost" type="button" data-cl="retry">Try again</button>' : ''}<button class="btn ghost" type="button" data-cl="out">Sign out</button></div>`;
   }
   function wire(root) {
@@ -216,12 +236,109 @@
       style(); const c = D.createElement('div'); c.className = 'card'; c.id = 'svCloud';
       const first = me.querySelector(':scope > .card'); first ? first.after(c) : me.prepend(c); paint();
     }
+    if (me && S && !demo()) { if (!meta().adm) codeCard(); ownerCodes(); }
+    if (me && locked()) {                             // free-forever students cannot change grade, stream or course
+      const g = me.querySelector('.grid5'); if (g && g.closest('.card')) g.closest('.card').remove();
+      const st = D.getElementById('meStream'); if (st && st.closest('.card')) st.closest('.card').remove();
+    }
     const ob = D.getElementById('s-onboard');
     if (ob && !S && !demo() && ob.querySelector('.choice[data-b]') && !D.getElementById('svCloudOb')) {
       style(); const c = D.createElement('div'); c.className = 'card'; c.id = 'svCloudOb';
       c.innerHTML = `<h3>Already have an account?</h3><p class="sub">Sign in to bring back your saved progress.</p><button class="btn ghost" type="button" data-cl="in">Sign in</button>`;
       (ob.querySelector('.ob') || ob).appendChild(c); wire(c);
     }
+  }
+
+  /* ---------- codes: students redeem, owner creates ---------- */
+  function codeCard(refresh) {
+    const me = D.getElementById('s-me'); if (!me || !S) return;
+    let c = D.getElementById('svCode');
+    if (c && !refresh) return;
+    if (!c) { c = D.createElement('div'); c.className = 'card'; c.id = 'svCode'; const a = D.getElementById('svCloud'); a ? a.after(c) : me.appendChild(c); }
+    const L = get('sv_lock'), disc = get('sv_disc');
+    if (L) { c.innerHTML = `<h3>🎟️ Free access</h3><p class="sub">Your account has free access to <b>${esc(courseName(L))}</b> forever.</p>`; return; }
+    c.innerHTML = `<h3>🎟️ Have a code?</h3><p class="sub">Enter a free-access or discount code.${disc ? ` Discount code <b>${esc(disc)}</b> is saved for your payment.` : ''}</p>
+      <form id="clCodeF" class="cl-row" novalidate><input class="cl-in" id="clCode" placeholder="e.g. FREE-AB12CD" autocapitalize="characters" spellcheck="false" maxlength="24" style="flex:2;min-width:150px;margin:0"><button class="btn" type="submit" id="clCodeGo" style="flex:1">Apply</button></form>
+      <div class="cl-err" id="clCodeE" role="alert"></div><p class="cl-small" id="clCodeN">A free code gives free access only to ${esc(courseName(myCourse()) || 'your course')} — you will not be able to change it later.</p>`;
+    c.querySelector('#clCodeF').onsubmit = async e => {
+      e.preventDefault();
+      const er = c.querySelector('#clCodeE'), go = c.querySelector('#clCodeGo'), code = c.querySelector('#clCode').value.trim().toUpperCase();
+      er.textContent = ''; if (!/^[A-Z0-9-]{4,24}$/.test(code)) { er.textContent = 'Please check the code.'; return; }
+      go.disabled = true;
+      try {
+        const r = await rest('rpc/redeem_code', { method: 'POST', body: { p_code: code, p_course: myCourse() } });
+        if (!r || !r.ok) { er.textContent = (r && r.msg) || 'This code is not valid.'; return; }
+        if (r.kind === 'free') { set('sv_lock', r.course); access(); say('Free access unlocked ✓'); codeCard(true); enforceLock(); try { meScreen(); } catch (x) {} }
+        else { set('sv_disc', code); say(r.percent + '% discount saved ✓ It will be used when you pay'); codeCard(true); }
+      } catch (err) { er.textContent = errText(err); }
+      finally { go.disabled = false; }
+    };
+  }
+
+  const ALPH = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const genCode = () => { const a = new Uint32Array(6); crypto.getRandomValues(a); return 'FREE-' + [...a].map(n => ALPH[n % ALPH.length]).join(''); };
+  function ownerCodes() {
+    const me = D.getElementById('s-me'); if (!me || !meta().adm || D.getElementById('svCodes')) return;
+    const c = D.createElement('div'); c.className = 'card'; c.id = 'svCodes';
+    const o = D.getElementById('caOwner'); o ? o.after(c) : me.appendChild(c);
+    c.innerHTML = `<h3>🎟️ Codes (owner)</h3>
+      <h4 style="margin:10px 0 4px">Free forever — one student</h4><p class="sub">The student enters it in Me. They get free access only to the grade or course they chose at the start, and cannot switch.</p>
+      <label class="cl-small" for="ocNote">Student name (for your record)</label><input class="cl-in" id="ocNote" maxlength="120">
+      <button class="btn" type="button" id="ocFree">Create free code</button><div id="ocFreeOut"></div>
+      <h4 style="margin:16px 0 4px">Discount — anyone can use</h4>
+      <label class="cl-small" for="ocDC">Code</label><input class="cl-in" id="ocDC" placeholder="e.g. DIWALI20" autocapitalize="characters" maxlength="24">
+      <div class="cl-row"><div style="flex:1"><label class="cl-small" for="ocDP">% off</label><input class="cl-in" id="ocDP" type="number" min="1" max="100" inputmode="numeric"></div>
+      <div style="flex:1"><label class="cl-small" for="ocDU">Max uses (optional)</label><input class="cl-in" id="ocDU" type="number" min="1" inputmode="numeric"></div></div>
+      <label class="cl-small" for="ocDV">Valid till</label><input class="cl-in" id="ocDV" type="date">
+      <button class="btn" type="button" id="ocDisc">Create discount code</button>
+      <div class="cl-err" id="ocE" role="alert"></div>
+      <h4 style="margin:16px 0 4px">Your codes</h4><div id="ocList" class="cl-small">Loading…</div>
+      <button class="cl-link" type="button" id="ocWho">Who used codes?</button><div id="ocWhoOut" class="cl-small"></div>`;
+    const er = c.querySelector('#ocE'), fail = e => { er.textContent = errText(e); };
+    const ins = row => rest('codes', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: row });
+    c.querySelector('#ocFree').onclick = async () => {
+      er.textContent = ''; let code = genCode();
+      try {
+        try { await ins({ code, kind: 'free', max_uses: 1, note: c.querySelector('#ocNote').value.trim() || null }); }
+        catch (e) { if (e.code === '23505') { code = genCode(); await ins({ code, kind: 'free', max_uses: 1, note: c.querySelector('#ocNote').value.trim() || null }); } else throw e; }
+        const out = c.querySelector('#ocFreeOut');
+        out.innerHTML = `<p class="cl-ok">Code: <b style="font-size:20px;letter-spacing:1px">${code}</b></p><div class="cl-row"><button class="btn ghost" type="button" id="ocCopy">Copy</button>${navigator.share ? '<button class="btn ghost" type="button" id="ocShare">Share</button>' : ''}</div>`;
+        const msg = `Your free StudyVerse code: ${code}\nOpen ${SITE}?account → Me → create your account → enter the code in "Have a code?".`;
+        out.querySelector('#ocCopy').onclick = () => { try { navigator.clipboard.writeText(code); say('Copied'); } catch (x) {} };
+        const shb = out.querySelector('#ocShare'); if (shb) shb.onclick = () => navigator.share({ text: msg }).catch(() => {});
+        c.querySelector('#ocNote').value = ''; list();
+      } catch (e) { fail(e); }
+    };
+    c.querySelector('#ocDisc').onclick = async () => {
+      er.textContent = '';
+      const code = c.querySelector('#ocDC').value.trim().toUpperCase(), pc = +c.querySelector('#ocDP').value, mu = +c.querySelector('#ocDU').value || null, vd = c.querySelector('#ocDV').value;
+      if (!/^[A-Z0-9-]{4,24}$/.test(code)) { er.textContent = 'Code: 4–24 letters, numbers or -'; return; }
+      if (!(pc >= 1 && pc <= 100)) { er.textContent = 'Enter % off between 1 and 100.'; return; }
+      if (!vd) { er.textContent = 'Choose the last valid date.'; return; }
+      try {
+        await ins({ code, kind: 'discount', percent: pc, max_uses: mu, valid_until: new Date(vd + 'T23:59:59+05:30').toISOString() });
+        say('Discount code ' + code + ' created ✓'); ['#ocDC', '#ocDP', '#ocDU', '#ocDV'].forEach(q => c.querySelector(q).value = ''); list();
+      } catch (e) { er.textContent = e.code === '23505' ? 'This code already exists.' : errText(e); }
+    };
+    c.querySelector('#ocWho').onclick = async () => {
+      const box = c.querySelector('#ocWhoOut'); box.textContent = 'Loading…';
+      try { const r = await rest('rpc/code_report', { method: 'POST', body: {} });
+        box.innerHTML = (r || []).length ? r.map(u => `<div>${esc(u.code)} · ${esc(u.email)}${u.course ? ' · ' + esc(courseName(u.course)) : ''} · ${new Date(u.used_at).toLocaleDateString('en-IN')}</div>`).join('') : 'No codes used yet.';
+      } catch (e) { box.textContent = errText(e); }
+    };
+    async function list() {
+      const box = c.querySelector('#ocList');
+      try {
+        const r = await rest('codes?select=*&order=created_at.desc&limit=100');
+        box.innerHTML = (r || []).length ? r.map(x => `<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #eee;padding:6px 0">
+          <div><b>${esc(x.code)}</b> ${x.kind === 'free' ? 'Free' : x.percent + '% off'}${x.note ? ' · ' + esc(x.note) : ''}<br>Used ${x.used}${x.max_uses ? '/' + x.max_uses : ''}${x.valid_until ? ' · till ' + new Date(x.valid_until).toLocaleDateString('en-IN') : ''}${x.active ? '' : ' · <b style="color:#B71C2C">stopped</b>'}</div>
+          <button class="cl-link" type="button" data-oc="${esc(x.code)}" data-act="${x.active ? 0 : 1}">${x.active ? 'Stop' : 'Start'}</button></div>`).join('') : 'No codes yet.';
+        box.querySelectorAll('[data-oc]').forEach(b => b.onclick = async () => {
+          try { await rest('codes?code=eq.' + encodeURIComponent(b.dataset.oc), { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: { active: b.dataset.act === '1' } }); list(); } catch (e) { fail(e); }
+        });
+      } catch (e) { box.textContent = errText(e); }
+    }
+    list();
   }
 
   let sheet = null;
@@ -316,5 +433,5 @@
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', () => setTimeout(start, 0)) : setTimeout(start, 0);
 
-  window.Cloud = { admin: () => !!(S && meta().adm), signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
+  window.Cloud = { admin: () => !!(S && meta().adm), signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, locked, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
 })();

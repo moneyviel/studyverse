@@ -656,7 +656,7 @@
   let lastPtr = 0, lastKeyAt = 0, offered = false;
   D.addEventListener('pointerdown', () => { lastPtr = now(); }, true);
   D.addEventListener('click', e => { if (e.isTrusted && now() - lastPtr > 900 && now() - lastKeyAt > 900 && e.target !== D.body) maybeOffer('sr'); }, true);
-  D.addEventListener('focusin', e => { if (!selfFocus && e.isTrusted && now() - lastPtr > 900 && now() - lastKeyAt > 900 && e.target !== D.body && D.hasFocus()) maybeOffer('sr'); }, true);
+  D.addEventListener('focusin', e => { if (!selfFocus && e.isTrusted && now() - lastPtr > 900 && now() - lastKeyAt > 900 && e.target !== D.body && !isTyping(e.target) && D.hasFocus()) maybeOffer('sr'); }, true);   // never while focusing a text box
   function maybeOffer(why) {
     if (offered || U().asked || listenOn()) return;
     if (why === 'key' && (g('ST') || {}).profile) return;          // keys: only on first launch; screen readers: any time, once
