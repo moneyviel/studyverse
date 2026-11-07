@@ -24,6 +24,7 @@
   const say = m => { try { if (window.A11Y) A11Y.announce(m); } catch (e) {} };
   const fmt = n => (n == null || n === '' ? '' : (typeof n === 'number' ? n.toLocaleString('en-IN', { maximumFractionDigits: 2 }) : String(n)));
   const isCA = () => !!(ST.profile && ST.profile.course === 'ca');
+  const DEMO = () => { try { return !!localStorage.getItem('sv_demo'); } catch (e) { return false; } };  // temporary demo login: locked to its course
   const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
   function C() {
     ST.ca = ST.ca || {}; const c = ST.ca;
@@ -618,15 +619,15 @@
     el.innerHTML = `<div class="card ca-prof"><div class="ca-avatar" aria-hidden="true">${esc((p.name || 'C').trim()[0].toUpperCase())}</div><div><h1 class="ca-h1">${esc(p.name)}</h1><p class="sub">CA ${esc(levelName(c.level))} · ICAI</p></div></div>
       <div class="card statrow"><div><b>${nU}</b><span>Units done</span></div><div><b>${nM}</b><span>MCQs answered</span></div><div><b>${nW}</b><span>Answers self-checked</span></div></div>
       ${T() ? `<div class="card"><h2 class="ca-h2s">Your library</h2><div class="ca-btns"><button class="btn ghost" id="caPNotes">📚 My notes</button><button class="btn ghost" id="caPSearch">🔍 Search everything</button></div></div>` : ''}
-      <div class="card"><h2 class="ca-h2s">Current level</h2><div class="ca-seg ca-segw" role="radiogroup" aria-label="CA level">${LEVELS.map(([k, n]) => `<button role="radio" aria-checked="${k === c.level}" tabindex="${k === c.level ? 0 : -1}" data-l="${k}">${n}</button>`).join('')}</div></div>
+      ${DEMO() ? '' : `<div class="card"><h2 class="ca-h2s">Current level</h2><div class="ca-seg ca-segw" role="radiogroup" aria-label="CA level">${LEVELS.map(([k, n]) => `<button role="radio" aria-checked="${k === c.level}" tabindex="${k === c.level ? 0 : -1}" data-l="${k}">${n}</button>`).join('')}</div></div>`}
       <div class="card"><h2 class="ca-h2s">Exam date</h2><label class="ca-lab" for="caExamP">Your next CA exam</label><input type="date" id="caExamP" class="ca-in" value="${esc(c.exam || '')}"><button class="btn ghost" id="caExamPS">Save</button></div>
       <div class="card"><h2 class="ca-h2s">Name</h2><label class="ca-lab" for="caNm">Shown on your journey and group results</label><input id="caNm" class="ca-in" maxlength="24" value="${esc(p.name)}" autocomplete="off"><button class="btn ghost" id="caNmS">Save</button></div>
-      <div class="card"><h2 class="ca-h2s">Switch course</h2><p class="sub">Your CA progress is kept if you switch.</p><button class="btn ghost" id="caToSchool">Go to school mode (Grades 1–12)</button></div>
+      ${DEMO() ? '' : `<div class="card"><h2 class="ca-h2s">Switch course</h2><p class="sub">Your CA progress is kept if you switch.</p><button class="btn ghost" id="caToSchool">Go to school mode (Grades 1–12)</button></div>`}
       <div class="card"><button class="btn ghost" onclick="openSound()">Sound settings</button><div style="height:8px"></div><button class="btn ghost" id="caReset">Erase all progress</button></div>`;
     el.querySelectorAll('.ca-segw button').forEach(b => b.onclick = () => { c.level = b.dataset.l; save(); profile(); toast(`CA ${levelName(c.level)} selected`); });
     D.getElementById('caExamPS').onclick = () => { c.exam = D.getElementById('caExamP').value || null; save(); toast(c.exam ? 'Exam date saved' : 'Exam date cleared'); };
     D.getElementById('caNmS').onclick = () => { const v = D.getElementById('caNm').value.trim(); if (v) { p.name = v; save(); toast('Name saved'); } };
-    D.getElementById('caToSchool').onclick = toSchool;
+    if (!DEMO()) D.getElementById('caToSchool').onclick = toSchool;
     if (T()) { D.getElementById('caPNotes').onclick = () => T().notes(); D.getElementById('caPSearch').onclick = () => T().search(''); }
     D.getElementById('caReset').onclick = function () { if (this.dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { this.dataset.sure = 1; this.textContent = 'Tap again to erase everything'; } };
   }
