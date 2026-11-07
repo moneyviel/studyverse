@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=13'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=14'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -363,6 +363,7 @@ function learnStep(b) {
     ${L.example ? `<div class="card"><h3>🧠 Watch me solve</h3><div class="exq">${esc(L.example.q)} ${spk(L.example.q)}</div><div id="exSteps"></div>
       <button class="btn ghost" id="exBtn">Show step 1</button></div>` : ''}
     ${L.reallife ? `<div class="reallife card">🌍 <b>In real life:</b> ${esc(L.reallife)}</div>` : ''}
+    ${window.Gen && Gen.has(t.id, t.title, ST.profile.grade, NAV.subject) ? '<button class="btn ghost" id="genGo">♾️ Endless practice</button><div style="height:8px"></div>' : ''}
     <button class="btn mint" id="learnGo">${RUN.t.games?.length ? "Let's play ▶" : 'Start quiz ▶'}</button>`;
   mount3D($('#s3d'), t, RUN.c);
   if (L.example) {
@@ -375,6 +376,7 @@ function learnStep(b) {
     btn.onclick = reveal;
   }
   $('#learnGo').onclick = () => { addXP(5); nextStep(); };
+  if ($('#genGo')) $('#genGo').onclick = () => Gen.open($('#stepBody'), t, { onExit: renderStep });
 }
 
 /* ---------- Quiz with animated explanation after every answer ---------- */

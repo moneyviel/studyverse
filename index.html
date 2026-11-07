@@ -14,17 +14,17 @@
 <meta name="apple-mobile-web-app-title" content="StudyVerse">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;800&family=Noto+Sans+Devanagari:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=13">
-<link rel="stylesheet" href="css/app.css?v=13">
+<link rel="stylesheet" href="css/base.css?v=14">
+<link rel="stylesheet" href="css/app.css?v=14">
 </head>
 <body>
 <div class="app">
   <header>
     <div class="brand">Study<span>Verse</span></div>
     <div class="stats">
-      <div class="pill">🔥 <span id="streak">0</span></div>
-      <div class="pill">⭐ <span id="xp">0</span></div>
-      <button class="pill btnp" onclick="openSound()" aria-label="Sound settings"><span id="sndIcon">🔊</span></button>
+      <div class="pill"><span aria-hidden="true">🔥</span> <span class="sr-only">Day streak:</span><span id="streak">0</span></div>
+      <div class="pill"><span aria-hidden="true">⭐</span> <span class="sr-only">Stars:</span><span id="xp">0</span></div>
+      <button class="pill btnp" onclick="openSound()" aria-label="Sound and music settings"><span id="sndIcon" aria-hidden="true">🔊</span></button>
     </div>
   </header>
 
@@ -38,8 +38,8 @@
         <button onclick="installApp()">Install</button>
         <button class="x" onclick="hideInstall()" aria-label="Close">✕</button>
       </div>
-      <div class="hello" id="worldTitle"></div>
-      <div class="hud">
+      <div class="hello" id="worldTitle" role="heading" aria-level="1"></div>
+      <div class="hud" aria-live="off">
         <div class="hud-top"><span id="hudName">Journey</span><span id="hudPct">0%</span></div>
         <div class="hud-bar"><i id="hudBar"></i></div>
       </div>
@@ -48,7 +48,7 @@
 
     <section class="screen" id="s-subject">
       <button class="back" onclick="worldScreen()">← Grade map</button>
-      <div class="hello" id="subTitle"></div>
+      <div class="hello" id="subTitle" role="heading" aria-level="1"></div>
       <div class="map" id="cmap"></div>
     </section>
 
@@ -59,23 +59,23 @@
     <section class="screen" id="s-me"></section>
   </main>
 
-  <nav>
-    <button data-s="world" onclick="worldScreen()"><b>🗺️</b>World</button>
-    <button data-s="practice" onclick="practiceScreen()"><b>🎯</b>Practice</button>
-    <button data-s="squad" onclick="squadScreen()"><b>🦁</b>Squad</button>
-    <button data-s="me" onclick="meScreen()"><b>😊</b>Me</button>
+  <nav aria-label="Main">
+    <button data-s="world" onclick="worldScreen()"><b aria-hidden="true">🗺️</b>World</button>
+    <button data-s="practice" onclick="practiceScreen()"><b aria-hidden="true">🎯</b>Practice</button>
+    <button data-s="squad" onclick="squadScreen()"><b aria-hidden="true">🦁</b>Squad</button>
+    <button data-s="me" onclick="meScreen()"><b aria-hidden="true">😊</b>Me</button>
   </nav>
   <div class="toast" id="toast"></div>
 </div>
 
-<div class="sheet" id="sheet3d" onclick="if(event.target.id==='sheet3d')close3D()">
-  <div class="sheet-in"><div class="sheet-grab"></div><h3>🧪 Try it yourself</h3><div id="s3dHost" class="s3dhost"></div><div style="height:10px"></div><button class="btn ghost" onclick="close3D()">Close</button></div>
+<div class="sheet" id="sheet3d" role="dialog" aria-modal="true" aria-labelledby="s3dTitle" onclick="if(event.target.id==='sheet3d')close3D()">
+  <div class="sheet-in"><div class="sheet-grab"></div><h3 id="s3dTitle"><span aria-hidden="true">🧪</span> Try it yourself</h3><div id="s3dHost" class="s3dhost"></div><div style="height:10px"></div><button class="btn ghost" onclick="close3D()">Close</button></div>
 </div>
 
-<div class="sheet" id="installSheet">
+<div class="sheet" id="installSheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
   <div class="sheet-in">
     <div class="sheet-grab"></div>
-    <h2>📲 Install StudyVerse</h2>
+    <h2 id="instTitle"><span aria-hidden="true">📲</span> Install StudyVerse</h2>
     <p class="sub" id="instIntro"></p>
     <ol class="steps" id="instSteps"></ol>
     <div style="height:10px"></div>
@@ -83,15 +83,15 @@
   </div>
 </div>
 
-<div class="sheet" id="soundSheet">
+<div class="sheet" id="soundSheet" role="dialog" aria-modal="true" aria-labelledby="sndTitle">
   <div class="sheet-in">
     <div class="sheet-grab"></div>
-    <h2>🎵 Sound</h2>
-    <div class="srow"><span>Music</span><button class="tgl" id="musicTgl" onclick="toggleMusic()"></button></div>
-    <div class="srow"><span>🎶 Music volume</span><input type="range" id="musVol" min="0" max="100" oninput="setVol('music',this.value)"></div>
-    <div class="srow"><span>🔔 Effects volume</span><input type="range" id="sfxVol" min="0" max="100" oninput="setVol('sfx',this.value)"></div>
+    <h2 id="sndTitle"><span aria-hidden="true">🎵</span> Sound</h2>
+    <div class="srow"><span id="musLbl">Music</span><button class="tgl" id="musicTgl" role="switch" aria-labelledby="musLbl" onclick="toggleMusic()"></button></div>
+    <div class="srow"><span id="musVolL"><span aria-hidden="true">🎶</span> Music volume</span><input type="range" id="musVol" aria-labelledby="musVolL" min="0" max="100" oninput="setVol('music',this.value)"></div>
+    <div class="srow"><span id="sfxVolL"><span aria-hidden="true">🔔</span> Effects volume</span><input type="range" id="sfxVol" aria-labelledby="sfxVolL" min="0" max="100" oninput="setVol('sfx',this.value)"></div>
     <h3 style="margin-top:14px">Reading voice</h3>
-    <p class="sub">★ = clearest natural voice on this phone.</p>
+    <p class="sub"><span aria-hidden="true">★</span><span class="sr-only">A star</span> = clearest natural voice on this phone.</p>
     <div id="voicePick"></div>
     <h3 style="margin-top:14px">Pick your music</h3>
     <p class="sub"><b>Auto</b> picks music that grows up with you. Or choose any song you like.</p>
@@ -102,18 +102,20 @@
   </div>
 </div>
 
-<script>window.LAB_V=13;</script>
-<script src="js/labs/core.js?v=13"></script>
-<script src="js/worlds.js?v=13"></script>
-<script src="js/visuals.js?v=13"></script>
-<script src="js/games.js?v=13"></script>
-<script src="js/app.js?v=13"></script>
-<script src="js/audio.js?v=13"></script>
-<script src="js/practice.js?v=13"></script>
-<script src="js/tests.js?v=13"></script>
-<script src="js/ux.js?v=13"></script>
-<script src="js/nav.js?v=13"></script>
-<script src="js/arcade.js?v=13"></script>
-<script src="js/ask.js?v=13"></script>
+<script>window.LAB_V=14;</script>
+<script src="js/labs/core.js?v=14"></script>
+<script src="js/worlds.js?v=14"></script>
+<script src="js/visuals.js?v=14"></script>
+<script src="js/games.js?v=14"></script>
+<script src="js/app.js?v=14"></script>
+<script src="js/audio.js?v=14"></script>
+<script src="js/practice.js?v=14"></script>
+<script src="js/tests.js?v=14"></script>
+<script src="js/ux.js?v=14"></script>
+<script src="js/nav.js?v=14"></script>
+<script src="js/arcade.js?v=14"></script>
+<script src="js/gen.js?v=14"></script>
+<script src="js/ask.js?v=14"></script>
+<script src="js/a11y.js?v=14"></script>
 </body>
 </html>

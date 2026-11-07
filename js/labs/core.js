@@ -13,7 +13,7 @@
     });
     return loading[type];
   }
-  function unmount() { if (current) { try { current(); } catch (e) {} current = null; } }
+  function unmount() { if (current) { try { current(); } catch (e) {} current = null; } try { window.A11Y && A11Y.labUnmounted(); } catch (e) {} }
   async function mount(host, spec, opts = {}) {
     unmount();
     host.innerHTML = '<div class="lab-loading">Loading lab…</div>';
@@ -31,6 +31,8 @@
     };
     try { const given = spec.p && Object.keys(spec.p).length ? spec.p : null; const p = given ? Object.assign({}, given) : Object.assign({}, def.example || {}); const c = await def.render(box, p, api); current = typeof c === 'function' ? c : null; }
     catch (e) { console.error('lab error', spec.type, e); host.innerHTML = ''; return false; }
+    /* accessibility: spoken description, narration of changes and sonification for every lab type (js/a11y.js) */
+    try { if (window.A11Y) A11Y.labMounted(host, box, spec, def); } catch (e) {}
     return true;
   }
   window.Labs = { register: (t, d) => { REG[t] = d; }, mount, unmount, loadType, registry: REG };

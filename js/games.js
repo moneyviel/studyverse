@@ -89,8 +89,10 @@
 
   function speed(el, g, done) {
     const items = shuffle(g.items), answers = items.map(x => String(x.a));
-    let i = 0, right = 0, t = Math.max(20, items.length * 6), timer;
-    el.innerHTML = head(g, `<span class="timer" id="tm">${t}s</span>`) + `<div class="spq" id="spq"></div><div class="fopts" id="spo"></div>`;
+    /* timers: normal, extra time (×2) or none (A11Y.timeScale); the clock also waits while the app is talking */
+    const sc = window.A11Y ? A11Y.timeScale() : 1;
+    let i = 0, right = 0, t = Math.round(Math.max(20, items.length * 6) * (sc || 1)), timer;
+    el.innerHTML = head(g, sc ? `<span class="timer" id="tm" role="timer" aria-label="Seconds left">${t}s</span>` : '<span class="timer" id="tm">No timer</span>') + `<div class="spq" id="spq"></div><div class="fopts" id="spo"></div>`;
     const q = el.querySelector('#spq'), o = el.querySelector('#spo'), tm = el.querySelector('#tm');
     const distract = a => {
       const n = Number(a); const set = new Set([a]);
@@ -104,7 +106,7 @@
       o.querySelectorAll('.opt').forEach(b => b.onclick = () => { const ok = b.textContent === String(it.a); if (ok) { right++; S('coin'); } else S('wrong'); b.classList.add(ok ? 'right' : 'wrong');
         setTimeout(() => { i++; if (i < items.length) show(); else end(); }, ok ? 250 : 700); }); };
     show();
-    timer = setInterval(() => { if (window.ReadAlong && ReadAlong.active) return; t--; tm.textContent = t + 's'; if (t <= 5) tm.classList.add('hot'); if (t <= 0) end(); }, 1000);
+    if (sc) timer = setInterval(() => { if (!tm.isConnected) { clearInterval(timer); return; } if ((window.ReadAlong && ReadAlong.active) || (window.A11Y && A11Y.holdClock())) return; t--; tm.textContent = t + 's'; if (window.A11Y) A11Y.timerTick(el, t); if (t <= 5) tm.classList.add('hot'); if (t <= 0) end(); }, 1000);
   }
 
   window.Games = { play: (el, g, done) => ({ match, sort, order, truefalse, fill, speed }[g.type] || ((e, gg, d) => d(0, 0)))(el, g, done), shuffle };

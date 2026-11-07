@@ -1,8 +1,8 @@
 /* StudyVerse service worker: makes the app installable and work offline.
    Pages: always try the internet first (so updates show up), fall back to saved copy. */
-const CACHE = 'studyverse-v13';
+const CACHE = 'studyverse-v14';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
-  './css/base.css?v=13', './css/app.css?v=13', './js/worlds.js?v=13', './js/visuals.js?v=13', './js/games.js?v=13', './js/app.js?v=13', './js/audio.js?v=13', './js/labs/core.js?v=13', './js/practice.js?v=13', './js/tests.js?v=13', './js/ux.js?v=13', './js/nav.js?v=13', './js/arcade.js?v=13', './js/ask.js?v=13', './js/scenes.js?v=13', './js/vendor/three.module.min.js', './js/vendor/OrbitControls.js', './content/curriculum.json'];
+  './css/base.css?v=14', './css/app.css?v=14', './js/worlds.js?v=14', './js/visuals.js?v=14', './js/games.js?v=14', './js/app.js?v=14', './js/audio.js?v=14', './js/labs/core.js?v=14', './js/practice.js?v=14', './js/tests.js?v=14', './js/ux.js?v=14', './js/nav.js?v=14', './js/arcade.js?v=14', './js/gen.js?v=14', './js/ask.js?v=14', './js/a11y.js?v=14', './js/scenes.js?v=14', './js/vendor/three.module.min.js', './js/vendor/OrbitControls.js', './content/curriculum.json'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => Promise.all(CORE.map(u => c.add(u).catch(() => {}))))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));

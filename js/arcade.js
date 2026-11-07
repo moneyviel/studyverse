@@ -11,6 +11,10 @@
   const norm = s => String(s).trim().toLowerCase().replace(/\s+/g, ' ');
   const wait = ms => new Promise(r => setTimeout(r, ms));
   const say = t => (typeof spk === 'function' ? spk(t) : '');
+  /* timers: A11Y.timeScale() is 1 (normal), 2 (extra time) or 0 (no timer); clocks wait while the app is talking */
+  const TS = () => (window.A11Y ? A11Y.timeScale() : 1);
+  const HOLD = () => !!(window.A11Y && A11Y.holdClock());
+  const CUE = m => { try { if (window.A11Y) A11Y.cue(m); } catch (e) {} };
   const restart = (el, cls) => { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
 
   // Options that depend on their position, and questions that depend on a passage shown elsewhere, are left out.
@@ -213,8 +217,8 @@
   function lightning(st, P, ctx, fin, key) {
     const all = [...P.tf.map(x => ({ k: 'tf', ...x })), ...P.speed.map(x => ({ k: 'sp', ...x }))];
     let items = SH(all), idx = 0, score = 0, streak = 0, best = 0, right = 0, wrong = 0, lock = true, t0 = 0, iv = 0, cur = null; const missed = [];
-    const DUR = 60000;
-    st.innerHTML = `<div class="arc-arena arc-light arc-lv1"><div class="arc-lines"></div><div class="arc-lhud"><span>⏱ <b class="arc-time">60</b></span><span class="arc-lvl">Speed 1</span><span>⚡ <b class="arc-score">0</b></span></div>
+    const SC = TS(), UNTIMED = SC === 0, NQ = 20, DUR = 60000 * (SC || 1); let used = 0, last = 0;
+    st.innerHTML = `<div class="arc-arena arc-light arc-lv1"><div class="arc-lines"></div><div class="arc-lhud"><span>${UNTIMED ? '📝' : '⏱'} <b class="arc-time">${UNTIMED ? '1/' + NQ : DUR / 1000}</b></span><span class="arc-lvl">Speed 1</span><span>⚡ <b class="arc-score">0</b></span></div>
       <div class="arc-tbar"><i></i></div><div class="arc-lcard"></div><div class="arc-lbtns"></div><div class="arc-count">3</div></div>`;
     const ar = st.querySelector('.arc-light'), tm = st.querySelector('.arc-time'), sc = st.querySelector('.arc-score'), bar = st.querySelector('.arc-tbar i'),
       card = st.querySelector('.arc-lcard'), btns = st.querySelector('.arc-lbtns'), cnt = st.querySelector('.arc-count'), lvl = st.querySelector('.arc-lvl');
@@ -238,32 +242,34 @@
       const ok = cur.k === 'tf' ? (b.dataset.v === '1') === cur.val : b.dataset.a === cur.a;
       if (ok) {
         right++; streak++; best = Math.max(best, streak); const pts = level(); score += pts; sc.textContent = score; S('coin');
-        b.classList.add('ok'); floatText(ar, `+${pts}`, 'pts'); ctx.t(show, 230);
+        b.classList.add('ok'); floatText(ar, `+${pts}`, 'pts'); after(230);
       } else {
         wrong++; streak = 0; level(); S('wrong'); b.classList.add('bad'); restart(card, 'shake');
         if (cur.k === 'tf') { missed.push({ q: cur.text, a: cur.val ? 'TRUE' : 'FALSE' }); btns.querySelector(`[data-v="${cur.val ? 1 : 0}"]`).classList.add('ok');
           card.insertAdjacentHTML('beforeend', `<div class="arc-lwhy"><b>${cur.val ? 'TRUE' : 'FALSE'}.</b> ${E(cur.why)}</div>`); }
         else { missed.push({ q: cur.q, a: cur.a }); btns.querySelectorAll('.arc-lb').forEach(x => { if (x.dataset.a === cur.a) x.classList.add('ok'); }); }
-        ctx.t(show, cur.k === 'tf' && cur.why ? 1500 : 900);
+        after(cur.k === 'tf' && cur.why ? 1500 : 900);
       }
     };
+    const after = ms => { if (UNTIMED && right + wrong >= NQ) { ctx.t(end, ms); return; } if (UNTIMED) tm.textContent = `${right + wrong + 1}/${NQ}`; ctx.t(show, ms); };
     const end = () => {
       lock = true; ctx.clearIv(iv);
       let hi = 0; try { hi = +localStorage.getItem('arc_hi_' + key) || 0; } catch (e) {}
-      const isHi = score > hi; if (isHi) { try { localStorage.setItem('arc_hi_' + key, String(score)); } catch (e) {} }
+      const isHi = SC === 1 && score > hi; if (isHi) { try { localStorage.setItem('arc_hi_' + key, String(score)); } catch (e) {} }
       fin({ title: isHi && score > 0 ? '🏆 New high score!' : 'Time up!', scoreText: `${score} points`, stars: score >= 30 ? 3 : score >= 15 ? 2 : score >= 5 ? 1 : 0,
         lines: [`✅ ${right} right · ❌ ${wrong} wrong`, `🔥 Best streak ${best}`, `🏆 Best score: ${Math.max(hi, score)}`], missed });
     };
     const tick = () => {
-      const left = Math.max(0, DUR - (Date.now() - t0)); tm.textContent = Math.ceil(left / 1000); bar.style.transform = `scaleX(${left / DUR})`;
-      ar.classList.toggle('hot', left <= 10000);
+      const n = Date.now(); if (!HOLD()) used += n - last; last = n;
+      const left = Math.max(0, DUR - used); tm.textContent = Math.ceil(left / 1000); bar.style.transform = `scaleX(${left / DUR})`;
+      ar.classList.toggle('hot', left <= 10000); if (window.A11Y) A11Y.timerTick(st, Math.ceil(left / 1000));
       if (left <= 0) end();
     };
     let n = 3; S('tap');
     const count = () => {
       n--; if (n > 0) { cnt.textContent = n; restart(cnt, 'arc-pop'); S('tap'); ctx.t(count, 700); return; }
       cnt.textContent = 'GO!'; restart(cnt, 'arc-pop'); S('unlock'); ctx.t(() => cnt.remove(), 500);
-      t0 = Date.now(); iv = ctx.iv(tick, 100); show();
+      t0 = last = Date.now(); if (!UNTIMED) iv = ctx.iv(tick, 100); else bar.parentElement.style.visibility = 'hidden'; show();
     };
     restart(cnt, 'arc-pop'); ctx.t(count, 700);
   }
@@ -283,7 +289,7 @@
     st.querySelectorAll('.arc-mc').forEach(b => b.onclick = () => {
       const c = cards[+b.dataset.i];
       if (lock || b.classList.contains('flip') || b.classList.contains('done')) return;
-      b.classList.add('flip'); S('tap'); open.push([b, c]);
+      b.classList.add('flip'); S('tap'); open.push([b, c]); CUE(`Card ${+b.dataset.i + 1}: ${c.t}`);
       if (open.length < 2) return;
       moves++; mv.textContent = moves; lock = true;
       const [[b1, c1], [b2, c2]] = open; open = [];
@@ -326,13 +332,15 @@
     };
     const fall = () => {
       const R = rounds[r]; if (k >= R.items.length) return nextRound();
-      const it = R.items[k++], dur = Math.max(2400, 7000 * Math.pow(.85, r) * Math.pow(.95, k - 1));
+      const SC = TS(), it = R.items[k++], dur = Math.max(2400, 7000 * Math.pow(.85, r) * Math.pow(.95, k - 1)) * (SC || 1);
       drop.className = 'arc-drop'; drop.textContent = it[0]; drop.style.display = ''; drop.style.transition = 'none'; drop.style.transform = 'translate(-50%,0)';
-      const maxY = sky.clientHeight - drop.offsetHeight - 14, t0 = performance.now();
+      const maxY = sky.clientHeight - drop.offsetHeight - 14; let acc = 0, lastTs = performance.now();
       active = { it, y: 0, done: false };
+      if (!SC) return;                                   // no timer: the item waits at the top for an answer
       const step = ts => {
         if (!active || active.done) return;
-        const y = Math.min(maxY, (Math.max(0, (ts || performance.now()) - t0) / dur) * maxY); active.y = y;
+        const n = ts || performance.now(); if (!HOLD()) acc += Math.max(0, n - lastTs); lastTs = n;
+        const y = Math.min(maxY, (acc / dur) * maxY); active.y = y;
         drop.style.transform = `translate(-50%,${y}px)`;
         if (y >= maxY) { land(); return; }
         ctx.raf(step);
@@ -415,7 +423,7 @@
       S('tap'); onTap();
     };
     list.addEventListener('pointerdown', e => {
-      const row = e.target.closest('.arc-row'); if (!row || list.classList.contains('lock')) return;
+      const row = e.target.closest('.arc-row'); if (!row || list.classList.contains('lock') || e.target.closest('button')) return;
       if (e.pointerType === 'touch' && !e.target.closest('.arc-grip')) { drag = { row, tapOnly: true, y0: e.clientY }; return; }
       e.preventDefault(); drag = { row, y0: e.clientY, moved: false };
       try { row.setPointerCapture(e.pointerId); } catch (er) {}
@@ -445,15 +453,26 @@
         stars: total / max >= .7 ? 3 : total / max >= .45 ? 2 : total > 0 ? 1 : 0, lines: [`🧩 ${perfect} of ${games.length} chains right first time`], missed });
       const g = games[r++]; let order = SH(g.items.map((t, i) => i)); for (let z = 0; z < 6 && order.every((v, j) => v === j); z++) order = SH(order);
       if (order.every((v, j) => v === j)) order.reverse();
-      let fails = 0; const t0 = Date.now(); let iv = 0; toTop();
-      st.innerHTML = `<div class="card arc-chain arc-in"><div class="arc-chd"><span class="tag">Chain ${r} of ${games.length}</span><span class="arc-tmr">⏱ <b>${LIMIT}</b>s bonus</span></div>${srcTag(g.src)}
+      let fails = 0; const SC = TS(), LIM = Math.round(LIMIT * (SC || 1)); let used = 0, lastT = Date.now(), iv = 0; toTop();
+      st.innerHTML = `<div class="card arc-chain arc-in"><div class="arc-chd"><span class="tag">Chain ${r} of ${games.length}</span><span class="arc-tmr">${SC ? `⏱ <b>${LIM}</b>s bonus` : 'No timer'}</span></div>${srcTag(g.src)}
         <h3>${E(g.title)}</h3>${g.prompt ? `<p class="sub">${E(g.prompt)}</p>` : ''}<p class="arc-hint">Drag ⠿ to move a step, or tap two steps to swap them.</p>
-        <div class="arc-list">${order.map(i => `<div class="arc-row" data-i="${i}"><span class="arc-grip" aria-hidden="true">⠿</span><span class="arc-rt">${E(g.items[i])}</span></div>`).join('')}</div>
+        <div class="arc-list">${order.map(i => `<div class="arc-row" data-i="${i}"><span class="arc-grip" aria-hidden="true">⠿</span><span class="arc-rt">${E(g.items[i])}</span><span class="arc-mvb"><button type="button" class="arc-mvup">▲</button><button type="button" class="arc-mvdn">▼</button></span></div>`).join('')}</div>
         <div class="arc-x"></div><button class="btn arc-check">✔ Check order</button></div>`;
       const list = st.querySelector('.arc-list'), x = st.querySelector('.arc-x'), chk = st.querySelector('.arc-check'), tb = st.querySelector('.arc-tmr b');
-      const left = () => Math.max(0, LIMIT - Math.floor((Date.now() - t0) / 1000));
-      iv = ctx.iv(() => { const l = left(); tb.textContent = l; if (l <= 10) st.querySelector('.arc-tmr').classList.add('hot'); if (!l) ctx.clearIv(iv); }, 250);
-      sortable(list, () => { list.querySelectorAll('.arc-row').forEach(rw => rw.classList.remove('good', 'bad')); x.innerHTML = ''; });
+      const left = () => { const n = Date.now(); if (SC && !HOLD()) used += n - lastT; lastT = n; return Math.max(0, LIM - Math.floor(used / 1000)); };
+      if (SC) iv = ctx.iv(() => { const l = left(); tb.textContent = l; if (l <= 10) st.querySelector('.arc-tmr').classList.add('hot'); if (!l) ctx.clearIv(iv); }, 250);
+      const reset = () => { list.querySelectorAll('.arc-row').forEach(rw => rw.classList.remove('good', 'bad')); x.innerHTML = ''; };
+      sortable(list, reset);
+      /* keyboard / screen-reader / Listen-mode alternative to dragging: ▲ ▼ buttons on every step */
+      list.addEventListener('click', e => {
+        const b = e.target.closest('.arc-mvup,.arc-mvdn'); if (!b) return; e.stopPropagation();
+        if (list.classList.contains('lock')) return;
+        const row = b.closest('.arc-row'), up = b.classList.contains('arc-mvup'), sib = up ? row.previousElementSibling : row.nextElementSibling;
+        if (!sib) { CUE(`${g.items[+row.dataset.i]} is already ${up ? 'first' : 'last'}.`); return; }
+        if (up) list.insertBefore(row, sib); else list.insertBefore(sib, row);
+        S('tap'); reset(); b.focus();
+        CUE(`${g.items[+row.dataset.i]}: now number ${[...list.children].indexOf(row) + 1} of ${list.children.length}.`);
+      });
       const done = pts => {
         ctx.clearIv(iv); list.classList.add('lock'); chk.remove(); total += pts;
         x.insertAdjacentHTML('beforeend', `<button class="btn mint arc-next">${r < games.length ? 'Next chain ▶' : 'See results ▶'}</button>`);
