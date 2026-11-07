@@ -2,7 +2,12 @@
 Original explanations, data and questions (structure and scope follow the ICAI study material). Every figure is computed below."""
 from lib import *
 from ca_viva import P, V, ALT
-from ca_cases import M as CM
+from ca_cases import M as _CM
+
+
+def CM(*a, topic=None, **k):
+    d = _CM(*a, **k); d['topic'] = topic
+    return d
 
 UID = 'fnd-p3-ch14-u02'
 
@@ -24,15 +29,15 @@ def fm(v, unit=''):
     return s + (' ' + unit if unit else '')
 
 
-def mq(mid, q, opts, explain, concept, diff='core'):
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
+def mq(mid, q, opts, explain, concept, diff='core', topic=None):
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
 
 
-def nq(mid, q, check, wrong, explain, concept, diff='core', unit=''):
+def nq(mid, q, check, wrong, explain, concept, diff='core', unit='', topic=None):
     v = ev(check)
     opts = [fm(v, unit)] + [fm(w, unit) for w in wrong]
     assert len(set(opts)) == 4 and all(abs(w - v) > 0.006 for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
 
 
 def quart(xs, k, m):
@@ -125,13 +130,13 @@ def build():
                  'Fund B gave a mean of 1.2% with a standard deviation of 3.0%. Fund A\'s best and worst months were +11.5% and −9.1%. The client also asks what would happen to the figures if a flat 0.1% monthly fee were deducted from every return.'),
         'mcqs': [
             CM('k1a', 'What is the coefficient of variation of Fund A?', ['300%', '33.33%', '250%', '420%'], 0,
-               f'CV = SD/mean × 100 = 4.2/1.4 × 100 = {fm(cva_)}%.', 'core', 'round(4.2/1.4*100,2)'),
+               "CV = SD ÷ mean × 100 = 4.2 ÷ 1.4 × 100 = 300%. The trap is 33.33%, which divides the mean by the SD the wrong way round. In practice: CV expresses risk per unit of return, which is how a CA compares the volatility of schemes for a client's investment portfolio.", 'core', 'round(4.2/1.4*100,2)', topic='Standard deviation, variance and coefficient of variation'),
             CM('k1b', 'Which fund is more consistent, and why?', ['Fund B — its CV (250%) is lower', 'Fund A — its mean is higher', 'Fund A — its CV is higher', 'Both are equally consistent'], 0,
-               'Consistency is judged by the relative measure; lower CV means more consistent. Fund B: 3.0/1.2 × 100 = 250% < 300%.', 'moderate'),
+               "Consistency is judged by the relative measure. Fund B's CV = 3.0 ÷ 1.2 × 100 = 250%, lower than Fund A's 300%, so Fund B is steadier. 'Fund A, because its mean is higher' is the trap: a higher return says nothing about steadiness. In practice: financial planners in India use such comparisons when advising risk-averse clients like retirees.", 'moderate', topic='Standard deviation, variance and coefficient of variation'),
             CM('k1c', 'What is the range of Fund A\'s monthly returns?', ['20.6', '2.4', '11.5', '10.3'], 0,
-               'Range = largest − smallest = 11.5 − (−9.1) = 20.6 percentage points.', 'core', '11.5-(-9.1)'),
+               'Range = largest − smallest = 11.5 − (−9.1) = 11.5 + 9.1 = 20.6 percentage points. The trap is 2.4, which subtracts 9.1 without handling the negative sign correctly. In practice: the spread between best and worst months is reported in mutual-fund factsheets as an easy-to-read indicator of volatility.', 'core', '11.5-(-9.1)', topic='Range and coefficient of range'),
             CM('k1d', 'If a flat 0.1% fee is deducted from every monthly return, Fund A\'s standard deviation will:', ['Remain 4.2%', 'Fall to 4.1%', 'Rise to 4.3%', 'Depend on the number of months'], 0,
-               'Subtracting a constant is a change of origin; SD is unaffected by change of origin (the mean falls to 1.3%, so CV does change).', 'hard'),
+               "Deducting the same 0.1% from every return is a change of origin, which shifts all values but does not change their spread, so the SD stays 4.2%. 'Fall to 4.1%' is the trap: only the mean falls (to 1.3%), and so the CV does change. In practice: expense ratios reduce a fund's average return but not its volatility.", 'hard', topic='Standard deviation, variance and coefficient of variation'),
         ]}]
 
     viva = [
@@ -259,61 +264,61 @@ def build():
         ],
         'mcqs': [
             mq('m1', 'Which of these is a relative measure of dispersion?', ['Coefficient of variation', 'Standard deviation', 'Mean deviation', 'Range'],
-               'Coefficients are unit-free relative measures; SD, MD and range are absolute.', 'c1'),
+               'The coefficient of variation (SD ÷ mean × 100) is a ratio, free of units, so it is a relative measure. Standard deviation is the trap: it is expressed in the same units as the data, so it is an absolute measure, as are mean deviation and range. In practice: analysts use CV to compare the risk of stocks with very different price levels.', 'c1', topic='Why dispersion? Absolute vs relative measures'),
             mq('m2', 'To compare the variability of heights (cm) and weights (kg) of the same students, use:', ['Coefficient of variation', 'Standard deviation', 'Range', 'Variance'],
-               'Different units need a unit-free measure.', 'c1'),
+               'Heights in cm and weights in kg cannot be compared with absolute measures because their units differ. The coefficient of variation is unit-free, so it allows a fair comparison. Standard deviation is the trap: an SD in cm cannot be compared with an SD in kg. In practice: comparing the volatility of sales in units with costs in rupees also needs a relative measure like CV.', 'c1', topic='Why dispersion? Absolute vs relative measures'),
             nq('m3', 'The largest and smallest values of a series are 84 and 36. The coefficient of range is:', 'round((84-36)/(84+36)*100,2)', [48, 57.14, 133.33],
-               '(84 − 36)/(84 + 36) × 100 = 48/120 × 100 = @A. (48 is the range itself.)', 'c2'),
+               "Coefficient of range = (L − S) ÷ (L + S) × 100 = (84 − 36) ÷ (84 + 36) × 100 = 48 ÷ 120 × 100 = 40. The trap is 48, which is the range itself, an absolute measure. In practice: the coefficient of range gives a quick relative sense of price fluctuation, for example in a stock's 52-week high and low.", 'c2', topic='Range and coefficient of range'),
             nq('m4', 'For classes 20–29, 30–39, …, 60–69, the range is:', '69.5-19.5', [49, 40, 45],
-               'Use extreme class boundaries: 69.5 − 19.5 = @A.', 'c2', 'moderate'),
+               'For grouped data, range uses the extreme class boundaries: upper boundary of the last class minus lower boundary of the first = 69.5 − 19.5 = 50. The trap is 49, which uses class limits (69 − 20) instead of boundaries. In practice: when only grouped data are available, such as age bands in an HR report, boundaries give the correct spread.', 'c2', 'moderate', topic='Range and coefficient of range'),
             nq('m5', 'If the range of x is 15 and 3x + 5y = 12, the range of y is:', '3/5*15', [-9, 15, 25],
-               'y = 2.4 − 0.6x; R(y) = |−0.6| × 15 = @A. Range is never negative.', 'c2', 'moderate'),
+               'From 3x + 5y = 12, y = 2.4 − 0.6x. Range changes by the absolute value of the coefficient: R(y) = |−0.6| × 15 = 9. The trap is −9: a range can never be negative. In practice: converting a range of prices into another currency at a fixed rate scales the range by that rate.', 'c2', 'moderate', topic='Range and coefficient of range'),
             mq('m6', 'Mean deviation is minimum when deviations are taken from the:', ['Median', 'Mean', 'Mode', 'Largest value'],
-               'Minimum property of the median.', 'c3'),
+               'The sum of absolute deviations is least when measured from the median, so mean deviation is smallest about the median. The mean is the trap: the mean minimises squared deviations, not absolute ones. In practice: forecasting teams who want to minimise average absolute error often use the median as their central estimate.', 'c3', topic='Mean deviation'),
             nq('m7', 'The mean deviation about the mean of 2, 4, 6, 8, 10 is:', '(4+2+0+2+4)/5', [3, 2.83, 6],
-               'Mean 6; |deviations| 4, 2, 0, 2, 4 total 12; MD = 12/5 = @A. (2.83 is the SD.)', 'c3'),
+               'Mean = 30 ÷ 5 = 6. Absolute deviations: 4, 2, 0, 2, 4, total 12. MD = 12 ÷ 5 = 2.4. The trap is 2.83, which is the standard deviation (√8), not the mean deviation. In practice: mean absolute deviation is used in demand forecasting to measure average forecast error in units.', 'c3', topic='Mean deviation'),
             nq('m8', 'The mean deviation about the median is 6 and the median is 40. The coefficient of mean deviation is:', '6/40*100', [6.67, 0.15, 24],
-               '6/40 × 100 = @A.', 'c3'),
+               'Coefficient of mean deviation = (MD ÷ the average it is measured from) × 100 = 6 ÷ 40 × 100 = 15. The trap is 0.15, which forgets to multiply by 100. In practice: relative measures like this let an analyst compare variability in two branches of different size.', 'c3', topic='Mean deviation'),
             nq('m9', 'For 10 observations, Σx = 120 and Σx² = 1,600. The standard deviation is:', '(1600/10-12**2)**0.5', [16, 12, 1.6],
-               's = √(160 − 144) = √16 = @A. (16 is the variance.)', 'c4'),
+               'Mean = 120 ÷ 10 = 12. Variance = Σx²/n − mean² = 160 − 144 = 16. SD = √16 = 4. The trap is 16, which is the variance, not the SD. In practice: this shortcut formula is how spreadsheet functions and calculators compute the standard deviation of returns or costs from running totals.', 'c4', topic='Standard deviation, variance and coefficient of variation'),
             nq('m10', 'If every value of a series is 7, the standard deviation is:', '0', [7, 1, 49],
-               'No observation deviates from the mean, so SD = @A.', 'c4'),
+               'If every value is 7, the mean is 7 and no value deviates from it, so every deviation is zero and the SD is 0. The trap is 7, which confuses the value itself with its spread. In practice: a fixed-deposit return that never changes has zero volatility, which is why such instruments are called risk-free in finance models.', 'c4', topic='Standard deviation, variance and coefficient of variation'),
             nq('m11', 'The SD of x is 4. If y = 5 − 3x, the SD of y is:', 'abs(-3)*4', [-12, 7, 17],
-               's(y) = |b| s(x) = 3 × 4 = @A. The constant 5 has no effect and SD cannot be negative.', 'c4'),
+               'For y = a + bx, SD(y) = |b| × SD(x) = 3 × 4 = 12. The constant 5 shifts values but does not change spread. The trap is −12: a standard deviation can never be negative. In practice: if a cost depends linearly on volume, the volatility of cost is the volatility of volume times the per-unit rate.', 'c4', topic='Standard deviation, variance and coefficient of variation'),
             nq('m12', 'The variance of x is 9. The variance of 2x + 7 is:', '2**2*9', [18, 25, 43],
-               'Var(a + bx) = b² Var(x) = 4 × 9 = @A.', 'c4', 'moderate'),
+               "Var(a + bx) = b² × Var(x) = 2² × 9 = 36. Adding 7 has no effect on spread. The trap is 18, which multiplies by 2 instead of 2². In practice: doubling a portfolio's exposure quadruples its variance, which is why leverage magnifies risk so sharply.", 'c4', 'moderate', topic='Standard deviation, variance and coefficient of variation'),
             nq('m13', 'The mean of x is 20 and its CV is 25%. The variance of 10 − 3x is:', '9*(20*25/100)**2', [15, 75, 135],
-               's(x) = 25% of 20 = 5. Var(10 − 3x) = 9 × 25 = @A.', 'c4', 'hard'),
+               'CV = SD ÷ mean × 100, so SD(x) = 25% of 20 = 5. Var(10 − 3x) = (−3)² × 5² = 9 × 25 = 225. The trap is 15, which is the SD of 10 − 3x (3 × 5), not the variance. In practice: risk analysts move between CV, SD and variance routinely when modelling linear transformations of returns.', 'c4', 'hard', topic='Standard deviation, variance and coefficient of variation'),
             nq('m14', 'A series has mean 60 and SD 9. Its coefficient of variation is:', '9/60*100', [6.67, 0.15, 51],
-               'CV = 9/60 × 100 = @A%.', 'c4'),
+               'CV = SD ÷ mean × 100 = 9 ÷ 60 × 100 = 15%. The trap is 6.67, which divides the mean by the SD the wrong way round. In practice: CV is quoted for comparing the consistency of returns of mutual funds or the stability of sales across branches.', 'c4', topic='Standard deviation, variance and coefficient of variation'),
             mq('m15', 'Series A: mean 50, SD 10. Series B: mean 80, SD 12. Which is more consistent?', ['B, because its CV (15%) is lower than A\'s (20%)', 'A, because its SD is lower', 'B, because its mean is higher', 'Both are equally consistent'],
-               'Compare CVs: A = 20%, B = 15%. Lower CV = more consistent.', 'c4', 'moderate'),
+               "Consistency is judged by the relative measure, the CV. A: 10 ÷ 50 × 100 = 20%. B: 12 ÷ 80 × 100 = 15%. B has the lower CV, so it is more consistent. 'A, because its SD is lower' is the trap: SDs cannot be compared when means differ. In practice: fund advisers compare risk per unit of return, not raw SDs, when recommending a scheme.", 'c4', 'moderate', topic='Standard deviation, variance and coefficient of variation'),
             nq('m16', 'Two groups of 50 and 50 have means 30 and 40 and SDs 4 and 6. The combined SD is:', 'round(((50*16+50*36+50*25+50*25)/100)**0.5,2)', [5, 5.1, 7.07],
-               'Combined mean 35; d = ±5. s² = (800 + 1,800 + 1,250 + 1,250)/100 = 51; s = @A. (5.1 = √26 ignores the difference in means; 5 is just the average of the two SDs.)', 'c4', 'hard'),
+               "Combined mean = 35, so d₁ = −5 and d₂ = +5. Combined variance = [50(16 + 25) + 50(36 + 25)] ÷ 100 = 51, and SD = √51 ≈ 7.14. The trap is 5.1 (√26), which ignores the difference between the group means. In practice: combining two branches' sales data needs this formula, since the gap between branch means adds to overall variability.", 'c4', 'hard', topic='Standard deviation, variance and coefficient of variation'),
             nq('m17', 'The standard deviation of the first 12 natural numbers is:', 'round(((12**2-1)/12)**0.5,2)', [3.61, 11.92, 6.5],
-               '√((n² − 1)/12) = √(143/12) = @A. (11.92 is the variance.)', 'c4', 'moderate'),
+               'For the first n natural numbers, SD = √((n² − 1) ÷ 12) = √(143 ÷ 12) ≈ 3.45. The trap is 11.92, which is the variance, not the SD. In practice: shortcut formulas like this serve as a quick check on spreadsheet calculations of evenly spaced data, such as serial numbers.', 'c4', 'moderate', topic='Standard deviation, variance and coefficient of variation'),
             nq('m18', 'The standard deviation of the two numbers 15 and 27 is:', 'abs(15-27)/2', [12, 21, 8.49],
-               'For two numbers SD = |a − b|/2 = 12/2 = @A.', 'c4'),
+               "For two numbers, SD = |a − b| ÷ 2 = |15 − 27| ÷ 2 = 6. Check: mean 21, both deviations 6, variance 36. The trap is 12, which is the range, not the SD. In practice: such quick checks help when reviewing a two-period comparison, for example two years' profit figures.", 'c4', topic='Standard deviation, variance and coefficient of variation'),
             nq('m19', 'The mean of 5 observations is 8 and the mean of their squares is 73. The SD is:', '(73-8**2)**0.5', [9, 8.54, 65],
-               's = √(73 − 64) = @A.', 'c4'),
+               'Variance = mean of squares − square of mean = 73 − 8² = 73 − 64 = 9, so SD = √9 = 3. The trap is 9, which is the variance. In practice: this formula is how calculators and software compute SD from summary totals without storing every observation.', 'c4', topic='Standard deviation, variance and coefficient of variation'),
             mq('m20', 'If each observation is increased by 10, the standard deviation:', ['Remains unchanged', 'Increases by 10', 'Is multiplied by 10', 'Decreases by 10'],
-               'Change of origin does not affect SD.', 'c4'),
+               "Adding 10 to every value shifts the whole set but does not change how spread out it is, so the SD stays the same (change of origin). 'Increases by 10' is the trap: only the mean rises by 10. In practice: adding a flat bonus to every employee's salary raises the average but leaves the salary spread unchanged.", 'c4', topic='Standard deviation, variance and coefficient of variation'),
             mq('m21', 'If each observation is doubled, the variance becomes:', ['Four times', 'Double', 'Half', 'Unchanged'],
-               'Var(2x) = 4 Var(x).', 'c4', 'moderate'),
+               "Doubling every value doubles the SD, and variance is SD squared, so it becomes 2² = 4 times. 'Double' is the trap: that is what happens to the SD, not the variance. In practice: doubling the size of a position in a stock multiplies its variance by four, which matters for risk limits in treasury departments.", 'c4', 'moderate', topic='Standard deviation, variance and coefficient of variation'),
             mq('m22', 'Which measure of dispersion is generally regarded as the best?', ['Standard deviation', 'Range', 'Quartile deviation', 'Mean deviation'],
-               'SD is rigidly defined, uses all values and allows algebraic treatment.', 'c4'),
+               'Standard deviation is regarded as the best measure because it is rigidly defined, based on all observations and suitable for further algebraic work. Range is the trap: it uses only the two extreme values. In practice: SD (volatility) is the standard risk measure in finance, used in portfolio theory and risk-o-meters of mutual funds.', 'c4', topic='Standard deviation, variance and coefficient of variation'),
             nq('m23', 'Q₁ = 32 and Q₃ = 58. The quartile deviation is:', '(58-32)/2', [26, 45, 29],
-               'QD = (Q₃ − Q₁)/2 = 26/2 = @A. (26 is the interquartile range.)', 'c5'),
+               'Quartile deviation = (Q₃ − Q₁) ÷ 2 = (58 − 32) ÷ 2 = 13. The trap is 26, which is the inter-quartile range, not half of it. In practice: QD is used for skewed data such as incomes or property prices, where extreme values would distort the SD.', 'c5', topic='Quartile deviation and choosing a measure'),
             nq('m24', 'Q₁ = 32 and Q₃ = 58. The coefficient of quartile deviation is:', 'round((58-32)/(58+32)*100,2)', [44.83, 13, 22.41],
-               '(58 − 32)/(58 + 32) × 100 = 26/90 × 100 = @A.', 'c5'),
+               'Coefficient of QD = (Q₃ − Q₁) ÷ (Q₃ + Q₁) × 100 = 26 ÷ 90 × 100 ≈ 28.89. The trap is 44.83, which wrongly divides 26 by Q₃ (58) instead of Q₃ + Q₁. In practice: relative quartile measures help compare spreads of salary structures across companies of different sizes.', 'c5', topic='Quartile deviation and choosing a measure'),
             nq('m25', 'The QD of x is 8 and 2x + 4y = 15. The QD of y is:', '2/4*8', [16, -4, 8],
-               'y = 3.75 − 0.5x; QD(y) = 0.5 × 8 = @A.', 'c5', 'moderate'),
+               'From 2x + 4y = 15, y = 3.75 − 0.5x. QD changes by the absolute value of the coefficient: QD(y) = 0.5 × 8 = 4. The trap is 16, which multiplies by 2 instead of 0.5. In practice: converting a quartile spread of prices into another unit or currency scales it by the conversion factor.', 'c5', 'moderate', topic='Quartile deviation and choosing a measure'),
             mq('m26', 'For a distribution with open-end classes, the most suitable measure of dispersion is:', ['Quartile deviation', 'Standard deviation', 'Range', 'Mean deviation about mean'],
-               'QD needs only Q₁ and Q₃, so open ends do not matter.', 'c5'),
+               "QD needs only Q₁ and Q₃, so open-ended classes at either end do not matter. Standard deviation is the trap: it needs a mid-value for every class, which open classes lack. In practice: income-tax statistics with a top slab like 'above ₹1 crore' are better summarised with quartile measures.", 'c5', topic='Quartile deviation and choosing a measure'),
             mq('m27', 'Which measure of dispersion is most affected by extreme values?', ['Range', 'Quartile deviation', 'Mean deviation about median', 'Coefficient of QD'],
-               'Range depends only on the two extremes.', 'c2'),
+               "Range depends only on the largest and smallest values, so a single extreme value changes it completely. Quartile deviation is the trap: it ignores the top and bottom 25% of values and is barely affected by extremes. In practice: a stock's 52-week range can widen sharply because of one day's spike, so analysts also look at other volatility measures.", 'c2', topic='Range and coefficient of range'),
             mq('m28', 'All measures of dispersion (range, MD, SD, QD) are:', ['Unaffected by change of origin but affected by change of scale', 'Affected by change of origin only', 'Unaffected by both changes', 'Affected by change of origin and unaffected by scale'],
-               'Shifting every value does not change spread; multiplying by b changes spread by |b|.', 'c1', 'moderate'),
+               "Shifting every value by a constant (change of origin) does not change spread, but multiplying by b (change of scale) changes every measure of dispersion by |b|. 'Unaffected by both' is the trap: scale changes always alter spread. In practice: converting rupee data into lakh changes the SD by the same factor, while adding a fixed fee does not change it.", 'c1', 'moderate', topic='Why dispersion? Absolute vs relative measures'),
         ],
         'questions': [
             {'id': 'q1', 'marks': 6, 'minutes': minutes(6), 'difficulty': 'moderate', 'pad': 'table',

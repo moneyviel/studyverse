@@ -6,7 +6,12 @@ from itertools import product
 from math import comb
 from lib import *
 from ca_viva import P, V, ALT
-from ca_cases import M as CM
+from ca_cases import M as _CM
+
+
+def CM(*a, topic=None, **k):
+    d = _CM(*a, **k); d['topic'] = topic
+    return d
 
 UID = 'fnd-p3-ch15-u01'
 
@@ -33,22 +38,22 @@ def fr(x):
     return str(x.numerator) if x.denominator == 1 else f'{x.numerator}/{x.denominator}'
 
 
-def mq(mid, q, opts, explain, concept, diff='core'):
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
+def mq(mid, q, opts, explain, concept, diff='core', topic=None):
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
 
 
-def nq(mid, q, check, wrong, explain, concept, diff='core', unit=''):
+def nq(mid, q, check, wrong, explain, concept, diff='core', unit='', topic=None):
     v = ev(check)
     opts = [fm(v, unit)] + [fm(w, unit) for w in wrong]
     assert len(set(opts)) == 4 and all(abs(w - v) > 0.006 for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
 
 
-def fq(mid, q, ans, wrong, explain, concept, diff='core'):
+def fq(mid, q, ans, wrong, explain, concept, diff='core', topic=None):
     """MCQ whose answer is an exact fraction (computed by the caller with Fraction)."""
     opts = [fr(ans)] + [fr(w) for w in wrong]
     assert len(set(opts)) == 4 and all(F(w) != F(ans) for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain.replace('@A', fr(ans)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain.replace('@A', fr(ans)), 'concept': concept, 'difficulty': diff}
 
 
 DICE = list(product(range(1, 7), repeat=2))
@@ -133,13 +138,13 @@ def build():
                  'A borrower is chosen at random from the book. Assume that a defaulted loan is fully lost.'),
         'mcqs': [
             CM('k1a', 'What is the probability that the borrower is salaried and defaults?', ['0.012', '0.02', '0.6', '0.032'], 0,
-               'Multiplication theorem: P(S and D) = P(S) × P(D|S) = 0.6 × 0.02 = 0.012.', 'moderate', '0.6*0.02'),
+               'By the multiplication theorem, P(S and D) = P(S) × P(D|S) = 0.6 × 0.02 = 0.012. The trap is 0.02, which is the default rate among salaried borrowers only, i.e. a conditional probability, not the joint one. In practice: banks build credit-risk models by combining segment shares with segment default rates in exactly this way.', 'moderate', '0.6*0.02', topic='Conditional probability and compound probability'),
             CM('k1b', 'What is the probability that the borrower defaults?', ['0.032', '0.07', '0.05', '0.02'], 0,
-               f'Default happens either with a salaried or with a self-employed borrower (mutually exclusive): 0.6 × 0.02 + 0.4 × 0.05 = 0.012 + 0.020 = {fm(pdft)}. 0.07 simply adds the two rates; 0.05 is the self-employed rate alone.', 'hard', '0.6*0.02+0.4*0.05'),
+               'A defaulter is either salaried or self-employed (mutually exclusive), so P(D) = 0.6 × 0.02 + 0.4 × 0.05 = 0.012 + 0.020 = 0.032. The trap is 0.07, which adds the two default rates without weighting them by segment share. In practice: this total-probability calculation gives a bank its portfolio-level probability of default for provisioning.', 'hard', '0.6*0.02+0.4*0.05', topic='Conditional probability and compound probability'),
             CM('k1c', 'What are the odds against a randomly chosen borrower defaulting?', ['121 : 4', '4 : 121', '968 : 1,000', '32 : 1,000'], 0,
-               'P(D) = 0.032 = 4/125, so P(not D) = 121/125. Odds against = 121 : 4.', 'hard'),
+               'P(D) = 0.032 = 4/125, so P(not D) = 121/125. Odds against = P(not D) : P(D) = 121 : 4. The trap is 4 : 121, which gives the odds in favour of default, not against. In practice: credit reports sometimes express risk as odds, and getting the direction wrong would reverse the risk message.', 'hard', topic='Definitions of probability and odds'),
             CM('k1d', 'What is the expected loss on the whole book?', ['₹1,60,00,000', '₹1,00,00,000', '₹3,50,00,000', '₹16,00,000'], 0,
-               'Expected number of defaults = 1,000 × 0.032 = 32; expected loss = 32 × ₹5,00,000 = ₹1.6 crore.', 'moderate', '1000*0.032*500000'),
+               'Expected number of defaults = 1,000 × 0.032 = 32 loans. Each fully lost loan costs ₹5,00,000, so expected loss = 32 × ₹5,00,000 = ₹1,60,00,000 (₹1.6 crore). The trap is ₹3,50,00,000, which uses the unweighted 7% (2% + 5%). In practice: expected credit loss under Ind AS 109 is built from probability of default × exposure × loss given default.', 'moderate', '1000*0.032*500000', topic='Expected value and variance'),
         ]}]
 
     viva = [
@@ -280,69 +285,69 @@ def build():
         ],
         'mcqs': [
             fq('m1', 'Two fair dice are thrown. The probability that the sum is 7 is:', pd(lambda a, b: a + b == 7), [F(7, 36), F(5, 36), F(1, 12)],
-               'Six of the 36 outcomes give 7 — (6,1), (5,2), (4,3), (3,4), (2,5), (1,6) — so 6/36 = @A.', 'c2'),
+               'Two dice give 6 × 6 = 36 equally likely outcomes. For a sum of 7, whatever the first die shows, exactly one face of the second die completes it (7 minus the first), so there are 6 favourable outcomes and P = 6/36 = 1/6. The trap is 5/36, which misses one ordered pair, or 7/36, which confuses the sum with the count. In practice: counting outcomes carefully is the basis of pricing any game, lottery or insurance product.', 'c2', topic='Definitions of probability and odds'),
             fq('m2', 'Two dice are thrown. The probability of getting a doublet is:', pdb, [F(1, 36), F(1, 3), F(5, 36)],
-               'Doublets (1,1) … (6,6) are 6 of 36 → @A.', 'c2'),
+               "A doublet means both dice show the same number: (1,1) to (6,6), which is 6 of the 36 outcomes, so P = 6/36 = 1/6. The trap is 1/36, which is the probability of one particular doublet such as (6,6). In practice: separating 'any one of a group' from 'one specific outcome' matters when estimating the chance of any default versus a particular borrower's default.", 'c2', topic='Definitions of probability and odds'),
             fq('m3', 'Two dice are thrown. The probability that the sum is at least 10 is:', p10, [F(1, 12), F(5, 36), F(1, 4)],
-               'Sum 10: 3 cases, 11: 2, 12: 1 → 6/36 = @A.', 'c2', 'moderate'),
+               "'At least 10' means 10, 11 or 12. Sum 10 has 3 outcomes, 11 has 2, and 12 has 1, giving 6 of 36, so P = 1/6. The trap is 1/12, which counts only the sum of exactly 10. In practice: 'at least' questions mirror real risk thresholds, such as the chance that losses reach a set level or more.", 'c2', 'moderate', topic='Definitions of probability and odds'),
             fq('m4', 'One card is picked at random from a well-shuffled pack of 52. The probability that it is a king or a heart is:', pkh, [F(17, 52), F(1, 52), F(1, 4)],
-               'P(K) + P(H) − P(K of hearts) = 4/52 + 13/52 − 1/52 = 16/52 = @A. 17/52 double-counts the king of hearts.', 'c4'),
+               'Use the addition theorem: P(K or H) = P(K) + P(H) − P(K and H) = 4/52 + 13/52 − 1/52 = 16/52 = 4/13. The trap is 17/52, which counts the king of hearts twice. In practice: avoiding double counting of overlapping groups matters when estimating the share of customers who hold either a loan or a credit card.', 'c4', topic='Addition theorems'),
             fq('m5', 'A card is drawn from a pack of 52. The probability that it is a face card (J, Q, K) is:', F(12, 52), [F(1, 13), F(1, 4), F(3, 52)],
-               '12 face cards → 12/52 = @A.', 'c2'),
+               'Each suit has three face cards (jack, queen, king), so there are 3 × 4 = 12 in the pack. P = 12/52 = 3/13. The trap is 3/52, which counts the face cards of only one suit. In practice: building the favourable count accurately is the first step in any probability-based estimate, such as the share of invoices above a threshold.', 'c2', topic='Definitions of probability and odds'),
             fq('m6', 'Three fair coins are tossed. The probability of getting at least one head is:', F(7, 8), [F(1, 8), F(3, 8), F(1, 2)],
-               'P(no head) = 1/8, so P(at least one) = 1 − 1/8 = @A.', 'c2'),
+               "It is easier to use the complement. P(no head) = (1/2)³ = 1/8, so P(at least one head) = 1 − 1/8 = 7/8. The trap is 1/8, which is the complement itself (all tails). In practice: 'at least one' problems are solved with the complement, for example the chance that at least one of several independent systems fails.", 'c2', topic='Definitions of probability and odds'),
             fq('m7', 'Three coins are tossed. The probability of exactly two heads is:', p2h, [F(1, 4), F(1, 2), F(7, 8)],
-               'HHT, HTH, THH: 3 of 8 outcomes → @A.', 'c2'),
+               'Three coins give 8 equally likely outcomes. Exactly two heads: HHT, HTH and THH, which is 3 outcomes, so P = 3/8. The trap is 1/4, which counts only two orderings. In practice: counting arrangements correctly underlies the binomial model used in quality control and credit-risk estimation.', 'c2', topic='Definitions of probability and odds'),
             fq('m8', 'Two cards are drawn together from a pack of 52. The probability that both are aces is:', qd, [F(1, 169), F(1, 13), F(2, 13)],
-               '⁴C₂/⁵²C₂ = 6/1,326 = @A. (1/169 = (1/13)² assumes replacement.)', 'c5', 'moderate'),
+               'Drawing two cards together is a combination problem: P = ⁴C₂ ÷ ⁵²C₂ = 6 ÷ 1,326 = 1/221. The trap is 1/169, which is (1/13)² and assumes the first card is replaced. In practice: audit sampling is usually without replacement, so the probability of picking particular items changes after each draw, as here.', 'c5', 'moderate', topic='Conditional probability and compound probability'),
             fq('m9', 'A bag has 5 white and 4 black balls. Two balls are drawn at random together. The probability that both are white is:', F(comb(5, 2), comb(9, 2)), [F(25, 81), F(5, 9), F(4, 9)],
-               '⁵C₂/⁹C₂ = 10/36 = @A. (25/81 would be with replacement.)', 'c5', 'moderate'),
+               'Drawing two balls together: P = ⁵C₂ ÷ ⁹C₂ = 10 ÷ 36 = 5/18. The trap is 25/81, which is (5/9)² and wrongly assumes replacement. In practice: when an auditor selects two items from a small batch, the chance of both being of one type must be found without replacement in the same way.', 'c5', 'moderate', topic='Conditional probability and compound probability'),
             fq('m10', 'The odds in favour of an event are 4 : 7. The probability of the event is:', F(4, 11), [F(4, 7), F(7, 11), F(3, 11)],
-               'P = 4/(4 + 7) = @A.', 'c2'),
+               'Odds in favour of a : b mean P = a ÷ (a + b). So P = 4 ÷ (4 + 7) = 4/11. The trap is 4/7, which treats the odds ratio itself as a probability. In practice: betting markets and some risk reports quote odds, and converting them into probabilities is needed before comparing risks.', 'c2', topic='Definitions of probability and odds'),
             mq('m11', 'If P(A) = 0.35, the odds against A are:', ['13 : 7', '7 : 13', '35 : 100', '65 : 100'],
-               'P(A′) = 0.65. Odds against = 0.65 : 0.35 = 13 : 7.', 'c2', 'moderate'),
+               'P(A′) = 1 − 0.35 = 0.65. Odds against A = P(A′) : P(A) = 0.65 : 0.35 = 13 : 7. The trap is 7 : 13, which is the odds in favour, not against. In practice: insurers and lenders may express risk as odds; reversing the ratio by mistake understates or overstates risk badly.', 'c2', 'moderate', topic='Definitions of probability and odds'),
             nq('m12', 'If P(A) = 0.42, then P(A′) is:', '1-0.42', [0.42, 0.5, 1.42],
-               'P(A′) = 1 − P(A) = @A.', 'c1'),
+               'An event and its complement together cover all outcomes, so P(A′) = 1 − P(A) = 1 − 0.42 = 0.58. The trap is 1.42, which adds instead of subtracting and is impossible as a probability. In practice: if the probability that a customer pays on time is 0.58, the probability of late payment is the complement, 0.42.', 'c1', topic='Random experiments, sample space and events'),
             mq('m13', 'The classical definition of probability fails when:', ['The outcomes are not equally likely or are infinite in number', 'The outcomes are equally likely', 'A coin is tossed', 'The sample space is finite'],
-               'It needs a finite number of equally likely outcomes.', 'c2'),
+               "The classical definition P = favourable ÷ total needs a finite number of equally likely outcomes, so it fails when outcomes are not equally likely or are infinite. 'A coin is tossed' is the trap: a fair coin is the textbook case where it works. In practice: credit defaults are not equally likely across borrowers, so banks use historical relative frequencies instead.", 'c2', topic='Definitions of probability and odds'),
             mq('m14', 'The statistical (relative frequency) definition of probability is based on:', ['The limit of the relative frequency f/n as the number of trials becomes very large', 'Equally likely outcomes only', 'Personal belief', 'Three axioms only'],
-               'P(A) = lim f/n as n → ∞, provided the limit exists and is finite.', 'c2'),
+               "The statistical (empirical) definition takes P(A) as the limit of the relative frequency f/n as the number of trials becomes very large. 'Equally likely outcomes only' is the trap: that is the classical definition. In practice: insurers estimate claim probabilities from large historical data, which is exactly the relative-frequency approach.", 'c2', topic='Definitions of probability and odds'),
             mq('m15', 'Under the axiomatic approach, which of the following is NOT an axiom?', ['P(A′) = 1 − P(A)', 'P(A) ≥ 0', 'P(S) = 1', 'P(A₁ or A₂ or …) = ΣP(Aᵢ) for mutually exclusive events'],
-               'P(A′) = 1 − P(A) is a consequence (theorem) derived from the axioms, not an axiom.', 'c2', 'hard'),
+               "The three axioms are: P(A) ≥ 0, P(S) = 1, and additivity for mutually exclusive events. P(A′) = 1 − P(A) is a theorem derived from them, not an axiom. P(S) = 1 is the trap: it is one of the axioms. In practice: understanding which rules are basic and which are derived is like distinguishing a law's sections from the rules made under it.", 'c2', 'hard', topic='Definitions of probability and odds'),
             mq('m16', 'Events A, B, C are mutually exclusive, exhaustive and equally likely. P(A) is:', ['1/3', '1', '0', '1/2'],
-               'Exhaustive: P(A) + P(B) + P(C) = 1; equally likely: each = 1/3.', 'c1', 'moderate'),
+               'Exhaustive means P(A) + P(B) + P(C) = 1; mutually exclusive means no overlap; equally likely means each has the same probability. So each = 1/3. The trap is 1/2, which ignores that there are three events. In practice: splitting a fixed total equally among exclusive outcomes is like allocating a budget equally among three departments.', 'c1', 'moderate', topic='Random experiments, sample space and events'),
             nq('m17', 'P(A) = 0.6, P(B) = 0.5, P(A and B) = 0.3. P(A or B) is:', '0.6+0.5-0.3', [1.1, 0.3, 0.9],
-               '0.6 + 0.5 − 0.3 = @A. (1.1 forgets to subtract the overlap — a probability above 1 is impossible.)', 'c4'),
+               'Addition theorem: P(A or B) = P(A) + P(B) − P(A and B) = 0.6 + 0.5 − 0.3 = 0.8. The trap is 1.1, which forgets to subtract the overlap and gives an impossible value above 1. In practice: risk managers combining two overlapping risks, such as market and credit loss events, must remove the joint part to avoid overstatement.', 'c4', topic='Addition theorems'),
             nq('m18', 'P(A or B) = 0.8, P(A) = 0.5, P(B) = 0.45. P(A and B) is:', '0.5+0.45-0.8', [0.25, 0.35, 0.225],
-               'P(A and B) = P(A) + P(B) − P(A or B) = 0.95 − 0.8 = @A.', 'c4', 'moderate'),
+               'Rearrange the addition theorem: P(A and B) = P(A) + P(B) − P(A or B) = 0.5 + 0.45 − 0.8 = 0.15. The trap is 0.225, which multiplies 0.5 × 0.45 and wrongly assumes independence. In practice: working out the overlap from totals is common in market research, for example customers using both of two products.', 'c4', 'moderate', topic='Addition theorems'),
             nq('m19', 'A and B are mutually exclusive with P(A) = 0.25 and P(B) = 0.4. P(neither A nor B) is:', '1-(0.25+0.4)', [0.45, 0.65, 0.1],
-               'P(A or B) = 0.65 (no overlap), so P(neither) = @A.', 'c4'),
+               'Mutually exclusive events have no overlap, so P(A or B) = 0.25 + 0.4 = 0.65, and P(neither) = 1 − 0.65 = 0.35. The trap is 0.65, which is the probability of A or B, not of neither. In practice: if a loan can be either restructured or written off but not both, the chance of neither is found the same way.', 'c4', topic='Addition theorems'),
             nq('m20', 'P(A) = 0.4, P(B) = 0.5 and A, B are independent. P(A or B) is:', '0.4+0.5-0.4*0.5', [0.9, 0.2, 0.5],
-               'P(A and B) = 0.2, so P(A or B) = 0.9 − 0.2 = @A.', 'c3', 'moderate'),
+               'For independent events, P(A and B) = 0.4 × 0.5 = 0.2. Then P(A or B) = 0.4 + 0.5 − 0.2 = 0.7. The trap is 0.9, which adds without subtracting the overlap. In practice: the chance that at least one of two independent suppliers delays delivery is worked out this way in supply-chain risk planning.', 'c3', 'moderate', topic='Mutually exclusive vs independent'),
             nq('m21', 'P(A and B) = 0.12 and P(B) = 0.3. P(A|B) is:', '0.12/0.3', [0.036, 0.12, 0.25],
-               'P(A|B) = P(A and B)/P(B) = @A.', 'c5'),
+               "Conditional probability: P(A|B) = P(A and B) ÷ P(B) = 0.12 ÷ 0.3 = 0.4. The trap is 0.036, which multiplies the two figures instead of dividing. In practice: a bank asking 'given that a borrower is self-employed, what is the chance of default?' is computing exactly such a conditional probability.", 'c5', topic='Conditional probability and compound probability'),
             mq('m22', 'Two events A and B with P(A) = 0.3, P(B) = 0.4 and P(A and B) = 0.12 are:', ['Independent', 'Mutually exclusive', 'Exhaustive', 'Complementary'],
-               'P(A)P(B) = 0.12 = P(A and B) → independent. They are not mutually exclusive (overlap ≠ 0).', 'c3', 'moderate'),
+               'Check independence: P(A) × P(B) = 0.3 × 0.4 = 0.12, which equals P(A and B), so A and B are independent. Mutually exclusive is the trap: that would need P(A and B) = 0, but here the overlap is 0.12. In practice: testing whether two risks are independent, such as defaults in two unrelated sectors, is key to portfolio diversification.', 'c3', 'moderate', topic='Mutually exclusive vs independent'),
             mq('m23', 'If A and B are independent, which pair is NOT necessarily independent?', ['A and the event (A or B)', 'A and B′', 'A′ and B', 'A′ and B′'],
-               'Independence carries over to complements; A and (A or B) are generally dependent.', 'c3', 'hard'),
+               "If A and B are independent, so are the complement pairs A and B′, A′ and B, and A′ and B′. But A and (A or B) are generally dependent, because knowing A occurred guarantees that (A or B) occurred. 'A and B′' is the trap: independence does carry over to complements. In practice: one event that forms part of another can never be treated as independent of it in risk models.", 'c3', 'hard', topic='Mutually exclusive vs independent'),
             nq('m24', 'Three students solve a problem independently with probabilities 1/2, 1/3 and 1/4. The probability that the problem is solved is:', '1-(1/2)*(2/3)*(3/4)', [0.25, 1.0833, 0.0417],
-               'P(none solves) = 1/2 × 2/3 × 3/4 = 1/4; P(solved) = 1 − 1/4 = @A. (1.0833 adds the probabilities; 0.0417 is all three solving it.)', 'c5', 'moderate'),
+               'Use the complement. P(none solves) = (1 − 1/2)(1 − 1/3)(1 − 1/4) = 1/2 × 2/3 × 3/4 = 1/4. So P(solved) = 1 − 1/4 = 0.75. The trap is 1.0833, which simply adds the three probabilities and exceeds 1. In practice: the chance that at least one of several independent checks catches an error is worked out the same way when designing internal controls.', 'c5', 'moderate', topic='Conditional probability and compound probability'),
             fq('m25', 'A box has 4 defective and 6 good items. Two are drawn one by one without replacement. The probability that both are defective is:', F(4, 10) * F(3, 9), [F(4, 25), F(1, 5), F(6, 25)],
-               '4/10 × 3/9 = @A. (4/25 = (4/10)² assumes replacement.)', 'c5', 'moderate'),
+               'Without replacement, the second draw depends on the first: P = 4/10 × 3/9 = 12/90 = 2/15. The trap is 4/25, which is (4/10)² and assumes the first item is put back. In practice: quality inspectors drawing items from a small lot without replacement must use these dependent probabilities.', 'c5', 'moderate', topic='Conditional probability and compound probability'),
             mq('m26', 'Which of these can be a probability distribution of X taking values 1, 2, 3?', ['0.2, 0.5, 0.3', '0.4, 0.4, 0.4', '0.5, −0.1, 0.6', '0.3, 0.3, 0.3'],
-               'Probabilities must be non-negative and add to 1. Only 0.2 + 0.5 + 0.3 = 1 qualifies.', 'c6'),
+               'A probability distribution needs every probability to be non-negative and the total to be 1. Only 0.2 + 0.5 + 0.3 = 1 meets both. The trap is 0.3, 0.3, 0.3: each is valid, but the total is 0.9, not 1. In practice: scenario analysis in budgeting (best, base and worst case) must assign probabilities that add to exactly 100%.', 'c6', topic='Random variable and probability distribution'),
             nq('m27', 'X takes values 1, 2, 3 with probabilities 0.3, 0.5, 0.2. E(X) is:', '1*0.3+2*0.5+3*0.2', [2, 2.1, 1.5],
-               'E(X) = 0.3 + 1.0 + 0.6 = @A.', 'c7'),
+               'E(X) = Σx·p = 1 × 0.3 + 2 × 0.5 + 3 × 0.2 = 0.3 + 1.0 + 0.6 = 1.9. The trap is 2, the simple average of the values 1, 2 and 3, which ignores the probabilities. In practice: expected values are used to estimate average demand, average claims or expected credit loss under Ind AS 109.', 'c7', topic='Expected value and variance'),
             nq('m28', 'For the distribution in the previous question (values 1, 2, 3 with probabilities 0.3, 0.5, 0.2), V(X) is:', '(1*0.3+4*0.5+9*0.2)-(1.9)**2', [4.1, 3.61, 0.7],
-               'E(X²) = 0.3 + 2 + 1.8 = 4.1; V(X) = 4.1 − 1.9² = @A.', 'c7', 'hard'),
+               'E(X²) = 1 × 0.3 + 4 × 0.5 + 9 × 0.2 = 4.1. V(X) = E(X²) − [E(X)]² = 4.1 − 1.9² = 4.1 − 3.61 = 0.49. The trap is 3.61, which is just the square of the mean. In practice: variance of possible outcomes is a basic measure of risk when appraising projects with uncertain cash flows.', 'c7', 'hard', topic='Expected value and variance'),
             nq('m29', 'E(X) = 5 and V(X) = 4. For Y = 2X − 3, the variance of Y is:', '2**2*4', [5, 13, 8],
-               'V(a + bX) = b²V(X) = 4 × 4 = @A. The constant −3 does not affect variance.', 'c7', 'moderate'),
+               "V(a + bX) = b² V(X). Here b = 2, so V(Y) = 4 × 4 = 16; the constant −3 has no effect on variance. The trap is 8, which multiplies by 2 instead of 2². In practice: if a project's profit is twice a variable cost driver less a fixed amount, its risk (variance) grows by four times that of the driver.", 'c7', 'moderate', topic='Expected value and variance'),
             nq('m30', 'An unbiased coin is tossed three times. The expected number of heads is:', '3*0.5', [3, 1, 0.5],
-               'Values 0, 1, 2, 3 with probabilities 1/8, 3/8, 3/8, 1/8 → E = 12/8 = @A.', 'c7'),
+               'The number of heads takes values 0, 1, 2, 3 with probabilities 1/8, 3/8, 3/8, 1/8. E = (0 + 3 + 6 + 3) ÷ 8 = 12 ÷ 8 = 1.5; equivalently n × p = 3 × 0.5. The trap is 1, a whole-number guess; an expected value need not be a possible outcome. In practice: expected values like 1.5 claims per policy are averages over many cases, not predictions for one case.', 'c7', topic='Expected value and variance'),
             nq('m31', 'A trader expects a profit of ₹40,000 with probability 0.6 and a loss of ₹15,000 with probability 0.4. His expected profit is:', '40000*0.6-15000*0.4', [30000, 25000, 24000],
-               '0.6 × 40,000 − 0.4 × 15,000 = @A.', 'c7', 'moderate', 'rupees'),
+               'Expected profit = Σ(outcome × probability) = 40,000 × 0.6 − 15,000 × 0.4 = 24,000 − 6,000 = ₹18,000. The trap is ₹24,000, which ignores the expected loss. In practice: expected-value analysis guides decisions such as whether to accept a contract with an uncertain outcome or a litigation settlement.', 'c7', 'moderate', 'rupees', topic='Expected value and variance'),
             fq('m32', 'One number is chosen at random from 1 to 30. The probability that it is a multiple of 3 or 5 is:', F(len([n for n in range(1, 31) if n % 3 == 0 or n % 5 == 0]), 30), [F(16, 30), F(1, 3), F(1, 2)],
-               'Multiples of 3: 10; of 5: 6; of 15: 2. 10 + 6 − 2 = 14 → 14/30 = @A.', 'c4', 'moderate'),
+               'Multiples of 3 up to 30: 10; multiples of 5: 6; multiples of both (15, 30): 2. Using the addition theorem, 10 + 6 − 2 = 14, so P = 14/30 = 7/15. The trap is 8/15, which adds 10 + 6 = 16 and double counts 15 and 30. In practice: the same overlap correction applies when counting customers who fall into two categories.', 'c4', 'moderate', topic='Addition theorems'),
         ],
         'questions': [
             {'id': 'q1', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'core', 'pad': 'text',

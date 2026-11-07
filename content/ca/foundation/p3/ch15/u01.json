@@ -509,6 +509,7 @@
  ],
  "mcqs": [
   {
+   "topic": "Definitions of probability and odds",
    "id": "m1",
    "q": "Two fair dice are thrown. The probability that the sum is 7 is:",
    "options": [
@@ -518,11 +519,12 @@
     "1/12"
    ],
    "answer": 0,
-   "explain": "Six of the 36 outcomes give 7 — (6,1), (5,2), (4,3), (3,4), (2,5), (1,6) — so 6/36 = 1/6.",
+   "explain": "Two dice give 6 × 6 = 36 equally likely outcomes. For a sum of 7, whatever the first die shows, exactly one face of the second die completes it (7 minus the first), so there are 6 favourable outcomes and P = 6/36 = 1/6. The trap is 5/36, which misses one ordered pair, or 7/36, which confuses the sum with the count. In practice: counting outcomes carefully is the basis of pricing any game, lottery or insurance product.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m2",
    "q": "Two dice are thrown. The probability of getting a doublet is:",
    "options": [
@@ -532,11 +534,12 @@
     "5/36"
    ],
    "answer": 0,
-   "explain": "Doublets (1,1) … (6,6) are 6 of 36 → 1/6.",
+   "explain": "A doublet means both dice show the same number: (1,1) to (6,6), which is 6 of the 36 outcomes, so P = 6/36 = 1/6. The trap is 1/36, which is the probability of one particular doublet such as (6,6). In practice: separating 'any one of a group' from 'one specific outcome' matters when estimating the chance of any default versus a particular borrower's default.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m3",
    "q": "Two dice are thrown. The probability that the sum is at least 10 is:",
    "options": [
@@ -546,11 +549,12 @@
     "1/4"
    ],
    "answer": 0,
-   "explain": "Sum 10: 3 cases, 11: 2, 12: 1 → 6/36 = 1/6.",
+   "explain": "'At least 10' means 10, 11 or 12. Sum 10 has 3 outcomes, 11 has 2, and 12 has 1, giving 6 of 36, so P = 1/6. The trap is 1/12, which counts only the sum of exactly 10. In practice: 'at least' questions mirror real risk thresholds, such as the chance that losses reach a set level or more.",
    "concept": "c2",
    "difficulty": "moderate"
   },
   {
+   "topic": "Addition theorems",
    "id": "m4",
    "q": "One card is picked at random from a well-shuffled pack of 52. The probability that it is a king or a heart is:",
    "options": [
@@ -560,11 +564,12 @@
     "1/4"
    ],
    "answer": 0,
-   "explain": "P(K) + P(H) − P(K of hearts) = 4/52 + 13/52 − 1/52 = 16/52 = 4/13. 17/52 double-counts the king of hearts.",
+   "explain": "Use the addition theorem: P(K or H) = P(K) + P(H) − P(K and H) = 4/52 + 13/52 − 1/52 = 16/52 = 4/13. The trap is 17/52, which counts the king of hearts twice. In practice: avoiding double counting of overlapping groups matters when estimating the share of customers who hold either a loan or a credit card.",
    "concept": "c4",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m5",
    "q": "A card is drawn from a pack of 52. The probability that it is a face card (J, Q, K) is:",
    "options": [
@@ -574,11 +579,12 @@
     "3/52"
    ],
    "answer": 0,
-   "explain": "12 face cards → 12/52 = 3/13.",
+   "explain": "Each suit has three face cards (jack, queen, king), so there are 3 × 4 = 12 in the pack. P = 12/52 = 3/13. The trap is 3/52, which counts the face cards of only one suit. In practice: building the favourable count accurately is the first step in any probability-based estimate, such as the share of invoices above a threshold.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m6",
    "q": "Three fair coins are tossed. The probability of getting at least one head is:",
    "options": [
@@ -588,11 +594,12 @@
     "1/2"
    ],
    "answer": 0,
-   "explain": "P(no head) = 1/8, so P(at least one) = 1 − 1/8 = 7/8.",
+   "explain": "It is easier to use the complement. P(no head) = (1/2)³ = 1/8, so P(at least one head) = 1 − 1/8 = 7/8. The trap is 1/8, which is the complement itself (all tails). In practice: 'at least one' problems are solved with the complement, for example the chance that at least one of several independent systems fails.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m7",
    "q": "Three coins are tossed. The probability of exactly two heads is:",
    "options": [
@@ -602,11 +609,12 @@
     "7/8"
    ],
    "answer": 0,
-   "explain": "HHT, HTH, THH: 3 of 8 outcomes → 3/8.",
+   "explain": "Three coins give 8 equally likely outcomes. Exactly two heads: HHT, HTH and THH, which is 3 outcomes, so P = 3/8. The trap is 1/4, which counts only two orderings. In practice: counting arrangements correctly underlies the binomial model used in quality control and credit-risk estimation.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Conditional probability and compound probability",
    "id": "m8",
    "q": "Two cards are drawn together from a pack of 52. The probability that both are aces is:",
    "options": [
@@ -616,11 +624,12 @@
     "2/13"
    ],
    "answer": 0,
-   "explain": "⁴C₂/⁵²C₂ = 6/1,326 = 1/221. (1/169 = (1/13)² assumes replacement.)",
+   "explain": "Drawing two cards together is a combination problem: P = ⁴C₂ ÷ ⁵²C₂ = 6 ÷ 1,326 = 1/221. The trap is 1/169, which is (1/13)² and assumes the first card is replaced. In practice: audit sampling is usually without replacement, so the probability of picking particular items changes after each draw, as here.",
    "concept": "c5",
    "difficulty": "moderate"
   },
   {
+   "topic": "Conditional probability and compound probability",
    "id": "m9",
    "q": "A bag has 5 white and 4 black balls. Two balls are drawn at random together. The probability that both are white is:",
    "options": [
@@ -630,11 +639,12 @@
     "4/9"
    ],
    "answer": 0,
-   "explain": "⁵C₂/⁹C₂ = 10/36 = 5/18. (25/81 would be with replacement.)",
+   "explain": "Drawing two balls together: P = ⁵C₂ ÷ ⁹C₂ = 10 ÷ 36 = 5/18. The trap is 25/81, which is (5/9)² and wrongly assumes replacement. In practice: when an auditor selects two items from a small batch, the chance of both being of one type must be found without replacement in the same way.",
    "concept": "c5",
    "difficulty": "moderate"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m10",
    "q": "The odds in favour of an event are 4 : 7. The probability of the event is:",
    "options": [
@@ -644,11 +654,12 @@
     "3/11"
    ],
    "answer": 0,
-   "explain": "P = 4/(4 + 7) = 4/11.",
+   "explain": "Odds in favour of a : b mean P = a ÷ (a + b). So P = 4 ÷ (4 + 7) = 4/11. The trap is 4/7, which treats the odds ratio itself as a probability. In practice: betting markets and some risk reports quote odds, and converting them into probabilities is needed before comparing risks.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m11",
    "q": "If P(A) = 0.35, the odds against A are:",
    "options": [
@@ -658,11 +669,12 @@
     "65 : 100"
    ],
    "answer": 0,
-   "explain": "P(A′) = 0.65. Odds against = 0.65 : 0.35 = 13 : 7.",
+   "explain": "P(A′) = 1 − 0.35 = 0.65. Odds against A = P(A′) : P(A) = 0.65 : 0.35 = 13 : 7. The trap is 7 : 13, which is the odds in favour, not against. In practice: insurers and lenders may express risk as odds; reversing the ratio by mistake understates or overstates risk badly.",
    "concept": "c2",
    "difficulty": "moderate"
   },
   {
+   "topic": "Random experiments, sample space and events",
    "id": "m12",
    "q": "If P(A) = 0.42, then P(A′) is:",
    "options": [
@@ -673,11 +685,12 @@
    ],
    "answer": 0,
    "check": "1-0.42",
-   "explain": "P(A′) = 1 − P(A) = 0.58.",
+   "explain": "An event and its complement together cover all outcomes, so P(A′) = 1 − P(A) = 1 − 0.42 = 0.58. The trap is 1.42, which adds instead of subtracting and is impossible as a probability. In practice: if the probability that a customer pays on time is 0.58, the probability of late payment is the complement, 0.42.",
    "concept": "c1",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m13",
    "q": "The classical definition of probability fails when:",
    "options": [
@@ -687,11 +700,12 @@
     "The sample space is finite"
    ],
    "answer": 0,
-   "explain": "It needs a finite number of equally likely outcomes.",
+   "explain": "The classical definition P = favourable ÷ total needs a finite number of equally likely outcomes, so it fails when outcomes are not equally likely or are infinite. 'A coin is tossed' is the trap: a fair coin is the textbook case where it works. In practice: credit defaults are not equally likely across borrowers, so banks use historical relative frequencies instead.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m14",
    "q": "The statistical (relative frequency) definition of probability is based on:",
    "options": [
@@ -701,11 +715,12 @@
     "Three axioms only"
    ],
    "answer": 0,
-   "explain": "P(A) = lim f/n as n → ∞, provided the limit exists and is finite.",
+   "explain": "The statistical (empirical) definition takes P(A) as the limit of the relative frequency f/n as the number of trials becomes very large. 'Equally likely outcomes only' is the trap: that is the classical definition. In practice: insurers estimate claim probabilities from large historical data, which is exactly the relative-frequency approach.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Definitions of probability and odds",
    "id": "m15",
    "q": "Under the axiomatic approach, which of the following is NOT an axiom?",
    "options": [
@@ -715,11 +730,12 @@
     "P(A₁ or A₂ or …) = ΣP(Aᵢ) for mutually exclusive events"
    ],
    "answer": 0,
-   "explain": "P(A′) = 1 − P(A) is a consequence (theorem) derived from the axioms, not an axiom.",
+   "explain": "The three axioms are: P(A) ≥ 0, P(S) = 1, and additivity for mutually exclusive events. P(A′) = 1 − P(A) is a theorem derived from them, not an axiom. P(S) = 1 is the trap: it is one of the axioms. In practice: understanding which rules are basic and which are derived is like distinguishing a law's sections from the rules made under it.",
    "concept": "c2",
    "difficulty": "hard"
   },
   {
+   "topic": "Random experiments, sample space and events",
    "id": "m16",
    "q": "Events A, B, C are mutually exclusive, exhaustive and equally likely. P(A) is:",
    "options": [
@@ -729,11 +745,12 @@
     "1/2"
    ],
    "answer": 0,
-   "explain": "Exhaustive: P(A) + P(B) + P(C) = 1; equally likely: each = 1/3.",
+   "explain": "Exhaustive means P(A) + P(B) + P(C) = 1; mutually exclusive means no overlap; equally likely means each has the same probability. So each = 1/3. The trap is 1/2, which ignores that there are three events. In practice: splitting a fixed total equally among exclusive outcomes is like allocating a budget equally among three departments.",
    "concept": "c1",
    "difficulty": "moderate"
   },
   {
+   "topic": "Addition theorems",
    "id": "m17",
    "q": "P(A) = 0.6, P(B) = 0.5, P(A and B) = 0.3. P(A or B) is:",
    "options": [
@@ -744,11 +761,12 @@
    ],
    "answer": 0,
    "check": "0.6+0.5-0.3",
-   "explain": "0.6 + 0.5 − 0.3 = 0.8. (1.1 forgets to subtract the overlap — a probability above 1 is impossible.)",
+   "explain": "Addition theorem: P(A or B) = P(A) + P(B) − P(A and B) = 0.6 + 0.5 − 0.3 = 0.8. The trap is 1.1, which forgets to subtract the overlap and gives an impossible value above 1. In practice: risk managers combining two overlapping risks, such as market and credit loss events, must remove the joint part to avoid overstatement.",
    "concept": "c4",
    "difficulty": "core"
   },
   {
+   "topic": "Addition theorems",
    "id": "m18",
    "q": "P(A or B) = 0.8, P(A) = 0.5, P(B) = 0.45. P(A and B) is:",
    "options": [
@@ -759,11 +777,12 @@
    ],
    "answer": 0,
    "check": "0.5+0.45-0.8",
-   "explain": "P(A and B) = P(A) + P(B) − P(A or B) = 0.95 − 0.8 = 0.15.",
+   "explain": "Rearrange the addition theorem: P(A and B) = P(A) + P(B) − P(A or B) = 0.5 + 0.45 − 0.8 = 0.15. The trap is 0.225, which multiplies 0.5 × 0.45 and wrongly assumes independence. In practice: working out the overlap from totals is common in market research, for example customers using both of two products.",
    "concept": "c4",
    "difficulty": "moderate"
   },
   {
+   "topic": "Addition theorems",
    "id": "m19",
    "q": "A and B are mutually exclusive with P(A) = 0.25 and P(B) = 0.4. P(neither A nor B) is:",
    "options": [
@@ -774,11 +793,12 @@
    ],
    "answer": 0,
    "check": "1-(0.25+0.4)",
-   "explain": "P(A or B) = 0.65 (no overlap), so P(neither) = 0.35.",
+   "explain": "Mutually exclusive events have no overlap, so P(A or B) = 0.25 + 0.4 = 0.65, and P(neither) = 1 − 0.65 = 0.35. The trap is 0.65, which is the probability of A or B, not of neither. In practice: if a loan can be either restructured or written off but not both, the chance of neither is found the same way.",
    "concept": "c4",
    "difficulty": "core"
   },
   {
+   "topic": "Mutually exclusive vs independent",
    "id": "m20",
    "q": "P(A) = 0.4, P(B) = 0.5 and A, B are independent. P(A or B) is:",
    "options": [
@@ -789,11 +809,12 @@
    ],
    "answer": 0,
    "check": "0.4+0.5-0.4*0.5",
-   "explain": "P(A and B) = 0.2, so P(A or B) = 0.9 − 0.2 = 0.7.",
+   "explain": "For independent events, P(A and B) = 0.4 × 0.5 = 0.2. Then P(A or B) = 0.4 + 0.5 − 0.2 = 0.7. The trap is 0.9, which adds without subtracting the overlap. In practice: the chance that at least one of two independent suppliers delays delivery is worked out this way in supply-chain risk planning.",
    "concept": "c3",
    "difficulty": "moderate"
   },
   {
+   "topic": "Conditional probability and compound probability",
    "id": "m21",
    "q": "P(A and B) = 0.12 and P(B) = 0.3. P(A|B) is:",
    "options": [
@@ -804,11 +825,12 @@
    ],
    "answer": 0,
    "check": "0.12/0.3",
-   "explain": "P(A|B) = P(A and B)/P(B) = 0.4.",
+   "explain": "Conditional probability: P(A|B) = P(A and B) ÷ P(B) = 0.12 ÷ 0.3 = 0.4. The trap is 0.036, which multiplies the two figures instead of dividing. In practice: a bank asking 'given that a borrower is self-employed, what is the chance of default?' is computing exactly such a conditional probability.",
    "concept": "c5",
    "difficulty": "core"
   },
   {
+   "topic": "Mutually exclusive vs independent",
    "id": "m22",
    "q": "Two events A and B with P(A) = 0.3, P(B) = 0.4 and P(A and B) = 0.12 are:",
    "options": [
@@ -818,11 +840,12 @@
     "Complementary"
    ],
    "answer": 0,
-   "explain": "P(A)P(B) = 0.12 = P(A and B) → independent. They are not mutually exclusive (overlap ≠ 0).",
+   "explain": "Check independence: P(A) × P(B) = 0.3 × 0.4 = 0.12, which equals P(A and B), so A and B are independent. Mutually exclusive is the trap: that would need P(A and B) = 0, but here the overlap is 0.12. In practice: testing whether two risks are independent, such as defaults in two unrelated sectors, is key to portfolio diversification.",
    "concept": "c3",
    "difficulty": "moderate"
   },
   {
+   "topic": "Mutually exclusive vs independent",
    "id": "m23",
    "q": "If A and B are independent, which pair is NOT necessarily independent?",
    "options": [
@@ -832,11 +855,12 @@
     "A′ and B′"
    ],
    "answer": 0,
-   "explain": "Independence carries over to complements; A and (A or B) are generally dependent.",
+   "explain": "If A and B are independent, so are the complement pairs A and B′, A′ and B, and A′ and B′. But A and (A or B) are generally dependent, because knowing A occurred guarantees that (A or B) occurred. 'A and B′' is the trap: independence does carry over to complements. In practice: one event that forms part of another can never be treated as independent of it in risk models.",
    "concept": "c3",
    "difficulty": "hard"
   },
   {
+   "topic": "Conditional probability and compound probability",
    "id": "m24",
    "q": "Three students solve a problem independently with probabilities 1/2, 1/3 and 1/4. The probability that the problem is solved is:",
    "options": [
@@ -847,11 +871,12 @@
    ],
    "answer": 0,
    "check": "1-(1/2)*(2/3)*(3/4)",
-   "explain": "P(none solves) = 1/2 × 2/3 × 3/4 = 1/4; P(solved) = 1 − 1/4 = 0.75. (1.0833 adds the probabilities; 0.0417 is all three solving it.)",
+   "explain": "Use the complement. P(none solves) = (1 − 1/2)(1 − 1/3)(1 − 1/4) = 1/2 × 2/3 × 3/4 = 1/4. So P(solved) = 1 − 1/4 = 0.75. The trap is 1.0833, which simply adds the three probabilities and exceeds 1. In practice: the chance that at least one of several independent checks catches an error is worked out the same way when designing internal controls.",
    "concept": "c5",
    "difficulty": "moderate"
   },
   {
+   "topic": "Conditional probability and compound probability",
    "id": "m25",
    "q": "A box has 4 defective and 6 good items. Two are drawn one by one without replacement. The probability that both are defective is:",
    "options": [
@@ -861,11 +886,12 @@
     "6/25"
    ],
    "answer": 0,
-   "explain": "4/10 × 3/9 = 2/15. (4/25 = (4/10)² assumes replacement.)",
+   "explain": "Without replacement, the second draw depends on the first: P = 4/10 × 3/9 = 12/90 = 2/15. The trap is 4/25, which is (4/10)² and assumes the first item is put back. In practice: quality inspectors drawing items from a small lot without replacement must use these dependent probabilities.",
    "concept": "c5",
    "difficulty": "moderate"
   },
   {
+   "topic": "Random variable and probability distribution",
    "id": "m26",
    "q": "Which of these can be a probability distribution of X taking values 1, 2, 3?",
    "options": [
@@ -875,11 +901,12 @@
     "0.3, 0.3, 0.3"
    ],
    "answer": 0,
-   "explain": "Probabilities must be non-negative and add to 1. Only 0.2 + 0.5 + 0.3 = 1 qualifies.",
+   "explain": "A probability distribution needs every probability to be non-negative and the total to be 1. Only 0.2 + 0.5 + 0.3 = 1 meets both. The trap is 0.3, 0.3, 0.3: each is valid, but the total is 0.9, not 1. In practice: scenario analysis in budgeting (best, base and worst case) must assign probabilities that add to exactly 100%.",
    "concept": "c6",
    "difficulty": "core"
   },
   {
+   "topic": "Expected value and variance",
    "id": "m27",
    "q": "X takes values 1, 2, 3 with probabilities 0.3, 0.5, 0.2. E(X) is:",
    "options": [
@@ -890,11 +917,12 @@
    ],
    "answer": 0,
    "check": "1*0.3+2*0.5+3*0.2",
-   "explain": "E(X) = 0.3 + 1.0 + 0.6 = 1.9.",
+   "explain": "E(X) = Σx·p = 1 × 0.3 + 2 × 0.5 + 3 × 0.2 = 0.3 + 1.0 + 0.6 = 1.9. The trap is 2, the simple average of the values 1, 2 and 3, which ignores the probabilities. In practice: expected values are used to estimate average demand, average claims or expected credit loss under Ind AS 109.",
    "concept": "c7",
    "difficulty": "core"
   },
   {
+   "topic": "Expected value and variance",
    "id": "m28",
    "q": "For the distribution in the previous question (values 1, 2, 3 with probabilities 0.3, 0.5, 0.2), V(X) is:",
    "options": [
@@ -905,11 +933,12 @@
    ],
    "answer": 0,
    "check": "(1*0.3+4*0.5+9*0.2)-(1.9)**2",
-   "explain": "E(X²) = 0.3 + 2 + 1.8 = 4.1; V(X) = 4.1 − 1.9² = 0.49.",
+   "explain": "E(X²) = 1 × 0.3 + 4 × 0.5 + 9 × 0.2 = 4.1. V(X) = E(X²) − [E(X)]² = 4.1 − 1.9² = 4.1 − 3.61 = 0.49. The trap is 3.61, which is just the square of the mean. In practice: variance of possible outcomes is a basic measure of risk when appraising projects with uncertain cash flows.",
    "concept": "c7",
    "difficulty": "hard"
   },
   {
+   "topic": "Expected value and variance",
    "id": "m29",
    "q": "E(X) = 5 and V(X) = 4. For Y = 2X − 3, the variance of Y is:",
    "options": [
@@ -920,11 +949,12 @@
    ],
    "answer": 0,
    "check": "2**2*4",
-   "explain": "V(a + bX) = b²V(X) = 4 × 4 = 16. The constant −3 does not affect variance.",
+   "explain": "V(a + bX) = b² V(X). Here b = 2, so V(Y) = 4 × 4 = 16; the constant −3 has no effect on variance. The trap is 8, which multiplies by 2 instead of 2². In practice: if a project's profit is twice a variable cost driver less a fixed amount, its risk (variance) grows by four times that of the driver.",
    "concept": "c7",
    "difficulty": "moderate"
   },
   {
+   "topic": "Expected value and variance",
    "id": "m30",
    "q": "An unbiased coin is tossed three times. The expected number of heads is:",
    "options": [
@@ -935,11 +965,12 @@
    ],
    "answer": 0,
    "check": "3*0.5",
-   "explain": "Values 0, 1, 2, 3 with probabilities 1/8, 3/8, 3/8, 1/8 → E = 12/8 = 1.5.",
+   "explain": "The number of heads takes values 0, 1, 2, 3 with probabilities 1/8, 3/8, 3/8, 1/8. E = (0 + 3 + 6 + 3) ÷ 8 = 12 ÷ 8 = 1.5; equivalently n × p = 3 × 0.5. The trap is 1, a whole-number guess; an expected value need not be a possible outcome. In practice: expected values like 1.5 claims per policy are averages over many cases, not predictions for one case.",
    "concept": "c7",
    "difficulty": "core"
   },
   {
+   "topic": "Expected value and variance",
    "id": "m31",
    "q": "A trader expects a profit of ₹40,000 with probability 0.6 and a loss of ₹15,000 with probability 0.4. His expected profit is:",
    "options": [
@@ -950,11 +981,12 @@
    ],
    "answer": 0,
    "check": "40000*0.6-15000*0.4",
-   "explain": "0.6 × 40,000 − 0.4 × 15,000 = 18,000 rupees.",
+   "explain": "Expected profit = Σ(outcome × probability) = 40,000 × 0.6 − 15,000 × 0.4 = 24,000 − 6,000 = ₹18,000. The trap is ₹24,000, which ignores the expected loss. In practice: expected-value analysis guides decisions such as whether to accept a contract with an uncertain outcome or a litigation settlement.",
    "concept": "c7",
    "difficulty": "moderate"
   },
   {
+   "topic": "Addition theorems",
    "id": "m32",
    "q": "One number is chosen at random from 1 to 30. The probability that it is a multiple of 3 or 5 is:",
    "options": [
@@ -964,7 +996,7 @@
     "1/2"
    ],
    "answer": 0,
-   "explain": "Multiples of 3: 10; of 5: 6; of 15: 2. 10 + 6 − 2 = 14 → 14/30 = 7/15.",
+   "explain": "Multiples of 3 up to 30: 10; multiples of 5: 6; multiples of both (15, 30): 2. Using the addition theorem, 10 + 6 − 2 = 14, so P = 14/30 = 7/15. The trap is 8/15, which adds 10 + 6 = 16 and double counts 15 and 30. In practice: the same overlap correction applies when counting customers who fall into two categories.",
    "concept": "c4",
    "difficulty": "moderate"
   }
@@ -1589,9 +1621,10 @@
       "0.032"
      ],
      "answer": 0,
-     "explain": "Multiplication theorem: P(S and D) = P(S) × P(D|S) = 0.6 × 0.02 = 0.012.",
+     "explain": "By the multiplication theorem, P(S and D) = P(S) × P(D|S) = 0.6 × 0.02 = 0.012. The trap is 0.02, which is the default rate among salaried borrowers only, i.e. a conditional probability, not the joint one. In practice: banks build credit-risk models by combining segment shares with segment default rates in exactly this way.",
      "difficulty": "moderate",
-     "check": "0.6*0.02"
+     "check": "0.6*0.02",
+     "topic": "Conditional probability and compound probability"
     },
     {
      "id": "k1b",
@@ -1603,9 +1636,10 @@
       "0.02"
      ],
      "answer": 0,
-     "explain": "Default happens either with a salaried or with a self-employed borrower (mutually exclusive): 0.6 × 0.02 + 0.4 × 0.05 = 0.012 + 0.020 = 0.032. 0.07 simply adds the two rates; 0.05 is the self-employed rate alone.",
+     "explain": "A defaulter is either salaried or self-employed (mutually exclusive), so P(D) = 0.6 × 0.02 + 0.4 × 0.05 = 0.012 + 0.020 = 0.032. The trap is 0.07, which adds the two default rates without weighting them by segment share. In practice: this total-probability calculation gives a bank its portfolio-level probability of default for provisioning.",
      "difficulty": "hard",
-     "check": "0.6*0.02+0.4*0.05"
+     "check": "0.6*0.02+0.4*0.05",
+     "topic": "Conditional probability and compound probability"
     },
     {
      "id": "k1c",
@@ -1617,8 +1651,9 @@
       "32 : 1,000"
      ],
      "answer": 0,
-     "explain": "P(D) = 0.032 = 4/125, so P(not D) = 121/125. Odds against = 121 : 4.",
-     "difficulty": "hard"
+     "explain": "P(D) = 0.032 = 4/125, so P(not D) = 121/125. Odds against = P(not D) : P(D) = 121 : 4. The trap is 4 : 121, which gives the odds in favour of default, not against. In practice: credit reports sometimes express risk as odds, and getting the direction wrong would reverse the risk message.",
+     "difficulty": "hard",
+     "topic": "Definitions of probability and odds"
     },
     {
      "id": "k1d",
@@ -1630,9 +1665,10 @@
       "₹16,00,000"
      ],
      "answer": 0,
-     "explain": "Expected number of defaults = 1,000 × 0.032 = 32; expected loss = 32 × ₹5,00,000 = ₹1.6 crore.",
+     "explain": "Expected number of defaults = 1,000 × 0.032 = 32 loans. Each fully lost loan costs ₹5,00,000, so expected loss = 32 × ₹5,00,000 = ₹1,60,00,000 (₹1.6 crore). The trap is ₹3,50,00,000, which uses the unweighted 7% (2% + 5%). In practice: expected credit loss under Ind AS 109 is built from probability of default × exposure × loss given default.",
      "difficulty": "moderate",
-     "check": "1000*0.032*500000"
+     "check": "1000*0.032*500000",
+     "topic": "Expected value and variance"
     }
    ]
   }

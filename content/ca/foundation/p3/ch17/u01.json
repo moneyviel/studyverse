@@ -762,6 +762,7 @@
  ],
  "mcqs": [
   {
+   "topic": "Karl Pearson's product moment correlation coefficient",
    "id": "m1",
    "q": "The correlation coefficient always lies between:",
    "options": [
@@ -771,11 +772,12 @@
     "0 and ∞"
    ],
    "answer": 0,
-   "explain": "−1 ≤ r ≤ 1.",
+   "explain": "Karl Pearson's correlation coefficient always lies between −1 and +1, both inclusive: −1 is perfect negative, +1 perfect positive and 0 no linear correlation. '0 and 1' is the trap: it ignores negative correlation, which is common. In practice: analysts quoting the correlation between two stocks' returns, say −0.3 or +0.8, rely on this bounded scale.",
    "concept": "c3",
    "difficulty": "core"
   },
   {
+   "topic": "Types of correlation and the scatter diagram",
    "id": "m2",
    "q": "Price and quantity demanded usually show:",
    "options": [
@@ -785,11 +787,12 @@
     "Perfect positive correlation"
    ],
    "answer": 0,
-   "explain": "As price rises, demand falls.",
+   "explain": "As price rises, quantity demanded usually falls, so the two move in opposite directions, which is negative correlation (the law of demand). Positive correlation is the trap: that is typical of price and quantity supplied. In practice: FMCG companies study this negative relation when deciding whether a price increase will reduce volumes too much.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Types of correlation and the scatter diagram",
    "id": "m3",
    "q": "A scatter diagram can be used to study:",
    "options": [
@@ -799,11 +802,12 @@
     "Only qualitative data"
    ],
    "answer": 0,
-   "explain": "It shows the pattern of any relationship but gives no numerical measure.",
+   "explain": "A scatter diagram simply plots the pairs, so it reveals the pattern of any relationship, straight-line or curved, although it gives no numerical value. 'Only linear relationships' is the trap: that limitation belongs to Pearson's r, not the scatter diagram. In practice: analysts plot advertising spend against sales first, to see whether a straight-line model is even sensible.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Karl Pearson's product moment correlation coefficient",
    "id": "m4",
    "q": "Cov(x, y) = 18, σx = 4 and σy = 5. The correlation coefficient is:",
    "options": [
@@ -814,11 +818,12 @@
    ],
    "answer": 0,
    "check": "18/(4*5)",
-   "explain": "r = Cov/(σx σy) = 18/20 = 0.9.",
+   "explain": "r = Cov(x, y) ÷ (σx σy) = 18 ÷ (4 × 5) = 18 ÷ 20 = 0.9. The trap is 3.6, which divides by σy alone (18 ÷ 5); in any case r can never exceed 1. In practice: risk models compute correlation between assets from their covariance and volatilities exactly this way.",
    "concept": "c3",
    "difficulty": "core"
   },
   {
+   "topic": "Karl Pearson's product moment correlation coefficient",
    "id": "m5",
    "q": "For 10 pairs: Σuv = 48, Σu² = 64, Σv² = 100 (u, v deviations from means). r is:",
    "options": [
@@ -829,11 +834,12 @@
    ],
    "answer": 0,
    "check": "48/(64*100)**0.5",
-   "explain": "r = 48/√6,400 = 48/80 = 0.6. (0.75 = 48/64 is byx.)",
+   "explain": "With deviations from means, r = Σuv ÷ √(Σu² × Σv²) = 48 ÷ √(64 × 100) = 48 ÷ 80 = 0.6. The trap is 0.75, which is 48 ÷ 64, a regression coefficient (b of v on u), not r. In practice: spreadsheet CORREL functions use this formula when finding how strongly, say, rainfall and fertiliser sales move together.",
    "concept": "c3",
    "difficulty": "moderate"
   },
   {
+   "topic": "Karl Pearson's product moment correlation coefficient",
    "id": "m6",
    "q": "If u = 2x + 5 and v = −3y + 1, and r(x, y) = 0.6, then r(u, v) is:",
    "options": [
@@ -843,11 +849,12 @@
     "0.4"
    ],
    "answer": 0,
-   "explain": "Scale factors 2 and −3 have opposite signs, so the magnitude stays and the sign flips.",
+   "explain": "Correlation is unaffected by change of origin, and by change of scale except for sign. The scale factors 2 and −3 have opposite signs, so the size stays 0.6 but the sign flips: r(u, v) = −0.6. The trap is 0.6, which ignores the negative factor. In practice: converting a cost into 'savings' (a negative transformation) reverses the sign of its correlation with other variables.",
    "concept": "c3",
    "difficulty": "moderate"
   },
   {
+   "topic": "Types of correlation and the scatter diagram",
    "id": "m7",
    "q": "If r = 0 between x and y, then:",
    "options": [
@@ -857,11 +864,12 @@
     "r² = 1"
    ],
    "answer": 0,
-   "explain": "r measures only linear association; y = x² can give r = 0.",
+   "explain": "r = 0 means there is no linear relationship, but a curved relationship may still exist; for example y = x² over symmetric x values gives r = 0. 'x and y are always independent' is the trap: zero correlation does not prove independence. In practice: a near-zero r between price and profit may hide an optimum price, so analysts always look at the scatter plot.",
    "concept": "c2",
    "difficulty": "moderate"
   },
   {
+   "topic": "Spearman's rank correlation and concurrent deviations",
    "id": "m8",
    "q": "For 7 items, Σd² = 28. Spearman's rank correlation is:",
    "options": [
@@ -872,11 +880,12 @@
    ],
    "answer": 0,
    "check": "1-6*28/(7*48)",
-   "explain": "1 − 168/336 = 0.5.",
+   "explain": "Spearman's formula: R = 1 − 6Σd² ÷ (n(n² − 1)) = 1 − (6 × 28) ÷ (7 × 48) = 1 − 168 ÷ 336 = 0.5. The traps 0.6667 and 0.75 come from computing n(n² − 1) wrongly; for n = 7 it is 7 × 48 = 336. In practice: rank correlation is used when only rankings are available, such as comparing two judges' rankings of contestants or two analysts' stock rankings.",
    "concept": "c4",
    "difficulty": "core"
   },
   {
+   "topic": "Spearman's rank correlation and concurrent deviations",
    "id": "m9",
    "q": "Rank correlation is 0.4 for 10 pairs. Σd² is:",
    "options": [
@@ -887,11 +896,12 @@
    ],
    "answer": 0,
    "check": "(1-0.4)*10*99/6",
-   "explain": "0.4 = 1 − 6Σd²/990 ⇒ Σd² = 0.6 × 990/6 = 99.",
+   "explain": "From R = 1 − 6Σd² ÷ (n(n² − 1)): 0.4 = 1 − 6Σd² ÷ 990, so 6Σd² = 0.6 × 990 = 594 and Σd² = 99. The trap is 66, which uses 0.4 instead of 1 − 0.4. In practice: working backwards from a coefficient helps auditors check published survey results for internal consistency.",
    "concept": "c4",
    "difficulty": "hard"
   },
   {
+   "topic": "Spearman's rank correlation and concurrent deviations",
    "id": "m10",
    "q": "Spearman's rank correlation is most suitable for:",
    "options": [
@@ -901,11 +911,12 @@
     "Time series only"
    ],
    "answer": 0,
-   "explain": "It uses only ranks.",
+   "explain": "Spearman's method needs only ranks, so it suits qualitative characteristics that can be ordered but not measured, such as beauty, honesty or leadership. 'Data with exact measurements only' is the trap: exact measurements suit Pearson's r. In practice: HR teams use rank correlation to compare two interviewers' rankings of candidates.",
    "concept": "c4",
    "difficulty": "core"
   },
   {
+   "topic": "Spearman's rank correlation and concurrent deviations",
    "id": "m11",
    "q": "Three items are tied in one series. The correction added to Σd² is:",
    "options": [
@@ -916,11 +927,12 @@
    ],
    "answer": 0,
    "check": "(3**3-3)/12",
-   "explain": "(t³ − t)/12 = 24/12 = 2.",
+   "explain": "For each group of t tied items, add (t³ − t) ÷ 12 to Σd². With t = 3: (27 − 3) ÷ 12 = 24 ÷ 12 = 2. The trap is 3, which simply uses the number of tied items. In practice: ties are common when ranking things like branch performance grades, and this correction keeps the coefficient accurate.",
    "concept": "c4",
    "difficulty": "moderate"
   },
   {
+   "topic": "Spearman's rank correlation and concurrent deviations",
    "id": "m12",
    "q": "For 9 pairs of observations (8 pairs of deviations), the number of concurrent deviations is 6. The coefficient of concurrent deviations is:",
    "options": [
@@ -931,11 +943,12 @@
    ],
    "answer": 0,
    "check": "round(((2*6-8)/8)**0.5,4)",
-   "explain": "rC = +√((12 − 8)/8) = √0.5 = 0.7071.",
+   "explain": "With m = 8 pairs of deviations and c = 6 concurrent, 2c − m = 4, which is positive, so rC = +√((2c − m) ÷ m) = √(4 ÷ 8) = √0.5 ≈ 0.7071. The trap is 0.5, which forgets the square root. In practice: concurrent deviations offer a quick, rough check on whether two series, such as monthly sales and advertising, move in the same direction.",
    "concept": "c4",
    "difficulty": "moderate"
   },
   {
+   "topic": "Spearman's rank correlation and concurrent deviations",
    "id": "m13",
    "q": "With m = 10 deviations and c = 2 concurrent, the coefficient of concurrent deviations is:",
    "options": [
@@ -946,11 +959,12 @@
    ],
    "answer": 0,
    "check": "round(-((10-2*2)/10)**0.5,4)",
-   "explain": "2c − m = −6 < 0, so rC = −√(6/10) = -0.7746.",
+   "explain": "2c − m = 4 − 10 = −6, which is negative. The rule is to take the sign of (2c − m) both inside and outside the root: rC = −√(6 ÷ 10) = −√0.6 ≈ −0.7746. The trap is +0.7746, which drops the negative sign. In practice: a negative value shows that two series, such as interest rates and bond prices, usually move in opposite directions.",
    "concept": "c4",
    "difficulty": "hard"
   },
   {
+   "topic": "Coefficient of determination and spurious correlation",
    "id": "m14",
    "q": "If r = 0.9, the coefficient of determination is:",
    "options": [
@@ -961,11 +975,12 @@
    ],
    "answer": 0,
    "check": "0.81",
-   "explain": "r² = 0.81: 81% of the variation in y is explained by x.",
+   "explain": "The coefficient of determination is r² = 0.9² = 0.81, meaning 81% of the variation in y is explained by x. The trap is 0.9, which is r itself. 0.19 is the unexplained part (1 − r²). In practice: analysts report r² (R-squared) to show how much of the variation in sales a regression model actually explains.",
    "concept": "c5",
    "difficulty": "core"
   },
   {
+   "topic": "Coefficient of determination and spurious correlation",
    "id": "m15",
    "q": "A high positive correlation between the number of mobile phones sold and the number of cars sold over 15 years, caused by rising incomes, is an example of:",
    "options": [
@@ -975,11 +990,12 @@
     "Rank correlation"
    ],
    "answer": 0,
-   "explain": "A third variable (income/time) drives both.",
+   "explain": "Both phone sales and car sales are driven by a third factor, rising incomes over time, so their high correlation does not mean one causes the other. This is spurious (nonsense) correlation. Perfect correlation is the trap: that would need r = ±1 exactly. In practice: analysts must check for a common driver before claiming that one business metric causes another.",
    "concept": "c5",
    "difficulty": "core"
   },
   {
+   "topic": "Regression and the method of least squares",
    "id": "m16",
    "q": "r = 0.6, σx = 3, σy = 5. The regression coefficient of y on x is:",
    "options": [
@@ -990,11 +1006,12 @@
    ],
    "answer": 0,
    "check": "0.6*5/3",
-   "explain": "byx = r σy/σx = 0.6 × 5/3 = 1. (0.36 is bxy.)",
+   "explain": "byx = r × σy ÷ σx = 0.6 × 5 ÷ 3 = 1. The trap is 0.36, which is bxy = r × σx ÷ σy = 0.6 × 3 ÷ 5. In practice: byx tells a business how much y changes for each one-unit change in x, such as extra sales per ₹1 lakh of advertising.",
    "concept": "c6",
    "difficulty": "core"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m17",
    "q": "byx = 0.8 and bxy = 0.45. The correlation coefficient is:",
    "options": [
@@ -1005,11 +1022,12 @@
    ],
    "answer": 0,
    "check": "round((0.8*0.45)**0.5,4)",
-   "explain": "r = +√(0.36) = 0.6 (both coefficients positive).",
+   "explain": "r² = byx × bxy = 0.8 × 0.45 = 0.36, so r = √0.36 = 0.6, taking the sign of the coefficients (both positive). The trap is 0.36, which is r², not r. In practice: when a report gives both regression slopes but not r, this relation recovers it quickly.",
    "concept": "c7",
    "difficulty": "core"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m18",
    "q": "byx = −0.5 and bxy = −1.28. The correlation coefficient is:",
    "options": [
@@ -1020,11 +1038,12 @@
    ],
    "answer": 0,
    "check": "round(-(0.5*1.28)**0.5,4)",
-   "explain": "r = −√0.64 = -0.8 (common sign negative).",
+   "explain": "r² = byx × bxy = (−0.5) × (−1.28) = 0.64, so |r| = 0.8. r takes the common sign of the coefficients, which is negative, so r = −0.8. The trap is +0.8, which ignores the sign. In practice: a negative r between, for example, interest rates and housing loans disbursed tells a bank that demand falls as rates rise.",
    "concept": "c7",
    "difficulty": "moderate"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m19",
    "q": "Which pair of regression coefficients is impossible?",
    "options": [
@@ -1034,11 +1053,12 @@
     "byx = 2, bxy = 0.25"
    ],
    "answer": 0,
-   "explain": "1.6 × 0.8 = 1.28 > 1 would make r² > 1.",
+   "explain": "Since r² = byx × bxy, the product must not exceed 1. For 1.6 and 0.8, the product is 1.28 > 1, which would make r² > 1, impossible. 'byx = 2, bxy = 0.25' is the trap: the product is 0.5, which is fine. In practice: checking this product is a quick way to spot errors in a regression report.",
    "concept": "c7",
    "difficulty": "moderate"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m20",
    "q": "The two regression lines intersect at:",
    "options": [
@@ -1048,11 +1068,12 @@
     "(byx, bxy)"
    ],
    "answer": 0,
-   "explain": "Both lines pass through the means.",
+   "explain": "Both regression lines pass through the point of means, so they intersect at (x̄, ȳ). (0, 0) is the trap: lines pass through the origin only if both means are zero. In practice: solving the two regression equations together is a quick way to recover the averages when only the equations are reported.",
    "concept": "c7",
    "difficulty": "core"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m21",
    "q": "The regression lines are 2x − y = 1 and 3x − 2y = 0. The mean of x is:",
    "options": [
@@ -1063,11 +1084,12 @@
    ],
    "answer": 0,
    "check": "2",
-   "explain": "Solve: y = 2x − 1 ⇒ 3x − 4x + 2 = 0 ⇒ x̄ = 2 (ȳ = 3).",
+   "explain": "Both regression lines pass through (x̄, ȳ), so solve them together. From the first, y = 2x − 1. Substitute into the second: 3x − 2(2x − 1) = 0, so −x + 2 = 0 and x̄ = 2 (then ȳ = 3). The trap is 3, which is ȳ. In practice: recovering means from regression equations is a common shortcut when only a fitted model is published.",
    "concept": "c7",
    "difficulty": "moderate"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m22",
    "q": "The two regression lines are perpendicular to each other when:",
    "options": [
@@ -1077,11 +1099,12 @@
     "r = 0.5"
    ],
    "answer": 0,
-   "explain": "Lines are perpendicular when r = 0 and coincide when r = ±1.",
+   "explain": "When r = 0 there is no linear relation, and the two regression lines become perpendicular (one horizontal, one vertical). 'r = 1' is the trap: with perfect correlation the lines coincide instead. In practice: the angle between the two lines gives a visual sense of how strongly two business variables are linearly related.",
    "concept": "c7",
    "difficulty": "core"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m23",
    "q": "The regression lines coincide when:",
    "options": [
@@ -1091,11 +1114,12 @@
     "σx = σy"
    ],
    "answer": 0,
-   "explain": "Perfect correlation gives a single line.",
+   "explain": "With perfect correlation, r = ±1, all points lie on one straight line, so the two regression lines coincide. 'r = 0' is the trap: that makes the lines perpendicular, not coincident. In practice: perfectly correlated variables, such as a fixed per-unit cost against volume, give a single exact line.",
    "concept": "c7",
    "difficulty": "core"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m24",
    "q": "Regression coefficients are:",
    "options": [
@@ -1105,11 +1129,12 @@
     "Affected by both origin and scale equally"
    ],
    "answer": 0,
-   "explain": "Shifting origin leaves slopes unchanged; rescaling multiplies them by q/p.",
+   "explain": "Shifting origin does not change slopes, so regression coefficients are unaffected by a change of origin; but a change of scale multiplies them by the ratio of the scale factors. 'Unaffected by both' is the trap: it holds for r's size, not for regression coefficients. In practice: re-expressing sales from ₹ to ₹ lakh changes the regression slope accordingly.",
    "concept": "c7",
    "difficulty": "moderate"
   },
   {
+   "topic": "Properties of regression coefficients and lines",
    "id": "m25",
    "q": "If u = (x − 10)/2 and v = (y − 20)/5 and bvu = 0.4, then byx is:",
    "options": [
@@ -1120,11 +1145,12 @@
    ],
    "answer": 0,
    "check": "5/2*0.4",
-   "explain": "byx = (q/p) bvu = (5/2) × 0.4 = 1.",
+   "explain": "With u = (x − 10) ÷ 2 and v = (y − 20) ÷ 5, the scale factors are p = 2 for x and q = 5 for y. byx = (q ÷ p) × bvu = (5 ÷ 2) × 0.4 = 1. The trap is 0.16, which uses the ratio the wrong way round (2 ÷ 5 × 0.4). In practice: coding data to simplify arithmetic is common, but slopes must be converted back to original units.",
    "concept": "c7",
    "difficulty": "hard"
   },
   {
+   "topic": "Regression and the method of least squares",
    "id": "m26",
    "q": "The regression line of y on x is y = 4 + 1.5x. The estimate of y when x = 6 is:",
    "options": [
@@ -1135,11 +1161,12 @@
    ],
    "answer": 0,
    "check": "4+1.5*6",
-   "explain": "ŷ = 4 + 9 = 13.",
+   "explain": "Substitute x = 6 into the regression line: ŷ = 4 + 1.5 × 6 = 4 + 9 = 13. The trap is 9, which forgets the intercept 4. In practice: companies use such fitted lines to forecast sales or costs, for example estimating maintenance cost from machine hours.",
    "concept": "c6",
    "difficulty": "core"
   },
   {
+   "topic": "Regression and the method of least squares",
    "id": "m27",
    "q": "x̄ = 20, ȳ = 30, byx = 0.6. The estimate of y when x = 25 is:",
    "options": [
@@ -1150,11 +1177,12 @@
    ],
    "answer": 0,
    "check": "30+0.6*(25-20)",
-   "explain": "ŷ = ȳ + byx(x − x̄) = 30 + 3 = 33.",
+   "explain": "ŷ = ȳ + byx (x − x̄) = 30 + 0.6 × (25 − 20) = 30 + 3 = 33. The trap is 15, which multiplies 0.6 by 25 and ignores the means. In practice: this form of the regression line is used for budgeting, such as estimating power cost at a planned production level.",
    "concept": "c6",
    "difficulty": "moderate"
   },
   {
+   "topic": "Regression and the method of least squares",
    "id": "m28",
    "q": "The method of least squares for the regression of y on x minimises:",
    "options": [
@@ -1164,11 +1192,12 @@
     "The product of deviations"
    ],
    "answer": 0,
-   "explain": "Σ(y − ŷ)² is minimised.",
+   "explain": "For the regression of y on x, the method of least squares chooses the line that makes Σ(y − ŷ)², the sum of squared vertical deviations, as small as possible. 'The sum of horizontal deviations' is the trap: horizontal deviations are used for the regression of x on y. In practice: cost-estimation models in management accounting use least squares to split mixed costs.",
    "concept": "c6",
    "difficulty": "core"
   },
   {
+   "topic": "Bivariate data and bivariate frequency distribution",
    "id": "m29",
    "q": "In a bivariate frequency table with 5 classes of x and 4 classes of y, the number of conditional distributions of y (given x) is:",
    "options": [
@@ -1178,11 +1207,12 @@
     "9"
    ],
    "answer": 0,
-   "explain": "One conditional distribution of y for each class of x → 5.",
+   "explain": "There is one conditional distribution of y for each class of x, so with 5 classes of x there are 5 conditional distributions of y. The trap is 4, which counts the classes of y instead. In practice: bivariate tables, such as employees by age group and salary band, allow analysts to study salary patterns within each age group.",
    "concept": "c1",
    "difficulty": "moderate"
   },
   {
+   "topic": "Regression and the method of least squares",
    "id": "m30",
    "q": "Which statement about correlation and regression is correct?",
    "options": [
@@ -1192,7 +1222,7 @@
     "r has the units of y per unit of x"
    ],
    "answer": 0,
-   "explain": "r(x, y) = r(y, x); the two regression coefficients differ unless σx = σy.",
+   "explain": "The correlation coefficient is symmetric: r(x, y) = r(y, x). But byx = rσy ÷ σx and bxy = rσx ÷ σy usually differ, being equal only when σx = σy. 'byx always equals bxy' is the trap. In practice: predicting sales from advertising and predicting advertising from sales use different regression lines, so analysts must pick the right one.",
    "concept": "c6",
    "difficulty": "moderate"
   }
@@ -1896,9 +1926,10 @@
       "4"
      ],
      "answer": 0,
-     "explain": "b_yx = r × σy/σx = 0.75 × 6/2 = 2.25 (₹ lakh per extra training hour). 0.25 is b_xy.",
+     "explain": "byx = r × σy ÷ σx = 0.75 × 6 ÷ 2 = 2.25, i.e. ₹2.25 lakh of extra sales per extra training hour. The trap is 0.25, which is bxy = r × σx ÷ σy (0.75 × 2 ÷ 6). In practice: HR and sales heads use such slopes to estimate the payoff from training budgets.",
      "difficulty": "moderate",
-     "check": "0.75*6/2"
+     "check": "0.75*6/2",
+     "topic": "Regression and the method of least squares"
     },
     {
      "id": "k1b",
@@ -1910,9 +1941,10 @@
       "₹54 lakh"
      ],
      "answer": 0,
-     "explain": "ŷ = ȳ + b_yx (x − x̄) = 40 + 2.25 × (14 − 12) = 44.5.",
+     "explain": "ŷ = ȳ + byx (x − x̄) = 40 + 2.25 × (14 − 12) = 40 + 4.5 = ₹44.5 lakh. The trap is ₹42.25 lakh, which adds byx only once instead of multiplying by the 2-hour gap. In practice: regression-based forecasting is commonly used in sales planning and incentive-target setting.",
      "difficulty": "moderate",
-     "check": "40+2.25*(14-12)"
+     "check": "40+2.25*(14-12)",
+     "topic": "Regression and the method of least squares"
     },
     {
      "id": "k1c",
@@ -1924,9 +1956,10 @@
       "86.6%"
      ],
      "answer": 0,
-     "explain": "Coefficient of determination r² = 0.75² = 0.5625. The remaining 43.75% (1 − r²) is unexplained.",
+     "explain": "The coefficient of determination r² = 0.75² = 0.5625, so 56.25% of the variation in sales is explained by training hours. The trap is 75%, which is r expressed as a percentage, not r². 43.75% is unexplained. In practice: management reports quote R-squared to show how much of a performance gap a single factor really explains.",
      "difficulty": "core",
-     "check": "0.75**2*100"
+     "check": "0.75**2*100",
+     "topic": "Coefficient of determination and spurious correlation"
     },
     {
      "id": "k1d",
@@ -1938,8 +1971,9 @@
       "The relationship is negative"
      ],
      "answer": 0,
-     "explain": "r = 0.75 shows a strong positive linear association; a third factor (e.g. motivated executives choose more training) could drive both — spurious correlation must be ruled out.",
-     "difficulty": "hard"
+     "explain": "r = 0.75 shows a strong positive linear association, but correlation does not prove causation: motivated executives might choose more training and also sell more. 'Training certainly causes higher sales' is the trap: it ignores possible third factors. In practice: before approving a large training budget, a CFO would want a controlled comparison, not just a correlation.",
+     "difficulty": "hard",
+     "topic": "Coefficient of determination and spurious correlation"
     }
    ]
   }

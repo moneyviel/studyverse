@@ -4,7 +4,12 @@ Exponentials use e = 2.71828 so that the validator can re-evaluate each expressi
 from math import comb, exp, factorial
 from lib import *
 from ca_viva import P, V, ALT
-from ca_cases import M as CM
+from ca_cases import M as _CM
+
+
+def CM(*a, topic=None, **k):
+    d = _CM(*a, **k); d['topic'] = topic
+    return d
 
 UID = 'fnd-p3-ch16-u01'
 E = 2.71828
@@ -27,15 +32,15 @@ def fm(v, unit=''):
     return s + (' ' + unit if unit else '')
 
 
-def mq(mid, q, opts, explain, concept, diff='core'):
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
+def mq(mid, q, opts, explain, concept, diff='core', topic=None):
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
 
 
-def nq(mid, q, check, wrong, explain, concept, diff='core', unit=''):
+def nq(mid, q, check, wrong, explain, concept, diff='core', unit='', topic=None):
     v = ev(check)
     opts = [fm(v, unit)] + [fm(w, unit) for w in wrong]
     assert len(set(opts)) == 4 and all(abs(w - v) > 0.006 for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
 
 
 def binom(n, p, x): return comb(n, x) * p ** x * (1 - p) ** (n - x)
@@ -120,13 +125,13 @@ def build():
                  'Bolt length is normally distributed with mean 40 mm and SD 0.5 mm; bolts outside 39 mm to 41 mm are scrapped. (Area under the standard normal curve from z = 0 to z = 2 is 0.4772.)'),
         'mcqs': [
             CM('k1a', 'What is the probability that a box of 10 has no defective bolt?', ['0.8171', '0.98', '0.2', '0.1829'], 0,
-               'Binomial with n = 10, p = 0.02: P(0) = 0.98¹⁰ ≈ 0.8171. (0.1829 is the probability of at least one defective.)', 'moderate', 'round(0.98**10,4)'),
+               'Each bolt is defective with p = 0.02, independently, so a box of 10 is binomial. P(0) = q¹⁰ = 0.98¹⁰ ≈ 0.8171. The trap is 0.1829, which is the probability of at least one defective (1 − 0.8171). In practice: manufacturers quote such figures to customers as the share of defect-free packs.', 'moderate', 'round(0.98**10,4)', topic='Theoretical distributions and the binomial model'),
             CM('k1b', 'For a lot of 50 bolts, which approximation is appropriate and what is its parameter?', ['Poisson with m = 1', 'Poisson with m = 2', 'Normal with mean 50', 'Binomial with p = 0.5'], 0,
-               'n is fairly large and p small, so B(50, 0.02) ≈ Poisson with m = np = 1.', 'moderate'),
+               "With n = 50 fairly large and p = 0.02 small, B(50, 0.02) is approximated by a Poisson distribution with m = np = 50 × 0.02 = 1. The trap is 'Poisson with m = 2', which uses the percentage 2 directly as the mean. In practice: buyers and suppliers use the Poisson approximation to agree acceptance-sampling plans for large lots.", 'moderate', topic='Where Poisson applies'),
             CM('k1c', 'Using that approximation, what is the probability that the lot is accepted (at most one defective)?', ['0.7358', '0.3679', '0.2642', '0.9197'], 0,
-               'P(0) + P(1) = e⁻¹(1 + 1) = 0.3679 × 2 ≈ 0.7358.', 'hard', 'round(2.71828**(-1)*(1+1),4)'),
+               'With m = 1, P(0) + P(1) = e⁻¹ + e⁻¹ × 1 = 2e⁻¹ = 2 × 0.3679 ≈ 0.7358. The trap is 0.3679, which is only P(0) and ignores lots with exactly one defective. In practice: this acceptance probability tells the supplier how many of its lots the customer will accept, which feeds directly into pricing and rework costs.', 'hard', 'round(2.71828**(-1)*(1+1),4)', topic='Poisson distribution'),
             CM('k1d', 'What proportion of bolts fall within the acceptable length of 39 mm to 41 mm?', ['0.9544', '0.4772', '0.6826', '0.9973'], 0,
-               '39 and 41 are μ ∓ 2σ (z = ∓2). Area = 2 × 0.4772 = 0.9544, so about 4.56% are scrapped.', 'moderate', '2*0.4772'),
+               'z = (x − μ) ÷ σ: for 39 mm, z = (39 − 40) ÷ 0.5 = −2; for 41 mm, z = +2. Area = 2 × 0.4772 = 0.9544, so about 4.56% of bolts are scrapped. The trap is 0.4772, which covers only one side of the mean. In practice: manufacturers set tolerance limits in SD terms, the basis of six-sigma quality programmes.', 'moderate', '2*0.4772', topic='Standard normal variate and using the table'),
         ]}]
 
     viva = [
@@ -263,69 +268,69 @@ def build():
         ],
         'mcqs': [
             mq('m1', 'Which is NOT a condition of the binomial distribution?', ['The probability of success changes from trial to trial', 'The number of trials is fixed', 'Each trial has two outcomes', 'Trials are independent'],
-               'p must remain constant; a changing p breaks the binomial model.', 'c1'),
+               "A binomial model needs a fixed number of independent trials, each with two outcomes and the same probability of success p. If p changes from trial to trial, the model breaks, so that is NOT a condition. 'The number of trials is fixed' is the trap: it is a genuine condition. In practice: drawing invoices without replacement from a small batch changes p, so the binomial is only an approximation there.", 'c1', topic='Theoretical distributions and the binomial model'),
             nq('m2', 'For a binomial distribution with n = 20 and p = 0.3, the mean is:', '20*0.3', [4.2, 14, 0.3],
-               'Mean = np = @A. (4.2 is the variance npq.)', 'c2'),
+               'The mean of a binomial distribution is np = 20 × 0.3 = 6. The trap is 4.2, which is the variance npq (20 × 0.3 × 0.7), not the mean. In practice: if 30% of 20 sampled invoices are expected to have GST errors, the auditor expects about 6 erroneous invoices on average.', 'c2', topic='Properties of the binomial distribution'),
             nq('m3', 'For a binomial distribution with n = 20 and p = 0.3, the variance is:', '20*0.3*0.7', [6, 2.05, 14],
-               'Variance = npq = 20 × 0.3 × 0.7 = @A. (2.05 is the SD.)', 'c2'),
+               'The variance of a binomial is npq = 20 × 0.3 × 0.7 = 4.2. The trap is 6, which is the mean np. 2.05 is the standard deviation (√4.2). In practice: knowing the spread around the expected number of errors helps an auditor judge whether an observed error count is unusual.', 'c2', topic='Properties of the binomial distribution'),
             nq('m4', 'A binomial distribution has mean 8 and variance 4. The number of trials n is:', '8/(1-4/8)', [8, 32, 12],
-               'q = 4/8 = 0.5, p = 0.5, n = 8/0.5 = @A.', 'c2', 'moderate'),
+               'Variance ÷ mean = npq ÷ np = q, so q = 4 ÷ 8 = 0.5 and p = 0.5. Then n = mean ÷ p = 8 ÷ 0.5 = 16. The trap is 8, which assumes n equals the mean. In practice: working backwards from summary figures to model parameters is common when only reported averages and variances are available.', 'c2', 'moderate', topic='Properties of the binomial distribution'),
             mq('m5', 'A binomial distribution with mean 4 and variance 5 is:', ['Impossible, because the variance of a binomial must be less than its mean', 'Possible with p = 0.8', 'Possible with n = 20', 'Possible only if n is very large'],
-               'npq < np always; q = 5/4 > 1 is impossible.', 'c2', 'moderate'),
+               "For a binomial, variance = npq and mean = np, so variance ÷ mean = q, which must be less than 1. Here q = 5 ÷ 4 = 1.25, which is impossible. 'Possible with p = 0.8' is the trap: no value of p can make the variance exceed the mean. In practice: checking such internal consistency is how a reviewer spots an error in a statistical report.", 'c2', 'moderate', topic='Properties of the binomial distribution'),
             nq('m6', 'The maximum possible variance of a binomial distribution with n = 12 is:', '12/4', [6, 12, 2.4],
-               'Variance is largest at p = q = 0.5: npq = 12 × 0.25 = @A.', 'c2', 'moderate'),
+               'Variance npq is greatest when p = q = 0.5, giving 12 × 0.5 × 0.5 = 3. The trap is 6, which is the mean at p = 0.5, not the variance. In practice: uncertainty is highest when an outcome is a 50–50 call, which is why pollsters plan sample sizes assuming p = 0.5.', 'c2', 'moderate', topic='Properties of the binomial distribution'),
             nq('m7', 'Four fair coins are tossed. The probability of exactly two heads is:', '6*0.5**4', [0.5, 0.25, 0.0625],
-               '⁴C₂ (1/2)⁴ = 6/16 = @A.', 'c1'),
+               "P(X = 2) = ⁴C₂ × (1/2)² × (1/2)² = 6 × 1/16 = 0.375. The trap is 0.5, the intuitive 'half the coins' guess that ignores the counting. In practice: binomial probabilities like this are used in acceptance sampling to find the chance of a given number of defectives in a sample.", 'c1', topic='Theoretical distributions and the binomial model'),
             nq('m8', 'In 5 independent trials with p = 0.4, the probability of no success is:', 'round(0.6**5,4)', [0.6, 0.0102, 0.4],
-               'P(0) = q⁵ = 0.6⁵ = @A. (0.0102 is p⁵.)', 'c1'),
+               'No success means all 5 trials fail: P(0) = q⁵ = 0.6⁵ ≈ 0.0778. The trap is 0.0102, which is p⁵ (all successes). In practice: the probability that a sample contains no errors at all is central to discovery sampling in audit, where finding zero errors supports reliance on a control.', 'c1', topic='Theoretical distributions and the binomial model'),
             mq('m9', 'The mode(s) of B(9, 0.5) is/are:', ['4 and 5', '4.5', '5 only', '4 only'],
-               '(n + 1)p = 5 is an integer, so the distribution is bimodal: 5 and 4.', 'c2', 'hard'),
+               'For a binomial, if (n + 1)p is an integer, there are two modes: (n + 1)p and (n + 1)p − 1. Here (9 + 1) × 0.5 = 5, so the modes are 5 and 4. The trap is 4.5, the mean, which is not a possible value of a count. In practice: the most likely number of defectives in a batch guides how quality inspectors set their expectations.', 'c2', 'hard', topic='Properties of the binomial distribution'),
             mq('m10', 'If X ~ B(5, 0.3) and Y ~ B(7, 0.3) are independent, then X + Y follows:', ['B(12, 0.3)', 'B(12, 0.6)', 'B(35, 0.3)', 'B(6, 0.3)'],
-               'Additive property: same p, add the n\'s.', 'c2', 'moderate'),
+               "Independent binomials with the same p can be added: n's add, p stays the same. So X + Y ~ B(5 + 7, 0.3) = B(12, 0.3). The trap is B(12, 0.6), which wrongly adds the probabilities. In practice: combining two independent audit samples with the same error rate gives one larger binomial sample, which simplifies evaluation.", 'c2', 'moderate', topic='Properties of the binomial distribution'),
             mq('m11', 'A binomial distribution is symmetrical when:', ['p = 0.5', 'p < 0.5', 'p > 0.5', 'n is large regardless of p'],
-               'Only p = q = 0.5 gives symmetry; p < 0.5 gives positive skew.', 'c2'),
+               "A binomial distribution is symmetrical only when p = q = 0.5. If p < 0.5 it is positively skewed, and if p > 0.5 it is negatively skewed. 'n is large regardless of p' is the trap: large n makes it closer to symmetric, but exact symmetry needs p = 0.5. In practice: rare events like defaults (small p) always give right-skewed counts.", 'c2', topic='Properties of the binomial distribution'),
             nq('m12', 'For a Poisson distribution the variance is 3. Its mean is:', '3', [9, 1.73, 1.5],
-               'Mean = variance = m = @A.', 'c3'),
+               'In a Poisson distribution the mean and variance are equal, both being m. So if the variance is 3, the mean is 3. The trap is 1.73, which is the standard deviation (√3). In practice: if call-centre complaints average 3 per hour, their variance is also 3, a quick check on whether a Poisson model fits.', 'c3', topic='Poisson distribution'),
             nq('m13', 'For a Poisson variable, P(X = 1) = P(X = 2). The mean is:', '2', [1, 1.5, 4],
-               'e⁻ᵐ m = e⁻ᵐ m²/2 ⇒ m = @A.', 'c3', 'hard'),
+               'Set P(1) = P(2): e⁻ᵐ m = e⁻ᵐ m² ÷ 2. Dividing both sides by e⁻ᵐ m gives 1 = m ÷ 2, so m = 2. The trap is 1: that is the mean for which P(0) = P(1), not P(1) = P(2). In practice: fitting a Poisson parameter from observed frequencies is how analysts model arrival rates of customers or claims.', 'c3', 'hard', topic='Poisson distribution'),
             nq('m14', 'For a Poisson distribution with mean 4, the standard deviation is:', '4**0.5', [4, 16, 0.5],
-               'Variance = 4, SD = √4 = @A.', 'c3'),
+               'For a Poisson distribution the variance equals the mean, so the variance is 4 and SD = √4 = 2. The trap is 4, which is the variance, not the SD. In practice: if a branch receives on average 4 fraud alerts a week, the typical variation around that is about 2 alerts.', 'c3', topic='Poisson distribution'),
             mq('m15', 'The mode of a Poisson distribution with m = 3.6 is:', ['3', '4', '3.6', '3 and 4'],
-               'm is not an integer, so the mode is its integer part, 3.', 'c3', 'moderate'),
+               "When m is not an integer, the Poisson distribution has a single mode equal to the integer part of m. For m = 3.6, the mode is 3. The trap is '3 and 4': two modes occur only when m is an integer. In practice: the most likely number of daily insurance claims is found this way for capacity planning.", 'c3', 'moderate', topic='Poisson distribution'),
             mq('m16', 'The mode(s) of a Poisson distribution with m = 3 is/are:', ['2 and 3', '3 only', '2 only', '1.5'],
-               'm is an integer, so the distribution is bimodal: m and m − 1.', 'c3', 'moderate'),
+               "When m is an integer, the Poisson distribution is bimodal, with modes m and m − 1. For m = 3, the modes are 3 and 2. The trap is '3 only', which forgets that P(2) = P(3) when m = 3. In practice: knowing two counts are equally most likely helps when staffing for customer arrivals.", 'c3', 'moderate', topic='Poisson distribution'),
             nq('m17', 'For a Poisson variable with m = 2 (e⁻² = 0.1353), P(X ≥ 1) is:', '1-0.1353', [0.1353, 0.2706, 0.5],
-               'P(X ≥ 1) = 1 − P(0) = 1 − e⁻² = @A.', 'c3'),
+               'P(X ≥ 1) = 1 − P(0) = 1 − e⁻² = 1 − 0.1353 = 0.8647. The trap is 0.1353, which is P(0) itself. In practice: the complement rule gives the chance of at least one event, such as at least one machine breakdown in a shift.', 'c3', topic='Poisson distribution'),
             nq('m18', 'For m = 2 (e⁻² = 0.1353), P(X = 2) is:', '0.1353*2**2/2', [0.1353, 0.5412, 0.0677],
-               'e⁻² × 2²/2! = 0.1353 × 2 = @A.', 'c3', 'moderate'),
+               'P(X = 2) = e⁻ᵐ mˣ ÷ x! = 0.1353 × 2² ÷ 2! = 0.1353 × 2 = 0.2706. The trap is 0.5412, which forgets to divide by 2!. In practice: Poisson probabilities are used to estimate the chance of a given number of accidents, defects or claims in a period.', 'c3', 'moderate', topic='Poisson distribution'),
             mq('m19', 'The Poisson distribution is a good approximation to the binomial when:', ['n is large, p is small and np is moderate', 'n is small and p is large', 'p = 0.5', 'n = 1'],
-               'n → ∞, p → 0 with np finite.', 'c3'),
+               "The Poisson approximates the binomial when n is large, p is small and np (the mean) is moderate. 'p = 0.5' is the trap: with p = 0.5, the normal approximation is used instead. In practice: defects in a large production run or errors in a large population of entries are rare events, ideal for the Poisson model.", 'c3', topic='Where Poisson applies'),
             nq('m20', 'If X ~ P(1.5) and Y ~ P(2.5) are independent, the variance of X + Y is:', '1.5+2.5', [2, 3.75, 6.25],
-               'X + Y ~ P(4), whose variance is @A.', 'c3', 'moderate'),
+               'Independent Poisson variables add: X + Y ~ P(1.5 + 2.5) = P(4). For a Poisson, variance = mean, so the variance is 4. The trap is 3.75, which multiplies 1.5 × 2.5 instead of adding. In practice: if two branches independently receive complaints at rates 1.5 and 2.5 per day, total daily complaints follow P(4).', 'c3', 'moderate', topic='Poisson distribution'),
             mq('m21', 'The number of printing mistakes per page of a large book is best described by:', ['Poisson distribution', 'Normal distribution', 'Binomial with p = 0.5', 'Uniform distribution'],
-               'Rare events with many opportunities → Poisson.', 'c4'),
+               'Printing mistakes per page are rare events with many opportunities (every character could be wrong), which is the classic Poisson situation. The normal distribution is the trap: it suits continuous measurements like heights, not small counts of rare events. In practice: Poisson models are used for counting rare events like insurance claims, system failures and fraud alerts.', 'c4', topic='Where Poisson applies'),
             mq('m22', 'For a normal distribution:', ['Mean = median = mode', 'Mean > median > mode', 'Mean < median < mode', 'Mode = 3 median − 2 mean is impossible'],
-               'Symmetry makes all three coincide at μ.', 'c5'),
+               "The normal curve is perfectly symmetrical and has a single peak, so mean, median and mode coincide at μ. 'Mean > median > mode' is the trap: that describes a positively skewed distribution. In practice: when the mean and median of a dataset are far apart, analysts know a normal model may not fit.", 'c5', topic='Normal distribution'),
             nq('m23', 'A normal distribution has SD 8. Its quartile deviation is approximately:', '0.675*8', [6.4, 8, 4],
-               'QD ≈ 0.675σ = @A. (6.4 is the mean deviation 0.8σ.)', 'c5'),
+               'For a normal distribution, QD ≈ 0.675σ = 0.675 × 8 = 5.4. The trap is 6.4, which is the mean deviation (0.8σ), not the quartile deviation. In practice: these fixed ratios allow quick conversions in risk models where returns are assumed to be roughly normal.', 'c5', topic='Normal distribution'),
             nq('m24', 'A normal distribution has SD 15. Its mean deviation is approximately:', '0.8*15', [10.13, 15, 7.5],
-               'MD ≈ 0.8σ = @A. (10.13 is the QD.)', 'c5'),
+               'For a normal distribution, MD ≈ 0.8σ = 0.8 × 15 = 12. The trap is 10.13, which is the quartile deviation (0.675 × 15 = 10.125, rounded). In practice: such ratios help when a report gives only one measure of dispersion and another is needed for comparison.', 'c5', topic='Normal distribution'),
             mq('m25', 'The points of inflexion of N(50, 16) are at:', ['46 and 54', '34 and 66', '42 and 58', '50 and 66'],
-               'σ = √16 = 4, so μ ± σ = 46 and 54. (34 and 66 wrongly use σ = 16.)', 'c5', 'moderate'),
+               'In N(μ, σ²), the second figure is the variance, so σ = √16 = 4. The points of inflexion are μ ± σ = 50 ± 4 = 46 and 54. The trap is 34 and 66, which wrongly treats 16 as σ. In practice: misreading variance as standard deviation is a common error when reading risk reports, quadrupling or shrinking the apparent risk.', 'c5', 'moderate', topic='Normal distribution'),
             nq('m26', 'In a normal distribution, the percentage of values within μ ± 2σ is about:', '95.45', [68.27, 99.73, 50],
-               'About @A%.', 'c5'),
+               'In a normal distribution, about 68.27% of values lie within μ ± σ, 95.45% within μ ± 2σ and 99.73% within μ ± 3σ. So the answer is 95.45. The trap is 68.27, which is the share within one SD. In practice: Value-at-Risk and quality-control limits in manufacturing are set using these normal coverage figures.', 'c5', topic='Normal distribution'),
             nq('m27', 'X ~ N(60, 64). The z-value for x = 72 is:', '(72-60)/8', [0.19, 12, 1.33],
-               'σ = 8; z = (72 − 60)/8 = @A.', 'c6'),
+               'N(60, 64) gives σ = √64 = 8. z = (x − μ) ÷ σ = (72 − 60) ÷ 8 = 1.5. The trap is 0.19, which divides 12 by 64, the variance, instead of the SD. In practice: z-scores are used to compare performance on different scales, such as standardising branch sales against the network average.', 'c6', topic='Standard normal variate and using the table'),
             nq('m28', 'Given that the area from z = 0 to z = 1 is 0.3413, P(z > 1) is:', '0.5-0.3413', [0.3413, 0.8413, 0.6826],
-               'P(z > 1) = 0.5 − 0.3413 = @A.', 'c6'),
+               'The area to the right of z = 0 is 0.5. Subtract the area from 0 to 1: P(z > 1) = 0.5 − 0.3413 = 0.1587. The trap is 0.8413, which is P(z < 1), the area to the left. In practice: such tail areas give the chance of an extreme outcome, for example a monthly return worse than one SD below average.', 'c6', topic='Standard normal variate and using the table'),
             nq('m29', 'The two quartiles of a normal distribution are 42.25 and 55.75. Its standard deviation is:', '(55.75-42.25)/2/0.675', [6.75, 13.5, 8],
-               'μ = 49; QD = 6.75 = 0.675σ ⇒ σ = @A.', 'c5', 'hard'),
+               'For a normal distribution, QD = (Q₃ − Q₁) ÷ 2 = (55.75 − 42.25) ÷ 2 = 6.75, and QD ≈ 0.675σ. So σ = 6.75 ÷ 0.675 = 10. The trap is 6.75, which is the QD itself. In practice: recovering σ from quartiles helps when only a range of typical values is published, such as an interquartile salary range.', 'c5', 'hard', topic='Normal distribution'),
             mq('m30', 'The standard normal distribution has:', ['Mean 0 and SD 1', 'Mean 1 and SD 0', 'Mean 0 and SD 0', 'Mean and SD both 1'],
-               'z = (x − μ)/σ has mean 0 and SD 1.', 'c6'),
+               "The standard normal variate z = (x − μ) ÷ σ always has mean 0 and standard deviation 1. 'Mean 1 and SD 0' is the trap: an SD of 0 would mean no variation at all. In practice: standardising variables to mean 0 and SD 1 is the first step in credit-scoring models and many statistical tools.", 'c6', topic='Standard normal variate and using the table'),
             mq('m31', 'The tails of the normal curve:', ['Approach the x-axis but never touch it', 'Touch the x-axis at μ ± 3σ', 'Cross the x-axis at μ ± 3σ', 'End at the quartiles'],
-               'The curve is asymptotic to the x-axis on both sides.', 'c5'),
+               "The normal curve is asymptotic: its tails get ever closer to the x-axis but never touch it, so any value is possible, however unlikely. 'Touch the x-axis at μ ± 3σ' is the trap: only about 0.27% of values lie beyond, but the curve continues. In practice: this is why risk managers worry about rare 'tail events' in financial markets.", 'c5', topic='Normal distribution'),
             mq('m32', 'Which statement is correct?', ['Poisson is uniparametric; binomial and normal are biparametric', 'All three are uniparametric', 'Normal is uniparametric', 'Binomial is uniparametric'],
-               'Poisson: m. Binomial: n, p. Normal: μ, σ.', 'c3', 'moderate'),
+               "The Poisson distribution has one parameter (m), so it is uniparametric. The binomial has two (n and p) and the normal has two (μ and σ), so both are biparametric. 'Binomial is uniparametric' is the trap: it needs both n and p. In practice: knowing how many parameters a model needs tells an analyst how much data must be estimated before using it.", 'c3', 'moderate', topic='Poisson distribution'),
         ],
         'questions': [
             {'id': 'q1', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'moderate', 'pad': 'text',

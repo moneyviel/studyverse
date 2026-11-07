@@ -679,9 +679,10 @@
     "10"
    ],
    "answer": 2,
-   "explain": "Each element is either in or out of a subset: 2⁵ = 32 (this includes ∅ and the set itself).",
+   "explain": "Each of the 5 elements is either in a subset or not — 2 choices each — so the number of subsets is 2⁵ = 32, which includes the empty set and the set itself. The trap is 31, which is the number of proper subsets (excluding the set itself); 25 squares 5 instead of raising 2 to the power 5. In practice: if a client can opt for any combination of 5 add-on services, a firm has 32 possible service bundles, including 'none' and 'all'.",
    "concept": "c3",
    "difficulty": "core",
+   "topic": "Subsets and the power set",
    "check": "2**5"
   },
   {
@@ -694,9 +695,10 @@
     "15"
    ],
    "answer": 3,
-   "explain": "2⁴ − 1 = 15 — every subset except the set itself.",
+   "explain": "{a, b, c, d} has 2⁴ = 16 subsets. A proper subset is any subset other than the set itself, so there are 16 − 1 = 15. The trap is 16, which counts all subsets; 14 wrongly removes the empty set as well — but ∅ is a proper subset. In practice: listing proper subsets is how a planner counts the ways of choosing some, but not all, of a set of options, such as partial rollouts of a new policy.",
    "concept": "c3",
    "difficulty": "core",
+   "topic": "Subsets and the power set",
    "check": "2**4-1"
   },
   {
@@ -709,9 +711,10 @@
     "30"
    ],
    "answer": 0,
-   "explain": "n(A ∪ B) = 40 + 25 − 10 = 55. Adding without subtracting the overlap gives 65.",
+   "explain": "By the addition rule, n(A ∪ B) = n(A) + n(B) − n(A ∩ B) = 40 + 25 − 10 = 55. The overlap is subtracted once because it was counted in both A and B. The trap is 65, which adds without removing the double-counted overlap. In practice: when merging two customer lists, a marketing analyst subtracts customers who appear on both lists to get the true number of unique customers.",
    "concept": "c5",
    "difficulty": "core",
+   "topic": "Venn diagrams and counting",
    "check": "40+25-10"
   },
   {
@@ -724,9 +727,10 @@
     "0"
    ],
    "answer": 1,
-   "explain": "Tea or coffee = 60 + 45 − 20 = 85; neither = 100 − 85 = 15.",
+   "explain": "People who drink tea or coffee = 60 + 45 − 20 = 85. Those who drink neither = 100 − 85 = 15. The trap is subtracting 60 and 45 straight from 100, which counts the 20 who drink both twice (and even gives a negative number); always find the union first. In practice: survey analysts at market-research firms use this exact Venn calculation to find the 'neither' segment, often the target for a new product.",
    "concept": "c5",
    "difficulty": "core",
+   "topic": "Venn diagrams and counting",
    "check": "100-(60+45-20)"
   },
   {
@@ -739,9 +743,10 @@
     "{ 0 }"
    ],
    "answer": 2,
-   "explain": "No natural number is below 1. The even prime is 2; x² = 4 has two roots; { 0 } has one element (0).",
+   "explain": "The empty set has no elements. Since the smallest natural number is 1, there is no natural number less than 1, so that set is empty. The trap is { 0 }, which looks empty but contains one element, the number 0. The even prime set contains 2, and x² = 4 gives {−2, 2}. In practice: database queries that return 'no records' — for example, invoices dated before the company existed — are empty sets, and auditors treat them as meaningful results.",
    "concept": "c2",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Types of sets"
   },
   {
    "id": "m6",
@@ -753,9 +758,10 @@
     "B"
    ],
    "answer": 3,
-   "explain": "Every element of A is already in B, so the union adds nothing new. (A ∩ B would be A.)",
+   "explain": "If A ⊆ B, every element of A already belongs to B, so joining them adds nothing new: A ∪ B = B. The trap is A, which is the answer for A ∩ B (the common part is all of A). In practice: if every GST-registered client is also on a firm's master client list, combining the two lists simply gives the master list.",
    "concept": "c4",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Operations on sets and De Morgan's laws"
   },
   {
    "id": "m7",
@@ -767,9 +773,10 @@
     "(A ∩ B)′"
    ],
    "answer": 0,
-   "explain": "The complement of a union is the intersection of the complements; (A ∩ B)′ = A′ ∪ B′.",
+   "explain": "De Morgan's law: the complement of a union is the intersection of the complements, (A ∪ B)′ = A′ ∩ B′ — 'not in A or B' means 'not in A and not in B'. The trap is A′ ∪ B′, which is the complement of the intersection, (A ∩ B)′. In practice: an auditor selecting entries that are 'neither cash nor above ₹1 lakh' is applying De Morgan's law in a spreadsheet filter.",
    "concept": "c4",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Operations on sets and De Morgan's laws"
   },
   {
    "id": "m8",
@@ -781,9 +788,10 @@
     "{ 3 }"
    ],
    "answer": 1,
-   "explain": "A − B keeps the elements of A that are not in B. { 4 } is B − A.",
+   "explain": "A − B keeps the elements of A that are not in B. From {1, 2, 3}, remove 3 (which is in B), leaving {1, 2}. The trap is { 4 }, which is B − A — the order of the difference matters. {1, 2, 4} is the symmetric difference. In practice: comparing a sales ledger with a debtors' list, 'invoices in the ledger but not on the list' is a set difference that auditors investigate.",
    "concept": "c4",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Operations on sets and De Morgan's laws"
   },
   {
    "id": "m9",
@@ -795,9 +803,10 @@
     "81"
    ],
    "answer": 2,
-   "explain": "n(A × B) = n(A) × n(B) = 12.",
+   "explain": "A × B is the set of all ordered pairs (a, b) with a from A and b from B, so n(A × B) = n(A) × n(B) = 4 × 3 = 12. The trap is 7, which adds the sizes instead of multiplying; 64 = 4³ and 81 = 3⁴ confuse the product with powers. In practice: a retailer with 4 shirt sizes and 3 colours needs 12 SKU codes — a Cartesian product.",
    "concept": "c6",
    "difficulty": "core",
+   "topic": "Ordered pairs and the Cartesian product",
    "check": "4*3"
   },
   {
@@ -810,9 +819,10 @@
     "60"
    ],
    "answer": 2,
-   "explain": "3 × 5 × 2 = 30 ordered triples.",
+   "explain": "The Cartesian product of three sets contains ordered triples, one choice from each set, so the count is 3 × 5 × 2 = 30. The trap is 10, which adds the sizes; 15 multiplies only two of them. In practice: a travel portal combining 3 airlines, 5 time-slots and 2 fare classes offers 30 distinct options — a three-set product.",
    "concept": "c6",
    "difficulty": "core",
+   "topic": "Ordered pairs and the Cartesian product",
    "check": "3*5*2"
   },
   {
@@ -825,9 +835,10 @@
     "64"
    ],
    "answer": 3,
-   "explain": "A × B has 6 pairs; any subset is a relation: 2⁶ = 64.",
+   "explain": "A relation from A to B is any subset of A × B. Here A × B has 2 × 3 = 6 ordered pairs, and a set of 6 elements has 2⁶ = 64 subsets, so there are 64 relations (including the empty relation). The trap is 6, which counts the ordered pairs, not the relations; 8 and 9 are 2³ and 3². In practice: access-control matrices in IT audits map users to permissions, and each possible mapping is one relation.",
    "concept": "c7",
    "difficulty": "moderate",
+   "topic": "Relations: domain, range, inverse and types",
    "check": "2**(2*3)"
   },
   {
@@ -840,9 +851,10 @@
     "Symmetric only"
    ],
    "answer": 0,
-   "explain": "a < a is false (not reflexive); a < b does not give b < a (not symmetric); a < b and b < c give a < c (transitive).",
+   "explain": "Check each property. a < a is false, so it is not reflexive. a < b does not give b < a, so it is not symmetric. a < b and b < c give a < c, so it is transitive. Hence 'transitive only'. The trap is 'reflexive and transitive', which describes 'less than or equal to' (≤), not strict '<'. In practice: approval hierarchies work this way — if A ranks below B and B below C, then A ranks below C.",
    "concept": "c7",
-   "difficulty": "moderate"
+   "difficulty": "moderate",
+   "topic": "Relations: domain, range, inverse and types"
   },
   {
    "id": "m13",
@@ -854,9 +866,10 @@
     "Transitive but not symmetric"
    ],
    "answer": 1,
-   "explain": "Everyone shares their own birth date, sharing is mutual, and it chains — reflexive, symmetric and transitive.",
+   "explain": "Everyone has the same birth date as themselves (reflexive); if A shares B's birth date, B shares A's (symmetric); and if A matches B and B matches C, A matches C (transitive). All three hold, so it is an equivalence relation. The trap is 'symmetric only', which overlooks the reflexive and transitive properties. In practice: equivalence relations split data into groups — for example, grouping employees by birth month for payroll or celebration lists.",
    "concept": "c7",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Relations: domain, range, inverse and types"
   },
   {
    "id": "m14",
@@ -868,9 +881,10 @@
     "Transitive but not symmetric"
    ],
    "answer": 2,
-   "explain": "(1, 1) is missing, so not reflexive; (1, 2) and (2, 1) would need (1, 1) for transitivity, so not transitive; it is symmetric.",
+   "explain": "R is symmetric because (1, 2) and (2, 1) both appear. It is not reflexive since (1, 1) and (2, 2) are missing. It is not transitive: (1, 2) and (2, 1) would require (1, 1). So it is symmetric but neither reflexive nor transitive. The trap is 'an equivalence relation', which needs all three properties. In practice: a 'has traded with' relation between two firms is symmetric, but it need not be transitive across a chain of firms.",
    "concept": "c7",
-   "difficulty": "hard"
+   "difficulty": "hard",
+   "topic": "Relations: domain, range, inverse and types"
   },
   {
    "id": "m15",
@@ -882,9 +896,10 @@
     "{4, 5}"
    ],
    "answer": 3,
-   "explain": "The range is the set of second elements: 4 and 5. {1, 2, 3} is the domain.",
+   "explain": "The range of a relation is the set of second elements of its ordered pairs. From (1, 4), (2, 5) and (3, 4), the second elements are 4, 5 and 4, so the range is {4, 5}. The trap is {1, 2, 3}, which is the domain (first elements). In practice: if a relation maps employees to departments, the range is the set of departments that actually have staff.",
    "concept": "c7",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Relations: domain, range, inverse and types"
   },
   {
    "id": "m16",
@@ -896,9 +911,10 @@
     "{(1, b), (2, a), (3, a)}"
    ],
    "answer": 0,
-   "explain": "Reverse every ordered pair. The domain of R⁻¹ is the range of R.",
+   "explain": "The inverse of a relation is formed by reversing every ordered pair: (1, a) → (a, 1), (2, b) → (b, 2), (3, b) → (b, 3). So R⁻¹ = {(a, 1), (b, 2), (b, 3)}. The trap is {(a, 1), (b, 2)}, which drops (b, 3) because b repeats — but in a relation, an element may pair with several others. In practice: inverting a 'client → partner' mapping gives each partner's list of clients.",
    "concept": "c7",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Relations: domain, range, inverse and types"
   },
   {
    "id": "m17",
@@ -910,9 +926,10 @@
     "5"
    ],
    "answer": 1,
-   "explain": "Each of the 3 elements chooses one of 2 images: 2³ = 8. 3² = 9 reverses the roles.",
+   "explain": "A function assigns exactly one image to every element of the domain. Each of the 3 domain elements can choose either of 2 images, so there are 2 × 2 × 2 = 2³ = 8 functions. The trap is 9 = 3², which reverses the roles of the two sets; 6 multiplies 3 × 2. In practice: assigning each of 3 clients to one of 2 staff members, where a staff member may handle several clients, gives 8 possible allocations.",
    "concept": "c8",
    "difficulty": "moderate",
+   "topic": "Functions (mappings) and their types",
    "check": "2**3"
   },
   {
@@ -925,9 +942,10 @@
     "15"
    ],
    "answer": 2,
-   "explain": "Distinct images: 5 × 4 × 3 = 60 (= ⁵P₃). 125 = 5³ allows repeats.",
+   "explain": "In a one-one function different elements must get different images. The first element has 5 choices, the second 4, the third 3: 5 × 4 × 3 = 60 (= ⁵P₃). The trap is 125 = 5³, which allows two elements to share an image. In practice: assigning 3 interns to 3 different desks out of 5 — no desk shared — is a one-one function.",
    "concept": "c8",
    "difficulty": "hard",
+   "topic": "Functions (mappings) and their types",
    "check": "5*4*3"
   },
   {
@@ -940,9 +958,10 @@
     "Many-one and into"
    ],
    "answer": 3,
-   "explain": "f(2) = f(−2) = 4, so many-one; negative real numbers have no pre-image, so into.",
+   "explain": "f(x) = x² is many-one because different inputs give the same output, e.g. f(2) = f(−2) = 4. It is into, not onto, because negative real numbers in the co-domain have no pre-image (no real x has x² = −1). The trap is 'many-one and onto', which would be true only if the co-domain were restricted to non-negative reals. In practice: a mapping from sales figures to tax slabs is many-one, since many sales figures fall in the same slab.",
    "concept": "c8",
-   "difficulty": "moderate"
+   "difficulty": "moderate",
+   "topic": "Functions (mappings) and their types"
   },
   {
    "id": "m20",
@@ -954,9 +973,10 @@
     "(x − 1)/2"
    ],
    "answer": 3,
-   "explain": "Put y = 2x + 1 → x = (y − 1)/2. 1/(2x + 1) is the reciprocal, not the inverse.",
+   "explain": "Write y = 2x + 1 and solve for x: x = (y − 1)/2. Swapping letters, f⁻¹(x) = (x − 1)/2. Check: f(3) = 7 and f⁻¹(7) = 3. The trap is 1/(2x + 1), which is the reciprocal of f, not its inverse — an inverse undoes the function. In practice: converting a gross amount back to the base figure, such as removing a fixed charge and halving, is applying an inverse function.",
    "concept": "c8",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Functions (mappings) and their types"
   },
   {
    "id": "m21",
@@ -968,9 +988,10 @@
     "9"
    ],
    "answer": 0,
-   "explain": "g(3) = 6, then f(6) = 7. g(f(3)) = g(4) = 8 — order matters in a composite function.",
+   "explain": "Work from the inside out: g(3) = 2 × 3 = 6, then f(6) = 6 + 1 = 7. The trap is 8, which computes g(f(3)) = g(4) instead — order matters in composite functions. In practice: a flat ₹100 discount given before adding 18% GST produces a different bill from the same discount given after GST, so billing formulas must fix the order.",
    "concept": "c8",
    "difficulty": "core",
+   "topic": "Functions (mappings) and their types",
    "check": "2*3+1"
   },
   {
@@ -983,9 +1004,10 @@
     "A constant function"
    ],
    "answer": 1,
-   "explain": "Every element of the co-domain must have exactly one pre-image — onto gives \"at least one\", one-one gives \"at most one\".",
+   "explain": "An inverse function must send every element of the co-domain back to exactly one element. Onto guarantees at least one pre-image, and one-one guarantees at most one, so both are needed: the function must be one-one and onto (a bijection). The trap is 'one-one only', which still leaves some co-domain elements without a pre-image. In practice: a unique ID like PAN works both ways only because each person has one PAN and each PAN belongs to one person.",
    "concept": "c8",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Functions (mappings) and their types"
   },
   {
    "id": "m23",
@@ -997,9 +1019,10 @@
     "0"
    ],
    "answer": 2,
-   "explain": "Standard result n aⁿ⁻¹ = 3 × 2² = 12. (Or factorise: x² + 2x + 4 at x = 2.)",
+   "explain": "Direct substitution gives 0/0. Use the standard limit lim (xⁿ − aⁿ)/(x − a) = naⁿ⁻¹: 3 × 2² = 12. Or factorise: x³ − 8 = (x − 2)(x² + 2x + 4), and x² + 2x + 4 at x = 2 is 12. The trap is 8, which just substitutes 2³; 0 reads 0/0 as zero. In practice: limits of this form underlie the derivative, which economists use to find marginal cost from a total-cost formula.",
    "concept": "c9",
    "difficulty": "core",
+   "topic": "Limit of a function",
    "check": "3*2**2"
   },
   {
@@ -1012,9 +1035,10 @@
     "2"
    ],
    "answer": 3,
-   "explain": "Divide by x²: (4 + 1/x²)/(2 − 3/x) → 4/2 = 2.",
+   "explain": "For x → ∞, divide top and bottom by the highest power, x²: (4 + 1/x²)/(2 − 3/x) → 4/2 = 2, since 1/x² and 3/x tend to zero. The trap is 4, which takes only the numerator's leading coefficient; ∞ assumes large x makes the fraction blow up. In practice: such limits describe long-run behaviour — for example, average cost per unit settling to a steady value as output becomes very large.",
    "concept": "c9",
    "difficulty": "moderate",
+   "topic": "Limit of a function",
    "check": "4/2"
   },
   {
@@ -1027,9 +1051,10 @@
     "e⁵"
    ],
    "answer": 0,
-   "explain": "Write it as 5 × (e⁵ˣ − 1)/(5x); since (eᵗ − 1)/t → 1, the limit is 5.",
+   "explain": "Rewrite as 5 × (e⁵ˣ − 1)/(5x). As x → 0, 5x → 0, and the standard limit (eᵗ − 1)/t → 1, so the answer is 5 × 1 = 5. The trap is 1, which applies the standard limit without adjusting for the 5 in the exponent; e⁵ substitutes x = 1. In practice: this limit is the basis of continuous compounding, where interest at rate r grows money by the factor eʳᵗ.",
    "concept": "c9",
    "difficulty": "moderate",
+   "topic": "Limit of a function",
    "check": "5*1"
   },
   {
@@ -1042,9 +1067,10 @@
     "3"
    ],
    "answer": 1,
-   "explain": "x² + 3x − 4 = (x − 1)(x + 4); cancel (x − 1) and put x = 1: 5. Substituting directly gives 0/0, not 0.",
+   "explain": "Substitution gives 0/0, so factorise: x² + 3x − 4 = (x − 1)(x + 4). Cancel (x − 1) (allowed because x ≠ 1 near the limit) and put x = 1: 1 + 4 = 5. The trap is 0, which reads the 0/0 form as zero — 0/0 is indeterminate and needs simplification. In practice: removing a common factor before evaluating avoids 'division by zero' errors in spreadsheet models of per-unit figures.",
    "concept": "c9",
    "difficulty": "core",
+   "topic": "Limit of a function",
    "check": "1+4"
   },
   {
@@ -1057,9 +1083,10 @@
     "f(a) = 0"
    ],
    "answer": 2,
-   "explain": "A limit does not depend on f(a); both one-sided limits must exist and agree.",
+   "explain": "A limit at a exists when the left-hand limit and the right-hand limit both exist and are equal; the limit is that common value. The trap is 'f(a) is defined' — the limit concerns values near a, not at a, so f(a) may be undefined or different without affecting the limit. In practice: in tax-slab calculations, checking the left and right limits at a threshold shows whether tax jumps suddenly, which is why marginal relief exists.",
    "concept": "c9",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Limit of a function"
   },
   {
    "id": "m28",
@@ -1071,9 +1098,10 @@
     "10"
    ],
    "answer": 3,
-   "explain": "lim (x² − 25)/(x − 5) = lim (x + 5) = 10; continuity needs f(5) = 10.",
+   "explain": "For x ≠ 5, (x² − 25)/(x − 5) = x + 5, so the limit as x → 5 is 10. Continuity requires f(5) to equal the limit, so k = 10. The trap is 0, from substituting x = 5 directly and reading 0/0 as zero; 25 uses 5² alone. In practice: defining a value at a gap so that a formula stays smooth is like a pricing table that must not jump at a slab boundary.",
    "concept": "c10",
    "difficulty": "moderate",
+   "topic": "Continuity at a point",
    "check": "5+5"
   },
   {
@@ -1086,9 +1114,10 @@
     "Continuous, because f(2) = 10"
    ],
    "answer": 0,
-   "explain": "LHL = 3(2) + 1 = 7, RHL = 5(2) − 3 = 7 and f(2) = 7. A change of formula alone does not break continuity.",
+   "explain": "Left-hand limit = 3(2) + 1 = 7; right-hand limit = 5(2) − 3 = 7; and f(2) = 5(2) − 3 = 7. All three are equal, so f is continuous at x = 2. The trap is 'discontinuous because the formula changes' — a change of formula breaks continuity only if the pieces fail to meet. In practice: slab-based tariffs, like electricity bills, are designed so the charge formula changes but the bill does not jump at the boundary.",
    "concept": "c10",
-   "difficulty": "hard"
+   "difficulty": "hard",
+   "topic": "Continuity at a point"
   },
   {
    "id": "m30",
@@ -1100,9 +1129,10 @@
     "A ∩ B = ∅"
    ],
    "answer": 0,
-   "explain": "Equivalent sets have the same number of elements; equal sets have exactly the same elements. Equal sets are always equivalent, not the other way round.",
+   "explain": "Equivalent sets have the same number of elements, n(A) = n(B), even if the elements differ — {1, 2, 3} and {a, b, c} are equivalent. The trap is A = B, which is equality: the same elements exactly. Equal sets are always equivalent, but equivalent sets need not be equal. In practice: matching a list of 50 invoices with 50 payments shows equal counts (equivalence), but an auditor still checks that the items actually correspond.",
    "concept": "c2",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Types of sets"
   }
  ],
  "questions": [
@@ -1720,9 +1750,10 @@
       "90"
      ],
      "answer": 1,
-     "explain": "Either = 210 + 150 − 90 = 270; neither = 300 − 270 = 30.",
+     "explain": "Taxpayers who used at least one = 210 + 150 − 90 = 270 (the 90 in both are counted once). Those who used neither = 300 − 270 = 30. The trap is 0, which adds 210 + 150 = 360 and concludes everyone is covered, forgetting the overlap. In practice: a tax practitioner's newsletter might highlight this 'neither' group — taxpayers who may not have filed at all — as a target for outreach.",
      "concept": "c5",
      "difficulty": "core",
+     "topic": "Venn diagrams and counting",
      "check": "300-(210+150-90)"
     },
     {
@@ -1735,9 +1766,10 @@
       "90"
      ],
      "answer": 2,
-     "explain": "Online only = 210 − 90 = 120.",
+     "explain": "Of the 210 who filed online, 90 also consulted a CA. Online only = 210 − 90 = 120. The trap is 210, which is everyone who filed online, including those who also took a CA's help. In practice: separating 'only' groups from overlaps tells a practice which taxpayers handle compliance themselves — a different market from those who already consult a CA.",
      "concept": "c5",
      "difficulty": "core",
+     "topic": "Venn diagrams and counting",
      "check": "210-90"
     },
     {
@@ -1750,9 +1782,10 @@
       "180"
      ],
      "answer": 3,
-     "explain": "Online only 120 + CA only 60 = 180.",
+     "explain": "Exactly one means online only or CA only. Online only = 210 − 90 = 120; CA only = 150 − 90 = 60; total = 180. The trap is 270, which is 'at least one' and includes the 90 who used both. In practice: survey reports distinguish 'exactly one' from 'at least one', and mixing them up is a common error in market-research summaries.",
      "concept": "c5",
      "difficulty": "moderate",
+     "topic": "Venn diagrams and counting",
      "check": "(210-90)+(150-90)"
     },
     {
@@ -1765,9 +1798,10 @@
       "40%"
      ],
      "answer": 0,
-     "explain": "CA only = 150 − 90 = 60; 60/300 = 20%.",
+     "explain": "CA only = 150 − 90 = 60 taxpayers. As a percentage of all 300 surveyed: 60/300 × 100 = 20%. The trap is 40%, which divides 60 by the 150 who consulted a CA rather than by all 300 surveyed; 50% is 150/300, which includes those who also filed online. In practice: always check the base of a percentage — 'of all taxpayers' versus 'of CA clients' changes the headline figure.",
      "concept": "c5",
      "difficulty": "moderate",
+     "topic": "Venn diagrams and counting",
      "check": "(150-90)/300*100"
     }
    ]

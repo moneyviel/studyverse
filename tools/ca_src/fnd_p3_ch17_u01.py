@@ -2,7 +2,12 @@
 Original explanations, data and questions (structure and scope follow the ICAI study material). Every figure is computed below."""
 from lib import *
 from ca_viva import P, V, ALT
-from ca_cases import M as CM
+from ca_cases import M as _CM
+
+
+def CM(*a, topic=None, **k):
+    d = _CM(*a, **k); d['topic'] = topic
+    return d
 
 UID = 'fnd-p3-ch17-u01'
 
@@ -24,15 +29,15 @@ def fm(v, unit=''):
     return s + (' ' + unit if unit else '')
 
 
-def mq(mid, q, opts, explain, concept, diff='core'):
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
+def mq(mid, q, opts, explain, concept, diff='core', topic=None):
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
 
 
-def nq(mid, q, check, wrong, explain, concept, diff='core', unit=''):
+def nq(mid, q, check, wrong, explain, concept, diff='core', unit='', topic=None):
     v = ev(check)
     opts = [fm(v, unit)] + [fm(w, unit) for w in wrong]
     assert len(set(opts)) == 4 and all(abs(w - v) > 0.006 for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
 
 
 def ranks(vals, desc=True):
@@ -132,13 +137,13 @@ def build():
                  'Summary: mean x = 12 hours, mean y = ₹40 lakh, SD of x = 2 hours, SD of y = ₹6 lakh, correlation coefficient r = 0.75. The HR head wants to predict sales for an executive who attends 14 hours.'),
         'mcqs': [
             CM('k1a', 'What is the regression coefficient of y on x?', ['2.25', '0.25', '0.75', '4'], 0,
-               'b_yx = r × σy/σx = 0.75 × 6/2 = 2.25 (₹ lakh per extra training hour). 0.25 is b_xy.', 'moderate', '0.75*6/2'),
+               'byx = r × σy ÷ σx = 0.75 × 6 ÷ 2 = 2.25, i.e. ₹2.25 lakh of extra sales per extra training hour. The trap is 0.25, which is bxy = r × σx ÷ σy (0.75 × 2 ÷ 6). In practice: HR and sales heads use such slopes to estimate the payoff from training budgets.', 'moderate', '0.75*6/2', topic='Regression and the method of least squares'),
             CM('k1b', 'What sales would you predict for an executive with 14 training hours?', ['₹44.5 lakh', '₹42.25 lakh', '₹41.5 lakh', '₹54 lakh'], 0,
-               'ŷ = ȳ + b_yx (x − x̄) = 40 + 2.25 × (14 − 12) = 44.5.', 'moderate', '40+2.25*(14-12)'),
+               'ŷ = ȳ + byx (x − x̄) = 40 + 2.25 × (14 − 12) = 40 + 4.5 = ₹44.5 lakh. The trap is ₹42.25 lakh, which adds byx only once instead of multiplying by the 2-hour gap. In practice: regression-based forecasting is commonly used in sales planning and incentive-target setting.', 'moderate', '40+2.25*(14-12)', topic='Regression and the method of least squares'),
             CM('k1c', 'What proportion of the variation in sales is explained by training hours?', ['56.25%', '75%', '43.75%', '86.6%'], 0,
-               'Coefficient of determination r² = 0.75² = 0.5625. The remaining 43.75% (1 − r²) is unexplained.', 'core', '0.75**2*100'),
+               'The coefficient of determination r² = 0.75² = 0.5625, so 56.25% of the variation in sales is explained by training hours. The trap is 75%, which is r expressed as a percentage, not r². 43.75% is unexplained. In practice: management reports quote R-squared to show how much of a performance gap a single factor really explains.', 'core', '0.75**2*100', topic='Coefficient of determination and spurious correlation'),
             CM('k1d', 'Which conclusion is appropriate?', ['Training and sales are strongly positively related, but correlation alone does not prove that training causes higher sales', 'Training certainly causes higher sales', 'There is no relationship', 'The relationship is negative'], 0,
-               'r = 0.75 shows a strong positive linear association; a third factor (e.g. motivated executives choose more training) could drive both — spurious correlation must be ruled out.', 'hard'),
+               "r = 0.75 shows a strong positive linear association, but correlation does not prove causation: motivated executives might choose more training and also sell more. 'Training certainly causes higher sales' is the trap: it ignores possible third factors. In practice: before approving a large training budget, a CFO would want a controlled comparison, not just a correlation.", 'hard', topic='Coefficient of determination and spurious correlation'),
         ]}]
 
     viva = [
@@ -276,65 +281,65 @@ def build():
         ],
         'mcqs': [
             mq('m1', 'The correlation coefficient always lies between:', ['−1 and +1, both inclusive', '0 and 1', '−∞ and +∞', '0 and ∞'],
-               '−1 ≤ r ≤ 1.', 'c3'),
+               "Karl Pearson's correlation coefficient always lies between −1 and +1, both inclusive: −1 is perfect negative, +1 perfect positive and 0 no linear correlation. '0 and 1' is the trap: it ignores negative correlation, which is common. In practice: analysts quoting the correlation between two stocks' returns, say −0.3 or +0.8, rely on this bounded scale.", 'c3', topic="Karl Pearson's product moment correlation coefficient"),
             mq('m2', 'Price and quantity demanded usually show:', ['Negative correlation', 'Positive correlation', 'Zero correlation', 'Perfect positive correlation'],
-               'As price rises, demand falls.', 'c2'),
+               'As price rises, quantity demanded usually falls, so the two move in opposite directions, which is negative correlation (the law of demand). Positive correlation is the trap: that is typical of price and quantity supplied. In practice: FMCG companies study this negative relation when deciding whether a price increase will reduce volumes too much.', 'c2', topic='Types of correlation and the scatter diagram'),
             mq('m3', 'A scatter diagram can be used to study:', ['Both linear and non-linear relationships', 'Only linear relationships', 'Only the exact value of r', 'Only qualitative data'],
-               'It shows the pattern of any relationship but gives no numerical measure.', 'c2'),
+               "A scatter diagram simply plots the pairs, so it reveals the pattern of any relationship, straight-line or curved, although it gives no numerical value. 'Only linear relationships' is the trap: that limitation belongs to Pearson's r, not the scatter diagram. In practice: analysts plot advertising spend against sales first, to see whether a straight-line model is even sensible.", 'c2', topic='Types of correlation and the scatter diagram'),
             nq('m4', 'Cov(x, y) = 18, σx = 4 and σy = 5. The correlation coefficient is:', '18/(4*5)', [3.6, 4.5, 0.36],
-               'r = Cov/(σx σy) = 18/20 = @A.', 'c3'),
+               'r = Cov(x, y) ÷ (σx σy) = 18 ÷ (4 × 5) = 18 ÷ 20 = 0.9. The trap is 3.6, which divides by σy alone (18 ÷ 5); in any case r can never exceed 1. In practice: risk models compute correlation between assets from their covariance and volatilities exactly this way.', 'c3', topic="Karl Pearson's product moment correlation coefficient"),
             nq('m5', 'For 10 pairs: Σuv = 48, Σu² = 64, Σv² = 100 (u, v deviations from means). r is:', '48/(64*100)**0.5', [0.75, 0.48, 0.0075],
-               'r = 48/√6,400 = 48/80 = @A. (0.75 = 48/64 is byx.)', 'c3', 'moderate'),
+               'With deviations from means, r = Σuv ÷ √(Σu² × Σv²) = 48 ÷ √(64 × 100) = 48 ÷ 80 = 0.6. The trap is 0.75, which is 48 ÷ 64, a regression coefficient (b of v on u), not r. In practice: spreadsheet CORREL functions use this formula when finding how strongly, say, rainfall and fertiliser sales move together.', 'c3', 'moderate', topic="Karl Pearson's product moment correlation coefficient"),
             mq('m6', 'If u = 2x + 5 and v = −3y + 1, and r(x, y) = 0.6, then r(u, v) is:', ['−0.6', '0.6', '−3.6', '0.4'],
-               'Scale factors 2 and −3 have opposite signs, so the magnitude stays and the sign flips.', 'c3', 'moderate'),
+               "Correlation is unaffected by change of origin, and by change of scale except for sign. The scale factors 2 and −3 have opposite signs, so the size stays 0.6 but the sign flips: r(u, v) = −0.6. The trap is 0.6, which ignores the negative factor. In practice: converting a cost into 'savings' (a negative transformation) reverses the sign of its correlation with other variables.", 'c3', 'moderate', topic="Karl Pearson's product moment correlation coefficient"),
             mq('m7', 'If r = 0 between x and y, then:', ['There is no linear relationship, though a non-linear one may exist', 'x and y are always independent', 'The regression lines coincide', 'r² = 1'],
-               'r measures only linear association; y = x² can give r = 0.', 'c2', 'moderate'),
+               "r = 0 means there is no linear relationship, but a curved relationship may still exist; for example y = x² over symmetric x values gives r = 0. 'x and y are always independent' is the trap: zero correlation does not prove independence. In practice: a near-zero r between price and profit may hide an optimum price, so analysts always look at the scatter plot.", 'c2', 'moderate', topic='Types of correlation and the scatter diagram'),
             nq('m8', 'For 7 items, Σd² = 28. Spearman\'s rank correlation is:', '1-6*28/(7*48)', [0.75, 0.6667, 0.1667],
-               '1 − 168/336 = @A.', 'c4'),
+               "Spearman's formula: R = 1 − 6Σd² ÷ (n(n² − 1)) = 1 − (6 × 28) ÷ (7 × 48) = 1 − 168 ÷ 336 = 0.5. The traps 0.6667 and 0.75 come from computing n(n² − 1) wrongly; for n = 7 it is 7 × 48 = 336. In practice: rank correlation is used when only rankings are available, such as comparing two judges' rankings of contestants or two analysts' stock rankings.", 'c4', topic="Spearman's rank correlation and concurrent deviations"),
             nq('m9', 'Rank correlation is 0.4 for 10 pairs. Σd² is:', '(1-0.4)*10*99/6', [66, 165, 39.6],
-               '0.4 = 1 − 6Σd²/990 ⇒ Σd² = 0.6 × 990/6 = @A.', 'c4', 'hard'),
+               'From R = 1 − 6Σd² ÷ (n(n² − 1)): 0.4 = 1 − 6Σd² ÷ 990, so 6Σd² = 0.6 × 990 = 594 and Σd² = 99. The trap is 66, which uses 0.4 instead of 1 − 0.4. In practice: working backwards from a coefficient helps auditors check published survey results for internal consistency.', 'c4', 'hard', topic="Spearman's rank correlation and concurrent deviations"),
             mq('m10', 'Spearman\'s rank correlation is most suitable for:', ['Qualitative characteristics that can be ranked, like beauty', 'Data with exact measurements only', 'Open-end classes', 'Time series only'],
-               'It uses only ranks.', 'c4'),
+               "Spearman's method needs only ranks, so it suits qualitative characteristics that can be ordered but not measured, such as beauty, honesty or leadership. 'Data with exact measurements only' is the trap: exact measurements suit Pearson's r. In practice: HR teams use rank correlation to compare two interviewers' rankings of candidates.", 'c4', topic="Spearman's rank correlation and concurrent deviations"),
             nq('m11', 'Three items are tied in one series. The correction added to Σd² is:', '(3**3-3)/12', [3, 0.25, 6],
-               '(t³ − t)/12 = 24/12 = @A.', 'c4', 'moderate'),
+               'For each group of t tied items, add (t³ − t) ÷ 12 to Σd². With t = 3: (27 − 3) ÷ 12 = 24 ÷ 12 = 2. The trap is 3, which simply uses the number of tied items. In practice: ties are common when ranking things like branch performance grades, and this correction keeps the coefficient accurate.', 'c4', 'moderate', topic="Spearman's rank correlation and concurrent deviations"),
             nq('m12', 'For 9 pairs of observations (8 pairs of deviations), the number of concurrent deviations is 6. The coefficient of concurrent deviations is:', 'round(((2*6-8)/8)**0.5,4)', [0.5, 0.75, -0.7071],
-               'rC = +√((12 − 8)/8) = √0.5 = @A.', 'c4', 'moderate'),
+               'With m = 8 pairs of deviations and c = 6 concurrent, 2c − m = 4, which is positive, so rC = +√((2c − m) ÷ m) = √(4 ÷ 8) = √0.5 ≈ 0.7071. The trap is 0.5, which forgets the square root. In practice: concurrent deviations offer a quick, rough check on whether two series, such as monthly sales and advertising, move in the same direction.', 'c4', 'moderate', topic="Spearman's rank correlation and concurrent deviations"),
             nq('m13', 'With m = 10 deviations and c = 2 concurrent, the coefficient of concurrent deviations is:', 'round(-((10-2*2)/10)**0.5,4)', [0.7746, -0.6, 0.2],
-               '2c − m = −6 < 0, so rC = −√(6/10) = @A.', 'c4', 'hard'),
+               '2c − m = 4 − 10 = −6, which is negative. The rule is to take the sign of (2c − m) both inside and outside the root: rC = −√(6 ÷ 10) = −√0.6 ≈ −0.7746. The trap is +0.7746, which drops the negative sign. In practice: a negative value shows that two series, such as interest rates and bond prices, usually move in opposite directions.', 'c4', 'hard', topic="Spearman's rank correlation and concurrent deviations"),
             nq('m14', 'If r = 0.9, the coefficient of determination is:', '0.81', [0.9, 0.19, 0.95],
-               'r² = @A: 81% of the variation in y is explained by x.', 'c5'),
+               'The coefficient of determination is r² = 0.9² = 0.81, meaning 81% of the variation in y is explained by x. The trap is 0.9, which is r itself. 0.19 is the unexplained part (1 − r²). In practice: analysts report r² (R-squared) to show how much of the variation in sales a regression model actually explains.', 'c5', topic='Coefficient of determination and spurious correlation'),
             mq('m15', 'A high positive correlation between the number of mobile phones sold and the number of cars sold over 15 years, caused by rising incomes, is an example of:', ['Spurious (nonsense) correlation', 'Negative correlation', 'Perfect correlation', 'Rank correlation'],
-               'A third variable (income/time) drives both.', 'c5'),
+               'Both phone sales and car sales are driven by a third factor, rising incomes over time, so their high correlation does not mean one causes the other. This is spurious (nonsense) correlation. Perfect correlation is the trap: that would need r = ±1 exactly. In practice: analysts must check for a common driver before claiming that one business metric causes another.', 'c5', topic='Coefficient of determination and spurious correlation'),
             nq('m16', 'r = 0.6, σx = 3, σy = 5. The regression coefficient of y on x is:', '0.6*5/3', [0.36, 0.6, 1.8],
-               'byx = r σy/σx = 0.6 × 5/3 = @A. (0.36 is bxy.)', 'c6'),
+               'byx = r × σy ÷ σx = 0.6 × 5 ÷ 3 = 1. The trap is 0.36, which is bxy = r × σx ÷ σy = 0.6 × 3 ÷ 5. In practice: byx tells a business how much y changes for each one-unit change in x, such as extra sales per ₹1 lakh of advertising.', 'c6', topic='Regression and the method of least squares'),
             nq('m17', 'byx = 0.8 and bxy = 0.45. The correlation coefficient is:', 'round((0.8*0.45)**0.5,4)', [0.36, 0.625, -0.6],
-               'r = +√(0.36) = @A (both coefficients positive).', 'c7'),
+               'r² = byx × bxy = 0.8 × 0.45 = 0.36, so r = √0.36 = 0.6, taking the sign of the coefficients (both positive). The trap is 0.36, which is r², not r. In practice: when a report gives both regression slopes but not r, this relation recovers it quickly.', 'c7', topic='Properties of regression coefficients and lines'),
             nq('m18', 'byx = −0.5 and bxy = −1.28. The correlation coefficient is:', 'round(-(0.5*1.28)**0.5,4)', [0.8, 0.64, -0.64],
-               'r = −√0.64 = @A (common sign negative).', 'c7', 'moderate'),
+               'r² = byx × bxy = (−0.5) × (−1.28) = 0.64, so |r| = 0.8. r takes the common sign of the coefficients, which is negative, so r = −0.8. The trap is +0.8, which ignores the sign. In practice: a negative r between, for example, interest rates and housing loans disbursed tells a bank that demand falls as rates rise.', 'c7', 'moderate', topic='Properties of regression coefficients and lines'),
             mq('m19', 'Which pair of regression coefficients is impossible?', ['byx = 1.6, bxy = 0.8', 'byx = 0.4, bxy = 0.9', 'byx = −0.3, bxy = −2', 'byx = 2, bxy = 0.25'],
-               '1.6 × 0.8 = 1.28 > 1 would make r² > 1.', 'c7', 'moderate'),
+               "Since r² = byx × bxy, the product must not exceed 1. For 1.6 and 0.8, the product is 1.28 > 1, which would make r² > 1, impossible. 'byx = 2, bxy = 0.25' is the trap: the product is 0.5, which is fine. In practice: checking this product is a quick way to spot errors in a regression report.", 'c7', 'moderate', topic='Properties of regression coefficients and lines'),
             mq('m20', 'The two regression lines intersect at:', ['(x̄, ȳ)', '(0, 0)', '(σx, σy)', '(byx, bxy)'],
-               'Both lines pass through the means.', 'c7'),
+               'Both regression lines pass through the point of means, so they intersect at (x̄, ȳ). (0, 0) is the trap: lines pass through the origin only if both means are zero. In practice: solving the two regression equations together is a quick way to recover the averages when only the equations are reported.', 'c7', topic='Properties of regression coefficients and lines'),
             nq('m21', 'The regression lines are 2x − y = 1 and 3x − 2y = 0. The mean of x is:', '2', [3, 1, 1.5],
-               'Solve: y = 2x − 1 ⇒ 3x − 4x + 2 = 0 ⇒ x̄ = @A (ȳ = 3).', 'c7', 'moderate'),
+               'Both regression lines pass through (x̄, ȳ), so solve them together. From the first, y = 2x − 1. Substitute into the second: 3x − 2(2x − 1) = 0, so −x + 2 = 0 and x̄ = 2 (then ȳ = 3). The trap is 3, which is ȳ. In practice: recovering means from regression equations is a common shortcut when only a fitted model is published.', 'c7', 'moderate', topic='Properties of regression coefficients and lines'),
             mq('m22', 'The two regression lines are perpendicular to each other when:', ['r = 0', 'r = 1', 'r = −1', 'r = 0.5'],
-               'Lines are perpendicular when r = 0 and coincide when r = ±1.', 'c7'),
+               "When r = 0 there is no linear relation, and the two regression lines become perpendicular (one horizontal, one vertical). 'r = 1' is the trap: with perfect correlation the lines coincide instead. In practice: the angle between the two lines gives a visual sense of how strongly two business variables are linearly related.", 'c7', topic='Properties of regression coefficients and lines'),
             mq('m23', 'The regression lines coincide when:', ['r = ±1', 'r = 0', 'byx = 0', 'σx = σy'],
-               'Perfect correlation gives a single line.', 'c7'),
+               "With perfect correlation, r = ±1, all points lie on one straight line, so the two regression lines coincide. 'r = 0' is the trap: that makes the lines perpendicular, not coincident. In practice: perfectly correlated variables, such as a fixed per-unit cost against volume, give a single exact line.", 'c7', topic='Properties of regression coefficients and lines'),
             mq('m24', 'Regression coefficients are:', ['Unaffected by change of origin but affected by change of scale', 'Affected by change of origin only', 'Unaffected by both', 'Affected by both origin and scale equally'],
-               'Shifting origin leaves slopes unchanged; rescaling multiplies them by q/p.', 'c7', 'moderate'),
+               "Shifting origin does not change slopes, so regression coefficients are unaffected by a change of origin; but a change of scale multiplies them by the ratio of the scale factors. 'Unaffected by both' is the trap: it holds for r's size, not for regression coefficients. In practice: re-expressing sales from ₹ to ₹ lakh changes the regression slope accordingly.", 'c7', 'moderate', topic='Properties of regression coefficients and lines'),
             nq('m25', 'If u = (x − 10)/2 and v = (y − 20)/5 and bvu = 0.4, then byx is:', '5/2*0.4', [0.16, 0.4, 2],
-               'byx = (q/p) bvu = (5/2) × 0.4 = @A.', 'c7', 'hard'),
+               'With u = (x − 10) ÷ 2 and v = (y − 20) ÷ 5, the scale factors are p = 2 for x and q = 5 for y. byx = (q ÷ p) × bvu = (5 ÷ 2) × 0.4 = 1. The trap is 0.16, which uses the ratio the wrong way round (2 ÷ 5 × 0.4). In practice: coding data to simplify arithmetic is common, but slopes must be converted back to original units.', 'c7', 'hard', topic='Properties of regression coefficients and lines'),
             nq('m26', 'The regression line of y on x is y = 4 + 1.5x. The estimate of y when x = 6 is:', '4+1.5*6', [9, 15, 10],
-               'ŷ = 4 + 9 = @A.', 'c6'),
+               'Substitute x = 6 into the regression line: ŷ = 4 + 1.5 × 6 = 4 + 9 = 13. The trap is 9, which forgets the intercept 4. In practice: companies use such fitted lines to forecast sales or costs, for example estimating maintenance cost from machine hours.', 'c6', topic='Regression and the method of least squares'),
             nq('m27', 'x̄ = 20, ȳ = 30, byx = 0.6. The estimate of y when x = 25 is:', '30+0.6*(25-20)', [33.75, 15, 45],
-               'ŷ = ȳ + byx(x − x̄) = 30 + 3 = @A.', 'c6', 'moderate'),
+               'ŷ = ȳ + byx (x − x̄) = 30 + 0.6 × (25 − 20) = 30 + 3 = 33. The trap is 15, which multiplies 0.6 by 25 and ignores the means. In practice: this form of the regression line is used for budgeting, such as estimating power cost at a planned production level.', 'c6', 'moderate', topic='Regression and the method of least squares'),
             mq('m28', 'The method of least squares for the regression of y on x minimises:', ['The sum of squares of vertical deviations of y from the line', 'The sum of horizontal deviations', 'The sum of absolute deviations of x', 'The product of deviations'],
-               'Σ(y − ŷ)² is minimised.', 'c6'),
+               "For the regression of y on x, the method of least squares chooses the line that makes Σ(y − ŷ)², the sum of squared vertical deviations, as small as possible. 'The sum of horizontal deviations' is the trap: horizontal deviations are used for the regression of x on y. In practice: cost-estimation models in management accounting use least squares to split mixed costs.", 'c6', topic='Regression and the method of least squares'),
             mq('m29', 'In a bivariate frequency table with 5 classes of x and 4 classes of y, the number of conditional distributions of y (given x) is:', ['5', '4', '20', '9'],
-               'One conditional distribution of y for each class of x → 5.', 'c1', 'moderate'),
+               'There is one conditional distribution of y for each class of x, so with 5 classes of x there are 5 conditional distributions of y. The trap is 4, which counts the classes of y instead. In practice: bivariate tables, such as employees by age group and salary band, allow analysts to study salary patterns within each age group.', 'c1', 'moderate', topic='Bivariate data and bivariate frequency distribution'),
             mq('m30', 'Which statement about correlation and regression is correct?', ['r is symmetric in x and y, but byx and bxy generally differ', 'byx always equals bxy', 'Regression is unit-free', 'r has the units of y per unit of x'],
-               'r(x, y) = r(y, x); the two regression coefficients differ unless σx = σy.', 'c6', 'moderate'),
+               "The correlation coefficient is symmetric: r(x, y) = r(y, x). But byx = rσy ÷ σx and bxy = rσx ÷ σy usually differ, being equal only when σx = σy. 'byx always equals bxy' is the trap. In practice: predicting sales from advertising and predicting advertising from sales use different regression lines, so analysts must pick the right one.", 'c6', 'moderate', topic='Regression and the method of least squares'),
         ],
         'questions': [
             {'id': 'q1', 'marks': 6, 'minutes': minutes(6), 'difficulty': 'moderate', 'pad': 'table',

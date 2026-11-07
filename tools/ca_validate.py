@@ -9,7 +9,11 @@ Checks:
     numeric MCQ answers re-computed (and no wrong option equal to the answer)
   * optional originality guard (--src DIR): no run of 10+ consecutive words shared with the ICAI text
 
-Usage:  python3 tools/ca_validate.py [--src /tmp/ca/txt]      exit code 1 on any error
+  * MCQ topic + explanation rules (unit and case MCQs): `topic` must match a structure.json topic of the unit
+    or a concept-card title in the unit; `explain` must have 35+ words. These are warnings for now;
+    with --strict they are errors.
+
+Usage:  python3 tools/ca_validate.py [--src /tmp/ca/txt] [--strict]      exit code 1 on any error
 """
 import json, os, re, sys, glob, ast, operator
 
@@ -18,6 +22,12 @@ CA = os.path.join(ROOT, 'content', 'ca')
 errors, warns = [], []
 def err(where, msg): errors.append(f'{where}: {msg}')
 def warn(where, msg): warns.append(f'{where}: {msg}')
+STRICT = '--strict' in sys.argv
+def soft(where, msg): (err if STRICT else warn)(where, msg)   # MCQ topic / explain rules: warnings until every unit has them
+UNIT_TOPICS = {}                                              # unit id -> structure.json topics (filled in main)
+MIN_EXPLAIN = {'p1': 35, 'p2': 35, 'p3': 35, 'p4': 35}           # minimum words in an MCQ explanation, by Foundation paper
+TOPIC_STATS = {'mcqs': 0, 'no_topic': 0, 'bad_topic': 0, 'short': 0}
+def norm_topic(t): return re.sub(r'\s+', ' ', re.sub(r'[\u2010-\u2015\-]', ' ', str(t or '').replace('\u2019', "'").replace('\u2018', "'"))).strip().lower()
 
 # ---------- safe arithmetic ----------
 OPS = {ast.Add: operator.add, ast.Sub: operator.sub, ast.Mult: operator.mul, ast.Div: operator.truediv, ast.Pow: operator.pow, ast.USub: operator.neg, ast.UAdd: operator.pos, ast.Mod: operator.mod, ast.FloorDiv: operator.floordiv}
@@ -253,7 +263,7 @@ TOP = ['schema', 'id', 'level', 'paper', 'chapter', 'title', 'outcomes', 'meta',
 def text_of(o):
     if isinstance(o, str): return [o]
     if isinstance(o, list): return [t for x in o for t in text_of(x)]
-    if isinstance(o, dict): return [t for k, v in o.items() if k not in ('id', 'expr', 't', 'schema', 'skill', 'concept', 'date') for t in text_of(v)]
+    if isinstance(o, dict): return [t for k, v in o.items() if k not in ('id', 'expr', 't', 'schema', 'skill', 'concept', 'date', 'topic') for t in text_of(v)]
     return []
 
 def check_unit(path, built_ids):
@@ -324,10 +334,33 @@ def check_unit(path, built_ids):
             if q.get('difficulty') not in ('core', 'moderate', 'hard'): err(f'{w}.{q.get("id")}', 'difficulty must be core|moderate|hard')
     for q in u.get('mcqs', []):
         if q.get('difficulty') not in ('core', 'moderate', 'hard'): err(f'{w0}#{q.get("id")}', 'difficulty must be core|moderate|hard')
+    check_topics(w0, u)
     # no leftover placeholders
     for t in text_of(u):
         if re.search(r'TODO|XXX|\blorem\b|\{\w+\}', t): err(w0, f'placeholder text: {t[:60]}')
     return u
+
+def check_topics(w0, u):
+    """every MCQ (unit and case) needs a `topic` naming a structure.json topic of its unit or one of the unit's concept-card titles,
+    and an `explain` of MIN_EXPLAIN words or more. Soft (warning) rules unless --strict."""
+    allowed = {norm_topic(t) for t in UNIT_TOPICS.get(u.get('id'), [])} | {norm_topic(c.get('title')) for c in u.get('concepts', [])}
+    allowed.discard('')
+    m = re.match(r'fnd-(p\d)', str(u.get('id', ''))); need = MIN_EXPLAIN.get(m.group(1), 35) if m else 35
+    items = [(f'{w0}#{q.get("id")}', q) for q in u.get('mcqs', [])] + [(f'{w0}#{cs.get("id")}.{q.get("id")}', q) for cs in u.get('cases', []) for q in cs.get('mcqs', [])]
+    missing, short = [], []
+    for w, q in items:
+        TOPIC_STATS['mcqs'] += 1
+        t = q.get('topic')
+        if not str(t or '').strip(): missing.append(q.get('id')); TOPIC_STATS['no_topic'] += 1
+        elif norm_topic(t) not in allowed: TOPIC_STATS['bad_topic'] += 1; soft(w, f'topic "{t}" is neither a structure.json topic of this unit nor a concept-card title')
+        n = len(re.findall(r'\S+', str(q.get('explain', ''))))
+        if n < need: short.append(f'{q.get("id")}({n})'); TOPIC_STATS['short'] += 1
+    if STRICT:
+        for i in missing: err(f'{w0}#{i}', 'MCQ needs a topic')
+        for x in short: err(f'{w0}#{x.split("(")[0]}', f'explain has {x.split("(")[1][:-1]} words — needs {need}+')
+    else:
+        if missing: warn(w0, f'{len(missing)}/{len(items)} MCQs have no topic (' + ', '.join(missing[:8]) + (' …' if len(missing) > 8 else '') + ')')
+        if short: warn(w0, f'{len(short)}/{len(items)} MCQ explanations are under {need} words: ' + ', '.join(short[:8]) + (' …' if len(short) > 8 else ''))
 
 # ---------- originality guard ----------
 def words(s): return re.findall(r"[a-z0-9]+", s.lower())
@@ -370,6 +403,7 @@ def main():
                     if u['id'] in all_ids: err(lv, f'duplicate id {u["id"]}')
                     all_ids.add(u['id'])
                     if u.get('status') not in ('built', 'soon'): err(lv, f'{u["id"]} bad status')
+                    UNIT_TOPICS[u['id']] = u.get('topics') or []
                     if u.get('status') == 'built':
                         f = os.path.join(ROOT, u.get('file', ''))
                         if not os.path.exists(f): err(lv, f'{u["id"]} marked built but {u.get("file")} missing')
@@ -418,6 +452,7 @@ def main():
     print(f'built units {len(units)} · illustrations {ni} · MCQs {nm} · descriptive questions {nq} · numeric checks {nc}')
     nv = sum(len(u.get('viva', [])) for _, u in units); ncs = sum(len(u.get('cases', [])) for _, u in units); ncm = sum(len(c['mcqs']) for _, u in units for c in u.get('cases', []))
     print(f'viva questions {nv} · key points {sum(len(v["points"]) for _, u in units for v in u.get("viva", []))} · case sets {ncs} ({ncm} linked MCQs) · mock papers {len(mocks)}')
+    ts = TOPIC_STATS; print(f'MCQ topics: {ts["mcqs"] - ts["no_topic"]}/{ts["mcqs"]} have one, {ts["bad_topic"]} do not match · explanations under the minimum: {ts["short"]}' + ('' if STRICT else '  (warnings; errors with --strict)'))
     for x in warns: print('WARN ', x)
     for x in errors: print('ERROR', x)
     print('OK' if not errors else f'{len(errors)} error(s)')

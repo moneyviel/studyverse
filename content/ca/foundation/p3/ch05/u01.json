@@ -717,9 +717,10 @@
     "1,680"
    ],
    "answer": 2,
-   "explain": "8!/6! = 8 × 7 × 6!/6! = 56. Writing 8/6 cancels the factorial sign wrongly; 48 is 8 × 6.",
+   "explain": "Expand only as far as needed: 8! = 8 × 7 × 6!, so 8!/6! = 8 × 7 = 56. The trap is 48, which multiplies 8 by 6 as if the factorials could be dropped; 2 does the same and divides 8 by 6 roughly. Factorials cancel as blocks, not as single numbers. In practice: cancelling factorials before multiplying keeps numbers small, which is how an analyst computes large counts like possible audit-sample combinations without overflowing a calculator.",
    "concept": "c2",
    "difficulty": "core",
+   "topic": "Factorial notation",
    "check": "8*7"
   },
   {
@@ -732,9 +733,10 @@
     "210"
    ],
    "answer": 3,
-   "explain": "⁷P₃ = 7 × 6 × 5 = 210 (three factors starting from 7). 35 is ⁷C₃ and 343 is 7³ (repetition allowed).",
+   "explain": "ⁿPᵣ is the product of r consecutive numbers counting down from n: ⁷P₃ = 7 × 6 × 5 = 210. The trap is 35, which is ⁷C₃ — the number of selections, not arrangements (210 ÷ 3! = 35). 343 = 7³ allows repetition. In practice: if 3 of 7 audit assistants are to be assigned to three different branches, the order of assignment matters, so the count is ⁷P₃.",
    "concept": "c3",
    "difficulty": "core",
+   "topic": "Permutations: arrangements where order matters",
    "check": "7*6*5"
   },
   {
@@ -747,9 +749,10 @@
     "∞"
    ],
    "answer": 0,
-   "explain": "Putting r = n in ⁿPᵣ = n!/(n − r)! must give n!, so 0! has to be 1.",
+   "explain": "0! is defined as 1 so that formulas stay consistent: ⁿPₙ = n!/(n − n)! = n!/0! must equal n!, which works only if 0! = 1. The trap is 0 — but then the formula would involve division by zero. It also matches the fact that there is exactly one way to arrange nothing. In practice: spreadsheet functions like FACT(0) return 1, and probability and binomial models used by actuaries rely on this convention.",
    "concept": "c2",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Factorial notation"
   },
   {
    "id": "m4",
@@ -761,9 +764,10 @@
     "15"
    ],
    "answer": 1,
-   "explain": "n(n − 1) = 90 = 10 × 9, so n = 10. (−9 is rejected as n cannot be negative.)",
+   "explain": "ⁿP₂ = n(n − 1) = 90. Since 10 × 9 = 90, n = 10 (the other root, −9, is rejected because n must be a positive integer). The trap is 9, which takes the smaller factor; 45 halves 90 as if it were ⁿC₂. In practice: working backwards from a count to the number of items — for example from the number of possible ordered pairings to the number of participants — is a common exam pattern.",
    "concept": "c3",
    "difficulty": "core",
+   "topic": "Permutations: arrangements where order matters",
    "check": "round((1+(1+4*90)**0.5)/2)"
   },
   {
@@ -776,9 +780,10 @@
     "360"
    ],
    "answer": 2,
-   "explain": "Circular arrangements of n different persons = (n − 1)! = 5! = 120. 720 = 6! treats the table as a row.",
+   "explain": "In a circle there is no fixed starting seat, so fix one person and arrange the rest: (n − 1)! = 5! = 120. The trap is 720 = 6!, which treats the round table like a row and counts each rotation as a different seating. In practice: event planners and protocol officers use (n − 1)! when working out seating options for round-table board meetings or client dinners.",
    "concept": "c4",
    "difficulty": "core",
+   "topic": "Circular permutations",
    "check": "5*4*3*2*1"
   },
   {
@@ -791,9 +796,10 @@
     "360"
    ],
    "answer": 3,
-   "explain": "A necklace can be turned over, so clockwise and anticlockwise orders are the same: (7 − 1)!/2 = 720/2 = 360.",
+   "explain": "Fix one bead to remove rotations: (7 − 1)! = 720. A necklace can also be flipped over, so clockwise and anticlockwise orders are the same, and we divide by 2: 720/2 = 360. The trap is 720, which forgets that turning the necklace over gives the same piece. In practice: jewellery designers and manufacturers counting distinct bead or stone patterns apply this halving rule.",
    "concept": "c4",
    "difficulty": "moderate",
+   "topic": "Circular permutations",
    "check": "(6*5*4*3*2*1)/2"
   },
   {
@@ -806,9 +812,10 @@
     "210"
    ],
    "answer": 0,
-   "explain": "SUCCESS has 7 letters with S three times and C twice: 7!/(3! × 2!) = 5040/12 = 420. Dividing only by 3! gives 840.",
+   "explain": "SUCCESS has 7 letters with S repeated 3 times and C repeated 2 times. Arrangements = 7!/(3! × 2!) = 5,040/12 = 420. The trap is 840, which divides only by 3! for the S's and forgets the repeated C's; 5,040 ignores repetition altogether. In practice: the same 'divide by repeats' rule counts distinct sequences when identical items are involved, such as orders of identical cartons on a dispatch line.",
    "concept": "c6",
    "difficulty": "moderate",
+   "topic": "Alike things and repetition",
    "check": "(7*6*5*4*3*2*1)/((3*2*1)*2)"
   },
   {
@@ -821,9 +828,10 @@
     "18"
    ],
    "answer": 1,
-   "explain": "Each of the 3 places can be filled in 6 ways: 6³ = 216. 120 = ⁶P₃ (no repetition) and 20 = ⁶C₃.",
+   "explain": "With repetition allowed, each of the 3 positions can be filled in 6 ways independently: 6 × 6 × 6 = 216. The trap is 120 = ⁶P₃, which assumes letters cannot repeat; 20 = ⁶C₃ ignores order as well. In practice: the number of possible codes with repetition, like PINs or OTPs, is why IT auditors check code length — each extra character multiplies the possibilities.",
    "concept": "c6",
    "difficulty": "core",
+   "topic": "Alike things and repetition",
    "check": "6*6*6"
   },
   {
@@ -836,9 +844,10 @@
     "120"
    ],
    "answer": 2,
-   "explain": "¹²C₁₀ = ¹²C₂ = (12 × 11)/2 = 66. 132 is ¹²P₂ — forgetting to divide by 2!.",
+   "explain": "Use ⁿCᵣ = ⁿCₙ₋ᵣ: ¹²C₁₀ = ¹²C₂ = (12 × 11)/2 = 66. Choosing 10 to include is the same as choosing 2 to leave out. The trap is 132 = ¹²P₂, which forgets to divide by 2! for the order of the two items. In practice: choosing the 10 staff who stay on a project is the same as choosing the 2 who leave, a shortcut that saves time in counting.",
    "concept": "c8",
    "difficulty": "core",
+   "topic": "Properties of ⁿCᵣ",
    "check": "(12*11)/(1*2)"
   },
   {
@@ -851,9 +860,10 @@
     "190"
    ],
    "answer": 2,
-   "explain": "ⁿCₓ = ⁿCᵧ with x ≠ y means x + y = n, so n = 20. ²⁰C₁₇ = ²⁰C₃ = (20 × 19 × 18)/6 = 1140.",
+   "explain": "If ⁿCₓ = ⁿCᵧ with x ≠ y, then x + y = n, so n = 8 + 12 = 20. Then ²⁰C₁₇ = ²⁰C₃ = (20 × 19 × 18)/6 = 1,140. The trap is 20, which stops after finding n; 6,840 = ²⁰P₃ forgets to divide by 3!. In practice: the symmetry property ⁿCᵣ = ⁿCₙ₋ᵣ is used constantly to simplify binomial calculations in probability and statistics.",
    "concept": "c8",
    "difficulty": "moderate",
+   "topic": "Properties of ⁿCᵣ",
    "check": "(20*19*18)/(1*2*3)"
   },
   {
@@ -866,9 +876,10 @@
     "126"
    ],
    "answer": 3,
-   "explain": "Order does not matter: ⁹C₄ = (9 × 8 × 7 × 6)/24 = 126. 3024 = ⁹P₄ counts the same team many times.",
+   "explain": "A team of 4 auditors is a selection, so order does not matter: ⁹C₄ = (9 × 8 × 7 × 6)/(4 × 3 × 2 × 1) = 126. The trap is 3,024 = ⁹P₄, which counts the same team once for every order in which it could be listed. In practice: audit firms choosing an engagement team from a panel are making combinations; only if each member got a distinct role would order matter.",
    "concept": "c7",
    "difficulty": "core",
+   "topic": "Combinations: selections where order does not matter",
    "check": "(9*8*7*6)/(1*2*3*4)"
   },
   {
@@ -881,9 +892,10 @@
     "36"
    ],
    "answer": 0,
-   "explain": "Each item is either taken or left: 2⁶ = 64 ways, less the one way in which nothing is taken: 63.",
+   "explain": "Each of the 6 different items is either taken or left — 2 choices each — giving 2⁶ = 64 selections. Removing the one selection in which nothing is taken leaves 63. The trap is 64, which forgets that 'one or more' excludes the empty selection. In practice: a manager deciding which of 6 optional features to include in a product has 63 non-empty bundles to evaluate.",
    "concept": "c9",
    "difficulty": "core",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
    "check": "2**6-1"
   },
   {
@@ -896,9 +908,10 @@
     "9"
    ],
    "answer": 1,
-   "explain": "Apples can be dealt with in 3 + 1 ways, oranges 4 + 1, mangoes 2 + 1: 4 × 5 × 3 = 60, minus the empty selection = 59.",
+   "explain": "Identical items: apples can be chosen 0, 1, 2 or 3 at a time (4 ways), oranges in 5 ways and mangoes in 3 ways. Total = 4 × 5 × 3 = 60, minus the empty selection = 59. The trap is 60, which forgets to exclude taking no fruit at all; 23 treats the fruits as different. In practice: a retailer counting possible gift-hamper combinations from stocks of identical items uses this (n + 1) rule.",
    "concept": "c9",
    "difficulty": "moderate",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
    "check": "(3+1)*(4+1)*(2+1)-1"
   },
   {
@@ -911,9 +924,10 @@
     "40"
    ],
    "answer": 2,
-   "explain": "Diagonals = ⁿC₂ − n = 28 − 8 = 20. 28 forgets to remove the 8 sides.",
+   "explain": "Any 2 of the 8 vertices define a line segment: ⁸C₂ = 28. Of these, 8 are sides, so diagonals = 28 − 8 = 20. The trap is 28, which counts all segments including the sides. General rule: n(n − 3)/2. In practice: the same 'pairs minus adjacent pairs' logic counts possible direct links in a network, such as courier routes between 8 branches excluding existing neighbour routes.",
    "concept": "c9",
    "difficulty": "core",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
    "check": "((8*7)/(1*2))-8"
   },
   {
@@ -926,9 +940,10 @@
     "220"
    ],
    "answer": 3,
-   "explain": "Any 3 points make a triangle: ¹²C₃ = (12 × 11 × 10)/6 = 220. 1320 is ¹²P₃.",
+   "explain": "With no three points collinear, every choice of 3 points gives a triangle: ¹²C₃ = (12 × 11 × 10)/6 = 220. The trap is 1,320 = ¹²P₃, which counts each triangle 6 times by ordering its corners; 66 = ¹²C₂ counts lines, not triangles. In practice: counting triangles of points is the same as counting three-member groups, such as possible sub-committees of 3 from 12 members.",
    "concept": "c9",
    "difficulty": "core",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
    "check": "(12*11*10)/(1*2*3)"
   },
   {
@@ -941,9 +956,10 @@
     "120"
    ],
    "answer": 0,
-   "explain": "A handshake needs a pair, and the pair (A, B) is the same as (B, A): ¹⁵C₂ = 105. 210 = ¹⁵P₂ double counts.",
+   "explain": "A handshake involves an unordered pair — A with B is the same as B with A — so the count is ¹⁵C₂ = (15 × 14)/2 = 105. The trap is 210 = ¹⁵P₂, which counts each handshake twice; 225 = 15² even lets people shake their own hand. In practice: this pair-counting rule tells a firm how many one-to-one review meetings are needed if every partner meets every other partner once.",
    "concept": "c7",
    "difficulty": "core",
+   "topic": "Combinations: selections where order does not matter",
    "check": "(15*14)/(1*2)"
   },
   {
@@ -956,9 +972,10 @@
     "2,100"
    ],
    "answer": 1,
-   "explain": "Independent selections are multiplied: ⁷C₃ × ⁵C₂ = 35 × 10 = 350. Adding them (45) is the most common slip.",
+   "explain": "Choose the men and the women independently, then multiply: ⁷C₃ × ⁵C₂ = 35 × 10 = 350. The trap is 45, which adds the two counts — but each choice of men can go with each choice of women. 792 = ¹²C₅ ignores the gender split. In practice: forming an Internal Complaints Committee or a board committee with fixed numbers from different groups is counted this way.",
    "concept": "c9",
    "difficulty": "core",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
    "check": "((7*6*5)/(1*2*3))*((5*4)/(1*2))"
   },
   {
@@ -971,9 +988,10 @@
     "120"
    ],
    "answer": 2,
-   "explain": "Tie the two books as one: 4 units can be arranged in 4! = 24 ways, and the two books inside in 2! ways: 48.",
+   "explain": "Tie the two particular books together as one unit: there are now 4 units, arranged in 4! = 24 ways. The two books can swap inside the bundle in 2! ways, so the total is 24 × 2 = 48. The trap is 24, which forgets that the two books can be in either order. In practice: scheduling two linked tasks back-to-back — say, an audit opening meeting and walkthrough — uses this 'treat as one block' method.",
    "concept": "c5",
    "difficulty": "core",
+   "topic": "Permutations with restrictions",
    "check": "(4*3*2*1)*2"
   },
   {
@@ -986,9 +1004,10 @@
     "72"
    ],
    "answer": 3,
-   "explain": "Never together = total − together = 5! − 48 = 120 − 48 = 72.",
+   "explain": "Use the complement: never together = total − together = 5! − 48 = 120 − 48 = 72. The trap is 48, which is the number of arrangements in which they are together — the opposite of what is asked; 96 doubles 48. In practice: counting by complement (all cases minus the unwanted ones) is often much quicker, as when an analyst counts schedules in which two conflicting meetings do not clash.",
    "concept": "c5",
    "difficulty": "core",
+   "topic": "Permutations with restrictions",
    "check": "(5*4*3*2*1)-(4*3*2*1)*2"
   },
   {
@@ -1001,9 +1020,10 @@
     "1,344"
    ],
    "answer": 3,
-   "explain": "r × ⁿ⁻¹Pᵣ₋₁ = 4 × ⁸P₃ = 4 × 336 = 1344 (the particular thing can take any of the 4 places).",
+   "explain": "Place the particular file first: it can occupy any of the 4 positions. The other 3 positions are filled from the remaining 8 files in ⁸P₃ = 336 ways. Total = 4 × 336 = 1,344. The trap is 336, which fixes the file in one position only. In practice: if a specific client file must appear on a 4-slot review rack, the reviewer's possible line-ups are counted this way.",
    "concept": "c5",
    "difficulty": "moderate",
+   "topic": "Permutations with restrictions",
    "check": "4*(8*7*6)"
   },
   {
@@ -1016,9 +1036,10 @@
     "70"
    ],
    "answer": 0,
-   "explain": "Leave the thing out and arrange 4 of the remaining 8: ⁸P₄ = 8 × 7 × 6 × 5 = 1680.",
+   "explain": "If the particular file is never used, simply leave it out and arrange 4 of the remaining 8: ⁸P₄ = 8 × 7 × 6 × 5 = 1,680. The trap is 1,344, the count when the file is always included. Check: 1,344 + 1,680 = 3,024 = ⁹P₄, the total with no restriction. In practice: excluding an item first and then counting is how a planner counts schedules that avoid an unavailable staff member.",
    "concept": "c5",
    "difficulty": "moderate",
+   "topic": "Permutations with restrictions",
    "check": "8*7*6*5"
   },
   {
@@ -1031,9 +1052,10 @@
     "36"
    ],
    "answer": 1,
-   "explain": "The hundreds digit must be 4, 5 or 6 (3 ways); the other two places: ⁵P₂ = 20. Total 3 × 20 = 60.",
+   "explain": "For a number above 400, the hundreds digit must be 4, 5 or 6 — 3 ways. The other two places are filled from the remaining 5 digits in ⁵P₂ = 20 ways. Total = 3 × 20 = 60. The trap is 120 = ⁶P₃, which ignores the 'above 400' condition. In practice: filling the restricted position first is the standard approach, just as a planner first fixes the slot that has a constraint.",
    "concept": "c5",
    "difficulty": "moderate",
+   "topic": "Permutations with restrictions",
    "check": "3*(5*4)"
   },
   {
@@ -1046,9 +1068,10 @@
     "900"
    ],
    "answer": 2,
-   "explain": "Hundreds place: 9 ways (0 not allowed); tens: 9 (0 now allowed); units: 8. 9 × 9 × 8 = 648. 720 = ¹⁰P₃ wrongly lets 0 lead.",
+   "explain": "Fill the hundreds place first: 9 ways (1–9, since 0 cannot lead). The tens place can then use any of the remaining 9 digits (0 is now allowed), and the units place 8. Total = 9 × 9 × 8 = 648. The trap is 720 = ¹⁰P₃, which wrongly allows 0 in the hundreds place. In practice: invoice and voucher numbering systems must account for leading-zero rules in exactly this way.",
    "concept": "c1",
    "difficulty": "hard",
+   "topic": "Fundamental principles of counting",
    "check": "9*9*8"
   },
   {
@@ -1061,9 +1084,10 @@
     "ⁿCᵣ × r!"
    ],
    "answer": 3,
-   "explain": "Each selection of r things can be arranged in r! orders, so ⁿPᵣ = ⁿCᵣ × r!.",
+   "explain": "Every selection of r things can be arranged among themselves in r! ways, so arrangements = selections × r!, i.e. ⁿPᵣ = ⁿCᵣ × r!. The trap is ⁿCᵣ ÷ r!, which reverses the relationship — permutations are always at least as many as combinations. In practice: if 3 people are chosen from 8 and then given distinct roles (chair, secretary, treasurer), the count is ⁸C₃ × 3! = ⁸P₃.",
    "concept": "c7",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Combinations: selections where order does not matter"
   },
   {
    "id": "m25",
@@ -1075,9 +1099,10 @@
     "48"
    ],
    "answer": 0,
-   "explain": "In exactly half of the 5! = 120 orders A comes before B, by symmetry: 60.",
+   "explain": "Of the 5! = 120 possible orders, A speaks before B in exactly half by symmetry (every order with B before A pairs with one where they swap). So the answer is 120/2 = 60. The trap is 120, which ignores the condition; 24 = 4! counts only the orders in which A speaks immediately before B. In practice: event organisers use this halving argument whenever one item must simply precede another.",
    "concept": "c5",
    "difficulty": "hard",
+   "topic": "Permutations with restrictions",
    "check": "(5*4*3*2*1)/2"
   },
   {
@@ -1090,9 +1115,10 @@
     "Seating 3 of 8 guests in a row of 3 chairs"
    ],
    "answer": 1,
-   "explain": "Only the committee ignores order; medals, PINs and seat positions all depend on order.",
+   "explain": "A combination is used when only the group matters, not the order. Choosing 3 directors for a committee forms the same committee whatever order they are picked in. The trap is the medals: gold, silver and bronze are different positions, so who gets which matters — a permutation; PINs and seat positions are also ordered. In practice: under the Companies Act, boards constitute committees like the audit committee by selecting members — a combination problem.",
    "concept": "c7",
-   "difficulty": "core"
+   "difficulty": "core",
+   "topic": "Combinations: selections where order does not matter"
   },
   {
    "id": "m27",
@@ -1104,9 +1130,10 @@
     "462"
    ],
    "answer": 2,
-   "explain": "Pascal's rule: ⁿCᵣ + ⁿCᵣ₋₁ = ⁿ⁺¹Cᵣ, so the sum is ¹¹C₄ = 330 (= 210 + 120).",
+   "explain": "Pascal's rule says ⁿCᵣ + ⁿCᵣ₋₁ = ⁿ⁺¹Cᵣ, so ¹⁰C₄ + ¹⁰C₃ = ¹¹C₄ = 330. Check directly: 210 + 120 = 330. The trap is 210, which is ¹⁰C₄ alone; 462 = ¹¹C₅ uses the wrong r. In practice: Pascal's rule is the logic behind the binomial table that statisticians use in probability, and it lets you combine counts without recalculating.",
    "concept": "c8",
    "difficulty": "moderate",
+   "topic": "Properties of ⁿCᵣ",
    "check": "(11*10*9*8)/(1*2*3*4)"
   },
   {
@@ -1119,9 +1146,10 @@
     "1,296"
    ],
    "answer": 3,
-   "explain": "Each prize has 6 possible winners: 6⁴ = 1296. 4⁶ = 4096 reverses the roles; 360 = ⁶P₄ forbids a student winning twice.",
+   "explain": "Each of the 4 different prizes can go to any of the 6 students, independently: 6 × 6 × 6 × 6 = 6⁴ = 1,296. The trap is 4⁶ = 4,096, which reverses the roles (as if each student chose a prize); 360 = ⁶P₄ forbids a student from winning twice. Ask: 'what is being assigned, and how many choices does each have?' In practice: allocating several distinct tasks to staff, where one person can take many tasks, is counted this way.",
    "concept": "c6",
    "difficulty": "hard",
+   "topic": "Alike things and repetition",
    "check": "6*6*6*6"
   },
   {
@@ -1134,9 +1162,10 @@
     "7,200"
    ],
    "answer": 0,
-   "explain": "Line up the trainees: 5! = 120. They create 6 gaps; place the 3 managers in 3 of them in order: ⁶P₃ = 120. 120 × 120 = 14,400.",
+   "explain": "First line up the 5 trainees: 5! = 120 ways. They create 6 gaps (including both ends). Put the 3 managers in 3 different gaps, in order: ⁶P₃ = 120. Total = 120 × 120 = 14,400. The trap is 40,320 = 8!, which ignores the restriction. In practice: the gap method is used to schedule items that must not be adjacent, such as spacing high-risk audit tests between routine ones.",
    "concept": "c5",
    "difficulty": "hard",
+   "topic": "Permutations with restrictions",
    "check": "(5*4*3*2*1)*(6*5*4)"
   },
   {
@@ -1149,9 +1178,10 @@
     "2,401"
    ],
    "answer": 0,
-   "explain": "Seats are different places, so order matters: ⁷P₄ = 7 × 6 × 5 × 4 = 840.",
+   "explain": "The seats are distinct positions, so who sits where matters: the first passenger has 7 choices, then 6, 5 and 4: ⁷P₄ = 840. The trap is 35 = ⁷C₄, which counts only which seats are filled, ignoring who sits in them; 2,401 = 7⁴ lets two passengers share a seat. In practice: railway and airline seat-allocation systems face exactly this kind of count when assigning passengers to vacant seats.",
    "concept": "c3",
    "difficulty": "core",
+   "topic": "Permutations: arrangements where order matters",
    "check": "7*6*5*4"
   },
   {
@@ -1164,9 +1194,10 @@
     "2"
    ],
    "answer": 1,
-   "explain": "r! = ⁿPᵣ/ⁿCᵣ = 6 = 3!, so r = 3 (and n = 10 since ¹⁰P₃ = 720).",
+   "explain": "Since ⁿPᵣ = ⁿCᵣ × r!, r! = 720/120 = 6 = 3!, so r = 3 (and ¹⁰P₃ = 720 confirms n = 10). The trap is 6, which stops at r! = 6 and reports 6 instead of finding r. In practice: the link between arrangements and selections lets an analyst recover hidden information — for example how many roles exist — from two related counts.",
    "concept": "c7",
-   "difficulty": "moderate"
+   "difficulty": "moderate",
+   "topic": "Combinations: selections where order does not matter"
   }
  ],
  "questions": [
@@ -1787,9 +1818,10 @@
       "252"
      ],
      "answer": 1,
-     "explain": "⁴C₂ × ⁶C₃ = 6 × 20 = 120. The two selections are independent, so multiply.",
+     "explain": "Choose 2 of the 4 seniors (⁴C₂ = 6) and 3 of the 6 assistants (⁶C₃ = 20). The choices are independent, so multiply: 6 × 20 = 120. The trap is 26, which adds instead of multiplying; 252 = ¹⁰C₅ ignores the required mix. In practice: CA firms staff bank audits with a set senior-to-article ratio, and the partner's options are counted exactly this way.",
      "concept": "c9",
      "difficulty": "moderate",
+     "topic": "Special selections: some or all, alike things, independent groups, geometry",
      "check": "((4*3)/(1*2))*((6*5*4)/(1*2*3))"
     },
     {
@@ -1802,9 +1834,10 @@
       "240"
      ],
      "answer": 2,
-     "explain": "All teams ¹⁰C₅ = 252; teams with no senior ⁶C₅ = 6. 252 − 6 = 246.",
+     "explain": "Use the complement: all teams of 5 from 10 = ¹⁰C₅ = 252; teams with no senior (all from the 6 assistants) = ⁶C₅ = 6. At least one senior = 252 − 6 = 246. The trap is 252, which forgets to remove the all-assistant teams. In practice: quality-control standards require at least one experienced member on each engagement, and complement counting is the fastest way to apply such rules.",
      "concept": "c9",
      "difficulty": "hard",
+     "topic": "Special selections: some or all, alike things, independent groups, geometry",
      "check": "((10*9*8*7*6)/(1*2*3*4*5))-((6)/(1))"
     },
     {
@@ -1817,9 +1850,10 @@
       "24"
      ],
      "answer": 3,
-     "explain": "Circular arrangement: (5 − 1)! = 24.",
+     "explain": "Round-table seating of 5 different people: fix one person and arrange the other 4, giving (5 − 1)! = 4! = 24. The trap is 120 = 5!, which treats the round table as a row and counts rotations of the same seating separately. In practice: kick-off meetings at a round table have no 'head' seat, which is why rotations are not counted as new arrangements.",
      "concept": "c4",
      "difficulty": "moderate",
+     "topic": "Circular permutations",
      "check": "4*3*2*1"
     },
     {
@@ -1832,9 +1866,10 @@
       "72"
      ],
      "answer": 0,
-     "explain": "Treat the two seniors as one: 4! = 24 orders × 2! = 48.",
+     "explain": "Tie the two seniors together as one unit: 4 units can stand in 4! = 24 orders, and the two seniors can swap within the unit in 2! = 2 ways. Total = 24 × 2 = 48. The trap is 24, which forgets the seniors can stand in either order; 120 ignores the restriction. In practice: photo line-ups and stage seating with 'must be together' conditions are planned with this block method.",
      "concept": "c5",
      "difficulty": "hard",
+     "topic": "Permutations with restrictions",
      "check": "(4*3*2*1)*2"
     }
    ]

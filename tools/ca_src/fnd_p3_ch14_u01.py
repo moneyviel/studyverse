@@ -3,7 +3,12 @@ Original explanations, data and questions (structure and scope follow the ICAI s
 from math import prod, log10
 from lib import *
 from ca_viva import P, V, ALT
-from ca_cases import M as CM
+from ca_cases import M as _CM
+
+
+def CM(*a, topic=None, **k):
+    d = _CM(*a, **k); d['topic'] = topic
+    return d
 
 UID = 'fnd-p3-ch14-u01'
 
@@ -25,15 +30,15 @@ def fm(v, unit=''):
     return s + (' ' + unit if unit else '')
 
 
-def mq(mid, q, opts, explain, concept, diff='core'):
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
+def mq(mid, q, opts, explain, concept, diff='core', topic=None):
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
 
 
-def nq(mid, q, check, wrong, explain, concept, diff='core', unit=''):
+def nq(mid, q, check, wrong, explain, concept, diff='core', unit='', topic=None):
     v = ev(check)
     opts = [fm(v, unit)] + [fm(w, unit) for w in wrong]
     assert len(set(opts)) == 4 and all(abs(w - v) > 0.006 for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
 
 
 def grouped(lo, w, f):
@@ -139,13 +144,13 @@ def build():
                  'The salary register is grouped with an open last class "₹60,000 and above". Revenue grew by 8%, 15% and 25% in the last three years. One partner wants the "most common" salary band highlighted.'),
         'mcqs': [
             CM('k1a', 'What is the combined mean salary of the 60 staff?', [R(kcm), '₹30,333', '₹29,000', '₹27,600'], 0,
-               f'Combined mean = (12 × 38,000 + 30 × 24,000 + 18 × 29,000) ÷ 60 = ₹{inr(kcm)}. ₹30,333 is the simple average of the three means — wrong, because group sizes differ.', 'moderate', '(12*38000+30*24000+18*29000)/60'),
+               "Weight each department's mean by its headcount: (12 × 38,000 + 30 × 24,000 + 18 × 29,000) ÷ 60 = 16,98,000 ÷ 60 = ₹28,300. The trap is ₹30,333, the simple average of the three means, which ignores that Tax has far more staff. In practice: this combined-mean method is used whenever an HR or MIS report pools averages from groups of different sizes.", 'moderate', '(12*38000+30*24000+18*29000)/60', topic='Arithmetic mean and its properties'),
             CM('k1b', 'With an open-ended last class, which average can be computed from the grouped register without assuming a mid-value?', ['Median', 'Arithmetic mean', 'Geometric mean', 'Harmonic mean'], 0,
-               'The median needs only cumulative frequencies up to the middle; AM, GM and HM need every class mid-value, which the open class lacks.', 'moderate'),
+               "The median needs only cumulative frequencies up to the middle position, so an open-ended top class does not matter. The arithmetic mean is the trap: it needs every class's mid-value, and the class '₹60,000 and above' has none. In practice: salary surveys in India often report median pay because top brackets are open-ended and skewed.", 'moderate', topic='Median'),
             CM('k1c', 'The average annual revenue growth over the three years is closest to:', ['15.79%', '16%', '55.25%', '15%'], 0,
-               'Growth compounds, so use the GM of growth factors: (1.08 × 1.15 × 1.25)^(1/3) − 1 = 1.5525^(1/3) − 1 ≈ 15.79%. The AM of 8, 15 and 25 (16%) overstates it; 55.25% is the total growth over three years.', 'hard', 'round(((1.08*1.15*1.25)**(1/3)-1)*100,2)'),
+               'Growth compounds, so use the GM of the growth factors: (1.08 × 1.15 × 1.25)^(1/3) − 1 = 1.5525^(1/3) − 1 ≈ 15.79%. The trap is 16%, the simple average of 8, 15 and 25, which overstates compound growth. 55.25% is the total three-year growth. In practice: analysts report revenue CAGR, a geometric-mean measure, in equity research and annual reports.', 'hard', 'round(((1.08*1.15*1.25)**(1/3)-1)*100,2)', topic='Geometric mean and harmonic mean'),
             CM('k1d', 'The "most common salary band" requested by the partner is the:', ['Modal class', 'Median class', 'Class containing the mean', 'Last class'], 0,
-               'Mode is the value (or class) with the highest frequency — the most common one.', 'core'),
+               "The 'most common' band is the class with the highest frequency, which is the modal class. The median class is the trap: it contains the middle employee, not the most frequent salary band. In practice: HR teams use the modal band when designing pay structures, because it shows where most employees actually sit.", 'core', topic='Mode and the empirical relationship'),
         ]}]
 
     viva = [
@@ -297,69 +302,69 @@ def build():
         ],
         'mcqs': [
             nq('m1', 'The mean of the first 20 natural numbers is:', '(20+1)/2', [10, 11, 210],
-               'Mean of 1, 2, …, n = (n + 1)/2 = 21/2 = @A. (210 is their sum.)', 'c2'),
+               'The mean of the first n natural numbers is (n + 1) ÷ 2. For n = 20: 21 ÷ 2 = 10.5. Check: the sum is 20 × 21 ÷ 2 = 210, and 210 ÷ 20 = 10.5. The trap is 210, which is the sum, not the mean. In practice: shortcut formulas like this save time in exams and in quick spreadsheet sanity checks, such as averaging serially numbered items.', 'c2', topic='Arithmetic mean and its properties'),
             mq('m2', 'The algebraic sum of deviations of observations from their arithmetic mean is:', ['Zero', 'Minimum but positive', 'One', 'Maximum'],
-               'Σ(x − x̄) = 0 always. The sum of squared deviations is minimum about the mean; the sum of absolute deviations is minimum about the median.', 'c2'),
+               "The positive and negative deviations from the arithmetic mean always cancel out exactly, so Σ(x − x̄) = 0. 'Minimum but positive' is the trap: it confuses this with the sum of squared deviations, which is minimum (not zero) about the mean. In practice: this property is why a variance from the average budget across departments nets to zero overall.", 'c2', topic='Arithmetic mean and its properties'),
             nq('m3', 'If y = 3 − 2x and the mean of x is 10, the mean of y is:', '3-2*10', [17, 23, -20],
-               'ȳ = a + b x̄ = 3 − 2 × 10 = @A.', 'c2'),
+               'If y = a + bx, then ȳ = a + b x̄. Here ȳ = 3 − 2 × 10 = 3 − 20 = −17. The trap is 17, which drops the negative sign. In practice: a linear change of origin and scale is common in business, such as converting cost per unit into total cost with a fixed charge, and the mean moves in exactly the same way.', 'c2', topic='Arithmetic mean and its properties'),
             nq('m4', 'If 3x + 4y = 48 and x̄ = 8, then ȳ is:', '(48-3*8)/4', [8, 18, 4],
-               'y = 12 − 0.75x, so ȳ = 12 − 0.75 × 8 = @A.', 'c2', 'moderate'),
+               'Rewrite as y = (48 − 3x) ÷ 4 = 12 − 0.75x. The mean follows the same relation: ȳ = 12 − 0.75 × 8 = 12 − 6 = 6. The trap is 8, which simply copies the mean of x. In practice: whenever two quantities are linked linearly, like a budget split between two cost heads, the means are linked by the same equation.', 'c2', 'moderate', topic='Arithmetic mean and its properties'),
             nq('m5', 'The mean weight of 30 boys is 52 kg and of 20 girls is 45 kg. The combined mean weight is:', '(30*52+20*45)/50', [48.5, 50, 47.8],
-               '(30 × 52 + 20 × 45)/50 = 2,460/50 = @A kg. (48.5 is the simple average of the two means.)', 'c2'),
+               "Combined mean = (n₁x̄₁ + n₂x̄₂) ÷ (n₁ + n₂) = (30 × 52 + 20 × 45) ÷ 50 = 2,460 ÷ 50 = 49.2 kg. The trap is 48.5, the simple average of 52 and 45, which ignores that the groups are of different sizes. In practice: a CA computing an average salary across departments must weight each department's mean by its headcount.", 'c2', topic='Arithmetic mean and its properties'),
             nq('m6', 'The mean of 40 observations was 160. Later it was found that 165 was misread as 125. The correct mean is:', '(40*160-125+165)/40', [159, 164, 160.5],
-               'Correct total = 6,400 − 125 + 165 = 6,440; mean = @A.', 'c2', 'moderate'),
+               'Wrong total = 40 × 160 = 6,400. Correct the error: 6,400 − 125 + 165 = 6,440. Correct mean = 6,440 ÷ 40 = 161. The trap is 159, which subtracts the 40 difference instead of adding it. In practice: correcting a total for a mis-posted entry before recomputing an average is routine when an audit finds a wrong figure in a schedule.', 'c2', 'moderate', topic='Arithmetic mean and its properties'),
             nq('m7', 'The mean of 10 numbers is 30. If each number is multiplied by 3 and then 5 is added, the new mean is:', '30*3+5', [105, 90, 93],
-               'Change of origin and scale: new mean = 3 × 30 + 5 = @A.', 'c2'),
+               'When every value is multiplied by 3 and then 5 is added, the mean changes the same way: 3 × 30 + 5 = 95. The trap is 105, which adds 5 before multiplying, i.e. 3 × (30 + 5). In practice: converting average prices with a price increase and a fixed surcharge works the same way, so the new average needs no recalculation from raw data.', 'c2', topic='Arithmetic mean and its properties'),
             nq('m8', 'The median of 18, 25, 11, 30, 22, 14, 27, 20 is:', '(20+22)/2', [20, 22, 20.88],
-               'Sorted: 11, 14, 18, 20, 22, 25, 27, 30. n = 8, so median = (4th + 5th)/2 = (20 + 22)/2 = @A.', 'c3'),
+               'Sort first: 11, 14, 18, 20, 22, 25, 27, 30. With n = 8 (even), the median is the average of the 4th and 5th values: (20 + 22) ÷ 2 = 21. The trap is 22 or 20, which takes just one middle value or forgets to sort. In practice: medians are used for figures like typical house prices or salaries, where a few extreme values distort the mean.', 'c3', topic='Median'),
             nq('m9', 'For a distribution, N = 80, the median class is 30–40, c.f. up to 30 is 32 and the median class frequency is 16. The median is:', '30+(40-32)/16*10', [35.5, 30.5, 38],
-               'Me = 30 + (N/2 − 32)/16 × 10 = 30 + 8/16 × 10 = @A.', 'c3', 'moderate'),
+               'Median = L + ((N/2 − c.f.) ÷ f) × h = 30 + ((40 − 32) ÷ 16) × 10 = 30 + 5 = 35. The trap is 30.5, which forgets to multiply the fraction 8/16 by the class width of 10. In practice: the median of grouped income or turnover data is often reported in economic surveys and is found using this interpolation.', 'c3', 'moderate', topic='Median'),
             mq('m10', 'The sum of absolute deviations of a set of observations is minimum when taken from the:', ['Median', 'Mean', 'Mode', 'Geometric mean'],
-               'Σ|x − A| is least for A = median.', 'c3'),
+               'The sum of absolute deviations Σ|x − A| is smallest when A is the median. The mean is the trap: the mean minimises the sum of squared deviations, not absolute ones. In practice: when choosing a warehouse location along a road to minimise total distance to shops, the median position is the best choice.', 'c3', topic='Median'),
             mq('m11', 'The most suitable average for a distribution with open-end classes is the:', ['Median', 'Arithmetic mean', 'Geometric mean', 'Harmonic mean'],
-               'The median uses only the middle position, so open ends do not matter.', 'c3'),
+               "The median depends only on the middle position, so it can be found even when the first or last class is open-ended. The arithmetic mean is the trap: it needs mid-values of every class, which open classes lack. In practice: income-tax data often have a top bracket like 'above ₹50 lakh', so medians are preferred for such grouped data.", 'c3', topic='Median'),
             nq('m12', 'For x and y related by 2x − 5y = 10, the median of x is 30. The median of y is:', '(2*30-10)/5', [4, 14, 12],
-               'y = (2x − 10)/5 = −2 + 0.4x, so median of y = −2 + 0.4 × 30 = @A.', 'c3', 'moderate'),
+               'From 2x − 5y = 10, y = (2x − 10) ÷ 5 = 0.4x − 2. The median follows the same linear relation: 0.4 × 30 − 2 = 12 − 2 = 10. The trap is 14, which forgets to subtract the 2 (it computes (2 × 30 + 10) ÷ 5). In practice: medians, like means, move with linear conversions such as currency translation at a fixed rate.', 'c3', 'moderate', topic='Median'),
             nq('m13', 'For the ordered data 8, 12, 15, 19, 23, 26, 31, the first quartile (ICAI positional rule) is:', '12', [15, 10, 13.5],
-               'Q₁ = ((n + 1)/4)th = (8/4)th = 2nd value = @A.', 'c4'),
+               "By ICAI's rule, Q₁ is the ((n + 1) ÷ 4)th value. With n = 7, that is (8 ÷ 4) = 2nd value, which is 12. The trap is 15, the 3rd value, which comes from counting one place too far. In practice: quartiles are used in salary benchmarking, for example placing an employee's pay in the bottom 25% of the market.", 'c4', topic='Partition values — quartiles, deciles, percentiles'),
             nq('m14', 'For the ordered data 48, 53, 61, 70, 72, 79, 84, 92, 110, 125, the third quartile (ICAI positional rule) is:', '92+0.25*(110-92)', [92, 110, 101],
-               'Q₃ = 3(n + 1)/4 = 8.25th value = 92 + 0.25 × (110 − 92) = @A.', 'c4', 'moderate'),
+               'Q₃ is the (3(n + 1) ÷ 4)th value. With n = 10, that is 33 ÷ 4 = 8.25th value: 92 + 0.25 × (110 − 92) = 92 + 4.5 = 96.5. The trap is 92, which takes only the 8th value and ignores the 0.25 fraction. In practice: the top-quartile cut-off is used by mutual-fund rating agencies to identify the best-performing quarter of funds.', 'c4', 'moderate', topic='Partition values — quartiles, deciles, percentiles'),
             mq('m15', 'Which of the following is equal to the median?', ['D₅ and P₅₀', 'D₂ and P₂₀', 'Q₁ and P₂₅', 'Q₃ and P₇₅'],
-               'Median = Q₂ = D₅ = P₅₀.', 'c4'),
+               "The median divides data into two equal halves, so it equals Q₂, the 5th decile (D₅) and the 50th percentile (P₅₀). Q₁ and P₂₅ is the trap: those mark the lower 25% point, not the middle. In practice: competitive exam results quoting 'percentile' scores, like CAT, use P₅₀ for the median candidate.", 'c4', topic='Partition values — quartiles, deciles, percentiles'),
             mq('m16', 'The number of deciles in a distribution is:', ['9', '10', '4', '99'],
-               'Ten equal parts need nine dividing points D₁ … D₉.', 'c4'),
+               'Deciles divide the data into ten equal parts, which needs nine dividing points, D₁ to D₉. The trap is 10, which counts the parts instead of the dividing points. Similarly there are 3 quartiles and 99 percentiles. In practice: income-distribution studies often report shares of the top and bottom deciles of households.', 'c4', topic='Partition values — quartiles, deciles, percentiles'),
             nq('m17', 'For a moderately skewed distribution, mean = 54 and median = 50. The mode is approximately:', '3*50-2*54', [46, 58, 48],
-               'Mode = 3 Median − 2 Mean = 150 − 108 = @A.', 'c5'),
+               'For moderately skewed data, Mode ≈ 3 Median − 2 Mean = 3 × 50 − 2 × 54 = 150 − 108 = 42. The trap is 46, which wrongly uses mean − 2(mean − median). In practice: when only the mean and median are available, as in a published report, this empirical relation gives an estimate of the most common value.', 'c5', topic='Mode and the empirical relationship'),
             nq('m18', 'For a moderately skewed distribution, mode = 24 and mean = 30. The median is approximately:', '(24+2*30)/3', [27, 26, 32],
-               'From Mode = 3Me − 2x̄: Me = (Mode + 2 Mean)/3 = (24 + 60)/3 = @A.', 'c5', 'moderate'),
+               'From Mode = 3 Median − 2 Mean, rearrange: Median = (Mode + 2 Mean) ÷ 3 = (24 + 60) ÷ 3 = 28. The trap is 27, the simple average of mode and mean. In practice: the empirical relation helps analysts check whether published averages for a skewed distribution, such as incomes, are mutually consistent.', 'c5', 'moderate', topic='Mode and the empirical relationship'),
             nq('m19', 'The modal class is 40–50 with frequency 28; the classes before and after have frequencies 20 and 16. The mode is:', '40+(28-20)/(2*28-20-16)*10', [45, 46.67, 42],
-               'Mo = 40 + (28 − 20)/(56 − 36) × 10 = 40 + 8/20 × 10 = @A.', 'c5', 'moderate'),
+               'Mode = L + ((f₁ − f₀) ÷ (2f₁ − f₀ − f₂)) × h = 40 + ((28 − 20) ÷ (56 − 20 − 16)) × 10 = 40 + (8 ÷ 20) × 10 = 44. The trap is 45, the mid-value of the modal class. In practice: retailers estimate the most common bill size from grouped sales data using this formula to plan pricing.', 'c5', 'moderate', topic='Mode and the empirical relationship'),
             mq('m20', 'For the values 5, 9, 12, 17, 21, no value repeats. The mode:', ['Does not exist', 'Is 12', 'Is 5', 'Is 21'],
-               'When all values occur equally often there is no mode.', 'c5'),
+               "The mode is the value that occurs most often. Here every value occurs once, so no value is more frequent than the others and the mode does not exist. 'Is 12' is the trap: 12 is the middle value (the median), not the mode. In practice: mode is useful only when values repeat, such as the most popular shoe size sold.", 'c5', topic='Mode and the empirical relationship'),
             nq('m21', 'The geometric mean of 4, 6 and 9 is:', 'round((4*6*9)**(1/3),2)', [6.33, 5.68, 7],
-               '(4 × 6 × 9)^(1/3) = 216^(1/3) = @A. (6.33 is the AM; 5.68 = 108/19 is the HM.)', 'c6'),
+               'GM = (4 × 6 × 9)^(1/3) = 216^(1/3) = 6. The trap is 6.33, the arithmetic mean (19 ÷ 3); 5.68 is the harmonic mean. In practice: the geometric mean is used for averaging ratios and growth rates, such as the average annual return on an investment over several years.', 'c6', topic='Geometric mean and harmonic mean'),
             nq('m22', 'The harmonic mean of 2, 3 and 6 is:', '3/(1/2+1/3+1/6)', [3.67, 3.3, 11],
-               'HM = 3/(1/2 + 1/3 + 1/6) = 3/1 = @A.', 'c6'),
+               'HM = n ÷ Σ(1/x) = 3 ÷ (1/2 + 1/3 + 1/6) = 3 ÷ 1 = 3. The trap is 3.67, the arithmetic mean (11 ÷ 3). In practice: the harmonic mean is used for averaging rates, such as the average price per unit when equal amounts of money are spent at different prices (rupee-cost averaging in SIPs).', 'c6', topic='Geometric mean and harmonic mean'),
             nq('m23', 'A car travels from A to B at 30 km/h and returns over the same road at 60 km/h. The average speed for the round trip is:', '2/(1/30+1/60)', [45, 42.43, 50],
-               'Equal distances → HM = 2/(1/30 + 1/60) = @A km/h.', 'c6', 'moderate', 'kmph'),
+               'For equal distances at different speeds, use the harmonic mean: 2 ÷ (1/30 + 1/60) = 2 ÷ (3/60) = 40 km/h. The trap is 45, the arithmetic mean, which wrongly assumes equal time at each speed. In practice: logistics teams compute average speed or average cost per km over equal-distance legs with the harmonic mean.', 'c6', 'moderate', 'kmph', topic='Geometric mean and harmonic mean'),
             mq('m24', 'The most appropriate average for the average rate of growth of population is the:', ['Geometric mean', 'Arithmetic mean', 'Harmonic mean', 'Mode'],
-               'Growth compounds, so the GM of growth factors is used.', 'c6'),
+               "Population grows by compounding, each year's rate applying to a larger base, so the average rate of growth is found with the geometric mean of the growth factors. The arithmetic mean is the trap: it overstates compounding growth. In practice: CAGR used by analysts for revenue or population growth is a geometric-mean concept.", 'c6', topic='Geometric mean and harmonic mean'),
             nq('m25', 'For two positive numbers, AM = 10 and GM = 8. The HM is:', '8**2/10', [6, 9, 7.2],
-               'For two numbers AH = G², so H = 64/10 = @A.', 'c7', 'moderate'),
+               'For two positive numbers, AM × HM = GM². So HM = GM² ÷ AM = 64 ÷ 10 = 6.4. The trap is 6, which assumes the three means are equally spaced. In practice: this identity offers a quick check when comparing average prices worked out in different ways for two purchase lots.', 'c7', 'moderate', topic='AM ≥ GM ≥ HM, weighted averages and choosing an average'),
             nq('m26', 'The AM and GM of two positive numbers are 13 and 12. The larger number is:', '(26+(26**2-4*144)**0.5)/2', [16, 12, 13],
-               'a + b = 26, ab = 144 ⇒ a, b are roots of t² − 26t + 144 = 0, i.e. 18 and 8. Larger = @A.', 'c7', 'hard'),
+               'AM = 13 gives a + b = 26; GM = 12 gives ab = 144. The numbers are roots of t² − 26t + 144 = 0, i.e. 18 and 8. The larger is 18. The trap is 13, the AM itself. Check: 18 + 8 = 26 and 18 × 8 = 144. In practice: reversing from averages to the original figures is a common reconciliation exercise when only summary figures are available.', 'c7', 'hard', topic='AM ≥ GM ≥ HM, weighted averages and choosing an average'),
             mq('m27', 'For any set of positive observations, not all equal:', ['AM > GM > HM', 'AM < GM < HM', 'GM > AM > HM', 'HM > GM > AM'],
-               'AM ≥ GM ≥ HM, with strict inequality unless all values are equal.', 'c7'),
+               "For positive values that are not all equal, AM > GM > HM always; they are equal only when all values are equal. 'GM > AM > HM' is the trap: the arithmetic mean is always the largest. In practice: this is why the simple average of annual returns (AM) overstates the compound annual growth rate (GM) of an investment.", 'c7', topic='AM ≥ GM ≥ HM, weighted averages and choosing an average'),
             mq('m28', 'The relation AM × HM = GM² holds:', ['Only for two positive numbers', 'For any set of positive numbers', 'Only for three numbers', 'Never'],
-               'It is an identity for two positive numbers only.', 'c7', 'moderate'),
+               "AM × HM = GM² is an identity that holds for exactly two positive numbers. 'For any set of positive numbers' is the trap: with three or more numbers the identity generally fails. In practice: remembering when a shortcut applies avoids errors, just as a tax formula valid for one regime may not apply to another.", 'c7', 'moderate', topic='AM ≥ GM ≥ HM, weighted averages and choosing an average'),
             nq('m29', 'Marks 60, 75 and 90 carry weights 2, 3 and 5. The weighted mean is:', '(60*2+75*3+90*5)/10', [75, 77.5, 81],
-               'Σwx/Σw = (120 + 225 + 450)/10 = @A.', 'c7'),
+               'Weighted mean = Σwx ÷ Σw = (60 × 2 + 75 × 3 + 90 × 5) ÷ 10 = (120 + 225 + 450) ÷ 10 = 79.5. The trap is 75, the simple average that ignores the weights. In practice: weighted averages are used for the weighted average cost of capital (WACC) and for weighted average inventory cost under AS 2.', 'c7', topic='AM ≥ GM ≥ HM, weighted averages and choosing an average'),
             nq('m30', 'The mean of the frequency distribution x: 10, 20, 30, 40 with f: 3, 7, f, 2 is 25. The missing frequency f is:', '(25*12-30-140-80)/(30-25)', [8, 6, 12],
-               'Σfx = 30 + 140 + 30f + 80 = 25(12 + f) ⇒ 250 + 30f = 300 + 25f ⇒ f = @A.', 'c2', 'hard'),
+               'Set Σfx ÷ Σf = 25: (30 + 140 + 30f + 80) ÷ (12 + f) = 25, so 250 + 30f = 300 + 25f, giving 5f = 50 and f = 10. The trap is 12, which is the total of the known frequencies, not the missing one. Check: total 22, Σfx = 550, and 550 ÷ 22 = 25. In practice: finding a missing figure from a known average is common when reconstructing incomplete records.', 'c2', 'hard', topic='Arithmetic mean and its properties'),
             mq('m31', 'Which average is most affected by extreme observations?', ['Arithmetic mean', 'Median', 'Mode', 'Quartile'],
-               'The AM uses every value with its full size, so one extreme value pulls it.', 'c1'),
+               "The arithmetic mean uses the full value of every observation, so a single extreme value pulls it strongly. The median is the trap: it depends only on the middle position and is hardly affected by extremes. In practice: one very high CEO salary can raise a company's average pay sharply, which is why median pay is often reported too.", 'c1', topic='Central tendency and the ideal average'),
             mq('m32', 'Which average is generally considered the best measure of central tendency?', ['Arithmetic mean', 'Mode', 'Harmonic mean', 'Median'],
-               'ICAI: the AM is usually the best — rigidly defined, based on all observations, easy and mathematically tractable.', 'c7'),
+               'The arithmetic mean is generally regarded as the best average: it is rigidly defined, based on all observations, easy to compute and suitable for further algebraic treatment. The median is the trap: it is better for open-ended or highly skewed data, but not best in general. In practice: most financial averages, such as average cost or average return, use the arithmetic mean.', 'c7', topic='AM ≥ GM ≥ HM, weighted averages and choosing an average'),
         ],
         'questions': [
             {'id': 'q1', 'marks': 6, 'minutes': minutes(6), 'difficulty': 'moderate', 'pad': 'table',

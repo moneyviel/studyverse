@@ -4,7 +4,12 @@ from itertools import combinations, product
 from math import comb, sqrt
 from lib import *
 from ca_viva import P, V, ALT
-from ca_cases import M as CM
+from ca_cases import M as _CM
+
+
+def CM(*a, topic=None, **k):
+    d = _CM(*a, **k); d['topic'] = topic
+    return d
 
 UID = 'fnd-p3-ch13-u02'
 
@@ -27,15 +32,15 @@ def fm(v, unit=''):
     return s + (' ' + unit if unit else '')
 
 
-def mq(mid, q, opts, explain, concept, diff='core'):
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
+def mq(mid, q, opts, explain, concept, diff='core', topic=None):
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
 
 
-def nq(mid, q, check, wrong, explain, concept, diff='core', unit=''):
+def nq(mid, q, check, wrong, explain, concept, diff='core', unit='', topic=None):
     v = ev(check)
     opts = [fm(v, unit)] + [fm(w, unit) for w in wrong]
     assert len(set(opts)) == 4 and all(abs(w - v) > 0.006 for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
 
 
 def build():
@@ -128,13 +133,13 @@ def build():
                  'From past records the standard deviation of lamp life is 120 hours. One inspector, finding a carton hard to reach, replaced the selected lamp with one from the top of another carton.'),
         'mcqs': [
             CM('k1a', 'Why must the buyer use a sample rather than test every lamp?', ['Testing destroys the lamps (destructive testing)', 'A census is always less accurate', 'The population is too small', 'Sampling has no errors'], 0,
-               'When testing uses up the item, complete enumeration would leave nothing to sell, so sampling is a necessity.', 'core'),
+               "Finding a lamp's life means running it until it fails, so each tested lamp is destroyed. Testing every lamp would leave nothing to sell, so sampling is a necessity. 'A census is always less accurate' is the trap: a census avoids sampling error; the reason here is destruction. In practice: buyers of LED lamps, tyres or batteries in India rely on sample-based life tests for this reason.", 'core', topic='Sample survey vs complete enumeration (census)'),
             CM('k1b', 'What is the standard error of the sample mean life?', ['15', '120', '1.875', '7.5'], 0,
-               f'The lot is large, so treat it as infinite: SE = σ/√n = 120 ÷ 8 = {fm(kse)} hours.', 'moderate', '120/64**0.5'),
+               'The lot is large, so treat it as infinite and ignore the correction: SE = σ/√n = 120 ÷ √64 = 120 ÷ 8 = 15 hours. The trap is 120, the population SD itself, not the standard error of the mean. In practice: a 15-hour SE tells the buyer how precisely the sample estimates the true average life against the claimed 15,000 hours.', 'moderate', '120/64**0.5', topic='Key terms, sampling distribution and standard error'),
             CM('k1c', 'If the team had tested 256 lamps instead, the standard error would:', ['Be halved', 'Be quartered', 'Double', 'Stay the same'], 0,
-               'SE varies inversely as √n. Four times the sample size gives √4 = 2 times the precision — SE halves (to 7.5 hours).', 'moderate'),
+               "SE = σ/√n. Testing 256 lamps instead of 64 multiplies n by 4, so √n doubles and the SE halves, from 15 to 120 ÷ 16 = 7.5 hours. 'Be quartered' is the trap: it assumes SE falls in line with n rather than √n. In practice: quality teams weigh this gain in precision against destroying four times as many lamps.", 'moderate', topic='Key terms, sampling distribution and standard error'),
             CM('k1d', 'The inspector\'s replacement of the selected lamp introduces:', ['A sampling error arising from substitution', 'A non-sampling error that only a census can have', 'No error, as one lamp is as good as another', 'An error of the finite population correction'], 0,
-               'Replacing a selected unit with a convenient one breaks the design; ICAI lists substitution as a source of sampling error (bias).', 'hard'),
+               "Replacing a selected lamp with a convenient one breaks the random design. ICAI lists such substitution as a source of sampling error (bias). 'No error, as one lamp is as good as another' is the trap: lamps at the top of a carton may differ systematically. In practice: audit teams are trained never to replace a selected item for convenience, and to document any genuine replacement.", 'hard', topic='Errors in sample surveys'),
         ]}]
 
     viva = [
@@ -270,67 +275,67 @@ def build():
         ],
         'mcqs': [
             mq('m1', 'According to the law of statistical regularity:', ['A moderately large random sample, on average, shows the characteristics of the population', 'Results are always exact for small samples', 'Only purposive samples represent the population', 'Larger samples always cost less'],
-               'The law requires both a reasonably large size and random selection.', 'c1'),
+               "The law of statistical regularity says that a reasonably large sample chosen at random will, on average, show the characteristics of the population. Both conditions matter: size and randomness. 'Only purposive samples represent the population' is the trap: judgement selection breaks the randomness the law needs. In practice: auditors rely on this law when they test a random sample of vouchers instead of every entry.", 'c1', topic='Why sample, and the principles behind it'),
             mq('m2', 'The principle stating that results become more reliable as the sample size increases, other things remaining the same, is the principle of:', ['Inertia of large numbers', 'Optimisation', 'Validity', 'Statistical regularity'],
-               'Inertia of large numbers follows from the law of statistical regularity and is about stability as n grows.', 'c1', 'moderate'),
+               'The principle of inertia of large numbers says that, other things equal, results become more stable and reliable as the sample size grows, because extreme values tend to cancel out. Statistical regularity is the trap: it is the parent law about random samples representing the population, not specifically about stability with size. In practice: opinion polls and audit samples gain reliability with larger sizes.', 'c1', 'moderate', topic='Why sample, and the principles behind it'),
             mq('m3', 'Under the principle of validity, a sample design can be called valid only when:', ['It yields valid estimates and valid tests about parameters', 'It is cheapest', 'The sample is very large', 'The sampler uses judgement'],
-               'Only probability sampling ensures valid estimates and tests.', 'c1'),
+               "The principle of validity says a sample design is valid only if it allows valid estimates of population parameters and valid tests of significance. This needs probability (random) sampling. 'It is cheapest' is the trap: cost relates to the principle of optimisation, not validity. In practice: statistical sampling in audit is accepted because it lets the auditor project errors to the whole population.", 'c1', topic='Why sample, and the principles behind it'),
             mq('m4', 'Maximum efficiency at a given cost, or a given efficiency at minimum cost, is the principle of:', ['Optimisation', 'Validity', 'Inertia', 'Statistical regularity'],
-               'That is the definition of the principle of optimisation.', 'c1'),
+               'The principle of optimisation aims at the best efficiency (lowest standard error) for a given cost, or a given efficiency at the lowest cost. Validity is the trap: it concerns whether valid estimates and tests are possible, not cost. In practice: an audit manager choosing a sample size balances the cost of testing against the precision needed, which is this principle at work.', 'c1', topic='Why sample, and the principles behind it'),
             mq('m5', 'Testing the life of electric bulbs requires sampling because:', ['The testing destroys the items', 'Sampling has no error', 'The population is small', 'A census is always cheaper'],
-               'Destructive testing makes complete enumeration pointless.', 'c2'),
+               "To find a bulb's life, it must be burned until it fails, so testing destroys the item. A complete enumeration would leave nothing to sell, so sampling is the only option. 'A census is always cheaper' is the trap: a census is usually costlier. In practice: food, pharma and electronics manufacturers in India test destructive quality parameters only on samples from each batch.", 'c2', topic='Sample survey vs complete enumeration (census)'),
             mq('m6', 'Complete enumeration is preferred when:', ['One defect could be disastrous, as with aircraft components', 'Testing destroys the item', 'The population is hypothetical', 'Speed is the main concern'],
-               'When every unit must be checked — small populations, critical items — a census is used.', 'c2'),
+               "When even one defective unit could be disastrous, such as aircraft parts, every unit must be inspected, so complete enumeration (census) is preferred. 'Testing destroys the item' is the trap: that makes a census impossible, not preferable. In practice: banks verify every high-value loan file or every cash vault item rather than sampling, because the risk of one error is too high.", 'c2', topic='Sample survey vs complete enumeration (census)'),
             mq('m7', 'Compared with a census, the cost per unit of a sample survey is usually ____ but the total cost is ____.', ['higher; lower', 'lower; higher', 'lower; lower', 'higher; higher'],
-               'Better-trained staff raise the per-unit cost, but far fewer units keep the total lower.', 'c2', 'moderate'),
+               "A sample survey uses better-trained staff and closer supervision, so the cost per unit is usually higher, but far fewer units are covered, so the total cost is lower. 'Lower; higher' is the trap: it reverses both. In practice: NSSO surveys use skilled field staff for a sample of households instead of reaching every household as the Census of India does.", 'c2', 'moderate', topic='Sample survey vs complete enumeration (census)'),
             mq('m8', 'Which error is completely absent in a complete enumeration?', ['Sampling error', 'Non-sampling error', 'Recording error', 'Non-response error'],
-               'Sampling error arises only because a part is studied. Non-sampling errors affect both.', 'c3'),
+               'Sampling error arises only because a part of the population is studied instead of the whole, so it is absent in a complete enumeration. Non-sampling error is the trap: errors like recording mistakes, non-response or bias occur in both censuses and samples. In practice: even a 100% stock count can contain counting or recording errors, which are non-sampling errors.', 'c3', topic='Errors in sample surveys'),
             mq('m9', 'An enumerator replaces a selected household with a nearby one because the selected one was locked. The error is due to:', ['Substitution (a sampling error)', 'Wrong choice of statistic', 'Faulty demarcation', 'Lapse of memory'],
-               'Replacing a selected unit for convenience is substitution; ICAI lists it under sampling errors.', 'c3', 'moderate'),
+               "The enumerator replaced the selected household with a convenient one. This is substitution, which ICAI lists among the sources of sampling error because it changes the sample actually studied. Lapse of memory is the trap: that is a respondent's error, a non-sampling error. In practice: an auditor must not swap a selected voucher for an easier one; the selection must be followed exactly.", 'c3', 'moderate', topic='Errors in sample surveys'),
             mq('m10', 'Non-response by respondents is an example of:', ['Non-sampling error', 'Sampling error', 'Standard error', 'Finite population correction'],
-               'Non-response, memory lapses and recording mistakes are non-sampling errors.', 'c3'),
+               'Non-response arises from respondents not replying, not from the fact that only a sample was studied, so it is a non-sampling error. It can occur even in a census. Sampling error is the trap: that comes only from studying a part instead of the whole. In practice: unreturned debtor confirmations in audit are a non-response problem that needs alternative procedures.', 'c3', topic='Errors in sample surveys'),
             mq('m11', 'Sampling error can be reduced by:', ['Increasing the sample size and following a probability design strictly', 'Using purposive sampling', 'Reducing the sample size', 'Allowing substitution'],
-               'Larger n and strict probability sampling reduce sampling error.', 'c3'),
+               "Sampling error falls when the sample size is increased and the probability design is followed strictly, with no substitution. 'Using purposive sampling' is the trap: judgement selection introduces bias and does not allow the error to be measured. In practice: Standards on Auditing guide auditors to increase sample sizes where risk is higher, to reduce sampling risk.", 'c3', topic='Errors in sample surveys'),
             mq('m12', 'The population of heads obtained when a coin is tossed endlessly is:', ['Hypothetical and infinite', 'Existent and finite', 'Existent and infinite', 'Hypothetical and finite'],
-               'It does not physically exist and has no end — hypothetical (imaginary) and infinite.', 'c4', 'moderate'),
+               "The heads from endlessly tossing a coin do not physically exist as a fixed group, so the population is hypothetical, and since tossing can go on forever, it is infinite. 'Existent and finite' is the trap: that describes real, countable groups such as employees of a company. In practice: models of repeated events, like daily price moves, treat outcomes as a hypothetical infinite population.", 'c4', 'moderate', topic='Key terms, sampling distribution and standard error'),
             mq('m13', 'A complete and up-to-date list of all sampling units is called the:', ['Sampling frame', 'Sampling distribution', 'Sample space', 'Stratum'],
-               'The frame must exist before a sample can be drawn.', 'c4'),
+               "A sampling frame is the complete and up-to-date list of all sampling units, from which the sample is drawn. A sampling distribution is the trap: that is the distribution of a statistic across all possible samples. In practice: in an audit, the frame might be the debtors' ledger listing or the voucher register, and it must be complete before sampling begins.", 'c4', topic='Key terms, sampling distribution and standard error'),
             mq('m14', 'A characteristic computed from all units of the population is a:', ['Parameter', 'Statistic', 'Standard error', 'Sampling unit'],
-               'Parameter → population; statistic → sample.', 'c4'),
+               'A value computed from all units of the population is a parameter, such as the true population mean. A statistic is the trap: that is computed from a sample and used to estimate the parameter. In practice: the true average balance of all savings accounts at a bank is a parameter; the average from a sample of 500 accounts is a statistic.', 'c4', topic='Key terms, sampling distribution and standard error'),
             mq('m15', 'The standard deviation of the sampling distribution of a statistic is called its:', ['Standard error', 'Variance', 'Expectation', 'Sampling fluctuation'],
-               'SE measures the precision achieved by sampling.', 'c4'),
+               'The standard deviation of the sampling distribution of a statistic is its standard error. It measures how much the statistic varies from sample to sample, i.e. its precision. Variance is the trap: variance is the square of a standard deviation, not this specific measure. In practice: survey reports by agencies like RBI quote a margin of error based on the standard error.', 'c4', topic='Key terms, sampling distribution and standard error'),
             nq('m16', 'How many samples of size 3 can be drawn without replacement from a population of 6 units?', '6*5*4/(3*2*1)', [216, 120, 18],
-               'ᴺCₙ = ⁶C₃ = @A. (216 = 6³ is with replacement; 120 counts ordered selections.)', 'c4'),
+               'Without replacement, and order not mattering, the number of samples is ⁶C₃ = (6 × 5 × 4) ÷ (3 × 2 × 1) = 20. 216 is the trap: 6³ counts samples drawn with replacement. 120 counts ordered selections. In practice: knowing how many different samples are possible helps an auditor appreciate that each random sample is just one of many.', 'c4', topic='Key terms, sampling distribution and standard error'),
             nq('m17', 'How many samples of size 2 can be drawn with replacement from a population of 5 units?', '5**2', [10, 20, 32],
-               'With replacement the count is Nⁿ = 5² = @A. (10 = ⁵C₂ is without replacement.)', 'c4'),
+               'With replacement, each of the 2 draws can be any of the 5 units, so the count is Nⁿ = 5² = 25. 10 is the trap: ⁵C₂ = 10 is the count without replacement. In practice: with-replacement sampling is assumed in many statistical formulas, such as SE = σ/√n, because it keeps each draw independent.', 'c4', topic='Key terms, sampling distribution and standard error'),
             nq('m18', 'A population has SD 24. The standard error of the mean for a random sample of 36 drawn with replacement is:', '24/36**0.5', [0.67, 24, 6],
-               'SE = σ/√n = 24/6 = @A.', 'c4'),
+               'With replacement, the standard error of the mean is σ/√n = 24 ÷ √36 = 24 ÷ 6 = 4. 24 is the trap: that is the population SD, not the standard error of the sample mean. In practice: an analyst estimating average invoice value from a sample quotes this standard error to show how close the estimate is likely to be.', 'c4', topic='Key terms, sampling distribution and standard error'),
             nq('m19', 'From a population of 101 units with SD 10, a sample of 25 is drawn without replacement. The SE of the mean is:', 'round(10/25**0.5*((101-25)/(101-1))**0.5,2)', [2, 1.52, 0.4],
-               'SE = 10/5 × √(76/100) = 2 × 0.8718 = @A. (2 ignores the fpc; 1.52 forgets the square root of the fpc.)', 'c4', 'hard'),
+               'Without replacement, apply the finite population correction: SE = (σ/√n) × √((N − n)/(N − 1)) = (10 ÷ 5) × √(76 ÷ 100) = 2 × 0.8718 ≈ 1.74. The trap is 2, which ignores the correction. 1.52 forgets the square root. In practice: auditors sampling from a small population of invoices benefit from this correction, which reduces the required sample size.', 'c4', 'hard', topic='Key terms, sampling distribution and standard error'),
             nq('m20', 'In a large population 40% of firms are loss-making. For a random sample of 600, the standard error of the sample proportion is:', 'round((0.4*0.6/600)**0.5,2)', [0.0004, 0.04, 0.24],
-               'SE(p) = √(0.4 × 0.6/600) = √0.0004 = @A. (0.0004 forgets the square root.)', 'c4', 'moderate'),
+               'For a proportion, SE = √(PQ/n) = √(0.4 × 0.6 ÷ 600) = √0.0004 = 0.02. The trap is 0.0004, which forgets to take the square root. In practice: a survey of 600 firms reporting a 40% loss-making share would quote a margin of about ±2 percentage points per standard error.', 'c4', 'moderate', topic='Key terms, sampling distribution and standard error'),
             mq('m21', 'If the sample size is increased from 100 to 400, the standard error of the mean becomes:', ['Half', 'One-fourth', 'Double', 'Unchanged'],
-               'SE ∝ 1/√n; √(400/100) = 2, so SE halves.', 'c4', 'moderate'),
+               "SE = σ/√n, so it varies inversely with the square root of n. Multiplying n by 4 multiplies √n by √4 = 2, so the SE halves. 'One-fourth' is the trap: it assumes SE falls in proportion to n, not √n. In practice: to halve the margin of error of a survey or audit sample, you need four times as many items, which is costly.", 'c4', 'moderate', topic='Key terms, sampling distribution and standard error'),
             mq('m22', 'The finite population correction √((N − n)/(N − 1)) may be ignored when:', ['The population is very large or infinite relative to the sample', 'The sample equals the population', 'Sampling is purposive', 'The population is small'],
-               'For large N the factor tends to 1.', 'c4'),
+               "The factor √((N − n)/(N − 1)) is close to 1 when N is very large compared with n, so it can be ignored for very large or infinite populations. 'The population is small' is the trap: that is exactly when the correction matters most. In practice: national surveys drawn from crores of households ignore the correction; a sample from a 200-item ledger should not.", 'c4', topic='Key terms, sampling distribution and standard error'),
             mq('m23', 'Systematic sampling is classed by ICAI as:', ['Mixed sampling', 'Pure probability sampling', 'Purposive sampling', 'Stratified sampling'],
-               'Only the first unit is random; the rest follow a fixed rule — so it is mixed sampling.', 'c5', 'moderate'),
+               'In systematic sampling only the first unit is chosen at random and every k-th unit after it follows a fixed rule. Because it combines random and non-random selection, ICAI classes it as mixed sampling. Pure probability sampling is the trap: not every later unit is chosen at random. In practice: auditors often pick every 50th voucher after a random start.', 'c5', 'moderate', topic='Types of sampling'),
             mq('m24', 'Which sampling method is most suitable for a large and heterogeneous population?', ['Stratified sampling', 'Simple random sampling', 'Purposive sampling', 'Systematic sampling'],
-               'Stratification forms internally homogeneous groups and samples each.', 'c5'),
+               'In a large heterogeneous population, stratified sampling first divides it into groups that are internally similar, then samples from each. This gives better representation and precision. Simple random sampling is the trap: it can miss small but important groups. In practice: auditors stratify debtors by balance size so that large balances are always tested.', 'c5', topic='Types of sampling'),
             mq('m25', 'Under Neyman allocation, the sample size of a stratum is proportional to:', ['Product of its size and its standard deviation', 'Its size only', 'Its standard deviation only', 'The square of its size'],
-               'nᵢ ∝ NᵢSᵢ. Proportional (Bowley) allocation uses Nᵢ only.', 'c5'),
+               "Neyman (optimum) allocation gives each stratum a sample proportional to NᵢSᵢ, the product of its size and its standard deviation, so larger and more variable strata get more units. 'Its size only' is the trap: that is proportional (Bowley's) allocation. In practice: more variable strata, such as high-value receivables, get larger samples in audit to control risk.", 'c5', topic='Types of sampling'),
             nq('m26', 'Strata of sizes 600, 300 and 100 share a sample of 50 by proportional allocation. The first stratum gets:', '50*600/1000', [25, 16.67, 20],
-               'n₁ = 50 × 600/1,000 = @A.', 'c5'),
+               "Under proportional allocation, each stratum's share = n × Nᵢ ÷ N. Total N = 600 + 300 + 100 = 1,000, so the first stratum gets 50 × 600 ÷ 1,000 = 30. The trap is 16.67, which splits the sample equally among the three strata. In practice: a bank sampling branches across regions uses proportional allocation so that bigger regions get more sampled branches.", 'c5', topic='Types of sampling'),
             nq('m27', 'A systematic sample of 25 is to be selected from 500 units. The sampling interval is:', '500/25', [25, 12.5, 475],
-               'k = N/n = 500/25 = @A.', 'c5'),
+               'The sampling interval k = N ÷ n = 500 ÷ 25 = 20, so every 20th unit is chosen after a random start between 1 and 20. The trap is 25, which is the sample size, not the interval. In practice: an auditor selecting 25 of 500 sales invoices picks a random start and then every 20th invoice.', 'c5', topic='Types of sampling'),
             mq('m28', 'Selecting States, then districts within them, then villages and finally households is:', ['Multistage sampling', 'Stratified sampling', 'Systematic sampling', 'Cluster-free sampling'],
-               'Selection proceeds through stages down to the ultimate sampling unit.', 'c5'),
+               "Selection proceeds in stages: States, then districts, then villages, then households (the ultimate units). That is multistage sampling. Stratified sampling is the trap: there, every stratum is sampled directly, not through successive stages. In practice: NSSO and the National Family Health Survey use multistage designs to cover India's vast population economically.", 'c5', topic='Types of sampling'),
             mq('m29', 'A major drawback of systematic sampling is that:', ['A hidden periodicity in the frame matching the interval gives a badly biased sample', 'It needs no sampling frame', 'It is very costly', 'It always gives larger errors than SRS'],
-               'If the list repeats a pattern at the interval k, every chosen unit may share the same feature.', 'c5', 'moderate'),
+               "If the list has a hidden pattern that repeats at the same interval as the sampling interval, every selected unit may share the same feature, giving a badly biased sample. 'It needs no sampling frame' is the trap: systematic sampling does need a list. In practice: picking every 7th day's sales would always land on the same weekday, distorting the result.", 'c5', 'moderate', topic='Types of sampling'),
             mq('m30', 'Which statement about purposive sampling is correct?', ['It is subjective and no statistical hypothesis can be tested from it', 'Every unit has an equal chance of selection', 'It is the basis of all tests of significance', 'It is a mixed sampling method'],
-               'Purposive (judgement) sampling depends entirely on the sampler\'s choice.', 'c5'),
+               "In purposive (judgement) sampling, units are chosen by the sampler's own judgement, so the sample is subjective and no valid tests of significance can be made from it. 'Every unit has an equal chance' is the trap: that describes simple random sampling. In practice: an auditor's judgement sample of unusual entries is useful, but its results cannot be projected statistically to all entries.", 'c5', topic='Types of sampling'),
             mq('m31', 'Compared with stratified sampling, multistage sampling is generally:', ['Less accurate but cheaper and more flexible', 'More accurate and more expensive', 'Equally accurate and equally costly', 'Not a probability method'],
-               'Multistage sampling gains coverage and saves cost but usually loses some accuracy.', 'c5', 'moderate'),
+               "Multistage sampling saves cost and is flexible because units are selected stage by stage, but it is usually less accurate than stratified sampling of the same size. 'More accurate and more expensive' is the trap: that describes stratified sampling relative to multistage. In practice: large consumer surveys accept the slight loss of accuracy to cover rural India affordably.", 'c5', 'moderate', topic='Types of sampling'),
         ],
         'questions': [
             {'id': 'q1', 'marks': 6, 'minutes': minutes(6), 'difficulty': 'moderate', 'pad': 'table',

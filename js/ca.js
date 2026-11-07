@@ -178,6 +178,38 @@
   const blocks = list => (list || []).map(blockHTML).join('');
   const checksHTML = ch => ch && ch.length ? `<details class="ca-checks"><summary>✓ ${ch.length} figure${ch.length > 1 ? 's' : ''} machine-checked</summary><ul>${ch.map(c => `<li>${esc(c.label)}: <code>${esc(c.expr)}</code> = ${fmt(c.value)}</li>`).join('')}</ul></details>` : '';
 
+  /* ================= topic reference chip: Paper › Chapter › Unit › Topic (tap = open the unit at the matching concept card) ================= */
+  const normT = s => String(s || '').toLowerCase().replace(/[–—\-\/]/g, ' ').replace(/[’‘]/g, "'").replace(/[^a-z0-9' ]/g, ' ').replace(/\s+/g, ' ').trim();
+  function refInfo(uid, q) {
+    uid = String(uid || '').split('#')[0];
+    const lv = levelOf(uid), st = lv && cache.st[lv], f = st && st.papers ? findUnit(st, uid) : null;
+    const topic = String((q && (q.topic || (q.gen || q.kind === 'mcq' && q.unit ? q.concept : ''))) || '').trim();
+    const concept = q && typeof q.concept === 'string' && /^c\d+$/.test(q.concept) ? q.concept : '';
+    if (!f) { if (lv) structure(lv).catch(() => {}); return { uid, paper: '', ch: '', unit: uid, topic: /^c\d+$/.test(topic) ? '' : topic, concept }; }
+    return { uid, pid: f.p.id, chid: f.c.id, pn: paperLabel(f.p), paper: `${paperLabel(f.p)} · ${f.p.name}`, chn: `Ch ${f.c.n}`, ch: `Ch ${f.c.n} · ${f.c.title}`, unit: f.u.implicit ? 'Chapter study' : `Unit ${f.u.n} · ${f.u.title}`, ut: f.u.title, topic: (/^c\d+$/.test(topic) ? '' : topic) || f.u.title, concept };
+  }
+  function refChip(uid, q) {
+    if (!uid) return '';
+    const r = refInfo(uid, q), parts = [r.paper, r.ch, r.unit].filter(Boolean);
+    return `<button type="button" class="ca-ref" data-ref-u="${esc(r.uid)}" data-ref-t="${esc(r.topic)}" data-ref-c="${esc(r.concept)}" aria-label="Study this topic — ${esc(parts.concat('Topic: ' + r.topic).join(', '))}"><span class="ca-ref-i" aria-hidden="true">📖</span><span class="ca-ref-path">${parts.map(x => `<span>${esc(x)}</span>`).join('<i aria-hidden="true"> › </i>')}<i aria-hidden="true"> › </i><b>Topic: ${esc(r.topic)}</b></span></button>`;
+  }
+  let pendingRef = null;
+  function openRef(uid, concept, topic) { pendingRef = { uid, concept, topic }; unit(uid, 'learn'); }
+  function scrollToRef(P) {
+    const r = pendingRef; if (!r || !U || r.uid !== U.uid) return; pendingRef = null;
+    let el = r.concept ? P.querySelector(`[data-ref="concept:${CSS.escape(r.concept)}"]`) : null;
+    if (!el && r.topic) {
+      const t = normT(r.topic), tw = t.split(' ').filter(w => w.length > 3); let best = null, bs = 0;
+      P.querySelectorAll('.ca-concept').forEach(a => { const h = normT((a.querySelector('h2') || {}).textContent); let sc = h === t ? 3 : (h.includes(t) || t.includes(h)) && h ? 2 : 0;
+        if (!sc && tw.length) { const hw = new Set(h.split(' ')); const ov = tw.filter(w => hw.has(w) || [...hw].some(x => x.length > 4 && (x.startsWith(w.slice(0, 5)) || w.startsWith(x.slice(0, 5))))).length / tw.length; if (ov >= .5) sc = ov; }
+        if (sc > bs) { bs = sc; best = a; } });
+      el = best;
+    }
+    if (!el) return;
+    setTimeout(() => { el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); el.classList.add('ca-reflash'); const h = el.querySelector('h2'); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); } setTimeout(() => el.classList.remove('ca-reflash'), 2400); }, 60);
+  }
+  D.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.ca-ref'); if (!b) return; e.preventDefault(); tap('open'); openRef(b.dataset.refU, b.dataset.refC, b.dataset.refT); });
+
   /* ================= navigation chrome ================= */
   const NAVLAB = { world: ['🧭', 'Journey'], practice: ['🎯', 'Practice'], cadash: ['📊', 'Dashboard'], squad: ['👥', 'Group'], me: ['👤', 'Profile'] };
   function navLabels() {
@@ -361,7 +393,7 @@
         <div class="ca-analogy"><b>Think of it like this</b><p>${esc(c.analogy)}</p></div>
         <div class="ca-work"><b>Why it matters in real CA work</b><p>${esc(c.work)}</p></div></article>`).join('')}
       ${nextTabBtn('learn')}`;
-    wireNext(P, 'learn');
+    wireNext(P, 'learn'); scrollToRef(P);
   }
   function illusTab(P) {
     const d = U.d;
@@ -399,7 +431,7 @@
         if (!ok) b.classList.add('wrong');
         ok ? right++ : wrong++; tap(ok ? 'correct' : 'wrong'); const ms = Date.now() - qt0; log.push({ key, ok, ms, pick: k });
         recordAns(key, ok, ms); if (T()) T().reviseMark(key, ok);
-        D.getElementById('caMx').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? 'Correct' : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain)}</div></div>
+        D.getElementById('caMx').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? 'Correct' : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain)}</div>${refChip(key, q)}</div>
           <button class="btn ca-mnext" id="caMn">${i < list.length - 1 ? 'Next question ▶' : 'See result ▶'}</button>`;
         D.getElementById('caMn').onclick = () => { i++; if (i < list.length) render(); else done({ right, wrong, total: list.length, ms: Date.now() - t0, log }); };
         D.getElementById('caMn').focus({ preventScroll: true });
@@ -448,13 +480,13 @@
     wireNext(P, 'write');
   }
   const padName = k => ({ text: 'Written answer', journal: 'Journal entries', ledger: 'Ledger accounts', tb: 'Trial balance', table: 'Table / statement', legal: 'Legal answer' })[k] || 'Answer';
-  const TEMPL = { journal: ['Date', 'Particulars', 'Dr/Cr', 'Amount (₹)'], ledger: ['Side (Dr/Cr)', 'Date', 'Particulars', 'Amount (₹)'], tb: ['Ledger account', 'Dr (₹)', 'Cr (₹)'], table: ['Column 1', 'Column 2', 'Amount (₹)'] };
   function pad(P, q, qi) {
-    const key = `${U.uid}#${q.id}`; let secs = 0, timer = null, rows = [], mode = 'type', photos = [];
+    const key = `${U.uid}#${q.id}`; let secs = 0, timer = null, mode = 'type', photos = [], PADI = null;
     if (window.Nav) Nav.sub(() => { clearInterval(timer); if (P.isConnected) writeTab(P); else renderUnit(); });
     const subPos = window.Nav ? Nav.pos : -1;
     const legalStarter = q.pad === 'legal' ? 'Provision:\n\nFacts:\n\nAnalysis:\n\nConclusion:\n' : '';
-    const tcols = TEMPL[q.pad];
+    const usePad = !!window.CaPad && q.pad !== 'legal', padOpen = ['journal', 'ledger', 'tb', 'table'].includes(q.pad);
+    const sugN = usePad ? CaPad.suggest(q.pad, q.q).map(id => CaPad.byId(id).name) : [];
     P.innerHTML = `<button class="back" id="caPadBack">← All questions</button>
       <div class="card ca-pad"><div class="ca-mtop"><span class="ca-k">Q${qi + 1} (${mk(q.marks)}) · suggested ${q.minutes} min</span><span class="ca-timer" id="caTimer" aria-live="off">00:00</span></div>
         <p class="ca-q">${esc(q.q)}</p>${q.given ? `<details class="ca-given" open><summary>Given</summary>${blocks(q.given)}</details>` : ''}
@@ -464,7 +496,7 @@
         <div id="caTypeBox"><label class="ca-lab" for="caAns">Your answer</label>
         <textarea id="caAns" class="ca-ta" rows="10" placeholder="${q.pad === 'legal' ? 'Write under the four headings…' : 'Write your answer here… (working notes too)'}">${esc(legalStarter)}</textarea>
         <div class="ca-padbar"><span id="caWc">0 words</span><button class="ca-link" id="caTimerBtn">Start timer</button></div>
-        ${tcols ? `<details class="ca-tbuild" id="caTb"><summary>Table builder (${esc(padName(q.pad))})</summary><div id="caTbBody"></div></details>` : ''}</div>
+        ${usePad ? `<details class="ca-tbuild ca-pdwrap" id="caTb" ${padOpen ? 'open' : ''}><summary>📋 Exam-format table${sugN.length ? ` — suggested: ${esc(sugN.join(', '))}` : ''}</summary><div id="caTbBody" class="ca-pdhost"></div></details>` : ''}</div>
         <button class="btn" id="caCheck">Check my answer ▶</button></div><div id="caSelf"></div>`;
     P.querySelectorAll('.ca-amode [data-mode]').forEach(b => b.onclick = () => {
       mode = b.dataset.mode; P.querySelectorAll('.ca-amode [data-mode]').forEach(x => x.setAttribute('aria-checked', String(x === b)));
@@ -479,31 +511,12 @@
     D.getElementById('caTimerBtn').onclick = () => timer ? stopT() : startT();
     ta.oninput = () => { wc(); startT(); };
     D.getElementById('caPadBack').onclick = () => { stopT(); if (window.Nav && Nav.pos === subPos && subPos > 0) history.back(); else writeTab(P); };
-    if (tcols) {
-      rows = [Array(tcols.length).fill(''), Array(tcols.length).fill('')];
-      const drawTb = () => {
-        const amt = tcols.map((c, i) => /₹/.test(c) ? i : -1).filter(i => i >= 0);
-        const tot = amt.map(i => rows.reduce((a, r) => a + (parseFloat(String(r[i]).replace(/,/g, '')) || 0), 0));
-        let check = '';
-        if (q.pad === 'journal' || q.pad === 'ledger') {
-          const si = q.pad === 'journal' ? 2 : 0, ai = 3; let dr = 0, cr = 0;
-          rows.forEach(r => { const v = parseFloat(String(r[ai]).replace(/,/g, '')) || 0; if (/^c/i.test(String(r[si]).trim())) cr += v; else if (/^d/i.test(String(r[si]).trim())) dr += v; });
-          check = `<p class="ca-tbchk ${Math.abs(dr - cr) < .01 && dr ? 'ok' : ''}">Dr total ₹${fmt(dr)} · Cr total ₹${fmt(cr)}${q.pad === 'journal' ? (Math.abs(dr - cr) < .01 && dr ? ' — balanced' : ' — debits and credits must be equal') : ''}</p>`;
-        } else if (q.pad === 'tb') check = `<p class="ca-tbchk ${Math.abs(tot[0] - tot[1]) < .01 && tot[0] ? 'ok' : ''}">Dr ₹${fmt(tot[0])} · Cr ₹${fmt(tot[1])}${Math.abs(tot[0] - tot[1]) < .01 && tot[0] ? ' — totals agree' : ''}</p>`;
-        D.getElementById('caTbBody').innerHTML = `<div class="ca-scroll" role="region" tabindex="0" aria-label="Table builder"><table class="ca-t ca-tbt"><thead><tr>${tcols.map(c => `<th scope="col">${esc(c)}</th>`).join('')}<th><span class="sr-only">Remove</span></th></tr></thead><tbody>
-          ${rows.map((r, ri) => `<tr>${r.map((v, ci) => `<td><input class="ca-cell" data-r="${ri}" data-c="${ci}" value="${esc(v)}" aria-label="Row ${ri + 1}, ${esc(tcols[ci])}" ${/₹/.test(tcols[ci]) ? 'inputmode="decimal"' : ''}></td>`).join('')}<td><button class="ca-x" data-del="${ri}" aria-label="Remove row ${ri + 1}">✕</button></td></tr>`).join('')}</tbody></table></div>
-          ${check}<button class="btn ghost" id="caAddRow">+ Add row</button>`;
-        D.querySelectorAll('#caTbBody .ca-cell').forEach(inp => inp.oninput = () => { rows[+inp.dataset.r][+inp.dataset.c] = inp.value; startT(); const pos = [inp.dataset.r, inp.dataset.c]; clearTimeout(drawTb.t); drawTb.t = setTimeout(() => { drawTb(); const n = D.querySelector(`#caTbBody .ca-cell[data-r="${pos[0]}"][data-c="${pos[1]}"]`); if (n) { n.focus(); n.setSelectionRange(n.value.length, n.value.length); } }, 700); });
-        D.querySelectorAll('#caTbBody .ca-x').forEach(b => b.onclick = () => { rows.splice(+b.dataset.del, 1); if (!rows.length) rows.push(Array(tcols.length).fill('')); drawTb(); });
-        D.getElementById('caAddRow').onclick = () => { rows.push(Array(tcols.length).fill('')); drawTb(); const l = D.querySelectorAll('#caTbBody tr'); const inp = l[l.length - 1]?.querySelector('input'); if (inp) inp.focus(); };
-      };
-      drawTb();
-    }
+    if (usePad) PADI = CaPad.mount(D.getElementById('caTbBody'), { pad: q.pad, q: q.q, fallback: /^fnd-p1-/.test(U.uid) ? 'journal' : 'compare', onChange: startT });
     D.getElementById('caCheck').onclick = () => {
       stopT(); const words = wc();
-      const answer = mode === 'photo' ? { text: '', table: null } : { text: ta.value.replace(legalStarter, '').trim() ? ta.value : '', table: tcols ? { cols: tcols, rows: rows.filter(r => r.some(x => String(x).trim())) } : null };
+      const answer = mode === 'photo' ? { text: '', table: null } : { text: ta.value.replace(legalStarter, '').trim() ? ta.value : '', table: PADI && !PADI.isEmpty() ? PADI.value() : null };
       if (mode === 'photo' && !photos.length) { toast('Add a photo of your answer first — or switch to typing'); return; }
-      if (mode !== 'photo' && !answer.text && !(answer.table && answer.table.rows.length)) toast('Nothing written — showing the model answer');
+      if (mode !== 'photo' && !answer.text && !answer.table) toast('Nothing written — showing the model answer');
       selfCheck(D.getElementById('caSelf'), q, key, { answer, secs, words: mode === 'photo' ? 0 : words, photos: mode === 'photo' ? photos.slice() : [] });
       D.getElementById('caSelf').scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
@@ -546,7 +559,7 @@
   function hist(key, q) {
     const h = C().writes[key] || []; if (!h.length) return '';
     return `<div class="ca-hist"><h3 class="ca-h3">Your attempts</h3><ul class="ca-ul ca-hl2">${h.map((a, i) => ({ a, i })).reverse().map(({ a, i }) => `<li><span>${esc(a.d)} — <b>${fmt(a.score)} / ${mk(a.max)}</b>${a.secs ? ` in ${Math.round(a.secs / 60)} min` : ''}${a.words ? ` · ${a.words} words` : ''}${(a.photos || []).length ? ` · 📷 ${a.photos.length} page${a.photos.length > 1 ? 's' : ''}` : ''}</span>
-      ${(a.photos || []).length ? `<div class="ca-phstrip ca-phmini" data-hph="${i}"></div><button class="ca-link" data-hdelph="${i}">Delete photos</button>` : ''}<button class="ca-link" data-hdel="${i}" aria-label="Delete this attempt">Delete attempt</button></li>`).join('')}</ul></div>`;
+      ${a.table && window.CaPad ? `<details class="ca-hview"><summary>📋 Your table${(a.table.sheets || []).length > 1 ? 's' : ''}</summary>${CaPad.view(a.table)}</details>` : ''}${(a.photos || []).length ? `<div class="ca-phstrip ca-phmini" data-hph="${i}"></div><button class="ca-link" data-hdelph="${i}">Delete photos</button>` : ''}<button class="ca-link" data-hdel="${i}" aria-label="Delete this attempt">Delete attempt</button></li>`).join('')}</ul></div>`;
   }
   function wireHist(host, key, q) {
     const box = host.querySelector('.ca-hist'); if (!box) return; const h = C().writes[key] || [];
@@ -835,6 +848,6 @@
     _blockHTML: blockHTML,
     /* internals shared with js/ca-tools.js */
     _: { C, LEVELS, TABS, SKILL, structure, allStructures, findUnit, levelOf, unitData, unitProg, paperProg, builtCount, unitCount, daysLeft, todayISO,
-      screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, levelName, rng, order, recordAns, weakData, pctOf, selfSchemeHTML: null,
+      screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, refInfo, refChip, openRef, normT, levelName, rng, order, recordAns, weakData, pctOf, selfSchemeHTML: null,
       markGuide, mcqMarks, unitMarks, levelOK, OWNER, practiceDaily: () => { if (window.Nav) Nav.sub(() => (T() ? T().practiceHub() : practice())); practice.daily = true; practice(); }, weakScreen, nextUnit, isCA } };
 })();

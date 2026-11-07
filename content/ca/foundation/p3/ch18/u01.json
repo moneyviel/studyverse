@@ -1142,6 +1142,7 @@
  ],
  "mcqs": [
   {
+   "topic": "Weighted aggregative indices",
    "id": "m1",
    "q": "Data set 1 (Illustration 2): the Laspeyres price index is",
    "options": [
@@ -1151,12 +1152,13 @@
     "136.67"
    ],
    "answer": 0,
-   "explain": "Σp1q0/Σp0q0 × 100 = 258/210 × 100. 122.65 is Paasche; 123.26 is the simple aggregative index; 136.67 is the value index.",
+   "explain": "Laspeyres uses base-year quantities as weights: Σp1q0 ÷ Σp0q0 × 100 = 258 ÷ 210 × 100 ≈ 122.86. The trap is 122.65, the Paasche index, which uses current-year quantities (287 ÷ 234). In practice: India's CPI and WPI are Laspeyres-type indices, because base-year weights from a survey can be kept fixed for years.",
    "concept": "c5",
    "difficulty": "moderate",
    "check": "round(258/210*100,2)"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m2",
    "q": "Data set 1: the Paasche price index is",
    "options": [
@@ -1166,12 +1168,13 @@
     "110.86"
    ],
    "answer": 0,
-   "explain": "Σp1q1/Σp0q1 × 100 = 287/234 × 100.",
+   "explain": "Paasche uses current-year quantities as weights: Σp1q1 ÷ Σp0q1 × 100 = 287 ÷ 234 × 100 ≈ 122.65. The trap is 122.86, the Laspeyres index, which uses base-year quantities. In practice: Paasche needs fresh quantity data every period, which is costly, so statistical agencies use it less often for regular price indices.",
    "concept": "c5",
    "difficulty": "moderate",
    "check": "round(287/234*100,2)"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m3",
    "q": "Data set 1: the Marshall-Edgeworth price index is",
    "options": [
@@ -1181,12 +1184,13 @@
     "123.26"
    ],
    "answer": 0,
-   "explain": "(258 + 287)/(210 + 234) × 100 = 545/444 × 100.",
+   "explain": "Marshall-Edgeworth uses the sum of base and current quantities as weights: (Σp1q0 + Σp1q1) ÷ (Σp0q0 + Σp0q1) × 100 = (258 + 287) ÷ (210 + 234) × 100 = 545 ÷ 444 × 100 ≈ 122.75. The trap is 122.86, the Laspeyres index, which uses base-year quantities alone. In practice: such compromise weights reduce the bias of using either period alone.",
    "concept": "c5",
    "difficulty": "moderate",
    "check": "round((258+287)/(210+234)*100,2)"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m4",
    "q": "Data set 1: the Fisher ideal price index is",
    "options": [
@@ -1196,12 +1200,13 @@
     "245.51"
    ],
    "answer": 0,
-   "explain": "√(Laspeyres × Paasche) = √(1.2286 × 1.2265) × 100. 245.51 is the sum of the two, not their geometric mean.",
+   "explain": "Fisher's index is the geometric mean of Laspeyres and Paasche: √(258/210 × 287/234) × 100 = √(1.2286 × 1.2265) × 100 ≈ 122.75. The trap is 245.51, which adds the two indices instead of taking their geometric mean. In practice: Fisher-type indices are used in national accounts and trade statistics where an unbiased measure of price change matters.",
    "concept": "c5",
    "difficulty": "hard",
    "check": "round((258/210*287/234)**0.5*100,2)"
   },
   {
+   "topic": "Unweighted methods",
    "id": "m5",
    "q": "Data set 1: the simple aggregative price index is",
    "options": [
@@ -1211,12 +1216,13 @@
     "81.13"
    ],
    "answer": 0,
-   "explain": "Σp1/Σp0 × 100 = 53/43 × 100. 81.13 is the inverted ratio 43/53.",
+   "explain": "Simple aggregative index = Σp1 ÷ Σp0 × 100 = (12 + 10 + 6 + 25) ÷ (10 + 8 + 5 + 20) × 100 = 53 ÷ 43 × 100 ≈ 123.26. The trap is 81.13, which inverts the ratio (43 ÷ 53). In practice: this unweighted method is easy but is distorted by high-priced items and by the units in which prices are quoted.",
    "concept": "c4",
    "difficulty": "core",
    "check": "round((12+10+6+25)/(10+8+5+20)*100,2)"
   },
   {
+   "topic": "Unweighted methods",
    "id": "m6",
    "q": "Data set 1: the simple average of price relatives is",
    "options": [
@@ -1226,12 +1232,13 @@
     "125"
    ],
    "answer": 0,
-   "explain": "(120 + 125 + 120 + 125)/4 = 122.5. 490 is the total of relatives, not the average.",
+   "explain": "Price relatives (p1 ÷ p0 × 100) are 120, 125, 120 and 125. Their simple average = 490 ÷ 4 = 122.5. The trap is 490, which is the total of the relatives, not the average. In practice: averaging relatives removes the effect of units of quotation, so items priced per kg and per litre can be combined fairly.",
    "concept": "c4",
    "difficulty": "core",
    "check": "(120+125+120+125)/4"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m7",
    "q": "Data set 1: the value index is",
    "options": [
@@ -1241,12 +1248,13 @@
     "111.43"
    ],
    "answer": 0,
-   "explain": "Σp1q1/Σp0q0 × 100 = 287/210 × 100.",
+   "explain": "Value index = Σp1q1 ÷ Σp0q0 × 100 = 287 ÷ 210 × 100 ≈ 136.67. It reflects changes in both price and quantity. The trap is 122.86, the Laspeyres price index, which holds quantities constant. In practice: a retailer's sales growth is a value index; splitting it into price and volume effects needs separate price and quantity indices.",
    "concept": "c5",
    "difficulty": "moderate",
    "check": "round(287/210*100,2)"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m8",
    "q": "Data set 1: the Laspeyres quantity index is",
    "options": [
@@ -1256,12 +1264,13 @@
     "89.74"
    ],
    "answer": 0,
-   "explain": "Σq1p0/Σq0p0 × 100 = 234/210 × 100. 111.24 is the Paasche quantity index (287/258).",
+   "explain": "Laspeyres quantity index uses base-year prices as weights: Σq1p0 ÷ Σq0p0 × 100 = 234 ÷ 210 × 100 ≈ 111.43. The trap is 111.24, the Paasche quantity index (287 ÷ 258). In practice: the Index of Industrial Production in India is a quantity index of this Laspeyres type.",
    "concept": "c5",
    "difficulty": "hard",
    "check": "round(234/210*100,2)"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m9",
    "q": "Fisher's ideal index is the",
    "options": [
@@ -1271,11 +1280,12 @@
     "Product of Laspeyres and Paasche indices"
    ],
    "answer": 0,
-   "explain": "Fisher = √(L × P).",
+   "explain": "Fisher's ideal index is the geometric mean of the Laspeyres and Paasche indices: √(L × P). The arithmetic mean is the trap: that would be a different index (Bowley's), not Fisher's. In practice: the geometric mean balances the upward bias of Laspeyres and the downward bias of Paasche, giving a fairer measure of price change.",
    "concept": "c5",
    "difficulty": "core"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m10",
    "q": "Fisher's index is called \"ideal\" because it satisfies",
    "options": [
@@ -1285,11 +1295,12 @@
     "All four tests"
    ],
    "answer": 0,
-   "explain": "It passes the unit, time reversal and factor reversal tests, but not the circular test.",
+   "explain": "Fisher's index is called 'ideal' because it satisfies both the time reversal test and the factor reversal test (as well as the unit test). 'All four tests' is the trap: Fisher does not satisfy the circular test. In practice: satisfying these tests makes Fisher's index consistent when comparing periods both forwards and backwards.",
    "concept": "c8",
    "difficulty": "core"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m11",
    "q": "Which of the following satisfies the circular test?",
    "options": [
@@ -1299,11 +1310,12 @@
     "Paasche index"
    ],
    "answer": 0,
-   "explain": "The simple G.M. of relatives and the weighted aggregative index with fixed weights satisfy it; Laspeyres, Paasche and Fisher do not.",
+   "explain": "The circular test is satisfied by the simple geometric mean of price relatives and by a weighted aggregative index with fixed weights. Fisher's ideal index is the trap: it passes the time and factor reversal tests but fails the circular test, as do Laspeyres and Paasche. In practice: the circular test matters when chaining indices across several years without recomputing from scratch.",
    "concept": "c8",
    "difficulty": "moderate"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m12",
    "q": "Which index does NOT satisfy the unit test?",
    "options": [
@@ -1313,11 +1325,12 @@
     "Fisher's index"
    ],
    "answer": 0,
-   "explain": "Changing the unit of quotation (per kg to per quintal) changes Σp1/Σp0.",
+   "explain": "The simple aggregative index adds actual prices, so changing the unit of quotation, such as from per kg to per quintal, changes the result. It therefore fails the unit test. The simple average of price relatives is the trap: relatives are unit-free, so it passes. In practice: this is why official indices never just add up raw prices of different goods.",
    "concept": "c8",
    "difficulty": "core"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m13",
    "q": "The time reversal test is expressed as",
    "options": [
@@ -1327,11 +1340,12 @@
     "P01 + P10 = 1"
    ],
    "answer": 0,
-   "explain": "Forward and backward indices must be reciprocals. P01 × Q01 = V01 is the factor reversal test.",
+   "explain": "The time reversal test requires the forward index and the backward index to be reciprocals: P01 × P10 = 1. The trap is P01 × Q01 = V01, which is the factor reversal test. In practice: an index that passes time reversal gives consistent answers whether 2020 is compared with 2025 or 2025 with 2020.",
    "concept": "c8",
    "difficulty": "core"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m14",
    "q": "The factor reversal test holds when",
    "options": [
@@ -1341,11 +1355,12 @@
     "The base can be shifted without recomputation"
    ],
    "answer": 0,
-   "explain": "P01 × Q01 = Σp1q1/Σp0q0.",
+   "explain": "The factor reversal test says that the price index multiplied by the corresponding quantity index must equal the value index: P01 × Q01 = Σp1q1 ÷ Σp0q0. 'Price index × reversed price index = 1' is the trap: that is the time reversal test. In practice: passing this test means a company's sales growth can be split exactly into price and volume effects.",
    "concept": "c8",
    "difficulty": "core"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m15",
    "q": "With 2020 as base, the 2022 index is 125. With 2022 as base, the 2024 index is 120. If the circular test holds, the 2024 index on base 2020 is",
    "options": [
@@ -1355,12 +1370,13 @@
     "104.17"
    ],
    "answer": 0,
-   "explain": "1.25 × 1.20 = 1.50 → 150. Adding (245) or dividing (104.17) are common errors.",
+   "explain": "If the circular test holds, indices can be chained: 1.25 × 1.20 = 1.50, so the 2024 index on base 2020 is 150. The trap is 145, which simply adds the percentage rises (25% + 20%) instead of compounding them. In practice: chaining year-on-year price changes is how cumulative inflation over several years is worked out.",
    "concept": "c8",
    "difficulty": "moderate",
    "check": "125*120/100"
   },
   {
+   "topic": "Chain-base index numbers",
    "id": "m16",
    "q": "Link relatives for 2022 and 2023 are 110 and 125 (2021 = 100). The chain index for 2023 is",
    "options": [
@@ -1370,12 +1386,13 @@
     "113.64"
    ],
    "answer": 0,
-   "explain": "Chain index = 125 × 110 / 100 = 137.5.",
+   "explain": "Chain index = previous chain index × current link relative ÷ 100. For 2022 it is 110; for 2023 it is 110 × 125 ÷ 100 = 137.5. The trap is 135, which adds the percentage rises (10% + 25%) instead of compounding. In practice: chain-base indices let statistical agencies update item baskets each year while keeping a continuous series.",
    "concept": "c7",
    "difficulty": "moderate",
    "check": "110*125/100"
   },
   {
+   "topic": "Uses, limitations, deflating, shifting and splicing",
    "id": "m17",
    "q": "An index (2018 = 100) is 150 for 2022 and 125 for 2020. On base 2020, the 2022 index is",
    "options": [
@@ -1385,12 +1402,13 @@
     "83.33"
    ],
    "answer": 0,
-   "explain": "150/125 × 100 = 120. 83.33 is the inverted ratio.",
+   "explain": "To shift the base to 2020, divide every index by the 2020 value and multiply by 100: 150 ÷ 125 × 100 = 120. The trap is 83.33, the inverted ratio (125 ÷ 150). In practice: analysts often rebase a series to a recent year so that changes are easier to read, as RBI and MoSPI do when indices are revised.",
    "concept": "c9",
    "difficulty": "core",
    "check": "150/125*100"
   },
   {
+   "topic": "Uses, limitations, deflating, shifting and splicing",
    "id": "m18",
    "q": "Money wage ₹54,000; consumer price index 180 (base = 100). The real wage is",
    "options": [
@@ -1400,12 +1418,13 @@
     "₹36,000"
    ],
    "answer": 0,
-   "explain": "Real wage = 54,000 × 100 / 180. Multiplying by 1.8 (₹97,200) inflates instead of deflating.",
+   "explain": "Real wage = money wage × 100 ÷ price index = 54,000 × 100 ÷ 180 = ₹30,000. The trap is ₹97,200, which multiplies by 1.8 and inflates the wage instead of deflating it. In practice: HR and unions compare real wages to see whether pay rises have kept up with CPI inflation, for example in wage-settlement negotiations.",
    "concept": "c9",
    "difficulty": "core",
    "check": "54000/180*100"
   },
   {
+   "topic": "Uses, limitations, deflating, shifting and splicing",
    "id": "m19",
    "q": "If the consumer price index is 125, the purchasing power of a rupee is",
    "options": [
@@ -1415,12 +1434,13 @@
     "₹1.80"
    ],
    "answer": 0,
-   "explain": "100 / 125 = 0.80.",
+   "explain": "Purchasing power of a rupee = 100 ÷ price index = 100 ÷ 125 = ₹0.80. In other words, a rupee now buys what 80 paise bought in the base period. The trap is ₹1.25, which is the index ÷ 100 and shows the rise in prices, not purchasing power. In practice: savers use this to see how inflation erodes the real value of money kept in cash or low-interest deposits.",
    "concept": "c9",
    "difficulty": "core",
    "check": "100/125"
   },
   {
+   "topic": "Weighted average of relatives",
    "id": "m20",
    "q": "Group indices and weights: Food 135 (45), Clothing 120 (15), Fuel 150 (10), Rent 110 (20), Others 125 (10). The cost-of-living index is",
    "options": [
@@ -1430,12 +1450,13 @@
     "125"
    ],
    "answer": 0,
-   "explain": "Σ(R × W)/ΣW = 12,825/100. 128 is the unweighted average of the five indices.",
+   "explain": "Cost-of-living index = Σ(I × W) ÷ ΣW = (135 × 45 + 120 × 15 + 150 × 10 + 110 × 20 + 125 × 10) ÷ 100 = 12,825 ÷ 100 = 128.25. The trap is 128, the simple average of the five indices, which ignores the weights. In practice: dearness allowance for government employees is linked to the CPI, which is built from weighted group indices like these.",
    "concept": "c6",
    "difficulty": "moderate",
    "check": "(135*45+120*15+150*10+110*20+125*10)/100"
   },
   {
+   "topic": "Stock market indices",
    "id": "m21",
    "q": "A market-cap weighted index closed at 20,000 yesterday when total market cap was ₹4,00,000 crore. Today market cap is ₹4,10,000 crore. Today's index is",
    "options": [
@@ -1445,12 +1466,13 @@
     "19,512"
    ],
    "answer": 0,
-   "explain": "20,000 × 4,10,000 / 4,00,000.",
+   "explain": "A market-cap weighted index moves in proportion to total market capitalisation: 20,000 × 4,10,000 ÷ 4,00,000 = 20,500. The trap is 21,000, a 5% rise, whereas market cap rose only 2.5%. In practice: indices like the Nifty 50 and Sensex are computed on free-float market capitalisation in this way.",
    "concept": "c10",
    "difficulty": "core",
    "check": "20000*410000/400000"
   },
   {
+   "topic": "Issues in constructing an index",
    "id": "m22",
    "q": "A base period for an index number should be",
    "options": [
@@ -1460,11 +1482,12 @@
     "Any year, it does not matter"
    ],
    "answer": 0,
-   "explain": "The base is the point of comparison; abnormal or very old bases distort the index.",
+   "explain": "The base period is the reference point for every comparison, so it should be a normal year, free of unusual events, and reasonably recent. 'A year of unusually high prices' is the trap: an abnormal base makes later indices look misleadingly low. In practice: MoSPI revises the base year of India's CPI from time to time so that the base stays relevant.",
    "concept": "c2",
    "difficulty": "core"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m23",
    "q": "The Laspeyres price index uses as weights",
    "options": [
@@ -1474,11 +1497,12 @@
     "Equal weights"
    ],
    "answer": 0,
-   "explain": "Laspeyres: Σp1q0/Σp0q0.",
+   "explain": "Laspeyres weights prices by base-year quantities: Σp1q0 ÷ Σp0q0. Current-year quantities is the trap: those are Paasche's weights. In practice: because base-year quantities need to be surveyed only once, most official consumer price indices, including India's CPI, follow the Laspeyres approach.",
    "concept": "c5",
    "difficulty": "core"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m24",
    "q": "The Paasche price index uses as weights",
    "options": [
@@ -1488,11 +1512,12 @@
     "Typical-period quantities"
    ],
    "answer": 0,
-   "explain": "Paasche: Σp1q1/Σp0q1.",
+   "explain": "Paasche weights prices by current-year quantities: Σp1q1 ÷ Σp0q1. Base-year quantities is the trap: those are the Laspeyres weights. In practice: Paasche-type deflators, like the GDP deflator, reflect what is actually being bought now and are derived from national accounts.",
    "concept": "c5",
    "difficulty": "core"
   },
   {
+   "topic": "Relatives — price, quantity, value, link and chain",
    "id": "m25",
    "q": "The price of a commodity rose from ₹40 in the base year to ₹50. Its price relative is",
    "options": [
@@ -1502,12 +1527,13 @@
     "150"
    ],
    "answer": 0,
-   "explain": "50/40 × 100 = 125. 80 is the inverted relative; 25 is the percentage rise.",
+   "explain": "Price relative = p1 ÷ p0 × 100 = 50 ÷ 40 × 100 = 125. The trap is 25, which is the percentage rise, not the relative. 80 is the inverted relative (40 ÷ 50). In practice: price relatives are the building blocks of indices and are used for comparing cost increases in procurement contracts with price-variation clauses.",
    "concept": "c3",
    "difficulty": "core",
    "check": "50/40*100"
   },
   {
+   "topic": "Weighted aggregative indices",
    "id": "m26",
    "q": "Laspeyres index = 125 and Paasche index = 121. Fisher's index is",
    "options": [
@@ -1517,12 +1543,13 @@
     "121.50"
    ],
    "answer": 0,
-   "explain": "√(125 × 121) = 122.98 — slightly below the arithmetic mean of 123.",
+   "explain": "Fisher's index = √(Laspeyres × Paasche) = √(125 × 121) = √15,125 ≈ 122.98. The trap is 123, the arithmetic mean of 125 and 121; the geometric mean is always slightly lower. In practice: Fisher's index is used where neither base nor current weights should dominate, such as in some trade price statistics.",
    "concept": "c5",
    "difficulty": "hard",
    "check": "round((125*121)**0.5,2)"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m27",
    "q": "The value index is 150 and Fisher's price index is 125. By the factor reversal test, Fisher's quantity index is",
    "options": [
@@ -1532,12 +1559,13 @@
     "83.33"
    ],
    "answer": 0,
-   "explain": "P × Q = V → Q = 150/125 × 100 = 120.",
+   "explain": "By the factor reversal test, P × Q = V, so Q = V ÷ P × 100 = 150 ÷ 125 × 100 = 120. The trap is 187.50, which multiplies 150 × 125 ÷ 100 instead of dividing. In practice: splitting growth in sales value into price and volume, here a 25% price effect and a 20% volume effect, is standard in business performance analysis.",
    "concept": "c8",
    "difficulty": "hard",
    "check": "150/125*100"
   },
   {
+   "topic": "Uses, limitations, deflating, shifting and splicing",
    "id": "m28",
    "q": "An old series (2015 = 100) stands at 120 in 2018, where a new series (2018 = 100) begins. The new series is 105 in 2019. Spliced to the 2015 base, the 2019 figure is",
    "options": [
@@ -1547,12 +1575,13 @@
     "225"
    ],
    "answer": 0,
-   "explain": "105 × 120/100 = 126.",
+   "explain": "Splicing converts the new series to the old base by multiplying by the old index at the link year: 105 × 120 ÷ 100 = 126. The trap is 225, which adds 105 and 120 instead of multiplying. In practice: when MoSPI revises the CPI base, economists splice the old and new series to get one continuous inflation history.",
    "concept": "c9",
    "difficulty": "moderate",
    "check": "105*120/100"
   },
   {
+   "topic": "Issues in constructing an index",
    "id": "m29",
    "q": "The average theoretically most suitable for averaging relatives is the",
    "options": [
@@ -1562,11 +1591,12 @@
     "Mode"
    ],
    "answer": 0,
-   "explain": "The G.M. treats proportional changes symmetrically and makes indices time-reversible; the A.M. is used more for simplicity.",
+   "explain": "The geometric mean treats proportional rises and falls symmetrically and makes an index time-reversible, so it is theoretically the best average for relatives. The arithmetic mean is the trap: it is often used for simplicity, but it has an upward bias. In practice: many modern consumer price indices use geometric means at the elementary level for this reason.",
    "concept": "c2",
    "difficulty": "moderate"
   },
   {
+   "topic": "Tests of adequacy",
    "id": "m30",
    "q": "The test described as an extension of the time reversal test is the",
    "options": [
@@ -1576,11 +1606,12 @@
     "Chain test"
    ],
    "answer": 0,
-   "explain": "The circular test extends P01 × P10 = 1 to three or more periods.",
+   "explain": "The circular test extends the time reversal test from two periods to three or more: P01 × P12 × P20 = 1. The factor reversal test is the trap: it concerns price and quantity, not a cycle of periods. In practice: passing the circular test means indices for consecutive years can be chained without any inconsistency.",
    "concept": "c8",
    "difficulty": "moderate"
   },
   {
+   "topic": "Stock market indices",
    "id": "m31",
    "q": "The base value of the NSE Nifty 50 index is",
    "options": [
@@ -1590,12 +1621,13 @@
     "10000"
    ],
    "answer": 0,
-   "explain": "Nifty 50: base date 3 November 1995, base value 1000. The BSE Sensex has base 1978-79 = 100.",
+   "explain": "The NSE Nifty 50 has a base value of 1,000, with a base date of 3 November 1995. The trap is 100, which is the base value of the BSE Sensex (1978-79 = 100). In practice: knowing the base helps interpret long-term returns; a Nifty level of 25,000 means the index has risen 25-fold since 1995.",
    "concept": "c10",
    "difficulty": "core",
    "check": "1000"
   },
   {
+   "topic": "Uses, limitations, deflating, shifting and splicing",
    "id": "m32",
    "q": "Which of the following is a limitation of index numbers?",
    "options": [
@@ -1605,7 +1637,7 @@
     "They cannot compare two places"
    ],
    "answer": 0,
-   "explain": "Index numbers are approximations built from samples, and the choice of formula changes the result.",
+   "explain": "Index numbers are approximations: they are based on samples of items, and different formulae (Laspeyres, Paasche, Fisher) give different values for the same data. 'They can measure only prices' is the trap: quantity and value indices also exist. In practice: debates over whether official inflation figures reflect real household costs arise from exactly these limitations.",
    "concept": "c9",
    "difficulty": "core"
   }
@@ -2330,6 +2362,7 @@
    ],
    "mcqs": [
     {
+     "topic": "Weighted aggregative indices",
      "id": "k1a",
      "q": "The Laspeyres price index is",
      "options": [
@@ -2339,12 +2372,13 @@
       "121.69"
      ],
      "answer": 0,
-     "explain": "4,600/3,920 × 100.",
+     "explain": "Laspeyres = Σp1q0 ÷ Σp0q0 × 100. Σp0q0 = 2,000 + 1,200 + 720 = 3,920; Σp1q0 = 2,300 + 1,500 + 800 = 4,600. Index = 4,600 ÷ 3,920 × 100 ≈ 117.35. The trap is 116.93, the Paasche index, which uses current quantities. In practice: retailers track basket inflation this way to set prices and to compare with the official CPI.",
      "concept": "c5",
      "difficulty": "moderate",
      "check": "round(4600/3920*100,2)"
     },
     {
+     "topic": "Weighted aggregative indices",
      "id": "k1b",
      "q": "The Paasche price index is",
      "options": [
@@ -2354,12 +2388,13 @@
       "120.00"
      ],
      "answer": 0,
-     "explain": "4,420/3,780 × 100.",
+     "explain": "Paasche = Σp1q1 ÷ Σp0q1 × 100. Σp0q1 = 1,800 + 1,080 + 900 = 3,780; Σp1q1 = 2,070 + 1,350 + 1,000 = 4,420. Index = 4,420 ÷ 3,780 × 100 ≈ 116.93. The trap is 117.35, the Laspeyres index. In practice: Paasche reflects the shift towards sugar and away from oil, showing how buying habits change when prices rise.",
      "concept": "c5",
      "difficulty": "moderate",
      "check": "round(4420/3780*100,2)"
     },
     {
+     "topic": "Weighted aggregative indices",
      "id": "k1c",
      "q": "Fisher's ideal price index is",
      "options": [
@@ -2369,12 +2404,13 @@
       "116.00"
      ],
      "answer": 0,
-     "explain": "√(1.1735 × 1.1693) × 100. 234.28 adds the two indices instead.",
+     "explain": "Fisher's index = √(Laspeyres × Paasche) = √(1.1735 × 1.1693) × 100 ≈ 117.14. The trap is 234.28, which adds the two indices instead of taking their geometric mean. In practice: Fisher's index lies between the other two and is used where a balanced, unbiased measure of price change is needed.",
      "concept": "c5",
      "difficulty": "hard",
      "check": "round((4600/3920*4420/3780)**0.5*100,2)"
     },
     {
+     "topic": "Weighted aggregative indices",
      "id": "k1d",
      "q": "The value index is",
      "options": [
@@ -2384,7 +2420,7 @@
       "96.43"
      ],
      "answer": 0,
-     "explain": "4,420/3,920 × 100. Spending rose less than prices because the family bought less rice and oil.",
+     "explain": "Value index = Σp1q1 ÷ Σp0q0 × 100 = 4,420 ÷ 3,920 × 100 ≈ 112.76. Spending rose less than prices because the family bought less rice and oil. The trap is 117.35, the Laspeyres price index, which holds quantities fixed. In practice: comparing value and price indices tells a business whether revenue growth came from price or from volume.",
      "concept": "c5",
      "difficulty": "moderate",
      "check": "round(4420/3920*100,2)"

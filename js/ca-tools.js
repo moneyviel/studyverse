@@ -519,7 +519,7 @@
       P.innerHTML = `<div class="card ca-mcq ca-endless"><div class="ca-mtop"><span class="ca-k">♾️ Endless practice · question ${at + 1} · <span class="ca-qmk">${mk1(qm(q))}</span></span><span class="ca-k">${right}/${done} correct</span></div>
         <div class="ca-chipsel" role="radiogroup" aria-label="Difficulty">${DIFF.map(([k, n]) => `<button type="button" class="ca-cs" role="radio" aria-checked="${k === diff}" data-df="${k}">${n}</button>`).join('')}</div>
         <h2 class="qtext ca-mq">${esc(q.q)}</h2>${q.given ? X.blocks(q.given) : ''}<div class="ca-opts">${h.ord.map((k, j) => `<button class="opt ${locked && k === q.answer ? 'right' : ''} ${locked && k === h.pick && k !== q.answer ? 'wrong' : ''}" data-k="${k}" ${locked ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
-        <div id="enFb">${locked ? `<div class="explain ${h.pick === q.answer ? 'good' : 'bad'}"><div class="verdict">${h.pick === q.answer ? `Correct · +${mk1(qm(q))}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}</div>` : ''}</div>
+        <div id="enFb">${locked ? `<div class="explain ${h.pick === q.answer ? 'good' : 'bad'}"><div class="verdict">${h.pick === q.answer ? `Correct · +${mk1(qm(q))}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}${X.refChip ? X.refChip(q.unit || uid, q) : ''}</div>` : ''}</div>
         <div class="ca-btns ca-setnav"><button class="btn ghost" id="enPrev" ${at ? '' : 'disabled'}>◀ Previous</button><button class="btn" id="enNext" ${locked ? '' : 'disabled'}>Next ▶</button></div>
         <button class="ca-link" id="enEnd">Stop practising</button></div>`;
       P.querySelectorAll('.opt').forEach(b => b.onclick = () => { h.pick = +b.dataset.k; done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); D.getElementById('enNext').focus({ preventScroll: true }); });
@@ -529,6 +529,27 @@
       D.getElementById('enEnd').onclick = () => { if (window.Nav) history.back(); else back(); };
     };
     hist.push(next()); at = 0; draw();
+  }
+  /* topic reference: Paper › Chapter › Unit › Topic on every question, results grouped / filtered by paper, chapter, topic */
+  const refOf = it => (X.refInfo ? X.refInfo(it.uid || it.q.unit || it.key, it.q) : { paper: '', ch: it.chTitle || '', topic: '', pn: '', chn: '' });
+  const tagOf = it => { const r = refOf(it); return r.paper ? `${r.paper} · ${r.chn} · Topic: ${r.topic}` : (it.chTitle || ''); };
+  const chipOf = it => (X.refChip ? X.refChip(it.uid || it.q.unit || it.key, it.q) : '');
+  const grpKey = (r, g) => (g === 'p' ? r.ref.paper || '—' : g === 't' ? `${r.ref.topic || '—'}` : r.ref.pn ? `${r.ref.pn} · ${r.ref.ch}` : (r.it.chTitle || '—'));
+  function filterOpts(res) {
+    const o = []; const add = (k, lab) => { if (!o.some(x => x[0] === k)) o.push([k, lab]); };
+    ['p', 'c', 't'].forEach(g => res.forEach(r => add(`${g}:${grpKey(r, g)}`, `${{ p: 'Paper', c: 'Chapter', t: 'Topic' }[g]}: ${grpKey(r, g)}`)));
+    const byG = g => o.filter(x => x[0][0] === g);
+    return ['p', 'c', 't'].map(g => byG(g).length > 1 || g === 't' ? `<optgroup label="${{ p: 'By paper', c: 'By chapter', t: 'By topic' }[g]}">${byG(g).map(([k, l]) => `<option value="${esc(k)}">${esc(l)}</option>`).join('')}</optgroup>` : '').join('');
+  }
+  function wireGroups(res) {
+    const sel = D.getElementById('csGrp'), box = D.getElementById('csAcc'), fil = D.getElementById('csFil'); if (!sel || !box) return;
+    const papers = new Set(res.map(r => r.ref.paper)); sel.value = papers.size > 1 ? 'p' : 'c';
+    const draw = () => { const g = sel.value, m = new Map(); res.forEach(r => { const k = grpKey(r, g); const b = m.get(k) || { n: 0, r: 0 }; b.n++; if (r.ok) b.r++; m.set(k, b); });
+      box.innerHTML = [...m.entries()].sort((a, b) => a[1].r / a[1].n - b[1].r / b[1].n).map(([k, b]) => `<div class="ca-skill"><span>${esc(k)} <small class="ca-note">${b.r}/${b.n}</small></span>${X.bar(b.r / b.n)}<b>${pct(b.r, b.n)}%</b></div>`).join(''); };
+    sel.onchange = draw; draw();
+    if (fil) fil.onchange = () => { const v = fil.value; let n = 0;
+      D.querySelectorAll('.ca-rv[data-j]').forEach(d => { const r = res[+d.dataset.j]; const show = !v || (v === 'w' ? !r.ok : grpKey(r, v[0]) === v.slice(2)); d.hidden = !show; if (show) n++; });
+      D.getElementById('csFilN').textContent = v ? `${n} question${n === 1 ? '' : 's'} shown` : ''; };
   }
   function startSet(items, opts) { if (window.Nav && opts.again) Nav.sub(() => opts.again()); const el = X.open('practice'); el.innerHTML = '<div id="csHost"></div>'; runSet(D.getElementById('csHost'), items, opts); }
   function runSet(host, items, opts) {
@@ -541,7 +562,7 @@
       const caseHTML = it.cs ? `<details class="ca-case" ${i === 0 || items[i - 1].cs !== it.cs ? 'open' : ''}><summary>📄 Case: ${esc(it.cs.title)}</summary><p class="ca-p">${esc(it.cs.case)}</p>${X.blocks(it.cs.given)}</details>` : '';
       host.innerHTML = `<div class="card ca-mcq ca-set"><div class="ca-mtop"><span class="ca-k">${test ? 'Test' : 'Practice'} · Q ${i + 1} of ${N}</span>${opts.perQ ? `<span class="ca-timer" id="csT" role="timer" aria-label="Seconds left">${s.left}s</span>` : `<span class="ca-timer" id="csT" aria-hidden="true">${secsTxt((Date.now() - started) / 1000)}</span>`}</div>${X.bar(i / N)}
         ${test ? `<div class="ca-pal" role="group" aria-label="Question palette">${st.map((x, j) => `<button class="${j === i ? 'cur' : ''} ${answered(x) ? 'ans' : ''}" data-j="${j}" aria-label="Question ${j + 1}${answered(x) ? ', answered' : ''}">${j + 1}</button>`).join('')}</div>` : ''}
-        ${caseHTML}<p class="ca-k ca-chtag">${esc(it.chTitle)} · ${esc(diffName(q.difficulty || 'core'))} · <span class="ca-qmk">${mk1(qm(q))}</span>${it.gen ? ' · <span class="ca-gentag">♾️ new variant</span>' : ''}</p>
+        ${caseHTML}<p class="ca-k ca-chtag">${esc(tagOf(it))} · ${esc(diffName(q.difficulty || 'core'))} · <span class="ca-qmk">${mk1(qm(q))}</span>${it.gen ? ' · <span class="ca-gentag">♾️ new variant</span>' : ''}</p>
         <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts" role="group" aria-label="Options">${s.ord.map((k, j) => `<button class="opt ${test && s.pick === k ? 'sel' : ''}" data-k="${k}" ${test ? `aria-pressed="${s.pick === k}"` : ''} ${locked || (test && s.out) ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
         <div id="csFb"></div>
         <div class="ca-btns ca-setnav">${test ? `<button class="btn ghost" id="csPrev" ${i ? '' : 'disabled'}>◀ Previous</button>` : ''}${test || locked ? `<button class="btn" id="csNext">${i < N - 1 ? 'Next ▶' : test ? 'Finish test ✓' : 'See results ▶'}</button>` : ''}</div>
@@ -567,11 +588,11 @@
     const feedback = () => {
       const it = items[i], s = st[i], q = it.q, ok = s.pick === q.answer;
       host.querySelectorAll('.opt').forEach(x => { if (+x.dataset.k === q.answer) x.classList.add('right'); if (+x.dataset.k === s.pick && !ok) x.classList.add('wrong'); });
-      D.getElementById('csFb').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? `Correct · +${mk1(qm(q))}` : s.out && s.pick == null ? `Time up — answer: ${esc(q.options[q.answer])}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}</div>`;
+      D.getElementById('csFb').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? `Correct · +${mk1(qm(q))}` : s.out && s.pick == null ? `Time up — answer: ${esc(q.options[q.answer])}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}${chipOf(it)}</div>`;
     };
     const finish = () => {
       clearInterval(tm); if (test) items.forEach((_, j) => grade(j));
-      const res = items.map((it, j) => ({ it, s: st[j], ok: st[j].pick === it.q.answer, skip: st[j].pick == null }));
+      const res = items.map((it, j) => ({ it, s: st[j], ok: st[j].pick === it.q.answer, skip: st[j].pick == null, ref: refOf(it) }));
       const right = res.filter(r => r.ok).length, wrong = res.filter(r => !r.ok && !r.skip).length, skip = res.filter(r => r.skip).length, ms = res.reduce((a, r) => a + r.s.ms, 0);
       const neg = items.some(it => /^fnd-p[34]-/.test(it.uid || it.key)), maxM = res.reduce((a, r) => a + qm(r.it.q), 0);
       const gotM = Math.round(res.reduce((a, r) => a + (r.ok ? qm(r.it.q) : !r.skip && neg ? -qm(r.it.q) / 4 : 0), 0) * 100) / 100;
@@ -582,12 +603,13 @@
       host.innerHTML = `<div class="card ca-res ca-setres"><span class="ca-k">${esc(opts.title || 'MCQ set')} · ${test ? 'Test' : 'Practice'} mode</span><h2 class="ca-h2s">You scored ${fmt(gotM)} / ${mk1(maxM)}</h2><p class="sub">${right} of ${N} correct · ${pct(right, N)}%${neg ? ' · −¼ of the marks for each wrong answer, as in the exam' : ''}</p>
           <div class="ca-kpis"><div><b>${right}</b><span>Correct</span></div><div><b>${wrong}</b><span>Wrong</span></div><div><b>${skip}</b><span>Unanswered</span></div><div><b>${Math.round(ms / N / 1000)}s</b><span>Avg per Q</span></div></div>
           <p class="sub">Total time ${secsTxt(ms / 1000)}.${wrong + skip ? ` ${wrong + skip} question${wrong + skip > 1 ? 's' : ''} added to “Revise these”.` : ''}</p></div>
-        <div class="card"><h3 class="ca-h3">Accuracy by chapter</h3>${Object.values(byCh).map(b => `<div class="ca-skill"><span>${esc(b.t)}</span>${X.bar(b.r / b.n)}<b>${pct(b.r, b.n)}%</b></div>`).join('')}</div>
+        <div class="card"><div class="ca-mtop"><h3 class="ca-h3">Accuracy by</h3><label class="sr-only" for="csGrp">Group results by</label><select id="csGrp" class="ca-in ca-rgsel"><option value="c">Chapter</option><option value="p">Paper</option><option value="t">Topic</option></select></div><div id="csAcc"></div></div>
         <div class="card"><h3 class="ca-h3">Time per question</h3><div class="ca-scroll" role="region" tabindex="0" aria-label="Time per question"><table class="ca-t ca-tpq"><thead><tr><th scope="col">Q</th><th scope="col">Chapter</th><th scope="col">Result</th><th scope="col" class="n">Seconds</th><th scope="col"><span class="sr-only">Bar</span></th></tr></thead><tbody>
-          ${res.map((r, j) => `<tr><td>${j + 1}</td><td>${esc(r.it.chTitle.replace(/^Ch (\d+):.*/, 'Ch $1'))}</td><td>${r.ok ? '✓ Correct' : r.skip ? '– Skipped' : '✗ Wrong'}</td><td class="n">${Math.round(r.s.ms / 1000)}</td><td class="ca-tbar"><i style="width:${Math.round(r.s.ms / mx * 100)}%" class="${r.ok ? 'ok' : 'no'}"></i></td></tr>`).join('')}</tbody></table></div></div>
-        <div class="card"><h3 class="ca-h3">Review with explanations</h3>${res.map((r, j) => `<details class="ca-rv ${r.ok ? 'ok' : 'no'}" ${r.ok ? '' : 'open'}><summary><span aria-hidden="true">${r.ok ? '✓' : r.skip ? '–' : '✗'}</span> Q${j + 1} (${mk1(qm(r.it.q))}). ${esc(r.it.q.q)} <em class="ca-qmk">${r.ok ? qm(r.it.q) : 0}/${qm(r.it.q)}</em></summary>
-          ${r.it.cs ? `<p class="ca-note">Case: ${esc(r.it.cs.title)}</p>` : ''}<p class="ca-p">Your answer: <b>${r.skip ? 'not answered' : esc(r.it.q.options[r.s.pick])}</b>${r.ok ? '' : `<br>Correct answer: <b>${esc(r.it.q.options[r.it.q.answer])}</b>`}</p><p class="ca-p ca-why">${esc(r.it.q.explain)}</p></details>`).join('')}</div>
+          ${res.map((r, j) => `<tr><td>${j + 1}</td><td>${esc(r.ref.pn ? `${r.ref.pn.replace('Paper ', 'P')} · ${r.ref.chn}` : String(r.it.chTitle || '').replace(/^Ch (\d+):.*/, 'Ch $1'))}</td><td>${r.ok ? '✓ Correct' : r.skip ? '– Skipped' : '✗ Wrong'}</td><td class="n">${Math.round(r.s.ms / 1000)}</td><td class="ca-tbar"><i style="width:${Math.round(r.s.ms / mx * 100)}%" class="${r.ok ? 'ok' : 'no'}"></i></td></tr>`).join('')}</tbody></table></div></div>
+        <div class="card"><div class="ca-mtop"><h3 class="ca-h3">Review with explanations</h3><label class="sr-only" for="csFil">Show questions from</label><select id="csFil" class="ca-in ca-rgsel"><option value="">All questions</option><option value="w">Wrong or skipped</option>${filterOpts(res)}</select></div><p class="ca-note" id="csFilN" role="status" aria-live="polite"></p>${res.map((r, j) => `<details class="ca-rv ${r.ok ? 'ok' : 'no'}" data-j="${j}" ${r.ok ? '' : 'open'}><summary><span aria-hidden="true">${r.ok ? '✓' : r.skip ? '–' : '✗'}</span> Q${j + 1} (${mk1(qm(r.it.q))}). ${esc(r.it.q.q)} <em class="ca-qmk">${r.ok ? qm(r.it.q) : 0}/${qm(r.it.q)}</em></summary>
+          <p class="ca-note ca-rvtag">${esc(tagOf(r.it))}</p>${r.it.cs ? `<p class="ca-note">Case: ${esc(r.it.cs.title)}</p>` : ''}<p class="ca-p">Your answer: <b>${r.skip ? 'not answered' : esc(r.it.q.options[r.s.pick])}</b>${r.ok ? '' : `<br>Correct answer: <b>${esc(r.it.q.options[r.it.q.answer])}</b>`}</p><p class="ca-p ca-why">${esc(r.it.q.explain)}</p>${chipOf(r.it)}</details>`).join('')}</div>
         <div class="ca-btns"><button class="btn ghost" id="csRev">Revise these (${Object.keys(C().revise).length})</button><button class="btn" id="csAgain">${opts.againLabel || 'New set'}</button></div>`;
+      wireGroups(res);
       say(`${right} of ${N} correct`);
       D.getElementById('csRev').onclick = revise;
       D.getElementById('csAgain').onclick = () => (opts.again || builder)();
@@ -602,7 +624,7 @@
     el.innerHTML = ''; el.appendChild(back('Practice', practiceHub));
     el.insertAdjacentHTML('beforeend', `<h1 class="ca-h1 ca-onDark">Revise these</h1><div class="card"><p class="ca-p">${found.length ? `${found.length} question${found.length > 1 ? 's' : ''} you got wrong or ran out of time on. A question leaves this list when you answer it correctly.` : 'Nothing to revise — mistakes from any MCQ set appear here.'}</p>
       ${found.length ? '<button class="btn" id="crGo">Practise all ▶</button>' : '<button class="btn" id="crB">Build an MCQ set</button>'}</div>
-      ${found.length ? `<div class="card"><ul class="ca-rvl">${found.map(f => `<li><span><b>${esc(f.q.q)}</b><small>${esc(sts[f.uid] ? `${X.paperLabel(sts[f.uid].p)} · Ch ${sts[f.uid].c.n} · ${sts[f.uid].u.title}` : f.uid)}${C().revise[f.k].n > 1 ? ` · missed ${C().revise[f.k].n}×` : ''}</small></span><button class="ca-x" data-k="${esc(f.k)}" aria-label="Remove from revise list">✕</button></li>`).join('')}</ul></div>` : ''}`);
+      ${found.length ? `<div class="card"><ul class="ca-rvl">${found.map(f => `<li><span><b>${esc(f.q.q)}</b><small>${esc(sts[f.uid] ? `${X.paperLabel(sts[f.uid].p)} · Ch ${sts[f.uid].c.n} · ${sts[f.uid].u.title}` : f.uid)}${C().revise[f.k].n > 1 ? ` · missed ${C().revise[f.k].n}×` : ''}</small>${X.refChip ? X.refChip(f.uid, f.q) : ''}</span><button class="ca-x" data-k="${esc(f.k)}" aria-label="Remove from revise list">✕</button></li>`).join('')}</ul></div>` : ''}`);
     const g = D.getElementById('crGo'); if (g) g.onclick = () => startSet(freshOrder(found.map(f => ({ key: f.k, f })), 'revise').map(({ f }) => f).map(f => { const x = sts[f.uid]; return { q: f.q, key: f.k, uid: f.uid, cs: f.cs, ch: chOf(f.uid), chTitle: x ? `Ch ${x.c.n}: ${x.c.title}` : '' }; }), { mode: 'practice', perQ: 0, title: 'Revise these', again: revise, againLabel: 'Back to list' });
     const b = D.getElementById('crB'); if (b) b.onclick = () => builder();
     el.querySelectorAll('.ca-x[data-k]').forEach(x => x.onclick = () => { delete C().revise[x.dataset.k]; save(); revise(); });
@@ -700,7 +722,7 @@
         } else {
           const bq = qs[q.id + p.id]; if (!bq) { html += '</div>'; continue; } const pref = q.id + p.id; ticks[pref] = {}; bq.scheme.forEach(s => ticks[pref][s.id] = 0);
           html += `<details class="ca-given"><summary>Question and your answer</summary><p class="ca-q">${esc(bq.q)}</p><pre class="ca-myans">${esc(dr.ans[pref] || '(not answered)')}</pre></details>
-            <details class="ca-given" open><summary>Model answer</summary>${X.blocks(bq.model)}${X.checksHTML(bq.checks)}</details>
+            <details class="ca-given" open><summary>Model answer</summary>${X.blocks(bq.model)}${X.checksHTML(bq.checks)}</details>${p.kind === 'ref' && X.refChip ? X.refChip(p.ref.split('#')[0], bq) : ''}
             <p class="ca-k">Mark yourself</p>${schemeHTML(pref, bq.scheme)}`;
         }
         html += `</div>`;
@@ -1066,7 +1088,7 @@
         <div class="ca-chipsel" role="group" aria-label="Marks"><button type="button" class="ca-cs" aria-pressed="${fm === 'all'}" data-bm="all">All</button>${marks.map(m => `<button type="button" class="ca-cs" aria-pressed="${String(fm) === String(m)}" data-bm="${m}">${m}-mark <small>${inP.filter(x => x.q.marks === m).length}</small></button>`).join('')}<button type="button" class="ca-cs" data-bm="mcq">1-mark MCQs <small>${mcqN}</small></button></div>
         ${fm !== 'all' ? X.markGuide(+fm, p0 && p0, show.some(x => x.q.pad === 'legal')) : ''}</div>
       ${show.length ? `<div class="card"><ul class="ca-rvl ca-bank">${show.map(x => { const h = C().writes[`${x.b.u.id}#${x.q.id}`] || [], best = h.length ? Math.max(...h.map(a => a.score)) : null;
-        return `<li><button class="ca-nopen" data-u="${x.b.u.id}" data-q="${esc(x.q.id)}"><span class="ca-qm">${x.q.marks}<small>marks</small></span><span><b>${esc(x.q.q.length > 150 ? x.q.q.slice(0, 147) + '…' : x.q.q)}</b><small>${esc(X.paperLabel(x.b.p))} · Ch ${x.b.c.n} · ${esc(x.b.u.title)} · ~${x.q.minutes} min${best != null ? ` · best ${fmt(best)}/${x.q.marks}` : ''}</small></span></button></li>`; }).join('')}</ul></div>` : '<div class="card"><p class="ca-p">No questions with these marks yet.</p></div>'}`);
+        return `<li><button class="ca-nopen" data-u="${x.b.u.id}" data-q="${esc(x.q.id)}"><span class="ca-qm">${x.q.marks}<small>marks</small></span><span><b>${esc(x.q.q.length > 150 ? x.q.q.slice(0, 147) + '…' : x.q.q)}</b><small>${esc(X.paperLabel(x.b.p))} · Ch ${x.b.c.n} · ${esc(x.b.u.title)} · ~${x.q.minutes} min${best != null ? ` · best ${fmt(best)}/${x.q.marks}` : ''}</small></span></button>${X.refChip ? X.refChip(x.b.u.id, x.q) : ''}</li>`; }).join('')}</ul></div>` : '<div class="card"><p class="ca-p">No questions with these marks yet.</p></div>'}`);
     el.querySelectorAll('[data-bm]').forEach(b => b.onclick = () => { tap('tap'); if (b.dataset.bm === 'mcq') return builder(); bank(b.dataset.bm, pid); });
     el.querySelectorAll('[data-pid]').forEach(b => b.onclick = () => { tap('tap'); bank(fm, b.dataset.pid); });
     el.querySelectorAll('.ca-bank [data-q]').forEach(b => b.onclick = () => { tap('open'); Ca.openQuestion(b.dataset.u, b.dataset.q); });

@@ -2,7 +2,12 @@
 Original explanations, data and questions (structure and scope follow the ICAI study material). Every figure is computed below."""
 from lib import *
 from ca_viva import P, V, ALT
-from ca_cases import M as CM
+from ca_cases import M as _CM
+
+
+def CM(*a, topic=None, **k):
+    d = _CM(*a, **k); d['topic'] = topic
+    return d
 
 UID = 'fnd-p3-ch13-u01'
 
@@ -24,15 +29,15 @@ def fm(v, unit=''):
     return s + (' ' + unit if unit else '')
 
 
-def mq(mid, q, opts, explain, concept, diff='core'):
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
+def mq(mid, q, opts, explain, concept, diff='core', topic=None):
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'explain': explain, 'concept': concept, 'difficulty': diff}
 
 
-def nq(mid, q, check, wrong, explain, concept, diff='core', unit=''):
+def nq(mid, q, check, wrong, explain, concept, diff='core', unit='', topic=None):
     v = ev(check)
     opts = [fm(v, unit)] + [fm(w, unit) for w in wrong]
     assert len(set(opts)) == 4 and all(abs(w - v) > 0.006 for w in wrong), (mid, opts)
-    return {'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
+    return {'topic': topic, 'id': mid, 'q': q, 'options': opts, 'answer': 0, 'check': check, 'explain': explain.replace('@A', fm(v, unit)), 'concept': concept, 'difficulty': diff}
 
 
 def build():
@@ -139,13 +144,13 @@ def build():
                  'with 8, 20, 32, 25 and 15 shops respectively. She wants a table for the management report, an ogive to read off the middle shop, and a pie chart for the board deck.'),
         'mcqs': [
             CM('k1a', 'What are the class boundaries of the class 30–39?', ['29.5 and 39.5', '30 and 39', '30 and 40', '29 and 40'], 0,
-               'The gap between one upper limit and the next lower limit is 1, so subtract and add half of it: 30 − 0.5 = 29.5 and 39 + 0.5 = 39.5.', 'core'),
+               'The classes 10–19, 20–29, 30–39 are inclusive with a gap of 1 between them. Subtract and add half the gap: 30 − 0.5 = 29.5 and 39 + 0.5 = 39.5. The trap is 30 and 39, which are the class limits, not boundaries. In practice: using boundaries ensures every carton count, even if averaged to 29.6, falls into exactly one class.', 'core', topic='Frequency distribution and its terms'),
             CM('k1b', 'What is the less-than cumulative frequency at 39.5?', ['60', '32', '72', '40'], 0,
-               'Less-than c.f. adds frequencies from the top: 8 + 20 + 32 = 60.', 'core', '8+20+32'),
+               'The less-than cumulative frequency at 39.5 counts all shops in the classes up to 30–39: 8 + 20 + 32 = 60. The trap is 32, the frequency of the class 30–39 alone, not the cumulative figure. In practice: running totals like this are how a distributor sees, for example, that 60% of shops bought fewer than 40 cartons.', 'core', '8+20+32', topic='Frequency distribution and its terms'),
             CM('k1c', 'If the two ogives are drawn, at what cumulative frequency will they cross?', ['50', '100', '60', '25'], 0,
-               f'The less-than and more-than ogives always meet at half the total frequency: {k_tot} ÷ 2 = 50. The x-value there is the median.', 'moderate', '100/2'),
+               "The less-than and more-than ogives always cross at half the total frequency. With 100 shops, that is 100 ÷ 2 = 50; the x-value there is the median. The trap is 100, the total, where one ogive ends rather than where they meet. In practice: the median shop's purchase is a fairer 'typical' figure than the mean if a few large shops buy far more.", 'moderate', '100/2', topic='Graphs of a frequency distribution'),
             CM('k1d', 'In the pie chart, what angle represents the shops in the class 30–39?', ['115.2 degrees', '32 degrees', '120 degrees', '96 degrees'], 0,
-               f'Angle = 32 ÷ 100 × 360 = {fm(k_ang)} degrees.', 'moderate', '32/100*360'),
+               'A pie-chart angle = (class frequency ÷ total) × 360. For 30–39: 32 ÷ 100 × 360 = 115.2 degrees. The trap is 32 degrees, which uses the frequency itself as the angle. In practice: board decks often present the customer base as a pie chart, and every slice must be calculated this way to be accurate.', 'moderate', '32/100*360', topic='Diagrams: line, bar and pie'),
         ]}]
 
     viva = [
@@ -296,73 +301,73 @@ def build():
         ],
         'mcqs': [
             mq('m1', 'Statistics used in the plural sense means:', ['Numerical data collected with a view to analysis', 'The science of collecting and analysing data', 'A single figure such as an average', 'Only data published by the government'],
-               'Plural sense = the figures themselves. The singular sense is the method (science) of collecting, analysing and presenting data.', 'c1'),
+               "In the plural sense, 'statistics' means the numerical facts themselves, collected with a view to analysis, such as figures on prices, output or population. The trap is 'the science of collecting and analysing data', which is the singular sense (the method). In practice: when the RBI or MoSPI publishes 'statistics' on inflation or GDP, the word is used in the plural sense: the figures themselves.", 'c1', topic='Statistics — the word, its two meanings and its uses'),
             mq('m2', 'In the singular sense, statistics is best described as:', ['The scientific method of collecting, analysing and presenting data and drawing inferences', 'A set of numbers about a characteristic', 'The study of individuals', 'A branch of accounting'],
-               'As a singular noun, statistics is the method or science; as a plural noun it means data.', 'c1'),
+               "Used as a singular noun, statistics is the scientific method of collecting, presenting, analysing and interpreting data and drawing conclusions from it. The trap is 'a set of numbers about a characteristic', which is the plural sense (the data). In practice: an analyst who applies statistics to a company's sales figures to forecast demand is using it in the singular sense, as a method.", 'c1', topic='Statistics — the word, its two meanings and its uses'),
             mq('m3', 'Which of these is a limitation of statistics?', ['It does not study individuals', 'It cannot be used in economics', 'It ignores aggregates', 'It does not use averages'],
-               'Statistics deals with aggregates; a single item has no importance except as part of the group.', 'c2'),
+               "Statistics deals with aggregates, so it does not study individual items; a single value matters only as part of a group. 'It cannot be used in economics' is the trap: economics is one of the biggest users of statistics. In practice: an average salary figure for a firm tells you nothing about any one employee, so an HR audit of a single pay slip needs other evidence.", 'c2', topic='Limitations of statistics'),
             mq('m4', 'Data collected by an investigator for the first time for his own enquiry are called:', ['Primary data', 'Secondary data', 'Ordinal data', 'Grouped data'],
-               'First-hand, original collection gives primary data. Later users of those data treat them as secondary.', 'c3'),
+               "Data collected for the first time by the investigator for his own enquiry are primary data: original and first-hand. Secondary data is the trap: those are data already collected by someone else and only reused. In practice: a CA firm's own survey of its clients' GST compliance gives primary data, while using RBI's published bank-credit figures gives secondary data.", 'c3', topic='Collecting data: primary, secondary and scrutiny'),
             mq('m5', 'Which method of collecting primary data usually suffers the highest non-response?', ['Mailed questionnaire method', 'Personal interview method', 'Observation method', 'Questionnaires filled in by enumerators'],
-               'Many recipients never return a mailed questionnaire, so non-response is highest there.', 'c3'),
+               'Many people who receive a mailed questionnaire simply never return it, so this method usually has the highest non-response. The personal interview method is the trap: the investigator meets each respondent, so non-response is low. In practice: firms sending balance-confirmation requests to debtors by post often face exactly this problem of unreturned replies and must follow up.', 'c3', topic='Collecting data: primary, secondary and scrutiny'),
             mq('m6', 'After a train accident the injured cannot be reached, so information is collected from relatives and railway staff. This is:', ['Indirect interview method', 'Personal interview method', 'Observation method', 'Mailed questionnaire method'],
-               'When respondents cannot be approached directly, data are collected from persons connected with the problem — indirect interview.', 'c3', 'moderate'),
+               'When respondents cannot be approached directly, information is collected from third parties connected with the matter. That is the indirect interview method, as used by enquiry committees. The personal interview method is the trap: it requires meeting the injured persons themselves. In practice: when a debtor cannot be contacted, an auditor may gather evidence from third parties like the bank or the transporter.', 'c3', 'moderate', topic='Collecting data: primary, secondary and scrutiny'),
             mq('m7', 'The method that is quick and cheap with wide coverage, but less consistent, is the:', ['Telephone interview method', 'Personal interview method', 'Observation method', 'Indirect interview method'],
-               'Telephone interviews cover a wide area quickly and at low cost; personal and indirect interviews are more accurate but cannot cover a large area.', 'c3', 'moderate'),
+               "Telephone interviews reach a wide area quickly and cheaply, but responses are less consistent and less detailed. The personal interview method is the trap: it is accurate but slow and costly and cannot cover a large area. In practice: market-research firms and banks' customer-feedback teams in India rely heavily on phone surveys because of their reach and low cost.", 'c3', 'moderate', topic='Collecting data: primary, secondary and scrutiny'),
             mq('m8', 'Measuring the heights of students directly is an example of:', ['Observation method — reliable but slow and limited in coverage', 'Mailed questionnaire method', 'Secondary data', 'Telephone interview'],
-               'Direct measurement is observation. It is probably the best method for accuracy, but it is time-consuming and covers only a small area.', 'c3'),
+               'Measuring heights directly is observation: the investigator records what is seen. It is generally the most accurate method, but it is slow and can cover only a limited area. The mailed questionnaire is the trap: nothing is posted here. In practice: physical verification of inventory during an audit is observation, reliable but time-consuming.', 'c3', topic='Collecting data: primary, secondary and scrutiny'),
             mq('m9', 'Which of these is a source of secondary data?', ['A report published by the World Bank', 'A survey you conduct yourself', 'Your own measurement of machine output', 'Interviews you hold with customers'],
-               'International bodies, government publications and research institutes are standard secondary sources.', 'c3'),
+               'A published World Bank report contains data collected by someone else, so using it gives secondary data. Data from your own survey is the trap: anything you collect first-hand is primary. In practice: equity analysts routinely use secondary data from the World Bank, IMF, RBI and company annual reports to build their economic and industry models.', 'c3', topic='Collecting data: primary, secondary and scrutiny'),
             mq('m10', 'Checking whether Density = Population ÷ Area holds for the data of several towns is a part of:', ['Scrutiny of data (internal consistency)', 'Tabulation', 'Classification', 'Sampling'],
-               'Related series can be tested against each other for internal consistency during scrutiny.', 'c3', 'moderate'),
+               'When two or more related series exist, checking whether they agree with each other (here Density = Population ÷ Area) is the internal-consistency test done during scrutiny of data. Tabulation is the trap: it only arranges data in rows and columns. In practice: auditors do the same when they check that gross profit equals sales minus cost of sales across schedules.', 'c3', 'moderate', topic='Collecting data: primary, secondary and scrutiny'),
             mq('m11', 'Data on CA Foundation candidates arranged State-wise are:', ['Geographical (spatial) data', 'Chronological data', 'Qualitative data', 'Cardinal data'],
-               'Arrangement by region or place gives geographical (spatial) series.', 'c4'),
+               "Data arranged by place, such as State or district, form a geographical (spatial) series. Chronological data is the trap: that is data arranged by time. In practice: ICAI's examination results and GST collection figures are frequently published State-wise, a geographical classification.", 'c4', topic='Classification of data'),
             mq('m12', 'Which pair belongs to the non-frequency group of data?', ['Time series data and geographical data', 'Qualitative data and quantitative data', 'Discrete data and continuous data', 'Primary data and secondary data'],
-               'Qualitative and quantitative data are counted into groups (frequency data); time series and geographical data are not.', 'c4', 'moderate'),
+               'Time series data and geographical data are arranged by time and by place, not counted into frequency groups, so they form the non-frequency group. Qualitative and quantitative data is the trap: those are classified by attribute or value and counted, so they are frequency data. In practice: a monthly GST collection table is a time series, not a frequency distribution.', 'c4', 'moderate', topic='Classification of data'),
             mq('m13', 'Data on the smoking habits of a group of people are:', ['Qualitative data', 'Quantitative data', 'Chronological data', 'Continuous data'],
-               'Smoking habit is an attribute, so classifying by it gives qualitative (ordinal) data.', 'c4'),
+               'Smoking habit is an attribute that can only be described (smoker, non-smoker), not measured, so the data are qualitative. Quantitative data is the trap: that requires a measurable value like height or income. In practice: insurance proposal forms record such attributes (smoker or not), and actuaries classify customers by them when pricing policies.', 'c4', topic='Classification of data'),
             mq('m14', 'In a statistical table, the stub is:', ['The left part of the table describing the rows', 'The upper part describing the columns', 'The main part containing the figures', 'The note at the bottom of the table'],
-               'Stub = row descriptions (left). Caption = column headings (top). Body = figures. Footnote/source = bottom.', 'c5'),
+               'The stub is the left-hand part of a table, giving the headings that describe each row. The caption, describing columns, is the trap: it sits at the top. The body holds the figures and footnotes sit at the bottom. In practice: in a financial statement schedule, the line items down the left are the stub and the year columns are the caption.', 'c5', topic='Textual and tabular presentation'),
             mq('m15', 'In tabulation, the caption refers to:', ['The headings of the columns and sub-columns', 'The headings of the rows', 'The source of the data', 'The figures in the table'],
-               'The caption describes the columns; the box-head is the whole upper part including the caption, column numbers and units.', 'c5'),
+               "The caption is the heading of the columns and sub-columns at the top of the table. Row headings is the trap: those form the stub on the left. In practice: in a comparative balance sheet, the captions 'As at 31 March 2026' and 'As at 31 March 2025' head the columns, while the line items form the stub.", 'c5', topic='Textual and tabular presentation'),
             mq('m16', 'Compared with tabulation, diagrammatic representation is:', ['More attractive but less accurate', 'More accurate but less attractive', 'Both more accurate and more attractive', 'Of no use to a lay reader'],
-               'Diagrams appeal to everyone and reveal trends, but when accuracy is the priority a table is recommended.', 'c6'),
+               "Diagrams are attractive and reveal trends at a glance, even to a lay reader, but they show values only approximately. A table is therefore preferred when accuracy matters. 'More accurate but less attractive' is the trap: it reverses the comparison. In practice: annual reports use charts for highlights but always give the exact figures in tables.", 'c6', topic='Diagrams: line, bar and pie'),
             nq('m17', 'In a pie chart of total expenses of ₹1,20,000, rent of ₹27,000 is shown by an angle of:', '27000/120000*360', [27, 75, 22.5],
-               'Angle = 27,000 ÷ 1,20,000 × 360 = @A degrees. (27 is just the amount in thousands; 22.5 is the percentage.)', 'c6', unit='degrees'),
+               "A pie chart has 360° in all, so each item's angle = (item ÷ total) × 360. Rent: 27,000 ÷ 1,20,000 × 360 = 81 degrees. 22.5 is the trap: it is rent as a percentage of total expenses, not the angle. In practice: CFO presentations to a board often show cost structure as a pie chart, and every slice is worked out exactly like this.", 'c6', unit='degrees', topic='Diagrams: line, bar and pie'),
             mq('m18', 'For a time series whose values range from very small to very large, and where the rate of growth matters, the most suitable diagram is:', ['A ratio (logarithmic) chart', 'A pie chart', 'A horizontal bar diagram', 'A frequency polygon'],
-               'In a ratio chart the log of the value is plotted, so equal rates of change appear as equal slopes.', 'c6', 'moderate'),
+               "On a ratio (logarithmic) chart, the log of each value is plotted, so equal rates of change show as equal slopes whether values are small or large. A horizontal bar diagram is the trap: it suits categories or places, not growth over time. In practice: long-run charts of the Sensex or a company's revenue over decades often use a log scale so early growth is visible.", 'c6', 'moderate', topic='Diagrams: line, bar and pie'),
             mq('m19', 'Horizontal bar diagrams are generally used for:', ['Qualitative data or data varying over space', 'Time series data', 'Continuous frequency distributions', 'Cumulative frequencies'],
-               'Horizontal bars suit categories and places; vertical bars suit quantitative and time series data.', 'c6'),
+               'Horizontal bars suit qualitative categories and data varying over place, because long category or region names fit easily. Time series data is the trap: time is normally shown on the horizontal axis with vertical bars or lines. In practice: a chart ranking Indian States by GST collection uses horizontal bars sorted by size.', 'c6', topic='Diagrams: line, bar and pie'),
             mq('m20', 'To compare the components of a total and also show each as a share of the whole, one may use:', ['A percentage (divided) bar diagram or a pie chart', 'A multiple line chart', 'An ogive', 'A histogram'],
-               'Percentage bars and pie charts both show parts in relation to the whole.', 'c6'),
+               'A percentage (divided) bar diagram and a pie chart both show each component as a share of the whole total. An ogive is the trap: it shows cumulative frequencies, not parts of a total. In practice: a cost-sheet breakdown of where each rupee of revenue goes (materials, wages, overheads, profit) is commonly drawn as a pie chart or percentage bar.', 'c6', topic='Diagrams: line, bar and pie'),
             nq('m21', 'For the inclusive classes 20–29, 30–39, 40–49, the lower class boundary of 30–39 is:', '30-(30-29)/2', [30, 29, 30.5],
-               'D = 30 − 29 = 1, so LCB = 30 − 0.5 = @A.', 'c7'),
+               "For inclusive classes, the gap between one class's upper limit and the next lower limit is 30 − 29 = 1. Subtract half of it: LCB = 30 − 0.5 = 29.5. The trap is 30, the class limit, not the boundary. In practice: boundaries matter when data like invoice values are grouped, so that an item worth 29.7 is not left out of every class.", 'c7', topic='Frequency distribution and its terms'),
             nq('m22', 'A class has boundaries 24.5 and 34.5. Its mid-value is:', '(24.5+34.5)/2', [29, 30, 10],
-               'Mid-value = (24.5 + 34.5) ÷ 2 = @A. (10 is the width.)', 'c7'),
+               'Mid-value = (lower boundary + upper boundary) ÷ 2 = (24.5 + 34.5) ÷ 2 = 29.5. The trap is 10, which is the class width (34.5 − 24.5), not the mid-value. In practice: when the mean of grouped data is computed, for example the average ticket size of grouped sales invoices, each class is represented by its mid-value.', 'c7', topic='Frequency distribution and its terms'),
             nq('m23', 'In a distribution of 120 items, a class has frequency 18. Its relative frequency is:', '18/120', [18, 0.18, 6.67],
-               'Relative frequency = 18 ÷ 120 = @A (i.e. 15% when expressed as a percentage).', 'c7'),
+               'Relative frequency = class frequency ÷ total frequency = 18 ÷ 120 = 0.15, or 15%. The trap is 0.18, which wrongly divides 18 by 100. In practice: a bank analysing loan sizes reports the share of loans in each bracket, which is just relative frequency expressed as a percentage.', 'c7', topic='Frequency distribution and its terms'),
             nq('m24', 'The class 20–40 has frequency 24. Its frequency density is:', '24/(40-20)', [24, 0.83, 12],
-               'Frequency density = frequency ÷ width = 24 ÷ 20 = @A.', 'c7', 'moderate'),
+               'Frequency density = frequency ÷ class width. The width of 20–40 is 20, so density = 24 ÷ 20 = 1.2. The trap is 0.83, which divides width by frequency the wrong way round. In practice: densities are needed when classes are unequal, such as income brackets in tax data, so that wider brackets do not look artificially large.', 'c7', 'moderate', topic='Frequency distribution and its terms'),
             nq('m25', 'Frequencies of the classes 0–10, 10–20, 20–30, 30–40 are 5, 9, 14, 7. The more-than cumulative frequency corresponding to 20 is:', '14+7', [28, 14, 35],
-               'More-than c.f. at 20 counts all items in 20–30 and 30–40: 14 + 7 = @A. (28 is the less-than c.f. at 30.)', 'c7', 'moderate'),
+               'The more-than cumulative frequency at 20 counts every item from 20 upwards, i.e. the classes 20–30 and 30–40: 14 + 7 = 21. The trap is 28, which is the less-than cumulative frequency up to 30 (5 + 9 + 14). In practice: credit teams use more-than counts, such as the number of debtors overdue by more than 90 days, when ageing receivables.', 'c7', 'moderate', topic='Frequency distribution and its terms'),
             nq('m26', 'The largest observation is 82 and the smallest is 24. With a class width of 8, the number of classes needed is:', '-(-(82-24)//8)', [7, 7.25, 10],
-               'Range = 58; classes × 8 must be at least 58, so 58 ÷ 8 = 7.25 is rounded up to @A. Seven classes would leave the extreme values out.', 'c7', 'moderate'),
+               'Range = 82 − 24 = 58. Classes × 8 must cover at least 58, and 58 ÷ 8 = 7.25, so round up to 8 classes. The trap is 7, which would cover only 56 and leave extreme values outside every class. In practice: when grouping data for a report, such as ageing invoices by value, always round the number of classes up so that nothing falls outside.', 'c7', 'moderate', topic='Frequency distribution and its terms'),
             mq('m27', 'With exclusive classes 10–20, 20–30, 30–40, an observation of exactly 20 is placed in:', ['20–30', '10–20', 'Either class', 'Neither class'],
-               'In exclusive (overlapping) classes the upper limit is excluded, so 20 belongs to 20–30.', 'c7'),
+               'In exclusive classes, the upper limit of each class is excluded and belongs to the next class. So an observation of exactly 20 goes into 20–30. The trap is 10–20, which would count 20 in a class whose upper limit is excluded. In practice: ageing schedules (0–30 days, 30–60 days) must state such a convention, or a 30-day invoice could be counted twice or missed.', 'c7', topic='Frequency distribution and its terms'),
             mq('m28', 'The number of children in a family is an example of:', ['A discrete variable', 'A continuous variable', 'An attribute', 'A geographical series'],
-               'It can take only whole-number values, so it is discrete.', 'c7'),
+               'The number of children can only be a whole number (0, 1, 2, …); there are no values in between, so it is a discrete variable. A continuous variable is the trap: that can take any value in a range, like height or weight. In practice: the number of invoices or employees is discrete, while amounts in rupees or weights of stock are treated as continuous.', 'c7', topic='Frequency distribution and its terms'),
             mq('m29', 'The point where the less-than and more-than ogives intersect gives the:', ['Median', 'Mean', 'Mode', 'Range'],
-               'They cross at N/2, so the x-value of that point is the median.', 'c8'),
+               'The less-than and more-than ogives always cross at a cumulative frequency of N/2, where half the items lie on each side. The x-value of that point is the median. The mean is the trap: it cannot be read from ogives. In practice: an analyst can read the median salary or median invoice value straight off an ogive drawn from a frequency table.', 'c8', topic='Graphs of a frequency distribution'),
             mq('m30', 'A histogram is used to find which measure graphically?', ['Mode', 'Median', 'Mean', 'Quartile deviation'],
-               'The mode is located from the tallest rectangle of the histogram; ogives give the median and quartiles.', 'c8', 'moderate'),
+               "In a histogram the modal class is the tallest rectangle, and the mode is located by joining the corners of that rectangle with those of its neighbours. The median is the trap: it is found from ogives. In practice: a retailer's histogram of bill sizes shows the most common bill value at a glance, useful for pricing combo offers.", 'c8', 'moderate', topic='Graphs of a frequency distribution'),
             mq('m31', 'A frequency polygon is obtained by joining:', ['The mid-points of the tops of histogram rectangles', 'The upper corners of histogram rectangles', 'Cumulative frequencies at class boundaries', 'Class limits with frequencies'],
-               'Plot frequency against mid-values (the mid-tops of the rectangles) and close the figure at both ends.', 'c8'),
+               'A frequency polygon is drawn by plotting frequencies against mid-values, which means joining the mid-points of the tops of the histogram rectangles, and closing the figure at both ends. The upper corners is the trap: joining corners does not represent class mid-values. In practice: frequency polygons let analysts overlay two distributions, such as sales in two regions, on one chart.', 'c8', topic='Graphs of a frequency distribution'),
             mq('m32', 'In a histogram with unequal class widths, the heights of the rectangles should be proportional to:', ['Frequency densities', 'Class frequencies', 'Cumulative frequencies', 'Mid-values'],
-               'Area must represent frequency, so height = frequency ÷ width.', 'c8', 'moderate'),
+               'In a histogram, the area of each rectangle represents frequency. With unequal widths, height must therefore be frequency ÷ width, the frequency density. Class frequencies is the trap: using them would make wider classes look too large. In practice: income-distribution charts with brackets of unequal size, such as tax slabs, must use densities to avoid misleading readers.', 'c8', 'moderate', topic='Graphs of a frequency distribution'),
             mq('m33', 'A frequency curve in which frequency is lowest in the middle and highest at both ends is:', ['U-shaped', 'Bell-shaped', 'J-shaped', 'Inverted J-shaped'],
-               'U-shaped: minimum near the centre, rising towards both extremes.', 'c8'),
+               'A U-shaped curve has its lowest frequency near the middle and rises towards both extremes. A bell-shaped curve is the trap: it is the opposite, peaking in the middle. In practice: the number of accidents or claims by age group is often U-shaped, high for the very young and the very old, which insurers use in pricing.', 'c8', topic='Graphs of a frequency distribution'),
             mq('m34', 'Most distributions of heights, weights and marks give a:', ['Bell-shaped curve', 'U-shaped curve', 'J-shaped curve', 'Straight line'],
-               'Frequencies start low, rise to a peak and fall again — the familiar bell shape.', 'c8'),
+               'Heights, weights and marks usually start with low frequencies, rise to a peak around the average and fall again, giving a bell-shaped curve. The J-shaped curve is the trap: it keeps rising (or falling) towards one end. In practice: the normal (bell) shape underlies many business models, such as quality-control limits in manufacturing and risk models in finance.', 'c8', topic='Graphs of a frequency distribution'),
         ],
         'questions': [
             {'id': 'q1', 'marks': 5, 'minutes': minutes(5), 'difficulty': 'core', 'pad': 'table',

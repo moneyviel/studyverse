@@ -200,3 +200,34 @@ def build():
                      {'k': 'Section 8', 'v': 'Performing conditions or accepting consideration = acceptance'}, {'k': 'Answer format', 'v': 'Provision → Facts → Analysis → Conclusion'}],
         'viva': viva(),
     }
+
+
+# ---------- teaching explanations + topic tags for every MCQ (override the short drafts above) ----------
+TC, TE, TT, TP = 'What is a Contract?', 'Essentials of a Valid Contract', 'Types of Contracts', 'Proposal / Offer [Section 2(a) of the Indian Contract Act, 1872]'
+TA, TCM, TR = 'Acceptance', 'Communication of Offer and Acceptance', 'Revocation of Offer and Acceptance'
+EXPLAIN = {
+    'm1': (TC, 'Section 2(h) defines a contract as an agreement enforceable by law: agreement (offer plus acceptance) plus enforceability. The tempting trap is "promise" — under Section 2(b) an accepted proposal becomes a promise, and a promise or set of promises forms an agreement, but it becomes a contract only if the law will enforce it. In practice: a CA checks that a client\'s purchase order and acceptance meet legal requirements before treating the deal as a binding contract for revenue recognition.'),
+    'm2': (TT, 'Section 2(i): a voidable contract is enforceable at the option of one party (the aggrieved one, for example whose consent was caused by coercion, undue influence, fraud or misrepresentation) but not at the option of the other. The tempting trap is "unenforceable" — that means neither party can enforce it, often for a technical defect such as lack of stamping. A void contract binds no one. In practice: a business pressured into signing a supply deal can choose to cancel or continue it.'),
+    'm3': (TP, 'Goods displayed with price tags are only an invitation to offer: the shop invites customers to make offers. The customer offers at the billing counter and the shopkeeper is free to accept or refuse. The trap is "a general offer", which assumes anyone picking up the item creates a contract the shop must honour. In practice: if a supermarket shelf shows a wrong low price, the store can decline to sell at that price, though consumer-protection rules on unfair practices still apply.'),
+    'm4': (TA, 'Section 7 requires acceptance to be absolute and unqualified. A reply that adds or changes terms is a counter offer, which rejects the original offer, so the original cannot later be accepted (Hyde v. Wrench). The tempting trap is "a valid acceptance", treating a small change as acceptance — it is not. A cross offer is two identical offers made unknowingly. In practice: when a buyer returns a quotation with a changed payment term, the seller must accept that new term before any contract exists.'),
+    'm5': (TCM, 'Section 4: the offeror becomes bound the moment the acceptor sends the acceptance off beyond recall — for a letter, the moment it is posted. The tempting trap is "when the letter reaches the offeror"; that is the moment it becomes complete as against the acceptor. In practice: when a tender acceptance is dispatched by post or courier, the date of dispatch can decide when the offeror became bound.'),
+    'm6': (TR, 'Section 5: an acceptance can be revoked any time before communication of acceptance is complete as against the acceptor — before the letter comes to the offeror\'s knowledge — and not afterwards. The tempting trap is "only before it is posted"; posting binds the offeror, but the acceptor can still revoke by a faster mode, such as a phone call or email that arrives first. In practice: a supplier who posts an acceptance and then discovers a costing error can send an email revocation that reaches the buyer before the letter.'),
+    'm7': (TP, 'Cross offers are identical offers that cross each other, each party unaware of the other\'s offer. Neither is an acceptance of the other, because acceptance must be made in response to a known offer — so no contract arises until one party accepts. The tempting trap is "a concluded contract", since the terms match. In practice: when two businesses email identical purchase and sale terms at the same moment, one still needs to confirm acceptance before either can enforce the deal.'),
+    'm8': (TA, 'Acceptance must be communicated; an offeror cannot impose on the offeree a duty to reply by declaring that silence will count as acceptance (Felthouse v. Bindley). The offeree\'s silence is therefore not acceptance and there is no contract. The trap is "contract on Monday", which treats the deadline as binding. In practice: a supplier who emails "unless you object by Friday, we will ship and invoice" cannot force payment if the customer simply ignores the email.'),
+    'm9': (TR, 'Section 6 revokes an offer by notice communicated to the other party, lapse of the prescribed or a reasonable time, failure of the acceptor to fulfil a condition precedent, or death or insanity of the offeror known to the acceptor before acceptance. A mere change of mind kept to oneself revokes nothing. The trap is the death option — it is a valid mode, but only if the acceptor knows of it before accepting. In practice: a client withdrawing a quotation must actually inform the customer, preferably in writing.'),
+    'm10': (TE, 'An essential of a valid contract is an intention to create legal relations. In social and domestic arrangements the law presumes no such intention, so they are not contracts (Balfour v. Balfour). The tempting trap is "they are always oral" — oral contracts are perfectly valid unless a statute requires writing. In practice: a CA advising a family-owned business insists that loans between relatives be recorded in written agreements, so that the intention to be legally bound is clear.'),
+}
+
+
+_build_core = build
+
+
+def build():
+    """Applies the teaching explanation and topic tag to every MCQ (unit set and case-study sets)."""
+    u = _build_core()
+    for q in u['mcqs']:
+        q['topic'], q['explain'] = EXPLAIN[q['id']]
+    for cs in u.get('cases') or []:
+        for q in cs['mcqs']:
+            q['topic'], q['explain'] = EXPLAIN[cs['id'] + '/' + q['id']]
+    return u

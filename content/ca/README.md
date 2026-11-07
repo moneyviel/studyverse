@@ -52,7 +52,7 @@ progress, MCQ stats and saved answers are keyed on them.
 | `concepts[]` | `id, title, body[] (paragraphs), blocks[] (optional), analogy, work` ("Why it matters in real CA work") |
 | `illustrations[]` | `id, title, difficulty, minutes, q, given[]?, solution[] (blocks), checks[]` — exam presentation format |
 | `jobs[]` | "On the job": `id, title, role, situation, steps[], takeaway, think?, answer?, checks?` |
-| `mcqs[]` | `id, q, options[4], answer (index), explain, concept, difficulty, check?` (UI shuffles options) |
+| `mcqs[]` | `id, q, options[4], answer (index), explain, concept, topic, difficulty, check?` (UI shuffles options). `topic` = one of the unit's structure.json `topics` or one of its concept-card titles (exact text; case, spaces and dash/quote variants ignored); `explain` 35+ words. Both are validator warnings now, errors with `--strict` |
 | `questions[]` | descriptive: `id, marks, minutes (≈1.8/mark), difficulty, pad, q, given[]?, model[] (blocks), scheme[], remarks[], mistakes[], tips[], checks[]?` |
 | `revision` | one-page: `summary[], remember[], traps[]` |
 | `quickref[]` | formula / section quick reference: `{k, v}` |
@@ -127,11 +127,38 @@ An attempt keeps the answer text (≤6000 chars), table rows, time, words, ticks
 `status: "self"`. `Ca.submission(uid, qid)` returns the payload for a future backend checker:
 ```json
 { "schema": "ca-submission/1", "unit": "fnd-p1-ch02-u01", "question": "q1", "marks": 6,
-  "answer": {"text": "…", "table": {"cols": [...], "rows": [[...]]}},
+  "answer": {"text": "…", "table": {"schema": "ca-pad/1", "sheets": [{"tpl": "journal", "name": "Journal", "title": "…", "data": {…}, "flat": {"cols": [...], "rows": [[...]]}, "check": {"ok": true, "msg": "…"}}]}},
   "self": {"score": 4.5, "ticks": {"s1": 1, "s2": 0.5}}, "meta": {"secs": 610, "words": 180, "date": "2026-11-07"},
   "status": "self" }
 ```
 The checker can return `{status: "ai", score, ticks, remarks[]}` against the same `scheme` ids.
+(Attempts saved before the templates keep the old `table: {cols, rows}` shape.)
+
+## Writing-pad exam formats (js/ca-pad.js)
+The Write tab's answer pad offers the formats a CA Foundation student writes, picked from the question's `pad` and its wording
+(`CaPad.suggest(pad, q)` — e.g. "Prepare a three-column cash book" → three-column Cash Book; "Distinguish between" → comparison
+table; a question that asks for a Trading A/c, P&L A/c and Balance Sheet suggests all three). A student can add several tables
+to one answer. Formats (column layouts follow the ICAI study material): Journal, Journal Proper, Purchases Book, Sales Book
+(each also with GST columns), Purchases Returns Book (Debit Note No.), Sales Returns Book (Credit Note No.), Bills Receivable Book,
+Bills Payable Book, simple / two-column / three-column Cash Book, analytical Petty Cash Book (renameable analysis columns), Ledger
+T-account (Date · Particulars · J.F. · Amount each side, "Balance it" → Balance c/d and the b/d line), Trial Balance (Particulars ·
+L.F. · Dr · Cr), Bank Reconciliation Statement (start from either book, favourable or overdraft, Add / Less, check against the
+balance given), Trading A/c, Profit and Loss A/c, Balance Sheet (horizontal and Schedule III Division I), Receipts and Payments A/c,
+Income and Expenditure A/c, Statement of Affairs, Partners' Capital / Current A/cs (columnar, one column per partner), P&L
+Appropriation A/c, Revaluation A/c, Realisation A/c, depreciation schedule, Asset / Provision for Depreciation A/c, stores ledger
+(FIFO / weighted average), comparison table, blank table.
+Conventions: dates dd-mmm-yy (05-Apr-26; ICAI-style 01-Apr-X1 accepted) with a date picker and validation; separate Dr. / Cr.
+amount columns; account names in Title Case on leaving the cell (A/c, &, GST, CGST/SGST/IGST, LLP, BRS kept; joining words such as
+"and", "for", "of" stay lower case as ICAI writes them — empty `SMALL` in js/ca-pad.js to capitalise every word); journal credit
+lines "To … A/c" indented; narration "(Being …)"; Indian digit grouping; totals and a check per format (Dr = Cr, sides agree,
+Schedule III totals agree, BRS reconciles, row totals in GST and petty cash books, qty × rate = amount, opening = last closing).
+
+## Topic reference chips
+Under every MCQ explanation (unit MCQs, case sets, MCQ builder, revise list, endless practice, group/daily sets), on question-bank
+items and on mock-paper model answers the app shows `Paper 1 · Accounting › Ch 2 · Accounting Process › Unit 1 · … › Topic: …`
+(`topic` of the MCQ, else the unit title; generated items use their unit + `concept`). Tapping it opens the unit's Learn tab and
+scrolls to the concept card (by the MCQ's `concept` id, else the card whose title best matches the topic). Results screens group
+accuracy by paper, chapter or topic and filter the review list the same way (`Ca._.refInfo / refChip / openRef`).
 
 ## Group study links
 `#cau=<b64>` opens a unit · `#cagrp=<b64>` `{id, u, seed, n, s, ms, k}` plays the same MCQ set in the same
