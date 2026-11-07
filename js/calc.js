@@ -13,12 +13,15 @@
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ ...S, tape: S.tape.slice(-200) })); } catch (e) {} };
 
   // ---- number helpers (round to 12 significant digits to avoid 0.1 + 0.2 = 0.30000000000000004) ----
-  const clean = x => { if (!isFinite(x)) return NaN; const r = +x.toPrecision(MAXD); return Object.is(r, -0) ? 0 : r; };
+  const clean = x => { if (!isFinite(x)) return NaN; const r = +x.toPrecision(15); return Object.is(r, -0) ? 0 : r; };
+  // fit to a 12-digit display like a Casio desk calculator: drop (truncate) decimals that do not fit
+  function fit(x) { const neg = x < 0, a = Math.abs(x); const intD = Math.floor(a).toString().length; if (intD > MAXD) return NaN;
+    const dec = Math.max(0, MAXD - intD), f = Math.pow(10, dec); let t = Math.floor(+(a * f).toPrecision(15)) / f; t = +t.toFixed(dec); return neg ? -t : t; }
   function fmt(x, g = S.grp) {
     if (typeof x === 'string') x = +x;
     if (!isFinite(x)) return 'Error';
-    let s = Math.abs(x) >= 1e12 || (Math.abs(x) < 1e-9 && x !== 0) ? x.toExponential(6) : String(clean(x));
-    if (/e/.test(s)) return s;
+    x = fit(clean(x)); if (!isFinite(x)) return 'Error';
+    let s = x.toFixed(Math.max(0, MAXD - Math.floor(Math.abs(x)).toString().length)).replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
     const neg = s[0] === '-'; if (neg) s = s.slice(1);
     let [i, d] = s.split('.');
     if (g === 'in') { const last3 = i.slice(-3), rest = i.slice(0, -3); i = (rest ? rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + ',' : '') + last3; }
@@ -59,7 +62,9 @@
   function equals() {
     if (S.err) return;
     let a, op, b;
-    if (S.op) { a = S.acc; op = S.op; b = val(); S.lastOp = op; S.lastVal = b; print(`${fmt(b)} =`); }
+    if (S.op && S.fresh && S.op === '/') {   // a ÷ =  →  1/a (reciprocal), as on Casio desk calculators; further = keeps dividing by a
+      a = 1; op = '/'; b = S.acc; S.lastOp = '/'; S.lastVal = b; print('=');
+    } else if (S.op) { a = S.acc; op = S.op; b = val(); S.lastOp = op; S.lastVal = b; print(S.fresh ? '=' : `${fmt(b)} =`); }
     else if (S.lastOp) { a = val(); op = S.lastOp; b = S.lastVal; print(`${fmt(a)} ${SYM[op]} ${fmt(b)} =`); } // repeat last operation, like a desk calculator
     else return;
     const r = clean(apply(a, op, b)); if (isNaN(r)) return setErr();
