@@ -1,0 +1,309 @@
+/* StudyVerse accounts + progress saving (Supabase project "moneyviel-apps", schema "studyverse").
+   No library: talks to Supabase Auth (/auth/v1) and the Data API (/rest/v1) with fetch.
+   - Loads BEFORE app.js so it can catch login links (#access_token=… from confirm / reset emails)
+     before the app touches the URL. It only uses ST / save / toast at run time.
+   - The app still works fully without an account (progress stays on the phone).
+   - Signed in: the saved progress (sv_state + question history) is copied to the account every
+     30 s when something changed, when the app goes to the background, and when the phone comes online.
+   - First sign-in on a phone: if only one side has progress it is used; if both have progress
+     the student chooses which to keep. Sign-out removes the progress from this phone (it stays in the account).
+   - Course access (studyverse.course_access) is read and kept in sv_access; only the owner can grant it.
+   - Disabled while the temporary demo login (js/demo.js) is active. */
+(function () {
+  const API = 'https://fyvplhtpsxpxvvsilzqq.supabase.co', KEY = 'sb_publishable_w2TfDNignGxAwFAfAlrdnA_RZSQV8gT', SCHEMA = 'studyverse';
+  const SITE = location.origin + location.pathname;
+  const D = document, LS = localStorage;
+  const get = k => { try { return LS.getItem(k); } catch (e) { return null; } };
+  const set = (k, v) => { try { v == null ? LS.removeItem(k) : LS.setItem(k, v); } catch (e) {} };
+  const jget = (k, d) => { try { const v = JSON.parse(get(k)); return v == null ? d : v; } catch (e) { return d; } };
+  const demo = () => !!get('sv_demo');
+  /* Not shown to everyone yet: the Privacy Policy must be updated before accounts open to all.
+     Visible for the owner (?owner), after opening the app once with ?account, or when already signed in. */
+  if (/[?&]account\b/.test(location.search)) set('sv_cloud_on', '1');
+  const on = () => get('sv_owner') === '1' || get('sv_cloud_on') === '1' || !!S;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const say = m => { try { toast(m); } catch (e) {} };
+  const COURSES = { 'ca-foundation': 'CA Foundation', 'ca-inter': 'CA Intermediate', 'ca-final': 'CA Final', school: 'School (Class 1–12)' };
+  const EXTRA = ['sv_cagen'];                       // other progress kept with sv_state
+
+  let S = jget('sv_auth', null);                    // session { at, rt, exp, user:{id,email} }
+  let status = 'off', lastErr = '', recovery = false, busy = false, linked = false, linkMsg = '';
+
+  /* ---------- 1. login links from emails: #access_token=…&type=signup|recovery ---------- */
+  (function catchLink() {
+    const h = location.hash || '';
+    if (!/access_token=|error_description=/.test(h)) return;
+    const p = new URLSearchParams(h.slice(1));
+    if (p.get('error_description')) linkMsg = p.get('error_description').replace(/\+/g, ' ');
+    else if (p.get('access_token')) {
+      S = { at: p.get('access_token'), rt: p.get('refresh_token'), exp: Date.now() / 1000 + (+p.get('expires_in') || 3600), user: null };
+      set('sv_auth', JSON.stringify(S));
+      recovery = p.get('type') === 'recovery';
+      linkMsg = recovery ? '' : 'Email confirmed — you are signed in ✓';
+    }
+    try { history.replaceState(history.state, '', location.pathname + location.search); } catch (e) {}
+  })();
+
+  /* ---------- 2. talking to Supabase ---------- */
+  async function call(path, opt = {}, auth = true) {
+    const h = Object.assign({ apikey: KEY, 'Content-Type': 'application/json' }, opt.headers || {});
+    if (auth) { await fresh(); if (!S) throw Object.assign(new Error('Please sign in again.'), { status: 401 }); h.Authorization = 'Bearer ' + S.at; }
+    let r; try { r = await fetch(API + path, { method: opt.method || 'GET', headers: h, body: opt.body ? JSON.stringify(opt.body) : undefined, keepalive: !!opt.keepalive, cache: 'no-store' }); } catch (e) { throw Object.assign(new Error('No internet connection.'), { status: 0 }); }
+    const t = await r.text(); let j = null;
+    if (t) { try { j = JSON.parse(t); } catch (e) { throw Object.assign(new Error('No connection to the server.'), { status: 0 }); } }
+    if (!r.ok) { const m = (j && (j.msg || j.error_description || j.message || j.error)) || ('Error ' + r.status); throw Object.assign(new Error(m), { status: r.status, code: j && (j.error_code || j.code) }); }
+    return j;
+  }
+  const rest = (path, opt = {}) => call('/rest/v1/' + path, Object.assign({}, opt, { headers: Object.assign({ 'Accept-Profile': SCHEMA, 'Content-Profile': SCHEMA }, opt.headers || {}) }));
+  function keep(j) {
+    S = { at: j.access_token, rt: j.refresh_token, exp: j.expires_at || (Date.now() / 1000 + (j.expires_in || 3600)), user: j.user ? { id: j.user.id, email: j.user.email } : (S && S.user) };
+    set('sv_auth', JSON.stringify(S));
+  }
+  let refreshing = null;
+  async function fresh() {
+    if (!S || S.exp - 60 > Date.now() / 1000) return;
+    if (!refreshing) refreshing = call('/auth/v1/token?grant_type=refresh_token', { method: 'POST', body: { refresh_token: S.rt } }, false)
+      .then(keep).catch(e => { if (e.status >= 400 && e.status < 500) drop(); throw e; }).finally(() => { refreshing = null; });
+    return refreshing;
+  }
+  function drop() { S = null; set('sv_auth', null); linked = false; status = 'off'; paint(); }   // session ended: progress stays on the phone
+
+  /* ---------- 3. progress ---------- */
+  function payload() {
+    const x = {}; EXTRA.forEach(k => { const v = get(k); if (v != null) x[k] = v; });
+    let st; try { st = ST; } catch (e) { st = jget('sv_state', {}); }
+    return { v: 1, st, x };
+  }
+  const hash = s => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h + ':' + s.length; };
+  const meta = () => jget('sv_cloud', {});
+  const setMeta = m => set('sv_cloud', JSON.stringify(m));
+  const hasProgress = p => !!(p && p.st && p.st.profile);
+
+  async function push(force, hidden) {
+    if (!S || !S.user || !linked || demo() || busy) return;
+    const m = meta(); if (m.uid !== S.user.id) return;
+    const p = payload(), s = JSON.stringify(p), h = hash(s);
+    if (!force && h === m.h) { if (status !== 'ok') { status = 'ok'; paint(); } return; }
+    busy = true; status = 'saving'; paint();
+    try {
+      await rest('progress?on_conflict=user_id', { method: 'POST', keepalive: hidden && s.length < 60000, headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: { user_id: S.user.id, state: p } });
+      setMeta(Object.assign(meta(), { uid: S.user.id, h, at: Date.now() })); status = 'ok';
+    } catch (e) { status = navigator.onLine === false || e.status === 0 ? 'offline' : 'error'; lastErr = e.message; }
+    finally { busy = false; }
+    paint();
+  }
+
+  function reloadWith(stJSON) {                       // demo.js applies sv_demo_swap before app.js reads sv_state
+    set('sv_demo_swap', stJSON == null ? '__none__' : stJSON);
+    try { Object.keys(ST).forEach(k => delete ST[k]); Object.assign(ST, stJSON ? JSON.parse(stJSON) : { profile: null, xp: 0, streak: { n: 0, last: '' }, topics: {}, mistakes: {}, qstats: {} }); } catch (e) {}
+    location.replace(SITE);
+  }
+  function adopt(cloud, uid) {
+    EXTRA.forEach(k => set(k, (cloud.x || {})[k] == null ? null : cloud.x[k]));
+    setMeta({ uid, h: '' });
+    reloadWith(JSON.stringify(cloud.st));
+  }
+  function wipeLocal() { EXTRA.concat(['sv_photos']).forEach(k => set(k, null)); reloadWith(null); }
+
+  async function link() {                            // first sign-in of this account on this phone
+    const uid = S.user.id, m = meta();
+    if (m.uid === uid) { linked = true; return; }
+    const rows = await rest('progress?select=state,updated_at&user_id=eq.' + encodeURIComponent(uid));
+    if (!Array.isArray(rows)) throw new Error('No connection to the server.');
+    const cloud = rows[0] && rows[0].state, local = payload();
+    const foreign = !!(m.uid && m.uid !== uid);      // phone progress belongs to another account
+    const L = hasProgress(local) && !foreign, C = hasProgress(cloud);
+    if (C && !L) return adopt(cloud, uid);
+    if (!C && foreign) { setMeta({ uid }); return wipeLocal(); }
+    if (!C) { setMeta({ uid }); linked = true; return push(true); }
+    if (JSON.stringify(cloud) === JSON.stringify(local)) { setMeta({ uid, h: hash(JSON.stringify(local)) }); linked = true; return; }
+    return choose(local, cloud, rows[0].updated_at, uid);
+  }
+
+  async function arrive() {
+    if (!S) return;
+    if (demo()) { status = 'demo'; paint(); return; }
+    status = 'idle'; paint();
+    try {
+      if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; set('sv_auth', JSON.stringify(S)); }
+      await link();
+      access();
+      if (linked) { status = status === 'saving' ? status : 'ok'; paint(); }
+    } catch (e) { status = navigator.onLine === false || e.status === 0 ? 'offline' : 'error'; lastErr = e.message; paint(); }
+  }
+
+  async function access() {
+    try { const r = await rest('course_access?select=course,valid_until'); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); } } catch (e) {}
+  }
+  const courses = () => jget('sv_access', []).filter(a => !a.valid_until || new Date(a.valid_until) > new Date());
+
+  /* ---------- 4. account actions ---------- */
+  const signUp = async (email, pw) => {
+    const j = await call('/auth/v1/signup?redirect_to=' + encodeURIComponent(SITE), { method: 'POST', body: { email, password: pw } }, false);
+    if (j && j.access_token) { keep(j); await arrive(); return 'in'; }
+    return 'confirm';
+  };
+  const signIn = async (email, pw) => { keep(await call('/auth/v1/token?grant_type=password', { method: 'POST', body: { email, password: pw } }, false)); await arrive(); };
+  const forgot = email => call('/auth/v1/recover?redirect_to=' + encodeURIComponent(SITE), { method: 'POST', body: { email } }, false);
+  const newPassword = pw => call('/auth/v1/user', { method: 'PUT', body: { password: pw } });
+  async function signOut() {
+    try { await push(true); } catch (e) {}
+    try { await call('/auth/v1/logout', { method: 'POST' }); } catch (e) {}
+    S = null; ['sv_auth', 'sv_cloud', 'sv_access'].forEach(k => set(k, null));
+    wipeLocal();
+  }
+
+  /* ---------- 5. screens ---------- */
+  const css = `#svCloud .cl-st{font-size:13px;margin:6px 0 10px;color:#4a4d57}#svCloud .cl-st.ok{color:#1d7a46}#svCloud .cl-st.bad{color:#B71C2C}
+.cl-row{display:flex;gap:8px;flex-wrap:wrap}.cl-row .btn{flex:1;min-width:130px}
+.cl-sheet{z-index:990}.cl-sheet .sheet-in{color:#15161C;background:#FFFDF8;max-height:92vh;overflow:auto}
+.cl-sheet h3{margin:0 0 6px}.cl-sheet p{margin:0 0 10px;font-size:14px;line-height:1.45;color:#4a4d57}
+.cl-sheet label{display:block;font-weight:600;font-size:13px;margin:10px 0 4px}
+.cl-in{width:100%;box-sizing:border-box;padding:12px;border:1.5px solid #c9c2b2;border-radius:10px;font-size:16px;background:#fff;color:#15161C}
+.cl-err{color:#B71C2C;font-size:13px;min-height:18px;margin:8px 0 4px}.cl-ok{color:#1d7a46;font-size:14px;margin:8px 0}
+.cl-link{background:none;border:0;color:#8A6A2E;font-weight:600;font-size:14px;padding:8px 0;cursor:pointer;text-decoration:underline}
+.cl-small{font-size:12px!important;color:#6b6e78!important}.cl-show{display:flex;align-items:center;gap:6px;font-weight:500!important}
+.cl-pick{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;border:1.5px solid #c9c2b2;border-radius:12px;background:#fff;color:#15161C;font-size:15px;cursor:pointer}
+.cl-pick b{display:block}.cl-pick small{color:#4a4d57}`;
+  function style() { if (D.getElementById('svCloudCss')) return; const s = D.createElement('style'); s.id = 'svCloudCss'; s.textContent = css; D.head.appendChild(s); }
+
+  function stLine() {
+    const m = meta(), t = m.at ? new Date(m.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+    return ({ ok: ['ok', '✓ Progress saved to your account' + (t ? ' · ' + t : '')], saving: ['', 'Saving…'], idle: ['', 'Connecting…'],
+      offline: ['bad', 'You are offline — your progress will be saved when you are back online.'],
+      error: ['bad', 'Could not save just now (' + esc(lastErr) + '). It will try again.'] })[status] || ['', ''];
+  }
+  function cardHTML() {
+    if (demo()) return '';
+    if (!S) return `<h3>☁️ Save your progress</h3><p class="sub">Create a free account so your progress is safe and you can continue on any phone.</p>
+      <div class="cl-row"><button class="btn" type="button" data-cl="up">Create account</button><button class="btn ghost" type="button" data-cl="in">Sign in</button></div>`;
+    const [cls, txt] = stLine(), cs = courses();
+    return `<h3>☁️ Your account</h3><p class="sub">${esc((S.user && S.user.email) || '')}</p><p class="cl-st ${cls}" role="status">${txt}</p>
+      <p class="sub">Your courses: ${cs.length ? cs.map(c => esc(COURSES[c.course] || c.course) + (c.valid_until ? ' (till ' + new Date(c.valid_until).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ')' : '')).join(', ') : 'free courses'}</p>
+      <div class="cl-row">${status === 'error' || status === 'offline' ? '<button class="btn ghost" type="button" data-cl="retry">Try again</button>' : ''}<button class="btn ghost" type="button" data-cl="out">Sign out</button></div>`;
+  }
+  function wire(root) {
+    root.querySelectorAll('[data-cl]').forEach(b => b.onclick = () => {
+      const a = b.dataset.cl;
+      if (a === 'up' || a === 'in') form(a);
+      else if (a === 'retry') { arrive().then(() => push(true)); }
+      else if (a === 'out') {
+        if (b.dataset.sure) { b.disabled = true; b.textContent = 'Signing out…'; signOut(); }
+        else { b.dataset.sure = 1; b.textContent = 'Tap again to sign out (progress stays in your account)'; }
+      }
+    });
+  }
+  function paint() {
+    const c = D.getElementById('svCloud'); if (!c) return;
+    const h = cardHTML(); if (!h) { c.remove(); return; }
+    if (c.dataset.h === h) return; c.dataset.h = h; c.innerHTML = h; wire(c);
+  }
+  function inject() {                                // account card on the Me / profile screen, sign-in link on onboarding
+    const me = D.getElementById('s-me');
+    if (!on()) return;
+    if (me && me.firstElementChild && !D.getElementById('svCloud') && !demo()) {
+      style(); const c = D.createElement('div'); c.className = 'card'; c.id = 'svCloud';
+      const first = me.querySelector(':scope > .card'); first ? first.after(c) : me.prepend(c); paint();
+    }
+    const ob = D.getElementById('s-onboard');
+    if (ob && !S && !demo() && ob.querySelector('.choice[data-b]') && !D.getElementById('svCloudOb')) {
+      style(); const c = D.createElement('div'); c.className = 'card'; c.id = 'svCloudOb';
+      c.innerHTML = `<h3>Already have an account?</h3><p class="sub">Sign in to bring back your saved progress.</p><button class="btn ghost" type="button" data-cl="in">Sign in</button>`;
+      (ob.querySelector('.ob') || ob).appendChild(c); wire(c);
+    }
+  }
+
+  let sheet = null;
+  function closeSheet() { if (sheet) sheet.classList.remove('show'); }
+  function openSheet(html, closable = true) {
+    style();
+    if (!sheet) { sheet = D.createElement('div'); sheet.className = 'sheet cl-sheet'; sheet.id = 'svAuth'; sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-modal', 'true'); sheet.setAttribute('aria-labelledby', 'clT'); D.body.appendChild(sheet); }
+    sheet.onclick = e => { if (closable && e.target === sheet) closeSheet(); };
+    sheet.innerHTML = `<div class="sheet-in"><div class="sheet-grab"></div>${html}</div>`;
+    sheet.classList.add('show');
+    return sheet;
+  }
+  const errText = e => {
+    const m = (e && e.message) || '';
+    if (/invalid login/i.test(m)) return 'Wrong email or password.';
+    if (/not confirmed/i.test(m)) return 'Please open the confirmation email we sent you first.';
+    if (/already registered|already been registered|exists/i.test(m)) return 'This email already has an account. Please sign in.';
+    if (/rate limit|too many/i.test(m) || (e && e.status === 429)) return 'Too many tries. Please wait a few minutes and try again.';
+    if (/password/i.test(m) && /(6|8|characters|weak|short)/i.test(m)) return 'Please choose a stronger password (at least 8 characters).';
+    if (!e || e.status === 0 || /fetch|network|connection/i.test(m)) return 'No internet connection. Please try again.';
+    return m;
+  };
+
+  function form(mode, msg) {
+    const T = { up: 'Create your free account', in: 'Sign in', forgot: 'Reset your password', newpw: 'Set a new password' }[mode];
+    const pwField = mode !== 'forgot', emField = mode !== 'newpw';
+    const el = openSheet(`<h3 id="clT">${T}</h3>
+      ${mode === 'up' ? '<p>Your progress will be saved to your account. Under 18? Please ask a parent to create the account.</p>' : ''}
+      ${mode === 'forgot' ? '<p>Enter your email and we will send you a link to set a new password.</p>' : ''}
+      <form id="clF" novalidate>
+        ${emField ? '<label for="clE">Email</label><input class="cl-in" id="clE" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required>' : ''}
+        ${pwField ? `<label for="clP">${mode === 'newpw' ? 'New password' : 'Password'}</label><input class="cl-in" id="clP" type="password" autocomplete="${mode === 'in' ? 'current-password' : 'new-password'}" minlength="8" required>
+          <label class="cl-show cl-small"><input type="checkbox" id="clSh"> Show password</label>` : ''}
+        ${mode === 'up' || mode === 'newpw' ? '<p class="cl-small">At least 8 characters.</p>' : ''}
+        <div class="cl-err" id="clErr" role="alert"></div>${msg ? `<div class="cl-ok" role="status">${esc(msg)}</div>` : ''}
+        <button class="btn" type="submit" id="clGo">${{ up: 'Create account', in: 'Sign in', forgot: 'Send reset link', newpw: 'Save new password' }[mode]}</button>
+      </form>
+      ${mode === 'up' ? `<p class="cl-small" style="margin-top:10px">By creating an account you agree to the <a href="legal/terms.html">Terms</a> and <a href="legal/privacy.html">Privacy Policy</a>.</p><button class="cl-link" type="button" data-go="in">Already have an account? Sign in</button>` : ''}
+      ${mode === 'in' ? '<button class="cl-link" type="button" data-go="forgot">Forgot password?</button><br><button class="cl-link" type="button" data-go="up">New here? Create a free account</button>' : ''}
+      ${mode === 'forgot' ? '<button class="cl-link" type="button" data-go="in">Back to sign in</button>' : ''}
+      ${mode !== 'newpw' ? '<div style="height:6px"></div><button class="btn ghost" type="button" id="clX">Cancel</button>' : ''}`, mode !== 'newpw');
+    el.querySelectorAll('[data-go]').forEach(b => b.onclick = () => form(b.dataset.go));
+    const x = el.querySelector('#clX'); if (x) x.onclick = closeSheet;
+    const sh = el.querySelector('#clSh'); if (sh) sh.onchange = () => { el.querySelector('#clP').type = sh.checked ? 'text' : 'password'; };
+    el.querySelector('#clF').onsubmit = async e => {
+      e.preventDefault();
+      const er = el.querySelector('#clErr'), go = el.querySelector('#clGo'); er.textContent = '';
+      const email = emField ? el.querySelector('#clE').value.trim().toLowerCase() : '', pw = pwField ? el.querySelector('#clP').value : '';
+      if (emField && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { er.textContent = 'Please enter a valid email address.'; return; }
+      if (pwField && mode !== 'in' && pw.length < 8) { er.textContent = 'Please use at least 8 characters.'; return; }
+      if (pwField && !pw) { er.textContent = 'Please enter your password.'; return; }
+      go.disabled = true; const label = go.textContent; go.textContent = 'Please wait…';
+      try {
+        if (mode === 'up') {
+          const r = await signUp(email, pw);
+          if (r === 'confirm') { openSheet(`<h3 id="clT">Check your email 📧</h3><p>We sent a confirmation link to <b>${esc(email)}</b>. Open it on this phone to finish creating your account.</p><p class="cl-small">Not there? Check Spam or Promotions.</p><button class="btn" type="button" id="clX">OK</button>`).querySelector('#clX').onclick = closeSheet; return; }
+          if (sheet.querySelector('#clF')) closeSheet(); say('Account created ✓ Your progress is being saved');
+        } else if (mode === 'in') { await signIn(email, pw); if (sheet.querySelector('#clF')) closeSheet(); say('Signed in ✓'); }
+        else if (mode === 'forgot') { await forgot(email); form('in', 'If this email has an account, a reset link is on its way. Open it on this phone.'); return; }
+        else if (mode === 'newpw') { await newPassword(pw); recovery = false; closeSheet(); say('New password saved ✓'); arrive(); }
+        repaintMe();
+      } catch (err) { er.textContent = errText(err); go.disabled = false; go.textContent = label; }
+    };
+    const f = el.querySelector('.cl-in'); if (f && matchMedia('(pointer:fine)').matches) f.focus();
+  }
+
+  function choose(local, cloud, when, uid) {
+    const info = p => { const st = p.st || {}, q = Object.keys(st.topics || {}).length, ca = st.ca && st.ca.level ? ' · CA ' + st.ca.level : '';
+      return `${esc((st.profile && st.profile.name) || 'Student')}${ca} · ${st.xp || 0} ⭐ · ${q} quests`; };
+    const d = when ? new Date(when).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+    const el = openSheet(`<h3 id="clT">Which progress should we keep?</h3><p>This phone and your account both have progress. Pick one — the other will be replaced.</p>
+      <button class="cl-pick" type="button" data-k="cloud"><b>☁️ Progress in my account</b><small>${info(cloud)}${d ? ' · saved ' + d : ''}</small></button>
+      <button class="cl-pick" type="button" data-k="local"><b>📱 Progress on this phone</b><small>${info(local)}</small></button>`, false);
+    el.querySelectorAll('[data-k]').forEach(b => b.onclick = async () => {
+      el.querySelectorAll('[data-k]').forEach(x => x.disabled = true);
+      if (b.dataset.k === 'cloud') adopt(cloud, uid);
+      else { setMeta({ uid }); linked = true; await push(true); closeSheet(); say('Saved this phone’s progress to your account ✓'); paint(); }
+    });
+  }
+
+  function repaintMe() { const c = D.getElementById('svCloud'); if (c) { c.dataset.h = ''; paint(); } const o = D.getElementById('svCloudOb'); if (o && S) o.remove(); }
+
+  /* ---------- 6. start ---------- */
+  function start() {
+    new MutationObserver(() => { if (!start.t) start.t = requestAnimationFrame(() => { start.t = 0; inject(); }); }).observe(D.body, { childList: true, subtree: true });
+    inject();
+    if (linkMsg) setTimeout(() => say(linkMsg), 800);
+    if (S) arrive().then(() => { if (recovery) form('newpw'); });
+    setInterval(() => push(), 30000);
+    D.addEventListener('visibilitychange', () => { if (D.visibilityState === 'hidden') push(false, true); else if (S && !linked) arrive(); });
+    addEventListener('online', () => { if (S) (linked ? push() : arrive()); });
+  }
+  D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', () => setTimeout(start, 0)) : setTimeout(start, 0);
+
+  window.Cloud = { signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
+})();
