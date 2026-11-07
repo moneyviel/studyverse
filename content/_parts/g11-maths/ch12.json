@@ -87,6 +87,13 @@
      ],
      "answer": 0,
      "explain": "(4.9 × 4 − 0)/2 = 19.6/2 = 9.8 m/s.",
+     "steps": [
+      "Average velocity = [s(2) − s(0)]/(2 − 0)",
+      "s(2) = 4.9 × 4 = 19.6; s(0) = 0",
+      "19.6/2",
+      "= 9.8 m/s",
+      "Answer: 9.8"
+     ],
      "mistake": "Gives the instantaneous velocity at t = 2",
      "check": "Fraction(196,10)/2"
     },
@@ -100,6 +107,13 @@
      ],
      "answer": 1,
      "explain": "The averages 19.6 + 4.9h approach 19.6 as h → 0.",
+     "steps": [
+      "Average velocity from t = 2 to 2 + h: 19.6 + 4.9h",
+      "As h → 0, 4.9h → 0",
+      "So the averages approach 19.6",
+      "Velocity at t = 2 s = 19.6 m/s",
+      "Answer: 19.6"
+     ],
      "mistake": "Uses an average over a non-zero interval",
      "check": "19.6"
     },
@@ -113,6 +127,13 @@
      ],
      "answer": 2,
      "explain": "Putting h = 0 gives 0/0; we need the limit as h → 0.",
+     "steps": [
+      "[s(t + h) − s(t)]/h is an average velocity over a time h",
+      "h = 0 gives 0/0, which is undefined",
+      "So we let the interval shrink and find the limit",
+      "Take the limit of average velocities as the time interval shrinks to 0",
+      "Answer: taking the limit of average velocities as the time interval shrinks to 0"
+     ],
      "mistake": "Thinks we can just substitute h = 0"
     },
     {
@@ -125,6 +146,13 @@
      ],
      "answer": 0,
      "explain": "(25 − 9)/(5 − 3) = 16/2 = 8 m/s.",
+     "steps": [
+      "s(3) = 9 and s(5) = 25",
+      "Average velocity = (25 − 9)/(5 − 3)",
+      "= 16/2",
+      "= 8 m/s",
+      "Answer: 8"
+     ],
      "mistake": "Forgets to divide by the time interval",
      "check": "16/2"
     },
@@ -138,6 +166,13 @@
      ],
      "answer": 2,
      "explain": "As h → 0, 6 + h → 6.",
+     "steps": [
+      "Average velocity from 3 to 3 + h: 6 + h",
+      "As h → 0, h → 0",
+      "6 + h → 6",
+      "Velocity at t = 3 s = 6 m/s",
+      "Answer: 6"
+     ],
      "mistake": "Uses s(3) = 9",
      "check": "6"
     },
@@ -151,6 +186,12 @@
      ],
      "answer": 1,
      "explain": "Derivatives are defined as limits of rates of change.",
+     "steps": [
+      "Calculus studies change",
+      "Derivatives (rates of change) are built from limits",
+      "So limits and derivatives are its two pillars",
+      "Answer: Limits and derivatives"
+     ],
      "mistake": "Confuses chapters"
     },
     {
@@ -163,6 +204,12 @@
      ],
      "answer": 1,
      "explain": "At h = 0 both numerator and denominator are 0; only the limit is meaningful.",
+     "steps": [
+      "At h = 0: numerator s(2) − s(2) = 0 and denominator h = 0",
+      "0/0 has no defined value",
+      "Only the limit as h → 0 gives a meaningful answer",
+      "Answer: Because the expression becomes 0/0, which is undefined"
+     ],
      "mistake": "Thinks the answer would just be 0"
     },
     {
@@ -175,6 +222,13 @@
      ],
      "answer": 1,
      "explain": "(8 − 2)/(4 − 1) = 2 cm/s. For a linear function the average rate equals the instantaneous rate.",
+     "steps": [
+      "r(1) = 2 and r(4) = 8",
+      "Average rate = (8 − 2)/(4 − 1)",
+      "= 6/3",
+      "= 2 cm/s",
+      "Answer: 2"
+     ],
      "mistake": "Divides the final radius by the final time only",
      "check": "6/3"
     }
@@ -201,6 +255,24 @@
     ],
     "praise": "Shrink the time gap and see what the averages approach — that's the speed at an instant. Limits rule!",
     "nudge": "What happens to the average velocity as you make the time interval smaller and smaller?"
+   },
+   "revise": {
+    "summary": "Average velocity is the change in distance divided by the change in time. Instantaneous velocity is the value the average velocity approaches as the time interval shrinks to 0 — the first idea behind the derivative.",
+    "focus": [
+     "Compute average velocity [s(t₂) − s(t₁)]/(t₂ − t₁)",
+     "Find instantaneous velocity as the limit of average velocities",
+     "Explain why we cannot just put h = 0"
+    ],
+    "remember": [
+     "Average velocity = [s(t₂) − s(t₁)]/(t₂ − t₁)",
+     "For s = 4.9t², the average velocity from 2 to 2 + h is 19.6 + 4.9h → 19.6 m/s",
+     "Calculus rests on limits and derivatives"
+    ],
+    "traps": [
+     "Putting h = 0 in [s(t + h) − s(t)]/h gives 0/0; you must take a limit",
+     "Average velocity over an interval is not the same as the velocity at an instant"
+    ],
+    "level": "core"
    }
   },
   {
@@ -302,6 +374,13 @@
      ],
      "answer": 2,
      "explain": "LHL = 2 and RHL = 2(0 + 1) = 2; they are equal.",
+     "steps": [
+      "LHL (x ≤ 0 rule): 3(0) + 2 = 2",
+      "RHL (x > 0 rule): 2(0 + 1) = 2",
+      "LHL = RHL",
+      "lim(x→0) f(x) = 2",
+      "Answer: 2"
+     ],
      "mistake": "Thinks two formulas always mean no limit",
      "check": "2"
     },
@@ -315,6 +394,13 @@
      ],
      "answer": 2,
      "explain": "For x < 0, |x| = −x, so |x|/x = −1.",
+     "steps": [
+      "For x < 0, |x| = −x",
+      "|x|/x = −x/x = −1 for every x < 0",
+      "So the values from the left stay at −1",
+      "LHL = −1",
+      "Answer: −1"
+     ],
      "mistake": "Uses the right-hand value",
      "check": "-1"
     },
@@ -328,6 +414,13 @@
      ],
      "answer": 3,
      "explain": "For 3 ≤ x < 4, [x] = 3.",
+     "steps": [
+      "For 3 ≤ x < 4, [x] = 3",
+      "Values just above 3 (like 3.01) give 3",
+      "So the right-hand limit is 3",
+      "RHL = 3",
+      "Answer: 3"
+     ],
      "mistake": "Gives the left-hand limit 2",
      "check": "3"
     },
@@ -341,6 +434,12 @@
      ],
      "answer": 2,
      "explain": "Just below 3, [x] = 2; just above, [x] = 3.",
+     "steps": [
+      "Just below 3 (like 2.99): [x] = 2, so LHL = 2",
+      "Just above 3: [x] = 3, so RHL = 3",
+      "LHL ≠ RHL",
+      "Answer: No, since LHL = 2 and RHL = 3"
+     ],
      "mistake": "Uses only f(3)"
     },
     {
@@ -353,6 +452,13 @@
      ],
      "answer": 3,
      "explain": "Both sides approach 4; indeed f(x) = x + 2 for x ≠ 2.",
+     "steps": [
+      "From the left, f(1.99) = 3.99; from the right, f(2.01) = 4.01",
+      "Both approach 4",
+      "Indeed (x² − 4)/(x − 2) = x + 2 for x ≠ 2, and 2 + 2 = 4",
+      "Limit = 4",
+      "Answer: 4"
+     ],
      "mistake": "Thinks the limit cannot exist because f(2) is undefined",
      "check": "4"
     },
@@ -366,6 +472,13 @@
      ],
      "answer": 2,
      "explain": "LHL = 1 + 1 = 2 and RHL = 3 − 1 = 2. They agree, so the limit is 2.",
+     "steps": [
+      "LHL (x ≤ 1 rule): 1² + 1 = 2",
+      "RHL (x > 1 rule): 3 − 1² = 2",
+      "LHL = RHL",
+      "lim(x→1) f(x) = 2",
+      "Answer: 2"
+     ],
      "mistake": "Uses only one of the two formulas",
      "check": "2"
     },
@@ -379,6 +492,12 @@
      ],
      "answer": 3,
      "explain": "The value at a itself plays no part in deciding the limit.",
+     "steps": [
+      "The limit depends only on values near a, not at a",
+      "It need not equal f(a), and f(a) may be undefined",
+      "The test is: both one-sided limits exist and agree",
+      "Answer: It exists exactly when LHL and RHL exist and are equal"
+     ],
      "mistake": "Ties the limit to the function's value at a"
     },
     {
@@ -391,6 +510,13 @@
      ],
      "answer": 2,
      "explain": "Near 2 (but not at 2) the function is 5 on both sides.",
+     "steps": [
+      "For x near 2 but not equal to 2, f(x) = 5",
+      "So LHL = 5 and RHL = 5",
+      "The value f(2) = 7 does not affect the limit",
+      "Limit = 5",
+      "Answer: 5"
+     ],
      "mistake": "Uses the value at the point itself",
      "check": "5"
     }
@@ -416,6 +542,25 @@
     ],
     "praise": "Approach from both sides — if they agree, there's a limit, whatever f(a) is. Gappu gets it!",
     "nudge": "What must be true about the left and right limits for the limit to exist?"
+   },
+   "revise": {
+    "summary": "lim(x→a) f(x) = l means f(x) gets as close as we like to l for x near a (x ≠ a). The limit exists exactly when the left-hand and right-hand limits exist and are equal; f(a) itself does not matter.",
+    "focus": [
+     "Find left-hand and right-hand limits of piecewise functions",
+     "Decide whether a limit exists by comparing LHL and RHL",
+     "Read limits from tables and graphs",
+     "Handle |x|/x and [x] near 0 and integers"
+    ],
+    "remember": [
+     "Limit exists ⇔ LHL and RHL exist and are equal",
+     "The limit can differ from f(a), or exist when f(a) is undefined",
+     "|x|/x: LHL at 0 = −1, RHL = 1 (no limit); [x] at integer n: LHL = n − 1, RHL = n"
+    ],
+    "traps": [
+     "Don't use f(a) to decide the limit: look at values near a",
+     "For x < 0, |x| = −x, so |x|/x = −1, not 1"
+    ],
+    "level": "important"
    }
   },
   {
@@ -507,6 +652,13 @@
      ],
      "answer": 1,
      "explain": "The denominator is 5 ≠ 0, so substitute: 14/5.",
+     "steps": [
+      "Denominator at x = 3: 3 + 2 = 5 ≠ 0, so substitute",
+      "Numerator: 5(3) − 1 = 14",
+      "Limit = 14/5",
+      "= 14/5",
+      "Answer: 14/5"
+     ],
      "mistake": "Thinks every limit needs factorising",
      "check": "Fraction(14,5)"
     },
@@ -520,6 +672,13 @@
      ],
      "answer": 3,
      "explain": "Factor: (x − 5)(x + 5)/(x − 5) = x + 5 → 10.",
+     "steps": [
+      "Substitution gives 0/0, so factor: x² − 25 = (x − 5)(x + 5)",
+      "Cancel (x − 5): x + 5",
+      "At x = 5: 5 + 5",
+      "= 10",
+      "Answer: 10"
+     ],
      "mistake": "Stops at 0/0",
      "check": "10"
     },
@@ -533,6 +692,13 @@
      ],
      "answer": 3,
      "explain": "(x + 2)(x − 1)/((x + 1)(x − 1)) = (x + 2)/(x + 1) → 3/2.",
+     "steps": [
+      "Substitution gives 0/0",
+      "Factor: (x + 2)(x − 1)/((x + 1)(x − 1)) = (x + 2)/(x + 1)",
+      "At x = 1: 3/2",
+      "= 3/2",
+      "Answer: 3/2"
+     ],
      "mistake": "Factorises the denominator as (x − 1)²",
      "check": "Fraction(3,2)"
     },
@@ -546,6 +712,13 @@
      ],
      "answer": 3,
      "explain": "3 × 4 − (−2) = 14.",
+     "steps": [
+      "lim [3f − g] = 3 lim f − lim g",
+      "= 3 × 4 − (−2)",
+      "= 12 + 2",
+      "= 14",
+      "Answer: 14"
+     ],
      "mistake": "Forgets the double negative",
      "check": "12+2"
     },
@@ -559,6 +732,13 @@
      ],
      "answer": 2,
      "explain": "Expand: (x + 1)⁴ − 1 = 4x + 6x² + 4x³ + x⁴; divide by x and let x → 0 to get 4.",
+     "steps": [
+      "Expand: (x + 1)⁴ − 1 = 4x + 6x² + 4x³ + x⁴",
+      "Divide by x: 4 + 6x + 4x² + x³",
+      "Let x → 0",
+      "= 4",
+      "Answer: 4"
+     ],
      "mistake": "Substitutes and declares 0/0 undefined",
      "check": "4"
     },
@@ -572,6 +752,13 @@
      ],
      "answer": 3,
      "explain": "A polynomial: substitute x = π. Since π² ≈ 9.87, the answer is a small negative number, not 0.",
+     "steps": [
+      "x² − 10 is a polynomial, so substitute x = π",
+      "Limit = π² − 10",
+      "π² ≈ 9.87, so the value is about −0.13, not 0",
+      "= π² − 10",
+      "Answer: π² − 10"
+     ],
      "mistake": "Treats π² as exactly 10"
     },
     {
@@ -584,6 +771,13 @@
      ],
      "answer": 3,
      "explain": "(x − 3)(x² + 3x + 9)/((x − 3)(x + 3)) → 27/6 = 9/2.",
+     "steps": [
+      "Substitution gives 0/0",
+      "Factor: (x − 3)(x² + 3x + 9)/((x − 3)(x + 3)) = (x² + 3x + 9)/(x + 3)",
+      "At x = 3: (9 + 9 + 9)/6 = 27/6",
+      "= 9/2",
+      "Answer: 9/2"
+     ],
      "mistake": "Cancels without factoring the cube correctly",
      "check": "Fraction(27,6)"
     },
@@ -597,6 +791,13 @@
      ],
      "answer": 0,
      "explain": "(x − 2)(x − 3)/(x − 2) = x − 3 → −1.",
+     "steps": [
+      "Substitution gives 0/0",
+      "Factor: (x − 2)(x − 3)/(x − 2) = x − 3",
+      "At x = 2: 2 − 3",
+      "= −1",
+      "Answer: −1"
+     ],
      "mistake": "Factorises as (x − 2)(x + 3)",
      "check": "-1"
     }
@@ -622,6 +823,24 @@
     ],
     "praise": "0/0 is a hint, not a dead end: factor, cancel, substitute. The answer is 6!",
     "nudge": "What can you do when direct substitution gives 0/0?"
+   },
+   "revise": {
+    "summary": "Limits obey sum, difference, product, constant-multiple and quotient rules. For polynomials, substitute; for rational functions, substitute if the denominator is non-zero, and if you get 0/0, factor out (x − a) and cancel first.",
+    "focus": [
+     "Use the algebra of limits",
+     "Find limits of polynomials and rational functions by substitution",
+     "Remove 0/0 by factorising and cancelling (x − a)"
+    ],
+    "remember": [
+     "lim (f ± g) = l ± m; lim fg = lm; lim f/g = l/m (m ≠ 0); lim λf = λl",
+     "Polynomial: lim(x→a) p(x) = p(a)",
+     "0/0 → factor (x − a) from top and bottom, cancel, then substitute"
+    ],
+    "traps": [
+     "Don't stop at 0/0: it means 'simplify first', not 'the limit is 0'",
+     "lim (3f − g) = 3l − m: watch the sign when m is negative"
+    ],
+    "level": "core"
    }
   },
   {
@@ -712,6 +931,13 @@
      ],
      "answer": 0,
      "explain": "n aⁿ⁻¹ = 5 × 2⁴ = 80.",
+     "steps": [
+      "Theorem: lim (xⁿ − aⁿ)/(x − a) = naⁿ⁻¹",
+      "n = 5, a = 2",
+      "5 × 2⁴ = 5 × 16",
+      "= 80",
+      "Answer: 80"
+     ],
      "mistake": "Uses aⁿ instead of aⁿ⁻¹",
      "check": "5*16"
     },
@@ -725,6 +951,13 @@
      ],
      "answer": 1,
      "explain": "m/n = 12/4 = 3.",
+     "steps": [
+      "Ratio form: lim(x→1) (xᵐ − 1)/(xⁿ − 1) = m/n",
+      "m = 12, n = 4",
+      "12/4",
+      "= 3",
+      "Answer: 3"
+     ],
      "mistake": "Subtracts the powers",
      "check": "3"
     },
@@ -738,6 +971,13 @@
      ],
      "answer": 0,
      "explain": "Multiply by √(4 + x) + 2: x/(x(√(4 + x) + 2)) → 1/4.",
+     "steps": [
+      "Multiply top and bottom by √(4 + x) + 2",
+      "Numerator: (4 + x) − 4 = x, so the expression = 1/(√(4 + x) + 2)",
+      "At x = 0: 1/(2 + 2)",
+      "= 1/4",
+      "Answer: 1/4"
+     ],
      "mistake": "Forgets the +2 in the conjugate",
      "check": "Fraction(1,4)"
     },
@@ -751,6 +991,13 @@
      ],
      "answer": 2,
      "explain": "n 2ⁿ⁻¹ = 80: try n = 5 → 5 × 16 = 80.",
+     "steps": [
+      "n × 2ⁿ⁻¹ = 80",
+      "Try n = 4: 4 × 8 = 32; n = 5: 5 × 16 = 80",
+      "So n = 5",
+      "n = 5",
+      "Answer: 5"
+     ],
      "mistake": "Divides 80 by 2",
      "check": "5"
     },
@@ -764,6 +1011,13 @@
      ],
      "answer": 2,
      "explain": "LHL = 2k + 1, RHL = 5. Equal ⇒ k = 2.",
+     "steps": [
+      "LHL = k(2) + 1 = 2k + 1",
+      "RHL = 3(2) − 1 = 5",
+      "2k + 1 = 5 → 2k = 4",
+      "k = 2",
+      "Answer: 2"
+     ],
      "mistake": "Equates the coefficients of x",
      "check": "2"
     },
@@ -777,6 +1031,13 @@
      ],
      "answer": 3,
      "explain": "Multiply by the conjugate: 2x/(x[√(1 + x) + √(1 − x)]) → 2/2 = 1.",
+     "steps": [
+      "Multiply by √(1 + x) + √(1 − x): numerator (1 + x) − (1 − x) = 2x",
+      "Expression = 2/(√(1 + x) + √(1 − x))",
+      "At x = 0: 2/(1 + 1)",
+      "= 1",
+      "Answer: 1"
+     ],
      "mistake": "Forgets the factor 2 from (1 + x) − (1 − x)",
      "check": "1"
     },
@@ -790,6 +1051,13 @@
      ],
      "answer": 2,
      "explain": "LHL = a + 2 = 5 gives a = 3; RHL = b − 1 = 5 gives b = 6. So a + b = 9.",
+     "steps": [
+      "LHL = a + 2(1) = a + 2 = 5 → a = 3",
+      "RHL = b − 1 = 5 → b = 6",
+      "a + b = 3 + 6",
+      "= 9",
+      "Answer: 9"
+     ],
      "mistake": "Finds only one of the constants",
      "check": "3+6"
     },
@@ -803,6 +1071,13 @@
      ],
      "answer": 0,
      "explain": "The theorem n aⁿ⁻¹ holds for rational n with a > 0: (2/3)a^(−1/3).",
+     "steps": [
+      "The theorem naⁿ⁻¹ holds for rational n when a > 0",
+      "n = 2/3: (2/3)a^(2/3 − 1)",
+      "2/3 − 1 = −1/3",
+      "= (2/3)a^(−1/3)",
+      "Answer: (2/3)a^(−1/3)"
+     ],
      "mistake": "Forgets to subtract 1 from the power"
     }
    ],
@@ -827,6 +1102,24 @@
     ],
     "praise": "x⁵ − 32 over x − 2 → 5 × 2⁴ = 80, and the conjugate rescues the root limit. Smashing!",
     "nudge": "In lim (xⁿ − aⁿ)/(x − a), which formula gives the answer?"
+   },
+   "revise": {
+    "summary": "lim(x→a) (xⁿ − aⁿ)/(x − a) = naⁿ⁻¹, which also gives lim(x→1) (xᵐ − 1)/(xⁿ − 1) = m/n. Limits with square roots are found by multiplying by the conjugate; unknown constants come from making LHL = RHL.",
+    "focus": [
+     "Use the xⁿ theorem and its ratio form m/n",
+     "Rationalise with the conjugate to remove 0/0",
+     "Find constants that make a limit exist"
+    ],
+    "remember": [
+     "lim(x→a) (xⁿ − aⁿ)/(x − a) = naⁿ⁻¹ (rational n, a > 0)",
+     "lim(x→1) (xᵐ − 1)/(xⁿ − 1) = m/n",
+     "lim(x→0) (√(1 + x) − 1)/x = 1/2 by the conjugate"
+    ],
+    "traps": [
+     "The power drops by one: 5 × 2⁴, not 5 × 2⁵",
+     "The ratio form gives m/n, not n/m"
+    ],
+    "level": "important"
    }
   },
   {
@@ -924,6 +1217,13 @@
      ],
      "answer": 0,
      "explain": "= (5/3) × [sin 5x/(5x)] → 5/3.",
+     "steps": [
+      "sin 5x/(3x) = (5/3) × sin 5x/(5x)",
+      "As x → 0, sin 5x/(5x) → 1",
+      "(5/3) × 1",
+      "= 5/3",
+      "Answer: 5/3"
+     ],
      "mistake": "Inverts the ratio",
      "check": "Fraction(5,3)"
     },
@@ -937,6 +1237,13 @@
      ],
      "answer": 3,
      "explain": "tan 2x/x = 2 × [sin 2x/(2x)] × [1/cos 2x] → 2.",
+     "steps": [
+      "tan 2x/x = 2 × [sin 2x/(2x)] × [1/cos 2x]",
+      "As x → 0: sin 2x/(2x) → 1 and cos 2x → 1",
+      "2 × 1 × 1",
+      "= 2",
+      "Answer: 2"
+     ],
      "mistake": "Treats tan 2x/x like tan x/x = 1",
      "check": "2"
     },
@@ -950,6 +1257,13 @@
      ],
      "answer": 0,
      "explain": "= (−2sin²x)/(−2sin²(x/2)) = [sin x/sin(x/2)]² → (x/(x/2))² = 4.",
+     "steps": [
+      "cos 2x − 1 = −2sin²x and cos x − 1 = −2sin²(x/2)",
+      "Ratio = [sin x/sin(x/2)]²",
+      "sin x ≈ x and sin(x/2) ≈ x/2 near 0, so the ratio → (x/(x/2))² = 2²",
+      "= 4",
+      "Answer: 4"
+     ],
      "mistake": "Cancels the cosines directly to get 2",
      "check": "4"
     },
@@ -963,6 +1277,13 @@
      ],
      "answer": 2,
      "explain": "= sin(x/2) × [sin(x/2)/(x/2)] → 0 × 1 = 0.",
+     "steps": [
+      "1 − cos x = 2sin²(x/2), so (1 − cos x)/x = sin(x/2) × [sin(x/2)/(x/2)]",
+      "As x → 0: sin(x/2) → 0 and sin(x/2)/(x/2) → 1",
+      "0 × 1",
+      "= 0",
+      "Answer: 0"
+     ],
      "mistake": "Confuses it with lim sin x/x = 1",
      "check": "0"
     },
@@ -976,6 +1297,13 @@
      ],
      "answer": 1,
      "explain": "1 − cos 2x = 2 sin²x, so the limit is 2[sin x/x]² → 2.",
+     "steps": [
+      "1 − cos 2x = 2sin²x",
+      "(1 − cos 2x)/x² = 2[sin x/x]²",
+      "As x → 0: 2 × 1²",
+      "= 2",
+      "Answer: 2"
+     ],
      "mistake": "Uses 1 − cos 2x = sin²x",
      "check": "2"
     },
@@ -989,6 +1317,13 @@
      ],
      "answer": 2,
      "explain": "= [sin ax/(ax)] × [(bx)/sin bx] × (a/b) → a/b.",
+     "steps": [
+      "sin ax/sin bx = [sin ax/(ax)] × [(bx)/sin bx] × (ax)/(bx)",
+      "The first two factors → 1",
+      "(ax)/(bx) = a/b",
+      "= a/b",
+      "Answer: a/b"
+     ],
      "mistake": "Inverts the ratio"
     },
     {
@@ -1001,6 +1336,12 @@
      ],
      "answer": 2,
      "explain": "From cos x < sin x/x < 1/cos x and cos x → 1, the middle function must also tend to 1.",
+     "steps": [
+      "From the areas in the unit circle: cos x < sin x/x < 1/cos x",
+      "As x → 0, cos x → 1 and 1/cos x → 1",
+      "The middle is squeezed to the same limit",
+      "Answer: sin x/x is squeezed between cos x and 1/cos x, both of which tend to 1"
+     ],
      "mistake": "Thinks 0/0 can be evaluated as 1"
     },
     {
@@ -1013,6 +1354,13 @@
      ],
      "answer": 0,
      "explain": "= cos x + sin x/x → 1 + 1 = 2.",
+     "steps": [
+      "Split: (x cos x + sin x)/x = cos x + sin x/x",
+      "As x → 0: cos x → 1 and sin x/x → 1",
+      "1 + 1",
+      "= 2",
+      "Answer: 2"
+     ],
      "mistake": "Forgets the cos x term",
      "check": "2"
     }
@@ -1038,6 +1386,25 @@
     ],
     "praise": "Squeezed between cos x and 1/cos x, sin x/x has nowhere to go but 1. And matching angles does the rest!",
     "nudge": "To use lim sin x/x = 1 for sin 4x, what must the denominator look like?"
+   },
+   "revise": {
+    "summary": "The key trigonometric limit is lim(x→0) sin x/x = 1 (x in radians), proved with the sandwich theorem; also lim(x→0) (1 − cos x)/x = 0. Rewrite each problem so that sin(ax)/(ax) appears.",
+    "focus": [
+     "Use lim sin x/x = 1 and lim tan x/x = 1 with scaling",
+     "Use 1 − cos 2x = 2sin²x and 1 − cos x = 2sin²(x/2)",
+     "State the sandwich theorem and how it proves sin x/x → 1"
+    ],
+    "remember": [
+     "lim(x→0) sin x/x = 1 (x in radians)",
+     "lim(x→0) (1 − cos x)/x = 0",
+     "sin ax/(bx) → a/b; sin ax/sin bx → a/b; tan x/x → 1",
+     "Sandwich: g ≤ f ≤ h and lim g = lim h = l ⇒ lim f = l"
+    ],
+    "traps": [
+     "sin 5x/(3x) is not 5x/3x by cancelling 'sin': multiply and divide by 5 to get 5/3",
+     "(1 − cos x)/x tends to 0, not 1/2; (1 − cos x)/x² tends to 1/2"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1123,6 +1490,13 @@
      ],
      "answer": 3,
      "explain": "[f(2 + h) − f(2)]/h = [3(4 + 4h + h²) − 8 − 4h − 4]/h = (8h + 3h²)/h → 8.",
+     "steps": [
+      "f(2 + h) = 3(2 + h)² − 4(2 + h) = 12 + 12h + 3h² − 8 − 4h = 4 + 8h + 3h²; f(2) = 12 − 8 = 4",
+      "[f(2 + h) − f(2)]/h = (8h + 3h²)/h = 8 + 3h",
+      "As h → 0: 8 + 0",
+      "f′(2) = 8",
+      "Answer: 8"
+     ],
      "mistake": "Uses f(2) = 4 as the derivative",
      "check": "8"
     },
@@ -1136,6 +1510,13 @@
      ],
      "answer": 2,
      "explain": "dy/dx = 2x = 6 at x = 3.",
+     "steps": [
+      "Slope of the tangent = dy/dx",
+      "For y = x², dy/dx = 2x",
+      "At x = 3: 2 × 3",
+      "= 6",
+      "Answer: 6"
+     ],
      "mistake": "Gives the y-value 9",
      "check": "6"
     },
@@ -1149,6 +1530,13 @@
      ],
      "answer": 2,
      "explain": "It is the limit of the average rate of change as h → 0.",
+     "steps": [
+      "f′(a) is the limit of the average rate [f(a + h) − f(a)]/h",
+      "The interval h must shrink to 0",
+      "h → ∞ or a '+' sign would be wrong",
+      "f′(a) = lim(h→0) [f(a + h) − f(a)]/h",
+      "Answer: lim(h→0) [f(a + h) − f(a)]/h"
+     ],
      "mistake": "Lets h tend to infinity"
     },
     {
@@ -1161,6 +1549,13 @@
      ],
      "answer": 2,
      "explain": "[√(x + h) − √x]/h = 1/(√(x + h) + √x) → 1/(2√x).",
+     "steps": [
+      "[√(x + h) − √x]/h: multiply by √(x + h) + √x",
+      "= h/(h(√(x + h) + √x)) = 1/(√(x + h) + √x)",
+      "As h → 0: 1/(√x + √x)",
+      "= 1/(2√x)",
+      "Answer: 1/(2√x)"
+     ],
      "mistake": "Forgets the factor 2"
     },
     {
@@ -1173,6 +1568,13 @@
      ],
      "answer": 2,
      "explain": "f(x + h) − f(x) = 0 for all h, so the limit is 0.",
+     "steps": [
+      "f(x + h) − f(x) = 7 − 7 = 0 for every h",
+      "So [f(x + h) − f(x)]/h = 0",
+      "The limit of 0 is 0",
+      "f′(x) = 0",
+      "Answer: 0"
+     ],
      "mistake": "Thinks the derivative of a constant is the constant",
      "check": "0"
     },
@@ -1186,6 +1588,13 @@
      ],
      "answer": 2,
      "explain": "f′(x) = −1/x², so f′(2) = −1/4.",
+     "steps": [
+      "f′(x) = −1/x²",
+      "At x = 2: −1/2²",
+      "= −1/4",
+      "f′(2) = −1/4",
+      "Answer: −1/4"
+     ],
      "mistake": "Forgets the minus sign",
      "check": "Fraction(-1,4)"
     },
@@ -1199,6 +1608,13 @@
      ],
      "answer": 3,
      "explain": "[(x + h)³ − x³]/h = 3x² + 3xh + h² → 3x².",
+     "steps": [
+      "(x + h)³ − x³ = 3x²h + 3xh² + h³",
+      "Divide by h: 3x² + 3xh + h²",
+      "As h → 0",
+      "= 3x²",
+      "Answer: 3x²"
+     ],
      "mistake": "Integrates instead of differentiating"
     },
     {
@@ -1211,6 +1627,13 @@
      ],
      "answer": 1,
      "explain": "[(5 + h) − 5]/h = 1 for every h ≠ 0.",
+     "steps": [
+      "[(5 + h) − 5]/h = h/h",
+      "= 1 for every h ≠ 0",
+      "The limit is 1",
+      "f′(5) = 1",
+      "Answer: 1"
+     ],
      "mistake": "Gives f(5) instead of f′(5)",
      "check": "1"
     }
@@ -1238,6 +1661,25 @@
     ],
     "praise": "The derivative is the limiting slope as h shrinks — the slope of the tangent. At x = 3 it's 6!",
     "nudge": "What happens to h in the definition, and what does the answer represent on the graph?"
+   },
+   "revise": {
+    "summary": "The derivative of f at a is f′(a) = lim(h→0) [f(a + h) − f(a)]/h, the slope of the tangent at (a, f(a)). Using this definition directly is called finding the derivative from first principles.",
+    "focus": [
+     "Find derivatives of x², x³, 1/x, √x and constants from first principles",
+     "Find f′(a) at a point and interpret it as a tangent slope",
+     "Recognise the notations f′(x), dy/dx and y′"
+    ],
+    "remember": [
+     "f′(a) = lim(h→0) [f(a + h) − f(a)]/h",
+     "d/dx(x²) = 2x; d/dx(1/x) = −1/x²; d/dx(√x) = 1/(2√x)",
+     "d/dx(sin x) = cos x; d/dx(cos x) = −sin x",
+     "f′(a) = slope of the tangent to y = f(x) at (a, f(a))"
+    ],
+    "traps": [
+     "The limit is as h → 0, not h → ∞",
+     "The derivative of a constant is 0, not the constant itself"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1344,6 +1786,13 @@
      ],
      "answer": 1,
      "explain": "nxⁿ⁻¹ with n = 7.",
+     "steps": [
+      "Power rule: d/dx(xⁿ) = nxⁿ⁻¹",
+      "n = 7",
+      "7x⁷⁻¹",
+      "= 7x⁶",
+      "Answer: 7x⁶"
+     ],
      "mistake": "Forgets to reduce the power"
     },
     {
@@ -1356,6 +1805,13 @@
      ],
      "answer": 3,
      "explain": "f′(x) = 12x² − 6x + 2; f′(1) = 8.",
+     "steps": [
+      "f′(x) = 12x² − 6x + 2 (power rule term by term; constant → 0)",
+      "f′(1) = 12 − 6 + 2",
+      "= 8",
+      "f′(1) = 8",
+      "Answer: 8"
+     ],
      "mistake": "Keeps the constant −5 in the derivative",
      "check": "12-6+2"
     },
@@ -1369,6 +1825,13 @@
      ],
      "answer": 1,
      "explain": "(1)(x − 3) + (x + 2)(1) = 2x − 1.",
+     "steps": [
+      "Product rule: (uv)′ = u′v + uv′ with u = x + 2, v = x − 3",
+      "= 1 × (x − 3) + (x + 2) × 1",
+      "= x − 3 + x + 2",
+      "= 2x − 1",
+      "Answer: 2x − 1"
+     ],
      "mistake": "Multiplies the derivatives (1 × 1 = 1)"
     },
     {
@@ -1381,6 +1844,13 @@
      ],
      "answer": 2,
      "explain": "[(1)(x + 1) − x(1)]/(x + 1)² = 1/(x + 1)².",
+     "steps": [
+      "Quotient rule with u = x, v = x + 1: u′ = 1, v′ = 1",
+      "= [1 × (x + 1) − x × 1]/(x + 1)²",
+      "Numerator = 1",
+      "= 1/(x + 1)²",
+      "Answer: 1/(x + 1)²"
+     ],
      "mistake": "Reverses the order in the numerator"
     },
     {
@@ -1393,6 +1863,13 @@
      ],
      "answer": 0,
      "explain": "y = 4x² + 4x + 1, y′ = 8x + 4 = 12 at x = 1.",
+     "steps": [
+      "Expand: y = (2x + 1)² = 4x² + 4x + 1",
+      "dy/dx = 8x + 4",
+      "At x = 1: 8 + 4",
+      "= 12",
+      "Answer: 12"
+     ],
      "mistake": "Gives 2(2x + 1) = 6, forgetting the factor 2 from inside",
      "check": "8+4"
     },
@@ -1406,6 +1883,13 @@
      ],
      "answer": 0,
      "explain": "f′(x) = 1 + x + x², so f′(1) = 3.",
+     "steps": [
+      "f′(x) = 0 + 1 + (2x)/2 + (3x²)/3 = 1 + x + x²",
+      "f′(1) = 1 + 1 + 1",
+      "= 3",
+      "f′(1) = 3",
+      "Answer: 3"
+     ],
      "mistake": "Computes f(1) instead",
      "check": "3"
     },
@@ -1419,6 +1903,12 @@
      ],
      "answer": 0,
      "explain": "Each factor is differentiated in turn while the other is kept.",
+     "steps": [
+      "Product rule: differentiate each factor in turn, keeping the other",
+      "(uv)′ = u′v + uv′",
+      "The minus sign and the /v² belong to the quotient rule",
+      "Answer: (uv)′ = u′v + uv′"
+     ],
      "mistake": "Multiplies the two derivatives"
     },
     {
@@ -1431,6 +1921,13 @@
      ],
      "answer": 1,
      "explain": "f′(1) = 100 + 99 + … + 1 = 100 × 101/2 = 5050.",
+     "steps": [
+      "f′(x) = 100x⁹⁹ + 99x⁹⁸ + … + 1",
+      "f′(1) = 100 + 99 + … + 1",
+      "= 100 × 101/2",
+      "= 5050",
+      "Answer: 5050"
+     ],
      "mistake": "Counts the terms instead of adding the powers",
      "check": "100*101/2"
     }
@@ -1457,6 +1954,26 @@
     ],
     "praise": "Power rule for each term, product rule for products, quotient rule for fractions. Differentiation dojo complete!",
     "nudge": "In the quotient rule, what goes in the denominator?"
+   },
+   "revise": {
+    "summary": "Derivatives follow simple rules: (u ± v)′ = u′ ± v′, (cu)′ = cu′, the product rule (uv)′ = u′v + uv′, the quotient rule (u/v)′ = (u′v − uv′)/v², and the power rule d/dx(xⁿ) = nxⁿ⁻¹.",
+    "focus": [
+     "Differentiate polynomials term by term with the power rule",
+     "Use the product rule and quotient rule",
+     "Expand simple composite expressions before differentiating",
+     "Evaluate a derivative at a point"
+    ],
+    "remember": [
+     "d/dx(xⁿ) = nxⁿ⁻¹",
+     "(uv)′ = u′v + uv′",
+     "(u/v)′ = (u′v − uv′)/v², v ≠ 0",
+     "(u ± v)′ = u′ ± v′; (cu)′ = cu′"
+    ],
+    "traps": [
+     "(uv)′ is not u′v′: differentiate one factor at a time",
+     "In the quotient rule the order matters: u′v − uv′, not uv′ − u′v"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1542,6 +2059,13 @@
      ],
      "answer": 2,
      "explain": "Product rule: (1)(sin x) + x(cos x).",
+     "steps": [
+      "Product rule with u = x, v = sin x",
+      "u′v + uv′ = 1 × sin x + x × cos x",
+      "No terms cancel",
+      "= sin x + x cos x",
+      "Answer: sin x + x cos x"
+     ],
      "mistake": "Differentiates only one factor"
     },
     {
@@ -1554,6 +2078,13 @@
      ],
      "answer": 3,
      "explain": "Quotient rule: [a(cx + d) − (ax + b)c]/(cx + d)² = (ad − bc)/(cx + d)².",
+     "steps": [
+      "Quotient rule: u = ax + b (u′ = a), v = cx + d (v′ = c)",
+      "[a(cx + d) − (ax + b)c]/(cx + d)²",
+      "acx + ad − acx − bc = ad − bc",
+      "= (ad − bc)/(cx + d)²",
+      "Answer: (ad − bc)/(cx + d)²"
+     ],
      "mistake": "Swaps the order in the numerator"
     },
     {
@@ -1566,6 +2097,13 @@
      ],
      "answer": 0,
      "explain": "cot x = cos x/sin x: [(−sin x)(sin x) − cos x cos x]/sin²x = −1/sin²x.",
+     "steps": [
+      "cot x = cos x/sin x; quotient rule",
+      "[(−sin x)(sin x) − (cos x)(cos x)]/sin²x = −(sin²x + cos²x)/sin²x",
+      "= −1/sin²x",
+      "= −cosec²x",
+      "Answer: −cosec²x"
+     ],
      "mistake": "Drops the minus sign"
     },
     {
@@ -1578,6 +2116,13 @@
      ],
      "answer": 2,
      "explain": "y′ = cos x − sin x = 1 − 0 = 1.",
+     "steps": [
+      "y′ = cos x − sin x",
+      "At x = 0: cos 0 − sin 0",
+      "= 1 − 0",
+      "= 1",
+      "Answer: 1"
+     ],
      "mistake": "Takes d/dx(cos x) = +sin x",
      "check": "1"
     },
@@ -1591,6 +2136,13 @@
      ],
      "answer": 2,
      "explain": "Product rule; d/dx(−3 cos x) = +3 sin x.",
+     "steps": [
+      "Product rule: u = x⁴ (u′ = 4x³), v = 5 sin x − 3 cos x",
+      "v′ = 5 cos x − 3(−sin x) = 5 cos x + 3 sin x",
+      "u′v + uv′ = 4x³(5 sin x − 3 cos x) + x⁴(5 cos x + 3 sin x)",
+      "That is the answer",
+      "Answer: 4x³(5 sin x − 3 cos x) + x⁴(5 cos x + 3 sin x)"
+     ],
      "mistake": "Gets the sign of the derivative of cos x wrong"
     },
     {
@@ -1603,6 +2155,13 @@
      ],
      "answer": 2,
      "explain": "Quotient rule: (cos x · x − sin x · 1)/x².",
+     "steps": [
+      "Quotient rule: u = sin x (u′ = cos x), v = x (v′ = 1)",
+      "(u′v − uv′)/v² = (x cos x − sin x × 1)/x²",
+      "Keep the order u′v − uv′",
+      "= (x cos x − sin x)/x²",
+      "Answer: (x cos x − sin x)/x²"
+     ],
      "mistake": "Reverses the numerator"
     },
     {
@@ -1615,6 +2174,13 @@
      ],
      "answer": 3,
      "explain": "f′(x) = sec x tan x = 1 × 0 = 0 at x = 0.",
+     "steps": [
+      "f′(x) = sec x tan x",
+      "At x = 0: sec 0 = 1 and tan 0 = 0",
+      "1 × 0",
+      "f′(0) = 0",
+      "Answer: 0"
+     ],
      "mistake": "Uses sec 0 = 1 as the answer",
      "check": "0"
     },
@@ -1628,6 +2194,13 @@
      ],
      "answer": 3,
      "explain": "(ad − bc)/(cx + d)² with a = 1, b = 1, c = 1, d = −1: (−1 − 1)/(x − 1)² = −2/4 = −1/2.",
+     "steps": [
+      "(ad − bc)/(cx + d)² with a = 1, b = 1, c = 1, d = −1",
+      "ad − bc = −1 − 1 = −2, so f′(x) = −2/(x − 1)²",
+      "At x = 3: −2/2² = −2/4",
+      "= −1/2",
+      "Answer: −1/2"
+     ],
      "mistake": "Uses (bc − ad)",
      "check": "Fraction(-2,4)"
     }
@@ -1658,6 +2231,24 @@
     ],
     "praise": "sin → cos, cos → −sin, tan → sec². The 'co' ones all get a minus. Memory locked!",
     "nudge": "Which trig functions have derivatives with a minus sign in front?"
+   },
+   "revise": {
+    "summary": "d/dx(sin x) = cos x, d/dx(cos x) = −sin x, d/dx(tan x) = sec²x, d/dx(sec x) = sec x tan x, d/dx(cosec x) = −cosec x cot x and d/dx(cot x) = −cosec²x. Combine these with the product and quotient rules.",
+    "focus": [
+     "Recall derivatives of all six trigonometric functions",
+     "Differentiate products and quotients involving trig functions",
+     "Use the linear-fraction result (ad − bc)/(cx + d)²"
+    ],
+    "remember": [
+     "d/dx(sin x) = cos x; d/dx(cos x) = −sin x; d/dx(tan x) = sec²x",
+     "d/dx(sec x) = sec x tan x; d/dx(cosec x) = −cosec x cot x; d/dx(cot x) = −cosec²x",
+     "d/dx[(ax + b)/(cx + d)] = (ad − bc)/(cx + d)²"
+    ],
+    "traps": [
+     "The derivative of cos x is −sin x: so d/dx(−3 cos x) = +3 sin x",
+     "The derivatives of cos, cot and cosec carry a minus sign"
+    ],
+    "level": "important"
    }
   }
  ]

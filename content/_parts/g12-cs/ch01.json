@@ -116,6 +116,12 @@
      ],
      "answer": 1,
      "explain": "total_marks uses only letters and an underscore and does not start with a digit. '2nd_value' starts with a digit, 'for' is a keyword and '-' is not allowed in a name.",
+     "steps": [
+      "Identifier rules: only letters, digits and _; cannot start with a digit; cannot be a keyword.",
+      "'for' is a keyword, 'my-name' has a hyphen, '2nd_value' starts with a digit.",
+      "total_marks follows every rule.",
+      "Answer: total_marks"
+     ],
      "mistake": "Forgets that identifiers cannot start with a digit or contain a hyphen"
     },
     {
@@ -128,6 +134,12 @@
      ],
      "answer": 3,
      "explain": "The / operator always gives a float in Python 3, even when both operands are int.",
+     "steps": [
+      "In Python 3, the / operator always returns a float.",
+      "7 / 2 = 3.5, which is a float.",
+      "type(3.5) prints <class 'float'>.",
+      "Answer: <class 'float'>"
+     ],
      "mistake": "Thinks / between two ints gives an int, as // does"
     },
     {
@@ -140,6 +152,12 @@
      ],
      "answer": 3,
      "explain": "A tuple cannot be changed after it is created. Lists, dictionaries and sets can be modified in place.",
+     "steps": [
+      "Mutable types (list, dict, set) can be changed in place.",
+      "Immutable types (int, float, bool, str, tuple) cannot.",
+      "Of the options, only tuple is immutable.",
+      "Answer: tuple"
+     ],
      "mistake": "Confuses tuples with lists because both hold sequences"
     },
     {
@@ -152,6 +170,12 @@
      ],
      "answer": 0,
      "explain": "x is the string '5'. Multiplying a string by an int repeats it, so '5' * 2 = '55'.",
+     "steps": [
+      "x = '5' is a str and y = 2 is an int.",
+      "str * int repeats the string: '5' * 2 = '55'.",
+      "print shows 55 (no quotes).",
+      "Answer: 55"
+     ],
      "mistake": "Treats the string '5' as the number 5",
      "check": "55"
     },
@@ -168,7 +192,8 @@
      "steps": [
       "int(7.9) = 7 (truncates)",
       "int('3') = 3",
-      "7 + 3 = 10"
+      "7 + 3 = 10",
+      "Answer: 10"
      ],
      "mistake": "Rounds 7.9 up to 8 instead of truncating it",
      "check": "7+3"
@@ -183,6 +208,12 @@
      ],
      "answer": 2,
      "explain": "bool is a subtype of int, so True behaves like 1 in arithmetic. 1 + 2 = 3. This is implicit conversion.",
+     "steps": [
+      "bool is a subtype of int, so True behaves like 1.",
+      "True + 2 = 1 + 2.",
+      "= 3 (implicit conversion).",
+      "Answer: 3"
+     ],
      "mistake": "Thinks booleans cannot take part in arithmetic",
      "check": "1+2"
     },
@@ -196,6 +227,12 @@
      ],
      "answer": 0,
      "explain": "input() returns '5', a str, and Python cannot add a str and an int, so a TypeError is raised. R is exactly why A happens.",
+     "steps": [
+      "input() always returns a str, so name = '5'.",
+      "name + 1 tries to add a str and an int, which raises TypeError. So A is true.",
+      "R is true and is exactly why A happens.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Assumes Python converts typed digits to a number automatically"
     },
     {
@@ -208,6 +245,12 @@
      ],
      "answer": 2,
      "explain": "print is a built-in function, not a keyword. None, elif and lambda are reserved keywords.",
+     "steps": [
+      "Keywords are reserved words like lambda, None, elif.",
+      "print is a built-in function, not a keyword.",
+      "So print is NOT a keyword.",
+      "Answer: print"
+     ],
      "mistake": "Thinks every word Python knows is a keyword"
     }
    ],
@@ -239,6 +282,27 @@
     ],
     "praise": "Perfect! Lists and dictionaries are mutable, while strings and tuples are immutable. Gappu will build a new string instead.",
     "nudge": "Which types can be changed in place, and which cannot? Name one of each."
+   },
+   "revise": {
+    "summary": "Tokens are keywords, identifiers, literals, operators and punctuators. Python's data types are mutable (list, dict, set) or immutable (int, float, bool, str, tuple), and values convert implicitly or by explicit casting like int() and str().",
+    "focus": [
+     "Identify valid identifiers and keywords",
+     "Know the core data types and which are mutable",
+     "Predict implicit conversion results like 2 + 3.0 and True + 2",
+     "Use explicit conversion and remember input() returns a str"
+    ],
+    "remember": [
+     "Identifier: letters, digits, _; not starting with a digit; not a keyword; case-sensitive",
+     "Mutable: list, dict, set; immutable: int, float, complex, bool, str, tuple",
+     "/ always gives a float; int(7.9) = 7 (truncates)",
+     "input() always returns a str"
+    ],
+    "traps": [
+     "print is a built-in function, not a keyword",
+     "'5' * 2 is '55', not 10",
+     "Don't think a tuple is mutable like a list; a tuple is immutable"
+    ],
+    "level": "core"
    }
   },
   {
@@ -336,6 +400,12 @@
      ],
      "answer": 2,
      "explain": "17 // 5 is the quotient 3 and 17 % 5 is the remainder 2.",
+     "steps": [
+      "// gives the quotient and % gives the remainder.",
+      "17 = 5 × 3 + 2, so 17 // 5 = 3 and 17 % 5 = 2.",
+      "print shows 3 2.",
+      "Answer: 3 2"
+     ],
      "mistake": "Confuses // with / or swaps quotient and remainder"
     },
     {
@@ -350,7 +420,8 @@
      "explain": "** is evaluated right to left: 3 ** 2 = 9 first, then 2 ** 9 = 512.",
      "steps": [
       "3 ** 2 = 9",
-      "2 ** 9 = 512"
+      "2 ** 9 = 512",
+      "Answer: 512"
      ],
      "mistake": "Evaluates ** left to right as (2 ** 3) ** 2 = 64",
      "check": "2**9"
@@ -365,6 +436,12 @@
      ],
      "answer": 2,
      "explain": "-7 / 2 is -3.5 and floor division rounds down to the next smaller integer, which is -4.",
+     "steps": [
+      "-7 / 2 = -3.5.",
+      "// rounds DOWN towards minus infinity, not towards zero.",
+      "So -7 // 2 = -4.",
+      "Answer: -4"
+     ],
      "mistake": "Thinks // just chops off the decimal part, giving -3",
      "check": "-4"
     },
@@ -378,6 +455,12 @@
      ],
      "answer": 0,
      "explain": "range(1, 10, 3) starts at 1 and steps by 3 while staying below 10: 1, 4, 7.",
+     "steps": [
+      "range(1, 10, 3) starts at 1 and adds 3 each time, stopping before 10.",
+      "Values: 1, 4, 7 (10 is excluded).",
+      "Output: 1 4 7.",
+      "Answer: 1 4 7"
+     ],
      "mistake": "Includes the stop value 10 in the range"
     },
     {
@@ -390,6 +473,12 @@
      ],
      "answer": 2,
      "explain": "i = 0 is printed, i = 1 is skipped by continue, i = 2 is printed and at i = 3 break ends the loop.",
+     "steps": [
+      "i = 0: printed. i = 1: continue skips the print.",
+      "i = 2: printed. i = 3: break ends the loop.",
+      "Output: 0 2.",
+      "Answer: 0 2"
+     ],
      "mistake": "Treats break like continue and keeps looping to 4"
     },
     {
@@ -405,7 +494,8 @@
      "steps": [
       "5 > 3 is True, 2 > 4 is False, not False is True",
       "True and False = False",
-      "False or True = True"
+      "False or True = True",
+      "Answer: True"
      ],
      "mistake": "Evaluates or before and"
     },
@@ -423,7 +513,8 @@
       "10 // 2 = 5 (c = 1)",
       "5 // 2 = 2 (c = 2)",
       "2 // 2 = 1 (c = 3)",
-      "1 > 1 is False, loop ends"
+      "1 > 1 is False, loop ends",
+      "Answer: 3"
      ],
      "mistake": "Counts the starting value as a pass, or stops one step early",
      "check": "3"
@@ -438,6 +529,12 @@
      ],
      "answer": 2,
      "explain": "is is the identity operator. == only compares values, in tests membership and = assigns.",
+     "steps": [
+      "is checks identity: whether two names refer to the same object.",
+      "== compares values; in tests membership; = assigns.",
+      "So the operator is is.",
+      "Answer: is"
+     ],
      "mistake": "Mixes up value equality (==) with identity (is)"
     }
    ],
@@ -461,6 +558,27 @@
     ],
     "praise": "Nailed it! break leaves the whole loop, while continue only skips to the next round.",
     "nudge": "Does continue end the whole loop, or just the current round?"
+   },
+   "revise": {
+    "summary": "Python has arithmetic, relational, logical, identity, membership and assignment operators, evaluated by precedence with ** highest. Programs choose paths with if-elif-else and repeat with for (using range) and while, controlled by break and continue.",
+    "focus": [
+     "Evaluate //, % and ** including negatives and right-to-left power",
+     "Apply operator precedence for and, or, not",
+     "Trace for loops with range(start, stop, step) and while loops",
+     "Trace break, continue and nested loops"
+    ],
+    "remember": [
+     "17 // 5 = 3, 17 % 5 = 2, -7 // 2 = -4",
+     "Precedence: ** > unary - > * / // % > + - > relational > not > and > or",
+     "2 ** 3 ** 2 = 512 (** groups right to left)",
+     "range stop is excluded; break exits the loop; continue skips to the next pass"
+    ],
+    "traps": [
+     "// rounds down, not towards zero",
+     "Don't include the stop value of range",
+     "Don't mix up is (identity) with == (comparing values)"
+    ],
+    "level": "core"
    }
   },
   {
@@ -574,7 +692,8 @@
      "explain": "s[1:6:2] takes indices 1, 3 and 5 of 'COMPUTER', which are O, P and T.",
      "steps": [
       "C0 O1 M2 P3 U4 T5 E6 R7",
-      "Indices 1, 3, 5 → O, P, T"
+      "Indices 1, 3, 5 → O, P, T",
+      "Answer: OPT"
      ],
      "mistake": "Includes index 6 (the stop value) or starts counting from 1"
     },
@@ -588,6 +707,12 @@
      ],
      "answer": 2,
      "explain": "The first 'n' in 'banana' is at index 2, and 'a' appears 3 times.",
+     "steps": [
+      "Indices of 'banana': b0 a1 n2 a3 n4 a5.",
+      "find('n') returns the first index of 'n' = 2.",
+      "count('a') = 3, so output: 2 3.",
+      "Answer: 2 3"
+     ],
      "mistake": "Starts counting positions from 1"
     },
     {
@@ -600,6 +725,12 @@
      ],
      "answer": 3,
      "explain": "append adds its argument as ONE item, even when the argument is a list. The list becomes [3, 1, 2, [4, 5]].",
+     "steps": [
+      "L starts with 3 items: [3, 1, 2].",
+      "append adds its argument as ONE item: L = [3, 1, 2, [4, 5]].",
+      "len(L) = 4.",
+      "Answer: 4"
+     ],
      "mistake": "Confuses append with extend, which would add 4 and 5 separately",
      "check": "4"
     },
@@ -613,6 +744,12 @@
      ],
      "answer": 0,
      "explain": "insert(1, 15) gives [10, 15, 20, 30]; pop() with no index removes the last item, 30.",
+     "steps": [
+      "insert(1, 15): [10, 15, 20, 30].",
+      "pop() with no index removes the last item, 30.",
+      "print shows [10, 15, 20].",
+      "Answer: [10, 15, 20]"
+     ],
      "mistake": "Thinks pop() removes the first item"
     },
     {
@@ -625,6 +762,12 @@
      ],
      "answer": 0,
      "explain": "The trailing comma makes a tuple. (5) is just the int 5 in brackets, and tuple(5) raises TypeError because 5 is not iterable.",
+     "steps": [
+      "A one-element tuple needs a trailing comma.",
+      "(5) is just the int 5; [5] is a list; tuple(5) raises TypeError (5 is not iterable).",
+      "So (5,) is the one-element tuple.",
+      "Answer: (5,)"
+     ],
      "mistake": "Thinks brackets alone make a tuple"
     },
     {
@@ -637,6 +780,12 @@
      ],
      "answer": 3,
      "explain": "Assigning to a new key adds it; assigning to an existing key replaces its value. Keys are unique.",
+     "steps": [
+      "d['c'] = 3 adds a new key: {'a': 1, 'b': 2, 'c': 3}.",
+      "d['a'] = 10 updates the existing key 'a' (keys are unique).",
+      "print shows {'a': 10, 'b': 2, 'c': 3}.",
+      "Answer: {'a': 10, 'b': 2, 'c': 3}"
+     ],
      "mistake": "Thinks a dictionary can hold the same key twice"
     },
     {
@@ -649,6 +798,12 @@
      ],
      "answer": 2,
      "explain": "'-'.join puts '-' between the pieces to give 'IN-DIA', and lower() converts it to 'in-dia'.",
+     "steps": [
+      "'-'.join(['IN', 'DIA']) puts '-' between the items: 'IN-DIA'.",
+      ".lower() converts it to 'in-dia'.",
+      "print shows in-dia.",
+      "Answer: in-dia"
+     ],
      "mistake": "Forgets that join inserts the separator string between items"
     },
     {
@@ -661,6 +816,12 @@
      ],
      "answer": 3,
      "explain": "Strings are immutable, so item assignment on a string fails. Lists and dictionaries accept assignment, and adding tuples makes a new tuple.",
+     "steps": [
+      "Lists and dictionaries allow item assignment; tuple + tuple makes a new tuple.",
+      "Strings are immutable.",
+      "So s[0] = 'H' where s = 'hello' raises TypeError.",
+      "Answer: s[0] = 'H' where s = 'hello'"
+     ],
      "mistake": "Thinks strings can be edited in place like lists"
     }
    ],
@@ -683,6 +844,27 @@
     ],
     "praise": "Exactly! append adds the whole list as one item, while extend would add 4 and 5 one by one.",
     "nudge": "What would extend have done differently from append?"
+   },
+   "revise": {
+    "summary": "Strings, lists and tuples are indexed from 0 (or -1 from the right) and sliced with [start:stop:step]. Strings and tuples are immutable, lists are changed with methods like append, insert and pop, and dictionaries store unique keys with values.",
+    "focus": [
+     "Index and slice sequences, including negative indices and steps",
+     "Use string methods like find, count, join and lower",
+     "Use list methods append, extend, insert, pop and remove",
+     "Add, update and read dictionary entries safely"
+    ],
+    "remember": [
+     "seq[start:stop:step] stops before stop; seq[::-1] reverses",
+     "append adds one item; extend adds each item; pop() removes the last item",
+     "One-element tuple needs a comma: (5,)",
+     "d[k] = v adds or updates; d.get(k) gives None for a missing key"
+    ],
+    "traps": [
+     "Strings can't be changed in place: s[0] = 'H' raises TypeError",
+     "append([4, 5]) adds ONE item, not two",
+     "A dictionary cannot hold the same key twice"
+    ],
+    "level": "core"
    }
   },
   {
@@ -784,6 +966,12 @@
      ],
      "answer": 2,
      "explain": "A header needs def, the name, parameters in brackets and a colon at the end.",
+     "steps": [
+      "A header needs: def, the name, parameters in brackets, and a colon.",
+      "'function' is not a keyword; one option misses the colon, another the brackets.",
+      "Correct: def area(r):",
+      "Answer: def area(r):"
+     ],
      "mistake": "Forgets the colon or the brackets around parameters"
     },
     {
@@ -796,6 +984,12 @@
      ],
      "answer": 0,
      "explain": "Python runs the script top to bottom. greet() is called on line 1, before the def statement has created the function, so the name is unknown.",
+     "steps": [
+      "Python runs the script from top to bottom.",
+      "Line 1 calls greet() before the def has created the function.",
+      "So the name is unknown: NameError is raised.",
+      "Answer: NameError is raised"
+     ],
      "mistake": "Thinks Python reads all definitions before running anything"
     },
     {
@@ -808,6 +1002,12 @@
      ],
      "answer": 0,
      "explain": "sqrt() lives in the math module, which must be imported first.",
+     "steps": [
+      "sqrt() lives in the math module, which must be imported first.",
+      "Built-in functions like len() need no import.",
+      "So math.sqrt() is a function defined in a module.",
+      "Answer: Function defined in a module"
+     ],
      "mistake": "Calls every ready-made function 'built-in'"
     },
     {
@@ -820,6 +1020,12 @@
      ],
      "answer": 0,
      "explain": "Functions make code organised and reusable, but they cannot guarantee a program is error-free.",
+     "steps": [
+      "Functions give modularity, reuse and easier testing and debugging.",
+      "But they cannot guarantee a program has no errors.",
+      "So that statement is NOT an advantage.",
+      "Answer: The program is guaranteed to have no errors"
+     ],
      "mistake": "Overstates what modular code can achieve"
     },
     {
@@ -832,6 +1038,12 @@
      ],
      "answer": 1,
      "explain": "The first string in the body is the docstring, stored in f.__doc__.",
+     "steps": [
+      "The first string in a function body is its docstring.",
+      "It is stored in f.__doc__.",
+      "print(f.__doc__) shows Adds two numbers.",
+      "Answer: Adds two numbers"
+     ],
      "mistake": "Thinks the docstring is just a comment that Python throws away"
     },
     {
@@ -844,6 +1056,12 @@
      ],
      "answer": 2,
      "explain": "Defining show() prints nothing. The loop calls it three times.",
+     "steps": [
+      "The def statement only creates show(); it prints nothing.",
+      "range(3) runs the loop 3 times, calling show() each time.",
+      "So Hi is printed 3 times.",
+      "Answer: 3"
+     ],
      "mistake": "Counts the def statement as a call",
      "check": "3"
     },
@@ -857,6 +1075,12 @@
      ],
      "answer": 0,
      "explain": "def only creates the function object. The body executes each time the function is called, which is exactly why A is true.",
+     "steps": [
+      "A def statement only creates the function object; the body is not run. So A is true.",
+      "R is true: the body runs only when the function is called.",
+      "R is the reason for A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks defining a function also runs it"
     },
     {
@@ -869,6 +1093,12 @@
      ],
      "answer": 1,
      "explain": "Every def header must end with a colon. Without it Python reports a SyntaxError.",
+     "steps": [
+      "Every def header must end with a colon.",
+      "def total(a, b) has no colon, so Python reports a SyntaxError.",
+      "So the error is the missing colon.",
+      "Answer: The colon is missing after the header"
+     ],
      "mistake": "Overlooks small punctuation in headers"
     }
    ],
@@ -899,6 +1129,27 @@
     ],
     "praise": "Wonderful! Functions let you reuse code, split a big program into parts, and fix a bug in just one place.",
     "nudge": "What happens with copy-paste when you find a bug? How do functions help with that?"
+   },
+   "revise": {
+    "summary": "A function is a named block of code that runs only when called. Functions give modularity and reuse; they can be built-in, from modules, or user-defined with def name(parameters): and must be defined before they are called.",
+    "focus": [
+     "Write a correct function header",
+     "Explain the advantages of functions",
+     "Classify built-in, module and user-defined functions",
+     "Know docstrings and define-before-call order"
+    ],
+    "remember": [
+     "def function_name(parameters): followed by an indented body",
+     "Calling before defining raises NameError",
+     "Built-in (len), module (math.sqrt), user-defined (def)",
+     "The first string in the body is the docstring: f.__doc__"
+    ],
+    "traps": [
+     "Don't forget the colon after the header",
+     "Defining a function does not run its body",
+     "Functions do not guarantee error-free programs"
+    ],
+    "level": "core"
    }
   },
   {
@@ -1005,6 +1256,12 @@
      ],
      "answer": 0,
      "explain": "power(3) uses e = 2, giving 9. power(2, 5) gives 2 ** 5 = 32.",
+     "steps": [
+      "power(3): e takes its default 2, so 3 ** 2 = 9.",
+      "power(2, 5): 2 ** 5 = 32.",
+      "Output: 9 32.",
+      "Answer: 9 32"
+     ],
      "mistake": "Swaps the base and the exponent"
     },
     {
@@ -1017,6 +1274,12 @@
      ],
      "answer": 3,
      "explain": "Parameters with default values must come after those without defaults.",
+     "steps": [
+      "Parameters with default values must come after those without defaults.",
+      "def f(a=1, b): and def f(a=1, b, c=2): break this rule; def f(=a): is invalid syntax.",
+      "Valid: def f(a, b=1):",
+      "Answer: def f(a, b=1):"
+     ],
      "mistake": "Thinks default parameters can be placed anywhere"
     },
     {
@@ -1029,6 +1292,12 @@
      ],
      "answer": 0,
      "explain": "Keyword arguments are matched by name, so name = 'Riya' and age = 17 whatever their order in the call.",
+     "steps": [
+      "Keyword arguments are matched by name, not by position.",
+      "So name = 'Riya' and age = 17.",
+      "print(name, 'is', age) shows Riya is 17.",
+      "Answer: Riya is 17"
+     ],
      "mistake": "Matches keyword arguments by position"
     },
     {
@@ -1041,6 +1310,12 @@
      ],
      "answer": 1,
      "explain": "A positional argument cannot follow a keyword argument in a call; Python reports a SyntaxError.",
+     "steps": [
+      "In a call, positional arguments must come before keyword arguments.",
+      "info(name='Riya', 17) puts a positional argument after a keyword one.",
+      "That is a SyntaxError, so it is INVALID.",
+      "Answer: info(name='Riya', 17)"
+     ],
      "mistake": "Thinks positional and keyword arguments can be mixed in any order"
     },
     {
@@ -1053,6 +1328,12 @@
      ],
      "answer": 0,
      "explain": "nums and L refer to the same list object, so append inside the function changes nums.",
+     "steps": [
+      "nums and L refer to the same list object.",
+      "L.append(5) changes that list in place.",
+      "So print(nums) shows [1, 2, 5].",
+      "Answer: [1, 2, 5]"
+     ],
      "mistake": "Thinks a function always works on a copy of the list"
     },
     {
@@ -1065,6 +1346,12 @@
      ],
      "answer": 1,
      "explain": "x = x + 10 creates a new int and binds only the local name x. The global a is still 5.",
+     "steps": [
+      "Inside change, x = x + 10 makes a new int bound only to the local name x.",
+      "The global a is not changed.",
+      "print(a) shows 5.",
+      "Answer: 5"
+     ],
      "mistake": "Thinks changing a parameter changes the caller's int variable",
      "check": "5"
     },
@@ -1078,6 +1365,12 @@
      ],
      "answer": 2,
      "explain": "Values passed in a call are arguments; l and b in the header are parameters.",
+     "steps": [
+      "Names in the header (l, b) are parameters.",
+      "Values passed in the call (4, 5) are arguments.",
+      "So 4 and 5 are arguments.",
+      "Answer: Arguments"
+     ],
      "mistake": "Uses 'parameter' and 'argument' as if they meant the same thing"
     },
     {
@@ -1090,6 +1383,12 @@
      ],
      "answer": 1,
      "explain": "a = 1 by position, b keeps its default 2, and c = 10 by keyword. 1 + 2 + 10 = 13.",
+     "steps": [
+      "a = 1 by position; b keeps its default 2; c = 10 by keyword.",
+      "a + b + c = 1 + 2 + 10.",
+      "= 13.",
+      "Answer: 13"
+     ],
      "mistake": "Gives the value 10 to b instead of c",
      "check": "1+2+10"
     }
@@ -1113,6 +1412,27 @@
     ],
     "praise": "Spot on! l and b are parameters in the definition; 4 and 5 are arguments passed in the call.",
     "nudge": "Which names sit in the def line, and which values are sent when calling?"
+   },
+   "revise": {
+    "summary": "Parameters are names in the header; arguments are values in the call. Arguments can be positional, default or keyword; defaults must come after non-defaults, and positional arguments must come before keyword ones. Mutable arguments changed in place affect the caller.",
+    "focus": [
+     "Tell parameters from arguments",
+     "Use default parameters and keyword arguments",
+     "Spot invalid headers and calls",
+     "Predict the effect of passing mutable and immutable objects"
+    ],
+    "remember": [
+     "Positional arguments match by order; keyword arguments match by name",
+     "Default parameters must come after those without defaults",
+     "In a call, positional before keyword arguments",
+     "L.append() inside a function changes the caller's list; x = x + 10 does not change the caller's int"
+    ],
+    "traps": [
+     "Don't put a default parameter before a non-default one: def f(a=5, b) is a SyntaxError",
+     "Don't put a positional argument after a keyword one: info(name='Riya', 17) is invalid",
+     "Don't give a keyword argument's value to the wrong parameter"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1214,6 +1534,12 @@
      ],
      "answer": 3,
      "explain": "f() has no return statement, so it returns None, and print shows None.",
+     "steps": [
+      "f() has no return statement.",
+      "A function without return gives back None.",
+      "print(f()) shows None.",
+      "Answer: None"
+     ],
      "mistake": "Thinks a function with no return gives 0 or nothing at all"
     },
     {
@@ -1226,6 +1552,12 @@
      ],
      "answer": 1,
      "explain": "return a + b, a * b packs the two values into a tuple.",
+     "steps": [
+      "return a + b, a * b packs two values into a tuple.",
+      "calc(3, 4) returns (7, 12).",
+      "print(r) shows (7, 12).",
+      "Answer: (7, 12)"
+     ],
      "mistake": "Thinks multiple return values come back as a list or are printed separately"
     },
     {
@@ -1241,7 +1573,8 @@
      "steps": [
       "calc(2, 5) returns (7, 10)",
       "s = 7, p = 10",
-      "p - s = 3"
+      "p - s = 3",
+      "Answer: 3"
      ],
      "mistake": "Unpacks the tuple in the wrong order",
      "check": "2*5-(2+5)"
@@ -1256,6 +1589,12 @@
      ],
      "answer": 1,
      "explain": "return ends the function immediately, so the print('done') line is never reached.",
+     "steps": [
+      "f(4) reaches return n * 2 = 8.",
+      "return ends the function at once, so print('done') never runs.",
+      "print shows 8.",
+      "Answer: 8"
+     ],
      "mistake": "Thinks statements after return still run",
      "check": "4*2"
     },
@@ -1269,6 +1608,12 @@
      ],
      "answer": 2,
      "explain": "The def on line 1 runs but its body is skipped. Line 4 calls sq, control goes to line 2, then returns to line 4 and moves on to line 5.",
+     "steps": [
+      "Line 1 runs (creates sq, body skipped); line 3 sets a = 3.",
+      "Line 4 calls sq(3): control jumps to line 2, returns 9, and comes back to line 4.",
+      "Then line 5 prints. Order: 1 → 3 → 4 → 2 → 4 → 5.",
+      "Answer: 1 → 3 → 4 → 2 → 4 → 5"
+     ],
      "mistake": "Thinks the function body runs when it is defined"
     },
     {
@@ -1281,6 +1626,12 @@
      ],
      "answer": 2,
      "explain": "It takes the argument name but only prints; it has no return, so it returns None.",
+     "steps": [
+      "greet takes one argument, name.",
+      "It only prints; it has no return, so it returns None.",
+      "So it is a function with arguments and no return value.",
+      "Answer: With arguments, no return value"
+     ],
      "mistake": "Thinks printing a value is the same as returning it"
     },
     {
@@ -1293,6 +1644,12 @@
      ],
      "answer": 0,
      "explain": "f() gives None, and None + 1 is an unsupported operation, so a TypeError occurs. R directly explains A.",
+     "steps": [
+      "With no return statement, f() returns None (R is true).",
+      "None + 1 is not allowed, so a TypeError is raised (A is true).",
+      "R is the reason for A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks a missing return gives 0"
     },
     {
@@ -1305,6 +1662,12 @@
      ],
      "answer": 2,
      "explain": "m returns the larger value: m(4, 9) = 9 and m(7, 2) = 7, so 9 + 7 = 16.",
+     "steps": [
+      "m returns the larger of a and b.",
+      "m(4, 9) = 9 and m(7, 2) = 7.",
+      "9 + 7 = 16.",
+      "Answer: 16"
+     ],
      "mistake": "Assumes the function always returns its first argument",
      "check": "9+7"
     }
@@ -1329,6 +1692,27 @@
     ],
     "praise": "Exactly right! print only shows a value, while return hands it back. With no return, Python gives None.",
     "nudge": "What is the difference between printing a value and returning it?"
+   },
+   "revise": {
+    "summary": "return sends a value back and ends the function at once; no return means None. return a, b gives a tuple, and functions are grouped by whether they take arguments and return values. Python runs top to bottom, skipping a def's body until it is called.",
+    "focus": [
+     "Predict outputs of functions with and without return",
+     "Return and unpack multiple values",
+     "Classify functions by arguments and return value",
+     "Trace the flow of execution with line numbers"
+    ],
+    "remember": [
+     "No return (or bare return) → None",
+     "return a, b returns the tuple (a, b)",
+     "Statements after return in the same path never run",
+     "def runs to create the function; the body runs only on a call"
+    ],
+    "traps": [
+     "Printing a value is not returning it",
+     "A missing return gives None, not 0",
+     "Don't think the body runs when the function is defined"
+    ],
+    "level": "core"
    }
   },
   {
@@ -1439,6 +1823,12 @@
      ],
      "answer": 1,
      "explain": "Inside f, x = 5 is a new local variable. The global x stays 10.",
+     "steps": [
+      "Inside f, x = 5 creates a new local x; f prints 5.",
+      "The global x is still 10.",
+      "Output: 5 10.",
+      "Answer: 5 10"
+     ],
      "mistake": "Thinks assigning inside a function changes the global variable"
     },
     {
@@ -1451,6 +1841,12 @@
      ],
      "answer": 0,
      "explain": "global c lets inc() update the global c. Two calls take it from 0 to 2.",
+     "steps": [
+      "global c lets inc() change the global c.",
+      "First call: 0 → 1. Second call: 1 → 2.",
+      "print(c) shows 2.",
+      "Answer: 2"
+     ],
      "mistake": "Forgets that the global declaration makes the change stick",
      "check": "2"
     },
@@ -1464,6 +1860,12 @@
      ],
      "answer": 3,
      "explain": "y is local to f and disappears when f ends, so the name y is not defined at the top level.",
+     "steps": [
+      "y is created inside f, so it is local to f.",
+      "It disappears when f ends.",
+      "print(y) at the top level raises NameError.",
+      "Answer: NameError is raised"
+     ],
      "mistake": "Thinks variables created inside a function remain available outside"
     },
     {
@@ -1476,6 +1878,12 @@
      ],
      "answer": 0,
      "explain": "show() only reads the global n, which is allowed without the global keyword. 4 × 2 = 8.",
+     "steps": [
+      "show() only reads the global n; reading needs no global keyword.",
+      "n * 2 = 4 × 2.",
+      "= 8.",
+      "Answer: 8"
+     ],
      "mistake": "Thinks a function cannot read a global variable at all",
      "check": "4*2"
     },
@@ -1489,6 +1897,12 @@
      ],
      "answer": 3,
      "explain": "Because x is assigned inside f, Python treats x as local in the whole function. print(x) runs before the local x has a value.",
+     "steps": [
+      "x is assigned inside f (x = 2), so Python treats x as local in the whole function.",
+      "print(x) runs before the local x has a value.",
+      "So UnboundLocalError is raised.",
+      "Answer: UnboundLocalError is raised"
+     ],
      "mistake": "Expects Python to use the global x until the local one is assigned"
     },
     {
@@ -1501,6 +1915,12 @@
      ],
      "answer": 0,
      "explain": "A local variable lives only during the function call. Python has no 'local' keyword.",
+     "steps": [
+      "A local variable exists only while its function runs.",
+      "Python has no 'local' keyword, and locals cannot be used everywhere.",
+      "So it stops existing once its function finishes.",
+      "Answer: It stops existing once its function finishes"
+     ],
      "mistake": "Mixes up the lifetime of local and global variables"
     },
     {
@@ -1513,6 +1933,12 @@
      ],
      "answer": 3,
      "explain": "The parameter b and the variable c created inside g are local. a is global and only read.",
+     "steps": [
+      "The parameter b is local to g.",
+      "c is created inside g, so it is local too.",
+      "a is global and only read. Local names: b and c.",
+      "Answer: b and c"
+     ],
      "mistake": "Forgets that parameters are local variables"
     },
     {
@@ -1525,6 +1951,12 @@
      ],
      "answer": 3,
      "explain": "With global total, each call reduces the global: 100 - 30 = 70, then 70 - 20 = 50.",
+     "steps": [
+      "global total lets spend change the global.",
+      "spend(30): 100 − 30 = 70. spend(20): 70 − 20 = 50.",
+      "print shows 50.",
+      "Answer: 50"
+     ],
      "mistake": "Thinks each call starts again from 100",
      "check": "100-30-20"
     }
@@ -1546,6 +1978,27 @@
     ],
     "praise": "Brilliant! Assigning makes count local, so Python needs 'global count' to update the outer one.",
     "nudge": "What keyword tells Python you mean the outer variable, and what does Python assume without it?"
+   },
+   "revise": {
+    "summary": "A local variable is created inside a function and exists only during the call; a global variable is created at the top level and can be read anywhere. To change a global inside a function, declare it global.",
+    "focus": [
+     "Tell local from global variables",
+     "Use the global keyword to update a global",
+     "Predict shadowing results",
+     "Spot NameError and UnboundLocalError"
+    ],
+    "remember": [
+     "Parameters and names assigned inside a function are local",
+     "A function can read a global without the global keyword",
+     "global count lets count += 1 change the global",
+     "Assigning to a name anywhere in a function makes it local throughout"
+    ],
+    "traps": [
+     "Assigning inside a function does not change a global of the same name",
+     "Locals cannot be used after the function ends (NameError)",
+     "Don't read a name and then assign it inside a function without global; that raises UnboundLocalError"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1658,6 +2111,12 @@
      ],
      "answer": 1,
      "explain": "divmod(29, 6) returns (29 // 6, 29 % 6) = (4, 5).",
+     "steps": [
+      "divmod(a, b) returns (a // b, a % b).",
+      "29 // 6 = 4 and 29 % 6 = 5.",
+      "Output: (4, 5).",
+      "Answer: (4, 5)"
+     ],
      "mistake": "Swaps the quotient and the remainder"
     },
     {
@@ -1670,6 +2129,12 @@
      ],
      "answer": 0,
      "explain": "ceil rounds up to the next integer: 4.1 → 5. floor rounds down: -4.1 → -5.",
+     "steps": [
+      "ceil rounds up: math.ceil(4.1) = 5.",
+      "floor rounds down: math.floor(-4.1) = -5.",
+      "Output: 5 -5.",
+      "Answer: 5 -5"
+     ],
      "mistake": "Thinks floor just removes the decimal, giving -4"
     },
     {
@@ -1682,6 +2147,12 @@
      ],
      "answer": 0,
      "explain": "randint(a, b) returns an integer from a to b, including both ends. 8 is outside that range.",
+     "steps": [
+      "randint(3, 7) returns an integer from 3 to 7, including both ends.",
+      "So 3, 5 and 7 are all possible.",
+      "8 is outside the range, so it is NEVER returned.",
+      "Answer: 8"
+     ],
      "mistake": "Thinks randint excludes the upper limit, like range()",
      "check": "8"
     },
@@ -1695,6 +2166,12 @@
      ],
      "answer": 1,
      "explain": "from math import sqrt makes sqrt usable directly, and math.sqrt always returns a float.",
+     "steps": [
+      "from math import sqrt lets us call sqrt() directly.",
+      "math's sqrt always returns a float: sqrt(49) = 7.0.",
+      "Output: 7.0.",
+      "Answer: 7.0"
+     ],
      "mistake": "Thinks the module name must still be written before sqrt",
      "check": "7"
     },
@@ -1711,7 +2188,8 @@
      "steps": [
       "Sort: 1, 3, 7, 9",
       "Middle two values: 3 and 7",
-      "(3 + 7) / 2 = 5.0"
+      "(3 + 7) / 2 = 5.0",
+      "Answer: 5.0"
      ],
      "mistake": "Takes a middle value without sorting the data first",
      "check": "(3+7)/2"
@@ -1726,6 +2204,12 @@
      ],
      "answer": 1,
      "explain": "A module is imported by its file name without .py, and its functions are reached with the module name and a dot.",
+     "steps": [
+      "A module is imported by its file name without .py: import mymaths.",
+      "Its functions are reached as module_name.function: mymaths.cube(3).",
+      "cube(3) = 3 ** 3 = 27.",
+      "Answer: import mymaths, then print(mymaths.cube(3))"
+     ],
      "mistake": "Imports the function name instead of the module name, or forgets the module prefix"
     },
     {
@@ -1738,6 +2222,12 @@
      ],
      "answer": 3,
      "explain": "The loop multiplies 1 × 2 × 3 × 4 × 5 = 120.",
+     "steps": [
+      "f starts at 1 and the loop multiplies by i = 1, 2, 3, 4, 5.",
+      "1 × 2 × 3 × 4 × 5 = 120.",
+      "print shows 120.",
+      "Answer: 120"
+     ],
      "mistake": "Stops the range at n, multiplying only up to 4",
      "check": "1*2*3*4*5"
     },
@@ -1751,6 +2241,12 @@
      ],
      "answer": 0,
      "explain": "1 is below 2, so it is not prime. 13 has no divisor from 2 to 12. 21 is divisible by 3.",
+     "steps": [
+      "is_prime(1): 1 < 2, so False.",
+      "is_prime(13): no divisor from 2 to 12, so True. is_prime(21): 21 % 3 == 0, so False.",
+      "Output: False True False.",
+      "Answer: False True False"
+     ],
      "mistake": "Treats 1 as a prime, or forgets that 21 = 3 × 7"
     }
    ],
@@ -1774,6 +2270,27 @@
     ],
     "praise": "Super! With import math you write math.sqrt(), but from math import sqrt lets you call sqrt() directly.",
     "nudge": "How do you call sqrt in each case? Do you need the module name in front?"
+   },
+   "revise": {
+    "summary": "Built-in functions like divmod, round and range need no import, while modules like math, random and statistics must be imported. A user-defined module is a .py file whose functions are called as module.function, and classic programs include factorial and prime checks.",
+    "focus": [
+     "Predict results of built-ins like divmod and round",
+     "Use math functions like sqrt, ceil and floor",
+     "Know the ranges of random.randint and randrange",
+     "Import and use a user-defined module"
+    ],
+    "remember": [
+     "divmod(a, b) = (a // b, a % b)",
+     "math.sqrt returns a float; ceil rounds up, floor rounds down",
+     "randint(a, b) includes both ends; randrange(a, b) excludes b",
+     "import mymaths then mymaths.cube(3)"
+    ],
+    "traps": [
+     "math.floor(-4.1) is -5, not -4",
+     "Don't exclude the upper limit for randint; unlike range(), it includes it",
+     "After import mymaths, call mymaths.cube(), not cube()"
+    ],
+    "level": "important"
    }
   }
  ]

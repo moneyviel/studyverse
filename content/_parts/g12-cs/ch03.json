@@ -115,6 +115,12 @@
      ],
      "answer": 3,
      "explain": "Variables live in main memory, which is cleared when the program stops. Files sit on secondary storage and persist.",
+     "steps": [
+      "Variables live in main memory (RAM), which is cleared when the program ends.",
+      "Files are kept on secondary storage like a hard disk, so the data stays.",
+      "So data in variables is lost when the program ends, but files keep it permanently.",
+      "Answer: Data in variables is lost when the program ends, but files keep it permanently"
+     ],
      "mistake": "Thinks files are stored in RAM"
     },
     {
@@ -127,6 +133,12 @@
      ],
      "answer": 2,
      "explain": "Each line of a text file ends with the EOL character, written '\\n' in Python.",
+     "steps": [
+      "Each line of a text file ends with the end-of-line (EOL) character.",
+      "In Python this is written '\\n'.",
+      "'\\t' is a tab, not a newline.",
+      "Answer: \\n"
+     ],
      "mistake": "Confuses the newline with the tab character"
     },
     {
@@ -139,6 +151,12 @@
      ],
      "answer": 1,
      "explain": "An image stores raw bytes, not readable characters. The others are plain-text formats.",
+     "steps": [
+      "A binary file stores bytes not meant to be read as text, like images.",
+      "report.txt, marks.csv and script.py are plain-text files.",
+      "logo.png is an image, so it is binary.",
+      "Answer: logo.png"
+     ],
      "mistake": "Thinks CSV files are binary because they hold data in a table"
     },
     {
@@ -151,6 +169,12 @@
      ],
      "answer": 1,
      "explain": "A CSV file is plain text; each record is a line and the fields are separated by commas.",
+     "steps": [
+      "A CSV file is plain text.",
+      "Each line is a record and its values are separated by commas.",
+      "So CSV files are text files whose values are separated by commas.",
+      "Answer: They are text files whose values are separated by commas"
+     ],
      "mistake": "Assumes spreadsheet-related files must be binary"
     },
     {
@@ -163,6 +187,12 @@
      ],
      "answer": 1,
      "explain": "An absolute path begins at the root of the drive. The others are relative to the current folder.",
+     "steps": [
+      "An absolute path starts from the root of the drive.",
+      "C:\\School\\marks.txt starts at C:\\.",
+      "The others start from the current folder, so they are relative.",
+      "Answer: C:\\School\\marks.txt"
+     ],
      "mistake": "Thinks any path containing a folder name is absolute"
     },
     {
@@ -175,6 +205,12 @@
      ],
      "answer": 0,
      "explain": "Pickle writes a binary file. Notepad tries to show the bytes as characters, so it looks like nonsense. R explains A.",
+     "steps": [
+      "pickle writes a binary file of bytes (R is true).",
+      "Notepad shows those bytes as characters, so it looks like gibberish (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks Notepad can sensibly display any file"
     },
     {
@@ -187,6 +223,12 @@
      ],
      "answer": 2,
      "explain": "In a normal Python string, \\n is the newline escape. Write the path as r'C:\\new\\data.txt', use double backslashes, or use forward slashes.",
+     "steps": [
+      "In a normal Python string, a backslash starts an escape sequence.",
+      "'\\n' in 'C:\\new\\data.txt' is read as a newline character, spoiling the path.",
+      "Fix: use r'C:\\new\\data.txt', double backslashes or forward slashes.",
+      "Answer: '\\n' inside the string is read as a newline character"
+     ],
      "mistake": "Forgets that backslashes start escape sequences in Python strings"
     },
     {
@@ -199,6 +241,12 @@
      ],
      "answer": 2,
      "explain": "A file has a name and lives on secondary storage, so its data survives after the program ends.",
+     "steps": [
+      "A file has a name and lives on secondary storage.",
+      "It keeps related data after the program ends.",
+      "So it is a named location on secondary storage that holds related data.",
+      "Answer: A named location on secondary storage that holds related data"
+     ],
      "mistake": "Confuses files with variables"
     }
    ],
@@ -223,6 +271,27 @@
     ],
     "praise": "Excellent! Text files hold readable characters in lines; binary files hold raw bytes like images or pickled objects.",
     "nudge": "Which kind could you read comfortably in Notepad, and which would look like gibberish?"
+   },
+   "revise": {
+    "summary": "Files store data permanently on secondary storage, unlike variables in RAM. Text files hold readable characters with '\\n' line endings, binary files hold bytes like images and pickled objects, and CSV files are text files of comma-separated records.",
+    "focus": [
+     "Explain why files are needed",
+     "Tell text, binary and CSV files apart",
+     "Tell absolute paths from relative paths",
+     "Avoid backslash escape problems in Windows paths"
+    ],
+    "remember": [
+     "File = named location on secondary storage",
+     "Text file: characters, each line ends with '\\n'",
+     "Binary file: bytes (images, audio, pickled objects); CSV: text with comma-separated values",
+     "Absolute path starts at the root (C:\\...); relative path starts from the current folder"
+    ],
+    "traps": [
+     "CSV files are text, not binary",
+     "Don't write 'C:\\new\\...' in a normal string; '\\n' becomes a newline: use r'...' or double backslashes",
+     "Files are not stored in RAM"
+    ],
+    "level": "core"
    }
   },
   {
@@ -328,6 +397,12 @@
      ],
      "answer": 2,
      "explain": "f.name is the file name, f.mode is the mode string 'w', and f.closed is False while the file is open.",
+     "steps": [
+      "f.name is the file name: data.txt; f.mode is the mode string: w.",
+      "The file is still open, so f.closed is False.",
+      "Output: data.txt w False.",
+      "Answer: data.txt w False"
+     ],
      "mistake": "Thinks the file is closed straight after opening"
     },
     {
@@ -340,6 +415,12 @@
      ],
      "answer": 1,
      "explain": "After the with block ends, the file is closed automatically, so f.closed is True.",
+     "steps": [
+      "with closes the file automatically when its block ends.",
+      "print(f.closed) runs after the block.",
+      "So it prints True.",
+      "Answer: True"
+     ],
      "mistake": "Thinks with only opens the file and leaves it open"
     },
     {
@@ -352,6 +433,12 @@
      ],
      "answer": 3,
      "explain": "'w' mode truncates an existing file to zero length the moment it is opened.",
+     "steps": [
+      "'w' mode truncates (erases) an existing file as soon as it is opened.",
+      "Nothing was written before closing.",
+      "So 0 lines are left.",
+      "Answer: 0"
+     ],
      "mistake": "Thinks 'w' only replaces the lines you actually write",
      "check": "0"
     },
@@ -365,6 +452,12 @@
      ],
      "answer": 3,
      "explain": "'r' mode needs an existing file, so Python raises FileNotFoundError (a kind of IOError).",
+     "steps": [
+      "open('absent.txt') uses the default mode 'r'.",
+      "'r' mode needs the file to exist.",
+      "So FileNotFoundError is raised.",
+      "Answer: FileNotFoundError is raised"
+     ],
      "mistake": "Thinks every mode creates the file if it is missing"
     },
     {
@@ -377,6 +470,11 @@
      ],
      "answer": 0,
      "explain": "In both 'a' and 'a+' modes the pointer starts at the end, so writes are appended.",
+     "steps": [
+      "In 'a' and 'a+' modes, writing must add to the existing data.",
+      "So the file pointer starts at the end.",
+      "Answer: At the end"
+     ],
      "mistake": "Thinks the pointer starts at the beginning for every mode with +"
     },
     {
@@ -389,6 +487,12 @@
      ],
      "answer": 1,
      "explain": "Written data may sit in a memory buffer; closing flushes it to the disk and frees the file.",
+     "steps": [
+      "Written data may wait in a memory buffer.",
+      "close() flushes it to the disk and frees the file for others.",
+      "So close to flush buffered data and release the file.",
+      "Answer: To flush buffered data to the disk and release the file"
+     ],
      "mistake": "Thinks data reaches the disk the instant write() is called"
     },
     {
@@ -401,6 +505,12 @@
      ],
      "answer": 3,
      "explain": "'r+' needs an existing file, starts at the beginning and does not truncate. 'w+' would erase the file.",
+     "steps": [
+      "We need read and write, file must exist, start at the beginning, no erasing.",
+      "'w' and 'w+' erase the file; 'a+' starts at the end.",
+      "'r+' fits all conditions.",
+      "Answer: r+"
+     ],
      "mistake": "Confuses r+ with w+"
     },
     {
@@ -413,6 +523,12 @@
      ],
      "answer": 0,
      "explain": "Because with guarantees the file is closed whatever happens, it is a safe pattern. R explains A.",
+     "steps": [
+      "A file opened with with is closed automatically when the block ends, even after an exception (R is true).",
+      "That guarantee makes with a safe way to handle files (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks with only makes the code shorter"
     }
    ],
@@ -435,6 +551,27 @@
     ],
     "praise": "Exactly! 'w' erases existing contents, while 'a' (append) adds new data at the end and keeps the old entries.",
     "nudge": "What does 'w' do to an existing file, and which mode keeps the old data?"
+   },
+   "revise": {
+    "summary": "open(file_name, mode) returns a file object; the default mode is 'r'. Modes r, r+, w, w+, a and a+ differ in reading, writing, creating, erasing and pointer position. close() flushes data, and with closes the file automatically.",
+    "focus": [
+     "Choose the right file mode for a task",
+     "Know where the pointer starts and which modes erase the file",
+     "Use file object attributes name, mode and closed",
+     "Explain closing files and the with statement"
+    ],
+    "remember": [
+     "'r': read, file must exist; 'r+': read and write, file must exist, starts at the beginning",
+     "'w'/'w+': create or erase the file",
+     "'a'/'a+': keep old data, pointer at the end",
+     "with open(...) as f: closes the file automatically, even after an exception"
+    ],
+    "traps": [
+     "Don't open an existing file in 'w' unless you want it erased; 'w' erases it the moment it opens",
+     "Don't open a missing file in 'r'; it raises FileNotFoundError",
+     "r+ does not erase; w+ does"
+    ],
+    "level": "core"
    }
   },
   {
@@ -550,6 +687,12 @@
      ],
      "answer": 1,
      "explain": "'Good Luck!\\n' has 10 visible characters (including the space and !) plus the newline, which makes 11.",
+     "steps": [
+      "'Good Luck!' has 10 characters: G o o d (space) L u c k !",
+      "'\\n' adds 1 more character.",
+      "write() returns the count: 11.",
+      "Answer: 11"
+     ],
      "mistake": "Forgets to count the space or the newline character",
      "check": "11"
     },
@@ -563,6 +706,12 @@
      ],
      "answer": 2,
      "explain": "write() accepts only strings. Passing an int raises TypeError. Use f.write(str(marks)).",
+     "steps": [
+      "write() accepts only strings.",
+      "marks = 95 is an int, so f.write(marks) fails.",
+      "It raises TypeError (use f.write(str(marks))).",
+      "Answer: TypeError"
+     ],
      "mistake": "Expects write() to convert numbers automatically"
     },
     {
@@ -575,6 +724,12 @@
      ],
      "answer": 2,
      "explain": "writelines() writes the strings exactly as given, without adding newlines or spaces.",
+     "steps": [
+      "writelines() writes each string exactly as given.",
+      "It adds no newlines or spaces.",
+      "So the file contains RedGreen.",
+      "Answer: RedGreen"
+     ],
      "mistake": "Thinks writelines() puts each item on a new line"
     },
     {
@@ -587,6 +742,12 @@
      ],
      "answer": 0,
      "explain": "The second open uses 'a' mode, so 'B' is added after the existing 'A'.",
+     "steps": [
+      "The first open in 'w' writes 'A'.",
+      "The second open uses 'a' mode, which keeps 'A' and adds 'B' at the end.",
+      "read() shows AB.",
+      "Answer: AB"
+     ],
      "mistake": "Thinks 'a' mode replaces old contents like 'w'"
     },
     {
@@ -599,6 +760,12 @@
      ],
      "answer": 0,
      "explain": "The second open uses 'w' mode, which erases 'A' before writing 'B'.",
+     "steps": [
+      "The first open writes 'A'.",
+      "The second open in 'w' mode erases 'A' before writing 'B'.",
+      "read() shows B.",
+      "Answer: B"
+     ],
      "mistake": "Thinks 'w' mode adds to the existing contents"
     },
     {
@@ -611,6 +778,12 @@
      ],
      "answer": 3,
      "explain": "Each name is followed by '\\n', so the file has three lines.",
+     "steps": [
+      "Each name is written followed by '\\n'.",
+      "Three names → three lines.",
+      "readlines() gives 3 items, so it prints 3.",
+      "Answer: 3"
+     ],
      "mistake": "Thinks the loop writes everything on one line",
      "check": "3"
     },
@@ -624,6 +797,12 @@
      ],
      "answer": 3,
      "explain": "writelines() writes the strings but returns None, unlike write(), which returns a character count.",
+     "steps": [
+      "write() returns the number of characters written.",
+      "writelines() writes the strings but returns None.",
+      "So the answer is None.",
+      "Answer: None"
+     ],
      "mistake": "Assumes writelines() returns a count like write()"
     },
     {
@@ -636,6 +815,12 @@
      ],
      "answer": 0,
      "explain": "str(3.5) gives '3.5', a string, which write() accepts. A float is rejected with TypeError. R explains A.",
+     "steps": [
+      "write() accepts only strings (R is true).",
+      "str(3.5) = '3.5' is a string and works; 3.5 is a float and raises TypeError (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks write() handles every data type"
     }
    ],
@@ -657,6 +842,27 @@
     ],
     "praise": "Yes! write() works only with strings, so write f.write(str(95)).",
     "nudge": "What type does write() accept, and how can you turn 95 into that type?"
+   },
+   "revise": {
+    "summary": "write(string) writes one string and returns its character count without adding a newline; it accepts only strings. writelines(list) writes all strings in a list, adds no newlines and returns None. 'w' overwrites and 'a' appends.",
+    "focus": [
+     "Predict the return value of write()",
+     "Convert numbers before writing",
+     "Use writelines() and know its return value",
+     "Predict file contents after 'w' and 'a' writes"
+    ],
+    "remember": [
+     "write() returns the number of characters written, including '\\n'",
+     "write() needs a str: f.write(str(95))",
+     "writelines() adds no newlines and returns None",
+     "'w' starts afresh; 'a' adds after existing data"
+    ],
+    "traps": [
+     "Don't forget to count spaces and '\\n' when counting characters",
+     "writelines() does not put each item on a new line",
+     "Don't pass a number to write(): f.write(95) raises TypeError"
+    ],
+    "level": "core"
    }
   },
   {
@@ -757,6 +963,12 @@
      ],
      "answer": 0,
      "explain": "read(5) reads exactly 5 characters from the start: H, e, l, l, o.",
+     "steps": [
+      "read(5) reads 5 characters from the start.",
+      "The first 5 characters are H, e, l, l, o.",
+      "Output: Hello.",
+      "Answer: Hello"
+     ],
      "mistake": "Thinks read(n) reads n words or n lines"
     },
     {
@@ -769,6 +981,12 @@
      ],
      "answer": 2,
      "explain": "The first readline() consumes 'Hello World\\n'; the second returns 'Python is fun\\n', which strip() cleans up.",
+     "steps": [
+      "The first readline() reads 'Hello World\\n'.",
+      "The second readline() reads 'Python is fun\\n'; strip() removes the '\\n'.",
+      "Output: Python is fun.",
+      "Answer: Python is fun"
+     ],
      "mistake": "Thinks every readline() call starts again at the top"
     },
     {
@@ -781,6 +999,12 @@
      ],
      "answer": 1,
      "explain": "readlines() returns a list with one string per line, so its length is 3.",
+     "steps": [
+      "readlines() returns a list with one string per line.",
+      "The file has three lines.",
+      "len() of the list is 3.",
+      "Answer: 3"
+     ],
      "mistake": "Counts characters instead of list items",
      "check": "3"
     },
@@ -794,6 +1018,12 @@
      ],
      "answer": 3,
      "explain": "readlines() returns a list in which each element is one line of the file.",
+     "steps": [
+      "readlines() returns all remaining lines together.",
+      "They come back as a list of strings.",
+      "type() shows <class 'list'>.",
+      "Answer: <class 'list'>"
+     ],
      "mistake": "Confuses readlines() with read()"
     },
     {
@@ -806,6 +1036,12 @@
      ],
      "answer": 2,
      "explain": "read() gives the whole text and split() breaks it at all whitespace, including newlines: 2 + 3 + 2 = 7 words.",
+     "steps": [
+      "read() gives all the text; split() breaks it at every space and newline.",
+      "Words: Hello World (2) + Python is fun (3) + Keep coding (2).",
+      "2 + 3 + 2 = 7.",
+      "Answer: 7"
+     ],
      "mistake": "Counts only the words in the first line, or counts lines",
      "check": "2+3+2"
     },
@@ -819,6 +1055,12 @@
      ],
      "answer": 3,
      "explain": "readline(3) reads at most 3 characters of the current line.",
+     "steps": [
+      "readline(n) reads at most n characters of the current line.",
+      "The first 3 characters of 'Hello World' are H, e, l.",
+      "Output: Hel.",
+      "Answer: Hel"
+     ],
      "mistake": "Thinks readline(3) reads the third line"
     },
     {
@@ -831,6 +1073,12 @@
      ],
      "answer": 1,
      "explain": "The pointer is at the end, so there is nothing left to read; text-file reads return '' at end of file.",
+     "steps": [
+      "After read() the pointer is at the end of the file.",
+      "There is nothing left to read.",
+      "So read() returns an empty string ''.",
+      "Answer: An empty string ''"
+     ],
      "mistake": "Expects read() to start from the beginning again or to raise EOFError"
     },
     {
@@ -843,6 +1091,12 @@
      ],
      "answer": 1,
      "explain": "line.strip() removes the '\\n', leaving 'Hello World' (11), 'Python is fun' (13) and 'Keep coding' (11).",
+     "steps": [
+      "Each line keeps its '\\n'; strip() removes it.",
+      "len('Hello World') = 11, len('Python is fun') = 13, len('Keep coding') = 11.",
+      "Output: 11 13 11.",
+      "Answer: 11 13 11"
+     ],
      "mistake": "Counts the newline character at the end of each line"
     }
    ],
@@ -870,6 +1124,27 @@
     ],
     "praise": "Brilliant! read() gives one big string, readline() gives a single line, and readlines() gives a list of all lines.",
     "nudge": "What does each one return: a whole string, one line, or a list?"
+   },
+   "revise": {
+    "summary": "read() returns the rest of the file as one string and read(n) at most n characters. readline() returns one line with its '\\n', readlines() returns a list of lines, and reading moves the file pointer forward.",
+    "focus": [
+     "Predict outputs of read(), read(n), readline() and readline(n)",
+     "Use readlines() and know it returns a list",
+     "Count words and characters in a file",
+     "Traverse a file line by line with strip()"
+    ],
+    "remember": [
+     "read(n): up to n characters; readline(n): up to n characters of the current line",
+     "readlines() returns a list of strings",
+     "At end of file, read() and readline() return ''",
+     "line.strip() removes the trailing '\\n'"
+    ],
+    "traps": [
+     "Don't think each readline() starts from the top; it continues from where the last read stopped",
+     "readline(3) reads 3 characters, not the third line",
+     "Don't count the '\\n' as part of a line's text"
+    ],
+    "level": "core"
    }
   },
   {
@@ -970,6 +1245,12 @@
      ],
      "answer": 2,
      "explain": "read(4) reads 'ABCD', leaving the pointer at position 4.",
+     "steps": [
+      "read(4) reads 'ABCD'.",
+      "The pointer moves 4 positions from the start.",
+      "tell() returns 4.",
+      "Answer: 4"
+     ],
      "mistake": "Thinks tell() gives the index of the last character read",
      "check": "4"
     },
@@ -983,6 +1264,12 @@
      ],
      "answer": 3,
      "explain": "seek(6) places the pointer before index 6, which is 'G'. read(2) gives 'GH'.",
+     "steps": [
+      "Positions start from 0: A0 B1 C2 D3 E4 F5 G6 H7 I8 J9.",
+      "seek(6) puts the pointer before 'G'.",
+      "read(2) gives GH.",
+      "Answer: GH"
+     ],
      "mistake": "Counts positions from 1 instead of 0"
     },
     {
@@ -995,6 +1282,12 @@
      ],
      "answer": 2,
      "explain": "After read() the pointer is at the end, but seek(0) moves it back to the start, so read(3) gives 'ABC'.",
+     "steps": [
+      "After read(), the pointer is at the end.",
+      "seek(0) moves it back to the start.",
+      "read(3) gives ABC.",
+      "Answer: ABC"
+     ],
      "mistake": "Forgets that seek(0) rewinds the pointer"
     },
     {
@@ -1007,6 +1300,12 @@
      ],
      "answer": 3,
      "explain": "seek(0, 2) moves the pointer to the end of the 10-character file, so tell() returns 10.",
+     "steps": [
+      "seek(0, 2) moves the pointer to the end of the file.",
+      "The file has 10 characters.",
+      "tell() returns 10.",
+      "Answer: 10"
+     ],
      "mistake": "Thinks the last position is the index of the last character (9)",
      "check": "10"
     },
@@ -1020,6 +1319,12 @@
      ],
      "answer": 3,
      "explain": "'r+' starts at the beginning without erasing. Writing 'xy' overwrites 'A' and 'B'; seek(0) then lets read() show the whole file.",
+     "steps": [
+      "'r+' starts at the beginning without erasing.",
+      "write('xy') overwrites 'A' and 'B' one for one: xyCDEFGHIJ.",
+      "seek(0) then read() shows xyCDEFGHIJ.",
+      "Answer: xyCDEFGHIJ"
+     ],
      "mistake": "Thinks r+ inserts text or appends at the end"
     },
     {
@@ -1032,6 +1337,12 @@
      ],
      "answer": 2,
      "explain": "After write() the pointer is at the end of 'India', so read() finds nothing and returns ''. A seek(0) before read() would fix it.",
+     "steps": [
+      "'w+' creates an empty file; write('India') leaves the pointer at the end.",
+      "read() starts from the pointer and finds nothing, returning ''.",
+      "print('') shows an empty line.",
+      "Answer: An empty line"
+     ],
      "mistake": "Forgets that writing moves the file pointer"
     },
     {
@@ -1044,6 +1355,12 @@
      ],
      "answer": 3,
      "explain": "0 means the beginning, 1 the current position and 2 the end of the file.",
+     "steps": [
+      "In seek(offset, reference_point): 0 = beginning, 1 = current position, 2 = end.",
+      "So reference_point 1 means from the current position.",
+      "2 would mean from the end.",
+      "Answer: From the current position"
+     ],
      "mistake": "Mixes up the codes 1 and 2"
     },
     {
@@ -1056,6 +1373,12 @@
      ],
      "answer": 2,
      "explain": "In binary mode, seek(-3, 2) moves 3 bytes back from the end. read() returns bytes, shown with a b prefix.",
+     "steps": [
+      "In binary mode 'rb', seek(-3, 2) moves 3 bytes back from the end.",
+      "That is just before 'H'; read() returns the rest as bytes.",
+      "Output: b'HIJ'.",
+      "Answer: b'HIJ'"
+     ],
      "mistake": "Forgets that binary reads return bytes objects"
     }
    ],
@@ -1077,6 +1400,27 @@
     ],
     "praise": "You got it! After writing, the pointer sits at the end, so you need seek(0) to go back before reading.",
     "nudge": "Where is the file pointer after writing, and which method moves it back?"
+   },
+   "revise": {
+    "summary": "tell() gives the pointer's position in bytes from the start, and seek(offset, ref) moves it, with ref 0 (start), 1 (current) or 2 (end). Non-zero relative seeks need binary mode, and after writing you must seek(0) before reading.",
+    "focus": [
+     "Predict values of tell() after reads and seeks",
+     "Use seek() with reference points 0, 1 and 2",
+     "Read and write the same file with r+ and w+",
+     "Know the text-mode limits on seek()"
+    ],
+    "remember": [
+     "tell() = bytes from the start of the file",
+     "seek(0) rewinds; seek(0, 2) goes to the end",
+     "seek(-3, 2) needs binary mode ('rb')",
+     "Writing in 'r+' overwrites characters one for one"
+    ],
+    "traps": [
+     "Positions start at 0, not 1",
+     "Don't read straight after write() and expect the text; read() returns '' unless you seek(0)",
+     "r+ overwrites; it does not insert or append"
+    ],
+    "level": "advanced"
    }
   },
   {
@@ -1176,6 +1520,12 @@
      ],
      "answer": 3,
      "explain": "Only 'The sun rose' and 'Then it rained' start with 'T'.",
+     "steps": [
+      "line[0] == 'T' checks the first character of each line.",
+      "'The sun rose' ✓, 'Birds sang' ✗, 'Then it rained' ✓.",
+      "c = 2.",
+      "Answer: 2"
+     ],
      "mistake": "Counts every line containing a 't' anywhere",
      "check": "2"
     },
@@ -1189,6 +1539,12 @@
      ],
      "answer": 2,
      "explain": "The vowels are I, i, a in 'India' and i in 'Wins'. lower() makes the capital I count too, giving 4.",
+     "steps": [
+      "Check each character of 'India Wins' with lower().",
+      "Vowels: I, i, a (India) and i (Wins).",
+      "c = 4.",
+      "Answer: 4"
+     ],
      "mistake": "Forgets the capital I because it misses the lower() step",
      "check": "4"
     },
@@ -1202,6 +1558,12 @@
      ],
      "answer": 3,
      "explain": "split() gives the words; comparing word.lower() with 'the' matches The, the and THE.",
+     "steps": [
+      "split() gives the words; w.lower() == 'the' ignores case.",
+      "Matches: The, the, THE.",
+      "c = 3.",
+      "Answer: 3"
+     ],
      "mistake": "Does a case-sensitive comparison and counts only one 'the'",
      "check": "3"
     },
@@ -1215,6 +1577,12 @@
      ],
      "answer": 0,
      "explain": "Append mode keeps the existing names and adds new ones at the end. 'w' would erase the file each day.",
+     "steps": [
+      "Kabir must keep earlier names and add new ones.",
+      "'a' (append) keeps old data and writes at the end; 'w' would erase it.",
+      "So use open('class.txt', 'a').",
+      "Answer: open('class.txt', 'a')"
+     ],
      "mistake": "Uses 'w' mode for adding data"
     },
     {
@@ -1227,6 +1595,12 @@
      ],
      "answer": 1,
      "explain": "Each line is split into a city and a number; the cities whose number is greater than 10 are Pune (42) and Goa (15).",
+     "steps": [
+      "Each line splits into city and number; int(n) converts the number.",
+      "42 > 10 ✓ (Pune), 7 ✗ (Agra), 15 > 10 ✓ (Goa).",
+      "Output: Pune Goa.",
+      "Answer: Pune Goa"
+     ],
      "mistake": "Compares the numbers as strings or forgets int()"
     },
     {
@@ -1239,6 +1613,12 @@
      ],
      "answer": 1,
      "explain": "read() returns 'Hi Ma'. len() counts every character, including the space: 5.",
+     "steps": [
+      "read() returns 'Hi Ma'.",
+      "Characters: H, i, space, M, a.",
+      "len = 5.",
+      "Answer: 5"
+     ],
      "mistake": "Leaves out the space when counting characters",
      "check": "5"
     },
@@ -1252,6 +1632,12 @@
      ],
      "answer": 1,
      "explain": "Only 'Mumbai' has more than 5 characters once the newline is stripped, so only that line is copied.",
+     "steps": [
+      "len(line.strip()): Delhi = 5, Mumbai = 6, Kochi = 5.",
+      "Only lengths greater than 5 are copied: Mumbai.",
+      "So dst.txt contains Mumbai.",
+      "Answer: Mumbai"
+     ],
      "mistake": "Counts the newline character as part of the length"
     },
     {
@@ -1264,6 +1650,12 @@
      ],
      "answer": 2,
      "explain": "Each line already ends with '\\n' and print adds another. strip() removes the line's own newline.",
+     "steps": [
+      "Each line read from a file already ends with '\\n', and print adds another.",
+      "line.strip() removes the line's own newline.",
+      "So use: for line in f: print(line.strip()).",
+      "Answer: for line in f: print(line.strip())"
+     ],
      "mistake": "Does not realise that lines keep their '\\n' when read"
     }
    ],
@@ -1288,6 +1680,27 @@
     ],
     "praise": "Fantastic! Read the text, split() it into words and use len() or a counter to count them.",
     "nudge": "Which string method breaks text into words, and how do you count the pieces?"
+   },
+   "revise": {
+    "summary": "Text file programs create files with 'w' or 'a', traverse them with for line in f, count lines, words, characters and letters, filter lines by a condition, and copy selected lines to another file.",
+    "focus": [
+     "Write programs to create and append to text files",
+     "Count lines, words, vowels or a given word",
+     "Display or copy lines that meet a condition",
+     "Use split(), strip(), startswith() and lower() correctly"
+    ],
+    "remember": [
+     "Lines: len(f.readlines()); words: len(line.split()); characters: len(f.read())",
+     "line.startswith('T') or line[0] == 'T' for lines starting with T",
+     "word.lower() == 'the' counts 'the' in any case",
+     "Copy: source in 'r', target in 'w', write only matching lines"
+    ],
+    "traps": [
+     "Use 'a', not 'w', to add data every day",
+     "Don't compare numbers read from a file as strings; convert them with int() first",
+     "Don't check a line's length without stripping the '\\n'"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1375,6 +1788,12 @@
      ],
      "answer": 2,
      "explain": "Pickling serializes an object into bytes so it can be written to a binary file.",
+     "steps": [
+      "Pickling is serialization.",
+      "It converts a Python object into a byte stream to store in a binary file.",
+      "It is not encryption or compression.",
+      "Answer: Converting a Python object into a byte stream for storage"
+     ],
      "mistake": "Confuses serialization with compression or encryption"
     },
     {
@@ -1387,6 +1806,12 @@
      ],
      "answer": 2,
      "explain": "pickle writes bytes, so the file must be opened in binary write mode.",
+     "steps": [
+      "pickle.dump() writes bytes.",
+      "To create a new file of records, open it for binary writing.",
+      "Mode 'wb'.",
+      "Answer: 'wb'"
+     ],
      "mistake": "Uses a text mode for a binary operation"
     },
     {
@@ -1399,6 +1824,12 @@
      ],
      "answer": 0,
      "explain": "load() rebuilds exactly the object that was dumped, a list.",
+     "steps": [
+      "pickle.dump() stored the list [10, 20, 30].",
+      "pickle.load() rebuilds exactly the same object.",
+      "print shows [10, 20, 30].",
+      "Answer: [10, 20, 30]"
+     ],
      "mistake": "Thinks load() returns raw bytes or a string"
     },
     {
@@ -1411,6 +1842,12 @@
      ],
      "answer": 1,
      "explain": "There are no more objects to read, so pickle.load() raises EOFError.",
+     "steps": [
+      "Each load() reads one object; two were stored.",
+      "The first two calls return the two records.",
+      "The third call has nothing to read, so it raises EOFError.",
+      "Answer: It raises EOFError"
+     ],
      "mistake": "Expects load() to return None at the end like readline() returns ''"
     },
     {
@@ -1423,6 +1860,12 @@
      ],
      "answer": 3,
      "explain": "Three objects are dumped. The loop loads them one by one and stops at EOFError, having counted 3.",
+     "steps": [
+      "Three objects ('A', 'B', 'C') are dumped.",
+      "The loop loads them one by one, adding 1 to c each time, and stops at EOFError.",
+      "print(c) shows 3.",
+      "Answer: 3"
+     ],
      "mistake": "Thinks the whole file is loaded in one call",
      "check": "3"
     },
@@ -1436,6 +1879,12 @@
      ],
      "answer": 1,
      "explain": "Asha (92) and Zoya (95) have more than 90 marks; Dev (78) does not.",
+     "steps": [
+      "Check marks > 90 for each record.",
+      "Asha 92 ✓, Dev 78 ✗, Zoya 95 ✓.",
+      "Output: Asha Zoya.",
+      "Answer: Asha Zoya"
+     ],
      "mistake": "Includes records that do not meet the condition"
     },
     {
@@ -1448,6 +1897,12 @@
      ],
      "answer": 2,
      "explain": "'ab' is binary append mode. 'wb' would erase the existing records.",
+     "steps": [
+      "'ab' is binary append mode: new records go at the end.",
+      "'wb' would erase the existing records.",
+      "So use 'ab'.",
+      "Answer: 'ab'"
+     ],
      "mistake": "Uses 'wb' and wipes out the old data"
     },
     {
@@ -1460,6 +1915,12 @@
      ],
      "answer": 0,
      "explain": "Because reaching the end raises EOFError, catching it is the standard way to stop the loop. R explains A.",
+     "steps": [
+      "pickle.load() raises EOFError after the last object (R is true).",
+      "So the reading loop is placed inside try ... except EOFError (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks pickle.load() signals the end of file by returning a special value"
     }
    ],
@@ -1487,6 +1948,27 @@
     ],
     "praise": "Wonderful! Pickling turns an object into a byte stream with dump(), and unpickling rebuilds it with load().",
     "nudge": "What is an object turned into when it is pickled, and which functions do each job?"
+   },
+   "revise": {
+    "summary": "Pickling converts Python objects into a byte stream stored in a binary file, and unpickling rebuilds them. Use pickle.dump(obj, f) with 'wb' or 'ab' and pickle.load(f) with 'rb', reading all records in a loop until EOFError.",
+    "focus": [
+     "Explain pickling and unpickling",
+     "Choose binary modes for writing, appending and reading",
+     "Read all records with try ... except EOFError",
+     "Search, append and update records in a binary file"
+    ],
+    "remember": [
+     "pickle.dump(object, file) – file opened in 'wb' or 'ab'",
+     "pickle.load(file) – file opened in 'rb'; one object per call",
+     "load() raises EOFError after the last object",
+     "Update: load all, change, write back with 'wb'"
+    ],
+    "traps": [
+     "Use binary modes, not text modes, with pickle",
+     "load() does not return None at the end; it raises EOFError",
+     "Don't use 'wb' to add records; it erases old ones; use 'ab'"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1595,6 +2077,12 @@
      ],
      "answer": 0,
      "explain": "The csv writer ends each row with its own line ending; newline='' stops Python adding another translation, which would show as blank rows.",
+     "steps": [
+      "The csv writer ends each row with its own line ending.",
+      "Without newline='', Python adds another, showing blank rows.",
+      "So newline='' prevents extra blank lines between rows.",
+      "Answer: To prevent extra blank lines between rows"
+     ],
      "mistake": "Thinks newline='' changes the delimiter or the file type"
     },
     {
@@ -1607,6 +2095,12 @@
      ],
      "answer": 2,
      "explain": "writerow() takes one sequence; writerows() takes a sequence of sequences and writes each as a row.",
+     "steps": [
+      "writerow() takes one sequence and writes one row.",
+      "writerows() takes a list of rows and writes each one.",
+      "So writerow() writes one row; writerows() writes a list of rows.",
+      "Answer: writerow() writes one row; writerows() writes a list of rows"
+     ],
      "mistake": "Thinks writerows() writes a single row with many values"
     },
     {
@@ -1619,6 +2113,12 @@
      ],
      "answer": 1,
      "explain": "csv.reader returns every field as a string, even values that were numbers when written.",
+     "steps": [
+      "writerow([101, 'Asha', 88]) stores 101,Asha,88 in the file.",
+      "csv.reader returns every field as a string.",
+      "print(row) shows ['101', 'Asha', '88'].",
+      "Answer: ['101', 'Asha', '88']"
+     ],
      "mistake": "Expects the reader to give back numbers as int"
     },
     {
@@ -1631,6 +2131,12 @@
      ],
      "answer": 0,
      "explain": "Each row is a list of strings; int(row[2]) converts the marks. Om (91) and Jai (82) have more than 80.",
+     "steps": [
+      "int(row[2]) converts the marks: 75, 91, 82.",
+      "91 > 80 (Om) and 82 > 80 (Jai).",
+      "Output: Om Jai.",
+      "Answer: Om Jai"
+     ],
      "mistake": "Compares the marks as strings or reads the wrong column"
     },
     {
@@ -1643,6 +2149,12 @@
      ],
      "answer": 0,
      "explain": "The reader yields 5 rows; next(r) skips the header, so list(r) holds only the 4 data rows.",
+     "steps": [
+      "The file has 1 header + 4 data rows = 5 rows.",
+      "next(r) skips the header row.",
+      "list(r) has 4 rows, so it prints 4.",
+      "Answer: 4"
+     ],
      "mistake": "Counts the header as a record",
      "check": "4"
     },
@@ -1656,6 +2168,12 @@
      ],
      "answer": 3,
      "explain": "csv.writer() takes the open file object and returns a writer object.",
+     "steps": [
+      "csv.writer() is a function of the csv module.",
+      "It takes the open file object f and returns a writer.",
+      "Correct: w = csv.writer(f).",
+      "Answer: w = csv.writer(f)"
+     ],
      "mistake": "Calls writer as a file method or passes the name as a string"
     },
     {
@@ -1668,6 +2186,12 @@
      ],
      "answer": 0,
      "explain": "CSV is plain text with comma-separated fields, which spreadsheets and text editors both understand.",
+     "steps": [
+      "CSV is plain text with comma-separated fields.",
+      "Both text editors and spreadsheets can open it.",
+      "It is not a pickled binary file, and rows can have any number of fields.",
+      "Answer: They are text files that a spreadsheet can also open"
+     ],
      "mistake": "Confuses CSV with pickled binary data"
     },
     {
@@ -1680,6 +2204,12 @@
      ],
      "answer": 0,
      "explain": "row[2] is a string like '75', and Python 3 cannot compare a str with an int using >, so TypeError is raised. R explains A.",
+     "steps": [
+      "csv.reader returns every field as a string (R is true).",
+      "row[2] > 50 compares a str with an int, which raises TypeError in Python 3 (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Assumes csv.reader converts numeric fields automatically"
     }
    ],
@@ -1701,6 +2231,27 @@
     ],
     "praise": "Super! csv.reader gives every field as a string, so convert with int() before comparing with a number.",
     "nudge": "What type is each field that csv.reader gives you, and how do you turn it into a number?"
+   },
+   "revise": {
+    "summary": "The csv module reads and writes CSV files. Open files with newline='' when writing, use csv.writer(f) with writerow() or writerows(), and csv.reader(f) to get each row as a list of strings, converting numbers before comparing.",
+    "focus": [
+     "Create a csv writer and write one or many rows",
+     "Read rows with csv.reader and skip a header with next()",
+     "Search or filter CSV records with converted values",
+     "Compare text, binary and CSV files"
+    ],
+    "remember": [
+     "open('stu.csv', 'w', newline='') prevents blank rows",
+     "writerow(row) writes one row; writerows(rows) writes many",
+     "csv.reader gives each row as a list of strings",
+     "next(reader) skips the header row"
+    ],
+    "traps": [
+     "csv.reader does not convert numbers: use int() before >",
+     "CSV files are text, not binary pickle files",
+     "Don't count the header row unless the question asks for it"
+    ],
+    "level": "important"
    }
   }
  ]

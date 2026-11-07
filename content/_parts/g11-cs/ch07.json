@@ -100,6 +100,11 @@
      ],
      "answer": 0,
      "explain": "Lists are mutable, so L[1] is replaced by 25.",
+     "steps": [
+      "Lists are mutable",
+      "L[1] = 25 replaces 20",
+      "Answer: [10, 25, 30]"
+     ],
      "mistake": "Thinks lists can't be changed, like strings"
     },
     {
@@ -112,6 +117,11 @@
      ],
      "answer": 2,
      "explain": "The list has 5 elements; L[−2] is the second-last, 'Pune'.",
+     "steps": [
+      "The list has 5 elements",
+      "L[−2] is the second-last element, 'Pune'",
+      "Answer: 5 Pune"
+     ],
      "mistake": "Counts from 1, or treats −2 as the second element"
     },
     {
@@ -124,6 +134,11 @@
      ],
      "answer": 3,
      "explain": "Valid indices are 0 to 2, so L[3] is out of range.",
+     "steps": [
+      "Valid indices are 0, 1, 2",
+      "L[3] is out of range",
+      "Answer: IndexError"
+     ],
      "mistake": "Thinks the last index equals the length"
     },
     {
@@ -136,6 +151,11 @@
      ],
      "answer": 2,
      "explain": "Square brackets create a list; parentheses make a tuple and braces make a set.",
+     "steps": [
+      "Square brackets create a list",
+      "Parentheses make a tuple, braces a set, quotes a string",
+      "Answer: [1, 'two', 3.0]"
+     ],
      "mistake": "Confuses list, tuple and set syntax"
     },
     {
@@ -148,6 +168,11 @@
      ],
      "answer": 2,
      "explain": "L[−1] is the last element, so 3 is replaced by 99.",
+     "steps": [
+      "L[−1] is the last element",
+      "3 is replaced by 99",
+      "Answer: [1, 2, 99]"
+     ],
      "mistake": "Thinks −1 refers to the first element"
     },
     {
@@ -160,6 +185,11 @@
      ],
      "answer": 1,
      "explain": "Changing an element doesn't create a new list; the id stays the same.",
+     "steps": [
+      "Changing an element modifies the same list object",
+      "so its id does not change",
+      "Answer: True"
+     ],
      "mistake": "Thinks modification creates a new list"
     },
     {
@@ -172,6 +202,12 @@
      ],
      "answer": 0,
      "explain": "The outer list has 3 elements: 1, the list [2, 3] and the list [4, 5].",
+     "steps": [
+      "The outer list's elements are 1, [2, 3] and [4, 5]",
+      "Each inner list counts as one element",
+      "len = 3",
+      "Answer: 3"
+     ],
      "mistake": "Counts the inner elements separately",
      "check": "3"
     },
@@ -185,6 +221,11 @@
      ],
      "answer": 2,
      "explain": "Because lists are mutable, an element can be replaced in place.",
+     "steps": [
+      "A: L[0] = 100 is valid for a list — true",
+      "R: lists are mutable — true, and that is why an element can be replaced in place",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Applies the string rule to lists"
     }
    ],
@@ -209,6 +250,24 @@
     ],
     "praise": "A list is an ordered, mutable collection in square brackets, so I can change friends[2] directly!",
     "nudge": "Good. How do we reach an element, and can we change it after the list is made?"
+   },
+   "revise": {
+    "summary": "A list is an ordered, mutable sequence in square brackets that may mix types and contain other lists. It is indexed like a string (0 from the left, −1 from the right), and L[i] = value changes an element in place without creating a new list.",
+    "focus": [
+     "Create lists and index them with positive and negative indices",
+     "Change elements in place",
+     "Count elements of nested lists"
+    ],
+    "remember": [
+     "List: [ ] with comma-separated elements; [] is empty",
+     "Indices 0 to len − 1 and −1 to −len; L[len(L)] gives IndexError",
+     "Lists are mutable: L[i] = new value; id stays the same"
+    ],
+    "traps": [
+     "Parentheses make a tuple and braces a set, not a list",
+     "A nested list counts as one element of the outer list"
+    ],
+    "level": "core"
    }
   },
   {
@@ -318,6 +377,11 @@
      ],
      "answer": 0,
      "explain": "+ joins the two lists into one longer list.",
+     "steps": [
+      "+ joins two lists into one",
+      "[1, 2] then [3, 4]",
+      "Answer: [1, 2, 3, 4]"
+     ],
      "mistake": "Adds the elements pairwise"
     },
     {
@@ -330,6 +394,11 @@
      ],
      "answer": 3,
      "explain": "* repeats the list's elements three times.",
+     "steps": [
+      "* repeats the list's elements",
+      "three copies of 'Hi'",
+      "Answer: ['Hi', 'Hi', 'Hi']"
+     ],
      "mistake": "Thinks the string inside is repeated"
     },
     {
@@ -342,6 +411,11 @@
      ],
      "answer": 1,
      "explain": "A list can only be concatenated with another list.",
+     "steps": [
+      "+ can only join a list with another list",
+      "3 is an int",
+      "Answer: TypeError"
+     ],
      "mistake": "Thinks + appends a number"
     },
     {
@@ -354,6 +428,11 @@
      ],
      "answer": 1,
      "explain": "2 is not an element of the outer list (it's inside [1, 2]), but [1, 2] is.",
+     "steps": [
+      "The elements of L are [1, 2] and 3",
+      "2 is not an element (it is inside [1, 2]) → False; [1, 2] is → True",
+      "Answer: False True"
+     ],
      "mistake": "Thinks 'in' searches inside sub-lists"
     },
     {
@@ -366,6 +445,11 @@
      ],
      "answer": 2,
      "explain": "Start at index 3 (40), step −1, stop before index 0: 40, 30, 20.",
+     "steps": [
+      "Start at index 3 (40) and step −1",
+      "stop before index 0: 40, 30, 20",
+      "Answer: [40, 30, 20]"
+     ],
      "mistake": "Includes the stop index 0"
     },
     {
@@ -378,6 +462,11 @@
      ],
      "answer": 2,
      "explain": "Indices 1 and 3 (step 2, stop 5 excluded).",
+     "steps": [
+      "Indices 1 and 3 (step 2; 5 excluded)",
+      "'b' and 'd'",
+      "Answer: ['b', 'd']"
+     ],
      "mistake": "Starts at index 0"
     },
     {
@@ -390,6 +479,11 @@
      ],
      "answer": 2,
      "explain": "Slicing never raises IndexError; it returns an empty list here.",
+     "steps": [
+      "L has only indices 0 to 2",
+      "The slice 5:10 is clipped and contains nothing",
+      "Answer: []"
+     ],
      "mistake": "Expects an error for out-of-range slices"
     },
     {
@@ -402,6 +496,11 @@
      ],
      "answer": 1,
      "explain": "Since the slice is a new list, the original L is untouched.",
+     "steps": [
+      "A: L[::-1] does not change L — true",
+      "R: slicing creates and returns a new list — true, and it explains A",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Confuses slicing with the reverse() method"
     }
    ],
@@ -430,6 +529,25 @@
     ],
     "praise": "+ joins, * repeats, in checks membership and slices pick parts as new lists. List power!",
     "nudge": "Good. What do + and * do with lists, and what does a slice return?"
+   },
+   "revise": {
+    "summary": "Lists support + (join two lists), * (repeat), in / not in (membership of elements) and slicing L[m:n:k], which returns a new list and never raises IndexError. Only a list can be joined to a list.",
+    "focus": [
+     "Evaluate +, * and membership on lists",
+     "Slice lists with start, stop and negative steps",
+     "Recognise TypeError when joining a list with a number"
+    ],
+    "remember": [
+     "L1 + L2 → new joined list; [1, 2] + 3 → TypeError",
+     "[0] * 4 → [0, 0, 0, 0]",
+     "x in L checks top-level elements only",
+     "Slices return new lists; L[::−1] is a reversed copy"
+    ],
+    "traps": [
+     "2 in [[1, 2], 3] is False: 2 is inside a sub-list",
+     "['Hi'] * 3 repeats the element, not the characters"
+    ],
+    "level": "core"
    }
   },
   {
@@ -508,6 +626,12 @@
      ],
      "answer": 0,
      "explain": "The loop adds every element: 21 + 35 + 7 = 63.",
+     "steps": [
+      "The loop adds every element to total",
+      "21 + 35 + 7",
+      "= 63",
+      "Answer: 63"
+     ],
      "mistake": "Counts the elements instead",
      "check": "21+35+7"
     },
@@ -521,6 +645,11 @@
      ],
      "answer": 3,
      "explain": "Using indices, each element is replaced by its double.",
+     "steps": [
+      "range(len(L)) gives indices 0, 1, 2",
+      "Each L[i] is replaced by its double",
+      "Answer: [6, 10, 14]"
+     ],
      "mistake": "Thinks the list doesn't change"
     },
     {
@@ -533,6 +662,11 @@
      ],
      "answer": 2,
      "explain": "x is just a name for each element; x = x * 2 doesn't change the list.",
+     "steps": [
+      "x is just a name for each element",
+      "Rebinding x does not change the list",
+      "Answer: [3, 5, 7]"
+     ],
      "mistake": "Thinks modifying the loop variable changes the list"
     },
     {
@@ -545,6 +679,11 @@
      ],
      "answer": 2,
      "explain": "list() on a string makes a list of its characters (still strings).",
+     "steps": [
+      "list() on a string makes a list of its characters",
+      "The characters stay strings",
+      "Answer: ['2', '0', '2', '6']"
+     ],
      "mistake": "Expects integers or a single element"
     },
     {
@@ -557,6 +696,11 @@
      ],
      "answer": 1,
      "explain": "range(len(L)) gives indices; each line prints the index and the element.",
+     "steps": [
+      "range(len(L)) gives 0, 1, 2",
+      "Each line prints the index and the element",
+      "Answer: three lines — 0 a, 1 b, 2 c"
+     ],
      "mistake": "Prints only the elements"
     },
     {
@@ -569,6 +713,12 @@
      ],
      "answer": 2,
      "explain": "The list has 4 elements: 'x', [1, 2], (3, 4) and '5'.",
+     "steps": [
+      "Elements: 'x', [1, 2], (3, 4), '5'",
+      "Each inner list or tuple counts as one element",
+      "len = 4",
+      "Answer: 4"
+     ],
      "mistake": "Counts the inner items",
      "check": "4"
     },
@@ -582,6 +732,11 @@
      ],
      "answer": 3,
      "explain": "list(range(0, 8, 2)) gives 0, 2, 4, 6 (8 is excluded).",
+     "steps": [
+      "range(0, 8, 2) gives 0, 2, 4, 6 (8 is excluded)",
+      "list() turns it into a list",
+      "Answer: [0, 2, 4, 6]"
+     ],
      "mistake": "Includes the stop value"
     },
     {
@@ -594,6 +749,11 @@
      ],
      "answer": 0,
      "explain": "i takes 0, 1, 2; the loop stops when i reaches 3 = len(L).",
+     "steps": [
+      "i takes 0, 1, 2 and the loop stops at i = 3 = len(L)",
+      "Each element is printed with a space",
+      "Answer: 10 20 30"
+     ],
      "mistake": "Thinks the while loop goes one step too far"
     }
    ],
@@ -617,6 +777,24 @@
     ],
     "praise": "To change elements I must loop over indices with range(len(L)) and assign L[i]. A plain 'for x in L' only reads them!",
     "nudge": "Good. Why doesn't 'for x in L: x += 5' change the list? What should we loop over instead?"
+   },
+   "revise": {
+    "summary": "Lists can be traversed by element (for x in L), by index (for i in range(len(L))) or with a while loop. len(L) counts elements, and list() builds a list from a string, tuple or range. Only index-based loops can change the elements.",
+    "focus": [
+     "Traverse lists by element, by index and with while",
+     "Explain why for x in L cannot change elements",
+     "Use len() and list()"
+    ],
+    "remember": [
+     "for x in L: each element; for i in range(len(L)): indices",
+     "Changing elements needs L[i] = …",
+     "list('abc') → ['a', 'b', 'c']; list(range(3)) → [0, 1, 2]"
+    ],
+    "traps": [
+     "x = x * 2 inside for x in L does not change the list",
+     "list('2026') gives characters as strings, not numbers"
+    ],
+    "level": "core"
    }
   },
   {
@@ -717,6 +895,11 @@
      ],
      "answer": 2,
      "explain": "append adds the list [3, 4] as a single element, so the length is 3.",
+     "steps": [
+      "append adds [3, 4] as a single element",
+      "L = [1, 2, [3, 4]], 3 elements",
+      "Answer: [1, 2, [3, 4]] 3"
+     ],
      "mistake": "Confuses append with extend"
     },
     {
@@ -729,6 +912,11 @@
      ],
      "answer": 1,
      "explain": "extend adds 3 and 4 as separate elements.",
+     "steps": [
+      "extend adds 3 and 4 as separate elements",
+      "L = [1, 2, 3, 4], 4 elements",
+      "Answer: [1, 2, 3, 4] 4"
+     ],
      "mistake": "Confuses extend with append"
     },
     {
@@ -741,6 +929,11 @@
      ],
      "answer": 0,
      "explain": "insert(1, 'x') places 'x' at index 1 and shifts the rest right.",
+     "steps": [
+      "insert(1, 'x') places 'x' at index 1",
+      "The rest shift right",
+      "Answer: ['a', 'x', 'b', 'c']"
+     ],
      "mistake": "Replaces the element instead of inserting"
     },
     {
@@ -753,6 +946,11 @@
      ],
      "answer": 3,
      "explain": "append changes the list but returns None.",
+     "steps": [
+      "append changes the list in place",
+      "but returns None",
+      "Answer: None"
+     ],
      "mistake": "Expects append to return the new list"
     },
     {
@@ -765,6 +963,11 @@
      ],
      "answer": 0,
      "explain": "5 occurs 3 times; its first occurrence is at index 1.",
+     "steps": [
+      "5 occurs 3 times",
+      "Its first occurrence is at index 1",
+      "Answer: 3 1"
+     ],
      "mistake": "Gives the last occurrence or counts from 1"
     },
     {
@@ -777,6 +980,11 @@
      ],
      "answer": 3,
      "explain": "index raises ValueError when the element is absent.",
+     "steps": [
+      "30 is not in the list",
+      "index() raises an error for a missing element",
+      "Answer: ValueError"
+     ],
      "mistake": "Applies the string find() rule to lists"
     },
     {
@@ -789,6 +997,11 @@
      ],
      "answer": 1,
      "explain": "extend adds each character of the string separately.",
+     "steps": [
+      "extend adds each item of the iterable",
+      "A string's items are its characters",
+      "Answer: [1, 2, 'h', 'i']"
+     ],
      "mistake": "Thinks extend adds the whole string as one element"
     },
     {
@@ -801,6 +1014,11 @@
      ],
      "answer": 3,
      "explain": "An insert position beyond the end simply adds the element at the end.",
+     "steps": [
+      "Position 50 is beyond the end of the list",
+      "so 99 is simply added at the end",
+      "Answer: [5, 10, 99]"
+     ],
      "mistake": "Expects an IndexError"
     }
    ],
@@ -828,6 +1046,25 @@
     ],
     "praise": "append adds one item, extend adds each item, insert puts it at a position, and count/index find things. My nested-list mystery is solved!",
     "nudge": "Good. What's the difference between append and extend when you pass a list?"
+   },
+   "revise": {
+    "summary": "append(x) adds x as one element; extend(iterable) adds each of its elements; insert(i, x) puts x before index i (or at the end if i is too big). count(x) counts occurrences and index(x) gives the first position or ValueError. append, extend and insert return None.",
+    "focus": [
+     "Tell append from extend",
+     "Predict insert() results, including large positions",
+     "Use count() and index()"
+    ],
+    "remember": [
+     "append([3, 4]) adds one element; extend([3, 4]) adds two",
+     "insert(i, x): x goes before index i; beyond the end → added at the end",
+     "count(x): occurrences; index(x): first index, ValueError if absent",
+     "append, extend, insert change the list and return None"
+    ],
+    "traps": [
+     "print(L.append(3)) prints None, not the list",
+     "extend('hi') adds 'h' and 'i' separately"
+    ],
+    "level": "important"
    }
   },
   {
@@ -944,6 +1181,11 @@
      ],
      "answer": 2,
      "explain": "Each remove() deletes only the first 3 it finds, so after two calls one 3 is left at the end.",
+     "steps": [
+      "Each remove(3) deletes only the first 3 found",
+      "[3, 1, 3, 2, 3] → [1, 3, 2, 3] → [1, 2, 3]",
+      "Answer: [1, 2, 3]"
+     ],
      "mistake": "Thinks remove deletes every occurrence, or that it runs only once"
     },
     {
@@ -956,6 +1198,11 @@
      ],
      "answer": 1,
      "explain": "pop() removes and returns the last element, 30.",
+     "steps": [
+      "pop() removes and returns the last element, 30",
+      "L is left as [10, 20]",
+      "Answer: 30 [10, 20]"
+     ],
      "mistake": "Thinks pop removes the first element"
     },
     {
@@ -968,6 +1215,11 @@
      ],
      "answer": 1,
      "explain": "sorted() returns a new list; L itself is unchanged.",
+     "steps": [
+      "sorted() returns a new sorted list",
+      "L itself is unchanged",
+      "Answer: [3, 1, 2] [1, 2, 3]"
+     ],
      "mistake": "Thinks sorted() sorts L in place"
     },
     {
@@ -980,6 +1232,11 @@
      ],
      "answer": 3,
      "explain": "sort() sorts in place and returns None.",
+     "steps": [
+      "sort() sorts L in place",
+      "but returns None",
+      "Answer: None"
+     ],
      "mistake": "Expects sort() to return the sorted list"
     },
     {
@@ -992,6 +1249,11 @@
      ],
      "answer": 0,
      "explain": "sort(reverse=True) sorts in descending order.",
+     "steps": [
+      "sort(reverse=True) sorts in descending order",
+      "9, 7, 4, 1",
+      "Answer: [9, 7, 4, 1]"
+     ],
      "mistake": "Thinks reverse=True just reverses the original order"
     },
     {
@@ -1004,6 +1266,11 @@
      ],
      "answer": 3,
      "explain": "del L[1:4] deletes indices 1, 2 and 3 (20, 30, 40).",
+     "steps": [
+      "del L[1:4] deletes indices 1, 2, 3 (20, 30, 40)",
+      "10 and 50 remain",
+      "Answer: [10, 50]"
+     ],
      "mistake": "Includes or excludes the wrong end of the slice"
     },
     {
@@ -1016,6 +1283,11 @@
      ],
      "answer": 0,
      "explain": "min = 3, max = 12, sum = 3 + 12 + 7 + 8 = 30.",
+     "steps": [
+      "min = 3 and max = 12",
+      "sum = 3 + 12 + 7 + 8 = 30",
+      "Answer: 3 12 30"
+     ],
      "mistake": "Mixes up min and max"
     },
     {
@@ -1028,6 +1300,11 @@
      ],
      "answer": 1,
      "explain": "reverse() reverses the order of the existing elements (it does not sort).",
+     "steps": [
+      "reverse() turns the existing order backwards",
+      "[3, 4, 5] → [5, 4, 3]",
+      "Answer: [5, 4, 3]"
+     ],
      "mistake": "Thinks reverse() sorts in descending order"
     }
    ],
@@ -1056,6 +1333,25 @@
     ],
     "praise": "sort() changes the list itself, sorted() gives a new one, and pop/remove/del take things out. min, max and sum summarise!",
     "nudge": "Good. Which one changes the original list — sort() or sorted()? And how do pop and remove differ?"
+   },
+   "revise": {
+    "summary": "remove(x) deletes the first x; pop(i) removes and returns an element (the last if no index); del deletes by index or slice; clear() empties the list. sort() and reverse() change the list in place and return None; sorted() returns a new list. min(), max() and sum() summarise lists.",
+    "focus": [
+     "Predict results of remove, pop, del and clear",
+     "Tell sort() from sorted() and from reverse()",
+     "Use min(), max() and sum()"
+    ],
+    "remember": [
+     "remove(x): first occurrence only; pop(): removes and returns the last",
+     "del L[m:n] deletes indices m to n − 1",
+     "sort(), sort(reverse=True), reverse() work in place and return None",
+     "sorted(L) returns a new sorted list; L unchanged"
+    ],
+    "traps": [
+     "print(L.sort()) prints None",
+     "reverse() reverses the order; it does not sort"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1159,6 +1455,11 @@
      ],
      "answer": 2,
      "explain": "M[1] is [4, 5, 6] and its index 2 is 6.",
+     "steps": [
+      "M[1] is [4, 5, 6]",
+      "Its index 2 is 6",
+      "Answer: 6"
+     ],
      "mistake": "Counts rows or columns from 1",
      "check": "6"
     },
@@ -1172,6 +1473,11 @@
      ],
      "answer": 2,
      "explain": "B = A makes an alias, so changing B changes A.",
+     "steps": [
+      "B = A makes B another name for the same list",
+      "Changing B[0] changes A too",
+      "Answer: [99, 2, 3]"
+     ],
      "mistake": "Thinks = makes a copy"
     },
     {
@@ -1184,6 +1490,11 @@
      ],
      "answer": 1,
      "explain": "A.copy() creates a new list, so changing B doesn't affect A.",
+     "steps": [
+      "A.copy() creates a new list",
+      "so changing B does not affect A",
+      "Answer: [1, 2, 3]"
+     ],
      "mistake": "Thinks slicing creates an alias"
     },
     {
@@ -1196,6 +1507,11 @@
      ],
      "answer": 0,
      "explain": "B is the same object as A; C is a new list made by list().",
+     "steps": [
+      "B = A makes B the same object → True",
+      "list(A) makes a new list → False",
+      "Answer: True False"
+     ],
      "mistake": "Mixes up which assignment copies"
     },
     {
@@ -1208,6 +1524,12 @@
      ],
      "answer": 3,
      "explain": "The loop adds the length of each row: 2 + 2 = 4.",
+     "steps": [
+      "Each row has 2 elements",
+      "c = 2 + 2",
+      "= 4",
+      "Answer: 4"
+     ],
      "mistake": "Counts only the rows",
      "check": "2+2"
     },
@@ -1221,6 +1543,12 @@
      ],
      "answer": 3,
      "explain": "The loop adds the diagonal elements M[0][0] + M[1][1] + M[2][2] = 1 + 5 + 9 = 15.",
+     "steps": [
+      "The loop adds the diagonal M[0][0] + M[1][1] + M[2][2]",
+      "1 + 5 + 9",
+      "= 15",
+      "Answer: 15"
+     ],
      "mistake": "Adds a row instead of the diagonal",
      "check": "1+5+9"
     },
@@ -1234,6 +1562,11 @@
      ],
      "answer": 1,
      "explain": "M[1] is the list [3, 4], so append adds 5 to that inner list.",
+     "steps": [
+      "M[1] is the inner list [3, 4]",
+      "append adds 5 to that inner list",
+      "Answer: [[1, 2], [3, 4, 5]]"
+     ],
      "mistake": "Thinks append adds to the outer list"
     },
     {
@@ -1246,6 +1579,11 @@
      ],
      "answer": 0,
      "explain": "Since B is a different list object, appending to it leaves A unchanged.",
+     "steps": [
+      "A: B.append(10) after B = A.copy() does not change A — true",
+      "R: copy() returns a new list object — true, and that is why A is unaffected",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Thinks copy() makes an alias"
     }
    ],
@@ -1272,6 +1610,24 @@
     ],
     "praise": "B = A only makes another name for the same list. A[:] or A.copy() makes a real copy. And M[i][j] reaches into nested lists!",
     "nudge": "Good. Does B = A make a new list? How do we make a real copy?"
+   },
+   "revise": {
+    "summary": "A nested list works like a table: M[i] is row i and M[i][j] is the element in row i, column j. B = A makes an alias of the same list, while A[:], list(A), A.copy() or copy.copy(A) make a separate copy.",
+    "focus": [
+     "Index nested lists with M[i][j]",
+     "Loop over rows and diagonals",
+     "Tell aliasing (B = A) from copying"
+    ],
+    "remember": [
+     "M[i][j]: row i, column j",
+     "B = A: same object (alias); changing B changes A; B is A → True",
+     "Copies: A[:], list(A), A.copy(), copy.copy(A); B is A → False"
+    ],
+    "traps": [
+     "B = A does not copy the list",
+     "M[1].append(5) changes only the inner list M[1]"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1358,6 +1714,11 @@
      ],
      "answer": 3,
      "explain": "The function appends to the same list object, so the change is visible outside.",
+     "steps": [
+      "The function appends to the same list object",
+      "so the change is visible outside",
+      "Answer: [1, 2, 3, 4]"
+     ],
      "mistake": "Thinks functions work on a copy of the list"
     },
     {
@@ -1370,6 +1731,11 @@
      ],
      "answer": 1,
      "explain": "L = [0, 0] makes L refer to a new list; nums is untouched.",
+     "steps": [
+      "L = [0, 0] makes L refer to a new list",
+      "nums is not touched",
+      "Answer: [1, 2, 3]"
+     ],
      "mistake": "Thinks reassignment changes the original"
     },
     {
@@ -1382,6 +1748,11 @@
      ],
      "answer": 2,
      "explain": "Each element of the shared list is doubled in place.",
+     "steps": [
+      "Each element of the shared list is doubled in place",
+      "[1, 2, 3] → [2, 4, 6]",
+      "Answer: [2, 4, 6]"
+     ],
      "mistake": "Thinks the original list is unaffected"
     },
     {
@@ -1394,6 +1765,11 @@
      ],
      "answer": 0,
      "explain": "sort() inside the function sorts the caller's list in place.",
+     "steps": [
+      "sort() inside the function sorts the caller's list in place",
+      "[5, 1, 3] → [1, 3, 5]",
+      "Answer: [1, 3, 5]"
+     ],
      "mistake": "Thinks the sort is lost when the function ends"
     },
     {
@@ -1406,6 +1782,11 @@
      ],
      "answer": 1,
      "explain": "The first function modifies the shared list; the second only rebinds its parameter.",
+     "steps": [
+      "f changes A in place: A[0] = 9, then append 8 → [9, 8]",
+      "g only rebinds its parameter, so B stays [7]",
+      "Answer: [9, 8] [7]"
+     ],
      "mistake": "Treats both functions the same way"
     },
     {
@@ -1418,6 +1799,11 @@
      ],
      "answer": 0,
      "explain": "insert(pos, value) places an element at a chosen position.",
+     "steps": [
+      "L.insert(pos, value) puts an element at a chosen position",
+      "That matches the menu option",
+      "Answer: Insert an element at a given position"
+     ],
      "mistake": "Uses append, which can only add at the end"
     },
     {
@@ -1430,6 +1816,11 @@
      ],
      "answer": 2,
      "explain": "Index assignment modifies an existing element.",
+     "steps": [
+      "Changing an existing element uses index assignment",
+      "Position 2 becomes 50",
+      "Answer: L[2] = 50"
+     ],
      "mistake": "Uses insert with the arguments swapped"
     },
     {
@@ -1442,6 +1833,11 @@
      ],
      "answer": 0,
      "explain": "Shared reference plus mutability means in-place changes are seen by the caller.",
+     "steps": [
+      "A: a function can change the contents of a list passed to it — true",
+      "R: lists are mutable and the parameter refers to the same object — true, and it explains A",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Thinks functions always get copies"
     }
    ],
@@ -1466,6 +1862,24 @@
     ],
     "praise": "The parameter points to the same mutable list, so in-place changes stick. Only reassigning makes a new list and leaves the original alone!",
     "nudge": "Good. What happens if we write L = [ ] inside the function instead of changing L[i]?"
+   },
+   "revise": {
+    "summary": "A list passed to a function is the same object inside and outside, so in-place changes (L[i] = …, append, sort) are seen by the caller; reassigning the parameter to a new list does not affect the original. Menu-driven list programs use a while loop with an if-elif ladder.",
+    "focus": [
+     "Predict the effect of functions that modify or reassign a list parameter",
+     "Match menu options to list operations"
+    ],
+    "remember": [
+     "The parameter refers to the same list object as the argument",
+     "In-place changes (L[i] = …, L.append(), L.sort()) are visible outside",
+     "Reassigning (L = [0, 0]) makes L refer to a new list; the original is unchanged",
+     "Menu program: while loop + if-elif ladder for append, insert, delete, modify, sort, display, exit"
+    ],
+    "traps": [
+     "L = [0, 0] inside a function does not reset the caller's list",
+     "To change the value at a position, use L[pos] = value, not insert"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1560,6 +1974,11 @@
      ],
      "answer": 1,
      "explain": "The loop keeps the largest value seen so far: 91.",
+     "steps": [
+      "big starts at 67 and is updated whenever a larger value is seen",
+      "91 is the largest",
+      "Answer: 91"
+     ],
      "mistake": "Returns the last element instead of the largest",
      "check": "91"
     },
@@ -1573,6 +1992,11 @@
      ],
      "answer": 1,
      "explain": "sum = 72, len = 4, and 72 / 4 = 18.0 (/ gives a float).",
+     "steps": [
+      "sum = 12 + 20 + 16 + 24 = 72 and len = 4",
+      "72 / 4 (/ gives a float)",
+      "Answer: 18.0"
+     ],
      "mistake": "Forgets to divide, or divides by 3 instead of the count 4",
      "check": "72/4"
     },
@@ -1586,6 +2010,11 @@
      ],
      "answer": 0,
      "explain": "42 is at index 2, which is position 3; break stops further search.",
+     "steps": [
+      "42 is first found at index 2",
+      "position = 2 + 1 = 3, and break stops the search",
+      "Answer: Found at 3"
+     ],
      "mistake": "Reports the index instead of the position, or the last occurrence"
     },
     {
@@ -1598,6 +2027,11 @@
      ],
      "answer": 1,
      "explain": "No element equals 7, so the loop ends without break and its else runs.",
+     "steps": [
+      "No element equals 7, so break never runs",
+      "The loop ends normally and its else runs",
+      "Answer: Not found"
+     ],
      "mistake": "Thinks the else runs only if found"
     },
     {
@@ -1610,6 +2044,12 @@
      ],
      "answer": 0,
      "explain": "It checks 10 (no), then 35 (yes) and stops.",
+     "steps": [
+      "Compare 10 with 35: no",
+      "Compare 35 with 35: yes, stop",
+      "2 comparisons",
+      "Answer: 2"
+     ],
      "mistake": "Keeps searching for later occurrences",
      "check": "2"
     },
@@ -1623,6 +2063,11 @@
      ],
      "answer": 3,
      "explain": "count gives how many times each value occurs: 4 appears 3 times, 9 appears 2 times.",
+     "steps": [
+      "4 appears at three places; 9 at two",
+      "count(4) = 3, count(9) = 2",
+      "Answer: 3 2"
+     ],
      "mistake": "Counts positions instead of occurrences"
     },
     {
@@ -1635,6 +2080,11 @@
      ],
      "answer": 3,
      "explain": "The smallest value 2 is found by the min loop.",
+     "steps": [
+      "small starts at 45 and is updated whenever a smaller value is seen",
+      "2 is the smallest",
+      "Answer: 2"
+     ],
      "mistake": "Takes the first element as the answer",
      "check": "2"
     },
@@ -1648,6 +2098,11 @@
      ],
      "answer": 2,
      "explain": "A is true because linear search checks elements one by one. R is false: if the key is last or absent, it makes as many comparisons as there are elements.",
+     "steps": [
+      "A: linear search works on an unsorted list — true",
+      "R: it always makes fewer comparisons than the number of elements — false; if the key is last or absent it makes len(L) comparisons",
+      "Answer: A is true but R is false"
+     ],
      "mistake": "Forgets the worst case of linear search"
     }
    ],
@@ -1678,6 +2133,26 @@
     ],
     "praise": "Check each element in turn until it matches, then report the position — that's linear search. And max/min/mean are just loops over the list!",
     "nudge": "Good. How does linear search move through the list, and when does it stop?"
+   },
+   "revise": {
+    "summary": "Max and min are found by keeping the best value so far; mean is sum(L) / len(L). Linear search checks each element in turn and reports position i + 1, using break and the loop's else for 'not found'; in the worst case it makes len(L) comparisons. count() gives frequencies.",
+    "focus": [
+     "Find max, min and mean with loops",
+     "Trace linear search with break and else",
+     "Count comparisons in linear search",
+     "Find frequencies with count()"
+    ],
+    "remember": [
+     "big = L[0]; for x in L: if x > big: big = x",
+     "Mean = sum(L) / len(L), a float",
+     "Linear search: position i + 1; worst case len(L) comparisons",
+     "Linear search works on unsorted lists"
+    ],
+    "traps": [
+     "Linear search does not always make fewer comparisons than the list length",
+     "Position is index + 1"
+    ],
+    "level": "important"
    }
   }
  ]

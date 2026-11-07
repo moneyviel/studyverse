@@ -80,6 +80,12 @@
      ],
      "answer": 0,
      "explain": "The module is imported as mysql.connector; the hyphen is used only in the pip install name.",
+     "steps": [
+      "The pip package is named mysql-connector-python, but the module name is mysql.connector.",
+      "A hyphen is not allowed in an import statement; 'include' is not Python.",
+      "So import mysql.connector.",
+      "Answer: import mysql.connector"
+     ],
      "mistake": "Uses the pip package name inside the import statement"
     },
     {
@@ -92,6 +98,12 @@
      ],
      "answer": 1,
      "explain": "is_connected() returns True when the connection is working.",
+     "steps": [
+      "The connection object has a method to check the connection.",
+      "con.is_connected() returns True if it worked.",
+      "The other method names do not exist.",
+      "Answer: con.is_connected()"
+     ],
      "mistake": "Guesses a method name that does not exist"
     },
     {
@@ -104,6 +116,12 @@
      ],
      "answer": 0,
      "explain": "localhost refers to the computer the program is running on.",
+     "steps": [
+      "host gives the address of the MySQL server.",
+      "localhost means the computer the program is running on.",
+      "So the server is on the same computer.",
+      "Answer: The MySQL server is on the same computer"
+     ],
      "mistake": "Confuses the host with the database name"
     },
     {
@@ -116,6 +134,12 @@
      ],
      "answer": 1,
      "explain": "cursor() is a method of the connection object.",
+     "steps": [
+      "cursor() is a method of the connection object.",
+      "So the cursor is created from con: cur = con.cursor().",
+      "mysql.cursor() and cursor(con) are not valid.",
+      "Answer: cur = con.cursor()"
+     ],
      "mistake": "Calls cursor as a standalone function"
     },
     {
@@ -128,6 +152,12 @@
      ],
      "answer": 2,
      "explain": "MySQL stores and manages the data (back end); Python provides the interface and logic (front end).",
+     "steps": [
+      "Python provides the menus, input and output: the front end.",
+      "MySQL stores and manages the data: the back end.",
+      "So the back end is the MySQL database.",
+      "Answer: The MySQL database"
+     ],
      "mistake": "Swaps the front end and the back end"
     },
     {
@@ -140,6 +170,12 @@
      ],
      "answer": 0,
      "explain": "The cursor sends queries to MySQL and lets you fetch the rows that come back.",
+     "steps": [
+      "The cursor sends SQL statements to MySQL.",
+      "It also holds the results that come back, to be fetched.",
+      "It is not the mouse pointer.",
+      "Answer: It executes SQL statements and holds their results"
+     ],
      "mistake": "Confuses a database cursor with the mouse pointer"
     },
     {
@@ -152,6 +188,12 @@
      ],
      "answer": 3,
      "explain": "database='school' selects the database, just like USE school; in MySQL.",
+     "steps": [
+      "In connect(), database='school' selects the database to use.",
+      "host is the server address; user is the login name.",
+      "So the argument is database.",
+      "Answer: database"
+     ],
      "mistake": "Confuses the database name with the host"
     },
     {
@@ -164,6 +206,12 @@
      ],
      "answer": 0,
      "explain": "Because the connector is a separate package, it must be installed (e.g. with pip) before it can be imported. R explains A.",
+     "steps": [
+      "mysql.connector is a separate package, not in Python's standard library (R is true).",
+      "So it must be installed before it can be imported (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Assumes every module comes built into Python"
     }
    ],
@@ -190,6 +238,27 @@
     ],
     "praise": "Wonderful! Import mysql.connector, call connect() with host, user, password and database, then create a cursor.",
     "nudge": "Which module do you import, which function connects, and what object runs the queries?"
+   },
+   "revise": {
+    "summary": "Python acts as the front end and MySQL as the back end of database applications. Install mysql-connector-python, import mysql.connector, connect with host, user, passwd and database, check with is_connected(), and create a cursor with con.cursor().",
+    "focus": [
+     "Explain the front-end and back-end roles",
+     "Import the connector and create a connection",
+     "Check the connection with is_connected()",
+     "Create a cursor and explain its role"
+    ],
+    "remember": [
+     "pip install mysql-connector-python; import mysql.connector",
+     "con = mysql.connector.connect(host='localhost', user='root', passwd='...', database='school')",
+     "con.is_connected() returns True if connected",
+     "cur = con.cursor(): sends SQL and holds results"
+    ],
+    "traps": [
+     "Don't use the hyphenated pip name in import",
+     "cursor() is a method of the connection, not a standalone function",
+     "host='localhost' is the server address, not the database name"
+    ],
+    "level": "core"
    }
   },
   {
@@ -306,6 +375,12 @@
      ],
      "answer": 2,
      "explain": "commit() is a method of the connection object, not the cursor.",
+     "steps": [
+      "commit() saves INSERT, UPDATE and DELETE permanently.",
+      "It is a method of the connection object, not the cursor.",
+      "So con.commit().",
+      "Answer: con.commit()"
+     ],
      "mistake": "Calls commit() on the cursor"
     },
     {
@@ -318,6 +393,12 @@
      ],
      "answer": 3,
      "explain": "SELECT only reads data; there is nothing to save.",
+     "steps": [
+      "commit() saves changes to data.",
+      "INSERT, UPDATE and DELETE change data; SELECT only reads it.",
+      "So SELECT does not need commit().",
+      "Answer: SELECT"
+     ],
      "mistake": "Thinks every execute() needs a commit"
     },
     {
@@ -330,6 +411,12 @@
      ],
      "answer": 0,
      "explain": "mysql.connector uses %s placeholders, with the values passed as a tuple in the second argument.",
+     "steps": [
+      "mysql.connector uses %s placeholders in the query string.",
+      "The values are passed as a tuple in the second argument: (r, n).",
+      "So cur.execute(\"INSERT INTO student VALUES (%s, %s)\", (r, n)).",
+      "Answer: cur.execute(\"INSERT INTO student VALUES (%s, %s)\", (r, n))"
+     ],
      "mistake": "Writes variable names inside the SQL string"
     },
     {
@@ -342,6 +429,12 @@
      ],
      "answer": 1,
      "explain": "format() replaces {} with the value of rno. The first option lacks the f prefix, so {rno} stays as plain text.",
+     "steps": [
+      "\"... rno = {rno}\" without the f prefix keeps {rno} as plain text.",
+      "\"... rno = {}\".format(rno) replaces {} with 5.",
+      "So the format() version builds the right query.",
+      "Answer: \"SELECT * FROM student WHERE rno = {}\".format(rno)"
+     ],
      "mistake": "Forgets the f prefix for f-strings"
     },
     {
@@ -354,6 +447,12 @@
      ],
      "answer": 1,
      "explain": "format() fills the {} slots in order: 50000 first, then 3.",
+     "steps": [
+      "format() fills the {} slots in order.",
+      "First {} → 50000, second {} → 3.",
+      "Printed: UPDATE emp SET sal = 50000 WHERE id = 3.",
+      "Answer: UPDATE emp SET sal = 50000 WHERE id = 3"
+     ],
      "mistake": "Fills the placeholders in the wrong order"
     },
     {
@@ -366,6 +465,12 @@
      ],
      "answer": 2,
      "explain": "The f-string puts the values of n and z into the string; the quotes around {n} stay, so the city is a quoted SQL string.",
+     "steps": [
+      "The f-string replaces {n} with Pune and {z} with 7.",
+      "The quotes around {n} stay in the string.",
+      "Printed: INSERT INTO city VALUES ('Pune', 7).",
+      "Answer: INSERT INTO city VALUES ('Pune', 7)"
+     ],
      "mistake": "Thinks f-strings leave the braces as they are"
     },
     {
@@ -378,6 +483,12 @@
      ],
      "answer": 1,
      "explain": "Without commit(), the DELETE is not saved permanently.",
+     "steps": [
+      "DELETE changes data, so it must be committed.",
+      "Without con.commit(), the change is not saved when the program ends.",
+      "So he forgot con.commit().",
+      "Answer: con.commit()"
+     ],
      "mistake": "Thinks execute() saves changes on its own"
     },
     {
@@ -390,6 +501,12 @@
      ],
      "answer": 0,
      "explain": "Because the connector handles the quoting, malicious input cannot change the meaning of the query (SQL injection). R explains A.",
+     "steps": [
+      "With placeholders, the connector itself quotes and escapes the values (R is true).",
+      "So user input cannot change the query's meaning (SQL injection), making it safer (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks placeholders are only a matter of style"
     }
    ],
@@ -410,6 +527,27 @@
     ],
     "praise": "That's it! After INSERT, UPDATE or DELETE you must call con.commit() to save the changes permanently.",
     "nudge": "Which method saves changes, and on which object is it called?"
+   },
+   "revise": {
+    "summary": "cur.execute() sends any SQL statement to MySQL. INSERT, UPDATE and DELETE are saved only after con.commit(). Python values go into queries with %s placeholders and a tuple, or with format() and f-strings.",
+    "focus": [
+     "Run SQL statements with execute()",
+     "Know when commit() is needed",
+     "Use %s placeholders with a tuple",
+     "Build queries with format() and f-strings"
+    ],
+    "remember": [
+     "cur.execute(sql) runs any SQL statement",
+     "con.commit() saves INSERT, UPDATE and DELETE; SELECT needs no commit",
+     "cur.execute(\"... VALUES (%s, %s)\", (a, b)); one value: (a,)",
+     "Placeholders protect against SQL injection"
+    ],
+    "traps": [
+     "commit() is called on the connection, not the cursor",
+     "Don't forget commit(); without it, changes are lost",
+     "Don't forget the f prefix of an f-string or the quotes around text values inside the SQL"
+    ],
+    "level": "important"
    }
   },
   {
@@ -513,6 +651,12 @@
      ],
      "answer": 1,
      "explain": "Each row comes back as a tuple, e.g. (1, 'Asha', 88).",
+     "steps": [
+      "fetchone() returns the next row.",
+      "Each row comes back as a tuple, e.g. (1, 'Asha', 88).",
+      "So a tuple.",
+      "Answer: A tuple"
+     ],
      "mistake": "Thinks rows come back as lists"
     },
     {
@@ -525,6 +669,12 @@
      ],
      "answer": 0,
      "explain": "fetchall() returns every remaining row, each as a tuple, inside a list.",
+     "steps": [
+      "fetchall() returns all the remaining rows.",
+      "They come as a list of tuples.",
+      "It does not return a count.",
+      "Answer: A list of tuples containing all the remaining rows"
+     ],
      "mistake": "Confuses fetchall() with rowcount"
     },
     {
@@ -537,6 +687,12 @@
      ],
      "answer": 2,
      "explain": "fetchmany(4) used up 4 rows, so fetchall() returns the remaining 2.",
+     "steps": [
+      "The table has 6 rows; fetchmany(4) takes 4 of them.",
+      "fetchall() returns only the remaining rows: 6 − 4.",
+      "= 2.",
+      "Answer: 2"
+     ],
      "mistake": "Thinks fetchall() always starts again from the first row",
      "check": "6-4"
     },
@@ -550,6 +706,12 @@
      ],
      "answer": 2,
      "explain": "All rows have already been fetched, so fetchone() returns None.",
+     "steps": [
+      "fetchall() has already fetched all 3 rows.",
+      "No rows are left.",
+      "So fetchone() returns None.",
+      "Answer: None"
+     ],
      "mistake": "Expects fetchone() to restart from the beginning"
     },
     {
@@ -562,6 +724,12 @@
      ],
      "answer": 3,
      "explain": "For a SELECT, rowcount is the number of rows fetched so far: 1 + 1 + 3 = 5.",
+     "steps": [
+      "For a SELECT, rowcount counts the rows fetched so far.",
+      "fetchone() twice = 2 rows; fetchmany(3) = 3 rows.",
+      "1 + 1 + 3 = 5.",
+      "Answer: 5"
+     ],
      "mistake": "Assumes rowcount is always the total number of rows in the table",
      "check": "1+1+3"
     },
@@ -575,6 +743,12 @@
      ],
      "answer": 2,
      "explain": "fetchmany(n) returns at most n rows; only 4 exist.",
+     "steps": [
+      "fetchmany(n) returns at most n rows.",
+      "Only 4 rows exist.",
+      "So len(...) is 4.",
+      "Answer: 4"
+     ],
      "mistake": "Thinks fetchmany() pads or raises an error when fewer rows remain",
      "check": "4"
     },
@@ -588,6 +762,12 @@
      ],
      "answer": 1,
      "explain": "For DML statements, rowcount is the number of rows affected.",
+     "steps": [
+      "For UPDATE, rowcount is the number of rows affected.",
+      "3 rows were changed.",
+      "So cur.rowcount is 3.",
+      "Answer: 3"
+     ],
      "mistake": "Confuses rowcount with the amount added",
      "check": "3"
     },
@@ -601,6 +781,12 @@
      ],
      "answer": 2,
      "explain": "Close the cursor first, then the connection, to free resources on both sides.",
+     "steps": [
+      "Close the cursor first, then the connection.",
+      "cur.close() then con.close().",
+      "The other methods do not exist or are in the wrong order.",
+      "Answer: cur.close() then con.close()"
+     ],
      "mistake": "Invents methods or closes in the wrong order"
     }
    ],
@@ -628,6 +814,27 @@
     ],
     "praise": "Spot on! fetchone() gets the next row, fetchmany(n) gets the next n rows, and fetchall() gets all the remaining rows.",
     "nudge": "How many rows does each method return?"
+   },
+   "revise": {
+    "summary": "After a SELECT, fetchone() returns the next row as a tuple (or None), fetchall() the remaining rows as a list of tuples, and fetchmany(n) up to n rows. rowcount gives rows affected by DML or rows fetched so far by SELECT. Close the cursor, then the connection.",
+    "focus": [
+     "Predict what fetchone(), fetchall() and fetchmany() return",
+     "Track which rows remain after fetching",
+     "Use rowcount for SELECT and DML",
+     "Close the cursor and connection correctly"
+    ],
+    "remember": [
+     "fetchone(): next row as a tuple, or None",
+     "fetchall(): remaining rows as a list of tuples",
+     "fetchmany(n): up to n rows",
+     "rowcount: rows affected (DML) or fetched so far (SELECT); cur.close() then con.close()"
+    ],
+    "traps": [
+     "Fetching does not restart from the first row",
+     "Don't expect an error when fewer rows remain; fetchmany(n) just returns fewer rows",
+     "rowcount for a SELECT is not always the table size"
+    ],
+    "level": "important"
    }
   },
   {
@@ -708,6 +915,12 @@
      ],
      "answer": 3,
      "explain": "fetchall() returns all the rows as a list of tuples to loop over.",
+     "steps": [
+      "execute() runs the SELECT; the rows are fetched through the cursor.",
+      "cur.fetchall() returns all rows as a list of tuples to loop over.",
+      "So for row in cur.fetchall(): print(row).",
+      "Answer: for row in cur.fetchall(): print(row)"
+     ],
      "mistake": "Expects execute() itself to return the rows"
     },
     {
@@ -720,6 +933,12 @@
      ],
      "answer": 2,
      "explain": "break leaves the infinite loop and the program can then close the connection.",
+     "steps": [
+      "The menu runs inside while True:, an endless loop.",
+      "break leaves the loop so the program can finish.",
+      "continue would only restart the loop.",
+      "Answer: break"
+     ],
      "mistake": "Uses continue, which only restarts the loop"
     },
     {
@@ -732,6 +951,12 @@
      ],
      "answer": 2,
      "explain": "A cursor must be created from the connection before execute() can be called on it.",
+     "steps": [
+      "execute() is called on cur, so cur must exist first.",
+      "A cursor is created from the connection: cur = con.cursor().",
+      "So the missing line is cur = con.cursor().",
+      "Answer: cur = con.cursor()"
+     ],
      "mistake": "Calls execute() on a cursor that was never created"
     },
     {
@@ -744,6 +969,12 @@
      ],
      "answer": 2,
      "explain": "UPDATE changes data, so it needs a commit on the connection.",
+     "steps": [
+      "UPDATE changes data.",
+      "Changes are saved only after commit on the connection.",
+      "So con.commit() must follow.",
+      "Answer: con.commit()"
+     ],
      "mistake": "Closes the cursor without committing"
     },
     {
@@ -756,6 +987,12 @@
      ],
      "answer": 2,
      "explain": "rowcount after DML is the number of rows affected; 0 means nothing matched the WHERE condition.",
+     "steps": [
+      "After DELETE, rowcount is the number of rows affected.",
+      "0 means no row matched WHERE rno = 50.",
+      "So no student with roll number 50 existed.",
+      "Answer: No student with roll number 50 existed"
+     ],
      "mistake": "Thinks rowcount 0 signals a connection error"
     },
     {
@@ -768,6 +1005,12 @@
      ],
      "answer": 1,
      "explain": "Use %s without quotes and pass a one-element tuple (nm,); the connector adds the quotes.",
+     "steps": [
+      "Use %s without quotes in the query; the connector adds the quotes.",
+      "A single value must still be passed as a tuple: (nm,).",
+      "So \"... WHERE name = %s\" with (nm,).",
+      "Answer: \"SELECT * FROM student WHERE name = %s\" with (nm,)"
+     ],
      "mistake": "Puts the variable name inside the SQL string"
     },
     {
@@ -780,6 +1023,12 @@
      ],
      "answer": 0,
      "explain": "fetchone() returns None when no row matched, so the user should be told that the record was not found.",
+     "steps": [
+      "fetchone() returns None when no row matched the search.",
+      "A search should not change any data.",
+      "So print a message such as 'Record not found'.",
+      "Answer: Print a message such as 'Record not found'"
+     ],
      "mistake": "Commits or changes data when only a search was made"
     },
     {
@@ -792,6 +1041,12 @@
      ],
      "answer": 0,
      "explain": "Reusing one connection avoids the overhead of repeatedly connecting, which is why it is opened once. R explains A.",
+     "steps": [
+      "Opening a new connection for each query wastes time and resources (R is true).",
+      "So the program opens it once at the start and closes it on exit (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks the connection must be reopened before every query"
     }
    ],
@@ -816,6 +1071,27 @@
     ],
     "praise": "Excellent! Read the values, execute an INSERT with placeholders, and commit to save the record.",
     "nudge": "Which SQL command adds a row, and what must you call afterwards to save it?"
+   },
+   "revise": {
+    "summary": "Database applications are often menu-driven loops with functions to add, display, search, update and delete records. Each uses execute() with placeholders, fetches results for SELECT, commits changes for DML and uses rowcount or None to report missing records.",
+    "focus": [
+     "Write insert, display, search, update and delete functions",
+     "Build a menu with while True and break",
+     "Fill in missing connectivity statements",
+     "Handle 'record not found' cases"
+    ],
+    "remember": [
+     "Display: for row in cur.fetchall(): print(row)",
+     "Insert/update/delete: execute(...) then con.commit()",
+     "Search: row = cur.fetchone(); if row is None: print('Not found')",
+     "rowcount 0 after DML means no row matched"
+    ],
+    "traps": [
+     "execute() does not itself return the rows",
+     "Don't call execute() before creating the cursor",
+     "Don't put quotes around %s; pass a tuple like (nm,)"
+    ],
+    "level": "important"
    }
   }
  ]

@@ -88,7 +88,8 @@
      "explain": "Area = ∫₁² x³ dx = [x⁴/4]₁² = 4 − 1/4 = 15/4.",
      "steps": [
       "∫₁² x³ dx",
-      "= 16/4 − 1/4 = 15/4"
+      "= 16/4 − 1/4 = 15/4",
+      "Answer: 15/4"
      ],
      "mistake": "Integrates x² by mistake",
      "check": "Fraction(15,4)"
@@ -105,7 +106,8 @@
      "explain": "∫₀² (2x + 1) dx = [x² + x]₀² = 6. As a trapezium: (1/2)(1 + 5)(2) = 6.",
      "steps": [
       "[x² + x]₀² = 4 + 2",
-      "= 6"
+      "= 6",
+      "Answer: 6"
      ],
      "mistake": "Forgets the constant term",
      "check": "4+2"
@@ -122,7 +124,8 @@
      "explain": "Using horizontal strips, area = ∫₁³ y² dy = [y³/3]₁³ = 9 − 1/3 = 26/3.",
      "steps": [
       "∫₁³ y² dy",
-      "= 27/3 − 1/3 = 26/3"
+      "= 27/3 − 1/3 = 26/3",
+      "Answer: 26/3"
      ],
      "mistake": "Uses vertical strips with the wrong limits",
      "check": "Fraction(26,3)"
@@ -137,6 +140,11 @@
      ],
      "answer": 3,
      "explain": "Horizontal strips have length x and width dy.",
+     "steps": [
+      "Horizontal strips: length = x = g(y), thickness = dy",
+      "Add the strips from y = c to y = d",
+      "Answer: ∫ from c to d of x dy"
+     ],
      "mistake": "Mixes up which variable is the strip width"
     },
     {
@@ -151,7 +159,8 @@
      "explain": "∫₀⁹ x^(1/2) dx = (2/3)x^(3/2) from 0 to 9 = (2/3)(27) = 18.",
      "steps": [
       "(2/3) × 9^(3/2)",
-      "= (2/3) × 27 = 18"
+      "= (2/3) × 27 = 18",
+      "Answer: 18"
      ],
      "mistake": "Uses 3/2 instead of 2/3",
      "check": "Fraction(2,3)*27"
@@ -166,6 +175,12 @@
      ],
      "answer": 0,
      "explain": "∫₀¹ eˣ dx = e − 1.",
+     "steps": [
+      "eˣ > 0, so the region is above the x-axis",
+      "Area = ∫₀¹ eˣ dx = [eˣ]₀¹ = e¹ − e⁰",
+      "= e − 1",
+      "Answer: e − 1"
+     ],
      "mistake": "Forgets to subtract e⁰ = 1"
     },
     {
@@ -180,7 +195,8 @@
      "explain": "∫₀² (4 − x²) dx = 8 − 8/3 = 16/3.",
      "steps": [
       "[4x − x³/3]₀²",
-      "= 8 − 8/3 = 16/3"
+      "= 8 − 8/3 = 16/3",
+      "Answer: 16/3"
      ],
      "mistake": "Subtracts in the wrong order",
      "check": "8-Fraction(8,3)"
@@ -195,6 +211,12 @@
      ],
      "answer": 0,
      "explain": "∫₀⁴ x dx = 16/2 = 8, matching (1/2)(4)(4) = 8.",
+     "steps": [
+      "R: ∫₀⁴ x dx = [x²/2]₀⁴ = 16/2 = 8 — true",
+      "y = x ≥ 0 on [0, 4], so the integral is the area: A is true",
+      "Geometry check: (1/2)(4)(4) = 8; R explains A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks integration and geometry give different answers"
     }
    ],
@@ -231,7 +253,25 @@
     "c8.2.2",
     "c8.2.5",
     "c8.2.11"
-   ]
+   ],
+   "revise": {
+    "summary": "The area between y = f(x) ≥ 0, the x-axis and x = a, x = b is ∫ₐᵇ y dx; with horizontal strips, the area next to the y-axis is ∫ x dy. Sketch first to pick strips and limits.",
+    "focus": [
+     "Find areas under curves like x², x³, √x, eˣ",
+     "Use horizontal strips for curves x = g(y)",
+     "Check line regions with geometry"
+    ],
+    "remember": [
+     "Vertical strips: Area = ∫ₐᵇ y dx",
+     "Horizontal strips: Area = ∫ from c to d of x dy"
+    ],
+    "traps": [
+     "Don't mix up dx and dy strips",
+     "Subtract the lower-limit value, e.g. e⁰ = 1",
+     "Use the right power: ∫√x dx = (2/3)x^(3/2)"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-08-02",
@@ -339,7 +379,8 @@
      "steps": [
       "0 to π: 2",
       "π to 2π: |−2| = 2",
-      "Total = 4"
+      "Total = 4",
+      "Answer: 4"
      ],
      "mistake": "Reports the integral 0 instead of the area",
      "check": "2+2"
@@ -357,7 +398,8 @@
      "steps": [
       "|∫₋₂⁰ x³| = |0 − 4| = 4",
       "∫₀¹ x³ = 1/4",
-      "4 + 1/4 = 17/4"
+      "4 + 1/4 = 17/4",
+      "Answer: 17/4"
      ],
      "mistake": "Integrates straight across and gets −15/4",
      "check": "4+Fraction(1,4)"
@@ -375,7 +417,8 @@
      "steps": [
       "Below the axis on [−1, −2/3]: 1/6",
       "Above on [−2/3, 1]: 25/6",
-      "Total = 13/3"
+      "Total = 13/3",
+      "Answer: 13/3"
      ],
      "mistake": "Integrates without splitting and gets 4",
      "check": "Fraction(1,6)+Fraction(25,6)"
@@ -393,7 +436,8 @@
      "steps": [
       "Split at x = −3",
       "Each part = 9/2",
-      "Total = 9"
+      "Total = 9",
+      "Answer: 9"
      ],
      "mistake": "Counts only one triangle",
      "check": "Fraction(9,2)*2"
@@ -410,7 +454,8 @@
      "explain": "The curve is below the axis there: ∫₋₁¹ (x² − 1) dx = 2/3 − 2 = −4/3, so the area is 4/3.",
      "steps": [
       "∫₋₁¹ (x² − 1) dx = −4/3",
-      "Area = |−4/3| = 4/3"
+      "Area = |−4/3| = 4/3",
+      "Answer: 4/3"
      ],
      "mistake": "Reports the negative integral as the area",
      "check": "Fraction(4,3)"
@@ -428,7 +473,8 @@
      "steps": [
       "∫₀^(π/2) cos x = 1",
       "|∫ from π/2 to π| = 1",
-      "Total 2"
+      "Total 2",
+      "Answer: 2"
      ],
      "mistake": "Integrates straight across and gets 0",
      "check": "1+1"
@@ -443,6 +489,12 @@
      ],
      "answer": 3,
      "explain": "Integrals are signed; area counts every part as positive.",
+     "steps": [
+      "A definite integral is signed: parts below the axis count as negative",
+      "Area counts every part as positive",
+      "So negative parts cancel some positive parts in the integral",
+      "Answer: Parts below the axis give negative contributions that cancel positive parts"
+     ],
      "mistake": "Treats the integral as always equal to the area"
     },
     {
@@ -455,6 +507,12 @@
      ],
      "answer": 0,
      "explain": "Area = 2 + 2 = 4 (two triangles). R is true too, but it is the signed integral, which is exactly why it cannot explain the area.",
+     "steps": [
+      "Area: triangle on [−2, 0] (area 2) + triangle on [0, 2] (area 2) = 4, so A is true",
+      "R: ∫₋₂² x dx = [x²/2]₋₂² = 2 − 2 = 0 — true",
+      "The zero integral does not give the area 4, so R does not explain A",
+      "Answer: Both A and R are true but R does not explain A"
+     ],
      "mistake": "Thinks a zero integral means zero area"
     }
    ],
@@ -485,7 +543,26 @@
     "c8.2.4",
     "c8.2.9",
     "c8.2.12"
-   ]
+   ],
+   "revise": {
+    "summary": "Parts of a region below the x-axis give negative integrals, so take absolute values and split the region where the curve crosses the axis. The area can be positive even when the integral is 0.",
+    "focus": [
+     "Split at the points where the curve crosses the x-axis",
+     "Find areas for sin x, cos x, x³ and lines on both sides",
+     "Handle modulus curves piece by piece"
+    ],
+    "remember": [
+     "Area below the axis = |∫ₐᵇ f(x) dx|",
+     "y = sin x on [0, 2π]: area 4, integral 0",
+     "y = x³ on [−2, 1]: area 17/4"
+    ],
+    "traps": [
+     "Don't report a negative or zero integral as the area",
+     "Don't integrate across a crossing point without splitting",
+     "Area is always positive"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-08-03",
@@ -561,6 +638,12 @@
      ],
      "answer": 0,
      "explain": "Area = πa² with a = 3, i.e. 9π.",
+     "steps": [
+      "Circle area = πa²",
+      "x² + y² = 9 ⇒ a = 3",
+      "π × 3² = 9π",
+      "Answer: 9π"
+     ],
      "mistake": "Uses 2πa (the circumference) or a⁴"
     },
     {
@@ -573,6 +656,11 @@
      ],
      "answer": 3,
      "explain": "One quarter of π(4²) = 16π/4 = 4π.",
+     "steps": [
+      "Full circle: a = 4, area = π × 16 = 16π",
+      "First quadrant is one quarter: 16π/4",
+      "Answer: 4π"
+     ],
      "mistake": "Gives the full circle's area"
     },
     {
@@ -585,6 +673,11 @@
      ],
      "answer": 3,
      "explain": "a = 2, b = 3, area = πab = 6π.",
+     "steps": [
+      "x²/4 + y²/9 = 1 ⇒ a² = 4, b² = 9 ⇒ a = 2, b = 3",
+      "Ellipse area = πab = π × 2 × 3",
+      "Answer: 6π"
+     ],
      "mistake": "Uses a² and b² instead of a and b"
     },
     {
@@ -597,6 +690,11 @@
      ],
      "answer": 1,
      "explain": "Solving for y gives y = (b/a)√(a² − x²) with x from 0 to a.",
+     "steps": [
+      "Solve for y: y² = b²(1 − x²/a²) ⇒ y = (b/a)√(a² − x²) (first quadrant)",
+      "x runs from 0 to a",
+      "Answer: (b/a)∫₀ᵃ √(a² − x²) dx"
+     ],
      "mistake": "Inverts the ratio when solving for y"
     },
     {
@@ -609,6 +707,11 @@
      ],
      "answer": 1,
      "explain": "It is a quarter of the area of a circle of radius 3: 9π/4.",
+     "steps": [
+      "y = √(9 − x²), 0 ≤ x ≤ 3 is a quarter of the circle of radius 3",
+      "Quarter area = π(3²)/4",
+      "Answer: 9π/4"
+     ],
      "mistake": "Takes a half instead of a quarter of the circle"
     },
     {
@@ -621,6 +724,12 @@
      ],
      "answer": 0,
      "explain": "Divide by 36: x²/9 + y²/4 = 1, so a = 3, b = 2 and area = 6π.",
+     "steps": [
+      "Divide by 36: x²/9 + y²/4 = 1",
+      "a = 3, b = 2",
+      "Area = πab = 6π",
+      "Answer: 6π"
+     ],
      "mistake": "Uses the coefficients 4 and 9 as a and b"
     },
     {
@@ -633,6 +742,12 @@
      ],
      "answer": 2,
      "explain": "(x/2)√(a² − x²) + (a²/2) sin⁻¹(x/a) from 0 to a = (a²/2)(π/2) = πa²/4.",
+     "steps": [
+      "[(x/2)√(a² − x²) + (a²/2) sin⁻¹(x/a)] from 0 to a",
+      "At x = a: 0 + (a²/2) sin⁻¹(1) = (a²/2)(π/2); at x = 0: 0",
+      "= πa²/4",
+      "Answer: πa²/4"
+     ],
      "mistake": "Forgets to evaluate sin⁻¹(1) = π/2"
     },
     {
@@ -645,6 +760,12 @@
      ],
      "answer": 1,
      "explain": "A circle is the special ellipse with b = a, so R gives π · a · a = πa².",
+     "steps": [
+      "R: ellipse area = πab — true",
+      "A circle x² + y² = a² is the ellipse with b = a",
+      "π · a · a = πa², so A follows from R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Does not see the circle as a special ellipse"
     }
    ],
@@ -676,7 +797,27 @@
    "covers": [
     "c8.2.6",
     "c8.2.7"
-   ]
+   ],
+   "revise": {
+    "summary": "Using symmetry and the formula for ∫√(a² − x²) dx, the circle x² + y² = a² has area πa² and the ellipse x²/a² + y²/b² = 1 has area πab.",
+    "focus": [
+     "Find areas of circles and ellipses (whole or a quarter)",
+     "Rewrite equations like 4x² + 9y² = 36 in standard form",
+     "Set up the first-quadrant integral"
+    ],
+    "remember": [
+     "Circle: area = πa²",
+     "Ellipse: area = πab",
+     "∫₀ᵃ √(a² − x²) dx = πa²/4",
+     "Ellipse first quadrant: y = (b/a)√(a² − x²)"
+    ],
+    "traps": [
+     "Use a and b, not a² and b²",
+     "Divide to get 1 on the right side before reading a and b",
+     "Don't confuse area πa² with circumference 2πa"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-08-04",
@@ -777,7 +918,8 @@
      "explain": "Area = 2∫₀¹ 2√x dx = 4 × (2/3) = 8/3.",
      "steps": [
       "Upper half: ∫₀¹ 2√x dx = 4/3",
-      "Double it: 8/3"
+      "Double it: 8/3",
+      "Answer: 8/3"
      ],
      "mistake": "Counts only the upper half",
      "check": "2*Fraction(4,3)"
@@ -795,7 +937,8 @@
      "steps": [
       "Width at height y: 2 × 2√y",
       "∫₀⁴ 4√y dy = 4 × (2/3) × 8",
-      "= 64/3"
+      "= 64/3",
+      "Answer: 64/3"
      ],
      "mistake": "Counts only one side of the y-axis",
      "check": "4*Fraction(2,3)*8"
@@ -813,7 +956,8 @@
      "steps": [
       "x = √y",
       "∫₀⁴ √y dy = (2/3) × 4^(3/2)",
-      "= 16/3"
+      "= 16/3",
+      "Answer: 16/3"
      ],
      "mistake": "Uses vertical strips with x from 0 to 4",
      "check": "Fraction(2,3)*8"
@@ -828,6 +972,12 @@
      ],
      "answer": 0,
      "explain": "∫₂⁴ 3√x dx = 2[x^(3/2)]₂⁴ = 2(8 − 2√2) = 16 − 4√2.",
+     "steps": [
+      "First quadrant: y = √(9x) = 3√x",
+      "Area = ∫₂⁴ 3√x dx = 3 × (2/3)[x^(3/2)]₂⁴ = 2(4^(3/2) − 2^(3/2))",
+      "= 2(8 − 2√2)",
+      "Answer: 16 − 4√2"
+     ],
      "mistake": "Forgets the factor 3 from y = 3√x"
     },
     {
@@ -840,6 +990,11 @@
      ],
      "answer": 2,
      "explain": "x = 2√y, area = ∫₂⁴ 2√y dy = (4/3)[y^(3/2)]₂⁴ = (4/3)(8 − 2√2) = (32 − 8√2)/3.",
+     "steps": [
+      "First quadrant: x = 2√y; horizontal strips from y = 2 to y = 4",
+      "Area = ∫₂⁴ 2√y dy = (4/3)[y^(3/2)]₂⁴ = (4/3)(8 − 2√2)",
+      "Answer: (32 − 8√2)/3"
+     ],
      "mistake": "Uses 4√y, which counts both sides of the y-axis"
     },
     {
@@ -852,6 +1007,12 @@
      ],
      "answer": 0,
      "explain": "2∫₀ᵃ 2√(ax) dx = 4√a × (2/3)a^(3/2) = 8a²/3.",
+     "steps": [
+      "Symmetric about the x-axis: area = 2∫₀ᵃ 2√(ax) dx",
+      "= 4√a × (2/3)a^(3/2)",
+      "= (8/3)a²",
+      "Answer: 8a²/3"
+     ],
      "mistake": "Counts only one half"
     },
     {
@@ -867,7 +1028,8 @@
      "steps": [
       "x = √y",
       "(2/3)[y^(3/2)]₁⁴",
-      "= (2/3)(7) = 14/3"
+      "= (2/3)(7) = 14/3",
+      "Answer: 14/3"
      ],
      "mistake": "Uses vertical strips ∫₁⁴ x² dx = 21",
      "check": "Fraction(2,3)*7"
@@ -882,6 +1044,12 @@
      ],
      "answer": 1,
      "explain": "Symmetry means the lower half equals the upper half, so we double the upper integral (giving 64/3).",
+     "steps": [
+      "R: y² = 4x is unchanged when y → −y, so it is symmetric about the x-axis — true",
+      "Lower half area = upper half area = ∫₀⁴ 2√x dx",
+      "So total = 2 × ∫₀⁴ 2√x dx: A is true because of R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Forgets the part of the region below the x-axis"
     }
    ],
@@ -913,7 +1081,26 @@
     "c8.2.8",
     "c8.2.10",
     "c8.2.13"
-   ]
+   ],
+   "revise": {
+    "summary": "For a parabola and a line, use symmetry about the parabola's axis and choose the easier strips. In the first quadrant take only the positive branch, e.g. y = 2√x or x = 2√y.",
+    "focus": [
+     "Area of y² = 4ax with x = k, and x² = 4ay with y = k",
+     "First-quadrant regions with horizontal strips",
+     "Use the right branch and limits"
+    ],
+    "remember": [
+     "y² = 4ax, x = a: area = 8a²/3",
+     "Double the upper half for a region symmetric about the x-axis",
+     "First quadrant: y = √(4ax) = 2√(ax)"
+    ],
+    "traps": [
+     "Don't forget the half below the x-axis when the region is symmetric",
+     "In the first quadrant, don't count both sides of the y-axis",
+     "Keep the coefficient, e.g. y = 3√x from y² = 9x"
+    ],
+    "level": "important"
+   }
   }
  ]
 }

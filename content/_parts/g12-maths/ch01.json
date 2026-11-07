@@ -104,7 +104,8 @@
      "explain": "A × A has 3 × 3 = 9 ordered pairs, and every subset of A × A is a relation, so there are 2⁹ = 512 relations.",
      "steps": [
       "n(A × A) = 9",
-      "Number of relations = 2⁹ = 512"
+      "Number of relations = 2⁹ = 512",
+      "Answer: 512"
      ],
      "mistake": "Counts the pairs (9) instead of the subsets of pairs",
      "check": "2**9"
@@ -121,7 +122,8 @@
      "explain": "A × B has 2 × 3 = 6 pairs, so there are 2⁶ = 64 relations from A to B.",
      "steps": [
       "n(A × B) = 6",
-      "2⁶ = 64"
+      "2⁶ = 64",
+      "Answer: 64"
      ],
      "mistake": "Uses 2³ or forgets that each subset of A × B is a relation",
      "check": "2**6"
@@ -136,6 +138,12 @@
      ],
      "answer": 1,
      "explain": "The largest possible sum is 3 + 3 = 6, so no pair satisfies a + b = 10. R = φ.",
+     "steps": [
+      "Pairs (a, b) must have a, b ∈ A = {1, 2, 3}",
+      "Largest possible sum: 3 + 3 = 6, which is less than 10",
+      "No pair satisfies a + b = 10, so R = φ",
+      "Answer: The empty relation"
+     ],
      "mistake": "Includes pairs with an element outside A"
     },
     {
@@ -148,6 +156,12 @@
      ],
      "answer": 3,
      "explain": "Every pair of Mumbai residents lives on Earth, so every pair is in R: R = A × A.",
+     "steps": [
+      "Asked: which pairs (a, b) of Mumbai residents are in R?",
+      "Every resident of Mumbai lives on Earth, so the condition is true for every pair",
+      "So R = A × A",
+      "Answer: the universal relation"
+     ],
      "mistake": "Confuses 'always true' with 'never true'"
     },
     {
@@ -160,6 +174,13 @@
      ],
      "answer": 2,
      "explain": "A function needs each element of A to have exactly one image. Only {(1, 4), (2, 4), (3, 5)} does this; two elements sharing an image is allowed.",
+     "steps": [
+      "Rule: a function gives every element of A exactly one image",
+      "{(1, 4), (1, 5), …}: 1 has two images ✗; {(1, 4), (2, 5)}: 3 has no image ✗",
+      "{(2, 4), (3, 5), (3, 4)}: 3 has two images and 1 has none ✗",
+      "{(1, 4), (2, 4), (3, 5)}: each of 1, 2, 3 has one image; sharing 4 is allowed ✓",
+      "Answer: {(1, 4), (2, 4), (3, 5)}"
+     ],
      "mistake": "Thinks two elements cannot share an image, or ignores an element left without an image"
     },
     {
@@ -172,6 +193,12 @@
      ],
      "answer": 3,
      "explain": "The range is the set of actual images: f(1) = 1, f(2) = 4, f(3) = 9, f(4) = 16. 25 is in the codomain but is not an image.",
+     "steps": [
+      "Range = set of actual images, not the whole codomain",
+      "f(1) = 1, f(2) = 4, f(3) = 9, f(4) = 16",
+      "25 is in the codomain but no x in the domain gives 25",
+      "Answer: {1, 4, 9, 16}"
+     ],
      "mistake": "Mixes up range with codomain"
     },
     {
@@ -184,6 +211,12 @@
      ],
      "answer": 0,
      "explain": "φ ⊆ every set, in particular φ ⊆ A × A, so φ qualifies as a relation on A. R is exactly why A holds.",
+     "steps": [
+      "A: φ ⊆ A × A, so the empty relation is a relation on A — true",
+      "R: the empty set is a subset of every set — true",
+      "A holds precisely because φ is a subset of every set, including A × A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks a relation must contain at least one pair"
     },
     {
@@ -198,7 +231,8 @@
      "explain": "The universal relation is A × A, which has 4 × 4 = 16 ordered pairs.",
      "steps": [
       "Universal relation = A × A",
-      "n(A × A) = 4 × 4 = 16"
+      "n(A × A) = 4 × 4 = 16",
+      "Answer: 16"
      ],
      "mistake": "Confuses the number of pairs with the number of relations (2¹⁶)",
      "check": "4*4"
@@ -231,7 +265,27 @@
     "c1.1.1",
     "c1.1.2",
     "c1.2.1"
-   ]
+   ],
+   "revise": {
+    "summary": "A relation from A to B is any subset of A × B; the empty relation has no pairs and the universal relation is all of A × A. A function is a relation giving each element of A exactly one image.",
+    "focus": [
+     "Count relations: 2^(mn) when n(A) = m, n(B) = n",
+     "Identify empty and universal relations from a rule",
+     "Tell a function from a relation; find the range of a function"
+    ],
+    "remember": [
+     "Relation on A: any subset of A × A",
+     "Number of relations from A to B = 2^(mn)",
+     "Empty relation R = φ; universal relation R = A × A (both are trivial relations)",
+     "Range = set of images ⊆ codomain"
+    ],
+    "traps": [
+     "Don't count the pairs (mn) when asked for the number of relations (2^(mn))",
+     "Range is not the codomain: unused codomain elements are not in the range",
+     "Two elements sharing one image is still a function; one element with two images is not"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-01-02",
@@ -339,6 +393,12 @@
      ],
      "answer": 3,
      "explain": "Reflexive needs all four pairs (1, 1), (2, 2), (3, 3), (4, 4). Only the last option contains every one; extra pairs such as (1, 3) do not spoil reflexivity.",
+     "steps": [
+      "Reflexive on A = {1, 2, 3, 4} needs (1, 1), (2, 2), (3, 3), (4, 4) all present",
+      "{(1, 1), (2, 2), (3, 3)} and {(1, 1), (2, 2), (3, 3), (4, 1)} miss (4, 4); {(1, 2), (2, 1)} has no (a, a) pairs",
+      "{(1, 1), (2, 2), (3, 3), (4, 4), (1, 3)} has all four; the extra pair (1, 3) does not spoil reflexivity",
+      "Answer: {(1, 1), (2, 2), (3, 3), (4, 4), (1, 3)}"
+     ],
      "mistake": "Checks only some elements of A, or thinks extra pairs break reflexivity"
     },
     {
@@ -351,6 +411,12 @@
      ],
      "answer": 0,
      "explain": "a − a = 0 ∈ Z; if a − b ∈ Z then b − a = −(a − b) ∈ Z; and (a − b) + (b − c) = a − c ∈ Z. All three hold.",
+     "steps": [
+      "Reflexive: a − a = 0 ∈ Z ✓",
+      "Symmetric: a − b ∈ Z ⇒ b − a = −(a − b) ∈ Z ✓",
+      "Transitive: (a − b) + (b − c) = a − c ∈ Z ✓",
+      "Answer: reflexive, symmetric and transitive"
+     ],
      "mistake": "Forgets that the negative of an integer is an integer"
     },
     {
@@ -363,6 +429,12 @@
      ],
      "answer": 0,
      "explain": "3 ≤ (−2)² = 4 and −2 ≤ 1² = 1, but 3 ≤ 1² is false. One counter-example breaks transitivity.",
+     "steps": [
+      "Transitivity fails if (a, b), (b, c) ∈ R but (a, c) ∉ R",
+      "(3, −2): 3 ≤ (−2)² = 4 ✓; (−2, 1): −2 ≤ 1² = 1 ✓",
+      "(3, 1): is 3 ≤ 1² = 1? No, so (3, 1) ∉ R",
+      "Answer: (3, −2) and (−2, 1) are in R but (3, 1) is not"
+     ],
      "mistake": "Gives a counter-example for symmetry when transitivity was asked"
     },
     {
@@ -375,6 +447,12 @@
      ],
      "answer": 2,
      "explain": "Reverse pairs are present, so R is symmetric. (1, 1) ∉ R, so not reflexive. (1, 2), (2, 1) ∈ R needs (1, 1), so not transitive.",
+     "steps": [
+      "Symmetric: (1, 2) and (2, 1) are both present ✓",
+      "Reflexive: (1, 1) ∉ R ✗",
+      "Transitive: (1, 2), (2, 1) ∈ R would need (1, 1) ∈ R ✗",
+      "Answer: R is symmetric but neither reflexive nor transitive"
+     ],
      "mistake": "Forgets that (a, b), (b, a) ∈ R forces (a, a) for transitivity"
     },
     {
@@ -387,6 +465,12 @@
      ],
      "answer": 3,
      "explain": "If L1 ⊥ L2 then L2 ⊥ L1. No line is perpendicular to itself, and L1 ⊥ L2, L2 ⊥ L3 make L1 parallel to L3, not perpendicular.",
+     "steps": [
+      "Symmetric: L1 ⊥ L2 ⇒ L2 ⊥ L1 ✓",
+      "Reflexive: no line is perpendicular to itself ✗",
+      "Transitive: L1 ⊥ L2 and L2 ⊥ L3 make L1 ∥ L3, not L1 ⊥ L3 ✗",
+      "Answer: symmetric but not reflexive or transitive"
+     ],
      "mistake": "Thinks perpendicularity passes on like parallelism"
     },
     {
@@ -399,6 +483,12 @@
      ],
      "answer": 2,
      "explain": "a | a, and a | b, b | c give a | c. But 2 | 4 while 4 ∤ 2, so R is not symmetric.",
+     "steps": [
+      "Reflexive: a divides a ✓",
+      "Transitive: a | b and b | c ⇒ a | c ✓",
+      "Symmetric: 2 | 4 but 4 does not divide 2 ✗",
+      "Answer: Symmetry"
+     ],
      "mistake": "Assumes divisibility works both ways"
     },
     {
@@ -411,6 +501,12 @@
      ],
      "answer": 1,
      "explain": "Reflexive needs (a, a) for every a; (3, 3) is missing, so A is false. R is a true statement about this relation, but 'some' is not enough.",
+     "steps": [
+      "Reflexive needs (a, a) for every a ∈ {1, 2, 3}",
+      "(3, 3) ∉ R, so A is false",
+      "R: R does contain (a, a) for some a (1 and 2), so R is true — but 'some' is not enough",
+      "Answer: A is false but R is true"
+     ],
      "mistake": "Reads 'reflexive' as 'some element is related to itself'"
     },
     {
@@ -426,7 +522,8 @@
      "steps": [
       "Add (1, 1), (2, 2), (3, 3) for reflexivity",
       "(1, 2), (2, 3) ∈ R ⇒ add (1, 3)",
-      "Check: no new chains appear, total added = 4"
+      "Check: no new chains appear, total added = 4",
+      "Answer: 4"
      ],
      "mistake": "Forgets the pair (1, 3) needed for transitivity, or adds reverse pairs that are not required",
      "check": "3+1"
@@ -460,7 +557,26 @@
     "c1.2.4",
     "c1.2.6",
     "c1.2.9"
-   ]
+   ],
+   "revise": {
+    "summary": "A relation is reflexive if every a is related to itself, symmetric if (a, b) forces (b, a), and transitive if (a, b) and (b, c) force (a, c). One counter-example disproves a property.",
+    "focus": [
+     "Test a given set of pairs for each property",
+     "Give a counter-example to show a property fails",
+     "Know the classic cases: ≤, perpendicular, parallel, divisibility"
+    ],
+    "remember": [
+     "Reflexive: (a, a) ∈ R for every a ∈ A",
+     "Symmetric: (a, b) ∈ R ⇒ (b, a) ∈ R",
+     "Transitive: (a, b), (b, c) ∈ R ⇒ (a, c) ∈ R"
+    ],
+    "traps": [
+     "Don't call R reflexive if even one (a, a) is missing",
+     "(a, b), (b, a) ∈ R needs (a, a) for transitivity",
+     "Perpendicularity is symmetric only, not transitive"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-01-03",
@@ -552,6 +668,13 @@
      ],
      "answer": 1,
      "explain": "{(1, 1), (2, 2), (3, 3), (1, 3), (3, 1)} is reflexive, symmetric and transitive. The first option is not symmetric ((1, 2) without (2, 1)), the third misses (3, 3), and the last has (1, 2), (2, 3) without (1, 3).",
+     "steps": [
+      "Need reflexive, symmetric and transitive all together",
+      "{(1, 1), (2, 2), (3, 3), (1, 2)}: (1, 2) without (2, 1) ✗; {(1, 2), (2, 1), (1, 1), (2, 2)}: (3, 3) missing ✗",
+      "The set with (1, 2), (2, 1), (2, 3), (3, 2): (1, 2), (2, 3) present but (1, 3) missing ✗",
+      "{(1, 1), (2, 2), (3, 3), (1, 3), (3, 1)}: reflexive, symmetric, and every chain closes ✓",
+      "Answer: {(1, 1), (2, 2), (3, 3), (1, 3), (3, 1)}"
+     ],
      "mistake": "Checks reflexivity and symmetry but forgets transitivity"
     },
     {
@@ -566,7 +689,8 @@
      "explain": "Every integer leaves remainder 0, 1 or 2 on division by 3, so the classes are [0], [1], [2].",
      "steps": [
       "Remainders on division by 3: 0, 1, 2",
-      "3 classes"
+      "3 classes",
+      "Answer: 3"
      ],
      "mistake": "Thinks every integer forms its own class",
      "check": "3"
@@ -581,6 +705,12 @@
      ],
      "answer": 0,
      "explain": "x R 1 means x − 1 is even, i.e. x is odd. So [1] = {…, −3, −1, 1, 3, …}.",
+     "steps": [
+      "[1] = {x ∈ Z: x R 1} = {x: 2 divides x − 1}",
+      "x − 1 even ⇔ x is odd",
+      "So [1] = {…, −3, −1, 1, 3, …}",
+      "Answer: the set of all odd integers"
+     ],
      "mistake": "Thinks the class of 1 contains only 1"
     },
     {
@@ -595,7 +725,8 @@
      "explain": "x − 2 is even exactly when x is even: x = 2, 4, 6. So [2] has 3 elements.",
      "steps": [
       "[2] = {x ∈ A: x even}",
-      "= {2, 4, 6}"
+      "= {2, 4, 6}",
+      "Answer: 3"
      ],
      "mistake": "Counts the odd numbers (4) instead of the even ones",
      "check": "3"
@@ -613,7 +744,8 @@
      "steps": [
       "Minimum: identity pairs + (1, 2), (2, 1)",
       "Adding (1, 3) or (2, 3) forces A × A",
-      "Total = 2"
+      "Total = 2",
+      "Answer: 2"
      ],
      "mistake": "Forgets the universal relation also contains (1, 2)",
      "check": "2"
@@ -628,6 +760,12 @@
      ],
      "answer": 2,
      "explain": "If c is in both, then c R a and c R b, so a R b by symmetry and transitivity. Then every element of one class lies in the other, so the classes are equal.",
+     "steps": [
+      "Let c lie in both: c R a and c R b",
+      "Symmetry: a R c; then transitivity with c R b gives a R b",
+      "So every element related to a is related to b and vice versa",
+      "Answer: [a] = [b]"
+     ],
      "mistake": "Thinks classes can partly overlap"
     },
     {
@@ -640,6 +778,12 @@
      ],
      "answer": 1,
      "explain": "Every triangle is similar to itself, similarity is mutual, and similarity passes along a chain. So R is an equivalence relation.",
+     "steps": [
+      "Reflexive: every triangle is similar to itself ✓",
+      "Symmetric: T1 ~ T2 ⇒ T2 ~ T1 ✓",
+      "Transitive: T1 ~ T2 and T2 ~ T3 ⇒ T1 ~ T3 ✓",
+      "Answer: an equivalence relation"
+     ],
      "mistake": "Confuses similarity with congruence or doubts transitivity"
     },
     {
@@ -652,6 +796,12 @@
      ],
      "answer": 1,
      "explain": "The classes are {1, 3, 5} and {2, 4}. R gives the reason: elements of the same parity are related, different parity are not.",
+     "steps": [
+      "|a − b| is even exactly when a and b have the same parity",
+      "Classes: {1, 3, 5} (odd) and {2, 4} (even) — exactly 2, so A is true",
+      "R is true and is the reason the elements split into these two classes",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Counts classes by element instead of by parity"
     }
    ],
@@ -682,7 +832,27 @@
     "c1.2.7",
     "c1.2.8",
     "c1.2.10"
-   ]
+   ],
+   "revise": {
+    "summary": "An equivalence relation is reflexive, symmetric and transitive. It splits the set into equivalence classes that are disjoint and together make up the whole set.",
+    "focus": [
+     "Check all three properties for a given relation",
+     "Find an equivalence class like [1] or [2]",
+     "Count classes for congruence modulo n"
+    ],
+    "remember": [
+     "Equivalence = reflexive + symmetric + transitive",
+     "[a] = {x ∈ A: x R a}",
+     "Congruence mod n on Z has n classes [0], [1], …, [n − 1]",
+     "Two classes are either identical or disjoint"
+    ],
+    "traps": [
+     "Don't forget to check transitivity after reflexivity and symmetry",
+     "Classes never partly overlap: a common element means equal classes",
+     "The class of 1 under mod 2 is all odd integers, not just {1}"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-01-04",
@@ -772,6 +942,11 @@
      ],
      "answer": 3,
      "explain": "2x1 = 2x2 ⇒ x1 = x2, so one-one. Odd numbers like 1 have no pre-image in N, so not onto.",
+     "steps": [
+      "One-one: 2x1 = 2x2 ⇒ x1 = x2 ✓",
+      "Onto: 1 = 2x gives x = 1/2 ∉ N, so 1 (and every odd number) has no pre-image ✗",
+      "Answer: One-one but not onto"
+     ],
      "mistake": "Thinks every natural number is a double of some natural number"
     },
     {
@@ -784,6 +959,11 @@
      ],
      "answer": 2,
      "explain": "Two different inputs −3 and 3 give the same output 9, so f is many-one.",
+     "steps": [
+      "One-one fails if two different inputs give the same output",
+      "f(−3) = 9 and f(3) = 9, with −3 ≠ 3",
+      "Answer: f(−3) = f(3) = 9"
+     ],
      "mistake": "Gives the reason for 'not onto' when 'not one-one' was asked"
     },
     {
@@ -796,6 +976,11 @@
      ],
      "answer": 3,
      "explain": "Negative numbers in the codomain are never outputs of x², so range ≠ codomain.",
+     "steps": [
+      "Onto needs every y in codomain R to be some x²",
+      "x² ≥ 0 for all real x, so y = −1 is never an output",
+      "Answer: −1 has no pre-image since x² ≥ 0"
+     ],
      "mistake": "Mixes up the one-one test with the onto test"
     },
     {
@@ -808,6 +993,12 @@
      ],
      "answer": 2,
      "explain": "x³ is strictly increasing (one-one) and every real y has the real cube root ∛y as pre-image (onto).",
+     "steps": [
+      "x² + 1 and |x|: f(−1) = f(1) and negatives are not reached ✗",
+      "sin x: repeats values and stays in [−1, 1] ✗",
+      "x³: x1³ = x2³ ⇒ x1 = x2, and y = x³ gives x = ∛y ∈ R for every y ✓",
+      "Answer: f(x) = x³"
+     ],
      "mistake": "Thinks every polynomial is one-one"
     },
     {
@@ -820,6 +1011,11 @@
      ],
      "answer": 2,
      "explain": "f(1) = 1 and f(2) = 1, so not one-one. For any m ∈ N, f(2m) = m, so onto.",
+     "steps": [
+      "f(1) = (1 + 1)/2 = 1 and f(2) = 2/2 = 1, so not one-one",
+      "For any m ∈ N, 2m is even and f(2m) = m, so onto",
+      "Answer: onto but not one-one"
+     ],
      "mistake": "Checks only odd inputs and misses the clash f(1) = f(2)"
     },
     {
@@ -832,6 +1028,11 @@
      ],
      "answer": 1,
      "explain": "1/x1 = 1/x2 ⇒ x1 = x2, so one-one. But 0 in the codomain is never equal to 1/x, so not onto.",
+     "steps": [
+      "One-one: 1/x1 = 1/x2 ⇒ x1 = x2 ✓",
+      "Onto: 1/x = 0 has no solution, so 0 ∈ R has no pre-image ✗",
+      "Answer: One-one but not onto"
+     ],
      "mistake": "Forgets that 0 is in the codomain R"
     },
     {
@@ -844,6 +1045,11 @@
      ],
      "answer": 1,
      "explain": "On a finite set mapped to itself, distinct inputs filling distinct outputs uses up all the elements, and vice versa. So one-one ⇔ onto.",
+     "steps": [
+      "Rule: for f from a finite set A to itself, one-one and onto go together",
+      "One-one ⇒ n distinct images among n elements ⇒ all of A is covered (onto), and conversely",
+      "Answer: f is one-one if and only if f is onto"
+     ],
      "mistake": "Applies the finite-set result to infinite sets like N"
     },
     {
@@ -856,6 +1062,11 @@
      ],
      "answer": 1,
      "explain": "x + 1 is one-one, and y has pre-image y − 1 in Z, so A is true. R is false: f(x) = 2x on N is one-one but not onto.",
+     "steps": [
+      "A: x1 + 1 = x2 + 1 ⇒ x1 = x2; and y has pre-image y − 1 ∈ Z, so A is true",
+      "R: f(x) = 2x on N is one-one but not onto, so R is false",
+      "Answer: A is true but R is false"
+     ],
      "mistake": "Generalises the finite-set rule to every function"
     }
    ],
@@ -891,7 +1102,27 @@
     "c1.3.5",
     "c1.3.6",
     "c1.3.9"
-   ]
+   ],
+   "revise": {
+    "summary": "A function is one-one if different inputs give different outputs and onto if every codomain element is an image. A bijection is both, and the answer depends on the domain and codomain.",
+    "focus": [
+     "Prove one-one using f(x1) = f(x2) ⇒ x1 = x2",
+     "Prove onto by solving y = f(x) and checking x is in the domain",
+     "Classify functions like 2x on N, x² on R, 1/x, x³"
+    ],
+    "remember": [
+     "One-one: f(x1) = f(x2) ⇒ x1 = x2",
+     "Onto: range = codomain",
+     "Bijective = one-one and onto",
+     "On a finite set A → A, one-one ⇔ onto"
+    ],
+    "traps": [
+     "Don't use the finite-set rule on infinite sets: 2x on N is one-one but not onto",
+     "Don't give an onto reason when one-one is asked (and vice versa)",
+     "x² is one-one on N but not on R"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-01-05",
@@ -987,6 +1218,11 @@
      ],
      "answer": 1,
      "explain": "[1.2] = [1.7] = 1, so not one-one. The range is Z, so 0.5 has no pre-image and f is not onto.",
+     "steps": [
+      "[1.2] = [1.7] = 1, so f is not one-one",
+      "Range of [x] is Z, so 0.5 in the codomain has no pre-image: not onto",
+      "Answer: neither one-one nor onto"
+     ],
      "mistake": "Thinks every real number is a value of [x]"
     },
     {
@@ -999,6 +1235,11 @@
      ],
      "answer": 2,
      "explain": "|−1| = |1| makes it many-one, and negative numbers are never values of |x|, so not onto.",
+     "steps": [
+      "|−1| = |1| = 1, so not one-one",
+      "|x| ≥ 0, so negative numbers have no pre-image: not onto",
+      "Answer: Neither one-one nor onto"
+     ],
      "mistake": "Considers only non-negative inputs"
     },
     {
@@ -1013,7 +1254,8 @@
      "explain": "1 has 4 choices, 2 then has 3, and 3 has 2: 4 × 3 × 2 = 24.",
      "steps": [
       "4 choices × 3 choices × 2 choices",
-      "= 24"
+      "= 24",
+      "Answer: 24"
      ],
      "mistake": "Counts all functions 4³ = 64 instead of one-one ones",
      "check": "4*3*2"
@@ -1031,7 +1273,8 @@
      "steps": [
       "Total = 2⁴ = 16",
       "Not onto: all to a or all to b (2)",
-      "16 − 2 = 14"
+      "16 − 2 = 14",
+      "Answer: 14"
      ],
      "mistake": "Forgets to remove the constant functions",
      "check": "2**4-2"
@@ -1048,7 +1291,8 @@
      "explain": "A bijection on n elements is an arrangement of them: 5! = 120.",
      "steps": [
       "5! = 5 × 4 × 3 × 2 × 1",
-      "= 120"
+      "= 120",
+      "Answer: 120"
      ],
      "mistake": "Uses 5² or 5⁵ instead of 5!",
      "check": "5*4*3*2*1"
@@ -1063,6 +1307,12 @@
      ],
      "answer": 0,
      "explain": "f swaps 1↔2, 3↔4, 5↔6, … Odd inputs give even outputs and even inputs give odd outputs, with no clashes, and every n is hit. So f is a bijection.",
+     "steps": [
+      "Odd x → x + 1 (even); even x → x − 1 (odd): f swaps 1↔2, 3↔4, …",
+      "Odd and even inputs land in different sets, and within each piece outputs differ: one-one",
+      "Any odd n = f(n + 1) and any even n = f(n − 1): onto",
+      "Answer: bijective"
+     ],
      "mistake": "Thinks the two pieces might overlap in outputs"
     },
     {
@@ -1078,7 +1328,8 @@
      "steps": [
       "m = 4 > n = 3",
       "Pigeonhole: some two inputs share an image",
-      "Count = 0"
+      "Count = 0",
+      "Answer: 0"
      ],
      "mistake": "Applies n(n − 1)… without checking m ≤ n",
      "check": "0"
@@ -1093,6 +1344,12 @@
      ],
      "answer": 2,
      "explain": "x² is one-one on N (positive inputs), but 2 is not a perfect square, so not onto. f(x) = x and |x| are bijective on N; the last one sends 1 and 2 to 1.",
+     "steps": [
+      "f(x) = x and |x| on N are both the identity: bijective ✗",
+      "f(n) = n − 1 (n > 1), f(1) = 1: f(1) = 1 and f(2) = 1, so not one-one ✗",
+      "x²: x1² = x2² with x1, x2 > 0 ⇒ x1 = x2 (one-one); 2 is not a perfect square (not onto)",
+      "Answer: f(x) = x²"
+     ],
      "mistake": "Forgets x² behaves differently on N than on R"
     }
    ],
@@ -1126,7 +1383,26 @@
     "c1.3.10",
     "c1.3.11",
     "c1.3.12"
-   ]
+   ],
+   "revise": {
+    "summary": "Modulus, greatest integer and signum functions on R are neither one-one nor onto, while x³ and ax + b (a ≠ 0) are bijective. Functions between finite sets can be counted with simple formulas.",
+    "focus": [
+     "Classify |x|, [x], signum and piecewise functions",
+     "Count all, one-one, onto and bijective functions between finite sets"
+    ],
+    "remember": [
+     "Functions A → B: nᵐ",
+     "One-one functions: n(n − 1)…(n − m + 1) if m ≤ n, else 0",
+     "Bijections of an n-element set to itself: n!",
+     "Onto functions from a 3-element set to a 2-element set: 2³ − 2 = 6"
+    ],
+    "traps": [
+     "Don't count all functions when one-one functions are asked",
+     "If m > n there are 0 one-one functions",
+     "Don't forget to remove the constant functions when counting onto maps to a 2-element set"
+    ],
+    "level": "important"
+   }
   }
  ]
 }

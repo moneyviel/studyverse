@@ -97,6 +97,11 @@
      ],
      "answer": 3,
      "explain": "Sine is restricted to [−π/2, π/2], where it is one-one and takes every value in [−1, 1].",
+     "steps": [
+      "sin x is one-one on [−π/2, π/2] and takes every value in [−1, 1] there",
+      "So sin⁻¹: [−1, 1] → [−π/2, π/2], end points included",
+      "Answer: [−π/2, π/2]"
+     ],
      "mistake": "Confuses the sine branch with the cosine branch [0, π]"
     },
     {
@@ -109,6 +114,11 @@
      ],
      "answer": 1,
      "explain": "Cosine is one-one on [0, π] and covers [−1, 1] there, so cos⁻¹ takes values in [0, π].",
+     "steps": [
+      "cos x is one-one on [0, π] and covers [−1, 1] there",
+      "So cos⁻¹: [−1, 1] → [0, π]",
+      "Answer: [0, π]"
+     ],
      "mistake": "Mixes up the cosine branch with the sine branch"
     },
     {
@@ -121,6 +131,12 @@
      ],
      "answer": 2,
      "explain": "We need −1 ≤ x − 1 ≤ 1, so 0 ≤ x ≤ 2.",
+     "steps": [
+      "cos⁻¹ accepts inputs only in [−1, 1]",
+      "−1 ≤ x − 1 ≤ 1",
+      "Add 1 throughout: 0 ≤ x ≤ 2",
+      "Answer: [0, 2]"
+     ],
      "mistake": "Copies the domain of cos⁻¹ x without shifting it"
     },
     {
@@ -133,6 +149,12 @@
      ],
      "answer": 0,
      "explain": "We need −1 ≤ 2x ≤ 1, so −1/2 ≤ x ≤ 1/2.",
+     "steps": [
+      "sin⁻¹ accepts inputs only in [−1, 1]",
+      "−1 ≤ 2x ≤ 1",
+      "Divide by 2: −1/2 ≤ x ≤ 1/2",
+      "Answer: [−1/2, 1/2]"
+     ],
      "mistake": "Multiplies the bounds by 2 instead of dividing"
     },
     {
@@ -145,6 +167,12 @@
      ],
      "answer": 3,
      "explain": "An inverse needs a bijection. On R, sine repeats values, so it is many-one; restricting to [−π/2, π/2] fixes this.",
+     "steps": [
+      "An inverse exists only for a one-one and onto function",
+      "On R, sine repeats values (sin 0 = sin π = 0), so it is many-one",
+      "Restricting to [−π/2, π/2] makes it one-one",
+      "Answer: Because sin x is not one-one on R"
+     ],
      "mistake": "Thinks continuity, not one-one-ness, is what an inverse needs"
     },
     {
@@ -157,6 +185,12 @@
      ],
      "answer": 2,
      "explain": "(sin x)⁻¹ means 1/sin x, which is cosec x. sin⁻¹ x is an angle, not a reciprocal.",
+     "steps": [
+      "cosec x = 1/sin x",
+      "The power −1 on the whole bracket means reciprocal: (sin x)⁻¹ = 1/sin x",
+      "sin⁻¹ x is an angle, not a reciprocal",
+      "Answer: (sin x)⁻¹"
+     ],
      "mistake": "Reads the −1 in sin⁻¹ as a power"
     },
     {
@@ -169,6 +203,12 @@
      ],
      "answer": 3,
      "explain": "A is true because 3/2 is outside the domain [−1, 1]. R is a true fact about the range, but the reason for A is the domain, not the range.",
+     "steps": [
+      "A: 3/2 > 1 is outside the domain [−1, 1], so sin⁻¹(3/2) is undefined — true",
+      "R: range of sin⁻¹ is [−π/2, π/2] — true",
+      "But A depends on the domain, not the range, so R does not explain A",
+      "Answer: Both A and R are true but R does not explain A"
+     ],
      "mistake": "Uses the range to judge whether an input is allowed"
     },
     {
@@ -181,6 +221,11 @@
      ],
      "answer": 1,
      "explain": "y is the angle in [0, π] whose cosine is x.",
+     "steps": [
+      "y = cos⁻¹ x means y is the angle whose cosine is x",
+      "So cos y = x, with y in the principal branch [0, π]",
+      "Answer: cos y = x and 0 ≤ y ≤ π"
+     ],
      "mistake": "Swaps input and output, or uses the wrong branch"
     }
    ],
@@ -217,7 +262,27 @@
     "c2.2.1",
     "c2.2.2",
     "c2.2.9"
-   ]
+   ],
+   "revise": {
+    "summary": "Sine and cosine are many-one on R, so we restrict them to make them bijective. This gives sin⁻¹: [−1, 1] → [−π/2, π/2] and cos⁻¹: [−1, 1] → [0, π].",
+    "focus": [
+     "State the domain and principal branch of sin⁻¹ and cos⁻¹",
+     "Find the domain of expressions like sin⁻¹(2x − 1)",
+     "Explain why the restriction is needed"
+    ],
+    "remember": [
+     "sin⁻¹: [−1, 1] → [−π/2, π/2]",
+     "cos⁻¹: [−1, 1] → [0, π]",
+     "y = sin⁻¹ x means sin y = x with y ∈ [−π/2, π/2]",
+     "sin⁻¹ x ≠ (sin x)⁻¹ = cosec x"
+    ],
+    "traps": [
+     "Don't read sin⁻¹ x as 1/sin x",
+     "Don't swap the sine branch [−π/2, π/2] with the cosine branch [0, π]",
+     "An input outside [−1, 1] is a domain problem, not a range problem"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-02-02",
@@ -316,6 +381,12 @@
      ],
      "answer": 1,
      "explain": "sec x never lies strictly between −1 and 1, so sec⁻¹ is defined only for x ≤ −1 or x ≥ 1.",
+     "steps": [
+      "sec x = 1/cos x and |cos x| ≤ 1, so |sec x| ≥ 1",
+      "sec x never lies strictly between −1 and 1",
+      "So sec⁻¹ x is defined for x ≤ −1 or x ≥ 1",
+      "Answer: R − (−1, 1)"
+     ],
      "mistake": "Copies the domain of cos⁻¹"
     },
     {
@@ -328,6 +399,11 @@
      ],
      "answer": 1,
      "explain": "cot is one-one on (0, π) and takes every real value there; the end points are excluded because cot is undefined at 0 and π.",
+     "steps": [
+      "cot is one-one on (0, π) and takes every real value there",
+      "cot 0 and cot π are undefined, so the end points are excluded",
+      "Answer: (0, π)"
+     ],
      "mistake": "Uses the tan⁻¹ branch for cot⁻¹"
     },
     {
@@ -340,6 +416,12 @@
      ],
      "answer": 2,
      "explain": "cosec⁻¹ x takes values in [−π/2, π/2] except 0, because cosec 0 is undefined.",
+     "steps": [
+      "Range of cosec⁻¹ x is [−π/2, π/2] − {0}",
+      "cosec 0 = 1/sin 0 is undefined, so 0 is removed",
+      "π/2, −π/2 and π/6 are all in the range",
+      "Answer: 0"
+     ],
      "mistake": "Forgets that 0 is removed from the cosec⁻¹ range",
      "check": "0"
     },
@@ -353,6 +435,11 @@
      ],
      "answer": 2,
      "explain": "sec x = 1/cos x and cos(π/2) = 0, so sec(π/2) does not exist; no x has sec⁻¹ x = π/2.",
+     "steps": [
+      "sec(π/2) = 1/cos(π/2) = 1/0, which is undefined",
+      "So no x gives sec⁻¹ x = π/2; it is removed from [0, π]",
+      "Answer: Because sec(π/2) is not defined"
+     ],
      "mistake": "Mixes up which functions are undefined at π/2"
     },
     {
@@ -365,6 +452,11 @@
      ],
      "answer": 3,
      "explain": "cos⁻¹(−1) = π, since cos π = −1 and π is in [0, π]. The graph runs from (−1, π) down to (1, 0).",
+     "steps": [
+      "cos π = −1 and π ∈ [0, π], so cos⁻¹(−1) = π",
+      "So (−1, π) lies on the graph; (0, 0) fails since cos⁻¹ 0 = π/2",
+      "Answer: (−1, π)"
+     ],
      "mistake": "Thinks cos⁻¹ is increasing like sin⁻¹"
     },
     {
@@ -377,6 +469,11 @@
      ],
      "answer": 3,
      "explain": "The graph of an inverse is the mirror image of the original in y = x; swapping coordinates swaps domain and range.",
+     "steps": [
+      "Rule: graph of an inverse = mirror image of the restricted function in y = x",
+      "Reflecting in y = x swaps the coordinates (x, y) → (y, x)",
+      "Answer: By reflecting it in the line y = x"
+     ],
      "mistake": "Reflects in an axis instead of the line y = x"
     },
     {
@@ -389,6 +486,11 @@
      ],
      "answer": 2,
      "explain": "tan θ → ∞ as θ → π/2 from the left, so tan⁻¹ x → π/2 but never reaches it.",
+     "steps": [
+      "On (−π/2, π/2), tan θ → ∞ as θ → π/2 from the left",
+      "So tan⁻¹ x → π/2 as x → ∞, never reaching it (asymptote y = π/2)",
+      "Answer: π/2"
+     ],
      "mistake": "Thinks tan⁻¹ grows without bound like x"
     },
     {
@@ -401,6 +503,12 @@
      ],
      "answer": 2,
      "explain": "Because restricted tan is onto R, its inverse accepts every real input. R directly explains A.",
+     "steps": [
+      "R: restricted tan on (−π/2, π/2) takes every real value — true",
+      "So the inverse tan⁻¹ accepts every real input: A is true",
+      "R is exactly why A holds",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks tan⁻¹ has a bounded domain like sin⁻¹"
     }
    ],
@@ -431,7 +539,27 @@
     "c2.2.5",
     "c2.2.6",
     "c2.2.8"
-   ]
+   ],
+   "revise": {
+    "summary": "tan⁻¹ and cot⁻¹ accept every real number, while sec⁻¹ and cosec⁻¹ accept only |x| ≥ 1. The graph of each inverse is the mirror image of the restricted function in y = x.",
+    "focus": [
+     "State domains and ranges of tan⁻¹, cot⁻¹, sec⁻¹, cosec⁻¹",
+     "Explain the excluded values 0 and π/2",
+     "Read points and asymptotes from the graphs"
+    ],
+    "remember": [
+     "tan⁻¹: R → (−π/2, π/2); cot⁻¹: R → (0, π)",
+     "cosec⁻¹: R − (−1, 1) → [−π/2, π/2] − {0}",
+     "sec⁻¹: R − (−1, 1) → [0, π] − {π/2}",
+     "Inverse graph = reflection in y = x"
+    ],
+    "traps": [
+     "Don't use the tan⁻¹ branch for cot⁻¹",
+     "Don't forget 0 is removed from the cosec⁻¹ range and π/2 from the sec⁻¹ range",
+     "cos⁻¹ is decreasing: its graph goes from (−1, π) to (1, 0)"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-02-03",
@@ -534,6 +662,12 @@
      ],
      "answer": 2,
      "explain": "cos⁻¹(−x) = π − cos⁻¹ x, so cos⁻¹(−√3/2) = π − π/6 = 5π/6, which lies in [0, π].",
+     "steps": [
+      "Rule: cos⁻¹(−x) = π − cos⁻¹ x",
+      "cos⁻¹(√3/2) = π/6",
+      "cos⁻¹(−√3/2) = π − π/6 = 5π/6, which lies in [0, π]",
+      "Answer: 5π/6"
+     ],
      "mistake": "Treats cos⁻¹ like sin⁻¹ and gives a negative angle"
     },
     {
@@ -546,6 +680,12 @@
      ],
      "answer": 0,
      "explain": "sec θ = −2 means cos θ = −1/2. In [0, π] − {π/2}, θ = 2π/3.",
+     "steps": [
+      "sec θ = −2 ⇒ cos θ = −1/2",
+      "θ must lie in [0, π] − {π/2}",
+      "cos(2π/3) = −1/2, so θ = 2π/3",
+      "Answer: 2π/3"
+     ],
      "mistake": "Gives a negative angle, which is outside the sec⁻¹ branch"
     },
     {
@@ -558,6 +698,12 @@
      ],
      "answer": 1,
      "explain": "cosec θ = −√2 means sin θ = −1/√2. In [−π/2, π/2] − {0}, θ = −π/4.",
+     "steps": [
+      "cosec θ = −√2 ⇒ sin θ = −1/√2",
+      "θ must lie in [−π/2, π/2] − {0}",
+      "sin(−π/4) = −1/√2, so θ = −π/4",
+      "Answer: −π/4"
+     ],
      "mistake": "Picks an angle from the second or third quadrant"
     },
     {
@@ -570,6 +716,12 @@
      ],
      "answer": 3,
      "explain": "cos⁻¹(1/2) = π/3 and sin⁻¹(1/2) = π/6, so the sum is π/3 + 2(π/6) = 2π/3.",
+     "steps": [
+      "cos⁻¹(1/2) = π/3; sin⁻¹(1/2) = π/6",
+      "π/3 + 2 × π/6 = π/3 + π/3",
+      "= 2π/3",
+      "Answer: 2π/3"
+     ],
      "mistake": "Forgets to double sin⁻¹(1/2)"
     },
     {
@@ -582,6 +734,12 @@
      ],
      "answer": 2,
      "explain": "tan⁻¹(√3) = π/3 and sec⁻¹(−2) = 2π/3, so the difference is π/3 − 2π/3 = −π/3.",
+     "steps": [
+      "tan⁻¹(√3) = π/3",
+      "sec⁻¹(−2) = π − sec⁻¹(2) = π − π/3 = 2π/3",
+      "π/3 − 2π/3 = −π/3",
+      "Answer: −π/3"
+     ],
      "mistake": "Adds the two values instead of subtracting, or takes sec⁻¹(−2) as π/3"
     },
     {
@@ -594,6 +752,12 @@
      ],
      "answer": 3,
      "explain": "tan⁻¹ is odd: tan⁻¹(−1) = −tan⁻¹(1) = −π/4, which lies in (−π/2, π/2).",
+     "steps": [
+      "tan⁻¹ is odd: tan⁻¹(−x) = −tan⁻¹ x",
+      "tan⁻¹(1) = π/4",
+      "tan⁻¹(−1) = −π/4, which lies in (−π/2, π/2)",
+      "Answer: −π/4"
+     ],
      "mistake": "Uses the cot⁻¹ style rule π − θ for tan⁻¹"
     },
     {
@@ -606,6 +770,12 @@
      ],
      "answer": 0,
      "explain": "cot⁻¹(−x) = π − cot⁻¹ x, so the value is π − π/6 = 5π/6, inside (0, π).",
+     "steps": [
+      "Rule: cot⁻¹(−x) = π − cot⁻¹ x",
+      "cot⁻¹(√3) = π/6",
+      "cot⁻¹(−√3) = π − π/6 = 5π/6, inside (0, π)",
+      "Answer: 5π/6"
+     ],
      "mistake": "Treats cot⁻¹ as an odd function like tan⁻¹"
     },
     {
@@ -618,6 +788,12 @@
      ],
      "answer": 3,
      "explain": "sin(7π/6) is indeed −1/2, but 7π/6 is not in [−π/2, π/2]. The principal value is −π/6, so A is false.",
+     "steps": [
+      "R: sin(7π/6) = −sin(π/6) = −1/2 — true",
+      "But 7π/6 is not in the branch [−π/2, π/2]",
+      "Principal value: sin⁻¹(−1/2) = −π/6, so A is false",
+      "Answer: A is false but R is true"
+     ],
      "mistake": "Accepts any angle with the right sine, ignoring the branch"
     }
    ],
@@ -651,7 +827,26 @@
     "c2.2.7",
     "c2.2.10",
     "c2.2.11"
-   ]
+   ],
+   "revise": {
+    "summary": "A principal value is the value inside the principal branch. sin⁻¹, tan⁻¹ and cosec⁻¹ are odd, but cos⁻¹, sec⁻¹ and cot⁻¹ of −x equal π minus the value at x.",
+    "focus": [
+     "Find principal values of negative inputs",
+     "Evaluate sums and differences of principal values",
+     "Reject angles outside the branch"
+    ],
+    "remember": [
+     "sin⁻¹(−x) = −sin⁻¹ x; tan⁻¹(−x) = −tan⁻¹ x; cosec⁻¹(−x) = −cosec⁻¹ x",
+     "cos⁻¹(−x) = π − cos⁻¹ x; sec⁻¹(−x) = π − sec⁻¹ x; cot⁻¹(−x) = π − cot⁻¹ x",
+     "sin⁻¹(1/2) = π/6, cos⁻¹(1/2) = π/3, tan⁻¹ 1 = π/4, tan⁻¹ √3 = π/3"
+    ],
+    "traps": [
+     "Don't give a negative answer for cos⁻¹, sec⁻¹ or cot⁻¹",
+     "Don't treat cot⁻¹ as odd like tan⁻¹",
+     "An angle with the right sine (like 7π/6) is not the principal value unless it lies in the branch"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-02-04",
@@ -737,6 +932,12 @@
      ],
      "answer": 3,
      "explain": "sin(2π/3) = sin(π − π/3) = sin(π/3), and π/3 is in [−π/2, π/2]. So the value is π/3.",
+     "steps": [
+      "2π/3 is outside [−π/2, π/2], so we cannot cancel directly",
+      "sin(2π/3) = sin(π − π/3) = sin(π/3)",
+      "π/3 ∈ [−π/2, π/2], so sin⁻¹(sin π/3) = π/3",
+      "Answer: π/3"
+     ],
      "mistake": "Cancels sin⁻¹ and sin without checking the branch"
     },
     {
@@ -749,6 +950,12 @@
      ],
      "answer": 0,
      "explain": "cos(7π/6) = −√3/2 and cos⁻¹(−√3/2) = 5π/6, which lies in [0, π].",
+     "steps": [
+      "7π/6 is outside [0, π], so we cannot cancel directly",
+      "cos(7π/6) = −cos(π/6) = −√3/2",
+      "cos⁻¹(−√3/2) = π − π/6 = 5π/6",
+      "Answer: 5π/6"
+     ],
      "mistake": "Cancels directly, giving an angle outside [0, π]"
     },
     {
@@ -761,6 +968,12 @@
      ],
      "answer": 3,
      "explain": "sin⁻¹(1/2) = π/6, so 2 sin⁻¹(1/2) = π/3. cos(π/3) = 1/2, so 2 cos(π/3) = 1, and tan⁻¹(1) = π/4.",
+     "steps": [
+      "sin⁻¹(1/2) = π/6, so 2 sin⁻¹(1/2) = π/3",
+      "cos(π/3) = 1/2, so 2 cos(π/3) = 1",
+      "tan⁻¹(1) = π/4",
+      "Answer: π/4"
+     ],
      "mistake": "Doubles the wrong quantity or uses cos(π/6)"
     },
     {
@@ -776,7 +989,8 @@
      "steps": [
       "sin⁻¹(−1/2) = −π/6",
       "π/3 − (−π/6) = π/2",
-      "sin(π/2) = 1"
+      "sin(π/2) = 1",
+      "Answer: 1"
      ],
      "mistake": "Takes sin⁻¹(−1/2) as +π/6",
      "check": "1"
@@ -791,6 +1005,13 @@
      ],
      "answer": 1,
      "explain": "cos x/(1 − sin x) = (cos(x/2) + sin(x/2))/(cos(x/2) − sin(x/2)) = tan(π/4 + x/2), and π/4 + x/2 lies in (0, π/2).",
+     "steps": [
+      "cos x = cos²(x/2) − sin²(x/2); 1 − sin x = (cos(x/2) − sin(x/2))²",
+      "Ratio = (cos(x/2) + sin(x/2))/(cos(x/2) − sin(x/2))",
+      "Divide by cos(x/2): (1 + tan(x/2))/(1 − tan(x/2)) = tan(π/4 + x/2)",
+      "π/4 + x/2 ∈ (0, π/2), so tan⁻¹ gives π/4 + x/2",
+      "Answer: π/4 + x/2"
+     ],
      "mistake": "Makes a sign slip when dividing numerator and denominator by cos(x/2)"
     },
     {
@@ -803,6 +1024,12 @@
      ],
      "answer": 1,
      "explain": "Put x = a sin θ: √(a² − x²) = a cos θ, so the ratio is tan θ and the expression is θ = sin⁻¹(x/a).",
+     "steps": [
+      "Put x = a sin θ; then √(a² − x²) = a cos θ",
+      "x/√(a² − x²) = a sin θ / (a cos θ) = tan θ",
+      "tan⁻¹(tan θ) = θ = sin⁻¹(x/a)",
+      "Answer: sin⁻¹(x/a)"
+     ],
      "mistake": "Uses the substitution x = a tan θ, which suits a² + x², not a² − x²"
     },
     {
@@ -815,6 +1042,12 @@
      ],
      "answer": 2,
      "explain": "(1 − cos x)/(1 + cos x) = tan²(x/2), and tan(x/2) > 0 for x ∈ (0, π), so the expression is tan⁻¹(tan x/2) = x/2.",
+     "steps": [
+      "1 − cos x = 2 sin²(x/2); 1 + cos x = 2 cos²(x/2)",
+      "Ratio = tan²(x/2); √ gives tan(x/2), positive for x ∈ (0, π)",
+      "x/2 ∈ (0, π/2), so tan⁻¹(tan x/2) = x/2",
+      "Answer: x/2"
+     ],
      "mistake": "Uses half-angle formulas but forgets to take the half angle"
     },
     {
@@ -827,6 +1060,12 @@
      ],
      "answer": 1,
      "explain": "sin(3π/5) = sin(π − 3π/5) = sin(2π/5), and 2π/5 lies in [−π/2, π/2]; by R the answer is 2π/5.",
+     "steps": [
+      "sin(3π/5) = sin(π − 3π/5) = sin(2π/5)",
+      "2π/5 lies in [−π/2, π/2]",
+      "By R, sin⁻¹(sin 2π/5) = 2π/5, so A is true and R explains it",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks the answer must be 3π/5"
     }
    ],
@@ -861,7 +1100,26 @@
     "c2.3.3",
     "c2.3.4",
     "c2.3.5"
-   ]
+   ],
+   "revise": {
+    "summary": "sin⁻¹(sin x) = x only when x is in the branch; otherwise rewrite the angle inside the branch first. Substitutions such as x = tan θ or x = a sin θ reduce expressions to simplest form.",
+    "focus": [
+     "Evaluate sin⁻¹(sin x), cos⁻¹(cos x) for angles outside the branch",
+     "Simplify expressions with x = tan θ, sin θ, sec θ substitutions",
+     "Evaluate nested expressions step by step"
+    ],
+    "remember": [
+     "sin⁻¹(sin x) = x only for x ∈ [−π/2, π/2]; cos⁻¹(cos x) = x only for x ∈ [0, π]",
+     "1 + x² → x = tan θ; a² − x² → x = a sin θ; x² − 1 → x = sec θ",
+     "2 tan⁻¹ x = sin⁻¹(2x/(1 + x²)) for |x| ≤ 1"
+    ],
+    "traps": [
+     "Don't cancel sin⁻¹ and sin without checking the branch",
+     "Don't use x = a tan θ for a² − x²",
+     "Check the half angle lies in the branch before the last step"
+    ],
+    "level": "advanced"
+   }
   }
  ]
 }

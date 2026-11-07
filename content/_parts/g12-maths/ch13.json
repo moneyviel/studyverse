@@ -88,7 +88,8 @@
      "explain": "P(E|F) = 0.2/0.3 = 2/3.",
      "steps": [
       "P(E ∩ F)/P(F)",
-      "0.2/0.3 = 2/3"
+      "0.2/0.3 = 2/3",
+      "Answer: 2/3"
      ],
      "mistake": "Divides by P(E) instead of P(F)",
      "check": "Fraction(2,3)"
@@ -105,7 +106,8 @@
      "explain": "P(F|E) = 0.2/0.6 = 1/3, which differs from P(E|F).",
      "steps": [
       "P(E ∩ F)/P(E)",
-      "0.2/0.6 = 1/3"
+      "0.2/0.6 = 1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Assumes P(F|E) = P(E|F)",
      "check": "Fraction(2,6)"
@@ -123,7 +125,8 @@
      "steps": [
       "F = {BB, BG, GB}",
       "E ∩ F = {BB}",
-      "1/3"
+      "1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Forgets that BG and GB are different outcomes",
      "check": "Fraction(1,3)"
@@ -140,7 +143,8 @@
      "explain": "Given set: {BB, BG}. Only BB: 1/2.",
      "steps": [
       "F = {BB, BG}",
-      "P = 1/2"
+      "P = 1/2",
+      "Answer: 1/2"
      ],
      "mistake": "Treats it like the 'at least one boy' problem",
      "check": "Fraction(1,2)"
@@ -158,7 +162,8 @@
      "steps": [
       "n(F) = 4",
       "n(E ∩ F) = 3",
-      "3/4"
+      "3/4",
+      "Answer: 3/4"
      ],
      "mistake": "Uses the full sample space of 8 outcomes",
      "check": "Fraction(3,4)"
@@ -176,7 +181,8 @@
      "steps": [
       "F: first die 5 (6 outcomes)",
       "Sum ≥ 10: (5,5), (5,6)",
-      "2/6 = 1/3"
+      "2/6 = 1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Counts outcomes in the full 36-outcome space",
      "check": "Fraction(2,6)"
@@ -191,6 +197,12 @@
      ],
      "answer": 0,
      "explain": "If F cannot happen, 'given F' makes no sense, and the formula would divide by zero.",
+     "steps": [
+      "P(E|F) is the chance of E when F is known to have happened",
+      "If P(F) = 0, F cannot happen, so 'given F' has no meaning",
+      "Also the formula P(E ∩ F)/P(F) would divide by 0",
+      "Answer: We cannot condition on an impossible event, and we cannot divide by zero"
+     ],
      "mistake": "Thinks the condition is on P(E)"
     },
     {
@@ -203,6 +215,12 @@
      ],
      "answer": 2,
      "explain": "Reduced space {2, 4, 6} has 3 outcomes, one of which is 2. R explains A.",
+     "steps": [
+      "R: given F, the sample space reduces to F — true",
+      "F = even = {2, 4, 6}, 3 outcomes; E ∩ F = {2}, 1 outcome",
+      "P(2 | even) = 1/3, found using R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Uses 1/6 from the full sample space"
     }
    ],
@@ -233,7 +251,25 @@
     "c13.1.1",
     "c13.2.1",
     "c13.2.2"
-   ]
+   ],
+   "revise": {
+    "summary": "P(E|F) = P(E ∩ F)/P(F) is the probability of E when F is known to have happened, with P(F) ≠ 0. For equally likely outcomes, F becomes the new sample space.",
+    "focus": [
+     "Compute P(E|F) from given probabilities",
+     "Use the reduced sample space for dice, coins and families",
+     "Tell P(E|F) from P(F|E)"
+    ],
+    "remember": [
+     "P(E|F) = P(E ∩ F)/P(F), P(F) ≠ 0",
+     "Equally likely: P(E|F) = n(E ∩ F)/n(F)"
+    ],
+    "traps": [
+     "Divide by P(F), the given event, not by P(E)",
+     "'At least one boy' and 'elder is a boy' give different reduced spaces",
+     "Don't use the full sample space after conditioning"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-13-02",
@@ -339,7 +375,9 @@
      "answer": 2,
      "explain": "P(E′|F) = 1 − P(E|F) = 0.6.",
      "steps": [
-      "1 − 0.4 = 0.6"
+      "Rule: P(E′|F) = 1 − P(E|F)",
+      "1 − 0.4 = 0.6",
+      "Answer: 0.6"
      ],
      "mistake": "Thinks the complement rule does not apply to conditional probability",
      "check": "1-0.4"
@@ -356,7 +394,8 @@
      "explain": "0.5 + 0.3 − 0.1 = 0.7.",
      "steps": [
       "P(A|F) + P(B|F) − P(A ∩ B|F)",
-      "= 0.7"
+      "= 0.7",
+      "Answer: 0.7"
      ],
      "mistake": "Forgets to subtract the intersection",
      "check": "0.5+0.3-0.1"
@@ -374,7 +413,8 @@
      "steps": [
       "n(F) = 12",
       "n(E ∩ F) = 4",
-      "4/12 = 1/3"
+      "4/12 = 1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Uses the full pack of 52",
      "check": "Fraction(4,12)"
@@ -392,7 +432,8 @@
      "steps": [
       "F = 6 doublets",
       "E ∩ F = {(3, 3)}",
-      "1/6"
+      "1/6",
+      "Answer: 1/6"
      ],
      "mistake": "Counts all ways to get sum 6 (5 ways)",
      "check": "Fraction(1,6)"
@@ -407,6 +448,11 @@
      ],
      "answer": 3,
      "explain": "P(S ∩ F)/P(F) = P(F)/P(F) = 1.",
+     "steps": [
+      "P(S|F) = P(S ∩ F)/P(F)",
+      "S ∩ F = F, so P(S|F) = P(F)/P(F)",
+      "Answer: 1"
+     ],
      "mistake": "Confuses P(S|F) with P(F)",
      "check": "1"
     },
@@ -422,7 +468,8 @@
      "explain": "E ∩ F = {1, 3}, so P(E|F) = 2/3 and P(E′|F) = 1/3.",
      "steps": [
       "P(E|F) = 2/3",
-      "P(E′|F) = 1 − 2/3 = 1/3"
+      "P(E′|F) = 1 − 2/3 = 1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Gives P(E|F) instead of its complement",
      "check": "1-Fraction(2,3)"
@@ -439,7 +486,8 @@
      "explain": "Given set {HT, TH, TT}; exactly one head: HT, TH. 2/3.",
      "steps": [
       "n(F) = 3",
-      "n(E ∩ F) = 2"
+      "n(E ∩ F) = 2",
+      "Answer: 2/3"
      ],
      "mistake": "Uses the 4-outcome sample space",
      "check": "Fraction(2,3)"
@@ -454,6 +502,11 @@
      ],
      "answer": 3,
      "explain": "Using the union rule for disjoint events, P((E ∪ E′)|F) = P(S|F) = 1, which gives A.",
+     "steps": [
+      "R: E ∩ E′ = φ and E ∪ E′ = S — true",
+      "So P(E|F) + P(E′|F) = P((E ∪ E′)|F) = P(S|F) = 1",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks complements need independence"
     }
    ],
@@ -483,7 +536,26 @@
    "covers": [
     "c13.2.3",
     "c13.2.4"
-   ]
+   ],
+   "revise": {
+    "summary": "Conditional probability follows the usual rules within F: P(S|F) = 1, the union rule, and P(E′|F) = 1 − P(E|F).",
+    "focus": [
+     "Use the complement and union rules for conditional probability",
+     "Solve card, dice and coin problems with a condition"
+    ],
+    "remember": [
+     "P(S|F) = P(F|F) = 1",
+     "P((A ∪ B)|F) = P(A|F) + P(B|F) − P((A ∩ B)|F)",
+     "P(E′|F) = 1 − P(E|F)",
+     "Pack: 52 cards, 13 per suit, 12 face cards, 26 red"
+    ],
+    "traps": [
+     "Subtract the intersection in the union rule",
+     "Use 12 face cards, not 52, when the card is known to be a face card",
+     "Don't give P(E|F) when its complement is asked"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-13-03",
@@ -565,7 +637,8 @@
      "explain": "(10/15)(9/14) = 90/210 = 3/7.",
      "steps": [
       "10/15 × 9/14",
-      "= 3/7"
+      "= 3/7",
+      "Answer: 3/7"
      ],
      "mistake": "Uses 10/15 twice, as if with replacement",
      "check": "Fraction(10,15)*Fraction(9,14)"
@@ -582,7 +655,8 @@
      "explain": "(5/10)(3/9)(2/8) = 30/720 = 1/24.",
      "steps": [
       "5/10 × 3/9 × 2/8",
-      "= 30/720 = 1/24"
+      "= 30/720 = 1/24",
+      "Answer: 1/24"
      ],
      "mistake": "Keeps the denominator 10 for every draw, getting 3/100",
      "check": "Fraction(5,10)*Fraction(3,9)*Fraction(2,8)"
@@ -599,7 +673,8 @@
      "explain": "(5/8)(3/7) = 15/56.",
      "steps": [
       "5/8 × 3/7",
-      "= 15/56"
+      "= 15/56",
+      "Answer: 15/56"
      ],
      "mistake": "Keeps 8 in the second denominator",
      "check": "Fraction(5,8)*Fraction(3,7)"
@@ -616,7 +691,8 @@
      "explain": "P(E ∩ F) = P(E) P(F|E) = 0.5 × 0.4 = 0.2.",
      "steps": [
       "0.5 × 0.4",
-      "= 0.2"
+      "= 0.2",
+      "Answer: 0.2"
      ],
      "mistake": "Adds instead of multiplying",
      "check": "0.5*0.4"
@@ -633,7 +709,8 @@
      "explain": "(4/20)(3/19) = 12/380 = 3/95.",
      "steps": [
       "4/20 × 3/19",
-      "= 12/380 = 3/95"
+      "= 12/380 = 3/95",
+      "Answer: 3/95"
      ],
      "mistake": "Uses 4/20 for both draws",
      "check": "Fraction(4,20)*Fraction(3,19)"
@@ -650,7 +727,8 @@
      "explain": "(13/52)(12/51) = 156/2652 = 1/17.",
      "steps": [
       "13/52 × 12/51",
-      "= 1/17"
+      "= 1/17",
+      "Answer: 1/17"
      ],
      "mistake": "Stops after the first draw and gives 1/4",
      "check": "Fraction(13,52)*Fraction(12,51)"
@@ -665,6 +743,12 @@
      ],
      "answer": 0,
      "explain": "The multiplication theorem extends step by step, each factor conditioned on everything before it.",
+     "steps": [
+      "Multiplication theorem, one event at a time",
+      "P(E ∩ F ∩ G) = P(E) × P(F|E) × P(G|E ∩ F)",
+      "Each factor is conditioned on everything before it; P(E)P(F)P(G) needs independence",
+      "Answer: P(E) P(F|E) P(G|E ∩ F)"
+     ],
      "mistake": "Assumes independence without being told"
     },
     {
@@ -677,6 +761,12 @@
      ],
      "answer": 0,
      "explain": "With r red out of n (r < n), (r − 1)/(n − 1) < r/n. R explains why.",
+     "steps": [
+      "With r red in n balls (0 < r < n): P(first red) = r/n",
+      "P(second red | first red) = (r − 1)/(n − 1), and (r − 1)/(n − 1) < r/n since r < n",
+      "R: removing a red ball lowers the red proportion — that is the reason",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks the second probability stays the same"
     }
    ],
@@ -705,7 +795,26 @@
     "c13.3.1",
     "c13.3.2",
     "c13.3.3"
-   ]
+   ],
+   "revise": {
+    "summary": "P(E ∩ F) = P(E)P(F|E), and for three events P(E ∩ F ∩ G) = P(E)P(F|E)P(G|E ∩ F). Without replacement, the counts change after each draw.",
+    "focus": [
+     "Find probabilities of successive draws without replacement",
+     "Use P(E ∩ F) = P(E)P(F|E)",
+     "Extend to three events"
+    ],
+    "remember": [
+     "P(E ∩ F) = P(E)P(F|E) = P(F)P(E|F)",
+     "P(E ∩ F ∩ G) = P(E)P(F|E)P(G|E ∩ F)",
+     "Without replacement: reduce both numerator and denominator"
+    ],
+    "traps": [
+     "Don't keep the same denominator on later draws",
+     "Multiply, don't add, for 'and'",
+     "Don't assume independence unless told"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-13-04",
@@ -810,7 +919,8 @@
      "explain": "Independence gives P(A ∩ B) = (1/2)(1/3) = 1/6.",
      "steps": [
       "P(A)P(B)",
-      "= 1/6"
+      "= 1/6",
+      "Answer: 1/6"
      ],
      "mistake": "Adds the probabilities",
      "check": "Fraction(1,2)*Fraction(1,3)"
@@ -827,7 +937,8 @@
      "explain": "1/2 + 1/3 − 1/6 = 2/3.",
      "steps": [
       "1/2 + 1/3 − 1/6",
-      "= 2/3"
+      "= 2/3",
+      "Answer: 2/3"
      ],
      "mistake": "Forgets to subtract P(A ∩ B)",
      "check": "Fraction(1,2)+Fraction(1,3)-Fraction(1,6)"
@@ -844,7 +955,8 @@
      "explain": "0.3 + 0.4 − 0.12 = 0.58.",
      "steps": [
       "P(A ∩ B) = 0.12",
-      "0.3 + 0.4 − 0.12 = 0.58"
+      "0.3 + 0.4 − 0.12 = 0.58",
+      "Answer: 0.58"
      ],
      "mistake": "Treats A and B as mutually exclusive",
      "check": "0.3+0.4-0.12"
@@ -859,6 +971,12 @@
      ],
      "answer": 0,
      "explain": "E ∩ F = {1, 3}, probability 1/3, which is not (1/2)(1/2).",
+     "steps": [
+      "P(E) = 3/6 = 1/2; P(F) = 3/6 = 1/2; P(E)P(F) = 1/4",
+      "E ∩ F = {1, 3}, so P(E ∩ F) = 2/6 = 1/3",
+      "1/3 ≠ 1/4, so not independent",
+      "Answer: No, since P(E ∩ F) = 1/3 but P(E)P(F) = 1/4"
+     ],
      "mistake": "Thinks equal probabilities mean independence"
     },
     {
@@ -871,6 +989,12 @@
      ],
      "answer": 0,
      "explain": "Mutually exclusive gives P(A ∩ B) = 0 ≠ P(A)P(B).",
+     "steps": [
+      "Mutually exclusive: P(A ∩ B) = 0",
+      "Independent: P(A ∩ B) = P(A)P(B) > 0 when both are positive",
+      "Both cannot hold, so mutually exclusive events are not independent",
+      "Answer: If they are mutually exclusive, they are not independent"
+     ],
      "mistake": "Confuses 'independent' with 'cannot happen together'"
     },
     {
@@ -885,7 +1009,8 @@
      "explain": "Only the ace of spades: 1/52, which equals (1/4)(1/13), so E and F are independent.",
      "steps": [
       "Ace of spades only",
-      "1/52 = (13/52)(4/52)"
+      "1/52 = (13/52)(4/52)",
+      "Answer: 1/52"
      ],
      "mistake": "Adds P(E) and P(F)",
      "check": "Fraction(1,52)"
@@ -900,6 +1025,11 @@
      ],
      "answer": 3,
      "explain": "Mutual independence needs all three pairwise products and the triple product.",
+     "steps": [
+      "Pairwise: P(E ∩ F) = P(E)P(F), P(F ∩ G) = P(F)P(G), P(E ∩ G) = P(E)P(G)",
+      "Mutual independence also needs the triple product rule",
+      "Answer: P(E ∩ F ∩ G) = P(E)P(F)P(G)"
+     ],
      "mistake": "Thinks pairwise independence is enough"
     },
     {
@@ -912,6 +1042,12 @@
      ],
      "answer": 2,
      "explain": "Substituting the independence condition in the definition gives P(A|B) = P(A).",
+     "steps": [
+      "Independent ⇒ P(A ∩ B) = P(A)P(B)",
+      "R: P(A|B) = P(A ∩ B)/P(B) = P(A)P(B)/P(B) = P(A) — true",
+      "So A follows directly from R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Does not connect the two definitions of independence"
     }
    ],
@@ -943,7 +1079,26 @@
     "c13.4.1",
     "c13.4.2",
     "c13.4.3"
-   ]
+   ],
+   "revise": {
+    "summary": "E and F are independent when P(E ∩ F) = P(E)P(F), i.e. knowing F does not change P(E). Independent events are not the same as mutually exclusive events.",
+    "focus": [
+     "Test independence by comparing P(E ∩ F) and P(E)P(F)",
+     "Use independence to find P(A ∩ B) and P(A ∪ B)",
+     "Know the conditions for three events"
+    ],
+    "remember": [
+     "Independent ⇔ P(E ∩ F) = P(E)P(F) ⇔ P(E|F) = P(E)",
+     "Mutually exclusive ⇔ P(E ∩ F) = 0",
+     "Mutual independence of three needs pairwise and triple product rules"
+    ],
+    "traps": [
+     "Independent does not mean mutually exclusive",
+     "Equal probabilities do not prove independence",
+     "Pairwise independence is not enough for mutual independence"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-13-05",
@@ -1023,7 +1178,8 @@
      "explain": "P(no head) = (1/2)³ = 1/8, so P(at least one) = 7/8.",
      "steps": [
       "P(TTT) = 1/8",
-      "1 − 1/8 = 7/8"
+      "1 − 1/8 = 7/8",
+      "Answer: 7/8"
      ],
      "mistake": "Counts only exactly one head",
      "check": "1-Fraction(1,8)"
@@ -1040,7 +1196,8 @@
      "explain": "P(neither) = (1/2)(2/3) = 1/3, so P(solved) = 2/3.",
      "steps": [
       "P(neither) = 1/2 × 2/3 = 1/3",
-      "1 − 1/3 = 2/3"
+      "1 − 1/3 = 2/3",
+      "Answer: 2/3"
      ],
      "mistake": "Adds 1/2 + 1/3 = 5/6",
      "check": "1-Fraction(1,3)"
@@ -1057,7 +1214,8 @@
      "explain": "A and B′ are independent: 0.3 × 0.6 = 0.18.",
      "steps": [
       "P(B′) = 0.6",
-      "0.3 × 0.6 = 0.18"
+      "0.3 × 0.6 = 0.18",
+      "Answer: 0.18"
      ],
      "mistake": "Uses P(B) instead of P(B′)",
      "check": "0.3*0.6"
@@ -1074,7 +1232,8 @@
      "explain": "With replacement the draws are independent: (1/13)(1/13) = 1/169.",
      "steps": [
       "(4/52)²",
-      "= 1/169"
+      "= 1/169",
+      "Answer: 1/169"
      ],
      "mistake": "Uses the without-replacement answer",
      "check": "Fraction(1,13)**2"
@@ -1091,7 +1250,8 @@
      "explain": "P(no six) = (5/6)² = 25/36, so the answer is 11/36.",
      "steps": [
       "1 − (5/6)²",
-      "= 11/36"
+      "= 11/36",
+      "Answer: 11/36"
      ],
      "mistake": "Adds 1/6 + 1/6 and double-counts (6, 6)",
      "check": "1-Fraction(25,36)"
@@ -1107,7 +1267,10 @@
      "answer": 0,
      "explain": "(1 − 0.2)(1 − 0.5) = 0.8 × 0.5 = 0.4.",
      "steps": [
-      "0.8 × 0.5 = 0.4"
+      "E, F independent ⇒ E′, F′ independent",
+      "P(E′) = 1 − 0.2 = 0.8; P(F′) = 1 − 0.5 = 0.5",
+      "P(E′ ∩ F′) = 0.8 × 0.5 = 0.4",
+      "Answer: 0.4"
      ],
      "mistake": "Computes 1 − P(E)P(F)",
      "check": "0.8*0.5"
@@ -1122,6 +1285,12 @@
      ],
      "answer": 0,
      "explain": "By De Morgan, A′ ∪ B′ = (A ∩ B)′, so P(A ∩ B) = 1 − 5/6 = 1/6, which equals (1/2)(1/3).",
+     "steps": [
+      "De Morgan: A′ ∪ B′ = (A ∩ B)′",
+      "P(A ∩ B) = 1 − 5/6 = 1/6",
+      "P(A)P(B) = (1/2)(1/3) = 1/6 = P(A ∩ B)",
+      "Answer: Yes, since P(A ∩ B) = 1/6 = P(A)P(B)"
+     ],
      "mistake": "Forgets De Morgan's law A′ ∪ B′ = (A ∩ B)′"
     },
     {
@@ -1134,6 +1303,12 @@
      ],
      "answer": 2,
      "explain": "1 − P(A) − P(B) + P(A)P(B) factorises as P(A′)P(B′), which is exactly the independence of A′ and B′.",
+     "steps": [
+      "P(A′ ∩ B′) = P((A ∪ B)′) = 1 − P(A ∪ B) = 1 − P(A) − P(B) + P(A)P(B)",
+      "This factorises as (1 − P(A))(1 − P(B)) = P(A′)P(B′) — so R is true",
+      "P(A′ ∩ B′) = P(A′)P(B′) is exactly independence of A′ and B′",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks complements of independent events are dependent"
     }
    ],
@@ -1164,7 +1339,27 @@
     "c13.4.4",
     "c13.4.5",
     "c13.4.6"
-   ]
+   ],
+   "revise": {
+    "summary": "If E and F are independent, so are their complements. 'At least one' is easiest as 1 − P(none), multiplying the complement probabilities for independent events.",
+    "focus": [
+     "Use 1 − P(none) for 'at least one'",
+     "Find P(A ∩ B′) and P(A′ ∩ B′) for independent events",
+     "Use De Morgan to test independence"
+    ],
+    "remember": [
+     "P(at least one) = 1 − P(E′)P(F′)P(G′) (independent)",
+     "P(E′ ∩ F′) = (1 − P(E))(1 − P(F))",
+     "A′ ∪ B′ = (A ∩ B)′",
+     "With replacement, draws are independent"
+    ],
+    "traps": [
+     "Don't add probabilities for 'at least one'",
+     "P(E′ ∩ F′) is not 1 − P(E)P(F)",
+     "Use P(B′), not P(B), in P(A ∩ B′)"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-13-06",
@@ -1238,7 +1433,8 @@
      "steps": [
       "Numerator: 5/22",
       "P(R) = 34/77",
-      "5/22 × 77/34 = 35/68"
+      "5/22 × 77/34 = 35/68",
+      "Answer: 35/68"
      ],
      "mistake": "Gives P(red | bag II) instead of P(bag II | red)",
      "check": "Fraction(5,22)/Fraction(34,77)"
@@ -1255,7 +1451,8 @@
      "explain": "Total probability: (1/2)(2/5) + (1/2)(4/5) = 3/5.",
      "steps": [
       "(1/2)(2/5) + (1/2)(4/5)",
-      "= 1/5 + 2/5 = 3/5"
+      "= 1/5 + 2/5 = 3/5",
+      "Answer: 3/5"
      ],
      "mistake": "Adds the bag probabilities without the 1/2 weights",
      "check": "Fraction(1,5)+Fraction(2,5)"
@@ -1273,7 +1470,8 @@
      "steps": [
       "Numerator 1/5",
       "Denominator 3/5",
-      "1/3"
+      "1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Uses the prior 1/2 as the answer",
      "check": "Fraction(1,5)/Fraction(3,5)"
@@ -1288,6 +1486,12 @@
      ],
      "answer": 3,
      "explain": "A partition splits S into non-overlapping parts that cover it, with positive probabilities.",
+     "steps": [
+      "Partition: no two of E₁, E₂, E₃ overlap",
+      "Together they make up S, and each has non-zero probability",
+      "They need not be equally likely or independent",
+      "Answer: Pairwise disjoint, union is S, each with non-zero probability"
+     ],
      "mistake": "Thinks the parts must be equally likely"
     },
     {
@@ -1300,6 +1504,11 @@
      ],
      "answer": 0,
      "explain": "It is the updated probability after A is observed.",
+     "steps": [
+      "P(Eᵢ) before observing A = prior",
+      "P(Eᵢ|A) after observing A = posterior",
+      "Answer: posterior probability"
+     ],
      "mistake": "Mixes up prior and posterior"
     },
     {
@@ -1312,6 +1521,12 @@
      ],
      "answer": 2,
      "explain": "P(Eᵢ ∩ A) = P(Eᵢ)P(A|Eᵢ) on top; P(A) by total probability below.",
+     "steps": [
+      "P(Eᵢ|A) = P(Eᵢ ∩ A)/P(A) (definition)",
+      "Top: P(Eᵢ ∩ A) = P(Eᵢ)P(A|Eᵢ) (multiplication theorem)",
+      "Bottom: P(A) = Σ P(Eⱼ)P(A|Eⱼ) (total probability)",
+      "Answer: the multiplication theorem and the theorem of total probability"
+     ],
      "mistake": "Assumes independence is needed"
     },
     {
@@ -1327,7 +1542,8 @@
      "steps": [
       "Numerator 3/8",
       "P(red) = 1/2",
-      "3/4"
+      "3/4",
+      "Answer: 3/4"
      ],
      "mistake": "Forgets to divide by P(red)",
      "check": "Fraction(3,8)/Fraction(1,2)"
@@ -1342,6 +1558,12 @@
      ],
      "answer": 2,
      "explain": "Because A = ∪(A ∩ Eᵢ) with disjoint pieces, P(A) = Σ P(A ∩ Eᵢ) = Σ P(Eᵢ)P(A|Eᵢ). R is the reason.",
+     "steps": [
+      "R: if the Eᵢ form a partition, A = (A ∩ E₁) ∪ (A ∩ E₂) ∪ …, with disjoint pieces — true",
+      "So P(A) = Σ P(A ∩ Eᵢ) = Σ P(Eᵢ)P(A|Eᵢ)",
+      "That is why a partition is required: R explains A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Uses overlapping events, which double-counts"
     }
    ],
@@ -1378,7 +1600,27 @@
     "c13.5.2",
     "c13.5.3",
     "c13.5.4"
-   ]
+   ],
+   "revise": {
+    "summary": "If E₁, …, Eₙ partition S, then P(A) = Σ P(Eᵢ)P(A|Eᵢ) (total probability). Bayes' theorem reverses the condition: P(Eᵢ|A) = P(Eᵢ)P(A|Eᵢ)/Σ P(Eⱼ)P(A|Eⱼ).",
+    "focus": [
+     "Find P(A) by total probability",
+     "Find a posterior probability with Bayes' theorem",
+     "Know the meaning of partition, prior and posterior"
+    ],
+    "remember": [
+     "P(A) = Σ P(Eᵢ)P(A|Eᵢ)",
+     "P(Eᵢ|A) = P(Eᵢ)P(A|Eᵢ) / Σ P(Eⱼ)P(A|Eⱼ)",
+     "Partition: disjoint, union S, each P(Eᵢ) > 0",
+     "Prior P(Eᵢ); posterior P(Eᵢ|A)"
+    ],
+    "traps": [
+     "Don't give P(A|Eᵢ) when P(Eᵢ|A) is asked",
+     "Weight each bag or group by its prior",
+     "Don't report the prior as the answer"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-13-07",
@@ -1459,7 +1701,8 @@
      "explain": "P(D) = 0.0345 and 0.35 × 0.04 = 0.014. 0.014/0.0345 = 28/69.",
      "steps": [
       "0.014/0.0345",
-      "= 140/345 = 28/69"
+      "= 140/345 = 28/69",
+      "Answer: 28/69"
      ],
      "mistake": "Uses B's share 35% as the answer",
      "check": "Fraction(14,1000)/Fraction(345,10000)"
@@ -1476,7 +1719,8 @@
      "explain": "0.40 × 0.02 = 0.008; 0.008/0.0345 = 80/345 = 16/69.",
      "steps": [
       "0.008/0.0345",
-      "= 16/69"
+      "= 16/69",
+      "Answer: 16/69"
      ],
      "mistake": "Gives P(defective | C) instead",
      "check": "Fraction(8,1000)/Fraction(345,10000)"
@@ -1494,7 +1738,8 @@
      "steps": [
       "Numerator 3/24",
       "Denominator 3/24 + 5/24",
-      "3/8"
+      "3/8",
+      "Answer: 3/8"
      ],
      "mistake": "Uses only his truth rate 3/4",
      "check": "Fraction(3,24)/Fraction(8,24)"
@@ -1512,7 +1757,8 @@
      "steps": [
       "Numerator 0.001 × 0.99",
       "P(+) = 0.005985",
-      "= 22/133"
+      "= 22/133",
+      "Answer: 22/133"
      ],
      "mistake": "Assumes the posterior equals the test's accuracy",
      "check": "Fraction(99,100000)/Fraction(5985,1000000)"
@@ -1529,7 +1775,8 @@
      "explain": "Priors 1/6, 1/3, 1/2. P(acc) = 0.01/6 + 0.01 + 0.075. Multiplying by 6: 0.01/(0.01 + 0.06 + 0.45) = 0.01/0.52 = 1/52.",
      "steps": [
       "Scale by 6: 0.01 : 0.06 : 0.45",
-      "0.01/0.52 = 1/52"
+      "0.01/0.52 = 1/52",
+      "Answer: 1/52"
      ],
      "mistake": "Uses the scooter share 1/6 as the answer",
      "check": "Fraction(1,100)/Fraction(52,100)"
@@ -1546,7 +1793,8 @@
      "explain": "Using the scaled weights 0.01, 0.06, 0.45: 0.45/0.52 = 45/52.",
      "steps": [
       "0.45/0.52",
-      "= 45/52"
+      "= 45/52",
+      "Answer: 45/52"
      ],
      "mistake": "Uses the truck share 1/2",
      "check": "Fraction(45,52)"
@@ -1564,7 +1812,8 @@
      "steps": [
       "Girls: 0.10",
       "Boys: 0.06",
-      "0.10/0.16 = 5/8"
+      "0.10/0.16 = 5/8",
+      "Answer: 5/8"
      ],
      "mistake": "Uses the prior 40% as the answer",
      "check": "Fraction(10,16)"
@@ -1579,6 +1828,12 @@
      ],
      "answer": 2,
      "explain": "In the 0.1% example, true positives are 0.00099 while false positives are 0.004995, about five times more. That gives a posterior near 0.165.",
+     "steps": [
+      "Rare disease example: P(disease) = 0.001",
+      "True positives: 0.001 × 0.99 = 0.00099; false positives: 0.999 × 0.005 = 0.004995",
+      "False positives are about 5 times the true positives, so P(disease | positive) ≈ 0.165",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Ignores the prior probability"
     }
    ],
@@ -1610,7 +1865,25 @@
     "c13.5.6",
     "c13.5.7",
     "c13.5.8"
-   ]
+   ],
+   "revise": {
+    "summary": "Bayes' theorem answers 'which source caused it' questions for factories, tests, truth-tellers and insurance groups. Weight each source by its share, then divide by the total probability.",
+    "focus": [
+     "Set up priors and likelihoods from a word problem",
+     "Compute the posterior for one source",
+     "Explain why rare-disease tests can mislead"
+    ],
+    "remember": [
+     "Posterior = (prior × likelihood) / Σ(prior × likelihood)",
+     "Rare events: false positives from the large group can outnumber true positives"
+    ],
+    "traps": [
+     "Don't use a machine's output share as the answer",
+     "Don't assume P(disease | positive) equals test accuracy",
+     "Scale percentages consistently before dividing"
+    ],
+    "level": "advanced"
+   }
   }
  ]
 }

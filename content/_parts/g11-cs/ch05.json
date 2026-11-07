@@ -91,6 +91,11 @@
      ],
      "answer": 2,
      "explain": "45 >= 33 is True, so only the if-block runs.",
+     "steps": [
+      "marks = 45: is 45 >= 33? True",
+      "So only the if-block runs",
+      "Answer: Pass"
+     ],
      "mistake": "Thinks both blocks run"
     },
     {
@@ -103,6 +108,11 @@
      ],
      "answer": 3,
      "explain": "5 > 10 is False, so 'Big' is skipped; 'Done' is outside the if and always runs.",
+     "steps": [
+      "x = 5: is 5 > 10? False, so 'Big' is skipped",
+      "print('Done') is outside the if",
+      "Answer: Done"
+     ],
      "mistake": "Thinks the unindented line belongs to the if"
     },
     {
@@ -115,6 +125,11 @@
      ],
      "answer": 2,
      "explain": "−3 < 0 is True, so n = −n = 3. This finds the absolute value.",
+     "steps": [
+      "n = −3: is −3 < 0? True",
+      "So n = −n = 3",
+      "Answer: 3"
+     ],
      "mistake": "Forgets that −(−3) = 3",
      "check": "3"
     },
@@ -128,6 +143,11 @@
      ],
      "answer": 3,
      "explain": "7 % 2 is 1, so 7 % 2 == 0 is False and the else-block prints 'B'.",
+     "steps": [
+      "7 % 2 = 1, so 7 % 2 == 0 is False",
+      "The else-block runs",
+      "Answer: B"
+     ],
      "mistake": "Reads 7 % 2 as 0"
     },
     {
@@ -140,6 +160,11 @@
      ],
      "answer": 1,
      "explain": "Every program is built from sequence, selection (conditions) and iteration (loops).",
+     "steps": [
+      "Programs are built from three structures",
+      "statements in order, choices by conditions, and loops",
+      "Answer: Sequential, selection and iteration"
+     ],
      "mistake": "Lists keywords instead of structures"
     },
     {
@@ -152,6 +177,12 @@
      ],
      "answer": 0,
      "explain": "else must be followed by a colon, and the block below it is indented.",
+     "steps": [
+      "After the if-block comes the else part",
+      "It must be written as 'else' followed by a colon",
+      "The missing line is else:",
+      "Answer: else:"
+     ],
      "mistake": "Forgets the colon after else"
     },
     {
@@ -164,6 +195,11 @@
      ],
      "answer": 0,
      "explain": "a > b is False (8 > 12 is False), so big = b = 12.",
+     "steps": [
+      "8 > 12 is False",
+      "So the else-block runs: big = b = 12",
+      "Answer: 12"
+     ],
      "mistake": "Picks the first variable without checking",
      "check": "12"
     },
@@ -177,6 +213,11 @@
      ],
      "answer": 0,
      "explain": "Both are true, but the fact that else is optional does not explain why if-else runs exactly one block.",
+     "steps": [
+      "A: in if-else exactly one block runs — true",
+      "R: an if can be written without an else — true, but that does not explain why if-else runs exactly one block",
+      "Answer: Both A and R are true but R is not the correct explanation of A"
+     ],
      "mistake": "Accepts any true reason as the explanation"
     }
    ],
@@ -205,6 +246,25 @@
     ],
     "praise": "The program checks a condition with if, runs one block, and else handles the other case. Decision-making unlocked!",
     "nudge": "Good. What happens when the if condition is False, and what are the three control structures?"
+   },
+   "revise": {
+    "summary": "Flow of control is the order in which statements run: sequential, selection or iteration. An if block runs only when its condition is True; in if-else exactly one of the two blocks runs. The colon after if and else is compulsory, and blocks are indented.",
+    "focus": [
+     "Name the three flow-of-control structures",
+     "Trace if and if-else statements",
+     "Write if-else with correct colons and indentation"
+    ],
+    "remember": [
+     "Structures: sequential, selection (conditional), iteration (repetition)",
+     "if condition: block runs only when the condition is True",
+     "if-else: exactly one of the two blocks runs",
+     "A colon (:) is required after if and else"
+    ],
+    "traps": [
+     "A statement outside the if block always runs",
+     "else must be followed by a colon"
+    ],
+    "level": "core"
    }
   },
   {
@@ -292,6 +352,11 @@
      ],
      "answer": 3,
      "explain": "65 >= 80 is False; 65 >= 60 is True, so 'B' prints and the ladder stops.",
+     "steps": [
+      "65 >= 80? False",
+      "65 >= 60? True, so 'B' prints and the ladder stops",
+      "Answer: B"
+     ],
      "mistake": "Thinks every True condition prints"
     },
     {
@@ -304,6 +369,11 @@
      ],
      "answer": 2,
      "explain": "4 > 0 is True, so 'Positive' prints.",
+     "steps": [
+      "n = 4: is 4 > 0? True",
+      "'Positive' prints and the rest is skipped",
+      "Answer: Positive"
+     ],
      "mistake": "Mixes up the conditions"
     },
     {
@@ -316,6 +386,11 @@
      ],
      "answer": 1,
      "explain": "x > 5 is True; inside, x > 15 is False, so the inner else prints 'C'.",
+     "steps": [
+      "x > 5 is True, so go into the outer if",
+      "Inside: x > 15 is False, so the inner else runs",
+      "Answer: C"
+     ],
      "mistake": "Ignores the inner condition"
     },
     {
@@ -328,6 +403,12 @@
      ],
      "answer": 0,
      "explain": "Conditions are checked top to bottom, and m >= 40 is already True. Order the conditions from highest to lowest.",
+     "steps": [
+      "Conditions are checked top to bottom",
+      "For m = 90, the first one, m >= 40, is already True",
+      "So the grade is C, because the first True condition (m >= 40) stops the ladder",
+      "Answer: C, because the first True condition (m >= 40) stops the ladder"
+     ],
      "mistake": "Thinks Python chooses the best matching condition"
     },
     {
@@ -340,6 +421,11 @@
      ],
      "answer": 0,
      "explain": "The block under if must be indented; here it is not.",
+     "steps": [
+      "The statement under if must be indented",
+      "print('Hi') is not indented",
+      "Answer: IndentationError"
+     ],
      "mistake": "Thinks indentation is optional"
     },
     {
@@ -352,6 +438,11 @@
      ],
      "answer": 0,
      "explain": "PEP 8, Python's style guide, recommends 4 spaces per level.",
+     "steps": [
+      "Python's style guide (PEP 8)",
+      "recommends 4 spaces per level of indentation",
+      "Answer: 4"
+     ],
      "mistake": "Thinks any amount is the 'standard'",
      "check": "4"
     },
@@ -365,6 +456,11 @@
      ],
      "answer": 3,
      "explain": "a = 5: a > 10 is False; a > 3 is True, so 'Y' prints.",
+     "steps": [
+      "a = 5: is 5 > 10? False",
+      "Is 5 > 3? True, so 'Y' prints",
+      "Answer: Y"
+     ],
      "mistake": "Thinks elif is checked only when if is True"
     },
     {
@@ -377,6 +473,11 @@
      ],
      "answer": 0,
      "explain": "Because the first True condition wins, the stricter test must come first, or 95 would get the lower grade.",
+     "steps": [
+      "A: test >= 90 before >= 75 — true",
+      "R: a ladder runs only the first True condition's block — true; so the stricter test must come first, and R explains A",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Doesn't see why order matters"
     }
    ],
@@ -404,6 +505,25 @@
     ],
     "praise": "The first True condition wins, so I must order from highest to lowest — and indent carefully!",
     "nudge": "Good. In what order are elif conditions checked, and what happens after the first True one?"
+   },
+   "revise": {
+    "summary": "In an if-elif-else ladder, conditions are checked top to bottom and only the first True condition's block runs, so order matters (test >= 90 before >= 75). A nested if is an if inside another if. Indentation, usually 4 spaces, marks blocks; wrong indentation gives IndentationError.",
+    "focus": [
+     "Trace if-elif-else ladders and nested ifs",
+     "Order ladder conditions correctly",
+     "Spot indentation errors"
+    ],
+    "remember": [
+     "Ladder: the first True condition's block runs; the rest are skipped",
+     "Order conditions from strictest (highest) to lowest",
+     "Nested if: an if inside another if's block",
+     "Indentation: usually 4 spaces; inconsistent indentation → IndentationError"
+    ],
+    "traps": [
+     "Testing m >= 40 first gives a high mark the lowest grade",
+     "The block under if must be indented"
+    ],
+    "level": "core"
    }
   },
   {
@@ -530,6 +650,11 @@
      ],
      "answer": 3,
      "explain": "This captures both parts of the rule; 'y % 4 == 0' alone wrongly calls 1900 a leap year.",
+     "steps": [
+      "Leap year: divisible by 400, or divisible by 4 but not by 100",
+      "y % 4 == 0 alone would make 1900 a leap year",
+      "Answer: (y % 4 == 0 and y % 100 != 0) or y % 400 == 0"
+     ],
      "mistake": "Uses only divisibility by 4"
     },
     {
@@ -542,6 +667,11 @@
      ],
      "answer": 1,
      "explain": "2100 is divisible by 4 and by 100 but not by 400, so it is not a leap year.",
+     "steps": [
+      "2100 % 4 == 0 but 2100 % 100 == 0, so the first part is False",
+      "2100 % 400 = 100, so the second part is False",
+      "Answer: Not leap"
+     ],
      "mistake": "Uses only the divisible-by-4 test"
     },
     {
@@ -554,6 +684,11 @@
      ],
      "answer": 3,
      "explain": "op is '/', so the third branch prints 9 / 2 = 4.5.",
+     "steps": [
+      "op is '/', so the first two tests fail and the third is True",
+      "It prints 9 / 2",
+      "Answer: 4.5"
+     ],
      "mistake": "Uses floor division, or multiplies instead",
      "check": "9/2"
     },
@@ -567,6 +702,11 @@
      ],
      "answer": 2,
      "explain": "'%' matches none of the conditions, so the else prints 'Invalid'.",
+     "steps": [
+      "op is '%', which is neither '+' nor '-'",
+      "So the else-block runs",
+      "Answer: Invalid"
+     ],
      "mistake": "Expects Python to work out the % operation"
     },
     {
@@ -579,6 +719,11 @@
      ],
      "answer": 1,
      "explain": "105 % 15 = 0 (105 = 15 × 7), so it is divisible.",
+     "steps": [
+      "105 = 15 × 7, so 105 % 15 = 0",
+      "The condition is True",
+      "Answer: Divisible"
+     ],
      "mistake": "Miscalculates the remainder"
     },
     {
@@ -591,6 +736,11 @@
      ],
      "answer": 0,
      "explain": "The swaps put the numbers in ascending order: 3 5 9.",
+     "steps": [
+      "a, b, c = 9, 3, 5: a > b, swap → 3, 9, 5",
+      "b > c, swap → 3, 5, 9; a > b? 3 > 5 no",
+      "Answer: 3 5 9"
+     ],
      "mistake": "Loses track of the swaps"
     },
     {
@@ -603,6 +753,11 @@
      ],
      "answer": 0,
      "explain": "Use == for comparison and quote the string literal.",
+     "steps": [
+      "Strings must be compared with == and written in quotes",
+      "'if s = ...' uses =, 'if s == green' has no quotes, 'if 'green'' tests nothing",
+      "Answer: the code that uses if s == 'red' … elif s == 'green': print('Go')"
+     ],
      "mistake": "Uses = instead of ==, or forgets quotes"
     },
     {
@@ -615,6 +770,11 @@
      ],
      "answer": 3,
      "explain": "0 > 0 and 0 < 0 are both False, so the else prints 'Zero'.",
+     "steps": [
+      "0 > 0 is False and 0 < 0 is False",
+      "So the else-block runs",
+      "Answer: Zero"
+     ],
      "mistake": "Thinks 0 is positive"
     }
    ],
@@ -642,6 +802,24 @@
     ],
     "praise": "Divisible by 400, or by 4 but not by 100. So 2000 is leap and 1900 isn't. My checker works!",
     "nudge": "Close. What extra rule about 100 and 400 do we need beyond 'divisible by 4'?"
+   },
+   "revise": {
+    "summary": "Selection solves many small tasks: absolute value (if n < 0: n = −n), larger of two numbers, divisibility (n % d == 0), sign of a number, sorting three numbers by swaps, the leap-year rule and menu-driven calculators with an elif ladder and an else for invalid choices.",
+    "focus": [
+     "Write the leap-year condition correctly",
+     "Trace calculator and sign programs with elif ladders",
+     "Sort three numbers using swaps"
+    ],
+    "remember": [
+     "Leap year: (y % 4 == 0 and y % 100 != 0) or y % 400 == 0",
+     "Divisible: n % d == 0",
+     "Use == to compare and quote string literals"
+    ],
+    "traps": [
+     "y % 4 == 0 alone wrongly makes 1900 a leap year",
+     "if s = 'green' is a syntax error: use =="
+    ],
+    "level": "important"
    }
   },
   {
@@ -750,6 +928,11 @@
      ],
      "answer": 3,
      "explain": "range(5) starts at 0 and stops before 5.",
+     "steps": [
+      "range(5) starts at 0 and stops before 5",
+      "Values: 0, 1, 2, 3, 4, printed with spaces",
+      "Answer: 0 1 2 3 4"
+     ],
      "mistake": "Includes the stop value or starts at 1"
     },
     {
@@ -762,6 +945,11 @@
      ],
      "answer": 2,
      "explain": "Start at 10 and subtract 3 until the value would pass 0: 10, 7, 4, 1.",
+     "steps": [
+      "Start at 10 and subtract 3: 10, 7, 4, 1",
+      "The next value, −2, would pass the stop 0",
+      "Answer: 10 7 4 1"
+     ],
      "mistake": "Includes values beyond the stop"
     },
     {
@@ -774,6 +962,12 @@
      ],
      "answer": 0,
      "explain": "2 + 4 + 6 + 8 + 10 = 30.",
+     "steps": [
+      "range(2, 11, 2) gives 2, 4, 6, 8, 10",
+      "s = 2 + 4 + 6 + 8 + 10",
+      "= 30",
+      "Answer: 30"
+     ],
      "mistake": "Includes 12 or starts from 0 wrongly",
      "check": "2+4+6+8+10"
     },
@@ -787,6 +981,11 @@
      ],
      "answer": 0,
      "explain": "Each character is printed followed by '-'.",
+     "steps": [
+      "The loop takes each character of 'India' in turn",
+      "Each is printed followed by '-'",
+      "Answer: I-n-d-i-a-"
+     ],
      "mistake": "Forgets that end applies after every character"
     },
     {
@@ -799,6 +998,11 @@
      ],
      "answer": 2,
      "explain": "range(5, 1) is empty because the default step is +1, so only 'End' is printed.",
+     "steps": [
+      "range(5, 1) with step +1 is empty",
+      "so the loop body never runs",
+      "Answer: End"
+     ],
      "mistake": "Thinks range counts down automatically"
     },
     {
@@ -811,6 +1015,12 @@
      ],
      "answer": 2,
      "explain": "range(1, 11) gives 1 to 10: ten lines of the table.",
+     "steps": [
+      "range(1, 11) gives 1 to 10",
+      "One line is printed for each value",
+      "10 lines",
+      "Answer: 10"
+     ],
      "mistake": "Counts the stop value 11",
      "check": "10"
     },
@@ -824,6 +1034,11 @@
      ],
      "answer": 2,
      "explain": "Start 1, step 2, and stop 10 (not included) gives 1, 3, 5, 7, 9.",
+     "steps": [
+      "Start at 1 and step by 2: 1, 3, 5, 7, 9",
+      "The stop must be just above 9 and not include 11: 10",
+      "Answer: range(1, 10, 2)"
+     ],
      "mistake": "Uses stop = 9, which excludes 9"
     },
     {
@@ -836,6 +1051,11 @@
      ],
      "answer": 1,
      "explain": "Loops exist to repeat a set of statements. One loop body replaces many copies of the same line, and changing the range changes how many times it runs.",
+     "steps": [
+      "A loop repeats the same statements",
+      "One loop body replaces ten copies, and changing the range changes the count",
+      "Answer: A loop repeats the same statements, so the code is shorter and works for any count"
+     ],
      "mistake": "Does not see repetition as the purpose of a loop"
     },
     {
@@ -848,6 +1068,12 @@
      ],
      "answer": 2,
      "explain": "1 × 2 × 3 × 4 = 24.",
+     "steps": [
+      "p = 1, then × 1, × 2, × 3, × 4",
+      "1 × 2 × 3 × 4",
+      "= 24",
+      "Answer: 24"
+     ],
      "mistake": "Starts the product at 0, or goes up to 5",
      "check": "1*2*3*4"
     }
@@ -875,6 +1101,25 @@
     ],
     "praise": "for walks through each value of range(1, 11) and repeats the block. 9 x 1 to 9 x 10 done in two lines!",
     "nudge": "Good. What do start, stop and step do in range(), and is the stop value included?"
+   },
+   "revise": {
+    "summary": "A for loop runs its block once for each item of a sequence (string, list, tuple or range). range(stop), range(start, stop) and range(start, stop, step) never include stop; a negative step counts down, and an empty range runs nothing.",
+    "focus": [
+     "Predict the values produced by range()",
+     "Trace for loops over ranges and strings",
+     "Use loops for sums, products and tables"
+    ],
+    "remember": [
+     "range(stop): 0 to stop − 1; range(start, stop); range(start, stop, step)",
+     "The stop value is never included",
+     "Negative step counts down: range(10, 0, −2) → 10, 8, 6, 4, 2",
+     "An empty range (e.g. range(5, 1)) runs the body zero times"
+    ],
+    "traps": [
+     "range(5) gives 0 to 4, not 1 to 5",
+     "range(5, 1) is empty because the default step is +1"
+    ],
+    "level": "core"
    }
   },
   {
@@ -964,6 +1209,12 @@
      ],
      "answer": 2,
      "explain": "4 + 5 + 2 + 1 = 12.",
+     "steps": [
+      "Digits are taken from the right: 1, 2, 5, 4",
+      "s = 1 + 2 + 5 + 4",
+      "= 12",
+      "Answer: 12"
+     ],
      "mistake": "Reverses the number instead of adding digits",
      "check": "4+5+2+1"
     },
@@ -977,6 +1228,11 @@
      ],
      "answer": 2,
      "explain": "Each step appends the last digit of n to rev: 2, 27, 274.",
+     "steps": [
+      "n = 472: rev = 2, n = 47; rev = 27, n = 4; rev = 274, n = 0",
+      "The loop stops when n = 0",
+      "Answer: 274"
+     ],
      "mistake": "Adds the digits instead",
      "check": "274"
     },
@@ -990,6 +1246,11 @@
      ],
      "answer": 0,
      "explain": "f = 5 × 4 × 3 × 2 = 120.",
+     "steps": [
+      "f = 1 × 5 = 5, × 4 = 20, × 3 = 60, × 2 = 120",
+      "Then n = 1 and the loop stops",
+      "Answer: 120"
+     ],
      "mistake": "Stops one step early",
      "check": "5*4*3*2"
     },
@@ -1006,7 +1267,8 @@
      "steps": [
       "48 % 18 = 12 → (18, 12)",
       "18 % 12 = 6 → (12, 6)",
-      "12 % 6 = 0 → (6, 0)"
+      "12 % 6 = 0 → (6, 0)",
+      "Answer: 6"
      ],
      "mistake": "Stops one step early and reports 12",
      "check": "6"
@@ -1021,6 +1283,11 @@
      ],
      "answer": 1,
      "explain": "Without i += 1, the condition never becomes False.",
+     "steps": [
+      "i starts at 1 and is never changed inside the loop",
+      "So i <= 5 stays True for ever",
+      "Answer: i is never changed, so i <= 5 is always True"
+     ],
      "mistake": "Thinks while loops stop by themselves"
     },
     {
@@ -1033,6 +1300,11 @@
      ],
      "answer": 0,
      "explain": "i goes 1 → 2 → 4 → 8 → 16; the body runs for i = 1, 2, 4, 8, so count = 4.",
+     "steps": [
+      "i: 1 → 2 → 4 → 8 → 16; the body runs while i < 10",
+      "It runs for i = 1, 2, 4, 8 → 4 times",
+      "Answer: 4"
+     ],
      "mistake": "Counts the final value 16 as an iteration",
      "check": "4"
     },
@@ -1046,6 +1318,11 @@
      ],
      "answer": 3,
      "explain": "10 < 5 is False at the start, so the body never runs.",
+     "steps": [
+      "x = 10: is 10 < 5? False at the start",
+      "So the body never runs",
+      "Answer: over"
+     ],
      "mistake": "Thinks a while loop always runs at least once"
     },
     {
@@ -1058,6 +1335,11 @@
      ],
      "answer": 0,
      "explain": "while repeats until a condition fails, which suits loops whose count depends on the data.",
+     "steps": [
+      "A: while suits counting the digits of a user's number — true",
+      "R: the number of iterations is not known in advance — true, and that is why while (repeat until a condition fails) suits it",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Thinks for and while are always interchangeable without thought"
     }
    ],
@@ -1083,6 +1365,25 @@
     ],
     "praise": "Initialise, check the condition, update inside the loop. My loop variable never changed — that's why it ran forever!",
     "nudge": "Good. What must happen inside the loop so that the condition eventually becomes False?"
+   },
+   "revise": {
+    "summary": "A while loop repeats while its condition is True, checking it before every pass. It needs a loop variable set before the loop, a condition using it and an update inside; without the update it loops forever. Digit programs use n % 10 and n // 10; factorial and Euclid's HCF use while loops.",
+    "focus": [
+     "Trace while loops step by step",
+     "Spot and fix infinite loops",
+     "Write digit-sum, reverse and factorial programs"
+    ],
+    "remember": [
+     "Condition checked before each iteration; if False at the start, the body never runs",
+     "Needs initialisation, condition and update",
+     "Last digit: n % 10; remove last digit: n //= 10; reverse: rev = rev * 10 + digit",
+     "HCF (Euclid): while b != 0: a, b = b, a % b"
+    ],
+    "traps": [
+     "Missing the update makes an infinite loop",
+     "A while loop may run zero times"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1182,6 +1483,11 @@
      ],
      "answer": 3,
      "explain": "When i becomes 3, break ends the loop before printing.",
+     "steps": [
+      "i = 1, 2 are printed",
+      "At i = 3, break ends the loop before printing",
+      "Answer: 1 2"
+     ],
      "mistake": "Thinks break skips just that one value"
     },
     {
@@ -1194,6 +1500,11 @@
      ],
      "answer": 2,
      "explain": "continue skips only the print for i = 3.",
+     "steps": [
+      "continue skips only the print for i = 3",
+      "All other values are printed",
+      "Answer: 1 2 4 5"
+     ],
      "mistake": "Confuses continue with break"
     },
     {
@@ -1206,6 +1517,12 @@
      ],
      "answer": 1,
      "explain": "No i from 2 to 12 divides 13, so the loop ends normally and else runs.",
+     "steps": [
+      "No i from 2 to 12 divides 13",
+      "so break never runs and the loop ends normally",
+      "The else runs: Prime",
+      "Answer: Prime"
+     ],
      "mistake": "Thinks the loop else runs only after break"
     },
     {
@@ -1218,6 +1535,11 @@
      ],
      "answer": 1,
      "explain": "21 % 3 == 0, so 'Not prime' prints and break skips the else.",
+     "steps": [
+      "21 % 3 == 0, so 'Not prime' prints",
+      "break then skips the else",
+      "Answer: Not prime"
+     ],
      "mistake": "Thinks the else still runs after break"
     },
     {
@@ -1230,6 +1552,11 @@
      ],
      "answer": 3,
      "explain": "pass is a null statement used to keep the syntax valid.",
+     "steps": [
+      "pass is a null statement",
+      "It does nothing but keeps the syntax valid",
+      "Answer: Nothing; it is a placeholder where a statement is required"
+     ],
      "mistake": "Confuses pass with continue"
     },
     {
@@ -1242,6 +1569,12 @@
      ],
      "answer": 0,
      "explain": "continue skips even numbers, so 1 + 3 + 5 + 7 + 9 = 25 is added.",
+     "steps": [
+      "continue skips the even numbers",
+      "Odd numbers added: 1 + 3 + 5 + 7 + 9",
+      "s = 25",
+      "Answer: 25"
+     ],
      "mistake": "Adds the even numbers instead",
      "check": "1+3+5+7+9"
     },
@@ -1255,6 +1588,11 @@
      ],
      "answer": 2,
      "explain": "When n becomes 2 the loop breaks before printing it.",
+     "steps": [
+      "n = 5, 4, 3 are printed",
+      "At n = 2, break runs before printing",
+      "Answer: 5 4 3"
+     ],
      "mistake": "Prints 2 before breaking"
     },
     {
@@ -1267,6 +1605,11 @@
      ],
      "answer": 0,
      "explain": "The loop ends normally (no break), so the else prints 'done'.",
+     "steps": [
+      "The loop prints 0 1 2 and ends normally, with no break",
+      "So its else runs and prints 'done'",
+      "Answer: 0 1 2 done"
+     ],
      "mistake": "Thinks loop else needs a break to run"
     }
    ],
@@ -1296,6 +1639,25 @@
     ],
     "praise": "break leaves the loop, continue skips one round, pass does nothing and the loop's else runs only when no break happened. Clear!",
     "nudge": "Nice. What exactly happens after break versus after continue?"
+   },
+   "revise": {
+    "summary": "break exits the innermost loop at once; continue skips the rest of the current iteration; pass does nothing and holds a place. A loop's else runs when the loop ends normally, but not after break — useful in prime checks.",
+    "focus": [
+     "Trace loops with break and continue",
+     "Predict when a loop's else runs",
+     "Use pass as a placeholder"
+    ],
+    "remember": [
+     "break: exit the innermost loop immediately",
+     "continue: skip to the next iteration",
+     "Loop else: runs only if the loop ends without break",
+     "pass: a null statement where syntax needs a statement"
+    ],
+    "traps": [
+     "continue does not end the loop; it skips one iteration",
+     "The loop's else does not run if break was used"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1383,6 +1745,11 @@
      ],
      "answer": 1,
      "explain": "Row i prints i stars, then print() starts a new line.",
+     "steps": [
+      "Row i prints i stars, then print() starts a new line",
+      "i = 1, 2, 3 gives rows of 1, 2 and 3 stars",
+      "Answer: three lines — *, then **, then ***"
+     ],
      "mistake": "Forgets the print() that moves to the next line"
     },
     {
@@ -1395,6 +1762,12 @@
      ],
      "answer": 3,
      "explain": "The inner loop runs 3 times for each of the 2 outer iterations: 2 × 3 = 6.",
+     "steps": [
+      "The inner loop runs 3 times for each outer iteration",
+      "There are 2 outer iterations",
+      "c = 2 × 3 = 6",
+      "Answer: 6"
+     ],
      "mistake": "Adds 2 + 3 instead of multiplying",
      "check": "2*3"
     },
@@ -1408,6 +1781,11 @@
      ],
      "answer": 1,
      "explain": "Row i prints the numbers 1 to i.",
+     "steps": [
+      "Row i prints the numbers 1 to i",
+      "i = 1: '1'; i = 2: '1 2'; i = 3: '1 2 3'",
+      "Answer: three lines — 1, then 1 2, then 1 2 3"
+     ],
      "mistake": "Prints i (the row number) instead of j"
     },
     {
@@ -1420,6 +1798,12 @@
      ],
      "answer": 1,
      "explain": "For each n, the inner loop looks for a divisor; the else prints n only when none is found.",
+     "steps": [
+      "For each n, the inner loop looks for a divisor and breaks if it finds one",
+      "The else prints n only when no divisor is found (n is prime)",
+      "Primes below 10: 2 3 5 7",
+      "Answer: 2 3 5 7"
+     ],
      "mistake": "Includes 9 (divisible by 3)"
     },
     {
@@ -1432,6 +1816,12 @@
      ],
      "answer": 1,
      "explain": "1 + 2 + 4 + 8 = 15 (x = 2, terms x⁰ to x³).",
+     "steps": [
+      "x = 2, n = 3: terms x⁰ to x³",
+      "1 + 2 + 4 + 8",
+      "= 15",
+      "Answer: 15"
+     ],
      "mistake": "Includes x⁴ = 16 too",
      "check": "1+2+4+8"
     },
@@ -1445,6 +1835,11 @@
      ],
      "answer": 3,
      "explain": "Start at 1, keep going while i < 6, and step by 2 after printing: 1, 3, 5.",
+     "steps": [
+      "The for loop prints 1, 3, 5",
+      "A while loop must start at 1, test i < 6, print, and then add 2",
+      "Answer: i = 1; while i < 6: print(i); i += 2"
+     ],
      "mistake": "Updates before printing, or uses the wrong start or step"
     },
     {
@@ -1457,6 +1852,11 @@
      ],
      "answer": 1,
      "explain": "range(3, 0, -1) gives 3, 2, 1, so the rows have 3, 2, then 1 star.",
+     "steps": [
+      "range(3, 0, −1) gives 3, 2, 1",
+      "'*' * i prints that many stars per row",
+      "Answer: three lines — ***, then **, then *"
+     ],
      "mistake": "Thinks the negative step is ignored"
     },
     {
@@ -1469,6 +1869,11 @@
      ],
      "answer": 2,
      "explain": "Since the inner loop sits in the outer loop's body, it runs fully every time the body runs.",
+     "steps": [
+      "A: the inner loop completes all its iterations for each outer iteration — true",
+      "R: the inner loop is part of the outer loop's body — true, and that is why it runs fully every time",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Thinks the loops take turns one step each"
     }
    ],
@@ -1494,6 +1899,26 @@
     ],
     "praise": "The outer loop handles rows, and the inner loop prints each row's stars, completing fully every time. Triangle done!",
     "nudge": "Good. Which loop controls the rows and which the items in each row? How many times does the inner loop run?"
+   },
+   "revise": {
+    "summary": "In a nested loop, the inner loop runs completely for every iteration of the outer loop, so total inner runs = outer count × inner count. In patterns the outer loop controls rows and the inner loop the content of each row; print() after the inner loop moves to a new line.",
+    "focus": [
+     "Count iterations of nested loops",
+     "Predict star and number patterns",
+     "Use nested loops with break and else to find primes",
+     "Convert a for loop into an equivalent while loop"
+    ],
+    "remember": [
+     "Inner loop runs fully for each outer iteration",
+     "Total runs = outer count × inner count (fixed inner range)",
+     "Outer loop: rows; inner loop: items in a row; print() to end a row",
+     "Series 1 + x + x² + … + xⁿ: add x ** i for i = 0 to n"
+    ],
+    "traps": [
+     "Don't forget print() after the inner loop to start a new line",
+     "range(3, 0, −1) gives 3, 2, 1, not 3, 2, 1, 0"
+    ],
+    "level": "important"
    }
   }
  ]

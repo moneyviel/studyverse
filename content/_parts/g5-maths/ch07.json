@@ -107,6 +107,12 @@
      ],
      "answer": 0,
      "explain": "Odd crossings are over and even crossings are under. 6 is even, so under.",
+     "steps": [
+      "The rule is over 1, under 1, starting with over.",
+      "So odd crossings (1st, 3rd, 5th …) are over and even crossings are under.",
+      "6 is even, so the 6th crossing is under.",
+      "Answer: Under"
+     ],
      "mistake": "Counts from 0 instead of 1"
     },
     {
@@ -117,6 +123,12 @@
      ],
      "answer": 1,
      "explain": "The core O O U has 3 crossings. 7 = 3 + 3 + 1, so the 7th is like the 1st: over.",
+     "steps": [
+      "The core is O O U: 3 crossings.",
+      "7 = 3 + 3 + 1, so after two full cores the 7th is the 1st of a new core.",
+      "The 1st of the core is over, so the 7th is over.",
+      "Answer: Over"
+     ],
      "mistake": "Does not count in cores"
     },
     {
@@ -129,6 +141,12 @@
      ],
      "answer": 2,
      "explain": "Two overs then one under repeat.",
+     "steps": [
+      "Find the part that repeats: O O U, then O O U again.",
+      "That is two overs and one under.",
+      "So the rule is over 2, under 1.",
+      "Answer: Over 2, under 1"
+     ],
      "mistake": "Reads the pattern backwards"
     },
     {
@@ -141,6 +159,12 @@
      ],
      "answer": 3,
      "explain": "Row 2 is shifted, row 3 is shifted back, matching row 1.",
+     "steps": [
+      "Row 1: O U O U … Row 2 shifts one place: U O U O …",
+      "Row 3 shifts one more place: O U O U … again.",
+      "So row 3 looks exactly like row 1.",
+      "Answer: Row 3"
+     ],
      "mistake": "Thinks the shifted row 2 is the same"
     },
     {
@@ -154,7 +178,10 @@
      "answer": 0,
      "explain": "The core is 3 long, so after 3 shifts it lines up again: row 4 = row 1.",
      "steps": [
-      "Core length = 2 + 1 = 3"
+      "The core over 2, under 1 is 2 + 1 = 3 crossings long.",
+      "Shifting by 1 each row, the pattern goes through 3 positions.",
+      "Row 4 matches row 1, so it repeats every 3 rows.",
+      "Answer: 3"
      ],
      "mistake": "Uses the number of overs",
      "check": "2+1"
@@ -167,6 +194,12 @@
      ],
      "answer": 1,
      "explain": "Shifting one place, row 2 starts with what row 1 has at the end: U, giving U O U U O U.",
+     "steps": [
+      "Row 1 is O U U O U U.",
+      "Shifted one place later, row 2 begins with row 1's last crossing: U O U U O U.",
+      "So row 2 starts with U.",
+      "Answer: U"
+     ],
      "mistake": "Thinks a shifted row starts the same"
     },
     {
@@ -179,6 +212,12 @@
      ],
      "answer": 2,
      "explain": "Rows take turns: rows 1 and 3 are the same, so row 4 is like row 2.",
+     "steps": [
+      "Row 1 ■□■□ and row 3 ■□■□ are the same; row 2 is □■□■.",
+      "The rows take turns.",
+      "So row 4 is like row 2: □■□■.",
+      "Answer: □■□■"
+     ],
      "mistake": "Copies row 3 again"
     },
     {
@@ -191,6 +230,12 @@
      ],
      "answer": 3,
      "explain": "Grid paper lets you draw each row with its rule and shift.",
+     "steps": [
+      "A weaving pattern has a rule for each row and a shift.",
+      "Grid paper lets you draw each row square by square.",
+      "So draw it row by row on grid paper.",
+      "Answer: Drawing it row by row on grid paper"
+     ],
      "mistake": "Does not see how to plan a pattern"
     }
    ],
@@ -214,6 +259,24 @@
     ],
     "praise": "I shift each row by one, and row 3 looks like row 1. A checked mat!",
     "nudge": "Should row 2 start the same as row 1?"
+   },
+   "revise": {
+    "summary": "A woven mat follows a row rule like 'over 1, under 1', and each new row usually starts one place later. After as many rows as the core is long, row 1's pattern comes back.",
+    "focus": [
+     "Describe a row with an over–under rule",
+     "Find a crossing far along a row",
+     "Find after how many rows the pattern repeats"
+    ],
+    "remember": [
+     "'Over 1, under 1' repeats every 2 rows: row 3 = row 1",
+     "'Over 2, under 1' core is 3 long: row 4 = row 1",
+     "Use grid paper to plan each row"
+    ],
+    "traps": [
+     "Don't count from 0; the first crossing is crossing 1.",
+     "A shifted row does not start the same as row 1."
+    ],
+    "level": "core"
    }
   },
   {
@@ -323,6 +386,12 @@
      ],
      "answer": 1,
      "explain": "The core is ▲ ●. After ▲ comes ●.",
+     "steps": [
+      "The core is ▲ ●.",
+      "The pattern ends with ▲.",
+      "After ▲ comes ●.",
+      "Answer: ●"
+     ],
      "mistake": "Repeats the last shape instead of following the core"
     },
     {
@@ -335,6 +404,12 @@
      ],
      "answer": 2,
      "explain": "🔴 🔵 🔵 is the part that repeats.",
+     "steps": [
+      "Look for where the pattern starts again.",
+      "🔴 🔵 🔵 then 🔴 🔵 🔵 again.",
+      "So the core is 🔴 🔵 🔵.",
+      "Answer: 🔴 🔵 🔵"
+     ],
      "mistake": "Picks only part of the core"
     },
     {
@@ -350,7 +425,8 @@
      "steps": [
       "Core: ■ ▲ ●",
       "12 ÷ 3 = 4, no remainder",
-      "Last shape of core = ●"
+      "Last shape of core = ●",
+      "Answer: ●"
      ],
      "mistake": "Counts the shapes one by one and slips"
     },
@@ -366,7 +442,8 @@
      "explain": "15 shapes make 15 ÷ 3 = 5 cores. Each core has 1 star, so 5 stars.",
      "steps": [
       "15 ÷ 3 = 5 cores",
-      "1 star in each core → 5 stars"
+      "1 star in each core → 5 stars",
+      "Answer: 5"
      ],
      "mistake": "Counts the moons, or counts all the shapes",
      "check": "15/3"
@@ -384,7 +461,8 @@
      "steps": [
       "3 × 6 = 18 tiles",
       "20 − 18 = 2",
-      "2nd colour = yellow"
+      "2nd colour = yellow",
+      "Answer: Yellow"
      ],
      "mistake": "Forgets to use the remainder to find the place in the core"
     },
@@ -398,6 +476,12 @@
      ],
      "answer": 0,
      "explain": "A quarter turn clockwise from ↓ (down) points ← (left).",
+     "steps": [
+      "Each arrow turns a quarter turn clockwise: up, then right, then down.",
+      "The last arrow is ↓ (down).",
+      "A quarter turn clockwise from down points left: ←.",
+      "Answer: ←"
+     ],
      "mistake": "Turns anticlockwise or turns a half turn",
      "visual": {
       "kind": "angle",
@@ -416,7 +500,8 @@
      "explain": "Each core has 3 beads, 2 of them red. 18 ÷ 3 = 6 cores. 6 × 2 = 12 red.",
      "steps": [
       "18 ÷ 3 = 6 cores",
-      "6 × 2 = 12 red"
+      "6 × 2 = 12 red",
+      "Answer: 12"
      ],
      "mistake": "Thinks half the beads are red",
      "check": "18/3*2"
@@ -431,6 +516,12 @@
      ],
      "answer": 1,
      "explain": "3 5 8 2 9 1 has no part that repeats.",
+     "steps": [
+      "A repeating pattern has a core that repeats.",
+      "A B, 1 2 and ▲ ■ each repeat again and again.",
+      "3 5 8 2 9 1 has no part that repeats, so it is NOT a repeating pattern.",
+      "Answer: 3 5 8 2 9 1"
+     ],
      "mistake": "Thinks any list of things is a pattern"
     }
    ],
@@ -454,7 +545,26 @@
     "praise": "Tweet tweet! The core repeats again and again. Like my song!",
     "nudge": "What happens again and again in a pattern? What do we call that part?"
    },
-   "covers": []
+   "covers": [],
+   "revise": {
+    "summary": "A repeating pattern has a core that repeats. Find the core where the pattern starts again, and count in cores to find a far-away shape.",
+    "focus": [
+     "Find the core of a pattern",
+     "Find what comes next",
+     "Find the shape at a far position using cores",
+     "Count one kind of shape in many cores"
+    ],
+    "remember": [
+     "In ▲ ● ■ ▲ ● ■ the core has 3 shapes",
+     "The 10th shape: 3 cores make 9, so it is the 1st of the core",
+     "Shapes can repeat by kind, colour, size or turning"
+    ],
+    "traps": [
+     "Don't pick only part of the core.",
+     "Don't forget the remainder when finding a far position."
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g5-maths-07-02",
@@ -555,7 +665,8 @@
      "explain": "The rule is add 3. 12 + 3 = 15.",
      "steps": [
       "Rule: + 3",
-      "12 + 3 = 15"
+      "12 + 3 = 15",
+      "Answer: 15"
      ],
      "mistake": "Adds 1 instead of finding the rule",
      "check": "12+3"
@@ -573,7 +684,8 @@
      "steps": [
       "First square: 4 sticks",
       "5 more squares: 5 × 3 = 15",
-      "4 + 15 = 19"
+      "4 + 15 = 19",
+      "Answer: 19"
      ],
      "mistake": "Thinks every square needs 4 new sticks (6 × 4 = 24)",
      "check": "4+3*5"
@@ -590,7 +702,8 @@
      "explain": "It adds 2, then 3, then 4, so next add 5: 10 + 5 = 15.",
      "steps": [
       "+2, +3, +4, then +5",
-      "10 + 5 = 15"
+      "10 + 5 = 15",
+      "Answer: 15"
      ],
      "mistake": "Adds the same amount every time",
      "check": "10+5"
@@ -606,7 +719,10 @@
      "answer": 2,
      "explain": "Double 16: 16 × 2 = 32.",
      "steps": [
-      "16 × 2 = 32"
+      "Each tower doubles: 2, 4, 8, 16.",
+      "Next = 16 × 2.",
+      "16 × 2 = 32 blocks.",
+      "Answer: 32"
      ],
      "mistake": "Adds 2 or adds 8 instead of doubling",
      "check": "16*2"
@@ -623,7 +739,8 @@
      "explain": "The squares are 1×1, 2×2, 3×3, 4×4. Next is 5×5 = 25.",
      "steps": [
       "Next: 5 × 5",
-      "= 25"
+      "= 25",
+      "Answer: 25"
      ],
      "mistake": "Adds 4 each time",
      "check": "5*5",
@@ -647,7 +764,8 @@
      "steps": [
       "First triangle: 3 sticks",
       "9 more triangles: 9 × 2 = 18",
-      "3 + 18 = 21"
+      "3 + 18 = 21",
+      "Answer: 21"
      ],
      "mistake": "Thinks each triangle needs 3 new sticks (10 × 3 = 30)",
      "check": "3+2*9"
@@ -662,6 +780,12 @@
      ],
      "answer": 2,
      "explain": "Each number is 4 more than the one before.",
+     "steps": [
+      "Find how much it grows: 9 − 5 = 4, 13 − 9 = 4, 17 − 13 = 4.",
+      "It grows by the same amount, 4, each time.",
+      "So the rule is add 4.",
+      "Answer: Add 4"
+     ],
      "mistake": "Looks only at the first number"
     },
     {
@@ -676,7 +800,8 @@
      "explain": "Each step takes away 10. The 8th number is 7 steps after 100: 100 − 70 = 30.",
      "steps": [
       "7 steps of 10 = 70",
-      "100 − 70 = 30"
+      "100 − 70 = 30",
+      "Answer: 30"
      ],
      "mistake": "Takes 8 steps instead of 7",
      "check": "100-7*10"
@@ -701,7 +826,25 @@
     "praise": "Chirpy cheer! Find the rule and use it again and again. No drawing needed!",
     "nudge": "What stays the same from one step to the next? How do I use that?"
    },
-   "covers": []
+   "covers": [],
+   "revise": {
+    "summary": "In a growing pattern each step changes by a rule. Find the rule by checking how much it grows, and use it to find later steps without drawing.",
+    "focus": [
+     "Find the rule of a growing pattern",
+     "Continue number and matchstick patterns",
+     "Find a far step using the rule"
+    ],
+    "remember": [
+     "4, 7, 10 grows by 3",
+     "Matchstick squares: 4 + 3 × (squares − 1) sticks",
+     "1, 3, 6, 10 adds 2, then 3, then 4"
+    ],
+    "traps": [
+     "Don't think each new square needs 4 new sticks.",
+     "Don't add the same amount when the pattern adds more each time."
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g5-maths-07-03",
@@ -811,6 +954,12 @@
      ],
      "answer": 1,
      "explain": "Circles have curved edges, so gaps are always left between them.",
+     "steps": [
+      "A tiling needs no gaps and no overlaps.",
+      "Squares, rectangles and equilateral triangles fit together with straight edges.",
+      "Circles have curved edges and always leave gaps: circle.",
+      "Answer: Circle"
+     ],
      "mistake": "Thinks any shape can tile if you push it close"
     },
     {
@@ -825,7 +974,8 @@
      "explain": "Each square corner is 90°. 360° ÷ 90° = 4.",
      "steps": [
       "Full turn = 360°",
-      "360 ÷ 90 = 4"
+      "360 ÷ 90 = 4",
+      "Answer: 4"
      ],
      "mistake": "Does not use the full turn of 360°",
      "check": "360/90",
@@ -844,6 +994,12 @@
      ],
      "answer": 3,
      "explain": "Honeycomb cells are hexagons. They fit together with no gaps.",
+     "steps": [
+      "Honeycomb cells fit together with no gaps.",
+      "Each cell has 6 sides.",
+      "So they are hexagons.",
+      "Answer: Hexagon"
+     ],
      "mistake": "Guesses circle because the cells look round from far",
      "visual": {
       "kind": "shape",
@@ -861,7 +1017,10 @@
      "answer": 2,
      "explain": "Each hexagon corner is 120°. 360° ÷ 120° = 3.",
      "steps": [
-      "360 ÷ 120 = 3"
+      "Corners at a point must make a full turn: 360°.",
+      "Each regular hexagon corner is 120°.",
+      "360 ÷ 120 = 3 hexagons.",
+      "Answer: 3"
      ],
      "mistake": "Thinks the answer is 6 because a hexagon has 6 sides",
      "check": "360/120",
@@ -881,7 +1040,10 @@
      "answer": 1,
      "explain": "4 rows of 5 tiles: 5 × 4 = 20.",
      "steps": [
-      "5 × 4 = 20"
+      "The floor is 4 rows of 5 tiles.",
+      "Tiles = 5 × 4.",
+      "5 × 4 = 20 tiles.",
+      "Answer: 20"
      ],
      "mistake": "Adds length and width instead of multiplying",
      "check": "5*4",
@@ -902,6 +1064,12 @@
      ],
      "answer": 2,
      "explain": "Overlap means one tile covers part of another. A tiling has none.",
+     "steps": [
+      "Overlap means one tile covers part of another.",
+      "'No overlaps' means that never happens.",
+      "So tiles do not sit on top of each other.",
+      "Answer: Tiles do not sit on top of each other"
+     ],
      "mistake": "Mixes up 'overlap' with 'gap'"
     },
     {
@@ -915,7 +1083,10 @@
      "answer": 0,
      "explain": "Each corner of an equilateral triangle is 60°. 360° ÷ 60° = 6.",
      "steps": [
-      "360 ÷ 60 = 6"
+      "Corners at a point must make 360°.",
+      "Each equilateral triangle corner is 60°.",
+      "360 ÷ 60 = 6 triangles.",
+      "Answer: 6"
      ],
      "mistake": "Thinks the answer is 3 because a triangle has 3 corners",
      "check": "360/60",
@@ -936,7 +1107,8 @@
      "explain": "She needs 6 × 8 = 48 tiles. 48 − 40 = 8 more.",
      "steps": [
       "6 × 8 = 48",
-      "48 − 40 = 8"
+      "48 − 40 = 8",
+      "Answer: 8"
      ],
      "mistake": "Gives the total needed instead of how many more",
      "check": "6*8-40"
@@ -969,7 +1141,25 @@
    "covers": [
     "c7.2.1",
     "c7.2.2"
-   ]
+   ],
+   "revise": {
+    "summary": "Tiling covers a flat surface with shapes with no gaps and no overlaps. Corners meeting at a point make a full turn of 360°.",
+    "focus": [
+     "Know which shapes tile on their own",
+     "Find how many shapes meet at a point",
+     "Count tiles for a floor"
+    ],
+    "remember": [
+     "4 squares (4 × 90°), 3 hexagons (3 × 120°), 6 triangles (6 × 60°) meet at a point",
+     "Circles and regular pentagons leave gaps",
+     "Tiles for a floor = tiles in a row × rows"
+    ],
+    "traps": [
+     "Don't use the number of sides: 3 hexagons meet, not 6.",
+     "Don't add length and width to count tiles; multiply."
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g5-maths-07-05",
@@ -1089,6 +1279,12 @@
      ],
      "answer": 0,
      "explain": "5 × 90° = 450°, which is more than 360°, so they overlap.",
+     "steps": [
+      "Corners around a point must add to exactly 360°.",
+      "5 squares: 5 × 90° = 450°.",
+      "450° is more than a full turn, so they overlap.",
+      "Answer: Their corners add to 450°, more than a full turn"
+     ],
      "mistake": "Forgets that the corners must make exactly a full turn"
     },
     {
@@ -1103,7 +1299,8 @@
      "explain": "2 × 135° = 270°. 360° − 270° = 90°.",
      "steps": [
       "2 × 135 = 270",
-      "360 − 270 = 90"
+      "360 − 270 = 90",
+      "Answer: 90°"
      ],
      "mistake": "Subtracts from 180° instead of 360°",
      "check": "360-2*135"
@@ -1118,6 +1315,12 @@
      ],
      "answer": 2,
      "explain": "The gap is 90°, exactly one square corner.",
+     "steps": [
+      "2 octagons: 2 × 135° = 270°.",
+      "Gap = 360° − 270° = 90°.",
+      "A 90° gap is exactly one square corner: a square.",
+      "Answer: A square"
+     ],
      "mistake": "Does not work out the gap"
     },
     {
@@ -1132,7 +1335,8 @@
      "explain": "2 squares take 180°. 360° − 180° = 180°. Each triangle is 60°, so 3 triangles.",
      "steps": [
       "360 − 2 × 90 = 180",
-      "180 ÷ 60 = 3"
+      "180 ÷ 60 = 3",
+      "Answer: 3"
      ],
      "mistake": "Thinks every gap takes 2 shapes",
      "check": "(360-2*90)/60"
@@ -1149,7 +1353,8 @@
      "explain": "360° − 120° = 240°. 240° ÷ 60° = 4 triangles.",
      "steps": [
       "360 − 120 = 240",
-      "240 ÷ 60 = 4"
+      "240 ÷ 60 = 4",
+      "Answer: 4"
      ],
      "mistake": "Uses 6 triangles as in a triangle-only tiling",
      "check": "(360-120)/60"
@@ -1164,6 +1369,12 @@
      ],
      "answer": 1,
      "explain": "2 octagons leave a 90° gap and 3 would need 405°. So they cannot tile alone.",
+     "steps": [
+      "2 octagons make 270°, leaving a 90° gap.",
+      "3 octagons would need 3 × 135° = 405°, more than 360°.",
+      "So No, octagons alone leave square gaps.",
+      "Answer: No, they leave square gaps"
+     ],
      "mistake": "Thinks every regular shape tiles"
     },
     {
@@ -1176,6 +1387,12 @@
      ],
      "answer": 2,
      "explain": "Two squares (180°) and three triangles (180°) make 360°.",
+     "steps": [
+      "Square corner = 90°, triangle corner = 60°.",
+      "90 + 60 + 90 + 60 + 60 = 360.",
+      "That is a full turn, so yes.",
+      "Answer: Yes, 90 + 60 + 90 + 60 + 60 = 360°"
+     ],
      "mistake": "Adds the angles wrongly"
     },
     {
@@ -1188,6 +1405,12 @@
      ],
      "answer": 3,
      "explain": "2 × 90° + 3 × 60° = 360°. 3 squares + 2 triangles = 390°, too much.",
+     "steps": [
+      "Square = 90°, triangle = 60°. The total must be 360°.",
+      "3 sq + 2 tri = 390°; 1 sq + 3 tri = 270°; 4 sq + 1 tri = 420°.",
+      "2 × 90° + 3 × 60° = 180° + 180° = 360°. So 2 squares and 3 triangles.",
+      "Answer: 2 squares and 3 triangles"
+     ],
      "mistake": "Does not add the angles"
     }
    ],
@@ -1210,6 +1433,24 @@
     ],
     "praise": "Octagons leave 90° gaps, so I will add little squares!",
     "nudge": "What happens when two octagons meet at a corner?"
+   },
+   "revise": {
+    "summary": "Angles around a point must add to exactly 360°. Octagons leave a 90° gap that a square fills, and 2 squares with 3 triangles also fill a point.",
+    "focus": [
+     "Check whether shapes fit around a point",
+     "Find the gap left by some shapes",
+     "Choose a set of shapes for a mixed tiling"
+    ],
+    "remember": [
+     "Square 90°, equilateral triangle 60°, hexagon 120°, octagon 135°",
+     "2 octagons + 1 square = 135 + 135 + 90 = 360°",
+     "2 squares + 3 triangles = 180° + 180° = 360°"
+    ],
+    "traps": [
+     "Don't subtract from 180°; a full turn is 360°.",
+     "5 squares make 450°, so they overlap."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1320,6 +1561,12 @@
      ],
      "answer": 0,
      "explain": "All three sides are equal, so it is equilateral.",
+     "steps": [
+      "Check all three sides: 6, 6, 6.",
+      "All three are equal.",
+      "So it is equilateral.",
+      "Answer: Equilateral"
+     ],
      "mistake": "Does not check all three sides",
      "visual": {
       "kind": "shape",
@@ -1335,6 +1582,12 @@
      ],
      "answer": 2,
      "explain": "No two sides are equal, so it is scalene.",
+     "steps": [
+      "Sides 4, 7 and 9 cm.",
+      "No two sides are equal.",
+      "So it is scalene.",
+      "Answer: Scalene"
+     ],
      "mistake": "Thinks any triangle with different numbers is isosceles"
     },
     {
@@ -1347,6 +1600,12 @@
      ],
      "answer": 2,
      "explain": "5, 5 and 8 has exactly two equal sides: isosceles.",
+     "steps": [
+      "5, 5, 5 has three equal sides; 3, 4, 5 and 5, 6, 8 have none.",
+      "5, 5, 8 has exactly two equal sides.",
+      "So 5 cm, 5 cm, 8 cm (isosceles).",
+      "Answer: 5 cm, 5 cm, 8 cm"
+     ],
      "mistake": "Picks the equilateral one"
     },
     {
@@ -1359,6 +1618,12 @@
      ],
      "answer": 3,
      "explain": "A triangle with a right angle is a right-angled triangle.",
+     "steps": [
+      "A set square has one square corner.",
+      "A square corner is a right angle.",
+      "So it is a right-angled triangle.",
+      "Answer: Right-angled triangle"
+     ],
      "mistake": "Names it by sides only"
     },
     {
@@ -1371,6 +1636,12 @@
      ],
      "answer": 0,
      "explain": "In an equilateral triangle all angles are equal.",
+     "steps": [
+      "In an equilateral triangle all three angles are equal.",
+      "One angle is 60°, so the others are the same.",
+      "60° and 60°.",
+      "Answer: 60° and 60°"
+     ],
      "mistake": "Thinks only the sides are equal"
     },
     {
@@ -1383,6 +1654,12 @@
      ],
      "answer": 1,
      "explain": "The two right angles end up at opposite corners and the shape has 4 square corners: a rectangle.",
+     "steps": [
+      "Join the two matching right-angled triangles along their longest sides.",
+      "The two right angles sit at opposite corners and the other corners fill square corners.",
+      "A shape with 4 square corners: a rectangle.",
+      "Answer: A rectangle"
+     ],
      "mistake": "Thinks two triangles always make a bigger triangle"
     },
     {
@@ -1397,7 +1674,8 @@
      "explain": "Each triangle has 3 sides. The joined side is hidden: 3 + 3 − 2 = 4 sides.",
      "steps": [
       "3 + 3 = 6",
-      "6 − 2 hidden = 4"
+      "6 − 2 hidden = 4",
+      "Answer: 4"
      ],
      "mistake": "Adds all the sides",
      "check": "3+3-2"
@@ -1412,6 +1690,12 @@
      ],
      "answer": 3,
      "explain": "Half of a square cut along its diagonal has a right angle and two equal sides.",
+     "steps": [
+      "Cut a square along its diagonal.",
+      "Each half has a square corner and two equal sides around it.",
+      "So yes, with two equal sides around the square corner.",
+      "Answer: Yes, with two equal sides around the square corner"
+     ],
      "mistake": "Thinks a triangle can have only one name"
     }
    ],
@@ -1433,6 +1717,24 @@
     ],
     "praise": "It is isosceles because two sides are equal!",
     "nudge": "How many of its sides are equal?"
+   },
+   "revise": {
+    "summary": "Triangles are named by sides: equilateral (3 equal), isosceles (2 equal), scalene (none equal). A right-angled triangle has one square corner; one triangle can have two names.",
+    "focus": [
+     "Name a triangle from its sides",
+     "Know equilateral angles are equal",
+     "See what shapes two matching triangles make"
+    ],
+    "remember": [
+     "Equilateral: all 3 sides and angles equal",
+     "Isosceles: 2 sides equal; scalene: no sides equal",
+     "Right-angled: one right angle"
+    ],
+    "traps": [
+     "Check all three sides before naming.",
+     "A triangle can be both right-angled and isosceles."
+    ],
+    "level": "core"
    }
   },
   {
@@ -1529,6 +1831,12 @@
      ],
      "answer": 0,
      "explain": "Opposite sides equal and parallel is a parallelogram. Without right angles it is not a rectangle.",
+     "steps": [
+      "Opposite sides equal and parallel → parallelogram family.",
+      "No right angles, so not a rectangle or square.",
+      "So it is a parallelogram.",
+      "Answer: Parallelogram"
+     ],
      "mistake": "Thinks every parallelogram has right angles"
     },
     {
@@ -1541,6 +1849,12 @@
      ],
      "answer": 1,
      "explain": "That is the rule for a kite.",
+     "steps": [
+      "Two pairs of equal sides next to each other is the rule for a kite.",
+      "In a parallelogram or rectangle the equal sides are opposite.",
+      "So it is a kite.",
+      "Answer: Kite"
+     ],
      "mistake": "Confuses 'next to each other' with 'opposite'"
     },
     {
@@ -1553,6 +1867,12 @@
      ],
      "answer": 2,
      "explain": "A square has all a rectangle needs: 4 right angles and opposite sides equal.",
+     "steps": [
+      "A rectangle needs 4 right angles and opposite sides equal.",
+      "A square has all of that (and equal sides too).",
+      "So every square is a rectangle (not the other way round).",
+      "Answer: Every square is a rectangle"
+     ],
      "mistake": "Reverses the family order"
     },
     {
@@ -1565,6 +1885,12 @@
      ],
      "answer": 3,
      "explain": "A rectangle with all sides equal is a square.",
+     "steps": [
+      "A rectangle has 4 right angles.",
+      "If all its sides are equal too, it is a square.",
+      "So its special name is square.",
+      "Answer: Square"
+     ],
      "mistake": "Does not link rectangles and squares",
      "visual": {
       "kind": "shape",
@@ -1581,6 +1907,12 @@
      ],
      "answer": 0,
      "explain": "Opposite sides equal with all right angles: rectangle. Not all sides are equal, so not a square.",
+     "steps": [
+      "Going round 6, 4, 6, 4: opposite sides are equal.",
+      "It has 4 right angles, so it is a rectangle.",
+      "Not all sides are equal, so not a square: rectangle.",
+      "Answer: Rectangle"
+     ],
      "mistake": "Calls it a square",
      "visual": {
       "kind": "shape",
@@ -1597,6 +1929,12 @@
      ],
      "answer": 1,
      "explain": "The equal sides are next to each other in pairs: a kite.",
+     "steps": [
+      "Going round 3, 3, 7, 7: the equal sides are next to each other.",
+      "Two pairs of equal neighbouring sides is a kite.",
+      "So it is a kite.",
+      "Answer: Kite"
+     ],
      "mistake": "Thinks any two pairs of equal sides make a parallelogram"
     },
     {
@@ -1609,6 +1947,12 @@
      ],
      "answer": 2,
      "explain": "A rectangle has opposite sides equal and parallel.",
+     "steps": [
+      "A parallelogram has opposite sides equal and parallel.",
+      "A rectangle always has opposite sides equal and parallel.",
+      "So the rectangle is always a parallelogram.",
+      "Answer: Rectangle"
+     ],
      "mistake": "Thinks kites are parallelograms"
     },
     {
@@ -1621,6 +1965,12 @@
      ],
      "answer": 3,
      "explain": "All rectangles have right angles and opposite sides equal; only a square has all sides equal.",
+     "steps": [
+      "All rectangles have 4 sides, right angles and equal opposite sides.",
+      "Only a square has all four sides equal.",
+      "So a square differs because all its sides are equal.",
+      "Answer: All its sides are equal"
+     ],
      "mistake": "Names something all rectangles share"
     }
    ],
@@ -1643,6 +1993,25 @@
     ],
     "praise": "A square has 4 right angles and equal opposite sides, so it is a special rectangle!",
     "nudge": "What does a shape need to be a rectangle?"
+   },
+   "revise": {
+    "summary": "A kite has two pairs of equal neighbouring sides. A parallelogram has opposite sides equal and parallel; a rectangle adds right angles; a square adds equal sides.",
+    "focus": [
+     "Name quadrilaterals from sides and angles",
+     "Know which shape family includes which",
+     "Tell a kite from a parallelogram"
+    ],
+    "remember": [
+     "Every square is a rectangle; every rectangle is a parallelogram",
+     "Kite: equal sides next to each other",
+     "Parallelogram: opposite sides equal and parallel"
+    ],
+    "traps": [
+     "Not every rectangle is a square.",
+     "A kite is not a parallelogram.",
+     "Don't confuse 'next to each other' with 'opposite'."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1745,6 +2114,12 @@
      ],
      "answer": 0,
      "explain": "Opposite sides are equal, so it is in the parallelogram family.",
+     "steps": [
+      "Going round 7, 4, 7, 4: opposite sides are equal.",
+      "Opposite sides equal → parallelogram family.",
+      "So it belongs to the parallelogram family.",
+      "Answer: Parallelogram"
+     ],
      "mistake": "Reads 'two pairs equal' as a kite without checking positions"
     },
     {
@@ -1757,6 +2132,12 @@
      ],
      "answer": 1,
      "explain": "Equal sides are next to each other, so it is a kite.",
+     "steps": [
+      "Going round 5, 5, 9, 9: equal sides are next to each other.",
+      "Neighbouring pairs equal → kite.",
+      "So it is a kite.",
+      "Answer: Kite"
+     ],
      "mistake": "Ignores where the equal sides are"
     },
     {
@@ -1769,6 +2150,12 @@
      ],
      "answer": 2,
      "explain": "The top side is the bottom side slid across: both 4 long and parallel. That makes a parallelogram.",
+     "steps": [
+      "Bottom side (0,0)–(4,0) is 4 long; top side (1,2)–(5,2) is also 4 long.",
+      "The top is the bottom slid across, so they are parallel and equal.",
+      "So the shape is a parallelogram.",
+      "Answer: Parallelogram"
+     ],
      "mistake": "Thinks slanted sides make a kite"
     },
     {
@@ -1781,6 +2168,12 @@
      ],
      "answer": 3,
      "explain": "A kite is symmetric about one diagonal, so the sides on each side match.",
+     "steps": [
+      "A kite is symmetric about one diagonal.",
+      "So draw that line of symmetry first.",
+      "Then put matching sides on both sides of it.",
+      "Answer: Draw a line of symmetry and put matching sides on both sides of it"
+     ],
      "mistake": "Draws a square instead"
     },
     {
@@ -1793,6 +2186,12 @@
      ],
      "answer": 0,
      "explain": "A diagonal joins two opposite corners and splits the shape into 2 triangles.",
+     "steps": [
+      "A diagonal joins two opposite corners.",
+      "It splits the four-sided shape into two parts with 3 sides each.",
+      "So you get 2 triangles.",
+      "Answer: 2 triangles"
+     ],
      "mistake": "Thinks the pieces are four-sided"
     },
     {
@@ -1806,7 +2205,10 @@
      "answer": 1,
      "explain": "One corner is replaced by a new short side with two corners, so 4 + 1 = 5 sides.",
      "steps": [
-      "4 sides + 1 new side = 5"
+      "A rhombus has 4 sides.",
+      "Cutting off a corner removes that corner but adds one new short side.",
+      "4 + 1 = 5 sides.",
+      "Answer: 5"
      ],
      "mistake": "Thinks cutting removes a side",
      "check": "4+1"
@@ -1821,6 +2223,12 @@
      ],
      "answer": 2,
      "explain": "All sides equal without right angles is a rhombus.",
+     "steps": [
+      "All four sides are equal (6 cm).",
+      "No right angles, so it is not a square.",
+      "All sides equal without right angles: rhombus.",
+      "Answer: Rhombus"
+     ],
      "mistake": "Calls every equal-sided shape a square"
     },
     {
@@ -1833,6 +2241,12 @@
      ],
      "answer": 3,
      "explain": "Matching triangles joined along another pair of equal sides make a parallelogram.",
+     "steps": [
+      "The two triangles are matching (same size and shape).",
+      "Joining them along another pair of equal sides gives opposite sides equal and parallel.",
+      "So they make a parallelogram.",
+      "Answer: A parallelogram"
+     ],
      "mistake": "Thinks pieces can only go back into the rhombus"
     }
    ],
@@ -1853,6 +2267,24 @@
     ],
     "praise": "Opposite sides equal and square corners — a rectangle!",
     "nudge": "What do the side lengths and the corners tell me?"
+   },
+   "revise": {
+    "summary": "Measure all four sides to classify a quadrilateral: opposite sides equal is the parallelogram family, neighbouring pairs equal is a kite. Draw shapes on grid paper and see what cutting makes.",
+    "focus": [
+     "Classify a quadrilateral from its side lengths",
+     "Draw a parallelogram and a kite on grid paper",
+     "Know the pieces made by cutting a rhombus"
+    ],
+    "remember": [
+     "Cutting a rhombus along a diagonal gives 2 triangles",
+     "Cutting off one corner of a 4-sided shape leaves 5 sides",
+     "All sides equal and no right angles: rhombus"
+    ],
+    "traps": [
+     "Check where the equal sides are, not just that there are two pairs.",
+     "Cutting off a corner adds a side; it does not remove one."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1957,7 +2389,10 @@
      "answer": 0,
      "explain": "2 large + 1 medium + 2 small triangles + 1 square + 1 parallelogram = 7.",
      "steps": [
-      "2 + 1 + 2 + 1 + 1 = 7"
+      "Count the pieces: 2 large + 1 medium + 2 small triangles.",
+      "Plus 1 square and 1 parallelogram.",
+      "2 + 1 + 2 + 1 + 1 = 7 pieces.",
+      "Answer: 7"
      ],
      "mistake": "Forgets some pieces",
      "check": "2+1+2+1+1"
@@ -1973,7 +2408,10 @@
      "answer": 1,
      "explain": "2 large + 1 medium + 2 small = 5 triangles.",
      "steps": [
-      "2 + 1 + 2 = 5"
+      "Triangles: 2 large, 1 medium, 2 small.",
+      "2 + 1 + 2 = 5.",
+      "So there are 5 triangles.",
+      "Answer: 5"
      ],
      "mistake": "Counts only the large ones",
      "check": "2+1+2"
@@ -1988,6 +2426,12 @@
      ],
      "answer": 2,
      "explain": "Only the square has four square corners.",
+     "steps": [
+      "The triangles each have only one right angle.",
+      "The parallelogram has no right angles.",
+      "Only the square has 4 right angles.",
+      "Answer: The square"
+     ],
      "mistake": "Thinks the parallelogram has right angles"
     },
     {
@@ -2000,6 +2444,12 @@
      ],
      "answer": 3,
      "explain": "Two small triangles join along their long sides to make the square.",
+     "steps": [
+      "The square can be split along its diagonal into 2 equal triangles.",
+      "Those match the two small triangles.",
+      "So 2 small triangles make the square.",
+      "Answer: 2 small triangles"
+     ],
      "mistake": "Uses pieces of different sizes"
     },
     {
@@ -2012,6 +2462,12 @@
      ],
      "answer": 0,
      "explain": "They are all right-angled isosceles triangles, in different sizes.",
+     "steps": [
+      "Every tangram triangle has a square corner.",
+      "The two sides around that corner are equal.",
+      "So each has a right angle and two equal sides.",
+      "Answer: Each has a right angle and two equal sides"
+     ],
      "mistake": "Thinks they are all equilateral"
     },
     {
@@ -2024,6 +2480,12 @@
      ],
      "answer": 1,
      "explain": "Both a square and a rhombus have 4 equal sides.",
+     "steps": [
+      "Which shapes have 4 equal sides?",
+      "A square and a rhombus both do.",
+      "So the clue fits the square and the rhombus.",
+      "Answer: Square and rhombus"
+     ],
      "mistake": "Thinks a clue always fits only one shape"
     },
     {
@@ -2036,6 +2498,12 @@
      ],
      "answer": 2,
      "explain": "3 equal sides means an equilateral triangle.",
+     "steps": [
+      "3 sides: a triangle.",
+      "All sides equal: equilateral.",
+      "So I am an equilateral triangle.",
+      "Answer: Equilateral triangle"
+     ],
      "mistake": "Ignores one of the clues"
     },
     {
@@ -2048,6 +2516,12 @@
      ],
      "answer": 3,
      "explain": "Opposite sides equal and right angles: rectangle. Sides not all equal: not a square.",
+     "steps": [
+      "4 sides, opposite sides equal: parallelogram family.",
+      "4 right angles: rectangle or square.",
+      "Sides not all equal: not a square. So rectangle.",
+      "Answer: Rectangle"
+     ],
      "mistake": "Stops before using the last clue"
     }
    ],
@@ -2068,6 +2542,24 @@
     ],
     "praise": "It could be a rectangle too! I need a clue about the sides.",
     "nudge": "Which other shape has 4 right angles?"
+   },
+   "revise": {
+    "summary": "A tangram has 7 pieces: 5 right-angled isosceles triangles, a square and a parallelogram. In 'Which shape am I?', one clue may fit many shapes, so use all the clues together.",
+    "focus": [
+     "Know the 7 tangram pieces",
+     "Make one tangram piece from others",
+     "Solve shape riddles using all clues"
+    ],
+    "remember": [
+     "2 large, 1 medium, 2 small triangles, 1 square, 1 parallelogram",
+     "Two small triangles make the square, the medium triangle or the parallelogram",
+     "'4 equal sides' fits a square and a rhombus"
+    ],
+    "traps": [
+     "Don't stop before using the last clue.",
+     "Tangram triangles are not equilateral."
+    ],
+    "level": "core"
    }
   },
   {
@@ -2184,6 +2676,12 @@
      ],
      "answer": 0,
      "explain": "The two diameters are equal and cut each other in half, which makes a rectangle.",
+     "steps": [
+      "Two diameters are equal in length and cut each other in half at the centre.",
+      "A quadrilateral whose diagonals are equal and bisect each other is a rectangle.",
+      "So joining the ends gives a rectangle.",
+      "Answer: Rectangle"
+     ],
      "mistake": "Thinks crossed lines always make a kite",
      "visual": {
       "kind": "shape",
@@ -2200,6 +2698,12 @@
      ],
      "answer": 1,
      "explain": "Diameters crossing at right angles make all four sides equal: a square.",
+     "steps": [
+      "Joining the ends always gives a rectangle.",
+      "If the diameters also cross at right angles, all four sides become equal.",
+      "So it is a square when the diameters cross at right angles.",
+      "Answer: When the diameters cross at right angles"
+     ],
      "mistake": "Thinks the size of the circle matters"
     },
     {
@@ -2212,6 +2716,12 @@
      ],
      "answer": 2,
      "explain": "The kite's line of symmetry splits it into 2 matching triangles.",
+     "steps": [
+      "The fold line of a kite is its line of symmetry.",
+      "It cuts the kite into two halves that match.",
+      "So 2 matching triangles.",
+      "Answer: 2"
+     ],
      "mistake": "Counts all the folds",
      "check": "2"
     },
@@ -2225,6 +2735,12 @@
      ],
      "answer": 3,
      "explain": "A kite has 4 sides with neighbouring sides equal in pairs.",
+     "steps": [
+      "A kite has 4 sides, so it is a quadrilateral.",
+      "Its neighbouring sides are equal in pairs.",
+      "So a quadrilateral with two pairs of equal neighbouring sides.",
+      "Answer: A quadrilateral with two pairs of equal neighbouring sides"
+     ],
      "mistake": "Forgets how many sides a kite has"
     },
     {
@@ -2237,6 +2753,12 @@
      ],
      "answer": 0,
      "explain": "8 lines from the centre make 8 equal parts of the full turn.",
+     "steps": [
+      "8 lines go from the centre to the 8 points.",
+      "They split the full turn into 8 equal parts.",
+      "So 8 equal angles.",
+      "Answer: 8"
+     ],
      "mistake": "Doubles the points",
      "check": "8"
     },
@@ -2251,7 +2773,10 @@
      "answer": 1,
      "explain": "360° ÷ 8 = 45°.",
      "steps": [
-      "360 ÷ 8 = 45"
+      "The full turn at the centre is 360°.",
+      "It is split into 8 equal angles.",
+      "360 ÷ 8 = 45°.",
+      "Answer: 45°"
      ],
      "mistake": "Divides 180° instead of 360°",
      "check": "360/8",
@@ -2270,6 +2795,12 @@
      ],
      "answer": 2,
      "explain": "Their four ends are the corners of the square.",
+     "steps": [
+      "The corners of the square must lie on the circle.",
+      "Ends of two diameters at right angles make a square.",
+      "So first draw two diameters at right angles.",
+      "Answer: Two diameters at right angles"
+     ],
      "mistake": "Starts with lines that do not cross the centre"
     },
     {
@@ -2282,6 +2813,12 @@
      ],
      "answer": 3,
      "explain": "All diameters of one circle are the same length.",
+     "steps": [
+      "AC and BD are both diameters of the same circle.",
+      "Every diameter goes through the centre and equals 2 radii.",
+      "So they are equal in length.",
+      "Answer: They are equal in length"
+     ],
      "mistake": "Thinks diameters can be different"
     }
    ],
@@ -2304,6 +2841,24 @@
     ],
     "praise": "If my diameters cross at right angles, I get a square!",
     "nudge": "How should the two diameters cross?"
+   },
+   "revise": {
+    "summary": "Folding a square makes a paper kite whose fold line splits it into 2 matching triangles. Joining the ends of two diameters of a circle always gives a rectangle, and a square if they cross at right angles.",
+    "focus": [
+     "Know the shape made by two diameters",
+     "Draw a square in a circle",
+     "Find angles at the centre of a circle design"
+    ],
+    "remember": [
+     "All diameters of a circle are equal",
+     "Two diameters at right angles → square",
+     "8 equal angles at the centre: 360° ÷ 8 = 45°"
+    ],
+    "traps": [
+     "Don't divide 180° for angles at the centre; use 360°.",
+     "Crossed diameters make a rectangle, not a kite."
+    ],
+    "level": "important"
    }
   },
   {
@@ -2410,6 +2965,12 @@
      ],
      "answer": 0,
      "explain": "A cube has 6 faces, so its net has 6 squares.",
+     "steps": [
+      "A cube has 6 faces.",
+      "A net has one square for each face.",
+      "So a cube net has 6 squares.",
+      "Answer: 6"
+     ],
      "mistake": "Counts edges or corners",
      "check": "6",
      "visual": {
@@ -2427,6 +2988,12 @@
      ],
      "answer": 1,
      "explain": "In a row of four, the 1st and 3rd squares end up opposite each other.",
+     "steps": [
+      "In a row of four squares, the 1st and 3rd fold to be opposite.",
+      "Square 1 is 1st, square 3 is 3rd.",
+      "So 3 is opposite 1.",
+      "Answer: 3"
+     ],
      "mistake": "Picks a square that touches 1",
      "check": "3"
     },
@@ -2440,6 +3007,12 @@
      ],
      "answer": 2,
      "explain": "5 and 6 both join square 2, one above and one below, so they fold to opposite faces.",
+     "steps": [
+      "5 is above square 2 and 6 is below square 2.",
+      "When folded, one goes to the top and one to the bottom.",
+      "So 6 is opposite 5.",
+      "Answer: 6"
+     ],
      "mistake": "Thinks the squares above and below are neighbours",
      "check": "6"
     },
@@ -2455,7 +3028,8 @@
      "explain": "Frame = 8 corners + 12 edge cubes = 20. 27 − 20 = 7 removed.",
      "steps": [
       "8 + 12 = 20",
-      "27 − 20 = 7"
+      "27 − 20 = 7",
+      "Answer: 7"
      ],
      "mistake": "Gives the frame count instead",
      "check": "27-(8+12)"
@@ -2473,7 +3047,8 @@
      "steps": [
       "12 × 3 = 36",
       "8 + 36 = 44",
-      "125 − 44 = 81"
+      "125 − 44 = 81",
+      "Answer: 81"
      ],
      "mistake": "Forgets that each edge has 3 middle cubes",
      "check": "125-(8+12*3)"
@@ -2488,6 +3063,12 @@
      ],
      "answer": 1,
      "explain": "The middle cube of each of the 12 edges has 2 painted faces.",
+     "steps": [
+      "Cubes with exactly 2 painted faces sit in the middle of each edge.",
+      "A 3×3×3 cube has 1 middle cube on each of its 12 edges.",
+      "So 12 cubes.",
+      "Answer: 12"
+     ],
      "mistake": "Counts the corners",
      "check": "12"
     },
@@ -2502,7 +3083,10 @@
      "answer": 2,
      "explain": "Only the very centre cube is hidden from every side.",
      "steps": [
-      "27 − 8 − 12 − 6 = 1"
+      "27 small cubes: 8 corners, 12 edge middles, 6 face centres are all painted.",
+      "27 − 8 − 12 − 6 = 1.",
+      "Only the centre cube has no paint: 1.",
+      "Answer: 1"
      ],
      "mistake": "Thinks every cube touches the outside",
      "check": "27-8-12-6"
@@ -2517,6 +3101,12 @@
      ],
      "answer": 3,
      "explain": "The centre cube of each of the 6 faces has 1 painted face.",
+     "steps": [
+      "Cubes with exactly 1 painted face are face centres.",
+      "Each of the 6 faces has 1 centre cube.",
+      "So 6 cubes.",
+      "Answer: 6"
+     ],
      "mistake": "Counts all 9 cubes on one face",
      "check": "6"
     }
@@ -2539,6 +3129,24 @@
     ],
     "praise": "The 8 corner cubes have 3 red faces each!",
     "nudge": "Where on the big cube do three faces meet?"
+   },
+   "revise": {
+    "summary": "A cube's net has 6 squares; in a row of 4, the 1st and 3rd and the 2nd and 4th are opposite. In a painted 3×3×3 cube: 8 corners have 3 faces, 12 edge cubes 2, 6 face centres 1, and 1 centre has none.",
+    "focus": [
+     "Find opposite faces in a cube net",
+     "Count cubes in a cube frame",
+     "Count painted faces of small cubes"
+    ],
+    "remember": [
+     "8 + 12 + 6 + 1 = 27",
+     "3×3×3 frame: 20 cubes kept, 7 removed",
+     "Squares above and below the same square are opposite"
+    ],
+    "traps": [
+     "Squares that touch in the net are never opposite.",
+     "Don't count all 9 cubes on a face as having 1 painted face."
+    ],
+    "level": "advanced"
    }
   },
   {
@@ -2620,6 +3228,12 @@
      ],
      "answer": 0,
      "explain": "Star is before triangle, triangle before circle, circle before square.",
+     "steps": [
+      "Star is left of triangle; triangle is left of circle; square is right of circle.",
+      "So star → triangle → circle → square.",
+      "Order: Star, triangle, circle, square.",
+      "Answer: Star, triangle, circle, square"
+     ],
      "mistake": "Uses only some of the clues"
     },
     {
@@ -2632,6 +3246,12 @@
      ],
      "answer": 1,
      "explain": "All 20 faces of an icosahedron are equilateral triangles.",
+     "steps": [
+      "An icosahedron has 20 faces.",
+      "All of them are equilateral triangles.",
+      "So the faces are equilateral triangles.",
+      "Answer: Equilateral triangles"
+     ],
      "mistake": "Mixes it up with the dodecahedron"
     },
     {
@@ -2644,6 +3264,12 @@
      ],
      "answer": 2,
      "explain": "A dodecahedron has 12 regular pentagon faces.",
+     "steps": [
+      "A dodecahedron has 12 faces.",
+      "All of them are regular pentagons.",
+      "So the faces are regular pentagons.",
+      "Answer: Regular pentagons"
+     ],
      "mistake": "Mixes it up with the icosahedron",
      "visual": {
       "kind": "shape",
@@ -2662,7 +3288,8 @@
      "explain": "20 × 3 = 60 sides, but each edge is counted twice: 60 ÷ 2 = 30.",
      "steps": [
       "20 × 3 = 60",
-      "60 ÷ 2 = 30"
+      "60 ÷ 2 = 30",
+      "Answer: 30"
      ],
      "mistake": "Forgets that edges are shared",
      "check": "20*3/2"
@@ -2679,7 +3306,8 @@
      "explain": "12 × 5 = 60 sides, shared by 2 faces each: 60 ÷ 2 = 30.",
      "steps": [
       "12 × 5 = 60",
-      "60 ÷ 2 = 30"
+      "60 ÷ 2 = 30",
+      "Answer: 30"
      ],
      "mistake": "Does not divide by 2",
      "check": "12*5/2"
@@ -2694,6 +3322,12 @@
      ],
      "answer": 1,
      "explain": "5 equilateral triangles meet at every corner of an icosahedron.",
+     "steps": [
+      "An icosahedron is made of equilateral triangles.",
+      "At each corner, 5 triangles meet.",
+      "So 5 faces meet at each corner.",
+      "Answer: 5"
+     ],
      "mistake": "Uses 3 as in a cube",
      "check": "5"
     },
@@ -2707,6 +3341,12 @@
      ],
      "answer": 2,
      "explain": "A cylinder has curved surfaces, not identical regular polygon faces.",
+     "steps": [
+      "Platonic solids: tetrahedron, cube, octahedron, dodecahedron, icosahedron.",
+      "Each has identical flat regular faces.",
+      "A cylinder has curved surfaces, so it is NOT a Platonic solid.",
+      "Answer: Cylinder"
+     ],
      "mistake": "Thinks any solid counts"
     },
     {
@@ -2721,7 +3361,8 @@
      "explain": "A tetrahedron has 6 edges, so 6 straws: 4 × 3 ÷ 2 = 6.",
      "steps": [
       "4 × 3 = 12",
-      "12 ÷ 2 = 6"
+      "12 ÷ 2 = 6",
+      "Answer: 6"
      ],
      "mistake": "Counts faces instead of edges",
      "check": "4*3/2"
@@ -2746,6 +3387,24 @@
     ],
     "praise": "12 straws for the edges and 8 clay balls for the corners!",
     "nudge": "How many edges and corners does a cube have?"
+   },
+   "revise": {
+    "summary": "Solve arranging puzzles one clue at a time. The five Platonic solids have identical regular faces; count edges as faces × sides ÷ 2 since each edge is shared.",
+    "focus": [
+     "Solve order puzzles from clues",
+     "Know the faces of the Platonic solids",
+     "Count edges and corners for straw models"
+    ],
+    "remember": [
+     "Icosahedron: 20 triangles, 5 meet at each corner, 30 edges",
+     "Dodecahedron: 12 pentagons, 3 meet at each corner, 30 edges",
+     "Cube: 12 edges (straws), 8 corners (clay balls)"
+    ],
+    "traps": [
+     "Don't forget to divide by 2 when counting edges.",
+     "Don't mix up icosahedron (triangles) and dodecahedron (pentagons)."
+    ],
+    "level": "advanced"
    }
   }
  ]

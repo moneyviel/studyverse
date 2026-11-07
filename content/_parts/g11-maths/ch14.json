@@ -123,6 +123,13 @@
      ],
      "answer": 1,
      "explain": "HHT, HTH, THH.",
+     "steps": [
+      "Three tosses give 8 outcomes",
+      "Exactly two heads: HHT, HTH, THH",
+      "Count them",
+      "3 outcomes",
+      "Answer: 3"
+     ],
      "mistake": "Forgets one arrangement",
      "check": "3"
     },
@@ -136,6 +143,13 @@
      ],
      "answer": 3,
      "explain": "An event must be a subset of S = {1, …, 6}.",
+     "steps": [
+      "S = {1, 2, 3, 4, 5, 6} for a die",
+      "An event must be a subset of S",
+      "7 and 0 are not outcomes, so the other sets fail",
+      "{2, 3, 5} is an event",
+      "Answer: {2, 3, 5}"
+     ],
      "mistake": "Includes outcomes that cannot happen"
     },
     {
@@ -148,6 +162,12 @@
      ],
      "answer": 1,
      "explain": "When outcomes are not equally likely (a biased coin) or infinite, it cannot be applied — hence the axiomatic approach.",
+     "steps": [
+      "P(E) = n(E)/n(S) assumes every outcome is equally likely",
+      "It also needs a finite sample space",
+      "A biased coin or infinitely many outcomes breaks this, so we need axioms",
+      "Answer: It needs equally likely outcomes and a finite sample space"
+     ],
      "mistake": "Thinks the formula fails only for large numbers"
     },
     {
@@ -160,6 +180,13 @@
      ],
      "answer": 1,
      "explain": "(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1).",
+     "steps": [
+      "Two dice: 36 ordered outcomes",
+      "Sum 7: (1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1)",
+      "Count them",
+      "6 outcomes",
+      "Answer: 6"
+     ],
      "mistake": "Counts unordered pairs only",
      "check": "6"
     },
@@ -173,6 +200,13 @@
      ],
      "answer": 0,
      "explain": "HT contains a tail, so 'at least one tail' = {HT, TH, TT} has occurred.",
+     "steps": [
+      "The outcome is HT",
+      "'At least one tail' = {HT, TH, TT} contains HT",
+      "The other events do not contain HT",
+      "'At least one tail' has occurred",
+      "Answer: 'At least one tail'"
+     ],
      "mistake": "Reads HT as two heads"
     },
     {
@@ -185,6 +219,13 @@
      ],
      "answer": 0,
      "explain": "King of hearts and king of diamonds.",
+     "steps": [
+      "Kings: one in each of the 4 suits",
+      "Red suits: hearts and diamonds",
+      "King of hearts and king of diamonds",
+      "2 outcomes",
+      "Answer: 2"
+     ],
      "mistake": "Counts all four kings",
      "check": "2"
     },
@@ -198,6 +239,13 @@
      ],
      "answer": 0,
      "explain": "2 × 6 = 12, such as H1, H2, …, T6.",
+     "steps": [
+      "Coin: 2 outcomes; die: 6 outcomes",
+      "Multiply: 2 × 6",
+      "Outcomes like H1, …, H6, T1, …, T6",
+      "12 outcomes",
+      "Answer: 12"
+     ],
      "mistake": "Adds 2 + 6",
      "check": "2*6"
     },
@@ -211,6 +259,12 @@
      ],
      "answer": 3,
      "explain": "Any subset of S, including ∅ and S itself, is an event.",
+     "steps": [
+      "An event is defined as a subset of S",
+      "It can be ∅, one outcome, several, or S itself",
+      "It is a set of outcomes, not a number",
+      "Answer: E is a subset of the sample space S"
+     ],
      "mistake": "Confuses the event with its probability"
     }
    ],
@@ -234,6 +288,26 @@
     ],
     "praise": "S = {HH, HT, TH, TT}, and an event is just a chosen part of it. It occurs if the outcome is inside. Chirp!",
     "nudge": "What is the set of all possible outcomes called, and how is an event related to it?"
+   },
+   "revise": {
+    "summary": "A random experiment has more than one possible outcome and the outcome cannot be predicted; the set of all outcomes is the sample space S. An event is any subset of S, and it occurs when the actual outcome belongs to it.",
+    "focus": [
+     "Write sample spaces for coins, dice and cards",
+     "List the outcomes in a described event and count them",
+     "Decide whether an event has occurred for a given outcome",
+     "Explain why the classical definition needs equally likely, finitely many outcomes"
+    ],
+    "remember": [
+     "Sample space S: set of all outcomes of a random experiment",
+     "Event: any subset of S; E occurs if the outcome ω ∈ E",
+     "Classical: P(E) = n(E)/n(S) for equally likely outcomes",
+     "Two tosses: S = {HH, HT, TH, TT}"
+    ],
+    "traps": [
+     "An event must be a subset of S: {7} is not an event for a die",
+     "The classical formula fails for biased outcomes or infinite sample spaces"
+    ],
+    "level": "core"
    }
   },
   {
@@ -346,6 +420,12 @@
      ],
      "answer": 0,
      "explain": "No outcome satisfies it, so it is ∅.",
+     "steps": [
+      "S = {1, 2, 3, 4, 5, 6}; no outcome is greater than 6",
+      "The event has no outcomes: it is ∅",
+      "∅ is the impossible event",
+      "Answer: an impossible event"
+     ],
      "mistake": "Confuses impossible with simple"
     },
     {
@@ -358,6 +438,12 @@
      ],
      "answer": 1,
      "explain": "Every sum is between 2 and 12.",
+     "steps": [
+      "With two dice the sum is always between 2 and 12",
+      "So 'sum at most 12' contains every outcome",
+      "An event equal to S is sure",
+      "Answer: a sure event"
+     ],
      "mistake": "Thinks 'at most' makes it rare"
     },
     {
@@ -370,6 +456,13 @@
      ],
      "answer": 2,
      "explain": "A simple event has exactly one sample point.",
+     "steps": [
+      "Simple event: exactly one sample point",
+      "{HH} has one outcome",
+      "{HH, TT} and {HT, TH} have two; S has four",
+      "{HH} is simple",
+      "Answer: {HH}"
+     ],
      "mistake": "Thinks 'both the same' is one outcome"
     },
     {
@@ -382,6 +475,13 @@
      ],
      "answer": 0,
      "explain": "A′ = S − A.",
+     "steps": [
+      "A′ = S − A",
+      "S = {1, 2, 3, 4, 5, 6}; remove 2, 3, 5",
+      "What is left: 1, 4, 6",
+      "A′ = {1, 4, 6}",
+      "Answer: {1, 4, 6}"
+     ],
      "mistake": "Leaves out an outcome"
     },
     {
@@ -394,6 +494,13 @@
      ],
      "answer": 1,
      "explain": "The complement is 'no head' = {TTT}.",
+     "steps": [
+      "Complement of 'at least one head' is 'no head'",
+      "With 3 tosses, no head means TTT only",
+      "Count: 1",
+      "1 outcome",
+      "Answer: 1"
+     ],
      "mistake": "Counts 'at least one head' itself",
      "check": "1"
     },
@@ -407,6 +514,12 @@
      ],
      "answer": 0,
      "explain": "S − S = ∅.",
+     "steps": [
+      "Complement of S = S − S",
+      "Removing every outcome leaves nothing",
+      "So the complement is the empty set",
+      "Answer: ∅"
+     ],
      "mistake": "Writes {0} for the empty set"
     },
     {
@@ -419,6 +532,13 @@
      ],
      "answer": 2,
      "explain": "Not a spade means any of the other three suits.",
+     "steps": [
+      "A′ = S − A: every card that is not a spade",
+      "The other suits are hearts, diamonds and clubs",
+      "'Club' alone or 'red' alone misses some of them",
+      "A′ = the card is a heart, diamond or club",
+      "Answer: 'the card is a heart, diamond or club'"
+     ],
      "mistake": "Names only one of the other suits"
     },
     {
@@ -431,6 +551,12 @@
      ],
      "answer": 1,
      "explain": "Compound events combine several outcomes.",
+     "steps": [
+      "Simple event: one sample point",
+      "Compound event: combines several outcomes",
+      "So it has more than one sample point",
+      "Answer: more than one sample point"
+     ],
      "mistake": "Confuses compound with simple"
     }
    ],
@@ -460,6 +586,24 @@
     ],
     "praise": "Impossible means never, sure means always, and the complement is everything else. Event types sorted!",
     "nudge": "Which event contains no outcomes at all?"
+   },
+   "revise": {
+    "summary": "The impossible event is ∅ and the sure event is S. A simple event has one sample point, a compound event has more than one, and the complement of A is A′ = S − A ('not A').",
+    "focus": [
+     "Classify events as impossible, sure, simple or compound",
+     "Find the complement A′ = S − A",
+     "Describe complements in words"
+    ],
+    "remember": [
+     "Impossible event: ∅; sure event: S",
+     "Simple event: exactly one sample point; compound: more than one",
+     "A′ = S − A = {ω ∈ S : ω ∉ A}"
+    ],
+    "traps": [
+     "The complement of 'at least one head' is 'no head', not 'at least one tail'",
+     "The complement of S is ∅, not S"
+    ],
+    "level": "core"
    }
   },
   {
@@ -562,6 +706,13 @@
      ],
      "answer": 0,
      "explain": "Both tosses must be heads.",
+     "steps": [
+      "A = {HH, HT}; B = {HH, TH}",
+      "A ∩ B = outcomes in both",
+      "Only HH is in both",
+      "A ∩ B = {HH}",
+      "Answer: {HH}"
+     ],
      "mistake": "Gives A ∪ B"
     },
     {
@@ -574,6 +725,13 @@
      ],
      "answer": 1,
      "explain": "A − B removes 3 from A.",
+     "steps": [
+      "'A but not B' = A − B",
+      "A = {1, 2, 3}; remove the elements of B = {3, 4}",
+      "3 is removed; 4 is not in A anyway",
+      "A − B = {1, 2}",
+      "Answer: {1, 2}"
+     ],
      "mistake": "Computes B − A"
     },
     {
@@ -586,6 +744,12 @@
      ],
      "answer": 1,
      "explain": "1 is not even, so they cannot occur together. The other pairs share 3, 5 or 6.",
+     "steps": [
+      "Mutually exclusive: no common outcome",
+      "<4 and >2 share 3; 6 and multiples of 3 share 6; odd and prime share 3, 5",
+      "{1} and {2, 4, 6} share nothing",
+      "Answer: 'Getting 1' and 'getting an even number'"
+     ],
      "mistake": "Thinks different descriptions mean disjoint events"
     },
     {
@@ -598,6 +762,12 @@
      ],
      "answer": 0,
      "explain": "They are pairwise disjoint and their union is S.",
+     "steps": [
+      "Pairwise: A ∩ B = B ∩ C = A ∩ C = ∅ → mutually exclusive",
+      "Union: {1, 2, 3, 4, 5, 6} = S → exhaustive",
+      "Both conditions hold",
+      "Answer: mutually exclusive and exhaustive"
+     ],
      "mistake": "Forgets to check the union"
     },
     {
@@ -610,6 +780,13 @@
      ],
      "answer": 1,
      "explain": "A = {(2, 6), (3, 5), (4, 4), (5, 3), (6, 2)}; only (4, 4) has equal numbers.",
+     "steps": [
+      "A = {(2, 6), (3, 5), (4, 4), (5, 3), (6, 2)}",
+      "B = doubles: (1, 1), …, (6, 6)",
+      "Common outcome: only (4, 4)",
+      "n(A ∩ B) = 1",
+      "Answer: 1"
+     ],
      "mistake": "Counts A or B instead",
      "check": "1"
     },
@@ -623,6 +800,13 @@
      ],
      "answer": 1,
      "explain": "Mutually exclusive means they have no common outcome.",
+     "steps": [
+      "Mutually exclusive means A and B cannot happen together",
+      "So they share no outcome",
+      "The intersection is empty",
+      "A ∩ B = ∅",
+      "Answer: ∅"
+     ],
      "mistake": "Confuses mutually exclusive with exhaustive"
     },
     {
@@ -635,6 +819,13 @@
      ],
      "answer": 1,
      "explain": "Neither A nor B = (A ∪ B)′ = A′ ∩ B′, the complement of A ∪ B.",
+     "steps": [
+      "'Neither A nor B' = (A ∪ B)′",
+      "It contains exactly the outcomes not in A ∪ B",
+      "So it is the complement of 'A or B'",
+      "They are complementary",
+      "Answer: complementary"
+     ],
      "mistake": "Confuses 'neither' with 'both'"
     },
     {
@@ -647,6 +838,12 @@
      ],
      "answer": 2,
      "explain": "A ∩ B′ means A occurs and B does not.",
+     "steps": [
+      "B′ = 'not a face card'",
+      "A ∩ B′: A happens and B does not",
+      "A heart that is not J, Q or K",
+      "Answer: a heart that is not a face card"
+     ],
      "mistake": "Reverses A and B"
     }
    ],
@@ -676,6 +873,25 @@
     ],
     "praise": "Or is union, and is intersection, but-not is A ∩ B′. Mutually exclusive: no overlap; exhaustive: covers everything. Logic legend!",
     "nudge": "What does it mean for two events to be mutually exclusive?"
+   },
+   "revise": {
+    "summary": "Events combine like sets: 'A or B' is A ∪ B, 'A and B' is A ∩ B, and 'A but not B' is A − B = A ∩ B′. Events are mutually exclusive if A ∩ B = ∅ and exhaustive if their union is S.",
+    "focus": [
+     "Translate 'or', 'and', 'but not', 'neither … nor' into set operations",
+     "Find A ∪ B, A ∩ B and A − B for dice and coin events",
+     "Test whether events are mutually exclusive and/or exhaustive"
+    ],
+    "remember": [
+     "A or B = A ∪ B; A and B = A ∩ B; A but not B = A − B = A ∩ B′",
+     "Mutually exclusive: A ∩ B = ∅",
+     "Exhaustive: E₁ ∪ E₂ ∪ … ∪ Eₙ = S",
+     "Neither A nor B = (A ∪ B)′ = A′ ∩ B′"
+    ],
+    "traps": [
+     "Mutually exclusive events need not be exhaustive, and exhaustive events need not be exclusive",
+     "'A but not B' removes B's outcomes from A; don't include outcomes from B"
+    ],
+    "level": "important"
    }
   },
   {
@@ -798,6 +1014,13 @@
      ],
      "answer": 1,
      "explain": "Every probability lies between 0 and 1.",
+     "steps": [
+      "Every probability satisfies 0 ≤ P(E) ≤ 1",
+      "0, 0.75 and 1 are in this range",
+      "1.2 > 1",
+      "1.2 cannot be a probability",
+      "Answer: 1.2"
+     ],
      "mistake": "Thinks probabilities can exceed 1",
      "check": "1.2"
     },
@@ -811,6 +1034,13 @@
      ],
      "answer": 0,
      "explain": "The total must be 1: 1 − 0.3 − 0.45 = 0.25.",
+     "steps": [
+      "For a valid assignment the total must be 1",
+      "P(c) = 1 − 0.3 − 0.45",
+      "= 1 − 0.75",
+      "P(c) = 0.25",
+      "Answer: 0.25"
+     ],
      "mistake": "Subtracts only one value",
      "check": "1-Fraction(3,10)-Fraction(45,100)"
     },
@@ -824,6 +1054,13 @@
      ],
      "answer": 0,
      "explain": "Primes: 2, 3, 5 → 3/6.",
+     "steps": [
+      "Primes on a die: 2, 3, 5 → 3 outcomes",
+      "Total outcomes: 6, all equally likely",
+      "P = 3/6",
+      "= 1/2",
+      "Answer: 1/2"
+     ],
      "mistake": "Treats 1 as prime",
      "check": "Fraction(3,6)"
     },
@@ -837,6 +1074,13 @@
      ],
      "answer": 0,
      "explain": "Sums 2, 3, 4 occur in 1 + 2 + 3 = 6 of 36 outcomes.",
+     "steps": [
+      "Sum 2: 1 way; sum 3: 2 ways; sum 4: 3 ways → 6 outcomes",
+      "Total: 36",
+      "P = 6/36",
+      "= 1/6",
+      "Answer: 1/6"
+     ],
      "mistake": "Counts only sums 2 and 3",
      "check": "Fraction(6,36)"
     },
@@ -850,6 +1094,13 @@
      ],
      "answer": 3,
      "explain": "S and ∅ are mutually exclusive with S ∪ ∅ = S, so P(S) = P(S) + P(∅) ⇒ P(∅) = 0.",
+     "steps": [
+      "S and ∅ are mutually exclusive, and S ∪ ∅ = S",
+      "Axiom 3: P(S) = P(S) + P(∅)",
+      "Subtract P(S) from both sides",
+      "P(∅) = 0",
+      "Answer: 0"
+     ],
      "mistake": "Thinks ∅ has probability 1",
      "check": "0"
     },
@@ -863,6 +1114,13 @@
      ],
      "answer": 2,
      "explain": "HHH, HHT, HTH, THH: 4 of 8.",
+     "steps": [
+      "8 equally likely outcomes",
+      "At least two heads: HHH, HHT, HTH, THH → 4",
+      "P = 4/8",
+      "= 1/2",
+      "Answer: 1/2"
+     ],
      "mistake": "Counts exactly two heads only",
      "check": "Fraction(4,8)"
     },
@@ -876,6 +1134,13 @@
      ],
      "answer": 0,
      "explain": "The other faces share 0.75 equally: 0.75/5 = 0.15.",
+     "steps": [
+      "Total probability 1; P(6) = 0.25",
+      "The other five faces share 1 − 0.25 = 0.75 equally",
+      "0.75/5",
+      "P(1) = 0.15",
+      "Answer: 0.15"
+     ],
      "mistake": "Assumes all faces have probability 1/6",
      "check": "Fraction(75,100)/5"
     },
@@ -889,6 +1154,12 @@
      ],
      "answer": 2,
      "explain": "Additivity holds for mutually exclusive events; P(S) = 1.",
+     "steps": [
+      "Axiom 3: additivity for mutually exclusive events",
+      "P(E) is never negative and P(S) = 1, not 0",
+      "For overlapping events we must subtract P(E ∩ F), so 'for all events' is wrong",
+      "Answer: If E and F are mutually exclusive, P(E ∪ F) = P(E) + P(F)"
+     ],
      "mistake": "Forgets the mutually exclusive condition"
     }
    ],
@@ -914,6 +1185,26 @@
     ],
     "praise": "Each chance at least 0, all adding to 1, and disjoint events just add. My spinner is now legal!",
     "nudge": "What must the probabilities of all outcomes add up to?"
+   },
+   "revise": {
+    "summary": "The axioms of probability are P(E) ≥ 0, P(S) = 1, and P(E ∪ F) = P(E) + P(F) for mutually exclusive E and F; so P(∅) = 0 and 0 ≤ P(E) ≤ 1. For equally likely outcomes, P(E) = n(E)/n(S).",
+    "focus": [
+     "State the three axioms and their consequences",
+     "Check whether a probability assignment is valid",
+     "Find probabilities by adding the probabilities of outcomes in an event",
+     "Use P(E) = n(E)/n(S) for equally likely outcomes"
+    ],
+    "remember": [
+     "Axioms: P(E) ≥ 0; P(S) = 1; P(E ∪ F) = P(E) + P(F) if E ∩ F = ∅",
+     "P(∅) = 0 and 0 ≤ P(E) ≤ 1",
+     "Valid assignment: each value in [0, 1] and total 1",
+     "Equally likely: each outcome has probability 1/n"
+    ],
+    "traps": [
+     "No probability can be negative or greater than 1",
+     "Additivity P(E ∪ F) = P(E) + P(F) holds only for mutually exclusive events"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1000,6 +1291,13 @@
      ],
      "answer": 3,
      "explain": "4/52 + 13/52 − 1/52 = 16/52 = 4/13.",
+     "steps": [
+      "P(king) = 4/52, P(heart) = 13/52, P(king of hearts) = 1/52",
+      "P(K ∪ H) = 4/52 + 13/52 − 1/52",
+      "= 16/52",
+      "= 4/13",
+      "Answer: 4/13"
+     ],
      "mistake": "Adds without subtracting the king of hearts",
      "check": "Fraction(16,52)"
     },
@@ -1013,6 +1311,13 @@
      ],
      "answer": 1,
      "explain": "0.6 + 0.5 − 0.3 = 0.8.",
+     "steps": [
+      "P(A ∪ B) = P(A) + P(B) − P(A ∩ B)",
+      "= 0.6 + 0.5 − 0.3",
+      "= 1.1 − 0.3",
+      "= 0.8",
+      "Answer: 0.8"
+     ],
      "mistake": "Adds without subtracting the overlap",
      "check": "Fraction(8,10)"
     },
@@ -1026,6 +1331,13 @@
      ],
      "answer": 1,
      "explain": "For mutually exclusive events, add: 1/4 + 1/3 = 7/12.",
+     "steps": [
+      "Mutually exclusive → P(A ∩ B) = 0",
+      "P(A ∪ B) = 1/4 + 1/3",
+      "= 3/12 + 4/12",
+      "= 7/12",
+      "Answer: 7/12"
+     ],
      "mistake": "Multiplies the probabilities",
      "check": "Fraction(7,12)"
     },
@@ -1039,6 +1351,13 @@
      ],
      "answer": 2,
      "explain": "P(A′) = 1 − 0.35.",
+     "steps": [
+      "Complement rule: P(not A) = 1 − P(A)",
+      "= 1 − 0.35",
+      "= 0.65",
+      "P(no rain) = 0.65",
+      "Answer: 0.65"
+     ],
      "mistake": "Gives the same probability",
      "check": "Fraction(65,100)"
     },
@@ -1052,6 +1371,13 @@
      ],
      "answer": 2,
      "explain": "P(A ∩ B) = P(A) + P(B) − P(A ∪ B) = 0.9 − 0.7.",
+     "steps": [
+      "Rearrange the addition rule: P(A ∩ B) = P(A) + P(B) − P(A ∪ B)",
+      "= 0.5 + 0.4 − 0.7",
+      "= 0.9 − 0.7",
+      "= 0.2",
+      "Answer: 0.2"
+     ],
      "mistake": "Subtracts in the wrong order",
      "check": "Fraction(2,10)"
     },
@@ -1065,6 +1391,13 @@
      ],
      "answer": 2,
      "explain": "P(A ∪ B) = 0.7, so P(A′ ∩ B′) = 1 − 0.7 = 0.3.",
+     "steps": [
+      "P(A ∪ B) = 0.5 + 0.4 − 0.2 = 0.7",
+      "P(neither) = P(A′ ∩ B′) = 1 − P(A ∪ B)",
+      "= 1 − 0.7",
+      "= 0.3",
+      "Answer: 0.3"
+     ],
      "mistake": "Computes 1 − P(A ∩ B)",
      "check": "Fraction(3,10)"
     },
@@ -1078,6 +1411,13 @@
      ],
      "answer": 1,
      "explain": "P(sum 7) = 6/36 = 1/6, so P(not 7) = 5/6.",
+     "steps": [
+      "Sum 7 occurs in 6 of 36 outcomes: P = 1/6",
+      "P(not 7) = 1 − 1/6",
+      "= 5/6",
+      "P = 5/6",
+      "Answer: 5/6"
+     ],
      "mistake": "Forgets the complement rule",
      "check": "Fraction(5,6)"
     },
@@ -1091,6 +1431,12 @@
      ],
      "answer": 2,
      "explain": "P(A ∪ B) = 0.5 + 0.7 − 0.1 = 1.1, which exceeds 1.",
+     "steps": [
+      "P(A ∪ B) = 0.5 + 0.7 − 0.1",
+      "= 1.1",
+      "A probability can never exceed 1",
+      "Answer: No, since P(A ∪ B) would be 1.1 > 1"
+     ],
      "mistake": "Checks only the individual values"
     }
    ],
@@ -1116,6 +1462,25 @@
     ],
     "praise": "Add, then subtract the overlap — unless the events can't happen together. And not-A is 1 minus A. Deal me in!",
     "nudge": "Which card did Gappu count twice?"
+   },
+   "revise": {
+    "summary": "For any events, P(A ∪ B) = P(A) + P(B) − P(A ∩ B); for mutually exclusive events the last term is 0. The complement rule P(A′) = 1 − P(A) gives 'not' and 'neither' probabilities quickly.",
+    "focus": [
+     "Use the addition rule for overlapping events",
+     "Use P(A ∪ B) = P(A) + P(B) for mutually exclusive events",
+     "Use the complement rule, including P(neither A nor B) = 1 − P(A ∪ B)",
+     "Check whether given probabilities are consistent"
+    ],
+    "remember": [
+     "P(A ∪ B) = P(A) + P(B) − P(A ∩ B)",
+     "P(A′) = 1 − P(A)",
+     "P(A but not B) = P(A) − P(A ∩ B); P(A′ ∩ B′) = 1 − P(A ∪ B)"
+    ],
+    "traps": [
+     "Don't forget to subtract the overlap P(A ∩ B) for overlapping events",
+     "Values between 0 and 1 can still be inconsistent if P(A ∪ B) comes out above 1"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1199,6 +1564,13 @@
      ],
      "answer": 0,
      "explain": "³C₂/⁸C₂ = 3/28.",
+     "steps": [
+      "Favourable: choose 2 of the 3 blue: ³C₂ = 3",
+      "Total: choose 2 of 8 balls: ⁸C₂ = 28",
+      "P = 3/28",
+      "= 3/28",
+      "Answer: 3/28"
+     ],
      "mistake": "Uses draws with replacement (3/8)²",
      "check": "Fraction(3,28)"
     },
@@ -1212,6 +1584,13 @@
      ],
      "answer": 1,
      "explain": "There are 11 letters, two of which are M.",
+     "steps": [
+      "MATHEMATICS has 11 letters",
+      "M appears twice",
+      "P = 2/11",
+      "= 2/11",
+      "Answer: 2/11"
+     ],
      "mistake": "Counts distinct letters (8) as the total",
      "check": "Fraction(2,11)"
     },
@@ -1225,6 +1604,13 @@
      ],
      "answer": 0,
      "explain": "Together: 5! × 2! = 240; total 6! = 720. 240/720 = 1/3.",
+     "steps": [
+      "Total arrangements of 6 different letters: 6! = 720",
+      "Vowels O, A as one block: 5! × 2! = 120 × 2 = 240",
+      "P = 240/720",
+      "= 1/3",
+      "Answer: 1/3"
+     ],
      "mistake": "Forgets to arrange the vowels inside the block",
      "check": "Fraction(240,720)"
     },
@@ -1238,6 +1624,12 @@
      ],
      "answer": 1,
      "explain": "Choose 4 of the 13 spades out of all 4-card hands.",
+     "steps": [
+      "Selections, so use combinations",
+      "Favourable: 4 of the 13 spades → ¹³C₄; total: any 4 of 52 → ⁵²C₄",
+      "P = ¹³C₄/⁵²C₄",
+      "Answer: ¹³C₄/⁵²C₄"
+     ],
      "mistake": "Treats the draws as independent with replacement"
     },
     {
@@ -1250,6 +1642,13 @@
      ],
      "answer": 2,
      "explain": "N = ²⁰C₆ = 38,760 equally likely choices, one of which wins.",
+     "steps": [
+      "Order does not matter, so count selections",
+      "Number of possible tickets: ²⁰C₆ = 38760",
+      "One ticket wins: P = 1/38760",
+      "N = 38760",
+      "Answer: 38760"
+     ],
      "mistake": "Uses ²⁰P₆ = 27,907,200, treating order as important",
      "check": "38760"
     },
@@ -1263,6 +1662,13 @@
      ],
      "answer": 3,
      "explain": "P(no girl) = ³C₂/⁵C₂ = 3/10, so P(at least one girl) = 7/10.",
+     "steps": [
+      "P(no girl) = ³C₂/⁵C₂ = 3/10",
+      "P(at least one girl) = 1 − P(no girl)",
+      "= 1 − 3/10",
+      "= 7/10",
+      "Answer: 7/10"
+     ],
      "mistake": "Gives P(no girl)",
      "check": "1-Fraction(3,10)"
     },
@@ -1276,6 +1682,13 @@
      ],
      "answer": 2,
      "explain": "⁴C₃/⁵²C₃ = 4/22100 = 1/5525.",
+     "steps": [
+      "Favourable: ⁴C₃ = 4",
+      "Total: ⁵²C₃ = (52 × 51 × 50)/6 = 22100",
+      "P = 4/22100 = 1/5525",
+      "k = 5525",
+      "Answer: 5525"
+     ],
      "mistake": "Uses (4/52)³ = 1/2197, treating the draws as with replacement",
      "check": "22100/4"
     },
@@ -1289,6 +1702,13 @@
      ],
      "answer": 1,
      "explain": "Any of the 10 people is equally likely to be at the left end.",
+     "steps": [
+      "All 10 people are equally likely to be at the left end",
+      "That boy is 1 of the 10",
+      "(Or: 9!/10! = 1/10)",
+      "P = 1/10",
+      "Answer: 1/10"
+     ],
      "mistake": "Divides by the number of boys only",
      "check": "Fraction(1,10)"
     }
@@ -1314,6 +1734,26 @@
     ],
     "praise": "Count favourable choices, count all choices, divide. 60 out of 120 — a half! Counting powers probability.",
     "nudge": "How do you count the total number of possible committees?"
+   },
+   "revise": {
+    "summary": "Many probability problems are counting problems: P(E) = n(E)/n(S), with both counts found by combinations (selections) or permutations (arrangements). For 'at least one', use 1 − P(none).",
+    "focus": [
+     "Count n(E) and n(S) with ⁿCᵣ for selections",
+     "Count with factorials or ⁿPᵣ for arrangements",
+     "Use 1 − P(none) for 'at least one' problems",
+     "Decide whether order matters"
+    ],
+    "remember": [
+     "P(E) = n(E)/n(S)",
+     "Selections (committees, hands, balls drawn together): ⁿCᵣ",
+     "Arrangements (letters, seating): factorials or ⁿPᵣ",
+     "P(at least one) = 1 − P(none)"
+    ],
+    "traps": [
+     "Use the same method (both combinations or both arrangements) for n(E) and n(S)",
+     "Don't mix ⁿPᵣ in the numerator with ⁿCᵣ in the denominator"
+    ],
+    "level": "important"
    }
   }
  ]

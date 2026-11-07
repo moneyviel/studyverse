@@ -90,7 +90,8 @@
      "explain": "cos²θ − (−sin θ)(sin θ) = cos²θ + sin²θ = 1.",
      "steps": [
       "cos θ · cos θ − (−sin θ)(sin θ)",
-      "= cos²θ + sin²θ = 1"
+      "= cos²θ + sin²θ = 1",
+      "Answer: 1"
      ],
      "mistake": "Gets the sign of the second product wrong and writes cos²θ − sin²θ",
      "check": "1"
@@ -109,7 +110,8 @@
       "1 × (1 − 0) = 1",
       "0 × (…) = 0",
       "2 × (6 − 0) = 12",
-      "Total = 13"
+      "Total = 13",
+      "Answer: 13"
      ],
      "mistake": "Forgets the + sign for the third term or slips in a minor",
      "check": "1*(1*1-0*2)-0+2*(3*2-1*0)"
@@ -127,7 +129,8 @@
      "steps": [
       "Expand along R2",
       "3 × (2·2 − 4·1)",
-      "= 3 × 0 = 0"
+      "= 3 × 0 = 0",
+      "Answer: 0"
      ],
      "mistake": "Uses the wrong sign position or miscomputes the 2 × 2 minor",
      "check": "3*(2*2-4*1)"
@@ -144,7 +147,8 @@
      "explain": "x · x − (x + 1)(x − 1) = x² − (x² − 1) = 1.",
      "steps": [
       "x² − (x² − 1)",
-      "= 1"
+      "= 1",
+      "Answer: 1"
      ],
      "mistake": "Expands (x + 1)(x − 1) as x² + 1",
      "check": "1"
@@ -159,6 +163,12 @@
      ],
      "answer": 0,
      "explain": "Column 2 has two zeros, so only one term (with a32 = 7) remains.",
+     "steps": [
+      "Best choice = row or column with the most zeros",
+      "Column 2 is (0, 0, 7): two zeros, so only the term with a32 = 7 survives",
+      "Every row has at most one zero; column 3 has none",
+      "Answer: Column 2"
+     ],
      "mistake": "Picks a row with no zeros"
     },
     {
@@ -174,7 +184,8 @@
      "steps": [
       "Sign of position (3, 2): −",
       "Minor = 5(−1) − 3(2) = −11",
-      "Δ = −7 × (−11) = 77"
+      "Δ = −7 × (−11) = 77",
+      "Answer: 77"
      ],
      "mistake": "Forgets the negative sign position of a32",
      "check": "-7*(5*(-1)-3*2)"
@@ -189,6 +200,12 @@
      ],
      "answer": 0,
      "explain": "Determinants are defined only for square matrices; a 2 × 3 matrix is not square.",
+     "steps": [
+      "A determinant is defined only for a square matrix",
+      "[[1, 2, 3], [4, 5, 6]] has 2 rows and 3 columns (2 × 3), not square",
+      "[[7]], [[1, 2], [3, 4]] and the 2 × 2 zero matrix are square",
+      "Answer: [[1, 2, 3], [4, 5, 6]]"
+     ],
      "mistake": "Thinks every matrix has a determinant"
     },
     {
@@ -201,6 +218,12 @@
      ],
      "answer": 0,
      "explain": "Expansion along any row or column gives the same determinant, which is exactly why A holds.",
+     "steps": [
+      "Rule: expansion along any row or column gives the same determinant (this is R, true)",
+      "So R2 and C3 expansions must agree: A is true",
+      "A follows directly from R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks only row 1 expansion is valid"
     }
    ],
@@ -237,7 +260,26 @@
     "c4.2.2",
     "c4.2.3",
     "c4.2.4"
-   ]
+   ],
+   "revise": {
+    "summary": "A determinant is a number defined only for a square matrix: ad − bc for 2 × 2, and expansion along any row or column for 3 × 3. Expanding along the row or column with most zeros saves work.",
+    "focus": [
+     "Evaluate 2 × 2 and 3 × 3 determinants by expansion",
+     "Use the chessboard sign pattern correctly",
+     "Choose the row or column with most zeros"
+    ],
+    "remember": [
+     "|[[a, b], [c, d]]| = ad − bc",
+     "Sign pattern: + − + / − + − / + − +",
+     "Every row or column gives the same value"
+    ],
+    "traps": [
+     "Don't forget the − sign on the middle term of a row-1 expansion",
+     "Only square matrices have determinants",
+     "Watch double negatives like −(−sin θ)(sin θ)"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-04-02",
@@ -339,7 +381,8 @@
      "explain": "|3A| = 3³|A| = 27 × 6 = 162.",
      "steps": [
       "|kA| = kⁿ|A|",
-      "3³ × 6 = 162"
+      "3³ × 6 = 162",
+      "Answer: 162"
      ],
      "mistake": "Multiplies the determinant by 3 only",
      "check": "27*6"
@@ -356,7 +399,8 @@
      "explain": "|5A| = 5²|A| = 25 × (−4) = −100.",
      "steps": [
       "n = 2",
-      "5² × (−4) = −100"
+      "5² × (−4) = −100",
+      "Answer: −100"
      ],
      "mistake": "Uses 5 instead of 5², or drops the sign",
      "check": "25*(-4)"
@@ -374,7 +418,8 @@
      "steps": [
       "LHS = x² − 36",
       "RHS = 0",
-      "x = ±6"
+      "x = ±6",
+      "Answer: 6"
      ],
      "mistake": "Stops at x² = 36 and reports 36",
      "check": "6"
@@ -392,7 +437,8 @@
      "steps": [
       "5x − 3x = 4",
       "2x = 4",
-      "x = 2"
+      "x = 2",
+      "Answer: 2"
      ],
      "mistake": "Adds the products instead of subtracting",
      "check": "2"
@@ -409,7 +455,8 @@
      "explain": "cos²α − (sin α)(−sin α) = cos²α + sin²α = 1.",
      "steps": [
       "cos²α + sin²α",
-      "= 1"
+      "= 1",
+      "Answer: 1"
      ],
      "mistake": "Writes cos²α − sin²α by missing a sign",
      "check": "1"
@@ -426,7 +473,8 @@
      "explain": "sec²θ − tan²θ = 1 by the identity 1 + tan²θ = sec²θ.",
      "steps": [
       "sec²θ − tan²θ",
-      "= 1"
+      "= 1",
+      "Answer: 1"
      ],
      "mistake": "Uses tan²θ − sec²θ, getting −1",
      "check": "1"
@@ -444,7 +492,8 @@
      "steps": [
       "LHS = 2x · x − 5 · 8 = 2x² − 40",
       "RHS = 6 · 3 − (−2)(7) = 32",
-      "2x² = 72 ⇒ x² = 36"
+      "2x² = 72 ⇒ x² = 36",
+      "Answer: 36"
      ],
      "mistake": "Writes the RHS as 18 − 14 = 4 by missing the double negative",
      "check": "(32+40)/2"
@@ -459,6 +508,12 @@
      ],
      "answer": 1,
      "explain": "|2A| = 2³ × 2 = 16, using R directly.",
+     "steps": [
+      "Given: n = 3, |A| = 2",
+      "R: |kA| = kⁿ|A| — true",
+      "|2A| = 2³ × 2 = 8 × 2 = 16, so A is true by R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Uses |kA| = k|A| and gets 4"
     }
    ],
@@ -492,7 +547,25 @@
     "c4.2.6",
     "c4.2.7",
     "c4.6.8"
-   ]
+   ],
+   "revise": {
+    "summary": "For an n × n matrix, |kA| = kⁿ|A|. Determinant equations are solved by expanding both sides, and trig entries simplify with identities like sin²θ + cos²θ = 1.",
+    "focus": [
+     "Find |kA| for 2 × 2 and 3 × 3 matrices",
+     "Solve equations where both sides are determinants",
+     "Simplify determinants with trig entries"
+    ],
+    "remember": [
+     "|kA| = kⁿ|A| (n = order)",
+     "sin²θ + cos²θ = 1; sec²θ − tan²θ = 1"
+    ],
+    "traps": [
+     "Don't write |kA| = k|A|",
+     "x² = 36 gives x = ±6, not 36",
+     "Take care with a negative entry: 6·3 − (−2)(7) = 18 + 14"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-04-03",
@@ -575,7 +648,8 @@
      "steps": [
       "Δ = 1(0 − 3) − 0(…) + 1(6·3 − 4·0)",
       "= −3 + 18 = 15",
-      "Area = 15/2"
+      "Area = 15/2",
+      "Answer: 15/2"
      ],
      "mistake": "Forgets the factor 1/2",
      "check": "Fraction(15,2)"
@@ -594,7 +668,8 @@
       "2(1 − 8) = −14",
       "1(8 − 7) = 1",
       "10(7 − 1) = 60",
-      "(1/2)(47)"
+      "(1/2)(47)",
+      "Answer: 47/2"
      ],
      "mistake": "Forgets the factor 1/2 or makes a sign slip",
      "check": "Fraction(47,2)"
@@ -612,7 +687,8 @@
      "steps": [
       "Δ = 1(1 − 5) + 1(2 − k) + (10 − k)",
       "= 8 − 2k",
-      "8 − 2k = 0 ⇒ k = 4"
+      "8 − 2k = 0 ⇒ k = 4",
+      "Answer: 4"
      ],
      "mistake": "Makes a sign slip with the −1 entry",
      "check": "4"
@@ -627,6 +703,12 @@
      ],
      "answer": 3,
      "explain": "All of (1, 2), (3, 6), (5, 10) satisfy y = 2x, so the determinant is 0.",
+     "steps": [
+      "Collinear ⇔ the determinant (area) is 0",
+      "(1, 2), (3, 6), (5, 10) all satisfy y = 2x, so they lie on one line",
+      "Check: |[[1, 2, 1], [3, 6, 1], [5, 10, 1]]| = 1(6 − 10) − 2(3 − 5) + 1(30 − 30) = −4 + 4 + 0 = 0",
+      "Answer: (1, 2), (3, 6), (5, 10)"
+     ],
      "mistake": "Checks only two of the three points"
     },
     {
@@ -639,6 +721,12 @@
      ],
      "answer": 2,
      "explain": "|[[x, y, 1], [3, 1, 1], [9, 3, 1]]| = x(1 − 3) − y(3 − 9) + (9 − 9) = −2x + 6y = 0, i.e. x − 3y = 0.",
+     "steps": [
+      "Line through (3, 1), (9, 3): |[[x, y, 1], [3, 1, 1], [9, 3, 1]]| = 0",
+      "x(1 − 3) − y(3 − 9) + 1(9 − 9) = −2x + 6y",
+      "−2x + 6y = 0 ⇒ divide by −2: x − 3y = 0",
+      "Answer: x − 3y = 0"
+     ],
      "mistake": "Mixes up the signs while expanding"
     },
     {
@@ -651,6 +739,11 @@
      ],
      "answer": 3,
      "explain": "Listing vertices clockwise instead of anticlockwise changes the sign of Δ, while the area stays the same.",
+     "steps": [
+      "Changing the order of the vertices (clockwise vs anticlockwise) changes the sign of Δ",
+      "Area is a size, so it must be positive",
+      "Answer: The determinant can be negative depending on the order of the vertices, but area cannot"
+     ],
      "mistake": "Thinks the sign of Δ carries meaning for area"
     },
     {
@@ -663,6 +756,12 @@
      ],
      "answer": 1,
      "explain": "Δ = −2(4 − k) − 0 + 1(0 − 0) = 2k − 8. (1/2)|2k − 8| = 4 ⇒ |k − 4| = 4 ⇒ k = 0 or 8.",
+     "steps": [
+      "Δ = |[[−2, 0, 1], [0, 4, 1], [0, k, 1]]| = −2(4 − k) − 0 + 1(0 − 0) = 2k − 8",
+      "(1/2)|2k − 8| = 4 ⇒ |2k − 8| = 8",
+      "2k − 8 = 8 ⇒ k = 8; 2k − 8 = −8 ⇒ k = 0",
+      "Answer: 0 and 8"
+     ],
      "mistake": "Keeps only the positive case of the modulus"
     },
     {
@@ -675,6 +774,12 @@
      ],
      "answer": 2,
      "explain": "Δ = a(b − 1) − 0 + 1(0 − b) = ab − a − b = 0. Dividing by ab gives 1/a + 1/b = 1. This uses R.",
+     "steps": [
+      "R: collinear ⇔ area = 0 — true",
+      "Δ = |[[a, 0, 1], [0, b, 1], [1, 1, 1]]| = a(b − 1) − 0 + 1(0 − b) = ab − a − b",
+      "Δ = 0 ⇒ ab = a + b; divide by ab: 1/a + 1/b = 1, so A is true using R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Does not connect collinearity with zero area"
     }
    ],
@@ -709,7 +814,26 @@
     "c4.3.2",
     "c4.3.3",
     "c4.3.4"
-   ]
+   ],
+   "revise": {
+    "summary": "The area of a triangle is (1/2)|Δ| where Δ is the determinant of the vertex coordinates with a column of 1s. The points are collinear exactly when Δ = 0.",
+    "focus": [
+     "Find the area of a triangle from its vertices",
+     "Find k for collinearity or for a given area",
+     "Write the line through two points as a determinant"
+    ],
+    "remember": [
+     "Area = (1/2)|[[x1, y1, 1], [x2, y2, 1], [x3, y3, 1]]|",
+     "Collinear ⇔ Δ = 0",
+     "Given area: Δ = ±2 × area (two cases)"
+    ],
+    "traps": [
+     "Don't forget the factor 1/2",
+     "Area is positive: take the absolute value",
+     "Don't drop the negative case when area is given"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-04-04",
@@ -818,7 +942,8 @@
      "steps": [
       "Delete row 2, column 1",
       "M21 = −4 − 18 = −22",
-      "A21 = −M21 = 22"
+      "A21 = −M21 = 22",
+      "Answer: 22"
      ],
      "mistake": "Forgets the sign (−1)^(i+j)",
      "check": "-((-2)*2-3*6)"
@@ -835,7 +960,8 @@
      "explain": "Delete row 2 and column 3: |[[1, −2], [−1, 6]]| = 6 − 2 = 4.",
      "steps": [
       "|[[1, −2], [−1, 6]]|",
-      "= 1·6 − (−2)(−1) = 4"
+      "= 1·6 − (−2)(−1) = 4",
+      "Answer: 4"
      ],
      "mistake": "Gives the cofactor (−4) when the minor was asked",
      "check": "1*6-(-2)*(-1)"
@@ -852,7 +978,8 @@
      "explain": "M32 = |[[1, 3], [4, 5]]| = 5 − 12 = −7. A32 = (−1)^5(−7) = 7.",
      "steps": [
       "M32 = 1·5 − 3·4 = −7",
-      "A32 = −(−7) = 7"
+      "A32 = −(−7) = 7",
+      "Answer: 7"
      ],
      "mistake": "Forgets that position (3, 2) carries a minus sign",
      "check": "-(1*5-3*4)"
@@ -867,6 +994,11 @@
      ],
      "answer": 1,
      "explain": "A12 = (−1)^(1+2)M12 = −M12, since 1 + 2 is odd.",
+     "steps": [
+      "Aij = (−1)^(i+j) Mij: sign is − when i + j is odd",
+      "A11: 2 even; A12: 3 odd; A22: 4 even; A13: 4 even",
+      "Answer: A12"
+     ],
      "mistake": "Thinks the sign depends on the element's value"
     },
     {
@@ -882,7 +1014,8 @@
      "steps": [
       "A11 = +(8 − 0) = 8",
       "A31 = +(1·1 − 3·4) = −11",
-      "Δ = 2·8 + 1·(−11) = 5"
+      "Δ = 2·8 + 1·(−11) = 5",
+      "Answer: 5"
      ],
      "mistake": "Slips on the sign or value of A31",
      "check": "2*8+1*(-11)"
@@ -897,6 +1030,11 @@
      ],
      "answer": 3,
      "explain": "Elements of one row times cofactors of a different row always sum to zero.",
+     "steps": [
+      "Rule: elements of one row × cofactors of a different row always sum to 0",
+      "Here row 1 elements are paired with row 3 cofactors",
+      "Answer: 0"
+     ],
      "mistake": "Thinks any row-cofactor sum gives the determinant",
      "check": "0"
     },
@@ -910,6 +1048,11 @@
      ],
      "answer": 3,
      "explain": "A11 = +M11 = 7. A21 = −M21 = −2.",
+     "steps": [
+      "A11 = (+1) × M11; deleting row 1, column 1 leaves 7, so A11 = 7",
+      "A21 = (−1) × M21; deleting row 2, column 1 leaves 2, so A21 = −2",
+      "Answer: 7 and −2"
+     ],
      "mistake": "Forgets the sign on A21"
     },
     {
@@ -922,6 +1065,12 @@
      ],
      "answer": 1,
      "explain": "When i + j is even, (−1)^(i+j) = 1, so Aij = Mij. R is the reason.",
+     "steps": [
+      "R: Aij = (−1)^(i+j) Mij — the definition, true",
+      "If i + j is even, (−1)^(i+j) = 1, so Aij = Mij: A is true",
+      "A follows directly from R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks cofactors and minors always differ"
     }
    ],
@@ -954,7 +1103,27 @@
     "c4.4.2",
     "c4.4.3",
     "c4.4.4"
-   ]
+   ],
+   "revise": {
+    "summary": "The minor Mij is the determinant left after deleting row i and column j, and the cofactor is Aij = (−1)^(i+j) Mij. A row times its own cofactors gives Δ; times another row's cofactors gives 0.",
+    "focus": [
+     "Find minors and cofactors of 2 × 2 and 3 × 3 matrices",
+     "Expand Δ using cofactors",
+     "Know the zero-sum result for a different row"
+    ],
+    "remember": [
+     "Aij = (−1)^(i+j) Mij",
+     "Δ = a11A11 + a12A12 + a13A13",
+     "a11A21 + a12A22 + a13A23 = 0",
+     "For [[a, b], [c, d]]: A11 = d, A12 = −c, A21 = −b, A22 = a"
+    ],
+    "traps": [
+     "Don't give the minor when the cofactor is asked",
+     "Positions with i + j odd carry a minus sign",
+     "A different row's cofactors give 0, not Δ"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-04-05",
@@ -1040,6 +1209,12 @@
      ],
      "answer": 1,
      "explain": "Swap the diagonal (3 ↔ 2) and change the signs of the other entries (−1 → 1, 4 → −4).",
+     "steps": [
+      "For [[a, b], [c, d]], adj = [[d, −b], [−c, a]]",
+      "a = 3, b = −1, c = 4, d = 2",
+      "adj = [[2, −(−1)], [−4, 3]] = [[2, 1], [−4, 3]]",
+      "Answer: [[2, 1], [−4, 3]]"
+     ],
      "mistake": "Forgets to change the signs or transposes instead"
     },
     {
@@ -1055,7 +1230,8 @@
      "steps": [
       "|A| = 3·4 − 6x",
       "12 − 6x = 0",
-      "x = 2"
+      "x = 2",
+      "Answer: 2"
      ],
      "mistake": "Solves 12 + 6x = 0",
      "check": "2"
@@ -1070,6 +1246,11 @@
      ],
      "answer": 2,
      "explain": "A(adj A) = |A| I = 5I for any square matrix.",
+     "steps": [
+      "Rule: A(adj A) = |A| I for every square matrix",
+      "|A| = 5",
+      "Answer: 5I"
+     ],
      "mistake": "Raises |A| to a power as for |adj A|"
     },
     {
@@ -1084,7 +1265,8 @@
      "explain": "|AB| = |A||B| = 3 × (−2) = −6.",
      "steps": [
       "|AB| = |A| × |B|",
-      "3 × (−2) = −6"
+      "3 × (−2) = −6",
+      "Answer: −6"
      ],
      "mistake": "Adds the determinants",
      "check": "3*(-2)"
@@ -1102,7 +1284,8 @@
      "steps": [
       "|A| = −8 − 3 = −11",
       "adj entry (1, 2) = −3",
-      "−3 / −11 = 3/11"
+      "−3 / −11 = 3/11",
+      "Answer: 3/11"
      ],
      "mistake": "Forgets to divide by the negative determinant",
      "check": "Fraction(-3,-11)"
@@ -1117,6 +1300,12 @@
      ],
      "answer": 1,
      "explain": "Multiply by A⁻¹: A − 5I + 7A⁻¹ = O, so A⁻¹ = (1/7)(5I − A) = (1/7)[[2, −1], [1, 3]].",
+     "steps": [
+      "Given A² − 5A + 7I = O; |A| = 6 + 1 = 7 ≠ 0, so A⁻¹ exists",
+      "Multiply by A⁻¹: A − 5I + 7A⁻¹ = O",
+      "7A⁻¹ = 5I − A ⇒ A⁻¹ = (1/7)(5I − A)",
+      "Answer: (1/7)(5I − A)"
+     ],
      "mistake": "Makes a sign error while isolating A⁻¹"
     },
     {
@@ -1131,7 +1320,8 @@
      "explain": "|A||A⁻¹| = |AA⁻¹| = |I| = 1, so |A⁻¹| = 1/4.",
      "steps": [
       "|A| |A⁻¹| = 1",
-      "|A⁻¹| = 1/4"
+      "|A⁻¹| = 1/4",
+      "Answer: 1/4"
      ],
      "mistake": "Thinks inverting a matrix leaves its determinant unchanged",
      "check": "Fraction(1,4)"
@@ -1146,6 +1336,12 @@
      ],
      "answer": 1,
      "explain": "|A| = 4 − 4 = 0, so A is singular; by R it is not invertible.",
+     "steps": [
+      "|A| = 2·2 − 4·1 = 4 − 4 = 0, so A is singular",
+      "R: invertible ⇔ non-singular — true",
+      "A singular matrix has no inverse, so A is true because of R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Tries to compute adj A/|A| without noticing |A| = 0"
     }
    ],
@@ -1182,7 +1378,27 @@
     "c4.5.6",
     "c4.5.7",
     "c4.5.8"
-   ]
+   ],
+   "revise": {
+    "summary": "adj A is the transpose of the cofactor matrix and A(adj A) = |A| I. A is invertible only when |A| ≠ 0, and then A⁻¹ = (1/|A|) adj A.",
+    "focus": [
+     "Write adj A for a 2 × 2 matrix quickly",
+     "Find A⁻¹ = (1/|A|) adj A",
+     "Use |AB| = |A||B| and matrix equations to find A⁻¹"
+    ],
+    "remember": [
+     "adj [[a, b], [c, d]] = [[d, −b], [−c, a]]",
+     "A(adj A) = (adj A)A = |A| I",
+     "A⁻¹ = (1/|A|) adj A, needs |A| ≠ 0",
+     "|AB| = |A||B|; |A⁻¹| = 1/|A|"
+    ],
+    "traps": [
+     "Singular (|A| = 0) matrices have no inverse",
+     "Divide by |A| including its sign",
+     "Don't add determinants for |AB|"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-04-06",
@@ -1271,7 +1487,8 @@
      "steps": [
       "adj A = [[2, −5], [−3, 2]]",
       "x = (2 − 35)/(−11) = 3",
-      "y = (−3 + 14)/(−11) = −1"
+      "y = (−3 + 14)/(−11) = −1",
+      "Answer: 3"
      ],
      "mistake": "Reports y instead of x",
      "check": "(2*1-5*7)/(-11)"
@@ -1288,7 +1505,8 @@
      "explain": "y = (−3·1 + 2·7)/(−11) = 11/(−11) = −1.",
      "steps": [
       "(adj A)B second entry = −3 + 14 = 11",
-      "y = 11/(−11) = −1"
+      "y = 11/(−11) = −1",
+      "Answer: −1"
      ],
      "mistake": "Drops the negative sign of |A|",
      "check": "(-3*1+2*7)/(-11)"
@@ -1303,6 +1521,12 @@
      ],
      "answer": 3,
      "explain": "|A| = 0 and (adj A)B = [[2, −1], [−2, 1]][2, 5]ᵀ = [−1, 1]ᵀ ≠ O, so there is no solution. (The lines are parallel.)",
+     "steps": [
+      "A = [[1, 1], [2, 2]], B = [2, 5]ᵀ; |A| = 2 − 2 = 0",
+      "adj A = [[2, −1], [−2, 1]]; (adj A)B = [4 − 5, −4 + 5]ᵀ = [−1, 1]ᵀ ≠ O",
+      "|A| = 0 with (adj A)B ≠ O ⇒ no solution (parallel lines x + y = 2 and x + y = 2.5)",
+      "Answer: inconsistent"
+     ],
      "mistake": "Assumes |A| = 0 always means infinitely many solutions"
     },
     {
@@ -1315,6 +1539,11 @@
      ],
      "answer": 2,
      "explain": "A non-zero (adj A)B with |A| = 0 means no solution exists.",
+     "steps": [
+      "|A| = 0, so A⁻¹ does not exist and X = A⁻¹B cannot be used",
+      "Rule: |A| = 0 and (adj A)B ≠ O ⇒ no solution",
+      "Answer: inconsistent"
+     ],
      "mistake": "Thinks A⁻¹ still exists"
     },
     {
@@ -1330,7 +1559,8 @@
      "steps": [
       "|A| = 9 − 4 = 5",
       "n = (3·140 − 2·110)/5",
-      "= 200/5 = 40"
+      "= 200/5 = 40",
+      "Answer: ₹40"
      ],
      "mistake": "Swaps the pen and notebook prices",
      "check": "(3*140-2*110)/5"
@@ -1345,6 +1575,11 @@
      ],
      "answer": 0,
      "explain": "AB = 5I ⇒ A((1/5)B) = I, so A⁻¹ = (1/5)B = (1/5)[[3, −1], [−1, 2]].",
+     "steps": [
+      "Given AB = 5I",
+      "Divide by 5: A((1/5)B) = I, so (1/5)B is the inverse of A",
+      "Answer: (1/5)B"
+     ],
      "mistake": "Forgets to divide by 5"
     },
     {
@@ -1360,7 +1595,8 @@
      "steps": [
       "1 × ((−1)(−1) − 1·1) = 0",
       "−1 × (1·(−1) − 1·2) = 3",
-      "1 × (1·1 − (−1)·2) = 3"
+      "1 × (1·1 − (−1)·2) = 3",
+      "Answer: 6"
      ],
      "mistake": "Drops the minus sign before the second term",
      "check": "0+3+3"
@@ -1375,6 +1611,12 @@
      ],
      "answer": 0,
      "explain": "|A| = 6 − 6 = 0; adj A = [[6, −2], [−3, 1]] gives (adj A)B = [18 − 18, −9 + 9] = O. The second equation is 3 × the first, so every point of one line works.",
+     "steps": [
+      "A = [[1, 2], [3, 6]]: |A| = 6 − 6 = 0, singular",
+      "adj A = [[6, −2], [−3, 1]]; (adj A)B = [6·3 − 2·9, −3·3 + 1·9]ᵀ = [0, 0]ᵀ = O",
+      "Second equation = 3 × first, so every point on x + 2y = 3 works: infinitely many solutions",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks a singular matrix means no solution"
     }
    ],
@@ -1414,7 +1656,27 @@
     "c4.6.5",
     "c4.6.6",
     "c4.6.7"
-   ]
+   ],
+   "revise": {
+    "summary": "Write a linear system as AX = B. If |A| ≠ 0 the unique solution is X = A⁻¹B; if |A| = 0, check (adj A)B to decide between no solution and infinitely many.",
+    "focus": [
+     "Solve 2 and 3 variable systems by X = A⁻¹B",
+     "Decide consistency when |A| = 0",
+     "Form equations from word problems"
+    ],
+    "remember": [
+     "AX = B ⇒ X = A⁻¹B when |A| ≠ 0",
+     "|A| = 0 and (adj A)B ≠ O ⇒ inconsistent",
+     "|A| = 0 and (adj A)B = O ⇒ infinitely many or none; check the equations",
+     "AB = kI ⇒ A⁻¹ = (1/k)B"
+    ],
+    "traps": [
+     "|A| = 0 does not always mean infinitely many solutions",
+     "Don't report y when x is asked",
+     "Keep the sign of |A| when dividing"
+    ],
+    "level": "important"
+   }
   }
  ]
 }

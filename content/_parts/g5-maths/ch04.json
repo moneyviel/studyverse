@@ -103,7 +103,8 @@
      "explain": "A = 16 and B = 12. Total 28, so each needs 28 ÷ 2 = 14.",
      "steps": [
       "16 + 12 = 28",
-      "28 ÷ 2 = 14"
+      "28 ÷ 2 = 14",
+      "Answer: 14"
      ],
      "mistake": "Takes the bigger sum",
      "check": "(8+3+5+2+6+4)/2"
@@ -118,6 +119,12 @@
      ],
      "answer": 1,
      "explain": "A must lose 2, and 8 − 6 = 2. Now A = 6 + 3 + 5 = 14 and B = 2 + 8 + 4 = 14.",
+     "steps": [
+      "Sums: A = 8 + 3 + 5 = 16, B = 2 + 6 + 4 = 12. Total 28, so each needs 14.",
+      "A must lose 2, so swap x from A and y from B with x − y = 2: 8 − 6 = 2.",
+      "Check: A = 6 + 3 + 5 = 14, B = 2 + 8 + 4 = 14. Swap 8 and 6.",
+      "Answer: Swap 8 and 6"
+     ],
      "mistake": "Swaps without checking the new sums"
     },
     {
@@ -132,7 +139,8 @@
      "explain": "The difference is 23 − 17 = 6. Half of 6 is 3. Moving 3 makes both 20.",
      "steps": [
       "23 − 17 = 6",
-      "6 ÷ 2 = 3"
+      "6 ÷ 2 = 3",
+      "Answer: 3"
      ],
      "mistake": "Moves the whole difference instead of half",
      "check": "(23-17)/2"
@@ -147,6 +155,12 @@
      ],
      "answer": 3,
      "explain": "A = 13, B = 9, each needs 11, so A must lose 2. 10 − 8 = 2 works. (Swapping 3 and 1 also works, but it is not listed.)",
+     "steps": [
+      "Sums: A = 10 + 3 = 13, B = 8 + 1 = 9. Total 22, so each needs 11.",
+      "A must lose 2: x − y = 2. 10 − 8 = 2.",
+      "Check: A = 8 + 3 = 11, B = 10 + 1 = 11. Swap 10 and 8.",
+      "Answer: Swap 10 and 8"
+     ],
      "mistake": "Does not check the new sums"
     },
     {
@@ -160,8 +174,11 @@
      "answer": 0,
      "explain": "A = 18, B = 8, each needs 13. A must lose 5. Swap 6 with 1: 6 − 1 = 5. One swap is enough.",
      "steps": [
-      "18 + 8 = 26, so each needs 13",
-      "6 − 1 = 5"
+      "A = 7 + 6 + 5 = 18, B = 4 + 3 + 1 = 8.",
+      "18 + 8 = 26, so each needs 26 ÷ 2 = 13. A must lose 5.",
+      "Swap 6 and 1: 6 − 1 = 5. A = 7 + 1 + 5 = 13, B = 4 + 3 + 6 = 13.",
+      "So one swap is enough.",
+      "Answer: 1"
      ],
      "mistake": "Thinks a big difference needs many swaps",
      "check": "1"
@@ -176,6 +193,12 @@
      ],
      "answer": 1,
      "explain": "A = 11, B = 9, so A must lose 1. The swaps move 9 − 5 = 4, 9 − 4 = 5, or make A bigger. None moves exactly 1.",
+     "steps": [
+      "Sums: A = 9 + 2 = 11, B = 5 + 4 = 9. Each needs 10, so A must lose 1.",
+      "Possible moves: 9 − 5 = 4, 9 − 4 = 5; swapping 2 makes A bigger.",
+      "No swap moves exactly 1, so no single swap works.",
+      "Answer: No single swap works"
+     ],
      "mistake": "Assumes there is always a swap"
     },
     {
@@ -190,7 +213,8 @@
      "explain": "Whatever A loses, B gains. A lost 3, so B is 14 + 3 = 17.",
      "steps": [
       "20 − 17 = 3",
-      "14 + 3 = 17"
+      "14 + 3 = 17",
+      "Answer: 17"
      ],
      "mistake": "Thinks both groups lose",
      "check": "14+3"
@@ -205,6 +229,12 @@
      ],
      "answer": 3,
      "explain": "Each group needs 16, so A must lose 2. 5 − 3 = 2. Now A = 12 + 3 + 1 = 16 and B = 7 + 4 + 5 = 16.",
+     "steps": [
+      "Total 18 + 14 = 32, so each group needs 16. A must lose 2.",
+      "Need x − y = 2 with x from A, y from B: 5 − 3 = 2.",
+      "Check: A = 12 + 3 + 1 = 16, B = 7 + 4 + 5 = 16. Swap 5 and 3.",
+      "Answer: Swap 5 and 3"
+     ],
      "mistake": "Picks a swap without working out how much must move"
     }
    ],
@@ -228,6 +258,25 @@
     ],
     "praise": "Each group needs 17. I swap 6 with 3 — A loses 3 and B gains 3. Done!",
     "nudge": "What total should each group have?"
+   },
+   "revise": {
+    "summary": "To make two groups' sums equal, find each sum, add them and halve the total. Swapping x from the bigger group with y from the smaller moves x − y across, so choose x − y = half the difference.",
+    "focus": [
+     "Find the target sum for each group",
+     "Find one swap that makes the sums equal",
+     "Know when no single swap works"
+    ],
+    "remember": [
+     "Target = (sum A + sum B) ÷ 2",
+     "A swap moves x − y from the bigger group to the smaller",
+     "Choose x − y = half the difference of the sums"
+    ],
+    "traps": [
+     "Don't move the whole difference; move half of it.",
+     "Don't swap without checking the new sums.",
+     "There is not always a single swap that works."
+    ],
+    "level": "advanced"
    }
   },
   {
@@ -333,7 +382,8 @@
      "explain": "456 + 100 = 556, then take away 1: 555.",
      "steps": [
       "456 + 100 = 556",
-      "556 − 1 = 555"
+      "556 − 1 = 555",
+      "Answer: 555"
      ],
      "mistake": "Adds 100 but forgets to take away 1",
      "check": "456+99"
@@ -348,6 +398,12 @@
      ],
      "answer": 1,
      "explain": "999 is 1 less than 1,000, so add 1,000 and take away 1.",
+     "steps": [
+      "999 is 1 less than 1,000.",
+      "Adding 1,000 adds 1 too many.",
+      "So add 1,000, then take away 1.",
+      "Answer: Add 1,000, then take away 1"
+     ],
      "mistake": "Adjusts in the wrong direction"
     },
     {
@@ -362,7 +418,8 @@
      "explain": "29 is 1 less than 30. 68 + 30 = 98, so 68 + 29 = 97.",
      "steps": [
       "68 + 30 = 98",
-      "98 − 1 = 97"
+      "98 − 1 = 97",
+      "Answer: 97"
      ],
      "mistake": "Forgets to adjust",
      "check": "68+29"
@@ -379,7 +436,8 @@
      "explain": "48 + 37 = 48 + 40 − 3 = 85 litres.",
      "steps": [
       "48 + 40 = 88",
-      "88 − 3 = 85"
+      "88 − 3 = 85",
+      "Answer: 85 L"
      ],
      "mistake": "Subtracts instead of adding",
      "check": "48+37"
@@ -396,7 +454,8 @@
      "explain": "18 + 26 + 24 = 68 litres.",
      "steps": [
       "18 + 26 = 44",
-      "44 + 24 = 68"
+      "44 + 24 = 68",
+      "Answer: 68 L"
      ],
      "mistake": "Makes a carrying error",
      "check": "18+26+24"
@@ -413,7 +472,8 @@
      "explain": "1,250 + 200 = 1,450, then take away 2: 1,448.",
      "steps": [
       "1,250 + 200 = 1,450",
-      "1,450 − 2 = 1,448"
+      "1,450 − 2 = 1,448",
+      "Answer: 1,448"
      ],
      "mistake": "Adds the 2 instead of taking it away",
      "check": "1250+198"
@@ -428,6 +488,12 @@
      ],
      "answer": 2,
      "explain": "97 = 100 − 3, so 345 + 97 = 345 + 100 − 3.",
+     "steps": [
+      "97 is 3 less than 100: 97 = 100 − 3.",
+      "So adding 97 = adding 100, then taking away 3.",
+      "345 + 97 = 345 + 100 − 3.",
+      "Answer: 345 + 100 − 3"
+     ],
      "mistake": "Adds the 3 instead of taking it away"
     },
     {
@@ -442,7 +508,8 @@
      "explain": "2,500 + 2,000 = 4,500, then take away 1: 4,499 L.",
      "steps": [
       "2,500 + 2,000 = 4,500",
-      "4,500 − 1 = 4,499"
+      "4,500 − 1 = 4,499",
+      "Answer: 4,499 L"
      ],
      "mistake": "Forgets to take away the 1",
      "check": "2500+1999"
@@ -466,6 +533,24 @@
     ],
     "praise": "Add 100 to get 627, then take away 1: 626. So quick!",
     "nudge": "Which easy number is 99 close to?"
+   },
+   "revise": {
+    "summary": "Add numbers near a hundred or a thousand the easy way: to add 99, add 100 and take away 1; to add 98, add 100 and take away 2. Round, add, then adjust.",
+    "focus": [
+     "Add 99, 98, 999 or 198 quickly",
+     "Round one number to the nearest ten, add, then adjust",
+     "Add fuel or other amounts in real problems"
+    ],
+    "remember": [
+     "+ 99 = + 100 − 1; + 999 = + 1,000 − 1",
+     "+ 98 = + 100 − 2; + 198 = + 200 − 2",
+     "47 + 38 = 47 + 40 − 2 = 85"
+    ],
+    "traps": [
+     "Don't forget to take away the extra 1 after adding 100.",
+     "Don't adjust in the wrong direction: 345 + 97 = 345 + 100 − 3, not + 3."
+    ],
+    "level": "core"
    }
   },
   {
@@ -576,6 +661,12 @@
      ],
      "answer": 0,
      "explain": "Take away one part from the total to get the other part.",
+     "steps": [
+      "In 345 + 128 = 473, the parts are 345 and 128; the total is 473.",
+      "Total − one part = the other part.",
+      "473 − 128 = 345.",
+      "Answer: 473 − 128 = 345"
+     ],
      "mistake": "Subtracts the wrong numbers"
     },
     {
@@ -588,6 +679,12 @@
      ],
      "answer": 1,
      "explain": "Add back what was taken away to get the start number.",
+     "steps": [
+      "63 − 27 = 36: 27 was taken from 63, leaving 36.",
+      "Add back what was taken away to get the start.",
+      "36 + 27 = 63.",
+      "Answer: 36 + 27 = 63"
+     ],
      "mistake": "Adds the wrong pair"
     },
     {
@@ -601,7 +698,10 @@
      "answer": 2,
      "explain": "Undo the subtraction by adding: 380 + 245 = 625.",
      "steps": [
-      "380 + 245 = 625"
+      "Undo subtraction by adding.",
+      "? = 380 + 245.",
+      "380 + 245 = 625.",
+      "Answer: 625"
      ],
      "mistake": "Subtracts instead of adding",
      "check": "380+245"
@@ -617,7 +717,10 @@
      "answer": 3,
      "explain": "512 − 287 = 225. Check: 287 + 225 = 512.",
      "steps": [
-      "512 − 287 = 225"
+      "Start − ? = what is left, so ? = start − what is left.",
+      "? = 512 − 287 = 225.",
+      "Check: 287 + 225 = 512. The missing number is 225.",
+      "Answer: 225"
      ],
      "mistake": "Adds the two numbers",
      "check": "512-287"
@@ -633,7 +736,10 @@
      "answer": 0,
      "explain": "3,000 − 1,450 = 1,550.",
      "steps": [
-      "3,000 − 1,450 = 1,550"
+      "Undo addition by subtracting.",
+      "? = 3,000 − 1,450.",
+      "3,000 − 1,450 = 1,550.",
+      "Answer: 1,550"
      ],
      "mistake": "Adds instead of subtracting",
      "check": "3000-1450"
@@ -648,6 +754,12 @@
      ],
      "answer": 1,
      "explain": "Subtraction takes away what was added, so it undoes addition.",
+     "steps": [
+      "Inverse operations undo each other.",
+      "Subtraction takes away what was added.",
+      "So subtraction undoes addition.",
+      "Answer: Subtraction"
+     ],
      "mistake": "Thinks multiplication is the opposite of addition"
     },
     {
@@ -660,6 +772,12 @@
      ],
      "answer": 2,
      "explain": "56 − 44 is 12, not 100. The other three use the same three numbers correctly.",
+     "steps": [
+      "The fact family of 56 + 44 = 100 uses 56, 44, 100 correctly.",
+      "100 − 56 = 44, 44 + 56 = 100, 100 − 44 = 56 are all true.",
+      "56 − 44 = 12, not 100. So 56 − 44 = 100 is NOT in the family.",
+      "Answer: 56 − 44 = 100"
+     ],
      "mistake": "Does not check each fact"
     },
     {
@@ -673,7 +791,10 @@
      "answer": 3,
      "explain": "? − 38 = 47, so ? = 47 + 38 = 85.",
      "steps": [
-      "47 + 38 = 85"
+      "Start − 38 = 47.",
+      "Undo by adding: start = 47 + 38.",
+      "47 + 38 = 85 marbles.",
+      "Answer: 85"
      ],
      "mistake": "Subtracts the numbers",
      "check": "47+38"
@@ -698,6 +819,24 @@
     ],
     "praise": "75 − 27 = 48 and 75 − 48 = 27. Addition and subtraction are partners!",
     "nudge": "What do I get if I take away one part from 75?"
+   },
+   "revise": {
+    "summary": "Addition and subtraction are inverse operations: one undoes the other. Use the opposite operation to find a missing number or to make a fact family.",
+    "focus": [
+     "Write related facts from an addition or subtraction",
+     "Find a missing number in ? − a = b or a − ? = b",
+     "Solve 'how many at first' word problems"
+    ],
+    "remember": [
+     "25 + 17 = 42 gives 42 − 17 = 25 and 42 − 25 = 17",
+     "? − 245 = 380 means ? = 380 + 245",
+     "Subtraction undoes addition"
+    ],
+    "traps": [
+     "Don't subtract when you must add back: ? − 38 = 47 means ? = 85.",
+     "Multiplication is not the opposite of addition."
+    ],
+    "level": "core"
    }
   },
   {
@@ -807,6 +946,12 @@
      ],
      "answer": 0,
      "explain": "34, 35, 36 follow one after another with nothing skipped.",
+     "steps": [
+      "Consecutive means one after another, nothing skipped.",
+      "34, 36, 38 skips; 34, 35, 37 skips 36; 35, 34, 33, 31 skips 32.",
+      "34, 35, 36 has nothing skipped, so it is consecutive.",
+      "Answer: 34, 35, 36"
+     ],
      "mistake": "Thinks even numbers in a row are consecutive"
     },
     {
@@ -819,6 +964,12 @@
      ],
      "answer": 1,
      "explain": "One number is odd and the other is even, and odd + even = odd.",
+     "steps": [
+      "Of two consecutive numbers, one is odd and one is even.",
+      "Odd + even = odd.",
+      "So the sum is always odd.",
+      "Answer: odd"
+     ],
      "mistake": "Has not tried any examples"
     },
     {
@@ -832,7 +983,10 @@
      "answer": 2,
      "explain": "Middle number 16 × 3 numbers = 48.",
      "steps": [
-      "16 × 3 = 48"
+      "3 consecutive numbers; the middle one is 16.",
+      "Sum = middle × count = 16 × 3.",
+      "16 × 3 = 48.",
+      "Answer: 48"
      ],
      "mistake": "Multiplies the first number by 3",
      "check": "15+16+17"
@@ -847,6 +1001,12 @@
      ],
      "answer": 3,
      "explain": "4 consecutive numbers have 2 odd and 2 even numbers. Two odds make an even, so the total is even. Example: 1 + 2 + 3 + 4 = 10.",
+     "steps": [
+      "4 consecutive numbers have 2 odd and 2 even numbers.",
+      "Odd + odd = even, and adding evens keeps it even.",
+      "So the sum is always even (e.g. 1 + 2 + 3 + 4 = 10).",
+      "Answer: Always even"
+     ],
      "mistake": "Tries only one example and guesses"
     },
     {
@@ -859,6 +1019,12 @@
      ],
      "answer": 0,
      "explain": "1 + 2 + 3 = 6 is even, but 2 + 3 + 4 = 9 is odd.",
+     "steps": [
+      "Try examples: 1 + 2 + 3 = 6 (even).",
+      "2 + 3 + 4 = 9 (odd).",
+      "So it can be odd or even.",
+      "Answer: It can be odd or even"
+     ],
      "mistake": "Generalises from one example"
     },
     {
@@ -872,7 +1038,10 @@
      "answer": 1,
      "explain": "3, 5, 7, 9 go up by 2 each time.",
      "steps": [
-      "5 − 3 = 2"
+      "The sums are 3, 5, 7, 9.",
+      "5 − 3 = 2, 7 − 5 = 2, 9 − 7 = 2.",
+      "Each sum grows by 2.",
+      "Answer: 2"
      ],
      "mistake": "Thinks each sum grows by 1",
      "check": "5-3"
@@ -888,7 +1057,10 @@
      "answer": 2,
      "explain": "The sums grow by 3 each time: 12 + 3 = 15.",
      "steps": [
-      "12 + 3 = 15"
+      "The sums 6, 9, 12 grow by 3 each time.",
+      "12 + 3 = 15.",
+      "Check: 4 + 5 + 6 = 15.",
+      "Answer: 15"
      ],
      "mistake": "Adds 2 instead of 3",
      "check": "4+5+6"
@@ -905,7 +1077,8 @@
      "explain": "7 numbers, middle is 44. 44 × 7 = 308.",
      "steps": [
       "Middle = 44",
-      "44 × 7 = 308"
+      "44 × 7 = 308",
+      "Answer: 308"
      ],
      "mistake": "Picks the wrong middle number",
      "check": "41+42+43+44+45+46+47"
@@ -931,6 +1104,24 @@
     ],
     "praise": "The middle number 34 times 5 numbers is 170. Magic shortcut!",
     "nudge": "Which number is in the middle, and how many numbers are there?"
+   },
+   "revise": {
+    "summary": "Consecutive numbers come one after another. Two consecutive numbers always add to an odd number, four always add to an even number, and for an odd count, sum = middle number × count.",
+    "focus": [
+     "Spot consecutive numbers",
+     "Say if sums of 2, 3 or 4 consecutive numbers are odd or even",
+     "Add consecutive numbers using the middle number"
+    ],
+    "remember": [
+     "Sum of 2 consecutive numbers is always odd",
+     "Sum of 3 can be odd or even; sum of 4 is always even",
+     "15 + 16 + 17 = 16 × 3 = 48"
+    ],
+    "traps": [
+     "Even numbers in a row (34, 36, 38) are not consecutive.",
+     "Don't decide from one example; try a few."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1033,7 +1224,8 @@
       "Tens: 5 + 7 = 12, write 2, carry 1",
       "Hundreds: 4 + 6 + 1 = 11, write 1, carry 1",
       "Thousands: 2 + 8 + 1 = 11, write 1, carry 1",
-      "Ten thousands: 1 + 1 = 2 → ₹21,125"
+      "Ten thousands: 1 + 1 = 2 → ₹21,125",
+      "Answer: ₹21,125"
      ],
      "mistake": "Forgets to carry 1 to the next place",
      "check": "12450+8675"
@@ -1052,7 +1244,8 @@
       "Ones: 8 − 9 needs a borrow: 18 − 9 = 9",
       "Tens: 3 − 7 needs a borrow: 13 − 7 = 6",
       "Hundreds: 1 − 3 needs a borrow: 11 − 3 = 8",
-      "Thousands: 0 left → 869"
+      "Thousands: 0 left → 869",
+      "Answer: 869"
      ],
      "mistake": "Takes the smaller digit from the bigger one in each column instead of borrowing",
      "check": "1248-379"
@@ -1070,7 +1263,8 @@
      "steps": [
       "45,320 − 38,905",
       "= 6,415",
-      "Check: 6,415 + 38,905 = 45,320"
+      "Check: 6,415 + 38,905 = 45,320",
+      "Answer: 6,415"
      ],
      "mistake": "Adds the numbers instead of subtracting, or slips while borrowing",
      "check": "45320-38905"
@@ -1087,7 +1281,8 @@
      "explain": "One less than 50,000 is 49,999. All the zeros become 9s after borrowing.",
      "steps": [
       "50,000 − 1",
-      "= 49,999"
+      "= 49,999",
+      "Answer: 49,999"
      ],
      "mistake": "Changes only one zero, or adds 1 instead of taking away",
      "check": "50000-1",
@@ -1120,7 +1315,8 @@
      "steps": [
       "Missing number = 40,000 − 26,500",
       "= 13,500",
-      "Check: 26,500 + 13,500 = 40,000"
+      "Check: 26,500 + 13,500 = 40,000",
+      "Answer: 13,500"
      ],
      "mistake": "Adds 40,000 and 26,500 instead of finding the difference",
      "check": "40000-26500"
@@ -1137,7 +1333,8 @@
      "explain": "1,285 + 642 = 1,927. Then 1,927 + 1,073 = 3,000 km.",
      "steps": [
       "1,285 + 642 = 1,927",
-      "1,927 + 1,073 = 3,000"
+      "1,927 + 1,073 = 3,000",
+      "Answer: 3,000 km"
      ],
      "mistake": "Drops a carry when adding three numbers",
      "check": "1285+642+1073"
@@ -1154,7 +1351,8 @@
      "explain": "He spent 1,750 + 865 = ₹2,615. Left: 5,000 − 2,615 = ₹2,385.",
      "steps": [
       "Spent: ₹1,750 + ₹865 = ₹2,615",
-      "Left: ₹5,000 − ₹2,615 = ₹2,385"
+      "Left: ₹5,000 − ₹2,615 = ₹2,385",
+      "Answer: ₹2,385"
      ],
      "mistake": "Gives the amount spent (₹2,615) instead of the amount left",
      "check": "5000-1750-865"
@@ -1169,6 +1367,12 @@
      ],
      "answer": 3,
      "explain": "Adding the answer to the number taken away should give back the starting number. 35,730 + 27,480 = 63,210, so she is right.",
+     "steps": [
+      "Adding undoes subtracting.",
+      "Answer + number taken away should give the start: 35,730 + 27,480.",
+      "35,730 + 27,480 = 63,210, so add them and see if you get 63,210.",
+      "Answer: Add 35,730 + 27,480 and see if you get 63,210"
+     ],
      "mistake": "Does not know that adding undoes subtracting"
     },
     {
@@ -1183,7 +1387,8 @@
      "explain": "Spending takes money away and receiving adds it: 3,500 − 1,280 = 2,220, then 2,220 + 750 = 2,970.",
      "steps": [
       "3,500 − 1,280 = 2,220",
-      "2,220 + 750 = 2,970"
+      "2,220 + 750 = 2,970",
+      "Answer: ₹2,970"
      ],
      "mistake": "Subtracts the money received instead of adding it",
      "check": "3500-1280+750"
@@ -1216,7 +1421,26 @@
     "c4.6.2",
     "c4.3.4",
     "c4.7.2"
-   ]
+   ],
+   "revise": {
+    "summary": "To add or subtract large numbers, line up the places, work from the right, carry when a column makes 10 or more, and borrow when the top digit is smaller.",
+    "focus": [
+     "Add and subtract 5-digit numbers with carrying and borrowing",
+     "Solve money and distance word problems",
+     "Check a subtraction by adding"
+    ],
+    "remember": [
+     "Ones under ones, tens under tens",
+     "Carry 1 when a column makes 10 or more",
+     "Check: answer + number taken away = starting number"
+    ],
+    "traps": [
+     "Don't take the smaller digit from the bigger one in each column; borrow instead.",
+     "Don't forget to add money received in a mixed problem.",
+     "Don't give the amount spent when asked for the amount left."
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g5-maths-04-08",
@@ -1296,8 +1520,11 @@
      "answer": 0,
      "explain": "2,345 + 5,620 = 7,965 is only 35 away. 4,780 + 3,150 = 7,930 is 70 away.",
      "steps": [
-      "2,345 + 5,620 = 7,965",
-      "4,780 + 3,150 = 7,930"
+      "Add each pair and see how far it is from 8,000.",
+      "2,345 + 5,620 = 7,965 (35 away); 4,780 + 3,150 = 7,930 (70 away).",
+      "4,780 + 5,620 = 10,400 (2,400 away); 2,345 + 4,780 = 7,125 (875 away).",
+      "35 is the least, so 2,345 and 5,620.",
+      "Answer: 2,345 and 5,620"
      ],
      "mistake": "Stops at the first pair that is near"
     },
@@ -1312,7 +1539,10 @@
      "answer": 1,
      "explain": "4,100 + 5,890 = 9,990, just 10 away. 6,250 + 3,480 = 9,730 is 270 away.",
      "steps": [
-      "4,100 + 5,890 = 9,990"
+      "Add each pair and see how far it is from 10,000.",
+      "3,480 + 5,890 = 9,370 (630 away); 6,250 + 3,480 = 9,730 (270 away); 6,250 + 4,100 = 10,350 (350 away).",
+      "4,100 + 5,890 = 9,990, only 10 away. So 4,100 and 5,890.",
+      "Answer: 4,100 and 5,890"
      ],
      "mistake": "Picks the biggest number first without checking"
     },
@@ -1327,7 +1557,10 @@
      "answer": 2,
      "explain": "10,000 − 6,450 = 3,550 kg.",
      "steps": [
-      "10,000 − 6,450 = 3,550"
+      "Space left = capacity − load.",
+      "10,000 − 6,450.",
+      "10,000 − 6,450 = 3,550 kg.",
+      "Answer: 3,550 kg"
      ],
      "mistake": "Makes a borrowing mistake",
      "check": "10000-6450"
@@ -1344,7 +1577,8 @@
      "explain": "8,500 − 2,750 = 5,750. 5,750 − 3,125 = 2,625 kg.",
      "steps": [
       "8,500 − 2,750 = 5,750",
-      "5,750 − 3,125 = 2,625"
+      "5,750 − 3,125 = 2,625",
+      "Answer: 2,625 kg"
      ],
      "mistake": "Subtracts only one delivery",
      "check": "8500-2750-3125"
@@ -1361,7 +1595,8 @@
      "explain": "980 + 365 = 1,345. 1,500 − 1,345 = 155 kg.",
      "steps": [
       "980 + 365 = 1,345",
-      "1,500 − 1,345 = 155"
+      "1,500 − 1,345 = 155",
+      "Answer: 155 kg"
      ],
      "mistake": "Forgets to include the bags",
      "check": "1500-980-365"
@@ -1378,7 +1613,8 @@
      "explain": "545 + 150 = 695, which is 15 kg more than 680.",
      "steps": [
       "545 + 150 = 695",
-      "695 − 680 = 15"
+      "695 − 680 = 15",
+      "Answer: No, it would be 15 kg too much"
      ],
      "mistake": "Does not compare the total with the limit"
     },
@@ -1393,8 +1629,11 @@
      "answer": 2,
      "explain": "1,995 + 3,050 = 5,045, which is 45 away. 2,480 + 2,610 = 5,090 is 90 away.",
      "steps": [
-      "1,995 + 3,050 = 5,045",
-      "2,480 + 2,610 = 5,090"
+      "Add each pair and see how far it is from 5,000.",
+      "2,610 + 1,995 = 4,605 (395 away); 2,480 + 3,050 = 5,530 (530 away).",
+      "1,995 + 3,050 = 5,045 (45 away); 2,480 + 2,610 = 5,090 (90 away).",
+      "45 is the least, so 1,995 and 3,050.",
+      "Answer: 1,995 and 3,050"
      ],
      "mistake": "Picks the two numbers closest to 2,500 without checking"
     },
@@ -1410,7 +1649,8 @@
      "explain": "12,600 + 9,850 = 22,450. 25,000 − 22,450 = 2,550 kg.",
      "steps": [
       "12,600 + 9,850 = 22,450",
-      "25,000 − 22,450 = 2,550"
+      "25,000 − 22,450 = 2,550",
+      "Answer: 2,550 kg"
      ],
      "mistake": "Forgets to subtract from the capacity",
      "check": "25000-12600-9850"
@@ -1436,6 +1676,24 @@
     ],
     "praise": "500 − 320 = 180 kg more. Thanks!",
     "nudge": "Which two numbers should I subtract?"
+   },
+   "revise": {
+    "summary": "To find the pair closest to a target, try pairs and see how far each sum is. Space left = capacity − load already carried; a new load must fit in that space.",
+    "focus": [
+     "Pick two numbers whose sum is closest to a target",
+     "Find space left after one or more loads",
+     "Decide whether a new load can be carried"
+    ],
+    "remember": [
+     "Space left = capacity − load",
+     "Round first to find good pairs, then check exact sums",
+     "If the new load is more than the space left, it cannot go"
+    ],
+    "traps": [
+     "Don't stop at the first pair that looks near; check them all.",
+     "Don't forget any part of the load, like the bags."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1551,7 +1809,8 @@
      "steps": [
       "Hundreds digit is 4, tens digit is 6",
       "6 is 5 or more → round up",
-      "3,462 → 3,500"
+      "3,462 → 3,500",
+      "Answer: 3,500"
      ],
      "mistake": "Looks at the wrong digit or always rounds down",
      "check": "3500"
@@ -1569,7 +1828,8 @@
      "steps": [
       "Thousands digit is 7, hundreds digit is 2",
       "2 is less than 5 → round down",
-      "67,280 → 67,000"
+      "67,280 → 67,000",
+      "Answer: 67,000"
      ],
      "mistake": "Rounds up every time, or rounds to the nearest hundred instead",
      "check": "67000"
@@ -1587,7 +1847,8 @@
      "steps": [
       "498 → 500",
       "307 → 300",
-      "500 + 300 = 800"
+      "500 + 300 = 800",
+      "Answer: 800"
      ],
      "mistake": "Works out the exact answer (805) instead of estimating",
      "check": "500+300"
@@ -1605,7 +1866,8 @@
      "steps": [
       "3,890 → 4,000",
       "5,120 → 5,000",
-      "4,000 + 5,000 = 9,000"
+      "4,000 + 5,000 = 9,000",
+      "Answer: 9,000"
      ],
      "mistake": "Gives the exact total (9,010) or rounds 3,890 down",
      "check": "4000+5000"
@@ -1621,8 +1883,10 @@
      "answer": 2,
      "explain": "₹212 → ₹200, ₹395 → ₹400, ₹289 → ₹300. About ₹900 in all, which is less than ₹1,000.",
      "steps": [
-      "200 + 400 + 300 = 900",
-      "₹900 < ₹1,000, so yes"
+      "₹212 → ₹200, ₹395 → ₹400, ₹289 → ₹300.",
+      "200 + 400 + 300 = 900.",
+      "₹900 < ₹1,000, so she has enough.",
+      "Answer: Yes, she needs about ₹900"
      ],
      "mistake": "Rounds ₹395 or ₹289 the wrong way"
     },
@@ -1636,6 +1900,12 @@
      ],
      "answer": 2,
      "explain": "4,725 has hundreds digit 7, so it rounds up to 5,000. 4,450 rounds to 4,000; 5,620 and 5,501 round to 6,000.",
+     "steps": [
+      "Nearest thousand: look at the hundreds digit.",
+      "4,450 → 4,000; 5,620 → 6,000; 5,501 → 6,000.",
+      "4,725: hundreds digit 7 → round up to 5,000.",
+      "Answer: 4,725"
+     ],
      "mistake": "Thinks any number that starts with 5 rounds to 5,000",
      "check": "4725"
     },
@@ -1652,7 +1922,8 @@
      "steps": [
       "612 → 600",
       "289 → 300",
-      "600 − 300 = 300"
+      "600 − 300 = 300",
+      "Answer: 300"
      ],
      "mistake": "Rounds 289 down to 200, or gives the exact answer",
      "check": "600-300"
@@ -1670,7 +1941,8 @@
      "steps": [
       "28 → 30",
       "52 → 50",
-      "30 × 50 = 1,500"
+      "30 × 50 = 1,500",
+      "Answer: 1,500"
      ],
      "mistake": "Rounds 28 down to 20, or works out the exact answer (1,456)",
      "check": "30*50"
@@ -1688,7 +1960,8 @@
      "steps": [
       "212 + 395 = 607",
       "607 + 289 = 896",
-      "1,000 − 896 = 104"
+      "1,000 − 896 = 104",
+      "Answer: ₹104"
      ],
      "mistake": "Gives the total cost instead of the money left",
      "check": "1000-(212+395+289)"
@@ -1718,7 +1991,25 @@
    },
    "covers": [
     "c4.6.3"
-   ]
+   ],
+   "revise": {
+    "summary": "Estimating gives a quick answer close to the real one. Round each number first, then add or subtract; an estimate helps check whether an exact answer makes sense.",
+    "focus": [
+     "Round to the nearest hundred or thousand",
+     "Estimate sums, differences and products by rounding",
+     "Use an estimate to decide if money is enough"
+    ],
+    "remember": [
+     "Nearest hundred: look at the tens digit",
+     "Nearest thousand: look at the hundreds digit",
+     "5 or more: round up; less than 5: round down"
+    ],
+    "traps": [
+     "Don't give the exact answer when asked to estimate.",
+     "Don't think every number starting with 5 rounds to 5,000: 5,620 → 6,000."
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g5-maths-04-09",
@@ -1825,7 +2116,8 @@
       "638 + 2 = 640",
       "640 + 60 = 700",
       "700 + 300 = 1,000",
-      "2 + 60 + 300 = 362"
+      "2 + 60 + 300 = 362",
+      "Answer: 362"
      ],
      "mistake": "Makes a borrowing error across zeros",
      "check": "1000-638"
@@ -1841,7 +2133,10 @@
      "answer": 1,
      "explain": "10,000 − 4,725 = 5,275.",
      "steps": [
-      "10,000 − 4,725 = 5,275"
+      "Missing number = 10,000 − 4,725.",
+      "Count up: 4,725 → 4,730 (5) → 4,800 (70) → 5,000 (200) → 10,000 (5,000).",
+      "5 + 70 + 200 + 5,000 = 5,275.",
+      "Answer: 5,275"
      ],
      "mistake": "Takes each digit away from 9 or 10 wrongly",
      "check": "10000-4725"
@@ -1857,7 +2152,10 @@
      "answer": 2,
      "explain": "73 + 27 = 100.",
      "steps": [
-      "100 − 73 = 27"
+      "Missing number = 100 − 73.",
+      "73 → 80 is 7, 80 → 100 is 20.",
+      "7 + 20 = 27.",
+      "Answer: 27"
      ],
      "mistake": "Takes each digit from 10",
      "check": "100-73"
@@ -1874,7 +2172,8 @@
      "explain": "562 − 100 = 462, then add 1 back: 463.",
      "steps": [
       "562 − 100 = 462",
-      "462 + 1 = 463"
+      "462 + 1 = 463",
+      "Answer: 463"
      ],
      "mistake": "Subtracts 1 instead of adding it back",
      "check": "562-99"
@@ -1891,7 +2190,8 @@
      "explain": "845 − 10 = 835, then add 1: 836.",
      "steps": [
       "845 − 10 = 835",
-      "835 + 1 = 836"
+      "835 + 1 = 836",
+      "Answer: 836"
      ],
      "mistake": "Forgets to add 1 back",
      "check": "845-9"
@@ -1906,6 +2206,12 @@
      ],
      "answer": 1,
      "explain": "99 is 1 less than 100. Taking away 100 takes away 1 too many, so add 1 back.",
+     "steps": [
+      "99 is 1 less than 100.",
+      "Taking away 100 takes away 1 too many.",
+      "So subtract 100, then add 1.",
+      "Answer: Subtract 100, then add 1"
+     ],
      "mistake": "Adjusts in the wrong direction"
     },
     {
@@ -1920,7 +2226,8 @@
      "explain": "457 − 99 = 358. Check: 457 − 358 = 99.",
      "steps": [
       "457 − 100 = 357",
-      "357 + 1 = 358"
+      "357 + 1 = 358",
+      "Answer: 358"
      ],
      "mistake": "Adds 99 instead of subtracting",
      "check": "457-99"
@@ -1937,7 +2244,8 @@
      "explain": "503 − 9 = 494. Check: 503 − 494 = 9.",
      "steps": [
       "503 − 10 = 493",
-      "493 + 1 = 494"
+      "493 + 1 = 494",
+      "Answer: 494"
      ],
      "mistake": "Adds 9 instead of subtracting",
      "check": "503-9"
@@ -1961,6 +2269,24 @@
     ],
     "praise": "Take away 100 to get 634, then add 1 back: 635!",
     "nudge": "Which round number is 99 close to?"
+   },
+   "revise": {
+    "summary": "Complements add up to 100, 1,000 or 10,000; count up in jumps to find them. To subtract 9 or 99, subtract 10 or 100 and add 1 back.",
+    "focus": [
+     "Find what to add to reach 100, 1,000 or 10,000",
+     "Subtract 9 and 99 quickly",
+     "Find a missing number that is taken away"
+    ],
+    "remember": [
+     "73 + 27 = 100",
+     "638 → 640 (2) → 700 (60) → 1,000 (300): 362",
+     "− 99 = − 100 + 1"
+    ],
+    "traps": [
+     "Don't subtract 1 after taking away 100; add it back.",
+     "Don't add 99 when finding 457 − ? = 99; work out 457 − 99."
+    ],
+    "level": "core"
    }
   },
   {
@@ -2066,11 +2392,17 @@
      "options": [
       "4,554",
       "4,545",
-      "5,445",
+      "5,454",
       "4,455"
      ],
      "answer": 0,
      "explain": "4,554 reads 4-5-5-4 both ways.",
+     "steps": [
+      "A palindrome reads the same forwards and backwards.",
+      "Read 4,554 backwards: 4-5-5-4, the same as forwards.",
+      "4,545 → 5,454, 5,454 → 4,545 and 4,455 → 5,544: these change, so they are not palindromes.",
+      "Answer: 4,554"
+     ],
      "mistake": "Checks only the first and last digits",
      "check": "4554"
     },
@@ -2085,7 +2417,10 @@
      "answer": 1,
      "explain": "They are 11, 22, 33, 44, 55, 66, 77, 88, 99: nine numbers.",
      "steps": [
-      "11 to 99 in steps of 11"
+      "2-digit palindromes have both digits the same.",
+      "They are 11, 22, 33, 44, 55, 66, 77, 88, 99.",
+      "That is 9 palindromes.",
+      "Answer: 9"
      ],
      "mistake": "Counts 10 or 100 too",
      "check": "9"
@@ -2101,7 +2436,10 @@
      "answer": 2,
      "explain": "101, 111, 121, 131, 141, 151, 161, 171, 181, 191: ten numbers.",
      "steps": [
-      "1_1 with 10 middle digits (0–9)"
+      "Palindromes between 100 and 200 look like 1_1.",
+      "The middle digit can be 0 to 9: 101, 111, … 191.",
+      "That is 10 palindromes.",
+      "Answer: 10"
      ],
      "mistake": "Forgets 101",
      "check": "10"
@@ -2116,6 +2454,12 @@
      ],
      "answer": 3,
      "explain": "100 backwards is 001, so it is not a palindrome. 101 is.",
+     "steps": [
+      "100 backwards is 001, so 100 is not a palindrome.",
+      "The next number of the form 1_1 is 101.",
+      "101 is the smallest 3-digit palindrome.",
+      "Answer: 101"
+     ],
      "mistake": "Thinks 100 is a palindrome",
      "check": "101"
     },
@@ -2129,6 +2473,12 @@
      ],
      "answer": 0,
      "explain": "4-digit palindromes look like abba. After 1,221 comes 1,331.",
+     "steps": [
+      "4-digit palindromes look like abba.",
+      "After 1,221 (a = 1, b = 2) the next has b = 3: 1,331.",
+      "1,222 and 1,232 are not palindromes. So 1,331.",
+      "Answer: 1,331"
+     ],
      "mistake": "Changes only the last digit",
      "check": "1331"
     },
@@ -2142,6 +2492,12 @@
      ],
      "answer": 1,
      "explain": "1 is the smallest, so nothing can be to its left or above it.",
+     "steps": [
+      "Rows grow left to right and columns grow top to bottom.",
+      "1 is the smallest, so nothing can be to its left or above it.",
+      "So 1 must go in the top-left corner.",
+      "Answer: Top-left corner"
+     ],
      "mistake": "Puts 1 in the centre"
     },
     {
@@ -2154,6 +2510,12 @@
      ],
      "answer": 2,
      "explain": "9 is the biggest, so it must be last in its row and its column.",
+     "steps": [
+      "9 is the biggest number.",
+      "It must be last in its row (right) and last in its column (bottom).",
+      "So 9 must go in the bottom-right corner.",
+      "Answer: Bottom-right corner"
+     ],
      "mistake": "Thinks 9 can go anywhere at the edge"
     },
     {
@@ -2166,6 +2528,12 @@
      ],
      "answer": 3,
      "explain": "1,231 backwards is 1,321, which is different.",
+     "steps": [
+      "Reverse each number.",
+      "1,221 → 1,221; 7,117 → 7,117; 505 → 505.",
+      "1,231 → 1,321, which is different. So 1,231 is NOT a palindrome.",
+      "Answer: 1,231"
+     ],
      "mistake": "Checks only the outside digits",
      "check": "1231"
     }
@@ -2189,6 +2557,24 @@
     ],
     "praise": "2,442 backwards is 2,442. It is a palindrome!",
     "nudge": "What happens when I read it from right to left?"
+   },
+   "revise": {
+    "summary": "A palindrome reads the same forwards and backwards. In a 3 × 3 grid of 1 to 9 where rows and columns grow, 1 is top-left and 9 is bottom-right.",
+    "focus": [
+     "Check whether a number is a palindrome",
+     "Count palindromes in a range",
+     "Place 1 and 9 in a growing grid"
+    ],
+    "remember": [
+     "There are 9 two-digit palindromes (11 to 99)",
+     "There are 10 palindromes between 100 and 200 (101 to 191)",
+     "101 is the smallest 3-digit palindrome"
+    ],
+    "traps": [
+     "Don't check only the first and last digits: 1,231 is not a palindrome.",
+     "100 is not a palindrome."
+    ],
+    "level": "important"
    }
   },
   {
@@ -2310,6 +2696,12 @@
      ],
      "answer": 0,
      "explain": "The ones digit is 7, which is odd.",
+     "steps": [
+      "Odd or even depends on the ones digit.",
+      "3,457 has ones digit 7.",
+      "7 is odd, so 3,457 is odd.",
+      "Answer: Odd"
+     ],
      "mistake": "Looks at the first digit instead of the ones digit"
     },
     {
@@ -2322,6 +2714,12 @@
      ],
      "answer": 1,
      "explain": "5,678 ends in 8, an even digit.",
+     "steps": [
+      "Even numbers end in 0, 2, 4, 6 or 8.",
+      "The ones digits are 1, 8, 7, 9.",
+      "Only 5,678 ends in 8, so it is even.",
+      "Answer: 5,678"
+     ],
      "mistake": "Looks at the wrong digit",
      "check": "5678"
     },
@@ -2337,7 +2735,8 @@
      "explain": "27 is odd. 13 pairs make 26, and 1 child is left.",
      "steps": [
       "13 × 2 = 26",
-      "27 − 26 = 1"
+      "27 − 26 = 1",
+      "Answer: 1"
      ],
      "mistake": "Thinks every number can be paired",
      "check": "27-26"
@@ -2350,6 +2749,12 @@
      ],
      "answer": 1,
      "explain": "Both numbers are odd, and odd + odd = even.",
+     "steps": [
+      "135 ends in 5: odd. 247 ends in 7: odd.",
+      "Odd + odd = even.",
+      "So 135 + 247 is even.",
+      "Answer: Even"
+     ],
      "mistake": "Thinks odd + odd = odd"
     },
     {
@@ -2360,6 +2765,12 @@
      ],
      "answer": 0,
      "explain": "246 is even and 135 is odd. Even + odd = odd.",
+     "steps": [
+      "246 ends in 6: even. 135 ends in 5: odd.",
+      "Even + odd = odd.",
+      "So 246 + 135 is odd.",
+      "Answer: Odd"
+     ],
      "mistake": "Thinks the bigger number decides"
     },
     {
@@ -2372,6 +2783,12 @@
      ],
      "answer": 1,
      "explain": "51 is odd, and adding 2 keeps it odd. 75 is the only odd choice.",
+     "steps": [
+      "51 is odd. Adding 2 does not change odd or even.",
+      "So every number you land on is odd.",
+      "88, 70, 64 are even. Only 75 is odd, so 75.",
+      "Answer: 75"
+     ],
      "mistake": "Thinks adding 2 changes odd to even",
      "check": "75"
     },
@@ -2385,6 +2802,12 @@
      ],
      "answer": 2,
      "explain": "23 is odd and 40 is even. Odd + even = odd.",
+     "steps": [
+      "22 + 40: even + even = even. 21 + 43 and 23 + 41: odd + odd = even.",
+      "23 + 40: odd + even.",
+      "Odd + even = odd, so 23 + 40 is odd.",
+      "Answer: 23 + 40"
+     ],
      "mistake": "Picks a sum of two odd numbers"
     },
     {
@@ -2397,6 +2820,12 @@
      ],
      "answer": 3,
      "explain": "Even numbers split into pairs exactly: 18 pairs.",
+     "steps": [
+      "Even numbers split into pairs with none left over.",
+      "36 ends in 6, so it is even.",
+      "36 is even (18 pairs).",
+      "Answer: 36 is even"
+     ],
      "mistake": "Gives a reason that has nothing to do with odd and even"
     }
    ],
@@ -2418,6 +2847,24 @@
     ],
     "praise": "Both are odd, and odd + odd = even. So the sum is even!",
     "nudge": "Are 999 and 1,001 odd or even?"
+   },
+   "revise": {
+    "summary": "A number is even if its ones digit is 0, 2, 4, 6 or 8, otherwise odd. Even + even and odd + odd are even; odd + even is odd.",
+    "focus": [
+     "Tell odd from even by the ones digit",
+     "Say if a sum is odd or even without adding",
+     "Use pairs to explain odd and even"
+    ],
+    "remember": [
+     "Even numbers pair up with none left over",
+     "Even + even = even; odd + odd = even; odd + even = odd",
+     "Adding 2 does not change odd or even"
+    ],
+    "traps": [
+     "Don't look at the first digit; look at the ones digit.",
+     "Odd + odd is not odd."
+    ],
+    "level": "core"
    }
   },
   {
@@ -2508,9 +2955,10 @@
      "answer": 0,
      "explain": "With a ₹5: 5+1 (1 way). Without: 2+2+2, 2+2+1+1, 2+1+1+1+1, 1+1+1+1+1+1 (4 ways). Total 5.",
      "steps": [
-      "With ₹5: 1 way",
-      "Without ₹5: 4 ways",
-      "1 + 4 = 5"
+      "With a ₹5 coin: 5 + 1 (1 way).",
+      "Without ₹5: 2+2+2, 2+2+1+1, 2+1+1+1+1, 1+1+1+1+1+1 (4 ways).",
+      "1 + 4 = 5 ways.",
+      "Answer: 5"
      ],
      "mistake": "Misses the ways that use only ₹1 coins",
      "check": "1+4"
@@ -2528,7 +2976,8 @@
      "steps": [
       "5 + 5 = 10",
       "10 + 2 + 1 = 13",
-      "4 coins"
+      "4 coins",
+      "Answer: 4"
      ],
      "mistake": "Does not use the biggest coins first",
      "check": "4"
@@ -2541,6 +2990,12 @@
      ],
      "answer": 0,
      "explain": "Each press changes it. 15 is odd, so it ends opposite to the start: on.",
+     "steps": [
+      "Each press changes off ↔ on.",
+      "After an odd number of presses it is opposite to the start.",
+      "15 is odd and it started off, so it is on.",
+      "Answer: On"
+     ],
      "mistake": "Thinks many presses always end off"
     },
     {
@@ -2551,6 +3006,12 @@
      ],
      "answer": 1,
      "explain": "20 is even, so it ends the way it started: off.",
+     "steps": [
+      "Each press changes off ↔ on.",
+      "After an even number of presses it is back to the start.",
+      "20 is even and it started off, so it is off.",
+      "Answer: Off"
+     ],
      "mistake": "Mixes up odd and even"
     },
     {
@@ -2564,7 +3025,10 @@
      "answer": 0,
      "explain": "8,849 − 8,611 = 238 m.",
      "steps": [
-      "8,849 − 8,611 = 238"
+      "How much higher = bigger height − smaller height.",
+      "8,849 − 8,611.",
+      "8,849 − 8,611 = 238 m.",
+      "Answer: 238 m"
      ],
      "mistake": "Makes a subtraction error",
      "check": "8849-8611"
@@ -2580,7 +3044,10 @@
      "answer": 1,
      "explain": "8,586 − 7,816 = 770 m.",
      "steps": [
-      "8,586 − 7,816 = 770"
+      "Difference = bigger height − smaller height.",
+      "8,586 − 7,816: hundreds 5 − 8 needs borrowing → 15 − 8 = 7, thousands 7 − 7 = 0.",
+      "8,586 − 7,816 = 770 m.",
+      "Answer: 770 m"
      ],
      "mistake": "Forgets to borrow",
      "check": "8586-7816"
@@ -2595,8 +3062,11 @@
      "answer": 1,
      "explain": "8,611 − 8,586 = 25 m, the smallest difference.",
      "steps": [
-      "8,849 − 8,611 = 238",
-      "8,611 − 8,586 = 25"
+      "Everest − K2: 8,849 − 8,611 = 238 m.",
+      "K2 − Kangchenjunga: 8,611 − 8,586 = 25 m.",
+      "Everest − Kangchenjunga: 8,849 − 8,586 = 263 m.",
+      "25 m is the smallest difference.",
+      "Answer: K2 and Kangchenjunga"
      ],
      "mistake": "Compares only the first digits"
     },
@@ -2611,7 +3081,10 @@
      "answer": 3,
      "explain": "2018 − 26 = 1992.",
      "steps": [
-      "2018 − 26 = 1992"
+      "She was 26 years old in 2018.",
+      "Birth year = 2018 − 26.",
+      "2018 − 26 = 1992.",
+      "Answer: 1992"
      ],
      "mistake": "Adds instead of subtracting",
      "check": "2018-26"
@@ -2635,6 +3108,25 @@
     ],
     "praise": "9 is odd, so the lamp ends up on. Two presses cancel out!",
     "nudge": "Is 9 odd or even, and what does each press do?"
+   },
+   "revise": {
+    "summary": "List coin combinations starting with the biggest coins. A switch that starts off is on after an odd number of presses and off after an even number. Subtract to compare values in a table.",
+    "focus": [
+     "Count ways to make an amount with coins",
+     "Find the fewest coins for an amount",
+     "Decide if a switch is on or off",
+     "Read a table and find differences"
+    ],
+    "remember": [
+     "₹6 can be made in 5 ways with ₹1, ₹2 and ₹5 coins",
+     "Starts off: odd presses → on, even presses → off",
+     "Everest 8,849 m − K2 8,611 m = 238 m"
+    ],
+    "traps": [
+     "Don't miss the way that uses only ₹1 coins.",
+     "Don't mix up odd and even presses."
+    ],
+    "level": "important"
    }
   },
   {
@@ -2742,7 +3234,10 @@
      "answer": 0,
      "explain": "412 − 350 = 62 more are needed. This is a shortage.",
      "steps": [
-      "412 − 350 = 62"
+      "412 children need certificates; only 350 were printed.",
+      "Shortage = 412 − 350.",
+      "412 − 350 = 62.",
+      "Answer: 62"
      ],
      "mistake": "Adds instead of subtracting",
      "check": "412-350"
@@ -2758,7 +3253,10 @@
      "answer": 1,
      "explain": "600 − 548 = 52 extra badges. This is a surplus.",
      "steps": [
-      "600 − 548 = 52"
+      "600 badges for 548 children: more badges than children.",
+      "Surplus = 600 − 548.",
+      "600 − 548 = 52.",
+      "Answer: 52"
      ],
      "mistake": "Makes a borrowing mistake",
      "check": "600-548"
@@ -2775,7 +3273,8 @@
      "explain": "1,250 + 980 + 1,475 = 3,705.",
      "steps": [
       "1,250 + 980 = 2,230",
-      "2,230 + 1,475 = 3,705"
+      "2,230 + 1,475 = 3,705",
+      "Answer: ₹3,705"
      ],
      "mistake": "Forgets a carry",
      "check": "1250+980+1475"
@@ -2791,7 +3290,10 @@
      "answer": 3,
      "explain": "12,450 − 9,875 = 2,575.",
      "steps": [
-      "12,450 − 9,875 = 2,575"
+      "How many more = Monday − Tuesday.",
+      "12,450 − 9,875.",
+      "12,450 − 9,875 = 2,575.",
+      "Answer: 2,575"
      ],
      "mistake": "Adds the two days",
      "check": "12450-9875"
@@ -2807,7 +3309,10 @@
      "answer": 0,
      "explain": "287 − 249 = 38 runs.",
      "steps": [
-      "287 − 249 = 38"
+      "Winning margin = winner's runs − loser's runs.",
+      "287 − 249.",
+      "287 − 249 = 38 runs.",
+      "Answer: 38"
      ],
      "mistake": "Adds the scores",
      "check": "287-249"
@@ -2823,7 +3328,10 @@
      "answer": 1,
      "explain": "50,000 − 36,780 = 13,220.",
      "steps": [
-      "50,000 − 36,780 = 13,220"
+      "Still to make = target − made.",
+      "50,000 − 36,780.",
+      "50,000 − 36,780 = 13,220.",
+      "Answer: 13,220"
      ],
      "mistake": "Makes errors borrowing across zeros",
      "check": "50000-36780"
@@ -2839,7 +3347,10 @@
      "answer": 2,
      "explain": "Add place by place, carrying: 74,120.",
      "steps": [
-      "45,670 + 28,450 = 74,120"
+      "Line up places and add from the right.",
+      "Tens: 7 + 5 = 12, write 2 carry 1. Hundreds: 6 + 4 + 1 = 11, write 1 carry 1. Thousands: 5 + 8 + 1 = 14, write 4 carry 1. Ten thousands: 4 + 2 + 1 = 7.",
+      "45,670 + 28,450 = 74,120.",
+      "Answer: 74,120"
      ],
      "mistake": "Forgets to carry",
      "check": "45670+28450"
@@ -2855,7 +3366,10 @@
      "answer": 3,
      "explain": "80,000 − 46,385 = 33,615. Check: 33,615 + 46,385 = 80,000.",
      "steps": [
-      "80,000 − 46,385 = 33,615"
+      "Subtract, borrowing across the zeros.",
+      "80,000 − 46,385 = 33,615.",
+      "Check: 33,615 + 46,385 = 80,000.",
+      "Answer: 33,615"
      ],
      "mistake": "Borrows wrongly across the zeros",
      "check": "80000-46385"
@@ -2880,6 +3394,23 @@
     ],
     "praise": "135 − 120 = 15, so I am short by 15 laddoos. I will order more!",
     "nudge": "Are there more guests or more laddoos?"
+   },
+   "revise": {
+    "summary": "In mixed problems, decide whether to add or subtract. Shortage or surplus, 'how many more' and 'by how many runs' need subtraction; total savings need addition.",
+    "focus": [
+     "Find shortage or surplus",
+     "Add savings over months",
+     "Subtract big numbers, borrowing across zeros"
+    ],
+    "remember": [
+     "Surplus means extra; shortage means not enough",
+     "For 'how many more', subtract the smaller from the bigger"
+    ],
+    "traps": [
+     "Don't add when the question asks how many more.",
+     "Take care when borrowing across zeros: 80,000 − 46,385 = 33,615."
+    ],
+    "level": "core"
    }
   },
   {
@@ -3005,7 +3536,8 @@
       "1,000 × 6 = 6,000",
       "200 × 6 = 1,200",
       "45 × 6 = 270",
-      "6,000 + 1,200 + 270 = 7,470"
+      "6,000 + 1,200 + 270 = 7,470",
+      "Answer: ₹7,470"
      ],
      "mistake": "Forgets to add the carried digits",
      "check": "1245*6"
@@ -3021,7 +3553,10 @@
      "answer": 1,
      "explain": "Multiplying by 100 puts two zeros at the end: 4,800.",
      "steps": [
-      "48 × 100 = 4,800"
+      "Multiplying by 100 puts two zeros at the end.",
+      "48 → 4,800.",
+      "48 × 100 = 4,800.",
+      "Answer: 4,800"
      ],
      "mistake": "Writes one or three zeros instead of two",
      "check": "48*100"
@@ -3039,7 +3574,8 @@
      "steps": [
       "45 × 3 = 135",
       "so 45 × 30 = 1,350",
-      "1,350 ÷ 45 = 30"
+      "1,350 ÷ 45 = 30",
+      "Answer: 30"
      ],
      "mistake": "Drops a zero while dividing",
      "check": "1350/45"
@@ -3057,7 +3593,8 @@
      "steps": [
       "850 × 10 = 8,500",
       "850 × 2 = 1,700",
-      "8,500 + 1,700 = 10,200"
+      "8,500 + 1,700 = 10,200",
+      "Answer: 10,200 km"
      ],
      "mistake": "Multiplies only by the 2 in 12 and forgets the 10",
      "check": "850*12"
@@ -3074,7 +3611,8 @@
      "explain": "2,400 ÷ 8 = 300, because 8 × 300 = 2,400.",
      "steps": [
       "24 ÷ 8 = 3",
-      "so 2,400 ÷ 8 = 300"
+      "so 2,400 ÷ 8 = 300",
+      "Answer: 300"
      ],
      "mistake": "Loses or adds a zero",
      "check": "2400/8"
@@ -3092,7 +3630,8 @@
      "steps": [
       "236 × 20 = 4,720",
       "236 × 5 = 1,180",
-      "4,720 + 1,180 = 5,900"
+      "4,720 + 1,180 = 5,900",
+      "Answer: 5,900"
      ],
      "mistake": "Multiplies by only the 20 or only the 5 and forgets to add both parts",
      "check": "236*25"
@@ -3110,7 +3649,8 @@
      "steps": [
       "8 × 12 = 96",
       "97 − 96 = 1",
-      "12 boxes, 1 left"
+      "12 boxes, 1 left",
+      "Answer: 12 boxes, 1 left"
      ],
      "mistake": "Leaves a remainder that is bigger than 8, or ignores the remainder"
     },
@@ -3127,7 +3667,8 @@
      "steps": [
       "3,000 × 4 = 12,000",
       "250 × 4 = 1,000",
-      "12,000 + 1,000 = 13,000"
+      "12,000 + 1,000 = 13,000",
+      "Answer: 13,000"
      ],
      "mistake": "Adds 4 instead of multiplying, or forgets a carry",
      "check": "3250*4"
@@ -3153,7 +3694,27 @@
     "praise": "Super! Split 24 into 20 and 4, multiply each, then add. 3,240!",
     "nudge": "How can I make 24 easier to work with? And what do I do with the two answers?"
    },
-   "covers": []
+   "covers": [],
+   "revise": {
+    "summary": "To multiply by 10, 100 or 1,000, add 1, 2 or 3 zeros. Split a 2-digit multiplier into tens and ones. Division makes equal groups; check it by multiplying, and the remainder is always smaller than the divisor.",
+    "focus": [
+     "Multiply by 10, 100 and 1,000",
+     "Multiply by a 2-digit number by splitting",
+     "Divide and give the remainder",
+     "Check division by multiplying"
+    ],
+    "remember": [
+     "45 × 100 = 4,500",
+     "135 × 24 = 135 × 20 + 135 × 4",
+     "Remainder < the number you divide by"
+    ],
+    "traps": [
+     "Don't forget the tens part: 850 × 12 = 850 × 10 + 850 × 2.",
+     "Don't leave a remainder bigger than the divisor.",
+     "Don't drop or add a zero when dividing."
+    ],
+    "level": "core"
+   }
   }
  ]
 }

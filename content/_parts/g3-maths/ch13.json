@@ -102,7 +102,9 @@
      "answer": 0,
      "explain": "Monday 1, Tuesday 2, ... Sunday 7.",
      "steps": [
-      "Mon 1 → Sun 7"
+      "The 1st is a Monday.",
+      "Mon 1, Tue 2, Wed 3, Thu 4, Fri 5, Sat 6, Sun 7.",
+      "Answer: 7"
      ],
      "mistake": "Counts one day too few",
      "check": "7"
@@ -118,7 +120,10 @@
      "answer": 1,
      "explain": "1, 8, 15, 22, 29: 5 Mondays.",
      "steps": [
-      "1, 8, 15, 22, 29"
+      "Mondays are 7 apart, starting from the 1st.",
+      "1, 8, 15, 22, 29. The next, 36, is past 30.",
+      "Count: 5 Mondays.",
+      "Answer: 5"
      ],
      "mistake": "Thinks every month has 4",
      "check": "5"
@@ -134,7 +139,9 @@
      "answer": 3,
      "explain": "29 is a Monday, 30 a Tuesday, 31 a Wednesday.",
      "steps": [
-      "29 Mon, 30 Tue, 31 Wed"
+      "Mondays: 1, 8, 15, 22, 29.",
+      "29 Monday, 30 Tuesday, 31 Wednesday.",
+      "Answer: Wednesday"
      ],
      "mistake": "Counts wrongly at the end"
     },
@@ -149,7 +156,9 @@
      "answer": 2,
      "explain": "18 + 7 = 25.",
      "steps": [
-      "18 + 7 = 25"
+      "The same weekday comes every 7 days.",
+      "18 + 7 = 25",
+      "Answer: 25"
      ],
      "mistake": "Adds 6",
      "check": "18+7"
@@ -166,7 +175,8 @@
      "explain": "Holidays are 11th to 22nd (12 days), so it reopens on the 23rd.",
      "steps": [
       "10 + 12 = 22",
-      "Next day: 23"
+      "Next day: 23",
+      "Answer: 23"
      ],
      "mistake": "Forgets the last holiday",
      "check": "10+12+1"
@@ -182,7 +192,9 @@
      "answer": 2,
      "explain": "Wed 1, Thu 2, Fri 3.",
      "steps": [
-      "Wed → Thu → Fri"
+      "The 1st is a Wednesday.",
+      "Wed 1, Thu 2, Fri 3.",
+      "Answer: Friday"
      ],
      "mistake": "Counts one day too few"
     },
@@ -197,7 +209,10 @@
      "answer": 1,
      "explain": "6 + 7 = 13 and 13 + 7 = 20, so it is also a Saturday.",
      "steps": [
-      "20 − 6 = 14 = 2 weeks"
+      "20 − 6 = 14 days = 2 weeks.",
+      "After whole weeks, the day is the same.",
+      "So the 20th is also a Saturday.",
+      "Answer: Saturday"
      ],
      "mistake": "Counts days one by one wrongly"
     },
@@ -212,7 +227,9 @@
      "answer": 1,
      "explain": "There are 5 Sundays.",
      "steps": [
-      "Count: 3, 10, 17, 24, 31"
+      "Count the Sundays: 3, 10, 17, 24, 31.",
+      "That is 5 days.",
+      "Answer: 5"
      ],
      "mistake": "Misses the 31st",
      "check": "5"
@@ -237,6 +254,25 @@
     ],
     "praise": "Holidays are 6th to 12th, so I go back on the 13th! Chirp!",
     "nudge": "Which dates are the holidays?"
+   },
+   "revise": {
+    "summary": "A month calendar has 7 columns, one for each day. Dates in one column are 7 apart, so we can find all the dates of a weekday.",
+    "focus": [
+     "Make a month calendar.",
+     "Find all dates of one weekday.",
+     "Count holidays and find a reopening date."
+    ],
+    "remember": [
+     "Same weekday dates are 7 apart: 3, 10, 17, 24, 31.",
+     "30-day month starting Monday: 4 Sundays (7, 14, 21, 28).",
+     "Closed after the 10th for 12 days: reopens on the 23rd."
+    ],
+    "traps": [
+     "Not every month has 4 of each day. Some have 5.",
+     "Don't miss the 31st.",
+     "Don't forget the last holiday when counting."
+    ],
+    "level": "core"
    }
   },
   {
@@ -335,6 +371,11 @@
      ],
      "answer": 1,
      "explain": "Monday to Sunday makes 7 days.",
+     "steps": [
+      "Days: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.",
+      "Count them: 7.",
+      "Answer: 7"
+     ],
      "mistake": "Counts only school days",
      "check": "7"
     },
@@ -348,6 +389,11 @@
      ],
      "answer": 2,
      "explain": "January to December makes 12 months.",
+     "steps": [
+      "Months go from January to December.",
+      "Count them: 12.",
+      "Answer: 12"
+     ],
      "mistake": "Mixes up months in a year with days in a week",
      "check": "12"
     },
@@ -361,6 +407,11 @@
      ],
      "answer": 3,
      "explain": "The months go ... May, June, July, August ... So July comes after June.",
+     "steps": [
+      "The months go ... May, June, July, August ...",
+      "July comes right after June.",
+      "Answer: July"
+     ],
      "mistake": "Picks the month before instead of after"
     },
     {
@@ -373,6 +424,11 @@
      ],
      "answer": 2,
      "explain": "April is one of the four months with 30 days: April, June, September and November.",
+     "steps": [
+      "April, June, September and November have 30 days.",
+      "So April has 30 days.",
+      "Answer: 30"
+     ],
      "mistake": "Thinks every month has 31 days",
      "check": "30"
     },
@@ -386,6 +442,11 @@
      ],
      "answer": 0,
      "explain": "After Friday comes Saturday.",
+     "steps": [
+      "Days in order: ... Thursday, Friday, Saturday ...",
+      "After Friday comes Saturday.",
+      "Answer: Saturday"
+     ],
      "mistake": "Gives the day before (yesterday) instead"
     },
     {
@@ -400,7 +461,8 @@
      "explain": "12 − 5 = 7 days, which is 1 week. So the 12th is also a Tuesday.",
      "steps": [
       "12 − 5 = 7",
-      "7 days = 1 week"
+      "7 days = 1 week",
+      "Answer: Tuesday"
      ],
      "mistake": "Counts on 7 days but lands one day off"
     },
@@ -414,6 +476,11 @@
      ],
      "answer": 0,
      "explain": "February is the shortest month. It has 28 days, and 29 in a leap year.",
+     "steps": [
+      "February is the shortest month.",
+      "It has 28 days, and 29 in a leap year.",
+      "Answer: February"
+     ],
      "mistake": "Does not know that February is the short month"
     },
     {
@@ -427,7 +494,10 @@
      "answer": 2,
      "explain": "1 week is 7 days, so 2 weeks is 7 + 7 = 14 days.",
      "steps": [
-      "7 + 7 = 14"
+      "1 week = 7 days.",
+      "2 weeks = 7 + 7",
+      "7 + 7 = 14",
+      "Answer: 14"
      ],
      "mistake": "Adds 2 and 7 instead of doubling 7",
      "check": "2*7"
@@ -454,6 +524,25 @@
     ],
     "praise": "7 days in a week and 12 months in a year! I'll mark my birthday now.",
     "nudge": "How many days make a week? And how many months make a year?"
+   },
+   "revise": {
+    "summary": "A week has 7 days and a year has 12 months. Months have 30 or 31 days, and February has 28 (29 in a leap year).",
+    "focus": [
+     "Know the days and months in order.",
+     "Know how many days each month has.",
+     "Use 'every 7 days' to find a day."
+    ],
+    "remember": [
+     "April, June, September, November: 30 days.",
+     "February: 28, or 29 in a leap year. Others: 31.",
+     "If the 12th is Thursday, the 19th is Thursday too."
+    ],
+    "traps": [
+     "Not every month has 31 days.",
+     "Don't give the day before when asked for tomorrow.",
+     "2 weeks is 14 days, not 9."
+    ],
+    "level": "core"
    }
   },
   {
@@ -571,7 +660,8 @@
      "answer": 1,
      "explain": "A normal year has 365 days.",
      "steps": [
-      "365"
+      "A year that is not a leap year has 365 days.",
+      "Answer: 365"
      ],
      "mistake": "Picks the leap-year count",
      "check": "365"
@@ -587,7 +677,10 @@
      "answer": 2,
      "explain": "February gets an extra day: 366.",
      "steps": [
-      "365 + 1"
+      "A normal year has 365 days.",
+      "In a leap year February gets 1 extra day.",
+      "365 + 1 = 366",
+      "Answer: 366"
      ],
      "mistake": "Forgets the extra day",
      "check": "365+1"
@@ -603,7 +696,10 @@
      "answer": 1,
      "explain": "52 × 7 = 364, close to 365.",
      "steps": [
-      "365 ÷ 7 ≈ 52"
+      "52 weeks × 7 = 364 days.",
+      "364 is close to 365.",
+      "So a year has about 52 weeks.",
+      "Answer: 52"
      ],
      "mistake": "Gives the months",
      "check": "52"
@@ -619,7 +715,9 @@
      "answer": 3,
      "explain": "January to December, always in the same order.",
      "steps": [
-      "Months never change order"
+      "The day for a date and festival dates can change.",
+      "The months always go January to December.",
+      "Answer: The order of the months"
      ],
      "mistake": "Picks something that changes"
     },
@@ -634,7 +732,9 @@
      "answer": 2,
      "explain": "Holi follows the moon calendar, so its date changes.",
      "steps": [
-      "Festival dates change"
+      "Month names and 7 days in a week never change.",
+      "Holi follows the moon calendar, so its date changes.",
+      "Answer: The date of Holi"
      ],
      "mistake": "Picks a fixed thing"
     },
@@ -649,7 +749,9 @@
      "answer": 1,
      "explain": "52 × 7 = 364. 365 − 364 = 1.",
      "steps": [
-      "365 − 364 = 1"
+      "52 × 7 = 364",
+      "365 − 364 = 1",
+      "Answer: 1"
      ],
      "mistake": "Says 0",
      "check": "365-52*7"
@@ -665,7 +767,9 @@
      "answer": 0,
      "explain": "In a leap year February has 29 days.",
      "steps": [
-      "Leap year → 29"
+      "In a leap year, February has 1 extra day.",
+      "28 + 1 = 29",
+      "Answer: 29"
      ],
      "mistake": "Says 28",
      "check": "29"
@@ -681,7 +785,10 @@
      "answer": 0,
      "explain": "365 days = 52 weeks and 1 day, so the day moves 1 ahead.",
      "steps": [
-      "1 extra day → next weekday"
+      "365 days = 52 weeks and 1 day.",
+      "So the day moves 1 ahead.",
+      "The day after Tuesday is Wednesday.",
+      "Answer: Wednesday"
      ],
      "mistake": "Thinks it stays the same"
     }
@@ -708,6 +815,25 @@
     ],
     "praise": "No! 365 days is 52 weeks and 1 extra day, so it moves ahead! Chirp!",
     "nudge": "How many days are left after 52 weeks?"
+   },
+   "revise": {
+    "summary": "Month names, their order and 7 days a week stay the same every year. The weekday of a date and festival dates change.",
+    "focus": [
+     "Say what stays the same and what changes.",
+     "Know days in a year and in a leap year.",
+     "Find how a date's weekday moves next year."
+    ],
+    "remember": [
+     "Year = 365 days. Leap year = 366 days.",
+     "52 weeks = 364 days, so 1 day is left over.",
+     "A date usually moves one weekday ahead next year."
+    ],
+    "traps": [
+     "Don't forget the extra day: 365, not 364.",
+     "Holi and Diwali dates change.",
+     "A birthday does not stay on the same weekday."
+    ],
+    "level": "important"
    }
   },
   {
@@ -806,7 +932,9 @@
      "answer": 2,
      "explain": "2026 − 2018 = 8.",
      "steps": [
-      "2026 − 2018 = 8"
+      "Age = current year − birth year (after the birthday).",
+      "2026 − 2018 = 8",
+      "Answer: 8"
      ],
      "mistake": "Subtracts wrongly",
      "check": "2026-2018"
@@ -822,8 +950,10 @@
      "answer": 2,
      "explain": "If Raju is 10, Didi is 20: twice and 10 more.",
      "steps": [
-      "Older − younger = 10",
-      "Twice → younger = 10"
+      "Didi is twice as old as Raju, so Didi's age − Raju's age = Raju's age.",
+      "Didi is 10 years older, so Raju is 10.",
+      "Check: Raju 10, Didi 20. 20 = 2 × 10 and 20 − 10 = 10.",
+      "Answer: 10"
      ],
      "mistake": "Gives Didi's age",
      "check": "10"
@@ -839,7 +969,10 @@
      "answer": 1,
      "explain": "Didi = 2 × 10 = 20.",
      "steps": [
-      "2 × 10 = 20"
+      "Raju is 10 (the younger one's age is the 10 years).",
+      "Didi is twice as old.",
+      "2 × 10 = 20",
+      "Answer: 20"
      ],
      "mistake": "Gives Raju's age",
      "check": "2*10"
@@ -855,7 +988,10 @@
      "answer": 0,
      "explain": "If the son is 30, the mother is 60. 60 is twice 30 and 30 more.",
      "steps": [
-      "Gap = 30 = son's age"
+      "Mother is twice as old and 30 years older.",
+      "So the son's age is the 30 years.",
+      "Check: son 30, mother 60. 60 = 2 × 30 and 60 − 30 = 30.",
+      "Answer: 30"
      ],
      "mistake": "Halves 30",
      "check": "30"
@@ -871,7 +1007,9 @@
      "answer": 0,
      "explain": "9 − 4 = 5.",
      "steps": [
-      "9 − 4 = 5"
+      "Sita 9, brother 4.",
+      "9 − 4 = 5",
+      "Answer: 5"
      ],
      "mistake": "Adds",
      "check": "9-4",
@@ -898,7 +1036,10 @@
      "answer": 0,
      "explain": "The gap stays the same: 5.",
      "steps": [
-      "12 − 7 = 5"
+      "In 3 years: Sita 9 + 3 = 12, brother 4 + 3 = 7.",
+      "12 − 7 = 5",
+      "The gap never changes.",
+      "Answer: 5"
      ],
      "mistake": "Adds 3 to the gap",
      "check": "(9+3)-(4+3)"
@@ -914,7 +1055,9 @@
      "answer": 0,
      "explain": "2026 − 1960 = 66.",
      "steps": [
-      "2026 − 1960 = 66"
+      "Age = 2026 − 1960",
+      "2026 − 1960 = 66",
+      "Answer: 66"
      ],
      "mistake": "Subtracts wrongly in the tens",
      "check": "2026-1960"
@@ -930,7 +1073,10 @@
      "answer": 3,
      "explain": "10 − 1 = 9.",
      "steps": [
-      "10 − 1 = 9"
+      "Next year Dev will be 10.",
+      "Now = 10 − 1",
+      "10 − 1 = 9",
+      "Answer: 9"
      ],
      "mistake": "Adds 1",
      "check": "10-1"
@@ -956,6 +1102,25 @@
     ],
     "praise": "I am 4 and Mother is 8. Twice and 4 more! Chirp!",
     "nudge": "How big is the gap between our ages?"
+   },
+   "revise": {
+    "summary": "To find age, subtract the birth year from the current year after the birthday. Everyone gets 1 year older each year, so age gaps never change.",
+    "focus": [
+     "Find age from the year of birth.",
+     "Solve 'twice as old' puzzles.",
+     "Know that age gaps stay the same."
+    ],
+    "remember": [
+     "Born 2018, in 2026 after the birthday: 8 years old.",
+     "Twice as old and 10 years older: ages 10 and 20.",
+     "Amma 25 years older, Mira 8: Amma is 33."
+    ],
+    "traps": [
+     "Don't add 3 to the gap. The gap stays the same.",
+     "Don't halve the gap in 'twice as old' puzzles.",
+     "If you will be 10 next year, you are 9 now, not 11."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1058,7 +1223,8 @@
      "explain": "The middle number 11 is the 11th month: November.",
      "steps": [
       "day/month/year",
-      "11 → November"
+      "11 → November",
+      "Answer: November"
      ],
      "mistake": "Reads the day as the month"
     },
@@ -1073,7 +1239,9 @@
      "answer": 2,
      "explain": "Day 02, month 10, year 2019.",
      "steps": [
-      "Day first"
+      "Day/month/year: day first.",
+      "Day = 02, month = 10 (October), year = 2019.",
+      "Answer: 02/10/2019"
      ],
      "mistake": "Puts the month first"
     },
@@ -1088,7 +1256,9 @@
      "answer": 3,
      "explain": "2026 − 2016 = 10.",
      "steps": [
-      "2026 − 2016 = 10"
+      "05/09/2016: born in 2016.",
+      "2026 − 2016 = 10",
+      "Answer: 10"
      ],
      "mistake": "Off by one",
      "check": "2026-2016"
@@ -1105,7 +1275,8 @@
      "explain": "05 is the day and 09 is September.",
      "steps": [
       "05 = day",
-      "09 = September"
+      "09 = September",
+      "Answer: 5 September"
      ],
      "mistake": "Swaps day and month"
     },
@@ -1120,7 +1291,9 @@
      "answer": 0,
      "explain": "April, May, June, July: 4 months.",
      "steps": [
-      "7 − 3 = 4"
+      "From 5 March: 5 April, 5 May, 5 June, 5 July.",
+      "That is 4 months (7 − 3 = 4).",
+      "Answer: 4"
      ],
      "mistake": "Counts March too",
      "check": "7-3"
@@ -1136,7 +1309,9 @@
      "answer": 0,
      "explain": "20 − 3 = 17.",
      "steps": [
-      "20 − 3 = 17"
+      "From 3 June to 20 June.",
+      "20 − 3 = 17",
+      "Answer: 17"
      ],
      "mistake": "Adds",
      "check": "20-3"
@@ -1152,7 +1327,9 @@
      "answer": 2,
      "explain": "The 12th month is December.",
      "steps": [
-      "12 → December"
+      "In 25/12/2019, the middle number is the month.",
+      "The 12th month is December.",
+      "Answer: December"
      ],
      "mistake": "Counts wrongly"
     },
@@ -1167,7 +1344,9 @@
      "answer": 1,
      "explain": "2022 − 2018 = 4.",
      "steps": [
-      "2022 − 2018 = 4"
+      "Born 2018. Started school 2022.",
+      "2022 − 2018 = 4",
+      "Answer: 4"
      ],
      "mistake": "Subtracts wrongly",
      "check": "2022-2018"
@@ -1184,7 +1363,8 @@
      "explain": "A birth certificate records the date of birth. Meera can also add other important dates, like her first day at school.",
      "steps": [
       "Birth certificate → date of birth",
-      "Other important dates can be added"
+      "Other important dates can be added",
+      "Answer: Her date of birth"
      ],
      "mistake": "Does not know what a birth certificate records"
     }
@@ -1207,6 +1387,25 @@
     ],
     "praise": "Day 9, month 3: my birthday is 9 March! Chirp!",
     "nudge": "Which number is the day and which is the month?"
+   },
+   "revise": {
+    "summary": "Dates are written day/month/year. From a birth certificate we find the birthday and the age in a given year.",
+    "focus": [
+     "Read and write dates as day/month/year.",
+     "Find age from a date of birth.",
+     "Count months and days between dates."
+    ],
+    "remember": [
+     "14/11/2018 = 14 November 2018.",
+     "Month numbers: 01 January, 11 November, 12 December.",
+     "5 March to 5 July = 4 months. 3 June to 20 June = 17 days."
+    ],
+    "traps": [
+     "Don't read the day as the month.",
+     "Don't put the month first.",
+     "Don't count March when counting months from 5 March."
+    ],
+    "level": "core"
    }
   },
   {
@@ -1306,6 +1505,11 @@
      ],
      "answer": 0,
      "explain": "The long hand on 12 means o'clock. The short hand on 3 means 3. So it is 3 o'clock.",
+     "steps": [
+      "The long hand on 12 means o'clock.",
+      "The short hand on 3 means 3.",
+      "Answer: 3 o'clock"
+     ],
      "mistake": "Reads the long hand as the hour",
      "visual": {
       "kind": "clock",
@@ -1323,6 +1527,11 @@
      ],
      "answer": 1,
      "explain": "The short hand shows the hour. The long hand shows the minutes.",
+     "steps": [
+      "The short hand shows the hour.",
+      "The long hand shows the minutes.",
+      "Answer: The short hand"
+     ],
      "mistake": "Mixes up the hour hand and the minute hand"
     },
     {
@@ -1335,6 +1544,11 @@
      ],
      "answer": 2,
      "explain": "1 hour = 60 minutes. The long hand takes 60 minutes to go all the way round.",
+     "steps": [
+      "The long hand goes all the way round in 1 hour.",
+      "1 hour = 60 minutes.",
+      "Answer: 60"
+     ],
      "mistake": "Thinks time works in hundreds like money",
      "check": "60"
     },
@@ -1348,6 +1562,11 @@
      ],
      "answer": 3,
      "explain": "At half past, the long hand is halfway round the clock, on 6.",
+     "steps": [
+      "Half past means 30 minutes after the hour.",
+      "The long hand is halfway round, on 6.",
+      "Answer: On 6"
+     ],
      "mistake": "Puts the long hand on the hour number",
      "visual": {
       "kind": "clock",
@@ -1366,7 +1585,9 @@
      "answer": 0,
      "explain": "From 4 o'clock to 5 o'clock the short hand moves 1 number. That is 1 hour.",
      "steps": [
-      "5 − 4 = 1"
+      "From 4 o'clock to 5 o'clock.",
+      "5 − 4 = 1 hour",
+      "Answer: 1 hour"
      ],
      "mistake": "Adds the two times",
      "check": "5-4",
@@ -1386,6 +1607,12 @@
      ],
      "answer": 1,
      "explain": "The long hand on 6 means half past. The short hand has passed 11, so it is half past 11.",
+     "steps": [
+      "The long hand on 6 means half past.",
+      "The short hand has passed 11 but not reached 12.",
+      "So it is half past 11.",
+      "Answer: Half past 11"
+     ],
      "mistake": "Reads the next number after the short hand as the hour",
      "visual": {
       "kind": "clock",
@@ -1404,7 +1631,10 @@
      "answer": 2,
      "explain": "Half of 60 minutes is 30 minutes.",
      "steps": [
-      "60 shared by 2 = 30"
+      "1 hour = 60 minutes.",
+      "Half of 60 = 60 ÷ 2",
+      "60 ÷ 2 = 30",
+      "Answer: 30"
      ],
      "mistake": "Thinks half an hour is 50 minutes, like half of 100",
      "check": "60/2"
@@ -1420,7 +1650,9 @@
      "answer": 3,
      "explain": "1 hour after 6 o'clock is 7 o'clock.",
      "steps": [
-      "6 + 1 = 7"
+      "Wakes at 6 o'clock. Takes 1 hour.",
+      "6 + 1 = 7",
+      "Answer: 7 o'clock"
      ],
      "mistake": "Counts back instead of forward",
      "visual": {
@@ -1453,6 +1685,25 @@
     ],
     "praise": "Short hand for hours, long hand for minutes! Now I won't be late.",
     "nudge": "Which hand tells the hour? And where is the long hand at o'clock?"
+   },
+   "revise": {
+    "summary": "A clock has a short hand for hours and a long hand for minutes. Long hand on 12 means o'clock; on 6 means half past.",
+    "focus": [
+     "Read o'clock and half past times.",
+     "Know which hand shows what.",
+     "Find how long something takes in hours."
+    ],
+    "remember": [
+     "1 hour = 60 minutes. Half an hour = 30 minutes.",
+     "Long hand on 12: o'clock. On 6: half past.",
+     "The long hand goes round once in 1 hour."
+    ],
+    "traps": [
+     "Don't read the long hand as the hour.",
+     "Half an hour is 30 minutes, not 50.",
+     "At half past 11, the short hand is between 11 and 12; it is not half past 12."
+    ],
+    "level": "core"
    }
   },
   {
@@ -1558,6 +1809,11 @@
      ],
      "answer": 0,
      "explain": "The long hand on 3 means quarter past. The short hand just after 2 means it is quarter past 2.",
+     "steps": [
+      "The long hand on 3 means quarter past.",
+      "The short hand is just after 2.",
+      "Answer: Quarter past 2"
+     ],
      "mistake": "Mixes up quarter past (long hand on 3) and quarter to (long hand on 9)",
      "visual": {
       "kind": "clock",
@@ -1575,6 +1831,11 @@
      ],
      "answer": 1,
      "explain": "At quarter to, the long hand is on 9, 15 minutes before the next hour.",
+     "steps": [
+      "Quarter to means 15 minutes before the next hour.",
+      "Then the long hand is on 9.",
+      "Answer: On 9"
+     ],
      "mistake": "Puts the long hand on 3 for quarter to",
      "visual": {
       "kind": "clock",
@@ -1594,7 +1855,8 @@
      "explain": "1 hour is 60 minutes. Share 60 into 4 equal parts: 15 minutes each.",
      "steps": [
       "15 + 15 + 15 + 15 = 60",
-      "So a quarter is 15 minutes"
+      "So a quarter is 15 minutes",
+      "Answer: 15"
      ],
      "mistake": "Thinks a quarter of an hour is 25 minutes, like a quarter of 100",
      "check": "60/4"
@@ -1609,6 +1871,11 @@
      ],
      "answer": 3,
      "explain": "Quarter past 4 is 15 minutes after 4 o'clock, written 4:15.",
+     "steps": [
+      "Quarter past 4 = 15 minutes after 4 o'clock.",
+      "We write it as 4:15.",
+      "Answer: 4:15"
+     ],
      "mistake": "Writes 45 minutes for quarter past",
      "visual": {
       "kind": "clock",
@@ -1626,6 +1893,11 @@
      ],
      "answer": 0,
      "explain": "Quarter to 9 is 15 minutes before 9 o'clock. That is 8:45.",
+     "steps": [
+      "Quarter to 9 = 15 minutes before 9 o'clock.",
+      "60 − 15 = 45 minutes past 8.",
+      "Answer: 8:45"
+     ],
      "mistake": "Writes the hour as 9 instead of 8",
      "visual": {
       "kind": "clock",
@@ -1643,6 +1915,11 @@
      ],
      "answer": 1,
      "explain": "15 minutes after 5 o'clock is quarter past 5.",
+     "steps": [
+      "Starts at 5 o'clock. Lasts 15 minutes.",
+      "15 minutes after 5 o'clock is quarter past 5.",
+      "Answer: Quarter past 5"
+     ],
      "mistake": "Counts 15 minutes backwards instead of forwards",
      "visual": {
       "kind": "clock",
@@ -1661,7 +1938,10 @@
      "answer": 2,
      "explain": "Each number is 5 minutes. Count by 5s: 5, 10, 15, 20.",
      "steps": [
-      "4 × 5 = 20"
+      "Each number is 5 minutes for the long hand.",
+      "Count by 5s: 5, 10, 15, 20.",
+      "4 × 5 = 20",
+      "Answer: 20"
      ],
      "mistake": "Reads the number as minutes instead of counting by 5s",
      "check": "4*5"
@@ -1678,7 +1958,8 @@
      "explain": "Quarter past 10 (10:15) comes before half past 10 (10:30). He is 15 minutes early.",
      "steps": [
       "10:15 is before 10:30",
-      "30 − 15 = 15 minutes early"
+      "30 − 15 = 15 minutes early",
+      "Answer: Early, by 15 minutes"
      ],
      "mistake": "Thinks quarter past comes after half past",
      "visual": {
@@ -1709,6 +1990,25 @@
     ],
     "praise": "15 minutes before 6, with the long hand on 9! I'll be home at 5:45.",
     "nudge": "Is 'quarter to 6' before 6 o'clock or after it? Where is the long hand?"
+   },
+   "revise": {
+    "summary": "A clock face splits into 4 quarters of 15 minutes. Long hand on 3 is quarter past; on 9 is quarter to.",
+    "focus": [
+     "Read quarter past and quarter to.",
+     "Write times like 2:15 and 4:45.",
+     "Count minutes by 5s."
+    ],
+    "remember": [
+     "Quarter past 2 = 2:15. Quarter to 5 = 4:45.",
+     "Each number = 5 minutes for the long hand.",
+     "A quarter of an hour = 15 minutes."
+    ],
+    "traps": [
+     "Don't mix up quarter past (on 3) and quarter to (on 9).",
+     "Quarter to 9 is 8:45, not 9:45.",
+     "A quarter of an hour is 15 minutes, not 25."
+    ],
+    "level": "core"
    }
   },
   {
@@ -1803,7 +2103,9 @@
      "answer": 1,
      "explain": "At o'clock times the long hand is on 12.",
      "steps": [
-      "O'clock → 12"
+      "At o'clock times, the long hand points to 12.",
+      "The short hand points to 5.",
+      "Answer: 12"
      ],
      "mistake": "Puts it on the hour",
      "check": "12",
@@ -1824,7 +2126,9 @@
      "answer": 1,
      "explain": "Half an hour after 7, the short hand has moved halfway to 8.",
      "steps": [
-      "Moves halfway"
+      "Half past 7 is 30 minutes after 7.",
+      "The short hand moves halfway from 7 to 8.",
+      "Answer: Halfway between 7 and 8"
      ],
      "mistake": "Leaves it on 7",
      "visual": {
@@ -1844,7 +2148,9 @@
      "answer": 2,
      "explain": "15 minutes past means the long hand is on 3.",
      "steps": [
-      "15 min → 3"
+      "Quarter past = 15 minutes past.",
+      "15 minutes = 3 numbers × 5, so the long hand is on 3.",
+      "Answer: On 3"
      ],
      "mistake": "Confuses with quarter to",
      "visual": {
@@ -1864,7 +2170,9 @@
      "answer": 2,
      "explain": "Breakfast is in the morning.",
      "steps": [
-      "Morning meal"
+      "Breakfast is the morning meal.",
+      "7:30 in the morning is sensible. The others are at night.",
+      "Answer: 7:30 in the morning"
      ],
      "mistake": "Mixes up morning and night"
     },
@@ -1879,7 +2187,9 @@
      "answer": 3,
      "explain": "9 at night is bedtime for most children.",
      "steps": [
-      "Night → sleep"
+      "9:00 at night is bedtime for most children.",
+      "Lunch, sunrise walk and assembly happen in the day.",
+      "Answer: Going to sleep"
      ],
      "mistake": "Picks a morning activity"
     },
@@ -1894,7 +2204,9 @@
      "answer": 1,
      "explain": "The short hand points to the hour.",
      "steps": [
-      "Short hand → hour"
+      "The short hand points to the hour.",
+      "For 10 o'clock it points to 10.",
+      "Answer: 10"
      ],
      "mistake": "Points it to 12",
      "check": "10",
@@ -1915,7 +2227,9 @@
      "answer": 0,
      "explain": "30 minutes past means the long hand is on 6.",
      "steps": [
-      "30 min → 6"
+      "Half past = 30 minutes past.",
+      "30 minutes = 6 numbers × 5, so the long hand is on 6.",
+      "Answer: On 6"
      ],
      "mistake": "Puts it on the hour",
      "visual": {
@@ -1935,7 +2249,9 @@
      "answer": 0,
      "explain": "From 4 to 5 is 1 hour.",
      "steps": [
-      "5 − 4 = 1 hour"
+      "Homework 4:00 to 5:00.",
+      "5 − 4 = 1 hour",
+      "Answer: 1 hour"
      ],
      "mistake": "Gives half an hour",
      "check": "5-4"
@@ -1960,6 +2276,25 @@
     ],
     "praise": "Long hand on 6, short hand between 2 and 3! Chirp!",
     "nudge": "Where does the short hand go when it is half past?"
+   },
+   "revise": {
+    "summary": "To show a time, place the long hand for minutes and the short hand for the hour. Match daily activities to sensible times.",
+    "focus": [
+     "Draw hands for o'clock, half past and quarter past.",
+     "Know where the short hand is at half past.",
+     "Plan a daily routine with sensible times."
+    ],
+    "remember": [
+     "9 o'clock: long hand on 12, short hand on 9.",
+     "Half past 7: long hand on 6, short hand halfway between 7 and 8.",
+     "Quarter past 3: long hand on 3."
+    ],
+    "traps": [
+     "At half past, the short hand is not exactly on the hour.",
+     "Don't confuse quarter past with quarter to.",
+     "Don't mix up morning and night activities."
+    ],
+    "level": "core"
    }
   },
   {
@@ -2083,7 +2418,9 @@
      "answer": 0,
      "explain": "Brushing teeth takes a couple of minutes.",
      "steps": [
-      "Short → minutes"
+      "Summer holidays last weeks. A school day lasts hours. A train trip takes hours.",
+      "Brushing teeth takes about 2 minutes.",
+      "Answer: Brushing teeth"
      ],
      "mistake": "Picks a long event"
     },
@@ -2098,7 +2435,9 @@
      "answer": 1,
      "explain": "Winter lasts a few months.",
      "steps": [
-      "Season → months"
+      "A period, combing hair and lunch take minutes.",
+      "A season like winter lasts a few months.",
+      "Answer: A season like winter"
      ],
      "mistake": "Picks a short event"
     },
@@ -2113,7 +2452,9 @@
      "answer": 1,
      "explain": "3 numbers × 5 minutes = 15.",
      "steps": [
-      "3 × 5 = 15"
+      "Each number is 5 minutes.",
+      "12 to 3 is 3 numbers: 3 × 5 = 15",
+      "Answer: 15"
      ],
      "mistake": "Counts numbers as minutes",
      "check": "3*5",
@@ -2134,7 +2475,9 @@
      "answer": 2,
      "explain": "8 × 5 = 40.",
      "steps": [
-      "8 × 5 = 40"
+      "Each number is 5 minutes.",
+      "12 to 8 is 8 numbers: 8 × 5 = 40",
+      "Answer: 40"
      ],
      "mistake": "Counts numbers as minutes",
      "check": "8*5"
@@ -2150,7 +2493,10 @@
      "answer": 2,
      "explain": "Clapping is quick. The others take much longer.",
      "steps": [
-      "1 minute is short"
+      "1 minute is a short time.",
+      "A movie, a big book and a dinner take much longer.",
+      "Clapping 30 times is quick.",
+      "Answer: Clap 30 times"
      ],
      "mistake": "Overestimates a minute"
     },
@@ -2165,7 +2511,9 @@
      "answer": 1,
      "explain": "A bath usually takes some minutes.",
      "steps": [
-      "Minutes"
+      "10 seconds is too short. 10 hours and 10 days are too long.",
+      "A bath takes some minutes.",
+      "Answer: About 10 minutes"
      ],
      "mistake": "Picks a wrong unit"
     },
@@ -2180,7 +2528,9 @@
      "answer": 0,
      "explain": "From 7:00 to 7:20 is 20 minutes.",
      "steps": [
-      "20 − 0 = 20"
+      "From 7:00 to 7:20.",
+      "20 − 0 = 20 minutes",
+      "Answer: 20"
      ],
      "mistake": "Adds the numbers",
      "check": "20"
@@ -2197,7 +2547,8 @@
      "explain": "6 numbers × 5 = 30 minutes.",
      "steps": [
       "9 − 3 = 6",
-      "6 × 5 = 30"
+      "6 × 5 = 30",
+      "Answer: 30"
      ],
      "mistake": "Counts from 12",
      "check": "6*5"
@@ -2223,6 +2574,25 @@
     ],
     "praise": "Building a nest takes days, not minutes! Chirp!",
     "nudge": "Is 5 minutes enough for a big job like that?"
+   },
+   "revise": {
+    "summary": "Some events last minutes, some hours, some days and some months. Each number on the clock is 5 minutes for the long hand.",
+    "focus": [
+     "Choose minutes, hours, days or months for an event.",
+     "Estimate how long everyday things take.",
+     "Read minutes passed from the long hand."
+    ],
+    "remember": [
+     "12 to 3 = 15 minutes. 12 to 6 = 30 minutes.",
+     "12 to 4 = 4 × 5 = 20 minutes.",
+     "Bath about 10 minutes, lunch about 20 minutes."
+    ],
+    "traps": [
+     "Don't count numbers as minutes. Multiply by 5.",
+     "1 minute is short. You cannot cook dinner in it.",
+     "Pick a sensible unit: a bath takes minutes, not hours."
+    ],
+    "level": "core"
    }
   },
   {
@@ -2317,7 +2687,9 @@
      "answer": 2,
      "explain": "30 minutes past 3 is half past 3.",
      "steps": [
-      "3:30 = half past 3"
+      "3:30 means 30 minutes past 3.",
+      "30 minutes past is half past.",
+      "Answer: Half past 3"
      ],
      "mistake": "Reads 30 as 3",
      "visual": {
@@ -2337,7 +2709,9 @@
      "answer": 2,
      "explain": "15 minutes past 8 is 8:15.",
      "steps": [
-      "Quarter past = 15"
+      "Quarter past 8 = 15 minutes past 8.",
+      "Hours first, then minutes: 8:15.",
+      "Answer: 8:15"
      ],
      "mistake": "Writes 8:45 for quarter past"
     },
@@ -2352,7 +2726,9 @@
      "answer": 2,
      "explain": "15 minutes before 6 is 5:45.",
      "steps": [
-      "6:00 − 15 min = 5:45"
+      "Quarter to 6 = 15 minutes before 6.",
+      "That is 45 minutes past 5.",
+      "Answer: 5:45"
      ],
      "mistake": "Writes 6:45",
      "visual": {
@@ -2372,7 +2748,9 @@
      "answer": 2,
      "explain": "Analog clocks have hands.",
      "steps": [
-      "Hands → analog"
+      "A digital clock shows digits. A sand timer uses sand.",
+      "An analog clock uses hands.",
+      "Answer: An analog clock"
      ],
      "mistake": "Picks the digital clock"
     },
@@ -2387,7 +2765,10 @@
      "answer": 3,
      "explain": "2 + 2 + 2 = 6 minutes.",
      "steps": [
-      "3 × 2 = 6"
+      "One run = 2 minutes. 3 runs.",
+      "2 + 2 + 2 = 3 × 2",
+      "3 × 2 = 6",
+      "Answer: 6 minutes"
      ],
      "mistake": "Adds 2 and 3",
      "check": "3*2"
@@ -2403,7 +2784,9 @@
      "answer": 3,
      "explain": "00 minutes past 12 is 12 o'clock.",
      "steps": [
-      "12:00 = 12 o'clock"
+      "12:00 means 12 hours and 00 minutes.",
+      "0 minutes past 12 is 12 o'clock.",
+      "Answer: 12 o'clock"
      ],
      "mistake": "Reads it as minutes"
     },
@@ -2418,7 +2801,10 @@
      "answer": 1,
      "explain": "A clock tells how many minutes the sand takes.",
      "steps": [
-      "Start clock, flip timer, stop when empty"
+      "Start a clock when you flip the timer.",
+      "Stop when the top is empty.",
+      "The clock tells how many minutes it took.",
+      "Answer: Time it with a clock"
      ],
      "mistake": "Guesses"
     },
@@ -2433,7 +2819,9 @@
      "answer": 3,
      "explain": "05 means 5 minutes past.",
      "steps": [
-      "10:05 → 5 minutes"
+      "10:05: the hour is 10, the minutes are 05.",
+      "05 means 5 minutes, not 50.",
+      "Answer: 5"
      ],
      "mistake": "Reads 05 as 50",
      "check": "5"
@@ -2458,6 +2846,25 @@
     ],
     "praise": "Long hand on 3, short hand just after 7: quarter past 7! Chirp!",
     "nudge": "Where does the long hand go for 15 minutes?"
+   },
+   "revise": {
+    "summary": "An analog clock uses hands; a digital clock shows digits like 7:30. A sand timer shows when a time is up.",
+    "focus": [
+     "Read and write digital times.",
+     "Change between digital times and words.",
+     "Use and test a sand timer."
+    ],
+    "remember": [
+     "7:30 = half past 7. 4:15 = quarter past 4.",
+     "9:45 = quarter to 10. 6:45 = quarter to 7.",
+     "10:05 = 5 minutes past 10."
+    ],
+    "traps": [
+     "Quarter past 8 is 8:15, not 8:45.",
+     "Quarter to 6 is 5:45, not 6:45.",
+     "05 minutes is 5, not 50."
+    ],
+    "level": "core"
    }
   }
  ]

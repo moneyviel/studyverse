@@ -114,6 +114,12 @@
      ],
      "answer": 2,
      "explain": "There is nobody ahead of the front child, so there is nobody taller ahead.",
+     "steps": [
+      "Each child calls out how many taller children are ahead of them.",
+      "The front child has nobody ahead.",
+      "So the front child always calls 0.",
+      "Answer: 0"
+     ],
      "mistake": "Counts the child themself",
      "check": "0"
     },
@@ -129,7 +135,8 @@
      "explain": "All 5 children ahead are taller than the shortest child.",
      "steps": [
       "Children ahead: 6 − 1 = 5",
-      "All are taller"
+      "All are taller",
+      "Answer: 5"
      ],
      "mistake": "Includes the child themself in the count",
      "check": "6-1"
@@ -145,7 +152,11 @@
      "answer": 0,
      "explain": "They call 0, 1, 2, 3, 4, 5, and 0 + 1 + 2 + 3 + 4 + 5 = 15.",
      "steps": [
-      "0 + 1 + 2 + 3 + 4 + 5 = 15"
+      "Tallest in front: each child sees every child ahead as taller.",
+      "Numbers called: 0, 1, 2, 3, 4, 5.",
+      "0 + 1 + 2 + 3 + 4 + 5 = 15",
+      "So the total is 15.",
+      "Answer: 15"
      ],
      "mistake": "Adds 1 to 6 instead of 0 to 5",
      "check": "0+1+2+3+4+5"
@@ -159,6 +170,13 @@
      ],
      "answer": 2,
      "explain": "The 3rd child sees 2 taller children, so it is Chotu. The 2nd sees 0 taller, so the 2nd is taller than the 1st: Anu is 2nd and Bina is 1st.",
+     "steps": [
+      "3rd child calls 2: both children ahead are taller → 3rd is Chotu (shortest).",
+      "2nd child calls 0: the 1st child is not taller, so the 2nd is taller than the 1st.",
+      "Of Anu and Bina, Anu is taller, so Anu is 2nd and Bina is 1st.",
+      "So Bina is at the front.",
+      "Answer: Bina"
+     ],
      "mistake": "Assumes the tallest must be at the front"
     },
     {
@@ -171,6 +189,13 @@
      ],
      "answer": 2,
      "explain": "A child in 2nd place can call out at most 1.",
+     "steps": [
+      "A child can call at most the number of children ahead of them.",
+      "The 2nd child has only 1 child ahead.",
+      "So the 2nd child cannot call 2.",
+      "So No — the 2nd child has only 1 child ahead.",
+      "Answer: No — the 2nd child has only 1 child ahead"
+     ],
      "mistake": "Does not check how many children are ahead"
     },
     {
@@ -183,6 +208,13 @@
      ],
      "answer": 1,
      "explain": "Each child has no taller child ahead, so heights keep increasing towards the back.",
+     "steps": [
+      "Every child calls 0: nobody ahead of anyone is taller.",
+      "So each child is taller than everyone in front.",
+      "Heights increase towards the back.",
+      "So it is shortest at the front, tallest at the back.",
+      "Answer: Shortest at the front, tallest at the back"
+     ],
      "mistake": "Reverses the meaning of the numbers"
     },
     {
@@ -194,6 +226,13 @@
      ],
      "answer": 2,
      "explain": "8 is even and a multiple of 4, but 6 is even and not a multiple of 4.",
+     "steps": [
+      "Test examples: 8 is even and 8 = 4 × 2, a multiple of 4.",
+      "6 is even but 6 ÷ 4 is not whole.",
+      "True for some even numbers, false for others.",
+      "So it is sometimes true.",
+      "Answer: Sometimes"
+     ],
      "mistake": "Tests only one example"
     },
     {
@@ -205,6 +244,13 @@
      ],
      "answer": 2,
      "explain": "Odd × odd is always odd (like 3 × 5 = 15), so the statement is never true.",
+     "steps": [
+      "Rule: odd × odd = odd.",
+      "Example: 3 × 5 = 15, odd.",
+      "So the product of two odd numbers is never even.",
+      "The statement is never true.",
+      "Answer: Never"
+     ],
      "mistake": "Mixes up the rules for sums and products"
     }
    ],
@@ -228,6 +274,25 @@
     ],
     "praise": "Brilliant detective work! The tallest is at the front.",
     "nudge": "If the last child says 2, how many taller children are ahead?"
+   },
+   "revise": {
+    "summary": "In a line of children, each calls out how many children ahead of them are taller. These numbers tell a story about the line, and statements can be always, sometimes or never true.",
+    "focus": [
+     "Working out the order of children from the numbers called out",
+     "Knowing that a child in position k can say at most k − 1",
+     "Deciding if a statement is always, sometimes or never true, with a reason or example"
+    ],
+    "remember": [
+     "The child at the front always says 0, and so does the tallest child",
+     "If everyone says 0, the line goes from shortest at the front to tallest at the back",
+     "A child in position k can say at most k − 1"
+    ],
+    "traps": [
+     "Don't count the child themself.",
+     "Don't assume the tallest must be at the front.",
+     "Don't test only one example to decide 'always' or 'never'."
+    ],
+    "level": "important"
    }
   },
   {
@@ -349,6 +414,12 @@
      ],
      "answer": 0,
      "explain": "135 is odd and 246 is even. odd + even = odd. (The sum is 381.)",
+     "steps": [
+      "135 ends in 5 → odd; 246 ends in 6 → even.",
+      "Rule: odd + even = odd.",
+      "So 135 + 246 is odd (it is 381).",
+      "Answer: Odd"
+     ],
      "mistake": "Thinks a big even number makes the whole sum even"
     },
     {
@@ -360,6 +431,13 @@
      ],
      "answer": 1,
      "explain": "Four of the odd numbers pair up to give an even sum. The fifth odd number makes the total odd.",
+     "steps": [
+      "Pair the odd numbers: odd + odd = even.",
+      "Four odd numbers make 2 pairs → even total.",
+      "Even + the fifth odd number = odd.",
+      "So the sum of five odd numbers is odd.",
+      "Answer: Odd"
+     ],
      "mistake": "Thinks adding odd numbers always gives an even answer"
     },
     {
@@ -372,6 +450,13 @@
      ],
      "answer": 2,
      "explain": "A product is odd only when all numbers are odd. 13 and 15 are both odd.",
+     "steps": [
+      "Rule: a product is odd only if every factor is odd.",
+      "12, 14 and 2 are even, so those products are even.",
+      "13 and 15 are both odd → 13 × 15 = 195 is odd.",
+      "So 13 × 15 is the odd product.",
+      "Answer: 13 × 15"
+     ],
      "mistake": "Thinks one odd number is enough to make a product odd"
     },
     {
@@ -383,7 +468,14 @@
       "Only with ₹1 coins"
      ],
      "answer": 1,
-     "explain": "Every coin is odd, and four odd numbers add up to an even number. 25 is odd, so it is impossible. (7 + 7 + 7 + 3 = 24, and the last option uses 5 coins.)",
+     "explain": "Every coin is odd, and four odd numbers add up to an even number. 25 is odd, so it is impossible. (7 + 7 + 7 + 3 = 24, and 5 + 5 + 5 + 5 + 5 uses 5 coins.)",
+     "steps": [
+      "Every coin value (1, 3, 5, 7) is odd.",
+      "Four odd numbers add up to an even number.",
+      "25 is odd, so 4 coins can never make ₹25.",
+      "7 + 7 + 7 + 3 = 24, not 25.",
+      "Answer: No — four odd numbers always add up to an even number"
+     ],
      "mistake": "Tries numbers without checking parity or the number of coins"
     },
     {
@@ -396,6 +488,12 @@
      ],
      "answer": 0,
      "explain": "2n is always even, and even + 1 is odd. So 2n + 1 is always odd, whatever n is.",
+     "steps": [
+      "2n = 2 × n is always even.",
+      "Even + 1 = odd.",
+      "So 2n + 1 is always odd, whatever n is.",
+      "Answer: It is always odd"
+     ],
      "mistake": "Thinks the parity of 2n + 1 depends on n"
     },
     {
@@ -410,7 +508,8 @@
      "explain": "Numbers 1 to 50 make 25 pairs (1,2), (3,4) … (49,50). Each pair has one odd number, so 25.",
      "steps": [
       "50 numbers",
-      "Half are odd: 50 ÷ 2 = 25"
+      "Half are odd: 50 ÷ 2 = 25",
+      "Answer: 25"
      ],
      "mistake": "Counts all the numbers instead of half of them",
      "check": "50/2"
@@ -425,6 +524,13 @@
      ],
      "answer": 0,
      "explain": "1 + 2 + … + 9 = 45. It has five odd numbers (1, 3, 5, 7, 9), an odd count, so the sum is odd.",
+     "steps": [
+      "1 + 2 + … + 9 = 45 (1+9, 2+8, 3+7, 4+6 make 4 tens, plus 5).",
+      "The odd numbers in it are 1, 3, 5, 7, 9: five of them.",
+      "An odd count of odd numbers gives an odd sum.",
+      "So the sum is 45, odd.",
+      "Answer: 45, odd"
+     ],
      "mistake": "Thinks the sum of many numbers is always even"
     },
     {
@@ -437,6 +543,13 @@
      ],
      "answer": 2,
      "explain": "Starting at 1 and adding 2 each time always gives odd numbers. Only 37 is odd.",
+     "steps": [
+      "Start at 1 and add 2 each time: 1, 3, 5, 7, …",
+      "Odd + 2 stays odd, so she lands only on odd tiles.",
+      "36, 40 and 18 are even; 37 is odd.",
+      "So she can land on tile 37.",
+      "Answer: 37"
+     ],
      "mistake": "Does not notice that adding 2 keeps the parity the same",
      "check": "37",
      "visual": {
@@ -487,6 +600,25 @@
     ],
     "praise": "Wow! The two leftover ones make a pair — Gappu loves this trick!",
     "nudge": "What happens to the one left over in each odd number?"
+   },
+   "revise": {
+    "summary": "Parity tells us whether a number is odd or even. Simple rules tell the parity of sums and products without working them out.",
+    "focus": [
+     "Finding the parity of a sum without adding",
+     "Finding the parity of a product",
+     "Using parity to decide if a puzzle is possible, like paying ₹25 with 4 odd coins"
+    ],
+    "remember": [
+     "even + even = even, odd + odd = even, odd + even = odd",
+     "A product is odd only when every number multiplied is odd",
+     "An even count of odd numbers gives an even sum; an odd count gives an odd sum"
+    ],
+    "traps": [
+     "Don't think adding odd numbers always gives an even answer: five odd numbers add to an odd number.",
+     "Don't think one odd number is enough to make a product odd.",
+     "Don't think a big even number makes the whole sum even."
+    ],
+    "level": "core"
    }
   },
   {
@@ -603,6 +735,12 @@
      ],
      "answer": 0,
      "explain": "345 is odd and 128 is even. Odd − even = odd. (It is 217.)",
+     "steps": [
+      "345 ends in 5 → odd; 128 ends in 8 → even.",
+      "Rule: odd − even = odd.",
+      "So 345 − 128 is odd (it is 217).",
+      "Answer: Odd"
+     ],
      "mistake": "Thinks every difference is even"
     },
     {
@@ -613,6 +751,12 @@
      ],
      "answer": 1,
      "explain": "Odd − odd = even, just like odd + odd. (It is 444.)",
+     "steps": [
+      "999 is odd and 555 is odd.",
+      "Rule: odd − odd = even.",
+      "So 999 − 555 is even (it is 444).",
+      "Answer: Even"
+     ],
      "mistake": "Thinks two odd numbers give an odd difference"
     },
     {
@@ -625,6 +769,13 @@
      ],
      "answer": 0,
      "explain": "7 × 9 = 63 is odd, because both 7 and 9 are odd. The others have an even side.",
+     "steps": [
+      "Number of squares = rows × columns.",
+      "A product is odd only if both numbers are odd.",
+      "7 and 9 are both odd → 7 × 9 = 63, odd.",
+      "6 × 9, 7 × 8 and 4 × 4 each have an even side, so they are even.",
+      "Answer: 7 × 9"
+     ],
      "mistake": "Thinks one odd side is enough for an odd count"
     },
     {
@@ -638,7 +789,11 @@
      "answer": 3,
      "explain": "The nth odd number is 2n − 1: 2 × 15 − 1 = 29.",
      "steps": [
-      "2 × 15 − 1 = 29"
+      "Rule: the nth odd number = 2n − 1.",
+      "n = 15: 2 × 15 − 1",
+      "= 30 − 1 = 29",
+      "So the 15th odd number is 29.",
+      "Answer: 29"
      ],
      "mistake": "Uses 2n + 1 instead of 2n − 1",
      "check": "2*15-1"
@@ -654,7 +809,11 @@
      "answer": 2,
      "explain": "The nth even number is 2n: 2 × 40 = 80.",
      "steps": [
-      "2 × 40 = 80"
+      "Rule: the nth even number = 2n.",
+      "n = 40: 2 × 40",
+      "= 80",
+      "So the 40th even number is 80.",
+      "Answer: 80"
      ],
      "mistake": "Gives the 40th odd number instead",
      "check": "2*40"
@@ -669,6 +828,13 @@
      ],
      "answer": 1,
      "explain": "An even count (50) of odd numbers adds to an even total.",
+     "steps": [
+      "From 1 to 100 there are 50 odd numbers.",
+      "Even numbers never change the parity of a sum.",
+      "50 odd numbers is an even count, so their sum is even.",
+      "So the total is even — it includes 50 odd numbers (it is 5050).",
+      "Answer: Even — it includes 50 odd numbers"
+     ],
      "mistake": "Forgets that an even count of odd numbers gives an even sum"
     },
     {
@@ -679,6 +845,13 @@
      ],
      "answer": 0,
      "explain": "Odd presses leave it on; even presses leave it off. 37 is odd.",
+     "steps": [
+      "Start: off. Each press switches it.",
+      "After 1 press on, 2 off, 3 on … odd presses → on.",
+      "37 is odd.",
+      "So after 37 presses the light is on.",
+      "Answer: On"
+     ],
      "mistake": "Thinks the light ends as it started"
     },
     {
@@ -693,7 +866,9 @@
      "explain": "Facing pages are consecutive. 145 − 1 = 144, and 144 ÷ 2 = 72, so pages 72 and 73.",
      "steps": [
       "Consecutive pages n and n + 1",
-      "2n + 1 = 145, n = 72"
+      "2n + 1 = 145, n = 72",
+      "So the pages are 72 and 73 (72 + 73 = 145)",
+      "Answer: 72 and 73"
      ],
      "mistake": "Forgets that facing pages are next to each other"
     }
@@ -715,6 +890,27 @@
     ],
     "praise": "Click-click! Gappu sees that every pair of presses cancels out.",
     "nudge": "Is 20 odd or even, and what does a pair of presses do?"
+   },
+   "revise": {
+    "summary": "Parity rules also work for differences, grids and positions. The nth even number is 2n and the nth odd number is 2n − 1.",
+    "focus": [
+     "Parity of differences",
+     "Whether an m × n grid has an odd or even number of squares",
+     "Finding the nth odd or even number",
+     "Parity puzzles with switches and facing pages"
+    ],
+    "remember": [
+     "odd − odd = even, even − odd = odd",
+     "An m × n grid has an odd count only when both m and n are odd",
+     "nth even number = 2n; nth odd number = 2n − 1",
+     "Facing pages are consecutive, so their sum is always odd"
+    ],
+    "traps": [
+     "Don't use 2n + 1 for the nth odd number — it is 2n − 1.",
+     "Don't think one odd side is enough for an odd number of squares.",
+     "Don't think two odd numbers give an odd difference."
+    ],
+    "level": "important"
    }
   },
   {
@@ -837,7 +1033,8 @@
      "explain": "1 + 2 + … + 9 = 45. The 3 rows share this equally, so each row adds to 45 ÷ 3 = 15.",
      "steps": [
       "1 + 2 + … + 9 = 45",
-      "45 ÷ 3 = 15"
+      "45 ÷ 3 = 15",
+      "Answer: 15"
      ],
      "mistake": "Gives the total of all nine numbers instead of one row",
      "check": "45/3"
@@ -855,7 +1052,8 @@
      "steps": [
       "Magic sum = 15",
       "1 + 5 + ? = 15",
-      "? = 9"
+      "? = 9",
+      "Answer: 9"
      ],
      "mistake": "Uses the wrong row or column to find the gap",
      "check": "15-1-5"
@@ -872,7 +1070,8 @@
      "explain": "AB + AB = 2 × AB = 42, so AB = 42 ÷ 2 = 21. Check: 21 + 21 = 42.",
      "steps": [
       "2 × AB = 42",
-      "AB = 42 ÷ 2 = 21"
+      "AB = 42 ÷ 2 = 21",
+      "Answer: 21"
      ],
      "mistake": "Swaps the digits",
      "check": "42/2"
@@ -890,7 +1089,8 @@
      "steps": [
       "T + T + T = 3T",
       "3T = 10 + T",
-      "2T = 10, so T = 5"
+      "2T = 10, so T = 5",
+      "Answer: 5"
      ],
      "mistake": "Guesses without checking the ones digit",
      "check": "10/2"
@@ -907,7 +1107,8 @@
      "explain": "Undo the steps backwards: 20 − 6 = 14, then 14 ÷ 2 = 7. Check: 7 × 2 + 6 = 20.",
      "steps": [
       "20 − 6 = 14",
-      "14 ÷ 2 = 7"
+      "14 ÷ 2 = 7",
+      "Answer: 7"
      ],
      "mistake": "Undoes the steps in the wrong order",
      "check": "(20-6)/2"
@@ -922,6 +1123,13 @@
      ],
      "answer": 3,
      "explain": "6 + 3 = 9 and 6 is twice 3. So the number is 63.",
+     "steps": [
+      "Digits add to 9, and tens digit = 2 × ones digit.",
+      "Let ones = a, tens = 2a: 2a + a = 9 → 3a = 9 → a = 3.",
+      "Tens = 6, ones = 3.",
+      "So the number is 63.",
+      "Answer: 63"
+     ],
      "mistake": "Swaps the tens and ones digits",
      "check": "63"
     },
@@ -935,6 +1143,13 @@
      ],
      "answer": 1,
      "explain": "1 + 4 = 5 and 2 + 3 = 5. Both rows make 5 and each number is used once.",
+     "steps": [
+      "Each row must add to 5.",
+      "Pairs from 1, 2, 3, 4 that make 5: 1 + 4 and 2 + 3.",
+      "1 + 2 = 3 and 3 + 4 = 7, so that split fails.",
+      "So 1 & 4 and 2 & 3 share rows.",
+      "Answer: 1 & 4 and 2 & 3"
+     ],
      "mistake": "Puts the numbers in counting order without checking the sums"
     },
     {
@@ -947,6 +1162,13 @@
      ],
      "answer": 2,
      "explain": "The three rows together use all nine numbers, so they add to 45. Each row must be 45 ÷ 3 = 15, never 16.",
+     "steps": [
+      "Sum of 1 to 9 = 45.",
+      "The three rows use all nine numbers, so 3 × (magic sum) = 45.",
+      "Magic sum = 45 ÷ 3 = 15",
+      "So it can never be 16.",
+      "Answer: No, because 1 to 9 add up to 45, and 45 ÷ 3 = 15"
+     ],
      "mistake": "Thinks moving numbers around can change the total"
     }
    ],
@@ -975,6 +1197,26 @@
     ],
     "praise": "Chirp! Every line adds to 15 — Gappu wants to make his own magic square now!",
     "nudge": "What must be the same for every row, column and diagonal?"
+   },
+   "revise": {
+    "summary": "In a magic square every row, column and both diagonals have the same magic sum. Puzzles like 'digits in disguise' are solved by using clues one by one.",
+    "focus": [
+     "Finding the magic sum of a 3 × 3 square using 1 to 9",
+     "Filling missing numbers in a magic square",
+     "Solving letter-digit puzzles where the same letter is the same digit",
+     "Undoing steps in 'think of a number' puzzles"
+    ],
+    "remember": [
+     "3 × 3 magic square with 1 to 9: magic sum 15, because 45 ÷ 3 = 15",
+     "In that square the centre number must be 5",
+     "The same letter is always the same digit"
+    ],
+    "traps": [
+     "Don't give the total of all nine numbers (45) as the magic sum.",
+     "Don't undo steps in the wrong order: undo the last step first.",
+     "Don't think moving numbers around can change the total of 1 to 9."
+    ],
+    "level": "core"
    }
   },
   {
@@ -1093,7 +1335,11 @@
      "answer": 2,
      "explain": "Each line has 3 numbers, each 10 more: 15 + 3 × 10 = 45.",
      "steps": [
-      "15 + 3 × 10 = 45"
+      "The 1–9 magic square has magic sum 15.",
+      "Each line has 3 numbers, and each goes up by 10.",
+      "New sum = 15 + 3 × 10 = 15 + 30",
+      "= 45",
+      "Answer: 45"
      ],
      "mistake": "Adds 10 only once to the magic sum",
      "check": "15+3*10"
@@ -1110,7 +1356,8 @@
      "explain": "The middle number 7 is the centre, and the magic sum is 3 × 7 = 21. (Total 63 ÷ 3 = 21.)",
      "steps": [
       "Total 3 + 4 + ... + 11 = 63",
-      "63 ÷ 3 = 21"
+      "63 ÷ 3 = 21",
+      "Answer: 21"
      ],
      "mistake": "Gives the total instead of dividing by 3",
      "check": "3*7"
@@ -1126,7 +1373,11 @@
      "answer": 0,
      "explain": "Every line sum is multiplied by 4: 15 × 4 = 60.",
      "steps": [
-      "15 × 4 = 60"
+      "The 1–9 magic square has magic sum 15.",
+      "Multiplying every entry by 4 multiplies each line sum by 4.",
+      "New sum = 15 × 4",
+      "= 60",
+      "Answer: 60"
      ],
      "mistake": "Adds 4 instead of multiplying",
      "check": "15*4"
@@ -1141,6 +1392,13 @@
      ],
      "answer": 3,
      "explain": "In each line the extra amounts cancel (like −3, 0, +3), leaving m + m + m = 3m.",
+     "steps": [
+      "Around centre m, each line has amounts like m − 3, m, m + 3.",
+      "The extra amounts cancel: −3 + 0 + 3 = 0.",
+      "Line sum = m + m + m",
+      "= 3 × m",
+      "Answer: 3 × m"
+     ],
      "mistake": "Adds the numbers of the square instead of the line"
     },
     {
@@ -1155,7 +1413,8 @@
      "explain": "−3 + 2 + ☐ = 0, so ☐ = 1.",
      "steps": [
       "−3 + 2 = −1",
-      "−1 + 1 = 0"
+      "−1 + 1 = 0",
+      "Answer: 1"
      ],
      "mistake": "Gets the sign wrong",
      "check": "0-(-3)-2"
@@ -1170,6 +1429,13 @@
      ],
      "answer": 1,
      "explain": "The middle of −4, ..., 4 is 0, and the centre is always the middle number.",
+     "steps": [
+      "The centre of such a magic square is the middle number of the list.",
+      "The list is −4, −3, −2, −1, 0, 1, 2, 3, 4.",
+      "The middle (5th) number is 0.",
+      "So the centre is 0.",
+      "Answer: 0"
+     ],
      "mistake": "Puts the biggest number in the centre",
      "check": "0"
     },
@@ -1184,7 +1450,11 @@
      "answer": 0,
      "explain": "Magic sum = 3 × centre = 3 × 12 = 36.",
      "steps": [
-      "3 × 12 = 36"
+      "Rule: magic sum = 3 × centre.",
+      "Centre = 12.",
+      "Magic sum = 3 × 12",
+      "= 36",
+      "Answer: 36"
      ],
      "mistake": "Multiplies by 9 instead of 3",
      "check": "3*12"
@@ -1202,7 +1472,8 @@
      "steps": [
       "Top-right = 7 − 2 = 5",
       "Bottom-left = 6 − 2 = 4",
-      "Bottom-right = 7 − 4 = 3"
+      "Bottom-right = 7 − 4 = 3",
+      "Answer: 3"
      ],
      "mistake": "Fills one condition and forgets to check the others",
      "check": "7-(6-2)"
@@ -1226,6 +1497,26 @@
     ],
     "praise": "Magic! Gappu's new sum is 21.",
     "nudge": "How many numbers in each line got 2 more?"
+   },
+   "revise": {
+    "summary": "New magic squares can be built by adding or multiplying every entry by the same number. With 9 consecutive numbers, the middle one goes in the centre and the magic sum is 3 × centre.",
+    "focus": [
+     "How the magic sum changes when every entry is changed",
+     "Magic squares of consecutive numbers",
+     "The letter form with centre m and magic sum 3m",
+     "Magic squares with negative numbers"
+    ],
+    "remember": [
+     "Add the same number to every entry: a 3 × 3 magic sum goes up by 3 times that number",
+     "Multiply every entry: the magic sum is multiplied too",
+     "9 consecutive numbers: middle one in the centre, magic sum = 3 × centre"
+    ],
+    "traps": [
+     "Don't add 10 only once to the magic sum — it goes up by 3 × 10.",
+     "Don't multiply the centre by 9 — the magic sum is 3 × centre.",
+     "Don't put the biggest number in the centre: with −4 to 4 the centre is 0."
+    ],
+    "level": "advanced"
    }
   },
   {
@@ -1320,7 +1611,8 @@
      "explain": "Each number is the sum of the two before it: 13 + 21 = 34.",
      "steps": [
       "13 + 21",
-      "= 34"
+      "= 34",
+      "Answer: 34"
      ],
      "mistake": "Adds a fixed number each time or doubles the last number",
      "check": "13+21"
@@ -1338,7 +1630,8 @@
      "steps": [
       "Rhythms of 4 counts: 5",
       "Rhythms of 3 counts: 3",
-      "5 + 3 = 8"
+      "5 + 3 = 8",
+      "Answer: 8"
      ],
      "mistake": "Adds 1 or 2 to the last number instead of adding the two before it",
      "check": "5+3"
@@ -1355,7 +1648,8 @@
      "explain": "Adding the first 6 odd numbers gives 6 × 6 = 36, a square number.",
      "steps": [
       "First 6 odd numbers",
-      "6 × 6 = 36"
+      "6 × 6 = 36",
+      "Answer: 36"
      ],
      "mistake": "Makes an adding slip or counts 7 odd numbers",
      "check": "1+3+5+7+9+11",
@@ -1374,6 +1668,12 @@
      ],
      "answer": 1,
      "explain": "The 10th number is 89, which is odd. Only every third number (2, 8, 34, …) is even.",
+     "steps": [
+      "The 10th Virahānka number in the list is 89.",
+      "89 ends in 9, so it is odd.",
+      "So the 10th number is odd.",
+      "Answer: Odd"
+     ],
      "mistake": "Thinks the numbers take turns odd, even, odd, even"
     },
     {
@@ -1388,7 +1688,8 @@
      "explain": "The numbers go up by 4 each time: 15 + 4 = 19. Since 4 is even, all the numbers stay odd.",
      "steps": [
       "7 − 3 = 4, 11 − 7 = 4",
-      "15 + 4 = 19"
+      "15 + 4 = 19",
+      "Answer: 19"
      ],
      "mistake": "Adds a different amount than the pattern shows",
      "check": "15+4",
@@ -1435,7 +1736,8 @@
      "explain": "The sum of the first n odd numbers is n × n. For n = 10, that is 10 × 10 = 100.",
      "steps": [
       "n = 10",
-      "10 × 10 = 100"
+      "10 × 10 = 100",
+      "Answer: 100"
      ],
      "mistake": "Multiplies by 5 or 2 instead of squaring",
      "check": "10*10"
@@ -1449,6 +1751,13 @@
      ],
      "answer": 0,
      "explain": "From 1 to 20 there are 10 odd numbers, an even count, so the sum is even. (It is 210.)",
+     "steps": [
+      "From 1 to 20 there are 10 odd numbers.",
+      "Even numbers do not change the parity of a sum.",
+      "10 odd numbers is an even count, so the sum is even.",
+      "So the sum is even (it is 210).",
+      "Answer: Even"
+     ],
      "mistake": "Thinks starting with an odd number makes the sum odd"
     },
     {
@@ -1461,6 +1770,13 @@
      ],
      "answer": 1,
      "explain": "Each number is the sum of the previous two, like 5 + 8 = 13.",
+     "steps": [
+      "Look at the list: 1, 2, 3, 5, 8, 13, …",
+      "1 + 2 = 3, 2 + 3 = 5, 3 + 5 = 8, 5 + 8 = 13.",
+      "Each new number is the sum of the two before it.",
+      "So: add the two numbers before it.",
+      "Answer: Add the two numbers before it"
+     ],
      "mistake": "Looks only at the last number in the list"
     }
    ],
@@ -1486,6 +1802,27 @@
     ],
     "praise": "Amazing! 5 + 8 = 13 — Gappu will count rhythms like a tabla player now!",
     "nudge": "Which numbers do we add to get the next one?"
+   },
+   "revise": {
+    "summary": "The Virahānka numbers 1, 2, 3, 5, 8, 13, 21, … come from counting rhythms of short and long beats; each number is the sum of the two before it. Adding odd numbers from 1 gives square numbers.",
+    "focus": [
+     "Continuing the Virahānka sequence",
+     "Counting rhythms of short (1 count) and long (2 counts) beats",
+     "Sums of odd numbers as square numbers",
+     "Parity patterns in sequences"
+    ],
+    "remember": [
+     "Each Virahānka number is the sum of the two numbers before it",
+     "They are also known as Fibonacci numbers, but Indian scholars wrote about them centuries earlier",
+     "1 + 3 = 4, 1 + 3 + 5 = 9, 1 + 3 + 5 + 7 = 16",
+     "Every third Virahānka number (2, 8, 34) is even"
+    ],
+    "traps": [
+     "Don't add a fixed number or double the last number — add the two before it.",
+     "Don't think the Virahānka numbers take turns odd, even, odd, even.",
+     "Don't multiply by 5 or 2 for the sum of the first 10 odd numbers — it is 10 × 10 = 100."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1568,7 +1905,8 @@
      "explain": "1 + 2 + ... + 16 = 136. The 4 rows share it equally: 136 ÷ 4 = 34.",
      "steps": [
       "Total = 136",
-      "136 ÷ 4 = 34"
+      "136 ÷ 4 = 34",
+      "Answer: 34"
      ],
      "mistake": "Gives the total instead of dividing by 4",
      "check": "136/4"
@@ -1583,6 +1921,12 @@
      ],
      "answer": 1,
      "explain": "It is carved in a temple at Khajuraho in Madhya Pradesh.",
+     "steps": [
+      "The Chautisa Yantra is a 4 × 4 magic square carved in stone.",
+      "It is found in a temple at Khajuraho in Madhya Pradesh.",
+      "So the answer is: in a temple at Khajuraho.",
+      "Answer: In a temple at Khajuraho"
+     ],
      "mistake": "Confuses it with the Lo Shu square of China"
     },
     {
@@ -1597,7 +1941,8 @@
      "explain": "The magic sum is 34: 34 − (7 + 12 + 1) = 34 − 20 = 14.",
      "steps": [
       "7 + 12 + 1 = 20",
-      "34 − 20 = 14"
+      "34 − 20 = 14",
+      "Answer: 14"
      ],
      "mistake": "Uses 15 as the magic sum",
      "check": "34-7-12-1"
@@ -1613,7 +1958,11 @@
      "answer": 3,
      "explain": "Pair them: 1 + 16, 2 + 15, ... make 8 pairs of 17: 8 × 17 = 136.",
      "steps": [
-      "8 pairs × 17 = 136"
+      "Pair the numbers: 1 + 16, 2 + 15, 3 + 14, … each pair = 17.",
+      "16 numbers make 8 pairs.",
+      "Sum = 8 × 17",
+      "= 136",
+      "Answer: 136"
      ],
      "mistake": "Multiplies 16 × 16",
      "check": "16*17/2"
@@ -1628,6 +1977,12 @@
      ],
      "answer": 2,
      "explain": "Hemachandra, a Jain scholar, wrote about them around 1150, after Virahānka and Gopāla.",
+     "steps": [
+      "Indian scholars Virahānka, Gopāla and Hemachandra described these rhythm numbers.",
+      "Hemachandra, a Jain scholar, wrote about them around 1150 CE.",
+      "So the answer is Hemachandra.",
+      "Answer: Hemachandra"
+     ],
      "mistake": "Picks a famous mathematician from a different time"
     },
     {
@@ -1640,6 +1995,12 @@
      ],
      "answer": 1,
      "explain": "Indian scholars described them centuries before Fibonacci's book of 1202.",
+     "steps": [
+      "The numbers 1, 2, 3, 5, 8, … are called Virahānka numbers after an Indian scholar.",
+      "Virahānka, Gopāla and Hemachandra described them centuries before Fibonacci's 1202 book.",
+      "So the answer is Virahānka, Gopāla and Hemachandra.",
+      "Answer: Virahānka, Gopāla and Hemachandra"
+     ],
      "mistake": "Thinks the numbers were first found in Europe"
     },
     {
@@ -1652,6 +2013,13 @@
      ],
      "answer": 0,
      "explain": "The sequence is 1, 2, 3, 5, 8, 13, ... — 8 is in it; 6, 7 and 10 are not.",
+     "steps": [
+      "Virahānka numbers: 1, 2, 3, 5, 8, 13, 21, …",
+      "8 is in the list.",
+      "6, 7 and 10 are not in the list.",
+      "So 8 is a Virahānka number.",
+      "Answer: 8"
+     ],
      "mistake": "Thinks every small number is in the sequence",
      "check": "8"
     },
@@ -1666,7 +2034,11 @@
      "answer": 3,
      "explain": "Add the two before it: 21 + 34 = 55.",
      "steps": [
-      "21 + 34 = 55"
+      "Each new Virahānka number = sum of the two before it.",
+      "Next after 21 and 34: 21 + 34",
+      "= 55",
+      "So the next number is 55.",
+      "Answer: 55"
      ],
      "mistake": "Doubles 34 instead of adding the two before it",
      "check": "21+34"
@@ -1696,6 +2068,26 @@
     ],
     "praise": "Nature is full of maths — Gappu is amazed!",
     "nudge": "How is each new number made, and who first wrote about them?"
+   },
+   "revise": {
+    "summary": "The Chautisa Yantra at Khajuraho is one of the oldest known 4 × 4 magic squares, with magic sum 34. Indian scholars described the Virahānka numbers long before Fibonacci, and these numbers show up in nature.",
+    "focus": [
+     "Magic sum of a 4 × 4 square using 1 to 16",
+     "The Chautisa Yantra and the Lo Shu square",
+     "Virahānka, Gopāla and Hemachandra and their dates",
+     "Virahānka numbers in petals and sunflower spirals"
+    ],
+    "remember": [
+     "'Chautisa' means 34 — the magic sum; 1 + 2 + … + 16 = 136 and 136 ÷ 4 = 34",
+     "Lo Shu square of China: 1 to 9, sum 15",
+     "Virahānka (around the 7th century), Gopāla (about 1135), Hemachandra (about 1150) — before Fibonacci's book of 1202"
+    ],
+    "traps": [
+     "Don't confuse the Chautisa Yantra (Khajuraho) with the Lo Shu square (China).",
+     "Don't give the total 136 as the magic sum — divide by 4.",
+     "Don't think these numbers were first found in Europe."
+    ],
+    "level": "important"
    }
   },
   {
@@ -1805,7 +2197,8 @@
      "explain": "M = 4 from the ones. K + K must end in 4 and carry 1, so K + K = 14 and K = 7.",
      "steps": [
       "2 + 2 = 4 → M = 4",
-      "K + K = 14 → K = 7"
+      "K + K = 14 → K = 7",
+      "Answer: 7"
      ],
      "mistake": "Takes K + K = 4, which gives no 3-digit answer",
      "check": "7"
@@ -1821,7 +2214,11 @@
      "answer": 1,
      "explain": "72 + 72 = 144, so H = 1 and M = 4.",
      "steps": [
-      "72 + 72 = 144"
+      "K2 + K2 = HMM: the ones digit 2 + 2 = 4, so M = 4.",
+      "HMM = H44, and H must be 1 (two 2-digit numbers add to less than 200).",
+      "K2 × 2 = 144 → K2 = 72, so K = 7.",
+      "72 + 72 = 144, so HMM = 144.",
+      "Answer: 144"
      ],
      "mistake": "Writes the wrong digit for one of the repeated letters",
      "check": "72+72"
@@ -1836,6 +2233,13 @@
      ],
      "answer": 0,
      "explain": "The biggest possible sum is 99 + 99 = 198, so the hundreds digit can only be 1.",
+     "steps": [
+      "The largest 2-digit number is 99.",
+      "The largest sum of two 2-digit numbers is 99 + 99 = 198.",
+      "Any 3-digit sum is between 100 and 198, so it starts with 1.",
+      "So H must be 1.",
+      "Answer: Two 2-digit numbers add to at most 198, so a 3-digit sum starts with 1"
+     ],
      "mistake": "Does not use the size of the numbers"
     },
     {
@@ -1848,6 +2252,12 @@
      ],
      "answer": 3,
      "explain": "A and B are different letters, so they cannot both be 3.",
+     "steps": [
+      "Cryptarithm rules: same letter = same digit; different letters = different digits; no leading 0.",
+      "A and B are different letters but both are set to 3.",
+      "So the rule broken is: different letters must stand for different digits.",
+      "Answer: Different letters must stand for different digits"
+     ],
      "mistake": "Mixes up the two letter rules"
     },
     {
@@ -1860,6 +2270,12 @@
      ],
      "answer": 2,
      "explain": "Leading zeros are not allowed in these puzzles.",
+     "steps": [
+      "0A would be a number starting with the digit 0.",
+      "In cryptarithms a number cannot start with 0.",
+      "So 0A is not allowed.",
+      "Answer: A number cannot start with the digit 0"
+     ],
      "mistake": "Forgets the no-leading-zero rule"
     },
     {
@@ -1875,7 +2291,8 @@
      "steps": [
       "22 × A ends in 2 → A = 1 or 6",
       "22 × 1 = 22 is too small",
-      "22 × 6 = 132 ✓"
+      "22 × 6 = 132 ✓",
+      "Answer: 6"
      ],
      "mistake": "Picks A = 1 without checking the size",
      "check": "6"
@@ -1893,7 +2310,8 @@
      "steps": [
       "3 × AB − AB = 100",
       "2 × AB = 100",
-      "AB = 50"
+      "AB = 50",
+      "Answer: 50"
      ],
      "mistake": "Guesses without setting up the equation",
      "check": "100/2"
@@ -1908,6 +2326,13 @@
      ],
      "answer": 3,
      "explain": "Doubling any number gives an even number, so Q must be even.",
+     "steps": [
+      "P + P = 2 × P, which is always even.",
+      "So Q, the result, must be even.",
+      "P can be odd or even (e.g. 3 + 3 = 6, 4 + 4 = 8).",
+      "So Q is even must be true.",
+      "Answer: Q is even"
+     ],
      "mistake": "Thinks the parity of P decides the parity of Q"
     }
    ],
@@ -1932,6 +2357,26 @@
     ],
     "praise": "Code cracked! 72 + 72 = 144.",
     "nudge": "What do the ones digits add up to?"
+   },
+   "revise": {
+    "summary": "In a cryptarithm, letters stand for digits: the same letter is the same digit and different letters are different digits. Start with the ones column and use carries, size and parity to find the digits.",
+    "focus": [
+     "The rules of cryptarithms",
+     "Using the size of numbers: a 3-digit sum of two 2-digit numbers starts with 1",
+     "Working from the ones column and using carries",
+     "Using parity, e.g. A + A is always even"
+    ],
+    "remember": [
+     "Same letter = same digit; different letters = different digits",
+     "The first digit of a number cannot be 0",
+     "99 + 99 = 198, so a 3-digit sum of two 2-digit numbers must start with 1"
+    ],
+    "traps": [
+     "Don't give two different letters the same digit.",
+     "Don't pick a digit without checking the size of the answer.",
+     "Don't think the parity of P decides the parity of P + P — it is always even."
+    ],
+    "level": "advanced"
    }
   }
  ]

@@ -103,6 +103,13 @@
      ],
      "answer": 1,
      "explain": "a₄ = (4 − 1)/(4 + 1) = 3/5.",
+     "steps": [
+      "aₙ = (n − 1)/(n + 1) with n = 4",
+      "a₄ = (4 − 1)/(4 + 1)",
+      "= 3/5",
+      "a₄ = 3/5",
+      "Answer: 3/5"
+     ],
      "mistake": "Substitutes n = 4 only in the numerator",
      "check": "Fraction(3,5)"
     },
@@ -116,6 +123,13 @@
      ],
      "answer": 0,
      "explain": "Each term is the sum of the two before: 3 + 5 = 8.",
+     "steps": [
+      "Fibonacci rule: each term = sum of the two before",
+      "Terms: 1, 1, 2, 3, 5",
+      "6th term = 3 + 5",
+      "= 8",
+      "Answer: 8"
+     ],
      "mistake": "Adds 1 each time",
      "check": "3+5"
     },
@@ -129,6 +143,13 @@
      ],
      "answer": 3,
      "explain": "a₂ = 3(2) + 1 = 7; a₃ = 3(7) + 1 = 22.",
+     "steps": [
+      "a₁ = 2",
+      "a₂ = 3(2) + 1 = 7",
+      "a₃ = 3(7) + 1",
+      "= 22",
+      "Answer: 22"
+     ],
      "mistake": "Stops at a₂ or uses a₁ again",
      "check": "3*7+1"
     },
@@ -142,6 +163,12 @@
      ],
      "answer": 3,
      "explain": "The position n ∈ N is the input and the term aₙ is the output.",
+     "steps": [
+      "Each position n = 1, 2, 3, … gives one term aₙ",
+      "So a sequence pairs natural numbers with terms: n ↦ aₙ",
+      "The domain is N, or {1, …, k} for a finite one, not R",
+      "Answer: A function whose domain is the set of natural numbers (or a part of it starting at 1)"
+     ],
      "mistake": "Confuses a sequence with a series or a set"
     },
     {
@@ -154,6 +181,12 @@
      ],
      "answer": 3,
      "explain": "a₄ = 4²/3⁴ = 16/81.",
+     "steps": [
+      "aₙ = n²/3ⁿ with n = 4",
+      "4² = 16 and 3⁴ = 81",
+      "a₄ = 16/81",
+      "Answer: 16/81"
+     ],
      "mistake": "Multiplies 3 × 4 instead of raising 3 to the power 4",
      "check": "Fraction(16,81)"
     },
@@ -167,6 +200,13 @@
      ],
      "answer": 1,
      "explain": "Odd natural numbers 1, 3, 5, … never end.",
+     "steps": [
+      "Infinite sequence: no last term",
+      "First ten primes, 11 batters and 7 days all stop",
+      "Odd natural numbers 1, 3, 5, 7, … never end",
+      "The sequence of all odd natural numbers is infinite",
+      "Answer: The sequence of all odd natural numbers"
+     ],
      "mistake": "Thinks a long list must be infinite"
     },
     {
@@ -179,6 +219,13 @@
      ],
      "answer": 1,
      "explain": "(−1)³ × 2⁴ = −16.",
+     "steps": [
+      "aₙ = (−1)ⁿ 2ⁿ⁺¹ with n = 3",
+      "(−1)³ = −1 and 2³⁺¹ = 2⁴ = 16",
+      "(−1) × 16",
+      "a₃ = −16",
+      "Answer: −16"
+     ],
      "mistake": "Takes (−1)³ as +1, or uses 2³",
      "check": "-16"
     },
@@ -192,6 +239,13 @@
      ],
      "answer": 3,
      "explain": "1, 3, 5, 7, 9 — so a₅ = 9.",
+     "steps": [
+      "a₁ = 1, add 2 each time",
+      "a₂ = 3, a₃ = 5, a₄ = 7",
+      "a₅ = 7 + 2",
+      "= 9",
+      "Answer: 9"
+     ],
      "mistake": "Counts one term too many",
      "check": "1+2*4"
     }
@@ -218,6 +272,25 @@
     ],
     "praise": "A list in order, a rule for the nth term, and sometimes a rule using earlier terms. Fibo-fantastic!",
     "nudge": "How do you get the next Fibonacci number from the ones before it?"
+   },
+   "revise": {
+    "summary": "A sequence is an ordered list a₁, a₂, a₃, … — a function from N to numbers — given either by a formula for aₙ or by a recurrence such as the Fibonacci rule aₙ = aₙ₋₁ + aₙ₋₂.",
+    "focus": [
+     "Find terms from a general-term formula aₙ",
+     "Build terms one at a time from a recurrence",
+     "Tell finite sequences from infinite ones",
+     "Describe a sequence as a function with domain N"
+    ],
+    "remember": [
+     "aₙ is the nth (general) term",
+     "A sequence is a function with domain N (or {1, 2, …, k} if finite)",
+     "Fibonacci: a₁ = a₂ = 1, aₙ = aₙ₋₁ + aₙ₋₂: 1, 1, 2, 3, 5, 8, 13, …"
+    ],
+    "traps": [
+     "Substitute n carefully: in (−1)ⁿ2ⁿ⁺¹ the power of 2 is n + 1, not n",
+     "In a recurrence, find every earlier term first; you cannot skip ahead"
+    ],
+    "level": "core"
    }
   },
   {
@@ -324,6 +397,13 @@
      ],
      "answer": 1,
      "explain": "1 + 4 + 9 + 16 + 25 = 55.",
+     "steps": [
+      "Σₖ₌₁⁵ k² = 1² + 2² + 3² + 4² + 5²",
+      "= 1 + 4 + 9 + 16 + 25",
+      "Add up",
+      "= 55",
+      "Answer: 55"
+     ],
      "mistake": "Squares the sum 15 instead of summing squares",
      "check": "1+4+9+16+25"
     },
@@ -337,6 +417,12 @@
      ],
      "answer": 0,
      "explain": "The sequence lists terms; the series adds them.",
+     "steps": [
+      "A sequence lists terms in order: a₁, a₂, a₃, …",
+      "A series adds those terms: a₁ + a₂ + a₃ + …",
+      "So the series is built from the sequence",
+      "Answer: A series is the sum of the terms of a sequence"
+     ],
      "mistake": "Uses the two words interchangeably"
     },
     {
@@ -349,6 +435,13 @@
      ],
      "answer": 0,
      "explain": "4 + 7 + 10 + 13 = 34.",
+     "steps": [
+      "Terms of 3k + 1 for k = 1 to 4: 4, 7, 10, 13",
+      "Add: 4 + 7 = 11, 11 + 10 = 21",
+      "21 + 13",
+      "= 34",
+      "Answer: 34"
+     ],
      "mistake": "Adds only one +1",
      "check": "4+7+10+13"
     },
@@ -362,6 +455,13 @@
      ],
      "answer": 3,
      "explain": "Terms: 3, 3, 1, −1, −3. Sum = 3 + 3 + 1 − 1 − 3 = 3.",
+     "steps": [
+      "a₁ = 3, a₂ = 3, then subtract 2 each time",
+      "a₃ = 1, a₄ = −1, a₅ = −3",
+      "Sum = 3 + 3 + 1 − 1 − 3",
+      "= 3",
+      "Answer: 3"
+     ],
      "mistake": "Starts subtracting from a₁ instead of a₂",
      "check": "3+3+1-1-3"
     },
@@ -375,6 +475,12 @@
      ],
      "answer": 3,
      "explain": "It has no last term, so it is an infinite series.",
+     "steps": [
+      "The terms 1, 1/2, 1/4, 1/8, … never end",
+      "A series from an infinite sequence is infinite",
+      "It is a sum, so it is a series, not just a sequence",
+      "Answer: an infinite series"
+     ],
      "mistake": "Thinks a series with a finite total must be finite"
     },
     {
@@ -387,6 +493,12 @@
      ],
      "answer": 2,
      "explain": "The terms are 3k for k = 1 to 10 (3 × 10 = 30).",
+     "steps": [
+      "Terms: 3 = 3 × 1, 6 = 3 × 2, …, 30 = 3 × 10",
+      "So the kth term is 3k, for k = 1 to 10",
+      "Σₖ₌₃³⁰ 3k would start at 9; Σ(k + 3) gives 4, 5, …",
+      "Answer: Σₖ₌₁¹⁰ 3k"
+     ],
      "mistake": "Uses the last term as the upper limit"
     },
     {
@@ -399,6 +511,13 @@
      ],
      "answer": 1,
      "explain": "3 + 5 + 7 = 15.",
+     "steps": [
+      "aₙ = 2n + 1: a₁ = 3, a₂ = 5, a₃ = 7",
+      "a₁ + a₂ + a₃ = 3 + 5 + 7",
+      "Add up",
+      "= 15",
+      "Answer: 15"
+     ],
      "mistake": "Adds the indices instead of the terms",
      "check": "3+5+7"
     },
@@ -412,6 +531,13 @@
      ],
      "answer": 0,
      "explain": "k runs from the lower limit 1 to the upper limit n.",
+     "steps": [
+      "In Σₖ₌₁ⁿ aₖ, k runs through 1, 2, …, n",
+      "1 is the lower limit and n the upper limit",
+      "The running variable k is the index of summation",
+      "k is the index of summation",
+      "Answer: index of summation"
+     ],
      "mistake": "Confuses the index with the limits"
     }
    ],
@@ -436,6 +562,25 @@
     ],
     "praise": "Σ just means 'add these up', with k running from bottom to top. Not scary at all!",
     "nudge": "What does the little k under Σ do, and where does it stop?"
+   },
+   "revise": {
+    "summary": "A series is the sum of the terms of a sequence, finite or infinite like the sequence. Sigma notation Σₖ₌₁ⁿ aₖ means a₁ + a₂ + … + aₙ, with k the index and 1, n the limits.",
+    "focus": [
+     "Tell a sequence (list) from a series (sum)",
+     "Expand and evaluate sums in sigma notation",
+     "Write a given series in sigma notation",
+     "Add the first few terms of a sequence given by a formula or recurrence"
+    ],
+    "remember": [
+     "Series: a₁ + a₂ + a₃ + …, from the sequence a₁, a₂, a₃, …",
+     "Σₖ₌₁ⁿ aₖ = a₁ + a₂ + … + aₙ; k is the index of summation",
+     "Σₖ₌₁⁴ k² = 1 + 4 + 9 + 16 = 30"
+    ],
+    "traps": [
+     "A series is a sum; a sequence is just the ordered list",
+     "Check the limits: 3 + 6 + … + 30 is Σₖ₌₁¹⁰ 3k, so k stops at 10, not 30"
+    ],
+    "level": "core"
    }
   },
   {
@@ -547,6 +692,13 @@
      ],
      "answer": 0,
      "explain": "a = 5, r = 2: a₈ = 5 × 2⁷ = 640.",
+     "steps": [
+      "a = 5, r = 10/5 = 2",
+      "a₈ = ar⁷ = 5 × 2⁷",
+      "= 5 × 128",
+      "= 640",
+      "Answer: 640"
+     ],
      "mistake": "Uses rⁿ instead of rⁿ⁻¹",
      "check": "5*2**7"
     },
@@ -560,6 +712,13 @@
      ],
      "answer": 1,
      "explain": "ar⁶/ar³ = r³ = 192/24 = 8 ⇒ r = 2.",
+     "steps": [
+      "a₄ = ar³ = 24 and a₇ = ar⁶ = 192",
+      "Divide: r³ = 192/24 = 8",
+      "8 = 2³",
+      "r = 2",
+      "Answer: 2"
+     ],
      "mistake": "Takes r = 8 without the cube root",
      "check": "2"
     },
@@ -573,6 +732,13 @@
      ],
      "answer": 0,
      "explain": "ar³ = 24 with r = 2 gives 8a = 24, so a = 3.",
+     "steps": [
+      "ar³ = 24 with r = 2",
+      "8a = 24",
+      "a = 24/8",
+      "a = 3",
+      "Answer: 3"
+     ],
      "mistake": "Divides 24 by 2 only once",
      "check": "24/8"
     },
@@ -586,6 +752,13 @@
      ],
      "answer": 0,
      "explain": "Take a/r, a, ar: a³ = 216 ⇒ a = 6. 6/r + 6 + 6r = 21 ⇒ 2r² − 5r + 2 = 0 ⇒ r = 2 or 1/2.",
+     "steps": [
+      "Take a/r, a, ar: product a³ = 216, so a = 6",
+      "Sum: 6/r + 6 + 6r = 21 → 6r² − 15r + 6 = 0 → 2r² − 5r + 2 = 0",
+      "(2r − 1)(r − 2) = 0 → r = 2 or 1/2",
+      "Numbers: 3, 6, 12",
+      "Answer: 3, 6, 12"
+     ],
      "mistake": "Picks numbers with the right product but wrong sum"
     },
     {
@@ -598,6 +771,13 @@
      ],
      "answer": 1,
      "explain": "3 × 2ⁿ⁻¹ = 768 ⇒ 2ⁿ⁻¹ = 256 = 2⁸ ⇒ n = 9.",
+     "steps": [
+      "a = 3, r = 2, aₙ = 3 × 2ⁿ⁻¹ = 768",
+      "2ⁿ⁻¹ = 768/3 = 256 = 2⁸",
+      "n − 1 = 8",
+      "n = 9 → the 9th term",
+      "Answer: 9th"
+     ],
      "mistake": "Forgets the n − 1 in the exponent"
     },
     {
@@ -610,6 +790,13 @@
      ],
      "answer": 3,
      "explain": "a = 1/2, r = −2: a₅ = (1/2)(−2)⁴ = (1/2)(16) = 8.",
+     "steps": [
+      "a = 1/2, r = −1 ÷ (1/2) = −2",
+      "a₅ = ar⁴ = (1/2)(−2)⁴",
+      "= (1/2)(16)",
+      "= 8",
+      "Answer: 8"
+     ],
      "mistake": "Gets the sign of (−2)⁴ wrong",
      "check": "Fraction(1,2)*16"
     },
@@ -623,6 +810,13 @@
      ],
      "answer": 3,
      "explain": "(2x + 2)² = x(3x + 3) ⇒ 4(x + 1)² = 3x(x + 1) ⇒ (x + 1)(4x + 4 − 3x) = 0 ⇒ x = −1 or x = −4. x = −1 makes the terms 0, so x = −4.",
+     "steps": [
+      "Middle term squared = product of the outer terms: (2x + 2)² = x(3x + 3)",
+      "4(x + 1)² = 3x(x + 1) → (x + 1)(4x + 4 − 3x) = (x + 1)(x + 4) = 0",
+      "x = −1 gives terms −1, 0, 0, which is not a G.P.",
+      "x = −4 (terms −4, −6, −9)",
+      "Answer: −4"
+     ],
      "mistake": "Accepts x = −1, which gives zero terms",
      "check": "-4"
     },
@@ -636,6 +830,12 @@
      ],
      "answer": 1,
      "explain": "b/a = c/b ⇒ b² = ac.",
+     "steps": [
+      "a, b, c in G.P.: b/a = c/b (same ratio)",
+      "Cross-multiply: b × b = a × c",
+      "2b = a + c is the A.P. condition",
+      "Answer: b² = ac"
+     ],
      "mistake": "Uses the AP condition 2b = a + c"
     }
    ],
@@ -660,6 +860,26 @@
     ],
     "praise": "Multiply by r each time; the nth term is a·rⁿ⁻¹. My savings plan is ready!",
     "nudge": "What do you multiply by to get from one term to the next?"
+   },
+   "revise": {
+    "summary": "In a G.P. each term after the first is the previous term times a fixed non-zero ratio r, so the terms are a, ar, ar², … and aₙ = arⁿ⁻¹. Three numbers in G.P. are best taken as a/r, a, ar.",
+    "focus": [
+     "Find the nth term and the position of a given term",
+     "Find a and r from two given terms by dividing",
+     "Solve problems with three numbers in G.P. (a/r, a, ar)",
+     "Use b² = ac for a, b, c in G.P."
+    ],
+    "remember": [
+     "Common ratio r = aₖ₊₁/aₖ (non-zero)",
+     "nth term: aₙ = arⁿ⁻¹",
+     "Three numbers in G.P.: a/r, a, ar (product a³)",
+     "a, b, c in G.P. ⇔ b² = ac"
+    ],
+    "traps": [
+     "The power in aₙ = arⁿ⁻¹ is n − 1, not n",
+     "Reject values that make a term zero: a G.P. cannot contain 0"
+    ],
+    "level": "important"
    }
   },
   {
@@ -750,6 +970,13 @@
      ],
      "answer": 3,
      "explain": "S₆ = 2(3⁶ − 1)/(3 − 1) = 729 − 1 = 728.",
+     "steps": [
+      "a = 2, r = 3, n = 6",
+      "S₆ = 2(3⁶ − 1)/(3 − 1)",
+      "= 2(729 − 1)/2 = 728",
+      "S₆ = 728",
+      "Answer: 728"
+     ],
      "mistake": "Uses 3⁵ instead of 3⁶",
      "check": "2*(3**6-1)/2"
     },
@@ -763,6 +990,13 @@
      ],
      "answer": 0,
      "explain": "a = 1, r = −1/2: S₆ = (1 − (1/64))/(1 + 1/2) = (63/64)/(3/2) = 21/32.",
+     "steps": [
+      "a = 1, r = −1/2, n = 6",
+      "S₆ = (1 − r⁶)/(1 − r) = (1 − 1/64)/(1 + 1/2)",
+      "= (63/64)/(3/2) = (63/64) × (2/3)",
+      "= 21/32",
+      "Answer: 21/32"
+     ],
      "mistake": "Ignores the negative ratio",
      "check": "(1-Fraction(1,64))/Fraction(3,2)"
     },
@@ -776,6 +1010,13 @@
      ],
      "answer": 3,
      "explain": "a = 0.3, r = 0.1: Sₙ = 0.3(1 − 0.1ⁿ)/0.9 = (1/3)(1 − 10⁻ⁿ).",
+     "steps": [
+      "a = 0.3, r = 0.1",
+      "Sₙ = 0.3(1 − 0.1ⁿ)/(1 − 0.1) = 0.3(1 − 10⁻ⁿ)/0.9",
+      "0.3/0.9 = 1/3",
+      "Sₙ = (1/3)(1 − 10⁻ⁿ)",
+      "Answer: (1/3)(1 − 10⁻ⁿ)"
+     ],
      "mistake": "Adds the terms as if they were equal"
     },
     {
@@ -788,6 +1029,13 @@
      ],
      "answer": 1,
      "explain": "Each term is (5/9)(10ᵏ − 1). Summing: (5/9)[(10ⁿ⁺¹ − 10)/9 − n] = (5/81)(10ⁿ⁺¹ − 9n − 10).",
+     "steps": [
+      "Each term: 5, 55, 555 = (5/9)(10 − 1), (5/9)(100 − 1), (5/9)(1000 − 1), …",
+      "Sum = (5/9)[(10 + 10² + … + 10ⁿ) − n] = (5/9)[10(10ⁿ − 1)/9 − n]",
+      "= (5/81)[10ⁿ⁺¹ − 10 − 9n]",
+      "Sₙ = (5/81)(10ⁿ⁺¹ − 9n − 10)",
+      "Answer: (5/81)(10ⁿ⁺¹ − 9n − 10)"
+     ],
      "mistake": "Forgets the −1 in each term"
     },
     {
@@ -800,6 +1048,13 @@
      ],
      "answer": 3,
      "explain": "2(2ⁿ − 1)/(2 − 1) = 126 ⇒ 2ⁿ − 1 = 63 ⇒ 2ⁿ = 64 ⇒ n = 6.",
+     "steps": [
+      "a = 2, r = 2: Sₙ = 2(2ⁿ − 1)/(2 − 1) = 126",
+      "2ⁿ − 1 = 63",
+      "2ⁿ = 64 = 2⁶",
+      "n = 6",
+      "Answer: 6"
+     ],
      "mistake": "Divides 126 by 2 and stops",
      "check": "6"
     },
@@ -813,6 +1068,13 @@
      ],
      "answer": 2,
      "explain": "a = 6, r = 1/2, |r| < 1, so S = 6/(1 − 1/2) = 12.",
+     "steps": [
+      "a = 6, r = 3/6 = 1/2, and |r| < 1",
+      "S = a/(1 − r) = 6/(1 − 1/2)",
+      "= 6 ÷ 1/2",
+      "S = 12",
+      "Answer: 12"
+     ],
      "mistake": "Thinks an infinite series must have an infinite sum",
      "check": "6/(1-Fraction(1,2))"
     },
@@ -826,6 +1088,13 @@
      ],
      "answer": 1,
      "explain": "When r = 1, every term is a, so Sₙ = na = n = 15.",
+     "steps": [
+      "r = 1: every term equals a = 1",
+      "So Sₙ = na = n",
+      "n = 15",
+      "n = 15",
+      "Answer: 15"
+     ],
      "mistake": "Applies the formula with r − 1 = 0",
      "check": "15"
     },
@@ -839,6 +1108,13 @@
      ],
      "answer": 2,
      "explain": "S₆₄ = 1 × (2⁶⁴ − 1)/(2 − 1) = 2⁶⁴ − 1.",
+     "steps": [
+      "Grains: 1, 2, 4, … so a = 1, r = 2, n = 64",
+      "S₆₄ = 1 × (2⁶⁴ − 1)/(2 − 1)",
+      "= 2⁶⁴ − 1",
+      "Total = 2⁶⁴ − 1",
+      "Answer: 2⁶⁴ − 1"
+     ],
      "mistake": "Gives the grains on the last square only"
     }
    ],
@@ -863,6 +1139,25 @@
     ],
     "praise": "Multiply by r, subtract, and nearly everything cancels. 2²⁰ − 1 grains it is!",
     "nudge": "What happens when you subtract Sₙ from rSₙ?"
+   },
+   "revise": {
+    "summary": "The sum of n terms of a G.P. is Sₙ = a(rⁿ − 1)/(r − 1) = a(1 − rⁿ)/(1 − r) for r ≠ 1, and Sₙ = na if r = 1. For |r| < 1 the infinite sum approaches a/(1 − r).",
+    "focus": [
+     "Use Sₙ for r > 1, 0 < r < 1 and negative r",
+     "Find n from a given sum",
+     "Sum special series like 0.3 + 0.03 + … and 5 + 55 + 555 + …",
+     "Find the sum of an infinite G.P. with |r| < 1"
+    ],
+    "remember": [
+     "Sₙ = a(rⁿ − 1)/(r − 1) = a(1 − rⁿ)/(1 − r), r ≠ 1; Sₙ = na if r = 1",
+     "5 + 55 + 555 + … to n terms = (5/81)(10ⁿ⁺¹ − 9n − 10)",
+     "Infinite G.P., |r| < 1: S = a/(1 − r)"
+    ],
+    "traps": [
+     "Don't use Sₙ = a(rⁿ − 1)/(r − 1) when r = 1: then Sₙ = na",
+     "The infinite-sum formula only works when |r| < 1"
+    ],
+    "level": "important"
    }
   },
   {
@@ -984,6 +1279,13 @@
      ],
      "answer": 0,
      "explain": "G = √(3 × 27) = √81 = 9.",
+     "steps": [
+      "G.M. = √(ab)",
+      "√(3 × 27) = √81",
+      "= 9",
+      "G.M. = 9",
+      "Answer: 9"
+     ],
      "mistake": "Gives the arithmetic mean 15",
      "check": "9"
     },
@@ -997,6 +1299,13 @@
      ],
      "answer": 1,
      "explain": "(7 + 19)/2 = 13.",
+     "steps": [
+      "A.M. = (a + b)/2",
+      "(7 + 19)/2 = 26/2",
+      "= 13",
+      "A.M. = 13",
+      "Answer: 13"
+     ],
      "mistake": "Forgets to divide by 2",
      "check": "13"
     },
@@ -1010,6 +1319,13 @@
      ],
      "answer": 3,
      "explain": "r⁴ = 32/2 = 16 ⇒ r = 2: 2, 4, 8, 16, 32. The middle mean is 8.",
+     "steps": [
+      "3 means → 5 terms: 32 = 2r⁴",
+      "r⁴ = 16 → r = 2",
+      "G.P.: 2, 4, 8, 16, 32",
+      "Middle mean = 8",
+      "Answer: 8"
+     ],
      "mistake": "Uses r³ = 16",
      "check": "8"
     },
@@ -1023,6 +1339,13 @@
      ],
      "answer": 2,
      "explain": "6 terms: 81 = (1/3)r⁵ ⇒ r⁵ = 243 ⇒ r = 3.",
+     "steps": [
+      "4 means → 6 terms: 81 = (1/3)r⁵",
+      "r⁵ = 81 × 3 = 243",
+      "243 = 3⁵",
+      "r = 3",
+      "Answer: 3"
+     ],
      "mistake": "Uses r⁴ for 4 means",
      "check": "3"
     },
@@ -1036,6 +1359,13 @@
      ],
      "answer": 3,
      "explain": "√(2 × 8) = √16 = 4.",
+     "steps": [
+      "G.M. = √(2 × 8)",
+      "= √16",
+      "= 4",
+      "G.M. = 4",
+      "Answer: 4"
+     ],
      "mistake": "Adds and halves",
      "check": "4"
     },
@@ -1049,6 +1379,13 @@
      ],
      "answer": 2,
      "explain": "√(16x) = 8 ⇒ 16x = 64 ⇒ x = 4.",
+     "steps": [
+      "G.M. of x and 16 is 8: √(16x) = 8",
+      "Square both sides: 16x = 64",
+      "x = 64/16",
+      "x = 4",
+      "Answer: 4"
+     ],
      "mistake": "Halves 8",
      "check": "4"
     },
@@ -1062,6 +1399,13 @@
      ],
      "answer": 3,
      "explain": "A = G only when the numbers are equal. For 4 and 9: A = 6.5, G = 6.",
+     "steps": [
+      "A.M. = G.M. exactly when the two numbers are equal",
+      "2 and 8: A = 5, G = 4; 1 and 9: A = 5, G = 3; 4 and 9: A = 6.5, G = 6",
+      "5 and 5: A = 5, G = √25 = 5",
+      "Equal for 5 and 5",
+      "Answer: 5 and 5"
+     ],
      "mistake": "Thinks A = G for any pair of squares"
     },
     {
@@ -1074,6 +1418,13 @@
      ],
      "answer": 2,
      "explain": "The two given numbers a and b plus the n means make n + 2 terms.",
+     "steps": [
+      "The G.P. contains a, then the n means, then b",
+      "Count: 1 + n + 1",
+      "= n + 2",
+      "n + 2 terms",
+      "Answer: n + 2"
+     ],
      "mistake": "Forgets to include a and b"
     }
    ],
@@ -1099,6 +1450,24 @@
     ],
     "praise": "A.M. adds and halves, G.M. multiplies and roots. Inserting means is just finding r!",
     "nudge": "To insert n means between a and b, how many terms does the G.P. have?"
+   },
+   "revise": {
+    "summary": "The arithmetic mean of a and b is (a + b)/2 and the geometric mean of positive a and b is √(ab). To insert n geometric means between a and b, use b = arⁿ⁺¹ to find r.",
+    "focus": [
+     "Find the A.M. and G.M. of two numbers",
+     "Insert n geometric means between two numbers",
+     "Solve for an unknown number from a given G.M."
+    ],
+    "remember": [
+     "A.M. = (a + b)/2; G.M. = √(ab) for positive a, b",
+     "Inserting n G.M.s gives n + 2 terms: b = arⁿ⁺¹, r = (b/a)^(1/(n + 1))",
+     "A.M. = G.M. only when a = b"
+    ],
+    "traps": [
+     "The power is n + 1, not n: three means between 1 and 256 give r⁴ = 256",
+     "Don't confuse the G.M. √(ab) with the A.M. (a + b)/2"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1178,6 +1547,13 @@
      ],
      "answer": 2,
      "explain": "1000 × (1.1)³ = 1000 × 1.331 = 1331.",
+     "steps": [
+      "Amount = P(1 + r/100)ⁿ with P = 1000, r = 10, n = 3",
+      "= 1000 × (1.1)³",
+      "(1.1)³ = 1.331",
+      "Amount = ₹1331",
+      "Answer: ₹1331"
+     ],
      "mistake": "Uses simple interest",
      "check": "1000*Fraction(11,10)**3"
     },
@@ -1191,6 +1567,13 @@
      ],
      "answer": 2,
      "explain": "60000 × (0.9)² = 60000 × 0.81 = 48,600.",
+     "steps": [
+      "Value = P(1 − r/100)ⁿ with P = 60000, r = 10, n = 2",
+      "= 60000 × (0.9)²",
+      "= 60000 × 0.81",
+      "Value = ₹48,600",
+      "Answer: ₹48,600"
+     ],
      "mistake": "Subtracts 10% of the original value each year",
      "check": "60000*Fraction(81,100)"
     },
@@ -1204,6 +1587,13 @@
      ],
      "answer": 1,
      "explain": "2 + 4 + 8 + 16 + 32 = 2(2⁵ − 1)/(2 − 1) = 62.",
+     "steps": [
+      "Ancestors: 2, 4, 8, 16, 32 (a = 2, r = 2, n = 5)",
+      "S₅ = 2(2⁵ − 1)/(2 − 1)",
+      "= 2 × 31",
+      "= 62 ancestors",
+      "Answer: 62"
+     ],
      "mistake": "Counts only the 5th generation",
      "check": "2*(2**5-1)"
     },
@@ -1217,6 +1607,13 @@
      ],
      "answer": 2,
      "explain": "P × 2⁵ = 3200 ⇒ P = 100.",
+     "steps": [
+      "Doubling for 5 hours: P × 2⁵ = 3200",
+      "2⁵ = 32",
+      "P = 3200/32",
+      "P = 100 at the start",
+      "Answer: 100"
+     ],
      "mistake": "Divides by 2 × 5 = 10",
      "check": "3200/32"
     },
@@ -1230,6 +1627,13 @@
      ],
      "answer": 2,
      "explain": "b² = ac ⇒ (b²)² = a²c², so a², b², c² are in G.P.",
+     "steps": [
+      "a, b, c in G.P. → b² = ac",
+      "Square both sides: (b²)² = a²c²",
+      "That is the G.P. condition for a², b², c²",
+      "a², b², c² are in G.P.",
+      "Answer: a², b², c²"
+     ],
      "mistake": "Thinks adding a constant keeps a G.P."
     },
     {
@@ -1242,6 +1646,13 @@
      ],
      "answer": 0,
      "explain": "x² = 1 × 9 ⇒ x = 3.",
+     "steps": [
+      "1, x, 9 in G.P. → x² = 1 × 9 = 9",
+      "x = 3 or −3",
+      "x > 0",
+      "x = 3",
+      "Answer: 3"
+     ],
      "mistake": "Uses the A.M. 5",
      "check": "3"
     },
@@ -1255,6 +1666,13 @@
      ],
      "answer": 3,
      "explain": "81 × (2/3)³ = 81 × 8/27 = 24 m.",
+     "steps": [
+      "Height after each bounce: multiply by 2/3",
+      "After 3 bounces: 81 × (2/3)³ = 81 × 8/27",
+      "= 3 × 8",
+      "= 24 m",
+      "Answer: 24 m"
+     ],
      "mistake": "Stops after 2 bounces (36 m)",
      "check": "81*Fraction(8,27)"
     },
@@ -1268,6 +1686,12 @@
      ],
      "answer": 3,
      "explain": "Each year multiplies by 1.05, six times.",
+     "steps": [
+      "Each year the population is multiplied by 1 + 5/100 = 1.05",
+      "After 6 years: multiply 6 times",
+      "20000 × 1.05 × 1.05 × … (6 times)",
+      "Answer: 20000 × (1.05)⁶"
+     ],
      "mistake": "Treats compound growth as simple growth"
     }
    ],
@@ -1292,6 +1716,26 @@
     ],
     "praise": "Each year multiplies by 1.1 — that's a G.P.! And b² = ac proves it. Grandpa will be proud.",
     "nudge": "What do you check to prove x, y, z are in G.P.?"
+   },
+   "revise": {
+    "summary": "Many real situations grow or shrink by a fixed factor, forming a G.P.: bacteria growth, compound interest P(1 + r/100)ⁿ, depreciation P(1 − r/100)ⁿ and ancestors 2, 4, 8, …. To prove x, y, z are in G.P., show y² = xz.",
+    "focus": [
+     "Model growth, interest and depreciation as G.P.s",
+     "Use the correct power n for the number of years or hours",
+     "Count ancestors or bounces with Sₙ or aₙ",
+     "Prove a triple is in G.P. by showing y² = xz"
+    ],
+    "remember": [
+     "Compound interest: amount = P(1 + r/100)ⁿ",
+     "Depreciation: value = P(1 − r/100)ⁿ",
+     "Growth by factor k each period: P, Pk, Pk², …",
+     "x, y, z in G.P. ⇔ y² = xz"
+    ],
+    "traps": [
+     "Compound interest multiplies each year; don't just add r% of P each year",
+     "Use n years as the power: after 6 years it is (1.05)⁶, not (1.05)⁵"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1379,6 +1823,13 @@
      ],
      "answer": 2,
      "explain": "a + b = 50, ab = 400 ⇒ x² − 50x + 400 = 0 ⇒ x = 40 or 10.",
+     "steps": [
+      "a + b = 2A = 50 and ab = G² = 400",
+      "Equation: x² − 50x + 400 = 0",
+      "(x − 40)(x − 10) = 0",
+      "Larger number = 40",
+      "Answer: 40"
+     ],
      "mistake": "Doubles the G.M.",
      "check": "40"
     },
@@ -1392,6 +1843,13 @@
      ],
      "answer": 2,
      "explain": "(a + b)/2 − √(ab) = (a − 2√(ab) + b)/2 = (√a − √b)²/2.",
+     "steps": [
+      "A − G = (a + b)/2 − √(ab)",
+      "= (a − 2√(ab) + b)/2",
+      "a − 2√(ab) + b = (√a − √b)²",
+      "A − G = (√a − √b)²/2",
+      "Answer: (√a − √b)²/2"
+     ],
      "mistake": "Forgets the square roots"
     },
     {
@@ -1404,6 +1862,13 @@
      ],
      "answer": 3,
      "explain": "Let a + b = 10k, √(ab) = 4k ⇒ ab = 16k². a, b = 8k, 2k, ratio 4 : 1. (Check 4 and 1: A = 2.5, G = 2.)",
+     "steps": [
+      "Let a + b = 2A = 10k and √(ab) = 4k, so ab = 16k²",
+      "a, b are roots of x² − 10kx + 16k² = 0 → (x − 8k)(x − 2k) = 0",
+      "Numbers 8k and 2k",
+      "Ratio = 4 : 1",
+      "Answer: 4 : 1"
+     ],
      "mistake": "Copies the ratio of the means"
     },
     {
@@ -1416,6 +1881,13 @@
      ],
      "answer": 0,
      "explain": "AM ≥ GM: (x + 9/x)/2 ≥ √9 = 3, so x + 9/x ≥ 6, reached at x = 3.",
+     "steps": [
+      "Apply A.M. ≥ G.M. to x and 9/x: (x + 9/x)/2 ≥ √(x × 9/x) = √9 = 3",
+      "So x + 9/x ≥ 6",
+      "Equality when x = 9/x, i.e. x = 3",
+      "Least value = 6",
+      "Answer: 6"
+     ],
      "mistake": "Takes the least value as 9",
      "check": "6"
     },
@@ -1429,6 +1901,13 @@
      ],
      "answer": 0,
      "explain": "G² = ab = 81.",
+     "steps": [
+      "G = √(ab), so ab = G²",
+      "G = 9",
+      "ab = 9²",
+      "Product = 81",
+      "Answer: 81"
+     ],
      "mistake": "Uses A² = 225",
      "check": "81"
     },
@@ -1442,6 +1921,13 @@
      ],
      "answer": 2,
      "explain": "ab = 25, a + b = 26 ⇒ x² − 26x + 25 = 0 ⇒ x = 25 or 1.",
+     "steps": [
+      "G = 5 → ab = 25; and a + b = 26",
+      "Equation: x² − 26x + 25 = 0",
+      "(x − 25)(x − 1) = 0",
+      "Smaller number = 1",
+      "Answer: 1"
+     ],
      "mistake": "Takes the G.M. as one of the numbers",
      "check": "1"
     },
@@ -1455,6 +1941,12 @@
      ],
      "answer": 1,
      "explain": "With S = a(rⁿ − 1)/(r − 1), P = aⁿr^(n(n−1)/2) and R = (rⁿ − 1)/(a rⁿ⁻¹(r − 1)), one checks P²Rⁿ = Sⁿ.",
+     "steps": [
+      "S = a(rⁿ − 1)/(r − 1), P = aⁿr^(n(n−1)/2), R = (rⁿ − 1)/(arⁿ⁻¹(r − 1))",
+      "P² = a²ⁿrⁿ⁽ⁿ⁻¹⁾ and Rⁿ = (rⁿ − 1)ⁿ/(aⁿrⁿ⁽ⁿ⁻¹⁾(r − 1)ⁿ)",
+      "P²Rⁿ = aⁿ(rⁿ − 1)ⁿ/(r − 1)ⁿ = Sⁿ",
+      "Answer: P²Rⁿ = Sⁿ"
+     ],
      "mistake": "Forgets to square P"
     },
     {
@@ -1467,6 +1959,12 @@
      ],
      "answer": 0,
      "explain": "Expanding R gives a + b ≥ 2√(ab), which is A. So R explains A.",
+     "steps": [
+      "R: (√a − √b)² ≥ 0, since a square is never negative: true",
+      "Expand: a − 2√(ab) + b ≥ 0 → a + b ≥ 2√(ab) → (a + b)/2 ≥ √(ab), which is A",
+      "So A follows from R",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Does not connect the square with the inequality"
     }
    ],
@@ -1491,6 +1989,25 @@
     ],
     "praise": "A perfect square can't be negative, so A ≥ G. And the numbers come out of a quadratic. Convinced!",
     "nudge": "Why is (√a − √b)² never negative, and what does that tell us?"
+   },
+   "revise": {
+    "summary": "For positive a and b, the A.M. (a + b)/2 is at least the G.M. √(ab), because A − G = (√a − √b)²/2 ≥ 0, with equality only when a = b. Given A and G, the numbers are the roots of x² − 2Ax + G² = 0.",
+    "focus": [
+     "Prove A ≥ G using (√a − √b)² ≥ 0",
+     "Find two numbers from their A.M. and G.M.",
+     "Solve ratio problems and least-value problems with A.M. ≥ G.M."
+    ],
+    "remember": [
+     "A − G = (√a − √b)²/2 ≥ 0, equality ⇔ a = b",
+     "Numbers with A.M. A and G.M. G are roots of x² − 2Ax + G² = 0: A ± √(A² − G²)",
+     "a + b = 2A and ab = G²",
+     "For a G.P.: P²Rⁿ = Sⁿ"
+    ],
+    "traps": [
+     "The product of the numbers is G², not G",
+     "A − G is (√a − √b)²/2, not (a − b)²/2"
+    ],
+    "level": "advanced"
    }
   }
  ]

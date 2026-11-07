@@ -96,6 +96,12 @@
      ],
      "answer": 3,
      "explain": "dA/dr = 2πr = 2π(5) = 10π.",
+     "steps": [
+      "Given: A = πr², r = 5 cm",
+      "dA/dr = 2πr",
+      "= 2π × 5 = 10π",
+      "Answer: 10π cm²/cm"
+     ],
      "mistake": "Uses A = πr² itself instead of its derivative"
     },
     {
@@ -108,6 +114,12 @@
      ],
      "answer": 2,
      "explain": "dA/dt = 2πr dr/dt = 2π(10)(3) = 60π cm²/s.",
+     "steps": [
+      "Given: dr/dt = 3 cm/s, r = 10 cm",
+      "dA/dt = 2πr · dr/dt",
+      "= 2π × 10 × 3 = 60π",
+      "Answer: 60π"
+     ],
      "mistake": "Forgets the factor 2 from d(r²)/dr"
     },
     {
@@ -120,6 +132,12 @@
      ],
      "answer": 2,
      "explain": "dA/dt = 2πr dr/dt = 2π(8)(5) = 80π cm²/s.",
+     "steps": [
+      "Given: dr/dt = 5 cm/s, r = 8 cm",
+      "dA/dt = 2πr · dr/dt",
+      "= 2π × 8 × 5 = 80π",
+      "Answer: 80π cm²/s"
+     ],
      "mistake": "Multiplies r by the rate without the factor 2π"
     },
     {
@@ -132,6 +150,11 @@
      ],
      "answer": 2,
      "explain": "V = (4/3)πr³ ⇒ dV/dr = 4πr² = 400π.",
+     "steps": [
+      "V = (4/3)πr³ ⇒ dV/dr = 4πr²",
+      "At r = 10: 4π × 100 = 400π",
+      "Answer: 400π cm³/cm"
+     ],
      "mistake": "Gives the volume instead of its rate"
     },
     {
@@ -146,7 +169,8 @@
      "explain": "dV/dt = 3x² dx/dt = 3(100)(3) = 900 cm³/s.",
      "steps": [
       "dV/dt = 3x² · dx/dt",
-      "3 × 100 × 3 = 900"
+      "3 × 100 × 3 = 900",
+      "Answer: 900"
      ],
      "mistake": "Forgets to multiply by dx/dt or by 3",
      "check": "3*100*3"
@@ -164,7 +188,8 @@
      "steps": [
       "dA/dt = 2s ds/dt",
       "8 = 2(4) ds/dt",
-      "ds/dt = 1"
+      "ds/dt = 1",
+      "Answer: 1"
      ],
      "mistake": "Divides by s instead of 2s",
      "check": "8/(2*4)"
@@ -181,7 +206,8 @@
      "explain": "dy/dt = (2x + 2) dx/dt = (6)(3) = 18 units/s.",
      "steps": [
       "dy/dx = 2x + 2 = 6",
-      "dy/dt = 6 × 3 = 18"
+      "dy/dt = 6 × 3 = 18",
+      "Answer: 18"
      ],
      "mistake": "Uses dy/dx = 6 and forgets to multiply by dx/dt",
      "check": "(2*2+2)*3"
@@ -196,6 +222,12 @@
      ],
      "answer": 3,
      "explain": "With dr/dt fixed, dV/dt is proportional to r², so it increases with r. R gives exactly that reason.",
+     "steps": [
+      "V = (4/3)πr³ ⇒ dV/dt = 4πr² · dr/dt (R, true)",
+      "dr/dt is constant, so dV/dt grows like r²",
+      "So the volume grows faster as the balloon gets bigger: A is true because of R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks a constant radius rate means a constant volume rate"
     }
    ],
@@ -226,7 +258,26 @@
     "c6.2.1",
     "c6.2.2",
     "c6.2.3"
-   ]
+   ],
+   "revise": {
+    "summary": "dy/dx measures how fast y changes with x, and when both depend on time, dy/dt = (dy/dx)(dx/dt). Use the standard area and volume formulas for circles, spheres and cubes.",
+    "focus": [
+     "Find the rate of change of area or volume at an instant",
+     "Use the chain rule with time rates like dr/dt",
+     "Work backwards from a given rate to find another"
+    ],
+    "remember": [
+     "dy/dt = (dy/dx)(dx/dt)",
+     "Circle: dA/dr = 2πr; sphere: dV/dr = 4πr², dS/dr = 8πr",
+     "Cube: dV/dt = 3x² dx/dt; dS/dt = 12x dx/dt"
+    ],
+    "traps": [
+     "Don't forget to multiply by dx/dt (or dr/dt)",
+     "Don't give the volume or area instead of its rate",
+     "Keep the factor 2 from d(r²)/dr = 2r"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-06-02",
@@ -310,7 +361,8 @@
      "steps": [
       "x² + y² = 25, y = 3",
       "4(2) + 3 dy/dt = 0",
-      "dy/dt = −8/3"
+      "dy/dt = −8/3",
+      "Answer: −8/3"
      ],
      "mistake": "Drops the negative sign or swaps x and y",
      "check": "Fraction(-8,3)"
@@ -327,7 +379,8 @@
      "explain": "MC = dC/dx = 4x + 5 = 45 at x = 10.",
      "steps": [
       "dC/dx = 4x + 5",
-      "4(10) + 5 = 45"
+      "4(10) + 5 = 45",
+      "Answer: ₹45"
      ],
      "mistake": "Computes total cost C(10) instead of its derivative",
      "check": "4*10+5"
@@ -344,7 +397,8 @@
      "explain": "MR = 6x + 36 = 66 at x = 5.",
      "steps": [
       "dR/dx = 6x + 36",
-      "30 + 36 = 66"
+      "30 + 36 = 66",
+      "Answer: ₹66"
      ],
      "mistake": "Evaluates R(5) instead of R′(5)",
      "check": "6*5+36"
@@ -359,6 +413,13 @@
      ],
      "answer": 3,
      "explain": "r = 6h, so V = (1/3)π(36h²)h = 12πh³. dV/dt = 36πh² dh/dt ⇒ 12 = 36π(16) dh/dt ⇒ dh/dt = 1/(48π).",
+     "steps": [
+      "Given: h = r/6, so r = 6h; dV/dt = 12 cm³/s, h = 4 cm",
+      "V = (1/3)πr²h = (1/3)π(36h²)h = 12πh³",
+      "dV/dt = 36πh² dh/dt ⇒ 12 = 36π × 16 × dh/dt",
+      "dh/dt = 12/(576π) = 1/(48π)",
+      "Answer: 1/(48π) cm/s"
+     ],
      "mistake": "Uses r = h/6 instead of r = 6h"
     },
     {
@@ -371,6 +432,12 @@
      ],
      "answer": 1,
      "explain": "dV/dt = 4πr² dr/dt = 4π(4)(0.5) = 8π cm³/s.",
+     "steps": [
+      "Given: dr/dt = 0.5 cm/s, r = 2 cm",
+      "dV/dt = 4πr² · dr/dt",
+      "= 4π × 4 × 0.5 = 8π",
+      "Answer: 8π"
+     ],
      "mistake": "Forgets to multiply by dr/dt"
     },
     {
@@ -383,6 +450,12 @@
      ],
      "answer": 3,
      "explain": "Lamp height 6 over (x + s) equals man's height 2 over s: 6s = 2x + 2s ⇒ s = x/2. Then ds/dt = (1/2)(5) = 2.5 km/h.",
+     "steps": [
+      "Big triangle: lamp 6 m, base x + s (post to shadow tip)",
+      "Small triangle: man 2 m, base s; similar triangles: 6/(x + s) = 2/s",
+      "6s = 2x + 2s ⇒ 4s = 2x ⇒ s = x/2",
+      "Answer: 6/(x + s) = 2/s, so s = x/2"
+     ],
      "mistake": "Uses x instead of x + s for the big triangle's base"
     },
     {
@@ -395,6 +468,11 @@
      ],
      "answer": 3,
      "explain": "Marginal cost is the instantaneous rate of change of total cost, approximately the extra cost of one more unit.",
+     "steps": [
+      "MC = dC/dx is the rate of change of total cost at x = 10",
+      "It approximates the extra cost of making one more unit",
+      "Answer: Producing the 11th unit costs about ₹45 more"
+     ],
      "mistake": "Confuses marginal cost with total or average cost"
     },
     {
@@ -407,6 +485,12 @@
      ],
      "answer": 2,
      "explain": "Since x dx/dt > 0 and y > 0, we need dy/dt < 0 to make the sum zero, which is why the top moves down.",
+     "steps": [
+      "Differentiate x² + y² = L²: x dx/dt + y dy/dt = 0",
+      "x > 0, y > 0, dx/dt > 0 ⇒ x dx/dt > 0, so y dy/dt must be negative",
+      "So dy/dt < 0: the top moves down; R explains A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks both ends of the ladder move in the same direction"
     }
    ],
@@ -441,7 +525,26 @@
    "covers": [
     "c6.2.4",
     "c6.2.5"
-   ]
+   ],
+   "revise": {
+    "summary": "For related rates, link the variables by one equation, differentiate with respect to time and substitute values. Marginal cost and marginal revenue are dC/dx and dR/dx.",
+    "focus": [
+     "Ladder, shadow, cone and balloon problems",
+     "Find marginal cost and marginal revenue at a given output",
+     "Interpret the sign of a rate"
+    ],
+    "remember": [
+     "Ladder: x dx/dt + y dy/dt = 0",
+     "MC = dC/dx; MR = dR/dx",
+     "A negative rate means the quantity is decreasing"
+    ],
+    "traps": [
+     "Don't compute C(x) or R(x) when the marginal value is asked",
+     "Use the correct ratio (r = 6h, not h = 6r) before differentiating",
+     "For shadows, the big triangle's base is x + s"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-06-03",
@@ -552,6 +655,12 @@
      ],
      "answer": 2,
      "explain": "f′(x) = −3 < 0 for all x.",
+     "steps": [
+      "Need f′(x) < 0 for every real x",
+      "x² (f′ = 2x) and x³ (f′ = 3x²) are not; eˣ has f′ = eˣ > 0",
+      "f(x) = −3x + 5: f′ = −3 < 0 everywhere",
+      "Answer: f(x) = −3x + 5"
+     ],
      "mistake": "Picks a function that decreases only on part of R"
     },
     {
@@ -564,6 +673,12 @@
      ],
      "answer": 3,
      "explain": "f′(x) = cos x < 0 on (π/2, π).",
+     "steps": [
+      "f′(x) = cos x; f is strictly decreasing where cos x < 0",
+      "cos x > 0 on (0, π/2) and (−π/2, π/2); on (0, π) it changes sign",
+      "cos x < 0 on (π/2, π)",
+      "Answer: (π/2, π)"
+     ],
      "mistake": "Picks an interval where cos x is positive"
     },
     {
@@ -576,6 +691,12 @@
      ],
      "answer": 2,
      "explain": "f′(x) = 3x² ≥ 0 and vanishes only at x = 0; the definition x1 < x2 ⇒ x1³ < x2³ holds everywhere.",
+     "steps": [
+      "f′(x) = 3x² ≥ 0, and it is 0 only at the single point x = 0",
+      "Directly: x1 < x2 ⇒ x1³ < x2³ for all real numbers",
+      "A single zero of f′ does not stop strict increase",
+      "Answer: Because f′(x) > 0 except at a single point, and x1 < x2 still gives x1³ < x2³"
+     ],
      "mistake": "Thinks one zero of f′ breaks strict increase"
     },
     {
@@ -588,6 +709,11 @@
      ],
      "answer": 3,
      "explain": "f′(x) = 1/x > 0 for x > 0.",
+     "steps": [
+      "log x is defined only for x > 0",
+      "f′(x) = 1/x > 0 for x > 0",
+      "Answer: It is strictly increasing on (0, ∞)"
+     ],
      "mistake": "Forgets that log x is defined only for x > 0"
     },
     {
@@ -600,6 +726,11 @@
      ],
      "answer": 0,
      "explain": "f′(x) = −sin x < 0 on (0, π).",
+     "steps": [
+      "f′(x) = −sin x",
+      "sin x > 0 on (0, π), so f′(x) < 0 there",
+      "Answer: strictly decreasing"
+     ],
      "mistake": "Forgets the minus sign in the derivative of cos x"
     },
     {
@@ -612,6 +743,11 @@
      ],
      "answer": 0,
      "explain": "In every interval around 0, f decreases on the left and increases on the right, so it is neither.",
+     "steps": [
+      "Increasing at 0 needs f increasing on some open interval around 0",
+      "x² decreases on (−h, 0) and increases on (0, h) for any h > 0",
+      "Answer: No; it is neither increasing nor decreasing at 0"
+     ],
      "mistake": "Uses f(x) ≥ 0 as a reason for increase"
     },
     {
@@ -624,6 +760,12 @@
      ],
      "answer": 0,
      "explain": "f′(x) = k must be positive, so k = 2 works and the others do not.",
+     "steps": [
+      "f′(x) = k",
+      "Strictly increasing on R needs k > 0",
+      "Of 2, 0, −1, −7 only k = 2 is positive",
+      "Answer: k = 2"
+     ],
      "mistake": "Thinks the constant term 7 decides the direction"
     },
     {
@@ -636,6 +778,11 @@
      ],
      "answer": 2,
      "explain": "Since eᵗ > 0 always, the derivative −e^(−x) is always negative, which is why f strictly decreases.",
+     "steps": [
+      "R: f′(x) = −e^(−x) (chain rule), and e^(−x) > 0, so f′ < 0 — true",
+      "f′ < 0 on R ⇒ f strictly decreasing: A is true because of R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Forgets the chain-rule minus sign"
     }
    ],
@@ -666,7 +813,26 @@
     "c6.3.1",
     "c6.3.2",
     "c6.3.3"
-   ]
+   ],
+   "revise": {
+    "summary": "If f′(x) > 0 on an interval, f is strictly increasing there; if f′(x) < 0, strictly decreasing; if f′ = 0 throughout, constant. A single zero of f′ (like x³ at 0) does not stop strict increase.",
+    "focus": [
+     "Decide if a function is increasing or decreasing on an interval",
+     "Use the sign of f′ for standard functions",
+     "Know what 'increasing at a point' means"
+    ],
+    "remember": [
+     "f′ > 0 on (a, b) ⇒ strictly increasing",
+     "f′ < 0 on (a, b) ⇒ strictly decreasing",
+     "Strictly increasing: x1 < x2 ⇒ f(x1) < f(x2)"
+    ],
+    "traps": [
+     "Don't forget the minus sign in the derivatives of cos x and e^(−x)",
+     "x² is neither increasing nor decreasing at 0",
+     "log x lives only on (0, ∞)"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-06-04",
@@ -738,6 +904,11 @@
      ],
      "answer": 1,
      "explain": "f′(x) = 2x − 4 > 0 when x > 2.",
+     "steps": [
+      "f′(x) = 2x − 4",
+      "f′ > 0 ⇔ x > 2",
+      "Answer: (2, ∞)"
+     ],
      "mistake": "Solves 2x − 4 < 0 by mistake"
     },
     {
@@ -750,6 +921,11 @@
      ],
      "answer": 0,
      "explain": "f′(x) = 3x² − 3 = 3(x − 1)(x + 1) < 0 for −1 < x < 1.",
+     "steps": [
+      "f′(x) = 3x² − 3 = 3(x − 1)(x + 1)",
+      "f′ < 0 between the roots −1 and 1",
+      "Answer: (−1, 1)"
+     ],
      "mistake": "Reads the sign chart the wrong way round"
     },
     {
@@ -762,6 +938,11 @@
      ],
      "answer": 0,
      "explain": "f′(x) = −6x² − 18x − 12 = −6(x + 1)(x + 2). This is positive between −2 and −1.",
+     "steps": [
+      "f′(x) = −6x² − 18x − 12 = −6(x + 1)(x + 2)",
+      "(x + 1)(x + 2) < 0 for −2 < x < −1; times −6 makes f′ > 0",
+      "Answer: (−2, −1)"
+     ],
      "mistake": "Forgets that the leading −6 flips the signs"
     },
     {
@@ -777,7 +958,8 @@
      "steps": [
       "f′(x) = 2x + a is smallest at x = 1",
       "2 + a ≥ 0",
-      "a ≥ −2"
+      "a ≥ −2",
+      "Answer: −2"
      ],
      "mistake": "Uses the right end x = 2 and gets −4",
      "check": "-2"
@@ -792,6 +974,12 @@
      ],
      "answer": 3,
      "explain": "f′(x) = cos x − sin x = 0 at π/4 and 5π/4. f′ > 0 on [0, π/4) and (5π/4, 2π].",
+     "steps": [
+      "f′(x) = cos x − sin x = 0 at x = π/4 and 5π/4 in [0, 2π]",
+      "x = 0: f′ = 1 > 0; x = π: f′ = −1 < 0; x = 3π/2: f′ = 1 > 0",
+      "So f′ > 0 on [0, π/4) and (5π/4, 2π]",
+      "Answer: [0, π/4) and (5π/4, 2π]"
+     ],
      "mistake": "Takes the interval where f′ < 0"
     },
     {
@@ -804,6 +992,12 @@
      ],
      "answer": 2,
      "explain": "f′(x) = 1/2 − 2/x² = (x² − 4)/(2x²) < 0 when 0 < |x| < 2.",
+     "steps": [
+      "f′(x) = 1/2 − 2/x² = (x² − 4)/(2x²)",
+      "f′ < 0 when x² < 4 with x ≠ 0, i.e. on (−2, 0) and (0, 2)",
+      "f′ > 0 for |x| > 2, so f increases on (2, ∞)",
+      "Answer: It is strictly decreasing on (−2, 0) and (0, 2)"
+     ],
      "mistake": "Treats x = 0 as part of an interval"
     },
     {
@@ -816,6 +1010,12 @@
      ],
      "answer": 3,
      "explain": "f′(x) = cos x/sin x = cot x, which is positive in the first quadrant.",
+     "steps": [
+      "f′(x) = (1/sin x) · cos x = cot x",
+      "On (0, π/2), cos x > 0 and sin x > 0, so cot x > 0",
+      "f′ > 0 ⇒ strictly increasing",
+      "Answer: f′(x) = cot x > 0 on (0, π/2)"
+     ],
      "mistake": "Uses a true fact that does not prove the derivative is positive"
     },
     {
@@ -828,6 +1028,12 @@
      ],
      "answer": 1,
      "explain": "f′(x) = 3x² − 12x + 12 = 3(x − 2)², which is never negative, so f is increasing on R (in fact strictly).",
+     "steps": [
+      "f′(x) = 3x² − 12x + 12 = 3(x² − 4x + 4) = 3(x − 2)²",
+      "3(x − 2)² ≥ 0 for all x (zero only at x = 2), so f is increasing on R",
+      "R gives exactly this, so R explains A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks f′ = 0 at x = 2 makes f decrease there"
     }
    ],
@@ -858,7 +1064,25 @@
     "c6.3.4",
     "c6.3.5",
     "c6.3.6"
-   ]
+   ],
+   "revise": {
+    "summary": "To find intervals of increase or decrease, solve f′(x) = 0, split the line at those points, and test the sign of f′ in each interval.",
+    "focus": [
+     "Factorise f′ and draw a sign chart",
+     "Write answers as intervals",
+     "Find a constant that makes f increasing on an interval"
+    ],
+    "remember": [
+     "f′ > 0 ⇒ increasing; f′ < 0 ⇒ decreasing",
+     "Points where f′ = 0 or f′ is undefined split the intervals"
+    ],
+    "traps": [
+     "Don't ignore a negative leading coefficient when reading signs",
+     "Don't include points outside the domain, like x = 0 for 2/x",
+     "For trig functions, stay inside the given interval"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-06-05",
@@ -967,6 +1191,12 @@
      ],
      "answer": 1,
      "explain": "Critical points include points where f′ does not exist. |x| has a corner at 0, and that is its minimum.",
+     "steps": [
+      "Critical point: f′(c) = 0 or f′(c) does not exist",
+      "|x| has f′ = −1 for x < 0 and 1 for x > 0; never 0",
+      "At x = 0 the left and right derivatives differ, so f′(0) does not exist",
+      "Answer: x = 0, where f′ does not exist"
+     ],
      "mistake": "Looks only for f′ = 0"
     },
     {
@@ -982,7 +1212,8 @@
      "steps": [
       "f′ = 3(x − 1)(x − 3)",
       "Max at x = 1",
-      "f(1) = 19"
+      "f(1) = 19",
+      "Answer: 19"
      ],
      "mistake": "Gives the x-coordinate instead of the value",
      "check": "1-6+9+15"
@@ -999,7 +1230,8 @@
      "explain": "At x = 3, f′ changes − to +, so f(3) = 27 − 54 + 27 + 15 = 15 is a local minimum.",
      "steps": [
       "Min at x = 3",
-      "f(3) = 27 − 54 + 27 + 15 = 15"
+      "f(3) = 27 − 54 + 27 + 15 = 15",
+      "Answer: 15"
      ],
      "mistake": "Confuses the local maximum with the local minimum",
      "check": "27-54+27+15"
@@ -1014,6 +1246,12 @@
      ],
      "answer": 1,
      "explain": "f′(0) = 0 but f′ = 3x² ≥ 0 on both sides, so no sign change: neither maximum nor minimum.",
+     "steps": [
+      "f′(x) = 3x², so f′(0) = 0: x = 0 is critical",
+      "f′ > 0 on both sides of 0: no sign change",
+      "So 0 is neither a max nor a min",
+      "Answer: A point of inflection, neither max nor min"
+     ],
      "mistake": "Assumes f′(c) = 0 always gives an extremum"
     },
     {
@@ -1029,7 +1267,8 @@
      "steps": [
       "f = (3x + 2)² − 2",
       "Minimum when 3x + 2 = 0",
-      "Value −2"
+      "Value −2",
+      "Answer: −2"
      ],
      "mistake": "Reports x = −2/3 instead of the minimum value",
      "check": "4-8+2"
@@ -1044,6 +1283,12 @@
      ],
      "answer": 2,
      "explain": "f′(x) = eˣ is never zero and always exists, so there are no critical points and no local extrema.",
+     "steps": [
+      "f′(x) = eˣ > 0 for all x, never zero, and it always exists",
+      "So f has no critical points",
+      "No critical points ⇒ no local extrema",
+      "Answer: Neither"
+     ],
      "mistake": "Thinks f(0) = 1 is a minimum"
     },
     {
@@ -1059,7 +1304,8 @@
      "steps": [
       "f′(x) = 4x³ − 124x + a",
       "f′(1) = 4 − 124 + a = 0",
-      "a = 120"
+      "a = 120",
+      "Answer: 120"
      ],
      "mistake": "Makes a sign slip with 124",
      "check": "124-4"
@@ -1074,6 +1320,12 @@
      ],
      "answer": 3,
      "explain": "'Local' means only nearby comparison. A wavy function can have a local max lower than a local min elsewhere, so A is false. R is the correct sign-change rule.",
+     "steps": [
+      "R: at a local max f′ changes + to − — true (first derivative test)",
+      "'Local' compares only with nearby points",
+      "A wavy curve can have a low local max and a higher local min elsewhere, so A is false",
+      "Answer: A is false but R is true"
+     ],
      "mistake": "Treats local extrema as absolute extrema"
     }
    ],
@@ -1109,7 +1361,26 @@
     "c6.4.3",
     "c6.4.4",
     "c6.4.6"
-   ]
+   ],
+   "revise": {
+    "summary": "Local extrema occur only at critical points, where f′ = 0 or f′ does not exist. By the first derivative test, f′ changing + to − gives a local maximum and − to + a local minimum.",
+    "focus": [
+     "Find critical points, including corners",
+     "Apply the first derivative test",
+     "Find local maximum and minimum values"
+    ],
+    "remember": [
+     "Critical point: f′(c) = 0 or f′(c) undefined",
+     "+ to − ⇒ local max; − to + ⇒ local min",
+     "No sign change ⇒ point of inflection"
+    ],
+    "traps": [
+     "Don't give the x-value when the maximum value is asked",
+     "f′(c) = 0 does not always mean an extremum (x³ at 0)",
+     "A local max need not be larger than every local min"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-06-06",
@@ -1192,7 +1463,8 @@
      "explain": "Values: f(1) = 24, f(2) = 29, f(3) = 28, f(5) = 56. The largest is at the end point 5.",
      "steps": [
       "f(5) = 250 − 375 + 180 + 1",
-      "= 56"
+      "= 56",
+      "Answer: 56"
      ],
      "mistake": "Ignores the end points and reports the local maximum 29",
      "check": "250-375+180+1"
@@ -1209,7 +1481,8 @@
      "explain": "Critical point x = 0 gives 0; end points give 4 and 1. The smallest is 0.",
      "steps": [
       "f(−2) = 4, f(0) = 0, f(1) = 1",
-      "Min = 0"
+      "Min = 0",
+      "Answer: 0"
      ],
      "mistake": "Checks only the end points",
      "check": "0"
@@ -1226,7 +1499,8 @@
      "explain": "f′(x) = 4 − x = 0 at x = 4. f(4) = 8, f(−2) = −10, f(9/2) = 18 − 81/8 = 63/8. Max is 8.",
      "steps": [
       "f(4) = 16 − 8 = 8",
-      "f(9/2) = 63/8 < 8"
+      "f(9/2) = 63/8 < 8",
+      "Answer: 8"
      ],
      "mistake": "Picks the end-point value 63/8",
      "check": "16-8"
@@ -1243,7 +1517,8 @@
      "explain": "f(−2) = −8 − 2 = −10 is the smallest of −10, 8 and 63/8.",
      "steps": [
       "f(−2) = −8 − 4/2",
-      "= −10"
+      "= −10",
+      "Answer: −10"
      ],
      "mistake": "Drops the −x²/2 term at x = −2",
      "check": "-8-2"
@@ -1258,6 +1533,11 @@
      ],
      "answer": 3,
      "explain": "f″(x) = 6x − 12, so f″(1) = −6 < 0: local maximum.",
+     "steps": [
+      "f′(x) = 3x² − 12x + 9, f′(1) = 0",
+      "f″(x) = 6x − 12, f″(1) = −6 < 0",
+      "Answer: a local maximum since f″(1) = −6 < 0"
+     ],
      "mistake": "Mixes up which sign means maximum"
     },
     {
@@ -1270,6 +1550,12 @@
      ],
      "answer": 2,
      "explain": "f′(0) = 0 and f″(0) = 0, so the test is inconclusive. f′ = 4x³ changes − to +, giving a minimum.",
+     "steps": [
+      "f′ = 4x³, f′(0) = 0; f″ = 12x², f″(0) = 0: the test fails",
+      "First derivative test: f′ < 0 for x < 0 and f′ > 0 for x > 0",
+      "− to + ⇒ local minimum at 0",
+      "Answer: It fails because f″(0) = 0; the first derivative test shows a minimum"
+     ],
      "mistake": "Assumes f″ = 0 always means inflection"
     },
     {
@@ -1282,6 +1568,12 @@
      ],
      "answer": 2,
      "explain": "f′ = cos x − sin x = 0 at π/4, where f = √2. f(0) = 1, f(π) = −1. Max is √2.",
+     "steps": [
+      "f′ = cos x − sin x = 0 at x = π/4 in [0, π]",
+      "f(π/4) = 1/√2 + 1/√2 = √2; f(0) = 1; f(π) = −1",
+      "Largest value is √2",
+      "Answer: √2"
+     ],
      "mistake": "Adds the maximum of sin and cos separately to get 2"
     },
     {
@@ -1294,6 +1586,12 @@
      ],
      "answer": 0,
      "explain": "f′ = 1 ≠ 0, so only end points matter: f(0) = 0, f(3) = 3. R explains A.",
+     "steps": [
+      "f′(x) = 1 ≠ 0, so no critical points in (0, 3) — R true",
+      "So extremes are at the end points: f(0) = 0, f(3) = 3",
+      "Absolute max at x = 3, so A is true and R explains it",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks a function must have a critical point to have a maximum"
     }
    ],
@@ -1323,7 +1621,26 @@
     "c6.4.5",
     "c6.4.7",
     "c6.4.13"
-   ]
+   ],
+   "revise": {
+    "summary": "If f′(c) = 0, then f″(c) < 0 means local maximum and f″(c) > 0 means local minimum; f″(c) = 0 means the test fails. On [a, b], compare f at critical points and end points for absolute extrema.",
+    "focus": [
+     "Use the second derivative test",
+     "Find absolute max and min on a closed interval",
+     "Handle cases where the test fails"
+    ],
+    "remember": [
+     "f″(c) < 0 ⇒ local max; f″(c) > 0 ⇒ local min",
+     "Absolute extrema: check critical points and both end points",
+     "A continuous function on [a, b] has an absolute max and min"
+    ],
+    "traps": [
+     "Don't forget the end points",
+     "f″(c) = 0 does not prove an inflection; use the first derivative test",
+     "Don't add max of sin and max of cos to get the max of sin x + cos x"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-06-07",
@@ -1403,7 +1720,8 @@
      "steps": [
       "P′ = 24 − 2x = 0",
       "x = 12",
-      "P = 144"
+      "P = 144",
+      "Answer: 144"
      ],
      "mistake": "Squares the sum instead",
      "check": "12*12"
@@ -1420,7 +1738,8 @@
      "explain": "S = x³ + (16 − x)³, S′ = 3x² − 3(16 − x)² = 0 ⇒ x = 8. S = 512 + 512 = 1024 (S″ > 0).",
      "steps": [
       "x = 8",
-      "8³ + 8³ = 1024"
+      "8³ + 8³ = 1024",
+      "Answer: 1024"
      ],
      "mistake": "Gives just one cube, 8³",
      "check": "8**3+8**3"
@@ -1438,7 +1757,8 @@
      "steps": [
       "x = 18/6 = 3",
       "V = 3 × (18 − 6)²",
-      "= 432"
+      "= 432",
+      "Answer: 432"
      ],
      "mistake": "Uses the wrong cut size",
      "check": "3*12**2"
@@ -1453,6 +1773,12 @@
      ],
      "answer": 1,
      "explain": "D² = x² + (y − 5)² = 2y + (y − 5)². d/dy = 2 + 2(y − 5) = 0 ⇒ y = 4, x² = 8.",
+     "steps": [
+      "Let P(x, y) be on x² = 2y; D² = x² + (y − 5)² = 2y + (y − 5)²",
+      "d(D²)/dy = 2 + 2(y − 5) = 0 ⇒ y = 4 (second derivative 2 > 0: minimum)",
+      "x² = 2 × 4 = 8 ⇒ x = ±2√2",
+      "Answer: (±2√2, 4)"
+     ],
      "mistake": "Minimises distance only along the y-axis and picks the vertex"
     },
     {
@@ -1467,7 +1793,8 @@
      "explain": "The maximum rectangle is a square with diagonal 10, so side 5√2 and area 50 = 2r².",
      "steps": [
       "Square with diagonal 2r = 10",
-      "Area = d²/2 = 50"
+      "Area = d²/2 = 50",
+      "Answer: 50"
      ],
      "mistake": "Takes the side as the radius",
      "check": "10**2/2"
@@ -1484,7 +1811,8 @@
      "explain": "P′ = −2x + 40 = 0 ⇒ x = 20, and P″ = −2 < 0. (Maximum profit is 300 thousand.)",
      "steps": [
       "P′ = −2x + 40 = 0",
-      "x = 20"
+      "x = 20",
+      "Answer: 20"
      ],
      "mistake": "Reports the maximum profit instead of the output",
      "check": "20"
@@ -1501,7 +1829,8 @@
      "explain": "P(20) = −400 + 800 − 100 = 300.",
      "steps": [
       "P(20) = −400 + 800 − 100",
-      "= 300"
+      "= 300",
+      "Answer: 300"
      ],
      "mistake": "Forgets the −100 fixed cost",
      "check": "-400+800-100"
@@ -1516,6 +1845,12 @@
      ],
      "answer": 1,
      "explain": "S = 2πr² + 2V/r. S′ = 4πr − 2V/r² = 0 ⇒ V = 2πr³, and V = πr²h gives h = 2r.",
+     "steps": [
+      "V = πr²h fixed ⇒ h = V/(πr²); S = 2πr² + 2πrh = 2πr² + 2V/r",
+      "S′ = 4πr − 2V/r² = 0 ⇒ V = 2πr³",
+      "πr²h = 2πr³ ⇒ h = 2r (S″ > 0, so least)",
+      "Answer: h = 2r"
+     ],
      "mistake": "Assumes the height should equal the radius"
     }
    ],
@@ -1552,7 +1887,27 @@
     "c6.4.10",
     "c6.4.11",
     "c6.4.12"
-   ]
+   ],
+   "revise": {
+    "summary": "Write the quantity to optimise as a function of one variable, set its derivative to zero, and confirm with f″ or a sign check. Know the classic results for boxes, rectangles, cylinders and profit.",
+    "focus": [
+     "Set up the function from the given condition",
+     "Find the optimum and confirm max or min",
+     "Answer the exact question: the value or the input"
+    ],
+    "remember": [
+     "Fixed sum S: product largest at S/2 each",
+     "Open box from square of side a: cut x = a/6",
+     "Rectangle in circle: square, area 2r²; closed can of fixed volume: h = 2r",
+     "Profit max where P′ = 0 and P″ < 0"
+    ],
+    "traps": [
+     "Don't report the output when the maximum profit is asked (or vice versa)",
+     "Reduce to ONE variable before differentiating",
+     "Check the domain, e.g. 0 < x < 9 for the box"
+    ],
+    "level": "advanced"
+   }
   }
  ]
 }

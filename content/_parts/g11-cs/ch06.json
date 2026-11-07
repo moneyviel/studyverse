@@ -102,6 +102,11 @@
      ],
      "answer": 1,
      "explain": "s[−1] is the last character 'e'; s[5] counts N0 a1 m2 a3 s4 t5, so 't'.",
+     "steps": [
+      "s[−1] is the last character: 'e'",
+      "Count N0 a1 m2 a3 s4 t5, so s[5] = 't'",
+      "Answer: e t"
+     ],
      "mistake": "Starts counting from 1"
     },
     {
@@ -114,6 +119,11 @@
      ],
      "answer": 2,
      "explain": "'Delhi' has indices 0 to 4, so s[5] is out of range.",
+     "steps": [
+      "'Delhi' has 5 characters, so indices 0 to 4",
+      "s[5] is outside this range",
+      "Answer: IndexError"
+     ],
      "mistake": "Thinks index 5 is the last character of a 5-letter word"
     },
     {
@@ -126,6 +136,11 @@
      ],
      "answer": 0,
      "explain": "Strings are immutable, so item assignment is not allowed.",
+     "steps": [
+      "Strings are immutable",
+      "Assigning to s[0] is not allowed",
+      "Answer: TypeError"
+     ],
      "mistake": "Thinks strings can be edited like lists"
     },
     {
@@ -138,6 +153,11 @@
      ],
      "answer": 2,
      "explain": "'R' + s[1:] builds a new string 'Rune', and s now refers to it.",
+     "steps": [
+      "s[1:] = 'une'",
+      "'R' + 'une' builds a new string",
+      "Answer: Rune"
+     ],
      "mistake": "Thinks this also changes the string in place illegally"
     },
     {
@@ -150,6 +170,11 @@
      ],
      "answer": 2,
      "explain": "Negative index −k equals positive index n − k: 8 − 3 = 5.",
+     "steps": [
+      "For length n, s[−k] is s[n − k]",
+      "8 − 3 = 5",
+      "Answer: s[5]"
+     ],
      "mistake": "Uses 3 directly or computes n − k − 1"
     },
     {
@@ -162,6 +187,11 @@
      ],
      "answer": 1,
      "explain": "A string index must be an integer; 1.0 is a float.",
+     "steps": [
+      "A string index must be an integer",
+      "1.0 is a float",
+      "Answer: TypeError"
+     ],
      "mistake": "Thinks Python converts 1.0 to 1"
     },
     {
@@ -174,6 +204,12 @@
      ],
      "answer": 2,
      "explain": "Strings use single, double or triple quotes; backticks are not string delimiters in Python 3.",
+     "steps": [
+      "Python strings use single, double or triple quotes",
+      "Backticks are not string delimiters in Python 3",
+      "So `Hello` is NOT valid",
+      "Answer: `Hello`"
+     ],
      "mistake": "Thinks any quote-like symbol works"
     },
     {
@@ -186,6 +222,11 @@
      ],
      "answer": 1,
      "explain": "Because strings cannot be changed in place, assigning to an index raises TypeError.",
+     "steps": [
+      "A: s[2] = 'x' raises an error for a string — true",
+      "R: strings are immutable — true, and that is why item assignment raises TypeError",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Thinks the error is an IndexError"
     }
    ],
@@ -211,6 +252,25 @@
     ],
     "praise": "Indices start at 0 (or −1 from the end), and strings are immutable, so I must build a new string. Got it!",
     "nudge": "Good. Where does indexing start, and why can't we assign a new character to s[0]?"
+   },
+   "revise": {
+    "summary": "A string is a sequence of characters in single, double or triple quotes. Positive indices run 0 to n − 1 from the left and negative indices −1 to −n from the right; other indices give IndexError and non-integer indices give TypeError. Strings are immutable.",
+    "focus": [
+     "Find characters using positive and negative indices",
+     "Recognise IndexError and TypeError with indices",
+     "Explain immutability and build a changed string instead"
+    ],
+    "remember": [
+     "Index 0 is the first character; −1 is the last",
+     "Valid indices: 0 to n − 1 and −1 to −n",
+     "s[−k] is the same as s[n − k]",
+     "Strings are immutable: s[0] = 'J' gives TypeError; use s = 'J' + s[1:]"
+    ],
+    "traps": [
+     "s[5] on a 5-letter string is out of range: the last index is 4",
+     "An index must be an integer: s[1.0] gives TypeError"
+    ],
+    "level": "core"
    }
   },
   {
@@ -317,6 +377,11 @@
      ],
      "answer": 2,
      "explain": "* repeats the string twice with nothing in between.",
+     "steps": [
+      "* repeats the string",
+      "'Man' twice with nothing in between",
+      "Answer: ManMan"
+     ],
      "mistake": "Expects a space or a number"
     },
     {
@@ -329,6 +394,11 @@
      ],
      "answer": 2,
      "explain": "+ cannot join a str and an int.",
+     "steps": [
+      "'Score: ' is a str and 50 is an int",
+      "+ cannot join them",
+      "Answer: TypeError"
+     ],
      "mistake": "Expects automatic conversion"
     },
     {
@@ -341,6 +411,11 @@
      ],
      "answer": 1,
      "explain": "Membership is case-sensitive: 'india' (lowercase) is not in 'INDIA'; 'DI' is.",
+     "steps": [
+      "'india' (lowercase) is not in 'INDIA' → False",
+      "'DI' appears in 'INDIA' → True",
+      "Answer: False True"
+     ],
      "mistake": "Ignores case"
     },
     {
@@ -353,6 +428,11 @@
      ],
      "answer": 0,
      "explain": "'10*' repeated 3 times is '10*10*10*'.",
+     "steps": [
+      "'10*' repeated 3 times",
+      "'10*' + '10*' + '10*'",
+      "Answer: 10*10*10*"
+     ],
      "mistake": "Thinks the * inside the string multiplies"
     },
     {
@@ -365,6 +445,11 @@
      ],
      "answer": 0,
      "explain": "Each print shows its own line: 5 dashes, the word, 5 dashes.",
+     "steps": [
+      "Each print() shows its own line",
+      "5 dashes, then the word, then 5 dashes",
+      "Answer: three lines — -----, India, -----"
+     ],
      "mistake": "Thinks all three print on one line"
     },
     {
@@ -377,6 +462,12 @@
      ],
      "answer": 0,
      "explain": "The empty string is a substring of every string, so '' in s is True.",
+     "steps": [
+      "The empty string is a substring of every string",
+      "So '' in 'Goa'",
+      "is True",
+      "Answer: True"
+     ],
      "mistake": "Thinks an empty string can't be 'in' anything"
     },
     {
@@ -389,6 +480,11 @@
      ],
      "answer": 3,
      "explain": "a and b are strings, so + concatenates '1' and '2' into '12'.",
+     "steps": [
+      "a and b are strings",
+      "+ joins '1' and '2'",
+      "Answer: 12"
+     ],
      "mistake": "Adds them as numbers",
      "check": "12"
     },
@@ -402,6 +498,11 @@
      ],
      "answer": 1,
      "explain": "Immutability means the original can't be changed, so a new string is made, which explains A.",
+     "steps": [
+      "A: 'Hello' * 3 creates a new string — true",
+      "R: strings are immutable, so * and + return new strings — true, and it explains A",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Doesn't link immutability to new strings"
     }
    ],
@@ -426,6 +527,24 @@
     ],
     "praise": "+ joins strings (only strings!), * repeats them and in checks if a substring is there. Now I'll write 'Marks: ' + str(90).",
     "nudge": "Nice. What do + and * do with strings, and what does 'in' check?"
+   },
+   "revise": {
+    "summary": "+ joins two strings and * repeats a string a whole number of times; both create new strings. Mixing a string with a number in + gives TypeError. in and not in test for a substring and are case-sensitive; the empty string is in every string.",
+    "focus": [
+     "Evaluate concatenation and repetition",
+     "Use in and not in with case-sensitivity",
+     "Spot TypeError when mixing str and int"
+    ],
+    "remember": [
+     "'Good' + 'Day' → 'GoodDay'; 'ab' * 3 → 'ababab'; 'ab' * 0 → ''",
+     "'Age' + 15 and 'ab' * 2.5 raise TypeError",
+     "in / not in are case-sensitive; '' in s is always True"
+    ],
+    "traps": [
+     "'1' + '2' is '12', not 3",
+     "'india' is not in 'INDIA' because case matters"
+    ],
+    "level": "core"
    }
   },
   {
@@ -525,6 +644,11 @@
      ],
      "answer": 3,
      "explain": "Index 1 to 3 (4 is excluded): O, M, P.",
+     "steps": [
+      "Indices 1, 2, 3 (4 is excluded)",
+      "'COMPUTER': C0 O1 M2 P3",
+      "Answer: OMP"
+     ],
      "mistake": "Includes the character at the stop index"
     },
     {
@@ -537,6 +661,11 @@
      ],
      "answer": 0,
      "explain": "A step of −1 walks the string backwards.",
+     "steps": [
+      "A step of −1 walks from the end to the start",
+      "'PYTHON' backwards",
+      "Answer: NOHTYP"
+     ],
      "mistake": "Thinks [::−1] gives only the last character"
     },
     {
@@ -549,6 +678,11 @@
      ],
      "answer": 3,
      "explain": "From index 0 to 5 (6 excluded) in steps of 2: A, C, E.",
+     "steps": [
+      "From index 0 to 5 (6 excluded), step 2: indices 0, 2, 4",
+      "'ABCDEFGH' → A, C, E",
+      "Answer: ACE"
+     ],
      "mistake": "Includes index 6 (G)"
     },
     {
@@ -561,6 +695,11 @@
      ],
      "answer": 1,
      "explain": "For 'Kolkata', s[−3] is 'a' (index 4) and s[−1] (index 6) is excluded, so we get indices 4 and 5: 'at'.",
+     "steps": [
+      "'Kolkata': K0 o1 l2 k3 a4 t5 a6, so s[−3] = s[4] and s[−1] = s[6]",
+      "s[4:6] takes indices 4 and 5",
+      "Answer: at"
+     ],
      "mistake": "Includes the stop index −1"
     },
     {
@@ -573,6 +712,11 @@
      ],
      "answer": 2,
      "explain": "Slicing clips out-of-range limits instead of raising an error.",
+     "steps": [
+      "The stop 100 is beyond the end",
+      "Slicing clips it to the end of the string",
+      "Answer: Mumbai"
+     ],
      "mistake": "Expects an IndexError"
     },
     {
@@ -585,6 +729,11 @@
      ],
      "answer": 2,
      "explain": "Start at index 4 ('O') and move left, stopping before index 1: O, H, T.",
+     "steps": [
+      "Start at index 4 ('O') and move left",
+      "stop before index 1: indices 4, 3, 2 → O, H, T",
+      "Answer: OHT"
+     ],
      "mistake": "Reads left to right or includes the stop"
     },
     {
@@ -597,6 +746,12 @@
      ],
      "answer": 0,
      "explain": "With the default step +1, a start greater than the stop gives an empty string, whose length is 0.",
+     "steps": [
+      "'HELLO'[3:1] with step +1 has start > stop",
+      "so the slice is the empty string ''",
+      "len('') = 0",
+      "Answer: 0"
+     ],
      "mistake": "Expects a backwards slice or an error",
      "check": "0"
     },
@@ -610,6 +765,11 @@
      ],
      "answer": 2,
      "explain": "Start at index 4 ('E') and take every 4th: indices 4 and 8 ('I'); 12 is beyond the end.",
+     "steps": [
+      "Start at index 4 ('E') and step 4: indices 4, 8",
+      "index 12 is beyond the end",
+      "Answer: EI"
+     ],
      "mistake": "Starts counting from 1"
     }
    ],
@@ -640,6 +800,25 @@
     ],
     "praise": "Start is included, stop is excluded, step jumps, and [::−1] reverses. No more extra characters!",
     "nudge": "Close! Is the character at the stop index included? And what does a negative step do?"
+   },
+   "revise": {
+    "summary": "s[m:n] gives characters from index m up to, but not including, n; missing limits mean the start or end, and out-of-range limits are clipped. s[m:n:k] takes every k-th character; a negative step goes right to left, so s[::−1] reverses the string. A wrong direction gives ''.",
+    "focus": [
+     "Evaluate slices with start, stop and step",
+     "Use negative indices and negative steps",
+     "Know that slicing never raises IndexError"
+    ],
+    "remember": [
+     "s[m:n]: m included, n excluded",
+     "s[:3] first three, s[−3:] last three, s[:] whole string",
+     "s[::2] every second character; s[::−1] reverses",
+     "With a negative step, start must be to the right of stop; else ''"
+    ],
+    "traps": [
+     "The stop index is not included",
+     "Slicing clips out-of-range limits instead of giving IndexError"
+    ],
+    "level": "important"
    }
   },
   {
@@ -731,6 +910,11 @@
      ],
      "answer": 1,
      "explain": "Each character is printed followed by '-'.",
+     "steps": [
+      "Each character is printed in turn",
+      "followed by '-'",
+      "Answer: G-o-a-"
+     ],
      "mistake": "Forgets that end is added after every character"
     },
     {
@@ -743,6 +927,12 @@
      ],
      "answer": 3,
      "explain": "len counts the space as well: 'New' (3) + ' ' (1) + 'Delhi' (5) = 9.",
+     "steps": [
+      "len counts the space too",
+      "'New' (3) + ' ' (1) + 'Delhi' (5)",
+      "= 9",
+      "Answer: 9"
+     ],
      "mistake": "Doesn't count the space",
      "check": "3+1+5"
     },
@@ -756,6 +946,12 @@
      ],
      "answer": 3,
      "explain": "'kerala' has the vowels e, a, a.",
+     "steps": [
+      "Check each letter of 'kerala' against 'aeiou'",
+      "Vowels: e, a, a",
+      "c = 3",
+      "Answer: 3"
+     ],
      "mistake": "Counts only distinct vowels (2)",
      "check": "3"
     },
@@ -769,6 +965,11 @@
      ],
      "answer": 3,
      "explain": "The loop prints the index and character joined: 0D, 1e, 2l.",
+     "steps": [
+      "i = 0, 1, 2 with s[i] = D, e, l",
+      "Each pair is printed as str(i) + s[i] with a space",
+      "Answer: 0D 1e 2l"
+     ],
      "mistake": "Expects a space between index and character"
     },
     {
@@ -781,6 +982,11 @@
      ],
      "answer": 3,
      "explain": "Without i += 1, the condition stays True and the loop never ends.",
+     "steps": [
+      "i starts at 0 and is never increased",
+      "so i < len(s) stays True and s[0] is printed for ever",
+      "Answer: i is never increased, so it prints 'A' forever"
+     ],
      "mistake": "Thinks i <= len(s) is the fix (that would cause IndexError)"
     },
     {
@@ -793,6 +999,11 @@
      ],
      "answer": 2,
      "explain": "The loop builds the string backwards: each character is put in front.",
+     "steps": [
+      "Each character is put in front of r",
+      "r: 'P', 'UP', 'NUP', 'ENUP'",
+      "Answer: ENUP"
+     ],
      "mistake": "Thinks the order is preserved"
     },
     {
@@ -805,6 +1016,11 @@
      ],
      "answer": 3,
      "explain": "On the last pass i = 4, but valid indices are 0 to 3.",
+     "steps": [
+      "'Agra' has indices 0 to 3",
+      "With i <= len(s), the last pass uses i = 4",
+      "Answer: IndexError"
+     ],
      "mistake": "Thinks <= is the correct condition"
     },
     {
@@ -817,6 +1033,11 @@
      ],
      "answer": 3,
      "explain": "Valid indices run from 0 to len(s) − 1, which is exactly what range(len(s)) generates.",
+     "steps": [
+      "A: range(len(s)) visits every valid index — true",
+      "R: range(len(s)) gives 0 to len(s) − 1 — true, and those are exactly the valid indices",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Thinks range(len(s)) goes up to len(s)"
     }
    ],
@@ -840,6 +1061,25 @@
     ],
     "praise": "for ch in name visits each character, and a while loop needs an index, len() and i += 1. Both work!",
     "nudge": "Good. How do we traverse using an index, and what stops a while loop from running forever?"
+   },
+   "revise": {
+    "summary": "len(s) counts all characters, including spaces. A string can be traversed with for ch in s, with for i in range(len(s)) when indices are needed, or with a while loop that must increase i and use i < len(s).",
+    "focus": [
+     "Use len() correctly",
+     "Traverse strings with for, range(len(s)) and while",
+     "Spot infinite loops and IndexError in while traversal"
+    ],
+    "remember": [
+     "len() counts spaces and punctuation; len('') = 0",
+     "for ch in s: each character in order",
+     "for i in range(len(s)): indices 0 to len(s) − 1",
+     "while i < len(s): … i += 1"
+    ],
+    "traps": [
+     "i <= len(s) goes one index too far and gives IndexError",
+     "Forgetting i += 1 makes the while loop infinite"
+    ],
+    "level": "core"
    }
   },
   {
@@ -940,6 +1180,12 @@
      ],
      "answer": 3,
      "explain": "title() capitalises the first letter of every word.",
+     "steps": [
+      "Every word must start with a capital letter",
+      "That is what title() does",
+      "capitalize() would only change the first character",
+      "Answer: title()"
+     ],
      "mistake": "Confuses title() with capitalize()"
     },
     {
@@ -952,6 +1198,12 @@
      ],
      "answer": 1,
      "explain": "capitalize() makes only the first character uppercase and the rest lowercase.",
+     "steps": [
+      "Only the first character is made capital and the rest lowercase",
+      "That is capitalize()",
+      "'iNDIA gATE' → 'India gate'",
+      "Answer: capitalize()"
+     ],
      "mistake": "Confuses capitalize() with title()"
     },
     {
@@ -964,6 +1216,11 @@
      ],
      "answer": 1,
      "explain": "find() returns −1 if the substring is not present.",
+     "steps": [
+      "'z' is not in 'Mumbai'",
+      "find() returns −1 when the substring is missing",
+      "Answer: -1"
+     ],
      "mistake": "Confuses find() with index()",
      "check": "-1"
     },
@@ -977,6 +1234,11 @@
      ],
      "answer": 3,
      "explain": "index() raises ValueError when the substring is missing.",
+     "steps": [
+      "'z' is not in 'Mumbai'",
+      "index() raises an error when the substring is missing",
+      "Answer: ValueError"
+     ],
      "mistake": "Thinks index() behaves like find()"
     },
     {
@@ -989,6 +1251,11 @@
      ],
      "answer": 2,
      "explain": "'a' occurs 3 times; the first 'a' is at index 1.",
+     "steps": [
+      "'banana' has 'a' at indices 1, 3, 5, so count = 3",
+      "find('a') gives the first index, 1",
+      "Answer: 3 1"
+     ],
      "mistake": "Counts from index 1 or miscounts"
     },
     {
@@ -1001,6 +1268,11 @@
      ],
      "answer": 1,
      "explain": "swapcase() turns each uppercase letter into lowercase and vice versa.",
+     "steps": [
+      "Each uppercase letter becomes lowercase and each lowercase becomes uppercase",
+      "'PyThOn' → 'pYtHoN'",
+      "Answer: swapcase()"
+     ],
      "mistake": "Thinks lower() or title() can flip each letter's case"
     },
     {
@@ -1013,6 +1285,11 @@
      ],
      "answer": 1,
      "explain": "The email ends with '.in' but does not start with 'Raj' (it starts with lowercase 'raj').",
+     "steps": [
+      "'raj@school.in' ends with '.in' → True",
+      "It starts with lowercase 'raj', not 'Raj' → False",
+      "Answer: True False"
+     ],
      "mistake": "Ignores case"
     },
     {
@@ -1025,6 +1302,12 @@
      ],
      "answer": 3,
      "explain": "Searching starts at index 3; the next 'n' after that is at index 4.",
+     "steps": [
+      "Search for 'n' starting at index 3",
+      "'banana': b0 a1 n2 a3 n4 a5",
+      "The next 'n' is at index 4",
+      "Answer: 4"
+     ],
      "mistake": "Returns the first 'n' (index 2), ignoring the start position",
      "check": "4"
     }
@@ -1055,6 +1338,25 @@
     ],
     "praise": "title() and friends fix case, count() counts, find() gives −1 if missing and index() raises an error. Super useful!",
     "nudge": "Good. What's the difference between find() and index() when the text isn't found?"
+   },
+   "revise": {
+    "summary": "String methods return new strings or values: upper(), lower(), title(), capitalize(), swapcase() change case; count() counts occurrences; find() gives the first index or −1; index() is similar but raises ValueError; startswith() and endswith() return True or False.",
+    "focus": [
+     "Choose the right case method",
+     "Use count(), find() and index(), and know their differences",
+     "Use startswith() and endswith()"
+    ],
+    "remember": [
+     "title(): first letter of every word capital; capitalize(): only the first character capital",
+     "swapcase(): swaps upper and lower case",
+     "find(): lowest index or −1; index(): same but ValueError if missing",
+     "startswith() / endswith(): True or False (case-sensitive)"
+    ],
+    "traps": [
+     "find() returns −1 when not found; index() raises ValueError",
+     "capitalize() changes only the first character of the whole string, not each word"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1166,6 +1468,11 @@
      ],
      "answer": 2,
      "explain": "split(',') returns a list of the parts between commas.",
+     "steps": [
+      "split(',') cuts the string at each comma",
+      "and returns a list of the parts",
+      "Answer: ['Red', 'Green', 'Blue']"
+     ],
      "mistake": "Thinks split returns a tuple or a single string"
     },
     {
@@ -1178,6 +1485,11 @@
      ],
      "answer": 3,
      "explain": "partition returns a 3-tuple: before, separator, after.",
+     "steps": [
+      "partition('@') splits at the first '@'",
+      "into a 3-tuple: before, separator, after",
+      "Answer: ('user', '@', 'mail.com')"
+     ],
      "mistake": "Confuses partition with split"
     },
     {
@@ -1190,6 +1502,11 @@
      ],
      "answer": 2,
      "explain": "join puts '-' between the strings in the list.",
+     "steps": [
+      "join() puts '-' between the strings in the list",
+      "'2026' + '-' + '11' + '-' + '05'",
+      "Answer: 2026-11-05"
+     ],
      "mistake": "Thinks join adds no separator"
     },
     {
@@ -1202,6 +1519,11 @@
      ],
      "answer": 2,
      "explain": "lstrip() removes only the spaces on the left.",
+     "steps": [
+      "lstrip() removes only the spaces on the left",
+      "The right-hand spaces stay",
+      "Answer: |Goa  |"
+     ],
      "mistake": "Confuses lstrip with strip"
     },
     {
@@ -1214,6 +1536,11 @@
      ],
      "answer": 0,
      "explain": "replace changes every 'a' to '*'.",
+     "steps": [
+      "replace('a', '*') changes every 'a'",
+      "'banana' → b*n*n*",
+      "Answer: b*n*n*"
+     ],
      "mistake": "Thinks replace changes only the first occurrence"
     },
     {
@@ -1226,6 +1553,11 @@
      ],
      "answer": 0,
      "explain": "'Class 11' has a space, so isalnum() is False; 'Class11' is all letters and digits.",
+     "steps": [
+      "'Class 11' contains a space, so isalnum() is False",
+      "'Class11' is all letters and digits, so True",
+      "Answer: False True"
+     ],
      "mistake": "Thinks spaces are allowed in isalnum()"
     },
     {
@@ -1238,6 +1570,12 @@
      ],
      "answer": 2,
      "explain": "split() with no argument splits on any run of whitespace, giving 4 words.",
+     "steps": [
+      "split() with no argument splits on any run of whitespace",
+      "['I', 'love', 'my', 'India']",
+      "4 words",
+      "Answer: 4"
+     ],
      "mistake": "Counts the extra spaces as words",
      "check": "4"
     },
@@ -1251,6 +1589,11 @@
      ],
      "answer": 1,
      "explain": "If the separator isn't found, partition returns (whole string, '', '').",
+     "steps": [
+      "'#' is not in 'Hello'",
+      "partition then returns the whole string and two empty strings",
+      "Answer: ('Hello', '', '')"
+     ],
      "mistake": "Expects an error or a list"
     }
    ],
@@ -1281,6 +1624,25 @@
     ],
     "praise": "strip cleans the edges, split makes a list, join glues it back, partition cuts at the first separator and is-methods test the content. Toolbox complete!",
     "nudge": "Good. What does split() return, and how does join() reverse it?"
+   },
+   "revise": {
+    "summary": "Testing methods like isalnum(), isalpha() and isdigit() return True or False. strip(), lstrip() and rstrip() remove whitespace or given characters; replace() swaps substrings; split() makes a list of parts; join() joins a list with a separator; partition() returns a 3-tuple at the first separator.",
+    "focus": [
+     "Predict the result of testing methods",
+     "Use strip methods, replace, split and join",
+     "Use partition and know its result when the separator is missing"
+    ],
+    "remember": [
+     "isalnum(): letters or digits only (a space makes it False)",
+     "lstrip() left, rstrip() right, strip() both ends",
+     "split() → list; sep.join(list) → string",
+     "partition(sep) → (before, sep, after); if absent → (s, '', '')"
+    ],
+    "traps": [
+     "split() returns a list, not a tuple; partition() returns a tuple",
+     "split() with no argument treats any run of spaces as one separator"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1377,6 +1739,12 @@
      ],
      "answer": 2,
      "explain": "The loop compares each character with 's': 'Mississippi' has 4 of them.",
+     "steps": [
+      "Compare each character of 'Mississippi' with 's'",
+      "s appears at positions 2, 3, 5, 6",
+      "c = 4",
+      "Answer: 4"
+     ],
      "mistake": "Miscounts the repeated letters",
      "check": "4"
     },
@@ -1390,6 +1758,11 @@
      ],
      "answer": 1,
      "explain": "Every vowel (u, a, a) is replaced by '*'; other characters are copied.",
+     "steps": [
+      "Vowels u, a, a in 'Gujarat' become '*'",
+      "Other letters are copied",
+      "Answer: G*j*r*t"
+     ],
      "mistake": "Replaces consonants instead"
     },
     {
@@ -1402,6 +1775,11 @@
      ],
      "answer": 1,
      "explain": "Each character is added to the front, which reverses the string.",
+     "steps": [
+      "Each character goes to the front of r",
+      "r: 'A', 'gA', 'rgA', 'argA'",
+      "Answer: argA"
+     ],
      "mistake": "Thinks the order stays the same"
     },
     {
@@ -1414,6 +1792,11 @@
      ],
      "answer": 3,
      "explain": "The index goes 2, 1, 0, collecting n, o, P.",
+     "steps": [
+      "The index runs 2, 1, 0",
+      "s[2] = 'n', s[1] = 'o', s[0] = 'P'",
+      "Answer: noP"
+     ],
      "mistake": "Starts the range at len(s)"
     },
     {
@@ -1426,6 +1809,11 @@
      ],
      "answer": 0,
      "explain": "Start at the last index, stop just past 0 (−1 is excluded), step −1.",
+     "steps": [
+      "Start at the last index len(s) − 1",
+      "stop at −1 (excluded) so that 0 is included, step −1",
+      "Answer: range(len(s) - 1, -1, -1)"
+     ],
      "mistake": "Uses stop 0, which misses index 0, or starts at len(s), which is out of range"
     },
     {
@@ -1438,6 +1826,11 @@
      ],
      "answer": 0,
      "explain": "Converting to lowercase first makes 'A' and 'a' both count: 'Ajay' has 2.",
+     "steps": [
+      "lower() makes 'Ajay' into 'ajay'",
+      "count('a') = 2",
+      "Answer: 2"
+     ],
      "mistake": "Counts only lowercase 'a'",
      "check": "2"
     },
@@ -1451,6 +1844,11 @@
      ],
      "answer": 1,
      "explain": "'-'.join() puts '-' between characters only, not at the ends.",
+     "steps": [
+      "join() treats 'Happy' as a sequence of characters",
+      "'-' goes between them, not at the ends",
+      "Answer: H-a-p-p-y"
+     ],
      "mistake": "Thinks join adds the separator at the end too"
     },
     {
@@ -1463,6 +1861,11 @@
      ],
      "answer": 2,
      "explain": "Immutability forbids s[i] = …, so we build the result character by character.",
+     "steps": [
+      "Strings are immutable, so s[i] = … is not allowed",
+      "The result must be built character by character",
+      "Answer: Strings are immutable, so their characters cannot be changed in place"
+     ],
      "mistake": "Thinks it's just a style choice"
     }
    ],
@@ -1487,6 +1890,24 @@
     ],
     "praise": "Loop through, add each character to the front of a new string, and it's reversed! Counting is just a loop with an if.",
     "nudge": "Good. How do we build the reversed string character by character?"
+   },
+   "revise": {
+    "summary": "Because strings are immutable, string programs build a new string: count a character with a loop and a counter, replace vowels by adding '*' or the character to r, and reverse with r = ch + r or by looping over indices from len(s) − 1 down to 0.",
+    "focus": [
+     "Count characters without count()",
+     "Replace vowels by building a new string",
+     "Reverse a string with a loop"
+    ],
+    "remember": [
+     "Count: c = 0; for ch in s: if ch == target: c += 1",
+     "Replace vowels: r += '*' if ch in 'aeiouAEIOU' else ch",
+     "Reverse: r = ch + r, or for i in range(len(s) − 1, −1, −1): r += s[i]"
+    ],
+    "traps": [
+     "range(len(s) − 1, 0, −1) misses index 0",
+     "join() puts the separator only between characters, not at the ends"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1585,6 +2006,11 @@
      ],
      "answer": 2,
      "explain": "'level' reversed is 'level', so they are equal.",
+     "steps": [
+      "'level' reversed is 'level'",
+      "The two are equal",
+      "Answer: Palindrome"
+     ],
      "mistake": "Thinks the comparison needs a loop"
     },
     {
@@ -1597,6 +2023,11 @@
      ],
      "answer": 3,
      "explain": "'Madam' reversed is 'madaM'; 'M' and 'm' differ, so they're not equal.",
+     "steps": [
+      "'Madam' reversed is 'madaM'",
+      "'M' and 'm' differ, so they are not equal",
+      "Answer: Not palindrome"
+     ],
      "mistake": "Ignores case"
     },
     {
@@ -1609,6 +2040,11 @@
      ],
      "answer": 3,
      "explain": "Uppercase: I, P (2). Lowercase: n, d, i, a (4). Digits: 2, 6 (2).",
+     "steps": [
+      "Uppercase: I, P → 2; lowercase: n, d, i, a → 4",
+      "Digits: 2, 6 → 2",
+      "Answer: 2 4 2"
+     ],
      "mistake": "Counts the uppercase letters as lowercase too"
     },
     {
@@ -1621,6 +2057,11 @@
      ],
      "answer": 2,
      "explain": "'Punjab' has vowels u, a (2) and consonants P, n, j, b (4).",
+     "steps": [
+      "'Punjab' letters: vowels u, a → 2",
+      "consonants P, n, j, b → 4",
+      "Answer: 2 4"
+     ],
      "mistake": "Counts vowels as consonants or misses one"
     },
     {
@@ -1633,6 +2074,11 @@
      ],
      "answer": 0,
      "explain": "split() gives ['Unity', 'in', 'diversity', 'is', 'strength'], 5 words.",
+     "steps": [
+      "split() gives ['Unity', 'in', 'diversity', 'is', 'strength']",
+      "That is 5 words",
+      "Answer: 5"
+     ],
      "mistake": "Counts spaces instead of words",
      "check": "5"
     },
@@ -1646,6 +2092,11 @@
      ],
      "answer": 0,
      "explain": "Both sides must be converted to the same case before comparing.",
+     "steps": [
+      "To ignore case, both sides must be in the same case",
+      "Lower the string and also its reverse",
+      "Answer: s.lower() == s.lower()[::-1]"
+     ],
      "mistake": "Converts only one side, or checks only the end characters"
     },
     {
@@ -1658,6 +2109,11 @@
      ],
      "answer": 1,
      "explain": "Converting the number to a string lets us compare it with its reverse.",
+     "steps": [
+      "str(12321) = '12321'",
+      "Its reverse is '12321', the same",
+      "Answer: True"
+     ],
      "mistake": "Thinks numbers can't be checked as palindromes"
     },
     {
@@ -1670,6 +2126,11 @@
      ],
      "answer": 3,
      "explain": "'Nitin' reversed is 'nitiN'; 'N' ≠ 'n', so the comparison is False because of case-sensitivity.",
+     "steps": [
+      "A: 'Nitin' == 'Nitin'[::−1] gives False — true ('nitiN' differs)",
+      "R: string comparison is case-sensitive — true, and 'N' ≠ 'n' explains A",
+      "Answer: Both A and R are true and R is the correct explanation of A"
+     ],
      "mistake": "Expects 'Nitin' to be treated as a palindrome"
     }
    ],
@@ -1700,6 +2161,25 @@
     ],
     "praise": "Compare the lowercase word with its reverse for palindromes, and loop with checks to count vowels. Two programs in one!",
     "nudge": "Good. How do we compare a word with its reverse, and why might case matter?"
+   },
+   "revise": {
+    "summary": "A palindrome reads the same both ways; check with s == s[::−1], converting to lower case first to ignore case. Character categories are counted with isupper(), islower(), isdigit() and vowel checks; words with len(s.split()); menu programs use an if-elif ladder inside a while loop.",
+    "focus": [
+     "Check palindromes, with and without ignoring case",
+     "Count uppercase, lowercase, digits, vowels and consonants",
+     "Count words with split()",
+     "Outline a menu-driven string program"
+    ],
+    "remember": [
+     "Palindrome: s == s[::−1]; ignoring case: s.lower() == s.lower()[::−1]",
+     "Categories: ch.isupper(), ch.islower(), ch.isdigit(), ch in 'aeiouAEIOU'",
+     "Words: len(s.split())"
+    ],
+    "traps": [
+     "'Madam' == 'madaM' is False: comparison is case-sensitive",
+     "Convert both sides to the same case when ignoring case"
+    ],
+    "level": "important"
    }
   }
  ]

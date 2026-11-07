@@ -106,6 +106,12 @@
      ],
      "answer": 0,
      "explain": "ALTER changes the structure of a table, so it is DDL. INSERT, UPDATE and DELETE work on the data (DML).",
+     "steps": [
+      "DDL commands define or change structure: CREATE, ALTER, DROP.",
+      "INSERT, UPDATE and DELETE work on data, so they are DML.",
+      "ALTER is the DDL command.",
+      "Answer: ALTER"
+     ],
      "mistake": "Thinks any command that changes something is DDL"
     },
     {
@@ -118,6 +124,12 @@
      ],
      "answer": 0,
      "explain": "UPDATE changes data inside a table, which is data manipulation.",
+     "steps": [
+      "DML commands work on the data: INSERT, UPDATE, DELETE.",
+      "DROP, ALTER and CREATE change structure (DDL).",
+      "UPDATE is the DML command.",
+      "Answer: UPDATE"
+     ],
      "mistake": "Confuses changing data with changing structure"
     },
     {
@@ -130,6 +142,12 @@
      ],
      "answer": 3,
      "explain": "CHAR(n) is fixed length, so the value is padded with spaces to 10 characters.",
+     "steps": [
+      "CHAR(n) is fixed length.",
+      "'Ram' is padded with spaces to fill all 10 characters.",
+      "So it takes 10 characters.",
+      "Answer: 10"
+     ],
      "mistake": "Treats CHAR like VARCHAR",
      "check": "10"
     },
@@ -143,6 +161,12 @@
      ],
      "answer": 0,
      "explain": "VARCHAR(30) stores only as many characters as each name needs, up to 30.",
+     "steps": [
+      "Name lengths vary from 3 to 30 characters.",
+      "VARCHAR(30) stores only the characters each value needs, up to 30.",
+      "CHAR(30) would waste space by padding.",
+      "Answer: VARCHAR(30)"
+     ],
      "mistake": "Uses fixed-length CHAR for variable data"
     },
     {
@@ -155,6 +179,12 @@
      ],
      "answer": 0,
      "explain": "MySQL dates are entered as 'YYYY-MM-DD', for example '2026-03-15'.",
+     "steps": [
+      "MySQL stores dates in year-month-day order.",
+      "They are written in quotes as 'YYYY-MM-DD', e.g. '2026-03-15'.",
+      "So the format is 'YYYY-MM-DD'.",
+      "Answer: 'YYYY-MM-DD'"
+     ],
      "mistake": "Uses the everyday Indian date format"
     },
     {
@@ -167,6 +197,12 @@
      ],
      "answer": 2,
      "explain": "DEFAULT supplies a value, such as DEFAULT 'Delhi', when none is given.",
+     "steps": [
+      "DEFAULT supplies a value when an INSERT gives none for that column.",
+      "NOT NULL only forbids NULL; UNIQUE forbids duplicates.",
+      "So the constraint is DEFAULT.",
+      "Answer: DEFAULT"
+     ],
      "mistake": "Confuses DEFAULT with NOT NULL"
     },
     {
@@ -179,6 +215,12 @@
      ],
      "answer": 1,
      "explain": "SQL is declarative and its keywords are case-insensitive; it works with MySQL, Oracle, PostgreSQL and others.",
+     "steps": [
+      "SQL keywords are case-insensitive, and SQL works with many RDBMSs.",
+      "SQL is declarative: you state what data you want, not the steps.",
+      "So that statement is TRUE.",
+      "Answer: SQL is a declarative language: you say what data you want, not how to get it"
+     ],
      "mistake": "Thinks SQL keywords must be written in capitals"
     },
     {
@@ -191,6 +233,12 @@
      ],
      "answer": 0,
      "explain": "Because a primary key must be unique (and not NULL), duplicates are rejected. R explains A.",
+     "steps": [
+      "A PRIMARY KEY combines UNIQUE and NOT NULL (R is true).",
+      "Being unique, it rejects duplicate values (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks primary keys only forbid NULL"
     }
    ],
@@ -215,6 +263,27 @@
     ],
     "praise": "Superb! DDL defines or changes the structure (CREATE, ALTER, DROP), while DML works with the data (INSERT, UPDATE, DELETE).",
     "nudge": "Which category changes the table's structure, and which changes the rows inside?"
+   },
+   "revise": {
+    "summary": "SQL is a declarative, case-insensitive language for RDBMSs like MySQL. DDL (CREATE, ALTER, DROP) changes structure and DML (INSERT, UPDATE, DELETE) changes data. Key types are CHAR, VARCHAR, INT, FLOAT and DATE, and constraints include NOT NULL, UNIQUE, DEFAULT, PRIMARY KEY and FOREIGN KEY.",
+    "focus": [
+     "Classify commands as DDL or DML",
+     "Choose between CHAR and VARCHAR",
+     "Write DATE values correctly",
+     "Know what each constraint does"
+    ],
+    "remember": [
+     "DDL: CREATE, ALTER, DROP; DML: INSERT, UPDATE, DELETE (SELECT queries)",
+     "CHAR(n): fixed length, padded; VARCHAR(n): variable, up to n",
+     "DATE format: 'YYYY-MM-DD'",
+     "PRIMARY KEY = UNIQUE + NOT NULL; DEFAULT supplies a value when none is given"
+    ],
+    "traps": [
+     "Don't swap the categories: ALTER is DDL; UPDATE is DML",
+     "Don't think CHAR(10) stores 'Ram' in 3 characters; it uses all 10",
+     "Don't think SQL keywords are case-sensitive; they are case-insensitive"
+    ],
+    "level": "core"
    }
   },
   {
@@ -301,6 +370,12 @@
      ],
      "answer": 0,
      "explain": "USE databasename; selects a database so that later commands work inside it.",
+     "steps": [
+      "USE databasename; selects a database for the following commands.",
+      "There is no OPEN command in MySQL for this.",
+      "So USE School;",
+      "Answer: USE School;"
+     ],
      "mistake": "Invents an OPEN command"
     },
     {
@@ -313,6 +388,12 @@
      ],
      "answer": 1,
      "explain": "DESCRIBE or DESC shows a table's structure.",
+     "steps": [
+      "DESCRIBE (or DESC) shows a table's columns, types, NULLs, keys and defaults.",
+      "SELECT shows the data, not the structure.",
+      "So DESC STUDENT;",
+      "Answer: DESC STUDENT;"
+     ],
      "mistake": "Confuses viewing structure with viewing data"
     },
     {
@@ -325,6 +406,12 @@
      ],
      "answer": 1,
      "explain": "Adding a column changes the structure, so it needs ALTER TABLE ... ADD.",
+     "steps": [
+      "Adding a column changes the table's structure, so ALTER TABLE is needed.",
+      "The syntax is ALTER TABLE table ADD column type;",
+      "So ALTER TABLE STUDENT ADD Phone CHAR(10);",
+      "Answer: ALTER TABLE STUDENT ADD Phone CHAR(10);"
+     ],
      "mistake": "Uses UPDATE or INSERT for structural changes"
     },
     {
@@ -337,6 +424,12 @@
      ],
      "answer": 1,
      "explain": "MODIFY within ALTER TABLE changes an existing column's definition.",
+     "steps": [
+      "Changing an existing column's definition uses MODIFY inside ALTER TABLE.",
+      "ADD would try to create a second Name column.",
+      "So ALTER TABLE STUDENT MODIFY Name VARCHAR(50);",
+      "Answer: ALTER TABLE STUDENT MODIFY Name VARCHAR(50);"
+     ],
      "mistake": "Uses ADD, which would try to create a second Name column"
     },
     {
@@ -349,6 +442,12 @@
      ],
      "answer": 0,
      "explain": "DROP is DDL and removes the whole table. DELETE is DML and leaves an empty table behind.",
+     "steps": [
+      "DROP TABLE (DDL) removes the table's structure and all its data.",
+      "DELETE FROM (DML) removes only the rows and leaves an empty table.",
+      "So DROP removes structure and data; DELETE removes only the rows.",
+      "Answer: DROP removes the table's structure and data; DELETE removes only the rows"
+     ],
      "mistake": "Thinks DELETE also removes the table"
     },
     {
@@ -361,6 +460,12 @@
      ],
      "answer": 0,
      "explain": "ALTER TABLE ... ADD PRIMARY KEY (column) adds the constraint.",
+     "steps": [
+      "Adding a primary key to an existing table changes its structure.",
+      "Syntax: ALTER TABLE table ADD PRIMARY KEY (column);",
+      "So ALTER TABLE STUDENT ADD PRIMARY KEY (RollNo);",
+      "Answer: ALTER TABLE STUDENT ADD PRIMARY KEY (RollNo);"
+     ],
      "mistake": "Tries to set a key using UPDATE"
     },
     {
@@ -373,6 +478,12 @@
      ],
      "answer": 0,
      "explain": "FOREIGN KEY (column) REFERENCES table(column) creates the link.",
+     "steps": [
+      "A foreign key is written FOREIGN KEY (column) REFERENCES table(column).",
+      "Here: FOREIGN KEY (ClassID) REFERENCES CLASS(ClassID).",
+      "The other options are not valid SQL.",
+      "Answer: FOREIGN KEY (ClassID) REFERENCES CLASS(ClassID)"
+     ],
      "mistake": "Confuses foreign key syntax with primary key syntax"
     },
     {
@@ -385,6 +496,12 @@
      ],
      "answer": 0,
      "explain": "With the structure gone, there is no table to describe. R explains A.",
+     "steps": [
+      "DROP TABLE removes the table's structure as well as its data (R is true).",
+      "So there is no table to describe, and DESC STUDENT; gives an error (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks DROP removes only the rows"
     }
    ],
@@ -405,6 +522,27 @@
     ],
     "praise": "Exactly! DROP TABLE removes the whole table, structure and all; DELETE removes only the rows and keeps the table.",
     "nudge": "Which command removes the table itself, and which only empties it?"
+   },
+   "revise": {
+    "summary": "DDL commands create and change structure: CREATE DATABASE, USE, SHOW, CREATE TABLE, DESC, ALTER TABLE (ADD, DROP, MODIFY, ADD PRIMARY KEY, ADD FOREIGN KEY) and DROP TABLE. DROP removes a table completely, while DELETE only removes rows.",
+    "focus": [
+     "Create and select databases and tables",
+     "View structure with DESC",
+     "Change structure with ALTER TABLE",
+     "Tell DROP TABLE from DELETE FROM"
+    ],
+    "remember": [
+     "USE School; selects the database; SHOW TABLES; lists tables",
+     "DESC STUDENT; shows the structure",
+     "ALTER TABLE ... ADD / DROP / MODIFY column; ADD PRIMARY KEY (col)",
+     "FOREIGN KEY (ClassID) REFERENCES CLASS(ClassID)"
+    ],
+    "traps": [
+     "Use ALTER, not UPDATE, to add a column",
+     "Don't use ADD to change an existing column; MODIFY changes it and ADD creates a new one",
+     "Don't mix up DROP TABLE (removes structure and data) with DELETE (keeps the table)"
+    ],
+    "level": "important"
    }
   },
   {
@@ -522,6 +660,12 @@
      ],
      "answer": 2,
      "explain": "When values are given for only some columns, those columns must be listed.",
+     "steps": [
+      "Only RollNo and Name are given for a 4-column table.",
+      "So the column list must be written: INSERT INTO STUDENT (RollNo, Name) VALUES (7, 'Isha');",
+      "The other columns get NULL or their DEFAULT.",
+      "Answer: INSERT INTO STUDENT (RollNo, Name) VALUES (7, 'Isha');"
+     ],
      "mistake": "Omits the column list while supplying fewer values than columns"
     },
     {
@@ -534,6 +678,12 @@
      ],
      "answer": 1,
      "explain": "The two IT rows (Ravi, Meena) are deleted, leaving Asha and Kabir.",
+     "steps": [
+      "EMP has 4 rows; the IT rows are Ravi and Meena.",
+      "DELETE ... WHERE Dept = 'IT' removes those 2 rows.",
+      "4 − 2 = 2 rows remain.",
+      "Answer: 2"
+     ],
      "mistake": "Deletes everything, forgetting the WHERE clause",
      "check": "4-2"
     },
@@ -547,6 +697,12 @@
      ],
      "answer": 0,
      "explain": "Without WHERE, UPDATE applies to every row of the table.",
+     "steps": [
+      "The UPDATE has no WHERE clause.",
+      "Without WHERE, UPDATE changes every row.",
+      "So every row's Salary becomes 30000.",
+      "Answer: Every row's Salary becomes 30000"
+     ],
      "mistake": "Thinks WHERE is compulsory in UPDATE"
     },
     {
@@ -559,6 +715,12 @@
      ],
      "answer": 3,
      "explain": "A student's ClassID must already exist in CLASS, so the parent table is filled first.",
+     "steps": [
+      "Each student's ClassID must already exist in CLASS (foreign key).",
+      "So the parent table CLASS must be filled first.",
+      "Order: CLASS first, then STUDENT.",
+      "Answer: CLASS first, then STUDENT"
+     ],
      "mistake": "Ignores the foreign-key dependency"
     },
     {
@@ -571,6 +733,12 @@
      ],
      "answer": 3,
      "explain": "UPDATE ... SET ... WHERE changes data in existing rows.",
+     "steps": [
+      "Changing data in an existing row uses UPDATE ... SET ... WHERE.",
+      "ALTER is for structure; INSERT adds new rows.",
+      "So UPDATE EMP SET City = 'Indore' WHERE EmpID = 2;",
+      "Answer: UPDATE EMP SET City = 'Indore' WHERE EmpID = 2;"
+     ],
      "mistake": "Uses ALTER for a data change or forgets SET"
     },
     {
@@ -583,6 +751,12 @@
      ],
      "answer": 2,
      "explain": "ALTER is DDL (structure), UPDATE is DML (data).",
+     "steps": [
+      "ALTER is DDL: it changes the table's structure.",
+      "UPDATE is DML: it changes data in rows.",
+      "So ALTER changes structure; UPDATE changes data.",
+      "Answer: ALTER changes the table's structure; UPDATE changes the data in rows"
+     ],
      "mistake": "Swaps the roles of ALTER and UPDATE"
     },
     {
@@ -595,6 +769,12 @@
      ],
      "answer": 0,
      "explain": "DELETE without WHERE removes all rows but keeps the table structure.",
+     "steps": [
+      "DELETE without WHERE removes all rows.",
+      "Unlike DROP, it keeps the table's structure.",
+      "So the table exists but has 0 rows.",
+      "Answer: The table exists but has 0 rows"
+     ],
      "mistake": "Confuses DELETE with DROP"
     },
     {
@@ -607,6 +787,12 @@
      ],
      "answer": 0,
      "explain": "Only two values are given for four columns, so MySQL reports a column count mismatch. R explains A.",
+     "steps": [
+      "Without a column list, INSERT must give a value for every column (R is true).",
+      "Only 2 values are given for 4 columns, so the INSERT fails (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks missing values are filled in automatically without a column list"
     }
    ],
@@ -628,6 +814,27 @@
     ],
     "praise": "Exactly! Without WHERE, UPDATE and DELETE affect every row, so always add a condition.",
     "nudge": "Which rows are affected when there is no condition?"
+   },
+   "revise": {
+    "summary": "INSERT adds rows (with a column list when giving only some values), UPDATE ... SET ... WHERE changes rows and DELETE ... WHERE removes rows. Without WHERE, UPDATE and DELETE affect every row, and parent tables must be filled before child tables.",
+    "focus": [
+     "Write INSERT with and without a column list",
+     "Write UPDATE with SET and WHERE",
+     "Write DELETE with WHERE",
+     "Respect foreign-key order and tell ALTER from UPDATE"
+    ],
+    "remember": [
+     "INSERT INTO T VALUES (...) needs a value for every column",
+     "INSERT INTO T (c1, c2) VALUES (...) fills only listed columns",
+     "UPDATE T SET col = value WHERE condition;",
+     "DELETE FROM T WHERE condition; (no WHERE → all rows deleted, table stays)"
+    ],
+    "traps": [
+     "Don't leave out WHERE in UPDATE unless every row must change",
+     "Don't insert into the child table before the parent",
+     "Don't mix up ALTER (changes structure) with UPDATE (changes data)"
+    ],
+    "level": "important"
    }
   },
   {
@@ -728,6 +935,12 @@
      ],
      "answer": 0,
      "explain": "The distinct cities are Delhi, Pune and Mumbai.",
+     "steps": [
+      "Cities: Delhi, Pune, Delhi, Mumbai, Pune, Delhi.",
+      "DISTINCT keeps each city once: Delhi, Pune, Mumbai.",
+      "So 3 rows.",
+      "Answer: 3"
+     ],
      "mistake": "Counts all rows instead of unique values",
      "check": "3"
     },
@@ -741,6 +954,12 @@
      ],
      "answer": 2,
      "explain": "The departments are HR, IT and Sales; each appears once in the output.",
+     "steps": [
+      "Departments: HR, IT, IT, Sales, HR, IT.",
+      "DISTINCT keeps HR, IT, Sales.",
+      "So 3 rows.",
+      "Answer: 3"
+     ],
      "mistake": "Counts every row instead of unique departments",
      "check": "3"
     },
@@ -754,6 +973,12 @@
      ],
      "answer": 3,
      "explain": "List the required columns, separated by commas, after SELECT.",
+     "steps": [
+      "To show some columns, list them after SELECT separated by commas.",
+      "SELECT * would show all columns.",
+      "So SELECT Name, City FROM EMP;",
+      "Answer: SELECT Name, City FROM EMP;"
+     ],
      "mistake": "Uses * when only some columns are wanted"
     },
     {
@@ -766,6 +991,12 @@
      ],
      "answer": 1,
      "explain": "Salary * 12 is computed for each row and AS gives it the heading Annual. The table is unchanged.",
+     "steps": [
+      "Salary * 12 is computed for each row.",
+      "AS Annual gives the computed column the heading Annual.",
+      "SELECT does not change the stored salaries.",
+      "Answer: Each name with twelve times the salary, under the heading Annual"
+     ],
      "mistake": "Thinks a computed column changes the stored data"
     },
     {
@@ -778,6 +1009,12 @@
      ],
      "answer": 0,
      "explain": "An alias containing a space must be in quotes after AS.",
+     "steps": [
+      "An alias with a space must be in quotes after AS.",
+      "SELECT Name AS \"Student Name\" FROM STUDENT;",
+      "Without quotes the alias is invalid.",
+      "Answer: SELECT Name AS \"Student Name\" FROM STUDENT;"
+     ],
      "mistake": "Forgets the quotes around an alias that has a space"
     },
     {
@@ -790,6 +1027,12 @@
      ],
      "answer": 2,
      "explain": "The computed column adds 5000 to each salary; the highest salary is 60000, so 65000 is shown for Meena.",
+     "steps": [
+      "The computed column is Salary + 5000 for each row.",
+      "The highest salary is 60000 (Meena).",
+      "60000 + 5000 = 65000.",
+      "Answer: 65000"
+     ],
      "mistake": "Forgets the computation and reads the stored value",
      "check": "60000+5000"
     },
@@ -803,6 +1046,12 @@
      ],
      "answer": 1,
      "explain": "With several columns, DISTINCT removes rows whose combination of values repeats.",
+     "steps": [
+      "With two columns, DISTINCT works on the combination of values.",
+      "Rows whose (Dept, City) pair repeats are shown once.",
+      "So each distinct combination of Dept and City.",
+      "Answer: Each distinct combination of Dept and City"
+     ],
      "mistake": "Thinks DISTINCT applies only to the first column"
     },
     {
@@ -815,6 +1064,12 @@
      ],
      "answer": 0,
      "explain": "SELECT is a query; it reads data and shows a result without modifying the table. R explains A.",
+     "steps": [
+      "SELECT only retrieves and displays data (R is true).",
+      "So it never changes the data in the table (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks computed columns in SELECT update the table"
     }
    ],
@@ -835,6 +1090,27 @@
     ],
     "praise": "Spot on! SELECT DISTINCT City removes duplicates so each city appears once.",
     "nudge": "Which keyword removes repeated values from the output?"
+   },
+   "revise": {
+    "summary": "SELECT shows chosen columns, computed columns and aliases without changing the table. AS renames output headings (quotes for spaces), and DISTINCT removes duplicate values or combinations.",
+    "focus": [
+     "Select specific columns",
+     "Write computed columns with aliases",
+     "Use DISTINCT on one or more columns",
+     "Predict the number of rows returned"
+    ],
+    "remember": [
+     "SELECT col1, col2 FROM T; shows chosen columns",
+     "SELECT Salary * 12 AS Annual FROM T; computes without changing data",
+     "Alias with spaces: AS \"Annual Salary\"",
+     "DISTINCT removes duplicate values (or combinations, for several columns)"
+    ],
+    "traps": [
+     "A computed column does not change stored data",
+     "Don't leave out the quotes around an alias with spaces",
+     "DISTINCT on two columns works on the pair, not just the first column"
+    ],
+    "level": "core"
    }
   },
   {
@@ -950,6 +1226,12 @@
      ],
      "answer": 2,
      "explain": "BETWEEN is inclusive: 40000 (Asha), 55000 (Ravi) and 50000 (Dev). Zoya's NULL is not in any range.",
+     "steps": [
+      "BETWEEN 40000 AND 55000 includes both ends.",
+      "Matches: Asha 40000, Ravi 55000, Dev 50000. Zoya's NULL does not match.",
+      "So 3 rows.",
+      "Answer: 3"
+     ],
      "mistake": "Excludes the boundary values 40000 and 55000",
      "check": "3"
     },
@@ -963,6 +1245,12 @@
      ],
      "answer": 1,
      "explain": "Pune: Ravi and Zoya; Mumbai: Kabir. That makes 3 rows.",
+     "steps": [
+      "IN ('Pune', 'Mumbai') matches either city.",
+      "Pune: Ravi, Zoya. Mumbai: Kabir.",
+      "So 3 rows.",
+      "Answer: 3"
+     ],
      "mistake": "Counts only one of the listed cities",
      "check": "3"
     },
@@ -976,6 +1264,12 @@
      ],
      "answer": 3,
      "explain": "Only Zoya's salary is NULL. IS NULL is the right way to test for it.",
+     "steps": [
+      "IS NULL finds rows where the value is unknown.",
+      "Only Zoya's salary is NULL.",
+      "So the name shown is Zoya.",
+      "Answer: Zoya"
+     ],
      "mistake": "Thinks NULL rows cannot be selected at all"
     },
     {
@@ -988,6 +1282,12 @@
      ],
      "answer": 3,
      "explain": "A comparison with NULL using = is never true, so no rows are returned. IS NULL would find Zoya.",
+     "steps": [
+      "NULL means unknown, so = NULL is never true.",
+      "No row satisfies Salary = NULL.",
+      "So 0 rows.",
+      "Answer: 0"
+     ],
      "mistake": "Treats = NULL like IS NULL",
      "check": "0"
     },
@@ -1001,6 +1301,12 @@
      ],
      "answer": 0,
      "explain": "IT gives Ravi, Meena and Dev; Salary < 40000 adds Kabir. 3 + 1 = 4 rows.",
+     "steps": [
+      "Dept = 'IT': Ravi, Meena, Dev (3 rows).",
+      "OR Salary < 40000 adds Kabir (35000).",
+      "3 + 1 = 4 rows.",
+      "Answer: 4"
+     ],
      "mistake": "Uses AND instead of OR, or double-counts",
      "check": "3+1"
     },
@@ -1014,6 +1320,12 @@
      ],
      "answer": 2,
      "explain": "Cities other than Delhi are Pune (Ravi, Zoya) and Mumbai (Kabir).",
+     "steps": [
+      "NOT IN ('Delhi') keeps cities other than Delhi.",
+      "Pune: Ravi, Zoya. Mumbai: Kabir.",
+      "So 3 rows.",
+      "Answer: 3"
+     ],
      "mistake": "Counts the Delhi rows instead",
      "check": "3"
     },
@@ -1027,6 +1339,12 @@
      ],
      "answer": 1,
      "explain": "Salary * 12 is the annual salary, and arithmetic can be used inside a WHERE condition on each row. Salary > 600000 tests the monthly salary, and IS works only with NULL.",
+     "steps": [
+      "The annual salary is Salary * 12.",
+      "Arithmetic can be used inside WHERE on each row.",
+      "So WHERE Salary * 12 > 600000.",
+      "Answer: SELECT * FROM EMP WHERE Salary * 12 > 600000;"
+     ],
      "mistake": "Multiplies on the wrong side of the comparison"
     },
     {
@@ -1039,6 +1357,12 @@
      ],
      "answer": 3,
      "explain": "HR has Asha (40000) and Zoya (NULL); only Asha has a non-NULL salary.",
+     "steps": [
+      "Dept = 'HR' gives Asha (40000) and Zoya (NULL).",
+      "Salary IS NOT NULL removes Zoya.",
+      "So 1 row (Asha).",
+      "Answer: 1"
+     ],
      "mistake": "Forgets to exclude the NULL salary",
      "check": "1"
     }
@@ -1060,6 +1384,27 @@
     ],
     "praise": "Perfect! Use IS NULL, because comparing with = NULL is never true.",
     "nudge": "Which special operator tests for NULL, and why does = NULL fail?"
+   },
+   "revise": {
+    "summary": "WHERE filters rows using relational, logical and arithmetic conditions. BETWEEN includes both ends, IN and NOT IN test a list, and NULL must be tested with IS NULL or IS NOT NULL, since = NULL is never true.",
+    "focus": [
+     "Write WHERE conditions with AND, OR and NOT",
+     "Use BETWEEN, IN and NOT IN",
+     "Test for NULL correctly",
+     "Use arithmetic inside conditions"
+    ],
+    "remember": [
+     "BETWEEN a AND b includes a and b",
+     "IN ('Delhi', 'Pune'); NOT IN for values outside the list",
+     "Use IS NULL / IS NOT NULL, never = NULL",
+     "AND is evaluated before OR"
+    ],
+    "traps": [
+     "Don't exclude the boundary values; BETWEEN includes them",
+     "= NULL returns no rows",
+     "NULL values do not satisfy range conditions"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1166,6 +1511,12 @@
      ],
      "answer": 0,
      "explain": "'%a' means the name ends with a: Asha, Meena and Zoya.",
+     "steps": [
+      "'%a' means the name ends with a.",
+      "Names ending in a: Asha, Meena, Zoya.",
+      "Ravi, Kabir and Dev do not end in a.",
+      "Answer: Asha, Meena, Zoya"
+     ],
      "mistake": "Reads '%a' as 'contains a'"
     },
     {
@@ -1178,6 +1529,12 @@
      ],
      "answer": 3,
      "explain": "'_a%' needs a as the second letter: Ravi and Kabir.",
+     "steps": [
+      "'_a%' means exactly one character, then a, then anything.",
+      "So a must be the second letter: Ravi, Kabir.",
+      "2 names match.",
+      "Answer: 2"
+     ],
      "mistake": "Reads _ as any number of characters",
      "check": "2"
     },
@@ -1191,6 +1548,12 @@
      ],
      "answer": 2,
      "explain": "Each _ matches exactly one character, so four underscores match exactly four characters.",
+     "steps": [
+      "Each _ matches exactly one character.",
+      "Four underscores '____' match exactly four characters.",
+      "% would match any number.",
+      "Answer: '____'"
+     ],
      "mistake": "Uses % for a fixed number of characters"
     },
     {
@@ -1203,6 +1566,12 @@
      ],
      "answer": 3,
      "explain": "DESC gives descending order. Without it, ORDER BY sorts in ascending order.",
+     "steps": [
+      "ORDER BY sorts ascending by default.",
+      "DESC gives descending order (highest first).",
+      "So SELECT * FROM EMP ORDER BY Salary DESC;",
+      "Answer: SELECT * FROM EMP ORDER BY Salary DESC;"
+     ],
      "mistake": "Forgets that the default order is ascending"
     },
     {
@@ -1215,6 +1584,12 @@
      ],
      "answer": 0,
      "explain": "Ascending order puts the lowest salary first: Kabir with 35000.",
+     "steps": [
+      "Non-NULL salaries: Asha 40000, Ravi 55000, Meena 60000, Kabir 35000, Dev 50000.",
+      "ORDER BY Salary is ascending, so the lowest comes first.",
+      "The lowest is Kabir (35000).",
+      "Answer: Kabir"
+     ],
      "mistake": "Assumes ORDER BY sorts in descending order by default"
     },
     {
@@ -1227,6 +1602,12 @@
      ],
      "answer": 2,
      "explain": "The first column is the main sort (ascending by default); DESC applies only to Salary.",
+     "steps": [
+      "The first column, Dept, is the main sort (ascending by default).",
+      "DESC applies only to Salary, within each Dept.",
+      "So it sorts by Dept ascending, and within each Dept by Salary descending.",
+      "Answer: Sorts by Dept ascending, and within each Dept by Salary descending"
+     ],
      "mistake": "Thinks DESC applies to every column in the list"
     },
     {
@@ -1239,6 +1620,12 @@
      ],
      "answer": 2,
      "explain": "% on both sides allows any characters before and after 'pen'. = does not use wildcards.",
+     "steps": [
+      "'pen' may appear anywhere, with any characters before or after.",
+      "'%pen%' allows that; = does not use wildcards.",
+      "So WHERE PName LIKE '%pen%'.",
+      "Answer: WHERE PName LIKE '%pen%'"
+     ],
      "mistake": "Uses = with wildcards"
     },
     {
@@ -1251,6 +1638,12 @@
      ],
      "answer": 0,
      "explain": "'R%' needs R first followed by any number of characters, including none, so both match. R explains A.",
+     "steps": [
+      "% matches zero or more characters (R is true).",
+      "'R%' needs R first, then anything or nothing, so 'Ravi' and 'R' both match (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks % must match at least one character"
     }
    ],
@@ -1273,6 +1666,27 @@
     ],
     "praise": "Excellent! % matches any number of characters (even none), while _ matches exactly one character.",
     "nudge": "How many characters does each wildcard stand for?"
+   },
+   "revise": {
+    "summary": "LIKE matches patterns with % (any number of characters, even none) and _ (exactly one character). ORDER BY sorts results ascending by default or descending with DESC, and can sort on several columns.",
+    "focus": [
+     "Write LIKE patterns for starts, ends, contains and fixed length",
+     "Use ORDER BY ASC and DESC",
+     "Sort on two columns",
+     "Place ORDER BY after WHERE"
+    ],
+    "remember": [
+     "'A%' starts with A; '%a' ends with a; '%an%' contains an",
+     "'_a%' has a as the second letter; '____' is exactly four characters",
+     "ORDER BY col (ascending by default); ORDER BY col DESC",
+     "ORDER BY Dept, Salary DESC: DESC applies only to Salary"
+    ],
+    "traps": [
+     "Don't use = with wildcards; use LIKE",
+     "Don't think % needs at least one character; it can match zero characters",
+     "Don't think ORDER BY sorts descending by default; the default is ascending"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1384,6 +1798,12 @@
      ],
      "answer": 2,
      "explain": "COUNT(*) counts every row, including the row where Salary is NULL.",
+     "steps": [
+      "COUNT(*) counts every row.",
+      "Rows with NULLs are included.",
+      "EMP has 6 rows.",
+      "Answer: 6"
+     ],
      "mistake": "Thinks COUNT(*) skips rows containing NULL",
      "check": "6"
     },
@@ -1397,6 +1817,12 @@
      ],
      "answer": 0,
      "explain": "COUNT(column) counts only non-NULL values; Zoya's NULL is skipped.",
+     "steps": [
+      "COUNT(column) counts only non-NULL values.",
+      "Zoya's salary is NULL, so it is skipped.",
+      "6 − 1 = 5.",
+      "Answer: 5"
+     ],
      "mistake": "Treats COUNT(Salary) like COUNT(*)",
      "check": "5"
     },
@@ -1413,7 +1839,8 @@
      "steps": [
       "SUM = 40000 + 55000 + 60000 + 35000 + 50000 = 240000",
       "Non-NULL values = 5",
-      "240000 / 5 = 48000"
+      "240000 / 5 = 48000",
+      "Answer: 48000"
      ],
      "mistake": "Divides by all 6 rows, giving 40000",
      "check": "240000/5"
@@ -1428,6 +1855,12 @@
      ],
      "answer": 3,
      "explain": "MAX is 60000 and MIN is 35000 (NULL is ignored). 60000 - 35000 = 25000.",
+     "steps": [
+      "MAX and MIN ignore NULL.",
+      "MAX(Salary) = 60000; MIN(Salary) = 35000.",
+      "60000 − 35000 = 25000.",
+      "Answer: 25000"
+     ],
      "mistake": "Treats NULL as 0 and takes 0 as the minimum",
      "check": "60000-35000"
     },
@@ -1441,6 +1874,12 @@
      ],
      "answer": 3,
      "explain": "The IT salaries are 55000, 60000 and 50000, totalling 165000.",
+     "steps": [
+      "IT salaries: Ravi 55000, Meena 60000, Dev 50000.",
+      "SUM = 55000 + 60000 + 50000.",
+      "= 165000.",
+      "Answer: 165000"
+     ],
      "mistake": "Misses one of the IT rows",
      "check": "55000+60000+50000"
     },
@@ -1454,6 +1893,12 @@
      ],
      "answer": 0,
      "explain": "The different departments are HR, IT and Sales.",
+     "steps": [
+      "COUNT(DISTINCT Dept) counts different non-NULL values.",
+      "Departments: HR, IT, Sales.",
+      "So 3.",
+      "Answer: 3"
+     ],
      "mistake": "Counts all rows instead of distinct values",
      "check": "3"
     },
@@ -1467,6 +1912,12 @@
      ],
      "answer": 3,
      "explain": "AVG works on many rows and returns one value; the others return a value for each row.",
+     "steps": [
+      "An aggregate function works on many rows and returns one value.",
+      "LENGTH, UPPER and ROUND return one value per row.",
+      "AVG() is the aggregate.",
+      "Answer: AVG()"
+     ],
      "mistake": "Thinks any built-in function is an aggregate"
     },
     {
@@ -1479,6 +1930,12 @@
      ],
      "answer": 0,
      "explain": "AVG divides by the number of non-NULL values; COUNT(*) includes NULL rows, so the results differ. R explains A.",
+     "steps": [
+      "AVG ignores NULLs, but COUNT(*) counts every row (R is true).",
+      "So AVG(col) divides by fewer rows than SUM(col) / COUNT(*) when NULLs exist (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks aggregates treat NULL as zero"
     }
    ],
@@ -1505,6 +1962,27 @@
     ],
     "praise": "Brilliant! COUNT(*) counts every row, while COUNT(Salary) skips the rows where Salary is NULL.",
     "nudge": "What does each COUNT do with rows that have NULL in Salary?"
+   },
+   "revise": {
+    "summary": "Aggregate functions MAX, MIN, SUM, AVG and COUNT return one value for a group of rows. COUNT(*) counts all rows, COUNT(col) skips NULLs, and SUM, AVG, MAX and MIN ignore NULL values.",
+    "focus": [
+     "Compute MAX, MIN, SUM, AVG and COUNT on a table",
+     "Tell COUNT(*) from COUNT(col) and COUNT(DISTINCT col)",
+     "Handle NULL values in aggregates",
+     "Combine aggregates with WHERE"
+    ],
+    "remember": [
+     "COUNT(*) counts all rows; COUNT(col) counts non-NULL values",
+     "AVG(col) = SUM(col) / COUNT(col)",
+     "SUM, AVG, MAX and MIN ignore NULL",
+     "Single-row functions (UPPER, LENGTH) give one value per row"
+    ],
+    "traps": [
+     "Don't treat NULL as 0 in averages",
+     "COUNT(*) does not skip NULL rows",
+     "MIN ignores NULL, so it is not 0"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1595,6 +2073,12 @@
      ],
      "answer": 1,
      "explain": "One row per department: HR, IT and Sales.",
+     "steps": [
+      "GROUP BY Dept makes one group per department.",
+      "Departments: HR, IT, Sales.",
+      "So 3 rows.",
+      "Answer: 3"
+     ],
      "mistake": "Thinks GROUP BY returns every original row",
      "check": "3"
     },
@@ -1608,6 +2092,12 @@
      ],
      "answer": 0,
      "explain": "Ravi, Meena and Dev are in IT.",
+     "steps": [
+      "The IT group has Ravi, Meena and Dev.",
+      "COUNT(*) counts all rows in the group.",
+      "So 3.",
+      "Answer: 3"
+     ],
      "mistake": "Miscounts the rows in the group",
      "check": "3"
     },
@@ -1621,6 +2111,12 @@
      ],
      "answer": 3,
      "explain": "HR has 2 rows and IT has 3, while Sales has only 1.",
+     "steps": [
+      "COUNT(*) per group: HR 2, IT 3, Sales 1.",
+      "HAVING COUNT(*) >= 2 keeps HR and IT.",
+      "So HR and IT.",
+      "Answer: HR and IT"
+     ],
      "mistake": "Uses COUNT(Salary) and drops HR because of Zoya's NULL"
     },
     {
@@ -1633,6 +2129,12 @@
      ],
      "answer": 1,
      "explain": "HR salaries are 40000 and NULL. AVG ignores NULL, so the average is 40000 / 1 = 40000.",
+     "steps": [
+      "HR salaries: Asha 40000 and Zoya NULL.",
+      "AVG ignores NULL: 40000 ÷ 1.",
+      "= 40000.",
+      "Answer: 40000"
+     ],
      "mistake": "Treats NULL as 0 and divides by 2",
      "check": "40000/1"
     },
@@ -1646,6 +2148,12 @@
      ],
      "answer": 0,
      "explain": "A condition on an aggregate must go in HAVING, after GROUP BY. WHERE cannot use SUM().",
+     "steps": [
+      "A condition on an aggregate (SUM) must go in HAVING, after GROUP BY.",
+      "WHERE cannot use SUM().",
+      "So SELECT Dept FROM EMP GROUP BY Dept HAVING SUM(Salary) > 100000;",
+      "Answer: SELECT Dept FROM EMP GROUP BY Dept HAVING SUM(Salary) > 100000;"
+     ],
      "mistake": "Puts an aggregate condition in WHERE"
     },
     {
@@ -1658,6 +2166,12 @@
      ],
      "answer": 0,
      "explain": "WHERE works on individual rows and HAVING works on the groups made by GROUP BY.",
+     "steps": [
+      "WHERE filters individual rows before grouping.",
+      "HAVING filters groups after GROUP BY.",
+      "So WHERE is for rows; HAVING is for groups.",
+      "Answer: WHERE filters rows before grouping; HAVING filters groups after grouping"
+     ],
      "mistake": "Swaps the roles of WHERE and HAVING"
     },
     {
@@ -1670,6 +2184,12 @@
      ],
      "answer": 2,
      "explain": "WHERE keeps Ravi (Pune), Meena (Delhi) and Dev (Delhi); grouping by city gives Delhi and Pune.",
+     "steps": [
+      "WHERE Dept = 'IT' keeps Ravi (Pune), Meena (Delhi), Dev (Delhi).",
+      "GROUP BY City makes groups Delhi and Pune.",
+      "So 2 rows.",
+      "Answer: 2"
+     ],
      "mistake": "Groups before filtering, or forgets that two IT employees share a city",
      "check": "2"
     },
@@ -1683,6 +2203,12 @@
      ],
      "answer": 0,
      "explain": "WHERE is applied to single rows before groups exist, so SUM() is not allowed there; the condition belongs in HAVING. R explains A.",
+     "steps": [
+      "Aggregate functions cannot be used in WHERE (R is true).",
+      "So WHERE SUM(Salary) > 50000 gives an error (A is true).",
+      "R explains A.",
+      "Answer: Both A and R are true, and R is the correct explanation of A"
+     ],
      "mistake": "Thinks WHERE and HAVING are interchangeable"
     }
    ],
@@ -1709,6 +2235,27 @@
     ],
     "praise": "Excellent! HAVING filters groups after GROUP BY and can use aggregates; WHERE filters rows before grouping.",
     "nudge": "Which one works on groups and can use functions like COUNT or SUM?"
+   },
+   "revise": {
+    "summary": "GROUP BY puts rows with the same value into groups, and aggregates give one result per group. HAVING filters groups using aggregate conditions, while WHERE filters rows before grouping and cannot use aggregates.",
+    "focus": [
+     "Write GROUP BY queries with aggregates",
+     "Filter groups with HAVING",
+     "Tell WHERE from HAVING",
+     "Know the clause order"
+    ],
+    "remember": [
+     "SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept;",
+     "HAVING COUNT(*) > 1 filters groups",
+     "WHERE filters rows before grouping; no aggregates in WHERE",
+     "Order: SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY"
+    ],
+    "traps": [
+     "Aggregate conditions go in HAVING, not WHERE",
+     "GROUP BY returns one row per group, not every row",
+     "Don't think WHERE runs after grouping; it runs before"
+    ],
+    "level": "important"
    }
   },
   {
@@ -1809,6 +2356,12 @@
      ],
      "answer": 2,
      "explain": "Degree of a Cartesian product = 4 + 3 = 7.",
+     "steps": [
+      "Degree of A × B = degree of A + degree of B.",
+      "4 + 3.",
+      "= 7.",
+      "Answer: 7"
+     ],
      "mistake": "Multiplies the degrees",
      "check": "4+3"
     },
@@ -1822,6 +2375,12 @@
      ],
      "answer": 3,
      "explain": "Cardinality of a Cartesian product = 6 × 5 = 30.",
+     "steps": [
+      "Cardinality of A × B = cardinality of A × cardinality of B.",
+      "6 × 5.",
+      "= 30.",
+      "Answer: 30"
+     ],
      "mistake": "Adds the cardinalities",
      "check": "6*5"
     },
@@ -1835,6 +2394,12 @@
      ],
      "answer": 2,
      "explain": "Without a join condition, every student is paired with every class: 3 × 2 = 6.",
+     "steps": [
+      "With no join condition, the query is a Cartesian product.",
+      "Every student pairs with every class: 3 × 2.",
+      "= 6 rows.",
+      "Answer: 6"
+     ],
      "mistake": "Assumes the tables are matched on ClassID automatically",
      "check": "3*2"
     },
@@ -1848,6 +2413,12 @@
      ],
      "answer": 3,
      "explain": "The equi-join pairs each student with their class; Mr Rao teaches class 11, which has Anu and Chitra.",
+     "steps": [
+      "The equi-join pairs each student with their own class.",
+      "Mr Rao teaches ClassID 11.",
+      "Class 11 students: Anu and Chitra.",
+      "Answer: Anu and Chitra"
+     ],
      "mistake": "Forgets the join condition or the teacher filter"
     },
     {
@@ -1860,6 +2431,12 @@
      ],
      "answer": 2,
      "explain": "A natural join shows the common column ClassID only once: RollNo, Name, ClassID and Teacher.",
+     "steps": [
+      "STUDENT has 3 columns and CLASS has 2.",
+      "A natural join shows the common column ClassID only once: 3 + 2 − 1.",
+      "= 4 columns.",
+      "Answer: 4"
+     ],
      "mistake": "Counts ClassID twice, as in an equi-join",
      "check": "3+2-1"
     },
@@ -1873,6 +2450,12 @@
      ],
      "answer": 3,
      "explain": "A column name found in both tables must be qualified, e.g. STUDENT.ClassID or S.ClassID.",
+     "steps": [
+      "ClassID exists in both STUDENT and CLASS.",
+      "In the select list it is not qualified, so MySQL cannot tell which one is meant.",
+      "So ClassID is ambiguous.",
+      "Answer: ClassID is ambiguous because it is present in both tables"
+     ],
      "mistake": "Does not realise the select list also needs qualified names"
     },
     {
@@ -1885,6 +2468,12 @@
      ],
      "answer": 1,
      "explain": "JOIN ... ON with an equality on the common column is an equi-join. SELECT * FROM STUDENT, CLASS; (and, in MySQL, JOIN without ON) gives a plain Cartesian product.",
+     "steps": [
+      "An equi-join needs an equality on the common column.",
+      "JOIN ... ON STUDENT.ClassID = CLASS.ClassID gives that.",
+      "The other options are Cartesian products or invalid.",
+      "Answer: SELECT * FROM STUDENT JOIN CLASS ON STUDENT.ClassID = CLASS.ClassID;"
+     ],
      "mistake": "Mistakes a Cartesian product for a join"
     },
     {
@@ -1897,6 +2486,12 @@
      ],
      "answer": 1,
      "explain": "Both statements are true, but R describes a natural join; it does not explain why an equi-join shows the column twice (because SELECT * takes every column of both tables).",
+     "steps": [
+      "In an equi-join with SELECT *, every column of both tables appears, so ClassID appears twice: A is true.",
+      "A natural join shows the common column once: R is true.",
+      "But R is about natural joins, so it does not explain A.",
+      "Answer: Both A and R are true, but R is not the correct explanation of A"
+     ],
      "mistake": "Takes a true statement about natural joins as the reason for equi-join behaviour"
     }
    ],
@@ -1920,6 +2515,27 @@
     ],
     "praise": "Perfect! Each of A's 3 rows pairs with each of B's 4 rows, so there are 3 × 4 = 12 rows.",
     "nudge": "How many partners does each row of A get from B, and what do you multiply?"
+   },
+   "revise": {
+    "summary": "A Cartesian product pairs every row of one table with every row of another (degrees add, cardinalities multiply). An equi-join keeps pairs with equal common values, a natural join shows the common column once, and aliases qualify shared column names.",
+    "focus": [
+     "Find the degree and cardinality of a Cartesian product",
+     "Write equi-joins with WHERE or JOIN ... ON",
+     "Know how a natural join differs",
+     "Qualify ambiguous column names with aliases"
+    ],
+    "remember": [
+     "Cartesian product: degree = d1 + d2; cardinality = c1 × c2",
+     "Equi-join: WHERE A.col = B.col (common column appears twice with SELECT *)",
+     "Natural join: common column shown once",
+     "Qualify shared columns: S.ClassID"
+    ],
+    "traps": [
+     "Don't multiply degrees or add cardinalities",
+     "Don't leave out the join condition; two tables without it give a Cartesian product",
+     "Don't leave a shared column name unqualified; it is ambiguous"
+    ],
+    "level": "important"
    }
   }
  ]

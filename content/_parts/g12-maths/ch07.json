@@ -104,6 +104,11 @@
      ],
      "answer": 0,
      "explain": "Integrate term by term: x³ − 2x² + 5x + C.",
+     "steps": [
+      "Rule: ∫xⁿ dx = xⁿ⁺¹/(n + 1) + C",
+      "∫3x² dx = x³; ∫−4x dx = −4 · x²/2 = −2x²; ∫5 dx = 5x",
+      "Answer: x³ − 2x² + 5x + C"
+     ],
      "mistake": "Forgets to divide by the new power"
     },
     {
@@ -116,6 +121,12 @@
      ],
      "answer": 1,
      "explain": "√x = x^(1/2) → x^(3/2)/(3/2), and x^(−1/2) → x^(1/2)/(1/2).",
+     "steps": [
+      "Write √x = x^(1/2) and 1/√x = x^(−1/2)",
+      "∫x^(1/2) dx = x^(3/2)/(3/2) = (2/3)x^(3/2)",
+      "∫x^(−1/2) dx = x^(1/2)/(1/2) = 2x^(1/2)",
+      "Answer: (2/3)x^(3/2) + 2x^(1/2) + C"
+     ],
      "mistake": "Multiplies by the new power instead of dividing"
     },
     {
@@ -128,6 +139,11 @@
      ],
      "answer": 3,
      "explain": "Split: 2 sec²x − 3 sec x tan x. Integrate: 2 tan x − 3 sec x + C.",
+     "steps": [
+      "Split: 2/cos²x − 3 sin x/cos²x = 2 sec²x − 3 sec x tan x",
+      "∫sec²x dx = tan x; ∫sec x tan x dx = sec x",
+      "Answer: 2 tan x − 3 sec x + C"
+     ],
      "mistake": "Gets the sign of the sec x term wrong"
     },
     {
@@ -143,7 +159,8 @@
      "steps": [
       "f = x³ + x² + C",
       "C = 3",
-      "f(2) = 8 + 4 + 3 = 15"
+      "f(2) = 8 + 4 + 3 = 15",
+      "Answer: 15"
      ],
      "mistake": "Forgets to find C from the initial condition",
      "check": "8+4+3"
@@ -158,6 +175,11 @@
      ],
      "answer": 1,
      "explain": "d/dx[−(1/2) cos 2x] = −(1/2)(−sin 2x)(2) = sin 2x.",
+     "steps": [
+      "Try F(x) = −(1/2) cos 2x",
+      "F′(x) = −(1/2)(−sin 2x)(2) = sin 2x ✓",
+      "Answer: −(1/2) cos 2x"
+     ],
      "mistake": "Forgets to divide by the coefficient 2"
     },
     {
@@ -170,6 +192,12 @@
      ],
      "answer": 3,
      "explain": "(x³ − 1)/(x − 1) = x² + x + 1, which integrates to x³/3 + x²/2 + x + C.",
+     "steps": [
+      "Simplify first: x³ − 1 = (x − 1)(x² + x + 1)",
+      "So the integrand is x² + x + 1 (x ≠ 1)",
+      "∫(x² + x + 1) dx = x³/3 + x²/2 + x + C",
+      "Answer: x³/3 + x²/2 + x + C"
+     ],
      "mistake": "Tries to integrate the quotient without simplifying"
     },
     {
@@ -182,6 +210,11 @@
      ],
      "answer": 1,
      "explain": "eˣ(1 + e⁻ˣ) = eˣ + 1, whose integral is eˣ + x + C.",
+     "steps": [
+      "Expand: eˣ(1 + e⁻ˣ) = eˣ + eˣ · e⁻ˣ = eˣ + 1",
+      "∫(eˣ + 1) dx = eˣ + x + C",
+      "Answer: eˣ + x + C"
+     ],
      "mistake": "Forgets that eˣ · e⁻ˣ = 1"
     },
     {
@@ -194,6 +227,11 @@
      ],
      "answer": 2,
      "explain": "A is a standard result. R is false: at n = −1 the power rule would divide by zero.",
+     "steps": [
+      "A: d/dx log|x| = 1/x, so ∫(1/x) dx = log|x| + C — true",
+      "R: at n = −1 the power rule gives x⁰/0, division by zero — false",
+      "Answer: A is true but R is false"
+     ],
      "mistake": "Applies the power rule to 1/x"
     }
    ],
@@ -227,7 +265,26 @@
     "c7.2.3",
     "c7.2.4",
     "c7.2.5"
-   ]
+   ],
+   "revise": {
+    "summary": "Integration reverses differentiation: if F′ = f then ∫f dx = F + C. Learn the standard power, exponential, trigonometric and inverse trig integrals, and use an initial condition to find C.",
+    "focus": [
+     "Integrate term by term using standard results",
+     "Simplify the integrand before integrating",
+     "Find C from a given value like f(1) = 5"
+    ],
+    "remember": [
+     "∫xⁿ dx = xⁿ⁺¹/(n + 1) + C (n ≠ −1); ∫dx/x = log|x| + C",
+     "∫sin x dx = −cos x + C; ∫sec²x dx = tan x + C; ∫sec x tan x dx = sec x + C",
+     "∫dx/√(1 − x²) = sin⁻¹x + C; ∫dx/(1 + x²) = tan⁻¹x + C"
+    ],
+    "traps": [
+     "Divide by the new power, don't multiply",
+     "The power rule fails at n = −1",
+     "Don't forget the constant C (and to find it when a condition is given)"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-07-02",
@@ -342,6 +399,11 @@
      ],
      "answer": 0,
      "explain": "Put t = x², dt = 2x dx: ∫cos t dt = sin t + C = sin(x²) + C.",
+     "steps": [
+      "Put t = x², so dt = 2x dx",
+      "∫2x cos(x²) dx = ∫cos t dt = sin t + C",
+      "Answer: sin(x²) + C"
+     ],
      "mistake": "Forgets that 2x dx is exactly dt"
     },
     {
@@ -354,6 +416,11 @@
      ],
      "answer": 3,
      "explain": "Put t = 3x + 5, dt = 3 dx: (1/3)∫sin t dt = −(1/3) cos t + C.",
+     "steps": [
+      "Put t = 3x + 5, dt = 3 dx, so dx = dt/3",
+      "(1/3)∫sin t dt = −(1/3) cos t + C",
+      "Answer: −(1/3) cos(3x + 5) + C"
+     ],
      "mistake": "Multiplies by 3 instead of dividing"
     },
     {
@@ -366,6 +433,11 @@
      ],
      "answer": 2,
      "explain": "With t = tan⁻¹ x, dt = dx/(1 + x²), the integral is ∫eᵗ dt.",
+     "steps": [
+      "Put t = tan⁻¹ x, so dt = dx/(1 + x²)",
+      "∫eᵗ dt = eᵗ + C",
+      "Answer: e^(tan⁻¹ x) + C"
+     ],
      "mistake": "Does not recognise 1/(1 + x²) as the derivative of tan⁻¹ x"
     },
     {
@@ -378,6 +450,11 @@
      ],
      "answer": 2,
      "explain": "The numerator is the derivative of the denominator, so it is ∫f′/f = log|f| + C.",
+     "steps": [
+      "d/dx (x² + 3x + 7) = 2x + 3, the numerator",
+      "So it is ∫f′(x)/f(x) dx = log|f(x)| + C",
+      "Answer: log|x² + 3x + 7| + C"
+     ],
      "mistake": "Misses the f′/f pattern"
     },
     {
@@ -390,6 +467,12 @@
      ],
      "answer": 1,
      "explain": "tan x = sin x/cos x = −(−sin x)/cos x, so ∫tan x dx = −log|cos x| = log|sec x| + C.",
+     "steps": [
+      "tan x = sin x/cos x; put t = cos x, dt = −sin x dx",
+      "∫tan x dx = −∫dt/t = −log|cos x| + C",
+      "−log|cos x| = log|1/cos x| = log|sec x|",
+      "Answer: log|sec x| + C"
+     ],
      "mistake": "Drops the minus sign and writes log|cos x|"
     },
     {
@@ -402,6 +485,11 @@
      ],
      "answer": 2,
      "explain": "Put t = cos x, dt = −sin x dx: −∫t² dt = −t³/3 + C.",
+     "steps": [
+      "Put t = cos x, dt = −sin x dx",
+      "∫sin x cos²x dx = −∫t² dt = −t³/3 + C",
+      "Answer: −cos³x/3 + C"
+     ],
      "mistake": "Loses the minus sign from dt = −sin x dx"
     },
     {
@@ -414,6 +502,11 @@
      ],
      "answer": 2,
      "explain": "Put t = x² + 1, dt = 2x dx: (1/2)∫t^(1/2) dt = (1/2)(2/3)t^(3/2) = (1/3)(x² + 1)^(3/2) + C.",
+     "steps": [
+      "Put t = x² + 1, dt = 2x dx, so x dx = dt/2",
+      "(1/2)∫t^(1/2) dt = (1/2)(2/3)t^(3/2) = (1/3)t^(3/2)",
+      "Answer: (1/3)(x² + 1)^(3/2) + C"
+     ],
      "mistake": "Forgets the 1/2 from dt = 2x dx"
     },
     {
@@ -426,6 +519,12 @@
      ],
      "answer": 3,
      "explain": "cot x has the form f′/f with f = sin x, so its integral is log|sin x| + C.",
+     "steps": [
+      "R: cot x = cos x/sin x and (sin x)′ = cos x — true",
+      "So cot x = f′/f with f = sin x, giving ∫cot x dx = log|sin x| + C: A is true",
+      "R is the reason A works",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks ∫cot x dx needs integration by parts"
     }
    ],
@@ -461,7 +560,26 @@
     "c7.3.1",
     "c7.3.2",
     "c7.3.3"
-   ]
+   ],
+   "revise": {
+    "summary": "If an integrand contains g(x) and g′(x), put t = g(x) and dt = g′(x) dx, integrate in t, and return to x. Key results: ∫f′/f dx = log|f| + C, and the integrals of tan, cot, sec and cosec.",
+    "focus": [
+     "Spot the inner function and its derivative",
+     "Use the f′/f pattern",
+     "Handle linear substitutions like 3x + 5"
+    ],
+    "remember": [
+     "∫f′(x)/f(x) dx = log|f(x)| + C",
+     "∫tan x dx = log|sec x| + C; ∫cot x dx = log|sin x| + C",
+     "∫sec x dx = log|sec x + tan x| + C; ∫cosec x dx = log|cosec x − cot x| + C"
+    ],
+    "traps": [
+     "Divide by the coefficient of x in a linear substitution",
+     "Don't lose the minus sign when dt = −sin x dx",
+     "Keep the 1/2 when dt = 2x dx"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-07-03",
@@ -535,6 +653,11 @@
      ],
      "answer": 3,
      "explain": "sin²x = (1 − cos 2x)/2, so the integral is x/2 − (sin 2x)/4 + C.",
+     "steps": [
+      "sin²x = (1 − cos 2x)/2",
+      "∫(1/2) dx = x/2; ∫(cos 2x)/2 dx = (sin 2x)/4",
+      "Answer: x/2 − (sin 2x)/4 + C"
+     ],
      "mistake": "Treats sin²x like a power of x"
     },
     {
@@ -547,6 +670,11 @@
      ],
      "answer": 1,
      "explain": "cos²x = (1 + cos 2x)/2, giving x/2 + (sin 2x)/4 + C.",
+     "steps": [
+      "cos²x = (1 + cos 2x)/2",
+      "∫(1/2) dx = x/2; ∫(cos 2x)/2 dx = (sin 2x)/4",
+      "Answer: x/2 + (sin 2x)/4 + C"
+     ],
      "mistake": "Uses the sin² identity by mistake"
     },
     {
@@ -559,6 +687,11 @@
      ],
      "answer": 2,
      "explain": "tan²x = sec²x − 1, so ∫ = tan x − x + C.",
+     "steps": [
+      "tan²x = sec²x − 1",
+      "∫sec²x dx − ∫1 dx = tan x − x",
+      "Answer: tan x − x + C"
+     ],
      "mistake": "Writes tan²x = sec²x + 1"
     },
     {
@@ -571,6 +704,12 @@
      ],
      "answer": 2,
      "explain": "sin 2x cos 3x = (1/2)(sin 5x − sin x). Integrating: (1/2)(−cos 5x/5 + cos x).",
+     "steps": [
+      "2 sin A cos B = sin(A + B) + sin(A − B) with A = 2x, B = 3x",
+      "sin 2x cos 3x = (1/2)[sin 5x + sin(−x)] = (1/2)(sin 5x − sin x)",
+      "∫ = (1/2)[−(cos 5x)/5 + cos x] + C",
+      "Answer: −(1/10) cos 5x + (1/2) cos x + C"
+     ],
      "mistake": "Forgets the 1/2 or the sign of sin(−x)"
     },
     {
@@ -583,6 +722,12 @@
      ],
      "answer": 1,
      "explain": "sin³x = (3 sin x − sin 3x)/4; integrate each term.",
+     "steps": [
+      "sin³x = (3 sin x − sin 3x)/4",
+      "∫(3/4) sin x dx = −(3/4) cos x; ∫(1/4) sin 3x dx = −(1/12) cos 3x",
+      "Subtract: −(3/4) cos x − (−(1/12) cos 3x)",
+      "Answer: −(3/4) cos x + (1/12) cos 3x + C"
+     ],
      "mistake": "Integrates as if sin³x were x³"
     },
     {
@@ -595,6 +740,12 @@
      ],
      "answer": 0,
      "explain": "cos 2x cos 4x = (1/2)[cos 6x + cos 2x]. Integrate: (1/2)[sin 6x/6 + sin 2x/2] = sin 6x/12 + sin 2x/4.",
+     "steps": [
+      "2 cos A cos B = cos(A + B) + cos(A − B)",
+      "cos 2x cos 4x = (1/2)[cos 6x + cos 2x]",
+      "∫ = (1/2)[(sin 6x)/6 + (sin 2x)/2] = (sin 6x)/12 + (sin 2x)/4",
+      "Answer: (sin 6x)/12 + (sin 2x)/4 + C"
+     ],
      "mistake": "Forgets the factor 1/2 from the product formula"
     },
     {
@@ -607,6 +758,12 @@
      ],
      "answer": 3,
      "explain": "(1 − cos 2x)/(1 + cos 2x) = 2 sin²x/(2 cos²x) = tan²x = sec²x − 1.",
+     "steps": [
+      "1 − cos 2x = 2 sin²x; 1 + cos 2x = 2 cos²x",
+      "Ratio = tan²x = sec²x − 1",
+      "∫(sec²x − 1) dx = tan x − x",
+      "Answer: tan x − x + C"
+     ],
      "mistake": "Uses the double angle formulas the wrong way round"
     },
     {
@@ -619,6 +776,12 @@
      ],
      "answer": 2,
      "explain": "With t = sin x, ∫(1 − t²) dt = t − t³/3 + C, which is A.",
+     "steps": [
+      "R: cos³x = cos²x · cos x = (1 − sin²x) cos x — true",
+      "Put t = sin x, dt = cos x dx: ∫(1 − t²) dt = t − t³/3 + C",
+      "= sin x − (sin³x)/3 + C, which is A; R explains A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Does not see how an odd power can be reduced by substitution"
     }
    ],
@@ -646,7 +809,27 @@
    },
    "covers": [
     "c7.3.4"
-   ]
+   ],
+   "revise": {
+    "summary": "Powers and products of sines and cosines are integrated after rewriting them with identities: half-angle formulas for squares, triple-angle formulas for cubes, and product-to-sum formulas for products.",
+    "focus": [
+     "Integrate sin²x, cos²x, tan²x and sin³x",
+     "Convert products like sin 2x cos 3x to sums",
+     "Use substitution for odd powers"
+    ],
+    "remember": [
+     "sin²x = (1 − cos 2x)/2; cos²x = (1 + cos 2x)/2",
+     "sin³x = (3 sin x − sin 3x)/4",
+     "2 sin A cos B = sin(A + B) + sin(A − B); 2 cos A cos B = cos(A + B) + cos(A − B)",
+     "tan²x = sec²x − 1"
+    ],
+    "traps": [
+     "Don't treat sin²x like x²",
+     "Keep the factor 1/2 from product-to-sum formulas",
+     "tan²x is sec²x − 1, not sec²x + 1"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-07-04",
@@ -748,6 +931,11 @@
      ],
      "answer": 2,
      "explain": "a = 4, so ∫ = (1/4) tan⁻¹(x/4) + C.",
+     "steps": [
+      "Form ∫dx/(x² + a²) = (1/a) tan⁻¹(x/a) + C",
+      "x² + 16 = x² + 4², so a = 4",
+      "Answer: (1/4) tan⁻¹(x/4) + C"
+     ],
      "mistake": "Forgets the factor 1/a"
     },
     {
@@ -760,6 +948,11 @@
      ],
      "answer": 0,
      "explain": "1 − 4x² = 4(1/4 − x²), so ∫ = (1/2)∫dx/√((1/2)² − x²) = (1/2) sin⁻¹(2x) + C.",
+     "steps": [
+      "1 − 4x² = 4(1/4 − x²), so √(1 − 4x²) = 2√((1/2)² − x²)",
+      "∫ = (1/2)∫dx/√((1/2)² − x²) = (1/2) sin⁻¹(x/(1/2))",
+      "Answer: (1/2) sin⁻¹(2x) + C"
+     ],
      "mistake": "Forgets to take the 2 out of the square root"
     },
     {
@@ -772,6 +965,11 @@
      ],
      "answer": 0,
      "explain": "Using 1/(2a) with a = 3: (1/6) log|(x − 3)/(x + 3)| + C.",
+     "steps": [
+      "Form ∫dx/(x² − a²) = (1/2a) log|(x − a)/(x + a)| + C",
+      "a = 3, so 1/(2a) = 1/6",
+      "Answer: (1/6) log|(x − 3)/(x + 3)| + C"
+     ],
      "mistake": "Uses 1/a instead of 1/(2a), or flips the fraction"
     },
     {
@@ -784,6 +982,11 @@
      ],
      "answer": 2,
      "explain": "∫dx/(a² − x²) = (1/2a) log|(a + x)/(a − x)| with a = 3.",
+     "steps": [
+      "Form ∫dx/(a² − x²) = (1/2a) log|(a + x)/(a − x)| + C",
+      "a = 3, so 1/(2a) = 1/6",
+      "Answer: (1/6) log|(3 + x)/(3 − x)| + C"
+     ],
      "mistake": "Mixes up the x² − a² and a² − x² forms"
     },
     {
@@ -796,6 +999,11 @@
      ],
      "answer": 2,
      "explain": "The form ∫dx/√(x² + a²) gives log|x + √(x² + a²)| + C.",
+     "steps": [
+      "Form ∫dx/√(x² + a²) = log|x + √(x² + a²)| + C",
+      "a = 2, a² = 4",
+      "Answer: log|x + √(x² + 4)| + C"
+     ],
      "mistake": "Confuses √(x² + a²) with a² + x² without the root"
     },
     {
@@ -808,6 +1016,12 @@
      ],
      "answer": 1,
      "explain": "(1/9)∫dx/(x² + 4/9) = (1/9)(3/2) tan⁻¹(3x/2) = (1/6) tan⁻¹(3x/2) + C.",
+     "steps": [
+      "Factor: 9x² + 4 = 9(x² + (2/3)²)",
+      "(1/9)∫dx/(x² + (2/3)²) = (1/9) × (3/2) tan⁻¹(x/(2/3))",
+      "= (1/6) tan⁻¹(3x/2)",
+      "Answer: (1/6) tan⁻¹(3x/2) + C"
+     ],
      "mistake": "Forgets to factor out the 9"
     },
     {
@@ -820,6 +1034,11 @@
      ],
      "answer": 0,
      "explain": "Put t = x³, dt = 3x² dx: (1/3)∫dt/(1 − t²) = (1/3)(1/2) log|(1 + t)/(1 − t)| + C.",
+     "steps": [
+      "Put t = x³, dt = 3x² dx; 1 − x⁶ = 1 − t²",
+      "(1/3)∫dt/(1 − t²) = (1/3) × (1/2) log|(1 + t)/(1 − t)|",
+      "Answer: (1/6) log|(1 + x³)/(1 − x³)| + C"
+     ],
      "mistake": "Forgets either the 1/3 from dt or the 1/2 from the formula"
     },
     {
@@ -832,6 +1051,12 @@
      ],
      "answer": 1,
      "explain": "The correct formula is ∫dx/√(a² − x²) = sin⁻¹(x/a) + C, with no 1/a. So A is true and R is false.",
+     "steps": [
+      "Correct rule: ∫dx/√(a² − x²) = sin⁻¹(x/a) + C (no 1/a factor)",
+      "a = 4 gives sin⁻¹(x/4) + C, so A is true",
+      "R adds a wrong 1/a factor (that belongs to the tan⁻¹ form), so R is false",
+      "Answer: A is true but R is false"
+     ],
      "mistake": "Copies the 1/a factor from the tan⁻¹ formula"
     }
    ],
@@ -866,7 +1091,27 @@
    "covers": [
     "c7.4.1",
     "c7.4.2"
-   ]
+   ],
+   "revise": {
+    "summary": "Six standard forms handle x² ± a² and a² − x², with or without a square root. When the coefficient of x² is not 1, factor it out first.",
+    "focus": [
+     "Match an integrand to the right standard form",
+     "Factor out the x² coefficient correctly",
+     "Combine with substitution, e.g. t = x³"
+    ],
+    "remember": [
+     "∫dx/(x² − a²) = (1/2a) log|(x − a)/(x + a)| + C",
+     "∫dx/(a² − x²) = (1/2a) log|(a + x)/(a − x)| + C",
+     "∫dx/(x² + a²) = (1/a) tan⁻¹(x/a) + C",
+     "∫dx/√(a² − x²) = sin⁻¹(x/a) + C; ∫dx/√(x² ± a²) = log|x + √(x² ± a²)| + C"
+    ],
+    "traps": [
+     "Don't put 1/a in the sin⁻¹ form",
+     "Don't mix up the x² − a² and a² − x² forms",
+     "Use 1/(2a), not 1/a, in the log forms"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-07-05",
@@ -941,6 +1186,11 @@
      ],
      "answer": 3,
      "explain": "x² + 2x + 2 = (x + 1)² + 1, so ∫ = tan⁻¹(x + 1) + C.",
+     "steps": [
+      "Complete the square: x² + 2x + 2 = (x + 1)² + 1",
+      "Put t = x + 1: ∫dt/(t² + 1) = tan⁻¹ t + C",
+      "Answer: tan⁻¹(x + 1) + C"
+     ],
      "mistake": "Completes the square incorrectly"
     },
     {
@@ -953,6 +1203,11 @@
      ],
      "answer": 3,
      "explain": "5 − 4x − x² = 9 − (x + 2)², so ∫dx/√(3² − (x + 2)²) = sin⁻¹((x + 2)/3) + C.",
+     "steps": [
+      "5 − 4x − x² = 5 − (x² + 4x) = 5 − [(x + 2)² − 4] = 9 − (x + 2)²",
+      "∫dx/√(3² − (x + 2)²) = sin⁻¹((x + 2)/3) + C",
+      "Answer: sin⁻¹((x + 2)/3) + C"
+     ],
      "mistake": "Gets the sign inside the square wrong"
     },
     {
@@ -967,7 +1222,8 @@
      "explain": "Comparing x-coefficients: 4A = 1, so A = 1/4.",
      "steps": [
       "4A = 1",
-      "A = 1/4"
+      "A = 1/4",
+      "Answer: 1/4"
      ],
      "mistake": "Compares with 2x² instead of the derivative 4x + 6",
      "check": "Fraction(1,4)"
@@ -984,7 +1240,8 @@
      "explain": "Constants: 6A + B = 2 ⇒ 6/4 + B = 2 ⇒ B = 1/2.",
      "steps": [
       "6(1/4) + B = 2",
-      "B = 2 − 3/2 = 1/2"
+      "B = 2 − 3/2 = 1/2",
+      "Answer: 1/2"
      ],
      "mistake": "Uses A = 1 or forgets the 6A term",
      "check": "2-Fraction(6,4)"
@@ -999,6 +1256,11 @@
      ],
      "answer": 3,
      "explain": "x² + 4x − 5 = (x + 2)² − 3², so the form ∫dt/√(t² − a²) gives log|t + √(t² − a²)| + C.",
+     "steps": [
+      "x² + 4x − 5 = (x + 2)² − 4 − 5 = (x + 2)² − 3²",
+      "Form ∫dt/√(t² − a²) = log|t + √(t² − a²)| with t = x + 2",
+      "Answer: log|x + 2 + √(x² + 4x − 5)| + C"
+     ],
      "mistake": "Uses sin⁻¹ for a t² − a² form"
     },
     {
@@ -1011,6 +1273,11 @@
      ],
      "answer": 2,
      "explain": "Put t = x² + x + 1, dt = (2x + 1) dx: ∫t^(−1/2) dt = 2√t + C.",
+     "steps": [
+      "Put t = x² + x + 1, dt = (2x + 1) dx",
+      "∫t^(−1/2) dt = t^(1/2)/(1/2) = 2√t",
+      "Answer: 2√(x² + x + 1) + C"
+     ],
      "mistake": "Uses the log result meant for f′/f without the square root"
     },
     {
@@ -1023,6 +1290,13 @@
      ],
      "answer": 2,
      "explain": "(1/3) × 1/(2 × 17/6) × log|(x + 13/6 − 17/6)/(x + 13/6 + 17/6)| = (1/17) log|(x − 2/3)/(x + 5)| = (1/17) log|(3x − 2)/(x + 5)| + C (the 3 is absorbed into C).",
+     "steps": [
+      "3x² + 13x − 10 = 3[(x + 13/6)² − (17/6)²]; a = 17/6",
+      "(1/3) × 1/(2 · 17/6) = (1/3)(3/17) = 1/17",
+      "log term: (x + 13/6 − 17/6)/(x + 13/6 + 17/6) = (x − 2/3)/(x + 5)",
+      "(x − 2/3) = (3x − 2)/3, and the constant 1/3 goes into C",
+      "Answer: (1/17) log|(3x − 2)/(x + 5)| + C"
+     ],
      "mistake": "Forgets the factor 1/3 or flips the fraction"
     },
     {
@@ -1035,6 +1309,12 @@
      ],
      "answer": 0,
      "explain": "The A part becomes an f′/f integral, which R handles directly; that is why we split this way.",
+     "steps": [
+      "R: ∫f′/f dx = log|f| + C — true",
+      "Writing px + q = A(2ax + b) + B makes the A part an f′/f integral",
+      "So R is the reason for this split, and A is true",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Does not see why the derivative is chosen"
     }
    ],
@@ -1063,7 +1343,26 @@
    "covers": [
     "c7.4.3",
     "c7.4.4"
-   ]
+   ],
+   "revise": {
+    "summary": "For a quadratic in the denominator (or under a root), complete the square and use a standard form. For a linear numerator, write it as A × (derivative of the quadratic) + B.",
+    "focus": [
+     "Complete the square correctly",
+     "Find A and B by comparing coefficients",
+     "Use f′/f and 2√f results for the A part"
+    ],
+    "remember": [
+     "px + q = A(2ax + b) + B",
+     "∫(px + q)/(ax² + bx + c) dx: A part gives A log|ax² + bx + c|",
+     "∫f′/√f dx = 2√f + C"
+    ],
+    "traps": [
+     "Factor out the coefficient of x² before completing the square",
+     "Watch the sign inside 5 − 4x − x² = 9 − (x + 2)²",
+     "Use sin⁻¹ only for a² − t² under a root"
+    ],
+    "level": "advanced"
+   }
   },
   {
    "id": "g12-maths-07-06",
@@ -1147,6 +1446,12 @@
      ],
      "answer": 0,
      "explain": "1/((x + 1)(x + 2)) = 1/(x + 1) − 1/(x + 2), which integrates to log|x + 1| − log|x + 2|.",
+     "steps": [
+      "1/((x + 1)(x + 2)) = A/(x + 1) + B/(x + 2) ⇒ 1 = A(x + 2) + B(x + 1)",
+      "x = −1: A = 1; x = −2: B = −1",
+      "∫ = log|x + 1| − log|x + 2| + C",
+      "Answer: log|(x + 1)/(x + 2)| + C"
+     ],
      "mistake": "Gets the signs of A and B swapped"
     },
     {
@@ -1161,7 +1466,8 @@
      "explain": "Put x = −1 in 3x − 2 = A(x + 1)(x + 3) + B(x + 3) + C(x + 1)²: −5 = 2B, so B = −5/2.",
      "steps": [
       "x = −1: −5 = B(2)",
-      "B = −5/2"
+      "B = −5/2",
+      "Answer: −5/2"
      ],
      "mistake": "Substitutes the wrong root",
      "check": "Fraction(-5,2)"
@@ -1178,7 +1484,8 @@
      "explain": "Put x = −3: −11 = C(−2)² = 4C, so C = −11/4.",
      "steps": [
       "x = −3: −11 = 4C",
-      "C = −11/4"
+      "C = −11/4",
+      "Answer: −11/4"
      ],
      "mistake": "Forgets to square (x + 1)",
      "check": "Fraction(-11,4)"
@@ -1193,6 +1500,11 @@
      ],
      "answer": 2,
      "explain": "x² + 4 cannot be factored over reals, so its numerator must be linear, Bx + C.",
+     "steps": [
+      "Factors: x − 1 (linear) and x² + 4 (cannot be factored over reals)",
+      "Linear factor → constant numerator A; irreducible quadratic → linear numerator Bx + C",
+      "Answer: A/(x − 1) + (Bx + C)/(x² + 4)"
+     ],
      "mistake": "Uses a constant numerator over a quadratic factor"
     },
     {
@@ -1205,6 +1517,12 @@
      ],
      "answer": 3,
      "explain": "The numerator's degree equals the denominator's, so divide first; then split the proper part.",
+     "steps": [
+      "deg(x² + 1) = 2 = deg(x² − 5x + 6), so the fraction is improper",
+      "Divide: (x² + 1) = 1 · (x² − 5x + 6) + (5x − 5)",
+      "Then split the proper part (5x − 5)/((x − 2)(x − 3))",
+      "Answer: Divide, since the fraction is improper: 1 + (5x − 5)/(x² − 5x + 6)"
+     ],
      "mistake": "Applies partial fractions to an improper fraction"
     },
     {
@@ -1219,7 +1537,8 @@
      "explain": "y = A(y + 4) + B(y + 1). At y = −4: −4 = −3B, so B = 4/3 (and A = −1/3).",
      "steps": [
       "y = −4: −4 = B(−3)",
-      "B = 4/3"
+      "B = 4/3",
+      "Answer: 4/3"
      ],
      "mistake": "Makes a sign slip at y = −4",
      "check": "Fraction(4,3)"
@@ -1234,6 +1553,12 @@
      ],
      "answer": 2,
      "explain": "−(1/3)∫dx/(x² + 1) + (4/3)∫dx/(x² + 4) = −(1/3) tan⁻¹ x + (4/3)(1/2) tan⁻¹(x/2) + C.",
+     "steps": [
+      "From the split: A = −1/3, B = 4/3, so integrand = −(1/3)/(x² + 1) + (4/3)/(x² + 4)",
+      "∫dx/(x² + 1) = tan⁻¹ x; ∫dx/(x² + 4) = (1/2) tan⁻¹(x/2)",
+      "(4/3)(1/2) = 2/3",
+      "Answer: −(1/3) tan⁻¹ x + (2/3) tan⁻¹(x/2) + C"
+     ],
      "mistake": "Forgets the 1/a factor in ∫dx/(x² + a²)"
     },
     {
@@ -1246,6 +1571,12 @@
      ],
      "answer": 1,
      "explain": "With t = sin x: ∫dt/((1 − t)(2 − t)) = ∫[1/(1 − t) − 1/(2 − t)] dt = −log|1 − t| + log|2 − t| + C.",
+     "steps": [
+      "Put t = sin x, dt = cos x dx: ∫dt/((1 − t)(2 − t))",
+      "1 = A(2 − t) + B(1 − t): t = 1 ⇒ A = 1; t = 2 ⇒ B = −1",
+      "∫[1/(1 − t) − 1/(2 − t)] dt = −log|1 − t| + log|2 − t| + C",
+      "Answer: log|(2 − sin x)/(1 − sin x)| + C"
+     ],
      "mistake": "Forgets that ∫dt/(1 − t) = −log|1 − t|"
     }
    ],
@@ -1283,7 +1614,27 @@
     "c7.5.3",
     "c7.5.4",
     "c7.5.5"
-   ]
+   ],
+   "revise": {
+    "summary": "A proper rational function is split into partial fractions, each of which integrates to a log or tan⁻¹ term. Improper fractions must be divided first.",
+    "focus": [
+     "Choose the correct partial-fraction form",
+     "Find constants by substituting roots",
+     "Use t = sin x or t = x² to reduce to rational form"
+    ],
+    "remember": [
+     "Distinct linear: A/(x − a) + B/(x − b)",
+     "Repeated: A/(x − a) + B/(x − a)² + C/(x − b)",
+     "Irreducible quadratic: (Bx + C)/(x² + bx + c)",
+     "Improper (deg P ≥ deg Q): divide first"
+    ],
+    "traps": [
+     "Don't use a constant numerator over an irreducible quadratic",
+     "∫dt/(1 − t) = −log|1 − t|",
+     "Don't split an improper fraction without dividing"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-07-07",
@@ -1381,6 +1732,11 @@
      ],
      "answer": 1,
      "explain": "u = x, v = eˣ: x eˣ − ∫eˣ dx = x eˣ − eˣ + C.",
+     "steps": [
+      "ILATE: u = x (A), v = eˣ (E)",
+      "∫x eˣ dx = x eˣ − ∫1 · eˣ dx = x eˣ − eˣ + C",
+      "Answer: eˣ(x − 1) + C"
+     ],
      "mistake": "Gets the sign of the second term wrong"
     },
     {
@@ -1393,6 +1749,11 @@
      ],
      "answer": 2,
      "explain": "Take log x as u and 1 as v: x log x − ∫x · (1/x) dx = x log x − x + C.",
+     "steps": [
+      "Take u = log x, v = 1",
+      "∫log x dx = (log x)(x) − ∫x · (1/x) dx = x log x − ∫1 dx",
+      "Answer: x log x − x + C"
+     ],
      "mistake": "Thinks ∫log x is the derivative 1/x"
     },
     {
@@ -1405,6 +1766,12 @@
      ],
      "answer": 1,
      "explain": "u = log x (L before A): (x²/2) log x − ∫(x²/2)(1/x) dx = (x²/2) log x − x²/4 + C.",
+     "steps": [
+      "ILATE: u = log x (L), v = x (A)",
+      "= (log x)(x²/2) − ∫(x²/2)(1/x) dx = (x²/2) log x − ∫(x/2) dx",
+      "∫(x/2) dx = x²/4",
+      "Answer: (x²/2) log x − x²/4 + C"
+     ],
      "mistake": "Chooses x as the first function and gets stuck integrating log x"
     },
     {
@@ -1417,6 +1784,12 @@
      ],
      "answer": 1,
      "explain": "x sin⁻¹x − ∫x/√(1 − x²) dx, and ∫x/√(1 − x²) dx = −√(1 − x²), so the result is x sin⁻¹x + √(1 − x²) + C.",
+     "steps": [
+      "Take u = sin⁻¹x, v = 1: x sin⁻¹x − ∫x/√(1 − x²) dx",
+      "Put t = 1 − x², dt = −2x dx: ∫x/√(1 − x²) dx = −√(1 − x²)",
+      "x sin⁻¹x − (−√(1 − x²))",
+      "Answer: x sin⁻¹x + √(1 − x²) + C"
+     ],
      "mistake": "Loses the sign while integrating x/√(1 − x²)"
     },
     {
@@ -1429,6 +1802,12 @@
      ],
      "answer": 0,
      "explain": "Parts twice gives I = eˣ sin x − eˣ cos x − I, so 2I = eˣ(sin x − cos x).",
+     "steps": [
+      "Let I = ∫eˣ sin x dx; take u = sin x, v = eˣ: I = eˣ sin x − ∫eˣ cos x dx",
+      "Again by parts: ∫eˣ cos x dx = eˣ cos x + ∫eˣ sin x dx = eˣ cos x + I",
+      "I = eˣ sin x − eˣ cos x − I ⇒ 2I = eˣ(sin x − cos x)",
+      "Answer: (eˣ/2)(sin x − cos x) + C"
+     ],
      "mistake": "Stops after one application of parts"
     },
     {
@@ -1441,6 +1820,12 @@
      ],
      "answer": 2,
      "explain": "Parts: x²eˣ − 2∫x eˣ dx = x²eˣ − 2eˣ(x − 1) + C = eˣ(x² − 2x + 2) + C.",
+     "steps": [
+      "u = x², v = eˣ: x²eˣ − ∫2x eˣ dx",
+      "∫x eˣ dx = eˣ(x − 1), so x²eˣ − 2eˣ(x − 1)",
+      "= eˣ(x² − 2x + 2)",
+      "Answer: eˣ(x² − 2x + 2) + C"
+     ],
      "mistake": "Forgets the second application of parts"
     },
     {
@@ -1453,6 +1838,12 @@
      ],
      "answer": 2,
      "explain": "A comes before T in ILATE. ∫x sec²x dx = x tan x − ∫tan x dx = x tan x − log|sec x| + C.",
+     "steps": [
+      "ILATE: A (x) comes before T (sec²x), so u = x",
+      "∫x sec²x dx = x tan x − ∫tan x dx",
+      "∫tan x dx = log|sec x|",
+      "Answer: x, giving x tan x − log|sec x| + C"
+     ],
      "mistake": "Gets the sign of ∫tan x wrong"
     },
     {
@@ -1465,6 +1856,12 @@
      ],
      "answer": 2,
      "explain": "Differentiating x makes it simpler while eˣ is easy to integrate; ILATE encodes this choice.",
+     "steps": [
+      "R: in ILATE, A comes before E — true",
+      "So in x eˣ, x (algebraic) is the first function: A is true",
+      "A follows from the ILATE rule in R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Chooses eˣ as u because it comes first in the product"
     }
    ],
@@ -1497,7 +1894,26 @@
     "c7.6.1",
     "c7.6.2",
     "c7.6.5"
-   ]
+   ],
+   "revise": {
+    "summary": "Integration by parts: ∫u v dx = u∫v dx − ∫[u′ ∫v dx] dx, with u chosen by ILATE. Take 1 as v for log x or sin⁻¹x, and for eˣ sin x apply parts twice and solve for the integral.",
+    "focus": [
+     "Choose u using ILATE",
+     "Evaluate ∫x eˣ, ∫log x, ∫x log x, ∫sin⁻¹x",
+     "Handle repeated parts and the cyclic case eˣ sin x"
+    ],
+    "remember": [
+     "ILATE: Inverse trig, Log, Algebraic, Trig, Exponential",
+     "∫x eˣ dx = eˣ(x − 1) + C; ∫log x dx = x log x − x + C",
+     "∫eˣ sin x dx = (eˣ/2)(sin x − cos x) + C"
+    ],
+    "traps": [
+     "Don't choose eˣ as u when an algebraic factor is present",
+     "Watch the sign of the second term",
+     "Don't stop after one application when the power is 2 or more"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-07-08",
@@ -1600,6 +2016,11 @@
      ],
      "answer": 1,
      "explain": "With f = sin x, f′ = cos x, the integral is eˣ f(x) + C.",
+     "steps": [
+      "Pattern: ∫eˣ[f(x) + f′(x)] dx = eˣ f(x) + C",
+      "f = sin x has f′ = cos x, matching sin x + cos x",
+      "Answer: eˣ sin x + C"
+     ],
      "mistake": "Picks cos x as f, but then f′ = −sin x does not match"
     },
     {
@@ -1612,6 +2033,11 @@
      ],
      "answer": 0,
      "explain": "f(x) = 1/x has f′(x) = −1/x², so the answer is eˣ/x + C.",
+     "steps": [
+      "f(x) = 1/x ⇒ f′(x) = −1/x²",
+      "So the integrand is eˣ[f + f′]",
+      "Answer: eˣ/x + C"
+     ],
      "mistake": "Chooses −1/x² as f"
     },
     {
@@ -1624,6 +2050,11 @@
      ],
      "answer": 0,
      "explain": "(x − 1)/x² = 1/x − 1/x², which is f + f′ with f = 1/x.",
+     "steps": [
+      "Split: (x − 1)/x² = 1/x − 1/x²",
+      "f = 1/x, f′ = −1/x²: integrand = eˣ[f + f′]",
+      "Answer: eˣ/x + C"
+     ],
      "mistake": "Does not split the fraction to see the f + f′ pattern"
     },
     {
@@ -1636,6 +2067,11 @@
      ],
      "answer": 3,
      "explain": "a = 2: (x/2)√(4 − x²) + (4/2) sin⁻¹(x/2) + C.",
+     "steps": [
+      "Formula: ∫√(a² − x²) dx = (x/2)√(a² − x²) + (a²/2) sin⁻¹(x/a) + C",
+      "a = 2, a²/2 = 2",
+      "Answer: (x/2)√(4 − x²) + 2 sin⁻¹(x/2) + C"
+     ],
      "mistake": "Uses a² instead of a²/2"
     },
     {
@@ -1648,6 +2084,11 @@
      ],
      "answer": 0,
      "explain": "Use the √(x² + a²) formula with a = 3; the log term has a plus sign.",
+     "steps": [
+      "Formula: ∫√(x² + a²) dx = (x/2)√(x² + a²) + (a²/2) log|x + √(x² + a²)| + C",
+      "a = 3, a²/2 = 9/2",
+      "Answer: (x/2)√(x² + 9) + (9/2) log|x + √(x² + 9)| + C"
+     ],
      "mistake": "Uses the minus sign belonging to the √(x² − a²) form"
     },
     {
@@ -1660,6 +2101,11 @@
      ],
      "answer": 1,
      "explain": "a² = 16, so the log term is −(16/2) = −8 times log|x + √(x² − 16)|.",
+     "steps": [
+      "Formula: ∫√(x² − a²) dx = (x/2)√(x² − a²) − (a²/2) log|x + √(x² − a²)| + C",
+      "a² = 16, a²/2 = 8",
+      "Answer: (x/2)√(x² − 16) − 8 log|x + √(x² − 16)| + C"
+     ],
      "mistake": "Forgets to halve a²"
     },
     {
@@ -1672,6 +2118,11 @@
      ],
      "answer": 0,
      "explain": "sec x(1 + tan x) = sec x + sec x tan x, and d/dx(sec x) = sec x tan x. So f = sec x.",
+     "steps": [
+      "sec x(1 + tan x) = sec x + sec x tan x",
+      "f = sec x has f′ = sec x tan x: integrand = eˣ[f + f′]",
+      "Answer: eˣ sec x + C"
+     ],
      "mistake": "Picks tan x as f"
     },
     {
@@ -1684,6 +2135,12 @@
      ],
      "answer": 3,
      "explain": "By the product rule, d/dx(x eˣ) = eˣ + x eˣ = eˣ(x + 1). That is the f + f′ pattern with f = x.",
+     "steps": [
+      "R: d/dx(x eˣ) = eˣ + x eˣ = eˣ(x + 1) — true",
+      "So x eˣ is an anti-derivative of eˣ(x + 1): A is true",
+      "This is the f + f′ pattern with f = x; R explains A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Integrates x + 1 and eˣ separately"
     }
    ],
@@ -1714,7 +2171,26 @@
    "covers": [
     "c7.6.3",
     "c7.6.4"
-   ]
+   ],
+   "revise": {
+    "summary": "If the integrand is eˣ[f(x) + f′(x)], the answer is eˣ f(x) + C. Three square-root formulas handle √(a² − x²), √(x² + a²) and √(x² − a²).",
+    "focus": [
+     "Spot f and f′ in eˣ[f + f′]",
+     "Apply the three √ formulas with the right a²/2 term"
+    ],
+    "remember": [
+     "∫eˣ[f(x) + f′(x)] dx = eˣ f(x) + C",
+     "∫√(a² − x²) dx = (x/2)√(a² − x²) + (a²/2) sin⁻¹(x/a) + C",
+     "∫√(x² + a²) dx = (x/2)√(x² + a²) + (a²/2) log|x + √(x² + a²)| + C",
+     "∫√(x² − a²) dx = (x/2)√(x² − a²) − (a²/2) log|x + √(x² − a²)| + C"
+    ],
+    "traps": [
+     "Pick f so that the other term is exactly f′",
+     "Use a²/2, not a²",
+     "The log term is + for x² + a² and − for x² − a²"
+    ],
+    "level": "advanced"
+   }
   },
   {
    "id": "g12-maths-07-09",
@@ -1826,7 +2302,8 @@
      "steps": [
       "F(x) = x³/3 + x",
       "F(2) − F(0) = 8/3 + 2",
-      "= 14/3"
+      "= 14/3",
+      "Answer: 14/3"
      ],
      "mistake": "Forgets to integrate the constant 1",
      "check": "Fraction(8,3)+2"
@@ -1843,7 +2320,8 @@
      "explain": "[sin x]₀^(π/2) = 1 − 0 = 1.",
      "steps": [
       "F(x) = sin x",
-      "sin(π/2) − sin 0 = 1"
+      "sin(π/2) − sin 0 = 1",
+      "Answer: 1"
      ],
      "mistake": "Uses −sin x as the anti-derivative",
      "check": "1"
@@ -1858,6 +2336,11 @@
      ],
      "answer": 2,
      "explain": "[tan⁻¹x]₀¹ = π/4 − 0.",
+     "steps": [
+      "Anti-derivative: tan⁻¹x",
+      "tan⁻¹(1) − tan⁻¹(0) = π/4 − 0",
+      "Answer: π/4"
+     ],
      "mistake": "Confuses tan⁻¹ with log"
     },
     {
@@ -1873,7 +2356,8 @@
      "steps": [
       "F(x) = eˣ(x − 1)",
       "F(1) = 0, F(0) = −1",
-      "F(1) − F(0) = 1"
+      "F(1) − F(0) = 1",
+      "Answer: 1"
      ],
      "mistake": "Subtracts in the wrong order",
      "check": "0-(-1)"
@@ -1891,7 +2375,8 @@
      "steps": [
       "F(x) = x log x − x",
       "F(e) = 0, F(1) = −1",
-      "0 − (−1) = 1"
+      "0 − (−1) = 1",
+      "Answer: 1"
      ],
      "mistake": "Forgets that log 1 = 0 and log e = 1",
      "check": "1"
@@ -1908,7 +2393,8 @@
      "explain": "By the first fundamental theorem, F′(x) = cos x, so F′(π/3) = cos(π/3) = 1/2.",
      "steps": [
       "F′(x) = cos x",
-      "cos(π/3) = 1/2"
+      "cos(π/3) = 1/2",
+      "Answer: 1/2"
      ],
      "mistake": "Integrates cos t again instead of using A′(x) = f(x)",
      "check": "Fraction(1,2)"
@@ -1923,6 +2409,12 @@
      ],
      "answer": 3,
      "explain": "∫dx/(x² − 1) = (1/2) log|(x − 1)/(x + 1)|. At 3: (1/2) log(1/2); at 2: (1/2) log(1/3). Difference = (1/2) log(3/2).",
+     "steps": [
+      "∫dx/(x² − 1) = (1/2) log|(x − 1)/(x + 1)| (a = 1)",
+      "At x = 3: (1/2) log(2/4) = (1/2) log(1/2); at x = 2: (1/2) log(1/3)",
+      "Difference: (1/2)[log(1/2) − log(1/3)] = (1/2) log(3/2)",
+      "Answer: (1/2) log(3/2)"
+     ],
      "mistake": "Forgets the 1/(2a) factor"
     },
     {
@@ -1935,6 +2427,12 @@
      ],
      "answer": 1,
      "explain": "−cos π + cos 0 = 1 + 1 = 2. R is the fundamental-theorem calculation behind A.",
+     "steps": [
+      "R: ∫sin x dx = −cos x, so the integral is −cos π − (−cos 0) — true",
+      "−cos π + cos 0 = 1 + 1 = 2, so A is true",
+      "A is calculated exactly as R says",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Uses +cos x as the anti-derivative and gets 0"
     }
    ],
@@ -1971,7 +2469,26 @@
     "c7.8.3",
     "c7.8.4",
     "c7.10.10"
-   ]
+   ],
+   "revise": {
+    "summary": "∫ₐᵇ f(x) dx = F(b) − F(a) where F is any anti-derivative, so C cancels. The area function A(x) = ∫ₐˣ f(t) dt has A′(x) = f(x).",
+    "focus": [
+     "Evaluate definite integrals with the second fundamental theorem",
+     "Differentiate an area function",
+     "Use standard anti-derivatives at the limits"
+    ],
+    "remember": [
+     "∫ₐᵇ f(x) dx = F(b) − F(a)",
+     "d/dx ∫ₐˣ f(t) dt = f(x)",
+     "log 1 = 0, log e = 1"
+    ],
+    "traps": [
+     "Subtract in the order F(b) − F(a)",
+     "Don't use +cos x as the anti-derivative of sin x",
+     "Don't integrate again when F′(x) is asked"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-07-10",
@@ -2052,6 +2569,11 @@
      ],
      "answer": 0,
      "explain": "t = x² + 1, dt = 2x dx, limits 1 to 2: (1/2)∫₁² dt/t = (1/2) log 2.",
+     "steps": [
+      "Put t = x² + 1, dt = 2x dx; x = 0 → t = 1, x = 1 → t = 2",
+      "(1/2)∫₁² dt/t = (1/2)[log t]₁² = (1/2)(log 2 − 0)",
+      "Answer: (1/2) log 2"
+     ],
      "mistake": "Forgets the 1/2 from dt = 2x dx"
     },
     {
@@ -2064,6 +2586,11 @@
      ],
      "answer": 2,
      "explain": "t = tan⁻¹x, t from 0 to π/4: ∫t dt = (π/4)²/2 = π²/32.",
+     "steps": [
+      "Put t = tan⁻¹x, dt = dx/(1 + x²); limits 0 → 0, 1 → π/4",
+      "∫₀^(π/4) t dt = [t²/2]₀^(π/4) = (π²/16)/2",
+      "Answer: π²/32"
+     ],
      "mistake": "Forgets to halve when integrating t"
     },
     {
@@ -2076,6 +2603,11 @@
      ],
      "answer": 3,
      "explain": "t = sin⁻¹x, t from 0 to π/2: [t²/2] = π²/8.",
+     "steps": [
+      "Put t = sin⁻¹x, dt = dx/√(1 − x²); limits 0 → 0, 1 → π/2",
+      "∫₀^(π/2) t dt = [t²/2] = (π²/4)/2",
+      "Answer: π²/8"
+     ],
      "mistake": "Forgets to change the limits"
     },
     {
@@ -2088,6 +2620,11 @@
      ],
      "answer": 1,
      "explain": "t = x², dt = 2x dx: (1/2)∫₀¹ eᵗ dt = (e − 1)/2.",
+     "steps": [
+      "Put t = x², dt = 2x dx; limits 0 → 0, 1 → 1",
+      "(1/2)∫₀¹ eᵗ dt = (1/2)(e − 1)",
+      "Answer: (e − 1)/2"
+     ],
      "mistake": "Forgets the factor 1/2"
     },
     {
@@ -2102,7 +2639,8 @@
      "explain": "t = log x, from 0 to 1: ∫₀¹ t dt = 1/2.",
      "steps": [
       "t = log x: limits 0 to 1",
-      "[t²/2]₀¹ = 1/2"
+      "[t²/2]₀¹ = 1/2",
+      "Answer: 1/2"
      ],
      "mistake": "Keeps the old limits 1 and e after substituting",
      "check": "Fraction(1,2)"
@@ -2117,6 +2655,11 @@
      ],
      "answer": 0,
      "explain": "t = 1 + sin x, from 1 to 2: ∫dt/t = log 2.",
+     "steps": [
+      "Put t = 1 + sin x, dt = cos x dx; x = 0 → t = 1, x = π/2 → t = 2",
+      "∫₁² dt/t = log 2 − log 1",
+      "Answer: log 2"
+     ],
      "mistake": "Loses track of the limits"
     },
     {
@@ -2129,6 +2672,12 @@
      ],
      "answer": 2,
      "explain": "cos⁵x dx = cos⁴x · cos x dx = (1 − t²)² dt, and limits become 0 to 1.",
+     "steps": [
+      "Put t = sin x, dt = cos x dx; x = 0 → 0, x = π/2 → 1",
+      "cos⁵x dx = cos⁴x · cos x dx = (1 − sin²x)² cos x dx = (1 − t²)² dt",
+      "√(sin x) = √t",
+      "Answer: ∫₀¹ √t (1 − t²)² dt"
+     ],
      "mistake": "Keeps the x-limits after substitution"
     },
     {
@@ -2141,6 +2690,12 @@
      ],
      "answer": 0,
      "explain": "R is exactly the substitution rule for definite integrals: the integrand turns into f(t) dt and the limits turn into g(a) and g(b). So A is true and R is its reason.",
+     "steps": [
+      "R: as x goes a → b, t = g(x) goes g(a) → g(b), and f(g(x)) g′(x) dx = f(t) dt — true",
+      "So the t-integral with limits g(a), g(b) equals the original: A is true",
+      "R is the justification for A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks the old x-limits must be used after substituting"
     }
    ],
@@ -2171,7 +2726,26 @@
    "covers": [
     "c7.9.1",
     "c7.9.2"
-   ]
+   ],
+   "revise": {
+    "summary": "In a definite integral, substitute t = g(x) and change the limits to g(a) and g(b); then finish in t without returning to x.",
+    "focus": [
+     "Choose t and find dt",
+     "Convert both limits correctly",
+     "Evaluate the t-integral"
+    ],
+    "remember": [
+     "∫ₐᵇ f(g(x)) g′(x) dx = ∫ from g(a) to g(b) of f(t) dt",
+     "∫₀¹ 2x/(1 + x²) dx = log 2",
+     "∫₀¹ tan⁻¹x/(1 + x²) dx = π²/32"
+    ],
+    "traps": [
+     "Don't keep the old x-limits after substituting",
+     "Don't forget factors like 1/2 from dt = 2x dx",
+     "Don't mix x-limits with a t-integral"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-07-11",
@@ -2256,7 +2830,8 @@
       "∫₋₁⁰ (x³ − x) = 1/4",
       "∫₀¹ (x − x³) = 1/4",
       "∫₁² (x³ − x) = 9/4",
-      "Sum = 11/4"
+      "Sum = 11/4",
+      "Answer: 11/4"
      ],
      "mistake": "Integrates x³ − x without splitting and gets 9/4",
      "check": "Fraction(1,4)+Fraction(1,4)+Fraction(9,4)"
@@ -2273,7 +2848,8 @@
      "explain": "∫₀¹ (1 − x) dx + ∫₁⁴ (x − 1) dx = 1/2 + 9/2 = 5.",
      "steps": [
       "Split at x = 1",
-      "1/2 + 9/2 = 5"
+      "1/2 + 9/2 = 5",
+      "Answer: 5"
      ],
      "mistake": "Ignores the modulus and gets 4",
      "check": "Fraction(1,2)+Fraction(9,2)"
@@ -2291,7 +2867,8 @@
      "steps": [
       "∫₀³ = ∫₀¹ + ∫₁³",
       "7 = 2 + ∫₁³",
-      "∫₁³ = 5"
+      "∫₁³ = 5",
+      "Answer: 5"
      ],
      "mistake": "Adds the integrals instead of subtracting",
      "check": "7-2"
@@ -2306,6 +2883,11 @@
      ],
      "answer": 3,
      "explain": "Reversing the limits changes the sign (P1).",
+     "steps": [
+      "P1: ∫ₐᵇ f dx = −∫ᵇₐ f dx",
+      "∫₄¹ f(x) dx = −∫₁⁴ f(x) dx = −6",
+      "Answer: −6"
+     ],
      "mistake": "Thinks the order of limits does not matter",
      "check": "-6"
     },
@@ -2319,6 +2901,12 @@
      ],
      "answer": 2,
      "explain": "Using P3 and adding the two forms, 2I = π/3 − π/6 = π/6, so I = π/12.",
+     "steps": [
+      "I = ∫√cos x/(√cos x + √sin x) dx; P3 with a + b = π/2 swaps sin ↔ cos",
+      "I = ∫√sin x/(√sin x + √cos x) dx; add: 2I = ∫ from π/6 to π/3 of 1 dx",
+      "2I = π/3 − π/6 = π/6 ⇒ I = π/12",
+      "Answer: π/12"
+     ],
      "mistake": "Forgets to halve after adding the two integrals"
     },
     {
@@ -2333,7 +2921,8 @@
      "explain": "Split at 5: ∫₂⁵ (5 − x) dx = 9/2 and ∫₅⁸ (x − 5) dx = 9/2. Total 9.",
      "steps": [
       "Each triangle: (1/2)(3)(3) = 9/2",
-      "Total = 9"
+      "Total = 9",
+      "Answer: 9"
      ],
      "mistake": "Ignores the modulus and gets 0 or a wrong value",
      "check": "Fraction(9,2)*2"
@@ -2348,6 +2937,12 @@
      ],
      "answer": 1,
      "explain": "P3 replaces x by 0 + 2 − x = 2 − x, turning x(2 − x) into (2 − x)x, the same function.",
+     "steps": [
+      "P3 on [0, 2]: replace x by 0 + 2 − x = 2 − x",
+      "x(2 − x) becomes (2 − x)(2 − (2 − x)) = (2 − x)x",
+      "This is the same function",
+      "Answer: ∫₀² (2 − x)x dx, the same integral"
+     ],
      "mistake": "Thinks P3 always changes the integrand"
     },
     {
@@ -2360,6 +2955,11 @@
      ],
      "answer": 2,
      "explain": "Put b = a in R: I = −I, so I = 0. R gives A directly.",
+     "steps": [
+      "R: ∫ₐᵇ f = −∫ᵇₐ f — true (P1)",
+      "Put b = a: I = −I ⇒ 2I = 0 ⇒ I = 0, so A is true from R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks equal limits give f(a)"
     }
    ],
@@ -2395,7 +2995,26 @@
     "c7.10.2",
     "c7.10.3",
     "c7.10.7"
-   ]
+   ],
+   "revise": {
+    "summary": "Definite integrals can be split at any point, change sign when the limits are swapped, and satisfy ∫ₐᵇ f(x) dx = ∫ₐᵇ f(a + b − x) dx. Modulus integrals are split at the zeros inside the modulus.",
+    "focus": [
+     "Evaluate modulus integrals by splitting",
+     "Use P2 to find a missing piece",
+     "Use P3 and add to cancel the hard part"
+    ],
+    "remember": [
+     "∫ₐᵇ f = −∫ᵇₐ f; ∫ₐᵃ f = 0",
+     "∫ₐᵇ f = ∫ₐᶜ f + ∫ᶜᵇ f",
+     "∫ₐᵇ f(x) dx = ∫ₐᵇ f(a + b − x) dx"
+    ],
+    "traps": [
+     "Don't integrate |f| without splitting at its zeros",
+     "Halve after adding I to itself",
+     "Swapping limits changes the sign"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-07-12",
@@ -2500,6 +3119,11 @@
      ],
      "answer": 2,
      "explain": "f(−x) = (−sin x)⁵ cos⁴x = −f(x), so f is odd and the integral over [−1, 1] is 0.",
+     "steps": [
+      "f(x) = sin⁵x cos⁴x; f(−x) = (−sin x)⁵(cos x)⁴ = −f(x): odd",
+      "P6: integral of an odd function over [−a, a] is 0",
+      "Answer: 0"
+     ],
      "mistake": "Tries to integrate directly instead of using odd symmetry",
      "check": "0"
     },
@@ -2515,7 +3139,8 @@
      "explain": "x² is even: 2∫₀² x² dx = 2 × 8/3 = 16/3.",
      "steps": [
       "Even function: 2∫₀²",
-      "2 × 8/3 = 16/3"
+      "2 × 8/3 = 16/3",
+      "Answer: 16/3"
      ],
      "mistake": "Thinks every integral over symmetric limits is 0",
      "check": "2*Fraction(8,3)"
@@ -2533,7 +3158,8 @@
      "steps": [
       "Use P4: ∫₀¹ (1 − x)x⁵ dx",
       "= 1/6 − 1/7",
-      "= 1/42"
+      "= 1/42",
+      "Answer: 1/42"
      ],
      "mistake": "Expands (1 − x)⁵ and makes an arithmetic slip",
      "check": "Fraction(1,6)-Fraction(1,7)"
@@ -2548,6 +3174,12 @@
      ],
      "answer": 2,
      "explain": "Adding I with its P4 version gives 2I = π/2, so I = π/4, whatever the power.",
+     "steps": [
+      "I = ∫₀^(π/2) sin⁴x/(sin⁴x + cos⁴x) dx; P4 (x → π/2 − x) gives I = ∫cos⁴x/(cos⁴x + sin⁴x) dx",
+      "Add: 2I = ∫₀^(π/2) 1 dx = π/2",
+      "I = π/4",
+      "Answer: π/4"
+     ],
      "mistake": "Forgets to halve"
     },
     {
@@ -2560,6 +3192,12 @@
      ],
      "answer": 1,
      "explain": "cos(2π − x) = cos x gives 2∫₀^π cos⁵x dx, and cos(π − x) = −cos x makes ∫₀^π cos⁵x dx = 0.",
+     "steps": [
+      "P5 with 2a = 2π: cos(2π − x) = cos x, so I = 2∫₀^π cos⁵x dx",
+      "P5 with 2a = π: cos⁵(π − x) = −cos⁵x, so ∫₀^π cos⁵x dx = 0",
+      "I = 2 × 0 = 0",
+      "Answer: 0"
+     ],
      "mistake": "Applies only the first half of P5",
      "check": "0"
     },
@@ -2573,6 +3211,13 @@
      ],
      "answer": 3,
      "explain": "Adding I with ∫ log cos x and using sin x cos x = (sin 2x)/2 gives 2I = I − (π/2) log 2, so I = −(π/2) log 2.",
+     "steps": [
+      "I = ∫₀^(π/2) log sin x dx = ∫₀^(π/2) log cos x dx (by P4)",
+      "2I = ∫ log(sin x cos x) dx = ∫ log sin 2x dx − (π/2) log 2",
+      "Put t = 2x: ∫₀^(π/2) log sin 2x dx = (1/2)∫₀^π log sin t dt = I",
+      "2I = I − (π/2) log 2 ⇒ I = −(π/2) log 2",
+      "Answer: −(π/2) log 2"
+     ],
      "mistake": "Gets the sign wrong; log sin x ≤ 0 on (0, π/2)"
     },
     {
@@ -2585,6 +3230,13 @@
      ],
      "answer": 1,
      "explain": "P4 gives I = π∫₀^π sin x/(1 + cos²x) dx − I, so 2I = π[−tan⁻¹(cos x)]₀^π = π(π/2), and I = π²/4.",
+     "steps": [
+      "P4: I = ∫₀^π (π − x) sin x/(1 + cos²x) dx",
+      "Add: 2I = π∫₀^π sin x/(1 + cos²x) dx = π[−tan⁻¹(cos x)]₀^π",
+      "[−tan⁻¹(cos x)]₀^π = −tan⁻¹(−1) + tan⁻¹(1) = π/4 + π/4 = π/2",
+      "2I = π²/2 ⇒ I = π²/4",
+      "Answer: π²/4"
+     ],
      "mistake": "Forgets to halve after moving I across"
     },
     {
@@ -2597,6 +3249,11 @@
      ],
      "answer": 1,
      "explain": "sin⁷(−x) = −sin⁷x, so by P6 the integral over a symmetric interval is 0.",
+     "steps": [
+      "R: sin⁷(−x) = (−sin x)⁷ = −sin⁷x, so sin⁷x is odd — true",
+      "P6: an odd function over [−π/2, π/2] integrates to 0, so A is true",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks odd powers of sin are even functions"
     }
    ],
@@ -2628,7 +3285,27 @@
     "c7.10.6",
     "c7.10.8",
     "c7.10.9"
-   ]
+   ],
+   "revise": {
+    "summary": "∫₀ᵃ f(x) dx = ∫₀ᵃ f(a − x) dx; over [−a, a], even functions give twice the half-integral and odd functions give 0. Classic results include π/4 for sinⁿ/(sinⁿ + cosⁿ) and −(π/2) log 2.",
+    "focus": [
+     "Use odd/even symmetry",
+     "Apply P4 and add the two forms",
+     "Use P5 for intervals like [0, 2π]"
+    ],
+    "remember": [
+     "∫₀ᵃ f(x) dx = ∫₀ᵃ f(a − x) dx",
+     "Even: ∫₋ₐᵃ f = 2∫₀ᵃ f; odd: ∫₋ₐᵃ f = 0",
+     "∫₀^(π/2) sinⁿx/(sinⁿx + cosⁿx) dx = π/4",
+     "∫₀^(π/2) log sin x dx = −(π/2) log 2"
+    ],
+    "traps": [
+     "Not every integral over symmetric limits is 0; only odd functions",
+     "Don't forget to halve after adding",
+     "log sin x ≤ 0 on (0, π/2), so its integral is negative"
+    ],
+    "level": "advanced"
+   }
   }
  ]
 }

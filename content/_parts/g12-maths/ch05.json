@@ -89,7 +89,8 @@
      "explain": "For x slightly more than 1, f(x) = x − 2 → 1 − 2 = −1.",
      "steps": [
       "RHL uses x − 2",
-      "1 − 2 = −1"
+      "1 − 2 = −1",
+      "Answer: −1"
      ],
      "mistake": "Uses the left piece for the right-hand limit",
      "check": "1-2"
@@ -104,6 +105,12 @@
      ],
      "answer": 0,
      "explain": "At each integer n, LHL = n − 1 but f(n) = n. Between integers [x] is constant and so continuous.",
+     "steps": [
+      "Test an integer n: just left of n, [x] = n − 1, so LHL = n − 1",
+      "But [n] = n, so LHL ≠ f(n): break at every integer",
+      "Between integers [x] is constant, hence continuous there",
+      "Answer: At every integer"
+     ],
      "mistake": "Thinks a step function is continuous because it is defined everywhere"
     },
     {
@@ -119,7 +126,8 @@
      "steps": [
       "LHL = 3(2) − 5 = 1",
       "RHL = 2² − 3 = 1",
-      "Difference = 0"
+      "Difference = 0",
+      "Answer: 0"
      ],
      "mistake": "Assumes a piecewise function must jump at the junction",
      "check": "(3*2-5)-(2**2-3)"
@@ -134,6 +142,12 @@
      ],
      "answer": 3,
      "explain": "The two one-sided limits differ, so the limit at 0 does not exist.",
+     "steps": [
+      "LHL at 0: for x < 0, f(x) = −1, so LHL = −1",
+      "RHL at 0: for x > 0, f(x) = 1, so RHL = 1",
+      "LHL ≠ RHL, so the limit does not exist: f is discontinuous at 0",
+      "Answer: discontinuous, because LHL = −1 and RHL = 1"
+     ],
      "mistake": "Checks only f(0) and the right side"
     },
     {
@@ -146,6 +160,13 @@
      ],
      "answer": 2,
      "explain": "|x| has no break anywhere. [x] jumps at integers; the other two jump or blow up at a point.",
+     "steps": [
+      "[x] jumps at every integer ✗",
+      "1/(x − 1) blows up near x = 1; defining f(1) = 0 does not remove the break ✗",
+      "x/|x| is −1 for x < 0 and 1 for x > 0: jump at 0 ✗",
+      "|x| has no break anywhere ✓",
+      "Answer: f(x) = |x|"
+     ],
      "mistake": "Defines a value at the bad point and thinks that removes the break"
     },
     {
@@ -160,7 +181,8 @@
      "explain": "(x² − 9)/(x − 3) = x + 3 for x ≠ 3, which tends to 6. Since f(3) = 6 too, f is continuous at 3.",
      "steps": [
       "(x − 3)(x + 3)/(x − 3) = x + 3",
-      "x + 3 → 6"
+      "x + 3 → 6",
+      "Answer: 6"
      ],
      "mistake": "Substitutes x = 3 directly and gives up on 0/0",
      "check": "3+3"
@@ -175,6 +197,11 @@
      ],
      "answer": 0,
      "explain": "The limit exists but does not equal f(c), so the definition of continuity fails.",
+     "steps": [
+      "Continuity needs lim(x→c) f(x) = f(c)",
+      "Here the limit is 5 but f(c) = 4, so 5 ≠ 4",
+      "Answer: discontinuous"
+     ],
      "mistake": "Thinks equal one-sided limits are enough"
     },
     {
@@ -187,6 +214,12 @@
      ],
      "answer": 2,
      "explain": "Just left of 2, [x] = 1, but [2] = 2. The mismatch is exactly why [x] is discontinuous at 2.",
+     "steps": [
+      "R: for x just below 2, [x] = 1, so LHL = 1; and [2] = 2 — true",
+      "LHL ≠ f(2), so [x] is discontinuous at 2: A is true",
+      "The mismatch in R is exactly the reason for A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks [x] = 2 just left of 2"
     }
    ],
@@ -222,7 +255,25 @@
     "c5.2.3",
     "c5.2.4",
     "c5.2.8"
-   ]
+   ],
+   "revise": {
+    "summary": "f is continuous at c when f(c) is defined and LHL = RHL = f(c), so the graph has no break, jump or hole there. The greatest integer function breaks at every integer.",
+    "focus": [
+     "Find LHL, RHL and f(c) for piecewise functions",
+     "Decide continuity at a junction or a removable point",
+     "Know where [x] is discontinuous"
+    ],
+    "remember": [
+     "Continuous at c ⇔ lim(x→c⁻) f = lim(x→c⁺) f = f(c)",
+     "[x] is discontinuous at every integer"
+    ],
+    "traps": [
+     "Equal one-sided limits are not enough; they must also equal f(c)",
+     "Use the correct piece for each side of the junction",
+     "Defining a value at a bad point does not remove a jump or blow-up"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-05-02",
@@ -331,7 +382,8 @@
      "explain": "LHL = f(2) = 4k and RHL = 3, so 4k = 3 and k = 3/4.",
      "steps": [
       "k(2)² = 3",
-      "k = 3/4"
+      "k = 3/4",
+      "Answer: 3/4"
      ],
      "mistake": "Uses 2k instead of 4k (forgets to square 2)",
      "check": "Fraction(3,4)"
@@ -349,7 +401,8 @@
      "steps": [
       "3a + 1 = 3b + 3",
       "3(a − b) = 2",
-      "a − b = 2/3"
+      "a − b = 2/3",
+      "Answer: 2/3"
      ],
      "mistake": "Makes a sign slip moving constants across",
      "check": "Fraction(2,3)"
@@ -364,6 +417,12 @@
      ],
      "answer": 3,
      "explain": "LHL = f(0) = λ(0) = 0 while RHL = 1. No λ can make 0 equal 1.",
+     "steps": [
+      "LHL = f(0) = λ(0² − 2·0) = λ × 0 = 0",
+      "RHL = 4(0) + 1 = 1",
+      "0 ≠ 1 whatever λ is, so f is never continuous at 0",
+      "Answer: f is discontinuous at x = 0 for every λ"
+     ],
      "mistake": "Tries to solve for λ without noticing it multiplies zero"
     },
     {
@@ -378,7 +437,8 @@
      "explain": "lim(x→0) (sin x)/x = 1, so continuity needs k = 1.",
      "steps": [
       "lim (sin x)/x = 1",
-      "k = 1"
+      "k = 1",
+      "Answer: 1"
      ],
      "mistake": "Substitutes x = 0 and takes the limit as 0",
      "check": "1"
@@ -393,6 +453,12 @@
      ],
      "answer": 2,
      "explain": "A composition of continuous functions is continuous. (It is not differentiable at multiples of π, so the last reason is false.)",
+     "steps": [
+      "sin x is continuous on R, and |x| is continuous on R",
+      "|sin x| is the composition |·| ∘ sin, and a composition of continuous functions is continuous",
+      "Periodicity or boundedness alone does not give continuity",
+      "Answer: It is the composition of the continuous functions sin x and |x|"
+     ],
      "mistake": "Thinks boundedness or periodicity gives continuity"
     },
     {
@@ -408,7 +474,8 @@
      "steps": [
       "LHL = 1² + 1 = 2",
       "RHL = 1 + 1 = 2",
-      "f(1) = 2: no break"
+      "f(1) = 2: no break",
+      "Answer: 0"
      ],
      "mistake": "Assumes every junction is a point of discontinuity",
      "check": "0"
@@ -423,6 +490,11 @@
      ],
      "answer": 2,
      "explain": "Sums, differences and products of continuous functions are continuous. f/g needs g(2) ≠ 0.",
+     "steps": [
+      "f + g, f − g and fg are continuous whenever f and g are",
+      "f/g needs g(2) ≠ 0, but here g(2) = 0",
+      "Answer: f/g"
+     ],
      "mistake": "Forgets the condition on the denominator"
     },
     {
@@ -435,6 +507,12 @@
      ],
      "answer": 3,
      "explain": "A is true because sin(x²) is a composition of continuous functions. R is true but is about sums, not composition.",
+     "steps": [
+      "A: sin(x²) = sin ∘ (x²), a composition of continuous functions — true",
+      "R: sum of continuous functions is continuous — true",
+      "But sin(x²) is not a sum, so R does not explain A",
+      "Answer: Both A and R are true but R does not explain A"
+     ],
      "mistake": "Uses a correct rule that does not apply here"
     }
    ],
@@ -471,7 +549,26 @@
     "c5.2.7",
     "c5.2.9",
     "c5.2.10"
-   ]
+   ],
+   "revise": {
+    "summary": "Polynomials, |x|, sin x and cos x are continuous everywhere, and sums, products, quotients (non-zero denominator) and compositions keep continuity. Unknown constants come from LHL = RHL = f(c) at junctions.",
+    "focus": [
+     "Find constants that make a piecewise function continuous",
+     "Use algebra and composition of continuous functions",
+     "Check only the junctions of piecewise functions"
+    ],
+    "remember": [
+     "f ± g, fg continuous; f/g continuous when g(c) ≠ 0",
+     "Composition of continuous functions is continuous",
+     "lim(x→0) (sin x)/x = 1"
+    ],
+    "traps": [
+     "Don't forget to square: kx² at x = 2 gives 4k",
+     "A constant multiplying zero (λ · 0) cannot fix a gap",
+     "Not every junction is a discontinuity"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-05-03",
@@ -571,6 +668,12 @@
      ],
      "answer": 3,
      "explain": "Chain rule: −sin(x³) × 3x².",
+     "steps": [
+      "Chain rule: outer cos u with u = x³",
+      "d/du(cos u) = −sin u; du/dx = 3x²",
+      "d/dx [cos(x³)] = −sin(x³) × 3x²",
+      "Answer: −3x² sin(x³)"
+     ],
      "mistake": "Forgets to multiply by the derivative of the inside"
     },
     {
@@ -585,7 +688,8 @@
      "explain": "dy/dx = 4(3x − 2)³ × 3 = 12(3x − 2)³. At x = 1: 12 × 1 = 12.",
      "steps": [
       "dy/dx = 4(3x − 2)³ · 3",
-      "At x = 1: 12 · 1³ = 12"
+      "At x = 1: 12 · 1³ = 12",
+      "Answer: 12"
      ],
      "mistake": "Drops the factor 3 from the inside",
      "check": "4*1**3*3"
@@ -600,6 +704,12 @@
      ],
      "answer": 1,
      "explain": "Three layers: sec → tan → √x. Multiply sec u tan u, then sec²(√x), then 1/(2√x).",
+     "steps": [
+      "Layers: sec(u), u = tan v, v = √x",
+      "d(sec u) = sec u tan u; d(tan v) = sec² v; d(√x) = 1/(2√x)",
+      "Multiply all three: sec(tan √x) tan(tan √x) · sec²(√x) · 1/(2√x)",
+      "Answer: sec(tan √x) tan(tan √x) sec²(√x) / (2√x)"
+     ],
      "mistake": "Stops after one or two layers of the chain"
     },
     {
@@ -612,6 +722,12 @@
      ],
      "answer": 2,
      "explain": "Left: (|h| − 0)/h = −h/h = −1 for h < 0. Right: h/h = 1 for h > 0. They differ, so |x| is not differentiable at 0.",
+     "steps": [
+      "Left derivative: h < 0, (|0 + h| − |0|)/h = −h/h = −1",
+      "Right derivative: h > 0, (|h| − 0)/h = h/h = 1",
+      "They differ, so |x| is not differentiable at 0",
+      "Answer: −1 and 1"
+     ],
      "mistake": "Swaps the one-sided derivatives"
     },
     {
@@ -624,6 +740,12 @@
      ],
      "answer": 2,
      "explain": "Each modulus has a corner where its inside is zero: at x = 1 and x = 3.",
+     "steps": [
+      "|x − a| has a corner where x − a = 0",
+      "|x − 1| has a corner at x = 1; |x − 3| has a corner at x = 3",
+      "At each corner the left and right derivatives differ",
+      "Answer: x = 1 and x = 3"
+     ],
      "mistake": "Looks for the midpoint instead of the zeros of each modulus"
     },
     {
@@ -638,7 +760,8 @@
      "explain": "f′(x) = 2 cos 2x, so f′(π/6) = 2 cos(π/3) = 2 × 1/2 = 1.",
      "steps": [
       "f′(x) = 2 cos 2x",
-      "2 cos(π/3) = 2 × 1/2 = 1"
+      "2 cos(π/3) = 2 × 1/2 = 1",
+      "Answer: 1"
      ],
      "mistake": "Forgets the factor 2 from the chain rule",
      "check": "2*Fraction(1,2)"
@@ -653,6 +776,12 @@
      ],
      "answer": 2,
      "explain": "Differentiability is the stronger condition: it forces continuity, not the other way round.",
+     "steps": [
+      "Differentiable at c ⇒ continuous at c (the stronger condition gives the weaker)",
+      "The reverse fails: |x| is continuous at 0 but not differentiable",
+      "A corner (like |x| at 0) can still be continuous; polynomials are differentiable everywhere",
+      "Answer: If f is differentiable at c, then f is continuous at c"
+     ],
      "mistake": "Reverses the direction of the implication"
     },
     {
@@ -665,6 +794,12 @@
      ],
      "answer": 3,
      "explain": "LHD = −1 ≠ RHD = 1, so the derivative does not exist at 0, while LHL = RHL = f(0) = 0 gives continuity. R explains the non-differentiability in A.",
+     "steps": [
+      "Continuity at 0: LHL = RHL = |0| = 0 ✓",
+      "LHD = −1 and RHD = 1 (this is R), so no derivative at 0",
+      "R is the reason |x| is not differentiable at 0",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks continuity and differentiability always go together"
     }
    ],
@@ -702,7 +837,26 @@
     "c5.3.2",
     "c5.3.3",
     "c5.3.7"
-   ]
+   ],
+   "revise": {
+    "summary": "f is differentiable at c when the left and right derivatives are equal and finite; differentiability implies continuity, but not the reverse. The chain rule differentiates the outside, keeps the inside, and multiplies by the inside's derivative.",
+    "focus": [
+     "Apply the chain rule to multi-layer functions",
+     "Find left and right derivatives of |x| type functions",
+     "Locate points where a function is not differentiable"
+    ],
+    "remember": [
+     "dy/dx = f′(g(x)) · g′(x)",
+     "Differentiable ⇒ continuous; continuous ⇏ differentiable",
+     "|x − a| has a corner (not differentiable) at x = a"
+    ],
+    "traps": [
+     "Don't stop the chain rule after one layer",
+     "Don't reverse the implication between continuity and differentiability",
+     "|x| is continuous at 0 even though it is not differentiable there"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-05-04",
@@ -777,6 +931,11 @@
      ],
      "answer": 3,
      "explain": "2 + 3 dy/dx = cos x ⇒ dy/dx = (cos x − 2)/3.",
+     "steps": [
+      "Differentiate both sides: 2 + 3 dy/dx = cos x",
+      "3 dy/dx = cos x − 2",
+      "Answer: (cos x − 2)/3"
+     ],
      "mistake": "Moves 2 across without changing its sign"
     },
     {
@@ -791,7 +950,8 @@
      "explain": "2x + 2y y′ = 0 ⇒ y′ = −x/y = −3/4.",
      "steps": [
       "y′ = −x/y",
-      "= −3/4"
+      "= −3/4",
+      "Answer: −3/4"
      ],
      "mistake": "Inverts the ratio and writes −y/x",
      "check": "Fraction(-3,4)"
@@ -808,7 +968,8 @@
      "explain": "y + x y′ = 0 ⇒ y′ = −y/x = −4/3.",
      "steps": [
       "Product rule: y + x y′ = 0",
-      "y′ = −4/3"
+      "y′ = −4/3",
+      "Answer: −4/3"
      ],
      "mistake": "Uses −x/y as for a circle",
      "check": "Fraction(-4,3)"
@@ -825,7 +986,8 @@
      "explain": "d/dx cos⁻¹ x = −1/√(1 − x²), which is −1 at x = 0.",
      "steps": [
       "−1/√(1 − 0)",
-      "= −1"
+      "= −1",
+      "Answer: −1"
      ],
      "mistake": "Forgets the negative sign",
      "check": "-1"
@@ -840,6 +1002,12 @@
      ],
      "answer": 0,
      "explain": "Put x = tan θ: 2x/(1 + x²) = sin 2θ, so y = 2θ = 2 tan⁻¹ x and y′ = 2/(1 + x²).",
+     "steps": [
+      "Put x = tan θ: 2x/(1 + x²) = 2 tan θ/(1 + tan²θ) = sin 2θ",
+      "For |x| < 1, 2θ ∈ (−π/2, π/2), so y = sin⁻¹(sin 2θ) = 2θ = 2 tan⁻¹ x",
+      "dy/dx = 2 × 1/(1 + x²)",
+      "Answer: 2/(1 + x²)"
+     ],
      "mistake": "Differentiates without simplifying and makes an algebra slip"
     },
     {
@@ -852,6 +1020,12 @@
      ],
      "answer": 1,
      "explain": "With x = tan θ, the expression is tan 3θ, so y = 3θ = 3 tan⁻¹ x and y′ = 3/(1 + x²).",
+     "steps": [
+      "Put x = tan θ: (3 tan θ − tan³θ)/(1 − 3 tan²θ) = tan 3θ",
+      "For |x| < 1/√3, 3θ ∈ (−π/2, π/2), so y = 3θ = 3 tan⁻¹ x",
+      "dy/dx = 3/(1 + x²)",
+      "Answer: 3/(1 + x²)"
+     ],
      "mistake": "Misses that the bracket is tan 3θ"
     },
     {
@@ -864,6 +1038,12 @@
      ],
      "answer": 1,
      "explain": "Put x = sin θ: 2 sin θ cos θ = sin 2θ, so y = 2θ = 2 sin⁻¹ x and y′ = 2/√(1 − x²).",
+     "steps": [
+      "Put x = sin θ: 2 sin θ √(1 − sin²θ) = 2 sin θ cos θ = sin 2θ",
+      "For |x| < 1/√2, 2θ ∈ (−π/2, π/2), so y = 2θ = 2 sin⁻¹ x",
+      "dy/dx = 2/√(1 − x²)",
+      "Answer: 2/√(1 − x²)"
+     ],
      "mistake": "Forgets the factor 2 from the double angle"
     },
     {
@@ -878,7 +1058,8 @@
      "explain": "d/dx tan⁻¹(2x) = 2/(1 + 4x²); at x = 1 this is 2/5.",
      "steps": [
       "2/(1 + 4x²)",
-      "2/(1 + 4) = 2/5"
+      "2/(1 + 4) = 2/5",
+      "Answer: 2/5"
      ],
      "mistake": "Uses 1 + 2x² or forgets the chain factor 2",
      "check": "Fraction(2,5)"
@@ -914,7 +1095,27 @@
     "c5.3.4",
     "c5.3.5",
     "c5.3.6"
-   ]
+   ],
+   "revise": {
+    "summary": "For implicit equations, differentiate both sides treating y as a function of x and solve for dy/dx. Inverse trig derivatives are often easiest after a substitution like x = tan θ or x = sin θ.",
+    "focus": [
+     "Find dy/dx for implicit curves like x² + y² = 25 or xy = 12",
+     "Use the derivatives of sin⁻¹, cos⁻¹, tan⁻¹",
+     "Simplify inverse trig expressions before differentiating"
+    ],
+    "remember": [
+     "d/dx(y²) = 2y y′; d/dx(xy) = y + x y′",
+     "(sin⁻¹ x)′ = 1/√(1 − x²); (cos⁻¹ x)′ = −1/√(1 − x²)",
+     "(tan⁻¹ x)′ = 1/(1 + x²)",
+     "sin⁻¹(2x/(1 + x²)) = 2 tan⁻¹ x for |x| < 1"
+    ],
+    "traps": [
+     "Don't forget the − sign in the derivative of cos⁻¹ x",
+     "For a circle y′ = −x/y; for xy = c it is −y/x",
+     "Keep the chain factor, e.g. (tan⁻¹ 2x)′ = 2/(1 + 4x²)"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-05-05",
@@ -1016,7 +1217,8 @@
      "explain": "d/dx e^(2x) = 2e^(2x); at x = 0 this is 2e⁰ = 2.",
      "steps": [
       "2e^(2x)",
-      "At x = 0: 2 × 1 = 2"
+      "At x = 0: 2 × 1 = 2",
+      "Answer: 2"
      ],
      "mistake": "Forgets the chain factor 2",
      "check": "2"
@@ -1033,7 +1235,8 @@
      "explain": "Derivative is 2x/(x² + 1); at x = 1 this is 2/2 = 1.",
      "steps": [
       "2x/(x² + 1)",
-      "2/2 = 1"
+      "2/2 = 1",
+      "Answer: 1"
      ],
      "mistake": "Writes 1/(x² + 1) without the chain factor 2x",
      "check": "Fraction(2,2)"
@@ -1048,6 +1251,12 @@
      ],
      "answer": 2,
      "explain": "12 = 2² × 3, so log 12 = log 4 + log 3 = 2 log 2 + log 3.",
+     "steps": [
+      "12 = 2² × 3",
+      "log 12 = log 2² + log 3 (log of a product = sum of logs)",
+      "= 2 log 2 + log 3",
+      "Answer: 2 log 2 + log 3"
+     ],
      "mistake": "Thinks the log of a product is the product of logs"
     },
     {
@@ -1060,6 +1269,11 @@
      ],
      "answer": 0,
      "explain": "The logarithm is defined only for positive inputs; log 0 is undefined.",
+     "steps": [
+      "log x = y ⇔ eʸ = x, and eʸ > 0 always",
+      "So x must be positive; log 0 is undefined",
+      "Answer: (0, ∞)"
+     ],
      "mistake": "Includes 0 in the domain"
     },
     {
@@ -1072,6 +1286,11 @@
      ],
      "answer": 1,
      "explain": "Chain rule: e^(sin x) times the derivative of sin x.",
+     "steps": [
+      "Rule: d/dx e^(f(x)) = f′(x) e^(f(x))",
+      "f(x) = sin x, f′(x) = cos x",
+      "Answer: cos x e^(sin x)"
+     ],
      "mistake": "Treats e^(f(x)) like a power and brings the exponent down"
     },
     {
@@ -1084,6 +1303,12 @@
      ],
      "answer": 0,
      "explain": "dy/dx = (1/log x) × (1/x).",
+     "steps": [
+      "Outer: log u with u = log x, so d/du = 1/u = 1/log x",
+      "Inner: d/dx (log x) = 1/x",
+      "dy/dx = (1/log x)(1/x)",
+      "Answer: 1/(x log x)"
+     ],
      "mistake": "Stops after the outer derivative"
     },
     {
@@ -1098,7 +1323,8 @@
      "explain": "log₈ 2 = log 2 / log 8 = log 2 / (3 log 2) = 1/3.",
      "steps": [
       "log 8 = 3 log 2",
-      "log 2 / (3 log 2) = 1/3"
+      "log 2 / (3 log 2) = 1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Inverts the ratio and gets 3",
      "check": "Fraction(1,3)"
@@ -1113,6 +1339,12 @@
      ],
      "answer": 2,
      "explain": "A is true because e⁰ = 1. R is also true, but it is about slopes, not about the point (0, 1).",
+     "steps": [
+      "A: e⁰ = 1, so (0, 1) is on y = eˣ — true",
+      "R: d/dx eˣ = eˣ — true",
+      "R is about the slope, not about the value at 0, so it does not explain A",
+      "Answer: Both A and R are true but R does not explain A"
+     ],
      "mistake": "Links two true facts that are unrelated"
     }
    ],
@@ -1144,7 +1376,27 @@
     "c5.4.3",
     "c5.4.4",
     "c5.4.5"
-   ]
+   ],
+   "revise": {
+    "summary": "eˣ is its own derivative and log x (base e, x > 0) has derivative 1/x. With the chain rule, e^(f(x)) gives f′(x)e^(f(x)) and log f(x) gives f′(x)/f(x).",
+    "focus": [
+     "Differentiate e^(f(x)) and log f(x)",
+     "Use the laws of logarithms and change of base",
+     "Know the domain and range of eˣ and log x"
+    ],
+    "remember": [
+     "(eˣ)′ = eˣ; (log x)′ = 1/x",
+     "log(pq) = log p + log q; log pⁿ = n log p",
+     "logₐ p = log p / log a",
+     "log x is defined only for x > 0"
+    ],
+    "traps": [
+     "log of a product is a sum, not a product of logs",
+     "Don't include 0 in the domain of log x",
+     "Don't bring the exponent down in e^(f(x)) as if it were a power"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-05-06",
@@ -1217,7 +1469,8 @@
      "explain": "dy/dx = xˣ(1 + log x); at x = 1, this is 1 × (1 + 0) = 1.",
      "steps": [
       "dy/dx = xˣ(1 + log x)",
-      "1¹(1 + log 1) = 1"
+      "1¹(1 + log 1) = 1",
+      "Answer: 1"
      ],
      "mistake": "Uses the power rule x · x^(x − 1)",
      "check": "1"
@@ -1232,6 +1485,11 @@
      ],
      "answer": 2,
      "explain": "3ˣ = e^(x log 3), so the derivative is 3ˣ log 3.",
+     "steps": [
+      "3ˣ = e^(x log 3)",
+      "d/dx = e^(x log 3) × log 3 = 3ˣ log 3",
+      "Answer: 3ˣ log 3"
+     ],
      "mistake": "Applies the power rule to an exponential"
     },
     {
@@ -1244,6 +1502,13 @@
      ],
      "answer": 2,
      "explain": "y log x = x log y ⇒ y′ log x + y/x = log y + (x/y) y′ ⇒ y′(log x − x/y) = log y − y/x. Multiply top and bottom by xy.",
+     "steps": [
+      "Take logs: y log x = x log y",
+      "Differentiate: y′ log x + y/x = log y + (x/y) y′",
+      "y′(log x − x/y) = log y − y/x",
+      "Multiply top and bottom by xy: y′ = (xy log y − y²)/(xy log x − x²)",
+      "Answer: y(x log y − y) / [x(y log x − x)]"
+     ],
      "mistake": "Takes logs but forgets the product rule on y log x"
     },
     {
@@ -1256,6 +1521,12 @@
      ],
      "answer": 3,
      "explain": "log y = cos x · log(log x). Differentiating: −sin x log(log x) + cos x · 1/(x log x). Multiply by y.",
+     "steps": [
+      "log y = cos x · log(log x)",
+      "(1/y) y′ = −sin x · log(log x) + cos x · 1/(x log x)",
+      "Multiply by y = (log x)^(cos x)",
+      "Answer: (log x)^(cos x) [cos x/(x log x) − sin x log(log x)]"
+     ],
      "mistake": "Gets the sign of the derivative of cos x wrong"
     },
     {
@@ -1268,6 +1539,12 @@
      ],
      "answer": 3,
      "explain": "Neither the power rule (constant exponent) nor the exponential rule (constant base) applies, but logs turn the power into a product.",
+     "steps": [
+      "Power rule needs a constant exponent; exponential rule needs a constant base",
+      "In xˣ both base and exponent vary, so neither rule applies",
+      "Logs turn it into log y = x log x, a simple product",
+      "Answer: Because both the base and the exponent depend on x"
+     ],
      "mistake": "Thinks logs are needed whenever an exponent appears"
     },
     {
@@ -1280,6 +1557,11 @@
      ],
      "answer": 2,
      "explain": "log y = log(x − 1) + log(x − 2) − log(x − 3) − log(x − 4) (on a suitable interval). Differentiate term by term.",
+     "steps": [
+      "log y = log(x − 1) + log(x − 2) − log(x − 3) − log(x − 4)",
+      "Differentiate term by term; denominator factors carry minus signs",
+      "Answer: 1/(x − 1) + 1/(x − 2) − 1/(x − 3) − 1/(x − 4)"
+     ],
      "mistake": "Forgets that the denominator factors give negative terms"
     },
     {
@@ -1292,6 +1574,11 @@
      ],
      "answer": 3,
      "explain": "dy/dx = 2ˣ log 2; at x = 0, 2⁰ = 1, so the value is log 2.",
+     "steps": [
+      "d/dx (2ˣ) = 2ˣ log 2",
+      "At x = 0: 2⁰ log 2 = 1 × log 2",
+      "Answer: log 2"
+     ],
      "mistake": "Treats 2ˣ like eˣ"
     },
     {
@@ -1304,6 +1591,12 @@
      ],
      "answer": 2,
      "explain": "(1/y) dy/dx = cos x log x + sin x/x. At π/2: 0 · log(π/2) + 1/(π/2) = 2/π.",
+     "steps": [
+      "log y = sin x · log x ⇒ (1/y) y′ = cos x log x + sin x/x",
+      "At x = π/2: cos(π/2) = 0 and sin(π/2) = 1",
+      "0 · log(π/2) + 1/(π/2) = 2/π",
+      "Answer: 2/π"
+     ],
      "mistake": "Forgets the sin x/x term"
     },
     {
@@ -1320,7 +1613,8 @@
       "(1/y) dy/dx = 2x/(x² + 1) + 1/(x + 3)",
       "dy/dx = 2x(x + 3) + (x² + 1) = 3x² + 6x + 1",
       "Product rule: (2x)(x + 3) + (x² + 1)(1), the same",
-      "At x = 1: 3 + 6 + 1 = 10"
+      "At x = 1: 3 + 6 + 1 = 10",
+      "Answer: 10"
      ],
      "mistake": "Keeps only one of the two terms (2x(x + 3) = 8 or x² + 1 = 2) after differentiating",
      "check": "3+6+1"
@@ -1357,7 +1651,26 @@
     "c5.5.2",
     "c5.5.3",
     "c5.5.4"
-   ]
+   ],
+   "revise": {
+    "summary": "When both base and exponent vary, or for long products and quotients, take logs first and differentiate implicitly. This gives d/dx(xˣ) = xˣ(1 + log x) and d/dx(aˣ) = aˣ log a.",
+    "focus": [
+     "Differentiate u(x)^v(x) by taking logs",
+     "Handle products and quotients with log y",
+     "Solve equations like xʸ = yˣ for dy/dx"
+    ],
+    "remember": [
+     "dy/dx = u^v [v′ log u + v u′/u]",
+     "(xˣ)′ = xˣ(1 + log x)",
+     "(aˣ)′ = aˣ log a"
+    ],
+    "traps": [
+     "Don't use the power rule on xˣ or on 3ˣ",
+     "Denominator factors give minus terms after taking logs",
+     "Don't forget the product rule on y log x"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-05-07",
@@ -1452,6 +1765,11 @@
      ],
      "answer": 1,
      "explain": "dy/dt = 2a and dx/dt = 2at, so dy/dx = 2a/(2at) = 1/t.",
+     "steps": [
+      "dy/dt = 2a; dx/dt = 2at",
+      "dy/dx = (dy/dt)/(dx/dt) = 2a/(2at)",
+      "Answer: 1/t"
+     ],
      "mistake": "Divides dx/dt by dy/dt"
     },
     {
@@ -1467,7 +1785,8 @@
      "steps": [
       "dy/dt = −4/t²",
       "dy/dx = −1/t²",
-      "t = 2: −1/4"
+      "t = 2: −1/4",
+      "Answer: −1/4"
      ],
      "mistake": "Forgets the negative sign from differentiating 1/t",
      "check": "Fraction(-1,4)"
@@ -1482,6 +1801,11 @@
      ],
      "answer": 1,
      "explain": "dy/dθ = 3 cos θ and dx/dθ = −2 sin θ, so dy/dx = −(3/2) cot θ.",
+     "steps": [
+      "dy/dθ = 3 cos θ; dx/dθ = −2 sin θ",
+      "dy/dx = 3 cos θ/(−2 sin θ)",
+      "Answer: −(3/2) cot θ"
+     ],
      "mistake": "Loses the minus sign from d(cos θ)"
     },
     {
@@ -1494,6 +1818,12 @@
      ],
      "answer": 0,
      "explain": "dy/dθ = −a sin θ and dx/dθ = a(1 − cos θ). −sin θ/(1 − cos θ) = −2 sin(θ/2)cos(θ/2)/(2 sin²(θ/2)) = −cot(θ/2).",
+     "steps": [
+      "dy/dθ = −a sin θ; dx/dθ = a(1 − cos θ)",
+      "dy/dx = −sin θ/(1 − cos θ)",
+      "= −2 sin(θ/2) cos(θ/2) / (2 sin²(θ/2)) = −cos(θ/2)/sin(θ/2)",
+      "Answer: −cot(θ/2)"
+     ],
      "mistake": "Uses 1 + cos θ in the denominator or drops the sign"
     },
     {
@@ -1508,7 +1838,8 @@
      "explain": "dy/dt = 3t² and dx/dt = 2t, so dy/dx = 3t/2 = 3 at t = 2.",
      "steps": [
       "3t²/(2t) = 3t/2",
-      "t = 2: 3"
+      "t = 2: 3",
+      "Answer: 3"
      ],
      "mistake": "Divides 2t by 3t²",
      "check": "3*2/2"
@@ -1523,6 +1854,12 @@
      ],
      "answer": 0,
      "explain": "dy/dt = −2 sin 2t = −4 sin t cos t and dx/dt = cos t, so dy/dx = −4 sin t.",
+     "steps": [
+      "dy/dt = −2 sin 2t = −4 sin t cos t",
+      "dx/dt = cos t",
+      "dy/dx = −4 sin t cos t / cos t",
+      "Answer: −4 sin t"
+     ],
      "mistake": "Leaves dy/dt undivided"
     },
     {
@@ -1537,7 +1874,8 @@
      "explain": "dy/dx = −tan θ = −tan(π/4) = −1.",
      "steps": [
       "dy/dx = −tan θ",
-      "θ = π/4: −1"
+      "θ = π/4: −1",
+      "Answer: −1"
      ],
      "mistake": "Forgets the minus sign",
      "check": "-1"
@@ -1552,6 +1890,12 @@
      ],
      "answer": 2,
      "explain": "dy/dt = 12t and dx/dt = 3, so dy/dx = 12t/3 = 4t, found using R.",
+     "steps": [
+      "R: dy/dx = (dy/dt) ÷ (dx/dt) — the parametric rule, true",
+      "dy/dt = 12t, dx/dt = 3",
+      "dy/dx = 12t/3 = 4t, so A is true and found by R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks parametric derivatives need eliminating t first"
     }
    ],
@@ -1583,7 +1927,26 @@
     "c5.6.1",
     "c5.6.2",
     "c5.6.3"
-   ]
+   ],
+   "revise": {
+    "summary": "For a curve x = f(t), y = g(t), dy/dx = (dy/dt) ÷ (dx/dt) as long as dx/dt ≠ 0. Standard results: parabola 1/t, ellipse −(b/a) cot θ, astroid −tan θ, cycloid −cot(θ/2).",
+    "focus": [
+     "Find dy/dx in parametric form",
+     "Evaluate dy/dx at a given t or θ",
+     "Simplify answers with trig identities"
+    ],
+    "remember": [
+     "dy/dx = (dy/dt)/(dx/dt), dx/dt ≠ 0",
+     "x = at², y = 2at ⇒ dy/dx = 1/t",
+     "x = a cos³θ, y = a sin³θ ⇒ dy/dx = −tan θ"
+    ],
+    "traps": [
+     "Don't divide dx/dt by dy/dt",
+     "Don't lose the minus sign from d(cos θ)",
+     "No need to eliminate t first"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-05-08",
@@ -1668,6 +2031,12 @@
      ],
      "answer": 3,
      "explain": "y′ = 3x² + sec²x. Differentiating sec²x gives 2 sec x · sec x tan x = 2 sec²x tan x.",
+     "steps": [
+      "y′ = 3x² + sec²x",
+      "d/dx (sec²x) = 2 sec x · (sec x tan x) = 2 sec²x tan x",
+      "y″ = 6x + 2 sec²x tan x",
+      "Answer: 6x + 2 sec²x tan x"
+     ],
      "mistake": "Forgets the chain rule on sec²x"
     },
     {
@@ -1680,6 +2049,12 @@
      ],
      "answer": 1,
      "explain": "y″ = −5 cos x + 3 sin x = −y, so y″ + y = 0.",
+     "steps": [
+      "y′ = −5 sin x − 3 cos x",
+      "y″ = −5 cos x + 3 sin x = −(5 cos x − 3 sin x) = −y",
+      "y″ + y = −y + y = 0",
+      "Answer: 0"
+     ],
      "mistake": "Makes a sign slip differentiating cos or sin twice",
      "check": "0"
     },
@@ -1695,7 +2070,8 @@
      "explain": "y′ = 3e^(3x), y″ = 9e^(3x); at x = 0 this is 9.",
      "steps": [
       "y″ = 9e^(3x)",
-      "At 0: 9"
+      "At 0: 9",
+      "Answer: 9"
      ],
      "mistake": "Multiplies by 3 only once",
      "check": "9"
@@ -1710,6 +2086,11 @@
      ],
      "answer": 3,
      "explain": "y′ = 1/x = x⁻¹, so y″ = −x⁻² = −1/x².",
+     "steps": [
+      "y′ = 1/x = x⁻¹",
+      "y″ = −1 · x⁻² = −1/x²",
+      "Answer: −1/x²"
+     ],
      "mistake": "Stops at the first derivative"
     },
     {
@@ -1722,6 +2103,12 @@
      ],
      "answer": 3,
      "explain": "dy/dx = 1/t. d/dt(1/t) = −1/t². Divide by dx/dt = 2at: −1/(2at³).",
+     "steps": [
+      "dy/dx = 2a/(2at) = 1/t",
+      "d/dt (1/t) = −1/t²",
+      "d²y/dx² = (−1/t²) ÷ (dx/dt) = (−1/t²) ÷ (2at)",
+      "Answer: −1/(2at³)"
+     ],
      "mistake": "Forgets to divide by dx/dt and stops at −1/t²"
     },
     {
@@ -1734,6 +2121,12 @@
      ],
      "answer": 0,
      "explain": "y′ = 2Ae^(2x) − Be^(−x), y″ = 4Ae^(2x) + Be^(−x). y″ − y′ − 2y = (4 − 2 − 2)Ae^(2x) + (1 + 1 − 2)Be^(−x) = 0.",
+     "steps": [
+      "y′ = 2Ae^(2x) − Be^(−x); y″ = 4Ae^(2x) + Be^(−x)",
+      "y″ − y′ − 2y: e^(2x) terms: (4 − 2 − 2)A = 0",
+      "e^(−x) terms: (1 + 1 − 2)B = 0",
+      "Answer: y″ − y′ − 2y = 0"
+     ],
      "mistake": "Gets the sign of the y′ term wrong"
     },
     {
@@ -1746,6 +2139,12 @@
      ],
      "answer": 1,
      "explain": "y′ = [−3 sin(log x) + 4 cos(log x)]/x, so xy′ = −3 sin(log x) + 4 cos(log x). Differentiating: xy″ + y′ = −y/x, i.e. x²y″ + xy′ + y = 0.",
+     "steps": [
+      "y′ = [−3 sin(log x) + 4 cos(log x)]/x, so xy′ = −3 sin(log x) + 4 cos(log x)",
+      "Differentiate: xy″ + y′ = [−3 cos(log x) − 4 sin(log x)]/x = −y/x",
+      "Multiply by x: x²y″ + xy′ = −y",
+      "Answer: x²y″ + xy′ + y = 0"
+     ],
      "mistake": "Forgets the product rule when differentiating xy′"
     },
     {
@@ -1758,6 +2157,12 @@
      ],
      "answer": 1,
      "explain": "y′ = −x/y. y″ = −(y − x y′)/y² = −(y + x²/y)/y² = −(x² + y²)/y³ = −1/y³.",
+     "steps": [
+      "2x + 2y y′ = 0 ⇒ y′ = −x/y",
+      "y″ = −(y · 1 − x y′)/y² = −(y + x²/y)/y²",
+      "= −(y² + x²)/y³ = −1/y³ (since x² + y² = 1)",
+      "Answer: −1/y³"
+     ],
      "mistake": "Stops at the first derivative or misses the quotient rule"
     }
    ],
@@ -1790,7 +2195,25 @@
     "c5.7.3",
     "c5.7.4",
     "c5.7.5"
-   ]
+   ],
+   "revise": {
+    "summary": "The second derivative is the derivative of dy/dx. For parametric curves, d²y/dx² = [d/dt(dy/dx)] ÷ (dx/dt), and for implicit curves you differentiate y′ again and substitute.",
+    "focus": [
+     "Find y″ for explicit, implicit and parametric functions",
+     "Prove relations like y″ + y = 0 or x²y″ + xy′ + y = 0"
+    ],
+    "remember": [
+     "y = A cos x + B sin x ⇒ y″ + y = 0",
+     "Parametric: d²y/dx² = [d/dt(dy/dx)] ÷ (dx/dt)",
+     "y = sin⁻¹ x ⇒ (1 − x²)y″ − xy′ = 0"
+    ],
+    "traps": [
+     "d²y/dx² is not (d²y/dt²)/(d²x/dt²)",
+     "Use the chain rule on sec²x and the product rule on xy′",
+     "Don't stop at the first derivative"
+    ],
+    "level": "advanced"
+   }
   }
  ]
 }

@@ -99,6 +99,11 @@
      ],
      "answer": 3,
      "explain": "The highest derivative is the third derivative y‴.",
+     "steps": [
+      "Order = order of the highest derivative present",
+      "Derivatives present: y‴, y″, y′; highest is y‴ (third)",
+      "Answer: 3"
+     ],
      "mistake": "Counts the number of terms instead",
      "check": "3"
     },
@@ -114,7 +119,8 @@
      "explain": "The highest-order derivative is y‴ and its power is 2.",
      "steps": [
       "Highest order: y‴",
-      "Its power: 2"
+      "Its power: 2",
+      "Answer: 2"
      ],
      "mistake": "Takes the highest power anywhere in the equation",
      "check": "2"
@@ -129,6 +135,11 @@
      ],
      "answer": 3,
      "explain": "The highest-order derivative y″ appears to the first power.",
+     "steps": [
+      "Highest-order derivative: y″",
+      "It appears to the power 1 (the power 2 is on y′, a lower derivative)",
+      "Answer: 1"
+     ],
      "mistake": "Uses the power of y′ instead of the highest-order derivative",
      "check": "1"
     },
@@ -142,6 +153,11 @@
      ],
      "answer": 1,
      "explain": "y‴ gives order 3. The term e^(y′) is not a polynomial in y′, so degree is not defined.",
+     "steps": [
+      "Highest derivative is y‴, so order = 3",
+      "e^(y′) is not a polynomial in y′, so the equation is not a polynomial in its derivatives",
+      "Answer: Order 3, degree not defined"
+     ],
      "mistake": "Gives a degree even though a derivative sits inside an exponential"
     },
     {
@@ -157,7 +173,8 @@
      "steps": [
       "Square both sides",
       "(d²y/dx²)² = 1 + (dy/dx)²",
-      "Degree 2"
+      "Degree 2",
+      "Answer: 2"
      ],
      "mistake": "Finds the degree before clearing the square root",
      "check": "2"
@@ -172,6 +189,11 @@
      ],
      "answer": 1,
      "explain": "The highest derivative is d²y/dx², so the order is 2 (and the degree is 1).",
+     "steps": [
+      "Derivatives present: dy/dx and d²y/dx²",
+      "Highest is d²y/dx², so order = 2 (the power 4 of dy/dx is irrelevant to order)",
+      "Answer: 2"
+     ],
      "mistake": "Uses the power 4 of dy/dx as the order",
      "check": "2"
     },
@@ -185,6 +207,11 @@
      ],
      "answer": 0,
      "explain": "Degree needs a polynomial form in y′, y″, …; sin(y′) is not a polynomial in y′.",
+     "steps": [
+      "Degree is defined only when the equation is a polynomial in y′, y″, …",
+      "sin(y′) is not a polynomial in y′",
+      "Answer: Because the equation is not a polynomial in the derivatives"
+     ],
      "mistake": "Thinks every differential equation has a degree"
     },
     {
@@ -197,6 +224,11 @@
      ],
      "answer": 1,
      "explain": "The highest derivative is dy/dx, so the order is 1, and A is false. Its power is 5, so the degree is 5, and R is true.",
+     "steps": [
+      "Only derivative present: dy/dx, so order = 1 ⇒ A (order 5) is false",
+      "dy/dx appears to the power 5, so degree = 5 ⇒ R is true",
+      "Answer: A is false but R is true"
+     ],
      "mistake": "Mixes up order (which derivative) with degree (which power)"
     }
    ],
@@ -229,7 +261,26 @@
     "c9.2.4",
     "c9.2.5",
     "c9.2.6"
-   ]
+   ],
+   "revise": {
+    "summary": "The order of a differential equation is the order of its highest derivative. The degree is the power of that derivative, defined only when the equation is a polynomial in its derivatives.",
+    "focus": [
+     "Find order and degree of a given equation",
+     "Clear radicals before reading the degree",
+     "Spot equations whose degree is not defined"
+    ],
+    "remember": [
+     "Order = highest derivative present",
+     "Degree = power of the highest-order derivative (polynomial form only)",
+     "Degree not defined if a derivative is inside sin, e^, log etc."
+    ],
+    "traps": [
+     "Don't use the highest power anywhere as the degree",
+     "Order is about which derivative, degree is about its power",
+     "Square away a radical before finding the degree"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-09-02",
@@ -328,6 +379,11 @@
      ],
      "answer": 3,
      "explain": "The number of arbitrary constants equals the order.",
+     "steps": [
+      "Rule: number of arbitrary constants in the general solution = order",
+      "Order = 3",
+      "Answer: 3"
+     ],
      "mistake": "Confuses order with degree",
      "check": "3"
     },
@@ -341,6 +397,11 @@
      ],
      "answer": 0,
      "explain": "A particular solution has all its constants fixed, so it has none.",
+     "steps": [
+      "A particular solution has every constant given a definite value",
+      "So no arbitrary constants remain, whatever the order",
+      "Answer: 0"
+     ],
      "mistake": "Confuses particular solution with general solution",
      "check": "0"
     },
@@ -354,6 +415,12 @@
      ],
      "answer": 0,
      "explain": "For y = 2 cos x − 3 sin x, y″ = −2 cos x + 3 sin x = −y.",
+     "steps": [
+      "Need y″ = −y",
+      "y = 2 cos x − 3 sin x: y′ = −2 sin x − 3 cos x, y″ = −2 cos x + 3 sin x = −y ✓",
+      "eˣ and e⁻ˣ give y″ = y; x² gives y″ = 2 ✗",
+      "Answer: y = 2 cos x − 3 sin x"
+     ],
      "mistake": "Picks a function whose second derivative equals itself, not its negative"
     },
     {
@@ -366,6 +433,12 @@
      ],
      "answer": 1,
      "explain": "y′ = x/√(1 + x²) = x√(1 + x²)/(1 + x²) = xy/(1 + x²).",
+     "steps": [
+      "y = √(1 + x²) ⇒ y′ = 2x/(2√(1 + x²)) = x/√(1 + x²)",
+      "Multiply top and bottom by √(1 + x²): y′ = x√(1 + x²)/(1 + x²)",
+      "= xy/(1 + x²)",
+      "Answer: y′ = xy/(1 + x²)"
+     ],
      "mistake": "Differentiates without the chain rule"
     },
     {
@@ -378,6 +451,11 @@
      ],
      "answer": 2,
      "explain": "y = Ax gives x · A = Ax = y.",
+     "steps": [
+      "Try y = Ax: dy/dx = A, so x dy/dx = Ax = y ✓",
+      "y = Ax² gives 2Ax² ≠ y; y = A/x gives −A/x ≠ y",
+      "Answer: y = Ax"
+     ],
      "mistake": "Checks only one value of x"
     },
     {
@@ -390,6 +468,11 @@
      ],
      "answer": 0,
      "explain": "Differentiating gives y′ = 2x + 2.",
+     "steps": [
+      "Differentiate y = x² + 2x + C: y′ = 2x + 2 (C disappears)",
+      "So y′ − 2x − 2 = 0",
+      "Answer: y′ − 2x − 2 = 0"
+     ],
      "mistake": "Forgets to differentiate and matches the function itself"
     },
     {
@@ -402,6 +485,11 @@
      ],
      "answer": 3,
      "explain": "4 = 1 + C gives C = 3.",
+     "steps": [
+      "y = x² + C through (1, 4): 4 = 1² + C",
+      "C = 3",
+      "Answer: y = x² + 3"
+     ],
      "mistake": "Uses the y-value directly as C"
     },
     {
@@ -414,6 +502,12 @@
      ],
      "answer": 1,
      "explain": "y″ = 4A e^(2x) + 4B e^(−2x) = 4y, and two constants match the order 2. R explains A.",
+     "steps": [
+      "y′ = 2A e^(2x) − 2B e^(−2x); y″ = 4A e^(2x) + 4B e^(−2x) = 4y ⇒ y″ − 4y = 0 ✓",
+      "It has 2 arbitrary constants = order 2",
+      "So it is the general solution, for exactly the reason R gives",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks the number of constants does not matter"
     }
    ],
@@ -446,7 +540,25 @@
     "c9.3.3",
     "c9.3.4",
     "c9.4.14"
-   ]
+   ],
+   "revise": {
+    "summary": "A general solution has as many arbitrary constants as the order, while a particular solution has none. To verify a solution, differentiate it and substitute into the equation.",
+    "focus": [
+     "Count constants in general and particular solutions",
+     "Verify that a function satisfies an equation",
+     "Find a particular solution from a given point"
+    ],
+    "remember": [
+     "Number of arbitrary constants in general solution = order",
+     "Particular solution: no arbitrary constants"
+    ],
+    "traps": [
+     "Don't confuse order with degree when counting constants",
+     "Don't take the y-value as C directly; substitute properly",
+     "y″ + y = 0 needs y″ = −y, not y″ = y"
+    ],
+    "level": "core"
+   }
   },
   {
    "id": "g12-maths-09-03",
@@ -523,6 +635,11 @@
      ],
      "answer": 3,
      "explain": "dy/(1 + y²) = dx/(1 + x²); integrating both sides gives tan⁻¹ y = tan⁻¹ x + C.",
+     "steps": [
+      "Separate: dy/(1 + y²) = dx/(1 + x²)",
+      "Integrate: ∫dy/(1 + y²) = tan⁻¹ y; ∫dx/(1 + x²) = tan⁻¹ x",
+      "Answer: tan⁻¹ y = tan⁻¹ x + C"
+     ],
      "mistake": "Uses log instead of tan⁻¹"
     },
     {
@@ -535,6 +652,12 @@
      ],
      "answer": 1,
      "explain": "e⁻ʸ dy = eˣ dx ⇒ −e⁻ʸ = eˣ + C₁ ⇒ eˣ + e⁻ʸ = C.",
+     "steps": [
+      "e^(x + y) = eˣ eʸ ⇒ e⁻ʸ dy = eˣ dx",
+      "Integrate: −e⁻ʸ = eˣ + C₁",
+      "eˣ + e⁻ʸ = −C₁ = C",
+      "Answer: eˣ + e⁻ʸ = C"
+     ],
      "mistake": "Loses the minus sign when integrating e⁻ʸ"
     },
     {
@@ -549,7 +672,8 @@
      "explain": "The particular solution is y = 1/(2x² + 1), so y(1) = 1/3.",
      "steps": [
       "y = 1/(2x² + 1)",
-      "y(1) = 1/(2 + 1) = 1/3"
+      "y(1) = 1/(2 + 1) = 1/3",
+      "Answer: 1/3"
      ],
      "mistake": "Uses 4x² instead of 2x²",
      "check": "Fraction(1,3)"
@@ -564,6 +688,12 @@
      ],
      "answer": 2,
      "explain": "y dy = x dx ⇒ y²/2 = x²/2 + C₁ ⇒ y² − x² = C.",
+     "steps": [
+      "Separate: y dy = x dx",
+      "Integrate: y²/2 = x²/2 + C₁",
+      "Multiply by 2: y² − x² = C",
+      "Answer: y² − x² = C"
+     ],
      "mistake": "Makes a sign slip moving x² across"
     },
     {
@@ -576,6 +706,12 @@
      ],
      "answer": 0,
      "explain": "(x + 1)(y − 2) is a product of a function of x and a function of y.",
+     "steps": [
+      "Separable means dy/dx = g(x) · h(y)",
+      "(x + 1)(y − 2) is a product of a function of x and a function of y ✓",
+      "x + y, (x + y)/(x − y) and x − y cannot be written as g(x)h(y)",
+      "Answer: dy/dx = (x + 1)(y − 2)"
+     ],
      "mistake": "Thinks any equation with x and y is separable"
     },
     {
@@ -588,6 +724,12 @@
      ],
      "answer": 2,
      "explain": "y = Aeˣ, A = 2, so y(1) = 2e.",
+     "steps": [
+      "dy/y = dx ⇒ log|y| = x + c ⇒ y = Aeˣ",
+      "y(0) = 2 ⇒ A = 2, so y = 2eˣ",
+      "y(1) = 2e",
+      "Answer: 2e"
+     ],
      "mistake": "Forgets the constant A"
     },
     {
@@ -600,6 +742,11 @@
      ],
      "answer": 1,
      "explain": "cos y dy = sin x dx ⇒ sin y = −cos x + C.",
+     "steps": [
+      "Separate: cos y dy = sin x dx",
+      "Integrate: sin y = −cos x + C",
+      "Answer: sin y = −cos x + C"
+     ],
      "mistake": "Gets the sign of ∫sin x dx wrong"
     },
     {
@@ -612,6 +759,12 @@
      ],
      "answer": 0,
      "explain": "The factorisation in R shows the right side is g(x)h(y), which is why the equation separates.",
+     "steps": [
+      "R: 1 + x + y + xy = 1(1 + x) + y(1 + x) = (1 + x)(1 + y) — true",
+      "So dy/dx = g(x)h(y) with g = 1 + x, h = 1 + y: separable",
+      "R is the reason A holds",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Does not try factorising before deciding"
     }
    ],
@@ -643,7 +796,26 @@
    "covers": [
     "c9.4.1",
     "c9.4.2"
-   ]
+   ],
+   "revise": {
+    "summary": "If dy/dx = g(x)h(y), separate as dy/h(y) = g(x) dx and integrate both sides. Use an initial condition to find C for a particular solution.",
+    "focus": [
+     "Recognise separable equations (factorise if needed)",
+     "Integrate both sides correctly",
+     "Find particular solutions"
+    ],
+    "remember": [
+     "dy/dx = g(x)h(y) ⇒ ∫dy/h(y) = ∫g(x) dx + C",
+     "dy/dx = ky ⇒ y = Ae^(kx)",
+     "dy/dx = (1 + y²)/(1 + x²) ⇒ tan⁻¹ y = tan⁻¹ x + C"
+    ],
+    "traps": [
+     "Don't lose the minus sign in ∫e⁻ʸ dy = −e⁻ʸ",
+     "x + y is not separable; try factorising expressions like 1 + x + y + xy",
+     "Don't forget the constant A in y = Ae^(kx)"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-09-04",
@@ -724,6 +896,11 @@
      ],
      "answer": 2,
      "explain": "Rate = 5% of P = (5/100)P = P/20.",
+     "steps": [
+      "Rate of growth = 5% of P = (5/100)P",
+      "5/100 = 1/20",
+      "Answer: dP/dt = P/20"
+     ],
      "mistake": "Forgets to convert the percentage"
     },
     {
@@ -736,6 +913,11 @@
      ],
      "answer": 3,
      "explain": "P = 1000 e^(t/20); at t = 20, P = 1000e.",
+     "steps": [
+      "dP/P = dt/20 ⇒ P = P₀ e^(t/20)",
+      "P₀ = 1000, t = 20: P = 1000 e^(20/20) = 1000 e¹",
+      "Answer: 1000e"
+     ],
      "mistake": "Uses simple interest instead"
     },
     {
@@ -748,6 +930,11 @@
      ],
      "answer": 2,
      "explain": "e^(3k) = 2 ⇒ 3k = log 2 ⇒ k = (log 2)/3.",
+     "steps": [
+      "N = N₀ e^(kt); doubling in 3 h: N₀ e^(3k) = 2N₀",
+      "e^(3k) = 2 ⇒ 3k = log 2",
+      "Answer: (log 2)/3"
+     ],
      "mistake": "Inverts the relation"
     },
     {
@@ -762,7 +949,8 @@
      "explain": "9 hours is three doublings: 2³ = 8.",
      "steps": [
       "9/3 = 3 doublings",
-      "2³ = 8"
+      "2³ = 8",
+      "Answer: 8"
      ],
      "mistake": "Multiplies 2 by 3 instead of raising 2 to the power 3",
      "check": "2**3"
@@ -777,6 +965,11 @@
      ],
      "answer": 0,
      "explain": "dy/dx = y ⇒ y = Aeˣ, and y(0) = 1 gives A = 1.",
+     "steps": [
+      "dy/dx = y ⇒ dy/y = dx ⇒ y = Aeˣ",
+      "Through (0, 1): 1 = Ae⁰ ⇒ A = 1",
+      "Answer: y = eˣ"
+     ],
      "mistake": "Treats slope y as a constant slope"
     },
     {
@@ -791,7 +984,8 @@
      "explain": "y³ = 3x² + 15, so at x = 1, y³ = 18.",
      "steps": [
       "y³ = 3x² + 15",
-      "3 + 15 = 18"
+      "3 + 15 = 18",
+      "Answer: 18"
      ],
      "mistake": "Forgets the 3 multiplying x²",
      "check": "3*1+15"
@@ -806,6 +1000,12 @@
      ],
      "answer": 3,
      "explain": "N = N₀e^(−kt) decreases and approaches 0 but never reaches it.",
+     "steps": [
+      "dN/dt = −kN ⇒ N = N₀ e^(−kt), k > 0",
+      "e^(−kt) decreases and tends to 0 but never reaches it",
+      "Not a straight line: the fall slows down as N shrinks",
+      "Answer: Exponential decay towards zero"
+     ],
      "mistake": "Confuses exponential decay with a constant rate of fall"
     },
     {
@@ -818,6 +1018,12 @@
      ],
      "answer": 1,
      "explain": "Separating dP/P = (r/100) dt and integrating gives log P = rt/100 + C, which leads to A.",
+     "steps": [
+      "R: dP/dt = (r/100)P — true for continuous interest",
+      "Separate: dP/P = (r/100) dt ⇒ log P = rt/100 + C ⇒ P = P₀ e^(rt/100)",
+      "So A follows by solving R",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks continuous interest is linear"
     }
    ],
@@ -850,7 +1056,26 @@
    },
    "covers": [
     "c9.4.3"
-   ]
+   ],
+   "revise": {
+    "summary": "'Rate proportional to amount' gives dN/dt = kN and N = N₀e^(kt): growth for k > 0 and decay for k < 0. Continuous interest follows P = P₀e^(rt/100), and slope problems give dy/dx directly.",
+    "focus": [
+     "Model growth, decay and continuous interest",
+     "Find k from a doubling time",
+     "Find a curve from its slope and a point"
+    ],
+    "remember": [
+     "dN/dt = kN ⇒ N = N₀e^(kt)",
+     "Continuous interest: P = P₀e^(rt/100)",
+     "Doubling time T: k = (log 2)/T"
+    ],
+    "traps": [
+     "Convert r% to r/100",
+     "n doublings multiply by 2ⁿ, not 2n",
+     "Exponential decay is not a straight-line fall"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-09-05",
@@ -940,7 +1165,8 @@
      "explain": "F(λx, λy) = λ³(x³ + 3x²y), so the degree is 3.",
      "steps": [
       "Replace x, y by λx, λy",
-      "Factor out λ³"
+      "Factor out λ³",
+      "Answer: 3"
      ],
      "mistake": "Counts the number of terms",
      "check": "3"
@@ -958,7 +1184,8 @@
      "steps": [
       "Numerator: λ³",
       "Denominator: λ",
-      "λ²: degree 2"
+      "λ²: degree 2",
+      "Answer: 2"
      ],
      "mistake": "Takes the degree of the numerator only",
      "check": "2"
@@ -973,6 +1200,12 @@
      ],
      "answer": 2,
      "explain": "(x² + y²)/(xy) is homogeneous of degree 0, so the equation is homogeneous.",
+     "steps": [
+      "Homogeneous means the right side is homogeneous of degree 0",
+      "(x² + y²)/(xy): (λ²)/(λ²) = λ⁰ ✓",
+      "x + y + 1 and x² + y mix degrees; sin x + y is not homogeneous",
+      "Answer: dy/dx = (x² + y²)/(xy)"
+     ],
      "mistake": "Ignores the constant or mixed-degree terms"
     },
     {
@@ -985,6 +1218,11 @@
      ],
      "answer": 3,
      "explain": "By the product rule, d(vx)/dx = v + x dv/dx.",
+     "steps": [
+      "y = vx with v a function of x",
+      "Product rule: dy/dx = v · 1 + x · dv/dx",
+      "Answer: v + x dv/dx"
+     ],
      "mistake": "Forgets the product rule"
     },
     {
@@ -997,6 +1235,13 @@
      ],
      "answer": 2,
      "explain": "With y = vx, 2v dv/(1 − v²) = dx/x gives (1 − v²)x = C, i.e. x² − y² = Cx.",
+     "steps": [
+      "dy/dx = (x² + y²)/(2xy); put y = vx: v + x dv/dx = (1 + v²)/(2v)",
+      "x dv/dx = (1 − v²)/(2v) ⇒ 2v dv/(1 − v²) = dx/x",
+      "−log|1 − v²| = log|x| + c ⇒ (1 − v²)x = C",
+      "(1 − y²/x²)x = C ⇒ x² − y² = Cx",
+      "Answer: x² − y² = Cx"
+     ],
      "mistake": "Drops the x on the right after replacing v"
     },
     {
@@ -1009,6 +1254,11 @@
      ],
      "answer": 0,
      "explain": "General: y = x log|x| + Cx. At x = 1: 1 = 0 + C, so C = 1.",
+     "steps": [
+      "General solution (from the worked example): y = x log|x| + Cx",
+      "At x = 1, y = 1: 1 = 1 · log 1 + C = 0 + C ⇒ C = 1",
+      "Answer: y = x log|x| + x"
+     ],
      "mistake": "Forgets the Cx term"
     },
     {
@@ -1021,6 +1271,11 @@
      ],
      "answer": 3,
      "explain": "When the equation is in the form dx/dy = G(x/y), use x = vy.",
+     "steps": [
+      "The equation is dx/dy = (x + y)/y = x/y + 1, a function of x/y",
+      "For dx/dy = G(x/y), put x = vy",
+      "Answer: x = vy"
+     ],
      "mistake": "Always uses y = vx"
     },
     {
@@ -1033,6 +1288,12 @@
      ],
      "answer": 3,
      "explain": "Any F(x, y) = g(y/x) is homogeneous of degree 0, which makes the equation homogeneous.",
+     "steps": [
+      "R: right side = (y/x) + tan(y/x) is a function of y/x alone — true",
+      "Any g(y/x) is homogeneous of degree 0, so the equation is homogeneous",
+      "R is the reason A holds",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Thinks trigonometric terms prevent homogeneity"
     }
    ],
@@ -1064,7 +1325,26 @@
     "c9.4.5",
     "c9.4.6",
     "c9.4.7"
-   ]
+   ],
+   "revise": {
+    "summary": "dy/dx = F(x, y) is homogeneous when F is a function of y/x alone (degree 0). Put y = vx, so dy/dx = v + x dv/dx, and the equation becomes separable.",
+    "focus": [
+     "Find the degree of a homogeneous function",
+     "Check if an equation is homogeneous",
+     "Solve with y = vx (or x = vy)"
+    ],
+    "remember": [
+     "F(λx, λy) = λⁿF(x, y): degree n",
+     "y = vx ⇒ dy/dx = v + x dv/dx",
+     "For dx/dy = G(x/y), put x = vy"
+    ],
+    "traps": [
+     "Don't forget the product rule in d(vx)/dx",
+     "Mixed-degree terms or constants make it non-homogeneous",
+     "Replace v by y/x at the end"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-09-06",
@@ -1140,6 +1420,11 @@
      ],
      "answer": 1,
      "explain": "IF = e^(∫3 dx) = e^(3x).",
+     "steps": [
+      "Form dy/dx + Py = Q with P = 3, Q = eˣ",
+      "IF = e^(∫P dx) = e^(∫3 dx)",
+      "Answer: e^(3x)"
+     ],
      "mistake": "Uses Q instead of P"
     },
     {
@@ -1152,6 +1437,11 @@
      ],
      "answer": 3,
      "explain": "Standard form: dy/dx − y/x = x, so P = −1/x and IF = e^(−log x) = 1/x.",
+     "steps": [
+      "Divide by x: dy/dx − (1/x)y = x, so P = −1/x",
+      "IF = e^(∫−1/x dx) = e^(−log x) = 1/x",
+      "Answer: 1/x"
+     ],
      "mistake": "Forgets to divide by x before reading P"
     },
     {
@@ -1164,6 +1454,12 @@
      ],
      "answer": 3,
      "explain": "IF = x. yx = ∫x³ dx = x⁴/4 + C ⇒ y = x³/4 + C/x.",
+     "steps": [
+      "P = 1/x ⇒ IF = e^(log x) = x",
+      "y · x = ∫x² · x dx = x⁴/4 + C",
+      "Divide by x: y = x³/4 + C/x",
+      "Answer: y = x³/4 + C/x"
+     ],
      "mistake": "Forgets to divide C by x"
     },
     {
@@ -1176,6 +1472,12 @@
      ],
      "answer": 0,
      "explain": "IF = sec x; y sec x = tan x + C; multiply by cos x.",
+     "steps": [
+      "P = tan x ⇒ IF = e^(log|sec x|) = sec x",
+      "y sec x = ∫sec x · sec x dx = tan x + C",
+      "Multiply by cos x: y = sin x + C cos x",
+      "Answer: y = sin x + C cos x"
+     ],
      "mistake": "Uses log|sec x| itself as the IF"
     },
     {
@@ -1191,7 +1493,8 @@
      "steps": [
       "0 = cos(π/3) + C cos²(π/3)",
       "0 = 1/2 + C/4",
-      "C = −2"
+      "C = −2",
+      "Answer: −2"
      ],
      "mistake": "Makes a slip with cos²(π/3) = 1/4",
      "check": "-2"
@@ -1206,6 +1509,11 @@
      ],
      "answer": 2,
      "explain": "y dx = (x + 2y²) dy ⇒ dx/dy = x/y + 2y ⇒ dx/dy − x/y = 2y, a linear equation in x.",
+     "steps": [
+      "y dx = (x + 2y²) dy ⇒ dx/dy = (x + 2y²)/y = x/y + 2y",
+      "Move x/y to the left: dx/dy − x/y = 2y (linear in x)",
+      "Answer: dx/dy − x/y = 2y"
+     ],
      "mistake": "Forces the equation into dy/dx form"
     },
     {
@@ -1218,6 +1526,12 @@
      ],
      "answer": 0,
      "explain": "IF = e^(−∫dy/y) = 1/y. x/y = ∫2 dy = 2y + C ⇒ x = 2y² + Cy.",
+     "steps": [
+      "P₁ = −1/y ⇒ IF = e^(−log y) = 1/y",
+      "x · (1/y) = ∫2y · (1/y) dy = ∫2 dy = 2y + C",
+      "Multiply by y: x = 2y² + Cy",
+      "Answer: x = 2y² + Cy"
+     ],
      "mistake": "Forgets to multiply C by y"
     },
     {
@@ -1230,6 +1544,12 @@
      ],
      "answer": 0,
      "explain": "d/dx[y e^(∫P dx)] = e^(∫P dx)(dy/dx + Py), which is why this factor is chosen.",
+     "steps": [
+      "R: d/dx[y e^(∫P dx)] = e^(∫P dx) dy/dx + y P e^(∫P dx) = e^(∫P dx)(dy/dx + Py) — true",
+      "So multiplying by e^(∫P dx) turns the left side into one derivative",
+      "That is why e^(∫P dx) is the IF: R explains A",
+      "Answer: Both A and R are true and R explains A"
+     ],
      "mistake": "Memorises the IF without knowing why it works"
     }
    ],
@@ -1265,7 +1585,26 @@
     "c9.4.9",
     "c9.4.10",
     "c9.4.11"
-   ]
+   ],
+   "revise": {
+    "summary": "A linear equation dy/dx + Py = Q is solved with IF = e^(∫P dx), giving y · IF = ∫Q · IF dx + C. If it is linear in x, use dx/dy + P₁x = Q₁ instead.",
+    "focus": [
+     "Write the equation in standard form",
+     "Find the integrating factor",
+     "Solve and apply initial conditions"
+    ],
+    "remember": [
+     "IF = e^(∫P dx)",
+     "y · IF = ∫(Q · IF) dx + C",
+     "Linear in x: x · IF = ∫(Q₁ · IF) dy + C, IF = e^(∫P₁ dy)"
+    ],
+    "traps": [
+     "Divide by the coefficient of dy/dx before reading P",
+     "Divide C by the IF too",
+     "Use Q, not P, inside the integral, and P, not Q, in the IF"
+    ],
+    "level": "important"
+   }
   },
   {
    "id": "g12-maths-09-07",
@@ -1369,6 +1708,11 @@
      ],
      "answer": 1,
      "explain": "e^(x − y) = eˣ · e⁻ʸ, so eʸ dy = eˣ dx.",
+     "steps": [
+      "e^(x − y) = eˣ · e⁻ʸ, a product g(x)h(y)",
+      "Separate: eʸ dy = eˣ dx",
+      "Answer: Variable separable"
+     ],
      "mistake": "Does not split the exponential"
     },
     {
@@ -1381,6 +1725,12 @@
      ],
      "answer": 3,
      "explain": "It is in the form dy/dx + Py = Q with P = −1/x, Q = x².",
+     "steps": [
+      "Compare with dy/dx + Py = Q",
+      "P = −1/x and Q = x² are functions of x only",
+      "x² stops it from being a function of y/x alone, so it is not homogeneous",
+      "Answer: Linear with IF"
+     ],
      "mistake": "Calls it homogeneous because of y/x"
     },
     {
@@ -1393,6 +1743,11 @@
      ],
      "answer": 1,
      "explain": "y = eˣ − x − 1, so y(1) = e − 2.",
+     "steps": [
+      "Solution through the origin: y = eˣ − x − 1",
+      "At x = 1: y = e − 1 − 1",
+      "Answer: e − 2"
+     ],
      "mistake": "Forgets the −x term"
     },
     {
@@ -1408,7 +1763,8 @@
      "steps": [
       "y = x² + C",
       "C = 2",
-      "y(2) = 6"
+      "y(2) = 6",
+      "Answer: 6"
      ],
      "mistake": "Forgets the constant",
      "check": "4+2"
@@ -1426,7 +1782,8 @@
      "steps": [
       "y(0) = 2",
       "y′(0) = −2",
-      "Product = −4"
+      "Product = −4",
+      "Answer: −4"
      ],
      "mistake": "Forgets the negative sign in the slope",
      "check": "2*(-2)"
@@ -1441,6 +1798,11 @@
      ],
      "answer": 2,
      "explain": "dy/y = dx/x ⇒ log|y| = log|x| + log|C| ⇒ y = Cx.",
+     "steps": [
+      "Separate: dy/y = dx/x",
+      "log|y| = log|x| + log|C| = log|Cx|",
+      "Answer: y = Cx"
+     ],
      "mistake": "Mixes the logs and gets y = C/x"
     },
     {
@@ -1453,6 +1815,12 @@
      ],
      "answer": 3,
      "explain": "IF = eˣ. y eˣ = ∫e^(2x) dx = e^(2x)/2 + C ⇒ y = eˣ/2 + Ce⁻ˣ.",
+     "steps": [
+      "P = 1 ⇒ IF = eˣ",
+      "y eˣ = ∫eˣ · eˣ dx = e^(2x)/2 + C",
+      "Divide by eˣ: y = eˣ/2 + Ce⁻ˣ",
+      "Answer: y = eˣ/2 + Ce⁻ˣ"
+     ],
      "mistake": "Forgets to divide C by the IF"
     },
     {
@@ -1465,6 +1833,12 @@
      ],
      "answer": 0,
      "explain": "(x + y)² contains y² terms, so the equation is not linear; A is false. R is true: the right side does contain y.",
+     "steps": [
+      "Linear needs the form dy/dx + Py = Q, with y only to the first power",
+      "(x + y)² = x² + 2xy + y² contains y², so A is false",
+      "R: the right side does contain y — true",
+      "Answer: A is false but R is true"
+     ],
      "mistake": "Thinks containing y makes an equation linear"
     }
    ],
@@ -1492,7 +1866,25 @@
    "covers": [
     "c9.4.12",
     "c9.4.13"
-   ]
+   ],
+   "revise": {
+    "summary": "Choose the method by the form: separable if it splits as g(x)h(y), homogeneous if it depends only on y/x, linear if it is dy/dx + Py = Q. Slope problems mean dy/dx equals the given expression.",
+    "focus": [
+     "Pick the right method for an equation",
+     "Solve curve problems with a given point",
+     "Recognise when an equation is not linear"
+    ],
+    "remember": [
+     "Separable: g(x)h(y); homogeneous: g(y/x); linear: dy/dx + Py = Q",
+     "'Slope at (x, y) is f' means dy/dx = f"
+    ],
+    "traps": [
+     "dy/dx − y/x = x² is linear, not homogeneous",
+     "Terms like y² make an equation non-linear",
+     "Don't forget the constant before using the given point"
+    ],
+    "level": "important"
+   }
   }
  ]
 }
