@@ -1,0 +1,66 @@
+/* StudyVerse legal pages: small shared style that matches the app (navy sky, white cards, Baloo 2 + Nunito).
+   Sizes are in rem so the app's text-size setting (applied by legal.js) and browser zoom scale everything. */
+:root{--sky:#0f1b3d;--sky2:#1d2f6b;--card:#fff;--ink:#1b1f3a;--muted:#4b5073;--sun:#ffc93c;--violet:#6a3be0;--line:#e3e6f6;--soft:#f4f5fd}
+*{box-sizing:border-box}
+html{font-size:100%;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Nunito,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:1.0625rem;line-height:1.6;color:var(--ink);background:linear-gradient(180deg,var(--sky),var(--sky2)) fixed;min-height:100vh}
+.skip{position:absolute;left:-9999px;top:0;background:var(--sun);color:#000;padding:.6rem 1rem;border-radius:0 0 12px 0;font-weight:800;z-index:9}
+.skip:focus{left:0}
+.wrap{max-width:46rem;margin:0 auto;padding:0 .9rem 2rem}
+.top{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;padding:.9rem 0 .6rem;color:#fff}
+.brand{font-family:"Baloo 2",Nunito,sans-serif;font-weight:800;font-size:1.4rem;color:#fff;text-decoration:none;letter-spacing:.02em}
+.brand span{color:var(--sun)}
+.backlink{display:inline-flex;align-items:center;gap:.3rem;color:#fff;background:rgba(255,255,255,.14);border-radius:999px;padding:.45rem .9rem;font-weight:800;text-decoration:none;font-size:.95rem;min-height:44px}
+.backlink:hover{background:rgba(255,255,255,.24)}
+main.card,.card{background:var(--card);border-radius:22px;padding:1.2rem 1.1rem 1.4rem;box-shadow:0 8px 24px rgba(0,0,0,.18);margin-bottom:1rem}
+h1,h2,h3{font-family:"Baloo 2",Nunito,sans-serif;line-height:1.2;color:var(--ink)}
+h1{font-size:1.85rem;margin:.1rem 0 .3rem}
+h2{font-size:1.3rem;margin:1.6rem 0 .4rem;padding-top:.8rem;border-top:2px solid var(--line)}
+h3{font-size:1.1rem;margin:1.1rem 0 .3rem}
+p,li{margin:0 0 .7rem}
+ul,ol{padding-left:1.3rem;margin:0 0 .8rem}
+a{color:var(--violet);font-weight:700;text-underline-offset:2px}
+.updated{display:inline-block;background:var(--soft);color:var(--muted);font-weight:800;font-size:.9rem;border-radius:999px;padding:.2rem .8rem;margin:0 0 .8rem}
+.lead{font-size:1.1rem;color:var(--muted);font-weight:600}
+.box{background:#fff8e1;border:2px solid #f3d27a;border-radius:16px;padding:.8rem 1rem;margin:1rem 0}
+.box.ok{background:#e9fbf4;border-color:#9fe3c8}
+.box.info{background:var(--soft);border-color:var(--line)}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box h2,.box h3{border:0;margin-top:0;padding-top:0}
+.ph{background:#fff1b8;color:#5a4300;border-radius:6px;padding:0 .25rem;font-weight:800;white-space:normal}
+.toc{background:var(--soft);border-radius:16px;padding:.7rem 1rem;margin:1rem 0}
+.toc h2{margin:0 0 .3rem;padding:0;border:0;font-size:1.05rem}
+.toc ol{margin:0}.toc li{margin:.15rem 0}
+table{border-collapse:collapse;width:100%;margin:.4rem 0 1rem;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:.45rem .55rem;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+.tablewrap{overflow-x:auto}
+.pages{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
+.pages a{display:block;background:var(--soft);border-radius:14px;padding:.7rem .9rem;text-decoration:none;color:var(--ink);min-height:44px}
+.pages a b{display:block;color:var(--violet);font-family:"Baloo 2",Nunito,sans-serif;font-size:1.1rem}
+.pages a small{color:var(--muted);font-weight:600;font-size:.92rem}
+.pages a:hover{background:#e8eafb}
+.site-nav{color:#fff}
+.site-nav h2{color:#fff;border:0;font-size:1.05rem;margin:0 0 .4rem;padding:0}
+.site-nav ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.4rem}
+.site-nav a{display:inline-flex;align-items:center;min-height:44px;color:#fff;background:rgba(255,255,255,.12);border-radius:999px;padding:.3rem .8rem;text-decoration:none;font-weight:700;font-size:.92rem}
+.site-nav a[aria-current=page]{background:var(--sun);color:#1b1f3a}
+footer.foot{color:#c9d1ff;font-size:.9rem;margin-top:1rem}
+footer.foot p{margin:.3rem 0}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:6px}
+main :focus-visible{outline-color:var(--violet)}
+/* High contrast: follows the app's setting (html.sv-hc set by legal.js) and the phone's setting */
+html.sv-hc body{background:#000}
+html.sv-hc main.card,html.sv-hc .card{border:3px solid #000;box-shadow:none;color:#000}
+html.sv-hc h1,html.sv-hc h2,html.sv-hc h3,html.sv-hc .lead,html.sv-hc .updated,html.sv-hc .pages a small{color:#000}
+html.sv-hc a{color:#1e1b8a;text-decoration:underline}
+html.sv-hc .box,html.sv-hc .toc,html.sv-hc .pages a{border:2px solid #000;background:#fff}
+html.sv-hc .ph{background:#ffeb3b;color:#000;outline:1px solid #000}
+html.sv-hc .site-nav a,html.sv-hc .backlink{background:#000;color:#fff;border:2px solid #fff}
+html.sv-hc .site-nav a[aria-current=page]{background:#fff;color:#000}
+html.sv-hc footer.foot{color:#fff}
+html.sv-hc :focus-visible{outline:4px solid #000;box-shadow:0 0 0 8px #ffeb3b}
+@media (forced-colors:active){.box,.toc,.pages a,.card{border:2px solid CanvasText}}
+@media print{body{background:#fff}.top,.site-nav,.skip{display:none}main.card{box-shadow:none}}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html.sv-hc .brand{color:#fff;text-decoration:none}html.sv-hc .brand span{color:#ffeb3b}

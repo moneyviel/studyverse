@@ -107,7 +107,9 @@
         clearInterval(runner.iv);
         const res = ans.map((x, k) => { const q = list[k].q; const ok = x.chosen === q.answer;
           const qs = ST.qstats[list[k].qid] || { s: 0, w: 0 }; qs.s++; if (!ok) { qs.w++; if (q.mistake) ST.mistakes[q.mistake] = (ST.mistakes[q.mistake] || 0) + 1; } ST.qstats[list[k].qid] = qs;
-          return { ok, chosen: x.chosen, conf: x.chosen === null ? 'guess' : (x.conf || 'think'), skipped: x.chosen === null }; });
+          const r = { ok, chosen: x.chosen, conf: x.chosen === null ? 'guess' : (x.conf || 'think'), skipped: x.chosen === null };
+          if (window.Insights) Insights.conf(list[k].qid, r.conf, ok);   /* per-answer confidence for js/insights.js */
+          return r; });
         save(); done({ res, secs: Math.round((Date.now() - t0) / 1000) });
       };
     };
