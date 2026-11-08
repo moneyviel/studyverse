@@ -12,7 +12,7 @@
   const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const G = () => { ST.gk = ST.gk || {}; const g = ST.gk; g.bm = g.bm || {}; g.seen = g.seen || {}; g.sel = g.sel || ['*']; g.best = g.best || 0; g.bestSpeed = g.bestSpeed || 0; return g; };
-  const grade = () => +(ST.profile && ST.profile.grade) || 6;
+  const grade = () => (ST.profile && ST.profile.course === 'ca') ? 12 : (+(ST.profile && ST.profile.grade) || 6);   // CA students get the oldest-level cards
   const fits = (x, g = grade()) => x.g[0] <= g && g <= x.g[1];
   const shuffle = a => (window.Games ? Games.shuffle(a) : a.slice().sort(() => Math.random() - .5));
   const tap = k => { try { sfx(k); } catch (e) {} };
@@ -46,7 +46,9 @@
 
   /* ================= 1. Brain Snacks ================= */
   async function snacks() {
-    const scr = document.getElementById('s-world'), map = document.getElementById('map');
+    const ca = !!(ST.profile && ST.profile.course === 'ca');   // CA home: snacks go just under the greeting
+    const scr = document.getElementById(ca ? 's-ca' : 's-world'), top = ca && scr ? scr.querySelector('.ca-top') : null;
+    const map = ca ? (top && top.nextElementSibling) : document.getElementById('map');
     if (!scr || !map || !ST.profile) return;
     let D; try { D = await daily(); } catch (e) { document.getElementById('gkSnack')?.remove(); return; }
     const t = dayInfo(), g = grade(), sig = `${t.iso}|${g}`;
@@ -416,13 +418,15 @@
   meScreen = function () {
     stopRun(); const r = _me.apply(this, arguments);
     const host = document.getElementById('s-me');
-    if (host && !document.getElementById('meGk')) {
-      const anchor = host.querySelector('.statrow') || host.firstElementChild;
-      const html = `<div class="card gk-mecard"><div class="gk-meh"><span class="gk-mee" aria-hidden="true">🧭</span><div><h3>GK Explorer</h3><p class="sub">Free bonus: ${Object.keys(G().seen).length} facts learned · best streak ${G().best}</p></div></div><button class="btn" id="meGk">Explore general knowledge ▶</button></div>`;
-      if (anchor) anchor.insertAdjacentHTML('afterend', html); else host.insertAdjacentHTML('beforeend', html);
-      document.getElementById('meGk').onclick = () => { tap('open'); open({ from: 'me' }); };
-    }
+    meCard(host);
     return r;
   };
-  window.GK = { open, snacks, dayInfo, pickDay };
+  function meCard(host, anchorSel) {           // GK Explorer card on the school Me screen and the CA Profile
+    if (!host || document.getElementById('meGk')) return;
+    const anchor = host.querySelector(anchorSel || '.statrow') || host.firstElementChild;
+    const html = `<div class="card gk-mecard"><div class="gk-meh"><span class="gk-mee" aria-hidden="true">🧭</span><div><h3>GK Explorer</h3><p class="sub">Free bonus: ${Object.keys(G().seen).length} facts learned · best streak ${G().best}</p></div></div><button class="btn" id="meGk">Explore general knowledge ▶</button></div>`;
+    if (anchor) anchor.insertAdjacentHTML('afterend', html); else host.insertAdjacentHTML('beforeend', html);
+    document.getElementById('meGk').onclick = () => { tap('open'); open({ from: 'me' }); };
+  }
+  window.GK = { open, snacks, dayInfo, pickDay, meCard };
 })();

@@ -317,6 +317,7 @@
     D.getElementById('caGrpGo').onclick = groupScreen;
     weakMini(D.getElementById('caWeakMini'));
     if (T()) T().wireHome(el);
+    try { if (window.GK) GK.snacks(); } catch (e) {}   // Brain Snacks for CA students too
   }
   function paperCard(level, p, i, st) {
     const b = builtCount(p), n = unitCount(p), pr = paperProg(p);
@@ -862,6 +863,7 @@
       ${ownerCard()}
       <div class="card"><button class="btn ghost" onclick="openSound()">Sound settings</button><div style="height:8px"></div><button class="btn ghost" id="caReset">Erase all progress</button></div>`;
     wireOwner(profile);
+    try { if (window.GK) GK.meCard(el, '.ca-top'); } catch (e) {}
     if (T() && T().photos) T().photos.usageCard(D.getElementById('caPhUse'));
     D.getElementById('caExamPS').onclick = () => { c.exam = D.getElementById('caExamP').value || null; save(); toast(c.exam ? 'Exam date saved' : 'Exam date cleared'); };
     D.getElementById('caNmS').onclick = () => { const v = D.getElementById('caNm').value.trim(); if (v) { p.name = v; save(); toast('Name saved'); } };
