@@ -10,8 +10,8 @@
 (function () {
   const D = document, FREE_PER_DAY = 5;
   const DEF_PLANS = [
-    { id: 'school-month', course: 'school-all', label: 'School · 1 month', months: 1, price_inr: 149, sort: 1 },
-    { id: 'school-year', course: 'school-all', label: 'School · 12 months', months: 12, price_inr: 999, sort: 2 },
+    { id: 'school-month', course: 'school', label: 'School (one class) · 1 month', months: 1, price_inr: 149, sort: 1 },
+    { id: 'school-year', course: 'school', label: 'School (one class) · 12 months', months: 12, price_inr: 999, sort: 2 },
     { id: 'ca-month', course: 'ca-foundation', label: 'CA Foundation · 1 month', months: 1, price_inr: 299, sort: 3 },
     { id: 'ca-year', course: 'ca-foundation', label: 'CA Foundation · 12 months', months: 12, price_inr: 1999, sort: 4 },
   ];
@@ -38,7 +38,9 @@
     if (kind === 'ca') { const c = r.find(a => a.course === 'ca-foundation'); return c ? { full: true, until: c.valid_until, why: /code/.test(c.note || '') ? 'code' : 'paid' } : { full: false }; }
     const all = r.find(a => a.course === 'school-all');
     if (all) return { full: true, until: all.valid_until, why: /trial/.test(all.note || '') ? 'trial' : 'paid' };
-    if (r.some(a => /^school-g/.test(a.course))) return { full: true, why: 'code' };
+    let g = 0; try { g = +ST.profile.grade; } catch (e) {}
+    const mine = r.find(a => a.course === 'school-g' + g);          // a school plan or code covers ONE class
+    if (mine) return { full: true, until: mine.valid_until, why: /paid/.test(mine.note || '') ? 'paid' : 'code' };
     const ended = rows().find(a => a.course === 'school-all');
     return { full: false, trialEnded: !!(ended && /trial/.test(ended.note || '')) };
   }
@@ -90,7 +92,7 @@
   function statusLine(kind) {
     const a = access(kind);
     if (a.why === 'owner') return 'Owner account — everything is unlocked.';
-    if (a.why === 'trial') return `🎁 Free trial: <b>${left(a.until)}</b> left — everything in school is unlocked.`;
+    if (a.why === 'trial') return `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open. After that, only the class you subscribe to.`;
     if (a.why === 'code') return '🎟️ Free access with your code.';
     if (a.full) return `✅ Your ${kind === 'ca' ? 'CA Foundation' : 'school'} plan is active till <b>${dt(a.until)}</b>.`;
     return `Free plan: <b>${Math.max(0, FREE_PER_DAY - used(kind))} of ${FREE_PER_DAY}</b> questions left today.${a.trialEnded ? ' Your free trial has ended.' : ''}`;
@@ -102,7 +104,8 @@
     if (!signedIn()) { C().open('in'); return; }
     if (parent()) return;
     await loadPlans();
-    const groups = [['school-all', 'School — all classes 1–12', 'Unlimited questions, tests, games and analysis for every grade.'], ['ca-foundation', 'CA Foundation', 'All 4 papers: unlimited fresh questions, mock tests, answer checking.']];
+    const cls = (() => { try { return +ST.profile.grade || 0; } catch (e) { return 0; } })();
+    const groups = [['school', `School — Class ${cls || ''}`.trim(), `Everything in Class ${cls || 'your class'}: unlimited questions, tests, games and analysis. Only your class is included.`], ['ca-foundation', 'CA Foundation', 'All 4 papers: unlimited fresh questions, mock tests, answer checking.']];
     if (kind === 'ca') groups.reverse();
     const price = p => quote && quote.percent ? Math.round(p.price_inr * (100 - quote.percent) / 100) : p.price_inr;
     const btn = p => { const f = price(p); const per = p.months === 12 ? ` · ₹${Math.round(f / 12)}/month` : '';
@@ -132,7 +135,7 @@
     const er = D.getElementById('plErr'); if (er) er.textContent = '';
     b.disabled = true; const label = b.innerHTML; b.textContent = 'Please wait…';
     try {
-      const o = await C().call('/functions/v1/studyverse-pay', { method: 'POST', body: { action: 'order', plan: planId, code: quote ? quote.code : null } });
+      const o = await C().call('/functions/v1/studyverse-pay', { method: 'POST', body: { action: 'order', plan: planId, code: quote ? quote.code : null, grade: (() => { try { return +ST.profile.grade || null; } catch (e) { return null; } })() } });
       if (o && o.error) throw new Error(o.error);
       if (o && o.paid) return done(o);                // 100% discount: unlocked without payment
       await loadRzp();

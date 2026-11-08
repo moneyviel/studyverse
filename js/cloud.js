@@ -209,22 +209,37 @@
   }
   const myCourse = () => { try { const p = ST.profile; if (!p) return null; return p.course === 'ca' ? 'ca-foundation' : 'school-g' + p.grade; } catch (e) { return null; } };
   const courseName = c => c && c.startsWith('school-g') ? 'Grade ' + c.slice(8) : (COURSES[c] || c);
-  function enforceLock() {                           // a free-forever student only ever sees the course chosen at the start
-    const L = get('sv_lock'); if (!L || !S) return;
+  /* What this student may open. During the 24-hour trial (and for the owner) everything; after it, ONLY what they have:
+     paid / code courses ('school-g<N>', 'ca-foundation') and a free-forever lock; with nothing paid, the free plan stays on
+     the class or course they chose at the start. Returns null when there is no restriction. */
+  function allowed() {
+    if (!S || isParent() || meta().adm) return null;
+    try { if (localStorage.getItem('sv_owner') === '1') return null; } catch (e) {}
+    if (get('sv_access') == null) return null;                     // not loaded yet: decide after the first check
+    const live = courses(), set_ = new Set();
+    if (live.some(a => /trial/.test(a.note || ''))) return null;   // trial: everything open
+    if (live.some(a => a.course === 'school-all')) return null;     // older all-classes grant
+    live.forEach(a => { if (/^school-g\d+$/.test(a.course) || /^ca-/.test(a.course)) set_.add(a.course); });
+    const L = get('sv_lock'); if (L) set_.add(L);
+    if (!set_.size) { const m = myCourse(); if (m) set_.add(m); }   // free plan: stay where they are
+    return set_;
+  }
+  function enforceLock() {                           // move the student onto something they are allowed to open
+    const A = allowed(); if (!A) return;
     let p; try { p = ST.profile; } catch (e) { return; } if (!p) return;
-    if (L === 'ca-foundation') {
-      if (p.course !== 'ca') { p.course = 'ca'; ST.ca = Object.assign({}, ST.ca || {}, { level: 'foundation' }); save(); location.replace(SITE); }
-    } else {
-      const g = +L.slice(8);
-      if (p.course === 'ca' || +p.grade !== g) { p.course = null; p.grade = g; if (g < 11) { p.stream = null; p.subjects = null; } save(); location.replace(SITE); }
-    }
+    const cur = myCourse(); if (cur && A.has(cur)) return;
+    const list = [...A].sort((a, b) => (a === get('sv_lock') ? -1 : 0) - (b === get('sv_lock') ? -1 : 0));
+    const L = list.find(c => c === 'ca-foundation') && p.course === 'ca' ? 'ca-foundation' : list[0];
+    if (!L) return;
+    if (/^ca-/.test(L)) { p.course = 'ca'; ST.ca = Object.assign({}, ST.ca || {}, { level: ST.ca && ST.ca.level || 'foundation' }); save(); location.replace(SITE); }
+    else { const g = +L.slice(8); p.course = null; p.grade = g; if (g < 11) { p.stream = null; p.subjects = null; } save(); location.replace(SITE); }
   }
   async function access() {
     if (isParent()) return;                          // parents have no courses and no trial
     try {
       // a new account gets its 24-hour trial of all school grades once (the server decides; repeated calls change nothing)
       if (!get('sv_trial')) { try { await rest('rpc/start_trial', { method: 'POST', body: {} }); set('sv_trial', '1'); } catch (e) {} }
-      const r = await rest('course_access?select=course,valid_until,note&user_id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '')); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); try { window.dispatchEvent(new Event('sv-access')); } catch (e) {} }
+      const r = await rest('course_access?select=course,valid_until,note&user_id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '')); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); enforceLock(); try { window.dispatchEvent(new Event('sv-access')); } catch (e) {} }
     } catch (e) {}
   }
   async function owner() {                         // studyverse.admins: an owner account turns owner mode on (once; "turn off" is respected)
@@ -314,9 +329,13 @@
       const first = me.querySelector(':scope > .card'); first ? first.after(c) : me.prepend(c); paint();
     }
     if (me && S && !demo()) { if (!meta().adm) codeCard(); ownerCodes(); }
-    if (me && locked()) {                             // free-forever students cannot change grade, stream or course
-      const g = me.querySelector('.grid5'); if (g && g.closest('.card')) g.closest('.card').remove();
-      const st = D.getElementById('meStream'); if (st && st.closest('.card')) st.closest('.card').remove();
+    const A = me ? allowed() : null;
+    if (me && A) {                                    // after the trial a student only sees the class / course they have
+      const grades = [...A].filter(c => /^school-g/.test(c)).map(c => +c.slice(8));
+      const g = me.querySelector('.grid5');
+      if (g && grades.length > 1) g.querySelectorAll('[data-g]').forEach(b => { if (!grades.includes(+b.dataset.g)) b.remove(); });
+      else if (g && g.closest('.card')) g.closest('.card').remove();
+      if (locked()) { const st = D.getElementById('meStream'); if (st && st.closest('.card')) st.closest('.card').remove(); }
     }
     const ob = D.getElementById('s-onboard');
     if (ob && !S && !demo() && ob.querySelector('.choice[data-b]') && !D.getElementById('svCloudOb')) {

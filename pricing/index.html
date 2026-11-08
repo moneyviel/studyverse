@@ -239,7 +239,7 @@ details p{margin:0 0 .8rem}
       <details><summary>Will my plan renew automatically?</summary>
         <p>No auto-renew: we remind you before it ends. You pay again only if you want to continue.</p></details>
       <details><summary>Can I switch to a different class?</summary>
-        <p>Yes. The School plan covers every class from 1 to 12, so you can change your class any time from <b>Me</b> in the app — at no extra cost. To study CA Foundation, choose the CA Foundation plan.</p></details>
+        <p>Each School plan is for one class only. After the 24-hour free trial, the app shows only the class you paid for. Moving up to a new class next year? Buy a plan for the new class. Chose the wrong class by mistake? Write to support@moneyviel.com within 7 days and we'll fix it. CA Foundation is a separate plan.</p></details>
       <details><summary>I am a parent. Can I pay for my child?</summary>
         <p>Yes. Create a <b>Parent</b> account, link your child in the app (<b>Parent Home</b>), then sign in here and choose your child under “Who is this plan for?”. The plan goes on your child’s account.</p></details>
       <details><summary>What happens when the plan ends?</summary>
@@ -272,14 +272,14 @@ details p{margin:0 0 .8rem}
   const FREE_PER_DAY = 5;
   /* shown when the plans table cannot be read — keep in step with js/plans.js DEF_PLANS */
   const FALLBACK = [
-    { id: 'school-month', course: 'school-all', label: 'School · 1 month', months: 1, price_inr: 149, sort: 1 },
-    { id: 'school-year', course: 'school-all', label: 'School · 12 months', months: 12, price_inr: 999, sort: 2 },
+    { id: 'school-month', course: 'school', label: 'School (one class) · 1 month', months: 1, price_inr: 149, sort: 1 },
+    { id: 'school-year', course: 'school', label: 'School (one class) · 12 months', months: 12, price_inr: 999, sort: 2 },
     { id: 'ca-month', course: 'ca-foundation', label: 'CA Foundation · 1 month', months: 1, price_inr: 299, sort: 3 },
     { id: 'ca-year', course: 'ca-foundation', label: 'CA Foundation · 12 months', months: 12, price_inr: 1999, sort: 4 },
   ];
   const GROUPS = [
-    { key: 'school', test: p => /^school/.test(p.course || p.id), title: 'School (Class 1–12)', lead: 'For students of every board, Class 1 to 12.',
-      incl: ['All subjects of your class — and every other class, 1 to 12', 'Fun games and science labs', 'Unlimited practice and chapter tests', 'Progress reports for you and your parents'] },
+    { key: 'school', test: p => /^school/.test(p.course || p.id), title: 'School (one class)', lead: 'For students of every board, Class 1 to 12. Each plan is for ONE class.',
+      incl: ['All subjects of the class you choose (only that class)', 'Fun games and science labs', 'Unlimited practice and chapter tests', 'Progress reports for you and your parents'] },
     { key: 'ca', test: p => /^ca/.test(p.course || p.id), title: 'CA Foundation', lead: 'For CA Foundation students — all 4 papers.',
       incl: ['Full syllabus, unit by unit', 'Unlimited MCQs with explanations', 'Written-answer checking', 'Mock papers', 'Reads your handwritten answers'] },
   ];
@@ -376,12 +376,24 @@ details p{margin:0 0 .8rem}
       return `<section class="panel group" id="grp-${g.key}" aria-labelledby="gh-${g.key}">
         <div class="group-h"><h2 id="gh-${g.key}">${esc(g.title)}</h2><span class="small">${esc(g.lead)}</span></div>
         <ul class="incl">${g.incl.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+        ${g.key === 'school' ? `<label class="small" for="clsSel" style="display:flex;align-items:center;gap:.6rem;margin:.4rem 0 .2rem;font-weight:700">Class
+          <select id="clsSel" style="min-height:44px;font-size:1rem;border-radius:10px;padding:.3rem .6rem"><option value="">Choose…</option>${Array.from({ length: 12 }, (_, i) => `<option value="${i + 1}">Class ${i + 1}</option>`).join('')}</select></label>` : ''}
         <div class="cards">${cards}</div>
         <div class="msg" role="alert" data-gmsg></div>
       </section>`;
     }).join('');
     box.setAttribute('aria-busy', 'false');
     box.querySelectorAll('[data-plan]').forEach(b => b.onclick = () => buy(b.dataset.plan, b));
+    defaultClass();
+  }
+  function defaultClass() {                                   // preselect the class: the chosen child's, else this phone's student
+    const cs = document.getElementById('clsSel'); if (!cs) return;
+    let g = 0;
+    try {
+      if (role === 'parent' && child) { const k = kids.find(x => x.child_id === child); g = +(k && k.state && k.state.st && k.state.st.profile && k.state.st.profile.grade) || 0; }
+      else { const st = JSON.parse(localStorage.getItem('sv_state') || 'null'); if (st && st.profile && st.profile.course !== 'ca') g = +st.profile.grade || 0; }
+    } catch (e) {}
+    if (g >= 1 && g <= 12) cs.value = String(g);
   }
 
   /* ---------- account ---------- */
@@ -418,7 +430,7 @@ details p{margin:0 0 .8rem}
     try {
       if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; userMeta = u.user_metadata || null; set('sv_auth', JSON.stringify(S)); }
       role = await resolveRole(); roleErr = false;
-      if (role === 'parent') { const r = await rest('rpc/my_children', { method: 'POST', body: {} }); kids = Array.isArray(r) ? r : []; if (kids.length === 1) child = kids[0].child_id; }
+      if (role === 'parent') { const r = await rest('rpc/my_children', { method: 'POST', body: {} }); kids = Array.isArray(r) ? r : []; if (kids.length === 1) child = kids[0].child_id; defaultClass(); }
       else { const r = await rest('course_access?select=course,valid_until,note&user_id=eq.' + encodeURIComponent(S.user.id)); myAccess = Array.isArray(r) ? r : []; }
     } catch (e) {
       if (!S) { paintAccount(); show($('authMsg'), 'Please sign in again.'); return; }
@@ -447,7 +459,7 @@ details p{margin:0 0 .8rem}
         <p class="small" id="kidHelp">The plan goes on your child’s account.</p>
         <div class="kids">${kids.map(k => { const i = kidInfo(k), on = child === k.child_id;
           return `<label class="kid${on ? ' on' : ''}"><input type="radio" name="kid" value="${esc(k.child_id)}"${on ? ' checked' : ''} required><span><b>${esc(i.name)}</b>${i.meta ? `<span class="meta">${esc(i.meta)}</span>` : ''}<ul>${planLines(k.plans).map(([c, t]) => `<li class="${c}">${esc(t)}</li>`).join('')}</ul></span></label>`; }).join('')}</div></fieldset>`;
-      body.querySelectorAll('input[name=kid]').forEach(i => i.onchange = () => { child = i.value; clear($('acctMsg')); body.querySelectorAll('.kid').forEach(l => l.classList.toggle('on', l.contains(i))); });
+      body.querySelectorAll('input[name=kid]').forEach(i => i.onchange = () => { child = i.value; defaultClass(); clear($('acctMsg')); body.querySelectorAll('.kid').forEach(l => l.classList.toggle('on', l.contains(i))); });
       return;
     }
     body.innerHTML = `<p class="small" style="margin:.2rem 0 0">Your current plan:</p><ul class="plan-st">${planLines(myAccess).map(([c, t]) => `<li class="${c}">${esc(t)}</li>`).join('')}</ul>`;
@@ -557,6 +569,11 @@ details p{margin:0 0 .8rem}
     b.disabled = true; b.textContent = 'Please wait…';
     try {
       const body = { action: 'order', plan: planId, code: quote ? quote.code : null }; if (forChild) body.for_child = forChild;
+      if (/^school/.test(planId)) {                           // a school plan unlocks ONE class
+        const cs = document.getElementById('clsSel'), gv = cs ? +cs.value : 0;
+        if (!gv) { reset(); show(gm, 'Please choose the class this plan is for.'); if (cs) cs.focus(); return; }
+        body.grade = gv;
+      }
       const o = await call('/functions/v1/studyverse-pay', { method: 'POST', body });
       if (o && o.error) throw new Error(o.error);
       if (o && o.paid) { reset(); return done(o, kidName); }        // 100% discount: unlocked without payment

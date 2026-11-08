@@ -1,4 +1,5 @@
 // StudyVerse payments (Razorpay). Deployed as "studyverse-pay" in project moneyviel-apps.
+// POST { action: 'order', plan, code?, for_child?, grade? }  (school plans unlock ONE class: grade, else the student's saved class)
 // POST { action: 'order', plan, code?, for_child? }  (for_child: a parent pays for a linked child; the child gets the plan)
 // POST { action: 'order', plan, code? }  → creates a Razorpay order (price and discount decided here, never by the app)
 // POST { action: 'verify', order_id, payment_id, signature } → checks the signature and the payment with Razorpay,
@@ -56,21 +57,35 @@ Deno.serve(async (req) => {
         if (!Array.isArray(la) || !la.length) return json({ error: 'This child is not linked to your account.' });
         target = String(b.for_child);
       }
+      // school plans are for ONE class: the class sent by the page, else the student's own class from their saved progress
+      let course: string | null = null;
+      const plr = await fetch(`${URL_}/rest/v1/plans?id=eq.${encodeURIComponent(String(b.plan || ''))}&select=course`, { headers: svc() });
+      const pla = await plr.json().catch(() => []);
+      if (Array.isArray(pla) && pla[0] && pla[0].course === 'school') {
+        let g = Number(b.grade);
+        if (!(g >= 1 && g <= 12)) {
+          const pr = await fetch(`${URL_}/rest/v1/progress?user_id=eq.${target}&select=state`, { headers: svc() });
+          const pa = await pr.json().catch(() => []);
+          g = Number(pa?.[0]?.state?.st?.profile?.grade);
+        }
+        if (!(Number.isInteger(g) && g >= 1 && g <= 12)) return json({ error: 'Please choose the class first.' });
+        course = 'school-g' + g;
+      }
       const p = await rpc('price_for', { p_user: target, p_plan: String(b.plan || ''), p_code: b.code || null });
       if (!p || !p.ok) return json({ error: (p && p.msg) || 'This plan is not available.' });
       if (p.amount_paise === 0) {                      // 100% discount: no payment needed
         const order = 'free-' + crypto.randomUUID();
-        await insertPayment({ user_id: target, payer_id: user.id, plan_id: b.plan, amount_paise: 0, discount_code: p.code, percent: p.percent, order_id: order });
+        await insertPayment({ user_id: target, payer_id: user.id, course, plan_id: b.plan, amount_paise: 0, discount_code: p.code, percent: p.percent, order_id: order });
         const g = await rpc('grant_paid', { p_order: order, p_payment: 'free' });
-        return json({ paid: true, label: g.label, until: g.until });
+        return json({ paid: true, label: g.label, until: g.until, course: g.course });
       }
       if (!KEY_ID || !KEY_SECRET) return json({ error: 'Payments not set up yet' });
       const r = await fetch('https://api.razorpay.com/v1/orders', { method: 'POST', headers: { Authorization: rzpAuth(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: p.amount_paise, currency: 'INR', receipt: `sv-${Date.now()}`, notes: { user: target, payer: user.id, plan: b.plan, code: p.code || '' } }) });
+        body: JSON.stringify({ amount: p.amount_paise, currency: 'INR', receipt: `sv-${Date.now()}`, notes: { user: target, payer: user.id, plan: b.plan, course: course || '', code: p.code || '' } }) });
       const o = await r.json();
       if (!r.ok || !o.id) return json({ error: 'Could not start the payment. Please try again.' });
-      await insertPayment({ user_id: target, payer_id: user.id, plan_id: b.plan, amount_paise: p.amount_paise, discount_code: p.code, percent: p.percent, order_id: o.id });
-      return json({ order_id: o.id, amount: p.amount_paise, key_id: KEY_ID, label: p.label });
+      await insertPayment({ user_id: target, payer_id: user.id, course, plan_id: b.plan, amount_paise: p.amount_paise, discount_code: p.code, percent: p.percent, order_id: o.id });
+      return json({ order_id: o.id, amount: p.amount_paise, key_id: KEY_ID, label: course ? `${p.label} · Class ${course.slice(8)}` : p.label });
     }
 
     if (b.action === 'verify') {
@@ -83,7 +98,7 @@ Deno.serve(async (req) => {
       if (!r.ok || p.order_id !== b.order_id || Number(p.amount) !== Number(pay.amount_paise) || !['captured', 'authorized'].includes(p.status))
         return json({ error: 'Payment is not complete yet.' });
       const g = await rpc('grant_paid', { p_order: b.order_id, p_payment: b.payment_id });
-      return json({ ok: true, label: g.label, until: g.until });
+      return json({ ok: true, label: g.label, until: g.until, course: g.course });
     }
     return json({ error: 'Unknown request' }, 400);
   } catch (e) {
