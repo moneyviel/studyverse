@@ -79,8 +79,10 @@
   function runner(el, list, done) {
     /* exam-style: move freely, change answers, mark for review, bookmark; submit at the end */
     let i = 0; const ans = list.map(() => ({ chosen: null, conf: null, mark: false })); const t0 = Date.now();
+    let onQ = -1, onT = 0; const lap = () => { if (onQ >= 0 && ans[onQ]) ans[onQ].ms = (ans[onQ].ms || 0) + (Date.now() - onT); onQ = -1; };   // time on each question (Parent Hub log only)
     ST.bm = ST.bm || {};
     const render = () => {
+      lap(); onQ = i; onT = Date.now();
       const { q, qid } = list[i]; const a = ans[i]; a.order = a.order || Games.shuffle(q.options.map((o, k) => k));
       el.innerHTML = `<div class="card"><div class="tst-top"><span class="tag">Question ${i + 1} of ${list.length}</span>
         <span class="tst-time" id="tTime"></span><button class="tst-ic ${ST.bm[qid] ? 'on' : ''}" id="tBm" aria-label="Bookmark this question">🔖</button><button class="tst-ic" id="tPalBtn" aria-label="All questions">▦</button></div>
@@ -104,8 +106,9 @@
         if (i < list.length - 1) { i++; render(); return; }
         const left = ans.filter(x => x.chosen === null).length, marked = ans.filter(x => x.mark).length;
         if ((left || marked) && !confirm(`${left ? left + ' unanswered' : ''}${left && marked ? ' and ' : ''}${marked ? marked + ' marked for review' : ''}. Submit anyway?`)) { $('#tPal').hidden = false; return; }
-        clearInterval(runner.iv);
+        clearInterval(runner.iv); lap();
         const res = ans.map((x, k) => { const q = list[k].q; const ok = x.chosen === q.answer;
+          if (x.chosen !== null && typeof logAns === 'function') logAns(list[k].qid, ok, (x.ms || 0) / 1000);
           const qs = ST.qstats[list[k].qid] || { s: 0, w: 0 }; qs.s++; if (!ok) { qs.w++; if (q.mistake) ST.mistakes[q.mistake] = (ST.mistakes[q.mistake] || 0) + 1; } ST.qstats[list[k].qid] = qs;
           const r = { ok, chosen: x.chosen, conf: x.chosen === null ? 'guess' : (x.conf || 'think'), skipped: x.chosen === null };
           if (window.Insights) Insights.conf(list[k].qid, r.conf, ok);   /* per-answer confidence for js/insights.js */

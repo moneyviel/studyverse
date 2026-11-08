@@ -174,6 +174,14 @@ function close3D() { $('#sheet3d').classList.remove('show'); unmount3D(); }
 let ST = { profile: null, xp: 0, streak: { n: 0, last: '' }, topics: {}, mistakes: {}, qstats: {} };
 try { const s = JSON.parse(localStorage.getItem('sv_state') || 'null'); if (s) ST = Object.assign(ST, s); } catch (e) {}
 const save = () => { try { localStorage.setItem('sv_state', JSON.stringify(ST)); } catch (e) {} };
+/* per-answer log for Parent Hub insights (careless vs concept mistakes, best study time):
+   ST.ans = [[epochMinute, topic or unit id, 1 right / 0 wrong, seconds or null], …] — last 400 answers; synced with ST.
+   Only records; never changes scores or XP. The caller saves (or the next save() picks it up). */
+function logAns(id, ok, secs) {
+  try { const l = Array.isArray(ST.ans) ? ST.ans : (ST.ans = []);
+    const s = secs == null || !isFinite(secs) || secs <= 0 ? null : Math.round(Math.min(600, secs) * 10) / 10;
+    l.push([Math.floor(Date.now() / 6e4), String(id || '').split('#')[0], ok ? 1 : 0, s]); if (l.length > 400) l.splice(0, l.length - 400); } catch (e) {}
+}
 const today = () => new Date().toISOString().slice(0, 10);
 
 let CUR = null;               // curriculum.json
@@ -502,7 +510,7 @@ function learnStep(b) {
    question shows the chosen answer and its explanation again when revisited, and is scored only once. */
 function quizRunner(b, list, done) {
   if (!$('#s-topic').classList.contains('active')) Nav.sub();      // Back leaves the quiz and returns to the screen it started from
-  let i = 0, right = 0, finished = false; const mistakes = [], hist = [];
+  let i = 0, right = 0, finished = false, shownAt = Date.now(); const mistakes = [], hist = [];
   const orders = list.map(({ q }) => Games.shuffle(q.options.map((o, k) => k)));
   const N = list.length, answered = () => hist.filter(Boolean).length;
   ST.bm = ST.bm || {};
@@ -542,12 +550,14 @@ function quizRunner(b, list, done) {
       <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div>${navRow()}</div>`;
     wireBm(); wireNav();
     if (hist[i]) { explain(false); return; }
+    shownAt = Date.now();
     b.querySelectorAll('.opt').forEach(btn => btn.onclick = () => {
       if (hist[i] || finished) return;                                  /* each question is scored once */
       const k = +btn.dataset.k, ok = k === q.answer; hist[i] = { order, k, ok };
       const qs = ST.qstats[qid] || { s: 0, w: 0 }; qs.s++;
       if (ok) { right++; sfx('correct'); addXP(10); }
       else { sfx('wrong'); qs.w++; mistakes.push(q.mistake); ST.mistakes[q.mistake] = (ST.mistakes[q.mistake] || 0) + 1; }
+      logAns(qid, ok, (Date.now() - shownAt) / 1000);
       ST.qstats[qid] = qs; save();
       const tg = b.querySelector('.tst-top .tag'); if (tg) tg.textContent = `Question ${i + 1} of ${N} · answered`;
       const pg = b.querySelector('.progress i'); if (pg) pg.style.width = answered() / N * 100 + '%';

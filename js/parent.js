@@ -152,16 +152,65 @@
     return `<div class="pv-goal-t">${parts[0]}</div>${bar}${parts.slice(1).map(p => `<div class="pv-goal-l">${p}</div>`).join('')}<div class="pv-goal-by">Set by your parent</div>`;
   }
   function placeGoal(host, after) {
-    const h = goalHTML(); let b = host.querySelector(':scope > .pv-goal');
+    const h = goalHTML(); let b = host.querySelector(':scope > .pv-goal:not(.pv-mission)');
     if (!h) { if (b) b.remove(); return; }
     if (!b) { style(); b = D.createElement('div'); b.className = 'card pv-goal'; b.setAttribute('role', 'status'); after ? after.after(b) : host.prepend(b); }
     if (b.dataset.h !== h) { b.dataset.h = h; b.innerHTML = h; }
   }
+  /* parent's focus topic → "Today's mission" card (World for school, CA home for CA) */
+  const fMatch = (fid, id) => { if (!id) return false; const m = /^(\d+)-([a-z]+)-(\d+)$/.exec(fid);
+    if (m) { const t = /^g(\d+)-([a-z]+)-(\d+)/.exec(id); return !!t && +t[1] === +m[1] && t[2] === m[2] && +t[3] === +m[3]; }
+    return id === fid || id.startsWith(fid + '-'); };
+  const fDone = (s, f) => { const d = s && s.focusDone && s.focusDone[f.id], sd = f.set_at ? dk(new Date(f.set_at)) : ''; return typeof d === 'string' && d >= sd ? d : null; };
+  function myFocus() {
+    const c = ctl(), s = S(), f = c && c.focus; if (!f || !f.id || !s || !s.profile) return null;
+    const school = /^\d+-[a-z]+-\d+$/.test(f.id); if (school === (s.profile.course === 'ca')) return null;   // a mission for the other course
+    return f;
+  }
+  function focusCheck() {          // done = 3+ answers (or a finished quest) in the mission chapter / unit after the parent set it
+    const f = myFocus(), s = S(); if (!f || fDone(s, f)) return;
+    const setMin = Math.floor(new Date(f.set_at || 0).getTime() / 6e4) || 0, sd = dk(setMin * 6e4);
+    const count = l => { let n = 0; if (Array.isArray(l)) for (let i = l.length - 1; i >= 0; i--) { const x = l[i]; if (!Array.isArray(x) || x[0] < setMin) break; if (fMatch(f.id, String(x[1] || '').split('#')[0])) n++; } return n; };
+    const n = Math.max(count(s.ans) + count(s.ca && s.ca.mlog), count(s.ins && s.ins.att));
+    const quest = Object.entries(s.topics || {}).some(([tid, t]) => t && t.last && t.last >= sd && fMatch(f.id, tid));
+    if (n >= 3 || quest) { if (!s.focusDone || typeof s.focusDone !== 'object') s.focusDone = {}; s.focusDone[f.id] = todayK(); persist(); }
+  }
+  function missionHTML() {
+    const f = myFocus(); if (!f) return '';
+    const done = fDone(S(), f);
+    return `<div class="pv-goal-t">🎯 <b>Today's mission from your parent:</b> ${esc(f.title)}</div>${f.subject ? `<div class="pv-goal-l">${esc(f.subject)}</div>` : ''}
+      ${done ? '<p class="pv-mis-ok">✅ Mission done — well done! Your parent can see it.</p>' : ''}
+      <button type="button" class="btn${done ? ' ghost' : ''} pv-mis-go" data-pvmis>${done ? 'Practise again' : 'Practise now ▶'}</button>`;
+  }
+  async function openMission() {
+    const f = myFocus(), s = S(); if (!f) return;
+    const m = /^(\d+)-([a-z]+)-(\d+)$/.exec(f.id);
+    if (!m) { if (window.Ca && Ca.unit) Ca.unit(f.id, 'mcq'); return; }
+    if (+m[1] !== +s.profile.grade) { say(`This chapter is from Grade ${m[1]}. Ask your parent to choose one from Grade ${s.profile.grade}.`); return; }
+    try {
+      const d = await subjectData(+m[1], m[2]), ci = d ? d.chapters.findIndex(x => +x.n === +m[3]) : -1;
+      if (ci < 0) { say('This chapter is coming soon.'); return; }
+      (window.chapterScreen || chapterScreen)(m[2], ci);
+    } catch (e) { say('Could not open the chapter. Please try again.'); }
+  }
+  function placeMission(host, after) {
+    const h = missionHTML(); let b = host.querySelector(':scope > .pv-mission');
+    if (!h) { if (b) b.remove(); return; }
+    if (!b) { style(); b = D.createElement('div'); b.className = 'card pv-goal pv-mission'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', "Today's mission from your parent"); }
+    if (after && after.nextElementSibling !== b) after.after(b); else if (!after && !b.isConnected) host.prepend(b);
+    if (b.dataset.h !== h) { b.dataset.h = h; b.innerHTML = h; b.querySelector('[data-pvmis]').onclick = openMission; }
+  }
   function paintGoal() {
-    const w = D.getElementById('s-world'); if (w && w.querySelector('#worldTitle')) placeGoal(w, w.querySelector('#worldTitle'));
+    try { focusCheck(); } catch (e) {}
+    const w = D.getElementById('s-world');
+    if (w && w.querySelector('#worldTitle')) { placeGoal(w, w.querySelector('#worldTitle')); placeMission(w, w.querySelector(':scope > .pv-goal:not(.pv-mission)') || w.querySelector('#worldTitle')); }
     const me = D.getElementById('s-me'); if (me && me.firstElementChild) placeGoal(me, me.querySelector(':scope > .card:not(.pv-goal)'));
-    const ca = D.getElementById('s-ca'); if (ca && (ca.querySelector('.ca-journey') || ca.querySelector('.ca-prof'))) placeGoal(ca, ca.querySelector(':scope > .card:not(.pv-goal)'));
-    else if (ca) { const b = ca.querySelector(':scope > .pv-goal'); if (b) b.remove(); }
+    const ca = D.getElementById('s-ca');
+    if (ca && (ca.querySelector('.ca-journey') || ca.querySelector('.ca-prof'))) {
+      placeGoal(ca, ca.querySelector(':scope > .card:not(.pv-goal)'));
+      if (ca.querySelector('.ca-journey')) placeMission(ca, ca.querySelector(':scope > .pv-goal:not(.pv-mission)') || ca.querySelector(':scope > .card:not(.pv-goal)'));
+      else { const m = ca.querySelector(':scope > .pv-mission'); if (m) m.remove(); }
+    } else if (ca) ca.querySelectorAll(':scope > .pv-goal').forEach(b => b.remove());
   }
 
   /* break reminder */
@@ -342,10 +391,10 @@
         <p class="pv-note">You will see study time, strong and weak areas, and can set goals and healthy limits. Only you can see your child's data.</p></div>` + invitesHTML() + acctHTML();
       wireOpts(body); wireAcct(body); return;
     }
-    const k = kids[sel], A = await analyse(k);
+    const k = kids[sel], A = await analyse(k), X = A.has ? await deep(A) : null;
     if (kids[sel] !== k) return;
-    body.innerHTML = childHTML(k, A) + invitesHTML() + mailCardHTML() + acctHTML();
-    wireChild(body, k, A); wireMail(body); wireAcct(body);
+    body.innerHTML = childHTML(k, A, X) + invitesHTML() + mailCardHTML() + acctHTML();
+    wireChild(body, k, A, X); wireMail(body); wireAcct(body);
   }
 
   /* ---------- three ways to add a child ---------- */
@@ -504,6 +553,7 @@
     A.goal = +c.goal || 0;
     A.goalDays = A.goal ? A.week.filter(x => x.m >= A.goal).length : 0;
     A.goalStreak = goalStreak(s, A.goal);
+    A._active = active; A._caDays = caDays;
 
     /* strengths and weak areas */
     const groups = {};
@@ -530,6 +580,7 @@
     A.best = byAcc.filter(g => g.acc >= 60).slice(0, 2);
     A.weak = byAcc.slice().reverse().filter(g => g.acc < 75 && !A.best.includes(g)).slice(0, 2);
     A.totalAns = Object.values(groups).reduce((a, g) => a + g.cnt, 0);
+    A.groups = groups;
     /* subject totals (school) */
     if (!A.ca) { const sj = {}; Object.values(groups).forEach(g => { const x = sj[g.sub] || (sj[g.sub] = { n: 0, r: 0 }); x.n += g.n; x.r += g.r; }); A.subjects = Object.entries(sj).filter(x => x[1].n >= 6).map(([k2, v]) => ({ name: k2, acc: v.r / v.n * 100, n: v.n })).sort((a, b) => b.acc - a.acc); }
 
@@ -621,7 +672,361 @@
         <dt>Plan</dt><dd><ul class="pv-plans">${planLines(k).map(([c, t]) => `<li class="pv-plan ${c}">${esc(t)}</li>`).join('')}</ul></dd></dl></div></section>`;
   }
 
-  function childHTML(k, A) {
+  /* =============== deeper insights for parents ===============
+     8-week trend · mastery map · careless vs concept mistakes · best study time · exam readiness · focus topic · wins · CA written answers.
+     Everything comes from THIS child's synced ST (k.state.st) — never another child's. The ST-only part is memoised per ST object
+     (a reload / new sync gives a new object); the parts that depend on parent controls (readiness, focus) are cheap and run per render.
+     Answer log = ST.ans (school answers and CA generated questions, with seconds — logAns in js/app.js)
+                + ST.ca.mlog (CA bank MCQs, with seconds) + older ST.ins.att answers (no seconds) from before ST.ans began. */
+  const MEMO = new WeakMap();
+  let CURP = null;
+  async function curriculum() {
+    const c = CUR_(); if (c && c.grades && Object.keys(c.grades).length) return c;
+    if (!CURP) CURP = fetch('content/curriculum.json').then(r => r.ok ? r.json() : null).catch(() => null);
+    return CURP;
+  }
+  const BUCKETS = [['morning', 'Morning', '5 am–12 noon', h => h >= 5 && h < 12], ['afternoon', 'Afternoon', '12–5 pm', h => h >= 12 && h < 17],
+    ['evening', 'Evening', '5–9 pm', h => h >= 17 && h < 21], ['night', 'Night', '9 pm–5 am', h => h >= 21 || h < 5]];
+  const MST = [['Not started', 'm0', '○'], ['Learning', 'm1', '½'], ['Good', 'm2', '✓'], ['Mastered', 'm3', '★']];
+  /* chapter / unit status: Not started = nothing tried · Learning = under 5 answers or under 60% · Good = 60%+ · Mastered = 85%+ in 8+ answers */
+  const mStat = (n, acc, touched) => !n && !touched ? 0 : (n < 5 || acc == null || acc < 60) ? 1 : (acc >= 85 && n >= 8) ? 3 : 2;
+  const BADGE = { first: ['🚀', 'First quest'], q10: ['📚', '10 quests'], q50: ['🏆', '50 quests'], q100: ['👑', '100 quests'], star3: ['🌟', 'First 3-star quest'],
+    s3: ['🔥', '3-day streak'], s7: ['⚡', '7-day streak'], s30: ['💎', '30-day streak'], w1: ['💧', 'First watering'], w25: ['🌳', 'Gardener: 25 waterings'],
+    m1: ['🌻', 'First mastered topic'], goal: ['🎯', 'Daily goal reached'], d1: ['⚔️', 'First duel'], dw: ['🥇', 'Duel winner'], dw10: ['🏅', '10 duel wins'] };   // same list as js/practice.js
+  const SKN = { computation: 'Computation', concept: 'Concept', provision: 'Quoting provisions', analysis: 'Analysis', application: 'Application', conclusion: 'Conclusion', presentation: 'Presentation', posting: 'Posting', classification: 'Classification', balancing: 'Balancing', rectification: 'Rectification' };   // as js/ca-check.js
+  const SKTIP = { computation: 'Show a working note for every figure — step marks come even when the final answer is wrong.', concept: 'Start with the rule or definition in the exact words of the study material.',
+    provision: 'Quote the section / standard number first, then the provision in brief.', analysis: 'Apply the provision to the facts, one fact at a time.', application: 'Use the names, dates and figures given in the question.',
+    conclusion: 'End with a clear one-line conclusion that answers exactly what was asked.', presentation: 'Use the proper format: headings, dates, Dr / Cr columns and narrations.',
+    posting: 'Post each item to the correct account and side (Dr / Cr).', classification: 'Classify each item correctly (capital / revenue, asset / liability) first.',
+    balancing: 'Total both sides and show the balance c/d and b/d with dates.', rectification: 'Show the wrong entry, the correct entry, then the rectifying entry.' };
+  const isSchoolId = id => /^\d+-[a-z]+-\d+$/.test(id || '');
+  const chapOf = id => { id = String(id || ''); let m = /^g(\d+)-([a-z]+)-(\d+)/.exec(id); if (m) return `${+m[1]}-${m[2]}-${+m[3]}`; m = /^([a-z]+-p\d+-ch\d+)/.exec(id); return m ? m[1] : null; };
+  const pctR = (r, n) => n ? r / n * 100 : null;
+  const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+  const median = a => { if (!a.length) return null; const b = a.slice().sort((x, y) => x - y), m = b.length >> 1; return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2; };
+  const fmtLong = t => new Date(t).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  const nowMin = () => Math.floor(Date.now() / 6e4);
+  const ceil5 = v => Math.ceil(v / 5) * 5;
+
+  function answerLog(s) {
+    const out = [], row = x => ({ t: +x[0], id: String(x[1] || '').split('#')[0], ok: !!x[2], secs: x[3] > 0 ? +x[3] : null });
+    const ans = Array.isArray(s.ans) ? s.ans.filter(Array.isArray) : [], first = ans.length ? +ans[0][0] : Infinity;
+    (s.ins && Array.isArray(s.ins.att) ? s.ins.att : []).forEach(x => { if (Array.isArray(x) && +x[0] < first) out.push(Object.assign(row(x), { secs: null })); });
+    ans.forEach(x => out.push(row(x)));
+    (s.ca && Array.isArray(s.ca.mlog) ? s.ca.mlog : []).forEach(x => { if (Array.isArray(x)) out.push(row(x)); });
+    return out.filter(e => e.t > 0).sort((a, b) => a.t - b.t);
+  }
+  const nameOf = (A, id) => {
+    if (A.ca) { const x = A.unitNames && A.unitNames[id]; return x ? x.title : id; }
+    const m = /^(\d+)-([a-z]+)-(\d+)$/.exec(id); return m ? `${chapName(+m[1], m[2], +m[3])} (${subjName(+m[1], m[2])})` : id;
+  };
+
+  function trendOf(s, A) {
+    const d56 = daysBack(56), weeks = [];
+    for (let w = 0; w < 8; w++) {
+      const ds = d56.slice(w * 7, w * 7 + 7); let m = 0, a = 0, r = 0, act = 0;
+      ds.forEach(d => { m += minutesOn(s, d); const x = answersOn(s, d, A._caDays); a += x.a; r += x.r; if (A._active(d)) act++; });
+      weeks.push({ start: ds[0], end: ds[6], m, a, r, acc: pctR(r, a), act, cons: act / 7 * 100 });
+    }
+    const half = ws => { const a = ws.reduce((x, w) => x + w.a, 0), r = ws.reduce((x, w) => x + w.r, 0), act = ws.reduce((x, w) => x + w.act, 0);
+      return { m: ws.reduce((x, w) => x + w.m, 0) / 4, acc: pctR(r, a), cons: act / 28 * 100, any: ws.some(w => w.m >= 1 || w.a > 0 || w.act > 0) }; };
+    const P = half(weeks.slice(0, 4)), L = half(weeks.slice(4)), T = { weeks, P, L, verdict: null };
+    if (!L.any) return T;
+    if (!P.any) { T.verdict = 'New'; return T; }
+    const sm = L.m >= P.m * 1.15 && L.m - P.m >= 5 ? 1 : L.m <= P.m * 0.85 && P.m - L.m >= 5 ? -1 : 0;
+    const da = L.acc != null && P.acc != null ? L.acc - P.acc : 0, sa = da >= 5 ? 1 : da <= -5 ? -1 : 0;
+    const dc = L.cons - P.cons, sc = dc >= 10 ? 1 : dc <= -10 ? -1 : 0;
+    T.score = sm + sa + sc; T.verdict = T.score >= 1 ? 'Improving' : T.score <= -1 ? 'Slipping' : 'Steady';
+    return T;
+  }
+
+  async function masteryOf(s, A, log) {
+    const groups = [], first = {};
+    if (A.ca) {
+      const level = (s.ca && s.ca.level) || 'foundation', st = await caStructure(level); if (!st) return null;
+      const mc = {}, wr = {}, units = (s.ca && s.ca.units) || {};
+      Object.entries((s.ca && s.ca.mcq) || {}).forEach(([key, v]) => { const u = key.split('#')[0], x = mc[u] || (mc[u] = { n: 0, r: 0 }); x.n += v.s || 0; x.r += (v.s || 0) - (v.w || 0); });
+      Object.entries((s.ca && s.ca.writes) || {}).forEach(([key, h]) => { const sc = (h || []).filter(a => a && a.score != null && a.max && a.status !== 'waiting'); if (!sc.length) return; const u = key.split('#')[0], x = wr[u] || (wr[u] = { n: 0, p: 0 }); x.n++; x.p += Math.max(...sc.map(a => a.score / a.max)) * 100; });
+      st.papers.forEach(pp => {
+        const name = `${pp.key ? pp.key.toUpperCase().replace('P', 'Paper ') + ' · ' : ''}${pp.name}`, items = [];
+        pp.chapters.forEach(ch => ch.units.forEach(u => {
+          const m = mc[u.id] || { n: 0, r: 0 }, w = wr[u.id], dates = Object.values(units[u.id] || {}).filter(v => typeof v === 'string' && /^\d{4}-\d\d-\d\d/.test(v)).sort();
+          const n = m.n + (w ? w.n : 0), acc = m.n ? m.r / m.n * 100 : w ? w.p / w.n : null;
+          if (dates.length) first[u.id] = dates[0];
+          items.push({ id: u.id, title: u.title, sub: name, ch: ch.title, qn: m.n, qr: m.r, n, acc, st: mStat(n, acc, dates.length > 0) });
+        }));
+        if (items.length) groups.push({ name, items });
+      });
+    } else {
+      const cur = await curriculum(), g = +s.profile.grade, gr = cur && cur.grades && cur.grades[g]; if (!gr) return null;
+      const mine = g >= 11 && Array.isArray(s.profile.subjects) && s.profile.subjects.length ? s.profile.subjects : null, touched = {};
+      Object.entries(s.topics || {}).forEach(([tid, t]) => { const c = chapOf(tid); if (!c || !t) return; touched[c] = 1; if (t.last && (!first[c] || t.last < first[c])) first[c] = t.last; });
+      (gr.subjects || []).filter(x => !mine || mine.includes(x.id)).forEach(sj => {
+        const items = (sj.chapters || []).map(ch => { const id = `${g}-${sj.id}-${+ch.n}`, x = A.groups[id] || { n: 0, r: 0 }, acc = x.n ? x.r / x.n * 100 : null;
+          return { id, title: ch.title, sub: sj.name, sid: sj.id, cn: +ch.n, qn: x.n, qr: x.r, n: x.n, acc, st: mStat(x.n, acc, !!touched[id]) }; });
+        if (items.length) groups.push({ name: sj.name, sid: sj.id, items });
+      });
+    }
+    log.forEach(e => { const id = A.ca ? e.id : chapOf(e.id); if (!id) return; const d = dk(e.t * 6e4); if (!first[id] || d < first[id]) first[id] = d; });
+    groups.forEach(gp => { gp.total = gp.items.length; gp.started = gp.items.filter(x => x.st > 0).length; gp.good = gp.items.filter(x => x.st >= 2).length; gp.cnt = [0, 1, 2, 3].map(k => gp.items.filter(x => x.st === k).length); });
+    const all = groups.flatMap(gp => gp.items), total = all.length, started = all.filter(x => x.st > 0).length;
+    return { groups, all, first, total, started, good: all.filter(x => x.st >= 2).length, cov: total ? started / total * 100 : 0, cnt: [0, 1, 2, 3].map(k => all.filter(x => x.st === k).length) };
+  }
+
+  function mistakesOf(log) {
+    const L = log.filter(e => e.t >= nowMin() - 60 * 1440);
+    const okT = L.filter(e => e.ok && e.secs != null).map(e => e.secs), med = okT.length >= 5 ? median(okT) : null;
+    const fastT = med != null ? Math.max(4, Math.round(med * 0.5)) : 6, wrongBy = {};
+    L.forEach(e => { if (!e.ok) wrongBy[e.id] = (wrongBy[e.id] || 0) + 1; });
+    let careless = 0, concept = 0, repeat = 0, unknown = 0;
+    L.forEach(e => { if (e.ok) return; if (wrongBy[e.id] >= 3) { concept++; repeat++; } else if (e.secs == null) unknown++; else if (e.secs < fastT) careless++; else concept++; });
+    return { careless, concept, repeat, unknown, fastT, med, total: careless + concept, timed: L.filter(e => e.secs != null).length,
+      reps: Object.entries(wrongBy).filter(x => x[1] >= 3).sort((a, b) => b[1] - a[1]).slice(0, 3) };
+  }
+  function timeOf(log) {
+    const L = log.filter(e => e.t >= nowMin() - 60 * 1440), rows = BUCKETS.map(([key, name, range]) => ({ key, name, range, a: 0, r: 0, secs: 0 }));
+    L.forEach(e => { const h = new Date(e.t * 6e4).getHours(), i = BUCKETS.findIndex(b => b[3](h)), x = rows[i]; x.a++; if (e.ok) x.r++; if (e.secs) x.secs += e.secs; });
+    rows.forEach(x => { x.acc = pctR(x.r, x.a); x.min = x.secs / 60; });
+    const best = rows.filter(x => x.a >= 10).sort((a, b) => b.acc - a.acc || b.a - a.a)[0] || null;
+    return { rows, best, total: L.length };
+  }
+
+  async function winsOf(s, A, log) {
+    const W = {}, f14 = daysBack(14)[0];
+    W.badges = Object.entries(s.badges || {}).filter(([id, d]) => BADGE[id] && d).sort((a, b) => a[1] < b[1] ? 1 : -1).map(([id, d]) => ({ e: BADGE[id][0], name: BADGE[id][1], d, fresh: d >= f14 }));
+    if (A.ca) W.unitsDone = Object.values((s.ca && s.ca.units) || {}).filter(u => u && ['learn', 'illus', 'job', 'mcq', 'write', 'revise'].every(t => u[t])).length;
+    const days = new Set();
+    Object.keys(s.time || {}).forEach(d => { if (+s.time[d] >= 1) days.add(d); });
+    Object.entries((s.ins && s.ins.day) || {}).forEach(([d, x]) => { if (x && (x.a > 0 || x.s >= 60 || x.q > 0)) days.add(d); });
+    Object.entries((s.ca && s.ca.time) || {}).forEach(([d, v]) => { if (+v >= 60) days.add(d); });
+    Object.keys(A._caDays).forEach(d => days.add(d));
+    Object.values(s.topics || {}).forEach(t => { if (t && t.last) days.add(t.last); });
+    let best = 0, run = 0, prev = null, end = null;
+    [...days].filter(d => /^\d{4}-\d\d-\d\d$/.test(d)).sort().forEach(d => { run = prev && Math.round((dayDate(d) - dayDate(prev)) / DAY) === 1 ? run + 1 : 1; if (run > best) { best = run; end = d; } prev = d; });
+    W.longest = best; W.longestEnd = end; W.current = A.streak;
+    const cut = nowMin() - 14 * 1440, by = {};
+    log.forEach(e => { const c = A.ca ? chapOf(e.id) : chapOf(e.id); if (!c) return; const x = by[c] || (by[c] = [0, 0, 0, 0]); if (e.t >= cut) { x[2]++; if (e.ok) x[3]++; } else { x[0]++; if (e.ok) x[1]++; } });
+    W.improved = Object.entries(by).filter(([, x]) => x[0] >= 4 && x[2] >= 4).map(([id, x]) => ({ id, before: x[1] / x[0] * 100, now: x[3] / x[2] * 100 }))
+      .filter(x => x.now - x.before >= 5).sort((a, b) => (b.now - b.before) - (a.now - a.before)).slice(0, 3)
+      .map(x => Object.assign(x, { title: A.ca ? ((A.unitNames[x.id] || {}).title || x.id) : nameOf(A, x.id) }));
+    const keys = new Set([...Object.keys(s.time || {}), ...Object.keys((s.ins && s.ins.day) || {}), ...Object.keys((s.ca && s.ca.time) || {}), ...Object.keys(A._caDays)].filter(d => /^\d{4}-\d\d-\d\d$/.test(d)));
+    let bm = null, bq = null;
+    [...keys].sort().forEach(d => { const m = minutesOn(s, d), q = answersOn(s, d, A._caDays).a; if (m >= 1 && (!bm || m > bm.v)) bm = { v: m, d }; if (q > 0 && (!bq || q > bq.v)) bq = { v: q, d }; });
+    W.bestDay = bm; W.bestQ = bq;
+    const tests = A.ca ? ((s.ca && s.ca.tests) || []).filter(t => t && t.pct != null).map(t => ({ pct: +t.pct, d: t.d, name: t.title || 'Test' }))
+      : (s.ins && Array.isArray(s.ins.tl) && s.ins.tl.length ? s.ins.tl : Object.values(s.tests || {})).filter(t => t && t.pct != null).map(t => ({ pct: +t.pct, d: t.d, name: 'Chapter test' }));
+    W.bestTest = tests.sort((a, b) => b.pct - a.pct)[0] || null;
+    if (A.ca) { let bw = null; Object.values((s.ca && s.ca.writes) || {}).forEach(h => (h || []).forEach(a => { if (a && a.score != null && a.max > 0 && a.status !== 'waiting') { const p = a.score / a.max * 100; if (!bw || p > bw.pct) bw = { pct: p, d: a.d }; } })); W.bestWrite = bw; }
+    return W;
+  }
+
+  function writesOf(s) {
+    const at = [];
+    Object.entries((s.ca && s.ca.writes) || {}).forEach(([key, h]) => (h || []).forEach(a => { if (a && a.score != null && a.max > 0 && a.status !== 'waiting') at.push({ key, d: a.d || '', p: a.score / a.max * 100, skills: Array.isArray(a.skills) ? a.skills : [] }); }));
+    at.sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : 0);
+    const W = { n: at.length, at, avg: mean(at.map(a => a.p)) };
+    if (at.length >= 6) { W.late = mean(at.slice(-5).map(a => a.p)); W.early = mean(at.slice(0, -5).map(a => a.p)); }
+    const sk = {};
+    at.forEach(a => a.skills.forEach(x => { if (!Array.isArray(x) || !x[0]) return; const o = sk[x[0]] || (sk[x[0]] = { id: x[0], m: 0, got: 0, n: 0 }); o.m += +x[1] || 0; o.got += Math.min(+x[2] || 0, +x[1] || 0); o.n++; }));
+    W.skills = Object.values(sk).map(o => Object.assign(o, { lost: Math.round((o.m - o.got) * 100) / 100, keep: o.m ? o.got / o.m * 100 : null })).filter(o => o.lost > 0).sort((a, b) => b.lost - a.lost || a.keep - b.keep).slice(0, 3);
+    return W;
+  }
+
+  async function deep(A) {
+    const hit = MEMO.get(A.s); if (hit) return hit;
+    const s = A.s, log = answerLog(s), X = { log };
+    X.trend = trendOf(s, A);
+    X.mastery = await masteryOf(s, A, log);
+    X.first = X.mastery ? X.mastery.first : {};
+    X.mist = mistakesOf(log);
+    X.reps = [];
+    for (const [id, n] of X.mist.reps) { let t = null; if (A.ca) t = (A.unitNames[id] || {}).title || id; else { const x = await topicTitle(id); t = x ? `${x.title} (${x.sub})` : id; } X.reps.push({ id, n, title: t }); }
+    X.time = timeOf(log);
+    X.wins = await winsOf(s, A, log);
+    if (A.ca) X.writes = writesOf(s);
+    MEMO.set(A.s, X);
+    return X;
+  }
+
+  /* readiness 0–100 = 40% syllabus covered + 35% accuracy + 15% consistency (active days of the last 14) + 10% recency */
+  function readinessOf(A, X, c) {
+    const M = X.mastery; if (!M || !M.total) return null;
+    const ex = nextExam(c), caEx = A.ca && A.s.ca && A.s.ca.exam && daysTo(A.s.ca.exam) >= 0 ? { name: 'CA exam', date: A.s.ca.exam } : null, exam = ex || caEx;
+    let items = M.all, scope = '';
+    if (!A.ca && ex && ex.subjects) {
+      const want = String(ex.subjects).toLowerCase().split(/,|&|\/|\band\b/).map(x => x.trim()).filter(x => x.length >= 3);
+      const gs = M.groups.filter(g => { const n = g.name.toLowerCase(); return want.some(w => n.startsWith(w) || w.startsWith(n) || (g.sid && (g.sid.startsWith(w) || w.startsWith(g.sid)))); });
+      if (gs.length) { items = gs.flatMap(g => g.items); scope = gs.map(g => g.name).join(', '); }
+    }
+    const total = items.length, started = items.filter(x => x.st > 0).length, C = started / total * 100;
+    const qn = items.reduce((a, x) => a + x.qn, 0), qr = items.reduce((a, x) => a + x.qr, 0), accs = items.filter(x => x.acc != null).map(x => x.acc);
+    const Acc = qn ? qr / qn * 100 : accs.length ? mean(accs) : 0;
+    const K = daysBack(14).filter(A._active).length / 14 * 100;
+    const Rc = A.sinceDays == null ? 0 : Math.max(0, 100 - A.sinceDays / 7 * 100);
+    const score = Math.round(0.4 * C + 0.35 * Acc + 0.15 * K + 0.1 * Rc);
+    const R = { score, C, Acc, K, Rc, total, started, scope, exam, dl: exam ? daysTo(exam.date) : null };
+    const from = daysBack(28)[0];
+    R.newN = items.filter(x => x.st > 0 && X.first[x.id] && X.first[x.id] >= from).length;
+    R.min28 = daysBack(28).reduce((a, d) => a + minutesOn(A.s, d), 0);
+    const unit = A.ca ? 'unit' : 'chapter', pl = n => `${n} ${unit}${n === 1 ? '' : 's'}`;
+    if (score >= 80) { R.msg = `In the ready zone. Keep revising ${A.ca ? 'units' : 'chapters'} and practising to stay above 80.`; return R; }
+    const need = 80 - score, maxGain = 0.4 * (100 - C);
+    if (need > maxGain + 1e-9) { R.msg = `Covering every ${unit} adds up to ${Math.floor(maxGain)} points. To reach 80, accuracy must also rise (now ${pctS(Acc)}) — revise the weak ${unit}s.`; return R; }
+    R.chNeed = Math.max(1, Math.ceil(need / 0.4 / 100 * total - 1e-9));
+    const pace = R.newN / 28;
+    if (pace > 0) { R.daysNeed = Math.ceil(R.chNeed / pace - 1e-9); R.reach = noon() + R.daysNeed * DAY; }
+    R.msg = pace > 0 ? `At this pace (${pl(R.newN)} started in the last 4 weeks) ${esc(A.name)} will reach 80 by <b>${fmtLong(R.reach)}</b> — about ${pl(R.chNeed)} more to start.`
+      : `No new ${unit}s were started in the last 4 weeks. Starting ${pl(R.chNeed)} more lifts the score to 80.`;
+    if (exam && R.dl > 0 && (!pace || R.daysNeed > R.dl)) {
+      const perCh = R.newN ? R.min28 / R.newN : 60, req = R.chNeed * perCh / R.dl, curDay = R.min28 / 28;
+      R.add = Math.max(5, ceil5(req - curDay));
+      R.msg += ` To be ready by ${esc(exam.name)} (${R.dl} day${R.dl === 1 ? '' : 's'}), add about <b>${R.add > 240 ? 'more than 4 hours' : R.add + ' min'}/day</b> (now ${Math.round(curDay)} min/day).`;
+    } else if (exam && R.reach && R.dl > 0) R.msg += ` That is before ${esc(exam.name)} ✅`;
+    return R;
+  }
+
+  /* ---------- small SVG charts (one axis each; values also in the aria-label and a table) ---------- */
+  function weekBarsSVG(T) {
+    const W = 352, H = 150, top = 20, bot = 28, n = T.weeks.length, slot = W / n, bw = Math.min(26, slot - 12);
+    const max = Math.max(30, ...T.weeks.map(w => w.m)), y = v => top + (H - top - bot) * (1 - v / max);
+    const bars = T.weeks.map((w, i) => { const cx = i * slot + (slot - bw) / 2, m = Math.round(w.m), h = Math.max(0, H - bot - y(w.m)), last = i === n - 1;
+      return `<g><title>Week of ${fmtDay(w.start)}: ${fmtMin(m)}</title>${h > 0 ? `<path d="M${cx},${H - bot} V${H - bot - h + Math.min(4, h)} q0,-4 4,-4 h${bw - 8} q4,0 4,4 V${H - bot} Z" class="pv-bar"/>` : ''}
+        <text x="${cx + bw / 2}" y="${H - bot - h - 6}" class="pv-bv">${m || ''}</text><text x="${cx + bw / 2}" y="${H - 10}" class="pv-bx${last ? ' on' : ''}">${last ? 'This wk' : fmtDay(w.start)}</text></g>`; }).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" class="pv-chart" role="img" aria-label="Minutes studied per week, last 8 weeks: ${esc(T.weeks.map(w => `week of ${fmtDay(w.start)} ${Math.round(w.m)} min`).join(', '))}"><line x1="0" x2="${W}" y1="${H - bot}" y2="${H - bot}" class="pv-axis"/>${bars}</svg>`;
+  }
+  function lineSVG(series, labels, aria, opt = {}) {      // series: [{ cls, name, vals: [0–100 | null] }]
+    const W = 352, H = 150, l = 34, r = 26, top = 12, bot = 26, n = labels.length;
+    const x = i => n === 1 ? (l + W - r) / 2 : l + i * (W - l - r) / (n - 1), y = v => top + (H - top - bot) * (1 - v / 100);
+    const grid = [0, 50, 100].map(v => `<line x1="${l}" x2="${W - r}" y1="${y(v)}" y2="${y(v)}" class="pv-grid"/><text x="${l - 6}" y="${y(v) + 3.5}" class="pv-yl">${v}%</text>`).join('');
+    const xl = labels.map((t, i) => (n <= 8 || i % Math.ceil(n / 6) === 0 || i === n - 1) ? `<text x="${x(i)}" y="${H - 8}" class="pv-bx">${esc(t)}</text>` : '').join('');
+    const lines = series.map(sr => {
+      let d = '', pen = false; sr.vals.forEach((v, i) => { if (v == null) { pen = false; return; } d += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)} `; pen = true; });
+      const dots = sr.vals.map((v, i) => v == null ? '' : `<g><title>${esc(sr.name)} · ${esc(opt.tips ? opt.tips[i] : labels[i])}: ${Math.round(v)}%</title><rect x="${x(i) - 11}" y="${y(v) - 11}" width="22" height="22" class="pv-hit"/>${sr.sq ? `<rect x="${x(i) - 4}" y="${y(v) - 4}" width="8" height="8" class="pv-mk ${sr.cls}"/>` : `<circle cx="${x(i)}" cy="${y(v)}" r="4" class="pv-mk ${sr.cls}"/>`}</g>`).join('');
+      return `${sr.noLine ? '' : `<path d="${d}" class="pv-ln ${sr.cls}"/>`}${dots}`;
+    }).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" class="pv-chart" role="img" aria-label="${esc(aria)}">${grid}${xl}${lines}</svg>`;
+  }
+  const legend = items => `<ul class="pv-leg" aria-hidden="true">${items.map(([cls, t, sq]) => `<li><i class="pv-sw ${cls}${sq ? ' sq' : ''}"></i>${esc(t)}</li>`).join('')}</ul>`;
+
+  /* ---------- the new cards ---------- */
+  function readinessHTML(A, R) {
+    if (!R) return '';
+    const parts = [['Syllabus covered', R.C, 40, `${R.started} of ${R.total} ${A.ca ? 'units' : 'chapters'}${R.scope ? ' · ' + esc(R.scope) : ''}`], ['Accuracy', R.Acc, 35, 'correct answers'], ['Consistency', R.K, 15, `${Math.round(R.K * 14 / 100)} of the last 14 days`], ['Recency', R.Rc, 10, A.sinceDays == null ? 'not studied yet' : A.sinceDays === 0 ? 'studied today' : `last study ${A.sinceDays} day${A.sinceDays === 1 ? '' : 's'} ago`]];
+    const band = R.score >= 80 ? ['ok', 'Ready'] : R.score >= 60 ? ['warn', 'Getting there'] : ['bad', 'Needs work'];
+    return `<section class="pv-card" aria-labelledby="pvRd"><h3 id="pvRd">🎓 Exam readiness</h3>
+      ${R.exam ? `<p class="pv-mut">For <b>${esc(R.exam.name)}</b> on ${esc(fmtDay(R.exam.date))} · ${R.dl === 0 ? 'today' : R.dl + ' day' + (R.dl === 1 ? '' : 's') + ' left'}</p>` : `<p class="pv-mut">Add an exam in the Exam planner below to get a target date.</p>`}
+      <div class="pv-rd"><div class="pv-ring" role="img" aria-label="Readiness ${R.score} out of 100" style="--p:${R.score}"><b>${R.score}</b><small>/100</small></div>
+        <div class="pv-rd-in"><span class="pv-st ${band[0]}">${band[1]}</span><p class="pv-rd-msg" id="pvRdMsg">${R.msg}</p></div></div>
+      <ul class="pv-list pv-gl1 pv-brk">${parts.map(([n, v, w, sub]) => `<li><span class="pv-gt"><b>${n} <small class="pv-mut">×${w}%</small></b><span class="pv-mut">${sub}</span></span><span class="pv-sbar" aria-hidden="true"><i style="width:${Math.round(v)}%"></i></span><span class="pv-pill">${Math.round(v)}</span></li>`).join('')}</ul>
+      <p class="pv-note">Score = 40% syllabus covered + 35% accuracy + 15% consistency + 10% recency. 80+ means ready.</p></section>`;
+  }
+  function trendHTML(A, T) {
+    const any = T.weeks.some(w => w.m >= 1 || w.a > 0);
+    if (!any) return `<section class="pv-card" aria-labelledby="pvTr"><h3 id="pvTr">📈 8-week trend</h3><p class="pv-empty">No study recorded in the last 8 weeks yet.</p></section>`;
+    const V = { Improving: ['ok', '📈 Improving'], Steady: ['warn', '➡️ Steady'], Slipping: ['bad', '📉 Slipping'], New: ['ok', '🌱 Just started'] }[T.verdict] || ['', 'Not enough weeks yet'];
+    const why = T.verdict === 'New' ? `${esc(A.name)} started in the last 4 weeks — the trend shows after a few more weeks.` : T.verdict
+      ? `Last 4 weeks vs the 4 before: ${fmtMin(T.L.m)}/week (was ${fmtMin(T.P.m)}), ${pctS(T.L.acc)} correct (was ${pctS(T.P.acc)}), active ${(T.L.cons * 7 / 100).toFixed(1)} days/week (was ${(T.P.cons * 7 / 100).toFixed(1)}).` : '';
+    const labels = T.weeks.map((w, i) => i === 7 ? 'This wk' : fmtDay(w.start));
+    return `<section class="pv-card" aria-labelledby="pvTr"><h3 id="pvTr">📈 8-week trend</h3>
+      <p class="pv-verdict"><span class="pv-st ${V[0]}" id="pvTrV">${V[1]}</span></p>${why ? `<p class="pv-mut">${why}</p>` : ''}
+      <h4>Study time per week (minutes)</h4>${weekBarsSVG(T)}
+      <h4>Accuracy and consistency</h4>${legend([['acc', 'Accuracy (% correct)'], ['con', 'Consistency (active days ÷ 7)', 1]])}
+      ${lineSVG([{ cls: 'acc', name: 'Accuracy', vals: T.weeks.map(w => w.acc) }, { cls: 'con', name: 'Consistency', sq: 1, vals: T.weeks.map(w => w.cons) }], labels,
+        `Accuracy and consistency per week: ${T.weeks.map(w => `week of ${fmtDay(w.start)} accuracy ${pctS(w.acc)}, ${w.act} of 7 days active`).join('; ')}`, { tips: T.weeks.map(w => 'week of ' + fmtDay(w.start)) })}
+      <details class="pv-tbl"><summary>Show as a table</summary><table><thead><tr><th scope="col">Week of</th><th scope="col">Time</th><th scope="col">Correct</th><th scope="col">Days</th></tr></thead>
+        <tbody>${T.weeks.map(w => `<tr><td>${esc(fmtDay(w.start))}</td><td>${fmtMin(w.m)}</td><td>${pctS(w.acc)}${w.a ? ` <small>(${w.a})</small>` : ''}</td><td>${w.act}/7</td></tr>`).join('')}</tbody></table></details></section>`;
+  }
+  function masteryHTML(A, M) {
+    if (!M) return '';
+    const u = A.ca ? 'units' : 'chapters', openG = M.groups.slice().sort((a, b) => b.started - a.started)[0];   // open the most-studied subject / paper
+    const chip = x => `<li class="pv-chip ${MST[x.st][1]}" title="${esc(x.title)} — ${MST[x.st][0]}${x.acc != null ? `, ${Math.round(x.acc)}% in ${x.n} answers` : ''}"><span class="pv-ci" aria-hidden="true">${MST[x.st][2]}</span><span class="pv-ct">${esc(x.title)}</span><span class="sr-only">: ${MST[x.st][0]}${x.acc != null ? `, ${Math.round(x.acc)}% correct in ${x.n} answers` : ''}</span>${x.acc != null ? `<small aria-hidden="true">${Math.round(x.acc)}%</small>` : ''}</li>`;
+    return `<section class="pv-card" aria-labelledby="pvMm"><h3 id="pvMm">🗺️ Mastery map</h3>
+      <p><b id="pvMmCov">${Math.round(M.cov)}%</b> of the syllabus started (${M.started} of ${M.total} ${u}) · <b>${M.good}</b> good or mastered.</p>
+      <ul class="pv-leg pv-mleg">${MST.map(([n, cls, ic], i) => `<li><span class="pv-chip ${cls} mini" aria-hidden="true">${ic}</span>${n} <b>${M.cnt[i]}</b></li>`).join('')}</ul>
+      ${M.groups.map(g => `<details class="pv-mg"${g === openG ? ' open' : ''}><summary><span class="pv-mgn">${esc(g.name)}</span><span class="pv-sbar" aria-hidden="true"><i style="width:${Math.round(g.started / g.total * 100)}%"></i></span><span class="pv-mut">${g.started}/${g.total}</span></summary>
+        <ul class="pv-chips">${g.items.map(chip).join('')}</ul></details>`).join('')}
+      <p class="pv-note">Learning = fewer than 5 answers or under 60% correct · Good = 60%+ · Mastered = 85%+ in 8 or more answers.</p></section>`;
+  }
+  function mistakeHTML(A, X) {
+    const m = X.mist, enough = m.total >= 5 && (m.timed >= 10 || m.repeat >= 3);
+    const body = !enough ? `<p class="pv-empty">No data yet — this fills in after about 10 timed answers with a few mistakes (${m.timed} timed answers so far).</p>` : (() => {
+      const pc = v => Math.round(v / m.total * 100), main = m.careless > m.concept ? 'careless' : 'concept';
+      return `<div class="pv-split" role="img" aria-label="Careless slips ${m.careless}, concept gaps ${m.concept}"><i class="cs" style="width:${pc(m.careless)}%"></i><i class="cg" style="width:${100 - pc(m.careless)}%"></i></div>
+        <div class="pv-kpis two"><div><b id="pvMtC">${m.careless}</b><span><i class="pv-sw sq cs"></i> ⚡ Careless slips · ${pc(m.careless)}%<br><small>fast (under ${m.fastT} s) and wrong</small></span></div>
+          <div><b id="pvMtG">${m.concept}</b><span><i class="pv-sw sq cg"></i> 🧩 Concept gaps · ${pc(m.concept)}%<br><small>slow and wrong, or wrong again and again</small></span></div></div>
+        <p>${main === 'careless' ? `Most mistakes are <b>slips</b>. Ask ${esc(A.name)} to read each question twice and check before tapping.` : `Most mistakes are <b>concept gaps</b>. Re-learning the lesson helps more than doing more questions.`}</p>
+        ${X.reps.length ? `<h4>Wrong again and again</h4><ul class="pv-list pv-gl1">${X.reps.map(r => `<li><span class="pv-gt"><b>${esc(r.title)}</b></span><span class="pv-pill">${r.n}× wrong</span></li>`).join('')}</ul>` : ''}
+        <p class="pv-note">Last 60 days. “Fast” = under half of ${esc(A.name)}'s usual time on a correct answer${m.med != null ? ` (${Math.round(m.med)} s)` : ''}. A topic with 3+ wrong answers counts as a concept gap.</p>`; })();
+    return `<section class="pv-card" aria-labelledby="pvMt"><h3 id="pvMt">🔍 Careless or concept?</h3>${body}</section>`;
+  }
+  function timeHTML(A, X) {
+    const t = X.time;
+    if (t.total < 20) return `<section class="pv-card" aria-labelledby="pvBt"><h3 id="pvBt">⏰ Best study time</h3><p class="pv-empty">No data yet — shows after about 20 answers (${t.total} so far).</p></section>`;
+    const max = Math.max(...t.rows.map(x => x.a), 1);
+    return `<section class="pv-card" aria-labelledby="pvBt"><h3 id="pvBt">⏰ Best study time</h3>
+      ${t.best ? `<p id="pvBtRec">✨ <b>${esc(t.best.name)}</b> (${esc(t.best.range)}) works best: ${pctS(t.best.acc)} correct. Try to keep the main study slot then.</p>` : '<p>Not enough answers in one time slot yet to recommend one.</p>'}
+      <ul class="pv-list pv-tod">${t.rows.map(x => `<li${t.best && x.key === t.best.key ? ' class="best"' : ''}><span class="pv-gt"><b>${esc(x.name)}</b><span class="pv-mut">${esc(x.range)}</span></span>
+        <span class="pv-sbar" aria-hidden="true"><i style="width:${Math.round(x.a / max * 100)}%"></i></span><span class="pv-todv">${x.a ? `${pctS(x.acc)} correct<br><small>${x.a} answers · ${fmtMin(x.min)}</small>` : '<small>no answers</small>'}</span></li>`).join('')}</ul>
+      <p class="pv-note">Last 60 days. Bars = number of answers; time = time spent on questions.</p></section>`;
+  }
+  function cheerText(A, W) {
+    const L = [`🎉 Well done, ${A.name}! I'm proud of you.`];
+    if (W.current >= 2) L.push(`🔥 ${W.current}-day study streak!`);
+    if (W.badges[0]) L.push(`🏅 New badge: ${W.badges[0].e} ${W.badges[0].name}`);
+    if (W.improved[0]) L.push(`📈 ${W.improved[0].title}: ${Math.round(W.improved[0].before)}% → ${Math.round(W.improved[0].now)}%`);
+    if (W.bestTest) L.push(`⭐ Best test score: ${Math.round(W.bestTest.pct)}%`);
+    L.push('Keep going! 💪');
+    return L.join('\n');
+  }
+  function winsHTML(A, X) {
+    const W = X.wins, rows = [];
+    if (W.longest) rows.push(['🔥', `Longest streak: <b>${W.longest} day${W.longest === 1 ? '' : 's'}</b>`, W.current ? `now ${W.current} day${W.current === 1 ? '' : 's'}` : '']);
+    if (W.bestDay) rows.push(['⏱️', `Most study in a day: <b>${fmtMin(W.bestDay.v)}</b>`, fmtDay(W.bestDay.d)]);
+    if (W.bestQ) rows.push(['✅', `Most questions in a day: <b>${W.bestQ.v}</b>`, fmtDay(W.bestQ.d)]);
+    if (W.bestTest) rows.push(['⭐', `Best test: <b>${Math.round(W.bestTest.pct)}%</b>`, W.bestTest.d ? fmtDay(W.bestTest.d) : '']);
+    if (W.bestWrite) rows.push(['✍️', `Best written answer: <b>${Math.round(W.bestWrite.pct)}%</b>`, W.bestWrite.d ? fmtDay(W.bestWrite.d) : '']);
+    if (A.ca && W.unitsDone) rows.push(['📗', `Units fully completed: <b>${W.unitsDone}</b>`, '']);
+    const nothing = !rows.length && !W.badges.length && !W.improved.length;
+    const txt = cheerText(A, W);
+    return `<section class="pv-card" aria-labelledby="pvWn"><h3 id="pvWn">🏆 Wins to celebrate</h3>
+      ${nothing ? '<p class="pv-empty">Wins appear here after the first few study days.</p>' : `
+      ${W.badges.length ? `<h4>Badges</h4><ul class="pv-badges">${W.badges.slice(0, 8).map(b => `<li${b.fresh ? ' class="new"' : ''}><span aria-hidden="true">${b.e}</span><b>${esc(b.name)}</b><small>${esc(fmtDay(b.d))}${b.fresh ? ' · new' : ''}</small></li>`).join('')}</ul>` : ''}
+      ${W.improved.length ? `<h4>Improved most (last 2 weeks vs before)</h4><ul class="pv-list pv-gl1">${W.improved.map(x => `<li><span class="pv-gt"><b>${esc(x.title)}</b></span><span class="pv-pill">${Math.round(x.before)}% → ${Math.round(x.now)}%</span></li>`).join('')}</ul>` : ''}
+      ${rows.length ? `<h4>Personal bests</h4><ul class="pv-list pv-pb">${rows.map(([i, t, d]) => `<li><span aria-hidden="true">${i}</span><span>${t}</span>${d ? `<small class="pv-mut">${esc(d)}</small>` : ''}</li>`).join('')}</ul>` : ''}
+      <a class="pv-btn pv-wa" id="pvCheer" href="https://wa.me/?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener">Send a cheer on WhatsApp 🎉</a>`}</section>`;
+  }
+  function writesHTML(A, X) {
+    const W = X.writes; if (!A.ca || !W) return '';
+    if (!W.n) return `<section class="pv-card" aria-labelledby="pvWr"><h3 id="pvWr">✍️ Written answers</h3><p class="pv-empty">No written answers checked yet. ${esc(A.name)} writes them in each unit's Write tab.</p></section>`;
+    const at = W.at.slice(-30), ra = at.map((a, i) => mean(at.slice(Math.max(0, i - 2), i + 1).map(x => x.p)));
+    const tr = W.late != null ? (W.late - W.early >= 5 ? ['ok', '📈 Improving'] : W.early - W.late >= 5 ? ['bad', '📉 Slipping'] : ['warn', '➡️ Steady']) : null;
+    return `<section class="pv-card" aria-labelledby="pvWr"><h3 id="pvWr">✍️ Written answers</h3>
+      <p>Average <b id="pvWrAvg">${pctS(W.avg)}</b> over <b>${W.n}</b> checked answer${W.n === 1 ? '' : 's'}${tr ? ` · last 5: <b>${pctS(W.late)}</b> (before: ${pctS(W.early)}) <span class="pv-st ${tr[0]}">${tr[1]}</span>` : ''}</p>
+      ${legend([['wr', 'Each answer', 1], ['acc', 'Average of last 3']])}
+      ${lineSVG([{ cls: 'wr', name: 'Answer', sq: 1, noLine: 1, vals: at.map(a => a.p) }, { cls: 'acc', name: 'Average of last 3', vals: ra }], at.map(a => a.d ? fmtDay(a.d) : ''),
+        `Written answer marks in order: ${at.map(a => `${a.d ? fmtDay(a.d) : ''} ${Math.round(a.p)}%`).join(', ')}`, { tips: at.map(a => a.d ? fmtDay(a.d) : 'answer') })}
+      <h4>Where marks are lost most</h4>${W.skills.length ? `<ul class="pv-list" id="pvWrSk">${W.skills.map(o => `<li><b>${esc(SKN[o.id] || o.id)}</b> — lost ${o.lost} mark${o.lost === 1 ? '' : 's'} (kept ${pctS(o.keep)})<br><span class="pv-mut">Tip: ${esc(SKTIP[o.id] || '')}</span></li>`).join('')}</ul>` : '<p class="pv-mut">No lost marks recorded by skill yet.</p>'}
+      <p class="pv-note">Marks from the automatic checker against the ICAI-style marking scheme. Points that need an examiner's judgement are not counted.</p></section>`;
+  }
+  const focusDoneDate = (s, f) => { const d = s && s.focusDone && s.focusDone[f.id], sd = f.set_at ? dk(new Date(f.set_at)) : ''; return typeof d === 'string' && d >= sd ? d : null; };
+  function focusHTML(A, X, c) {
+    const M = X.mastery; if (!M) return '';
+    const f = c.focus && c.focus.id ? c.focus : null, done = f ? focusDoneDate(A.s, f) : null;
+    const weakIds = new Set(A.weak.map(g => g.id));
+    const sugg = M.all.filter(x => x.st === 1 || weakIds.has(x.id) || (A.ca && weakIds.has(chapOf(x.id)))).sort((a, b) => (a.acc == null ? 101 : a.acc) - (b.acc == null ? 101 : b.acc)).slice(0, 8);
+    const opt = x => `<option value="${esc(x.id)}">${esc(x.title)}${x.acc != null ? ` — ${Math.round(x.acc)}%` : ''} (${MST[x.st][0]})</option>`;
+    return `<section class="pv-card" aria-labelledby="pvFo"><h3 id="pvFo">🎯 Focus topic (mission)</h3>
+      <p class="pv-mut">Pick one ${A.ca ? 'unit' : 'chapter'}. ${esc(A.name)} sees “Today's mission from your parent” on their home screen with a button to practise it.</p>
+      ${f ? `<div class="pv-fnow" id="pvFoNow"><p>Current mission: <b>${esc(f.title)}</b>${f.subject ? ` <span class="pv-mut">(${esc(f.subject)})</span>` : ''}<br><span class="pv-mut">Set on ${esc(fmtDay(dk(new Date(f.set_at || Date.now()))))}</span></p>
+        <p>${done ? `<span class="pv-st ok" id="pvFoSt">Done ✓ on ${esc(fmtDay(done))}</span>` : '<span class="pv-st warn" id="pvFoSt">Not practised yet</span>'}</p>
+        <button class="pv-btn ghost" type="button" id="pvFoClr">Clear mission</button></div>` : ''}
+      <form id="pvFoF" class="pv-form" novalidate><label for="pvFoSel">${f ? 'Change mission' : 'Choose a mission'}</label>
+        <select id="pvFoSel" class="pv-in"><option value="">— Choose —</option>${sugg.length ? `<optgroup label="Suggested (needs practice)">${sugg.map(opt).join('')}</optgroup>` : ''}
+        ${M.groups.map(g => `<optgroup label="${esc(g.name)}">${g.items.map(opt).join('')}</optgroup>`).join('')}</select>
+        <p class="pv-err" id="pvFoE" role="alert"></p><button class="pv-btn" type="submit">Set as mission</button></form></section>`;
+  }
+
+  function childHTML(k, A, X) {
     const c = k.controls || {}, s = A.s;
     const head = profileHTML(k, A);
     if (!A.has) {
@@ -630,8 +1035,10 @@
     const alerts = A.alerts.length ? A.alerts.map(([t, m]) => `<li class="pv-al ${t}">${t === 'bad' ? '⚠️' : '🔔'} ${esc(m)}</li>`).join('') : '<li class="pv-al ok">✅ No alerts — all good this week.</li>';
     const sug = suggestions(A), dq = dinnerQs(A);
     const grp = g => `<li><span class="pv-gt"><b>${esc(g.title)}</b>${g.sub ? `<span class="pv-mut">${esc(g.sub)}</span>` : ''}</span><span class="pv-pill">${pctS(g.acc)} <small>· ${g.cnt} answers</small></span></li>`;
+    const R = readinessOf(A, X, c);
     return head + `
       <section class="pv-card" aria-labelledby="pvAl"><h3 id="pvAl">Alerts</h3><ul class="pv-list">${alerts}</ul></section>
+      ${readinessHTML(A, R)}
       <section class="pv-card" aria-labelledby="pvWk"><h3 id="pvWk">This week</h3>
         ${A.weekMin > 0 ? chartSVG(A) : '<p class="pv-empty">No study time recorded in the last 7 days.</p>'}
         <div class="pv-kpis">
@@ -643,6 +1050,7 @@
           <div><b>${fmtMin(A.today)}</b><span>Today</span></div>
         </div>
         <p class="pv-mut">Last week: ${fmtMin(A.prevMin)}, ${A.qp.a} questions, ${pctS(A.accP)} correct.</p></section>
+      ${trendHTML(A, X.trend)}${masteryHTML(A, X.mastery)}
       <section class="pv-card" aria-labelledby="pvSt"><h3 id="pvSt">Strengths and needs help</h3>
         ${A.totalAns < 4 ? '<p class="pv-empty">No answers yet — strengths show after a few quizzes.</p>' : `
         <h4>💪 Strong</h4>${A.best.length ? `<ul class="pv-list pv-gl1">${A.best.map(grp).join('')}</ul>` : '<p class="pv-mut">Not enough answers in one chapter yet.</p>'}
@@ -650,6 +1058,7 @@
         ${A.subjects && A.subjects.length ? `<h4>By subject</h4><ul class="pv-list pv-gl1">${A.subjects.map(x => `<li><b>${esc(x.name)}</b><span class="pv-sbar" aria-hidden="true"><i style="width:${Math.round(x.acc)}%"></i></span><span class="pv-pill">${pctS(x.acc)}</span></li>`).join('')}</ul>` : ''}
         <p class="pv-mut">Mistakes recorded: <b>${A.mistakes}</b>${A.topMist.length ? ` · most common: ${A.topMist.map(x => `“${esc(x[0])}” ×${x[1]}`).join(', ')}` : ''}</p>`}
         <h4>🚀 Scope to improve</h4><ol class="pv-ol">${sug.map(x => `<li>${x}</li>`).join('') || '<li>Keep going — no suggestions yet.</li>'}</ol></section>
+      ${mistakeHTML(A, X)}${timeHTML(A, X)}${winsHTML(A, X)}${writesHTML(A, X)}${focusHTML(A, X, c)}
       <section class="pv-card" aria-labelledby="pvDq"><h3 id="pvDq">🍽️ Dinner-table questions</h3>
         ${dq.length ? `<p class="pv-mut">From what ${esc(A.name)} studied recently. Ask with interest, not as a test.</p><ol class="pv-ol">${dq.map(x => `<li>${x}</li>`).join('')}</ol>` : '<p class="pv-empty">Questions appear after the first finished topic.</p>'}</section>
       ${plannerHTML(A, c)}${goalsHTML(A, c)}${healthHTML(c)}
@@ -729,7 +1138,7 @@
     try { window.print(); } catch (e) {}
   }
 
-  function wireChild(body, k, A) {
+  function wireChild(body, k, A, X) {
     const c = () => Object.assign({ v: 1 }, k.controls || {});
     const saveCtl = async (next, errEl, msg) => {
       errEl.textContent = '';
@@ -759,6 +1168,14 @@
       if (pin) next.pinHash = await pinHash(k.child_id, pin);
       if ((lim || on) && !next.pinHash) { e.textContent = 'Please set a 4-digit PIN so you can unlock when needed.'; return; }
       saveCtl(next, e, 'Healthy use saved ✓'); };
+    const fo = body.querySelector('#pvFoF');
+    if (fo) fo.onsubmit = ev => { ev.preventDefault(); const e = body.querySelector('#pvFoE'), id = body.querySelector('#pvFoSel').value;
+      const it = id && X && X.mastery ? X.mastery.all.find(x => x.id === id) : null;
+      if (!it) { e.textContent = A.ca ? 'Choose a unit.' : 'Choose a chapter.'; return; }
+      const next = c(); next.focus = { id: it.id, title: it.title, subject: it.sub || '', set_at: new Date().toISOString() };
+      saveCtl(next, e, `Mission set: ${it.title} ✓`); };
+    const fc = body.querySelector('#pvFoClr');
+    if (fc) fc.onclick = () => { const next = c(); delete next.focus; saveCtl(next, body.querySelector('#pvFoE'), 'Mission cleared'); };
     const pr = body.querySelector('#pvRpPr'); if (pr) pr.onclick = () => printReport(A, k.controls || {});
     const ul = body.querySelector('#pvUnlink');
     ul.onclick = async () => {
@@ -850,6 +1267,39 @@
 .pv-prof{align-items:flex-start!important}.pv-prof-in{flex:1;min-width:0}.pv-prof-in>.pv-mut{margin:0 0 6px!important}
 .pv-dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0;font-size:14px}.pv-dl dt{color:#5d5a55;font-weight:700}.pv-dl dd{margin:0;min-width:0;overflow-wrap:anywhere}
 .pv-plans{list-style:none;margin:0;padding:0}.pv-plan{font-weight:800;margin:0 0 3px}.pv-plan.ok{color:#1d5e36}.pv-plan.warn{color:#6b4a06}
+.card.pv-mission{border-left-color:#2e9a5c}.pv-mis-go{margin-top:10px;min-height:44px;width:100%}.pv-mis-ok{margin:6px 0 0;font-weight:800;color:#1d7a46}
+.pv-verdict{margin:0 0 4px!important}.pv-verdict .pv-st{margin-left:0;font-size:14px;padding:4px 10px}
+.pv-grid{stroke:#eee5d3;stroke-width:1}.pv-yl{font-size:10px;fill:#6b665e;text-anchor:end}
+.pv-ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}.pv-ln.acc{stroke:#2a6fb0}.pv-ln.con{stroke:#b5832a;stroke-dasharray:5 4}
+.pv-mk{stroke:#fff;stroke-width:2}.pv-mk.acc{fill:#2a6fb0}.pv-mk.con,.pv-mk.wr{fill:#b5832a}.pv-hit{fill:transparent}
+.pv-leg{list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 0 4px;padding:0;font-size:12.5px;color:#5d5a55}.pv-leg li{display:flex;align-items:center;gap:6px}
+.pv-sw{display:inline-block;width:16px;height:3px;border-radius:2px}.pv-sw.acc{background:#2a6fb0}.pv-sw.con{background:repeating-linear-gradient(90deg,#b5832a 0 5px,transparent 5px 8px)}
+.pv-sw.sq{width:9px;height:9px;border-radius:2px}.pv-sw.con.sq{background:#b5832a}.pv-sw.wr,.pv-sw.cs{background:#b5832a}.pv-sw.cg{background:#2a6fb0}
+.pv-tbl summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;font-size:13.5px;color:#8A6A2E}
+.pv-tbl table{width:100%;border-collapse:collapse;font-size:13px}.pv-tbl th,.pv-tbl td{text-align:left;padding:5px 4px;border-top:1px solid #f0e8d8}.pv-tbl th{color:#5d5a55}
+.pv-rd{display:flex;gap:14px;align-items:center;margin:6px 0 8px}.pv-rd-in{flex:1;min-width:0}.pv-rd-msg{margin:6px 0 0!important}
+.pv-ring{--p:0;flex:none;width:96px;height:96px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(closest-side,#fff 76%,transparent 77% 100%),conic-gradient(#2e9a5c calc(var(--p)*1%),#efe6d3 0)}
+.pv-ring b{font-size:28px;line-height:1;color:#15161C}.pv-ring small{font-size:11px;color:#5d5a55}
+.pv-brk .pv-sbar{flex:0 0 28%}.pv-brk small{font-weight:600}
+.pv-mleg{gap:6px 12px}.pv-mleg b{color:#15161C}
+.pv-mg{border-top:1px solid #f0e8d8}.pv-mg summary{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;font-size:14.5px}.pv-mgn{flex:0 0 38%;font-weight:800;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-chips{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.pv-chip{display:inline-flex;align-items:center;gap:5px;max-width:100%;padding:5px 9px;border-radius:10px;font-size:12.5px;line-height:1.25;border:1px solid transparent}
+.pv-chip small{font-weight:800;opacity:.85}.pv-ct{min-width:0;overflow-wrap:anywhere}.pv-ci{font-weight:800}
+.pv-chip.m0{background:#fff;border-color:#d8ccb4;color:#5d5a55}.pv-chip.m1{background:#e3f1e7;color:#1d4d30}.pv-chip.m2{background:#8fcfa6;color:#0f3a22}.pv-chip.m3{background:#17603a;color:#fff}
+.pv-chip.mini{padding:1px 6px;font-size:11px}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.pv-split{display:flex;height:12px;border-radius:8px;overflow:hidden;gap:2px;margin:4px 0 8px}.pv-split i{display:block;height:100%}.pv-split .cs{background:#b5832a}.pv-split .cg{background:#2a6fb0}
+.pv-kpis.two{grid-template-columns:1fr 1fr}.pv-kpis small{font-size:11px}
+.pv-tod li{display:flex;align-items:center;gap:8px}.pv-tod .pv-gt{flex:0 0 34%}.pv-tod .pv-sbar{flex:1}.pv-todv{flex:0 0 36%;text-align:right;font-weight:800;font-size:13px}.pv-todv small{font-weight:600;color:#5d5a55}
+.pv-tod li.best{background:#e8f5ec;border-radius:10px;padding-left:8px!important;padding-right:8px!important}
+.pv-badges{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.pv-badges li{background:#FBF7EF;border:1px solid #f0e6d2;border-radius:12px;padding:8px 6px;text-align:center;display:flex;flex-direction:column;gap:2px}.pv-badges li span{font-size:24px}
+.pv-badges b{font-size:12px;line-height:1.2}.pv-badges small{font-size:11px;color:#5d5a55}.pv-badges li.new{border-color:#C9A76A;background:#fff7e6}
+.pv-pb li{display:flex;gap:8px;align-items:baseline}.pv-pb li>span:nth-child(2){flex:1}
+#pvCheer{margin-top:12px;min-height:46px}
+.pv-fnow{background:#FBF7EF;border:1px solid #f0e6d2;border-radius:12px;padding:10px 12px;margin:6px 0}.pv-fnow .pv-st{margin-left:0}
+select.pv-in{appearance:auto;width:100%!important;max-width:none}
 #pvPrint{display:none}
 @media print{body>*:not(#pvPrint){display:none!important}html,body{background:#fff!important;overflow:visible!important}body{display:block!important}
 #pvPrint{display:block!important;color:#000;font-family:Georgia,serif;padding:10mm}#pvPrint h1{font-size:22pt;margin:0 0 4pt;color:#5B0F1B}#pvPrint h2{font-size:15pt;margin:0 0 4pt}

@@ -95,7 +95,7 @@
     if (a.why === 'trial') return `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open. After that, only the class you subscribe to.`;
     if (a.why === 'code') return '🎟️ Free access with your code.';
     if (a.full) return `✅ Your ${kind === 'ca' ? 'CA Foundation' : 'school'} plan is active till <b>${dt(a.until)}</b>.`;
-    return `Free plan: <b>${Math.max(0, FREE_PER_DAY - used(kind))} of ${FREE_PER_DAY}</b> questions left today.${a.trialEnded ? ' Your free trial has ended.' : ''}`;
+    return `Free plan: <b>${Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)))} of ${FREE_PER_DAY}</b> questions left today.${a.trialEnded ? ' Your free trial has ended.' : ''}`;
   }
 
   let quote = null;                                   // { code, percent }
@@ -169,7 +169,7 @@
     if (a.why === 'owner' || a.why === 'code') return '';
     if (a.why === 'trial') return `<p>🎁 <b>Free trial: ${left(a.until)} left.</b> Everything is unlocked.</p><button type="button" data-pl>Subscribe</button>`;
     if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5; return soon ? `<p>⏳ Your plan ends on <b>${dt(a.until)}</b>.</p><button type="button" data-pl>Renew</button>` : ''; }
-    return `<p><b>${Math.max(0, FREE_PER_DAY - used(kind))} of ${FREE_PER_DAY}</b> free questions left today.${a.trialEnded ? ' Trial ended.' : ''}</p><button type="button" data-pl>Subscribe</button>`;
+    return `<p><b>${Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)))} of ${FREE_PER_DAY}</b> free questions left today.${a.trialEnded ? ' Trial ended.' : ''}</p><button type="button" data-pl>Subscribe</button>`;
   }
   function bars() {
     if (!signedIn()) return;

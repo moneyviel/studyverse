@@ -522,6 +522,7 @@
     c.lastSets[tag] = sig(out); save(); return out;
   }
   const cgRecord = (key, ok) => { try { if (window.CAGen && CAGen.record) CAGen.record(key, ok); } catch (e) {} };
+  const ansLog = (uid, ok, secs) => { try { if (typeof logAns === 'function' && uid) logAns(uid, ok, secs); } catch (e) {} };   // Parent Hub answer log for generated questions (bank MCQs are in ST.ca.mlog)
   const stepsHTML = q => (q.steps || []).length ? `<ol class="ca-steps">${q.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>` : '';
   /* ♾️ Endless practice for one unit: generated questions (js/ca-gen.js) with steps and marks; Previous / Next */
   function endless(P, uid, d, back) {
@@ -535,14 +536,14 @@
       return { q, ord: X.order(q.options.length, 'e' + Date.now() + hist.length), pick: null };
     };
     const draw = () => {
-      const h = hist[at], q = h.q, locked = h.pick != null;
+      const h = hist[at], q = h.q, locked = h.pick != null; if (!locked) h.t1 = Date.now();
       P.innerHTML = `<div class="card ca-mcq ca-endless"><div class="ca-mtop"><span class="ca-k">♾️ Endless practice · question ${at + 1} · <span class="ca-qmk">${mk1(qm(q))}</span></span><span class="ca-k">${right}/${done} correct</span></div>
         <div class="ca-chipsel" role="radiogroup" aria-label="Difficulty">${DIFF.map(([k, n]) => `<button type="button" class="ca-cs" role="radio" aria-checked="${k === diff}" data-df="${k}">${n}</button>`).join('')}</div>
         <h2 class="qtext ca-mq">${esc(q.q)}</h2>${q.given ? X.blocks(q.given) : ''}<div class="ca-opts">${h.ord.map((k, j) => `<button class="opt ${locked && k === q.answer ? 'right' : ''} ${locked && k === h.pick && k !== q.answer ? 'wrong' : ''}" data-k="${k}" ${locked ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
         <div id="enFb">${locked ? `<div class="explain ${h.pick === q.answer ? 'good' : 'bad'}"><div class="verdict">${h.pick === q.answer ? `Correct · +${mk1(qm(q))}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}${X.refChip ? X.refChip(q.unit || uid, q) : ''}</div>` : ''}</div>
         <div class="ca-btns ca-setnav"><button class="btn ghost" id="enPrev" ${at ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn ${locked ? '' : 'ghost'}" id="enNext" aria-label="${locked ? 'Next question' : 'Skip to the next question'}">Next ▶</button></div>
         <button class="ca-link" id="enEnd">Stop practising</button></div>`;
-      P.querySelectorAll('.opt').forEach(b => b.onclick = () => { if (h.pick != null) return; h.pick = +b.dataset.k; done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); D.getElementById('enNext').focus({ preventScroll: true }); });
+      P.querySelectorAll('.opt').forEach(b => b.onclick = () => { if (h.pick != null) return; h.pick = +b.dataset.k; done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); ansLog(uid, h.pick === q.answer, (Date.now() - (h.t1 || Date.now())) / 1000); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); D.getElementById('enNext').focus({ preventScroll: true }); });
       P.querySelectorAll('[data-df]').forEach(b => b.onclick = () => { diff = b.dataset.df; if (!locked) { hist[at] = next(); } draw(); });
       D.getElementById('enPrev').onclick = () => { if (at > 0) { at--; draw(); window.scrollTo(0, 0); } };
       D.getElementById('enNext').onclick = () => { at++; if (at >= hist.length) hist.push(next()); draw(); window.scrollTo(0, 0); };
@@ -607,7 +608,7 @@
       }, 1000);
       else if (!opts.perQ) tm = setInterval(() => { const t = D.getElementById('csT'); if (!t) { clearInterval(tm); return; } t.textContent = secsTxt((Date.now() - started) / 1000); }, 1000);
     };
-    const grade = j => { if (graded[j]) return; graded[j] = 1; const it = items[j], s = st[j], ok = s.pick === it.q.answer; if (it.gen) { if (s.pick != null) cgRecord(it.q.key || it.key, ok); return; } if (s.pick == null && !s.out) { reviseMark(it.key, false); return; } X.recordAns(it.key, ok, s.ms); reviseMark(it.key, ok); };
+    const grade = j => { if (graded[j]) return; graded[j] = 1; const it = items[j], s = st[j], ok = s.pick === it.q.answer; if (it.gen) { if (s.pick != null) { cgRecord(it.q.key || it.key, ok); ansLog(it.uid || it.q.unit || String(it.key || '').split('#')[0], ok, (s.ms || 0) / 1000); } return; } if (s.pick == null && !s.out) { reviseMark(it.key, false); return; } X.recordAns(it.key, ok, s.ms); reviseMark(it.key, ok); };
     const feedback = () => {
       const it = items[i], s = st[i], q = it.q, ok = s.pick === q.answer;
       host.querySelectorAll('.opt').forEach(x => { if (+x.dataset.k === q.answer) x.classList.add('right'); if (+x.dataset.k === s.pick && !ok) x.classList.add('wrong'); });

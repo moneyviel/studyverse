@@ -1587,14 +1587,14 @@
     function ask() {
       stopTalk();
       const x = next(topic.id, topic.title, grade, subj); if (!x) { summary(); return; }
-      st.n++; st.hist.push({ x, k: null, order: shuffle([0, 1, 2, 3]), num: st.n });
+      st.n++; st.hist.push({ x, k: null, order: shuffle([0, 1, 2, 3]), num: st.n, t0: Date.now() });
       if (st.hist.length > 40) st.hist.shift();
       st.at = st.hist.length - 1;
       draw();
     }
     function go(j) { if (j < 0) return; stopTalk(); if (j >= st.hist.length) { ask(); return; } st.at = j; draw(); if (window.scrollTo) window.scrollTo(0, 0); }
     function draw() {
-      const c = st.hist[st.at], x = c.x, at = st.at;
+      const c = st.hist[st.at], x = c.x, at = st.at; if (c.k === null) c.t1 = Date.now();
       host.innerHTML = `<div class="card gen-card">${head(counter(c))}<div class="progress"><i style="width:${Math.min(100, (c.num % 10 || 10) * 10)}%"></i></div>
         <h2 class="qtext">${H(x.q)} ${SPK(x.q, 1)}</h2><div id="qo">${c.order.map(k => `<button class="opt" data-k="${k}">${H(x.options[k])}</button>`).join('')}</div><div id="qx"></div>
         <div class="tst-nav qnav"><button class="btn ghost" id="qPrev" ${at > 0 ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn ${c.k !== null ? 'mint' : ''}" id="nx" aria-label="${c.k !== null ? 'Next question' : 'Skip to the next question'}">Next ▶</button></div></div>
@@ -1608,6 +1608,7 @@
     function choose(k) {
       const c = st.hist[st.at]; if (!c || c.k !== null) return;      /* scored once */
       c.k = k; c.ok = k === c.x.answer; st.done++;
+      try { if (typeof logAns === 'function') { logAns(topic.id, c.ok, (Date.now() - (c.t1 || c.t0)) / 1000); if (!c.ok && typeof save === 'function') save(); } } catch (e) {}   // Parent Hub answer log (correct answers are saved by addXP)
       if (c.ok) { st.right++; st.xp += 2; S('correct'); XP(2); } else { S('wrong'); }
       showResult(true);
     }
