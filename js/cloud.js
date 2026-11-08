@@ -21,7 +21,7 @@
   const on = () => true;
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
-  const COURSES = { 'ca-foundation': 'CA Foundation', 'ca-inter': 'CA Intermediate', 'ca-final': 'CA Final', school: 'School (Class 1–12)' };
+  const COURSES = { 'school-all': 'All school grades', 'ca-foundation': 'CA Foundation', 'ca-inter': 'CA Intermediate', 'ca-final': 'CA Final', school: 'School (Class 1–12)' };
   const EXTRA = ['sv_cagen'];                       // other progress kept with sv_state
 
   let S = jget('sv_auth', null);                    // session { at, rt, exp, user:{id,email} }
@@ -136,7 +136,7 @@
   /* free-forever lock + discount code saved on the student's profile */
   async function prof() {
     try {
-      const r = await rest('profiles?select=locked_course,discount_code'); if (!Array.isArray(r)) return;
+      const r = await rest('profiles?select=locked_course,discount_code&user_id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '')); if (!Array.isArray(r)) return;
       const p = r[0] || {}; set('sv_lock', p.locked_course || null); set('sv_disc', p.discount_code || null); enforceLock(); codeCard(true);
     } catch (e) {}
   }
@@ -156,12 +156,12 @@
     try {
       // a new account gets its 24-hour trial of all school grades once (the server decides; repeated calls change nothing)
       if (!get('sv_trial')) { try { await rest('rpc/start_trial', { method: 'POST', body: {} }); set('sv_trial', '1'); } catch (e) {} }
-      const r = await rest('course_access?select=course,valid_until,note'); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); try { window.dispatchEvent(new Event('sv-access')); } catch (e) {} }
+      const r = await rest('course_access?select=course,valid_until,note&user_id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '')); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); try { window.dispatchEvent(new Event('sv-access')); } catch (e) {} }
     } catch (e) {}
   }
   async function owner() {                         // studyverse.admins: an owner account turns owner mode on (once; "turn off" is respected)
     try {
-      const r = await rest('admins?select=user_id'); if (!Array.isArray(r)) return;
+      const r = await rest('admins?select=user_id&user_id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '')); if (!Array.isArray(r)) return;
       const adm = r.length > 0, m = meta();
       if (adm && !m.adm) { set('sv_owner', '1'); say('Owner account — owner mode is on'); }
       if (!adm) set('sv_owner', null);

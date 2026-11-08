@@ -241,6 +241,7 @@
     DLG.set(s, D.activeElement && D.activeElement !== D.body ? D.activeElement : null);
     s.setAttribute('role', s.id === 'svOffer' ? 'alertdialog' : 'dialog'); s.setAttribute('aria-modal', 'true');
     const h = sheetHeading(s); if (h) { if (!h.id) h.id = (s.id || 'sv') + 'Title'; s.setAttribute('aria-labelledby', h.id); }
+    if (s.dataset.svInert) { s.removeAttribute('inert'); delete s.dataset.svInert; }   // a sheet opened on top of another sheet was made inert when the first one opened
     $$('body > *').forEach(e => { if (e !== s && !e.matches('#srLive,#srAlert,#svTalk,script') && !e.classList.contains('show')) { if (!e.hasAttribute('inert')) { e.setAttribute('inert', ''); e.dataset.svInert = '1'; } } });
     setTimeout(() => { if (!s.classList.contains('show')) return; if (s.contains(D.activeElement)) return; const t = h || $1(FOCUSABLE, s); focusEl(t); }, 60);
     buzz('nav');
