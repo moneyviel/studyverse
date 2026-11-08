@@ -1031,7 +1031,7 @@
   /* ---------------- boot ---------------- */
   function boot() {
     region('srLive'); region('srAlert', true);
-    wrapGlobals(); wrapWorlds(); buildTalk(); buildSkip(); watchSheets();
+    wrapGlobals(); wrapWorlds(); buildTalk(); buildSkip(); buildListenBar(); watchSheets();
     fix(D.body);
     mainObs.observe(D.querySelector('main') || D.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['class', 'disabled', 'hidden'] });
     new MutationObserver(recs => { recs.forEach(r => r.addedNodes.forEach(n => { if (n.nodeType === 1 && n !== D.querySelector('main')) fix(n); })); watchSheets(); }).observe(D.body, { childList: true });
@@ -1040,7 +1040,16 @@
     watchNew.observe(D.body, { childList: true });
     if (listenOn()) setTimeout(() => readScreen(true), 900);
   }
+  /* visible controls while Listen mode is on: stop the current reading, or turn Listen mode off */
+  function buildListenBar() {
+    if ($1('#svLBar')) return;
+    if (!$1('#svLBarCss')) D.head.insertAdjacentHTML('beforeend', `<style id="svLBarCss">#svLBar{display:none}html.sv-listen #svLBar{display:flex;position:fixed;top:calc(64px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:965;gap:6px;align-items:center;background:#15161C;color:#fff;border-radius:999px;padding:5px 6px 5px 12px;box-shadow:0 6px 18px rgba(0,0,0,.35);font:600 13px/1 system-ui,sans-serif}#svLBar button{border:0;border-radius:999px;padding:8px 12px;font:700 13px/1 system-ui,sans-serif;cursor:pointer;min-height:36px}#svLBar .s{background:#fff;color:#15161C}#svLBar .o{background:#C9A76A;color:#15161C}</style>`);
+    D.body.insertAdjacentHTML('beforeend', `<div id="svLBar" role="region" aria-label="Listen mode controls"><span aria-hidden="true">🎧</span><button type="button" class="s" id="svLStop">⏹ Stop reading</button><button type="button" class="o" id="svLOff">Turn off</button></div>`);
+    $1('#svLStop').onclick = () => { stopSpeech(); toastQuiet('Stopped — tap 🎧 Listen in Aa settings to hear it again'); };
+    $1('#svLOff').onclick = () => { UX.setListen(false); };
+  }
   function listenChanged(on) {
+    buildListenBar();
     D.documentElement.classList.toggle('sv-listen', on);
     if (A11Y._paintSkip) A11Y._paintSkip();
     if (on) { toastQuiet('🎧 Listen mode on'); announce(T('on')); lastKey = ''; say(T('on'), { force: true }).then(() => { if (!openSheet()) readScreen(true); }); }
