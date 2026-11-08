@@ -59,7 +59,7 @@ Deno.serve(async (req) => {
       }
       // school plans are for ONE class: the class sent by the page, else the student's own class from their saved progress
       let course: string | null = null;
-      const plr = await fetch(`${URL_}/rest/v1/plans?id=eq.${encodeURIComponent(String(b.plan || ''))}&select=course`, { headers: svc() });
+      const plr = await fetch(`${URL_}/rest/v1/plans?id=eq.${encodeURIComponent(String(b.plan || ''))}&select=course,min_grade,max_grade`, { headers: svc() });
       const pla = await plr.json().catch(() => []);
       if (Array.isArray(pla) && pla[0] && pla[0].course === 'school') {
         let g = Number(b.grade);
@@ -69,6 +69,8 @@ Deno.serve(async (req) => {
           g = Number(pa?.[0]?.state?.st?.profile?.grade);
         }
         if (!(Number.isInteger(g) && g >= 1 && g <= 12)) return json({ error: 'Please choose the class first.' });
+        const lo = pla[0].min_grade, hi = pla[0].max_grade;
+        if (lo != null && hi != null && (g < lo || g > hi)) return json({ error: `This plan is for Class ${lo}–${hi}. Please choose the plan for Class ${g}.` });
         course = 'school-g' + g;
       }
       const p = await rpc('price_for', { p_user: target, p_plan: String(b.plan || ''), p_code: b.code || null });

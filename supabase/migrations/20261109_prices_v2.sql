@@ -1,0 +1,4 @@
+-- Prices v2 (owner, 9 Nov 2026), excluding GST ("+ GST as applicable"). Applied to moneyviel-apps.
+-- School by class band (one class per plan): 1–5 ₹199/₹1,499 yr · 6–8 ₹249/₹1,999 · 9–10 ₹349/₹2,799 · 11–12 ₹449/₹3,499
+-- CA: Foundation ₹499/mo, ₹1,799/4 mo · Inter ₹799, ₹2,999 · Final ₹999, ₹3,799. Old school-month/school-year/ca-year inactive.
+-- plans.min_grade/max_grade added; studyverse-pay checks the class is inside the plan's band.
