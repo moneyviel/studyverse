@@ -1574,64 +1574,59 @@
   function open(host, topic, opt = {}) {
     const p = parseId(topic.id), grade = (typeof ST !== 'undefined' && ST.profile && ST.profile.grade) || p.g, subj = p.sid || (typeof NAV !== 'undefined' && NAV.subject);
     if (!has(topic.id, topic.title, grade, subj)) { host.innerHTML = '<div class="card"><p class="sub">Endless practice is not available for this topic yet.</p></div>'; return false; }
-    const st = { n: 0, right: 0, xp: 0, hist: [], cur: null };
+    /* hist: the last 40 questions; at: the one on screen. ◀ Previous / Next ▶ move freely: a skipped question can be
+       answered later, an answered one shows its answer and explanation again, and each is scored only once. */
+    const st = { n: 0, right: 0, xp: 0, done: 0, hist: [], at: -1 };
     const stopTalk = () => { try { ReadAlong.stop(); } catch (e) {} };
-    const head = (label, j) => `<div class="tst-top"><span class="tag">${label}</span>${j > 0 ? `<button class="tst-ic" id="gvPrevTop" aria-label="See the previous question">◀</button>` : ''}<button class="tst-ic" id="gvEnd" aria-label="End practice">End</button></div>`;
-    const counter = () => `♾️ Question ${st.n} · ✔ ${st.right}`;
+    const head = label => `<div class="tst-top"><span class="tag">${label}</span><button class="tst-ic" id="gvEnd" aria-label="End practice">End</button></div>`;
+    const counter = c => `♾️ Question ${c.num}${c.k !== null ? ' · answered' : ''} · ✔ ${st.right}`;
     const explainBox = (x, ok) => `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? '🎉 Correct!' : `🤔 Not quite — it's <b>${H(x.options[x.answer])}</b>`}</div>
         ${x.visual && window.Visual ? `<div class="vis">${Visual.render(x.visual)}</div>` : `<div class="bigans popin">${H(x.options[x.answer])}</div>`}
         <div class="why">${H(x.explain)} ${SPK(x.explain)}</div>
         ${x.steps.map((s, j) => `<div class="exstep popin" style="animation-delay:${(.3 + j * .35).toFixed(2)}s">${j + 1}. ${H(s)}</div>`).join('')}</div>`;
-    const wireTop = j => { const e = host.querySelector('#gvEnd'); if (e) e.onclick = summary; const pv = host.querySelector('#gvPrevTop'); if (pv) pv.onclick = () => review(j - 1); };
     function ask() {
       stopTalk();
       const x = next(topic.id, topic.title, grade, subj); if (!x) { summary(); return; }
-      st.n++; st.cur = { x, k: null, order: shuffle([0, 1, 2, 3]) };
-      st.hist.push(st.cur); if (st.hist.length > 40) st.hist.shift();
+      st.n++; st.hist.push({ x, k: null, order: shuffle([0, 1, 2, 3]), num: st.n });
+      if (st.hist.length > 40) st.hist.shift();
+      st.at = st.hist.length - 1;
       draw();
     }
+    function go(j) { if (j < 0) return; stopTalk(); if (j >= st.hist.length) { ask(); return; } st.at = j; draw(); if (window.scrollTo) window.scrollTo(0, 0); }
     function draw() {
-      const c = st.cur, x = c.x, idx = st.hist.length - 1;
-      host.innerHTML = `<div class="card gen-card">${head(counter(), idx)}<div class="progress"><i style="width:${Math.min(100, (st.n % 10 || 10) * 10)}%"></i></div>
-        <h2 class="qtext">${H(x.q)} ${SPK(x.q, 1)}</h2><div id="qo">${c.order.map(k => `<button class="opt" data-k="${k}">${H(x.options[k])}</button>`).join('')}</div><div id="qx"></div></div>
+      const c = st.hist[st.at], x = c.x, at = st.at;
+      host.innerHTML = `<div class="card gen-card">${head(counter(c))}<div class="progress"><i style="width:${Math.min(100, (c.num % 10 || 10) * 10)}%"></i></div>
+        <h2 class="qtext">${H(x.q)} ${SPK(x.q, 1)}</h2><div id="qo">${c.order.map(k => `<button class="opt" data-k="${k}">${H(x.options[k])}</button>`).join('')}</div><div id="qx"></div>
+        <div class="tst-nav qnav"><button class="btn ghost" id="qPrev" ${at > 0 ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn ${c.k !== null ? 'mint' : ''}" id="nx" aria-label="${c.k !== null ? 'Next question' : 'Skip to the next question'}">Next ▶</button></div></div>
         <button class="back" id="gvBack" style="background:rgba(255,255,255,.18)">← Back to lesson</button>`;
-      wireTop(idx); host.querySelector('#gvBack').onclick = exit;
-      host.querySelectorAll('#qo .opt').forEach(b => b.onclick = () => choose(+b.dataset.k, b));
-      if (c.k !== null) showResult();
+      host.querySelector('#gvEnd').onclick = summary; host.querySelector('#gvBack').onclick = exit;
+      host.querySelector('#qPrev').onclick = () => go(st.at - 1);
+      host.querySelector('#nx').onclick = () => go(st.at + 1);
+      host.querySelectorAll('#qo .opt').forEach(b => b.onclick = () => choose(+b.dataset.k));
+      if (c.k !== null) showResult(false);
     }
-    function choose(k, btn) {
-      const c = st.cur; if (c.k !== null) return; c.k = k; c.ok = k === c.x.answer;
+    function choose(k) {
+      const c = st.hist[st.at]; if (!c || c.k !== null) return;      /* scored once */
+      c.k = k; c.ok = k === c.x.answer; st.done++;
       if (c.ok) { st.right++; st.xp += 2; S('correct'); XP(2); } else { S('wrong'); }
       showResult(true);
     }
     function showResult(fresh) {
-      const c = st.cur, x = c.x, idx = st.hist.length - 1;
+      const c = st.hist[st.at], x = c.x;
       host.querySelectorAll('#qo .opt').forEach(o => { o.disabled = true; const kk = +o.dataset.k; if (kk === x.answer) o.classList.add('right'); else if (kk === c.k) o.classList.add('wrong'); });
-      const tag = host.querySelector('.tst-top .tag'); if (tag) tag.textContent = counter();
-      host.querySelector('#qx').innerHTML = explainBox(x, c.ok) + `<div class="xrow">${idx > 0 ? '<button class="btn ghost" id="gvPrev">◀ Previous</button>' : ''}<button class="btn mint" id="nx">Next ▶</button></div>`;
-      const pv = host.querySelector('#gvPrev'); if (pv) pv.onclick = () => review(idx - 1);
-      host.querySelector('#nx').onclick = ask;
+      const tag = host.querySelector('.tst-top .tag'); if (tag) tag.textContent = counter(c);
+      const nx = host.querySelector('#nx'); if (nx) { nx.classList.add('mint'); nx.setAttribute('aria-label', 'Next question'); }
+      host.querySelector('#qx').innerHTML = explainBox(x, c.ok);
       if (fresh) setTimeout(() => { const bx = host.querySelector('#qx'); if (bx && bx.scrollIntoView) bx.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 120);
-    }
-    function review(j) {
-      if (j < 0) return; stopTalk();
-      const h = st.hist[j], x = h.x, back = st.hist.length - 1, num = st.n - back + j;
-      host.innerHTML = `<div class="card gen-card">${head(`Question ${num} · review`, j)}
-        <h2 class="qtext">${H(x.q)} ${SPK(x.q, 1)}</h2><div>${h.order.map(k => `<button class="opt ${k === x.answer ? 'right' : k === h.k ? 'wrong' : ''}" disabled>${H(x.options[k])}</button>`).join('')}</div>
-        ${h.k === null ? '<p class="sub">Not answered yet.</p>' : explainBox(x, h.ok)}
-        <div class="tst-nav"><button class="btn ghost" id="gvPrev" ${j ? '' : 'disabled'}>◀ Previous</button><button class="btn" id="gvBackQ">Back to question ${st.n} ▶</button></div></div>`;
-      wireTop(j);
-      host.querySelector('#gvPrev').onclick = () => review(j - 1);
-      host.querySelector('#gvBackQ').onclick = draw;
     }
     function summary() {
       stopTalk();
-      const done = st.hist.filter(h => h.k !== null).length + Math.max(0, st.n - st.hist.length), pct = done ? Math.round(st.right / done * 100) : 0;
+      const done = st.done, pct = done ? Math.round(st.right / done * 100) : 0;
       host.innerHTML = `<div class="card done-card"><div class="gbig">♾️</div><h2>Practice summary</h2>
         <p class="sub">${H(topic.title)}</p><p class="sub">You answered <b>${done}</b> question${done === 1 ? '' : 's'} · ✔ <b>${st.right}</b> correct${done ? ` (${pct}%)` : ''} · +${st.xp} ⭐</p>
         <p class="sub">${pct >= 90 && done >= 5 ? 'Superb! You have really got this. 🌟' : done ? 'Every question makes your brain stronger. Keep going! 💪' : 'Try a few questions. They never run out!'}</p>
         <button class="btn" id="gvMore">Keep practising ▶</button><div style="height:8px"></div><button class="btn ghost" id="gvExit">Back to lesson</button></div>`;
-      host.querySelector('#gvMore').onclick = () => (st.cur && st.cur.k === null ? draw() : ask());
+      host.querySelector('#gvMore').onclick = () => { const c = st.hist[st.at]; c && c.k === null ? draw() : ask(); };
       host.querySelector('#gvExit').onclick = exit;
       if (window.scrollTo) window.scrollTo(0, 0);
     }

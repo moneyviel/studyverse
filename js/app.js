@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=35'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=36'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -497,49 +497,61 @@ function learnStep(b) {
   if ($('#genGo')) $('#genGo').onclick = () => Gen.open($('#stepBody'), t, { onExit: renderStep });
 }
 
-/* ---------- Quiz with animated explanation after every answer ---------- */
+/* ---------- Quiz with animated explanation after every answer ----------
+   Students move freely with ◀ Previous / Next ▶: a question can be skipped and answered later, an answered
+   question shows the chosen answer and its explanation again when revisited, and is scored only once. */
 function quizRunner(b, list, done) {
   if (!$('#s-topic').classList.contains('active')) Nav.sub();      // Back leaves the quiz and returns to the screen it started from
-  let i = 0, right = 0; const mistakes = [], hist = [];
+  let i = 0, right = 0, finished = false; const mistakes = [], hist = [];
+  const orders = list.map(({ q }) => Games.shuffle(q.options.map((o, k) => k)));
+  const N = list.length, answered = () => hist.filter(Boolean).length;
   ST.bm = ST.bm || {};
   const bmBtn = qid => `<button class="tst-ic qbm ${ST.bm[qid] ? 'on' : ''}" data-q="${esc(qid)}" aria-label="Bookmark this question">🔖</button>`;
   const wireBm = () => b.querySelectorAll('.qbm').forEach(x => x.onclick = () => { const id = x.dataset.q; if (ST.bm[id]) delete ST.bm[id]; else ST.bm[id] = today(); save(); x.classList.toggle('on', !!ST.bm[id]); toast(ST.bm[id] ? '🔖 Bookmarked' : 'Bookmark removed'); });
-  const review = j => {   /* read-only look back at an answered question */
-    const { q, qid } = list[j], h = hist[j];
-    b.innerHTML = `<div class="card"><div class="tst-top"><span class="tag">Question ${j + 1} of ${list.length} · review</span>${bmBtn(qid)}</div>
-      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div>${h.order.map(k => `<button class="opt ${k === q.answer ? 'right' : k === h.k ? 'wrong' : ''}" disabled>${esc(q.options[k])}</button>`).join('')}</div>
-      <div class="explain ${h.ok ? 'good' : 'bad'}"><div class="why">${esc(q.explain)} ${spk(q.explain)}</div>${(q.steps || []).map((s, n) => `<div class="exstep">${n + 1}. ${esc(s)}</div>`).join('')}</div>
-      <div class="tst-nav"><button class="btn ghost" id="rvPrev" ${j ? '' : 'disabled'}>◀ Previous</button><button class="btn" id="rvBack">Back to question ${i + 1} ▶</button></div></div>`;
-    wireBm(); $('#rvPrev').onclick = () => j && review(j - 1); $('#rvBack').onclick = () => (hist[i] ? review(i) : render());
-    if (hist[i] && j === i) $('#rvBack').textContent = 'Continue ▶', $('#rvBack').onclick = () => { const nx = i < list.length - 1; i++; nx ? render() : done({ right, total: list.length, mistakes }); };
+  const finish = () => {
+    if (finished) return;
+    const left = N - answered();
+    if (left) {
+      if (!confirm(`${left} question${left > 1 ? 's are' : ' is'} not answered yet. Finish anyway?`)) { go(list.findIndex((x, k) => !hist[k])); return; }
+    }
+    finished = true; done({ right, total: N, mistakes });
+  };
+  const go = j => { if (j < 0 || j >= N) return; i = j; render(); window.scrollTo(0, 0); };
+  const navRow = () => `<div class="tst-nav qnav"><button class="btn ghost" id="qPrev" ${i ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button>`
+    + `<button class="btn ${hist[i] ? 'mint' : ''}" id="nx" aria-label="${i < N - 1 ? (hist[i] ? 'Next question' : 'Skip to the next question') : 'Finish the quiz'}">${i < N - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+  const wireNav = () => { $('#qPrev').onclick = () => go(i - 1); $('#nx').onclick = () => (i < N - 1 ? go(i + 1) : finish()); };
+  const explain = (fresh) => {
+    const { q } = list[i], h = hist[i], ok = h.ok, box = $('#qx');
+    const draw = () => {
+      box.innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? '🎉 Correct!' : `🤔 Not quite — it's <b>${esc(q.options[q.answer])}</b>`}</div>
+        ${q.visual ? `<div class="vis">${Visual.render(q.visual)}</div>` : `<div class="bigans ${fresh ? 'popin' : ''}">${esc(q.options[q.answer])}</div>`}
+        <div class="why">${esc(q.explain)} ${spk(q.explain)}</div>
+        ${(q.steps || []).map((s, j) => `<div class="exstep ${fresh ? 'popin' : ''}" style="animation-delay:${(.4 + j * .45).toFixed(2)}s">${j + 1}. ${esc(s)}</div>`).join('')}</div>
+        ${q.visual || RUN ? `<div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" id="try3d" onclick="open3D()">🧪 Try it</button>' : ''}</div>` : ''}`;
+      const rep = $('#rep'); if (rep) rep.onclick = () => { fresh = true; draw(); };
+      if (RUN) labFor(RUN.t, RUN.c).then(sp => { const t = $('#try3d'); if (t && !sp) { const row = t.parentElement; t.remove(); if (row && !row.children.length) row.remove(); } });
+    };
+    draw();
+    b.querySelectorAll('.opt').forEach(x => { x.disabled = true; const k = +x.dataset.k; if (k === q.answer) x.classList.add('right'); else if (k === h.k) x.classList.add('wrong'); });
+    const nx = $('#nx'); if (nx) { nx.classList.add('mint'); if (i < N - 1) nx.setAttribute('aria-label', 'Next question'); }
+    if (fresh) setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
   };
   const render = () => {
-    const { q, qid } = list[i];
-    const order = Games.shuffle(q.options.map((o, k) => k));
-    b.innerHTML = `<div class="card"><div class="tst-top"><span class="tag">Question ${i + 1} of ${list.length}</span>${i ? '<button class="tst-ic" id="qPrev" aria-label="See previous question">◀</button>' : ''}${bmBtn(qid)}</div><div class="progress"><i style="width:${i / list.length * 100}%"></i></div>
-      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div></div>`;
-    wireBm(); const qp = $('#qPrev'); if (qp) qp.onclick = () => review(i - 1);
+    const { q, qid } = list[i], order = orders[i];
+    b.innerHTML = `<div class="card"><div class="tst-top"><span class="tag">Question ${i + 1} of ${N}${hist[i] ? ' · answered' : ''}</span>${bmBtn(qid)}</div><div class="progress"><i style="width:${answered() / N * 100}%"></i></div>
+      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div>${navRow()}</div>`;
+    wireBm(); wireNav();
+    if (hist[i]) { explain(false); return; }
     b.querySelectorAll('.opt').forEach(btn => btn.onclick = () => {
+      if (hist[i] || finished) return;                                  /* each question is scored once */
       const k = +btn.dataset.k, ok = k === q.answer; hist[i] = { order, k, ok };
-      b.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.answer) x.classList.add('right'); });
       const qs = ST.qstats[qid] || { s: 0, w: 0 }; qs.s++;
       if (ok) { right++; sfx('correct'); addXP(10); }
-      else { btn.classList.add('wrong'); sfx('wrong'); qs.w++; mistakes.push(q.mistake); ST.mistakes[q.mistake] = (ST.mistakes[q.mistake] || 0) + 1; }
+      else { sfx('wrong'); qs.w++; mistakes.push(q.mistake); ST.mistakes[q.mistake] = (ST.mistakes[q.mistake] || 0) + 1; }
       ST.qstats[qid] = qs; save();
-      const box = $('#qx');
-      const draw = () => {
-        box.innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? '🎉 Correct!' : `🤔 Not quite — it's <b>${esc(q.options[q.answer])}</b>`}</div>
-          ${q.visual ? `<div class="vis">${Visual.render(q.visual)}</div>` : `<div class="bigans popin">${esc(q.options[q.answer])}</div>`}
-          <div class="why">${esc(q.explain)} ${spk(q.explain)}</div>
-          ${(q.steps || []).map((s, j) => `<div class="exstep popin" style="animation-delay:${(.4 + j * .45).toFixed(2)}s">${j + 1}. ${esc(s)}</div>`).join('')}</div>
-          <div class="xrow">${q.visual ? '<button class="btn ghost" id="rep">🔁 Replay</button>' : ''}${RUN ? '<button class="btn ghost" id="try3d" onclick="open3D()">🧪 Try it</button>' : ''}${i ? '<button class="btn ghost" id="nxPrev" aria-label="Previous question">◀</button>' : ''}<button class="btn mint" id="nx">${i < list.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
-        const np = $('#nxPrev'); if (np) np.onclick = () => review(i - 1);
-        const rep = $('#rep'); if (rep) rep.onclick = draw;
-        if (RUN) labFor(RUN.t, RUN.c).then(sp => { const t = $('#try3d'); if (t && !sp) t.remove(); });
-        $('#nx').onclick = () => { i++; if (i < list.length) render(); else done({ right, total: list.length, mistakes }); };
-        setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
-      };
-      draw();
+      const tg = b.querySelector('.tst-top .tag'); if (tg) tg.textContent = `Question ${i + 1} of ${N} · answered`;
+      const pg = b.querySelector('.progress i'); if (pg) pg.style.width = answered() / N * 100 + '%';
+      explain(true);
     });
   };
   render();

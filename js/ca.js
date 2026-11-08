@@ -477,21 +477,42 @@
   function rng(seed) { let a = 2166136261; for (const ch of String(seed)) a = Math.imul(a ^ ch.charCodeAt(0), 16777619) >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
   function order(n, seed) { const r = rng(seed), a = Array.from({ length: n }, (_, i) => i); for (let i = n - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
   function objectivePaper(uid) { return /^fnd-p[34]-/.test(uid); }
+  /* ◀ Previous / Next ▶: skip a question and come back, revisit answered ones (answer and explanation shown again);
+     each question is recorded once, at the moment it is answered. Finishing with blanks asks first; blanks score 0. */
   function runMCQ(host, list, seed, done) {
-    let i = 0, right = 0, wrong = 0, qt0 = Date.now(); const t0 = Date.now(), log = [];
+    let i = 0, right = 0, wrong = 0, qt0 = Date.now(), over = false; const t0 = Date.now(), log = [], N = list.length;
+    const st = list.map(() => ({ pick: null, ms: 0 }));
+    const leave = () => { if (st[i] && st[i].pick == null) st[i].ms += Date.now() - qt0; qt0 = Date.now(); };
+    const go = j => { if (j < 0 || j >= N) return; leave(); i = j; render(); window.scrollTo(0, 0); };
+    const finish = () => {
+      if (over) return; const left = st.filter(x => x.pick == null).length;
+      const nb = D.getElementById('caMn');
+      if (left && nb && !nb.dataset.sure) { nb.dataset.sure = 1; nb.textContent = `${left} unanswered — tap again to finish`; return; }
+      leave(); over = true;
+      done({ right, wrong, total: N, ms: Date.now() - t0, log, skipped: list.filter((x, j) => st[j].pick == null).map(x => x.key) });
+    };
+    const feedback = () => {
+      const { q, key } = list[i], s = st[i], ok = s.pick === q.answer;
+      host.querySelectorAll('.opt').forEach(x => { x.disabled = true; const k = +x.dataset.k; if (k === q.answer) x.classList.add('right'); else if (k === s.pick) x.classList.add('wrong'); });
+      D.getElementById('caMx').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? 'Correct' : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain)}</div>${refChip(key, q)}</div>`;
+      const nb = D.getElementById('caMn'); if (nb && i < N - 1) nb.setAttribute('aria-label', 'Next question');
+    };
     const render = () => {
-      const { q, key } = list[i], ord = order(q.options.length, seed + key); qt0 = Date.now();
-      host.innerHTML = `<div class="card ca-mcq"><div class="ca-mtop"><span class="ca-k">Question ${i + 1} of ${list.length} · <span class="ca-qmk">${mk(mcqMarks(q))}</span></span><span class="ca-k">${right} correct</span></div>${bar(i / list.length)}
-        <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts">${ord.map((k, j) => `<button class="opt" data-k="${k}"><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div><div id="caMx"></div></div>`;
+      const { q, key } = list[i], ord = order(q.options.length, seed + key), s = st[i]; qt0 = Date.now();
+      const nAns = st.filter(x => x.pick != null).length;
+      host.innerHTML = `<div class="card ca-mcq"><div class="ca-mtop"><span class="ca-k">Question ${i + 1} of ${N} · <span class="ca-qmk">${mk(mcqMarks(q))}</span></span><span class="ca-k">${right} correct</span></div>${bar(nAns / N)}
+        <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts">${ord.map((k, j) => `<button class="opt" data-k="${k}"><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div><div id="caMx"></div>
+        <div class="ca-btns ca-setnav"><button class="btn ghost" id="caMp" ${i ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn" id="caMn" aria-label="${i < N - 1 ? (s.pick != null ? 'Next question' : 'Skip to the next question') : 'See result'}">${i < N - 1 ? 'Next ▶' : 'See result ▶'}</button></div></div>`;
+      D.getElementById('caMp').onclick = () => go(i - 1);
+      D.getElementById('caMn').onclick = () => (i < N - 1 ? go(i + 1) : finish());
+      if (s.pick != null) { feedback(); return; }
       host.querySelectorAll('.opt').forEach(b => b.onclick = () => {
-        const k = +b.dataset.k, ok = k === q.answer;
-        host.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.answer) x.classList.add('right'); });
-        if (!ok) b.classList.add('wrong');
-        ok ? right++ : wrong++; tap(ok ? 'correct' : 'wrong'); const ms = Date.now() - qt0; log.push({ key, ok, ms, pick: k });
+        if (s.pick != null || over) return;                                 /* recorded once */
+        const k = +b.dataset.k, ok = k === q.answer; s.pick = k;
+        ok ? right++ : wrong++; tap(ok ? 'correct' : 'wrong'); const ms = s.ms + Date.now() - qt0; s.ms = ms; qt0 = Date.now(); log.push({ key, ok, ms, pick: k });
         recordAns(key, ok, ms); if (T()) T().reviseMark(key, ok);
-        D.getElementById('caMx').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? 'Correct' : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain)}</div>${refChip(key, q)}</div>
-          <button class="btn ca-mnext" id="caMn">${i < list.length - 1 ? 'Next question ▶' : 'See result ▶'}</button>`;
-        D.getElementById('caMn').onclick = () => { i++; if (i < list.length) render(); else done({ right, wrong, total: list.length, ms: Date.now() - t0, log }); };
+        const rc = host.querySelector('.ca-mtop .ca-k:last-child'); if (rc) rc.textContent = `${right} correct`;
+        feedback();
         D.getElementById('caMn').focus({ preventScroll: true });
       });
     };
@@ -510,8 +531,8 @@
       const set = T() && T().freshOrder ? T().freshOrder(list, 'unit:' + U.uid) : list;
       runMCQ(D.getElementById('caMhost'), set, seed, r => {
         const got = r.log.reduce((a, x) => { const m = mcqMarks(set.find(l => l.key === x.key).q); return a + (x.ok ? m : obj ? -m * 0.25 : 0); }, 0);
-        D.getElementById('caMhost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">You scored ${fmt(Math.round(got * 100) / 100)} / ${fmt(totM)} marks</h2><p class="sub">${r.right} of ${r.total} correct${obj ? ' · −¼ of the marks for each wrong answer' : ''} · time ${Math.round(r.ms / 1000)} s</p>
-          ${r.log.filter(x => !x.ok).length ? `<h3 class="ca-h3">Review these</h3><ul class="ca-ul">${r.log.filter(x => !x.ok).map(x => `<li>${esc(set.find(l => l.key === x.key).q.q)} <em class="ca-qmk">${mk(mcqMarks(set.find(l => l.key === x.key).q))}</em></li>`).join('')}</ul>` : '<p class="sub">All correct — excellent.</p>'}
+        D.getElementById('caMhost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">You scored ${fmt(Math.round(got * 100) / 100)} / ${fmt(totM)} marks</h2><p class="sub">${r.right} of ${r.total} correct${(r.skipped || []).length ? ` · ${r.skipped.length} not answered` : ''}${obj ? ' · −¼ of the marks for each wrong answer' : ''} · time ${Math.round(r.ms / 1000)} s</p>
+          ${r.log.filter(x => !x.ok).length || (r.skipped || []).length ? `<h3 class="ca-h3">Review these</h3><ul class="ca-ul">${r.log.filter(x => !x.ok).map(x => x.key).concat(r.skipped || []).map(k => `<li>${esc(set.find(l => l.key === k).q.q)}${(r.skipped || []).includes(k) ? ' <em>(not answered)</em>' : ''} <em class="ca-qmk">${mk(mcqMarks(set.find(l => l.key === k).q))}</em></li>`).join('')}</ul>` : '<p class="sub">All correct — excellent.</p>'}
           <div class="ca-btns"><button class="btn ghost" id="caMagain">Try again</button><button class="btn ghost" id="caMgrp">Challenge your study group</button></div></div>${nextTabBtn('mcq')}`;
         D.getElementById('caMagain').onclick = () => mcqTab(P);
         D.getElementById('caMgrp').onclick = () => groupCreate(U.uid, { seed, s: r.right, ms: r.ms, k: r.total });
@@ -599,11 +620,45 @@
     const uid = key.split('#')[0], ph = att.photos || [];
     if (!CHK()) { modelOnly(host, q); return; }
     const res = CHK().checkAnswer({ question: q, answer: att.answer, photos: ph, unit: uid, qid: q.id });
-    if (res.status === 'waiting') {          // a photo alone cannot be marked: ask for the key points, save nothing
-      host.innerHTML = `<div class="card ca-rep ca-rep-wait" role="status"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">📝</span><div><h2 class="ca-h2s">One more step to get your marks</h2><p class="sub">Handwriting can't be read automatically. Type the key figures, entries and points from your page — your photo stays with the answer.</p></div></div>
-        <button class="btn" type="button" id="caTypeKP">Type my key points ▶</button></div>${modelHTML(q)}${notesHTML(q)}`;
-      const b = D.getElementById('caTypeKP'); if (b) b.onclick = () => { const t = D.getElementById('caAns'); if (t) { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); setTimeout(() => t.focus(), 300); } };
-      say('Type the key points from your photo to get marks.'); return;
+    if (res.status === 'waiting') {          // photo only: read the handwriting (free Gemini, adults only), let the student fix it, then mark
+      const typeKP = () => { const t = D.getElementById('caAns'); if (t) { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); setTimeout(() => t.focus(), 300); } };
+      const tail = `${modelHTML(q)}${notesHTML(q)}`;
+      const manual = msg => {
+        host.innerHTML = `<div class="card ca-rep ca-rep-wait" role="status"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">📝</span><div><h2 class="ca-h2s">One more step to get your marks</h2><p class="sub">${esc(msg || 'Type the key figures, entries and points from your page — your photo stays with the answer.')}</p></div></div>
+          <button class="btn" type="button" id="caTypeKP">Type my key points ▶</button></div>${tail}`;
+        const b = D.getElementById('caTypeKP'); if (b) b.onclick = typeKP;
+        say('Type the key points from your photo to get marks.');
+      };
+      let adult = null; try { adult = localStorage.getItem('sv_adult'); } catch (e) {}
+      if (!window.CaRead) { manual(); return; }
+      if (adult === 'n') { manual('Photo reading is only for students aged 18 or older. Type the key figures, entries and points from your page to get marks.'); return; }
+      const go = async () => {
+        host.innerHTML = `<div class="card ca-rep ca-rep-wait" role="status" aria-live="polite"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">🔍</span><div><h2 class="ca-h2s">Reading your handwriting…</h2><p class="sub">This takes about 10–20 seconds.</p></div></div></div>${tail}`;
+        say('Reading your handwriting.');
+        try {
+          const blobs = []; for (const x of ph) { const r = await T().photos.get(x.id).catch(() => null); if (r && r.blob) blobs.push(r.blob); }
+          if (!blobs.length) throw new Error('Could not open the photo. Please add it again.');
+          const text = String(await CaRead.read(blobs, q.q) || '').trim();
+          if (!text) throw new Error('No writing was found in the photo. Try a clearer, well-lit photo.');
+          host.innerHTML = `<div class="card ca-rep"><h2 class="ca-h2s">✅ Here's what we read</h2><p class="sub">Check it against your page and fix any word or number we got wrong — then tap “Mark my answer”.</p>
+            <label for="caReadT" class="ca-k">Your answer (from the photo)</label><textarea id="caReadT" class="ca-ta" rows="12" spellcheck="false"></textarea>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"><button class="btn" type="button" id="caReadOK">Mark my answer ▶</button><button class="btn ghost" type="button" id="caReadNo">Type it myself</button></div></div>${tail}`;
+          const ta = D.getElementById('caReadT'); ta.value = text;
+          D.getElementById('caReadNo').onclick = () => manual();
+          D.getElementById('caReadOK').onclick = () => {
+            const v = ta.value.trim(); if (!v) { toast('The answer is empty — type or fix it first'); return; }
+            const a = D.getElementById('caAns'); if (a) { a.value = v; a.dispatchEvent(new Event('input')); }
+            autoCheck(host, q, key, Object.assign({}, att, { answer: Object.assign({}, att.answer, { text: v }), words: (v.match(/\S+/g) || []).length }));
+          };
+          say('Done. Check the text, then tap Mark my answer.');
+        } catch (e) { manual(`${e.message || 'Could not read the photo.'} You can type the key points from your page instead.`); }
+      };
+      if (adult === 'y') { go(); return; }
+      host.innerHTML = `<div class="card ca-rep ca-rep-wait"><h2 class="ca-h2s">📷 Read my handwriting?</h2><p class="sub">We can read your photo with Google's free AI and then mark it. Google may use what it receives to improve its products. This is only for students aged 18 or older.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"><button class="btn" type="button" id="caAgeY">I'm 18 or older — read it</button><button class="btn ghost" type="button" id="caAgeN">I'm under 18</button></div></div>${tail}`;
+      D.getElementById('caAgeY').onclick = () => { try { localStorage.setItem('sv_adult', 'y'); } catch (e) {} go(); };
+      D.getElementById('caAgeN').onclick = () => { try { localStorage.setItem('sv_adult', 'n'); } catch (e) {} manual('Photo reading is only for students aged 18 or older. Type the key figures, entries and points from your page to get marks.'); };
+      return;
     }
     const c = C(), rec = Object.assign({ d: today(), secs: att.secs, words: att.words, text: (att.answer.text || '').slice(0, 6000), table: att.answer.table,
       photos: ph.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })) }, CHK().record(res));

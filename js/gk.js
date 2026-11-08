@@ -201,29 +201,51 @@
   }
 
   /* ---------- Quiz (4 options, explanation) ---------- */
-  function qCard(q, i, n, extra = '') {
-    return `<div class="card"><div class="tst-top">${tagOf(q.c)}<span class="gk-n ra-skip">${extra || `${i + 1} / ${n}`}</span></div>${n ? `<div class="progress"><i style="width:${i / n * 100}%"></i></div>` : ''}
-      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="gkOpts">${shuffle(q.o.map((o, k) => k)).map(k => `<button class="opt" data-k="${k}">${esc(q.o[k])}</button>`).join('')}</div><div id="gkX"></div></div>`;
+  function qCard(q, i, n, extra = '', ord, nav = '', prog) {
+    return `<div class="card"><div class="tst-top">${tagOf(q.c)}<span class="gk-n ra-skip">${extra || `${i + 1} / ${n}`}</span></div>${n ? `<div class="progress"><i style="width:${(prog == null ? i / n : prog) * 100}%"></i></div>` : ''}
+      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="gkOpts">${(ord || shuffle(q.o.map((o, k) => k))).map(k => `<button class="opt" data-k="${k}">${esc(q.o[k])}</button>`).join('')}</div><div id="gkX"></div>${nav}</div>`;
+  }
+  /* ◀ Previous / Next ▶ for the 10-question quiz and true-or-false rounds: skip and come back, revisit answered
+     questions (answer and explanation shown again), each scored once; Finish asks before leaving blanks. */
+  function stepper(N, isDone, draw, finish) {
+    const S = { i: 0 };
+    S.nav = () => `<div class="tst-nav qnav"><button class="btn ghost" id="qPrev" ${S.i ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn ${isDone(S.i) ? 'mint' : ''}" id="nx" aria-label="${S.i < N - 1 ? (isDone(S.i) ? 'Next question' : 'Skip to the next question') : 'Finish'}">${S.i < N - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+    S.go = j => { if (j < 0 || j >= N) return; S.i = j; draw(); window.scrollTo(0, 0); };
+    S.end = () => { let left = 0, first = -1; for (let k = 0; k < N; k++) if (!isDone(k)) { left++; if (first < 0) first = k; }
+      if (left && !confirm(`${left} question${left > 1 ? 's are' : ' is'} not answered yet. Finish anyway?`)) { S.go(first); return; } finish(); };
+    S.wire = b => { b.querySelector('#qPrev').onclick = () => S.go(S.i - 1); b.querySelector('#nx').onclick = () => (S.i < N - 1 ? S.go(S.i + 1) : S.end()); };
+    S.answered = b => { const nx = b.querySelector('#nx'); if (nx) { nx.classList.add('mint'); if (S.i < N - 1) nx.setAttribute('aria-label', 'Next question'); } };
+    S.count = () => { let c = 0; for (let k = 0; k < N; k++) if (isDone(k)) c++; return c; };
+    return S;
   }
   function explainBox(ok, q, nextLabel) {
     return `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? '🎉 Correct!' : `🤔 Not quite — it's <b>${esc(q.o[q.a])}</b>`}</div><div class="why">${esc(q.x)} ${spkBtn('.explain', 'the explanation')}</div></div>
       <div class="xrow"><button class="btn mint" id="nx">${nextLabel}</button></div>`;
   }
   function quiz(list) {
-    const b = frame('❓ GK Quiz'); let i = 0, right = 0;
+    const b = frame('❓ GK Quiz'); let right = 0, over = false; const N = list.length;
+    const st = list.map(q => ({ ord: shuffle(q.o.map((o, k) => k)), k: null }));
+    const S = stepper(N, j => st[j].k !== null, () => draw(), () => done());
+    const show = fresh => {
+      const q = list[S.i], s = st[S.i], ok = s.k === q.a;
+      b.querySelectorAll('.opt').forEach(x => { x.disabled = true; const k = +x.dataset.k; if (k === q.a) x.classList.add('right'); else if (k === s.k) x.classList.add('wrong'); });
+      b.querySelector('#gkX').innerHTML = explainBox(ok, q, '').replace(/<div class="xrow">[\s\S]*$/, '');
+      S.answered(b);
+      if (fresh) setTimeout(() => b.querySelector('#gkX')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+    };
     const draw = () => {
-      const q = list[i]; b.innerHTML = qCard(q, i, list.length);
+      const q = list[S.i], s = st[S.i]; b.innerHTML = qCard(q, S.i, N, '', s.ord, S.nav(), S.count() / N); S.wire(b);
+      if (s.k !== null) { show(false); return; }
       b.querySelectorAll('.opt').forEach(o => o.onclick = () => {
-        const k = +o.dataset.k, ok = k === q.a;
-        b.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.a) x.classList.add('right'); });
-        if (!ok) o.classList.add('wrong');
+        if (s.k !== null || over) return;
+        const k = +o.dataset.k, ok = k === q.a; s.k = k;
         if (ok) { right++; tap('correct'); addXP(5); } else tap('wrong');
-        b.querySelector('#gkX').innerHTML = explainBox(ok, q, i < list.length - 1 ? 'Next ▶' : 'Finish ▶');
-        b.querySelector('#nx').onclick = () => { i++; i < list.length ? draw() : done(); };
-        setTimeout(() => b.querySelector('#gkX')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+        const pg = b.querySelector('.progress i'); if (pg) pg.style.width = S.count() / N * 100 + '%';
+        show(true);
       });
     };
     const done = () => {
+      if (over) return; over = true;
       tap('unlock'); bumpStreakSafe();
       b.innerHTML = `<div class="card done-card"><div class="gbig" aria-hidden="true">${right >= list.length * .8 ? '🏆' : right >= list.length / 2 ? '🌟' : '💪'}</div><h2>${right} / ${list.length} correct</h2><p class="sub">You earned ${right * 5} ⭐ in this quiz.</p>
         <button class="btn" id="nx">Play again ▶</button><div style="height:8px"></div><button class="btn ghost" id="gkBackH">Back to GK Explorer</button></div>`;
@@ -289,12 +311,29 @@
     });
   }
   function tf(list) {
-    const b = frame('✅ True or false'); let i = 0, right = 0;
+    const b = frame('✅ True or false'); let right = 0, over = false; const N = list.length;
+    const items = list.map(q => ({ it: tfItem(q), said: null }));
+    const S = stepper(N, j => items[j].said !== null, () => draw(), () => done());
+    const show = fresh => {
+      const e = items[S.i], it = e.it, q = it.q, ok = e.said === it.truth;
+      b.querySelectorAll('.tfb').forEach(y => { y.disabled = true; y.classList.toggle('picked', (y.dataset.v === '1') === e.said); });
+      b.querySelector('#gkX').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? '🎉 Correct!' : '🤔 Not quite.'} It's ${it.truth ? 'true' : 'false'}: the answer is <b>${esc(q.o[q.a])}</b>.</div><div class="why">${esc(q.x)} ${spkBtn('.explain', 'the explanation')}</div></div>`;
+      S.answered(b);
+      if (fresh) setTimeout(() => b.querySelector('#gkX')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+    };
     const draw = () => {
-      const it = tfItem(list[i]); b.innerHTML = tfCard(it, `${i + 1} / ${list.length}`);
-      tfAnswer(b, it, ok => { if (ok) { right++; addXP(3); } i++; i < list.length ? draw() : done(); }, () => (i < list.length - 1 ? 'Next ▶' : 'Finish ▶'));
+      const e = items[S.i];
+      b.innerHTML = tfCard(e.it, `${S.i + 1} / ${N}${e.said !== null ? ' · answered' : ''}`).replace(/<\/div>$/, S.nav() + '</div>'); S.wire(b);
+      if (e.said !== null) { show(false); return; }
+      b.querySelectorAll('.tfb').forEach(x => x.onclick = () => {
+        if (e.said !== null || over) return;
+        e.said = x.dataset.v === '1'; const ok = e.said === e.it.truth;
+        if (ok) { right++; addXP(3); } tap(ok ? 'correct' : 'wrong');
+        show(true);
+      });
     };
     const done = () => {
+      if (over) return; over = true;
       tap('unlock');
       b.innerHTML = `<div class="card done-card"><div class="gbig" aria-hidden="true">✅</div><h2>${right} / ${list.length} correct</h2><p class="sub">You earned ${right * 3} ⭐.</p><button class="btn" id="nx">Play again ▶</button><div style="height:8px"></div><button class="btn ghost" id="gkBackH">Back to GK Explorer</button></div>`;
       b.querySelector('#nx').onclick = () => run('tf'); b.querySelector('#gkBackH').onclick = () => open({ keep: true });

@@ -55,7 +55,7 @@
 .${T}stat{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;color:#6b7090;margin:2px 2px 6px}
 .${T}g{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr);row-gap:7px}
 .${T}ht{font-size:12px;font-weight:800;color:#8b5cf6;text-transform:none;text-align:center;line-height:1.3;padding-bottom:1px;overflow-wrap:anywhere}
-.${T}svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}
+.${T}svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:2}
 .${T}svg line{stroke-width:4;stroke-linecap:round}
 .${T}svg line.tmp{stroke:#ffc93c;stroke-dasharray:2 7}
 .${T}svg line.bad{stroke:#ff6b6b;animation:${T}fade 1s forwards}
@@ -113,9 +113,19 @@
         svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', T + 'svg'); grid.appendChild(svg);
       }
       const card = (s, k) => grid.querySelector(`.${T}c[data-s="${s}"][data-k="${k}"]`);
+      /* Line ends are worked out in the grid's own layout pixels (the SVG's user units), not screen pixels:
+         the app scales its pages with CSS zoom (text size 90–150%) and cards animate with transforms, and
+         either one used to push the lines past the card edge. Ends are also kept inside the grid. */
+      const clampPt = (x, y) => ({ x: Math.max(2, Math.min(grid.clientWidth - 2, x)), y: Math.max(2, Math.min(grid.clientHeight - 2, y)) });
       function anchor(s, k) {
-        const g = grid.getBoundingClientRect(), r = card(s, k).getBoundingClientRect();
-        return { x: (s === 'L' ? r.right : r.left) - g.left, y: r.top + r.height / 2 - g.top };
+        const c = card(s, k);
+        if (c.offsetParent === grid) return clampPt(c.offsetLeft + (s === 'L' ? c.offsetWidth : 0), c.offsetTop + c.offsetHeight / 2);
+        const g = grid.getBoundingClientRect(), r = c.getBoundingClientRect(), sx = g.width / (grid.offsetWidth || g.width || 1), sy = g.height / (grid.offsetHeight || g.height || 1);
+        return clampPt(((s === 'L' ? r.right : r.left) - g.left) / (sx || 1), (r.top + r.height / 2 - g.top) / (sy || 1));
+      }
+      function gridPt(cx, cy) {
+        const g = grid.getBoundingClientRect(), sx = g.width / (grid.offsetWidth || g.width || 1), sy = g.height / (grid.offsetHeight || g.height || 1);
+        return clampPt((cx - g.left) / (sx || 1), (cy - g.top) / (sy || 1));
       }
       function mkLine(a, b, cls, color) {
         const ln = document.createElementNS(NS, 'line');
@@ -224,8 +234,7 @@
           if (lockedCard) { st = null; return; }
           st.moved = true; sel = { s: st.s, k: st.k }; draw();
         }
-        const g = grid.getBoundingClientRect();
-        tmp = { a: anchor(st.s, st.k), b: { x: e.clientX - g.left, y: e.clientY - g.top } };
+        tmp = { a: anchor(st.s, st.k), b: gridPt(e.clientX, e.clientY) };
         lines(); e.preventDefault();
       });
       const up = e => {
@@ -240,6 +249,7 @@
       const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => lines()) : null;
       if (ro) ro.observe(grid);
       const onRs = () => lines(); window.addEventListener('resize', onRs);
+      grid.addEventListener('animationend', () => { if (svg) lines(); });
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (svg) lines(); });
       if (chk) chk.onclick = check;
       $('.' + T + 'rst').onclick = () => { api.sfx('tap'); reset(); };

@@ -286,10 +286,14 @@
   D.addEventListener('sv:back', () => { stopRec(); hush(); });
   function vivaMax(v) { return v.points.reduce((a, p) => a + p.w, 0); }
   function vivaRun(host, items, opts = {}) {
-    let i = 0; const results = []; let hide = false;
+    let i = 0; const results = []; let hide = false, stopCur = null;
     if (opts.back && window.Nav) Nav.sub(() => { stopRec(); hush(); opts.back(); });
-    const render = () => {
-      stopRec(); hush();
+    /* ◀ Previous / Next ▶: skip a question and come back; a marked answer is shown again when revisited
+       ("Answer again" re-tries it); the summary counts each question once (its latest marked answer). */
+    const go = j => { if (stopCur) stopCur(); hush(); if (j < 0) return; if (j >= items.length) { stopRec(); summary(); return; } i = j; render(); window.scrollTo(0, 0); };
+    const vnav = () => items.length > 1 ? `<div class="ca-btns ca-setnav"><button class="btn ghost" id="cvPrev" ${i ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn ghost" id="cvSkip" aria-label="${i < items.length - 1 ? (results[i] ? 'Next question' : 'Skip to the next question') : 'Finish the viva'}">${i < items.length - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>` : '';
+    const render = again => {
+      stopRec(); hush(); if (stopCur) stopCur();
       const { uid, v, title } = items[i]; let secs = 0, timer = null, mode = 'say', photosNow = [];
       const max = vivaMax(v);
       host.innerHTML = `<div class="card ca-viva"><div class="ca-mtop"><span class="ca-k">Viva · question ${i + 1} of ${items.length} · ${max} marks</span><span class="ca-timer" id="cvT" aria-label="Time">00:00</span></div>
@@ -303,11 +307,12 @@
           <label class="ca-lab" for="cvA">Your answer</label><textarea id="cvA" class="ca-ta ca-vta" rows="5" placeholder="${SR ? 'Your spoken answer appears here — or type it' : 'Type your answer as you would say it in a viva'}"></textarea>
           <p class="ca-interim" id="cvInt" aria-hidden="true"></p>
           <button class="btn" id="cvCheck">Check my marks ▶</button></div>
-          <div id="cvPhotoBox" hidden></div><button class="btn" id="cvPhCheck" hidden>Save photo ▶</button></div><div id="cvRes"></div>`;
+          <div id="cvPhotoBox" hidden></div><button class="btn" id="cvPhCheck" hidden>Save photo ▶</button>${vnav()}</div><div id="cvRes"></div>`;
+      if (D.getElementById('cvPrev')) { D.getElementById('cvPrev').onclick = () => go(i - 1); D.getElementById('cvSkip').onclick = () => go(i + 1); }
       const ta = D.getElementById('cvA'), st = D.getElementById('cvMicSt'), intEl = D.getElementById('cvInt');
       const tick = () => { secs++; const t = D.getElementById('cvT'); if (!t) { clearInterval(timer); return; } t.textContent = secsTxt(secs); };
       const startT = () => { if (!timer) timer = setInterval(tick, 1000); };
-      const stopT = () => { clearInterval(timer); timer = null; };
+      const stopT = () => { clearInterval(timer); timer = null; }; stopCur = stopT;
       const ask = () => { if (speakOK()) { stopRec(); sayQ(v.q); } startT(); };
       if (D.getElementById('cvSay')) D.getElementById('cvSay').onclick = ask;
       D.getElementById('cvHide').onclick = () => { hide = !hide; D.getElementById('cvQ').hidden = hide; D.getElementById('cvQh').hidden = !hide; const b = D.getElementById('cvHide'); b.setAttribute('aria-pressed', String(hide)); b.textContent = hide ? '👁 Show text' : '🙈 Hide text'; if (hide) ask(); };
@@ -356,8 +361,12 @@
         while (h.length > 5) { const old = h.shift(); (old.photos || []).forEach(x => photos.del(x.id)); }
         if ((rec.photos || []).length) photos.keep(rec.photos.map(x => x.id));
         save(); try { bumpStreak(); addXP(Math.max(3, Math.round(rec.pct / 10))); } catch (e) {}
-        results[i] = { uid, v, pct: rec.pct, marks: rec.marks, max };
-        const ok = rec.pct >= 80;
+        results[i] = { uid, v, pct: rec.pct, marks: rec.marks, max, rec, hit: hitIds };
+        showRes(rec, hitIds, true);
+      };
+      const showRes = (rec, hitIds, fresh) => {
+        const ok = rec.pct >= 80, secs = rec.secs || 0;
+        const sk = D.getElementById('cvSkip'); if (sk && i < items.length - 1) sk.setAttribute('aria-label', 'Next question');
         D.getElementById('cvRes').innerHTML = `<div class="card ca-vres ${ok ? 'ok' : ''}"><div class="ca-vhead">${X.ring(rec.pct / 100, 64, `${rec.marks} of ${max} marks`)}<div><h2 class="ca-h2s">You scored ${fmt(rec.marks)}/${max} marks</h2><p class="sub">${ok ? '✓ Viva-ready (80% or more)' : rec.pct >= 50 ? 'Good start — fill the gaps' : 'Keep going — revise the missed points'}${secs ? ` · ${secsTxt(secs)}` : ''}</p></div></div>
             ${(rec.photos || []).length ? '<div class="ca-phstrip" id="cvPhStrip"></div>' : ''}
             <h3 class="ca-h3">Key points</h3><ul class="ca-kp">${v.points.map(p => { const hit = hitIds.includes(p.id); return `<li class="${hit ? 'hit' : 'miss'}"><span aria-hidden="true">${hit ? '✓' : '✗'}</span><span class="sr-only">${hit ? 'Covered:' : 'Missed:'}</span> ${esc(p.pt)} <em>${hit ? p.w : 0}/${p.w}</em></li>`; }).join('')}</ul>
@@ -365,11 +374,11 @@
             <div class="ca-btns">${speakOK() ? '<button class="btn ghost" id="cvHear">🔊 Hear model answer</button>' : ''}<button class="btn ghost" id="cvAgain">↻ Answer again</button><button class="btn" id="cvNext">${i < items.length - 1 ? 'Next question ▶' : 'Finish ▶'}</button></div>
             <p class="ca-note">Checked on this device: words are compared by stem, with synonyms, number tolerance and negation (“not”, “never” …). It checks coverage of the key points, not grammar or delivery.</p></div>`;
         if (D.getElementById('cvPhStrip')) photos.strip(D.getElementById('cvPhStrip'), rec.photos);
-        say(`${rec.marks} out of ${max} marks. ${ok ? 'Viva ready.' : ''}`);
+        if (fresh) say(`${rec.marks} out of ${max} marks. ${ok ? 'Viva ready.' : ''}`);
         if (D.getElementById('cvHear')) D.getElementById('cvHear').onclick = () => sayQ(v.model);
-        D.getElementById('cvAgain').onclick = () => render();
-        D.getElementById('cvNext').onclick = () => { hush(); i++; if (i < items.length) { render(); window.scrollTo(0, 0); } else summary(); };
-        D.getElementById('cvRes').scrollIntoView({ behavior: 'smooth', block: 'start' }); D.getElementById('cvNext').focus({ preventScroll: true });
+        D.getElementById('cvAgain').onclick = () => render(true);
+        D.getElementById('cvNext').onclick = () => go(i + 1);
+        if (fresh) { D.getElementById('cvRes').scrollIntoView({ behavior: 'smooth', block: 'start' }); D.getElementById('cvNext').focus({ preventScroll: true }); }
       };
       D.getElementById('cvCheck').onclick = () => {
         stopRec(); stopT(); hush(); intEl.textContent = '';
@@ -390,14 +399,15 @@
           <details class="ca-given"><summary>Model answer</summary><p class="ca-p">${esc(v.model)}</p></details>
           <div class="ca-btns"><button class="btn" id="cvPNext">${i < items.length - 1 ? 'Next question ▶' : 'Finish ▶'}</button></div></div></div></div>`;
         photos.strip(D.getElementById('cvPhS'), photosNow); say('Saved. To get a score, say or type the same answer.');
-        D.getElementById('cvPNext').onclick = () => { hush(); i++; if (i < items.length) { render(); window.scrollTo(0, 0); } else summary(); };
+        D.getElementById('cvPNext').onclick = () => go(i + 1);
         D.getElementById('cvRes').scrollIntoView({ behavior: 'smooth', block: 'start' });
       };
+      if (!again && results[i] && results[i].rec) { ta.value = results[i].rec.text || ''; showRes(results[i].rec, results[i].hit || [], false); return; }
       if (speakOK() && opts.autoRead !== false) setTimeout(() => { if (D.getElementById('cvQ')) ask(); }, 350);
     };
     const summary = () => {
       const done = results.filter(Boolean), got = done.reduce((a, r) => a + r.marks, 0), mx = done.reduce((a, r) => a + r.max, 0);
-      host.innerHTML = `<div class="card ca-res"><span class="ca-k">Viva finished</span><h2 class="ca-h2s">You scored ${fmt(got)}/${mx} marks</h2><p class="sub">${done.filter(r => r.pct >= 80).length} of ${done.length} answers viva-ready (80%+).</p>
+      host.innerHTML = `<div class="card ca-res"><span class="ca-k">Viva finished</span><h2 class="ca-h2s">You scored ${fmt(got)}/${mx} marks</h2><p class="sub">${done.filter(r => r.pct >= 80).length} of ${done.length} answers viva-ready (80%+).${done.length < items.length ? ` ${items.length - done.length} not answered.` : ''}</p>
         <ul class="ca-kp">${done.map(r => `<li class="${r.pct >= 80 ? 'hit' : 'miss'}"><span aria-hidden="true">${r.pct >= 80 ? '✓' : '✗'}</span> ${esc(r.v.q)} <em>${fmt(r.marks)}/${r.max}</em></li>`).join('')}</ul>
         <div class="ca-btns"><button class="btn ghost" id="cvRe">↻ Again</button><button class="btn" id="cvBack">Done</button></div></div>`;
       D.getElementById('cvRe').onclick = () => vivaRun(host, items, opts);
@@ -530,11 +540,11 @@
         <div class="ca-chipsel" role="radiogroup" aria-label="Difficulty">${DIFF.map(([k, n]) => `<button type="button" class="ca-cs" role="radio" aria-checked="${k === diff}" data-df="${k}">${n}</button>`).join('')}</div>
         <h2 class="qtext ca-mq">${esc(q.q)}</h2>${q.given ? X.blocks(q.given) : ''}<div class="ca-opts">${h.ord.map((k, j) => `<button class="opt ${locked && k === q.answer ? 'right' : ''} ${locked && k === h.pick && k !== q.answer ? 'wrong' : ''}" data-k="${k}" ${locked ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
         <div id="enFb">${locked ? `<div class="explain ${h.pick === q.answer ? 'good' : 'bad'}"><div class="verdict">${h.pick === q.answer ? `Correct · +${mk1(qm(q))}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}${X.refChip ? X.refChip(q.unit || uid, q) : ''}</div>` : ''}</div>
-        <div class="ca-btns ca-setnav"><button class="btn ghost" id="enPrev" ${at ? '' : 'disabled'}>◀ Previous</button><button class="btn" id="enNext" ${locked ? '' : 'disabled'}>Next ▶</button></div>
+        <div class="ca-btns ca-setnav"><button class="btn ghost" id="enPrev" ${at ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn ${locked ? '' : 'ghost'}" id="enNext" aria-label="${locked ? 'Next question' : 'Skip to the next question'}">Next ▶</button></div>
         <button class="ca-link" id="enEnd">Stop practising</button></div>`;
-      P.querySelectorAll('.opt').forEach(b => b.onclick = () => { h.pick = +b.dataset.k; done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); D.getElementById('enNext').focus({ preventScroll: true }); });
+      P.querySelectorAll('.opt').forEach(b => b.onclick = () => { if (h.pick != null) return; h.pick = +b.dataset.k; done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); D.getElementById('enNext').focus({ preventScroll: true }); });
       P.querySelectorAll('[data-df]').forEach(b => b.onclick = () => { diff = b.dataset.df; if (!locked) { hist[at] = next(); } draw(); });
-      D.getElementById('enPrev').onclick = () => { at--; draw(); };
+      D.getElementById('enPrev').onclick = () => { if (at > 0) { at--; draw(); window.scrollTo(0, 0); } };
       D.getElementById('enNext').onclick = () => { at++; if (at >= hist.length) hist.push(next()); draw(); window.scrollTo(0, 0); };
       D.getElementById('enEnd').onclick = () => { if (window.Nav) history.back(); else back(); };
     };
@@ -571,20 +581,23 @@
       t0 = Date.now(); const it = items[i], s = st[i], q = it.q, locked = !test && answered(s);
       const caseHTML = it.cs ? `<details class="ca-case" ${i === 0 || items[i - 1].cs !== it.cs ? 'open' : ''}><summary>📄 Case: ${esc(it.cs.title)}</summary><p class="ca-p">${esc(it.cs.case)}</p>${X.blocks(it.cs.given)}</details>` : '';
       host.innerHTML = `<div class="card ca-mcq ca-set"><div class="ca-mtop"><span class="ca-k">${test ? 'Test' : 'Practice'} · Q ${i + 1} of ${N}</span>${opts.perQ ? `<span class="ca-timer" id="csT" role="timer" aria-label="Seconds left">${s.left}s</span>` : `<span class="ca-timer" id="csT" aria-hidden="true">${secsTxt((Date.now() - started) / 1000)}</span>`}</div>${X.bar(i / N)}
-        ${test ? `<div class="ca-pal" role="group" aria-label="Question palette">${st.map((x, j) => `<button class="${j === i ? 'cur' : ''} ${answered(x) ? 'ans' : ''}" data-j="${j}" aria-label="Question ${j + 1}${answered(x) ? ', answered' : ''}">${j + 1}</button>`).join('')}</div>` : ''}
+        ${N > 1 ? `<div class="ca-pal" role="group" aria-label="Question palette">${st.map((x, j) => `<button class="${j === i ? 'cur' : ''} ${answered(x) ? 'ans' : ''}" data-j="${j}" aria-label="Question ${j + 1}${answered(x) ? ', answered' : ''}"${j === i ? ' aria-current="true"' : ''}>${j + 1}</button>`).join('')}</div>` : ''}
         ${caseHTML}<p class="ca-k ca-chtag">${esc(tagOf(it))} · ${esc(diffName(q.difficulty || 'core'))} · <span class="ca-qmk">${mk1(qm(q))}</span>${it.gen ? ' · <span class="ca-gentag">♾️ new variant</span>' : ''}</p>
         <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts" role="group" aria-label="Options">${s.ord.map((k, j) => `<button class="opt ${test && s.pick === k ? 'sel' : ''}" data-k="${k}" ${test ? `aria-pressed="${s.pick === k}"` : ''} ${locked || (test && s.out) ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
         <div id="csFb"></div>
-        <div class="ca-btns ca-setnav">${test ? `<button class="btn ghost" id="csPrev" ${i ? '' : 'disabled'}>◀ Previous</button>` : ''}${test || locked ? `<button class="btn" id="csNext">${i < N - 1 ? 'Next ▶' : test ? 'Finish test ✓' : 'See results ▶'}</button>` : ''}</div>
+        <div class="ca-btns ca-setnav"><button class="btn ghost" id="csPrev" ${i ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn" id="csNext" aria-label="${i < N - 1 ? (test || locked ? 'Next question' : 'Skip to the next question') : test ? 'Finish test' : 'See results'}">${i < N - 1 ? 'Next ▶' : test ? 'Finish test ✓' : 'See results ▶'}</button></div>
         ${test ? '<button class="ca-link" id="csEnd">Finish test now</button>' : ''}</div>`;
       if (locked) feedback();
       host.querySelectorAll('.opt').forEach(b => b.onclick = () => {
         const k = +b.dataset.k;
+        if (!test && answered(s)) return;          /* practice: each question is graded once */
         if (test) { s.pick = k; host.querySelectorAll('.opt').forEach(x => { const on = +x.dataset.k === k; x.classList.toggle('sel', on); x.setAttribute('aria-pressed', String(on)); }); const pb = host.querySelector(`.ca-pal [data-j="${i}"]`); if (pb) pb.classList.add('ans'); tap('tap'); return; }
         s.pick = k; leave(); grade(i); tap(k === q.answer ? 'correct' : 'wrong'); render(); D.getElementById('csNext').focus({ preventScroll: true });
       });
-      const nx = D.getElementById('csNext'); if (nx) nx.onclick = () => { leave(); i++; if (i < N) render(); else finish(); window.scrollTo(0, 0); };
-      const pv = D.getElementById('csPrev'); if (pv) pv.onclick = () => { leave(); i--; render(); };
+      const nx = D.getElementById('csNext'); if (nx) nx.onclick = () => {
+        if (i >= N - 1 && !test) { const un = st.filter(x => !answered(x)).length; if (un && !nx.dataset.sure) { nx.dataset.sure = 1; nx.textContent = `${un} unanswered — tap again to see results`; return; } }
+        leave(); i++; if (i < N) render(); else finish(); window.scrollTo(0, 0); };
+      const pv = D.getElementById('csPrev'); if (pv) pv.onclick = () => { if (!i) return; leave(); i--; render(); window.scrollTo(0, 0); };
       const en = D.getElementById('csEnd'); if (en) en.onclick = () => { const un = st.filter(x => !answered(x)).length; if (un && !en.dataset.sure) { en.dataset.sure = 1; en.textContent = `${un} unanswered — tap again to finish`; return; } leave(); finish(); };
       host.querySelectorAll('.ca-pal button').forEach(b => b.onclick = () => { leave(); i = +b.dataset.j; render(); });
       if (opts.perQ && !(locked || (test && s.out))) tm = setInterval(() => {
@@ -601,7 +614,7 @@
       D.getElementById('csFb').innerHTML = `<div class="explain ${ok ? 'good' : 'bad'}"><div class="verdict">${ok ? `Correct · +${mk1(qm(q))}` : s.out && s.pick == null ? `Time up — answer: ${esc(q.options[q.answer])}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}${chipOf(it)}</div>`;
     };
     const finish = () => {
-      clearInterval(tm); if (test) items.forEach((_, j) => grade(j));
+      clearInterval(tm); items.forEach((_, j) => grade(j));   /* graded[] keeps each question to one record */
       const res = items.map((it, j) => ({ it, s: st[j], ok: st[j].pick === it.q.answer, skip: st[j].pick == null, ref: refOf(it) }));
       const right = res.filter(r => r.ok).length, wrong = res.filter(r => !r.ok && !r.skip).length, skip = res.filter(r => r.skip).length, ms = res.reduce((a, r) => a + r.s.ms, 0);
       const neg = items.some(it => /^fnd-p[34]-/.test(it.uid || it.key)), maxM = res.reduce((a, r) => a + qm(r.it.q), 0);
@@ -685,7 +698,7 @@
           <div class="ca-pal" role="group" aria-label="Questions">${m.questions.map((x, j) => `<button class="${j === cur ? 'cur' : ''} ${hasAns(x) ? 'ans' : ''} ${attempting(x) ? 'att' : ''}" data-j="${j}" aria-label="${esc(x.id)}${isComp(x) ? ' compulsory' : attempting(x) ? ' attempting' : ''}${hasAns(x) ? ', answered' : ''}">${esc(x.id)}</button>`).join('')}</div></div>
         <div class="card ca-mq1"><div class="ca-mtop"><h2 class="ca-h2s">Question ${esc(q.id.slice(1))} <small>(${q.marks} marks)</small></h2>${isComp(q) ? '<span class="ca-chip">Compulsory</span>' : `<label class="ca-att"><input type="checkbox" id="cmAtt" ${attempting(q) ? 'checked' : ''}> Attempting (${dr.chosen.length}/${m.choose})</label>`}</div>
           ${q.parts.map(p => partHTML(q, p)).join('')}</div>
-        <div class="ca-btns"><button class="btn ghost" id="cmPrev" ${cur ? '' : 'disabled'}>◀ ${cur ? esc(m.questions[cur - 1].id) : ''}</button><button class="btn ghost" id="cmNext" ${cur < m.questions.length - 1 ? '' : 'disabled'}>${cur < m.questions.length - 1 ? esc(m.questions[cur + 1].id) : ''} ▶</button></div>
+        <div class="ca-btns ca-setnav"><button class="btn ghost" id="cmPrev" ${cur ? '' : 'disabled'} aria-label="Previous question${cur ? ', ' + esc(m.questions[cur - 1].id) : ''}">◀ Previous${cur ? ` (${esc(m.questions[cur - 1].id)})` : ''}</button><button class="btn ghost" id="cmNext" ${cur < m.questions.length - 1 ? '' : 'disabled'} aria-label="Next question${cur < m.questions.length - 1 ? ', ' + esc(m.questions[cur + 1].id) : ''}">Next${cur < m.questions.length - 1 ? ` (${esc(m.questions[cur + 1].id)})` : ''} ▶</button></div>
         <button class="ca-link" id="cmLeave">Save and leave — resume later</button>`;
       el.querySelectorAll('.ca-pal button').forEach(b => b.onclick = () => { cur = +b.dataset.j; draw(); window.scrollTo(0, 0); });
       D.getElementById('cmPrev').onclick = () => { cur--; draw(); window.scrollTo(0, 0); };
