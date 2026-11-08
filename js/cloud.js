@@ -17,10 +17,8 @@
   const set = (k, v) => { try { v == null ? LS.removeItem(k) : LS.setItem(k, v); } catch (e) {} };
   const jget = (k, d) => { try { const v = JSON.parse(get(k)); return v == null ? d : v; } catch (e) { return d; } };
   const demo = () => !!get('sv_demo');
-  /* Not shown to everyone yet: the Privacy Policy must be updated before accounts open to all.
-     Visible for the owner (?owner), after opening the app once with ?account, or when already signed in. */
-  if (/[?&]account\b/.test(location.search)) set('sv_cloud_on', '1');
-  const on = () => get('sv_owner') === '1' || get('sv_cloud_on') === '1' || !!S;
+  /* StudyVerse can only be used with an account: a full-screen sign-in gate covers the app until signed in. */
+  const on = () => true;
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
   const COURSES = { 'ca-foundation': 'CA Foundation', 'ca-inter': 'CA Intermediate', 'ca-final': 'CA Final', school: 'School (Class 1–12)' };
@@ -60,6 +58,7 @@
   function keep(j) {
     S = { at: j.access_token, rt: j.refresh_token, exp: j.expires_at || (Date.now() / 1000 + (j.expires_in || 3600)), user: j.user ? { id: j.user.id, email: j.user.email } : (S && S.user) };
     set('sv_auth', JSON.stringify(S));
+    gate();
   }
   let refreshing = null;
   async function fresh() {
@@ -68,7 +67,7 @@
       .then(keep).catch(e => { if (e.status >= 400 && e.status < 500) drop(); throw e; }).finally(() => { refreshing = null; });
     return refreshing;
   }
-  function drop() { S = null; set('sv_auth', null); linked = false; status = 'off'; paint(); }   // session ended: progress stays on the phone
+  function drop() { S = null; set('sv_auth', null); linked = false; status = 'off'; paint(); gate(); }   // session ended: progress stays on the phone
 
   /* ---------- 3. progress ---------- */
   function payload() {
@@ -366,17 +365,18 @@
     const T = { up: 'Create your free account', in: 'Sign in', forgot: 'Reset your password', newpw: 'Set a new password' }[mode];
     const pwField = mode !== 'forgot', emField = mode !== 'newpw';
     const el = openSheet(`<h3 id="clT">${T}</h3>
-      ${mode === 'up' ? '<p>Your progress will be saved to your account. Under 18? Please ask a parent to create the account.</p>' : ''}
+      ${mode === 'up' ? '<p>Your progress will be saved to your account. Under 18? Please ask a parent or guardian to create the account.</p>' : ''}
       ${mode === 'forgot' ? '<p>Enter your email and we will send you a link to set a new password.</p>' : ''}
       <form id="clF" novalidate>
         ${emField ? '<label for="clE">Email</label><input class="cl-in" id="clE" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required>' : ''}
         ${pwField ? `<label for="clP">${mode === 'newpw' ? 'New password' : 'Password'}</label><input class="cl-in" id="clP" type="password" autocomplete="${mode === 'in' ? 'current-password' : 'new-password'}" minlength="8" required>
           <label class="cl-show cl-small"><input type="checkbox" id="clSh"> Show password</label>` : ''}
         ${mode === 'up' || mode === 'newpw' ? '<p class="cl-small">At least 8 characters.</p>' : ''}
+        ${mode === 'up' ? '<label class="cl-show cl-small" style="align-items:flex-start"><input type="checkbox" id="clC" style="margin-top:3px"> <span>I am 18 or older. If this account is for a child, I am their parent or guardian and I agree to the <a href="legal/privacy.html">Privacy Policy</a> and <a href="legal/terms.html">Terms</a>.</span></label>' : ''}
         <div class="cl-err" id="clErr" role="alert"></div>${msg ? `<div class="cl-ok" role="status">${esc(msg)}</div>` : ''}
         <button class="btn" type="submit" id="clGo">${{ up: 'Create account', in: 'Sign in', forgot: 'Send reset link', newpw: 'Save new password' }[mode]}</button>
       </form>
-      ${mode === 'up' ? `<p class="cl-small" style="margin-top:10px">By creating an account you agree to the <a href="legal/terms.html">Terms</a> and <a href="legal/privacy.html">Privacy Policy</a>.</p><button class="cl-link" type="button" data-go="in">Already have an account? Sign in</button>` : ''}
+      ${mode === 'up' ? `<button class="cl-link" type="button" data-go="in">Already have an account? Sign in</button>` : ''}
       ${mode === 'in' ? '<button class="cl-link" type="button" data-go="forgot">Forgot password?</button><br><button class="cl-link" type="button" data-go="up">New here? Create a free account</button>' : ''}
       ${mode === 'forgot' ? '<button class="cl-link" type="button" data-go="in">Back to sign in</button>' : ''}
       ${mode !== 'newpw' ? '<div style="height:6px"></div><button class="btn ghost" type="button" id="clX">Cancel</button>' : ''}`, mode !== 'newpw');
@@ -390,6 +390,7 @@
       if (emField && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { er.textContent = 'Please enter a valid email address.'; return; }
       if (pwField && mode !== 'in' && pw.length < 8) { er.textContent = 'Please use at least 8 characters.'; return; }
       if (pwField && !pw) { er.textContent = 'Please enter your password.'; return; }
+      if (mode === 'up' && !el.querySelector('#clC').checked) { er.textContent = 'Please tick the box: a parent or guardian must create a child\u2019s account.'; return; }
       go.disabled = true; const label = go.textContent; go.textContent = 'Please wait…';
       try {
         if (mode === 'up') {
@@ -419,11 +420,43 @@
     });
   }
 
+  /* ---------- sign-in gate ---------- */
+  const gateCss = `#svGate{position:fixed;inset:0;z-index:980;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 22px;text-align:center;
+background:radial-gradient(120% 80% at 50% 0%,#5B0F1B 0%,#15161C 70%);color:#F4EAD8;overflow:auto}
+#svGate h1{margin:0;font-size:34px;letter-spacing:.5px}#svGate h1 span{color:#C9A76A}
+#svGate p{margin:0;max-width:420px;line-height:1.5;color:#e9dcc4}
+#svGate .g-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:340px;margin-top:10px}
+#svGate button{font-size:17px;font-weight:700;padding:14px;border-radius:14px;border:0;cursor:pointer}
+#svGate .g-up{background:#C9A76A;color:#15161C}#svGate .g-in{background:transparent;color:#F4EAD8;border:1.5px solid #C9A76A}
+#svGate .g-legal{font-size:12px;color:#c9bba0}#svGate .g-legal a{color:#C9A76A}
+html.sv-gated,html.sv-gated body{overflow:hidden}`;
+  function gate() {
+    let g = D.getElementById('svGate');
+    if (S || demo() || !D.body) {
+      if (g) { g.remove(); D.documentElement.classList.remove('sv-gated'); D.querySelectorAll('[data-sv-inert]').forEach(x => { x.inert = false; x.removeAttribute('data-sv-inert'); }); }
+      return;
+    }
+    if (g) return;
+    style();
+    if (!D.getElementById('svGateCss')) { const c = D.createElement('style'); c.id = 'svGateCss'; c.textContent = gateCss; D.head.appendChild(c); }
+    g = D.createElement('div'); g.id = 'svGate'; g.setAttribute('role', 'dialog'); g.setAttribute('aria-modal', 'true'); g.setAttribute('aria-labelledby', 'svGateT');
+    g.innerHTML = `<h1 id="svGateT">Study<span>Verse</span></h1>
+      <p>Learn, practise and play — CBSE Class 1–12 and CA Foundation. Create a free account to start; your progress is saved safely to it.</p>
+      <div class="g-btns"><button class="g-up" type="button" data-cl="up">Create free account</button><button class="g-in" type="button" data-cl="in">Sign in</button></div>
+      <p class="g-legal">A parent or guardian creates a child's account. <a href="legal/privacy.html">Privacy</a> · <a href="legal/terms.html">Terms</a></p>`;
+    D.body.appendChild(g); D.documentElement.classList.add('sv-gated'); wire(g); gateInert();
+  }
+  function gateInert() {                             // things the app adds later stay unreachable behind the gate
+    if (!D.getElementById('svGate')) return;
+    [...D.body.children].forEach(x => { if (x.tagName !== 'SCRIPT' && x.id !== 'svGate' && !x.classList.contains('sheet') && !x.inert) { x.inert = true; x.setAttribute('data-sv-inert', '1'); } });
+  }
+
   function repaintMe() { const c = D.getElementById('svCloud'); if (c) { c.dataset.h = ''; paint(); } const o = D.getElementById('svCloudOb'); if (o && S) o.remove(); }
 
   /* ---------- 6. start ---------- */
   function start() {
-    new MutationObserver(() => { if (!start.t) start.t = requestAnimationFrame(() => { start.t = 0; inject(); }); }).observe(D.body, { childList: true, subtree: true });
+    gate();
+    new MutationObserver(() => { if (!start.t) start.t = requestAnimationFrame(() => { start.t = 0; inject(); gateInert(); }); }).observe(D.body, { childList: true, subtree: true });
     inject();
     if (linkMsg) setTimeout(() => say(linkMsg), 800);
     if (S) arrive().then(() => { if (recovery) form('newpw'); });

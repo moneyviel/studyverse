@@ -12,6 +12,8 @@
     if (get('sv_demo') != null) set('sv_state', real == null || real === '__none__' ? null : real);
     set('sv_state_real', null); set('sv_demo', null);
   }
+  // leftover demo profile on a phone (from the removed demo login): never let it become a real account's progress
+  try { const st = JSON.parse(get('sv_state') || 'null'); if (st && st.profile && st.profile.name === 'Demo Student') set('sv_state', null); } catch (e) {}
   if (/[?&]demo\b/.test(location.search)) {
     try { const u = new URL(location.href); u.searchParams.delete('demo'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); } catch (e) {}
   }
