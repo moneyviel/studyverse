@@ -321,9 +321,12 @@
     const h = cardHTML(); if (!h) { c.remove(); return; }
     if (c.dataset.h === h) return; c.dataset.h = h; c.innerHTML = h; wire(c);
   }
+  // the student's profile screen: school "Me", or the CA Profile (rendered inside #s-ca; it has the name box #caNm)
+  const meHost = () => { const ca = D.getElementById('s-ca'); return (ca && ca.querySelector('#caNm')) ? ca : D.getElementById('s-me'); };
   function inject() {                                // account card on the Me / profile screen, sign-in link on onboarding
-    const me = D.getElementById('s-me');
+    const me = meHost();
     if (!on() || isParent()) return;
+    if (me) ['svCloud', 'svCode', 'svCodes'].forEach(id => { const x = D.getElementById(id); if (x && !me.contains(x)) x.remove(); });   // cards follow the visible profile (school Me / CA Profile)
     if (me && me.firstElementChild && !D.getElementById('svCloud') && !demo()) {
       style(); const c = D.createElement('div'); c.className = 'card'; c.id = 'svCloud';
       const first = me.querySelector(':scope > .card'); first ? first.after(c) : me.prepend(c); paint();
@@ -347,7 +350,7 @@
 
   /* ---------- codes: students redeem, owner creates ---------- */
   function codeCard(refresh) {
-    const me = D.getElementById('s-me'); if (!me || !S) return;
+    const me = meHost(); if (!me || !S) return;
     let c = D.getElementById('svCode');
     if (c && !refresh) return;
     if (!c) { c = D.createElement('div'); c.className = 'card'; c.id = 'svCode'; const a = D.getElementById('svCloud'); a ? a.after(c) : me.appendChild(c); }
@@ -374,7 +377,7 @@
   const ALPH = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   const genCode = () => { const a = new Uint32Array(6); crypto.getRandomValues(a); return 'FREE-' + [...a].map(n => ALPH[n % ALPH.length]).join(''); };
   function ownerCodes() {
-    const me = D.getElementById('s-me'); if (!me || !meta().adm || D.getElementById('svCodes')) return;
+    const me = meHost(); if (!me || !meta().adm || D.getElementById('svCodes')) return;
     const c = D.createElement('div'); c.className = 'card'; c.id = 'svCodes';
     const o = D.getElementById('caOwner'); o ? o.after(c) : me.appendChild(c);
     c.innerHTML = `<h3>🎟️ Codes (owner)</h3>
