@@ -24,7 +24,8 @@
   const visible = el => !!el && el.isConnected && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden' && !el.closest('[hidden],[inert]');
   const activeScreen = () => $1('.screen.active');
   const SHEETS = '.sheet, .asksheet';
-  const openSheet = () => $$(SHEETS).filter(s => s.classList.contains('show')).pop() || null;
+  /* the full-screen Parent Hub is the bottom layer: a sheet opened over it (higher z-index) is the top one */
+  const openSheet = () => { const l = $$(SHEETS).filter(s => s.classList.contains('show')); return l.filter(s => !s.classList.contains('pv-hub')).pop() || l.pop() || null; };
   const scope = () => openSheet() || activeScreen() || D.body;
   const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"]),summary';
   const now = () => Date.now();
@@ -257,6 +258,7 @@
   function watchSheets() { $$(SHEETS).forEach(s => { if (s._svw) return; s._svw = 1; sheetObs.observe(s, { attributes: true, attributeFilter: ['class'] }); if (s.classList.contains('show')) dialogOpened(s); }); }
   function closeTop() {
     const s = openSheet(); if (!s) return false;
+    if (s.hasAttribute('data-pinned')) return false;       // Parent Home (parent accounts) cannot be closed
     const btn = $$('button', s).find(b => b.matches('.ask-x,#rvX,#uxDone,[data-close]') || /^(close|done|got it|no thanks)$/i.test(b.textContent.trim()));
     if (btn) btn.click(); else s.classList.remove('show');
     return true;

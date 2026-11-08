@@ -173,7 +173,9 @@ function scheduler(){
   while(SND.next < SND.ctx.currentTime+.12){ scheduleStep(SND.step,SND.next); SND.next+=spb/4; SND.step++; }
 }
 function myTrack(){ return SND.choice==='auto' ? SND.myGrade : +SND.choice; }
+const parentMode=()=>document.documentElement.classList.contains('sv-parent');   // parent accounts (js/cloud.js): no music
 function startMusic(grade){
+  if(parentMode()) return;
   initAudio(); if(!SND.ctx) return;
   SND.grade = grade || myTrack();
   SND.theme=THEMES[SND.grade]; SND.pat=makePattern(SND.theme); SND.step=0; SND.loop=0;
@@ -230,7 +232,7 @@ updateSndBtn();
 /* start music on the first tap (browsers block sound until the user touches the page) */
 let firstTap=true;
 document.addEventListener('pointerdown',()=>{ if(!firstTap) return; firstTap=false; initAudio(); if(SND.on) startMusic(); },{capture:true});
-setTimeout(()=>{ if(firstTap && !/^(pro|senior)$/.test(document.documentElement.dataset.age||'')) toast('🎵 Tap anywhere to start the music'); },1200);
+setTimeout(()=>{ if(firstTap && !parentMode() && !/^(pro|senior)$/.test(document.documentElement.dataset.age||'')) toast('🎵 Tap anywhere to start the music'); },1200);
 /* stop sound when the phone locks, the app goes to background, or the page closes */
 function pauseAll(){ if(SND.ctx && SND.ctx.state==='running') SND.ctx.suspend(); }
 function resumeAll(){ if(SND.ctx && SND.on && document.visibilityState==='visible' && SND.ctx.state==='suspended') SND.ctx.resume(); }

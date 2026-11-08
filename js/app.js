@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=39'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=40'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;
@@ -721,5 +721,6 @@ if ('serviceWorker' in navigator && !inFrame && (location.protocol === 'https:' 
 (async function init() {
   hud();
   try { CUR = await loadJSON('content/curriculum.json'); } catch (e) { CUR = { grades: {} }; }
+  if (window.Cloud && Cloud.isParent && Cloud.isParent()) return;   // parent accounts see only Parent Home (js/parent.js)
   if (!ST.profile) onboard(1); else { setGrade(ST.profile.grade); worldScreen(); }
 })();

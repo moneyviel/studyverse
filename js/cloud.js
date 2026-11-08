@@ -28,6 +28,20 @@
   // owner mode only comes from an owner (admin) account now — the old passcode owner mode is switched off
   if (get('sv_owner') === '1' && !(jget('sv_cloud', {}).adm && S)) set('sv_owner', null);
   let status = 'off', lastErr = '', recovery = false, busy = false, linked = false, linkMsg = '';
+  const one = r => Array.isArray(r) ? r[0] : r;
+
+  /* ---------- account role: 'student' or 'parent' (studyverse rpc set_my_role / my_role) ----------
+     Chosen on the sign-up form and set once on the server after the first sign-in. Cached per user in
+     sv_role = { uid, role: 'parent'|'student'|'none', sure } ('none' = no role on the server: treated as a student).
+     Parent accounts see only Parent Home (js/parent.js): no onboarding, courses, trial, plans or paywall. */
+  const ROLE_K = 'sv_role', PEND_K = 'sv_role_pending';
+  let userMeta = null;                              // user_metadata from Auth (holds sv_role chosen at sign-up, any device)
+  function role() { const c = jget(ROLE_K, null); return S && S.user && c && c.uid === S.user.id ? c.role : null; }
+  const setRole = (uid, r, sure) => set(ROLE_K, JSON.stringify({ uid, role: r, sure: !!sure }));
+  const isParent = () => !!S && !demo() && role() === 'parent';
+  const parentCss = () => { if (D.getElementById('svParentCss')) return; const c = D.createElement('style'); c.id = 'svParentCss';
+    c.textContent = 'html.sv-parent .app>:not(.toast){display:none!important}html.sv-parent .toast{z-index:995}html.sv-parent .askfab,html.sv-parent .sv-talk,html.sv-parent .ca-hlbtn{display:none!important}'; (D.head || D.documentElement).appendChild(c); };
+  if (isParent()) { parentCss(); D.documentElement.classList.add('sv-parent'); }   // before the first paint: no flash of the student app
 
   /* ---------- 1. login links from emails: #access_token=…&type=signup|recovery ---------- */
   (function catchLink() {
@@ -45,6 +59,17 @@
     try { history.replaceState(history.state, '', location.pathname + location.search); } catch (e) {}
   })();
 
+  /* ---------- 1b. parent's email invite: ?invite=1&email=<child email> → sign-up form prefilled, role Student ---------- */
+  let invite = null;
+  (function catchInvite() {
+    try {
+      const u = new URL(location.href); if (!u.searchParams.get('invite')) return;
+      invite = { email: (u.searchParams.get('email') || '').trim().toLowerCase() };
+      u.searchParams.delete('invite'); u.searchParams.delete('email');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) {}
+  })();
+
   /* ---------- 2. talking to Supabase ---------- */
   async function call(path, opt = {}, auth = true) {
     const h = Object.assign({ apikey: KEY, 'Content-Type': 'application/json' }, opt.headers || {});
@@ -58,6 +83,7 @@
   const rest = (path, opt = {}) => call('/rest/v1/' + path, Object.assign({}, opt, { headers: Object.assign({ 'Accept-Profile': SCHEMA, 'Content-Profile': SCHEMA }, opt.headers || {}) }));
   function keep(j) {
     S = { at: j.access_token, rt: j.refresh_token, exp: j.expires_at || (Date.now() / 1000 + (j.expires_in || 3600)), user: j.user ? { id: j.user.id, email: j.user.email } : (S && S.user) };
+    if (j.user && j.user.user_metadata) userMeta = j.user.user_metadata;
     set('sv_auth', JSON.stringify(S));
     gate();
   }
@@ -127,11 +153,51 @@
     if (demo()) { status = 'demo'; paint(); return; }
     status = 'idle'; paint();
     try {
-      if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; set('sv_auth', JSON.stringify(S)); }
+      if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; userMeta = u.user_metadata || null; set('sv_auth', JSON.stringify(S)); }
+      const wasParent = isParent(), r = await resolveRole();
+      if (r === 'parent') { enterParent(); owner(); status = 'ok'; paint(); return; }   // parents: no progress sync, trial or courses
+      if (wasParent && (r === 'student' || r === 'none')) { location.replace(SITE); return; }
+      repaintMe();
+      await claim();
       await link();
       access(); owner(); prof();
       if (linked) { status = status === 'saving' ? status : 'ok'; paint(); }
     } catch (e) { status = navigator.onLine === false || e.status === 0 ? 'offline' : 'error'; lastErr = e.message; paint(); }
+  }
+
+  /* role: cached once known for sure; otherwise ask the server, and set the role chosen at sign-up (once) */
+  async function resolveRole() {
+    const uid = S.user.id, email = (S.user.email || '').toLowerCase(), c = jget(ROLE_K, null), mine = c && c.uid === uid ? c : null;
+    if (mine && mine.sure && (mine.role === 'parent' || mine.role === 'student')) { set(PEND_K, null); return mine.role; }
+    const pj = jget(PEND_K, null);
+    let pend = pj && pj.email === email ? pj.role : (userMeta && userMeta.sv_role) || null;
+    if (pend !== 'parent' && pend !== 'student') pend = null;
+    let r;
+    try {
+      r = one(await rest('rpc/my_role', { method: 'POST', body: {} }));
+      if (r && typeof r === 'object') r = r.my_role || r.role || null;
+    } catch (e) { if (pend) { setRole(uid, pend, false); return pend; } return mine ? mine.role : null; }
+    if (r !== 'parent' && r !== 'student') r = null;
+    if (!r && pend) {
+      try { const y = one(await rest('rpc/set_my_role', { method: 'POST', body: { p_role: pend } })); r = y && (y.role === 'parent' || y.role === 'student') ? y.role : (y && y.ok ? pend : null); }
+      catch (e) { setRole(uid, pend, false); return pend; }
+    }
+    set(PEND_K, null); setRole(uid, r || 'none', true);
+    return r || 'none';
+  }
+  function enterParent() {
+    parentCss(); D.documentElement.classList.add('sv-parent');
+    try { if (SND.playing) { SND.playing = false; clearInterval(SND.timer); } } catch (e) {}   // music may have started on the sign-up tap
+    let n = 0; const go = () => { if (window.Parent && Parent.home) Parent.home(); else if (n++ < 50) setTimeout(go, 100); }; go();
+  }
+  /* a parent's email invite for this student's email: link them (once per sign-in; cheap) */
+  let claimedFor = null;
+  async function claim() {
+    const uid = S.user.id; if (claimedFor === uid) return; claimedFor = uid;
+    try {
+      const r = one(await rest('rpc/claim_invites', { method: 'POST', body: {} }));
+      if (r && r.linked > 0) { setTimeout(() => say('You\u2019re now linked to your parent ✓'), 2100); try { if (window.Parent && Parent._pull) setTimeout(Parent._pull, 300); } catch (e) {} }
+    } catch (e) {}
   }
 
   /* free-forever lock + discount code saved on the student's profile */
@@ -154,6 +220,7 @@
     }
   }
   async function access() {
+    if (isParent()) return;                          // parents have no courses and no trial
     try {
       // a new account gets its 24-hour trial of all school grades once (the server decides; repeated calls change nothing)
       if (!get('sv_trial')) { try { await rest('rpc/start_trial', { method: 'POST', body: {} }); set('sv_trial', '1'); } catch (e) {} }
@@ -173,8 +240,8 @@
   const courses = () => jget('sv_access', []).filter(a => !a.valid_until || new Date(a.valid_until) > new Date());
 
   /* ---------- 4. account actions ---------- */
-  const signUp = async (email, pw) => {
-    const j = await call('/auth/v1/signup?redirect_to=' + encodeURIComponent(SITE), { method: 'POST', body: { email, password: pw } }, false);
+  const signUp = async (email, pw, r) => {
+    const j = await call('/auth/v1/signup?redirect_to=' + encodeURIComponent(SITE), { method: 'POST', body: r ? { email, password: pw, data: { sv_role: r } } : { email, password: pw } }, false);
     if (j && j.access_token) { keep(j); await arrive(); return 'in'; }
     return 'confirm';
   };
@@ -184,7 +251,7 @@
   async function signOut() {
     try { await push(true); } catch (e) {}
     try { await call('/auth/v1/logout', { method: 'POST' }); } catch (e) {}
-    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner', 'sv_lock', 'sv_disc', 'sv_trial'].forEach(k => set(k, null));
+    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner', 'sv_lock', 'sv_disc', 'sv_trial', ROLE_K, PEND_K, 'sv_pctl'].forEach(k => set(k, null));
     wipeLocal();
   }
 
@@ -199,7 +266,12 @@
 .cl-link{background:none;border:0;color:#8A6A2E;font-weight:600;font-size:14px;padding:8px 0;cursor:pointer;text-decoration:underline}
 .cl-small{font-size:12px!important;color:#6b6e78!important}.cl-show{display:flex;align-items:center;gap:6px;font-weight:500!important}
 .cl-pick{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;border:1.5px solid #c9c2b2;border-radius:12px;background:#fff;color:#15161C;font-size:15px;cursor:pointer}
-.cl-pick b{display:block}.cl-pick small{color:#4a4d57}`;
+.cl-pick b{display:block}.cl-pick small{color:#4a4d57}
+.cl-role{border:0;margin:10px 0 2px;padding:0;min-width:0}.cl-role legend{font-weight:700;font-size:14px;margin:0 0 6px;padding:0;color:#15161C}
+.cl-roles{display:flex;gap:10px}.cl-rc{position:relative;flex:1;display:flex!important;flex-direction:column;align-items:center;gap:2px;margin:0!important;min-height:92px;padding:10px 8px;border:2px solid #c9c2b2;border-radius:14px;background:#fff;cursor:pointer;text-align:center;font-weight:500!important}
+.cl-rc input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}.cl-rc span{font-size:30px;line-height:1.1}.cl-rc b{font-size:16px;color:#15161C}.cl-rc small{font-size:12px;color:#4a4d57;line-height:1.25}
+.cl-rc.on{border-color:#8A6A2E;background:#F4EAD8;box-shadow:0 0 0 2px #C9A76A}.cl-rc:focus-within{outline:3px solid #8A6A2E;outline-offset:2px}
+.cl-inv{background:#F4EAD8;border-radius:12px;padding:10px 12px;font-size:14px!important;color:#15161C!important}`;
   function style() { if (D.getElementById('svCloudCss')) return; const s = D.createElement('style'); s.id = 'svCloudCss'; s.textContent = css; D.head.appendChild(s); }
 
   function stLine() {
@@ -236,7 +308,7 @@
   }
   function inject() {                                // account card on the Me / profile screen, sign-in link on onboarding
     const me = D.getElementById('s-me');
-    if (!on()) return;
+    if (!on() || isParent()) return;
     if (me && me.firstElementChild && !D.getElementById('svCloud') && !demo()) {
       style(); const c = D.createElement('div'); c.className = 'card'; c.id = 'svCloud';
       const first = me.querySelector(':scope > .card'); first ? first.after(c) : me.prepend(c); paint();
@@ -367,14 +439,18 @@
     return m;
   };
 
-  function form(mode, msg) {
+  function form(mode, msg, opt = {}) {
     const T = { up: 'Create your free account', in: 'Sign in', forgot: 'Reset your password', newpw: 'Set a new password' }[mode];
     const pwField = mode !== 'forgot', emField = mode !== 'newpw';
     const el = openSheet(`<h3 id="clT">${T}</h3>
+      ${mode === 'up' && opt.invite ? '<p class="cl-inv">🎉 Your parent invited you. Create your account with this email — you will be linked to them automatically.</p>' : ''}
       ${mode === 'up' ? '<p>Your progress will be saved to your account. Under 18? Please ask a parent or guardian to create the account.</p>' : ''}
       ${mode === 'forgot' ? '<p>Enter your email and we will send you a link to set a new password.</p>' : ''}
       <form id="clF" novalidate>
-        ${emField ? '<label for="clE">Email</label><input class="cl-in" id="clE" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required>' : ''}
+        ${mode === 'up' ? `<fieldset class="cl-role" role="radiogroup" aria-required="true" aria-labelledby="clRoleL"><legend id="clRoleL">I am a:</legend><div class="cl-roles">
+          <label class="cl-rc${opt.role === 'student' ? ' on' : ''}"><input type="radio" name="clRole" value="student"${opt.role === 'student' ? ' checked' : ''}><span aria-hidden="true">🎓</span><b>Student</b><small>I want to learn</small></label>
+          <label class="cl-rc${opt.role === 'parent' ? ' on' : ''}"><input type="radio" name="clRole" value="parent"${opt.role === 'parent' ? ' checked' : ''}><span aria-hidden="true">👨‍👩‍👧</span><b>Parent</b><small>I want to follow my child</small></label></div></fieldset>` : ''}
+        ${emField ? `<label for="clE">Email</label><input class="cl-in" id="clE" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required value="${esc(opt.email || '')}">` : ''}
         ${pwField ? `<label for="clP">${mode === 'newpw' ? 'New password' : 'Password'}</label><input class="cl-in" id="clP" type="password" autocomplete="${mode === 'in' ? 'current-password' : 'new-password'}" minlength="8" required>
           <label class="cl-show cl-small"><input type="checkbox" id="clSh"> Show password</label>` : ''}
         ${mode === 'up' || mode === 'newpw' ? '<p class="cl-small">At least 8 characters.</p>' : ''}
@@ -388,6 +464,7 @@
       ${mode !== 'newpw' ? '<div style="height:6px"></div><button class="btn ghost" type="button" id="clX">Cancel</button>' : ''}`, mode !== 'newpw');
     el.querySelectorAll('[data-go]').forEach(b => b.onclick = () => form(b.dataset.go));
     const x = el.querySelector('#clX'); if (x) x.onclick = closeSheet;
+    el.querySelectorAll('input[name=clRole]').forEach(i => i.onchange = () => el.querySelectorAll('.cl-rc').forEach(l => l.classList.toggle('on', l.contains(i) ? i.checked : false)));
     const sh = el.querySelector('#clSh'); if (sh) sh.onchange = () => { el.querySelector('#clP').type = sh.checked ? 'text' : 'password'; };
     el.querySelector('#clF').onsubmit = async e => {
       e.preventDefault();
@@ -396,20 +473,23 @@
       if (emField && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { er.textContent = 'Please enter a valid email address.'; return; }
       if (pwField && mode !== 'in' && pw.length < 8) { er.textContent = 'Please use at least 8 characters.'; return; }
       if (pwField && !pw) { er.textContent = 'Please enter your password.'; return; }
+      const rc = el.querySelector('input[name=clRole]:checked'), rl = rc ? rc.value : null;
+      if (mode === 'up' && !rl) { er.textContent = 'Please choose: Student or Parent.'; return; }
       if (mode === 'up' && !el.querySelector('#clC').checked) { er.textContent = 'Please tick the box: a parent or guardian must create a child\u2019s account.'; return; }
       go.disabled = true; const label = go.textContent; go.textContent = 'Please wait…';
       try {
         if (mode === 'up') {
-          const r = await signUp(email, pw);
+          set(PEND_K, JSON.stringify({ email, role: rl }));   // set on the server after the first sign-in
+          const r = await signUp(email, pw, rl);
           if (r === 'confirm') { openSheet(`<h3 id="clT">Check your email 📧</h3><p>We sent a confirmation link to <b>${esc(email)}</b>. Open it on this phone to finish creating your account.</p><p class="cl-small">Not there? Check Spam or Promotions.</p><button class="btn" type="button" id="clX">OK</button>`).querySelector('#clX').onclick = closeSheet; return; }
-          if (sheet.querySelector('#clF')) closeSheet(); say('Account created ✓ Your progress is being saved');
+          if (sheet.querySelector('#clF')) closeSheet(); say(isParent() ? 'Account created ✓ Welcome!' : 'Account created ✓ Your progress is being saved');
         } else if (mode === 'in') { await signIn(email, pw); if (sheet.querySelector('#clF')) closeSheet(); say('Signed in ✓'); }
         else if (mode === 'forgot') { await forgot(email); form('in', 'If this email has an account, a reset link is on its way. Open it on this phone.'); return; }
         else if (mode === 'newpw') { await newPassword(pw); recovery = false; try { sessionStorage.removeItem('sv_recovery'); } catch (e) {} closeSheet(); say('New password saved ✓'); arrive(); }
         repaintMe();
       } catch (err) { er.textContent = errText(err); go.disabled = false; go.textContent = label; }
     };
-    const f = el.querySelector('.cl-in'); if (f && matchMedia('(pointer:fine)').matches) f.focus();
+    const f = el.querySelector(opt.email ? '#clP' : '.cl-in'); if (f && matchMedia('(pointer:fine)').matches) f.focus();
   }
 
   function choose(local, cloud, when, uid) {
@@ -474,6 +554,8 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
     inject();
     if (linkMsg) setTimeout(() => say(linkMsg), 800);
     try { if (sessionStorage.getItem('sv_recovery')) recovery = true; } catch (e) {}
+    if (invite && !S) form('up', null, { email: invite.email, role: 'student', invite: true });
+    if (isParent()) enterParent();
     if (S && recovery) form('newpw');                // ask for the new password straight away, before anything else can reload the page
     if (S) arrive().then(() => { if (recovery && !(sheet && sheet.classList.contains('show'))) form('newpw'); });
     setInterval(() => push(), 30000);
@@ -482,5 +564,6 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', () => setTimeout(start, 0)) : setTimeout(start, 0);
 
-  window.Cloud = { rest, call, refreshAccess: access, user: () => (S && S.user) || null, api: API, key: KEY, errText: e => errText(e), sheet: openSheet, closeSheet, admin: () => !!(S && meta().adm), signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, locked, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
+  window.Cloud = { rest, call, refreshAccess: access, user: () => (S && S.user) || null, api: API, key: KEY, errText: e => errText(e), sheet: openSheet, closeSheet, admin: () => !!(S && meta().adm), signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, locked, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status,
+    isParent, role: () => role(), signOut: () => signOut() };
 })();

@@ -34,6 +34,9 @@
   const demo = () => { try { return !!LS.getItem('sv_demo'); } catch (e) { return false; } };
   const signedIn = () => !!(C() && C().signedIn() && !demo());
   const isOwner = () => !!(C() && C().admin());
+  const isParentAcct = () => !!(signedIn() && C().isParent && C().isParent());   // account chose "Parent" at sign-up
+  const canHub = () => isParentAcct() || isOwner();                              // students never open the hub; the owner can, for testing
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const pad2 = n => String(n).padStart(2, '0');
   const dk = t => { const d = new Date(t); return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; };   // local day key
   const todayK = () => dk(Date.now());
@@ -123,7 +126,7 @@
   }
   let pulling = false;
   async function pullControls() {
-    if (!signedIn() || pulling) return; pulling = true;
+    if (!signedIn() || pulling || isParentAcct()) return; pulling = true;
     try {
       const o = one(await rpc('my_controls'));
       if (o && o.parents > 0) jset(CK, { controls: o.controls || {}, parents: o.parents, at: Date.now(), uid: myId() });
@@ -225,26 +228,43 @@
   /* ================= 2. Me card + onboarding card ================= */
   function meHTML() {
     const j = jget(CK, null), linked = j && j.parents > 0 && (!j.uid || j.uid === myId());
-    return `<h3>👨‍👩‍👧 Parent Hub</h3><p class="sub">Parents can see study time and progress, set goals and healthy limits — only for children who link to them.</p>
+    return `<h3>👨‍👩‍👧 Link with my parent</h3><p class="sub">Your parent can see your study time and progress, set goals and cheer you on.</p>
       ${linked ? `<p class="pv-ok">✓ Linked to ${j.parents} parent${j.parents > 1 ? 's' : ''}. Your parent can see your progress.</p>` : ''}
-      <div class="pv-row"><button class="btn" type="button" data-pv="hub">I'm a parent — open Parent Hub</button><button class="btn ghost" type="button" data-pv="link">Link to my parent (enter code)</button></div>`;
+      <div class="pv-row"><button class="btn" type="button" data-pv="mycode">Show my code for my parent</button><button class="btn ghost" type="button" data-pv="link">Link to my parent (enter code)</button></div>
+      ${isOwner() ? '<div class="pv-row" style="margin-top:8px"><button class="btn ghost" type="button" data-pv="hub">Open Parent Hub (owner test)</button></div>' : ''}`;
   }
-  function wireMe(c) { c.querySelectorAll('[data-pv]').forEach(b => b.onclick = () => (b.dataset.pv === 'hub' ? openHub() : linkSheet())); }
+  function wireMe(c) { c.querySelectorAll('[data-pv]').forEach(b => b.onclick = () => ({ hub: openHub, link: linkSheet, mycode: myCode })[b.dataset.pv]()); }
   function placeMe(host, after) {
     let c = host.querySelector(':scope > .pv-me');
     if (!c) { style(); c = D.createElement('div'); c.className = 'card pv-me'; after ? after.after(c) : host.appendChild(c); }
     const h = meHTML(); if (c.dataset.h !== h) { c.dataset.h = h; c.innerHTML = h; wireMe(c); }
   }
   function paintMe() {
-    if (!signedIn()) return;
+    if (!signedIn() || isParentAcct()) return;
     const me = D.getElementById('s-me');
     if (me && me.firstElementChild) placeMe(me, D.getElementById('svCode') || D.getElementById('svCloud') || me.querySelector(':scope > .statrow'));
     const ca = D.getElementById('s-ca'); if (ca && ca.querySelector('.ca-prof')) placeMe(ca, ca.querySelector(':scope > .statrow'));
-    const ob = D.getElementById('s-onboard');
-    if (ob && ob.querySelector('.choice[data-b]') && !D.getElementById('pvOb')) {
-      style(); const c = D.createElement('div'); c.className = 'card'; c.id = 'pvOb';
-      c.innerHTML = `<h3>👨‍👩‍👧 Are you a parent?</h3><p class="sub">Follow your child's study, set goals and healthy screen time.</p><button class="btn ghost" type="button" data-pv="hub">Open Parent Hub</button>`;
-      (ob.querySelector('.ob') || ob).appendChild(c); wireMe(c);
+  }
+  /* student: a 1-day code the parent types in Parent Home → "Enter code from my child's app" (rpc create_child_code) */
+  async function myCode() {
+    if (!signedIn()) { C() && C().open('in'); return; }
+    style();
+    const el = C().sheet(`<h3 id="clT">My code for my parent</h3><p class="pv-load">Making your code…</p>`);
+    try {
+      const r = one(await rpc('create_child_code'));
+      if (!r || !r.ok || !r.code) throw new Error((r && r.msg) || 'Could not make a code. Please try again.');
+      const till = r.expires_at ? new Date(r.expires_at).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }) : 'tomorrow';
+      const msg = `Please link to my StudyVerse 📚\n1. Open ${SITE} on your phone.\n2. Create an account and choose "Parent".\n3. Tap "Enter code from my child's app" and type this code: ${r.code}\nThe code works till ${till}.`;
+      el.querySelector('.sheet-in').innerHTML = `<div class="sheet-grab"></div><h3 id="clT">My code for my parent</h3>
+        <p>Ask your parent to open <b>study.moneyviel.com</b> on their phone, create an account as <b>Parent</b>, and tap <b>Enter code from my child's app</b>.</p>
+        <div class="pv-bigcode" aria-label="Code ${esc(r.code.split('').join(' '))}">${esc(r.code)}</div><p class="cl-small">Works till ${esc(till)}. Use it once.</p>
+        <div class="pv-row"><button class="btn ghost" type="button" id="pvCopy">Copy code</button><a class="btn pv-wa" id="pvWa" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Send on WhatsApp</a></div>
+        <div style="height:8px"></div><button class="btn ghost" type="button" id="pvDone">Done</button>`;
+      el.querySelector('#pvCopy').onclick = () => { try { navigator.clipboard.writeText(r.code).then(() => say('Code copied'), () => say(r.code)); } catch (x) { say(r.code); } };
+      el.querySelector('#pvDone').onclick = () => { C().closeSheet(); pullControls(); };
+    } catch (e) {
+      el.querySelector('.sheet-in').innerHTML = `<div class="sheet-grab"></div><h3 id="clT">My code for my parent</h3><p class="cl-err" role="alert">${esc(e.status != null ? C().errText(e) : e.message)}</p><button class="btn ghost" type="button" id="pvDone">Close</button>`;
+      el.querySelector('#pvDone').onclick = C().closeSheet;
     }
   }
   function linkSheet() {
@@ -269,55 +289,130 @@
   }
 
   /* ================= 3. Parent Hub ================= */
-  let hub = null, kids = [], sel = 0, loadErr = '';
+  let hub = null, kids = [], sel = 0, loadErr = '', invites = [], pinned = false;
   const hubOpen = () => !!(hub && hub.classList.contains('show'));
-  function openHub() {
+  /* parent accounts: the hub is their whole app ("Parent Home") — full screen, cannot be closed */
+  function home() { if (hubOpen() && pinned) return; openHub(true); }
+  function openHub(pin) {
     if (!signedIn()) { C() && C().open('in'); return; }
+    pin = pin === true || isParentAcct();
+    if (!pin && !canHub()) { say('Parent Hub is for parent accounts. Use “Show my code for my parent” instead.'); return; }
+    pinned = pin;
     style();
     if (!hub) {
       hub = D.createElement('div'); hub.className = 'sheet pv-hub'; hub.id = 'pvHub';
       hub.setAttribute('role', 'dialog'); hub.setAttribute('aria-modal', 'true'); hub.setAttribute('aria-labelledby', 'pvT');
       D.body.appendChild(hub);
     }
-    hub.classList.toggle('pv-pro', R.dataset.age === 'pro');
-    hub.innerHTML = `<div class="pv-wrap"><div class="pv-top"><button class="pv-back" type="button" data-close aria-label="Close Parent Hub">← Back</button><h1 id="pvT">👨‍👩‍👧 Parent Hub</h1><button class="pv-ref" type="button" id="pvRef" aria-label="Refresh">⟳</button></div>
+    hub.classList.toggle('pv-pro', !pinned && R.dataset.age === 'pro');
+    hub.toggleAttribute('data-pinned', pinned); hub.toggleAttribute('data-nonav', pinned);   // no Back / Escape close; Back history ignores it
+    hub.innerHTML = `<div class="pv-wrap"><div class="pv-top">${pinned ? '<span class="pv-logo" aria-hidden="true">Study<b>Verse</b></span>' : '<button class="pv-back" type="button" data-close aria-label="Close Parent Hub">← Back</button>'}<h1 id="pvT">👨‍👩‍👧 Parent Hub</h1><button class="pv-ref" type="button" id="pvRef" aria-label="Refresh">⟳</button></div>
       <div class="pv-tabs" role="tablist" aria-label="Children" id="pvTabs"></div><div id="pvBody" class="pv-body"><p class="pv-load">Loading…</p></div></div>`;
-    hub.querySelector('.pv-back').onclick = closeHub;
+    const bk = hub.querySelector('.pv-back'); if (bk) bk.onclick = closeHub;
     hub.querySelector('#pvRef').onclick = () => load();
     hub.classList.add('show'); hub.scrollTop = 0;
     load();
   }
-  function closeHub() { if (hub) hub.classList.remove('show'); }
+  function closeHub() { if (hub && !pinned) hub.classList.remove('show'); }
   async function load() {
     loadErr = '';
+    const inv = C().rest('parent_invites?select=email,child_name,created_at,accepted_at&order=created_at.desc').then(r => { invites = Array.isArray(r) ? r : []; }, () => {});
     try { const r = await rpc('my_children'); kids = Array.isArray(r) ? r : []; }
     catch (e) { loadErr = C().errText(e); }
+    await inv;
     if (sel >= kids.length) sel = 0;
     render();
   }
   function tabs() {
     const t = hub.querySelector('#pvTabs');
     t.innerHTML = kids.map((k, i) => `<button type="button" role="tab" aria-selected="${i === sel}" class="pv-tab${i === sel ? ' on' : ''}" data-i="${i}">${esc(childName(k))}</button>`).join('')
-      + '<button type="button" class="pv-tab pv-add" id="pvAdd">+ Add child</button>';
+      + (kids.length || loadErr ? '<button type="button" class="pv-tab pv-add" id="pvAdd">+ Add child</button>' : '');
+    t.hidden = !kids.length && !loadErr;
     t.querySelectorAll('[data-i]').forEach(b => b.onclick = () => { sel = +b.dataset.i; render(); });
-    t.querySelector('#pvAdd').onclick = addChild;
+    const a = t.querySelector('#pvAdd'); if (a) a.onclick = addMenu;
   }
   const childName = k => (k && (k.name || (k.state && k.state.st && k.state.st.profile && k.state.st.profile.name))) || 'Child';
   async function render() {
     if (!hub) return; tabs();
     const body = hub.querySelector('#pvBody');
-    if (loadErr) { body.innerHTML = `<div class="pv-card"><h2>Could not load</h2><p>${esc(loadErr)}</p><button class="pv-btn" type="button" id="pvRetry">Try again</button></div>`; body.querySelector('#pvRetry').onclick = load; return; }
+    if (loadErr) { body.innerHTML = `<div class="pv-card"><h2>Could not load</h2><p>${esc(loadErr)}</p><button class="pv-btn" type="button" id="pvRetry">Try again</button></div>` + acctHTML(); body.querySelector('#pvRetry').onclick = load; wireAcct(body); return; }
     if (!kids.length) {
-      body.innerHTML = `<div class="pv-card pv-hero"><h2>Welcome! Follow your child's learning</h2>
-        <ol class="pv-steps"><li>Tap <b>+ Add child</b> to get a code.</li><li>On your child's phone open <b>study.moneyviel.com</b> → <b>Me</b> → <b>Link to my parent</b>.</li><li>Enter the code. Your child's progress appears here.</li></ol>
-        <button class="pv-btn" type="button" id="pvAdd2">+ Add child</button>
-        <p class="pv-note">You see study time, strengths, weak areas and can set goals, rewards and healthy limits. Only you can see your child's data.</p></div>`;
-      body.querySelector('#pvAdd2').onclick = addChild; return;
+      body.innerHTML = `<div class="pv-card pv-hero"><h2>Welcome! Let's add your child</h2>
+        <p>Choose one way below. Your child's study time and progress will then show here.</p>${optsHTML()}
+        <p class="pv-note">You will see study time, strong and weak areas, and can set goals and healthy limits. Only you can see your child's data.</p></div>` + invitesHTML() + acctHTML();
+      wireOpts(body); wireAcct(body); return;
     }
     const k = kids[sel], A = await analyse(k);
     if (kids[sel] !== k) return;
-    body.innerHTML = childHTML(k, A) + mailCardHTML();
-    wireChild(body, k, A); wireMail(body);
+    body.innerHTML = childHTML(k, A) + invitesHTML() + mailCardHTML() + acctHTML();
+    wireChild(body, k, A); wireMail(body); wireAcct(body);
+  }
+
+  /* ---------- three ways to add a child ---------- */
+  const optsHTML = () => `<div class="pv-opts">
+    <button class="pv-opt" type="button" data-add="code"><span aria-hidden="true">📱</span><b>Enter code from my child's app</b><small>On your child's phone: Me → “Show my code for my parent”.</small></button>
+    <button class="pv-opt" type="button" data-add="invite"><span aria-hidden="true">📧</span><b>Invite my child by email</b><small>We email your child a link to make their account on their phone.</small></button>
+    <button class="pv-opt" type="button" data-add="make"><span aria-hidden="true">🔑</span><b>Make a code for my child to enter</b><small>Your child types it in Me → “Link to my parent”.</small></button></div>`;
+  function wireOpts(root) { root.querySelectorAll('[data-add]').forEach(b => b.onclick = () => ({ code: childCodeSheet, invite: inviteSheet, make: addChild })[b.dataset.add]()); }
+  function addMenu() {
+    style();
+    const el = C().sheet(`<h3 id="clT">Add a child</h3><p>Choose one way.</p>${optsHTML()}<div style="height:8px"></div><button class="btn ghost" type="button" id="pvMenuX">Cancel</button>`);
+    el.querySelector('#pvMenuX').onclick = C().closeSheet; wireOpts(el);
+  }
+  function childCodeSheet() {
+    style();
+    const el = C().sheet(`<h3 id="clT">Enter code from my child's app</h3><p>On your child's phone open StudyVerse → <b>Me</b> → <b>Show my code for my parent</b>. Type that code here.</p>
+      <form id="pvCcF" novalidate><label for="pvCcC">Code from your child's app</label><input class="cl-in pv-code-in" id="pvCcC" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABC123">
+      <label for="pvCcN">Child's name</label><input class="cl-in" id="pvCcN" maxlength="40" autocomplete="off" placeholder="e.g. Riya">
+      <div class="cl-err" id="pvCcE" role="alert"></div><button class="btn" type="submit" id="pvCcGo">Link my child</button></form><div style="height:8px"></div><button class="btn ghost" type="button" id="pvCcX">Cancel</button>`);
+    el.querySelector('#pvCcX').onclick = C().closeSheet;
+    el.querySelector('#pvCcF').onsubmit = async ev => {
+      ev.preventDefault(); const e = el.querySelector('#pvCcE'), go = el.querySelector('#pvCcGo');
+      const code = el.querySelector('#pvCcC').value.trim().toUpperCase().replace(/\s/g, ''), name = el.querySelector('#pvCcN').value.trim();
+      e.textContent = ''; if (!/^[A-Z0-9]{6}$/.test(code)) { e.textContent = 'The code has 6 letters or numbers.'; return; }
+      if (!name) { e.textContent = "Please enter your child's name."; return; }
+      go.disabled = true;
+      try {
+        const r = one(await rpc('redeem_child_code', { p_code: code, p_child_name: name }));
+        if (!r || !r.ok) { e.textContent = (r && r.msg) || 'This code is not valid or has expired. Ask your child for a new one.'; return; }
+        C().closeSheet(); say(`${name} is linked ✓`); load();
+      } catch (err) { e.textContent = C().errText(err); }
+      finally { go.disabled = false; }
+    };
+  }
+  function inviteSheet() {
+    style();
+    const el = C().sheet(`<h3 id="clT">Invite my child by email</h3><p>We send your child an email with a link. They open it on their phone and create their own account with that email.</p>
+      <form id="pvInF" novalidate><label for="pvInN">Child's name</label><input class="cl-in" id="pvInN" maxlength="40" autocomplete="off" placeholder="e.g. Riya">
+      <label for="pvInE">Child's email</label><input class="cl-in" id="pvInE" type="email" maxlength="120" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="child@gmail.com">
+      <div class="cl-err" id="pvInErr" role="alert"></div><button class="btn" type="submit" id="pvInGo">Send invite</button></form><div style="height:8px"></div><button class="btn ghost" type="button" id="pvInX">Cancel</button>`);
+    el.querySelector('#pvInX').onclick = C().closeSheet;
+    el.querySelector('#pvInF').onsubmit = async ev => {
+      ev.preventDefault(); const e = el.querySelector('#pvInErr'), go = el.querySelector('#pvInGo');
+      const name = el.querySelector('#pvInN').value.trim(), email = el.querySelector('#pvInE').value.trim().toLowerCase();
+      e.textContent = ''; if (!name) { e.textContent = "Please enter your child's name."; return; }
+      if (!EMAIL_RE.test(email)) { e.textContent = "Please enter your child's email address."; return; }
+      if (email === (C().email() || '').toLowerCase()) { e.textContent = 'This is your own email. Please enter your child\u2019s email.'; return; }
+      go.disabled = true; const label = go.textContent; go.textContent = 'Sending…';
+      try {
+        const r = await C().call('/functions/v1/parent-invite', { method: 'POST', body: { email, name } });
+        if (!r || !r.ok) { e.textContent = (r && (r.msg || r.error)) || 'Could not send the invite. Please try again.'; return; }
+        const s = C().sheet(`<h3 id="clT">Invite sent 📧</h3><p>We emailed <b>${esc(email)}</b>. Your child opens it on their phone and creates their account with that email. They'll appear here automatically.</p>
+          ${r.exists ? `<p class="cl-small">This email already has a StudyVerse account — ${esc(name)} just needs to sign in once.</p>` : ''}
+          <p class="cl-small">Not in the inbox? Ask them to check Spam or Promotions.</p><button class="btn" type="button" id="pvInOk">OK</button>`);
+        s.querySelector('#pvInOk').onclick = C().closeSheet; load();
+      } catch (err) { e.textContent = C().errText(err); }
+      finally { go.disabled = false; go.textContent = label; }
+    };
+  }
+  const invitesHTML = () => !invites.length ? '' : `<section class="pv-card" id="pvInv" aria-labelledby="pvInvT"><h3 id="pvInvT">📧 Email invites</h3><ul class="pv-list">${invites.map(v => `<li class="pv-invr"><div><b>${esc(v.child_name || 'Child')}</b> <span class="pv-mut">${esc(v.email)}</span><br><span class="pv-mut">Sent ${esc(v.created_at ? new Date(v.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '')}</span></div>${v.accepted_at ? '<span class="pv-st ok">✓ Joined</span>' : '<span class="pv-st warn">Waiting for sign-up</span>'}</li>`).join('')}</ul></section>`;
+  /* account area (parent accounts only: they have no Me screen) */
+  const acctHTML = () => !pinned ? '' : `<section class="pv-card" id="pvAcct" aria-labelledby="pvAcT"><h3 id="pvAcT">👤 Your account</h3><p>${esc(C().email())}</p>
+    <button class="pv-btn ghost" type="button" id="pvOut">Sign out</button>
+    <p class="pv-note" style="margin-top:10px"><a href="legal/privacy.html">Privacy</a> · <a href="legal/terms.html">Terms</a> · Help: <a href="mailto:support@moneyviel.com">support@moneyviel.com</a></p></section>`;
+  function wireAcct(root) {
+    const b = root.querySelector('#pvOut'); if (!b) return;
+    b.onclick = () => { if (!b.dataset.sure) { b.dataset.sure = 1; b.textContent = 'Tap again to sign out'; return; } b.disabled = true; b.textContent = 'Signing out…'; C().signOut(); };
   }
 
   /* weekly email: one short summary per week with a button back to this hub (the full report stays in the app) */
@@ -500,9 +595,35 @@
   }
   const delta = (a, b, unit) => { if (a == null || b == null) return ''; const d = Math.round(a - b); return d === 0 ? '<span class="pv-d">same</span>' : `<span class="pv-d ${d > 0 ? 'up' : 'dn'}">${d > 0 ? '▲' : '▼'} ${Math.abs(d)}${unit}</span>`; };
 
+  /* ---------- profile & plan (rpc my_children: plans [{course, valid_until, note}], locked_course, email) ---------- */
+  const COURSE = { 'school-all': 'All school grades', school: 'School (Grades 1–12)', 'ca-foundation': 'CA Foundation', 'ca-inter': 'CA Intermediate', 'ca-final': 'CA Final' };
+  const courseName = c => /^school-g\d+$/.test(c || '') ? 'Grade ' + c.slice(8) : (COURSE[c] || c || '');
+  function planLines(k) {
+    const now = Date.now(), live = (Array.isArray(k.plans) ? k.plans : []).filter(a => a && a.course && (!a.valid_until || new Date(a.valid_until) > now)), out = [];
+    const fmtEnd = iso => { const d = new Date(iso), t = d.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' }); return dk(d) === todayK() ? 'today ' + t : dk(d) === dk(noon() + DAY) ? 'tomorrow ' + t : d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) + ', ' + t; };
+    const rank = a => /trial/i.test(a.note || '') ? 1 : !a.valid_until ? 2 : 0;
+    live.slice().sort((a, b) => rank(a) - rank(b)).forEach(a => {
+      if (/trial/i.test(a.note || '')) out.push(['warn', `⏳ Free trial (${courseName(a.course)}) — ends ${fmtEnd(a.valid_until)}`]);
+      else if (!a.valid_until) out.push(['ok', `🎁 Free forever (${courseName(a.course)})`]);
+      else out.push(['ok', `✅ ${courseName(a.course)} — till ${new Date(a.valid_until).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`]);
+    });
+    if (k.locked_course && !live.some(a => !a.valid_until && a.course === k.locked_course)) out.unshift(['ok', `🎁 Free forever (${courseName(k.locked_course)})`]);
+    if (!out.length) out.push(['', `Free plan — ${(window.Plans && Plans.FREE_PER_DAY) || 5} questions a day`]);
+    return out;
+  }
+  function profileHTML(k, A) {
+    const s = A.s, p = A.has ? s.profile : null;
+    const course = !p ? 'Not set up yet' : A.ca ? A.label : `${p.board ? esc(String(p.board).toUpperCase()) + ' · ' : ''}Grade ${esc(p.grade || '–')}${p.stream ? ' · ' + esc(p.stream) : ''}`;
+    return `<section class="pv-card pv-head pv-prof" aria-labelledby="pvPrT"><div class="pv-av" aria-hidden="true">${esc(p && p.avatar && !A.ca ? p.avatar : A.name.trim().charAt(0).toUpperCase())}</div>
+      <div class="pv-prof-in"><h2 id="pvPrT">${esc(A.name)}</h2>
+        <p class="pv-mut">Profile &amp; plan</p>
+        <dl class="pv-dl">${k.email ? `<dt>Email</dt><dd>${esc(k.email)}</dd>` : ''}<dt>Studying</dt><dd>${course}</dd><dt>Last active</dt><dd>${esc(ago(k.updated_at))}</dd>
+        <dt>Plan</dt><dd><ul class="pv-plans">${planLines(k).map(([c, t]) => `<li class="pv-plan ${c}">${esc(t)}</li>`).join('')}</ul></dd></dl></div></section>`;
+  }
+
   function childHTML(k, A) {
     const c = k.controls || {}, s = A.s;
-    const head = `<div class="pv-card pv-head"><div class="pv-av" aria-hidden="true">${esc(A.has && s.profile.avatar && !A.ca ? s.profile.avatar : A.name.trim().charAt(0).toUpperCase())}</div><div><h2>${esc(A.name)}</h2><p>${A.has ? esc(A.label) + ' · ' : ''}Last active: <b>${esc(ago(k.updated_at))}</b></p></div></div>`;
+    const head = profileHTML(k, A);
     if (!A.has) {
       return head + `<div class="pv-card"><h3>No data yet</h3><p>${esc(A.name)}'s progress shows here after they study with the app while signed in. It updates about every 30 seconds while the app is open.</p></div>` + plannerHTML(A, c) + goalsHTML(A, c) + healthHTML(c) + manageHTML(A);
     }
@@ -717,6 +838,18 @@
 .sheet.pv-hub.pv-pro{background:#15161C}.pv-pro .pv-tab{background:#1f2029;color:#F4EAD8;border-color:#8A6A2E}.pv-pro .pv-tab.on{background:#C9A76A;color:#15161C;border-color:#C9A76A}
 .pv-pro .pv-top{background:#0e0f13;border-bottom:1px solid #2b2c35}.pv-pro .pv-card{border-color:#2b2c35;box-shadow:none}
 @media (min-width:900px){.pv-wrap{max-width:980px}.pv-body{display:block;columns:2;column-gap:12px}.pv-body>.pv-card{break-inside:avoid;margin-bottom:12px;display:block}.pv-body>.pv-head{display:flex}.pv-body>.pv-head,.pv-body>.pv-card:nth-child(2),.pv-body>.pv-hero{column-span:all}}
+.pv-opts{display:grid;gap:10px;margin:10px 0}
+.pv-opt{display:grid;grid-template-columns:44px 1fr;column-gap:12px;align-items:center;text-align:left;width:100%;min-height:72px;padding:12px 14px;border:1.5px solid #C9A76A;border-radius:14px;background:#FBF7EF;color:#15161C;cursor:pointer;font:inherit}
+.pv-opt span{grid-row:span 2;font-size:30px;text-align:center}.pv-opt b{font-size:16px;line-height:1.25}.pv-opt small{font-size:13px;color:#5d5a55;line-height:1.35}
+.pv-opt:hover,.pv-opt:focus-visible{background:#F4EAD8;border-color:#8A6A2E}
+.pv-logo{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:15px;color:#F4EAD8;white-space:nowrap}.pv-logo b{color:#C9A76A}
+.pv-invr{display:flex;gap:8px;align-items:center;justify-content:space-between}.pv-invr .pv-st{flex:none}
+#pvAcct a{color:#8A6A2E;font-weight:700}
+@media (min-width:700px){.pv-opts{grid-template-columns:repeat(3,1fr)}.pv-opt{grid-template-columns:1fr;text-align:center;justify-items:center;row-gap:4px;align-content:start;min-height:150px}.pv-opt span{grid-row:auto}}
+.cl-sheet .pv-opts{grid-template-columns:1fr}.cl-sheet .pv-opt{grid-template-columns:44px 1fr;text-align:left;justify-items:start;min-height:72px}.cl-sheet .pv-opt span{grid-row:span 2}
+.pv-prof{align-items:flex-start!important}.pv-prof-in{flex:1;min-width:0}.pv-prof-in>.pv-mut{margin:0 0 6px!important}
+.pv-dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0;font-size:14px}.pv-dl dt{color:#5d5a55;font-weight:700}.pv-dl dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.pv-plans{list-style:none;margin:0;padding:0}.pv-plan{font-weight:800;margin:0 0 3px}.pv-plan.ok{color:#1d5e36}.pv-plan.warn{color:#6b4a06}
 #pvPrint{display:none}
 @media print{body>*:not(#pvPrint){display:none!important}html,body{background:#fff!important;overflow:visible!important}body{display:block!important}
 #pvPrint{display:block!important;color:#000;font-family:Georgia,serif;padding:10mm}#pvPrint h1{font-size:22pt;margin:0 0 4pt;color:#5B0F1B}#pvPrint h2{font-size:15pt;margin:0 0 4pt}
@@ -731,12 +864,12 @@
     setTimeout(() => { pullControls(); paintMe(); paintGoal(); enforce(); }, 1200);
     try {   // links in the weekly email open the hub: study.moneyviel.com/?hub=1
       const u = new URL(location.href);
-      if (u.searchParams.get('hub')) { u.searchParams.delete('hub'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); setTimeout(openHub, 1500); }
+      if (u.searchParams.get('hub')) { u.searchParams.delete('hub'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); setTimeout(() => { if (canHub()) openHub(); }, 1500); }
     } catch (e) {}
     setInterval(() => { if (D.visibilityState === 'visible') pullControls(); }, 3 * 6e4);
     setInterval(enforce, 30000);
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', start) : start();
 
-  window.Parent = { open: openHub, link: linkSheet, minutesToday: () => minutesOn(S(), todayK()), _analyse: analyse, _pull: pullControls, _enforce: enforce };
+  window.Parent = { open: () => openHub(), home, link: linkSheet, myCode, minutesToday: () => minutesOn(S(), todayK()), _analyse: analyse, _pull: pullControls, _enforce: enforce };
 })();

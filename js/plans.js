@@ -19,6 +19,7 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
   const C = () => window.Cloud;
+  const parent = () => !!(C() && C().isParent && C().isParent());          // parent accounts never see plans, bars or the paywall
   const signedIn = () => !!(C() && C().signedIn());
   const owner = () => { try { return localStorage.getItem('sv_owner') === '1' || (C() && C().admin()); } catch (e) { return false; } };
   const kindNow = () => { try { return ST.profile && ST.profile.course === 'ca' ? 'ca' : 'school'; } catch (e) { return 'school'; } };
@@ -46,7 +47,7 @@
 
   D.addEventListener('click', e => {
     const b = e.target.closest && e.target.closest('button.opt[data-k]');
-    if (!b || b.disabled || !signedIn()) return;
+    if (!b || b.disabled || !signedIn() || parent()) return;
     if (b.closest('#gkOpts') || b.classList.contains('arc-opt')) return;          // GK Explorer and games stay free
     const box = b.closest('#tOpts');                                               // tests: count each question once
     if (box && box.dataset.svc) return;
@@ -71,6 +72,7 @@
   function style() { if (D.getElementById('svPlanCss')) return; const s = D.createElement('style'); s.id = 'svPlanCss'; s.textContent = css; D.head.appendChild(s); }
 
   function paywall(kind) {
+    if (parent()) return;
     style();
     const el = C().sheet(`<h3 id="clT">That's today's ${FREE_PER_DAY} free questions 🎯</h3>
       <p>Great work! Come back tomorrow for ${FREE_PER_DAY} more, or subscribe for unlimited practice, tests and every ${kind === 'ca' ? 'CA Foundation paper' : 'grade'}.</p>
@@ -95,6 +97,7 @@
   async function open(kind) {
     style(); kind = kind || kindNow();
     if (!signedIn()) { C().open('in'); return; }
+    if (parent()) return;
     await loadPlans();
     const groups = [['school-all', 'School — all classes 1–12', 'Unlimited questions, tests, games and analysis for every grade.'], ['ca-foundation', 'CA Foundation', 'All 4 papers: unlimited fresh questions, mock tests, answer checking.']];
     if (kind === 'ca') groups.reverse();
@@ -163,6 +166,7 @@
   }
   function bars() {
     if (!signedIn()) return;
+    if (parent()) { D.querySelectorAll('.sv-planbar').forEach(b => b.remove()); return; }
     ['s-world', 's-me'].forEach(id => {
       const sc = D.getElementById(id); if (!sc || !sc.firstElementChild) return;
       const h = barHTML(kindNow()); let b = sc.querySelector(':scope > .sv-planbar');
@@ -173,7 +177,7 @@
   }
   let warned = false;
   function remind() {
-    if (!signedIn() || warned) return;
+    if (!signedIn() || warned || parent()) return;
     const a = access(kindNow());
     if (a.why === 'trial' && a.until && new Date(a.until) - Date.now() < 3 * 36e5) { warned = true; say(`Your free trial ends in ${left(a.until)} — subscribe to keep everything unlocked`); }
     else if (a.why === 'paid' && a.until && new Date(a.until) - Date.now() < 3 * 864e5) { warned = true; say(`Your plan ends on ${dt(a.until)} — renew to keep learning without limits`); }
