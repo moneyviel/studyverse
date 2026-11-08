@@ -557,51 +557,114 @@
     render();
   }
 
-  /* ================= 8. Snakes & Ladders ================= */
-  const LADDERS = { 4: 13, 9: 18, 15: 24, 20: 28 }, SNAKES = { 17: 6, 23: 11, 27: 16, 29: 19 };
-  const cell = n => { const i = n - 1, row = Math.floor(i / 6), col = row % 2 ? 5 - i % 6 : i % 6; return { col, row: 4 - row }; };
+  /* ================= 8. Snakes & Ladders (classic 10×10 board, 1–100) =================
+     Rows go left→right, then right→left (boustrophedon). Learning twist: landing on a ladder's foot → answer right to
+     climb; landing on a snake's head → answer right to escape. Exact-roll rule: you must land on 100 exactly — a roll
+     that would go past 100 means you stay where you are. The board (slBoard) is shared with the live Game Rooms
+     (js/live.js). LADDERS / SNAKES: KEEP IN SYNC with studyverse._live_board() in supabase/migrations/20261109_live_games.sql */
+  const LADDERS = { 3: 22, 8: 30, 20: 41, 28: 76, 36: 57, 50: 69, 63: 82, 71: 92, 79: 98 };
+  const SNAKES = { 17: 7, 33: 12, 47: 26, 55: 35, 66: 45, 87: 24, 93: 73, 95: 74, 99: 80 };
+  const SL_RULE = '🎯 You must land on 100 exactly. Roll too big? You stay where you are.';
+  const cell = n => { const i = n - 1, r = Math.floor(i / 10), col = r % 2 ? 9 - i % 10 : i % 10; return { col, row: 9 - r }; };
+  const ctr = n => { const c = cell(n); return [c.col * 100 + 50, c.row * 100 + 50]; };
+  /* test hook: tests may queue dice values in window.SV_TEST_DICE */
+  const roll6 = () => (Array.isArray(window.SV_TEST_DICE) && window.SV_TEST_DICE.length ? +window.SV_TEST_DICE.shift() : 1 + rnd(6));
+  const f1 = v => Math.round(v * 10) / 10;
+  function smooth(pts) {                                    // Catmull-Rom through points → cubic Bézier path
+    let d = `M${f1(pts[0][0])} ${f1(pts[0][1])}`;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+      d += ` C${f1(p1[0] + (p2[0] - p0[0]) / 6)} ${f1(p1[1] + (p2[1] - p0[1]) / 6)},${f1(p2[0] - (p3[0] - p1[0]) / 6)} ${f1(p2[1] - (p3[1] - p1[1]) / 6)},${f1(p2[0])} ${f1(p2[1])}`;
+    }
+    return d;
+  }
+  function ladderSVG(a, b) {
+    const [x1, y1] = ctr(a), [x2, y2] = ctr(b), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L, nx = -uy * 17, ny = ux * 17;
+    const sx = x1 - ux * 22, sy = y1 - uy * 22, ex = x2 + ux * 22, ey = y2 + uy * 22, LL = L + 44;
+    let rungs = ''; for (let d = 26; d < LL - 10; d += 40) { const px = sx + ux * d, py = sy + uy * d; rungs += `M${f1(px + nx)} ${f1(py + ny)}L${f1(px - nx)} ${f1(py - ny)}`; }
+    const rails = `M${f1(sx + nx)} ${f1(sy + ny)}L${f1(ex + nx)} ${f1(ey + ny)}M${f1(sx - nx)} ${f1(sy - ny)}L${f1(ex - nx)} ${f1(ey - ny)}`;
+    return `<g class="sl-lad"><path class="sh" d="${rails}${rungs}" transform="translate(5 7)"/><path class="rg" d="${rungs}"/><path class="rl" d="${rails}"/><path class="hl" d="${rails}"/></g>`;
+  }
+  const SNK_COL = [['#16a34a', '#bbf7d0'], ['#dc2626', '#fecaca'], ['#7c3aed', '#ddd6fe'], ['#ea580c', '#fed7aa'], ['#0891b2', '#a5f3fc'], ['#db2777', '#fbcfe8'], ['#65a30d', '#d9f99d'], ['#2563eb', '#bfdbfe'], ['#ca8a04', '#fef08a']];
+  function snakeSVG(h, t, k) {
+    const [x1, y1] = ctr(h), [x2, y2] = ctr(t), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
+    const waves = Math.max(1, Math.round(L / 230)), A = Math.min(34, 16 + L / 28), N = waves * 10, pts = [];
+    for (let i = 0; i <= N; i++) { const s = i / N, off = Math.sin(s * waves * 2 * Math.PI) * A * Math.min(1, s * 5); pts.push([x1 + dx * s + nx * off, y1 + dy * s + ny * off]); }
+    const [c1, c2] = SNK_COL[k % SNK_COL.length], W = [24, 21, 17, 11], seg = Math.ceil(N / 4);
+    let body = '';
+    for (let j = 0; j < 4; j++) { const part = pts.slice(j * seg, Math.min(N, (j + 1) * seg) + 1); if (part.length < 2) continue; const d = smooth(part);
+      body += `<path d="${d}" stroke="#1f2937" stroke-width="${W[j] + 5}"/><path d="${d}" stroke="${c1}" stroke-width="${W[j]}"/><path d="${d}" stroke="${c2}" stroke-width="${Math.max(3, W[j] * .45)}" stroke-dasharray="7 15"/>`; }
+    const ang = Math.atan2(pts[0][1] - pts[1][1], pts[0][0] - pts[1][0]) * 180 / Math.PI;
+    return `<g class="sl-snk"><path class="sh" d="${smooth(pts)}" transform="translate(5 7)" stroke-width="26"/>${body}
+      <g transform="translate(${f1(x1)} ${f1(y1)}) rotate(${f1(ang)})"><path d="M22 0 l14 -5 m-14 5 l14 5" class="tg"/><ellipse rx="25" ry="19" fill="${c1}" stroke="#1f2937" stroke-width="4"/>
+      <circle cx="8" cy="-8" r="6.5" fill="#fff"/><circle cx="8" cy="8" r="6.5" fill="#fff"/><circle cx="10" cy="-8" r="3.2" fill="#111"/><circle cx="10" cy="8" r="3.2" fill="#111"/></g></g>`;
+  }
+  function boardSVG() {
+    let sq = '';
+    for (let n = 1; n <= 100; n++) {
+      const c = cell(n), x = c.col * 100, y = c.row * 100, hue = (c.row * 37 + 20) % 360;
+      const fill = n === 100 ? '#86efac' : `hsl(${hue} ${(c.row + c.col) % 2 ? 90 : 80}% ${(c.row + c.col) % 2 ? 90 : 82}%)`;
+      sq += `<rect x="${x}" y="${y}" width="100" height="100" fill="${fill}"/><text x="${x + 7}" y="${y + 29}" class="sl-num">${n}</text>`;
+    }
+    sq += `<text x="${cell(100).col * 100 + 62}" y="${cell(100).row * 100 + 86}" class="sl-ico">🏆</text><text x="${cell(1).col * 100 + 62}" y="${cell(1).row * 100 + 80}" class="sl-ico sm">🚩</text>`;
+    return `<svg viewBox="0 0 1000 1000" class="sl-svg" aria-hidden="true" focusable="false">${sq}${Object.entries(LADDERS).map(([a, b]) => ladderSVG(+a, b)).join('')}${Object.entries(SNAKES).map(([a, b], k) => snakeSVG(+a, b, k)).join('')}</svg>`;
+  }
+  /* the board, with one token per player. players: [{ icon }]. Returns helpers to move tokens.
+     t(f, ms) is the timer to use (a game ctx's c.t, or setTimeout). */
+  function slBoard(host, players, t) {
+    t = t || ((f, ms) => setTimeout(f, ms));
+    host.innerHTML = `<div class="sl-wrap" tabindex="-1"><div class="sl-board">${boardSVG()}${players.map((p, i) => `<div class="sl-tok" data-i="${i}" style="--k:${i}"><span>${E(p.icon)}</span></div>`).join('')}</div></div>
+      <button type="button" class="sl-zoom" aria-pressed="false">🔍 Bigger board</button>`;
+    const wrap = host.querySelector('.sl-wrap'), board = host.querySelector('.sl-board'), toks = [...host.querySelectorAll('.sl-tok')], zb = host.querySelector('.sl-zoom'), pos = players.map(() => 1);
+    const n0 = players.length;
+    toks.forEach((tk, i) => { const k = n0 === 1 ? 4 : n0 === 2 ? [3, 5][i] : i; tk.style.setProperty('--ox', ((k % 3) - 1) * 30 + '%'); tk.style.setProperty('--oy', (Math.floor(k / 3) - .5) * (n0 <= 3 ? 0 : 34) + '%'); });
+    const focus = (i, now) => { if (!board.classList.contains('big')) return; const tk = toks[i]; if (!tk) return; const c = cell(pos[i]), w = board.clientWidth / 10;
+      wrap.scrollTo({ left: Math.max(0, c.col * w - wrap.clientWidth / 2 + w / 2), top: Math.max(0, c.row * w - wrap.clientHeight / 2 + w / 2), behavior: now ? 'auto' : 'smooth' }); };
+    const place = (i, n) => { pos[i] = n; const c = cell(n), tk = toks[i]; if (tk) tk.style.transform = `translate(${c.col * 100}%,${c.row * 100}%)`; };
+    zb.onclick = () => { const on = !board.classList.contains('big'); wrap.style.height = on ? wrap.clientWidth + 'px' : ''; board.classList.toggle('big', on); zb.setAttribute('aria-pressed', on); zb.textContent = on ? '🔍 Whole board' : '🔍 Bigger board'; S('tap'); requestAnimationFrame(() => focus(+(host.dataset.focus || 0), true)); };
+    const api = {
+      place, focus, pos,
+      active: i => { toks.forEach((tk, j) => tk.classList.toggle('on', j === i)); host.dataset.focus = i; },
+      hop(i, to, cb) { const step = () => { if (pos[i] === to) { focus(i); return cb && cb(); } place(i, pos[i] + (to > pos[i] ? 1 : -1)); S('tap'); t(step, 170); }; step(); },
+      slide(i, to, cb) { const tk = toks[i]; if (tk) tk.classList.add('slide'); place(i, to); focus(i); t(() => { if (tk) tk.classList.remove('slide'); cb && cb(); }, 700); },
+      gone: (i, off) => { if (toks[i]) toks[i].classList.toggle('off', !!off); } };
+    players.forEach((p, i) => place(i, 1));
+    return api;
+  }
+
   function snakes(st, P, ctx, fin) {
     let qs = spread(P.quiz, P.quiz.length, P.multi), qi = 0;
     const nextQ = () => { if (qi >= qs.length) { qs = spread(P.quiz, P.quiz.length, P.multi); qi = 0; } return qs[qi++]; };
+    const MAXR = 50;
     const me = (ST.profile && ST.profile.avatar) || '🦁', pos = [1, 1], names = ['You', 'Robo'], icons = [me, '🤖'];
-    let turn = 0, turns = 0, asked = 0, right = 0, busy = false; const missed = [];
-    const C = n => { const c = cell(n); return [c.col * 100 + 50, c.row * 100 + 50]; };
-    const ladSvg = Object.entries(LADDERS).map(([a, b]) => {
-      const [x1, y1] = C(+a), [x2, y2] = C(+b), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L * 13, ny = dx / L * 13;
-      let rungs = ''; for (let s = .12; s < .95; s += .14) rungs += `<line x1="${x1 + dx * s + nx}" y1="${y1 + dy * s + ny}" x2="${x1 + dx * s - nx}" y2="${y1 + dy * s - ny}"/>`;
-      return `<g class="arc-lad"><line x1="${x1 + nx}" y1="${y1 + ny}" x2="${x2 + nx}" y2="${y2 + ny}"/><line x1="${x1 - nx}" y1="${y1 - ny}" x2="${x2 - nx}" y2="${y2 - ny}"/>${rungs}</g>`; }).join('');
-    const snSvg = Object.entries(SNAKES).map(([a, b]) => {
-      const [x1, y1] = C(+a), [x2, y2] = C(+b), mx = (x1 + x2) / 2, my = (y1 + y2) / 2, w = 45;
-      return `<g class="arc-snk"><path d="M${x1} ${y1} C${x1 + w} ${y1 + (my - y1) * .5}, ${mx - w} ${my}, ${mx} ${my} S${x2 + w} ${y2 - (y2 - my) * .5}, ${x2} ${y2}"/><circle cx="${x1}" cy="${y1}" r="11"/></g>`; }).join('');
-    const sq = [];
-    for (let n = 1; n <= 30; n++) { const c = cell(n); sq.push(`<div class="arc-sq ${(c.row + c.col) % 2 ? 'a' : 'b'} ${LADDERS[n] ? 'lad' : ''} ${SNAKES[n] ? 'snk' : ''} ${n === 30 ? 'goal' : ''}" style="grid-column:${c.col + 1};grid-row:${c.row + 1}"><small>${n}</small>${n === 30 ? '🏆' : LADDERS[n] ? '🪜' : SNAKES[n] ? '🐍' : ''}</div>`); }
+    let turn = 0, turns = 0, asked = 0, right = 0, busy = false, climbs = 0, dodges = 0; const missed = [];
     st.innerHTML = `<div class="card arc-slhd"><span class="p0">${me} You: <b class="arc-p0">1</b></span><span class="arc-turn">Your turn</span><span class="p1">🤖 Robo: <b class="arc-p1">1</b></span></div>
-      <div class="arc-board">${sq.join('')}<svg viewBox="0 0 600 500" class="arc-bsvg" aria-hidden="true">${ladSvg}${snSvg}</svg>
-      <div class="arc-tok t0">${me}</div><div class="arc-tok t1">🤖</div></div>
-      <div class="arc-dicerow"><div class="arc-die">🎲</div><button class="btn arc-roll">🎲 Roll the dice</button></div>
-      <div class="arc-slog">🪜 Land on a ladder: answer right to climb. 🐍 Land on a snake: answer right to dodge it!</div><div class="card arc-slq" style="display:none"></div>`;
-    const toks = [st.querySelector('.t0'), st.querySelector('.t1')], die = st.querySelector('.arc-die'), roll = st.querySelector('.arc-roll'),
-      log = st.querySelector('.arc-slog'), qbox = st.querySelector('.arc-slq'), tEl = st.querySelector('.arc-turn');
-    const place = w => { const c = cell(pos[w]); toks[w].style.transform = `translate(${c.col * 100}%,${c.row * 100}%)`; st.querySelector('.arc-p' + w).textContent = pos[w]; };
-    const hop = (w, to, cb) => { if (pos[w] === to) return cb(); pos[w] += to > pos[w] ? 1 : -1; place(w); S('tap'); ctx.t(() => hop(w, to, cb), 200); };
-    const slide = (w, to, cb) => { toks[w].classList.add('slide'); pos[w] = to; place(w); ctx.t(() => { toks[w].classList.remove('slide'); cb(); }, 650); };
+      <div class="sl-host"></div>
+      <div class="arc-dicerow"><div class="arc-die" aria-hidden="true">🎲</div><button class="btn arc-roll">🎲 Roll the dice</button></div>
+      <div class="arc-slog" aria-live="polite">🪜 Land on a ladder: answer right to climb. 🐍 Land on a snake's head: answer right to escape!</div>
+      <p class="sl-rule">${SL_RULE}</p><div class="card arc-slq" style="display:none"></div>`;
+    const B = slBoard(st.querySelector('.sl-host'), [{ icon: me }, { icon: '🤖' }], ctx.t);
+    const die = st.querySelector('.arc-die'), roll = st.querySelector('.arc-roll'), log = st.querySelector('.arc-slog'), qbox = st.querySelector('.arc-slq'), tEl = st.querySelector('.arc-turn');
+    const show = w => { st.querySelector('.arc-p' + w).textContent = pos[w]; };
+    const sync = w => { pos[w] = B.pos[w]; show(w); };
     const end = () => {
-      const won = pos[0] >= 30 || (pos[1] < 30 && pos[0] > pos[1]);
-      fin({ title: won ? '🏆 You won the race!' : '🤖 Robo won this time', scoreText: `${right} / ${asked} answers right`,
-        stars: won ? (asked && right / asked >= .7 ? 3 : 2) : right ? 1 : 0, lines: [`📍 You reached square ${pos[0]} · Robo reached ${pos[1]}`], missed });
+      const won = pos[0] >= 100 || (pos[1] < 100 && pos[0] > pos[1]);
+      fin({ title: won ? '🏆 You won the race!' : pos[1] >= 100 ? '🤖 Robo won this time' : '🤖 Robo is ahead this time', scoreText: `${right} / ${asked} answers right`,
+        stars: won ? (asked && right / asked >= .7 ? 3 : 2) : right ? 1 : 0,
+        lines: [`📍 You reached square ${pos[0]} · Robo reached ${pos[1]}`, `🪜 Ladders climbed: ${climbs} · 🐍 Snakes escaped: ${dodges}`, pos[0] < 100 && pos[1] < 100 ? `⏱ ${MAXR} rounds played — the one closest to 100 wins.` : ''].filter(Boolean), missed });
     };
     const after = () => {
-      if (pos[0] >= 30 || pos[1] >= 30) { S(pos[0] >= 30 ? 'unlock' : 'wrong'); return ctx.t(end, 900); }
+      if (pos[0] >= 100 || pos[1] >= 100) { S(pos[0] >= 100 ? 'unlock' : 'wrong'); return ctx.t(end, 900); }
       turn = 1 - turn; if (turn === 0) turns++;
-      if (turns >= 30) return ctx.t(end, 600);
-      tEl.textContent = turn ? "Robo's turn" : 'Your turn'; tEl.classList.toggle('cpu', !!turn);
+      if (turns >= MAXR) return ctx.t(end, 600);
+      tEl.textContent = turn ? "Robo's turn" : 'Your turn'; tEl.classList.toggle('cpu', !!turn); B.active(turn);
       if (turn) ctx.t(doRoll, 900); else { busy = false; roll.disabled = false; }
     };
     const ask = (kind, cb) => {
       const q = nextQ(); asked++;
-      qbox.style.display = ''; qbox.innerHTML = `<div class="arc-sltitle">${kind === 'lad' ? '🪜 Answer right to climb the ladder!' : '🐍 Answer right to dodge the snake!'}</div><div class="arc-slqb"></div>`;
+      qbox.style.display = ''; qbox.innerHTML = `<div class="arc-sltitle">${kind === 'lad' ? '🪜 Answer right to climb the ladder!' : '🐍 Answer right to escape the snake!'}</div><div class="arc-slqb"></div>`;
       const h = askQ(qbox.querySelector('.arc-slqb'), q, ok => {
-        if (ok) { right++; h.x.innerHTML = `<div class="arc-exp good"><b>${kind === 'lad' ? '🎉 Correct! Up you go!' : '🎉 Correct! Snake dodged!'}</b></div>`; ctx.t(() => { qbox.style.display = 'none'; cb(true); }, 1100); }
+        if (ok) { right++; h.x.innerHTML = `<div class="arc-exp good"><b>${kind === 'lad' ? '🎉 Correct! Up you go!' : '🎉 Correct! You escaped the snake!'}</b></div>`; ctx.t(() => { qbox.style.display = 'none'; cb(true); }, 1100); }
         else { missed.push(qMiss(q)); h.x.innerHTML = explainHTML(q, false) + `<button class="btn mint arc-next">Continue ▶</button>`;
           h.x.querySelector('.arc-next').onclick = () => { S('tap'); qbox.style.display = 'none'; cb(false); }; }
       });
@@ -610,21 +673,22 @@
     const land = w => {
       const p = pos[w];
       if (LADDERS[p]) {
-        if (w === 0) ask('lad', ok => { if (ok) { S('unlock'); log.textContent = `🪜 You climbed from ${p} to ${LADDERS[p]}!`; slide(0, LADDERS[p], after); } else { log.textContent = '🪜 Missed the ladder. Stay put.'; after(); } });
-        else { const ok = Math.random() < .6; log.textContent = ok ? `🤖 Robo answers… and climbs to ${LADDERS[p]}!` : '🤖 Robo answers… wrong! It stays.'; ok ? slide(1, LADDERS[p], after) : after(); }
+        if (w === 0) ask('lad', ok => { if (ok) { S('unlock'); climbs++; log.textContent = `🪜 You climbed from ${p} to ${LADDERS[p]}!`; B.slide(0, LADDERS[p], () => { sync(0); after(); }); } else { log.textContent = '🪜 Not this time — you stay on ' + p + '.'; after(); } });
+        else { const ok = Math.random() < .6; log.textContent = ok ? `🤖 Robo answers… and climbs to ${LADDERS[p]}!` : '🤖 Robo answers… wrong! It stays.'; ok ? B.slide(1, LADDERS[p], () => { sync(1); after(); }) : after(); }
       } else if (SNAKES[p]) {
-        if (w === 0) ask('snk', ok => { if (ok) { log.textContent = '🐍 Snake dodged!'; after(); } else { S('wrong'); log.textContent = `🐍 Down you slide from ${p} to ${SNAKES[p]}.`; slide(0, SNAKES[p], after); } });
-        else { const ok = Math.random() < .5; log.textContent = ok ? '🤖 Robo dodges the snake!' : `🤖 Robo slides down to ${SNAKES[p]}!`; ok ? after() : slide(1, SNAKES[p], after); }
+        if (w === 0) ask('snk', ok => { if (ok) { dodges++; log.textContent = '🐍 You escaped the snake!'; after(); } else { S('wrong'); log.textContent = `🐍 Down you slide from ${p} to ${SNAKES[p]}.`; B.slide(0, SNAKES[p], () => { sync(0); after(); }); } });
+        else { const ok = Math.random() < .5; log.textContent = ok ? '🤖 Robo escapes the snake!' : `🤖 Robo slides down to ${SNAKES[p]}!`; ok ? after() : B.slide(1, SNAKES[p], () => { sync(1); after(); }); }
       } else after();
     };
     const doRoll = () => {
-      const w = turn, v = 1 + rnd(6); restart(die, 'roll'); S('tap');
+      const w = turn, v = roll6(); restart(die, 'roll'); S('tap');
       let f = 0; const spin = ctx.iv(() => { die.textContent = 1 + rnd(6); if (++f > 6) { ctx.clearIv(spin); die.textContent = v; restart(die, 'arc-pop');
+        if (pos[w] + v > 100) { log.textContent = `${icons[w]} ${names[w]} rolled a ${v} — too big! ${w ? 'Robo needs' : 'You need'} exactly ${100 - pos[w]} to reach 100. ${w ? 'It stays' : 'You stay'} on ${pos[w]}.`; S('hmm'); return ctx.t(after, 1100); }
         log.textContent = `${icons[w]} ${names[w]} rolled a ${v}.`;
-        hop(w, Math.min(30, pos[w] + v), () => land(w)); } }, 80);
+        B.hop(w, pos[w] + v, () => { sync(w); land(w); }); } }, 80);
     };
     roll.onclick = () => { if (busy || turn) return; busy = true; roll.disabled = true; doRoll(); };
-    place(0); place(1);
+    B.active(0);
   }
 
   /* ================= menu, results, open ================= */
@@ -636,7 +700,7 @@
     { id: 'odd', e: '🔎', n: 'Odd One Out', d: 'Spot the one that does not belong.', ok: P => oddGames(P).length >= 1, c: P => `${oddGames(P).length} sets`, run: odd },
     { id: 'chain', e: '🧩', n: 'Chain Order', d: 'Drag the steps into the right order.', ok: P => P.order.length >= 1, c: P => `${P.order.length} chains`, run: chain },
     { id: 'quizshow', e: '🎯', n: 'Quiz Show', d: '10 questions up the coin ladder, with lifelines.', ok: P => P.quiz.length >= 11, c: P => `${P.quiz.length} questions`, run: quizshow },
-    { id: 'snakes', e: '🐍', n: 'Snakes & Ladders', d: 'Race Robo. Answer right to climb!', ok: P => P.quiz.length >= 8, c: () => 'vs Robo 🤖', run: snakes }];
+    { id: 'snakes', e: '🐍', n: 'Snakes & Ladders', d: 'Race Robo to 100. Answer right to climb!', ok: P => P.quiz.length >= 8, c: () => 'vs Robo 🤖', run: snakes }];
 
   const A = { host: null, scope: null, P: null, ctx: null, seq: 0, key: '' };
   const toTop = () => { try { const m = A.host && A.host.closest('main'); if (m) m.scrollTop = 0; window.scrollTo(0, 0); } catch (e) {} };
@@ -701,5 +765,5 @@
     A.P = P; menu();
   }
 
-  window.Arcade = { open };
+  window.Arcade = { open, pool: buildPool, okQ, slBoard, LADDERS, SNAKES, SL_RULE, roll6, askQ, BAD_OPT };
 })();

@@ -353,7 +353,11 @@
     if (id === 'storm') { const it = $1('.arc-sintro', gm); if (it && visible(it)) return join([txt($1('.arc-round', gm)), txt(it)]); const fb = txt($1('.arc-sfb', gm)); const d = $1('.arc-drop', gm); return join([fb, d && visible(d) ? 'Catch: ' + txt(d) : '']) + ' Baskets: ' + listChoices(ch) + ' ' + T('sayNum'); }
     if (id === 'odd') return join([txt($1('.arc-oddc .tag', gm)), txt($1('.arc-oddc h3', gm))]) + ' ' + listChoices(ch) + ' ' + T('sayNum');
     if (id === 'chain') { const rows = $$('.arc-row', gm).map((rw, i) => `${i + 1}: ${sentence(txt($1('.arc-rt', rw)))}`).join(' '); return join([txt($1('.arc-chain .tag', gm)), txt($1('.arc-chain h3', gm)), txt($1('.arc-chain .sub', gm)), txt($1('.arc-exp', gm))]) + ` The steps now: ${rows} Say "swap 1 and 3", or "move 2 up", then say "check".`; }
-    if (id === 'snakes') { const qb = $1('.arc-slq', gm); if (qb && visible(qb)) return join([txt($1('.arc-sltitle', qb))]) + ' ' + qs(); return join([txt($1('.arc-slog', gm)), `You are on square ${txt($1('.arc-p0', gm))}. Robo is on ${txt($1('.arc-p1', gm))}`, txt($1('.arc-turn', gm))]) + ($1('.arc-roll:not([disabled])', gm) ? ' Say roll, or press Enter.' : ''); }
+    if (id === 'snakes') { const qb = $1('.arc-slq', gm); if (qb && visible(qb)) return join([txt($1('.arc-sltitle', qb))]) + ' ' + qs();
+      const me = +txt($1('.arc-p0', gm)) || 1, L = window.Arcade && Arcade.LADDERS, Sn = window.Arcade && Arcade.SNAKES;
+      const near = L && Sn ? [1, 2, 3, 4, 5, 6].map(d => me + d).filter(n => L[n] || Sn[n]).map(n => L[n] ? `a ladder on ${n}` : `a snake on ${n}`) : [];
+      return join([txt($1('.arc-slog', gm)), `You are on square ${me} of 100. Robo is on ${txt($1('.arc-p1', gm))}`, near.length ? 'Coming up: ' + near.join(', ') : '', txt($1('.arc-turn', gm)),
+        me > 94 ? `You need exactly ${100 - me} to reach 100. A bigger roll means you stay` : '']) + ($1('.arc-roll:not([disabled])', gm) ? ' Say roll, or press Enter.' : ''); }
     return join([name]) + ' ' + qs();
   }
   function genericSpeech(r, ch) {
@@ -379,6 +383,7 @@
     const ex = $$('.explain', r).filter(visible).pop();
     if (ex && $1('.qtext', r)) text = feedbackSpeech(ex) + ' ' + T('sayNext');
     else if ($1('.arc-stage,.arc-menu,.arc-res', r)) text = arcadeSpeech(r, ch);
+    else if ($1('.lv-root', r) && window.Live && Live.speech) text = Live.speech(r, ch, listChoices);
     else if ($1('.qtext', r) && ch.length && ch[0].matches('.opt')) text = questionSpeech(r, ch);
     else if ($1('#learnGo', r)) text = learnSpeech(r);
     else if ($1('#tBtn', r) && $1('#ans', r)) text = join([txt($1('.tag', r)), txt($1('#gs', r))]) + ' ' + T('teach');

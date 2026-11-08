@@ -80,7 +80,7 @@
   D.addEventListener('click', e => {
     const b = e.target.closest && e.target.closest('button.opt[data-k]');
     if (!b || b.disabled || !signedIn() || parent()) return;
-    if (b.closest('#gkOpts') || b.classList.contains('arc-opt')) return;          // GK Explorer and games stay free
+    if (b.closest('#gkOpts') || b.classList.contains('arc-opt') || b.classList.contains('lv-opt')) return;   // GK Explorer, games and Game Rooms stay free
     const box = b.closest('#tOpts');                                               // tests: count each question once
     if (box && box.dataset.svc) return;
     const kind = kindNow();
