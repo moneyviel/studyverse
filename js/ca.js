@@ -531,7 +531,7 @@
         <div class="ca-chipsel" role="group" aria-label="Show questions by marks"><button type="button" class="ca-cs" aria-pressed="${fm === 'all'}" data-fm="all">All</button>${marks.map(m => `<button type="button" class="ca-cs" aria-pressed="${String(fm) === String(m)}" data-fm="${m}">${m}-mark</button>`).join('')}<button type="button" class="ca-cs" data-fm="mcq">1-mark MCQs</button></div>
         ${fm !== 'all' ? markGuide(+fm, U.f.p, legal) : '<p class="ca-note">Pick a mark value to see only those questions and how long and how detailed such an answer should be.</p>'}</div>
       ${d.questions.map((q, i) => { if (fm !== 'all' && q.marks !== +fm) return ''; const h = C().writes[`${U.uid}#${q.id}`] || []; const best = bestOf(h), last = h[h.length - 1];
-        return `<button class="card ca-qrow" data-i="${i}"><span class="ca-qm">${fmt(q.marks)}<small>marks</small></span><span class="ca-qb"><b>Q${i + 1} (${mk(q.marks)}). ${esc(q.q.length > 130 ? q.q.slice(0, 127) + '…' : q.q)}</b><small>~${q.minutes} min · ${esc(padName(q.pad))}${best != null ? ` · best ${fmt(best)} / ${mk(q.marks)}` : ''}${last && last.status === 'waiting' ? ' · ⏳ photo waiting for AI examiners' : h.some(a => (a.photos || []).length) ? ' · 📷' : ''}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`; }).join('')}
+        return `<button class="card ca-qrow" data-i="${i}"><span class="ca-qm">${fmt(q.marks)}<small>marks</small></span><span class="ca-qb"><b>Q${i + 1} (${mk(q.marks)}). ${esc(q.q.length > 130 ? q.q.slice(0, 127) + '…' : q.q)}</b><small>~${q.minutes} min · ${esc(padName(q.pad))}${best != null ? ` · best ${fmt(best)} / ${mk(q.marks)}` : ''}${last && last.status === 'waiting' ? ' · 📷 photo only — not marked' : h.some(a => (a.photos || []).length) ? ' · 📷' : ''}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`; }).join('')}
       ${nextTabBtn('write')}`;
     P.querySelectorAll('.ca-qrow').forEach(b => b.onclick = () => { tap('open'); pad(P, d.questions[+b.dataset.i], +b.dataset.i); });
     P.querySelectorAll('[data-fm]').forEach(b => b.onclick = () => { tap('tap'); if (b.dataset.fm === 'mcq') { U.tab = 'mcq'; renderUnit(); return; } writeTab(P, b.dataset.fm); });
@@ -599,6 +599,12 @@
     const uid = key.split('#')[0], ph = att.photos || [];
     if (!CHK()) { modelOnly(host, q); return; }
     const res = CHK().checkAnswer({ question: q, answer: att.answer, photos: ph, unit: uid, qid: q.id });
+    if (res.status === 'waiting') {          // a photo alone cannot be marked: ask for the key points, save nothing
+      host.innerHTML = `<div class="card ca-rep ca-rep-wait" role="status"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">📝</span><div><h2 class="ca-h2s">One more step to get your marks</h2><p class="sub">Handwriting can't be read automatically. Type the key figures, entries and points from your page — your photo stays with the answer.</p></div></div>
+        <button class="btn" type="button" id="caTypeKP">Type my key points ▶</button></div>${modelHTML(q)}${notesHTML(q)}`;
+      const b = D.getElementById('caTypeKP'); if (b) b.onclick = () => { const t = D.getElementById('caAns'); if (t) { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); setTimeout(() => t.focus(), 300); } };
+      say('Type the key points from your photo to get marks.'); return;
+    }
     const c = C(), rec = Object.assign({ d: today(), secs: att.secs, words: att.words, text: (att.answer.text || '').slice(0, 6000), table: att.answer.table,
       photos: ph.map(x => ({ id: x.id, w: x.w, h: x.h, bytes: x.bytes })) }, CHK().record(res));
     const h = c.writes[key] = c.writes[key] || []; h.push(rec);
@@ -607,17 +613,17 @@
     save(); markTab(uid, 'write');
     const waiting = res.status === 'waiting';
     addXP(waiting || !res.max ? 5 : Math.max(5, Math.round(res.total / res.max * 20)));
-    const line = CHK().scoreLine(res); toast(waiting ? 'Saved — waiting for AI examiners' : `Checked: ${line}`); say(waiting ? 'Your photo answer is saved and waits for the AI examiners.' : `Checked. ${line}`);
+    const line = CHK().scoreLine(res); toast(`Checked: ${line}`); say(`Checked. ${line}`);
     host.innerHTML = `${ph.length ? `<div class="ca-cmp"><aside class="ca-cmp-ph" aria-label="Photos of your answer"><div class="ca-k">Your answer · ${ph.length} page${ph.length > 1 ? 's' : ''} — tap to zoom</div><div class="ca-phstrip" id="caPhStrip"></div></aside><div class="ca-cmp-main">` : ''}
       ${CHK().reportHTML(res, q)}${modelHTML(q)}
-      <div class="card ca-aibox"><button class="btn ghost ca-ai" disabled aria-describedby="caAiNote">🤖 Ask the AI examiners</button><p class="ca-note" id="caAiNote">Coming soon: three independent AI examiners will mark your saved answer${ph.length ? ' and its photos' : ''} — including the points this phone cannot judge — and agree on one score.</p></div>
       ${notesHTML(q)}<div class="card ca-histc">${hist(key, q) || '<div class="ca-hist"></div>'}</div>${ph.length ? '</div></div>' : ''}`;
     if (ph.length && T() && T().photos) T().photos.strip(D.getElementById('caPhStrip'), ph);
     wireHist(host, key, q);
+    host.querySelectorAll('[data-caweak]').forEach(b => b.onclick = () => weakScreen());
   }
-  const histLine = a => a.status === 'waiting' ? '⏳ <b>Waiting for AI examiners</b> (photo answer)'
+  const histLine = a => a.status === 'waiting' ? '📷 <b>Not marked</b> (photo only — type your key points to get marks)'
     : a.status === 'self' ? `<b>${fmt(a.score)} / ${mk(a.max)}</b> · self-marked (before automatic checking)`
-    : `<b>${fmt(a.score)} / ${mk(a.max)}</b>${a.pend ? ` checked · ${mk(a.pend)} pending AI check` : ''}`;
+    : `<b>${fmt(a.score)} / ${mk(a.max)}</b>${a.pend ? ` marked · ${mk(a.pend)} not auto-marked` : ''}`;
   function hist(key, q) {
     const h = C().writes[key] || []; if (!h.length) return '';
     return `<div class="ca-hist"><h3 class="ca-h3">Your attempts</h3><ul class="ca-ul ca-hl2">${h.map((a, i) => ({ a, i })).reverse().map(({ a, i }) => `<li><span>${esc(a.d)} — ${histLine(a)}${a.secs ? ` in ${Math.round(a.secs / 60)} min` : ''}${a.words ? ` · ${a.words} words` : ''}${(a.photos || []).length ? ` · 📷 ${a.photos.length} page${a.photos.length > 1 ? 's' : ''}` : ''}</span>
@@ -691,10 +697,10 @@
       qrows.push({ ...x, title: q ? `Q${i + 1}. ${q.q.length > 90 ? q.q.slice(0, 87) + '…' : q.q}` : x.qid, full: q ? q.marks : (x.hist[0] || {}).full || '' }); }
     el.innerHTML = `<button class="back" id="caBack">← CA Journey</button><h1 class="ca-h1 ca-onDark">Weak spots & strengths</h1>
       <div class="card"><h2 class="ca-h2s">By unit</h2>${urows.length ? urows.map(r => { const [cl, lab] = band(r.p); return `<button class="ca-wunit" data-u="${r.id}"><span><b>${esc(names[r.id] || r.id)}</b><small>${r.u.ms ? `MCQ ${Math.round((r.u.ms - r.u.mw) / r.u.ms * 100)}% (${r.u.ms} answers)` : 'No MCQs yet'}${r.u.wm ? ` · Written ${fmt(r.u.wg)}/${fmt(r.u.wm)}` : ''}</small></span><em class="ca-band ${cl}">${lab}</em></button>`; }).join('') : '<p class="sub">No data yet.</p>'}</div>
-      <div class="card"><h2 class="ca-h2s">Written answers — marks lost by examiner skill</h2><p class="sub">From your automatically checked written answers (latest attempt of each question, unit Write tab, question bank and mock papers) — which kinds of marks you win and lose. Points waiting for the AI examiners are not counted.</p>
+      <div class="card"><h2 class="ca-h2s">Written answers — marks lost by examiner skill</h2><p class="sub">From your automatically checked written answers (latest attempt of each question, unit Write tab, question bank and mock papers) — which kinds of marks you win and lose. Points that are not auto-marked (presentation, photo-only answers) are not counted.</p>
         ${srows.length ? srows.map(r => { const [cl, lab] = band(r.p); return `<div class="ca-skill"><span>${esc(SKILL[r.k] || r.k)}<small> lost ${fmt(Math.round((r.s.m - r.s.g) * 100) / 100)} of ${mk(Math.round(r.s.m * 100) / 100)}</small></span>${bar(r.p)}<b class="${cl}">${Math.round(r.p * 100)}%</b></div>`; }).join('') : '<p class="sub">Check a written answer to see this.</p>'}
         ${srows.length && srows[0].p < .6 ? `<p class="ca-tip"><b>Focus next</b> ${esc(SKILL[srows[0].k] || srows[0].k)} — practise one written question this week and read the examiner's report closely.</p>` : ''}</div>
-      ${qrows.length ? `<div class="card"><h2 class="ca-h2s">Your written answers — history</h2><p class="sub">Every check of each question, oldest first.</p><ul class="ca-qhist">${qrows.map(r => `<li><button class="ca-qh" data-u="${esc(r.uid)}" data-q="${esc(r.qid)}"><span><b>${esc(r.title)}</b><small>${esc(names[r.uid] || r.uid)}</small></span><span class="ca-qhs">${r.hist.map(a => a.status === 'waiting' ? '<i class="pend" title="Waiting for AI examiners">⏳</i>' : `<i class="${a.max && a.score / a.max >= .8 ? 's' : a.max && a.score / a.max < .5 ? 'w' : 'm'}">${fmt(a.score)}</i>`).join('<span aria-hidden="true">→</span>')}<em>/ ${fmt(r.full)}</em></span></button></li>`).join('')}</ul></div>` : ''}`;
+      ${qrows.length ? `<div class="card"><h2 class="ca-h2s">Your written answers — history</h2><p class="sub">Every check of each question, oldest first.</p><ul class="ca-qhist">${qrows.map(r => `<li><button class="ca-qh" data-u="${esc(r.uid)}" data-q="${esc(r.qid)}"><span><b>${esc(r.title)}</b><small>${esc(names[r.uid] || r.uid)}</small></span><span class="ca-qhs">${r.hist.map(a => a.status === 'waiting' ? '<i class="pend" title="Photo only — not marked">📷</i>' : `<i class="${a.max && a.score / a.max >= .8 ? 's' : a.max && a.score / a.max < .5 ? 'w' : 'm'}">${fmt(a.score)}</i>`).join('<span aria-hidden="true">→</span>')}<em>/ ${fmt(r.full)}</em></span></button></li>`).join('')}</ul></div>` : ''}`;
     D.getElementById('caBack').onclick = home;
     el.querySelectorAll('.ca-wunit').forEach(b => b.onclick = () => unit(b.dataset.u, 'mcq'));
     el.querySelectorAll('.ca-qh').forEach(b => b.onclick = () => openQuestion(b.dataset.u, b.dataset.q));

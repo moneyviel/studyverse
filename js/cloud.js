@@ -153,7 +153,11 @@
     }
   }
   async function access() {
-    try { const r = await rest('course_access?select=course,valid_until'); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); } } catch (e) {}
+    try {
+      // a new account gets its 24-hour trial of all school grades once (the server decides; repeated calls change nothing)
+      if (!get('sv_trial')) { try { await rest('rpc/start_trial', { method: 'POST', body: {} }); set('sv_trial', '1'); } catch (e) {} }
+      const r = await rest('course_access?select=course,valid_until,note'); if (Array.isArray(r)) { set('sv_access', JSON.stringify(r)); paint(); try { window.dispatchEvent(new Event('sv-access')); } catch (e) {} }
+    } catch (e) {}
   }
   async function owner() {                         // studyverse.admins: an owner account turns owner mode on (once; "turn off" is respected)
     try {
@@ -179,7 +183,7 @@
   async function signOut() {
     try { await push(true); } catch (e) {}
     try { await call('/auth/v1/logout', { method: 'POST' }); } catch (e) {}
-    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner', 'sv_lock', 'sv_disc'].forEach(k => set(k, null));
+    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner', 'sv_lock', 'sv_disc', 'sv_trial'].forEach(k => set(k, null));
     wipeLocal();
   }
 
@@ -210,12 +214,13 @@
     const [cls, txt] = stLine(), cs = courses();
     return `<h3>☁️ ${meta().adm ? 'Owner account 🔑' : 'Your account'}</h3><p class="sub">${esc((S.user && S.user.email) || '')}</p><p class="cl-st ${cls}" role="status">${txt}</p>
       <p class="sub">Your courses: ${cs.length ? cs.map(c => esc(courseName(c.course)) + (c.valid_until ? ' (till ' + new Date(c.valid_until).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ')' : '')).join(', ') : 'free courses'}</p>
-      <div class="cl-row">${status === 'error' || status === 'offline' ? '<button class="btn ghost" type="button" data-cl="retry">Try again</button>' : ''}<button class="btn ghost" type="button" data-cl="out">Sign out</button></div>`;
+      <div class="cl-row">${meta().adm ? '' : '<button class="btn" type="button" data-cl="plans">Plans &amp; subscribe</button>'}${status === 'error' || status === 'offline' ? '<button class="btn ghost" type="button" data-cl="retry">Try again</button>' : ''}<button class="btn ghost" type="button" data-cl="out">Sign out</button></div>`;
   }
   function wire(root) {
     root.querySelectorAll('[data-cl]').forEach(b => b.onclick = () => {
       const a = b.dataset.cl;
       if (a === 'up' || a === 'in') form(a);
+      else if (a === 'plans') { if (window.Plans) Plans.open(); }
       else if (a === 'retry') { arrive().then(() => push(true)); }
       else if (a === 'out') {
         if (b.dataset.sure) { b.disabled = true; b.textContent = 'Signing out…'; signOut(); }
@@ -466,5 +471,5 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', () => setTimeout(start, 0)) : setTimeout(start, 0);
 
-  window.Cloud = { admin: () => !!(S && meta().adm), signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, locked, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
+  window.Cloud = { rest, call, refreshAccess: access, user: () => (S && S.user) || null, api: API, key: KEY, errText: e => errText(e), sheet: openSheet, closeSheet, admin: () => !!(S && meta().adm), signedIn: () => !!S, email: () => (S && S.user && S.user.email) || '', courses, locked, has: c => courses().some(a => a.course === c), save: () => push(true), open: form, _status: () => status };
 })();

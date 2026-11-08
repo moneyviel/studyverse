@@ -488,26 +488,48 @@
   }
 
   /* ---------- the examiner-style report ---------- */
-  const ST = { correct: ['✅', 'Correct', 'ok'], partial: ['½', 'Half marks', 'half'], wrong: ['❌', 'Wrong', 'bad'], missing: ['⚠️', 'Missing', 'miss'], pending: ['⏳', 'Pending AI check', 'pend'] };
+  const ST = { correct: ['✅', 'Correct', 'ok'], partial: ['½', 'Half marks', 'half'], wrong: ['❌', 'Wrong', 'bad'], missing: ['⚠️', 'Missing', 'miss'], pending: ['🧑‍🏫', 'Not auto-marked', 'pend'] };
   const TIPK = { mistake: 'Common mistake', remark: 'Examiner', tip: 'Tip' };
   function scoreLine(res) {
-    if (res.status === 'waiting') return 'Waiting for AI examiners — no marks yet';
-    if (res.status === 'pending') return `All ${mk(res.full)} will be checked by AI examiners (coming soon)`;
-    return `${res.pendingMarks ? `${fmt(res.total)} / ${mk(res.max)} checked now · ${mk(res.pendingMarks)} pending AI check` : `${fmt(res.total)} / ${mk(res.max)}`}`;
+    if (res.status === 'waiting') return 'Not marked — photo only. Type your key points to get marks';
+    if (res.status === 'pending') return `This answer is judged by an examiner (${mk(res.full)}) — not marked automatically`;
+    return `${res.pendingMarks ? `${fmt(res.total)} / ${mk(res.max)} marked · ${mk(res.pendingMarks)} for presentation / judgement not auto-marked` : `${fmt(res.total)} / ${mk(res.max)}`}`;
   }
   function pointHTML(p) {
     const [ic, lab, cl] = ST[p.status] || ST.pending;
     const bits = [];
     if (p.status !== 'pending' && p.found.length) bits.push(`<p class="ca-rp-f"><b>Found:</b> ${p.found.map(H).join(' · ')}</p>`);
     if (p.status !== 'pending' && p.status !== 'correct' && p.expected.length) bits.push(`<p class="ca-rp-e"><b>Expected:</b> ${p.expected.map(H).join(' · ')}</p>`);
-    if (p.remark) bits.push(`<p class="ca-rp-r">${H(p.remark)}</p>`);
+    if (p.remark) bits.push(`<p class="ca-rp-r">${H(/AI examiners/.test(p.remark) ? 'Not marked automatically — ' + (SKILLTIP[p.skill] || 'present it the way the model answer does to earn it in the exam.') : p.remark)}</p>`);
     return `<li class="ca-rp ${cl}"><span class="ca-rp-i" aria-hidden="true">${ic}</span><div class="ca-rp-b"><div class="ca-rp-h"><span class="ca-rp-t">${H(p.pt)}</span><em class="ca-rp-m">${p.status === 'pending' ? `${fmt(p.m)} pending` : `${fmt(p.marks)} / ${fmt(p.m)}`}</em></div><span class="ca-rp-st">${lab}</span>${bits.join('')}</div></li>`;
+  }
+  /* what earns each kind of mark in the exam (shown in "How to get more marks") */
+  const SKILLTIP = {
+    computation: 'Show a working note for every figure — examiners give step marks even when the final answer is wrong.',
+    concept: 'Start with the rule or definition in the exact words of the study material.',
+    provision: 'Quote the section / standard number first, then the provision in brief.',
+    analysis: 'Apply the provision to the facts of the question, one fact at a time.',
+    application: 'Use the names, dates and figures given in the question, not general statements.',
+    conclusion: 'End with a clear one-line conclusion that answers exactly what was asked.',
+    presentation: 'Use the proper format: headings, dates, Dr / Cr columns and narrations, neatly ruled.',
+    posting: 'Post each item to the correct account and the correct side (Dr / Cr).',
+    classification: 'Classify each item correctly (capital / revenue, asset / liability…) before computing.',
+    balancing: 'Total both sides, show the balance c/d and b/d with dates.',
+    rectification: 'Show the wrong entry, the correct entry and then the rectifying entry.'
+  };
+  const SKN = { computation: 'Computation', concept: 'Concept', provision: 'Quoting provisions', analysis: 'Analysis', application: 'Application', conclusion: 'Conclusion', presentation: 'Presentation', posting: 'Posting', classification: 'Classification', balancing: 'Balancing', rectification: 'Rectification' };
+  function moreMarks(res) {
+    const gains = res.points.filter(p => p.status !== 'correct').map(p => ({ p, g: p.status === 'pending' ? p.m : Math.max(0, p.m - (p.marks || 0)) })).filter(x => x.g > 0).sort((a, b) => b.g - a.g);
+    if (!gains.length) return '';
+    const weak = [...new Set(gains.filter(x => x.p.status !== 'pending').map(x => SKN[x.p.skill] || x.p.skill).filter(Boolean))];
+    return `<div class="ca-rep-av"><h3 class="ca-h3">📈 How to get more marks</h3><ol class="ca-ul">${gains.map(({ p, g }) => `<li><b>+${fmt(g)} mark${g === 1 ? '' : 's'}</b> — ${H(p.pt)}. <span class="ca-note">${H(SKILLTIP[p.skill] || '')}</span></li>`).join('')}</ol>
+      ${weak.length ? `<p class="ca-p">🎯 Added to your weak points: <b>${weak.map(H).join(', ')}</b>.</p><button class="btn ghost" type="button" data-caweak>Practise my weak points</button>` : ''}</div>`;
   }
   function reportHTML(res, q, opts = {}) {
     const h = opts.h || 'h2';
     if (res.status === 'waiting') {
-      return `<section class="card ca-rep ca-rep-wait" aria-label="Waiting for AI examiners"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">⏳</span><div><${h} class="ca-h2s">Waiting for AI examiners</${h}><p class="sub">Your photo answer is saved on this phone. No marks are given yet.</p></div></div>
-        <ul class="ca-ul"><li>When AI examiners arrive, they will read your handwriting and show you what they read, so you can confirm or correct it before marking.</li><li>Three independent AI examiners will then mark it against this question's ${mk(res.full)} scheme and agree on one score.</li><li>Want marks now? Type your key figures, entries or points in the answer box (with or without the photo) and tap “Check my answer” again.</li></ul></section>`;
+      return `<section class="card ca-rep ca-rep-wait" aria-label="Photo answer not marked"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">📷</span><div><${h} class="ca-h2s">Not marked — photo only</${h}><p class="sub">Handwriting can't be read automatically, so this attempt has no marks.</p></div></div>
+        <ul class="ca-ul"><li>To get marks, type the key figures, entries and points from your page in the answer box (or say them with 🎤), keep the photo if you like, and tap “Check my answer”.</li><li>Your typed points are then marked against this question's ${mk(res.full)} scheme, with “How to get more marks”.</li></ul></section>`;
     }
     const pct = res.max ? res.total / res.max : 0;
     const lost = res.points.filter(p => ['partial', 'wrong', 'missing'].includes(p.status));
@@ -515,10 +537,11 @@
       <div class="ca-rep-top"><div class="ca-rep-sc ${res.max ? (pct >= .8 ? 's' : pct < .5 ? 'w' : 'm') : ''}" aria-hidden="true"><b>${res.max ? fmt(res.total) : '–'}</b><span>/ ${fmt(res.max || res.full)}</span></div>
         <div><${h} class="ca-h2s">Examiner's report</${h}><p class="ca-rep-line" role="status">${H(scoreLine(res))}</p></div></div>
       <ol class="ca-rep-pts">${res.points.map(pointHTML).join('')}</ol>
-      ${res.extras.length ? `<details class="ca-rep-x" open><summary><span aria-hidden="true">➖</span> Extra / not required (${res.extras.length})</summary><ul class="ca-ul">${res.extras.map(x => `<li>${x.kind === 'row' ? '<span class="ca-rep-k">Table row</span> ' : ''}${H(x.text)}</li>`).join('')}</ul><p class="ca-note">${q && q.extra_ok ? 'This question can give credit for other relevant points — AI examiners will judge these (coming soon). ' : ''}No marks are deducted for these — but in the exam they cost time.</p></details>` : ''}
+      ${res.extras.length ? `<details class="ca-rep-x" open><summary><span aria-hidden="true">➖</span> Extra / not required (${res.extras.length})</summary><ul class="ca-ul">${res.extras.map(x => `<li>${x.kind === 'row' ? '<span class="ca-rep-k">Table row</span> ' : ''}${H(x.text)}</li>`).join('')}</ul><p class="ca-note">${q && q.extra_ok ? 'This question can also give credit for other relevant points in the exam. ' : ''}No marks are deducted for these — but in the exam they cost time.</p></details>` : ''}
       ${res.remarks.length ? `<div class="ca-rep-rm"><h3 class="ca-h3">Examiner's remarks on your answer</h3><ul class="ca-ul ca-miss">${res.remarks.map(x => `<li>${H(x)}</li>`).join('')}</ul></div>` : ''}
+      ${moreMarks(res)}
       ${lost.length || res.tips.length ? `<div class="ca-rep-av"><h3 class="ca-h3">How to avoid this next time</h3>${res.tips.length ? `<ul class="ca-ul">${res.tips.map(t => `<li><span class="ca-rep-k">${TIPK[t.kind] || 'Tip'}</span> ${H(t.text)}</li>`).join('')}</ul>` : '<p class="ca-p">Compare your answer with the model below, point by point.</p>'}</div>` : (res.max ? '<p class="ca-rep-ok">Every point checked so far is correct — well done.</p>' : '')}
-      <details class="ca-rep-how"><summary>How was this checked?</summary><p class="ca-note">On this phone, against the ICAI-style marking scheme: key words and phrases (with synonyms, word forms and “not” / “never” detection), the figures in your text and tables (₹1,50,000, 150000 or 1.5 lakh all count; ±0.5 rounding), and every table line — account, Dr / Cr side and amount. A point gets full marks when everything it needs is there, half when part is right (for example the right figure on the wrong side). It cannot judge handwriting, reasoning or presentation quality — points marked “Pending AI check” are left for the AI examiners (coming soon).</p></details>
+      <details class="ca-rep-how"><summary>How was this checked?</summary><p class="ca-note">On this phone, against the ICAI-style marking scheme: key words and phrases (with synonyms, word forms and “not” / “never” detection), the figures in your text and tables (₹1,50,000, 150000 or 1.5 lakh all count; ±0.5 rounding), and every table line — account, Dr / Cr side and amount. A point gets full marks when everything it needs is there, half when part is right (for example the right figure on the wrong side). It cannot read handwriting or judge presentation quality — points marked “Not auto-marked” are shown with what earns them in the exam.</p></details>
       </section>`;
   }
 
