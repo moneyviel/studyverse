@@ -367,7 +367,7 @@
       try {
         const r = await rest('rpc/redeem_code', { method: 'POST', body: { p_code: code, p_course: myCourse() } });
         if (!r || !r.ok) { er.textContent = (r && r.msg) || 'This code is not valid.'; return; }
-        if (r.kind === 'free') { set('sv_lock', r.course); access(); say('Free access unlocked ✓'); codeCard(true); enforceLock(); try { meScreen(); } catch (x) {} }
+        if (r.kind === 'free') { set('sv_lock', r.course); access(); say('Free access unlocked ✓'); codeCard(true); enforceLock(); try { (ST.profile && ST.profile.course === 'ca' && window.Ca) ? Ca.profile() : meScreen(); } catch (x) {} }
         else { set('sv_disc', code); say(r.percent + '% discount saved ✓ It will be used when you pay'); codeCard(true); }
       } catch (err) { er.textContent = errText(err); }
       finally { go.disabled = false; }
