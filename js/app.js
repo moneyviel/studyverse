@@ -145,7 +145,7 @@ document.addEventListener('click', e => {
 
 /* ---------- 3D concept studio (loaded only when needed) ---------- */
 let S3D = null;
-async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=38'); return S3D; }
+async function scenes() { if (!S3D) S3D = await import('./scenes.js?v=39'); return S3D; }
 const LABMAP = {};
 async function labFor(topic, chapter) {
   const k = `g${ST.profile.grade}-${NAV.subject}`;

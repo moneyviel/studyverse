@@ -39,6 +39,7 @@
       S = { at: p.get('access_token'), rt: p.get('refresh_token'), exp: Date.now() / 1000 + (+p.get('expires_in') || 3600), user: null };
       set('sv_auth', JSON.stringify(S));
       recovery = p.get('type') === 'recovery';
+      if (recovery) try { sessionStorage.setItem('sv_recovery', '1'); } catch (e) {}   // survives the reload that adopting cloud progress may do
       linkMsg = recovery ? '' : 'Email confirmed — you are signed in ✓';
     }
     try { history.replaceState(history.state, '', location.pathname + location.search); } catch (e) {}
@@ -404,7 +405,7 @@
           if (sheet.querySelector('#clF')) closeSheet(); say('Account created ✓ Your progress is being saved');
         } else if (mode === 'in') { await signIn(email, pw); if (sheet.querySelector('#clF')) closeSheet(); say('Signed in ✓'); }
         else if (mode === 'forgot') { await forgot(email); form('in', 'If this email has an account, a reset link is on its way. Open it on this phone.'); return; }
-        else if (mode === 'newpw') { await newPassword(pw); recovery = false; closeSheet(); say('New password saved ✓'); arrive(); }
+        else if (mode === 'newpw') { await newPassword(pw); recovery = false; try { sessionStorage.removeItem('sv_recovery'); } catch (e) {} closeSheet(); say('New password saved ✓'); arrive(); }
         repaintMe();
       } catch (err) { er.textContent = errText(err); go.disabled = false; go.textContent = label; }
     };
@@ -472,7 +473,9 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
     new MutationObserver(() => { if (!start.t) start.t = requestAnimationFrame(() => { start.t = 0; inject(); gateInert(); }); }).observe(D.body, { childList: true, subtree: true });
     inject();
     if (linkMsg) setTimeout(() => say(linkMsg), 800);
-    if (S) arrive().then(() => { if (recovery) form('newpw'); });
+    try { if (sessionStorage.getItem('sv_recovery')) recovery = true; } catch (e) {}
+    if (S && recovery) form('newpw');                // ask for the new password straight away, before anything else can reload the page
+    if (S) arrive().then(() => { if (recovery && !(sheet && sheet.classList.contains('show'))) form('newpw'); });
     setInterval(() => push(), 30000);
     D.addEventListener('visibilitychange', () => { if (D.visibilityState === 'hidden') push(false, true); else if (S && !linked) arrive(); });
     addEventListener('online', () => { if (S) (linked ? push() : arrive()); });
