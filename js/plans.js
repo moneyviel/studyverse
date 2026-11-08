@@ -16,6 +16,9 @@
     { id: 'ca-year', course: 'ca-foundation', label: 'CA Foundation · 12 months', months: 12, price_inr: 1999, sort: 4 },
   ];
   let plans = DEF_PLANS;
+  /* Play Store build (TWA): never point to the web pricing page there. Remembered once seen. */
+  try { if ((D.referrer || '').startsWith('android-app://')) localStorage.setItem('sv_play', '1'); } catch (e) {}
+  window.SV_PLAY = (D.referrer || '').startsWith('android-app://') || (() => { try { return localStorage.getItem('sv_play') === '1'; } catch (e) { return false; } })();
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
   const C = () => window.Cloud;
@@ -109,6 +112,7 @@
       <form id="plCodeF" class="cl-row" novalidate style="margin-top:6px"><input class="cl-in" id="plCode" placeholder="Discount code" autocapitalize="characters" maxlength="24" style="flex:2;min-width:140px;margin:0" value="${esc(quote ? quote.code : (localStorage.getItem('sv_disc') || ''))}"><button class="btn ghost" type="submit" style="flex:1">Apply</button></form>
       <div class="cl-err" id="plErr" role="alert"></div>${quote && quote.percent ? `<div class="cl-ok">${quote.percent}% off with ${esc(quote.code)} ✓</div>` : ''}
       <p class="cl-small">One-time payment by Razorpay (UPI, cards, net banking). It does not renew by itself — we remind you before it ends. Prices include taxes.</p>
+      ${window.SV_PLAY ? '' : '<p class="cl-small"><a href="pricing/" target="_blank" rel="noopener">See all plans on study.moneyviel.com/pricing</a></p>'}
       <button class="btn ghost" type="button" id="plX">Close</button>`);
     el.querySelector('#plX').onclick = C().closeSheet;
     el.querySelector('#plCodeF').onsubmit = async e => {
