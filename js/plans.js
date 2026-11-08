@@ -5,26 +5,53 @@
    - Owner, paid plans, the trial and free-forever codes are unlimited.
    - Paying: Plans sheet → server function "studyverse-pay" creates a Razorpay order (prices and discount codes
      are checked on the server) → Razorpay checkout → the server verifies the payment and unlocks the course.
-     One-time payment for 1 or 12 months (no auto-renew); reminders before it ends.
+     One-time payment (no auto-renew); reminders before it ends. Prices are excl. GST (GST added as applicable).
+   - The sheet shows ONLY the student's own plans: school = the plans of their class band (min_grade..max_grade,
+     the server rejects a class outside the band); CA = the plans of their CA level (ST.ca.level → 'ca-<level>').
    Needs js/cloud.js (window.Cloud). Loads after app.js. */
 (function () {
   const D = document, FREE_PER_DAY = 5;
+  /* fallback when the plans table cannot be read — KEEP IN SYNC with studyverse.plans and pricing/index.html FALLBACK */
   const DEF_PLANS = [
-    { id: 'school-month', course: 'school', label: 'School (one class) · 1 month', months: 1, price_inr: 149, sort: 1 },
-    { id: 'school-year', course: 'school', label: 'School (one class) · 12 months', months: 12, price_inr: 999, sort: 2 },
-    { id: 'ca-month', course: 'ca-foundation', label: 'CA Foundation · 1 month', months: 1, price_inr: 299, sort: 3 },
-    { id: 'ca-year', course: 'ca-foundation', label: 'CA Foundation · 12 months', months: 12, price_inr: 1999, sort: 4 },
+    { id: 's15-month', course: 'school', label: 'School Class 1–5 · 1 month', months: 1, price_inr: 199, sort: 1, min_grade: 1, max_grade: 5 },
+    { id: 's15-year', course: 'school', label: 'School Class 1–5 · 12 months', months: 12, price_inr: 1499, sort: 2, min_grade: 1, max_grade: 5 },
+    { id: 's68-month', course: 'school', label: 'School Class 6–8 · 1 month', months: 1, price_inr: 249, sort: 3, min_grade: 6, max_grade: 8 },
+    { id: 's68-year', course: 'school', label: 'School Class 6–8 · 12 months', months: 12, price_inr: 1999, sort: 4, min_grade: 6, max_grade: 8 },
+    { id: 's910-month', course: 'school', label: 'School Class 9–10 · 1 month', months: 1, price_inr: 349, sort: 5, min_grade: 9, max_grade: 10 },
+    { id: 's910-year', course: 'school', label: 'School Class 9–10 · 12 months', months: 12, price_inr: 2799, sort: 6, min_grade: 9, max_grade: 10 },
+    { id: 's1112-month', course: 'school', label: 'School Class 11–12 · 1 month', months: 1, price_inr: 449, sort: 7, min_grade: 11, max_grade: 12 },
+    { id: 's1112-year', course: 'school', label: 'School Class 11–12 · 12 months', months: 12, price_inr: 3499, sort: 8, min_grade: 11, max_grade: 12 },
+    { id: 'ca-month', course: 'ca-foundation', label: 'CA Foundation · 1 month', months: 1, price_inr: 499, sort: 10 },
+    { id: 'ca-4m', course: 'ca-foundation', label: 'CA Foundation · 4 months', months: 4, price_inr: 1799, sort: 11 },
+    { id: 'cai-month', course: 'ca-inter', label: 'CA Intermediate · 1 month', months: 1, price_inr: 799, sort: 12 },
+    { id: 'cai-4m', course: 'ca-inter', label: 'CA Intermediate · 4 months', months: 4, price_inr: 2999, sort: 13 },
+    { id: 'caf-month', course: 'ca-final', label: 'CA Final · 1 month', months: 1, price_inr: 999, sort: 14 },
+    { id: 'caf-4m', course: 'ca-final', label: 'CA Final · 4 months', months: 4, price_inr: 3799, sort: 15 },
   ];
+  /* CA levels students can use now — KEEP IN SYNC with LIVE_LEVELS in js/ca.js (other levels show "Coming soon", no buy button) */
+  const CA_LIVE = ['foundation'];
+  const CA_NAME = { foundation: 'CA Foundation', inter: 'CA Intermediate', final: 'CA Final' };
+  const GST = 'Prices are + GST as applicable.';
   let plans = DEF_PLANS;
   /* Play Store build (TWA): never point to the web pricing page there. Remembered once seen. */
   try { if ((D.referrer || '').startsWith('android-app://')) localStorage.setItem('sv_play', '1'); } catch (e) {}
   window.SV_PLAY = (D.referrer || '').startsWith('android-app://') || (() => { try { return localStorage.getItem('sv_play') === '1'; } catch (e) { return false; } })();
+  /* Play build (Play anti-steering): NO pay/buy buttons, plan names or prices anywhere — the Plans sheet shows only the
+     current plan status, the paywall only says to come back tomorrow, and the Me "Plans & subscribe" button (js/cloud.js) is hidden. */
+  if (window.SV_PLAY) { const s = D.createElement('style'); s.id = 'svPlayCss'; s.textContent = '[data-cl="plans"]{display:none!important}'; (D.head || D.documentElement).appendChild(s); }
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
   const C = () => window.Cloud;
   const parent = () => !!(C() && C().isParent && C().isParent());          // parent accounts never see plans, bars or the paywall
   const signedIn = () => !!(C() && C().signedIn());
   const owner = () => { try { return localStorage.getItem('sv_owner') === '1' || (C() && C().admin()); } catch (e) { return false; } };
+  const caLevel = () => { try { const l = ST.ca && ST.ca.level; return CA_NAME[l] ? l : 'foundation'; } catch (e) { return 'foundation'; } };
+  const caCourse = () => 'ca-' + caLevel(), caName = () => CA_NAME[caLevel()];
+  const gradeNow = () => { try { return +ST.profile.grade || 0; } catch (e) { return 0; } };
+  const band = p => { const d = DEF_PLANS.find(x => x.id === p.id) || {}; return [+(p.min_grade || d.min_grade) || 0, +(p.max_grade || d.max_grade) || 0]; };
+  const inBand = (p, g) => { const [a, b] = band(p); return g >= a && g <= b; };
+  const savePct = (p, all) => { const m = all.find(x => +x.months === 1 && x.course === p.course && (p.course !== 'school' || band(x)[0] === band(p)[0]));
+    return m && +p.months > 1 ? Math.round(100 * (1 - p.price_inr / (m.price_inr * p.months))) : 0; };
   const kindNow = () => { try { return ST.profile && ST.profile.course === 'ca' ? 'ca' : 'school'; } catch (e) { return 'school'; } };
   const rows = () => { try { return JSON.parse(localStorage.getItem('sv_access') || '[]') || []; } catch (e) { return []; } };
   const live = a => !a.valid_until || new Date(a.valid_until) > new Date();
@@ -35,7 +62,7 @@
   function access(kind) {
     if (owner()) return { full: true, why: 'owner' };
     const r = rows().filter(live);
-    if (kind === 'ca') { const c = r.find(a => a.course === 'ca-foundation'); return c ? { full: true, until: c.valid_until, why: /trial/.test(c.note || '') ? 'trial' : /code/.test(c.note || '') ? 'code' : 'paid' } : { full: false }; }
+    if (kind === 'ca') { const c = r.find(a => a.course === caCourse()); return c ? { full: true, until: c.valid_until, why: /trial/.test(c.note || '') ? 'trial' : /code/.test(c.note || '') ? 'code' : 'paid' } : { full: false }; }
     const all = r.find(a => a.course === 'school-all');
     if (all) return { full: true, until: all.valid_until, why: /trial/.test(all.note || '') ? 'trial' : 'paid' };
     let g = 0; try { g = +ST.profile.grade; } catch (e) {}
@@ -79,22 +106,26 @@
   function paywall(kind) {
     if (parent()) return;
     style();
+    if (window.SV_PLAY) {
+      const el = C().sheet(`<h3 id="clT">That's today's ${FREE_PER_DAY} free questions 🎯</h3><p>You've used today's ${FREE_PER_DAY} free questions. Come back tomorrow.</p><button class="btn" type="button" id="pwLater">OK</button>`);
+      el.querySelector('#pwLater').onclick = C().closeSheet; return;
+    }
     const el = C().sheet(`<h3 id="clT">That's today's ${FREE_PER_DAY} free questions 🎯</h3>
-      <p>Great work! Come back tomorrow for ${FREE_PER_DAY} more, or subscribe for unlimited practice, tests and every ${kind === 'ca' ? 'CA Foundation paper' : 'grade'}.</p>
+      <p>Great work! Come back tomorrow for ${FREE_PER_DAY} more, or subscribe for unlimited practice, tests and every ${kind === 'ca' ? caName() + ' paper' : 'subject of your class'}.</p>
       <button class="btn" type="button" id="pwPlans">See plans</button><div style="height:8px"></div><button class="btn ghost" type="button" id="pwLater">Maybe later</button>`);
     el.querySelector('#pwPlans').onclick = () => open(kind);
     el.querySelector('#pwLater').onclick = C().closeSheet;
   }
 
   async function loadPlans() {
-    try { const r = await C().rest('plans?select=id,course,label,months,price_inr,sort&active=eq.true&order=sort'); if (Array.isArray(r) && r.length) plans = r; } catch (e) {}
+    try { const r = await C().rest('plans?select=id,course,label,months,price_inr,sort,min_grade,max_grade&active=eq.true&order=sort'); if (Array.isArray(r) && r.length && r.every(p => p && p.id && +p.price_inr > 0)) plans = r; } catch (e) {}
   }
   function statusLine(kind) {
     const a = access(kind);
     if (a.why === 'owner') return 'Owner account — everything is unlocked.';
-    if (a.why === 'trial') return kind === 'ca' ? `🎁 Free trial: <b>${left(a.until)}</b> left — all of CA Foundation is open.` : `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open. After that, only the class you subscribe to.`;
+    if (a.why === 'trial') return kind === 'ca' ? `🎁 Free trial: <b>${left(a.until)}</b> left — all of ${caName()} is open.` : `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open.${window.SV_PLAY ? '' : ' After that, only the class you subscribe to.'}`;
     if (a.why === 'code') return '🎟️ Free access with your code.';
-    if (a.full) return `✅ Your ${kind === 'ca' ? 'CA Foundation' : 'school'} plan is active till <b>${dt(a.until)}</b>.`;
+    if (a.full) return `✅ Your ${kind === 'ca' ? caName() : 'school'} plan is active till <b>${dt(a.until)}</b>.`;
     return `Free plan: <b>${Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)))} of ${FREE_PER_DAY}</b> questions left today.${a.trialEnded ? ' Your free trial has ended.' : ''}`;
   }
 
@@ -103,18 +134,33 @@
     style(); kind = kind || kindNow();
     if (!signedIn()) { C().open('in'); return; }
     if (parent()) return;
+    if (window.SV_PLAY) {                             // Play build: status only — no plans, prices or buy buttons
+      const el = C().sheet(`<h3 id="clT">Your plan</h3><div class="pl-st" role="status">${statusLine(kind)}</div><button class="btn ghost" type="button" id="plX">Close</button>`);
+      el.querySelector('#plX').onclick = C().closeSheet; return;
+    }
     await loadPlans();
-    const cls = (() => { try { return +ST.profile.grade || 0; } catch (e) { return 0; } })();
-    const groups = [['school', `School — Class ${cls || ''}`.trim(), `Everything in Class ${cls || 'your class'}: unlimited questions, tests, games and analysis. Only your class is included.`], ['ca-foundation', 'CA Foundation', 'All 4 papers: unlimited fresh questions, mock tests, answer checking.']];
-    if (kind === 'ca') groups.reverse();
+    const cls = gradeNow(), lvl = caLevel();
     const price = p => quote && quote.percent ? Math.round(p.price_inr * (100 - quote.percent) / 100) : p.price_inr;
-    const btn = p => { const f = price(p); const per = p.months === 12 ? ` · ₹${Math.round(f / 12)}/month` : '';
-      return `<button class="pl-buy ${p.months === 12 ? 'yr' : ''}" type="button" data-plan="${esc(p.id)}">${f !== p.price_inr ? `<span class="pl-old">₹${p.price_inr}</span>` : ''}₹${f.toLocaleString('en-IN')} <small>${p.months === 12 ? '12 months' : '1 month'}${per}</small></button>`; };
+    const btn = (p, all) => { const f = price(p), m = +p.months, sv = savePct(p, all);
+      return `<button class="pl-buy ${m > 1 ? 'yr' : ''}" type="button" data-plan="${esc(p.id)}">${f !== p.price_inr ? `<span class="pl-old">₹${p.price_inr.toLocaleString('en-IN')}</span>` : ''}₹${f.toLocaleString('en-IN')} <small>${m === 1 ? '1 month' : m + ' months'}${sv > 0 ? ` · Save ${sv}%` : ''}</small></button>`; };
+    let card;
+    if (kind === 'ca') {                              // only the student's own CA level
+      const ps = plans.filter(p => p.course === 'ca-' + lvl).sort((a, b) => a.months - b.months);
+      const live = CA_LIVE.includes(lvl);
+      card = `<div class="pl-card"><h4>${CA_NAME[lvl]}</h4>${live
+        ? `<p class="cl-small">All papers: unlimited fresh questions, mock tests, answer checking. 4 months = one exam attempt season.</p>${ps.length ? `<div class="pl-row">${ps.map(p => btn(p, ps)).join('')}</div>` : '<p class="cl-small">Plans are not available right now.</p>'}`
+        : `<p class="cl-small"><b>Coming soon.</b> ${CA_NAME[lvl]} lessons are being prepared — plans open when they are ready.</p>`}</div>`;
+    } else {                                          // only the plans of the student's class band
+      const ps = plans.filter(p => p.course === 'school' && cls && inBand(p, cls)).sort((a, b) => a.months - b.months);
+      card = `<div class="pl-card"><h4>School — Class ${cls || ''}</h4>${ps.length
+        ? `<p class="cl-small">Everything in Class ${cls}: unlimited questions, tests, games and analysis. Only your class is included.</p><div class="pl-row">${ps.map(p => btn(p, ps)).join('')}</div>`
+        : '<p class="cl-small">Choose your class in <b>Me</b> first to see its plans.</p>'}</div>`;
+    }
     const el = C().sheet(`<h3 id="clT">Plans</h3><div class="pl-st" role="status">${statusLine(kind)}</div>
-      ${groups.map(([c, t, d]) => { const ps = plans.filter(p => p.course === c); return ps.length ? `<div class="pl-card"><h4>${t}</h4><p class="cl-small">${d}</p><div class="pl-row">${ps.map(btn).join('')}</div></div>` : ''; }).join('')}
+      ${card}<p class="cl-small pl-gst">${GST}</p>
       <form id="plCodeF" class="cl-row" novalidate style="margin-top:6px"><input class="cl-in" id="plCode" placeholder="Discount code" autocapitalize="characters" maxlength="24" style="flex:2;min-width:140px;margin:0" value="${esc(quote ? quote.code : (localStorage.getItem('sv_disc') || ''))}"><button class="btn ghost" type="submit" style="flex:1">Apply</button></form>
       <div class="cl-err" id="plErr" role="alert"></div>${quote && quote.percent ? `<div class="cl-ok">${quote.percent}% off with ${esc(quote.code)} ✓</div>` : ''}
-      <p class="cl-small">One-time payment by Razorpay (UPI, cards, net banking). It does not renew by itself — we remind you before it ends. Prices include taxes.</p>
+      <p class="cl-small">One-time payment by Razorpay (UPI, cards, net banking). It does not renew by itself — we remind you before it ends.</p>
       ${window.SV_PLAY ? '' : '<p class="cl-small"><a href="pricing/" target="_blank" rel="noopener">See all plans on study.moneyviel.com/pricing</a></p>'}
       <button class="btn ghost" type="button" id="plX">Close</button>`);
     el.querySelector('#plX').onclick = C().closeSheet;
@@ -135,7 +181,7 @@
     const er = D.getElementById('plErr'); if (er) er.textContent = '';
     b.disabled = true; const label = b.innerHTML; b.textContent = 'Please wait…';
     try {
-      const o = await C().call('/functions/v1/studyverse-pay', { method: 'POST', body: { action: 'order', plan: planId, code: quote ? quote.code : null, grade: (() => { try { return +ST.profile.grade || null; } catch (e) { return null; } })() } });
+      const o = await C().call('/functions/v1/studyverse-pay', { method: 'POST', body: { action: 'order', plan: planId, code: quote ? quote.code : null, grade: gradeNow() || null } });
       if (o && o.error) throw new Error(o.error);
       if (o && o.paid) return done(o);                // 100% discount: unlocked without payment
       await loadRzp();
@@ -178,10 +224,10 @@
   function caBarHTML() {                              // CA always shows where the student stands
     const a = access('ca');
     if (a.why === 'owner') return '<p>🔑 <b>Owner account</b> · everything is unlocked.</p>';
-    if (a.why === 'code') return `<p>🎟️ <b>CA Foundation</b> · free access with your code${a.until ? ` till <b>${dt(a.until)}</b>` : ''}.</p>`;
-    if (a.why === 'trial') return `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of CA Foundation is open.</p>${btn('Subscribe')}`;
+    if (a.why === 'code') return `<p>🎟️ <b>${caName()}</b> · free access with your code${a.until ? ` till <b>${dt(a.until)}</b>` : ''}.</p>`;
+    if (a.why === 'trial') return `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of ${caName()} is open.</p>${btn('Subscribe')}`;
     if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5;
-      return `<p>✅ <b>CA Foundation</b> · ${a.until ? `active till <b>${dt(a.until)}</b>` : 'active'}</p>${soon ? btn('Renew') : ''}`; }
+      return `<p>✅ <b>${caName()}</b> · ${a.until ? `active till <b>${dt(a.until)}</b>` : 'active'}</p>${soon ? btn('Renew') : ''}`; }
     return `<p><b>Free plan</b> · ${freeLeft('ca')} of ${FREE_PER_DAY} questions left today</p>${btn('Subscribe')}`;
   }
   function place(sc, h, after) {
@@ -212,8 +258,8 @@
   function remind() {
     if (!signedIn() || warned || parent()) return;
     const a = access(kindNow());
-    if (a.why === 'trial' && a.until && new Date(a.until) - Date.now() < 3 * 36e5) { warned = true; say(`Your free trial ends in ${left(a.until)} — subscribe to keep everything unlocked`); }
-    else if (a.why === 'paid' && a.until && new Date(a.until) - Date.now() < 3 * 864e5) { warned = true; say(`Your plan ends on ${dt(a.until)} — renew to keep learning without limits`); }
+    if (a.why === 'trial' && a.until && new Date(a.until) - Date.now() < 3 * 36e5) { warned = true; say(window.SV_PLAY ? `Your free trial ends in ${left(a.until)}` : `Your free trial ends in ${left(a.until)} — subscribe to keep everything unlocked`); }
+    else if (a.why === 'paid' && a.until && new Date(a.until) - Date.now() < 3 * 864e5) { warned = true; say(window.SV_PLAY ? `Your plan ends on ${dt(a.until)}` : `Your plan ends on ${dt(a.until)} — renew to keep learning without limits`); }
   }
 
   function start() {

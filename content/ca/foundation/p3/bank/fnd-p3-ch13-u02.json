@@ -1,0 +1,432 @@
+{
+ "unit": "fnd-p3-ch13-u02",
+ "mcq": [
+  {
+   "id": "b01",
+   "q": "How many different samples of size 3 can be drawn from a population of 14 units by simple random sampling without replacement (order of selection ignored)?",
+   "options": [
+    "2,744",
+    "2,184",
+    "364",
+    "42"
+   ],
+   "answer": 2,
+   "explain": "Without replacement and ignoring order, the number of samples is ᴺCₙ = 14C3 = 364. This count matters when listing the sampling distribution of a statistic, because every possible sample must appear once in that list.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "core",
+   "fast": "Without replacement use ᴺCₙ; with replacement (ordered) use Nⁿ.",
+   "secs": 25,
+   "check": "364"
+  },
+  {
+   "id": "b02",
+   "q": "How many different samples of size 4 can be drawn from a population of 14 units by simple random sampling with replacement (counting ordered draws)?",
+   "options": [
+    "1,001",
+    "2,380",
+    "38,416",
+    "56"
+   ],
+   "answer": 2,
+   "explain": "With replacement each of the 4 draws can be any of the 14 units, so there are Nⁿ = 14^4 = 38,416 ordered samples. This count matters when listing the sampling distribution of a statistic, because every possible sample must appear once in that list.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "core",
+   "fast": "Without replacement use ᴺCₙ; with replacement (ordered) use Nⁿ.",
+   "secs": 25,
+   "check": "38416"
+  },
+  {
+   "id": "b03",
+   "q": "How many different samples of size 4 can be drawn from a population of 7 units by simple random sampling with replacement (counting ordered draws)?",
+   "options": [
+    "35",
+    "210",
+    "2,401",
+    "28"
+   ],
+   "answer": 2,
+   "explain": "With replacement each of the 4 draws can be any of the 7 units, so there are Nⁿ = 7^4 = 2,401 ordered samples. This count matters when listing the sampling distribution of a statistic, because every possible sample must appear once in that list.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "core",
+   "fast": "Without replacement use ᴺCₙ; with replacement (ordered) use Nⁿ.",
+   "secs": 25,
+   "check": "2401"
+  },
+  {
+   "id": "b04",
+   "q": "A population has standard deviation 10. The standard error of the mean of a random sample of size 16 (large population) is:",
+   "options": [
+    "0.625",
+    "2.5",
+    "6.25",
+    "40"
+   ],
+   "answer": 1,
+   "explain": "SE of the sample mean = σ/√n = 10/√16 = 10/4 = 2.5. Dividing by n instead of √n understates the error. Quadrupling the sample size halves the standard error, which is why larger samples give more reliable estimates.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "core",
+   "fast": "σ ÷ √n — pick n as a perfect square and divide.",
+   "secs": 20,
+   "check": "10/16**0.5"
+  },
+  {
+   "id": "b05",
+   "q": "A population has standard deviation 30. The standard error of the mean of a random sample of size 144 (large population) is:",
+   "options": [
+    "2.5",
+    "0.208",
+    "6.25",
+    "360"
+   ],
+   "answer": 0,
+   "explain": "SE of the sample mean = σ/√n = 30/√144 = 30/12 = 2.5. Dividing by n instead of √n understates the error. Quadrupling the sample size halves the standard error, which is why larger samples give more reliable estimates.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "core",
+   "fast": "σ ÷ √n — pick n as a perfect square and divide.",
+   "secs": 20,
+   "check": "30/144**0.5"
+  },
+  {
+   "id": "b06",
+   "q": "A population has standard deviation 30. The standard error of the mean of a random sample of size 16 (large population) is:",
+   "options": [
+    "7.5",
+    "1.875",
+    "56.25",
+    "120"
+   ],
+   "answer": 0,
+   "explain": "SE of the sample mean = σ/√n = 30/√16 = 30/4 = 7.5. Dividing by n instead of √n understates the error. Quadrupling the sample size halves the standard error, which is why larger samples give more reliable estimates.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "core",
+   "fast": "σ ÷ √n — pick n as a perfect square and divide.",
+   "secs": 20,
+   "check": "30/16**0.5"
+  },
+  {
+   "id": "b07",
+   "q": "From a population of 323 units with standard deviation 10, a sample of 16 is drawn without replacement. The standard error of the sample mean (with finite population correction) is about:",
+   "options": [
+    "2.441",
+    "2.5",
+    "0.61",
+    "2.384"
+   ],
+   "answer": 0,
+   "explain": "SE = (σ/√n) × √[(N − n)/(N − 1)] = (10/√16) × √(307/322) = 2.5 × 0.9764 ≈ 2.441. The correction factor is below 1, so sampling without replacement from a finite population reduces the error.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "Compute σ/√n first, then multiply by √((N − n)/(N − 1)).",
+   "secs": 60,
+   "check": "round(10/16**0.5*((323-16)/(323-1))**0.5,3)"
+  },
+  {
+   "id": "b08",
+   "q": "From a population of 321 units with standard deviation 22, a sample of 29 is drawn without replacement. The standard error of the sample mean (with finite population correction) is about:",
+   "options": [
+    "4.085",
+    "0.725",
+    "3.728",
+    "3.902"
+   ],
+   "answer": 3,
+   "explain": "SE = (σ/√n) × √[(N − n)/(N − 1)] = (22/√29) × √(292/320) = 4.0853 × 0.9552 ≈ 3.902. The correction factor is below 1, so sampling without replacement from a finite population reduces the error.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "Compute σ/√n first, then multiply by √((N − n)/(N − 1)).",
+   "secs": 60,
+   "check": "round(22/29**0.5*((321-29)/(321-1))**0.5,3)"
+  },
+  {
+   "id": "b09",
+   "q": "From a population of 159 units with standard deviation 11, a sample of 30 is drawn without replacement. The standard error of the sample mean (with finite population correction) is about:",
+   "options": [
+    "2.008",
+    "1.815",
+    "0.331",
+    "1.64"
+   ],
+   "answer": 1,
+   "explain": "SE = (σ/√n) × √[(N − n)/(N − 1)] = (11/√30) × √(129/158) = 2.0083 × 0.9036 ≈ 1.815. The correction factor is below 1, so sampling without replacement from a finite population reduces the error.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "Compute σ/√n first, then multiply by √((N − n)/(N − 1)).",
+   "secs": 60,
+   "check": "round(11/30**0.5*((159-30)/(159-1))**0.5,3)"
+  },
+  {
+   "id": "b10",
+   "q": "In a large town the proportion of households that own a two-wheeler is 0.75. The standard error of this proportion in a random sample of 64 households is about:",
+   "options": [
+    "0.0029",
+    "0.1083",
+    "0.0641",
+    "0.0541"
+   ],
+   "answer": 3,
+   "explain": "SE(p) = √(PQ/n) with P = 0.75 and Q = 1 − P = 0.25: √(0.75 × 0.25/64) = √0.00293 ≈ 0.0541. Forgetting the square root gives the variance, not the standard error. The SE is largest when P = 0.5.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "Multiply P × Q, divide by n, take the square root.",
+   "secs": 40,
+   "check": "round((0.75*0.25/64)**0.5,4)"
+  },
+  {
+   "id": "b11",
+   "q": "In a large town the proportion of households that own a two-wheeler is 0.75. The standard error of this proportion in a random sample of 400 households is about:",
+   "options": [
+    "0.0005",
+    "0.0217",
+    "0.0433",
+    "0.0317"
+   ],
+   "answer": 1,
+   "explain": "SE(p) = √(PQ/n) with P = 0.75 and Q = 1 − P = 0.25: √(0.75 × 0.25/400) = √0.000469 ≈ 0.0217. Forgetting the square root gives the variance, not the standard error. The SE is largest when P = 0.5.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "Multiply P × Q, divide by n, take the square root.",
+   "secs": 40,
+   "check": "round((0.75*0.25/400)**0.5,4)"
+  },
+  {
+   "id": "b12",
+   "q": "A systematic sample of 16 units is to be drawn from a list of 352 units. If the random start is 19, the 8th unit selected is number:",
+   "options": [
+    "173",
+    "195",
+    "152",
+    "172"
+   ],
+   "answer": 0,
+   "explain": "Sampling interval k = N/n = 352/16 = 22. Units selected: 19, 41, 63, …, i.e. start + (j − 1)k. The 8th unit is 19 + 7 × 22 = 173. Only the first unit is chosen at random; the rest follow automatically.",
+   "concept": "c5",
+   "topic": "Types of sampling",
+   "difficulty": "core",
+   "fast": "Interval k = N ÷ n; jth unit = start + (j − 1)k.",
+   "secs": 30,
+   "check": "173"
+  },
+  {
+   "id": "b13",
+   "q": "A systematic sample of 15 units is to be drawn from a list of 210 units. If the random start is 12, the 8th unit selected is number:",
+   "options": [
+    "124",
+    "96",
+    "110",
+    "109"
+   ],
+   "answer": 2,
+   "explain": "Sampling interval k = N/n = 210/15 = 14. Units selected: 12, 26, 40, …, i.e. start + (j − 1)k. The 8th unit is 12 + 7 × 14 = 110. Only the first unit is chosen at random; the rest follow automatically.",
+   "concept": "c5",
+   "topic": "Types of sampling",
+   "difficulty": "core",
+   "fast": "Interval k = N ÷ n; jth unit = start + (j − 1)k.",
+   "secs": 30,
+   "check": "110"
+  },
+  {
+   "id": "b14",
+   "q": "A population has strata of sizes 1,100, 900, 200. With proportional allocation, a total sample of 150 gives how many units from the stratum of size 1,100?",
+   "options": [
+    "50",
+    "150",
+    "76",
+    "75"
+   ],
+   "answer": 3,
+   "explain": "Proportional allocation: nᵢ = n × Nᵢ/N. Total N = 2,200. So nᵢ = 150 × 1,100/2,200 = 75. Equal allocation (50 each) ignores the different stratum sizes. Bigger strata therefore contribute more units to the sample.",
+   "concept": "c5",
+   "topic": "Types of sampling",
+   "difficulty": "moderate",
+   "fast": "Sample share of a stratum = its share of the population.",
+   "secs": 35,
+   "check": "75"
+  },
+  {
+   "id": "b15",
+   "q": "A population has strata of sizes 1,000, 2,400, 300, 800. With proportional allocation, a total sample of 150 gives how many units from the stratum of size 2,400?",
+   "options": [
+    "37",
+    "171",
+    "81",
+    "80"
+   ],
+   "answer": 3,
+   "explain": "Proportional allocation: nᵢ = n × Nᵢ/N. Total N = 4,500. So nᵢ = 150 × 2,400/4,500 = 80. Equal allocation (37 each) ignores the different stratum sizes. Bigger strata therefore contribute more units to the sample.",
+   "concept": "c5",
+   "topic": "Types of sampling",
+   "difficulty": "moderate",
+   "fast": "Sample share of a stratum = its share of the population.",
+   "secs": 35,
+   "check": "80"
+  },
+  {
+   "id": "b16",
+   "q": "The population standard deviation is 20. What sample size is needed so that the standard error of the mean is 1?",
+   "options": [
+    "20",
+    "400",
+    "800",
+    "420"
+   ],
+   "answer": 1,
+   "explain": "SE = σ/√n, so √n = σ/SE = 20/1 = 20 and n = 20² = 400. Stopping at √n is the usual slip. Halving the SE needs four times the sample, because the SE falls only with the square root of n.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "Required sample size n = (σ ÷ SE) squared.",
+   "secs": 30,
+   "check": "400"
+  },
+  {
+   "id": "b17",
+   "q": "The population standard deviation is 30. What sample size is needed so that the standard error of the mean is 2?",
+   "options": [
+    "225",
+    "15",
+    "450",
+    "900"
+   ],
+   "answer": 0,
+   "explain": "SE = σ/√n, so √n = σ/SE = 30/2 = 15 and n = 15² = 225. Stopping at √n is the usual slip. Halving the SE needs four times the sample, because the SE falls only with the square root of n.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "Required sample size n = (σ ÷ SE) squared.",
+   "secs": 30,
+   "check": "225"
+  },
+  {
+   "id": "b18",
+   "q": "All possible samples of size 2 are drawn without replacement from the population {1, 9, 10, 20}. The mean of the sampling distribution of the sample mean is:",
+   "options": [
+    "13.33",
+    "10.5",
+    "10",
+    "20"
+   ],
+   "answer": 2,
+   "explain": "The sample mean is an unbiased estimator: the mean of all possible sample means equals the population mean μ = (1 + 9 + 10 + 20)/4 = 10. There is no need to list all 6 samples.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "The mean of all sample means equals the population mean.",
+   "secs": 25,
+   "check": "10"
+  },
+  {
+   "id": "b19",
+   "q": "All possible samples of size 2 are drawn without replacement from the population {5, 6, 8, 15, 18, 26}. The mean of the sampling distribution of the sample mean is:",
+   "options": [
+    "15.6",
+    "15.5",
+    "13",
+    "39"
+   ],
+   "answer": 2,
+   "explain": "The sample mean is an unbiased estimator: the mean of all possible sample means equals the population mean μ = (5 + 6 + 8 + 15 + 18 + 26)/6 = 13. There is no need to list all 15 samples.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "moderate",
+   "fast": "The mean of all sample means equals the population mean.",
+   "secs": 25,
+   "check": "13"
+  },
+  {
+   "id": "b20",
+   "q": "The lottery method is a way of drawing a:",
+   "options": [
+    "Purposive sample",
+    "Systematic sample",
+    "Quota sample",
+    "Simple random sample"
+   ],
+   "answer": 3,
+   "explain": "Lottery (or random number tables) gives every unit an equal chance of selection, which defines simple random sampling. So the correct answer is \"Simple random sample\". The other options describe different terms, so read the key word in the question carefully before choosing.",
+   "concept": "c5",
+   "topic": "Types of sampling",
+   "difficulty": "core",
+   "fast": "Recall the definition keyword; eliminate options that describe a different tool or term.",
+   "secs": 20
+  },
+  {
+   "id": "b21",
+   "q": "Selecting every k-th unit from a list after a random start is called:",
+   "options": [
+    "Systematic sampling",
+    "Stratified sampling",
+    "Cluster sampling",
+    "Purposive sampling"
+   ],
+   "answer": 0,
+   "explain": "A random start followed by a fixed interval k = N/n is systematic sampling. So the correct answer is \"Systematic sampling\". The other options describe different terms, so read the key word in the question carefully before choosing.",
+   "concept": "c5",
+   "topic": "Types of sampling",
+   "difficulty": "core",
+   "fast": "Recall the definition keyword; eliminate options that describe a different tool or term.",
+   "secs": 20
+  },
+  {
+   "id": "b22",
+   "q": "A sample is preferred to complete enumeration especially when:",
+   "options": [
+    "The population is very small",
+    "The population is infinite or testing destroys the item",
+    "Every unit must be studied",
+    "No time limit exists"
+   ],
+   "answer": 1,
+   "explain": "For infinite populations or destructive tests (e.g. testing bulbs till they fuse) a census is impossible or self-defeating, so sampling is used. So the correct answer is \"The population is infinite or testing destroys the item\". The other options describe different terms, so read the key word in the question carefully before choosing.",
+   "concept": "c2",
+   "topic": "Sample survey vs complete enumeration (census)",
+   "difficulty": "core",
+   "fast": "Recall the definition keyword; eliminate options that describe a different tool or term.",
+   "secs": 20
+  },
+  {
+   "id": "b23",
+   "q": "A characteristic calculated from sample observations is called a:",
+   "options": [
+    "Statistic",
+    "Parameter",
+    "Constant",
+    "Population"
+   ],
+   "answer": 0,
+   "explain": "Measures computed from the population are parameters; the same measures computed from a sample are statistics. So the correct answer is \"Statistic\". The other options describe different terms, so read the key word in the question carefully before choosing.",
+   "concept": "c4",
+   "topic": "Key terms, sampling distribution and standard error",
+   "difficulty": "core",
+   "fast": "Recall the definition keyword; eliminate options that describe a different tool or term.",
+   "secs": 20
+  },
+  {
+   "id": "b24",
+   "q": "Non-sampling errors can occur in:",
+   "options": [
+    "Sample surveys only",
+    "Complete enumeration only",
+    "Neither",
+    "Both sample surveys and complete enumeration"
+   ],
+   "answer": 3,
+   "explain": "Errors of measurement, recording, non-response and processing can happen whether we study a sample or the whole population. So the correct answer is \"Both sample surveys and complete enumeration\". The other options describe different terms, so read the key word in the question carefully before choosing.",
+   "concept": "c3",
+   "topic": "Errors in sample surveys",
+   "difficulty": "core",
+   "fast": "Recall the definition keyword; eliminate options that describe a different tool or term.",
+   "secs": 20
+  }
+ ]
+}

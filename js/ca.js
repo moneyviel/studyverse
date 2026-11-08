@@ -17,6 +17,7 @@
   const TABS = [['learn', 'Learn'], ['illus', 'Examples'], ['job', 'On the job'], ['mcq', 'MCQ'], ['write', 'Write'], ['revise', 'Revise']];
   const VTABS = TABS.concat([['viva', 'Viva']]);   // Viva (speak & revise) is extra practice — not needed to complete a unit
   const T = () => window.CaTools || null;           // js/ca-tools.js: dashboard, viva, MCQ builder, mock papers, notes, search
+  const SPD = () => window.CaSpeed || null;         // js/ca-speed.js: ⚡ fast way, pacing, speed drill, tricks, exam focus list
   const SKILL = { posting: 'Posting to ledger', balancing: 'Balancing accounts', classification: 'Classifying accounts', computation: 'Computation', presentation: 'Presentation & format',
     concept: 'Concept clarity', application: 'Applying concepts', rectification: 'Rectification entries', provision: 'Quoting the provision', analysis: 'Legal analysis', conclusion: 'Clear conclusion' };
   const cache = { st: {}, unit: {}, mot: null };
@@ -78,7 +79,32 @@
     if (cache.unit[uid]) return cache.unit[uid];
     const st = await structure(levelOf(uid)); const f = findUnit(st, uid);
     if (!f || f.u.status !== 'built') return null;
-    cache.unit[uid] = await loadJSON(f.u.file); return cache.unit[uid];
+    const d = await loadJSON(f.u.file); cache.unit[uid] = mergeBank(d, await bankMCQs(uid)); return cache.unit[uid];
+  }
+  /* Extra MCQ banks, any paper: content/ca/<level>/<paper key>/bank/<unit-id>.json = {unit, mcq: [MCQ objects, optional fast/secs]}.
+     Merged after the unit's own MCQs (missing file = no extras). Units not built yet but with a bank open straight into MCQ practice. */
+  async function bankMCQs(uid) {
+    const bk = cache.bank || (cache.bank = {}); if (uid in bk) return bk[uid];
+    const m = String(uid).match(/^[a-z]+-(p\d+)-/); let b = null;
+    if (m) try { b = await loadJSON(`content/ca/${levelOf(uid)}/${m[1]}/bank/${uid}.json`); } catch (e) {}
+    return (bk[uid] = b && b.unit === uid && Array.isArray(b.mcq) ? b.mcq : []);
+  }
+  function mergeBank(d, extra) {
+    if (!d || !extra.length) return d; const have = new Set((d.mcqs || []).map(q => q.id));
+    d.mcqs = (d.mcqs || []).concat(extra.filter(q => !have.has(q.id)).map(q => ({ ...q, bank: true }))); return d;
+  }
+  async function bankOnly(uid) {                 // a "coming soon" unit that already has a question bank → MCQ practice only
+    const qs = await bankMCQs(uid); if (!qs.length || !levelOK(levelOf(uid))) return false;
+    const f = findUnit(await structure(levelOf(uid)), uid); if (!f) return false; const title = `Unit ${f.u.n}: ${f.u.title}`;
+    const el = open('world'), back = () => paper(levelOf(uid), f.p.id);
+    el.innerHTML = `<button class="back" id="caBkBack">← Paper</button><div class="card"><h2 class="ca-h2s">${esc(title || uid)}</h2><p class="sub">Lessons for this unit are being written. Practise its ${qs.length} MCQs now.</p></div><div id="caBkHost"></div>`;
+    D.getElementById('caBkBack').onclick = back;
+    const list = qs.map(q => ({ q: { ...q, bank: true }, key: `${uid}#${q.id}` }));
+    runMCQ(D.getElementById('caBkHost'), list, 'b' + Date.now().toString(36), r => {
+      D.getElementById('caBkHost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">${r.right} of ${r.total} correct</h2><button class="btn ghost" id="caBkAgain">Try again</button></div>`;
+      D.getElementById('caBkAgain').onclick = () => bankOnly(uid);
+    });
+    return true;
   }
   async function motivation() { if (!cache.mot) { try { cache.mot = await loadJSON('content/ca/motivation.json'); } catch (e) { cache.mot = { general: ['Keep going.'] }; } } return cache.mot; }
 
@@ -102,8 +128,9 @@
   }
   function daysLeft() { const e = C().exam; if (!e) return null; const ms = new Date(e + 'T09:00:00') - new Date(todayISO() + 'T09:00:00'); return Math.round(ms / 864e5); }
 
-  function recordAns(key, ok, ms) {
+  function recordAns(key, ok, ms, q) {
     const c = C(); const s = c.mcq[key] = c.mcq[key] || { s: 0, w: 0 }; s.s++; if (!ok) s.w++; s.last = today();
+    try { if (window.CaSpeed) CaSpeed.note(key, ok, ms, q, true); } catch (e) {}   // correct but slow → ⚡ Speed drill (js/ca-speed.js)
     s.ms = (s.ms || 0) + Math.min(ms || 0, 600000);
     c.mlog = c.mlog || []; c.mlog.push([Math.floor(Date.now() / 6e4), key, ok ? 1 : 0, Math.round(Math.min(ms || 0, 600000) / 100) / 10]);
     if (c.mlog.length > 1500) c.mlog.splice(0, c.mlog.length - 1500);
@@ -372,13 +399,14 @@
     el.innerHTML = `<button class="back" id="caBack">← CA Journey</button>
       <div class="card ca-phead"><span class="ca-k">CA ${esc(levelName(level))} · ${esc(paperLabel(p))}</span><h1 class="ca-h1">${esc(p.name)}</h1>
         <div class="ca-chips">${patternChip(p)}<span class="ca-chip">${p.chapters.length} chapters · ${unitCount(p)} units</span></div>
-        ${p.pattern?.note ? `<p class="sub">${esc(p.pattern.note)}</p>` : ''}${p.note ? `<p class="sub">${esc(p.note)}</p>` : ''}${ed ? `<p class="ca-note">ICAI study material: ${esc(ed)}</p>` : ''}</div>
+        ${p.pattern?.note ? `<p class="sub">${esc(p.pattern.note)}</p>` : ''}${p.note ? `<p class="sub">${esc(p.note)}</p>` : ''}${ed ? `<p class="ca-note">ICAI study material: ${esc(ed)}</p>` : ''}${pid === 'fnd-p1' && SPD() ? '<button class="btn ghost" id="caFocus">📌 Exam focus list</button>' : ''}</div>
       ${wtp ? `<details class="card ca-wtabout"><summary>Chapter marks: derived from ICAI's ${wtp.mtps} Model Test Papers</summary><p class="ca-p">${esc(WT.label)} Each paper offers ${fmt(Math.round(wtp.offered_marks / wtp.mtps))} marks (you answer questions worth 100); “~X marks” is the average a chapter carried per paper. ${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100) ? `${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100)}% of marks could not be tied to one chapter and are left out.` : ''}</p><p class="ca-note">${esc(WT.source)}</p></details>` : ''}
       <div class="gsearch ca-search"><span aria-hidden="true">🔍</span><input id="caQ" placeholder="Search chapters, units, topics…" autocomplete="off" aria-label="Search in this paper" value="${esc(q)}"></div>
       <p class="ca-none" id="caNone" hidden>No match in this paper.</p>
       <div id="caChs">${groups}</div>`;
     D.getElementById('caBack').onclick = home;
-    el.querySelectorAll('.ca-urow').forEach(b => b.onclick = () => { if (b.classList.contains('built')) { tap('open'); unit(b.dataset.u); } else { tap('hmm'); toast('This unit is being written — coming soon'); } });
+    const fb = D.getElementById('caFocus'); if (fb) fb.onclick = () => { tap('open'); SPD().focusList(); };
+    el.querySelectorAll('.ca-urow').forEach(b => b.onclick = () => { if (b.classList.contains('built')) { tap('open'); unit(b.dataset.u); } else bankOnly(b.dataset.u).then(ok => { if (!ok) { tap('hmm'); toast('This unit is being written — coming soon'); } }); });
     const qi = D.getElementById('caQ'); qi.oninput = () => filterPaper(qi.value); if (q) filterPaper(q);
     for (const ch of p.chapters) {    // your marks per chapter (sum of the chapter's live units)
       const box = el.querySelector(`.ca-chmarks[data-ch="${ch.id}"]`); if (!box) continue;
@@ -504,18 +532,19 @@
       const { q, key } = list[i], ord = order(q.options.length, seed + key), s = st[i]; qt0 = Date.now();
       const nAns = st.filter(x => x.pick != null).length;
       host.innerHTML = `<div class="card ca-mcq"><div class="ca-mtop"><span class="ca-k">Question ${i + 1} of ${N} · <span class="ca-qmk">${mk(mcqMarks(q))}</span></span><span class="ca-k">${right} correct</span></div>${bar(nAns / N)}
-        <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts">${ord.map((k, j) => `<button class="opt" data-k="${k}"><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div><div id="caMx"></div>
+        <h2 class="qtext ca-mq">${esc(q.q)}</h2>${SPD() ? SPD().bar(q, { answered: s.pick != null }) : ''}<div class="ca-opts">${ord.map((k, j) => `<button class="opt" data-k="${k}"><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div><div id="caMx"></div>
         <div class="ca-btns ca-setnav"><button class="btn ghost" id="caMp" ${i ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn" id="caMn" aria-label="${i < N - 1 ? (s.pick != null ? 'Next question' : 'Skip to the next question') : 'See result'}">${i < N - 1 ? 'Next ▶' : 'See result ▶'}</button></div></div>`;
       D.getElementById('caMp').onclick = () => go(i - 1);
       D.getElementById('caMn').onclick = () => (i < N - 1 ? go(i + 1) : finish());
+      if (SPD()) SPD().wire(host, q, { key, base: s.ms, done: s.pick != null ? s.ms : null });   // ⚡ Fast way + 72-second pacing chip
       if (s.pick != null) { feedback(); return; }
       host.querySelectorAll('.opt').forEach(b => b.onclick = () => {
         if (s.pick != null || over) return;                                 /* recorded once */
         const k = +b.dataset.k, ok = k === q.answer; s.pick = k;
         ok ? right++ : wrong++; tap(ok ? 'correct' : 'wrong'); const ms = s.ms + Date.now() - qt0; s.ms = ms; qt0 = Date.now(); log.push({ key, ok, ms, pick: k });
-        recordAns(key, ok, ms); if (T()) T().reviseMark(key, ok);
+        recordAns(key, ok, ms, q); if (T()) T().reviseMark(key, ok);
         const rc = host.querySelector('.ca-mtop .ca-k:last-child'); if (rc) rc.textContent = `${right} correct`;
-        feedback();
+        feedback(); if (SPD()) SPD().answered(host, q, { key, ms, ok });
         D.getElementById('caMn').focus({ preventScroll: true });
       });
     };
@@ -538,7 +567,7 @@
           ${r.log.filter(x => !x.ok).length || (r.skipped || []).length ? `<h3 class="ca-h3">Review these</h3><ul class="ca-ul">${r.log.filter(x => !x.ok).map(x => x.key).concat(r.skipped || []).map(k => `<li>${esc(set.find(l => l.key === k).q.q)}${(r.skipped || []).includes(k) ? ' <em>(not answered)</em>' : ''} <em class="ca-qmk">${mk(mcqMarks(set.find(l => l.key === k).q))}</em></li>`).join('')}</ul>` : '<p class="sub">All correct — excellent.</p>'}
           <div class="ca-btns"><button class="btn ghost" id="caMagain">Try again</button><button class="btn ghost" id="caMgrp">Challenge your study group</button></div></div>${nextTabBtn('mcq')}`;
         D.getElementById('caMagain').onclick = () => mcqTab(P);
-        D.getElementById('caMgrp').onclick = () => groupCreate(U.uid, { seed, s: r.right, ms: r.ms, k: r.total });
+        D.getElementById('caMgrp').onclick = () => groupCreate(U.uid, { seed, s: r.right, ms: r.ms, k: r.total, log: r.log });
         wireNext(P, 'mcq');
       });
     };
@@ -801,22 +830,37 @@
       <div class="card"><h2 class="ca-h2s">Recent group results</h2>${past.length ? past.map(g => `<div class="ca-wrow"><span>${esc(g.title || g.u)} · ${esc(g.d)}</span><b>${g.s}/${g.k}${g.vs ? ` vs ${esc(g.vs.n)} ${g.vs.s}/${g.k}` : ''}</b></div>`).join('') : '<p class="sub">No group results yet.</p>'}</div>`;
     D.getElementById('caGStart').onclick = () => groupCreate(D.getElementById('caGU').value);
   }
+  /* ⚡ Speed duel: the link also carries each person's seconds per question (t) and right/wrong (r: "1" / "0" / "-"),
+     in the unit's question order, so both sides see who was faster on every question. Older links without t still work. */
+  const gTimes = (list, log) => list.map(x => { const l = (log || []).find(y => y.key === x.key); return l ? Math.round(l.ms / 100) / 10 : null; });
+  const gRes = (list, log) => list.map(x => { const l = (log || []).find(y => y.key === x.key); return l ? (l.ok ? '1' : '0') : '-'; }).join('');
+  function duelHTML(nA, tA, rA, nB, tB, rB) {
+    if (!Array.isArray(tA) || !Array.isArray(tB)) return '';
+    const num = a => a.map(x => (typeof x === 'number' && isFinite(x) && x >= 0 ? x : null)); tA = num(tA).slice(0, 200); tB = num(tB).slice(0, 200);
+    const n = Math.max(tA.length, tB.length); let fa = 0, fb = 0, both = 0;
+    const cell = (t, r, win) => t == null ? '<td class="n">–</td>' : `<td class="n${win ? ' ca-duelw' : ''}">${win ? '⚡ ' : ''}${fmt(Math.round(t))} s ${r === '1' ? '✓' : r === '0' ? '✗' : ''}</td>`;
+    const rows = Array.from({ length: n }, (_, j) => { const a = tA[j], b = tB[j], ra = (rA || '')[j], rb = (rB || '')[j];
+      const ok = a != null && b != null; const aw = ok && a < b, bw = ok && b < a; if (ok) { both++; if (aw) fa++; if (bw) fb++; }
+      return `<tr><td>Q${j + 1}</td>${cell(a, ra, aw)}${cell(b, rb, bw)}</tr>`; }).join('');
+    return `<div class="ca-duel"><h3 class="ca-h3">⚡ Speed duel — seconds per question</h3><p class="sub">${both ? `${esc(nA)} was faster on ${fa}, ${esc(nB)} on ${fb} of ${both} questions you both answered. Target: 72 s each.` : 'No question was answered by both of you.'}</p>
+      <details class="ca-tview" ${n <= 10 ? 'open' : ''}><summary>Seconds for every question</summary><div class="ca-scroll" role="region" tabindex="0" aria-label="Seconds per question for each person"><table class="ca-t"><thead><tr><th scope="col">Question</th><th scope="col" class="n">${esc(nA)}</th><th scope="col" class="n">${esc(nB)}</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`;
+  }
   async function groupCreate(uid, played) {
     const d = await unitData(uid); if (!d) return;
     const list = d.mcqs.map(q => ({ q, key: `${uid}#${q.id}` }));
-    const finish = (seed, s, ms, k) => {
+    const finish = (seed, s, ms, k, log) => {
       const id = Math.random().toString(36).slice(2, 10), me = { n: ST.profile?.name || 'Friend' };
-      const url = link('cagrp', { v: 1, id, u: uid, seed, n: me.n, s, ms, k });
+      const url = link('cagrp', { v: 1, id, u: uid, seed, n: me.n, s, ms, k, ...(log ? { t: gTimes(list, log), r: gRes(list, log) } : {}) });
       C().group.push({ id, u: uid, title: d.title, d: today(), s, ms, k, own: true }); save();
       const el = open('squad');
       el.innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">Your score: ${s}/${k}</h2><p class="sub">in ${Math.round(ms / 1000)} s. Send the set to your study group.</p><button class="btn" id="caGShare">Send to group</button><div style="height:8px"></div><button class="btn ghost" id="caGDone">Done</button></div>`;
       D.getElementById('caGShare').onclick = () => share(`${me.n} scored ${s}/${k} on "${d.title}" (CA). Same questions for you:`, url);
       D.getElementById('caGDone').onclick = groupScreen;
     };
-    if (played) return finish(played.seed, played.s, played.ms, played.k);
+    if (played) return finish(played.seed, played.s, played.ms, played.k, played.log);
     const el = open('squad'), seed = 'g' + Date.now().toString(36);
-    el.innerHTML = `<div class="card"><h2 class="ca-h2s">${esc(d.title)}</h2><p class="sub">${list.length} questions. Your score and time will be in the link.</p><button class="btn" id="caGGo">Start ▶</button></div><div id="caGHost"></div>`;
-    D.getElementById('caGGo').onclick = () => { el.querySelector('.card').remove(); runMCQ(D.getElementById('caGHost'), list, seed, r => finish(seed, r.right, r.ms, r.total)); };
+    el.innerHTML = `<div class="card"><h2 class="ca-h2s">${esc(d.title)}</h2><p class="sub">${list.length} questions. Your score, total time and seconds per question will be in the link — a speed duel.</p><button class="btn" id="caGGo">Start ▶</button></div><div id="caGHost"></div>`;
+    D.getElementById('caGGo').onclick = () => { el.querySelector('.card').remove(); runMCQ(D.getElementById('caGHost'), list, seed, r => finish(seed, r.right, r.ms, r.total, r.log)); };
   }
   async function groupAccept(o) {
     const d = await unitData(o.u); const el = open('squad');
@@ -832,9 +876,11 @@
       runMCQ(D.getElementById('caGHost'), list, o.seed, r => {
         const win = r.right > o.s || (r.right === o.s && r.ms < o.ms), tie = r.right === o.s && r.ms === o.ms;
         if (ST.profile) { C().group.push({ id: o.id, u: o.u, title: d.title, d: today(), s: r.right, ms: r.ms, k: r.total, vs: { n: o.n, s: o.s } }); save(); }
-        const reply = link('cagrpr', { v: 1, id: o.id, u: o.u, n: nm, s: r.right, ms: r.ms, k: r.total, n0: o.n, s0: o.s, ms0: o.ms });
+        const tMe = gTimes(list, r.log), rMe = gRes(list, r.log);
+        const reply = link('cagrpr', { v: 1, id: o.id, u: o.u, n: nm, s: r.right, ms: r.ms, k: r.total, n0: o.n, s0: o.s, ms0: o.ms, t: tMe, r: rMe, ...(Array.isArray(o.t) ? { t0: o.t, r0: o.r } : {}) });
         D.getElementById('caGHost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">${win ? 'You top this round' : tie ? 'A tie' : `${esc(o.n)} tops this round`}</h2>
           <div class="ca-vs"><div><b>${esc(nm)}</b><span>${r.right}/${r.total} · ${Math.round(r.ms / 1000)} s</span></div><div><b>${esc(o.n)}</b><span>${o.s}/${o.k} · ${Math.round(o.ms / 1000)} s</span></div></div>
+          ${duelHTML(nm, tMe, rMe, o.n, o.t, o.r)}
           <p class="sub">Now discuss the questions either of you missed — that is where the learning is.</p><button class="btn" id="caGReply">Send my result to ${esc(o.n)}</button>
           ${ST.profile ? '' : '<div style="height:8px"></div><button class="btn ghost" id="caGJoin">Start CA on StudyVerse</button>'}</div>`;
         D.getElementById('caGReply').onclick = () => share(`I scored ${r.right}/${r.total} on "${d.title}" (you: ${o.s}/${o.k}).`, reply);
@@ -848,6 +894,7 @@
     const el = open('squad');
     el.innerHTML = `<div class="card ca-res"><span class="ca-k">Group study result</span><h2 class="ca-h2s">${esc(o.n)} scored ${o.s}/${o.k}</h2>
       <div class="ca-vs"><div><b>You</b><span>${o.s0}/${o.k} · ${Math.round(o.ms0 / 1000)} s</span></div><div><b>${esc(o.n)}</b><span>${o.s}/${o.k} · ${Math.round(o.ms / 1000)} s</span></div></div>
+      ${duelHTML('You', o.t0, o.r0, o.n, o.t, o.r)}
       <button class="btn" id="caGU2">Open the unit</button><div style="height:8px"></div><button class="btn ghost" id="caGBack">Group study</button></div>`;
     D.getElementById('caGU2').onclick = () => unit(o.u); D.getElementById('caGBack').onclick = groupScreen;
   }

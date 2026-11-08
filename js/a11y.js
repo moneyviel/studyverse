@@ -258,7 +258,8 @@
   function watchSheets() { $$(SHEETS).forEach(s => { if (s._svw) return; s._svw = 1; sheetObs.observe(s, { attributes: true, attributeFilter: ['class'] }); if (s.classList.contains('show')) dialogOpened(s); }); }
   function closeTop() {
     const s = openSheet(); if (!s) return false;
-    if (s.hasAttribute('data-pinned')) return false;       // Parent Home (parent accounts) cannot be closed
+    if (s.hasAttribute('data-pinned') || s.hasAttribute('data-noclose')) return false;       // Parent Home (parent accounts) and must-answer sheets (new password) cannot be closed
+    if (window.SheetSwipe) { SheetSwipe.close(s); return true; }   // the sheet's own close / done / cancel button (js/sheets.js)
     const btn = $$('button', s).find(b => b.matches('.ask-x,#rvX,#uxDone,[data-close]') || /^(close|done|got it|no thanks)$/i.test(b.textContent.trim()));
     if (btn) btn.click(); else s.classList.remove('show');
     return true;

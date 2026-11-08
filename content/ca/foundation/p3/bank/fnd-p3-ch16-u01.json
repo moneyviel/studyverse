@@ -1,0 +1,486 @@
+{
+ "unit": "fnd-p3-ch16-u01",
+ "mcq": [
+  {
+   "id": "b01",
+   "q": "7 items are chosen; each is defective with probability 1/3. Find the chance that exactly 2 of them are defective.",
+   "options": [
+    "224/729",
+    "32/2187",
+    "28/729",
+    "505/729"
+   ],
+   "answer": 0,
+   "explain": "Binomial: P(X = r) = ⁿCᵣ pʳ qⁿ⁻ʳ with n = 7, p = 1/3, q = 2/3, r = 2. So P = 7C2 × (1/3)^2 × (2/3)^5 = 21 × 1/9 × 32/243 = 224/729. Forgetting ⁿCᵣ counts only one order of successes.",
+   "concept": "c1",
+   "topic": "Theoretical distributions and the binomial model",
+   "difficulty": "moderate",
+   "fast": "ⁿCᵣ × pʳ × qⁿ⁻ʳ — compute the numerator and the denominator separately.",
+   "secs": 50
+  },
+  {
+   "id": "b02",
+   "q": "A student guesses 4 questions, each correct with probability 1/2. Find the chance that exactly 1 of them is correct.",
+   "options": [
+    "1/16",
+    "1/4",
+    "3/4",
+    "1/8"
+   ],
+   "answer": 1,
+   "explain": "Binomial: P(X = r) = ⁿCᵣ pʳ qⁿ⁻ʳ with n = 4, p = 1/2, q = 1/2, r = 1. So P = 4C1 × (1/2)^1 × (1/2)^3 = 4 × 1/2 × 1/8 = 1/4. Forgetting ⁿCᵣ counts only one order of successes.",
+   "concept": "c1",
+   "topic": "Theoretical distributions and the binomial model",
+   "difficulty": "moderate",
+   "fast": "ⁿCᵣ × pʳ × qⁿ⁻ʳ — compute the numerator and the denominator separately.",
+   "secs": 50
+  },
+  {
+   "id": "b03",
+   "q": "3 items are chosen; each is defective with probability 2/5. Find the chance that exactly 2 of them are defective.",
+   "options": [
+    "36/125",
+    "12/125",
+    "12/25",
+    "54/125"
+   ],
+   "answer": 0,
+   "explain": "Binomial: P(X = r) = ⁿCᵣ pʳ qⁿ⁻ʳ with n = 3, p = 2/5, q = 3/5, r = 2. So P = 3C2 × (2/5)^2 × (3/5)^1 = 3 × 4/25 × 3/5 = 36/125. Forgetting ⁿCᵣ counts only one order of successes.",
+   "concept": "c1",
+   "topic": "Theoretical distributions and the binomial model",
+   "difficulty": "moderate",
+   "fast": "ⁿCᵣ × pʳ × qⁿ⁻ʳ — compute the numerator and the denominator separately.",
+   "secs": 50
+  },
+  {
+   "id": "b04",
+   "q": "The probability that a machine part is defective is 1/4. In a sample of 3 parts, the probability of at least one defective is:",
+   "options": [
+    "27/64",
+    "3/4",
+    "37/64",
+    "63/64"
+   ],
+   "answer": 2,
+   "explain": "\"At least one\" is the complement of \"none\": P(X ≥ 1) = 1 − P(X = 0) = 1 − q^n = 1 − (3/4)^3 = 1 − 27/64 = 37/64. Adding P(X = 1), P(X = 2), … one by one is much slower and error-prone.",
+   "concept": "c1",
+   "topic": "Theoretical distributions and the binomial model",
+   "difficulty": "core",
+   "fast": "At least one = 1 − qⁿ (complement of none).",
+   "secs": 30
+  },
+  {
+   "id": "b05",
+   "q": "The probability that a machine part is defective is 1/5. In a sample of 6 parts, the probability of at least one defective is:",
+   "options": [
+    "4096/15625",
+    "1/15625",
+    "11529/15625",
+    "15624/15625"
+   ],
+   "answer": 2,
+   "explain": "\"At least one\" is the complement of \"none\": P(X ≥ 1) = 1 − P(X = 0) = 1 − q^n = 1 − (4/5)^6 = 1 − 4096/15625 = 11529/15625. Adding P(X = 1), P(X = 2), … one by one is much slower and error-prone.",
+   "concept": "c1",
+   "topic": "Theoretical distributions and the binomial model",
+   "difficulty": "core",
+   "fast": "At least one = 1 − qⁿ (complement of none).",
+   "secs": 30
+  },
+  {
+   "id": "b06",
+   "q": "For a binomial distribution with n = 91 and p = 0.4, the variance is:",
+   "options": [
+    "36.4",
+    "14.56",
+    "21.84",
+    "43.68"
+   ],
+   "answer": 2,
+   "explain": "Binomial mean = np = 91 × 0.4 = 36.4; variance = npq = 91 × 0.4 × 0.6 = 21.84; SD = √(npq). So the variance is 21.84. The variance of a binomial is always smaller than its mean because q < 1.",
+   "concept": "c2",
+   "topic": "Properties of the binomial distribution",
+   "difficulty": "core",
+   "fast": "Mean np, variance npq, SD √(npq).",
+   "secs": 20,
+   "check": "546/25"
+  },
+  {
+   "id": "b07",
+   "q": "For a binomial distribution with n = 17 and p = 0.6, the mean is:",
+   "options": [
+    "10.2",
+    "4.08",
+    "6.8",
+    "11.2"
+   ],
+   "answer": 0,
+   "explain": "Binomial mean = np = 17 × 0.6 = 10.2; variance = npq = 17 × 0.6 × 0.4 = 4.08; SD = √(npq). So the mean is 10.2. The variance of a binomial is always smaller than its mean because q < 1.",
+   "concept": "c2",
+   "topic": "Properties of the binomial distribution",
+   "difficulty": "core",
+   "fast": "Mean np, variance npq, SD √(npq).",
+   "secs": 20,
+   "check": "51/5"
+  },
+  {
+   "id": "b08",
+   "q": "For a binomial distribution with n = 48 and p = 0.2, the variance is:",
+   "options": [
+    "7.68",
+    "9.6",
+    "1.92",
+    "15.36"
+   ],
+   "answer": 0,
+   "explain": "Binomial mean = np = 48 × 0.2 = 9.6; variance = npq = 48 × 0.2 × 0.8 = 7.68; SD = √(npq). So the variance is 7.68. The variance of a binomial is always smaller than its mean because q < 1.",
+   "concept": "c2",
+   "topic": "Properties of the binomial distribution",
+   "difficulty": "core",
+   "fast": "Mean np, variance npq, SD √(npq).",
+   "secs": 20,
+   "check": "192/25"
+  },
+  {
+   "id": "b09",
+   "q": "A binomial distribution has mean 8.4 and variance 6.72. The value of p is:",
+   "options": [
+    "0.8",
+    "0.4",
+    "0.84",
+    "0.2"
+   ],
+   "answer": 3,
+   "explain": "Variance ÷ mean = npq/np = q, so q = 6.72/8.4 = 0.8 and p = 1 − q = 0.2. Then n = mean/p = 8.4/0.2 = 42. Taking q as p is the usual error.",
+   "concept": "c2",
+   "topic": "Properties of the binomial distribution",
+   "difficulty": "moderate",
+   "fast": "q = variance ÷ mean; p = 1 − q; n = mean ÷ p.",
+   "secs": 35,
+   "check": "1/5"
+  },
+  {
+   "id": "b10",
+   "q": "A binomial distribution has mean 18.4 and variance 11.04. The value of n is:",
+   "options": [
+    "18.4",
+    "46",
+    "30.67",
+    "92"
+   ],
+   "answer": 1,
+   "explain": "Variance ÷ mean = npq/np = q, so q = 11.04/18.4 = 0.6 and p = 1 − q = 0.4. Then n = mean/p = 18.4/0.4 = 46. Taking q as p is the usual error.",
+   "concept": "c2",
+   "topic": "Properties of the binomial distribution",
+   "difficulty": "moderate",
+   "fast": "q = variance ÷ mean; p = 1 − q; n = mean ÷ p.",
+   "secs": 35,
+   "check": "46"
+  },
+  {
+   "id": "b11",
+   "q": "The number of printing mistakes per page of a book follows a Poisson distribution with mean 0.5. Given e^(−0.5) = 0.6065, the probability of exactly 0 is about:",
+   "options": [
+    "1.2130",
+    "0.6065",
+    "0.3033",
+    "0.3935"
+   ],
+   "answer": 1,
+   "explain": "Poisson: P(X = r) = e^(−m) mʳ/r!. With m = 0.5 and r = 0: 0.6065 × 0.5^0/0! = 0.6065 × 1/1 = 0.6065. Forgetting to divide by r! gives too large a value. In a Poisson distribution the mean and the variance are both equal to m.",
+   "concept": "c3",
+   "topic": "Poisson distribution",
+   "difficulty": "moderate",
+   "fast": "e^(−m) × mʳ ÷ r! — use the e^(−m) value given in the question.",
+   "secs": 40,
+   "check": "round(0.5**0*0.6065/1,4)"
+  },
+  {
+   "id": "b12",
+   "q": "The number of defects per metre of cloth follows a Poisson distribution with mean 4. Given e^(−4) = 0.0183, the probability of exactly 4 is about:",
+   "options": [
+    "4.6848",
+    "0.1952",
+    "0.0183",
+    "0.8048"
+   ],
+   "answer": 1,
+   "explain": "Poisson: P(X = r) = e^(−m) mʳ/r!. With m = 4 and r = 4: 0.0183 × 4^4/4! = 0.0183 × 256/24 = 0.1952. Forgetting to divide by r! gives too large a value. In a Poisson distribution the mean and the variance are both equal to m.",
+   "concept": "c3",
+   "topic": "Poisson distribution",
+   "difficulty": "moderate",
+   "fast": "e^(−m) × mʳ ÷ r! — use the e^(−m) value given in the question.",
+   "secs": 40,
+   "check": "round(4**4*0.0183/24,4)"
+  },
+  {
+   "id": "b13",
+   "q": "The number of defects per metre of cloth follows a Poisson distribution with mean 1. Given e^(−1) = 0.3679, the probability of exactly 4 is about:",
+   "options": [
+    "0.3679",
+    "0.0153",
+    "0.9847",
+    "0.0031"
+   ],
+   "answer": 1,
+   "explain": "Poisson: P(X = r) = e^(−m) mʳ/r!. With m = 1 and r = 4: 0.3679 × 1^4/4! = 0.3679 × 1/24 = 0.0153. Forgetting to divide by r! gives too large a value. In a Poisson distribution the mean and the variance are both equal to m.",
+   "concept": "c3",
+   "topic": "Poisson distribution",
+   "difficulty": "moderate",
+   "fast": "e^(−m) × mʳ ÷ r! — use the e^(−m) value given in the question.",
+   "secs": 40,
+   "check": "round(1**4*0.3679/24,4)"
+  },
+  {
+   "id": "b14",
+   "q": "For a Poisson variate X, P(X = 3) = P(X = 4). The mean of the distribution is:",
+   "options": [
+    "3",
+    "5",
+    "4",
+    "2"
+   ],
+   "answer": 2,
+   "explain": "e^(−m)m^3/3! = e^(−m)m^4/4!. Cancel e^(−m) m^3/3!: 1 = m/4, so m = 4. In general P(X = r) = P(X = r + 1) gives m = r + 1. The mean of a Poisson distribution equals its variance.",
+   "concept": "c3",
+   "topic": "Poisson distribution",
+   "difficulty": "moderate",
+   "fast": "P(r) = P(r + 1) ⇒ m = r + 1.",
+   "secs": 30,
+   "check": "4"
+  },
+  {
+   "id": "b15",
+   "q": "For a Poisson variate X, P(X = 4) = P(X = 5). The standard deviation of X is:",
+   "options": [
+    "5",
+    "2.0000",
+    "2.2361",
+    "25"
+   ],
+   "answer": 2,
+   "explain": "P(X = 4) = P(X = 5) gives m = 5 = 5. For a Poisson distribution, mean = variance = m, so SD = √m = √5 ≈ 2.2361. Giving the variance (5) as the SD is the trap.",
+   "concept": "c3",
+   "topic": "Poisson distribution",
+   "difficulty": "moderate",
+   "fast": "m = r + 1; SD = √m.",
+   "secs": 35,
+   "check": "round(5**0.5,4)"
+  },
+  {
+   "id": "b16",
+   "q": "The probability that an item is defective is 1/1000. Using the Poisson approximation (e^(−2) = 0.1353), the probability that a box of 2000 items contains no defective is about:",
+   "options": [
+    "0.1353",
+    "0.8647",
+    "0.2706",
+    "0.0677"
+   ],
+   "answer": 0,
+   "explain": "n is large and p is small, so use Poisson with m = np = 2000 × 1/1000 = 2. P(X = 0) = e^(−2) × 2^0/0! = 0.1353. Poisson suits rare events: many trials, each with a tiny chance.",
+   "concept": "c4",
+   "topic": "Where Poisson applies",
+   "difficulty": "moderate",
+   "fast": "m = np, then e^(−m) mʳ/r!.",
+   "secs": 35,
+   "check": "round(0.1353,4)"
+  },
+  {
+   "id": "b17",
+   "q": "The probability that an item is defective is 1/100. Using the Poisson approximation (e^(−5) = 0.0067), the probability that a box of 500 items contains no defective is about:",
+   "options": [
+    "0.9933",
+    "0.0335",
+    "0.0067",
+    "0.0134"
+   ],
+   "answer": 2,
+   "explain": "n is large and p is small, so use Poisson with m = np = 500 × 1/100 = 5. P(X = 0) = e^(−5) × 5^0/0! = 0.0067. Poisson suits rare events: many trials, each with a tiny chance.",
+   "concept": "c4",
+   "topic": "Where Poisson applies",
+   "difficulty": "moderate",
+   "fast": "m = np, then e^(−m) mʳ/r!.",
+   "secs": 35,
+   "check": "round(0.0067,4)"
+  },
+  {
+   "id": "b18",
+   "q": "X is normally distributed with mean 70 and standard deviation 2. The standard normal variate z for x = 66 is:",
+   "options": [
+    "2",
+    "-1",
+    "33",
+    "-2"
+   ],
+   "answer": 3,
+   "explain": "z = (x − μ)/σ = (66 − 70)/2 = -2. z measures how many standard deviations x lies from the mean; a negative z means x is below the mean. Dividing by the variance instead of the SD is a common slip.",
+   "concept": "c6",
+   "topic": "Standard normal variate and using the table",
+   "difficulty": "core",
+   "fast": "Subtract the mean, divide by the SD.",
+   "secs": 20,
+   "check": "-2"
+  },
+  {
+   "id": "b19",
+   "q": "X is normally distributed with mean 166 and standard deviation 22. The standard normal variate z for x = 210 is:",
+   "options": [
+    "-2",
+    "2",
+    "0.09",
+    "9.55"
+   ],
+   "answer": 1,
+   "explain": "z = (x − μ)/σ = (210 − 166)/22 = 2. z measures how many standard deviations x lies from the mean; a negative z means x is below the mean. Dividing by the variance instead of the SD is a common slip.",
+   "concept": "c6",
+   "topic": "Standard normal variate and using the table",
+   "difficulty": "core",
+   "fast": "Subtract the mean, divide by the SD.",
+   "secs": 20,
+   "check": "2"
+  },
+  {
+   "id": "b20",
+   "q": "X is normal with mean 117 and SD 20. Given that the area under the standard normal curve between z = 0 and z = 0.5 is 0.1915, the probability that X is more than 127 is:",
+   "options": [
+    "0.1915",
+    "0.6915",
+    "0.3085",
+    "0.4085"
+   ],
+   "answer": 2,
+   "explain": "Convert to z: z = (x − 117)/20. The normal curve is symmetric and each half has area 0.5. P(X > 127) = 0.5 − (area 0 to 0.5) = 0.5 − 0.1915 = 0.3085. Draw the curve and shade the region before adding or subtracting.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "Sketch the bell, shade, then add areas on opposite sides of the mean or subtract on the same side.",
+   "secs": 60,
+   "check": "round(0.3085,4)"
+  },
+  {
+   "id": "b21",
+   "q": "X is normal with mean 134 and SD 4. Given that the areas between z = 0 and z = 2 and between z = 0 and z = 1.25 are 0.4772 and 0.3944, the probability that X is between 126 and 139 is:",
+   "options": [
+    "0.8716",
+    "0.3944",
+    "0.1284",
+    "0.3716"
+   ],
+   "answer": 0,
+   "explain": "Convert to z: z = (x − 134)/4. The normal curve is symmetric and each half has area 0.5. The interval crosses the mean, so add the two areas: 0.8716. Draw the curve and shade the region before adding or subtracting.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "Sketch the bell, shade, then add areas on opposite sides of the mean or subtract on the same side.",
+   "secs": 60,
+   "check": "round(0.8715999999999999,4)"
+  },
+  {
+   "id": "b22",
+   "q": "X is normal with mean 50 and SD 12. Given that the area between z = 0 and z = 1.25 is 0.3944, the probability that X is less than 65 is:",
+   "options": [
+    "0.3944",
+    "0.8944",
+    "0.1056",
+    "0.9944"
+   ],
+   "answer": 1,
+   "explain": "Convert to z: z = (x − 50)/12. The normal curve is symmetric and each half has area 0.5. P(X < 65) = 0.5 + 0.3944 = 0.8944. Draw the curve and shade the region before adding or subtracting.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "Sketch the bell, shade, then add areas on opposite sides of the mean or subtract on the same side.",
+   "secs": 60,
+   "check": "round(0.8944,4)"
+  },
+  {
+   "id": "b23",
+   "q": "X is normal with mean 145 and SD 4. Given that the area under the standard normal curve between z = 0 and z = 2 is 0.4772, the probability that X is more than 153 is:",
+   "options": [
+    "0.4772",
+    "0.9772",
+    "0.1228",
+    "0.0228"
+   ],
+   "answer": 3,
+   "explain": "Convert to z: z = (x − 145)/4. The normal curve is symmetric and each half has area 0.5. P(X > 153) = 0.5 − (area 0 to 2) = 0.5 − 0.4772 = 0.0228. Draw the curve and shade the region before adding or subtracting.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "Sketch the bell, shade, then add areas on opposite sides of the mean or subtract on the same side.",
+   "secs": 60,
+   "check": "round(0.022799999999999987,4)"
+  },
+  {
+   "id": "b24",
+   "q": "Marks of 500 students are normally distributed with mean 63 and SD 10. Given that the area between z = 0 and z = 2 is 0.4772, about how many students score above 83?",
+   "options": [
+    "239",
+    "489",
+    "261",
+    "11"
+   ],
+   "answer": 3,
+   "explain": "z = (83 − 63)/10 = 2. P(X > 83) = 0.5 − 0.4772 = 0.0228. Expected number = 500 × 0.0228 ≈ 11. Multiplying N by the table area itself counts students between the mean and 83.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "Tail area = 0.5 − table area; multiply by the number of students.",
+   "secs": 50,
+   "check": "11"
+  },
+  {
+   "id": "b25",
+   "q": "Marks of 2,000 students are normally distributed with mean 44 and SD 8. Given that the area between z = 0 and z = 1 is 0.3413, about how many students score above 52?",
+   "options": [
+    "683",
+    "1,683",
+    "1,317",
+    "317"
+   ],
+   "answer": 3,
+   "explain": "z = (52 − 44)/8 = 1. P(X > 52) = 0.5 − 0.3413 = 0.1587. Expected number = 2,000 × 0.1587 ≈ 317. Multiplying N by the table area itself counts students between the mean and 52.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "Tail area = 0.5 − table area; multiply by the number of students.",
+   "secs": 50,
+   "check": "317"
+  },
+  {
+   "id": "b26",
+   "q": "For a normal distribution the mean deviation about the mean is 28. The standard deviation is approximately:",
+   "options": [
+    "22.4",
+    "35",
+    "28",
+    "42"
+   ],
+   "answer": 1,
+   "explain": "For a normal distribution, MD ≈ (4/5)σ, so σ ≈ (5/4) × MD = 1.25 × 28 = 35. Multiplying by 4/5 again goes the wrong way. The SD is always larger than the mean deviation for a normal curve.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "For a normal curve σ ≈ 1.25 × mean deviation.",
+   "secs": 20,
+   "check": "35"
+  },
+  {
+   "id": "b27",
+   "q": "For a normal distribution the mean deviation about the mean is 12. The standard deviation is approximately:",
+   "options": [
+    "9.6",
+    "12",
+    "18",
+    "15"
+   ],
+   "answer": 3,
+   "explain": "For a normal distribution, MD ≈ (4/5)σ, so σ ≈ (5/4) × MD = 1.25 × 12 = 15. Multiplying by 4/5 again goes the wrong way. The SD is always larger than the mean deviation for a normal curve.",
+   "concept": "c5",
+   "topic": "Normal distribution",
+   "difficulty": "moderate",
+   "fast": "For a normal curve σ ≈ 1.25 × mean deviation.",
+   "secs": 20,
+   "check": "15"
+  }
+ ]
+}

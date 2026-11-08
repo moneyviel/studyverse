@@ -53,38 +53,69 @@
     });
   }
 
+  /* ◀ Previous / Next ▶ (like the quiz runners): skip a card and come back, revisit an answered card (your answer and
+     the reason are shown again), each card is scored once. Finishing with blanks asks once; blanks score 0. */
+  const navRow = (i, N, done) => `<div class="tst-nav qnav gnav"><button class="btn ghost gprev" ${i ? '' : 'disabled'} aria-label="Previous">◀ Previous</button>`
+    + `<button class="btn ${done ? 'mint' : 'ghost'} tfn" aria-label="${i < N - 1 ? (done ? 'Next' : 'Skip to the next one') : 'Finish'}">${i < N - 1 ? 'Next ▶' : 'Finish ▶'}</button></div>`;
+  function stepper(el, N, show, end) {
+    let i = 0, sure = false;
+    const go = j => { if (j < 0 || j >= N) return; i = j; sure = false; show(i); };
+    const wire = (answered, left) => {
+      const nav = el.querySelector('.gnav'); if (!nav) return;
+      nav.outerHTML = navRow(i, N, answered);
+      const n2 = el.querySelector('.gnav');
+      n2.querySelector('.gprev').onclick = () => go(i - 1);
+      const nx = n2.querySelector('.tfn');
+      nx.onclick = () => {
+        if (i < N - 1) return go(i + 1);
+        const l = left();
+        if (l && !sure) { sure = true; nx.textContent = `${l} not answered — tap again to finish`; nx.setAttribute('aria-label', nx.textContent); return; }
+        end();
+      };
+    };
+    return { go, wire, at: () => i };
+  }
+
   function truefalse(el, g, done) {
-    const items = shuffle(g.items); let i = 0, right = 0;
-    el.innerHTML = head(g) + `<div class="tfcard" id="tfc"></div><div class="tfwhy" id="tfw"></div><div class="tfbtns"><button class="btn tfb" data-v="1">👍 True</button><button class="btn tfb no" data-v="0">👎 False</button></div>`;
-    const c = el.querySelector('#tfc'), w = el.querySelector('#tfw'), btns = el.querySelector('.tfbtns');
-    const show = () => { c.innerHTML = esc(items[i][0]) + RA(0); c.className = 'tfcard popin'; w.textContent = ''; btns.style.display = ''; };
-    show();
+    const items = shuffle(g.items), N = items.length, ans = items.map(() => null);
+    el.innerHTML = head(g, `<span class="gcount" id="tfn0">1 of ${N}</span>`) + `<div class="tfcard" id="tfc"></div><div class="tfwhy" id="tfw" aria-live="polite"></div><div class="tfbtns"><button class="btn tfb" data-v="1">👍 True</button><button class="btn tfb no" data-v="0">👎 False</button></div><div class="gnav"></div>`;
+    const c = el.querySelector('#tfc'), w = el.querySelector('#tfw'), btns = el.querySelector('.tfbtns'), cnt = el.querySelector('#tfn0');
+    const left = () => ans.filter(a => !a).length;
+    const sp = stepper(el, N, i => show(i), () => { c.remove(); w.remove(); btns.remove(); el.querySelector('.gnav').remove(); cnt.remove(); finish(el, ans.filter(a => a && a.ok).length, N, done); });
+    const show = i => {
+      const it = items[i], a = ans[i];
+      c.innerHTML = esc(it[0]) + RA(0); c.className = 'tfcard popin' + (a ? (a.ok ? ' good' : ' bad') : ''); cnt.textContent = `${i + 1} of ${N}`;
+      if (a) { w.innerHTML = `<b>${it[1] ? 'TRUE' : 'FALSE'}.</b> ${esc(it[2])}<div class="gpick">You said: <b>${a.v ? 'True' : 'False'}</b> ${a.ok ? '✅' : '❌'}</div>`; btns.style.display = 'none'; }
+      else { w.textContent = ''; btns.style.display = ''; }
+      sp.wire(!!a, left);
+    };
     el.querySelectorAll('.tfb').forEach(b => b.onclick = () => {
-      const ok = (b.dataset.v === '1') === items[i][1];
-      if (ok) { right++; S('correct'); } else S('wrong');
-      c.classList.add(ok ? 'good' : 'bad');
-      w.innerHTML = `<b>${items[i][1] ? 'TRUE' : 'FALSE'}.</b> ${esc(items[i][2])}`; btns.style.display = 'none';
-      w.insertAdjacentHTML('beforeend', `<button class="btn ghost tfn">${i < items.length - 1 ? 'Next ▶' : 'Finish ▶'}</button>`);
-      w.querySelector('.tfn').onclick = () => { i++; if (i < items.length) show(); else { c.remove(); w.remove(); btns.remove(); finish(el, right, items.length, done); } };
+      const i = sp.at(); if (ans[i]) return;                     /* scored once */
+      const v = b.dataset.v === '1', ok = v === items[i][1]; ans[i] = { v, ok };
+      S(ok ? 'correct' : 'wrong'); show(i);
+      const nx = el.querySelector('.tfn'); if (nx) nx.focus({ preventScroll: true });
     });
+    show(0);
   }
 
   function fill(el, g, done) {
-    const items = g.items; let i = 0, right = 0;
-    el.innerHTML = head(g) + `<div class="fsent" id="fs"></div><div class="fopts" id="fo"></div>`;
-    const s = el.querySelector('#fs'), o = el.querySelector('#fo');
-    const show = () => {
-      const it = items[i];
-      s.innerHTML = esc(it.text).replace('___', '<span class="blank">?</span>') + RA(); s.className = 'fsent popin';
-      o.innerHTML = shuffle(it.options).map(x => `<button class="opt">${esc(x)}</button>`).join('');
+    const items = g.items, N = items.length, ans = items.map(() => null), orders = items.map(it => shuffle(it.options));
+    el.innerHTML = head(g, `<span class="gcount" id="fn0">1 of ${N}</span>`) + `<div class="fsent" id="fs"></div><div class="fopts" id="fo"></div><div class="gnav"></div>`;
+    const s = el.querySelector('#fs'), o = el.querySelector('#fo'), cnt = el.querySelector('#fn0');
+    const left = () => ans.filter(a => a == null).length;
+    const sp = stepper(el, N, i => show(i), () => { s.remove(); o.remove(); el.querySelector('.gnav').remove(); cnt.remove(); finish(el, ans.filter((a, j) => a != null && a === items[j].answer).length, N, done); });
+    const show = i => {
+      const it = items[i], a = ans[i], ok = a === it.answer;
+      s.innerHTML = esc(it.text).replace('___', `<span class="blank${a != null ? (ok ? ' ok' : ' no') : ''}">${a != null ? esc(it.answer) : '?'}</span>`) + RA(); s.className = 'fsent popin'; cnt.textContent = `${i + 1} of ${N}`;
+      o.innerHTML = orders[i].map(x => `<button class="opt${a != null && x === it.answer ? ' right' : ''}${a != null && x === a && !ok ? ' wrong' : ''}"${a != null ? ' disabled' : ''}>${esc(x)}</button>`).join('');
       o.querySelectorAll('.opt').forEach(b => b.onclick = () => {
-        const ok = b.textContent === it.answer; o.querySelectorAll('.opt').forEach(x => { x.disabled = true; if (x.textContent === it.answer) x.classList.add('right'); });
-        if (ok) { right++; S('correct'); } else { b.classList.add('wrong'); S('wrong'); }
-        s.querySelector('.blank').textContent = it.answer; s.querySelector('.blank').classList.add(ok ? 'ok' : 'no');
-        setTimeout(() => { i++; if (i < items.length) show(); else { s.remove(); o.remove(); finish(el, right, items.length, done); } }, ok ? 900 : 1700);
+        if (ans[i] != null) return;                              /* scored once */
+        ans[i] = b.textContent; S(ans[i] === it.answer ? 'correct' : 'wrong'); show(i);
+        const nx = el.querySelector('.tfn'); if (nx) nx.focus({ preventScroll: true });
       });
+      sp.wire(a != null, left);
     };
-    show();
+    show(0);
   }
 
   function speed(el, g, done) {

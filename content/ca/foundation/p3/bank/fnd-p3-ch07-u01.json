@@ -1,0 +1,588 @@
+{
+ "unit": "fnd-p3-ch07-u01",
+ "mcq": [
+  {
+   "id": "b01",
+   "q": "If n(A) = 35, n(B) = 17 and n(A ∪ B) = 38, then n(A ∩ B) =",
+   "options": [
+    "90",
+    "3",
+    "14",
+    "21"
+   ],
+   "answer": 2,
+   "explain": "From n(A ∪ B) = n(A) + n(B) − n(A ∩ B): n(A ∩ B) = 35 + 17 − 38 = 14. Whenever n(A) + n(B) is more than n(A ∪ B), the excess is exactly the common part counted twice.",
+   "concept": "c5",
+   "topic": "Venn diagrams and counting",
+   "difficulty": "core",
+   "fast": "Overlap = n(A) + n(B) − n(A ∪ B).",
+   "secs": 15,
+   "check": "14"
+  },
+  {
+   "id": "b02",
+   "q": "If n(A) = 40, n(B) = 38 and n(A ∩ B) = 34, then n(A ∪ B) =",
+   "options": [
+    "44",
+    "78",
+    "112",
+    "36"
+   ],
+   "answer": 0,
+   "explain": "n(A ∪ B) = n(A) + n(B) − n(A ∩ B) = 40 + 38 − 34 = 44. The elements in both sets are counted twice when we add n(A) and n(B), so they are subtracted once. Adding only (78) double-counts the common part.",
+   "concept": "c5",
+   "topic": "Venn diagrams and counting",
+   "difficulty": "core",
+   "fast": "Add the two sets, subtract the overlap once.",
+   "secs": 15,
+   "check": "44"
+  },
+  {
+   "id": "b03",
+   "q": "In a group of 302 people, 128 like Hindi newspapers, 147 like English newspapers and 32 like both. How many like neither?",
+   "options": [
+    "27",
+    "270",
+    "243",
+    "59"
+   ],
+   "answer": 3,
+   "explain": "People who like at least one = 128 + 147 − 32 = 243. Neither = total − at least one = 302 − 243 = 59. Subtracting 128 and 147 from 302 without adding back the 32 who like both removes them twice.",
+   "concept": "c5",
+   "topic": "Venn diagrams and counting",
+   "difficulty": "core",
+   "fast": "Neither = 302 − (128 + 147 − 32).",
+   "secs": 25,
+   "check": "59"
+  },
+  {
+   "id": "b04",
+   "q": "In a group of 263 people, 145 like cricket, 56 like football and 27 like both. How many like neither?",
+   "options": [
+    "62",
+    "236",
+    "89",
+    "174"
+   ],
+   "answer": 2,
+   "explain": "People who like at least one = 145 + 56 − 27 = 174. Neither = total − at least one = 263 − 174 = 89. Subtracting 145 and 56 from 263 without adding back the 27 who like both removes them twice.",
+   "concept": "c5",
+   "topic": "Venn diagrams and counting",
+   "difficulty": "core",
+   "fast": "Neither = 263 − (145 + 56 − 27).",
+   "secs": 25,
+   "check": "89"
+  },
+  {
+   "id": "b05",
+   "q": "n(A) = 52, n(B) = 63, n(C) = 56, n(A ∩ B) = 34, n(B ∩ C) = 25, n(C ∩ A) = 16 and n(A ∩ B ∩ C) = 5. Then n(A ∪ B ∪ C) =",
+   "options": [
+    "171",
+    "101",
+    "96",
+    "106"
+   ],
+   "answer": 1,
+   "explain": "n(A ∪ B ∪ C) = n(A) + n(B) + n(C) − n(A ∩ B) − n(B ∩ C) − n(C ∩ A) + n(A ∩ B ∩ C) = 171 − 75 + 5 = 101. The triple overlap is added three times, subtracted three times, so it must be added back once.",
+   "concept": "c5",
+   "topic": "Venn diagrams and counting",
+   "difficulty": "moderate",
+   "fast": "Add singles, subtract pairs, add the triple.",
+   "secs": 35,
+   "check": "101"
+  },
+  {
+   "id": "b06",
+   "q": "n(A) = 64, n(B) = 88, n(C) = 56, n(A ∩ B) = 49, n(B ∩ C) = 41, n(C ∩ A) = 31 and n(A ∩ B ∩ C) = 23. Then n(A ∪ B ∪ C) =",
+   "options": [
+    "110",
+    "208",
+    "87",
+    "133"
+   ],
+   "answer": 0,
+   "explain": "n(A ∪ B ∪ C) = n(A) + n(B) + n(C) − n(A ∩ B) − n(B ∩ C) − n(C ∩ A) + n(A ∩ B ∩ C) = 208 − 121 + 23 = 110. The triple overlap is added three times, subtracted three times, so it must be added back once.",
+   "concept": "c5",
+   "topic": "Venn diagrams and counting",
+   "difficulty": "moderate",
+   "fast": "Add singles, subtract pairs, add the triple.",
+   "secs": 35,
+   "check": "110"
+  },
+  {
+   "id": "b07",
+   "q": "A is the set of letters of the word \"MANAGEMENT\". The number of proper subsets of A is:",
+   "options": [
+    "1,023",
+    "63",
+    "64",
+    "32"
+   ],
+   "answer": 1,
+   "explain": "A set lists each element once, so A has the 6 distinct letters {A, E, G, M, N, T}, not 10. A set with n elements has 2ⁿ subsets and 2ⁿ − 1 proper subsets (all except A itself). So 2^6 − 1 = 63.",
+   "concept": "c3",
+   "topic": "Subsets and the power set",
+   "difficulty": "core",
+   "fast": "Count distinct letters first, then 2ⁿ (minus 1 for proper subsets).",
+   "secs": 30,
+   "check": "63"
+  },
+  {
+   "id": "b08",
+   "q": "A is the set of letters of the word \"COMMERCE\". The number of proper subsets of A is:",
+   "options": [
+    "255",
+    "32",
+    "31",
+    "16"
+   ],
+   "answer": 2,
+   "explain": "A set lists each element once, so A has the 5 distinct letters {C, E, M, O, R}, not 8. A set with n elements has 2ⁿ subsets and 2ⁿ − 1 proper subsets (all except A itself). So 2^5 − 1 = 31.",
+   "concept": "c3",
+   "topic": "Subsets and the power set",
+   "difficulty": "core",
+   "fast": "Count distinct letters first, then 2ⁿ (minus 1 for proper subsets).",
+   "secs": 30,
+   "check": "31"
+  },
+  {
+   "id": "b09",
+   "q": "If A has 6 elements and B has 4 elements, the number of relations from A to B is:",
+   "options": [
+    "1,67,77,216",
+    "24",
+    "1,024",
+    "576"
+   ],
+   "answer": 0,
+   "explain": "A relation from A to B is any subset of A × B. A × B has 6 × 4 = 24 ordered pairs, so the number of subsets (relations) is 2^24 = 1,67,77,216. This count includes the empty relation and A × B itself.",
+   "concept": "c7",
+   "topic": "Relations: domain, range, inverse and types",
+   "difficulty": "moderate",
+   "fast": "Relations = 2^(mn): every ordered pair is either in or out.",
+   "secs": 20,
+   "check": "16777216"
+  },
+  {
+   "id": "b10",
+   "q": "If A has 6 elements and B has 2 elements, the number of elements in A × B is:",
+   "options": [
+    "12",
+    "8",
+    "4,096",
+    "36"
+   ],
+   "answer": 0,
+   "explain": "A × B is the set of all ordered pairs (a, b) with a from A and b from B. Each of the 6 elements of A pairs with each of the 2 elements of B, so n(A × B) = 6 × 2 = 12. Order inside a pair matters, but the count is still the product.",
+   "concept": "c6",
+   "topic": "Ordered pairs and the Cartesian product",
+   "difficulty": "core",
+   "fast": "n(A × B) = n(A) × n(B).",
+   "secs": 15,
+   "check": "12"
+  },
+  {
+   "id": "b11",
+   "q": "How many members does {x : x is a multiple of 6 and 56 < x < 89} have?",
+   "options": [
+    "6",
+    "4",
+    "5",
+    "7"
+   ],
+   "answer": 2,
+   "explain": "Write the set in roster form: {60, 66, 72, 78, 84}. The strict signs exclude 56 and 89 themselves. Counting gives 5 elements. Listing the members is the safest way to avoid including or dropping an end value.",
+   "concept": "c1",
+   "topic": "Sets, elements and the two ways of writing a set",
+   "difficulty": "core",
+   "fast": "List the members quickly in roster form and count; watch whether the end values are included.",
+   "secs": 40,
+   "check": "5"
+  },
+  {
+   "id": "b12",
+   "q": "How many members does {x : x is a prime number and 47 < x < 63} have?",
+   "options": [
+    "3",
+    "4",
+    "2",
+    "5"
+   ],
+   "answer": 0,
+   "explain": "Write the set in roster form: {53, 59, 61}. The strict signs exclude 47 and 63 themselves. Counting gives 3 elements. Listing the members is the safest way to avoid including or dropping an end value.",
+   "concept": "c1",
+   "topic": "Sets, elements and the two ways of writing a set",
+   "difficulty": "core",
+   "fast": "List the members quickly in roster form and count; watch whether the end values are included.",
+   "secs": 40,
+   "check": "3"
+  },
+  {
+   "id": "b13",
+   "q": "If A = {1, 3, 11, 12} and B = {3, 4, 8, 9, 10, 11, 12}, then A Δ B (symmetric difference) is:",
+   "options": [
+    "{1, 4, 8, 9, 10}",
+    "{3, 11, 12}",
+    "{1, 3, 4, 8, 9, 10, 11, 12}",
+    "{4, 8, 9, 10}"
+   ],
+   "answer": 0,
+   "explain": "A − B keeps elements of A that are not in B; A Δ B = (A − B) ∪ (B − A); the complement (A ∪ B)′ keeps elements of U outside both sets, which by De Morgan equals A′ ∩ B′. Applying the definition element by element gives {1, 4, 8, 9, 10}.",
+   "concept": "c4",
+   "topic": "Operations on sets and De Morgan's laws",
+   "difficulty": "core",
+   "fast": "Go through the elements one by one and tick membership in A and B; keep those the operation asks for.",
+   "secs": 40
+  },
+  {
+   "id": "b14",
+   "q": "If A = {3, 4, 5, 11} and B = {1, 3, 7, 9, 10}, then A Δ B (symmetric difference) is:",
+   "options": [
+    "{3}",
+    "{1, 3, 4, 5, 7, 9, 10, 11}",
+    "{1, 7, 9, 10}",
+    "{1, 4, 5, 7, 9, 10, 11}"
+   ],
+   "answer": 3,
+   "explain": "A − B keeps elements of A that are not in B; A Δ B = (A − B) ∪ (B − A); the complement (A ∪ B)′ keeps elements of U outside both sets, which by De Morgan equals A′ ∩ B′. Applying the definition element by element gives {1, 4, 5, 7, 9, 10, 11}.",
+   "concept": "c4",
+   "topic": "Operations on sets and De Morgan's laws",
+   "difficulty": "core",
+   "fast": "Go through the elements one by one and tick membership in A and B; keep those the operation asks for.",
+   "secs": 40
+  },
+  {
+   "id": "b15",
+   "q": "On the set {1, 2, 3}, the relation R = {(1, 2), (3, 1), (3, 3)} is:",
+   "options": [
+    "Symmetric but not reflexive or transitive",
+    "Reflexive but not symmetric or transitive",
+    "Symmetric and transitive but not reflexive",
+    "Neither reflexive, symmetric nor transitive"
+   ],
+   "answer": 3,
+   "explain": "Check the three properties one at a time. Reflexive: some (x, x) is missing, so it is not reflexive. Symmetric: some (a, b) has no (b, a), so it is not symmetric. Transitive: some (a, b), (b, c) lack (a, c), so it is not transitive. Hence R is: neither reflexive, symmetric nor transitive. An equivalence relation needs all three properties.",
+   "concept": "c7",
+   "topic": "Relations: domain, range, inverse and types",
+   "difficulty": "hard",
+   "fast": "Check (1,1),(2,2),(3,3) first; then reverse each pair; then chain pairs end-to-start.",
+   "secs": 60
+  },
+  {
+   "id": "b16",
+   "q": "On the set {1, 2, 3}, the relation R = {(1, 3), (2, 1), (2, 2), (3, 3)} is:",
+   "options": [
+    "Reflexive but not symmetric or transitive",
+    "Neither reflexive, symmetric nor transitive",
+    "Symmetric and transitive but not reflexive",
+    "An equivalence relation"
+   ],
+   "answer": 1,
+   "explain": "Check the three properties one at a time. Reflexive: some (x, x) is missing, so it is not reflexive. Symmetric: some (a, b) has no (b, a), so it is not symmetric. Transitive: some (a, b), (b, c) lack (a, c), so it is not transitive. Hence R is: neither reflexive, symmetric nor transitive. An equivalence relation needs all three properties.",
+   "concept": "c7",
+   "topic": "Relations: domain, range, inverse and types",
+   "difficulty": "hard",
+   "fast": "Check (1,1),(2,2),(3,3) first; then reverse each pair; then chain pairs end-to-start.",
+   "secs": 60
+  },
+  {
+   "id": "b17",
+   "q": "On the set {1, 2, 3}, the relation R = {(1, 3), (3, 3)} is:",
+   "options": [
+    "Transitive but not reflexive or symmetric",
+    "Symmetric and transitive but not reflexive",
+    "An equivalence relation",
+    "Symmetric but not reflexive or transitive"
+   ],
+   "answer": 0,
+   "explain": "Check the three properties one at a time. Reflexive: some (x, x) is missing, so it is not reflexive. Symmetric: some (a, b) has no (b, a), so it is not symmetric. Transitive: whenever (a, b) and (b, c) are present, (a, c) is too. Hence R is: transitive but not reflexive or symmetric. An equivalence relation needs all three properties.",
+   "concept": "c7",
+   "topic": "Relations: domain, range, inverse and types",
+   "difficulty": "hard",
+   "fast": "Check (1,1),(2,2),(3,3) first; then reverse each pair; then chain pairs end-to-start.",
+   "secs": 60
+  },
+  {
+   "id": "b18",
+   "q": "If f(x) = −x − 6 and g(x) = 4x², then g(f(0)) =",
+   "options": [
+    "-6",
+    "144",
+    "0",
+    "145"
+   ],
+   "answer": 1,
+   "explain": "Work from the inside out. f(0) = -6, then g(-6) = 144. Composition is generally not commutative: the other order gives -6. Multiplying f(0) and g(0) is not composition at all: in a composition the output of one function becomes the input of the other.",
+   "concept": "c8",
+   "topic": "Functions (mappings) and their types",
+   "difficulty": "core",
+   "fast": "Evaluate the inner function first, then feed the result to the outer one.",
+   "secs": 30,
+   "check": "144"
+  },
+  {
+   "id": "b19",
+   "q": "If f(x) = −3x + 3 and g(x) = 4x² + 1, then g(f(5)) =",
+   "options": [
+    "-300",
+    "-1212",
+    "89",
+    "577"
+   ],
+   "answer": 3,
+   "explain": "Work from the inside out. f(5) = -12, then g(-12) = 577. Composition is generally not commutative: the other order gives -300. Multiplying f(5) and g(5) is not composition at all: in a composition the output of one function becomes the input of the other.",
+   "concept": "c8",
+   "topic": "Functions (mappings) and their types",
+   "difficulty": "core",
+   "fast": "Evaluate the inner function first, then feed the result to the outer one.",
+   "secs": 30,
+   "check": "577"
+  },
+  {
+   "id": "b20",
+   "q": "If f(x) = 4x − 4, then f⁻¹(-9) =",
+   "options": [
+    "-40",
+    "-13/4",
+    "-5/4",
+    "-1/40"
+   ],
+   "answer": 2,
+   "explain": "f⁻¹(-9) is the x for which f(x) = -9. Solve 4x − 4 = -9: 4x = -9 − (-4) = -5, so x = -5/4. In general f⁻¹(y) = (y − -4)/4. Computing f(-9) instead of solving f(x) = -9 is the usual mix-up.",
+   "concept": "c8",
+   "topic": "Functions (mappings) and their types",
+   "difficulty": "core",
+   "fast": "Back-substitute options into f: f(-5/4) = -9.",
+   "secs": 25
+  },
+  {
+   "id": "b21",
+   "q": "If f(x) = −3x + 1, then f⁻¹(23) =",
+   "options": [
+    "-68",
+    "-22/3",
+    "-8",
+    "-1/68"
+   ],
+   "answer": 1,
+   "explain": "f⁻¹(23) is the x for which f(x) = 23. Solve −3x + 1 = 23: -3x = 23 − (1) = 22, so x = -22/3. In general f⁻¹(y) = (y − 1)/-3. Computing f(23) instead of solving f(x) = 23 is the usual mix-up.",
+   "concept": "c8",
+   "topic": "Functions (mappings) and their types",
+   "difficulty": "core",
+   "fast": "Back-substitute options into f: f(-22/3) = 23.",
+   "secs": 25
+  },
+  {
+   "id": "b22",
+   "q": "The value of lim (x → 2) (x⁷ − 128)/(x − 2) is:",
+   "options": [
+    "64",
+    "896",
+    "448",
+    "384"
+   ],
+   "answer": 2,
+   "explain": "Direct substitution gives 0/0. Use the standard limit lim (x → a) (xⁿ − aⁿ)/(x − a) = n·aⁿ⁻¹. With n = 7 and a = 2: 7 × (2)^6 = 448. Answering 0 confuses the indeterminate form 0/0 with the limit itself.",
+   "concept": "c9",
+   "topic": "Limit of a function",
+   "difficulty": "core",
+   "fast": "n·aⁿ⁻¹ — it is the derivative of xⁿ at x = a.",
+   "secs": 20,
+   "check": "448"
+  },
+  {
+   "id": "b23",
+   "q": "The value of lim (x → 1) (x⁶ − 1)/(x − 1) is:",
+   "options": [
+    "6",
+    "1",
+    "5",
+    "0"
+   ],
+   "answer": 0,
+   "explain": "Direct substitution gives 0/0. Use the standard limit lim (x → a) (xⁿ − aⁿ)/(x − a) = n·aⁿ⁻¹. With n = 6 and a = 1: 6 × (1)^5 = 6. Answering 0 confuses the indeterminate form 0/0 with the limit itself.",
+   "concept": "c9",
+   "topic": "Limit of a function",
+   "difficulty": "core",
+   "fast": "n·aⁿ⁻¹ — it is the derivative of xⁿ at x = a.",
+   "secs": 20,
+   "check": "6"
+  },
+  {
+   "id": "b24",
+   "q": "lim (x → -2) (3x² + 21x + 30)/(x + 2) =",
+   "options": [
+    "9",
+    "-21",
+    "-9",
+    "0"
+   ],
+   "answer": 0,
+   "explain": "At x = -2 both numerator and denominator are 0, so factorise: 3x² + 21x + 30 = 3(x + 2)(x + 5). Cancel (x + 2) and substitute x = -2: 3 × (-2 − (-5)) = 9.",
+   "concept": "c9",
+   "topic": "Limit of a function",
+   "difficulty": "moderate",
+   "fast": "Factor out (x − a) and substitute; or differentiate top and bottom (derivative of the numerator at x = a).",
+   "secs": 40,
+   "check": "9"
+  },
+  {
+   "id": "b25",
+   "q": "lim (x → -5) (2x² − 2x − 60)/(x + 5) =",
+   "options": [
+    "2",
+    "22",
+    "-22",
+    "0"
+   ],
+   "answer": 2,
+   "explain": "At x = -5 both numerator and denominator are 0, so factorise: 2x² − 2x − 60 = 2(x + 5)(x − 6). Cancel (x + 5) and substitute x = -5: 2 × (-5 − (6)) = -22.",
+   "concept": "c9",
+   "topic": "Limit of a function",
+   "difficulty": "moderate",
+   "fast": "Factor out (x − a) and substitute; or differentiate top and bottom (derivative of the numerator at x = a).",
+   "secs": 40,
+   "check": "-22"
+  },
+  {
+   "id": "b26",
+   "q": "lim (x → ∞) (8x³ + 5x − 3)/(5x³ + 2x² − 2) =",
+   "options": [
+    "3/2",
+    "8/5",
+    "5/8",
+    "0"
+   ],
+   "answer": 1,
+   "explain": "Divide numerator and denominator by the highest power x³. Every term with a lower power tends to 0 as x → ∞, leaving the ratio of leading coefficients 8/5 = 8/5. The constant terms decide the limit at x → 0, not at infinity.",
+   "concept": "c9",
+   "topic": "Limit of a function",
+   "difficulty": "core",
+   "fast": "Same degree on top and bottom ⇒ ratio of leading coefficients.",
+   "secs": 20
+  },
+  {
+   "id": "b27",
+   "q": "lim (x → ∞) (9x³ − 2)/(x³ + 3x² + 9) =",
+   "options": [
+    "-2/9",
+    "1/9",
+    "0",
+    "9"
+   ],
+   "answer": 3,
+   "explain": "Divide numerator and denominator by the highest power x³. Every term with a lower power tends to 0 as x → ∞, leaving the ratio of leading coefficients 9/1 = 9. The constant terms decide the limit at x → 0, not at infinity.",
+   "concept": "c9",
+   "topic": "Limit of a function",
+   "difficulty": "core",
+   "fast": "Same degree on top and bottom ⇒ ratio of leading coefficients.",
+   "secs": 20
+  },
+  {
+   "id": "b28",
+   "q": "f(x) = x + 1 for x < -1 and f(x) = 5x + k for x ≥ -1. If f is continuous at x = -1, then k =",
+   "options": [
+    "1",
+    "-5",
+    "5",
+    "0"
+   ],
+   "answer": 2,
+   "explain": "Left-hand limit at x = -1: 1(-1) + (1) = 0. Right-hand value: 5(-1) + k = -5 + k. Continuity needs them equal: -5 + k = 0, so k = 5. Both pieces must meet at the same point.",
+   "concept": "c10",
+   "topic": "Continuity at a point",
+   "difficulty": "moderate",
+   "fast": "Put x = c in both pieces and equate.",
+   "secs": 35,
+   "check": "5"
+  },
+  {
+   "id": "b29",
+   "q": "f(x) = (x² − 16)/(x − 4) for x ≠ 4, and f(4) = k. For f to be continuous at x = 4, k =",
+   "options": [
+    "4",
+    "16",
+    "8",
+    "0"
+   ],
+   "answer": 2,
+   "explain": "Continuity at x = 4 needs f(4) = lim (x → 4) f(x). For x ≠ 4, (x² − 16)/(x − 4) = x + 4, so the limit is 4 + (4) = 8. Hence k = 8. Leaving k undefined or 0 creates a hole in the graph.",
+   "concept": "c10",
+   "topic": "Continuity at a point",
+   "difficulty": "core",
+   "fast": "Cancel the common factor and substitute x = a: the limit is 2a.",
+   "secs": 30,
+   "check": "8"
+  },
+  {
+   "id": "b30",
+   "q": "If A has 5 elements and B has 2 elements, the number of functions from A to B is:",
+   "options": [
+    "25",
+    "1,024",
+    "30",
+    "32"
+   ],
+   "answer": 3,
+   "explain": "Each of the 5 elements of A must go to exactly one of the 2 elements of B, independently: 2 choices each, so 2^5 = 32 functions. Writing m^n reverses the roles of domain and co-domain.",
+   "concept": "c8",
+   "topic": "Functions (mappings) and their types",
+   "difficulty": "moderate",
+   "fast": "(size of B)^(size of A) — think \"each element of A chooses\".",
+   "secs": 25,
+   "check": "32"
+  },
+  {
+   "id": "b31",
+   "q": "If A has 5 elements and B has 5 elements, the number of functions from A to B is:",
+   "options": [
+    "3,125",
+    "3,35,54,432",
+    "3,120",
+    "25"
+   ],
+   "answer": 0,
+   "explain": "Each of the 5 elements of A must go to exactly one of the 5 elements of B, independently: 5 choices each, so 5^5 = 3,125 functions. Writing m^n reverses the roles of domain and co-domain.",
+   "concept": "c8",
+   "topic": "Functions (mappings) and their types",
+   "difficulty": "moderate",
+   "fast": "(size of B)^(size of A) — think \"each element of A chooses\".",
+   "secs": 25,
+   "check": "3125"
+  },
+  {
+   "id": "b32",
+   "q": "If R = {(-2, 1), (2, 9), (4, 13)}, then R⁻¹ is:",
+   "options": [
+    "{(1, -2), (9, 2), (13, 4)}",
+    "{(-2, 1), (2, 9), (4, 13)}",
+    "{(2, -1), (-2, -9), (-4, -13)}",
+    "{(-2, -2), (2, 2), (4, 4)}"
+   ],
+   "answer": 0,
+   "explain": "The inverse relation R⁻¹ is obtained by swapping the two entries of every ordered pair in R. So R⁻¹ = {(1, -2), (9, 2), (13, 4)}. The domain of R becomes the range of R⁻¹ and the range of R becomes the domain of R⁻¹.",
+   "concept": "c7",
+   "topic": "Relations: domain, range, inverse and types",
+   "difficulty": "core",
+   "fast": "Swap each pair (a, b) → (b, a).",
+   "secs": 15
+  },
+  {
+   "id": "b33",
+   "q": "R = {(x, y) : y = −x + 2, x ∈ {1, 3, 4, 5, 8}}. The range of R is:",
+   "options": [
+    "{1, 3, 4, 5, 8}",
+    "{3, 5, 6, 7, 10}",
+    "{-8, -5, -4, -3, -1}",
+    "{-6, -3, -2, -1, 1}"
+   ],
+   "answer": 3,
+   "explain": "The range is the set of second elements. Substitute each x: 1 → 1, 3 → -1, 4 → -2, 5 → -3, 8 → -6. So the range is {-6, -3, -2, -1, 1}. The set {1, 3, 4, 5, 8} itself is the domain, not the range.",
+   "concept": "c7",
+   "topic": "Relations: domain, range, inverse and types",
+   "difficulty": "core",
+   "fast": "Apply the rule to each element of the domain and collect the outputs.",
+   "secs": 30
+  }
+ ]
+}

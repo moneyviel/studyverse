@@ -13,6 +13,7 @@
   const C = () => { const c = X.C(); c.viva = c.viva || {}; c.tests = c.tests || []; c.revise = c.revise || {}; c.time = c.time || {}; c.mlog = c.mlog || [];
     c.notes = c.notes || {}; c.notes.saved = c.notes.saved || {}; c.notes.hl = c.notes.hl || {}; c.notes.mine = c.notes.mine || {}; c.mockDraft = c.mockDraft || {}; return c; };
   const fmt = X.fmt, tap = X.tap, say = X.say;
+  const SP = () => window.CaSpeed || null;   // js/ca-speed.js: ⚡ fast way, pacing chip, 3-pass strategy, speed drill, tricks
   const secsTxt = s => { s = Math.max(0, Math.round(s || 0)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return h ? `${h}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}` : `${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}`; };
   const durTxt = s => { const m = Math.round((s || 0) / 60); return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${m % 60 ? (m % 60) + ' min' : ''}`.trim(); };
   const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
@@ -439,7 +440,7 @@
   async function builder(preset = {}) {
     const el = X.open('practice'), all = await builtList();
     const levels = X.LEVELS.map(([k, n]) => ({ k, n, n_b: all.filter(b => b.level === k).length }));
-    B = B && !preset.reset ? B : { level: (levels.find(l => l.k === C().level && l.n_b) || levels.find(l => l.n_b) || levels[0]).k, papers: [], chapters: [], diff: ['core', 'moderate', 'hard'], count: 10, timer: 'off', custom: 45, mode: 'practice', singles: true, cases: true };
+    B = B && !preset.reset ? B : { level: (levels.find(l => l.k === C().level && l.n_b) || levels.find(l => l.n_b) || levels[0]).k, papers: [], chapters: [], diff: ['core', 'moderate', 'hard'], count: 10, timer: 'off', custom: 45, mode: 'practice', passes: 'off', singles: true, cases: true };
     Object.assign(B, preset); delete B.reset;
     const draw = async () => {
       const inL = all.filter(b => b.level === B.level);
@@ -462,6 +463,7 @@
         ${seg('6 · Timer', 'timer', [{ v: 'off', n: 'Off' }, { v: '60', n: '60 s per question' }, { v: 'custom', n: 'Custom' }], false)}
         <div id="cbCustom" ${B.timer === 'custom' ? '' : 'hidden'}><label class="ca-lab" for="cbSec">Seconds per question (15–300)</label><input id="cbSec" class="ca-in" type="number" min="15" max="300" step="5" value="${B.custom}" inputmode="numeric"></div>
         ${seg('7 · Mode', 'mode', [{ v: 'practice', n: 'Practice', sub: 'instant feedback' }, { v: 'test', n: 'Test', sub: 'review at the end' }], false)}
+        ${B.mode === 'test' && SP() ? seg('8 · Exam strategy', 'passes', [{ v: 'off', n: 'One pass' }, { v: 'on', n: '3-pass mode', sub: 'easy → marked → smart guesses' }], false) : ''}
         <p class="ca-avail" role="status">${avail} question${avail === 1 ? '' : 's'} match your choices${avail < B.count ? ` — the set will have ${avail}` : ''}.</p>
         <button class="btn" id="cbGo" ${avail ? '' : 'disabled'}>Start ${Math.min(avail, B.count)} questions ▶</button></div>`);
       el.querySelectorAll('.ca-cs').forEach(b => b.onclick = () => {
@@ -472,7 +474,7 @@
         tap('tap'); draw();
       });
       const cs = D.getElementById('cbSec'); if (cs) cs.onchange = () => { B.custom = Math.max(15, Math.min(300, +cs.value || 45)); cs.value = B.custom; };
-      D.getElementById('cbGo').onclick = () => { const set = pickSet(pool, B.count, 'builder:' + B.level); startSet(set, { mode: B.mode, perQ: B.timer === 'off' ? 0 : B.timer === '60' ? 60 : B.custom, title: 'Custom MCQ set', again: () => builder() }); };
+      D.getElementById('cbGo').onclick = () => { const set = pickSet(pool, B.count, 'builder:' + B.level); startSet(set, { mode: B.mode, passes: B.mode === 'test' && B.passes === 'on', perQ: B.timer === 'off' ? 0 : B.timer === '60' ? 60 : B.custom, title: B.mode === 'test' && B.passes === 'on' ? 'MCQ test · 3-pass' : 'Custom MCQ set', again: () => builder() }); };
     };
     draw();
   }
@@ -539,11 +541,13 @@
       const h = hist[at], q = h.q, locked = h.pick != null; if (!locked) h.t1 = Date.now();
       P.innerHTML = `<div class="card ca-mcq ca-endless"><div class="ca-mtop"><span class="ca-k">♾️ Endless practice · question ${at + 1} · <span class="ca-qmk">${mk1(qm(q))}</span></span><span class="ca-k">${right}/${done} correct</span></div>
         <div class="ca-chipsel" role="radiogroup" aria-label="Difficulty">${DIFF.map(([k, n]) => `<button type="button" class="ca-cs" role="radio" aria-checked="${k === diff}" data-df="${k}">${n}</button>`).join('')}</div>
-        <h2 class="qtext ca-mq">${esc(q.q)}</h2>${q.given ? X.blocks(q.given) : ''}<div class="ca-opts">${h.ord.map((k, j) => `<button class="opt ${locked && k === q.answer ? 'right' : ''} ${locked && k === h.pick && k !== q.answer ? 'wrong' : ''}" data-k="${k}" ${locked ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
+        <h2 class="qtext ca-mq">${esc(q.q)}</h2>${q.given ? X.blocks(q.given) : ''}${SP() ? SP().bar(q, { answered: locked }) : ''}<div class="ca-opts">${h.ord.map((k, j) => `<button class="opt ${locked && k === q.answer ? 'right' : ''} ${locked && k === h.pick && k !== q.answer ? 'wrong' : ''}" data-k="${k}" ${locked ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
         <div id="enFb">${locked ? `<div class="explain ${h.pick === q.answer ? 'good' : 'bad'}"><div class="verdict">${h.pick === q.answer ? `Correct · +${mk1(qm(q))}` : `Not quite — answer: ${esc(q.options[q.answer])}`}</div><div class="why">${esc(q.explain || '')}</div>${stepsHTML(q)}${X.refChip ? X.refChip(q.unit || uid, q) : ''}</div>` : ''}</div>
         <div class="ca-btns ca-setnav"><button class="btn ghost" id="enPrev" ${at ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn ${locked ? '' : 'ghost'}" id="enNext" aria-label="${locked ? 'Next question' : 'Skip to the next question'}">Next ▶</button></div>
         <button class="ca-link" id="enEnd">Stop practising</button></div>`;
-      P.querySelectorAll('.opt').forEach(b => b.onclick = () => { if (h.pick != null) return; h.pick = +b.dataset.k; done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); ansLog(uid, h.pick === q.answer, (Date.now() - (h.t1 || Date.now())) / 1000); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); D.getElementById('enNext').focus({ preventScroll: true }); });
+      const ekey = q.key || (q.gen || !q.id ? '' : `${uid}#${q.id}`);
+      if (SP()) SP().wire(P, q, { key: ekey || uid, base: 0, done: locked ? h.ms || 0 : null });
+      P.querySelectorAll('.opt').forEach(b => b.onclick = () => { if (h.pick != null) return; h.pick = +b.dataset.k; h.ms = Date.now() - (h.t1 || Date.now()); done++; if (h.pick === q.answer) right++; if (q.key || q.gen) cgRecord(q.key || ('gen:' + q.gen + ':' + q.id), h.pick === q.answer); ansLog(uid, h.pick === q.answer, (Date.now() - (h.t1 || Date.now())) / 1000); tap(h.pick === q.answer ? 'correct' : 'wrong'); draw(); if (SP()) { if (ekey && !q.key) SP().note(ekey, h.pick === q.answer, h.ms, q); SP().answered(P, q, { key: ekey || uid, ms: h.ms, ok: h.pick === q.answer }); } D.getElementById('enNext').focus({ preventScroll: true }); });
       P.querySelectorAll('[data-df]').forEach(b => b.onclick = () => { diff = b.dataset.df; if (!locked) { hist[at] = next(); } draw(); });
       D.getElementById('enPrev').onclick = () => { if (at > 0) { at--; draw(); window.scrollTo(0, 0); } };
       D.getElementById('enNext').onclick = () => { at++; if (at >= hist.length) hist.push(next()); draw(); window.scrollTo(0, 0); };
@@ -573,42 +577,65 @@
       D.getElementById('csFilN').textContent = v ? `${n} question${n === 1 ? '' : 's'} shown` : ''; };
   }
   function startSet(items, opts) { if (window.Nav && opts.again) Nav.sub(() => opts.again()); const el = X.open('practice'); el.innerHTML = '<div id="csHost"></div>'; runSet(D.getElementById('csHost'), items, opts); }
+  /* opts.passes (Test mode only): 3-pass exam strategy — pass 1 easy ones (≈45 s, mark the rest), pass 2 marked ones,
+     pass 3 smart guesses with −¼ marking (guide, banner and breakdown text in js/ca-speed.js) */
   function runSet(host, items, opts) {
-    const N = items.length, st = items.map(it => ({ pick: null, ms: 0, out: false, left: opts.perQ || 0, ord: X.order(it.q.options.length, 'b' + it.key + Date.now().toString(36).slice(-3)) }));
-    let i = 0, t0 = Date.now(), tm = null; const started = Date.now(), test = opts.mode === 'test', graded = {};
-    const leave = () => { if (test || !graded[i]) st[i].ms += Date.now() - t0; t0 = Date.now(); clearInterval(tm); tm = null; };
+    const P3 = !!(opts.passes && opts.mode === 'test' && SP());
+    if (P3 && !opts._go) {
+      host.innerHTML = `${SP().guideHTML(items.length)}<button class="btn" id="csP3Go">Start the test ▶</button>`;
+      D.getElementById('csP3Go').onclick = () => { tap('open'); runSet(host, items, { ...opts, _go: 1 }); }; window.scrollTo(0, 0); return;
+    }
+    const N = items.length, st = items.map(it => ({ pick: null, ms: 0, out: false, left: opts.perQ || 0, mk: false, pass: 0, pms: { 1: 0, 2: 0, 3: 0 }, ord: X.order(it.q.options.length, 'b' + it.key + Date.now().toString(36).slice(-3)) }));
+    let i = 0, t0 = Date.now(), tm = null, pass = 1, nudge = null; const started = Date.now(), test = opts.mode === 'test', graded = {};
+    const leave = () => { const dt = Date.now() - t0; if (test || !graded[i]) st[i].ms += dt; if (P3) st[i].pms[pass] += dt; t0 = Date.now(); clearInterval(tm); tm = null; clearTimeout(nudge); };
     const answered = s => s.pick != null || s.out;
+    const queue = () => st.map((x, j) => j).filter(j => pass === 1 || (pass === 2 ? st[j].mk || !answered(st[j]) : !answered(st[j])));
+    const interPass = qq => {          /* between passes: what was done, what comes next */
+      const nA = st.filter(answered).length, nM = st.filter(x => x.mk).length;
+      host.innerHTML = `<div class="card sp-inter"><span class="ca-k">3-pass mode</span><h2 class="ca-h2s">Pass ${pass - 1} done</h2><p class="ca-p">${nA} of ${N} answered${nM ? ` · ${nM} marked` : ''}. Next: ${qq.length} question${qq.length === 1 ? '' : 's'}.</p>
+        <div class="sp-passbar"><b>Pass ${pass} of 3</b><span>${esc(SP().PASSTIP[pass])}</span></div>${pass === 3 ? SP().negTable() : ''}
+        <div class="ca-btns"><button class="btn" id="csPassGo">Start pass ${pass} ▶</button><button class="btn ghost" id="csPassEnd">Finish test now</button></div></div>`;
+      say(`Pass ${pass - 1} done. ${SP().PASSTIP[pass]}`);
+      D.getElementById('csPassGo').onclick = () => { i = qq[0]; render(); window.scrollTo(0, 0); };
+      D.getElementById('csPassEnd').onclick = () => finish(); window.scrollTo(0, 0);
+    };
+    const endPass = () => { leave(); while (pass < 3) { pass++; const qq = queue(); if (qq.length) return interPass(qq); } finish(); };
     const render = () => {
       t0 = Date.now(); const it = items[i], s = st[i], q = it.q, locked = !test && answered(s);
+      const qq = P3 ? queue() : null, qNext = P3 ? qq.find(j => j > i) : null, qPrev = P3 ? qq.filter(j => j < i).pop() : null, atEnd = P3 ? qNext == null : i >= N - 1;
       const caseHTML = it.cs ? `<details class="ca-case" ${i === 0 || items[i - 1].cs !== it.cs ? 'open' : ''}><summary>📄 Case: ${esc(it.cs.title)}</summary><p class="ca-p">${esc(it.cs.case)}</p>${X.blocks(it.cs.given)}</details>` : '';
-      host.innerHTML = `<div class="card ca-mcq ca-set"><div class="ca-mtop"><span class="ca-k">${test ? 'Test' : 'Practice'} · Q ${i + 1} of ${N}</span>${opts.perQ ? `<span class="ca-timer" id="csT" role="timer" aria-label="Seconds left">${s.left}s</span>` : `<span class="ca-timer" id="csT" aria-hidden="true">${secsTxt((Date.now() - started) / 1000)}</span>`}</div>${X.bar(i / N)}
-        ${N > 1 ? `<div class="ca-pal" role="group" aria-label="Question palette">${st.map((x, j) => `<button class="${j === i ? 'cur' : ''} ${answered(x) ? 'ans' : ''}" data-j="${j}" aria-label="Question ${j + 1}${answered(x) ? ', answered' : ''}"${j === i ? ' aria-current="true"' : ''}>${j + 1}</button>`).join('')}</div>` : ''}
+      host.innerHTML = `${P3 ? `<div class="sp-passbar" role="status"><b>Pass ${pass} of 3</b><span>${esc(SP().PASSTIP[pass])}</span></div>` : ''}<div class="card ca-mcq ca-set"><div class="ca-mtop"><span class="ca-k">${test ? 'Test' : 'Practice'} · Q ${i + 1} of ${N}</span>${opts.perQ ? `<span class="ca-timer" id="csT" role="timer" aria-label="Seconds left">${s.left}s</span>` : `<span class="ca-timer" id="csT" aria-hidden="true">${secsTxt((Date.now() - started) / 1000)}</span>`}</div>${X.bar(i / N)}
+        ${N > 1 ? `<div class="ca-pal" role="group" aria-label="Question palette">${st.map((x, j) => `<button class="${j === i ? 'cur' : ''} ${answered(x) ? 'ans' : ''} ${x.mk ? 'mk' : ''}" data-j="${j}" aria-label="Question ${j + 1}${answered(x) ? ', answered' : ''}${x.mk ? ', marked' : ''}"${j === i ? ' aria-current="true"' : ''}>${j + 1}</button>`).join('')}</div>` : ''}
         ${caseHTML}<p class="ca-k ca-chtag">${esc(tagOf(it))} · ${esc(diffName(q.difficulty || 'core'))} · <span class="ca-qmk">${mk1(qm(q))}</span>${it.gen ? ' · <span class="ca-gentag">♾️ new variant</span>' : ''}</p>
-        <h2 class="qtext ca-mq">${esc(q.q)}</h2><div class="ca-opts" role="group" aria-label="Options">${s.ord.map((k, j) => `<button class="opt ${test && s.pick === k ? 'sel' : ''}" data-k="${k}" ${test ? `aria-pressed="${s.pick === k}"` : ''} ${locked || (test && s.out) ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
-        <div id="csFb"></div>
-        <div class="ca-btns ca-setnav"><button class="btn ghost" id="csPrev" ${i ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn" id="csNext" aria-label="${i < N - 1 ? (test || locked ? 'Next question' : 'Skip to the next question') : test ? 'Finish test' : 'See results'}">${i < N - 1 ? 'Next ▶' : test ? 'Finish test ✓' : 'See results ▶'}</button></div>
+        <h2 class="qtext ca-mq">${esc(q.q)}</h2>${SP() ? SP().bar(q, { answered: locked, target: P3 && pass === 1 ? SP().PASS1 : 0 }) : ''}<div class="ca-opts" role="group" aria-label="Options">${s.ord.map((k, j) => `<button class="opt ${test && s.pick === k ? 'sel' : ''}" data-k="${k}" ${test ? `aria-pressed="${s.pick === k}"` : ''} ${locked || (test && s.out) ? 'disabled' : ''}><span class="ca-ol">${'ABCD'[j]}</span> ${esc(q.options[k])}</button>`).join('')}</div>
+        <div id="csFb"></div>${P3 && pass < 3 ? `<button type="button" class="btn ghost sp-mark" id="csMark" aria-pressed="${s.mk}">🏷 ${s.mk ? 'Marked for pass 2 — tap to unmark' : 'Mark for pass 2'}</button>` : ''}${P3 && pass === 3 && !answered(s) ? '<p class="ca-tip"><b>Smart guess?</b> Cut 2 options first — then a guess is worth about +0.38 marks. Can\'t cut 2? Leave it blank.</p>' : ''}
+        <div class="ca-btns ca-setnav"><button class="btn ghost" id="csPrev" ${(P3 ? qPrev != null : i) ? '' : 'disabled'} aria-label="Previous question">◀ Previous</button><button class="btn" id="csNext" aria-label="${!atEnd ? (test || locked ? 'Next question' : 'Skip to the next question') : P3 && pass < 3 ? `End pass ${pass}` : test ? 'Finish test' : 'See results'}">${!atEnd ? 'Next ▶' : P3 && pass < 3 ? `End pass ${pass} ▶` : test ? 'Finish test ✓' : 'See results ▶'}</button></div>
         ${test ? '<button class="ca-link" id="csEnd">Finish test now</button>' : ''}</div>`;
       if (locked) feedback();
       host.querySelectorAll('.opt').forEach(b => b.onclick = () => {
         const k = +b.dataset.k;
         if (!test && answered(s)) return;          /* practice: each question is graded once */
-        if (test) { s.pick = k; host.querySelectorAll('.opt').forEach(x => { const on = +x.dataset.k === k; x.classList.toggle('sel', on); x.setAttribute('aria-pressed', String(on)); }); const pb = host.querySelector(`.ca-pal [data-j="${i}"]`); if (pb) pb.classList.add('ans'); tap('tap'); return; }
-        s.pick = k; leave(); grade(i); tap(k === q.answer ? 'correct' : 'wrong'); render(); D.getElementById('csNext').focus({ preventScroll: true });
+        if (test) { s.pick = k; s.pass = pass; host.querySelectorAll('.opt').forEach(x => { const on = +x.dataset.k === k; x.classList.toggle('sel', on); x.setAttribute('aria-pressed', String(on)); }); const pb = host.querySelector(`.ca-pal [data-j="${i}"]`); if (pb) pb.classList.add('ans'); tap('tap'); return; }
+        s.pick = k; leave(); grade(i); tap(k === q.answer ? 'correct' : 'wrong'); render(); if (SP()) SP().answered(host, q, { key: it.key, ms: s.ms, ok: k === q.answer }); D.getElementById('csNext').focus({ preventScroll: true });
       });
-      const nx = D.getElementById('csNext'); if (nx) nx.onclick = () => {
+      if (SP()) SP().wire(host, q, { key: it.key, base: s.ms, done: locked ? s.ms : null });
+      const mb = D.getElementById('csMark'); if (mb) mb.onclick = () => { s.mk = !s.mk; mb.setAttribute('aria-pressed', String(s.mk)); mb.textContent = `🏷 ${s.mk ? 'Marked for pass 2 — tap to unmark' : 'Mark for pass 2'}`; const pb = host.querySelector(`.ca-pal [data-j="${i}"]`); if (pb) pb.classList.toggle('mk', s.mk); tap('tap'); say(s.mk ? 'Marked for pass 2' : 'Unmarked'); };
+      if (P3 && pass === 1 && !answered(s) && mb) { const left = SP().PASS1 * 1000 - s.ms; if (left > 0) nudge = setTimeout(() => { if (!mb.isConnected) return; mb.classList.add('ca-reflash'); say(`${SP().PASS1} seconds — mark it and move on`); }, left); }
+      const nx = D.getElementById('csNext'); if (nx && P3) nx.onclick = () => { if (qNext != null) { leave(); i = qNext; render(); window.scrollTo(0, 0); } else endPass(); };
+      else if (nx) nx.onclick = () => {
         if (i >= N - 1 && !test) { const un = st.filter(x => !answered(x)).length; if (un && !nx.dataset.sure) { nx.dataset.sure = 1; nx.textContent = `${un} unanswered — tap again to see results`; return; } }
         leave(); i++; if (i < N) render(); else finish(); window.scrollTo(0, 0); };
-      const pv = D.getElementById('csPrev'); if (pv) pv.onclick = () => { if (!i) return; leave(); i--; render(); window.scrollTo(0, 0); };
+      const pv = D.getElementById('csPrev'); if (pv) pv.onclick = () => { if (P3) { if (qPrev == null) return; leave(); i = qPrev; } else { if (!i) return; leave(); i--; } render(); window.scrollTo(0, 0); };
       const en = D.getElementById('csEnd'); if (en) en.onclick = () => { const un = st.filter(x => !answered(x)).length; if (un && !en.dataset.sure) { en.dataset.sure = 1; en.textContent = `${un} unanswered — tap again to finish`; return; } leave(); finish(); };
       host.querySelectorAll('.ca-pal button').forEach(b => b.onclick = () => { leave(); i = +b.dataset.j; render(); });
       if (opts.perQ && !(locked || (test && s.out))) tm = setInterval(() => {
         s.left--; const t = D.getElementById('csT'); if (!t) { clearInterval(tm); return; }
         t.textContent = `${Math.max(0, s.left)}s`; t.classList.toggle('over', s.left <= 10);
-        if (s.left <= 0) { clearInterval(tm); s.out = true; tap('wrong'); say('Time is up for this question'); if (test) { leave(); i++; if (i < N) render(); else finish(); } else { leave(); grade(i); render(); } }
+        if (s.left <= 0) { clearInterval(tm); s.out = true; tap('wrong'); say('Time is up for this question'); if (test && P3) { if (qNext != null) { leave(); i = qNext; render(); } else endPass(); } else if (test) { leave(); i++; if (i < N) render(); else finish(); } else { leave(); grade(i); render(); } }
       }, 1000);
       else if (!opts.perQ) tm = setInterval(() => { const t = D.getElementById('csT'); if (!t) { clearInterval(tm); return; } t.textContent = secsTxt((Date.now() - started) / 1000); }, 1000);
     };
-    const grade = j => { if (graded[j]) return; graded[j] = 1; const it = items[j], s = st[j], ok = s.pick === it.q.answer; if (it.gen) { if (s.pick != null) { cgRecord(it.q.key || it.key, ok); ansLog(it.uid || it.q.unit || String(it.key || '').split('#')[0], ok, (s.ms || 0) / 1000); } return; } if (s.pick == null && !s.out) { reviseMark(it.key, false); return; } X.recordAns(it.key, ok, s.ms); reviseMark(it.key, ok); };
+    const grade = j => { if (graded[j]) return; graded[j] = 1; const it = items[j], s = st[j], ok = s.pick === it.q.answer; if (it.gen) { if (s.pick != null) { cgRecord(it.q.key || it.key, ok); ansLog(it.uid || it.q.unit || String(it.key || '').split('#')[0], ok, (s.ms || 0) / 1000); } return; } if (s.pick == null && !s.out) { reviseMark(it.key, false); return; } X.recordAns(it.key, ok, s.ms, it.q); reviseMark(it.key, ok); };
     const feedback = () => {
       const it = items[i], s = st[i], q = it.q, ok = s.pick === q.answer;
       host.querySelectorAll('.opt').forEach(x => { if (+x.dataset.k === q.answer) x.classList.add('right'); if (+x.dataset.k === s.pick && !ok) x.classList.add('wrong'); });
@@ -621,12 +648,13 @@
       const neg = items.some(it => /^fnd-p[34]-/.test(it.uid || it.key)), maxM = res.reduce((a, r) => a + qm(r.it.q), 0);
       const gotM = Math.round(res.reduce((a, r) => a + (r.ok ? qm(r.it.q) : !r.skip && neg ? -qm(r.it.q) / 4 : 0), 0) * 100) / 100;
       const byCh = {}; res.forEach(r => { const k = r.it.ch; const b = byCh[k] = byCh[k] || { t: r.it.chTitle, n: 0, r: 0 }; b.n++; if (r.ok) b.r++; });
-      const c = C(); c.tests.push({ id: 't' + Date.now().toString(36), kind: 'mcq', d: today(), ts: Date.now(), title: opts.title || 'MCQ set', mode: opts.mode, n: N, right, wrong, skip, ms, pct: pct(right, N), marks: gotM, maxMarks: maxM, keys: items.map(it => it.key), byCh: Object.fromEntries(Object.entries(byCh).map(([k, v]) => [k, [v.n, v.r]])) });
+      const c = C(); c.tests.push({ id: 't' + Date.now().toString(36), kind: 'mcq', d: today(), ts: Date.now(), title: opts.title || 'MCQ set', mode: opts.mode, ...(P3 ? { p3: 1 } : {}), n: N, right, wrong, skip, ms, pct: pct(right, N), marks: gotM, maxMarks: maxM, keys: items.map(it => it.key), byCh: Object.fromEntries(Object.entries(byCh).map(([k, v]) => [k, [v.n, v.r]])) });
       while (c.tests.length > 80) c.tests.shift(); save(); try { bumpStreak(); addXP(Math.max(5, right * 2)); } catch (e) {}
       const mx = Math.max(1, ...res.map(r => r.s.ms));
       host.innerHTML = `<div class="card ca-res ca-setres"><span class="ca-k">${esc(opts.title || 'MCQ set')} · ${test ? 'Test' : 'Practice'} mode</span><h2 class="ca-h2s">You scored ${fmt(gotM)} / ${mk1(maxM)}</h2><p class="sub">${right} of ${N} correct · ${pct(right, N)}%${neg ? ' · −¼ of the marks for each wrong answer, as in the exam' : ''}</p>
           <div class="ca-kpis"><div><b>${right}</b><span>Correct</span></div><div><b>${wrong}</b><span>Wrong</span></div><div><b>${skip}</b><span>Unanswered</span></div><div><b>${Math.round(ms / N / 1000)}s</b><span>Avg per Q</span></div></div>
           <p class="sub">Total time ${secsTxt(ms / 1000)}.${wrong + skip ? ` ${wrong + skip} question${wrong + skip > 1 ? 's' : ''} added to “Revise these”.` : ''}</p></div>
+        ${P3 ? SP().breakdownHTML(res.map(r => ({ ok: r.ok, skip: r.skip, pass: r.s.pass || 1, pms: r.s.pms, m: qm(r.it.q) })), neg) : ''}
         <div class="card"><div class="ca-mtop"><h3 class="ca-h3">Accuracy by</h3><label class="sr-only" for="csGrp">Group results by</label><select id="csGrp" class="ca-in ca-rgsel"><option value="c">Chapter</option><option value="p">Paper</option><option value="t">Topic</option></select></div><div id="csAcc"></div></div>
         <div class="card"><h3 class="ca-h3">Time per question</h3><div class="ca-scroll" role="region" tabindex="0" aria-label="Time per question"><table class="ca-t ca-tpq"><thead><tr><th scope="col">Q</th><th scope="col">Chapter</th><th scope="col">Result</th><th scope="col" class="n">Seconds</th><th scope="col"><span class="sr-only">Bar</span></th></tr></thead><tbody>
           ${res.map((r, j) => `<tr><td>${j + 1}</td><td>${esc(r.ref.pn ? `${r.ref.pn.replace('Paper ', 'P')} · ${r.ref.chn}` : String(r.it.chTitle || '').replace(/^Ch (\d+):.*/, 'Ch $1'))}</td><td>${r.ok ? '✓ Correct' : r.skip ? '– Skipped' : '✗ Wrong'}</td><td class="n">${Math.round(r.s.ms / 1000)}</td><td class="ca-tbar"><i style="width:${Math.round(r.s.ms / mx * 100)}%" class="${r.ok ? 'ok' : 'no'}"></i></td></tr>`).join('')}</tbody></table></div></div>
@@ -1028,6 +1056,7 @@
       </div>
       ${engine ? '<div id="cdEngine" class="ca-engine"></div><h2 class="ca-h2">More for CA</h2>' : ''}
       <div class="ca-dgrid">
+      ${SP() ? SP().reportCard() : ''}
       ${engine ? '' : `<section class="card ca-dcard"><h2 class="ca-h2s">Consistency — last 8 weeks</h2><p class="sub">${D_.activity.filter(a => a.active).length} active days out of 56.</p>
         <div class="ca-heat" role="img" aria-label="Activity calendar: ${D_.activity.filter(a => a.active).length} active days in the last 8 weeks">${D_.activity.map(a => { const lv = !a.active ? 0 : a.secs >= 3600 ? 4 : a.secs >= 1800 ? 3 : a.secs >= 600 ? 2 : 1; return `<i class="h${lv}" title="${esc(dlab(a.d))}: ${a.active ? durTxt(a.secs) + (a.answers ? `, ${a.answers} MCQs` : '') : 'no study'}"></i>`; }).join('')}</div>
         <div class="ca-hkey" aria-hidden="true">Less <i class="h0"></i><i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i> More</div>
@@ -1058,6 +1087,7 @@
     on('cdViva', vivaHub); on('cdMock', mocks); on('cdRev', revise); on('cdExam', () => Ca.profile());
     host.querySelectorAll('.ca-dun').forEach(b => b.onclick = () => Ca.unit(b.dataset.u));
     host.querySelectorAll('.ca-qh').forEach(b => b.onclick = () => Ca.openQuestion(b.dataset.u, b.dataset.q)); on('cdWeak', X.weakScreen);
+    if (SP()) SP().wireReport(host);
   }
   /* adapter → the shared dashboard engine's data shape (documented at the top of js/insights.js) */
   async function insData(D_) {
@@ -1129,11 +1159,11 @@
         <span class="ca-dmini"><span><b>${ms ? Math.round(mr / ms * 100) + '%' : '—'}</b><small>MCQ accuracy</small></span><span><b>${vAll.length ? Math.round(vAll.reduce((a, x) => a + x.pct, 0) / vAll.length) + '%' : '—'}</b><small>Viva</small></span><span><b>${durTxt(wk)}</b><small>This week</small></span><span><b>${activity().cur}</b><small>Day streak</small></span></span>
         <span class="ca-go">Open dashboard ▶</span></button>
       <div class="gsearch ca-search ca-hsearch"><span aria-hidden="true">🔍</span><input id="caHomeQ" placeholder="Search ICAI topics, lessons, your notes…" autocomplete="off" aria-label="Smart search" enterkeyhint="search"></div>
-      <div class="ca-quick"><button class="ca-qt" id="caQViva"><b aria-hidden="true">🎙️</b>Viva</button><button class="ca-qt" id="caQMcq"><b aria-hidden="true">🧩</b>MCQ set</button><button class="ca-qt" id="caQMock"><b aria-hidden="true">📝</b>Mock paper</button><button class="ca-qt" id="caQNotes"><b aria-hidden="true">📚</b>My notes</button>${rv ? `<button class="ca-qt" id="caQRev"><b aria-hidden="true">🔁</b>Revise (${rv})</button>` : ''}</div>`;
+      <div class="ca-quick"><button class="ca-qt" id="caQViva"><b aria-hidden="true">🎙️</b>Viva</button><button class="ca-qt" id="caQMcq"><b aria-hidden="true">🧩</b>MCQ set</button><button class="ca-qt" id="caQMock"><b aria-hidden="true">📝</b>Mock paper</button><button class="ca-qt" id="caQNotes"><b aria-hidden="true">📚</b>My notes</button>${rv ? `<button class="ca-qt" id="caQRev"><b aria-hidden="true">🔁</b>Revise (${rv})</button>` : ''}${SP() ? `<button class="ca-qt" id="caQSpeed"><b aria-hidden="true">⚡</b>Speed drill${SP().count() ? ` (${SP().count()})` : ''}</button><button class="ca-qt" id="caQTricks"><b aria-hidden="true">💡</b>Tricks</button>${c.level === 'foundation' ? '<button class="ca-qt" id="caQFocus"><b aria-hidden="true">📌</b>Exam focus</button>' : ''}` : ''}</div>`;
   }
   function wireHome(el) {
     const on = (id, fn) => { const b = D.getElementById(id); if (b) b.onclick = () => { tap('open'); fn(); }; };
-    on('caDashTile', dashboard); on('caQViva', vivaHub); on('caQMcq', () => builder()); on('caQMock', mocks); on('caQNotes', notes); on('caQRev', revise);
+    on('caDashTile', dashboard); on('caQViva', vivaHub); on('caQMcq', () => builder()); on('caQMock', mocks); on('caQNotes', notes); on('caQRev', revise); on('caQSpeed', () => SP().drill()); on('caQTricks', () => SP().tricks()); on('caQFocus', () => SP().focusList());
     const q = D.getElementById('caHomeQ'); if (q) { q.onkeydown = e => { if (e.key === 'Enter') search(q.value); }; q.onfocus = () => { if (!IDX) buildIndex(); }; q.oninput = () => { clearTimeout(q._t); if (q.value.trim().length >= 3) q._t = setTimeout(() => search(q.value), 700); }; }
   }
   function practiceHub() {
@@ -1147,16 +1177,18 @@
       ${tile('phBank', '🧮', 'Question bank — by marks', '2, 4, 5, 8-mark questions and how to write each')}
       ${tile('phMock', '📝', 'Mock papers', 'Foundation Paper 1 in ICAI pattern — 3 hours, 100 marks')}
       ${tile('phRev', '🔁', `Revise these${rv ? ` (${rv})` : ''}`, 'Every MCQ you got wrong, until you get it right')}
-      ${tile('phWeak', '📈', 'Weak spots & strengths', 'By unit and by examiner skill')}</div>`;
+      ${tile('phWeak', '📈', 'Weak spots & strengths', 'By unit and by examiner skill')}
+      ${SP() ? `${tile('phSpeed', '⚡', `Speed drill${SP().count() ? ` (${SP().count()})` : ''}`, 'Right but slow? Beat 72 seconds a question')}${tile('phTricks', '💡', 'Shortcut tricks', `${SP().TRICKS.length} quick methods with worked examples`)}${tile('phFocus', '📌', 'Exam focus list', 'Paper 1 Accounting — what to study first')}` : ''}</div>`;
     const on = (id, fn) => { D.getElementById(id).onclick = () => { tap('open'); fn(); }; };
     on('phDaily', X.practiceDaily); on('phBuild', () => builder()); on('phCase', () => builder({ singles: false, cases: true }));
     on('phViva', vivaHub); on('phBank', () => bank()); on('phMock', mocks); on('phRev', revise); on('phWeak', X.weakScreen);
+    if (SP()) { on('phSpeed', () => SP().drill()); on('phTricks', () => SP().tricks()); on('phFocus', () => SP().focusList()); }
   }
 
   /* screens are history routes (Back returns to them — see Nav in js/app.js) */
   if (window.Nav) { dashboard = Nav.route('ca.dash', dashboard); vivaHub = Nav.route('ca.vivahub', vivaHub); builder = Nav.route('ca.builder', builder); revise = Nav.route('ca.revise', revise);
     mocks = Nav.route('ca.mocks', mocks); mockPaper = Nav.route('ca.mock', mockPaper); notes = Nav.route('ca.notes', notes); search = Nav.route('ca.search', search); practiceHub = Nav.route('ca.practicehub', practiceHub); bank = Nav.route('ca.bank', bank); }
-  window.CaTools = { photos, _speechMerge: speechMerge, freshOrder, endless, bank, pickSet, dashboard, dashData, vivaTab, vivaHub, vivaDone, vivaScore, builder, revise, reviseMark, casesBlock, wireCases, mocks, mockPaper,
+  window.CaTools = { photos, _speechMerge: speechMerge, freshOrder, endless, bank, pickSet, startSet, dashboard, dashData, vivaTab, vivaHub, vivaDone, vivaScore, builder, revise, reviseMark, casesBlock, wireCases, mocks, mockPaper,
     saveBtn, applyHL, noteSheet, notes, hasNote, search, homeTiles, wireHome, practiceHub, _tokens: tokens,
     _m: { pairs, tokens, clauses, phraseIn, same, kwSame, pointHit, isNum } };   // matcher for js/ca-check.js
 })();

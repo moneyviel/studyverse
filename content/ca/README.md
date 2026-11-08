@@ -52,7 +52,7 @@ progress, MCQ stats and saved answers are keyed on them.
 | `concepts[]` | `id, title, body[] (paragraphs), blocks[] (optional), analogy, work` ("Why it matters in real CA work") |
 | `illustrations[]` | `id, title, difficulty, minutes, q, given[]?, solution[] (blocks), checks[]` — exam presentation format |
 | `jobs[]` | "On the job": `id, title, role, situation, steps[], takeaway, think?, answer?, checks?` |
-| `mcqs[]` | `id, q, options[4], answer (index), explain, concept, topic, difficulty, check?` (UI shuffles options). `topic` = one of the unit's structure.json `topics` or one of its concept-card titles (exact text; case, spaces and dash/quote variants ignored); `explain` 35+ words. Both are validator warnings now, errors with `--strict` |
+| `mcqs[]` | `id, q, options[4], answer (index), explain, concept, topic, difficulty, check?` (UI shuffles options). `topic` = one of the unit's structure.json `topics` or one of its concept-card titles (exact text; case, spaces and dash/quote variants ignored); `explain` 35+ words. Both are validator warnings now, errors with `--strict` · Optional speed fields (js/ca-speed.js): `fast` (string or list of steps — the "⚡ Fast way"), `secs` (target seconds, default 72), `keys` (calculator keys for a replay, e.g. `["1.1","*","=","="]` → a number may be one item (typed digit by digit); every other item is one key of js/calc.js: digits, `00`, `.`, `+ - * /`, `=`, `%`, `sqrt`, `M+`, `M-`, `MR`, `MC`, `GT`, `AC`, `C`), `keysMode` (`basic` default, or `sci`) |
 | `questions[]` | descriptive: `id, marks, minutes (≈1.8/mark), difficulty, pad, q, given[]?, model[] (blocks), scheme[], remarks[], mistakes[], tips[], checks[]?` |
 | `revision` | one-page: `summary[], remember[], traps[]` |
 | `quickref[]` | formula / section quick reference: `{k, v}` |
@@ -69,6 +69,15 @@ words appear in order at most 2 words apart; words match on equality, a long sha
 The validator proves every model answer scores 100%, that reading the question back scores < 80%, that no
 keyword is only stop-words, and that the JS and Python matchers agree (needs `node`).
 Sources: `tools/ca_src/ca_viva.py`, `tools/ca_src/ca_cases.py` (merged into each unit by `build.py`).
+
+## Extra MCQ banks (`content/ca/<level>/<paper key>/bank/<unit-id>.json`)
+`{"unit": "<unit-id>", "mcq": [ …same MCQ objects as unit files, plus optional fast, secs, keys… ]}`. `unitData()` in js/ca.js
+merges a unit's bank after its own MCQs (missing file = none; bank items get `bank: true`), so they appear in the MCQ tab,
+practice, builder, search and revise lists; a "coming soon" unit that has a bank opens straight into MCQ practice. Bank files are
+not in sw.js CORE (fetched on demand). Checker: `tools/ca_bank_check.py [--paper p3] [--ref book.txt]`.
+Paper 3: `python3 tools/ca_bank/build_p3.py --ref <pdftotext of the reference book>` writes the banks from the templates in
+`tools/ca_bank/p3_chXX.py` (every answer computed; distractors from typical mistakes; reasoning puzzles brute-forced for a
+unique answer); `python3 tools/ca_bank/p3_verify.py` re-solves every question independently and must print `VERIFY OK`.
 
 ## Mock papers (`content/ca/<level>/mocks/<id>.json`, `"schema": "ca-mock/1"`)
 `id, level, paper, title, label` (must say "not an ICAI paper"), `scope, hours, marks, compulsory[], choose, rules[], questions[]`.

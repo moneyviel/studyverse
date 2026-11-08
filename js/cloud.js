@@ -431,9 +431,19 @@
         const r = await rest('codes?select=*&order=created_at.desc&limit=100');
         box.innerHTML = (r || []).length ? r.map(x => `<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #eee;padding:6px 0">
           <div><b>${esc(x.code)}</b> ${x.kind === 'free' ? 'Free' : x.percent + '% off'}${x.note ? ' · ' + esc(x.note) : ''}<br>Used ${x.used}${x.max_uses ? '/' + x.max_uses : ''}${x.valid_until ? ' · till ' + new Date(x.valid_until).toLocaleDateString('en-IN') : ''}${x.active ? '' : ' · <b style="color:#B71C2C">stopped</b>'}</div>
-          <button class="cl-link" type="button" data-oc="${esc(x.code)}" data-act="${x.active ? 0 : 1}">${x.active ? 'Stop' : 'Start'}</button></div>`).join('') : 'No codes yet.';
+          <span style="display:flex;gap:10px;align-items:center;flex:none"><button class="cl-link" type="button" data-oc="${esc(x.code)}" data-act="${x.active ? 0 : 1}">${x.active ? 'Stop' : 'Start'}</button>${+x.used ? '' : `<button class="cl-link" type="button" data-ocdel="${esc(x.code)}" style="color:#B71C2C" aria-label="Delete code ${esc(x.code)}">🗑 Delete</button>`}</span></div>`).join('') + ((r || []).some(x => +x.used) ? '<p class="cl-small" style="margin:6px 0 0">Used codes can\'t be deleted — use Stop instead.</p>' : '') : 'No codes yet.';
         box.querySelectorAll('[data-oc]').forEach(b => b.onclick = async () => {
           try { await rest('codes?code=eq.' + encodeURIComponent(b.dataset.oc), { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: { active: b.dataset.act === '1' } }); list(); } catch (e) { fail(e); }
+        });
+        /* never-used codes can be deleted (rpc delete_unused_code refuses a code that has been used) */
+        box.querySelectorAll('[data-ocdel]').forEach(b => b.onclick = async () => {
+          const code = b.dataset.ocdel; er.textContent = '';
+          if (!confirm(`Delete code ${code}? This can't be undone.`)) return;
+          b.disabled = true;
+          try { const res = one(await rest('rpc/delete_unused_code', { method: 'POST', body: { p_code: code } }));
+            if (res && res.ok === false) er.textContent = res.msg || 'This code could not be deleted.'; else say(res && res.msg ? res.msg : 'Code ' + code + ' deleted');
+            list();
+          } catch (e) { b.disabled = false; fail(e); }
         });
       } catch (e) { box.textContent = errText(e); }
     }
@@ -446,6 +456,7 @@
     style();
     if (!sheet) { sheet = D.createElement('div'); sheet.className = 'sheet cl-sheet'; sheet.id = 'svAuth'; sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-modal', 'true'); sheet.setAttribute('aria-labelledby', 'clT'); D.body.appendChild(sheet); }
     sheet.onclick = e => { if (closable && e.target === sheet) closeSheet(); };
+    sheet.toggleAttribute('data-noclose', !closable);   // js/sheets.js and Escape (js/a11y.js) leave it open
     sheet.innerHTML = `<div class="sheet-in"><div class="sheet-grab"></div>${html}</div>`;
     sheet.classList.add('show');
     return sheet;

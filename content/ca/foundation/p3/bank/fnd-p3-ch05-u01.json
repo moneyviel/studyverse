@@ -1,0 +1,599 @@
+{
+ "unit": "fnd-p3-ch05-u01",
+ "mcq": [
+  {
+   "id": "b01",
+   "q": "In how many ways can 2 different prizes be given to 9 students if no student gets more than one prize?",
+   "options": [
+    "72",
+    "36",
+    "81",
+    "512"
+   ],
+   "answer": 0,
+   "explain": "Prizes are different, so order matters: the first prize can go to any of 9 students, the second to any of the remaining 8, and so on. Ways = ⁿPᵣ = 9P2 = 9 × 8 = 72. Using 9C2 = 36 would treat the prizes as identical.",
+   "concept": "c3",
+   "topic": "Permutations: arrangements where order matters",
+   "difficulty": "core",
+   "fast": "Multiply 2 falling numbers starting at 9.",
+   "secs": 25,
+   "check": "72"
+  },
+  {
+   "id": "b02",
+   "q": "In how many ways can 3 different prizes be given to 12 students if no student gets more than one prize?",
+   "options": [
+    "1,320",
+    "220",
+    "1,728",
+    "5,31,441"
+   ],
+   "answer": 0,
+   "explain": "Prizes are different, so order matters: the first prize can go to any of 12 students, the second to any of the remaining 11, and so on. Ways = ⁿPᵣ = 12P3 = 12 × 11 × 10 = 1,320. Using 12C3 = 220 would treat the prizes as identical.",
+   "concept": "c3",
+   "topic": "Permutations: arrangements where order matters",
+   "difficulty": "core",
+   "fast": "Multiply 3 falling numbers starting at 12.",
+   "secs": 25,
+   "check": "1320"
+  },
+  {
+   "id": "b03",
+   "q": "How many different arrangements can be made from all the letters of the word \"GOODWILL\"?",
+   "options": [
+    "40,320",
+    "10,080",
+    "20,160",
+    "5,040"
+   ],
+   "answer": 1,
+   "explain": "\"GOODWILL\" has 8 letters, of which O occurs 2 times, L occurs 2 times. Swapping identical letters gives no new word, so divide: 8!/(2! × 2!) = 40,320/4 = 10,080. Writing 8! ignores the repeated letters.",
+   "concept": "c6",
+   "topic": "Alike things and repetition",
+   "difficulty": "core",
+   "fast": "n!/(p!q!…): count each repeated letter once; 8! = 40,320.",
+   "secs": 30,
+   "check": "10080"
+  },
+  {
+   "id": "b04",
+   "q": "How many different arrangements can be made from all the letters of the word \"SURPLUS\"?",
+   "options": [
+    "5,040",
+    "2,520",
+    "1,260",
+    "720"
+   ],
+   "answer": 2,
+   "explain": "\"SURPLUS\" has 7 letters, of which S occurs 2 times, U occurs 2 times. Swapping identical letters gives no new word, so divide: 7!/(2! × 2!) = 5,040/4 = 1,260. Writing 7! ignores the repeated letters.",
+   "concept": "c6",
+   "topic": "Alike things and repetition",
+   "difficulty": "core",
+   "fast": "n!/(p!q!…): count each repeated letter once; 7! = 5,040.",
+   "secs": 30,
+   "check": "1260"
+  },
+  {
+   "id": "b05",
+   "q": "How many different arrangements can be made from all the letters of the word \"DIVIDEND\"?",
+   "options": [
+    "3,360",
+    "40,320",
+    "6,720",
+    "5,040"
+   ],
+   "answer": 0,
+   "explain": "\"DIVIDEND\" has 8 letters, of which D occurs 3 times, I occurs 2 times. Swapping identical letters gives no new word, so divide: 8!/(3! × 2!) = 40,320/12 = 3,360. Writing 8! ignores the repeated letters.",
+   "concept": "c6",
+   "topic": "Alike things and repetition",
+   "difficulty": "core",
+   "fast": "n!/(p!q!…): count each repeated letter once; 8! = 40,320.",
+   "secs": 30,
+   "check": "3360"
+  },
+  {
+   "id": "b06",
+   "q": "In how many arrangements of the letters of \"BANKER\" do all the vowels come together?",
+   "options": [
+    "720",
+    "240",
+    "120",
+    "480"
+   ],
+   "answer": 1,
+   "explain": "Tie the vowels (A, E) into one block. Then arrange the block with the 4 consonants: 5 units, giving 120 ways (dividing for repeated letters). The vowels arrange inside the block in 2 ways. Total = 120 × 2 = 240. Forgetting the inside arrangement gives 120.",
+   "concept": "c5",
+   "topic": "Permutations with restrictions",
+   "difficulty": "moderate",
+   "fast": "Block method: (units outside)! × (letters inside)!, each divided for repeats.",
+   "secs": 45,
+   "check": "240"
+  },
+  {
+   "id": "b07",
+   "q": "In how many arrangements of the letters of \"ASSET\" do all the vowels come together?",
+   "options": [
+    "60",
+    "12",
+    "24",
+    "36"
+   ],
+   "answer": 2,
+   "explain": "Tie the vowels (A, E) into one block. Then arrange the block with the 3 consonants: 4 units, giving 12 ways (dividing for repeated letters). The vowels arrange inside the block in 2 ways. Total = 12 × 2 = 24. Forgetting the inside arrangement gives 12.",
+   "concept": "c5",
+   "topic": "Permutations with restrictions",
+   "difficulty": "moderate",
+   "fast": "Block method: (units outside)! × (letters inside)!, each divided for repeats.",
+   "secs": 45,
+   "check": "24"
+  },
+  {
+   "id": "b08",
+   "q": "In how many ways can 8 books be arranged on a shelf if 3 particular books must always be together?",
+   "options": [
+    "720",
+    "40,320",
+    "36,000",
+    "4,320"
+   ],
+   "answer": 3,
+   "explain": "Tie the 3 books into one bundle. Now there are 5 + 1 = 6 units, arranged in 6! = 720 ways. The books inside the bundle can be arranged in 3! = 6 ways. Total = 720 × 6 = 4,320.",
+   "concept": "c5",
+   "topic": "Permutations with restrictions",
+   "difficulty": "core",
+   "fast": "Bundle method: (6)! outside × 3! inside.",
+   "secs": 30,
+   "check": "4320"
+  },
+  {
+   "id": "b09",
+   "q": "In how many ways can 6 books be arranged on a shelf if 3 particular books must always be together?",
+   "options": [
+    "144",
+    "24",
+    "720",
+    "576"
+   ],
+   "answer": 0,
+   "explain": "Tie the 3 books into one bundle. Now there are 3 + 1 = 4 units, arranged in 4! = 24 ways. The books inside the bundle can be arranged in 3! = 6 ways. Total = 24 × 6 = 144.",
+   "concept": "c5",
+   "topic": "Permutations with restrictions",
+   "difficulty": "core",
+   "fast": "Bundle method: (4)! outside × 3! inside.",
+   "secs": 30,
+   "check": "144"
+  },
+  {
+   "id": "b10",
+   "q": "In how many ways can 8 persons sit around a round table if two particular persons never sit next to each other?",
+   "options": [
+    "720",
+    "5,040",
+    "1,440",
+    "3,600"
+   ],
+   "answer": 3,
+   "explain": "Circular arrangements of 8 = (8 − 1)! = 5,040. With the pair tied together there are 7 units in a circle: (6)! × 2 = 1,440. Never together = 5,040 − 1,440 = 3,600. The pair can swap seats, hence × 2.",
+   "concept": "c4",
+   "topic": "Circular permutations",
+   "difficulty": "moderate",
+   "fast": "Together = 2 × (8 − 2)!; apart = (8 − 1)! − 2 × (8 − 2)!.",
+   "secs": 40,
+   "check": "3600"
+  },
+  {
+   "id": "b11",
+   "q": "In how many ways can 5 persons be seated around a circular table?",
+   "options": [
+    "120",
+    "24",
+    "12",
+    "6"
+   ],
+   "answer": 1,
+   "explain": "In a circle, rotating everybody one seat gives the same arrangement, so fix one person and arrange the other 4 around: (5 − 1)! = 24. Dividing by 2 is only for garlands/necklaces, where clockwise and anticlockwise look the same.",
+   "concept": "c4",
+   "topic": "Circular permutations",
+   "difficulty": "core",
+   "fast": "Circular seating of n people = (n − 1)! = 4!.",
+   "secs": 20,
+   "check": "24"
+  },
+  {
+   "id": "b12",
+   "q": "In how many ways can 9 persons sit around a round table if two particular persons always sit together?",
+   "options": [
+    "5,040",
+    "40,320",
+    "10,080",
+    "30,240"
+   ],
+   "answer": 2,
+   "explain": "Circular arrangements of 9 = (9 − 1)! = 40,320. With the pair tied together there are 8 units in a circle: (7)! × 2 = 10,080. So the answer is 10,080. The pair can swap seats, hence × 2.",
+   "concept": "c4",
+   "topic": "Circular permutations",
+   "difficulty": "moderate",
+   "fast": "Together = 2 × (9 − 2)!; apart = (9 − 1)! − 2 × (9 − 2)!.",
+   "secs": 40,
+   "check": "10080"
+  },
+  {
+   "id": "b13",
+   "q": "In how many ways can 10 different beads be strung into a necklace?",
+   "options": [
+    "3,62,880",
+    "1,81,440",
+    "36,28,800",
+    "18,14,400"
+   ],
+   "answer": 1,
+   "explain": "Fix one bead to remove rotations: (10 − 1)! = 3,62,880. A necklace can also be turned over, so each clockwise arrangement equals its anticlockwise mirror. Divide by 2: 1,81,440. Seating people around a table does not use this division, because people facing inward are not mirror-equal.",
+   "concept": "c4",
+   "topic": "Circular permutations",
+   "difficulty": "core",
+   "fast": "Necklace / garland = (10 − 1)!/2.",
+   "secs": 20,
+   "check": "181440"
+  },
+  {
+   "id": "b14",
+   "q": "A committee of 3 is to be chosen from 6 men and 3 women. In how many ways can this be done if it must include at least 1 woman?",
+   "options": [
+    "84",
+    "45",
+    "64",
+    "20"
+   ],
+   "answer": 2,
+   "explain": "Add the cases by the exact number of women: 3C1 × 6C2 + 3C2 × 6C1 + 3C3 × 6C0 = 64. (Or total 9C3 minus the cases with fewer than 1 women.) Choosing 1 women first and then \"any\" 2 counts some committees more than once (84).",
+   "concept": "c7",
+   "topic": "Combinations: selections where order does not matter",
+   "difficulty": "moderate",
+   "fast": "Complement: 9C3 − Σ (cases with fewer than 1 women).",
+   "secs": 60,
+   "check": "64"
+  },
+  {
+   "id": "b15",
+   "q": "A committee of 4 is to be chosen from 5 men and 7 women. In how many ways can this be done if it must include at least 1 woman?",
+   "options": [
+    "490",
+    "1,155",
+    "495",
+    "70"
+   ],
+   "answer": 0,
+   "explain": "Add the cases by the exact number of women: 7C1 × 5C3 + 7C2 × 5C2 + 7C3 × 5C1 + 7C4 × 5C0 = 490. (Or total 12C4 minus the cases with fewer than 1 women.) Choosing 1 women first and then \"any\" 3 counts some committees more than once (1,155).",
+   "concept": "c7",
+   "topic": "Combinations: selections where order does not matter",
+   "difficulty": "moderate",
+   "fast": "Complement: 12C4 − Σ (cases with fewer than 1 women).",
+   "secs": 60,
+   "check": "490"
+  },
+  {
+   "id": "b16",
+   "q": "If ⁿC9 = ⁿC4 (where 9 ≠ 4), then n =",
+   "options": [
+    "13",
+    "5",
+    "36",
+    "14"
+   ],
+   "answer": 0,
+   "explain": "ⁿCᵣ = ⁿCₙ₋ᵣ: choosing r items to take is the same as choosing n − r items to leave. So ⁿC9 = ⁿC4 with 9 ≠ 4 means 9 + 4 = n, i.e. n = 13. The difference 5 is a common slip.",
+   "concept": "c8",
+   "topic": "Properties of ⁿCᵣ",
+   "difficulty": "core",
+   "fast": "Equal ⁿCs with different lower numbers: n = sum of the lower numbers.",
+   "secs": 15,
+   "check": "13"
+  },
+  {
+   "id": "b17",
+   "q": "If ⁿC3 = ⁿC10 (where 3 ≠ 10), then n =",
+   "options": [
+    "7",
+    "30",
+    "13",
+    "14"
+   ],
+   "answer": 2,
+   "explain": "ⁿCᵣ = ⁿCₙ₋ᵣ: choosing r items to take is the same as choosing n − r items to leave. So ⁿC3 = ⁿC10 with 3 ≠ 10 means 3 + 10 = n, i.e. n = 13. The difference 7 is a common slip.",
+   "concept": "c8",
+   "topic": "Properties of ⁿCᵣ",
+   "difficulty": "core",
+   "fast": "Equal ⁿCs with different lower numbers: n = sum of the lower numbers.",
+   "secs": 15,
+   "check": "13"
+  },
+  {
+   "id": "b18",
+   "q": "The value of 11C8 + 11C7 is:",
+   "options": [
+    "55",
+    "792",
+    "330",
+    "495"
+   ],
+   "answer": 3,
+   "explain": "Pascal's rule: ⁿCᵣ + ⁿCᵣ₋₁ = ⁽ⁿ⁺¹⁾Cᵣ. So 11C8 + 11C7 = 12C8 = 495. Check by direct values: 165 + 330 = 495. The idea: a selection of 8 from 12 items either includes one particular item or it does not.",
+   "concept": "c8",
+   "topic": "Properties of ⁿCᵣ",
+   "difficulty": "core",
+   "fast": "Pascal: add 1 to the upper number and keep the larger lower number.",
+   "secs": 20,
+   "check": "495"
+  },
+  {
+   "id": "b19",
+   "q": "There are 15 points in a plane, of which exactly 5 lie on one straight line; no other three are collinear. The number of straight lines that can be formed by joining them is:",
+   "options": [
+    "105",
+    "94",
+    "97",
+    "96"
+   ],
+   "answer": 3,
+   "explain": "Pairs of points: 15C2 = 105. The 5 collinear points would give 5C2 = 10 lines but really form only 1 line. Lines = 105 − 10 + 1 = 96. Forgetting the collinear correction is the usual error.",
+   "concept": "c9",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
+   "difficulty": "moderate",
+   "fast": "ⁿC₂ − ᵏC₂ + 1 — subtract the collinear selections.",
+   "secs": 40,
+   "check": "96"
+  },
+  {
+   "id": "b20",
+   "q": "There are 11 points in a plane, of which exactly 4 lie on one straight line; no other three are collinear. The number of straight lines that can be formed by joining them is:",
+   "options": [
+    "55",
+    "50",
+    "48",
+    "51"
+   ],
+   "answer": 1,
+   "explain": "Pairs of points: 11C2 = 55. The 4 collinear points would give 4C2 = 6 lines but really form only 1 line. Lines = 55 − 6 + 1 = 50. Forgetting the collinear correction is the usual error.",
+   "concept": "c9",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
+   "difficulty": "moderate",
+   "fast": "ⁿC₂ − ᵏC₂ + 1 — subtract the collinear selections.",
+   "secs": 40,
+   "check": "50"
+  },
+  {
+   "id": "b21",
+   "q": "How many diagonals does a polygon with 9 sides have?",
+   "options": [
+    "36",
+    "54",
+    "27",
+    "35"
+   ],
+   "answer": 2,
+   "explain": "Any two vertices are joined by a line: 9C2 = 36. Of these, 9 are the sides, so diagonals = 36 − 9 = 27 = n(n − 3)/2. Each vertex joins 6 others by diagonals; halve because each diagonal has two ends.",
+   "concept": "c9",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
+   "difficulty": "core",
+   "fast": "Diagonals of an n-sided polygon = n(n − 3)/2.",
+   "secs": 20,
+   "check": "27"
+  },
+  {
+   "id": "b22",
+   "q": "How many diagonals does a polygon with 20 sides have?",
+   "options": [
+    "190",
+    "170",
+    "340",
+    "189"
+   ],
+   "answer": 1,
+   "explain": "Any two vertices are joined by a line: 20C2 = 190. Of these, 20 are the sides, so diagonals = 190 − 20 = 170 = n(n − 3)/2. Each vertex joins 17 others by diagonals; halve because each diagonal has two ends.",
+   "concept": "c9",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
+   "difficulty": "core",
+   "fast": "Diagonals of an n-sided polygon = n(n − 3)/2.",
+   "secs": 20,
+   "check": "170"
+  },
+  {
+   "id": "b23",
+   "q": "How many even 3-digit numbers, with no digit repeated, can be formed using the digits 0, 1, 3, 5, 9?",
+   "options": [
+    "12",
+    "48",
+    "60",
+    "15"
+   ],
+   "answer": 0,
+   "explain": "Fill the restricted places first: the last digit must make the number even, and the first digit cannot be 0. Because 0 is among the digits, split into \"last digit 0\" and \"last digit not 0\" cases. Counting each case and adding gives 12. Ignoring the restriction on the first digit or on the last digit gives a larger number.",
+   "concept": "c5",
+   "topic": "Permutations with restrictions",
+   "difficulty": "hard",
+   "fast": "Units place first, then the first digit (no 0), then the remaining places in falling order; add cases when 0 is a possible last digit.",
+   "secs": 60,
+   "check": "12"
+  },
+  {
+   "id": "b24",
+   "q": "How many 3-digit numbers divisible by 5, with no digit repeated, can be formed using the digits 0, 1, 2, 4, 5, 7?",
+   "options": [
+    "36",
+    "100",
+    "120",
+    "40"
+   ],
+   "answer": 0,
+   "explain": "Fill the restricted places first: the last digit must make the number divisible by 5, and the first digit cannot be 0. Because 0 is among the digits, split into \"last digit 0\" and \"last digit not 0\" cases. Counting each case and adding gives 36. Ignoring the restriction on the first digit or on the last digit gives a larger number.",
+   "concept": "c5",
+   "topic": "Permutations with restrictions",
+   "difficulty": "hard",
+   "fast": "Units place first, then the first digit (no 0), then the remaining places in falling order; add cases when 0 is a possible last digit.",
+   "secs": 60,
+   "check": "36"
+  },
+  {
+   "id": "b25",
+   "q": "A basket has 4 identical apples, 3 identical mangoes and 5 identical oranges. In how many ways can a selection of at least one fruit be made?",
+   "options": [
+    "120",
+    "4095",
+    "60",
+    "119"
+   ],
+   "answer": 3,
+   "explain": "Identical items: from 4 apples we can take 0, 1, …, 4 — that is 5 choices; similarly 4 for mangoes and 6 for oranges. Total = 5 × 4 × 6 = 120, which includes taking nothing. Subtract that one case: 119. 2ⁿ − 1 applies only to different items.",
+   "concept": "c9",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
+   "difficulty": "moderate",
+   "fast": "(p + 1)(q + 1)(r + 1) − 1 for identical items.",
+   "secs": 30,
+   "check": "119"
+  },
+  {
+   "id": "b26",
+   "q": "A basket has 2 identical apples, 6 identical mangoes and 2 identical oranges. In how many ways can a selection of at least one fruit be made?",
+   "options": [
+    "63",
+    "1023",
+    "62",
+    "24"
+   ],
+   "answer": 2,
+   "explain": "Identical items: from 2 apples we can take 0, 1, …, 2 — that is 3 choices; similarly 7 for mangoes and 3 for oranges. Total = 3 × 7 × 3 = 63, which includes taking nothing. Subtract that one case: 62. 2ⁿ − 1 applies only to different items.",
+   "concept": "c9",
+   "topic": "Special selections: some or all, alike things, independent groups, geometry",
+   "difficulty": "moderate",
+   "fast": "(p + 1)(q + 1)(r + 1) − 1 for identical items.",
+   "secs": 30,
+   "check": "62"
+  },
+  {
+   "id": "b27",
+   "q": "In how many ways can 3 different letters be posted in 5 letter boxes (any box may receive any number of letters)?",
+   "options": [
+    "243",
+    "60",
+    "125",
+    "35"
+   ],
+   "answer": 2,
+   "explain": "Each letter independently chooses one of the 5 boxes, so by the multiplication principle the number of ways is 5 × 5 × … (3 times) = 5^3 = 125. Writing 3^5 reverses the roles: it is the letters that choose boxes, not the boxes that choose letters.",
+   "concept": "c1",
+   "topic": "Fundamental principles of counting",
+   "difficulty": "core",
+   "fast": "Each letter picks a box: (number of boxes) raised to (number of letters).",
+   "secs": 20,
+   "check": "125"
+  },
+  {
+   "id": "b28",
+   "q": "In how many ways can 7 different letters be posted in 5 letter boxes (any box may receive any number of letters)?",
+   "options": [
+    "16,807",
+    "78,125",
+    "2,520",
+    "330"
+   ],
+   "answer": 1,
+   "explain": "Each letter independently chooses one of the 5 boxes, so by the multiplication principle the number of ways is 5 × 5 × … (7 times) = 5^7 = 78,125. Writing 7^5 reverses the roles: it is the letters that choose boxes, not the boxes that choose letters.",
+   "concept": "c1",
+   "topic": "Fundamental principles of counting",
+   "difficulty": "core",
+   "fast": "Each letter picks a box: (number of boxes) raised to (number of letters).",
+   "secs": 20,
+   "check": "78125"
+  },
+  {
+   "id": "b29",
+   "q": "There are 3 roads from town A to town B and 4 roads from B to C. In how many ways can a person go from A to C via B and return, without using any road twice?",
+   "options": [
+    "72",
+    "144",
+    "12",
+    "84"
+   ],
+   "answer": 0,
+   "explain": "Going: 3 × 4 = 12 ways. Returning without reusing a road: 3 roads from C to B and 2 from B to A, so 6 ways. By the multiplication principle, total = 12 × 6 = 72. Allowing the same roads again gives 144.",
+   "concept": "c1",
+   "topic": "Fundamental principles of counting",
+   "difficulty": "core",
+   "fast": "Going m × n, returning (n − 1) × (m − 1); multiply the two.",
+   "secs": 30,
+   "check": "72"
+  },
+  {
+   "id": "b30",
+   "q": "If ⁿP5 = 56 × ⁿP3, then n =",
+   "options": [
+    "12",
+    "10",
+    "13",
+    "11"
+   ],
+   "answer": 3,
+   "explain": "ⁿP5 ÷ ⁿP3 = (n − 3)(n − 4) because the first 3 factors cancel. So (n − 3)(n − 4) = 56, two consecutive numbers whose product is 56: 8 × 7. Hence n − 3 = 8 and n = 11.",
+   "concept": "c3",
+   "topic": "Permutations: arrangements where order matters",
+   "difficulty": "moderate",
+   "fast": "Find consecutive numbers with product 56 (8 × 7); then add 3.",
+   "secs": 40,
+   "check": "11"
+  },
+  {
+   "id": "b31",
+   "q": "If ⁿP4 = 56 × ⁿP2, then n =",
+   "options": [
+    "10",
+    "11",
+    "9",
+    "12"
+   ],
+   "answer": 0,
+   "explain": "ⁿP4 ÷ ⁿP2 = (n − 2)(n − 3) because the first 2 factors cancel. So (n − 2)(n − 3) = 56, two consecutive numbers whose product is 56: 8 × 7. Hence n − 2 = 8 and n = 10.",
+   "concept": "c3",
+   "topic": "Permutations: arrangements where order matters",
+   "difficulty": "moderate",
+   "fast": "Find consecutive numbers with product 56 (8 × 7); then add 2.",
+   "secs": 40,
+   "check": "10"
+  },
+  {
+   "id": "b32",
+   "q": "If (n + 1)!/(n − 1)! = 132, then n =",
+   "options": [
+    "12",
+    "10",
+    "13",
+    "11"
+   ],
+   "answer": 3,
+   "explain": "(n + 1)! = (n + 1) × n × (n − 1)!, so (n + 1)!/(n − 1)! = n(n + 1). We need n(n + 1) = 132, two consecutive numbers whose product is 132: 11 × 12. So n = 11. The other choice of consecutive numbers would be negative.",
+   "concept": "c2",
+   "topic": "Factorial notation",
+   "difficulty": "core",
+   "fast": "√132 ≈ 11.5: the smaller neighbour is n.",
+   "secs": 25,
+   "check": "11"
+  },
+  {
+   "id": "b33",
+   "q": "If (n + 1)!/(n − 1)! = 30, then n =",
+   "options": [
+    "6",
+    "4",
+    "7",
+    "5"
+   ],
+   "answer": 3,
+   "explain": "(n + 1)! = (n + 1) × n × (n − 1)!, so (n + 1)!/(n − 1)! = n(n + 1). We need n(n + 1) = 30, two consecutive numbers whose product is 30: 5 × 6. So n = 5. The other choice of consecutive numbers would be negative.",
+   "concept": "c2",
+   "topic": "Factorial notation",
+   "difficulty": "core",
+   "fast": "√30 ≈ 5.5: the smaller neighbour is n.",
+   "secs": 25,
+   "check": "5"
+  }
+ ]
+}
