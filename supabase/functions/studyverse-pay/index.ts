@@ -1,4 +1,5 @@
 // StudyVerse payments (Razorpay). Deployed as "studyverse-pay" in project moneyviel-apps.
+// POST { action: 'order', plan, code?, for_child? }  (for_child: a parent pays for a linked child; the child gets the plan)
 // POST { action: 'order', plan, code? }  → creates a Razorpay order (price and discount decided here, never by the app)
 // POST { action: 'verify', order_id, payment_id, signature } → checks the signature and the payment with Razorpay,
 //      then unlocks the course (studyverse.grant_paid).
@@ -48,27 +49,34 @@ Deno.serve(async (req) => {
     const b = await req.json().catch(() => ({}));
 
     if (b.action === 'order') {
-      const p = await rpc('price_for', { p_user: user.id, p_plan: String(b.plan || ''), p_code: b.code || null });
+      let target = user.id;
+      if (b.for_child) {                               // parent paying for a linked child
+        const lr = await fetch(`${URL_}/rest/v1/parent_links?parent_id=eq.${user.id}&child_id=eq.${encodeURIComponent(String(b.for_child))}&select=child_id`, { headers: svc() });
+        const la = await lr.json().catch(() => []);
+        if (!Array.isArray(la) || !la.length) return json({ error: 'This child is not linked to your account.' });
+        target = String(b.for_child);
+      }
+      const p = await rpc('price_for', { p_user: target, p_plan: String(b.plan || ''), p_code: b.code || null });
       if (!p || !p.ok) return json({ error: (p && p.msg) || 'This plan is not available.' });
       if (p.amount_paise === 0) {                      // 100% discount: no payment needed
         const order = 'free-' + crypto.randomUUID();
-        await insertPayment({ user_id: user.id, plan_id: b.plan, amount_paise: 0, discount_code: p.code, percent: p.percent, order_id: order });
+        await insertPayment({ user_id: target, payer_id: user.id, plan_id: b.plan, amount_paise: 0, discount_code: p.code, percent: p.percent, order_id: order });
         const g = await rpc('grant_paid', { p_order: order, p_payment: 'free' });
         return json({ paid: true, label: g.label, until: g.until });
       }
       if (!KEY_ID || !KEY_SECRET) return json({ error: 'Payments not set up yet' });
       const r = await fetch('https://api.razorpay.com/v1/orders', { method: 'POST', headers: { Authorization: rzpAuth(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: p.amount_paise, currency: 'INR', receipt: `sv-${Date.now()}`, notes: { user: user.id, plan: b.plan, code: p.code || '' } }) });
+        body: JSON.stringify({ amount: p.amount_paise, currency: 'INR', receipt: `sv-${Date.now()}`, notes: { user: target, payer: user.id, plan: b.plan, code: p.code || '' } }) });
       const o = await r.json();
       if (!r.ok || !o.id) return json({ error: 'Could not start the payment. Please try again.' });
-      await insertPayment({ user_id: user.id, plan_id: b.plan, amount_paise: p.amount_paise, discount_code: p.code, percent: p.percent, order_id: o.id });
+      await insertPayment({ user_id: target, payer_id: user.id, plan_id: b.plan, amount_paise: p.amount_paise, discount_code: p.code, percent: p.percent, order_id: o.id });
       return json({ order_id: o.id, amount: p.amount_paise, key_id: KEY_ID, label: p.label });
     }
 
     if (b.action === 'verify') {
       if (!KEY_SECRET) return json({ error: 'Payments not set up yet' });
       const pay = await findPayment(String(b.order_id || ''));
-      if (!pay || pay.user_id !== user.id) return json({ error: 'Order not found.' });
+      if (!pay || (pay.user_id !== user.id && pay.payer_id !== user.id)) return json({ error: 'Order not found.' });
       if ((await hmac(`${b.order_id}|${b.payment_id}`)) !== b.signature) return json({ error: 'Payment could not be verified.' });
       const r = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(b.payment_id)}`, { headers: { Authorization: rzpAuth() } });
       const p = await r.json();
