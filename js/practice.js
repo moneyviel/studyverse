@@ -286,7 +286,7 @@
     return true;
   }
   window.addEventListener('hashchange', route);
-  window.Garden = { learned, badge, plant, dueList, doneExtra, checkBadges, routeDuel: route };
+  window.Garden = { learned, badge, plant, dueList, doneExtra, checkBadges, routeDuel: route, BADGES, GOAL, dailyXP };
   if (location.hash.startsWith('#duel')) setTimeout(route, 50);
   setTimeout(checkBadges, 1500);
 })();

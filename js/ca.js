@@ -277,9 +277,11 @@
       const sq = nav.querySelector('button[data-s="squad"]');
       nav.insertAdjacentHTML(sq ? 'beforeend' : 'beforeend', `<button data-s="cadash" id="caNavDash" hidden><b aria-hidden="true">📊</b>Dashboard</button>`);
       db = D.getElementById('caNavDash'); if (sq) nav.insertBefore(db, sq);
-      db.onclick = () => { if (T()) T().dashboard(); };
+      /* centre tab: the CA dashboard in CA mode, the school dashboard (js/insights.js) for school students */
+      db.onclick = () => { if (isCA()) { if (T()) T().dashboard(); } else if (window.Insights) Insights.dashboard({ tab: true }); };
     }
-    if (db) { db.hidden = !isCA(); db.dataset.caOrig = db.innerHTML; D.documentElement.classList.toggle('ca-nav5', isCA()); }
+    const par = (() => { try { return !!(window.Cloud && Cloud.isParent && Cloud.isParent()); } catch (e) { return false; } })();
+    if (db) { db.hidden = par; db.dataset.caOrig = '<b aria-hidden="true">📊</b>Dashboard'; D.documentElement.classList.toggle('ca-nav5', !par); }
     D.querySelectorAll('nav button[data-s]').forEach(b => {
       if (!b.dataset.caOrig) b.dataset.caOrig = b.innerHTML;
       const L = NAVLAB[b.dataset.s];

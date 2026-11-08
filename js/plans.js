@@ -35,7 +35,7 @@
   function access(kind) {
     if (owner()) return { full: true, why: 'owner' };
     const r = rows().filter(live);
-    if (kind === 'ca') { const c = r.find(a => a.course === 'ca-foundation'); return c ? { full: true, until: c.valid_until, why: /code/.test(c.note || '') ? 'code' : 'paid' } : { full: false }; }
+    if (kind === 'ca') { const c = r.find(a => a.course === 'ca-foundation'); return c ? { full: true, until: c.valid_until, why: /trial/.test(c.note || '') ? 'trial' : /code/.test(c.note || '') ? 'code' : 'paid' } : { full: false }; }
     const all = r.find(a => a.course === 'school-all');
     if (all) return { full: true, until: all.valid_until, why: /trial/.test(all.note || '') ? 'trial' : 'paid' };
     let g = 0; try { g = +ST.profile.grade; } catch (e) {}
@@ -73,7 +73,7 @@
 .pl-old{text-decoration:line-through;opacity:.6;font-weight:500;margin-right:4px}
 .pl-st{background:#F4EAD8;border-radius:12px;padding:10px 12px;font-size:14px;margin:8px 0}
 .sv-planbar{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:10px 14px!important}
-.sv-planbar p{margin:0;font-size:14px;line-height:1.35}.sv-planbar button{flex:none;border:0;border-radius:10px;padding:9px 12px;font-weight:700;background:#C9A76A;color:#15161C;cursor:pointer}`;
+.sv-planbar p{margin:0;font-size:14px;line-height:1.35}.sv-planbar button{flex:none;border:0;border-radius:10px;padding:9px 12px;min-height:44px;font-weight:700;background:#C9A76A;color:#15161C;cursor:pointer}`;
   function style() { if (D.getElementById('svPlanCss')) return; const s = D.createElement('style'); s.id = 'svPlanCss'; s.textContent = css; D.head.appendChild(s); }
 
   function paywall(kind) {
@@ -92,7 +92,7 @@
   function statusLine(kind) {
     const a = access(kind);
     if (a.why === 'owner') return 'Owner account — everything is unlocked.';
-    if (a.why === 'trial') return `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open. After that, only the class you subscribe to.`;
+    if (a.why === 'trial') return kind === 'ca' ? `🎁 Free trial: <b>${left(a.until)}</b> left — all of CA Foundation is open.` : `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open. After that, only the class you subscribe to.`;
     if (a.why === 'code') return '🎟️ Free access with your code.';
     if (a.full) return `✅ Your ${kind === 'ca' ? 'CA Foundation' : 'school'} plan is active till <b>${dt(a.until)}</b>.`;
     return `Free plan: <b>${Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)))} of ${FREE_PER_DAY}</b> questions left today.${a.trialEnded ? ' Your free trial has ended.' : ''}`;
@@ -163,24 +163,50 @@
   }
   function msg(t, ok) { const el = C().sheet(`<h3 id="clT">${ok ? 'Thank you!' : 'Payment'}</h3><p>${t}</p><button class="btn" type="button" id="plOk">OK</button>`); el.querySelector('#plOk').onclick = C().closeSheet; }
 
-  /* ---------- plan bar on World and Me, reminders ---------- */
+  /* ---------- plan bar: school World + Me; CA Journey home (under the greeting / Brain Snacks) + CA Profile ----------
+     Never for parents. In the Play Store build (window.SV_PLAY) the bar shows the status only — no Subscribe / Renew button. */
+  const btn = t => window.SV_PLAY ? '' : `<button type="button" data-pl>${t}</button>`;
+  const leftLong = d => { const ms = new Date(d) - Date.now(); if (ms <= 0) return '0 min'; const h = Math.floor(ms / 36e5), m = Math.floor(ms % 36e5 / 6e4); return h >= 48 ? Math.ceil(ms / 864e5) + ' days' : (h ? h + ' h ' : '') + m + ' min'; };
+  const freeLeft = kind => Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)));
   function barHTML(kind) {
     const a = access(kind);
     if (a.why === 'owner' || a.why === 'code') return '';
-    if (a.why === 'trial') return `<p>🎁 <b>Free trial: ${left(a.until)} left.</b> Everything is unlocked.</p><button type="button" data-pl>Subscribe</button>`;
-    if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5; return soon ? `<p>⏳ Your plan ends on <b>${dt(a.until)}</b>.</p><button type="button" data-pl>Renew</button>` : ''; }
-    return `<p><b>${Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)))} of ${FREE_PER_DAY}</b> free questions left today.${a.trialEnded ? ' Trial ended.' : ''}</p><button type="button" data-pl>Subscribe</button>`;
+    if (a.why === 'trial') return `<p>🎁 <b>Free trial: ${left(a.until)} left.</b> Everything is unlocked.</p>${btn('Subscribe')}`;
+    if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5; return soon ? `<p>⏳ Your plan ends on <b>${dt(a.until)}</b>.</p>${btn('Renew')}` : ''; }
+    return `<p><b>${freeLeft(kind)} of ${FREE_PER_DAY}</b> free questions left today.${a.trialEnded ? ' Trial ended.' : ''}</p>${btn('Subscribe')}`;
+  }
+  function caBarHTML() {                              // CA always shows where the student stands
+    const a = access('ca');
+    if (a.why === 'owner') return '<p>🔑 <b>Owner account</b> · everything is unlocked.</p>';
+    if (a.why === 'code') return `<p>🎟️ <b>CA Foundation</b> · free access with your code${a.until ? ` till <b>${dt(a.until)}</b>` : ''}.</p>`;
+    if (a.why === 'trial') return `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of CA Foundation is open.</p>${btn('Subscribe')}`;
+    if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5;
+      return `<p>✅ <b>CA Foundation</b> · ${a.until ? `active till <b>${dt(a.until)}</b>` : 'active'}</p>${soon ? btn('Renew') : ''}`; }
+    return `<p><b>Free plan</b> · ${freeLeft('ca')} of ${FREE_PER_DAY} questions left today</p>${btn('Subscribe')}`;
+  }
+  function place(sc, h, after) {
+    let b = sc.querySelector(':scope > .sv-planbar');
+    if (!h || !after) { if (b) b.remove(); return; }
+    if (!b) { style(); b = D.createElement('div'); b.className = 'card sv-planbar'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Your plan'); }
+    if (b.previousElementSibling !== after) after.after(b);
+    if (b.dataset.h !== h) { b.dataset.h = h; b.innerHTML = h; const k = b.querySelector('[data-pl]'); if (k) k.onclick = () => open(); }
   }
   function bars() {
     if (!signedIn()) return;
     if (parent()) { D.querySelectorAll('.sv-planbar').forEach(b => b.remove()); return; }
+    const kind = kindNow();
     ['s-world', 's-me'].forEach(id => {
       const sc = D.getElementById(id); if (!sc || !sc.firstElementChild) return;
-      const h = barHTML(kindNow()); let b = sc.querySelector(':scope > .sv-planbar');
+      const h = kind === 'ca' ? '' : barHTML('school'); let b = sc.querySelector(':scope > .sv-planbar');
       if (!h) { if (b) b.remove(); return; }
-      if (!b) { style(); b = D.createElement('div'); b.className = 'card sv-planbar'; const first = sc.querySelector(':scope > .card'); first ? first.after(b) : sc.prepend(b); }
-      if (b.dataset.h !== h) { b.dataset.h = h; b.innerHTML = h; b.querySelector('[data-pl]').onclick = () => open(); }
+      if (!b) { style(); b = D.createElement('div'); b.className = 'card sv-planbar'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Your plan'); const first = sc.querySelector(':scope > .card'); first ? first.after(b) : sc.prepend(b); }
+      if (b.dataset.h !== h) { b.dataset.h = h; b.innerHTML = h; const k = b.querySelector('[data-pl]'); if (k) k.onclick = () => open(); }
     });
+    const ca = D.getElementById('s-ca'); if (!ca) return;
+    if (kind !== 'ca') { place(ca, '', null); return; }
+    const top = ca.querySelector(':scope > .ca-top'), home = top && ca.querySelector(':scope > .ca-journey'), prof = ca.querySelector(':scope > .ca-prof');
+    const snack = home ? ca.querySelector(':scope > #gkSnack') : null;
+    place(ca, caBarHTML(), prof || (home ? (snack || top) : null));
   }
   let warned = false;
   function remind() {

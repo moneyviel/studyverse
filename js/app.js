@@ -189,9 +189,17 @@ const DATA = {};              // "g6/maths" -> subject content or null
 let NAV = {};                 // where we are: {subject, chapter, topic}
 
 function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 1900); }
-function hud() { $('#xp').textContent = ST.xp; $('#streak').textContent = ST.streak.n || 0; }
-function addXP(n, msg) { ST.xp += n; save(); hud(); if (msg) toast(`${msg}  +${n} ⭐`); }
-function bumpStreak() { const d = today(); if (ST.streak.last === d) return; const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); ST.streak.n = ST.streak.last === y ? ST.streak.n + 1 : 1; ST.streak.last = d; save(); hud(); }
+/* the streak that is still alive: studied today or yesterday; after a missed day it shows 0 until the next study day */
+function liveStreak() { const l = ST.streak && ST.streak.last; if (!l) return 0; const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); return l === today() || l === y ? ST.streak.n || 0 : 0; }
+function hud() { $('#xp').textContent = ST.xp; $('#streak').textContent = liveStreak(); }
+/* ST.xpLog = { 'YYYY-MM-DD': stars that day } (the app's today()), last 60 days — for "today" and "this week" in the stars sheet */
+function addXP(n, msg) {
+  ST.xp += n;
+  try { const d = today(), L = ST.xpLog = ST.xpLog && typeof ST.xpLog === 'object' ? ST.xpLog : {}; L[d] = (L[d] || 0) + (+n || 0);
+    const ks = Object.keys(L).sort(); if (ks.length > 60) ks.slice(0, ks.length - 60).forEach(k => delete L[k]); } catch (e) {}
+  save(); hud(); if (msg) toast(`${msg}  +${n} ⭐`);
+}
+function bumpStreak() { const d = today(); if (ST.streak.last === d) return; const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); ST.streak.n = ST.streak.last === y ? ST.streak.n + 1 : 1; ST.streak.last = d; ST.streak.best = Math.max(ST.streak.best || 0, ST.streak.n); save(); hud(); }
 
 /* ================= Back button & history (Android back gesture / browser back) =================
    Every screen change and every open sheet gets a browser history entry, so the system Back button
@@ -655,7 +663,7 @@ function meScreen() {
   show('me', 'me');
   const p = ST.profile, done = Object.keys(ST.topics).length;
   $('#s-me').innerHTML = `<div class="card mecard"><div class="meav">${esc(p.avatar)}</div><div><h2>${esc(p.name)}</h2><p class="sub">Grade ${p.grade} · ${BOARDS.find(b => b.id === p.board)?.name || 'CBSE'}</p></div></div>
-    <div class="card statrow"><div><b>${ST.xp}</b><span>XP</span></div><div><b>${ST.streak.n || 0}🔥</b><span>Streak</span></div><div><b>${done}</b><span>Quests</span></div></div>
+    <div class="card statrow"><div><b>${ST.xp}</b><span>XP</span></div><div><b>${liveStreak()}🔥</b><span>Streak</span></div><div><b>${done}</b><span>Quests</span></div></div>
     <div class="card"><h3>Change grade</h3><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice ${p.grade === i + 1 ? 'sel' : ''}" data-g="${i + 1}"><b>${i + 1}</b></button>`).join('')}</div></div>
     <div class="card"><button class="btn ghost" onclick="openSound()">🎵 Sound & music</button><div style="height:8px"></div><button class="btn ghost" id="meReset">Start over</button></div>`;
   const go = g => { setGrade(g); sfx('unlock'); toast(`Welcome to ${Worlds.THEMES[g].name}!`); worldScreen(); };

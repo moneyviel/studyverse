@@ -288,7 +288,7 @@
   function root(route) { STACK = [route]; return render(); }
   async function render() {
     const r = STACK[STACK.length - 1]; if (!r) return meScreen();
-    const el = host(); show('insights', 'me');
+    const el = host(); show('insights', STACK[0] && STACK[0].tab ? 'cadash' : 'me');   // opened from the centre 📊 tab: that tab stays lit
     const m = await model();
     const backTxt = STACK.length > 1 ? '← Back' : r.from === 'world' ? '← Home' : '← Me';
     if (r.v === 'dash' && window.SVDash) {      /* the premium dashboard (js/dashboard.js) keeps its own state on one persistent host */
@@ -746,7 +746,7 @@
     dashTile('world');
   };
 
-  window.Insights = { conf, model, open: r => root(r), dashboard: () => root({ v: 'dash' }),
+  window.Insights = { conf, model, open: r => root(r), dashboard: o => root({ v: 'dash', from: 'world', tab: !!(o && o.tab) }),
     dashboardFor: (hostEl, opts) => window.SVDash ? SVDash.render(hostEl, Object.assign({ mode: 'ca' }, opts || {})) : null,
     dashboardTile: (data, o) => window.SVDash ? SVDash.tile(data, o) : '', dashData: () => model().then(dashData), analysis: () => root({ v: 'analysis' }), _ds: DS, _band: band };
 })();
