@@ -458,6 +458,14 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
 
   function repaintMe() { const c = D.getElementById('svCloud'); if (c) { c.dataset.h = ''; paint(); } const o = D.getElementById('svCloudOb'); if (o && S) o.remove(); }
 
+  /* ---------- 5b. two copies open (installed app + browser tab): keep them in step ----------
+     A copy left open in the background still holds old progress in memory and saves it when it is hidden or closed,
+     which used to wipe a name or exam date saved in the other copy. When another copy saves, take its progress. */
+  addEventListener('storage', e => {
+    if (e.key !== 'sv_state' || !e.newValue) return;
+    try { const n = JSON.parse(e.newValue); if (!n || typeof n !== 'object') return; Object.keys(ST).forEach(k => delete ST[k]); Object.assign(ST, n); } catch (x) {}
+  });
+
   /* ---------- 6. start ---------- */
   function start() {
     gate();
