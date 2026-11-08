@@ -1,13 +1,14 @@
 // StudyVerse "read my handwriting": turns photos of a written answer into text, so the app's own checker can mark it.
 // Deployed as "studyverse-read" in project moneyviel-apps. Uses Google Gemini (free tier) — secret GEMINI_API_KEY
-// (optional GEMINI_MODEL, default gemini-2.5-flash). It only transcribes; marking is done by the app (js/ca-check.js).
+// (optional GEMINI_MODEL; falls back through current free Flash models). It only transcribes; marking is done by the app (js/ca-check.js).
 // POST { images: [base64 JPEG, ...] (max 4 pages), question: "..." } → { text } | { error }
 // Daily limit per student: READ_PAGES_PER_DAY pages (studyverse.take_read_quota).
 /* eslint-disable */
 const URL_ = Deno.env.get('SUPABASE_URL')!;
 const SRK = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const GKEY = Deno.env.get('GEMINI_API_KEY') || '';
-const MODEL = Deno.env.get('GEMINI_MODEL') || 'gemini-2.5-flash';
+// [model, seconds to wait]: the best reader first; the fast "lite" model steps in when it is busy or slow
+const MODELS: [string, number][] = [...(Deno.env.get('GEMINI_MODEL') ? [[Deno.env.get('GEMINI_MODEL')!, 30] as [string, number]] : []), ['gemini-flash-latest', 20], ['gemini-flash-lite-latest', 25], ['gemini-3.8-flash', 20]];
 const LIMIT = Number(Deno.env.get('READ_PAGES_PER_DAY') || 20);
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
 const json = (o: unknown, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { ...cors, 'Content-Type': 'application/json' } });
@@ -44,9 +45,27 @@ Deno.serve(async (req) => {
     if (!(await quota(user.id, imgs.length))) return json({ error: `Daily limit reached (${LIMIT} pages a day). Type your key points, or try again tomorrow.` });
     const body = { contents: [{ role: 'user', parts: [{ text: PROMPT(String(b.question || '')) }, ...imgs.map(d => ({ inline_data: { mime_type: 'image/jpeg', data: d } }))] }],
       generationConfig: { temperature: 0, maxOutputTokens: 4096 } };
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GKEY }, body: JSON.stringify(body) });
-    const j = await r.json().catch(() => ({}));
-    if (!r.ok) return json({ error: r.status === 429 ? 'The free reading service is busy. Please try again in a minute.' : 'Could not read the photo. Please try again.', detail: String(j?.error?.message || r.status).slice(0, 200) });
+    let r: Response | null = null, j: any = {};
+    const call = async (m: string, secs: number, gc: Record<string, unknown>) => {
+      const t0 = Date.now();
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, { method: 'POST', signal: AbortSignal.timeout(secs * 1000),
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GKEY }, body: JSON.stringify({ ...body, generationConfig: gc }) });
+        const jj = await res.json().catch(() => ({}));
+        console.log('gemini', m, res.status, Date.now() - t0, 'ms', String(jj?.error?.message || '').slice(0, 120));
+        return { res, jj };
+      } catch (e) { console.log('gemini', m, 'timeout/err', Date.now() - t0, String(e).slice(0, 80)); return null; }
+    };
+    for (const [m, secs] of MODELS) {   // try the next model if Google retires one, does not offer it on this key, or it is too slow
+      let out = await call(m, secs, { ...body.generationConfig, thinkingConfig: { thinkingLevel: 'low' } });
+      if (out && out.res.status === 400 && /thinking/i.test(String(out.jj?.error?.message || ''))) out = await call(m, secs, body.generationConfig);
+      if (!out) continue;
+      r = out.res; j = out.jj;
+      const msg = String(j?.error?.message || '');
+      if (r.ok || !([404, 429, 500, 503].includes(r.status) || /no longer available|not found|not supported|limit: 0/i.test(msg))) break;
+    }
+    if (!r) return json({ error: 'The reading service is slow right now. Please try again in a minute.' });
+    if (!r.ok) return json({ error: [429, 503].includes(r.status) ? 'The free reading service is busy. Please try again in a minute.' : 'Could not read the photo. Please try again.', detail: String(j?.error?.message || r.status).slice(0, 200) });
     const text = (j?.candidates?.[0]?.content?.parts || []).map((p: { text?: string }) => p.text || '').join('').trim();
     if (!text) return json({ error: 'No writing could be read from the photo. Try a clearer photo in good light.' });
     return json({ text: text.slice(0, 20000) });

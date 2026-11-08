@@ -633,7 +633,7 @@
       if (!window.CaRead) { manual(); return; }
       if (adult === 'n') { manual('Photo reading is only for students aged 18 or older. Type the key figures, entries and points from your page to get marks.'); return; }
       const go = async () => {
-        host.innerHTML = `<div class="card ca-rep ca-rep-wait" role="status" aria-live="polite"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">🔍</span><div><h2 class="ca-h2s">Reading your handwriting…</h2><p class="sub">This takes about 10–20 seconds.</p></div></div></div>${tail}`;
+        host.innerHTML = `<div class="card ca-rep ca-rep-wait" role="status" aria-live="polite"><div class="ca-rep-top"><span class="ca-rep-big" aria-hidden="true">🔍</span><div><h2 class="ca-h2s">Reading your handwriting…</h2><p class="sub">This can take up to a minute.</p></div></div></div>${tail}`;
         say('Reading your handwriting.');
         try {
           const blobs = []; for (const x of ph) { const r = await T().photos.get(x.id).catch(() => null); if (r && r.blob) blobs.push(r.blob); }
