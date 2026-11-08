@@ -316,8 +316,27 @@
     }
     const k = kids[sel], A = await analyse(k);
     if (kids[sel] !== k) return;
-    body.innerHTML = childHTML(k, A);
-    wireChild(body, k, A);
+    body.innerHTML = childHTML(k, A) + mailCardHTML();
+    wireChild(body, k, A); wireMail(body);
+  }
+
+  /* weekly email: one short summary per week with a button back to this hub (the full report stays in the app) */
+  let mailOn = null;
+  const mailCardHTML = () => `<div class="pv-card" id="pvMail"><h2>📧 Weekly email</h2>
+    <label style="display:flex;gap:10px;align-items:center;min-height:44px;cursor:pointer"><input type="checkbox" id="pvMailOn" style="width:22px;height:22px"${mailOn === false ? '' : ' checked'}>
+    <span>Send me a short weekly summary of my children's study time and accuracy, with a link to this full report.</span></label>
+    <p class="pv-note" id="pvMailNote">Sent once a week to ${esc(C().email())}. You can switch it off any time.</p></div>`;
+  async function wireMail(body) {
+    const cb = body.querySelector('#pvMailOn'), note = body.querySelector('#pvMailNote'); if (!cb) return;
+    if (mailOn === null) {
+      try { const u = C().user(); const r = await C().rest('parent_prefs?select=weekly_email&parent_id=eq.' + encodeURIComponent(u ? u.id : '')); mailOn = Array.isArray(r) && r[0] ? !!r[0].weekly_email : true; cb.checked = mailOn; } catch (e) {}
+    }
+    cb.onchange = async () => {
+      const want = cb.checked; cb.disabled = true;
+      try { const r = one(await rpc('set_weekly_email', { p_on: want })); if (!r || !r.ok) throw new Error('x'); mailOn = want; note.textContent = want ? `Weekly email is on (${C().email()}).` : 'Weekly email is off.'; }
+      catch (e) { cb.checked = !want; note.textContent = 'Could not save. Please check your internet and try again.'; }
+      finally { cb.disabled = false; }
+    };
   }
 
   function addChild() {
@@ -710,6 +729,10 @@
     let t = 0;
     new MutationObserver(() => { if (!t) t = requestAnimationFrame(() => { t = 0; paintMe(); paintGoal(); }); }).observe(D.body, { childList: true, subtree: true });
     setTimeout(() => { pullControls(); paintMe(); paintGoal(); enforce(); }, 1200);
+    try {   // links in the weekly email open the hub: study.moneyviel.com/?hub=1
+      const u = new URL(location.href);
+      if (u.searchParams.get('hub')) { u.searchParams.delete('hub'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); setTimeout(openHub, 1500); }
+    } catch (e) {}
     setInterval(() => { if (D.visibilityState === 'visible') pullControls(); }, 3 * 6e4);
     setInterval(enforce, 30000);
   }
