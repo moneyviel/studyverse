@@ -1,127 +1,161 @@
-/* ================= StudyVerse — tablet & desktop layout (css/desktop.css + js/desktop.js) =================
-   Phones (< 768px) are untouched: every rule below sits inside a min-width media query.
-   768–1023  tablet : slim icon sidebar (#dskSide) instead of the bottom tabs, 2-column card grids.
-   ≥ 1024    desktop: full sidebar (logo, ⭐/🔥 chips, 5 homes, quick links), wide centred main area,
-                      multi-column screens (map + subject cards, topic list + preview, quiz + explanation…).
-   ≥ 1280    + right rail (#dskRail): Today panel (goal, streak, box, boss, exam plan, friends, continue, focus timer).
-   html classes set by js/desktop.js: dsk (≥768 & sidebar built) · dsk-col (sidebar collapsed) · dsk-focus (focus mode)
-   · dsk-ob (onboarding / no profile: no sidebar). Prefix for everything here: dsk-. */
+/* ================= StudyVerse — tablet & desktop layout (css/desktop.css + js/desktop.js) — v59 =================
+   Phones (< 768px) are untouched: every layout rule below sits inside a min-width media query (the right-panel card styles
+   further down only style elements that exist at ≥768px).
+   Ideas borrowed from the best learning sites (see /tmp/desktop2/research.md): one calm left menu (labels, collapsible to icons),
+   a centred content column with a sticky "Today" panel (goal, streak, boss, plan, friends) on wide screens, and full-focus play
+   screens where the board / question owns the window.
+   Rules: no forced heights (columns size to their content, side panels are sticky, never stretched); nothing wider than the window;
+   game boards are sized by min(free width, free height) so board + dice + question fit without scrolling.
+   html classes set by js/desktop.js:
+     dsk        ≥768 and the menu is built          dsk-wide   ≥1200 (an open menu pushes the page)
+     dsk-col    the menu is the slim icon bar        dsk-drawer menu open as a drawer over the page (<1200)
+     dsk-play   a game / puzzle / live room / boss is on screen (no Today panel, compact top)
+     dsk-norail no Today panel on this screen        dsk-focus  focus mode (no menus)     dsk-ob  onboarding / parent: no menu
+   Inside .app everything is zoomed by var(--z) (text size): in there 1vh = var(--z) real vh, so heights use calc(100vh / var(--z)). */
 
 @media (min-width:768px){
-  :root{--dsk-side:84px;--dsk-rail:0px;--dsk-acc:var(--sun);--dsk-panel:rgba(255,255,255,.06);--dsk-line:rgba(255,255,255,.1);--dsk-tx:rgba(255,255,255,.78)}
+  :root{--dsk-side:76px;--dsk-open:240px;--dsk-rail:0px;--dsk-acc:var(--sun);--dsk-panel:rgba(14,20,52,.55);--dsk-line:rgba(255,255,255,.1);--dsk-tx:rgba(255,255,255,.8);--dsk-vh:calc(100vh / var(--z));--dsk-pad:24px}
   html[data-age=pro]:not(.sv-hc){--dsk-acc:#C9A76A;--dsk-panel:rgba(255,255,255,.035);--dsk-line:rgba(201,167,106,.18);--dsk-tx:#B9B4A8}
+  html.dsk:not(.dsk-col){--dsk-side:var(--dsk-open)}
   html.dsk.dsk-ob,html.dsk.dsk-focus{--dsk-side:0px;--dsk-rail:0px}
 
-  html.dsk body{display:block;padding-left:var(--dsk-side);padding-right:var(--dsk-rail);transition:padding .25s ease;background-attachment:fixed}
+  html.dsk body{display:block;min-height:0;padding-left:var(--dsk-side);padding-right:var(--dsk-rail);transition:padding .25s ease;background-attachment:fixed}
   html.dsk body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:radial-gradient(60vw 50vh at 85% -10%,rgba(139,92,246,.22),transparent 70%),radial-gradient(50vw 50vh at 10% 110%,rgba(46,211,165,.12),transparent 70%)}
+    background:radial-gradient(60vw 50vh at 85% -10%,rgba(139,92,246,.20),transparent 70%),radial-gradient(50vw 50vh at 10% 110%,rgba(46,211,165,.10),transparent 70%)}
   html.dsk[data-age=pro]:not(.sv-hc) body::before{background:radial-gradient(60vw 50vh at 85% -10%,rgba(201,167,106,.10),transparent 70%),radial-gradient(50vw 50vh at 10% 110%,rgba(91,15,27,.25),transparent 70%)}
-  html.dsk .app{width:auto;max-width:none;min-height:100vh}
-  html.dsk main{width:100%;max-width:calc(1320px / var(--z));margin:0 auto;padding:18px 24px 40px}
-  html.dsk .screen.active{padding-bottom:24px}
+  /* no forced heights: the page is exactly as tall as what is on it */
+  html.dsk .app{width:auto;max-width:none;min-height:0}
+  html.dsk main{width:100%;max-width:calc(1320px / var(--z));margin:0 auto;padding:20px var(--dsk-pad) 28px;overflow:visible}
+  html.dsk .screen.active{padding-bottom:0}
+  html.dsk main>.screen.active{min-width:0}
+  html.dsk.dsk-play main{padding-top:12px;padding-bottom:8px;max-width:calc(1480px / var(--z))}
   html.dsk .askfab{right:calc(var(--dsk-rail) + 22px);bottom:22px!important}
   html.dsk #calcFab{left:calc(var(--dsk-side) + 16px);bottom:22px}
   html.dsk #calcPanel{left:calc(50% + (var(--dsk-side) - var(--dsk-rail)) / 2);bottom:76px}
 
-  /* ---------- sidebar ---------- */
+  /* ---------- the menu (left) ---------- */
   #dskSide{display:none}
   html.dsk:not(.dsk-ob):not(.dsk-focus) #dskSide{display:flex}
-  #dskSide{position:fixed;left:0;top:0;bottom:0;width:var(--dsk-side);z-index:6;flex-direction:column;gap:6px;padding:14px 10px 12px;
-    background:var(--dsk-panel);border-right:1px solid var(--dsk-line);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;color:#fff}
-  #dskSide header{display:flex!important;flex-direction:column;align-items:stretch;gap:10px;padding:2px 4px 8px;border-bottom:1px solid var(--dsk-line);margin-bottom:4px;color:#fff}
-  #dskSide header .brand{display:block!important;font-size:24px;cursor:pointer;white-space:nowrap;text-align:left}
-  #dskSide header .stats{flex-wrap:wrap;gap:6px}
+  #dskSide{position:fixed;left:0;top:0;bottom:0;width:var(--dsk-side);z-index:30;flex-direction:column;gap:4px;padding:12px 10px 12px;
+    background:var(--dsk-panel);border-right:1px solid var(--dsk-line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;color:#fff;
+    transition:width .22s ease,box-shadow .22s ease}
+  #dskSide.open{width:var(--dsk-open)}
+  html.dsk-drawer #dskSide{box-shadow:12px 0 40px rgba(0,0,0,.45);background:rgba(18,24,58,.97)}
+  html[data-age=pro].dsk-drawer:not(.sv-hc) #dskSide{background:rgba(21,22,28,.98)}
+  #dskScrim{display:none}
+  html.dsk-drawer:not(.dsk-ob):not(.dsk-focus) #dskScrim{display:block;position:fixed;inset:0;z-index:29;background:rgba(5,8,25,.45);animation:dskFade .2s ease}
+  #dskSide header{display:grid!important;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px 8px;padding:0 2px 10px;border-bottom:1px solid var(--dsk-line);margin-bottom:6px;color:#fff;position:static;background:none}
+  #dskTgl{width:40px;height:40px;border-radius:12px;border:0;background:rgba(255,255,255,.1);color:#fff;font:800 20px/1 Nunito,system-ui,sans-serif;cursor:pointer;display:grid;place-items:center;flex:none;transition:background .15s}
+  #dskTgl:hover{background:rgba(255,255,255,.2)}
+  #dskSide header .brand{display:block!important;font-size:23px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left;min-width:0}
+  #dskSide header .stats{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px}
   #dskSide header .pill{font-size:14px;padding:6px 11px}
   #dskSide nav{position:static!important;display:flex!important;flex-direction:column;justify-content:flex-start;gap:3px;transform:none!important;left:auto;bottom:auto;width:auto!important;max-width:none!important;margin:0!important;align-self:stretch;zoom:1!important;
     background:none!important;box-shadow:none;padding:0;border-radius:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
-  #dskSide nav button:not([hidden]){display:flex;flex:none;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;width:100%;padding:10px 12px;border-radius:14px;
-    font-size:15px;font-weight:800;color:var(--dsk-tx)!important;background:none;position:relative;transition:background .15s,color .15s,transform .15s;white-space:nowrap}
+  #dskSide nav button:not([hidden]){display:flex;flex:none;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px;width:100%;min-height:46px;padding:9px 12px;border-radius:14px;
+    font-size:15px;font-weight:800;color:var(--dsk-tx)!important;background:none;position:relative;transition:background .15s,color .15s;white-space:nowrap;overflow:hidden}
   #dskSide nav button b{font-size:22px!important;width:30px;text-align:center;flex:none;transition:transform .2s}
   #dskSide nav button:hover{background:rgba(255,255,255,.08);color:#fff!important}
   #dskSide nav button:hover b{transform:scale(1.15) rotate(-6deg)}
-  #dskSide nav button.on{background:rgba(255,255,255,.14)!important;color:#fff!important}
-  #dskSide nav button.on::before{content:'';position:absolute;left:-10px;top:8px;bottom:8px;width:4px;border-radius:0 4px 4px 0;background:var(--dsk-acc)}
+  #dskSide nav button.on{background:rgba(255,255,255,.15)!important;color:#fff!important}
+  #dskSide nav button.on::before{content:'';position:absolute;left:0;top:9px;bottom:9px;width:4px;border-radius:0 4px 4px 0;background:var(--dsk-acc)}
   #dskSide nav{counter-reset:dsknav}
   #dskSide nav button:not([hidden]){counter-increment:dsknav}
-  #dskSide nav button:not([hidden])::after{content:counter(dsknav);margin-left:auto;font-size:11px;font-weight:800;opacity:.45;border:1px solid currentColor;border-radius:6px;padding:0 5px;line-height:16px}
-  .dsk-sh{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dsk-tx);opacity:.7;margin:12px 12px 4px}
+  #dskSide.open nav button:not([hidden])::after{content:counter(dsknav);margin-left:auto;font-size:11px;font-weight:800;opacity:.45;border:1px solid currentColor;border-radius:6px;padding:0 5px;line-height:16px}
+  .dsk-sh{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dsk-tx);opacity:.7;margin:12px 12px 4px;white-space:nowrap}
   .dsk-ql{display:flex;flex-direction:column;gap:2px}
-  .dsk-ql button,.dsk-foot button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:var(--dsk-tx);font:800 14px Nunito,system-ui,sans-serif;padding:8px 12px;border-radius:12px;cursor:pointer;text-align:left;white-space:nowrap}
+  .dsk-ql button,.dsk-foot button{display:flex;align-items:center;gap:12px;width:100%;min-height:42px;border:0;background:none;color:var(--dsk-tx);font:800 14px Nunito,system-ui,sans-serif;padding:8px 12px;border-radius:12px;cursor:pointer;text-align:left;white-space:nowrap;overflow:hidden}
   .dsk-ql button span:first-child,.dsk-foot button span:first-child{font-size:19px;width:30px;text-align:center;flex:none}
   .dsk-foot button[hidden]{display:none}
   .dsk-ql button:hover,.dsk-foot button:hover{background:rgba(255,255,255,.08);color:#fff}
   .dsk-foot{margin-top:auto;padding-top:8px;border-top:1px solid var(--dsk-line);display:flex;flex-direction:column;gap:2px}
-  #dskSide :focus-visible,#dskRail :focus-visible{outline:3px solid var(--dsk-acc);outline-offset:2px}
-
-  /* collapsed / tablet: icons only */
+  #dskSide :focus-visible,#dskRail :focus-visible,.dsk-today :focus-visible{outline:3px solid var(--dsk-acc);outline-offset:2px}
   #dskSide .dsk-l{overflow:hidden;text-overflow:ellipsis}
-  html.dsk-col #dskSide .dsk-l,html.dsk-col #dskSide .dsk-sh,html.dsk-col #dskSide nav button::after{display:none}
-  html.dsk-col #dskSide nav button:not([hidden]){font-size:0;justify-content:center;padding:10px 0}
-  html.dsk-col #dskSide nav button b{font-size:24px!important}
-  html.dsk-col #dskSide .dsk-ql button,html.dsk-col #dskSide .dsk-foot button{justify-content:center;padding:8px 0}
-  html.dsk-col #dskSide header .brand{font-size:0;text-align:center}
-  html.dsk-col #dskSide header .brand::before{content:'S';font-size:26px;color:var(--dsk-acc)}
-  html.dsk-col #dskSide header .stats{flex-direction:column;align-items:center}
-  html.dsk-col #dskSide header .pill{font-size:12px;padding:5px 8px;justify-content:center;min-width:56px}
+  /* slim icon bar (labels in tooltips) */
+  #dskSide:not(.open) .dsk-l,#dskSide:not(.open) .dsk-sh{display:none}
+  #dskSide:not(.open) header{grid-template-columns:1fr;justify-items:center}
+  #dskSide:not(.open) header .brand{display:none!important}
+  #dskSide:not(.open) nav button:not([hidden]){font-size:0;justify-content:center;padding:9px 0}
+  #dskSide:not(.open) nav button b{font-size:24px!important}
+  #dskSide:not(.open) .dsk-ql button,#dskSide:not(.open) .dsk-foot button{justify-content:center;padding:8px 0}
+  #dskSide:not(.open) .dsk-ql{border-top:1px solid var(--dsk-line);margin-top:8px;padding-top:8px}
+  #dskSide:not(.open) header .stats{flex-direction:column;align-items:center}
+  #dskSide:not(.open) header .pill{font-size:12px;padding:5px 6px;justify-content:center;min-width:52px}
+  #dskTip{position:fixed;z-index:40;transform:translateY(-50%);background:#0f1433;color:#fff;font:800 13px Nunito,system-ui,sans-serif;padding:6px 10px;border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.35);pointer-events:none;white-space:nowrap;animation:dskFade .12s ease}
+  #dskTip[hidden]{display:none}
+  #dskTip::before{content:'';position:absolute;left:-5px;top:50%;margin-top:-5px;border:5px solid transparent;border-left:0;border-right-color:#0f1433}
 
-  /* focus mode: a single small button brings the rails back */
+  /* focus mode: a single small button brings the menus back */
   #dskFocusX{display:none}
   html.dsk-focus #dskFocusX{display:flex;position:fixed;left:14px;top:14px;z-index:7;align-items:center;gap:8px;border:0;border-radius:999px;padding:8px 14px;
     background:rgba(255,255,255,.14);color:#fff;font:800 13px Nunito,system-ui,sans-serif;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
   html.dsk-focus #dskFocusX:hover{background:rgba(255,255,255,.22)}
+  html.dsk-focus main{padding-top:58px}
 
   /* ---------- sheets become centred dialogs ---------- */
-  html.dsk .sheet{align-items:center;padding:24px}
-  html.dsk .sheet-in{max-width:calc(600px / var(--z));border-radius:24px!important;max-height:calc(88vh / var(--z));overflow-y:auto;animation:dskIn .25s ease;padding-bottom:20px}
+  html.dsk .sheet:not(.od-hub){align-items:center;padding:24px}
+  html.dsk .sheet:not(.od-hub) .sheet-in{max-width:calc(600px / var(--z));border-radius:24px!important;max-height:calc(88vh / var(--z));overflow-y:auto;animation:dskIn .25s ease;padding-bottom:20px}
   html.dsk .sheet-grab{display:none}
   html.dsk .asksheet{align-items:center}
   html.dsk .ask-in{max-width:calc(680px / var(--z));border-radius:24px}
 
-  /* ---------- generic card polish ---------- */
+  /* ---------- generic polish + nothing wider than the window ---------- */
   html.dsk main .card,html.dsk main .tcard,html.dsk main .ca-hub{transition:transform .18s ease,box-shadow .18s ease}
   html.dsk main button.card:hover,html.dsk main .tcard:hover,html.dsk main .ca-hub:hover,html.dsk main .ph-tile:hover,html.dsk main .cxa-tile:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.28)}
   html.dsk main .btn:hover{filter:brightness(1.06)}
   html.dsk main .card p,html.dsk main .card li{max-width:80ch}
+  html.dsk main img,html.dsk main svg,html.dsk main video,html.dsk main canvas{max-width:100%}
+  html.dsk main table{max-width:100%}
+  html.dsk .install{min-width:0;flex-wrap:wrap}
+  html.dsk .install div{min-width:min(180px,100%)}
+  html.dsk .install b,html.dsk .install span{overflow-wrap:anywhere}
+  /* Brain Snacks: a tidy grid instead of a sideways strip (the strip ran off the edge) */
+  html.dsk .gk-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:12px;overflow:visible;margin:0;padding:2px 0 8px;scroll-snap-type:none}
+  html.dsk .gk-row>*{max-width:none;min-width:0;flex:none;width:auto}
+  html.dsk .gkc{max-width:none}
+  html.dsk .ca-quick{flex-wrap:wrap;overflow:visible}
+  html.dsk .ca-quick>*{flex:0 0 auto}
 
-  /* ---------- 2-column card screens (tablet and up) ---------- */
-  html.dsk #s-practice.active,html.dsk #s-play.active .ph-root,html.dsk #s-ca.active>.ca-hubs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;grid-auto-flow:row dense}
-  html.dsk #s-practice.active>*,html.dsk #s-play.active .ph-root>*,html.dsk #s-ca.active>.ca-hubs>*{margin:0!important;min-width:0}
+  /* ---------- card screens: 2 columns ---------- */
+  html.dsk #s-practice.active,html.dsk #s-play.active .ph-root:not(:has(>#phArcHost)),html.dsk #s-ca.active>.ca-hubs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;grid-auto-flow:row dense;grid-template-rows:var(--pzrows,none)}
+  html.dsk #s-practice.active>*,html.dsk #s-play.active .ph-root:not(:has(>#phArcHost))>*,html.dsk #s-ca.active>.ca-hubs>*{margin:0!important;min-width:0}
   html.dsk #s-practice.active>#pBody{grid-column:1/-1}
   html.dsk #s-practice.active>#pBody:not(:empty){order:-1}
   html.dsk #s-practice.active>#pBody:empty{display:none}
+  html.dsk #s-practice.active>:is(.hello,h1,.back,.note,.goalcard,#rwBox){grid-column:1/-1}
   html.dsk #s-play.active .ph-root>.back,html.dsk #s-play.active .ph-root>.hello,html.dsk #s-play.active .ph-root>.ph-friends{grid-column:1/-1}
   html.dsk #s-play.active .ph-root>.back{justify-self:start}
-  html.dsk #s-play.active .ph-root:has(>#phArcHost){display:block;max-width:min(860px,calc((100vh - 110px) / var(--z)));margin:0 auto}
   html.dsk #s-squad.active,html.dsk #s-me.active,html.dsk #s-ca.active:has(>.ca-prof),html.dsk #s-ca.active:has(>.sq-card){columns:2;column-gap:18px}
   html.dsk #s-squad.active>*,html.dsk #s-me.active>*,html.dsk #s-ca.active:has(>.ca-prof)>*,html.dsk #s-ca.active:has(>.sq-card)>*{break-inside:avoid;display:block;width:100%}
   html.dsk #s-squad.active>.note,html.dsk #s-ca.active:has(>.sq-card)>h1,html.dsk #s-squad.active>.sq-hero{column-span:all}
   html.dsk #s-me.active>.mecard,html.dsk #s-ca.active>.ca-prof{display:flex}
   html.dsk #s-me.active>.statrow{display:flex}
 
-  /* ---------- world & subject: map + cards ---------- */
-  html.dsk #s-world.active,html.dsk #s-subject.active{display:grid;grid-template-columns:minmax(0,clamp(280px,22vw,400px)) minmax(0,1fr);column-gap:24px;align-items:start}
+  /* ---------- World & subject: sticky map + cards (the map is only as tall as its picture, at most the window) ---------- */
+  html.dsk #s-world.active,html.dsk #s-subject.active{display:grid;grid-template-columns:minmax(0,clamp(220px,36%,380px)) minmax(0,1fr);column-gap:24px;align-items:start}
   html.dsk #s-world.active>*,html.dsk #s-subject.active>*{grid-column:2;min-width:0}
-  html.dsk #s-world.active>#map,html.dsk #s-subject.active>#cmap{grid-column:1;grid-row:1 / span 40;position:sticky;top:12px;height:calc((100vh - 44px) / var(--z));min-height:420px;margin:0}
+  html.dsk #s-world.active>#map,html.dsk #s-subject.active>#cmap{grid-column:1;grid-row:1 / span 40;position:sticky;top:16px;height:auto;min-height:0;max-height:calc(100vh / var(--z) - 36px);margin:0;align-self:start}
+  html.dsk.dsk-focus #s-world.active>#map,html.dsk.dsk-focus #s-subject.active>#cmap{top:58px;max-height:calc(100vh / var(--z) - 80px)}
   html.dsk #s-subject.active:has(#chList){display:block}
-  html.dsk #s-world.active>.dsk-cards,html.dsk #s-subject.active>.dsk-cards{margin:4px 0 16px}
+  html.dsk #s-world.active>.dsk-cards,html.dsk #s-subject.active>.dsk-cards{margin:4px 0 18px}
   html.dsk #s-subject.active:has(#chList)>.dsk-cards{display:none}
   html.dsk #s-subject.active>.back{justify-self:start}
   html.dsk #chList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   html.dsk #chList .chfilter{grid-column:1/-1}
   html.dsk #chList .chrow{margin:0}
   html.dsk #s-world.active>.hello{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .dsk-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;align-content:start}
-  .dsk-cards>h2{grid-column:1/-1;color:#fff;font-size:20px;margin:2px 2px 0;display:flex;align-items:baseline;gap:10px}
-  .dsk-cards>h2 small{font:700 13px Nunito,system-ui,sans-serif;color:rgba(255,255,255,.65)}
-  .dsk-sc{--c:#ffc93c;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;border:0;cursor:pointer;font:inherit;color:var(--ink);
+  .dsk-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,100%),1fr));gap:14px;align-content:start}
+  .dsk-cards>h2,.dsk-today>h2{grid-column:1/-1;color:#fff;font-size:20px;margin:2px 2px 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .dsk-cards>h2 small,.dsk-today>h2 small{font:700 13px Nunito,system-ui,sans-serif;color:rgba(255,255,255,.65)}
+  .dsk-sc{--c:#ffc93c;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;border:0;cursor:pointer;font:inherit;color:var(--ink);min-width:0;
     background:var(--card);border-radius:22px;padding:16px 16px 14px;box-shadow:0 8px 24px rgba(0,0,0,.18);overflow:hidden;transition:transform .18s ease,box-shadow .18s ease;min-height:150px}
   .dsk-sc::after{content:'';position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--c);opacity:.16;transition:transform .3s ease}
   .dsk-sc:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.3)}
   .dsk-sc:hover::after{transform:scale(1.35)}
   .dsk-sc .dsk-se{font-size:34px;line-height:1;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,#fff);flex:none;transition:transform .25s}
   .dsk-sc:hover .dsk-se{transform:rotate(-8deg) scale(1.08)}
-  .dsk-sc b{font-family:'Baloo 2',var(--sv-head,system-ui);font-size:18px;line-height:1.15}
-  .dsk-sc small{color:var(--muted);font-weight:700;font-size:13px;line-height:1.3}
+  .dsk-sc b{font-family:'Baloo 2',var(--sv-head,system-ui);font-size:18px;line-height:1.15;max-width:100%;overflow-wrap:anywhere}
+  .dsk-sc small{color:var(--muted);font-weight:700;font-size:13px;line-height:1.3;max-width:100%;overflow-wrap:anywhere}
   .dsk-sc .dsk-bar{width:100%;height:8px;border-radius:9px;background:rgba(0,0,0,.08);overflow:hidden;margin-top:auto}
   .dsk-sc .dsk-bar i{display:block;height:100%;border-radius:9px;background:var(--c)}
   .dsk-sc .dsk-pc{position:absolute;right:14px;top:14px;font:800 13px Nunito,system-ui,sans-serif;color:var(--muted);z-index:1}
@@ -129,6 +163,11 @@
   .dsk-sc.soon{opacity:.6;cursor:default}
   .dsk-sc .dsk-tagc{font:800 11px Nunito,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--violet)}
   .dsk-sc .dsk-st{font-size:13px;letter-spacing:1px}
+  /* Today cards in the World screen when there is no right panel (<1280px) */
+  .dsk-today{margin:0 0 18px}
+  .dsk-today>h2{margin-bottom:10px}
+  .dsk-tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(210px,100%),1fr));gap:12px;align-items:stretch}
+  .dsk-tgrid>.dsk-rc{height:auto;min-width:0}
 
   /* ---------- chapter: topic list + preview ---------- */
   #dskChGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
@@ -155,40 +194,90 @@
   html.dsk #s-topic.active{max-width:1120px;margin:0 auto}
   html.dsk #s-topic .tbar{max-width:1120px;margin-left:auto;margin-right:auto}
   html.dsk #stepBody>.card.game,html.dsk #stepBody>.done-card,html.dsk #stepBody>.card:has(#ans){max-width:820px;margin-left:auto;margin-right:auto}
-
   html.dsk #s-chapter.active:has(.sty-scene){max-width:920px;margin-left:auto;margin-right:auto}
-  /* ---------- runners in Practice / Play / Puzzles keep a readable width ---------- */
+  html.dsk #s-topic.active :is(.point,.why,.bubble,.exq,.exstep){max-width:72ch}
+
+  /* ---------- play screens: the game owns the window ---------- */
   html.dsk #s-play.active>:not(.ph-root),html.dsk #s-cxa.active,html.dsk #s-gk.active,html.dsk #s-boss.active,html.dsk #s-cards.active{max-width:1000px;margin-left:auto;margin-right:auto}
   html.dsk #s-live.active{max-width:1100px;margin-left:auto;margin-right:auto}
-  html.dsk #s-puz.active{max-width:1200px;margin-left:auto;margin-right:auto}
+  html.dsk #s-puz.active{max-width:1240px;margin-left:auto;margin-right:auto}
+  /* arcade: "← Play" sits on the same line as the game's own bar */
+  html.dsk #s-play.active .ph-root:has(>#phArcHost){display:block;position:relative;max-width:900px;margin:0 auto}
+  html.dsk #s-play.active .ph-root:has(>#phArcHost)>#phBack2{position:absolute;left:0;top:0;margin:0;z-index:2}
+  html.dsk #s-play.active .ph-root:has(>#phArcHost) .arc-bar,html.dsk #s-play.active .ph-root:has(>#phArcHost) .arc-menu>.arc-hdr:first-child{margin-left:96px}
+  html.dsk #s-play.active .ph-root:has(>#phArcHost) .arc-bar{min-height:44px;margin-top:0;margin-bottom:10px}
+  html.dsk #s-play.active .ph-root:has(>#phArcHost)>#phArcHost>.card:first-child:not(.arc-hdr){margin-top:54px}
+  html.dsk .arc-stage{container-type:inline-size}
+  /* Memory Flip: the card grid is sized by the window height */
+  html.dsk .arc-mgrid{height:min(calc(var(--dsk-vh) - 210px),calc(100cqw * .78));min-height:300px;grid-auto-rows:1fr;max-width:100%}
+  html.dsk .arc-mgrid .arc-mc{aspect-ratio:auto;height:auto;min-height:0}
+  /* Boss Battle / Quiz Show / Lightning: compact answers so the question fits */
+  html.dsk .arc-game .arc-opt{min-height:48px}
+  html.dsk .arc-bossar{min-height:0}
 
-  /* ---------- dashboards ---------- */
+  /* ---------- Snakes & Ladders (solo .arc-stage and live .lv-play): the whole board, always ---------- */
+  html.dsk .sl-zoom{display:none}
+  html.dsk .sl-wrap{max-height:none;overflow:hidden;height:auto!important}
+  html.dsk .sl-board.big{width:100%}
+  html.dsk .sl-host,html.dsk .lv-slhost{margin:0 auto 10px;width:min(100%,calc(var(--dsk-vh) - 470px));min-width:min(100%,300px)}
+  html.dsk #s-play.active .ph-root:has(.arc-g-snakes){max-width:1240px}
+  /* puzzle grids: as big as the window allows (rows × columns come from js/desktop.js) */
+  html.dsk #s-puz #pzGrid{--fitw:calc((var(--dsk-vh) - 150px) * var(--dc,1) / var(--dr,1))}
+  html.dsk #s-puz .pz-sgrid{width:min(100%,var(--fitw),calc(var(--n) * 62px))}
+  html.dsk #s-puz .pz-xgrid{width:min(100%,var(--fitw),calc(var(--w) * 46px))}
+  html.dsk #s-puz .pz-kgrid{width:min(100%,var(--fitw),calc(var(--w) * 60px))}
+  html.dsk #s-puz .pz-wgrid{width:min(100%,var(--fitw),calc(var(--n) * 50px))}
+  html.dsk #s-puz .pz-s .pz-v,html.dsk #s-puz .pz-k1 .pz-v{font-size:clamp(18px,2.4vw,30px)}
+  html.dsk #s-live.active:has(.lv-play[data-game=snakes]){max-width:1240px}
+  html.dsk .lv-play[data-game=snakes]{container-type:inline-size}
+
+  /* ---------- Parent Hub / teacher / school dashboards (pv-hub overlays) ---------- */
+  html.dsk .pv-hub:not(.od-hub) .pv-wrap{max-width:1180px;padding-left:24px;padding-right:24px}
+  html.dsk .pv-hub:not(.od-hub) .pv-top{margin:0 -24px;padding:12px 24px}
+
+  /* ---------- dashboards / CA ---------- */
   html.dsk #s-insights.active{max-width:1200px;margin:0 auto}
-
-  /* ---------- CA screens ---------- */
   html.dsk #s-ca.active>.ca-row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   html.dsk #s-ca.active>.ca-row2>.card{margin:0}
   html.dsk #s-ca.active>.ca-hubs>#rwBoss{grid-column:1/-1}
   html.dsk .ca-hub>.ca-chev{flex:none}
   html.dsk #s-ca.active :is(.ca-p,.ca-ul li,.ca-concept p,.ca-work p,.ca-analogy p){max-width:70ch}
-  html.dsk #s-topic.active :is(.point,.why,.bubble,.exq,.exstep){max-width:72ch}
+}
 
-  /* ---------- Parent Hub / teacher / school / owner dashboards (pv-hub overlays) ---------- */
-  html.dsk .pv-hub .pv-wrap{max-width:1180px;padding-left:24px;padding-right:24px}
-  html.dsk .pv-hub .pv-top{margin:0 -24px;padding:12px 24px}
+/* ================= landscape windows: boards on the left, dice / question / log on the right ================= */
+@media (min-width:768px) and (orientation:landscape){
+  /* solo Snakes & Ladders */
+  html.dsk .arc-stage:has(>.sl-host){display:grid;grid-template-columns:auto minmax(280px,1fr);column-gap:20px;align-items:start;align-content:start}
+  html.dsk .arc-stage:has(>.sl-host)>*{grid-column:2;min-width:0;margin-left:0;margin-right:0}
+  html.dsk .arc-stage:has(>.sl-host)>.sl-host{grid-column:1;grid-row:1 / span 12;margin:0;width:min(calc(var(--dsk-vh) - 100px),calc(100cqw - 320px));min-width:300px}
+  html.dsk .arc-stage:has(>.sl-host)>.arc-slhd{margin:0 0 10px}
+  html.dsk .arc-stage:has(>.sl-host)>.arc-slog{text-align:left;margin:8px 2px;min-height:0}
+  html.dsk .arc-stage:has(>.sl-host)>.sl-rule{text-align:left;margin:0 2px 10px}
+  html.dsk .arc-stage:has(>.sl-host)>.arc-slq{margin:0;padding:12px 14px}
+  html.dsk .arc-stage:has(>.sl-host) .arc-sltitle{font-size:16px;margin-bottom:4px}
+  html.dsk .arc-stage:has(>.sl-host) .arc-qt{font-size:16px}
+  html.dsk .arc-stage:has(>.arc-slq:not([style*="none"]))>.sl-rule{display:none}
+  html.dsk .arc-slq .arc-opt,html.dsk .lv-slq .lv-opt{min-height:42px;padding-top:6px;padding-bottom:6px;margin-bottom:6px}
+  html.dsk .arc-slq .arc-exp,html.dsk .lv-slq .lv-exp{margin-top:8px}
+  /* live Snakes Battle */
+  html.dsk .lv-play[data-game=snakes]{display:grid;grid-template-columns:auto minmax(280px,1fr);column-gap:20px;align-items:start;align-content:start}
+  html.dsk .lv-play[data-game=snakes]>*{grid-column:2;min-width:0}
+  html.dsk .lv-play[data-game=snakes]>.lv-top{grid-column:1/-1}
+  html.dsk .lv-play[data-game=snakes]>.lv-stage{display:contents}
+  html.dsk .lv-play[data-game=snakes] .lv-stage>*{grid-column:2;min-width:0}
+  html.dsk .lv-play[data-game=snakes] .lv-stage>.lv-slhost{grid-column:1;grid-row:2 / span 12;margin:0;width:min(calc(var(--dsk-vh) - 110px),calc(100cqw - 320px));min-width:300px}
+  html.dsk .lv-play[data-game=snakes] .lv-slog{text-align:left}
+  html.dsk .lv-play[data-game=snakes] .sl-rule{text-align:left}
+  html.dsk .lv-play[data-game=snakes]:has(.lv-slq:not(:empty)) .sl-rule{display:none}
+  /* Boss Battle: the boss beside the question */
+  html.dsk .arc-stage:has(>.arc-bossar){display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:18px;align-items:start}
+  html.dsk .arc-stage:has(>.arc-bossar)>.arc-bossar{position:sticky;top:12px;margin:0;min-height:300px;display:flex;flex-direction:column;justify-content:center}
+  html.dsk .arc-stage:has(>.arc-bossar)>.arc-qcard{margin:0}
+  html.dsk #s-play.active .ph-root:has(.arc-g-boss){max-width:1100px}
 }
 
 /* ================= desktop ≥ 1024 ================= */
 @media (min-width:1024px){
-  :root{--dsk-side:204px}
-  html.dsk-col{--dsk-side:84px}
-  html.dsk.dsk-ob,html.dsk.dsk-focus{--dsk-side:0px}
-  html.dsk main{padding:22px 24px 48px}
-
-  /* practice / play: three columns on wide screens */
-  html.dsk #s-practice.active>.goalcard{grid-column:1/-1}
-  html.dsk #s-practice.active>#rwBox{grid-column:1/-1}
-
   /* topic: learn step = lab beside the ideas */
   html.dsk #stepBody:has(>.labcard){display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
   html.dsk #stepBody:has(>.labcard)>*{grid-column:1/-1;margin:0}
@@ -213,13 +302,22 @@
   html.dsk .card:has(>#qo) .opt:not([disabled]):hover{border-color:var(--violet);transform:translateX(3px)}
   html.dsk .card:has(>#qo) .opt{transition:transform .12s,border-color .12s}
 
-  /* puzzles: big grid, clues beside it */
-  html.dsk #s-puz .pz-root:has(>.pz-gridwrap){display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);column-gap:22px;row-gap:12px;align-items:start}
-  html.dsk #s-puz .pz-root:has(>.pz-gridwrap)>*{grid-column:2;margin:0;min-width:0}
-  html.dsk #s-puz .pz-root:has(>.pz-gridwrap)>:is(.pz-live,.pz-bar,.pz-sub,.pz-cluebar,.pz-story,.note){grid-column:1/-1}
-  html.dsk #s-puz .pz-root:has(>.pz-gridwrap)>.pz-gridwrap{grid-column:1;grid-row:span 4;position:sticky;top:12px}
-  html.dsk #s-puz .pz-root:has(>.pz-gridwrap)>.pz-clues{max-height:calc((100vh - 360px) / var(--z));min-height:200px;overflow-y:auto}
+  /* Quiz Show: ladder as a column beside the question */
+  html.dsk .arc-stage:has(>.arc-ladder){display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;align-items:start}
+  html.dsk .arc-stage:has(>.arc-ladder)>.arc-ladder{grid-template-columns:1fr;grid-auto-flow:row;display:flex;flex-direction:column-reverse;gap:5px;margin:0;position:sticky;top:12px}
+  html.dsk .arc-stage:has(>.arc-ladder)>.arc-ladder span{height:auto;min-height:34px;font-size:13px}
+  html.dsk .arc-stage:has(>.arc-ladder)>.arc-ladder span::after{content:attr(title);margin-left:6px;font-size:11px;opacity:.8}
+  html.dsk .arc-stage:has(>.arc-ladder)>.arc-ladder span.now{transform:scale(1.06)}
+  html.dsk .arc-stage:has(>.arc-ladder)>.arc-show{margin:0}
 
+  /* puzzles: the grid (sized by the window height) beside clues / keys */
+  html.dsk #s-puz .pz-root:has(>.dsk-pzside){display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,1fr);column-gap:22px;row-gap:10px;align-items:start}
+  html.dsk #s-puz .pz-root:has(>.dsk-pzside)>*{grid-column:1/-1;margin-left:0;margin-right:0;min-width:0}
+  html.dsk #s-puz .pz-root>.pz-gridwrap:has(+.dsk-pzside){grid-column:1;position:sticky;top:12px;overflow:visible;margin:0}
+  html.dsk #s-puz .pz-root>.dsk-pzside{grid-column:2;display:flex;flex-direction:column;gap:10px;min-width:0}
+  html.dsk #s-puz .dsk-pzside>*{margin:0}
+  html.dsk #s-puz .pz-root:has(>.pz-anc){max-width:820px;margin-left:auto;margin-right:auto}
+  html.dsk #s-puz .dsk-pzside>.pz-clues{max-height:max(180px,calc(var(--dsk-vh) - 470px));overflow-y:auto}
   /* dashboards side by side */
   html.dsk #s-insights.active:has(>.ins-dashhost){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:18px;align-items:start}
   html.dsk #s-insights.active:has(>.ins-dashhost)>*{grid-column:1/-1;margin:0}
@@ -229,27 +327,29 @@
   html.dsk #s-ca.active:has(>#cdHost)>*{grid-column:1/-1;margin:0}
   html.dsk #s-ca.active>#cdHost{grid-column:1;grid-row:1 / span 6}
   html.dsk #s-ca.active:has(>#cdHost)>#exCard{grid-column:2;position:sticky;top:12px}
-
-
-  /* parent / teacher hubs: three columns on wide screens */
-  html.dsk .pv-hub .pv-body{columns:2}
+  html.dsk .pv-hub:not(.od-hub) .pv-body{columns:2}
 }
 @media (min-width:1500px){
   html.dsk #s-ca.active>.ca-hubs{grid-template-columns:repeat(3,minmax(0,1fr))}
-  html.dsk #s-practice.active,html.dsk #s-play.active .ph-root{grid-template-columns:repeat(3,minmax(0,1fr))}
+  html.dsk #s-practice.active,html.dsk #s-play.active .ph-root:not(:has(>#phArcHost)){grid-template-columns:repeat(3,minmax(0,1fr))}
   html.dsk #s-me.active,html.dsk #s-ca.active:has(>.ca-prof){columns:3}
-  html.dsk .pv-hub .pv-wrap{max-width:1400px}
-  html.dsk .pv-hub .pv-body{columns:3}
+  html.dsk .pv-hub:not(.od-hub) .pv-wrap{max-width:1400px}
+  html.dsk .pv-hub:not(.od-hub) .pv-body{columns:3}
 }
 
-/* ================= right rail ≥ 1280 ================= */
+/* ================= right panel "Today" ≥ 1280 (home screens only; play screens hide it) ================= */
 #dskRail{display:none}
 @media (min-width:1280px){
-  html.dsk:not(.dsk-ob):not(.dsk-focus):not(.dsk-norail){--dsk-rail:290px}
+  html.dsk:not(.dsk-ob):not(.dsk-focus):not(.dsk-norail){--dsk-rail:300px}
   html.dsk:not(.dsk-ob):not(.dsk-focus):not(.dsk-norail) #dskRail{display:flex}
+}
+@media (min-width:1536px){
+  html.dsk:not(.dsk-ob):not(.dsk-focus):not(.dsk-norail){--dsk-rail:340px}
+  html.dsk main{--dsk-pad:32px}
 }
 #dskRail{position:fixed;right:0;top:0;bottom:0;width:var(--dsk-rail,330px);z-index:6;flex-direction:column;gap:12px;padding:16px 16px 20px;overflow-y:auto;scrollbar-width:thin;
   background:var(--dsk-panel,rgba(255,255,255,.06));border-left:1px solid var(--dsk-line,rgba(255,255,255,.1));-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);font-size:14px;color:var(--ink)}
+
 .dsk-rh{display:flex;align-items:center;gap:10px;color:#fff;padding:2px 4px}
 .dsk-rh b{font-family:'Baloo 2',var(--sv-head,system-ui);font-size:20px;line-height:1}
 .dsk-rh small{display:block;font-weight:700;font-size:12px;color:var(--dsk-tx,rgba(255,255,255,.7))}
@@ -303,11 +403,8 @@ html[data-age=pro]:not(.sv-hc) .dsk-tb button.pri{background:#15161C;border-colo
 html[data-age=pro]:not(.sv-hc) .dsk-ring .fg{stroke:#C9A76A}
 html[data-age=pro]:not(.sv-hc) .dsk-days{color:#8A6A2E}
 
-@media (min-width:1440px){
-  html.dsk:not(.dsk-ob):not(.dsk-focus):not(.dsk-norail){--dsk-rail:330px}
-  :root{--dsk-side:244px}
-  html.dsk main{padding:22px 32px 48px}
-}
+.dsk-today .dsk-rc{box-shadow:0 6px 18px rgba(0,0,0,.14)}
+html[data-age=pro]:not(.sv-hc) #dskTip{background:#15161C;color:#F4EAD8}
 /* keyboard help */
 .dsk-keys{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:14.5px}
 .dsk-keys td{padding:7px 4px;border-bottom:1px solid #eef0fb;font-weight:700}
@@ -328,3 +425,7 @@ html.sv-hc .dsk-sc,html.sv-hc .dsk-rc{border:2px solid #000}
   html.dsk main button.card:hover,.dsk-sc:hover,button.dsk-rc:hover{transform:none}
 }
 html.sv-rm #dskSide *,html.sv-rm #dskRail *,html.sv-rm .dsk-cards>.dsk-sc,html.sv-rm #dskRail>*{animation:none!important;transition:none!important}
+@keyframes dskFade{from{opacity:0}to{opacity:1}}
+html.sv-hc #dskTip{background:#000;border:2px solid #fff}
+html.sv-rm #dskSide,html.sv-rm #dskScrim,html.sv-rm #dskTip{transition:none!important;animation:none!important}
+@media (prefers-reduced-motion:reduce){#dskSide,#dskScrim,#dskTip,html.dsk body{transition:none!important;animation:none!important}}

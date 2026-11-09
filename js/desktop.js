@@ -10,10 +10,15 @@
      beside the chapter's topic list.
    • Keys: 1–5 / Alt+1–5 tabs (plain digits only when the screen has no numbered choices — js/a11y.js uses digits to
      answer), A–D answer, / search, F focus mode, [ collapse sidebar, K key list. js/a11y.js keeps Enter, Esc, R, H, P.
-   Local settings only (never synced): localStorage sv_dsk = { col, focus, notes:{topicId:text}, fm:{day:minutes} }. */
+   • Games, puzzles, live rooms, the boss and topics (below 1536px) hide the Today panel so the playing area gets the room
+     (html.dsk-play / html.dsk-norail); css/desktop.css sizes boards and grids by the window height so they fit without scrolling.
+   • Below 1280px (no right panel) the World screen shows the same Today cards in a grid under the subjects.
+   Local settings only (never synced): localStorage sv_dsk = { side ('open'|'closed', ≥1200), sideN (drawer, <1200), focus,
+   notes:{topicId:text}, fm:{day:minutes} }. */
 (function () {
   const D = document, R = D.documentElement;
   const MQ = matchMedia('(min-width:768px)'), MQW = matchMedia('(min-width:1024px)'), MQR = matchMedia('(min-width:1280px)');
+  const MQX = matchMedia('(min-width:1200px)'), MQT = matchMedia('(min-width:1536px)');   // ≥1200: the open menu pushes the page; below it is a drawer
   const $1 = (s, r) => (r || D).querySelector(s), $$ = (s, r) => [...(r || D).querySelectorAll(s)];
   const E = s => (typeof esc === 'function' ? esc(String(s == null ? '' : s)) : String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])));
   const st = () => (typeof ST !== 'undefined' ? ST : null);
@@ -24,6 +29,7 @@
   const tdy = () => (typeof today === 'function' ? today() : new Date().toISOString().slice(0, 10));
   const tap = k => { try { sfx(k || 'tap'); } catch (e) {} };
   const L = (() => { let o = {}; try { o = JSON.parse(localStorage.getItem('sv_dsk') || '{}') || {}; } catch (e) {} o.notes = o.notes || {}; o.fm = o.fm || {}; return o; })();
+  if (L.col && !L.side) { L.side = 'closed'; } delete L.col;      // v58 setting → v59
   const saveL = () => { try { localStorage.setItem('sv_dsk', JSON.stringify(L)); } catch (e) {} };
   const act = () => { const s = $1('.screen.active'); return s ? s.id.slice(2) : ''; };
 
@@ -37,10 +43,15 @@
     const side = D.createElement('aside'); side.id = 'dskSide'; side.setAttribute('aria-label', 'StudyVerse menu');
     side.innerHTML = `<div class="dsk-sh" id="dskNavH">Go to</div><div class="dsk-sh" id="dskQlH">Quick start</div><div class="dsk-ql" id="dskQl" role="group" aria-labelledby="dskQlH"></div>
       <div class="dsk-foot"><button type="button" id="dskKeysB" aria-haspopup="dialog"><span aria-hidden="true">⌨️</span><span class="dsk-l">Keyboard keys</span></button>
-      <button type="button" id="dskFocusB" aria-pressed="false"><span aria-hidden="true">🎧</span><span class="dsk-l">Focus mode</span></button>
-      <button type="button" id="dskColB" aria-pressed="false"><span aria-hidden="true">⇤</span><span class="dsk-l">Collapse menu</span></button></div>`;
+      <button type="button" id="dskFocusB" aria-pressed="false"><span aria-hidden="true">🎧</span><span class="dsk-l">Focus mode</span></button></div>`;
     side.prepend(hdr); $1('#dskNavH', side).after(nav);
+    const tg = D.createElement('button'); tg.type = 'button'; tg.id = 'dskTgl'; tg.setAttribute('aria-controls', 'dskSide'); tg.className = 'dsk-only';
+    hdr.prepend(tg); tg.onclick = () => toggleSide();
     D.body.prepend(side);
+    const scrim = D.createElement('div'); scrim.id = 'dskScrim'; scrim.setAttribute('aria-hidden', 'true'); scrim.onclick = () => toggleSide(false); D.body.appendChild(scrim);
+    const tip = D.createElement('div'); tip.id = 'dskTip'; tip.setAttribute('role', 'tooltip'); tip.hidden = true; D.body.appendChild(tip);
+    wireTips(side);
+    side.addEventListener('click', e => { const b = e.target.closest('nav button, .dsk-ql button'); if (b && R.classList.contains('dsk-drawer')) setTimeout(() => toggleSide(false, true), 0); });
     const rail = D.createElement('aside'); rail.id = 'dskRail'; rail.setAttribute('aria-label', 'Today');
     D.body.appendChild(rail);
     const fx = D.createElement('button'); fx.type = 'button'; fx.id = 'dskFocusX'; fx.innerHTML = '<span aria-hidden="true">↩</span> Show menus'; fx.onclick = () => setFocus(false);
@@ -48,7 +59,6 @@
     const brand = $1('.brand', hdr); if (brand) { brand.setAttribute('role', 'link'); brand.tabIndex = 0; brand.title = 'Home'; brand.onclick = goHome; brand.onkeydown = e => { if (e.key === 'Enter') goHome(); }; }
     $1('#dskKeysB').onclick = keysHelp;
     $1('#dskFocusB').onclick = () => setFocus(!R.classList.contains('dsk-focus'));
-    $1('#dskColB').onclick = () => { L.col = !L.col; saveL(); applyCol(); };
     R.classList.add('dsk'); applyCol(); setFocus(!!L.focus, true);
     labelNav(); quick(); obState(); refresh(); enhance();
   }
@@ -57,17 +67,53 @@
     const hdr = $1('#dskSide header'), nav = $1('#dskSide nav');
     if (hdr && home) home.hdr[0].insertBefore(hdr, home.hdr[1] && home.hdr[1].parentNode === home.hdr[0] ? home.hdr[1] : home.hdr[0].firstChild);
     if (nav && home) home.nav[0].insertBefore(nav, home.nav[1] && home.nav[1].parentNode === home.nav[0] ? home.nav[1] : null);
-    ['#dskSide', '#dskRail', '#dskFocusX'].forEach(s => { const e = $1(s); if (e) e.remove(); });
-    unwrapChapter(); $$('.dsk-only').forEach(e => e.remove());
+    ['#dskSide', '#dskRail', '#dskFocusX', '#dskScrim', '#dskTip', '#dskTgl', '#dskToday'].forEach(s => { const e = $1(s); if (e) e.remove(); });
+    unwrapChapter(); $$('.dsk-pzside').forEach(unwrapPz); $$('.dsk-only').forEach(e => e.remove());
     $$('nav button[aria-keyshortcuts]').forEach(e => e.removeAttribute('aria-keyshortcuts'));
-    R.classList.remove('dsk', 'dsk-col', 'dsk-focus', 'dsk-ob');
+    R.classList.remove('dsk', 'dsk-col', 'dsk-focus', 'dsk-ob', 'dsk-drawer', 'dsk-play', 'dsk-norail', 'dsk-wide');
     const b = $1('.brand'); if (b) { b.removeAttribute('role'); b.removeAttribute('tabindex'); b.removeAttribute('title'); b.onclick = null; b.onkeydown = null; }
   }
+  /* The menu: ☰ opens it, « closes it, at every width ≥768. Wide (≥1200): the open menu pushes the page (choice remembered, open by
+     default). Narrower: the menu is a slim icon bar and opens as a drawer over the page (choice remembered; it closes again after you
+     pick a place, with Esc or a tap outside). Collapsed icons show their name in a tooltip. */
+  const sideOpen = () => (MQX.matches ? L.side !== 'closed' : L.sideN === 'open');
+  function toggleSide(on, quiet) {
+    const open = on == null ? !sideOpen() : !!on;
+    if (MQX.matches) L.side = open ? 'open' : 'closed'; else L.sideN = open ? 'open' : 'closed';
+    saveL(); applyCol(); if (!quiet) tap('tap');
+    if (open && !MQX.matches) { const f = $1('#dskSide nav button.on') || $1('#dskSide nav button'); if (f && !quiet) f.focus({ preventScroll: true }); }
+    else if (!open && !quiet) { const t = $1('#dskTgl'); if (t) t.focus({ preventScroll: true }); }
+  }
   function applyCol() {
-    const col = !MQW.matches || !!L.col;               // tablets: icons only
-    R.classList.toggle('dsk-col', col);
-    const b = $1('#dskColB'); if (b) { b.setAttribute('aria-pressed', String(!!L.col)); b.hidden = !MQW.matches; b.innerHTML = `<span aria-hidden="true">${L.col ? '⇥' : '⇤'}</span><span class="dsk-l">${L.col ? 'Expand menu' : 'Collapse menu'}</span>`; b.title = L.col ? 'Expand menu ( [ )' : 'Collapse menu ( [ )'; }
-    $$('#dskSide nav button, #dskSide .dsk-ql button, #dskSide .dsk-foot button').forEach(x => { const t = (x.querySelector('.dsk-l') || x).textContent.trim(); if (col && t) x.title = x.title || t; });
+    const open = sideOpen(), wide = MQX.matches;
+    R.classList.toggle('dsk-wide', wide);
+    R.classList.toggle('dsk-col', !(wide && open));          // page layout: slim icon bar
+    R.classList.toggle('dsk-drawer', !wide && open);        // drawer over the page
+    const side = $1('#dskSide'); if (side) side.classList.toggle('open', open);
+    const b = $1('#dskTgl');
+    if (b) { b.setAttribute('aria-expanded', String(open)); b.innerHTML = `<span aria-hidden="true">${open ? '«' : '☰'}</span>`;
+      b.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); b.dataset.tip = open ? 'Close menu  [' : 'Open menu  ['; }
+    hideTip();
+  }
+  /* tooltips for the icon bar (a real element, so the scrolling menu cannot clip it) */
+  let tipT = 0;
+  const tipText = x => { if (x.dataset.tip) return x.dataset.tip; const l = x.querySelector('.dsk-l'); if (l) return l.textContent.trim();
+    const own = [...x.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join('').trim();   // nav tab: "<b>🦁</b>Squad"
+    return (own || x.getAttribute('aria-label') || x.title || x.textContent).replace(/\s+/g, ' ').trim(); };
+  function showTip(x) {
+    const tip = $1('#dskTip'); if (!tip || !x) return;
+    if ($1('#dskSide').classList.contains('open')) return hideTip();   // labels are showing
+    const t = tipText(x); if (!t) return hideTip();
+    tip.textContent = t; tip.hidden = false; const r = x.getBoundingClientRect();
+    tip.style.left = Math.round(r.right + 10) + 'px'; tip.style.top = Math.round(r.top + r.height / 2) + 'px';
+  }
+  function hideTip() { clearTimeout(tipT); const t = $1('#dskTip'); if (t) t.hidden = true; }
+  function wireTips(side) {
+    side.addEventListener('mouseover', e => { const x = e.target.closest('button, .brand'); clearTimeout(tipT); if (x) tipT = setTimeout(() => showTip(x), 250); else hideTip(); });
+    side.addEventListener('mouseleave', hideTip);
+    side.addEventListener('focusin', e => { const x = e.target.closest('button'); if (x && x.matches(':focus-visible')) showTip(x); });
+    side.addEventListener('focusout', hideTip);
+    side.addEventListener('scroll', hideTip, { passive: true });
   }
   function setFocus(on, silent) {
     L.focus = !!on; saveL(); R.classList.toggle('dsk-focus', !!on);
@@ -133,7 +179,10 @@
     return null;
   }
   async function paintRail() {
-    const rail = $1('#dskRail'); if (!rail || !MQR.matches || !prof() || isParent()) return;
+    const rail = $1('#dskRail'); if (!rail || !prof() || isParent()) return;
+    const inline = !MQR.matches;
+    if (inline && (act() !== 'world' || isCA())) { const t = $1('#dskToday'); if (t) t.remove(); return; }
+    if (!inline) { const t = $1('#dskToday'); if (t) t.remove(); }
     if (railBusy) { railAgain = true; return; } railBusy = true;
     try {
       const s = st(), p = prof(), ca = isCA(), out = [];
@@ -181,6 +230,7 @@
       out.push(`<div class="dsk-rc dsk-mot" aria-live="off"><span class="dsk-k2" id="dskMotK"></span><p id="dskMotT"></p></div>`);
       const keep = D.activeElement && rail.contains(D.activeElement) ? D.activeElement.id || (D.activeElement.dataset && D.activeElement.dataset.go) : null;
       if (keep === 'dskNote') { /* never re-render while typing notes */ railBusy = false; return; }
+      if (inline) { paintToday(out.filter(x => !/class="dsk-rh"|dsk-notes|id="dskTimer"|dsk-mot/.test(x)), dt); return; }
       rail.innerHTML = out.join('');
       if (!rail.dataset.done) { rail.dataset.done = 1; rail.classList.add('dsk-first'); setTimeout(() => rail.classList.remove('dsk-first'), 900); }
       wireRail(rail); mot(true); paintTimer();
@@ -188,8 +238,18 @@
     } catch (e) { /* rail is optional */ }
     finally { railBusy = false; if (railAgain) { railAgain = false; refresh(); } }
   }
+  /* below 1280px: the Today cards sit in the World screen, under the subject cards */
+  function paintToday(cards, dt) {
+    const scr = $1('#s-world'); if (!scr || !scr.classList.contains('active')) return;
+    let el = $1('#dskToday');
+    if (!el) { el = D.createElement('section'); el.id = 'dskToday'; el.className = 'dsk-today dsk-only'; el.setAttribute('aria-labelledby', 'dskTodayH'); }
+    const anchor = $1(':scope > #dskSubj', scr) || $1(':scope > .hud', scr);
+    if (anchor && el.previousElementSibling !== anchor) anchor.after(el); else if (!anchor && !el.isConnected) scr.appendChild(el);
+    const html = `<h2 id="dskTodayH">Today <small>${E(dt.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' }))}</small></h2><div class="dsk-tgrid">${cards.join('')}</div>`;
+    if (el.dataset.h !== html) { el.dataset.h = html; el.innerHTML = html; wireRail(el); }
+  }
   function wireRail(rail) {
-    $1('#dskRailX', rail).onclick = () => setFocus(true);
+    const rx = $1('#dskRailX', rail); if (rx) rx.onclick = () => setFocus(true);
     $$('[data-go]', rail).forEach(b => b.onclick = async () => {
       tap('open'); const k = b.dataset.go;
       try {
@@ -266,7 +326,7 @@
   let eT = 0, enhancing = false;
   function enhance() { clearTimeout(eT); eT = setTimeout(doEnhance, 60); }
   async function doEnhance() {
-    if (!built || !MQ.matches || enhancing || !prof()) return; enhancing = true;
+    if (!built || !MQ.matches || enhancing || !prof()) return; modes(); gridShape(); enhancing = true;
     try {
       const a = act();
       if (a === 'world' && !isCA()) await worldCards();
@@ -274,6 +334,24 @@
       if (a === 'chapter' && MQW.matches) await chapterPreview();
     } catch (e) {} finally { enhancing = false; }
   }
+  /* puzzle grids: rows × columns as CSS variables, so css/desktop.css can size the grid by the window height */
+  function gridShape() {
+    $$('#s-puz #pzGrid, #s-live #pzGrid').forEach(g => { const rows = $$(':scope > .pz-row, :scope > [role=row]', g); if (!rows.length) return;
+      const dr = rows.length, dc = rows[0].children.length || 1;
+      if (g.style.getPropertyValue('--dr') !== String(dr)) g.style.setProperty('--dr', dr);
+      if (g.style.getPropertyValue('--dc') !== String(dc)) g.style.setProperty('--dc', dc); });
+    /* ≥1024: the grid sits on the left; the clue bar, tools, keys and clue list go into one column on the right
+       (.dsk-pzside), so the page is exactly as tall as the taller of the two */
+    $$('#s-puz .pz-root').forEach(root => {
+      const gw = $1(':scope > .pz-gridwrap', root); let side = $1(':scope > .dsk-pzside', root);
+      if (!gw || !MQW.matches) { if (side) unwrapPz(side); return; }
+      if (!side) { side = D.createElement('div'); side.className = 'dsk-pzside dsk-only'; gw.after(side); }
+      else if (side.previousElementSibling !== gw) gw.after(side);
+      [...root.children].forEach(c => { if (c === gw || c === side || c.matches('.pz-bar, .pz-sub, .pz-live, .note, .back')) return;   // clue bar, tools, keys, clues…
+        side.appendChild(c); });
+    });
+  }
+  function unwrapPz(side) { [...side.children].forEach(c => side.before(c)); side.remove(); }
   async function worldCards() {
     const scr = $1('#s-world'), map = $1('#map'); if (!scr || !map || !map.querySelector('svg')) return;
     const g = prof().grade, subs = curSubjects(g); if (!subs.length) return;
@@ -357,6 +435,7 @@
     if (go()) return; goHome(); let n = 0; const t = setInterval(() => { if (go() || ++n > 20) clearInterval(t); }, 150);
   }
   D.addEventListener('keydown', e => {
+    if (built && e.key === 'Escape' && R.classList.contains('dsk-drawer')) { e.preventDefault(); toggleSide(false); return; }
     if (!built || e.ctrlKey || e.metaKey) return;
     const a = D.activeElement; if (typing(a)) return;
     if ($1('.sheet.show, .asksheet.show, .pv-hub.show') && !(e.key === 'k' && $1('#dskKeys.show'))) return;
@@ -375,12 +454,20 @@
     }
     if (k === '/') { e.preventDefault(); search(); }
     else if ((k === 'f' || k === 'F') && !e.repeat) { e.preventDefault(); setFocus(!R.classList.contains('dsk-focus')); }
-    else if (k === '[' && MQW.matches) { e.preventDefault(); L.col = !L.col; saveL(); applyCol(); }
+    else if (k === '[') { e.preventDefault(); toggleSide(); }
     else if ((k === 'k' || k === 'K') && !e.repeat) { e.preventDefault(); const s = $1('#dskKeys.show'); if (s) s.classList.remove('show'); else keysHelp(); }
   });
 
   /* ================= hooks ================= */
-  function onShow() { if (!built) return; obState(); labelNav(); quick(); refresh(); enhance(); }
+  /* games and puzzles get the whole width: no Today panel (and a compact page top) while playing */
+  function modes() {
+    const a = act(), s = $1('.screen.active');
+    const play = !!s && (a === 'puz' || a === 'live' || a === 'boss' || (a === 'play' && !!$1('#phArcHost', s)) || (a === 'chapter' && !!$1('.sty-scene', s)));
+    const norail = play || (a === 'topic' && !MQT.matches);
+    if (R.classList.contains('dsk-play') !== play) R.classList.toggle('dsk-play', play);
+    if (R.classList.contains('dsk-norail') !== norail) R.classList.toggle('dsk-norail', norail);
+  }
+  function onShow() { if (!built) return; obState(); modes(); labelNav(); quick(); refresh(); enhance(); hideTip(); }
   if (typeof window.show === 'function') { const _show = window.show; window.show = function () { const r = _show.apply(this, arguments); try { onShow(); } catch (e) {} return r; }; }
   if (typeof window.hud === 'function') { const _hud = window.hud; window.hud = function () { const r = _hud.apply(this, arguments); try { if (built) refresh(); } catch (e) {} return r; }; }
   function boot() {
@@ -388,9 +475,9 @@
     const nv = $1('nav'); if (nv) new MutationObserver(() => { if (built) { clearTimeout(nv._dsk); nv._dsk = setTimeout(labelNav, 50); } }).observe(nv, { childList: true, attributes: true, subtree: true, attributeFilter: ['hidden'] });
     sync();
   }
-  function sync() { if (MQ.matches) { build(); if (built) { applyCol(); obState(); refresh(); enhance(); } } else unbuild(); }
-  [MQ, MQW, MQR].forEach(q => { try { q.addEventListener('change', sync); } catch (e) { q.addListener(sync); } });
+  function sync() { if (MQ.matches) { build(); if (built) { applyCol(); obState(); modes(); refresh(); enhance(); } } else unbuild(); }
+  [MQ, MQW, MQR, MQX, MQT].forEach(q => { try { q.addEventListener('change', sync); } catch (e) { q.addListener(sync); } });
   setInterval(() => { if (built && !D.hidden) { obState(); refresh(); } }, 30000);
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', () => setTimeout(boot, 0)); else setTimeout(boot, 0);
-  window.Desktop = { refresh, enhance, focus: setFocus, keys: keysHelp, _L: L, _continue: continueInfo };
+  window.Desktop = { refresh, enhance, focus: setFocus, side: toggleSide, keys: keysHelp, _L: L, _continue: continueInfo };
 })();

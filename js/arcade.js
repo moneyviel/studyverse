@@ -197,8 +197,8 @@
     const draw = () => { hEl.textContent = '❤️'.repeat(hearts) + '🤍'.repeat(3 - hearts); hpI.style.transform = `scaleX(${hp / MAX})`; hpT.textContent = hp;
       hpI.classList.toggle('low', hp <= MAX * .3); cEl.textContent = combo >= 2 ? `🔥 Combo ×${combo}` : ''; };
     const end = win => {
-      const stars = win ? (hearts === 3 ? 3 : 2) : (hp <= MAX / 2 ? 1 : 0);
-      fin({ title: win ? `You beat ${B[1]}!` : hearts <= 0 ? `${B[1]} won this time` : `${B[1]} escaped!`, scoreText: `${hits} hits from ${asked} questions`, stars,
+      const stars = win ? (hearts === 3 ? 3 : hearts > 0 ? 2 : 1) : (hp <= MAX / 2 ? 1 : 0);
+      fin({ title: win ? `You beat ${B[1]}!` : `${B[1]} escaped!`, scoreText: `${hits} hits from ${asked} questions`, stars,
         lines: [`🔥 Best combo ×${best}`, `❤️ Hearts left: ${hearts}`, `🩸 Boss HP left: ${hp}`, hintLine(hinted)].filter(Boolean), missed, rights: hits, hinted });
     };
     const next = () => {
@@ -207,15 +207,16 @@
       const h = askQ(qc, q, (ok, k, hn) => {
         if (ok) {
           combo++; best = Math.max(best, combo); hits++; if (hn) hinted++;
-          const mult = combo >= 6 ? 3 : combo >= 3 ? 2 : 1, dmg = BASE * mult; hp = Math.max(0, hp - dmg);
+          const mult = combo >= 6 ? 3 : combo >= 3 ? 2 : 1, dmg = (hearts > 0 ? BASE : BASE / 2) * mult; hp = Math.max(0, hp - dmg);   // out of hearts: the game goes on, hits do half damage
           restart(shot, 'go'); ctx.t(() => { restart(face, 'arc-hit'); floatText(face, `−${dmg}`, mult > 1 ? 'big' : ''); S('coin'); draw(); if (mult > 1) restart(cEl, 'arc-pop'); }, 280);
           h.x.innerHTML = `<div class="arc-exp good"><b>${mult > 1 ? `🔥 Combo ×${mult} hit!` : '💥 Direct hit!'}</b></div>`;
           ctx.t(() => { if (hp <= 0) { face.classList.add('arc-ko'); S('unlock'); ctx.t(() => end(true), 1100); } else next(); }, 1300);
         } else {
-          combo = 0; hearts--; missed.push(qMiss(q));
+          combo = 0; const lost = hearts > 0; hearts = Math.max(0, hearts - 1); missed.push(qMiss(q));
           restart(ar, 'arc-atk'); restart(st, 'arc-quake'); draw();
-          h.x.innerHTML = explainHTML(q, false) + `<button class="btn mint arc-next">${hearts > 0 ? 'Continue ▶' : 'See results ▶'}</button>`;
-          h.x.querySelector('.arc-next').onclick = () => { S('tap'); hearts > 0 ? next() : end(false); };
+          const note = lost && hearts === 0 ? '<p class="arc-qsdrop">💔 No hearts left, but the battle goes on! Your hits now do half damage.</p>' : '';
+          h.x.innerHTML = explainHTML(q, false).replace(/<\/div>$/, note + '</div>') + `<button class="btn mint arc-next">${i >= qs.length ? 'See results ▶' : 'Next ▶'}</button>`;
+          h.x.querySelector('.arc-next').onclick = () => { S('tap'); next(); };
           ctx.t(() => h.x.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
         }
       });
@@ -520,33 +521,43 @@
   const LADDER = [100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000], SAFE = [4, 9];
   const LV = { core: 0, important: 1, advanced: 2 };
   const coins = n => '🪙 ' + n.toLocaleString('en-IN');
+  /* 10 questions, always all 10 (a wrong answer never ends the game). L = rungs climbed on the coin ladder: a right answer climbs one
+     rung; a wrong answer earns nothing for that question and drops you to your last safe rung (🛟 after rung 5 and 10). */
   function quizshow(st, P, ctx, fin) {
     const cand = spread(P.quiz, P.quiz.length, P.multi);
     const lvl = q => { const t = q.src && q.src.t, l = t && t.revise && t.revise.level; return l in LV ? LV[l] : 1; };
     const main = cand.slice(0, 10).map((q, j) => [q, j]).sort((a, b) => lvl(a[0]) - lvl(b[0]) || a[1] - b[1]).map(x => x[0]);
-    const spares = cand.slice(10);
-    let i = 0, used = { fifty: false, skip: false }, cur = null, h = null, hinted = 0; const missed = [];
-    const safe = () => { let s = 0; SAFE.forEach(j => { if (i > j) s = LADDER[j]; }); return s; };
-    const end = (won, lost) => fin({ title: won === 10 ? '👑 Quiz Show champion!' : lost ? 'Game over!' : 'Well played!', scoreText: coins(lost ? safe() : won ? LADDER[won - 1] : 0),
-      stars: won >= 10 ? 3 : won >= 5 ? 2 : won >= 2 ? 1 : 0, lines: [`🎯 ${won} of 10 questions climbed`, lost ? `🛟 You keep your safe level: ${coins(safe())}` : '', hintLine(hinted)].filter(Boolean), missed, rights: won, hinted });
+    const spares = cand.slice(10), NQ = main.length;
+    let i = 0, L = 0, rights = 0, used = { fifty: false, skip: false }, cur = null, h = null, hinted = 0; const missed = [];
+    const safeL = () => { let s = 0; SAFE.forEach(j => { if (L > j) s = j + 1; }); return s; };
+    const bank = () => (L ? LADDER[L - 1] : 0);
+    const end = () => fin({ title: rights >= NQ ? '👑 Quiz Show champion!' : rights >= NQ * .6 ? 'Well played!' : 'Good try!', scoreText: coins(bank()),
+      stars: rights >= NQ - 1 ? 3 : rights >= NQ * .6 ? 2 : rights >= NQ * .3 ? 1 : 0,
+      lines: [`🎯 ${rights} of ${NQ} answers right`, `🪜 You finished on rung ${L} of 10`, hintLine(hinted)].filter(Boolean), missed, rights, hinted });
     const render = () => {
       cur = main[i]; toTop();
-      st.innerHTML = `<div class="arc-ladder">${LADDER.map((v, j) => `<span class="${j < i ? 'won' : j === i ? 'now' : ''} ${SAFE.includes(j) ? 'safe' : ''}" title="${coins(v)}">${j + 1}</span>`).join('')}</div>
-        <div class="card arc-show"><div class="arc-for"><span>Question ${i + 1}</span><b>for ${coins(LADDER[i])}</b></div>
+      st.innerHTML = `<div class="arc-ladder" aria-label="Coin ladder: rung ${L} of 10">${LADDER.map((v, j) => `<span class="${j < L ? 'won' : j === L ? 'now' : ''} ${SAFE.includes(j) ? 'safe' : ''}" title="${coins(v)}">${j + 1}</span>`).join('')}</div>
+        <div class="card arc-show"><div class="arc-for"><span>Question ${i + 1} of ${NQ}</span><b>for ${coins(LADDER[Math.min(L, 9)])}</b></div>
         <div class="arc-lifes"><button class="arc-life" data-l="fifty" ${used.fifty ? 'disabled data-used="1"' : ''}>50:50</button><button class="arc-life" data-l="skip" ${used.skip ? 'disabled data-used="1"' : ''}>⏭️ Skip</button></div>
         <div class="arc-qb"></div></div>`;
       const qb = st.querySelector('.arc-qb');
+      const next = () => { i++; if (i >= NQ) end(); else render(); };
       h = askQ(qb, cur, (ok, k, hn) => {
         st.querySelectorAll('.arc-life').forEach(b => b.disabled = true);
+        const lad = st.querySelectorAll('.arc-ladder span');
         if (ok) {
-          i++; if (hn) hinted++; const lad = st.querySelectorAll('.arc-ladder span'); lad[i - 1].classList.add('won', 'arc-pop');
-          h.x.innerHTML = `<div class="arc-exp good"><b>🎉 Correct! You have ${coins(LADDER[i - 1])}</b></div>`; S('coin');
-          if (i >= 10) { S('unlock'); ctx.t(() => end(10, false), 1400); }
-          else ctx.t(render, 1300);
+          rights++; if (hn) hinted++; if (L < 10) { L++; if (lad[L - 1]) lad[L - 1].classList.add('won', 'arc-pop'); }
+          h.x.innerHTML = `<div class="arc-exp good"><b>✅ Correct! You have ${coins(bank())}</b></div>`; S('coin');
+          if (i + 1 >= NQ) { S(rights >= NQ ? 'unlock' : 'coin'); ctx.t(end, 1400); }
+          else ctx.t(next, 1300);
         } else {
           missed.push(qMiss(cur));
-          h.x.innerHTML = explainHTML(cur, false) + `<button class="btn mint arc-next">See results ▶</button>`;
-          h.x.querySelector('.arc-next').onclick = () => { S('tap'); end(i, true); };
+          const was = L; L = safeL();
+          lad.forEach((x, j) => { x.classList.toggle('won', j < L); x.classList.toggle('now', j === L); });
+          const drop = was > L ? `You slide down to ${L ? `safe rung ${L} (${coins(bank())})` : 'the start'}.` : `You stay on ${L ? `rung ${L} (${coins(bank())})` : 'the start'}.`;
+          h.x.innerHTML = `<div class="arc-exp bad"><b>❌ The answer is: ${E(cur.options[cur.answer])}</b>${cur.explain ? `<p>${E(cur.explain)}</p>` : ''}<p class="arc-qsdrop">🪙 0 coins for this question. ${drop} Keep going!</p></div>`
+            + `<button class="btn mint arc-next">${i + 1 >= NQ ? 'See results ▶' : 'Next ▶'}</button>`;
+          h.x.querySelector('.arc-next').onclick = () => { S('tap'); next(); };
           ctx.t(() => h.x.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
         }
       });
@@ -803,7 +814,7 @@
   (function gpCss() {
     if (document.getElementById('arcGpCss')) return;
     const c = document.createElement('style'); c.id = 'arcGpCss';
-    c.textContent = '.arc-slog .arc-gline{display:block;margin-top:4px;font-weight:800;color:#ffe08a}.arc-hintslot:empty,.arc-lhint:empty{display:none}.arc-lhint{margin-top:8px}';
+    c.textContent = '.arc-qsdrop{font-weight:800;color:#8a3b12!important}.arc-slog .arc-gline{display:block;margin-top:4px;font-weight:800;color:#ffe08a}.arc-hintslot:empty,.arc-lhint:empty{display:none}.arc-lhint{margin-top:8px}';
     document.head.appendChild(c);
   })();
   window.Arcade = { open, GAMES, pool: buildPool, okQ, slBoard, LADDERS, SNAKES, SL_RULE, roll6, askQ, BAD_OPT };
