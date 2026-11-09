@@ -384,6 +384,7 @@
     if (ex && $1('.qtext', r)) text = feedbackSpeech(ex) + ' ' + T('sayNext');
     else if ($1('.arc-stage,.arc-menu,.arc-res', r)) text = arcadeSpeech(r, ch);
     else if ($1('.lv-root', r) && window.Live && Live.speech) text = Live.speech(r, ch, listChoices);
+    else if ($1('.pz-root', r) && window.Puzzles && Puzzles.speech) text = Puzzles.speech(r, ch, listChoices);
     else if ($1('.qtext', r) && ch.length && ch[0].matches('.opt')) text = questionSpeech(r, ch);
     else if ($1('#learnGo', r)) text = learnSpeech(r);
     else if ($1('#tBtn', r) && $1('#ans', r)) text = join([txt($1('.tag', r)), txt($1('#gs', r))]) + ' ' + T('teach');
