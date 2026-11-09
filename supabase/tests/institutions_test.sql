@@ -38,6 +38,7 @@ insert into auth.users (id, email) values
   ('00000000-0000-0000-0000-0000000000c3', 'meera@t.test'),   ('00000000-0000-0000-0000-0000000000c4', 'other@t.test'),
   ('00000000-0000-0000-0000-0000000000d1', 'mum@t.test'),     ('00000000-0000-0000-0000-0000000000d2', 'dad@t.test'),
   ('00000000-0000-0000-0000-0000000000e1', 'otherprincipal@t.test');
+update auth.users set email_confirmed_at = now() where email like '%@t.test';
 insert into studyverse.admins (user_id) values ('00000000-0000-0000-0000-00000000000a') on conflict do nothing;
 insert into studyverse.profiles (user_id, role) values ('00000000-0000-0000-0000-0000000000d1', 'parent'), ('00000000-0000-0000-0000-0000000000c1', 'student');
 -- Riya already has a PAID Class 7 plan till 2099 and a parent link (Mum): neither may be lost by joining a school
