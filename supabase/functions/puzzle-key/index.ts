@@ -6,16 +6,13 @@
 //      content/*.json only — see logic.mjs)
 //   3. studyverse.puzzle_set_key(code, user, spec hash, answer)                 [service role → room_keys, unreadable]
 //   4. studyverse.puzzle_start(code) AS THE HOST (same start rules as every game)
-// DEPLOY: the engine is BUNDLED, not fetched (no remote code runs next to the service-role key). Copy it in first:
-//     cp js/puzzles-core.js js/ca-keys-data.js supabase/functions/puzzle-key/ && supabase functions deploy puzzle-key
-// Re-deploy every time js/puzzles-core.js or js/ca-keys-data.js changes (same release as the app), or keys may not
-// match what the phones build — every check would then say "not solved". (If PuzzleCore ever exports VERSION, specs
-// with another "v" are refused with a clear message instead.)
+// DEPLOY: index.ts + logic.mjs only. The engine is fetched from GitHub at a pinned commit and verified by SHA-256 (see PIN).
+// When js/puzzles-core.js or js/ca-keys-data.js changes, update PIN in the same release, or keys may not match the phones.
 /* eslint-disable */
 // ENGINE (pinned): js/puzzles-core.js + js/ca-keys-data.js are loaded from GitHub at ONE fixed commit and run only if
 // their SHA-256 matches the hashes below (content-addressed: nobody can swap the code). Update PIN in the same release
 // whenever either file changes (tools: sha256sum js/puzzles-core.js js/ca-keys-data.js).
-const PIN = { commit: '__COMMIT__', files: { 'js/puzzles-core.js': '__H1__', 'js/ca-keys-data.js': '__H2__' } as Record<string, string> };
+const PIN = { commit: '65fd961396140f39c485b16253a07c860a889db7', files: { 'js/puzzles-core.js': '862692afa4c27a98f5bce36d66c6865b4ff35c6f68c8f490b1224ad503dbc272', 'js/ca-keys-data.js': '07d1817671d147080cfd7721d81778712a990b34193df75e4a8e0167690a399c' } as Record<string, string> };
 let ENGINE: Promise<void> | null = null;
 const hex = (b: ArrayBuffer) => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
 function loadEngine() {
@@ -56,6 +53,11 @@ async function getJSON(path: string) {
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   try {
+    if (new URL(req.url).searchParams.get('health') === '1') {          // health check: engine loads + builds a sample key (nothing secret returned)
+      try { await loadEngine(); const a = await computeAnswer((globalThis as any).PuzzleCore, { v: (globalThis as any).PuzzleCore.VERSION, t: 'sdk', sc: { k: 'q' }, seed: 'health', n: 4, diff: 'easy' }, getJSON, []);
+        return json({ ok: true, engine: !!(globalThis as any).PuzzleCore, keys: ((globalThis as any).CaKeysData?.ITEMS || []).length, sample: typeof a === 'string' && a.length === 16 }); }
+      catch (e) { return json({ ok: false, err: String(e).slice(0, 200) }); }
+    }
     const auth = req.headers.get('Authorization') || '', apikey = req.headers.get('apikey') || SRK;
     const ur = await fetch(`${URL_}/auth/v1/user`, { headers: { apikey, Authorization: auth } });
     const user = ur.ok ? await ur.json() : null;
