@@ -677,7 +677,7 @@
         else { const ok = Math.random() < .6; log.textContent = ok ? `🤖 Robo answers… and climbs to ${LADDERS[p]}!` : '🤖 Robo answers… wrong! It stays.'; ok ? B.slide(1, LADDERS[p], () => { sync(1); after(); }) : after(); }
       } else if (SNAKES[p]) {
         if (w === 0) ask('snk', ok => { if (ok) { dodges++; log.textContent = '🐍 You escaped the snake!'; after(); } else { S('wrong'); log.textContent = `🐍 Down you slide from ${p} to ${SNAKES[p]}.`; B.slide(0, SNAKES[p], () => { sync(0); after(); }); } });
-        else { const ok = Math.random() < .5; log.textContent = ok ? '🤖 Robo escapes the snake!' : `🤖 Robo slides down to ${SNAKES[p]}!`; ok ? after() : B.slide(1, SNAKES[p], () => { sync(1); after(); }); }
+        else { const ok = Math.random() < .3; log.textContent = ok ? '🐍 Snake! 🤖 Robo answers the question correctly… and escapes!' : `🐍 Snake! 🤖 Robo answers wrong… and slides down from ${p} to ${SNAKES[p]}!`; ok ? after() : B.slide(1, SNAKES[p], () => { sync(1); after(); }); }
       } else after();
     };
     const doRoll = () => {
