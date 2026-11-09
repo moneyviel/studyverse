@@ -635,7 +635,7 @@
   function snakes(st, P, ctx, fin) {
     let qs = spread(P.quiz, P.quiz.length, P.multi), qi = 0;
     const nextQ = () => { if (qi >= qs.length) { qs = spread(P.quiz, P.quiz.length, P.multi); qi = 0; } return qs[qi++]; };
-    const MAXR = 50;
+    const MAXR = Infinity;   // the game ends only when someone reaches 100
     const me = (ST.profile && ST.profile.avatar) || '🦁', pos = [1, 1], names = ['You', 'Robo'], icons = [me, '🤖'];
     let turn = 0, turns = 0, asked = 0, right = 0, busy = false, climbs = 0, dodges = 0; const missed = [];
     st.innerHTML = `<div class="card arc-slhd"><span class="p0">${me} You: <b class="arc-p0">1</b></span><span class="arc-turn">Your turn</span><span class="p1">🤖 Robo: <b class="arc-p1">1</b></span></div>

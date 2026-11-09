@@ -145,6 +145,11 @@ details p{margin:0 0 .8rem}
 .bulk .bp{font-size:1.5rem;font-weight:800;color:var(--ink)}
 .bulk a.btn{width:auto;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;margin:0}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bulkpts{margin:.6rem 0;padding-left:1.2rem}.bulkpts li{margin:.25rem 0}
+.pilot label{display:block;font-weight:700;font-size:.95rem}.pgrid{display:grid;grid-template-columns:1fr;gap:0 1rem}
+@media (min-width:40rem){.pgrid{grid-template-columns:1fr 1fr}.pilot .btn{max-width:22rem}}
+.hp{position:absolute!important;left:-10000px;width:1px;height:1px;overflow:hidden}
+a.mail{display:inline-flex;align-items:center;min-height:44px}
 @media (min-width:44rem){
   .hero h1{font-size:2.4rem}
   .cards{grid-template-columns:1fr 1fr}
@@ -219,11 +224,35 @@ details p{margin:0 0 .8rem}
 
     <section class="panel" id="bulk" aria-labelledby="bulkH">
       <h2 id="bulkH">For schools &amp; coaching institutes</h2>
-      <div class="bulk">
-        <div><p style="margin:.2rem 0"><span class="bp">₹100</span> <b>per student per month</b> <span class="small">(+ GST as applicable)</span></p>
-          <p class="small" style="margin:.2rem 0">Dashboards for teachers and bulk student accounts. Write to <a href="mailto:support@moneyviel.com">support@moneyviel.com</a>.</p></div>
-        <a class="btn gold" id="bulkMail" href="mailto:support@moneyviel.com?subject=StudyVerse%20for%20our%20school%20%2F%20institute">Email us about bulk plans</a>
-      </div>
+      <p style="margin:.2rem 0 .6rem">Every student gets the full app. Teachers get a class dashboard (weak topics, homework, early warnings, reports) and parents keep Parent Hub. Price <b>per student per month</b> <span class="small">(+ GST as applicable)</span>:</p>
+      <table class="bands" id="bulkTbl"><caption class="sr-only">Prices for schools and coaching institutes, per student per month</caption>
+        <thead><tr><th scope="col">Class group</th><th scope="col">Per student / month</th><th scope="col">Per student / year (10 months)</th></tr></thead>
+        <tbody><tr><td>Class 1–5</td><td class="n">₹100</td><td>₹1,000</td></tr><tr><td>Class 6–8</td><td class="n">₹125</td><td>₹1,250</td></tr>
+          <tr><td>Class 9–10</td><td class="n">₹175</td><td>₹1,750</td></tr><tr><td>Class 11–12</td><td class="n">₹225</td><td>₹2,250</td></tr>
+          <tr><td>CA Foundation coaching</td><td class="n">₹250</td><td>₹2,500</td></tr></tbody></table>
+      <ul class="bulkpts">
+        <li><b>Billed for 10 months</b> per academic year (April–March) — you pay for 10, students use it all year.</li>
+        <li><b>Volume discount</b> on the whole order: 100+ students <b>10% off</b> · 500+ <b>20% off</b> · 1000+ <b>30% off</b>.</li>
+        <li><b>Minimum 30 students.</b> Prices are + GST as applicable.</li>
+        <li><b>Free 30-day pilot</b> for one class — try it before you buy.</li>
+      </ul>
+      <p class="small" id="bulkEg">Example: 120 students of Class 6–8 → 120 × ₹125 × 10 months = ₹1,50,000, minus 10% = <b>₹1,35,000</b> a year (+ GST as applicable).</p>
+
+      <h3 id="pilotH" style="margin:1rem 0 .3rem;color:var(--wine)">Request a free pilot</h3>
+      <form id="pilotF" class="pilot" novalidate aria-labelledby="pilotH">
+        <div class="pgrid">
+          <div><label for="plName">Your name</label><input class="in" id="plName" name="name" autocomplete="name" maxlength="80" required></div>
+          <div><label for="plSchool">School or institute</label><input class="in" id="plSchool" name="school" autocomplete="organization" maxlength="120" required></div>
+          <div><label for="plCity">City</label><input class="in" id="plCity" name="city" autocomplete="address-level2" maxlength="60" required></div>
+          <div><label for="plPhone">Phone</label><input class="in" id="plPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required></div>
+          <div><label for="plEmail">Email</label><input class="in" id="plEmail" name="email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="120" required></div>
+          <div><label for="plCount">Number of students</label><input class="in" id="plCount" name="students" type="number" min="1" max="1000000" inputmode="numeric" required></div>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="plWeb">Leave this empty</label><input id="plWeb" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="msg" id="pilotMsg" role="status" aria-live="polite"></div>
+        <button class="btn gold" type="submit" id="pilotGo">Request a free pilot</button>
+      </form>
+      <p class="small" style="margin:.6rem 0 0">Prefer email? <a class="mail" id="bulkMail" href="mailto:support@moneyviel.com?subject=StudyVerse%20for%20our%20school%20%2F%20institute">Email us about school plans</a> at support@moneyviel.com.</p>
     </section>
 
     <!-- sign in / create account (only when not signed in) -->
@@ -272,7 +301,7 @@ details p{margin:0 0 .8rem}
       <details><summary>What happens when the plan ends?</summary>
         <p>Nothing is lost. All progress stays saved, and you go back to the free plan (5 questions a day) until you renew.</p></details>
       <details><summary>Do you have plans for schools or coaching institutes?</summary>
-        <p>Yes — ₹100 per student per month (+ GST as applicable), with dashboards for teachers and bulk accounts. Write to <a href="mailto:support@moneyviel.com">support@moneyviel.com</a>.</p></details>
+        <p>Yes — from ₹100 per student per month (Class 1–5) to ₹225 (Class 11–12), and ₹250 for CA Foundation coaching, billed for 10 months a year (+ GST as applicable). 10–30% off for 100+ students, minimum 30 students, and a free 30-day pilot for one class. Teachers get a class dashboard and bulk student accounts. See “For schools &amp; coaching institutes” above or write to <a href="mailto:support@moneyviel.com">support@moneyviel.com</a>.</p></details>
       <details><summary>I need help</summary>
         <p>Write to <a href="mailto:support@moneyviel.com">support@moneyviel.com</a>. We usually reply within a day.</p></details>
     </section>
@@ -698,6 +727,31 @@ details p{margin:0 0 .8rem}
   renderPlans();                                 // fallback prices straight away; replaced when the table answers
   loadPlans();
   loadAccount();
+})();
+</script>
+<script>
+/* "Request a free pilot" form → edge function pilot-request (anonymous; honeypot field "website"; rate-limited on the server). */
+(function () {
+  'use strict';
+  const API = 'https://fyvplhtpsxpxvvsilzqq.supabase.co', KEY = 'sb_publishable_w2TfDNignGxAwFAfAlrdnA_RZSQV8gT';   // KEEP IN SYNC with js/cloud.js
+  const f = document.getElementById('pilotF'); if (!f) return;
+  const m = document.getElementById('pilotMsg'), go = document.getElementById('pilotGo'), v = id => document.getElementById(id).value.trim();
+  const show = (t, c) => { m.className = 'msg ' + c; m.textContent = t; };
+  f.onsubmit = async e => {
+    e.preventDefault();
+    const b = { name: v('plName'), school: v('plSchool'), city: v('plCity'), phone: v('plPhone'), email: v('plEmail').toLowerCase(), students: +v('plCount') || 0, website: v('plWeb') };
+    const bad = b.name.length < 2 ? 'plName' : b.school.length < 2 ? 'plSchool' : b.city.length < 2 ? 'plCity' : !/^[+0-9][0-9 -]{7,18}$/.test(b.phone) ? 'plPhone'
+      : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(b.email) ? 'plEmail' : !(b.students >= 1) ? 'plCount' : '';
+    if (bad) { show({ plName: 'Please enter your name.', plSchool: 'Please enter the school or institute name.', plCity: 'Please enter the city.', plPhone: 'Please enter a phone number we can call.', plEmail: 'Please enter a valid email.', plCount: 'Please enter the number of students.' }[bad], 'bad'); document.getElementById(bad).focus(); return; }
+    go.disabled = true; go.textContent = 'Sending…';
+    try {
+      const r = await fetch(API + '/functions/v1/pilot-request', { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(b) });
+      const j = await r.json().catch(() => null);
+      if (!j || !j.ok) { show((j && j.msg) || 'Could not send. Please email support@moneyviel.com.', 'bad'); return; }
+      f.reset(); show('Thank you! We will call you within one working day to set up your free pilot.', 'ok');
+    } catch (x) { show('No internet connection. Please try again, or email support@moneyviel.com.', 'bad'); }
+    finally { go.disabled = false; go.textContent = 'Request a free pilot'; }
+  };
 })();
 </script>
 </body>

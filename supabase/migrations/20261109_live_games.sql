@@ -26,6 +26,7 @@ create table if not exists studyverse.game_rooms (
   mode        text not null default 'ffa' check (mode in ('duel', 'ffa', 'teams')),
   rounds      int  not null default 10 check (rounds between 3 and 30),
   turn_secs   int  not null default 20 check (turn_secs in (10, 20, 30, 72)),
+  level       text not null default 'mixed' check (level in ('mixed', 'easy', 'moderate', 'hard')),   -- question level chosen by the host
   status      text not null default 'lobby' check (status in ('lobby', 'playing', 'finished')),
   step        int  not null default 0,          -- bumps on every change; actions carry the step they saw
   qi          int  not null default 0,          -- question / round index (quiz, relay, buzzer, duel)
@@ -41,6 +42,8 @@ create table if not exists studyverse.game_rooms (
 );
 create index if not exists game_rooms_host_idx on studyverse.game_rooms (host_id, created_at);
 create index if not exists game_rooms_exp_idx on studyverse.game_rooms (expires_at);
+
+alter table studyverse.game_rooms add column if not exists level text not null default 'mixed' check (level in ('mixed', 'easy', 'moderate', 'hard'));
 
 create table if not exists studyverse.room_keys (
   code text primary key references studyverse.game_rooms(code) on delete cascade,
@@ -206,7 +209,8 @@ begin
       cand := (ord ->> ti)::uuid; exit;
     end if;
   end loop;
-  if cand is null or rnd > r.rounds then perform studyverse._live_finish(p_code); return; end if;
+  -- Snakes & Ladders ends only when someone reaches 100 (or fewer than 2 players are left), never on a round count
+  if cand is null or (select count(*) from studyverse.room_players where code = p_code and left_at is null) < 2 then perform studyverse._live_finish(p_code); return; end if;
   update studyverse.game_rooms set turn_user = cand, deadline = now() + make_interval(secs => r.turn_secs + 2), step = step + 1,
     state = (state - 'gate') || jsonb_build_object('ti', ti, 'round', rnd)
   where code = p_code;
@@ -285,7 +289,7 @@ begin
   return jsonb_build_object('ok', w = 'ok', 'reason', w, 'admin', coalesce(studyverse.is_admin(), false));
 end $$;
 
-create or replace function studyverse.create_room(p_game text, p_mode text, p_rounds int, p_turn_secs int, p_name text, p_avatar text, p_course text)
+create or replace function studyverse.create_room(p_game text, p_mode text, p_rounds int, p_turn_secs int, p_name text, p_avatar text, p_course text, p_level text)
 returns jsonb language plpgsql security definer set search_path = '' as $$
 declare uid uuid := auth.uid(); w text := studyverse._live_why(auth.uid()); k text; alph text := 'ABCDEFGHJKLMNPQRSTUVWXYZ'; i int; g text; m text; rd int; ts int;
 begin
@@ -303,7 +307,8 @@ begin
     k := ''; for i in 1..6 loop k := k || substr(alph, 1 + floor(random() * length(alph))::int, 1); end loop;
     exit when not exists (select 1 from studyverse.game_rooms where code = k);
   end loop;
-  insert into studyverse.game_rooms (code, host_id, game, mode, rounds, turn_secs) values (k, uid, g, m, rd, ts);
+  insert into studyverse.game_rooms (code, host_id, game, mode, rounds, turn_secs, level)
+    values (k, uid, g, m, rd, ts, case when p_level in ('easy', 'moderate', 'hard') then p_level else 'mixed' end);
   insert into studyverse.room_players (code, user_id, name, avatar, course, team, seat, ready)
     values (k, uid, studyverse._live_first(p_name), coalesce(nullif(left(trim(coalesce(p_avatar, '')), 8), ''), '🙂'), p_course, case when m = 'teams' then 0 end, 1, true);
   return jsonb_build_object('ok', true, 'code', k);
@@ -380,7 +385,7 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
-create or replace function studyverse.update_room(p_code text, p_game text, p_mode text, p_rounds int, p_turn_secs int) returns jsonb
+create or replace function studyverse.update_room(p_code text, p_game text, p_mode text, p_rounds int, p_turn_secs int, p_level text) returns jsonb
 language plpgsql security definer set search_path = '' as $$
 declare uid uuid := auth.uid(); c text := upper(trim(coalesce(p_code, ''))); r studyverse.game_rooms; g text; m text; rd int; ts int; n int; pl record; t0 int := 0; t1 int := 0;
 begin
@@ -400,7 +405,8 @@ begin
     end loop;
   elsif m <> 'teams' then update studyverse.room_players set team = null where code = c;
   end if;
-  update studyverse.game_rooms set game = g, mode = m, rounds = rd, turn_secs = ts, step = step + 1 where code = c;
+  update studyverse.game_rooms set game = g, mode = m, rounds = rd, turn_secs = ts, step = step + 1,
+    level = case when p_level in ('mixed', 'easy', 'moderate', 'hard') then p_level else level end where code = c;
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -488,7 +494,7 @@ end $$;
 -- snakes: roll the die (the server rolls). Exact roll needed to land on 100: a roll past 100 = stay.
 create or replace function studyverse.submit_move(p_code text, p_step int) returns jsonb
 language plpgsql security definer set search_path = '' as $$
-declare uid uuid := auth.uid(); c text := upper(trim(coalesce(p_code, ''))); r studyverse.game_rooms; me studyverse.room_players; roll int; np int; dest int; tr text;
+declare uid uuid := auth.uid(); c text := upper(trim(coalesce(p_code, ''))); r studyverse.game_rooms; me studyverse.room_players; roll int; np int; dest int; tr text; nk int;
 begin
   select * into r from studyverse.game_rooms where code = c for update;
   if not found then return studyverse._live_err('Room not found.', 'not_found'); end if;
@@ -506,6 +512,8 @@ begin
   if np > 100 then np := me.pos; end if;                    -- too big: wait for the exact number
   update studyverse.room_players set pos = np, score = np where code = c and user_id = uid;
   dest := (studyverse._live_board() ->> np::text)::int;
+  select greatest(1, coalesce(jsonb_array_length(keys -> me.course), 1)) into nk from studyverse.room_keys where code = c;
+  me.qn := me.qn % coalesce(nk, 1);                          -- long games: reuse the question list from the start
   if np <> me.pos and dest is not null then
     update studyverse.game_rooms set step = step + 1, deadline = now() + make_interval(secs => r.turn_secs + 2),
       state = state || jsonb_build_object('gate', jsonb_build_object('user', uid, 'kind', case when dest > np then 'lad' else 'snk' end, 'at', np, 'to', dest, 'qi', me.qn),
@@ -721,7 +729,7 @@ begin
     end if;
   end if;
   return jsonb_build_object('ok', true, 'now', extract(epoch from now()) * 1000,
-    'room', jsonb_build_object('code', r.code, 'host_id', r.host_id, 'game', r.game, 'mode', r.mode, 'rounds', r.rounds, 'turn_secs', r.turn_secs,
+    'room', jsonb_build_object('code', r.code, 'host_id', r.host_id, 'game', r.game, 'mode', r.mode, 'rounds', r.rounds, 'turn_secs', r.turn_secs, 'level', r.level,
        'status', r.status, 'step', r.step, 'qi', r.qi, 'turn_user', r.turn_user, 'deadline', extract(epoch from r.deadline) * 1000,
        'round_at', extract(epoch from (r.state ->> 'round_at')::timestamptz) * 1000,
        'done_at', extract(epoch from (r.state ->> 'done_at')::timestamptz) * 1000,
@@ -744,8 +752,8 @@ language sql stable security definer set search_path = '' as $$
 $$;
 
 do $$ declare f text; begin
-  foreach f in array array['live_eligibility()', 'create_room(text, text, int, int, text, text, text)', 'join_room(text, text, text, text)', 'leave_room(text)',
-    'kick_player(text, uuid)', 'update_room(text, text, text, int, int)', 'set_ready(text, boolean)', 'set_team(text, int)', 'start_game(text, jsonb)',
+  foreach f in array array['live_eligibility()', 'create_room(text, text, int, int, text, text, text, text)', 'join_room(text, text, text, text)', 'leave_room(text)',
+    'kick_player(text, uuid)', 'update_room(text, text, text, int, int, text)', 'set_ready(text, boolean)', 'set_team(text, int)', 'start_game(text, jsonb)',
     'submit_move(text, int)', 'buzz(text, int)', 'submit_answer(text, int, int)', 'advance(text, int)', 'finish_game(text)', 'rematch(text)',
     'room_state(text, boolean)', 'weekly_board()'] loop
     execute format('revoke all on function studyverse.%s from public, anon', f);

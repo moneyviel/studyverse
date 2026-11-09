@@ -1321,5 +1321,10 @@ select.pv-in{appearance:auto;width:100%!important;max-width:none}
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', start) : start();
 
-  window.Parent = { open: () => openHub(), home, link: linkSheet, myCode, minutesToday: () => minutesOn(S(), todayK()), _analyse: analyse, _pull: pullControls, _enforce: enforce };
+  window.Parent = { open: () => openHub(), home, link: linkSheet, myCode, minutesToday: () => minutesOn(S(), todayK()), _analyse: analyse, _pull: pullControls, _enforce: enforce,
+    /* read-only toolkit for the teacher dashboard (js/teach.js): the same pure analysis and the same cards as Parent Hub.
+       Pass a "k" shaped like a my_children row: { name, state: { st }, controls }. Nothing here changes Parent Hub. */
+    lib: { analyse, deep, readinessOf, suggestions, mStat, MST, minutesOn, answersOn, caAnswersByDay, answerLog, mistakesOf, timeOf, trendOf,
+      daysBack, dk, todayK, fmtMin, fmtDay, pctS, esc, mean, median, chapOf, curriculum, caStructure, subjName, chapName, BUCKETS,
+      chartSVG, lineSVG, legend, weekBarsSVG, readinessHTML, trendHTML, masteryHTML, mistakeHTML, timeHTML, winsHTML, writesHTML, style } };
 })();

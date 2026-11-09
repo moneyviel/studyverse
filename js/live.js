@@ -164,7 +164,8 @@
     const si = D.getElementById('lvSignin'); if (si) si.onclick = () => { try { Cloud.open('in'); } catch (e) {} };
   }
   const defGame = () => (isCA() ? 'duel' : 'quiz');
-  const draft = { game: null, mode: null, rounds: 10, secs: 20 };
+  const draft = { game: null, mode: null, rounds: 10, secs: 20, level: 'mixed' };
+  const LEVELS = [['mixed', '🎲 Mixed'], ['easy', '🟢 Easy'], ['moderate', '🟡 Moderate'], ['hard', '🔴 Hard']];
   function pickerHTML(d, id) {
     const g = d.game, gm = GAMES[g];
     const radios = (name, list, cur, lab) => `<div class="lv-chips" role="radiogroup" aria-label="${lab}">${list.map(([v, t]) => `<button type="button" role="radio" class="lv-chip${String(v) === String(cur) ? ' on' : ''}" aria-checked="${String(v) === String(cur)}" data-${name}="${v}">${t}</button>`).join('')}</div>`;
@@ -172,15 +173,18 @@
     return `<div class="lv-pick" id="${id}">
       <h3 class="lv-h3">Game</h3><div class="lv-games" role="radiogroup" aria-label="Game">${gameOrder.map(k => `<button type="button" role="radio" class="lv-game${k === g ? ' on' : ''}" aria-checked="${k === g}" data-game="${k}"><span class="lv-ge" aria-hidden="true">${GAMES[k].e}</span><b>${GAMES[k].n}</b><small>${GAMES[k].d}</small></button>`).join('')}</div>
       <h3 class="lv-h3">Mode</h3>${gm.teams ? '<p class="lv-mut">Team Relay is played in 2 teams.</p>' : radios('mode', Object.entries(MODES).map(([k, v]) => [k, `${v[0]}${k === 'teams' ? ' (2 teams)' : k === 'ffa' ? ' (up to 6)' : ''}`]), d.mode, 'Mode')}
+      <h3 class="lv-h3">Question level</h3>${radios('level', LEVELS, d.level || 'mixed', 'Question level')}
       ${g === 'duel' ? '<p class="lv-mut">10 questions · 72 seconds each (100 MCQs in 2 hours).</p>' : `
-      <h3 class="lv-h3">${g === 'snakes' ? 'Most rounds' : 'Questions'}</h3>${radios('rounds', (g === 'snakes' ? [10, 15, 20] : [5, 10, 15]).map(v => [v, String(v)]), d.rounds, g === 'snakes' ? 'Most rounds' : 'Questions')}
+      ${g === 'snakes' ? '<p class="lv-mut">🏁 The game goes on until someone reaches square 100.</p>' : `<h3 class="lv-h3">Questions</h3>${radios('rounds', [5, 10, 15].map(v => [v, String(v)]), d.rounds, 'Questions')}`}
       <h3 class="lv-h3">Time for each ${g === 'snakes' ? 'turn' : 'question'}</h3>${radios('secs', [[10, '10 s'], [20, '20 s'], [30, '30 s']], d.secs, 'Time')}`}</div>`;
   }
   function normDraft(d) {
     if (!GAMES[d.game]) d.game = defGame();
     if (GAMES[d.game].teams) d.mode = 'teams';
     if (!MODES[d.mode]) d.mode = d.game === 'duel' ? 'duel' : 'ffa';
-    const rs = d.game === 'snakes' ? [10, 15, 20] : [5, 10, 15]; if (d.game !== 'duel' && !rs.includes(+d.rounds)) d.rounds = d.game === 'snakes' ? 15 : 10;
+    if (d.game === 'snakes') d.rounds = 30;               // no round limit for Snakes: the server ends it only when someone reaches 100
+    else if (d.game !== 'duel' && ![5, 10, 15].includes(+d.rounds)) d.rounds = 10;
+    if (!LEVELS.some(([v]) => v === d.level)) d.level = 'mixed';
     if (![10, 20, 30].includes(+d.secs)) d.secs = 20;
     return d;
   }
@@ -189,6 +193,7 @@
     box.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { S('tap'); d.mode = b.dataset.mode; normDraft(d); onChange(); });
     box.querySelectorAll('[data-rounds]').forEach(b => b.onclick = () => { S('tap'); d.rounds = +b.dataset.rounds; onChange(); });
     box.querySelectorAll('[data-secs]').forEach(b => b.onclick = () => { S('tap'); d.secs = +b.dataset.secs; onChange(); });
+    box.querySelectorAll('[data-level]').forEach(b => b.onclick = () => { S('tap'); d.level = b.dataset.level; onChange(); });
   }
   function mainHTML(back) {
     normDraft(Object.assign(draft, { game: draft.game || defGame(), mode: draft.mode || (defGame() === 'duel' ? 'duel' : 'ffa') }));
@@ -232,7 +237,7 @@
     const c = myCourse(); if (!c) return;
     b.disabled = true; er.textContent = '';
     try {
-      const j = await rpc('create_room', { p_game: draft.game, p_mode: draft.mode, p_rounds: draft.game === 'duel' ? 10 : +draft.rounds, p_turn_secs: draft.game === 'duel' ? 72 : +draft.secs, p_name: firstName(), p_avatar: avatar(), p_course: c });
+      const j = await rpc('create_room', { p_game: draft.game, p_mode: draft.mode, p_rounds: draft.game === 'duel' ? 10 : +draft.rounds, p_turn_secs: draft.game === 'duel' ? 72 : +draft.secs, p_name: firstName(), p_avatar: avatar(), p_course: c, p_level: draft.level || 'mixed' });
       if (!j || !j.ok) { if (j && (j.code === 'free' || j.code === 'parent')) { D.getElementById('lvMain').innerHTML = lockedHTML(j.code); wireLocked(); return; } er.textContent = errText(j); return; }
       S('unlock'); enter(j.code);
     } catch (e) { er.textContent = (window.Cloud && Cloud.errText) ? Cloud.errText(e) : e.message; }
@@ -313,8 +318,8 @@
         <div class="card lv-codecard"><span class="lv-k">Room code</span><div class="lv-code" aria-label="Room code ${r.code.split('').join(' ')}">${r.code}</div>
           <div class="lv-share"><a class="btn lv-wa" id="lvWa" href="${wa}" target="_blank" rel="noopener">📲 Share on WhatsApp</a><button type="button" class="btn ghost" id="lvCopy">📋 Copy link</button></div>
           <p class="lv-mut">Friends can also type the code in Game Rooms.</p></div>
-        <div class="card"><h2 class="lv-h2">${GAMES[r.game].e} ${GAMES[r.game].n}</h2><p class="sub">${MODES[r.mode][0]} · ${r.game === 'snakes' ? `up to ${r.rounds} rounds` : `${r.rounds} questions`} · ${r.turn_secs} s each</p>
-          ${H ? `<details class="lv-set"><summary>Change game</summary><div id="lvPickL">${pickerHTML(normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs }), 'lvPick2')}</div></details>` : `<p class="lv-mut">${E(GAMES[r.game].d)}</p>`}</div>
+        <div class="card"><h2 class="lv-h2">${GAMES[r.game].e} ${GAMES[r.game].n}</h2><p class="sub">${MODES[r.mode][0]} · ${r.game === 'snakes' ? 'until someone reaches 100' : `${r.rounds} questions`} · ${r.turn_secs} s each · ${(LEVELS.find(([v]) => v === (r.level || 'mixed')) || LEVELS[0])[1]} questions</p>
+          ${H ? `<details class="lv-set"><summary>Change game</summary><div id="lvPickL">${pickerHTML(normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level }), 'lvPick2')}</div></details>` : `<p class="lv-mut">${E(GAMES[r.game].d)}</p>`}</div>
         <div class="card"><h2 class="lv-h2">Players <small>(${ps.length}/${max})</small></h2>${list}</div>
         <div class="lv-actions">${H ? `<button class="btn" id="lvStart" ${why ? 'aria-disabled="true"' : ''}>▶ Start game</button><p class="lv-hint" id="lvHint" role="status">${E(why || 'Everyone is ready!')}</p>`
           : `<button class="btn mint" id="lvReady" aria-pressed="${!!(me && me.ready)}">${me && me.ready ? '✓ I’m ready (tap to undo)' : '✋ I’m ready'}</button><p class="lv-hint" role="status">${me && me.ready ? 'Waiting for the host to start…' : 'Tap when you are ready to play.'}</p>`}
@@ -334,9 +339,9 @@
     const rd = $('#lvReady'); if (rd) rd.onclick = async () => { rd.disabled = true; try { await rpc('set_ready', { p_code: r.code, p_ready: !(me && me.ready) }); S('tap'); synced(); } catch (e) { say('No connection.'); } finally { rd.disabled = false; } };
     const sb = $('#lvStart'); if (sb) sb.onclick = start;
     const pk = D.getElementById('lvPick2');
-    if (pk) { const d = normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs });
+    if (pk) { const d = normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level });
       wirePicker(pk, d, async () => {
-        try { const j = await rpc('update_room', { p_code: r.code, p_game: d.game, p_mode: d.mode, p_rounds: d.game === 'duel' ? 10 : d.rounds, p_turn_secs: d.game === 'duel' ? 72 : d.secs });
+        try { const j = await rpc('update_room', { p_code: r.code, p_game: d.game, p_mode: d.mode, p_rounds: d.game === 'duel' ? 10 : d.rounds, p_turn_secs: d.game === 'duel' ? 72 : d.secs, p_level: d.level || 'mixed' });
           if (j && !j.ok) say(errText(j)); L.sig = ''; synced(); setTimeout(() => { const det = D.querySelector('.lv-set'); if (det) det.open = true; }, 400); } catch (e) { say('No connection.'); }
       }); }
   }
@@ -373,7 +378,17 @@
   const STREAM_SUBJ = { science: ['physics', 'chemistry', 'maths', 'biology', 'english'], commerce: ['accountancy', 'business', 'economics', 'english', 'maths'], arts: ['history', 'polsci', 'geography', 'psychology', 'sociology', 'economics', 'english'] };
   const okQ = q => window.Arcade && Arcade.okQ ? Arcade.okQ(q) : (q && typeof q.q === 'string' && Array.isArray(q.options) && Number.isInteger(q.answer));
   const fit = q => !q.visual && q.q.length <= 1400 && q.options.every(o => o.length <= 480);
-  async function schoolPool(g, stream, need, only) {
+  /* question level. CA questions carry a level (core / moderate / hard). School questions have none, so we score them:
+     more solution steps, longer wording, calculations and NOT/EXCEPT questions count as harder; then each subject's
+     questions are split into thirds (easy / moderate / hard) so every level has enough questions. */
+  const qScore = q => (Array.isArray(q.steps) ? q.steps.length * 3 : 0) + Math.min(40, (q.q || '').length / 12) + (q.check ? 6 : 0) +
+    (/\b(not|except|incorrect|false)\b/i.test(q.q || '') ? 4 : 0) + Math.min(10, (q.options || []).join(' ').length / 40) + (/\d/.test(q.q || '') ? 3 : 0);
+  function byLevel(list, lvl, score) {
+    if (!lvl || lvl === 'mixed' || list.length < 6) return list;
+    const s = list.map(q => [score(q), q]).sort((a, b) => a[0] - b[0]), n = s.length, a = Math.floor(n / 3), b = Math.floor(2 * n / 3);
+    return (lvl === 'easy' ? s.slice(0, a) : lvl === 'moderate' ? s.slice(a, b) : s.slice(b)).map(x => x[1]);
+  }
+  async function schoolPool(g, stream, need, only, lvl) {
     let subs = []; try { subs = (CUR && CUR.grades && CUR.grades[g] && CUR.grades[g].subjects) || []; } catch (e) {}
     if (!subs.length) { try { const cu = await loadJSON('content/curriculum.json'); subs = (cu.grades && cu.grades[g] && cu.grades[g].subjects) || []; } catch (e) {} }
     if (only) subs = subs.filter(s => only.includes(s.id));          // exactly the subjects this player studies
@@ -385,13 +400,14 @@
     const by = [];
     datas.forEach((d, i) => {
       if (!d || !Array.isArray(d.chapters)) return; const s = chosen[i], st = (window.Worlds && Worlds.SUBJECT_STYLE && Worlds.SUBJECT_STYLE[s.id]) || { e: '📘' }; const L2 = [];
-      d.chapters.forEach(c => (c.topics || []).forEach(t => (t.quiz || []).forEach(q => { if (okQ(q) && fit(q)) L2.push({ q: q.q, o: q.options, a: q.answer, s: `${st.e} ${s.name || cap(s.id)} · ${t.title}`, x: String(q.explain || '').slice(0, 580) }); })));
-      if (L2.length) by.push(shuffle(L2));
+      d.chapters.forEach(c => (c.topics || []).forEach(t => (t.quiz || []).forEach(q => { if (okQ(q) && fit(q)) L2.push({ _d: qScore(q), q: q.q, o: q.options, a: q.answer, s: `${st.e} ${s.name || cap(s.id)} · ${t.title}`, x: String(q.explain || '').slice(0, 580) }); })));
+      const L3 = byLevel(L2, lvl, x => x._d).map(x => { delete x._d; return x; }); if (L3.length) by.push(shuffle(L3));
     });
     return spread(by, need);
   }
   function spread(lists, need) { const out = []; while (out.length < need && lists.some(l => l.length)) for (const l of lists) if (l.length && out.length < need) out.push(l.pop()); return out; }
-  async function caPool(level, game, need) {
+  async function caPool(level, game, need, lvl) {
+    const want = { easy: 'core', moderate: 'moderate', hard: 'hard' }[lvl] || null;
     const X = window.Ca && Ca._; if (!X) return [];
     let st; try { st = await X.structure(level); } catch (e) { return []; }
     const units = []; st.papers.forEach(p => p.chapters.forEach(c => c.units.forEach(u => units.push({ p, c, u }))));
@@ -401,20 +417,21 @@
     const bad = window.Arcade && Arcade.BAD_OPT;
     for (const x of chosen) {
       let d = null; try { d = await X.unitData(x.u.id); } catch (e) {}
-      const L2 = ((d && d.mcqs) || []).filter(q => q && typeof q.q === 'string' && Array.isArray(q.options) && q.options.length >= 2 && q.options.length <= 4 && q.options.every(o => typeof o === 'string' && o.trim()) && Number.isInteger(q.answer) && q.answer < q.options.length && !(bad && q.options.some(o => bad.test(o))) && fit(q))
+      const L2 = ((d && d.mcqs) || []).filter(q => !want || (q.level || 'core') === want).filter(q => q && typeof q.q === 'string' && Array.isArray(q.options) && q.options.length >= 2 && q.options.length <= 4 && q.options.every(o => typeof o === 'string' && o.trim()) && Number.isInteger(q.answer) && q.answer < q.options.length && !(bad && q.options.some(o => bad.test(o))) && fit(q))
         .map(q => ({ q: q.q, o: q.options, a: q.answer, s: `${X.paperLabel ? X.paperLabel(x.p) : (x.p.title || x.p.id)} · ${x.u.title}`.slice(0, 118), x: String(q.explain || '').slice(0, 580) }));
       if (L2.length) by.push(shuffle(L2));
     }
+    if (want && by.reduce((t, l) => t + l.length, 0) < Math.min(need, 10)) return caPool(level, game, need, 'mixed');   // too few at this level: mix
     return spread(by, need);
   }
   async function pickQuestions(st) {
     const r = st.room, courses = [...new Set(st.players.filter(p => !p.left).map(p => p.course))];
-    const need = r.game === 'snakes' ? 40 : r.rounds, out = {};
+    const need = r.game === 'snakes' ? 60 : r.rounds, out = {}, lvl = r.level || 'mixed';
     for (const c of courses) {
       let m, list = [];
       try {
-        if ((m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m([0-9a-f]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need, m[3] ? maskIds(m[3]) : null);
-        else if ((m = /^ca-([a-z]+)$/.exec(c))) list = await caPool(m[1], r.game, need);
+        if ((m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m([0-9a-f]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need, m[3] ? maskIds(m[3]) : null, lvl);
+        else if ((m = /^ca-([a-z]+)$/.exec(c))) list = await caPool(m[1], r.game, need, lvl);
       } catch (e) { console.warn('live: questions for', c, e); }
       out[c] = list;
     }
@@ -438,7 +455,7 @@
     }
     scores(st);
     const rd = D.querySelector('#s-live .lv-round');
-    if (rd) rd.textContent = r.game === 'snakes' ? `Round ${Math.min(r.rounds, (r.state && r.state.round) || 1)} of ${r.rounds}` : `Question ${Math.min(r.qi + 1, r.rounds)} of ${r.rounds}`;
+    if (rd) rd.textContent = r.game === 'snakes' ? `Round ${(r.state && r.state.round) || 1} · first to 100 wins` : `Question ${Math.min(r.qi + 1, r.rounds)} of ${r.rounds}`;
     // comeback tracking: was I last at some point (after the first question / round)?
     const ps = actives(), mine = ps.find(p => p.user_id === uid());
     if (mine && ps.length >= 2 && (r.qi >= 1 || (r.state && r.state.round > 1))) { const low = Math.min(...ps.map(p => p.score)); if (mine.score === low && ps.some(p => p.score > low)) L.wasLast = true; }

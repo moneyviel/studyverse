@@ -205,12 +205,12 @@ begin
   r := pg_temp.room(c2); st := r.step;
   perform pg_temp.chk((j ->> 'ok')::boolean and r.turn_user = H, 'snakes starts with the host''s turn');
   perform pg_temp.as_user(A); j := studyverse.submit_move(c2, st); perform pg_temp.chk(j ->> 'code' = 'not_your_turn', 'wrong-turn roll rejected');
-  perform pg_temp.as_user(H); perform set_config('studyverse.test_roll', '2', true);
+  perform pg_temp.as_user(H); perform set_config('studyverse.test_roll', '1', true);
   j := studyverse.submit_move(c2, st); r := pg_temp.room(c2);
-  perform pg_temp.chk((j ->> 'to')::int = 3 and j -> 'gate' ->> 'kind' = 'lad' and r.state -> 'gate' is not null and r.turn_user = H, 'roll 2 → square 3: ladder gate opens');
+  perform pg_temp.chk((j ->> 'to')::int = 2 and j -> 'gate' ->> 'kind' = 'lad' and r.state -> 'gate' is not null and r.turn_user = H, 'roll 1 → square 2: ladder gate opens');
   j := studyverse.submit_move(c2, r.step); perform pg_temp.chk(j ->> 'code' = 'gate', 'cannot roll again before answering');
   j := studyverse.submit_answer(c2, r.step, pg_temp.key(c2, 'school-g6', 0));
-  perform pg_temp.chk((j ->> 'correct')::boolean and (pg_temp.pl(c2, H)).pos = 22, 'right answer climbs the ladder 3 → 22');
+  perform pg_temp.chk((j ->> 'correct')::boolean and (pg_temp.pl(c2, H)).pos = 23, 'right answer climbs the ladder 2 → 23');
   r := pg_temp.room(c2); perform pg_temp.chk(r.turn_user = A, 'turn passes to Asha');
   -- Asha misses her turn (timer) → skipped
   perform pg_temp.as_user(H); j := studyverse.advance(c2, r.step); perform pg_temp.chk(not (j ->> 'changed')::boolean, 'cannot skip a player before the turn timer ends');
@@ -218,9 +218,9 @@ begin
   perform pg_temp.chk((j ->> 'changed')::boolean and r.turn_user = H and (r.state -> 'last' ->> 'skip')::boolean, 'missed turn is skipped after the timer');
   -- host: snake gate, wrong answer → slides
   begin update studyverse.room_players set pos = 99 where code = c2 and user_id = H; exception when insufficient_privilege then null; end;
-  perform pg_temp.chk((pg_temp.pl(c2, H)).pos = 22, 'direct position change has no effect');
-  perform set_config('studyverse.test_roll', '6', true); perform pg_temp.as_user(H);
-  j := studyverse.submit_move(c2, r.step); r := pg_temp.room(c2);        -- 22 + 6 = 28: ladder to 76
+  perform pg_temp.chk((pg_temp.pl(c2, H)).pos = 23, 'direct position change has no effect');
+  perform set_config('studyverse.test_roll', '5', true); perform pg_temp.as_user(H);
+  j := studyverse.submit_move(c2, r.step); r := pg_temp.room(c2);        -- 23 + 5 = 28: ladder to 76
   j := studyverse.submit_answer(c2, r.step, (pg_temp.key(c2, 'school-g6', 1) + 1) % 3);
   perform pg_temp.chk(not (j ->> 'correct')::boolean and (pg_temp.pl(c2, H)).pos = 28, 'wrong answer on a ladder: stay on 28');
   -- Asha: offline (last seen long ago) → her turn is skipped at once
@@ -234,12 +234,17 @@ begin
   reset role; update studyverse.room_players set pos = 97, score = 97 where code = c2 and user_id = H; set local role authenticated;
   perform pg_temp.as_user(H); perform set_config('studyverse.test_roll', '5', true);
   j := studyverse.submit_move(c2, r.step); perform pg_temp.chk((j ->> 'over')::boolean and (pg_temp.pl(c2, H)).pos = 97, 'roll past 100 = stay on 97 (exact roll needed)');
-  r := pg_temp.room(c2); perform pg_temp.as_user(A); perform set_config('studyverse.test_roll', '1', true);
-  j := studyverse.submit_move(c2, r.step); r := pg_temp.room(c2);                -- Asha 1 → 2
+  r := pg_temp.room(c2); perform pg_temp.as_user(A); perform set_config('studyverse.test_roll', '2', true);
+  j := studyverse.submit_move(c2, r.step); r := pg_temp.room(c2);                -- Asha 1 → 3 (plain square)
   perform pg_temp.as_user(H); perform set_config('studyverse.test_roll', '3', true);
   j := studyverse.submit_move(c2, r.step); r := pg_temp.room(c2);
   perform pg_temp.chk((pg_temp.pl(c2, H)).pos = 100 and r.status = 'finished', 'exact roll lands on 100 and wins');
   perform pg_temp.chk(pg_temp.nres(c2, true) = 1, 'snakes winner recorded');
+  perform pg_temp.chk(r.rounds >= 3 and (r.state ->> 'round')::int <= r.rounds + 100, 'snakes ran without a round limit');
+  perform pg_temp.as_user(H); j := studyverse.create_room('quiz', 'ffa', 5, 10, 'Riya', '🦊', 'school-g6', 'hard');
+  perform pg_temp.chk((j ->> 'ok')::boolean and (select level from studyverse.game_rooms where code = j ->> 'code') = 'hard', 'room question level stored (hard)');
+  j := studyverse.update_room(j ->> 'code', null, null, null, null, 'easy');
+  perform pg_temp.chk((j ->> 'ok')::boolean, 'host can change the level');
 
   -- ===== disconnect / rejoin / host handover / kick =====
   perform pg_temp.as_user(H); j := studyverse.create_room('quiz', 'ffa', 3, 10, 'Riya', '🦊', 'school-g6'); c2 := j ->> 'code';
