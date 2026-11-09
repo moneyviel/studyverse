@@ -184,11 +184,15 @@
     const radios = (name, list, cur, lab) => `<div class="lv-chips" role="radiogroup" aria-label="${lab}">${list.map(([v, t]) => `<button type="button" role="radio" class="lv-chip${String(v) === String(cur) ? ' on' : ''}" aria-checked="${String(v) === String(cur)}" data-${name}="${v}">${t}</button>`).join('')}</div>`;
     const gameOrder = isCA() ? ['duel', 'quiz', 'buzzer', 'snakes', 'relay', 'puzzle'] : ['quiz', 'snakes', 'buzzer', 'relay', 'puzzle', 'duel'];
     const modes = Object.entries(MODES).filter(([k]) => !(gm.puzzle && k === 'teams'));
+    const pk = g === 'puzzle' && d.pzKind ? pzKinds().find(k => k.id === d.pzKind) : null;
+    const gamesRow = d.focus
+      ? `<div class="lv-focus" role="status"><span class="lv-ge" aria-hidden="true">${pk ? E(pk.e) : gm.e}</span><span><b>${pk ? `${E(pk.n)} race` : gm.n}</b><small>${pk ? 'Everyone gets the same puzzle. ' + (pk.chapter ? 'You choose the chapter and level next.' : 'You choose the size and level next.') : gm.d}</small></span></div>`
+      : null;
     return `<div class="lv-pick" id="${id}">
-      <h3 class="lv-h3">Game</h3><div class="lv-games" role="radiogroup" aria-label="Game">${gameOrder.map(k => `<button type="button" role="radio" class="lv-game${k === g ? ' on' : ''}" aria-checked="${k === g}" data-game="${k}"><span class="lv-ge" aria-hidden="true">${GAMES[k].e}</span><b>${GAMES[k].n}</b><small>${GAMES[k].d}</small></button>`).join('')}</div>
+      ${gamesRow || `<h3 class="lv-h3">Game</h3><div class="lv-games" role="radiogroup" aria-label="Game">${gameOrder.map(k => `<button type="button" role="radio" class="lv-game${k === g ? ' on' : ''}" aria-checked="${k === g}" data-game="${k}"><span class="lv-ge" aria-hidden="true">${GAMES[k].e}</span><b>${GAMES[k].n}</b><small>${GAMES[k].d}</small></button>`).join('')}</div>`}
       <h3 class="lv-h3">Mode</h3>${gm.teams ? '<p class="lv-mut">Team Relay is played in 2 teams.</p>' : radios('mode', modes.map(([k, v]) => [k, `${v[0]}${k === 'teams' ? ' (2 teams)' : k === 'ffa' ? ' (up to 6)' : ''}`]), d.mode, 'Mode')}
       ${gm.puzzle ? `<h3 class="lv-h3">Time limit</h3>${radios('rounds', PZ_MINS.map(v => [v, v + ' min']), d.rounds, 'Time limit')}
-      <p class="lv-mut">🧩 Everyone gets the same puzzle — you choose it in the room: Sudoku, Kakuro, Crossword, Word search, Anagram or Concept sudoku.</p></div>` : `
+      ${pk ? '' : '<p class="lv-mut">🧩 Everyone gets the same puzzle — you choose it in the room: Sudoku, Kakuro, Crossword, Word search, Anagram or Concept sudoku.</p>'}</div>` : `
       <h3 class="lv-h3">Question level</h3>${radios('level', LEVELS, d.level || 'mixed', 'Question level')}
       ${g === 'duel' ? '<p class="lv-mut">10 questions · 72 seconds each (100 MCQs in 2 hours).</p>' : `
       ${g === 'snakes' ? '<p class="lv-mut">🏁 The game goes on until someone reaches square 100.</p>' : `<h3 class="lv-h3">Questions</h3>${radios('rounds', [5, 10, 15].map(v => [v, String(v)]), d.rounds, 'Questions')}`}
@@ -218,7 +222,7 @@
       <div class="card"><h2 class="lv-h2">Join a room</h2><label class="lv-lab" for="lvCode">Room code from your friend</label>
         <div class="lv-joinrow"><input id="lvCode" class="lv-in" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="ABCDEF" aria-describedby="lvErr"><button class="btn mint" id="lvJoin">Join ▶</button></div>
         <p class="lv-err" id="lvErr" role="alert"></p></div>
-      <div class="card"><h2 class="lv-h2">Start a room</h2><p class="sub">Pick a game, then share the code with friends.</p><div id="lvPickH">${pickerHTML(draft, 'lvPick')}</div>
+      <div class="card"><h2 class="lv-h2">Start a room</h2><p class="sub">${draft.focus ? 'Create the room, then share the code with friends.' : 'Pick a game, then share the code with friends.'}</p><div id="lvPickH">${pickerHTML(draft, 'lvPick')}</div>
         <button class="btn" id="lvCreate">➕ Create room</button><p class="lv-err" id="lvErr2" role="alert"></p></div>
       <div class="card"><h2 class="lv-h2">🏆 This week with friends</h2><div id="lvBoard"><p class="lv-mut">Loading…</p></div></div>
       <div class="card"><h2 class="lv-h2">🏅 Game badges</h2>${badgeGrid()}</div>`;
@@ -256,7 +260,9 @@
     try {
       const j = await rpc('create_room', { p_game: draft.game, p_mode: draft.mode, p_rounds: draft.game === 'duel' ? 10 : +draft.rounds, p_turn_secs: draft.game === 'duel' ? 72 : +draft.secs, p_name: firstName(), p_avatar: avatar(), p_course: c, p_level: draft.level || 'mixed' });
       if (!j || !j.ok) { if (j && (j.code === 'free' || j.code === 'parent')) { D.getElementById('lvMain').innerHTML = lockedHTML(j.code); wireLocked(); return; } er.textContent = errText(j); return; }
-      S('unlock'); enter(j.code);
+      S('unlock'); L.pzKind = draft.game === 'puzzle' ? draft.pzKind : null; L.pzKindCode = j.code; L.focusCode = draft.focus ? j.code : null; enter(j.code);
+      if (L.pzKind) { const code = j.code, kind = L.pzKind; let n = 0;      // opened from a puzzle's 👫 Friends: go straight to that puzzle's picker
+        const t = setInterval(() => { if (L.code !== code || ++n > 40) return clearInterval(t); if (host() && L.st && L.st.room && L.st.room.status === 'lobby' && pzCanPick()) { clearInterval(t); pickPuzzle(kind); } }, 300); }
     } catch (e) { er.textContent = (window.Cloud && Cloud.errText) ? Cloud.errText(e) : e.message; }
     finally { if (b.isConnected) b.disabled = false; }
   }
@@ -338,7 +344,7 @@
           <p class="lv-mut">Friends can also type the code in Game Rooms.</p></div>
         <div class="card"><h2 class="lv-h2">${GAMES[r.game].e} ${GAMES[r.game].n}</h2><p class="sub">${r.game === 'puzzle' ? `${MODES[r.mode][0]} · ${r.rounds} min time limit · same puzzle for everyone` : `${MODES[r.mode][0]} · ${r.game === 'snakes' ? 'until someone reaches 100' : `${r.rounds} questions`} · ${r.turn_secs} s each · ${(LEVELS.find(([v]) => v === (r.level || 'mixed')) || LEVELS[0])[1]} questions`}</p>
           ${r.game === 'puzzle' ? pzLobbyHTML(r, H) : ''}
-          ${H ? `<details class="lv-set"><summary>Change game</summary><div id="lvPickL">${pickerHTML(normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level }), 'lvPick2')}</div></details>` : `<p class="lv-mut">${E(GAMES[r.game].d)}</p>`}</div>
+          ${H ? `<details class="lv-set"><summary>${L.focusCode === r.code ? 'Change settings' : 'Change game'}</summary><div id="lvPickL">${pickerHTML(normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level, focus: L.focusCode === r.code, pzKind: L.focusCode === r.code ? L.pzKind : null }), 'lvPick2')}</div></details>` : `<p class="lv-mut">${E(GAMES[r.game].d)}</p>`}</div>
         <div class="card"><h2 class="lv-h2">Players <small>(${ps.length}/${max})</small></h2>${list}</div>
         <div class="lv-actions">${H ? `<button class="btn" id="lvStart" ${why ? 'aria-disabled="true"' : ''}>▶ Start game</button><p class="lv-hint" id="lvHint" role="status">${E(why || 'Everyone is ready!')}</p>`
           : `<button class="btn mint" id="lvReady" aria-pressed="${!!(me && me.ready)}">${me && me.ready ? '✓ I’m ready (tap to undo)' : '✋ I’m ready'}</button><p class="lv-hint" role="status">${me && me.ready ? 'Waiting for the host to start…' : 'Tap when you are ready to play.'}</p>`}
@@ -728,12 +734,12 @@
     return { e: String(k.e || '🧩').slice(0, 8), n: String(k.n || 'Puzzle').slice(0, 40), ch: ch.slice(0, 120), d: d.slice(0, 60) };
   }
   function pzLobbyHTML(r, H) {
-    const cur = r.state && r.state.puzzle, kinds = H ? pzKinds() : [];
+    const cur = r.state && r.state.puzzle, kinds = H ? pzKinds().filter(k => !(L.pzKind && L.pzKindCode === r.code) || k.id === L.pzKind) : [];
     const now = cur ? `<div class="lv-pzcur" role="status"><span class="lv-ge" aria-hidden="true">${E(cur.e)}</span><span><b>${E(cur.n)}</b>${cur.ch ? `<small>${E(cur.ch)}</small>` : ''}${cur.d ? `<small>${E(cur.d)}</small>` : ''}</span></div>`
       : `<p class="lv-mut" role="status">${H ? 'Choose the puzzle everyone will race on.' : '⏳ The host is choosing a puzzle…'}</p>`;
     if (!H) return now;
     const pick = !pzCanPick() ? '<p class="lv-mut">Puzzles are still loading on this phone. Reload the app if this stays.</p>'
-      : `<h3 class="lv-h3">${cur ? 'Change the puzzle' : 'Pick a puzzle'}</h3><div class="lv-pzkinds" role="group" aria-label="Puzzle">${kinds.map(k => `<button type="button" class="lv-pzk${cur && cur.kind === k.id ? ' on' : ''}" data-pzk="${E(k.id)}" aria-pressed="${!!(cur && cur.kind === k.id)}"><span class="lv-ge" aria-hidden="true">${E(k.e || '🧩')}</span><b>${E(k.n || k.id)}</b><small>${k.chapter ? 'From a chapter' : E(k.d || 'Numbers')}</small></button>`).join('')}</div>`;
+      : `<h3 class="lv-h3">${L.pzKind && L.pzKindCode === r.code ? ((pzKinds().find(k => k.id === L.pzKind) || {}).chapter ? (cur ? 'Change the chapter or level' : 'Pick the chapter and level') : (cur ? 'Change the size or level' : 'Pick the size and level')) : cur ? 'Change the puzzle' : 'Pick a puzzle'}</h3><div class="lv-pzkinds" role="group" aria-label="Puzzle">${kinds.map(k => `<button type="button" class="lv-pzk${cur && cur.kind === k.id ? ' on' : ''}" data-pzk="${E(k.id)}" aria-pressed="${!!(cur && cur.kind === k.id)}"><span class="lv-ge" aria-hidden="true">${E(k.e || '🧩')}</span><b>${E(k.n || k.id)}</b><small>${k.chapter ? 'From a chapter' : E(k.d || 'Numbers')}</small></button>`).join('')}</div>`;
     return now + pick;
   }
   async function pickPuzzle(kind) {
@@ -923,6 +929,7 @@
   /* Live.open({ game }) → Game Rooms home with that game preselected in the "Start a room" picker; Live.open() = as before */
   function open(o) {
     const g = o && o.game;
+    draft.focus = !!(g && GAMES[g]); draft.pzKind = g === 'puzzle' && o && typeof o.kind === 'string' && /^[a-z0-9]{2,12}$/.test(o.kind) ? o.kind : null;
     if (g && GAMES[g]) {
       const was = draft.game; draft.game = g;
       if (g === 'duel') draft.mode = 'duel'; else if (draft.mode === 'duel' && was !== g) draft.mode = 'ffa';
@@ -969,6 +976,7 @@
 .lv-in{flex:1;min-width:0;min-height:48px;border:2px solid #d3d7ef;border-radius:14px;padding:8px 12px;font:800 22px 'Baloo 2',monospace;letter-spacing:6px;text-transform:uppercase;color:var(--ink);background:#fff}
 .lv-in:focus{outline:3px solid #7646ea;outline-offset:1px}
 .lv-games{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lv-focus{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:#f1edff;border:2px solid #6d4aff;margin:4px 0 10px}.lv-focus .lv-ge{font-size:32px}.lv-focus b{display:block;font-size:17px}.lv-focus small{display:block;color:#555;font-size:13px;line-height:1.3}
 .lv-game{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:2px solid #e3e6f6;background:#fff;border-radius:16px;padding:10px;min-height:44px;cursor:pointer;font-family:inherit;color:var(--ink)}
 .lv-game.on{border-color:#7646ea;background:#f3efff;box-shadow:0 0 0 2px #7646ea33}.lv-ge{font-size:26px;line-height:1}.lv-game b{font-size:14.5px}.lv-game small{font-size:12px;color:var(--muted);line-height:1.3}
 .lv-chips{display:flex;flex-wrap:wrap;gap:8px}
