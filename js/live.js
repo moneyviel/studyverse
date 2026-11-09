@@ -41,10 +41,17 @@
   function myCourse() {
     const s0 = STx(), p = s0 && s0.profile; if (!p) return null;
     if (p.course === 'ca') return 'ca-' + ((ST.ca && ST.ca.level) || 'foundation');
-    const g = +p.grade || 1; return g >= 11 && p.stream ? `school-g${g}-${p.stream}` : 'school-g' + g;
+    const g = +p.grade || 1;
+    let ids = []; try { ids = (curSubjects(g) || []).map(x => x.id); } catch (e) {}
+    return (g >= 11 && p.stream ? `school-g${g}-${p.stream}` : 'school-g' + g) + (ids.length ? '-m' + subjMask(ids) : '');
   }
+  /* the player's OWN subjects travel with them as a small mask, so the host only picks questions from subjects
+     each player studies (e.g. no Biology for a Maths student). Append new subject ids at the END only. */
+  const SUBJ_ORDER = ['english', 'hindi', 'maths', 'evs', 'sanskrit', 'science', 'social', 'history', 'geography', 'civics', 'economics', 'physics', 'chemistry', 'biology', 'accountancy', 'business', 'polsci', 'psychology', 'sociology', 'cs'];
+  function subjMask(ids) { let m = 0n; ids.forEach(id => { const i = SUBJ_ORDER.indexOf(id); if (i >= 0) m |= 1n << BigInt(i); }); return m.toString(16); }
+  function maskIds(hex) { let m; try { m = BigInt('0x' + hex); } catch (e) { return null; } return SUBJ_ORDER.filter((_, i) => (m >> BigInt(i)) & 1n); }
   function courseName(c) {
-    let m = /^school-g(\d+)(?:-([a-z]+))?$/.exec(c || ''); if (m) return `Class ${m[1]}${m[2] ? ' ' + cap(m[2]) : ''}`;
+    let m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m[0-9a-f]+)?$/.exec(c || ''); if (m) return `Class ${m[1]}${m[2] && m[2] !== 'm' ? ' ' + cap(m[2]) : ''}`;
     m = /^ca-([a-z]+)$/.exec(c || ''); if (m) return 'CA ' + ({ foundation: 'Foundation', inter: 'Intermediate', final: 'Final' }[m[1]] || cap(m[1]));
     return cap(String(c || '').replace(/-/g, ' '));
   }
@@ -366,10 +373,11 @@
   const STREAM_SUBJ = { science: ['physics', 'chemistry', 'maths', 'biology', 'english'], commerce: ['accountancy', 'business', 'economics', 'english', 'maths'], arts: ['history', 'polsci', 'geography', 'psychology', 'sociology', 'economics', 'english'] };
   const okQ = q => window.Arcade && Arcade.okQ ? Arcade.okQ(q) : (q && typeof q.q === 'string' && Array.isArray(q.options) && Number.isInteger(q.answer));
   const fit = q => !q.visual && q.q.length <= 1400 && q.options.every(o => o.length <= 480);
-  async function schoolPool(g, stream, need) {
+  async function schoolPool(g, stream, need, only) {
     let subs = []; try { subs = (CUR && CUR.grades && CUR.grades[g] && CUR.grades[g].subjects) || []; } catch (e) {}
     if (!subs.length) { try { const cu = await loadJSON('content/curriculum.json'); subs = (cu.grades && cu.grades[g] && cu.grades[g].subjects) || []; } catch (e) {} }
-    if (stream && STREAM_SUBJ[stream]) { const f = subs.filter(s => STREAM_SUBJ[stream].includes(s.id)); if (f.length) subs = f; }
+    if (only) subs = subs.filter(s => only.includes(s.id));          // exactly the subjects this player studies
+    else if (stream && STREAM_SUBJ[stream]) { const f = subs.filter(s => STREAM_SUBJ[stream].includes(s.id)); if (f.length) subs = f; }
     const mine = ST.profile && +ST.profile.grade === g && ST.profile.course !== 'ca';
     const pickN = mine ? 4 : 3;
     const chosen = shuffle(subs).slice(0, pickN);
@@ -405,7 +413,7 @@
     for (const c of courses) {
       let m, list = [];
       try {
-        if ((m = /^school-g(\d+)(?:-([a-z]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need);
+        if ((m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m([0-9a-f]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need, m[3] ? maskIds(m[3]) : null);
         else if ((m = /^ca-([a-z]+)$/.exec(c))) list = await caPool(m[1], r.game, need);
       } catch (e) { console.warn('live: questions for', c, e); }
       out[c] = list;
