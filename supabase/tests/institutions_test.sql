@@ -289,7 +289,7 @@ begin
   perform pg_temp.as_user(RIYA); j := studyverse.inst_claim(); perform pg_temp.chk((j ->> 'linked')::int = 0, 'a student account claims nothing');
 
   -- ===================== pilot request form (service) =====================
-  j := pg_temp.svc_pilot('{"name":"A","school":"S","phone":"9","email":"a@b.co","students":"120"}', 'ip1');
+  j := pg_temp.svc_pilot('{"name":"A","school":"S","phone":"+919876543210","email":"a@b.co","students":"120"}', 'ip1');
   perform pg_temp.chk((j ->> 'ok')::boolean, 'pilot request saved');
   j := pg_temp.svc_pilot('{"name":"A"}', 'ip1'); j := pg_temp.svc_pilot('{"name":"A"}', 'ip1'); j := pg_temp.svc_pilot('{"name":"A"}', 'ip1');
   perform pg_temp.chk(j ->> 'code' = 'limit', 'pilot request: 4th from the same IP within an hour is limited');
