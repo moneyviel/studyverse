@@ -6,11 +6,21 @@
    Presence shows who is online. Every client also polls room_state every few seconds, and calls advance() after a
    deadline, so a game never stalls even without the WebSocket.
    Games: snakes (Snakes & Ladders Battle), quiz (Quiz Race), relay (Team Relay), buzzer (Buzzer round),
-          duel (CA / professional Speed Duel: 10 MCQs × 72 s).
+          duel (CA / professional Speed Duel: 10 MCQs × 72 s),
+          puzzle (🧩 Puzzle Race: everyone solves the SAME puzzle — server: 20261110_puzzle_race.sql).
+   Puzzle Race: the host picks a kind in the lobby; Puzzles.pick(kind) (js/puzzles.js) returns a self-contained JSON
+   spec that rebuilds the identical puzzle on any device. Fairness/simplicity: EVERYONE gets the host's spec — number
+   puzzles (Sudoku, Kakuro) and chapter puzzles alike (same chapter, same puzzle; the spec carries grade/subject, so a
+   friend in another class can still load it). Start = the Edge Function puzzle-key, which builds the answer key ON
+   THE SERVER (no phone supplies it) and then starts the race. Puzzles.race(el, spec, {onSolved, onQuit, onProgress})
+   plays it here; progress goes to puzzle_progress (≤ 1 per 2.5 s) + a "pz" broadcast; onSolved's canonical `answer`
+   goes to puzzle_solved, which checks it against the key (wrong = "keep going") and times it on the server. There is
+   no "I solved it" button anywhere. Feature-detected: without Puzzles.kinds/pick/race the room says so.
    Questions: the host's app picks them per player course (school class pool / CA MCQ banks) and sends them to
    start_game; each player sees questions from their own class or course.
    Child safety: emoji reactions only (no text chat); players show avatar + first name only.
-   Entry points: "🎮 Play with friends" tile on school World + Practice and CA home + Practice; links ?room=CODE. */
+   Entry points: the 🎮 Play hub (js/playhub.js) calls Live.open({ game }) / Live.join(code) / Live.resume();
+   links ?room=CODE. (No tiles are placed by this file any more.) */
 (function () {
   'use strict';
   const D = document, $ = s => D.querySelector(s), $$ = (s, r) => [...(r || D).querySelectorAll(s)];
@@ -29,7 +39,9 @@
     snakes: { e: '🐍', n: 'Snakes & Ladders Battle', d: 'Take turns to roll. Answer right on a ladder to climb, on a snake to escape.' },
     buzzer: { e: '🔔', n: 'Buzzer Round', d: 'First to buzz answers. A wrong answer lets the others buzz.' },
     relay: { e: '🏃', n: 'Team Relay', d: 'Teammates take turns to answer. The team total wins.', teams: true },
-    duel: { e: '⚡', n: 'Speed Duel', d: 'CA exam pace: 10 MCQs, 72 seconds each.', pro: true } };
+    duel: { e: '⚡', n: 'Speed Duel', d: 'CA exam pace: 10 MCQs, 72 seconds each.', pro: true },
+    puzzle: { e: '🧩', n: 'Puzzle Race', d: 'Everyone solves the same puzzle. Fastest to finish wins.', puzzle: true } };
+  const PZ_MINS = [3, 5, 8, 10];
   const MODES = { duel: ['1-v-1', 2], ffa: ['Free-for-all', 6], teams: ['Teams', 6] };
   const TEAMS = [{ n: 'Team Blue', e: '🔵' }, { n: 'Team Orange', e: '🟠' }];
   const EMOJI = ['👏', '😂', '😮', '🔥', '💪', '🎉'];
@@ -80,7 +92,8 @@
 
   /* ================= state ================= */
   const L = { code: null, st: null, qs: null, ch: null, pollT: 0, tickT: 0, offset: 0, sig: '', stageSig: '', fetching: false, again: false, presence: {}, rtOn: false,
-    advAt: {}, myAns: {}, sb: null, anim: false, lastLog: '', wasLast: false, seenTurn: null, net: true, failN: 0, emoT: 0, view: '' };
+    advAt: {}, myAns: {}, sb: null, anim: false, lastLog: '', wasLast: false, seenTurn: null, net: true, failN: 0, emoT: 0, view: '',
+    pz: null, pzLive: {}, pzMine: 0, pzSeen: -1, picking: false };
   const nowS = () => Date.now() + L.offset;
 
   async function fetchState() {
@@ -98,7 +111,7 @@
       if (j.questions) L.qs = j.questions;
       const prev = L.st; L.st = j;
       if (prev && prev.room.status === 'playing' && j.room.status === 'lobby') { L.qs = null; L.myAns = {}; }
-      if (prev && prev.room.status === 'lobby' && j.room.status === 'playing') { L.qs = j.questions || null; L.myAns = {}; L.wasLast = false; L.sb = null; if (!L.qs) L.again = true; }
+      if (prev && prev.room.status === 'lobby' && j.room.status === 'playing') { L.qs = j.questions || null; L.myAns = {}; L.wasLast = false; L.sb = null; pzReset(); if (!L.qs) L.again = true; }
       render();
     } catch (e) { if (++L.failN >= 2) setNet(false); }
     finally { L.fetching = false; if (L.again) { L.again = false; setTimeout(fetchState, 60); } }
@@ -116,14 +129,14 @@
       L.ch = RT.open('room-' + L.code, { key: uid() || '',
         onStatus: s => { L.rtOn = s === 'joined'; setNet(L.net); if (s === 'joined') soon(); },
         onPresence: p => { L.presence = p; paintOnline(); },
-        onBroadcast: (ev, pl) => { if (ev === 'sync') soon(); else if (ev === 'emoji') floatEmoji(pl); else if (ev === 'roll') rollFx(pl); } });
+        onBroadcast: (ev, pl) => { if (ev === 'sync') soon(); else if (ev === 'emoji') floatEmoji(pl); else if (ev === 'roll') rollFx(pl); else if (ev === 'pz') pzLiveIn(pl); } });
       L.ch.track({ name: firstName(), avatar: avatar() });
     }
   }
   function suspend() {                 // left the screen: stop talking to the server (still a member; turns auto-skip)
-    clearInterval(L.tickT); clearTimeout(L.pollT); if (L.ch) { L.ch.close(); L.ch = null; } L.rtOn = false;
+    pzStop(); clearInterval(L.tickT); clearTimeout(L.pollT); if (L.ch) { L.ch.close(); L.ch = null; } L.rtOn = false;
   }
-  function exit() { suspend(); L.code = null; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; lset('sv_live_room', null); }
+  function exit() { suspend(); pzReset(); L.code = null; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; lset('sv_live_room', null); }
   const broadcast = (ev, pl) => { try { if (L.ch) L.ch.send(ev, pl); } catch (e) {} };
   const synced = () => { broadcast('sync', { s: L.st && L.st.room.step }); fetchState(); };
 
@@ -140,7 +153,7 @@
     s.innerHTML = `<div class="lv-root lv-home"><button class="back" id="lvBack">← Back</button>
       <div class="card lv-hero"><div class="lv-hero-e" aria-hidden="true">🎮</div><div><h1 class="lv-h1">Game Rooms</h1><p class="sub">Play live with friends. Everyone gets questions from their own class or course.</p></div></div>
       <div id="lvMain">${e.ok === false ? lockedHTML(e.why) : mainHTML(back)}</div></div>`;
-    $('#lvBack').onclick = () => (isCA() ? (window.Ca && Ca.home ? Ca.home() : worldScreen()) : practiceScreen());
+    $('#lvBack').onclick = () => (window.PlayHub && PlayHub.open ? PlayHub.open() : isCA() ? (window.Ca && Ca.home ? Ca.home() : worldScreen()) : practiceScreen());
     if (e.ok !== false) wireMain();
     try {                                                  // the server has the final word
       const j = await rpc('live_eligibility');
@@ -169,27 +182,31 @@
   function pickerHTML(d, id) {
     const g = d.game, gm = GAMES[g];
     const radios = (name, list, cur, lab) => `<div class="lv-chips" role="radiogroup" aria-label="${lab}">${list.map(([v, t]) => `<button type="button" role="radio" class="lv-chip${String(v) === String(cur) ? ' on' : ''}" aria-checked="${String(v) === String(cur)}" data-${name}="${v}">${t}</button>`).join('')}</div>`;
-    const gameOrder = isCA() ? ['duel', 'quiz', 'buzzer', 'snakes', 'relay'] : ['quiz', 'snakes', 'buzzer', 'relay', 'duel'];
+    const gameOrder = isCA() ? ['duel', 'quiz', 'buzzer', 'snakes', 'relay', 'puzzle'] : ['quiz', 'snakes', 'buzzer', 'relay', 'puzzle', 'duel'];
+    const modes = Object.entries(MODES).filter(([k]) => !(gm.puzzle && k === 'teams'));
     return `<div class="lv-pick" id="${id}">
       <h3 class="lv-h3">Game</h3><div class="lv-games" role="radiogroup" aria-label="Game">${gameOrder.map(k => `<button type="button" role="radio" class="lv-game${k === g ? ' on' : ''}" aria-checked="${k === g}" data-game="${k}"><span class="lv-ge" aria-hidden="true">${GAMES[k].e}</span><b>${GAMES[k].n}</b><small>${GAMES[k].d}</small></button>`).join('')}</div>
-      <h3 class="lv-h3">Mode</h3>${gm.teams ? '<p class="lv-mut">Team Relay is played in 2 teams.</p>' : radios('mode', Object.entries(MODES).map(([k, v]) => [k, `${v[0]}${k === 'teams' ? ' (2 teams)' : k === 'ffa' ? ' (up to 6)' : ''}`]), d.mode, 'Mode')}
+      <h3 class="lv-h3">Mode</h3>${gm.teams ? '<p class="lv-mut">Team Relay is played in 2 teams.</p>' : radios('mode', modes.map(([k, v]) => [k, `${v[0]}${k === 'teams' ? ' (2 teams)' : k === 'ffa' ? ' (up to 6)' : ''}`]), d.mode, 'Mode')}
+      ${gm.puzzle ? `<h3 class="lv-h3">Time limit</h3>${radios('rounds', PZ_MINS.map(v => [v, v + ' min']), d.rounds, 'Time limit')}
+      <p class="lv-mut">🧩 Everyone gets the same puzzle — you choose it in the room: Sudoku, Kakuro, Crossword, Word search, Anagram or Concept sudoku.</p></div>` : `
       <h3 class="lv-h3">Question level</h3>${radios('level', LEVELS, d.level || 'mixed', 'Question level')}
       ${g === 'duel' ? '<p class="lv-mut">10 questions · 72 seconds each (100 MCQs in 2 hours).</p>' : `
       ${g === 'snakes' ? '<p class="lv-mut">🏁 The game goes on until someone reaches square 100.</p>' : `<h3 class="lv-h3">Questions</h3>${radios('rounds', [5, 10, 15].map(v => [v, String(v)]), d.rounds, 'Questions')}`}
-      <h3 class="lv-h3">Time for each ${g === 'snakes' ? 'turn' : 'question'}</h3>${radios('secs', [[10, '10 s'], [20, '20 s'], [30, '30 s']], d.secs, 'Time')}`}</div>`;
+      <h3 class="lv-h3">Time for each ${g === 'snakes' ? 'turn' : 'question'}</h3>${radios('secs', [[10, '10 s'], [20, '20 s'], [30, '30 s']], d.secs, 'Time')}`}</div>`}`;
   }
   function normDraft(d) {
     if (!GAMES[d.game]) d.game = defGame();
     if (GAMES[d.game].teams) d.mode = 'teams';
     if (!MODES[d.mode]) d.mode = d.game === 'duel' ? 'duel' : 'ffa';
     if (d.game === 'snakes') d.rounds = 30;               // no round limit for Snakes: the server ends it only when someone reaches 100
+    else if (d.game === 'puzzle') { if (d.mode === 'teams') d.mode = 'ffa'; if (!PZ_MINS.includes(+d.rounds)) d.rounds = 8; }   // rounds = minutes
     else if (d.game !== 'duel' && ![5, 10, 15].includes(+d.rounds)) d.rounds = 10;
     if (!LEVELS.some(([v]) => v === d.level)) d.level = 'mixed';
     if (![10, 20, 30].includes(+d.secs)) d.secs = 20;
     return d;
   }
   function wirePicker(box, d, onChange) {
-    box.querySelectorAll('[data-game]').forEach(b => b.onclick = () => { S('tap'); const was = d.game; d.game = b.dataset.game; if (was !== d.game && d.game === 'duel') d.mode = 'duel'; if (was === 'duel' && d.game !== 'duel' && d.mode === 'duel') d.mode = 'ffa'; normDraft(d); onChange(); });
+    box.querySelectorAll('[data-game]').forEach(b => b.onclick = () => { S('tap'); const was = d.game; d.game = b.dataset.game; if (was !== d.game && d.game === 'duel') d.mode = 'duel'; if (was === 'duel' && d.game !== 'duel' && d.mode === 'duel') d.mode = 'ffa'; if (was !== d.game && d.game === 'puzzle') d.rounds = 8; normDraft(d); onChange(); });
     box.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { S('tap'); d.mode = b.dataset.mode; normDraft(d); onChange(); });
     box.querySelectorAll('[data-rounds]').forEach(b => b.onclick = () => { S('tap'); d.rounds = +b.dataset.rounds; onChange(); });
     box.querySelectorAll('[data-secs]').forEach(b => b.onclick = () => { S('tap'); d.secs = +b.dataset.secs; onChange(); });
@@ -273,6 +290,7 @@
   function render() {
     const st = L.st; if (!st || !active()) return;
     const r = st.room;
+    if (r.status !== 'playing' || r.game !== 'puzzle') pzStop();
     if (r.status === 'lobby') return lobby(st);
     if (r.status === 'finished') return results(st);
     return game(st);
@@ -318,7 +336,8 @@
         <div class="card lv-codecard"><span class="lv-k">Room code</span><div class="lv-code" aria-label="Room code ${r.code.split('').join(' ')}">${r.code}</div>
           <div class="lv-share"><a class="btn lv-wa" id="lvWa" href="${wa}" target="_blank" rel="noopener">📲 Share on WhatsApp</a><button type="button" class="btn ghost" id="lvCopy">📋 Copy link</button></div>
           <p class="lv-mut">Friends can also type the code in Game Rooms.</p></div>
-        <div class="card"><h2 class="lv-h2">${GAMES[r.game].e} ${GAMES[r.game].n}</h2><p class="sub">${MODES[r.mode][0]} · ${r.game === 'snakes' ? 'until someone reaches 100' : `${r.rounds} questions`} · ${r.turn_secs} s each · ${(LEVELS.find(([v]) => v === (r.level || 'mixed')) || LEVELS[0])[1]} questions</p>
+        <div class="card"><h2 class="lv-h2">${GAMES[r.game].e} ${GAMES[r.game].n}</h2><p class="sub">${r.game === 'puzzle' ? `${MODES[r.mode][0]} · ${r.rounds} min time limit · same puzzle for everyone` : `${MODES[r.mode][0]} · ${r.game === 'snakes' ? 'until someone reaches 100' : `${r.rounds} questions`} · ${r.turn_secs} s each · ${(LEVELS.find(([v]) => v === (r.level || 'mixed')) || LEVELS[0])[1]} questions`}</p>
+          ${r.game === 'puzzle' ? pzLobbyHTML(r, H) : ''}
           ${H ? `<details class="lv-set"><summary>Change game</summary><div id="lvPickL">${pickerHTML(normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level }), 'lvPick2')}</div></details>` : `<p class="lv-mut">${E(GAMES[r.game].d)}</p>`}</div>
         <div class="card"><h2 class="lv-h2">Players <small>(${ps.length}/${max})</small></h2>${list}</div>
         <div class="lv-actions">${H ? `<button class="btn" id="lvStart" ${why ? 'aria-disabled="true"' : ''}>▶ Start game</button><p class="lv-hint" id="lvHint" role="status">${E(why || 'Everyone is ready!')}</p>`
@@ -338,6 +357,7 @@
     const tb = $('#lvTeam'); if (tb) tb.onclick = async () => { try { await rpc('set_team', { p_code: r.code, p_team: me && me.team === 0 ? 1 : 0 }); S('tap'); synced(); } catch (e) {} };
     const rd = $('#lvReady'); if (rd) rd.onclick = async () => { rd.disabled = true; try { await rpc('set_ready', { p_code: r.code, p_ready: !(me && me.ready) }); S('tap'); synced(); } catch (e) { say('No connection.'); } finally { rd.disabled = false; } };
     const sb = $('#lvStart'); if (sb) sb.onclick = start;
+    root.querySelectorAll('[data-pzk]').forEach(b => b.onclick = () => { S('tap'); pickPuzzle(b.dataset.pzk); });
     const pk = D.getElementById('lvPick2');
     if (pk) { const d = normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level });
       wirePicker(pk, d, async () => {
@@ -350,6 +370,7 @@
     if (ps.length < 2) return 'Share the code — you need at least 2 players.';
     if (r.mode === 'duel' && ps.length !== 2) return '1-v-1 needs exactly 2 players.';
     if (r.mode === 'teams' && (!ps.some(p => p.team === 0) || !ps.some(p => p.team === 1))) return 'Both teams need at least one player.';
+    if (r.game === 'puzzle' && !(r.state && r.state.puzzle)) return host() ? 'Pick a puzzle first.' : 'The host is choosing a puzzle…';
     const nr = ps.filter(p => !p.ready && p.user_id !== r.host_id).map(p => p.name);
     if (nr.length) return `Waiting for ${nr.join(', ')} to be ready.`;
     return '';
@@ -357,8 +378,15 @@
   async function start() {
     const b = $('#lvStart'), hint = $('#lvHint'); if (!b || b.dataset.busy) return;
     const why = startProblem(L.st); if (why) { hint.textContent = why; S('hmm'); return; }
-    b.dataset.busy = '1'; b.textContent = '⏳ Getting questions ready…';
+    b.dataset.busy = '1'; b.textContent = L.st.room.game === 'puzzle' ? '⏳ Starting…' : '⏳ Getting questions ready…';
     try {
+      if (L.st.room.game === 'puzzle') {                  // Puzzle Race: the server builds the answer key, then starts
+        let j = null;
+        try { j = await Cloud.call('/functions/v1/puzzle-key', { method: 'POST', body: { code: L.code } }); }
+        catch (e) { hint.textContent = e && e.status === 404 ? 'Puzzle races are not switched on yet on the server. Please try another game.' : (e && e.message) || 'Could not start. Check your internet and try again.'; S('hmm'); return; }
+        if (!j || !j.ok) { hint.textContent = errText(j); S('hmm'); return; }
+        S('unlock'); L.qs = null; synced(); return;
+      }
       const qs = await pickQuestions(L.st);
       const j = await rpc('start_game', { p_code: L.code, p_questions: qs });
       if (!j || !j.ok) { hint.textContent = j && j.code === 'need_questions' ? `We could not find enough questions for ${(j.need || []).map(courseName).join(', ')} yet. Try another game, or fewer questions.` : errText(j); S('hmm'); return; }
@@ -443,7 +471,7 @@
     const r = st.room, gm = GAMES[r.game];
     const shellSig = JSON.stringify(['game', r.code, r.game, r.mode, st.room.status, host()]);
     if (L.sig !== shellSig || !D.querySelector('#s-live .lv-play')) {
-      L.sig = shellSig; L.stageSig = ''; L.sb = null;
+      L.sig = shellSig; L.stageSig = ''; L.sb = null; pzStop();
       screen().innerHTML = `<div class="lv-root lv-play" data-game="${r.game}"><div class="lv-top"><b>${gm.e} ${gm.n}</b><span class="lv-round"></span><span class="lv-net"></span></div>
         <div class="lv-timer" role="timer" aria-label="Time left"><i></i><span class="lv-secs"></span></div>
         <div class="lv-scores" aria-label="Scores"></div><div class="lv-stage"></div>
@@ -453,6 +481,7 @@
       $('#lvQuit').onclick = function () { if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again to leave'; return; } leave(); };
       setNet(L.net);
     }
+    if (r.game === 'puzzle') { pzStrip(st); const rd0 = D.querySelector('#s-live .lv-round'), inf = (r.state && r.state.puzzle) || {}; if (rd0) rd0.textContent = `${inf.e || '🧩'} ${inf.n || 'Puzzle'}`; puzzleStage(st); tick(); return; }
     scores(st);
     const rd = D.querySelector('#s-live .lv-round');
     if (rd) rd.textContent = r.game === 'snakes' ? `Round ${(r.state && r.state.round) || 1} · first to 100 wins` : `Question ${Math.min(r.qi + 1, r.rounds)} of ${r.rounds}`;
@@ -477,6 +506,7 @@
     if (!active()) return suspend();
     const r = L.st.room, bar = D.querySelector('#s-live .lv-timer i'), sec = D.querySelector('#s-live .lv-secs'), tm = D.querySelector('#s-live .lv-timer');
     if (r.status !== 'playing') return;
+    if (r.game === 'puzzle') return pzTick(r);
     const now = nowS(), pre = r.game !== 'snakes' && r.round_at && now < r.round_at;
     if (r.deadline) {
       const total = ((r.game === 'snakes' ? r.turn_secs + 2 : r.turn_secs) * 1000), left = Math.max(0, r.deadline - now), frac = pre ? 1 : Math.min(1, left / total);
@@ -668,6 +698,165 @@
   }
   function rollFx(pl) { if (!pl || pl.u === uid()) return; const d = D.querySelector('#s-live .lv-die'); if (d && /^[1-6]$/.test(String(pl.v))) { d.classList.remove('roll'); void d.offsetWidth; d.classList.add('roll'); d.textContent = pl.v; } }
 
+  /* ---------- 🧩 Puzzle Race ----------
+     Contract with js/puzzles.js (feature-detected, it may load later or be an older version):
+       Puzzles.kinds() → [{ id, e, n, d, chapter }]      Puzzles.pick(id) → Promise<spec | null>
+       Puzzles.race(el, spec, { onSolved({ ms, hints, mistakes }), onQuit(), onProgress({ done, total }) }) → { stop() }
+       optional Puzzles.describe(spec) → string | { ch, d }  (lobby label; else read from common spec fields)
+     Everyone plays the HOST's spec (see the header). The server times the solve; client ms is only a fallback label. */
+  const PZ = () => window.Puzzles || null;
+  function pzKinds() {
+    try { const P = PZ(), k = P && typeof P.kinds === 'function' ? P.kinds() : null; return Array.isArray(k) ? k.filter(x => x && /^[a-z0-9]{2,12}$/.test(String(x.id || ''))) : []; } catch (e) { return []; }
+  }
+  const pzCanPick = () => !!(pzKinds().length && typeof PZ().pick === 'function');
+  const pzCanRace = () => !!(PZ() && typeof PZ().race === 'function');
+  const fmtMs = ms => { const t = Math.max(0, Math.round((+ms || 0) / 1000)); return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
+  const sayMs = ms => { const t = Math.max(0, Math.round((+ms || 0) / 1000)), m = Math.floor(t / 60), s = t % 60; return (m ? `${m} minute${m === 1 ? '' : 's'} ` : '') + `${s} second${s === 1 ? '' : 's'}`; };
+  function pzInfo(kind, spec) {
+    const k = pzKinds().find(x => x.id === kind) || {}, str = v => (typeof v === 'string' || typeof v === 'number') ? String(v) : '';
+    let ch = '', d = '';
+    try { const o = PZ().describe ? PZ().describe(spec) : null; if (typeof o === 'string') ch = o; else if (o) { ch = str(o.ch || o.chapter || o.label); d = str(o.d || o.detail); } } catch (e) {}
+    if (!ch && k.chapter && spec) {
+      const c = spec.chapter && typeof spec.chapter === 'object' ? (spec.chapter.title || spec.chapter.name) : (spec.chapterTitle || spec.title || spec.label || '');
+      const sub = spec.subjectName || (spec.subject && typeof spec.subject === 'object' ? spec.subject.name : '');
+      ch = [str(sub), str(c)].filter(Boolean).join(' · ');
+    }
+    if (!d && spec) {
+      const sz = spec.n || spec.size, df = spec.diff || spec.difficulty || spec.level;
+      d = [typeof sz === 'number' ? `${sz}×${sz}` : /\d/.test(str(sz)) ? str(sz) : '', str(df) && cap(str(df))].filter(Boolean).join(' · ');
+    }
+    return { e: String(k.e || '🧩').slice(0, 8), n: String(k.n || 'Puzzle').slice(0, 40), ch: ch.slice(0, 120), d: d.slice(0, 60) };
+  }
+  function pzLobbyHTML(r, H) {
+    const cur = r.state && r.state.puzzle, kinds = H ? pzKinds() : [];
+    const now = cur ? `<div class="lv-pzcur" role="status"><span class="lv-ge" aria-hidden="true">${E(cur.e)}</span><span><b>${E(cur.n)}</b>${cur.ch ? `<small>${E(cur.ch)}</small>` : ''}${cur.d ? `<small>${E(cur.d)}</small>` : ''}</span></div>`
+      : `<p class="lv-mut" role="status">${H ? 'Choose the puzzle everyone will race on.' : '⏳ The host is choosing a puzzle…'}</p>`;
+    if (!H) return now;
+    const pick = !pzCanPick() ? '<p class="lv-mut">Puzzles are still loading on this phone. Reload the app if this stays.</p>'
+      : `<h3 class="lv-h3">${cur ? 'Change the puzzle' : 'Pick a puzzle'}</h3><div class="lv-pzkinds" role="group" aria-label="Puzzle">${kinds.map(k => `<button type="button" class="lv-pzk${cur && cur.kind === k.id ? ' on' : ''}" data-pzk="${E(k.id)}" aria-pressed="${!!(cur && cur.kind === k.id)}"><span class="lv-ge" aria-hidden="true">${E(k.e || '🧩')}</span><b>${E(k.n || k.id)}</b><small>${k.chapter ? 'From a chapter' : E(k.d || 'Numbers')}</small></button>`).join('')}</div>`;
+    return now + pick;
+  }
+  async function pickPuzzle(kind) {
+    if (L.picking || !pzCanPick() || !host()) return;
+    const code = L.code; L.picking = true; let spec = null;
+    try { spec = await PZ().pick(kind); } catch (e) { console.warn('live: puzzle pick', e); }
+    finally { L.picking = false; }
+    if (!L.code || L.code !== code) return;
+    if (!active()) enter(code);                              // the picker may have used its own screen
+    if (!spec) return;
+    try { spec = JSON.parse(JSON.stringify(spec)); } catch (e) { say('That puzzle could not be shared.'); return; }
+    try {
+      const inf = pzInfo(kind, spec), j = await rpc('puzzle_set', { p_code: code, p_kind: kind, p_spec: spec, p_info: inf });
+      if (!j || !j.ok) { say(errText(j)); return; }
+      S('unlock'); L.sig = ''; synced(); setTimeout(() => announce(`Puzzle chosen: ${inf.n}${inf.ch ? ', ' + inf.ch : ''}.`), 300);
+    } catch (e) { say('No connection.'); }
+  }
+  function pzReset() { pzStop(); L.pzLive = {}; L.pzMine = 0; L.pzSeen = -1; }
+  function pzStop() {
+    const z = L.pz; if (!z) return; L.pz = null; clearTimeout(z.t);
+    try { z.h && z.h.stop && z.h.stop(); } catch (e) {}
+  }
+  function pzLiveIn(pl) {                                    // a friend's progress over the live channel (the server copy follows by polling)
+    if (!pl || typeof pl.u !== 'string' || !Number.isFinite(+pl.p)) return;
+    L.pzLive[pl.u] = Math.max(0, Math.min(99, Math.round(+pl.p)));
+    if (L.st && L.st.room.game === 'puzzle' && L.st.room.status === 'playing') pzStrip(L.st);
+  }
+  const pzPct = p => p.correct >= 1 ? 100 : Math.max(+p.answered || 0, L.pzLive[p.user_id] || 0, p.user_id === uid() ? L.pzMine : 0);
+  function pzStrip(st) {
+    const box = D.querySelector('#s-live .lv-scores'); if (!box) return;
+    const r = st.room, sv = (r.state && r.state.solved) || [];
+    const ms = p => { const x = sv.find(y => y.u === p.user_id); return x ? x.ms : p.total_ms; };
+    const ps = st.players.slice().sort((a, b) => (b.correct >= 1) - (a.correct >= 1) || (a.correct >= 1 ? ms(a) - ms(b) : pzPct(b) - pzPct(a)) || a.seat - b.seat);
+    const chip = p => { const done = p.correct >= 1, pc = pzPct(p);
+      return `<span role="listitem" class="lv-sc lv-pzc${p.user_id === uid() ? ' me' : ''}${done ? ' done' : ''}${p.left ? ' left' : ''}"><span class="lv-dot" data-on="${p.user_id}"></span><span aria-hidden="true">${E(p.avatar)}</span> ${E(p.name)}${p.left ? ' (left)' : ''} <b>${done ? `✓ ${fmtMs(ms(p))}` : pc + '%'}</b><span class="sr-only">${done ? ', solved' : ' done'}</span><i class="lv-pzbar" aria-hidden="true" style="--p:${pc}%"></i></span>`; };
+    const h = ps.map(chip).join('');
+    box.setAttribute('role', 'list'); box.setAttribute('aria-label', 'Race progress');
+    if (box.dataset.h !== h) { box.dataset.h = h; box.innerHTML = h; }
+    paintOnline();
+    // announce new solvers (not the first paint, not me — I hear my own result)
+    if (L.pzSeen < 0) L.pzSeen = sv.length;
+    else if (sv.length > L.pzSeen) { sv.slice(L.pzSeen).forEach(x => { if (x.u !== uid()) { announce(`${nameOf(x.u)} solved it in ${sayMs(x.ms)}!`); S('coin'); } }); L.pzSeen = sv.length; }
+  }
+  function puzzleStage(st) {
+    const r = st.room, box = D.querySelector('#s-live .lv-stage'); if (!box) return;
+    const now = nowS(), pre = !!(r.round_at && now < r.round_at), me = meP(), solved = !!(me && me.correct >= 1);
+    const sig = JSON.stringify(['pz', r.code, r.round_at, pre, solved, !!L.qs]);
+    if (sig === L.stageSig && (solved || pre || !L.qs || (L.pz && box.contains(L.pz.el)))) return; L.stageSig = sig;
+    if (pre) { pzStop(); box.innerHTML = countdownHTML('🧩 Puzzle Race starts in…'); return; }
+    if (solved) {
+      pzStop();
+      const sv = (r.state && r.state.solved) || [], i = sv.findIndex(x => x.u === uid()), x = sv[i] || { ms: me.total_ms };
+      const place = i >= 0 ? ['🥇 You are first!', '🥈 You are second!', '🥉 You are third!'][i] || `You finished number ${i + 1}.` : '';
+      box.innerHTML = `<div class="card lv-wait lv-pzdone"><div class="lv-big" aria-hidden="true">🏁</div><h2 class="lv-h2">Solved in ${fmtMs(x.ms)}!</h2><p class="sub">${place} Waiting for the others — the race ends when everyone has solved it or time runs out.</p></div>`;
+      return;
+    }
+    if (!L.qs) { box.innerHTML = '<div class="card"><p class="sub">Loading the puzzle…</p></div>'; return; }
+    if (!pzCanRace()) { box.innerHTML = '<div class="card"><p class="sub">This phone cannot show the puzzle yet. Reload the app (or update it) and open the room again — your place is kept.</p></div>'; return; }
+    if (L.pz && box.contains(L.pz.el)) return;
+    pzStop();
+    box.innerHTML = '<div class="lv-pzhost" role="region" aria-label="Your puzzle"></div>';
+    const el = box.firstElementChild, z = { el, h: null, last: 0, t: 0, pend: null, solving: false };
+    L.pz = z;
+    try {
+      z.h = PZ().race(el, JSON.parse(JSON.stringify(L.qs)), {
+        onProgress: o => pzProg(z, o), onSolved: o => pzSolved(z, o),
+        onError: () => pzNote(z, '🙂 This puzzle could not be made on this phone. Reload the app and open the room again.'),
+        onQuit: () => { const q = D.getElementById('lvQuit'); if (q) { q.dataset.sure = 1; q.textContent = 'Tap again to leave'; try { q.focus(); } catch (e) {} } say('To leave the race, tap “Tap again to leave”.'); } });
+    } catch (e) { console.warn('live: puzzle race', e); el.innerHTML = '<div class="card"><p class="sub">This puzzle could not be opened on this phone.</p></div>'; }
+    // a phone with other content / engine files would build a different puzzle, and its answers would not match the key
+    try { if (z.h && z.h.ready && z.h.ready.then) z.h.ready.then(x => { if (x && x.ok && x.same === false) pzNote(z, '⚠️ This phone made a different puzzle from your friends’ (old app files). Reload the app to race fairly.'); }).catch(() => {}); } catch (e) {}
+  }
+  function pzNote(z, msg) {
+    if (z !== L.pz || !z.el.isConnected) return;
+    let n = z.el.parentNode.querySelector('.lv-pznote'); if (!n) { n = D.createElement('p'); n.className = 'lv-note lv-pznote'; n.setAttribute('role', 'status'); z.el.parentNode.insertBefore(n, z.el); }
+    n.textContent = msg;
+  }
+  function pzProg(z, o) {
+    if (z !== L.pz || !o) return;
+    const done = Math.max(0, +o.done || 0), total = Math.max(1, +o.total || 1);
+    L.pzMine = Math.min(99, Math.floor(100 * Math.min(done, total) / total));
+    if (L.st) pzStrip(L.st);
+    z.pend = [done, total];
+    const send = () => {
+      if (z !== L.pz || !z.pend) return; const [d, t] = z.pend; z.pend = null; z.last = Date.now();
+      rpc('puzzle_progress', { p_code: L.code, p_done: d, p_total: t }).then(j => { if (j && j.ok && j.pct != null) broadcast('pz', { u: uid(), p: j.pct }); }).catch(() => {});
+    };
+    clearTimeout(z.t);
+    const wait = 2500 - (Date.now() - z.last);
+    if (wait <= 0) send(); else z.t = setTimeout(send, wait);
+  }
+  /* the puzzle reports a finished grid → the SERVER checks the answer (the only way to be marked solved) */
+  async function pzSolved(z, o) {
+    if (z !== L.pz || z.solving) return; z.solving = true; clearTimeout(z.t); z.pend = null;
+    o = o || {};
+    const body = { p_code: L.code, p_answer: o.answer == null ? null : o.answer, p_hints: Math.max(0, +o.hints || 0) | 0, p_mistakes: Math.max(0, +o.mistakes || 0) | 0 };
+    pzNote(z, '⏳ Checking your answer…');
+    for (let n = 0; n < 4; n++) {
+      let j;
+      try { j = await rpc('puzzle_solved', body); } catch (e) { await new Promise(res => setTimeout(res, 1500)); continue; }
+      if (z !== L.pz) return;
+      if (j && j.ok) { S('unlock'); announce(`Correct! Solved in ${sayMs(j.ms)}.${j.place ? ` You finished number ${j.place}.` : ''}`); L.stageSig = ''; synced(); return; }
+      if (j && j.code === 'slow') { await new Promise(res => setTimeout(res, 3200)); continue; }
+      const msg = j && j.code === 'late' ? '⏰ Time is up!' : errText(j);
+      pzNote(z, msg); announce(msg); say(msg); S('hmm');
+      z.solving = false; L.stageSig = ''; fetchState(); return;
+    }
+    z.solving = false; pzNote(z, 'No connection — your answer could not be checked yet.'); say('No connection — your answer could not be checked yet.');
+  }
+  function pzTick(r) {
+    const now = nowS(), pre = !!(r.round_at && now < r.round_at), total = ((r.state && r.state.mins) || r.rounds || 8) * 60000, left = r.deadline ? Math.max(0, r.deadline - now) : total;
+    const bar = D.querySelector('#s-live .lv-timer i'), sec = D.querySelector('#s-live .lv-secs'), tm = D.querySelector('#s-live .lv-timer');
+    if (bar) bar.style.transform = `scaleX(${pre ? 1 : Math.min(1, left / total)})`;
+    if (sec) sec.textContent = pre ? `Get ready… ${Math.ceil((r.round_at - now) / 1000)}` : left > 0 ? `${fmtMs(left)} left` : '⏰ Time is up!';
+    if (tm) tm.classList.toggle('hot', !pre && left <= 30000);
+    const cd = D.querySelector('#s-live .lv-count'); if (cd) { if (pre) cd.textContent = Math.max(1, Math.ceil((r.round_at - now) / 1000)); else if (cd.dataset.go !== '1') { cd.dataset.go = '1'; L.stageSig = ''; render(); return; } }
+    // finish the race once it is over: deadline passed, or every active player has solved it (any member may ask)
+    const ps = actives(), all = ps.length > 0 && ps.every(p => p.correct >= 1);
+    if (!(all || (r.deadline && now >= r.deadline + 1600))) return;
+    const last = L.advAt.pz || 0; if (Date.now() - last < 1800) return; L.advAt.pz = Date.now();
+    rpc('puzzle_advance', { p_code: L.code }).then(j => { if (j && j.changed) synced(); else fetchState(); }).catch(() => {});
+  }
+
   /* ---------- results ---------- */
   function results(st) {
     const r = st.room, me = uid(), sig = JSON.stringify(['res', r.step, r.host_id]);
@@ -693,10 +882,11 @@
       S(iWon ? 'unlock' : 'coin');
     }
     const medal = i => ['🥇', '🥈', '🥉'][i] || String(i + 1);
-    const row = (p, i) => `<li class="${p.user_id === me ? 'me' : ''}${p.left ? ' left' : ''}"><span class="lv-rk">${medal(i)}</span><span class="lv-av" aria-hidden="true">${E(p.avatar)}</span><span class="lv-nm">${E(p.name)}${p.user_id === me ? ' (you)' : ''}${p.left ? ' (left)' : ''}${teams ? ` <small>${TEAMS[p.team || 0].e}</small>` : ''}</span><span class="lv-pts">${r.game === 'snakes' ? '📍 ' + p.pos : p.score + ' pts'}<small>${p.correct} right</small></span></li>`;
+    const row = (p, i) => `<li class="${p.user_id === me ? 'me' : ''}${p.left ? ' left' : ''}"><span class="lv-rk">${medal(i)}</span><span class="lv-av" aria-hidden="true">${E(p.avatar)}</span><span class="lv-nm">${E(p.name)}${p.user_id === me ? ' (you)' : ''}${p.left ? ' (left)' : ''}${teams ? ` <small>${TEAMS[p.team || 0].e}</small>` : ''}</span><span class="lv-pts">${r.game === 'puzzle' ? (p.correct >= 1 ? `⏱ ${fmtMs(p.total_ms)}<small>${p.score} pts</small>` : `${p.answered}% done<small>not finished</small>`) : `${r.game === 'snakes' ? '📍 ' + p.pos : p.score + ' pts'}<small>${p.correct} right</small>`}</span></li>`;
     const conf = iWon ? `<div class="lv-conf" aria-hidden="true">${Array.from({ length: 18 }, (_, j) => `<span style="left:${(j * 5.7 + 2) % 100}%;animation-delay:${(j % 6) * .15}s">${['🎉', '⭐', '✨', '🎊'][j % 4]}</span>`).join('')}</div>` : '';
     const newB = earned.map(id => BADGES.find(b => b[0] === id)).filter(Boolean);
     screen().innerHTML = `<div class="lv-root lv-res"><div class="card lv-rescard">${conf}<div class="lv-res-e" aria-hidden="true">${GAMES[r.game].e}</div><h1 class="lv-h1">${title}</h1>
+      ${r.game === 'puzzle' && r.state.puzzle ? `<p class="sub">${E(r.state.puzzle.e)} ${E(r.state.puzzle.n)}${r.state.puzzle.ch ? ' · ' + E(r.state.puzzle.ch) : ''}${(r.state.solved || []).length ? '' : ' · nobody finished in time'}</p>` : ''}
       ${teams ? `<div class="lv-tres">${TEAMS.map((tm, i) => `<div class="t${i}${wt === i ? ' win' : ''}"><b>${tm.e} ${tm.n}</b><span>${t[i] || 0}</span></div>`).join('')}</div>` : ''}
       <ol class="lv-rank">${ps.map(row).join('')}</ol>
       ${fresh ? `<div class="arc-xp">+${10 + (iWon ? 15 : 0)} ⭐ XP</div>` : ''}
@@ -723,31 +913,23 @@
     const qt = t(root.querySelector('.lv-qt')), opts = ch && ch.length && ch[0].matches('.opt') ? list(ch, 'Option') + ' Say an option number.' : '';
     const sec = t(root.querySelector('.lv-secs'));
     if (r.game === 'snakes') { const me = meP(); return `${t(root.querySelector('.lv-slog'))} You are on square ${me ? me.pos : 1} of 100. ${t(root.querySelector('.lv-sltitle'))} ${qt} ${opts} ${root.querySelector('#lvRoll') ? 'Your turn: say roll, or press the roll button.' : t(root.querySelector('.lv-slact'))} ${sec}`; }
+    if (r.game === 'puzzle') return `Puzzle Race. ${t(root.querySelector('.lv-round'))}. ${[...root.querySelectorAll('.lv-pzc')].map(li => t(li)).join('; ')}. ${t(root.querySelector('.lv-pzdone')) || t(root.querySelector('.lv-cd'))} ${sec}`;
     if (r.game === 'buzzer') return `${qt} ${opts || t(root.querySelector('.lv-bmsg'))} ${root.querySelector('#lvBuzz:not([disabled])') ? 'Press the buzz button.' : ''} ${sec}`;
     return `${t(root.querySelector('.lv-round'))}. ${t(root.querySelector('.lv-wait'))} ${qt} ${opts} ${t(root.querySelector('.lv-note'))} ${sec}`;
   }
 
-  /* ================= entry tiles ================= */
-  function tileHTML(dark) {
-    const s = lget('sv_live_room', null), back = s && Date.now() - s.at < 2 * 3600e3 ? s.code : null;
-    return `<button type="button" class="card lv-tile${dark ? ' dark' : ''}" data-lvtile="1"><span class="lv-tile-e" aria-hidden="true">🎮</span><span class="lv-tile-t"><b>Play with friends</b><small>${back ? `Back to your room ${E(back)}` : 'Live quiz races, buzzer rounds &amp; Snakes &amp; Ladders battles'}</small></span><span class="lv-tile-go" aria-hidden="true">›</span></button>`;
-  }
-  function placeTiles() {
-    if (!STx() || !STx().profile) return;
-    try { if (window.Cloud && Cloud.isParent && Cloud.isParent()) return; } catch (e) {}
-    const put = (host, ref, where, dark) => {
-      if (!host || host.querySelector('[data-lvtile]')) return;
-      if (!ref) return; ref.insertAdjacentHTML(where, tileHTML(dark));
-      const b = host.querySelector('[data-lvtile]'); if (b) b.onclick = () => { S('open'); const s = lget('sv_live_room', null); if (s && Date.now() - s.at < 2 * 3600e3) join(s.code); else home(); };
-    };
-    const w = D.getElementById('s-world'); if (w && w.classList.contains('active') && !isCA()) put(w, D.getElementById('map'), 'beforebegin');
-    const p = D.getElementById('s-practice'); if (p && p.classList.contains('active') && !isCA()) { const g = p.querySelector(':scope > .goalcard'); if (g) put(p, g, 'afterend'); }
-    const ca = D.getElementById('s-ca');
-    if (ca && ca.classList.contains('active') && isCA()) {
-      const mot = ca.querySelector(':scope > .ca-mot'), hubs = ca.querySelector(':scope > .ca-hubs');
-      if (mot && ca.querySelector('.ca-journey')) put(ca, mot, 'afterend', true);
-      else if (hubs) put(ca, hubs, 'afterbegin', true);
+  /* ================= entry: the 🎮 Play hub (js/playhub.js) opens Game Rooms through window.Live ================= */
+  const resume = () => { const s = lget('sv_live_room', null); return s && s.code && Date.now() - s.at < 2 * 3600e3 ? s.code : null; };
+  /* Live.open({ game }) → Game Rooms home with that game preselected in the "Start a room" picker; Live.open() = as before */
+  function open(o) {
+    const g = o && o.game;
+    if (g && GAMES[g]) {
+      const was = draft.game; draft.game = g;
+      if (g === 'duel') draft.mode = 'duel'; else if (draft.mode === 'duel' && was !== g) draft.mode = 'ffa';
+      if (g === 'puzzle' && was !== 'puzzle') draft.rounds = 8;
+      normDraft(draft);
     }
+    return home();
   }
 
   /* ================= links: ?room=CODE ================= */
@@ -849,6 +1031,13 @@
 html.sv-rm .lv-conf,html.sv-rm .lv-float{display:none}
 .lv-locked{text-align:center}.lv-lock-e{font-size:44px}
 .lv-rejoin{display:flex;flex-direction:column;gap:8px}
+.lv-pzcur{display:flex;gap:10px;align-items:center;background:#f3efff;border-radius:14px;padding:8px 10px;margin:8px 0}.lv-pzcur b{display:block}.lv-pzcur small{display:block;color:var(--muted);font-size:12.5px;font-weight:700}
+.lv-pzkinds{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lv-pzk{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;border:2px solid #e3e6f6;background:#fff;border-radius:14px;padding:8px 4px;min-height:44px;cursor:pointer;font-family:inherit;color:var(--ink)}
+.lv-pzk.on{border-color:#7646ea;background:#f3efff}.lv-pzk b{font-size:13px}.lv-pzk small{font-size:11px;color:var(--muted)}
+.lv-pzc{position:relative;overflow:hidden;padding-bottom:7px}.lv-pzbar{position:absolute;left:0;bottom:0;height:3px;width:var(--p,0%);background:#7646ea;transition:width .4s}.lv-pzc.done{background:#dcfce7}.lv-pzc.done .lv-pzbar{background:#16a34a}
+.lv-pzhost{margin-bottom:6px}
+html[data-age=pro]:not(.sv-hc) .lv-pzk.on,html[data-age=pro]:not(.sv-hc) .lv-pzcur{border-color:#C9A76A;background:#F4EAD8}
 .lv-tile{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;cursor:pointer;font-family:inherit;color:var(--ink);background:linear-gradient(135deg,#fff,#f3efff);min-height:64px}
 .lv-tile-e{font-size:34px;line-height:1}.lv-tile-t{flex:1;min-width:0}.lv-tile-t b{display:block;font-family:'Baloo 2',Nunito,sans-serif;font-size:18px}.lv-tile-t small{color:var(--muted);font-size:13px}.lv-tile-go{font-size:28px;color:#7646ea;font-weight:800}
 .ca-hubs .lv-tile{margin-bottom:10px}
@@ -863,12 +1052,9 @@ html[data-age=pro]:not(.sv-hc) .lv-q .lv-src{color:#74561F}html[data-age=pro]:no
   /* ================= start ================= */
   function boot() {
     style();
-    let t = 0;
-    new MutationObserver(() => { if (!t) t = requestAnimationFrame(() => { t = 0; placeTiles(); }); }).observe(D.querySelector('main') || D.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     setInterval(pendingJoin, 1000); setTimeout(pendingJoin, 600);
-    placeTiles();
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', boot) : boot();
   if (window.Nav) home = Nav.route('live', home);
-  window.Live = { open: () => home(), join, speech, _L: L, _pick: pickQuestions, _courseName: courseName };
+  window.Live = { open, join, resume, speech, _L: L, _pick: pickQuestions, _courseName: courseName };
 })();

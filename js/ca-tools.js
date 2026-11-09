@@ -1156,10 +1156,8 @@
   function homeTiles() {
     const c = C(); let ms = 0, mr = 0; Object.values(c.mcq).forEach(v => { ms += v.s; mr += v.s - v.w; });
     const vAll = vivaScored().flat(), wk = dayList(7).reduce((a, d) => a + (c.time[d] || 0), 0), rv = Object.keys(c.revise).length;
-    return `<button class="card ca-dtile" id="caDashTile" aria-label="Open your CA dashboard"><span class="ca-k">📊 Your dashboard</span>
-        <span class="ca-dmini"><span><b>${ms ? Math.round(mr / ms * 100) + '%' : '—'}</b><small>MCQ accuracy</small></span><span><b>${vAll.length ? Math.round(vAll.reduce((a, x) => a + x.pct, 0) / vAll.length) + '%' : '—'}</b><small>Viva</small></span><span><b>${durTxt(wk)}</b><small>This week</small></span><span><b>${activity().cur}</b><small>Day streak</small></span></span>
-        <span class="ca-go">Open dashboard ▶</span></button>
-      <div class="gsearch ca-search ca-hsearch"><span aria-hidden="true">🔍</span><input id="caHomeQ" placeholder="Search ICAI topics, lessons, your notes…" autocomplete="off" aria-label="Smart search" enterkeyhint="search"></div>
+    /* the dashboard lives only in the centre 📊 Dashboard tab (owner's request) */
+    return `<div class="gsearch ca-search ca-hsearch"><span aria-hidden="true">🔍</span><input id="caHomeQ" placeholder="Search ICAI topics, lessons, your notes…" autocomplete="off" aria-label="Smart search" enterkeyhint="search"></div>
       <div class="ca-quick"><button class="ca-qt" id="caQViva"><b aria-hidden="true">🎙️</b>Viva</button><button class="ca-qt" id="caQMcq"><b aria-hidden="true">🧩</b>MCQ set</button><button class="ca-qt" id="caQMock"><b aria-hidden="true">📝</b>Mock paper</button><button class="ca-qt" id="caQNotes"><b aria-hidden="true">📚</b>My notes</button>${rv ? `<button class="ca-qt" id="caQRev"><b aria-hidden="true">🔁</b>Revise (${rv})</button>` : ''}${SP() ? `<button class="ca-qt" id="caQSpeed"><b aria-hidden="true">⚡</b>Speed drill${SP().count() ? ` (${SP().count()})` : ''}</button><button class="ca-qt" id="caQTricks"><b aria-hidden="true">💡</b>Tricks</button>${c.level === 'foundation' ? '<button class="ca-qt" id="caQFocus"><b aria-hidden="true">📌</b>Exam focus</button>' : ''}` : ''}${c.level === 'foundation' && window.CaKeys ? `<button class="ca-qt" id="caQKeys"><b aria-hidden="true">📚</b>Key rules${CaKeys.dueCount() ? ` (${CaKeys.dueCount()} due)` : ''}</button>` : ''}</div>`;
   }
   function wireHome(el) {

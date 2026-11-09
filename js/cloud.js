@@ -483,7 +483,7 @@
         ${mode === 'up' ? `<fieldset class="cl-role" role="radiogroup" aria-required="true" aria-labelledby="clRoleL"><legend id="clRoleL">I am a:</legend><div class="cl-roles">
           <label class="cl-rc${opt.role === 'student' ? ' on' : ''}"><input type="radio" name="clRole" value="student"${opt.role === 'student' ? ' checked' : ''}><span aria-hidden="true">🎓</span><b>Student</b><small>I want to learn</small></label>
           <label class="cl-rc${opt.role === 'parent' ? ' on' : ''}"><input type="radio" name="clRole" value="parent"${opt.role === 'parent' ? ' checked' : ''}><span aria-hidden="true">👨‍👩‍👧</span><b>Parent</b><small>I want to follow my child</small></label></div></fieldset>` : ''}
-        ${emField ? `<label for="clE">Email</label><input class="cl-in" id="clE" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required value="${esc(opt.email || '')}">` : ''}
+        ${emField ? `<label for="clE">Email</label><input class="cl-in" id="clE" type="email" data-field="email" autocomplete="email" autocapitalize="none" spellcheck="false" required value="${esc(opt.email || '')}">` : ''}
         ${pwField ? `<label for="clP">${mode === 'newpw' ? 'New password' : 'Password'}</label><input class="cl-in" id="clP" type="password" autocomplete="${mode === 'in' ? 'current-password' : 'new-password'}" minlength="8" required>
           <label class="cl-show cl-small"><input type="checkbox" id="clSh"> Show password</label>` : ''}
         ${mode === 'up' || mode === 'newpw' ? '<p class="cl-small">At least 8 characters.</p>' : ''}
@@ -503,6 +503,7 @@
       e.preventDefault();
       const er = el.querySelector('#clErr'), go = el.querySelector('#clGo'); er.textContent = '';
       const email = emField ? el.querySelector('#clE').value.trim().toLowerCase() : '', pw = pwField ? el.querySelector('#clP').value : '';
+      if (emField && window.Fields && !Fields.valid(el.querySelector('#clF')).ok) return;   // js/fields.js shows the message under the box
       if (emField && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { er.textContent = 'Please enter a valid email address.'; return; }
       if (pwField && mode !== 'in' && pw.length < 8) { er.textContent = 'Please use at least 8 characters.'; return; }
       if (pwField && !pw) { er.textContent = 'Please enter your password.'; return; }
@@ -527,7 +528,7 @@
 
   function choose(local, cloud, when, uid) {
     const info = p => { const st = p.st || {}, q = Object.keys(st.topics || {}).length, ca = st.ca && st.ca.level ? ' · CA ' + st.ca.level : '';
-      return `${esc((st.profile && st.profile.name) || 'Student')}${ca} · ${st.xp || 0} ⭐ · ${q} quests`; };
+      return `${esc((st.profile && st.profile.name) || 'Student')}${ca} · ${window.kfmt ? kfmt(st.xp || 0) : (st.xp || 0)} ⭐ · ${q} quests`; };
     const d = when ? new Date(when).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
     const el = openSheet(`<h3 id="clT">Which progress should we keep?</h3><p>This phone and your account both have progress. Pick one — the other will be replaced.</p>
       <button class="cl-pick" type="button" data-k="cloud"><b>☁️ Progress in my account</b><small>${info(cloud)}${d ? ' · saved ' + d : ''}</small></button>

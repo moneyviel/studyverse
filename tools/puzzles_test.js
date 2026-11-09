@@ -6,6 +6,13 @@
      (every across/down run is an entry, nothing isolated, connected, numbering), 8–15 entries, answers A–Z 3–12,
      enumeration adds up, clue does not contain its answer, no clue gives away another answer, deterministic.
    - word searches: each word found exactly once.
+   - every Hindi / Sanskrit chapter (Indic scripts): aksharas are whole (no cell starts with a matra / halant / nukta;
+     Intl.Segmenter and the no-Segmenter fallback agree), crossword / word search / anagram / concept sudoku for every
+     difficulty: valid, deterministic, every answer is a word of THIS chapter, tiles are the answer's aksharas.
+   - many real chapters of every grade and subject + CA: chapter puzzles use only the chapter's own words (crossword
+     words marked ↗ come from the neighbouring chapters of the same subject).
+   - server answer key: solutionOf(spec, content-from-disk) === the answer read back from the built grid the way the
+     UI reads it, for every kind (school, Hindi, CA); contentPathOf lists the files; the core loads without window.
    Prints timings (generation must stay well under 300 ms on a phone; the app also runs it in a Web Worker). */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -86,5 +93,110 @@ function caChapters() {
   let ok = 0; chs.concat(cas).forEach(ch => { const t = get(ch); if (t.own.length >= 3 && t.own.length + t.near.length >= 8) ok++; });
   console.log(`coverage: ${ok} of ${chs.length + cas.length} chapters have enough terms for a crossword`);
 }
+/* ---------- Indic scripts: every Hindi / Sanskrit chapter ---------- */
+const MARK0 = /^[\p{M}‌‍]/u;
+const readJ = f => JSON.parse(fs.readFileSync(path.join(ROOT, f)));
+const flat = x => JSON.stringify(x).normalize('NFC');
+function uiAnswer(t, p) {   // read the answer back from the grid exactly the way js/puzzles.js does when a student fills it in
+  if (t === 'sdk' || t === 'csdk') return p.solution.join('');
+  if (t === 'kak') return p.cells.map((c, i) => (c ? String(p.solution[i]) : '.')).join('');
+  if (t === 'xw') { const sol = [].concat(...p.grid.map(r => (Array.isArray(r) ? r : r.split('')))); return p.entries.map(e => Array.from({ length: e.len }, (_, j) => sol[(e.r + (e.dir === 'D' ? j : 0)) * p.w + e.c + (e.dir === 'A' ? j : 0)]).join('')); }
+  if (t === 'ws') { const G = p.grid.map(r => (Array.isArray(r) ? r : r.split(''))); return p.words.map(w => Array.from({ length: w.u.length }, (_, k) => G[w.r + w.dr * k][w.c + w.dc * k]).join('')).sort(); }
+  if (t === 'an') return p.words.map(w => w.u.join(''));
+}
+{
+  let chs = 0, terms = 0, made = {}, hidden = {}, cells = 0;
+  const t0 = Date.now();
+  for (let g = 1; g <= 12; g++) for (const sid of ['hindi', 'sanskrit']) {
+    const f = `content/g${g}/${sid}.json`; if (!fs.existsSync(path.join(ROOT, f))) continue;
+    const d = readJ(f);
+    d.chapters.forEach((c, ci) => {
+      chs++;
+      const T = P.termsFromSchool(d, ci), key = `g${g}/${sid}/c${ci}`, text = flat(c);
+      if (T.near.length) fail(key, 'Indic chapter borrowed terms from other chapters');
+      T.own.forEach(t => {
+        terms++;
+        if (!t.u) return fail(key, 'Latin term in an Indic chapter ' + t.a);
+        if (t.u.join('') !== t.a || P.aksharas(t.a).join('|') !== t.u.join('|') || P.aksharas(t.a, true).join('|') !== t.u.join('|')) fail(key, 'akshara split differs ' + t.a);
+        t.u.forEach(x => { cells++; if (MARK0.test(x) || !P.goodCell(x)) fail(key, `cell starts with a mark: ${t.a} → ${t.u.join('|')}`); });
+        if (!text.includes(t.a)) fail(key, 'answer not in the chapter ' + t.a);
+        if (t.clue && P.leaksIndic(t, t.clue)) fail(key, 'clue gives the answer away ' + t.a);
+      });
+      for (const k of ['xw', 'ws', 'an', 'csdk']) for (const diff of ['easy', 'medium', 'hard']) {
+        const spec = { t: k, sc: { k: 's', g, sid, ci }, seed: `ind|${key}|${diff}`, diff, n: k === 'csdk' ? 6 : undefined };
+        const r = P.puzzleFor(spec, T);
+        if (!r) { hidden[k] = (hidden[k] || 0) + 1; continue; }
+        made[k] = (made[k] || 0) + 1;
+        if (diff === 'medium' && JSON.stringify(P.puzzleFor(spec, P.termsFromSchool(readJ(f), ci))) !== JSON.stringify(r)) fail(key, k + ' not deterministic');
+        const p = r.p;
+        if (k === 'xw') { const v = P.validCrossword(p); if (v) fail(key + ' xw', v); p.grid.forEach(row => row.forEach(x => { if (x !== '#' && MARK0.test(x)) fail(key, 'xw cell ' + x); })); p.entries.forEach(e => { if (!text.includes(e.a)) fail(key, 'xw answer not in chapter ' + e.a); if (e.near) fail(key, 'xw near word'); }); }
+        if (k === 'ws') { const v = P.validWordsearch(p); if (v) fail(key + ' ws', v); p.words.forEach(w => { if (!text.includes(w.a)) fail(key, 'ws word not in chapter ' + w.a); }); p.grid.forEach(row => row.forEach(x => { if (MARK0.test(x) || !P.goodCell(x)) fail(key, 'ws cell ' + x); if (!T.own.some(t => t.u.includes(x))) fail(key, 'ws filler not from this chapter ' + x); })); }
+        if (k === 'an') p.words.forEach(w => { if (!text.includes(w.a)) fail(key, 'anagram word not in chapter ' + w.a); if (w.t.slice().sort().join('|') !== w.u.slice().sort().join('|') || w.t.join('|') === w.u.join('|')) fail(key, 'anagram tiles ' + w.a); if (!w.clue) fail(key, 'anagram without clue'); });
+        if (k === 'csdk') { const v = P.validSudoku(p); if (v) fail(key + ' csdk', v); r.extra.set.items.forEach(it => { if (!text.includes(it.label)) fail(key, 'concept label not in chapter ' + it.label); }); }
+        const sol = P.solutionOf(spec, d), ui = uiAnswer(k, p);
+        if (JSON.stringify(sol) !== JSON.stringify(ui)) fail(key, `${k} solutionOf differs from the UI answer`);
+      }
+    });
+  }
+  console.log(`indic: ${chs} Hindi/Sanskrit chapters, ${terms} terms, ${cells} akshara cells all whole; made ${JSON.stringify(made)}; hidden (too few words) ${JSON.stringify(hidden)} · ${Date.now() - t0} ms`);
+  if (P.aksharas('क्षत्रिय').join('|') !== 'क्ष|त्रि|य' || P.aksharas('रविः मातरम्', true).join('|') !== 'र|विः| |मा|त|र|म्' || P.aksharas('क़लम').length !== 3) fail('aksharas', P.aksharas('क्षत्रिय').join('|'));
+}
+/* ---------- chapter puzzles use the chapter's own words (every grade and subject, CA) ---------- */
+{
+  let n = 0, near = 0; const kinds = { xw: 0, ws: 0, an: 0, csdk: 0 };
+  const lat = s => String(s).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, '');
+  for (let g = 1; g <= 12; g++) {
+    const dir = path.join(ROOT, 'content', 'g' + g);
+    for (const f of fs.readdirSync(dir)) {
+      if (/hindi|sanskrit/.test(f)) continue;
+      const d = JSON.parse(fs.readFileSync(path.join(dir, f))), sid = f.replace('.json', '');
+      d.chapters.forEach((c, ci) => {
+        if ((ci + g) % 3) return;      // a third of all chapters
+        const T = P.termsFromSchool(d, ci), own = lat(JSON.stringify(c)), key = `g${g}/${sid}/c${ci}`;
+        const order = []; for (let j = 1; j < d.chapters.length && order.length < 6; j++) [ci - j, ci + j].forEach(x => { if (x >= 0 && x < d.chapters.length && order.length < 6) order.push(x); });
+        const nb = lat(JSON.stringify(order.map(x => d.chapters[x])));   // the same 6 nearest chapters the app uses
+        for (const k of Object.keys(kinds)) {
+          const spec = { t: k, sc: { k: 's', g, sid, ci }, seed: 'own|' + key, diff: 'medium', n: 6 }, r = P.puzzleFor(spec, T); if (!r) continue;
+          kinds[k]++; n++;
+          const words = k === 'xw' ? r.p.entries : k === 'csdk' ? r.extra.set.items.map(i => ({ a: lat(i.label) })) : r.p.words;
+          words.forEach(w => { if (w.near) { near++; if (!nb.includes(lat(w.a))) fail(key, `↗ word not from a neighbouring chapter: ${w.a}`); } else if (!own.includes(lat(w.a))) fail(key, `${k} word not from this chapter: ${w.a}`); });
+          if (k === 'ws') { const v = P.validWordsearch(r.p); if (v) fail(key, v); }
+          if (k === 'xw') { const v = P.validCrossword(r.p); if (v) fail(key, v); }
+          if (JSON.stringify(P.solutionOf(spec, d)) !== JSON.stringify(uiAnswer(k, r.p))) fail(key, k + ' solutionOf differs');
+        }
+      });
+    }
+  }
+  console.log(`school (English + other subjects): ${n} chapter puzzles ${JSON.stringify(kinds)}, every word from its chapter (${near} crossword words ↗ from neighbouring chapters)`);
+}
+/* ---------- CA: contentPathOf + solutionOf from disk ---------- */
+{
+  const st = readJ('content/ca/foundation/structure.json'); let n = 0;
+  const loadCA = spec => {
+    const paths = P.contentPathOf(spec, st), content = { structure: st, units: {}, banks: {}, keyItems: K.ITEMS };
+    if (spec.t !== 'kak' && (paths[0] !== 'content/ca/foundation/structure.json' || !paths.includes('js/ca-keys-data.js'))) fail('contentPathOf', paths.slice(0, 3));
+    paths.slice(2).forEach(pth => { const full = path.join(ROOT, pth); if (!fs.existsSync(full)) return; const j = JSON.parse(fs.readFileSync(full)); if (/\/bank\//.test(pth)) content.banks[j.unit] = j; else { const uid = (st.papers.flatMap(p => p.chapters.flatMap(c => c.units)).find(u => u.file === pth) || {}).id; content.units[uid] = j; } });
+    return content;
+  };
+  st.papers.forEach(p => p.chapters.forEach((c, i) => {
+    if (i % 2) return;
+    for (const k of ['xw', 'ws', 'an', 'csdk', 'kak']) {
+      const spec = { t: k, sc: { k: 'c', ch: c.id }, seed: 'ca|' + c.id, diff: 'medium', n: 6 }, content = loadCA(spec);
+      const r = P.puzzleFor(spec, k === 'kak' ? null : P.termsFor(spec, content)); if (!r) continue; n++;
+      if (JSON.stringify(P.solutionOf(spec, content)) !== JSON.stringify(uiAnswer(k, r.p))) fail(c.id, k + ' CA solutionOf differs');
+    }
+  }));
+  for (const [spec, want] of [[{ t: 'sdk', sc: { k: 'q' }, seed: 'a', diff: 'easy', n: 4 }, P.sudoku(4, 'easy', 'a').solution.join('')], [{ t: 'kak', sc: { k: 'q' }, seed: 'b', diff: 'hard' }, null]]) {
+    const s1 = P.solutionOf(spec, null); if (!s1 || (want && s1 !== want)) fail('solutionOf numbers', spec.t);
+    if (P.contentPathOf(spec).length) fail('contentPathOf numbers', spec.t);
+  }
+  if (P.contentPathOf({ t: 'ana', sc: { k: 's', g: 7, sid: 'hindi', ci: 2 } })[0] !== 'content/g7/hindi.json') fail('contentPathOf school', '');
+  /* the core must load with no window / module (Deno Edge Function) */
+  const vm = require('vm'), sb = { console }; sb.globalThis = sb; vm.createContext(sb);
+  vm.runInContext(fs.readFileSync(path.join(ROOT, 'js/puzzles-core.js'), 'utf8'), sb);
+  if (!sb.PuzzleCore || sb.PuzzleCore.solutionOf({ t: 'sdk', seed: 'z', diff: 'medium', n: 6 }, null) !== P.solutionOf({ t: 'sdk', seed: 'z', diff: 'medium', n: 6 }, null)) fail('core without window', 'did not load');
+  console.log(`CA: ${n} puzzles — solutionOf from disk content matches; core loads without window`);
+}
+
 console.log(fails ? `${fails} FAILURES` : 'ALL PASSED');
 process.exit(fails ? 1 : 0);

@@ -395,6 +395,7 @@
     if (kids[sel] !== k) return;
     body.innerHTML = childHTML(k, A, X) + invitesHTML() + mailCardHTML() + acctHTML();
     wireChild(body, k, A, X); wireMail(body); wireAcct(body);
+    try { if (window.Squad && Squad.hubCard) Squad.hubCard(body, k, A); } catch (e) {}   // ⚔️ parent challenge card (js/squad.js)
   }
 
   /* ---------- three ways to add a child ---------- */
@@ -433,13 +434,14 @@
     style();
     const el = C().sheet(`<h3 id="clT">Invite my child by email</h3><p>We send your child an email with a link. They open it on their phone and create their own account with that email.</p>
       <form id="pvInF" novalidate><label for="pvInN">Child's name</label><input class="cl-in" id="pvInN" maxlength="40" autocomplete="off" placeholder="e.g. Riya">
-      <label for="pvInE">Child's email</label><input class="cl-in" id="pvInE" type="email" maxlength="120" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="child@gmail.com">
+      <label for="pvInE">Child's email</label><input class="cl-in" id="pvInE" type="email" data-field="email" maxlength="120" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="child@gmail.com">
       <div class="cl-err" id="pvInErr" role="alert"></div><button class="btn" type="submit" id="pvInGo">Send invite</button></form><div style="height:8px"></div><button class="btn ghost" type="button" id="pvInX">Cancel</button>`);
     el.querySelector('#pvInX').onclick = C().closeSheet;
     el.querySelector('#pvInF').onsubmit = async ev => {
       ev.preventDefault(); const e = el.querySelector('#pvInErr'), go = el.querySelector('#pvInGo');
       const name = el.querySelector('#pvInN').value.trim(), email = el.querySelector('#pvInE').value.trim().toLowerCase();
       e.textContent = ''; if (!name) { e.textContent = "Please enter your child's name."; return; }
+      if (window.Fields && !Fields.valid(ev.target).ok) return;
       if (!EMAIL_RE.test(email)) { e.textContent = "Please enter your child's email address."; return; }
       if (email === (C().email() || '').toLowerCase()) { e.textContent = 'This is your own email. Please enter your child\u2019s email.'; return; }
       go.disabled = true; const label = go.textContent; go.textContent = 'Sending…';

@@ -211,9 +211,16 @@ let NAV = {};                 // where we are: {subject, chapter, topic}
 function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 1900); }
 /* the streak that is still alive: studied today or yesterday; after a missed day it shows 0 until the next study day */
 function liveStreak() { const l = ST.streak && ST.streak.last; if (!l) return 0; const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10); return l === today() || l === y ? ST.streak.n || 0 : 0; }
-function hud() { $('#xp').textContent = ST.xp; $('#streak').textContent = liveStreak(); }
+/* stars shown short once they grow: 999 · 1.2k · 12k · 1.2M (the exact number stays in the label) */
+function kfmt(n) { n = Math.round(+n || 0); const a = Math.abs(n), f = (v, s) => (v >= 10 ? Math.floor(v) : Math.floor(v * 10) / 10) + s;
+  return a < 1000 ? String(n) : (n < 0 ? '-' : '') + (a < 1e6 ? f(a / 1e3, 'k') : f(a / 1e6, 'M')); }
+window.kfmt = kfmt;
+const XP_SOFT = 300;   // stars a day at full rate; after that every award counts half (keeps totals sensible)
+function hud() { $('#xp').textContent = kfmt(ST.xp); try { $('#xp').closest('[aria-label],button,span')?.setAttribute('title', ST.xp + ' stars'); } catch (e) {} $('#streak').textContent = liveStreak(); }
 /* ST.xpLog = { 'YYYY-MM-DD': stars that day } (the app's today()), last 60 days — for "today" and "this week" in the stars sheet */
 function addXP(n, msg) {
+  n = +n || 0;
+  if (n > 0) { const got = (ST.xpLog && ST.xpLog[today()]) || 0, over = Math.max(0, Math.min(n, got + n - XP_SOFT)); if (over) n = n - over + Math.ceil(over / 2); }
   ST.xp += n;
   try { const d = today(), L = ST.xpLog = ST.xpLog && typeof ST.xpLog === 'object' ? ST.xpLog : {}; L[d] = (L[d] || 0) + (+n || 0);
     const ks = Object.keys(L).sort(); if (ks.length > 60) ks.slice(0, ks.length - 60).forEach(k => delete L[k]); } catch (e) {}
@@ -583,6 +590,8 @@ function quizRunner(b, list, done) {
   if (!$('#s-topic').classList.contains('active')) Nav.sub();      // Back leaves the quiz and returns to the screen it started from
   let i = 0, right = 0, finished = false, shownAt = Date.now(); const mistakes = [], hist = [];
   const orders = list.map(({ q }) => Games.shuffle(q.options.map((o, k) => k)));
+  const hints = list.map(() => ({}));   /* 💡 Ask Gappu: one hint state per question (Games.hint); a hinted right answer earns ½ the stars */
+  const topicOf = j => list[j].t || (RUN && RUN.t && String(list[j].qid || '').startsWith(RUN.t.id + '#') ? RUN.t : null);
   const N = list.length, answered = () => hist.filter(Boolean).length;
   ST.bm = ST.bm || {};
   const bmBtn = qid => `<button class="tst-ic qbm ${ST.bm[qid] ? 'on' : ''}" data-q="${esc(qid)}" aria-label="Bookmark this question">🔖</button>`;
@@ -618,15 +627,18 @@ function quizRunner(b, list, done) {
   const render = () => {
     const { q, qid } = list[i], order = orders[i];
     b.innerHTML = `<div class="card"><div class="tst-top"><span class="tag">Question ${i + 1} of ${N}${hist[i] ? ' · answered' : ''}</span>${bmBtn(qid)}</div><div class="progress"><i style="width:${answered() / N * 100}%"></i></div>
-      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qx"></div>${navRow()}</div>`;
+      <h2 class="qtext">${esc(q.q)} ${spk(q.q, 1)}</h2><div id="qo">${order.map(k => `<button class="opt" data-k="${k}">${esc(q.options[k])}</button>`).join('')}</div><div id="qh"></div><div id="qx"></div>${navRow()}</div>`;
     wireBm(); wireNav();
     if (hist[i]) { explain(false); return; }
     shownAt = Date.now();
+    const hb = window.Games && Games.hint ? Games.hint.bar($('#qh'), hints[i], { wrong: () => q.options.map((o, k) => k).filter(k => k !== q.answer),
+      hide: Games.hint.crossOut($('#qo'), '.opt', (x, k) => +x.dataset.k === k), clue: () => Games.hint.clue({ q: q.q, answer: q.options[q.answer], explain: q.explain, topic: topicOf(i) }) }) : { done() {} };
     b.querySelectorAll('.opt').forEach(btn => btn.onclick = () => {
       if (hist[i] || finished) return;                                  /* each question is scored once */
-      const k = +btn.dataset.k, ok = k === q.answer; hist[i] = { order, k, ok };
+      const k = +btn.dataset.k, ok = k === q.answer; hist[i] = { order, k, ok }; hb.done();
+      b.querySelectorAll('.opt.gp-out').forEach(x => { x.classList.remove('gp-out'); x.removeAttribute('aria-label'); });
       const qs = ST.qstats[qid] || { s: 0, w: 0 }; qs.s++;
-      if (ok) { right++; sfx('correct'); addXP(10); }
+      if (ok) { right++; sfx('correct'); addXP(hints[i].n ? 5 : 10); }
       else { sfx('wrong'); qs.w++; mistakes.push(q.mistake); ST.mistakes[q.mistake] = (ST.mistakes[q.mistake] || 0) + 1; }
       logAns(qid, ok, (Date.now() - shownAt) / 1000);
       ST.qstats[qid] = qs; save();
@@ -638,32 +650,80 @@ function quizRunner(b, list, done) {
   render();
 }
 
-/* ---------- Teach Gappu ---------- */
+/* ---------- Teach Gappu ----------
+   The student explains the topic in their own words. Gappu answers with simple, honest feedback worked out right here
+   (no AI): the key words they used, 2–3 important ones to add, and a 1–3 🐥 rating. "✏️ Try again" lets them improve.
+   Key words = the topic's teach.must groups (needed to pass), plus important words that appear in the topic's own
+   Big ideas / revision notes and also as a quiz answer, a fill-in answer or a match pair (or several times in the Big ideas).
+   +25 ⭐ the first time Gappu understands it (once per topic run, as before). */
 function teachStep(b) {
-  const T = RUN.t.teach || {};
-  b.innerHTML = `<div class="card"><span class="tag">Teach to learn</span><div class="pet"><div class="face" id="gf">🐣</div><div class="bubble" id="gs">${esc(T.ask)} ${spk(T.ask)}</div></div>
-    <textarea id="ans" placeholder="Explain in your own words…"></textarea><button class="btn" id="tBtn">Explain to Gappu 💬</button>
+  const T = RUN.t.teach || {}, t = RUN.t, L = t.learn || {};
+  b.innerHTML = `<div class="card"><span class="tag">Teach to learn</span><div class="pet"><div class="face" id="gf">🐣</div><div class="bubble" id="gs" aria-live="polite">${esc(T.ask)} ${spk(T.ask)}</div></div>
+    <textarea id="ans" placeholder="Explain in your own words…" aria-label="Your explanation for Gappu"></textarea><button class="btn" id="tBtn">Explain to Gappu 💬</button>
+    <div id="tFeed" class="teach-fb" aria-live="polite"></div>
     <div style="height:8px"></div><button class="btn ghost" id="tSkip">Skip for now</button></div>`;
+  if (!document.getElementById('teachFbCss')) { const c = document.createElement('style'); c.id = 'teachFbCss';
+    c.textContent = `.teach-fb:empty{display:none}.teach-fb{margin-top:12px;background:#fff8dc;border-radius:16px;padding:12px 14px;color:#3b4064}
+.teach-fb .tf-rate{font-size:26px;letter-spacing:2px;line-height:1.2}.teach-fb .tf-rate .off{opacity:.22;filter:grayscale(1)}.teach-fb .tf-rl{font-weight:800;margin:2px 0 8px}
+.teach-fb .tf-row{margin:6px 0;font-size:15px;line-height:1.5}.teach-fb .tf-chip{display:inline-block;border-radius:999px;padding:2px 10px;margin:2px 4px 2px 0;font-weight:800;font-size:14px}
+.teach-fb .tf-chip.ok{background:#d9f7e6;color:#126b3a}.teach-fb .tf-chip.add{background:#fff;border:2px dashed #f5b301;color:#7a5200}.teach-fb .btn{margin-top:8px}`;
+    document.head.appendChild(c); }
+  const norm = x => String(x).toLowerCase().replace(/×/g, 'x').replace(/÷/g, '/').replace(/−/g, '-').replace(/\s+/g, ' ');
+  const hasIn = (text, w) => { w = norm(w).trim(); if (!w) return false;
+    if (/[^\x00-\x7f]/.test(w)) return text.includes(w); // Hindi/Sanskrit: match inside text
+    const e = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); return new RegExp(`(^|[^a-z0-9])${e}(s|es)?([^a-z0-9]|$)`).test(text); };
+  /* important words of this topic, beyond teach.must */
+  const must = (T.must || []).filter(g => Array.isArray(g) && g.length);
+  const extras = (() => {
+    const learnTxt = norm([...(L.points || []), (t.revise && t.revise.summary) || '', ...((t.revise && t.revise.remember) || [])].join(' . '));
+    const mustW = new Set(must.flat().map(w => norm(w).trim()));
+    const STOP = /^(true|false|yes|no|none|all|both|neither|either|some|many|more|less|other|others|this|that|these|those|they|their|there|which|what|when|where|with|from|into|about|because|always|never|only|also|very|every|each|first|second|third|after|before|then|than|same|different|correct|wrong|answer|question|option|statement|example)$/;
+    const ok = x => { x = String(x || '').trim().replace(/^[\s"'“‘(]+|[\s"'”’).,!?;:]+$/g, ''); const n = norm(x).trim(), ws = n.split(' ');
+      if (!n || ws.length > 3 || n.length < 3 || n.length > 26 || /\d/.test(n) || /[=+<>/]/.test(n)) return '';
+      if (ws.length === 1 && (n.length < 4 || STOP.test(n))) return ''; if (mustW.has(n) || [...mustW].some(m => m && (hasIn(n, m) || hasIn(m, n)))) return '';
+      return x; };
+    const cand = [];
+    (t.quiz || []).forEach(q => { if (q && Array.isArray(q.options)) cand.push(q.options[q.answer]); });
+    (t.games || []).forEach(g => { if (!g) return; if (g.type === 'match') (g.pairs || []).forEach(p => Array.isArray(p) && cand.push(p[0], p[1])); if (g.type === 'fill') (g.items || []).forEach(it => it && cand.push(it.answer)); });
+    const out = [], seen = new Set();
+    cand.forEach(c => { const x = ok(c), k = norm(x).trim(); if (x && !seen.has(k) && hasIn(learnTxt, x)) { seen.add(k); out.push(x); } });
+    const cnt = {}; (L.points || []).forEach(p => new Set(norm(p).split(/[^a-zऀ-ॿ]+/).filter(w => w.length >= 6 && !STOP.test(w))).forEach(w => { cnt[w] = (cnt[w] || 0) + 1; }));
+    Object.keys(cnt).filter(w => cnt[w] >= 2).sort((a, b2) => cnt[b2] - cnt[a]).forEach(w => { const x = ok(w); if (x && !seen.has(w)) { seen.add(w); out.push(x); } });
+    return out.slice(0, 6);
+  })();
   let tries = 0;
   $('#tSkip').onclick = nextStep;
-  $('#tBtn').onclick = () => {
-    const norm = t => String(t).toLowerCase().replace(/×/g, 'x').replace(/÷/g, '/').replace(/−/g, '-').replace(/\s+/g, ' ');
+  const chips = (list, cls) => list.map(w => `<span class="tf-chip ${cls}">${esc(w)}</span>`).join('');
+  const evaluate = () => {
     const txt = norm($('#ans').value); tries++;
-    const hasWord = w => { w = norm(w).trim(); if (!w) return false;
-      if (/[^\x00-\x7f]/.test(w)) return txt.includes(w); // Hindi/Sanskrit: match inside text
-      const e = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); return new RegExp(`(^|[^a-z0-9])${e}(s|es)?([^a-z0-9]|$)`).test(txt); };
-    const miss = (T.must || []).filter(grp => !grp.some(hasWord));
-    const f = $('#gf'), s = $('#gs');
-    if (txt.trim().length < 6) { f.textContent = '🐣'; s.textContent = 'Hmm, tell me a little more please! 🥺'; return; }
+    const hasWord = w => hasIn(txt, w);
+    const miss = must.filter(grp => !grp.some(hasWord));
+    const f = $('#gf'), s = $('#gs'), fb = $('#tFeed');
+    if (txt.trim().length < 6) { f.textContent = '🐣'; s.textContent = 'Hmm, tell me a little more please! 🥺'; fb.innerHTML = ''; return; }
+    const usedMust = must.filter(grp => grp.some(hasWord)).map(grp => grp.find(hasWord));
+    const usedX = extras.filter(hasWord), missX = extras.filter(w => !hasWord(w));
+    const nWords = txt.trim().split(/\s+/).length;
+    const frac = must.length ? usedMust.length / must.length : (usedX.length >= 2 ? 1 : usedX.length ? .5 : 0);
+    const rate = frac >= 1 && (nWords >= 12 || usedX.length >= 1 || !extras.length) ? 3 : frac >= .5 ? 2 : 1;
+    const add = [...miss.map(g => g[0]), ...missX].slice(0, rate === 3 ? 2 : 3);
+    const RL = ['', "I'm still a bit confused. Can you tell me more?", 'I understood most of it!', 'I understood everything! You are a great teacher!'];
+    fb.innerHTML = `<div class="tf-rate" role="img" aria-label="Gappu's rating: ${rate} of 3">${[1, 2, 3].map(k => `<span class="${k <= rate ? '' : 'off'}">🐥</span>`).join('')}</div>
+      <div class="tf-rl">${RL[rate]}</div>
+      ${usedMust.length + usedX.length ? `<div class="tf-row tf-used">✅ <b>Key words you used:</b> ${chips([...usedMust, ...usedX], 'ok')}</div>` : '<div class="tf-row tf-used">✅ <b>Key words you used:</b> none yet</div>'}
+      ${add.length ? `<div class="tf-row tf-add">➕ <b>${rate === 3 ? 'To make it even better, add' : 'Try adding'}:</b> ${chips(add, 'add')}</div>` : ''}
+      ${rate < 3 || add.length ? '<button class="btn ghost" id="tAgain">✏️ Try again</button>' : ''}`;
+    const again = $('#tAgain');
+    if (again) again.onclick = () => { const a = $('#ans'); sfx('tap'); $('#tBtn').textContent = 'Explain to Gappu 💬'; $('#tBtn').onclick = evaluate; a.focus(); a.setSelectionRange(a.value.length, a.value.length); a.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
     if (!miss.length) {
-      f.textContent = '🐥'; s.textContent = T.praise; sfx('correct');
+      f.textContent = '🐥'; s.textContent = T.praise || 'Thank you! Now I understand!'; sfx('correct');
       if (!RUN.taught) { RUN.taught = true; addXP(25, 'Gappu learned from you!'); }
-      $('#tBtn').textContent = 'Finish ▶'; $('#tBtn').onclick = nextStep; $('#tSkip').remove();
+      $('#tBtn').textContent = 'Finish ▶'; $('#tBtn').onclick = nextStep; const sk = $('#tSkip'); if (sk) sk.remove();
     } else {
       f.textContent = '🤔'; sfx('hmm');
-      s.textContent = T.nudge + (tries >= 2 ? `  (Hint: try talking about “${miss[0][0]}”)` : '');
+      s.textContent = (T.nudge || 'Hmm, I am not sure yet. Tell me more!') + (tries >= 2 ? `  (Hint: try talking about “${miss[0][0]}”)` : '');
     }
   };
+  $('#tBtn').onclick = evaluate;
 }
 
 function doneStep(b) {
@@ -715,9 +775,9 @@ function squadScreen() {
   const list = [...mates, { n: ST.profile.name + ' (you)', e: ST.profile.avatar, x: ST.xp, me: true }].sort((a, b) => b.x - a.x);
   const us = mates.reduce((s, m) => s + m.x, 0) + ST.xp, them = 1450;
   $('#s-squad').innerHTML = `<div class="card"><span class="tag">This week · School league</span>
-    <div class="vs"><div><div class="big">🦁</div>Team Lions<br>${us} XP</div><div class="big">VS</div><div><div class="big">🦅</div>Team Eagles<br>${them} XP</div></div>
-    <div class="bar2"><i style="width:${us / (us + them) * 100}%"></i></div><p class="sub" style="text-align:center">${us >= them ? '🎉 Lions are winning!' : `Lions need ${them - us} more XP!`}</p></div>
-    <div class="card"><h3>🦁 Team Lions</h3>${list.map((m, i) => `<div class="row ${m.me ? 'me' : ''}"><div class="rank">${i + 1}</div><div class="av">${m.e}</div><div class="nm">${esc(m.n)}</div><div class="xp">${m.x} ⭐</div></div>`).join('')}</div>
+    <div class="vs"><div><div class="big">🦁</div>Team Lions<br>${kfmt(us)} XP</div><div class="big">VS</div><div><div class="big">🦅</div>Team Eagles<br>${kfmt(them)} XP</div></div>
+    <div class="bar2"><i style="width:${us / (us + them) * 100}%"></i></div><p class="sub" style="text-align:center">${us >= them ? '🎉 Lions are winning!' : `Lions need ${kfmt(them - us)} more XP!`}</p></div>
+    <div class="card"><h3>🦁 Team Lions</h3>${list.map((m, i) => `<div class="row ${m.me ? 'me' : ''}"><div class="rank">${i + 1}</div><div class="av">${m.e}</div><div class="nm">${esc(m.n)}</div><div class="xp">${kfmt(m.x)} ⭐</div></div>`).join('')}</div>
     <p class="note">Sample squad. Real friends and school leagues arrive with logins.</p>`;
 }
 
@@ -726,7 +786,7 @@ function meScreen() {
   show('me', 'me');
   const p = ST.profile, done = Object.keys(ST.topics).length;
   $('#s-me').innerHTML = `<div class="card mecard"><div class="meav">${esc(p.avatar)}</div><div><h2>${esc(p.name)}</h2><p class="sub">${stateBoard(p.board) ? 'Class' : 'Grade'} ${p.grade} · ${esc(boardShort(p.board))}</p></div></div>
-    <div class="card statrow"><div><b>${ST.xp}</b><span>XP</span></div><div><b>${liveStreak()}🔥</b><span>Streak</span></div><div><b>${done}</b><span>Quests</span></div></div>
+    <div class="card statrow"><div><b>${kfmt(ST.xp)}</b><span>XP</span></div><div><b>${liveStreak()}🔥</b><span>Streak</span></div><div><b>${done}</b><span>Quests</span></div></div>
     <div class="card"><h3>Change grade</h3><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice ${p.grade === i + 1 ? 'sel' : ''}" data-g="${i + 1}"><b>${i + 1}</b></button>`).join('')}</div></div>
     <div class="card"><button class="btn ghost" onclick="openSound()">🎵 Sound & music</button><div style="height:8px"></div><button class="btn ghost" id="meReset">Start over</button></div>`;
   const go = g => { setGrade(g); sfx('unlock'); toast(`Welcome to ${Worlds.THEMES[g].name}!`); worldScreen(); };

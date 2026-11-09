@@ -146,7 +146,7 @@ details p{margin:0 0 .8rem}
 .bulk a.btn{width:auto;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;margin:0}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .bulkpts{margin:.6rem 0;padding-left:1.2rem}.bulkpts li{margin:.25rem 0}
-.pilot label{display:block;font-weight:700;font-size:.95rem}.pgrid{display:grid;grid-template-columns:1fr;gap:0 1rem}
+.pilot label{display:block;font-weight:700;font-size:.95rem}.pgrid{display:grid;grid-template-columns:1fr;gap:0 1rem}.pgrid>*{min-width:0}
 @media (min-width:40rem){.pgrid{grid-template-columns:1fr 1fr}.pilot .btn{max-width:22rem}}
 .hp{position:absolute!important;left:-10000px;width:1px;height:1px;overflow:hidden}
 a.mail{display:inline-flex;align-items:center;min-height:44px}
@@ -241,12 +241,14 @@ a.mail{display:inline-flex;align-items:center;min-height:44px}
       <h3 id="pilotH" style="margin:1rem 0 .3rem;color:var(--wine)">Request a free pilot</h3>
       <form id="pilotF" class="pilot" novalidate aria-labelledby="pilotH">
         <div class="pgrid">
-          <div><label for="plName">Your name</label><input class="in" id="plName" name="name" autocomplete="name" maxlength="80" required></div>
-          <div><label for="plSchool">School or institute</label><input class="in" id="plSchool" name="school" autocomplete="organization" maxlength="120" required></div>
-          <div><label for="plCity">City</label><input class="in" id="plCity" name="city" autocomplete="address-level2" maxlength="60" required></div>
-          <div><label for="plPhone">Phone</label><input class="in" id="plPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required></div>
-          <div><label for="plEmail">Email</label><input class="in" id="plEmail" name="email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="120" required></div>
-          <div><label for="plCount">Number of students</label><input class="in" id="plCount" name="students" type="number" min="1" max="1000000" inputmode="numeric" required></div>
+          <div><label for="plName">Your name</label><input class="in" id="plName" data-field="text" data-minlen="2" data-label="your name" name="name" autocomplete="name" maxlength="80" required></div>
+          <div><label for="plSchool">School or institute</label><input class="in" id="plSchool" data-field="text" data-minlen="2" data-label="the school or institute name" name="school" autocomplete="organization" maxlength="120" required></div>
+          <div><label for="plCity">City</label><input class="in" id="plCity" data-field="text" data-minlen="2" data-label="the city" name="city" autocomplete="address-level2" maxlength="60" required></div>
+          <div><label for="plPin">PIN code</label><input class="in" id="plPin" name="pincode" data-field="pincode" autocomplete="postal-code" inputmode="numeric" maxlength="6" placeholder="6 digits" required></div>
+          <div><label for="plBoard">Board</label><select class="in" id="plBoard" name="board" data-field="board" required></select></div>
+          <div><label for="plCount">Number of students</label><input class="in" id="plCount" name="students" data-field="digits" data-min="1" data-max="1000000" data-label="the number of students" inputmode="numeric" maxlength="7" required></div>
+          <div><label for="plPhone">Mobile number</label><input class="in" id="plPhone" name="phone" type="tel" data-field="phone" autocomplete="tel-national" inputmode="numeric" required></div>
+          <div><label for="plEmail">Email</label><input class="in" id="plEmail" name="email" type="email" data-field="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="120" placeholder="name@school.com" required></div>
         </div>
         <div class="hp" aria-hidden="true"><label for="plWeb">Leave this empty</label><input id="plWeb" name="website" tabindex="-1" autocomplete="off"></div>
         <div class="msg" id="pilotMsg" role="status" aria-live="polite"></div>
@@ -272,7 +274,7 @@ a.mail{display:inline-flex;align-items:center;min-height:44px}
           </div>
         </fieldset>
         <label for="em">Email</label>
-        <input class="in" id="em" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required>
+        <input class="in" id="em" type="email" data-field="email" autocomplete="email" autocapitalize="none" spellcheck="false" required>
         <label for="pw">Password</label>
         <input class="in" id="pw" type="password" autocomplete="current-password" minlength="8" required>
         <label class="chk"><input type="checkbox" id="showPw"> Show password</label>
@@ -321,6 +323,7 @@ a.mail{display:inline-flex;align-items:center;min-height:44px}
   <p>MoneyViel, Pune, India</p>
 </footer>
 
+<script src="../js/fields.js?v=1"></script>
 <script>
 (function () {
   'use strict';
@@ -594,12 +597,12 @@ a.mail{display:inline-flex;align-items:center;min-height:44px}
     $('signin').scrollIntoView({ block: 'start' });
     setTimeout(() => $('em').focus({ preventScroll: true }), 50);
   }
-  const emailOk = e => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+  const emailOk = e => window.Fields ? Fields.email(e) : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
   $('authF').onsubmit = async e => {
     e.preventDefault();
     const er = $('authMsg'), go = $('authGo'), email = $('em').value.trim().toLowerCase(), pw = $('pw').value;
     clear(er);
-    if (!emailOk(email)) { show(er, 'Please enter a valid email address.'); $('em').focus(); return; }
+    if (!emailOk(email)) { if (window.Fields) Fields.valid($('authF')); else show(er, 'Please enter a valid email address.'); $('em').focus(); return; }
     if (!pw) { show(er, 'Please enter your password.'); $('pw').focus(); return; }
     const rc = document.querySelector('input[name=role]:checked'), rl = rc ? rc.value : null;
     if (upMode && pw.length < 8) { show(er, 'Please use at least 8 characters.'); $('pw').focus(); return; }
@@ -737,18 +740,22 @@ a.mail{display:inline-flex;align-items:center;min-height:44px}
   const f = document.getElementById('pilotF'); if (!f) return;
   const m = document.getElementById('pilotMsg'), go = document.getElementById('pilotGo'), v = id => document.getElementById(id).value.trim();
   const show = (t, c) => { m.className = 'msg ' + c; m.textContent = t; };
+  const F = window.Fields, val = id => F ? F.value(id) : v(id);
+  const bd = document.getElementById('plBoard');
+  if (bd && !bd.options.length) bd.innerHTML = F ? F.boardOptions('') : '<option value="">— Choose board —</option><option>CBSE</option><option>ICSE/ISC</option><option value="State board: Other">State board</option><option>IB</option><option>Cambridge/IGCSE</option><option>NIOS</option><option>Other</option>';
   f.onsubmit = async e => {
-    e.preventDefault();
-    const b = { name: v('plName'), school: v('plSchool'), city: v('plCity'), phone: v('plPhone'), email: v('plEmail').toLowerCase(), students: +v('plCount') || 0, website: v('plWeb') };
-    const bad = b.name.length < 2 ? 'plName' : b.school.length < 2 ? 'plSchool' : b.city.length < 2 ? 'plCity' : !/^[+0-9][0-9 -]{7,18}$/.test(b.phone) ? 'plPhone'
-      : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(b.email) ? 'plEmail' : !(b.students >= 1) ? 'plCount' : '';
-    if (bad) { show({ plName: 'Please enter your name.', plSchool: 'Please enter the school or institute name.', plCity: 'Please enter the city.', plPhone: 'Please enter a phone number we can call.', plEmail: 'Please enter a valid email.', plCount: 'Please enter the number of students.' }[bad], 'bad'); document.getElementById(bad).focus(); return; }
+    e.preventDefault(); show('', '');
+    if (F && !F.valid(f).ok) { show('Please check the boxes marked in red.', 'bad'); return; }
+    const b = { name: v('plName'), school: v('plSchool'), city: v('plCity'), pincode: val('plPin'), board: v('plBoard'), phone: val('plPhone'), email: val('plEmail').toLowerCase(), students: +val('plCount') || 0, website: v('plWeb') };
+    const bad = b.name.length < 2 ? 'plName' : b.school.length < 2 ? 'plSchool' : b.city.length < 2 ? 'plCity' : !/^[1-9][0-9]{5}$/.test(b.pincode) ? 'plPin' : !b.board ? 'plBoard'
+      : !(b.students >= 1) ? 'plCount' : !(F ? F.phone(b.phone) : /^[+0-9][0-9 -]{7,18}$/.test(b.phone)) ? 'plPhone' : !(F ? F.email(b.email) : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(b.email)) ? 'plEmail' : '';
+    if (bad) { show({ plName: 'Please enter your name.', plSchool: 'Please enter the school or institute name.', plCity: 'Please enter the city.', plPin: 'Please enter the 6-digit PIN code.', plBoard: 'Please choose the board.', plPhone: 'Please enter a mobile number we can call.', plEmail: 'Please enter a valid email, like name@school.com', plCount: 'Please enter the number of students.' }[bad], 'bad'); document.getElementById(bad).focus(); return; }
     go.disabled = true; go.textContent = 'Sending…';
     try {
       const r = await fetch(API + '/functions/v1/pilot-request', { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(b) });
       const j = await r.json().catch(() => null);
       if (!j || !j.ok) { show((j && j.msg) || 'Could not send. Please email support@moneyviel.com.', 'bad'); return; }
-      f.reset(); show('Thank you! We will call you within one working day to set up your free pilot.', 'ok');
+      f.reset(); if (F) F.reset(f); show('Thank you! We will call you within one working day to set up your free pilot.', 'ok');
     } catch (x) { show('No internet connection. Please try again, or email support@moneyviel.com.', 'bad'); }
     finally { go.disabled = false; go.textContent = 'Request a free pilot'; }
   };

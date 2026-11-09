@@ -329,7 +329,7 @@
       const lines = ch.map((e, i) => `${i + 1}: ${sentence(e.textContent.trim())}`);
       return (sel ? `You picked ${sentence(sel.textContent.trim())} Now pick its partner from the right side. ` : join([kind, title]) + ` Left side: ${lines.slice(0, L.length).join(' ')} Right side: ${lines.slice(L.length).join(' ')} Pick one from the left, then its partner on the right. `) + T('sayNum');
     }
-    if ($1('#scard', gb)) { const fb = txt($1('#sfb', gb)); return join([/goes in/.test(fb) ? fb : '', kind + ': ' + title, (fb.match(/^\d+ of \d+/) || [''])[0], txt($1('#scard', gb))]) + ' ' + listChoices(ch) + ' ' + T('sayNum'); }
+    if ($1('#scard', gb)) { const fb = txt($1('#sfb', gb)); return join([/goes in|belongs in/.test(fb) ? fb : '', kind + ': ' + title, txt($1('.gcount', gb)), txt($1('#scard', gb))]) + ' ' + listChoices(ch) + ' ' + T('sayNum'); }
     if ($1('.opool', gb)) { const done2 = $$('.ostep', gb).map(txt); return join([kind + ': ' + title, txt($1('.sub', gb)), done2.length ? 'So far: ' + done2.join(', ') : '']) + ' ' + (ch.length ? 'What comes next? ' + listChoices(ch) + ' ' + T('sayNum') : ''); }
     if ($1('#tfc', gb)) { const c = $1('#tfc', gb); if (c.classList.contains('good') || c.classList.contains('bad')) return join([c.classList.contains('good') ? T('correct') : T('wrong'), txt($1('#tfw', gb))]) + ' ' + T('sayNext'); return join([kind, txt(c)]) + ` 1: ${T('trueW')}. 2: ${T('falseW')}. ` + T('sayNum'); }
     if ($1('#fs', gb)) { const s = txt($1('#fs', gb)).replace(/\?/g, ' blank '); const b = $1('#fs .blank', gb); if (b && (b.classList.contains('ok') || b.classList.contains('no'))) return join([b.classList.contains('ok') ? T('correct') : T('wrong') + ' ' + T('answerIs') + ' ' + b.textContent, s]); return join([kind, s]) + ' ' + listChoices(ch, T('opt')) + ' ' + T('sayOpt'); }
@@ -356,7 +356,7 @@
     if (id === 'snakes') { const qb = $1('.arc-slq', gm); if (qb && visible(qb)) return join([txt($1('.arc-sltitle', qb))]) + ' ' + qs();
       const me = +txt($1('.arc-p0', gm)) || 1, L = window.Arcade && Arcade.LADDERS, Sn = window.Arcade && Arcade.SNAKES;
       const near = L && Sn ? [1, 2, 3, 4, 5, 6].map(d => me + d).filter(n => L[n] || Sn[n]).map(n => L[n] ? `a ladder on ${n}` : `a snake on ${n}`) : [];
-      return join([txt($1('.arc-slog', gm)), `You are on square ${me} of 100. Robo is on ${txt($1('.arc-p1', gm))}`, near.length ? 'Coming up: ' + near.join(', ') : '', txt($1('.arc-turn', gm)),
+      return join([txt($1('.arc-slog', gm)), `You are on square ${me} of 100. Gappu is on ${txt($1('.arc-p1', gm))}`, near.length ? 'Coming up: ' + near.join(', ') : '', txt($1('.arc-turn', gm)),
         me > 94 ? `You need exactly ${100 - me} to reach 100. A bigger roll means you stay` : '']) + ($1('.arc-roll:not([disabled])', gm) ? ' Say roll, or press Enter.' : ''); }
     return join([name]) + ' ' + qs();
   }
@@ -482,6 +482,7 @@
     return hint();
   }
   function hint() {
+    const gp = vis1('.gp-ask:not([disabled])'); if (gp) return activate(gp);   /* 💡 Ask Gappu button on this question */
     const run = g('RUN'), t = run && run.t; const qt = txt(vis1('.qtext, .arc-qt, #fs, #spq'));
     if (!t || !t.learn) { const life = vis1('.arc-life[data-l=gappu]:not([disabled])'); if (life) return activate(life); say(T('hintNone'), { force: true }); return true; }
     const words = new Set(norm(qt).split(' ').filter(w => w.length > 3));

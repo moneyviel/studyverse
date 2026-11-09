@@ -58,6 +58,7 @@
     !q.options.some(o => BAD_OPT.test(o)) && !(CTX_Q.test(q.q) && q.q.length < 160);
 
   async function buildPool(scope, prog) {
+    if (typeof scope.pool === 'function') return scope.pool(prog);   // e.g. CA MCQs from js/playhub.js
     const g = +scope.grade, all = await gradeSubjects(g);
     const subs = scope.subject ? [all.find(s => s.id === scope.subject) || { id: scope.subject, name: cap(scope.subject) }] : all;
     let n = 0; prog(0, subs.length);
@@ -147,23 +148,32 @@
 
   /* ---------------- shared UI ---------------- */
   const srcTag = src => `<div class="arc-src">${src.se} ${E(src.sname)} · ${E(src.tt)}</div>`;
-  function askQ(box, q, cb) {
-    const ord = SH(q.options.map((_, k) => k));
-    box.innerHTML = `${srcTag(q.src)}<div class="arc-qt">${E(q.q)} ${say(q.q)}</div><div class="arc-opts">${ord.map((k, j) => `<button class="opt arc-opt" data-k="${k}"><span class="arc-l">${'ABCD'[j]}</span><span class="arc-ot">${E(q.options[k])}</span></button>`).join('')}</div><div class="arc-x"></div>`;
+  /* 💡 Ask Gappu hint (Games.hint): hidden until tapped; cb(ok, k, hinted) — hinted = the student used a hint on this question */
+  const topicOf = src => (src && src.t) || null;
+  function askQ(box, q, cb, opt) {
+    const ord = SH(q.options.map((_, k) => k)), useHint = !(opt && opt.hint === false) && window.Games && Games.hint;
+    box.innerHTML = `${srcTag(q.src)}<div class="arc-qt">${E(q.q)} ${say(q.q)}</div><div class="arc-opts">${ord.map((k, j) => `<button class="opt arc-opt" data-k="${k}"><span class="arc-l">${'ABCD'[j]}</span><span class="arc-ot">${E(q.options[k])}</span></button>`).join('')}</div><div class="arc-hintslot"></div><div class="arc-x"></div>`;
     restart(box, 'arc-in');
-    let done = false;
+    let done = false; const hst = {};
+    const gone = k => { const b = box.querySelector(`.arc-opt[data-k="${k}"]`); return !b || b.disabled; };
+    const hb = useHint ? Games.hint.bar(box.querySelector('.arc-hintslot'), hst, {
+      wrong: () => q.options.map((_, k) => k).filter(k => k !== q.answer && !gone(k)),
+      hide: Games.hint.crossOut(box, '.arc-opt', (x, k) => +x.dataset.k === k),
+      clue: () => Games.hint.clue({ q: q.q, answer: q.options[q.answer], explain: q.explain, topic: topicOf(q.src) }) }) : { done() {} };
     box.querySelectorAll('.arc-opt').forEach(b => b.onclick = () => {
-      if (done || b.disabled) return; done = true;
+      if (done || b.disabled) return; done = true; hb.done();
       const k = +b.dataset.k, ok = k === q.answer;
-      box.querySelectorAll('.arc-opt').forEach(x => { x.disabled = true; if (+x.dataset.k === q.answer) x.classList.add('right'); });
+      box.querySelectorAll('.arc-opt').forEach(x => { x.disabled = true; x.classList.remove('gp-out'); if (+x.dataset.k === q.answer) x.classList.add('right'); });
       if (!ok) b.classList.add('wrong');
       S(ok ? 'correct' : 'wrong');
-      cb(ok, k);
+      cb(ok, k, !!hst.n);
     });
     return {
       hide: ks => ks.forEach(k => { const b = box.querySelector(`.arc-opt[data-k="${k}"]`); if (b) { b.disabled = true; b.classList.add('arc-gone'); } }),
       x: box.querySelector('.arc-x') };
   }
+  /* star award: right answers that used a Gappu hint earn half (results() scales the XP by r.rights / r.hinted) */
+  const hintLine = n => n ? `💡 Gappu helped on ${n} answer${n > 1 ? 's' : ''}: ½ ⭐ for ${n > 1 ? 'those' : 'that one'}` : '';
   const explainHTML = (q, ok) => `<div class="arc-exp ${ok ? 'good' : 'bad'}"><b>${ok ? '🎉 Correct!' : `🤔 The answer is: ${E(q.options[q.answer])}`}</b>${q.explain ? `<p>${E(q.explain)}</p>` : ''}</div>`;
   const qMiss = q => ({ q: q.q, a: q.options[q.answer] });
   function floatText(parent, text, cls) {
@@ -176,7 +186,7 @@
     const sids = [...new Set(P.quiz.map(q => q.src.sid))];
     const B = sids.length === 1 ? (BOSSES[sids[0]] || BOSSES._) : BOSSES._;
     const qs = spread(P.quiz, 40, P.multi);
-    const MAX = 150, BASE = 10; let hp = MAX, hearts = 3, combo = 0, best = 0, hits = 0, asked = 0, i = 0; const missed = [];
+    const MAX = 150, BASE = 10; let hp = MAX, hearts = 3, combo = 0, best = 0, hits = 0, asked = 0, i = 0, hinted = 0; const missed = [];
     const me = (ST.profile && ST.profile.avatar) || '🦸';
     st.innerHTML = `<div class="arc-arena arc-bossar"><div class="arc-bstats"><div class="arc-hearts"></div><div class="arc-combo"></div></div>
       <div class="arc-bossface"><span class="arc-bemoji">${B[0]}</span></div><div class="arc-bname">${E(B[1])}</div>
@@ -189,14 +199,14 @@
     const end = win => {
       const stars = win ? (hearts === 3 ? 3 : 2) : (hp <= MAX / 2 ? 1 : 0);
       fin({ title: win ? `You beat ${B[1]}!` : hearts <= 0 ? `${B[1]} won this time` : `${B[1]} escaped!`, scoreText: `${hits} hits from ${asked} questions`, stars,
-        lines: [`🔥 Best combo ×${best}`, `❤️ Hearts left: ${hearts}`, `🩸 Boss HP left: ${hp}`], missed });
+        lines: [`🔥 Best combo ×${best}`, `❤️ Hearts left: ${hearts}`, `🩸 Boss HP left: ${hp}`, hintLine(hinted)].filter(Boolean), missed, rights: hits, hinted });
     };
     const next = () => {
       if (i >= qs.length) return end(false);
       const q = qs[i++]; asked++;
-      const h = askQ(qc, q, ok => {
+      const h = askQ(qc, q, (ok, k, hn) => {
         if (ok) {
-          combo++; best = Math.max(best, combo); hits++;
+          combo++; best = Math.max(best, combo); hits++; if (hn) hinted++;
           const mult = combo >= 6 ? 3 : combo >= 3 ? 2 : 1, dmg = BASE * mult; hp = Math.max(0, hp - dmg);
           restart(shot, 'go'); ctx.t(() => { restart(face, 'arc-hit'); floatText(face, `−${dmg}`, mult > 1 ? 'big' : ''); S('coin'); draw(); if (mult > 1) restart(cEl, 'arc-pop'); }, 280);
           h.x.innerHTML = `<div class="arc-exp good"><b>${mult > 1 ? `🔥 Combo ×${mult} hit!` : '💥 Direct hit!'}</b></div>`;
@@ -216,12 +226,13 @@
   /* ================= 2. Lightning Round ================= */
   function lightning(st, P, ctx, fin, key) {
     const all = [...P.tf.map(x => ({ k: 'tf', ...x })), ...P.speed.map(x => ({ k: 'sp', ...x }))];
-    let items = SH(all), idx = 0, score = 0, streak = 0, best = 0, right = 0, wrong = 0, lock = true, t0 = 0, iv = 0, cur = null; const missed = [];
+    let items = SH(all), idx = 0, score = 0, streak = 0, best = 0, right = 0, wrong = 0, lock = true, t0 = 0, iv = 0, cur = null, hst = {}, hinted = 0; const missed = [];
     const SC = TS(), UNTIMED = SC === 0, NQ = 20, DUR = 60000 * (SC || 1); let used = 0, last = 0;
     st.innerHTML = `<div class="arc-arena arc-light arc-lv1"><div class="arc-lines"></div><div class="arc-lhud"><span>${UNTIMED ? '📝' : '⏱'} <b class="arc-time">${UNTIMED ? '1/' + NQ : DUR / 1000}</b></span><span class="arc-lvl">Speed 1</span><span>⚡ <b class="arc-score">0</b></span></div>
-      <div class="arc-tbar"><i></i></div><div class="arc-lcard"></div><div class="arc-lbtns"></div><div class="arc-count">3</div></div>`;
+      <div class="arc-tbar"><i></i></div><div class="arc-lcard"></div><div class="arc-lbtns"></div><div class="arc-lhint"></div><div class="arc-count">3</div></div>`;
     const ar = st.querySelector('.arc-light'), tm = st.querySelector('.arc-time'), sc = st.querySelector('.arc-score'), bar = st.querySelector('.arc-tbar i'),
-      card = st.querySelector('.arc-lcard'), btns = st.querySelector('.arc-lbtns'), cnt = st.querySelector('.arc-count'), lvl = st.querySelector('.arc-lvl');
+      card = st.querySelector('.arc-lcard'), btns = st.querySelector('.arc-lbtns'), cnt = st.querySelector('.arc-count'), lvl = st.querySelector('.arc-lvl'), hbox = st.querySelector('.arc-lhint');
+    let hb = { done() {} };
     const level = () => { const l = streak >= 8 ? 3 : streak >= 4 ? 2 : 1; ar.classList.remove('arc-lv1', 'arc-lv2', 'arc-lv3'); ar.classList.add('arc-lv' + l); lvl.textContent = 'Speed ' + l; return l; };
     const show = () => {
       if (idx >= items.length) { items = SH(all); idx = 0; }
@@ -236,12 +247,16 @@
       }
       restart(card, 'arc-zoom'); lock = false;
       btns.querySelectorAll('.arc-lb').forEach(b => b.onclick = () => answer(b));
+      hst = {}; const c = cur;
+      hb = window.Games && Games.hint ? Games.hint.bar(hbox, hst, c.k === 'tf'
+        ? { wrong: () => [], hide: () => {}, clue: () => Games.hint.clue({ q: c.text, tf: true, topic: topicOf(c.src) }) }
+        : { wrong: () => [...btns.querySelectorAll('.arc-lb:not([disabled])')].map(b => b.dataset.a).filter(a => a !== c.a), hide: Games.hint.crossOut(btns, '.arc-lb', (x, a) => x.dataset.a === a), clue: () => '' }) : { done() {} };
     };
     const answer = b => {
-      if (lock) return; lock = true;
+      if (lock || b.disabled) return; lock = true; hb.done();
       const ok = cur.k === 'tf' ? (b.dataset.v === '1') === cur.val : b.dataset.a === cur.a;
       if (ok) {
-        right++; streak++; best = Math.max(best, streak); const pts = level(); score += pts; sc.textContent = score; S('coin');
+        right++; if (hst.n) hinted++; streak++; best = Math.max(best, streak); const pts = level(); score += pts; sc.textContent = score; S('coin');
         b.classList.add('ok'); floatText(ar, `+${pts}`, 'pts'); after(230);
       } else {
         wrong++; streak = 0; level(); S('wrong'); b.classList.add('bad'); restart(card, 'shake');
@@ -257,7 +272,7 @@
       let hi = 0; try { hi = +localStorage.getItem('arc_hi_' + key) || 0; } catch (e) {}
       const isHi = SC === 1 && score > hi; if (isHi) { try { localStorage.setItem('arc_hi_' + key, String(score)); } catch (e) {} }
       fin({ title: isHi && score > 0 ? '🏆 New high score!' : 'Time up!', scoreText: `${score} points`, stars: score >= 30 ? 3 : score >= 15 ? 2 : score >= 5 ? 1 : 0,
-        lines: [`✅ ${right} right · ❌ ${wrong} wrong`, `🔥 Best streak ${best}`, `🏆 Best score: ${Math.max(hi, score)}`], missed });
+        lines: [`✅ ${right} right · ❌ ${wrong} wrong`, `🔥 Best streak ${best}`, `🏆 Best score: ${Math.max(hi, score)}`, hintLine(hinted)].filter(Boolean), missed, rights: right, hinted });
     };
     const tick = () => {
       const n = Date.now(); if (!HOLD()) used += n - last; last = n;
@@ -507,24 +522,24 @@
   const coins = n => '🪙 ' + n.toLocaleString('en-IN');
   function quizshow(st, P, ctx, fin) {
     const cand = spread(P.quiz, P.quiz.length, P.multi);
-    const lvl = q => { const l = q.src.t.revise && q.src.t.revise.level; return l in LV ? LV[l] : 1; };
+    const lvl = q => { const t = q.src && q.src.t, l = t && t.revise && t.revise.level; return l in LV ? LV[l] : 1; };
     const main = cand.slice(0, 10).map((q, j) => [q, j]).sort((a, b) => lvl(a[0]) - lvl(b[0]) || a[1] - b[1]).map(x => x[0]);
     const spares = cand.slice(10);
-    let i = 0, used = { fifty: false, gappu: false, skip: false }, cur = null, h = null; const missed = [];
+    let i = 0, used = { fifty: false, skip: false }, cur = null, h = null, hinted = 0; const missed = [];
     const safe = () => { let s = 0; SAFE.forEach(j => { if (i > j) s = LADDER[j]; }); return s; };
     const end = (won, lost) => fin({ title: won === 10 ? '👑 Quiz Show champion!' : lost ? 'Game over!' : 'Well played!', scoreText: coins(lost ? safe() : won ? LADDER[won - 1] : 0),
-      stars: won >= 10 ? 3 : won >= 5 ? 2 : won >= 2 ? 1 : 0, lines: [`🎯 ${won} of 10 questions climbed`, lost ? `🛟 You keep your safe level: ${coins(safe())}` : ''].filter(Boolean), missed });
+      stars: won >= 10 ? 3 : won >= 5 ? 2 : won >= 2 ? 1 : 0, lines: [`🎯 ${won} of 10 questions climbed`, lost ? `🛟 You keep your safe level: ${coins(safe())}` : '', hintLine(hinted)].filter(Boolean), missed, rights: won, hinted });
     const render = () => {
       cur = main[i]; toTop();
       st.innerHTML = `<div class="arc-ladder">${LADDER.map((v, j) => `<span class="${j < i ? 'won' : j === i ? 'now' : ''} ${SAFE.includes(j) ? 'safe' : ''}" title="${coins(v)}">${j + 1}</span>`).join('')}</div>
         <div class="card arc-show"><div class="arc-for"><span>Question ${i + 1}</span><b>for ${coins(LADDER[i])}</b></div>
-        <div class="arc-lifes"><button class="arc-life" data-l="fifty" ${used.fifty ? 'disabled data-used="1"' : ''}>50:50</button><button class="arc-life" data-l="gappu" ${used.gappu ? 'disabled data-used="1"' : ''}>🐥 Ask Gappu</button><button class="arc-life" data-l="skip" ${used.skip ? 'disabled data-used="1"' : ''}>⏭️ Skip</button></div>
-        <div class="arc-gappu"></div><div class="arc-qb"></div></div>`;
-      const qb = st.querySelector('.arc-qb'), gp = st.querySelector('.arc-gappu');
-      h = askQ(qb, cur, ok => {
+        <div class="arc-lifes"><button class="arc-life" data-l="fifty" ${used.fifty ? 'disabled data-used="1"' : ''}>50:50</button><button class="arc-life" data-l="skip" ${used.skip ? 'disabled data-used="1"' : ''}>⏭️ Skip</button></div>
+        <div class="arc-qb"></div></div>`;
+      const qb = st.querySelector('.arc-qb');
+      h = askQ(qb, cur, (ok, k, hn) => {
         st.querySelectorAll('.arc-life').forEach(b => b.disabled = true);
         if (ok) {
-          i++; const lad = st.querySelectorAll('.arc-ladder span'); lad[i - 1].classList.add('won', 'arc-pop');
+          i++; if (hn) hinted++; const lad = st.querySelectorAll('.arc-ladder span'); lad[i - 1].classList.add('won', 'arc-pop');
           h.x.innerHTML = `<div class="arc-exp good"><b>🎉 Correct! You have ${coins(LADDER[i - 1])}</b></div>`; S('coin');
           if (i >= 10) { S('unlock'); ctx.t(() => end(10, false), 1400); }
           else ctx.t(render, 1300);
@@ -538,14 +553,10 @@
       st.querySelectorAll('.arc-life').forEach(b => b.onclick = () => {
         const l = b.dataset.l; if (used[l]) return;
         if (l === 'fifty') {
-          const wrongs = SH(cur.options.map((_, k) => k).filter(k => k !== cur.answer)), n = Math.min(2, wrongs.length - 1);
-          if (n < 1) { toast('Only two options here. Save your 50:50!'); return; }
+          const shown = k => { const x = qb.querySelector(`.arc-opt[data-k="${k}"]`); return x && !x.disabled; };
+          const wrongs = SH(cur.options.map((_, k) => k).filter(k => k !== cur.answer && shown(k))), n = Math.min(2, wrongs.length - 1);
+          if (n < 1) { toast('Only two answers are showing. Save your 50:50!'); return; }
           used.fifty = true; b.disabled = true; b.dataset.used = '1'; h.hide(wrongs.slice(0, n)); S('unlock');
-        } else if (l === 'gappu') {
-          const t = cur.src.t, tip = (t.revise && t.revise.summary) || (t.learn && t.learn.points && t.learn.points[0]);
-          if (!tip) { toast('Gappu has no note for this one.'); return; }
-          used.gappu = true; b.disabled = true; b.dataset.used = '1'; S('unlock');
-          gp.innerHTML = `<div class="arc-bubble arc-in"><span>🐥</span><div><b>Gappu remembers from “${E(t.title)}”:</b><p>${E(tip)}</p></div></div>`;
         } else if (l === 'skip') {
           if (!spares.length) { toast('No other question to swap in.'); return; }
           used.skip = true; S('tap');
@@ -632,39 +643,53 @@
     return api;
   }
 
+  /* 🐥 Gappu, our mascot, is your friendly rival: he answers right 60% of the time on a ladder and escapes a snake 30% of the
+     time. He cheers when you climb and teases (kindly!) when he gets ahead. Never mean. */
+  const GP = {
+    cheer: ['Yay, great climb! 🎉', 'Wow, look at you go!', 'Super answer, friend!', 'Whee! You are flying up!'],
+    sorry: ['Oh no! You will climb back up, I know it.', 'Oops! Snakes are sneaky. You can do it!', "Don't worry, the next ladder is yours!"],
+    escape: ['Phew, you escaped! Nice one!', 'Ha! That snake missed you!'],
+    ahead: ['Catch me if you can! 😄', 'Hee hee, I am ahead… for now!', 'Peep peep! Come and get me!'],
+    climb: ['Peep! Up I go!', 'Hop hop! I climbed!', 'Look, I can fly… almost!'],
+    slip: ['Oops, I slipped! Your turn to catch up!', 'Oh feathers! Down I go.'],
+    dodge: ['Phew! I escaped! 🐥', 'Hee hee, not today, snake!'],
+    miss: ['Hmm, I got that one wrong. I am still learning too!', 'Oh! I need to study that one.'] };
+  const pickL = a => a[rnd(a.length)];
   function snakes(st, P, ctx, fin) {
     let qs = spread(P.quiz, P.quiz.length, P.multi), qi = 0;
     const nextQ = () => { if (qi >= qs.length) { qs = spread(P.quiz, P.quiz.length, P.multi); qi = 0; } return qs[qi++]; };
     const MAXR = Infinity;   // the game ends only when someone reaches 100
-    const me = (ST.profile && ST.profile.avatar) || '🦁', pos = [1, 1], names = ['You', 'Robo'], icons = [me, '🤖'];
-    let turn = 0, turns = 0, asked = 0, right = 0, busy = false, climbs = 0, dodges = 0; const missed = [];
-    st.innerHTML = `<div class="card arc-slhd"><span class="p0">${me} You: <b class="arc-p0">1</b></span><span class="arc-turn">Your turn</span><span class="p1">🤖 Robo: <b class="arc-p1">1</b></span></div>
+    const me = (ST.profile && ST.profile.avatar) || '🦁', pos = [1, 1], names = ['You', 'Gappu'], icons = [me, '🐥'];
+    let turn = 0, turns = 0, asked = 0, right = 0, hinted = 0, busy = false, climbs = 0, dodges = 0; const missed = [];
+    st.innerHTML = `<div class="card arc-slhd"><span class="p0">${me} You: <b class="arc-p0">1</b></span><span class="arc-turn">Your turn</span><span class="p1">🐥 Gappu: <b class="arc-p1">1</b></span></div>
       <div class="sl-host"></div>
       <div class="arc-dicerow"><div class="arc-die" aria-hidden="true">🎲</div><button class="btn arc-roll">🎲 Roll the dice</button></div>
-      <div class="arc-slog" aria-live="polite">🪜 Land on a ladder: answer right to climb. 🐍 Land on a snake's head: answer right to escape!</div>
+      <div class="arc-slog" aria-live="polite">🪜 Land on a ladder: answer right to climb. 🐍 Land on a snake's head: answer right to escape!<span class="arc-gline">🐥 Gappu: Let's race to 100, friend!</span></div>
       <p class="sl-rule">${SL_RULE}</p><div class="card arc-slq" style="display:none"></div>`;
-    const B = slBoard(st.querySelector('.sl-host'), [{ icon: me }, { icon: '🤖' }], ctx.t);
+    const B = slBoard(st.querySelector('.sl-host'), [{ icon: me }, { icon: '🐥' }], ctx.t);
     const die = st.querySelector('.arc-die'), roll = st.querySelector('.arc-roll'), log = st.querySelector('.arc-slog'), qbox = st.querySelector('.arc-slq'), tEl = st.querySelector('.arc-turn');
+    /* one log line, plus (sometimes) a short line from Gappu */
+    const say2 = (main, line) => { log.innerHTML = E(main) + (line ? `<span class="arc-gline">🐥 Gappu: ${E(line)}</span>` : ''); };
     const show = w => { st.querySelector('.arc-p' + w).textContent = pos[w]; };
     const sync = w => { pos[w] = B.pos[w]; show(w); };
     const end = () => {
       const won = pos[0] >= 100 || (pos[1] < 100 && pos[0] > pos[1]);
-      fin({ title: won ? '🏆 You won the race!' : pos[1] >= 100 ? '🤖 Robo won this time' : '🤖 Robo is ahead this time', scoreText: `${right} / ${asked} answers right`,
+      fin({ title: won ? '🏆 You won the race!' : pos[1] >= 100 ? '🐥 Gappu won this time' : '🐥 Gappu is ahead this time', scoreText: `${right} / ${asked} answers right`,
         stars: won ? (asked && right / asked >= .7 ? 3 : 2) : right ? 1 : 0,
-        lines: [`📍 You reached square ${pos[0]} · Robo reached ${pos[1]}`, `🪜 Ladders climbed: ${climbs} · 🐍 Snakes escaped: ${dodges}`, pos[0] < 100 && pos[1] < 100 ? `⏱ ${MAXR} rounds played — the one closest to 100 wins.` : ''].filter(Boolean), missed });
+        lines: [won ? '🐥 Gappu: You won! Well played, friend!' : '🐥 Gappu: That was fun! Rematch?', `📍 You reached square ${pos[0]} · Gappu reached ${pos[1]}`, `🪜 Ladders climbed: ${climbs} · 🐍 Snakes escaped: ${dodges}`, hintLine(hinted)].filter(Boolean), missed, rights: right, hinted });
     };
     const after = () => {
       if (pos[0] >= 100 || pos[1] >= 100) { S(pos[0] >= 100 ? 'unlock' : 'wrong'); return ctx.t(end, 900); }
       turn = 1 - turn; if (turn === 0) turns++;
       if (turns >= MAXR) return ctx.t(end, 600);
-      tEl.textContent = turn ? "Robo's turn" : 'Your turn'; tEl.classList.toggle('cpu', !!turn); B.active(turn);
+      tEl.textContent = turn ? "Gappu's turn" : 'Your turn'; tEl.classList.toggle('cpu', !!turn); B.active(turn);
       if (turn) ctx.t(doRoll, 900); else { busy = false; roll.disabled = false; }
     };
     const ask = (kind, cb) => {
       const q = nextQ(); asked++;
       qbox.style.display = ''; qbox.innerHTML = `<div class="arc-sltitle">${kind === 'lad' ? '🪜 Answer right to climb the ladder!' : '🐍 Answer right to escape the snake!'}</div><div class="arc-slqb"></div>`;
-      const h = askQ(qbox.querySelector('.arc-slqb'), q, ok => {
-        if (ok) { right++; h.x.innerHTML = `<div class="arc-exp good"><b>${kind === 'lad' ? '🎉 Correct! Up you go!' : '🎉 Correct! You escaped the snake!'}</b></div>`; ctx.t(() => { qbox.style.display = 'none'; cb(true); }, 1100); }
+      const h = askQ(qbox.querySelector('.arc-slqb'), q, (ok, k, hn) => {
+        if (ok) { right++; if (hn) hinted++; h.x.innerHTML = `<div class="arc-exp good"><b>${kind === 'lad' ? '🎉 Correct! Up you go!' : '🎉 Correct! You escaped the snake!'}</b></div>`; ctx.t(() => { qbox.style.display = 'none'; cb(true); }, 1100); }
         else { missed.push(qMiss(q)); h.x.innerHTML = explainHTML(q, false) + `<button class="btn mint arc-next">Continue ▶</button>`;
           h.x.querySelector('.arc-next').onclick = () => { S('tap'); qbox.style.display = 'none'; cb(false); }; }
       });
@@ -673,19 +698,24 @@
     const land = w => {
       const p = pos[w];
       if (LADDERS[p]) {
-        if (w === 0) ask('lad', ok => { if (ok) { S('unlock'); climbs++; log.textContent = `🪜 You climbed from ${p} to ${LADDERS[p]}!`; B.slide(0, LADDERS[p], () => { sync(0); after(); }); } else { log.textContent = '🪜 Not this time — you stay on ' + p + '.'; after(); } });
-        else { const ok = Math.random() < .6; log.textContent = ok ? `🤖 Robo answers… and climbs to ${LADDERS[p]}!` : '🤖 Robo answers… wrong! It stays.'; ok ? B.slide(1, LADDERS[p], () => { sync(1); after(); }) : after(); }
+        if (w === 0) ask('lad', ok => { if (ok) { S('unlock'); climbs++; say2(`🪜 You climbed from ${p} to ${LADDERS[p]}!`, pickL(GP.cheer)); B.slide(0, LADDERS[p], () => { sync(0); after(); }); } else { say2('🪜 Not this time — you stay on ' + p + '.', 'Nice try! The next one is yours.'); after(); } });
+        else { const ok = Math.random() < .6;
+          if (ok) { say2(`🐥 Gappu answers the question… right! He climbs from ${p} to ${LADDERS[p]}!`, LADDERS[p] > pos[0] ? pickL(GP.ahead) : pickL(GP.climb)); B.slide(1, LADDERS[p], () => { sync(1); after(); }); }
+          else { say2(`🐥 Gappu answers the question… wrong! He stays on ${p}.`, pickL(GP.miss)); after(); } }
       } else if (SNAKES[p]) {
-        if (w === 0) ask('snk', ok => { if (ok) { dodges++; log.textContent = '🐍 You escaped the snake!'; after(); } else { S('wrong'); log.textContent = `🐍 Down you slide from ${p} to ${SNAKES[p]}.`; B.slide(0, SNAKES[p], () => { sync(0); after(); }); } });
-        else { const ok = Math.random() < .3; log.textContent = ok ? '🐍 Snake! 🤖 Robo answers the question correctly… and escapes!' : `🐍 Snake! 🤖 Robo answers wrong… and slides down from ${p} to ${SNAKES[p]}!`; ok ? after() : B.slide(1, SNAKES[p], () => { sync(1); after(); }); }
+        if (w === 0) ask('snk', ok => { if (ok) { dodges++; say2('🐍 You escaped the snake!', pickL(GP.escape)); after(); } else { S('wrong'); say2(`🐍 Down you slide from ${p} to ${SNAKES[p]}.`, pickL(GP.sorry)); B.slide(0, SNAKES[p], () => { sync(0); after(); }); } });
+        else { const ok = Math.random() < .3;   // Gappu escapes a snake 30% of the time
+          if (ok) { say2(`🐍 Snake! 🐥 Gappu answers the question right… and escapes! He stays on ${p}.`, pickL(GP.dodge)); after(); }
+          else { say2(`🐍 Snake! 🐥 Gappu answers wrong… and slides down from ${p} to ${SNAKES[p]}!`, pickL(GP.slip)); B.slide(1, SNAKES[p], () => { sync(1); after(); }); } }
       } else after();
     };
     const doRoll = () => {
       const w = turn, v = roll6(); restart(die, 'roll'); S('tap');
       let f = 0; const spin = ctx.iv(() => { die.textContent = 1 + rnd(6); if (++f > 6) { ctx.clearIv(spin); die.textContent = v; restart(die, 'arc-pop');
-        if (pos[w] + v > 100) { log.textContent = `${icons[w]} ${names[w]} rolled a ${v} — too big! ${w ? 'Robo needs' : 'You need'} exactly ${100 - pos[w]} to reach 100. ${w ? 'It stays' : 'You stay'} on ${pos[w]}.`; S('hmm'); return ctx.t(after, 1100); }
-        log.textContent = `${icons[w]} ${names[w]} rolled a ${v}.`;
-        B.hop(w, pos[w] + v, () => { sync(w); land(w); }); } }, 80);
+        if (pos[w] + v > 100) { say2(`${icons[w]} ${names[w]} rolled a ${v} — too big! ${w ? 'Gappu needs' : 'You need'} exactly ${100 - pos[w]} to reach 100. ${w ? 'He stays' : 'You stay'} on ${pos[w]}.`, w ? 'Aww! So close!' : 'So close! Try again next turn.'); S('hmm'); return ctx.t(after, 1100); }
+        const to = pos[w] + v;
+        say2(`${icons[w]} ${names[w]} rolled a ${v}.`, w && to > pos[0] && pos[1] <= pos[0] && !LADDERS[to] && !SNAKES[to] ? pickL(GP.ahead) : '');
+        B.hop(w, to, () => { sync(w); land(w); }); } }, 80);
     };
     roll.onclick = () => { if (busy || turn) return; busy = true; roll.disabled = true; doRoll(); };
     B.active(0);
@@ -700,16 +730,17 @@
     { id: 'odd', e: '🔎', n: 'Odd One Out', d: 'Spot the one that does not belong.', ok: P => oddGames(P).length >= 1, c: P => `${oddGames(P).length} sets`, run: odd },
     { id: 'chain', e: '🧩', n: 'Chain Order', d: 'Drag the steps into the right order.', ok: P => P.order.length >= 1, c: P => `${P.order.length} chains`, run: chain },
     { id: 'quizshow', e: '🎯', n: 'Quiz Show', d: '10 questions up the coin ladder, with lifelines.', ok: P => P.quiz.length >= 11, c: P => `${P.quiz.length} questions`, run: quizshow },
-    { id: 'snakes', e: '🐍', n: 'Snakes & Ladders', d: 'Race Robo to 100. Answer right to climb!', ok: P => P.quiz.length >= 8, c: () => 'vs Robo 🤖', run: snakes }];
+    { id: 'snakes', e: '🐍', n: 'Snakes & Ladders', d: 'Race 🐥 Gappu to 100. Answer right to climb!', ok: P => P.quiz.length >= 8, c: () => 'vs 🐥 Gappu', run: snakes }];
 
   const A = { host: null, scope: null, P: null, ctx: null, seq: 0, key: '' };
   const toTop = () => { try { const m = A.host && A.host.closest('main'); if (m) m.scrollTop = 0; window.scrollTo(0, 0); } catch (e) {} };
   const stopGame = () => { if (A.ctx) { A.ctx.stop(); A.ctx = null; } };
-  const scopeKey = s => `g${s.grade}${s.subject ? '-' + s.subject : ''}${s.chapter != null ? '-c' + s.chapter : ''}`;
+  const scopeKey = s => s.key ? String(s.key) : `g${s.grade}${s.subject ? '-' + s.subject : ''}${s.chapter != null ? '-c' + s.chapter : ''}`;
   const hiOf = () => { try { return +localStorage.getItem('arc_hi_' + A.key) || 0; } catch (e) { return 0; } };
 
   function scopeLabel() {
     const s = A.scope, P = A.P;
+    if (s.label) return E(s.label);
     if (s.chapter != null && P.chapter) return `${P.subjects[0] ? SUBJ(P.subjects[0].id).e + ' ' + E(P.subjects[0].name) + ' · ' : ''}Chapter ${E(P.chapter.n || +s.chapter + 1)}: ${E(P.chapter.title)}`;
     if (s.subject) return `Grade ${E(s.grade)} · ${P.subjects[0] ? SUBJ(P.subjects[0].id).e + ' ' + E(P.subjects[0].name) : E(cap(s.subject))} · all chapters`;
     return `Grade ${E(s.grade)} · all subjects mixed ${P.subjects.map(x => SUBJ(x.id).e).join('')}`;
@@ -734,7 +765,9 @@
   }
   function results(game, r) {
     stopGame(); const host = A.host; if (!host || !host.isConnected) return;
-    const stars = Math.max(0, Math.min(3, r.stars | 0)), xp = 5 + stars * 5;
+    const stars = Math.max(0, Math.min(3, r.stars | 0)), full = 5 + stars * 5;
+    // every right answer earns an equal share of the stars; a share won with a 💡 Gappu hint is halved
+    const hs = r.rights > 0 ? Math.min(1, (r.hinted || 0) / r.rights) : 0, xp = Math.max(5, Math.round(full * (1 - hs / 2)));
     try { addXP(xp, `${game.n} done!`); } catch (e) {}
     const miss = (r.missed || []).slice(0, 8);
     const conf = stars >= 2 ? `<div class="confetti">${Array.from({ length: 16 }, (_, j) => `<span style="left:${(j * 6.3 + 3) % 100}%;animation-delay:${(j % 5) * .18}s">${['🎉', '⭐', '✨', '🎊'][j % 4]}</span>`).join('')}</div>` : '';
@@ -763,7 +796,15 @@
     if (seq !== A.seq) return;
     if (!P) { host.innerHTML = '<div class="card"><p class="sub">Could not load games right now. Please check your connection and try again.</p></div>'; return; }
     A.P = P; menu();
+    if (scope.game) { const g = GAMES.find(x => x.id === scope.game); let ok = false; try { ok = !!(g && g.ok(P)); } catch (e) {}
+      if (ok) start(g); else { try { toast('Not enough questions here for that game yet — pick another one.'); } catch (e) {} } }
   }
 
-  window.Arcade = { open, pool: buildPool, okQ, slBoard, LADDERS, SNAKES, SL_RULE, roll6, askQ, BAD_OPT };
+  (function gpCss() {
+    if (document.getElementById('arcGpCss')) return;
+    const c = document.createElement('style'); c.id = 'arcGpCss';
+    c.textContent = '.arc-slog .arc-gline{display:block;margin-top:4px;font-weight:800;color:#ffe08a}.arc-hintslot:empty,.arc-lhint:empty{display:none}.arc-lhint{margin-top:8px}';
+    document.head.appendChild(c);
+  })();
+  window.Arcade = { open, GAMES, pool: buildPool, okQ, slBoard, LADDERS, SNAKES, SL_RULE, roll6, askQ, BAD_OPT };
 })();

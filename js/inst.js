@@ -28,6 +28,11 @@
   const uid = () => { const u = C() && C().user(); return u ? u.id : null; };
   const errT = e => (e && e.status != null && C()) ? C().errText(e) : ((e && e.message) || 'Something went wrong.');
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const FL = () => window.Fields || null;                                   // js/fields.js: strict phone / PIN / email boxes
+  const emailOk = e => FL() ? FL().email(e) : EMAIL_RE.test(e);
+  const fval = el => FL() ? FL().value(el) : String(el.value || '').trim();
+  const fok = root => !FL() || FL().valid(root).ok;
+  const boardSel = (id, cur) => `<select id="${id}" class="pv-in" data-field="board">${FL() ? FL().boardOptions(cur || '') : `<option value="">— Choose —</option>${cur ? `<option selected>${esc(cur)}</option>` : ''}<option>CBSE</option><option>ICSE/ISC</option><option value="State board: Other">State board</option><option>IB</option><option>Cambridge/IGCSE</option><option>NIOS</option><option>Other</option>`}</select>`;
   const pad2 = n => String(n).padStart(2, '0');
   const dk = t => { const d = new Date(t); return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; };
   const todayK = () => dk(Date.now());
@@ -72,8 +77,8 @@
       const why = [];
       if (!r.name) why.push('name is missing');
       if (/^ca(\b|[\s-])|^ca$/i.test(r.class)) r.class = 'CA'; else if (!/^([1-9]|1[0-2])$/.test(r.class)) why.push('class must be 1 to 12 or CA');
-      if (r.email && !EMAIL_RE.test(r.email)) why.push('student email does not look right');
-      if (r.parent_email && !EMAIL_RE.test(r.parent_email)) why.push('parent email does not look right');
+      if (r.email && !emailOk(r.email)) why.push('student email does not look right');
+      if (r.parent_email && !emailOk(r.parent_email)) why.push('parent email does not look right');
       if (r.email && r.email === r.parent_email) why.push('parent email is the same as the student email');
       if (why.length) errors.push({ line: n, msg: why.join(', ') }); else rows.push(r);
     });
@@ -406,7 +411,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
           ${teachers.length ? `<div class="in-staff" role="group" aria-label="Teachers of ${esc(c.name)}">${teachers.map(t => `<button type="button" class="in-chipb" aria-pressed="${t.classes.includes(c.id)}" data-tc="${esc(c.id)}" data-tu="${esc(t.user_id)}">${esc(t.name || t.email)}</button>`).join('')}</div>` : ''}</li>`).join('')}</ul>
           <p class="pv-note">Tap a teacher's name to add or remove them from a class.</p>` : '<p class="pv-empty">No classes yet.</p>'}</section>
       <section class="pv-card" aria-labelledby="inIv"><h3 id="inIv">✉️ Invite a teacher or admin</h3><p class="pv-mut">We email them a link to set a password. They land on this console.</p>
-        <form id="inIvF" class="pv-form" novalidate><label for="inIvE">Email</label><input id="inIvE" class="pv-in" type="email" maxlength="120" autocomplete="off" autocapitalize="none">
+        <form id="inIvF" class="pv-form" novalidate><label for="inIvE">Email</label><input id="inIvE" class="pv-in" type="email" data-field="email" required maxlength="120" autocomplete="off" autocapitalize="none" placeholder="name@school.com">
           <label for="inIvN">Name</label><input id="inIvN" class="pv-in" maxlength="60" autocomplete="off">
           <div class="pv-row"><div class="pv-f"><label for="inIvR">Role</label><select id="inIvR" class="pv-in"><option value="teacher">Teacher</option><option value="admin">Admin</option></select></div>
             <div class="pv-f"><label for="inIvC">First class (teachers)</label><select id="inIvC" class="pv-in"><option value="">—</option>${cls.map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}</select></div></div>
@@ -424,7 +429,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
       try { const r = one(await rpc('inst_assign_teacher', { p_class: b.dataset.tc, p_user: b.dataset.tu, p_on: on })); if (!r || !r.ok) throw new Error((r && r.msg) || 'Could not save.'); b.setAttribute('aria-pressed', String(on)); delete cache.ro; say(on ? 'Teacher added to the class' : 'Teacher removed from the class'); }
       catch (x) { say(errT(x)); } finally { b.disabled = false; } });
     body.querySelector('#inIvF').onsubmit = async ev => { ev.preventDefault(); const e = body.querySelector('#inIvX'), em = body.querySelector('#inIvE').value.trim().toLowerCase(), role = body.querySelector('#inIvR').value, c = body.querySelector('#inIvC').value;
-      e.textContent = ''; if (!EMAIL_RE.test(em)) { e.textContent = 'Please enter a valid email.'; return; }
+      e.textContent = ''; if (!fok(ev.target)) return; if (!emailOk(em)) { e.textContent = 'Please enter a valid email, like name@school.com'; return; }
       const btn = ev.target.querySelector('[type=submit]'); btn.disabled = true; btn.textContent = 'Sending…';
       try { const r = await fn('institution-bulk', { action: 'staff', institution_id: I().id, email: em, role, name: body.querySelector('#inIvN').value.trim(), class_ids: c ? [c] : [] });
         if (!r || !r.ok) { e.textContent = (r && r.msg) || 'Could not send.'; return; } say(r.created ? `Invite sent to ${em} ✓` : `${em} added ✓ (they already had an account)`); cache = {}; render(); }
@@ -626,12 +631,13 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
     body.innerHTML = `<section class="pv-card" aria-labelledby="inDt"><h3 id="inDt">🏫 School details</h3><p class="pv-mut">Printed on your invoices. GSTIN is optional.</p>
       <form id="inDF" novalidate>${f('name', 'Name', i.name, 'maxlength="120"')}${f('address', 'Address', i.address, 'maxlength="300" autocomplete="street-address"')}
         <div class="pv-row"><div class="pv-f">${f('city', 'City', i.city, 'maxlength="60"')}</div><div class="pv-f"><label class="in-lbl" for="inD-state">State</label><select id="inD-state" class="pv-in">${stateOpts(i.state)}</select></div></div>
-        <div class="pv-row"><div class="pv-f">${f('pincode', 'PIN code', i.pincode, 'maxlength="10" inputmode="numeric"')}</div><div class="pv-f">${f('board', 'Board', i.board, 'maxlength="40" placeholder="CBSE"')}</div></div>
+        <div class="pv-row"><div class="pv-f">${f('pincode', 'PIN code', i.pincode, 'maxlength="6" inputmode="numeric" data-field="pincode" placeholder="6 digits"')}</div><div class="pv-f"><label class="in-lbl" for="inD-board">Board</label>${boardSel('inD-board', i.board)}</div></div>
         ${f('gstin', 'GSTIN (optional)', i.gstin, 'maxlength="15" autocapitalize="characters" placeholder="27ABCDE1234F1Z5"')}
-        ${f('contact_name', 'Contact person', i.contact_name, 'maxlength="80"')}<div class="pv-row"><div class="pv-f">${f('contact_phone', 'Phone', i.contact_phone, 'maxlength="20" inputmode="tel"')}</div><div class="pv-f">${f('contact_email', 'Email', i.contact_email, 'maxlength="120" type="email"')}</div></div>
+        ${f('contact_name', 'Contact person', i.contact_name, 'maxlength="80"')}${f('contact_phone', 'Mobile number', i.contact_phone, 'type="tel" inputmode="numeric" data-field="phone"')}${f('contact_email', 'Email', i.contact_email, 'maxlength="120" type="email" data-field="email" placeholder="name@school.com"')}
         <p class="pv-err" id="inDE" role="alert"></p><button class="pv-btn" type="submit">Save</button></form></section>`;
     body.querySelector('#inDF').onsubmit = async ev => {
-      ev.preventDefault(); const e = body.querySelector('#inDE'), v = k => body.querySelector('#inD-' + k).value.trim();
+      ev.preventDefault(); const e = body.querySelector('#inDE'), v = k => fval(body.querySelector('#inD-' + k));
+      e.textContent = ''; if (!fok(ev.target)) { e.textContent = 'Please check the boxes marked in red.'; return; }
       const p = { name: v('name'), address: v('address'), city: v('city'), state: v('state'), pincode: v('pincode'), board: v('board'), gstin: v('gstin').toUpperCase(), contact_name: v('contact_name'), contact_phone: v('contact_phone'), contact_email: v('contact_email') };
       try { const r = one(await rpc('inst_update_details', { p_inst: I().id, p })); if (!r || !r.ok) { e.textContent = (r && r.msg) || 'Could not save.'; return; } say('Saved ✓'); delete cache.ov; I().name = p.name; } catch (x) { e.textContent = errT(x); }
     };
@@ -660,17 +666,19 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
         <label class="in-lbl" for="inNiN">Name</label><input id="inNiN" class="pv-in" maxlength="120">
         <div class="pv-row"><div class="pv-f"><label class="in-lbl" for="inNiT">Type</label><select id="inNiT" class="pv-in"><option value="school">School</option><option value="coaching">Coaching institute</option></select></div>
           <div class="pv-f"><label class="in-lbl" for="inNiC">City</label><input id="inNiC" class="pv-in" maxlength="60"></div></div>
-        <div class="pv-row"><div class="pv-f"><label class="in-lbl" for="inNiS">State</label><select id="inNiS" class="pv-in">${stateOpts('')}</select></div><div class="pv-f"><label class="in-lbl" for="inNiB">Board</label><input id="inNiB" class="pv-in" maxlength="40" placeholder="CBSE"></div></div>
-        <div class="pv-row"><div class="pv-f"><label class="in-lbl" for="inNiP">Contact phone</label><input id="inNiP" class="pv-in" maxlength="20" inputmode="tel"></div><div class="pv-f"><label class="in-lbl" for="inNiA">First admin's email (principal / owner)</label><input id="inNiA" class="pv-in" type="email" maxlength="120" autocapitalize="none"></div></div>
+        <div class="pv-row"><div class="pv-f"><label class="in-lbl" for="inNiS">State</label><select id="inNiS" class="pv-in">${stateOpts('')}</select></div><div class="pv-f"><label class="in-lbl" for="inNiZ">PIN code</label><input id="inNiZ" class="pv-in" data-field="pincode" maxlength="6" inputmode="numeric" placeholder="6 digits"></div></div>
+        <label class="in-lbl" for="inNiB">Board</label>${boardSel('inNiB', '')}
+        <label class="in-lbl" for="inNiP">Contact mobile</label><input id="inNiP" class="pv-in" type="tel" data-field="phone" inputmode="numeric">
+        <label class="in-lbl" for="inNiA">First admin's email (principal / owner)</label><input id="inNiA" class="pv-in" type="email" data-field="email" maxlength="120" autocapitalize="none" placeholder="name@school.com">
         <p class="pv-err" id="inNiE" role="alert"></p><button class="pv-btn" type="submit">Create institution</button></form></section>
       <section class="pv-card in-wide" aria-labelledby="inIl"><h3 id="inIl">Institutions (${list.length})</h3>${list.length ? `<ul class="pv-list" id="inIlL">${list.map(i => `<li><b>${esc(i.name)}</b> <span class="pv-mut">${esc(i.type)}${i.city ? ' · ' + esc(i.city) : ''}</span> <span class="in-pill ${i.status === 'active' ? 'ok' : i.status === 'pilot' ? 'warn' : 'bad'}">${esc(i.status)}</span><br>
         <span class="pv-mut">${i.students} students · admins: ${esc((i.admins || []).join(', ') || 'none')}${i.pilot_until ? ` · pilot ${esc(i.pilot_class || '')} till ${esc(fmtD(i.pilot_until))}` : ''}</span>
         <div class="pv-row" style="margin-top:6px"><button class="pv-btn ghost" type="button" data-console="${esc(i.id)}">Open console</button><button class="pv-btn ghost" type="button" data-pilot="${esc(i.id)}">Pilot…</button><button class="pv-btn ghost" type="button" data-admin="${esc(i.id)}">Invite admin</button></div><div data-box="${esc(i.id)}"></div></li>`).join('')}</ul>` : '<p class="pv-empty">No institutions yet.</p>'}</section>`;
     body.querySelector('#inNiF').onsubmit = async ev => {
-      ev.preventDefault(); const e = body.querySelector('#inNiE'), v = id => body.querySelector('#' + id).value.trim(), adm = v('inNiA').toLowerCase();
-      e.textContent = ''; if (v('inNiN').length < 2) { e.textContent = 'Enter the name.'; return; } if (adm && !EMAIL_RE.test(adm)) { e.textContent = 'Check the admin email.'; return; }
+      ev.preventDefault(); const e = body.querySelector('#inNiE'), v = id => fval(body.querySelector('#' + id)), adm = v('inNiA').toLowerCase();
+      e.textContent = ''; if (v('inNiN').length < 2) { e.textContent = 'Enter the name.'; return; } if (!fok(ev.target)) { e.textContent = 'Please check the boxes marked in red.'; return; } if (adm && !emailOk(adm)) { e.textContent = 'Check the admin email.'; return; }
       try {
-        const r = one(await rpc('owner_create_institution', { p: { name: v('inNiN'), type: v('inNiT'), city: v('inNiC'), state: v('inNiS'), board: v('inNiB'), contact_phone: v('inNiP'), contact_email: adm } }));
+        const r = one(await rpc('owner_create_institution', { p: { name: v('inNiN'), type: v('inNiT'), city: v('inNiC'), state: v('inNiS'), board: v('inNiB'), pincode: v('inNiZ'), contact_phone: v('inNiP'), contact_email: adm } }));
         if (!r || !r.ok) { e.textContent = (r && r.msg) || 'Could not create.'; return; }
         if (adm) { const m = await fn('institution-bulk', { action: 'staff', institution_id: r.id, email: adm, role: 'admin' }); if (!m || !m.ok) say('Institution created, but the admin invite failed: ' + ((m && m.msg) || '')); else say('Institution created and admin invited ✓'); }
         else say('Institution created ✓');
@@ -690,8 +698,8 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
     });
     body.querySelectorAll('[data-admin]').forEach(b => b.onclick = () => {
       const id = b.dataset.admin, box = body.querySelector(`[data-box="${id}"]`);
-      box.innerHTML = `<div class="pv-form"><label class="in-lbl" for="ae-${esc(id)}">Admin email</label><input id="ae-${esc(id)}" class="pv-in" type="email" maxlength="120" autocapitalize="none"><button class="pv-btn" type="button" data-ago>Send invite</button><p class="pv-err" role="alert"></p></div>`;
-      box.querySelector('[data-ago]').onclick = async () => { const er = box.querySelector('.pv-err'), em = box.querySelector('input').value.trim().toLowerCase(); if (!EMAIL_RE.test(em)) { er.textContent = 'Please enter a valid email.'; return; }
+      box.innerHTML = `<div class="pv-form"><label class="in-lbl" for="ae-${esc(id)}">Admin email</label><input id="ae-${esc(id)}" class="pv-in" type="email" data-field="email" required maxlength="120" autocapitalize="none" placeholder="name@school.com"><button class="pv-btn" type="button" data-ago>Send invite</button><p class="pv-err" role="alert"></p></div>`;
+      box.querySelector('[data-ago]').onclick = async () => { const er = box.querySelector('.pv-err'), em = box.querySelector('input').value.trim().toLowerCase(); if (!fok(box)) return; if (!emailOk(em)) { er.textContent = 'Please enter a valid email.'; return; }
         try { const r = await fn('institution-bulk', { action: 'staff', institution_id: id, email: em, role: 'admin' }); if (!r || !r.ok) { er.textContent = (r && r.msg) || 'Could not send.'; return; } say('Admin invited ✓'); orender(); } catch (x) { er.textContent = errT(x); } };
     });
   }

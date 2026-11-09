@@ -264,7 +264,7 @@
     const fr = Object.values(ST.friends).sort((a, b) => (b.w - b.l) - (a.w - a.l));
     const m = me(), tot = { w: ST.cnt.wins || 0, d: ST.cnt.duels || 0 };
     $('#s-squad').innerHTML = `<div class="card"><h2>⚔️ My Squad</h2><p class="sub">Duel friends with a link: you both answer the same questions. Most correct wins; if it's a tie, the faster one wins.</p>
-      <div class="statrow"><div><b>${tot.d}</b><span>Duels</span></div><div><b>${tot.w}</b><span>Wins</span></div><div><b>${ST.xp}</b><span>XP</span></div></div>
+      <div class="statrow"><div><b>${tot.d}</b><span>Duels</span></div><div><b>${tot.w}</b><span>Wins</span></div><div><b>${kfmt(ST.xp)}</b><span>XP</span></div></div>
       <button class="btn" id="sqDuel">⚔️ Start a duel</button></div>
       <div class="card"><h3>🏆 Friends leaderboard</h3>${fr.length ? fr.map((f, i) => `<div class="row"><div class="rank">${i + 1}</div><div class="av">${esc(f.a)}</div><div class="nm">${esc(f.n)}</div><div class="xp">You ${f.w}–${f.l}${f.d ? ` (${f.d} tie)` : ''}</div></div>`).join('')
         : '<p class="sub">No duels yet. Send your first duel link on WhatsApp. Every friend who plays appears here.</p>'}</div>

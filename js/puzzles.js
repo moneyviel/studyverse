@@ -1,18 +1,41 @@
-/* ================= StudyVerse Puzzles: chapter-aware crosswords, Sudoku, Kakuro + warm-ups (js/puzzles.js) =================
-   "360-degree" learning: the chapter you study turns into puzzles.
-     📝 Chapter Crossword — 8–15 of the chapter's key terms; clues come from the lesson itself (match pairs, fill-ins,
-        definitions, quiz stems; CA: quick-reference cards, MCQ stems, concept definitions, 📚 key rules/formulas).
-     🔢 Sudoku 4×4 (Class 1–3) · 6×6 (Class 4–6) · 9×9 (Class 7+ and CA), easy/medium/hard, unique solution.
-     🧠 Concept Sudoku — 4×4 / 6×6 with chapter terms as the symbols, plus a legend that teaches them.
-     ➕ Kakuro 5×5 – 8×8, unique solution; maths / accounts / QA chapters get a ledger "story".
-     🔎 Word search and 🔤 Anagram warm-ups from the chapter's terms.
-     📅 Daily Puzzle — one puzzle a day from your current chapter (crossword → sudoku → kakuro, rotating), its own
-        🔥 streak, stars through addXP(), badges (🧩 Puzzle Master …) and best times.
-   Engine: js/puzzles-core.js (deterministic per seed = date + chapter), run in js/puzzles-worker.js when possible.
+/* ================= StudyVerse Puzzles: chapter puzzles, Sudoku, Kakuro + a daily puzzle (js/puzzles.js) =================
+   PUBLIC API (window.Puzzles) — used by the 🎮 Play hub (js/playhub.js) and the live 🧩 Puzzle Race (js/live.js):
+     Puzzles.kinds() → [{ id, e, n, d, chapter }]   ids: 'sdk' Sudoku · 'kak' Kakuro · 'xw' Crossword · 'ws' Word search ·
+                       'an' Anagram · 'csdk' Concept sudoku ('ana' is accepted everywhere as another name for 'an').
+                       chapter: true = built from one chapter's own words (the student picks subject → chapter).
+     Puzzles.hub({ from })        the Puzzles screen (daily puzzle, quick play for every kind, badges). from: 'practice' |
+                                  'play' | 'world' | 'ca' | 'ca-practice' — where its Back button goes ('play' → PlayHub.open()).
+     Puzzles.quick(kind, { from }) picker for that kind (chapter kinds: subject → chapter, default = the chapter the student
+                                  is on; difficulty; Sudoku also size), then plays it. Back returns to `from`.
+     Puzzles.daily()              plays today's daily puzzle.
+     Puzzles.pick(kind) → Promise<spec | null>   the same picker in a bottom sheet, WITHOUT playing (null = cancelled).
+                                  spec is plain JSON and self-contained, e.g.
+                                  { v: 1, t: 'ws', sc: { k: 's', g: 7, sid: 'hindi', ci: 2 } | { k: 'c', ch: 'fnd-p2-ch02' } | { k: 'q' },
+                                    seed: 'race|…', diff: 'easy'|'medium'|'hard'|'expert', n?: 4|6|9, ph: '<puzzle hash>',
+                                    label: 'Word search · <chapter> · Medium', kindName, chapterTitle, subjectName }
+                                  Any phone (any class, school or CA) rebuilds the exact same puzzle from it.
+     Puzzles.race(hostEl, spec, { onSolved({ ms, hints, mistakes }), onQuit(), onProgress({ done, total }), onError?(msg) })
+                                  → { stop(), ready: Promise<{ ok, same }> }   renders that exact puzzle inside hostEl (no
+                                  screen / nav change). onProgress = cells right / words found so far; onSolved fires once.
+                                  No daily streak, badges, best times or saves — only the puzzle's small star prize.
+                                  ready.same is false if this phone built a different puzzle (different content version).
+     Puzzles.describe(spec) → { ch, d }   a lobby label for a spec.
+     Puzzles.build(spec) → Promise<{ p, extra } | null>  (tests / tools)
+   WHAT EACH PUZZLE IS MADE OF
+     📝 Crossword · 🔎 Word search · 🔤 Anagram · 🧠 Concept sudoku: the chosen chapter's OWN key words (match pairs,
+        fill-ins, definitions, quiz answers; CA: quick-reference cards, MCQ stems, key rules). English crosswords may
+        borrow a few words from the neighbouring chapters (marked ↗) when the chapter alone is too small.
+        Hindi / Sanskrit (any Indic script): words in that script, one AKSHARA per cell / tile (क्ष, स्व, विः stay whole;
+        see PuzzleCore.aksharas), clues in the chapter's language, an akshara keyboard for the crossword. If a chapter has
+        too few words for a kind, that kind is hidden for the chapter with a kind note — never swapped for another puzzle.
+     🔢 Sudoku 4×4 / 6×6 / 9×9 and ➕ Kakuro: general brain games (never offered as a "chapter puzzle"), except Kakuro on a
+        maths / accounts / economics chapter, which gets a ledger story.
+     📅 Daily Puzzle — one a day from your current chapter (crossword → sudoku → kakuro, rotating), its own 🔥 streak,
+        stars through addXP(), badges (🧩 Puzzle Master …) and best times.
+   Engine: js/puzzles-core.js (deterministic per seed), run in js/puzzles-worker.js when possible.
    Stars: hints are paid from the puzzle's prize first, then from your stars. Puzzles never use button.opt (plans.js
    counts those for the free daily limit), so they are free for everyone.
-   Entry points: 🧩 tile on school World + Practice, a 🧩 button on every chapter and on the quest-complete card,
-   CA home + Practice hub + every unit. State: ST.pz (synced with the rest of ST). */
+   Entry points: the 🎮 Play hub (Practice tab), a 🧩 button on every chapter, unit and quest-complete card. State: ST.pz. */
 (function () {
   'use strict';
   const D = document, PC = () => window.PuzzleCore;
@@ -29,7 +52,9 @@
   const dayNum = (d = new Date()) => Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
   const yISO = () => localISO(new Date(Date.now() - 864e5));
   const fmtT = s => `${Math.floor(s / 60)}:${pad2(s % 60)}`;
-  const announce = m => { const a = $1('#s-puz .pz-live'); if (a && m) { a.textContent = ''; setTimeout(() => { a.textContent = m; }, 30); } try { if (window.A11Y && A11Y.cue) A11Y.cue(m); } catch (e) {} };
+  const kid = k => (k === 'ana' ? 'an' : k);
+  const liveEl = () => { const r = PLAY && PLAY.root && PLAY.root.isConnected ? PLAY.root : D.getElementById('s-puz'); return r ? (r.querySelector('.pz-live') || $1('.pz-live', D.getElementById('s-puz') || D)) : null; };
+  const announce = m => { const a = liveEl(); if (a && m) { a.textContent = ''; setTimeout(() => { a.textContent = m; }, 30); } try { if (window.A11Y && A11Y.cue) A11Y.cue(m); } catch (e) {} };
 
   /* ---------- saved state ---------- */
   function Z() {
@@ -67,6 +92,7 @@
   /* ================= scope: which chapter ================= */
   // school {k:'s', g, sid, ci} · CA {k:'c', ch:'fnd-p2-ch02'} · free play {k:'q'}
   const scopeKey = sc => !sc || sc.k === 'q' ? 'free' : sc.k === 'c' ? sc.ch : `g${sc.g}-${sc.sid}-c${sc.ci}`;
+  const cleanSc = sc => (!sc || sc.k === 'q' ? { k: 'q' } : sc.k === 'c' ? { k: 'c', ch: String(sc.ch) } : { k: 's', g: +sc.g, sid: String(sc.sid), ci: +sc.ci });
   const NUMERIC = /^(maths|accountancy|economics)$/;
   async function caChapter(ch) {
     const x = X(); if (!x) return null;
@@ -74,53 +100,40 @@
     for (const p of st.papers) { const i = p.chapters.findIndex(c => c.id === ch); if (i >= 0) return { st, p, c: p.chapters[i], i }; }
     return null;
   }
+  const subjMeta = (g, sid) => (((typeof CUR !== 'undefined' && CUR && CUR.grades && CUR.grades[g]) || {}).subjects || []).find(s => s.id === sid) || {};
   async function info(sc) {
-    if (!sc || sc.k === 'q') return { title: 'Free play', sub: 'Any time, any level', emoji: '🧩', numeric: true, key: 'free' };
+    if (!sc || sc.k === 'q') return { title: 'Free play', sub: 'Any time, any level', emoji: '🧩', numeric: true, key: 'free', lang: 'en', script: 'latn' };
     if (sc.k === 's') {
       const d = await subjectData(sc.g, sc.sid), c = d && d.chapters[sc.ci]; if (!c) return null;
-      const meta = (((typeof CUR !== 'undefined' && CUR && CUR.grades && CUR.grades[sc.g]) || {}).subjects || []).find(s => s.id === sc.sid) || {};
+      const meta = subjMeta(sc.g, sc.sid), script = PC().chapterScript(c) || 'latn';
       const st = (window.Worlds && Worlds.SUBJECT_STYLE && Worlds.SUBJECT_STYLE[sc.sid]) || { e: '📘' };
-      return { title: c.title, sub: `${meta.name || sc.sid} · Class ${sc.g} · Chapter ${c.n}`, emoji: c.emoji || st.e, numeric: NUMERIC.test(sc.sid), key: scopeKey(sc), sname: meta.name || sc.sid };
+      return { title: c.title, sub: `${meta.name || sc.sid} · Class ${sc.g} · Chapter ${c.n}`, emoji: c.emoji || st.e, numeric: NUMERIC.test(sc.sid), key: scopeKey(sc), sname: meta.name || sc.sid,
+        script, lang: script === 'latn' ? 'en' : PC().langOf(script, sc.sid) };
     }
     const f = await caChapter(sc.ch); if (!f) return null;
-    return { title: f.c.title, sub: `CA ${{ fnd: 'Foundation', int: 'Intermediate', fin: 'Final' }[sc.ch.split('-')[0]] || ''} · Paper ${String(f.p.key).replace('p', '')} ${f.p.name} · Ch ${f.c.n}`, emoji: '📘', numeric: /-p[13]-/.test(sc.ch), key: sc.ch, pname: f.p.name };
+    return { title: f.c.title, sub: `CA ${{ fnd: 'Foundation', int: 'Intermediate', fin: 'Final' }[sc.ch.split('-')[0]] || ''} · Paper ${String(f.p.key).replace('p', '')} ${f.p.name} · Ch ${f.c.n}`, emoji: '📘', numeric: /-p[13]-/.test(sc.ch), key: sc.ch, pname: f.p.name, sname: `Paper ${String(f.p.key).replace('p', '')}: ${f.p.name}`, lang: 'en', script: 'latn' };
   }
   const TERMS = {};
-  async function caUnits(c) {
-    const x = X(), out = [];
-    for (const u of c.units) { if (u.status !== 'built') continue; try { const d = await x.unitData(u.id); if (d) out.push(d); } catch (e) {} }
-    return out;
-  }
-  const keyItems = c => ((window.CaKeysData && CaKeysData.ITEMS) || []).filter(it => c.units.some(u => u.id === it.u));
+  /* the chapter's terms: own (this chapter), near (neighbouring chapters, Latin crosswords only), groups (concept
+     sudoku) — built by PuzzleCore.termsFromSchool / termsFromCA from the raw content, exactly as a server would */
   async function terms(sc) {
     const k = scopeKey(sc); if (TERMS[k]) return TERMS[k];
-    let own = [], near = [], groups = [];
+    let t = { own: [], near: [], groups: [] };
     try {
-      if (sc.k === 's') {
-        const d = await subjectData(sc.g, sc.sid); const c = d && d.chapters[sc.ci];
-        if (c) {
-          own = PC().termsSchool(c);
-          const order = []; for (let j = 1; j < d.chapters.length && order.length < 6; j++) [sc.ci - j, sc.ci + j].forEach(x => { if (x >= 0 && x < d.chapters.length && order.length < 6) order.push(x); });
-          if (own.length < 20) order.forEach(x => near.push(...PC().termsSchool(d.chapters[x])));
-          (c.topics || []).forEach(t => (t.games || []).forEach(gm => { if (gm && gm.type === 'match') groups.push({ title: gm.title || t.title, items: (gm.pairs || []).filter(p => Array.isArray(p) && /^[A-Za-z][A-Za-z '\-]*$/.test(String(p[0]).trim())).map(p => ({ label: String(p[0]).trim(), info: String(p[1]) })) }); }));
-        }
-      } else if (sc.k === 'c') {
-        const f = await caChapter(sc.ch);
+      if (sc.k === 's') { const d = await subjectData(sc.g, sc.sid); if (d) t = PC().termsFromSchool(d, sc.ci); }
+      else if (sc.k === 'c') {
+        const x = X(), f = await caChapter(sc.ch);
         if (f) {
-          const units = await caUnits(f.c); own = PC().termsCA(units, keyItems(f.c));
-          units.forEach(u => groups.push({ title: u.title, items: (u.quickref || []).filter(q => /^[A-Za-z][A-Za-z '\-]*$/.test(String(q.k || '').trim())).map(q => ({ label: String(q.k).trim(), info: String(q.v || '') })) }));
-          if (own.length < 20) {
-            const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 5; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 5) order.push(x); });
-            for (const x of order) near.push(...PC().termsCA(await caUnits(chs[x]), keyItems(chs[x])));
-          }
+          const units = {}, load = async cis => { for (const ci of cis) for (const u of f.p.chapters[ci].units) { if (u.status !== 'built' || units[u.id]) continue; try { const d = await x.unitData(u.id); if (d) units[u.id] = d; } catch (e) {} } };
+          const make = () => PC().termsFromCA({ structure: f.st, units, keyItems: (window.CaKeysData && CaKeysData.ITEMS) || [] }, sc.ch);
+          await load([f.i]); t = make();
+          if (t.own.length < 20) { await load(caNear(f)); t = make(); }   // neighbours only matter when the chapter is small
         }
       }
     } catch (e) { console.warn('puzzle terms', e); }
-    return (TERMS[k] = { own, near, groups });
+    return (TERMS[k] = t);
   }
-  /* one coherent set (a single match game: "4 market forms", "6 diseases") beats a mixed bag */
-  const conceptFor = (t, g, k) => (g > 3 && PC().conceptSet(t.groups, 6, k, true)) || PC().conceptSet(t.groups, 4, k, true) || PC().conceptSet(t.groups, g <= 3 ? 4 : 6, k);
-  const canXW = t => t && (t.own.length + t.near.length >= 8) && t.own.length >= 3;
+  const caNear = f => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 5; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 5) order.push(x); }); return order; };
 
   /* the student's current chapter: last topic studied (school) / last unit opened (CA) */
   async function curChapter() {
@@ -137,20 +150,83 @@
     for (const s of subs) { const d = await subjectData(g, s.id); if (!d || !d.chapters.length) continue; let ci = d.chapters.findIndex(c => !c.topics.every(t => ST.topics[t.id])); if (ci < 0) ci = 0; return { k: 's', g, sid: s.id, ci }; }
     return { k: 'q' };
   }
+  /* the chapter last studied in one subject (school), for the picker's default */
+  function lastInSubject(g, sid, d) {
+    let best = null;
+    Object.entries(ST.topics || {}).forEach(([tid, v]) => { const m = /^g(\d+)-([a-z]+)-(\d+)-\d+$/.exec(tid); if (!m || +m[1] !== g || m[2] !== sid) return; if (!best || String(v.last || '') > String(best.last || '')) best = { cn: +m[3], last: v.last }; });
+    const ci = best ? d.chapters.findIndex(c => +c.n === best.cn) : -1;
+    return ci >= 0 ? ci : Math.max(0, d.chapters.findIndex(c => !c.topics.every(t => ST.topics[t.id])));
+  }
 
-  /* ---------- defaults by class ---------- */
+  /* ---------- kinds, defaults ---------- */
+  const KINDS = [
+    { id: 'sdk', e: '🔢', n: 'Sudoku', d: 'Every row, column and box holds each number once.', chapter: false },
+    { id: 'kak', e: '➕', n: 'Kakuro', d: 'Number crossword: fill the cells so each run adds up.', chapter: false },
+    { id: 'xw', e: '📝', n: 'Crossword', d: 'A chapter\'s key words, clues from the lesson.', chapter: true },
+    { id: 'ws', e: '🔎', n: 'Word search', d: 'Find a chapter\'s key words in the grid.', chapter: true },
+    { id: 'an', e: '🔤', n: 'Anagram', d: 'Unscramble a chapter\'s key words.', chapter: true },
+    { id: 'csdk', e: '🧠', n: 'Concept sudoku', d: 'Sudoku with a chapter\'s words as the symbols.', chapter: true }];
+  const KM = Object.fromEntries(KINDS.map(k => [k.id, k]));
+  const TYPES = Object.assign({}, KM, { xw: Object.assign({}, KM.xw, { n: 'Chapter Crossword' }) });
+  const CHAP = new Set(KINDS.filter(k => k.chapter).map(k => k.id));
   const defN = () => { const g = grade(); return g <= 3 ? 4 : g <= 6 ? 6 : 9; };
   const defKak = () => { const g = grade(); return g <= 5 ? 'easy' : g <= 8 ? 'medium' : 'hard'; };
-  const pref = () => { const p = Z().pref; return { n: p.n || defN(), diff: p.diff || 'easy', kak: p.kak || defKak() }; };
-  const TYPES = {
-    xw: { e: '📝', n: 'Chapter Crossword', d: 'Key terms from this chapter, clues from the lesson.' },
-    sdk: { e: '🔢', n: 'Sudoku', d: 'Every row, column and box holds each number once.' },
-    csdk: { e: '🧠', n: 'Concept Sudoku', d: 'Sudoku with this chapter\'s terms as the symbols.' },
-    kak: { e: '➕', n: 'Kakuro', d: 'Fill the cells so each run adds up to its clue.' },
-    ws: { e: '🔎', n: 'Word search', d: 'Warm-up: find the chapter\'s key words.' },
-    an: { e: '🔤', n: 'Anagram', d: 'Warm-up: unscramble five key terms.' } };
+  const defC = () => { const g = grade(); return g <= 4 ? 'easy' : g <= 8 ? 'medium' : 'hard'; };
+  const pref = () => { const p = Z().pref; return { n: p.n || defN(), diff: p.diff || 'easy', kak: p.kak || defKak(), cdiff: p.cdiff || defC() }; };
   const DIFFS = [['easy', 'Easy'], ['medium', 'Medium'], ['hard', 'Hard']];
   const KDIFFS = [['easy', 'Easy 5×5'], ['medium', 'Medium 6×6'], ['hard', 'Hard 7×7'], ['expert', 'Expert 8×8']];
+  const DN = { easy: 'Easy', medium: 'Medium', hard: 'Hard', expert: 'Expert' };
+  /* kind notes: shown instead of a puzzle that this chapter cannot make (never swapped for an unrelated puzzle) */
+  const NOPE = {
+    xw: 'This chapter\'s key words don\'t cross each other well enough for a crossword yet.',
+    ws: 'This chapter does not have enough key words for a word search yet.',
+    an: 'This chapter does not have enough key words with clues for an anagram yet.',
+    csdk: 'This chapter does not have a set of words for a concept sudoku yet.' };
+
+  /* ================= build: spec → puzzle (deterministic, same on every phone) ================= */
+  const BUILT = new Map();
+  const phash = p => { try { return PC().hash(JSON.stringify(p)).toString(36); } catch (e) { return ''; } };
+  function safe(t, p) {
+    try {
+      if (t === 'xw') return !PC().validCrossword(p);
+      if (t === 'ws') return !PC().validWordsearch(p);
+      if (t === 'an') return p.words.length >= 3 && p.words.every(w => w.u.join('') === w.a && w.t.slice().sort().join('|') === w.u.slice().sort().join('|') && w.u.every(PC().goodCell));
+      if (t === 'sdk' || t === 'csdk') return !!(p && p.solution && p.puzzle.every((v, i) => !v || v === p.solution[i]));
+      return !!p;
+    } catch (e) { return false; }
+  }
+  async function build(spec) {
+    if (!spec) return null;
+    const sp = { t: kid(spec.t), sc: cleanSc(spec.sc), seed: String(spec.seed || 'x'), diff: spec.diff || 'easy', n: spec.n ? +spec.n : undefined };
+    if (!KM[sp.t]) return null;
+    const key = JSON.stringify([sp.t, sp.sc, sp.seed, sp.diff, sp.n || 0]);
+    if (BUILT.has(key)) return BUILT.get(key);
+    let res = null;
+    try {
+      const inf = await info(sp.sc); if (!inf) return null;
+      let t = null;
+      if (CHAP.has(sp.t)) { if (sp.sc.k === 'q') return null; const tt = await terms(sp.sc); t = { own: tt.own, near: tt.near, groups: tt.groups }; }
+      const r = await gen('puzzleFor', [sp, t]);
+      if (r && r.p && safe(sp.t, r.p)) res = { p: r.p, extra: Object.assign({}, r.extra || {}, { info: inf, lang: inf.lang || 'en' }) };
+    } catch (e) { console.warn('puzzle build', e); res = null; }
+    BUILT.set(key, res); if (BUILT.size > 12) BUILT.delete(BUILT.keys().next().value);
+    return res;
+  }
+  const readyText = (t, b) => {
+    const p = b.p;
+    if (t === 'xw') return `✓ ${p.entries.length} words from this chapter${p.entries.some(e => e.near) ? ' (a few ↗ from nearby chapters)' : ''}${p.giv ? ' · first letters given' : ''}`;
+    if (t === 'ws') return `✓ ${p.words.length} words to find in a ${p.n}×${p.n} grid`;
+    if (t === 'an') return `✓ ${p.words.length} words to unscramble`;
+    if (t === 'csdk') return `✓ ${p.n}×${p.n} with ${b.extra.set.items.length} chapter words`;
+    if (t === 'sdk') return `✓ ${p.n}×${p.n} · ${DN[p.diff] || p.diff}`;
+    return `✓ ${p.w}×${p.h} · ${DN[p.diff] || p.diff}`;
+  };
+  function describe(spec) {
+    if (!spec) return { ch: '', d: '' };
+    const k = KM[kid(spec.t)] || {};
+    const sz = kid(spec.t) === 'sdk' && spec.n ? `${spec.n}×${spec.n} · ` : '';
+    return { ch: [spec.subjectName, spec.chapterTitle].filter(Boolean).join(' · ') || (k.chapter ? '' : 'Brain game'), d: `${k.e || '🧩'} ${k.n || 'Puzzle'} · ${sz}${DN[spec.diff] || spec.diff || ''}` };
+  }
 
   /* ================= screen ================= */
   function screen() {
@@ -159,164 +235,261 @@
     style(); return s;
   }
   let CTX = null;
-  function stopPlay() { if (CTX) { CTX.stop(); CTX = null; } PLAY = null; }
-  function makeCtx(host) {
+  function stopPlay() { if (CTX) { CTX.stop(); CTX = null; } if (PLAY && !PLAY.race) PLAY = null; }
+  function makeCtx(host, race) {
     const c = { dead: false, ivs: [] };
-    c.alive = () => { if (c.dead) return false; if (!host.isConnected || !D.getElementById('s-puz').classList.contains('active')) { c.stop(); return false; } return true; };
+    c.alive = () => { if (c.dead) return false; const s = D.getElementById('s-puz'); if (!host.isConnected || (!race && !(s && s.classList.contains('active')))) { c.stop(); return false; } return true; };
     c.iv = (f, ms) => { const id = setInterval(() => { if (c.alive()) f(); }, ms); c.ivs.push(id); return id; };
     c.stop = () => { c.dead = true; c.ivs.forEach(clearInterval); c.ivs = []; };
     return c;
   }
   function openScr(navKey, play) {
-    stopPlay(); const s = screen(); show('puz', navKey || (isCA() ? 'practice' : 'practice'));
+    stopPlay(); const s = screen(); show('puz', navKey || 'practice');
     const nav = D.querySelector('nav'); if (nav) nav.style.display = play ? 'none' : '';
     return s;
   }
   const navKeyOf = from => (from === 'world' || from === 'ca' ? 'world' : 'practice');
+  const backLabel = from => (from === 'hub' ? 'Puzzles' : from === 'play' ? 'Play' : from === 'world' || from === 'ca' ? 'Home' : 'Practice');
+  const scrAlive = el => el.isConnected && D.getElementById('s-puz').classList.contains('active');
 
   /* ================= HUB ================= */
   let HUBFROM = 'practice';
   async function hub(o) {
     o = o || {}; if (o.from) HUBFROM = o.from;
     const el = openScr(navKeyOf(HUBFROM)); const z = Z();
-    el.innerHTML = `<div class="pz-root pz-hub"><p class="pz-live sr-only" aria-live="polite"></p><button class="back" id="pzBack">← ${HUBFROM === 'world' || HUBFROM === 'ca' ? 'Home' : 'Practice'}</button>
-      <div class="hello" role="heading" aria-level="1"><span aria-hidden="true">🧩</span> Puzzles <small>Crosswords, Sudoku and Kakuro from your chapters · free</small></div>
+    el.innerHTML = `<div class="pz-root pz-hub"><p class="pz-live sr-only" aria-live="polite"></p><button class="back" id="pzBack">← ${backLabel(HUBFROM)}</button>
+      <div class="hello" role="heading" aria-level="1"><span aria-hidden="true">🧩</span> Puzzles <small>Brain games and puzzles made from your chapters · free</small></div>
       <div id="pzDaily" class="card pz-daily"><p class="sub">Finding today's puzzle…</p></div>
-      <div class="card"><h3>Quick play</h3><p class="sub">Number puzzles at your level. Pick a size and difficulty.</p>
-        <div class="pz-games">${btn('sdk', null, 'qsdk')}${btn('kak', null, 'qkak')}</div>
-        ${prefChips()}</div>
-      <div class="card"><h3>Puzzle a chapter</h3><p class="sub">Every chapter makes its own crossword, warm-ups and concept sudoku.</p><div id="pzChs"><p class="sub">Loading chapters…</p></div></div>
+      <div class="card"><h3>Quick play</h3><p class="sub">Tap a puzzle. Word puzzles let you pick the chapter.</p>
+        <div class="pz-games">${KINDS.map(k => btn(k.id, k.chapter ? '📚 ' + k.d : k.d)).join('')}</div></div>
       <div class="card"><h3>🏅 Puzzle badges</h3>${badgeGrid()}<div class="pz-stats"><span>🧩 <b>${z.total}</b> solved</span><span>📅 best daily streak <b>${z.daily.best || 0}</b></span></div>${bestList()}</div></div>`;
     $1('#pzBack').onclick = () => back(HUBFROM);
-    wirePref(el);
-    el.querySelector('[data-q="qsdk"]').onclick = () => { S('open'); play({ t: 'sdk', sc: { k: 'q' }, seed: nextSeed('free', 'sdk'), n: pref().n, diff: pref().diff }); };
-    el.querySelector('[data-q="qkak"]').onclick = () => { S('open'); play({ t: 'kak', sc: { k: 'q' }, seed: nextSeed('free', 'kak'), diff: pref().kak }); };
+    el.querySelectorAll('.pz-game').forEach(b => b.onclick = () => { S('open'); quick(b.dataset.q, { from: 'hub' }); });
     dailyCard($1('#pzDaily'));
-    chapterList($1('#pzChs'));
   }
   function back(from) {
     try {
       if (from && typeof from === 'object') { if (from.t === 'chapter') return chapterScreen(from.sid, from.ci); if (from.t === 'unit' && window.Ca) return Ca.unit(from.uid); if (from.t === 'topic') return chapterScreen(from.sid, from.ci); }
+      if (from === 'hub') return hub();
+      if (from === 'play') return window.PlayHub && PlayHub.open ? PlayHub.open() : practiceScreen();
       if (from === 'world' || from === 'ca') return worldScreen();
+      if (from === 'ca-practice' && isCA() && window.CaTools && CaTools.practiceHub) return CaTools.practiceHub();
       return practiceScreen();
     } catch (e) { worldScreen(); }
   }
-  function btn(t, extra, q) { const m = TYPES[t]; return `<button class="pz-game pz-g-${t}" data-q="${q || t}"><span class="pz-ge" aria-hidden="true">${m.e}</span><b>${m.n}</b><small>${extra ? E(extra) : m.d}</small></button>`; }
-  function prefChips() {
-    const p = pref();
-    const row = (k, list, cur, lab) => `<div class="pz-chips" role="radiogroup" aria-label="${lab}">${list.map(([v, n]) => `<button type="button" role="radio" aria-checked="${String(v) === String(cur)}" class="pz-chip${String(v) === String(cur) ? ' on' : ''}" data-pk="${k}" data-pv="${v}">${n}</button>`).join('')}</div>`;
-    return `<div class="pz-prefs"><small>Sudoku size</small>${row('n', [[4, '4×4'], [6, '6×6'], [9, '9×9']], p.n, 'Sudoku size')}<small>Sudoku difficulty</small>${row('diff', DIFFS, p.diff, 'Sudoku difficulty')}<small>Kakuro</small>${row('kak', KDIFFS, p.kak, 'Kakuro difficulty')}</div>`;
-  }
-  function wirePref(el) {
+  function btn(t, extra, q) { const m = TYPES[t]; return `<button class="pz-game pz-g-${t}" data-q="${q || t}"><span class="pz-ge" aria-hidden="true">${m.e}</span><b>${m.n}</b><small>${extra ? E(extra) : E(m.d)}</small></button>`; }
+  const chipRow = (k, list, cur, lab) => `<div class="pz-chips" role="radiogroup" aria-label="${lab}">${list.map(([v, n]) => `<button type="button" role="radio" aria-checked="${String(v) === String(cur)}" class="pz-chip${String(v) === String(cur) ? ' on' : ''}" data-pk="${k}" data-pv="${v}">${n}</button>`).join('')}</div>`;
+  function wireChips(el, fn) {
     el.querySelectorAll('.pz-chip').forEach(b => b.onclick = () => {
-      const z = Z(); z.pref[b.dataset.pk] = b.dataset.pk === 'n' ? +b.dataset.pv : b.dataset.pv; saveSoon(); S('tap');
-      el.querySelectorAll(`.pz-chip[data-pk="${b.dataset.pk}"]`).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', String(on)); });
+      S('tap'); el.querySelectorAll(`.pz-chip[data-pk="${b.dataset.pk}"]`).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', String(on)); });
+      fn(b.dataset.pk, b.dataset.pk === 'n' ? +b.dataset.pv : b.dataset.pv);
     });
   }
+  const peekSeed = (k, t) => { const z = Z(), key = k + '|' + t; return `${key}|${(z.ctr[key] || 0) + 1}`; };
   const nextSeed = (k, t) => { const z = Z(), key = k + '|' + t; z.ctr[key] = (z.ctr[key] || 0) + 1; saveSoon(); return `${key}|${z.ctr[key]}`; };
 
   async function dailySpec() {
-    const sc = await curChapter(), iso = localISO(), dn = dayNum();
+    const sc = await curChapter(), iso = localISO(), dn = dayNum(), p = pref(), seed = `daily|${iso}|${scopeKey(sc)}`;
     let t = ['xw', 'sdk', 'kak'][dn % 3];
-    if (t === 'xw' && !canXW(await terms(sc))) t = 'sdk';
-    const p = pref();
-    return { t, sc, seed: `daily|${iso}|${scopeKey(sc)}`, n: p.n, diff: t === 'sdk' ? (dn % 2 ? 'medium' : 'easy') : p.diff, kdiff: p.kak, daily: iso };
+    if (t === 'xw') { t = null; for (const k of ['xw', 'ws']) { if (sc.k !== 'q' && await build({ t: k, sc, seed, diff: p.cdiff })) { t = k; break; } } if (!t) t = 'sdk'; }
+    return { t, sc, seed, n: p.n, diff: t === 'sdk' ? (dn % 2 ? 'medium' : 'easy') : t === 'kak' ? p.kak : p.cdiff, daily: iso };
   }
   async function dailyCard(box) {
     if (!box) return;
     let sp, inf; try { sp = await dailySpec(); inf = await info(sp.sc); } catch (e) { box.innerHTML = '<p class="sub">Daily puzzle is not ready right now.</p>'; return; }
     if (!box.isConnected) return;
-    const z = Z(), done = z.daily.hist[sp.daily], m = TYPES[sp.t], n = dailyLive();
+    const z = Z(), done = z.daily.hist[sp.daily], m = TYPES[sp.t], n = dailyLive(), chap = CHAP.has(sp.t);
     box.innerHTML = `<div class="pz-dh"><span class="pz-de" aria-hidden="true">📅</span><div><span class="tag">Daily Puzzle · ${E(new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }))}</span>
-      <h2>${m.e} ${m.n}</h2><p class="sub">From ${E(inf ? inf.title : 'your chapter')}${inf && inf.sub ? ' · ' + E(inf.sub) : ''}</p></div></div>
+      <h2>${m.e} ${m.n}</h2><p class="sub">${chap ? `From <span${inf && inf.lang !== 'en' ? ` lang="${inf.lang}"` : ''}>${E(inf ? inf.title : 'your chapter')}</span>${inf && inf.sub ? ' · ' + E(inf.sub) : ''}` : 'Today\'s brain game at your level'}</p></div></div>
       <div class="pz-streak"><span>🔥 Daily streak <b>${n}</b></span><span>Best <b>${z.daily.best || 0}</b></span>${done ? '<span class="pz-ok">✓ Solved today</span>' : '<span>+10 ⭐ bonus</span>'}</div>
       <button class="btn ${done ? 'ghost' : 'mint'}" id="pzDailyGo">${done ? 'Play it again' : 'Play today\'s puzzle ▶'}</button>`;
-    $1('#pzDailyGo', box).onclick = () => { S('open'); play(Object.assign({}, sp, sp.t === 'kak' ? { diff: sp.kdiff } : {})); };
-  }
-  async function chapterList(box) {
-    if (!box) return;
-    if (isCA()) {
-      const x = X(); let st = null; try { st = await x.structure(x.C().level || 'foundation'); } catch (e) {}
-      if (!st) { box.innerHTML = '<p class="sub">Could not load your papers.</p>'; return; }
-      box.innerHTML = st.papers.map(p => `<details class="pz-subj"><summary><b>Paper ${String(p.key).replace('p', '')}: ${E(p.name)}</b><small>${p.chapters.length} chapters</small></summary><div class="pz-chl">${p.chapters.map(c => `<button class="pz-chb" data-ch="${E(c.id)}"><span>${c.n}</span>${E(c.title)}</button>`).join('')}</div></details>`).join('');
-      box.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => { S('open'); chapter({ k: 'c', ch: b.dataset.ch }, { t: 'hub' }); });
-      return;
-    }
-    const g = +ST.profile.grade, subs = curSubjects(g);
-    box.innerHTML = subs.map(s => `<details class="pz-subj" data-sid="${E(s.id)}"><summary><b>${E((Worlds.SUBJECT_STYLE[s.id] || { e: '📘' }).e)} ${E(s.name)}</b><small>${/hindi|sanskrit/.test(s.id) ? 'number puzzles' : 'tap to see chapters'}</small></summary><div class="pz-chl"><p class="sub">Loading…</p></div></details>`).join('') || '<p class="sub">No subjects yet.</p>';
-    box.querySelectorAll('details.pz-subj').forEach(dt => dt.addEventListener('toggle', async () => {
-      if (!dt.open || dt.dataset.ok) return; dt.dataset.ok = 1;
-      const d = await subjectData(g, dt.dataset.sid), l = $1('.pz-chl', dt);
-      if (!d) { l.innerHTML = '<p class="sub">Coming soon.</p>'; return; }
-      l.innerHTML = d.chapters.map((c, i) => `<button class="pz-chb" data-ci="${i}"><span>${E(c.n)}</span>${E(c.title)}</button>`).join('');
-      l.querySelectorAll('[data-ci]').forEach(b => b.onclick = () => { S('open'); chapter({ k: 's', g, sid: dt.dataset.sid, ci: +b.dataset.ci }, { t: 'hub' }); });
-    }));
+    $1('#pzDailyGo', box).onclick = () => { S('open'); play(sp); };
   }
 
-  /* ================= CHAPTER: its puzzles ================= */
+  /* ================= PICKER: subject → chapter, difficulty (quick play and race lobby) ================= */
+  async function quick(kind, o) {
+    o = o || {}; kind = kid(kind); if (!KM[kind]) kind = 'sdk';
+    const from = o.from || 'hub';
+    const el = openScr(navKeyOf(from === 'hub' ? HUBFROM : from));
+    el.innerHTML = `<div class="pz-root pz-pick"><p class="pz-live sr-only" aria-live="polite"></p><button class="back" id="pzBack">← ${backLabel(from)}</button><div id="pzPk"></div></div>`;
+    $1('#pzBack', el).onclick = () => back(from);
+    picker($1('#pzPk', el), kind, { mode: 'play', sc: o.sc, diff: o.diff, n: o.n, from,
+      onKind: k => quick(k, { from, sc: o.sc }),
+      onGo: spec => play(Object.assign({}, spec, { seed: nextSeed(scopeKey(spec.sc), spec.t), from: { t: 'quick', from } })) });
+  }
+  function pick(kind) {
+    return new Promise(res => {
+      screen(); kind = kid(kind); if (!KM[kind]) kind = 'sdk';
+      const sh = D.createElement('div'); sh.className = 'sheet show pz-sheet'; sh.setAttribute('role', 'dialog'); sh.setAttribute('aria-modal', 'true'); sh.setAttribute('aria-label', 'Choose a puzzle');
+      sh.innerHTML = '<div class="sheet-in pz-sheet-in"><div class="sheet-grab" aria-hidden="true"></div><div class="pz-root pz-pick"><p class="pz-live sr-only" aria-live="polite"></p><div class="pz-pkb"></div></div></div>';
+      D.body.appendChild(sh);
+      let done = false;
+      const esc = e => { if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); end(null); } };
+      const end = v => { if (done) return; done = true; D.removeEventListener('keydown', esc, true); sh.classList.remove('show'); sh.remove(); res(v); };
+      D.addEventListener('keydown', esc, true);
+      sh.addEventListener('click', e => { if (e.target === sh) end(null); });
+      const open = k => picker($1('.pz-pkb', sh), k, { mode: 'pick', onKind: open, onGo: spec => end(spec), onCancel: () => end(null) });
+      open(kind);
+      setTimeout(() => { const f = $1('h2', sh); if (f) { f.tabIndex = -1; try { f.focus(); } catch (e) {} } }, 60);
+    });
+  }
+  async function picker(box, kind, o) {
+    const m = KM[kind], chap = m.chapter, p = pref(), g = grade(), ca = isCA();
+    const S0 = { diff: o.diff || (kind === 'kak' ? p.kak : kind === 'sdk' ? p.diff : p.cdiff), n: o.n || (kind === 'sdk' ? p.n : kind === 'csdk' ? (g <= 3 ? 4 : 6) : undefined), sc: o.sc ? cleanSc(o.sc) : null, tok: 0, ready: null };
+    if (kind === 'csdk' && S0.diff === 'hard') S0.diff = 'medium';
+    if (kind !== 'kak' && S0.diff === 'expert') S0.diff = 'hard';
+    const diffs = kind === 'kak' ? KDIFFS : kind === 'csdk' ? DIFFS.slice(0, 2) : DIFFS;
+    box.innerHTML = `<div class="card pz-phead"><span class="pz-pe" aria-hidden="true">${m.e}</span><div><h2>${E(m.n)}</h2><p class="sub">${E(m.d)}</p></div></div>
+      ${chap ? `<div class="card"><h3>📚 Pick a chapter</h3><div class="pz-subs" role="radiogroup" aria-label="${ca ? 'Paper' : 'Subject'}" id="pzSubs"><p class="sub">Loading…</p></div>
+        <div class="pz-chlist" role="radiogroup" aria-label="Chapter" id="pzChl"></div></div>` : ''}
+      <div class="card"><h3>💪 How hard?</h3>${kind === 'sdk' ? '<small class="pz-lab">Size</small>' + chipRow('n', [[4, '4×4'], [6, '6×6'], [9, '9×9']], S0.n, 'Sudoku size') + '<small class="pz-lab">Difficulty</small>' : ''}${chipRow('diff', diffs, S0.diff, 'Difficulty')}</div>
+      <p class="pz-status" id="pzStat" role="status" aria-live="polite"></p><div id="pzAlt" class="pz-alt"></div>
+      <button class="btn mint pz-go" id="pzGo" disabled>${o.mode === 'pick' ? 'Choose this puzzle ✓' : 'Play ▶'}</button>
+      ${o.mode === 'pick' ? '<div style="height:8px"></div><button class="btn ghost" id="pzCancel" data-close="1">Cancel</button>' : ''}`;
+    const stat = $1('#pzStat', box), go = $1('#pzGo', box), alt = $1('#pzAlt', box);
+    const mkSpec = () => {
+      const sc = chap ? S0.sc : { k: 'q' };
+      const sp = { v: 1, t: kind, sc: cleanSc(sc), seed: o.mode === 'pick' ? S0.raceSeed : peekSeed(scopeKey(sc), kind), diff: S0.diff };
+      if (S0.n) sp.n = S0.n;
+      return sp;
+    };
+    S0.raceSeed = `race|${Date.now().toString(36)}|${Math.random().toString(36).slice(2, 8)}`;
+    const check = async () => {
+      const tok = ++S0.tok; go.disabled = true; S0.ready = null; alt.innerHTML = '';
+      if (chap && !S0.sc) { stat.textContent = 'Pick a chapter above.'; return; }
+      stat.textContent = 'Getting it ready…';
+      const sp = mkSpec(), b = await build(sp);
+      if (tok !== S0.tok || !box.isConnected) return;
+      if (b) { S0.ready = { sp, b }; stat.textContent = readyText(kind, b); go.disabled = false; return; }
+      stat.textContent = '🙂 ' + (chap ? NOPE[kind] + ' Pick another chapter, or try:' : 'This puzzle could not be made. Please try again.');
+      if (!chap) return;
+      const others = [];
+      for (const k of ['ws', 'an', 'xw', 'csdk']) { if (k === kind) continue; if (await build(Object.assign(mkSpec(), { t: k, n: k === 'csdk' ? (g <= 3 ? 4 : 6) : undefined, diff: k === 'csdk' && S0.diff === 'hard' ? 'medium' : S0.diff }))) others.push(k); }
+      if (tok !== S0.tok || !box.isConnected) return;
+      alt.innerHTML = others.length ? others.map(k => `<button class="pz-chip pz-altb" data-k="${k}">${KM[k].e} ${E(KM[k].n)}</button>`).join('') : '<p class="sub">This chapter has no word puzzles yet — please pick another chapter.</p>';
+      $$('[data-k]', alt).forEach(b2 => b2.onclick = () => { S('tap'); o.onKind(b2.dataset.k, S0.sc); });
+    };
+    wireChips(box, (k, v) => { S0[k] = v; check(); });
+    if (o.mode === 'pick') $1('#pzCancel', box).onclick = () => o.onCancel && o.onCancel();
+    go.onclick = () => {
+      if (!S0.ready) return; S('open');
+      const z = Z(); if (kind === 'kak') z.pref.kak = S0.diff; else if (kind === 'sdk') { z.pref.diff = S0.diff; z.pref.n = S0.n; } else z.pref.cdiff = S0.diff; saveSoon();
+      const sp = S0.ready.sp;
+      if (o.mode === 'pick') {
+        const inf = S0.ready.b.extra.info || {};
+        const spec = JSON.parse(JSON.stringify(Object.assign({}, sp, { ph: phash(S0.ready.b.p), kindName: m.n, chapterTitle: chap ? inf.title || '' : '', subjectName: chap ? inf.sname || '' : '', size: S0.n ? `${S0.n}×${S0.n}` : undefined })));
+        spec.label = [m.n, spec.chapterTitle, DN[spec.diff]].filter(Boolean).join(' · ');
+        o.onGo(spec);
+      } else o.onGo(sp);
+    };
+    if (!chap) { check(); return; }
+    /* subjects (school) or papers (CA), then that subject's chapters */
+    const subsEl = $1('#pzSubs', box), chl = $1('#pzChl', box);
+    const cur = await curChapter(); if (!box.isConnected) return;
+    if (!S0.sc && cur.k !== 'q') S0.sc = cur;
+    let subs = [];
+    if (ca) {
+      const x = X(); let st = null; try { st = await x.structure(x.C().level || 'foundation'); } catch (e) {}
+      subs = st ? st.papers.map(pp => ({ id: pp.key, name: `P${String(pp.key).replace('p', '')} ${pp.name}`, e: '📘', chs: pp.chapters.map((c, i) => ({ n: c.n, title: c.title, sc: { k: 'c', ch: c.id } })) })) : [];
+    } else {
+      subs = curSubjects(g).map(s0 => ({ id: s0.id, name: s0.name, e: ((window.Worlds && Worlds.SUBJECT_STYLE && Worlds.SUBJECT_STYLE[s0.id]) || { e: '📘' }).e }));
+    }
+    if (!subs.length) { subsEl.innerHTML = '<p class="sub">No subjects yet.</p>'; stat.textContent = ''; return; }
+    const subOf = sc => (!sc ? null : sc.k === 'c' ? (subs.find(s0 => s0.chs.some(c => c.sc.ch === sc.ch)) || {}).id : sc.sid);
+    let curSub = subOf(S0.sc) || subs[0].id;
+    subsEl.innerHTML = subs.map(s0 => `<button type="button" role="radio" class="pz-sbj" data-sid="${E(s0.id)}" aria-checked="false"><span aria-hidden="true">${E(s0.e)}</span> ${E(s0.name)}</button>`).join('');
+    const showSub = async (sid, keep) => {
+      curSub = sid;
+      $$('.pz-sbj', subsEl).forEach(b2 => { const on = b2.dataset.sid === sid; b2.classList.toggle('on', on); b2.setAttribute('aria-checked', String(on)); });
+      let chs = [];
+      if (ca) chs = (subs.find(s0 => s0.id === sid) || {}).chs || [];
+      else { chl.innerHTML = '<p class="sub">Loading…</p>'; const d = await subjectData(g, sid); if (curSub !== sid || !box.isConnected) return; chs = d ? d.chapters.map((c, i) => ({ n: c.n, title: c.title, sc: { k: 's', g, sid, ci: i }, lang: PC().chapterScript(c) !== 'latn' ? PC().langOf(PC().chapterScript(c), sid) : '' })) : []; if (!keep && d) S0.sc = chs[lastInSubject(g, sid, d)] ? chs[lastInSubject(g, sid, d)].sc : null; }
+      if (ca && !keep) S0.sc = chs.length ? (chs.find(c => cur.k === 'c' && c.sc.ch === cur.ch) || chs[0]).sc : null;
+      if (!chs.length) { chl.innerHTML = '<p class="sub">Coming soon.</p>'; S0.sc = null; check(); return; }
+      const isCur = c => cur.k !== 'q' && scopeKey(c.sc) === scopeKey(cur);
+      chl.innerHTML = chs.map((c, i) => `<button type="button" role="radio" class="pz-chb" data-i="${i}" aria-checked="false"><span class="pz-chn">${E(c.n)}</span><span class="pz-cht"${c.lang ? ` lang="${c.lang}"` : ''}>${E(c.title)}</span>${isCur(c) ? '<small class="pz-here">📍 your chapter</small>' : ''}</button>`).join('');
+      const mark = () => $$('.pz-chb', chl).forEach(b2 => { const on = S0.sc && scopeKey(chs[+b2.dataset.i].sc) === scopeKey(S0.sc); b2.classList.toggle('on', !!on); b2.setAttribute('aria-checked', String(!!on)); });
+      $$('.pz-chb', chl).forEach(b2 => b2.onclick = () => { S('tap'); S0.sc = chs[+b2.dataset.i].sc; mark(); check(); });
+      mark(); const on = $1('.pz-chb.on', chl); if (on) { try { chl.scrollTop = Math.max(0, on.offsetTop - chl.offsetTop - 8); } catch (e) {} }
+      check();
+    };
+    $$('.pz-sbj', subsEl).forEach(b2 => b2.onclick = () => { S('tap'); showSub(b2.dataset.sid, false); });
+    showSub(curSub, !!S0.sc && subOf(S0.sc) === curSub);
+  }
+
+  /* ================= CHAPTER: its puzzles (from a chapter / unit / quest-complete card) ================= */
   async function chapter(sc, from) {
-    const el = openScr(sc.k === 'c' ? 'world' : 'world');
+    const el = openScr('world');
     el.innerHTML = `<div class="pz-root pz-chap"><p class="sub pz-load">Building this chapter's puzzles…</p></div>`;
-    const [inf, t] = await Promise.all([info(sc), terms(sc)]);
-    if (!el.isConnected || !D.getElementById('s-puz').classList.contains('active')) return;
+    const inf = await info(sc);
+    if (!scrAlive(el)) return;
     if (!inf) { el.innerHTML = '<div class="card"><p class="sub">This chapter is not available.</p></div>'; return; }
-    const g = grade(), cs = conceptFor(t, g, scopeKey(sc));
-    const xw = canXW(t), words = t.own.length, p = pref();
-    const backLabel = from && from.t === 'hub' ? 'Puzzles' : from && from.t === 'unit' ? 'Unit' : 'Chapter';
-    el.innerHTML = `<div class="pz-root pz-chap"><p class="pz-live sr-only" aria-live="polite"></p><button class="back" id="pzBack">← ${backLabel}</button>
-      <div class="card pz-chead"><div class="pz-ce" aria-hidden="true">${E(inf.emoji)}</div><div><span class="tag">🧩 Puzzle this chapter</span><h2>${E(inf.title)}</h2><p class="sub">${E(inf.sub)}</p></div></div>
-      <div class="pz-games">
-        ${xw ? btn('xw', `${Math.min(15, words + t.near.length)} key terms${words < 8 ? ' (with nearby chapters)' : ''}`) : ''}
-        ${words >= 4 ? btn('ws') : ''}${words >= 5 ? btn('an') : ''}
-        ${cs ? btn('csdk', `${cs.items.length} symbols: ${cs.items.map(i => i.label).slice(0, 3).join(', ')}…`) : ''}
-        ${btn('sdk', `${p.n}×${p.n} · ${p.diff}`)}${btn('kak', inf.numeric ? 'With a ledger story · ' + p.kak : p.kak)}
-      </div>
-      ${!xw ? `<p class="note">${words ? 'Not enough key terms here yet for a crossword.' : 'Word puzzles need English key terms — this chapter gets number puzzles.'}</p>` : ''}
-      <div class="card">${prefChips()}</div>
+    const p = pref(), g = grade(), lang = inf.lang && inf.lang !== 'en' ? ` lang="${inf.lang}"` : '';
+    const backLbl = from && from.t === 'hub' ? 'Puzzles' : from && from.t === 'unit' ? 'Unit' : 'Chapter';
+    el.innerHTML = `<div class="pz-root pz-chap"><p class="pz-live sr-only" aria-live="polite"></p><button class="back" id="pzBack">← ${backLbl}</button>
+      <div class="card pz-chead"><div class="pz-ce" aria-hidden="true">${E(inf.emoji)}</div><div><span class="tag">🧩 Puzzle this chapter</span><h2${lang}>${E(inf.title)}</h2><p class="sub">${E(inf.sub)}</p></div></div>
+      <div class="card"><h3>💪 How hard?</h3>${chipRow('cdiff', DIFFS, p.cdiff, 'Difficulty')}</div>
+      <div class="pz-games" id="pzCg"><p class="sub pz-load">Checking which puzzles this chapter can make…</p></div><div id="pzCn"></div>
       <button class="btn ghost" id="pzHub">🧩 All puzzles & daily puzzle</button></div>`;
     $1('#pzBack').onclick = () => (from && from.t === 'hub' ? hub() : back(from));
     $1('#pzHub').onclick = () => hub({});
-    wirePref(el);
     const k = scopeKey(sc);
-    el.querySelectorAll('.pz-game').forEach(b => b.onclick = () => {
-      S('open'); const ty = b.dataset.q, pp = pref();
-      const sp = { t: ty, sc, seed: nextSeed(k, ty), from };
-      if (ty === 'sdk') Object.assign(sp, { n: pp.n, diff: pp.diff });
-      if (ty === 'csdk') Object.assign(sp, { n: cs.items.length, diff: pp.diff === 'hard' ? 'medium' : pp.diff });
-      if (ty === 'kak') Object.assign(sp, { diff: pp.kak });
-      play(sp);
-    });
+    const fill = async () => {
+      const diff = pref().cdiff, tok = (fill.tok = (fill.tok || 0) + 1), got = [], miss = [];
+      const list = ['xw', 'ws', 'an', 'csdk'].concat(inf.numeric ? ['kak'] : []);
+      for (const t of list) {
+        const sp = { t, sc, seed: peekSeed(k, t), diff: t === 'kak' ? pref().kak : t === 'csdk' && diff === 'hard' ? 'medium' : diff, n: t === 'csdk' ? (g <= 3 ? 4 : 6) : undefined };
+        const b = await build(sp); if (fill.tok !== tok || !scrAlive(el)) return;
+        (b ? got : miss).push([t, b]);
+      }
+      const cg = $1('#pzCg', el), cn = $1('#pzCn', el); if (!cg) return;
+      cg.innerHTML = got.map(([t, b]) => btn(t, t === 'kak' ? 'With a ledger story · ' + (DN[b.p.diff] || '') : readyText(t, b).replace(/^✓ /, ''))).join('') || '';
+      cn.innerHTML = miss.filter(([t]) => t !== 'kak').length ? `<p class="note">🙂 ${got.length ? 'Not here yet: ' + miss.filter(([t]) => t !== 'kak').map(([t]) => KM[t].n).join(', ') + ' — this chapter does not have enough key words for ' + (miss.length > 1 ? 'them' : 'it') + ' yet.' : 'This chapter does not have enough key words for word puzzles yet. Try a brain game from the Puzzles screen.'}</p>` : '';
+      $$('.pz-game', cg).forEach(b2 => b2.onclick = () => {
+        S('open'); const t = b2.dataset.q, d2 = pref().cdiff;
+        play({ t, sc, seed: nextSeed(k, t), diff: t === 'kak' ? pref().kak : t === 'csdk' && d2 === 'hard' ? 'medium' : d2, n: t === 'csdk' ? (g <= 3 ? 4 : 6) : undefined, from: { t: 'chap', from } });
+      });
+    };
+    wireChips(el, (key, v) => { Z().pref.cdiff = v; saveSoon(); fill(); });
+    fill();
   }
 
   /* ================= PLAY ================= */
   let PLAY = null;          // the running puzzle (for keys + Listen mode)
   const pid = sp => [sp.t, sp.seed, sp.n || '', sp.diff || ''].join('|');
+  function goBack(sp) {
+    const f = sp && sp.from;
+    if (f && f.t === 'quick') return quick(sp.t, { from: f.from, sc: CHAP.has(sp.t) ? sp.sc : undefined, diff: sp.diff, n: sp.t === 'sdk' ? sp.n : undefined });
+    if (f && f.t === 'chap' && sp.sc && sp.sc.k !== 'q') return chapter(sp.sc, f.from);
+    return hub();
+  }
   async function play(sp) {
-    const el = openScr(sp.daily ? 'practice' : 'practice', true);
+    sp = Object.assign({}, sp, { t: kid(sp.t) });
+    const el = openScr('practice', true);
     el.innerHTML = `<div class="pz-root"><div class="card pz-genc"><div class="pz-spin" aria-hidden="true">🧩</div><b>Making your puzzle…</b><p class="sub">Checking it has exactly one answer.</p></div></div>`;
-    let p = null, extra = {};
-    try {
-      if (sp.t === 'xw') { const t = await terms(sp.sc); p = canXW(t) ? await gen('chapterCrossword', [t.own, t.near, sp.seed]) : null; if (!p) { T('Not enough key terms for a crossword — here is a sudoku instead'); sp = Object.assign({}, sp, { t: 'sdk', n: pref().n, diff: pref().diff }); } }
-      if (sp.t === 'csdk') { const t = await terms(sp.sc); extra.set = conceptFor(t, grade(), scopeKey(sp.sc)); if (extra.set) sp = Object.assign({}, sp, { n: extra.set.items.length }); if (!extra.set) sp = Object.assign({}, sp, { t: 'sdk', n: pref().n }); }
-      if (sp.t === 'sdk' || sp.t === 'csdk') p = await gen('sudoku', [sp.n || pref().n, sp.diff || 'easy', sp.seed]);
-      if (sp.t === 'kak') { p = await gen('kakuro', [0, sp.diff || 'easy', sp.seed]); extra.info = await info(sp.sc); }
-      if (sp.t === 'ws' || sp.t === 'an') {
-        const t = await terms(sp.sc), g = grade(), n = g <= 3 ? 8 : g <= 6 ? 10 : 12;
-        const words = PC().shuffle(t.own.filter(x => x.a.length >= 3 && x.a.length <= n), PC().rng(sp.seed)).slice(0, sp.t === 'ws' ? 8 : 5);
-        if (sp.t === 'ws') { p = await gen('wordsearch', [words.map(w => w.a), n, g <= 3 ? 2 : g <= 6 ? 3 : 8, sp.seed]); if (p) p.clues = Object.fromEntries(words.map(w => [w.a, w])); }
-        else p = words.length >= 3 ? { type: 'anagram', words: words.map(w => ({ a: w.a, clue: w.clue, enum: w.enum, ctx: w.ctx || '', s: PC().scramble(w.a, sp.seed) })) } : null;
-      }
-    } catch (e) { console.error(e); p = null; }
-    if (!el.isConnected || !D.getElementById('s-puz').classList.contains('active')) return;
-    if (!p) { el.innerHTML = `<div class="pz-root"><button class="back" id="pzBack">← Back</button><div class="card"><p class="sub">This puzzle could not be made. Please try another one.</p></div></div>`; $1('#pzBack').onclick = () => hub(); return; }
-    const id = pid(sp), saved = Z().saves[id];
-    CTX = makeCtx(el);
-    const st = { sp, p, id, t0: Date.now(), secs: saved ? saved.t || 0 : 0, hints: 0, spent: 0, pool: prize(sp, p), done: false, extra };
+    const b = await build(sp);
+    if (!scrAlive(el)) return;
+    if (!b) {
+      el.innerHTML = `<div class="pz-root"><button class="back" id="pzBack">← Back</button><div class="card"><p class="sub">🙂 ${E(CHAP.has(sp.t) ? NOPE[sp.t] : 'This puzzle could not be made.')} Please try another one.</p></div></div>`;
+      const nav = D.querySelector('nav'); if (nav) nav.style.display = '';
+      $1('#pzBack').onclick = () => goBack(sp); return;
+    }
+    start(el, sp, b, null);
+    try { if (window.A11Y && A11Y.readScreen) setTimeout(() => A11Y.readScreen(), 300); } catch (e) {}
+  }
+  /* render a built puzzle into el: the full screen (race = null) or a race host (race = callbacks) */
+  function start(el, sp, b, race) {
+    const p = b.p, id = pid(sp), saved = race ? null : Z().saves[id];
+    const ctx = makeCtx(el, !!race); if (!race) CTX = ctx;
+    const st = { sp, p, id, t0: Date.now(), secs: saved ? saved.t || 0 : 0, hints: 0, spent: 0, mistakes: 0, pool: prize(sp, p), done: false, extra: b.extra || {}, ctx, race, root: el,
+      lang: (b.extra && b.extra.lang) || 'en', indic: !!(p.script && p.script !== 'latn') };
+    st.L = st.indic ? ` lang="${st.lang}"` : '';
     if (saved && saved.pool != null) { st.pool = saved.pool; st.hints = saved.hints || 0; }
+    st.prog = (done, total) => { if (!race || !race.onProgress || st.lastProg === done + '/' + total) return; st.lastProg = done + '/' + total; try { race.onProgress({ done, total }); } catch (e) {} };
     PLAY = st;
     ({ xw: playXW, sdk: playSDK, csdk: playSDK, kak: playKAK, ws: playWS, an: playAN })[sp.t](el, st, saved);
     if (st.sp.t !== 'an') startClock(st);
-    try { if (window.A11Y && A11Y.readScreen) setTimeout(() => A11Y.readScreen(), 300); } catch (e) {}
+    return st;
   }
   function prize(sp, p) {
     if (sp.t === 'xw') return 10 + p.entries.length;
@@ -325,17 +498,21 @@
     return sp.t === 'ws' ? 8 : 6;
   }
   function header(st, title, sub) {
-    const back = st.sp.from && st.sp.from.t !== 'hub' ? 'Puzzles' : 'Puzzles';
-    return `<p class="pz-live sr-only" aria-live="polite"></p><div class="pz-bar"><button class="pz-x" id="pzQuit" aria-label="Leave puzzle (progress is saved)">← ${back}</button><b class="pz-title">${title}</b><span class="pz-time" role="timer" aria-label="Time">${fmtT(st.secs)}</span><span class="pz-prize" title="Stars for solving">⭐ <b>${st.pool}</b></span></div>${sub ? `<p class="pz-sub">${sub}</p>` : ''}`;
+    const q = st.race ? '<button class="pz-x" id="pzQuit" aria-label="Leave the race">✕ Quit</button>' : '<button class="pz-x" id="pzQuit" aria-label="Leave puzzle (progress is saved)">← Puzzles</button>';
+    return `<p class="pz-live sr-only" aria-live="polite"></p><div class="pz-bar">${q}<b class="pz-title">${title}</b><span class="pz-time" role="timer" aria-label="Time">${fmtT(st.secs)}</span><span class="pz-prize" title="Stars for solving">⭐ <b>${st.pool}</b></span></div>${sub ? `<p class="pz-sub">${sub}</p>` : ''}`;
   }
   function wireQuit(el, st) {
-    $1('#pzQuit', el).onclick = () => { persist(st, true); S('tap'); const sp = st.sp; stopPlay(); if (sp.sc && sp.sc.k !== 'q' && !sp.daily) chapter(sp.sc, sp.from || { t: 'hub' }); else hub(); };
+    $1('#pzQuit', el).onclick = () => {
+      S('tap');
+      if (st.race) { try { st.race.onQuit && st.race.onQuit(); } catch (e) {} return; }
+      persist(st, true); const sp = st.sp; stopPlay(); goBack(sp);
+    };
   }
   function startClock(st) {
     let last = Date.now();
-    CTX.iv(() => { const n = Date.now(); if (!D.hidden && !st.done) { st.secs += Math.round((n - last) / 1000); } last = n; const t = $1('#s-puz .pz-time'); if (t) t.textContent = fmtT(st.secs); }, 1000);
+    st.ctx.iv(() => { const n = Date.now(); if (!D.hidden && !st.done) { st.secs += Math.round((n - last) / 1000); } last = n; const t = $1('.pz-time', st.root); if (t) t.textContent = fmtT(st.secs); }, 1000);
   }
-  function setPool(st) { const b = $1('#s-puz .pz-prize b'); if (b) b.textContent = st.pool; }
+  function setPool(st) { const b = $1('.pz-prize b', st.root); if (b) b.textContent = st.pool; }
   /* hints: paid from this puzzle's prize first, then from your stars */
   function charge(st, cost, what) {
     if (st.pool >= cost) { st.pool -= cost; }
@@ -348,37 +525,44 @@
     return true;
   }
   function persist(st, now) {
-    if (st.done || !st.getState) return;
+    if (st.done || !st.getState || st.race) return;
     const z = Z(); z.saves[st.id] = Object.assign(st.getState(), { t: st.secs, pool: st.pool, hints: st.hints, at: Date.now() });
     const ks = Object.keys(z.saves).sort((a, b) => z.saves[b].at - z.saves[a].at); ks.slice(8).forEach(k => delete z.saves[k]);
     if (now) { try { save(); } catch (e) {} } else saveSoon();
   }
+  const cellsU = g => [].concat(...g.map(r => (Array.isArray(r) ? r : r.split(''))));
 
-  /* ---------- 📝 CROSSWORD ---------- */
+  /* ---------- 📝 CROSSWORD (Latin letters or Indic aksharas, one per cell) ---------- */
   function playXW(el, st, saved) {
-    const p = st.p, w = p.w, h = p.h, N = w * h, sol = p.grid.join(''), u = new Array(N).fill(''), rev = new Set(), wrong = new Set();
+    const p = st.p, w = p.w, h = p.h, N = w * h, sol = cellsU(p.grid), u = new Array(N).fill(''), rev = new Set(), wrong = new Set(), giv = new Set(p.giv || []);
+    const indic = st.indic, tray = indic ? [...new Set(sol.filter(c => c !== '#'))].sort() : null, unit = indic ? 'box' : 'letter';
+    const okCell = c => typeof c === 'string' && (indic ? tray.includes(c) : /^[A-Z]$/.test(c));
     const at = {}; p.entries.forEach((e, k) => { for (let j = 0; j < e.len; j++) { const i = (e.r + (e.dir === 'D' ? j : 0)) * w + e.c + (e.dir === 'A' ? j : 0); (at[i] = at[i] || {})[e.dir] = k; } });
-    if (saved && saved.u) saved.u.forEach((c, i) => { if (sol[i] !== '#' && /^[A-Z]$/.test(c)) u[i] = c; });
+    giv.forEach(i => { u[i] = sol[i]; });
+    if (saved && saved.u) saved.u.forEach((c, i) => { if (sol[i] !== '#' && !giv.has(i) && okCell(c)) u[i] = c; });
     if (saved && saved.rev) saved.rev.forEach(i => rev.add(i));
     st.getState = () => ({ u: u.slice(), rev: [...rev] });
+    st.answer = () => p.entries.map((e, k) => cellsOf(k).map(i => u[i]).join(''));
+    const lock = i => rev.has(i) || giv.has(i);
     let cur = p.entries[0].r * w + p.entries[0].c, dir = p.entries[0].dir;
     const near = p.entries.some(e => e.near);
     const nums = {}; p.entries.forEach(e => { nums[e.r * w + e.c] = e.n; });
     const cellsOf = k => { const e = p.entries[k], l = []; for (let j = 0; j < e.len; j++) l.push((e.r + (e.dir === 'D' ? j : 0)) * w + e.c + (e.dir === 'A' ? j : 0)); return l; };
     const entryAt = (i, d) => (at[i] ? (at[i][d] != null ? at[i][d] : at[i][d === 'A' ? 'D' : 'A']) : null);
     const dirName = d => (d === 'A' ? 'Across' : 'Down');
-    const clueHTML = e => `${e.ctx ? `<span class="pz-ctx">${E(e.ctx)} ·</span> ` : ''}${E(e.clue)} <span class="pz-enum">${E(e.enum)}</span>${e.near ? ' <span class="pz-near" title="From a nearby chapter">↗</span>' : ''}`;
-    el.innerHTML = `<div class="pz-root pz-xw" data-pz="xw">${header(st, '📝 Chapter Crossword', `${p.entries.length} words${near ? ' · ↗ = from a nearby chapter' : ''}`)}
+    const clueHTML = e => `${e.ctx ? `<span class="pz-ctx"${st.L}>${E(e.ctx)} ·</span> ` : ''}<span${st.L}>${E(e.clue)}</span> <span class="pz-enum">${E(e.enum)}</span>${e.near ? ' <span class="pz-near" title="From a nearby chapter">↗</span>' : ''}`;
+    el.innerHTML = `<div class="pz-root pz-xw${indic ? ' pz-indic' : ''}" data-pz="xw">${header(st, '📝 Chapter Crossword', `${p.entries.length} words${indic ? ' · one akshara in each box' : ''}${p.giv ? ' · first letters given' : ''}${near ? ' · ↗ = from a nearby chapter' : ''}`)}
       <div class="pz-cluebar" id="pzClue" aria-live="polite"></div>
-      <div class="pz-gridwrap"><div class="pz-xgrid" id="pzGrid" role="grid" aria-label="Crossword, ${w} columns by ${h} rows. Type letters; arrow keys move; Enter goes to the next clue; Space turns between across and down." style="--w:${w};--h:${h}">
-        ${Array.from({ length: h }, (_, y) => `<div role="row" class="pz-row">${Array.from({ length: w }, (_, x) => { const i = y * w + x; return sol[i] === '#' ? `<div role="gridcell" class="pz-c blk" aria-hidden="true"></div>` : `<div role="gridcell" class="pz-c" data-i="${i}" tabindex="-1">${nums[i] ? `<span class="pz-n" aria-hidden="true">${nums[i]}</span>` : ''}<span class="pz-l" aria-hidden="true"></span></div>`; }).join('')}</div>`).join('')}
+      <div class="pz-gridwrap"><div class="pz-xgrid" id="pzGrid" role="grid"${st.L} aria-label="Crossword, ${w} columns by ${h} rows. ${indic ? 'Tap a box, then an akshara below' : 'Type letters'}; arrow keys move; Enter goes to the next clue; Space turns between across and down." style="--w:${w};--h:${h}">
+        ${Array.from({ length: h }, (_, y) => `<div role="row" class="pz-row">${Array.from({ length: w }, (_, x) => { const i = y * w + x; return sol[i] === '#' ? `<div role="gridcell" class="pz-c blk" aria-hidden="true"></div>` : `<div role="gridcell" class="pz-c${giv.has(i) ? ' giv' : ''}" data-i="${i}" tabindex="-1">${nums[i] ? `<span class="pz-n" aria-hidden="true">${nums[i]}</span>` : ''}<span class="pz-l" aria-hidden="true"></span></div>`; }).join('')}</div>`).join('')}
       </div></div>
-      <div class="pz-tools"><button class="pz-tb" id="pzRev">💡 Reveal letter <small>2⭐</small></button><button class="pz-tb" id="pzChk">✔ Check word <small>1⭐</small></button><button class="pz-tb" id="pzDir" aria-label="Switch between across and down">⇄</button></div>
-      ${kbHTML()}
+      <div class="pz-tools"><button class="pz-tb" id="pzRev">💡 Reveal ${unit} <small>2⭐</small></button><button class="pz-tb" id="pzChk">✔ Check word <small>1⭐</small></button><button class="pz-tb" id="pzDir" aria-label="Switch between across and down">⇄</button></div>
+      ${indic ? trayHTML(tray, st.lang) : kbHTML()}
       <div class="card pz-clues"><h3>Across</h3><ol>${p.entries.filter(e => e.dir === 'A').map(e => `<li><button class="pz-cl" data-k="${p.entries.indexOf(e)}"><b>${e.n}</b> ${clueHTML(e)}</button></li>`).join('')}</ol>
         <h3>Down</h3><ol>${p.entries.filter(e => e.dir === 'D').map(e => `<li><button class="pz-cl" data-k="${p.entries.indexOf(e)}"><b>${e.n}</b> ${clueHTML(e)}</button></li>`).join('')}</ol></div></div>`;
     wireQuit(el, st);
     const grid = $1('#pzGrid', el), cellEl = i => grid.querySelector(`[data-i="${i}"]`);
+    const total = sol.filter(c => c !== '#').length;
     const paint = (speak) => {
       const k = entryAt(cur, dir); if (k == null) return; dir = p.entries[k].dir; const cs = new Set(cellsOf(k)), e = p.entries[k];
       $$('.pz-c[data-i]', grid).forEach(c => {
@@ -386,20 +570,21 @@
         c.classList.toggle('word', cs.has(i)); c.classList.toggle('cur', i === cur); c.classList.toggle('rev', rev.has(i)); c.classList.toggle('bad', wrong.has(i));
         c.tabIndex = i === cur ? 0 : -1;
         const parts = []; if (at[i].A != null) parts.push(`${p.entries[at[i].A].n} across`); if (at[i].D != null) parts.push(`${p.entries[at[i].D].n} down`);
-        c.setAttribute('aria-label', `${parts.join(', ')}. Row ${Math.floor(i / w) + 1}, column ${i % w + 1}: ${L || 'empty'}${rev.has(i) ? ', revealed' : ''}${wrong.has(i) ? ', wrong' : ''}`);
+        c.setAttribute('aria-label', `${parts.join(', ')}. Row ${Math.floor(i / w) + 1}, column ${i % w + 1}: ${L || 'empty'}${giv.has(i) ? ', given' : ''}${rev.has(i) ? ', revealed' : ''}${wrong.has(i) ? ', wrong' : ''}`);
         c.setAttribute('aria-selected', String(i === cur));
       });
       $1('#pzClue', el).innerHTML = `<b>${e.n} ${dirName(e.dir)}</b> ${clueHTML(e)}`;
       $$('.pz-cl', el).forEach(b => b.classList.toggle('on', +b.dataset.k === k));
-      if (speak) announce(`${e.n} ${dirName(e.dir)}, ${e.len} letters. ${e.ctx ? e.ctx + '. ' : ''}${e.clue}. ${cellsOf(k).map(i => u[i] || 'blank').join(', ')}`);
+      if (speak) announce(`${e.n} ${dirName(e.dir)}, ${e.len} ${unit}es. ${e.ctx ? e.ctx + '. ' : ''}${e.clue}. ${cellsOf(k).map(i => u[i] || 'blank').join(', ')}`.replace(/letteres/, 'letters'));
+      let ok = 0; for (let i = 0; i < N; i++) if (sol[i] !== '#' && u[i] === sol[i]) ok++; st.prog(ok, total);
     };
     const focusCur = () => { const c = cellEl(cur); if (c && el.contains(D.activeElement) && D.activeElement !== c && D.activeElement.closest('#pzGrid')) c.focus({ preventScroll: true }); };
     const done = () => { for (let i = 0; i < N; i++) if (sol[i] !== '#' && u[i] !== sol[i]) return false; return true; };
     const filled = () => { for (let i = 0; i < N; i++) if (sol[i] !== '#' && !u[i]) return false; return true; };
-    const after = () => { persist(st); if (done()) { st.done = true; paint(); setTimeout(() => finish(st), 450); } else if (filled()) { T('All filled — but some letters are not right yet'); S('hmm'); } };
-    const moveIn = (step) => { const k = entryAt(cur, dir), cs = cellsOf(k), j = cs.indexOf(cur) + step; if (j >= 0 && j < cs.length) cur = cs[j]; };
-    const typeL = L => { if (st.done) return; if (!rev.has(cur)) { u[cur] = L; wrong.delete(cur); } S('tap'); moveIn(1); paint(); focusCur(); after(); };
-    const backsp = () => { if (st.done) return; if (u[cur] && !rev.has(cur)) { u[cur] = ''; wrong.delete(cur); } else { moveIn(-1); if (!rev.has(cur)) { u[cur] = ''; wrong.delete(cur); } } paint(); focusCur(); persist(st); };
+    const after = () => { persist(st); if (done()) { st.done = true; paint(); setTimeout(() => finish(st), 450); } else if (filled()) { T('All filled — but some boxes are not right yet'); S('hmm'); } };
+    const moveIn = (step) => { const k = entryAt(cur, dir), cs = cellsOf(k); let j = cs.indexOf(cur) + step; while (j >= 0 && j < cs.length && giv.has(cs[j]) && step > 0) j += step; if (j >= 0 && j < cs.length) cur = cs[j]; };
+    const typeL = L => { if (st.done) return; if (!lock(cur)) { if (L !== sol[cur]) st.mistakes++; u[cur] = L; wrong.delete(cur); } S('tap'); moveIn(1); paint(); focusCur(); after(); };
+    const backsp = () => { if (st.done) return; if (u[cur] && !lock(cur)) { u[cur] = ''; wrong.delete(cur); } else { moveIn(-1); if (!lock(cur)) { u[cur] = ''; wrong.delete(cur); } } paint(); focusCur(); persist(st); };
     const gotoEntry = (k, speak) => { const e = p.entries[k], cs = cellsOf(k); dir = e.dir; cur = cs.find(i => !u[i]) ?? cs[0]; paint(speak !== false); focusCur(); };
     const nextEntry = s => { const k = entryAt(cur, dir); gotoEntry((k + s + p.entries.length) % p.entries.length); };
     const arrow = (dy, dx) => { let y = Math.floor(cur / w), x = cur % w; for (;;) { y += dy; x += dx; if (y < 0 || x < 0 || y >= h || x >= w) return; const i = y * w + x; if (sol[i] !== '#') { cur = i; const nd = dx ? 'A' : 'D'; if (at[i][nd] != null) dir = nd; paint(true); focusCur(); return; } } };
@@ -408,10 +593,10 @@
     $$('.pz-cl', el).forEach(b => b.onclick = () => { gotoEntry(+b.dataset.k); grid.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); });
     $1('#pzDir', el).onclick = toggle;
     $1('#pzRev', el).onclick = () => { if (st.done) return; if (u[cur] === sol[cur]) { const k = entryAt(cur, dir), nx = cellsOf(k).find(i => u[i] !== sol[i]); if (nx == null) { T('This word is already right'); return; } cur = nx; } if (!charge(st, 2, `Revealed ${sol[cur]}`)) return; u[cur] = sol[cur]; rev.add(cur); wrong.delete(cur); S('coin'); paint(); after(); };
-    $1('#pzChk', el).onclick = () => { if (st.done) return; const cs = cellsOf(entryAt(cur, dir)); if (cs.every(i => !u[i])) { T('Type some letters first'); return; } if (!charge(st, 1, 'Checked this word')) return; let bad = 0; cs.forEach(i => { if (u[i] && u[i] !== sol[i]) { wrong.add(i); bad++; } }); S(bad ? 'wrong' : 'correct'); T(bad ? `${bad} letter${bad > 1 ? 's' : ''} to fix (marked red)` : 'Every letter so far is right ✓'); paint(); };
+    $1('#pzChk', el).onclick = () => { if (st.done) return; const cs = cellsOf(entryAt(cur, dir)); if (cs.every(i => !u[i] || giv.has(i))) { T('Fill some boxes first'); return; } if (!charge(st, 1, 'Checked this word')) return; let bad = 0; cs.forEach(i => { if (u[i] && u[i] !== sol[i]) { wrong.add(i); bad++; } }); S(bad ? 'wrong' : 'correct'); T(bad ? `${bad} box${bad > 1 ? 'es' : ''} to fix (marked red)` : 'Every box so far is right ✓'); paint(); };
     wireKB(el, k => (k === '⌫' ? backsp() : k === '⇥' ? nextEntry(1) : typeL(k)));
     st.key = e => {
-      if (/^[a-zA-Z]$/.test(e.key)) { typeL(e.key.toUpperCase()); return true; }
+      if (!indic && /^[a-zA-Z]$/.test(e.key)) { typeL(e.key.toUpperCase()); return true; }
       if (e.key === 'Backspace' || e.key === 'Delete') { backsp(); return true; }
       if (e.key === 'ArrowRight') { arrow(0, 1); return true; } if (e.key === 'ArrowLeft') { arrow(0, -1); return true; }
       if (e.key === 'ArrowDown') { arrow(1, 0); return true; } if (e.key === 'ArrowUp') { arrow(-1, 0); return true; }
@@ -419,12 +604,17 @@
       if (e.key === ' ') { toggle(); return true; }
       return false;
     };
-    st.speech = () => { const k = entryAt(cur, dir), e = p.entries[k]; return `Chapter crossword, ${p.entries.length} words. ${e.n} ${dirName(e.dir)}, ${e.len} letters. ${e.ctx ? e.ctx + '. ' : ''}${e.clue}. So far: ${cellsOf(k).map(i => u[i] || 'blank').join(', ')}. Type the letters. Enter goes to the next clue, Space switches across and down.`; };
+    st.speech = () => { const k = entryAt(cur, dir), e = p.entries[k]; return `Chapter crossword, ${p.entries.length} words. ${e.n} ${dirName(e.dir)}, ${e.len} ${indic ? 'boxes' : 'letters'}. ${e.ctx ? e.ctx + '. ' : ''}${e.clue}. So far: ${cellsOf(k).map(i => u[i] || 'blank').join(', ')}. ${indic ? 'Tap an akshara button to fill the box.' : 'Type the letters.'} Enter goes to the next clue, Space switches across and down.`; };
     paint();
   }
   function kbHTML() {
     const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
     return `<div class="pz-kb" role="group" aria-label="Letter keyboard">${rows.map((r, j) => `<div class="pz-kr">${j === 2 ? '<button class="pz-k wide" data-key="⇥" aria-label="Next clue">Next ⇥</button>' : ''}${r.split('').map(c => `<button class="pz-k" data-key="${c}">${c}</button>`).join('')}${j === 2 ? '<button class="pz-k wide" data-key="⌫" aria-label="Delete">⌫</button>' : ''}</div>`).join('')}</div>`;
+  }
+  /* Indic crossword keyboard: every akshara of this puzzle, as whole buttons */
+  function trayHTML(tray, lang) {
+    return `<div class="pz-kb pz-tray" role="group" aria-label="Akshara keyboard" lang="${lang}"><div class="pz-trayk">${tray.map(c => `<button class="pz-k pz-ak" data-key="${E(c)}">${E(c)}</button>`).join('')}</div>
+      <div class="pz-kr"><button class="pz-k wide" data-key="⇥" aria-label="Next clue" lang="en">Next ⇥</button><button class="pz-k wide" data-key="⌫" aria-label="Delete" lang="en">⌫</button></div></div>`;
   }
   function wireKB(el, fn) { $$('.pz-k', el).forEach(b => b.addEventListener('click', e => { e.preventDefault(); fn(b.dataset.key); })); }
 
@@ -436,15 +626,17 @@
     if (saved && saved.pm) saved.pm.forEach((v, i) => { pm[i] = v | 0; });
     if (saved && saved.shown) saved.shown.forEach(i => shown.add(i));
     st.getState = () => ({ u: u.slice(), pm: pm.slice(), shown: [...shown] });
+    st.answer = () => u.join('');
     let cur = u.findIndex(v => !v); if (cur < 0) cur = 0; let pencil = false;
+    const LS = set && /[ऀ-෿]/.test(set.items.map(i => i.label).join('')) ? ` lang="${st.lang}"` : '';
     const sym = v => (set ? set.items[v - 1].sym : String(v)), lab = v => (set ? set.items[v - 1].label : String(v));
-    const title = set ? '🧠 Concept Sudoku' : '🔢 Sudoku';
+    const title = set ? '🧠 Concept Sudoku' : '🔢 Sudoku', todo = given.filter(x => !x).length;
     el.innerHTML = `<div class="pz-root pz-sdk${set ? ' pz-csdk' : ''}" data-pz="${set ? 'csdk' : 'sdk'}">${header(st, title, `${n}×${n} · ${p.diff}${set ? ' · each symbol once in every row, column and box' : ''}`)}
-      ${set ? `<div class="card pz-legend"><h3>${set.title ? E(set.title) : 'Legend'}</h3><ul>${set.items.map(it => `<li><span class="pz-sym" aria-hidden="true">${it.sym}</span><b>${E(it.label)}</b>${it.info ? `<small>${E(it.info)}</small>` : ''}</li>`).join('')}</ul></div>` : ''}
-      <div class="pz-gridwrap"><div class="pz-sgrid n${n}" id="pzGrid" role="grid" aria-label="Sudoku, ${n} by ${n}. Arrow keys move; type ${set ? '1 to ' + n + ' for the symbols' : 'a number 1 to ' + n}; P switches pencil marks." style="--n:${n}">
+      ${set ? `<div class="card pz-legend"><h3${LS}>${set.title ? E(set.title) : 'Legend'}</h3><ul${LS}>${set.items.map(it => `<li><span class="pz-sym" aria-hidden="true">${it.sym}</span><b>${E(it.label)}</b>${it.info ? `<small>${E(it.info)}</small>` : ''}</li>`).join('')}</ul></div>` : ''}
+      <div class="pz-gridwrap"><div class="pz-sgrid n${n}" id="pzGrid" role="grid"${LS} aria-label="Sudoku, ${n} by ${n}. Arrow keys move; type ${set ? '1 to ' + n + ' for the symbols' : 'a number 1 to ' + n}; P switches pencil marks." style="--n:${n}">
         ${Array.from({ length: n }, (_, y) => `<div role="row" class="pz-row">${Array.from({ length: n }, (_, x) => { const i = y * n + x; return `<div role="gridcell" class="pz-s${given[i] ? ' giv' : ''}${(x + 1) % bw === 0 && x < n - 1 ? ' br' : ''}${(y + 1) % bh === 0 && y < n - 1 ? ' bb' : ''}" data-i="${i}" tabindex="-1"></div>`; }).join('')}</div>`).join('')}
       </div></div>
-      <div class="pz-pad n${n}" role="group" aria-label="${set ? 'Symbols' : 'Numbers'}">${Array.from({ length: n }, (_, k) => `<button class="pz-num" data-v="${k + 1}" aria-label="${E(lab(k + 1))}"><span>${sym(k + 1)}</span>${set ? `<small>${E(lab(k + 1))}</small>` : ''}</button>`).join('')}</div>
+      <div class="pz-pad n${n}" role="group" aria-label="${set ? 'Symbols' : 'Numbers'}"${LS}>${Array.from({ length: n }, (_, k) => `<button class="pz-num" data-v="${k + 1}" aria-label="${E(lab(k + 1))}"><span>${sym(k + 1)}</span>${set ? `<small>${E(lab(k + 1))}</small>` : ''}</button>`).join('')}</div>
       <div class="pz-tools"><button class="pz-tb" id="pzPen" aria-pressed="false">✏️ Pencil</button><button class="pz-tb" id="pzErase">⌫ Erase</button><button class="pz-tb" id="pzUndo">↶ Undo</button><button class="pz-tb" id="pzHint">💡 Reveal <small>2⭐</small></button></div></div>`;
     wireQuit(el, st);
     const grid = $1('#pzGrid', el);
@@ -460,7 +652,7 @@
       const bad = conflicts(), cv = u[cur];
       $$('.pz-s', grid).forEach(c => {
         const i = +c.dataset.i, v = u[i], r = Math.floor(i / n), col = i % n;
-        c.innerHTML = v ? `<span class="pz-v">${sym(v)}</span>${set ? `<small class="pz-vl">${E(lab(v).slice(0, 5))}</small>` : ''}` : pm[i] ? `<span class="pz-pm">${Array.from({ length: n }, (_, k) => (pm[i] >> k) & 1 ? `<i>${sym(k + 1)}</i>` : '<i></i>').join('')}</span>` : '';
+        c.innerHTML = v ? `<span class="pz-v">${sym(v)}</span>${set ? `<small class="pz-vl">${E(PC().clip(lab(v), 3))}</small>` : ''}` : pm[i] ? `<span class="pz-pm">${Array.from({ length: n }, (_, k) => (pm[i] >> k) & 1 ? `<i>${sym(k + 1)}</i>` : '<i></i>').join('')}</span>` : '';
         c.classList.toggle('cur', i === cur); c.classList.toggle('bad', bad.has(i)); c.classList.toggle('rev', shown.has(i));
         c.classList.toggle('peer', i !== cur && (r === Math.floor(cur / n) || col === cur % n)); c.classList.toggle('same', !!cv && v === cv && i !== cur);
         c.tabIndex = i === cur ? 0 : -1;
@@ -468,6 +660,7 @@
         c.setAttribute('aria-selected', String(i === cur));
       });
       $1('#pzPen', el).classList.toggle('on', pencil); $1('#pzPen', el).setAttribute('aria-pressed', String(pencil));
+      let ok = 0; for (let i = 0; i < N; i++) if (!given[i] && u[i] === p.solution[i]) ok++; st.prog(ok, todo);
     };
     const focusCur = () => { const c = grid.querySelector(`[data-i="${cur}"]`); if (c && D.activeElement && D.activeElement.closest && D.activeElement.closest('#pzGrid')) c.focus({ preventScroll: true }); };
     const check = () => { persist(st); if (u.every(v => v) && !conflicts().size) { st.done = true; paint(); setTimeout(() => finish(st), 450); } else if (u.every(v => v)) { T('Every cell is filled, but some clash (red)'); S('hmm'); } };
@@ -476,6 +669,7 @@
       undo.push([cur, u[cur], pm[cur]]); if (undo.length > 300) undo.shift();
       if (pencil && v) { pm[cur] ^= 1 << (v - 1); u[cur] = 0; S('tap'); paint(); persist(st); return; }
       u[cur] = u[cur] === v ? 0 : v; pm[cur] = 0;
+      if (u[cur] && u[cur] !== p.solution[cur]) st.mistakes++;
       if (v && u[cur]) { const r = Math.floor(cur / n), c = cur % n; for (let k = 0; k < n; k++) { [r * n + k, k * n + c].forEach(j => { pm[j] &= ~(1 << (v - 1)); }); } }
       S(conflicts().has(cur) ? 'wrong' : 'tap'); paint(); announce(`${u[cur] ? lab(u[cur]) : 'cleared'}${conflicts().has(cur) ? ', clashes' : ''}`); check();
     };
@@ -494,7 +688,7 @@
       if ((e.key === 'z' || e.key === 'u') && !e.shiftKey) { $1('#pzUndo', el).click(); return true; }
       return false;
     };
-    st.speech = () => { const r = Math.floor(cur / n), c = cur % n, left = u.filter(v => !v).length; return `${set ? 'Concept sudoku' : 'Sudoku'}, ${n} by ${n}, ${p.diff}. ${set ? 'Symbols: ' + set.items.map((it, k) => `${k + 1} is ${it.label}`).join(', ') + '. ' : ''}${left} empty cells. Row ${r + 1}, column ${c + 1}: ${u[cur] ? lab(u[cur]) : 'empty'}. Type 1 to ${n}. Arrow keys move. P switches pencil marks.`; };
+    st.speech = () => { const r = Math.floor(cur / n), c = cur % n, left = u.filter(v => !v).length; return `${set ? 'Concept sudoku' : 'Sudoku'}, ${n} by ${n}, ${p.diff}. ${set ? 'Symbols: ' + set.items.map((it, k) => `${k + 1} is ${it.label}`).join('. ') + '. ' : ''}${left} empty cells. Row ${r + 1}, column ${c + 1}: ${u[cur] ? lab(u[cur]) : 'empty'}. Type 1 to ${n}. Arrow keys move. P switches pencil marks.`; };
     paint();
   }
 
@@ -514,9 +708,10 @@
     if (saved && saved.pm) saved.pm.forEach((v, i) => { pm[i] = v | 0; });
     if (saved && saved.shown) saved.shown.forEach(i => shown.add(i));
     st.getState = () => ({ u: u.slice(), pm: pm.slice(), shown: [...shown] });
+    st.answer = () => p.cells.map((c, i) => (c ? String(u[i]) : '.')).join('');
     const clueA = {}, clueD = {}, runOf = {}; p.runs.forEach((r, k) => { (r.dir === 'A' ? clueA : clueD)[r.clue] = r.sum; r.cells.forEach(i => { (runOf[i] = runOf[i] || {})[r.dir] = k; }); });
     let cur = p.cells.findIndex((v, i) => v && !given[i]); let pencil = false;
-    const story = storyOf(st.extra.info, p);
+    const story = storyOf(st.extra.info, p), todo = p.cells.filter((v, i) => v && !given[i]).length;
     el.innerHTML = `<div class="pz-root pz-kak" data-pz="kak">${header(st, '➕ Kakuro', `${H}×${Wd} · ${p.diff} · each run adds up to its clue, digits 1–9 never repeat in a run`)}
       ${story ? `<div class="card pz-story">${story}</div>` : ''}
       <div class="pz-gridwrap"><div class="pz-kgrid" id="pzGrid" role="grid" aria-label="Kakuro, ${Wd} by ${H}. Arrow keys move; type 1 to 9; P switches pencil marks." style="--w:${Wd}">
@@ -551,6 +746,7 @@
       });
       $$('.pz-kc.clue', grid).forEach(c => { const i = +c.dataset.c; c.classList.toggle('badA', badClue.has(i + 'A')); c.classList.toggle('badD', badClue.has(i + 'D')); });
       $1('#pzPen', el).classList.toggle('on', pencil); $1('#pzPen', el).setAttribute('aria-pressed', String(pencil));
+      let ok = 0; for (let i = 0; i < N; i++) if (p.cells[i] && !given[i] && u[i] === p.solution[i]) ok++; st.prog(ok, todo);
     };
     const focusCur = () => { const c = grid.querySelector(`[data-i="${cur}"]`); if (c && D.activeElement && D.activeElement.closest && D.activeElement.closest('#pzGrid')) c.focus({ preventScroll: true }); };
     const check = () => { persist(st); const full = p.cells.every((v, i) => !v || u[i]); if (full && !errors().bad.size) { st.done = true; paint(); setTimeout(() => finish(st), 450); } else if (full) { T('All filled — check the red runs'); S('hmm'); } };
@@ -558,7 +754,8 @@
       if (st.done || cur < 0) return; if (given[cur] || shown.has(cur)) { T('That one is given'); S('hmm'); return; }
       undo.push([cur, u[cur], pm[cur]]);
       if (pencil && v) { pm[cur] ^= 1 << (v - 1); u[cur] = 0; S('tap'); paint(); persist(st); return; }
-      u[cur] = u[cur] === v ? 0 : v; pm[cur] = 0; S(errors().bad.has(cur) ? 'wrong' : 'tap'); paint(); announce(`${u[cur] || 'cleared'}${errors().bad.has(cur) ? ', problem in this run' : ''}`); check();
+      u[cur] = u[cur] === v ? 0 : v; pm[cur] = 0; if (u[cur] && u[cur] !== p.solution[cur]) st.mistakes++;
+      S(errors().bad.has(cur) ? 'wrong' : 'tap'); paint(); announce(`${u[cur] || 'cleared'}${errors().bad.has(cur) ? ', problem in this run' : ''}`); check();
     };
     grid.addEventListener('click', e => { const c = e.target.closest('.pz-k1'); if (!c) return; cur = +c.dataset.i; paint(); c.focus({ preventScroll: true }); });
     $$('.pz-num', el).forEach(b => b.onclick = () => setV(+b.dataset.v));
@@ -579,16 +776,18 @@
     paint();
   }
 
-  /* ---------- 🔎 WORD SEARCH ---------- */
+  /* ---------- 🔎 WORD SEARCH (cells are letters or aksharas) ---------- */
   function playWS(el, st, saved) {
-    const p = st.p, n = p.n, found = new Set(saved && saved.found || []); let a = null, hover = null;
+    const p = st.p, n = p.n, G = p.grid.map(r => (Array.isArray(r) ? r : r.split(''))), found = new Set(saved && saved.found || []); let a = null, hover = null;
+    const cellAt = i => G[Math.floor(i / n)][i % n], U = w => w.u || w.a.split('');
     st.getState = () => ({ found: [...found] });
+    st.answer = () => [...found].sort();
     const line = (s, e) => { const y0 = Math.floor(s / n), x0 = s % n, y1 = Math.floor(e / n), x1 = e % n, dy = Math.sign(y1 - y0), dx = Math.sign(x1 - x0), L = Math.max(Math.abs(y1 - y0), Math.abs(x1 - x0));
       if (!(y0 === y1 || x0 === x1 || Math.abs(y1 - y0) === Math.abs(x1 - x0))) return null; return Array.from({ length: L + 1 }, (_, k) => (y0 + dy * k) * n + x0 + dx * k); };
-    const cellsOfW = w => Array.from({ length: w.a.length }, (_, k) => (w.r + w.dr * k) * n + w.c + w.dc * k);
-    el.innerHTML = `<div class="pz-root pz-ws" data-pz="ws">${header(st, '🔎 Word search', `Find ${p.words.length} key words. Tap the first letter, then the last (or drag).`)}
-      <div class="pz-gridwrap"><div class="pz-wgrid" id="pzGrid" role="grid" aria-label="Word search, ${n} by ${n} letters" style="--n:${n}">${p.grid.map((row, y) => `<div role="row" class="pz-row">${row.split('').map((c, x) => `<div role="gridcell" class="pz-w" data-i="${y * n + x}" tabindex="${y + x ? -1 : 0}" aria-label="${c}, row ${y + 1}, column ${x + 1}">${c}</div>`).join('')}</div>`).join('')}</div></div>
-      <div class="card pz-wl"><h3>Words <small id="pzWc"></small></h3><ul>${p.words.map(w => { const c = p.clues && p.clues[w.a]; return `<li data-w="${w.a}"><b>${w.a}</b>${c ? `<small>${E(c.clue)}</small>` : ''}</li>`; }).join('')}</ul></div></div>`;
+    const cellsOfW = w => Array.from({ length: U(w).length }, (_, k) => (w.r + w.dr * k) * n + w.c + w.dc * k);
+    el.innerHTML = `<div class="pz-root pz-ws${st.indic ? ' pz-indic' : ''}" data-pz="ws">${header(st, '🔎 Word search', `Find ${p.words.length} key words. Tap the first ${st.indic ? 'box' : 'letter'}, then the last (or drag).`)}
+      <div class="pz-gridwrap"><div class="pz-wgrid" id="pzGrid" role="grid"${st.L} aria-label="Word search, ${n} by ${n}" style="--n:${n}">${G.map((row, y) => `<div role="row" class="pz-row">${row.map((c, x) => `<div role="gridcell" class="pz-w" data-i="${y * n + x}" tabindex="${y + x ? -1 : 0}" aria-label="${E(c)}, row ${y + 1}, column ${x + 1}">${E(c)}</div>`).join('')}</div>`).join('')}</div></div>
+      <div class="card pz-wl"><h3>Words <small id="pzWc"></small></h3><ul${st.L}>${p.words.map(w => { const c = p.clues && p.clues[w.a]; return `<li data-w="${E(w.a)}"><b>${E(w.a)}</b>${c && c.clue ? `<small>${E(c.clue)}</small>` : ''}</li>`; }).join('')}</ul></div></div>`;
     wireQuit(el, st);
     const grid = $1('#pzGrid', el);
     const paint = () => {
@@ -597,12 +796,13 @@
       $$('.pz-w', grid).forEach(c => { const i = +c.dataset.i; c.classList.toggle('got', on.has(i)); c.classList.toggle('sel', sel.includes(i)); });
       $$('.pz-wl li', el).forEach(li => li.classList.toggle('got', found.has(li.dataset.w)));
       $1('#pzWc', el).textContent = `${found.size} of ${p.words.length}`;
+      st.prog(found.size, p.words.length);
     };
     const tryLine = (s, e) => {
-      const l = line(s, e); if (!l || l.length < 3) return false;
-      const str = l.map(i => p.grid[Math.floor(i / n)][i % n]).join(''), rv = str.split('').reverse().join('');
-      const w = p.words.find(w => !found.has(w.a) && (w.a === str || w.a === rv) && (cellsOfW(w).join() === l.join() || cellsOfW(w).reverse().join() === l.join()));
-      if (!w) return false;
+      const l = line(s, e); if (!l || l.length < 2) return false;
+      const key = l.join();
+      const w = p.words.find(w => !found.has(w.a) && (cellsOfW(w).join() === key || cellsOfW(w).reverse().join() === key));
+      if (!w) { st.mistakes++; return false; }
       found.add(w.a); S('coin'); announce(`Found ${w.a}. ${found.size} of ${p.words.length}.`); persist(st);
       if (found.size === p.words.length) { st.done = true; setTimeout(() => finish(st), 500); }
       return true;
@@ -613,46 +813,94 @@
     const up = () => {
       if (down == null) return; const d0 = down; down = null;
       if (moved && a != null && hover != null) { const ok = tryLine(a, hover); if (!ok) S('hmm'); a = null; hover = null; paint(); return; }
-      if (a != null && d0 !== a) { const ok = tryLine(a, d0); if (!ok) { S('hmm'); T('Not a word — tap its first letter, then its last'); } a = null; hover = null; }
+      if (a != null && d0 !== a) { const ok = tryLine(a, d0); if (!ok) { S('hmm'); T(`Not a word — tap its first ${st.indic ? 'box' : 'letter'}, then its last`); } a = null; hover = null; }
       paint();
     };
     grid.addEventListener('pointerup', up); grid.addEventListener('pointercancel', () => { down = null; });
     grid.addEventListener('keydown', e => { const c = e.target.closest('.pz-w'); if (!c) return; let i = +c.dataset.i; const m = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: n, ArrowUp: -n }[e.key];
       if (m) { i = Math.max(0, Math.min(n * n - 1, i + m)); const t = grid.querySelector(`[data-i="${i}"]`); t.focus(); c.tabIndex = -1; t.tabIndex = 0; if (a != null) { hover = i; paint(); } e.preventDefault(); }
-      else if (e.key === 'Enter' || e.key === ' ') { if (a == null) { a = i; announce(`Start at ${p.grid[Math.floor(i / n)][i % n]}. Move to the last letter and press Enter.`); } else { if (!tryLine(a, i)) announce('Not a word.'); a = null; hover = null; } paint(); e.preventDefault(); } });
-    st.speech = () => `Word search, ${n} by ${n}. Find: ${p.words.filter(w => !found.has(w.a)).map(w => w.a).join(', ')}. Found ${found.size} of ${p.words.length}. Use the arrow keys and Enter on the first and last letter.`;
+      else if (e.key === 'Enter' || e.key === ' ') { if (a == null) { a = i; announce(`Start at ${cellAt(i)}. Move to the last ${st.indic ? 'box' : 'letter'} and press Enter.`); } else { if (!tryLine(a, i)) announce('Not a word.'); a = null; hover = null; } paint(); e.preventDefault(); } });
+    st.speech = () => `Word search, ${n} by ${n}. Find: ${p.words.filter(w => !found.has(w.a)).map(w => w.a).join(', ')}. Found ${found.size} of ${p.words.length}. Use the arrow keys and Enter on the first and last ${st.indic ? 'box' : 'letter'}.`;
     paint();
   }
 
-  /* ---------- 🔤 ANAGRAM ---------- */
+  /* ---------- 🔤 ANAGRAM (tiles are letters or aksharas) ---------- */
   function playAN(el, st, saved) {
     const p = st.p; let k = saved && saved.k || 0, got = saved && saved.got || 0, skipped = saved && saved.skipped || 0, pick = [];
-    st.getState = () => ({ k, got, skipped });
+    const answers = (saved && saved.ans) || [];
+    st.getState = () => ({ k, got, skipped, ans: answers.slice() });
+    st.answer = () => answers.slice();
     const draw = () => {
+      st.prog(k, p.words.length);
       if (k >= p.words.length) { st.done = true; st.pool = Math.max(0, st.pool - skipped * 2); return finish(st, { line: `${got} of ${p.words.length} unscrambled` }); }
-      const w = p.words[k]; pick = [];
-      el.innerHTML = `<div class="pz-root pz-an" data-pz="an">${header(st, '🔤 Anagram', `Word ${k + 1} of ${p.words.length}`)}
-        <div class="card pz-anc"><p class="pz-ctx">${w.ctx ? E(w.ctx) : 'Clue'}</p><h2 class="pz-anq">${E(w.clue)} <span class="pz-enum">${E(w.enum)}</span></h2>
-          <div class="pz-slots" aria-live="polite">${w.a.split('').map((_, j) => `<span class="pz-slot" data-j="${j}"></span>`).join('')}</div>
-          <div class="pz-tiles">${w.s.split('').map((c, j) => `<button class="pz-lt" data-j="${j}" aria-label="${c}">${c}</button>`).join('')}</div>
-          <div class="pz-tools"><button class="pz-tb" id="pzAnBack">⌫ Undo letter</button><button class="pz-tb" id="pzAnSkip">⏭ Show answer <small>−2⭐</small></button></div></div></div>`;
+      const w = p.words[k], tiles0 = w.t || w.s.split(''), ans = w.u || w.a.split(''); pick = [];
+      el.innerHTML = `<div class="pz-root pz-an${st.indic ? ' pz-indic' : ''}" data-pz="an">${header(st, '🔤 Anagram', `Word ${k + 1} of ${p.words.length}`)}
+        <div class="card pz-anc"><p class="pz-ctx"${st.L}>${w.ctx ? E(w.ctx) : 'Clue'}</p><h2 class="pz-anq"${st.L}>${E(w.clue)} <span class="pz-enum">${E(w.enum)}</span></h2>
+          <div class="pz-slots" aria-live="polite"${st.L}>${ans.map((_, j) => `<span class="pz-slot" data-j="${j}"></span>`).join('')}</div>
+          <div class="pz-tiles"${st.L}>${tiles0.map((c, j) => `<button class="pz-lt" data-j="${j}" aria-label="${E(c)}">${E(c)}</button>`).join('')}</div>
+          <div class="pz-tools"><button class="pz-tb" id="pzAnBack">⌫ Undo ${st.indic ? 'tile' : 'letter'}</button>${st.race ? '<button class="pz-tb" id="pzAnHint">💡 Next tile <small>2⭐</small></button>' : '<button class="pz-tb" id="pzAnSkip">⏭ Show answer <small>−2⭐</small></button>'}</div></div></div>`;
       wireQuit(el, st);
       const slots = $$('.pz-slot', el), tiles = $$('.pz-lt', el);
-      const paint = () => { slots.forEach((s, j) => { s.textContent = pick[j] != null ? w.s[pick[j]] : ''; }); tiles.forEach(t => { t.disabled = pick.includes(+t.dataset.j); }); };
+      const paint = () => { slots.forEach((s, j) => { s.textContent = pick[j] != null ? tiles0[pick[j]] : ''; }); tiles.forEach(t => { t.disabled = pick.includes(+t.dataset.j); }); };
       const chk = () => {
-        if (pick.length < w.a.length) return;
-        const ans = pick.map(j => w.s[j]).join('');
-        if (ans === w.a) { got++; S('correct'); slots.forEach(s => s.classList.add('ok')); announce(`Correct: ${w.a}`); k++; persist(st); setTimeout(draw, 800); }
-        else { S('wrong'); $1('.pz-slots', el).classList.add('shake'); announce('Not quite. Try again.'); setTimeout(() => { pick = []; paint(); const s = $1('.pz-slots', el); if (s) s.classList.remove('shake'); }, 600); }
+        if (pick.length < ans.length) return;
+        const got1 = pick.map(j => tiles0[j]).join('');
+        if (got1 === w.a) { answers[k] = got1; got++; S('correct'); slots.forEach(s => s.classList.add('ok')); announce(`Correct: ${w.a}`); k++; persist(st); setTimeout(draw, 800); }
+        else { st.mistakes++; S('wrong'); $1('.pz-slots', el).classList.add('shake'); announce('Not quite. Try again.'); setTimeout(() => { pick = []; paint(); const s = $1('.pz-slots', el); if (s) s.classList.remove('shake'); }, 600); }
       };
-      tiles.forEach(t => t.onclick = () => { if (pick.includes(+t.dataset.j) || pick.length >= w.a.length) return; pick.push(+t.dataset.j); S('tap'); paint(); chk(); });
+      tiles.forEach(t => t.onclick = () => { if (pick.includes(+t.dataset.j) || pick.length >= ans.length) return; pick.push(+t.dataset.j); S('tap'); paint(); chk(); });
       $1('#pzAnBack', el).onclick = () => { pick.pop(); paint(); };
-      $1('#pzAnSkip', el).onclick = () => { skipped++; slots.forEach((s, j) => { s.textContent = w.a[j]; s.classList.add('rev'); }); announce(`The answer is ${w.a}`); S('hmm'); k++; persist(st); setTimeout(draw, 1400); };
-      st.key = e => { if (/^[a-zA-Z]$/.test(e.key)) { const L = e.key.toUpperCase(), t = tiles.find(t => !t.disabled && t.textContent === L); if (t) t.click(); return true; } if (e.key === 'Backspace') { $1('#pzAnBack', el).click(); return true; } return false; };
-      st.speech = () => `Anagram ${k + 1} of ${p.words.length}. Clue: ${w.clue}. ${w.a.length} letters. Letters: ${w.s.split('').join(', ')}. Type the letters in order.`;
+      /* race: no skipping (a race is only won by really solving) — a hint puts the next right tile in place instead */
+      if (st.race) $1('#pzAnHint', el).onclick = () => {
+        let ok = 0; while (ok < pick.length && tiles0[pick[ok]] === ans[ok]) ok++;
+        const keep = pick.slice(0, ok), j = tiles0.findIndex((c, x) => c === ans[ok] && !keep.includes(x)); if (j < 0) return;
+        if (!charge(st, 2, `Next is ${ans[ok]}`)) return; pick = keep.concat(j); S('coin'); paint(); chk();
+      };
+      else $1('#pzAnSkip', el).onclick = () => { skipped++; st.hints++; slots.forEach((s, j) => { s.textContent = ans[j]; s.classList.add('rev'); }); announce(`The answer is ${w.a}`); S('hmm'); k++; persist(st); setTimeout(draw, 1400); };
+      st.key = e => { if (!st.indic && /^[a-zA-Z]$/.test(e.key)) { const L = e.key.toUpperCase(), t = tiles.find(t => !t.disabled && t.textContent === L); if (t) t.click(); return true; } if (e.key === 'Backspace') { $1('#pzAnBack', el).click(); return true; } return false; };
+      st.speech = () => `Anagram ${k + 1} of ${p.words.length}. Clue: ${w.clue}. ${ans.length} ${st.indic ? 'tiles' : 'letters'}. ${st.indic ? 'Tiles' : 'Letters'}: ${tiles0.join(', ')}. ${st.indic ? 'Tap the tiles in order.' : 'Type the letters in order.'}`;
       paint();
     };
     draw();
+  }
+
+  /* ================= RACE: one exact puzzle inside someone else's screen ================= */
+  function race(hostEl, spec, cbs) {
+    cbs = cbs || {}; style();
+    const box = D.createElement('div'); box.className = 'pz-race';
+    if (hostEl) { hostEl.innerHTML = ''; hostEl.appendChild(box); }
+    box.innerHTML = '<div class="pz-root"><div class="card pz-genc"><div class="pz-spin" aria-hidden="true">🧩</div><b>Making the puzzle…</b></div></div>';
+    let stopped = false, st = null;
+    const api = {
+      stop() { stopped = true; if (st) { st.done = true; st.ctx.stop(); if (PLAY === st) PLAY = null; } },
+      ready: null };
+    api.ready = (async () => {
+      const sp = Object.assign({}, spec || {}, { t: kid(spec && spec.t), from: null, daily: null });
+      let b = null; try { b = await build(sp); } catch (e) { b = null; }
+      if (stopped || !box.isConnected) return { ok: false, same: false };
+      if (!b) {
+        box.innerHTML = '<div class="pz-root"><div class="card"><p class="sub">🙂 This puzzle could not be made on this phone. Please reload the app and try again.</p></div></div>';
+        try { cbs.onError && cbs.onError('build'); } catch (e) {}
+        return { ok: false, same: false };
+      }
+      st = start(box, sp, b, cbs);
+      const same = !spec.ph || spec.ph === phash(b.p);
+      if (!same) console.warn('Puzzles.race: this phone built a different puzzle from the spec (content version differs)');
+      return { ok: true, same };
+    })();
+    return api;
+  }
+  function raceDone(st) {
+    if (st.finished) return; st.finished = true; st.done = true;
+    const ms = Date.now() - st.t0; st.ctx.stop(); if (PLAY === st) PLAY = null;
+    const stars = Math.max(0, st.pool);
+    if (stars) { try { addXP(stars, 'Puzzle solved!'); } catch (e) {} }
+    S('unlock');
+    const r = st.root.querySelector('.pz-root');
+    if (r) r.insertAdjacentHTML('afterbegin', `<div class="card pz-racedone" role="status"><b>🎉 Solved in ${fmtT(Math.round(ms / 1000))}!</b>${stars ? ` <span>+${stars} ⭐</span>` : ''}</div>`);
+    announce(`Solved in ${fmtT(Math.round(ms / 1000))}!`);
+    let answer = null; try { answer = st.answer ? st.answer() : null; } catch (e) {}
+    try { st.race.onSolved && st.race.onSolved({ ms, hints: st.hints, mistakes: st.mistakes, answer }); } catch (e) { console.warn(e); }
   }
 
   /* ================= results, stars, badges, daily streak ================= */
@@ -675,6 +923,7 @@
     return `<h3 style="margin-top:10px">⏱ Best times</h3><div class="pz-best">${ks.map(k => { const m = /^([a-z]+?)(\d*)-?([a-z]*)$/.exec(k) || []; return `<span>${E(BEST_N[(m[1] || k) + (m[2] || '')] || BEST_N[m[1]] || k)}${m[3] ? ' · ' + E(m[3]) : ''} <b>${fmtT(b[k])}</b></span>`; }).join('')}</div>`;
   }
   function finish(st, o) {
+    if (st.race) return raceDone(st);
     if (st.finished) return; st.finished = true; o = o || {};
     const z = Z(), sp = st.sp, p = st.p, first = !z.done[st.id];
     delete z.saves[st.id];
@@ -703,26 +952,28 @@
     if (o.line) lines.push(o.line);
     stopPlay();
     const el = screen(); const nav = D.querySelector('nav'); if (nav) nav.style.display = '';
-    const m = TYPES[sp.t];
-    el.innerHTML = `<div class="pz-root pz-res" data-pz="res"><div class="card done-card pz-rescard"><div class="confetti">${Array.from({ length: 14 }, (_, j) => `<span style="left:${(j * 7.3 + 3) % 100}%;animation-delay:${(j % 5) * .15}s">${['🎉', '⭐', '✨', '🧩'][j % 4]}</span>`).join('')}</div>
-      <div class="pz-rese" aria-hidden="true">${m.e}</div><h2>Solved!</h2><p class="pz-resn">${m.n}${p.n ? ` ${p.n}×${p.n}` : ''}${p.diff ? ' · ' + E(p.diff) : ''}</p>
+    const m = TYPES[sp.t], L = st.L;
+    const recap = sp.t === 'xw' ? p.entries.map(e => [e.disp || e.a, e.clue]) : sp.t === 'an' ? p.words.map(w => [w.a, w.clue]) : sp.t === 'ws' ? p.words.map(w => [w.a, (p.clues && p.clues[w.a] && p.clues[w.a].clue) || '']) : null;
+    el.innerHTML = `<div class="pz-root pz-res" data-pz="res"><p class="pz-live sr-only" aria-live="polite"></p><div class="card done-card pz-rescard"><div class="confetti">${Array.from({ length: 14 }, (_, j) => `<span style="left:${(j * 7.3 + 3) % 100}%;animation-delay:${(j % 5) * .15}s">${['🎉', '⭐', '✨', '🧩'][j % 4]}</span>`).join('')}</div>
+      <div class="pz-rese" aria-hidden="true">${m.e}</div><h2>Solved!</h2><p class="pz-resn">${m.n}${p.n && sp.t !== 'ws' ? ` ${p.n}×${p.n}` : ''}${p.diff ? ' · ' + E(p.diff) : ''}</p>
       ${sp.t !== 'an' ? `<div class="pz-rest"><span>⏱ <b>${fmtT(st.secs)}</b></span>${isBest ? '<span class="pz-best1">🏆 Best time!</span>' : `<span>Best ${fmtT(z.best[bk])}</span>`}</div>` : ''}
       <div class="arc-xp">${first ? `+${stars} ⭐` : 'Already solved — stars were given the first time'}</div>
       ${dailyMsg ? `<p class="sub">${E(dailyMsg)}</p>` : ''}${lines.map(l => `<p class="sub">${E(l)}</p>`).join('')}
       ${fresh.length ? `<p class="pz-newb">🏅 ${fresh.map(E).join(' · ')}</p>` : ''}
-      ${sp.t === 'xw' ? `<details class="pz-recap"><summary>📖 Review the words</summary><ul>${p.entries.map(e => `<li><b>${E(e.disp || e.a)}</b> — ${E(e.clue)}</li>`).join('')}</ul></details>` : ''}
+      ${recap ? `<details class="pz-recap"><summary>📖 Review the words</summary><ul${L}>${recap.map(([a, c]) => `<li><b>${E(a)}</b>${c ? ' — ' + E(c) : ''}</li>`).join('')}</ul></details>` : ''}
       <button class="btn mint" id="pzAgain">🧩 New ${E(m.n.toLowerCase())}</button><div style="height:8px"></div>
-      <button class="btn ghost" id="pzHome">${sp.sc && sp.sc.k !== 'q' && !sp.daily ? 'Back to this chapter\'s puzzles' : 'Back to puzzles'}</button></div></div>`;
+      <button class="btn ghost" id="pzHome">${sp.from && sp.from.t === 'chap' ? 'Back to this chapter\'s puzzles' : sp.from && sp.from.t === 'quick' ? 'Pick another' : 'Back to puzzles'}</button></div></div>`;
     S('unlock');
-    $1('#pzAgain').onclick = () => { S('tap'); const k = scopeKey(sp.sc); play(Object.assign({}, sp, { seed: nextSeed(k, sp.t), daily: null })); };
-    $1('#pzHome').onclick = () => { S('tap'); if (sp.sc && sp.sc.k !== 'q' && !sp.daily) chapter(sp.sc, sp.from || { t: 'hub' }); else hub(); };
+    $1('#pzAgain').onclick = () => { S('tap'); play(Object.assign({}, sp, { seed: nextSeed(scopeKey(sp.sc), sp.t), daily: null })); };
+    $1('#pzHome').onclick = () => { S('tap'); goBack(sp); };
     announce(`Solved! ${sp.t !== 'an' ? 'Time ' + fmtT(st.secs) + '. ' : ''}${first ? stars + ' stars.' : ''} ${dailyMsg}`);
   }
 
   /* ================= keys (physical keyboard) ================= */
   D.addEventListener('keydown', e => {
     if (!PLAY || !PLAY.key || PLAY.done || e.ctrlKey || e.metaKey || e.altKey) return;
-    const s = D.getElementById('s-puz'); if (!s || !s.classList.contains('active')) return;
+    if (PLAY.race) { if (!PLAY.root.isConnected) return; }
+    else { const s = D.getElementById('s-puz'); if (!s || !s.classList.contains('active')) return; }
     const a = D.activeElement; if (a && (/^(input|textarea|select)$/i.test(a.tagName) || a.isContentEditable)) return;
     if (D.querySelector('.sheet.show, .asksheet.show')) return;
     if (a && a.tagName === 'BUTTON' && (e.key === 'Enter' || e.key === ' ') && !a.closest('#pzGrid')) return;   // let buttons work
@@ -734,16 +985,14 @@
   function speech(r) {
     if (PLAY && PLAY.speech && $1('[data-pz]', r) && !$1('.pz-res', r)) { try { return PLAY.speech(); } catch (e) { return ''; } }
     const res = $1('.pz-res', r); if (res) return `${res.querySelector('h2').textContent}. ${[...res.querySelectorAll('.pz-resn,.pz-rest,.arc-xp,.sub')].map(x => x.textContent).join('. ')}. Buttons: new puzzle, or back.`;
+    const pk = $1('.pz-pick', r);
+    if (pk) { const h2 = $1('h2', pk), ch = $1('.pz-chb.on .pz-cht', pk), stt = $1('#pzStat', pk); return `${h2 ? h2.textContent : 'Puzzle'}. ${ch ? 'Chapter: ' + ch.textContent + '. ' : ''}${stt ? stt.textContent + '. ' : ''}Pick a ${$1('#pzChl', pk) ? 'subject, chapter and ' : ''}difficulty, then press Play.`; }
     const h = $1('.hello,h2', r), games = $$('.pz-game', r).map(b => `${b.querySelector('b').textContent}: ${b.querySelector('small').textContent}`);
     const dl = $1('#pzDaily h2', r);
     return `${h ? h.textContent : 'Puzzles'}. ${dl ? 'Daily puzzle: ' + dl.textContent + '. ' : ''}${games.length ? 'Puzzles: ' + games.join('. ') + '.' : ''} Use Tab to move between buttons.`;
   }
 
-  /* ================= entry points ================= */
-  function tileHTML(dark) {
-    const n = dailyLive(), done = Z().daily.hist[localISO()];
-    return `<button type="button" class="card pz-tile${dark ? ' dark' : ''}" data-pztile="1"><span class="pz-tile-e" aria-hidden="true">🧩</span><span class="pz-tile-t"><b>Puzzles</b><small>${done ? '✓ Daily puzzle solved' : 'Daily puzzle ready'} · crosswords, sudoku, kakuro${n ? ` · 🔥 ${n}` : ''}</small></span><span class="pz-tile-go" aria-hidden="true">›</span></button>`;
-  }
+  /* ================= entry points (the Puzzles tiles now live in the 🎮 Play hub, js/playhub.js) ================= */
   function place() {
     { const ps = D.getElementById('s-puz'); D.documentElement.classList.toggle('pz-playing', !!(ps && ps.classList.contains('active') && ps.querySelector('[data-pz]:not([data-pz="res"])'))); }   // floating Ask / calculator buttons would cover the grid or keyboard
     const s0 = STx(); if (!s0 || !s0.profile) return;
@@ -751,8 +1000,6 @@
     const put = (host, ref, where, html, sel, fn) => { if (!host || !ref || host.querySelector(sel)) return; ref.insertAdjacentHTML(where, html); const b = host.querySelector(sel); if (b) b.onclick = () => { S('open'); fn(); }; };
     const act = id => { const e = D.getElementById(id); return e && e.classList.contains('active') ? e : null; };
     let w;
-    if ((w = act('s-world')) && !isCA()) { const map = D.getElementById('map'); if (map) put(w, map, 'beforebegin', tileHTML(), '[data-pztile]', () => hub({ from: 'world' })); }
-    if ((w = act('s-practice')) && !isCA()) { const ref = w.querySelector(':scope > [data-lvtile]') || w.querySelector(':scope > .goalcard'); if (ref) put(w, ref, 'afterend', tileHTML(), '[data-pztile]', () => hub({ from: 'practice' })); }
     if ((w = act('s-chapter')) && !isCA()) {
       const nv = (() => { try { return NAV; } catch (e) { return {}; } })();
       const row = w.querySelector('.ch-btns'), sid = nv.subject, ci = nv.chapter;
@@ -763,10 +1010,6 @@
       if (dc && run) put(w, dc, 'beforebegin', '<button class="btn ghost" data-pzdone="1">🧩 Puzzle this chapter</button><div style="height:8px"></div>', '[data-pzdone]', () => chapter({ k: 's', g: +ST.profile.grade, sid: run.sid, ci: run.ci }, { t: 'chapter', sid: run.sid, ci: run.ci }));
     }
     if ((w = act('s-ca')) && isCA()) {
-      const mot = w.querySelector(':scope > .ca-mot');
-      if (mot && w.querySelector('.ca-journey')) { const ref = w.querySelector(':scope > [data-lvtile]') || mot; put(w, ref, 'afterend', tileHTML(true), '[data-pztile]', () => hub({ from: 'ca' })); }
-      const hubs = w.querySelector(':scope > .ca-hubs');
-      if (hubs) put(w, hubs, 'beforeend', `<button class="card ca-hub" data-pzhub="1"><b class="ca-hube" aria-hidden="true">🧩</b><span><b>Puzzles</b><small>Daily puzzle, chapter crosswords, Sudoku, Kakuro</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`, '[data-pzhub]', () => hub({ from: 'ca-practice' }));
       const ua = w.querySelector('.ca-uhead .ca-uacts');
       if (ua) { const x = X(), uid = x && x.C().last; if (uid) put(w, ua, 'beforeend', '<button class="ca-link" data-pzunit="1">🧩 Puzzles</button>', '[data-pzunit]', () => chapter({ k: 'c', ch: uid.replace(/-u\d+$/, '') }, { t: 'unit', uid })); }
     }
@@ -788,7 +1031,7 @@
 .pz-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.pz-chip{border:0;border-radius:999px;padding:7px 11px;background:#eef0fb;color:var(--ink);font:700 13px Nunito,sans-serif;cursor:pointer;min-height:34px}.pz-chip.on{background:var(--violet);color:#fff}
 .pz-daily .pz-dh{display:flex;gap:10px;align-items:flex-start}.pz-de{font-size:34px}.pz-streak{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 10px;font-size:13px;font-weight:700}.pz-ok{color:#0a7d55}
 .pz-subj{border-top:1px solid rgba(0,0,0,.07);padding:8px 0}.pz-subj summary{cursor:pointer;display:flex;flex-direction:column;list-style:none}.pz-subj summary::-webkit-details-marker{display:none}.pz-subj summary small{color:var(--muted);font-size:12px}
-.pz-chl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.pz-chb{display:flex;gap:8px;align-items:center;text-align:left;border:0;border-radius:12px;padding:9px 10px;background:#f4f5fb;color:var(--ink);font:600 14px Nunito,sans-serif;cursor:pointer}.pz-chb span{min-width:24px;height:24px;border-radius:8px;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+.pz-chl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.pz-chb{display:flex;gap:8px;align-items:center;text-align:left;border:0;border-radius:12px;padding:9px 10px;background:#f4f5fb;color:var(--ink);font:600 14px Nunito,sans-serif;cursor:pointer}.pz-chb .pz-chn,.pz-chb > span:first-child{min-width:24px;height:24px;border-radius:8px;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
 .pz-stats{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;margin-top:8px}.pz-best{display:flex;flex-wrap:wrap;gap:6px}.pz-best span{background:#f4f5fb;border-radius:10px;padding:5px 8px;font-size:12.5px}
 .pz-chead{display:flex;gap:12px;align-items:center}.pz-ce{font-size:38px}
 .pz-genc{text-align:center;padding:30px 16px}.pz-spin{font-size:40px;animation:pzSpin 1.2s linear infinite;display:inline-block}@keyframes pzSpin{to{transform:rotate(360deg)}}
@@ -840,8 +1083,29 @@ html[data-age=pro] .pz-xgrid .pz-c.cur,html[data-age=pro] .pz-s.cur,html[data-ag
 @media (prefers-reduced-motion: reduce){.pz-spin{animation:none}}
 html.pz-playing #askFab,html.pz-playing #calcFab{display:none!important}
 html.sv-hc .pz-c,html.sv-hc .pz-s,html.sv-hc .pz-k1{border-color:#000}html.sv-hc .pz-xgrid .pz-c.cur,html.sv-hc .pz-s.cur,html.sv-hc .pz-k1.cur{background:#ff0;outline:3px solid #000}
+.pz-phead{display:flex;gap:12px;align-items:center}.pz-pe{font-size:40px}.pz-phead h2{margin:0}
+.pz-lab{display:block;font-weight:800;font-size:12px;color:var(--muted);margin-top:6px}
+.pz-subs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:thin}
+.pz-sbj{flex:0 0 auto;border:0;border-radius:999px;padding:10px 14px;min-height:44px;background:#eef0fb;color:var(--ink);font:800 14px Nunito,sans-serif;cursor:pointer;white-space:nowrap}.pz-sbj.on{background:var(--violet);color:#fff}
+.pz-chlist{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto;padding:2px}
+.pz-chlist .pz-chb{min-height:48px;flex-wrap:wrap}.pz-chb .pz-cht{display:block;background:none;height:auto;text-align:left;font-weight:700}.pz-chb.on{background:var(--violet);color:#fff}.pz-chb.on .pz-chn{color:var(--ink)}.pz-cht{flex:1;min-width:0}
+.pz-here{flex-basis:100%;padding-left:32px;font-size:11.5px;font-weight:800;opacity:.85}
+.pz-chip{min-height:44px;padding:9px 14px;font-size:14px}
+.pz-status{background:#fff;border-radius:14px;padding:10px 12px;margin:0 0 8px;font-weight:700;font-size:14px;color:#1b1f3a;min-height:20px}
+.pz-alt{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}.pz-altb{background:#fff3c4}
+.pz-go{font-size:18px;min-height:54px}.pz-go:disabled{opacity:.5}
+.pz-sheet-in{max-height:92vh;overflow-y:auto;background:#eef0fb}.pz-sheet .pz-root .card{margin-bottom:10px}.pz-sheet .pz-status{box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.pz-race{background:linear-gradient(160deg,#2b2f6b,#1b1f3a);border-radius:18px;padding:10px;color:#fff}.pz-race .pz-root{color:var(--ink)}.pz-race .pz-bar,.pz-race .pz-sub{color:#fff}
+.pz-racedone{display:flex;gap:10px;align-items:center;justify-content:center;font-size:17px;background:#d9fbe9}
+.pz-indic .pz-c,.pz-indic .pz-w{font-family:'Baloo 2','Noto Sans Devanagari','Nirmala UI',sans-serif;text-transform:none}
+.pz-indic .pz-xgrid .pz-c{font-size:clamp(11px,3.6vw,17px)}.pz-indic .pz-w{font-size:clamp(13px,4.4vw,19px)}
+.pz-xgrid .pz-c.giv .pz-l{color:#0a7d55}
+.pz-trayk{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}.pz-ak{flex:0 0 auto;min-width:44px;max-width:none;padding:0 8px;font-family:'Baloo 2','Noto Sans Devanagari','Nirmala UI',sans-serif;font-size:18px}
+.pz-indic .pz-lt{width:auto;min-width:46px;padding:0 8px;font-family:'Baloo 2','Noto Sans Devanagari','Nirmala UI',sans-serif}.pz-indic .pz-slot{width:auto;min-width:40px;padding:0 4px}
+html[data-age=pro] .pz-sbj.on,html[data-age=pro] .pz-chb.on{background:#1f5fd1}
 </style>`);
   }
+
 
   /* ================= boot ================= */
   function boot() {
@@ -851,6 +1115,10 @@ html.sv-hc .pz-c,html.sv-hc .pz-s,html.sv-hc .pz-k1{border-color:#000}html.sv-hc
     place();
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', boot) : boot();
-  if (window.Nav) { hub = Nav.route('puz.hub', hub); chapter = Nav.route('puz.chapter', chapter); play = Nav.route('puz.play', play); }
-  window.Puzzles = { hub: o => hub(o || {}), chapter: (sc, from) => chapter(sc, from), play: sp => play(sp), daily: async () => play(await dailySpec()), speech, terms, curChapter, dailySpec, _Z: Z, _state: () => PLAY };
+  if (window.Nav) { hub = Nav.route('puz.hub', hub); chapter = Nav.route('puz.chapter', chapter); play = Nav.route('puz.play', play); quick = Nav.route('puz.quick', quick); }
+  window.Puzzles = {
+    kinds: () => KINDS.map(k => Object.assign({}, k)),
+    hub: o => hub(o || {}), quick: (kind, o) => quick(kid(kind), o || {}), pick: kind => pick(kid(kind)), race, describe,
+    chapter: (sc, from) => chapter(sc, from), play: sp => play(sp), daily: async () => play(await dailySpec()), build,
+    speech, terms, curChapter, dailySpec, _Z: Z, _state: () => PLAY };
 })();

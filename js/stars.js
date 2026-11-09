@@ -34,7 +34,9 @@
     ['🎯 Practice & tests', [
       ['Memory Garden watering 💧 (on top of +10 per right answer)', '+5 per right answer'],
       ['Chapter or subject test 📝', '3 per right answer, +20 bonus if you score 90% or more'],
-      ['Arcade games 🎮', '5, plus 5 for each star you win (up to 20)']]],
+      ['Arcade games 🎮', '5, plus 5 for each star you win (up to 20)'],
+      ['👾 Boss of the week question right', '+10 each'],
+      ['📖 Story mode question right', '+5 each (bonus the first time you finish a story)']]],
   ];
   const CA = [
     ['📘 CA units', [
@@ -42,9 +44,13 @@
       ['Written answer checked', 'your marks ÷ total × 20 (at least 5)'],
       ['MCQ set or MCQ test', '2 per right answer (at least 5)'],
       ['Mock paper', 'your marks ÷ 5 (at least 10)'],
-      ['Viva — speak your answer 🎙️', 'your score % ÷ 10 (at least 3)']]],
+      ['Viva — speak your answer 🎙️', 'your score % ÷ 10 (at least 3)'],
+      ['👾 Boss of the week question right', '2 each']]],
   ];
   const COMMON = [
+    ['🎁 Rewards', [
+      ['Mystery box (after today’s goal)', 'a free surprise — sometimes +10 bonus stars'],
+      ['💡 Used a Gappu hint on a question', 'that question gives half the stars']]],
     ['🧭 GK Explorer & Brain Snacks', [
       ['Reveal the GK Bite on Brain Snacks', '+2, once a day'],
       ['A fact card you have not seen before', '+1 each, +5 when you finish the set'],
@@ -97,7 +103,7 @@
     const acad = window.CalcAcademy && CalcAcademy.badgeCount ? CalcAcademy.badgeCount() : null;
     const groups = (ca ? CA : SCHOOL).concat(COMMON);
     show(`<h2 id="svStT" tabindex="-1"><span aria-hidden="true">⭐</span> Your stars</h2>
-      <div class="st-big"><div><b>${ST.xp}</b><span>stars in total</span></div><div><b>${nToday}</b><span>today</span></div><div><b>${nWeek}</b><span>this week</span></div></div>
+      <div class="st-big"><div><b title="${ST.xp}">${kfmt(ST.xp)}</b><span>stars in total</span></div><div><b>${nToday}</b><span>today</span></div><div><b>${nWeek}</b><span>this week</span></div></div>
       <div class="st-week" role="img" aria-label="Stars this week: ${wk.map((k, i) => `${DAYS[i]} ${k > t ? 'not yet' : L[k] || 0}`).join(', ')}">${wk.map((k, i) => `<div class="st-col ${k === t ? 'now' : ''} ${k > t ? 'later' : ''}"><i style="height:${Math.round((L[k] || 0) / max * 100)}%"></i><span>${(L[k] || 0) || ''}</span><small>${DAYS[i]}</small></div>`).join('')}</div>
       ${note}
       <div class="st-goal"><div class="st-gtop"><b>🎯 Today’s goal</b><span>${Math.min(gNow, goal)} / ${goal} ⭐</span></div><div class="st-bar" role="progressbar" aria-label="Today's goal" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${Math.min(gNow, goal)}"><i style="width:${gp}%"></i></div>
@@ -106,6 +112,7 @@
       <p>Stars are your learning points (also called XP). You earn them every time you learn, answer, play or practise. They never go down, and they are not money — you cannot spend or lose them.</p>
       <h3 class="st-h3">How to earn stars</h3>${table(groups)}
       <p class="st-small">🎯 Daily goal: reaching ${goal} ⭐ in a day gives no extra stars, but it keeps your streak safe and wins the 🎯 badge.</p>
+      <p class="st-small">⚖️ Fair play: after 300 ⭐ in one day, each new award counts half — so steady daily study beats one marathon. Big totals show short, like 1.2k = 1,200.</p>
       <h3 class="st-h3">What stars do</h3>
       <ul class="st-list"><li><b>🎯 Daily goal</b> — ${goal} stars a day keeps your 🔥 streak alive.</li>
         ${ca ? '' : '<li><b>🦁 Squad</b> — your stars put you on the Team Lions leaderboard.</li>'}
@@ -124,6 +131,7 @@
     show(`<h2 id="svStT" tabindex="-1"><span aria-hidden="true">🔥</span> Your streak</h2>
       <div class="st-big"><div><b>${n}</b><span>day${n === 1 ? '' : 's'} in a row</span></div><div><b>${best}</b><span>best ever</span></div></div>
       <p class="st-state"><span aria-hidden="true">${state[0]}</span> ${esc(state[1])}</p>
+      ${window.Rewards && Rewards.shieldHTML ? Rewards.shieldHTML() : ''}
       <div class="st-dots" role="img" aria-label="Last 7 days with stars: ${d7.map(k => `${dayName(k)} ${(L[k] || 0) > 0 || k === last ? 'yes' : 'no'}`).join(', ')}">${d7.map(k => `<div class="${(L[k] || 0) > 0 || k === last ? 'on' : ''} ${k === t ? 'now' : ''}"><i aria-hidden="true">${(L[k] || 0) > 0 || k === last ? '🔥' : '·'}</i><small>${dayName(k)}</small></div>`).join('')}</div>
       <h3 class="st-h3">How it counts</h3>
       <p>Every day you study adds 1 to your streak. Study again the next day and it keeps growing. Miss a whole day and it starts again from 1.</p>

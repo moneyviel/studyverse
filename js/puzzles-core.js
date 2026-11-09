@@ -25,6 +25,44 @@
   const lowBitVal = m => 31 - Math.clz32(m & -m);   // index of the lowest set bit
 
   /* ======================================================================================
+     SCRIPTS — Latin answers use one letter per cell; Indic (Brahmic) answers use one AKSHARA per cell:
+     a consonant cluster with its matras, nukta, anusvara/chandrabindu/visarga and halant-joined conjuncts
+     (क्ष, स्व, त्र, विः, म्). Intl.Segmenter('grapheme') is used when present and then normalised: a piece that
+     starts with a mark joins the previous one, and a piece that ends with a virama joins the next letter. Old and
+     new ICU versions (with or without Unicode 15.1 conjunct rules) and the no-Segmenter fallback therefore give
+     the SAME cells on every phone, which the race mode (same puzzle on every device) depends on.
+     ====================================================================================== */
+  const INDIC_RE = /[ऀ-෿]/, LATIN_RE = /[A-Za-z]/;
+  const MARK_RE = /^[\p{M}‌‍]/u, VIRAMA_END = /[्্੍્୍్್്][‌‍]?$/u, LETTER0 = /^\p{L}/u;
+  const SCRIPTS = [['deva', 0x0900, 0x097F, 'hi'], ['beng', 0x0980, 0x09FF, 'bn'], ['guru', 0x0A00, 0x0A7F, 'pa'], ['gujr', 0x0A80, 0x0AFF, 'gu'], ['orya', 0x0B00, 0x0B7F, 'or'],
+    ['taml', 0x0B80, 0x0BFF, 'ta'], ['telu', 0x0C00, 0x0C7F, 'te'], ['knda', 0x0C80, 0x0CFF, 'kn'], ['mlym', 0x0D00, 0x0D7F, 'ml']];
+  const scriptOfChar = cp => { for (const x of SCRIPTS) if (cp >= x[1] && cp <= x[2]) return x[0]; return null; };
+  /* the main script of a text: 'latn', an Indic script id ('deva' …) or '' */
+  function scriptOf(text) {
+    const n = {}; let lat = 0;
+    for (const ch of String(text || '')) { const cp = ch.codePointAt(0); if (cp < 128) { if (/[A-Za-z]/.test(ch)) lat++; continue; } const sc = scriptOfChar(cp); if (sc) n[sc] = (n[sc] || 0) + 1; }
+    let best = '', bn = 0; for (const k in n) if (n[k] > bn) { bn = n[k]; best = k; }
+    return bn > lat ? best : lat ? 'latn' : '';
+  }
+  const langOf = (script, sid) => (script === 'deva' ? (/sanskrit/.test(sid || '') ? 'sa' : /marathi/.test(sid || '') ? 'mr' : 'hi') : ((SCRIPTS.find(x => x[0] === script) || [])[3] || 'en'));
+  let SEG = null; try { if (typeof Intl !== 'undefined' && Intl.Segmenter) SEG = new Intl.Segmenter(undefined, { granularity: 'grapheme' }); } catch (e) { SEG = null; }
+  function aksharas(text, noSeg) {
+    const s = String(text == null ? '' : text).normalize('NFC');
+    const raw = SEG && !noSeg ? Array.from(SEG.segment(s), x => x.segment) : Array.from(s);
+    const out = [];
+    for (const g of raw) {
+      const prev = out[out.length - 1];
+      if (prev != null && (MARK_RE.test(g) || (VIRAMA_END.test(prev) && LETTER0.test(g) && scriptOfChar(g.codePointAt(0)) === scriptOfChar(prev.codePointAt(0)) && scriptOfChar(g.codePointAt(0)) !== 'taml'))) out[out.length - 1] = prev + g;
+      else out.push(g);
+    }
+    return out;
+  }
+  /* a cell is a proper akshara: starts with a letter (never a matra / halant / nukta) and is one script */
+  const goodCell = c => typeof c === 'string' && c.length > 0 && LETTER0.test(c) && !MARK_RE.test(c);
+  const clip = (s, n) => { const a = aksharas(s); return a.length <= n ? String(s) : a.slice(0, n).join('') + '…'; };
+  const unitsOf = t => (t && t.u) || String(t && t.a != null ? t.a : t).split('');
+
+  /* ======================================================================================
      SUDOKU — n×n with boxes 2×2 (n=4), 2×3 (n=6), 3×3 (n=9). Digits 1..n, 0 = empty.
      ====================================================================================== */
   const BOX = { 4: [2, 2], 6: [2, 3], 9: [3, 3] };
@@ -366,7 +404,10 @@
     if (right.split(/\s+/).length < 5 || /[:·]/.test(right) || SYM.test(right) || listy(right) || /^(a|an|the)\s+(very|bit|lot|kind of|type of|part of|few|same|good|great|big|small|main)\b/i.test(right)) return null;
     return [m[1], cap1(right)];
   }
+  /* a chapter's script, from its title and lesson text */
+  const chapterScript = ch => scriptOf([ch && ch.title, ...((ch && ch.topics) || []).slice(0, 3).map(t => [t.title, ((t.learn && t.learn.points) || []).join(' ')].join(' '))].join(' '));
   function termsSchool(ch) {
+    const scr = chapterScript(ch); if (scr && scr !== 'latn') return termsIndic(ch, scr);
     const out = [];
     const push = x => { if (x) out.push(x); };
     (ch.topics || []).forEach(t => {
@@ -392,9 +433,76 @@
     });
     return rank(out);
   }
+  /* ---------- Indic-script chapters (Hindi, Sanskrit, …): answers are ONE word of the chapter's own script ---------- */
+  const STOP_IN = new Set(['सही', 'गलत', 'ग़लत', 'हाँ', 'हां', 'नहीं', 'दोनों', 'सभी', 'कोई', 'सत्य', 'असत्य', 'आम्', 'न', 'उपर्युक्त', 'कुछ', 'एक', 'दो', 'तीन', 'चार', 'पाँच']);
+  /* raw → { a, u: [aksharas], disp, enum: '(n)', words: [a], script } or null. Single word, 2–8 aksharas, all of one Indic script. */
+  function normAnswerIndic(raw, script) {
+    let t = sq(String(raw == null ? '' : raw).normalize('NFC')).replace(/^[\s'"‘’“”(\[]+|[\s'"‘’“”)\].,!?;:।॥\-–—]+$/g, '');
+    if (!t || /[\s\-–—/,.;:'"‘’“”()\[\]0-9०-९।॥?!=+]/.test(t)) return null;
+    const sc = scriptOf(t); if (!sc || sc === 'latn' || (script && sc !== script)) return null;
+    for (const ch of t) { const cp = ch.codePointAt(0); if (cp === 0x200C || cp === 0x200D) continue; if (scriptOfChar(cp) !== sc) return null; }
+    if (STOP_IN.has(t)) return null;
+    const u = aksharas(t);
+    if (u.length < 2 || u.length > 8 || !u.every(goodCell)) return null;
+    return { a: u.join(''), u, disp: t, enum: `(${u.length})`, words: [u.join('')], script: sc };
+  }
+  /* the answer (or its stem: all but the last akshara, for 3+ aksharas) must not appear in the clue */
+  function leaksIndic(ans, clue) {
+    const C = String(clue || '').normalize('NFC').replace(/[‌‍]/g, '');
+    if (C.includes(ans.a)) return true;
+    if (ans.u && ans.u.length >= 3 && C.includes(ans.u.slice(0, -1).join(''))) return true;
+    return false;
+  }
+  /* questions that only make sense with their options, a passage or a picture, or that ask for the odd one out */
+  const BAD_IN = /(इनमें से|निम्न|उपर्युक्त|विकल्प|गद्यांश|अनुच्छेद|पढ़ो|पढ़कर|चित्र|सही या गलत|नहीं है|नहीं था|नहीं होता|नहीं होती|असत्य|गलत है|ग़लत है|कौन-सा कथन|कौन सा कथन|उदाहरण दो|लिखो|अधोलिखित|अधः|बताओ कि)/;
+  function clueOKIndic(ans, clue, o) {
+    o = o || {};
+    if (!clue || clue.length < 2 || clue.length > 150) return false;
+    if (BAD_IN.test(clue) || LATIN_RE.test(clue.replace(/\b[A-Z]{1,3}\b/g, ''))) return false;
+    const blanks = (clue.match(/___/g) || []).length;
+    if (o.blank ? blanks !== 1 : blanks) return false;
+    if ((clue.match(/\(/g) || []).length !== (clue.match(/\)/g) || []).length) return false;
+    return !leaksIndic(ans, clue);
+  }
+  function candIndic(raw, clue, src, script, extra) {
+    const ans = normAnswerIndic(raw, script); if (!ans) return null;
+    const c = clue == null ? '' : sq(String(clue).normalize('NFC')).replace(/_{2,}/g, '___').replace(/\s*[:\-–—]+\s*$/, '');
+    if (src !== 'sort' && !clueOKIndic(ans, c, { blank: src === 'fill' })) return null;
+    if (src === 'sort' && c) return null;
+    return Object.assign({ a: ans.a, u: ans.u, disp: ans.disp, enum: ans.enum, clue: c, src, pri: (PRI[src] || 1), script: ans.script }, extra || {});
+  }
+  function termsIndic(ch, script) {
+    const out = [], push = x => { if (x) out.push(x); };
+    const one = s => normAnswerIndic(s, script);
+    (ch.topics || []).forEach(t => {
+      const tid = t.id;
+      (t.games || []).forEach(gm => {
+        if (!gm) return; const ctx = sq(gm.title || '');
+        if (gm.type === 'match') (gm.pairs || []).forEach(p => {
+          if (!Array.isArray(p) || p.length < 2) return; const L = String(p[0]), R = String(p[1]);
+          if (one(L)) push(candIndic(L, R, 'match', script, { ctx, tid }));
+          if (one(R)) push(candIndic(R, L, 'match', script, { ctx, tid, pri: one(L) ? 2 : PRI.match }));   // both one word (synonyms, antonyms, singular/plural): either side can be the answer
+        });
+        else if (gm.type === 'fill') (gm.items || []).forEach(it => { if (it && typeof it.text === 'string') push(candIndic(it.answer, it.text, 'fill', script, { tid })); });
+        else if (gm.type === 'speed') (gm.items || []).forEach(it => { if (it && typeof it.q === 'string') { push(candIndic(it.a, it.q, 'speed', script, { ctx, tid })); if (one(it.q) && /विलोम|पर्याय|समानार्थ/.test(ctx)) push(candIndic(it.q, it.a, 'speed', script, { ctx, tid, pri: 2 })); } });   // antonyms / synonyms work both ways
+        else if (gm.type === 'sort') (gm.items || []).forEach(it => { if (Array.isArray(it)) push(candIndic(it[0], null, 'sort', script, { tid })); });   // word-search words only (no clue)
+      });
+      (t.quiz || []).forEach(q => {
+        if (!q || !Array.isArray(q.options) || typeof q.q !== 'string' || !/[?？]\s*$|___/.test(q.q)) return;
+        push(candIndic(q.options[q.answer], q.q, /___/.test(q.q) ? 'fill' : 'quiz', script, { tid }));
+      });
+      const rv = t.revise || {};
+      (rv.remember || []).forEach(line => String(line || '').split(/;|।/).forEach(part => {
+        const m = /^\s*([^=]+?)\s*=\s*([^=]{2,60})$/.exec(part); if (!m) return;
+        const left = m[1].replace(/\s*\([^)]*\)\s*/g, ' ').trim(), right = m[2].trim();
+        if (one(left) && !/[:=]/.test(right)) push(candIndic(left, right, 'def', script, { tid }));
+      }));
+    });
+    return rank(out);
+  }
   function termsCA(units, keyItems) {
     const out = [], push = x => { if (x) out.push(x); };
-    const sentences = t => String(t || '').split(/(?<=[a-z0-9)\]][.!?])\s+(?=[A-Z])/);
+    const sentences = t => String(t || '').replace(/([a-z0-9)\]][.!?])\s+(?=[A-Z])/g, '$1\u0000').split('\u0000');   // no look-behind: older Safari cannot parse it
     (units || []).forEach(u => {
       if (!u) return; const uid = u.id;
       const text = JSON.stringify([u.concepts || [], (u.mcqs || []).map(q => [q.q, q.explain]), u.revision || {}]).toLowerCase();
@@ -438,7 +546,7 @@
   function rank(list) {
     const by = new Map();
     list.forEach(x => { const o = by.get(x.a); if (!o || x.pri > o.pri || (x.pri === o.pri && x.clue.length < o.clue.length)) by.set(x.a, x); });
-    return [...by.values()].sort((a, b) => b.pri - a.pri || a.a.localeCompare(b.a));
+    return [...by.values()].sort((a, b) => b.pri - a.pri || (a.a < b.a ? -1 : a.a > b.a ? 1 : 0));
   }
 
   /* ======================================================================================
@@ -448,20 +556,24 @@
     opts = opts || {};
     const MAXD0 = opts.maxDim || 13, MIN = opts.min || 8, MAX = opts.max || 15, ATT = opts.attempts || 36;
     const r = rng('xw|' + seed);
-    const pool0 = (cands || []).filter(c => /^[A-Z]{3,12}$/.test(c.a) && c.a.length <= MAXD0);
+    /* every candidate as cells: letters (Latin) or aksharas (Indic); U[k] is compared as a whole string */
+    const pool0 = (cands || []).filter(c => c && c.clue && (c.u ? c.u.length >= 2 && c.u.length <= 12 && c.u.every(goodCell) : /^[A-Z]{3,12}$/.test(c.a)) && unitsOf(c).length <= MAXD0)
+      .map(c => Object.assign({}, c, { U: unitsOf(c) }));
     if (pool0.length < MIN) return null;
     // every answer must not contain another answer of the set (would make two answers for one entry ambiguous) — keep the longer
     /* a fixed number of attempts (never a time limit) so the same seed gives the same grid on every phone */
     const S = 2 * MAXD0 + 2, DIMS = [11, 12, 13, 10, 12, 13].map(d => Math.min(d, MAXD0));
     let best = null, bestScore = -1e9;
     for (let attempt = 0; attempt < ATT; attempt++) {
-      const MAXD = Math.max(DIMS[attempt % DIMS.length], pool0.reduce((m, c) => Math.max(m, c.a.length), 0));
-      const pick = shuffle(pool0, r).slice(0, Math.min(pool0.length, 26)).sort((a, b) => (b.a.length + r() * 3) - (a.a.length + r() * 3));
+      const MAXD = Math.max(DIMS[attempt % DIMS.length], pool0.reduce((m, c) => Math.max(m, c.U.length), 0));
+      /* decorate–sort–undecorate: the random numbers are drawn ONCE per word, in order (a comparator that draws random
+         numbers gives different results in Chrome / Safari / Deno, whose sort algorithms call it differently) */
+      const pick = shuffle(pool0, r).slice(0, Math.min(pool0.length, 26)).map((c, i) => [c, c.U.length + r() * 3, i]).sort((a, b) => b[1] - a[1] || a[2] - b[2]).map(x => x[0]);
       const L = new Array(S * S).fill(''), D = new Uint8Array(S * S), placed = [];
       let minR = S, maxR = -1, minC = S, maxC = -1;
       const put = (w, r0, c0, dir) => {
         const dr = dir === 'D' ? 1 : 0, dc = dir === 'A' ? 1 : 0;
-        for (let k = 0; k < w.a.length; k++) { const y = r0 + k * dr, x = c0 + k * dc, i = y * S + x; L[i] = w.a[k]; D[i] |= dir === 'A' ? 1 : 2; minR = Math.min(minR, y); maxR = Math.max(maxR, y); minC = Math.min(minC, x); maxC = Math.max(maxC, x); }
+        for (let k = 0; k < w.U.length; k++) { const y = r0 + k * dr, x = c0 + k * dc, i = y * S + x; L[i] = w.U[k]; D[i] |= dir === 'A' ? 1 : 2; minR = Math.min(minR, y); maxR = Math.max(maxR, y); minC = Math.min(minC, x); maxC = Math.max(maxC, x); }
         placed.push({ w, r: r0, c: c0, dir });
       };
       const fit = (word, r0, c0, dir) => {
@@ -480,7 +592,7 @@
         if (!cross || cross === n) return -1;
         return cross;
       };
-      const first = pick[0], c0 = Math.floor(S / 2) - Math.floor(first.a.length / 2), r0 = Math.floor(S / 2);
+      const first = pick[0], c0 = Math.floor(S / 2) - Math.floor(first.U.length / 2), r0 = Math.floor(S / 2);
       put(first, r0, c0, r() < .5 ? 'A' : 'D');
       const rest = pick.slice(1), used = new Set([first.a]);
       while (placed.length < MAX) {
@@ -488,18 +600,18 @@
         for (const w of rest) {
           if (used.has(w.a)) continue;
           if ([...used].some(u => u.includes(w.a) || w.a.includes(u))) continue;
-          if (placed.some(q => xleak(wordsOf(w), q.w.clue) || xleak(wordsOf(q.w), w.clue))) continue;   // no clue may give away another answer
+          if (placed.some(q => xleakAny(w, q.w.clue) || xleakAny(q.w, w.clue))) continue;   // no clue may give away another answer
           for (const p of placed) {
             const pd = p.dir === 'A' ? [0, 1] : [1, 0], nd = p.dir === 'A' ? 'D' : 'A';
-            for (let i = 0; i < p.w.a.length; i++) {
-              const y = p.r + i * pd[0], x = p.c + i * pd[1], ch = p.w.a[i];
-              for (let k = 0; k < w.a.length; k++) {
-                if (w.a[k] !== ch) continue;
+            for (let i = 0; i < p.w.U.length; i++) {
+              const y = p.r + i * pd[0], x = p.c + i * pd[1], ch = p.w.U[i];
+              for (let k = 0; k < w.U.length; k++) {
+                if (w.U[k] !== ch) continue;
                 const rr = nd === 'D' ? y - k : y, cc = nd === 'A' ? x - k : x;
-                const cr = fit(w.a, rr, cc, nd); if (cr < 0) continue;
-                const er = nd === 'D' ? rr + w.a.length - 1 : rr, ec = nd === 'A' ? cc + w.a.length - 1 : cc;
+                const cr = fit(w.U, rr, cc, nd); if (cr < 0) continue;
+                const er = nd === 'D' ? rr + w.U.length - 1 : rr, ec = nd === 'A' ? cc + w.U.length - 1 : cc;
                 const area = (Math.max(maxR, er) - Math.min(minR, rr) + 1) * (Math.max(maxC, ec) - Math.min(minC, cc) + 1);
-                const sc = cr * 16 - area * 0.45 + w.a.length * 0.8 + r() * 5;
+                const sc = cr * 16 - area * 0.45 + w.U.length * 0.8 + r() * 5;
                 if (sc > bs) { bs = sc; bp = [w, rr, cc, nd]; }
               }
             }
@@ -526,15 +638,20 @@
     const C = ' ' + String(clue).toUpperCase().replace(/[^A-Z]+/g, ' ') + ' ';
     return ans.words.some(w => w.length >= 3 && (w.length <= 4 ? C.includes(' ' + w + ' ') : C.includes(' ' + w.slice(0, Math.max(4, w.length - 3)))));
   }
-  const wordsOf = c => c._w || (c._w = { a: c.a, words: String(c.disp || c.a).toUpperCase().split(/[ \-]+/).map(x => x.replace(/[^A-Z]/g, '')).filter(Boolean) });
-  function chapterCrossword(own, near, seed) {
+  const WO = typeof WeakMap !== 'undefined' ? new WeakMap() : null;   // cache outside the objects, so puzzles stay plain JSON
+  const wordsOf = c => { let v = WO && WO.get(c); if (!v) { v = { a: c.a, words: String(c.disp || c.a).toUpperCase().split(/[ \-]+/).map(x => x.replace(/[^A-Z]/g, '')).filter(Boolean) }; if (WO) WO.set(c, v); } return v; };
+  /* does this clue give away answer c? (Latin: word stems; Indic: the answer or its stem as a substring) */
+  const xleakAny = (c, clue) => (c.u ? leaksIndic({ a: c.a, u: c.u }, clue) : xleak(wordsOf(c), clue));
+  function chapterCrossword(own, near, seed, o) {
+    o = o || {};
     own = (own || []).slice(); const have = new Set(own.map(t => t.a));
     const extra = (near || []).filter(t => !have.has(t.a) && (have.add(t.a) || true)).map(t => Object.assign({}, t, { near: true }));
     const r = rng('xwp|' + seed), ex = shuffle(extra, r);
+    const MIN = o.min || 8;
     for (const k of [Math.max(0, 14 - own.length), Math.max(0, 20 - own.length), 34]) {
       const pool = own.concat(ex.slice(0, k));
-      if (pool.length < 8) continue;
-      const x = crossword(pool, seed + '|' + k);
+      if (pool.length < MIN) continue;
+      const x = crossword(pool, seed + '|' + k, { min: MIN, max: o.max || 15, attempts: o.attempts });
       if (x) return x;
     }
     return null;
@@ -556,7 +673,7 @@
   }
   function buildXW(b, seed) {
     const { w, h } = b, grid = Array.from({ length: h }, () => new Array(w).fill('#'));
-    b.placed.forEach(p => { for (let k = 0; k < p.w.a.length; k++) grid[p.r + (p.dir === 'D' ? k : 0)][p.c + (p.dir === 'A' ? k : 0)] = p.w.a[k]; });
+    b.placed.forEach(p => { for (let k = 0; k < p.w.U.length; k++) grid[p.r + (p.dir === 'D' ? k : 0)][p.c + (p.dir === 'A' ? k : 0)] = p.w.U[k]; });
     const starts = {}; let n = 0;
     const isL = (y, x) => y >= 0 && x >= 0 && y < h && x < w && grid[y][x] !== '#';
     for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
@@ -564,34 +681,39 @@
       const a = !isL(y, x - 1) && isL(y, x + 1), d = !isL(y - 1, x) && isL(y + 1, x);
       if (a || d) starts[y * w + x] = ++n;
     }
-    const entries = b.placed.map(p => ({ n: starts[p.r * w + p.c], dir: p.dir, r: p.r, c: p.c, len: p.w.a.length, a: p.w.a, clue: p.w.clue, enum: p.w.enum, disp: p.w.disp, ctx: p.w.ctx || '', src: p.w.src, near: !!p.w.near }))
+    const indic = b.placed.some(p => p.w.u);
+    const entries = b.placed.map(p => Object.assign({ n: starts[p.r * w + p.c], dir: p.dir, r: p.r, c: p.c, len: p.w.U.length, a: p.w.a, clue: p.w.clue, enum: p.w.enum, disp: p.w.disp, ctx: p.w.ctx || '', src: p.w.src, near: !!p.w.near }, p.w.u ? { u: p.w.u.slice() } : {}))
       .sort((x, y) => (x.dir === y.dir ? x.n - y.n : x.dir === 'A' ? -1 : 1));
-    return { type: 'crossword', seed: String(seed), w, h, grid: grid.map(r => r.join('')), entries };
+    /* grid: rows of cells ('#' = block). Latin rows stay strings (one letter per cell); Indic rows are arrays of aksharas */
+    return { type: 'crossword', seed: String(seed), script: indic ? (b.placed.find(p => p.w.script) || { w: {} }).w.script || 'deva' : 'latn', w, h, grid: indic ? grid : grid.map(r => r.join('')), entries };
   }
   function validCrossword(p) {
     if (!p || !p.entries) return 'missing';
     const { w, h, grid } = p;
     if (grid.length !== h || grid.some(r => r.length !== w)) return 'grid size';
-    if (p.entries.length < 8 || p.entries.length > 15) return 'entry count ' + p.entries.length;
+    const indic = p.script && p.script !== 'latn';
+    if (p.entries.length < (indic ? 4 : 8) || p.entries.length > 15) return 'entry count ' + p.entries.length;
+    if (indic) for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (grid[y][x] !== '#' && !goodCell(grid[y][x])) return 'cell is not a whole akshara: ' + grid[y][x];
     const isL = (y, x) => y >= 0 && x >= 0 && y < h && x < w && grid[y][x] !== '#';
     const runs = new Set();
     for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
       if (!isL(y, x)) continue;
-      if (!isL(y, x - 1) && isL(y, x + 1)) { let k = x, s = ''; while (isL(y, k)) s += grid[y][k++]; runs.add(`A${y},${x}:${s}`); }
-      if (!isL(y - 1, x) && isL(y + 1, x)) { let k = y, s = ''; while (isL(k, x)) s += grid[k++][x]; runs.add(`D${y},${x}:${s}`); }
+      if (!isL(y, x - 1) && isL(y, x + 1)) { let k = x, s = []; while (isL(y, k)) s.push(grid[y][k++]); runs.add(`A${y},${x}:${s.join('|')}`); }
+      if (!isL(y - 1, x) && isL(y + 1, x)) { let k = y, s = []; while (isL(k, x)) s.push(grid[k++][x]); runs.add(`D${y},${x}:${s.join('|')}`); }
       if (!isL(y, x - 1) && !isL(y, x + 1) && !isL(y - 1, x) && !isL(y + 1, x)) return 'isolated letter';
     }
-    const ents = new Set(p.entries.map(e => `${e.dir}${e.r},${e.c}:${e.a}`));
+    const ents = new Set(p.entries.map(e => `${e.dir}${e.r},${e.c}:${unitsOf(e).join('|')}`));
     if (ents.size !== p.entries.length) return 'duplicate entry';
     for (const k of runs) if (!ents.has(k)) return 'unintended word ' + k;
     for (const k of ents) if (!runs.has(k)) return 'entry not on grid ' + k;
     const seenA = new Set();
     for (const e of p.entries) {
-      if (!/^[A-Z]{3,12}$/.test(e.a)) return 'bad answer ' + e.a;
+      if (indic ? !(e.u && e.u.length >= 2 && e.u.length <= 12 && e.u.join('') === e.a && e.u.every(goodCell) && aksharas(e.a).join('|') === e.u.join('|')) : !/^[A-Z]{3,12}$/.test(e.a)) return 'bad answer ' + e.a;
       if (seenA.has(e.a)) return 'repeated answer ' + e.a; seenA.add(e.a);
       const lens = e.enum.replace(/[()]/g, '').split(/[,-]/).map(Number);
-      if (lens.reduce((a, b) => a + b, 0) !== e.a.length) return 'enumeration ' + e.a + ' ' + e.enum;
-      if (!e.clue || leaks({ a: e.a, words: (e.disp || e.a).toUpperCase().split(/[ \-]+/).map(x => x.replace(/[^A-Z]/g, '')) }, e.clue)) return 'clue leaks ' + e.a;
+      if (lens.reduce((a, b) => a + b, 0) !== unitsOf(e).length || e.len !== unitsOf(e).length) return 'enumeration ' + e.a + ' ' + e.enum;
+      if (!e.clue || (indic ? leaksIndic(e, e.clue) : leaks({ a: e.a, words: (e.disp || e.a).toUpperCase().split(/[ \-]+/).map(x => x.replace(/[^A-Z]/g, '')) }, e.clue))) return 'clue leaks ' + e.a;
+      for (const o of p.entries) if (o !== e && xleakAny(o, e.clue)) return `clue of ${e.a} gives away ${o.a}`;
       if (!(e.n >= 1)) return 'numbering ' + e.a;
     }
     // connected
@@ -610,40 +732,82 @@
      WORD SEARCH + ANAGRAM warm-ups
      ====================================================================================== */
   const DIRS8 = [[0, 1], [1, 0], [1, 1], [-1, 1], [0, -1], [-1, 0], [-1, -1], [1, -1]];
-  function wordsearch(words, n, ndirs, seed) {
-    const r = rng('ws|' + seed), dirs = DIRS8.slice(0, ndirs || 2);
-    const list = [...new Set(words.filter(w => /^[A-Z]{3,}$/.test(w) && w.length <= n))].sort((a, b) => b.length - a.length).slice(0, 10);
-    for (let attempt = 0; attempt < 60; attempt++) {
-      const g = new Array(n * n).fill(''), placed = [];
+  /* words: Latin strings ('PHOTOSYNTHESIS') or arrays of aksharas (['सं','वा','द']). n×n grid, the first ndirs
+     directions of DIRS8 (2 = across + down … 8 = every way incl. backwards). fill: the cells used to fill the gaps
+     (Latin: common letters; Indic: the words' own aksharas). Every word appears EXACTLY once (checked). */
+  function wordsearch(words, n, ndirs, seed, fill) {
+    const r = rng('ws|' + seed), dirs = DIRS8.slice(0, ndirs || 2), seen = new Set();
+    let list = [];
+    for (const w0 of words || []) {
+      const u = Array.isArray(w0) ? w0.slice() : String(w0).split(''), a = u.join('');
+      if (seen.has(a) || u.length > n || (Array.isArray(w0) ? u.length < 2 || !u.every(goodCell) : !/^[A-Z]{3,}$/.test(a))) continue;
+      seen.add(a); list.push({ a, u });
+    }
+    /* a word hidden inside another word (or inside it backwards) would be found twice: keep the longer one */
+    const has = (big, small) => { for (let i = 0; i + small.length <= big.length; i++) if (small.every((c, k) => big[i + k] === c)) return true; return false; };
+    list = list.filter(w => !list.some(o => o !== w && o.u.length >= w.u.length && o.a !== w.a && (has(o.u, w.u) || has(o.u, w.u.slice().reverse()))));
+    list = list.sort((a, b) => b.u.length - a.u.length || (a.a < b.a ? -1 : a.a > b.a ? 1 : 0)).slice(0, 10);
+    const AL = 'ABCDEFGHIJKLMNOPRSTUVWY'.split(''), pool = fill && fill.length ? fill.filter(goodCell) : list.some(w => w.a !== w.u.join('') || w.u.some(c => c.length > 1 || !/[A-Z]/.test(c))) ? [...new Set(list.flatMap(w => w.u))].sort() : AL;
+    for (let attempt = 0; attempt < 80; attempt++) {
+      const g = new Array(n * n).fill(''), placed = [], mine = new Uint8Array(n * n);
       for (const w of list) {
         let ok = false;
         for (let t = 0; t < 150 && !ok; t++) {
-          const [dr, dc] = dirs[ri(r, dirs.length)], y0 = ri(r, n), x0 = ri(r, n), ey = y0 + dr * (w.length - 1), ex = x0 + dc * (w.length - 1);
+          const [dr, dc] = dirs[ri(r, dirs.length)], y0 = ri(r, n), x0 = ri(r, n), ey = y0 + dr * (w.u.length - 1), ex = x0 + dc * (w.u.length - 1);
           if (ey < 0 || ex < 0 || ey >= n || ex >= n) continue;
-          let fits = true; for (let k = 0; k < w.length; k++) { const c = g[(y0 + dr * k) * n + x0 + dc * k]; if (c && c !== w[k]) { fits = false; break; } }
+          let fits = true; for (let k = 0; k < w.u.length; k++) { const c = g[(y0 + dr * k) * n + x0 + dc * k]; if (c && c !== w.u[k]) { fits = false; break; } }
           if (!fits) continue;
-          for (let k = 0; k < w.length; k++) g[(y0 + dr * k) * n + x0 + dc * k] = w[k];
-          placed.push({ a: w, r: y0, c: x0, dr, dc }); ok = true;
+          for (let k = 0; k < w.u.length; k++) { const i = (y0 + dr * k) * n + x0 + dc * k; g[i] = w.u[k]; mine[i] = 1; }
+          placed.push({ a: w.a, u: w.u, r: y0, c: x0, dr, dc }); ok = true;
         }
       }
       if (placed.length < Math.min(list.length, 6)) continue;
-      const AL = 'ABCDEFGHIJKLMNOPRSTUVWY';
-      for (let i = 0; i < g.length; i++) if (!g[i]) g[i] = AL[ri(r, AL.length)];
-      const res = { type: 'wordsearch', n, seed: String(seed), grid: range(n).map(y => g.slice(y * n, y * n + n).join('')), words: placed };
+      for (let i = 0; i < g.length; i++) if (!g[i]) g[i] = pool[ri(r, pool.length)];
+      /* repair: a filler cell that spells a word a second time is re-rolled */
+      let good = false;
+      for (let fix = 0; fix < 200; fix++) {
+        const extra = wsExtra(g, n, placed);
+        if (!extra) { good = true; break; }
+        const free = extra.filter(i => !mine[i]); if (!free.length) break;
+        const i = free[ri(r, free.length)]; g[i] = pool[ri(r, pool.length)];
+      }
+      if (!good) continue;
+      const res = { type: 'wordsearch', n, seed: String(seed), script: list.some(w => w.u.some(c => c.length > 1 || !/^[A-Z]$/.test(c))) ? 'indic' : 'latn', grid: range(n).map(y => g.slice(y * n, y * n + n)), words: placed };
       if (!validWordsearch(res)) return res;
     }
     return null;
   }
-  function wsCount(p, w) {
-    const n = p.n, G = p.grid; let c = 0;
+  /* every place a run of cells spells w.u (any of the 8 directions) */
+  function wsFind(g, n, u) {
+    const at = (y, x) => (Array.isArray(g[0]) ? g[y][x] : g[y * n + x]), out = [];
     for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) for (const [dr, dc] of DIRS8) {
-      let k = 0; while (k < w.length) { const yy = y + dr * k, xx = x + dc * k; if (yy < 0 || xx < 0 || yy >= n || xx >= n || G[yy][xx] !== w[k]) break; k++; }
-      if (k === w.length) c++;
+      let k = 0; const cells = [];
+      while (k < u.length) { const yy = y + dr * k, xx = x + dc * k; if (yy < 0 || xx < 0 || yy >= n || xx >= n || at(yy, xx) !== u[k]) break; cells.push(yy * n + xx); k++; }
+      if (k === u.length) out.push(cells);
     }
-    return w.split('').reverse().join('') === w ? c / 2 : c;
+    return out;
+  }
+  /* the cells of the first occurrence that is not the placed word (null = every word appears once) */
+  function wsExtra(g, n, placed) {
+    for (const w of placed) {
+      const mineCells = Array.from({ length: w.u.length }, (_, k) => (w.r + w.dr * k) * n + w.c + w.dc * k), key = mineCells.join(), rkey = mineCells.slice().reverse().join();
+      for (const occ of wsFind(g, n, w.u)) { const k = occ.join(); if (k !== key && !(k === rkey && w.u.join('|') === w.u.slice().reverse().join('|'))) return occ; }
+    }
+    return null;
+  }
+  function wsCount(p, w) {
+    const u = Array.isArray(w) ? w : (p.words.find(x => x.a === w) || {}).u || String(w).split('');
+    const c = wsFind(p.grid, p.n, u).length;
+    return u.join('|') === u.slice().reverse().join('|') ? c / 2 : c;
   }
   function validWordsearch(p) {
-    for (const w of p.words) { const c = wsCount(p, w.a); if (c !== 1) return `${w.a} found ${c} times`; }
+    for (const w of p.words) {
+      const u = w.u || w.a.split(''); if (u.join('') !== w.a) return `${w.a} cells differ`;
+      if (!u.every(goodCell)) return `${w.a} has a broken cell`;
+      for (let k = 0; k < u.length; k++) { const y = w.r + w.dr * k, x = w.c + w.dc * k; if (p.grid[y][x] !== u[k]) return `${w.a} not at its place`; }
+      const c = wsCount(p, u); if (c !== 1) return `${w.a} found ${c} times`;
+    }
+    for (const row of p.grid) for (const c of row) if (!goodCell(c)) return 'broken cell ' + c;
     return '';
   }
   function scramble(word, seed) {
@@ -652,9 +816,186 @@
     for (let t = 0; t < 20; t++) { const s = shuffle(word.split(''), r).join(''); if (s !== word) return s; }
     return word.split('').reverse().join('');
   }
+  /* anagram tiles: the answer's cells (letters or aksharas) in a new order (never the answer itself) */
+  function scrambleU(u, seed) {
+    const r = rng('an|' + seed + '|' + u.join('')), key = u.join('|');
+    if (new Set(u).size < 2) return u.slice();
+    for (let t = 0; t < 30; t++) { const s = shuffle(u, r); if (s.join('|') !== key) return s; }
+    return u.slice().reverse();
+  }
+
+  /* ======================================================================================
+     CHAPTER PUZZLES from a spec — pure and deterministic: the same spec + the same chapter content gives the same
+     puzzle on every device (the UI, the Web Worker, the race mode and the Node tests all call this).
+       spec: { t: 'xw'|'ws'|'an'|'csdk'|'sdk'|'kak', seed, diff, n? }   t = { own, near, groups } from termsFor…()
+     Only the chapter's own terms are used, except Latin crosswords, which may borrow a few terms from the
+     neighbouring chapters of the same subject (marked ↗) when the chapter alone is too small.
+     ====================================================================================== */
+  const isIndicT = t => !!(t && t.own && t.own.some(x => x.u));
+  const XW_MAX = { easy: 10, medium: 12, hard: 15, expert: 15 };
+  const WS_DIFF = { latn: { easy: [8, 2, 6], medium: [10, 4, 8], hard: [12, 8, 10] }, indic: { easy: [6, 2, 5], medium: [7, 3, 6], hard: [8, 3, 8] } };   // [grid n, directions, words]
+  const AN_DIFF = { latn: { easy: [4, 3, 7], medium: [5, 4, 9], hard: [6, 5, 12] }, indic: { easy: [4, 2, 3], medium: [5, 3, 4], hard: [6, 3, 6] } };   // [words, min, max length]
+  const D3 = d => (d === 'medium' || d === 'hard' ? d : d === 'expert' ? 'hard' : 'easy');
+  const clued = t => (t.own || []).filter(x => x.clue);
+  const XW_MIN_OWN = { latn: 5, indic: 6 };
+  /* which chapter puzzles this chapter can make, and why not */
+  function chapterKinds(t) {
+    const ind = isIndicT(t), sc = ind ? 'indic' : 'latn', own = clued(t || { own: [] });
+    const wsW = (t && t.own || []).filter(x => unitsOf(x).length >= (ind ? 2 : 3) && unitsOf(x).length <= WS_DIFF[sc].hard[0]);
+    const anW = own.filter(x => unitsOf(x).length >= (ind ? 2 : 3) && unitsOf(x).length <= 12 && new Set(unitsOf(x)).size >= 2);
+    return {
+      xw: { ok: own.length >= XW_MIN_OWN[sc] && (ind || own.length + (t.near || []).filter(x => x.clue).length >= 8), n: own.length },
+      ws: { ok: wsW.length >= 4, n: wsW.length },
+      an: { ok: anW.length >= 3, n: anW.length },
+      csdk: { ok: !!(conceptSet(t && t.groups, 4, 'x', true) || conceptSet(t && t.groups, 4, 'x')), n: 0 } };
+  }
+  function puzzleFor(spec, t) {
+    spec = spec || {}; t = t || { own: [], near: [], groups: [] };
+    const seed = String(spec.seed || 'x'), diff = D3(spec.diff), ind = isIndicT(t), sc = ind ? 'indic' : 'latn', kinds = chapterKinds(t);
+    if (spec.t === 'sdk') return { p: sudoku(spec.n || 9, spec.diff || 'easy', seed) };
+    if (spec.t === 'kak') return { p: kakuro(0, spec.diff || 'easy', seed) };
+    if (spec.t === 'xw') {
+      if (!kinds.xw.ok) return null;
+      const own = clued(t), near = ind ? [] : (t.near || []).filter(x => x.clue);
+      const p = chapterCrossword(own, near, seed, { min: ind ? 4 : 8, max: XW_MAX[diff] });
+      if (!p) return null;
+      if (diff === 'easy') p.giv = [...new Set(p.entries.map(e => e.r * p.w + e.c))].sort((a, b) => a - b);   // easy: first letter of every word is given
+      p.diff = diff; return { p };
+    }
+    if (spec.t === 'ws') {
+      if (!kinds.ws.ok) return null;
+      const [n, dirs, cnt] = WS_DIFF[sc][diff];
+      const pool = (t.own || []).filter(x => unitsOf(x).length >= (ind ? 2 : 3) && unitsOf(x).length <= n);
+      const words = shuffle(pool, rng('wsw|' + seed)).slice(0, cnt);
+      if (words.length < 4) return null;
+      const fill = ind ? [...new Set((t.own || []).flatMap(unitsOf))].sort() : null;
+      const p = wordsearch(words.map(w => (ind ? unitsOf(w) : w.a)), n, dirs, seed, fill);
+      if (!p) return null;
+      p.diff = diff; p.clues = {}; words.forEach(w => { p.clues[w.a] = { clue: w.clue || '', ctx: w.ctx || '', enum: w.enum }; });
+      return { p };
+    }
+    if (spec.t === 'an') {
+      if (!kinds.an.ok) return null;
+      const [cnt, lo, hi] = AN_DIFF[sc][diff], all = clued(t).filter(x => new Set(unitsOf(x)).size >= 2 && unitsOf(x).length >= (ind ? 2 : 3) && unitsOf(x).length <= 12);
+      const r = rng('anw|' + seed), fit = shuffle(all.filter(x => unitsOf(x).length >= lo && unitsOf(x).length <= hi), r);
+      const rest = shuffle(all.filter(x => !fit.includes(x)), r).map((x, i) => [x, Math.abs(unitsOf(x).length - lo), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map(x => x[0]);   // total order: same on every engine
+      const words = [];
+      for (const w of fit.concat(rest)) { if (words.length >= cnt) break; if (!words.some(o => xleakAny(o, w.clue) || xleakAny(w, o.clue))) words.push(w); }   // no clue may give away another word of the set
+      if (words.length < 3) return null;
+      return { p: { type: 'anagram', diff, seed, script: ind ? 'indic' : 'latn', words: words.map(w => { const u = unitsOf(w); return { a: w.a, u: u.slice(), clue: w.clue, enum: w.enum, ctx: w.ctx || '', t: scrambleU(u, seed) }; }) } };
+    }
+    if (spec.t === 'csdk') {
+      let n = spec.n === 6 ? 6 : 4, set = null;
+      for (const m of n === 6 ? [6, 4] : [4]) { set = conceptSet(t.groups, m, seed, true) || conceptSet(t.groups, m, seed); if (set) { n = m; break; } }
+      if (!set) return null;
+      const p = sudoku(n, diff, seed); return { p, extra: { set } };
+    }
+    return null;
+  }
+  /* concept-sudoku groups: one per match game (school) — labels in the chapter's script */
+  function groupsSchool(ch) {
+    const scr = chapterScript(ch), ind = scr && scr !== 'latn', out = [];
+    (ch.topics || []).forEach(t => (t.games || []).forEach(gm => {
+      if (!gm || gm.type !== 'match') return;
+      const items = (gm.pairs || []).filter(p => Array.isArray(p) && p.length >= 2).map(p => {
+        const L = String(p[0]).trim();
+        if (ind) { const a = normAnswerIndic(L, scr); return a ? { label: a.disp, info: String(p[1]) } : null; }
+        return /^[A-Za-z][A-Za-z '\-]*$/.test(L) ? { label: L, info: String(p[1]) } : null;
+      });
+      const ok = items.filter(Boolean); if (ok.length) out.push({ title: gm.title || t.title, items: ok });
+    }));
+    return out;
+  }
+
+  /* ======================================================================================
+     TERMS FROM RAW CONTENT (pure) — the app (js/puzzles.js) and a server (Edge Function) build the same terms.
+       school: content = the subject file content/g{g}/{sid}.json (parsed)          → termsFromSchool(subject, ci)
+       CA:     content = { structure, units: { uid: unit json }, banks?: { uid: bank json }, keyItems? }
+               (keyItems = CaKeysData.ITEMS from js/ca-keys-data.js; read from globalThis.CaKeysData when missing)
+     ====================================================================================== */
+  function termsFromSchool(subject, ci) {
+    const chs = (subject && subject.chapters) || [], c = chs[ci];
+    if (!c) return { own: [], near: [], groups: [] };
+    const own = termsSchool(c), groups = groupsSchool(c), near = [];
+    if ((chapterScript(c) || 'latn') === 'latn' && own.length < 20) {
+      const order = []; for (let j = 1; j < chs.length && order.length < 6; j++) [ci - j, ci + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 6) order.push(x); });
+      order.forEach(x => near.push(...termsSchool(chs[x]).filter(t => !t.u)));
+    }
+    return { own, near, groups };
+  }
+  /* the unit as the app reads it: its file plus the extra MCQ bank (js/ca.js mergeBank) */
+  function caUnitMerged(d, bank, uid) {
+    if (!d) return null;
+    const extra = bank && bank.unit === uid && Array.isArray(bank.mcq) ? bank.mcq : [];
+    if (!extra.length) return d;
+    const have = new Set((d.mcqs || []).map(q => q.id));
+    return Object.assign({}, d, { mcqs: (d.mcqs || []).concat(extra.filter(q => !have.has(q.id)).map(q => Object.assign({}, q, { bank: true }))) });
+  }
+  function caFind(structure, ch) {
+    for (const p of (structure && structure.papers) || []) { const i = p.chapters.findIndex(c => c.id === ch); if (i >= 0) return { p, c: p.chapters[i], i }; }
+    return null;
+  }
+  const caNearOrder = (f) => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 5; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 5) order.push(x); }); return order; };
+  function termsFromCA(content, ch) {
+    content = content || {};
+    const f = caFind(content.structure, ch); if (!f) return { own: [], near: [], groups: [] };
+    const G = typeof globalThis !== 'undefined' ? globalThis : {};
+    const items = content.keyItems || (G.CaKeysData && G.CaKeysData.ITEMS) || [];
+    const cUnits = c => c.units.filter(u => u.status === 'built').map(u => { const d = content.units && content.units[u.id]; return d ? caUnitMerged(d, content.banks && content.banks[u.id], u.id) : null; }).filter(Boolean);
+    const keys = c => items.filter(it => c.units.some(u => u.id === it.u));
+    const units = cUnits(f.c), own = termsCA(units, keys(f.c)), groups = [], near = [];
+    units.forEach(u => groups.push({ title: u.title, items: (u.quickref || []).filter(q => /^[A-Za-z][A-Za-z '\-]*$/.test(String(q.k || '').trim())).map(q => ({ label: String(q.k).trim(), info: String(q.v || '') })) }));
+    if (own.length < 20) for (const x of caNearOrder(f)) near.push(...termsCA(cUnits(f.p.chapters[x]), keys(f.p.chapters[x])));
+    return { own, near, groups };
+  }
+  const caLevel = ch => ({ fnd: 'foundation', int: 'inter', fin: 'final' })[String(ch).split('-')[0]] || 'foundation';
+  /* the content files a spec needs (relative to the app root). CA: call once without the structure, then again with
+     it to get the unit + bank files (bank files are optional: a missing one means "no extra MCQs"). */
+  function contentPathOf(spec, structure) {
+    const t = spec && spec.t === 'ana' ? 'an' : spec && spec.t, sc = (spec && spec.sc) || { k: 'q' };
+    if (t === 'sdk' || t === 'kak' || sc.k === 'q') return [];
+    if (sc.k === 's') return [`content/g${+sc.g}/${sc.sid}.json`];
+    const lvl = caLevel(sc.ch), out = [`content/ca/${lvl}/structure.json`, 'js/ca-keys-data.js'];
+    const f = structure && caFind(structure, sc.ch); if (!f) return out;
+    [f.i].concat(caNearOrder(f)).forEach(x => f.p.chapters[x].units.filter(u => u.status === 'built').forEach(u => {
+      out.push(u.file); const m = /^[a-z]+-(p\d+)-/.exec(u.id); if (m) out.push(`content/ca/${lvl}/${m[1]}/bank/${u.id}.json`);
+    }));
+    return out;
+  }
+  function termsFor(spec, content) {
+    const sc = (spec && spec.sc) || { k: 'q' };
+    if (sc.k === 's') return termsFromSchool(content && content.chapters ? content : content && content.subject, +sc.ci);
+    if (sc.k === 'c') return termsFromCA(content, sc.ch);
+    return null;
+  }
+  /* the canonical answer of a built puzzle — the same form Puzzles.race() reports in onSolved({ answer }):
+       sdk / csdk: every cell's digit (concept sudoku: the symbol's number 1–n), row by row, one string
+       kak: row by row, '.' for clue/blocked cells, digits for white cells        xw: the answers in entry order
+       ws: the words, sorted (plain code-unit order)                              an: the answers in puzzle order */
+  function answerOf(kind, p) {
+    const t = kind === 'ana' ? 'an' : kind;
+    if (!p) return null;
+    if (t === 'sdk' || t === 'csdk') return p.solution.join('');
+    if (t === 'kak') return p.cells.map((c, i) => (c ? String(p.solution[i]) : '.')).join('');
+    if (t === 'xw') return p.entries.map(e => e.a);
+    if (t === 'ws') return p.words.map(w => w.a).sort();
+    if (t === 'an') return p.words.map(w => w.a);
+    return null;
+  }
+  /* server-side answer key: the exact puzzle `spec` builds (content = what contentPathOf(spec) lists, parsed; null
+     for number puzzles) → its canonical answer, or null when the spec cannot make a puzzle */
+  function solutionOf(spec, content) {
+    if (!spec) return null;
+    const sp = Object.assign({}, spec, { t: spec.t === 'ana' ? 'an' : spec.t, seed: String(spec.seed || 'x'), diff: spec.diff || 'easy' });
+    const t = sp.t === 'sdk' || sp.t === 'kak' ? null : termsFor(sp, content);
+    const r = puzzleFor(sp, t);
+    return r && r.p ? answerOf(sp.t, r.p) : null;
+  }
 
   const API = { hash, rng, shuffle, sudoku, sdkCount, sdkLogic, validSudoku, BOX, kakuro, kakCount, kakRuns, validKakuro, COMBOS,
-    normAnswer, leaks, cleanClue, clueOK, termsSchool, termsCA, rank, crossword, chapterCrossword, conceptSet, SHAPES, validCrossword, wordsearch, validWordsearch, scramble, defSplit, isSplit };
+    scriptOf, langOf, aksharas, goodCell, clip, unitsOf, normAnswerIndic, leaksIndic, termsIndic, chapterScript,
+    normAnswer, leaks, cleanClue, clueOK, termsSchool, termsCA, rank, crossword, chapterCrossword, conceptSet, SHAPES, validCrossword, wordsearch, validWordsearch, wsCount, scramble, scrambleU, defSplit, isSplit, puzzleFor, chapterKinds, groupsSchool, XW_MAX, WS_DIFF, AN_DIFF,
+    termsFromSchool, termsFromCA, caUnitMerged, termsFor, contentPathOf, answerOf, solutionOf };
   root.PuzzleCore = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof self !== 'undefined' ? self : globalThis));

@@ -292,8 +292,15 @@
     const m = await model();
     const backTxt = STACK.length > 1 ? '← Back' : r.from === 'world' ? '← Home' : '← Me';
     if (r.v === 'dash' && window.SVDash) {      /* the premium dashboard (js/dashboard.js) keeps its own state on one persistent host */
-      el.innerHTML = `<button class="back" id="insBack">${backTxt}</button>`; $('#insBack').onclick = back;
+      const tabRoot = STACK.length === 1 && STACK[0].tab;
+      el.innerHTML = tabRoot ? '' : `<button class="back" id="insBack">${backTxt}</button>`; if (!tabRoot) $('#insBack').onclick = back;
       el.appendChild(DASH_HOST);
+      el.insertAdjacentHTML('beforeend', `<div class="card" id="insCard"><h3>📊 My analysis</h3><div id="insBody">${overallBlock(m, false)}${m.overall.ans ? `<h4 class="ins-h4">By subject</h4>${gaugeGrid(m)}` : ''}<h4 class="ins-h4">🛠️ Needs improvement</h4>${improveList(m, 3)}
+        <div style="height:8px"></div><button class="btn ghost" data-go="analysis">See my full analysis ▶</button></div></div>`);
+      { const b = el.querySelector('#insBody');
+        b.querySelectorAll('[data-go]').forEach(x => x.onclick = () => { rememberY(); goData(x.dataset); });
+        b.querySelectorAll('[data-how]').forEach(x => x.onclick = howSheet);
+        b.querySelectorAll('[data-act]').forEach(x => x.onclick = e => { e.stopPropagation(); act(m, x.dataset); }); }
       SVDash.render(DASH_HOST, { mode: 'school', data: dashData(m), onStart: () => worldScreen(), startLabel: 'Start a quest',
         onLeaf: path => { rememberY(); open({ v: 'topic', tid: path[2] }); }, leafLabel: 'Lesson & practice' });
       window.scrollTo(0, r.y || 0); return;
@@ -718,33 +725,11 @@
   meScreen = function () {
     _me();
     const meEl = document.querySelector('#s-me'); if (!meEl || !ST.profile) return;
-    document.getElementById('anCard')?.remove();
-    document.getElementById('meDash')?.remove();
-    const top = meEl.querySelector('.mecard') || meEl.firstElementChild;
-    if (top) top.insertAdjacentHTML('afterend', `<div class="ins-tilebox" id="meDash"><button class="dk-tile ph" aria-label="Dashboard" data-dk-open="1"><span class="dk-tl1"><b><span aria-hidden="true">📊</span> Dashboard</b></span></button></div>`);
-    { const b0 = meEl.querySelector('#meDash [data-dk-open]'); if (b0) b0.onclick = () => root({ v: 'dash', from: 'me' }); }
-    dashTile('me');
-    meEl.insertAdjacentHTML('beforeend', `<div class="card" id="insCard"><h3>📊 My analysis</h3><div id="insBody"><p class="sub">Loading…</p></div></div>`);
-    model().then(m => {
-      const b = document.getElementById('insBody'); if (!b) return;
-      b.innerHTML = `${overallBlock(m, false)}${m.overall.ans ? `<h4 class="ins-h4">By subject</h4>${gaugeGrid(m)}` : ''}<h4 class="ins-h4">🛠️ Needs improvement</h4>${improveList(m, 3)}
-        <div style="height:8px"></div><button class="btn ghost" data-go="analysis">See my full analysis ▶</button>`;
-      b.querySelectorAll('[data-go]').forEach(x => x.onclick = () => { STACK = []; goData(x.dataset); });
-      b.querySelectorAll('[data-how]').forEach(x => x.onclick = howSheet);
-      b.querySelectorAll('[data-act]').forEach(x => x.onclick = e => { e.stopPropagation(); STACK = [{ v: 'analysis' }]; act(m, x.dataset); });
-      // drop the old line on the Me screen's subject strip: nav.js's async filler finds no #anBody now
-    }).catch(e => console.error(e));
+    /* Dashboard + My analysis live only in the centre 📊 Dashboard tab now (owner's request) */
+    document.getElementById('anCard')?.remove(); document.getElementById('meDash')?.remove(); document.getElementById('insCard')?.remove();
   };
   const _world = worldScreen;
-  worldScreen = async function () {
-    await _world();
-    const hello = document.querySelector('#s-world #worldTitle'); if (!hello || !ST.profile) return;
-    if (!document.getElementById('insHome')) {
-      hello.insertAdjacentHTML('afterend', `<div class="ins-tilebox" id="insHome"><button class="dk-tile ph" aria-label="Dashboard" data-dk-open="1"><span class="dk-tl1"><b><span aria-hidden="true">📊</span> Dashboard</b></span></button></div>`);
-      const b0 = document.querySelector('#insHome [data-dk-open]'); if (b0) b0.onclick = () => root({ v: 'dash', from: 'world' });
-    }
-    dashTile('world');
-  };
+  worldScreen = async function () { await _world(); document.getElementById('insHome')?.remove(); };
 
   window.Insights = { conf, model, open: r => root(r), dashboard: o => root({ v: 'dash', from: 'world', tab: !!(o && o.tab) }),
     dashboardFor: (hostEl, opts) => window.SVDash ? SVDash.render(hostEl, Object.assign({ mode: 'ca' }, opts || {})) : null,

@@ -40,13 +40,13 @@
     return s;
   }
   let FROM = 'world';
-  function goBack() { stop(); FROM === 'me' ? meScreen() : worldScreen(); }
+  function goBack() { stop(); if (FROM === 'practice') return isCA() && window.CaTools ? CaTools.practiceHub() : practiceScreen(); FROM === 'me' ? meScreen() : worldScreen(); }
   function open(o = {}) {
     stop(); style();
-    if (o.from) FROM = o.from; else if (!o.keep) FROM = D.querySelector('nav button.on')?.dataset.s === 'me' ? 'me' : 'world';
+    if (o.from) FROM = o.from; else if (!o.keep) { const on = D.querySelector('nav button.on')?.dataset.s; FROM = on === 'me' ? 'me' : on === 'practice' ? 'practice' : 'world'; }
     const el = screen(); show('cxa', FROM);
     const pr = progress(), bc = badgeCount(), ms = mine();
-    el.innerHTML = `<button class="back" id="cxaBack">← ${FROM === 'me' ? (isCA() ? 'Profile' : 'Me') : 'Home'}</button>
+    el.innerHTML = `<button class="back" id="cxaBack">← ${FROM === 'me' ? (isCA() ? 'Profile' : 'Me') : FROM === 'practice' ? 'Practice' : 'Home'}</button>
       <div class="hello" role="heading" aria-level="1"><span aria-hidden="true">🧮</span> Calculator Academy <small>Free bonus · press real keys to learn</small></div>
       <div class="card cxa-hero"><div class="cxa-ptop"><b>${pr.done} of ${pr.all} missions</b><span>${pr.pct}%</span></div>
         <div class="cxa-bar" role="progressbar" aria-label="Academy progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pr.pct}"><i style="width:${pr.pct}%"></i></div>
@@ -327,28 +327,10 @@
   const tileHTML = () => { const p = progress(); return `<button class="cxa-tile" type="button" id="cxaTile" aria-label="Calculator Academy: free bonus, ${p.done} of ${p.all} missions done"><span class="cxa-te" aria-hidden="true">🧮</span><span class="cxa-tt"><b>Calculator Academy</b><small>Free · ${p.done} of ${p.all} missions · press real keys to learn</small></span><span class="cxa-tg" aria-hidden="true">▶</span></button>`; };
   const cardHTML = ca => { const p = progress(), bc = badgeCount(); return `<div class="card cxa-mecard" id="cxaMe"><div class="cxa-meh"><span class="cxa-mee" aria-hidden="true">🧮</span><div>${ca ? '<h2 class="ca-h2s">Calculator Academy</h2>' : '<h3>Calculator Academy</h3>'}<p class="sub">Free bonus: ${p.done} of ${p.all} missions · ${bc.have} badges</p></div></div>
     <div class="cxa-bar" aria-hidden="true"><i style="width:${p.pct}%"></i></div><button class="btn" type="button" id="cxaMeGo">Learn every calculator ▶</button></div>`; };
+  /* The 🧮 tile now lives only in the Practice tab (drawn by js/playhub.js, which calls CalcAcademy.open({ from: 'practice' })).
+     Old copies on the World map, the CA home and the Me / Profile screen are removed when those screens are drawn. */
   function inject() {
-    if (!P().name || parent()) return;
-    const ca = isCA();
-    const w = D.getElementById('s-world');
-    if (w && !ca && w.querySelector('#map') && !w.querySelector('#cxaTile')) {
-      const snack = w.querySelector('#gkSnack'), anchor = snack || w.querySelector('#map');
-      anchor.insertAdjacentHTML('beforebegin', tileHTML()); wireTile('world');
-    }
-    const c = D.getElementById('s-ca');
-    if (c && ca) {
-      const top = c.querySelector(':scope > .ca-top'), home = top && c.querySelector(':scope > .ca-journey');
-      let t = c.querySelector(':scope > #cxaTile');
-      if (home) {
-        const after = c.querySelector(':scope > .sv-planbar') || c.querySelector(':scope > #gkSnack') || top;
-        if (!t) { after.insertAdjacentHTML('afterend', tileHTML()); wireTile('world'); }
-        else if (t.previousElementSibling !== after) after.after(t);
-      } else if (t) t.remove();
-      const prof = c.querySelector(':scope > .ca-prof');
-      if (prof && !c.querySelector('#cxaMe')) { const gk = D.getElementById('meGk'), a = (gk && c.contains(gk) && gk.closest('.card')) || c.querySelector(':scope > .sv-planbar') || prof; a.insertAdjacentHTML('afterend', cardHTML(true)); wireCard(); }
-    }
-    const me = D.getElementById('s-me');
-    if (me && !ca && me.querySelector('.statrow') && !me.querySelector('#cxaMe')) { const gk = D.getElementById('meGk'), a = (gk && me.contains(gk) && gk.closest('.card')) || me.querySelector('.statrow'); a.insertAdjacentHTML('afterend', cardHTML(false)); wireCard(); }
+    ['s-world', 's-ca', 's-me'].forEach(id => { const sc = D.getElementById(id); if (!sc) return; sc.querySelectorAll(':scope > #cxaTile, :scope > #cxaMe').forEach(n => n.remove()); });
   }
   function wireTile(from) { const t = D.getElementById('cxaTile'); if (t) t.onclick = () => { tap('open'); open({ from }); }; }
   function wireCard() { const b = D.getElementById('cxaMeGo'); if (b) b.onclick = () => { tap('open'); open({ from: 'me' }); }; }
@@ -399,5 +381,5 @@ html.sv-hc .cxa-tile,html.sv-hc .cxa-m,html.sv-hc .cxa-opt{background:#fff;color
     inject();
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', start) : start();
-  window.CalcAcademy = { open, mission, badgeCount, progress, _data: X };
+  window.CalcAcademy = { open, mission, badgeCount, progress, tileHTML, _data: X };
 })();
