@@ -140,6 +140,7 @@
   }
   async function loadAll(list) { const r = []; for (const b of list) { const d = await X.unitData(b.u.id); if (d) r.push({ ...b, d }); } return r; }
   async function findQ(key) {
+    if (window.CaKeys && /#ky-/.test(key)) { const o = CaKeys.ownQ(key); return o ? { q: o.q, uid: o.uid, d: null } : null; }   // key-rule MCQs (js/ca-keys.js)
     const [uid, mid] = key.split('#'); const d = await X.unitData(uid); if (!d) return null;
     const q = d.mcqs.find(x => x.id === mid); if (q) return { q, uid, d };
     for (const cs of d.cases || []) { const m = cs.mcqs.find(x => x.id === mid); if (m) return { q: m, uid, d, cs }; }
@@ -1159,11 +1160,11 @@
         <span class="ca-dmini"><span><b>${ms ? Math.round(mr / ms * 100) + '%' : '—'}</b><small>MCQ accuracy</small></span><span><b>${vAll.length ? Math.round(vAll.reduce((a, x) => a + x.pct, 0) / vAll.length) + '%' : '—'}</b><small>Viva</small></span><span><b>${durTxt(wk)}</b><small>This week</small></span><span><b>${activity().cur}</b><small>Day streak</small></span></span>
         <span class="ca-go">Open dashboard ▶</span></button>
       <div class="gsearch ca-search ca-hsearch"><span aria-hidden="true">🔍</span><input id="caHomeQ" placeholder="Search ICAI topics, lessons, your notes…" autocomplete="off" aria-label="Smart search" enterkeyhint="search"></div>
-      <div class="ca-quick"><button class="ca-qt" id="caQViva"><b aria-hidden="true">🎙️</b>Viva</button><button class="ca-qt" id="caQMcq"><b aria-hidden="true">🧩</b>MCQ set</button><button class="ca-qt" id="caQMock"><b aria-hidden="true">📝</b>Mock paper</button><button class="ca-qt" id="caQNotes"><b aria-hidden="true">📚</b>My notes</button>${rv ? `<button class="ca-qt" id="caQRev"><b aria-hidden="true">🔁</b>Revise (${rv})</button>` : ''}${SP() ? `<button class="ca-qt" id="caQSpeed"><b aria-hidden="true">⚡</b>Speed drill${SP().count() ? ` (${SP().count()})` : ''}</button><button class="ca-qt" id="caQTricks"><b aria-hidden="true">💡</b>Tricks</button>${c.level === 'foundation' ? '<button class="ca-qt" id="caQFocus"><b aria-hidden="true">📌</b>Exam focus</button>' : ''}` : ''}</div>`;
+      <div class="ca-quick"><button class="ca-qt" id="caQViva"><b aria-hidden="true">🎙️</b>Viva</button><button class="ca-qt" id="caQMcq"><b aria-hidden="true">🧩</b>MCQ set</button><button class="ca-qt" id="caQMock"><b aria-hidden="true">📝</b>Mock paper</button><button class="ca-qt" id="caQNotes"><b aria-hidden="true">📚</b>My notes</button>${rv ? `<button class="ca-qt" id="caQRev"><b aria-hidden="true">🔁</b>Revise (${rv})</button>` : ''}${SP() ? `<button class="ca-qt" id="caQSpeed"><b aria-hidden="true">⚡</b>Speed drill${SP().count() ? ` (${SP().count()})` : ''}</button><button class="ca-qt" id="caQTricks"><b aria-hidden="true">💡</b>Tricks</button>${c.level === 'foundation' ? '<button class="ca-qt" id="caQFocus"><b aria-hidden="true">📌</b>Exam focus</button>' : ''}` : ''}${c.level === 'foundation' && window.CaKeys ? `<button class="ca-qt" id="caQKeys"><b aria-hidden="true">📚</b>Key rules${CaKeys.dueCount() ? ` (${CaKeys.dueCount()} due)` : ''}</button>` : ''}</div>`;
   }
   function wireHome(el) {
     const on = (id, fn) => { const b = D.getElementById(id); if (b) b.onclick = () => { tap('open'); fn(); }; };
-    on('caDashTile', dashboard); on('caQViva', vivaHub); on('caQMcq', () => builder()); on('caQMock', mocks); on('caQNotes', notes); on('caQRev', revise); on('caQSpeed', () => SP().drill()); on('caQTricks', () => SP().tricks()); on('caQFocus', () => SP().focusList());
+    on('caDashTile', dashboard); on('caQViva', vivaHub); on('caQMcq', () => builder()); on('caQMock', mocks); on('caQNotes', notes); on('caQRev', revise); on('caQSpeed', () => SP().drill()); on('caQTricks', () => SP().tricks()); on('caQFocus', () => SP().focusList()); on('caQKeys', () => CaKeys.open({ from: 'home' }));
     const q = D.getElementById('caHomeQ'); if (q) { q.onkeydown = e => { if (e.key === 'Enter') search(q.value); }; q.onfocus = () => { if (!IDX) buildIndex(); }; q.oninput = () => { clearTimeout(q._t); if (q.value.trim().length >= 3) q._t = setTimeout(() => search(q.value), 700); }; }
   }
   function practiceHub() {
@@ -1178,11 +1179,12 @@
       ${tile('phMock', '📝', 'Mock papers', 'Foundation Paper 1 in ICAI pattern — 3 hours, 100 marks')}
       ${tile('phRev', '🔁', `Revise these${rv ? ` (${rv})` : ''}`, 'Every MCQ you got wrong, until you get it right')}
       ${tile('phWeak', '📈', 'Weak spots & strengths', 'By unit and by examiner skill')}
-      ${SP() ? `${tile('phSpeed', '⚡', `Speed drill${SP().count() ? ` (${SP().count()})` : ''}`, 'Right but slow? Beat 72 seconds a question')}${tile('phTricks', '💡', 'Shortcut tricks', `${SP().TRICKS.length} quick methods with worked examples`)}${tile('phFocus', '📌', 'Exam focus list', 'Paper 1 Accounting — what to study first')}` : ''}</div>`;
+      ${SP() ? `${tile('phSpeed', '⚡', `Speed drill${SP().count() ? ` (${SP().count()})` : ''}`, 'Right but slow? Beat 72 seconds a question')}${tile('phTricks', '💡', 'Shortcut tricks', `${SP().TRICKS.length} quick methods with worked examples`)}${tile('phFocus', '📌', 'Exam focus list', 'Paper 1 Accounting — what to study first')}` : ''}${window.CaKeys ? tile('phKeys', '📚', `Key sections & rules${CaKeys.dueCount() ? ` (${CaKeys.dueCount()} to revise)` : ''}`, 'Law sections, accounting rules, QA formulas, economics laws — each with linked MCQs') : ''}</div>`;
     const on = (id, fn) => { D.getElementById(id).onclick = () => { tap('open'); fn(); }; };
     on('phDaily', X.practiceDaily); on('phBuild', () => builder()); on('phCase', () => builder({ singles: false, cases: true }));
     on('phViva', vivaHub); on('phBank', () => bank()); on('phMock', mocks); on('phRev', revise); on('phWeak', X.weakScreen);
     if (SP()) { on('phSpeed', () => SP().drill()); on('phTricks', () => SP().tricks()); on('phFocus', () => SP().focusList()); }
+    if (window.CaKeys) on('phKeys', () => CaKeys.open({ from: 'practice' }));
   }
 
   /* screens are history routes (Back returns to them — see Nav in js/app.js) */

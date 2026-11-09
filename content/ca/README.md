@@ -236,3 +236,12 @@ accuracy by paper, chapter or topic and filter the review list the same way (`Ca
 ## Group study links
 `#cau=<b64>` opens a unit · `#cagrp=<b64>` `{id, u, seed, n, s, ms, k}` plays the same MCQ set in the same
 order (seeded shuffle) · `#cagrpr=<b64>` returns the friend's result. No server needed.
+
+## Key sections & rules (`js/ca-keys-data.js`, `js/ca-keys.js`)
+Review library for CA Foundation: law sections Act by Act, accounting rules, QA formulas, economics laws — each item has a
+plain-English rule (StudyVerse wording), exam tip, memory hook, optional formula + worked example, and "Practise (n)".
+Questions link to an item by (1) an optional MCQ field `tags: ["ICA-s10"]` (item ids), (2) a section cited in the question,
+correct option or first sentence of the explanation whose Act is named next to it or is the MCQ's own chapter (sections that
+appear only in wrong options are ignored), or (3) the item's `kw` patterns inside its `sc` scope. Items with no linked
+question carry their own `mcqs`. Student state: `ST.ca.keysSaved`, `ST.ca.keysRev` (revise again after 7 days).
+Link report (same matcher as the app): `node tools/ca_keys_report.js [--paper p2] [--zero] [--item ICA-s10] [--samples 3]`.

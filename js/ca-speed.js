@@ -171,6 +171,7 @@
     if (!noSave) save();
   }
   async function findQ(key) {
+    if (window.CaKeys && /#ky-/.test(key)) { const o = CaKeys.ownQ(key); return o ? { q: o.q, uid: o.uid } : null; }   // key-rule MCQs (js/ca-keys.js)
     const [uid, qid] = String(key).split('#'); let d = null; try { d = await X.unitData(uid); } catch (e) {} if (!d) return null;
     const q = (d.mcqs || []).find(x => x.id === qid); if (q) return { q, uid };
     for (const cs of d.cases || []) { const m = cs.mcqs.find(x => x.id === qid); if (m) return { q: m, uid, cs }; }
@@ -362,7 +363,7 @@
       <div class="card sp-as"><span class="ca-k">Accounting Standards at Foundation</span><h2 class="ca-h2s">Know the idea, not every standard</h2>
         <p class="ca-p">In the current Foundation Paper 1 study material, Accounting Standards are a topic of Chapter 1 (Unit 7): what standards are, their objectives and benefits, how they are made in India, and the list of standards — for awareness. Standard-by-standard study starts at CA Intermediate.</p>
         <p class="ca-p">Rules you will still use in Foundation sums: inventory at the lower of cost and net realisable value (Chapter 4); depreciation of fixed assets over their useful life (Chapter 5); only purchased goodwill is recorded (Chapter 10).</p>
-        ${live('fnd-p1-ch01-u07') ? '<button class="btn ghost" data-spfu="fnd-p1-ch01-u07">Practise now ▶</button>' : ''}</div>
+        <div class="ca-btns">${live('fnd-p1-ch01-u07') ? '<button class="btn ghost" data-spfu="fnd-p1-ch01-u07">Practise now ▶</button>' : ''}${window.CaKeys ? '<button class="btn ghost" id="spKeys">📚 Key accounting rules — revise &amp; practise</button>' : ''}</div></div>
       ${FOCUS.map((f, i) => { const cw = w && w.chapters[f.ch];
         return `<article class="card sp-focus"><div class="sp-fhead"><span class="sp-fn">${i + 1}</span><div><h2 class="ca-h2s">${esc(f.t)}</h2>${cw ? `<span class="ca-chip">~${X.fmt(cw.avg_per_paper)} marks a paper · in ${cw.in_papers} of ${w.mtps} model papers</span>` : ''}</div></div>
           <dl class="sp-dl"><dt>Why it matters</dt><dd>${esc(f.why)}</dd><dt>Typical question</dt><dd>${esc(f.type)}</dd><dt>Memory hook</dt><dd class="sp-hook">💡 ${esc(f.hook)}</dd></dl>
@@ -370,6 +371,7 @@
       <div class="card"><span class="ca-k">Not in your current syllabus</span><p class="ca-p">Consignment, sale or return, average due date and account current are not in the chapter list of the current Foundation Paper 1 study material (the one this app follows). Older books and coaching notes may still have them — skip them unless your syllabus changes.</p></div>
       <p class="ca-note ca-onDark2">${w ? `Marks per chapter: ${esc(wt.label)} ` : ''}Study order and hooks are StudyVerse guidance, not ICAI's.</p>`);
     el.querySelectorAll('[data-spfu]').forEach(b => b.onclick = () => { tap('open'); Ca.unit(b.dataset.spfu, 'mcq'); });
+    const kb = D.getElementById('spKeys'); if (kb) kb.onclick = () => { tap('open'); CaKeys.open({ paper: 'fnd-p1', from: 'focus' }); };
   }
 
   /* ---------- styles (CA pro look: cream cards, gold accents; high-contrast and forced colours respected) ---------- */

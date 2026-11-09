@@ -222,7 +222,7 @@
   function refChip(uid, q) {
     if (!uid) return '';
     const r = refInfo(uid, q), parts = [r.paper, r.ch, r.unit].filter(Boolean);
-    return `<button type="button" class="ca-ref" data-ref-u="${esc(r.uid)}" data-ref-t="${esc(r.topic)}" data-ref-c="${esc(r.concept)}" aria-label="Study this topic — ${esc(parts.concat('Topic: ' + r.topic).join(', '))}"><span class="ca-ref-i" aria-hidden="true">📖</span><span class="ca-ref-path">${parts.map(x => `<span>${esc(x)}</span>`).join('<i aria-hidden="true"> › </i>')}<i aria-hidden="true"> › </i><b>Topic: ${esc(r.topic)}</b></span></button>`;
+    return `<button type="button" class="ca-ref" data-ref-u="${esc(r.uid)}" data-ref-t="${esc(r.topic)}" data-ref-c="${esc(r.concept)}" aria-label="Study this topic — ${esc(parts.concat('Topic: ' + r.topic).join(', '))}"><span class="ca-ref-i" aria-hidden="true">📖</span><span class="ca-ref-path">${parts.map(x => `<span>${esc(x)}</span>`).join('<i aria-hidden="true"> › </i>')}<i aria-hidden="true"> › </i><b>Topic: ${esc(r.topic)}</b></span></button>${window.CaKeys ? CaKeys.chips(uid, q) : ''}`;   // 📚 key section / rule chips (js/ca-keys.js)
   }
   let pendingRef = null;
   /* Topic reference: opens ON TOP of the question as a sheet, so Back / swipe (or "Back to question") returns to the exact
@@ -399,13 +399,14 @@
     el.innerHTML = `<button class="back" id="caBack">← CA Journey</button>
       <div class="card ca-phead"><span class="ca-k">CA ${esc(levelName(level))} · ${esc(paperLabel(p))}</span><h1 class="ca-h1">${esc(p.name)}</h1>
         <div class="ca-chips">${patternChip(p)}<span class="ca-chip">${p.chapters.length} chapters · ${unitCount(p)} units</span></div>
-        ${p.pattern?.note ? `<p class="sub">${esc(p.pattern.note)}</p>` : ''}${p.note ? `<p class="sub">${esc(p.note)}</p>` : ''}${ed ? `<p class="ca-note">ICAI study material: ${esc(ed)}</p>` : ''}${pid === 'fnd-p1' && SPD() ? '<button class="btn ghost" id="caFocus">📌 Exam focus list</button>' : ''}</div>
+        ${p.pattern?.note ? `<p class="sub">${esc(p.pattern.note)}</p>` : ''}${p.note ? `<p class="sub">${esc(p.note)}</p>` : ''}${ed ? `<p class="ca-note">ICAI study material: ${esc(ed)}</p>` : ''}${pid === 'fnd-p1' && SPD() ? '<button class="btn ghost" id="caFocus">📌 Exam focus list</button>' : ''}${level === 'foundation' && window.CaKeys ? `<button class="btn ghost" id="caKeys">📚 Key ${pid === 'fnd-p2' ? 'sections' : pid === 'fnd-p3' ? 'formulas' : 'rules'} for this paper</button>` : ''}</div>
       ${wtp ? `<details class="card ca-wtabout"><summary>Chapter marks: derived from ICAI's ${wtp.mtps} Model Test Papers</summary><p class="ca-p">${esc(WT.label)} Each paper offers ${fmt(Math.round(wtp.offered_marks / wtp.mtps))} marks (you answer questions worth 100); “~X marks” is the average a chapter carried per paper. ${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100) ? `${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100)}% of marks could not be tied to one chapter and are left out.` : ''}</p><p class="ca-note">${esc(WT.source)}</p></details>` : ''}
       <div class="gsearch ca-search"><span aria-hidden="true">🔍</span><input id="caQ" placeholder="Search chapters, units, topics…" autocomplete="off" aria-label="Search in this paper" value="${esc(q)}"></div>
       <p class="ca-none" id="caNone" hidden>No match in this paper.</p>
       <div id="caChs">${groups}</div>`;
     D.getElementById('caBack').onclick = home;
     const fb = D.getElementById('caFocus'); if (fb) fb.onclick = () => { tap('open'); SPD().focusList(); };
+    const kb = D.getElementById('caKeys'); if (kb) kb.onclick = () => { tap('open'); CaKeys.open({ paper: pid, from: 'paper:' + pid }); };
     el.querySelectorAll('.ca-urow').forEach(b => b.onclick = () => { if (b.classList.contains('built')) { tap('open'); unit(b.dataset.u); } else bankOnly(b.dataset.u).then(ok => { if (!ok) { tap('hmm'); toast('This unit is being written — coming soon'); } }); });
     const qi = D.getElementById('caQ'); qi.oninput = () => filterPaper(qi.value); if (q) filterPaper(q);
     for (const ch of p.chapters) {    // your marks per chapter (sum of the chapter's live units)
