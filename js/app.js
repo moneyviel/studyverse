@@ -404,7 +404,7 @@ function onboard(step = 1, draft = {}) {
   show('onboard');
   const el = $('#s-onboard');
   if (step === 1) {
-    el.innerHTML = `<div class="ob"><div class="ob-hero bob">🌏</div><h1>Welcome to <span>Knowtopia</span></h1><p>Every subject is a game. Every grade is a new world.</p>
+    el.innerHTML = `<div class="ob"><img class="ob-logo" src="icons/logo-full.webp" alt="Knowtopia"><p class="ob-tag">An ideal world of learning</p><h1>Welcome to <span>Knowtopia</span></h1><p>Every subject is a game. Every grade is a new world.</p>
       <div class="card"><h3>Which board is your school?</h3><div class="grid2" id="obMain">${BOARDS.map(b => `<button class="choice ${b.live ? '' : 'off'}" data-b="${b.id}">${b.name}${b.live ? '' : '<small>coming soon</small>'}</button>`).join('')}</div>
         <p style="font-size:12px;margin-top:6px;color:var(--muted);font-weight:700">KV, JNV and other CBSE schools (most of Delhi, Chandigarh…) → pick CBSE.</p>
         <h3 style="margin-top:14px">State boards</h3><input id="bdQ" class="bd-q" type="search" placeholder="🔍 Search your state or board" autocomplete="off" aria-label="Search state boards">

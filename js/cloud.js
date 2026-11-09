@@ -567,7 +567,7 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
     style();
     if (!D.getElementById('svGateCss')) { const c = D.createElement('style'); c.id = 'svGateCss'; c.textContent = gateCss; D.head.appendChild(c); }
     g = D.createElement('div'); g.id = 'svGate'; g.setAttribute('role', 'dialog'); g.setAttribute('aria-modal', 'true'); g.setAttribute('aria-labelledby', 'svGateT');
-    g.innerHTML = `<h1 id="svGateT">Know<span>topia</span></h1>
+    g.innerHTML = `<img class="gate-logo" src="icons/logo-full.webp" alt=""><h1 id="svGateT" class="sv-sr">Knowtopia</h1><p class="gate-tag">An ideal world of learning</p>
       <p>Learn, practise and play — CBSE Class 1–12 and CA Foundation. Create a free account to start; your progress is saved safely to it.</p>
       <div class="g-btns"><button class="g-up" type="button" data-cl="up">Create free account</button><button class="g-in" type="button" data-cl="in">Sign in</button></div>
       <p class="g-legal">A parent or guardian creates a child's account. <a href="legal/privacy.html">Privacy</a> · <a href="legal/terms.html">Terms</a></p>`;
