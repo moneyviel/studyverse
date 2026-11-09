@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: flowchart — animated process flow with yes/no branches and an
+/* Knowtopia Concept Lab: flowchart — animated process flow with yes/no branches and an
    "arrange the steps" challenge.
 
    PARAMS (all optional — missing ones fall back to `example`)

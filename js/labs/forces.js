@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: forces — friction & F = ma, pressure, and weight on different worlds.
+/* Knowtopia Concept Lab: forces — friction & F = ma, pressure, and weight on different worlds.
  *
  * friction: the child pushes (or pulls) a box with a force slider on ice / wood / carpet. Static
  *   friction holds the box until F > μs·m·g; then kinetic friction μk·m·g acts, the net force gives

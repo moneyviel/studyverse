@@ -1,4 +1,4 @@
-# StudyVerse on Google Play — answers for the Play Console (9 November 2026)
+# Knowtopia on Google Play — answers for the Play Console (9 November 2026)
 
 Copy these answers into Play Console → **App content**. They match what the app does after
 `supabase/migrations/20261113_play_ready.sql`, the Edge Functions `delete-account` and `studyverse-read`, and
@@ -9,10 +9,10 @@ Links you will need:
 
 | What | URL |
 |---|---|
-| Privacy Policy (store listing + Data safety) | https://study.moneyviel.com/legal/privacy.html |
-| Account deletion (web link Play asks for) | https://study.moneyviel.com/legal/delete-account.html |
-| Terms | https://study.moneyviel.com/legal/terms.html |
-| Support email | support@moneyviel.com |
+| Privacy Policy (store listing + Data safety) | https://knowtopia.in/legal/privacy.html |
+| Account deletion (web link Play asks for) | https://knowtopia.in/legal/delete-account.html |
+| Terms | https://knowtopia.in/legal/terms.html |
+| Support email | support@knowtopia.in |
 
 ---
 
@@ -103,8 +103,8 @@ Text for the "Instructions" box:
 | Does your app collect or share any of the required user data types? | **Yes** |
 | Is all of the user data collected by your app encrypted in transit? | **Yes** (HTTPS only) |
 | Which of the following methods of account creation does your app support? | **Username and password** (email + password) |
-| Do you provide a way for users to request that their data is deleted? | **Yes** — in the app (Me → Your account → Delete my account; Parent Hub → Your account) and https://study.moneyviel.com/legal/delete-account.html |
-| Delete account URL | https://study.moneyviel.com/legal/delete-account.html |
+| Do you provide a way for users to request that their data is deleted? | **Yes** — in the app (Me → Your account → Delete my account; Parent Hub → Your account) and https://knowtopia.in/legal/delete-account.html |
+| Delete account URL | https://knowtopia.in/legal/delete-account.html |
 | Is your app compliant with the Families Policy? | **Yes** |
 | Has your app been independently validated against a global security standard? | **No** |
 
@@ -137,7 +137,7 @@ diagnostics SDK), Device or other IDs.
 * **Government app:** No. **Financial features:** No (it teaches accounting; it does not offer financial services).
 * **Health apps:** No. **News app:** No. **COVID-19:** No.
 * **Data safety for children:** covered above.
-* **Privacy policy:** https://study.moneyviel.com/legal/privacy.html
+* **Privacy policy:** https://knowtopia.in/legal/privacy.html
 
 ---
 

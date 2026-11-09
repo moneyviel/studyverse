@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: compare — compare and measure length, weight and capacity (Grades 1-5).
+/* Knowtopia Concept Lab: compare — compare and measure length, weight and capacity (Grades 1-5).
  *
  *  length   : objects are bars that start from a common START line (or, at first, out of line).
  *             The child slides them to line up, then taps the longest/shortest, drags rows into

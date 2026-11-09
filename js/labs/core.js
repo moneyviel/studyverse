@@ -1,4 +1,4 @@
-/* StudyVerse Concept Labs — registry and loader. Each lab lives in js/labs/<type>.js */
+/* Knowtopia Concept Labs — registry and loader. Each lab lives in js/labs/<type>.js */
 (function () {
   const REG = {}, loading = {};
   let current = null;

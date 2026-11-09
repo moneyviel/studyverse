@@ -1,5 +1,5 @@
 /* ================= CA (Chartered Accountancy, ICAI) — professional course pilot =================
-   A separate, professional interface inside StudyVerse ("pro" look band, see js/look.js).
+   A separate, professional interface inside Knowtopia ("pro" look band, see js/look.js).
    Screens (all inside <section id="s-ca">):
      home    — CA Journey: Foundation → Intermediate → Final, papers with progress rings, next unit,
                exam countdown, a daily line for the student, weak spots, group study
@@ -62,13 +62,13 @@
     return r;
   }
   const marksLine = r => ['mcq', 'write', 'viva'].filter(k => r[k][1]).map(k => `<span class="ca-mk1"><b>${fmt(Math.round(r[k][0] * 100) / 100)}/${fmt(r[k][1])}</b> ${{ mcq: 'MCQ', write: 'Written', viva: 'Viva' }[k]}</span>`).join('');
-  /* how to write an answer worth m marks (StudyVerse guidance; time follows the paper: 3 h for 100 marks ≈ 1.8 min per mark) */
+  /* how to write an answer worth m marks (Knowtopia guidance; time follows the paper: 3 h for 100 marks ≈ 1.8 min per mark) */
   function markGuide(m, p, legal) {
     const per = p && p.pattern ? p.pattern.hours * 60 / p.pattern.marks : 1.8, min = Math.max(1, Math.round(m * per));
     const lo = m * 25, hi = m * 35;
     const pts = m <= 2 ? 'one precise point with a one-line reason (or one correct entry)' : m <= 4 ? `about ${m} separate points, or a short working` : m <= 6 ? `about ${m} points, or a complete working with notes` : 'a complete answer: the right format, every working note and a clear final figure or conclusion';
     const shape = legal ? 'Provision → Facts → Analysis → Conclusion — one short paragraph each.' : 'Use the exam format (journal / ledger / statement), show working notes, and total the columns.';
-    return `<div class="ca-mguide"><b>How to write a ${m}-mark answer</b><ul class="ca-ul"><li><b>Time:</b> about ${min} min (${fmt(Math.round(per * 10) / 10)} min per mark)</li><li><b>Length:</b> roughly ${lo}–${hi} words of theory, or ${pts}</li><li><b>Structure:</b> ${shape}</li></ul><p class="ca-note">StudyVerse guidance from the paper pattern — not an ICAI rule.</p></div>`;
+    return `<div class="ca-mguide"><b>How to write a ${m}-mark answer</b><ul class="ca-ul"><li><b>Time:</b> about ${min} min (${fmt(Math.round(per * 10) / 10)} min per mark)</li><li><b>Length:</b> roughly ${lo}–${hi} words of theory, or ${pts}</li><li><b>Structure:</b> ${shape}</li></ul><p class="ca-note">Knowtopia guidance from the paper pattern — not an ICAI rule.</p></div>`;
   }
   function findUnit(st, uid) {
     for (const p of st.papers) for (const c of p.chapters) for (const u of c.units) if (u.id === uid) return { p, c, u };
@@ -739,7 +739,7 @@
       <div class="ca-btns"><button class="btn ghost" id="caPrint">Print / save as PDF</button><button class="btn ghost" id="caShareU">Share this unit</button></div>
       ${nextTabBtn('revise')}`;
     D.getElementById('caPrint').onclick = () => window.print();
-    D.getElementById('caShareU').onclick = () => share(`Study "${U.d.title}" (CA ${levelName(levelOf(U.uid))}) with me on StudyVerse`, link('cau', { u: U.uid }));
+    D.getElementById('caShareU').onclick = () => share(`Study "${U.d.title}" (CA ${levelName(levelOf(U.uid))}) with me on Knowtopia`, link('cau', { u: U.uid }));
     wireNext(P, 'revise');
   }
 
@@ -815,7 +815,7 @@
   const b64d = s => JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g, '+').replace(/_/g, '/')))));
   const link = (k, o) => `${location.origin}${location.pathname}#${k}=${b64e(o)}`;
   async function share(text, url) {
-    try { if (navigator.share) { await navigator.share({ title: 'StudyVerse CA', text, url }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+    try { if (navigator.share) { await navigator.share({ title: 'Knowtopia CA', text, url }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
     try { await navigator.clipboard.writeText(`${text} ${url}`); toast('Link copied — paste it in your group'); return; } catch (e) {}
     window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
   }
@@ -883,7 +883,7 @@
           <div class="ca-vs"><div><b>${esc(nm)}</b><span>${r.right}/${r.total} · ${Math.round(r.ms / 1000)} s</span></div><div><b>${esc(o.n)}</b><span>${o.s}/${o.k} · ${Math.round(o.ms / 1000)} s</span></div></div>
           ${duelHTML(nm, tMe, rMe, o.n, o.t, o.r)}
           <p class="sub">Now discuss the questions either of you missed — that is where the learning is.</p><button class="btn" id="caGReply">Send my result to ${esc(o.n)}</button>
-          ${ST.profile ? '' : '<div style="height:8px"></div><button class="btn ghost" id="caGJoin">Start CA on StudyVerse</button>'}</div>`;
+          ${ST.profile ? '' : '<div style="height:8px"></div><button class="btn ghost" id="caGJoin">Start CA on Knowtopia</button>'}</div>`;
         D.getElementById('caGReply').onclick = () => share(`I scored ${r.right}/${r.total} on "${d.title}" (you: ${o.s}/${o.k}).`, reply);
         const j = D.getElementById('caGJoin'); if (j) j.onclick = () => { location.hash = ''; D.querySelectorAll('nav').forEach(n => n.style.display = ''); caSetup(); };
       });

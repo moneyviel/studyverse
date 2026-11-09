@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: patterns — growing patterns and number sequences (AP, GP, squares, triangles).
+/* Knowtopia Concept Lab: patterns — growing patterns and number sequences (AP, GP, squares, triangles).
  *
  * The child steps the pattern forward/back (n = 1, 2, 3 …) and sees the figure grow (new tiles in
  * a new colour), the term strip with the jump between terms, the rule, the nth-term formula and the

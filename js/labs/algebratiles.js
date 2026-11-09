@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: algebratiles — area model for products and algebraic identities.
+/* Knowtopia Concept Lab: algebratiles — area model for products and algebraic identities.
  *
  * Sliders change a and b (and x). The square/rectangle is split into coloured parts drawn on a unit
  * grid (so parts can be counted), each part is labelled, and the identity is shown with the numbers

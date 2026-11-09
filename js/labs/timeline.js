@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: timeline — scrollable timeline with era bands, scrubbing and an
+/* Knowtopia Concept Lab: timeline — scrollable timeline with era bands, scrubbing and an
    ordering / "which came first?" challenge.
 
    PARAMS (all optional — missing ones fall back to `example`)

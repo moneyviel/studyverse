@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: fieldlines — electric charges, field lines, equipotentials, dipoles and Gauss's law
+/* Knowtopia Concept Lab: fieldlines — electric charges, field lines, equipotentials, dipoles and Gauss's law
  * (Class 12 Physics ch. 1–2). k = 1/(4πε₀) = 9 × 10⁹ N m² C⁻², ε₀ = 8.854 × 10⁻¹² C² N⁻¹ m⁻².
  *
  * mode 'field'  : point charges on a 30 cm × 20 cm board (1 grid square = 1 cm). Drag charges (they snap to

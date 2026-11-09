@@ -1,4 +1,4 @@
-/* StudyVerse Puzzles — Web Worker: runs the generators in js/puzzles-core.js off the main thread so the screen
+/* Knowtopia Puzzles — Web Worker: runs the generators in js/puzzles-core.js off the main thread so the screen
    never freezes on slower phones. Same code and same seed as the main thread, so the same puzzle. */
 importScripts('puzzles-core.js' + (self.location.search || ''));   // same ?v= as this worker's URL
 self.onmessage = e => {

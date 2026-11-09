@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: taccount — an accounting workbench (CBSE Class 11 Accountancy, NCERT format).
+/* Knowtopia Concept Lab: taccount — an accounting workbench (CBSE Class 11 Accountancy, NCERT format).
  *
  * MODES
  *   journal       Read a transaction, tap an account chip, then tap the Debit or Credit box to place it,

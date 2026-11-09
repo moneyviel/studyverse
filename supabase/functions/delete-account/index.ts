@@ -1,4 +1,4 @@
-// StudyVerse "Delete my account" (Google Play: in-app account deletion). Deployed as "delete-account" in project
+// Knowtopia "Delete my account" (Google Play: in-app account deletion). Deployed as "delete-account" in project
 // moneyviel-apps (keep "Verify JWT" ON). Called from the app: Me / CA Profile → Your account → Delete my account
 // (and Parent Hub → Your account) after a two-step confirmation where the person types DELETE.
 // POST { confirm: "DELETE" } with the user's access token → { ok: true } | { error }
@@ -42,7 +42,7 @@ Deno.serve(async (req) => {
     if (!p.ok || !pj) { console.log('delete-account prepare failed', p.status, JSON.stringify(pj).slice(0, 200)); return json({ error: 'Could not delete your account right now. Please try again, or write to support@moneyviel.com.' }, 500); }
     if (pj.ok === false) return json({ error: pj.msg || 'This account cannot be deleted from the app.' }, 400);
 
-    // 2. wipe every StudyVerse row of this person (the project is SHARED with other MoneyViel apps — see
+    // 2. wipe every Knowtopia row of this person (the project is SHARED with other MoneyViel apps — see
     //    supabase/migrations/20261113b_delete_scope.sql), then close the login ONLY if no other app uses it.
     const rpc = (fn: string) => fetch(`${URL_}/rest/v1/rpc/${fn}`, { method: 'POST', headers: srv({ 'Accept-Profile': 'studyverse', 'Content-Profile': 'studyverse' }), body: JSON.stringify({ p_user: user.id }) });
     const w = await rpc('_pr_wipe_studyverse'); const wj = await w.json().catch(() => null);

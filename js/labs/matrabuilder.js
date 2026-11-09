@@ -1,4 +1,4 @@
-/* StudyVerse lab: matrabuilder — Hindi syllable (अक्षर) composer: व्यंजन + मात्रा = अक्षर
+/* Knowtopia lab: matrabuilder — Hindi syllable (अक्षर) composer: व्यंजन + मात्रा = अक्षर
  *
  * PARAMS (all optional; missing ones fall back to `example`)
  *  consonants  array   consonant buttons, e.g. ['क','म','ल']   (letters needed by targets are added automatically)

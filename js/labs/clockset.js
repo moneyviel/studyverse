@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: clockset — "Clock & calendar"
+/* Knowtopia Concept Lab: clockset — "Clock & calendar"
  * The child drags the hour / minute hands of an analogue clock (geared like a real clock) and sees the
  * digital time, am/pm, 24-hour time, words and elapsed time change live. Calendar mode counts days.
  *

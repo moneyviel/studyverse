@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: supplydemand — a market with straight-line demand and supply curves.
+/* Knowtopia Concept Lab: supplydemand — a market with straight-line demand and supply curves.
    Quantity demanded  Qd = a − b·P      Quantity supplied  Qs = c + d·P   (negative values shown as 0)
    Equilibrium        P* = (a − c) / (b + d),  Q* = a − b·P*
 

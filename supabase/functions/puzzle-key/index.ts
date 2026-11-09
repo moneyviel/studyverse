@@ -2,7 +2,7 @@
 // POST { code } with the HOST's sign-in token → { ok, msg?, code? } (the result of studyverse.puzzle_start).
 //   1. who is calling (auth/v1/user) → studyverse.puzzle_prepare(code, user)   [service role: host? lobby? ready? puzzle?]
 //   2. rebuild the puzzle from the stored spec with js/puzzles-core.js → PuzzleCore.solutionOf(spec, content), where
-//      content = the app's content JSON listed by PuzzleCore.contentPathOf(spec) (fetched from https://study.moneyviel.com/,
+//      content = the app's content JSON listed by PuzzleCore.contentPathOf(spec) (fetched from https://knowtopia.in/,
 //      content/*.json only — see logic.mjs)
 //   3. studyverse.puzzle_set_key(code, user, spec hash, answer)                 [service role → room_keys, unreadable]
 //   4. studyverse.puzzle_start(code) AS THE HOST (same start rules as every game)

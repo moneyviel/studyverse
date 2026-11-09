@@ -1,4 +1,4 @@
-/* StudyVerse lab: letterlab — alphabet / varnamala explorer (Grades 1-2, English & Hindi)
+/* Knowtopia lab: letterlab — alphabet / varnamala explorer (Grades 1-2, English & Hindi)
  *
  * PARAMS (all optional; missing ones fall back to `example`)
  *  script     string   'en' (English a–z) or 'hi' (Hindi स्वर + व्यंजन)                  default 'en'

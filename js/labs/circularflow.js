@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: circularflow — circular flow of income, the investment multiplier and
+/* Knowtopia Concept Lab: circularflow — circular flow of income, the investment multiplier and
  * national-income aggregates (CBSE Class 12 Macroeconomics, NCERT notation).
  *
  * MODES

@@ -1,4 +1,4 @@
-/* ================= StudyVerse for Schools & Coaching (B2B) — js/inst.js =================
+/* ================= Knowtopia for Schools & Coaching (B2B) — js/inst.js =================
    1. Entry: after sign-in, rpc inst_me tells what the account is in. Institution admins and teachers land on the school
       console (full screen); if the account is also a parent, a picker asks "Parent Home or school console".
       Students' app is unchanged except a "🏫 School · Class 7-B" badge, a homework card (World / CA home) and a
@@ -14,7 +14,7 @@
 (function () {
   'use strict';
   const D = document, LS = localStorage, SS = sessionStorage;
-  const SITE = 'https://study.moneyviel.com/';
+  const SITE = 'https://knowtopia.in/';
   const C = () => window.Cloud || null;
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
@@ -333,13 +333,13 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
   const ATABS = [['overview', 'Overview'], ['classes', 'Classes & teachers'], ['students', 'Students'], ['codes', 'Join codes'], ['orders', 'Orders & invoices'], ['details', 'School details']];
   function render() {
     const I = ctx.inst, tabs = I.admin ? ATABS : [['classes', 'My classes']];
-    hub.innerHTML = `<div class="pv-wrap"><div class="pv-top">${pinned ? '<span class="pv-logo" aria-hidden="true">Study<b>Verse</b></span>' : '<button class="pv-back" type="button" id="inBack">← Back</button>'}
+    hub.innerHTML = `<div class="pv-wrap"><div class="pv-top">${pinned ? '<span class="pv-logo" aria-hidden="true">Know<b>topia</b></span>' : '<button class="pv-back" type="button" id="inBack">← Back</button>'}
       <h1 id="inT"><span>🏫 ${esc(I.name)}</span><small class="in-sub">${I.admin ? 'Admin console' : 'Teacher'}${I.owner ? ' · owner view' : ''}</small></h1><button class="pv-ref" type="button" id="inRef" aria-label="Refresh">⟳</button></div>
       ${ctx.list.length > 1 ? `<label class="in-lbl" for="inPick">Institution</label><select id="inPick" class="pv-in">${ctx.list.map(x => `<option value="${esc(x.id)}"${x === I ? ' selected' : ''}>${esc(x.name)}${x.admin ? ' (admin)' : ''}</option>`).join('')}</select>` : ''}
       <div class="pv-tabs in-tabs" role="tablist" aria-label="Console sections">${tabs.map(([k, n]) => `<button type="button" role="tab" id="int-${k}" aria-controls="inBody" aria-selected="${k === tab}" class="pv-tab${k === tab ? ' on' : ''}" data-tab="${k}">${n}</button>`).join('')}</div>
       <div id="inBody" class="pv-body" role="tabpanel" aria-labelledby="int-${tab}"><p class="pv-load" role="status">Loading…</p></div>
       <section class="pv-card" id="inAcct"><h3>👤 Your account</h3><p>${esc(C().email())}</p><div class="pv-row">${pinned && !(C().isParent && C().isParent()) ? '<button class="pv-btn ghost" type="button" id="inApp">Use the student app</button>' : ''}${pinned && C().isParent && C().isParent() ? '<button class="pv-btn ghost" type="button" id="inPar">Open Parent Home</button>' : ''}<button class="pv-btn ghost" type="button" id="inOut">Sign out</button></div>
-        <p class="pv-note" style="margin-top:10px">Help: <a href="mailto:support@moneyviel.com">support@moneyviel.com</a></p></section></div>`;
+        <p class="pv-note" style="margin-top:10px">Help: <a href="mailto:support@knowtopia.in">support@knowtopia.in</a></p></section></div>`;
     const bk = hub.querySelector('#inBack'); if (bk) bk.onclick = consoleClose;
     hub.querySelector('#inRef').onclick = () => { cache = {}; refreshMe().then(() => consoleOpen(ctx.inst.id, pinned)); };
     const pk = hub.querySelector('#inPick'); if (pk) pk.onchange = () => { ctx.inst = ctx.list.find(x => x.id === pk.value); tab = ctx.inst.admin ? 'overview' : 'classes'; cache = {}; render(); };
@@ -450,7 +450,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
       if (!r || !r.ok) { out.innerHTML = `<p class="in-err">${esc((r && r.msg) || 'Could not make a code.')}</p>`; return; }
       const link = `${SITE}?join=${r.code}`;
       out.innerHTML = `<div class="pv-bigcode" aria-label="Code ${esc(r.code.split('').join(' '))}">${esc(r.code)}</div><p class="cl-small">Works for ${role === 'teacher' ? '7 days, up to 20 teachers' : '30 days, up to 200 students'}. Link: ${esc(link)}</p>
-        <div class="pv-row"><button class="pv-btn ghost" type="button" data-cp>Copy link</button><a class="pv-btn pv-wa" href="https://wa.me/?text=${encodeURIComponent(`Join ${I().name} on StudyVerse: open ${link} and create your account (code ${r.code}).`)}" target="_blank" rel="noopener">Share on WhatsApp</a>${role === 'student' ? '<button class="pv-btn ghost" type="button" data-poster>Print poster</button>' : ''}</div>`;
+        <div class="pv-row"><button class="pv-btn ghost" type="button" data-cp>Copy link</button><a class="pv-btn pv-wa" href="https://wa.me/?text=${encodeURIComponent(`Join ${I().name} on Knowtopia: open ${link} and create your account (code ${r.code}).`)}" target="_blank" rel="noopener">Share on WhatsApp</a>${role === 'student' ? '<button class="pv-btn ghost" type="button" data-poster>Print poster</button>' : ''}</div>`;
       out.querySelector('[data-cp]').onclick = () => { try { navigator.clipboard.writeText(link).then(() => say('Link copied'), () => say(link)); } catch (x) { say(link); } };
       const po = out.querySelector('[data-poster]'); if (po) po.onclick = () => posterPrint(r.code, classId);
       delete cache.codes;
@@ -464,7 +464,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
   }
   async function posterPrint(code, classId) {
     const cls = (await classesData().catch(() => [])).find(c => c.id === classId) || I().classes.find(c => c.id === classId) || {};
-    printHTML(`<div class="in-poster"><h1>${esc(I().name)}</h1><h2>Join ${esc(cls.name || 'your class')} on StudyVerse</h2><p>1. Open <b>study.moneyviel.com</b> on your phone and create your account.</p><p>2. Go to <b>Me → School or coaching class → Enter class code</b>.</p><b>${esc(code)}</b><p>Or open study.moneyviel.com/?join=${esc(code)}</p></div>`);
+    printHTML(`<div class="in-poster"><h1>${esc(I().name)}</h1><h2>Join ${esc(cls.name || 'your class')} on Knowtopia</h2><p>1. Open <b>knowtopia.in</b> on your phone and create your account.</p><p>2. Go to <b>Me → School or coaching class → Enter class code</b>.</p><b>${esc(code)}</b><p>Or open knowtopia.in/?join=${esc(code)}</p></div>`);
   }
 
   /* ---------- Students: roster + bulk upload ---------- */
@@ -517,8 +517,8 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
     body.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => removeMember(b, b.dataset.rm, 'student'));
   }
   function sheetPrint(codes) {
-    printHTML(`<h1>${esc(I().name)} — StudyVerse student codes</h1><p class="pp-d">Cut along the lines. Each student: open <b>study.moneyviel.com</b> → create an account → Me → School or coaching class → enter the code. Each code works once, for 60 days.</p>
-      <div class="in-codes">${codes.map(c => `<div class="in-code"><small>${esc(c.class_name)}${c.roll ? ' · Roll ' + esc(c.roll) : ''}</small><br>${esc(c.name)}<b>${esc(c.code)}</b><small>study.moneyviel.com/?join=${esc(c.code)}</small></div>`).join('')}</div>`);
+    printHTML(`<h1>${esc(I().name)} — Knowtopia student codes</h1><p class="pp-d">Cut along the lines. Each student: open <b>knowtopia.in</b> → create an account → Me → School or coaching class → enter the code. Each code works once, for 60 days.</p>
+      <div class="in-codes">${codes.map(c => `<div class="in-code"><small>${esc(c.class_name)}${c.roll ? ' · Roll ' + esc(c.roll) : ''}</small><br>${esc(c.name)}<b>${esc(c.code)}</b><small>knowtopia.in/?join=${esc(c.code)}</small></div>`).join('')}</div>`);
   }
 
   /* ---------- Join codes ---------- */
@@ -572,7 +572,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
         const r = one(await rpc('create_order', { p_inst: I().id, p_lines: lines(), p_ay: body.querySelector('#inAy').value, p_submit: true }));
         if (!r || !r.ok) { e.textContent = (r && r.msg) || 'Could not create the order.'; go.disabled = false; return; }
         let mailed = false, msg = '';
-        try { const m = await fn('institution-notify', { order_id: r.order_id }); mailed = !!(m && m.mailed); msg = (m && m.msg) || ''; } catch (x) { msg = 'Your order is saved. Please write to support@moneyviel.com if you do not hear from us in a day.'; }
+        try { const m = await fn('institution-notify', { order_id: r.order_id }); mailed = !!(m && m.mailed); msg = (m && m.msg) || ''; } catch (x) { msg = 'Your order is saved. Please write to support@knowtopia.in if you do not hear from us in a day.'; }
         say(mailed ? `Invoice ${r.invoice_no} requested ✓ We will email you` : 'Order saved ✓');
         delete cache.orders; await render();
         const b = hub.querySelector('#inBody'); if (b && msg) b.insertAdjacentHTML('afterbegin', `<p class="pv-card in-ok" role="status">${esc(msg)}</p>`);
@@ -600,11 +600,11 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
     const title = (paid ? '' : 'Proforma ') + (s.gstin ? 'Tax invoice' : 'Invoice');
     const ayS = String(o.academic_year || ''), period = ayS ? `April ${ayS.slice(0, 4)} – March ${+ayS.slice(0, 4) + 1}` : '';
     return `<div class="in-inv"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><h2 style="margin:0;color:#5B0F1B">${title}</h2><p style="margin:2px 0">No. <b id="inInvNo">${esc(o.invoice_no || '—')}</b> · Date ${esc(fmtD(o.invoiced_at || o.created_at))}</p></div>
-      <div style="text-align:right"><b style="font-size:18px">Study<span style="color:#8A6A2E">Verse</span></b><br><small>for Schools &amp; Coaching</small></div></div>
-      <div class="two"><div class="box"><h4>From (seller)</h4><b>${esc(s.name || 'MoneyViel')}, ${esc(s.city || 'Pune')}</b><br>Legal name: ${esc(s.legal_name || 'Mukesh J')}<br>${esc(s.address || '')}<br>${esc(s.email || 'support@moneyviel.com')}<br>${s.gstin ? 'GSTIN: ' + esc(s.gstin) : 'Not registered under GST'}</div>
+      <div style="text-align:right"><b style="font-size:18px">Know<span style="color:#8A6A2E">topia</span></b><br><small>for Schools &amp; Coaching</small></div></div>
+      <div class="two"><div class="box"><h4>From (seller)</h4><b>${esc(s.name || 'MoneyViel')}, ${esc(s.city || 'Pune')}</b><br>Legal name: ${esc(s.legal_name || 'Mukesh J')}<br>${esc(s.address || '')}<br>${esc(s.email || 'support@knowtopia.in')}<br>${s.gstin ? 'GSTIN: ' + esc(s.gstin) : 'Not registered under GST'}</div>
         <div class="box"><h4>To (buyer)</h4><b>${esc(b.name || '')}</b><br>${[b.address, b.city, b.state, b.pincode].filter(Boolean).map(esc).join(', ')}<br>${b.gstin ? 'GSTIN: ' + esc(b.gstin) : 'GSTIN: —'}<br>${esc([b.contact_name, b.contact_phone, b.contact_email].filter(Boolean).join(' · '))}</div></div>
       <table><thead><tr><th>#</th><th>Description</th><th class="r">Students</th><th class="r">Rate / month</th><th class="r">Months</th><th class="r">Amount</th></tr></thead><tbody>
-        ${(o.lines || []).map((l, i) => `<tr><td>${i + 1}</td><td>StudyVerse student access — ${esc(l.label)}<br><small>Academic year ${esc(ayS)} (${esc(period)})</small></td><td class="r">${l.students}</td><td class="r">${inr(l.rate, 1)}</td><td class="r">${l.months || 10}</td><td class="r">${inr(l.amount, 1)}</td></tr>`).join('')}
+        ${(o.lines || []).map((l, i) => `<tr><td>${i + 1}</td><td>Knowtopia student access — ${esc(l.label)}<br><small>Academic year ${esc(ayS)} (${esc(period)})</small></td><td class="r">${l.students}</td><td class="r">${inr(l.rate, 1)}</td><td class="r">${l.months || 10}</td><td class="r">${inr(l.amount, 1)}</td></tr>`).join('')}
         <tr><td colspan="5" class="r">Subtotal</td><td class="r">${inr(o.subtotal, 1)}</td></tr>
         ${+o.discount_pct ? `<tr><td colspan="5" class="r">Volume discount (${o.discount_pct}% on ${o.students} students)</td><td class="r">−${inr(o.discount_amt, 1)}</td></tr>` : ''}
         <tr><td colspan="5" class="r">Taxable value</td><td class="r">${inr(o.taxable, 1)}</td></tr>
@@ -613,7 +613,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
         <tr><th colspan="5" class="r">Total</th><th class="r" id="inInvTot">${inr(o.total, 1)}</th></tr></tbody></table>
       <p><b>Amount in words:</b> <span id="inInvW">${esc(words(+o.total))}</span></p>
       <p>${paid ? `<span class="in-pill ok">Paid</span> on ${esc(fmtD(o.paid_at))}${o.payment_ref ? ' · Ref ' + esc(o.payment_ref) : ''}` : 'Payment: bank transfer / UPI — details are sent by email. Seats switch on when the payment is received.'}</p>
-      <p class="pv-note">Seats are valid till 31 March ${+ayS.slice(0, 4) + 1}. Computer-generated document. Questions: ${esc(s.email || 'support@moneyviel.com')}</p></div>`;
+      <p class="pv-note">Seats are valid till 31 March ${+ayS.slice(0, 4) + 1}. Computer-generated document. Questions: ${esc(s.email || 'support@knowtopia.in')}</p></div>`;
   }
   function invoiceView(o, backTo) {
     if (!o) return;

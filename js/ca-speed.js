@@ -13,7 +13,7 @@
    5. 3-pass exam strategy — guide and pass breakdown (the runner itself is runSet in js/ca-tools.js, opts.passes).
    6. Speed report card — for the CA dashboard: average seconds per subject vs 72 s, minutes lost/gained over 100 Qs.
    7. 📌 Exam focus list — CA Foundation Paper 1 Accounting, chapter by chapter, with "Practise now".
-   Everything here is StudyVerse's own wording (no ICAI text). */
+   Everything here is Knowtopia's own wording (no ICAI text). */
 (function () {
   'use strict';
   if (!window.Ca || !Ca._) return;
@@ -83,7 +83,7 @@
     { id: 'gen-neg', s: 'gen', n: 'Negative marking maths (−¼)', r: 'A pure guess between 4 options gains only about 0.06 marks on average. Cut 1 option: +0.17. Cut 2 options: +0.38. So guess when you can cut at least 2 options; otherwise skip and use the time elsewhere.', ex: ['You can rule out two options and are unsure between the other two.', ['½ × 1 − ½ × ¼ = 0.375'], 'Guess — it is worth about +0.38 marks on average.'], ch: [] },
 
     { id: 'calc-mem', s: 'calc', n: 'M+ for totals of products', r: 'Sums like Σfx: multiply each pair and press M+ instead of =. At the end press MR for the total. No paper needed.', ex: ['Σfx for (x 10, f 3), (x 20, f 5)?', ['10 × 3 M+', '20 × 5 M+', 'MR'], '130'], ch: ['fnd-p3-ch14', 'fnd-p3-ch13', 'fnd-p3-ch17'] },
-    { id: 'calc-pow', s: 'calc', n: 'Powers with repeat =', r: 'On StudyVerse\'s calculator (and most desk calculators): type 1.1 × = to get 1.1², then each = multiplies by 1.1 again. Great for (1 + r)ⁿ.', ex: ['(1.1)⁴ = ?', ['1.1 × = → 1.21', '= → 1.331', '= → 1.4641'], '1.4641'], ch: ['fnd-p3-ch04', 'fnd-p3-ch06'] },
+    { id: 'calc-pow', s: 'calc', n: 'Powers with repeat =', r: 'On Knowtopia\'s calculator (and most desk calculators): type 1.1 × = to get 1.1², then each = multiplies by 1.1 again. Great for (1 + r)ⁿ.', ex: ['(1.1)⁴ = ?', ['1.1 × = → 1.21', '= → 1.331', '= → 1.4641'], '1.4641'], ch: ['fnd-p3-ch04', 'fnd-p3-ch06'] },
     { id: 'calc-pv', s: 'calc', n: 'Discount factors with ÷ =', r: 'Type 1.1 ÷ = to get 1 ÷ 1.1; each further = divides by 1.1 again. Each display is the next year\'s discount factor at 10%.', ex: ['Discount factors at 10% for years 1–3?', ['1.1 ÷ = → 0.9091', '= → 0.8264', '= → 0.7513'], '0.9091, 0.8264, 0.7513'], ch: ['fnd-p3-ch04'] },
     { id: 'calc-pct', s: 'calc', n: 'Add or remove % in one go', r: 'Amount + 18% = amount × 1.18. To remove 18% GST from a price that includes it, divide by 1.18 (not × 0.82).', ex: ['Price including 18% GST is ₹1,180. Price before GST?', ['1,180 ÷ 1.18'], '₹1,000'], ch: ['fnd-p3-ch04', 'fnd-p1-ch02'] },
   ];
@@ -213,7 +213,7 @@
         <p class="ca-p">${esc(t.r)}</p>
         <div class="sp-ex"><span class="ca-k">Worked example</span><p class="ca-p"><b>${esc(t.ex[0])}</b></p><ol class="sp-ol">${t.ex[1].map(s => `<li>${esc(s)}</li>`).join('')}</ol><p class="sp-ans">Answer: <b>${esc(t.ex[2])}</b></p></div>
         ${t.ch.length ? `<div class="sp-rel"><span class="ca-note">Use it in:</span> ${t.ch.map(ch => chUnit[ch] ? `<button type="button" class="sp-tchip" data-spu="${chUnit[ch]}">${esc(chName[ch] || ch)} ▶</button>` : `<span class="sp-tchip off">${esc(chName[ch] || ch)}</span>`).join('')}</div>` : '<p class="ca-note">Works in every paper.</p>'}</details>`).join('')}</div>
-      <p class="ca-note ca-onDark2">StudyVerse's own tricks and examples — check each rule's conditions before using it in the exam.</p>`);
+      <p class="ca-note ca-onDark2">Knowtopia's own tricks and examples — check each rule's conditions before using it in the exam.</p>`);
     el.querySelectorAll('[data-spg]').forEach(b => b.onclick = () => { tap('tap'); tricks(null, b.dataset.spg); });
     el.querySelectorAll('[data-spu]').forEach(b => b.onclick = () => { tap('open'); Ca.unit(b.dataset.spu, 'mcq'); });
     if (ft) { const d = D.getElementById('spT-' + ft.id); if (d) setTimeout(() => { d.scrollIntoView({ block: 'start', behavior: reduced() ? 'auto' : 'smooth' }); const s = d.querySelector('summary'); if (s) s.focus({ preventScroll: true }); }, 60); }
@@ -369,7 +369,7 @@
           <dl class="sp-dl"><dt>Why it matters</dt><dd>${esc(f.why)}</dd><dt>Typical question</dt><dd>${esc(f.type)}</dd><dt>Memory hook</dt><dd class="sp-hook">💡 ${esc(f.hook)}</dd></dl>
           <div class="ca-btns">${live(f.u) ? `<button class="btn" data-spfu="${f.u}">Practise now ▶</button>` : '<span class="ca-soon">Coming soon</span>'}${(f.more || []).filter(([u]) => live(u)).map(([u, n]) => `<button class="btn ghost" data-spfu="${u}">${esc(n)} ▶</button>`).join('')}</div></article>`; }).join('')}
       <div class="card"><span class="ca-k">Not in your current syllabus</span><p class="ca-p">Consignment, sale or return, average due date and account current are not in the chapter list of the current Foundation Paper 1 study material (the one this app follows). Older books and coaching notes may still have them — skip them unless your syllabus changes.</p></div>
-      <p class="ca-note ca-onDark2">${w ? `Marks per chapter: ${esc(wt.label)} ` : ''}Study order and hooks are StudyVerse guidance, not ICAI's.</p>`);
+      <p class="ca-note ca-onDark2">${w ? `Marks per chapter: ${esc(wt.label)} ` : ''}Study order and hooks are Knowtopia guidance, not ICAI's.</p>`);
     el.querySelectorAll('[data-spfu]').forEach(b => b.onclick = () => { tap('open'); Ca.unit(b.dataset.spfu, 'mcq'); });
     const kb = D.getElementById('spKeys'); if (kb) kb.onclick = () => { tap('open'); CaKeys.open({ paper: 'fnd-p1', from: 'focus' }); };
   }

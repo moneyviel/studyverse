@@ -1,4 +1,4 @@
-/* ================= StudyVerse strict, friendly input fields — js/fields.js =================
+/* ================= Knowtopia strict, friendly input fields — js/fields.js =================
    window.Fields — one shared helper for the app (index.html) and the pricing page.
    Mark an input with data-field="phone" | "pincode" | "email" | "digits" (and a <select data-field="board">);
    it is upgraded by itself (a MutationObserver watches the page) or by Fields.enhance(rootEl).

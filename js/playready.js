@@ -1,4 +1,4 @@
-/* ================= StudyVerse — Google Play readiness (js/playready.js) =================
+/* ================= Knowtopia — Google Play readiness (js/playready.js) =================
    Loads AFTER js/cloud.js, js/parent.js, js/squad.js and js/live.js. Server: supabase/migrations/20261113_play_ready.sql
    and the Edge Function delete-account. Policy pages: legal/*.html, legal/delete-account.html.
    1. 🗑️ Delete my account — two steps (explain → type DELETE). Button in the account card (js/cloud.js, data-cl="del":
@@ -124,10 +124,10 @@
       try {
         const r = await C().call('/functions/v1/delete-account', { method: 'POST', body: { confirm: 'DELETE' } });
         if (!r || !r.ok) throw new Error((r && r.error) || 'Could not delete your account.');
-        box.innerHTML = `<div class="sheet-grab"></div><h3 id="clT">Your account is deleted</h3><p role="status">Thank you for learning with StudyVerse. This phone is being cleared now.</p>`;
+        box.innerHTML = `<div class="sheet-grab"></div><h3 id="clT">Your account is deleted</h3><p role="status">Thank you for learning with Knowtopia. This phone is being cleared now.</p>`;
         wipeAndReload();
       } catch (e) {
-        er.textContent = (e && e.status != null ? errT(e) : (e && e.message)) + ' If it keeps failing, write to support@moneyviel.com from this email.';
+        er.textContent = (e && e.status != null ? errT(e) : (e && e.message)) + ' If it keeps failing, write to support@knowtopia.in from this email.';
         go.disabled = false; go.textContent = 'Delete my account forever';
       }
     };
@@ -205,7 +205,7 @@
       ${canBlock ? `<label class="cl-show"><input type="checkbox" id="prRepB"> Also block ${esc(nm)}</label>` : ''}
       <div class="cl-err" id="prRepE" role="alert"></div>
       <button class="btn" type="submit" id="prRepGo">Send report</button></form>
-      <p class="cl-small" style="margin-top:10px">Feel unsafe or upset? Tell a parent or teacher too. Our email: support@moneyviel.com</p>
+      <p class="cl-small" style="margin-top:10px">Feel unsafe or upset? Tell a parent or teacher too. Our email: support@knowtopia.in</p>
       <button class="btn ghost" type="button" id="prRepX">Cancel</button>`);
     el.querySelector('#prRepX').onclick = () => C().closeSheet();
     el.querySelector('#prRepF').onsubmit = async ev => {
@@ -301,7 +301,7 @@
         <button class="btn ghost" type="button" id="prGinv">👨‍👩‍👧 Invite your parent</button>` : ''}
       <div class="pr-err" id="prGe" role="alert"></div>
       <button class="btn" type="button" id="prGgo">Accept &amp; continue</button>
-      <p class="pr-small">Questions? <a href="mailto:support@moneyviel.com">support@moneyviel.com</a> · <button type="button" id="prGout">Sign out</button></p></div>`;
+      <p class="pr-small">Questions? <a href="mailto:support@knowtopia.in">support@knowtopia.in</a> · <button type="button" id="prGout">Sign out</button></p></div>`;
     D.body.appendChild(g);
     g.querySelectorAll('.pr-links a').forEach(a => a.addEventListener('click', () => { try { sessionStorage.setItem('sv_legal_ret', 'me'); } catch (e) {} }));
     const inv = g.querySelector('#prGinv'); if (inv) inv.onclick = () => { try { if (window.Parent && Parent.myCode) Parent.myCode(); } catch (e) {} };

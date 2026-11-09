@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: budget — plan a monthly budget (needs / wants / savings pie) and
+/* Knowtopia Concept Lab: budget — plan a monthly budget (needs / wants / savings pie) and
    watch money grow with simple vs compound interest.
 
    PARAMS (all optional — missing ones fall back to `example`)

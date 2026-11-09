@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: optics — ray diagrams for mirrors and lenses, and refraction through a glass slab.
+/* Knowtopia Concept Lab: optics — ray diagrams for mirrors and lenses, and refraction through a glass slab.
  *
  * Mirrors/lenses: the child drags the object (or uses the slider) along the principal axis. Two
  * principal rays are drawn (one parallel to the axis, one through the pole / optical centre) and the

@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: periodictable — interactive long-form periodic table (Z = 1–118)
+/* Knowtopia Concept Lab: periodictable — interactive long-form periodic table (Z = 1–118)
  *
  * The child drags a finger across the table (the element under the finger is previewed live)
  * and lifts to select. Explore shows configuration / block / valence; Trend paints a heat-map of

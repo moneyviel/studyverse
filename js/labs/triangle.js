@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: triangle — "Triangle explorer"
+/* Knowtopia Concept Lab: triangle — "Triangle explorer"
  * The child drags the 3 corners (A, B, C) on a square grid. Side lengths, angles, angle sum,
  * type of triangle, area/perimeter, Pythagoras squares, exterior angle and the triangle
  * inequality all update live.

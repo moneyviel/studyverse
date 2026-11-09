@@ -1,4 +1,4 @@
-/* StudyVerse lab: storysequence — put story / life-cycle / routine panels in the right order
+/* Knowtopia lab: storysequence — put story / life-cycle / routine panels in the right order
  *
  * PARAMS (all optional; missing ones fall back to `example`)
  *  title      string  heading of the sequence (any language)                          default 'Story'

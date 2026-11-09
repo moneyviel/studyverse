@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: datachart — tally, pictograph, bar / double-bar graph and pie chart.
+/* Knowtopia Concept Lab: datachart — tally, pictograph, bar / double-bar graph and pie chart.
  *
  * The child taps + / − to change the data (like adding tally marks) and switches between views;
  * the chart and the live mean / median / mode / range update instantly. Challenge: read the graph,

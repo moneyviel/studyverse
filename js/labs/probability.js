@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: probability — coin / dice / spinner / bag-of-balls simulator.
+/* Knowtopia Concept Lab: probability — coin / dice / spinner / bag-of-balls simulator.
  *
  * The child predicts a probability (or the most likely result), then runs 1, 10, 100 or 1000
  * trials. A live bar chart shows the experimental relative frequency of every outcome next to a

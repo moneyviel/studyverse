@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: sound — waves you can see and hear, echoes, and the range of hearing.
+/* Knowtopia Concept Lab: sound — waves you can see and hear, echoes, and the range of hearing.
  *
  * wave:    amplitude and frequency sliders change a drawn wave (displacement vs time) AND a real tone
  *          (Web Audio, starts only after the child taps Play; stopped on cleanup). Bigger amplitude =

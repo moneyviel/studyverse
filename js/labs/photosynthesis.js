@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: photosynthesis — "Photosynthesis lab"
+/* Knowtopia Concept Lab: photosynthesis — "Photosynthesis lab"
  *
  * PARAMS (all optional)
  *  mode       string  'rate'    : plant with sliders (light, CO₂, water, temperature); live rate meter,

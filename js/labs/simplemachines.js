@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: simplemachines — levers, pulleys, ramps and energy (Grades 5-10).
+/* Knowtopia Concept Lab: simplemachines — levers, pulleys, ramps and energy (Grades 5-10).
  *
  *  lever  : drag the fulcrum, the load and the effort along a beam (or tap one, then tap the beam).
  *           The beam is level only when  load × load arm = effort × effort arm ; otherwise the heavier

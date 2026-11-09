@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: reaction — "Equation balancer" (balancing chemical equations + types of reactions)
+/* Knowtopia Concept Lab: reaction — "Equation balancer" (balancing chemical equations + types of reactions)
  *
  * PARAMS (all optional)
  *  equations  array   list of equations, each either a string 'H2 + O2 -> H2O' (or with →) or an object

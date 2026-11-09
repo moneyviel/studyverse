@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: foodchain — "Food chain builder" (food chains, food webs, energy pyramid, 10% law)
+/* Knowtopia Concept Lab: foodchain — "Food chain builder" (food chains, food webs, energy pyramid, 10% law)
  *
  * PARAMS (all optional)
  *  mode       string  'chain' (tap organisms in order to build a chain; energy pyramid grows) |

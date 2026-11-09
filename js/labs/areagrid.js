@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: areagrid — "Area & perimeter grid"
+/* Knowtopia Concept Lab: areagrid — "Area & perimeter grid"
  * The child drags corner handles to resize shapes on a square grid (or paints squares).
  * Area (by counting squares and by formula) and perimeter update live.
  *

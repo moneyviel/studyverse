@@ -95,7 +95,7 @@
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', boot); else boot();
   setInterval(soon, 900);          /* catches the button appearing and content that moves without DOM changes */
 
-  /* ---------- header: hide the StudyVerse name whenever the header would not fit (any text size, any width) ---------- */
+  /* ---------- header: hide the Knowtopia name whenever the header would not fit (any text size, any width) ---------- */
   function fitHeader() {
     const h = D.querySelector('header'); if (!h) return;
     R.classList.remove('sv-hdr-tight');

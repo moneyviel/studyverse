@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: magnetlab — magnetic field of a bar magnet, attraction/repulsion of poles,
+/* Knowtopia Concept Lab: magnetlab — magnetic field of a bar magnet, attraction/repulsion of poles,
  * and an electromagnet that picks up paperclips.
  *
  * field:   drag compass needles around a bar magnet; each needle turns to point along the field

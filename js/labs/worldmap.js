@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: worldmap — simple equirectangular world map.
+/* Knowtopia Concept Lab: worldmap — simple equirectangular world map.
 
    PARAMS (all optional — missing ones fall back to `example`)
    ─────────────────────────────────────────────────────────────────────────────────────────

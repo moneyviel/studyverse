@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: bodysystem — "Body systems explorer"
+/* Knowtopia Concept Lab: bodysystem — "Body systems explorer"
  *
  * PARAMS (all optional)
  *  system     string  starting system: 'digestive' | 'respiratory' | 'circulatory' | 'excretory' | 'nervous'

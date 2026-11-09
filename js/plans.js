@@ -1,4 +1,4 @@
-/* StudyVerse plans, free trial, daily free limit and payments.
+/* Knowtopia plans, free trial, daily free limit and payments.
    - New accounts get 24 hours of all school grades (studyverse.start_trial, called by js/cloud.js).
    - After that, free users get FREE_PER_DAY answered questions a day (school and CA counted separately).
      GK Explorer and the games stay free and are not counted.
@@ -161,7 +161,7 @@
       <form id="plCodeF" class="cl-row" novalidate style="margin-top:6px"><input class="cl-in" id="plCode" placeholder="Discount code" autocapitalize="characters" maxlength="24" style="flex:2;min-width:140px;margin:0" value="${esc(quote ? quote.code : (localStorage.getItem('sv_disc') || ''))}"><button class="btn ghost" type="submit" style="flex:1">Apply</button></form>
       <div class="cl-err" id="plErr" role="alert"></div>${quote && quote.percent ? `<div class="cl-ok">${quote.percent}% off with ${esc(quote.code)} ✓</div>` : ''}
       <p class="cl-small">One-time payment by Razorpay (UPI, cards, net banking). It does not renew by itself — we remind you before it ends.</p>
-      ${window.SV_PLAY ? '' : '<p class="cl-small"><a href="pricing/" target="_blank" rel="noopener">See all plans on study.moneyviel.com/pricing</a></p>'}
+      ${window.SV_PLAY ? '' : '<p class="cl-small"><a href="pricing/" target="_blank" rel="noopener">See all plans on knowtopia.in/pricing</a></p>'}
       <button class="btn ghost" type="button" id="plX">Close</button>`);
     el.querySelector('#plX').onclick = C().closeSheet;
     el.querySelector('#plCodeF').onsubmit = async e => {
@@ -187,7 +187,7 @@
       await loadRzp();
       const u = C().user() || {};
       const rz = new window.Razorpay({
-        key: o.key_id, amount: o.amount, currency: 'INR', order_id: o.order_id, name: 'StudyVerse', description: o.label,
+        key: o.key_id, amount: o.amount, currency: 'INR', order_id: o.order_id, name: 'Knowtopia', description: o.label,
         prefill: { email: u.email || '' }, notes: { plan: planId }, theme: { color: '#8A6A2E' },
         handler: async r => {
           try {

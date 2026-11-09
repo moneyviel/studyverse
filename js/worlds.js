@@ -1,4 +1,4 @@
-/* ================= StudyVerse worlds: one themed map per grade ================= */
+/* ================= Knowtopia worlds: one themed map per grade ================= */
 (function () {
   const W = 400;
   const rnd = seed => { let s = seed; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; };

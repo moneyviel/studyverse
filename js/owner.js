@@ -1,4 +1,4 @@
-/* ================= StudyVerse “Pulse” (owner dashboard) + 🧠 “Pulse Coach” (follow-ups) — js/owner.js =================
+/* ================= Knowtopia “Pulse” (owner dashboard) + 🧠 “Pulse Coach” (follow-ups) — js/owner.js =================
    UI names live in ONE constant, NAME, at the top of the code below (rename there only).
    Who sees it: only owner accounts (studyverse.admins). Me (CA: Profile) → "📈 Pulse — your business at a glance" card, placed right after the
    "🏫 Schools & coaching (owner)" card (same rule as js/inst.js: Cloud.admin()). The server checks again: every
@@ -27,9 +27,9 @@
 (function () {
   'use strict';
   /* the names shown in the app — rename here only */
-  const NAME = { app: 'Pulse', icon: '📈', card: '📈 Pulse — your business at a glance', coach: 'Pulse Coach', coachIcon: '🧠', sign: '— Mukesh, StudyVerse' };
+  const NAME = { app: 'Pulse', icon: '📈', card: '📈 Pulse — your business at a glance', coach: 'Pulse Coach', coachIcon: '🧠', sign: '— Mukesh, Knowtopia' };
   const D = document, W = window, SS = sessionStorage;
-  const SITE = 'https://study.moneyviel.com/';
+  const SITE = 'https://knowtopia.in/';
   const C = () => W.Cloud || null;
   const S = () => { try { return ST; } catch (e) { return null; } };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -307,7 +307,7 @@
       <div class="pv-tabs od-tabs" role="tablist" aria-label="Dashboard sections">${TABS.map(([k, n]) => `<button type="button" role="tab" id="odt-${k}" aria-selected="${V.tab === k}" aria-controls="odBody" class="pv-tab${V.tab === k ? ' on' : ''}" data-tab="${k}">${n}</button>`).join('')}</div>
       </div>
       <div id="odBody" class="od-body" role="tabpanel" aria-labelledby="odt-${V.tab}"></div>
-      <p class="od-priv">🔒 Owner only. This data is used only to improve StudyVerse for students — never for ads or marketing to children. Messages are prepared for you; nothing is sent automatically.${loadedAt ? ' · Updated ' + new Date(loadedAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) : ''}</p>
+      <p class="od-priv">🔒 Owner only. This data is used only to improve Knowtopia for students — never for ads or marketing to children. Messages are prepared for you; nothing is sent automatically.${loadedAt ? ' · Updated ' + new Date(loadedAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) : ''}</p>
       <div class="od-tip" id="odTip" role="status" hidden></div></div>`;
     hub.querySelector('#odSF').onsubmit = e => { e.preventDefault(); V.f.q = hub.querySelector('#odSQ').value.trim(); const ch = V.tab !== 'students' || stack.length; V.tab = 'students'; V.stu.off = 0; stack = []; keep(); if (ch) hpush(); frame(); paint(); };
     const fb = hub.querySelector('#odFB'), fp = hub.querySelector('#odFP');
@@ -858,37 +858,37 @@
   const sign = '\n\n' + NAME.sign;
   const KIND = {
     trial_end: { i: '⏳', who: 's', t: it => `${nm(it)}'s free trial ends today`, why: it => `The trial ${until(it.due)} and there is no plan yet.`, act: 'Send a friendly note with the plan options.',
-      msg: it => `Hello! ${nm(it)}'s free StudyVerse trial ends today.\nIf ${nm(it)} enjoyed the quests and games, you can choose a plan in the app: Me → Plans (prices are + GST as applicable).\nAny question? Just reply to this message.` },
+      msg: it => `Hello! ${nm(it)}'s free Knowtopia trial ends today.\nIf ${nm(it)} enjoyed the quests and games, you can choose a plan in the app: Me → Plans (prices are + GST as applicable).\nAny question? Just reply to this message.` },
     expiring: { i: '⏰', who: 's', t: it => `${nm(it)}'s plan ${until(it.due)}`, why: it => `${(it.meta && it.meta.plan) || 'The plan'} ends on ${fmtD(it.due)} and has not been renewed.`, act: 'Send a renewal reminder.', code: 1,
-      msg: it => `Hello! ${nm(it)}'s StudyVerse plan ends on ${fmtD(it.due)}.\nTo keep the streak, stars and progress going, please renew from Me → Plans.\nThank you for learning with us!` },
+      msg: it => `Hello! ${nm(it)}'s Knowtopia plan ends on ${fmtD(it.due)}.\nTo keep the streak, stars and progress going, please renew from Me → Plans.\nThank you for learning with us!` },
     lapsed: { i: '🍂', who: 's', t: it => `${nm(it)}'s plan ended`, why: it => `${(it.meta && it.meta.plan) || 'The plan'} ended on ${fmtD(it.due)} and was not renewed.`, act: 'Win back: ask what would help, offer a one-time renewal discount.', code: 1,
-      msg: it => `Hello! We miss ${nm(it)} on StudyVerse. The plan ended on ${fmtD(it.due)}.\nAll progress is saved — ${nm(it)} can continue from where they stopped by renewing from Me → Plans.\nIs there anything we could do better? Your reply helps us a lot.` },
+      msg: it => `Hello! We miss ${nm(it)} on Knowtopia. The plan ended on ${fmtD(it.due)}.\nAll progress is saved — ${nm(it)} can continue from where they stopped by renewing from Me → Plans.\nIs there anything we could do better? Your reply helps us a lot.` },
     paid_idle: { i: '😴', who: 's', t: it => `${nm(it)} has a plan but is not studying`, why: it => it.meta && it.meta.last_active ? `Last studied ${ago(it.meta.last_active)} (${it.meta.days} days).` : 'Has not studied yet since getting access.', act: 'Check in gently — maybe they are stuck or forgot.',
-      msg: it => `Hello! We noticed ${nm(it)} hasn't opened StudyVerse for a few days.\nJust 10 minutes a day — one topic quest — keeps the streak alive and learning fresh.\nIs anything difficult or not working? Reply and we will help.` },
+      msg: it => `Hello! We noticed ${nm(it)} hasn't opened Knowtopia for a few days.\nJust 10 minutes a day — one topic quest — keeps the streak alive and learning fresh.\nIs anything difficult or not working? Reply and we will help.` },
     falling: { i: '📉', who: 's', t: it => `${nm(it)} is studying less`, why: it => `Active ${it.meta.now7} day(s) this week vs ${it.meta.prev7} the week before.`, act: 'Encourage with a small goal for this week.',
-      msg: it => `Hello! ${nm(it)} has been doing well on StudyVerse — a little less this week.\nA small goal can help: 3 short quests this week. The 📅 Exam planner in the Dashboard tab makes a daily plan too.` },
+      msg: it => `Hello! ${nm(it)} has been doing well on Knowtopia — a little less this week.\nA small goal can help: 3 short quests this week. The 📅 Exam planner in the Dashboard tab makes a daily plan too.` },
     streak_broken: { i: '🔥', who: 's', t: it => `${nm(it)} just lost a ${it.meta.streak}-day streak`, why: () => 'Missed yesterday — today is the best day to start again.', act: 'Send a cheerful "start again today" note.',
-      msg: it => `Hello! ${nm(it)} had a great ${it.meta.streak}-day learning streak on StudyVerse.\nOne quest today starts a new one — it only takes a few minutes! 🔥` },
+      msg: it => `Hello! ${nm(it)} had a great ${it.meta.streak}-day learning streak on Knowtopia.\nOne quest today starts a new one — it only takes a few minutes! 🔥` },
     frustrated: { i: '😣', who: 's', t: it => `${nm(it)} may be finding questions hard`, why: it => `Only ${it.meta.acc}% right out of ${it.meta.answers} answers this week.`, act: 'Look at their weak topics; suggest revision sheets or easier practice.', profile: 1,
-      msg: it => `Hello! ${nm(it)} is working hard on StudyVerse this week. Some topics seem tricky right now.\nThe revision sheets and "Learn" step explain each idea with steps — a quick look before the quiz helps a lot. Reply if you want us to suggest topics.` },
+      msg: it => `Hello! ${nm(it)} is working hard on Knowtopia this week. Some topics seem tricky right now.\nThe revision sheets and "Learn" step explain each idea with steps — a quick look before the quiz helps a lot. Reply if you want us to suggest topics.` },
     pay_failed: { i: '💳', who: 's', t: it => `${nm(it)}'s payment did not finish`, why: it => `${(it.meta && it.meta.plan) || 'A plan'} (${inr(it.meta && it.meta.inr)}) was started ${ago(it.due)} but not completed.`, act: 'Offer help to finish the payment.',
-      msg: it => `Hello! It looks like the payment for ${(it.meta && it.meta.plan) || 'the StudyVerse plan'} did not complete.\nYou can try again from Me → Plans. If money was deducted, banks usually return it automatically — reply with the payment time and we will check.` },
+      msg: it => `Hello! It looks like the payment for ${(it.meta && it.meta.plan) || 'the Knowtopia plan'} did not complete.\nYou can try again from Me → Plans. If money was deducted, banks usually return it automatically — reply with the payment time and we will check.` },
     parent_idle: { i: '👪', who: 'p', t: it => `Parent of ${(it.meta && it.meta.kids) || 'a student'} hasn't opened the app`, why: it => `Last opened ${it.due ? ago(it.due) : 'never'} — not seeing their child's progress.`, act: 'Remind them about Parent Hub and the weekly report.',
-      msg: it => `Hello! You can see ${(it.meta && it.meta.kids) || 'your child'}'s learning progress anytime in StudyVerse Parent Hub: open ${SITE} and sign in with this email.\nYou also get a short weekly report by email.` },
+      msg: it => `Hello! You can see ${(it.meta && it.meta.kids) || 'your child'}'s learning progress anytime in Knowtopia Parent Hub: open ${SITE} and sign in with this email.\nYou also get a short weekly report by email.` },
     parent_invite: { i: '📨', who: 'p', t: it => `A parent's invite to ${(it.meta && it.meta.child) || 'their child'} is waiting`, why: it => `Invited ${ago(it.due)}, the child hasn't joined yet.`, act: 'Help the parent: the child must sign in with the invited email.',
-      msg: it => `Hello! Your StudyVerse invite for ${(it.meta && it.meta.child) || 'your child'} is still waiting.\nPlease ask them to open ${SITE} and create an account with the same email you entered — it links automatically.` },
+      msg: it => `Hello! Your Knowtopia invite for ${(it.meta && it.meta.child) || 'your child'} is still waiting.\nPlease ask them to open ${SITE} and create an account with the same email you entered — it links automatically.` },
     pilot_ending: { i: '🧪', who: 'c', t: it => `${it.name}: pilot ${until(it.due)}`, why: () => 'Free pilot is ending and no order has been placed.', act: 'Call the school coordinator; share results and the next step.',
-      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nYour free StudyVerse pilot at ${it.name} ends on ${fmtD(it.due)}.\nCould we have a 10-minute call to share how your students used it, and the next steps?` },
+      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nYour free Knowtopia pilot at ${it.name} ends on ${fmtD(it.due)}.\nCould we have a 10-minute call to share how your students used it, and the next steps?` },
     pilot_over: { i: '⌛', who: 'c', t: it => `${it.name}: pilot ended, no order`, why: it => `Pilot ended ${ago(it.due)}.`, act: 'Follow up: ask for feedback and offer to continue.',
-      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nThank you for trying StudyVerse at ${it.name}. We would love your feedback on the pilot.\nIf you'd like to continue for your students, we can share the seat options on a short call.` },
+      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nThank you for trying Knowtopia at ${it.name}. We would love your feedback on the pilot.\nIf you'd like to continue for your students, we can share the seat options on a short call.` },
     school_renewal: { i: '🏫', who: 'c', t: it => `${it.name}: seats ${until(it.due)}`, why: it => `${nf(it.meta && it.meta.seats)} seats end on ${fmtD(it.due)}.`, act: 'Call the coordinator about renewal for the next year.',
-      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nYour StudyVerse seats at ${it.name} end on ${fmtD(it.due)}. Shall we prepare the renewal for the next academic year?` },
+      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nYour Knowtopia seats at ${it.name} end on ${fmtD(it.due)}. Shall we prepare the renewal for the next academic year?` },
     school_low_use: { i: '🪫', who: 'c', t: it => `${it.name}: low use`, why: it => `${nf(it.meta.students)} of ${nf(it.meta.seats)} seats joined · ${nf(it.meta.active7)} active this week.`, act: 'Offer a short teacher session; share join codes again.',
-      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nOnly a few students at ${it.name} used StudyVerse this week. Can we help? We can run a 15-minute session for teachers, and share the class join codes again.` },
+      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nOnly a few students at ${it.name} used Knowtopia this week. Can we help? We can run a 15-minute session for teachers, and share the class join codes again.` },
     order_unpaid: { i: '🧾', who: 'c', t: it => `${it.name}: invoice waiting`, why: it => `Invoice ${(it.meta && it.meta.invoice_no) || ''} (${inr(it.meta && it.meta.total)}) sent ${ago(it.due)}, not paid.`, act: 'Send a polite payment reminder.',
-      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nA gentle reminder about StudyVerse invoice ${(it.meta && it.meta.invoice_no) || ''} of ${inr(it.meta && it.meta.total)}. Seats start as soon as it is paid. Thank you!` },
+      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nA gentle reminder about Knowtopia invoice ${(it.meta && it.meta.invoice_no) || ''} of ${inr(it.meta && it.meta.total)}. Seats start as soon as it is paid. Thank you!` },
     pilot_request: { i: '📞', who: 'c', t: it => `New pilot request: ${it.name || 'a school'}`, why: it => `${(it.meta && it.meta.contact) || 'Someone'}${it.meta && it.meta.city ? ' from ' + it.meta.city : ''} asked ${ago(it.due)}${it.meta && it.meta.students ? ' (' + it.meta.students + ' students)' : ''}.`, act: 'Call back and set up the pilot (Schools panel → create institution).',
-      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nThank you for asking for a StudyVerse pilot for ${it.name || 'your school'}. When is a good time for a short call to set it up?` },
+      msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nThank you for asking for a Knowtopia pilot for ${it.name || 'your school'}. When is a good time for a short call to set it up?` },
     report: { i: '🚩', who: 's', t: it => `${it.name || 'A student'} was reported`, why: it => `${({ unkind: 'Unkind or rude behaviour', cheating: 'Cheating', name: 'Rude name or picture', other: 'Something else' })[it.meta && it.meta.reason] || 'A report'} in a ${({ friend: 'friend list', request: 'friend request', room: 'game room' })[it.meta && it.meta.context] || 'friend list'}${it.meta && it.meta.by ? ', reported by ' + it.meta.by : ''}${it.meta && +it.meta.n > 1 ? ` (${it.meta.n} reports in 30 days)` : ''}.${it.meta && it.meta.detail ? ` Note: “${it.meta.detail}”` : ''}`,
       act: 'Read it (Parents & schools → Reports). Talk to the parent, or remove the account if it is serious.' },
     hard_question: { i: '❓', who: 'q', t: () => 'A question most students get wrong', why: it => `Only ${it.meta.acc}% right in ${it.meta.tries} tries (${it.meta.users} students).`, act: 'Read it — fix the wording, options or explanation if needed.' } };
@@ -967,7 +967,7 @@
   function prep(el, it, K) {
     const box = el.querySelector('.od-prep'); if (!box.hidden) { box.hidden = true; return; }
     const to = K.who === 's' ? (it.parents || it.email || '') : (it.email || '');
-    const text = K.msg(it) + sign, subj = K.who === 'c' ? 'StudyVerse — ' + (it.name || '') : 'StudyVerse — ' + nm(it);
+    const text = K.msg(it) + sign, subj = K.who === 'c' ? 'Knowtopia — ' + (it.name || '') : 'Knowtopia — ' + nm(it);
     const ph = String(it.phone || '').replace(/[^\d]/g, '');
     box.innerHTML = `<label class="od-lbl" for="odM${el.dataset.i}">Message (edit before sending)${K.who === 's' && it.parents ? ' — to the parent' : ''}</label>
       <textarea id="odM${el.dataset.i}" class="pv-in od-ta" rows="6">${esc(text)}</textarea>

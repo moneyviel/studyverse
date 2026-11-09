@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: statlab — statistics workbench (CBSE Class 11 Economics "Statistics for
+/* Knowtopia Concept Lab: statlab — statistics workbench (CBSE Class 11 Economics "Statistics for
  * Economics", Class 11 Maths sets & statistics, Class 12 probability).
  *
  * MODES

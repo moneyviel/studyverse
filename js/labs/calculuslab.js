@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: calculuslab — limits, derivatives, integrals and maxima/minima on a live graph.
+/* Knowtopia Concept Lab: calculuslab — limits, derivatives, integrals and maxima/minima on a live graph.
  * (Grades 11–12, NCERT notation; log x means the natural logarithm.)
  *
  * The child drags a point on the curve (or the limits a, b of an integral) and taps / slides controls;

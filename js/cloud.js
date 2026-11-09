@@ -1,4 +1,4 @@
-/* StudyVerse accounts + progress saving (Supabase project "moneyviel-apps", schema "studyverse").
+/* Knowtopia accounts + progress saving (Supabase project "moneyviel-apps", schema "studyverse").
    No library: talks to Supabase Auth (/auth/v1) and the Data API (/rest/v1) with fetch.
    - Loads BEFORE app.js so it can catch login links (#access_token=… from confirm / reset emails)
      before the app touches the URL. It only uses ST / save / toast at run time.
@@ -17,7 +17,7 @@
   const set = (k, v) => { try { v == null ? LS.removeItem(k) : LS.setItem(k, v); } catch (e) {} };
   const jget = (k, d) => { try { const v = JSON.parse(get(k)); return v == null ? d : v; } catch (e) { return d; } };
   const demo = () => !!get('sv_demo');
-  /* StudyVerse can only be used with an account: a full-screen sign-in gate covers the app until signed in. */
+  /* Knowtopia can only be used with an account: a full-screen sign-in gate covers the app until signed in. */
   const on = () => true;
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
@@ -404,7 +404,7 @@
         catch (e) { if (e.code === '23505') { code = genCode(); await ins({ code, kind: 'free', max_uses: 1, note: c.querySelector('#ocNote').value.trim() || null }); } else throw e; }
         const out = c.querySelector('#ocFreeOut');
         out.innerHTML = `<p class="cl-ok">Code: <b style="font-size:20px;letter-spacing:1px">${code}</b></p><div class="cl-row"><button class="btn ghost" type="button" id="ocCopy">Copy</button>${navigator.share ? '<button class="btn ghost" type="button" id="ocShare">Share</button>' : ''}</div>`;
-        const msg = `Your free StudyVerse code: ${code}\nOpen ${SITE}?account → Me → create your account → enter the code in "Have a code?".`;
+        const msg = `Your free Knowtopia code: ${code}\nOpen ${SITE}?account → Me → create your account → enter the code in "Have a code?".`;
         out.querySelector('#ocCopy').onclick = () => { try { navigator.clipboard.writeText(code); say('Copied'); } catch (x) {} };
         const shb = out.querySelector('#ocShare'); if (shb) shb.onclick = () => navigator.share({ text: msg }).catch(() => {});
         c.querySelector('#ocNote').value = ''; list();
@@ -567,7 +567,7 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
     style();
     if (!D.getElementById('svGateCss')) { const c = D.createElement('style'); c.id = 'svGateCss'; c.textContent = gateCss; D.head.appendChild(c); }
     g = D.createElement('div'); g.id = 'svGate'; g.setAttribute('role', 'dialog'); g.setAttribute('aria-modal', 'true'); g.setAttribute('aria-labelledby', 'svGateT');
-    g.innerHTML = `<h1 id="svGateT">Study<span>Verse</span></h1>
+    g.innerHTML = `<h1 id="svGateT">Know<span>topia</span></h1>
       <p>Learn, practise and play — CBSE Class 1–12 and CA Foundation. Create a free account to start; your progress is saved safely to it.</p>
       <div class="g-btns"><button class="g-up" type="button" data-cl="up">Create free account</button><button class="g-in" type="button" data-cl="in">Sign in</button></div>
       <p class="g-legal">A parent or guardian creates a child's account. <a href="legal/privacy.html">Privacy</a> · <a href="legal/terms.html">Terms</a></p>`;

@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: indiamap — stylised map of India (official outline incl. all of
+/* Knowtopia Concept Lab: indiamap — stylised map of India (official outline incl. all of
    Jammu & Kashmir and Ladakh, Andaman & Nicobar and Lakshadweep).
 
    PARAMS (all optional — missing ones fall back to `example`)

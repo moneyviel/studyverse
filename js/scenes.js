@@ -1,4 +1,4 @@
-/* ================= StudyVerse 3D Concept Studio =================
+/* ================= Knowtopia 3D Concept Studio =================
    Every topic gets a 3D scene the child can spin with a finger or mouse and pinch to zoom.
    Scenes are picked automatically from the topic (or set explicitly with topic.scene).      */
 import * as THREE from './vendor/three.module.min.js';

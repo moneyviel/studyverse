@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: ratiolab — accounting ratios from a simplified Balance Sheet (Schedule III) and
+/* Knowtopia Concept Lab: ratiolab — accounting ratios from a simplified Balance Sheet (Schedule III) and
  * Statement of Profit and Loss (CBSE Class 12 Accountancy, NCERT "Accounting Ratios").
  *
  * MODES

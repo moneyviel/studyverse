@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: unitcircle — trigonometric ratios on the unit circle + heights and distances.
+/* Knowtopia Concept Lab: unitcircle — trigonometric ratios on the unit circle + heights and distances.
  *
  * mode 'circle': the child drags the point P round a unit circle (or uses the slider / standard-angle
  *   buttons). The right triangle under P shows cos θ (base), sin θ (height) and tan θ (on the tangent

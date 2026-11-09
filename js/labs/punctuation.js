@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab — punctuation
+/* Knowtopia Concept Lab — punctuation
  * A sentence or short passage appears with NO punctuation and no capital letters. The child taps the
  * gaps between words to insert marks ( . , ? ! ' " । …) and taps words to make Capital letters or add an
  * apostrophe (can't, Riya's). "Check" compares with the correct version from data; it is read aloud

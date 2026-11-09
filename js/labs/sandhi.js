@@ -1,4 +1,4 @@
-/* StudyVerse lab: sandhi — join (सन्धि) and split (सन्धि-विच्छेद) words, with animated merging
+/* Knowtopia lab: sandhi — join (सन्धि) and split (सन्धि-विच्छेद) words, with animated merging
  * Works for Hindi/Sanskrit स्वर, व्यंजन, विसर्ग सन्धि and for English contractions / compound words.
  *
  * PARAMS (all optional; missing ones fall back to `example`)

@@ -1,4 +1,4 @@
-/* ================= StudyVerse Teacher dashboard (Schools & Coaching) =================
+/* ================= Knowtopia Teacher dashboard (Schools & Coaching) =================
    Opened from the school console (js/inst.js). One full-screen page (.sheet.pv-hub, like Parent Hub):
    class list → class page with tabs Overview · Students · Insights · Homework · Leaderboard · Reports, and a
    per-student page with the SAME cards as Parent Hub (window.Parent.lib — js/parent.js, unchanged analysis).
@@ -338,7 +338,7 @@
         <button class="pv-btn" type="button" id="tcPtmGo"${Ms.length ? '' : ' disabled'}>Print PTM report</button></section>`;
     body.querySelector('#tcCsv').onclick = () => {
       const blob = new Blob(['﻿' + toCSV(cur, Ms, O)], { type: 'text/csv;charset=utf-8' }), a = D.createElement('a');
-      a.href = URL.createObjectURL(blob); a.download = `StudyVerse-${cur.name.replace(/[^A-Za-z0-9-]+/g, '_')}-${todayK()}.csv`; D.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      a.href = URL.createObjectURL(blob); a.download = `Knowtopia-${cur.name.replace(/[^A-Za-z0-9-]+/g, '_')}-${todayK()}.csv`; D.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
       say('CSV downloaded');
     };
     body.querySelector('#tcPdf').onclick = () => printHTML(classReportHTML());
@@ -352,19 +352,19 @@
   }
   function classReportHTML() {
     const v = O.overview, sch = data.institution ? data.institution.name : '';
-    return `<h1>${esc(sch)} — Class ${esc(cur.name)}</h1><p class="pp-d">StudyVerse class report · ${esc(new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }))}</p>
+    return `<h1>${esc(sch)} — Class ${esc(cur.name)}</h1><p class="pp-d">Knowtopia class report · ${esc(new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }))}</p>
       <p>${v.n} students · active this week ${v.activeWeek} · average correct ${pctS(v.acc7)} · average time ${fmtMin(v.avgMin7)} per student · homework done ${pctS(v.hwRate)} · average readiness ${v.avgReadiness == null ? '–' : Math.round(v.avgReadiness)}</p>
       ${O.gaps.length ? `<h3>Topics to re-teach</h3><ul>${O.gaps.slice(0, 5).map(g => `<li>${esc(g.title)} — ${g.weak.length} of ${g.att.length} students under 60%</li>`).join('')}</ul>` : ''}
       <table class="in-ptbl"><thead><tr><th>Roll</th><th>Name</th><th>Time (week)</th><th>Correct</th><th>Days (14)</th><th>Readiness</th><th>Homework</th></tr></thead>
       <tbody>${O.rows.map(({ m, acc7, hwRate }) => `<tr><td>${esc(m.roll)}</td><td>${esc(m.name)}</td><td>${fmtMin(m.m7)}</td><td>${pctS(acc7)}</td><td>${m.active14}</td><td>${m.readiness == null ? '–' : m.readiness}</td><td>${hwRate == null ? '–' : hwRate + '%'}</td></tr>`).join('')}</tbody></table>
-      <p class="pp-f">study.moneyviel.com · StudyVerse for Schools</p>`;
+      <p class="pp-f">knowtopia.in · Knowtopia for Schools</p>`;
   }
   function ptmHTML(m, note) {
     const A = m.A, sch = data.institution ? data.institution.name : '', sug = A.has ? P().suggestions(A) : [], acc = pct(m.r14, m.a14), accP = pct(m.rP14, m.aP14);
     const mins28 = m.m14 + m.mP14, hw = m.hw.assigned ? `${m.hw.done} of ${m.hw.assigned}` : 'none set yet';
     return `<h1>Parent-teacher meeting</h1><h2>${esc(m.name)} · ${esc(cur.name)}${m.roll ? ' · Roll ' + esc(m.roll) : ''}</h2>
       <p class="pp-d">${esc(sch)} · ${esc(new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }))} · last 4 weeks</p>
-      ${!A.has ? '<p>No study data yet. The report fills in once the student uses StudyVerse while signed in.</p>' : `
+      ${!A.has ? '<p>No study data yet. The report fills in once the student uses Knowtopia while signed in.</p>' : `
       <table class="in-ptbl"><tbody>
         <tr><th>Study time</th><td>${fmtMin(mins28)} in 4 weeks (${fmtMin(m.m7)} this week)</td></tr>
         <tr><th>Days studied</th><td>${m.active14} of the last 14 days</td></tr>
@@ -376,7 +376,7 @@
       <h3>Next steps 🌱</h3><ul>${A.weak.length ? A.weak.map(g => `<li>Practise ${esc(g.title)}${g.sub ? ' (' + esc(g.sub) + ')' : ''} — now ${pctS(g.acc)}</li>`).join('') : ''}${sug.slice(0, 2).map(x => `<li>${x}</li>`).join('')}</ul>`}
       ${note ? `<h3>Teacher's note</h3><p>${esc(note)}</p>` : ''}
       <p class="in-sign"><span>Teacher</span><span>Parent</span></p>
-      <p class="pp-f">study.moneyviel.com · Parents can follow day-to-day progress free in Parent Hub.</p>`;
+      <p class="pp-f">knowtopia.in · Parents can follow day-to-day progress free in Parent Hub.</p>`;
   }
 
   /* ---------- per-student page: the same cards as Parent Hub ---------- */

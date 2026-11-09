@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: fractionbar — "Fraction bars & pies"
+/* Knowtopia Concept Lab: fractionbar — "Fraction bars & pies"
  * The child slices wholes into equal parts, taps parts to shade them and sees the fraction change live.
  *
  * PARAMS (all optional)

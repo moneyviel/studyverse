@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: wavelab — oscillations and waves (Class 11 Physics ch. 13–14, NCERT notation).
+/* Knowtopia Concept Lab: wavelab — oscillations and waves (Class 11 Physics ch. 13–14, NCERT notation).
  *
  * mode 'shm'        : a block on a spring, x(t) = A cos(ωt + φ). Slide A, ω and φ; the block, the scrolling
  *                     x–t, v–t, a–t graphs and the KE / PE / E bars all stay in sync. v = −ωA sin(ωt + φ),

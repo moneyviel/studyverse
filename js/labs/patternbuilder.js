@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: patternbuilder — repeating and growing patterns (Grades 1-3).
+/* Knowtopia Concept Lab: patternbuilder — repeating and growing patterns (Grades 1-3).
  *
  * The child continues a pattern by dragging (or tap-then-tap) tokens into empty slots, taps the
  * part that repeats, or spots and fixes the tile that breaks the pattern. Growing patterns are

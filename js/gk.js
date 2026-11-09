@@ -37,8 +37,8 @@
 
   /* ---------- share / copy ---------- */
   async function share(text) {
-    const full = `${text}\n— from StudyVerse`;
-    if (navigator.share) { try { await navigator.share({ title: 'StudyVerse', text: full }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+    const full = `${text}\n— from Knowtopia`;
+    if (navigator.share) { try { await navigator.share({ title: 'Knowtopia', text: full }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
     try { await navigator.clipboard.writeText(full); toast('📋 Copied! Paste it to share.'); }
     catch (e) { const t = document.createElement('textarea'); t.value = full; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); toast('📋 Copied! Paste it to share.'); } catch (e2) { toast('Could not copy on this phone'); } t.remove(); }
   }

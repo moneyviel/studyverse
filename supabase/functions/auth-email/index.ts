@@ -1,4 +1,4 @@
-// "auth-email": Supabase Auth Send Email Hook for project moneyviel-apps (StudyVerse, Salonzy, Football Club share one auth).
+// "auth-email": Supabase Auth Send Email Hook for project moneyviel-apps (Knowtopia, Salonzy, Football Club share one auth).
 // Every sign-up / password-reset / email-change / magic-link email comes here; we pick the sender + branding per app and
 // send it through Brevo (secret BREVO_API_KEY). The request is verified with the hook secret (SEND_EMAIL_HOOK_SECRET).
 // If the app's own sender fails (e.g. domain not verified in Brevo) we retry once from support@moneyviel.com.
@@ -11,7 +11,7 @@ const SB = Deno.env.get('SUPABASE_URL')!;
 
 type Brand = { name: string; from: string; color: string; site: string; tag: string };
 const BRANDS: Record<string, Brand> = {
-  studyverse: { name: 'StudyVerse', from: 'support@moneyviel.com', color: '#5B0F1B', site: 'https://study.moneyviel.com/', tag: 'Learn, play and grow' },
+  studyverse: { name: 'Knowtopia', from: 'support@moneyviel.com', color: '#5B0F1B', site: 'https://knowtopia.in/', tag: 'Learn, play and grow' },
   salonzy: { name: 'Salonzy', from: 'support@salonzy.in', color: '#7C3AED', site: 'https://www.salonzy.in/', tag: 'Your salon, simplified' },
   football: { name: 'Football Club Portal', from: 'support@moneyviel.com', color: '#0F5132', site: 'https://demo.moneyviel.com/', tag: 'Your club, organised' },
   moneyviel: { name: 'MoneyViel', from: 'support@moneyviel.com', color: '#1F2937', site: 'https://moneyviel.com/', tag: '' },
@@ -21,7 +21,7 @@ function appOf(user: any, redirect: string): string {
   if (BRANDS[a]) return a;
   if (/salonzy/i.test(redirect)) return 'salonzy';
   if (/demo\.moneyviel\.com|football/i.test(redirect)) return 'football';
-  if (/study\.moneyviel\.com|studyverse/i.test(redirect)) return 'studyverse';
+  if (/knowtopia|study\.moneyviel\.com|studyverse/i.test(redirect)) return 'studyverse';
   return 'moneyviel';
 }
 const esc = (s: string) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));

@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: circuit — build an electric circuit by tapping parts into slots.
+/* Knowtopia Concept Lab: circuit — build an electric circuit by tapping parts into slots.
  *
  * The child picks a part from the tray (cell, bulb, switch, wire, resistor) and taps a dashed
  * slot to put it there. When the loop is closed the bulb glows and "current" dots flow. Bulb

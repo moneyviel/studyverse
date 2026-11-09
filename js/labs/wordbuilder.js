@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab — wordbuilder
+/* Knowtopia Concept Lab — wordbuilder
  * Spin word-part wheels (prefix + root + suffix, word 1 + word 2, onset + rime…) to build words.
  * When the parts make a real word from the data list, the word glows and its meaning appears.
  * Works for English and Hindi/Sanskrit (उपसर्ग / प्रत्यय) — every valid word comes from data.

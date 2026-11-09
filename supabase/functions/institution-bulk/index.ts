@@ -1,4 +1,4 @@
-// "institution-bulk": StudyVerse for Schools — accounts in bulk and staff invites. Called with the signed-in admin's token.
+// "institution-bulk": Knowtopia for Schools — accounts in bulk and staff invites. Called with the signed-in admin's token.
 // POST { action: 'bulk', institution_id, rows: [{ name, class: '1'..'12'|'CA', section, roll, email?, parent_email? }] }
 //   → rows WITH a student email: an account is made (or found) and added to the class; a NEW account gets an email with a
 //     link to set a password (Auth admin generate_link type=recovery, sent by Brevo). An existing account gets a short notice.
@@ -14,7 +14,7 @@
 const URL_ = Deno.env.get('SUPABASE_URL')!;
 const SRK = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const BREVO = Deno.env.get('BREVO_API_KEY') || '';
-const APP = 'https://study.moneyviel.com/';
+const APP = 'https://knowtopia.in/';
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
 const json = (o: unknown, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { ...cors, 'Content-Type': 'application/json' } });
 const esc = (s: unknown) => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
@@ -50,14 +50,14 @@ async function passwordLink(email: string) {
 const shell = (title: string, body: string) => `<!doctype html><html><body style="margin:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#111">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:24px 12px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border-radius:14px;overflow:hidden">
-<tr><td style="background:#5B0F1B;color:#fff;padding:18px 24px;font-size:20px;font-weight:bold">StudyVerse<div style="font-size:13px;font-weight:normal;opacity:.85;margin-top:2px">for Schools &amp; Coaching</div></td></tr>
+<tr><td style="background:#5B0F1B;color:#fff;padding:18px 24px;font-size:20px;font-weight:bold">Knowtopia<div style="font-size:13px;font-weight:normal;opacity:.85;margin-top:2px">for Schools &amp; Coaching</div></td></tr>
 <tr><td style="padding:24px"><h1 style="font-size:21px;margin:0 0 12px">${title}</h1>${body}</td></tr></table>
-<p style="font-size:12px;color:#888;margin:14px 0 0">StudyVerse · MoneyViel, Pune, India · study.moneyviel.com</p></td></tr></table></body></html>`;
+<p style="font-size:12px;color:#888;margin:14px 0 0">Knowtopia · MoneyViel, Pune, India · knowtopia.in</p></td></tr></table></body></html>`;
 const btn = (href: string, t: string) => `<p style="margin:0 0 20px"><a href="${esc(href)}" style="display:inline-block;background:#5B0F1B;color:#fff;text-decoration:none;font-weight:bold;font-size:16px;padding:14px 22px;border-radius:10px">${t}</a></p>`;
 const P = (t: string) => `<p style="font-size:16px;line-height:1.5;margin:0 0 16px">${t}</p>`;
 async function send(to: string, subject: string, html: string, text: string, tag: string) {
   const s = await fetch('https://api.brevo.com/v3/smtp/email', { method: 'POST', headers: { 'api-key': BREVO, 'Content-Type': 'application/json', accept: 'application/json' },
-    body: JSON.stringify({ sender: { name: 'StudyVerse', email: 'support@moneyviel.com' }, replyTo: { email: 'support@moneyviel.com' }, to: [{ email: to }], subject, htmlContent: html, textContent: text, tags: [tag] }) });
+    body: JSON.stringify({ sender: { name: 'Knowtopia', email: 'support@moneyviel.com' }, replyTo: { email: 'support@moneyviel.com' }, to: [{ email: to }], subject, htmlContent: html, textContent: text, tags: [tag] }) });
   if (!s.ok) console.log('brevo', s.status, (await s.text()).slice(0, 200));
   return s.ok;
 }
@@ -65,22 +65,22 @@ async function inviteMail(email: string, created: boolean, school: string, what:
   const hi = name ? `Hi ${esc(name)},` : 'Hello,';
   if (created) {
     const link = await passwordLink(email); if (!link) return false;
-    return send(email, `${school}: your StudyVerse account is ready`,
-      shell(`${hi} welcome to StudyVerse 🎉`, P(`<b>${esc(school)}</b> has made a StudyVerse account for you (${esc(what)}).`) + P('Tap the button on your phone to choose your password. Then you can learn, practise and play.') + btn(link, 'Set my password') +
-        `<p style="font-size:13px;color:#666;margin:0">The link works once. If it has expired, open study.moneyviel.com, tap Sign in → Forgot password, and use this email (${esc(email)}).</p>`),
-      `${name ? 'Hi ' + name + ',' : 'Hello,'} ${school} made a StudyVerse account for you (${what}). Set your password: ${link}`, 'inst-invite');
+    return send(email, `${school}: your Knowtopia account is ready`,
+      shell(`${hi} welcome to Knowtopia 🎉`, P(`<b>${esc(school)}</b> has made a Knowtopia account for you (${esc(what)}).`) + P('Tap the button on your phone to choose your password. Then you can learn, practise and play.') + btn(link, 'Set my password') +
+        `<p style="font-size:13px;color:#666;margin:0">The link works once. If it has expired, open knowtopia.in, tap Sign in → Forgot password, and use this email (${esc(email)}).</p>`),
+      `${name ? 'Hi ' + name + ',' : 'Hello,'} ${school} made a Knowtopia account for you (${what}). Set your password: ${link}`, 'inst-invite');
   }
-  return send(email, `${school} added you on StudyVerse`,
-    shell(`${hi} you have been added 🏫`, P(`<b>${esc(school)}</b> added your StudyVerse account (${esc(email)}) as ${esc(what)}.`) + P('Just sign in as usual on study.moneyviel.com.') + btn(APP, 'Open StudyVerse')),
-    `${school} added your StudyVerse account (${email}) as ${what}. Sign in as usual: ${APP}`, 'inst-added');
+  return send(email, `${school} added you on Knowtopia`,
+    shell(`${hi} you have been added 🏫`, P(`<b>${esc(school)}</b> added your Knowtopia account (${esc(email)}) as ${esc(what)}.`) + P('Just sign in as usual on knowtopia.in.') + btn(APP, 'Open Knowtopia')),
+    `${school} added your Knowtopia account (${email}) as ${what}. Sign in as usual: ${APP}`, 'inst-added');
 }
 async function parentMail(email: string, child: string, school: string) {
   const link = `${APP}?pinvite=1&email=${encodeURIComponent(email)}`;
-  return send(email, `${school}: follow ${child}'s learning on StudyVerse`,
-    shell('See how your child is learning 👨‍👩‍👧', P(`<b>${esc(school)}</b> uses StudyVerse. You can follow <b>${esc(child)}</b>'s study time, strong and weak topics and homework in <b>Parent Hub</b> — free.`) +
+  return send(email, `${school}: follow ${child}'s learning on Knowtopia`,
+    shell('See how your child is learning 👨‍👩‍👧', P(`<b>${esc(school)}</b> uses Knowtopia. You can follow <b>${esc(child)}</b>'s study time, strong and weak topics and homework in <b>Parent Hub</b> — free.`) +
       P(`Tap the button and create a <b>Parent</b> account with <b>this email (${esc(email)})</b>. Already have one? Just sign in — ${esc(child)} appears by itself.`) + btn(link, 'Open Parent Hub') +
       '<p style="font-size:13px;color:#666;margin:0">Not expecting this? You can ignore this email.</p>'),
-    `${school} uses StudyVerse. Create a Parent account with this email (${email}) to follow ${child}'s learning: ${link}`, 'inst-parent');
+    `${school} uses Knowtopia. Create a Parent account with this email (${email}) to follow ${child}'s learning: ${link}`, 'inst-parent');
 }
 const str = (v: unknown, n: number) => String(v ?? '').replace(/[\u0000-\u001f<>]/g, ' ').trim().slice(0, n);
 

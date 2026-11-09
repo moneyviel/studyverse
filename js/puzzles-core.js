@@ -1,4 +1,4 @@
-/* ================= StudyVerse Puzzles — engine (js/puzzles-core.js) =================
+/* ================= Knowtopia Puzzles — engine (js/puzzles-core.js) =================
    Pure functions, no DOM: used by js/puzzles.js (UI), js/puzzles-worker.js (Web Worker) and the Node test
    harness tools/puzzles_test.js. Every generator is deterministic for a given seed (date + chapter).
      sudoku(n, diff, seed)      n = 4 | 6 | 9 · diff = easy | medium | hard · unique solution (checked by a solver)

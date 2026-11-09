@@ -1,6 +1,6 @@
 # CA (ICAI) content — schema and learning flow
 
-StudyVerse's professional-course track for **Chartered Accountancy (ICAI)**. The UI is `js/ca.js`
+Knowtopia's professional-course track for **Chartered Accountancy (ICAI)**. The UI is `js/ca.js`
 (pro look band, `html[data-age=pro]`); content lives here.
 
 ## Copyright rule
@@ -239,7 +239,7 @@ order (seeded shuffle) · `#cagrpr=<b64>` returns the friend's result. No server
 
 ## Key sections & rules (`js/ca-keys-data.js`, `js/ca-keys.js`)
 Review library for CA Foundation: law sections Act by Act, accounting rules, QA formulas, economics laws — each item has a
-plain-English rule (StudyVerse wording), exam tip, memory hook, optional formula + worked example, and "Practise (n)".
+plain-English rule (Knowtopia wording), exam tip, memory hook, optional formula + worked example, and "Practise (n)".
 Questions link to an item by (1) an optional MCQ field `tags: ["ICA-s10"]` (item ids), (2) a section cited in the question,
 correct option or first sentence of the explanation whose Act is named next to it or is the MCQ's own chapter (sections that
 appear only in wrong options are ignored), or (3) the item's `kw` patterns inside its `sc` scope. Items with no linked

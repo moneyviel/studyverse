@@ -55,7 +55,7 @@ Deno.serve(async (req) => {
 <p><b>${esc(f.school)}</b>, ${esc(f.city)} – ${esc(f.pincode)}<br>Board: ${esc(f.board)}<br>Contact: ${esc(f.name)} · <a href="tel:${esc(f.phone)}">${esc(f.phone)}</a> · ${esc(f.email)}<br>Students: ${f.students}</p>
 <p>Create the institution and grant the 30-day pilot in the app: Me → 🏫 Schools (owner).</p></body></html>`;
     const s = await fetch('https://api.brevo.com/v3/smtp/email', { method: 'POST', headers: { 'api-key': BREVO, 'Content-Type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify({ sender: { name: 'StudyVerse Schools', email: OWNER }, replyTo: { email: f.email, name: f.name }, to: [{ email: OWNER }],
+      body: JSON.stringify({ sender: { name: 'Knowtopia Schools', email: OWNER }, replyTo: { email: f.email, name: f.name }, to: [{ email: OWNER }],
         subject: `Free pilot request: ${f.school}, ${f.city} ${f.pincode} · ${f.board} (${f.students} students)`, htmlContent: html, tags: ['pilot-request'] }) });
     if (!s.ok) console.log('brevo', s.status, (await s.text()).slice(0, 200));
     return json({ ok: true, mailed: s.ok });

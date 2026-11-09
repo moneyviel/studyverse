@@ -1,4 +1,4 @@
-/* StudyVerse lab: sortbins — drag (or tap, then tap a bin) cards into 2–4 labelled bins
+/* Knowtopia lab: sortbins — drag (or tap, then tap a bin) cards into 2–4 labelled bins
  *
  * PARAMS (all optional; if `items` is missing/invalid a built-in wet/dry waste set is used)
  *  title      string   heading shown above the cards (any language)                     default ''

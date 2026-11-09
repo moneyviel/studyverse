@@ -280,7 +280,7 @@
     award('grad');
     const el = screen(), name = (P().name || 'Student').trim(), dt = new Date(a.cert + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
     const lv = X.levels.filter(levelOpen).map(L => L.name), bc = badgeCount();
-    const text = `🎓 ${name} completed Calculator Academy on StudyVerse — ${pr.all} missions (${lv.join(', ')}) and ${bc.have} badges. ${dt}. study.moneyviel.com`;
+    const text = `🎓 ${name} completed Calculator Academy on Knowtopia — ${pr.all} missions (${lv.join(', ')}) and ${bc.have} badges. ${dt}. knowtopia.in`;
     const cv = D.createElement('canvas'); cv.width = 1200; cv.height = 850; draw(cv, name, dt, pr.all, lv, Object.keys(X.badges).filter(b => a.b[b]).map(b => X.badges[b][0]));
     let url = ''; try { url = cv.toDataURL('image/png'); } catch (e) {}
     el.innerHTML = `<button class="back" id="cxaHome">← Calculator Academy</button>
@@ -290,14 +290,14 @@
         <div class="cxa-row"><button class="btn" type="button" id="cxaShare">📤 Share</button><button class="btn ghost" type="button" id="cxaDl">⬇️ Save image</button></div>
         <div style="height:8px"></div><button class="btn ghost" type="button" id="cxaCopy">📋 Copy text</button></div>`;
     el.querySelector('#cxaHome').onclick = () => open({ keep: true });
-    const save_ = () => { const l = D.createElement('a'); l.href = url; l.download = `StudyVerse-Calculator-Academy-${name.replace(/\W+/g, '-')}.png`; D.body.appendChild(l); l.click(); l.remove(); };
+    const save_ = () => { const l = D.createElement('a'); l.href = url; l.download = `Knowtopia-Calculator-Academy-${name.replace(/\W+/g, '-')}.png`; D.body.appendChild(l); l.click(); l.remove(); };
     el.querySelector('#cxaDl').onclick = save_;
     el.querySelector('#cxaCopy').onclick = () => copy(text);
     el.querySelector('#cxaShare').onclick = () => {
       cv.toBlob(async b => {
         try { const f = new File([b], 'calculator-academy-certificate.png', { type: 'image/png' });
           if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: 'My Calculator Academy certificate', text }); return; }
-          if (navigator.share) { await navigator.share({ title: 'StudyVerse', text }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+          if (navigator.share) { await navigator.share({ title: 'Knowtopia', text }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
         copy(text); save_();
       }, 'image/png');
     };
@@ -319,8 +319,8 @@
     c.fillStyle = '#15161C'; c.font = '600 30px Nunito, Arial, sans-serif'; c.fillText(`has completed all ${n} missions`, W / 2, 470);
     c.font = '400 26px Nunito, Arial, sans-serif'; c.fillStyle = '#575B66'; c.fillText(levels.join(' · '), W / 2, 515);
     c.font = '44px "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif'; c.fillText(badges.slice(0, 14).join(' '), W / 2, 605);
-    c.fillStyle = '#15161C'; c.font = '600 26px Nunito, Arial, sans-serif'; c.fillText(dt, W / 2 - 280, 720); c.fillText('🧮 StudyVerse', W / 2 + 280, 720);
-    c.fillStyle = '#8A8E99'; c.font = '400 20px Nunito, Arial, sans-serif'; c.fillText('Date', W / 2 - 280, 752); c.fillText('study.moneyviel.com', W / 2 + 280, 752);
+    c.fillStyle = '#15161C'; c.font = '600 26px Nunito, Arial, sans-serif'; c.fillText(dt, W / 2 - 280, 720); c.fillText('🧮 Knowtopia', W / 2 + 280, 720);
+    c.fillStyle = '#8A8E99'; c.font = '400 20px Nunito, Arial, sans-serif'; c.fillText('Date', W / 2 - 280, 752); c.fillText('knowtopia.in', W / 2 + 280, 752);
   }
 
   /* ---------- entry points (added whenever these screens are drawn) ---------- */

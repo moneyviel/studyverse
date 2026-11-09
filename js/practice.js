@@ -181,7 +181,7 @@
   const b64d = s => JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g, '+').replace(/_/g, '/')))));
   const link = (k, o) => `${location.origin}${location.pathname}#${k}=${b64e(o)}`;
   async function share(text, url) {
-    try { if (navigator.share) { await navigator.share({ title: 'StudyVerse duel', text, url }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+    try { if (navigator.share) { await navigator.share({ title: 'Knowtopia duel', text, url }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
     try { await navigator.clipboard.writeText(`${text} ${url}`); toast('Link copied! Paste it to your friend'); } catch (e) {}
     window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
   }
@@ -214,13 +214,13 @@
         ST.duels['o' + id] = { s, ms, t: today() }; save();
         $('#pBody').innerHTML = `<div class="card done-card"><div class="gbig">${s >= list.length - 1 ? '🔥' : '💪'}</div><h2>You scored ${s}/${list.length}</h2><p class="sub">in ${secs(ms)}. Now challenge a friend!</p>
           <button class="btn" id="dShare">📤 Send duel on WhatsApp</button><div style="height:8px"></div><button class="btn ghost" id="dDone">Done</button></div>`;
-        $('#dShare').onclick = () => share(`⚔️ ${m.n} ${m.a} scored ${s}/${list.length} on StudyVerse (Grade ${g}). Can you beat me?`, url);
+        $('#dShare').onclick = () => share(`⚔️ ${m.n} ${m.a} scored ${s}/${list.length} on Knowtopia (Grade ${g}). Can you beat me?`, url);
         $('#dDone').onclick = practiceScreen; }); };
     },
     async accept(o) {
       show('practice', 'practice'); document.querySelectorAll('nav').forEach(n => n.style.display = ST.profile ? '' : 'none');
       const host = $('#s-practice'); const list = await loadList(o.q);
-      if (!list.length) { host.innerHTML = `<div class="card"><h2>⚔️ Duel</h2><p class="sub">This duel's questions aren't available any more. Ask your friend for a new link.</p><button class="btn" id="dHome">Open StudyVerse</button></div>`; $('#dHome').onclick = () => { location.hash = ''; location.reload(); }; return; }
+      if (!list.length) { host.innerHTML = `<div class="card"><h2>⚔️ Duel</h2><p class="sub">This duel's questions aren't available any more. Ask your friend for a new link.</p><button class="btn" id="dHome">Open Knowtopia</button></div>`; $('#dHome').onclick = () => { location.hash = ''; location.reload(); }; return; }
       host.innerHTML = `<div class="card duelcard"><div class="gbig">${esc(o.a)}⚔️</div><h2>${esc(o.n)} challenged you!</h2>
         <p class="sub">Grade ${o.g} · ${list.length} questions. Their score stays hidden until you finish.</p>
         ${ST.profile ? '' : '<input id="dName" maxlength="20" placeholder="Your first name" autocomplete="off">'}
@@ -237,7 +237,7 @@
             <h2>${res === 'w' ? 'You won!' : res === 'd' ? "It's a tie!" : `${esc(o.n)} wins this time`}</h2>
             <div class="vsrow"><div><b>${esc(m.a)} ${esc(m.n)}</b><span>${s}/${list.length} · ${secs(ms)}</span></div><div class="vsx">VS</div><div><b>${esc(o.a)} ${esc(o.n)}</b><span>${o.s}/${list.length} · ${secs(o.ms)}</span></div></div>
             <button class="btn" id="dReply">📤 Send my result to ${esc(o.n)}</button><div style="height:8px"></div>
-            ${ST.profile ? '<button class="btn ghost" id="dBackC">⚔️ Challenge back</button>' : '<button class="btn ghost" id="dJoin">🚀 Join StudyVerse free</button>'}</div>`;
+            ${ST.profile ? '<button class="btn ghost" id="dBackC">⚔️ Challenge back</button>' : '<button class="btn ghost" id="dJoin">🚀 Join Knowtopia free</button>'}</div>`;
           $('#dReply').onclick = () => share(`${res === 'w' ? '🏆 I beat you' : res === 'd' ? '🤝 We tied' : '💪 You won'}! ${s}/${list.length} vs your ${o.s}/${list.length}. See the result:`, reply);
           if ($('#dBackC')) $('#dBackC').onclick = () => Duel.create(o.g, o.q[0].split('#')[0]);
           if ($('#dJoin')) $('#dJoin').onclick = () => { location.hash = ''; document.querySelectorAll('nav').forEach(n => n.style.display = ''); onboard(1); };

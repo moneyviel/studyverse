@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: numberline — "Number line jumper"
+/* Knowtopia Concept Lab: numberline — "Number line jumper"
  * The child hops / drags a frog along a number line and sees the sum, the skip-count or the value live.
  *
  * PARAMS (all optional; missing ones fall back to sensible defaults)

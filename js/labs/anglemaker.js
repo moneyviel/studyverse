@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: anglemaker — "Angle maker"
+/* Knowtopia Concept Lab: anglemaker — "Angle maker"
  * The child drags a ray (anywhere on the picture works) and watches the angle,
  * its size in degrees and its type change live. +1°/−1° buttons give fine control.
  *

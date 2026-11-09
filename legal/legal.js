@@ -1,20 +1,20 @@
-/* StudyVerse legal pages.
+/* Knowtopia legal pages.
    ONE PLACE for the app name and the owner's details: edit SV_LEGAL below and every legal page follows.
    (The pages also carry the same words as plain text, so they still read correctly without JavaScript and for
    search engines. After a rename, also run the one-line replace in docs/legal-implementation.md, section 7.)
    Anything that still starts with "[OWNER" is shown highlighted in yellow so it is easy to spot before launch.
 
    This file also: uses the app's reading-comfort settings (text size, high contrast, reduce motion) saved on this
-   device, and makes "Back to StudyVerse" return to where you were. */
+   device, and makes "Back to Knowtopia" return to where you were. */
 var SV_LEGAL = {
-  brand: 'StudyVerse',                         // the app name, used in every page
-  brandHTML: 'Study<span>Verse</span>',         // the coloured logo text in the page header
+  brand: 'Knowtopia',                         // the app name, used in every page
+  brandHTML: 'Know<span>topia</span>',         // the coloured logo text in the page header
   operator: 'Mukesh J',                     // the person who owns and runs the app
   tradeName: 'MoneyViel',                       // the business name the app is offered under
   legalForm: 'an individual (sole proprietor) in India, trading as MoneyViel',
   address: '[OWNER TO FILL: full postal address with PIN], Pune, Maharashtra, India',
-  email: 'support@moneyviel.com',
-  site: 'https://study.moneyviel.com',
+  email: 'support@knowtopia.in',
+  site: 'https://knowtopia.in',
   goName: 'Mukesh J',                               // Grievance Officer
   goPhone: '[OWNER TO FILL: phone number]',
   hours: 'Monday to Saturday, 10 am to 6 pm IST (not on public holidays)',
@@ -39,7 +39,7 @@ var SV_LEGAL = {
   root.classList.toggle('sv-hc', hc);
   root.classList.toggle('sv-rm', rm);
 
-  var DEFAULT_BRAND = 'StudyVerse';
+  var DEFAULT_BRAND = 'Knowtopia';
   function isPh(v) { return /^\[OWNER/.test(String(v)); }
 
   /* fill every marked spot from SV_LEGAL */

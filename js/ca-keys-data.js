@@ -1,6 +1,6 @@
 /* ================= CA Foundation — 📚 Key sections & rules: content (js/ca-keys-data.js) =================
    Read by js/ca-keys.js (renderer + MCQ linker) and by tools/ca_keys_report.js (link report, node).
-   Every rule, tip, hook and question is StudyVerse's own wording. Law: only short section titles are taken from
+   Every rule, tip, hook and question is Knowtopia's own wording. Law: only short section titles are taken from
    the Acts; the rule lines are plain-English summaries, not the text of the Act. Scope follows
    content/ca/foundation/structure.json (ICAI study material relevant for May 2027 onwards).
    Accuracy rule: an item is included only when the rule is settled law / standard syllabus content.
@@ -58,7 +58,7 @@
       'Foundation does not test individual standards paragraph by paragraph — that starts at Intermediate. What it does test is the handful of rules below, which come from those standards and from the Companies Act, and which you use in almost every sum.'] },
     'fnd-p2': { n: 'Paper 2 · Business Laws', intro: [
       'The sections examiners expect you to quote, Act by Act. In a descriptive answer use Provision → Facts → Analysis → Conclusion, and name the section in the first line.',
-      'Rules here are short plain-English summaries in StudyVerse\'s words — read the section in your study material for the exact wording before the exam.'] },
+      'Rules here are short plain-English summaries in Knowtopia\'s words — read the section in your study material for the exact wording before the exam.'] },
     'fnd-p3': { n: 'Paper 3 · Quantitative Aptitude', intro: ['Each formula has a worked mini example. Cover the answer, solve it, then check.'] },
     'fnd-p4': { n: 'Paper 4 · Business Economics', intro: ['Definitions, laws and formulas that MCQs are built on. Learn the formula and the sign (+ / −) that tells you the type.'] },
   };

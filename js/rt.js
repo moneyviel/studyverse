@@ -1,4 +1,4 @@
-/* StudyVerse tiny Supabase Realtime client (no supabase-js).
+/* Knowtopia tiny Supabase Realtime client (no supabase-js).
    Phoenix channel protocol vsn 1.0.0 (JSON objects) over one WebSocket:
      wss://<project>.supabase.co/realtime/v1/websocket?apikey=<publishable key>&vsn=1.0.0
    - join a topic ("realtime:room-ABCDEF") with { config: { broadcast: { self: true }, presence: { key: userId }, private: false }, access_token }

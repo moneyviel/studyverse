@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: moneycounter — "Money counter" (Indian rupees)
+/* Knowtopia Concept Lab: moneycounter — "Money counter" (Indian rupees)
  * The child taps Indian coins and notes onto the counter to pay an exact amount, give change, or shop.
  *
  * PARAMS (all optional)

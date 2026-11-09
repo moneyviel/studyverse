@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: arraygrid — "Array builder & fair sharing"
+/* Knowtopia Concept Lab: arraygrid — "Array builder & fair sharing"
  * Multiplication as rows × columns of objects (drag the corner to resize), times tables as growing rows,
  * and division as sharing objects equally into groups (with remainders).
  *

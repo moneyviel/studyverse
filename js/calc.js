@@ -1,4 +1,4 @@
-/* StudyVerse calculator — a "physical" calculator in a slide-up panel, with three modes:
+/* Knowtopia calculator — a "physical" calculator in a slide-up panel, with three modes:
    - Basic: a 12-digit desk calculator like the ones CA students carry — immediate execution (left to right), %, √, ±, 00,
      M+ M− MR MC, GT (grand total), AC / C, constant mode (repeat =), a ÷ = for 1/a, Indian (1,00,000) or international grouping.
    - Scientific: type a whole expression (order of operations, brackets), sin/cos/tan with DEG/RAD and INV, log, ln, 10ˣ, eˣ,
@@ -390,7 +390,7 @@
     fab.innerHTML = '<span aria-hidden="true">🧮</span>'; fab.onclick = toggle; fab.hidden = true; D.body.appendChild(fab);
     panel = D.createElement('section'); panel.id = 'calcPanel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Calculator'); panel.hidden = true;
     panel.innerHTML = `<div class="cx-body">
-      <div class="cx-top"><span class="cx-brand">StudyVerse <b>CX-12</b></span>
+      <div class="cx-top"><span class="cx-brand">Knowtopia <b>CX-12</b></span>
         <button type="button" class="cx-mini" id="cxLearn" aria-label="Learn to use this calculator: Calculator Academy">🎓 Learn</button>
         <button type="button" class="cx-mini" id="cxTapeBtn" aria-pressed="false">🧾 Roll</button>
         <button type="button" class="cx-mini" id="cxGrp" data-hl="grp" title="Number grouping" aria-label="Number grouping">1,00,000</button>

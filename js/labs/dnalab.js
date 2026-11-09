@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: dnalab — DNA replication, transcription, translation and mutation
+/* Knowtopia Concept Lab: dnalab — DNA replication, transcription, translation and mutation
  *
  * replicate : drag the helicase along to unzip the double helix, then add complementary
  *             nucleotides. The leading strand grows continuously 5′→3′ towards the fork; the

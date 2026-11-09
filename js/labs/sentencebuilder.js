@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab — sentencebuilder
+/* Knowtopia Concept Lab — sentencebuilder
  * The child taps shuffled word chips to build a sentence in the right order, then checks it.
  * Works for any language (English, Hindi, Sanskrit...). Correct sentences are read aloud.
  *

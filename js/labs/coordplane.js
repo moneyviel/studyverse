@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: coordplane — "Coordinate plane"
+/* Knowtopia Concept Lab: coordplane — "Coordinate plane"
  * The child taps the Cartesian plane to plot points (they snap to the grid) and drags them around.
  * Coordinates, quadrant, distance, midpoint, slope and the line through two points update live.
  *

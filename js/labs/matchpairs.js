@@ -1,4 +1,4 @@
-/* StudyVerse lab: matchpairs — join each left item to its partner on the right with a line
+/* Knowtopia lab: matchpairs — join each left item to its partner on the right with a line
  *
  * PARAMS (all optional; if `pairs` is missing/invalid a built-in states-and-capitals set is used)
  *  title       string   heading above the columns (any language)                         default ''

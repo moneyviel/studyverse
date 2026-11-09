@@ -1,4 +1,4 @@
-/* ================= StudyVerse Puzzles: chapter puzzles, Sudoku, Kakuro + a daily puzzle (js/puzzles.js) =================
+/* ================= Knowtopia Puzzles: chapter puzzles, Sudoku, Kakuro + a daily puzzle (js/puzzles.js) =================
    PUBLIC API (window.Puzzles) — used by the 🎮 Play hub (js/playhub.js) and the live 🧩 Puzzle Race (js/live.js):
      Puzzles.kinds() → [{ id, e, n, d, chapter }]   ids: 'sdk' Sudoku · 'kak' Kakuro · 'xw' Crossword · 'ws' Word search ·
                        'an' Anagram · 'csdk' Concept sudoku ('ana' is accepted everywhere as another name for 'an').

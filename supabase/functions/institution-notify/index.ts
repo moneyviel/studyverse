@@ -36,7 +36,7 @@ Contact: ${esc(by.contact_name || '')} · ${esc(by.contact_email || '')} · ${es
 <b>Total ${inr(o.total)}</b> · Academic year ${esc(o.academic_year)} (seats till 31 March)</p>
 <p>Mark it paid in the app: Me → 🏫 Schools (owner) → Orders.</p></body></html>`;
     const s = await fetch('https://api.brevo.com/v3/smtp/email', { method: 'POST', headers: { 'api-key': BREVO, 'Content-Type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify({ sender: { name: 'StudyVerse Schools', email: OWNER }, replyTo: { email: res.by || OWNER }, to: [{ email: OWNER }], cc: res.by ? [{ email: res.by }] : undefined,
+      body: JSON.stringify({ sender: { name: 'Knowtopia Schools', email: OWNER }, replyTo: { email: res.by || OWNER }, to: [{ email: OWNER }], cc: res.by ? [{ email: res.by }] : undefined,
         subject: `Invoice request ${o.invoice_no || ''}: ${by.name || 'institution'} — ${o.students} students, ${inr(o.total)}`, htmlContent: html, tags: ['inst-invoice'] }) });
     if (!s.ok) { console.log('brevo', s.status, (await s.text()).slice(0, 200)); return json({ ok: true, mailed: false, msg: 'Your order is saved, but the email could not be sent. Please write to support@moneyviel.com.' }); }
     return json({ ok: true, mailed: true });

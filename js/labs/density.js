@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: density — sink or float in a tank of liquid.
+/* Knowtopia Concept Lab: density — sink or float in a tank of liquid.
  *
  * The child drags (or taps) objects from the shelf into the tank. Each object moves by real buoyancy:
  * it floats if its density is less than the liquid's, sinks if more, and a floating object rests with

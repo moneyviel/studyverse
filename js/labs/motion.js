@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: motion — a car on a track with live distance–time and speed–time graphs,
+/* Knowtopia Concept Lab: motion — a car on a track with live distance–time and speed–time graphs,
  * plus a simple pendulum mode.
  *
  * Track: the child sets the starting speed (and, for non-uniform motion, the acceleration), presses

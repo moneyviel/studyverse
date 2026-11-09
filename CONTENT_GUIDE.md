@@ -1,4 +1,4 @@
-# StudyVerse content guide
+# Knowtopia content guide
 
 Every subject for a grade lives in one file: `content/g<grade>/<subject>.json`
 (for example `content/g6/maths.json`). The app reads these files; no code changes are

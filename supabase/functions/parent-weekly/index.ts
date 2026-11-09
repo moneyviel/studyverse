@@ -1,4 +1,4 @@
-// "parent-weekly": one short weekly email per StudyVerse parent (Brevo, from support@moneyviel.com).
+// "parent-weekly": one short weekly email per Knowtopia parent (Brevo, from support@moneyviel.com).
 // Runs daily from pg_cron (header x-cron-key = studyverse.job_config.cron_key). Each run emails parents whose last email
 // was 7+ days ago (oldest first, max PER_RUN), so sending spreads itself across the week and stays inside Brevo's free 300/day.
 // GET ?u=<unsubscribe id> switches the email off (link at the bottom of every email).
@@ -7,7 +7,7 @@ const URL_ = Deno.env.get('SUPABASE_URL')!;
 const SRK = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 const BREVO = Deno.env.get('BREVO_API_KEY') || '';
 const PER_RUN = Number(Deno.env.get('WEEKLY_PER_RUN') || 250);
-const APP = 'https://study.moneyviel.com/';
+const APP = 'https://knowtopia.in/';
 const FN = `${URL_}/functions/v1/parent-weekly`;
 
 const H = (extra: Record<string, string> = {}) => {
@@ -55,7 +55,7 @@ function summary(c: any) {
   if (aW.a) lines.push(`Answered <b>${aW.a}</b> questions · <b>${pW}%</b> correct${pP != null && aP.a ? ` (last week ${pP}%)` : ''}.`);
   if (goal) lines.push(`Daily goal of ${goal} min met on <b>${goalDays} of 7</b> days.`);
   const alerts: string[] = [];
-  if (!s) alerts.push('No progress synced yet — ask them to sign in to StudyVerse on their phone.');
+  if (!s) alerts.push('No progress synced yet — ask them to sign in to Knowtopia on their phone.');
   else if (quiet >= 3) alerts.push(`No study for ${quiet >= 30 ? '30+' : quiet} days.`);
   if (pW != null && pP != null && aP.a >= 10 && pW < pP - 15) alerts.push(`Accuracy dropped ${pP - pW} points — worth a chat.`);
   const text = `${name}: ${fmtMin(mW)} this week, ${act}/7 days${aW.a ? `, ${aW.a} questions, ${pW}% correct` : ''}${alerts.length ? ' — ' + alerts.join(' ') : ''}`;
@@ -72,24 +72,24 @@ function email(kids: ReturnType<typeof summary>[], unsub: string) {
   const html = `<!doctype html><html><body style="margin:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#111">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:24px 12px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border-radius:14px;overflow:hidden">
-<tr><td style="background:#5B0F1B;color:#fff;padding:18px 24px;font-size:20px;font-weight:bold">StudyVerse<div style="font-size:13px;font-weight:normal;opacity:.85;margin-top:2px">Weekly summary · ${esc(range)}</div></td></tr>
+<tr><td style="background:#5B0F1B;color:#fff;padding:18px 24px;font-size:20px;font-weight:bold">Knowtopia<div style="font-size:13px;font-weight:normal;opacity:.85;margin-top:2px">Weekly summary · ${esc(range)}</div></td></tr>
 <tr><td style="padding:8px 24px 22px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">${blocks}</table>
 <p style="margin:18px 0 6px"><a href="${APP}?hub=1" style="display:inline-block;background:#5B0F1B;color:#fff;text-decoration:none;font-weight:bold;font-size:16px;padding:14px 22px;border-radius:10px">Open full report</a></p>
 <p style="font-size:13px;color:#666;margin:6px 0 0">Strengths, weak areas, goals and dinner-table questions are in Parent Hub.</p>
 </td></tr></table>
-<p style="font-size:12px;color:#888;margin:14px 0 0">StudyVerse · Pune, India · <a href="${off}" style="color:#888">Stop weekly emails</a></p>
+<p style="font-size:12px;color:#888;margin:14px 0 0">Knowtopia · Pune, India · <a href="${off}" style="color:#888">Stop weekly emails</a></p>
 </td></tr></table></body></html>`;
-  const text = `StudyVerse weekly summary (${range})\n\n${kids.map(k => k.text).join('\n')}\n\nFull report: ${APP}?hub=1\nStop weekly emails: ${off}\n`;
+  const text = `Knowtopia weekly summary (${range})\n\n${kids.map(k => k.text).join('\n')}\n\nFull report: ${APP}?hub=1\nStop weekly emails: ${off}\n`;
   return { html, text };
 }
 
 async function send(to: string, subject: string, html: string, text: string) {
   const r = await fetch('https://api.brevo.com/v3/smtp/email', { method: 'POST', headers: { 'api-key': BREVO, 'Content-Type': 'application/json', accept: 'application/json' },
-    body: JSON.stringify({ sender: { name: 'StudyVerse', email: 'support@moneyviel.com' }, replyTo: { email: 'support@moneyviel.com' }, to: [{ email: to }], subject, htmlContent: html, textContent: text, tags: ['parent-weekly'] }) });
+    body: JSON.stringify({ sender: { name: 'Knowtopia', email: 'support@moneyviel.com' }, replyTo: { email: 'support@moneyviel.com' }, to: [{ email: to }], subject, htmlContent: html, textContent: text, tags: ['parent-weekly'] }) });
   if (!r.ok) throw Object.assign(new Error(`brevo ${r.status} ${(await r.text()).slice(0, 200)}`), { status: r.status });
 }
 
-const page = (msg: string) => new Response(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><title>StudyVerse</title><body style="font-family:Arial,sans-serif;max-width:480px;margin:40px auto;padding:0 16px;text-align:center"><h1 style="color:#5B0F1B">StudyVerse</h1><p style="font-size:17px">${esc(msg)}</p><p><a href="${APP}">Open StudyVerse</a></p></body>`, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+const page = (msg: string) => new Response(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><title>Knowtopia</title><body style="font-family:Arial,sans-serif;max-width:480px;margin:40px auto;padding:0 16px;text-align:center"><h1 style="color:#5B0F1B">Knowtopia</h1><p style="font-size:17px">${esc(msg)}</p><p><a href="${APP}">Open Knowtopia</a></p></body>`, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 
 Deno.serve(async (req) => {
   const u = new URL(req.url);
@@ -112,7 +112,7 @@ Deno.serve(async (req) => {
     const kids = (Array.isArray(p.children) ? p.children : []).map(summary);
     if (!kids.length) continue;
     const top = kids[0];
-    const subject = kids.length === 1 ? `${top.name}'s week: ${fmtMin(top.mW)} of study` : `Your children's week on StudyVerse`;
+    const subject = kids.length === 1 ? `${top.name}'s week: ${fmtMin(top.mW)} of study` : `Your children's week on Knowtopia`;
     const { html, text } = email(kids, p.unsub);
     try { await send(p.email, subject, html, text); await rpc('weekly_mark', { p_parent: p.parent_id, p_unsub: p.unsub }); sent++; }
     catch (e: any) { failed++; console.log('send failed', String(e)); if (e.status === 429 || e.status === 402) break; }   // daily limit or credits: stop, the rest go tomorrow

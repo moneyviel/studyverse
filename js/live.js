@@ -1,4 +1,4 @@
-/* ================= StudyVerse LIVE Game Rooms (play with friends) =================
+/* ================= Knowtopia LIVE Game Rooms (play with friends) =================
    For paid students (and during the 24-hour trial); free plan sees a friendly locked card; parents never;
    owner/admin always (testing). Server: supabase/migrations/20261109_live_games.sql (SECURITY DEFINER RPCs —
    the database is the source of truth for turns, deadlines and scores; answer keys never reach other players).
@@ -30,7 +30,7 @@
   const one = r => Array.isArray(r) ? r[0] : r;
   const lget = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } };
   const lset = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
-  const SITE = 'https://study.moneyviel.com/';
+  const SITE = 'https://knowtopia.in/';
   const cap = s => String(s || '').charAt(0).toUpperCase() + String(s || '').slice(1);
   const rpc = async (fn, body) => one(await Cloud.rest('rpc/' + fn, { method: 'POST', body: body || {} }));
 
@@ -164,11 +164,11 @@
   }
   function lockedHTML(why) {
     const play = !!window.SV_PLAY;
-    const msg = why === 'parent' ? 'Game Rooms are for students. Your child can play from their own StudyVerse app.'
+    const msg = why === 'parent' ? 'Game Rooms are for students. Your child can play from their own Knowtopia app.'
       : why === 'signin' ? 'Sign in to play with friends.'
-      : 'Game Rooms are part of StudyVerse plans. Play live quiz races, buzzer rounds and Snakes &amp; Ladders battles with your friends.';
+      : 'Game Rooms are part of Knowtopia plans. Play live quiz races, buzzer rounds and Snakes &amp; Ladders battles with your friends.';
     return `<div class="card lv-locked"><div class="lv-lock-e" aria-hidden="true">🔒</div><h2>Game Rooms are locked</h2><p class="sub">${msg}</p>
-      ${why === 'free' ? (play ? '<p class="sub">Ask your parent about a StudyVerse plan.</p>' : '<button class="btn" id="lvPlans">See plans</button>') : ''}
+      ${why === 'free' ? (play ? '<p class="sub">Ask your parent about a Knowtopia plan.</p>' : '<button class="btn" id="lvPlans">See plans</button>') : ''}
       ${why === 'signin' ? '<button class="btn" id="lvSignin">Sign in</button>' : ''}
       <p class="lv-mut">You can still play the Arcade games on your own, any time.</p></div>`;
   }
@@ -328,7 +328,7 @@
     const sig = JSON.stringify(['lobby', r.step, r.host_id, ps.map(p => [p.user_id, p.ready, p.team, p.name]), L.rtOn]);
     if (sig === L.sig) { paintOnline(); return; } L.sig = sig; L.stageSig = ''; L.sb = null;
     const why = startProblem(st);
-    const link = SITE + '?room=' + r.code, wa = 'https://wa.me/?text=' + encodeURIComponent(`Join my StudyVerse game room! 🎮 ${GAMES[r.game].n}. Code: ${r.code} ${link}`);
+    const link = SITE + '?room=' + r.code, wa = 'https://wa.me/?text=' + encodeURIComponent(`Join my Knowtopia game room! 🎮 ${GAMES[r.game].n}. Code: ${r.code} ${link}`);
     const pRow = p => `<li class="lv-p"><span class="lv-av" aria-hidden="true">${E(p.avatar)}</span><span class="lv-dot" data-on="${p.user_id}"></span>
       <span class="lv-nm">${E(p.name)}${p.user_id === uid() ? ' (you)' : ''}${p.user_id === r.host_id ? ' <span class="lv-host" title="Host">👑 host</span>' : ''}<small>${E(courseName(p.course))}</small></span>
       <span class="lv-rdy ${p.ready || p.user_id === r.host_id ? 'on' : ''}">${p.user_id === r.host_id ? 'Host' : p.ready ? '✓ Ready' : 'Not ready'}</span>

@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: punnett — Punnett-square cross builder + pedigree reader
+/* Knowtopia Concept Lab: punnett — Punnett-square cross builder + pedigree reader
  *
  * Crosses: the child taps the allele buttons on each parent (♀ and ♂) to change their genotype.
  * Gametes are formed (law of segregation / independent assortment), the Punnett square fills in

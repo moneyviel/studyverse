@@ -40,7 +40,7 @@
     const hdr = $1('header'), nav = $1('nav[aria-label="Main"]') || $1('nav'); if (!hdr || !nav) return;
     built = true;
     home = { hdr: [hdr.parentNode, hdr.nextSibling], nav: [nav.parentNode, nav.nextSibling] };
-    const side = D.createElement('aside'); side.id = 'dskSide'; side.setAttribute('aria-label', 'StudyVerse menu');
+    const side = D.createElement('aside'); side.id = 'dskSide'; side.setAttribute('aria-label', 'Knowtopia menu');
     side.innerHTML = `<div class="dsk-sh" id="dskNavH">Go to</div><div class="dsk-sh" id="dskQlH">Quick start</div><div class="dsk-ql" id="dskQl" role="group" aria-labelledby="dskQlH"></div>
       <div class="dsk-foot"><button type="button" id="dskKeysB" aria-haspopup="dialog"><span aria-hidden="true">⌨️</span><span class="dsk-l">Keyboard keys</span></button>
       <button type="button" id="dskFocusB" aria-pressed="false"><span aria-hidden="true">🎧</span><span class="dsk-l">Focus mode</span></button></div>`;

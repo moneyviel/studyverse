@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: placevalue — "Abacus & place-value builder"
+/* Knowtopia Concept Lab: placevalue — "Abacus & place-value builder"
  * The child adds / removes beads (abacus) or base-ten blocks and watches the number, its expanded form
  * and its number name change live. 10 beads on a rod regroup into 1 bead on the next rod.
  *

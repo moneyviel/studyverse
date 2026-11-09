@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: vectorlab — vectors, projectile motion and relative velocity (Class 11 Physics ch. 3/4,
+/* Knowtopia Concept Lab: vectorlab — vectors, projectile motion and relative velocity (Class 11 Physics ch. 3/4,
  * Class 11/12 Maths vectors). NCERT notation: R = √(A² + B² + 2AB cos θ), tan α = B sin θ / (A + B cos θ),
  * R = u² sin 2θ / g, H = u² sin²θ / 2g, T = 2u sin θ / g.
  *

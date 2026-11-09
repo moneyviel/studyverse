@@ -3,7 +3,7 @@
    2. Viva — speak & revise (unit tab + practice hub)       — speechSynthesis (en-IN) asks, SpeechRecognition answers (or typing),
                                                               offline key-point matching (twin of tools/ca_vivamatch.py)
    3. MCQ practice builder  (level → papers → chapters → difficulty → count → timer → mode), case-study sets, results, "Revise these"
-   4. Mock papers           (ICAI pattern, StudyVerse practice paper — not an ICAI paper), timer, automatic marking (js/ca-check.js)
+   4. Mock papers           (ICAI pattern, Knowtopia practice paper — not an ICAI paper), timer, automatic marking (js/ca-check.js)
    5. Notes library         (save cards, highlight text, personal notes per unit, My notes) + one smart search
    New state lives in ST.ca: mlog, viva, tests, revise, notes, time, mockDraft (see content/ca/README.md). */
 (function () {
@@ -244,7 +244,7 @@
       t.textContent = u.n ? `${u.n} photo${u.n > 1 ? 's' : ''} of your answers are stored on this device (${mb(u.bytes)}). They stay with your attempts in each question's history.` : 'No answer photos stored yet. In any written question, choose “📷 Photo of my answer”.';
       if (u.n && !box.querySelector('#caPhClr')) { box.insertAdjacentHTML('beforeend', '<button class="btn ghost" id="caPhClr">Delete all answer photos</button>');
         box.querySelector('#caPhClr').onclick = async function () { if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again — your marks stay, the photos go'; return; } await clear(); toast('All answer photos deleted'); this.remove(); usageCard(box); }; }
-      try { if (navigator.storage && navigator.storage.estimate) { const e = await navigator.storage.estimate(); if (e.quota) t.insertAdjacentHTML('afterend', `<p class="ca-note">Space used by StudyVerse on this phone: ${mb(e.usage || 0)} of ${mb(e.quota)} available to it.</p>`); } } catch (e) {}
+      try { if (navigator.storage && navigator.storage.estimate) { const e = await navigator.storage.estimate(); if (e.quota) t.insertAdjacentHTML('afterend', `<p class="ca-note">Space used by Knowtopia on this phone: ${mb(e.usage || 0)} of ${mb(e.quota)} available to it.</p>`); } } catch (e) {}
     }
     return { add, get, url, del, keep, all, usage, clear, picker, strip, viewer, usageCard, compress, mb };
   })();
@@ -708,7 +708,7 @@
         <p class="sub">${esc(m.scope)}</p><ul class="ca-ul">${m.rules.map(r => `<li>${esc(r)}</li>`).join('')}</ul>
         ${h.length ? `<p class="ca-p">Your attempts: ${h.slice(-3).reverse().map(t => `<b>${fmt(t.score)}/${t.max}</b> (${esc(t.d)})`).join(' · ')}</p>` : ''}
         <button class="btn" data-m="${m.id}">${dr ? `Resume (${secsTxt(dr.secs)} used) ▶` : 'Start the paper ▶'}</button>${dr ? `<button class="ca-link" data-new="${m.id}">Start again from a blank paper</button>` : ''}</div>`; }).join('')}
-      <div class="card"><p class="ca-note">These are StudyVerse practice papers written in the pattern of ICAI's papers — they are not ICAI papers and are not endorsed by ICAI. Pilot scope: the chapters already built.</p></div>`);
+      <div class="card"><p class="ca-note">These are Knowtopia practice papers written in the pattern of ICAI's papers — they are not ICAI papers and are not endorsed by ICAI. Pilot scope: the chapters already built.</p></div>`);
     el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => mockPaper(b.dataset.m));
     el.querySelectorAll('[data-new]').forEach(b => b.onclick = () => { delete C().mockDraft[b.dataset.new]; save(); mockPaper(b.dataset.new); });
   }

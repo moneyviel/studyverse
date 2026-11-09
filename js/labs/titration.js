@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: titration — burette, conical flask, live pH / redox curve
+/* Knowtopia Concept Lab: titration — burette, conical flask, live pH / redox curve
  *
  * The child drags the burette TAP open (slow = dropwise, wide = fast stream) or adds single drops
  * (0.05 mL), watches the indicator and the curve, then presses "Record end point". The pH is found

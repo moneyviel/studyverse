@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: circlelab — "Circle lab"
+/* Knowtopia Concept Lab: circlelab — "Circle lab"
  * The child drags points on a circle (and its radius handle) to explore the parts of a circle,
  * circumference and area, arc length and sector area, and the angle theorems.
  *

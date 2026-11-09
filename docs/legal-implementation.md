@@ -1,4 +1,4 @@
-# StudyVerse legal: implementation proposal (v2.0, 9 November 2026)
+# Knowtopia legal: implementation proposal (v2.0, 9 November 2026)
 
 This file is a **proposal**. Nothing below has been applied to the database or app yet. The legal pages (`legal/*.html`)
 already describe the target behaviour, so the items marked **MUST** should be built before relying on those pages
@@ -84,7 +84,7 @@ RPCs (all `security definer`, `set search_path = ''`, like the existing ones):
 1. Ask **"Who is this account for?"** → *Me (18 or older)* / *My child (under 18)*. Store `age_band`.
 2. Replace the single tick box with:
    * adult: "I am 18 or older and I accept the Terms (v2.0) and Privacy Policy." 
-   * for a child: "I am this child's parent or guardian, I am 18 or older, and I consent to StudyVerse processing my
+   * for a child: "I am this child's parent or guardian, I am 18 or older, and I consent to Knowtopia processing my
      child's data as the Privacy Policy describes. I accept the Terms (v2.0) for my child."
 3. Send `consent_version` = `SV_LEGAL.version` in the sign-up metadata (2.). Keep the existing "please tick" error.
 4. **Better (recommended) for children:** parent signs up as Parent first and uses Parent Hub → "Add child" to create
@@ -98,7 +98,7 @@ RPCs (all `security definer`, `set search_path = ''`, like the existing ones):
 
 * After sign-in, `js/cloud.js` calls `legal_status()` (cache 1 day). If `accepted` is false:
   * **adult / parent:** full-screen card: "We've updated our Terms", version + date, *What changed* summary, links
-    to Terms / Privacy / Refunds, tick box, **Accept & continue**, or "log out / write to support@moneyviel.com".
+    to Terms / Privacy / Refunds, tick box, **Accept & continue**, or "log out / write to support@knowtopia.in".
   * **child:** friendly card: "Our rules changed. Please ask your parent to say OK in Parent Hub." The app keeps
     working in a limited mode (lessons only, no friends/rooms) for 14 days, then pauses until the parent accepts.
     A linked parent gets an email + a Parent Hub banner with the same accept card (`parent_consent`).
@@ -131,7 +131,7 @@ RPCs (all `security definer`, `set search_path = ''`, like the existing ones):
 
 1. Edit `SV_LEGAL.brand` and `SV_LEGAL.brandHTML` in `legal/legal.js` (all pages update when JavaScript runs).
 2. Update the plain-text fallback (for search engines / no-JS):
-   `sed -i 's/StudyVerse/NewName/g' legal/*.html` (check `Study<span>Verse</span>` in the header too).
+   `sed -i 's/Knowtopia/NewName/g' legal/*.html` (check `Know<span>topia</span>` in the header too).
 3. Owner details (address, GSTIN, grievance phone, version, date) are also only in `SV_LEGAL`; for the static
    fallback text run the same kind of replace for the `[OWNER TO FILL…]` strings.
 
@@ -177,10 +177,10 @@ RPCs (all `security definer`, `set search_path = ''`, like the existing ones):
 1. Whether in-app progress tracking, study-time tracking, streaks and teacher "early warnings" count as
    "tracking or behavioural monitoring of children" under DPDP s.9(3), and whether any Fourth Schedule exemption
    (educational institutions, Part A) helps for **school** accounts only. B2C accounts likely get no exemption.
-2. Rule 10 verifiable parental consent: which method is enough for StudyVerse.
-3. School = Data Fiduciary / StudyVerse = Data Processor split, and the school agreement / DPA wording
+2. Rule 10 verifiable parental consent: which method is enough for Knowtopia.
+3. School = Data Fiduciary / Knowtopia = Data Processor split, and the school agreement / DPA wording
    (schools.html), including breach notice within 24 hours.
-4. Whether StudyVerse is an "intermediary" under the IT Rules 2021 (minimal user content) and the content-removal
+4. Whether Knowtopia is an "intermediary" under the IT Rules 2021 (minimal user content) and the content-removal
    timelines promised in contact.html.
 5. E-Commerce Rules 2020 duties for a seller of its own digital services (seller details, grievance officer
    display), and the refund/cancellation wording.

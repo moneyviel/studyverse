@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: phlab — "Test-tube lab" (acids, bases, indicators, pH, neutralisation)
+/* Knowtopia Concept Lab: phlab — "Test-tube lab" (acids, bases, indicators, pH, neutralisation)
  *
  * PARAMS (all optional)
  *  mode        string  'test' (dip/drop indicators into substances) | 'neutralise' (add drops of

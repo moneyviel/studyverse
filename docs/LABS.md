@@ -1,4 +1,4 @@
-# StudyVerse Concept Labs — builder contract
+# Knowtopia Concept Labs — builder contract
 
 A **Concept Lab** is a small, hands-on interactive for ONE concept. The child changes something
 (drag, tap, slide) and immediately sees the effect, then completes a **challenge**.

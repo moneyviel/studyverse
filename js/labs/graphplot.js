@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: graphplot — plot y = mx + c, two lines (simultaneous equations) or a quadratic.
+/* Knowtopia Concept Lab: graphplot — plot y = mx + c, two lines (simultaneous equations) or a quadratic.
  *
  * The child moves sliders and the graph, equation, points table and key facts update live.
  *

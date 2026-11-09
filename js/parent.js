@@ -1,4 +1,4 @@
-/* ================= StudyVerse Parent Hub =================
+/* ================= Knowtopia Parent Hub =================
    Parents follow and guide a child's study; the child's app shows the parent's goal and keeps healthy limits.
    1. Time tracking (child's app): active study minutes per local day in ST.time = { 'YYYY-MM-DD': minutes }.
       Counts in 15-second steps, only while the page is visible and the student touched it in the last 60 s.
@@ -22,7 +22,7 @@
 (function () {
   'use strict';
   const D = document, R = D.documentElement, LS = localStorage, DAY = 864e5;
-  const SITE = 'https://study.moneyviel.com';
+  const SITE = 'https://knowtopia.in';
   const CK = 'sv_pctl', UK = 'sv_punlock';
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
@@ -303,9 +303,9 @@
       const r = one(await rpc('create_child_code'));
       if (!r || !r.ok || !r.code) throw new Error((r && r.msg) || 'Could not make a code. Please try again.');
       const till = r.expires_at ? new Date(r.expires_at).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }) : 'tomorrow';
-      const msg = `Please link to my StudyVerse 📚\n1. Open ${SITE} on your phone.\n2. Create an account and choose "Parent".\n3. Tap "Enter code from my child's app" and type this code: ${r.code}\nThe code works till ${till}.`;
+      const msg = `Please link to my Knowtopia 📚\n1. Open ${SITE} on your phone.\n2. Create an account and choose "Parent".\n3. Tap "Enter code from my child's app" and type this code: ${r.code}\nThe code works till ${till}.`;
       el.querySelector('.sheet-in').innerHTML = `<div class="sheet-grab"></div><h3 id="clT">My code for my parent</h3>
-        <p>Ask your parent to open <b>study.moneyviel.com</b> on their phone, create an account as <b>Parent</b>, and tap <b>Enter code from my child's app</b>.</p>
+        <p>Ask your parent to open <b>knowtopia.in</b> on their phone, create an account as <b>Parent</b>, and tap <b>Enter code from my child's app</b>.</p>
         <div class="pv-bigcode" aria-label="Code ${esc(r.code.split('').join(' '))}">${esc(r.code)}</div><p class="cl-small">Works till ${esc(till)}. Use it once.</p>
         <div class="pv-row"><button class="btn ghost" type="button" id="pvCopy">Copy code</button><a class="btn pv-wa" id="pvWa" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Send on WhatsApp</a></div>
         <div style="height:8px"></div><button class="btn ghost" type="button" id="pvDone">Done</button>`;
@@ -355,7 +355,7 @@
     }
     hub.classList.toggle('pv-pro', !pinned && R.dataset.age === 'pro');
     hub.toggleAttribute('data-pinned', pinned); hub.toggleAttribute('data-nonav', pinned);   // no Back / Escape close; Back history ignores it
-    hub.innerHTML = `<div class="pv-wrap"><div class="pv-top">${pinned ? '<span class="pv-logo" aria-hidden="true">Study<b>Verse</b></span>' : '<button class="pv-back" type="button" data-close aria-label="Close Parent Hub">← Back</button>'}<h1 id="pvT">👨‍👩‍👧 Parent Hub</h1><button class="pv-ref" type="button" id="pvRef" aria-label="Refresh">⟳</button></div>
+    hub.innerHTML = `<div class="pv-wrap"><div class="pv-top">${pinned ? '<span class="pv-logo" aria-hidden="true">Know<b>topia</b></span>' : '<button class="pv-back" type="button" data-close aria-label="Close Parent Hub">← Back</button>'}<h1 id="pvT">👨‍👩‍👧 Parent Hub</h1><button class="pv-ref" type="button" id="pvRef" aria-label="Refresh">⟳</button></div>
       <div class="pv-tabs" role="tablist" aria-label="Children" id="pvTabs"></div><div id="pvBody" class="pv-body"><p class="pv-load">Loading…</p></div></div>`;
     const bk = hub.querySelector('.pv-back'); if (bk) bk.onclick = closeHub;
     hub.querySelector('#pvRef').onclick = () => load();
@@ -412,7 +412,7 @@
   }
   function childCodeSheet() {
     style();
-    const el = C().sheet(`<h3 id="clT">Enter code from my child's app</h3><p>On your child's phone open StudyVerse → <b>Me</b> → <b>Show my code for my parent</b>. Type that code here.</p>
+    const el = C().sheet(`<h3 id="clT">Enter code from my child's app</h3><p>On your child's phone open Knowtopia → <b>Me</b> → <b>Show my code for my parent</b>. Type that code here.</p>
       <form id="pvCcF" novalidate><label for="pvCcC">Code from your child's app</label><input class="cl-in pv-code-in" id="pvCcC" maxlength="6" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABC123">
       <label for="pvCcN">Child's name</label><input class="cl-in" id="pvCcN" maxlength="40" autocomplete="off" placeholder="e.g. Riya">
       <div class="cl-err" id="pvCcE" role="alert"></div><button class="btn" type="submit" id="pvCcGo">Link my child</button></form><div style="height:8px"></div><button class="btn ghost" type="button" id="pvCcX">Cancel</button>`);
@@ -450,7 +450,7 @@
         const r = await C().call('/functions/v1/parent-invite', { method: 'POST', body: { email, name } });
         if (!r || !r.ok) { e.textContent = (r && (r.msg || r.error)) || 'Could not send the invite. Please try again.'; return; }
         const s = C().sheet(`<h3 id="clT">Invite sent 📧</h3><p>We emailed <b>${esc(email)}</b>. Your child opens it on their phone and creates their account with that email. They'll appear here automatically.</p>
-          ${r.exists ? `<p class="cl-small">This email already has a StudyVerse account — ${esc(name)} just needs to sign in once.</p>` : ''}
+          ${r.exists ? `<p class="cl-small">This email already has a Knowtopia account — ${esc(name)} just needs to sign in once.</p>` : ''}
           <p class="cl-small">Not in the inbox? Ask them to check Spam or Promotions.</p><button class="btn" type="button" id="pvInOk">OK</button>`);
         s.querySelector('#pvInOk').onclick = C().closeSheet; load();
       } catch (err) { e.textContent = C().errText(err); }
@@ -461,7 +461,7 @@
   /* account area (parent accounts only: they have no Me screen) */
   const acctHTML = () => !pinned ? '' : `<section class="pv-card" id="pvAcct" aria-labelledby="pvAcT"><h3 id="pvAcT">👤 Your account</h3><p>${esc(C().email())}</p>
     <button class="pv-btn ghost" type="button" id="pvOut">Sign out</button>
-    <p class="pv-note" style="margin-top:10px"><a href="legal/privacy.html">Privacy</a> · <a href="legal/terms.html">Terms</a> · Help: <a href="mailto:support@moneyviel.com">support@moneyviel.com</a></p></section>`;
+    <p class="pv-note" style="margin-top:10px"><a href="legal/privacy.html">Privacy</a> · <a href="legal/terms.html">Terms</a> · Help: <a href="mailto:support@knowtopia.in">support@knowtopia.in</a></p></section>`;
   function wireAcct(root) {
     const b = root.querySelector('#pvOut'); if (!b) return;
     b.onclick = () => { if (!b.dataset.sure) { b.dataset.sure = 1; b.textContent = 'Tap again to sign out'; return; } b.disabled = true; b.textContent = 'Signing out…'; C().signOut(); };
@@ -488,7 +488,7 @@
 
   function addChild() {
     style();
-    const el = C().sheet(`<h3 id="clT">Add a child</h3><p>We make a code. Your child enters it on their own StudyVerse account to link to you.</p>
+    const el = C().sheet(`<h3 id="clT">Add a child</h3><p>We make a code. Your child enters it on their own Knowtopia account to link to you.</p>
       <form id="pvAddF" novalidate><label for="pvAddN">Child's name</label><input class="cl-in" id="pvAddN" maxlength="40" autocomplete="off" placeholder="e.g. Riya">
       <div class="cl-err" id="pvAddE" role="alert"></div><button class="btn" type="submit" id="pvAddGo">Make code</button></form><div style="height:8px"></div><button class="btn ghost" type="button" id="pvAddX">Cancel</button>`);
     el.querySelector('#pvAddX').onclick = C().closeSheet;
@@ -506,8 +506,8 @@
   }
   function showCode(name, code, exp) {
     const till = exp ? new Date(exp).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' }) : '2 days';
-    const msg = `Let's link StudyVerse 👨‍👩‍👧\n1. On ${name}'s phone open ${SITE} and sign in to ${name}'s account.\n2. Go to Me → "Link to my parent".\n3. Enter this code: ${code}\nThe code works till ${till}.`;
-    const el = C().sheet(`<h3 id="clT">Code for ${esc(name)}</h3><p>On ${esc(name)}'s phone: open <b>study.moneyviel.com</b> → <b>Me</b> → <b>Link to my parent</b> → enter this code.</p>
+    const msg = `Let's link Knowtopia 👨‍👩‍👧\n1. On ${name}'s phone open ${SITE} and sign in to ${name}'s account.\n2. Go to Me → "Link to my parent".\n3. Enter this code: ${code}\nThe code works till ${till}.`;
+    const el = C().sheet(`<h3 id="clT">Code for ${esc(name)}</h3><p>On ${esc(name)}'s phone: open <b>knowtopia.in</b> → <b>Me</b> → <b>Link to my parent</b> → enter this code.</p>
       <div class="pv-bigcode" aria-label="Code ${esc(code.split('').join(' '))}">${esc(code)}</div><p class="cl-small">Works till ${esc(till)}. Use it once.</p>
       <div class="pv-row"><button class="btn ghost" type="button" id="pvCopy">Copy code</button><a class="btn pv-wa" id="pvWa" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Share on WhatsApp</a></div>
       <div style="height:8px"></div><button class="btn ghost" type="button" id="pvDone">Done</button>`);
@@ -1114,7 +1114,7 @@
 
   function reportText(A, c) {
     const wk = daysBack(7), L = [];
-    L.push(`📚 StudyVerse weekly report — ${A.name}${A.label ? ' (' + A.label + ')' : ''}`);
+    L.push(`📚 Knowtopia weekly report — ${A.name}${A.label ? ' (' + A.label + ')' : ''}`);
     L.push(`Week: ${fmtDay(wk[0])} – ${fmtDay(wk[6])}`);
     if (!A.has) { L.push('No study data yet.'); return L.join('\n'); }
     L.push(`⏱ Study time: ${fmtMin(A.weekMin)} on ${A.daysActive} of 7 days (last week ${fmtMin(A.prevMin)})`);
@@ -1130,12 +1130,12 @@
   function printReport(A, c) {
     let p = D.getElementById('pvPrint'); if (!p) { p = D.createElement('div'); p.id = 'pvPrint'; D.body.appendChild(p); }
     const sug = A.has ? suggestions(A) : [];
-    p.innerHTML = `<h1>StudyVerse — Weekly report card</h1><h2>${esc(A.name)}${A.label ? ' · ' + esc(A.label) : ''}</h2>
+    p.innerHTML = `<h1>Knowtopia — Weekly report card</h1><h2>${esc(A.name)}${A.label ? ' · ' + esc(A.label) : ''}</h2>
       <p class="pp-d">Week ${esc(fmtDay(daysBack(7)[0]))} – ${esc(fmtDay(todayK()))} · printed ${esc(new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }))}</p>
       ${A.has ? `<div class="pp-chart">${chartSVG(A)}</div>` : ''}
       <pre>${esc(reportText(A, c))}</pre>
       ${sug.length ? `<h3>Scope to improve</h3><ol>${sug.map(x => `<li>${x}</li>`).join('')}</ol>` : ''}
-      <p class="pp-f">study.moneyviel.com · Parent Hub</p>`;
+      <p class="pp-f">knowtopia.in · Parent Hub</p>`;
     const done = () => { p.remove(); removeEventListener('afterprint', done); };
     addEventListener('afterprint', done);
     try { window.print(); } catch (e) {}
@@ -1315,7 +1315,7 @@ select.pv-in{appearance:auto;width:100%!important;max-width:none}
     let t = 0;
     new MutationObserver(() => { if (!t) t = requestAnimationFrame(() => { t = 0; paintMe(); paintGoal(); }); }).observe(D.body, { childList: true, subtree: true });
     setTimeout(() => { pullControls(); paintMe(); paintGoal(); enforce(); }, 1200);
-    try {   // links in the weekly email open the hub: study.moneyviel.com/?hub=1
+    try {   // links in the weekly email open the hub: knowtopia.in/?hub=1
       const u = new URL(location.href);
       if (u.searchParams.get('hub')) { u.searchParams.delete('hub'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); setTimeout(() => { if (canHub()) openHub(); }, 1500); }
     } catch (e) {}

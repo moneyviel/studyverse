@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: particles — "Particle box" (states of matter, diffusion, evaporation)
+/* Knowtopia Concept Lab: particles — "Particle box" (states of matter, diffusion, evaporation)
  *
  * PARAMS (all optional; missing ones fall back to sensible defaults)
  *  mode       string   'states' | 'diffusion' | 'evaporation'                          default 'states'

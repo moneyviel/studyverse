@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: balance — balance scale for solving linear equations.
+/* Knowtopia Concept Lab: balance — balance scale for solving linear equations.
  *
  * The equation is  (lx)·x + lu  =  (rx)·x + ru   with whole-number counts (no negatives).
  * Mystery boxes (x) and unit weights (1) sit on two pans. The child removes things from one

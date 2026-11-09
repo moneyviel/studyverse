@@ -2,7 +2,7 @@
    1. "Legal & Privacy" card at the bottom of the Me screen (links to the static pages in legal/).
    2. Small "By continuing you agree…" line at the bottom of each onboarding step.
    3. One short, skippable notice on first launch (remembered on this device in localStorage 'sv_legal').
-   Pages open in the same window (works in the installed app); "Back to StudyVerse" on a page
+   Pages open in the same window (works in the installed app); "Back to Knowtopia" on a page
    returns here, and we reopen the Me screen if that is where the person came from. */
 (function () {
   const KEY = 'sv_legal', RET = 'sv_legal_ret';
@@ -18,7 +18,7 @@
     const host = document.getElementById('s-me'); if (!host) return;
     document.getElementById('lgCard')?.remove();
     host.insertAdjacentHTML('beforeend', `<div class="card lg-card" id="lgCard"><h3><span aria-hidden="true">⚖️</span> Legal &amp; Privacy</h3>
-      <p class="sub">Your progress is saved to your account. StudyVerse is not linked to CBSE, NCERT or ICAI. Always check your textbook for exams.</p>
+      <p class="sub">Your progress is saved to your account. Knowtopia is not linked to CBSE, NCERT or ICAI. Always check your textbook for exams.</p>
       <ul class="lg-links">${LINKS.map(([f, n]) => `<li><a href="legal/${f}.html">${n}</a></li>`).join('')}</ul>
       <a class="lg-all" href="legal/index.html">All legal &amp; privacy pages <span aria-hidden="true">›</span></a></div>`);
     host.querySelectorAll('#lgCard a').forEach(a => a.addEventListener('click', () => markReturn('me')));
@@ -40,7 +40,7 @@
     if (seen() || document.getElementById('lgNote')) return;
     const html = `<aside class="lg-note" id="lgNote" aria-label="Welcome notice">
       <p><b><span aria-hidden="true">📘</span> Before you start</b></p>
-      <p>StudyVerse helps you understand topics. It is not linked to CBSE, NCERT or ICAI, and it can make mistakes, so check your textbook for exams. Your progress is saved to your account.</p>
+      <p>Knowtopia helps you understand topics. It is not linked to CBSE, NCERT or ICAI, and it can make mistakes, so check your textbook for exams. Your progress is saved to your account.</p>
       <div class="lg-note-btns"><button type="button" class="lg-ok" id="lgOk">Got it</button><a href="legal/index.html" id="lgMore">Read more</a></div></aside>`;
     if (where === 'onboard') { const c = document.querySelector('#s-onboard .ob > .card'); if (!c) return; c.insertAdjacentHTML('beforebegin', html); }
     else { const t = document.getElementById('worldTitle'); if (!t) return; t.insertAdjacentHTML('beforebegin', html); }

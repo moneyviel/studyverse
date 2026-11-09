@@ -1,4 +1,4 @@
-/* ================= StudyVerse accessibility layer =================
+/* ================= Knowtopia accessibility layer =================
    For blind and low-vision children (and young children who cannot read yet).
    Loaded last; it adds to the existing screens without changing how they look for sighted users.
    1. Screen readers: names for every control, roles, dialogs (focus moved in and back, Escape closes,
@@ -421,7 +421,7 @@
     rec.lang = courseLang() === 'hi' ? 'hi-IN' : 'en-IN'; rec.interimResults = false; rec.maxAlternatives = 4; rec.continuous = !!o.hold;
     let got = [];
     rec.onresult = e => { for (let i = e.resultIndex; i < e.results.length; i++) if (e.results[i].isFinal) got.push([...e.results[i]].map(a => a.transcript)); if (!o.hold && got.length) { const a = got.flat(); got = []; handleSpeech(a); } };
-    rec.onerror = ev => { if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') { if (!micDenied) toast('Please allow the microphone to talk to StudyVerse'); micDenied = true; } };
+    rec.onerror = ev => { if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') { if (!micDenied) toast('Please allow the microphone to talk to Knowtopia'); micDenied = true; } };
     rec.onend = () => { if (rec === me) rec = null; talkState(false); if (o.hold && got.length) { const a = got.map(x => x[0]).join(' '); handleSpeech([a, ...got.flat()]); } };
     try { rec.start(); recUsed = true; talkState(true); if (!o.auto) { try { sfx('tap'); } catch (e) {} announce(T('listening')); } } catch (e) { rec = null; }
   }
@@ -684,7 +684,7 @@
     $1('#svOfferYes').onclick = () => done(true); $1('#svOfferNo').onclick = () => done(false);
     s.classList.add('show');
     setTimeout(() => focusEl($1('#svOfferYes')), 80);
-    say('Welcome to StudyVerse. Shall I read the app aloud for you? Press Enter, or say yes, to turn on Listen mode. Press Escape, or say no, to skip.', { force: true }).then(() => {
+    say('Welcome to Knowtopia. Shall I read the app aloud for you? Press Enter, or say yes, to turn on Listen mode. Press Escape, or say no, to skip.', { force: true }).then(() => {
       if (!SR || !s.isConnected || !navigator.permissions) return;
       navigator.permissions.query({ name: 'microphone' }).then(p => { if (p.state !== 'granted' || !s.isConnected) return;
         try { const r = new SR(); r.lang = 'en-IN'; r.onresult = e => { const t = norm(e.results[0][0].transcript); if (/^(yes|yeah|listen|ok|okay|हाँ|हां)/.test(t)) done(true); else if (/^(no|nope|नहीं)/.test(t)) done(false); }; r.start(); } catch (e) {} }).catch(() => {});

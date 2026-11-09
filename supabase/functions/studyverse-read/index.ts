@@ -1,4 +1,4 @@
-// StudyVerse "read my handwriting": turns photos of a written answer into text, so the app's own checker can mark it.
+// Knowtopia "read my handwriting": turns photos of a written answer into text, so the app's own checker can mark it.
 // Deployed as "studyverse-read" in project moneyviel-apps. Uses Google Gemini (free tier) — secret GEMINI_API_KEY
 // (optional GEMINI_MODEL; falls back through current free Flash models). It only transcribes; marking is done by the app (js/ca-check.js).
 // POST { images: [base64 JPEG, ...] (max 4 pages), question: "..." } → { text } | { error }

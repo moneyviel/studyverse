@@ -7,7 +7,7 @@
 //   number puzzles → null · school chapter → the subject JSON · CA chapter → { structure, units, banks, keyItems }
 //   (CA: contentPathOf(spec) gives the structure, then contentPathOf(spec, structure) the unit + bank files; bank files
 //    are optional; js/ca-keys-data.js is NOT fetched — it is bundled next to the function, keyItems = CaKeysData.ITEMS).
-export const SITE = 'https://study.moneyviel.com/';
+export const SITE = 'https://knowtopia.in/';
 export const KEYS_JS = 'js/ca-keys-data.js';
 
 // only the app's own content files may be fetched: content/…json, no "..", no query, no other host

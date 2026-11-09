@@ -1,4 +1,4 @@
-/* ================= StudyVerse 🦁 Squad (school) / 👥 Group (CA) — js/squad.js =================
+/* ================= Knowtopia 🦁 Squad (school) / 👥 Group (CA) — js/squad.js =================
    Replaces the old sample league: squadScreen() is reassigned here (loads after js/ca.js, js/practice.js and js/parent.js),
    and serves both school students (#s-squad) and CA students (#s-ca with the 👥 Group tab).
    Screen, top to bottom (each part is ONE .card):
@@ -316,8 +316,8 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
     };
   }
   async function shareCode() {
-    const code = H.me.code, text = `Be my study buddy on StudyVerse! Open Squad → Friends and type my code: ${code}`;
-    try { if (navigator.share) { await navigator.share({ title: 'StudyVerse', text }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
+    const code = H.me.code, text = `Be my study buddy on Knowtopia! Open Squad → Friends and type my code: ${code}`;
+    try { if (navigator.share) { await navigator.share({ title: 'Knowtopia', text }); return; } } catch (e) { if (e && e.name === 'AbortError') return; }
     try { await navigator.clipboard.writeText(text); say('Code copied — paste it to your friend'); return; } catch (e) {}
     window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
   }

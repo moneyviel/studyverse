@@ -46,7 +46,7 @@
   }
 
   /* ================= cards ================= */
-  /* [id, emoji, name, fact (StudyVerse's own words), rarity c / r / e] — the unlock rule comes from the set (RULES) */
+  /* [id, emoji, name, fact (Knowtopia's own words), rarity c / r / e] — the unlock rule comes from the set (RULES) */
   const SETS = [
     { id: 'sci', e: '🔬', n: 'Scientists', for: 's', col: '#3b82f6', cards: [
       ['raman', '🌈', 'C.V. Raman', 'Found that light changes colour a little when it scatters (the Raman effect). Nobel Prize in Physics, 1930. National Science Day, 28 Feb, marks his discovery.', 'c'],

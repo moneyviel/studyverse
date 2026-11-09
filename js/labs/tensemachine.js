@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab — tensemachine
+/* Knowtopia Concept Lab — tensemachine
  * A time machine: slide between PAST · PRESENT · FUTURE and pick the aspect (simple / continuous /
  * perfect / perfect continuous). The sentence on the screen changes to the matching verb form
  * (all forms come from a data table, so it works for English, Hindi, Sanskrit lakāras…).

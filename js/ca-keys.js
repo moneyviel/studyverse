@@ -10,7 +10,7 @@
        3. keyword patterns of the item, only for MCQs inside the item's scope (its unit / chapters).
      Items with no linked question carry their own original MCQs (item.mcqs).
    - Chip "📚 Section 10 — ICA" inside every CA MCQ explanation (js/ca.js refChip → CaKeys.chips) opens the item in a sheet.
-   Everything here is StudyVerse's own wording. */
+   Everything here is Knowtopia's own wording. */
 (function () {
   'use strict';
   const DATA = (typeof window !== 'undefined' ? window.CaKeysData : null) || (typeof require === 'function' ? require('./ca-keys-data.js') : null);
@@ -264,7 +264,7 @@
         <p class="ca-note"><span id="kyN"></span> · <span id="kyLink">linking questions…</span></p></div>
       <div class="card ky-due" id="kyDue" hidden></div>
       <div id="kyList" aria-live="off"></div>
-      <p class="ca-note ca-onDark2">StudyVerse's own summaries — read the section or standard in your ICAI study material for the exact wording.</p></div>`;
+      <p class="ca-note ca-onDark2">Knowtopia's own summaries — read the section or standard in your ICAI study material for the exact wording.</p></div>`;
     D.getElementById('kyBack').onclick = () => { tap('tap'); backTo(); };
     const qi = D.getElementById('kyQ'); qi.oninput = () => { clearTimeout(qi._t); qi._t = setTimeout(() => { S.q = qi.value; paintList(); }, 120); };
     const root = D.getElementById('kyRoot'); root.addEventListener('click', onClick); root.addEventListener('toggle', onToggle, true);

@@ -1,4 +1,4 @@
-// StudyVerse payments (Razorpay). Deployed as "studyverse-pay" in project moneyviel-apps.
+// Knowtopia payments (Razorpay). Deployed as "studyverse-pay" in project moneyviel-apps.
 // POST { action: 'order', plan, code?, for_child?, grade? }  (school plans unlock ONE class: grade, else the student's saved class)
 // POST { action: 'order', plan, code?, for_child? }  (for_child: a parent pays for a linked child; the child gets the plan)
 // POST { action: 'order', plan, code? }  → creates a Razorpay order (price and discount decided here, never by the app)

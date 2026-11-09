@@ -1,4 +1,4 @@
-/* StudyVerse Concept Lab: symmetry — "Symmetry studio"
+/* Knowtopia Concept Lab: symmetry — "Symmetry studio"
  * Three hands-on ways to explore symmetry:
  *  mirror : paint squares on a grid; a mirror line (or two) reflects them. Either the mirror paints
  *           for you (auto) or you must complete the mirror image of a given half-picture yourself.
