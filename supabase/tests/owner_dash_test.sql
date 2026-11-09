@@ -1,6 +1,6 @@
 -- ============================================================================================
--- SQL tests for supabase/migrations/20261111_owner_dash.sql (Owner dashboard + Smart Manager).
--- Run AFTER the migration, as a superuser:   psql "$DB_URL" -v ON_ERROR_STOP=1 -f supabase/tests/owner_dash_test.sql
+-- SQL tests for supabase/migrations/20261111_owner_dash.sql + 20261112_owner_dash_fix.sql (Pulse + Pulse Coach).
+-- Run AFTER both migrations, as a superuser:   psql "$DB_URL" -v ON_ERROR_STOP=1 -f supabase/tests/owner_dash_test.sql
 -- Everything is inside BEGIN … ROLLBACK. Each check prints PASS / FAIL as a NOTICE; the script ends with an ERROR if any failed.
 -- Calls run as role "authenticated" with request.jwt.claims (like PostgREST). Expected numbers are worked out by hand
 -- from the fixtures below (see the comments next to each check).
@@ -29,14 +29,14 @@ grant execute on all functions in schema pg_temp to authenticated;
 -- S3 Meera (CA Foundation, paid ended 5 days ago + a failed payment) · S4 Arjun (Class 3, school seat, idle 10 days)
 -- S5 Zoya (Class 7, renewed, ends in 2 days) · P1 parent (last sign-in 20 days ago)
 insert into auth.users (id, email, created_at, last_sign_in_at) values
-  ('00000000-0000-0000-0000-0000000000a0', 'owner@od.test', now() - interval '200 days', now()),
-  ('00000000-0000-0000-0000-0000000000a9', 'nobody@od.test', now() - interval '100 days', null),
-  ('00000000-0000-0000-0000-0000000000b1', 'riya@od.test', now() - interval '60 days', now()),
-  ('00000000-0000-0000-0000-0000000000b2', 'kabir@od.test', now() - interval '1 hour', now()),
-  ('00000000-0000-0000-0000-0000000000b3', 'meera@od.test', now() - interval '70 days', now() - interval '2 hours'),
-  ('00000000-0000-0000-0000-0000000000b4', 'arjun@od.test', now() - interval '40 days', now() - interval '10 days'),
-  ('00000000-0000-0000-0000-0000000000b5', 'zoya@od.test', now() - interval '90 days', now() - interval '1 day'),
-  ('00000000-0000-0000-0000-0000000000c1', 'mum@od.test', now() - interval '59 days', now() - interval '20 days');
+  ('00000000-0000-0000-0000-0000000000a0', 'owner@od.in', now() - interval '200 days', now()),
+  ('00000000-0000-0000-0000-0000000000a9', 'nobody@od.in', now() - interval '100 days', null),
+  ('00000000-0000-0000-0000-0000000000b1', 'riya@od.in', now() - interval '60 days', now()),
+  ('00000000-0000-0000-0000-0000000000b2', 'kabir@od.in', now() - interval '1 hour', now()),
+  ('00000000-0000-0000-0000-0000000000b3', 'meera@od.in', now() - interval '70 days', now() - interval '2 hours'),
+  ('00000000-0000-0000-0000-0000000000b4', 'arjun@od.in', now() - interval '40 days', now() - interval '10 days'),
+  ('00000000-0000-0000-0000-0000000000b5', 'zoya@od.in', now() - interval '90 days', now() - interval '1 day'),
+  ('00000000-0000-0000-0000-0000000000c1', 'mum@od.in', now() - interval '59 days', now() - interval '20 days');
 insert into studyverse.admins (user_id) values ('00000000-0000-0000-0000-0000000000a0') on conflict do nothing;
 insert into studyverse.profiles (user_id, role, trial_at) values
   ('00000000-0000-0000-0000-0000000000b1', 'student', now() - interval '60 days'), ('00000000-0000-0000-0000-0000000000b2', 'student', now() - interval '1 hour'),
@@ -59,14 +59,14 @@ insert into studyverse.parent_links (parent_id, child_id, child_name, created_at
   ('00000000-0000-0000-0000-0000000000c1', '00000000-0000-0000-0000-0000000000b1', 'Riya', now() - interval '58 days');
 -- a school in its pilot (ends in 3 days) with Arjun in Class 3-A; and a new pilot request from someone else
 insert into studyverse.institutions (id, name, type, city, state, status, pilot_until, contact_name, contact_email, contact_phone) values
-  ('00000000-0000-0000-0000-0000000000d1', 'Sunrise School', 'school', 'Pune', 'Maharashtra', 'pilot', now() + interval '3 days', 'Mrs Rao', 'rao@sunrise.test', '+919876543210');
+  ('00000000-0000-0000-0000-0000000000d1', 'Sunrise School', 'school', 'Pune', 'Maharashtra', 'pilot', now() + interval '3 days', 'Mrs Rao', 'rao@sunrise.in', '+919876543210');
 insert into studyverse.inst_classes (id, institution_id, grade, section, course, name) values
   ('00000000-0000-0000-0000-0000000000e1', '00000000-0000-0000-0000-0000000000d1', 3, 'A', 'school-g3', 'Class 3-A');
 insert into studyverse.institution_members (institution_id, user_id, role, class_id) values
   ('00000000-0000-0000-0000-0000000000d1', '00000000-0000-0000-0000-0000000000b4', 'student', '00000000-0000-0000-0000-0000000000e1');
 insert into studyverse.course_access (user_id, course, valid_until, note) values
   ('00000000-0000-0000-0000-0000000000b4', 'school-g3', now() + interval '3 days', 'inst 00000000-0000-0000-0000-0000000000d1');
-insert into studyverse.pilot_requests (name, school, city, phone, email, students, created_at) values ('Mr Khan', 'Green Valley', 'Nagpur', '+919811111111', 'khan@gv.test', 300, now() - interval '2 days');
+insert into studyverse.pilot_requests (name, school, city, phone, email, students, created_at) values ('Mr Khan', 'Green Valley', 'Nagpur', '+919811111111', 'khan@gv.in', 300, now() - interval '2 days');
 
 -- progress (the app's synced ST). D(n) = the app's day key n days ago (UTC). M(n) = epoch minute n hours ago.
 create function pg_temp.D(n int) returns text language sql as $$ select to_char((now() at time zone 'utc')::date - n, 'YYYY-MM-DD') $$;
@@ -99,6 +99,19 @@ insert into studyverse.progress (user_id, state) values
   ('00000000-0000-0000-0000-0000000000b5', jsonb_build_object('v', 1, 'st', jsonb_build_object(
      'profile', jsonb_build_object('name', 'Zoya', 'grade', 7, 'board', 'icse'), 'streak', jsonb_build_object('n', 9, 'last', pg_temp.D(1)),
      'xpLog', jsonb_build_object(pg_temp.D(1), 30, 'junk', 'x'))));
+
+-- test / demo accounts and school staff (hidden by default): a student with an example.com email, a demo-flagged
+-- student with a trial ending today, a teacher, and a parent on a .test address who is idle
+insert into auth.users (id, email, created_at, last_sign_in_at, raw_user_meta_data) values
+  ('00000000-0000-0000-0000-0000000000f1', 'qa@example.com', now() - interval '2 days', now(), '{}'),
+  ('00000000-0000-0000-0000-0000000000f2', 'someone@gmail.in', now() - interval '2 days', now(), '{"demo": true}'),
+  ('00000000-0000-0000-0000-0000000000f3', 'teacher@sunrise.in', now() - interval '20 days', now(), '{}'),
+  ('00000000-0000-0000-0000-0000000000f4', 'qa-parent@school.test', now() - interval '30 days', now() - interval '30 days', '{}');
+insert into studyverse.profiles (user_id, role) values ('00000000-0000-0000-0000-0000000000f4', 'parent');
+insert into studyverse.parent_links (parent_id, child_id, child_name) values ('00000000-0000-0000-0000-0000000000f4', '00000000-0000-0000-0000-0000000000b2', 'Kabir');
+insert into studyverse.course_access (user_id, course, valid_until, note) values
+  ('00000000-0000-0000-0000-0000000000f1', 'school-all', now() + interval '5 hours', 'trial'), ('00000000-0000-0000-0000-0000000000f2', 'school-all', now() + interval '5 hours', 'trial');
+insert into studyverse.institution_members (institution_id, user_id, role) values ('00000000-0000-0000-0000-0000000000d1', '00000000-0000-0000-0000-0000000000f3', 'teacher');
 
 select set_config('odtest.fp', pg_temp.fp(), true);
 set local role authenticated;
@@ -159,7 +172,7 @@ begin
                       and (select sum((e ->> 'expired')::int) from jsonb_array_elements(r -> 'series') e) = 1
                       and (select sum((e ->> 'failed')::int) from jsonb_array_elements(r -> 'series') e) = 1, 'subs: weekly series new 1 · renewed 1 · expired 1 · failed 1');
   perform pg_temp.chk((select sum((e ->> 'revenue')::numeric) from jsonb_array_elements(r -> 'series') e) = 498, 'subs: revenue series sums to ₹498');
-  perform pg_temp.chk((r ->> 'due7')::int = 1 and (r ->> 'due30')::int = 2 and r #>> '{due,0,email}' = 'zoya@od.test', 'subs: renewals due 7d = 1 (Zoya first), 30d = 2');
+  perform pg_temp.chk((r ->> 'due7')::int = 1 and (r ->> 'due30')::int = 2 and r #>> '{due,0,email}' = 'zoya@od.in', 'subs: renewals due 7d = 1 (Zoya first), 30d = 2');
   perform pg_temp.chk(jsonb_array_length(r -> 'by_plan') = 1 and (r #>> '{by_plan,0,payments}')::int = 2 and (r #>> '{by_plan,0,active_now}')::int = 2, 'subs: by plan (Class 6–8 monthly: 2 payments, 2 active)');
   perform pg_temp.chk(exists (select 1 from jsonb_array_elements(r -> 'by_band') e where e ->> 'band' = '6-8' and (e ->> 'paid')::int = 2), 'subs: by band 6–8 has 2 paid');
   perform pg_temp.chk(jsonb_array_length(r -> 'cohorts') = 12, 'subs: 12 signup-month cohorts');
@@ -167,16 +180,16 @@ begin
 
   -- Students table
   r := studyverse.owner_dash_students('{"q":"riya"}', 'name', false, 50, 0);
-  perform pg_temp.chk((r ->> 'total')::int = 1 and r #>> '{rows,0,parents}' = 'mum@od.test' and (r #>> '{rows,0,answered}')::int = 10
+  perform pg_temp.chk((r ->> 'total')::int = 1 and r #>> '{rows,0,parents}' = 'mum@od.in' and (r #>> '{rows,0,answered}')::int = 10
                       and (r #>> '{rows,0,accuracy}')::int = 80 and (r #>> '{rows,0,streak}')::int = 6 and r #>> '{rows,0,band}' = '6-8', 'students: search Riya → parents, 10 answered, 80% accuracy, streak 6');
   perform pg_temp.chk(r #>> '{rows,0,status}' = 'paid' and r #>> '{rows,0,plan}' = 'Class 6–8 · 1 month' and r #>> '{rows,0,source}' = 'self', 'students: Riya paid, plan label, source self');
   perform pg_temp.chk(not ((r -> 'rows' -> 0) ? 'password') and not ((r -> 'rows' -> 0) ? 'payment_id'), 'students: no secrets in rows');
   r := studyverse.owner_dash_students('{}', 'answered', true, 2, 0);
-  perform pg_temp.chk((r ->> 'total')::int = 6 and jsonb_array_length(r -> 'rows') = 2 and r #>> '{rows,0,email}' = 'riya@od.test', 'students: sort by answered desc, page of 2');
+  perform pg_temp.chk((r ->> 'total')::int = 6 and jsonb_array_length(r -> 'rows') = 2 and r #>> '{rows,0,email}' = 'riya@od.in', 'students: sort by answered desc, page of 2');
   r := studyverse.owner_dash_students('{}', 'answered', true, 2, 4);
   perform pg_temp.chk(jsonb_array_length(r -> 'rows') = 2, 'students: last page has 2 rows');
   r := studyverse.owner_dash_students('{"status":"lapsed"}', 'name', false, 50, 0);
-  perform pg_temp.chk((r ->> 'total')::int = 1 and r #>> '{rows,0,email}' = 'meera@od.test' and r #>> '{rows,0,band}' = 'ca-foundation', 'students: filter lapsed → Meera (CA Foundation)');
+  perform pg_temp.chk((r ->> 'total')::int = 1 and r #>> '{rows,0,email}' = 'meera@od.in' and r #>> '{rows,0,band}' = 'ca-foundation', 'students: filter lapsed → Meera (CA Foundation)');
   r := studyverse.owner_dash_students('{"source":"school"}', 'name', false, 50, 0);
   perform pg_temp.chk((r ->> 'total')::int = 1 and r #>> '{rows,0,inst_name}' = 'Sunrise School' and r #>> '{rows,0,class_name}' = 'Class 3-A', 'students: source school → Arjun with class');
   r := studyverse.owner_dash_students('{"board":"icse","grade":"7"}', 'bogus; drop table x', true, 50, 0);
@@ -184,7 +197,7 @@ begin
 
   -- One student
   r := studyverse.owner_dash_student('00000000-0000-0000-0000-0000000000b1');
-  perform pg_temp.chk((r ->> 'ok')::boolean and jsonb_array_length(r -> 'payments') = 1 and jsonb_array_length(r -> 'parents') = 1 and r #>> '{parents,0,email}' = 'mum@od.test', 'student: payments and parents');
+  perform pg_temp.chk((r ->> 'ok')::boolean and jsonb_array_length(r -> 'payments') = 1 and jsonb_array_length(r -> 'parents') = 1 and r #>> '{parents,0,email}' = 'mum@od.in', 'student: payments and parents');
   perform pg_temp.chk(jsonb_array_length(r -> 'days') = 3 and r #>> '{subjects,0,subj}' = 'g7-maths' and (r #>> '{topics_done,g7-maths}')::int = 1, 'student: 3 active days, subject progress, topics done');
   perform pg_temp.chk((r #>> '{usage,map}')::int = 3 and r #>> '{device,os}' = 'Android', 'student: feature usage and device');
   perform pg_temp.chk((studyverse.owner_dash_student('00000000-0000-0000-0000-0000000000a0') ->> 'ok')::boolean is false, 'student: the owner account is not a student');
@@ -213,20 +226,20 @@ begin
 
   -- Smart Manager
   r := studyverse.owner_dash_smart('{}'); items := r -> 'items';
-  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'trial_end' and e ->> 'email' = 'kabir@od.test' and (e ->> 'pri')::int = 1), 'smart: Kabir''s trial ends today (urgent)');
-  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'expiring' and e ->> 'email' = 'zoya@od.test' and (e ->> 'pri')::int = 1), 'smart: Zoya''s plan ends in 2 days (urgent)');
-  perform pg_temp.chk(not exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'expiring' and e ->> 'email' = 'riya@od.test'), 'smart: Riya (10 days left) not yet flagged');
-  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'lapsed' and e ->> 'email' = 'meera@od.test'), 'smart: Meera lapsed 5 days ago');
-  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'pay_failed' and e ->> 'email' = 'meera@od.test'), 'smart: Meera''s failed payment');
-  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'paid_idle' and e ->> 'email' = 'arjun@od.test' and (e #>> '{meta,days}')::int = 10), 'smart: Arjun has a seat but idle 10 days');
-  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'parent_idle' and e ->> 'email' = 'mum@od.test'), 'smart: parent has not opened the app in 14+ days');
+  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'trial_end' and e ->> 'email' = 'kabir@od.in' and (e ->> 'pri')::int = 1), 'smart: Kabir''s trial ends today (urgent)');
+  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'expiring' and e ->> 'email' = 'zoya@od.in' and (e ->> 'pri')::int = 1), 'smart: Zoya''s plan ends in 2 days (urgent)');
+  perform pg_temp.chk(not exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'expiring' and e ->> 'email' = 'riya@od.in'), 'smart: Riya (10 days left) not yet flagged');
+  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'lapsed' and e ->> 'email' = 'meera@od.in'), 'smart: Meera lapsed 5 days ago');
+  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'pay_failed' and e ->> 'email' = 'meera@od.in'), 'smart: Meera''s failed payment');
+  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'paid_idle' and e ->> 'email' = 'arjun@od.in' and (e #>> '{meta,days}')::int = 10), 'smart: Arjun has a seat but idle 10 days');
+  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'parent_idle' and e ->> 'email' = 'mum@od.in'), 'smart: parent has not opened the app in 14+ days');
   perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'pilot_ending' and e ->> 'phone' = '+919876543210'), 'smart: Sunrise pilot ends in 3 days (with coordinator phone)');
   perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'pilot_request' and e ->> 'name' = 'Green Valley'), 'smart: new pilot request to call');
   perform pg_temp.chk(exists (select 1 from jsonb_array_elements(items) e where e ->> 'kind' = 'hard_question' and e ->> 'id' = 'g7-maths-01-01#3'), 'smart: hard question to check');
   perform pg_temp.chk((select (e ->> 'pri')::int from jsonb_array_elements(items) e limit 1) = 1, 'smart: list starts with urgent items');
   perform pg_temp.chk(r #>> '{improve,hard,0,qid}' = 'g7-maths-01-01#3' and r #>> '{improve,drop,0,topic}' = 'g7-maths-01-01' and (r #>> '{improve,features,map}')::int = 1, 'smart: weekly improve summary');
   perform pg_temp.chk(jsonb_array_length((studyverse.owner_dash_smart('{"band":"ca"}')) -> 'items') >= 2
-                      and not exists (select 1 from jsonb_array_elements((studyverse.owner_dash_smart('{"band":"ca"}')) -> 'items') e where e ->> 'email' = 'kabir@od.test'), 'smart: filters apply to student items');
+                      and not exists (select 1 from jsonb_array_elements((studyverse.owner_dash_smart('{"band":"ca"}')) -> 'items') e where e ->> 'email' = 'kabir@od.in'), 'smart: filters apply to student items');
   -- marks
   select e ->> 'key' into k from jsonb_array_elements(items) e where e ->> 'kind' = 'trial_end';
   perform pg_temp.chk((studyverse.owner_followup_set(k, 'done', null, 'Sent plans on WhatsApp') ->> 'ok')::boolean, 'followup: mark done with note');
@@ -236,6 +249,26 @@ begin
   perform studyverse.owner_followup_set(k, 'open', null, null);
   perform pg_temp.chk(pg_temp.nfollow() = 0, 'followup: reopen without a note removes the mark');
   perform pg_temp.chk((studyverse.owner_followup_set('x', 'done') ->> 'ok')::boolean is false and (studyverse.owner_followup_set('abc:1', 'deleted') ->> 'ok')::boolean is false, 'followup: bad key / status refused');
+
+  -- ===== round 2: test accounts, staff, comparison =====
+  r := studyverse.owner_dash_overview(f, t, '{"test": true}');
+  perform pg_temp.chk((r #>> '{cur,students}')::int = 8 and (r ->> 'parents')::int = 2, 'test toggle on: the 2 test students and the test parent are counted (teacher never)');
+  perform pg_temp.chk(not exists (select 1 from jsonb_array_elements(studyverse.owner_dash_students('{"test": true}', 'name', false, 50, 0) -> 'rows') e where e ->> 'email' = 'teacher@sunrise.in'), 'teachers are not students');
+  perform pg_temp.chk(not exists (select 1 from jsonb_array_elements(studyverse.owner_dash_students('{}', 'name', false, 50, 0) -> 'rows') e where e ->> 'email' in ('qa@example.com', 'someone@gmail.in')), 'students list hides example.com and demo-flagged accounts');
+  r := studyverse.owner_dash_smart('{}');
+  perform pg_temp.chk(not exists (select 1 from jsonb_array_elements(r -> 'items') e where e ->> 'email' in ('qa@example.com', 'someone@gmail.in', 'qa-parent@school.test')), 'Pulse Coach hides test accounts');
+  perform pg_temp.chk(exists (select 1 from jsonb_array_elements(studyverse.owner_dash_smart('{"test": true}') -> 'items') e where e ->> 'email' = 'qa@example.com'), 'Pulse Coach shows them with the toggle');
+  r := studyverse.owner_dash_parents(f, t, null, 50, 0);
+  perform pg_temp.chk((r ->> 'total')::int = 1 and (studyverse.owner_dash_parents(f, t, null, 50, 0, '{"test": true}') ->> 'total')::int = 2, 'parents: test parent hidden unless toggled (old 5-argument call still works)');
+  r := studyverse.owner_dash_overview(f, t, '{"cmp": 30}');
+  perform pg_temp.chk(jsonb_array_length(r -> 'pseries') = 30 and (r #>> '{c30,new_paid}')::int = 1 and (r #>> '{p30,new_paid}')::int = 1, 'overview: previous-period series + last 30 vs 30 before');
+  perform pg_temp.chk((select sum((e ->> 'signups')::int) from jsonb_array_elements(r -> 'pseries') e) = 1 and (select sum((e ->> 'active')::int) from jsonb_array_elements(r -> 'pseries') e) = 0, 'overview: previous-period series = the 30 days before (Arjun signed up 40 days ago)');
+  r := studyverse.owner_dash_subs(f, t, null, '{"cmp": 30}');
+  perform pg_temp.chk((r #>> '{sums,new}')::int = 1 and (r #>> '{psums,new}')::int = 1 and (r #>> '{sums,revenue}')::numeric = 498 and (r #>> '{psums,revenue}')::numeric = 499
+                      and (r #>> '{sums,expired}')::int = 1 and (r #>> '{sums,failed}')::int = 1 and r ? 'c30' and jsonb_array_length(r -> 'pseries') >= 1, 'subs: sums now vs before (new 1/1, revenue 498/499)');
+  r := studyverse.owner_dash_usage(f, t, '{}');
+  perform pg_temp.chk((r #>> '{act,active}')::int = 4 and (r #>> '{act,answers}')::int = 17 and (r #>> '{pact,active}')::int = 0, 'usage: activity now (4 students, 17 answers) vs before (0)');
+  perform pg_temp.chk((studyverse.owner_dash_institutions('{}') ->> 'requests')::int = 1, 'institutions still listed');
 
   -- read-only: nothing in the app's data changed
   perform pg_temp.chk(pg_temp.fp() = current_setting('odtest.fp'), 'dashboards changed no app data');
