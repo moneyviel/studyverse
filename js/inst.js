@@ -601,7 +601,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
     const ayS = String(o.academic_year || ''), period = ayS ? `April ${ayS.slice(0, 4)} – March ${+ayS.slice(0, 4) + 1}` : '';
     return `<div class="in-inv"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><h2 style="margin:0;color:#5B0F1B">${title}</h2><p style="margin:2px 0">No. <b id="inInvNo">${esc(o.invoice_no || '—')}</b> · Date ${esc(fmtD(o.invoiced_at || o.created_at))}</p></div>
       <div style="text-align:right"><b style="font-size:18px">Study<span style="color:#8A6A2E">Verse</span></b><br><small>for Schools &amp; Coaching</small></div></div>
-      <div class="two"><div class="box"><h4>From (seller)</h4><b>${esc(s.name || 'MoneyViel')}, ${esc(s.city || 'Pune')}</b><br>Legal name: ${esc(s.legal_name || 'Mukesh Jhedu')}<br>${esc(s.address || '')}<br>${esc(s.email || 'support@moneyviel.com')}<br>${s.gstin ? 'GSTIN: ' + esc(s.gstin) : 'Not registered under GST'}</div>
+      <div class="two"><div class="box"><h4>From (seller)</h4><b>${esc(s.name || 'MoneyViel')}, ${esc(s.city || 'Pune')}</b><br>Legal name: ${esc(s.legal_name || 'Mukesh J')}<br>${esc(s.address || '')}<br>${esc(s.email || 'support@moneyviel.com')}<br>${s.gstin ? 'GSTIN: ' + esc(s.gstin) : 'Not registered under GST'}</div>
         <div class="box"><h4>To (buyer)</h4><b>${esc(b.name || '')}</b><br>${[b.address, b.city, b.state, b.pincode].filter(Boolean).map(esc).join(', ')}<br>${b.gstin ? 'GSTIN: ' + esc(b.gstin) : 'GSTIN: —'}<br>${esc([b.contact_name, b.contact_phone, b.contact_email].filter(Boolean).join(' · '))}</div></div>
       <table><thead><tr><th>#</th><th>Description</th><th class="r">Students</th><th class="r">Rate / month</th><th class="r">Months</th><th class="r">Amount</th></tr></thead><tbody>
         ${(o.lines || []).map((l, i) => `<tr><td>${i + 1}</td><td>StudyVerse student access — ${esc(l.label)}<br><small>Academic year ${esc(ayS)} (${esc(period)})</small></td><td class="r">${l.students}</td><td class="r">${inr(l.rate, 1)}</td><td class="r">${l.months || 10}</td><td class="r">${inr(l.amount, 1)}</td></tr>`).join('')}
@@ -726,7 +726,7 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
   async function oBilling(body) {
     const r = await C().rest('billing_config?select=*'), c = (Array.isArray(r) && r[0]) || {};
     body.innerHTML = `<section class="pv-card" aria-labelledby="inBl"><h3 id="inBl">Seller details &amp; GST</h3>
-      <p>Seller: <b>${esc(c.seller_name || 'MoneyViel')}, ${esc(c.city || 'Pune')}</b> (legal name ${esc(c.legal_name || 'Mukesh Jhedu')})</p>
+      <p>Seller: <b>${esc(c.seller_name || 'MoneyViel')}, ${esc(c.city || 'Pune')}</b> (legal name ${esc(c.legal_name || 'Mukesh J')})</p>
       <p class="pv-mut">While no GSTIN is set, invoices say “GST: not charged — supplier not registered under GST”. With a GSTIN, new orders add CGST + SGST 9% each (buyer in the same state) or IGST 18% (other states). Orders already made keep their numbers.</p>
       <form id="inBlF" novalidate><label class="in-lbl" for="inBlG">Seller GSTIN</label><input id="inBlG" class="pv-in" maxlength="15" autocapitalize="characters" value="${esc(c.gstin || '')}" placeholder="Leave empty while not registered">
         <label class="in-lbl" for="inBlS">Seller state</label><select id="inBlS" class="pv-in">${stateOpts(c.state || 'Maharashtra')}</select>

@@ -13,7 +13,7 @@
 
   /* ---------- 1. Me screen ---------- */
   const LINKS = [['terms', 'Terms of Use'], ['privacy', 'Privacy Policy'], ['disclaimer', 'Disclaimer'], ['refunds', 'Refunds & cancellation'],
-    ['copyright', 'Copyright'], ['community', 'Community rules'], ['accessibility', 'Accessibility'], ['contact', 'Contact & grievance']];
+    ['copyright', 'Copyright'], ['community', 'Community rules'], ['accessibility', 'Accessibility'], ['parents', "Parent's guide to privacy"], ['children', 'Privacy for kids'], ['contact', 'Contact & grievance']];
   function meCard() {
     const host = document.getElementById('s-me'); if (!host) return;
     document.getElementById('lgCard')?.remove();
