@@ -176,19 +176,27 @@
   const SOURCES = [['self', 'Signed up on their own'], ['school', 'Through a school'], ['parent', 'Invited by a parent'], ['code', 'Free code']];
   const SRCN = Object.fromEntries(SOURCES);
   const TABS = [['overview', '✨ Overview'], ['subs', '💳 Subscriptions'], ['students', '🧒 Students'], ['usage', '🧭 Usage & content'], ['people', '👪 Parents & schools'], ['smart', NAME.coachIcon + ' ' + NAME.coach]];
-  const PERIODS = [['7', '7 days'], ['30', '30 days'], ['90', '90 days'], ['365', '12 months'], ['custom', 'Custom']];
+  const PERIODS = [['7', '7 days'], ['30', '30 days'], ['90', '90 days'], ['365', '12 months'], ['all', 'All time'], ['custom', 'Custom']];
   const COL = { s1: '#2a78d6', s2: '#eb6834', s3: '#1baf7a', good: '#1F7A43', bad: '#B71C2C', ink: '#15161C', mute: '#5d5a52' };
   const RAMP = ['#f1f5fb', '#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
 
-  const V = Object.assign({ tab: 'overview', per: '30', from: '', to: '', f: {}, bucket: 'auto', cohort: 'act', stu: { q: '', sort: 'last_active', desc: true, off: 0 }, show: 'open', who: 'all', pq: '' },
+  const V = Object.assign({ tab: 'overview', per: '30', from: '', to: '', f: {}, bucket: 'auto', cohort: 'act', stu: { q: '', sort: 'last_active', desc: true, off: 0 }, show: 'open', who: 'all', pq: '', test: false },
     (() => { try { return JSON.parse(SS.getItem('sv_owner_ui') || '{}'); } catch (e) { return {}; } })());
-  const keep = () => { try { SS.setItem('sv_owner_ui', JSON.stringify({ tab: V.tab, per: V.per, from: V.from, to: V.to, f: V.f, bucket: V.bucket, cohort: V.cohort, show: V.show, who: V.who })); } catch (e) {} };
+  const keep = () => { try { SS.setItem('sv_owner_ui', JSON.stringify({ tab: V.tab, per: V.per, from: V.from, to: V.to, f: V.f, bucket: V.bucket, cohort: V.cohort, show: V.show, who: V.who, test: V.test })); } catch (e) {} };
   function range() {
     const t = todayK();
     if (V.per === 'custom' && V.from && V.to) return V.from <= V.to ? [V.from, V.to] : [V.to, V.from];
+    if (V.per === 'all') return [addD(t, -3650), t];
     const n = +V.per || 30; return [addD(t, -(n - 1)), t];
   }
-  const filt = () => { const o = {}; Object.entries(V.f).forEach(([k, v]) => { if (v !== '' && v != null) o[k] = v; }); return o; };
+  const ALL = () => V.per === 'all';
+  /* filters + switches sent to the server: test = show test accounts; cmp = compare the last 30 days with the 30 before (All time) */
+  const filt = () => { const o = {}; Object.entries(V.f).forEach(([k, v]) => { if (v !== '' && v != null) o[k] = v; }); if (V.test) o.test = true; if (ALL()) o.cmp = 30; return o; };
+  const userF = () => { const o = filt(); delete o.test; delete o.cmp; return o; };
+  const plen = () => { const [f, t] = range(); return Math.round((Date.parse(t) - Date.parse(f)) / DAY) + 1; };
+  /* what the ▲/▼ arrows compare: this period vs the previous one of the same length; for All time: last 30 days vs the 30 before */
+  const cmpText = () => ALL() ? 'last 30 days vs the 30 days before' : `vs the previous ${plen()} days`;
+  const pick = (o, a = 'cur', b = 'prev') => ALL() && o.c30 ? [o.c30, o.p30] : [o[a], o[b]];
   const cache = new Map();
   async function get(fn, args) {
     const k = fn + JSON.stringify(args); const c = cache.get(k);
@@ -206,15 +214,55 @@
     if (!isOwner()) { say('Owner only'); return; }
     style(); if (tab) V.tab = tab;
     if (!hub) {
-      hub = D.createElement('div'); hub.className = 'sheet pv-hub od-hub'; hub.id = 'odHub';
+      hub = D.createElement('div'); hub.className = 'sheet pv-hub od-hub'; hub.id = 'odHub'; hub.setAttribute('data-nonav', '');   // Pulse handles Back itself
       hub.setAttribute('role', 'dialog'); hub.setAttribute('aria-modal', 'true'); hub.setAttribute('aria-labelledby', 'odT'); D.body.appendChild(hub);
       hub.addEventListener('click', onClick); hub.addEventListener('pointerover', tipOver); hub.addEventListener('focusin', tipOver);
       hub.addEventListener('pointerout', e => { if (e.pointerType === 'mouse') tipHide(); });
     }
-    hub.classList.add('show'); frame(); paint();
+    const was = hub.classList.contains('show'); hub.classList.add('show'); stack = [];
+    if (!was) { hpos = 0; baseSt = history.state && !history.state.odv ? history.state : null; hpush(); }
+    frame(); paint();
     if (!meta) get('owner_dash_meta', {}).then(m => { meta = m; frame(); paint(); }).catch(() => {});
   }
-  function close() { if (hub) hub.classList.remove('show'); tipHide(); }
+  /* ---------- Back button: every Pulse view (tab, drill-down) is a browser history entry ----------
+     Our popstate listener runs first (capture) and stops the app's own router while Pulse is open. Going back past
+     Pulse's first view re-adds it and asks "Leave Pulse?"; Leave goes back to the entry from before Pulse opened. */
+  let hpos = 0, leaving = null, baseSt = null;
+  const viewNow = () => ({ tab: V.tab, stack: stack.map(x => Object.assign({}, x)) });
+  // our entries carry the app router's own state (js/app.js Nav: {sv, pos}) so the router sees "same place" and does nothing
+  function hpush() { hpos++; try { history.pushState(Object.assign({}, baseSt || {}, { odv: hpos, view: viewNow() }), ''); } catch (e) {} }
+  function restore(v) { if (!v) return; V.tab = v.tab || V.tab; stack = (v.stack || []).map(x => Object.assign({}, x)); keep(); frame(); paint(); }
+  function topView() { if (stack.length) { stack = []; hpush(); } }      // filters changed inside a drill-down: back to the tab (as a new view)
+  function back() { if (hpos > 0) { try { history.back(); return; } catch (e) {} } askLeave(); }
+  function askLeave() {
+    if (!hub) return; let c = hub.querySelector('#odLeave'); if (c) { c.querySelector('[data-stay]').focus(); return; }
+    c = D.createElement('div'); c.id = 'odLeave'; c.className = 'od-confirm'; c.setAttribute('role', 'alertdialog'); c.setAttribute('aria-modal', 'true'); c.setAttribute('aria-labelledby', 'odLvT');
+    c.innerHTML = `<div class="od-cbox"><h2 id="odLvT">Leave ${NAME.app}?</h2><p>You will go back to where you opened it.</p><div class="od-row"><button type="button" class="od-mini od-big" data-stay>Stay</button><button type="button" class="od-mini od-pri od-big" data-leave>Leave</button></div></div>`;
+    hub.appendChild(c); c.querySelector('[data-stay]').focus();
+    c.querySelector('[data-stay]').onclick = () => c.remove();
+    c.querySelector('[data-leave]').onclick = () => leavePulse();
+    c.addEventListener('click', e => { if (e.target === c) c.remove(); });
+  }
+  function leavePulse(then) {
+    const c = hub && hub.querySelector('#odLeave'); if (c) c.remove();
+    if (hpos <= 0) { close(); if (then) then(); return; }
+    leaving = then || true; const n = hpos;
+    try { history.go(-n); } catch (e) { close(); }
+    setTimeout(() => { if (leaving) { const t = leaving; leaving = null; close(); if (typeof t === 'function') t(); } }, 600);
+  }
+  W.addEventListener('popstate', e => {
+    if (!hub || !hub.classList.contains('show')) return;
+    e.stopImmediatePropagation();
+    if (leaving) { const t = leaving; leaving = null; close(); if (typeof t === 'function') t(); return; }
+    const st = e.state;
+    if (st && st.odv) { hpos = st.odv; const c = hub.querySelector('#odLeave'); if (c) c.remove(); restore(st.view); return; }
+    hpos = 0; hpush(); askLeave();                 // Back from Pulse's first view: stay on it and ask
+  }, true);
+  function close() {
+    if (!hub) return; hub.classList.remove('show'); tipHide(); hpos = 0;
+    const c = hub.querySelector('#odLeave'); if (c) c.remove();
+    const b = D.querySelector('.od-me button'); if (b && b.offsetParent) try { b.focus({ preventScroll: true }); } catch (e) {}
+  }
 
   function greeting() { const h = +new Date().toLocaleString('en-GB', { hour: '2-digit', hour12: false, timeZone: 'Asia/Kolkata' }); return h < 12 ? 'Good morning ☀️' : h < 17 ? 'Good afternoon 🌤️' : 'Good evening 🌙'; }
   function frame() {
@@ -234,10 +282,11 @@
       <div class="pv-top"><button class="pv-back" type="button" id="odBk">← Back</button><h1 id="odT"><span>${NAME.icon} ${NAME.app}</span></h1><button class="pv-ref" type="button" id="odRf" aria-label="Refresh data">⟳</button></div>
       <div class="od-hero"><div><div class="od-greet">${greeting()}</div><div class="od-sumline" id="odSum" aria-live="polite">Loading your numbers…</div></div>
         <form class="od-search" id="odSF" role="search"><span aria-hidden="true">🔎</span><input id="odSQ" type="search" placeholder="Find a student: name or email" aria-label="Find a student by name or email" value="${esc(V.f.q || '')}" autocomplete="off"><button type="submit" class="od-sbtn">Find</button></form></div>
+      <div class="od-sticky">
       <div class="od-fbar" role="group" aria-label="Period and filters">
         <div class="od-seg" role="radiogroup" aria-label="Period">${PERIODS.map(([k, n]) => `<button type="button" role="radio" aria-checked="${V.per === k}" class="${V.per === k ? 'on' : ''}" data-per="${k}">${n}</button>`).join('')}</div>
         <button type="button" class="od-fbtn${nF ? ' on' : ''}" id="odFB" aria-expanded="false" aria-controls="odFP">⚙️ Filters${nF ? ' (' + nF + ')' : ''}</button>
-        <span class="od-range">${fmtD(f)} – ${fmtD(t)}</span>
+        <span class="od-range">${ALL() ? 'All time' : `${fmtD(f)} – ${fmtD(t)}`}</span>
       </div>
       ${V.per === 'custom' ? `<div class="od-cust"><label>From <input type="date" id="odFrom" value="${esc(f)}" max="${todayK()}"></label><label>To <input type="date" id="odTo" value="${esc(t)}" max="${todayK()}"></label><button type="button" class="od-mini" id="odCA">Apply</button></div>` : ''}
       <div class="od-fpanel" id="odFP" hidden>
@@ -251,30 +300,33 @@
           <label>State (of school)<select data-f="state">${opt(states, V.f.state, 'Any state')}</select></label>
           <label>How they joined<select data-f="source">${opt(SOURCES, V.f.source, 'Any way')}</select></label>
         </div>
+        <label class="od-check"><input type="checkbox" id="odTest"${V.test ? ' checked' : ''}> Show test accounts <span class="od-mute">(emails at example.com / example.org / .test / .invalid and demo accounts — for checking only)</span></label>
         <div class="od-row"><button type="button" class="od-mini od-pri" id="odFA">Apply filters</button><button type="button" class="od-mini" id="odFC">Clear all</button></div>
       </div>
-      ${chips.length || fl.q ? `<div class="od-chips" aria-label="Active filters">${fl.q ? chip('q', '“' + fl.q + '”') : ''}${chips.join('')}<button type="button" class="od-link" data-unf="*">Clear all</button></div>` : ''}
+      ${chips.length || fl.q || V.test ? `<div class="od-chips" aria-label="Active filters">${V.test ? `<span class="od-chip od-chip-t">🧪 Test accounts shown<button type="button" data-untest="1" aria-label="Hide test accounts">✕</button></span>` : ''}${fl.q ? chip('q', '“' + fl.q + '”') : ''}${chips.join('')}${chips.length || fl.q ? '<button type="button" class="od-link" data-unf="*">Clear all</button>' : ''}</div>` : ''}
       <div class="pv-tabs od-tabs" role="tablist" aria-label="Dashboard sections">${TABS.map(([k, n]) => `<button type="button" role="tab" id="odt-${k}" aria-selected="${V.tab === k}" aria-controls="odBody" class="pv-tab${V.tab === k ? ' on' : ''}" data-tab="${k}">${n}</button>`).join('')}</div>
+      </div>
       <div id="odBody" class="od-body" role="tabpanel" aria-labelledby="odt-${V.tab}"></div>
       <p class="od-priv">🔒 Owner only. This data is used only to improve StudyVerse for students — never for ads or marketing to children. Messages are prepared for you; nothing is sent automatically.${loadedAt ? ' · Updated ' + new Date(loadedAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) : ''}</p>
       <div class="od-tip" id="odTip" role="status" hidden></div></div>`;
-    hub.querySelector('#odSF').onsubmit = e => { e.preventDefault(); V.f.q = hub.querySelector('#odSQ').value.trim(); V.tab = 'students'; V.stu.off = 0; stack = []; keep(); frame(); paint(); };
+    hub.querySelector('#odSF').onsubmit = e => { e.preventDefault(); V.f.q = hub.querySelector('#odSQ').value.trim(); const ch = V.tab !== 'students' || stack.length; V.tab = 'students'; V.stu.off = 0; stack = []; keep(); if (ch) hpush(); frame(); paint(); };
     const fb = hub.querySelector('#odFB'), fp = hub.querySelector('#odFP');
     fb.onclick = () => { fp.hidden = !fp.hidden; fb.setAttribute('aria-expanded', String(!fp.hidden)); if (!fp.hidden) { const s = fp.querySelector('select'); if (s) s.focus(); } };
-    hub.querySelector('#odFA').onclick = () => { fp.querySelectorAll('[data-f]').forEach(s => { V.f[s.dataset.f] = s.value; }); V.stu.off = 0; stack = []; keep(); frame(); paint(); };
-    hub.querySelector('#odFC').onclick = () => { V.f = {}; V.stu.off = 0; stack = []; keep(); frame(); paint(); };
+    hub.querySelector('#odFA').onclick = () => { fp.querySelectorAll('[data-f]').forEach(s => { V.f[s.dataset.f] = s.value; }); V.test = hub.querySelector('#odTest').checked; V.stu.off = 0; topView(); keep(); frame(); paint(); };
+    hub.querySelector('#odFC').onclick = () => { V.f = {}; V.stu.off = 0; topView(); keep(); frame(); paint(); };
     const ca = hub.querySelector('#odCA'); if (ca) ca.onclick = () => { V.from = hub.querySelector('#odFrom').value; V.to = hub.querySelector('#odTo').value; if (!V.from || !V.to) { say('Choose both dates'); return; } keep(); frame(); paint(); };
   }
   function onClick(e) {
     const b = e.target.closest('button, [data-go], [data-row], [data-tip]'); if (!b || !hub.contains(b)) { tipHide(); return; }
     const d = b.dataset;
-    if (b.id === 'odBk') { if (stack.length) { stack.pop(); paint(); } else close(); return; }
+    if (b.id === 'odBk') { if (stack.length) back(); else askLeave(); return; }
     if (b.id === 'odRf') { cache.clear(); meta = null; get('owner_dash_meta', {}).then(m => { meta = m; }).catch(() => {}); paint(); say('Refreshing…'); return; }
     if (d.per) { V.per = d.per; if (V.per === 'custom' && !V.from) { const [f, t] = range(); V.from = addD(t, -29); V.to = t; } keep(); frame(); paint(); return; }
-    if (d.tab) { V.tab = d.tab; stack = []; keep(); hub.querySelectorAll('[data-tab]').forEach(x => { const on = x.dataset.tab === V.tab; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); }); hub.querySelector('#odBody').setAttribute('aria-labelledby', 'odt-' + V.tab); paint(); return; }
-    if (d.unf) { if (d.unf === '*') V.f = {}; else delete V.f[d.unf]; V.stu.off = 0; stack = []; keep(); frame(); paint(); return; }
+    if (d.tab) { if (V.tab === d.tab && !stack.length) return; V.tab = d.tab; stack = []; keep(); hpush(); hub.querySelectorAll('[data-tab]').forEach(x => { const on = x.dataset.tab === V.tab; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); }); hub.querySelector('#odBody').setAttribute('aria-labelledby', 'odt-' + V.tab); paint(); return; }
+    if (d.unf) { if (d.unf === '*') V.f = {}; else delete V.f[d.unf]; V.stu.off = 0; topView(); keep(); frame(); paint(); return; }
+    if (d.untest) { V.test = false; topView(); keep(); frame(); paint(); return; }
     if (d.tbl) { const card = b.closest('.od-card'); const v = card.querySelector('.od-viz'), t = card.querySelector('.od-tbl'); const on = t.hidden; t.hidden = !on; if (v) v.hidden = on; b.textContent = on ? 'Chart' : 'Table'; b.setAttribute('aria-pressed', String(on)); return; }
-    if (d.more) { const tw = b.previousElementSibling, open = b.getAttribute('aria-expanded') !== 'true'; tw.querySelectorAll('tr[data-x]').forEach(r => { r.hidden = !open; }); b.setAttribute('aria-expanded', String(open)); b.textContent = open ? 'Show fewer' : 'Show all ' + d.more; return; }
+    if (d.more) { const tw = b.previousElementSibling, open = b.getAttribute('aria-expanded') !== 'true'; tw.querySelectorAll('[data-x]').forEach(r => { r.hidden = !open; }); b.setAttribute('aria-expanded', String(open)); b.textContent = open ? 'Show fewer' : 'Show all ' + d.more; return; }
     if (d.csv) { csv(d.csv); return; }
     if (d.go) { go(d.go); return; }
     if (d.tip != null && !d.row) { tipShow(b, true); return; }
@@ -288,7 +340,7 @@
     else if (k === 'student') { stack.push({ kind: 'student', id: v }); }
     else if (k === 'inst') { stack.push({ kind: 'inst', id: v }); }
     else if (k === 'q') { stack.push({ kind: 'question', id: v }); }
-    keep(); frame(); paint();
+    keep(); hpush(); frame(); paint();
   }
   async function paint() {
     if (!hub) return;
@@ -329,13 +381,16 @@
     const up = c > p, ok = good === 'down' ? !up : up, v = p ? Math.round(Math.abs(c - p) / p * 100) + '%' : 'new';
     return `<span class="od-d ${ok ? 'good' : 'bad'}">${up ? '▲' : '▼'} ${v}</span>`;
   }
+  /* KPI tile. cur/prev: numbers for the ▲/▼ arrow; prevS: how the earlier value is shown ("was …"). now: note for a snapshot number */
   function kpi(o) {
-    const n = (range()[1] > range()[0] ? Math.round((Date.parse(range()[1]) - Date.parse(range()[0])) / DAY) + 1 : 1);
-    const dl = o.prev !== undefined ? delta(o.cur, o.prev, o.good) : '';
-    const lbl = `${o.label}: ${o.value}${o.prev !== undefined ? ', previous ' + n + ' days ' + o.prevS : ''}${o.sub ? '. ' + o.sub : ''}`;
+    const has = o.prev !== undefined && o.prev !== null && !isNaN(+o.prev);
+    const prevS = o.prevS != null ? o.prevS : nf(o.prev);
+    const cmp = has ? `<span class="od-kc">${delta(o.cur, o.prev, o.good)}<span class="od-was">was ${esc(prevS)}</span></span>` : (o.now ? `<span class="od-kc"><span class="od-was">${esc(o.now)}</span></span>` : '');
+    const lbl = `${o.label}: ${strip(String(o.value))}${has ? `. ${cmpText()}: was ${prevS}` : ''}${o.sub ? '. ' + o.sub : ''}`;
     return `<button type="button" class="od-kpi" data-go="${esc(o.go || '')}" aria-label="${esc(lbl)}"><span class="od-kl"><span aria-hidden="true">${o.icon}</span> ${esc(o.label)}</span>
-      <b class="od-kv">${o.value}</b><span class="od-ks">${o.pre ? `<span>${esc(o.pre)}</span>` : ''}${dl} ${o.sub ? `<span>${esc(o.sub)}</span>` : ''}</span><span class="od-kgo" aria-hidden="true">›</span></button>`;
+      <b class="od-kv">${o.value}</b>${cmp}${o.sub ? `<span class="od-ks">${esc(o.sub)}</span>` : ''}<span class="od-kgo" aria-hidden="true">›</span></button>`;
   }
+  const cmpNote = () => `<p class="od-cmpnote">Arrows compare ${cmpText()}.</p>`;
   function card(title, inner, o = {}) {
     const tools = (o.table ? `<button type="button" class="od-mini" data-tbl="1" aria-pressed="false">Table</button>` : '') + (o.csv ? `<button type="button" class="od-mini" data-csv="${o.csv}">⬇ CSV</button>` : '');
     return `<section class="pv-card od-card${o.cls ? ' ' + o.cls : ''}"${o.id ? ` id="${o.id}"` : ''}><div class="od-ch"><h3>${title}</h3><span class="od-tools">${tools}</span></div>${o.sum ? `<p class="od-sum">${o.sum}</p>` : ''}${o.table ? `<div class="od-viz">${inner}</div><div class="od-tbl" hidden>${o.table}</div>` : inner}${o.foot ? `<p class="od-foot">${o.foot}</p>` : ''}</section>`;
@@ -349,12 +404,21 @@
       return `<th scope="col"${c.n ? ' class="n"' : ''}${on ? ` aria-sort="${o.sort.desc ? 'descending' : 'ascending'}"` : ''}>${sortable ? `<button type="button" class="od-th" data-sortk="${c.s || c.k}">${esc(c.l)}${on ? (o.sort.desc ? ' ▼' : ' ▲') : ''}</button>` : esc(c.l)}</th>`;
     }).join('');
     const lim = o.limit != null ? o.limit : (o.sort ? 0 : 10), cut = lim && rows.length > lim + 2;
+    const more = cut ? `<button type="button" class="od-link" data-more="${rows.length}" aria-expanded="false">Show all ${rows.length}</button>` : '';
+    if (narrow() && o.cards !== false) {             // phones: one compact card per row instead of a wide table
+      const val = (c, r) => c.f ? c.f(r[c.k], r) : esc(r[c.k] == null ? '–' : r[c.k]);
+      const generic = r => `<div class="od-ct">${val(cols[0], r)}</div><dl class="od-ckv">${cols.slice(1).map(c => { const v = val(c, r); return v === '–' || v === '' || v === '0' || v === '₹0' ? '' : `<div><dt>${esc(c.l)}</dt><dd>${v}</dd></div>`; }).join('')}</dl>`;
+      return `<ul class="od-cards" aria-label="${esc(o.label || 'List')}">${rows.map((r, i) => `<li class="od-ci${o.onRow ? ' od-tr' : ''}"${cut && i >= lim ? ' hidden data-x="1"' : ''}${o.onRow ? ` data-row="${i}" data-rt="${id}" tabindex="0" role="button" aria-label="${esc(o.rowLabel ? o.rowLabel(r) : 'Open details')}"` : ''}>${o.card ? o.card(r) : generic(r)}${o.onRow ? '<span class="od-cgo" aria-hidden="true">›</span>' : ''}</li>`).join('')}</ul>${more}`;
+    }
     const body = rows.map((r, i) => `<tr${cut && i >= lim ? ' hidden data-x="1"' : ''}${o.onRow ? ` class="od-tr" data-row="${i}" data-rt="${id}" tabindex="0" role="button" aria-label="${esc(o.rowLabel ? o.rowLabel(r) : 'Open details')}"` : ''}>${cols.map((c, j) => {
       const v = c.f ? c.f(r[c.k], r) : esc(r[c.k] == null ? '–' : r[c.k]);
       return j === 0 ? `<th scope="row"${c.n ? ' class="n"' : ''}>${v}</th>` : `<td${c.n ? ' class="n"' : ''}>${v}</td>`;
     }).join('')}</tr>`).join('');
-    return `<div class="od-tw" tabindex="0" role="region" aria-label="${esc(o.label || 'Table')}"><table class="od-t"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>${cut ? `<button type="button" class="od-link" data-more="${rows.length}" aria-expanded="false">Show all ${rows.length}</button>` : ''}`;
+    return `<div class="od-tw" tabindex="0" role="region" aria-label="${esc(o.label || 'Table')}"><table class="od-t"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>${more}`;
   }
+  const narrow = () => innerWidth < 760;
+  let wasNarrow = null, rsT = 0;
+  W.addEventListener('resize', () => { clearTimeout(rsT); rsT = setTimeout(() => { const n = narrow(); if (wasNarrow !== null && n !== wasNarrow && hub && hub.classList.contains('show')) paint(); wasNarrow = n; }, 250); });
   function csvOf(cols, rows) {
     const q = v => { const s = String(v == null ? '' : v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
     const txt = (c, r) => c.t ? c.t(r[c.k], r) : (r[c.k] == null ? '' : typeof r[c.k] === 'object' ? JSON.stringify(r[c.k]) : r[c.k]);
@@ -367,7 +431,7 @@
   }
   async function csv(id) {
     if (id === 'students-all') { try { say('Preparing CSV…'); const r = await get('owner_dash_students', { p: filt(), p_sort: V.stu.sort, p_desc: V.stu.desc, p_limit: 5000, p_offset: 0 }); download('studyverse-students', csvOf(STU_COLS, r.rows)); } catch (e) { say(errT(e)); } return; }
-    if (id === 'parents-all') { try { const r = await get('owner_dash_parents', { p_from: range()[0], p_to: range()[1], p_q: V.pq || null, p_limit: 5000, p_offset: 0 }); download('studyverse-parents', csvOf(PAR_COLS, r.rows)); } catch (e) { say(errT(e)); } return; }
+    if (id === 'parents-all') { try { const r = await get('owner_dash_parents', { p_from: range()[0], p_to: range()[1], p_q: V.pq || null, p_limit: 5000, p_offset: 0, p: filt() }); download('studyverse-parents', csvOf(PAR_COLS, r.rows)); } catch (e) { say(errT(e)); } return; }
     const r = REG[id]; if (r) download(r.name, csvOf(r.cols.map(c => Object.assign({}, c, { f: null })), r.rows));
   }
   /* tooltip (tap or hover on [data-tip]) */
@@ -393,23 +457,26 @@
     const grid = [0, .5, 1].map(f => `<line x1="${L}" x2="${Wd - R}" y1="${y(max * f)}" y2="${y(max * f)}" class="od-grid"/><text x="${L - 6}" y="${y(max * f) + 4}" text-anchor="end" class="od-ax">${o.money ? '₹' : ''}${short(max * f)}</text>`).join('');
     const step = Math.max(1, Math.ceil(n / 6));
     const xl = labels.map((l, i) => (i === n - 1 || (i % step === 0 && n - 1 - i >= step)) ? `<text x="${x(i)}" y="${H - 6}" text-anchor="${i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'}" class="od-ax">${esc(l)}</text>` : '').join('');
-    const lines = series.map(s => `<polyline fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="${s.values.map((v, i) => x(i) + ',' + y(v)).join(' ')}"/>` +
-      (n <= 40 ? s.values.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="${n <= 14 ? 4 : 2.5}" fill="${s.color}" stroke="#fff" stroke-width="1.5"/>`).join('') : '')).join('');
+    const lines = series.map(s => `<polyline fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"${s.faded ? ' stroke-dasharray="5 4" opacity=".45"' : ''} points="${s.values.map((v, i) => x(i) + ',' + y(v)).join(' ')}"/>` +
+      (n <= 40 && !s.faded ? s.values.map((v, i) => `<circle cx="${x(i)}" cy="${y(v)}" r="${n <= 14 ? 4 : 2.5}" fill="${s.color}" stroke="#fff" stroke-width="1.5"/>`).join('') : '')).join('');
     const hw = n <= 1 ? Wd - L - R : (Wd - L - R) / (n - 1);
     const hits = labels.map((l, i) => `<rect x="${x(i) - hw / 2}" y="${T}" width="${hw}" height="${H - T - B}" fill="transparent" class="od-hit" data-tip="${esc(l + ' · ' + series.map(s => s.name + ' ' + (o.money ? inr(s.values[i]) : nf(s.values[i]))).join(' · '))}"/>`).join('');
-    const legend = series.length > 1 ? `<div class="od-leg">${series.map(s => `<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')}</div>` : '';
+    const legend = series.length > 1 ? `<div class="od-leg">${series.map(s => `<span${s.faded ? ' class="od-lf"' : ''}><i style="${s.faded ? `border-top:2px dashed ${s.color};opacity:.6` : `background:${s.color}`}"></i>${esc(s.name)}</span>`).join('')}</div>` : '';
     return `${legend}<svg viewBox="0 0 ${Wd} ${H}" class="od-svg" role="img" aria-label="${esc(o.aria || 'Line chart')}">${grid}${xl}${lines}${hits}</svg>`;
   }
   function colChart(labels, values, o = {}) {
-    const Wd = innerWidth < 600 ? 380 : 640, H = o.h || 190, L = 40, R = 8, T = 10, B = 26, n = labels.length, max = nice(Math.max(1, ...values.map(v => +v || 0)));
+    const pv = o.prev && o.prev.length === values.length ? o.prev.map(v => +v || 0) : null;
+    const Wd = innerWidth < 600 ? 380 : 640, H = o.h || 190, L = 40, R = 8, T = 10, B = 26, n = labels.length, max = nice(Math.max(1, ...values.map(v => +v || 0), ...(pv || [])));
     const bw = (Wd - L - R) / Math.max(1, n), y = v => T + (H - T - B) * (1 - (+v || 0) / max), base = H - B;
     const grid = [0, .5, 1].map(f => `<line x1="${L}" x2="${Wd - R}" y1="${y(max * f)}" y2="${y(max * f)}" class="od-grid"/><text x="${L - 6}" y="${y(max * f) + 4}" text-anchor="end" class="od-ax">${o.money ? '₹' : ''}${short(max * f)}</text>`).join('');
     const step = Math.max(1, Math.ceil(n / 6));
     const bars = values.map((v, i) => { const h = Math.max(0, base - y(v)), bx = L + i * bw + Math.min(2, bw * .15), w = Math.max(1, bw - Math.min(4, bw * .3));
       return `<path d="M${bx},${base}V${base - h + Math.min(3, h)}q0,-${Math.min(3, h)} ${Math.min(3, w / 2)},-${Math.min(3, h)}H${bx + w - Math.min(3, w / 2)}q${Math.min(3, w / 2)},0 ${Math.min(3, w / 2)},${Math.min(3, h)}V${base}Z" fill="${o.color || COL.s1}"/>` +
-        `<rect x="${L + i * bw}" y="${T}" width="${bw}" height="${H - T - B}" fill="transparent" class="od-hit" data-tip="${esc(labels[i] + ' · ' + (o.money ? inr(v) : nf(v)) + (o.unit ? ' ' + o.unit : ''))}"/>`; }).join('');
+        `<rect x="${L + i * bw}" y="${T}" width="${bw}" height="${H - T - B}" fill="transparent" class="od-hit" data-tip="${esc(labels[i] + ' · ' + (o.money ? inr(v) : nf(v)) + (o.unit ? ' ' + o.unit : '') + (pv ? ' · previous period ' + (o.money ? inr(pv[i]) : nf(pv[i])) : ''))}"/>`; }).join('');
+    const pl = pv ? `<polyline fill="none" stroke="${COL.ink}" stroke-width="2" stroke-dasharray="5 4" opacity=".4" points="${pv.map((v, i) => (L + i * bw + bw / 2) + ',' + y(v)).join(' ')}" pointer-events="none"/>` : '';
     const xl = labels.map((l, i) => i % step === 0 && (n - 1 - i >= step || i === 0) ? `<text x="${L + i * bw + bw / 2}" y="${H - 6}" text-anchor="middle" class="od-ax">${esc(l)}</text>` : '').join('');
-    return `<svg viewBox="0 0 ${Wd} ${H}" class="od-svg" role="img" aria-label="${esc(o.aria || 'Bar chart')}">${grid}${bars}${xl}</svg>`;
+    const leg = pv ? `<div class="od-leg"><span><i style="background:${o.color || COL.s1}"></i>This period</span><span class="od-lf"><i style="border-top:2px dashed ${COL.ink};opacity:.5"></i>Previous period</span></div>` : '';
+    return `${leg}<svg viewBox="0 0 ${Wd} ${H}" class="od-svg" role="img" aria-label="${esc(o.aria || 'Bar chart')}">${grid}${bars}${pl}${xl}</svg>`;
   }
   /* horizontal bars as buttons (each drills): items [{label, value, sub, go, tip}] */
   function hbars(items, o = {}) {
@@ -423,6 +490,17 @@
       return `<li>${i.go ? `<button type="button" class="od-hbr" data-go="${esc(i.go)}" aria-label="${esc(i.aria || (strip(i.label) + ': ' + nf(i.value) + (i.sub ? ', ' + i.sub : '') + '. Open'))}">${inner}</button>` : `<div class="od-hbr"${i.tip ? ` data-tip="${esc(i.tip)}" tabindex="0"` : ''}>${inner}</div>`}</li>`; }).join('')}</ul>`;
   }
   const strip = h => String(h).replace(/<[^>]+>/g, '');
+  /* small stat tiles: [{i: icon, v: value, l: label, go?}] */
+  function tiles(list) {
+    return `<div class="od-tiles">${list.map(t => t.go ? `<button type="button" class="od-tile" data-go="${esc(t.go)}"><span aria-hidden="true">${t.i}</span><b>${t.v}</b><small>${esc(t.l)}</small></button>`
+      : `<div class="od-tile"><span aria-hidden="true">${t.i}</span><b>${t.v}</b><small>${esc(t.l)}</small></div>`).join('')}</div>`;
+  }
+  /* ranked list with a % bar: [{i, name, pct, sub}] */
+  function rankList(items, lim = 8) {
+    if (items.length > lim + 2) return rankList(items.slice(0, lim), 1e9) + `<details class="od-moreb"><summary>Show all ${items.length}</summary>${rankList(items.slice(lim).map((x, k) => Object.assign({}, x, { n0: lim + k })), 1e9)}</details>`;
+    return `<ol class="od-rank">${items.map((x, n) => `<li data-tip="${esc(x.name + ': ' + x.sub + (x.tip ? ' · ' + x.tip : ''))}" tabindex="0"><span class="od-rn">${(x.n0 || 0) + n + 1}</span><span class="od-ri" aria-hidden="true">${x.i}</span><span class="od-rname">${esc(x.name)}<small>${esc(x.sub)}</small></span>
+      <span class="od-rbar"><span style="width:${Math.max(2, x.pct || 0)}%"></span></span><b class="od-rp">${pctS(x.pct)}</b></li>`).join('')}</ol>`;
+  }
   /* heatmap: rows [{label, cells:[{v (0–1 for colour), txt, tip}]}], cols [labels] → a real <table> (screen readers read it as a table) */
   function heat(cols, rows, o = {}) {
     const col = v => v == null ? 'transparent' : RAMP[Math.min(RAMP.length - 1, Math.max(0, Math.round(v * (RAMP.length - 1))))];
@@ -434,20 +512,21 @@
 
   /* ================= Overview ================= */
   async function overview() {
-    const [f, t] = range(), o = await get('owner_dash_overview', { p_from: f, p_to: t, p: filt() }), c = o.cur, p = o.prev;
+    const [f, t] = range(), o = await get('owner_dash_overview', { p_from: f, p_to: t, p: filt() }), c = o.cur, p = pick(o)[1];
     const n = Math.round((Date.parse(t) - Date.parse(f)) / DAY) + 1;
-    const conv = pct(c.trial_paid, c.trials), convP = pct(p.trial_paid, p.trials);
-    const stick = c.mau ? Math.round(100 * c.avg_dau / c.mau) : null, stickP = p.mau ? Math.round(100 * p.avg_dau / p.mau) : null;
+    const [C, P] = pick(o);                         // what the arrows compare
+    const conv = pct(C.trial_paid, C.trials), convP = pct(P.trial_paid, P.trials);
+    const stick = C.mau ? Math.round(100 * C.avg_dau / C.mau) : null, stickP = P.mau ? Math.round(100 * P.avg_dau / P.mau) : null;
     const kp = [
-      kpi({ icon: '🧒', label: 'Students', value: nf(c.students), cur: c.signups, prev: p.signups, prevS: nf(p.signups) + ' sign-ups', pre: `+${nf(c.signups)} sign-ups`, sub: `(was +${nf(p.signups)})`, go: 'tab:students' }),
-      kpi({ icon: '💎', label: 'Paying now', value: nf(c.paying), cur: c.paying, prev: p.paying, prevS: nf(p.paying), sub: `was ${nf(p.paying)}`, go: 'stu:status=paid' }),
-      kpi({ icon: '🔁', label: 'Monthly revenue (MRR)', value: inr(c.mrr), cur: c.mrr, prev: p.mrr, prevS: inr(p.mrr), sub: 'ex-GST, plans running now', go: 'tab:subs' }),
-      kpi({ icon: '💰', label: 'Revenue in period', value: inr(+c.revenue + (+o.school_revenue || 0)), cur: c.revenue, prev: p.revenue, prevS: inr(p.revenue), sub: `students ${inr(c.revenue)} · schools ${inr(o.school_revenue)}`, go: 'tab:subs' }),
-      kpi({ icon: '🌱', label: 'New paying', value: nf(c.new_paid), cur: c.new_paid, prev: p.new_paid, prevS: nf(p.new_paid), sub: `+ ${nf(c.renewed)} renewed`, go: 'tab:subs' }),
-      kpi({ icon: '🍂', label: 'Plans ended (churn)', value: nf(c.churned), cur: c.churned, prev: p.churned, prevS: nf(p.churned), good: 'down', sub: 'not renewed', go: 'stu:status=lapsed' }),
-      kpi({ icon: '🎯', label: 'Trial → paid', value: pctS(conv), cur: conv || 0, prev: convP || 0, prevS: pctS(convP), sub: `${nf(c.trial_paid)} of ${nf(c.trials)} trials`, go: 'stu:status=trial' }),
-      kpi({ icon: '⚡', label: 'Active (day / week / month)', value: `${nf(c.dau)} / ${nf(c.wau)} / ${nf(c.mau)}`, cur: c.wau, prev: p.wau, prevS: nf(p.wau) + ' weekly', sub: `${nf(c.active)} active in period`, go: 'tab:usage' }),
-      kpi({ icon: '🧲', label: 'Stickiness', value: pctS(stick), cur: stick || 0, prev: stickP || 0, prevS: pctS(stickP), sub: 'avg daily ÷ monthly active', go: 'tab:usage' })];
+      kpi({ icon: '🧒', label: 'Students', value: nf(c.students), cur: C.signups, prev: P.signups, prevS: '+' + nf(P.signups) + ' sign-ups', sub: `+${nf(C.signups)} sign-ups${ALL() ? ' in 30 days' : ''}`, go: 'tab:students' }),
+      kpi({ icon: '💎', label: 'Paying now', value: nf(c.paying), cur: C.paying, prev: P.paying, go: 'stu:status=paid' }),
+      kpi({ icon: '🔁', label: 'Monthly revenue (MRR)', value: inr(c.mrr), cur: C.mrr, prev: P.mrr, prevS: inr(P.mrr), sub: 'ex-GST, plans running now', go: 'tab:subs' }),
+      kpi({ icon: '💰', label: 'Revenue', value: inr(+c.revenue + (+o.school_revenue || 0)), cur: C.revenue, prev: P.revenue, prevS: inr(P.revenue), sub: `students ${inr(c.revenue)} · schools ${inr(o.school_revenue)}`, go: 'tab:subs' }),
+      kpi({ icon: '🌱', label: 'New paying', value: nf(c.new_paid), cur: C.new_paid, prev: P.new_paid, sub: `+ ${nf(c.renewed)} renewed`, go: 'tab:subs' }),
+      kpi({ icon: '🍂', label: 'Plans ended (churn)', value: nf(c.churned), cur: C.churned, prev: P.churned, good: 'down', sub: 'not renewed', go: 'stu:status=lapsed' }),
+      kpi({ icon: '🎯', label: 'Trial → paid', value: pctS(pct(c.trial_paid, c.trials)), cur: conv || 0, prev: convP || 0, prevS: pctS(convP), sub: `${nf(c.trial_paid)} of ${nf(c.trials)} trials`, go: 'stu:status=trial' }),
+      kpi({ icon: '⚡', label: 'Active (day / week / month)', value: `${nf(c.dau)} / ${nf(c.wau)} / ${nf(c.mau)}`, cur: C.wau, prev: P.wau, prevS: nf(P.wau) + ' a week', sub: `${nf(c.active)} active in ${ALL() ? 'all time' : 'period'}`, go: 'tab:usage' }),
+      kpi({ icon: '🧲', label: 'Stickiness', value: pctS(c.mau ? Math.round(100 * c.avg_dau / c.mau) : null), cur: stick || 0, prev: stickP || 0, prevS: pctS(stickP), sub: 'avg daily ÷ monthly active', go: 'tab:usage' })];
     const sr = o.series || [], labs = sr.map(r => bLabel(o, r.d));
     const trendT = table([{ k: 'd', l: o.bucket === 'day' ? 'Day' : o.bucket === 'week' ? 'Week of' : 'Month', f: v => esc(bLabel(o, v)), t: v => v }, { k: 'active', l: 'Active students', n: 1 }, { k: 'signups', l: 'Sign-ups', n: 1 }, { k: 'answers', l: 'Answers', n: 1 }], sr, { name: 'activity-trend', label: 'Activity trend table' });
     const tot = Object.values(o.status || {}).reduce((a, b) => a + (+b || 0), 0);
@@ -455,16 +534,17 @@
     const bd = BANDS.filter(([k]) => k !== 'ca' && o.bands && o.bands[k]).map(([k, l]) => ({ label: esc(l), value: o.bands[k], go: 'stu:band=' + k }));
     if (o.bands && o.bands.unknown) bd.push({ label: 'Not chosen yet', value: o.bands.unknown, tip: 'Signed up but has not picked a class yet' });
     const src = SOURCES.filter(([k]) => o.sources && o.sources[k]).map(([k, l]) => ({ label: esc(l), value: o.sources[k], go: 'stu:source=' + k }));
-    const growth = (+c.new_paid + +c.renewed) - +c.churned;
-    const verdict = c.paying > p.paying ? `📈 Subscriptions are <b>growing</b>: ${nf(c.paying)} paying now vs ${nf(p.paying)} at the start of this period.` : c.paying < p.paying ? `📉 Subscriptions are <b>falling</b>: ${nf(c.paying)} paying now vs ${nf(p.paying)} at the start. Open ${NAME.coachIcon} ${NAME.coach} to win students back.` : `➖ Paying students are <b>steady</b> at ${nf(c.paying)}.`;
-    return `<div class="od-verdict pv-card" role="note">${verdict} <span class="od-mute">New ${nf(c.new_paid)} + renewed ${nf(c.renewed)} − ended ${nf(c.churned)} = ${growth >= 0 ? '+' : ''}${nf(growth)} this period.</span> <button type="button" class="od-link" data-go="tab:smart">Open ${NAME.coach} ›</button></div>
+    const growth = +c.new_paid - +c.churned;          // renewals keep a student; they do not add one
+    const verdict = c.paying > p.paying ? `📈 Subscriptions are <b>growing</b>: ${nf(c.paying)} paying now vs ${nf(p.paying)} ${ALL() ? ' 30 days ago' : ' at the start of this period'}.` : c.paying < p.paying ? `📉 Subscriptions are <b>falling</b>: ${nf(c.paying)} paying now vs ${nf(p.paying)} at the start. Open ${NAME.coachIcon} ${NAME.coach} to win students back.` : `➖ Paying students are <b>steady</b> at ${nf(c.paying)}.`;
+    return cmpNote() + `<div class="od-verdict pv-card" role="note">${verdict} <span class="od-mute">New ${nf(c.new_paid)} − ended ${nf(c.churned)} = ${growth >= 0 ? '+' : ''}${nf(growth)} (${nf(c.renewed)} renewed).</span> <button type="button" class="od-link" data-go="tab:smart">Open ${NAME.coach} ›</button></div>
       <div class="od-kpis">${kp.join('')}</div>
       <div class="od-grid2">
-        ${card('⚡ Active students & sign-ups', lineChart(labs, [{ name: 'Active students', color: COL.s1, values: sr.map(r => +r.active) }, { name: 'Sign-ups', color: COL.s2, values: sr.map(r => +r.signups) }], { aria: `Active students and sign-ups per ${o.bucket}` }),
+        ${card('⚡ Active students & sign-ups', lineChart(labs, [{ name: 'Active students', color: COL.s1, values: sr.map(r => +r.active) }, { name: 'Sign-ups', color: COL.s2, values: sr.map(r => +r.signups) }]
+            .concat(!ALL() && (o.pseries || []).length === sr.length ? [{ name: 'Active, previous period', color: COL.s1, faded: true, values: o.pseries.map(r => +r.active) }] : []), { aria: `Active students and sign-ups per ${o.bucket}` }),
           { table: trendT, csv: 't' + regN, sum: `Per ${o.bucket}. Tap a point for numbers.` })}
         ${card('🏷️ Students by status', hbars(st), { sum: 'Tap a bar to see those students.' })}
         ${card('🎒 Students by class / course', hbars(bd), { sum: 'Tap a class band to filter everything by it.' })}
-        ${card('🚪 How students joined', hbars(src) + `<p class="od-foot">👪 ${nf(o.parents)} parent accounts (${nf(o.parents_linked)} linked to a child) · 🏫 ${nf(o.schools)} schools & coaching centres. <button type="button" class="od-link" data-go="tab:people">Open ›</button></p>`)}
+        ${card('🚪 How students joined', hbars(src) + tiles([{ i: '👪', v: nf(o.parents), l: 'parent accounts', go: 'tab:people' }, { i: '🔗', v: nf(o.parents_linked), l: 'linked to a child', go: 'tab:people' }, { i: '🏫', v: nf(o.schools), l: 'schools & coaching', go: 'tab:people' }]))}
       </div>`;
   }
 
@@ -498,21 +578,25 @@
       { k: 'plan', l: 'Plan' }, { k: 'valid_until', l: 'Ends', f: v => esc(until(v)), t: v => v }, { k: 'last_active', l: 'Last active', f: v => esc(ago(v)), t: v => v || '' }],
       o.due || [], { name: 'renewals-due', label: 'Renewals due', empty: 'No plans end in the next 30 days.', onRow: r => go('student:' + r.user_id), rowLabel: r => 'Open ' + (r.name || r.email) });
     const dueId = 't' + regN;
-    const net = sum('new') + sum('renewed') - sum('expired');
-    return `<div class="od-kpis">
-        ${kpi({ icon: '🌱', label: 'New paying', value: nf(sum('new')), go: 'stu:status=paid' })}
-        ${kpi({ icon: '🔁', label: 'Renewed', value: nf(sum('renewed')), go: 'stu:status=paid' })}
-        ${kpi({ icon: '🍂', label: 'Ended, not renewed', value: nf(sum('expired')), go: 'stu:status=lapsed' })}
-        ${kpi({ icon: net >= 0 ? '📈' : '📉', label: 'Net change', value: (net >= 0 ? '+' : '') + nf(net), sub: net >= 0 ? 'growing' : 'shrinking', go: 'tab:smart' })}
-        ${kpi({ icon: '⏰', label: 'Ending in 7 days', value: nf(o.due7), sub: `${nf(o.due30)} in 30 days`, go: 'tab:smart' })}
-        ${kpi({ icon: '⚠️', label: 'Failed / unfinished payments', value: nf(sum('failed')), go: 'tab:smart' })}</div>
+    const S0 = o.sums || {}, [Cs, Ps] = pick(o, 'sums', 'psums'), netOf = x => (+x.new || 0) - (+x.expired || 0);   // renewals keep a student; they do not add one
+    const net = netOf(S0), sg = v => (v >= 0 ? '+' : '') + nf(v);
+    return cmpNote() + `<div class="od-kpis">
+        ${kpi({ icon: '🌱', label: 'New paying', value: nf(S0.new), cur: Cs.new, prev: Ps.new, go: 'stu:status=paid' })}
+        ${kpi({ icon: '🔁', label: 'Renewed', value: nf(S0.renewed), cur: Cs.renewed, prev: Ps.renewed, go: 'stu:status=paid' })}
+        ${kpi({ icon: '🍂', label: 'Ended, not renewed', value: nf(S0.expired), cur: Cs.expired, prev: Ps.expired, good: 'down', go: 'stu:status=lapsed' })}
+        ${kpi({ icon: net >= 0 ? '📈' : '📉', label: 'Net change', value: sg(net), cur: netOf(Cs), prev: netOf(Ps), prevS: sg(netOf(Ps)), sub: net >= 0 ? 'growing' : 'shrinking', go: 'tab:smart' })}
+        ${kpi({ icon: '💰', label: 'Revenue (ex-GST)', value: inr(S0.revenue), cur: Cs.revenue, prev: Ps.revenue, prevS: inr(Ps.revenue), go: 'tab:subs' })}
+        ${kpi({ icon: '⚠️', label: 'Failed / unfinished payments', value: nf(S0.failed), cur: Cs.failed, prev: Ps.failed, good: 'down', go: 'tab:smart' })}
+        ${kpi({ icon: '⏳', label: 'Trials started', value: nf(S0.trials), cur: Cs.trials, prev: Ps.trials, go: 'stu:status=trial' })}
+        ${kpi({ icon: '⏰', label: 'Ending in 7 days', value: nf(o.due7), now: 'right now', sub: `${nf(o.due30)} in 30 days`, go: 'tab:smart' })}</div>
       <div class="od-row od-mt">${seg}</div>
       <div class="od-grid2">
-        ${card('📊 Subscriptions over time', lineChart(labs, [{ name: 'New', color: COL.s1, values: sr.map(r => +r.new) }, { name: 'Renewed', color: COL.s3, values: sr.map(r => +r.renewed) }, { name: 'Ended', color: COL.s2, values: sr.map(r => +r.expired) }], { aria: 'New, renewed and ended subscriptions' }),
+        ${card('📊 Subscriptions over time', lineChart(labs, [{ name: 'New', color: COL.s1, values: sr.map(r => +r.new) }, { name: 'Renewed', color: COL.s3, values: sr.map(r => +r.renewed) }, { name: 'Ended', color: COL.s2, values: sr.map(r => +r.expired) }]
+            .concat(!ALL() && (o.pseries || []).length === sr.length ? [{ name: 'New, previous period', color: COL.s1, faded: true, values: o.pseries.map(r => +r.new) }] : []), { aria: 'New, renewed and ended subscriptions' }),
           { table: trendT, csv: trendId, sum: `${nf(sum('trials'))} trials started · ${nf(sum('failed'))} payments failed or left unfinished.` })}
-        ${card('💰 Revenue (students, ex-GST)', colChart(labs, sr.map(r => +r.revenue), { money: 1, aria: 'Revenue per period', color: COL.s1 }), { table: revT, csv: revId, sum: `${inr(sum('revenue'))} in this period. School invoices are under Parents & schools.` })}
+        ${card('💰 Revenue (students, ex-GST)', colChart(labs, sr.map(r => +r.revenue), { money: 1, aria: 'Revenue per period', color: COL.s1, prev: !ALL() && o.pseries ? o.pseries.map(r => +r.revenue) : null }), { table: revT, csv: revId, sum: `${inr(sum('revenue'))} in this period. School invoices are under Parents & schools.` })}
         ${card('🏷️ By plan', planT, { csv: planId, sum: 'Payments in this period. Tap a plan to see its students.' })}
-        ${card('🎒 By class / course', bandT, { csv: bandId, sum: 'Everyone matching the filters, right now. Tap a row to see those students.' })}
+        ${card('🎒 By class / course', bandT, { csv: bandId, sum: 'Everyone matching the filters, right now. Tap a row to see those students.', cls: 'od-span2' })}
       </div>
       ${card('🧊 Do students stay? (retention by signup month)', cohSeg + cohH, { sum: V.cohort === 'act' ? 'Each row = students who joined that month. Each cell = % who still studied in that month after joining. Darker = more stayed.' : 'Each cell = % of that month’s sign-ups who had a running paid plan at the end of that month.' })}
       ${card('⏰ Renewals due in the next 30 days', dueT, { csv: dueId, sum: `${nf(o.due7)} end within 7 days. Tap a student for their profile; reminders are ready in ${NAME.coachIcon} ${NAME.coach}.` })}`;
@@ -539,13 +623,21 @@
   async function students() {
     const L = 50, r = await get('owner_dash_students', { p: filt(), p_sort: V.stu.sort, p_desc: V.stu.desc, p_limit: L, p_offset: V.stu.off });
     const cols = STU_COLS.filter(c => !c.hide);
-    const tb = table(cols, r.rows, { name: 'students', label: 'Students', sort: { k: V.stu.sort, desc: V.stu.desc }, empty: 'No students match these filters.',
+    const scard = x => `<div class="od-ct"><b>${esc(x.name || '—')}</b><small>${esc(x.email)}</small></div>
+      <div class="od-cline">${esc(x.kind === 'ca' ? 'CA ' + (x.ca_level || 'foundation') : x.grade ? 'Class ' + x.grade : 'Class not chosen')}${x.board ? ' · ' + esc(String(x.board).toUpperCase()) : ''}${x.inst_name ? ' · 🏫 ' + esc(x.inst_name) : ''}</div>
+      <div class="od-cfoot"><span class="od-st st-${esc(x.status)}">${esc(STATN[x.status] || x.status)}</span><span>⏱️ ${esc(ago(x.last_active))}</span><span>⭐ ${nf(x.stars_week)} this week</span>${x.streak ? `<span>🔥 ${nf(x.streak)}</span>` : ''}</div>`;
+    const SORTS = [['last_active', 'Last active'], ['name', 'Name'], ['signup', 'Joined'], ['stars_week', 'Stars this week'], ['answered', 'Questions'], ['accuracy', 'Accuracy'], ['streak', 'Streak'], ['valid_until', 'Plan ends'], ['paid_inr', 'Paid']];
+    const sortSel = narrow() ? `<div class="od-row od-sortrow"><label for="odSort" class="od-mute">Sort by</label><select id="odSort" class="od-sel">${SORTS.map(([k, n]) => `<option value="${k}"${V.stu.sort === k ? ' selected' : ''}>${n}</option>`).join('')}</select><button type="button" class="od-mini" id="odSortDir" aria-label="${V.stu.desc ? 'Highest first' : 'Lowest first'}">${V.stu.desc ? '↓ High first' : '↑ Low first'}</button></div>` : '';
+    later(b => { const sel = b.querySelector('#odSort'), dir = b.querySelector('#odSortDir');
+      if (sel) sel.onchange = () => { V.stu.sort = sel.value; V.stu.desc = !['name'].includes(sel.value); V.stu.off = 0; paint(); };
+      if (dir) dir.onclick = () => { V.stu.desc = !V.stu.desc; V.stu.off = 0; paint(); }; });
+    const tb = sortSel + table(cols, r.rows, { name: 'students', label: 'Students', card: scard, sort: { k: V.stu.sort, desc: V.stu.desc }, empty: 'No students match these filters.',
       onRow: x => go('student:' + x.id), rowLabel: x => 'Open ' + (x.name || x.email) });
     later(b => b.querySelectorAll('[data-sortk]').forEach(x => x.onclick = ev => { ev.stopPropagation(); const k = x.dataset.sortk; if (V.stu.sort === k) V.stu.desc = !V.stu.desc; else { V.stu.sort = k; V.stu.desc = !['name', 'email', 'band', 'board', 'status', 'plan', 'inst_name', 'source'].includes(k); } V.stu.off = 0; paint(); }));
     later(b => { const pv = b.querySelector('#odPrev'), nx = b.querySelector('#odNext'); if (pv) pv.onclick = () => { V.stu.off = Math.max(0, V.stu.off - L); paint(); }; if (nx) nx.onclick = () => { V.stu.off += L; paint(); }; });
     const from = r.total ? V.stu.off + 1 : 0, to = Math.min(r.total, V.stu.off + L);
     return card(`🧒 Students <span class="od-count">${nf(r.total)}</span>`, tb + `<div class="od-pager"><span aria-live="polite">${nf(from)}–${nf(to)} of ${nf(r.total)}</span><span><button type="button" class="od-mini" id="odPrev"${V.stu.off ? '' : ' disabled'}>‹ Previous</button> <button type="button" class="od-mini" id="odNext"${to < r.total ? '' : ' disabled'}>Next ›</button></span></div>`,
-      { csv: 'students-all', sum: 'Tap a column name to sort, a row to open the full profile. Use 🔎 above to find someone; ⚙️ Filters narrow everything. CSV downloads every matching student (up to 5,000).', cls: 'od-wide' });
+      { csv: 'students-all', sum: (narrow() ? 'Tap a student to open the full profile.' : 'Tap a column name to sort, a row to open the full profile.') + ' Use 🔎 above to find someone; ⚙️ Filters narrow everything. CSV downloads every matching student (up to 5,000).', cls: 'od-wide' });
   }
 
   /* --- one student --- */
@@ -615,7 +707,7 @@
     const fm = Object.fromEntries((o.features || []).map(x => [x.k, x]));
     const feats = FEAT.map(([k, e, n]) => ({ k, label: `${e} ${esc(n)}`, value: fm[k] ? +fm[k].users : 0, opens: fm[k] ? +fm[k].opens : 0 })).sort((a, b) => b.value - a.value);
     const used = feats.filter(x => x.value), unused = feats.filter(x => !x.value);
-    const fItems = used.map(x => ({ label: x.label, value: x.value, sub: `${pctS(pct(x.value, tr))} · ${nf(x.opens)} opens`, tip: `${strip(x.label)}: ${nf(x.value)} students opened it ${nf(x.opens)} times (${pctS(pct(x.value, tr))} of students with tracking)` }));
+    const fRank = used.map(x => { const F = FEATN[x.k]; return { i: F[1], name: F[2], pct: pct(x.value, tr), sub: `${nf(x.value)} student${x.value === 1 ? '' : 's'}`, tip: `${nf(x.opens)} opens` }; });
     const featT = table([{ k: 'label', l: 'Feature', f: v => v, t: v => strip(v) }, { k: 'value', l: 'Students', n: 1 }, { k: 'opens', l: 'Opens', n: 1 }], feats, { name: 'feature-usage', label: 'Feature usage' });
     const featId = 't' + regN;
     const dv = o.derived || {};
@@ -638,14 +730,19 @@
     const blocks = HRS.map(([a, b]) => `${hl(a)}–${hl(b % 24)}`);
     const hm = Math.max(1, ...DOW.flatMap((_, i) => HRS.map(([a, b]) => { let n = 0; for (let h = a; h < b; h++) n += H[(i + 1) + ':' + (h % 24)] || 0; return n; })));
     const todH = heat(blocks, DOW.map((dn, i) => ({ label: dn, cells: HRS.map(([a, b]) => { let n = 0; for (let h = a; h < b; h++) n += H[(i + 1) + ':' + (h % 24)] || 0; return { v: n / hm, txt: n ? short(n) : '', tip: `${dn} ${hl(a)}–${hl(b % 24)} (India time): ${nf(n)} answers` }; }) })), { corner: 'India time', label: 'Answers by day and time', lo: 'few', hi: 'many' });
-    return `<div class="od-kpis">
-        ${kpi({ icon: '⚡', label: 'Active students', value: nf(act), sub: `of ${nf(o.students)} students` })}
-        ${kpi({ icon: '✅', label: 'Answers', value: nf(o.answers), sub: `${pctS(pct(o.right, o.answers))} right (recent answers)` })}
-        ${kpi({ icon: '🧭', label: 'Features used', value: `${used.length} of ${FEAT.length}`, sub: unused.length ? unused.length + ' not used' : 'all used' })}
-        ${kpi({ icon: '🚪', label: 'Quests left midway', value: nf(Object.values(o.drop_steps || {}).reduce((a, b) => a + +b, 0)), sub: 'see where below' })}</div>
+    const A0 = o.act || {}, [Ca, Pa] = pick(o, 'act', 'pact'), acc = x => x && +x.answers ? Math.round(100 * x.right / x.answers) : null, hrs = x => Math.round((+(x && x.secs) || 0) / 3600);
+    return cmpNote() + `<div class="od-kpis">
+        ${kpi({ icon: '⚡', label: 'Active students', value: nf(A0.active), cur: Ca.active, prev: Pa.active, sub: `of ${nf(o.students)} students` })}
+        ${kpi({ icon: '✅', label: 'Answers', value: nf(A0.answers), cur: Ca.answers, prev: Pa.answers })}
+        ${kpi({ icon: '🎯', label: 'Right answers', value: pctS(acc(A0)), cur: acc(Ca) || 0, prev: acc(Pa) || 0, prevS: pctS(acc(Pa)) })}
+        ${kpi({ icon: '⏱️', label: 'Study time', value: nf(hrs(A0)) + ' h', cur: hrs(Ca), prev: hrs(Pa), prevS: nf(hrs(Pa)) + ' h' })}
+        ${kpi({ icon: '🧭', label: 'Features used', value: `${used.length} of ${FEAT.length}`, now: 'in this period', sub: unused.length ? unused.length + ' not used yet' : 'all used' })}
+        ${kpi({ icon: '🚪', label: 'Quests left midway', value: nf(Object.values(o.drop_steps || {}).reduce((a, b) => a + +b, 0)), now: 'in this period', sub: 'see where below' })}</div>
       <div class="od-grid2">
-        ${card('🧭 Most and least used features', hbars(fItems, { limit: 8, empty: 'No usage recorded yet. Students need the latest app version; numbers appear as they use it.' }) + (unused.length ? `<p class="od-foot"><b>Nobody used:</b> ${unused.map(x => x.label).join(' · ')}</p>` : ''),
-          { table: featT, csv: featId, sum: `Students who opened each part at least once in this period (${nf(tr)} students have usage tracking).` , foot: `All-time (from saved progress): 📖 Story ${nf(dv.story)} · 📅 Exam plan ${nf(dv.exam)} · 🧮 Calc Academy ${nf(dv.calc)} · 🌍 GK ${nf(dv.gk)} · 👫 Live rooms in period ${nf(dv.live)} · 🦁 With friends ${nf(dv.friends)} · 👪 Parent challenges ${nf(dv.challenges)}` })}
+        ${card('🧭 Most and least used features', (fRank.length ? rankList(fRank) : '<p class="od-empty">No usage recorded yet. Numbers appear as students use the latest app version.</p>')
+            + (unused.length ? `<details class="od-moreb"><summary>Not used yet (${unused.length})</summary><div class="od-chiprow">${unused.map(x => `<span class="od-chip2">${x.label}</span>`).join('')}</div></details>` : '')
+            + `<h4 class="od-h4">Ever tried (all time)</h4>` + tiles([{ i: '📖', v: nf(dv.story), l: 'Story mode' }, { i: '📅', v: nf(dv.exam), l: 'Exam planner' }, { i: '🧮', v: nf(dv.calc), l: 'Calculator Academy' }, { i: '🌍', v: nf(dv.gk), l: 'GK snacks' }, { i: '🦁', v: nf(dv.friends), l: 'Have squad friends' }, { i: '👫', v: nf(dv.live), l: 'Live rooms (period)' }, { i: '👪', v: nf(dv.challenges), l: 'Parent challenges (period)' }]),
+          { table: featT, csv: featId, sum: `% of the ${nf(tr)} students with usage tracking who opened each part in this period.` })}
         ${card('🚪 Where students stop a topic quest', hbars(steps, { color: COL.s2, empty: 'No unfinished quests recorded yet.' }), { sum: 'The step that was on screen when a student left a topic before finishing.' })}
         ${card('📉 Topics most often left unfinished', dropT, { csv: dropId, cls: 'od-span' })}
         ${card('❓ Hardest questions (fix candidates)', hardT, { csv: hardId, sum: 'Lowest share of right answers in this period. Tap one to read it and its answer — maybe the wording or an option needs fixing.', cls: 'od-span' })}
@@ -672,7 +769,7 @@
     { k: 'pending', l: 'Invites waiting', n: 1 }, { k: 'challenges', l: 'Challenges (period)', n: 1 }];
   async function people() {
     const [f, t] = range();
-    const [pa, ins] = await Promise.all([get('owner_dash_parents', { p_from: f, p_to: t, p_q: V.pq || null, p_limit: 100, p_offset: 0 }), get('owner_dash_institutions', { p: filt() })]);
+    const [pa, ins] = await Promise.all([get('owner_dash_parents', { p_from: f, p_to: t, p_q: V.pq || null, p_limit: 100, p_offset: 0, p: filt() }), get('owner_dash_institutions', { p: filt() })]);
     later(b => { const fm = b.querySelector('#odPF'); if (fm) fm.onsubmit = e => { e.preventDefault(); V.pq = b.querySelector('#odPQ').value.trim(); paint(); }; });
     const parT = table(PAR_COLS, pa.rows || [], { name: 'parents', label: 'Parents', empty: 'No parents match.', onRow: r => { const k = (r.kid_list || [])[0]; if (k) go('student:' + k.id); else say('No child linked yet'); }, rowLabel: r => 'Open child of ' + r.email });
     const instRows = (ins.rows || []).map(r => Object.assign({}, r, { use: r.seats ? pct(r.students, r.seats) : null, act: pct(r.active7, r.students) }));
@@ -686,24 +783,25 @@
     const reqT = table([{ k: 'school', l: 'School', f: (v, r) => `<b>${esc(v || '–')}</b><small>${esc([r.name, r.city].filter(Boolean).join(' · '))}</small>`, t: v => v }, { k: 'students', l: 'Students', n: 1 }, { k: 'phone', l: 'Phone', f: v => v ? `<a href="tel:${esc(v)}">${esc(v)}</a>` : '–', t: v => v || '' }, { k: 'email', l: 'Email', f: v => v ? `<a href="mailto:${esc(v)}">${esc(v)}</a>` : '–', t: v => v || '' }, { k: 'created_at', l: 'Asked', f: v => esc(ago(v)), t: v => v }],
       ins.request_rows || [], { name: 'pilot-requests', label: 'Pilot requests', empty: 'No pilot requests in 90 days.' });
     const reqId = 't' + regN;
-    return `<h2 class="od-h2">👪 Parents</h2>
+    const nC = ALL() ? pa.new_c30 : pa.new, nP = ALL() ? pa.new_p30 : pa.new_prev;
+    return cmpNote() + `<h2 class="od-h2">👪 Parents</h2>
       <div class="od-kpis">
-        ${kpi({ icon: '👪', label: 'Parents', value: nf(pa.total), sub: `${nf(pa.linked)} linked · +${nf(pa.new)} new` })}
-        ${kpi({ icon: '👀', label: 'Opened app this week', value: nf(pa.seen7), sub: `${nf(pa.seen30)} this month` })}
-        ${kpi({ icon: '😴', label: 'Linked but not seen 14+ days', value: nf(pa.idle), go: 'tab:smart' })}
-        ${kpi({ icon: '✉️', label: 'Weekly email on', value: nf(pa.weekly_on), sub: `${nf(pa.pending_invites)} child invites waiting` })}
-        ${kpi({ icon: '🏆', label: 'Parent challenges', value: nf(pa.challenges), sub: 'in this period' })}
-        ${kpi({ icon: '💎', label: 'With a paying child', value: nf(pa.kid_paid) })}</div>
+        ${kpi({ icon: '👪', label: 'Parents', value: nf(pa.total), cur: nC, prev: nP, prevS: '+' + nf(nP) + ' new', sub: `+${nf(nC)} new · ${nf(pa.linked)} linked` })}
+        ${kpi({ icon: '👀', label: 'Opened app this week', value: nf(pa.seen7), cur: pa.seen7, prev: pa.seen7_prev, prevS: nf(pa.seen7_prev) + ' the week before', sub: `${nf(pa.seen30)} this month` })}
+        ${kpi({ icon: '😴', label: 'Linked but not seen 14+ days', value: nf(pa.idle), now: 'right now', go: 'tab:smart' })}
+        ${kpi({ icon: '✉️', label: 'Weekly email on', value: nf(pa.weekly_on), now: 'right now', sub: `${nf(pa.pending_invites)} child invites waiting` })}
+        ${kpi({ icon: '🏆', label: 'Parent challenges', value: nf(pa.challenges), cur: pa.challenges, prev: ALL() ? undefined : pa.challenges_prev, now: ALL() ? 'all time' : undefined })}
+        ${kpi({ icon: '💎', label: 'With a paying child', value: nf(pa.kid_paid), now: 'right now' })}</div>
       ${card('👪 Parent list', `<form class="od-search sm" id="odPF" role="search"><span aria-hidden="true">🔎</span><input id="odPQ" type="search" placeholder="Parent email or child name" aria-label="Search parents" value="${esc(V.pq)}"><button type="submit" class="od-sbtn">Find</button></form>` + parT,
         { csv: 'parents-all', sum: 'Most recent first (100 shown; CSV has all). Tap a parent to open their child.', cls: 'od-wide' })}
       <h2 class="od-h2">🏫 Schools & coaching</h2>
       <div class="od-kpis">
-        ${kpi({ icon: '🏫', label: 'Institutions', value: nf(ins.total), sub: `${nf(ins.schools)} school${+ins.schools === 1 ? "" : "s"} · ${nf(ins.coaching)} coaching` })}
-        ${kpi({ icon: '🧪', label: 'Pilots running', value: nf(ins.pilots_now), sub: `pilot → paid ${pctS(pct(ins.pilot_paid, ins.had_pilot))} (${nf(ins.pilot_paid)} of ${nf(ins.had_pilot)})` })}
-        ${kpi({ icon: '🪑', label: 'Seats used', value: pctS(pct(ins.students, ins.seats)), sub: `${nf(ins.students)} joined · ${nf(ins.seats)} bought` })}
-        ${kpi({ icon: '⚡', label: 'Active this week', value: pctS(pct(ins.active7, ins.students)), sub: `${nf(ins.active7)} of ${nf(ins.students)} students` })}
-        ${kpi({ icon: '💰', label: 'School revenue', value: inr(ins.revenue), sub: 'all paid invoices, ex-GST' })}
-        ${kpi({ icon: '📞', label: 'Pilot requests (30 days)', value: nf(ins.requests), go: 'tab:smart' })}</div>
+        ${kpi({ icon: '🏫', label: 'Institutions', value: nf(ins.total), now: 'right now', sub: `${nf(ins.schools)} school${+ins.schools === 1 ? "" : "s"} · ${nf(ins.coaching)} coaching` })}
+        ${kpi({ icon: '🧪', label: 'Pilots running', value: nf(ins.pilots_now), now: 'right now', sub: `pilot → paid ${pctS(pct(ins.pilot_paid, ins.had_pilot))} (${nf(ins.pilot_paid)} of ${nf(ins.had_pilot)})` })}
+        ${kpi({ icon: '🪑', label: 'Seats used', value: pctS(pct(ins.students, ins.seats)), now: 'right now', sub: `${nf(ins.students)} joined · ${nf(ins.seats)} bought` })}
+        ${kpi({ icon: '⚡', label: 'Active this week', value: pctS(pct(ins.active7, ins.students)), now: 'last 7 days', sub: `${nf(ins.active7)} of ${nf(ins.students)} students` })}
+        ${kpi({ icon: '💰', label: 'School revenue', value: inr(ins.revenue), now: 'all time', sub: 'all paid invoices, ex-GST' })}
+        ${kpi({ icon: '📞', label: 'Pilot requests (30 days)', value: nf(ins.requests), cur: ins.requests, prev: ins.requests_prev, prevS: nf(ins.requests_prev) + ' the 30 days before', go: 'tab:smart' })}</div>
       ${card('🏫 Schools & coaching centres', instT, { csv: instId, sum: 'Tap one for classes, students, orders and activity.', cls: 'od-wide' })}
       ${card('📞 Pilot requests (last 90 days)', reqT, { csv: reqId })}`;
   }
@@ -868,11 +966,11 @@
     } catch (e) { say(errT(e)); }
   }
   D.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-copy]'); if (b && hub && hub.contains(b)) { try { navigator.clipboard.writeText(b.dataset.copy); say('Copied'); } catch (x) {} } });
-  D.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-schoolpanel]'); if (b && hub && hub.contains(b) && W.Inst && Inst.owner) { close(); Inst.owner(); } });
+  D.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-schoolpanel]'); if (b && hub && hub.contains(b) && W.Inst && Inst.owner) leavePulse(() => Inst.owner()); });
   D.addEventListener('keydown', e => {
     if (!hub || !hub.classList.contains('show')) return;
-    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('tr.od-tr')) { e.preventDefault(); e.target.click(); }
-    if (e.key === 'Escape') { if (stack.length) { e.stopPropagation(); stack.pop(); paint(); } }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.od-tr')) { e.preventDefault(); e.target.click(); }
+    if (e.key === 'Escape') { e.stopPropagation(); e.preventDefault(); const c = hub.querySelector('#odLeave'); if (c) c.remove(); else if (stack.length) back(); else askLeave(); }
   }, true);
 
   /* ---------------- styles ---------------- */
@@ -986,8 +1084,56 @@ button.od-hbr{cursor:pointer}button.od-hbr:hover,button.od-hbr:focus-visible{bac
 .od-prep{margin-top:10px}.od-ta{font-family:Nunito,system-ui,sans-serif!important;font-size:15px;line-height:1.4;resize:vertical}.od-lbl{display:block;font-size:13px;font-weight:800;margin-bottom:4px}
 .od-ok{background:#e9f6ee;border-radius:8px;padding:6px 8px;font-size:14px;width:100%;margin:6px 0 0}
 .od-me .btn{margin-top:4px}
+.od-kc{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;font-size:12px;line-height:1.3}.od-was{color:#5d5a52}
+.od-cmpnote{font-size:12.5px;color:#5d5a52;margin:0 0 -4px}
+.od-sticky{display:contents}
+.od-check{display:flex;gap:8px;align-items:flex-start;font-size:14px;font-weight:700;margin:10px 0 2px;line-height:1.35}.od-check input{width:20px;height:20px;flex:none;margin:1px 0 0}
+.od-chip-t{background:#7a5200}
+.od-cards{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.od-ci{position:relative;background:#fff;border:1px solid #eadfca;border-radius:12px;padding:10px 30px 10px 12px;font-size:13.5px;line-height:1.35}
+.od-ci.od-tr{cursor:pointer}.od-ci.od-tr:active,.od-ci.od-tr:focus{background:#fbf6ea}
+.od-cgo{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:#b9ad95;font-size:20px}
+.od-ct b{display:block;font-size:15px}.od-ct small,.od-ct .od-sub{display:block;color:#6b675d;font-size:12px;overflow-wrap:anywhere}
+.od-ct{font-weight:700;overflow-wrap:anywhere}
+.od-ckv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;margin:6px 0 0}.od-ckv div{min-width:0}
+.od-ckv dt{font-size:11px;color:#6b675d;font-weight:700}.od-ckv dd{margin:0;font-weight:700;overflow-wrap:anywhere}.od-ckv dd small{display:block;font-weight:600;color:#6b675d;font-size:11.5px}
+.od-cline{color:#3c3a35;margin-top:4px}
+.od-cfoot{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;margin-top:6px;font-size:12.5px;color:#3c3a35}
+.od-sortrow{margin:0 0 8px}.od-sel{min-height:38px;border:1.5px solid #cfc3aa;border-radius:10px;padding:0 8px;font-size:14px;background:#fff;color:#15161C}
+.od-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;margin-top:8px}
+.od-tile{display:flex;flex-direction:column;align-items:flex-start;gap:1px;background:#faf6ee;border:1px solid #eee5d4;border-radius:12px;padding:8px 10px;font:inherit;color:#15161C;text-align:left;min-height:64px}
+button.od-tile{cursor:pointer}button.od-tile:hover,button.od-tile:focus-visible{border-color:#C9A76A}
+.od-tile b{font-size:18px;font-family:'Baloo 2',system-ui,sans-serif;line-height:1.1}.od-tile small{font-size:11.5px;color:#5d5a52;line-height:1.25}
+.od-h4{margin:14px 0 0;font-size:14px}
+.od-rank{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.od-rank li{display:grid;grid-template-columns:22px 24px minmax(0,1.6fr) minmax(50px,1fr) 44px;gap:8px;align-items:center;padding:6px 4px;border-radius:10px}
+.od-rank li:hover,.od-rank li:focus{background:#f6f0e4;outline:none}
+.od-rn{font-size:12px;color:#8a857a;font-weight:800;text-align:right}.od-ri{font-size:18px;text-align:center}
+.od-rname{font-weight:700;font-size:13.5px;line-height:1.2;min-width:0}.od-rname small{display:block;font-weight:600;font-size:11.5px;color:#6b675d}
+.od-rbar{height:10px;background:#f1ebdf;border-radius:4px;overflow:hidden}.od-rbar span{display:block;height:100%;background:#2a78d6;border-radius:0 4px 4px 0}
+.od-rp{text-align:right;font-size:14px}
+.od-chiprow{display:flex;flex-wrap:wrap;gap:6px;padding:4px 0}
+.od-chip2{display:inline-flex;align-items:center;gap:4px;background:#f1ebdf;border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;color:#3c3a35}
+.od-lf{opacity:.8}.od-leg i{width:14px}
+.od-confirm{position:fixed;inset:0;z-index:1001;background:rgba(21,22,28,.45);display:flex;align-items:flex-end;justify-content:center;padding:16px}
+.od-cbox{background:#fff;border-radius:18px;padding:18px;max-width:420px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.od-cbox h2{margin:0 0 4px;font-family:'Baloo 2',system-ui,sans-serif}.od-cbox p{margin:0 0 14px;color:#4a4740}
+.od-cbox .od-row>*{flex:1}.od-big{min-height:48px;font-size:16px}
+@media (min-width:700px){.od-confirm{align-items:center}}
 @media (min-width:700px){.od-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.od-grid3{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (min-width:1000px){.od-kpis{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.od-grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.od-grid2>.od-span,.od-body>.od-wide{grid-column:1/-1}.od-kv{font-size:24px}}
+/* desktop / big screens: use the whole width (Pulse is its own full-screen layer, whatever the app shell does) */
+@media (min-width:1024px){
+  .od-hub .od.pv-wrap{max-width:none;padding:0 32px 32px}
+  .od-hub .od .pv-top{margin:0 -32px;padding:10px 32px}
+  .od-sticky{display:block;position:sticky;top:64px;z-index:3;background:#F6F0E4;margin:0 -32px;padding:0 32px;box-shadow:0 6px 10px -10px rgba(21,22,28,.35)}
+  .od-sticky .od-tabs{position:static;margin:0;padding:8px 0 10px}
+  .od-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .od-tiles{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+}
+@media (min-width:1400px){.od-kpis{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media (min-width:1024px){.od-grid2>.od-span2{grid-column:1/-1}}
+@media (min-width:1700px){.od-grid2>.od-span2{grid-column:span 2}.od-kpis{grid-template-columns:repeat(6,minmax(0,1fr))}.od-grid2{grid-template-columns:repeat(3,minmax(0,1fr))}.od-grid3{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (forced-colors:active){.od-hbf,.od-pbar i{background:CanvasText!important}.od-heat td{border:1px solid CanvasText}}
 `;
     D.head.appendChild(s);
