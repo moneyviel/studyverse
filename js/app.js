@@ -3,8 +3,28 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const BOARDS = [
   { id: 'cbse', name: 'CBSE', live: true }, { id: 'icse', name: 'ICSE', live: false },
-  { id: 'state', name: 'State Board', live: false }, { id: 'cambridge', name: 'Cambridge', live: false }, { id: 'ib', name: 'IB', live: false }
+  { id: 'cambridge', name: 'Cambridge', live: false }, { id: 'ib', name: 'IB', live: false }
 ];
+/* ---------- State boards (content/boards.json). A state board that uses NCERT books gets the same CBSE/NCERT
+   chapters, but only for the class+subjects the file marks {"source":"ncert"}; everything else is hidden, never swapped. */
+let BRD = null;                                       // boards.json, loaded only for onboarding or a state-board profile
+async function loadBoards() { if (!BRD) { try { BRD = await loadJSON('content/boards.json'); } catch (e) { return { boards: [] }; } } return BRD; }
+const isStateBoard = id => !!id && !BOARDS.some(b => b.id === id) && id !== 'state';
+const stateBoard = id => (isStateBoard(id) && BRD && (BRD.boards || []).find(b => b.id === id)) || null;
+const boardShort = id => stateBoard(id)?.short || BOARDS.find(b => b.id === id)?.name || 'CBSE';
+/* subject ids of class g this board studies from our NCERT chapters; null = no filter (CBSE); [] = nothing yet / file missing */
+function boardSubjectIds(g, id) {
+  if (!isStateBoard(id)) return null;
+  if (!BRD) return [];
+  const b = stateBoard(id); if (!b) return null;     // unknown id in a loaded file: treat as CBSE
+  const c = b.classes?.[g]?.subjects || {}; return Object.keys(c).filter(k => c[k].source === 'ncert');
+}
+(function bdCss() { const s = document.createElement('style'); s.textContent = `
+  .bd-q{margin:8px 0 6px!important}.bd-g{font:800 12px Nunito;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:12px 0 4px}
+  .choice.bd{width:100%;text-align:left;display:block;margin-bottom:6px;padding:10px 12px}.choice.bd small{display:block;text-align:left;font-size:11px;margin-top:2px}
+  .bd-msg{background:#fff6e0;border:2px solid #ffd27a;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:13px;font-weight:700;color:var(--ink);text-align:left}
+  .bd-note{margin:0 12px 10px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.94);color:var(--ink);font-size:13px;font-weight:700;line-height:1.35}
+  .bd-note b{font-family:'Baloo 2'}.bd-note.info{background:#eef3ff}`; document.head.appendChild(s); })();
 const AVATARS = ['🦁', '🐯', '🦊', '🐼', '🐨', '🐸', '🦄', '🐙', '🦉', '🐬', '🚀', '⭐'];
 const MAX_GRADE = 12;
 
@@ -334,31 +354,37 @@ async function subjectData(g, sid) {
   try { DATA[k] = await loadJSON(`content/${k}.json`); } catch (e) { DATA[k] = null; }
   return DATA[k];
 }
-const curSubjects = g => { const all = CUR?.grades?.[g]?.subjects || []; const mine = g >= 11 && ST.profile?.subjects;
+const boardFilter = (g, all, board) => { const ok = boardSubjectIds(g, board); return ok ? all.filter(s => ok.includes(s.id)) : all; };
+const curSubjects = g => { const all = boardFilter(g, CUR?.grades?.[g]?.subjects || [], ST.profile?.board); const mine = g >= 11 && ST.profile?.subjects;
   return mine && mine.length ? all.filter(s => mine.includes(s.id)) : all; };
 /* ---------- Grades 11–12: pick a stream, then subjects ---------- */
 const STREAMS = [{ id: 'science', e: '🔬', n: 'Science', d: 'Physics, Chemistry, Maths / Biology' }, { id: 'commerce', e: '📈', n: 'Commerce', d: 'Accountancy, Business Studies, Economics' }, { id: 'arts', e: '🎨', n: 'Arts / Humanities', d: 'History, Political Science, Geography, Psychology, Sociology' }];
-function pickStream(g, done, back) {
+function pickStream(g, done, back, board = ST.profile?.board) {
   show('onboard'); const el = $('#s-onboard');
-  el.innerHTML = `<div class="ob"><div class="ob-hero">🧭</div><h1>Grade ${g}: pick your stream</h1>
-    <div class="card">${STREAMS.map(s => `<button class="choice stream" data-s="${s.id}"><b>${s.e} ${s.n}</b><small>${s.d}</small></button>`).join('')}</div>
+  const all = boardFilter(g, CUR?.grades?.[g]?.subjects || [], board), sb = stateBoard(board);
+  const has = s => { const st = CUR?.streams?.[s.id] || { core: [], optional: [] }; return all.some(x => st.core.includes(x.id) || st.optional.includes(x.id)); };
+  el.innerHTML = `<div class="ob"><div class="ob-hero">🧭</div><h1>${sb ? esc(sb.short) + ' · Class' : 'Grade'} ${g}: pick your stream</h1>
+    <div class="card">${STREAMS.map(s => has(s) ? `<button class="choice stream" data-s="${s.id}"><b>${s.e} ${s.n}</b><small>${s.d}</small></button>`
+      : `<button class="choice stream off" data-s="${s.id}"><b>${s.e} ${s.n}</b><small>Coming soon for ${esc(sb ? sb.short : 'your board')}</small></button>`).join('')}</div>
     ${back ? '<button class="btn ghost" id="stBack">← Back</button>' : ''}</div>`;
-  el.querySelectorAll('.stream').forEach(b => b.onclick = () => { sfx('tap'); pickSubjects(g, b.dataset.s, done, back); });
+  el.querySelectorAll('.stream').forEach(b => b.onclick = () => { if (b.classList.contains('off')) { sfx('hmm'); toast(`${sb ? sb.short : 'This board'}: this stream is coming soon`); return; } sfx('tap'); pickSubjects(g, b.dataset.s, done, back, board); });
   if (back) $('#stBack').onclick = back;
 }
-function pickSubjects(g, stream, done, back) {
-  const all = CUR?.grades?.[g]?.subjects || [], st = CUR?.streams?.[stream] || { core: [], optional: [] };
+function pickSubjects(g, stream, done, back, board = ST.profile?.board) {
+  const all = boardFilter(g, CUR?.grades?.[g]?.subjects || [], board), st = CUR?.streams?.[stream] || { core: [], optional: [] };
   const list = all.filter(s => st.core.includes(s.id) || st.optional.includes(s.id));
   let sel = new Set(st.core.filter(id => all.some(s => s.id === id)));
-  if (stream === 'science') sel.delete('biology');          // PCM by default; tap to add Biology (PCB / PCMB)
+  if (stream === 'science' && sel.size > 1) sel.delete('biology');          // PCM by default; tap to add Biology (PCB / PCMB)
+  const sb = stateBoard(board), full = (CUR?.grades?.[g]?.subjects || []).filter(s => (st.core.includes(s.id) || st.optional.includes(s.id)) && !list.some(x => x.id === s.id));
   const el = $('#s-onboard');
   const draw = () => {
     el.innerHTML = `<div class="ob"><div class="ob-hero">🎒</div><h1>Your subjects</h1><p class="sub" style="color:#fff">Tap to add or remove. You can change this later in Me.</p>
-      <div class="card">${list.map(s => { const sty = Worlds.SUBJECT_STYLE[s.id] || { e: '📘' }; return `<button class="choice subj ${sel.has(s.id) ? 'sel' : ''}" data-id="${s.id}"><b>${sty.e} ${esc(s.name)}</b>${st.optional.includes(s.id) ? '<small>optional</small>' : ''}</button>`; }).join('')}</div>
+      <div class="card">${list.map(s => { const sty = Worlds.SUBJECT_STYLE[s.id] || { e: '📘' }; return `<button class="choice subj ${sel.has(s.id) ? 'sel' : ''}" data-id="${s.id}"><b>${sty.e} ${esc(s.name)}</b>${st.optional.includes(s.id) ? '<small>optional</small>' : ''}</button>`; }).join('')}
+      ${sb && full.length ? `<div class="bd-msg" id="sjSoon">Coming soon for ${esc(sb.short)}: ${full.map(s => esc(s.name)).join(', ')} (your board uses different books for these).</div>` : ''}</div>
       <button class="btn" id="sjGo" ${sel.size ? '' : 'disabled'}>Continue ▶</button><div style="height:8px"></div><button class="btn ghost" id="sjBack">← Back</button></div>`;
     el.querySelectorAll('.subj').forEach(b => b.onclick = () => { const id = b.dataset.id; sel.has(id) ? sel.delete(id) : sel.add(id); sfx('tap'); draw(); });
     $('#sjGo').onclick = () => done(stream, list.map(s => s.id).filter(id => sel.has(id)));
-    $('#sjBack').onclick = () => pickStream(g, done, back);
+    $('#sjBack').onclick = () => pickStream(g, done, back, board);
   };
   draw();
 }
@@ -372,14 +398,35 @@ function onboard(step = 1, draft = {}) {
   const el = $('#s-onboard');
   if (step === 1) {
     el.innerHTML = `<div class="ob"><div class="ob-hero bob">🌏</div><h1>Welcome to <span>StudyVerse</span></h1><p>Every subject is a game. Every grade is a new world.</p>
-      <div class="card"><h3>Which board is your school?</h3><div class="grid2">${BOARDS.map(b => `<button class="choice ${b.live ? '' : 'off'}" data-b="${b.id}">${b.name}${b.live ? '' : '<small>coming soon</small>'}</button>`).join('')}</div></div></div>`;
-    el.querySelectorAll('.choice').forEach(b => b.onclick = () => { if (b.classList.contains('off')) { toast('Coming soon! Start with CBSE for now.'); return; } sfx('tap'); onboard(2, { ...draft, board: b.dataset.b }); });
+      <div class="card"><h3>Which board is your school?</h3><div class="grid2" id="obMain">${BOARDS.map(b => `<button class="choice ${b.live ? '' : 'off'}" data-b="${b.id}">${b.name}${b.live ? '' : '<small>coming soon</small>'}</button>`).join('')}</div>
+        <p style="font-size:12px;margin-top:6px;color:var(--muted);font-weight:700">KV, JNV and other CBSE schools (most of Delhi, Chandigarh…) → pick CBSE.</p>
+        <h3 style="margin-top:14px">State boards</h3><input id="bdQ" class="bd-q" type="search" placeholder="🔍 Search your state or board" autocomplete="off" aria-label="Search state boards">
+        <div id="bdMsg" role="status"></div><div id="bdList"><p class="sub">Loading state boards…</p></div></div></div>`;
+    el.querySelectorAll('#obMain .choice').forEach(b => b.onclick = () => { if (b.classList.contains('off')) { toast('Coming soon! Start with CBSE for now.'); return; } sfx('tap'); onboard(2, { ...draft, board: b.dataset.b }); });
+    const gradesOf = b => Object.keys(b.classes || {}).filter(g => Object.values(b.classes[g].subjects || {}).some(v => v.source === 'ncert')).map(Number);
+    const span = gs => gs.reduce((a, g) => { const l = a[a.length - 1]; if (l && g === l[1] + 1) l[1] = g; else a.push([g, g]); return a; }, []).map(([a, z]) => a === z ? a : `${a}–${z}`).join(', ');
+    const drawList = () => {
+      const q = ($('#bdQ')?.value || '').trim().toLowerCase(), bs = (BRD?.boards || []).filter(b => !q || [b.name, b.short, b.state, b.id, b.exams?.class10, b.exams?.class12, ...(b.languages || [])].join(' ').toLowerCase().includes(q));
+      const row = b => { const gs = gradesOf(b); return `<button class="choice bd ${gs.length ? '' : 'off'}" data-sb="${esc(b.id)}"><b>${esc(b.name)}</b><small>${esc(b.state)} · ${gs.length ? `Uses NCERT books: Class ${span(gs)}` : 'coming soon'}</small></button>`; };
+      const yes = bs.filter(b => b.uses_ncert), no = bs.filter(b => !b.uses_ncert);
+      $('#bdList').innerHTML = !BRD ? '<p class="sub">Could not load state boards. Check your connection and try again.</p>'
+        : (yes.length ? `<div class="bd-g">Uses NCERT books</div>${yes.map(row).join('')}` : '') + (no.length ? `<div class="bd-g">Coming soon</div>${no.map(row).join('')}` : '') + (bs.length ? '' : '<p class="sub">No board matches. Try your state name.</p>');
+      $('#bdList').querySelectorAll('.bd').forEach(x => x.onclick = () => { const b = stateBoard(x.dataset.sb); if (!b) return;
+        if (!b.uses_ncert) { sfx('hmm'); $('#bdMsg').innerHTML = `<div class="bd-msg"><b>${esc(b.name)}</b> isn't in StudyVerse yet — it uses its own textbooks, and we only show chapters that match your books. ${esc((b.notes || [])[0] || '')} Meanwhile you can pick CBSE to practise NCERT chapters.</div>`; $('#bdMsg').scrollIntoView({ block: 'nearest' }); return; }
+        sfx('tap'); onboard(2, { ...draft, board: b.id }); });
+    };
+    $('#bdQ').oninput = drawList;
+    loadBoards().then(() => { if ($('#bdList')) drawList(); });
   } else if (step === 2) {
-    el.innerHTML = `<div class="ob"><div class="ob-hero">🎒</div><h1>Which grade are you in?</h1>
-      <div class="card"><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice big" data-g="${i + 1}"><b>${i + 1}</b><small>${Worlds.THEMES[i + 1].name}</small></button>`).join('')}</div></div>
+    const sb = stateBoard(draft.board), soon = g => sb && !boardSubjectIds(g, draft.board).length;
+    el.innerHTML = `<div class="ob"><div class="ob-hero">🎒</div><h1>Which ${sb ? 'class' : 'grade'} are you in?</h1>${sb ? `<p>${esc(sb.name)}</p>` : ''}
+      <div class="card"><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice big ${soon(i + 1) ? 'off' : ''}" data-g="${i + 1}"><b>${i + 1}</b><small>${soon(i + 1) ? 'coming soon' : Worlds.THEMES[i + 1].name}</small></button>`).join('')}</div>
+      <div id="obMsg" role="status"></div></div>
       <button class="btn ghost" id="obBack">← Back</button></div>`;
-    el.querySelectorAll('.choice').forEach(b => b.onclick = () => { sfx('tap'); const g = +b.dataset.g;
-      if (g >= 11) pickStream(g, (stream, subjects) => onboard(3, { ...draft, grade: g, stream, subjects }), () => onboard(2, draft));
+    el.querySelectorAll('.choice').forEach(b => b.onclick = () => { const g = +b.dataset.g;
+      if (b.classList.contains('off')) { sfx('hmm'); const n = sb.classes?.[g]?.note; $('#obMsg').innerHTML = `<div class="bd-msg"><b>${esc(sb.short)} · Class ${g}</b> is coming soon. ${n ? esc(n) + ' ' : ''}We only show chapters that match your board's books.</div>`; return; }
+      sfx('tap');
+      if (g >= 11) pickStream(g, (stream, subjects) => onboard(3, { ...draft, grade: g, stream, subjects }), () => onboard(2, draft), draft.board || 'cbse');
       else onboard(3, { ...draft, grade: g, stream: null, subjects: null }); });
     $('#obBack').onclick = () => onboard(1, draft);
   } else {
@@ -402,9 +449,12 @@ function setGrade(g) { ST.profile.grade = g; save(); if (typeof SND !== 'undefin
 /* ================= Grade world ================= */
 async function worldScreen() {
   show('world', 'world'); NAV = {};
-  const g = ST.profile.grade, subs = curSubjects(g), th = Worlds.THEMES[g];
-  $('#worldTitle').innerHTML = `${esc(ST.profile.avatar)} Hi ${esc(ST.profile.name)}! <small>Grade ${g} · ${esc(th.name)}</small>`;
+  const g = ST.profile.grade, subs = curSubjects(g), th = Worlds.THEMES[g], sb = stateBoard(ST.profile.board);
+  $('#worldTitle').innerHTML = `${esc(ST.profile.avatar)} Hi ${esc(ST.profile.name)}! <small>${sb ? `${esc(sb.short)} · Class ${g}` : `Grade ${g}`} · ${esc(th.name)}</small>`;
   const map = $('#map'); map.classList.toggle('dark', !!th.dark);
+  boardNote(g, subs, sb);
+  if (!subs.length && sb) { $('#hudPct').textContent = '0%'; $('#hudBar').style.width = '0%'; $('#hudName').textContent = `Class ${g} journey`; map.innerHTML = `<div class="empty"><b>${esc(sb.short)} · Class ${g} is coming soon.</b><br><br>${esc(sb.classes?.[g]?.note || 'Your board uses its own books for this class.')}<br><br>We only show chapters that match your board's books.<br><br><button class="btn ghost" onclick="meScreen()">Change class</button></div>`; return; }
+  if (!subs.length && isStateBoard(ST.profile.board)) { map.innerHTML = `<div class="empty">Could not load your board's syllabus. Check your connection and reopen the app.</div>`; return; }
   if (!subs.length) { map.innerHTML = `<div class="empty">Syllabus for Grade ${g} is loading soon.</div>`; return; }
   const datas = await Promise.all(subs.map(s => subjectData(g, s.id)));
   let curSet = false; let total = 0, done = 0;
@@ -423,6 +473,19 @@ async function worldScreen() {
     if (!datas[i]) { sfx('hmm'); toast(`${s.name} is being built — coming soon!`); return; }
     sfx('open'); subjectScreen(s.id);
   });
+}
+
+/* state-board note above the grade map: which subjects match the board's NCERT books, which are not here yet, exam-pattern info */
+function boardNote(g, subs, sb) {
+  let n = $('#boardNote');
+  if (!sb) { if (n) n.remove(); return; }
+  if (!n) { n = document.createElement('div'); n.id = 'boardNote'; $('#map').before(n); }
+  const st = g >= 11 && ST.profile?.stream ? CUR?.streams?.[ST.profile.stream] : null, ok = boardSubjectIds(g, sb.id) || [];
+  const missing = (CUR?.grades?.[g]?.subjects || []).filter(s => (!st || st.core.includes(s.id) || st.optional.includes(s.id)) && !ok.includes(s.id));
+  const info = (sb.exam_info || []).filter(x => (x.classes || []).includes(g));
+  n.innerHTML = (!subs.length ? `<div class="bd-note"><b>${esc(sb.short)} · Class ${g} is coming soon.</b> ${esc(sb.classes?.[g]?.note || '')} We only show chapters that match your board's books.</div>` : '')
+    + (subs.length && missing.length ?`<div class="bd-note"><b>${esc(sb.short)} · Class ${g}</b>: these subjects use the same NCERT books as CBSE. Not available yet for your board: ${missing.map(s => esc(s.name)).join(', ')}.</div>` : '')
+    + info.map(x => `<div class="bd-note info"><b>📝 ${esc(sb.short)} exam pattern ${esc(x.session || '')}</b><br>${esc(x.text)}</div>`).join('');
 }
 
 /* ================= Subject: chapter path ================= */
@@ -662,7 +725,7 @@ function squadScreen() {
 function meScreen() {
   show('me', 'me');
   const p = ST.profile, done = Object.keys(ST.topics).length;
-  $('#s-me').innerHTML = `<div class="card mecard"><div class="meav">${esc(p.avatar)}</div><div><h2>${esc(p.name)}</h2><p class="sub">Grade ${p.grade} · ${BOARDS.find(b => b.id === p.board)?.name || 'CBSE'}</p></div></div>
+  $('#s-me').innerHTML = `<div class="card mecard"><div class="meav">${esc(p.avatar)}</div><div><h2>${esc(p.name)}</h2><p class="sub">${stateBoard(p.board) ? 'Class' : 'Grade'} ${p.grade} · ${esc(boardShort(p.board))}</p></div></div>
     <div class="card statrow"><div><b>${ST.xp}</b><span>XP</span></div><div><b>${liveStreak()}🔥</b><span>Streak</span></div><div><b>${done}</b><span>Quests</span></div></div>
     <div class="card"><h3>Change grade</h3><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice ${p.grade === i + 1 ? 'sel' : ''}" data-g="${i + 1}"><b>${i + 1}</b></button>`).join('')}</div></div>
     <div class="card"><button class="btn ghost" onclick="openSound()">🎵 Sound & music</button><div style="height:8px"></div><button class="btn ghost" id="meReset">Start over</button></div>`;
@@ -738,7 +801,9 @@ if ('serviceWorker' in navigator && !inFrame && (location.protocol === 'https:' 
 /* ================= Start ================= */
 (async function init() {
   hud();
-  try { CUR = await loadJSON('content/curriculum.json'); } catch (e) { CUR = { grades: {} }; }
+  let cur; try { cur = await loadJSON('content/curriculum.json'); } catch (e) { cur = { grades: {} }; }
+  if (isStateBoard(ST.profile?.board)) await loadBoards();          // before CUR is set: other screens wait on CUR, and must see the board filter
+  CUR = cur;
   if (window.Cloud && Cloud.isParent && Cloud.isParent()) return;   // parent accounts see only Parent Home (js/parent.js)
   if (!ST.profile) onboard(1); else { setGrade(ST.profile.grade); worldScreen(); }
 })();

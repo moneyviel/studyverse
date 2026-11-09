@@ -562,8 +562,8 @@
      climb; landing on a snake's head → answer right to escape. Exact-roll rule: you must land on 100 exactly — a roll
      that would go past 100 means you stay where you are. The board (slBoard) is shared with the live Game Rooms
      (js/live.js). LADDERS / SNAKES: KEEP IN SYNC with studyverse._live_board() in supabase/migrations/20261109_live_games.sql */
-  const LADDERS = { 3: 22, 8: 30, 20: 41, 28: 76, 36: 57, 50: 69, 63: 82, 71: 92, 79: 98 };
-  const SNAKES = { 17: 7, 33: 12, 47: 26, 55: 35, 66: 45, 87: 24, 93: 73, 95: 74, 99: 80 };
+  const LADDERS = { 2: 23, 4: 14, 8: 30, 11: 32, 15: 44, 20: 41, 25: 46, 28: 76, 36: 57, 40: 59, 42: 60, 50: 69, 52: 72, 58: 78, 63: 82, 68: 88, 71: 92, 75: 86, 79: 94, 81: 97 };   // KEEP IN SYNC with studyverse._live_board()
+  const SNAKES = { 17: 7, 19: 5, 33: 12, 38: 18, 47: 26, 49: 31, 55: 35, 62: 43, 66: 45, 73: 53, 77: 60, 84: 64, 87: 24, 89: 67, 91: 70, 93: 74, 95: 56, 96: 85, 98: 80, 99: 61 };
   const SL_RULE = '🎯 You must land on 100 exactly. Roll too big? You stay where you are.';
   const cell = n => { const i = n - 1, r = Math.floor(i / 10), col = r % 2 ? 9 - i % 10 : i % 10; return { col, row: 9 - r }; };
   const ctr = n => { const c = cell(n); return [c.col * 100 + 50, c.row * 100 + 50]; };

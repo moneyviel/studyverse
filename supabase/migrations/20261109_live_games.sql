@@ -131,8 +131,8 @@ grant usage, select on sequence studyverse.game_results_id_seq to service_role;
 
 -- ladders go up, snakes go down. KEEP IN SYNC with js/arcade.js (LADDERS, SNAKES)
 create or replace function studyverse._live_board() returns jsonb language sql immutable set search_path = '' as $$
-  select '{"3":22,"8":30,"20":41,"28":76,"36":57,"50":69,"63":82,"71":92,"79":98,
-           "17":7,"33":12,"47":26,"55":35,"66":45,"87":24,"93":73,"95":74,"99":80}'::jsonb;
+  select '{"2":23,"4":14,"8":30,"11":32,"15":44,"20":41,"25":46,"28":76,"36":57,"40":59,"42":60,"50":69,"52":72,"58":78,"63":82,"68":88,"71":92,"75":86,"79":94,"81":97,
+           "17":7,"19":5,"33":12,"38":18,"47":26,"49":31,"55":35,"62":43,"66":45,"73":53,"77":60,"84":64,"87":24,"89":67,"91":70,"93":74,"95":56,"96":85,"98":80,"99":61}'::jsonb;
 $$;
 
 -- who may play: owner/admin always; parents never; students with any live course access (paid, code or the 24-hour trial)
