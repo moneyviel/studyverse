@@ -11,7 +11,7 @@ const SB = Deno.env.get('SUPABASE_URL')!;
 
 type Brand = { name: string; from: string; color: string; site: string; tag: string };
 const BRANDS: Record<string, Brand> = {
-  studyverse: { name: 'Knowtopia', from: 'support@moneyviel.com', color: '#5B0F1B', site: 'https://knowtopia.in/', tag: 'Learn, play and grow' },
+  studyverse: { name: 'Knowtopia', from: 'support@knowtopia.in', color: '#5B0F1B', site: 'https://knowtopia.in/', tag: 'Learn, play and grow' },
   salonzy: { name: 'Salonzy', from: 'support@salonzy.in', color: '#7C3AED', site: 'https://www.salonzy.in/', tag: 'Your salon, simplified' },
   football: { name: 'Football Club Portal', from: 'support@moneyviel.com', color: '#0F5132', site: 'https://demo.moneyviel.com/', tag: 'Your club, organised' },
   moneyviel: { name: 'MoneyViel', from: 'support@moneyviel.com', color: '#1F2937', site: 'https://moneyviel.com/', tag: '' },
