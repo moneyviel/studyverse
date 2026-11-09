@@ -187,6 +187,10 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
       <ul class="sq-list">${cheersNow.map(c => { const k = cheerOf(c.kind); return `<li class="sq-row"><span class="sq-av" aria-hidden="true">${esc(c.avatar)}</span><span class="sq-t">${esc(c.name)}: ${k[1]} ${esc(k[2])}</span></li>`; }).join('')}</ul></section>`;
   }
 
+  /* parent controls (js/playready.js, server squad_home → social): friends & cheers / friend news switched off by a linked parent */
+  const off = k => !!(H && H.social && H.social[k] === false);
+  const offHTML = (t, m) => `<section class="card sq-card" aria-labelledby="sqOffP">${h2(t, 'sqOffP')}<p class="sub" style="margin:0">${m}</p></section>`;
+
   /* ---------- 2. league ---------- */
   const daysLeft = () => { const ws = new Date((H.week_start || '') + 'T00:00:00+05:30').getTime(); if (!ws) return null; return Math.max(1, Math.ceil((ws + 7 * 864e5 - Date.now()) / 864e5)); };
   const resetTxt = () => { const n = daysLeft(); return n == null ? 'Resets every Monday' : n === 1 ? 'Resets tomorrow (Monday)' : `Resets Monday · ${n} days left`; };
@@ -207,6 +211,7 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
           <span class="sq-wk" aria-label="${esc(c.name)}: ${Math.round(+c.avg || 0)} stars per student">${kf(+c.avg || 0)} ⭐</span></li>`).join('')}</ol>
         <p class="sq-foot" aria-live="polite">${lead} You earned ${kf(H.me.week)} ⭐ this week.</p></section>`;
     }
+    if (off('friends')) return '';
     const B = board(), mi = B.findIndex(x => x.me), fr = H.friends || [];
     let lead = '';
     if (!fr.length) lead = 'Add a friend below — then you race each other for weekly stars.';
@@ -221,6 +226,7 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
 
   /* ---------- 3. friend news (nudges) ---------- */
   function nudges() {
+    if (off('news') || off('friends')) return [];
     const me = H.me, fr = H.friends || [], out = [], used = new Set(), my = (S().pz && S().pz.best) || {};
     const add = (f, t, s) => { if (!f || used.has(f.id) || out.length >= 3) return; used.add(f.id); out.push({ f, t, s }); };
     fr.forEach(f => { const ks = Object.keys(f.pz || {}).filter(k => +my[k] > 0 && +f.pz[k] < +my[k]); if (ks.length) { const k = ks[0];
@@ -240,6 +246,7 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
 
   /* ---------- 4. friends ---------- */
   function friendsHTML() {
+    if (off('friends')) return offHTML('👫 Friends', `Your parent has turned off friends and cheers for now. You can still learn and play games on your own${H.league && H.league.kind === 'class' ? ', and your class league still counts your stars' : ''}.`);
     const fr = H.friends || [], inc = H.incoming || [], cls = H.league && H.league.kind === 'class';
     const B = board();
     const list = !fr.length ? '<p class="sub">No friends yet. Share your code, or type a friend’s code below. They see your request in their Squad and accept it.</p>'
@@ -247,7 +254,7 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
           : `<li><button class="sq-row sq-frow" type="button" data-f="${esc(x.id)}" aria-label="${esc(x.name)}: ${x.week} stars this week, ${x.streak} day streak. Open to cheer or remove."><span class="rank" aria-hidden="true">${i + 1}</span><span class="sq-av" aria-hidden="true">${esc(x.avatar)}</span><span class="sq-t">${esc(x.name)}</span><span class="sq-wk">${kf(x.week)} ⭐</span><span class="sq-st">${x.streak ? x.streak + '🔥' : ''}</span></button></li>`).join('')}</ol>`
       : `<ul class="sq-list" aria-label="My friends">${fr.slice().sort((a, b) => String(a.name).localeCompare(b.name)).map(x => `<li><button class="sq-row sq-frow" type="button" data-f="${esc(x.id)}" aria-label="${esc(x.name)}. Open to cheer or remove."><span class="sq-av" aria-hidden="true">${esc(x.avatar)}</span><span class="sq-t">${esc(x.name)}<small>${kf(x.week)} ⭐ this week${x.streak ? ` · ${x.streak}🔥` : ''}</small></span><span class="sq-btn" aria-hidden="true">👋</span></button></li>`).join('')}</ul>`;
     const req = inc.map(r => `<div class="sq-row sq-req"><span class="sq-av" aria-hidden="true">${esc(r.avatar)}</span><span class="sq-t">${esc(r.name)} wants to be friends</span>
-      <button class="sq-btn pri" type="button" data-acc="${esc(r.id)}" aria-label="Accept ${esc(r.name)}">Accept</button><button class="sq-btn" type="button" data-dec="${esc(r.id)}" aria-label="Say no to ${esc(r.name)}">No</button></div>`).join('');
+      <button class="sq-btn pri" type="button" data-acc="${esc(r.id)}" aria-label="Accept ${esc(r.name)}">Accept</button><button class="sq-btn" type="button" data-dec="${esc(r.id)}" aria-label="Say no to ${esc(r.name)}">No</button>${window.PlayReady ? `<button class="sq-btn" type="button" data-rep="${esc(r.id)}" aria-label="Report ${esc(r.name)}">🚩</button>` : ''}</div>`).join('');
     return `<section class="card sq-card" aria-labelledby="sqFrT">${h2(`👫 Friends${fr.length ? ` <small class="sq-st">${fr.length}</small>` : ''}`, 'sqFrT')}
       ${req ? `<div aria-live="polite">${req}</div>` : ''}${list}
       ${H.outgoing ? `<p class="sq-foot" style="text-align:left">⏳ ${H.outgoing} request${H.outgoing > 1 ? 's' : ''} waiting for a friend to accept. <button class="sq-link" type="button" id="sqCancel">Cancel ${H.outgoing > 1 ? 'them' : 'it'}</button></p>` : ''}
@@ -289,10 +296,13 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
         if (ok) { tap('unlock'); say('🎉 You are now friends!'); } await load(); paint(); }
       catch (e) { b.disabled = false; say(errT(e)); }
     });
+    el.querySelectorAll('[data-rep]').forEach(b => b.onclick = () => { const r = (H.incoming || []).find(x => x.id === b.dataset.rep); if (r && window.PlayReady) PlayReady.report({ id: r.id, name: r.name, avatar: r.avatar, context: 'request', after: () => { load().then(paint); } }); });
     const cc = D.getElementById('sqCancel'); if (cc) cc.onclick = async () => { cc.disabled = true; try { await rpc('squad_cancel_requests'); await load(); paint(); say('Request cancelled'); } catch (e) { cc.disabled = false; say(errT(e)); } };
+    el.querySelectorAll('[data-pc]').forEach(b => b.onclick = () => { const c = (H.challenges || []).find(x => x.id === b.dataset.pc); if (c) play(c, 'child', () => { load().then(paint); }); });
+    const f = D.getElementById('sqAddF'), inp = D.getElementById('sqAddC'), er = D.getElementById('sqAddE');
+    if (!f) return;                                    // friends switched off by a parent: no code / add box
     D.getElementById('sqShare').onclick = shareCode;
     D.getElementById('sqNewCode').onclick = newCode;
-    const f = D.getElementById('sqAddF'), inp = D.getElementById('sqAddC'), er = D.getElementById('sqAddE');
     inp.oninput = () => { const v = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6); if (v !== inp.value) inp.value = v; er.textContent = ''; };
     f.onsubmit = async ev => {
       ev.preventDefault(); const code = inp.value.trim().toUpperCase();
@@ -304,7 +314,6 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
         const i2 = D.getElementById('sqAddE'); if (i2) i2.textContent = ''; }
       catch (e) { er.textContent = errT(e); b.disabled = false; }
     };
-    el.querySelectorAll('[data-pc]').forEach(b => b.onclick = () => { const c = (H.challenges || []).find(x => x.id === b.dataset.pc); if (c) play(c, 'child', () => { load().then(paint); }); });
   }
   async function shareCode() {
     const code = H.me.code, text = `Be my study buddy on StudyVerse! Open Squad → Friends and type my code: ${code}`;
@@ -327,6 +336,7 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
       <div class="sq-sub2" id="sqCgL">Send a cheer</div><div class="sq-cgrid" role="group" aria-labelledby="sqCgL">${CHEERS.map(c => `<button type="button" data-k="${c[0]}"><span aria-hidden="true">${c[1]}</span>${esc(c[2])}</button>`).join('')}</div>
       <p class="sq-err" id="sqCgE" role="alert"></p>
       ${cheerOnly ? '' : `<button class="btn ghost" type="button" id="sqRm">Remove ${esc(f.name)} from friends</button><div style="height:8px"></div>`}
+      ${cheerOnly || !window.PlayReady ? '' : `<div class="sq-cgrid"><button type="button" id="sqRep"><span aria-hidden="true">🚩</span>Report</button><button type="button" id="sqBlk"><span aria-hidden="true">🚫</span>Block</button></div>`}
       <button class="btn ghost" type="button" data-close id="sqFx">Close</button>`);
     style();
     el.querySelector('#sqFx').onclick = () => C().closeSheet();
@@ -337,6 +347,9 @@ html[data-age=pro] #s-ca .sq-link{color:#C9A76A}html[data-age=pro] #s-ca .sq-bar
         tap('unlock'); C().closeSheet(); say(`${cheerOf(b.dataset.k)[1]} Cheer sent to ${f.name}!`); }
       catch (e) { E.textContent = errT(e); el.querySelectorAll('.sq-cgrid button').forEach(x => x.disabled = false); }
     });
+    const again = () => { load().then(paint); };
+    const rp = el.querySelector('#sqRep'); if (rp) rp.onclick = () => PlayReady.report({ id, name: f.name, avatar: f.avatar, context: 'friend', after: again });
+    const bk = el.querySelector('#sqBlk'); if (bk) bk.onclick = () => PlayReady.block({ id, name: f.name, after: again });
     const rm = el.querySelector('#sqRm');
     if (rm) rm.onclick = async () => {
       if (!rm.dataset.sure) { rm.dataset.sure = 1; rm.textContent = `Tap again to remove ${f.name}`; return; }

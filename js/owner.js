@@ -769,7 +769,8 @@
     { k: 'pending', l: 'Invites waiting', n: 1 }, { k: 'challenges', l: 'Challenges (period)', n: 1 }];
   async function people() {
     const [f, t] = range();
-    const [pa, ins] = await Promise.all([get('owner_dash_parents', { p_from: f, p_to: t, p_q: V.pq || null, p_limit: 100, p_offset: 0, p: filt() }), get('owner_dash_institutions', { p: filt() })]);
+    const [pa, ins, rep] = await Promise.all([get('owner_dash_parents', { p_from: f, p_to: t, p_q: V.pq || null, p_limit: 100, p_offset: 0, p: filt() }), get('owner_dash_institutions', { p: filt() }),
+      get('owner_reports', { p_status: 'all', p_limit: 60 }).catch(() => null)]);       // 🚩 reports (migration 20261113_play_ready.sql; empty if not applied yet)
     later(b => { const fm = b.querySelector('#odPF'); if (fm) fm.onsubmit = e => { e.preventDefault(); V.pq = b.querySelector('#odPQ').value.trim(); paint(); }; });
     const parT = table(PAR_COLS, pa.rows || [], { name: 'parents', label: 'Parents', empty: 'No parents match.', onRow: r => { const k = (r.kid_list || [])[0]; if (k) go('student:' + k.id); else say('No child linked yet'); }, rowLabel: r => 'Open child of ' + r.email });
     const instRows = (ins.rows || []).map(r => Object.assign({}, r, { use: r.seats ? pct(r.students, r.seats) : null, act: pct(r.active7, r.students) }));
@@ -803,7 +804,28 @@
         ${kpi({ icon: '💰', label: 'School revenue', value: inr(ins.revenue), now: 'all time', sub: 'all paid invoices, ex-GST' })}
         ${kpi({ icon: '📞', label: 'Pilot requests (30 days)', value: nf(ins.requests), cur: ins.requests, prev: ins.requests_prev, prevS: nf(ins.requests_prev) + ' the 30 days before', go: 'tab:smart' })}</div>
       ${card('🏫 Schools & coaching centres', instT, { csv: instId, sum: 'Tap one for classes, students, orders and activity.', cls: 'od-wide' })}
-      ${card('📞 Pilot requests (last 90 days)', reqT, { csv: reqId })}`;
+      ${card('📞 Pilot requests (last 90 days)', reqT, { csv: reqId })}
+      ${reportsHTML(rep)}`;
+  }
+  /* 🚩 children's-safety reports (friend lists, friend requests, game rooms): preset reasons; a note only from adult students */
+  const REPN = { unkind: 'Unkind or rude behaviour', cheating: 'Cheating', name: 'Rude name or picture', other: 'Something else' };
+  const REPW = { friend: 'friend list', request: 'friend request', room: 'game room' };
+  function reportsHTML(rep) {
+    if (!rep || !Array.isArray(rep.rows)) return '';
+    const rows = rep.rows.slice().sort((a, b) => (a.status === 'open' ? 0 : 1) - (b.status === 'open' ? 0 : 1));
+    later(b => b.querySelectorAll('[data-repst]').forEach(x => x.onclick = async () => {
+      x.disabled = true;
+      try { const r = one(await rpc('owner_report_set', { p_id: +x.dataset.repid, p_status: x.dataset.repst })); if (!r || !r.ok) throw new Error((r && r.msg) || 'Could not save.');
+        say(x.dataset.repst === 'done' ? 'Report marked done ✓' : 'Report reopened'); [...cache.keys()].filter(k => /^owner_(reports|dash_smart)/.test(k)).forEach(k => cache.delete(k)); paint(); }
+      catch (e) { x.disabled = false; say(errT(e)); }
+    }));
+    const li = r => `<li class="od-item p${r.status === 'open' ? 1 : 3}"><div class="od-ih"><span class="od-ii" aria-hidden="true">🚩</span><div><b>${esc(r.reported_name || 'Someone')} — ${esc(REPN[r.reason] || r.reason)}</b>
+        <small>${esc(r.reported_email || 'account deleted')} · in a ${esc(REPW[r.context] || r.context)}${r.room_code ? ' ' + esc(r.room_code) : ''} · ${esc(ago(r.created_at))} · by ${esc(r.reporter_name || 'a student')}${+r.n_on_user > 1 ? ` · ${nf(r.n_on_user)} reports in 30 days` : ''}</small></div></div>
+        ${r.detail ? `<p class="od-why">“${esc(r.detail)}”</p>` : ''}
+        <div class="od-ib">${r.reported_id ? `<button type="button" class="od-mini" data-go="student:${esc(r.reported_id)}">👤 Open profile</button>` : ''}
+          ${r.status === 'open' ? `<button type="button" class="od-mini od-pri" data-repst="done" data-repid="${esc(r.id)}">✓ Done</button>` : `<button type="button" class="od-mini" data-repst="open" data-repid="${esc(r.id)}">↩ Reopen</button>`}</div></li>`;
+    return `<h2 class="od-h2">🚩 Reports</h2>${card(`🚩 Reports from children <span class="od-count">${nf(rep.open)} open</span>`, rows.length ? `<ul class="od-rep" style="list-style:none;margin:0;padding:0">${rows.map(li).join('')}</ul>` : '<p class="od-empty">No reports. 🎉</p>',
+      { sum: 'From friend lists, friend requests and game rooms. Children can only pick a reason (no free text). Look at each one; talk to the parent or remove the account if it is serious.' })}`;
   }
   async function drillInst(id) {
     const r = await get('owner_dash_institution', { p_inst: id }); const i = r.inst || {};
@@ -867,6 +889,8 @@
       msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nA gentle reminder about StudyVerse invoice ${(it.meta && it.meta.invoice_no) || ''} of ${inr(it.meta && it.meta.total)}. Seats start as soon as it is paid. Thank you!` },
     pilot_request: { i: '📞', who: 'c', t: it => `New pilot request: ${it.name || 'a school'}`, why: it => `${(it.meta && it.meta.contact) || 'Someone'}${it.meta && it.meta.city ? ' from ' + it.meta.city : ''} asked ${ago(it.due)}${it.meta && it.meta.students ? ' (' + it.meta.students + ' students)' : ''}.`, act: 'Call back and set up the pilot (Schools panel → create institution).',
       msg: it => `Dear ${(it.meta && it.meta.contact) || 'Sir/Madam'},\nThank you for asking for a StudyVerse pilot for ${it.name || 'your school'}. When is a good time for a short call to set it up?` },
+    report: { i: '🚩', who: 's', t: it => `${it.name || 'A student'} was reported`, why: it => `${({ unkind: 'Unkind or rude behaviour', cheating: 'Cheating', name: 'Rude name or picture', other: 'Something else' })[it.meta && it.meta.reason] || 'A report'} in a ${({ friend: 'friend list', request: 'friend request', room: 'game room' })[it.meta && it.meta.context] || 'friend list'}${it.meta && it.meta.by ? ', reported by ' + it.meta.by : ''}${it.meta && +it.meta.n > 1 ? ` (${it.meta.n} reports in 30 days)` : ''}.${it.meta && it.meta.detail ? ` Note: “${it.meta.detail}”` : ''}`,
+      act: 'Read it (Parents & schools → Reports). Talk to the parent, or remove the account if it is serious.' },
     hard_question: { i: '❓', who: 'q', t: () => 'A question most students get wrong', why: it => `Only ${it.meta.acc}% right in ${it.meta.tries} tries (${it.meta.users} students).`, act: 'Read it — fix the wording, options or explanation if needed.' } };
   const PRI = { 1: ['🔴', 'Urgent today'], 2: ['🟠', 'This week'], 3: ['🔵', 'When you can'] };
   const WHO = [['all', 'All'], ['s', 'Students'], ['p', 'Parents'], ['c', 'Schools'], ['q', 'Content']];

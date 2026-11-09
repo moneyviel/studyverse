@@ -396,6 +396,7 @@
     body.innerHTML = childHTML(k, A, X) + invitesHTML() + mailCardHTML() + acctHTML();
     wireChild(body, k, A, X); wireMail(body); wireAcct(body);
     try { if (window.Squad && Squad.hubCard) Squad.hubCard(body, k, A); } catch (e) {}   // ⚔️ parent challenge card (js/squad.js)
+    try { if (window.PlayReady && PlayReady.hubCard) PlayReady.hubCard(body, k, A); } catch (e) {}   // 🛡️ friends / rooms / news controls (js/playready.js)
   }
 
   /* ---------- three ways to add a child ---------- */

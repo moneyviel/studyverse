@@ -256,7 +256,8 @@
 
   /* ---------- 4. account actions ---------- */
   const signUp = async (email, pw, r) => {
-    const j = await call('/auth/v1/signup?redirect_to=' + encodeURIComponent(SITE), { method: 'POST', body: r ? { email, password: pw, data: { sv_role: r } } : { email, password: pw } }, false);
+    let cm = {}; try { if (window.PlayReady && PlayReady.signupMeta) cm = PlayReady.signupMeta(r) || {}; } catch (e) {}   // { sv_consent: { v, g } }
+    const j = await call('/auth/v1/signup?redirect_to=' + encodeURIComponent(SITE), { method: 'POST', body: r ? { email, password: pw, data: Object.assign({ sv_role: r }, cm) } : { email, password: pw } }, false);
     if (j && j.access_token) { keep(j); await arrive(); return 'in'; }
     return 'confirm';
   };
@@ -302,7 +303,7 @@
     const [cls, txt] = stLine(), cs = courses();
     return `<h3>☁️ ${meta().adm ? 'Owner account 🔑' : 'Your account'}</h3><p class="sub">${esc((S.user && S.user.email) || '')}</p><p class="cl-st ${cls}" role="status">${txt}</p>
       <p class="sub">Your courses: ${cs.length ? cs.map(c => esc(courseName(c.course)) + (c.valid_until ? ' (till ' + new Date(c.valid_until).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ')' : '')).join(', ') : 'free courses'}</p>
-      <div class="cl-row">${meta().adm ? '' : '<button class="btn" type="button" data-cl="plans">Plans &amp; subscribe</button>'}${status === 'error' || status === 'offline' ? '<button class="btn ghost" type="button" data-cl="retry">Try again</button>' : ''}<button class="btn ghost" type="button" data-cl="out">Sign out</button></div>`;
+      <div class="cl-row">${meta().adm ? '' : '<button class="btn" type="button" data-cl="plans">Plans &amp; subscribe</button>'}${status === 'error' || status === 'offline' ? '<button class="btn ghost" type="button" data-cl="retry">Try again</button>' : ''}<button class="btn ghost" type="button" data-cl="out">Sign out</button></div>${meta().adm ? '' : '<button class="pr-del" type="button" data-cl="del">Delete my account</button>'}`;
   }
   function wire(root) {
     root.querySelectorAll('[data-cl]').forEach(b => b.onclick = () => {
@@ -310,6 +311,7 @@
       if (a === 'up' || a === 'in') form(a);
       else if (a === 'plans') { if (window.Plans) Plans.open(); }
       else if (a === 'retry') { arrive().then(() => push(true)); }
+      else if (a === 'del') { if (window.PlayReady) PlayReady.deleteAccount(); }   // js/playready.js: two-step delete
       else if (a === 'out') {
         if (b.dataset.sure) { b.disabled = true; b.textContent = 'Signing out…'; signOut(); }
         else { b.dataset.sure = 1; b.textContent = 'Tap again to sign out (progress stays in your account)'; }
@@ -356,7 +358,7 @@
     if (!c) { c = D.createElement('div'); c.className = 'card'; c.id = 'svCode'; const a = D.getElementById('svCloud'); a ? a.after(c) : me.appendChild(c); }
     const L = get('sv_lock'), disc = get('sv_disc');
     if (L) { c.innerHTML = `<h3>🎟️ Free access</h3><p class="sub">Your account has free access to <b>${esc(courseName(L))}</b> forever.</p>`; return; }
-    c.innerHTML = `<h3>🎟️ Have a code?</h3><p class="sub">Enter a free-access or discount code.${disc ? ` Discount code <b>${esc(disc)}</b> is saved for your payment.` : ''}</p>
+    c.innerHTML = `<h3>🎟️ Have a code?</h3><p class="sub">${window.SV_PLAY ? 'Enter a free-access code from your school or teacher.' : `Enter a free-access or discount code.${disc ? ` Discount code <b>${esc(disc)}</b> is saved for your payment.` : ''}`}</p>
       <form id="clCodeF" class="cl-row" novalidate><input class="cl-in" id="clCode" placeholder="e.g. FREE-AB12CD" autocapitalize="characters" spellcheck="false" maxlength="24" style="flex:2;min-width:150px;margin:0"><button class="btn" type="submit" id="clCodeGo" style="flex:1">Apply</button></form>
       <div class="cl-err" id="clCodeE" role="alert"></div><p class="cl-small" id="clCodeN">A free code gives free access only to ${esc(courseName(myCourse()) || 'your course')} — you will not be able to change it later.</p>`;
     c.querySelector('#clCodeF').onsubmit = async e => {
@@ -368,7 +370,7 @@
         const r = await rest('rpc/redeem_code', { method: 'POST', body: { p_code: code, p_course: myCourse() } });
         if (!r || !r.ok) { er.textContent = (r && r.msg) || 'This code is not valid.'; return; }
         if (r.kind === 'free') { set('sv_lock', r.course); access(); say('Free access unlocked ✓'); codeCard(true); enforceLock(); try { (ST.profile && ST.profile.course === 'ca' && window.Ca) ? Ca.profile() : meScreen(); } catch (x) {} }
-        else { set('sv_disc', code); say(r.percent + '% discount saved ✓ It will be used when you pay'); codeCard(true); }
+        else { set('sv_disc', code); say(window.SV_PLAY ? 'Code saved ✓' : r.percent + '% discount saved ✓ It will be used when you pay'); codeCard(true); }   // Play build: no payment talk
       } catch (err) { er.textContent = errText(err); }
       finally { go.disabled = false; }
     };
@@ -472,12 +474,16 @@
     return m;
   };
 
+  /* sign-up tick box (recorded with version + time: js/playready.js, rpc accept_terms / legal_status) */
+  const consentText = r => r === 'student'
+    ? 'I agree to the <a href="legal/terms.html">Terms</a> and <a href="legal/privacy.html">Privacy Policy</a>. <b>Under 18?</b> I am the parent or guardian making this account, or my parent or guardian agrees.'
+    : 'I am 18 or older and I agree to the <a href="legal/privacy.html">Privacy Policy</a> and <a href="legal/terms.html">Terms</a>. If this account is for a child, I am their parent or guardian.';
   function form(mode, msg, opt = {}) {
     const T = { up: 'Create your free account', in: 'Sign in', forgot: 'Reset your password', newpw: 'Set a new password' }[mode];
     const pwField = mode !== 'forgot', emField = mode !== 'newpw';
     const el = openSheet(`<h3 id="clT">${T}</h3>
       ${mode === 'up' && opt.invite ? '<p class="cl-inv">🎉 Your parent invited you. Create your account with this email — you will be linked to them automatically.</p>' : ''}
-      ${mode === 'up' ? '<p>Your progress will be saved to your account. Under 18? Please ask a parent or guardian to create the account.</p>' : ''}
+      ${mode === 'up' ? '<p>Your progress will be saved to your account. Under 18? Please do this with your parent or guardian.</p>' : ''}
       ${mode === 'forgot' ? '<p>Enter your email and we will send you a link to set a new password.</p>' : ''}
       <form id="clF" novalidate>
         ${mode === 'up' ? `<fieldset class="cl-role" role="radiogroup" aria-required="true" aria-labelledby="clRoleL"><legend id="clRoleL">I am a:</legend><div class="cl-roles">
@@ -487,7 +493,7 @@
         ${pwField ? `<label for="clP">${mode === 'newpw' ? 'New password' : 'Password'}</label><input class="cl-in" id="clP" type="password" autocomplete="${mode === 'in' ? 'current-password' : 'new-password'}" minlength="8" required>
           <label class="cl-show cl-small"><input type="checkbox" id="clSh"> Show password</label>` : ''}
         ${mode === 'up' || mode === 'newpw' ? '<p class="cl-small">At least 8 characters.</p>' : ''}
-        ${mode === 'up' ? '<label class="cl-show cl-small" style="align-items:flex-start"><input type="checkbox" id="clC" style="margin-top:3px"> <span>I am 18 or older. If this account is for a child, I am their parent or guardian and I agree to the <a href="legal/privacy.html">Privacy Policy</a> and <a href="legal/terms.html">Terms</a>.</span></label>' : ''}
+        ${mode === 'up' ? `<label class="cl-show cl-small" style="align-items:flex-start"><input type="checkbox" id="clC" style="margin-top:3px"> <span id="clCt">${consentText(opt.role)}</span></label>` : ''}
         <div class="cl-err" id="clErr" role="alert"></div>${msg ? `<div class="cl-ok" role="status">${esc(msg)}</div>` : ''}
         <button class="btn" type="submit" id="clGo">${{ up: 'Create account', in: 'Sign in', forgot: 'Send reset link', newpw: 'Save new password' }[mode]}</button>
       </form>
@@ -497,7 +503,8 @@
       ${mode !== 'newpw' ? '<div style="height:6px"></div><button class="btn ghost" type="button" id="clX">Cancel</button>' : ''}`, mode !== 'newpw');
     el.querySelectorAll('[data-go]').forEach(b => b.onclick = () => form(b.dataset.go));
     const x = el.querySelector('#clX'); if (x) x.onclick = closeSheet;
-    el.querySelectorAll('input[name=clRole]').forEach(i => i.onchange = () => el.querySelectorAll('.cl-rc').forEach(l => l.classList.toggle('on', l.contains(i) ? i.checked : false)));
+    el.querySelectorAll('input[name=clRole]').forEach(i => i.onchange = () => { el.querySelectorAll('.cl-rc').forEach(l => l.classList.toggle('on', l.contains(i) ? i.checked : false));
+      const ct = el.querySelector('#clCt'); if (ct) ct.innerHTML = consentText(i.value); });
     const sh = el.querySelector('#clSh'); if (sh) sh.onchange = () => { el.querySelector('#clP').type = sh.checked ? 'text' : 'password'; };
     el.querySelector('#clF').onsubmit = async e => {
       e.preventDefault();
@@ -509,7 +516,7 @@
       if (pwField && !pw) { er.textContent = 'Please enter your password.'; return; }
       const rc = el.querySelector('input[name=clRole]:checked'), rl = rc ? rc.value : null;
       if (mode === 'up' && !rl) { er.textContent = 'Please choose: Student or Parent.'; return; }
-      if (mode === 'up' && !el.querySelector('#clC').checked) { er.textContent = 'Please tick the box: a parent or guardian must create a child\u2019s account.'; return; }
+      if (mode === 'up' && !el.querySelector('#clC').checked) { er.textContent = rl === 'student' ? 'Please tick the box to agree (with your parent or guardian if you are under 18).' : 'Please tick the box: a parent or guardian must create a child\u2019s account.'; return; }
       go.disabled = true; const label = go.textContent; go.textContent = 'Please wait…';
       try {
         if (mode === 'up') {

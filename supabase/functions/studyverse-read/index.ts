@@ -3,6 +3,7 @@
 // (optional GEMINI_MODEL; falls back through current free Flash models). It only transcribes; marking is done by the app (js/ca-check.js).
 // POST { images: [base64 JPEG, ...] (max 4 pages), question: "..." } → { text } | { error }
 // Daily limit per student: READ_PAGES_PER_DAY pages (studyverse.take_read_quota).
+// Adults only: refused unless studyverse.read_allowed(user) is ok (confirmed 18+, not a school-class student).
 /* eslint-disable */
 const URL_ = Deno.env.get('SUPABASE_URL')!;
 const SRK = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -16,6 +17,15 @@ const json = (o: unknown, s = 200) => new Response(JSON.stringify(o), { status: 
 async function who(req: Request) {
   const r = await fetch(`${URL_}/auth/v1/user`, { headers: { apikey: req.headers.get('apikey') || SRK, Authorization: req.headers.get('Authorization') || '' } });
   if (!r.ok) return null; const u = await r.json(); return u && u.id ? u : null;
+}
+// adults only (Google Play Families + DPDP): the student must have confirmed 18+ in the app (rpc confirm_adult) and must not
+// be a student in a SCHOOL class — studyverse.read_allowed (supabase/migrations/20261113_play_ready.sql), service role only
+async function allowed(user: string): Promise<{ ok: boolean; why?: string }> {
+  const h: Record<string, string> = { apikey: SRK, 'Content-Type': 'application/json', 'Accept-Profile': 'studyverse', 'Content-Profile': 'studyverse' };
+  if (SRK.startsWith('eyJ')) h.Authorization = `Bearer ${SRK}`;
+  const r = await fetch(`${URL_}/rest/v1/rpc/read_allowed`, { method: 'POST', headers: h, body: JSON.stringify({ p_user: user }) });
+  const j = await r.json().catch(() => null);
+  return r.ok && j && typeof j === 'object' ? j : { ok: false, why: 'error' };
 }
 async function quota(user: string, pages: number) {
   const h: Record<string, string> = { apikey: SRK, 'Content-Type': 'application/json', 'Accept-Profile': 'studyverse', 'Content-Profile': 'studyverse' };
@@ -39,6 +49,8 @@ Deno.serve(async (req) => {
     const user = await who(req);
     if (!user) return json({ error: 'Please sign in again.' }, 401);
     if (!GKEY) return json({ error: 'Handwriting reading is not set up yet' });
+    const ok = await allowed(user.id);
+    if (!ok.ok) return json({ error: ok.why === 'error' ? 'Could not check your account. Please try again.' : 'Photo reading is only for students aged 18 or older.', code: ok.why || 'adult' });
     const b = await req.json().catch(() => ({}));
     const imgs: string[] = Array.isArray(b.images) ? b.images.filter((x: unknown) => typeof x === 'string' && x.length < 3_000_000).slice(0, 4) : [];
     if (!imgs.length) return json({ error: 'No photo received.' });

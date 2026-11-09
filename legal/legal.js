@@ -64,8 +64,18 @@ var SV_LEGAL = {
     }
   }
 
+  /* Google Play build (the app sets localStorage sv_play = '1', see js/plans.js): no links to the pricing page or a
+     payment site inside the app — such links become plain text (Play payments policy). The website is unchanged. */
+  function playUnlink() {
+    var play = false; try { play = localStorage.getItem('sv_play') === '1'; } catch (e) {}
+    if (!play) return;
+    var as = document.querySelectorAll('a[href*="pricing"], a[href*="razorpay"]');
+    for (var i = 0; i < as.length; i++) { var sp = document.createElement('span'); sp.textContent = as[i].textContent; as[i].parentNode.replaceChild(sp, as[i]); }
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     fill();
+    playUnlink();
     var back = document.getElementById('backApp');
     if (!back) return;
     back.addEventListener('click', function (e) {
