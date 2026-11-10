@@ -120,10 +120,13 @@
   async function loadPlans() {
     try { const r = await C().rest('plans?select=id,course,label,months,price_inr,sort,min_grade,max_grade&active=eq.true&order=sort'); if (Array.isArray(r) && r.length && r.every(p => p && p.id && +p.price_inr > 0)) plans = r; } catch (e) {}
   }
+  /* a free-forever code on the account (cloud.js keeps it in sv_lock, e.g. 'school-g1' / 'ca-foundation') */
+  const lockName = () => { let c = null; try { c = localStorage.getItem('sv_lock'); } catch (e) {} if (!c) return '';
+    return c.startsWith('school-g') ? 'Grade ' + c.slice(8) : c === 'ca-foundation' ? 'CA Foundation' : c.replace(/^ca-/, 'CA ').replace(/-/g, ' '); };
   function statusLine(kind) {
     const a = access(kind);
     if (a.why === 'owner') return 'Owner account — everything is unlocked.';
-    if (a.why === 'trial') return kind === 'ca' ? `🎁 Free trial: <b>${left(a.until)}</b> left — all of ${caName()} is open.` : `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open.${window.SV_PLAY ? '' : ' After that, only the class you subscribe to.'}`;
+    if (a.why === 'trial') { const fl = lockName(); return (kind === 'ca' ? `🎁 Free trial: <b>${left(a.until)}</b> left — all of ${caName()} is open.` : `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open.`) + (fl ? ` After that, <b>${fl}</b> stays free forever with your code.` : window.SV_PLAY || kind === 'ca' ? '' : ' After that, only the class you subscribe to.'); }
     if (a.why === 'code') return '🎟️ Free access with your code.';
     if (a.full) return `✅ Your ${kind === 'ca' ? caName() : 'school'} plan is active till <b>${dt(a.until)}</b>.`;
     return `Free plan: <b>${Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)))} of ${FREE_PER_DAY}</b> questions left today.${a.trialEnded ? ' Your free trial has ended.' : ''}`;
@@ -217,7 +220,7 @@
   function barHTML(kind) {
     const a = access(kind);
     if (a.why === 'owner' || a.why === 'code') return '';
-    if (a.why === 'trial') return `<p>🎁 <b>Free trial: ${left(a.until)} left.</b> Everything is unlocked.</p>${btn('Subscribe')}`;
+    if (a.why === 'trial') { const fl = lockName(); return fl ? `<p>🎁 <b>Free trial: ${left(a.until)} left</b> — everything is unlocked. After that, <b>${fl}</b> stays free forever with your code.</p>` : `<p>🎁 <b>Free trial: ${left(a.until)} left.</b> Everything is unlocked.</p>${btn('Subscribe')}`; }
     if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5; return soon ? `<p>⏳ Your plan ends on <b>${dt(a.until)}</b>.</p>${btn('Renew')}` : ''; }
     return `<p><b>${freeLeft(kind)} of ${FREE_PER_DAY}</b> free questions left today.${a.trialEnded ? ' Trial ended.' : ''}</p>${btn('Subscribe')}`;
   }
@@ -225,7 +228,7 @@
     const a = access('ca');
     if (a.why === 'owner') return '<p>🔑 <b>Owner account</b> · everything is unlocked.</p>';
     if (a.why === 'code') return `<p>🎟️ <b>${caName()}</b> · free access with your code${a.until ? ` till <b>${dt(a.until)}</b>` : ''}.</p>`;
-    if (a.why === 'trial') return `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of ${caName()} is open.</p>${btn('Subscribe')}`;
+    if (a.why === 'trial') { const fl = lockName(); return fl ? `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of ${caName()} is open. After that, <b>${fl}</b> stays free forever with your code.</p>` : `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of ${caName()} is open.</p>${btn('Subscribe')}`; }
     if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5;
       return `<p>✅ <b>${caName()}</b> · ${a.until ? `active till <b>${dt(a.until)}</b>` : 'active'}</p>${soon ? btn('Renew') : ''}`; }
     return `<p><b>Free plan</b> · ${freeLeft('ca')} of ${FREE_PER_DAY} questions left today</p>${btn('Subscribe')}`;
