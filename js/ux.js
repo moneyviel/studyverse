@@ -26,6 +26,7 @@
     r.style.setProperty('--z', z * f); r.style.setProperty('--zn', zn * f); r.style.setProperty('--znav', zn / z);
     if (!live) r.style.setProperty('--zux', z * f);
     r.dataset.ts = SIZES[i][0]; UX.size = i;
+    try { if (window.svFixMedia) svFixMedia(); } catch (e) {}   // width rules follow the text size (index.html)
   }
   addEventListener('sv-zf', () => applySize());
   const mq = q => { try { return window.matchMedia(q); } catch (e) { return { matches: false, addEventListener() {} }; } };

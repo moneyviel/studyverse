@@ -255,8 +255,8 @@ document.addEventListener('pointerdown',resumeAll);
 html:has(#calcFab:not([hidden])) #mDock{bottom:calc(134px + env(safe-area-inset-bottom))}
 html.sv-parent #mDock{display:none!important}
 html.sv-gated #mDock{bottom:calc(10px + env(safe-area-inset-bottom))}
-html.dsk #mDock{left:calc(var(--dsk-side) + 10px);bottom:12px}
-html.dsk:has(#calcFab:not([hidden])) #mDock{bottom:76px}
+html.dsk #mDock:not(.in-side){left:calc(var(--dsk-side) + 10px);bottom:12px}
+input.md-pop{position:fixed;z-index:990;display:block;width:140px;height:30px;accent-color:#ffc93c;background:rgba(1,13,51,.95);border-radius:999px;padding:4px 8px;box-shadow:0 4px 12px rgba(0,0,0,.35);margin:0}
 @media print{#mDock{display:none!important}}`;
   const st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
   const d=document.createElement('div'); d.id='mDock'; d.setAttribute('role','group'); d.setAttribute('aria-label','Music');
@@ -270,12 +270,17 @@ html.dsk:has(#calcFab:not([hidden])) #mDock{bottom:76px}
     btn.setAttribute('aria-label', d.classList.contains('open') ? (off()?'Unmute music':'Mute music') : 'Music volume');
     rng.value=SND.on?SND.mv:0;
   }
-  function open(on){ d.classList.toggle('open',on); clearTimeout(closeT); if(on) closeT=setTimeout(()=>open(false),4000); sync(); }
+  function open(on){ d.classList.toggle('open',on); clearTimeout(closeT); if(on) closeT=setTimeout(()=>open(false),4000);
+    // in the desktop side menu the slider pops out on top of the page (the menu would clip it)
+    if(on && d.classList.contains('in-side')){ const r=btn.getBoundingClientRect(); if(rng.parentNode!==document.body) document.body.appendChild(rng); rng.className='md-pop'; rng.style.left=(r.right+8)+'px'; rng.style.top=(r.top+1)+'px'; }
+    else { if(rng.parentNode!==d) d.appendChild(rng); rng.className=''; rng.style.left=rng.style.top=''; }
+    sync(); }
   function show(){ if(d.classList.contains('show')) return; d.classList.add('show'); sync(); }
   btn.addEventListener('click',e=>{ e.stopPropagation();
     if(!d.classList.contains('open')) return open(true);
     if(SND.on && SND.mv==0){ SND.mv=40; saveSnd(); applyVol(); updateSndBtn(); } else toggleMusic();
     open(true); });
+  rng.addEventListener('pointerdown',()=>{ clearTimeout(closeT); });
   rng.addEventListener('input',e=>{ e.stopPropagation(); const v=+rng.value;
     if(!SND.on && v>0){ SND.on=true; if(!SND.playing) startMusic(); }
     setVol('music',v); try{ const m=document.getElementById('musVol'); if(m) m.value=v; }catch(_){}

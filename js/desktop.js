@@ -476,15 +476,28 @@
     const nv = $1('nav'); if (nv) new MutationObserver(() => { if (built) { clearTimeout(nv._dsk); nv._dsk = setTimeout(labelNav, 50); } }).observe(nv, { childList: true, attributes: true, subtree: true, attributeFilter: ['hidden'] });
     sync();
   }
-  function sync() { tabletSwitch(); if (wantDsk()) { build(); if (built) { applyCol(); obState(); modes(); refresh(); enhance(); } } else unbuild(); }
+  /* desktop layout: the music button and the CA calculator button sit in the menu's footer (never over page content) */
+  function dockFloats() {
+    const foot = built && !R.classList.contains('dsk-ob') && !R.classList.contains('dsk-focus') && $1('#dskSide .dsk-foot');   // only while the menu is on screen
+    ['#calcFab', '#mDock'].forEach(sel => { const e = $1(sel); if (!e) return;
+      if (foot) { if (e.parentNode !== foot) foot.prepend(e); e.classList.add('in-side'); }
+      else if (e.parentNode !== D.body) { D.body.appendChild(e); e.classList.remove('in-side'); } });
+  }
+  new MutationObserver(() => { clearTimeout(dockFloats.t); dockFloats.t = setTimeout(dockFloats, 50); }).observe(D.body, { childList: true });
+  new MutationObserver(() => { clearTimeout(dockFloats.t); dockFloats.t = setTimeout(dockFloats, 50); }).observe(R, { attributes: true, attributeFilter: ['class'] });
+  function sync() { try { if (window.svFixMedia) svFixMedia(); } catch (e) {} if (wantDsk()) { build(); if (built) { applyCol(); obState(); modes(); refresh(); enhance(); } } else unbuild(); dockFloats(); tabletSwitch(); requestAnimationFrame(() => tabletSwitch()); }   // measure after the layout has switched
   addEventListener('sv-layout', sync);
+  addEventListener('resize', () => { clearTimeout(tabletSwitch.t); tabletSwitch.t = setTimeout(tabletSwitch, 150); });
   /* tablets: a small switch between the phone layout and the desktop layout (shown only when the screen is wide enough for both) */
   function tabletSwitch() {
     let b = D.getElementById('svLayoutSw');
     if (R.dataset.device !== 'tablet' || !MQ.matches) { if (b) b.remove(); return; }
     if (!b) { b = D.createElement('button'); b.type = 'button'; b.id = 'svLayoutSw'; D.body.appendChild(b);
       b.onclick = () => { const desk = R.classList.contains('dsk'); svSetLayout(desk ? 'mobile' : 'desktop'); }; }
-    const desk = wantDsk();
+    const desk = wantDsk(), st = $1('header .stats'), app = $1('.app');
+    const room = app ? (innerWidth - app.getBoundingClientRect().width) / 2 : 0;   // free space beside the phone-width app
+    if (!desk && st && room < 150) { if (b.parentNode !== st) st.prepend(b); b.classList.add('in-hdr', 'pill'); }
+    else { if (b.parentNode !== D.body) D.body.appendChild(b); b.classList.remove('in-hdr', 'pill'); }
     b.textContent = desk ? '📱 Phone view' : '🖥️ Desktop view';
     b.setAttribute('aria-label', desk ? 'Switch to the phone layout' : 'Switch to the desktop layout');
   }

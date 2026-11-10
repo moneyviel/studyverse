@@ -1671,9 +1671,16 @@ html.sv-zoomfix .map{height:calc(100vh / var(--zf) - 250px)}
 html.sv-zoomfix #cmap{height:calc(100vh / var(--zf) - 200px)}
 html.sv-zoomfix .arc-sky{height:clamp(250px,calc(42vh / var(--zf)),370px)}
 html.sv-zoomfix .sl-wrap{max-height:min(calc(78vh / var(--zf)),640px)}
-html.sv-zoomfix .sheet-in{max-height:calc(92vh / var(--z))!important;overflow-y:auto}
+/* every pop-up fits the screen height at any text size (also on normal phones) */
+.sheet-in{max-height:calc(92vh / var(--z))!important;overflow-y:auto}
 html.sv-zoomfix .ca-cmp-ph{max-height:calc(100vh / var(--zf) - 120px)}
 html.sv-zoomfix .ca-pd-actin{max-width:calc(100vw / var(--zf) - 80px)}
 html.sv-zoomfix #calcPanel{max-height:calc(100vh / var(--zf) - 92px - env(safe-area-inset-bottom))}
 html.sv-zoomfix #prGate .pr-gin{max-height:calc(94vh / var(--zf))}
 html.sv-zoomfix .ca-phvbar,html.sv-zoomfix .ca-phvnav{zoom:var(--zf)}
+
+/* largest text size: long buttons wrap instead of pushing the page sideways */
+.ch-btns button{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:left}
+.install{flex-wrap:wrap;min-width:0}.install div{min-width:0}.install b,.install span{overflow-wrap:anywhere}
+/* tablet layout switch: inside the header in phone view (never covers the header buttons) */
+#svLayoutSw.in-hdr{position:static;opacity:1;background:rgba(255,255,255,.12);padding:6px 9px;font-size:11px}
