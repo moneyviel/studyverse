@@ -678,13 +678,14 @@
     if ($1('#svOffer')) return;
     D.body.insertAdjacentHTML('beforeend', `<div class="sheet" id="svOffer"><div class="sheet-in"><div class="sheet-grab"></div><h2 id="svOfferT"><span aria-hidden="true">🎧</span> Shall I read the app aloud?</h2>
       <p class="sub" id="svOfferP">Listen mode reads every screen and question to you. You can answer with number keys, or with your voice.</p>
-      <button class="btn" id="svOfferYes">Yes, turn on Listen mode</button><div style="height:8px"></div><button class="btn ghost" id="svOfferNo">No thanks</button></div></div>`);
+      <button class="btn ghost" id="svOfferHear" style="margin-bottom:8px">🔊 Read this to me</button><button class="btn" id="svOfferYes">Yes, turn on Listen mode</button><div style="height:8px"></div><button class="btn ghost" id="svOfferNo">No thanks</button></div></div>`);
     const s = $1('#svOffer'); s.setAttribute('aria-describedby', 'svOfferP'); watchSheets();
     const done = yes => { s.classList.remove('show'); setTimeout(() => s.remove(), 300); if (yes) UX.setListen(true); else { U().asked = true; UX.save(); } stopRec(); };
     $1('#svOfferYes').onclick = () => done(true); $1('#svOfferNo').onclick = () => done(false);
     s.classList.add('show');
     setTimeout(() => focusEl($1('#svOfferYes')), 80);
-    say('Welcome to Knowtopia. Shall I read the app aloud for you? Press Enter, or say yes, to turn on Listen mode. Press Escape, or say no, to skip.', { force: true }).then(() => {
+    // no automatic voice: the question is only read out when the learner taps "Read this to me"
+    $1('#svOfferHear').onclick = () => say('Welcome to Knowtopia. Shall I read the app aloud for you? Press Enter, or say yes, to turn on Listen mode. Press Escape, or say no, to skip.', { force: true }).then(() => {
       if (!SR || !s.isConnected || !navigator.permissions) return;
       navigator.permissions.query({ name: 'microphone' }).then(p => { if (p.state !== 'granted' || !s.isConnected) return;
         try { const r = new SR(); r.lang = 'en-IN'; r.onresult = e => { const t = norm(e.results[0][0].transcript); if (/^(yes|yeah|listen|ok|okay|हाँ|हां)/.test(t)) done(true); else if (/^(no|nope|नहीं)/.test(t)) done(false); }; r.start(); } catch (e) {} }).catch(() => {});

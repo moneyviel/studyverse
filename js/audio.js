@@ -243,51 +243,40 @@ window.addEventListener('focus',resumeAll);
 document.addEventListener('freeze',pauseAll);
 document.addEventListener('pointerdown',resumeAll);
 
-/* ---------- floating music control: always visible once music starts (mute in one tap + volume slider) ---------- */
+/* ---------- floating music control: small round button; tap it to show a volume slider, tap again to mute ---------- */
 (function(){
-  const css=`#mDock{position:fixed;left:max(10px,calc(50% - 210px));bottom:calc(138px + env(safe-area-inset-bottom));z-index:985;display:none;align-items:center;gap:6px;background:rgba(1,13,51,.92);color:#fff;border:2px solid rgba(255,255,255,.85);border-radius:999px;padding:4px;box-shadow:0 8px 20px rgba(0,0,0,.3);font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:13px;touch-action:manipulation}
+  const css=`#mDock{position:fixed;left:max(10px,calc(50% - 210px));bottom:calc(138px + env(safe-area-inset-bottom));z-index:985;display:none;align-items:center;gap:2px;background:rgba(1,13,51,.88);border:1.5px solid rgba(255,255,255,.7);border-radius:999px;padding:2px;box-shadow:0 4px 12px rgba(0,0,0,.25);touch-action:manipulation}
 #mDock.show{display:flex}
-#mDock button{border:0;background:transparent;color:#fff;font:inherit;cursor:pointer;min-width:40px;height:40px;border-radius:999px;display:grid;place-items:center;font-size:20px;padding:0}
-#mDock button:focus-visible{outline:3px solid #ffc93c;outline-offset:1px}
-#mDock .md-ex{display:none;align-items:center;gap:6px}
-#mDock.open .md-ex{display:flex}
-#mDock input[type=range]{width:min(42vw,170px);accent-color:#ffc93c;height:28px;margin:0}
-#mDock .md-pct{min-width:34px;text-align:right;font-size:12px;opacity:.9}
-#mDock .md-more{font-size:17px}
-#mDock .md-lbl{font-size:12px;padding-right:8px;display:none}
-#mDock.hint .md-lbl{display:inline}
+#mDock button{border:0;background:transparent;color:#fff;cursor:pointer;width:32px;height:32px;border-radius:999px;display:grid;place-items:center;font-size:16px;padding:0;line-height:1}
+#mDock button:focus-visible{outline:2px solid #ffc93c;outline-offset:1px}
+#mDock input[type=range]{display:none;width:96px;accent-color:#ffc93c;height:22px;margin:0 8px 0 2px}
+#mDock.open input[type=range]{display:block}
 html.sv-parent #mDock{display:none!important}
 html.sv-gated #mDock{bottom:calc(18px + env(safe-area-inset-bottom))}
 html.dsk #mDock{left:calc(var(--dsk-side) + 16px);bottom:78px}
-html.pz-playing #mDock:not(.open){opacity:.55}
 @media print{#mDock{display:none!important}}`;
   const st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
-  const d=document.createElement('div'); d.id='mDock'; d.setAttribute('role','group'); d.setAttribute('aria-label','Music controls');
-  d.innerHTML=`<button type="button" class="md-main" aria-label="Music controls" aria-expanded="false">🔊</button><span class="md-lbl">Music</span>
-<span class="md-ex"><button type="button" class="md-mute" aria-label="Mute music">🔇</button><input type="range" min="0" max="100" step="5" aria-label="Music volume"><span class="md-pct"></span><button type="button" class="md-more" aria-label="More sound settings">⚙️</button></span>`;
+  const d=document.createElement('div'); d.id='mDock'; d.setAttribute('role','group'); d.setAttribute('aria-label','Music');
+  d.innerHTML=`<button type="button" aria-label="Music volume">🔊</button><input type="range" min="0" max="100" step="5" aria-label="Music volume">`;
   document.body.appendChild(d);
-  const $=s=>d.querySelector(s), main=$('.md-main'), mute=$('.md-mute'), rng=$('input'), pct=$('.md-pct');
+  const btn=d.querySelector('button'), rng=d.querySelector('input');
   let closeT=0;
-  function icon(){ return !SND.on||SND.mv==0 ? '🔇' : SND.mv<40 ? '🔉' : '🔊'; }
+  const off=()=>!SND.on||SND.mv==0;
   function sync(){
-    main.textContent=icon();
-    const off=!SND.on||SND.mv==0;
-    mute.textContent=off?'🔈':'🔇'; mute.setAttribute('aria-label',off?'Unmute music':'Mute music');
-    rng.value=SND.mv; pct.textContent=(SND.on?SND.mv:0)+'%';
+    btn.textContent=off()?'🔇':SND.mv<40?'🔉':'🔊';
+    btn.setAttribute('aria-label', d.classList.contains('open') ? (off()?'Unmute music':'Mute music') : 'Music volume');
+    rng.value=SND.on?SND.mv:0;
   }
-  function open(on,auto){ d.classList.toggle('open',on); d.classList.remove('hint'); main.setAttribute('aria-expanded',on); clearTimeout(closeT); if(on) closeT=setTimeout(()=>open(false),auto?5000:8000); }
-  function show(){ if(parentMode()) return; if(!d.classList.contains('show')){ d.classList.add('show','hint'); sync(); open(true,true); } }
-  main.addEventListener('click',e=>{ e.stopPropagation(); open(!d.classList.contains('open')); });
-  mute.addEventListener('click',e=>{ e.stopPropagation();
-    if(SND.on && SND.mv==0){ SND.mv=40; saveSnd(); applyVol(); updateSndBtn(); }
-    else toggleMusic();
-    sync(); open(true); });
+  function open(on){ d.classList.toggle('open',on); clearTimeout(closeT); if(on) closeT=setTimeout(()=>open(false),4000); sync(); }
+  function show(){ if(parentMode()||d.classList.contains('show')) return; d.classList.add('show'); sync(); }
+  btn.addEventListener('click',e=>{ e.stopPropagation();
+    if(!d.classList.contains('open')) return open(true);
+    if(SND.on && SND.mv==0){ SND.mv=40; saveSnd(); applyVol(); updateSndBtn(); } else toggleMusic();
+    open(true); });
   rng.addEventListener('input',e=>{ e.stopPropagation(); const v=+rng.value;
     if(!SND.on && v>0){ SND.on=true; if(!SND.playing) startMusic(); }
     setVol('music',v); try{ const m=document.getElementById('musVol'); if(m) m.value=v; }catch(_){}
-    sync(); open(true); });
-  $('.md-more').addEventListener('click',e=>{ e.stopPropagation(); open(false); openSound(); });
-  // keep in step with the sound sheet and the header button
+    open(true); });
   const _u=updateSndBtn; updateSndBtn=function(){ _u(); sync(); };
   const _s=startMusic; startMusic=function(g){ _s(g); if(SND.playing) show(); };
   const _t=toggleMusic; toggleMusic=function(){ _t(); sync(); };
