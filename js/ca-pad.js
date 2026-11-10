@@ -565,7 +565,7 @@
   function view(p) {
     if (!p) return '';
     const sheets = p.sheets || (p.cols ? [{ name: 'Table', flat: { cols: p.cols, rows: p.rows } }] : []);
-    return sheets.map(s => `<div class="ca-pd-view"><b>${e_(s.title || s.name)}</b>${s.flat.account ? ` <span class="ca-note">${e_(s.flat.account)}</span>` : ''}<div class="ca-scroll" role="region" tabindex="0" aria-label="${e_(s.name)}"><table class="ca-t"><thead><tr>${s.flat.cols.map(c => `<th scope="col">${e_(c)}</th>`).join('')}</tr></thead><tbody>${s.flat.rows.map(r => `<tr>${r.map(x => `<td${/^[\d,().]+$/.test(String(x || '')) ? ' class="n"' : ''}>${e_(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${s.check ? `<p class="ca-pd-chk0 ${s.check.ok ? 'ok' : 'no'}">${e_(s.check.msg)}</p>` : ''}</div>`).join('');
+    return sheets.map(s => `<div class="ca-pd-view"><b>${e_(s.title || s.name)}</b>${s.flat.account ? ` <span class="ca-note">${e_(s.flat.account)}</span>` : ''}<div class="ca-scroll" role="region" tabindex="0" aria-label="${e_(s.name)}"><table class="ca-t"><thead><tr>${s.flat.cols.map(c => `<th scope="col">${e_(c)}</th>`).join('')}</tr></thead><tbody>${s.flat.rows.map(r => `<tr>${r.map(x => `<td${/^[\d,().]+$/.test(String(x || '')) ? ' class="n"' : ''}>${e_(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${s.check ? `<p class="ca-pd-chk0 ${s.check.ok ? 'ok' : 'no'}">${e_(String(s.check.msg).replace(/\s*Tap “Balance it” or check your entries\.?/, ' Check these entries.'))}</p>` : ''}</div>`).join('');
   }
 
   window.CaPad = { mount, view, suggest, titleCase, parseDate, parseAmt, inr, narr, TPL, byId, _compute: compute, _init: init };

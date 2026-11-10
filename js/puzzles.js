@@ -133,7 +133,7 @@
     } catch (e) { console.warn('puzzle terms', e); }
     return (TERMS[k] = t);
   }
-  const caNear = f => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 5; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 5) order.push(x); }); return order; };
+  const caNear = f => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 20; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 20) order.push(x); }); return order; };
 
   /* the student's current chapter: last topic studied (school) / last unit opened (CA) */
   async function curChapter() {
@@ -205,7 +205,7 @@
     try {
       const inf = await info(sp.sc); if (!inf) return null;
       let t = null;
-      if (CHAP.has(sp.t)) { if (sp.sc.k === 'q') return null; const tt = await terms(sp.sc); t = { own: tt.own, near: tt.near, groups: tt.groups }; }
+      if (CHAP.has(sp.t)) { if (sp.sc.k === 'q') return null; const tt = await terms(sp.sc); t = { own: tt.own, near: tt.near, groups: tt.groups, ca: !!tt.ca }; }
       const r = await gen('puzzleFor', [sp, t]);
       if (r && r.p && safe(sp.t, r.p)) res = { p: r.p, extra: Object.assign({}, r.extra || {}, { info: inf, lang: inf.lang || 'en' }) };
     } catch (e) { console.warn('puzzle build', e); res = null; }
@@ -214,7 +214,7 @@
   }
   const readyText = (t, b) => {
     const p = b.p;
-    if (t === 'xw') return `✓ ${p.entries.length} words from this chapter${p.entries.some(e => e.near) ? ' (a few ↗ from nearby chapters)' : ''}${p.giv ? ' · first letters given' : ''}`;
+    if (t === 'xw') { const nn = p.entries.filter(e => e.near).length; return `✓ ${p.entries.length - nn} words from this chapter${nn ? ` + ${nn} ↗ from nearby chapters` : ''}${p.giv ? ' · first letters given' : ''}`; }
     if (t === 'ws') return `✓ ${p.words.length} words to find in a ${p.n}×${p.n} grid`;
     if (t === 'an') return `✓ ${p.words.length} words to unscramble`;
     if (t === 'csdk') return `✓ ${p.n}×${p.n} with ${b.extra.set.items.length} chapter words`;
@@ -497,9 +497,43 @@
     if (sp.t === 'kak') return { easy: 12, medium: 16, hard: 20, expert: 25 }[p.diff] || 12;
     return sp.t === 'ws' ? 8 : 6;
   }
+  /* ---------- "How to play": 3–4 short steps per puzzle; open the first time a student plays that kind ---------- */
+  const HOW = {
+    xw: ind => [
+      `Tap a clue (or a box) to choose a word. The number in brackets is how many ${ind ? 'boxes' : 'letters'} it has — (5,4) means two words of 5 and 4.`,
+      `Words before a dot are the topic, e.g. <i>Feeling and what to do · Talk to someone you trust</i> → the answer fits that topic.`,
+      ind ? 'Tap a box, then tap the akshara below to fill it.' : 'Type the answer. Across words go left → right, Down words go top → bottom.',
+      'Crossing words share a box — use the letters you already know. Stuck? <b>✔ Check word</b> marks wrong boxes red; <b>💡 Reveal</b> fills one box. ↗ = word from a nearby chapter.'],
+    ws: ind => [
+      'Read the word list below the grid — every word is hidden in the grid.',
+      `Words run in a straight line: across, down or diagonally${ind ? '' : ', sometimes backwards'}.`,
+      `Tap the first ${ind ? 'box' : 'letter'} of a word, then the last ${ind ? 'box' : 'letter'}. A found word turns coloured and is ticked in the list.`],
+    an: ind => [
+      `The ${ind ? 'tiles' : 'letters'} of one key word are mixed up. Read the clue to know what the word is.`,
+      `Tap the ${ind ? 'tiles' : 'letters'} in the right order to spell it. <b>⌫ Undo</b> takes back the last one.`,
+      'Finish every word to solve the puzzle. Showing an answer costs stars.'],
+    sdk: () => [
+      'Fill every empty box with a number.',
+      'Each row, each column and each bold box must have every number exactly once — no repeats.',
+      'Look for a row, column or box with only one number missing and start there. <b>✏️ Pencil</b> lets you note possible numbers.'],
+    csdk: () => [
+      'Same rules as Sudoku, but with symbols — each symbol stands for one word from your chapter (see the key).',
+      'Each row, each column and each bold box must have every symbol exactly once.',
+      'Tap a box, then tap a symbol to place it. Start where only one symbol is missing.'],
+    kak: () => [
+      'A crossword with numbers. In a dark box, the number at the <b>top-right</b> is the total of the white boxes to its right; the number at the <b>bottom-left</b> is the total of the white boxes below it.',
+      'Use only the digits 1 to 9, and never repeat a digit inside one total.',
+      'Example: a total of 3 in two boxes can only be 1 + 2. Start with such small or large totals.']
+  };
+  function howHTML(st) {
+    const k = st && st.sp && (st.sp.t === 'ana' ? 'an' : st.sp.t), f = HOW[k]; if (!f) return '';
+    let seen = {}; try { seen = JSON.parse(localStorage.getItem('sv_pz_how') || '{}'); } catch (e) {}
+    const first = !seen[k]; if (first) { seen[k] = 1; try { localStorage.setItem('sv_pz_how', JSON.stringify(seen)); } catch (e) {} }
+    return `<details class="pz-how"${first ? ' open' : ''}><summary>❓ How to play</summary><ol>${f(!!st.indic).map(x => `<li>${x}</li>`).join('')}</ol></details>`;
+  }
   function header(st, title, sub) {
     const q = st.race ? '<button class="pz-x" id="pzQuit" aria-label="Leave the race">✕ Quit</button>' : '<button class="pz-x" id="pzQuit" aria-label="Leave puzzle (progress is saved)">← Puzzles</button>';
-    return `<p class="pz-live sr-only" aria-live="polite"></p><div class="pz-bar">${q}<b class="pz-title">${title}</b><span class="pz-time" role="timer" aria-label="Time">${fmtT(st.secs)}</span><span class="pz-prize" title="Stars for solving">⭐ <b>${st.pool}</b></span></div>${sub ? `<p class="pz-sub">${sub}</p>` : ''}`;
+    return `<p class="pz-live sr-only" aria-live="polite"></p><div class="pz-bar">${q}<b class="pz-title">${title}</b><span class="pz-time" role="timer" aria-label="Time">${fmtT(st.secs)}</span><span class="pz-prize" title="Stars for solving">⭐ <b>${st.pool}</b></span></div>${howHTML(st)}${sub ? `<p class="pz-sub">${sub}</p>` : ''}`;
   }
   function wireQuit(el, st) {
     $1('#pzQuit', el).onclick = () => {
@@ -581,7 +615,7 @@
     const focusCur = () => { const c = cellEl(cur); if (c && el.contains(D.activeElement) && D.activeElement !== c && D.activeElement.closest('#pzGrid')) c.focus({ preventScroll: true }); };
     const done = () => { for (let i = 0; i < N; i++) if (sol[i] !== '#' && u[i] !== sol[i]) return false; return true; };
     const filled = () => { for (let i = 0; i < N; i++) if (sol[i] !== '#' && !u[i]) return false; return true; };
-    const after = () => { persist(st); if (done()) { st.done = true; paint(); setTimeout(() => finish(st), 450); } else if (filled()) { T('All filled — but some boxes are not right yet'); S('hmm'); } };
+    const after = () => { persist(st); if (done()) { st.done = true; paint(); setTimeout(() => finish(st), 450); } else if (filled()) { T('All filled, but some boxes are wrong. Tap ✔ Check word on each word to find them.'); S('hmm'); } };
     const moveIn = (step) => { const k = entryAt(cur, dir), cs = cellsOf(k); let j = cs.indexOf(cur) + step; while (j >= 0 && j < cs.length && giv.has(cs[j]) && step > 0) j += step; if (j >= 0 && j < cs.length) cur = cs[j]; };
     const typeL = L => { if (st.done) return; if (!lock(cur)) { if (L !== sol[cur]) st.mistakes++; u[cur] = L; wrong.delete(cur); } S('tap'); moveIn(1); paint(); focusCur(); after(); };
     const backsp = () => { if (st.done) return; if (u[cur] && !lock(cur)) { u[cur] = ''; wrong.delete(cur); } else { moveIn(-1); if (!lock(cur)) { u[cur] = ''; wrong.delete(cur); } } paint(); focusCur(); persist(st); };
@@ -1038,6 +1072,7 @@
 .pz-bar{display:flex;align-items:center;gap:8px;color:#fff;margin:2px 0 4px}.pz-x{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:999px;padding:8px 12px;font:700 13px Nunito,sans-serif;cursor:pointer;min-height:36px}
 .pz-title{flex:1;font-family:'Baloo 2';font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pz-time,.pz-prize{background:rgba(255,255,255,.14);border-radius:999px;padding:5px 9px;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
 .pz-sub{color:#fff;opacity:.85;font-size:12.5px;margin:0 2px 6px}
+.pz-how{background:#fff;color:#1b1f3a;border-radius:14px;padding:8px 12px;margin:2px 0 8px;font-size:14px;line-height:1.45}.pz-how summary{cursor:pointer;font-weight:800;list-style:none}.pz-how summary::-webkit-details-marker{display:none}.pz-how summary::after{content:' ▾';opacity:.6}.pz-how:not([open]) summary::after{content:' ▸'}.pz-how ol{margin:6px 0 2px;padding-left:20px}.pz-how li{margin:4px 0}
 .pz-gridwrap{background:var(--card);border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);margin-bottom:8px;overflow-x:auto}
 .pz-row{display:flex}
 .pz-xgrid{display:flex;flex-direction:column;width:min(100%, calc(var(--w) * 34px));margin:0 auto}

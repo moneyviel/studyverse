@@ -360,8 +360,16 @@
     t = cap1(t);
     return t;
   }
+  /* a clue must read as a plain sentence: no formulas, symbols, shorthand notes (';' '|' '·' '→'), long number runs,
+     or "— names, names" example lists. Students must be able to work out the answer from the clue alone. */
+  const NOTE = /\s:\s|^case\s*:|\(e\.g|[;|·+→←↔↑↓≈≠≤≥√Σ∑∫∂ⁿ⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉^×÷=<>∝%₹$€£]|\s\/\s|\w\/\w|\u2212|\b[A-Za-z]\s*[\/*+]\s*[A-Za-z]\b|\d+\s*[%:\/]\s*\d+|\(\s*\d|\bsec(tion)?s?\.?\s*\d/i;
+  const FRAG = /^(it|this|these|those|they|that|always|never|lower|higher|both|either|same|see|also|only|usually|often|a vital|an important|a key|a major|a basic|an essential|the same|as above|as before|likewise|similarly|name the|add|write|count|multiply|express|put|take|use|find|check|look|draw|read|note|remember|letter positions|drawer writes)\b/i;
+  /* a bare list ("Prudence, substance over form, materiality") or a clue that is mostly brackets is not a definition */
+  const LISTY = c => { const parts = c.split(/,|\bor\b|\band\b/).map(x => x.trim()).filter(Boolean); const br = (c.match(/\([^)]*\)/g) || []).join('').length; return (parts.length >= 3 && parts.every(x => x.split(/\s+/).length <= 3)) || br > c.length * 0.3; };
+  const plainClue = c => !NOTE.test(c) && !FRAG.test(c) && !LISTY(c) && !/—[^—]*,[^—]*,/.test(c) && (c.match(/\d/g) || []).length <= 4 && (c.replace(/[^A-Za-z]/g, '').length / Math.max(1, c.replace(/\s/g, '').length)) > 0.8;
   function clueOK(ans, clue, o) {
     o = o || {};
+    if (!plainClue(clue)) return false;
     if (!clue || clue.length < 6 || clue.length > 150) return false;
     if (!/[a-z]/i.test(clue) || /[ऀ-ॿ]/.test(clue)) return false;
     if (BAD_CLUE.test(clue) || BAD_CAPS.test(clue)) return false;
@@ -369,16 +377,20 @@
     if (blanks > (o.blank ? 1 : 0)) return false;
     if (o.blank && blanks !== 1) return false;
     if (leaks(ans, clue)) return false;
-    if (clue.split(/\s+/).length < 2) return false;
+    if (clue.split(/\s+/).length < (o.minWords || 2)) return false;
     if (/^(which|choose|pick|select|identify|tick|circle|underline|fill|complete|rewrite|correct)\b/i.test(clue)) return false;
     if ((clue.match(/\(/g) || []).length !== (clue.match(/\)/g) || []).length) return false;
     return true;
   }
+  const NOT_A_THING = /(ED|ING)$|^(VERTICAL|HORIZONTAL|STATEMENT|BALANCE|BASIS|MIXED|FAVOURABLE|UNFAVOURABLE|HALF|QUARTER|DOUBLE|TWICE|FIRST|SECOND|THIRD|FOURTH|FIFTH|SIXTH|SEVENTH|EIGHTH|NINTH|TENTH|ZERO|UNITY|INFINITE|POSITIVE|NEGATIVE|CONSTANT|INDEPENDENT|DEPENDENT|ELASTIC|INELASTIC|PERFECTLY|RELATIVELY|UNITARY|VOID|VOIDABLE|VALID|ILLEGAL|LEGAL|NORMAL|INFERIOR|SUPERIOR|EQUAL|UNEQUAL|SAME|DIFFERENT|DIRECT|INDIRECT|REAL|NOMINAL)$/;
+  const GRAMMAR = new Set(['WERE', 'WAS', 'HAVE', 'HAS', 'HAD', 'WILL', 'SHALL', 'WOULD', 'COULD', 'SHOULD', 'MIGHT', 'MUST', 'CAN', 'MAY', 'DOES', 'DID', 'BEEN', 'BEING', 'THEIR', 'THERE', 'THEY', 'THEM', 'THEN', 'THAN', 'THAT', 'THIS', 'THESE', 'THOSE', 'WHICH', 'WHO', 'WHOM', 'WHOSE', 'WHAT', 'WHEN', 'WHERE', 'WHY', 'HOW', 'HER', 'HIS', 'HIM', 'SHE', 'OUR', 'YOUR', 'ITS', 'YOU', 'WITH', 'FROM', 'INTO', 'ONTO', 'UPON', 'OVER', 'UNDER', 'SINCE', 'UNTIL', 'WHILE', 'BUT', 'YET', 'VERY', 'TOO', 'ALSO', 'JUST', 'EVEN', 'MUCH', 'MOST', 'FEW', 'EACH', 'EVERY']);
   const PRI = { def: 6, match: 5, quickref: 5, key: 5, fill: 4, speed: 3, mcq: 3, quiz: 3, point: 2 };
   function cand(raw, clue, src, extra) {
     const ans = normAnswer(raw); if (!ans) return null;
+    if (GRAMMAR.has(ans.a)) return null;
+    if ((src === 'mcq' || src === 'fill' || src === 'quiz' || src === 'speed') && (NOT_A_THING.test(ans.a) || (ans.words.length > 1 && /^(LESS|MORE|HIGHER|LOWER|GREATER|SMALLER|LARGER|BIGGER|NO|NOT|ONE|TWO|THREE|FOUR|HALF|VERY)$/.test(ans.words[0])) || String(clue).length > 118 || (/\b(the two|the three|the given|the above|this|these|requested by)\b/i.test(String(clue)) || /\b[A-Z]'s\b|\b[A-Z]\b(?! ?[A-Z])/.test(String(clue).replace(/^(A|I)\b/, ''))))) return null;
     const c = cleanClue(clue);
-    if (!clueOK(ans, c, { blank: src === 'fill' || (extra && extra.blank) })) return null;
+    if (!clueOK(ans, c, { blank: src === 'fill' || (extra && extra.blank), minWords: src === 'quickref' || src === 'def' ? 5 : 2 })) return null;
     return Object.assign({ a: ans.a, disp: ans.disp, enum: ans.enum, clue: c, src, pri: PRI[src] || 1 }, extra || {});
   }
   /* "Term = definition", "Term: definition", "Term — definition", "Term means definition".
@@ -507,6 +519,12 @@
       if (!u) return; const uid = u.id;
       const text = JSON.stringify([u.concepts || [], (u.mcqs || []).map(q => [q.q, q.explain]), u.revision || {}]).toLowerCase();
       const known = k => text.includes(k.toLowerCase());
+      /* the unit's own vocabulary: MCQ options, quick-reference keys and concept titles — a lesson sentence "X: …" or "X is …"
+         is only used when X is one of these real terms (not a heading such as "Exception" or "Disadvantage") */
+      const vocab = new Set(); const addV = x => { const k = String(x || '').toLowerCase().replace(/\s*\(.*$/, '').replace(/[^a-z\- ']/g, '').trim(); if (k) { vocab.add(k); vocab.add(k.replace(/s$/, '')); } };
+      (u.mcqs || []).forEach(q => (q && q.options || []).forEach(addV)); (u.quickref || []).forEach(q => addV(q && q.k));
+      (u.concepts || []).forEach(c => String(c && c.title || '').split(/,|;|\band\b|\bvs\.?\b|\bversus\b|[—–:]/).forEach(addV));
+      const isTerm = t => { const k = String(t).toLowerCase().trim(); return k.split(/\s+/).length > 1 ? vocab.has(k) || vocab.has(k.replace(/s$/, '')) : (vocab.has(k) || vocab.has(k.replace(/s$/, ''))) && k.length >= 5; };
       (u.quickref || []).forEach(q => {
         if (!q) return; const k = String(q.k || ''), v = String(q.v || '');
         const nk = normAnswer(k);
@@ -516,8 +534,31 @@
       const mcq = q => { if (q && Array.isArray(q.options) && DEF_Q.test(q.q || '')) push(cand(q.options[q.answer], q.q, 'mcq', { uid, blank: /___/.test(q.q) })); };
       (u.mcqs || []).forEach(mcq);
       (u.cases || []).forEach(c => (c && c.mcqs || []).forEach(mcq));
-      (u.concepts || []).forEach(c => (c && Array.isArray(c.body) ? c.body : []).forEach(b => sentences(b).forEach(sn => { const d = isSplit(sn) || meansSplit(sn); if (d) push(cand(d[0], d[1], 'def', { uid })); })));
-      /* revision lines are condensed notes ("Recession: increase G") — not reliable definitions, so they are not used */
+      /* lesson sentences: "Term is a …", "Term means …" and "Term: plain definition." (the part before a dash or a semicolon) */
+      const trim = d => { d = String(d).replace(/\.$/, '').split(/\s+[—–]\s+|;\s/)[0]; if (d.length > 110) { const cut = d.slice(0, 110), k = cut.lastIndexOf(','); d = k > 40 ? cut.slice(0, k) : ''; } return d && d.split(/\s+/).length >= 4 ? cap1(d) : ''; };
+      (u.concepts || []).forEach(c => (c && Array.isArray(c.body) ? c.body : []).forEach(b => sentences(b).forEach(sn => {
+        const d = isSplit(sn) || meansSplit(sn) || defSplit(sn.split(/\s+[—–]\s+/)[0]); if (d && isTerm(d[0])) { const cl = trim(d[1]); if (cl) push(cand(d[0], cl, 'def', { uid })); } })));
+      /* a concept's own title + the opening definition of its body: "Contingent liability" ← "A contingent liability is (a) a
+         possible obligation, arising out of past events, …" → "A possible obligation, arising out of past events" */
+      (u.concepts || []).forEach(c => {
+        if (!c || !c.title || !Array.isArray(c.body) || !c.body.length) return;
+        const t = String(c.title).replace(/\s*\(.*$/, '').trim(); if (VAGUE.test(t) || /\b(vs|versus|and|or|of|in|on|for)\b/i.test(t)) return;
+        const first = sentences(c.body[0])[0] || '', esc = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const m = new RegExp('^\\s*(?:(?:a|an|the)\\s+)?' + esc + 's?\\s+(?:is|are|means|refers to|is defined as)\\s+(?:\\([a-z]\\)\\s*)?(.+)$', 'i').exec(first);
+        if (!m) return;
+        let d = m[1].replace(/\.$/, '').split(/\s+[—–]\s+|;\s|\s\((?:e\.g|i\.e|for example)/i)[0];
+        if (d.length > 110) { const cut = d.slice(0, 110), k = cut.lastIndexOf(','); d = k > 40 ? cut.slice(0, k) : ''; }
+        if (d && d.split(/\s+/).length >= 4) push(cand(t, cap1(d), 'def', { uid }));
+      });
+      /* revision summary lines "Term: definition. More notes." — only for real unit terms, first clause only; a word of the
+         answer that the definition repeats ("Contingent asset: possible asset …") is hidden as "…" so it gives nothing away */
+      ((u.revision && u.revision.summary) || []).forEach(line => {
+        const m = /^\s*([A-Za-z][A-Za-z '\-]{2,40}?)\s*:\s*(.+)$/.exec(String(line || '')); if (!m || !isTerm(m[1]) || VAGUE.test(m[1])) return;
+        const ans = normAnswer(m[1]); if (!ans) return;
+        let d = trim(sentences(m[2])[0] || ''); if (!d) return;
+        ans.words.filter(w => w.length >= 4).forEach(w => { d = d.replace(new RegExp('\\b' + w.slice(0, Math.max(4, w.length - 2)) + '[a-z]*\\b', 'gi'), '…'); });
+        if ((d.match(/…/g) || []).length <= 1 && d.replace(/…/g, '').split(/\s+/).filter(Boolean).length >= 4) push(cand(m[1], cap1(d), 'def', { uid }));
+      });
       /* viva key points are short marking notes in context, not stand-alone definitions — not used */
     });
     (keyItems || []).forEach(it => {
@@ -529,7 +570,6 @@
       else if (normAnswer(t)) {
         const m = new RegExp('^\\s*(?:(?:a|an|the)\\s+)?' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s+(?:is|are|means)\\s+(.+)$', 'i').exec(first);
         if (m) push(cand(t, cap1(m[1].replace(/\.$/, '')), 'key', { kid: it.id }));
-        if (it.f && String(it.f).length <= 90) push(cand(t, 'Formula: ' + it.f, 'key', { kid: it.id }));
       }
     });
     return rank(out);
@@ -844,7 +884,8 @@
     const wsW = (t && t.own || []).filter(x => unitsOf(x).length >= (ind ? 2 : 3) && unitsOf(x).length <= WS_DIFF[sc].hard[0]);
     const anW = own.filter(x => unitsOf(x).length >= (ind ? 2 : 3) && unitsOf(x).length <= 12 && new Set(unitsOf(x)).size >= 2);
     return {
-      xw: { ok: own.length >= XW_MIN_OWN[sc] && (ind || own.length + (t.near || []).filter(x => x.clue).length >= 8), n: own.length },
+      /* CA chapters have few stand-alone definitions: their crossword may be filled with the same paper's words (shown ↗) */
+      xw: { ok: (own.length >= XW_MIN_OWN[sc] || (!ind && own.length >= (t && t.ca ? 0 : 3) && own.length + (t.near || []).filter(x => x.clue).length >= 12)) && (ind || own.length + (t.near || []).filter(x => x.clue).length >= 8), n: own.length },
       ws: { ok: wsW.length >= 4, n: wsW.length },
       an: { ok: anW.length >= 3, n: anW.length },
       csdk: { ok: !!(conceptSet(t && t.groups, 4, 'x', true) || conceptSet(t && t.groups, 4, 'x')), n: 0 } };
@@ -935,7 +976,7 @@
     for (const p of (structure && structure.papers) || []) { const i = p.chapters.findIndex(c => c.id === ch); if (i >= 0) return { p, c: p.chapters[i], i }; }
     return null;
   }
-  const caNearOrder = (f) => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 5; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 5) order.push(x); }); return order; };
+  const caNearOrder = (f) => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 20; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 20) order.push(x); }); return order; };
   function termsFromCA(content, ch) {
     content = content || {};
     const f = caFind(content.structure, ch); if (!f) return { own: [], near: [], groups: [] };
@@ -945,8 +986,8 @@
     const keys = c => items.filter(it => c.units.some(u => u.id === it.u));
     const units = cUnits(f.c), own = termsCA(units, keys(f.c)), groups = [], near = [];
     units.forEach(u => groups.push({ title: u.title, items: (u.quickref || []).filter(q => /^[A-Za-z][A-Za-z '\-]*$/.test(String(q.k || '').trim())).map(q => ({ label: String(q.k).trim(), info: String(q.v || '') })) }));
-    if (own.length < 20) for (const x of caNearOrder(f)) near.push(...termsCA(cUnits(f.p.chapters[x]), keys(f.p.chapters[x])));
-    return { own, near, groups };
+    if (own.length < 20) for (const x of caNearOrder(f)) near.push(...termsCA(cUnits(f.p.chapters[x]), keys(f.p.chapters[x])));   // nearest chapters first
+    return { own, near, groups, ca: true };
   }
   const caLevel = ch => ({ fnd: 'foundation', int: 'inter', fin: 'final' })[String(ch).split('-')[0]] || 'foundation';
   /* the content files a spec needs (relative to the app root). CA: call once without the structure, then again with
