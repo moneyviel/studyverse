@@ -268,7 +268,7 @@ html.dsk #mDock{left:calc(var(--dsk-side) + 16px);bottom:78px}
     rng.value=SND.on?SND.mv:0;
   }
   function open(on){ d.classList.toggle('open',on); clearTimeout(closeT); if(on) closeT=setTimeout(()=>open(false),4000); sync(); }
-  function show(){ if(parentMode()||d.classList.contains('show')) return; d.classList.add('show'); sync(); }
+  function show(){ if(d.classList.contains('show')) return; d.classList.add('show'); sync(); }
   btn.addEventListener('click',e=>{ e.stopPropagation();
     if(!d.classList.contains('open')) return open(true);
     if(SND.on && SND.mv==0){ SND.mv=40; saveSnd(); applyVol(); updateSndBtn(); } else toggleMusic();
@@ -280,5 +280,5 @@ html.dsk #mDock{left:calc(var(--dsk-side) + 16px);bottom:78px}
   const _u=updateSndBtn; updateSndBtn=function(){ _u(); sync(); };
   const _s=startMusic; startMusic=function(g){ _s(g); if(SND.playing) show(); };
   const _t=toggleMusic; toggleMusic=function(){ _t(); sync(); };
-  if(SND.playing) show();
+  show();   // visible from the moment the page opens (the first tap anywhere, including on it, starts the music)
 })();
