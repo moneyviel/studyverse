@@ -203,7 +203,7 @@
   async function tricks(focus, grp) {
     const el = X.open('practice'); const ft = focus && trickById(focus); grp = grp || 'all';
     let st = null; try { st = await X.structure('foundation'); } catch (e) {}
-    const chName = {}, chUnit = {}; if (st) st.papers.forEach(p => p.chapters.forEach(ch => { chName[ch.id] = `${X.paperLabel(p).replace('Paper ', 'P')} Ch ${ch.n}: ${ch.title}`; const u = ch.units.find(u => u.status === 'built'); if (u) chUnit[ch.id] = u.id; }));
+    const chName = {}, chUnit = {}; if (st) st.papers.forEach(p => p.chapters.forEach(ch => { chName[ch.id] = `${X.paperLabel(p)} Ch ${ch.n}: ${ch.title}`; const u = ch.units.find(u => u.status === 'built'); if (u) chUnit[ch.id] = u.id; }));
     const list = TRICKS.filter(t => grp === 'all' || t.s === grp);
     el.innerHTML = ''; el.appendChild(backBtn('Practice', toHub));
     el.insertAdjacentHTML('beforeend', `<h1 class="ca-h1 ca-onDark">💡 Shortcut tricks</h1>

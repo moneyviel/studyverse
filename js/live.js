@@ -285,7 +285,7 @@
   function enter(code) {
     if (L.code && L.code !== code) exit();
     const s = openScreen(); L.view = 'room';
-    if (L.code !== code) { L.code = code; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; L.myAns = {}; L.rev = new Map(); }
+    if (L.code !== code) { L.code = code; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; L.myAns = {}; L.rev = new Map(); L.scope = null; L.scOpen = new Set(); }
     lset('sv_live_room', { code, at: Date.now() });
     if (!L.st) s.innerHTML = `<div class="lv-root"><div class="card"><p class="sub">Opening room ${E(code)}…</p></div></div>`;
     else { L.sig = ''; L.stageSig = ''; L.sb = null; render(); }
@@ -344,6 +344,7 @@
           <p class="lv-mut">Friends can also type the code in Game Rooms.</p></div>
         <div class="card"><h2 class="lv-h2">${GAMES[r.game].e} ${GAMES[r.game].n}</h2><p class="sub">${r.game === 'puzzle' ? `${MODES[r.mode][0]} · ${r.rounds} min time limit · same puzzle for everyone` : `${MODES[r.mode][0]} · ${r.game === 'snakes' ? 'until someone reaches 100' : `${r.rounds} questions`} · ${r.turn_secs} s each · ${(LEVELS.find(([v]) => v === (r.level || 'mixed')) || LEVELS[0])[1]} questions`}</p>
           ${r.game === 'puzzle' ? pzLobbyHTML(r, H) : ''}
+          ${H && r.game !== 'puzzle' ? '<div id="lvScopeH"></div>' : ''}
           ${H ? `<details class="lv-set"><summary>${L.focusCode === r.code ? 'Change settings' : 'Change game'}</summary><div id="lvPickL">${pickerHTML(normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level, focus: L.focusCode === r.code, pzKind: L.focusCode === r.code ? L.pzKind : null }), 'lvPick2')}</div></details>` : `<p class="lv-mut">${E(GAMES[r.game].d)}</p>`}</div>
         <div class="card"><h2 class="lv-h2">Players <small>(${ps.length}/${max})</small></h2>${list}</div>
         <div class="lv-actions">${H ? `<button class="btn" id="lvStart" ${why ? 'aria-disabled="true"' : ''}>▶ Start game</button><p class="lv-hint" id="lvHint" role="status">${E(why || 'Everyone is ready!')}</p>`
@@ -363,6 +364,7 @@
     const tb = $('#lvTeam'); if (tb) tb.onclick = async () => { try { await rpc('set_team', { p_code: r.code, p_team: me && me.team === 0 ? 1 : 0 }); S('tap'); synced(); } catch (e) {} };
     const rd = $('#lvReady'); if (rd) rd.onclick = async () => { rd.disabled = true; try { await rpc('set_ready', { p_code: r.code, p_ready: !(me && me.ready) }); S('tap'); synced(); } catch (e) { say('No connection.'); } finally { rd.disabled = false; } };
     const sb = $('#lvStart'); if (sb) sb.onclick = start;
+    if (H && r.game !== 'puzzle') renderScope(st);
     root.querySelectorAll('[data-pzk]').forEach(b => b.onclick = () => { S('tap'); pickPuzzle(b.dataset.pzk); });
     const pk = D.getElementById('lvPick2');
     if (pk) { const d = normDraft({ game: r.game, mode: r.mode, rounds: r.rounds, secs: r.turn_secs, level: r.level });
@@ -370,6 +372,81 @@
         try { const j = await rpc('update_room', { p_code: r.code, p_game: d.game, p_mode: d.mode, p_rounds: d.game === 'duel' ? 10 : d.rounds, p_turn_secs: d.game === 'duel' ? 72 : d.secs, p_level: d.level || 'mixed' });
           if (j && !j.ok) say(errText(j)); L.sig = ''; synced(); setTimeout(() => { const det = D.querySelector('.lv-set'); if (det) det.open = true; }, 400); } catch (e) { say('No connection.'); }
       }); }
+  }
+  /* ---------- "Questions from": all, or chosen subjects / chapters / topics (CA: papers / chapters / units) ----------
+     The host's phone picks the questions when the game starts, so the choice lives here (L.scope) and needs no server
+     change. It applies to every player of the host's class (or CA level); players of other classes get their own
+     subjects as usual. T = { a: true | { b: true | [c, …] } }   a = subject id / paper id, b = chapter, c = topic / unit. */
+  const scBase = c => { let m = /^school-g(\d+)/.exec(c || ''); if (m) return { kind: 's', g: +m[1] }; m = /^ca-([a-z]+)$/.exec(c || ''); return m ? { kind: 'c', level: m[1] } : null; };
+  const scSame = (b, c) => { const x = scBase(c); return !!(b && x && x.kind === b.kind && (b.kind === 's' ? x.g === b.g : x.level === b.level)); };
+  const scAll = T => !T || !Object.keys(T).length;
+  function scOK(T, a, b, c) { if (scAll(T)) return true; const v = T[a]; if (v === true) return true; if (!v) return false; const w = v[b]; return w === true || (Array.isArray(w) && w.includes(c)); }
+  /* the tree, loaded as the host opens it: level 1 at once, chapters and topics when a subject is opened */
+  async function scKids(base, path) {
+    L.scTree = L.scTree || {}; const key = JSON.stringify([base, path]); if (L.scTree[key]) return L.scTree[key];
+    let out = [];
+    if (base.kind === 's') {
+      if (!path.length) out = (curSubjects(base.g) || []).map(x => ({ id: x.id, n: `${((window.Worlds && Worlds.SUBJECT_STYLE && Worlds.SUBJECT_STYLE[x.id]) || { e: '📘' }).e} ${x.name || cap(x.id)}` }));
+      else { const d = await subjectData(base.g, path[0]).catch(() => null); const chs = (d && d.chapters) || [];
+        out = path.length === 1 ? chs.map((c, i) => ({ id: i, n: c.title || `Chapter ${i + 1}` })) : (((chs[path[1]] || {}).topics) || []).map((t, i) => ({ id: i, n: t.title || `Topic ${i + 1}` })); }
+    } else {
+      const X = window.Ca && Ca._; let st = null; try { st = X && await X.structure(base.level); } catch (e) {}
+      const P = (st && st.papers) || [];
+      if (!path.length) out = P.map(p => ({ id: p.id, n: `📘 ${p.name}` }));
+      else { const p = P.find(x => x.id === path[0]) || { chapters: [] };
+        if (path.length === 1) out = p.chapters.filter(c => c.units.some(u => u.status === 'built')).map(c => ({ id: c.id, n: `Ch ${c.n} · ${c.title}` }));
+        else { const c = p.chapters.find(x => x.id === path[1]) || { units: [] }; out = c.units.filter(u => u.status === 'built').map(u => ({ id: u.id, n: u.implicit ? 'Whole chapter' : u.title })); } }
+    }
+    return (L.scTree[key] = out);
+  }
+  const scState = (T, a, b, c) => { const v = T[a]; if (b === undefined) return v === true ? 1 : v ? .5 : 0;
+    if (v === true || (v && v[b] === true)) return 1; if (c === undefined) return v && Array.isArray(v[b]) && v[b].length ? .5 : 0;
+    return v && Array.isArray(v[b]) && v[b].includes(c) ? 1 : 0; };
+  async function scToggle(base, T, a, b, c) {
+    if (b === undefined) { if (T[a]) delete T[a]; else T[a] = true; return; }
+    const kids2 = (await scKids(base, [a])).map(x => x.id);
+    let o = T[a] === true ? Object.fromEntries(kids2.map(k => [k, true])) : (T[a] || {});
+    if (c === undefined) { if (o[b]) delete o[b]; else o[b] = true; }
+    else { const kids3 = (await scKids(base, [a, b])).map(x => x.id);
+      let arr = o[b] === true ? kids3.slice() : Array.isArray(o[b]) ? o[b].slice() : [];
+      arr = arr.includes(c) ? arr.filter(x => x !== c) : arr.concat([c]);
+      if (arr.length === kids3.length) o[b] = true; else if (!arr.length) delete o[b]; else o[b] = arr; }
+    if (kids2.length && kids2.every(k => o[k] === true)) T[a] = true; else if (!Object.keys(o).length) delete T[a]; else T[a] = o;
+  }
+  function scSummary(base, T) {
+    const top = (L.scTree || {})[JSON.stringify([base, []])] || [], nm = id => ((top.find(x => x.id === id) || {}).n || String(id)).replace(/^\S+\s/, '');
+    if (scAll(T)) return base.kind === 's' ? 'All subjects' : 'All papers';
+    const parts = Object.keys(T).map(a => { const v = T[a]; if (v === true) return nm(a); const k = Object.keys(v).length; return `${nm(a)} (${k} chapter${k > 1 ? 's' : ''}${Object.values(v).some(Array.isArray) ? ', some topics' : ''})`; });
+    return parts.length > 3 ? parts.slice(0, 3).join(', ') + ` +${parts.length - 3} more` : parts.join(', ');
+  }
+  async function renderScope(st) {
+    const box = D.getElementById('lvScopeH'); if (!box) return;
+    const me = meP(), base = scBase(me && me.course); if (!base) { box.innerHTML = ''; return; }
+    if (!L.scope || !scSame(L.scope.base, me.course)) L.scope = { base, T: {} };
+    const T = L.scope.T, open = L.scOpen || (L.scOpen = new Set());
+    const lvl1 = await scKids(base, []);
+    const node = async (path, item) => {
+      const [a, b] = path, k = JSON.stringify(path.concat([item.id])), depth = path.length;
+      const stt = depth === 0 ? scState(T, item.id) : depth === 1 ? scState(T, a, item.id) : scState(T, a, b, item.id);
+      const canOpen = depth < 2, isOpen = canOpen && open.has(k);
+      let kids = '';
+      if (isOpen) { const ch = await scKids(base, path.concat([item.id])); kids = `<ul class="lv-sc-ul">${(await Promise.all(ch.map(x => node(path.concat([item.id]), x)))).join('') || '<li class="lv-mut">Nothing here yet</li>'}</ul>`; }
+      return `<li class="lv-sc-li d${depth}"><div class="lv-sc-row"><label class="lv-sc-lab"><input type="checkbox" data-scp='${E(JSON.stringify(path.concat([item.id])))}' ${stt === 1 ? 'checked' : ''} ${stt === .5 ? 'data-mixed="1"' : ''}><span>${E(item.n)}</span></label>
+        ${canOpen ? `<button type="button" class="lv-sc-x" data-scx='${E(k)}' aria-expanded="${isOpen}" aria-label="${isOpen ? 'Hide' : 'Show'} ${depth ? 'topics' : 'chapters'} of ${E(item.n)}">${isOpen ? '▾' : '▸'} ${depth ? (base.kind === 's' ? 'Topics' : 'Units') : 'Chapters'}</button>` : ''}</div>${kids}</li>`;
+    };
+    const mixed = (L.st && L.st.players || []).some(p => !p.left && !scSame(base, p.course));
+    const was = box.querySelector('details'), keepOpen = was ? was.open : !!L.scDet;
+    box.innerHTML = `<details class="lv-scope"${keepOpen ? ' open' : ''}><summary>📚 Questions from: <b>${E(scSummary(base, T))}</b></summary>
+      <p class="lv-mut">Tick whole ${base.kind === 's' ? 'subjects' : 'papers'}, or open one to pick chapters and ${base.kind === 's' ? 'topics' : 'units'}.</p>
+      <button type="button" class="lv-sc-all${scAll(T) ? ' on' : ''}" id="lvScAll" aria-pressed="${scAll(T)}">✓ All ${base.kind === 's' ? 'subjects' : 'papers'}</button>
+      <ul class="lv-sc-ul top">${(await Promise.all(lvl1.map(x => node([], x)))).join('')}</ul>
+      ${mixed ? `<p class="lv-mut">Players from other classes get questions from their own subjects.</p>` : ''}</details>`;
+    box.querySelector('details').addEventListener('toggle', e => { L.scDet = e.target.open; });
+    box.querySelectorAll('input[data-mixed]').forEach(i => { i.indeterminate = true; });
+    const again = () => { S('tap'); renderScope(L.st || st); };
+    box.querySelector('#lvScAll').onclick = () => { L.scope.T = {}; again(); };
+    box.querySelectorAll('[data-scx]').forEach(b => b.onclick = () => { const k = b.dataset.scx; if (open.has(k)) open.delete(k); else open.add(k); again(); });
+    box.querySelectorAll('[data-scp]').forEach(i => i.onchange = async () => { const p = JSON.parse(i.dataset.scp); await scToggle(base, T, p[0], p[1], p[2]); again(); });
   }
   function startProblem(st) {
     const r = st.room, ps = st.players.filter(p => !p.left);
@@ -394,6 +471,8 @@
         S('unlock'); L.qs = null; synced(); return;
       }
       const qs = await pickQuestions(L.st);
+      const myC = meP() && meP().course, needN = L.st.room.game === 'snakes' ? 5 : +L.st.room.rounds;
+      if (L.scope && !scAll(L.scope.T) && qs[myC] && qs[myC].length < needN) { hint.textContent = `Your choice has only ${qs[myC].length} question${qs[myC].length === 1 ? '' : 's'}. Pick more chapters or topics, or set fewer questions (Change game).`; S('hmm'); return; }
       const j = await rpc('start_game', { p_code: L.code, p_questions: qs });
       if (!j || !j.ok) { hint.textContent = j && j.code === 'need_questions' ? `We could not find enough questions for ${(j.need || []).map(courseName).join(', ')} yet. Try another game, or fewer questions.` : errText(j); S('hmm'); return; }
       S('unlock'); L.qs = null; synced();
@@ -422,32 +501,34 @@
     const s = list.map(q => [score(q), q]).sort((a, b) => a[0] - b[0]), n = s.length, a = Math.floor(n / 3), b = Math.floor(2 * n / 3);
     return (lvl === 'easy' ? s.slice(0, a) : lvl === 'moderate' ? s.slice(a, b) : s.slice(b)).map(x => x[1]);
   }
-  async function schoolPool(g, stream, need, only, lvl) {
+  async function schoolPool(g, stream, need, only, lvl, T) {
     let subs = []; try { subs = (CUR && CUR.grades && CUR.grades[g] && CUR.grades[g].subjects) || []; } catch (e) {}
     if (!subs.length) { try { const cu = await loadJSON('content/curriculum.json'); subs = (cu.grades && cu.grades[g] && cu.grades[g].subjects) || []; } catch (e) {} }
     if (only) subs = subs.filter(s => only.includes(s.id));          // exactly the subjects this player studies
+    if (!scAll(T)) { const f = subs.filter(s => T[s.id]); if (f.length) subs = f; else T = null; }   // the host's choice (if this player studies any of it)
     else if (stream && STREAM_SUBJ[stream]) { const f = subs.filter(s => STREAM_SUBJ[stream].includes(s.id)); if (f.length) subs = f; }
     const mine = ST.profile && +ST.profile.grade === g && ST.profile.course !== 'ca';
     const pickN = mine ? 4 : 3;
-    const chosen = shuffle(subs).slice(0, pickN);
+    const chosen = scAll(T) ? shuffle(subs).slice(0, pickN) : subs;
     const datas = await Promise.all(chosen.map(s => Promise.resolve(subjectData(g, s.id)).catch(() => null)));
     const by = [];
     datas.forEach((d, i) => {
       if (!d || !Array.isArray(d.chapters)) return; const s = chosen[i], st = (window.Worlds && Worlds.SUBJECT_STYLE && Worlds.SUBJECT_STYLE[s.id]) || { e: '📘' }; const L2 = [];
-      d.chapters.forEach(c => (c.topics || []).forEach(t => (t.quiz || []).forEach(q => { if (okQ(q) && fit(q)) L2.push({ _d: qScore(q), q: q.q, o: q.options, a: q.answer, s: `${st.e} ${s.name || cap(s.id)} · ${c.title} · ${t.title}`.slice(0, 118), x: String(q.explain || '').slice(0, 580) }); })));
+      d.chapters.forEach((c, ci) => (c.topics || []).forEach((t, ti) => { if (!scOK(T, s.id, ci, ti)) return; (t.quiz || []).forEach(q => { if (okQ(q) && fit(q)) L2.push({ _d: qScore(q), q: q.q, o: q.options, a: q.answer, s: `${st.e} ${s.name || cap(s.id)} · ${c.title} · ${t.title}`.slice(0, 118), x: String(q.explain || '').slice(0, 580) }); }); }));
       const L3 = byLevel(L2, lvl, x => x._d).map(x => { delete x._d; return x; }); if (L3.length) by.push(shuffle(L3));
     });
     return spread(by, need);
   }
   function spread(lists, need) { const out = []; while (out.length < need && lists.some(l => l.length)) for (const l of lists) if (l.length && out.length < need) out.push(l.pop()); return out; }
-  async function caPool(level, game, need, lvl) {
+  async function caPool(level, game, need, lvl, T) {
     const want = { easy: 'core', moderate: 'moderate', hard: 'hard' }[lvl] || null;
     const X = window.Ca && Ca._; if (!X) return [];
     let st; try { st = await X.structure(level); } catch (e) { return []; }
     const units = []; st.papers.forEach(p => p.chapters.forEach(c => c.units.forEach(u => units.push({ p, c, u }))));
     let pool = units.filter(x => x.u.status === 'built');
-    if (game === 'duel') { const obj = pool.filter(x => /-p[34]-/.test(x.u.id)); if (obj.length >= 4) pool = obj; }
-    const chosen = shuffle(pool).slice(0, 8), by = [];
+    if (!scAll(T)) { const f = pool.filter(x => scOK(T, x.p.id, x.c.id, x.u.id)); if (f.length) pool = f; else T = null; }   // the host's choice
+    if (game === 'duel' && scAll(T)) { const obj = pool.filter(x => /-p[34]-/.test(x.u.id)); if (obj.length >= 4) pool = obj; }
+    const chosen = shuffle(pool).slice(0, scAll(T) ? 8 : 24), by = [];
     const bad = window.Arcade && Arcade.BAD_OPT;
     for (const x of chosen) {
       let d = null; try { d = await X.unitData(x.u.id); } catch (e) {}
@@ -455,7 +536,7 @@
         .map(q => ({ q: q.q, o: q.options, a: q.answer, s: `${X.paperLabel ? X.paperLabel(x.p) : (x.p.title || x.p.id)} · ${x.c.title || ''} · ${x.u.title}`.replace(' ·  · ', ' · ').slice(0, 118), x: String(q.explain || '').slice(0, 580) }));
       if (L2.length) by.push(shuffle(L2));
     }
-    if (want && by.reduce((t, l) => t + l.length, 0) < Math.min(need, 10)) return caPool(level, game, need, 'mixed');   // too few at this level: mix
+    if (want && by.reduce((t, l) => t + l.length, 0) < Math.min(need, 10)) return caPool(level, game, need, 'mixed', T);   // too few at this level: mix
     return spread(by, need);
   }
   async function pickQuestions(st) {
@@ -464,8 +545,9 @@
     for (const c of courses) {
       let m, list = [];
       try {
-        if ((m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m([0-9a-f]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need, m[3] ? maskIds(m[3]) : null, lvl);
-        else if ((m = /^ca-([a-z]+)$/.exec(c))) list = await caPool(m[1], r.game, need, lvl);
+        const T = L.scope && scSame(L.scope.base, c) ? JSON.parse(JSON.stringify(L.scope.T)) : null;   // the host's "Questions from" choice
+        if ((m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m([0-9a-f]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need, m[3] ? maskIds(m[3]) : null, lvl, T);
+        else if ((m = /^ca-([a-z]+)$/.exec(c))) list = await caPool(m[1], r.game, need, lvl, T);
       } catch (e) { console.warn('live: questions for', c, e); }
       out[c] = list;
     }
@@ -1007,6 +1089,14 @@
 .lv-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}.lv-actions .btn[aria-disabled=true]{opacity:.6}
 .lv-hint,.lv-note{color:#fff;font-weight:700;font-size:14px;text-align:center;margin:0}.card .lv-note{color:#3b4064;margin-top:8px}
 .lv-set summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center;color:#5b33c9}
+.lv-scope{margin-top:6px;border-top:1px dashed rgba(91,51,201,.25);padding-top:4px}
+.lv-scope summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:#5b33c9}.lv-scope summary b{color:var(--ink,#1d1f3a)}
+.lv-sc-all{border:1.5px solid #7646ea;background:transparent;color:#5b33c9;border-radius:999px;padding:7px 14px;font:800 14px inherit;cursor:pointer;margin:4px 0 6px;min-height:40px}.lv-sc-all.on{background:#7646ea;color:#fff}
+.lv-sc-ul{list-style:none;margin:0;padding:0}.lv-sc-ul .lv-sc-ul{padding-left:22px;border-left:2px solid rgba(118,70,234,.18);margin-left:10px}
+.lv-sc-row{display:flex;align-items:center;gap:8px;min-height:44px}
+.lv-sc-lab{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer;font-weight:700;font-size:15px}.lv-sc-li.d1 .lv-sc-lab,.lv-sc-li.d2 .lv-sc-lab{font-weight:600;font-size:14px}
+.lv-sc-lab input{width:22px;height:22px;flex:none;accent-color:#7646ea}.lv-sc-lab span{overflow-wrap:anywhere}
+.lv-sc-x{flex:none;border:0;background:rgba(118,70,234,.1);color:#5b33c9;border-radius:999px;padding:6px 10px;font:800 12px inherit;cursor:pointer;min-height:34px}
 .lv-emo{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:6px 0}
 .lv-emob{min-width:44px;min-height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.16);font-size:22px;cursor:pointer}
 .lv-floats{position:fixed;left:0;right:0;bottom:90px;height:0;pointer-events:none;z-index:50}

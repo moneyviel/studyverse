@@ -160,7 +160,9 @@
   }
   const bar = pct => `<span class="ca-bar" aria-hidden="true"><i style="width:${Math.round(Math.max(0, Math.min(1, pct)) * 100)}%"></i></span>`;
   const patternChip = p => p.pattern ? `<span class="ca-chip ${p.pattern.mode}">${p.pattern.mode === 'objective' ? 'Objective (MCQ)' : 'Descriptive'} · ${p.pattern.marks} marks · ${p.pattern.hours} h${p.pattern.negative ? ' · −¼ per wrong' : ''}</span>` : (p.group ? `<span class="ca-chip">${esc(p.group)}</span>` : '');
-  const paperLabel = p => `Paper ${String(p.key).replace('p', '')}`;
+  /* papers are named everywhere by their subject ("Accounting"); "Paper 1" only next to the name, where both help */
+  const paperNo = p => `Paper ${String(p.key).replace('p', '')}`;
+  const paperLabel = p => p.name || paperNo(p);
   const levelName = k => (LEVELS.find(l => l[0] === k) || [k, k])[1];
 
   /* ================= blocks: journal, ledger, trial balance, tables, legal answers ================= */
@@ -217,7 +219,7 @@
     const topic = String((q && (q.topic || (q.gen || q.kind === 'mcq' && q.unit ? q.concept : ''))) || '').trim();
     const concept = q && typeof q.concept === 'string' && /^c\d+$/.test(q.concept) ? q.concept : '';
     if (!f) { if (lv) structure(lv).catch(() => {}); return { uid, paper: '', ch: '', unit: uid, topic: /^c\d+$/.test(topic) ? '' : topic, concept }; }
-    return { uid, pid: f.p.id, chid: f.c.id, pn: paperLabel(f.p), paper: `${paperLabel(f.p)} · ${f.p.name}`, chn: `Ch ${f.c.n}`, ch: `Ch ${f.c.n} · ${f.c.title}`, unit: f.u.implicit ? 'Chapter study' : `Unit ${f.u.n} · ${f.u.title}`, ut: f.u.title, topic: (/^c\d+$/.test(topic) ? '' : topic) || f.u.title, concept };
+    return { uid, pid: f.p.id, chid: f.c.id, pn: paperLabel(f.p), paper: `${paperNo(f.p)} · ${f.p.name}`, chn: `Ch ${f.c.n}`, ch: `Ch ${f.c.n} · ${f.c.title}`, unit: f.u.implicit ? 'Chapter study' : `Unit ${f.u.n} · ${f.u.title}`, ut: f.u.title, topic: (/^c\d+$/.test(topic) ? '' : topic) || f.u.title, concept };
   }
   function refChip(uid, q) {
     if (!uid) return '';
@@ -351,8 +353,8 @@
   function paperCard(level, p, i, st) {
     const b = builtCount(p), n = unitCount(p), pr = paperProg(p);
     const rec = st.papers.findIndex(x => paperProg(x) < 1 && builtCount(x)) === i;
-    return `<button class="ca-paper" data-level="${level}" data-paper="${p.id}" aria-label="${esc(paperLabel(p))}: ${esc(p.name)}. ${b} of ${n} units available. ${Math.round(pr * 100)}% done.">
-      ${ring(pr, 46)}<span class="ca-pbody"><small>${esc(paperLabel(p))}${p.group ? ' · ' + esc(p.group) : ''}${rec ? ' · <em>Next up</em>' : ''}</small><b>${esc(p.name)}</b><span class="ca-pmeta">${p.chapters.length} chapters · ${b ? `${b}/${n} units live` : 'Coming soon'}</span></span><span class="ca-chev" aria-hidden="true">›</span></button>`;
+    return `<button class="ca-paper" data-level="${level}" data-paper="${p.id}" aria-label="${esc(paperNo(p))}: ${esc(p.name)}. ${b} of ${n} units available. ${Math.round(pr * 100)}% done.">
+      ${ring(pr, 46)}<span class="ca-pbody"><small>${esc(paperNo(p))}${p.group ? ' · ' + esc(p.group) : ''}${rec ? ' · <em>Next up</em>' : ''}</small><b>${esc(p.name)}</b><span class="ca-pmeta">${p.chapters.length} chapters · ${b ? `${b}/${n} units live` : 'Coming soon'}</span></span><span class="ca-chev" aria-hidden="true">›</span></button>`;
   }
   function countHTML(dl) {
     if (dl == null) return `<span class="ca-k">Exam countdown</span><p class="sub">Set your exam date to see the days left and a weekly pace.</p><label class="ca-lab" for="caExam">Exam date</label><input type="date" id="caExam" class="ca-in" min="${todayISO()}"><button class="btn ghost" id="caExamSet">Save date</button>`;
@@ -397,7 +399,7 @@
     }).join('');
     const ed = (st.editions || {})[pid] || Object.entries(st.editions || {}).filter(([k]) => k.startsWith(pid)).map(([k, v]) => `${k.endsWith('-A') ? 'Section A' : k.endsWith('-B') ? 'Section B' : ''} ${v}`).join(' · ');
     el.innerHTML = `<button class="back" id="caBack">← CA Journey</button>
-      <div class="card ca-phead"><span class="ca-k">CA ${esc(levelName(level))} · ${esc(paperLabel(p))}</span><h1 class="ca-h1">${esc(p.name)}</h1>
+      <div class="card ca-phead"><span class="ca-k">CA ${esc(levelName(level))} · ${esc(paperNo(p))}</span><h1 class="ca-h1">${esc(p.name)}</h1>
         <div class="ca-chips">${patternChip(p)}<span class="ca-chip">${p.chapters.length} chapters · ${unitCount(p)} units</span></div>
         ${p.pattern?.note ? `<p class="sub">${esc(p.pattern.note)}</p>` : ''}${p.note ? `<p class="sub">${esc(p.note)}</p>` : ''}${ed ? `<p class="ca-note">ICAI study material: ${esc(ed)}</p>` : ''}${pid === 'fnd-p1' && SPD() ? '<button class="btn ghost" id="caFocus">📌 Exam focus list</button>' : ''}${level === 'foundation' && window.CaKeys ? `<button class="btn ghost" id="caKeys">📚 Key ${pid === 'fnd-p2' ? 'sections' : pid === 'fnd-p3' ? 'formulas' : 'rules'} for this paper</button>` : ''}</div>
       ${wtp ? `<details class="card ca-wtabout"><summary>Chapter marks: derived from ICAI's ${wtp.mtps} Model Test Papers</summary><p class="ca-p">${esc(WT.label)} Each paper offers ${fmt(Math.round(wtp.offered_marks / wtp.mtps))} marks (you answer questions worth 100); “~X marks” is the average a chapter carried per paper. ${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100) ? `${Math.round(wtp.unmapped_marks / wtp.offered_marks * 100)}% of marks could not be tied to one chapter and are left out.` : ''}</p><p class="ca-note">${esc(WT.source)}</p></details>` : ''}
@@ -442,7 +444,7 @@
   const firstOpenTab = uid => (TABS.find(([k]) => !(C().units[uid] || {})[k]) || TABS[0])[0];
   function renderUnit() {
     const { d, f, tab } = U, el = screen(), u = C().units[U.uid] || {};
-    el.innerHTML = `<button class="back" id="caBack">← ${esc(paperLabel(f.p))} · ${esc(f.p.name)}</button>
+    el.innerHTML = `<button class="back" id="caBack">← ${esc(f.p.name)}</button>
       <div class="card ca-uhead"><span class="ca-k">Chapter ${f.c.n}: ${esc(f.c.title)} · Unit ${f.u.n}</span><h1 class="ca-h1">${esc(d.title)}</h1>
         <div class="ca-chips"><span class="ca-chip">${esc({ core: 'Core', moderate: 'Moderate', hard: 'Challenging' }[d.meta.difficulty] || d.meta.difficulty)}</span><span class="ca-chip">Learn ~${d.meta.minutes.learn} min · Practice ~${d.meta.minutes.practice} min</span>${u.write ? '' : ''}</div>
         <div class="ca-uprog">${bar(unitProg(U.uid))}<small>${Math.round(unitProg(U.uid) * 100)}% of this unit done</small></div>
@@ -1037,6 +1039,6 @@
     _blockHTML: blockHTML,
     /* internals shared with js/ca-tools.js */
     _: { C, LEVELS, TABS, SKILL, structure, allStructures, findUnit, levelOf, unitData, unitProg, paperProg, builtCount, unitCount, daysLeft, todayISO,
-      screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, refInfo, refChip, openRef, normT, levelName, rng, order, recordAns, weakData, pctOf, scored, bestOf,
+      screen, open, ring, bar, blocks, checksHTML, fmt, tap, say, paperLabel, paperNo, refInfo, refChip, openRef, normT, levelName, rng, order, recordAns, weakData, pctOf, scored, bestOf,
       markGuide, mcqMarks, unitMarks, levelOK, OWNER, practiceDaily: () => { if (window.Nav) Nav.sub(() => (T() ? T().practiceHub() : practice())); practice.daily = true; practice(); }, weakScreen, nextUnit, isCA } };
 })();

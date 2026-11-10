@@ -456,8 +456,8 @@
       el.appendChild(back('Practice', practiceHub));
       el.insertAdjacentHTML('beforeend', `<h1 class="ca-h1 ca-onDark">Build an MCQ set</h1><div class="card ca-builder">
         ${seg('1 · Level', 'level', levels.map(l => ({ v: l.k, n: 'CA ' + l.n, dis: !l.n_b, sub: l.n_b ? '' : 'soon' })), false)}
-        ${seg('2 · Papers', 'papers', papers.map(p => ({ v: p.id, n: `${X.paperLabel(p)} · ${p.name}` })), true)}
-        ${seg('3 · Chapters', 'chapters', chs.map(x => ({ v: x.c.id, n: `${X.paperLabel(x.p).replace('Paper ', 'P')} Ch ${x.c.n}: ${x.c.title}` })), true)}
+        ${seg('2 · Papers', 'papers', papers.map(p => ({ v: p.id, n: `${X.paperNo ? X.paperNo(p) : ''} · ${p.name}` })), true)}
+        ${seg('3 · Chapters', 'chapters', chs.map(x => ({ v: x.c.id, n: `${X.paperLabel(x.p)} Ch ${x.c.n}: ${x.c.title}` })), true)}
         ${seg('4 · Difficulty', 'diff', DIFF.map(([v, n]) => ({ v, n })), true)}
         ${seg('Include', 'inc', [{ v: 'singles', n: 'Single MCQs' }, { v: 'cases', n: 'Case-study sets', sub: 'a short case + linked MCQs' }], true)}
         ${seg('5 · Number of questions', 'count', [5, 10, 20, 30].map(n => ({ v: n, n: String(n) })), false)}
@@ -658,7 +658,7 @@
         ${P3 ? SP().breakdownHTML(res.map(r => ({ ok: r.ok, skip: r.skip, pass: r.s.pass || 1, pms: r.s.pms, m: qm(r.it.q) })), neg) : ''}
         <div class="card"><div class="ca-mtop"><h3 class="ca-h3">Accuracy by</h3><label class="sr-only" for="csGrp">Group results by</label><select id="csGrp" class="ca-in ca-rgsel"><option value="c">Chapter</option><option value="p">Paper</option><option value="t">Topic</option></select></div><div id="csAcc"></div></div>
         <div class="card"><h3 class="ca-h3">Time per question</h3><div class="ca-scroll" role="region" tabindex="0" aria-label="Time per question"><table class="ca-t ca-tpq"><thead><tr><th scope="col">Q</th><th scope="col">Chapter</th><th scope="col">Result</th><th scope="col" class="n">Seconds</th><th scope="col"><span class="sr-only">Bar</span></th></tr></thead><tbody>
-          ${res.map((r, j) => `<tr><td>${j + 1}</td><td>${esc(r.ref.pn ? `${r.ref.pn.replace('Paper ', 'P')} · ${r.ref.chn}` : String(r.it.chTitle || '').replace(/^Ch (\d+):.*/, 'Ch $1'))}</td><td>${r.ok ? '✓ Correct' : r.skip ? '– Skipped' : '✗ Wrong'}</td><td class="n">${Math.round(r.s.ms / 1000)}</td><td class="ca-tbar"><i style="width:${Math.round(r.s.ms / mx * 100)}%" class="${r.ok ? 'ok' : 'no'}"></i></td></tr>`).join('')}</tbody></table></div></div>
+          ${res.map((r, j) => `<tr><td>${j + 1}</td><td>${esc(r.ref.pn ? `${r.ref.pn} · ${r.ref.chn}` : String(r.it.chTitle || '').replace(/^Ch (\d+):.*/, 'Ch $1'))}</td><td>${r.ok ? '✓ Correct' : r.skip ? '– Skipped' : '✗ Wrong'}</td><td class="n">${Math.round(r.s.ms / 1000)}</td><td class="ca-tbar"><i style="width:${Math.round(r.s.ms / mx * 100)}%" class="${r.ok ? 'ok' : 'no'}"></i></td></tr>`).join('')}</tbody></table></div></div>
         <div class="card"><div class="ca-mtop"><h3 class="ca-h3">Review with explanations</h3><label class="sr-only" for="csFil">Show questions from</label><select id="csFil" class="ca-in ca-rgsel"><option value="">All questions</option><option value="w">Wrong or skipped</option>${filterOpts(res)}</select></div><p class="ca-note" id="csFilN" role="status" aria-live="polite"></p>${res.map((r, j) => `<details class="ca-rv ${r.ok ? 'ok' : 'no'}" data-j="${j}" ${r.ok ? '' : 'open'}><summary><span aria-hidden="true">${r.ok ? '✓' : r.skip ? '–' : '✗'}</span> Q${j + 1} (${mk1(qm(r.it.q))}). ${esc(r.it.q.q)} <em class="ca-qmk">${r.ok ? qm(r.it.q) : 0}/${qm(r.it.q)}</em></summary>
           <p class="ca-note ca-rvtag">${esc(tagOf(r.it))}</p>${r.it.cs ? `<p class="ca-note">Case: ${esc(r.it.cs.title)}</p>` : ''}<p class="ca-p">Your answer: <b>${r.skip ? 'not answered' : esc(r.it.q.options[r.s.pick])}</b>${r.ok ? '' : `<br>Correct answer: <b>${esc(r.it.q.options[r.it.q.answer])}</b>`}</p><p class="ca-p ca-why">${esc(r.it.q.explain)}</p>${chipOf(r.it)}</details>`).join('')}</div>
         <div class="ca-btns"><button class="btn ghost" id="csRev">Revise these (${Object.keys(C().revise).length})</button><button class="btn" id="csAgain">${opts.againLabel || 'New set'}</button></div>`;
@@ -880,7 +880,7 @@
     const kindN = { concept: 'Concept card', illus: 'Illustration', rev: 'Revision page' }, tabOf = { concept: 'learn', illus: 'illus', rev: 'revise' };
     let html = '', lastP = null, lastC = null;
     rows.forEach(r => {
-      if (r.p.id !== lastP) { html += `<h2 class="ca-group">CA ${esc(X.levelName(r.level))} · ${esc(X.paperLabel(r.p))} · ${esc(r.p.name)}</h2>`; lastP = r.p.id; lastC = null; }
+      if (r.p.id !== lastP) { html += `<h2 class="ca-group">CA ${esc(X.levelName(r.level))} · ${esc(X.paperNo ? X.paperNo(r.p) : '')} · ${esc(r.p.name)}</h2>`; lastP = r.p.id; lastC = null; }
       if (r.c.id !== lastC) { html += `<h3 class="ca-nch">Chapter ${r.c.n}: ${esc(r.c.title)}</h3>`; lastC = r.c.id; }
       const sv = Object.entries(n.saved).filter(([, s]) => s.uid === r.uid), hl = n.hl[r.uid] || [], mine = n.mine[r.uid];
       html += `<div class="card ca-nunit"><div class="ca-mtop"><h4 class="ca-h3">Unit ${r.u.n}: ${esc(r.u.title)}</h4><button class="ca-link" data-open="${r.uid}">Open ›</button></div>
@@ -911,7 +911,7 @@
     const docs = [], sts = await X.allStructures();
     const add = (o, title, body) => docs.push({ ...o, title, body: body || '', tt: stoks(title), bt: stoks(body) });
     sts.forEach((st, li) => st && st.papers.forEach(p => { const L = X.LEVELS[li][0];
-      add({ type: 'paper', level: L, pid: p.id, path: `CA ${X.levelName(L)}` }, `${X.paperLabel(p)}: ${p.name}`);
+      add({ type: 'paper', level: L, pid: p.id, path: `CA ${X.levelName(L)}` }, `${X.paperNo ? X.paperNo(p) + ': ' : ''}${p.name}`);
       p.chapters.forEach(c => { add({ type: 'chapter', level: L, pid: p.id, path: `CA ${X.levelName(L)} · ${X.paperLabel(p)}` }, `Chapter ${c.n}: ${c.title}`, [c.module, c.part].filter(Boolean).join(' '));
         c.units.forEach(u => { if (!u.implicit) add({ type: 'unit', level: L, pid: p.id, uid: u.id, built: u.status === 'built', path: `${X.paperLabel(p)} · Ch ${c.n}` }, `Unit ${u.n}: ${u.title}`, (u.topics || []).join(' · '));
           else if (u.topics) add({ type: 'unit', level: L, pid: p.id, uid: u.id, built: u.status === 'built', path: `${X.paperLabel(p)} · Ch ${c.n}` }, c.title, u.topics.join(' · ')); }); }); }));
@@ -1005,7 +1005,7 @@
     let ms = 0, mr = 0, mt = 0; Object.values(c.mcq).forEach(v => { ms += v.s; mr += v.s - v.w; mt += v.ms || 0; });
     const timed = c.mlog.length ? c.mlog.reduce((a, x) => a + x[3], 0) / c.mlog.length : null;
     const byCh = {}; Object.entries(c.mcq).forEach(([k, v]) => { const ch = chOf(k.split('#')[0]); const b = byCh[ch] = byCh[ch] || { n: 0, r: 0 }; b.n += v.s; b.r += v.s - v.w; });
-    const chName = {}; sts.forEach(st => st && st.papers.forEach(p => p.chapters.forEach(ch => { chName[ch.id] = `${X.paperLabel(p).replace('Paper ', 'P')} Ch ${ch.n}: ${ch.title}`; })));
+    const chName = {}; sts.forEach(st => st && st.papers.forEach(p => p.chapters.forEach(ch => { chName[ch.id] = `${X.paperLabel(p)} Ch ${ch.n}: ${ch.title}`; })));
     /* written skills */
     const { skills } = X.weakData();
     /* viva */
@@ -1094,7 +1094,7 @@
   async function insData(D_) {
     const c = C(), built = await loadAll(await builtList()), path = {}, tree = [];
     built.forEach(b => {
-      let P = tree.find(x => x.id === b.p.id); if (!P) tree.push(P = { id: b.p.id, name: `${X.paperLabel(b.p)} · ${b.p.name}`, children: [] });
+      let P = tree.find(x => x.id === b.p.id); if (!P) tree.push(P = { id: b.p.id, name: `${X.paperNo ? X.paperNo(b.p) + ' · ' : ''}${b.p.name}`, children: [] });
       let Ch = P.children.find(x => x.id === b.c.id); if (!Ch) P.children.push(Ch = { id: b.c.id, name: `Ch ${b.c.n}: ${b.c.title}`, children: [] });
       const qs = {}; b.d.mcqs.forEach(q => { qs[`${b.u.id}#${q.id}`] = { q: q.q, a: q.options[q.answer], explain: q.explain }; });
       (b.d.cases || []).forEach(cs => cs.mcqs.forEach(q => { qs[`${b.u.id}#${q.id}`] = { q: `[Case: ${cs.title}] ${q.q}`, a: q.options[q.answer], explain: q.explain }; }));
@@ -1174,7 +1174,7 @@
       ${tile('phCase', '📄', 'Case-study sets', 'A short case with 3–5 linked MCQs')}
       ${tile('phViva', '🎙️', 'Viva — speak & revise', 'Hear a question, answer out loud, see the key points you covered')}
       ${tile('phBank', '🧮', 'Question bank — by marks', '2, 4, 5, 8-mark questions and how to write each')}
-      ${tile('phMock', '📝', 'Mock papers', 'Foundation Paper 1 in ICAI pattern — 3 hours, 100 marks')}
+      ${tile('phMock', '📝', 'Mock papers', 'Accounting (Paper 1) in ICAI pattern — 3 hours, 100 marks')}
       ${tile('phRev', '🔁', `Revise these${rv ? ` (${rv})` : ''}`, 'Every MCQ you got wrong, until you get it right')}
       ${tile('phWeak', '📈', 'Weak spots & strengths', 'By unit and by examiner skill')}
       ${SP() ? `${tile('phSpeed', '⚡', `Speed drill${SP().count() ? ` (${SP().count()})` : ''}`, 'Right but slow? Beat 72 seconds a question')}${tile('phTricks', '💡', 'Shortcut tricks', `${SP().TRICKS.length} quick methods with worked examples`)}${tile('phFocus', '📌', 'Exam focus list', 'Paper 1 Accounting — what to study first')}` : ''}${window.CaKeys ? tile('phKeys', '📚', `Key sections & rules${CaKeys.dueCount() ? ` (${CaKeys.dueCount()} to revise)` : ''}`, 'Law sections, accounting rules, QA formulas, economics laws — each with linked MCQs') : ''}</div>`;
