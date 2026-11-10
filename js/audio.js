@@ -245,15 +245,18 @@ document.addEventListener('pointerdown',resumeAll);
 
 /* ---------- floating music control: small round button; tap it to show a volume slider, tap again to mute ---------- */
 (function(){
-  const css=`#mDock{position:fixed;left:max(10px,calc(50% - 210px));bottom:calc(138px + env(safe-area-inset-bottom));z-index:985;display:none;align-items:center;gap:2px;background:rgba(1,13,51,.88);border:1.5px solid rgba(255,255,255,.7);border-radius:999px;padding:2px;box-shadow:0 4px 12px rgba(0,0,0,.25);touch-action:manipulation}
+  const css=`#mDock{position:fixed;left:6px;bottom:calc(80px + env(safe-area-inset-bottom));z-index:985;display:none;align-items:center;gap:2px;background:rgba(1,13,51,.35);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:2px;opacity:.5;transition:opacity .2s,background .2s;touch-action:manipulation}
 #mDock.show{display:flex}
+#mDock.open,#mDock:focus-within,#mDock:hover{opacity:1;background:rgba(1,13,51,.92);border-color:rgba(255,255,255,.8);box-shadow:0 4px 12px rgba(0,0,0,.25)}
 #mDock button{border:0;background:transparent;color:#fff;cursor:pointer;width:32px;height:32px;border-radius:999px;display:grid;place-items:center;font-size:16px;padding:0;line-height:1}
 #mDock button:focus-visible{outline:2px solid #ffc93c;outline-offset:1px}
 #mDock input[type=range]{display:none;width:96px;accent-color:#ffc93c;height:22px;margin:0 8px 0 2px}
 #mDock.open input[type=range]{display:block}
+html:has(#calcFab:not([hidden])) #mDock{bottom:calc(134px + env(safe-area-inset-bottom))}
 html.sv-parent #mDock{display:none!important}
-html.sv-gated #mDock{bottom:calc(18px + env(safe-area-inset-bottom))}
-html.dsk #mDock{left:calc(var(--dsk-side) + 16px);bottom:78px}
+html.sv-gated #mDock{bottom:calc(10px + env(safe-area-inset-bottom))}
+html.dsk #mDock{left:calc(var(--dsk-side) + 10px);bottom:12px}
+html.dsk:has(#calcFab:not([hidden])) #mDock{bottom:76px}
 @media print{#mDock{display:none!important}}`;
   const st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
   const d=document.createElement('div'); d.id='mDock'; d.setAttribute('role','group'); d.setAttribute('aria-label','Music');

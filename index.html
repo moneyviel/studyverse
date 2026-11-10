@@ -3,6 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>/* Layout by device, whatever Chrome's "Desktop site" setting says. Phone: always the phone layout. Tablet: auto,
+   with a switch (localStorage sv_layout = 'mobile' | 'desktop'). Computer: desktop layout when the window is wide enough. */
+(function(){try{
+  var R=document.documentElement, sw=Math.min(screen.width,screen.height)||0, touch=(navigator.maxTouchPoints||0)>0||matchMedia('(pointer:coarse)').matches;
+  var dev=touch&&sw&&sw<600?'phone':touch&&sw&&sw<1100?'tablet':'computer'; R.dataset.device=dev;
+  if(dev==='phone'&&innerWidth>sw*1.15){           // "Desktop site" is on: ask for the phone's real width again
+    var m=document.querySelector('meta[name=viewport]'); if(m) m.setAttribute('content','width='+sw+', initial-scale=1');
+    addEventListener('load',function(){ if(innerWidth>sw*1.15){ R.style.zoom=(innerWidth/sw).toFixed(3); R.classList.add('sv-zoomfix'); } });
+  }
+  window.svLayout=function(){ var p=''; try{p=localStorage.getItem('sv_layout')||'';}catch(e){}
+    if(dev==='phone') return 'mobile'; if(dev==='tablet'&&(p==='mobile'||p==='desktop')) return p; return 'auto'; };
+  window.svSetLayout=function(v){ try{ v?localStorage.setItem('sv_layout',v):localStorage.removeItem('sv_layout'); }catch(e){} R.dataset.layout=svLayout(); dispatchEvent(new Event('sv-layout')); };
+  R.dataset.layout=svLayout();
+}catch(e){}})();</script>
 <title>Knowtopia</title>
 <meta name="theme-color" content="#0f1b3d">
 <script>/* signed-out visitors: paint the sign-in background at once, so the app screen never flashes before the sign-in page */
@@ -17,9 +31,9 @@ try{var L=localStorage;if(!L.getItem('sv_auth')&&!L.getItem('sv_demo')&&!/access
 <meta name="apple-mobile-web-app-title" content="Knowtopia">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;800&family=Noto+Sans+Devanagari:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=67">
-<link rel="stylesheet" href="css/app.css?v=67">
-<link rel="stylesheet" href="css/desktop.css?v=67">
+<link rel="stylesheet" href="css/base.css?v=68">
+<link rel="stylesheet" href="css/app.css?v=68">
+<link rel="stylesheet" href="css/desktop.css?v=68">
 </head>
 <body>
 <div class="app">
@@ -107,57 +121,57 @@ try{var L=localStorage;if(!L.getItem('sv_auth')&&!L.getItem('sv_demo')&&!/access
 </div>
 
 <script>window.LAB_V=50;</script>
-<script src="js/demo.js?v=67"></script>
-<script src="js/fields.js?v=67"></script>
-<script src="js/cloud.js?v=67"></script>
-<script src="js/labs/core.js?v=67"></script>
-<script src="js/worlds.js?v=67"></script>
-<script src="js/visuals.js?v=67"></script>
-<script src="js/games.js?v=67"></script>
-<script src="js/app.js?v=67"></script>
-<script src="js/audio.js?v=67"></script>
-<script src="js/practice.js?v=67"></script>
-<script src="js/tests.js?v=67"></script>
-<script src="js/ux.js?v=67"></script>
-<script src="js/nav.js?v=67"></script>
-<script src="js/arcade.js?v=67"></script>
-<script src="js/gen.js?v=67"></script>
-<script src="js/ask.js?v=67"></script>
-<script src="js/look.js?v=67"></script>
-<script src="js/legal.js?v=67"></script>
-<script src="js/dashboard.js?v=67"></script>
-<script src="js/insights.js?v=67"></script>
-<script src="js/gk.js?v=67"></script>
-<script src="js/ca-gen.js?v=67"></script>
-<script src="js/ca.js?v=67"></script>
-<script src="js/ca-pad.js?v=67"></script>
-<script src="js/ca-tools.js?v=67"></script>
-<script src="js/ca-speed.js?v=67"></script>
-<script src="js/ca-check.js?v=67"></script>
-<script src="js/ca-read.js?v=67"></script>
-<script src="js/ca-keys-data.js?v=67"></script>
-<script src="js/ca-keys.js?v=67"></script>
-<script src="js/calc.js?v=67"></script>
-<script src="js/calc-acad-data.js?v=67"></script>
-<script src="js/calc-acad.js?v=67"></script>
-<script src="js/plans.js?v=67"></script>
-<script src="js/stars.js?v=67"></script>
-<script src="js/sheets.js?v=67"></script>
-<script src="js/parent.js?v=67"></script>
-<script src="js/teach.js?v=67"></script>
-<script src="js/inst.js?v=67"></script>
-<script src="js/rt.js?v=67"></script>
-<script src="js/live.js?v=67"></script>
-<script src="js/puzzles-core.js?v=67"></script>
-<script src="js/puzzles.js?v=67"></script>
-<script src="js/playhub.js?v=67"></script>
-<script src="js/rewards.js?v=67"></script>
-<script src="js/squad.js?v=67"></script>
-<script src="js/story.js?v=67"></script>
-<script src="js/exam.js?v=67"></script>
-<script src="js/a11y.js?v=67"></script>
-<script src="js/desktop.js?v=67"></script>
-<script src="js/owner.js?v=67"></script>
-<script src="js/playready.js?v=67"></script>
+<script src="js/demo.js?v=68"></script>
+<script src="js/fields.js?v=68"></script>
+<script src="js/cloud.js?v=68"></script>
+<script src="js/labs/core.js?v=68"></script>
+<script src="js/worlds.js?v=68"></script>
+<script src="js/visuals.js?v=68"></script>
+<script src="js/games.js?v=68"></script>
+<script src="js/app.js?v=68"></script>
+<script src="js/audio.js?v=68"></script>
+<script src="js/practice.js?v=68"></script>
+<script src="js/tests.js?v=68"></script>
+<script src="js/ux.js?v=68"></script>
+<script src="js/nav.js?v=68"></script>
+<script src="js/arcade.js?v=68"></script>
+<script src="js/gen.js?v=68"></script>
+<script src="js/ask.js?v=68"></script>
+<script src="js/look.js?v=68"></script>
+<script src="js/legal.js?v=68"></script>
+<script src="js/dashboard.js?v=68"></script>
+<script src="js/insights.js?v=68"></script>
+<script src="js/gk.js?v=68"></script>
+<script src="js/ca-gen.js?v=68"></script>
+<script src="js/ca.js?v=68"></script>
+<script src="js/ca-pad.js?v=68"></script>
+<script src="js/ca-tools.js?v=68"></script>
+<script src="js/ca-speed.js?v=68"></script>
+<script src="js/ca-check.js?v=68"></script>
+<script src="js/ca-read.js?v=68"></script>
+<script src="js/ca-keys-data.js?v=68"></script>
+<script src="js/ca-keys.js?v=68"></script>
+<script src="js/calc.js?v=68"></script>
+<script src="js/calc-acad-data.js?v=68"></script>
+<script src="js/calc-acad.js?v=68"></script>
+<script src="js/plans.js?v=68"></script>
+<script src="js/stars.js?v=68"></script>
+<script src="js/sheets.js?v=68"></script>
+<script src="js/parent.js?v=68"></script>
+<script src="js/teach.js?v=68"></script>
+<script src="js/inst.js?v=68"></script>
+<script src="js/rt.js?v=68"></script>
+<script src="js/live.js?v=68"></script>
+<script src="js/puzzles-core.js?v=68"></script>
+<script src="js/puzzles.js?v=68"></script>
+<script src="js/playhub.js?v=68"></script>
+<script src="js/rewards.js?v=68"></script>
+<script src="js/squad.js?v=68"></script>
+<script src="js/story.js?v=68"></script>
+<script src="js/exam.js?v=68"></script>
+<script src="js/a11y.js?v=68"></script>
+<script src="js/desktop.js?v=68"></script>
+<script src="js/owner.js?v=68"></script>
+<script src="js/playready.js?v=68"></script>
 </body>
 </html>

@@ -19,6 +19,7 @@
   const D = document, R = D.documentElement;
   const MQ = matchMedia('(min-width:768px)'), MQW = matchMedia('(min-width:1024px)'), MQR = matchMedia('(min-width:1280px)');
   const MQX = matchMedia('(min-width:1200px)'), MQT = matchMedia('(min-width:1536px)');   // ≥1200: the open menu pushes the page; below it is a drawer
+  const wantDsk = () => { const l = R.dataset.layout || 'auto'; return l !== 'mobile' && MQ.matches; };   // phones never; tablets can choose
   const $1 = (s, r) => (r || D).querySelector(s), $$ = (s, r) => [...(r || D).querySelectorAll(s)];
   const E = s => (typeof esc === 'function' ? esc(String(s == null ? '' : s)) : String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])));
   const st = () => (typeof ST !== 'undefined' ? ST : null);
@@ -326,7 +327,7 @@
   let eT = 0, enhancing = false;
   function enhance() { clearTimeout(eT); eT = setTimeout(doEnhance, 60); }
   async function doEnhance() {
-    if (!built || !MQ.matches || enhancing || !prof()) return; modes(); gridShape(); enhancing = true;
+    if (!built || !wantDsk() || enhancing || !prof()) return; modes(); gridShape(); enhancing = true;
     try {
       const a = act();
       if (a === 'world' && !isCA()) await worldCards();
@@ -475,7 +476,18 @@
     const nv = $1('nav'); if (nv) new MutationObserver(() => { if (built) { clearTimeout(nv._dsk); nv._dsk = setTimeout(labelNav, 50); } }).observe(nv, { childList: true, attributes: true, subtree: true, attributeFilter: ['hidden'] });
     sync();
   }
-  function sync() { if (MQ.matches) { build(); if (built) { applyCol(); obState(); modes(); refresh(); enhance(); } } else unbuild(); }
+  function sync() { tabletSwitch(); if (wantDsk()) { build(); if (built) { applyCol(); obState(); modes(); refresh(); enhance(); } } else unbuild(); }
+  addEventListener('sv-layout', sync);
+  /* tablets: a small switch between the phone layout and the desktop layout (shown only when the screen is wide enough for both) */
+  function tabletSwitch() {
+    let b = D.getElementById('svLayoutSw');
+    if (R.dataset.device !== 'tablet' || !MQ.matches) { if (b) b.remove(); return; }
+    if (!b) { b = D.createElement('button'); b.type = 'button'; b.id = 'svLayoutSw'; D.body.appendChild(b);
+      b.onclick = () => { const desk = R.classList.contains('dsk'); svSetLayout(desk ? 'mobile' : 'desktop'); }; }
+    const desk = wantDsk();
+    b.textContent = desk ? '📱 Phone view' : '🖥️ Desktop view';
+    b.setAttribute('aria-label', desk ? 'Switch to the phone layout' : 'Switch to the desktop layout');
+  }
   [MQ, MQW, MQR, MQX, MQT].forEach(q => { try { q.addEventListener('change', sync); } catch (e) { q.addListener(sync); } });
   setInterval(() => { if (built && !D.hidden) { obState(); refresh(); } }, 30000);
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', () => setTimeout(boot, 0)); else setTimeout(boot, 0);
