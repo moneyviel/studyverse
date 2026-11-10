@@ -575,7 +575,7 @@ html.sv-gated,html.sv-gated body{overflow:hidden}`;
   }
   function gateInert() {                             // things the app adds later stay unreachable behind the gate
     if (!D.getElementById('svGate')) return;
-    [...D.body.children].forEach(x => { if (x.tagName !== 'SCRIPT' && x.id !== 'svGate' && !x.classList.contains('sheet') && !x.inert) { x.inert = true; x.setAttribute('data-sv-inert', '1'); } });
+    [...D.body.children].forEach(x => { if (x.tagName !== 'SCRIPT' && x.id !== 'svGate' && x.id !== 'mDock' && !x.classList.contains('sheet') && !x.inert) { x.inert = true; x.setAttribute('data-sv-inert', '1'); } });
   }
 
   function repaintMe() { const c = D.getElementById('svCloud'); if (c) { c.dataset.h = ''; paint(); } const o = D.getElementById('svCloudOb'); if (o && S) o.remove(); }
