@@ -559,6 +559,7 @@ background:radial-gradient(120% 80% at 50% 0%,#5B0F1B 0%,#15161C 70%);color:#F4E
 html.sv-gated,html.sv-gated body{overflow:hidden}`;
   function gate() {
     let g = D.getElementById('svGate');
+    setTimeout(() => D.documentElement.classList.remove('sv-boot'), 0);   // index.html hid the app until the gate is decided
     if (S || demo() || !D.body) {
       if (g) { g.remove(); D.documentElement.classList.remove('sv-gated'); D.querySelectorAll('[data-sv-inert]').forEach(x => { x.inert = false; x.removeAttribute('data-sv-inert'); }); }
       return;
