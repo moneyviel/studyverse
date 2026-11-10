@@ -670,6 +670,7 @@
   D.addEventListener('focusin', e => { if (!selfFocus && e.isTrusted && now() - lastPtr > 900 && now() - lastKeyAt > 900 && e.target !== D.body && !isTyping(e.target) && D.hasFocus()) maybeOffer('sr'); }, true);   // never while focusing a text box
   function maybeOffer(why) {
     if (offered || U().asked || listenOn()) return;
+    if (why !== 'manual') return;   // no automatic pop-up: Listen mode is turned on from Sound & reading settings (or the skip link for screen readers)
     if (why === 'key' && (g('ST') || {}).profile) return;          // keys: only on first launch; screen readers: any time, once
     offered = true;
     setTimeout(() => offerListen(why), why === 'key' ? 30 : 300);
