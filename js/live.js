@@ -92,7 +92,7 @@
 
   /* ================= state ================= */
   const L = { code: null, st: null, qs: null, ch: null, pollT: 0, tickT: 0, offset: 0, sig: '', stageSig: '', fetching: false, again: false, presence: {}, rtOn: false,
-    advAt: {}, myAns: {}, sb: null, anim: false, lastLog: '', wasLast: false, seenTurn: null, net: true, failN: 0, emoT: 0, view: '',
+    advAt: {}, myAns: {}, rev: new Map(), sb: null, anim: false, lastLog: '', wasLast: false, seenTurn: null, net: true, failN: 0, emoT: 0, view: '',
     pz: null, pzLive: {}, pzMine: 0, pzSeen: -1, picking: false };
   const nowS = () => Date.now() + L.offset;
 
@@ -111,7 +111,7 @@
       if (j.questions) L.qs = j.questions;
       const prev = L.st; L.st = j;
       if (prev && prev.room.status === 'playing' && j.room.status === 'lobby') { L.qs = null; L.myAns = {}; }
-      if (prev && prev.room.status === 'lobby' && j.room.status === 'playing') { L.qs = j.questions || null; L.myAns = {}; L.wasLast = false; L.sb = null; pzReset(); if (!L.qs) L.again = true; }
+      if (prev && prev.room.status === 'lobby' && j.room.status === 'playing') { L.qs = j.questions || null; L.myAns = {}; L.rev = new Map(); L.wasLast = false; L.sb = null; pzReset(); if (!L.qs) L.again = true; }
       render();
     } catch (e) { if (++L.failN >= 2) setNet(false); }
     finally { L.fetching = false; if (L.again) { L.again = false; setTimeout(fetchState, 60); } }
@@ -285,7 +285,7 @@
   function enter(code) {
     if (L.code && L.code !== code) exit();
     const s = openScreen(); L.view = 'room';
-    if (L.code !== code) { L.code = code; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; L.myAns = {}; }
+    if (L.code !== code) { L.code = code; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; L.myAns = {}; L.rev = new Map(); }
     lset('sv_live_room', { code, at: Date.now() });
     if (!L.st) s.innerHTML = `<div class="lv-root"><div class="card"><p class="sub">Opening room ${E(code)}…</p></div></div>`;
     else { L.sig = ''; L.stageSig = ''; L.sb = null; render(); }
@@ -434,7 +434,7 @@
     const by = [];
     datas.forEach((d, i) => {
       if (!d || !Array.isArray(d.chapters)) return; const s = chosen[i], st = (window.Worlds && Worlds.SUBJECT_STYLE && Worlds.SUBJECT_STYLE[s.id]) || { e: '📘' }; const L2 = [];
-      d.chapters.forEach(c => (c.topics || []).forEach(t => (t.quiz || []).forEach(q => { if (okQ(q) && fit(q)) L2.push({ _d: qScore(q), q: q.q, o: q.options, a: q.answer, s: `${st.e} ${s.name || cap(s.id)} · ${t.title}`, x: String(q.explain || '').slice(0, 580) }); })));
+      d.chapters.forEach(c => (c.topics || []).forEach(t => (t.quiz || []).forEach(q => { if (okQ(q) && fit(q)) L2.push({ _d: qScore(q), q: q.q, o: q.options, a: q.answer, s: `${st.e} ${s.name || cap(s.id)} · ${c.title} · ${t.title}`.slice(0, 118), x: String(q.explain || '').slice(0, 580) }); })));
       const L3 = byLevel(L2, lvl, x => x._d).map(x => { delete x._d; return x; }); if (L3.length) by.push(shuffle(L3));
     });
     return spread(by, need);
@@ -452,7 +452,7 @@
     for (const x of chosen) {
       let d = null; try { d = await X.unitData(x.u.id); } catch (e) {}
       const L2 = ((d && d.mcqs) || []).filter(q => !want || (q.level || 'core') === want).filter(q => q && typeof q.q === 'string' && Array.isArray(q.options) && q.options.length >= 2 && q.options.length <= 4 && q.options.every(o => typeof o === 'string' && o.trim()) && Number.isInteger(q.answer) && q.answer < q.options.length && !(bad && q.options.some(o => bad.test(o))) && fit(q))
-        .map(q => ({ q: q.q, o: q.options, a: q.answer, s: `${X.paperLabel ? X.paperLabel(x.p) : (x.p.title || x.p.id)} · ${x.u.title}`.slice(0, 118), x: String(q.explain || '').slice(0, 580) }));
+        .map(q => ({ q: q.q, o: q.options, a: q.answer, s: `${X.paperLabel ? X.paperLabel(x.p) : (x.p.title || x.p.id)} · ${x.c.title || ''} · ${x.u.title}`.replace(' ·  · ', ' · ').slice(0, 118), x: String(q.explain || '').slice(0, 580) }));
       if (L2.length) by.push(shuffle(L2));
     }
     if (want && by.reduce((t, l) => t + l.length, 0) < Math.min(need, 10)) return caPool(level, game, need, 'mixed');   // too few at this level: mix
@@ -534,6 +534,7 @@
   function qCard(box, q, key, o) {
     const ord = shuffle(q.o.map((_, k) => k), rng(L.code + key));
     const res = o.res;                     // { choice, answer, correct, explain, points }
+    if (res && res.answer != null && L.rev) L.rev.set(key, { ok: res.choice == null ? null : !!res.correct, q: q.q, your: res.choice == null ? null : q.o[res.choice], right: q.o[res.answer], why: res.explain, path: q.s });   // end-of-game review (js/review.js)
     box.innerHTML = `<div class="card lv-q${o.dim ? ' dim' : ''}">${q.s ? `<div class="lv-src">${E(q.s)}</div>` : ''}<div class="lv-qt">${E(q.q)}</div>
       <div class="lv-opts">${ord.map((k, j) => { const cls = res ? (k === res.answer ? ' right' : k === res.choice ? ' wrong' : '') : ''; return `<button type="button" class="opt lv-opt${cls}" data-k="${k}" ${o.lock || res ? 'disabled' : ''}><span class="lv-l" aria-hidden="true">${'ABCD'[j]}</span><span>${E(q.o[k])}</span></button>`; }).join('')}</div>
       <div class="lv-x">${res ? `<div class="lv-exp ${res.correct ? 'good' : 'bad'}" role="status"><b>${res.correct ? `🎉 Correct!${res.points ? ` +${res.points}` : ''}` : res.choice == null ? `⏰ The answer is: ${E(q.o[res.answer])}` : `🤔 The answer is: ${E(q.o[res.answer])}`}</b>${res.explain ? `<p>${E(res.explain)}</p>` : ''}</div>` : ''}${o.note ? `<p class="lv-note" role="status">${o.note}</p>` : ''}</div></div>`;
@@ -898,9 +899,9 @@
       ${fresh ? `<div class="arc-xp">+${10 + (iWon ? 15 : 0)} ⭐ XP</div>` : ''}
       ${newB.length ? `<div class="lv-newb" role="status">${newB.map(b => `<div><b aria-hidden="true">${b[1]}</b> New badge: <b>${b[2]}</b></div>`).join('')}</div>` : ''}
       ${host() ? '<button class="btn mint" id="lvAgain">🔁 Play again with this room</button>' : '<p class="lv-note">The host can start another game in this room.</p>'}
-      <div style="height:8px"></div><button class="btn ghost" id="lvHome">🎮 Game Rooms</button><div style="height:8px"></div><button class="btn ghost" id="lvLeave2">Leave room</button></div>
+      <div style="height:8px"></div><button class="btn ghost" id="lvHome">🎮 Game Rooms</button><div style="height:8px"></div><button class="btn ghost" id="lvLeave2">Leave room</button>${r.game !== 'puzzle' && L.rev && L.rev.size ? Review.html([...L.rev.values()]) : ''}</div>
       ${emojiBar()}<div class="lv-live sr-only" aria-live="polite"></div></div>`;
-    wireEmoji(screen());
+    wireEmoji(screen()); Review.wire(screen());
     const ag = $('#lvAgain'); if (ag) ag.onclick = async () => { try { const j = await rpc('rematch', { p_code: L.code }); if (j && !j.ok) say(errText(j)); S('tap'); L.sig = ''; synced(); } catch (e) { say('No connection.'); } };
     $('#lvHome').onclick = () => { const c = L.code; suspend(); L.code = null; L.st = null; lset('sv_live_room', { code: c, at: Date.now() }); home(); };
     $('#lvLeave2').onclick = leave;

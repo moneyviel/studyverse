@@ -147,6 +147,8 @@
   const oddGames = P => P.sort.filter(g => bucketsBig(g) >= 2);
 
   /* ---------------- shared UI ---------------- */
+  /* answer log for the end-of-game review (js/review.js) */
+  const rec = o => { if (A.log) A.log.push(o); };
   const srcTag = src => `<div class="arc-src">${src.se} ${E(src.sname)} · ${E(src.tt)}</div>`;
   /* 💡 Ask Gappu hint (Games.hint): hidden until tapped; cb(ok, k, hinted) — hinted = the student used a hint on this question */
   const topicOf = src => (src && src.t) || null;
@@ -163,6 +165,7 @@
     box.querySelectorAll('.arc-opt').forEach(b => b.onclick = () => {
       if (done || b.disabled) return; done = true; hb.done();
       const k = +b.dataset.k, ok = k === q.answer;
+      rec({ ok, q: q.q, your: q.options[k], right: q.options[q.answer], why: q.explain, path: Review.fromSrc(q.src) });
       box.querySelectorAll('.arc-opt').forEach(x => { x.disabled = true; x.classList.remove('gp-out'); if (+x.dataset.k === q.answer) x.classList.add('right'); });
       if (!ok) b.classList.add('wrong');
       S(ok ? 'correct' : 'wrong');
@@ -256,6 +259,8 @@
     const answer = b => {
       if (lock || b.disabled) return; lock = true; hb.done();
       const ok = cur.k === 'tf' ? (b.dataset.v === '1') === cur.val : b.dataset.a === cur.a;
+      rec(cur.k === 'tf' ? { ok, q: 'True or false: ' + cur.text, your: b.dataset.v === '1' ? 'TRUE' : 'FALSE', right: cur.val ? 'TRUE' : 'FALSE', why: cur.why, path: Review.fromSrc(cur.src) }
+        : { ok, q: cur.q, your: b.dataset.a, right: cur.a, path: Review.fromSrc(cur.src) });
       if (ok) {
         right++; if (hst.n) hinted++; streak++; best = Math.max(best, streak); const pts = level(); score += pts; sc.textContent = score; S('coin');
         b.classList.add('ok'); floatText(ar, `+${pts}`, 'pts'); after(230);
@@ -312,7 +317,7 @@
       if (c1.pid === c2.pid && c1.side !== c2.side) {
         found++; pf.textContent = found;
         ctx.t(() => { b1.classList.add('done'); b2.classList.add('done'); S('coin'); lock = false;
-          const p = M.pairs[c1.pid];
+          const p = M.pairs[c1.pid]; rec({ ok: true, kind: 'pair', q: p.title || 'Matching pair', right: `${p.l} ↔ ${p.r}`, path: Review.fromSrc(p.src) });
           log.innerHTML = `<div class="arc-mline arc-in">✅ <b>${E(p.l)}</b> ↔ <b>${E(p.r)}</b><small>${p.src.se} ${E(p.src.tt)}</small></div>`;
           if (found === N) { S('unlock'); ctx.t(() => fin({ title: 'All pairs found!', scoreText: `${moves} moves for ${N} pairs`,
             stars: moves <= N + 3 ? 3 : moves <= 2 * N + 2 ? 2 : 1, lines: [`🧠 Perfect game would be ${N} moves`], missed: [] }), 900); }
@@ -365,6 +370,7 @@
     };
     const land = () => {
       const a = active; a.done = true; S('wrong'); missed.push({ q: a.it[0], a: rounds[r].g.buckets[a.it[1]] });
+      rec({ ok: null, q: `Which group does “${a.it[0]}” belong to?`, your: null, right: rounds[r].g.buckets[a.it[1]], path: Review.fromSrc(rounds[r].g.src) });
       drop.classList.add('splat'); fb.innerHTML = `⏰ Too slow! <b>${E(a.it[0])}</b> goes in <b>${E(rounds[r].g.buckets[a.it[1]])}</b>`;
       const ok = bks.querySelector(`[data-k="${a.it[1]}"]`); if (ok) restart(ok, 'hint');
       ctx.t(fall, 1500);
@@ -372,6 +378,7 @@
     const tapB = b => {
       const a = active; if (!a || a.done) return; a.done = true;
       const good = +b.dataset.k === a.it[1];
+      rec({ ok: good, q: `Which group does “${a.it[0]}” belong to?`, your: rounds[r].g.buckets[+b.dataset.k], right: rounds[r].g.buckets[a.it[1]], path: Review.fromSrc(rounds[r].g.src) });
       if (good) {
         right++; S('coin'); fb.innerHTML = `✅ <b>${E(a.it[0])}</b> → <b>${E(rounds[r].g.buckets[a.it[1]])}</b>`;
         const sr = sky.getBoundingClientRect(), br = b.getBoundingClientRect();
@@ -413,6 +420,7 @@
       st.querySelectorAll('.arc-tile').forEach(b => b.onclick = () => {
         if (st.querySelector('.arc-tiles.lock')) return; st.querySelector('.arc-tiles').classList.add('lock');
         const ok = R.tiles[+b.dataset.t] === R.odd;
+        rec({ ok, q: `Which one doesn't belong? ${R.tiles.join(', ')}`, your: R.tiles[+b.dataset.t], right: R.odd, why: `${R.odd} is ${R.g.buckets[R.B]}. The other three are ${R.g.buckets[R.A]}.`, path: Review.fromSrc(R.g.src) });
         st.querySelectorAll('.arc-tile').forEach(t => { if (R.tiles[+t.dataset.t] === R.odd) t.classList.add('odd'); else t.classList.add('same'); });
         if (ok) { right++; S('correct'); } else { S('wrong'); restart(b, 'shake'); missed.push({ q: R.tiles.filter(t => t !== R.odd).join(', ') + ', ' + R.odd, a: `${R.odd} (${R.g.buckets[R.B]})` }); }
         x.innerHTML = `<div class="arc-exp ${ok ? 'good' : 'bad'}"><b>${ok ? '🎯 You got it!' : '🤔 Not that one.'}</b><p><b>${E(R.odd)}</b> is <b>${E(R.g.buckets[R.B])}</b>. The other three are <b>${E(R.g.buckets[R.A])}</b>.</p></div><button class="btn mint arc-next">${i < rounds.length ? 'Next ▶' : 'See results ▶'}</button>`;
@@ -498,6 +506,7 @@
         const rows = [...list.querySelectorAll('.arc-row')], ok = rows.every((rw, j) => +rw.dataset.i === j);
         if (ok) {
           const bonus = Math.ceil(left() / 3), pts = Math.max(4, 10 + bonus - 2 * fails); if (!fails) perfect++;
+          rec({ ok: true, q: `Put in order: ${g.title || g.prompt || 'steps'}`, your: fails ? `Right after ${fails + 1} tries` : 'Right first time', right: g.items.join(' → '), path: Review.fromSrc(g.src) });
           rows.forEach((rw, j) => { rw.classList.remove('bad'); ctx.t(() => rw.classList.add('good', 'arc-pop'), j * 90); }); S('unlock');
           x.innerHTML = `<div class="arc-exp good"><b>🎉 Perfect chain! +${pts} points</b><p>10 for the chain${bonus ? ` + ${bonus} time bonus` : ''}${fails ? ` − ${2 * fails} for retries` : ''}.</p></div>`;
           done(pts);
@@ -509,6 +518,7 @@
             fl.slice().sort((a, b) => a.dataset.i - b.dataset.i).forEach(e => list.appendChild(e));
             fl.forEach(e => { const d = before.get(e) - e.getBoundingClientRect().top; e.classList.remove('bad'); e.classList.add('good'); if (d) { e.style.transition = 'none'; e.style.transform = `translateY(${d}px)`; void e.offsetWidth; e.style.transition = 'transform .5s ease'; e.style.transform = ''; } });
             missed.push({ q: g.title, a: g.items.join(' → ') });
+            rec({ ok: false, q: `Put in order: ${g.title || g.prompt || 'steps'}`, your: 'Not right in 3 tries', right: g.items.join(' → '), path: Review.fromSrc(g.src) });
             x.innerHTML = `<div class="arc-exp bad"><b>Here is the right order.</b><p>Read it once more, top to bottom.</p></div>`; done(0);
           } else x.innerHTML = `<div class="arc-exp bad"><b>Not yet!</b><p>Green steps are in the right place. Fix the red ones. (${3 - fails} ${3 - fails === 1 ? 'try' : 'tries'} left)</p></div>`;
         }
@@ -767,6 +777,7 @@
   }
   function start(game) {
     stopGame(); const host = A.host; A.ctx = makeCtx(host); const ctx = A.ctx;
+    A.log = [];
     host.innerHTML = `<div class="arc-game arc-g-${game.id}" data-game="${game.id}"><div class="arc-bar"><button class="arc-quit" aria-label="Back to arcade">← Arcade</button><b>${game.e} ${game.n}</b></div><div class="arc-stage"></div></div>`;
     host.querySelector('.arc-quit').onclick = () => { S('tap'); menu(); };
     toTop();
@@ -785,9 +796,9 @@
     host.innerHTML = `<div class="card arc-res" data-game="${game.id}">${conf}<div class="arc-res-e">${game.e}</div><h2>${E(r.title)}</h2><div class="arc-res-score">${E(r.scoreText)}</div>
       <div class="bigstars">${[0, 1, 2].map(j => `<span class="${j < stars ? 'on' : ''}" style="animation-delay:${.15 + j * .25}s">⭐</span>`).join('')}</div>
       <div class="arc-xp">+${xp} ⭐ XP</div>${(r.lines || []).map(l => `<div class="arc-rl">${E(l)}</div>`).join('')}
-      ${miss.length ? `<details class="arc-miss"><summary>📝 Review what you missed (${miss.length})</summary>${miss.map(m => `<div class="arc-mrow"><span>${E(m.q)}</span><b>✔ ${E(m.a)}</b></div>`).join('')}</details>` : ''}
-      <button class="btn mint arc-again">🔁 Play again</button><div style="height:10px"></div><button class="btn ghost arc-back">🕹️ Back to arcade</button></div>`;
-    toTop(); S(stars >= 2 ? 'unlock' : 'coin');
+      ${!(A.log || []).length && miss.length ? `<details class="arc-miss"><summary>📝 Review what you missed (${miss.length})</summary>${miss.map(m => `<div class="arc-mrow"><span>${E(m.q)}</span><b>✔ ${E(m.a)}</b></div>`).join('')}</details>` : ''}
+      <button class="btn mint arc-again">🔁 Play again</button><div style="height:10px"></div><button class="btn ghost arc-back">🕹️ Back to arcade</button>${(A.log || []).length ? Review.html(A.log) : ''}</div>`;
+    toTop(); S(stars >= 2 ? 'unlock' : 'coin'); Review.wire(host);
     host.querySelector('.arc-again').onclick = () => { S('tap'); start(game); };
     host.querySelector('.arc-back').onclick = () => { S('tap'); menu(); };
   }
