@@ -191,7 +191,7 @@
     const next = () => { if (i < list.length - 1) { i++; tap('tap'); draw(); } else { addXP(5, 'Fact cards done!'); open({ keep: true }); } };
     let x0 = null;
     b.ontouchstart = e => { x0 = e.touches[0].clientX; };
-    b.ontouchend = e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 60) { if (dx < 0) next(); else if (i) { i--; draw(); } } };
+    b.ontouchend = e => { if (x0 == null) return; const dx = (e.changedTouches[0].clientX - x0) / (window.SV_ZF || 1); x0 = null; if (Math.abs(dx) > 60) { if (dx < 0) next(); else if (i) { i--; draw(); } } };
     draw();
   }
   async function saved() {

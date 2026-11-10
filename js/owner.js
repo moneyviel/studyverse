@@ -438,9 +438,10 @@
   function tipShow(el, sticky) {
     const tip = hub && hub.querySelector('#odTip'); if (!tip) return;
     tip.textContent = el.dataset.tip; tip.hidden = false;
-    const r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
-    tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)) + 'px';
-    tip.style.top = (r.top - h - 8 < 8 ? r.bottom + 8 : r.top - h - 8) + 'px';
+    const f = (tip.parentElement && tip.parentElement.currentCSSZoom) || 1;   // page px → the tooltip's own (zoomed) px
+    const r = el.getBoundingClientRect(), w = tip.offsetWidth * f, h = tip.offsetHeight * f;
+    tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)) / f + 'px';
+    tip.style.top = (r.top - h - 8 < 8 ? r.bottom + 8 : r.top - h - 8) / f + 'px';
     tip.dataset.sticky = sticky ? '1' : '';
   }
   function tipOver(e) { const el = e.target.closest && e.target.closest('[data-tip]'); if (el && hub.contains(el) && (e.type === 'focusin' || e.pointerType === 'mouse')) tipShow(el); }

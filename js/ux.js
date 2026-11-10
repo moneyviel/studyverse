@@ -22,11 +22,12 @@
   UX.z = clampZ(UX.z);
   /* live = true while the slider is being dragged: the app behind updates, the settings sheet keeps its own zoom (--zux) so the slider does not move under the finger */
   function applySize(live) {
-    const z = clampZ(UX.z), zn = Math.min(z, 1.12), r = document.documentElement, i = bandOf(z);
-    r.style.setProperty('--z', z); r.style.setProperty('--zn', zn); r.style.setProperty('--znav', zn / z);
-    if (!live) r.style.setProperty('--zux', z);
+    const z = clampZ(UX.z), zn = Math.min(z, 1.12), r = document.documentElement, i = bandOf(z), f = window.SV_ZF || 1;   // f > 1: phone in Chrome's "Desktop site" mode (index.html)
+    r.style.setProperty('--z', z * f); r.style.setProperty('--zn', zn * f); r.style.setProperty('--znav', zn / z);
+    if (!live) r.style.setProperty('--zux', z * f);
     r.dataset.ts = SIZES[i][0]; UX.size = i;
   }
+  addEventListener('sv-zf', () => applySize());
   const mq = q => { try { return window.matchMedia(q); } catch (e) { return { matches: false, addEventListener() {} }; } };
   const MQ_HC = mq('(prefers-contrast: more)'), MQ_RM = mq('(prefers-reduced-motion: reduce)');
   const hcOn = () => UX.hc == null ? !!MQ_HC.matches : !!UX.hc;

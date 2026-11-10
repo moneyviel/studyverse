@@ -227,9 +227,9 @@ select{border:2px solid #e3e6f6;border-radius:10px;padding:6px;font-family:inher
 .screen.active{padding-bottom:70px}
 /* text size (zoom keeps every layout in proportion) */
 :root{--z:1.08}
-.app{zoom:var(--z);width:calc(100vw / var(--z));max-width:calc(440px / var(--z))}
+.app{zoom:var(--z);width:calc(100vw / var(--z));max-width:calc(440px * var(--zf,1) / var(--z))}
 .sheet-in,.ask-in{zoom:var(--z)}
-.sheet-in,.ask-in{max-width:calc(min(100vw,440px) / var(--z))}
+.sheet-in,.ask-in{max-width:calc(min(100vw,440px * var(--zf,1)) / var(--z))}
 .ask-in{height:calc(88vh / var(--z))}
 .uxbtn{border:none;color:#fff;font-family:'Baloo 2';font-weight:800;cursor:pointer;font-size:14px}
 .ux-sizes{display:flex;gap:6px}.ux-sizes button{flex:1;border:2px solid #e3e6f5;background:#fff;border-radius:14px;padding:8px 2px;cursor:pointer;font-family:inherit}
@@ -267,7 +267,7 @@ nav{left:0;right:0;margin:0 auto;transform:none}
 header{gap:6px;flex-wrap:nowrap}header .stats{gap:5px;flex-wrap:nowrap}header .pill{padding:5px 8px}
 [data-ts=XL] header .brand,[data-ts=XXL] header .brand{display:none}
 [data-ts=XL] header,[data-ts=XXL] header{justify-content:flex-end}
-nav{zoom:var(--znav);width:calc(100vw / var(--zn));max-width:calc(440px / var(--zn))}
+nav{zoom:var(--znav);width:calc(100vw / var(--zn));max-width:calc(440px * var(--zf,1) / var(--zn))}
 :root{--zn:1.08;--znav:1}
 nav button{flex:1;min-width:0;padding:4px 2px}
 
@@ -604,7 +604,7 @@ html.sv-hc .lg-foot,html.sv-hc .lg-foot a{color:#fff}
 .askfab.sv-away:not(:focus-visible){opacity:0;visibility:hidden;pointer-events:none}
 html.sv-hc .askfab{border-color:#000;box-shadow:0 0 0 3px #fff}
 /* text size slider (Aa sheet) */
-#uxSheet .sheet-in{zoom:var(--zux,var(--z));max-width:calc(min(100vw,440px) / var(--zux,var(--z)))}
+#uxSheet .sheet-in{zoom:var(--zux,var(--z));max-width:calc(min(100vw,440px * var(--zf,1)) / var(--zux,var(--z)))}
 #uxSheet .ux-in{max-height:calc(92vh / var(--zux,var(--z)))}
 .ux-ts{display:flex;align-items:center;gap:10px;margin-top:4px}
 .ux-tsb{flex:none;width:44px;height:44px;border-radius:14px;border:2px solid #e3e6f5;background:#fff;color:var(--ink);font-family:inherit;font-weight:800;font-size:15px;cursor:pointer}
@@ -1662,3 +1662,18 @@ html.sv-hc .ca-rep-sc{background:#000;color:#fff}html.sv-hc .ca-rp-e,html.sv-hc 
 #svLayoutSw{position:fixed;top:calc(8px + env(safe-area-inset-top));right:8px;z-index:984;border:1.5px solid rgba(255,255,255,.7);background:rgba(1,13,51,.55);color:#fff;font:700 12px/1 system-ui,sans-serif;padding:7px 10px;border-radius:999px;opacity:.6;cursor:pointer}
 #svLayoutSw:hover,#svLayoutSw:focus-visible{opacity:1}
 html.sv-gated #svLayoutSw,html.sv-parent #svLayoutSw{display:none}
+
+/* zoom fix: phone in Chrome's "Desktop site" mode (index.html sets --zf and html.sv-zoomfix). The page is laid out 980px wide;
+   the app is scaled up by --zf through --z, floating buttons get zoom:--zf, and viewport-unit sizes are divided by --zf. */
+html.sv-zoomfix body>:not(.app):not(script):not(style):not(link):not(.sheet):not([class*=sheet]):not(#srLive):not(#srAlert){zoom:var(--zf)}
+html.sv-zoomfix .app{min-height:calc(100vh / var(--z))}
+html.sv-zoomfix .map{height:calc(100vh / var(--zf) - 250px)}
+html.sv-zoomfix #cmap{height:calc(100vh / var(--zf) - 200px)}
+html.sv-zoomfix .arc-sky{height:clamp(250px,calc(42vh / var(--zf)),370px)}
+html.sv-zoomfix .sl-wrap{max-height:min(calc(78vh / var(--zf)),640px)}
+html.sv-zoomfix .sheet-in{max-height:calc(92vh / var(--z))!important;overflow-y:auto}
+html.sv-zoomfix .ca-cmp-ph{max-height:calc(100vh / var(--zf) - 120px)}
+html.sv-zoomfix .ca-pd-actin{max-width:calc(100vw / var(--zf) - 80px)}
+html.sv-zoomfix #calcPanel{max-height:calc(100vh / var(--zf) - 92px - env(safe-area-inset-bottom))}
+html.sv-zoomfix #prGate .pr-gin{max-height:calc(94vh / var(--zf))}
+html.sv-zoomfix .ca-phvbar,html.sv-zoomfix .ca-phvnav{zoom:var(--zf)}

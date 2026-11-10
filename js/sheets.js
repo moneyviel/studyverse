@@ -45,9 +45,11 @@
     return true;
   }
   function begin(s, x, y, kind) {
+    x /= (window.SV_ZF || 1); y /= (window.SV_ZF || 1);   // "Desktop site" phones: page px → screen px
     const p = panelOf(s); g = { s, p, x0: x, y0: y, t0: Date.now(), dy: 0, mode: 'pending', kind, lastY: y, lastT: Date.now(), v: 0 };
   }
   function move(x, y, e) {
+    x /= (window.SV_ZF || 1); y /= (window.SV_ZF || 1);
     if (!g) return;
     const dx = x - g.x0, dy = y - g.y0;
     if (g.mode === 'pending') {

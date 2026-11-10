@@ -446,12 +446,12 @@
     });
     list.addEventListener('pointermove', e => {
       if (!drag || drag.tapOnly) return;
-      let dy = e.clientY - drag.y0; const r = drag.row;
+      const zf = (window.SV_ZF || 1); let dy = (e.clientY - drag.y0) / zf; const r = drag.row;
       if (!drag.moved) { if (Math.abs(dy) < 6) return; drag.moved = true; r.classList.add('drag'); r.style.transition = 'none'; clearSel(); }
       const nx = r.nextElementSibling, pv = r.previousElementSibling;
-      if (dy > 0 && nx && dy > nx.offsetHeight / 2) { const top = r.offsetTop; flip([nx], () => list.insertBefore(nx, r)); drag.y0 += r.offsetTop - top; S('tap'); }
-      else if (dy < 0 && pv && -dy > pv.offsetHeight / 2) { const top = r.offsetTop; flip([pv], () => list.insertBefore(r, pv)); drag.y0 += r.offsetTop - top; S('tap'); }
-      dy = e.clientY - drag.y0; r.style.transform = `translateY(${dy}px)`;
+      if (dy > 0 && nx && dy > nx.offsetHeight / 2) { const top = r.offsetTop; flip([nx], () => list.insertBefore(nx, r)); drag.y0 += (r.offsetTop - top) * zf; S('tap'); }
+      else if (dy < 0 && pv && -dy > pv.offsetHeight / 2) { const top = r.offsetTop; flip([pv], () => list.insertBefore(r, pv)); drag.y0 += (r.offsetTop - top) * zf; S('tap'); }
+      dy = (e.clientY - drag.y0) / zf; r.style.transform = `translateY(${dy}px)`;
     });
     const up = e => {
       if (!drag) return; const d = drag; drag = null;

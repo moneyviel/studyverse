@@ -81,7 +81,7 @@
   function tick() {
     raf = 0; const f = fab(); if (!f) return;
     const nav = D.querySelector('nav'), nr = nav && nav.style.display !== 'none' ? nav.getBoundingClientRect() : null;
-    R.style.setProperty('--fab-b', (nr && nr.height ? Math.round(innerHeight - nr.top + 10) : 16) + 'px');
+    R.style.setProperty('--fab-b', (nr && nr.height ? Math.round((innerHeight - nr.top + 10) / (window.SV_ZF || 1)) : 16) + 'px');   // ÷ SV_ZF: the button is scaled up on "Desktop site" phones
     const sc = window.scrollY || D.documentElement.scrollTop || 0;
     f.classList.toggle('sv-mini', sc > 40);
     f.classList.toggle('sv-away', covering(f));

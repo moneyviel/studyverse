@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Knowtopia screen check</title>
+<meta name="robots" content="noindex">
+<style>body{font:16px/1.5 system-ui,sans-serif;margin:16px;background:#0f1b3d;color:#fff}h1{font-size:20px}td{padding:4px 8px;border-bottom:1px solid #334;vertical-align:top;word-break:break-all}b{color:#ffc93c}</style></head>
+<body><h1>Knowtopia screen check</h1><p>Please take a screenshot of this page and send it.</p><table id="t"></table>
+<script>
+function row(k,v){document.getElementById('t').insertAdjacentHTML('beforeend','<tr><td><b>'+k+'</b></td><td>'+v+'</td></tr>');}
+function go(){
+  var vv=window.visualViewport||{};
+  row('screen',screen.width+' × '+screen.height);
+  row('window (inner)',innerWidth+' × '+innerHeight);
+  row('page (client)',document.documentElement.clientWidth+' × '+document.documentElement.clientHeight);
+  row('outer',outerWidth+' × '+outerHeight);
+  row('visual scale',(vv.scale||'-')+' · width '+(vv.width?Math.round(vv.width):'-'));
+  row('pixel ratio',devicePixelRatio);
+  row('touch points',navigator.maxTouchPoints);
+  row('coarse pointer',matchMedia('(pointer:coarse)').matches);
+  row('installed app',matchMedia('(display-mode: standalone)').matches);
+  row('browser',navigator.userAgent);
+}
+addEventListener('load',function(){setTimeout(go,300);});
+</script></body></html>
