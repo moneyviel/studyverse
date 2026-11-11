@@ -23,16 +23,30 @@
   const persist = () => { try { save(); } catch (e) {} };
 
   const TESTS = [
-    { id: 'iq', e: '🧠', n: 'Brain Power', d: 'Patterns, number puzzles, codes and logic', col: '#6d4aff' },
-    { id: 'eq', e: '💛', n: 'Heart Smarts', d: 'Understanding feelings, yours and other people’s', col: '#e0a100' },
-    { id: 'sq', e: '🤝', n: 'People Skills', d: 'Friendship, teamwork and fairness', col: '#1e9e6a' },
-    { id: 'aq', e: '🌱', n: 'Bounce-Back', d: 'Handling setbacks and trying again', col: '#2f8f3a' },
-    { id: 'cq', e: '💡', n: 'Idea Spark', d: 'Curiosity and creative thinking', col: '#e0408f' }];
+    { id: 'iq', e: '🧠', n: 'Brainstorm Arena', d: 'Logic, patterns and picture puzzles', col: '#6d4aff' },
+    { id: 'eq', e: '🧭', n: 'Heart Compass', d: 'Read and handle feelings, yours and others’', col: '#d99a00' },
+    { id: 'sq', e: '🪐', n: 'Friendship Galaxy', d: 'Get along, team up and play fair', col: '#1e9e6a' },
+    { id: 'aq', e: '🚀', n: 'Rise-Again Rocket', d: 'Bounce back when things go wrong', col: '#ff7a1a' },
+    { id: 'cq', e: '💡', n: 'Idea Factory', d: 'Curiosity and creative ideas', col: '#e0408f' }];
   const T = id => TESTS.find(t => t.id === id);
   const START = 20, PER = 10, STEP = 2, ROUND = { j: 6, m: 8, s: 10, p: 10 };
-  const NOTE = 'Mind Gym is fun practice to grow thinking skills. It is not an IQ test or a medical or psychological assessment, and it never labels anyone. Feelings and people questions follow widely used school social-emotional learning ideas.';
-  const LOOK = { j: { tag: 'Picture puzzles and stories', word: 'Play', round: 'game' }, m: { tag: 'Quests for sharp minds', word: 'Start quest', round: 'quest' },
-    s: { tag: 'Missions to level up', word: 'Start mission', round: 'mission' }, p: { tag: 'Workplace and study scenarios', word: 'Start set', round: 'set' } };
+  const NOTE = 'Mind Gym is fun practice to grow thinking skills. Ratings show how you are doing in these practice questions only. It is not an IQ test or a medical or psychological assessment, and it never labels anyone. Feelings and people questions follow widely used school social-emotional learning ideas.';
+  const LOOK = { j: { tag: 'Picture puzzles and stories', round: 'game' }, m: { tag: 'Quests for sharp minds', round: 'quest' },
+    s: { tag: 'Missions to level up', round: 'mission' }, p: { tag: 'Workplace and study scenarios', round: 'set' } };
+  const KIND = { series: 'Number & letter series', picture: 'Picture patterns', odd: 'Odd one out', 'odd-pic': 'Odd one out', 'odd-word': 'Odd one out', machine: 'Number machines',
+    letters: 'Number & letter series', code: 'Secret codes', direction: 'Directions', calendar: 'Calendar & clocks', clock: 'Calendar & clocks', rank: 'Ranking & ages', age: 'Ranking & ages',
+    grid: 'Number grids', analogy: 'Analogies', mirror: 'Mirror & water images', water: 'Mirror & water images', 'p-series': 'Figure series', 'p-odd': 'Odd figure out',
+    'p-analogy': 'Figure analogies', paper: 'Paper folding', count: 'Counting figures', dice: 'Dice', matrix: 'Figure matrix', symmetry: 'Symmetry' };
+  const PICK = new Set(['mirror', 'water', 'series', 'odd', 'analogy', 'paper', 'count', 'dice', 'matrix', 'symmetry']);
+  const skillOf = q => q.pic ? KIND[(['series', 'odd', 'analogy'].includes(q.k) ? 'p-' : '') + q.k] || 'Pictures' : KIND[q.k] || 'Thinking';
+  /* qualitative rating for each practice */
+  const LEVELS = [['Warming up', 0], ['Explorer', 1], ['Rising star', 2], ['Pro', 3], ['Champion', 4]];
+  const SAY = {
+    iq: ['Play a few rounds to get your rating.', 'You are learning the tricks. Read each “why” to spot the pattern faster.', 'Good spotting! You find most patterns. Try the picture puzzles too.', 'Sharp thinker! You crack patterns and pictures quickly.', 'Puzzle champion! Patterns, codes and pictures can’t hide from you.'],
+    eq: ['Play a few rounds to get your rating.', 'You are learning to name feelings. Keep reading the “why”.', 'You often pick the calm, kind choice. Nice!', 'You read feelings well and handle them wisely.', 'Feelings expert! You stay calm and help others feel understood.'],
+    sq: ['Play a few rounds to get your rating.', 'You are learning how friends and teams work.', 'You often choose fair and friendly. Great teammate!', 'You include others and solve fights fairly.', 'Super teammate! People can count on you to be fair and kind.'],
+    aq: ['Play a few rounds to get your rating.', 'You are learning to bounce back. Every try counts!', 'You usually look for a plan when things go wrong.', 'You turn setbacks into steps forward.', 'Comeback champion! You learn from every fall and rise again.'],
+    cq: ['Play a few rounds to get your rating.', 'You are starting to ask “what if?”. Keep wondering!', 'Your ideas are getting fresh and useful.', 'Creative thinker! You find new uses and smart solutions.', 'Idea champion! Curious, inventive and practical.'] };
 
   function band() {
     const s = STx(); if (!s || !s.profile) return 'm';
@@ -40,7 +54,7 @@
     const g = +s.profile.grade || 5; return g <= 3 ? 'j' : g <= 8 ? 'm' : 's';
   }
   const qBand = (test, b) => test === 'iq' && b === 'p' ? 's' : b;
-  function M() { const s = STx(); s.mind = s.mind && typeof s.mind === 'object' ? s.mind : {}; const m = s.mind; m.seen = m.seen || {}; m.log = m.log || {}; m.rounds = m.rounds || {}; return m; }
+  function M() { const s = STx(); s.mind = s.mind && typeof s.mind === 'object' ? s.mind : {}; const m = s.mind; ['seen', 'log', 'rounds', 'kinds', 'hist', 'total'].forEach(k => { m[k] = m[k] || {}; }); return m; }
 
   /* finished learning steps: school topics with a star; CA units with Learn and MCQ done */
   function steps() {
@@ -53,10 +67,14 @@
   /* question banks, in a fixed mixed order (so each new pack has a mix of puzzle types) */
   const BANK = {};
   const hash = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const okQ = q => q && q.id && Array.isArray(q.o) && q.o.length === 4 && q.a >= 0 && q.a < 4;
   async function bank(test) {
     if (!BANK[test]) {
-      const d = await loadJSON(`content/mind/${test}.json`);
-      BANK[test] = (d.questions || []).filter(q => q && q.id && Array.isArray(q.o) && q.o.length === 4 && q.a >= 0 && q.a < 4).sort((a, b) => hash(a.id) - hash(b.id));
+      const d = await loadJSON(`content/mind/${test}.json`); let L = (d.questions || []).filter(okQ);
+      if (test === 'iq') {
+        try { const p = await loadJSON('content/mind/pics.json'); if (window.MindPics) { MindPics.init(p); L = L.concat((p.questions || []).filter(q => okQ(q) && PICK.has(q.k)).map(q => Object.assign(q, { pic: true }))); } } catch (e) {}
+      }
+      BANK[test] = L.sort((a, b) => hash(a.id) - hash(b.id));
     }
     return BANK[test];
   }
@@ -67,15 +85,16 @@
     const need = STEP - (steps() % STEP); return { need, gets: Math.min(PER, total - openCount(total)) };
   }
 
-  /* skill level from the last 40 answers (no numbers that look like an IQ score) */
+  /* rating from the last 40 answers (words and stars, never an IQ-style number) */
   function level(test) {
     const l = M().log[test] || [];
-    if (l.length < 10) return { k: 'start', n: 'Warming up', pct: l.length ? Math.round(l.filter(Boolean).length / l.length * 100) : 0, few: true };
-    const p = Math.round(l.filter(Boolean).length / l.length * 100);
-    const n = p >= 85 ? 'Champion' : p >= 70 ? 'Pro' : p >= 50 ? 'Rising star' : 'Explorer';
-    return { k: n, n, pct: p };
+    const pct = l.length ? Math.round(l.filter(Boolean).length / l.length * 100) : 0;
+    if (l.length < 10) return { i: 0, n: LEVELS[0][0], pct, few: true };
+    const i = pct >= 85 ? 4 : pct >= 70 ? 3 : pct >= 50 ? 2 : 1;
+    return { i, n: LEVELS[i][0], pct };
   }
-  const STARS = { 'Warming up': '✨', Explorer: '🧭', 'Rising star': '⭐', Pro: '🌟', Champion: '🏆' };
+  const stars = i => '★'.repeat(i + (i ? 0 : 0)) + '☆'.repeat(4 - i);
+  const BADGE = ['✨', '🧭', '⭐', '🌟', '🏆'];
 
   /* ---------- screen ---------- */
   function screen() {
@@ -84,6 +103,16 @@
     return s;
   }
   const backToPractice = () => { if (isCA() && window.CaTools && CaTools.practiceHub) CaTools.practiceHub(); else practiceScreen(); };
+
+  /* five-point "skills star" chart: one point per practice */
+  function radar(info) {
+    const cx = 110, cy = 105, R = 78, pt = (i, f) => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; return [cx + Math.cos(a) * R * f, cy + Math.sin(a) * R * f]; };
+    const ring = f => info.map((_, i) => pt(i, f).join(',')).join(' ');
+    const val = info.map((x, i) => pt(i, Math.max(.06, (x.lv.few ? 0 : x.lv.pct) / 100)).join(',')).join(' ');
+    return `<svg viewBox="0 0 220 215" class="mg-radar" role="img" aria-label="Skills star: ${info.map(x => `${x.t.n} ${x.lv.few ? 'not rated yet' : x.lv.pct + '%'}`).join(', ')}">
+      ${[.25, .5, .75, 1].map(f => `<polygon points="${ring(f)}" class="mg-rr"/>`).join('')}${info.map((_, i) => `<line x1="${cx}" y1="${cy}" x2="${pt(i, 1)[0]}" y2="${pt(i, 1)[1]}" class="mg-rr"/>`).join('')}
+      <polygon points="${val}" class="mg-rv"/>${info.map((x, i) => { const [px, py] = pt(i, 1.17); return `<text x="${px}" y="${py + 6}" text-anchor="middle" font-size="18">${x.t.e}</text>`; }).join('')}</svg>`;
+  }
 
   async function open() {
     style(); const el = screen(); show('mind', 'practice'); window.scrollTo(0, 0);
@@ -98,19 +127,63 @@
     $1('.mg-wait', el).outerHTML = `${prog}
       <div class="mg-list">${info.map(i => `<button type="button" class="card mg-test" data-t="${i.t.id}" style="--c:${i.t.col}">
         <span class="mg-e" aria-hidden="true">${i.t.e}</span><span class="mg-tt"><b>${E(i.t.n)}</b><small>${E(i.t.d)}</small>
-        <small class="mg-meta">${STARS[i.lv.n] || ''} ${E(i.lv.n)} · ${i.open} of ${i.total} challenges open</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`).join('')}</div>
-      <div class="card"><h3><span aria-hidden="true">📊</span> My skill levels</h3>${info.map(i => `<div class="mg-row"><span>${i.t.e} ${E(i.t.n)}</span><div class="mg-bar"><i style="width:${i.lv.pct}%;background:${i.t.col}"></i></div><b>${i.lv.few ? '—' : i.lv.pct + '%'}</b></div>`).join('')}
-        <p class="sub mg-lvl">Levels: 🧭 Explorer → ⭐ Rising star → 🌟 Pro → 🏆 Champion, based on your last 40 answers in each practice.</p></div>
+        <small class="mg-meta">${BADGE[i.lv.i]} ${E(i.lv.n)} · ${i.open} of ${i.total} challenges open</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`).join('')}</div>
+      <div class="card mg-sc"><h3><span aria-hidden="true">📊</span> My scorecard</h3>
+        <div class="mg-scwrap">${radar(info)}<div class="mg-scl">${info.map(i => `<button type="button" class="mg-scr" data-sc="${i.t.id}" style="--c:${i.t.col}"><span>${i.t.e} <b>${E(i.t.n)}</b></span><span class="mg-st" aria-label="${i.lv.i} of 4 stars">${stars(i.lv.i)}</span><small>${BADGE[i.lv.i]} ${E(i.lv.n)}${i.lv.few ? '' : ' · ' + i.lv.pct + '%'}</small></button>`).join('')}</div></div>
+        <p class="sub mg-lvl">Ratings: ✨ Warming up → 🧭 Explorer → ⭐ Rising star → 🌟 Pro → 🏆 Champion, from your last 40 answers. Tap any practice for its full scorecard.</p></div>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div>`;
-    el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); round(x.dataset.t); });
+    el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); x.dataset.t === 'iq' ? iqMenu() : round(x.dataset.t); });
+    el.querySelectorAll('[data-sc]').forEach(x => x.onclick = () => { S('open'); card(x.dataset.sc); });
+  }
+
+  /* Brainstorm Arena: choose mixed, logic or pictures */
+  async function iqMenu() {
+    style(); const el = screen(), b = band(), all = await pool('iq'), op = all.slice(0, openCount(all.length)); show('mind', 'practice'); window.scrollTo(0, 0);
+    const n = f => op.filter(f).length;
+    el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${T('iq').col}"><button class="back" id="mgQuit">← Mind Gym</button>
+      <div class="hello mg-hello" role="heading" aria-level="1"><span aria-hidden="true">🧠</span> Brainstorm Arena <small>Pick your challenge</small></div>
+      <div class="mg-list">${[['mix', '🎲', 'Mix it up', 'A bit of everything', n(() => 1)], ['pic', '🖼️', 'Picture puzzles', 'Mirrors, paper folding, dice, shapes and more', n(q => q.pic)], ['logic', '🔢', 'Logic & numbers', 'Series, codes, directions and riddles', n(q => !q.pic)]]
+        .map(([id, e, t, d, c]) => `<button type="button" class="card mg-test" data-m="${id}" style="--c:${T('iq').col}"><span class="mg-e" aria-hidden="true">${e}</span><span class="mg-tt"><b>${t}</b><small>${d}</small><small class="mg-meta">${c} challenges open</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`).join('')}</div>
+      <button class="btn ghost" type="button" id="mgSc">📊 Brainstorm Arena scorecard</button></div>`;
+    $1('#mgQuit').onclick = () => { S('tap'); open(); };
+    $1('#mgSc').onclick = () => { S('open'); card('iq'); };
+    el.querySelectorAll('[data-m]').forEach(x => x.onclick = () => { S('open'); round('iq', x.dataset.m); });
+  }
+
+  /* full scorecard for one practice */
+  function card(test) {
+    style(); const el = screen(), t = T(test), b = band(), m = M(), lv = level(test), l = m.log[test] || [], h = m.hist[test] || [], K = m.kinds[test] || {}; show('mind', 'practice'); window.scrollTo(0, 0);
+    const best = h.length ? Math.max(...h) : 0, tot = m.total[test] || 0;
+    const spark = h.length > 1 ? `<svg viewBox="0 0 200 60" class="mg-spark" role="img" aria-label="Round scores: ${h.join('%, ')}%"><polyline points="${h.map((v, i) => `${(i * 196 / (h.length - 1) + 2).toFixed(1)},${(56 - v * .52).toFixed(1)}`).join(' ')}" fill="none" stroke="${t.col}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${h.map((v, i) => `<circle cx="${(i * 196 / (h.length - 1) + 2).toFixed(1)}" cy="${(56 - v * .52).toFixed(1)}" r="3" fill="${t.col}"/>`).join('')}</svg>` : '<p class="sub">Play two rounds to see your progress line.</p>';
+    const skills = Object.entries(K).filter(([, v]) => v[1] >= 1).sort((a, b) => b[1][1] - a[1][1]);
+    const strong = skills.filter(([, v]) => v[1] >= 3).sort((a, b) => b[1][0] / b[1][1] - a[1][0] / a[1][1]);
+    el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${t.col}"><button class="back" id="mgQuit">← Mind Gym</button>
+      <div class="card mg-hero"><div class="mg-big" aria-hidden="true">${t.e}</div><h2>${E(t.n)} scorecard</h2>
+        <div class="mg-badge"><span class="mg-st big" aria-label="${lv.i} of 4 stars">${stars(lv.i)}</span><b>${BADGE[lv.i]} ${E(lv.n)}</b></div><p>${E(SAY[test][lv.i])}</p></div>
+      <div class="mg-tiles"><div class="card"><b>${lv.few ? '—' : lv.pct + '%'}</b><small>Recent accuracy</small></div><div class="card"><b>${tot}</b><small>Challenges done</small></div><div class="card"><b>${m.rounds[test] || 0}</b><small>Rounds played</small></div><div class="card"><b>${h.length ? best + '%' : '—'}</b><small>Best round</small></div></div>
+      <div class="card"><h3>📈 My rounds</h3>${spark}</div>
+      <div class="card"><h3>🟢 Last ${l.length} answers</h3>${l.length ? `<div class="mg-dots">${l.map(v => `<i class="${v ? 'y' : 'n'}"></i>`).join('')}</div>` : '<p class="sub">No answers yet.</p>'}</div>
+      ${test === 'iq' && skills.length ? `<div class="card"><h3>🧩 Skills</h3>${skills.map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${Math.round(v[0] / v[1] * 100)}%;background:${t.col}"></i></div><b>${v[0]}/${v[1]}</b></div>`).join('')}
+        ${strong.length > 1 ? `<p class="sub mg-lvl">💪 Strongest: ${E(strong[0][0])} · 🎯 Practise more: ${E(strong[strong.length - 1][0])}</p>` : ''}</div>` : ''}
+      <button class="btn" type="button" id="mgGo">Play ${E(t.n)} ▶</button>
+      <div class="card mg-note">ℹ️ ${E(NOTE)}</div></div>`;
+    $1('#mgQuit').onclick = () => { S('tap'); open(); };
+    $1('#mgGo').onclick = () => { S('open'); test === 'iq' ? iqMenu() : round(test); };
   }
 
   /* ---------- a round ---------- */
   function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-  async function round(test) {
+  function confetti(host) {
+    const c = D.createElement('div'); c.className = 'mg-conf'; c.setAttribute('aria-hidden', 'true');
+    c.innerHTML = Array.from({ length: 14 }, (_, i) => `<i style="--dx:${Math.round(Math.cos(i / 14 * 6.28) * (60 + Math.random() * 50))}px;--dy:${Math.round(Math.sin(i / 14 * 6.28) * (50 + Math.random() * 40) - 30)}px">${['⭐', '✨', '🎉', '💫'][i % 4]}</i>`).join('');
+    host.appendChild(c); setTimeout(() => c.remove(), 1100);
+  }
+  async function round(test, mode) {
     const el = screen(), t = T(test), b = band(), lk = LOOK[b], m = M();
-    const all = await pool(test), open_ = all.slice(0, openCount(all.length));
-    if (!open_.length) { toast('No challenges here yet'); return; }
+    const all = await pool(test);
+    let open_ = all.slice(0, openCount(all.length));
+    if (mode === 'pic') open_ = open_.filter(q => q.pic); else if (mode === 'logic') open_ = open_.filter(q => !q.pic);
+    if (!open_.length) { toast('Finish more topics to open these challenges'); return; }
     const n = Math.min(ROUND[b], open_.length);
     const fresh = shuffle(open_.filter(q => !(q.id in m.seen)));
     const missed = shuffle(open_.filter(q => m.seen[q.id] === 0));
@@ -118,45 +191,56 @@
     const list = fresh.concat(missed, rest).slice(0, n);
     let i = 0, right = 0;
     const draw = () => {
-      const q = list[i], order = shuffle([0, 1, 2, 3]);
-      el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${t.col}"><button class="back" id="mgQuit">← Mind Gym</button>
+      const q = list[i], order = shuffle([0, 1, 2, 3]), pic = !!(q.pic && window.MindPics), big = pic && !MindPics.textOpts(q);
+      const optHTML = k => pic ? MindPics.opt(q, k) : E(q.o[k]);
+      el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${t.col}"><button class="back" id="mgQuit">← ${test === 'iq' ? 'Brainstorm Arena' : 'Mind Gym'}</button>
         <div class="card mg-play"><div class="mg-top"><span>${t.e} ${E(t.n)}</span><span>${i + 1} / ${list.length}</span></div>
           <div class="mg-bar"><i style="width:${Math.round(i / list.length * 100)}%;background:${t.col}"></i></div>
-          <h3 class="mg-q${q.k === 'picture' || q.k === 'odd-pic' ? ' pic' : ''}">${E(q.q)}</h3>
-          <div class="mg-opts">${order.map(k => `<button type="button" class="mg-o${q.k === 'odd-pic' || q.k === 'picture' ? ' pic' : ''}" data-k="${k}">${E(q.o[k])}</button>`).join('')}</div>
+          <h3 class="mg-q${!pic && (q.k === 'picture' || q.k === 'odd-pic') ? ' pic' : ''}">${E(q.q)}</h3>${pic ? MindPics.stem(q) : ''}
+          <div class="mg-opts${big || (!pic && q.k === 'odd-pic') ? ' picg' : ''}">${order.map((k, x) => `<button type="button" class="mg-o${pic || q.k === 'odd-pic' || q.k === 'picture' ? ' pic' : ''}" data-k="${k}"${pic && big ? ` aria-label="Option ${'ABCD'[x]}"` : ''}>${optHTML(k)}</button>`).join('')}</div>
           <div class="mg-fb" aria-live="polite"></div></div></div>`;
-      $1('#mgQuit').onclick = () => { S('tap'); if (i > 0 || el.querySelector('.mg-o:disabled')) finish(true); else open(); };
+      if (pic) MindPics.wire(el);
+      $1('#mgQuit').onclick = () => { S('tap'); if (i > 0 || el.querySelector('.mg-o:disabled')) finish(true); else (test === 'iq' ? iqMenu() : open()); };
       el.querySelectorAll('.mg-o').forEach(btn => btn.onclick = () => {
         const k = +btn.dataset.k, ok = k === q.a;
         el.querySelectorAll('.mg-o').forEach(x => { x.disabled = true; if (+x.dataset.k === q.a) x.classList.add('ok'); });
-        if (!ok) btn.classList.add('no');
+        if (!ok) btn.classList.add('no'); else confetti(btn);
         S(ok ? 'right' : 'wrong'); if (ok) right++;
-        m.seen[q.id] = ok ? 1 : 0; const L = m.log[test] = (m.log[test] || []); L.push(ok ? 1 : 0); if (L.length > 40) L.splice(0, L.length - 40); persist();
+        m.seen[q.id] = ok ? 1 : 0; const L = m.log[test] = (m.log[test] || []); L.push(ok ? 1 : 0); if (L.length > 40) L.splice(0, L.length - 40);
+        m.total[test] = (m.total[test] || 0) + 1;
+        if (test === 'iq') { const sk = skillOf(q), K = m.kinds.iq = m.kinds.iq || {}; K[sk] = K[sk] || [0, 0]; K[sk][1]++; if (ok) K[sk][0]++; }
+        persist();
         const scen = test !== 'iq';
         $1('.mg-fb', el).innerHTML = `<p class="mg-v ${ok ? 'ok' : 'no'}">${ok ? (scen ? '✅ Best choice!' : '✅ Correct!') : (scen ? '💭 There’s a better choice.' : '❌ Not quite.')}</p><p>${scen && !ok ? `<b>Best: ${E(q.o[q.a])}.</b> ` : ''}${E(q.why)}</p>
+          ${pic ? '<button class="btn ghost mg-showme" type="button">▶ Show me</button><div class="mg-anim"></div>' : ''}
           <button class="btn" type="button" id="mgNext">${i + 1 < list.length ? 'Next ▶' : 'See my result'}</button>`;
+        const sm = $1('.mg-showme', el); if (sm) sm.onclick = () => { S('open'); MindPics.show(q, $1('.mg-anim', el)); sm.textContent = '↻ Show me again'; };
         const nb = $1('#mgNext'); nb.focus({ preventScroll: true }); nb.onclick = () => { S('tap'); i++; if (i < list.length) draw(); else finish(false); };
       });
     };
     const finish = early => {
       const done = early ? i + (el.querySelector('.mg-o:disabled') ? 1 : 0) : list.length;
       if (!done) { open(); return; }
-      m.rounds[test] = (m.rounds[test] || 0) + 1; persist();
+      m.rounds[test] = (m.rounds[test] || 0) + 1;
+      const H = m.hist[test] = (m.hist[test] || []); H.push(Math.round(right / done * 100)); if (H.length > 20) H.splice(0, H.length - 20);
+      persist();
       if (right) { try { addXP(right * 2); } catch (e) {} }
       const lv = level(test);
       const msg = right === done ? 'Perfect round! 🎉' : right >= done * 0.7 ? 'Great thinking!' : right >= done * 0.4 ? 'Good effort — every round makes you sharper.' : 'Nice try! Read the explanations and try another round.';
       el.innerHTML = `<div class="mg-root mg-${b}"><div class="card mg-done" style="--c:${t.col}"><div class="mg-big" aria-hidden="true">${t.e}</div><h2>${E(msg)}</h2>
         <p class="sub">${right} of ${done} ${test === 'iq' ? 'correct' : 'best choices'}${right ? ` · +${right * 2} ⭐` : ''}</p>
-        <p>${STARS[lv.n] || ''} ${E(t.n)} level: <b>${E(lv.n)}</b>${lv.few ? ' (play a few more to get your level)' : ''}</p>
-        <button class="btn" type="button" id="mgAgain">Another ${E(lk.round)} ▶</button><div style="height:8px"></div><button class="btn ghost" type="button" id="mgHome">← Mind Gym</button></div></div>`;
-      $1('#mgAgain').onclick = () => { S('open'); round(test); };
+        <div class="mg-badge"><span class="mg-st big">${stars(lv.i)}</span><b>${BADGE[lv.i]} ${E(lv.n)}</b></div><p class="sub">${E(SAY[test][lv.i])}</p>
+        <button class="btn" type="button" id="mgAgain">Another ${E(lk.round)} ▶</button><div style="height:8px"></div><button class="btn ghost" type="button" id="mgCard">📊 My scorecard</button><div style="height:8px"></div><button class="btn ghost" type="button" id="mgHome">← Mind Gym</button></div></div>`;
+      if (right === done) confetti($1('.mg-done', el));
+      $1('#mgAgain').onclick = () => { S('open'); round(test, mode); };
+      $1('#mgCard').onclick = () => { S('open'); card(test); };
       $1('#mgHome').onclick = () => { S('tap'); open(); };
     };
     draw();
   }
 
   /* ---------- tile in the Practice tab ---------- */
-  const tileSub = () => 'Brain Power, Heart Smarts and more · unlock by learning';
+  const tileSub = () => 'Brainstorm Arena, Heart Compass and more · unlock by learning';
   function place() {
     const s = STx(); if (!s || !s.profile || isParent()) return;
     const p = D.getElementById('s-practice');
@@ -193,7 +277,19 @@
       .mg-o.pic{font-size:34px;text-align:center;padding:8px}.mg-j .mg-opts:has(.pic){grid-template-columns:1fr 1fr}
       .mg-o:hover:not(:disabled){border-color:var(--c)}.mg-o.ok{border-color:#1e9e6a;background:#e6f7ef}.mg-o.no{border-color:#d33;background:#fdeaea}.mg-o:disabled{cursor:default;opacity:1}
       .mg-fb p{margin:10px 0 0;line-height:1.45}.mg-v{font-weight:900;font-size:17px}.mg-v.ok{color:#1e9e6a}.mg-v.no{color:#b5541d}.mg-fb .btn{margin-top:12px}
-      .mg-done{text-align:center}.mg-big{font-size:56px}
+      .mg-done{text-align:center;position:relative}.mg-big{font-size:56px}
+      .mg-scwrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}.mg-radar{width:200px;max-width:48%;min-width:170px}
+      .mg-rr{fill:none;stroke:rgba(0,0,0,.12);stroke-width:1}.mg-rv{fill:rgba(109,74,255,.25);stroke:#6d4aff;stroke-width:2.5;stroke-linejoin:round;animation:mpPop .6s both}
+      .mg-scl{flex:1;min-width:170px;display:flex;flex-direction:column;gap:6px}.mg-scr{display:grid;grid-template-columns:1fr auto;gap:0 8px;text-align:left;border:0;border-left:5px solid var(--c);border-radius:12px;background:rgba(0,0,0,.035);padding:7px 10px;cursor:pointer;font:inherit;color:inherit}
+      .mg-scr small{grid-column:1/-1;color:var(--muted,#666);font-size:12px}.mg-st{color:#ffb400;letter-spacing:1px;font-size:15px}.mg-st.big{font-size:28px}
+      .mg-hero{text-align:center}.mg-badge{display:flex;flex-direction:column;align-items:center;gap:2px;margin:6px 0}.mg-badge b{font-size:20px;color:var(--c)}
+      .mg-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mg-tiles .card{margin:0;text-align:center}.mg-tiles b{display:block;font-size:24px;color:var(--c)}.mg-tiles small{color:var(--muted,#666)}
+      .mg-spark{width:100%;height:70px}.mg-dots{display:flex;flex-wrap:wrap;gap:4px}.mg-dots i{width:12px;height:12px;border-radius:50%}.mg-dots .y{background:#1e9e6a}.mg-dots .n{background:#e3a3a3}
+      .mg-conf{position:absolute;left:50%;top:50%;pointer-events:none;z-index:5}.mg-conf i{position:absolute;font-style:normal;font-size:18px;animation:mgBurst 1s ease-out forwards}
+      .mg-o{position:relative}.mg-o.no{animation:mgShake .4s}
+      @keyframes mgBurst{from{transform:translate(0,0) scale(.4);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(1.1);opacity:0}}
+      @keyframes mgShake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+      @keyframes mpPop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
       .mg-j .mg-q{font-size:21px}.mg-j .mg-o{font-size:18px;padding:15px;border-radius:18px}.mg-j .mg-test b{font-size:18px}
       .mg-s .mg-test,.mg-p .mg-test{border-left-width:4px}.mg-p .mg-o{border-radius:10px}
       .mg-o:focus-visible,.mg-test:focus-visible,.mg-tile:focus-visible{outline:3px solid #2b6cff;outline-offset:2px}
@@ -206,5 +302,5 @@
     place();
   }
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', boot); else boot();
-  window.MindGym = { open, _steps: steps, _band: band };
+  window.MindGym = { open, card, iqMenu, round, _steps: steps, _band: band };
 })();
