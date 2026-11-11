@@ -776,42 +776,52 @@
     if (s.subject) return `Grade ${E(s.grade)} · ${P.subjects[0] ? SUBJ(P.subjects[0].id).e + ' ' + E(P.subjects[0].name) : E(cap(s.subject))} · all chapters`;
     return `Grade ${E(s.grade)} · all subjects mixed ${P.subjects.map(x => SUBJ(x.id).e).join('')}`;
   }
-  /* 💾 Save & leave: the running game is taken off the screen as it is and kept until the app is closed */
+  /* 💾 Save & leave: the running game is taken off the screen as it is and kept (up to 6 games) until the app is closed.
+     All saved games — these and saved puzzles — are listed together in 🎮 Play → "Your saved games" (js/playhub.js). */
+  A.parks = [];
   function park(game) {
     const node = A.host && A.host.querySelector('.arc-game'); if (!node || !A.ctx) return;
-    if (A.park) { try { A.park.ctx.stop(); } catch (e) {} }
-    A.ctx.parked = true; A.park = { node, ctx: A.ctx, game, key: A.key, log: A.log, at: Date.now() }; A.ctx = null; node.remove();
+    A.ctx.parked = true;
+    A.parks.unshift({ id: 'a' + Date.now().toString(36), node, ctx: A.ctx, game, key: A.key, scope: A.scope, P: A.P, label: scopeText(), log: A.log, at: Date.now() });
+    A.parks.splice(6).forEach(x => { try { x.ctx.stop(); } catch (e) {} });
+    A.ctx = null; node.remove();
   }
-  function dropPark() { if (A.park) { try { A.park.ctx.stop(); } catch (e) {} A.park = null; } }
-  function resume() {
-    const pk = A.park, host = A.host; if (!pk || !host) return;
-    stopGame(); A.park = null; host.innerHTML = ''; host.appendChild(pk.node);
+  const scopeText = () => { try { const d = D.createElement('div'); d.innerHTML = scopeLabel(); return d.textContent.replace(/all subjects mixed.*$/, 'all subjects').trim(); } catch (e) { return ''; } };
+  function dropPark(id) { const k = A.parks.findIndex(x => x.id === id); if (k >= 0) { try { A.parks[k].ctx.stop(); } catch (e) {} A.parks.splice(k, 1); } }
+  function resume(id, host) {
+    const k = A.parks.findIndex(x => x.id === id); if (k < 0) return false;
+    const pk = A.parks.splice(k, 1)[0];
+    host = host || A.host; if (!host) return false;
+    stopGame(); A.host = host; A.scope = pk.scope; A.P = pk.P; A.key = pk.key;
+    host.innerHTML = ''; host.appendChild(pk.node);
     pk.ctx.host = host; A.ctx = pk.ctx; A.log = pk.log; guard(pk.game); toTop();
-    if (pk.ctx.fin) { const r = pk.ctx.fin; pk.ctx.fin = null; pk.ctx.parked = false; results(pk.game, r); return; }
-    pk.ctx.resume();
+    if (pk.ctx.fin) { const r = pk.ctx.fin; pk.ctx.fin = null; pk.ctx.parked = false; results(pk.game, r); return true; }
+    pk.ctx.resume(); return true;
   }
+  const savedList = () => A.parks.map(x => ({ id: x.id, e: x.game.e, n: x.game.n, label: x.label, at: x.at, kind: 'arcade' }));
+  const D = document;
   function guard(game) {
     if (!window.LeaveGuard || !A.host) return;
     LeaveGuard.arm({ name: game.n, root: A.host.querySelector('.arc-game'), note: 'Save it and come back to the Arcade to finish — you can read your lessons in between. (Saved until you close the app.)',
-      save: () => park(game), discard: () => {}, leave: () => menu() });
+      save: () => park(game), discard: () => {}, leave: () => menu(), saveNote: 'Find it in 🎮 Play → Your saved games' });
   }
   function menu() {
     stopGame(); const host = A.host, P = A.P; if (!host) return;
     try { if (window.LeaveGuard && LeaveGuard.armed) LeaveGuard.disarm(); } catch (e) {}
     const list = GAMES.filter(g => { try { return g.ok(P); } catch (e) { return false; } });
-    const pk = A.park && A.park.key === A.key ? A.park : null;
+    const mine = A.parks.filter(x => x.key === A.key);
     const canPick = !!window.ScopePick && A.scope.chapter == null;
-    host.innerHTML = `${canPick ? `<div class="arc-scope">${ScopePick.pickHTML(A.scope.selLabel || (A.scope.pool ? A.scope.label || 'All your papers' : 'All subjects · Class ' + A.scope.grade), A.scope.pool ? 'Papers, chapters or units — any mix' : 'Subjects, chapters or topics — any mix', 'arcScope')}</div>` : ''}${pk ? `<div class="card arc-saved"><b>💾 Saved game</b><p class="sub">${pk.game.e} ${E(pk.game.n)} — pick up where you left off.</p><button class="btn mint" type="button" id="arcResume">▶ Continue ${E(pk.game.n)}</button><button class="btn ghost" type="button" id="arcDrop" style="margin-top:8px">🗑 Delete saved game</button></div>` : ''}<div class="arc-menu"><div class="card arc-hdr"><div class="arc-hdr-e">🕹️</div><div><h2>Arcade</h2><p class="sub">${scopeLabel()}</p></div></div>
+    host.innerHTML = `${canPick ? `<div class="arc-scope">${ScopePick.pickHTML(A.scope.selLabel || (A.scope.pool ? A.scope.label || 'All your papers' : 'All subjects · Class ' + A.scope.grade), A.scope.pool ? 'Papers, chapters or units — any mix' : 'Subjects, chapters or topics — any mix', 'arcScope')}</div>` : ''}${mine.length ? `<div class="card arc-saved"><b>💾 Your saved games here</b>${mine.map(x => `<div class="arc-svrow"><button type="button" class="arc-svgo" data-rs="${x.id}"><span aria-hidden="true">${x.game.e}</span><span><b>${E(x.game.n)}</b><small>Saved ${agoT(x.at)}</small></span><span class="arc-svp">▶ Continue</span></button><button type="button" class="arc-svx" data-dr="${x.id}" aria-label="Delete saved ${E(x.game.n)}">🗑</button></div>`).join('')}</div>` : ''}<div class="arc-menu"><div class="card arc-hdr"><div class="arc-hdr-e">🕹️</div><div><h2>Arcade</h2><p class="sub">${scopeLabel()}</p></div></div>
       ${list.length ? `<div class="arc-grid">${list.map((g, j) => `<button class="arc-card arc-c-${g.id}" data-g="${g.id}" style="animation-delay:${j * 0.05}s"><span class="arc-ce">${g.e}</span><b>${g.n}</b><span class="arc-cd">${g.d}</span><span class="arc-cc">${g.id === 'lightning' && hiOf() ? `🏆 Best ${hiOf()}` : g.c(P)}</span></button>`).join('')}</div>`
         : `<div class="card"><p class="sub">There is not enough here yet for arcade games. Try the whole subject, or all subjects.</p></div>`}</div>`;
     toTop();
-    const rb = host.querySelector('#arcResume'); if (rb) rb.onclick = () => { S('open'); resume(); };
+    host.querySelectorAll('[data-rs]').forEach(b => b.onclick = () => { S('open'); resume(b.dataset.rs); });
+    host.querySelectorAll('[data-dr]').forEach(b => b.onclick = () => { S('tap'); dropPark(b.dataset.dr); menu(); });
     const sp = host.querySelector('#arcScope');
     if (sp) sp.onclick = () => { S('tap'); const ca = !!A.scope.pool, lv = (window.Ca && Ca._ && Ca._.C && Ca._.C().level) || 'foundation';
       ScopePick.open({ ca, grade: A.scope.grade, level: lv, value: A.scope.sel || [ca ? ({ foundation: 'fnd', inter: 'int', final: 'fin' }[lv] || 'fnd') : 'g' + A.scope.grade], title: '🕹️ What should the games ask?', cta: 'Play these ✓',
         onDone: (v, lb) => { const root = ca ? ({ foundation: 'fnd', inter: 'int', final: 'fin' }[lv] || 'fnd') : 'g' + A.scope.grade, all = v.length === 1 && v[0] === root;
           open(host, Object.assign({}, A.scope, { sel: all ? null : v, selLabel: all ? null : lb, game: null })); } }); };
-    const db = host.querySelector('#arcDrop'); if (db) db.onclick = () => { S('tap'); dropPark(); menu(); };
     host.querySelectorAll('.arc-card').forEach(b => b.onclick = () => { S('tap'); start(GAMES.find(g => g.id === b.dataset.g)); });
   }
   function start(game) {
@@ -868,5 +878,6 @@
     c.textContent = '.arc-qsdrop{font-weight:800;color:#8a3b12!important}.arc-slog .arc-gline{display:block;margin-top:4px;font-weight:800;color:#ffe08a}.arc-hintslot:empty,.arc-lhint:empty{display:none}.arc-lhint{margin-top:8px}';
     document.head.appendChild(c);
   })();
-  window.Arcade = { open, GAMES, pool: buildPool, okQ, slBoard, LADDERS, SNAKES, SL_RULE, roll6, askQ, BAD_OPT };
+  const agoT = t => { const m = Math.round((Date.now() - t) / 6e4); return m < 1 ? 'just now' : m < 60 ? m + ' min ago' : Math.round(m / 60) + ' h ago'; };
+  window.Arcade = { open, saved: savedList, resumeSaved: (id, host) => resume(id, host), dropSaved: dropPark, GAMES, pool: buildPool, okQ, slBoard, LADDERS, SNAKES, SL_RULE, roll6, askQ, BAD_OPT };
 })();

@@ -45,7 +45,7 @@
     pop.querySelector('[data-lg="stay"]').onclick = () => close();
     pop.querySelector('[data-lg="drop"]').onclick = () => { try { o.discard && o.discard(); } catch (e) {} disarm(exit()); };
     const sv = pop.querySelector('[data-lg="save"]');
-    if (sv) sv.onclick = () => { try { o.save(); } catch (e) { console.warn('save', e); } try { window.toast && toast('💾 Saved — come back any time to finish'); } catch (e) {} disarm(exit()); };
+    if (sv) sv.onclick = () => { try { o.save(); } catch (e) { console.warn('save', e); } try { window.toast && toast('💾 Saved — ' + (o.saveNote || 'come back any time to finish')); } catch (e) {} disarm(exit()); };
     pop.addEventListener('click', e => { if (e.target === pop) close(); });
     pop.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); } });
     setTimeout(() => { const b = pop && pop.querySelector('[data-lg="stay"]'); if (b) try { b.focus(); } catch (e) {} }, 40);

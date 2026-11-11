@@ -47,7 +47,7 @@
       <div class="ph-gb">${alone ? `<button class="ph-b solo" type="button" ${alone} aria-label="${E(n)}: play alone"><span aria-hidden="true">🙋</span> Alone</button>` : ''}${friends ? `<button class="ph-b fr" type="button" ${friends} aria-label="${E(n)}: play with friends"><span aria-hidden="true">👫</span> Friends</button>` : ''}</div></div>`;
     el.innerHTML = `<div class="ph-root${ca ? ' ph-ca' : ''}"><button class="back" id="phBack">← Practice</button>
       <div class="hello ph-hello" role="heading" aria-level="1"><span aria-hidden="true">🎮</span> Play <small>Games and puzzles · alone or with friends</small></div>
-      ${back ? `<button class="card ph-resume" type="button" id="phResume"><span aria-hidden="true">🔁</span> <b>Back to your room ${E(back)}</b><span class="ph-chev" aria-hidden="true">›</span></button>` : ''}
+      ${savedHTML()}${back ? `<button class="card ph-resume" type="button" id="phResume"><span aria-hidden="true">🔁</span> <b>Back to your room ${E(back)}</b><span class="ph-chev" aria-hidden="true">›</span></button>` : ''}
       <div class="card ph-friends"><h3><span aria-hidden="true">👫</span> Play with friends</h3><p class="sub">Make a room and share its code, or type a friend’s code.</p>
         <div class="ph-join"><input id="phCode" inputmode="text" autocomplete="off" maxlength="8" placeholder="Room code" aria-label="Room code"><button class="btn" type="button" id="phJoin">Join</button></div>
         <button class="btn ghost" type="button" id="phMake">➕ Make a room</button></div>
@@ -60,6 +60,7 @@
         <button class="btn ghost ph-all" type="button" id="phArc">🕹️ All arcade games</button></div>`}
       <div class="card ph-calc"><h3><span aria-hidden="true">🧮</span> Calculator Academy</h3><p class="sub">Free bonus course: learn every key with real missions.</p><button class="btn ghost" type="button" id="phCalc">Open Calculator Academy ▶</button></div></div>`;
     $1('#phBack').onclick = () => { S('tap'); backToPractice(); };
+    wireSaved(el);
     if (back) $1('#phResume').onclick = () => { S('open'); Live.join(back); };
     $1('#phMake').onclick = () => { S('open'); liveOpen(); };
     const join = () => { const c = ($1('#phCode').value || '').trim().toUpperCase(); if (!c) { $1('#phCode').focus(); return; } S('open'); if (window.Live) Live.join(c); };
@@ -74,6 +75,30 @@
     if ($1('#phArc')) $1('#phArc').onclick = () => { S('open'); arcade(null); };
     $1('#phCalc').onclick = () => { S('open'); if (window.CalcAcademy) CalcAcademy.open({ from: 'practice' }); };
   }
+  /* 💾 every saved game in one place: saved puzzles (kept on this phone) + saved Arcade games (until the app closes) */
+  const savedAll = () => {
+    let a = []; try { if (window.Puzzles && Puzzles.saved) a = a.concat(Puzzles.saved()); } catch (e) {}
+    try { if (window.Arcade && Arcade.saved) a = a.concat(Arcade.saved()); } catch (e) {}
+    return a.sort((x, y) => y.at - x.at);
+  };
+  const ago = t => { const m = Math.round((Date.now() - t) / 6e4); return m < 1 ? 'just now' : m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : Math.round(m / 1440) + ' days ago'; };
+  function savedHTML() {
+    const L = savedAll(); if (!L.length) return '';
+    return `<div class="card ph-saved" id="phSaved"><h3><span aria-hidden="true">💾</span> Your saved games <small>${L.length}</small></h3><p class="sub">Pick up any game exactly where you left it.</p>
+      ${L.map(x => `<div class="ph-svrow"><button type="button" class="ph-svgo" data-sv="${E(x.kind)}|${E(x.id)}"><span class="ph-sve" aria-hidden="true">${x.e}</span><span class="ph-svt"><b>${E(x.n)}</b><small>${E([x.label, 'saved ' + ago(x.at)].filter(Boolean).join(' · '))}</small></span><span class="ph-svp">▶ Continue</span></button><button type="button" class="ph-svx" data-svx="${E(x.kind)}|${E(x.id)}" aria-label="Delete saved ${E(x.n)}">🗑</button></div>`).join('')}
+      ${L.some(x => x.kind === 'arcade') ? '<p class="cl-small ph-svnote">Arcade games stay saved until you close the app; puzzles stay saved on this phone.</p>' : ''}</div>`;
+  }
+  function wireSaved(el) {
+    el.querySelectorAll('[data-sv]').forEach(b => b.onclick = () => { S('open'); const k = b.dataset.sv.split('|')[0], id = b.dataset.sv.slice(k.length + 1);
+      if (k === 'puzzle') return Puzzles.resumeSaved(id);
+      const s = screen(); show('play', 'practice'); window.scrollTo(0, 0);
+      s.innerHTML = `<div class="ph-root${isCA() ? ' ph-ca' : ''}"><button class="back" id="phBack2">← Play</button><div id="phArcHost"></div></div>`;
+      $1('#phBack2').onclick = () => { S('tap'); open(); };
+      if (!Arcade.resumeSaved(id, $1('#phArcHost'))) open(); });
+    el.querySelectorAll('[data-svx]').forEach(b => b.onclick = () => { S('tap'); const k = b.dataset.svx.split('|')[0], id = b.dataset.svx.slice(k.length + 1);
+      try { (k === 'puzzle' ? Puzzles : Arcade).dropSaved(id); } catch (e) {} const box = $1('#phSaved', el); if (box) { const h = savedHTML(); if (h) { box.outerHTML = h; wireSaved(el); } else box.remove(); } });
+  }
+  window.PlayHub_saved = savedAll;
   const arcGame = id => { try { return (window.Arcade && Arcade.GAMES || []).find(g => g.id === id) || null; } catch (e) { return null; } };
   function liveOpen(o) {
     if (!window.Live) { try { toast('Game Rooms are loading. Please try again in a moment.'); } catch (e) {} return; }
@@ -121,7 +146,8 @@
   /* ---------- Practice tiles: 🎮 Play + 🧮 Calculator Academy ---------- */
   /* CA look: same structure as the CA practice tiles (.ca-hub) so they line up and use the CA colours */
   const caTile = (id, e, t, sub) => `<button type="button" class="card ca-hub" id="${id}"><b class="ca-hube" aria-hidden="true">${e}</b><span><b>${t}</b><small>${sub}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`;
-  const playTile = dark => dark ? caTile('phTile', '🎮', 'Play', resume() ? `Back to your room ${E(resume())}` : 'Games &amp; puzzles · alone or with friends') : `<button type="button" class="card ph-tile${dark ? ' dark' : ''}" id="phTile" aria-label="Play: games and puzzles, alone or with friends"><span class="ph-te" aria-hidden="true">🎮</span><span class="ph-tt"><b>Play</b><small>${resume() ? `Back to your room ${E(resume())}` : 'Games & puzzles · alone or with friends'}</small></span><span class="ph-chev" aria-hidden="true">›</span></button>`;
+  const tileSub = () => { const n = savedAll().length; return resume() ? `Back to your room ${E(resume())}` : n ? `💾 ${n} saved game${n > 1 ? 's' : ''} — tap to continue` : 'Games &amp; puzzles · alone or with friends'; };
+  const playTile = dark => dark ? caTile('phTile', '🎮', 'Play', tileSub()) : `<button type="button" class="card ph-tile${dark ? ' dark' : ''}" id="phTile" aria-label="Play: games and puzzles, alone or with friends"><span class="ph-te" aria-hidden="true">🎮</span><span class="ph-tt"><b>Play</b><small>${tileSub()}</small></span><span class="ph-chev" aria-hidden="true">›</span></button>`;
   function place() {
     const s = STx(); if (!s || !s.profile || isParent()) return;
     const p = D.getElementById('s-practice');

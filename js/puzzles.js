@@ -577,7 +577,7 @@
     ({ xw: playXW, sdk: playSDK, csdk: playSDK, kak: playKAK, ws: playWS, an: playAN })[sp.t](el, st, saved);
     if (st.sp.t !== 'an') startClock(st);
     if (!race && window.LeaveGuard) LeaveGuard.arm({ name: 'this ' + (TYPES[sp.t] || KM[sp.t] || { n: 'puzzle' }).n.toLowerCase(), root: el.querySelector('.pz-root') || el,
-      save: () => { st.kept = true; persist(st, true); },
+      save: () => { st.kept = true; persist(st, true); }, saveNote: 'Find it in 🎮 Play → Your saved games',
       discard: () => { const z = Z(); delete z.saves[st.id]; try { save(); } catch (e) {} },
       leave: () => { const sp2 = st.sp; stopPlay(); goBack(sp2); } });
     return st;
@@ -1303,5 +1303,8 @@ html[data-age=pro] .pz-sbj.on,html[data-age=pro] .pz-chb.on{background:#1f5fd1}
     kinds: () => KINDS.map(k => Object.assign({}, k)),
     hub: o => hub(o || {}), quick: (kind, o) => quick(kid(kind), o || {}), pick: kind => pick(kid(kind)), race, describe,
     chapter: (sc, from) => chapter(sc, from), play: sp => play(sp), daily: async () => play(await dailySpec()), build,
+    saved: () => Object.entries(Z().saves).filter(([, v]) => v && v.kept && v.sp && KM[v.sp.t]).sort((a, b) => b[1].at - a[1].at).map(([id, v]) => ({ id, e: (TYPES[v.sp.t] || KM[v.sp.t]).e, n: (TYPES[v.sp.t] || KM[v.sp.t]).n, label: [v.title, DN[v.sp.diff] || v.sp.diff].filter(Boolean).join(' · '), at: v.at, kind: 'puzzle' })),
+    resumeSaved: id => { const v = Z().saves[id]; if (v && v.sp) play(Object.assign({}, v.sp)); },
+    dropSaved: id => { const z = Z(); delete z.saves[id]; try { save(); } catch (e) {} },
     speech, terms, _terms: terms, curChapter, dailySpec, _Z: Z, _state: () => PLAY };
 })();
