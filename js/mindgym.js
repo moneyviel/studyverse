@@ -56,13 +56,22 @@
   const qBand = (test, b) => test === 'iq' && b === 'p' ? 's' : b;
   function M() { const s = STx(); s.mind = s.mind && typeof s.mind === 'object' ? s.mind : {}; const m = s.mind; ['seen', 'log', 'rounds', 'kinds', 'hist', 'total'].forEach(k => { m[k] = m[k] || {}; }); return m; }
 
-  /* finished learning steps: school topics with a star; CA units with Learn and MCQ done */
+  /* finished learning steps — only REAL learning counts, so tapping through can't unlock anything:
+     school: a topic counts once its quiz earned ⭐⭐ or more (70%+ correct)
+     CA: a unit counts once Learn is done and its MCQs were answered with 60%+ correct (latest answer to each question) */
+  function caUnitPassed(s, uid) {
+    const c = s.ca || {}, last = {};
+    Object.entries(c.mcq || {}).forEach(([k, v]) => { if (k.startsWith(uid + '#')) last[k] = v && v.s > v.w; });
+    (c.mlog || []).forEach(x => { if (x && typeof x[1] === 'string' && x[1].startsWith(uid + '#')) last[x[1]] = !!x[2]; });
+    const n = Object.keys(last).length; if (n < 3) return false;
+    return Object.values(last).filter(Boolean).length / n >= 0.6;
+  }
   function steps() {
     const s = STx(); if (!s) return 0;
-    if (isCA()) { const u = (s.ca && s.ca.units) || {}; return Object.keys(u).filter(k => u[k] && u[k].learn && u[k].mcq).length; }
-    return Object.keys(s.topics || {}).filter(k => s.topics[k] && s.topics[k].stars > 0).length;
+    if (isCA()) { const u = (s.ca && s.ca.units) || {}; return Object.keys(u).filter(k => u[k] && u[k].learn && u[k].mcq && caUnitPassed(s, k)).length; }
+    return Object.keys(s.topics || {}).filter(k => s.topics[k] && s.topics[k].stars >= 2).length;
   }
-  const stepWord = n => (isCA() ? 'unit' : 'topic') + (n === 1 ? '' : 's');
+  const stepWord = n => (isCA() ? 'unit' : 'topic') + (n === 1 ? '' : 's') + (isCA() ? ' (60%+ in its MCQs)' : ' with ⭐⭐');
 
   /* question banks, in a fixed mixed order (so each new pack has a mix of puzzle types) */
   const BANK = {};
@@ -143,7 +152,7 @@
         <div class="mg-scwrap">${radar(info)}<div class="mg-scl">${info.map(i => `<button type="button" class="mg-scr" data-sc="${i.t.id}" style="--c:${i.t.col}"><span>${i.t.e} <b>${E(i.t.n)}</b></span><span class="mg-st" aria-label="${i.lv.i} of 4 stars">${stars(i.lv.i)}</span><small>${BADGE[i.lv.i]} ${E(i.lv.n)}${i.lv.few ? '' : ' · ' + i.lv.pct + '%'}</small></button>`).join('')}</div></div>
         <p class="sub mg-lvl">Ratings: ✨ Warming up → 🧭 Explorer → ⭐ Rising star → 🌟 Pro → 🏆 Champion, from your last 40 answers. Tap any practice for its full scorecard.</p></div>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div>`;
-    el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); x.dataset.t === 'iq' ? iqMenu() : round(x.dataset.t); });
+    el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); x.dataset.t === 'iq' ? iqMenu() : x.dataset.t === 'eq' && window.HeartPlay ? eqMenu() : round(x.dataset.t); });
     el.querySelectorAll('[data-sc]').forEach(x => x.onclick = () => { S('open'); card(x.dataset.sc); });
   }
 
@@ -163,6 +172,41 @@
     el.querySelectorAll('[data-m]').forEach(x => x.onclick = () => { S('open'); round('iq', x.dataset.m); });
   }
 
+  /* Heart Compass: games, scenario questions, scorecard */
+  function eqMenu() {
+    style(); const el = screen(), b = band(), t = T('eq'); show('mind', 'practice'); window.scrollTo(0, 0);
+    const th = { j: ['🎈', 'Feelings Fair', 'Face detective, feeling thermometer, bubble breathing and more!'], m: ['🧭', 'Heart Quest', 'Read faces, chat with friends, choose your path, calm your breath'], s: ['💠', 'Heart Lab', 'Six hands-on emotional-intelligence games + a timed Heart Check'], p: ['💠', 'Heart Lab', 'Six hands-on emotional-intelligence games + a timed Heart Check'] }[b];
+    el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${t.col}"><button class="back" id="mgQuit">← Mind Gym</button>
+      <div class="hello mg-hello" role="heading" aria-level="1"><span aria-hidden="true">🧭</span> Heart Compass <small>Feelings, empathy and wise choices</small></div>
+      <button type="button" class="card mg-play-hub hp-hubcard" id="mgHeart"><span class="mg-e" aria-hidden="true">${th[0]}</span><span class="mg-tt"><b>${th[1]}</b><small>${th[2]}</small></span><span class="mg-chev" aria-hidden="true">›</span></button>
+      <div class="mg-list"><button type="button" class="card mg-test" id="mgScen" style="--c:${t.col}"><span class="mg-e" aria-hidden="true">💭</span><span class="mg-tt"><b>What would you do?</b><small>Real-life situations — pick the wisest, kindest choice</small></span><span class="mg-chev" aria-hidden="true">›</span></button></div>
+      <button class="btn ghost" type="button" id="mgSc">📊 Heart Compass scorecard</button></div>`;
+    $1('#mgQuit').onclick = () => { S('tap'); open(); };
+    $1('#mgHeart').onclick = () => { S('open'); MindPlay.hub('eq'); };
+    $1('#mgScen').onclick = () => { S('open'); round('eq'); };
+    $1('#mgSc').onclick = () => { S('open'); card('eq'); };
+  }
+  /* Heart Wheel: five skills as petals (longer petal = stronger), plus a zone gauge — words, never an EQ number */
+  const HSK = [['Know my feelings', '🪞', '#ff7a59'], ['Manage my feelings', '🫧', '#3cbf7f'], ['Read others', '🕵️', '#2b8cff'], ['Connect & care', '💬', '#e0408f'], ['Choose wisely', '🛤️', '#ffb400']];
+  const ZONES = [['🌱 Growing', '#f4a261'], ['🌿 Building', '#ffd166'], ['🌳 Strong', '#8ad17c'], ['🌟 Shining', '#2fbf71']];
+  function heartWheel(K) {
+    const cx = 110, cy = 110, r0 = 26, R = 78;
+    const wedge = (i, f, col) => { const a0 = (-90 + i * 72 + 2) * Math.PI / 180, a1 = (-90 + (i + 1) * 72 - 2) * Math.PI / 180, r1 = r0 + (R - r0) * f;
+      const P = (r, a) => `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`;
+      return `<path d="M${P(r0, a0)} L${P(r1, a0)} A${r1} ${r1} 0 0 1 ${P(r1, a1)} L${P(r0, a1)} A${r0} ${r0} 0 0 0 ${P(r0, a0)}Z" fill="${col}"/>`; };
+    const pct = k => { const v = K[k]; return v && v[1] ? v[0] / v[1] : 0; };
+    return `<svg viewBox="0 0 220 220" class="mg-hwheel" role="img" aria-label="Heart wheel: ${HSK.map(([k]) => `${k} ${K[k] && K[k][1] ? Math.round(pct(k) * 100) + '%' : 'not played yet'}`).join(', ')}">
+      ${HSK.map(([k, , c], i) => wedge(i, 1, c + '22')).join('')}${HSK.map(([k, , c], i) => wedge(i, Math.max(.04, pct(k)), c)).join('')}
+      <circle cx="${cx}" cy="${cy}" r="${r0 - 3}" fill="#fff"/><text x="${cx}" y="${cy + 8}" text-anchor="middle" font-size="22">💗</text>
+      ${HSK.map(([k, e], i) => { const a = (-90 + i * 72 + 36) * Math.PI / 180; return `<text x="${(cx + 96 * Math.cos(a)).toFixed(1)}" y="${(cy + 96 * Math.sin(a) + 6).toFixed(1)}" text-anchor="middle" font-size="16">${e}</text>`; }).join('')}</svg>`;
+  }
+  function gauge(f) {
+    const z = f >= .85 ? 3 : f >= .7 ? 2 : f >= .5 ? 1 : 0, ang = -90 + 180 * Math.max(0, Math.min(1, f));
+    const arc = (i, col) => { const a0 = Math.PI * (1 + i / 4), a1 = Math.PI * (1 + (i + 1) / 4), P = a => `${(100 + 80 * Math.cos(a)).toFixed(1)},${(100 + 80 * Math.sin(a)).toFixed(1)}`;
+      return `<path d="M${P(a0)} A80 80 0 0 1 ${P(a1)}" stroke="${col}" stroke-width="22" fill="none"/>`; };
+    return `<div class="mg-gauge"><svg viewBox="0 0 200 112" aria-hidden="true">${ZONES.map(([, c], i) => arc(i, c)).join('')}<g style="transform:rotate(${ang}deg);transform-origin:100px 100px;transition:transform 1s"><line x1="100" y1="100" x2="100" y2="34" stroke="#1f2d33" stroke-width="4" stroke-linecap="round"/></g><circle cx="100" cy="100" r="8" fill="#1f2d33"/></svg><b>${ZONES[z][0]}</b></div>`;
+  }
+
   /* full scorecard for one practice */
   function card(test) {
     style(); const el = screen(), t = T(test), b = band(), m = M(), lv = level(test), l = m.log[test] || [], h = m.hist[test] || [], K = m.kinds[test] || {}; show('mind', 'practice'); window.scrollTo(0, 0);
@@ -176,6 +220,10 @@
       <div class="mg-tiles"><div class="card"><b>${lv.few ? '—' : lv.pct + '%'}</b><small>Recent accuracy</small></div><div class="card"><b>${tot}</b><small>Challenges done</small></div><div class="card"><b>${m.rounds[test] || 0}</b><small>Rounds played</small></div><div class="card"><b>${h.length ? best + '%' : '—'}</b><small>Best round</small></div></div>
       <div class="card"><h3>📈 My rounds</h3>${spark}</div>
       <div class="card"><h3>🟢 Last ${l.length} answers</h3>${l.length ? `<div class="mg-dots">${l.map(v => `<i class="${v ? 'y' : 'n'}"></i>`).join('')}</div>` : '<p class="sub">No answers yet.</p>'}</div>
+      ${test === 'eq' && skills.length ? (() => { const tot = skills.reduce((a, [, v]) => [a[0] + v[0], a[1] + v[1]], [0, 0]); return `<div class="card"><h3>💗 Heart Wheel</h3><div class="mg-hw">${heartWheel(K)}${gauge(tot[1] ? tot[0] / tot[1] : 0)}</div>
+        ${HSK.map(([k, e, c]) => { const v = K[k]; return `<div class="mg-row"><span>${e} ${E(k)}</span><div class="mg-bar"><i style="width:${v && v[1] ? Math.round(v[0] / v[1] * 100) : 0}%;background:${c}"></i></div><b>${v && v[1] ? ZONES[(v[0] / v[1]) >= .85 ? 3 : (v[0] / v[1]) >= .7 ? 2 : (v[0] / v[1]) >= .5 ? 1 : 0][0].split(' ')[0] : '—'}</b></div>`; }).join('')}
+        <p class="sub mg-lvl">Zones: 🌱 Growing → 🌿 Building → 🌳 Strong → 🌟 Shining, from your Heart Compass games. Longer petals = stronger skills.</p></div>`; })() : ''}
+      ${test === 'eq' && (m.htests || []).length ? `<div class="card"><h3>⏱️ Timed check results</h3><div class="mg-tiles2">${m.htests.slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div></div>` : ''}
       ${test === 'iq' && skills.length ? `<div class="card"><h3>🧩 Skills</h3>${skills.map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${Math.round(v[0] / v[1] * 100)}%;background:${t.col}"></i></div><b>${v[0]}/${v[1]}</b></div>`).join('')}
         ${strong.length > 1 ? `<p class="sub mg-lvl">💪 Strongest: ${E(strong[0][0])} · 🎯 Practise more: ${E(strong[strong.length - 1][0])}</p>` : ''}</div>` : ''}
       ${test === 'iq' && (m.btests || []).length ? `<div class="card"><h3>⏱️ Timed test results</h3><div class="mg-tiles2">${m.btests.slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div>
@@ -183,7 +231,7 @@
       <button class="btn" type="button" id="mgGo">Play ${E(t.n)} ▶</button>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div></div>`;
     $1('#mgQuit').onclick = () => { S('tap'); open(); };
-    $1('#mgGo').onclick = () => { S('open'); test === 'iq' ? iqMenu() : round(test); };
+    $1('#mgGo').onclick = () => { S('open'); test === 'iq' ? iqMenu() : test === 'eq' && window.HeartPlay ? eqMenu() : round(test); };
   }
 
   /* ---------- a round ---------- */
@@ -326,6 +374,8 @@
       .mg-m .mg-play-hub{background:linear-gradient(135deg,#0f8f8a,#2b6cff)}.mg-s .mg-play-hub,.mg-p .mg-play-hub{background:linear-gradient(135deg,#1d2440,#3a2f7a)}
       .mg-play-hub .mg-e{font-size:38px}.mg-play-hub .mg-tt{flex:1;display:flex;flex-direction:column}.mg-play-hub b{font-size:19px}.mg-play-hub small{opacity:.9}
       .mg-tiles2{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}.mg-tiles2 span{display:flex;flex-direction:column;align-items:center;padding:6px 10px;border-radius:10px;background:rgba(0,0,0,.04)}.mg-tiles2 b{color:var(--c)}.mg-tiles2 small{font-size:11px;color:var(--muted,#666)}
+      .hp-hubcard{background:linear-gradient(135deg,#ff7eb3,#ffd166)}.mg-m .hp-hubcard{background:linear-gradient(135deg,#ff7a59,#8e44ad)}.mg-s .hp-hubcard,.mg-p .hp-hubcard{background:linear-gradient(135deg,#3b1d4a,#0f3d4a)}
+      .mg-hw{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px}.mg-hwheel{width:200px}.mg-gauge{display:flex;flex-direction:column;align-items:center;width:170px}.mg-gauge svg{width:170px}.mg-gauge b{font-size:18px}
       .mg-done{text-align:center;position:relative}.mg-big{font-size:56px}
       .mg-scwrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}.mg-radar{width:200px;max-width:48%;min-width:170px}
       .mg-rr{fill:none;stroke:rgba(0,0,0,.12);stroke-width:1}.mg-rv{fill:rgba(109,74,255,.25);stroke:#6d4aff;stroke-width:2.5;stroke-linejoin:round;animation:mpPop .6s both}
@@ -358,5 +408,5 @@
     m.total[test] = (m.total[test] || 0) + 1;
     const K = m.kinds[test] = m.kinds[test] || {}; K[kind] = K[kind] || [0, 0]; K[kind][1]++; if (ok) K[kind][0]++; persist();
   }
-  window.MindGym = { open, card, iqMenu, round, record, state: M, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
+  window.MindGym = { open, card, iqMenu, eqMenu, round, record, state: M, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
 })();

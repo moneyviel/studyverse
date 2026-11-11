@@ -30,13 +30,16 @@
     { id: 'cube', e: '🧊', skill: 'Space', n: { m: 'Cube Workshop', s: 'Spatial Folding' }, d: 'Fold the flat net into a cube in your mind', not: 'j' },
     { id: 'jumble', e: '🔤', skill: 'Words', n: { j: 'Picture Spell', m: 'Word Scramble', s: 'Anagram Lab' }, d: 'Tap the letters into the right order' },
     { id: 'magic', e: '✨', skill: 'Logic', n: { j: 'Magic Box', m: 'Magic Square', s: 'Magic Square' }, d: 'Every row, column and diagonal must add up the same' }];
-  const games = () => GAMES.filter(g => g.not !== band());
+  /* suites: 'iq' (Brainstorm Arena, defined here) and others added with MindPlay.addSuite (e.g. js/heartplay.js) */
+  const SUITES = { iq: { id: 'iq', test: 'iq', theme: THEME, games: GAMES, gen: () => window.MindPlayGen, back: () => MG().iqMenu(), backLabel: 'Brainstorm Arena', store: 'btests', kind: g => KIND[g.id] } };
+  let SU = SUITES.iq;
+  const games = () => SU.games.filter(g => g.not !== band());
   const gname = g => g.n[band()] || g.n.m;
-  const KIND = { memory: 'Memory code', twins: 'Perception sprint', scale: 'Balance scales', pyramid: 'Number pyramid', wheel: 'Number wheel', cube: 'Cube folding', jumble: 'Word jumble', magic: 'Magic square' };
+  var KIND = { memory: 'Memory code', twins: 'Perception sprint', scale: 'Balance scales', pyramid: 'Number pyramid', wheel: 'Number wheel', cube: 'Cube folding', jumble: 'Word jumble', magic: 'Magic square' };
   const PER_ROUND = 5;
 
   /* progress */
-  function gst(id) { const m = M(); m.games = m.games || {}; return m.games[id] = m.games[id] || { best: {} }; }
+  function gst(id) { const m = M(), k = SU.id === 'iq' ? id : SU.id + ':' + id; m.games = m.games || {}; return m.games[k] = m.games[k] || { best: {} }; }
   const learnLv = () => MG()._owner() ? 5 : Math.min(5, 1 + Math.floor(MG()._steps() / 2));
   function openLv(id) { const b = gst(id).best; let L = 1; while (L < 5 && (b[L] || 0) >= 2 && L < learnLv()) L++; return L; }
   const starsTxt = n => '⭐'.repeat(n) + '☆'.repeat(3 - n);
@@ -44,7 +47,7 @@
   /* ---------- screen helpers ---------- */
   function screen() { return MG()._screen(); }
   function frame(inner, back, title) {
-    const t = THEME[band()], el = screen(); MG()._show();
+    const t = SU.theme[band()], el = screen(); MG()._show();
     el.innerHTML = `<div class="mg-root pl-root ${t.cls}"><button class="back" id="plBack">← ${E(back.t)}</button>${title ? `<div class="pl-title">${title}</div>` : ''}${inner}</div>`;
     $1('#plBack').onclick = () => { S('tap'); back.go(); }; window.scrollTo(0, 0);
     return el;
@@ -262,20 +265,20 @@
     }
   };
 
-  function round_(sc) { const m = M(); m.rounds.iq = (m.rounds.iq || 0) + 1; const H = m.hist.iq = (m.hist.iq || []); H.push(Math.round(sc * 100)); if (H.length > 20) H.splice(0, H.length - 20); }
+  function round_(sc) { const m = M(), T = SU.test; m.rounds[T] = (m.rounds[T] || 0) + 1; const H = m.hist[T] = (m.hist[T] || []); H.push(Math.round(sc * 100)); if (H.length > 20) H.splice(0, H.length - 20); }
 
   /* ---------- running a set of puzzles ---------- */
   function runSet(list, opts) {   // list: [{g, lvl}], opts: {title, back, onEnd(results), timed}
     let i = 0; const res = [];
     const next = () => {
       if (i >= list.length) return opts.onEnd(res);
-      const it = list[i], g = GAMES.find(x => x.id === it.g), p = G().make(it.g, band(), it.lvl);
+      const it = list[i], g = SU.games.find(x => x.id === it.g), p = SU.gen().make(it.g, band(), it.lvl);
       const el = frame(`<div class="card pl-card"><div class="pl-top"><span>${g.e} ${E(gname(g))}${opts.tag ? ` · ${E(opts.tag(it))}` : ''}</span><span>${i + 1} / ${list.length}</span></div><div class="mg-bar"><i style="width:${Math.round(i / list.length * 100)}%"></i></div><div class="pl-stage"></div><div class="pl-fb" aria-live="polite"></div></div>`, opts.back, opts.title);
       const stage = $1('.pl-stage', el);
       PLAY[it.g](stage, p, (ok, why, extra, part, after) => {
         S(ok ? 'right' : 'wrong'); if (ok) burst($1('.pl-card', el));
         res.push({ g: it.g, ok, part: part == null ? (ok ? 1 : 0) : part });
-        try { MG().record('iq', KIND[it.g], ok); } catch (e) {}
+        try { MG().record(SU.test, SU.kind(g), ok); } catch (e) {}
         const fb = $1('.pl-fb', el);
         fb.innerHTML = `<p class="mg-v ${ok ? 'ok' : 'no'}">${ok ? (band() === 'j' ? '🎉 Yay, correct!' : band() === 'm' ? '✅ Quest step cleared!' : '✅ Correct') : (band() === 'j' ? '🙈 Oops, not this time!' : '❌ Not quite')}</p><p>${E(why)}</p>${extra || ''}<button class="btn" type="button" id="plNext">${i + 1 < list.length ? 'Next ▶' : 'See results'}</button>`;
         if (after) after(fb);
@@ -289,28 +292,28 @@
   /* ---------- hub ---------- */
   function hub() {
     style();
-    const b = band(), t = THEME[b], L = games();
+    const b = band(), t = SU.theme[b], L = games();
     const card = g => { const lv = openLv(g.id), best = gst(g.id).best, st = Math.max(0, ...Object.values(best));
       return `<button type="button" class="pl-game" data-g="${g.id}"><span class="pl-ge" aria-hidden="true">${g.e}</span><span class="pl-gt"><b>${E(gname(g))}</b><small>${E(g.d)}</small><small class="pl-lv">Level ${lv} of 5 · ${starsTxt(best[lv] || 0)}</small></span></button>`; };
     const trail = b === 'm' ? `<div class="pl-trail">${L.map((g, k) => `<div class="pl-isl" style="--k:${k}">${card(g)}</div>`).join('')}</div>` : `<div class="pl-games">${L.map(card).join('')}</div>`;
-    const bt = M().btests || [];
-    const el = frame(`<div class="pl-hero"><div class="pl-he" aria-hidden="true">${t.e}</div><h2>${E(t.name)}</h2><p>${b === 'j' ? 'Pick a game and play! Every right answer makes your brain stronger.' : b === 'm' ? 'Explore the islands. Clear levels to light up the trail!' : 'Train each thinking skill, then take the timed test.'}</p></div>
+    const bt = M()[SU.store] || [];
+    const el = frame(`<div class="pl-hero"><div class="pl-he" aria-hidden="true">${t.e}</div><h2>${E(t.name)}</h2><p>${t.hero || (b === 'j' ? 'Pick a game and play! Every right answer makes your brain stronger.' : b === 'm' ? 'Explore the islands. Clear levels to light up the trail!' : 'Train each thinking skill, then take the timed test.')}</p></div>
       <button type="button" class="card pl-testbtn"><span aria-hidden="true">⏱️</span><span><b>${E(t.test)}</b><small>${b === 'j' ? 'Play all the games in one fun challenge' : 'Every skill in one timed run'}${bt.length ? ` · Best ${Math.max(...bt.map(x => x.pct))}%` : ''}</small></span><span class="mg-chev">›</span></button>
-      ${trail}<p class="pl-note">🔓 New levels open when you get ⭐⭐ on the level before and keep finishing ${MG()._isCA() ? 'units' : 'topics'}.</p>`, { t: 'Brainstorm Arena', go: () => MG().iqMenu() });
+      ${trail}<p class="pl-note">🔓 New levels open when you get ⭐⭐ on the level before and keep finishing ${MG()._isCA() ? 'units' : 'topics'}.</p>`, { t: SU.backLabel, go: () => SU.back() });
     el.querySelectorAll('[data-g]').forEach(x => x.onclick = () => { S('open'); levels(x.dataset.g); });
     $1('.pl-testbtn', el).onclick = () => { S('open'); test(); };
   }
 
   function levels(id) {
-    const g = GAMES.find(x => x.id === id), best = gst(id).best, open = openLv(id), lmax = learnLv();
+    const g = SU.games.find(x => x.id === id), best = gst(id).best, open = openLv(id), lmax = learnLv();
     const el = frame(`<div class="pl-hero"><div class="pl-he" aria-hidden="true">${g.e}</div><h2>${E(gname(g))}</h2><p>${E(g.d)}</p></div>
       <div class="pl-levels">${[1, 2, 3, 4, 5].map(l => { const lock = l > open; const why = lock ? (l > lmax ? `Finish more ${MG()._isCA() ? 'units' : 'topics'}` : 'Get ⭐⭐ on the level before') : '';
-        return `<button type="button" class="pl-lvl${lock ? ' lock' : ''}" data-l="${l}" ${lock ? 'disabled' : ''}><b>${lock ? '🔒' : l}</b><span>${lock ? E(why) : starsTxt(best[l] || 0)}</span></button>`; }).join('')}</div>`, { t: THEME[band()].name, go: hub });
+        return `<button type="button" class="pl-lvl${lock ? ' lock' : ''}" data-l="${l}" ${lock ? 'disabled' : ''}><b>${lock ? '🔒' : l}</b><span>${lock ? E(why) : starsTxt(best[l] || 0)}</span></button>`; }).join('')}</div>`, { t: SU.theme[band()].name, go: hub });
     el.querySelectorAll('[data-l]').forEach(x => x.onclick = () => { S('open'); play(id, +x.dataset.l); });
   }
 
   function play(id, lvl) {
-    const g = GAMES.find(x => x.id === id);
+    const g = SU.games.find(x => x.id === id);
     runSet(Array.from({ length: PER_ROUND }, () => ({ g: id, lvl })), { tag: () => `Level ${lvl}`, back: { t: gname(g), go: () => levels(id) }, onEnd: res => {
       const sc = res.reduce((t, r) => t + r.part, 0) / res.length, stars = sc >= .8 ? 3 : sc >= .6 ? 2 : sc >= .4 ? 1 : 0, st = gst(id);
       const before = openLv(id); st.best[lvl] = Math.max(st.best[lvl] || 0, stars); round_(sc); persist();
@@ -327,22 +330,22 @@
 
   /* ---------- ⏱️ Brain Test: one round through every skill ---------- */
   function test() {
-    const b = band(), t = THEME[b], L = games();
+    const b = band(), t = SU.theme[b], L = games();
     const lvl = id => Math.max(1, Math.min(openLv(id), learnLv()));
     const plan = L.map(g => ({ g: g.id, lvl: lvl(g.id) }));
     const el = frame(`<div class="card pl-hero"><div class="pl-he" aria-hidden="true">⏱️</div><h2>${E(t.test)}</h2>
       <p>${plan.length} challenges, one from every game: ${L.map(g => g.e).join(' ')}</p><p class="sub">${b === 'j' ? 'Take your time and have fun!' : 'Work fast but carefully. Some challenges have a timer.'}</p>
-      <button class="btn" type="button" id="plStart">Start ▶</button></div><div class="card mg-note">ℹ️ This is a practice test for fun. It shows how you did on these challenges today. It is not an official IQ test and gives no IQ number.</div>`, { t: t.name, go: hub });
+      <button class="btn" type="button" id="plStart">Start ▶</button></div><div class="card mg-note">ℹ️ This is a practice test for fun. It shows how you did on these challenges today. ${SU.id === 'iq' ? 'It is not an official IQ test and gives no IQ number.' : 'It is not a psychological assessment and gives no score number for you as a person.'}</div>`, { t: t.name, go: hub });
     $1('#plStart').onclick = () => { S('open'); runSet(plan, { title: `<span>⏱️ ${E(t.test)}</span>`, back: { t: t.name, go: hub }, onEnd: res => result(res) }); };
     function result(res) {
-      const sec = {}; res.forEach(r => { const g = GAMES.find(x => x.id === r.g); sec[g.skill] = sec[g.skill] || []; sec[g.skill].push(r.part); });
+      const sec = {}; res.forEach(r => { const g = SU.games.find(x => x.id === r.g); sec[g.skill] = sec[g.skill] || []; sec[g.skill].push(r.part); });
       const pct = Math.round(res.reduce((s, r) => s + r.part, 0) / res.length * 100);
       const secP = Object.fromEntries(Object.entries(sec).map(([k, v]) => [k, Math.round(v.reduce((a, c) => a + c, 0) / v.length * 100)]));
-      const m = M(); m.btests = (m.btests || []).concat({ at: Date.now(), pct, sec: secP }).slice(-12); round_(pct / 100); persist();
+      const m = M(); m[SU.store] = (m[SU.store] || []).concat({ at: Date.now(), pct, sec: secP }).slice(-12); round_(pct / 100); persist();
       try { addXP(Math.round(pct / 5)); } catch (e) {}
       const word = pct >= 85 ? ['🏆', 'Brilliant!'] : pct >= 70 ? ['🌟', 'Sharp thinking!'] : pct >= 50 ? ['⭐', 'Good going!'] : ['🧭', 'Nice start!'];
       const best = Object.entries(secP).sort((a, c) => c[1] - a[1]);
-      const hist = m.btests.map(x => x.pct);
+      const hist = m[SU.store].map(x => x.pct);
       const el2 = frame(`<div class="card pl-end"><div class="pl-he" aria-hidden="true">${word[0]}</div><h2>${word[1]}</h2><div class="pl-ring" style="--p:${pct}"><b>${pct}%</b></div>
         <div class="pl-secs">${Object.entries(secP).map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${v}%"></i></div><b>${v}%</b></div>`).join('')}</div>
         ${best.length > 1 && best[0][1] > best[best.length - 1][1] ? `<p class="sub">💪 Strongest: ${E(best[0][0])} · 🎯 Practise: ${E(best[best.length - 1][0])}</p>` : ''}
@@ -419,5 +422,6 @@
       @media (prefers-reduced-motion:reduce){.pl-root *{animation-duration:.01s!important;animation-iteration-count:1!important}}
     </style>`);
   }
-  window.MindPlay = { hub: () => { style(); hub(); }, test: () => { style(); test(); }, _style: style };
+  const use = id => { SU = SUITES[id || 'iq'] || SUITES.iq; style(); };
+  window.MindPlay = { hub: id => { use(id); hub(); }, test: id => { use(id); test(); }, addSuite: def => { SUITES[def.id] = def; }, PLAY, frame, keypad, burst, timerBar, E, S, band, _style: style };
 })();
