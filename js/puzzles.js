@@ -127,7 +127,7 @@
           const units = {}, load = async cis => { for (const ci of cis) for (const u of f.p.chapters[ci].units) { if (u.status !== 'built' || units[u.id]) continue; try { const d = await x.unitData(u.id); if (d) units[u.id] = d; } catch (e) {} } };
           const make = () => PC().termsFromCA({ structure: f.st, units, keyItems: (window.CaKeysData && CaKeysData.ITEMS) || [] }, sc.ch);
           await load([f.i]); t = make();
-          if (t.own.length < 20) { await load(caNear(f)); t = make(); }   // neighbours only matter when the chapter is small
+
         }
       }
     } catch (e) { console.warn('puzzle terms', e); }
@@ -491,7 +491,9 @@
   }
   /* render a built puzzle into el: the full screen (race = null) or a race host (race = callbacks) */
   function start(el, sp, b, race) {
-    const p = b.p, id = pid(sp), saved = race ? null : Z().saves[id];
+    const p = b.p, id = pid(sp), sig = sp.t === 'xw' ? p.entries.map(e => e.a).join(',') : '';
+    let saved = race ? null : Z().saves[id];
+    if (saved && sig && saved.sig !== sig) saved = null;          // the puzzle changed since it was saved (new app version): start fresh
     const ctx = makeCtx(el, !!race); if (!race) CTX = ctx;
     const st = { sp, p, id, t0: Date.now(), secs: saved ? saved.t || 0 : 0, hints: 0, spent: 0, mistakes: 0, pool: prize(sp, p), done: false, extra: b.extra || {}, ctx, race, root: el,
       lang: (b.extra && b.extra.lang) || 'en', indic: !!(p.script && p.script !== 'latn') };
@@ -581,7 +583,7 @@
     if (st.done || !st.getState || st.race) return;
     const z = Z(), inf = (st.extra && st.extra.info) || {};
     const spec = JSON.parse(JSON.stringify({ t: st.sp.t, sc: st.sp.sc, seed: st.sp.seed, diff: st.sp.diff, n: st.sp.n, daily: st.sp.daily, from: st.sp.from }));
-    z.saves[st.id] = Object.assign(st.getState(), { t: st.secs, pool: st.pool, hints: st.hints, at: Date.now(), sp: spec, title: inf.title || '', sub: inf.sname || '', kept: !!st.kept });
+    z.saves[st.id] = Object.assign(st.getState(), { sig: st.sp.t === 'xw' ? st.p.entries.map(e => e.a).join(',') : '', t: st.secs, pool: st.pool, hints: st.hints, at: Date.now(), sp: spec, title: inf.title || '', sub: inf.sname || '', kept: !!st.kept });
     const ks = Object.keys(z.saves).sort((a, b) => z.saves[b].at - z.saves[a].at);
     ks.filter(k => !z.saves[k].kept).slice(8).forEach(k => delete z.saves[k]); ks.filter(k => z.saves[k] && z.saves[k].kept).slice(12).forEach(k => delete z.saves[k]);
     if (now) { try { save(); } catch (e) {} } else saveSoon();

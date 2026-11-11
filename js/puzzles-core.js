@@ -958,7 +958,7 @@
     const chs = (subject && subject.chapters) || [], c = chs[ci];
     if (!c) return { own: [], near: [], groups: [] };
     const own = termsSchool(c), groups = groupsSchool(c), near = [];
-    if ((chapterScript(c) || 'latn') === 'latn' && own.length < 20) {
+    if (false) {                                       // words come ONLY from the chosen chapter (no nearby-chapter words)
       const order = []; for (let j = 1; j < chs.length && order.length < 6; j++) [ci - j, ci + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 6) order.push(x); });
       order.forEach(x => near.push(...termsSchool(chs[x]).filter(t => !t.u)));
     }
@@ -986,7 +986,7 @@
     const keys = c => items.filter(it => c.units.some(u => u.id === it.u));
     const units = cUnits(f.c), own = termsCA(units, keys(f.c)), groups = [], near = [];
     units.forEach(u => groups.push({ title: u.title, items: (u.quickref || []).filter(q => /^[A-Za-z][A-Za-z '\-]*$/.test(String(q.k || '').trim())).map(q => ({ label: String(q.k).trim(), info: String(q.v || '') })) }));
-    if (own.length < 20) for (const x of caNearOrder(f)) near.push(...termsCA(cUnits(f.p.chapters[x]), keys(f.p.chapters[x])));   // nearest chapters first
+    /* words come ONLY from the chosen chapter: no nearby-chapter words (near stays empty) */
     return { own, near, groups, ca: true };
   }
   const caLevel = ch => ({ fnd: 'foundation', int: 'inter', fin: 'final' })[String(ch).split('-')[0]] || 'foundation';
@@ -998,7 +998,7 @@
     if (sc.k === 's') return [`content/g${+sc.g}/${sc.sid}.json`];
     const lvl = caLevel(sc.ch), out = [`content/ca/${lvl}/structure.json`, 'js/ca-keys-data.js'];
     const f = structure && caFind(structure, sc.ch); if (!f) return out;
-    [f.i].concat(caNearOrder(f)).forEach(x => f.p.chapters[x].units.filter(u => u.status === 'built').forEach(u => {
+    [f.i].forEach(x => f.p.chapters[x].units.filter(u => u.status === 'built').forEach(u => {
       out.push(u.file); const m = /^[a-z]+-(p\d+)-/.exec(u.id); if (m) out.push(`content/ca/${lvl}/${m[1]}/bank/${u.id}.json`);
     }));
     return out;

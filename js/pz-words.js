@@ -41,8 +41,11 @@
         if (!f) { const c = chs[sp.sc.ci]; if (c) f = { c, tp: null }; }
         if (f) r = { k: 's', subj: subjName(g, sid), ch: f.c, topic: f.tp, chapters: chs, ci: chs.indexOf(f.c) };
       } else if (sp.sc.k === 'c') {
-        const x = X(); if (x && t && t.uid) {
-          const st = await x.structure(x.levelOf(t.uid)), f = x.findUnit(st, t.uid), data = await x.unitData(t.uid);
+        const x = X();
+        let uid = t && t.uid;
+        if (!uid && t && t.kid) { const it = ((window.CaKeysData && CaKeysData.ITEMS) || []).find(k => k.id === t.kid); if (it) uid = it.u; }   // a key-rule word: its own unit
+        if (x && uid) {
+          const st = await x.structure(x.levelOf(uid)), f = x.findUnit(st, uid), data = await x.unitData(uid);
           if (f) r = { k: 'c', paper: f.p, ch: f.c, unit: f.u, data };
         }
         if (!r && x) {               // no unit known: at least the chapter
