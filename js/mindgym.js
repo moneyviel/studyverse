@@ -153,11 +153,13 @@
     const n = f => op.filter(f).length;
     el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${T('iq').col}"><button class="back" id="mgQuit">← Mind Gym</button>
       <div class="hello mg-hello" role="heading" aria-level="1"><span aria-hidden="true">🧠</span> Brainstorm Arena <small>Pick your challenge</small></div>
+      ${window.MindPlay ? `<button type="button" class="card mg-play-hub" id="mgPlay"><span class="mg-e" aria-hidden="true">${{ j: '🎪', m: '🗺️', s: '🧪', p: '🧪' }[b]}</span><span class="mg-tt"><b>${{ j: 'Brain Carnival', m: 'Brain Quest', s: 'Brain Lab', p: 'Brain Lab' }[b]}</b><small>${b === 'j' ? 'Memory, number towers, seesaws, magic boxes and more!' : 'Hands-on games: memory, balance, pyramids, wheels, cube folding, anagrams + a timed test'}</small></span><span class="mg-chev" aria-hidden="true">›</span></button>` : ''}
       <div class="mg-list">${[['mix', '🎲', 'Mix it up', 'A bit of everything', n(() => 1)], ['pic', '🖼️', 'Picture puzzles', 'Mirrors, paper folding, dice, shapes and more', n(q => q.pic)], ['logic', '🔢', 'Logic & numbers', 'Series, codes, directions and riddles', n(q => !q.pic)]]
         .map(([id, e, t, d, c]) => `<button type="button" class="card mg-test" data-m="${id}" style="--c:${T('iq').col}"><span class="mg-e" aria-hidden="true">${e}</span><span class="mg-tt"><b>${t}</b><small>${d}</small><small class="mg-meta">${c} challenges open</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`).join('')}</div>
       <button class="btn ghost" type="button" id="mgSc">📊 Brainstorm Arena scorecard</button></div>`;
     $1('#mgQuit').onclick = () => { S('tap'); open(); };
     $1('#mgSc').onclick = () => { S('open'); card('iq'); };
+    const ph = $1('#mgPlay'); if (ph) ph.onclick = () => { S('open'); MindPlay.hub(); };
     el.querySelectorAll('[data-m]').forEach(x => x.onclick = () => { S('open'); round('iq', x.dataset.m); });
   }
 
@@ -176,6 +178,8 @@
       <div class="card"><h3>🟢 Last ${l.length} answers</h3>${l.length ? `<div class="mg-dots">${l.map(v => `<i class="${v ? 'y' : 'n'}"></i>`).join('')}</div>` : '<p class="sub">No answers yet.</p>'}</div>
       ${test === 'iq' && skills.length ? `<div class="card"><h3>🧩 Skills</h3>${skills.map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${Math.round(v[0] / v[1] * 100)}%;background:${t.col}"></i></div><b>${v[0]}/${v[1]}</b></div>`).join('')}
         ${strong.length > 1 ? `<p class="sub mg-lvl">💪 Strongest: ${E(strong[0][0])} · 🎯 Practise more: ${E(strong[strong.length - 1][0])}</p>` : ''}</div>` : ''}
+      ${test === 'iq' && (m.btests || []).length ? `<div class="card"><h3>⏱️ Timed test results</h3><div class="mg-tiles2">${m.btests.slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div>
+        ${(() => { const last = m.btests[m.btests.length - 1].sec; return Object.entries(last).map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${v}%;background:${t.col}"></i></div><b>${v}%</b></div>`).join(''); })()}<p class="sub mg-lvl">Bars show your latest timed test, skill by skill.</p></div>` : ''}
       <button class="btn" type="button" id="mgGo">Play ${E(t.n)} ▶</button>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div></div>`;
     $1('#mgQuit').onclick = () => { S('tap'); open(); };
@@ -318,6 +322,10 @@
       .mg-learn{display:block;margin-top:8px;border:0;border-radius:999px;background:#ffc43d;color:#3a2a00;font-weight:800;font-size:14px;padding:8px 14px;cursor:pointer;font-family:inherit}
       .mg-nudge{position:fixed;left:12px;right:12px;bottom:84px;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 12px 12px 14px;border-radius:16px;background:linear-gradient(135deg,#6d4aff,#e0408f);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.3);animation:mpPop .45s both;max-width:520px;margin:0 auto}
       .mg-nudge span{flex:1;font-size:14px;line-height:1.35}.mg-ng{border:0;border-radius:999px;background:#fff;color:#6d4aff;font-weight:900;padding:8px 12px;cursor:pointer;white-space:nowrap;font-family:inherit}.mg-nx{border:0;background:transparent;color:#fff;font-size:18px;cursor:pointer;padding:4px}
+      .mg-play-hub{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;cursor:pointer;font-family:inherit;color:#fff;background:linear-gradient(135deg,#ff5fa2,#ffb13d);margin-bottom:10px;animation:mpPop .5s both}
+      .mg-m .mg-play-hub{background:linear-gradient(135deg,#0f8f8a,#2b6cff)}.mg-s .mg-play-hub,.mg-p .mg-play-hub{background:linear-gradient(135deg,#1d2440,#3a2f7a)}
+      .mg-play-hub .mg-e{font-size:38px}.mg-play-hub .mg-tt{flex:1;display:flex;flex-direction:column}.mg-play-hub b{font-size:19px}.mg-play-hub small{opacity:.9}
+      .mg-tiles2{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}.mg-tiles2 span{display:flex;flex-direction:column;align-items:center;padding:6px 10px;border-radius:10px;background:rgba(0,0,0,.04)}.mg-tiles2 b{color:var(--c)}.mg-tiles2 small{font-size:11px;color:var(--muted,#666)}
       .mg-done{text-align:center;position:relative}.mg-big{font-size:56px}
       .mg-scwrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}.mg-radar{width:200px;max-width:48%;min-width:170px}
       .mg-rr{fill:none;stroke:rgba(0,0,0,.12);stroke-width:1}.mg-rv{fill:rgba(109,74,255,.25);stroke:#6d4aff;stroke-width:2.5;stroke-linejoin:round;animation:mpPop .6s both}
@@ -344,5 +352,11 @@
     place();
   }
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', boot); else boot();
-  window.MindGym = { open, card, iqMenu, round, _steps: steps, _band: band };
+  /* used by js/mindplay.js (brain games) */
+  function record(test, kind, ok) {
+    const m = M(), L = m.log[test] = (m.log[test] || []); L.push(ok ? 1 : 0); if (L.length > 40) L.splice(0, L.length - 40);
+    m.total[test] = (m.total[test] || 0) + 1;
+    const K = m.kinds[test] = m.kinds[test] || {}; K[kind] = K[kind] || [0, 0]; K[kind][1]++; if (ok) K[kind][0]++; persist();
+  }
+  window.MindGym = { open, card, iqMenu, round, record, state: M, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
 })();
