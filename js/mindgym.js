@@ -85,6 +85,17 @@
     const need = STEP - (steps() % STEP); return { need, gets: Math.min(PER, total - openCount(total)) };
   }
 
+  /* how many challenges exist per practice and age band (content/mind/counts.json, tiny) — for reminders outside Mind Gym */
+  let COUNTS = null, countsP = null;
+  const loadCounts = () => countsP || (countsP = loadJSON('content/mind/counts.json').then(c => { COUNTS = c; return c; }).catch(() => { countsP = null; return null; }));
+  function unlockInfo() {
+    if (!COUNTS || isOwner()) return null;
+    const b = band(), shut = TESTS.map(t => (COUNTS[t.id] || {})[qBand(t.id, b)] || 0).filter(n => openCount(n) < n);
+    if (!shut.length) return null;
+    const need = STEP - (steps() % STEP); return { need, gets: Math.min(PER, Math.max(...shut) - openCount(Math.max(...shut))) };
+  }
+  const goLearn = () => { try { if (isCA() && window.Ca) Ca.home(); else worldScreen(); } catch (e) {} };
+
   /* rating from the last 40 answers (words and stars, never an IQ-style number) */
   function level(test) {
     const l = M().log[test] || [];
@@ -179,7 +190,7 @@
     host.appendChild(c); setTimeout(() => c.remove(), 1100);
   }
   async function round(test, mode) {
-    const el = screen(), t = T(test), b = band(), lk = LOOK[b], m = M();
+    style(); const el = screen(), t = T(test), b = band(), lk = LOOK[b], m = M(); show('mind', 'practice');
     const all = await pool(test);
     let open_ = all.slice(0, openCount(all.length));
     if (mode === 'pic') open_ = open_.filter(q => q.pic); else if (mode === 'logic') open_ = open_.filter(q => !q.pic);
@@ -189,6 +200,7 @@
     const missed = shuffle(open_.filter(q => m.seen[q.id] === 0));
     const rest = shuffle(open_.filter(q => m.seen[q.id] === 1));
     const list = fresh.concat(missed, rest).slice(0, n);
+    const ranOut = fresh.length < n, more = ranOut ? (await loadCounts(), unlockInfo()) : null;
     let i = 0, right = 0;
     const draw = () => {
       const q = list[i], order = shuffle([0, 1, 2, 3]), pic = !!(q.pic && window.MindPics), big = pic && !MindPics.textOpts(q);
@@ -196,10 +208,12 @@
       el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${t.col}"><button class="back" id="mgQuit">← ${test === 'iq' ? 'Brainstorm Arena' : 'Mind Gym'}</button>
         <div class="card mg-play"><div class="mg-top"><span>${t.e} ${E(t.n)}</span><span>${i + 1} / ${list.length}</span></div>
           <div class="mg-bar"><i style="width:${Math.round(i / list.length * 100)}%;background:${t.col}"></i></div>
+          ${i === 0 && ranOut ? `<div class="mg-out">🔁 You’ve seen every open challenge here, so some come back for practice.${more ? ` <b>Finish ${more.need} more ${stepWord(more.need)} to unlock ${more.gets} fresh ones!</b> <button type="button" class="mg-learn">📚 Go to my next ${isCA() ? 'unit' : 'topic'}</button>` : ''}</div>` : ''}
           <h3 class="mg-q${!pic && (q.k === 'picture' || q.k === 'odd-pic') ? ' pic' : ''}">${E(q.q)}</h3>${pic ? MindPics.stem(q) : ''}
           <div class="mg-opts${big || (!pic && q.k === 'odd-pic') ? ' picg' : ''}">${order.map((k, x) => `<button type="button" class="mg-o${pic || q.k === 'odd-pic' || q.k === 'picture' ? ' pic' : ''}" data-k="${k}"${pic && big ? ` aria-label="Option ${'ABCD'[x]}"` : ''}>${optHTML(k)}</button>`).join('')}</div>
           <div class="mg-fb" aria-live="polite"></div></div></div>`;
       if (pic) MindPics.wire(el);
+      const lg = $1('.mg-learn', el); if (lg) lg.onclick = () => { S('open'); goLearn(); };
       $1('#mgQuit').onclick = () => { S('tap'); if (i > 0 || el.querySelector('.mg-o:disabled')) finish(true); else (test === 'iq' ? iqMenu() : open()); };
       el.querySelectorAll('.mg-o').forEach(btn => btn.onclick = () => {
         const k = +btn.dataset.k, ok = k === q.a;
@@ -229,10 +243,12 @@
       const msg = right === done ? 'Perfect round! 🎉' : right >= done * 0.7 ? 'Great thinking!' : right >= done * 0.4 ? 'Good effort — every round makes you sharper.' : 'Nice try! Read the explanations and try another round.';
       el.innerHTML = `<div class="mg-root mg-${b}"><div class="card mg-done" style="--c:${t.col}"><div class="mg-big" aria-hidden="true">${t.e}</div><h2>${E(msg)}</h2>
         <p class="sub">${right} of ${done} ${test === 'iq' ? 'correct' : 'best choices'}${right ? ` · +${right * 2} ⭐` : ''}</p>
+        ${more ? `<div class="mg-out">🔓 Finish <b>${more.need} more ${stepWord(more.need)}</b> to unlock <b>${more.gets} fresh challenges</b>. <button type="button" class="mg-learn">📚 Go to my next ${isCA() ? 'unit' : 'topic'}</button></div>` : ''}
         <div class="mg-badge"><span class="mg-st big">${stars(lv.i)}</span><b>${BADGE[lv.i]} ${E(lv.n)}</b></div><p class="sub">${E(SAY[test][lv.i])}</p>
         <button class="btn" type="button" id="mgAgain">Another ${E(lk.round)} ▶</button><div style="height:8px"></div><button class="btn ghost" type="button" id="mgCard">📊 My scorecard</button><div style="height:8px"></div><button class="btn ghost" type="button" id="mgHome">← Mind Gym</button></div></div>`;
       if (right === done) confetti($1('.mg-done', el));
       $1('#mgAgain').onclick = () => { S('open'); round(test, mode); };
+      const lg2 = $1('.mg-learn', el); if (lg2) lg2.onclick = () => { S('open'); goLearn(); };
       $1('#mgCard').onclick = () => { S('open'); card(test); };
       $1('#mgHome').onclick = () => { S('tap'); open(); };
     };
@@ -240,7 +256,28 @@
   }
 
   /* ---------- tile in the Practice tab ---------- */
-  const tileSub = () => 'Brainstorm Arena, Heart Compass and more · unlock by learning';
+  const tileSub = () => { const u = unlockInfo(); return u ? `🔓 ${u.need} more ${stepWord(u.need)} → ${u.gets} new challenges` : 'Brainstorm Arena, Heart Compass and more'; };
+  /* 🔔 in-app reminders: after a topic/unit is finished, celebrate new challenges or say how close the next pack is */
+  function watch() {
+    const s = STx(); if (!s || !s.profile || isParent() || !COUNTS) return;
+    const m = M(), now = steps();
+    if (m.lastSteps == null || now < m.lastSteps) { m.lastSteps = now; persist(); return; }
+    if (now === m.lastSteps) return;
+    const before = m.lastSteps; m.lastSteps = now; persist();
+    const opened = Math.floor(now / STEP) > Math.floor(before / STEP), u = unlockInfo();
+    const shutBefore = TESTS.some(t => { const n = (COUNTS[t.id] || {})[qBand(t.id, band())] || 0; return START + PER * Math.floor(before / STEP) < n; });
+    if (opened && shutBefore) nudge(`🔓 <b>New Mind Gym challenges unlocked!</b> Fresh puzzles and questions are waiting.`, 'Play now', () => open());
+    else if (u && u.need === 1) nudge(`🎯 Just <b>1 more ${isCA() ? 'unit' : 'topic'}</b> to unlock ${u.gets} new Mind Gym challenges!`, null, null);
+    const t = D.getElementById('mgTile'); if (t) { const sm = t.querySelector('small'); if (sm) sm.innerHTML = tileSub(); }
+  }
+  function nudge(html, btn, go) {
+    style(); const old = D.getElementById('mgNudge'); if (old) old.remove();
+    D.body.insertAdjacentHTML('beforeend', `<div id="mgNudge" class="mg-nudge" role="status"><span>${html}</span>${btn ? `<button type="button" class="mg-ng">${E(btn)} ▶</button>` : ''}<button type="button" class="mg-nx" aria-label="Close">✕</button></div>`);
+    const n = D.getElementById('mgNudge'); S('right');
+    if (btn) n.querySelector('.mg-ng').onclick = () => { n.remove(); S('open'); go(); };
+    n.querySelector('.mg-nx').onclick = () => n.remove();
+    setTimeout(() => { if (n.isConnected) n.remove(); }, 9000);
+  }
   function place() {
     const s = STx(); if (!s || !s.profile || isParent()) return;
     const p = D.getElementById('s-practice');
@@ -252,7 +289,7 @@
     if (c && isCA() && c.classList.contains('active')) {
       const hubs = c.querySelector(':scope > .ca-hubs');
       const after = hubs && (hubs.querySelector(':scope > #cxaTile') || hubs.querySelector(':scope > #phTile'));
-      if (after && !hubs.querySelector('#mgTile')) { after.insertAdjacentHTML('afterend', `<button type="button" class="card ca-hub" id="mgTile"><b class="ca-hube" aria-hidden="true">🧠</b><span><b>Mind Gym</b><small>Thinking, people and workplace skills · unlock by learning</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`); wire(); }
+      if (after && !hubs.querySelector('#mgTile')) { after.insertAdjacentHTML('afterend', `<button type="button" class="card ca-hub" id="mgTile"><b class="ca-hube" aria-hidden="true">🧠</b><span><b>Mind Gym</b><small>${unlockInfo() ? tileSub() : 'Thinking, people and workplace skills'}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`); wire(); }
     }
   }
   function wire() { const t = D.getElementById('mgTile'); if (t) t.onclick = () => { S('open'); open(); }; }
@@ -277,6 +314,10 @@
       .mg-o.pic{font-size:34px;text-align:center;padding:8px}.mg-j .mg-opts:has(.pic){grid-template-columns:1fr 1fr}
       .mg-o:hover:not(:disabled){border-color:var(--c)}.mg-o.ok{border-color:#1e9e6a;background:#e6f7ef}.mg-o.no{border-color:#d33;background:#fdeaea}.mg-o:disabled{cursor:default;opacity:1}
       .mg-fb p{margin:10px 0 0;line-height:1.45}.mg-v{font-weight:900;font-size:17px}.mg-v.ok{color:#1e9e6a}.mg-v.no{color:#b5541d}.mg-fb .btn{margin-top:12px}
+      .mg-out{margin:8px 0 10px;padding:10px 12px;border-radius:12px;background:#fff6dc;color:#5a4300;font-size:14px;line-height:1.4}
+      .mg-learn{display:block;margin-top:8px;border:0;border-radius:999px;background:#ffc43d;color:#3a2a00;font-weight:800;font-size:14px;padding:8px 14px;cursor:pointer;font-family:inherit}
+      .mg-nudge{position:fixed;left:12px;right:12px;bottom:84px;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 12px 12px 14px;border-radius:16px;background:linear-gradient(135deg,#6d4aff,#e0408f);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.3);animation:mpPop .45s both;max-width:520px;margin:0 auto}
+      .mg-nudge span{flex:1;font-size:14px;line-height:1.35}.mg-ng{border:0;border-radius:999px;background:#fff;color:#6d4aff;font-weight:900;padding:8px 12px;cursor:pointer;white-space:nowrap;font-family:inherit}.mg-nx{border:0;background:transparent;color:#fff;font-size:18px;cursor:pointer;padding:4px}
       .mg-done{text-align:center;position:relative}.mg-big{font-size:56px}
       .mg-scwrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}.mg-radar{width:200px;max-width:48%;min-width:170px}
       .mg-rr{fill:none;stroke:rgba(0,0,0,.12);stroke-width:1}.mg-rv{fill:rgba(109,74,255,.25);stroke:#6d4aff;stroke-width:2.5;stroke-linejoin:round;animation:mpPop .6s both}
@@ -298,7 +339,8 @@
 
   function boot() {
     style();
-    let t = 0; new MutationObserver(() => { if (!t) t = requestAnimationFrame(() => { t = 0; try { place(); } catch (e) {} }); }).observe(D.body, { childList: true, subtree: true });
+    let t = 0; new MutationObserver(() => { if (!t) t = requestAnimationFrame(() => { t = 0; try { place(); watch(); } catch (e) {} }); }).observe(D.body, { childList: true, subtree: true });
+    loadCounts().then(() => { try { const x = D.getElementById('mgTile'); if (x) x.remove(); place(); watch(); } catch (e) {} });
     place();
   }
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', boot); else boot();

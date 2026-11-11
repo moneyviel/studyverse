@@ -40,4 +40,17 @@ for t in ('eq', 'sq', 'aq', 'cq'):
     for i, q in enumerate(qs):
         q['id'] = '%s-%s-%03d' % (t, q['b'], i + 1)
     json.dump({'test': t, 'v': 1, 'questions': qs}, open(os.path.join(OUT, t + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
-sys.exit(0 if ok else 1)
+ok_final = ok
+
+# small summary the app reads for the Practice tile and unlock reminders (no need to download every question)
+cnt = {}
+for t in ('iq', 'pics', 'eq', 'sq', 'aq', 'cq'):
+    f = os.path.join(OUT, t + '.json')
+    if os.path.exists(f):
+        c = collections.Counter(q['b'] for q in json.load(open(f, encoding='utf-8'))['questions'])
+        k = 'iq' if t == 'pics' else t
+        for b, n in c.items(): cnt.setdefault(k, {}); cnt[k][b] = cnt[k].get(b, 0) + n
+cnt['iq']['p'] = cnt['iq'].get('s', 0)
+json.dump(cnt, open(os.path.join(OUT, 'counts.json'), 'w'), separators=(',', ':'))
+print('counts', cnt)
+sys.exit(0 if ok_final else 1)
