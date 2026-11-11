@@ -12,7 +12,7 @@
 // ENGINE (pinned): js/puzzles-core.js + js/ca-keys-data.js are loaded from GitHub at ONE fixed commit and run only if
 // their SHA-256 matches the hashes below (content-addressed: nobody can swap the code). Update PIN in the same release
 // whenever either file changes (tools: sha256sum js/puzzles-core.js js/ca-keys-data.js).
-const PIN = { commit: '40d2077dd4c262a2980dff1f913a85f8f1e3ca43', files: { 'js/puzzles-core.js': 'aa2593fb9aebe67ce5560ac3ec0cc6060a32d0ed857b44b53ca1d0e8732d40a4', 'js/ca-keys-data.js': 'c5c78c1f746bb0b904eed7e9a0283174ac03ea5af4342186368ecea239c10426' } as Record<string, string> };
+const PIN = { commit: 'ed3dc611d28963dee5469d4535b689f0656bf33c', files: { 'js/puzzles-core.js': '8fddc78f63be77e2a6868e2ede155b5f1b9e9934d0828a5e36bec1a6baec820e', 'js/ca-keys-data.js': 'c5c78c1f746bb0b904eed7e9a0283174ac03ea5af4342186368ecea239c10426' } as Record<string, string> };
 let ENGINE: Promise<void> | null = null;
 const hex = (b: ArrayBuffer) => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
 function loadEngine() {
