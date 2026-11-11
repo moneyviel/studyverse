@@ -13,7 +13,8 @@
   const say = t => (typeof spk === 'function' ? spk(t) : '');
   /* timers: A11Y.timeScale() is 1 (normal), 2 (extra time) or 0 (no timer); clocks wait while the app is talking */
   const TS = () => (window.A11Y ? A11Y.timeScale() : 1);
-  const HOLD = () => !!(window.A11Y && A11Y.holdClock());
+  let RUNC = null;                                                       // the game ctx whose timer is running right now
+  const HOLD = () => !!(window.A11Y && A11Y.holdClock()) || !!(RUNC && RUNC.parked);   // a saved (parked) game's clock waits
   const CUE = m => { try { if (window.A11Y) A11Y.cue(m); } catch (e) {} };
   const restart = (el, cls) => { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
 
@@ -33,12 +34,14 @@
 
   /* ---------------- timers that die with the game ---------------- */
   function makeCtx(host) {
-    const c = { dead: false, ts: new Set(), is: new Set(), rs: new Set() };
-    const alive = () => { if (c.dead) return false; if (!host.isConnected) { c.stop(); return false; } return true; };
+    const c = { dead: false, ts: new Set(), is: new Set(), rs: new Set(), host, parked: false, q: [] };
+    /* a parked game (💾 Save & leave) lives off-screen: its clocks wait (HOLD) and its timeouts run when it comes back */
+    const alive = () => { if (c.dead) return false; if (c.parked) return true; if (!c.host.isConnected) { c.stop(); return false; } return true; };
     c.alive = alive;
-    c.t = (f, ms) => { const id = setTimeout(() => { c.ts.delete(id); if (alive()) f(); }, ms); c.ts.add(id); return id; };
-    c.iv = (f, ms) => { const id = setInterval(() => { if (alive()) f(); }, ms); c.is.add(id); return id; };
-    c.raf = f => { const id = requestAnimationFrame(ts => { c.rs.delete(id); if (alive()) f(ts); }); c.rs.add(id); return id; };
+    c.t = (f, ms) => { const id = setTimeout(() => { c.ts.delete(id); if (!alive()) return; if (c.parked) c.q.push(f); else f(); }, ms); c.ts.add(id); return id; };
+    c.resume = () => { c.parked = false; const q = c.q.splice(0); q.forEach(f => { try { if (alive()) f(); } catch (e) { console.warn(e); } }); };
+    c.iv = (f, ms) => { const id = setInterval(() => { if (!alive()) return; RUNC = c; try { f(); } finally { RUNC = null; } }, ms); c.is.add(id); return id; };
+    c.raf = f => { const id = requestAnimationFrame(ts => { c.rs.delete(id); if (!alive()) return; RUNC = c; try { f(ts); } finally { RUNC = null; } }); c.rs.add(id); return id; };
     c.clearIv = id => { clearInterval(id); c.is.delete(id); };
     c.stop = () => { c.dead = true; c.ts.forEach(clearTimeout); c.is.forEach(clearInterval); c.rs.forEach(cancelAnimationFrame); c.ts.clear(); c.is.clear(); c.rs.clear(); };
     return c;
@@ -766,27 +769,51 @@
     if (s.subject) return `Grade ${E(s.grade)} · ${P.subjects[0] ? SUBJ(P.subjects[0].id).e + ' ' + E(P.subjects[0].name) : E(cap(s.subject))} · all chapters`;
     return `Grade ${E(s.grade)} · all subjects mixed ${P.subjects.map(x => SUBJ(x.id).e).join('')}`;
   }
+  /* 💾 Save & leave: the running game is taken off the screen as it is and kept until the app is closed */
+  function park(game) {
+    const node = A.host && A.host.querySelector('.arc-game'); if (!node || !A.ctx) return;
+    if (A.park) { try { A.park.ctx.stop(); } catch (e) {} }
+    A.ctx.parked = true; A.park = { node, ctx: A.ctx, game, key: A.key, log: A.log, at: Date.now() }; A.ctx = null; node.remove();
+  }
+  function dropPark() { if (A.park) { try { A.park.ctx.stop(); } catch (e) {} A.park = null; } }
+  function resume() {
+    const pk = A.park, host = A.host; if (!pk || !host) return;
+    stopGame(); A.park = null; host.innerHTML = ''; host.appendChild(pk.node);
+    pk.ctx.host = host; A.ctx = pk.ctx; A.log = pk.log; guard(pk.game); toTop();
+    if (pk.ctx.fin) { const r = pk.ctx.fin; pk.ctx.fin = null; pk.ctx.parked = false; results(pk.game, r); return; }
+    pk.ctx.resume();
+  }
+  function guard(game) {
+    if (!window.LeaveGuard || !A.host) return;
+    LeaveGuard.arm({ name: game.n, root: A.host.querySelector('.arc-game'), note: 'Save it and come back to the Arcade to finish — you can read your lessons in between. (Saved until you close the app.)',
+      save: () => park(game), discard: () => {}, leave: () => menu() });
+  }
   function menu() {
     stopGame(); const host = A.host, P = A.P; if (!host) return;
+    try { if (window.LeaveGuard && LeaveGuard.armed) LeaveGuard.disarm(); } catch (e) {}
     const list = GAMES.filter(g => { try { return g.ok(P); } catch (e) { return false; } });
-    host.innerHTML = `<div class="arc-menu"><div class="card arc-hdr"><div class="arc-hdr-e">🕹️</div><div><h2>Arcade</h2><p class="sub">${scopeLabel()}</p></div></div>
+    const pk = A.park && A.park.key === A.key ? A.park : null;
+    host.innerHTML = `${pk ? `<div class="card arc-saved"><b>💾 Saved game</b><p class="sub">${pk.game.e} ${E(pk.game.n)} — pick up where you left off.</p><button class="btn mint" type="button" id="arcResume">▶ Continue ${E(pk.game.n)}</button><button class="btn ghost" type="button" id="arcDrop" style="margin-top:8px">🗑 Delete saved game</button></div>` : ''}<div class="arc-menu"><div class="card arc-hdr"><div class="arc-hdr-e">🕹️</div><div><h2>Arcade</h2><p class="sub">${scopeLabel()}</p></div></div>
       ${list.length ? `<div class="arc-grid">${list.map((g, j) => `<button class="arc-card arc-c-${g.id}" data-g="${g.id}" style="animation-delay:${j * 0.05}s"><span class="arc-ce">${g.e}</span><b>${g.n}</b><span class="arc-cd">${g.d}</span><span class="arc-cc">${g.id === 'lightning' && hiOf() ? `🏆 Best ${hiOf()}` : g.c(P)}</span></button>`).join('')}</div>`
         : `<div class="card"><p class="sub">There is not enough here yet for arcade games. Try the whole subject, or all subjects.</p></div>`}</div>`;
     toTop();
+    const rb = host.querySelector('#arcResume'); if (rb) rb.onclick = () => { S('open'); resume(); };
+    const db = host.querySelector('#arcDrop'); if (db) db.onclick = () => { S('tap'); dropPark(); menu(); };
     host.querySelectorAll('.arc-card').forEach(b => b.onclick = () => { S('tap'); start(GAMES.find(g => g.id === b.dataset.g)); });
   }
   function start(game) {
     stopGame(); const host = A.host; A.ctx = makeCtx(host); const ctx = A.ctx;
     A.log = [];
     host.innerHTML = `<div class="arc-game arc-g-${game.id}" data-game="${game.id}"><div class="arc-bar"><button class="arc-quit" aria-label="Back to arcade">← Arcade</button><b>${game.e} ${game.n}</b></div><div class="arc-stage"></div></div>`;
-    host.querySelector('.arc-quit').onclick = () => { S('tap'); menu(); };
-    toTop();
+    host.querySelector('.arc-quit').onclick = () => { S('tap'); if (window.LeaveGuard && LeaveGuard.armed) LeaveGuard.ask(); else menu(); };
+    toTop(); guard(game);
     const st = host.querySelector('.arc-stage');
-    try { game.run(st, A.P, ctx, r => { if (ctx.dead) return; results(game, r); }, A.key); }
+    try { game.run(st, A.P, ctx, r => { if (ctx.dead) return; if (ctx.parked) { ctx.fin = r; return; } results(game, r); }, A.key); }
     catch (e) { console.error(e); st.innerHTML = '<div class="card"><p class="sub">This game could not start. Please try another one.</p></div>'; }
   }
   function results(game, r) {
     stopGame(); const host = A.host; if (!host || !host.isConnected) return;
+    try { if (window.LeaveGuard && LeaveGuard.armed) LeaveGuard.disarm(); } catch (e) {}
     const stars = Math.max(0, Math.min(3, r.stars | 0)), full = 5 + stars * 5;
     // every right answer earns an equal share of the stars; a share won with a 💡 Gappu hint is halved
     const hs = r.rights > 0 ? Math.min(1, (r.hinted || 0) / r.rights) : 0, xp = Math.max(5, Math.round(full * (1 - hs / 2)));

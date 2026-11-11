@@ -136,7 +136,7 @@
   function suspend() {                 // left the screen: stop talking to the server (still a member; turns auto-skip)
     pzStop(); clearInterval(L.tickT); clearTimeout(L.pollT); if (L.ch) { L.ch.close(); L.ch = null; } L.rtOn = false;
   }
-  function exit() { suspend(); pzReset(); L.code = null; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; lset('sv_live_room', null); }
+  function exit() { try { if (window.LeaveGuard && LeaveGuard.armed) LeaveGuard.disarm(null, true); } catch (e) {} suspend(); pzReset(); L.code = null; L.st = null; L.qs = null; L.sb = null; L.sig = ''; L.stageSig = ''; lset('sv_live_room', null); }
   const broadcast = (ev, pl) => { try { if (L.ch) L.ch.send(ev, pl); } catch (e) {} };
   const synced = () => { broadcast('sync', { s: L.st && L.st.room.step }); fetchState(); };
 
@@ -566,7 +566,9 @@
         <div class="lv-gfoot">${emojiBar()}<div class="lv-qrow"><button type="button" class="lv-quit" id="lvQuit">Leave game</button>${host() ? '<button type="button" class="lv-quit" id="lvEnd">End game for everyone</button>' : ''}</div></div><div class="lv-live sr-only" aria-live="polite"></div></div>`;
       wireEmoji(screen());
       const en = $('#lvEnd'); if (en) en.onclick = async function () { if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again to end the game'; return; } try { await rpc('finish_game', { p_code: L.code }); synced(); } catch (e) { say('No connection.'); } };
-      $('#lvQuit').onclick = function () { if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again to leave'; return; } leave(); };
+      const lg = window.LeaveGuard;
+      if (lg) lg.arm({ name: 'this game', root: screen().querySelector('.lv-play'), note: 'A game room cannot be saved — your friends will carry on without you.', leave });
+      $('#lvQuit').onclick = function () { if (lg && lg.armed) { lg.ask(); return; } if (!this.dataset.sure) { this.dataset.sure = 1; this.textContent = 'Tap again to leave'; return; } leave(); };
       setNet(L.net);
     }
     if (r.game === 'puzzle') { pzStrip(st); const rd0 = D.querySelector('#s-live .lv-round'), inf = (r.state && r.state.puzzle) || {}; if (rd0) rd0.textContent = `${inf.e || '🧩'} ${inf.n || 'Puzzle'}`; puzzleStage(st); tick(); return; }
@@ -890,7 +892,7 @@
       z.h = PZ().race(el, JSON.parse(JSON.stringify(L.qs)), {
         onProgress: o => pzProg(z, o), onSolved: o => pzSolved(z, o),
         onError: () => pzNote(z, '🙂 This puzzle could not be made on this phone. Reload the app and open the room again.'),
-        onQuit: () => { const q = D.getElementById('lvQuit'); if (q) { q.dataset.sure = 1; q.textContent = 'Tap again to leave'; try { q.focus(); } catch (e) {} } say('To leave the race, tap “Tap again to leave”.'); } });
+        onQuit: () => { if (window.LeaveGuard && LeaveGuard.armed) { LeaveGuard.ask(); return; } const q = D.getElementById('lvQuit'); if (q) { q.dataset.sure = 1; q.textContent = 'Tap again to leave'; try { q.focus(); } catch (e) {} } say('To leave the race, tap “Tap again to leave”.'); } });
     } catch (e) { console.warn('live: puzzle race', e); el.innerHTML = '<div class="card"><p class="sub">This puzzle could not be opened on this phone.</p></div>'; }
     // a phone with other content / engine files would build a different puzzle, and its answers would not match the key
     try { if (z.h && z.h.ready && z.h.ready.then) z.h.ready.then(x => { if (x && x.ok && x.same === false) pzNote(z, '⚠️ This phone made a different puzzle from your friends’ (old app files). Reload the app to race fairly.'); }).catch(() => {}); } catch (e) {}
@@ -950,6 +952,7 @@
   function results(st) {
     const r = st.room, me = uid(), sig = JSON.stringify(['res', r.step, r.host_id]);
     if (sig === L.sig) return; L.sig = sig; L.stageSig = ''; L.sb = null;
+    try { if (window.LeaveGuard && LeaveGuard.armed) LeaveGuard.disarm(); } catch (e) {}
     const ps = st.players.slice().sort((a, b) => b.score - a.score || b.correct - a.correct || a.total_ms - b.total_ms);
     const teams = r.mode === 'teams', wt = r.state.win_team, t = r.state.teams || teamTotals();
     const top = ps.filter(p => !p.left), best = top.length ? top[0].score : 0;

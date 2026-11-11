@@ -300,9 +300,11 @@
     if (demo()) return '';
     if (!S) return `<h3>☁️ Save your progress</h3><p class="sub">Create a free account so your progress is safe and you can continue on any phone.</p>
       <div class="cl-row"><button class="btn" type="button" data-cl="up">Create account</button><button class="btn ghost" type="button" data-cl="in">Sign in</button></div>`;
-    const [cls, txt] = stLine(), cs = courses();
+    const [cls, txt] = stLine(); let cs = courses();
+    if (get('sv_lock') || cs.some(c => /paid/.test(c.note || ''))) cs = cs.filter(c => !/trial/.test(c.note || ''));   // the trial is not shown next to a free code or a plan
+    if (get('sv_lock') && !cs.some(c => c.course === get('sv_lock'))) cs.unshift({ course: get('sv_lock'), note: 'code' });
     return `<h3>☁️ ${meta().adm ? 'Owner account 🔑' : 'Your account'}</h3><p class="sub">${esc((S.user && S.user.email) || '')}</p><p class="cl-st ${cls}" role="status">${txt}</p>
-      <p class="sub">Your courses: ${cs.length ? cs.map(c => esc(courseName(c.course)) + (c.valid_until ? ' (till ' + new Date(c.valid_until).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ')' : '')).join(', ') : 'free courses'}</p>
+      <p class="sub">Your courses: ${cs.length ? cs.map(c => esc(courseName(c.course)) + (c.course === get('sv_lock') && !c.valid_until ? ' (free forever)' : '') + (c.valid_until ? ' (till ' + new Date(c.valid_until).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) + ')' : '')).join(', ') : 'free courses'}</p>
       <div class="cl-row">${meta().adm ? '' : '<button class="btn" type="button" data-cl="plans">Plans &amp; subscribe</button>'}${status === 'error' || status === 'offline' ? '<button class="btn ghost" type="button" data-cl="retry">Try again</button>' : ''}<button class="btn ghost" type="button" data-cl="out">Sign out</button></div>${meta().adm ? '' : '<button class="pr-del" type="button" data-cl="del">Delete my account</button>'}`;
   }
   function wire(root) {
@@ -356,9 +358,10 @@
     let c = D.getElementById('svCode');
     if (c && !refresh) return;
     if (!c) { c = D.createElement('div'); c.className = 'card'; c.id = 'svCode'; const a = D.getElementById('svCloud'); a ? a.after(c) : me.appendChild(c); }
+    /* ONE box for every code: a free-forever code or an announced discount code */
     const L = get('sv_lock'), disc = get('sv_disc');
-    if (L) { c.innerHTML = `<h3>🎟️ Free access</h3><p class="sub">Your account has free access to <b>${esc(courseName(L))}</b> forever.</p>`; return; }
-    c.innerHTML = `<h3>🎟️ Have a code?</h3><p class="sub">${window.SV_PLAY ? 'Enter a free-access code from your school or teacher.' : `Enter a free-access or discount code.${disc ? ` Discount code <b>${esc(disc)}</b> is saved for your payment.` : ''}`}</p>
+    if (L) { c.innerHTML = `<h3>🎟️ Your code</h3><p class="sub">✅ <b>${esc(courseName(L))}</b> is free for you, forever.</p>`; return; }
+    c.innerHTML = `<h3>🎟️ Have a code?</h3><p class="sub">${window.SV_PLAY ? 'Enter a free-access code from your school or teacher.' : 'Enter a free-access code or a discount code — this one box works for both.'}</p>${disc && !window.SV_PLAY ? `<p class="cl-ok" style="margin:0 0 8px">✅ Discount code <b>${esc(disc)}</b> is saved — it is used automatically when you pay.</p>` : ''}
       <form id="clCodeF" class="cl-row" novalidate><input class="cl-in" id="clCode" placeholder="e.g. FREE-AB12CD" autocapitalize="characters" spellcheck="false" maxlength="24" style="flex:2;min-width:150px;margin:0"><button class="btn" type="submit" id="clCodeGo" style="flex:1">Apply</button></form>
       <div class="cl-err" id="clCodeE" role="alert"></div><p class="cl-small" id="clCodeN">A free code gives free access only to ${esc(courseName(myCourse()) || 'your course')} — you will not be able to change it later.</p>`;
     c.querySelector('#clCodeF').onsubmit = async e => {

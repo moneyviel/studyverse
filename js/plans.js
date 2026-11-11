@@ -62,12 +62,19 @@
   function access(kind) {
     if (owner()) return { full: true, why: 'owner' };
     const r = rows().filter(live);
-    if (kind === 'ca') { const c = r.find(a => a.course === caCourse()); return c ? { full: true, until: c.valid_until, why: /trial/.test(c.note || '') ? 'trial' : /code/.test(c.note || '') ? 'code' : 'paid' } : { full: false }; }
+    /* the free trial is only shown when the student has neither a free-forever code nor a paid plan */
+    const lock = (() => { try { return localStorage.getItem('sv_lock'); } catch (e) { return null; } })(), paid = r.filter(a => /paid/.test(a.note || ''));
+    const noTrial = (row) => { const own = paid.find(a => a.course === row.course) || paid[0];
+      return lock ? { full: true, why: 'code', course: lock } : { full: true, why: 'paid', until: own.valid_until, course: own.course }; };
+    if (kind === 'ca') { const c = r.find(a => a.course === caCourse()); if (!c) return { full: false };
+      const w = /trial/.test(c.note || '') ? 'trial' : /code/.test(c.note || '') ? 'code' : 'paid';
+      if (w === 'trial' && (lock || paid.length)) return noTrial(c);
+      return { full: true, until: c.valid_until, why: w, course: c.course }; }
     const all = r.find(a => a.course === 'school-all');
-    if (all) return { full: true, until: all.valid_until, why: /trial/.test(all.note || '') ? 'trial' : 'paid' };
+    if (all) { const w = /trial/.test(all.note || '') ? 'trial' : 'paid'; if (w === 'trial' && (lock || paid.length)) return noTrial(all); return { full: true, until: all.valid_until, why: w, course: all.course }; }
     let g = 0; try { g = +ST.profile.grade; } catch (e) {}
     const mine = r.find(a => a.course === 'school-g' + g);          // a school plan or code covers ONE class
-    if (mine) return { full: true, until: mine.valid_until, why: /paid/.test(mine.note || '') ? 'paid' : 'code' };
+    if (mine) return { full: true, until: mine.valid_until, why: /paid/.test(mine.note || '') ? 'paid' : 'code', course: mine.course };
     const ended = rows().find(a => a.course === 'school-all');
     return { full: false, trialEnded: !!(ended && /trial/.test(ended.note || '')) };
   }
@@ -121,14 +128,15 @@
     try { const r = await C().rest('plans?select=id,course,label,months,price_inr,sort,min_grade,max_grade&active=eq.true&order=sort'); if (Array.isArray(r) && r.length && r.every(p => p && p.id && +p.price_inr > 0)) plans = r; } catch (e) {}
   }
   /* a free-forever code on the account (cloud.js keeps it in sv_lock, e.g. 'school-g1' / 'ca-foundation') */
+  const planName = (a, kind) => { const c = a.course || ''; return /^school-g\d+$/.test(c) ? 'Class ' + c.slice(8) : /^ca-/.test(c) ? (CA_NAME[c.slice(3)] || caName()) : kind === 'ca' ? caName() : 'school'; };
   const lockName = () => { let c = null; try { c = localStorage.getItem('sv_lock'); } catch (e) {} if (!c) return '';
     return c.startsWith('school-g') ? 'Grade ' + c.slice(8) : c === 'ca-foundation' ? 'CA Foundation' : c.replace(/^ca-/, 'CA ').replace(/-/g, ' '); };
   function statusLine(kind) {
     const a = access(kind);
     if (a.why === 'owner') return 'Owner account — everything is unlocked.';
-    if (a.why === 'trial') { const fl = lockName(); return (kind === 'ca' ? `🎁 Free trial: <b>${left(a.until)}</b> left — all of ${caName()} is open.` : `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open.`) + (fl ? ` After that, <b>${fl}</b> stays free forever with your code.` : window.SV_PLAY || kind === 'ca' ? '' : ' After that, only the class you subscribe to.'); }
-    if (a.why === 'code') return '🎟️ Free access with your code.';
-    if (a.full) return `✅ Your ${kind === 'ca' ? caName() : 'school'} plan is active till <b>${dt(a.until)}</b>.`;
+    if (a.why === 'trial') return kind === 'ca' ? `🎁 Free trial: <b>${left(a.until)}</b> left — all of ${caName()} is open.` : `🎁 Free trial: <b>${left(a.until)}</b> left — all classes are open.${window.SV_PLAY ? '' : ' After that, only the class you subscribe to.'}`;
+    if (a.why === 'code') return `🎟️ ${lockName() ? `<b>${lockName()}</b> is free for you forever with your code.` : 'Free access with your code.'}`;
+    if (a.full) return `✅ Your ${planName(a, kind)} plan is active${a.until ? ` till <b>${dt(a.until)}</b>` : ''}.`;
     return `Free plan: <b>${Math.min(FREE_PER_DAY, Math.max(0, FREE_PER_DAY - used(kind)))} of ${FREE_PER_DAY}</b> questions left today.${a.trialEnded ? ' Your free trial has ended.' : ''}`;
   }
 
@@ -142,6 +150,11 @@
       el.querySelector('#plX').onclick = C().closeSheet; return;
     }
     await loadPlans();
+    let saved = null; try { saved = localStorage.getItem('sv_disc'); } catch (e) {}
+    if (saved && (!quote || quote.code !== saved)) {          // the code saved in Me → Have a code? is used here automatically
+      try { const r = await C().rest('rpc/quote', { method: 'POST', body: { p_code: saved } }); quote = r && r.ok ? { code: saved, percent: r.percent } : null; } catch (e) { quote = null; }
+    }
+    if (!saved) quote = null;
     const cls = gradeNow(), lvl = caLevel();
     const price = p => quote && quote.percent ? Math.round(p.price_inr * (100 - quote.percent) / 100) : p.price_inr;
     const btn = (p, all) => { const f = price(p), m = +p.months, sv = savePct(p, all);
@@ -159,19 +172,22 @@
         ? `<p class="cl-small">Everything in Class ${cls}: unlimited questions, tests, games and analysis. Only your class is included.</p><div class="pl-row">${ps.map(p => btn(p, ps)).join('')}</div>`
         : '<p class="cl-small">Choose your class in <b>Me</b> first to see its plans.</p>'}</div>`;
     }
+    let lk = null; try { lk = localStorage.getItem('sv_lock'); } catch (e) {}
+    const freeHere = !!lk && (kind === 'ca' ? lk === 'ca-' + lvl : lk === 'school-g' + cls);
+    if (freeHere) card = `<div class="pl-card"><h4>${esc(lockName())}</h4><p class="cl-small">✅ Free for you forever with your code — nothing to buy here.</p></div>`;
     const el = C().sheet(`<h3 id="clT">Plans</h3><div class="pl-st" role="status">${statusLine(kind)}</div>
       ${card}<p class="cl-small pl-gst">${GST}</p>
-      <form id="plCodeF" class="cl-row" novalidate style="margin-top:6px"><input class="cl-in" id="plCode" placeholder="Discount code" autocapitalize="characters" maxlength="24" style="flex:2;min-width:140px;margin:0" value="${esc(quote ? quote.code : (localStorage.getItem('sv_disc') || ''))}"><button class="btn ghost" type="submit" style="flex:1">Apply</button></form>
-      <div class="cl-err" id="plErr" role="alert"></div>${quote && quote.percent ? `<div class="cl-ok">${quote.percent}% off with ${esc(quote.code)} ✓</div>` : ''}
+      ${freeHere ? '' : quote && quote.percent ? `<div class="cl-ok">🎟️ ${quote.percent}% off with your code ${esc(quote.code)} ✓</div>` : `<p class="cl-small">🎟️ Have a free or discount code? <button type="button" class="cl-link" id="plCodeGo">Enter it in Me → Have a code?</button></p>`}
+      <div class="cl-err" id="plErr" role="alert"></div>
       <p class="cl-small">One-time payment by Razorpay (UPI, cards, net banking). It does not renew by itself — we remind you before it ends.</p>
       ${window.SV_PLAY ? '' : '<p class="cl-small"><a href="pricing/" target="_blank" rel="noopener">See all plans on knowtopia.in/pricing</a></p>'}
       <button class="btn ghost" type="button" id="plX">Close</button>`);
     el.querySelector('#plX').onclick = C().closeSheet;
-    el.querySelector('#plCodeF').onsubmit = async e => {
-      e.preventDefault(); const er = el.querySelector('#plErr'), code = el.querySelector('#plCode').value.trim().toUpperCase(); er.textContent = '';
-      if (!code) { quote = null; open(kind); return; }
-      try { const r = await C().rest('rpc/quote', { method: 'POST', body: { p_code: code } }); if (!r || !r.ok) { er.textContent = (r && r.msg) || 'This code is not valid.'; return; } quote = { code, percent: r.percent }; open(kind); }
-      catch (err) { er.textContent = C().errText(err); }
+    const cg = el.querySelector('#plCodeGo');
+    if (cg) cg.onclick = () => {
+      C().closeSheet();
+      try { (ST.profile && ST.profile.course === 'ca' && window.Ca && Ca.profile) ? Ca.profile() : meScreen(); } catch (e) {}
+      setTimeout(() => { const c = D.getElementById('svCode'); if (c) { c.scrollIntoView({ block: 'center', behavior: 'smooth' }); const i = D.getElementById('clCode'); if (i) try { i.focus({ preventScroll: true }); } catch (e) {} } }, 350);
     };
     el.querySelectorAll('[data-plan]').forEach(b => b.onclick = () => pay(b.dataset.plan, kind, b));
   }
@@ -220,17 +236,17 @@
   function barHTML(kind) {
     const a = access(kind);
     if (a.why === 'owner' || a.why === 'code') return '';
-    if (a.why === 'trial') { const fl = lockName(); return fl ? `<p>🎁 <b>Free trial: ${left(a.until)} left</b> — everything is unlocked. After that, <b>${fl}</b> stays free forever with your code.</p>` : `<p>🎁 <b>Free trial: ${left(a.until)} left.</b> Everything is unlocked.</p>${btn('Subscribe')}`; }
+    if (a.why === 'trial') return `<p>🎁 <b>Free trial: ${left(a.until)} left.</b> Everything is unlocked.</p>${btn('Subscribe')}`;
     if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5; return soon ? `<p>⏳ Your plan ends on <b>${dt(a.until)}</b>.</p>${btn('Renew')}` : ''; }
     return `<p><b>${freeLeft(kind)} of ${FREE_PER_DAY}</b> free questions left today.${a.trialEnded ? ' Trial ended.' : ''}</p>${btn('Subscribe')}`;
   }
   function caBarHTML() {                              // CA always shows where the student stands
     const a = access('ca');
     if (a.why === 'owner') return '<p>🔑 <b>Owner account</b> · everything is unlocked.</p>';
-    if (a.why === 'code') return `<p>🎟️ <b>${caName()}</b> · free access with your code${a.until ? ` till <b>${dt(a.until)}</b>` : ''}.</p>`;
-    if (a.why === 'trial') { const fl = lockName(); return fl ? `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of ${caName()} is open. After that, <b>${fl}</b> stays free forever with your code.</p>` : `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of ${caName()} is open.</p>${btn('Subscribe')}`; }
+    if (a.why === 'code') return `<p>🎟️ <b>${lockName() || caName()}</b> · free access with your code${a.until ? ` till <b>${dt(a.until)}</b>` : ' — forever'}.</p>`;
+    if (a.why === 'trial') return `<p>🎁 <b>Free trial — ${leftLong(a.until)} left.</b> All of ${caName()} is open.</p>${btn('Subscribe')}`;
     if (a.full) { const soon = a.until && new Date(a.until) - Date.now() < 7 * 864e5;
-      return `<p>✅ <b>${caName()}</b> · ${a.until ? `active till <b>${dt(a.until)}</b>` : 'active'}</p>${soon ? btn('Renew') : ''}`; }
+      return `<p>✅ <b>${planName(a, 'ca')}</b> · ${a.until ? `active till <b>${dt(a.until)}</b>` : 'active'}</p>${soon ? btn('Renew') : ''}`; }
     return `<p><b>Free plan</b> · ${freeLeft('ca')} of ${FREE_PER_DAY} questions left today</p>${btn('Subscribe')}`;
   }
   function place(sc, h, after) {

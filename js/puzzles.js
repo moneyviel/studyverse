@@ -252,6 +252,18 @@
   const backLabel = from => (from === 'hub' ? 'Puzzles' : from === 'play' ? 'Play' : from === 'world' || from === 'ca' ? 'Home' : 'Practice');
   const scrAlive = el => el.isConnected && D.getElementById('s-puz').classList.contains('active');
 
+  /* ---------- 💾 puzzles the student saved to finish later ---------- */
+  const agoT = t => { const m = Math.round((Date.now() - t) / 6e4); return m < 1 ? 'just now' : m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : Math.round(m / 1440) + ' days ago'; };
+  function savedCard(box, only) {
+    if (!box) return;
+    const z = Z(), list = Object.entries(z.saves).filter(([, v]) => v && v.kept && v.sp && KM[v.sp.t] && (!only || scopeKey(v.sp.sc || { k: 'q' }) === only)).sort((a, b) => b[1].at - a[1].at);
+    if (!list.length) { box.innerHTML = ''; return; }
+    box.innerHTML = `<div class="card pz-saved"><h3>💾 Saved puzzles — finish them</h3>${list.map(([id, v]) => { const m = TYPES[v.sp.t] || KM[v.sp.t];
+      return `<div class="pz-svrow"><button class="pz-svgo" data-id="${E(id)}"><span aria-hidden="true">${m.e}</span><span><b>${E(m.n)}</b><small>${E([v.title, DN[v.sp.diff] || v.sp.diff, agoT(v.at)].filter(Boolean).join(' · '))}</small></span><span class="pz-svp">▶ Continue</span></button><button class="pz-svx" data-x="${E(id)}" aria-label="Delete this saved ${E(m.n)}">🗑</button></div>`; }).join('')}</div>`;
+    $$('.pz-svgo', box).forEach(b => b.onclick = () => { const v = Z().saves[b.dataset.id]; if (!v) return; S('open'); play(Object.assign({}, v.sp)); });
+    $$('.pz-svx', box).forEach(b => b.onclick = () => { const z2 = Z(); delete z2.saves[b.dataset.x]; try { save(); } catch (e) {} T('Deleted'); savedCard(box, only); });
+  }
+
   /* ================= HUB ================= */
   let HUBFROM = 'practice';
   async function hub(o) {
@@ -259,13 +271,13 @@
     const el = openScr(navKeyOf(HUBFROM)); const z = Z();
     el.innerHTML = `<div class="pz-root pz-hub"><p class="pz-live sr-only" aria-live="polite"></p><button class="back" id="pzBack">← ${backLabel(HUBFROM)}</button>
       <div class="hello" role="heading" aria-level="1"><span aria-hidden="true">🧩</span> Puzzles <small>Brain games and puzzles made from your chapters · free</small></div>
-      <div id="pzDaily" class="card pz-daily"><p class="sub">Finding today's puzzle…</p></div>
+      <div id="pzSaved"></div><div id="pzDaily" class="card pz-daily"><p class="sub">Finding today's puzzle…</p></div>
       <div class="card"><h3>Quick play</h3><p class="sub">Tap a puzzle. Word puzzles let you pick the chapter.</p>
         <div class="pz-games">${KINDS.map(k => btn(k.id, k.chapter ? '📚 ' + k.d : k.d)).join('')}</div></div>
       <div class="card"><h3>🏅 Puzzle badges</h3>${badgeGrid()}<div class="pz-stats"><span>🧩 <b>${z.total}</b> solved</span><span>📅 best daily streak <b>${z.daily.best || 0}</b></span></div>${bestList()}</div></div>`;
     $1('#pzBack').onclick = () => back(HUBFROM);
     el.querySelectorAll('.pz-game').forEach(b => b.onclick = () => { S('open'); quick(b.dataset.q, { from: 'hub' }); });
-    dailyCard($1('#pzDaily'));
+    dailyCard($1('#pzDaily')); savedCard($1('#pzSaved'));
   }
   function back(from) {
     try {
@@ -427,13 +439,13 @@
     const p = pref(), g = grade(), lang = inf.lang && inf.lang !== 'en' ? ` lang="${inf.lang}"` : '';
     const backLbl = from && from.t === 'hub' ? 'Puzzles' : from && from.t === 'unit' ? 'Unit' : 'Chapter';
     el.innerHTML = `<div class="pz-root pz-chap"><p class="pz-live sr-only" aria-live="polite"></p><button class="back" id="pzBack">← ${backLbl}</button>
-      <div class="card pz-chead"><div class="pz-ce" aria-hidden="true">${E(inf.emoji)}</div><div><span class="tag">🧩 Puzzle this chapter</span><h2${lang}>${E(inf.title)}</h2><p class="sub">${E(inf.sub)}</p></div></div>
+      <div class="card pz-chead"><div class="pz-ce" aria-hidden="true">${E(inf.emoji)}</div><div><span class="tag">🧩 Puzzle this chapter</span><h2${lang}>${E(inf.title)}</h2><p class="sub">${E(inf.sub)}</p></div></div><div id="pzSaved"></div>
       <div class="card"><h3>💪 How hard?</h3>${chipRow('cdiff', DIFFS, p.cdiff, 'Difficulty')}</div>
       <div class="pz-games" id="pzCg"><p class="sub pz-load">Checking which puzzles this chapter can make…</p></div><div id="pzCn"></div>
       <button class="btn ghost" id="pzHub">🧩 All puzzles & daily puzzle</button></div>`;
     $1('#pzBack').onclick = () => (from && from.t === 'hub' ? hub() : back(from));
     $1('#pzHub').onclick = () => hub({});
-    const k = scopeKey(sc);
+    const k = scopeKey(sc); savedCard($1('#pzSaved', el), k);
     const fill = async () => {
       const diff = pref().cdiff, tok = (fill.tok = (fill.tok || 0) + 1), got = [], miss = [];
       const list = ['xw', 'ws', 'an', 'csdk'].concat(inf.numeric ? ['kak'] : []);
@@ -485,10 +497,15 @@
       lang: (b.extra && b.extra.lang) || 'en', indic: !!(p.script && p.script !== 'latn') };
     st.L = st.indic ? ` lang="${st.lang}"` : '';
     if (saved && saved.pool != null) { st.pool = saved.pool; st.hints = saved.hints || 0; }
+    if (saved && saved.kept) st.kept = true;
     st.prog = (done, total) => { if (!race || !race.onProgress || st.lastProg === done + '/' + total) return; st.lastProg = done + '/' + total; try { race.onProgress({ done, total }); } catch (e) {} };
     PLAY = st;
     ({ xw: playXW, sdk: playSDK, csdk: playSDK, kak: playKAK, ws: playWS, an: playAN })[sp.t](el, st, saved);
     if (st.sp.t !== 'an') startClock(st);
+    if (!race && window.LeaveGuard) LeaveGuard.arm({ name: 'this ' + (TYPES[sp.t] || KM[sp.t] || { n: 'puzzle' }).n.toLowerCase(), root: el.querySelector('.pz-root') || el,
+      save: () => { st.kept = true; persist(st, true); },
+      discard: () => { const z = Z(); delete z.saves[st.id]; try { save(); } catch (e) {} },
+      leave: () => { const sp2 = st.sp; stopPlay(); goBack(sp2); } });
     return st;
   }
   function prize(sp, p) {
@@ -503,7 +520,8 @@
       `Tap a clue (or a box) to choose a word. The number in brackets is how many ${ind ? 'boxes' : 'letters'} it has — (5,4) means two words of 5 and 4.`,
       `Words before a dot are the topic, e.g. <i>Feeling and what to do · Talk to someone you trust</i> → the answer fits that topic.`,
       ind ? 'Tap a box, then tap the akshara below to fill it.' : 'Type the answer. Across words go left → right, Down words go top → bottom.',
-      'Crossing words share a box — use the letters you already know. Stuck? <b>✔ Check word</b> marks wrong boxes red; <b>💡 Reveal</b> fills one box. ↗ = word from a nearby chapter.'],
+      'A finished word gets a thin <b style="color:#1f9d55">green</b> border when it is right and a <b style="color:#e03131">red</b> one when it is wrong, and shows the chapter and topic it is from — tap it to read.',
+      'Stuck? <b>🪄 Hint</b> gives up to 5 clues per word (1⭐ each — fewer stars at the end). <b>✔ Check word</b> marks wrong boxes; <b>💡 Reveal</b> fills one box. ↗ = word from a nearby chapter.'],
     ws: ind => [
       'Read the word list below the grid — every word is hidden in the grid.',
       `Words run in a straight line: across, down or diagonally${ind ? '' : ', sometimes backwards'}.`,
@@ -532,13 +550,14 @@
     return `<details class="pz-how"${first ? ' open' : ''}><summary>❓ How to play</summary><ol>${f(!!st.indic).map(x => `<li>${x}</li>`).join('')}</ol></details>`;
   }
   function header(st, title, sub) {
-    const q = st.race ? '<button class="pz-x" id="pzQuit" aria-label="Leave the race">✕ Quit</button>' : '<button class="pz-x" id="pzQuit" aria-label="Leave puzzle (progress is saved)">← Puzzles</button>';
+    const q = st.race ? '<button class="pz-x" id="pzQuit" aria-label="Leave the race">✕ Quit</button>' : '<button class="pz-x" id="pzQuit" aria-label="Leave puzzle — save it or leave">← Back</button>';
     return `<p class="pz-live sr-only" aria-live="polite"></p><div class="pz-bar">${q}<b class="pz-title">${title}</b><span class="pz-time" role="timer" aria-label="Time">${fmtT(st.secs)}</span><span class="pz-prize" title="Stars for solving">⭐ <b>${st.pool}</b></span></div>${howHTML(st)}${sub ? `<p class="pz-sub">${sub}</p>` : ''}`;
   }
   function wireQuit(el, st) {
     $1('#pzQuit', el).onclick = () => {
       S('tap');
       if (st.race) { try { st.race.onQuit && st.race.onQuit(); } catch (e) {} return; }
+      if (window.LeaveGuard && LeaveGuard.armed) { LeaveGuard.ask(); return; }
       persist(st, true); const sp = st.sp; stopPlay(); goBack(sp);
     };
   }
@@ -560,8 +579,11 @@
   }
   function persist(st, now) {
     if (st.done || !st.getState || st.race) return;
-    const z = Z(); z.saves[st.id] = Object.assign(st.getState(), { t: st.secs, pool: st.pool, hints: st.hints, at: Date.now() });
-    const ks = Object.keys(z.saves).sort((a, b) => z.saves[b].at - z.saves[a].at); ks.slice(8).forEach(k => delete z.saves[k]);
+    const z = Z(), inf = (st.extra && st.extra.info) || {};
+    const spec = JSON.parse(JSON.stringify({ t: st.sp.t, sc: st.sp.sc, seed: st.sp.seed, diff: st.sp.diff, n: st.sp.n, daily: st.sp.daily, from: st.sp.from }));
+    z.saves[st.id] = Object.assign(st.getState(), { t: st.secs, pool: st.pool, hints: st.hints, at: Date.now(), sp: spec, title: inf.title || '', sub: inf.sname || '', kept: !!st.kept });
+    const ks = Object.keys(z.saves).sort((a, b) => z.saves[b].at - z.saves[a].at);
+    ks.filter(k => !z.saves[k].kept).slice(8).forEach(k => delete z.saves[k]); ks.filter(k => z.saves[k] && z.saves[k].kept).slice(12).forEach(k => delete z.saves[k]);
     if (now) { try { save(); } catch (e) {} } else saveSoon();
   }
   const cellsU = g => [].concat(...g.map(r => (Array.isArray(r) ? r : r.split(''))));
@@ -575,7 +597,8 @@
     giv.forEach(i => { u[i] = sol[i]; });
     if (saved && saved.u) saved.u.forEach((c, i) => { if (sol[i] !== '#' && !giv.has(i) && okCell(c)) u[i] = c; });
     if (saved && saved.rev) saved.rev.forEach(i => rev.add(i));
-    st.getState = () => ({ u: u.slice(), rev: [...rev] });
+    const HU = Object.assign({}, (saved && saved.hu) || {}), HC = {}, SRC = {}, HMAX = 5;   // hints used per word · hint lists · word sources
+    st.getState = () => ({ u: u.slice(), rev: [...rev], hu: Object.assign({}, HU) });
     st.answer = () => p.entries.map((e, k) => cellsOf(k).map(i => u[i]).join(''));
     const lock = i => rev.has(i) || giv.has(i);
     let cur = p.entries[0].r * w + p.entries[0].c, dir = p.entries[0].dir;
@@ -586,17 +609,44 @@
     const dirName = d => (d === 'A' ? 'Across' : 'Down');
     const clueHTML = e => `${e.ctx ? `<span class="pz-ctx"${st.L}>${E(e.ctx)} ·</span> ` : ''}<span${st.L}>${E(e.clue)}</span> <span class="pz-enum">${E(e.enum)}</span>${e.near ? ' <span class="pz-near" title="From a nearby chapter">↗</span>' : ''}`;
     el.innerHTML = `<div class="pz-root pz-xw${indic ? ' pz-indic' : ''}" data-pz="xw">${header(st, '📝 Chapter Crossword', `${p.entries.length} words${indic ? ' · one akshara in each box' : ''}${p.giv ? ' · first letters given' : ''}${near ? ' · ↗ = from a nearby chapter' : ''}`)}
-      <div class="pz-cluebar" id="pzClue" aria-live="polite"></div>
+      <div class="pz-cluebar" id="pzClue" aria-live="polite"></div><div class="pz-whelp" id="pzHelp"></div>
       <div class="pz-gridwrap"><div class="pz-xgrid" id="pzGrid" role="grid"${st.L} aria-label="Crossword, ${w} columns by ${h} rows. ${indic ? 'Tap a box, then an akshara below' : 'Type letters'}; arrow keys move; Enter goes to the next clue; Space turns between across and down." style="--w:${w};--h:${h}">
         ${Array.from({ length: h }, (_, y) => `<div role="row" class="pz-row">${Array.from({ length: w }, (_, x) => { const i = y * w + x; return sol[i] === '#' ? `<div role="gridcell" class="pz-c blk" aria-hidden="true"></div>` : `<div role="gridcell" class="pz-c${giv.has(i) ? ' giv' : ''}" data-i="${i}" tabindex="-1">${nums[i] ? `<span class="pz-n" aria-hidden="true">${nums[i]}</span>` : ''}<span class="pz-l" aria-hidden="true"></span></div>`; }).join('')}</div>`).join('')}
       </div></div>
-      <div class="pz-tools"><button class="pz-tb" id="pzRev">💡 Reveal ${unit} <small>2⭐</small></button><button class="pz-tb" id="pzChk">✔ Check word <small>1⭐</small></button><button class="pz-tb" id="pzDir" aria-label="Switch between across and down">⇄</button></div>
+      <div class="pz-tools"><button class="pz-tb" id="pzHint">🪄 Hint <span class="pz-hn"></span> <small>1⭐</small></button><button class="pz-tb" id="pzRev">💡 Reveal ${unit} <small>2⭐</small></button><button class="pz-tb" id="pzChk">✔ Check word <small>1⭐</small></button><button class="pz-tb" id="pzDir" aria-label="Switch between across and down">⇄</button></div>
       ${indic ? trayHTML(tray, st.lang) : kbHTML()}
-      <div class="card pz-clues"><h3>Across</h3><ol>${p.entries.filter(e => e.dir === 'A').map(e => `<li><button class="pz-cl" data-k="${p.entries.indexOf(e)}"><b>${e.n}</b> ${clueHTML(e)}</button></li>`).join('')}</ol>
-        <h3>Down</h3><ol>${p.entries.filter(e => e.dir === 'D').map(e => `<li><button class="pz-cl" data-k="${p.entries.indexOf(e)}"><b>${e.n}</b> ${clueHTML(e)}</button></li>`).join('')}</ol></div></div>`;
+      <div class="card pz-clues"><h3>Across</h3><ol>${p.entries.filter(e => e.dir === 'A').map(e => `<li><button class="pz-cl" data-k="${p.entries.indexOf(e)}"><b>${e.n}</b> ${clueHTML(e)}</button><button class="pz-srcb" data-sk="${p.entries.indexOf(e)}" hidden></button></li>`).join('')}</ol>
+        <h3>Down</h3><ol>${p.entries.filter(e => e.dir === 'D').map(e => `<li><button class="pz-cl" data-k="${p.entries.indexOf(e)}"><b>${e.n}</b> ${clueHTML(e)}</button><button class="pz-srcb" data-sk="${p.entries.indexOf(e)}" hidden></button></li>`).join('')}</ol></div></div>`;
     wireQuit(el, st);
     const grid = $1('#pzGrid', el), cellEl = i => grid.querySelector(`[data-i="${i}"]`);
     const total = sol.filter(c => c !== '#').length;
+    /* a finished word gets a thin border: green when right, red when wrong; and shows where it comes from */
+    const state = k => { const cs = cellsOf(k); if (cs.some(i => !u[i])) return ''; return cs.every(i => u[i] === sol[i]) ? 'ok' : 'bad'; };
+    const wb = {};
+    const words = () => {
+      p.entries.forEach((e, k) => {
+        const s2 = state(k); let b = wb[k];
+        if (!s2) { if (b) b.hidden = true; } else {
+          if (!b) { b = wb[k] = D.createElement('div'); b.className = 'pz-wb'; b.setAttribute('aria-hidden', 'true'); grid.appendChild(b); }
+          const cs = cellsOf(k), a = cellEl(cs[0]), z = cellEl(cs[cs.length - 1]);
+          if (a && z) { b.style.left = a.offsetLeft + 'px'; b.style.top = a.offsetTop + 'px'; b.style.width = (z.offsetLeft + z.offsetWidth - a.offsetLeft) + 'px'; b.style.height = (z.offsetTop + z.offsetHeight - a.offsetTop) + 'px'; }
+          b.className = 'pz-wb ' + s2 + (e.dir === 'D' ? ' d' : ' a'); b.hidden = false;
+        }
+        const sb = $1(`.pz-srcb[data-sk="${k}"]`, el); if (!sb) return;
+        if (!s2 || !window.PzWords) { sb.hidden = true; return; }
+        const show = r => { if (!r || !r.path.length) { sb.hidden = true; return; } sb.innerHTML = `${s2 === 'ok' ? '✅' : '❌'} 📍 ${r.path.map(E).join(' › ')}`; sb.className = 'pz-srcb ' + s2; sb.hidden = false; };
+        if (SRC[k] && SRC[k].then) return; if (SRC[k]) show(SRC[k]); else SRC[k] = PzWords.source(st.sp, e).then(r => { SRC[k] = r; if (st.ctx.alive()) paint(); }).catch(() => { SRC[k] = { path: [], open() {} }; });
+      });
+    };
+    const help = k => {
+      const hb = $1('#pzHelp', el); if (!hb) return;
+      const n = HU[k] || 0, list = HC[k] && !HC[k].then ? HC[k] : null, s2 = state(k), r = SRC[k] && !SRC[k].then ? SRC[k] : null;
+      const hn = $1('#pzHint .pz-hn', el); if (hn) hn.textContent = `${n}/${list ? Math.min(HMAX, list.length) : HMAX}`;
+      const hs = list ? list.slice(0, n) : [];
+      hb.innerHTML = (hs.length ? `<ol class="pz-hlist" aria-label="Hints for this word">${hs.map(h => `<li><span aria-hidden="true">${h.ic}</span> <b>${E(h.label)}:</b> <span${st.L}>${E(h.text)}</span></li>`).join('')}</ol>` : '')
+        + (s2 && r && r.path.length ? `<button class="pz-srcb ${s2}" id="pzSrcCur">${s2 === 'ok' ? '✅ Right!' : '❌ Not right yet.'} 📍 From: ${r.path.map(E).join(' › ')} <u>Read</u></button>` : '');
+      const sc = $1('#pzSrcCur', hb); if (sc) sc.onclick = () => { S('tap'); r.open(); };
+    };
     const paint = (speak) => {
       const k = entryAt(cur, dir); if (k == null) return; dir = p.entries[k].dir; const cs = new Set(cellsOf(k)), e = p.entries[k];
       $$('.pz-c[data-i]', grid).forEach(c => {
@@ -609,6 +659,7 @@
       });
       $1('#pzClue', el).innerHTML = `<b>${e.n} ${dirName(e.dir)}</b> ${clueHTML(e)}`;
       $$('.pz-cl', el).forEach(b => b.classList.toggle('on', +b.dataset.k === k));
+      words(); help(k);
       if (speak) announce(`${e.n} ${dirName(e.dir)}, ${e.len} ${unit}es. ${e.ctx ? e.ctx + '. ' : ''}${e.clue}. ${cellsOf(k).map(i => u[i] || 'blank').join(', ')}`.replace(/letteres/, 'letters'));
       let ok = 0; for (let i = 0; i < N; i++) if (sol[i] !== '#' && u[i] === sol[i]) ok++; st.prog(ok, total);
     };
@@ -628,6 +679,19 @@
     $1('#pzDir', el).onclick = toggle;
     $1('#pzRev', el).onclick = () => { if (st.done) return; if (u[cur] === sol[cur]) { const k = entryAt(cur, dir), nx = cellsOf(k).find(i => u[i] !== sol[i]); if (nx == null) { T('This word is already right'); return; } cur = nx; } if (!charge(st, 2, `Revealed ${sol[cur]}`)) return; u[cur] = sol[cur]; rev.add(cur); wrong.delete(cur); S('coin'); paint(); after(); };
     $1('#pzChk', el).onclick = () => { if (st.done) return; const cs = cellsOf(entryAt(cur, dir)); if (cs.every(i => !u[i] || giv.has(i))) { T('Fill some boxes first'); return; } if (!charge(st, 1, 'Checked this word')) return; let bad = 0; cs.forEach(i => { if (u[i] && u[i] !== sol[i]) { wrong.add(i); bad++; } }); S(bad ? 'wrong' : 'correct'); T(bad ? `${bad} box${bad > 1 ? 'es' : ''} to fix (marked red)` : 'Every box so far is right ✓'); paint(); };
+    $1('#pzHint', el).onclick = async () => {
+      if (st.done || !window.PzWords) return;
+      const k = entryAt(cur, dir), e = p.entries[k];
+      if (!HC[k]) HC[k] = PzWords.hints(st.sp, e, p.entries.map(x => x.a)).then(l => (HC[k] = l || [])).catch(() => (HC[k] = []));
+      const list = HC[k].then ? await HC[k] : HC[k];
+      if (!st.ctx.alive() || st.done) return;
+      const n = HU[k] || 0, max = Math.min(HMAX, list.length);
+      if (n >= max) { T(n ? `All ${max} hints for this word are shown below` : 'No hints for this word'); S('hmm'); return; }
+      if (!charge(st, 1, `Hint ${n + 1}: ${list[n].label}. ${list[n].text}`)) return;
+      HU[k] = n + 1; persist(st); S('coin'); paint();
+    };
+    $$('.pz-srcb[data-sk]', el).forEach(b => b.onclick = () => { const r = SRC[+b.dataset.sk]; if (r && r.open) { S('tap'); r.open(); } });
+    try { new ResizeObserver(() => { if (st.ctx.alive()) words(); }).observe(grid); } catch (e) {}
     wireKB(el, k => (k === '⌫' ? backsp() : k === '⇥' ? nextEntry(1) : typeL(k)));
     st.key = e => {
       if (!indic && /^[a-zA-Z]$/.test(e.key)) { typeL(e.key.toUpperCase()); return true; }
@@ -959,6 +1023,7 @@
   function finish(st, o) {
     if (st.race) return raceDone(st);
     if (st.finished) return; st.finished = true; o = o || {};
+    try { if (window.LeaveGuard) LeaveGuard.disarm(); } catch (e) {}
     const z = Z(), sp = st.sp, p = st.p, first = !z.done[st.id];
     delete z.saves[st.id];
     let stars = first ? Math.max(0, st.pool) : 0, dailyMsg = '';
@@ -1080,6 +1145,15 @@
 .pz-xgrid .pz-c.blk{background:transparent;border-color:transparent;cursor:default}
 .pz-xgrid .pz-n{position:absolute;top:0;left:2px;font:700 9px Nunito,sans-serif;color:#555}
 .pz-xgrid .pz-c.word{background:#fff3c4}.pz-xgrid .pz-c.cur{background:#ffc93c}.pz-xgrid .pz-c.rev .pz-l{color:#7646ea}.pz-xgrid .pz-c.bad .pz-l{color:#d62828;text-decoration:line-through}
+.pz-xgrid{position:relative}.pz-wb{position:absolute;pointer-events:none;border-radius:3px;z-index:2;box-sizing:border-box}
+.pz-wb.ok{box-shadow:inset 0 0 0 1.5px #1f9d55}.pz-wb.bad{box-shadow:inset 0 0 0 1.5px #e03131}
+.pz-whelp:empty{display:none}.pz-whelp{margin:-2px 0 8px}
+.pz-hlist{margin:0 0 6px;padding:8px 10px 8px 28px;background:#f4efff;border-radius:12px;font-size:13.5px;line-height:1.4;color:#1d1f3a}.pz-hlist li{margin:3px 0}
+.pz-srcb{display:block;width:100%;text-align:left;border:0;border-radius:10px;padding:6px 10px;margin:4px 0 0;font:700 12.5px/1.35 Nunito,sans-serif;cursor:pointer;background:#eaf8ef;color:#156b3b}
+.pz-srcb.bad{background:#fdecec;color:#a61e22}.pz-srcb[hidden]{display:none}.pz-srcb u{white-space:nowrap}
+.pz-saved .pz-svrow{display:flex;gap:6px;align-items:stretch;margin-top:8px}.pz-svgo{flex:1;display:flex;gap:10px;align-items:center;text-align:left;border:0;border-radius:14px;padding:10px 12px;background:#fff7e0;cursor:pointer;color:var(--ink);font:inherit}
+.pz-svgo>span:first-child{font-size:24px}.pz-svgo b{display:block}.pz-svgo small{display:block;color:var(--muted);font-size:12px}.pz-svp{margin-left:auto;font-weight:800;color:#7646ea;white-space:nowrap}
+.pz-svx{border:0;border-radius:14px;background:#f3f3f8;padding:0 12px;cursor:pointer;font-size:16px}
 .pz-c:focus-visible,.pz-s:focus-visible,.pz-k1:focus-visible,.pz-w:focus-visible{box-shadow:inset 0 0 0 3px #2563eb}
 .pz-cluebar{background:#fff;border-radius:14px;padding:9px 12px;margin-bottom:8px;font-size:14.5px;line-height:1.35;min-height:44px;box-shadow:0 4px 14px rgba(0,0,0,.14)}
 .pz-ctx{color:var(--muted);font-size:12.5px}.pz-enum{color:var(--muted);font-weight:800;white-space:nowrap}.pz-near{color:#7646ea;font-weight:800}
@@ -1155,5 +1229,5 @@ html[data-age=pro] .pz-sbj.on,html[data-age=pro] .pz-chb.on{background:#1f5fd1}
     kinds: () => KINDS.map(k => Object.assign({}, k)),
     hub: o => hub(o || {}), quick: (kind, o) => quick(kid(kind), o || {}), pick: kind => pick(kid(kind)), race, describe,
     chapter: (sc, from) => chapter(sc, from), play: sp => play(sp), daily: async () => play(await dailySpec()), build,
-    speech, terms, curChapter, dailySpec, _Z: Z, _state: () => PLAY };
+    speech, terms, _terms: terms, curChapter, dailySpec, _Z: Z, _state: () => PLAY };
 })();
