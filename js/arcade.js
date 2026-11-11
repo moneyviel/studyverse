@@ -61,9 +61,13 @@
     !q.options.some(o => BAD_OPT.test(o)) && !(CTX_Q.test(q.q) && q.q.length < 160);
 
   async function buildPool(scope, prog) {
-    if (typeof scope.pool === 'function') return scope.pool(prog);   // e.g. CA MCQs from js/playhub.js
+    if (typeof scope.pool === 'function') return scope.pool(prog, scope.sel);   // e.g. CA MCQs from js/playhub.js
     const g = +scope.grade, all = await gradeSubjects(g);
-    const subs = scope.subject ? [all.find(s => s.id === scope.subject) || { id: scope.subject, name: cap(scope.subject) }] : all;
+    /* scope.sel: any mix of subjects / chapters / topics (js/scope.js tokens: 'g6', 'g6-science', 'g6-science-02', topic ids) */
+    const sel = Array.isArray(scope.sel) && scope.sel.length ? scope.sel.map(String) : null;
+    const hit = id => sel.some(t => id === t || id.startsWith(t + '-'));
+    const near = id => sel.some(t => id === t || id.startsWith(t + '-') || t.startsWith(id + '-'));
+    const subs = sel ? all.filter(s => near(`g${g}-${s.id}`)) : scope.subject ? [all.find(s => s.id === scope.subject) || { id: scope.subject, name: cap(scope.subject) }] : all;
     let n = 0; prog(0, subs.length);
     const datas = await Promise.all(subs.map(s => Promise.resolve(subjectData(g, s.id)).catch(() => null).then(d => { prog(++n, subs.length); return d; })));
     const P = { quiz: [], tf: [], speed: [], match: [], sort: [], order: [], subjects: [], chapter: null, multi: false };
@@ -74,6 +78,7 @@
         if (scope.chapter != null && ci !== +scope.chapter) return;
         if (scope.chapter != null) P.chapter = c;
         (c.topics || []).forEach(t => {
+          if (sel && !hit(String(t.id))) return;
           const src = { sid: s.id, sname: s.name || cap(s.id), se: SUBJ(s.id).e, ci, ch: c.title, tid: t.id, tt: t.title, t };
           used = true;
           (t.quiz || []).forEach(q => { if (okQ(q)) P.quiz.push({ q: q.q, options: q.options, answer: q.answer, explain: q.explain || '', src }); });
@@ -108,6 +113,7 @@
       if (used) P.subjects.push(s);
     });
     P.multi = P.subjects.length > 1;
+    if (sel) { const chs = new Set(); [].concat(P.quiz, P.tf, P.speed, P.match, P.sort, P.order).forEach(x => chs.add(x.src.sid + '|' + x.src.ci)); if (chs.size === 1) { const one = [].concat(P.quiz, P.tf, P.speed)[0]; if (one) P.chapter = { title: one.src.ch, n: one.src.ci + 1 }; } }
     return P;
   }
 
@@ -759,11 +765,12 @@
   const A = { host: null, scope: null, P: null, ctx: null, seq: 0, key: '' };
   const toTop = () => { try { const m = A.host && A.host.closest('main'); if (m) m.scrollTop = 0; window.scrollTo(0, 0); } catch (e) {} };
   const stopGame = () => { if (A.ctx) { A.ctx.stop(); A.ctx = null; } };
-  const scopeKey = s => s.key ? String(s.key) : `g${s.grade}${s.subject ? '-' + s.subject : ''}${s.chapter != null ? '-c' + s.chapter : ''}`;
+  const scopeKey = s => (s.key ? String(s.key) : `g${s.grade}${s.subject ? '-' + s.subject : ''}${s.chapter != null ? '-c' + s.chapter : ''}`) + (Array.isArray(s.sel) && s.sel.length ? '|' + s.sel.slice().sort().join(',') : '');
   const hiOf = () => { try { return +localStorage.getItem('arc_hi_' + A.key) || 0; } catch (e) { return 0; } };
 
   function scopeLabel() {
     const s = A.scope, P = A.P;
+    if (s.selLabel) return E(s.selLabel);
     if (s.label) return E(s.label);
     if (s.chapter != null && P.chapter) return `${P.subjects[0] ? SUBJ(P.subjects[0].id).e + ' ' + E(P.subjects[0].name) + ' · ' : ''}Chapter ${E(P.chapter.n || +s.chapter + 1)}: ${E(P.chapter.title)}`;
     if (s.subject) return `Grade ${E(s.grade)} · ${P.subjects[0] ? SUBJ(P.subjects[0].id).e + ' ' + E(P.subjects[0].name) : E(cap(s.subject))} · all chapters`;
@@ -793,11 +800,17 @@
     try { if (window.LeaveGuard && LeaveGuard.armed) LeaveGuard.disarm(); } catch (e) {}
     const list = GAMES.filter(g => { try { return g.ok(P); } catch (e) { return false; } });
     const pk = A.park && A.park.key === A.key ? A.park : null;
-    host.innerHTML = `${pk ? `<div class="card arc-saved"><b>💾 Saved game</b><p class="sub">${pk.game.e} ${E(pk.game.n)} — pick up where you left off.</p><button class="btn mint" type="button" id="arcResume">▶ Continue ${E(pk.game.n)}</button><button class="btn ghost" type="button" id="arcDrop" style="margin-top:8px">🗑 Delete saved game</button></div>` : ''}<div class="arc-menu"><div class="card arc-hdr"><div class="arc-hdr-e">🕹️</div><div><h2>Arcade</h2><p class="sub">${scopeLabel()}</p></div></div>
+    const canPick = !!window.ScopePick && A.scope.chapter == null;
+    host.innerHTML = `${canPick ? `<div class="arc-scope">${ScopePick.pickHTML(A.scope.selLabel || (A.scope.pool ? A.scope.label || 'All your papers' : 'All subjects · Class ' + A.scope.grade), A.scope.pool ? 'Papers, chapters or units — any mix' : 'Subjects, chapters or topics — any mix', 'arcScope')}</div>` : ''}${pk ? `<div class="card arc-saved"><b>💾 Saved game</b><p class="sub">${pk.game.e} ${E(pk.game.n)} — pick up where you left off.</p><button class="btn mint" type="button" id="arcResume">▶ Continue ${E(pk.game.n)}</button><button class="btn ghost" type="button" id="arcDrop" style="margin-top:8px">🗑 Delete saved game</button></div>` : ''}<div class="arc-menu"><div class="card arc-hdr"><div class="arc-hdr-e">🕹️</div><div><h2>Arcade</h2><p class="sub">${scopeLabel()}</p></div></div>
       ${list.length ? `<div class="arc-grid">${list.map((g, j) => `<button class="arc-card arc-c-${g.id}" data-g="${g.id}" style="animation-delay:${j * 0.05}s"><span class="arc-ce">${g.e}</span><b>${g.n}</b><span class="arc-cd">${g.d}</span><span class="arc-cc">${g.id === 'lightning' && hiOf() ? `🏆 Best ${hiOf()}` : g.c(P)}</span></button>`).join('')}</div>`
         : `<div class="card"><p class="sub">There is not enough here yet for arcade games. Try the whole subject, or all subjects.</p></div>`}</div>`;
     toTop();
     const rb = host.querySelector('#arcResume'); if (rb) rb.onclick = () => { S('open'); resume(); };
+    const sp = host.querySelector('#arcScope');
+    if (sp) sp.onclick = () => { S('tap'); const ca = !!A.scope.pool, lv = (window.Ca && Ca._ && Ca._.C && Ca._.C().level) || 'foundation';
+      ScopePick.open({ ca, grade: A.scope.grade, level: lv, value: A.scope.sel || [ca ? ({ foundation: 'fnd', inter: 'int', final: 'fin' }[lv] || 'fnd') : 'g' + A.scope.grade], title: '🕹️ What should the games ask?', cta: 'Play these ✓',
+        onDone: (v, lb) => { const root = ca ? ({ foundation: 'fnd', inter: 'int', final: 'fin' }[lv] || 'fnd') : 'g' + A.scope.grade, all = v.length === 1 && v[0] === root;
+          open(host, Object.assign({}, A.scope, { sel: all ? null : v, selLabel: all ? null : lb, game: null })); } }); };
     const db = host.querySelector('#arcDrop'); if (db) db.onclick = () => { S('tap'); dropPark(); menu(); };
     host.querySelectorAll('.arc-card').forEach(b => b.onclick = () => { S('tap'); start(GAMES.find(g => g.id === b.dataset.g)); });
   }

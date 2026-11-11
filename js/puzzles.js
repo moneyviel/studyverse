@@ -91,8 +91,15 @@
 
   /* ================= scope: which chapter ================= */
   // school {k:'s', g, sid, ci} · CA {k:'c', ch:'fnd-p2-ch02'} · free play {k:'q'}
-  const scopeKey = sc => !sc || sc.k === 'q' ? 'free' : sc.k === 'c' ? sc.ch : `g${sc.g}-${sc.sid}-c${sc.ci}`;
-  const cleanSc = sc => (!sc || sc.k === 'q' ? { k: 'q' } : sc.k === 'c' ? { k: 'c', ch: String(sc.ch) } : { k: 's', g: +sc.g, sid: String(sc.sid), ci: +sc.ci });
+  /* scopes: { k:'q' } free play · { k:'s', g, sid, ci } one school chapter · { k:'c', ch } one CA chapter ·
+     { k:'m', ca, g | lvl, sel: [tokens], label } any mix of subjects / papers, chapters and topics (js/scope.js tokens) */
+  const scopeKey = sc => !sc || sc.k === 'q' ? 'free' : sc.k === 'c' ? sc.ch : sc.k === 'm' ? `m:${sc.ca ? sc.lvl : 'g' + sc.g}:${(sc.sel || []).slice().sort().join(',')}` : `g${sc.g}-${sc.sid}-c${sc.ci}`;
+  const cleanSc = sc => (!sc || sc.k === 'q' ? { k: 'q' } : sc.k === 'c' ? { k: 'c', ch: String(sc.ch) }
+    : sc.k === 'm' ? Object.assign({ k: 'm', ca: !!sc.ca, sel: (sc.sel || []).map(String).slice(0, 80), label: String(sc.label || '').slice(0, 120) }, sc.ca ? { lvl: String(sc.lvl || 'foundation') } : { g: +sc.g })
+    : { k: 's', g: +sc.g, sid: String(sc.sid), ci: +sc.ci });
+  const mOpt = sc => ({ ca: !!sc.ca, grade: sc.g, level: sc.lvl });
+  const MRES = {};
+  const mResolve = async sc => { const k = scopeKey(sc); if (!MRES[k]) MRES[k] = window.ScopePick ? ScopePick.resolve(sc.sel, mOpt(sc)).catch(() => []) : Promise.resolve([]); return MRES[k]; };
   const NUMERIC = /^(maths|accountancy|economics)$/;
   async function caChapter(ch) {
     const x = X(); if (!x) return null;
@@ -102,6 +109,14 @@
   }
   const subjMeta = (g, sid) => (((typeof CUR !== 'undefined' && CUR && CUR.grades && CUR.grades[g]) || {}).subjects || []).find(s => s.id === sid) || {};
   async function info(sc) {
+    if (sc && sc.k === 'm') {
+      const parts = await mResolve(sc); if (!parts.length) return null;
+      let script = 'latn', numeric = false, lang = 'en';
+      if (!sc.ca) { const c0 = parts[0].c; script = PC().chapterScript(c0) || 'latn'; numeric = parts.some(x => NUMERIC.test(x.sid)); if (script !== 'latn') lang = PC().langOf(script, parts[0].sid); }
+      else numeric = parts.some(x => /-p[13]-/.test(x.ch));
+      const subj = new Set(parts.map(x => (sc.ca ? x.p && x.p.name : x.sid)));
+      return { title: sc.label || 'Your mix', sub: `${parts.length} chapter${parts.length > 1 ? 's' : ''}${subj.size > 1 ? ` · ${subj.size} ${sc.ca ? 'papers' : 'subjects'}` : ''}`, emoji: '🎯', numeric, key: scopeKey(sc), sname: sc.label || '', script, lang };
+    }
     if (!sc || sc.k === 'q') return { title: 'Free play', sub: 'Any time, any level', emoji: '🧩', numeric: true, key: 'free', lang: 'en', script: 'latn' };
     if (sc.k === 's') {
       const d = await subjectData(sc.g, sc.sid), c = d && d.chapters[sc.ci]; if (!c) return null;
@@ -121,6 +136,7 @@
     let t = { own: [], near: [], groups: [] };
     try {
       if (sc.k === 's') { const d = await subjectData(sc.g, sc.sid); if (d) t = PC().termsFromSchool(d, sc.ci); }
+      else if (sc.k === 'm') t = await mixTerms(sc);
       else if (sc.k === 'c') {
         const x = X(), f = await caChapter(sc.ch);
         if (f) {
@@ -132,6 +148,33 @@
       }
     } catch (e) { console.warn('puzzle terms', e); }
     return (TERMS[k] = t);
+  }
+  /* a mix: the words of every chosen chapter (only the chosen topics / units), one script only (the first chapter's) */
+  async function mixTerms(sc) {
+    const parts = await mResolve(sc), out = { own: [], near: [], groups: [], ca: !!sc.ca }, seen = new Set();
+    const put = list => list.forEach(t => { if (!seen.has(t.a)) { seen.add(t.a); out.own.push(t); } });
+    if (!sc.ca) {
+      let script = null;
+      for (const x of parts) {
+        const d = await subjectData(sc.g, x.sid); if (!d) continue;
+        const scr = PC().chapterScript(d.chapters[x.ci]) || 'latn'; if (script == null) script = scr; if (scr !== script) continue;
+        const t = PC().termsFromSchool(d, x.ci);
+        put(t.own.filter(w => !x.topics || (w.tid && x.topics.has(w.tid))));
+        if (!x.topics) out.groups.push(...(t.groups || []));
+      }
+    } else {
+      const xx = X(); if (!xx) return out;
+      const items = (window.CaKeysData && CaKeysData.ITEMS) || [];
+      for (const x of parts) {
+        const f = await caChapter(x.ch); if (!f) continue;
+        const units = {};
+        for (const u of f.c.units) { if (u.status !== 'built' || (x.units && !x.units.has(u.id))) continue; try { const d = await xx.unitData(u.id); if (d) units[u.id] = d; } catch (e) {} }
+        const t = PC().termsFromCA({ structure: f.st, units, keyItems: items.filter(it => units[it.u]) }, x.ch);
+        put(t.own); out.groups.push(...(t.groups || []));
+      }
+    }
+    PC().rank && (out.own = PC().rank(out.own));
+    return out;
   }
   const caNear = f => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 20; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 20) order.push(x); }); return order; };
 
@@ -214,7 +257,8 @@
   }
   const readyText = (t, b) => {
     const p = b.p;
-    if (t === 'xw') { const nn = p.entries.filter(e => e.near).length; return `✓ ${p.entries.length - nn} words from this chapter${nn ? ` + ${nn} ↗ from nearby chapters` : ''}${p.giv ? ' · first letters given' : ''}`; }
+    const mix = b.extra && b.extra.info && String(b.extra.info.key || '').startsWith('m:');
+    if (t === 'xw') { const nn = p.entries.filter(e => e.near).length; return `✓ ${p.entries.length - nn} words from ${mix ? 'your choice' : 'this chapter'}${nn ? ` + ${nn} ↗ from nearby chapters` : ''}${p.giv ? ' · first letters given' : ''}`; }
     if (t === 'ws') return `✓ ${p.words.length} words to find in a ${p.n}×${p.n} grid`;
     if (t === 'an') return `✓ ${p.words.length} words to unscramble`;
     if (t === 'csdk') return `✓ ${p.n}×${p.n} with ${b.extra.set.items.length} chapter words`;
@@ -373,7 +417,7 @@
       const sp = mkSpec(), b = await build(sp);
       if (tok !== S0.tok || !box.isConnected) return;
       if (b) { S0.ready = { sp, b }; stat.textContent = readyText(kind, b); go.disabled = false; return; }
-      stat.textContent = '🙂 ' + (chap ? NOPE[kind] + ' Pick another chapter, or try:' : 'This puzzle could not be made. Please try again.');
+      stat.textContent = '🙂 ' + (chap ? (S0.sc && S0.sc.k === 'm' ? 'Your mix does not have enough key words for this puzzle yet — add more chapters with 🎯 Change, or try:' : NOPE[kind] + ' Tap 🎯 Change to add more chapters, or try:') : 'This puzzle could not be made. Please try again.');
       if (!chap) return;
       const others = [];
       for (const k of ['ws', 'an', 'xw', 'csdk']) { if (k === kind) continue; if (await build(Object.assign(mkSpec(), { t: k, n: k === 'csdk' ? (g <= 3 ? 4 : 6) : undefined, diff: k === 'csdk' && S0.diff === 'hard' ? 'medium' : S0.diff }))) others.push(k); }
@@ -395,6 +439,34 @@
       } else o.onGo(sp);
     };
     if (!chap) { check(); return; }
+    /* 🎯 solo play: any mix of subjects / papers, chapters and topics (js/scope.js); races keep one chapter (below) */
+    if (o.mode !== 'pick' && window.ScopePick) {
+      const card = $1('#pzSubs', box).closest('.card');
+      const opt = ca ? { ca: true, level: (X() && X().C && X().C().level) || 'foundation' } : { ca: false, grade: g };
+      const cur0 = await curChapter(); if (!box.isConnected) return;
+      if (!S0.sc && cur0.k !== 'q') S0.sc = cur0;
+      const tokensOf = async sc => {
+        if (!sc) return [];
+        if (sc.k === 'm') return sc.sel.slice();
+        if (sc.k === 'c') return [sc.ch];
+        if (sc.k === 's') { const d = await subjectData(sc.g, sc.sid), c = d && d.chapters[sc.ci]; const t0 = c && c.topics && c.topics[0]; return t0 && /-\d+$/.test(t0.id) ? [t0.id.replace(/-\d+$/, '')] : [`g${sc.g}-${sc.sid}`]; }
+        return [];
+      };
+      const toSc = async (v, lb) => {
+        const parts = await ScopePick.resolve(v, opt);
+        if (parts.length === 1 && !parts[0].topics && !parts[0].units) return ca ? { k: 'c', ch: parts[0].ch } : { k: 's', g, sid: parts[0].sid, ci: parts[0].ci };
+        return cleanSc({ k: 'm', ca, g, lvl: opt.level, sel: v, label: lb });
+      };
+      const draw = async () => {
+        let label = 'Pick what to play', hint = ca ? 'Papers, chapters or units — any mix' : 'Subjects, chapters or topics — any mix';
+        if (S0.sc) { const inf = await info(S0.sc); if (inf) { label = inf.title; hint = inf.sub + ' · tap Change to mix more'; } }
+        if (!box.isConnected) return;
+        card.innerHTML = `<h3>📚 Play from</h3>${ScopePick.pickHTML(label, hint, 'pzScope')}`;
+        $1('#pzScope', card).onclick = async () => { S('tap'); ScopePick.open(Object.assign({}, opt, { value: await tokensOf(S0.sc), title: `${m.e} What should the ${m.n.toLowerCase()} use?`, cta: 'Use these ✓',
+          onDone: async (v, lb) => { S0.sc = await toSc(v, lb); await draw(); check(); } })); };
+      };
+      await draw(); check(); return;
+    }
     /* subjects (school) or papers (CA), then that subject's chapters */
     const subsEl = $1('#pzSubs', box), chl = $1('#pzChl', box);
     const cur = await curChapter(); if (!box.isConnected) return;

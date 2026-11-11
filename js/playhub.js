@@ -98,13 +98,14 @@
   const cap = s => String(s || '').charAt(0).toUpperCase() + String(s || '').slice(1);
   const caLevel = () => { const s = STx(); return (s && s.ca && s.ca.level) || 'foundation'; };
   /* CA questions in the Arcade's pool shape: built units of the student's level, all real reviewed MCQs */
-  async function caPool(prog) {
+  async function caPool(prog, sel) {
     const P = { quiz: [], tf: [], speed: [], match: [], sort: [], order: [], subjects: [{ id: 'ca', name: 'CA ' + cap(caLevel()) }], chapter: null, multi: false };
     const X = window.Ca && Ca._; if (!X || !X.structure) return P;
     let st; try { st = await X.structure(caLevel()); } catch (e) { return P; }
     const units = []; (st.papers || []).forEach(p => (p.chapters || []).forEach(c => (c.units || []).forEach(u => { if (u.status === 'built') units.push({ p, c, u }); })));
-    for (let i = units.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [units[i], units[j]] = [units[j], units[i]]; }
-    const pick = units.slice(0, 10); let n = 0; if (prog) prog(0, pick.length);
+    const chosen = Array.isArray(sel) && sel.length ? units.filter(x => sel.some(t => x.u.id === t || x.u.id.startsWith(t + '-'))) : units;   // 🎯 papers / chapters / units chosen
+    for (let i = chosen.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [chosen[i], chosen[j]] = [chosen[j], chosen[i]]; }
+    const pick = chosen.slice(0, 12); let n = 0; if (prog) prog(0, pick.length);
     await Promise.all(pick.map(async x => {
       let d = null; try { d = await X.unitData(x.u.id); } catch (e) {}
       if (prog) prog(++n, pick.length);
