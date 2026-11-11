@@ -821,17 +821,78 @@
     try { await navigator.clipboard.writeText(`${text} ${url}`); toast('Link copied — paste it in your group'); return; } catch (e) {}
     window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
   }
+  /* the chosen part of the syllabus travels in the link as tokens: a level ('fnd' = all papers), a paper ('fnd-p1'),
+     a chapter ('fnd-p1-ch05') or a unit ('fnd-p1-ch05-u02'); both phones turn them into the same built units */
+  const gHit = (uid, toks) => toks.some(t => uid === t || uid.startsWith(t + '-'));
+  async function gBuilt() {
+    const sts = await allStructures(), out = [];
+    sts.forEach((st, li) => st && st.papers.forEach(p => p.chapters.forEach(c => c.units.forEach(u => { if (u.status === 'built') out.push({ lvl: LEVELS[li][0], p, c, u, pid: c.id.split('-').slice(0, 2).join('-') }); }))));
+    return out;
+  }
+  function gRng(seed) { let h = 2166136261; for (const ch of String(seed)) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0; return () => { h = (h + 0x6D2B79F5) | 0; let t = Math.imul(h ^ (h >>> 15), 1 | h); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  /* the question list: every MCQ of one unit (older links), or n questions spread evenly over the chosen units */
+  async function gList(uids, seed, n) {
+    const per = [];
+    for (const uid of uids) { const d = await unitData(uid); if (d && d.mcqs && d.mcqs.length) per.push(d.mcqs.map(q => ({ q, key: `${uid}#${q.id}` }))); }
+    if (!n) return [].concat(...per);
+    const r = gRng(seed), sh = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const pools = sh(per.map(sh)), out = [];
+    for (let k = 0; out.length < n && pools.some(p => p.length); k = (k + 1) % pools.length) if (pools[k].length) out.push(pools[k].shift());
+    return sh(out);
+  }
+  /* a short name for the chosen part: "All papers", "Accounting", "Accounting · Ch 5 + 2 more" … */
+  function gLabel(toks, built) {
+    if (!toks.length) return '';
+    const name = t => { const b = built.find(x => gHit(x.u.id, [t])); if (!b) return t;
+      if (/^[a-z]+$/.test(t)) return `All papers (CA ${levelName(b.lvl)})`;
+      if (t === b.pid) return paperLabel(b.p);
+      if (t === b.c.id) return `${paperLabel(b.p)} · Ch ${b.c.n} ${b.c.title}`;
+      return b.u.title; };
+    return name(toks[0]) + (toks.length > 1 ? ` + ${toks.length - 1} more` : '');
+  }
   async function groupScreen() {
-    const el = open('squad'); const sts = await allStructures(); const built = [];
-    sts.forEach(st => st && st.papers.forEach(p => p.chapters.forEach(c => c.units.forEach(u => { if (u.status === 'built') built.push({ p, c, u }); }))));
-    const past = C().group.slice(-8).reverse();
+    const el = open('squad'), built = await gBuilt(), past = C().group.slice(-8).reverse();
+    const lvl = C().level || 'foundation', mine = built.filter(b => b.lvl === lvl).length ? built.filter(b => b.lvl === lvl) : built;
+    const L0 = mine.length ? mine[0].u.id.split('-')[0] : '';
+    /* tree: all papers → paper → chapter → unit (only built units). sel = set of unit ids */
+    const sel = new Set(), papers = [];
+    mine.forEach(b => { let P = papers.find(x => x.id === b.pid); if (!P) papers.push(P = { id: b.pid, p: b.p, chs: [] }); let Ch = P.chs.find(x => x.id === b.c.id); if (!Ch) P.chs.push(Ch = { id: b.c.id, c: b.c, us: [] }); Ch.us.push(b); });
+    const unitsOf = id => mine.filter(b => gHit(b.u.id, [id])).map(b => b.u.id);
+    const stOf = id => { const us = unitsOf(id), k = us.filter(u => sel.has(u)).length; return k === 0 ? 'none' : k === us.length ? 'all' : 'some'; };
+    const box = (id, label, sub, lvlCls) => { const s2 = stOf(id); return `<label class="ca-gt ${lvlCls}"><input type="checkbox" data-gt="${id}" ${s2 === 'all' ? 'checked' : ''} ${s2 === 'some' ? 'data-some="1"' : ''}><span>${label}${sub ? ` <small>${sub}</small>` : ''}</span></label>`; };
+    /* the smallest set of tokens for what is ticked */
+    const toks = () => {
+      if (mine.length && mine.every(b => sel.has(b.u.id))) return [L0];
+      const t = [];
+      papers.forEach(P => { if (stOf(P.id) === 'all') return t.push(P.id); P.chs.forEach(Ch => { if (stOf(Ch.id) === 'all') return t.push(Ch.id); Ch.us.forEach(b => { if (sel.has(b.u.id)) t.push(b.u.id); }); }); });
+      return t;
+    };
+    const open0 = new Set();
+    const draw = () => {
+      const t = toks();
+      const tree = D.getElementById('caGTree'); if (!tree) return; const sy = tree.scrollTop;
+      tree.innerHTML = box(L0, '<b>All papers</b>', `${mine.length} units`, 'l0') + papers.map(P => `<div class="ca-gp">${box(P.id, `<b>${esc(paperLabel(P.p))}</b>`, `${P.chs.length} ch`, 'l1')}<button type="button" class="ca-gx" data-gx="${P.id}" aria-expanded="${open0.has(P.id)}">${open0.has(P.id) ? '▾ Chapters' : '▸ Chapters'}</button>
+        ${open0.has(P.id) ? P.chs.map(Ch => `<div class="ca-gc">${box(Ch.id, `Ch ${Ch.c.n}: ${esc(Ch.c.title)}`, '', 'l2')}${Ch.us.length > 1 ? `<button type="button" class="ca-gx" data-gx="${Ch.id}" aria-expanded="${open0.has(Ch.id)}">${open0.has(Ch.id) ? '▾ Topics' : '▸ Topics'}</button>` : ''}
+          ${open0.has(Ch.id) && Ch.us.length > 1 ? Ch.us.map(b => box(b.u.id, `Unit ${b.u.n}: ${esc(b.u.title)}`, '', 'l3')).join('') : ''}</div>`).join('') : ''}</div>`).join('');
+      tree.scrollTop = sy; tree.querySelectorAll('input[data-some]').forEach(x => { x.indeterminate = true; });
+      tree.querySelectorAll('input[data-gt]').forEach(x => x.onchange = () => { const us = unitsOf(x.dataset.gt), on = stOf(x.dataset.gt) !== 'all'; us.forEach(u => on ? sel.add(u) : sel.delete(u)); draw(); });
+      tree.querySelectorAll('[data-gx]').forEach(x => x.onclick = () => { const k = x.dataset.gx; open0.has(k) ? open0.delete(k) : open0.add(k); draw(); });
+      const sum = D.getElementById('caGSum'), go = D.getElementById('caGStart');
+      sum.textContent = t.length ? `Chosen: ${gLabel(t, built)} · ${[...sel].length} unit${sel.size > 1 ? 's' : ''}` : 'Tick what to practise: all papers, a paper, chapters or topics (units).';
+      go.disabled = !t.length;
+    };
     el.innerHTML = `<h1 class="ca-h1 ca-onDark">Group study</h1>
-      <div class="card"><h2 class="ca-h2s">Challenge your study group</h2><p class="sub">Pick a unit, answer its MCQ set, then send the link. Friends get the same questions in the same order; their score comes back to you by link. No sign-in needed.</p>
-        <label class="ca-lab" for="caGU">Unit</label><select id="caGU" class="ca-in">${built.map(b => `<option value="${b.u.id}">${esc(paperLabel(b.p))} · Ch ${b.c.n} · ${esc(b.u.title)}</option>`).join('')}</select>
-        <button class="btn" id="caGStart">Set the score ▶</button></div>
-      <div class="card"><h2 class="ca-h2s">How to study together</h2><ol class="ca-ol"><li>Everyone reads the same unit (share it from its Revise tab).</li><li>One person sets the MCQ score; others play the same set.</li><li>Meet (or call) and let each person explain one question they got wrong.</li><li>Each writes one descriptive answer and marks a friend's answer with the scheme.</li></ol></div>
+      <div class="card"><h2 class="ca-h2s">Challenge your study group</h2><p class="sub">Choose what to practise — all papers, one or more papers, chapters, or topics (units). Answer the MCQ set, then send the link. Friends get the same questions in the same order; their score comes back to you by link. No sign-in needed.</p>
+        <div id="caGTree" class="ca-gtree" role="group" aria-label="Papers, chapters and topics"></div>
+        <p class="sub" id="caGSum" role="status" aria-live="polite"></p>
+        <label class="ca-lab">Questions</label><div class="ca-gq" role="radiogroup" aria-label="Number of questions">${[10, 20, 30, 50].map(n => `<button type="button" role="radio" data-gq="${n}" aria-checked="${n === 20}" class="${n === 20 ? 'on' : ''}">${n}</button>`).join('')}</div>
+        <button class="btn" id="caGStart" disabled>Set the score ▶</button></div>
+      <div class="card"><h2 class="ca-h2s">How to study together</h2><ol class="ca-ol"><li>Everyone reads the same chapters or units (share a unit from its Revise tab).</li><li>One person sets the MCQ score; others play the same set.</li><li>Meet (or call) and let each person explain one question they got wrong.</li><li>Each writes one descriptive answer and marks a friend's answer with the scheme.</li></ol></div>
       <div class="card"><h2 class="ca-h2s">Recent group results</h2>${past.length ? past.map(g => `<div class="ca-wrow"><span>${esc(g.title || g.u)} · ${esc(g.d)}</span><b>${g.s}/${g.k}${g.vs ? ` vs ${esc(g.vs.n)} ${g.vs.s}/${g.k}` : ''}</b></div>`).join('') : '<p class="sub">No group results yet.</p>'}</div>`;
-    D.getElementById('caGStart').onclick = () => groupCreate(D.getElementById('caGU').value);
+    let qn = 20;
+    el.querySelectorAll('[data-gq]').forEach(b => b.onclick = () => { qn = +b.dataset.gq; el.querySelectorAll('[data-gq]').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', String(on)); }); });
+    draw();
+    D.getElementById('caGStart').onclick = () => { const t = toks(); if (!t.length) return; groupCreate({ sel: t, q: qn, title: gLabel(t, built) }); };
   }
   /* ⚡ Speed duel: the link also carries each person's seconds per question (t) and right/wrong (r: "1" / "0" / "-"),
      in the unit's question order, so both sides see who was faster on every question. Older links without t still work. */
@@ -848,29 +909,38 @@
     return `<div class="ca-duel"><h3 class="ca-h3">⚡ Speed duel — seconds per question</h3><p class="sub">${both ? `${esc(nA)} was faster on ${fa}, ${esc(nB)} on ${fb} of ${both} questions you both answered. Target: 72 s each.` : 'No question was answered by both of you.'}</p>
       <details class="ca-tview" ${n <= 10 ? 'open' : ''}><summary>Seconds for every question</summary><div class="ca-scroll" role="region" tabindex="0" aria-label="Seconds per question for each person"><table class="ca-t"><thead><tr><th scope="col">Question</th><th scope="col" class="n">${esc(nA)}</th><th scope="col" class="n">${esc(nB)}</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`;
   }
-  async function groupCreate(uid, played) {
-    const d = await unitData(uid); if (!d) return;
-    const list = d.mcqs.map(q => ({ q, key: `${uid}#${q.id}` }));
+  async function groupCreate(what, played) {
+    const one = typeof what === 'string', seed0 = played ? played.seed : 'g' + Date.now().toString(36);
+    let list, title, uid = one ? what : null;
+    if (one) { const d = await unitData(uid); if (!d) return; list = d.mcqs.map(q => ({ q, key: `${uid}#${q.id}` })); title = d.title; }
+    else { const built = await gBuilt(), uids = built.filter(b => gHit(b.u.id, what.sel)).map(b => b.u.id); list = await gList(uids, seed0, what.q); title = what.title; }
+    if (!list.length) { toast('No questions there yet — choose something else.'); return; }
+    const d = { title };
     const finish = (seed, s, ms, k, log) => {
       const id = Math.random().toString(36).slice(2, 10), me = { n: ST.profile?.name || 'Friend' };
-      const url = link('cagrp', { v: 1, id, u: uid, seed, n: me.n, s, ms, k, ...(log ? { t: gTimes(list, log), r: gRes(list, log) } : {}) });
-      C().group.push({ id, u: uid, title: d.title, d: today(), s, ms, k, own: true }); save();
+      const url = link('cagrp', one ? { v: 1, id, u: uid, seed, n: me.n, s, ms, k, ...(log ? { t: gTimes(list, log), r: gRes(list, log) } : {}) }
+        : { v: 2, id, sel: what.sel, q: what.q, tt: title, seed, n: me.n, s, ms, k, ...(log ? { t: gTimes(list, log), r: gRes(list, log) } : {}) });
+      C().group.push({ id, u: uid || what.sel.join(','), title, d: today(), s, ms, k, own: true }); save();
       const el = open('squad');
       el.innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">Your score: ${s}/${k}</h2><p class="sub">in ${Math.round(ms / 1000)} s. Send the set to your study group.</p><button class="btn" id="caGShare">Send to group</button><div style="height:8px"></div><button class="btn ghost" id="caGDone">Done</button></div>`;
       D.getElementById('caGShare').onclick = () => share(`${me.n} scored ${s}/${k} on "${d.title}" (CA). Same questions for you:`, url);
       D.getElementById('caGDone').onclick = groupScreen;
     };
     if (played) return finish(played.seed, played.s, played.ms, played.k, played.log);
-    const el = open('squad'), seed = 'g' + Date.now().toString(36);
+    const el = open('squad'), seed = seed0;
     el.innerHTML = `<div class="card"><h2 class="ca-h2s">${esc(d.title)}</h2><p class="sub">${list.length} questions. Your score, total time and seconds per question will be in the link — a speed duel.</p><button class="btn" id="caGGo">Start ▶</button></div><div id="caGHost"></div>`;
     D.getElementById('caGGo').onclick = () => { el.querySelector('.card').remove(); runMCQ(D.getElementById('caGHost'), list, seed, r => finish(seed, r.right, r.ms, r.total, r.log)); };
   }
   async function groupAccept(o) {
-    const d = await unitData(o.u); const el = open('squad');
+    let d = null, list = [];
+    if (o.sel && Array.isArray(o.sel)) {           // v2: a chosen set of papers / chapters / units
+      const built = await gBuilt(), uids = built.filter(b => gHit(b.u.id, o.sel.map(String))).map(b => b.u.id);
+      list = await gList(uids, o.seed, Math.min(100, +o.q || 20)); if (list.length) d = { title: String(o.tt || gLabel(o.sel, built)).slice(0, 120) };
+    } else { d = await unitData(o.u); if (d) list = d.mcqs.map(q => ({ q, key: `${o.u}#${q.id}` })); }
+    const el = open('squad');
     if (!ST.profile) D.documentElement.dataset.age = 'pro';
     D.querySelectorAll('nav').forEach(n => n.style.display = ST.profile ? '' : 'none');
     if (!d) { el.innerHTML = `<div class="card"><h2 class="ca-h2s">Group challenge</h2><p class="sub">This set is not available any more. Ask for a new link.</p></div>`; return; }
-    const list = d.mcqs.map(q => ({ q, key: `${o.u}#${q.id}` }));
     el.innerHTML = `<div class="card"><span class="ca-k">Group study · CA</span><h2 class="ca-h2s">${esc(o.n)} challenged you on “${esc(d.title)}”</h2><p class="sub">${list.length} questions, same order for everyone. Their score stays hidden until you finish.</p>
       ${ST.profile ? '' : '<label class="ca-lab" for="caGName">Your name</label><input id="caGName" class="ca-in" maxlength="20" autocomplete="off">'}<button class="btn" id="caGGo">Start ▶</button></div><div id="caGHost"></div>`;
     D.getElementById('caGGo').onclick = () => {
@@ -878,7 +948,7 @@
       el.querySelector('.card').remove();
       runMCQ(D.getElementById('caGHost'), list, o.seed, r => {
         const win = r.right > o.s || (r.right === o.s && r.ms < o.ms), tie = r.right === o.s && r.ms === o.ms;
-        if (ST.profile) { C().group.push({ id: o.id, u: o.u, title: d.title, d: today(), s: r.right, ms: r.ms, k: r.total, vs: { n: o.n, s: o.s } }); save(); }
+        if (ST.profile) { C().group.push({ id: o.id, u: o.u || (o.sel || []).join(','), title: d.title, d: today(), s: r.right, ms: r.ms, k: r.total, vs: { n: o.n, s: o.s } }); save(); }
         const tMe = gTimes(list, r.log), rMe = gRes(list, r.log);
         const reply = link('cagrpr', { v: 1, id: o.id, u: o.u, n: nm, s: r.right, ms: r.ms, k: r.total, n0: o.n, s0: o.s, ms0: o.ms, t: tMe, r: rMe, ...(Array.isArray(o.t) ? { t0: o.t, r0: o.r } : {}) });
         D.getElementById('caGHost').innerHTML = `<div class="card ca-res"><h2 class="ca-h2s">${win ? 'You top this round' : tie ? 'A tie' : `${esc(o.n)} tops this round`}</h2>
