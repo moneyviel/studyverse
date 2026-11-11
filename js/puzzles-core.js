@@ -328,6 +328,10 @@
   const BAD_CLUE = /\b(which of (the|these)|which one|following|of the above|all of these|none of these|odd one|true or false|true|false|correct (statement|option|answer)|incorrect|match the|statements?|options?|given (below|above)|figure|diagram|table below|shown|picture|passage|extract|paragraph|this (chapter|lesson|poem|story)|in the (poem|story)|above|below)\b/i, BAD_CAPS = /\b(NOT|EXCEPT|INCORRECT)\b/;
   const DEF_Q = /(\b(is|are|was|were) (called|known as|termed|referred to as|named)\b|\bthe (term|name|word) (for|given to|used for)\b|\bwhat (do|does) (we|you) call\b|\bis called\b|\bis the name\b|___|\b(is|are|was|were) (a|an|the)\s*:?\s*$|\b(is|are)\s*:\s*$|\bis termed:?\s*$|\brefers? to:?\s*$|\bknown as:?\s*$|\bcalled:?\s*$|\bmeans:?\s*$)/i;
   const cap1 = s => s.charAt(0).toUpperCase() + s.slice(1);
+  /* a question that is a clue on its own: asks for a thing directly (not "which of the following", not "NOT / except",
+     not a calculation, not true/false) — its right option becomes the answer */
+  const BAD_Q = /which of (the|these)|which one of|among the|following|\bnot\b|\bexcept\b|incorrect|\bfalse\b|\btrue\b|correct (statement|option|answer)|[₹%=$]|\bcalculat|\bcompute|\bfind the\b|\bhow much\b|\bhow many\b|\bamount\b|\bratio of\b|\babove\b|\bboth\b|\bstatement/i;
+  const OPEN_Q = q => { q = String(q || '').trim(); return q.length >= 18 && q.length <= 118 && !BAD_Q.test(q) && (DEF_Q.test(q) || /\?$|:$|\b(is|are|was|were|called|known as|by)$/i.test(q)); };
   const sq = s => String(s).replace(/\s+/g, ' ').trim();
   /* raw answer text → { a: 'LETTERS', disp, enum: '(5,4)' } or null */
   function normAnswer(raw) {
@@ -384,7 +388,27 @@
   }
   const NOT_A_THING = /(ED|ING)$|^(VERTICAL|HORIZONTAL|STATEMENT|BALANCE|BASIS|MIXED|FAVOURABLE|UNFAVOURABLE|HALF|QUARTER|DOUBLE|TWICE|FIRST|SECOND|THIRD|FOURTH|FIFTH|SIXTH|SEVENTH|EIGHTH|NINTH|TENTH|ZERO|UNITY|INFINITE|POSITIVE|NEGATIVE|CONSTANT|INDEPENDENT|DEPENDENT|ELASTIC|INELASTIC|PERFECTLY|RELATIVELY|UNITARY|VOID|VOIDABLE|VALID|ILLEGAL|LEGAL|NORMAL|INFERIOR|SUPERIOR|EQUAL|UNEQUAL|SAME|DIFFERENT|DIRECT|INDIRECT|REAL|NOMINAL)$/;
   const GRAMMAR = new Set(['WERE', 'WAS', 'HAVE', 'HAS', 'HAD', 'WILL', 'SHALL', 'WOULD', 'COULD', 'SHOULD', 'MIGHT', 'MUST', 'CAN', 'MAY', 'DOES', 'DID', 'BEEN', 'BEING', 'THEIR', 'THERE', 'THEY', 'THEM', 'THEN', 'THAN', 'THAT', 'THIS', 'THESE', 'THOSE', 'WHICH', 'WHO', 'WHOM', 'WHOSE', 'WHAT', 'WHEN', 'WHERE', 'WHY', 'HOW', 'HER', 'HIS', 'HIM', 'SHE', 'OUR', 'YOUR', 'ITS', 'YOU', 'WITH', 'FROM', 'INTO', 'ONTO', 'UPON', 'OVER', 'UNDER', 'SINCE', 'UNTIL', 'WHILE', 'BUT', 'YET', 'VERY', 'TOO', 'ALSO', 'JUST', 'EVEN', 'MUCH', 'MOST', 'FEW', 'EACH', 'EVERY']);
-  const PRI = { def: 6, match: 5, quickref: 5, key: 5, fill: 4, speed: 3, mcq: 3, quiz: 3, point: 2 };
+  /* 📖 "fill the gap": a real term of the lesson (an MCQ option, a quick-reference key, a concept title …) and a lesson
+     sentence that uses it, with the term hidden as ___ — always correct, because the sentence is the lesson's own */
+  function gapCands(vocab, sents, extra, have) {
+    const out = [], seen = new Set(have || []);
+    const S2 = sents.map(x => String(x || '').replace(/\s+/g, ' ').trim()).filter(x => x.length >= 30 && x.length <= 150 && !/___/.test(x));
+    for (const raw of vocab) {
+      if (/\b[A-Z]{2,}\b/.test(String(raw)) || /\b(I|II|III|IV|VI)\b/.test(String(raw))) continue;          // no abbreviations or Roman numerals
+      const ans = normAnswer(raw); if (!ans || seen.has(ans.a) || GRAMMAR.has(ans.a) || NOT_A_THING.test(ans.a) || ans.a.length < 4) continue;
+      const re = new RegExp('\\b' + ans.words.map(w => w.charAt(0) + w.slice(1).toLowerCase()).map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('[\\s\\-]+') + '(?:s|es)?\\b', 'gi');
+      let best = null;
+      for (const sn of S2) {
+        const m = sn.match(re); if (!m || m.length !== 1) continue;
+        const w = sn.split(' ').length; if (w < 7 || w > 28) continue;
+        const c = cand(raw, sn.replace(re, '___'), 'gap', Object.assign({ blank: true }, extra || {}));
+        if (c && (!best || c.clue.length < best.clue.length)) best = c;
+      }
+      if (best) { out.push(best); seen.add(best.a); }
+    }
+    return out;
+  }
+  const PRI = { def: 6, match: 5, quickref: 5, key: 5, fill: 4, case: 4, std: 4, speed: 3, mcq: 3, quiz: 3, point: 2, gap: 1 };
   function cand(raw, clue, src, extra) {
     const ans = normAnswer(raw); if (!ans) return null;
     if (GRAMMAR.has(ans.a)) return null;
@@ -436,12 +460,22 @@
         else if (gm.type === 'speed') (gm.items || []).forEach(it => { if (it && typeof it.q === 'string' && !/\d/.test(it.q) && it.q.split(/\s+/).length >= 3) push(cand(it.a, it.q, 'speed', { ctx: gm.title || '', tid })); });
       });
       (t.quiz || []).forEach(q => {
-        if (!q || !Array.isArray(q.options) || !DEF_Q.test(q.q || '')) return;
-        push(cand(q.options[q.answer], q.q, 'quiz', { tid, blank: /___/.test(q.q) }));
+        if (!q || !Array.isArray(q.options)) return;
+        if (DEF_Q.test(q.q || '')) push(cand(q.options[q.answer], q.q, 'quiz', { tid, blank: /___/.test(q.q) }));
+        else if (OPEN_Q(q.q)) push(cand(q.options[q.answer], q.q, 'quiz', { tid, pri: 2 }));
       });
       const rv = t.revise || {};
       (rv.remember || []).forEach(s => { const d = defSplit(s); if (d) push(cand(d[0], d[1], 'def', { tid })); });
       ((t.learn && t.learn.points) || []).forEach(s => { const d = isSplit(s); if (d) push(cand(d[0], d[1], 'point', { tid })); });
+      /* 📖 lesson sentences with a real term of this topic hidden */
+      const L = t.learn || {}, voc = [t.title];
+      (t.quiz || []).forEach(q => { if (q && Array.isArray(q.options)) voc.push(...q.options); });
+      (t.games || []).forEach(gm => { if (!gm) return; if (gm.type === 'match') (gm.pairs || []).forEach(p => Array.isArray(p) && voc.push(p[0], p[1]));
+        if (gm.type === 'fill') (gm.items || []).forEach(it => it && voc.push(it.answer)); if (gm.type === 'speed') (gm.items || []).forEach(it => it && voc.push(it.a));
+        if (gm.type === 'sort') { (gm.buckets || []).forEach(b => voc.push(b)); (gm.items || []).forEach(it => Array.isArray(it) && voc.push(it[0])); } });
+      const sn2 = [].concat(L.points || [], L.example || [], L.reallife || [], rv.remember || [], rv.summary || [], (t.quiz || []).map(q => q && q.explain)).filter(x => typeof x === 'string')
+        .flatMap(x => String(x).replace(/([a-z0-9)\]'"’”][.!?])\s+(?=[A-Z])/g, '$1\u0000').split('\u0000'));
+      gapCands(voc.filter(x => typeof x === 'string'), sn2, { tid }, out.map(x => x.a)).forEach(push);
     });
     return rank(out);
   }
@@ -512,9 +546,46 @@
     });
     return rank(out);
   }
+  /* ⚖️ famous case laws: used only when the unit itself names the case (so the word really is from that chapter).
+     [answer, the case as written with ___ for the answer, what it decided] — checked, one clear line each */
+  const CASES = [
+    ['Carlill', '___ v. Carbolic Smoke Ball Co.', 'a general offer to the public is accepted by anyone who performs its conditions'],
+    ['Lalman', '___ Shukla v. Gauri Datt', 'an offer can be accepted only by a person who knows of it'],
+    ['Harvey', '___ v. Facey', 'quoting the lowest price is not an offer to sell'],
+    ['Hyde', '___ v. Wrench', 'a counter offer rejects the original offer'],
+    ['Felthouse', '___ v. Bindley', 'silence of the offeree is not acceptance'],
+    ['Powell', '___ v. Lee', 'acceptance must come from the offeree or someone he authorises'],
+    ['Balfour', '___ v. ___', "a husband's promise of a monthly allowance to his wife was not enforceable (no intention to create legal relations)"],
+    ['Mohori', '___ Bibi v. Dharmodas Ghose', "an agreement with a minor is void from the very beginning"],
+    ['Durga', '___ Prasad v. Baldeo', 'consideration must move at the desire of the promisor'],
+    ['Chinnaya', '___ v. Ramayya', 'consideration may move from a third party'],
+    ['Kedarnath', '___ v. Gorie Mohammad', 'a promise to subscribe to a charity is enforceable once the promisee acts on it'],
+    ['Hadley', '___ v. Baxendale', 'damages only for losses arising naturally from the breach or in both parties\' contemplation'],
+    ['Amiraju', '___ v. Seshamma', 'a threat to commit suicide to get a release deed was coercion'],
+    ['Raffles', '___ v. Wichelhaus', 'both parties meant different ships of the same name — mutual mistake, no contract'],
+    ['Taylor', '___ v. Caldwell', 'the hall was destroyed by fire before the concerts — the contract was frustrated'],
+    ['Krell', '___ v. Henry', 'a flat hired to watch a cancelled coronation procession — the purpose failed, contract frustrated'],
+    ['Hochster', '___ v. De la Tour', 'refusing before the due date to perform is an anticipatory breach'],
+    ['Lampleigh', '___ v. Braithwait', 'a past service done at the promisor\'s request is good consideration'],
+    ['Kanhaiya', 'Sales Tax Officer v. ___ Lal Mukundlal Saraf', 'money paid under a mistake of law can also be recovered'],
+    ['Rowland', '___ v. Divall', 'the buyer could recover the full price when the seller had no title to the car'],
+    ['Varley', '___ v. Whipp', 'goods sold by description must match the description'],
+    ['Priest', '___ v. Last', 'a hot-water bottle has one obvious purpose — the implied condition of fitness applies'],
+    ['Frost', '___ v. Aylesbury Dairy', 'milk carrying typhoid germs — goods sold as food must be wholesome'],
+    ['Salomon', '___ v. ___ & Co. Ltd.', 'a company is a legal person separate from its members'],
+    ['Turquand', 'Royal British Bank v. ___', 'outsiders may assume the company\'s internal procedures were followed (indoor management)'],
+    ['Ruben', '___ v. Great Fingall Consolidated', 'indoor management gives no protection against a forged document'],
+    ['Morris', '___ v. Kanssen', 'insiders such as directors cannot rely on indoor management'],
+    ['Ashbury', '___ Railway Carriage v. Riche', 'an act beyond the objects in the memorandum is void and cannot be ratified']];
+  /* 📗 Accounting Standards named in the unit: their short official subject is the answer */
+  const AS_WORDS = { 2: ['INVENTORIES', 'AS 2 deals with the valuation of these'], 3: ['CASH FLOW', 'AS 3: ___ ___ statements'], 5: ['POLICIES', 'AS 5: prior period items and changes in accounting ___'],
+    9: ['REVENUE', 'AS 9 deals with the recognition of this'], 10: ['EQUIPMENT', 'AS 10: property, plant and ___'], 11: ['EXCHANGE', 'AS 11: the effects of changes in foreign ___ rates'],
+    12: ['GRANTS', 'AS 12: accounting for government ___'], 13: ['INVESTMENTS', 'AS 13: accounting for these'], 16: ['BORROWING', 'AS 16: ___ costs'], 19: ['LEASES', 'AS 19 deals with these'],
+    20: ['EARNINGS', 'AS 20: ___ per share'], 21: ['CONSOLIDATED', 'AS 21: ___ financial statements'], 22: ['INCOME', 'AS 22: accounting for taxes on ___'],
+    26: ['INTANGIBLE', 'AS 26: ___ assets'], 29: ['PROVISIONS', 'AS 29: ___, contingent liabilities and contingent assets'] };
   function termsCA(units, keyItems) {
     const out = [], push = x => { if (x) out.push(x); };
-    const sentences = t => String(t || '').replace(/([a-z0-9)\]][.!?])\s+(?=[A-Z])/g, '$1\u0000').split('\u0000');   // no look-behind: older Safari cannot parse it
+    const sentences = t => String(t || '').replace(/\b(v|vs|Co|Ltd|No|Mr|Mrs|Dr|St|Sec|s)\.\s+/g, '$1.\u0001').replace(/([a-z0-9)\]][.!?])\s+(?=[A-Z])/g, '$1\u0000').split('\u0000').map(x => x.replace(/\u0001/g, ' '));   // no look-behind (older Safari); "X v. Y", "Co. Ltd" are not sentence ends
     (units || []).forEach(u => {
       if (!u) return; const uid = u.id;
       const text = JSON.stringify([u.concepts || [], (u.mcqs || []).map(q => [q.q, q.explain]), u.revision || {}]).toLowerCase();
@@ -531,9 +602,21 @@
         if (nk && !VAGUE.test(k) && !/\bvs\b|\d/i.test(k) && known(k) && !listy(v) && !/:/.test(v) && v.split(/\s+/).length >= 2) push(cand(k, v, 'quickref', { uid }));
         const d = defSplit(v); if (d) push(cand(d[0], d[1] + (/^section|^sec\.|^rule/i.test(k) ? ` (${k})` : ''), 'quickref', { uid }));
       });
-      const mcq = q => { if (q && Array.isArray(q.options) && DEF_Q.test(q.q || '')) push(cand(q.options[q.answer], q.q, 'mcq', { uid, blank: /___/.test(q.q) })); };
+      const mcq = q => { if (!q || !Array.isArray(q.options)) return;
+        if (DEF_Q.test(q.q || '')) push(cand(q.options[q.answer], q.q, 'mcq', { uid, blank: /___/.test(q.q) }));
+        else if (OPEN_Q(q.q) && !/\b(I|II|III|IV|VI)\b/.test(String(q.options[q.answer]))) push(cand(q.options[q.answer], q.q, 'mcq', { uid, pri: 2 })); };
       (u.mcqs || []).forEach(mcq);
       (u.cases || []).forEach(c => (c && c.mcqs || []).forEach(mcq));
+      /* ⚖️ case laws and 📗 accounting standards mentioned in the unit */
+      const allText = [].concat(...(u.concepts || []).map(c => (c && Array.isArray(c.body) ? c.body : [])), (u.mcqs || []).map(q => q && q.explain), (u.revision && u.revision.summary) || [], (u.quickref || []).map(q => q && `${q.k}: ${q.v}`)).filter(x => typeof x === 'string');
+      const txtAll = allText.join(' ');
+      CASES.forEach(([a, cs, held]) => { const other = cs.replace(/___/g, '').replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).find(w => w.length >= 4 && !/^(Bibi|Prasad|Shukla|Sales|Officer|Royal|British|Bank|Great|Railway|Carriage|Consolidated)$/.test(w));
+        if (new RegExp('\\b' + a + '\\b').test(txtAll) && (!other || new RegExp('\\b' + other + '\\b').test(txtAll))) push(cand(a, `Case law: ${cs} — ${held}`, 'case', { uid, blank: true })); });
+      /* 📖 lesson sentences with a real term of this unit hidden */
+      const vocabCA = [].concat(...(u.mcqs || []).map(q => (q && Array.isArray(q.options) ? q.options : [])), (u.quickref || []).map(q => q && q.k), (u.concepts || []).map(c => c && String(c.title || '').replace(/\s*\(.*$/, '')), (keyItems || []).filter(it => it.u === uid).map(it => it.t)).filter(x => typeof x === 'string');
+      const sentsCA = [].concat(...allText.map(t => sentences(t)));
+      gapCands(vocabCA, sentsCA, { uid }, out.map(x => x.a)).forEach(push);
+      const asSeen = new Set(); allText.join(' ').replace(/\bAS[ -]?(\d{1,2})\b/g, (x, n) => { n = +n; if (AS_WORDS[n] && !asSeen.has(n)) { asSeen.add(n); push(cand(AS_WORDS[n][0], AS_WORDS[n][1], 'std', { uid, blank: true })); } return x; });
       /* lesson sentences: "Term is a …", "Term means …" and "Term: plain definition." (the part before a dash or a semicolon) */
       const trim = d => { d = String(d).replace(/\.$/, '').split(/\s+[—–]\s+|;\s/)[0]; if (d.length > 110) { const cut = d.slice(0, 110), k = cut.lastIndexOf(','); d = k > 40 ? cut.slice(0, k) : ''; } return d && d.split(/\s+/).length >= 4 ? cap1(d) : ''; };
       (u.concepts || []).forEach(c => (c && Array.isArray(c.body) ? c.body : []).forEach(b => sentences(b).forEach(sn => {
@@ -898,7 +981,7 @@
     if (spec.t === 'xw') {
       if (!kinds.xw.ok) return null;
       const own = clued(t), near = ind ? [] : (t.near || []).filter(x => x.clue);
-      const p = chapterCrossword(own, near, seed, { min: ind ? 4 : 8, max: XW_MAX[diff] });
+      const p = chapterCrossword(own, near, seed, { min: ind ? 4 : 5, max: XW_MAX[diff] });
       if (!p) return null;
       if (diff === 'easy') p.giv = [...new Set(p.entries.map(e => e.r * p.w + e.c))].sort((a, b) => a - b);   // easy: first letter of every word is given
       p.diff = diff; return { p };
@@ -977,6 +1060,36 @@
     return null;
   }
   const caNearOrder = (f) => { const chs = f.p.chapters, order = []; for (let j = 1; j < chs.length && order.length < 20; j++) [f.i - j, f.i + j].forEach(x => { if (x >= 0 && x < chs.length && order.length < 20) order.push(x); }); return order; };
+  /* ✍️ checked key words for CA chapters that are mostly numbers (accounts, maths, statistics) or short Acts.
+     A word is used only if the chapter's own lesson text contains it — so every word really is from that chapter. */
+  const CA_WORDS = {
+    'fnd-p1-ch03': [['Pass book', "The bank's copy of the customer's account, given to the customer"], ['Overdraft', 'A debit balance in the pass book: the bank has lent money on the current account'], ['Cheque', 'An order to a bank to pay money, drawn by its customer'], ['Unpresented', 'Cheques issued but not yet taken to the bank for payment are called this'], ['Reconciliation', 'Matching the cash book and pass book balances and explaining the difference'], ['Bank charges', 'Fees the bank deducts that appear in the pass book first'], ['Interest', 'What the bank allows on a credit balance or charges on an overdraft'], ['Dishonour', 'A cheque deposited but not paid by the drawee bank suffers this'], ['Cash book', "The business's own record of bank receipts and payments"], ['Deposit', 'Money paid into the bank account']],
+    'fnd-p1-ch04': [['Inventory', 'Goods held for sale, in production, or as materials to be used'], ['FIFO', 'Cost formula: the goods bought first are taken as sold first'], ['Weighted', 'The ___ average cost formula spreads cost evenly over the units'], ['Net realisable', '___ ___ value: estimated selling price less costs to complete and sell'], ['Periodic', 'Inventory system where stock is counted only at the end of the period'], ['Perpetual', 'Inventory system that keeps a running record after every receipt and issue'], ['Lower', 'Inventory is valued at cost or net realisable value, whichever is ___'], ['Obsolete', 'Stock that is out of date and can no longer be sold normally'], ['Purchase', 'Cost of ___ includes the price, duties and freight inward'], ['Abnormal', '___ wastage of materials is excluded from the cost of inventory']],
+    'fnd-p1-ch05': [['Depreciation', 'Spreading the cost of a tangible fixed asset over its useful life'], ['Amortisation', 'Spreading the cost of an intangible asset over its useful life'], ['Straight line', 'Method that charges the same amount of depreciation every year'], ['Written down', '___ ___ value method: a fixed rate on the falling book value'], ['Residual', '___ value: the amount expected from the asset at the end of its life'], ['Useful life', 'The period over which an asset is expected to be used'], ['Obsolescence', 'Loss in value because of new technology or changed demand'], ['Accumulated', '___ depreciation: the total depreciation charged so far'], ['Depletion', 'Reduction of a natural resource such as a mine as it is used up'], ['Book value', 'Cost of an asset less accumulated depreciation']],
+    'fnd-p1-ch06': [['Drawer', 'The person who makes and signs a bill of exchange'], ['Drawee', 'The person on whom a bill is drawn and who accepts it'], ['Payee', 'The person to whom the money is to be paid'], ['Acceptance', 'The drawee signing the bill to agree to pay it'], ['Maturity', 'The date on which a bill becomes due for payment'], ['Days of grace', 'Three extra days added to find the due date of a bill payable after a period'], ['Discounting', 'Getting cash for a bill from a bank before its due date'], ['Endorsement', 'Transferring a bill by signing on its back'], ['Noting', 'An official record by a notary public that a bill was dishonoured'], ['Retiring', '___ a bill: paying it before its due date'], ['Renewal', 'Cancelling an old bill and drawing a new one for extra time']],
+    'fnd-p1-ch07': [['Trading', '___ account: shows the gross profit or loss'], ['Gross profit', 'Sales less the cost of goods sold'], ['Net profit', 'What remains after all expenses are deducted from income'], ['Closing stock', 'Goods still unsold at the end of the year'], ['Outstanding', '___ expenses: due for the year but not yet paid'], ['Prepaid', '___ expenses: paid in advance for the next year'], ['Drawings', 'Money or goods the owner takes from the business for personal use'], ['Manufacturing', '___ account: shows the cost of goods produced'], ['Work in progress', 'Goods partly made at the end of the period'], ['Carriage inward', 'Freight paid on purchases; a direct expense']],
+    'fnd-p1-ch08': [['Receipts', '___ and Payments account: a summary of cash and bank transactions'], ['Income', '___ and Expenditure account: shows the surplus or deficit'], ['Surplus', 'The excess of income over expenditure in a not-for-profit body'], ['Deficit', 'The excess of expenditure over income in a not-for-profit body'], ['Subscriptions', 'Regular fees members pay to a club'], ['Legacy', 'An amount received under the will of a deceased person'], ['Endowment', 'A fund given for a permanent purpose; its income is used'], ['Capital fund', "A not-for-profit body's equivalent of the owner's capital"], ['Entrance fees', 'Amounts paid by new members when they join'], ['Donation', 'A gift of money received by a club or charity']],
+    'fnd-p1-ch09': [['Single entry', 'An incomplete system where only some transactions are recorded in double entry'], ['Statement', 'The ___ of affairs shows assets and liabilities on a date'], ['Conversion', '___ method: rebuilding complete accounts from incomplete records'], ['Opening capital', 'Assets less liabilities at the start of the year'], ['Drawings', 'Withdrawals by the owner, added back when finding profit by capital comparison'], ['Debtors', 'Credit sales are found from the total ___ account'], ['Creditors', 'Credit purchases are found from the total ___ account'], ['Mark up', 'Profit expressed as a percentage of cost']],
+    'fnd-p1-ch11': [['Forfeiture', 'Cancelling shares when the holder fails to pay a call'], ['Reissue', 'Selling forfeited shares again'], ['Premium', 'Shares issued above their face value are issued at a ___'], ['Debentures', 'Written acknowledgements of a debt issued by a company'], ['Bonus', '___ shares: issued free to existing shareholders out of reserves'], ['Rights', '___ issue: new shares offered first to existing shareholders'], ['Redemption', 'Repaying preference shares or debentures'], ['Calls', 'Instalments of the share price demanded by the company after allotment'], ['Allotment', 'The company deciding which applicants get shares'], ['Underwriting', 'An agreement to take up the shares the public does not buy']],
+    'fnd-p2-ch04': [['Partnership', 'The relation between persons who agree to share the profits of a business run by all or any of them acting for all'], ['Firm', 'Persons in a partnership are collectively called this'], ['Partner at will', 'A partner in a firm with no fixed duration'], ['Dormant', '___ partner: does not take part in the business'], ['Nominal', '___ partner: lends only his name to the firm'], ['Registration', 'It is optional, but an unregistered firm cannot sue third parties'], ['Dissolution', 'The ending of the partnership between all the partners of a firm'], ['Implied', '___ authority: a partner binds the firm by acts done in the usual way of business'], ['Retirement', 'A partner leaving a continuing firm'], ['Holding out', 'Becoming liable as a partner by allowing oneself to be shown as one']],
+    'fnd-p2-ch05': [['Designated', '___ partners: at least two, one of them resident in India'], ['Limited', 'The liability of a partner in an LLP is ___'], ['Body corporate', 'An LLP is a ___ ___ with perpetual succession'], ['Registrar', 'The authority with whom an LLP is registered'], ['Incorporation', 'The document filed to form an LLP: ___ document'], ['Perpetual', '___ succession: an LLP continues even if its partners change'], ['Agreement', 'The LLP ___ sets the rights and duties of the partners'], ['Winding up', 'The process of closing an LLP']],
+    'fnd-p2-ch07': [['Promissory', '___ note: a written promise to pay a certain sum'], ['Cheque', 'A bill of exchange drawn on a bank and payable on demand'], ['Holder', 'The person entitled to possess the instrument and recover the amount'], ['Endorsement', 'Signing an instrument to transfer it to another person'], ['Crossing', 'Two parallel lines on a cheque so it is paid only through a bank'], ['Dishonour', 'Refusal to accept or pay a negotiable instrument'], ['Negotiation', 'Transferring an instrument so the transferee becomes the holder'], ['Bearer', 'An instrument payable to whoever holds it'], ['Drawee', 'The person directed to pay in a bill or cheque'], ['Maturity', 'The date on which a promissory note or bill falls due']],
+    'fnd-p3-ch01': [['Ratio', 'A comparison of two quantities of the same kind by division'], ['Proportion', 'An equality of two ratios'], ['Logarithm', 'The power to which a base must be raised to give a number'], ['Index', 'The small raised number showing a power (plural: indices)'], ['Antecedent', 'In a comparison of a to b, the first term a is called this'], ['Consequent', 'In a comparison of a to b, the second term b is called this'], ['Base', 'In log of 8 to the ___ 2, the answer is 3'], ['Antilog', 'Working back from a log to the original number gives this'], ['Inverse', 'Turning a to b round into b to a gives the ___ form']],
+    'fnd-p3-ch02': [['Equation', 'A statement that two expressions are equal'], ['Quadratic', 'An equation in which the highest power of the unknown is 2'], ['Roots', 'The values of the unknown that satisfy an equation'], ['Linear', 'An equation in which the highest power of the unknown is 1'], ['Cubic', 'An equation in which the highest power of the unknown is 3'], ['Discriminant', 'b squared minus 4ac, which tells the nature of the roots'], ['Simultaneous', '___ equations: two or more equations solved together'], ['Variable', 'An unknown quantity in an equation']],
+    'fnd-p3-ch03': [['Inequality', 'A statement that one expression is greater or smaller than another'], ['Feasible', '___ region: the area meeting all the conditions together'], ['Linear', 'An inequality where the unknowns have power 1'], ['Shaded', 'The solution region of an inequality is usually shown ___ on a graph'], ['Constraint', 'A condition that limits the possible values'], ['Boundary', 'The line that separates the solution region from the rest of the plane'], ['Half plane', 'The region on one side of a straight line']],
+    'fnd-p3-ch04': [['Simple interest', 'Interest worked out on the principal only'], ['Compound', '___ interest: interest earned on interest as well'], ['Principal', 'The original sum of money lent or invested'], ['Annuity', 'A series of equal payments at equal intervals'], ['Present value', 'Today’s worth of money to be received in the future'], ['Future value', 'What a sum invested now will grow to'], ['Sinking fund', 'A fund built up by regular deposits to repay a debt or replace an asset'], ['Effective rate', 'The actual yearly rate when interest is compounded more often'], ['Perpetuity', 'An annuity that goes on for ever']],
+    'fnd-p3-ch05': [['Permutation', 'An arrangement where the order matters'], ['Combination', 'A selection where the order does not matter'], ['Factorial', 'The product of all whole numbers from 1 up to n'], ['Circular', '___ permutation: arrangement of objects round a circle'], ['Fundamental', 'The ___ principle of counting multiplies the number of ways'], ['Selection', 'Choosing items without regard to their order'], ['Arrangement', 'Placing items in a definite order']],
+    'fnd-p3-ch06': [['Arithmetic', '___ progression: each term differs from the previous by the same amount'], ['Geometric', '___ progression: each term is the previous one times the same number'], ['Common ratio', 'The fixed multiplier in a geometric progression'], ['Common difference', 'The fixed gap between terms in an arithmetic progression'], ['Sequence', 'An ordered list of numbers following a rule'], ['Series', 'The sum of the terms of a sequence'], ['Infinite', 'A G.P. with ratio between minus 1 and 1 has a sum to ___ terms']],
+    'fnd-p3-ch07': [['Subset', 'A set whose every element belongs to another set'], ['Union', 'The set of elements that are in A or B or both'], ['Intersection', 'The set of elements common to A and B'], ['Function', 'A relation that gives each input exactly one output'], ['Domain', 'The set of all inputs of a function'], ['Range', 'The set of all outputs of a function'], ['Relation', 'Any subset of the Cartesian product of two sets'], ['Empty set', 'The set with no elements'], ['Limit', 'The value a function approaches as x approaches a point'], ['Continuity', 'A function has this at a point when its limit equals its value there']],
+    'fnd-p3-ch08': [['Derivative', 'The rate of change of a function'], ['Integral', 'The reverse of differentiation'], ['Marginal', '___ cost: the extra cost of one more unit'], ['Maxima', 'Points where a function reaches its highest values (plural)'], ['Minima', 'Points where a function reaches its lowest values (plural)'], ['Elasticity', 'The responsiveness of demand to a change in price'], ['Differentiation', 'The process of finding a derivative']],
+    'fnd-p3-ch10': [['North', 'Facing this direction, your right hand points east'], ['Clockwise', 'Turning right is turning in this direction'], ['Shadow', 'At sunrise, this falls towards the west'], ['Displacement', 'The shortest distance between the start and end points'], ['Opposite', 'South is the ___ direction of north'], ['Directions', 'North, south, east and west are the four main ones']],
+    'fnd-p3-ch11': [['Linear', '___ arrangement: people seated in a row'], ['Circular', '___ arrangement: people seated round a table'], ['Facing', 'In a row, everyone ___ north has east on the left'], ['Adjacent', 'Sitting next to each other'], ['Immediate', '___ right: the very next seat on the right'], ['Arrangement', 'The order in which people are seated']],
+    'fnd-p3-ch14': [['Mean', 'The sum of the values divided by their number'], ['Median', 'The middle value when data are arranged in order'], ['Mode', 'The value that occurs most often'], ['Range', 'The largest value minus the smallest value'], ['Variance', 'The mean of the squared deviations from the mean'], ['Standard deviation', 'The square root of the variance'], ['Quartile', 'One of the three values dividing ordered data into four equal parts'], ['Dispersion', 'The spread of data around the average'], ['Harmonic', '___ mean: reciprocal of the mean of reciprocals']],
+    'fnd-p3-ch15': [['Probability', 'A number from 0 to 1 that measures how likely an event is'], ['Event', 'An outcome or set of outcomes of an experiment'], ['Sample space', 'The set of all possible outcomes'], ['Independent', 'Events where one happening does not affect the other'], ['Mutually exclusive', 'Events that cannot happen together'], ['Exhaustive', 'Events that together cover every possible outcome'], ['Complementary', 'An event and its ___ event add up to probability 1'], ['Conditional', '___ probability: the chance of A given that B has happened'], ['Expectation', 'The probability-weighted average value of a random variable']],
+    'fnd-p3-ch16': [['Binomial', 'Distribution of successes in a fixed number of independent trials'], ['Poisson', 'Distribution for rare events where the mean equals the variance'], ['Normal', 'The bell-shaped symmetrical distribution'], ['Trials', 'The number of repeated experiments in a binomial distribution'], ['Symmetrical', 'The normal curve is ___ about its mean'], ['Success', 'In a binomial trial, the outcome being counted'], ['Bell shaped', 'The shape of the normal curve']],
+    'fnd-p3-ch17': [['Correlation', 'A measure of how two variables move together'], ['Regression', 'Estimating one variable from another using a line'], ['Scatter', '___ diagram: points plotted to show the relation of two variables'], ['Positive', '___ correlation: both variables rise together'], ['Negative', '___ correlation: one variable rises as the other falls'], ['Coefficient', 'The correlation ___ lies between minus 1 and plus 1'], ['Rank', "Spearman's ___ correlation uses the order of values"], ['Probable error', 'A measure used to judge the reliability of a correlation coefficient']],
+    'fnd-p3-ch18': [['Index number', 'A figure that shows the relative change in a variable over time'], ['Base year', 'The year with which other years are compared'], ['Laspeyres', 'Index that uses base-year quantities as weights'], ['Paasche', 'Index that uses current-year quantities as weights'], ['Fisher', 'The ideal index: geometric mean of Laspeyres and Paasche'], ['Chain', '___ base index: each year compared with the previous year'], ['Weights', 'Values that show the relative importance of items'], ['Deflating', 'Adjusting values for changes in prices']]
+  };
   function termsFromCA(content, ch) {
     content = content || {};
     const f = caFind(content.structure, ch); if (!f) return { own: [], near: [], groups: [] };
@@ -984,7 +1097,16 @@
     const items = content.keyItems || (G.CaKeysData && G.CaKeysData.ITEMS) || [];
     const cUnits = c => c.units.filter(u => u.status === 'built').map(u => { const d = content.units && content.units[u.id]; return d ? caUnitMerged(d, content.banks && content.banks[u.id], u.id) : null; }).filter(Boolean);
     const keys = c => items.filter(it => c.units.some(u => u.id === it.u));
-    const units = cUnits(f.c), own = termsCA(units, keys(f.c)), groups = [], near = [];
+    const units = cUnits(f.c), groups = [], near = [];
+    let own = termsCA(units, keys(f.c));
+    /* ✍️ checked key words — only when this chapter's own lesson text uses the word (that unit becomes its source) */
+    if (CA_WORDS[ch] && units.length) {
+      const txt = units.map(u => ({ id: u.id, t: JSON.stringify([u.concepts || [], u.revision || {}, u.quickref || [], (u.mcqs || []).map(q => [q.q, q.options, q.explain])]) }));
+      const add = [];
+      CA_WORDS[ch].forEach(([a, clue]) => { const w = a.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '[\\s\\-]+'), re = new RegExp('\\b' + w, 'i');
+        const u = txt.find(x => re.test(x.t)); if (!u) return; const c = cand(a, clue, 'key', { uid: u.id, blank: /___/.test(clue) }); if (c) add.push(c); });
+      own = rank(own.concat(add));
+    }
     units.forEach(u => groups.push({ title: u.title, items: (u.quickref || []).filter(q => /^[A-Za-z][A-Za-z '\-]*$/.test(String(q.k || '').trim())).map(q => ({ label: String(q.k).trim(), info: String(q.v || '') })) }));
     /* words come ONLY from the chosen chapter: no nearby-chapter words (near stays empty) */
     return { own, near, groups, ca: true };
