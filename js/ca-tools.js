@@ -1165,30 +1165,132 @@
     on('caDashTile', dashboard); on('caQViva', vivaHub); on('caQMcq', () => builder()); on('caQMock', mocks); on('caQNotes', notes); on('caQRev', revise); on('caQSpeed', () => SP().drill()); on('caQTricks', () => SP().tricks()); on('caQFocus', () => SP().focusList()); on('caQKeys', () => CaKeys.open({ from: 'home' }));
     const q = D.getElementById('caHomeQ'); if (q) { q.onkeydown = e => { if (e.key === 'Enter') search(q.value); }; q.onfocus = () => { if (!IDX) buildIndex(); }; q.oninput = () => { clearTimeout(q._t); if (q.value.trim().length >= 3) q._t = setTimeout(() => search(q.value), 700); }; }
   }
-  function practiceHub() {
-    const el = X.open('practice'), rv = Object.keys(C().revise).length;
-    const tile = (id, e, t, s) => `<button class="card ca-hub" id="${id}"><b class="ca-hube" aria-hidden="true">${e}</b><span><b>${t}</b><small>${s}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`;
-    el.innerHTML = `<h1 class="ca-h1 ca-onDark">Practice</h1><div class="ca-hubs">
-      ${tile('phDaily', '🎯', 'Daily mix', '10 MCQs from units you opened — missed ones first')}
-      ${tile('phBuild', '🧩', 'Build an MCQ set', 'Level › papers › chapters › difficulty · timer · practice or test')}
-      ${tile('phCase', '📄', 'Case-study sets', 'A short case with 3–5 linked MCQs')}
-      ${tile('phViva', '🎙️', 'Viva — speak & revise', 'Hear a question, answer out loud, see the key points you covered')}
-      ${tile('phBank', '🧮', 'Question bank — by marks', '2, 4, 5, 8-mark questions and how to write each')}
-      ${tile('phMock', '📝', 'Mock papers', 'Accounting (Paper 1) in ICAI pattern — 3 hours, 100 marks')}
-      ${tile('phRev', '🔁', `Revise these${rv ? ` (${rv})` : ''}`, 'Every MCQ you got wrong, until you get it right')}
-      ${tile('phWeak', '📈', 'Weak spots & strengths', 'By unit and by examiner skill')}
-      ${SP() ? `${tile('phSpeed', '⚡', `Speed drill${SP().count() ? ` (${SP().count()})` : ''}`, 'Right but slow? Beat 72 seconds a question')}${tile('phTricks', '💡', 'Shortcut tricks', `${SP().TRICKS.length} quick methods with worked examples`)}${tile('phFocus', '📌', 'Exam focus list', 'Paper 1 Accounting — what to study first')}` : ''}${window.CaKeys ? tile('phKeys', '📚', `Key sections & rules${CaKeys.dueCount() ? ` (${CaKeys.dueCount()} to revise)` : ''}`, 'Law sections, accounting rules, QA formulas, economics laws — each with linked MCQs') : ''}</div>`;
-    const on = (id, fn) => { D.getElementById(id).onclick = () => { tap('open'); fn(); }; };
+  /* ================= PRACTICE HUB — same look as the JEE practice hub (js/jee.js) ================= */
+  const stOf = key => C().revise[key] ? 'no' : C().mcq[key] ? 'ok' : 'new';
+  async function practiceHub() {
+    const el = X.open('practice'), c = C(), rv = Object.keys(c.revise).length, tried = Object.keys(c.mcq).length;
+    const right = Object.values(c.mcq).filter(m => m.s > m.w).length, all = await builtList(), inL = all.filter(b => b.level === c.level);
+    const papers = [...new Map(inL.map(b => [b.p.id, b.p])).values()], cr = c.crash || {};
+    const T2 = (id, e, t, sub) => `<button class="jx-ht2" id="${id}"><span>${e}</span><b>${t}</b><small>${sub}</small></button>`;
+    el.innerHTML = `<div class="jx">
+      <div class="jx-kpi"><div><b>${tried}</b><small>tried</small></div><div><b>${rv}</b><small>to fix</small></div><div><b>${tried ? pct(right, tried) + '%' : '—'}</b><small>right</small></div><div><b>${inL.length}</b><small>units</small></div></div>
+      <div class="jx-hub">
+        ${T2('phQB', '📚', 'Question bank', 'Every MCQ · filter by paper, chapter, difficulty, your status')}
+        ${T2('phCC', '⚡', 'Crash course', `Each unit in 10 minutes: big ideas, quick-ref flips, traps, must-do MCQs${Object.values(cr).filter(n => n >= 4).length ? ` · ${Object.values(cr).filter(n => n >= 4).length} sprinted` : ''}`)}
+        ${T2('phRev', '📕', 'Mistake book', rv ? `${rv} question${rv > 1 ? 's' : ''} to fix` : 'Empty — great work')}
+        ${T2('phDaily', '🎯', 'Daily mix', '10 MCQs from units you opened — missed ones first')}
+        ${T2('phBuild', '🧩', 'Build an MCQ set', 'Papers, chapters, difficulty, timer · practice or test')}
+        ${T2('phCase', '📄', 'Case-study sets', 'A short case with 3–5 linked MCQs')}
+        ${T2('phViva', '🎙️', 'Viva', 'Hear a question, answer out loud, see the points you covered')}
+        ${T2('phBank', '✍️', 'Written answers', '2, 4, 5, 8-mark questions and how to write each')}
+        ${T2('phMock', '📝', 'Mock papers', 'ICAI pattern — 3 hours, 100 marks')}
+        ${T2('phWeak', '📈', 'Weak spots', 'By unit and by examiner skill')}
+        ${SP() ? T2('phSpeed', '⚡', `Speed drill${SP().count() ? ` (${SP().count()})` : ''}`, 'Right but slow? Beat 72 seconds a question') + T2('phTricks', '💡', 'Shortcut tricks', `${SP().TRICKS.length} quick methods with worked examples`) + T2('phFocus', '📌', 'Exam focus list', 'What to study first') : ''}
+        ${window.CaKeys ? T2('phKeys', '🔑', 'Key rules', `Sections, rules, formulas${CaKeys.dueCount() ? ` · ${CaKeys.dueCount()} to revise` : ''}`) : ''}
+      </div>
+      <details class="jx-sec" data-sec="pp" open><summary><h2 class="jx-h">🎯 Practise by paper</h2><small>${papers.length} papers</small></summary><div class="jx-sub" style="--c:#7c3aed">
+        ${papers.map(pp => { const us = inL.filter(b => b.p.id === pp.id), t = us.reduce((n, b) => n + Object.keys(c.mcq).filter(k => k.startsWith(b.u.id + '#')).length, 0);
+          return `<button class="jx-ur on" data-pp="${esc(pp.id)}"><span>${esc(X.paperNo ? X.paperNo(pp) : '')}</span><b>${esc(pp.name)}</b><small>${us.length} units · ${t} MCQs tried</small><em>Open ▶</em></button>`; }).join('')}
+      </div></details></div>`;
+    const on = (id, fn) => { const b = D.getElementById(id); if (b) b.onclick = () => { tap('open'); fn(); }; };
+    on('phQB', () => qbank()); on('phCC', () => crash()); on('phRev', revise);
     on('phDaily', X.practiceDaily); on('phBuild', () => builder()); on('phCase', () => builder({ singles: false, cases: true }));
-    on('phViva', vivaHub); on('phBank', () => bank()); on('phMock', mocks); on('phRev', revise); on('phWeak', X.weakScreen);
+    on('phViva', vivaHub); on('phBank', () => bank()); on('phMock', mocks); on('phWeak', X.weakScreen);
     if (SP()) { on('phSpeed', () => SP().drill()); on('phTricks', () => SP().tricks()); on('phFocus', () => SP().focusList()); }
     if (window.CaKeys) on('phKeys', () => CaKeys.open({ from: 'practice' }));
+    el.querySelectorAll('[data-pp]').forEach(b => b.onclick = () => { tap('open'); Ca.paper(c.level, b.dataset.pp); });
+  }
+
+  /* ================= 📚 QUESTION BANK — every MCQ of the level, filterable (like the JEE bank) ================= */
+  const QB = { paper: [], ch: [], diff: [], st: [], kind: [], sort: 'smart', shown: 30, open: true };
+  async function qbank() {
+    const el = X.open('practice'), lvl = C().level, inL = (await builtList()).filter(b => b.level === lvl);
+    const papers = [...new Map(inL.map(b => [b.p.id, b.p])).values()];
+    if (!QB.paper.length || !papers.some(p => QB.paper.includes(p.id))) QB.paper = papers.length ? [papers[0].id] : [];
+    const items = {}; const load = async () => {
+      el.innerHTML = '<div class="jx"><p class="jx-p">Loading questions…</p></div>';
+      for (const b of inL) { if (!QB.paper.includes(b.p.id) || items[b.u.id]) continue; const d = await X.unitData(b.u.id); if (!d) continue;
+        const meta = { uid: b.u.id, ch: b.c.id, chTitle: `Ch ${b.c.n}: ${b.c.title}`, unitTitle: b.u.title, p: b.p, c: b.c };
+        items[b.u.id] = d.mcqs.map(q => ({ q, key: `${b.u.id}#${q.id}`, ...meta, kind: 'single' })).concat((d.cases || []).flatMap(cs => cs.mcqs.map(q => ({ q, key: `${b.u.id}#${q.id}`, cs, ...meta, kind: 'case' })))); }
+    };
+    await load();
+    const draw = () => {
+      const all = Object.values(items).flat().filter(it => QB.paper.includes(it.p.id)), cnt = f => all.filter(f).length, has = (a, v) => !a.length || a.includes(v);
+      let L = all.filter(it => has(QB.ch, it.ch) && has(QB.diff, it.q.difficulty || 'core') && has(QB.kind, it.kind) && has(QB.st, stOf(it.key)));
+      const rk = { no: 0, new: 1, ok: 2 }, dk = { hard: 0, moderate: 1, core: 2 };
+      L = L.slice().sort(QB.sort === 'hard' ? (a, b) => dk[a.q.difficulty || 'core'] - dk[b.q.difficulty || 'core'] : (a, b) => rk[stOf(a.key)] - rk[stOf(b.key)]);
+      const chs = [...new Map(all.map(it => [it.ch, it.c])).values()];
+      const chip = (g, v, label, n) => `<button class="jx-fc ${QB[g].includes(v) ? 'on' : ''}" data-g="${g}" data-v="${esc(v)}">${label}${n != null ? `<small>${n}</small>` : ''}</button>`;
+      const nF = ['ch', 'diff', 'st', 'kind'].reduce((t, k) => t + QB[k].length, 0);
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="qbBack">← Practice</button>
+        <div class="jx-hero sm"><h1>📚 Question bank</h1><p>${all.length} MCQs in ${QB.paper.length === 1 ? esc((papers.find(p => p.id === QB.paper[0]) || {}).name || '') : QB.paper.length + ' papers'} · original questions in ICAI style, each with a worked explanation.</p></div>
+        <details class="jx-qbf" ${QB.open ? 'open' : ''}><summary>🎛️ Filters ${nF ? `<b>${nF} on</b>` : ''}<span>${L.length} match</span></summary>
+          <h5>Paper</h5><div class="jx-frow">${papers.map(p => chip('paper', p.id, esc(p.name))).join('')}</div>
+          <h5>Chapter</h5><div class="jx-frow">${chs.map(c0 => chip('ch', c0.id, `Ch ${c0.n} · ${esc(c0.title)}`, cnt(x => x.ch === c0.id))).join('')}</div>
+          <h5>Difficulty</h5><div class="jx-frow">${chip('diff', 'core', '🟢 Easy')}${chip('diff', 'moderate', '🟡 Moderate')}${chip('diff', 'hard', '🔴 ICAI-level')}</div>
+          <h5>Type</h5><div class="jx-frow">${chip('kind', 'single', 'Single MCQ', cnt(x => x.kind === 'single'))}${chip('kind', 'case', 'Case-study MCQ', cnt(x => x.kind === 'case'))}</div>
+          <h5>My status</h5><div class="jx-frow">${chip('st', 'new', '⚪ Not tried')}${chip('st', 'no', '❌ To fix')}${chip('st', 'ok', '✅ Solved')}</div>
+          <div class="jx-frow"><button class="jx-fc" id="qbClear">✖ Clear filters</button></div></details>
+        <div class="jx-sortr"><span>Sort</span>${[['smart', 'Smart (to fix first)'], ['hard', 'Hardest first']].map(([k, n]) => `<button class="jx-fc ${QB.sort === k ? 'on' : ''}" data-sort="${k}">${n}</button>`).join('')}</div>
+        <div class="jx-nav"><button class="jx-btn" id="qbAll" ${L.length ? '' : 'disabled'}>▶ Solve these ${Math.min(L.length, 25)} in a row</button></div>
+        <div class="jx-bl">${L.slice(0, QB.shown).map((it, k) => { const st = stOf(it.key);
+          return `<div class="jx-bi" data-k="${k}"><div class="jx-bt"><span class="jx-tag">${esc(X.paperNo ? X.paperNo(it.p) : '')} · Ch ${it.c.n}</span><span class="jx-tag">${{ core: '🟢', moderate: '🟡', hard: '🔴' }[it.q.difficulty || 'core']} ${it.kind === 'case' ? 'Case' : 'MCQ'}</span><span class="jx-st2">${{ new: '', ok: '✅', no: '❌' }[st]}</span></div>
+            <div class="jx-bq">${esc(it.q.q.length > 170 ? it.q.q.slice(0, 167) + '…' : it.q.q)}</div><small class="jx-fine" style="margin:4px 0 0;display:block">${esc(it.unitTitle)}</small></div>`; }).join('') || '<p class="jx-p">No question matches — remove a filter.</p>'}</div>
+        ${L.length > QB.shown ? `<button class="jx-btn ghost wide" id="qbMore">Show more (${L.length - QB.shown} left)</button>` : ''}</div>`;
+      D.getElementById('qbBack').onclick = () => { tap(); practiceHub(); };
+      el.querySelector('.jx-qbf').ontoggle = e => { QB.open = e.target.open; };
+      el.querySelectorAll('[data-g]').forEach(b => b.onclick = async () => { tap(); const g = b.dataset.g, v = b.dataset.v, a = QB[g], x = a.indexOf(v);
+        if (x < 0) a.push(v); else if (g !== 'paper' || a.length > 1) a.splice(x, 1);
+        if (g === 'paper') { QB.ch = []; await load(); } QB.shown = 30; draw(); });
+      el.querySelectorAll('[data-sort]').forEach(b => b.onclick = () => { tap(); QB.sort = b.dataset.sort; draw(); });
+      D.getElementById('qbClear').onclick = () => { tap(); ['ch', 'diff', 'st', 'kind'].forEach(k => QB[k] = []); draw(); };
+      const mo = D.getElementById('qbMore'); if (mo) mo.onclick = () => { tap(); QB.shown += 30; draw(); };
+      const go = k => startSet(L.slice(k, k + 25).map(it => ({ q: it.q, key: it.key, uid: it.uid, cs: it.cs, ch: it.ch, chTitle: it.chTitle })), { mode: 'practice', perQ: 0, title: 'Question bank', again: qbank, againLabel: 'Back to the bank' });
+      D.getElementById('qbAll').onclick = () => { tap('open'); go(0); };
+      el.querySelectorAll('.jx-bi').forEach(b => b.onclick = () => { tap('open'); go(+b.dataset.k); });
+    };
+    draw();
+  }
+
+  /* ================= ⚡ CRASH COURSE — each unit in about 10 minutes (like the JEE crash course) ================= */
+  async function crash(uid, step = 0) {
+    const el = X.open('practice'), c = C(), CR = c.crash || (c.crash = {});
+    if (!uid) {
+      const inL = (await builtList()).filter(b => b.level === c.level), papers = [...new Map(inL.map(b => [b.p.id, b.p])).values()];
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="ccBack">← Practice</button><div class="jx-hero sm"><h1>⚡ Crash course</h1><p>Each unit in about 10 minutes: big ideas → quick-ref flash cards → trap check → must-do MCQs. Made for the last weeks before the exam.</p></div>
+        ${papers.map(pp => { const us = inL.filter(b => b.p.id === pp.id); return `<details class="jx-sec" ${papers.length > 1 && pp.id !== papers[0].id ? '' : 'open'}><summary><h2 class="jx-h">${esc(X.paperNo ? X.paperNo(pp) : '')} · ${esc(pp.name)}</h2><small>${us.filter(b => CR[b.u.id] >= 4).length}/${us.length} sprinted</small></summary>
+          ${us.map(b => { const n = CR[b.u.id] || 0; return `<button class="jx-cu" data-u="${esc(b.u.id)}"><span class="jx-cring" style="--p:${n * 25}">${n >= 4 ? '✓' : n + '/4'}</span><span><b>${esc(b.u.title)}</b><small>Ch ${b.c.n} · ${esc(b.c.title)}</small></span><em>${n >= 4 ? 'Again' : n ? 'Continue' : 'Start'} ▶</em></button>`; }).join('')}</details>`; }).join('')}</div>`;
+      D.getElementById('ccBack').onclick = () => { tap(); practiceHub(); };
+      el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); const n = CR[b.dataset.u] || 0; crash(b.dataset.u, n >= 4 ? 0 : n); });
+      return;
+    }
+    const d = await X.unitData(uid); if (!d) return crash();
+    const rv = d.revision || {}, mark = n => { if ((CR[uid] || 0) < n) { CR[uid] = n; save(); } };
+    const STEPS = ['💡 Big ideas', '🃏 Quick-ref flips', '⚠️ Trap check', '🎯 Must-do MCQs'];
+    const head = `<button class="jx-back" id="ccBack">← Crash course</button><div class="jx-cstep">${STEPS.map((n, k) => `<button data-st="${k}" class="${k === step ? 'cur' : k < (CR[uid] || 0) ? 'ok' : ''}">${n}</button>`).join('')}</div><h2 class="jx-h">${esc(d.title)}</h2>`;
+    let body = '';
+    const must = d.mcqs.slice().sort((a, b) => ({ hard: 0, moderate: 1, core: 2 }[a.difficulty || 'core'] - { hard: 0, moderate: 1, core: 2 }[b.difficulty || 'core'])).filter((q, k, arr) => arr.findIndex(x => x.concept === q.concept) === k).slice(0, 6);
+    if (step === 0) body = `<details class="jx-idea" open><summary>💡 <b>The whole unit in a few lines</b></summary>${(rv.summary || []).map(x => `<p>${esc(x)}</p>`).join('')}</details>
+      ${(rv.remember || []).length ? `<details class="jx-idea" open><summary>📌 <b>Remember</b></summary>${rv.remember.map(x => `<p>${esc(x)}</p>`).join('')}</details>` : ''}
+      ${d.meta && d.meta.exam_tip ? `<details class="jx-idea"><summary>🎓 <b>Exam tip</b></summary><p>${esc(d.meta.exam_tip)}</p></details>` : ''}`;
+    else if (step === 1) body = `<p class="jx-fine">Say the answer in your head, then tap to flip.</p><div class="jx-flips">${(d.quickref || []).map(x => `<button class="jx-flip"><span class="f">${esc(x.k)}</span><span class="b">${esc(x.v)}</span></button>`).join('')}</div>`;
+    else if (step === 2) body = `<p class="jx-fine">These catch most students. Tap each one once you are sure you will not fall for it.</p>${(rv.traps || []).map((t, k) => `<button class="jx-trap" data-k="${k}"><span>⚠️</span><span>${esc(t)}</span><em>Got it ✓</em></button>`).join('')}`;
+    else body = `<p class="jx-p">${must.length} MCQs, one from each of the unit's key ideas, toughest first. Solve them and the unit is sprinted.</p><button class="jx-btn wide" id="ccMust">▶ Solve the must-do MCQs</button>`;
+    el.innerHTML = `<div class="jx">${head}${body}<div class="jx-nav">${step ? '<button class="jx-btn ghost" id="ccPrev">◀ Back</button>' : ''}${step < 3 ? '<button class="jx-btn" id="ccNext">Next ▶</button>' : ''}</div></div>`;
+    D.getElementById('ccBack').onclick = () => { tap(); crash(); };
+    el.querySelectorAll('[data-st]').forEach(b => b.onclick = () => { tap(); crash(uid, +b.dataset.st); });
+    el.querySelectorAll('.jx-flip').forEach(b => b.onclick = () => { tap(); b.classList.toggle('on'); });
+    el.querySelectorAll('.jx-trap').forEach(b => b.onclick = () => { tap('correct'); b.classList.add('on'); });
+    const nx = D.getElementById('ccNext'); if (nx) nx.onclick = () => { tap(); mark(step + 1); crash(uid, step + 1); };
+    const pv = D.getElementById('ccPrev'); if (pv) pv.onclick = () => { tap(); crash(uid, step - 1); };
+    const ms = D.getElementById('ccMust'); if (ms) ms.onclick = () => { tap('open'); mark(4);
+      startSet(must.map(q => ({ q, key: `${uid}#${q.id}`, uid, ch: chOf(uid), chTitle: d.title })), { mode: 'practice', perQ: 0, title: 'Crash course · ' + d.title, again: () => crash(uid, 3), againLabel: 'Back to the crash course' }); };
   }
 
   /* screens are history routes (Back returns to them — see Nav in js/app.js) */
   if (window.Nav) { dashboard = Nav.route('ca.dash', dashboard); vivaHub = Nav.route('ca.vivahub', vivaHub); builder = Nav.route('ca.builder', builder); revise = Nav.route('ca.revise', revise);
-    mocks = Nav.route('ca.mocks', mocks); mockPaper = Nav.route('ca.mock', mockPaper); notes = Nav.route('ca.notes', notes); search = Nav.route('ca.search', search); practiceHub = Nav.route('ca.practicehub', practiceHub); bank = Nav.route('ca.bank', bank); }
+    mocks = Nav.route('ca.mocks', mocks); mockPaper = Nav.route('ca.mock', mockPaper); notes = Nav.route('ca.notes', notes); search = Nav.route('ca.search', search); practiceHub = Nav.route('ca.practicehub', practiceHub); bank = Nav.route('ca.bank', bank); qbank = Nav.route('ca.qbank', qbank); crash = Nav.route('ca.crash', crash); }
   window.CaTools = { photos, _speechMerge: speechMerge, freshOrder, endless, bank, pickSet, startSet, dashboard, dashData, vivaTab, vivaHub, vivaDone, vivaScore, builder, revise, reviseMark, casesBlock, wireCases, mocks, mockPaper,
-    saveBtn, applyHL, noteSheet, notes, hasNote, search, homeTiles, wireHome, practiceHub, _tokens: tokens,
+    saveBtn, applyHL, noteSheet, notes, hasNote, search, homeTiles, wireHome, practiceHub, qbank, crash, _tokens: tokens,
     _m: { pairs, tokens, clauses, phraseIn, same, kwSame, pointHit, isNum } };   // matcher for js/ca-check.js
 })();

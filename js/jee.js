@@ -133,6 +133,7 @@
       <p class="jx-fine">Real questions are from JEE Main papers, tagged with date and shift; all solutions and extra questions are written by StudyVerse. Rules: NTA JEE Main 2027 Information Bulletin.</p></div>`;
     el.querySelectorAll('details.jx-sec').forEach(d => d.ontoggle = () => { const u = J().ui || (J().ui = {}); u[d.dataset.sec] = d.open; save(); });
     $('#jxGo').onclick = () => { tap('open'); unit(LU); };
+    setTimeout(() => { try { if (window.GK && GK.snacks) GK.snacks(); } catch (e) {} }, 0);   // Brain Snacks + GK Explorer, compact (css .gk-mini)
     $('#jxElig').onclick = () => { tap(); eligScreen(); };
     $('#jxSwitch').onclick = () => { tap(); setup(1, { again: true }); };
     $('#jxAdv').onclick = () => { tap(); advanced(); };
@@ -2492,8 +2493,6 @@
     const j = J(), ready = Object.keys(READY), all = ready.reduce((t, u) => t + READY[u].pyq + READY[u].prac, 0);
     const done = ready.reduce((t, u) => t + Object.keys(U(u).ans).length, 0), wrong = j.mist.length, bm = (j.bm || []).length;
     el.innerHTML = `<div class="jx">
-      <div class="jx-mode"><button class="on">🎯 JEE Main</button><button id="jxToSchool">🏫 ${ST.profile && ST.profile.grade ? 'Class ' + ST.profile.grade : 'School'}</button></div>
-      <p class="jx-fine" style="margin-top:-4px">Games, puzzles and questions here come only from JEE Main. Switch to 🏫 for your school class.</p>
       <div class="jx-kpi"><div><b>${done}</b><small>solved</small></div><div><b>${wrong}</b><small>to fix</small></div><div><b>${bm}</b><small>saved</small></div><div><b>${all}</b><small>in bank</small></div></div>
       <div class="jx-hub">
         <button class="jx-ht2" id="jxQB"><span>📚</span><b>Question bank</b><small>${all} questions · filter by subject, unit, topic, year, difficulty</small></button>
@@ -2508,7 +2507,6 @@
           ${r.map(u => { const a = U(u).ans, n = Object.keys(a).length, ok = Object.values(a).filter(x => x.ok).length; return `<button class="jx-ur on" data-u="${u}"><span>Unit ${+u.split('-u')[1]}</span><b>${esc(unitName(u))}</b><small>${n} tried · ${ok} right</small><em>Practise ▶</em></button>`; }).join('')}</details>` : ''; }).join('')}
       </details></div>`;
     el.querySelectorAll('details.jx-sec').forEach(dd => dd.ontoggle = () => { const u = J().ui || (J().ui = {}); u[dd.dataset.sec] = dd.open; save(); });
-    $('#jxToSchool').onclick = () => { tap(); J().home = false; NAVP = false; save(); toast('School mode: games and puzzles now come from your class'); practiceScreen(); };
     $('#jxQB').onclick = () => { tap('open'); bank(); };
     $('#jxCC').onclick = () => { tap('open'); crash(); };
     $('#jxPlay').onclick = () => { tap('open'); if (window.PlayHub) PlayHub.open(); };
@@ -2535,5 +2533,5 @@
       }
       return out;
     } });
-  window.Jee = { home, bank, crash, practiceHub, pop, unit, setup, reopen, elig, mx, data, _run: run, active, plain, cards, arcadePool, livePool, puzzleSubjects, unitInfo, lastUnit, path: filePath, READY };
+  window.Jee = { has: () => hasJee(), home, bank, crash, practiceHub, pop, unit, setup, reopen, elig, mx, data, _run: run, active, plain, cards, arcadePool, livePool, puzzleSubjects, unitInfo, lastUnit, path: filePath, READY };
 })();

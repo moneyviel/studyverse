@@ -47,17 +47,19 @@
   /* ================= 1. Brain Snacks ================= */
   async function snacks() {
     const ca = !!(ST.profile && ST.profile.course === 'ca');   // World (school) / CA Journey: just above the map / under the greeting
-    const scr = document.getElementById(ca ? 's-ca' : 's-world'), top = ca && scr && scr.querySelector(':scope > .ca-journey') ? scr.querySelector(':scope > .ca-top') : null;
-    const map = ca ? (top && top.nextElementSibling) : document.getElementById('map');
+    const jee = !ca && !!(window.Jee && Jee.active && Jee.active());   // JEE home (and future courses): a compact row under the "Continue" card
+    const scr = document.getElementById(ca ? 's-ca' : jee ? 's-jee' : 's-world'), top = ca && scr && scr.querySelector(':scope > .ca-journey') ? scr.querySelector(':scope > .ca-top') : null;
+    const jn = jee && scr ? scr.querySelector('.jx > .jx-next') : null;
+    const map = ca ? (top && top.nextElementSibling) : jee ? (jn && jn.nextElementSibling) : document.getElementById('map');
     if (!scr || !map || !ST.profile) return;
     let D; try { D = await daily(); } catch (e) { document.getElementById('gkSnack')?.remove(); return; }
     const t = dayInfo(), g = grade(), sig = `${t.iso}|${g}`;
     let box = document.getElementById('gkSnack');
-    if (box && box.dataset.sig === sig && box.parentElement === scr) { box.classList.toggle('shut', !!G().shut); return; }
+    if (box && box.dataset.sig === sig && box.parentElement === map.parentElement && box.nextElementSibling === map) { box.classList.toggle('gk-mini', jee); box.classList.toggle('shut', !!G().shut); return; }
     const old = box && box.querySelector('.gk-row'), sx = old ? old.scrollLeft : 0;
     if (!box) { box = document.createElement('section'); box.id = 'gkSnack'; box.className = 'gk-snack'; box.setAttribute('aria-labelledby', 'gkSnackT'); map.before(box); }
     else if (box.nextElementSibling !== map) map.before(box);
-    box.dataset.sig = sig;
+    box.dataset.sig = sig; box.classList.toggle('gk-mini', jee);
     const th = pickDay(D.thoughts, 'thought', t.n), wow = pickDay(D.wow, 'wow', t.n), bite = pickDay(D.bites, 'bite', t.n), word = pickDay(D.words, 'word', t.n);
     const otd = D.otd[t.key];
     const cards = [];
