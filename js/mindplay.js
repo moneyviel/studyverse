@@ -31,9 +31,10 @@
     { id: 'jumble', e: '🔤', skill: 'Words', n: { j: 'Picture Spell', m: 'Word Scramble', s: 'Anagram Lab' }, d: 'Tap the letters into the right order' },
     { id: 'magic', e: '✨', skill: 'Logic', n: { j: 'Magic Box', m: 'Magic Square', s: 'Magic Square' }, d: 'Every row, column and diagonal must add up the same' }];
   /* suites: 'iq' (Brainstorm Arena, defined here) and others added with MindPlay.addSuite (e.g. js/heartplay.js) */
-  const SUITES = { iq: { id: 'iq', test: 'iq', theme: THEME, games: GAMES, gen: () => window.MindPlayGen, back: () => MG().iqMenu(), backLabel: 'Brainstorm Arena', store: 'btests', kind: g => KIND[g.id] } };
+  const SUITES = { iq: { id: 'iq', test: 'iq', theme: THEME, games: GAMES, gen: () => window.MindPlayGen, back: () => MG().open(), backLabel: 'Mind Gym', store: 'btests', kind: g => KIND[g.id] || g.skill } };
   let SU = SUITES.iq;
-  const games = () => SU.games.filter(g => g.not !== band());
+  const games = () => SU.games.filter(g => g.not !== band() && !(g.pool && window.MindPool && !MindPool.count(SU.test, g).all));
+  const pname = () => { const t = (MG().TESTS || []).find(x => x.id === SU.test); return t ? t.n : SU.theme[band()].name; };
   const gname = g => g.n[band()] || g.n.m;
   var KIND = { memory: 'Memory code', twins: 'Perception sprint', scale: 'Balance scales', pyramid: 'Number pyramid', wheel: 'Number wheel', cube: 'Cube folding', jumble: 'Word jumble', magic: 'Magic square' };
   const PER_ROUND = 5;
@@ -272,13 +273,14 @@
     let i = 0; const res = [];
     const next = () => {
       if (i >= list.length) return opts.onEnd(res);
-      const it = list[i], g = SU.games.find(x => x.id === it.g), p = SU.gen().make(it.g, band(), it.lvl);
-      const el = frame(`<div class="card pl-card"><div class="pl-top"><span>${g.e} ${E(gname(g))}${opts.tag ? ` · ${E(opts.tag(it))}` : ''}</span><span>${i + 1} / ${list.length}</span></div><div class="mg-bar"><i style="width:${Math.round(i / list.length * 100)}%"></i></div><div class="pl-stage"></div><div class="pl-fb" aria-live="polite"></div></div>`, opts.back, opts.title);
+      const it = list[i]; if (it.s) SU = SUITES[it.s];
+      const g = SU.games.find(x => x.id === it.g), p = g.pool ? MindPool.next(SU.test, g) : SU.gen().make(it.g, band(), it.lvl);
+      const el = frame(`<div class="card pl-card"><div class="pl-top"><span>${it.s ? MG().TESTS.find(x => x.id === it.s).e + ' ' : ''}${g.e} ${E(gname(g))}${opts.tag ? ` · ${E(opts.tag(it))}` : ''}</span><span>${i + 1} / ${list.length}</span></div><div class="mg-bar"><i style="width:${Math.round(i / list.length * 100)}%"></i></div><div class="pl-stage"></div><div class="pl-fb" aria-live="polite"></div></div>`, opts.back, opts.title);
       const stage = $1('.pl-stage', el);
       PLAY[it.g](stage, p, (ok, why, extra, part, after) => {
         S(ok ? 'right' : 'wrong'); if (ok) burst($1('.pl-card', el));
         res.push({ g: it.g, ok, part: part == null ? (ok ? 1 : 0) : part });
-        try { MG().record(SU.test, SU.kind(g), ok); } catch (e) {}
+        try { if (!g.pool) MG().record(SU.test, SU.kind(g), ok); } catch (e) {}
         const fb = $1('.pl-fb', el);
         fb.innerHTML = `<p class="mg-v ${ok ? 'ok' : 'no'}">${ok ? (band() === 'j' ? '🎉 Yay, correct!' : band() === 'm' ? '✅ Quest step cleared!' : '✅ Correct') : (band() === 'j' ? '🙈 Oops, not this time!' : '❌ Not quite')}</p><p>${E(why)}</p>${extra || ''}<button class="btn" type="button" id="plNext">${i + 1 < list.length ? 'Next ▶' : 'See results'}</button>`;
         if (after) after(fb);
@@ -292,23 +294,25 @@
   /* ---------- hub ---------- */
   function hub() {
     style();
+    if (window.MindPool && !MindPool.ready(SU.test)) { const want = SU.id; MindPool.load(SU.test).then(() => { if (SU.id === want) hub(); }); return; }
     const b = band(), t = SU.theme[b], L = games();
     const card = g => { const lv = openLv(g.id), best = gst(g.id).best, st = Math.max(0, ...Object.values(best));
-      return `<button type="button" class="pl-game" data-g="${g.id}"><span class="pl-ge" aria-hidden="true">${g.e}</span><span class="pl-gt"><b>${E(gname(g))}</b><small>${E(g.d)}</small><small class="pl-lv">Level ${lv} of 5 · ${starsTxt(best[lv] || 0)}</small></span></button>`; };
+      return `<button type="button" class="pl-game" data-g="${g.id}"><span class="pl-ge" aria-hidden="true">${g.e}</span><span class="pl-gt"><b>${E(gname(g))}</b><small>${E(g.d)}</small><small class="pl-lv">Level ${lv} of 5 · ${starsTxt(best[lv] || 0)}</small>${g.pool ? (c => `<small class="pl-cnt">${c.open} of ${c.all} challenges open</small>`)(MindPool.count(SU.test, g)) : ''}</span></button>`; };
     const trail = b === 'm' ? `<div class="pl-trail">${L.map((g, k) => `<div class="pl-isl" style="--k:${k}">${card(g)}</div>`).join('')}</div>` : `<div class="pl-games">${L.map(card).join('')}</div>`;
     const bt = M()[SU.store] || [];
-    const el = frame(`<div class="pl-hero"><div class="pl-he" aria-hidden="true">${t.e}</div><h2>${E(t.name)}</h2><p>${t.hero || (b === 'j' ? 'Pick a game and play! Every right answer makes your brain stronger.' : b === 'm' ? 'Explore the islands. Clear levels to light up the trail!' : 'Train each thinking skill, then take the timed test.')}</p></div>
+    const el = frame(`<div class="pl-hero"><div class="pl-he" aria-hidden="true">${t.e}</div><h2>${E(pname())}</h2><p>${t.hero || (b === 'j' ? 'Pick a game and play! Every right answer makes your brain stronger.' : b === 'm' ? 'Explore the islands. Clear levels to light up the trail!' : 'Train each thinking skill, then take the timed test.')}</p></div>
       <button type="button" class="card pl-testbtn"><span aria-hidden="true">⏱️</span><span><b>${E(t.test)}</b><small>${b === 'j' ? 'Play all the games in one fun challenge' : 'Every skill in one timed run'}${bt.length ? ` · Best ${Math.max(...bt.map(x => x.pct))}%` : ''}</small></span><span class="mg-chev">›</span></button>
-      ${trail}<p class="pl-note">🔓 New levels open when you get ⭐⭐ on the level before and keep finishing ${MG()._isCA() ? 'units' : 'topics'}.</p>`, { t: SU.backLabel, go: () => SU.back() });
+      ${trail}<button type="button" class="btn ghost pl-scbtn" id="plSc">📊 ${E(pname())} scorecard</button><p class="pl-note">🔓 New levels open when you get ⭐⭐ on the level before and keep finishing ${MG()._isCA() ? 'units' : 'topics'}.</p>`, { t: SU.backLabel, go: () => SU.back() });
     el.querySelectorAll('[data-g]').forEach(x => x.onclick = () => { S('open'); levels(x.dataset.g); });
     $1('.pl-testbtn', el).onclick = () => { S('open'); test(); };
+    $1('#plSc', el).onclick = () => { S('open'); MG().card(SU.test); };
   }
 
   function levels(id) {
     const g = SU.games.find(x => x.id === id), best = gst(id).best, open = openLv(id), lmax = learnLv();
     const el = frame(`<div class="pl-hero"><div class="pl-he" aria-hidden="true">${g.e}</div><h2>${E(gname(g))}</h2><p>${E(g.d)}</p></div>
       <div class="pl-levels">${[1, 2, 3, 4, 5].map(l => { const lock = l > open; const why = lock ? (l > lmax ? `Finish more ${MG()._isCA() ? 'units' : 'topics'}` : 'Get ⭐⭐ on the level before') : '';
-        return `<button type="button" class="pl-lvl${lock ? ' lock' : ''}" data-l="${l}" ${lock ? 'disabled' : ''}><b>${lock ? '🔒' : l}</b><span>${lock ? E(why) : starsTxt(best[l] || 0)}</span></button>`; }).join('')}</div>`, { t: SU.theme[band()].name, go: hub });
+        return `<button type="button" class="pl-lvl${lock ? ' lock' : ''}" data-l="${l}" ${lock ? 'disabled' : ''}><b>${lock ? '🔒' : l}</b><span>${lock ? E(why) : starsTxt(best[l] || 0)}</span></button>`; }).join('')}</div>`, { t: pname(), go: hub });
     el.querySelectorAll('[data-l]').forEach(x => x.onclick = () => { S('open'); play(id, +x.dataset.l); });
   }
 
@@ -335,8 +339,8 @@
     const plan = L.map(g => ({ g: g.id, lvl: lvl(g.id) }));
     const el = frame(`<div class="card pl-hero"><div class="pl-he" aria-hidden="true">⏱️</div><h2>${E(t.test)}</h2>
       <p>${plan.length} challenges, one from every game: ${L.map(g => g.e).join(' ')}</p><p class="sub">${b === 'j' ? 'Take your time and have fun!' : 'Work fast but carefully. Some challenges have a timer.'}</p>
-      <button class="btn" type="button" id="plStart">Start ▶</button></div><div class="card mg-note">ℹ️ This is a practice test for fun. It shows how you did on these challenges today. ${SU.id === 'iq' ? 'It is not an official IQ test and gives no IQ number.' : 'It is not a psychological assessment and gives no score number for you as a person.'}</div>`, { t: t.name, go: hub });
-    $1('#plStart').onclick = () => { S('open'); runSet(plan, { title: `<span>⏱️ ${E(t.test)}</span>`, back: { t: t.name, go: hub }, onEnd: res => result(res) }); };
+      <button class="btn" type="button" id="plStart">Start ▶</button></div><div class="card mg-note">ℹ️ This is a practice test for fun. It shows how you did on these challenges today. ${SU.id === 'iq' ? 'It is not an official IQ test and gives no IQ number.' : 'It is not a psychological assessment and gives no score number for you as a person.'}</div>`, { t: pname(), go: hub });
+    $1('#plStart').onclick = () => { S('open'); runSet(plan, { title: `<span>⏱️ ${E(t.test)}</span>`, back: { t: pname(), go: hub }, onEnd: res => result(res) }); };
     function result(res) {
       const sec = {}; res.forEach(r => { const g = SU.games.find(x => x.id === r.g); sec[g.skill] = sec[g.skill] || []; sec[g.skill].push(r.part); });
       const pct = Math.round(res.reduce((s, r) => s + r.part, 0) / res.length * 100);
@@ -350,10 +354,32 @@
         <div class="pl-secs">${Object.entries(secP).map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${v}%"></i></div><b>${v}%</b></div>`).join('')}</div>
         ${best.length > 1 && best[0][1] > best[best.length - 1][1] ? `<p class="sub">💪 Strongest: ${E(best[0][0])} · 🎯 Practise: ${E(best[best.length - 1][0])}</p>` : ''}
         ${hist.length > 1 ? `<p class="sub">Your last ${hist.length} tests: ${hist.join('% → ')}%</p>` : ''}
-        <button class="btn" type="button" id="plHub">Back to ${E(t.name)}</button></div>`, { t: t.name, go: hub });
+        <button class="btn" type="button" id="plHub">Back to ${E(pname())}</button></div>`, { t: pname(), go: hub });
       if (pct >= 70) burst($1('.pl-end', el2), 24);
       $1('#plHub').onclick = () => { S('tap'); hub(); };
     }
+  }
+
+  /* ---------- 🔥 Daily Mind Workout: one challenge from every practice ---------- */
+  async function workout() {
+    const ids = (MG().TESTS || []).map(t => t.id).filter(id => SUITES[id]);
+    if (window.MindPool) await Promise.all(ids.map(id => MindPool.load(id)));
+    const plan = ids.map(id => { use(id); const L = games(), g = L[Math.floor(Math.random() * L.length)]; return { s: id, g: g.id, lvl: Math.max(1, Math.min(openLv(g.id), learnLv())) }; });
+    use(ids[0]);
+    const home = { t: 'Mind Gym', go: () => MG().open() };
+    runSet(plan, { title: '<span>🔥 Daily Mind Workout</span>', back: home, onEnd: res => {
+      const m = M(), d = new Date(), today = d.toISOString().slice(0, 10), y = new Date(d - 864e5).toISOString().slice(0, 10), w = m.workout || {};
+      if (w.day !== today) m.workout = { day: today, streak: w.day === y ? (w.streak || 0) + 1 : 1 };
+      const right = res.filter(r => r.ok).length; persist(); try { addXP(right * 3); } catch (e) {}
+      use(ids[0]);
+      const el = frame(`<div class="card pl-end"><div class="pl-he" aria-hidden="true">🔥</div><h2>${right === res.length ? 'Perfect workout!' : right >= 3 ? 'Great workout!' : 'Workout done!'}</h2>
+        <p class="pl-bigstars">${m.workout.streak}-day streak</p>
+        <div class="pl-secs">${plan.map((p, k) => { const t = MG().TESTS.find(x => x.id === p.s); return `<div class="mg-row"><span>${t.e} ${E(t.n)}</span><b>${res[k] && res[k].ok ? '✅' : '🔁'}</b></div>`; }).join('')}</div>
+        <p class="sub">${right} of ${res.length} right · +${right * 3} ⭐ · Come back tomorrow to grow your streak!</p>
+        <button class="btn" type="button" id="plHome">Back to Mind Gym</button></div>`, home);
+      if (right >= 3) burst($1('.pl-end', el), 24);
+      $1('#plHome').onclick = () => { S('tap'); MG().open(); };
+    } });
   }
 
   let css = false;
@@ -366,7 +392,7 @@
       .pl-j{--plh:linear-gradient(135deg,#ff5fa2,#ffb13d);--plc:#ff5fa2}.pl-m{--plh:linear-gradient(135deg,#0f8f8a,#2b6cff);--plc:#0f8f8a}.pl-s{--plh:linear-gradient(135deg,#1d2440,#3a2f7a);--plc:#6d4aff}
       .pl-testbtn{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:0;cursor:pointer;font:inherit;background:linear-gradient(135deg,#ffe27a,#ffb13d);color:#3a2a00}.pl-testbtn>span:first-child{font-size:32px}.pl-testbtn span:nth-child(2){flex:1;display:flex;flex-direction:column}.pl-testbtn small{opacity:.85}
       .pl-games{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pl-game{display:flex;flex-direction:column;align-items:flex-start;gap:4px;border:0;border-radius:20px;padding:14px;background:#fff;cursor:pointer;font:inherit;color:#1f2d33;text-align:left;box-shadow:0 4px 14px rgba(0,0,0,.12);border-bottom:5px solid var(--plc)}
-      .pl-ge{font-size:36px}.pl-gt{display:flex;flex-direction:column;gap:2px}.pl-gt b{font-size:16px}.pl-gt small{color:#667;font-size:12px}.pl-lv{color:var(--plc)!important;font-weight:800}
+      .pl-ge{font-size:36px}.pl-gt{display:flex;flex-direction:column;gap:2px}.pl-gt b{font-size:16px}.pl-gt small{color:#667;font-size:12px}.pl-lv{color:var(--plc)!important;font-weight:800}.pl-cnt{font-size:11px!important;opacity:.8}.pl-scbtn{width:100%;margin-top:12px}.pl-s .pl-scbtn{color:#eef;border-color:#3f4a7a}
       .pl-j .pl-game{animation:plBob 3s ease-in-out infinite;animation-delay:calc(var(--k,0) * .2s)}.pl-j .pl-game:nth-child(odd){transform:rotate(-1deg)}
       .pl-s .pl-game{background:#1f2540;color:#eef;border-bottom-color:#6d4aff}.pl-s .pl-gt small{color:#aab}
       .pl-trail{position:relative;display:flex;flex-direction:column;gap:14px;padding:6px 0}.pl-trail:before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:4px dashed rgba(255,255,255,.5)}
@@ -423,5 +449,5 @@
     </style>`);
   }
   const use = id => { SU = SUITES[id || 'iq'] || SUITES.iq; style(); };
-  window.MindPlay = { hub: id => { use(id); hub(); }, test: id => { use(id); test(); }, addSuite: def => { SUITES[def.id] = def; }, PLAY, frame, keypad, burst, timerBar, E, S, band, _style: style };
+  window.MindPlay = { hub: id => { use(id); hub(); }, test: id => { use(id); test(); }, workout, has: id => !!SUITES[id], suite: id => SUITES[id], addSuite: def => { SUITES[def.id] = def; }, PLAY, frame, keypad, burst, timerBar, E, S, band, _style: style };
 })();

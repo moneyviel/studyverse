@@ -267,7 +267,7 @@
   function boot() {
     if (!window.MindPlay || !window.SuitesGen || !window.MindGym) return setTimeout(boot, 200);
     Object.assign(MindPlay.PLAY, X); style();
-    Object.entries(SUITES).forEach(([id, c]) => MindPlay.addSuite({ id, test: id, theme: c.theme, games: c.games, gen: () => ({ make: (g, b, l) => window.SuitesGen.make(g, MindGym._band() === 'p' ? 'p' : b, l) }), back: () => MindGym.suiteMenu(id), backLabel: c.back, store: id + 'tests', kind: g => g.skill }));
+    Object.entries(SUITES).forEach(([id, c]) => MindPlay.addSuite({ id, test: id, theme: c.theme, games: c.games, gen: () => ({ make: (g, b, l) => window.SuitesGen.make(g, MindGym._band() === 'p' ? 'p' : b, l) }), back: () => MindGym.open(), backLabel: 'Mind Gym', store: id + 'tests', kind: g => g.skill }));
   }
   boot();
   window.SuitesUI = { SUITES };

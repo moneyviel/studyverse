@@ -134,25 +134,38 @@
       <polygon points="${val}" class="mg-rv"/>${info.map((x, i) => { const [px, py] = pt(i, 1.17); return `<text x="${px}" y="${py + 6}" text-anchor="middle" font-size="18">${x.t.e}</text>`; }).join('')}</svg>`;
   }
 
+  /* Mind Gym home: one screen — Daily Workout, the five practices as game tiles, My Mind Map */
+  const LOOKCLS = { j: 'pl-j', m: 'pl-m', s: 'pl-s', p: 'pl-s' };
+  function wk() { const m = M(), w = m.workout || {}, d = new Date(), today = d.toISOString().slice(0, 10); return { done: w.day === today, streak: w.day === today || w.day === new Date(d - 864e5).toISOString().slice(0, 10) ? (w.streak || 0) : 0 }; }
   async function open() {
-    style(); const el = screen(); show('mind', 'practice'); window.scrollTo(0, 0);
+    style(); try { MindPlay._style(); } catch (e) {} const el = screen(); show('mind', 'practice'); window.scrollTo(0, 0);
     const b = band(), lk = LOOK[b];
-    el.innerHTML = `<div class="mg-root mg-${b}"><button class="back" id="mgBack">← Practice</button><div class="hello mg-hello" role="heading" aria-level="1"><span aria-hidden="true">🧠</span> Mind Gym <small>${E(lk.tag)}</small></div><div class="card mg-wait">Loading…</div></div>`;
+    el.innerHTML = `<div class="mg-root mg-${b} pl-root ${LOOKCLS[b]}"><button class="back" id="mgBack">← Practice</button><div class="card mg-wait">Loading…</div></div>`;
     $1('#mgBack').onclick = () => { S('tap'); backToPractice(); };
     let info;
     try { info = await Promise.all(TESTS.map(async t => { const p = await pool(t.id); return { t, total: p.length, open: openCount(p.length), lv: level(t.id), nx: nextUnlock(p.length) }; })); }
     catch (e) { $1('.mg-wait', el).textContent = 'Could not load Mind Gym. Check your internet and try again.'; return; }
-    const st = steps(), nx = info.map(i => i.nx).filter(Boolean)[0];
+    const st = steps(), nx = info.map(i => i.nx).filter(Boolean)[0], w = wk();
     const prog = nx ? `<div class="card mg-unlock"><b>🔓 Finish ${nx.need} more ${stepWord(nx.need)} to unlock ${nx.gets} new challenges in every practice.</b><div class="mg-bar"><i style="width:${Math.round(((STEP - nx.need) / STEP) * 100)}%"></i></div><small>Learning opens new challenges. ${st} ${stepWord(st)} finished so far.</small></div>` : '';
-    $1('.mg-wait', el).outerHTML = `${prog}
-      <div class="mg-list">${info.map(i => `<button type="button" class="card mg-test" data-t="${i.t.id}" style="--c:${i.t.col}">
-        <span class="mg-e" aria-hidden="true">${i.t.e}</span><span class="mg-tt"><b>${E(i.t.n)}</b><small>${E(i.t.d)}</small>
-        <small class="mg-meta">${BADGE[i.lv.i]} ${E(i.lv.n)} · ${i.open} of ${i.total} challenges open</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`).join('')}</div>
-      <div class="card mg-sc"><h3><span aria-hidden="true">📊</span> My scorecard</h3>
-        <div class="mg-scwrap">${radar(info)}<div class="mg-scl">${info.map(i => `<button type="button" class="mg-scr" data-sc="${i.t.id}" style="--c:${i.t.col}"><span>${i.t.e} <b>${E(i.t.n)}</b></span><span class="mg-st" aria-label="${i.lv.i} of 4 stars">${stars(i.lv.i)}</span><small>${BADGE[i.lv.i]} ${E(i.lv.n)}${i.lv.few ? '' : ' · ' + i.lv.pct + '%'}</small></button>`).join('')}</div></div>
-        <p class="sub mg-lvl">Ratings: ✨ Warming up → 🧭 Explorer → ⭐ Rising star → 🌟 Pro → 🏆 Champion, from your last 40 answers. Tap any practice for its full scorecard.</p></div>
+    $1('.mg-wait', el).outerHTML = `<div class="pl-hero"><div class="pl-he" aria-hidden="true">🧠</div><h2>Mind Gym</h2><p>${E(lk.tag)} · five practices that grow as you learn</p></div>
+      <button type="button" class="card pl-testbtn" id="mgWork"><span aria-hidden="true">${w.done ? '✅' : '🔥'}</span><span><b>Daily Mind Workout</b><small>${w.done ? `Done today${w.streak ? ` · 🔥 ${w.streak}-day streak` : ''} · play again` : `5 minutes · one challenge from every practice${w.streak ? ` · 🔥 ${w.streak}-day streak` : ''}`}</small></span><span class="mg-chev">›</span></button>
+      ${prog}<div class="pl-games mg-tiles5">${info.map((i, k) => `<button type="button" class="pl-game" data-t="${i.t.id}" style="--plc:${i.t.col};--k:${k}"><span class="pl-ge" aria-hidden="true">${i.t.e}</span><span class="pl-gt"><b>${E(i.t.n)}</b><small>${E(i.t.d)}</small><small class="pl-lv">${BADGE[i.lv.i]} ${E(i.lv.n)} · ${stars(i.lv.i)}</small></span></button>`).join('')}
+        <button type="button" class="pl-game" id="mgMap" style="--plc:#8a8fb0;--k:5"><span class="pl-ge" aria-hidden="true">📊</span><span class="pl-gt"><b>My Mind Map</b><small>All five scorecards in one place</small><small class="pl-lv">Open ›</small></span></button></div>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div>`;
     el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); go(x.dataset.t); });
+    $1('#mgMap', el).onclick = () => { S('open'); mindMap(); };
+    $1('#mgWork', el).onclick = () => { S('open'); if (window.MindPlay && MindPlay.workout) MindPlay.workout(); };
+  }
+  /* My Mind Map: the five-point skills star + every practice's rating */
+  async function mindMap() {
+    style(); const el = screen(), b = band(); show('mind', 'practice'); window.scrollTo(0, 0);
+    const info = await Promise.all(TESTS.map(async t => { const p = await pool(t.id); return { t, total: p.length, open: openCount(p.length), lv: level(t.id) }; }));
+    el.innerHTML = `<div class="mg-root mg-${b}"><button class="back" id="mgQuit">← Mind Gym</button>
+      <div class="card mg-sc"><h3><span aria-hidden="true">📊</span> My Mind Map</h3>
+        <div class="mg-scwrap">${radar(info)}<div class="mg-scl">${info.map(i => `<button type="button" class="mg-scr" data-sc="${i.t.id}" style="--c:${i.t.col}"><span>${i.t.e} <b>${E(i.t.n)}</b></span><span class="mg-st" aria-label="${i.lv.i} of 4 stars">${stars(i.lv.i)}</span><small>${BADGE[i.lv.i]} ${E(i.lv.n)}${i.lv.few ? '' : ' · ' + i.lv.pct + '%'} · ${i.open} of ${i.total} open</small></button>`).join('')}</div></div>
+        <p class="sub mg-lvl">Ratings: ✨ Warming up → 🧭 Explorer → ⭐ Rising star → 🌟 Pro → 🏆 Champion, from your last 40 answers. Tap any practice for its full scorecard.</p></div>
+      <div class="card mg-note">ℹ️ ${E(NOTE)}</div></div>`;
+    $1('#mgQuit').onclick = () => { S('tap'); open(); };
     el.querySelectorAll('[data-sc]').forEach(x => x.onclick = () => { S('open'); card(x.dataset.sc); });
   }
 
@@ -186,7 +199,7 @@
     $1('#mgScen').onclick = () => { S('open'); round('eq'); };
     $1('#mgSc').onclick = () => { S('open'); card('eq'); };
   }
-  const go = id => id === 'iq' ? iqMenu() : id === 'eq' && window.HeartPlay ? eqMenu() : SX[id] && window.SuitesUI ? suiteMenu(id) : round(id);
+  const go = id => window.MindPlay && MindPlay.has(id) ? MindPlay.hub(id) : round(id);
   /* Friendship Galaxy / Rise-Again Rocket / Idea Factory: games hub, scenario questions, scorecard */
   const SX = { sq: { e: '🪐', n: 'Friendship Galaxy', sub: 'Fairness, teamwork and kind, brave words', th: { j: ['🪐', 'Friendship Planet', 'Fair sharing, team helpers, kind words and more!'], m: ['🌌', 'Galaxy Quest', 'Five friendship missions + a timed Galaxy Expedition'], s: ['🛰️', 'Social Lab', 'Five hands-on people-skills games + a timed check'] } },
     aq: { e: '🚀', n: 'Rise-Again Rocket', sub: 'Bounce back, keep going, plan your way up', th: { j: ['🚀', 'Rocket Park', 'Rocket launches, “not yet” thoughts, feel-better tools!'], m: ['🌋', 'Rise Quest', 'Five never-give-up missions + a timed Summit Expedition'], s: ['🧗', 'Resilience Lab', 'Five hands-on resilience games + a timed check'] } },
@@ -426,5 +439,5 @@
     m.total[test] = (m.total[test] || 0) + 1;
     const K = m.kinds[test] = m.kinds[test] || {}; K[kind] = K[kind] || [0, 0]; K[kind][1]++; if (ok) K[kind][0]++; persist();
   }
-  window.MindGym = { open, card, iqMenu, eqMenu, suiteMenu, round, record, state: M, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
+  window.MindGym = { open, card, mindMap, iqMenu, eqMenu, suiteMenu, round, record, state: M, TESTS, _pool: pool, _open: openCount, _skillOf: skillOf, _wk: wk, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
 })();

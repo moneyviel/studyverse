@@ -234,7 +234,7 @@
   function boot() {
     if (!window.MindPlay || !window.HeartPlayGen) return setTimeout(boot, 200);
     setup(); style();
-    MindPlay.addSuite({ id: 'eq', test: 'eq', theme: THEME, games: GAMES, gen: () => window.HeartPlayGen, back: () => window.MindGym.eqMenu(), backLabel: 'Heart Compass', store: 'htests', kind: g => g.skill });
+    MindPlay.addSuite({ id: 'eq', test: 'eq', theme: THEME, games: GAMES, gen: () => window.HeartPlayGen, back: () => window.MindGym.open(), backLabel: 'Mind Gym', store: 'htests', kind: g => g.skill });
   }
   boot();
   window.HeartPlay = { face };
