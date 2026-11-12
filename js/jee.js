@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -384,6 +384,8 @@
       const L = { circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
         photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
+        bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
+        orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
         wave: ['🌊 Matter-Wave Explorer', 'Give an electron, proton, alpha or a cricket ball a speed and see how long its de Broglie wave is next to an atom.', () => waveLab(uid)] };
       body.innerHTML = `<p class="jx-p">Play first, then read: every slider here is a real formula from this unit.</p><div class="jx-grid">${d.labs.map(k => `<button class="jx-tile big" data-lab="${k}"><b>${L[k][0]}</b><small>${L[k][1]}</small></button>`).join('')}</div>`;
       body.querySelectorAll('[data-lab]').forEach(b => b.onclick = () => { tap('open'); L[b.dataset.lab][2](); });
@@ -651,6 +653,87 @@
     draw();
   }
 
+
+  /* ---------- Try it yourself: Atomic Structure ---------- */
+  function bohrLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}); const SER = { 1: 'Lyman', 2: 'Balmer', 3: 'Paschen', 4: 'Brackett', 5: 'Pfund' };
+    const st = { Z: 1, n: 1, log: [] };
+    const MIS = [['ha', 'Emit the red Hα line of hydrogen (656 nm)', x => x.Z === 1 && x.last && x.last.from === 3 && x.last.to === 2],
+      ['ly', 'Emit any Lyman (ultraviolet) line from hydrogen', x => x.Z === 1 && x.last && x.last.to === 1 && x.last.from > 1],
+      ['he', 'In He⁺, emit the line that matches hydrogen\'s Lyman-α (121.6 nm)', x => x.Z === 2 && x.last && x.last.from === 4 && x.last.to === 2],
+      ['ion', 'Ionise hydrogen from the ground state (jump to ∞)', x => x.Z === 1 && x.ion],
+      ['six', 'Collect all 6 different lines possible from n = 4 down to n = 1 in hydrogen', x => x.Z === 1 && new Set(x.log.filter(l => l.Z === 1 && l.from <= 4).map(l => l.from + '-' + l.to)).size >= 6]];
+    const lamOf = (Z, a, b) => 1e7 / (109677 * Z * Z * (1 / (b * b) - 1 / (a * a)));
+    const draw = () => {
+      const R = n => 18 + n * n * 3.6;
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🪐 Bohr Atom Jumper</h3>
+        <div class="jx-seg3">${[[1, 'H'], [2, 'He⁺'], [3, 'Li²⁺']].map(([z, n]) => `<button data-z="${z}" class="${st.Z === z ? 'on' : ''}">${n} (Z = ${z})</button>`).join('')}</div>
+        <p class="jx-p">Electron is in <b>n = ${st.n}</b> (E = ${(-13.6 * st.Z * st.Z / st.n / st.n).toFixed(2)} eV). Tap an orbit to jump there — up absorbs, down emits.</p>
+        <svg viewBox="0 0 320 320" class="jx-circ" id="jxAtom">${[6, 5, 4, 3, 2, 1].map(n => `<circle cx="160" cy="160" r="${R(n)}" fill="none" stroke="${n === st.n ? '#7c3aed' : '#c4b5fd'}" stroke-width="${n === st.n ? 3 : 1.5}" data-n="${n}" style="cursor:pointer"/><text x="${160 + R(n) * 0.71 + 3}" y="${160 - R(n) * 0.71}" font-size="10" fill="#6b6795">n=${n}</text>`).join('')}
+          <circle cx="160" cy="160" r="${6 + st.Z * 2}" fill="#dc2626"/><text x="160" y="164" text-anchor="middle" font-size="10" fill="#fff">+${st.Z}</text>
+          <circle r="7" fill="#2563eb"><animateMotion dur="${(1 + st.n * 0.6).toFixed(1)}s" repeatCount="indefinite" path="M${160 + R(st.n)} 160 a${R(st.n)} ${R(st.n)} 0 1 1 -${2 * R(st.n)} 0 a${R(st.n)} ${R(st.n)} 0 1 1 ${2 * R(st.n)} 0"/></circle>
+          ${st.last ? `<path d="M160 ${160 - R(st.last.from)} q 30 -10 60 0 t 60 0 t 60 0" stroke="${lamColor(st.last.lam)}" stroke-width="3" fill="none"/>` : ''}</svg>
+        <div class="jx-nav"><button class="jx-btn ghost" id="jxIon">Ionise (n → ∞)</button></div>
+        <div class="jx-read">${st.last ? `<span>Photon <b>${st.last.E.toFixed(2)} eV</b></span><span>λ <b>${st.last.lam.toFixed(1)} nm</b></span><span>Series <b>${SER[st.last.to] || '—'}</b></span><span>${st.last.lam < 380 ? 'UV' : st.last.lam <= 750 ? 'visible' : 'IR'}</span>` : '<span>Jump down to see a photon</span>'}</div>
+        <h3 style="margin-top:10px">🧾 Lines you made</h3><div class="jx-p">${st.log.slice(-8).map(l => `<span class="jx-tag" style="background:${lamColor(l.lam)};color:#fff">${['', 'H', 'He⁺', 'Li²⁺'][l.Z]} ${l.from}→${l.to} · ${l.lam.toFixed(0)} nm</span>`).join(' ') || '—'}</div>
+        <h3 style="margin-top:10px">🎯 Missions</h3><div>${MIS.map(([k, n2]) => `<div class="jx-mis ${done['bo_' + k] ? 'ok' : ''}">${done['bo_' + k] ? '✅' : '⬜'} ${n2}</div>`).join('')}</div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { tap(); st.Z = +b.dataset.z; st.n = 1; st.last = null; st.ion = false; draw(); });
+      el.querySelectorAll('[data-n]').forEach(c2 => c2.onclick = () => {
+        const to = +c2.dataset.n; if (to === st.n) return; st.ion = false;
+        if (to < st.n) { const lam = lamOf(st.Z, st.n, to); st.last = { from: st.n, to, lam, E: 1239.84 / lam, Z: st.Z }; st.log.push(st.last); tap('correct'); } else { st.last = null; tap(); }
+        st.n = to; mark(); draw();
+      });
+      $('#jxIon').onclick = () => { st.ion = st.n === 1; toast(`Ionisation energy from n = ${st.n}: ${(13.6 * st.Z * st.Z / st.n / st.n).toFixed(2)} eV`); mark(); st.n = 1; st.last = null; draw(); };
+    };
+    const mark = () => { let f = false; MIS.forEach(([k, , t]) => { if (!done['bo_' + k] && t(st)) { done['bo_' + k] = Date.now(); f = true; } }); if (f) { save(); toast('🎯 Mission complete!'); } };
+    draw();
+  }
+  function orbitalLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}); const L = 'spdf';
+    const ORD = ['1s', '2s', '2p', '3s', '3p', '4s', '3d', '4p', '5s', '4d'];
+    const st = { n: 2, l: 1, m: 0, fill: {}, count: 0 };
+    const NM = { 6: 'C', 7: 'N', 8: 'O', 24: 'Cr', 26: 'Fe', 29: 'Cu', 10: 'Ne', 18: 'Ar' };
+    const shape = (l, m) => {
+      if (l === 0) return '<circle cx="80" cy="80" r="45" fill="#a78bfa" opacity=".7"/>';
+      if (l === 1) { const rot = m === 0 ? 0 : m === 1 ? 90 : 45; return `<g transform="rotate(${rot} 80 80)"><ellipse cx="80" cy="45" rx="18" ry="32" fill="#7c3aed" opacity=".75"/><ellipse cx="80" cy="115" rx="18" ry="32" fill="#db2777" opacity=".75"/></g>`; }
+      if (l === 2 && m === 0) return '<ellipse cx="80" cy="40" rx="15" ry="30" fill="#7c3aed" opacity=".75"/><ellipse cx="80" cy="120" rx="15" ry="30" fill="#7c3aed" opacity=".75"/><ellipse cx="80" cy="80" rx="40" ry="11" fill="#db2777" opacity=".7"/>';
+      const rot = [0, 45, 0, 45, 0][m + 2]; return `<g transform="rotate(${rot} 80 80)">${[0, 90, 180, 270].map((a, k) => `<ellipse cx="80" cy="42" rx="13" ry="28" fill="${k % 2 ? '#db2777' : '#7c3aed'}" opacity=".75" transform="rotate(${a + 45} 80 80)"/>`).join('')}</g>`;
+    };
+    const cfg = () => ORD.filter(o => (st.fill[o] || []).some(Boolean)).map(o => `${o}<sup>${(st.fill[o] || []).flat().filter(Boolean).length}</sup>`).join(' ');
+    const add = () => {   // next electron by Aufbau + Hund
+      for (const o of ORD) { const nb = 2 * L.indexOf(o[1]) + 1, box = st.fill[o] || (st.fill[o] = Array.from({ length: nb }, () => [0, 0]));
+        const up = box.findIndex(b => !b[0]); if (up >= 0) { box[up][0] = 1; st.count++; return; }
+        const dn = box.findIndex(b => !b[1]); if (dn >= 0) { box[dn][1] = 1; st.count++; return; } }
+    };
+    const MIS = [['n', 'Build nitrogen (Z = 7): three unpaired 2p electrons (Hund)', () => st.count === 7], ['ne', 'Fill up to neon (Z = 10)', () => st.count === 10],
+      ['cr', 'Make the chromium exception: move one 4s electron into 3d (tap 4s then 3d)', () => st.count === 24 && st.cr], ['view', 'Look at an orbital with 2 radial nodes', () => st.n - st.l - 1 === 2]];
+    const draw = () => {
+      const okq = st.l < st.n && Math.abs(st.m) <= st.l;
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔭 Orbital viewer</h3>
+        <div class="jx-qn">n <select id="qn">${[1, 2, 3, 4, 5].map(v => `<option ${v === st.n ? 'selected' : ''}>${v}</option>`).join('')}</select> l <select id="ql">${[0, 1, 2, 3].map(v => `<option ${v === st.l ? 'selected' : ''}>${v}</option>`).join('')}</select> m<sub>l</sub> <select id="qm">${[-3, -2, -1, 0, 1, 2, 3].map(v => `<option ${v === st.m ? 'selected' : ''}>${v}</option>`).join('')}</select></div>
+        ${okq ? `<div style="display:flex;gap:12px;align-items:center"><svg viewBox="0 0 160 160" style="width:140px;flex:none">${st.l <= 2 ? shape(st.l, st.m) : '<text x="80" y="85" text-anchor="middle" font-size="13">f — complex shape</text>'}<line x1="10" y1="80" x2="150" y2="80" stroke="#cbd5e1"/><line x1="80" y1="10" x2="80" y2="150" stroke="#cbd5e1"/></svg>
+          <div class="jx-p"><b>${st.n}${L[st.l]}</b> orbital<br>Radial nodes: <b>${st.n - st.l - 1}</b><br>Angular nodes: <b>${st.l}</b><br>Orbital angular momentum: ${mx(st.l ? `√{${st.l * (st.l + 1)}}\\f{h}{2π}` : '0')}<br>Orbitals in this subshell: <b>${2 * st.l + 1}</b></div></div>`
+          : `<p class="jx-res no">❌ Not allowed: ${st.l >= st.n ? 'l must be less than n' : '|m<sub>l</sub>| must not exceed l'}.</p>`}</div>
+        <div class="jx-card"><h3>🧱 Box filler — Z = ${st.count} ${NM[st.count] ? '(' + NM[st.count] + ')' : ''}</h3>
+        <div class="jx-boxes">${ORD.slice(0, 7).map(o => { const nb = 2 * L.indexOf(o[1]) + 1, box = st.fill[o] || Array.from({ length: nb }, () => [0, 0]); return `<div class="jx-sub2" data-o="${o}"><small>${o}</small><div>${box.map(b => `<span>${b[0] ? '↑' : ''}${b[1] ? '↓' : ''}</span>`).join('')}</div></div>`; }).join('')}</div>
+        <p class="jx-p">${cfg() || 'Empty — add electrons'}</p>
+        <div class="jx-nav"><button class="jx-btn" id="jxAdd">+1 electron</button><button class="jx-btn ghost" id="jxAdd5">+5</button><button class="jx-btn ghost" id="jxClr">Reset</button></div>
+        <h3 style="margin-top:10px">🎯 Missions</h3>${MIS.map(([k, n2]) => `<div class="jx-mis ${done['or_' + k] ? 'ok' : ''}">${done['or_' + k] ? '✅' : '⬜'} ${n2}</div>`).join('')}</div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      ['qn', 'ql', 'qm'].forEach(id => $('#' + id).onchange = () => { st.n = +$('#qn').value; st.l = +$('#ql').value; st.m = +$('#qm').value; mark(); draw(); });
+      $('#jxAdd').onclick = () => { tap(); if (st.count < 30) add(); st.cr = false; mark(); draw(); };
+      $('#jxAdd5').onclick = () => { tap(); for (let k = 0; k < 5 && st.count < 30; k++) add(); st.cr = false; mark(); draw(); };
+      $('#jxClr').onclick = () => { st.fill = {}; st.count = 0; st.cr = false; draw(); };
+      el.querySelectorAll('[data-o]').forEach(d => d.onclick = () => {
+        if (d.dataset.o === '4s' && st.count === 24 && st.fill['4s'] && st.fill['4s'][0][1]) { st.pick = true; toast('Now tap 3d'); return; }
+        if (d.dataset.o === '3d' && st.pick) { const box = st.fill['3d'], k = box.findIndex(b => !b[0]); if (k >= 0) { box[k][0] = 1; st.fill['4s'][0][1] = 0; st.cr = true; st.pick = false; tap('correct'); mark(); draw(); } }
+      });
+    };
+    const mark = () => { let f = false; MIS.forEach(([k, , t]) => { if (!done['or_' + k] && t()) { done['or_' + k] = Date.now(); f = true; } }); if (f) { save(); toast('🎯 Mission complete!'); } };
+    draw();
+  }
+
   /* ================= INFO SCREENS ================= */
   function pattern() {
     const el = screen(); here('pattern');
@@ -795,6 +878,8 @@
   .jx-read{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.jx-read span{background:#1e1b4b;color:#ddd6fe;border-radius:10px;padding:5px 8px;font-size:12px}.jx-read b{color:#fff}
   .jx-sl{display:block;margin:8px 0;font-size:13px;font-weight:700;color:#3b2a85}.jx-sl span{display:flex;justify-content:space-between}.jx-sl input{width:100%;accent-color:#7c3aed}
   .jx-mis{padding:7px 10px;border-radius:10px;background:#f7f5ff;margin:5px 0;font-size:13.5px}.jx-mis.ok{background:#dcfce7}
+  .jx-qn{display:flex;gap:8px;align-items:center;font-weight:700;margin:6px 0}.jx-qn select{padding:6px;border-radius:8px;border:1px solid #d9d2ff}
+  .jx-boxes{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.jx-sub2{text-align:center;cursor:pointer}.jx-sub2 small{display:block;font-weight:800;color:#5b21b6}.jx-sub2 div{display:flex}.jx-sub2 span{width:24px;height:26px;border:1.5px solid #7c3aed;display:grid;place-items:center;font-weight:900;font-size:13px;margin-left:-1.5px;background:#fff}
     .jx-tile0{background:linear-gradient(135deg,#6d28d9,#db2777)!important;color:#fff!important;margin-bottom:10px}.jx-tile0 small{color:#fce7f3!important}
   html[data-theme=dark] .jx{color:#ece9ff}html[data-theme=dark] .jx-card,html[data-theme=dark] .jx-step,html[data-theme=dark] .jx-pu,html[data-theme=dark] .jx-sub,html[data-theme=dark] .jx-li,html[data-theme=dark] .jx-tile,html[data-theme=dark] .jx-o,html[data-theme=dark] .jx-tools button{background:#1d1a3a;border-color:#2f2a5c;color:#ece9ff}
   </style>`);
