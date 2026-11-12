@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -386,6 +386,8 @@
         photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
         bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
         orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
+        pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
+        tele: ['🔭 Telescoping Machine', 'See Gauss\'s staircase turn into a rectangle, then split fractions and cancel neighbours with ✂️ until only the ends survive. 4 missions.', () => teleLab(uid)],
         molemach: ['🥚 Mole Machine', 'Pour grams of water, CO₂, salt or glucose on a balance and watch moles, molecules, atoms and gas volume appear on the mole map. 5 missions.', () => moleLab(uid)],
         limit: ['⚖️ Limiting Reagent Kitchen', 'Drop molecules into the pot, press React and see which one runs out first — and what is left over. 5 missions.', () => limitLab(uid)],
         react: ['⚗️ Reaction Race', 'Watch A turn into B for zero, first and second order. Switch plots to find the straight line, spot the half-lives — then crack mystery reactions. 5 missions.', () => reactLab(uid)],
@@ -657,6 +659,99 @@
     draw();
   }
 
+
+  /* ---------- Try it yourself: Sequence and Series ---------- */
+  const gcdJ = (a, b) => { a = Math.abs(a); b = Math.abs(b); while (b) [a, b] = [b, a % b]; return a || 1; };
+  const fracJ = (n, d) => { const g = gcdJ(n, d), s = d < 0 ? -1 : 1; return [s * n / g, s * d / g]; };
+  const fShow = ([n, d]) => d === 1 ? String(n) : mx(`\\f{${n}}{${d}}`);
+  function patternLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { k: 'ap', a: 2, d: 3, r: 0.5, n: 10 };
+    const term = i => st.k === 'ap' ? st.a + i * st.d : st.a * Math.pow(st.r, i);
+    const MIS = [['t10', 'Build an A.P. whose 10th term is exactly 50', x => x.k === 'ap' && Math.abs(x.T[9] - 50) < 1e-9 && x.n >= 10],
+      ['zero', 'Make an A.P. whose sum S_n is exactly 0 (n ≥ 4)', x => x.k === 'ap' && Math.abs(x.S) < 1e-9 && x.n >= 4 && x.T.some(v => v !== 0)],
+      ['odd', 'Add the first n odd numbers — and discover the sum is n² (n ≥ 5)', x => x.k === 'ap' && x.a === 1 && x.d === 2 && x.n >= 5],
+      ['two', 'Make an infinite G.P. with first term 1 add up to exactly 2', x => x.k === 'gp' && x.a === 1 && Math.abs(x.r - 0.5) < 1e-9],
+      ['flip', 'Make a G.P. whose terms flip sign and still converge', x => x.k === 'gp' && x.r < 0 && x.r > -1]];
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>📈 Pattern Builder</h3>
+        <p class="jx-fine">Every bar is a term. Watch the running total (purple line) — and for a G.P. with |r| &lt; 1, see it hug the infinite-sum line.</p>
+        <div class="jx-seg3"><button data-k="ap" class="${st.k === 'ap' ? 'on' : ''}">🪜 A.P. (add d)</button><button data-k="gp" class="${st.k === 'gp' ? 'on' : ''}">🌱 G.P. (multiply r)</button></div>
+        <svg viewBox="0 0 320 200" class="jx-circ" id="jxBars"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>First term a <b id="v_a">${st.a}</b></span><input type="range" min="-10" max="20" step="1" value="${st.a}" data-v="a"></label>
+        ${st.k === 'ap' ? `<label class="jx-sl"><span>Common difference d <b id="v_d">${st.d}</b></span><input type="range" min="-6" max="8" step="0.5" value="${st.d}" data-v="d"></label>`
+          : `<label class="jx-sl"><span>Common ratio r <b id="v_r">${st.r}</b></span><input type="range" min="-2" max="2" step="0.05" value="${st.r}" data-v="r"></label>`}
+        <label class="jx-sl"><span>Number of terms n <b id="v_n">${st.n}</b></span><input type="range" min="1" max="20" step="1" value="${st.n}" data-v="n"></label>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-k]').forEach(b => b.onclick = () => { tap(); st.k = b.dataset.k; draw(); });
+      el.querySelectorAll('[data-v]').forEach(i => i.oninput = () => { st[i.dataset.v] = +i.value; $('#v_' + i.dataset.v).textContent = i.value; upd(); });
+      upd();
+    };
+    const upd = () => {
+      const T = Array.from({ length: st.n }, (_, i) => term(i)), C = T.reduce((acc, v) => (acc.push((acc.length ? acc[acc.length - 1] : 0) + v), acc), []), S = C[C.length - 1];
+      const inf = st.k === 'gp' && Math.abs(st.r) < 1 ? st.a / (1 - st.r) : null;
+      const all = [...T, ...C, 0, ...(inf !== null ? [inf] : [])], lo = Math.min(...all), hi = Math.max(...all), sy = v => 180 - (hi === lo ? 0.5 : (v - lo) / (hi - lo)) * 165, w = 290 / st.n;
+      const f = v => Math.abs(v) >= 1e4 ? v.toExponential(2) : +v.toFixed(3);
+      $('#jxBars').innerHTML = `<line x1="20" y1="${sy(0)}" x2="315" y2="${sy(0)}" stroke="#94a3b8"/>
+        ${T.map((v, i) => `<rect x="${(22 + i * w).toFixed(1)}" y="${Math.min(sy(v), sy(0)).toFixed(1)}" width="${(w * 0.7).toFixed(1)}" height="${Math.abs(sy(v) - sy(0)).toFixed(1)}" rx="2" fill="${v >= 0 ? '#f97316' : '#0ea5e9'}"><title>a${i + 1} = ${f(v)}</title></rect>`).join('')}
+        <polyline fill="none" stroke="#7c3aed" stroke-width="2.4" points="${C.map((v, i) => (22 + i * w + w * 0.35).toFixed(1) + ',' + sy(v).toFixed(1)).join(' ')}"/>
+        ${inf !== null ? `<line x1="20" y1="${sy(inf)}" x2="315" y2="${sy(inf)}" stroke="#16a34a" stroke-dasharray="5 4"/><text x="312" y="${sy(inf) - 4}" text-anchor="end" font-size="10" fill="#16a34a">S∞ = ${f(inf)}</text>` : ''}
+        <text x="24" y="12" font-size="10" fill="#7c3aed">— running sum S_k</text>`;
+      $('#jxRead').innerHTML = `<span>a<sub>n</sub> <b>${f(T[T.length - 1])}</b></span><span>S<sub>n</sub> <b>${f(S)}</b></span>${st.k === 'ap' ? `<span>${mx('\\f{n}{2}(a + l)')} <b>${f(st.n / 2 * (T[0] + T[T.length - 1]))}</b></span>` : `<span>S<sub>∞</sub> <b>${inf !== null ? f(inf) : 'diverges'}</b></span>`}`;
+      const x = { ...st, T, S };
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['sq_' + kk] && t(x)) { done['sq_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['sq_' + kk] ? 'ok' : ''}">${done['sq_' + kk] ? '✅' : '⬜'} ${n2.replace('S_n', 'S<sub>n</sub>')}</div>`).join('');
+    };
+    draw();
+  }
+  function teleLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const SER = { gauss: ['Gauss staircase', 'k'], t1: ['\\f{1}{k(k + 1)}', 'tele'], t2: ['\\f{1}{k(k + 2)}', 'tele'], t4: ['\\f{k}{1 + 4k^{4}}', 'tele'] };
+    const st = { s: 'gauss', n: 6, cut: 0 };
+    const MIS = [['g', 'Gauss: show that 1 + 2 + … + 10 is half a 10 × 11 rectangle', x => x.s === 'gauss' && x.n === 10],
+      ['nine', 'Make Σ 1/k(k+1) equal exactly 9/10', x => x.s === 't1' && x.n === 9 && x.cut >= x.n],
+      ['cancel', 'Cancel every middle term of Σ 1/k(k+2) for n = 8', x => x.s === 't2' && x.n === 8 && x.cut >= x.n],
+      ['jee', 'Crack the JEE favourite Σ k/(1+4k⁴) for n = 10 (answer 55/221)', x => x.s === 't4' && x.n === 10 && x.cut >= x.n]];
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔭 Telescoping Machine</h3>
+        <p class="jx-fine">Split each term into two pieces, then press ✂️ to cancel neighbours — only the ends survive.</p>
+        <div class="jx-seg3" style="flex-wrap:wrap">${Object.entries(SER).map(([k, v]) => `<button data-s="${k}" class="${k === st.s ? 'on' : ''}">${k === 'gauss' ? '🧱 Σk (Gauss)' : 'Σ ' + mx(v[0])}</button>`).join('')}</div>
+        <div id="jxTel"></div><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>n <b id="v_n">${st.n}</b></span><input type="range" min="2" max="12" step="1" value="${st.n}" id="jxN"></label>
+        ${st.s === 'gauss' ? '' : '<div class="jx-seg3"><button id="jxCut">✂️ Cancel next pair</button><button id="jxAll">✂️✂️ Cancel all</button></div>'}
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { tap(); st.s = b.dataset.s; st.cut = 0; draw(); });
+      $('#jxN').oninput = e => { st.n = +e.target.value; st.cut = 0; $('#v_n').textContent = st.n; upd(); };
+      if ($('#jxCut')) { $('#jxCut').onclick = () => { tap(); st.cut = Math.min(st.n, st.cut + 1); upd(); }; $('#jxAll').onclick = () => { tap('open'); st.cut = st.n; upd(); }; }
+      upd();
+    };
+    const upd = () => {
+      const n = st.n; let html = '', total;
+      if (st.s === 'gauss') {
+        const c = 18, W = (n + 1) * c, H = n * c;
+        html = `<svg viewBox="-4 -4 ${W + 8} ${H + 8}" class="jx-circ" style="max-width:${Math.min(320, W * 1.6)}px">${Array.from({ length: n }, (_, r) => Array.from({ length: n + 1 }, (_, k) => `<rect x="${k * c}" y="${r * c}" width="${c - 2}" height="${c - 2}" rx="3" fill="${k <= r ? '#f97316' : '#7c3aed'}" opacity="${k <= r ? 1 : 0.55}"/>`).join('')).join('')}</svg>
+          <p class="jx-p">Orange staircase = 1 + 2 + … + ${n}. A second (purple) copy, flipped, fills a ${n} × ${n + 1} rectangle → sum = ${mx(`\\f{${n} × ${n + 1}}{2}`)} = <b>${n * (n + 1) / 2}</b>.</p>`;
+        total = [n * (n + 1) / 2, 1];
+      } else {
+        const piece = k => st.s === 't1' ? [[1, k], [1, k + 1], 1] : st.s === 't2' ? [[1, k], [1, k + 2], 2] : [[1, 2 * k * k - 2 * k + 1], [1, 2 * k * k + 2 * k + 1], 4];
+        const sh = st.s === 't2' ? 2 : 1, off = 'text-decoration:line-through;opacity:.4';
+        const rows = Array.from({ length: n }, (_, i) => { const k = i + 1, [p, q, m] = piece(k), deadP = k > sh && k - sh <= st.cut, deadQ = k <= st.cut && k + sh <= n;
+          return `<div class="jx-mis" style="display:flex;gap:6px;align-items:center;font-size:14px"><span style="min-width:30px">k=${k}</span>${m > 1 ? mx(`\\f{1}{${m}}`) + '(' : ''}<span style="${deadP ? off : 'color:#16a34a;font-weight:700'}">${fShow(p)}</span> − <span style="${deadQ ? off : 'color:#dc2626;font-weight:700'}">${fShow(q)}</span>${m > 1 ? ')' : ''}</div>`; });
+        html = rows.join('');
+        if (st.s === 't1') total = fracJ(n, n + 1);
+        else if (st.s === 't2') total = fracJ(3 * (n + 1) * (n + 2) - 2 * (n + 2) - 2 * (n + 1), 4 * (n + 1) * (n + 2));
+        else total = fracJ(2 * n * n + 2 * n, 4 * (2 * n * n + 2 * n + 1));
+      }
+      $('#jxTel').innerHTML = html;
+      $('#jxRead').innerHTML = `<span>sum of ${n} terms <b>${st.s === 'gauss' || st.cut >= n ? fShow(total) : '✂️ cancel to see'}</b></span>${st.s === 't1' ? '<span>limit as n → ∞ <b>1</b></span>' : st.s === 't2' ? `<span>limit <b>${fShow([3, 4])}</b></span>` : st.s === 't4' ? `<span>limit <b>${fShow([1, 4])}</b></span>` : ''}`;
+      const x = { ...st };
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['tl_' + kk] && t(x)) { done['tl_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['tl_' + kk] ? 'ok' : ''}">${done['tl_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
 
   /* ---------- Try it yourself: Some Basic Concepts ---------- */
   const ATC = { H: '#e2e8f0', C: '#334155', O: '#ef4444', N: '#3b82f6', Na: '#a855f7', Cl: '#22c55e', S: '#eab308', Al: '#94a3b8', Fe: '#b45309', Ca: '#f97316' };
