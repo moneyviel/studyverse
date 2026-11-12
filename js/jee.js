@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -401,6 +401,7 @@
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
+        ptrend: ['🗂️ Periodic Trend Explorer', 'Colour the first 36 elements by ionisation enthalpy, electronegativity, radius or electron gain enthalpy and hunt for the famous exceptions. 5 missions.', () => ptrendLab(uid)],
         vsepr: ['📐 VSEPR Shape Builder', 'Pick bond pairs and lone pairs around a central atom and see the shape, hybridisation, bond angle and a real example. 5 missions.', () => vseprLab(uid)],
         gibbs: ['🎲 Spontaneity Explorer', 'Set ΔH, ΔS and the temperature and watch ΔG = ΔH − TΔS cross zero — the four sign cases come alive. 5 missions.', () => gibbsLab(uid)],
         galvanic: ['🔋 Galvanic Cell Builder', 'Pick two metals and the ion concentrations — see which is the anode, the electron flow, E°, the Nernst emf and ΔG. 5 missions.', () => galvanicLab(uid)],
@@ -1210,6 +1211,45 @@
       const x = { k: info ? k : '' };
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['vs_' + kk] && tt(x)) { done['vs_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['vs_' + kk] ? 'ok' : ''}">${done['vs_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Periodicity ---------- */
+  function ptrendLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const D = {"H":[1,1312,2.1,null,-73],"He":[2,2372,null,null,48],"Li":[3,520,1.0,152,-60],"Be":[4,899,1.5,111,null],"B":[5,801,2.0,88,-27],"C":[6,1086,2.5,77,-122],"N":[7,1402,3.0,74,null],"O":[8,1314,3.5,66,-141],"F":[9,1681,4.0,64,-328],"Ne":[10,2080,null,null,116],"Na":[11,496,0.9,186,-53],"Mg":[12,737,1.2,160,null],"Al":[13,577,1.5,143,null],"Si":[14,786,1.8,117,null],"P":[15,1012,2.1,110,-72],"S":[16,1000,2.5,104,-200],"Cl":[17,1251,3.0,99,-349],"Ar":[18,1520,null,null,96],"K":[19,419,0.8,231,-48],"Ca":[20,590,1.0,197,null],"Sc":[21,631,null,null,null],"Ti":[22,656,null,null,null],"V":[23,650,null,null,null],"Cr":[24,653,null,null,null],"Mn":[25,717,null,null,null],"Fe":[26,762,null,null,null],"Co":[27,758,null,null,null],"Ni":[28,737,null,null,null],"Cu":[29,745,null,null,null],"Zn":[30,906,null,null,null],"Ga":[31,579,1.6,135,null],"Ge":[32,762,1.8,122,null],"As":[33,947,2.0,121,null],"Se":[34,941,2.4,117,-195],"Br":[35,1140,2.8,114,-325],"Kr":[36,1351,null,null,96]};   // symbol: [Z, IE1 kJ/mol, EN Pauling, radius pm, electron gain enthalpy kJ/mol]
+    const PR = { ie: ['First ionisation enthalpy', 1, 'kJ/mol'], en: ['Electronegativity', 2, ''], r: ['Atomic radius', 3, 'pm'], eg: ['Electron gain enthalpy', 4, 'kJ/mol'] };
+    const pos = z => { if (z <= 2) return [1, z === 1 ? 1 : 18]; if (z <= 10) return [2, z <= 4 ? z - 2 : z + 8]; if (z <= 18) return [3, z <= 12 ? z - 10 : z]; return [4, z - 18]; };
+    const st = { p: 'ie', sel: null, taps: [] };
+    const MIS = [['top', 'Find the element with the HIGHEST first ionisation enthalpy', () => st.p === 'ie' && st.sel === 'He'],
+      ['kink', 'Spot the kink: tap N, then O, with ionisation enthalpy on (O is lower!)', () => st.p === 'ie' && st.taps.slice(-2).join() === 'N,O'],
+      ['gaal', 'Radius surprise: tap Al, then Ga — Ga is smaller', () => st.p === 'r' && st.taps.slice(-2).join() === 'Al,Ga'],
+      ['cl', 'Find the most negative electron gain enthalpy (it is not F)', () => st.p === 'eg' && st.sel === 'Cl'],
+      ['big', 'Find the biggest atom in the first four periods', () => st.p === 'r' && st.sel === 'K']];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🗂️ Periodic Trend Explorer</h3>
+      <p class="jx-fine">Pick a property — the first 36 elements are coloured from low (pale) to high (deep). Tap an element to read its value and look for the exceptions.</p>
+      <div class="jx-seg3" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px">${Object.entries(PR).map(([k, v]) => `<button style="padding:6px 0;min-width:0;font-size:12px" data-pp="${k}">${{ ie: 'IE₁', en: 'EN', r: 'Radius', eg: 'Δ<sub>eg</sub>H' }[k]}</button>`).join('')}</div>
+      <svg viewBox="0 0 324 112" class="jx-circ" id="jxPT" style="max-width:380px;background:#f8fafc;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('[data-pp]').forEach(b => b.onclick = () => { tap(); st.p = b.dataset.pp; upd(); });
+    const upd = () => {
+      el.querySelectorAll('[data-pp]').forEach(b => b.classList.toggle('on', b.dataset.pp === st.p));
+      const [nm, ix, unitTxt] = PR[st.p], vals = Object.values(D).map(v => v[ix]).filter(v => v !== null), lo = Math.min(...vals), hi = Math.max(...vals);
+      let s = '';
+      for (const [sym, v] of Object.entries(D)) {
+        const [row, col] = pos(v[0]), x = 2 + (col - 1) * 17.8, y = 4 + (row - 1) * 26, val = v[ix];
+        const f = val === null ? null : (st.p === 'eg' ? (hi - val) / (hi - lo) : (val - lo) / (hi - lo));
+        const fill = f === null ? '#e5e7eb' : `rgba(124,58,237,${(0.12 + 0.85 * f).toFixed(2)})`;
+        s += `<g data-el="${sym}" style="cursor:pointer"><rect x="${x}" y="${y}" width="17" height="24" rx="3" fill="${fill}" stroke="${st.sel === sym ? '#f59e0b' : '#cbd5e1'}" stroke-width="${st.sel === sym ? 2 : 0.6}"/><text x="${x + 8.5}" y="${y + 15}" font-size="7.5" text-anchor="middle" fill="${f !== null && f > 0.55 ? '#fff' : '#0f172a'}">${sym}</text></g>`;
+      }
+      $('#jxPT').innerHTML = s;
+      $('#jxPT').querySelectorAll('[data-el]').forEach(g => g.onclick = () => { tap(); st.sel = g.dataset.el; st.taps.push(st.sel); st.taps = st.taps.slice(-5); upd(); });
+      const v = st.sel ? D[st.sel][ix] : null;
+      $('#jxRead').innerHTML = st.sel ? `<span><b>${st.sel}</b> (Z = ${D[st.sel][0]})</span><span>${nm}: <b>${v === null ? 'not listed' : v + ' ' + unitTxt}</b></span>` : '<span>tap an element</span>';
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['pt_' + kk] && tt()) { done['pt_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['pt_' + kk] ? 'ok' : ''}">${done['pt_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }

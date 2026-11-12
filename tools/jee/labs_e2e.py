@@ -181,6 +181,12 @@ async def _(pg):
 async def _(pg):
     for b, l in [(4, 0), (3, 1), (3, 2), (2, 3), (4, 2)]:
         await tap(pg, f'[data-b="{b}"]'); await tap(pg, f'[data-lp="{l}"]')
+@lab('chem-u09', 'ptrend')
+async def _(pg):
+    async def el(sym): await tap(pg, f'#jxPT [data-el="{sym}"]')
+    await tap(pg, '[data-pp="ie"]'); await el('He'); await el('N'); await el('O')
+    await tap(pg, '[data-pp="r"]'); await el('Al'); await el('Ga'); await el('K')
+    await tap(pg, '[data-pp="eg"]'); await el('Cl')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
