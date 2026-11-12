@@ -53,12 +53,11 @@
     let D; try { D = await daily(); } catch (e) { document.getElementById('gkSnack')?.remove(); return; }
     const t = dayInfo(), g = grade(), sig = `${t.iso}|${g}`;
     let box = document.getElementById('gkSnack');
-    if (box && box.dataset.sig === sig && box.parentElement === scr) { box.classList.toggle('shut', !!G().shut); try { meCard(scr, '#gkSnack'); } catch (e) {} return; }
+    if (box && box.dataset.sig === sig && box.parentElement === scr) { box.classList.toggle('shut', !!G().shut); return; }
     const old = box && box.querySelector('.gk-row'), sx = old ? old.scrollLeft : 0;
     if (!box) { box = document.createElement('section'); box.id = 'gkSnack'; box.className = 'gk-snack'; box.setAttribute('aria-labelledby', 'gkSnackT'); map.before(box); }
     else if (box.nextElementSibling !== map) map.before(box);
     box.dataset.sig = sig;
-    try { meCard(scr, '#gkSnack'); } catch (e) {}
     const th = pickDay(D.thoughts, 'thought', t.n), wow = pickDay(D.wow, 'wow', t.n), bite = pickDay(D.bites, 'bite', t.n), word = pickDay(D.words, 'word', t.n);
     const otd = D.otd[t.key];
     const cards = [];
@@ -102,7 +101,7 @@
   let FROM = 'world';
   async function open(o = {}) {
     stopRun();
-    if (o.from) FROM = o.from; else if (!o.keep) FROM = document.querySelector('nav button.on')?.dataset.s === 'me' ? 'me' : 'world';
+    if (o.from) FROM = o.from; else if (!o.keep) FROM = 'practice';   // GK Explorer lives in Practice (tile there; Brain Snacks on World open it too)
     const el = screen(); show('gk', FROM);
     el.innerHTML = `<p class="note">Loading…</p>`;
     let I; try { I = await index(); } catch (e) { el.innerHTML = `<button class="back" id="gkBack">← Back</button><div class="card"><h2>GK Explorer</h2><p class="sub">Could not load the facts. Connect to the internet once, and they will be saved for offline use.</p></div>`; el.querySelector('#gkBack').onclick = goBack; return; }
@@ -111,7 +110,7 @@
     if (o.mode) return run(o.mode);
     const nSaved = Object.keys(s.bm).length, total = I.categories.reduce((a, c) => a + c.nf, 0);
     const allOn = !s.sel.length || s.sel.includes('*');
-    el.innerHTML = `<button class="back" id="gkBack">← ${FROM === 'me' ? 'Me' : 'Home'}</button>
+    el.innerHTML = `<button class="back" id="gkBack">← ${FROM === 'me' ? 'Me' : FROM === 'world' ? 'Home' : 'Practice'}</button>
       <div class="hello" role="heading" aria-level="1"><span aria-hidden="true">🧭</span> GK Explorer <small>Free bonus · ${total} facts · picked for Grade ${grade()}</small></div>
       <div class="gsearch gk-search"><span aria-hidden="true">🔍</span><input id="gkQ" type="search" placeholder="Search GK… e.g. Everest, Moon, rupee" autocomplete="off" aria-label="Search general knowledge facts"></div><div id="gkRes" class="gs-res" aria-live="polite"></div>
       <div class="card"><h3>Choose how to play</h3><p class="sub">Topics: <b id="gkSelNow">${esc(selLabel())}</b> · change below</p><div class="gk-modes">
@@ -137,7 +136,7 @@
     let tm; el.querySelector('#gkQ').oninput = e => { clearTimeout(tm); const v = e.target.value.trim(); tm = setTimeout(() => search(v), 250); };
   }
   function selLabel() { const s = G(); if (!s.sel.length || s.sel.includes('*')) return 'All mixed'; const n = s.sel.map(id => catMeta(id).name); return n.length > 2 ? `${n.length} topics` : n.join(' + '); }
-  function goBack() { stopRun(); FROM === 'me' ? meScreen() : worldScreen(); }
+  function goBack() { stopRun(); if (FROM === 'me') return meScreen(); if (FROM === 'world') return worldScreen(); try { (ST.profile && ST.profile.course === 'ca' && window.CaTools && CaTools.practiceHub) ? CaTools.practiceHub() : practiceScreen(); } catch (e) { worldScreen(); } }
 
   /* ---------- pools for the chosen topics, fitted to the grade ---------- */
   async function selected() { const I = await index(), s = G(); const ids = !s.sel.length || s.sel.includes('*') ? I.categories.map(c => c.id) : s.sel.filter(id => I.categories.some(c => c.id === id)); return Promise.all((ids.length ? ids : I.categories.map(c => c.id)).map(cat)); }
@@ -429,5 +428,21 @@
     if (anchor) anchor.insertAdjacentHTML('afterend', html); else host.insertAdjacentHTML('beforeend', html);
     document.getElementById('meGk').onclick = () => { tap('open'); open({ from: 'me' }); };
   }
+  /* 🧭 GK Explorer tile on Practice (school, after Mind Gym) and in the CA practice hub — and never as a second card on World */
+  function practiceTile() {
+    document.querySelectorAll('#s-world > .gk-mecard, #s-ca > .gk-mecard').forEach(x => x.remove());
+    if (!ST.profile || (window.Cloud && Cloud.isParent && Cloud.isParent())) return;
+    const sub = `${Object.keys(G().seen).length} facts learned · quizzes, speed rounds and fact streaks`;
+    const p = document.getElementById('s-practice');
+    if (p && p.classList.contains('active') && !p.querySelector(':scope > #gkTile')) {
+      const after = p.querySelector(':scope > #mgTile') || p.querySelector(':scope > #phTile');
+      if (after) after.insertAdjacentHTML('afterend', `<button type="button" class="card mg-tile gk-tile" id="gkTile"><span class="mg-te" aria-hidden="true">🧭</span><span class="mg-tt"><b>GK Explorer</b><small>${sub}</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`);
+    }
+    const c = document.getElementById('s-ca'), hubs = c && c.classList.contains('active') ? c.querySelector(':scope > .ca-hubs') : null;
+    if (hubs && !hubs.querySelector('#gkTile')) { const after = hubs.querySelector(':scope > #mgTile') || hubs.querySelector(':scope > #phTile'); if (after) after.insertAdjacentHTML('afterend', `<button type="button" class="card ca-hub" id="gkTile"><b class="ca-hube" aria-hidden="true">🧭</b><span><b>GK Explorer</b><small>${sub}</small></span></button>`); }
+    const t = document.getElementById('gkTile'); if (t && !t.onclick) t.onclick = () => { tap('open'); open({ from: 'practice' }); };
+  }
+  if (!document.getElementById('gkTileCss')) document.head.insertAdjacentHTML('beforeend', '<style id="gkTileCss">.gk-tile{background:linear-gradient(135deg,#ff9a3c,#f5b700)!important;margin-top:10px}#s-ca .ca-hubs #gkTile{margin-bottom:10px}</style>');
+  let pt = 0; new MutationObserver(() => { if (!pt) pt = requestAnimationFrame(() => { pt = 0; try { practiceTile(); } catch (e) {} }); }).observe(document.querySelector('main') || document.body, { childList: true, subtree: true });
   window.GK = { open, snacks, dayInfo, pickDay, meCard };
 })();
