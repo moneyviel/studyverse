@@ -15,6 +15,7 @@
   const S = k => { try { if (window.sfx) sfx(k); } catch (e) {} };
   const STx = () => { try { return ST; } catch (e) { return null; } };
   const isCA = () => { const s = STx(); return !!(s && s.profile && s.profile.course === 'ca'); };
+  const isJEE = () => { try { return !isCA() && !!(window.Jee && Jee.active && Jee.active()); } catch (e) { return false; } };
   const isParent = () => { try { return !!(window.Cloud && Cloud.isParent && Cloud.isParent()); } catch (e) { return false; } };
 
   const LIVE = [
@@ -56,7 +57,7 @@
         ${row('📅', 'Daily puzzle', 'A new puzzle every day from your chapter. Keep your puzzle streak!', 'data-daily="1"', '')}
         ${pzKinds().map(k => row(k.e, k.n, k.d + (k.chapter ? ' Pick any chapter.' : ''), `data-pz="${E(k.id)}"`, `data-pzf="${E(k.id)}"`)).join('')}
         <button class="btn ghost ph-all" type="button" id="phPzHub">🏅 Puzzle badges & best times</button></div>
-      ${ca ? '' : `<div class="card"><h3><span aria-hidden="true">🕹️</span> More solo games</h3><div class="ph-more">${MORE.map(id => { const g = arcGame(id); return g ? `<button class="ph-m" type="button" data-arc="${id}"><span aria-hidden="true">${g.e}</span><b>${E(g.n)}</b><small>${E(g.d)}</small></button>` : ''; }).join('')}</div>
+      ${ca || isJEE() ? '' : `<div class="card"><h3><span aria-hidden="true">🕹️</span> More solo games</h3><div class="ph-more">${MORE.map(id => { const g = arcGame(id); return g ? `<button class="ph-m" type="button" data-arc="${id}"><span aria-hidden="true">${g.e}</span><b>${E(g.n)}</b><small>${E(g.d)}</small></button>` : ''; }).join('')}</div>
         <button class="btn ghost ph-all" type="button" id="phArc">🕹️ All arcade games</button></div>`}
       <div class="card ph-calc"><h3><span aria-hidden="true">🧮</span> Calculator Academy</h3><p class="sub">Free bonus course: learn every key with real missions.</p><button class="btn ghost" type="button" id="phCalc">Open Calculator Academy ▶</button></div></div>`;
     $1('#phBack').onclick = () => { S('tap'); backToPractice(); };
@@ -116,7 +117,7 @@
     el.innerHTML = `<div class="ph-root${isCA() ? ' ph-ca' : ''}"><button class="back" id="phBack2">← Play</button><div id="phArcHost"></div></div>`;
     $1('#phBack2').onclick = () => { S('tap'); open(); };
     if (!window.Arcade) { $1('#phArcHost').innerHTML = '<div class="card"><p class="sub">Games are loading. Please try again in a moment.</p></div>'; return; }
-    const scope = isCA() ? { grade: 13, key: 'ca-' + caLevel(), label: `CA ${cap(caLevel())} · your MCQs`, pool: caPool } : { grade: STx().profile.grade };
+    const scope = isCA() ? { grade: 13, key: 'ca-' + caLevel(), label: `CA ${cap(caLevel())} · your MCQs`, pool: caPool } : isJEE() ? { grade: 13, key: 'jee', label: 'JEE Main · real JEE + practice questions', pool: (prog, sel) => Jee.arcadePool(prog, sel), chapter: 'jee' } : { grade: STx().profile.grade };
     if (game) scope.game = game;
     Arcade.open($1('#phArcHost'), scope);
   }

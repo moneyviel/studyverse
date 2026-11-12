@@ -62,6 +62,7 @@
     if (PARENT) return 's';
     const s = STx(); if (!s || !s.profile) return 'm';
     if (isCA()) return 'p';
+    try { if (window.Jee && Jee.active && Jee.active()) return 's'; } catch (e) {}
     const g = +s.profile.grade || 5; return g <= 3 ? 'j' : g <= 8 ? 'm' : 's';
   }
   const qBand = (test, b) => test === 'iq' && b === 'p' ? 's' : b;

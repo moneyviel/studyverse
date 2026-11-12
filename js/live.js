@@ -53,6 +53,7 @@
   function myCourse() {
     const s0 = STx(), p = s0 && s0.profile; if (!p) return null;
     if (p.course === 'ca') return 'ca-' + ((ST.ca && ST.ca.level) || 'foundation');
+    try { if (window.Jee && Jee.active && Jee.active()) return 'jee'; } catch (e) {}
     const g = +p.grade || 1;
     let ids = []; try { ids = (curSubjects(g) || []).map(x => x.id); } catch (e) {}
     return (g >= 11 && p.stream ? `school-g${g}-${p.stream}` : 'school-g' + g) + (ids.length ? '-m' + subjMask(ids) : '');
@@ -65,6 +66,7 @@
   function courseName(c) {
     let m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m[0-9a-f]+)?$/.exec(c || ''); if (m) return `Class ${m[1]}${m[2] && m[2] !== 'm' ? ' ' + cap(m[2]) : ''}`;
     m = /^ca-([a-z]+)$/.exec(c || ''); if (m) return 'CA ' + ({ foundation: 'Foundation', inter: 'Intermediate', final: 'Final' }[m[1]] || cap(m[1]));
+    if (c === 'jee') return 'JEE Main';
     return cap(String(c || '').replace(/-/g, ' '));
   }
   const firstName = () => String((ST.profile && ST.profile.name) || 'Player').trim().split(/\s+/)[0].slice(0, 20) || 'Player';
@@ -548,6 +550,7 @@
         const T = L.scope && scSame(L.scope.base, c) ? JSON.parse(JSON.stringify(L.scope.T)) : null;   // the host's "Questions from" choice
         if ((m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m([0-9a-f]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need, m[3] ? maskIds(m[3]) : null, lvl, T);
         else if ((m = /^ca-([a-z]+)$/.exec(c))) list = await caPool(m[1], r.game, need, lvl, T);
+        else if (c === 'jee' && window.Jee && Jee.livePool) list = await Jee.livePool(need, lvl);
       } catch (e) { console.warn('live: questions for', c, e); }
       out[c] = list;
     }

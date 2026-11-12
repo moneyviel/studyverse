@@ -77,11 +77,12 @@
   }
 
   /* ---------- screen ---------- */
-  function screen() {
+  function screen(nav) {
     let s = D.getElementById('s-jee');
     if (!s) { s = D.createElement('section'); s.className = 'screen'; s.id = 's-jee'; D.querySelector('main').appendChild(s); }
-    show('jee', 'world'); return s;
+    show('jee', nav || (NAVP ? 'practice' : 'world')); return s;
   }
+  let NAVP = false;   // true while the student is inside the JEE Practice hub (bank, crash course) — keeps the Practice tab lit
   const here = (...a) => { try { Nav.here('jee', a); } catch (e) {} };
   const srcTag = s => `JEE Main ${s.y} · ${new Date(s.d + 'T00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })} · Shift ${s.sh}`;
   const pct = (a, b) => b ? Math.round(100 * a / b) : 0;
@@ -97,7 +98,7 @@
 
   /* ================= HOME ================= */
   function home() {
-    const j = J(); if (!j.track) return setup(1);
+    NAVP = false; const j = J(); if (!j.track) return setup(1);
     here('home'); const el = screen();
     const tr = TRACKS[j.track], e = j.elig || {}, xii = (e.xii) || EXAM;
     const days = Math.ceil((new Date(S1) - NOW()) / 864e5);
@@ -110,14 +111,15 @@
         <p>${j.track === 'found' ? `Class ${j.cls} → your first JEE Main is in <b>January ${xii}</b>. Every concept you master now is one less to rush later.` : xii === EXAM && days > 0 ? `<b>${days} days</b> to JEE Main 2027 Session 1 (20 Jan). Session 2: 2–7 April.` : `Target: <b>JEE Main ${Math.max(EXAM, xii)}</b>.`}</p>
         <div class="jx-chips">${mainChip}${advChip}<button class="jx-chip lnk" id="jxElig">Check eligibility</button></div></div>
       <div class="jx-card jx-next"><div><small>Continue</small><b>${SUBJ[LU.split('-')[0]].e} ${esc(unitName(LU))}</b><span>${st.prog}% mastered · ${st.first} solved first time · ${READY[LU].pyq} real JEE questions</span></div><button class="jx-btn" id="jxGo">Open ▶</button></div>
-      <h2 class="jx-h">${j.track === 'found' ? '🌱 Foundation path' : j.track === 'main' ? `🧭 Your path — Class ${j.cls} first` : '⚡ Full syllabus — recommended order'}</h2>
-      <div class="jx-path">${path(j).map(([uid, name, tag], i) => `<button class="jx-pu ${READY[uid] ? 'on' : ''}" data-u="${uid}"><span class="jx-pn">${i + 1}</span><span><b>${esc(name)}</b><small>${tag}</small></span><span class="jx-st">${READY[uid] ? 'Ready' : '🔨 Building'}</span></button>`).join('')}</div>
-      <h2 class="jx-h">📚 Full JEE Main syllabus</h2>
+      <details class="jx-sec" data-sec="path" ${secOpen('path', true)}><summary><h2 class="jx-h">${j.track === 'found' ? '🌱 Foundation path' : j.track === 'main' ? `🧭 Your path — Class ${j.cls} first` : '⚡ Full syllabus — recommended order'}</h2><small>${path(j).filter(x => READY[x[0]]).length}/${path(j).length} ready</small></summary>
+      <div class="jx-path">${path(j).map(([uid, name, tag], i) => `<button class="jx-pu ${READY[uid] ? 'on' : ''}" data-u="${uid}"><span class="jx-pn">${i + 1}</span><span><b>${esc(name)}</b><small>${tag}</small></span><span class="jx-st">${READY[uid] ? 'Ready' : '🔨 Building'}</span></button>`).join('')}</div></details>
+      <details class="jx-sec" data-sec="syl" ${secOpen('syl', false)}><summary><h2 class="jx-h">📚 Full JEE Main syllabus</h2><small>${Object.keys(READY).length}/${Object.values(SUBJ).reduce((a, x) => a + x.u.length, 0)} units ready</small></summary>
       <div class="jx-subs">${Object.entries(SUBJ).map(([k, s]) => `<details class="jx-sub" style="--c:${s.c}"><summary><span>${s.e}</span><b>${s.n}</b><small>${s.u.length} units · ${s.u.filter((_, i) => READY[uidOf(k, i)]).length} ready</small></summary>
-        ${s.u.map((u, i) => { const id = uidOf(k, i); return `<button class="jx-ur ${READY[id] ? 'on' : ''}" data-u="${id}"><span>Unit ${i + 1}</span><b>${esc(u[0])}</b><small>Class ${u[1]}</small><em>${READY[id] ? 'Ready ▶' : 'Building'}</em></button>`; }).join('')}</details>`).join('')}</div>
+        ${s.u.map((u, i) => { const id = uidOf(k, i); return `<button class="jx-ur ${READY[id] ? 'on' : ''}" data-u="${id}"><span>Unit ${i + 1}</span><b>${esc(u[0])}</b><small>Class ${u[1]}</small><em>${READY[id] ? 'Ready ▶' : 'Building'}</em></button>`; }).join('')}</details>`).join('')}</div></details>
       <button class="jx-card jx-adv" id="jxAdv"><span>🏔️</span><span><b>JEE Advanced</b><small>Paper 1 · Paper 2 — coming soon</small></span><em>Soon</em></button>
       <div class="jx-tools"><button id="jxPat">📋 Exam pattern</button><button id="jxMist">📕 Mistake book (${j.mist.length})</button><button id="jxSchool">🏫 School world</button></div>
       <p class="jx-fine">Real questions are from JEE Main papers, tagged with date and shift; all solutions and extra questions are written by StudyVerse. Rules: NTA JEE Main 2027 Information Bulletin.</p></div>`;
+    el.querySelectorAll('details.jx-sec').forEach(d => d.ontoggle = () => { const u = J().ui || (J().ui = {}); u[d.dataset.sec] = d.open; save(); });
     $('#jxGo').onclick = () => { tap('open'); unit(LU); };
     $('#jxElig').onclick = () => { tap(); eligScreen(); };
     $('#jxSwitch').onclick = () => { tap(); setup(1, { again: true }); };
@@ -128,6 +130,7 @@
     el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { const u = b.dataset.u; if (READY[u]) { tap('open'); unit(u); } else { tap(); toast('This unit is being built — Units and Measurements is ready now'); } });
     if (!CACHE[LU]) data(LU).then(() => { const g = $('#jxGo'); if (g && D.getElementById('s-jee').classList.contains('active')) { const s2 = stats(LU, CACHE[LU]); g.parentElement.querySelector('span').textContent = `${s2.prog}% mastered · ${s2.first} solved first time · ${READY[LU].pyq} real JEE questions`; } }).catch(() => {});
   }
+  function secOpen(k, def) { const u = J().ui || {}; return (k in u ? u[k] : def) ? 'open' : ''; }
   function path(j) {
     if (j.track === 'found') return FOUND.map(([u, n]) => [u, n, u === 'phy-u01' ? 'Physics · starts at Class 9 level' : 'Foundation']);
     const all = []; Object.entries(SUBJ).forEach(([k, s]) => s.u.forEach((u, i) => all.push([uidOf(k, i), u[0], `${s.n} · Class ${u[1]}`, u[1], k, i])));
@@ -266,14 +269,16 @@
 
   /* ================= QUESTION RUNNER (prev/next, answered strip, step-by-step solutions) ================= */
   function run(uid, ids, o = {}) {
-    const el = screen(); const d = CACHE[uid]; if (!d || !ids.length) { toast('Nothing to practise here yet'); return; }
-    TOP = d.topics || TOP1;
-    const list = ids.map(id => d.byId[id]).filter(Boolean); let i = o.start > 0 ? o.start : 0; const S = list.map(() => ({}));
+    const el = screen(); const d0 = CACHE[uid];
+    const list = o.items ? o.items.slice() : (d0 ? ids.map(id => d0.byId[id]).filter(Boolean).map(q => ({ q, uid })) : []);
+    if (!list.length) { toast('Nothing to practise here yet'); return; }
+    let i = o.start > 0 ? o.start : 0; const S = list.map(() => ({}));
     const draw = () => {
-      const q = list[i], s = S[i], num = q.n !== undefined;
+      const it = list[i], q = it.q, s = S[i], num = q.n !== undefined, d = CACHE[it.uid]; uid = it.uid; TOP = d.topics || TOP1;
+      const bm = (J().bm || []).includes(it.uid + '|' + q.id);
       el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← ${esc(o.title || 'Back')}</button>
-        <div class="jx-strip">${list.map((x, k) => `<button data-j="${k}" class="${k === i ? 'cur ' : ''}${S[k].done ? (S[k].ok ? 'ok' : 'no') : ''}" aria-label="Question ${k + 1}">${k + 1}</button>`).join('')}</div>
-        <div class="jx-card jx-q"><div class="jx-qt"><span class="jx-tag ${q.kind}">${q.kind === 'pyq' ? '🏛️ ' + srcTag(q.src) : '🎯 StudyVerse practice'}</span><span class="jx-tag">${TOP[q.t]}${num ? ' · Numerical' : ''}</span></div>
+        <div class="jx-strip">${list.length > 60 ? '' : list.map((x, k) => `<button data-j="${k}" class="${k === i ? 'cur ' : ''}${S[k].done ? (S[k].ok ? 'ok' : 'no') : ''}" aria-label="Question ${k + 1}">${k + 1}</button>`).join('')}</div>
+        <div class="jx-card jx-q">${crumbs(it.uid, q)}<div class="jx-qt"><button class="jx-bm ${bm ? 'on' : ''}" id="jxBm" aria-label="Save this question">${bm ? '★' : '☆'}</button><span class="jx-tag ${q.kind}">${q.kind === 'pyq' ? '🏛️ ' + srcTag(q.src) : '🎯 StudyVerse practice'}</span><span class="jx-tag">${TOP[q.t]}${num ? ' · Numerical' : ''}</span></div>
           <div class="jx-qq">${mx(q.q)}</div>${q.fig ? `<div class="jx-figw">${q.fig}</div>` : ''}
           ${num ? `<div class="jx-num"><input id="jxN" inputmode="decimal" placeholder="Type your answer" ${s.done ? 'disabled' : ''} value="${s.v != null ? esc(s.v) : ''}"><small>Numerical answer — NTA rounds to the nearest integer</small></div>`
             : `<div class="jx-os">${q.o.map((x, k) => `<button class="jx-o ${s.done ? (k === q.a ? 'ok' : k === s.pick ? 'no' : '') : (k === s.pick ? 'sel' : '')}" data-k="${k}" ${s.done ? 'disabled' : ''}><i class="jx-on">${k + 1}</i><span>${mx(x)}</span></button>`).join('')}</div>`}
@@ -285,14 +290,16 @@
         </div>
         <div class="jx-nav"><button class="jx-btn ghost" id="jxPrev" ${i ? '' : 'disabled'}>◀ Previous</button><button class="jx-btn" id="jxNext">${i < list.length - 1 ? 'Next ▶' : 'Finish'}</button></div></div>`;
       $('#jxBack').onclick = () => { tap(); o.back ? o.back() : unit(uid); };
+      wireCrumbs(el);
+      $('#jxBm').onclick = () => { const b = J().bm || (J().bm = []), k = it.uid + '|' + q.id, x = b.indexOf(k); if (x < 0) { b.push(k); toast('⭐ Saved to your question bank'); } else b.splice(x, 1); save(); tap(); draw(); };
       el.querySelectorAll('[data-j]').forEach(b => b.onclick = () => { i = +b.dataset.j; draw(); });
       el.querySelectorAll('.jx-o:not([disabled])').forEach(b => b.onclick = () => { tap(); s.pick = +b.dataset.k; draw(); });
       const n = $('#jxN'); if (n && !s.done) { n.oninput = () => { s.v = n.value; }; n.onkeydown = e => { if (e.key === 'Enter') check(); }; }
       const c = $('#jxCheck'); if (c) c.onclick = check;
       const st = $('#jxStep'); if (st) st.onclick = () => { tap(); s.steps = (s.steps || 1) + 1; draw(); };
       const sm = $('#jxSim'); if (sm) sm.onclick = () => {
-        tap('open'); const cands = d.prac.filter(x => x.like === q.id && !list.includes(x)); if (!cands.length) return toast('You have seen all similar questions');
-        list.splice(i + 1, 0, cands[Math.floor(Math.random() * cands.length)]); S.splice(i + 1, 0, {}); i++; draw();
+        tap('open'); const cands = d.prac.filter(x => x.like === q.id && !list.some(y => y.q === x)); if (!cands.length) return toast('You have seen all similar questions');
+        list.splice(i + 1, 0, { q: cands[Math.floor(Math.random() * cands.length)], uid: it.uid }); S.splice(i + 1, 0, {}); i++; draw();
       };
       $('#jxPrev').onclick = () => { if (i) { i--; draw(); } };
       $('#jxNext').onclick = () => { if (i < list.length - 1) { i++; draw(); } else summary(); };
@@ -321,8 +328,10 @@
   }
   async function mistakes() {
     const m = J().mist; if (!m.length) return toast('Your Mistake book is empty — great work');
-    const uid = m[0].split('|')[0]; await data(uid);
-    run(uid, m.filter(x => x.startsWith(uid + '|')).map(x => x.split('|')[1]), { title: 'Mistake book', back: home });
+    const items = [];
+    for (const key of m) { const [u, id] = key.split('|'); if (!READY[u]) continue; try { const d = await data(u); if (d.byId[id]) items.push({ q: d.byId[id], uid: u }); } catch (e) {} }
+    if (!items.length) return toast('Your Mistake book is empty — great work');
+    run(items[0].uid, [], { items, title: 'Mistake book', back: NAVP ? practiceHub : home });
   }
 
   /* ================= NTA-STYLE TEST ================= */
@@ -568,13 +577,14 @@
           <circle cx="160" cy="80" r="22" fill="#fff" stroke="#1e1b4b" stroke-width="2"/><text x="160" y="72" text-anchor="middle" font-size="9">G</text><line x1="160" y1="88" x2="${160 + 18 * Math.sin(a * Math.PI / 180)}" y2="${88 - 18 * Math.cos(a * Math.PI / 180)}" stroke="${nul ? '#16a34a' : '#dc2626'}" stroke-width="3"/>
           <path d="M160 33 V58 M160 102 Q ${(160 + 20 + l * 2.8) / 2} 120 ${20 + l * 2.8} 128" stroke="#1e1b4b" stroke-width="2" fill="none"/><polygon points="${20 + l * 2.8 - 5},120 ${20 + l * 2.8 + 5},120 ${20 + l * 2.8},130" fill="#1e1b4b"/>
           <text x="160" y="178" text-anchor="middle" font-size="12" fill="${nul ? '#16a34a' : '#4b4878'}">${nul ? '✔ Galvanometer reads ZERO — null point!' : 'jockey at ' + l + ' cm'}</text></svg>
-        <label class="jx-sl"><span>Jockey position <b>${l} cm</b></span><input type="range" min="1" max="99" step="0.5" value="${l}" id="jxL"></label>
+        <label class="jx-sl"><span>Jockey position <b>${l} cm</b></span><input type="range" min="1" max="99" step="0.5" value="${l}" id="jxL"></label><div class="jx-seg3"><button id="jxLm">◀ 0.5 cm</button><button id="jxLp">0.5 cm ▶</button></div>
         <label class="jx-sl"><span>Resistance box R <b>${R} Ω</b></span><input type="range" min="1" max="20" step="1" value="${R}" id="jxR"></label>
         <div class="jx-num"><input id="jxX" inputmode="decimal" placeholder="Your value of X in Ω"></div><div class="jx-nav"><button class="jx-btn" id="jxC">Check X</button><button class="jx-btn ghost" id="jxN2">New hidden X</button></div>
         <p id="jxRes"></p><p class="jx-fine">Score ${right}/${tries}. Tip: \\f{X}{R} = \\f{l}{100 − l}. Change R to bring the null point near the middle — that is where the bridge is most accurate.</p></div></div>`;
       el.querySelector('.jx-fine').innerHTML = `Score ${right}/${tries}. Tip: ${mx('\\f{X}{R} = \\f{l}{100 − l}')}. Change R to bring the null point near the middle — that is where the bridge is most accurate.`;
       $('#jxBack').onclick = () => unit(uid, 'lab');
       $('#jxL').oninput = e => { l = +e.target.value; draw(); };
+      $('#jxLm').onclick = () => { tap(); l = Math.max(1, l - 0.5); draw(); }; $('#jxLp').onclick = () => { tap(); l = Math.min(99, l + 0.5); draw(); };
       $('#jxR').oninput = e => { R = +e.target.value; draw(); };
       $('#jxN2').onclick = () => { tap(); fresh(); };
       $('#jxC').onclick = () => {
@@ -1070,25 +1080,30 @@
       ['six', 'Collect all 6 different lines possible from n = 4 down to n = 1 in hydrogen', x => x.Z === 1 && new Set(x.log.filter(l => l.Z === 1 && l.from <= 4).map(l => l.from + '-' + l.to)).size >= 6]];
     const lamOf = (Z, a, b) => 1e7 / (109677 * Z * Z * (1 / (b * b) - 1 / (a * a)));
     const draw = () => {
-      const R = n => 18 + n * n * 3.6;
+      const R = n => 16 + n * 23;
       el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🪐 Bohr Atom Jumper</h3>
         <div class="jx-seg3">${[[1, 'H'], [2, 'He⁺'], [3, 'Li²⁺']].map(([z, n]) => `<button data-z="${z}" class="${st.Z === z ? 'on' : ''}">${n} (Z = ${z})</button>`).join('')}</div>
         <p class="jx-p">Electron is in <b>n = ${st.n}</b> (E = ${(-13.6 * st.Z * st.Z / st.n / st.n).toFixed(2)} eV). Tap an orbit to jump there — up absorbs, down emits.</p>
-        <svg viewBox="0 0 320 320" class="jx-circ" id="jxAtom">${[6, 5, 4, 3, 2, 1].map(n => `<circle cx="160" cy="160" r="${R(n)}" fill="none" stroke="${n === st.n ? '#7c3aed' : '#c4b5fd'}" stroke-width="${n === st.n ? 3 : 1.5}" data-n="${n}" style="cursor:pointer"/><text x="${160 + R(n) * 0.71 + 3}" y="${160 - R(n) * 0.71}" font-size="10" fill="#6b6795">n=${n}</text>`).join('')}
+        <svg viewBox="0 0 320 320" class="jx-circ" id="jxAtom" style="touch-action:manipulation">${[6, 5, 4, 3, 2, 1].map(n => `<circle cx="160" cy="160" r="${R(n)}" fill="none" stroke="${n === st.n ? '#7c3aed' : '#c4b5fd'}" stroke-width="${n === st.n ? 3 : 1.5}"/><text x="${160 + R(n) * Math.cos(-0.35 - n * 0.32)}" y="${160 + R(n) * Math.sin(-0.35 - n * 0.32) - 3}" font-size="11" font-weight="700" fill="#6b6795" text-anchor="middle">n=${n}</text>`).join('')}
           <circle cx="160" cy="160" r="${6 + st.Z * 2}" fill="#dc2626"/><text x="160" y="164" text-anchor="middle" font-size="10" fill="#fff">+${st.Z}</text>
           <circle r="7" fill="#2563eb"><animateMotion dur="${(1 + st.n * 0.6).toFixed(1)}s" repeatCount="indefinite" path="M${160 + R(st.n)} 160 a${R(st.n)} ${R(st.n)} 0 1 1 -${2 * R(st.n)} 0 a${R(st.n)} ${R(st.n)} 0 1 1 ${2 * R(st.n)} 0"/></circle>
           ${st.last ? `<path d="M160 ${160 - R(st.last.from)} q 30 -10 60 0 t 60 0 t 60 0" stroke="${lamColor(st.last.lam)}" stroke-width="3" fill="none"/>` : ''}</svg>
+        <p class="jx-fine" style="text-align:center">Orbits drawn evenly so they are easy to tap — real radii grow as n².</p>
+        <div class="jx-seg3" style="flex-wrap:wrap">${[1, 2, 3, 4, 5, 6].map(n => `<button data-n="${n}" class="${n === st.n ? 'on' : ''}">n = ${n}</button>`).join('')}</div>
         <div class="jx-nav"><button class="jx-btn ghost" id="jxIon">Ionise (n → ∞)</button></div>
         <div class="jx-read">${st.last ? `<span>Photon <b>${st.last.E.toFixed(2)} eV</b></span><span>λ <b>${st.last.lam.toFixed(1)} nm</b></span><span>Series <b>${SER[st.last.to] || '—'}</b></span><span>${st.last.lam < 380 ? 'UV' : st.last.lam <= 750 ? 'visible' : 'IR'}</span>` : '<span>Jump down to see a photon</span>'}</div>
         <h3 style="margin-top:10px">🧾 Lines you made</h3><div class="jx-p">${st.log.slice(-8).map(l => `<span class="jx-tag" style="background:${lamColor(l.lam)};color:#fff">${['', 'H', 'He⁺', 'Li²⁺'][l.Z]} ${l.from}→${l.to} · ${l.lam.toFixed(0)} nm</span>`).join(' ') || '—'}</div>
         <h3 style="margin-top:10px">🎯 Missions</h3><div>${MIS.map(([k, n2]) => `<div class="jx-mis ${done['bo_' + k] ? 'ok' : ''}">${done['bo_' + k] ? '✅' : '⬜'} ${n2}</div>`).join('')}</div></div></div>`;
       $('#jxBack').onclick = () => unit(uid, 'lab');
       el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { tap(); st.Z = +b.dataset.z; st.n = 1; st.last = null; st.ion = false; draw(); });
-      el.querySelectorAll('[data-n]').forEach(c2 => c2.onclick = () => {
-        const to = +c2.dataset.n; if (to === st.n) return; st.ion = false;
+      const jump = to => {
+        if (to === st.n) return; st.ion = false;
         if (to < st.n) { const lam = lamOf(st.Z, st.n, to); st.last = { from: st.n, to, lam, E: 1239.84 / lam, Z: st.Z }; st.log.push(st.last); tap('correct'); } else { st.last = null; tap(); }
         st.n = to; mark(); draw();
-      });
+      };
+      el.querySelectorAll('[data-n]').forEach(c2 => c2.onclick = () => jump(+c2.dataset.n));
+      $('#jxAtom').onclick = ev => { const sv = $('#jxAtom'), bx = sv.getBoundingClientRect(), x = (ev.clientX - bx.left) / bx.width * 320 - 160, y = (ev.clientY - bx.top) / bx.height * 320 - 160, r = Math.hypot(x, y);
+        const n = [1, 2, 3, 4, 5, 6].reduce((b, k) => Math.abs(R(k) - r) < Math.abs(R(b) - r) ? k : b, 1); if (Math.abs(R(n) - r) <= 14) jump(n); };
       $('#jxIon').onclick = () => { st.ion = st.n === 1; toast(`Ionisation energy from n = ${st.n}: ${(13.6 * st.Z * st.Z / st.n / st.n).toFixed(2)} eV`); mark(); st.n = 1; st.last = null; draw(); };
     };
     const mark = () => { let f = false; MIS.forEach(([k, , t]) => { if (!done['bo_' + k] && t(st)) { done['bo_' + k] = Date.now(); f = true; } }); if (f) { save(); toast('🎯 Mission complete!'); } };
@@ -1207,7 +1222,7 @@
     return r;
   };
 
-  function reopen(v, ...a) { try { ({ home, unit, setup: () => setup(1, { again: true }), pattern, adv: advanced })[v](...a); } catch (e) { home(); } }
+  function reopen(v, ...a) { try { ({ home, unit, setup: () => setup(1, { again: true }), pattern, adv: advanced, bank: () => bank(), crash: (u, st) => crash(u, st || 0), practice: () => practiceHub() })[v](...a); } catch (e) { home(); } }
 
   if (!D.getElementById('jxCss')) D.head.insertAdjacentHTML('beforeend', `<style id="jxCss">
   #s-jee{padding:0}.jx{max-width:760px;margin:0 auto;padding:12px 12px 90px;color:#1b1840;font-size:15px}
@@ -1278,7 +1293,7 @@
   .jx-chipsel{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.jx-dc{display:flex;align-items:center;gap:4px;background:#faf9ff;border:1px solid #e4dcff;border-radius:12px;padding:4px}.jx-dc.hint{border-color:#a78bfa;background:#f5f3ff}
   .jx-dc button{width:30px;height:30px;border-radius:8px;border:0;background:#ede9fe;font-weight:900;font-size:16px;cursor:pointer;color:#4c1d95}.jx-dc span{flex:1;font-size:13px;font-weight:700;text-align:center;line-height:1.2}.jx-dc small{display:block;font-weight:400;font-size:10.5px;color:#6b6795}.jx-dc b{display:block;color:#7c3aed;font-size:11px;min-height:12px}
   .jx-vbox{overflow-x:auto;border-radius:12px;border:1px solid #e4dcff;background:#fff}.jx-vsvg{min-width:600px;max-width:none!important;width:100%;height:auto;display:block}
-.jx-figw{margin:10px 0;text-align:center}.jx-figw svg{max-width:340px;width:100%;height:auto;color:#1e1b4b}.jx-circ{width:100%;max-width:420px;height:auto;display:block;margin:6px auto}.jx-curve{width:100%;height:auto}
+.jx-crumb{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:0 0 8px}.jx-crumb button,.jx-tagb{border:1px solid #ddd6fe;background:#f5f3ff;color:#4c1d95;border-radius:999px;padding:3px 9px;font-weight:600;font-size:12px;font-family:inherit;cursor:pointer}.jx-crumb button:active,.jx-tagb:active{transform:scale(.96)}.jx-crumb i{color:#a78bfa;font-style:normal}.jx-bm{border:0;background:none;font-size:22px;color:#f59e0b;cursor:pointer;padding:0 6px 0 0;line-height:1}.jx-sheetbg{position:fixed;inset:0;background:#0f0a2a99;z-index:9999;display:flex;align-items:flex-end;justify-content:center;animation:jxf .18s}.jx-sheet.jx{padding:0;margin:0;}.jx-sheet{background:#fff;color:#1b1840;width:100%;max-width:640px;max-height:84vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;animation:jxu .22s ease-out;font-size:15px}@keyframes jxu{from{transform:translateY(40px);opacity:.4}}@keyframes jxf{from{opacity:0}}.jx-grab{width:44px;height:5px;border-radius:9px;background:#d4d4d8;margin:8px auto 0}.jx-sh-h{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 0}.jx-sh-h h3{margin:0;font-size:18px}.jx-x{border:0;background:#f4f4f5;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer}.jx-sh-b{overflow:auto;padding:6px 16px 10px}.jx-sh-b h4{margin:12px 0 6px}.jx-sh-a{display:flex;gap:8px;padding:10px 16px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #eee}.jx-sh-a .jx-btn{flex:1}.jx-pl{display:grid;gap:6px}.jx-pli{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid #eee;border-radius:12px;background:#fafafa;padding:8px;font:inherit;opacity:.6}.jx-pli.on{opacity:1;background:#f5f3ff;border-color:#ddd6fe;cursor:pointer}.jx-pli span{font-weight:800;color:#7c3aed}.jx-pli small{color:#6b6795}.jx-tp{display:grid;grid-template-columns:1fr 90px 54px;gap:8px;align-items:center;width:100%;border:0;background:#fafafa;border-radius:10px;padding:8px;margin:4px 0;text-align:left;font:inherit;cursor:pointer}.jx-bar{height:8px;background:#ede9fe;border-radius:9px;overflow:hidden}.jx-bar i{display:block;height:100%;background:linear-gradient(90deg,#7c3aed,#db2777)}.jx-pc{background:#faf5ff;border-radius:14px;padding:10px 12px;margin:8px 0}.jx-pc h4{margin:0 0 6px}.jx-pc p{margin:6px 0}.jx-qc{background:#fff;border-radius:12px;padding:8px;margin-top:8px}.jx-qco{display:grid;gap:6px;margin:6px 0}.jx-qco button{border:1px solid #ddd6fe;background:#fff;border-radius:10px;padding:8px;text-align:left;font:inherit;cursor:pointer}.jx-qco .ok{background:#dcfce7;border-color:#22c55e}.jx-qco .no{background:#fee2e2;border-color:#ef4444}.jx-qbf{background:#fff;border-radius:16px;padding:10px 12px;margin:12px 0}.jx-qbf summary{display:flex;gap:8px;align-items:center;font-weight:800;cursor:pointer}.jx-qbf summary b{background:#7c3aed;color:#fff;border-radius:999px;padding:1px 8px;font-size:12px}.jx-qbf summary span{margin-left:auto;color:#7c3aed;font-size:13px}.jx-qbf h5{margin:10px 0 4px;font-size:12px;color:#6b6795;text-transform:uppercase;letter-spacing:.04em}.jx-frow{display:flex;flex-wrap:wrap;gap:6px}.jx-fc{border:1px solid #ddd6fe;background:#fff;color:#3b2a8a;border-radius:999px;padding:6px 11px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer}.jx-fc small{margin-left:5px;color:#a78bfa}.jx-fc.on{background:#7c3aed;color:#fff;border-color:#7c3aed}.jx-fc.on small{color:#e9d5ff}.jx-sortr{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}.jx-sortr span{color:#c4b5fd;font-size:13px}.jx-bi{background:#fff;border-radius:16px;padding:10px 12px;margin:8px 0;cursor:pointer;box-shadow:0 2px 8px #0000001a}.jx-bi:active{transform:scale(.99)}.jx-bt{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.jx-st2{margin-left:auto}.jx-bq{margin-top:6px;line-height:1.45}.jx-cu{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;width:100%;background:#fff;border:0;border-radius:16px;padding:10px 12px;margin:6px 0;text-align:left;font:inherit;cursor:pointer}.jx-cu small{display:block;color:#6b6795}.jx-cu em{font-style:normal;color:#7c3aed;font-weight:800}.jx-cring{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;color:#4c1d95;background:radial-gradient(#fff 58%,transparent 60%),conic-gradient(#7c3aed calc(var(--p)*1%),#ede9fe 0)}.jx-cstep{display:flex;gap:6px;overflow-x:auto;margin:8px 0}.jx-cstep button{flex:none;border:0;border-radius:999px;padding:7px 11px;background:#ffffff22;color:#e9d5ff;font-weight:700;font-size:13px;font-family:inherit;cursor:pointer}.jx-cstep .cur{background:#fff;color:#4c1d95}.jx-cstep .ok{background:#16a34a;color:#fff}.jx-idea{background:#fff;border-radius:16px;padding:10px 12px;margin:8px 0}.jx-idea summary{display:flex;flex-wrap:wrap;gap:6px;align-items:center;cursor:pointer}.jx-idea p{margin:8px 0;line-height:1.5}.jx-flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.jx-flip{min-height:92px;border:0;border-radius:16px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;font-weight:700;font-size:15px;font-family:inherit;cursor:pointer;padding:10px;position:relative}.jx-flip .b{display:none;color:#1b1840}.jx-flip.on{background:#fff;box-shadow:inset 0 0 0 2px #7c3aed}.jx-flip.on .f{display:none}.jx-flip.on .b{display:block}.jx-trap{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;width:100%;border:0;background:#fff7ed;border-radius:14px;padding:10px;margin:6px 0;text-align:left;font:inherit;cursor:pointer}.jx-trap em{font-style:normal;color:#c2410c;font-weight:800;font-size:12px}.jx-trap.on{background:#dcfce7}.jx-trap.on em{color:#16a34a}.jx-mode{display:flex;background:#ffffff1a;border-radius:999px;padding:4px;margin:4px 0 10px}.jx-mode button{flex:1;border:0;border-radius:999px;padding:9px;font-weight:800;font-size:14px;font-family:inherit;background:none;color:#e9d5ff;cursor:pointer}.jx-mode .on{background:#fff;color:#4c1d95}.jx-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}.jx-kpi div{background:#fff;border-radius:14px;padding:8px;text-align:center}.jx-kpi b{display:block;font-size:20px;color:#4c1d95}.jx-kpi small{color:#6b6795}.jx-hub{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.jx-ht2{border:0;border-radius:18px;background:#fff;padding:12px;text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:3px;box-shadow:0 3px 10px #00000022}.jx-ht2 span{font-size:26px}.jx-ht2 small{color:#6b6795;line-height:1.3}.jx-ht2:active{transform:scale(.98)}.jx-sec>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}.jx-sec>summary::-webkit-details-marker{display:none}.jx-sec>summary{background:#fff;border-radius:16px;padding:12px 14px;margin:14px 0 8px;box-shadow:0 2px 10px rgba(0,0,0,.12)}.jx-sec>summary h2{margin:0;background:none!important;padding:0!important;box-shadow:none!important;font-size:17px}.jx-sec>summary h2::before{content:'▸';display:inline-block;margin-right:6px;transition:transform .2s;color:#7c3aed}.jx-sec[open]>summary h2::before{transform:rotate(90deg)}.jx-sec>summary small{color:#7c3aed;font-weight:700;font-size:12px;white-space:nowrap}.jx-figw{margin:10px 0;text-align:center}.jx-figw svg{max-width:340px;width:100%;height:auto;color:#1e1b4b}.jx-circ{width:100%;max-width:420px;height:auto;display:block;margin:6px auto}.jx-curve{width:100%;height:auto}
   .jx-seg3{display:flex;gap:6px;margin:6px 0}.jx-seg3 button{flex:1 1 28%;border:1px solid #d9d2ff;background:#f7f5ff;border-radius:10px;padding:8px 4px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:#4c1d95}.jx-seg3 .on{background:#4c1d95;color:#fff}
   .jx-read{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.jx-read span{background:#1e1b4b;color:#ddd6fe;border-radius:10px;padding:5px 8px;font-size:12px}.jx-read b{color:#fff}
   .jx-sl{display:block;margin:8px 0;font-size:13px;font-weight:700;color:#3b2a85}.jx-sl span{display:flex;justify-content:space-between}.jx-sl input{width:100%;accent-color:#7c3aed}
@@ -1289,5 +1304,258 @@
   html[data-theme=dark] .jx{color:#ece9ff}html[data-theme=dark] .jx-card,html[data-theme=dark] .jx-step,html[data-theme=dark] .jx-pu,html[data-theme=dark] .jx-sub,html[data-theme=dark] .jx-li,html[data-theme=dark] .jx-tile,html[data-theme=dark] .jx-o,html[data-theme=dark] .jx-tools button{background:#1d1a3a;border-color:#2f2a5c;color:#ece9ff}
   </style>`);
 
-  window.Jee = { home, unit, setup, reopen, elig, mx, data, _run: run };
+
+  /* ================= JEE as the ACTIVE course: games, puzzles and live rooms ask JEE questions =================
+     JEE is the active course when the student has a JEE track and made JEE their home (school world switched off).
+     Used by js/playhub.js (Arcade), js/live.js (game rooms) and js/puzzles.js (word puzzles). */
+  const active = () => { try { const j = ST.jee; return !!(j && j.track && j.home && !(ST.profile && ST.profile.course)); } catch (e) { return false; } };
+  const SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '−': '⁻', '-': '⁻', '+': '⁺', 'n': 'ⁿ', '(': '⁽', ')': '⁾', 'i': 'ⁱ' };
+  const SUB = { '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉', '−': '₋', '+': '₊', 'a': 'ₐ', 'e': 'ₑ', 'o': 'ₒ', 'x': 'ₓ', 'n': 'ₙ', 'k': 'ₖ', 'm': 'ₘ', 'p': 'ₚ', 's': 'ₛ', 't': 'ₜ', 'i': 'ᵢ', 'r': 'ᵣ' };
+  /* plain text for places that cannot draw maths (game cards): \f{a}{b} → (a)/(b), ^{2} → ², _{2} → ₂, √{x} → √(x) */
+  function plain(s) {
+    s = String(s == null ? '' : s).replace(/<[^>]+>/g, ' ');
+    for (let k = 0; k < 8; k++) {
+      const t = s.replace(/\\f\{([^{}]*)\}\{([^{}]*)\}/g, (_, a, b) => `${/^[\w.]+$/.test(a) ? a : '(' + a + ')'}/${/^[\w.]+$/.test(b) ? b : '(' + b + ')'}`)
+        .replace(/\^\{([^{}]*)\}/g, (_, a) => [...a].every(c => SUP[c]) ? [...a].map(c => SUP[c]).join('') : `^(${a})`)
+        .replace(/_\{([^{}]*)\}/g, (_, a) => [...a].every(c => SUB[c]) ? [...a].map(c => SUB[c]).join('') : `_${a}`)
+        .replace(/√\{([^{}]*)\}/g, (_, a) => /^[\w.]+$/.test(a) ? '√' + a : `√(${a})`);
+      if (t === s) break; s = t;
+    }
+    return s.replace(/\s+/g, ' ').trim();
+  }
+  function hashS(s) { let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+  /* a numeric-answer question as a 4-option card: the right value plus three believable, distinct wrong values */
+  function numOpts(n, key) {
+    const c = [n + 1, n - 1, n * 2, Math.round(n / 2), n + 10, n - 10, n * 10, n + 2, n - 2, Math.round(n * 1.5)].filter(x => x !== n && (n < 0 || x >= 0) && Number.isFinite(x));
+    const seen = new Set([n]), pick = []; let h = hashS(key);
+    while (pick.length < 3 && c.length) { const i = h % c.length; h = Math.imul(h ^ 0x9e3779b9, 2654435761) >>> 0; const x = c.splice(i, 1)[0]; if (!seen.has(x)) { seen.add(x); pick.push(x); } }
+    if (pick.length < 3) return null;
+    const opts = [n, ...pick].map(String), order = opts.map((o, i) => [hashS(key + o), i]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+    return { options: order.map(i => opts[i]), answer: order.indexOf(0) };
+  }
+  const unitTitle = uid => { const [s, u] = uid.split('-'); const x = SUBJ[s] && SUBJ[s].u[+u.slice(1) - 1]; return x ? x[0] : uid; };
+  /* every ready unit's questions (real JEE + practice) as plain 4-option cards, each tagged with its source */
+  async function cards(sel) {
+    const ids = Object.keys(READY).filter(u => !sel || !sel.length || sel.includes(u) || sel.includes(u.split('-')[0]));
+    const out = [];
+    for (const uid of ids) {
+      let d; try { d = await data(uid); } catch (e) { continue; }
+      const [s] = uid.split('-'), tops = d.topics || {};
+      [...d.pyq, ...d.prac].forEach(q => {
+        if (q.fig) return;
+        let options = q.o, answer = q.a;
+        if (!options) { const no = typeof q.n === 'number' ? numOpts(q.n, q.id) : null; if (!no) return; options = no.options; answer = no.answer; }
+        if (!Array.isArray(options) || options.length < 2 || options.length > 4) return;
+        const pq = plain(q.q), po = options.map(plain);
+        if (!pq || po.some(o => !o) || new Set(po).size !== po.length) return;
+        out.push({ q: pq, options: po, answer, explain: plain((q.sol || []).join(' ')), id: q.id, real: q.kind === 'pyq', uid,
+          src: { sid: 'jee-' + s, sname: SUBJ[s].n, se: SUBJ[s].e, ci: 0, ch: unitTitle(uid), tid: uid, tt: tops[q.t] || '' } });
+      });
+    }
+    return out;
+  }
+  async function arcadePool(prog, sel) {
+    const P = { quiz: [], tf: [], speed: [], match: [], sort: [], order: [], subjects: Object.entries(SUBJ).map(([k, s]) => ({ id: 'jee-' + k, name: s.n })), chapter: null, multi: false };
+    if (prog) prog(0, 1); const all = await cards(sel); if (prog) prog(1, 1);
+    const ok = q => { try { return window.Arcade && Arcade.okQ ? Arcade.okQ(q) : true; } catch (e) { return true; } };
+    for (let i = all.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [all[i], all[j]] = [all[j], all[i]]; }
+    P.quiz = all.filter(ok).slice(0, 400); return P;
+  }
+  async function livePool(need, lvl) {
+    const all = await cards(), want = lvl === 'easy' ? 1 : lvl === 'hard' ? 3 : lvl === 'moderate' ? 2 : 0;
+    const by = {}; all.forEach(c => { (by[c.uid] = by[c.uid] || []).push(c); });
+    const lists = Object.values(by).map(l => { for (let i = l.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [l[i], l[j]] = [l[j], l[i]]; } return l; });
+    const out = []; while (out.length < need && lists.some(l => l.length)) for (const l of lists) if (l.length && out.length < need) { const c = l.pop(); out.push({ q: c.q, o: c.options, a: c.answer, s: `${c.src.se} ${c.src.sname} · ${c.src.ch}${c.real ? ' · real JEE' : ''}`.slice(0, 118), x: c.explain.slice(0, 580) }); }
+    return out;
+  }
+  /* word puzzles: each ready unit is a "chapter" of key words + plain clues */
+  function puzzleSubjects() {
+    return Object.entries(SUBJ).map(([k, s]) => ({ id: 'jee-' + k, name: s.n, e: s.e, chs: s.u.map((u, i) => [uidOf(k, i), u[0], i + 1]).filter(x => READY[x[0]]).map(([uid, t, n]) => ({ n, title: t, sc: { k: 'j', u: uid } })) })).filter(x => x.chs.length);
+  }
+  const unitInfo = uid => { const [s, u] = uid.split('-'); return { title: unitTitle(uid), sub: `JEE Main · ${SUBJ[s].n} · Unit ${+u.slice(1)}`, emoji: SUBJ[s].e, sname: SUBJ[s].n }; };
+  const lastUnit = () => { const j = ST.jee || {}; return READY[j.last] ? j.last : Object.keys(READY)[0]; };
+  const filePath = uid => { const [s, n] = uid.split("-"); return `content/jee/${s}/${n}.json`; };
+
+  /* ================= Subject › Unit › Topic chips + explanation pop-ups (every question shows where it is from) ================= */
+  const subjOfU = uid => uid.split('-')[0];
+  function crumbs(uid, q) {
+    const s = subjOfU(uid), d = CACHE[uid], tn = (d && d.topics && d.topics[q.t]) || q.t;
+    return `<div class="jx-crumb"><button data-pop="s:${s}">${SUBJ[s].e} ${SUBJ[s].n}</button><i>›</i><button data-pop="u:${uid}">Unit ${+uid.split('-u')[1]} · ${esc(unitName(uid))}</button><i>›</i><button data-pop="t:${uid}:${esc(q.t)}">🔎 ${esc(tn)}</button></div>`;
+  }
+  function wireCrumbs(root) { root.querySelectorAll('[data-pop]').forEach(b => b.onclick = e => { e.stopPropagation(); tap(); pop(b.dataset.pop); }); }
+  function sheet(title, html, actions = []) {
+    let m = D.getElementById('jxSheet'); if (m) m.remove();
+    m = D.createElement('div'); m.id = 'jxSheet'; m.className = 'jx-sheetbg';
+    m.innerHTML = `<div class="jx-sheet jx" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="jx-grab"></div><div class="jx-sh-h"><h3>${title}</h3><button class="jx-x" aria-label="Close">✕</button></div><div class="jx-sh-b">${html}</div>
+      ${actions.length ? `<div class="jx-sh-a">${actions.map((a, k) => `<button class="jx-btn ${k ? 'ghost' : ''}" data-act="${k}">${a[0]}</button>`).join('')}</div>` : ''}</div>`;
+    D.body.appendChild(m);
+    const close = () => m.remove();
+    m.onclick = e => { if (e.target === m) close(); }; m.querySelector('.jx-x').onclick = close;
+    m.querySelectorAll('[data-act]').forEach(b => b.onclick = () => { close(); actions[+b.dataset.act][1](); });
+    return m;
+  }
+  async function pop(key) {
+    const [k, a, b] = key.split(':');
+    if (k === 's') {
+      const S0 = SUBJ[a], ready = S0.u.map((u, i) => [uidOf(a, i), u]).filter(x => READY[x[0]]);
+      sheet(`${S0.e} ${S0.n} in JEE Main`, `<p class="jx-p">${S0.u.length} units in the NTA syllabus · <b>${ready.length} ready</b> here with ${ready.reduce((t, x) => t + READY[x[0]].pyq, 0)} real JEE questions and ${ready.reduce((t, x) => t + READY[x[0]].prac, 0)} practice questions.</p>
+        <div class="jx-pl">${S0.u.map((u, i) => { const id = uidOf(a, i); return `<button class="jx-pli ${READY[id] ? 'on' : ''}" data-u="${id}"><span>${i + 1}</span><b>${esc(u[0])}</b><small>${READY[id] ? READY[id].pyq + ' real Qs' : 'coming'}</small></button>`; }).join('')}</div>`,
+        [['📚 Questions from this subject', () => bank({ subj: [a] })]]);
+      D.querySelectorAll('#jxSheet [data-u]').forEach(x => x.onclick = () => { if (!READY[x.dataset.u]) return toast('This unit is being built'); D.getElementById('jxSheet').remove(); NAVP = false; unit(x.dataset.u); });
+      return;
+    }
+    const d = await data(a);
+    if (k === 'u') {
+      const tp = Object.entries(d.topics || {}), cnt = t => d.pyq.filter(q => q.t === t).length;
+      sheet(`${SUBJ[subjOfU(a)].e} ${esc(unitName(a))}`, `<p class="jx-fine">Class ${esc(String(d.cls || ''))} · NTA syllabus</p><p class="jx-p">${esc(d.syllabus || '')}</p>
+        <h4>Topics and how often JEE asked them</h4>${tp.map(([t, n]) => `<button class="jx-tp" data-pt="${esc(t)}"><b>🔎 ${esc(n)}</b><span class="jx-bar"><i style="width:${Math.min(100, cnt(t) * 6)}%"></i></span><small>${cnt(t)} real</small></button>`).join('')}`,
+        [['📖 Learn this unit', () => { NAVP = false; unit(a); }], ['📚 Questions from this unit', () => bank({ units: [a] })]]);
+      D.querySelectorAll('#jxSheet [data-pt]').forEach(x => x.onclick = () => pop(`t:${a}:${x.dataset.pt}`));
+      return;
+    }
+    const tn = (d.topics || {})[b] || b, cards = (d.cards || []).filter(c => c.topic === b);
+    const real = d.pyq.filter(q => q.t === b);
+    sheet(`🔎 ${esc(tn)}`, `<p class="jx-fine">${SUBJ[subjOfU(a)].e} ${SUBJ[subjOfU(a)].n} › ${esc(unitName(a))}</p>
+      ${cards.length ? cards.map(c => `<div class="jx-pc"><h4>${c.e || '💡'} ${esc(c.t)}</h4>${c.body.map(x => `<p>${mx(x)}</p>`).join('')}
+        ${c.check ? `<div class="jx-qc" data-a="${c.check.a}"><b>Quick check:</b> ${mx(c.check.q)}<div class="jx-qco">${c.check.o.map((o, j) => `<button data-o="${j}">${mx(o)}</button>`).join('')}</div><small class="jx-why" hidden>${mx(c.check.why)}</small></div>` : ''}</div>`).join('')
+        : `<p class="jx-p">${esc(d.syllabus || '')}</p>`}
+      <p class="jx-fine">JEE asked this topic <b>${real.length}</b> time${real.length === 1 ? '' : 's'} in 2024–2026 papers.</p>`,
+      [['🎯 Practise this topic', () => bank({ units: [a], topics: [b] })], ['📖 Open the full lesson', () => { NAVP = false; unit(a); }]]);
+    D.querySelectorAll('#jxSheet .jx-qc').forEach(box => box.querySelectorAll('[data-o]').forEach(bt => bt.onclick = () => {
+      const ok = +bt.dataset.o === +box.dataset.a; bt.classList.add(ok ? 'ok' : 'no'); if (!ok) box.querySelector(`[data-o="${box.dataset.a}"]`).classList.add('ok'); box.querySelector('.jx-why').hidden = false; tap(ok ? 'correct' : 'wrong'); }));
+  }
+
+  /* ================= 📚 QUESTION BANK — every ready question, filtered any way ================= */
+  const BK = { subj: [], units: [], topics: [], src: [], yr: [], diff: [], type: [], st: [], sort: 'smart', shown: 30 };
+  async function allItems() {
+    const out = [];
+    for (const uid of Object.keys(READY)) { let d; try { d = await data(uid); } catch (e) { continue; } [...d.pyq, ...d.prac].forEach(q => out.push({ q, uid })); }
+    return out;
+  }
+  const statusOf = it => { const a = U(it.uid).ans[it.q.id]; return (J().bm || []).includes(it.uid + '|' + it.q.id) ? 'bm' : !a ? 'new' : a.ok ? 'ok' : 'no'; };
+  function bankFilter(all) {
+    const f = BK, has = (arr, v) => !arr.length || arr.includes(v);
+    let L = all.filter(it => has(f.subj, subjOfU(it.uid)) && has(f.units, it.uid) && (!f.topics.length || f.topics.includes(it.q.t))
+      && has(f.src, it.q.kind) && (!f.yr.length || (it.q.kind === 'pyq' && f.yr.includes(String(it.q.src.y)))) && has(f.diff, String(it.q.diff || 2))
+      && has(f.type, it.q.n !== undefined ? 'num' : 'mcq') && (!f.st.length || f.st.some(s0 => s0 === 'bm' ? (J().bm || []).includes(it.uid + '|' + it.q.id) : statusOf(it) === s0 || (s0 === 'new' && !U(it.uid).ans[it.q.id]))));
+    if (f.sort === 'new') L = L.slice().sort((a, b) => (b.q.kind === 'pyq') - (a.q.kind === 'pyq') || String((b.q.src || {}).d || '').localeCompare(String((a.q.src || {}).d || '')));
+    else if (f.sort === 'hard') L = L.slice().sort((a, b) => (b.q.diff || 2) - (a.q.diff || 2));
+    else L = L.slice().sort((a, b) => (statusOf(a) === 'no' ? 0 : statusOf(a) === 'new' ? 1 : 2) - (statusOf(b) === 'no' ? 0 : statusOf(b) === 'new' ? 1 : 2) || (b.q.kind === 'pyq') - (a.q.kind === 'pyq'));
+    return L;
+  }
+  async function bank(preset) {
+    NAVP = true; const el = screen('practice'); here('bank');
+    if (preset) { Object.assign(BK, { subj: [], units: [], topics: [], src: [], yr: [], diff: [], type: [], st: [], shown: 30 }, preset); }
+    el.innerHTML = `<div class="jx"><p class="jx-p">Loading every question…</p></div>`;
+    const all = await allItems(); const cnt = (pred) => all.filter(pred).length;
+    const draw = () => {
+      const L = bankFilter(all), units = Object.keys(READY).filter(u => !BK.subj.length || BK.subj.includes(subjOfU(u)));
+      const tops = BK.units.length === 1 ? Object.entries((CACHE[BK.units[0]] || {}).topics || {}) : [];
+      const chip = (grp, v, label, n) => `<button class="jx-fc ${BK[grp].includes(v) ? 'on' : ''}" data-g="${grp}" data-v="${esc(v)}">${label}${n != null ? `<small>${n}</small>` : ''}</button>`;
+      const nF = ['subj', 'units', 'topics', 'src', 'yr', 'diff', 'type', 'st'].reduce((t, k) => t + BK[k].length, 0);
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Practice</button>
+        <div class="jx-hero sm"><h1>📚 Question bank</h1><p>${all.length} questions · ${cnt(x => x.q.kind === 'pyq')} real JEE Main (2024–2026) · ${cnt(x => x.q.kind === 'prac')} similar practice. Every answer checked five ways.</p></div>
+        <details class="jx-qbf" ${BK.open !== false ? 'open' : ''}><summary>🎛️ Filters ${nF ? `<b>${nF} on</b>` : ''}<span>${L.length} match</span></summary>
+          <h5>Subject</h5><div class="jx-frow">${Object.entries(SUBJ).map(([k, s0]) => chip('subj', k, `${s0.e} ${s0.n}`, cnt(x => subjOfU(x.uid) === k))).join('')}</div>
+          <h5>Unit</h5><div class="jx-frow">${units.map(u => chip('units', u, esc(unitName(u)), cnt(x => x.uid === u))).join('')}</div>
+          ${tops.length ? `<h5>Topic</h5><div class="jx-frow">${tops.map(([t, n]) => chip('topics', t, esc(n))).join('')}</div>` : '<p class="jx-fine">Pick ONE unit to filter by topic.</p>'}
+          <h5>Source</h5><div class="jx-frow">${chip('src', 'pyq', '🏛️ Real JEE Main')}${chip('src', 'prac', '🎯 Similar practice')}</div>
+          <h5>Year (real questions)</h5><div class="jx-frow">${['2026', '2025', '2024'].map(y => chip('yr', y, y, cnt(x => x.q.kind === 'pyq' && String(x.q.src.y) === y))).join('')}</div>
+          <h5>Difficulty</h5><div class="jx-frow">${chip('diff', '1', '🟢 Easy')}${chip('diff', '2', '🟡 Medium')}${chip('diff', '3', '🔴 Hard')}</div>
+          <h5>Type</h5><div class="jx-frow">${chip('type', 'mcq', 'MCQ (4 options)')}${chip('type', 'num', 'Numerical')}</div>
+          <h5>My status</h5><div class="jx-frow">${chip('st', 'new', '⚪ Not tried')}${chip('st', 'no', '❌ Got wrong')}${chip('st', 'ok', '✅ Solved')}${chip('st', 'bm', '⭐ Saved')}</div>
+          <div class="jx-frow"><button class="jx-fc" id="jxClear">✖ Clear all</button></div></details>
+        <div class="jx-sortr"><span>Sort</span>${[['smart', 'Smart (wrong first)'], ['new', 'Newest papers'], ['hard', 'Hardest first']].map(([k, n]) => `<button class="jx-fc ${BK.sort === k ? 'on' : ''}" data-sort="${k}">${n}</button>`).join('')}</div>
+        <div class="jx-nav"><button class="jx-btn" id="jxSolveAll" ${L.length ? '' : 'disabled'}>▶ Solve these ${Math.min(L.length, 25)} in a row</button></div>
+        <div class="jx-bl">${L.slice(0, BK.shown).map((it, k) => { const q = it.q, st = statusOf(it);
+          return `<div class="jx-bi" data-k="${k}">${crumbs(it.uid, q)}<div class="jx-bt"><span class="jx-tag ${q.kind}">${q.kind === 'pyq' ? '🏛️ ' + srcTag(q.src) : '🎯 Practice'}</span><span class="jx-tag">${['', '🟢', '🟡', '🔴'][q.diff || 2]}${q.n !== undefined ? ' Numerical' : ' MCQ'}</span><span class="jx-st2 ${st}">${{ new: '', ok: '✅', no: '❌', bm: '⭐' }[st]}</span></div>
+            <div class="jx-bq">${mx(q.q.length > 170 ? q.q.slice(0, 167) + '…' : q.q)}</div></div>`; }).join('') || '<p class="jx-p">No question matches — remove a filter.</p>'}</div>
+        ${L.length > BK.shown ? `<button class="jx-btn ghost wide" id="jxMore">Show more (${L.length - BK.shown} left)</button>` : ''}</div>`;
+      $('#jxBack').onclick = () => { tap(); practiceHub(); };
+      wireCrumbs(el);
+      el.querySelector('.jx-qbf').ontoggle = e => { BK.open = e.target.open; };
+      el.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { tap(); const g = b.dataset.g, v = b.dataset.v, a = BK[g], x = a.indexOf(v); if (x < 0) a.push(v); else a.splice(x, 1); if (g === 'units' || g === 'subj') BK.topics = []; BK.shown = 30; draw(); });
+      el.querySelectorAll('[data-sort]').forEach(b => b.onclick = () => { tap(); BK.sort = b.dataset.sort; draw(); });
+      $('#jxClear').onclick = () => { tap(); ['subj', 'units', 'topics', 'src', 'yr', 'diff', 'type', 'st'].forEach(k => BK[k] = []); draw(); };
+      const mo = $('#jxMore'); if (mo) mo.onclick = () => { tap(); BK.shown += 30; draw(); };
+      const back = () => bank();
+      $('#jxSolveAll').onclick = () => { tap('open'); run(L[0].uid, [], { items: L.slice(0, 25), title: 'Question bank', back }); };
+      el.querySelectorAll('.jx-bi').forEach(b => b.onclick = () => { tap('open'); const k = +b.dataset.k; run(L[k].uid, [], { items: L.slice(Math.max(0, k - 0), k + 25), title: 'Question bank', back }); });
+    };
+    draw();
+  }
+
+  /* ================= ⚡ CRASH COURSE — one fast, hands-on sprint per unit ================= */
+  async function crash(uid, step = 0) {
+    NAVP = true; const el = screen('practice'); here('crash', uid, step);
+    if (!uid) {
+      const C = J().crash || {};
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Practice</button><div class="jx-hero sm"><h1>⚡ Crash course</h1><p>Each unit in about 15 minutes: big ideas → formula flash cards → trap check → the real JEE questions that matter most. Made for the last weeks before the exam.</p></div>
+        ${Object.entries(SUBJ).map(([k, s0]) => { const r = s0.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sec" open><summary><h2 class="jx-h">${s0.e} ${s0.n}</h2><small>${r.filter(u => C[u] >= 4).length}/${r.length} sprinted</small></summary>
+          ${r.map(u => `<button class="jx-cu" data-u="${u}"><span class="jx-cring" style="--p:${(C[u] || 0) * 25}">${C[u] >= 4 ? '✓' : (C[u] || 0) + '/4'}</span><span><b>${esc(unitName(u))}</b><small>${READY[u].pyq} real questions · ${(CACHE[u] && CACHE[u].formulas || []).length || ''} ${CACHE[u] ? 'formulas' : ''}</small></span><em>${C[u] >= 4 ? 'Again' : C[u] ? 'Continue' : 'Start'} ▶</em></button>`).join('')}</details>` : ''; }).join('')}</div>`;
+      $('#jxBack').onclick = () => { tap(); practiceHub(); };
+      el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); const c = (J().crash || {})[b.dataset.u] || 0; crash(b.dataset.u, c >= 4 ? 0 : c); });
+      return;
+    }
+    const d = await data(uid), C = J().crash || (J().crash = {});
+    const mark = n => { if ((C[uid] || 0) < n) { C[uid] = n; save(); } };
+    const STEPS = ['💡 Big ideas', '🃏 Formula flips', '⚠️ Trap check', '🏛️ Must-do JEE'];
+    const head = `<button class="jx-back" id="jxBack">← Crash course</button><div class="jx-cstep">${STEPS.map((n, k) => `<button data-st="${k}" class="${k === step ? 'cur' : k < (C[uid] || 0) ? 'ok' : ''}">${n}</button>`).join('')}</div><h2 class="jx-h">${SUBJ[subjOfU(uid)].e} ${esc(unitName(uid))}</h2>`;
+    let body = '';
+    if (step === 0) body = d.cards.map((c, k) => `<details class="jx-idea" ${k ? '' : 'open'}><summary>${c.e || '💡'} <b>${esc(c.t)}</b><button class="jx-tagb" data-pop="t:${uid}:${esc(c.topic)}">🔎 ${esc((d.topics || {})[c.topic] || '')}</button></summary>${c.body.map(x => `<p>${mx(x)}</p>`).join('')}</details>`).join('');
+    else if (step === 1) body = `<p class="jx-fine">Say the formula in your head, then tap to flip.</p><div class="jx-flips">${d.formulas.map(([n, f]) => `<button class="jx-flip"><span class="f">${esc(n)}</span><span class="b">${mx(f)}</span></button>`).join('')}</div>`;
+    else if (step === 2) body = `<p class="jx-fine">These catch most students. Tap each one once you are sure you will not fall for it.</p>${d.traps.map((t, k) => `<button class="jx-trap" data-k="${k}"><span>⚠️</span><span>${mx(t)}</span><em>Got it ✓</em></button>`).join('')}`;
+    else {
+      const freq = {}; d.pyq.forEach(q => freq[q.t] = (freq[q.t] || 0) + 1);
+      const must = d.pyq.slice().sort((a, b) => (freq[b.t] - freq[a.t]) || (b.diff || 2) - (a.diff || 2)).filter((q, k, arr) => arr.findIndex(x => x.t === q.t) === k || k < 8).slice(0, 8);
+      body = `<p class="jx-p">JEE keeps returning to these topics: ${Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([t, n]) => `<button class="jx-tagb" data-pop="t:${uid}:${esc(t)}">🔎 ${esc((d.topics || {})[t] || t)} · ${n}×</button>`).join(' ')}</p>
+        <p class="jx-fine">${must.length} real questions picked from the most-asked topics. Solve them, then the unit is sprinted.</p><button class="jx-btn wide" id="jxMust">▶ Solve the must-do questions</button>`;
+      el.dataset.must = must.map(q => q.id).join(',');
+    }
+    el.innerHTML = `<div class="jx">${head}${body}<div class="jx-nav">${step ? '<button class="jx-btn ghost" id="jxPrevS">◀ Back</button>' : ''}${step < 3 ? '<button class="jx-btn" id="jxNextS">Next ▶</button>' : ''}</div></div>`;
+    $('#jxBack').onclick = () => { tap(); crash(); };
+    wireCrumbs(el);
+    el.querySelectorAll('[data-st]').forEach(b => b.onclick = () => { tap(); crash(uid, +b.dataset.st); });
+    el.querySelectorAll('.jx-flip').forEach(b => b.onclick = () => { tap(); b.classList.toggle('on'); });
+    el.querySelectorAll('.jx-trap').forEach(b => b.onclick = () => { tap('correct'); b.classList.add('on'); });
+    const nx = $('#jxNextS'); if (nx) nx.onclick = () => { tap(); mark(step + 1); crash(uid, step + 1); };
+    const pv = $('#jxPrevS'); if (pv) pv.onclick = () => { tap(); crash(uid, step - 1); };
+    const ms = $('#jxMust'); if (ms) ms.onclick = () => { tap('open'); mark(4); const ids = el.dataset.must.split(','); run(uid, ids, { title: 'Crash course', back: () => crash(uid, 3) }); };
+  }
+
+  /* ================= JEE PRACTICE HUB (Practice tab while JEE is the active course) ================= */
+  async function practiceHub() {
+    NAVP = true; const el = screen('practice'); here('practice');
+    const j = J(), ready = Object.keys(READY), all = ready.reduce((t, u) => t + READY[u].pyq + READY[u].prac, 0);
+    const done = ready.reduce((t, u) => t + Object.keys(U(u).ans).length, 0), wrong = j.mist.length, bm = (j.bm || []).length;
+    el.innerHTML = `<div class="jx">
+      <div class="jx-mode"><button class="on">🎯 JEE Main</button><button id="jxToSchool">🏫 ${ST.profile && ST.profile.grade ? 'Class ' + ST.profile.grade : 'School'}</button></div>
+      <p class="jx-fine" style="margin-top:-4px">Games, puzzles and questions here come only from JEE Main. Switch to 🏫 for your school class.</p>
+      <div class="jx-kpi"><div><b>${done}</b><small>solved</small></div><div><b>${wrong}</b><small>to fix</small></div><div><b>${bm}</b><small>saved</small></div><div><b>${all}</b><small>in bank</small></div></div>
+      <div class="jx-hub">
+        <button class="jx-ht2" id="jxQB"><span>📚</span><b>Question bank</b><small>${all} questions · filter by subject, unit, topic, year, difficulty</small></button>
+        <button class="jx-ht2" id="jxCC"><span>⚡</span><b>Crash course</b><small>Each unit in 15 minutes: ideas, formula flips, traps, must-do JEE</small></button>
+        <button class="jx-ht2" id="jxPlay"><span>🎮</span><b>Play</b><small>Quiz Show, Snakes, Boss Battle, crosswords — all with JEE questions</small></button>
+        <button class="jx-ht2" id="jxMG"><span>🧠</span><b>Mind Gym</b><small>Reasoning, IQ and focus puzzles for exam days</small></button>
+        <button class="jx-ht2" id="jxMB"><span>📕</span><b>Mistake book</b><small>${wrong ? wrong + ' questions to fix' : 'Empty — great work'}</small></button>
+        <button class="jx-ht2" id="jxRooms"><span>🏁</span><b>Game rooms</b><small>Race friends live — everyone gets JEE questions</small></button>
+      </div>
+      <details class="jx-sec" data-sec="pu" ${secOpen('pu', true)}><summary><h2 class="jx-h">🎯 Practise by unit</h2><small>${ready.length} ready</small></summary>
+        ${Object.entries(SUBJ).map(([k, s0]) => { const r = s0.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sub" style="--c:${s0.c}" open><summary><span>${s0.e}</span><b>${s0.n}</b><small>${r.length} units</small></summary>
+          ${r.map(u => { const a = U(u).ans, n = Object.keys(a).length, ok = Object.values(a).filter(x => x.ok).length; return `<button class="jx-ur on" data-u="${u}"><span>Unit ${+u.split('-u')[1]}</span><b>${esc(unitName(u))}</b><small>${n} tried · ${ok} right</small><em>Practise ▶</em></button>`; }).join('')}</details>` : ''; }).join('')}
+      </details></div>`;
+    el.querySelectorAll('details.jx-sec').forEach(dd => dd.ontoggle = () => { const u = J().ui || (J().ui = {}); u[dd.dataset.sec] = dd.open; save(); });
+    $('#jxToSchool').onclick = () => { tap(); J().home = false; NAVP = false; save(); toast('School mode: games and puzzles now come from your class'); practiceScreen(); };
+    $('#jxQB').onclick = () => { tap('open'); bank(); };
+    $('#jxCC').onclick = () => { tap('open'); crash(); };
+    $('#jxPlay').onclick = () => { tap('open'); if (window.PlayHub) PlayHub.open(); };
+    $('#jxMG').onclick = () => { tap('open'); if (window.MindGym) MindGym.open(); };
+    $('#jxMB').onclick = () => { tap(); mistakes(); };
+    $('#jxRooms').onclick = () => { tap('open'); if (window.Live && Live.open) Live.open(); };
+    el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); NAVP = false; unit(b.dataset.u, 'prac'); });
+  }
+  const _practiceJ = practiceScreen;
+  practiceScreen = function () { if (active()) return practiceHub(); NAVP = false; return _practiceJ.apply(this, arguments); };
+
+  window.Jee = { home, bank, crash, practiceHub, pop, unit, setup, reopen, elig, mx, data, _run: run, active, plain, cards, arcadePool, livePool, puzzleSubjects, unitInfo, lastUnit, path: filePath, READY };
 })();

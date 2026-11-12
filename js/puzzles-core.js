@@ -1118,6 +1118,7 @@
     const t = spec && spec.t === 'ana' ? 'an' : spec && spec.t, sc = (spec && spec.sc) || { k: 'q' };
     if (t === 'sdk' || t === 'kak' || sc.k === 'q') return [];
     if (sc.k === 's') return [`content/g${+sc.g}/${sc.sid}.json`];
+    if (sc.k === 'j') { const m = /^([a-z]+)-(u\d+)$/.exec(String(sc.u)); return m ? [`content/jee/${m[1]}/${m[2]}.json`] : []; }
     const lvl = caLevel(sc.ch), out = [`content/ca/${lvl}/structure.json`, 'js/ca-keys-data.js'];
     const f = structure && caFind(structure, sc.ch); if (!f) return out;
     [f.i].forEach(x => f.p.chapters[x].units.filter(u => u.status === 'built').forEach(u => {
@@ -1125,8 +1126,15 @@
     }));
     return out;
   }
+  /* JEE unit: its checked key words ([word, plain clue]) — words come only from this unit */
+  function termsFromJee(unit) {
+    const own = []; ((unit && unit.words) || []).forEach(([a, clue]) => { const c = cand(a, clue, 'key', { uid: unit.unit }); if (c) own.push(c); });
+    const groups = ((unit && unit.wgroups) || []).map(g => ({ title: g.title, items: g.items.map(([label, info]) => ({ label, info })) }));
+    return { own: rank(own), near: [], groups, jee: true };
+  }
   function termsFor(spec, content) {
     const sc = (spec && spec.sc) || { k: 'q' };
+    if (sc.k === 'j') return termsFromJee(content);
     if (sc.k === 's') return termsFromSchool(content && content.chapters ? content : content && content.subject, +sc.ci);
     if (sc.k === 'c') return termsFromCA(content, sc.ch);
     return null;
@@ -1158,7 +1166,7 @@
   const API = { hash, rng, shuffle, sudoku, sdkCount, sdkLogic, validSudoku, BOX, kakuro, kakCount, kakRuns, validKakuro, COMBOS,
     scriptOf, langOf, aksharas, goodCell, clip, unitsOf, normAnswerIndic, leaksIndic, termsIndic, chapterScript,
     normAnswer, leaks, cleanClue, clueOK, termsSchool, termsCA, rank, crossword, chapterCrossword, conceptSet, SHAPES, validCrossword, wordsearch, validWordsearch, wsCount, scramble, scrambleU, defSplit, isSplit, puzzleFor, chapterKinds, groupsSchool, XW_MAX, WS_DIFF, AN_DIFF,
-    termsFromSchool, termsFromCA, caUnitMerged, termsFor, contentPathOf, answerOf, solutionOf };
+    termsFromSchool, termsFromCA, termsFromJee, caUnitMerged, termsFor, contentPathOf, answerOf, solutionOf };
   root.PuzzleCore = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 })(typeof window !== 'undefined' ? window : (typeof self !== 'undefined' ? self : globalThis));

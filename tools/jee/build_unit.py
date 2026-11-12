@@ -41,3 +41,4 @@ json.dump(out, open(os.path.join(ROOT, f'content/jee/{s}/{n}.json'), 'w'), ensur
 json.dump(dict(v=1, unit=M['unit'], items=prac), open(os.path.join(ROOT, f'content/jee/{s}/{n}-practice.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 from collections import Counter
 print(f'{M["title"]}: real {n_real} (key ✓ code ✓) · practice {len(prac)} (independent re-solve ✓ options ✓) · by year {dict(Counter(p["src"]["y"] for p in pyq))}')
+import words; words.inject(M['unit'])

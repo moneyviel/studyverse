@@ -1,0 +1,54 @@
+"""Key words + plain clues for JEE word puzzles (crossword, word search, anagram, concept sudoku).
+Run `python3 words.py` to write them into every built unit JSON (build_unit.py also calls inject())."""
+import json, os
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+WORDS = {
+ 'phy-u01': [('Dimension', 'Powers of mass, length and time that make up a quantity'), ('Vernier', 'Sliding scale that reads lengths finer than the main scale'),
+   ('Parallax', 'Apparent shift of an object when seen from two places'), ('Precision', 'How closely repeated readings agree with one another'), ('Accuracy', 'How close a measurement is to the true value'),
+   ('Least count', 'Smallest reading an instrument can measure'), ('Zero error', 'Reading shown by an instrument when the true value is nothing'), ('Pitch', 'Distance a screw moves forward in one full turn'),
+   ('Kelvin', 'Base unit of temperature'), ('Candela', 'Base unit of luminous intensity'), ('Mole', 'Base unit for the amount of a substance'), ('Ampere', 'Base unit of electric current'),
+   ('Systematic', 'Kind of error that always pushes readings the same way'), ('Random', 'Kind of error that scatters readings both ways'), ('Significant', 'Kind of figures that carry real meaning in a measured value')],
+ 'phy-u12': [('Resistance', 'Opposition a conductor offers to current'), ('Resistivity', 'Resistance property of a material that does not depend on its shape'), ('Drift', 'Slow average velocity of electrons in a wire'),
+   ('Ohm', 'Unit of resistance'), ('Potentiometer', 'Instrument that compares emfs without drawing current'), ('Wheatstone', 'Bridge of four resistors balanced by a galvanometer'),
+   ('Kirchhoff', 'Scientist whose junction and loop rules solve circuits'), ('Junction', 'Point where three or more wires meet'), ('Emf', 'Energy given per unit charge by a cell'), ('Internal', 'Kind of resistance inside a cell itself'),
+   ('Conductance', 'Reciprocal of resistance'), ('Galvanometer', 'Sensitive meter that detects small currents'), ('Series', 'Arrangement where the same current flows through every resistor'),
+   ('Parallel', 'Arrangement where every resistor has the same voltage'), ('Mobility', 'Drift speed per unit electric field')],
+ 'phy-u17': [('Photon', 'Packet of light energy'), ('Threshold', 'Lowest frequency that can eject an electron'), ('Work function', 'Least energy needed to pull an electron out of a metal'),
+   ('Stopping', 'Kind of potential that just stops the fastest photoelectrons'), ('Photoelectron', 'Electron knocked out of a metal by light'), ('Broglie', 'Physicist who said moving matter has a wavelength'),
+   ('Davisson', 'Scientist whose electron diffraction proved matter waves'), ('Germer', 'Partner of Davisson in the electron diffraction test'), ('Intensity', 'Brightness of light that sets the number of photons'),
+   ('Momentum', 'Mass times velocity of a particle'), ('Einstein', 'Scientist who explained the photoelectric effect'), ('Planck', 'Constant that links photon energy with frequency'),
+   ('Duality', 'Idea that light and matter behave as both wave and particle'), ('Saturation', 'Kind of current that no longer rises with voltage')],
+ 'chem-u01': [('Mole', 'Amount of substance with Avogadro number of particles'), ('Avogadro', 'Scientist whose number counts particles in a mole'), ('Molarity', 'Moles of solute per litre of solution'),
+   ('Molality', 'Moles of solute per kilogram of solvent'), ('Limiting', 'Kind of reagent that runs out first'), ('Empirical', 'Kind of formula with the simplest whole number ratio'),
+   ('Stoichiometry', 'Calculation of amounts using a balanced equation'), ('Isotope', 'Atom of the same element with a different mass'), ('Solute', 'Substance dissolved in a solution'),
+   ('Solvent', 'Substance that does the dissolving'), ('Titration', 'Lab method to find a concentration with a burette'), ('Dalton', 'Scientist of the early atomic theory'),
+   ('Excess', 'Kind of reagent left over after a reaction'), ('Molecular', 'Kind of formula showing the real number of atoms')],
+ 'chem-u02': [('Orbital', 'Region where an electron is most likely to be found'), ('Photon', 'Packet of light energy'), ('Spin', 'Quantum number that can be plus or minus half'),
+   ('Aufbau', 'Principle of filling lower energy orbitals first'), ('Hund', 'Rule that electrons pair up only after each orbital has one'), ('Pauli', 'Principle that no two electrons share all four quantum numbers'),
+   ('Node', 'Place where the chance of finding an electron is zero'), ('Lyman', 'Spectral series in the ultraviolet'), ('Balmer', 'Spectral series in visible light'), ('Paschen', 'Spectral series in the infrared'),
+   ('Bohr', 'Scientist who gave fixed orbits to the electron'), ('Heisenberg', 'Scientist of the uncertainty principle'), ('Degenerate', 'Orbitals that have equal energy'),
+   ('Azimuthal', 'Quantum number that gives the subshell shape'), ('Rydberg', 'Constant used in the hydrogen spectrum formula')],
+ 'chem-u08': [('Catalyst', 'Substance that speeds up a reaction without being used up'), ('Activation', 'Kind of energy needed to start a reaction'), ('Arrhenius', 'Scientist whose equation links rate constant and temperature'),
+   ('Half life', 'Time for half of a reactant to be used up'), ('Order', 'Sum of powers of concentrations in a rate law'), ('Molecularity', 'Number of molecules taking part in an elementary step'),
+   ('Elementary', 'Kind of reaction that happens in a single step'), ('Rate', 'Change in concentration per unit time'), ('Intermediate', 'Species formed in one step and used up in a later step'),
+   ('Collision', 'Theory that molecules must hit each other to react'), ('Frequency', 'Kind of factor also called the pre exponential factor'), ('Zero', 'Order of a reaction whose rate does not depend on concentration'),
+   ('First', 'Order of a reaction with a constant half life'), ('Pseudo', 'Kind of first order reaction where one reactant is in large excess')],
+ 'math-u03': [('Matrix', 'Rectangular table of numbers'), ('Determinant', 'Number that tells whether a square matrix can be inverted'), ('Adjoint', 'Transpose of the matrix of cofactors'),
+   ('Inverse', 'Matrix that gives the identity when multiplied'), ('Transpose', 'Matrix made by swapping rows and columns'), ('Singular', 'Kind of matrix whose determinant is zero'),
+   ('Symmetric', 'Matrix equal to its own transpose'), ('Skew', 'Kind of symmetric matrix equal to minus its transpose'), ('Trace', 'Sum of the diagonal elements'), ('Cofactor', 'Signed minor of an element'),
+   ('Identity', 'Square matrix with ones on the diagonal and zeros elsewhere'), ('Cramer', 'Rule that solves equations with determinants'), ('Consistent', 'Kind of system that has at least one solution'),
+   ('Homogeneous', 'Kind of system whose right side is all zeros'), ('Minor', 'Determinant left after deleting a row and a column')],
+ 'math-u06': [('Arithmetic', 'Kind of progression with a common difference'), ('Geometric', 'Kind of progression with a common ratio'), ('Telescoping', 'Kind of sum where middle terms cancel'),
+   ('Infinite', 'Kind of geometric series that can add up when the ratio is small'), ('Ratio', 'Number each term of a geometric progression is multiplied by'), ('Difference', 'Number added to get the next term of an arithmetic progression'),
+   ('Mean', 'Average of numbers'), ('Harmonic', 'Kind of progression whose reciprocals form an arithmetic progression'), ('Gauss', 'Mathematician who paired numbers to add them quickly'),
+   ('Series', 'Sum of the terms of a sequence'), ('Sequence', 'Ordered list of numbers following a rule'), ('Converge', 'What a series does when its sum approaches a limit'),
+   ('Term', 'Each number in a sequence'), ('Inequality', 'The arithmetic mean is never less than the geometric mean')],
+}
+def inject(uid=None):
+    for u, w in WORDS.items():
+        if uid and u != uid: continue
+        s, n = u.split('-'); f = os.path.join(ROOT, f'content/jee/{s}/{n}.json')
+        if not os.path.exists(f): continue
+        d = json.load(open(f)); d['words'] = [list(x) for x in w]
+        json.dump(d, open(f, 'w'), ensure_ascii=False, separators=(',', ':'))
+if __name__ == '__main__': inject(); print('words written for', ', '.join(WORDS))
