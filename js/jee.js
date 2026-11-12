@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -401,6 +401,7 @@
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
+        gibbs: ['🎲 Spontaneity Explorer', 'Set ΔH, ΔS and the temperature and watch ΔG = ΔH − TΔS cross zero — the four sign cases come alive. 5 missions.', () => gibbsLab(uid)],
         galvanic: ['🔋 Galvanic Cell Builder', 'Pick two metals and the ion concentrations — see which is the anode, the electron flow, E°, the Nernst emf and ΔG. 5 missions.', () => galvanicLab(uid)],
         shift: ['⚖️ Equilibrium Syringe', 'Heat, squeeze or add gas to N₂O₄ ⇌ 2NO₂ and watch the colour, α, Q and K respond — Le Chatelier live. 5 missions.', () => shiftLab(uid)],
         mixer: ['🧪 Solution Mixer', 'Dissolve glucose, urea, NaCl or CaCl₂ in water and watch freezing point, boiling point, osmotic pressure and vapour pressure change with the number of particles. 5 missions.', () => mixLab(uid)],
@@ -1129,6 +1130,43 @@
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['gc_' + kk] ? 'ok' : ''}">${done['gc_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
+  }
+
+  /* ---------- Try it yourself: Chemical Thermodynamics ---------- */
+  function gibbsLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { H: 40, S: 100, T: 300 };
+    const G = T => st.H - T * st.S / 1000;
+    const MIS = [['always', 'Make a reaction spontaneous at EVERY temperature', x => x.H < 0 && x.S > 0],
+      ['never', 'Make one that is never spontaneous, however hot or cold', x => x.H > 0 && x.S < 0],
+      ['melt', 'Like melting ice: ΔH > 0 with the crossover at 273 K (± 5 K)', x => x.H > 0 && x.S > 0 && Math.abs(x.H * 1000 / x.S - 273) <= 5],
+      ['cold', 'Exothermic, spontaneous at your T, but NOT at 1500 K', x => x.H < 0 && x.g < 0 && G(1500) > 0],
+      ['eq', 'Put the reaction exactly at equilibrium at your T (|ΔG| < 0.5 kJ)', x => Math.abs(x.g) < 0.5]];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🎲 Spontaneity Explorer</h3>
+      <p class="jx-fine">ΔG = ΔH − TΔS. Set ΔH and ΔS, then move the temperature. Below the axis (green) the reaction runs on its own; above it (red) it does not.</p>
+      <svg viewBox="0 0 320 190" class="jx-circ" id="jxG" style="max-width:360px;background:#f8fafc;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+      <label class="jx-sl"><span>ΔH <b id="v_H">${st.H} kJ</b></span><input type="range" min="-200" max="200" step="2" value="${st.H}" data-k="H"></label>
+      <label class="jx-sl"><span>ΔS <b id="v_S">${st.S} J/K</b></span><input type="range" min="-300" max="300" step="2" value="${st.S}" data-k="S"></label>
+      <label class="jx-sl"><span>Temperature <b id="v_T">${st.T} K</b></span><input type="range" min="50" max="1500" step="1" value="${st.T}" data-k="T"></label>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + { H: ' kJ', S: ' J/K', T: ' K' }[i.dataset.k]; upd(); });
+    const upd = () => {
+      const X = T => 34 + T / 1500 * 270, Y = g => 95 - Math.max(-85, Math.min(85, g)) * 0.9, g = G(st.T), Tc = st.S !== 0 ? st.H * 1000 / st.S : null;
+      let path = ''; for (let T = 0; T <= 1500; T += 15) path += (T ? 'L' : 'M') + X(T).toFixed(1) + ' ' + Y(G(T)).toFixed(1);
+      $('#jxG').innerHTML = `<rect x="34" y="18" width="270" height="77" fill="#fee2e2" opacity=".6"/><rect x="34" y="95" width="270" height="77" fill="#dcfce7" opacity=".7"/>
+        <line x1="34" x2="304" y1="95" y2="95" stroke="#334155"/><line x1="34" x2="34" y1="14" y2="176" stroke="#334155"/>
+        <text x="300" y="30" font-size="9" text-anchor="end" fill="#b91c1c">non-spontaneous</text><text x="300" y="168" font-size="9" text-anchor="end" fill="#15803d">spontaneous</text>
+        <text x="8" y="22" font-size="9" fill="#334155">ΔG</text><text x="304" y="186" font-size="9" text-anchor="end" fill="#334155">T (K) → 1500</text><text x="34" y="186" font-size="9" fill="#334155">0</text>
+        <path d="${path}" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+        ${Tc !== null && Tc > 0 && Tc < 1500 ? `<line x1="${X(Tc)}" x2="${X(Tc)}" y1="18" y2="172" stroke="#f59e0b" stroke-dasharray="3 3"/><text x="${X(Tc) + 3}" y="${Tc > 1100 ? 52 : 108}" font-size="9" fill="#b45309" ${Tc > 1100 ? 'text-anchor="end"' : ''}>${Math.round(Tc)} K</text>` : ''}
+        <circle cx="${X(st.T)}" cy="${Y(g)}" r="6" fill="${g < 0 ? '#16a34a' : '#dc2626'}" stroke="#fff" stroke-width="2"/>`;
+      $('#jxRead').innerHTML = `<span>ΔG at ${st.T} K <b>${g.toFixed(1)} kJ</b></span><span>${g < 0 ? '✅ spontaneous' : Math.abs(g) < 0.5 ? '⚖️ equilibrium' : '⛔ not spontaneous'}</span><span>crossover <b>${Tc !== null && Tc > 0 ? Math.round(Tc) + ' K' : 'none'}</b></span>`;
+      const x = { ...st, g };
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['gb_' + kk] && tt(x)) { done['gb_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['gb_' + kk] ? 'ok' : ''}">${done['gb_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
   }
 
   /* ---------- Try it yourself: Matrices and Determinants ---------- */

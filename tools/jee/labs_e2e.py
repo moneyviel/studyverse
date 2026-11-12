@@ -170,6 +170,13 @@ async def _(pg):
     await tap(pg, '[data-l="Mg"]'); await tap(pg, '[data-r="Ag"]')                       # E° 3.17
     await tap(pg, '[data-l="Cu"]'); await tap(pg, '[data-r="Zn"]')                       # flip
     await tap(pg, '[data-l="Cu"]'); await tap(pg, '[data-r="Cu"]'); await setr(pg, '[data-k="cL"]', -3); await setr(pg, '[data-k="cR"]', 0)   # conc cell
+@lab('chem-u04', 'gibbs')
+async def _(pg):
+    await setr(pg, '[data-k="H"]', -40); await setr(pg, '[data-k="S"]', 100)          # always
+    await setr(pg, '[data-k="H"]', 40); await setr(pg, '[data-k="S"]', -100)          # never
+    await setr(pg, '[data-k="H"]', 6); await setr(pg, '[data-k="S"]', 22)             # crossover 273
+    await setr(pg, '[data-k="H"]', -100); await setr(pg, '[data-k="S"]', -100); await setr(pg, '[data-k="T"]', 300)   # cold
+    await setr(pg, '[data-k="T"]', 1000)                                               # equilibrium
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
