@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -400,6 +400,7 @@
         pv: ['🔥 P–V Process Lab', 'Take a gas through isothermal, adiabatic, isobaric and isochoric steps and watch Q, W and ΔU add up — build an engine, a fridge and a Carnot cycle. 5 missions.', () => pvLab(uid)],
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
+        spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
         planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
         pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
@@ -939,6 +940,49 @@
       $('#jxRead').innerHTML = `<span>λ <b>${L}</b></span><span>B along <b>${x.Bn}</b></span><span>B₀ <b>${(x.B0 * 1e7).toFixed(2)} × 10⁻⁷ T</b></span><span>intensity <b>${x.I.toFixed(1)} W/m²</b></span>`;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['em_' + kk] && tt(x)) { done['em_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['em_' + kk] ? 'ok' : ''}">${done['em_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Atoms and Nuclei ---------- */
+  function spectraLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { Z: 1, hi: 3, lo: 2, seen: {} }, SER = { 1: 'Lyman', 2: 'Balmer', 3: 'Paschen', 4: 'Brackett', 5: 'Pfund' }, ION = { 1: 'H', 2: 'He⁺', 3: 'Li²⁺' };
+    const En = (n, Z) => -13.6 * Z * Z / (n * n), lam = (h, l, Z) => 1239.84 / (En(h, Z) - En(l, Z));
+    const col = L => L < 380 ? '#a78bfa' : L < 450 ? '#7c3aed' : L < 495 ? '#3b82f6' : L < 570 ? '#22c55e' : L < 590 ? '#eab308' : L < 620 ? '#f97316' : L <= 750 ? '#ef4444' : '#7f1d1d';
+    const band = L => L < 380 ? 'ultraviolet' : L <= 750 ? 'visible' : 'infrared';
+    const last = () => st.last;
+    const MIS = [['red', 'Make the famous RED line of hydrogen (≈ 656 nm)', x => x.last && x.last.Z === 1 && Math.abs(x.last.L - 656.1) < 1.5],
+      ['uv', 'Make an ultraviolet line of the Lyman series', x => x.last && x.last.l === 1 && x.last.L < 380],
+      ['ir', 'Make an infrared line (λ > 750 nm)', x => x.last && x.last.L > 750],
+      ['he', 'With He⁺, emit exactly the same wavelength as hydrogen\'s first Lyman line (121.6 nm)', x => x.last && x.last.Z === 2 && Math.abs(x.last.L - lam(2, 1, 1)) < 0.05],
+      ['four', 'Collect all four VISIBLE lines of hydrogen', x => [3, 4, 5, 6].every(n => x.seen['1:' + n + ':2'])]];
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🌈 Spectrum Lab</h3>
+        <p class="jx-fine">Pick an atom, an upper level and a lower level, then press <b>Emit</b>. The electron falls, and a photon flies out with energy E<sub>upper</sub> − E<sub>lower</sub>. Its colour shows on the spectrum strip.</p>
+        <div class="jx-seg3">${[1, 2, 3].map(z => `<button data-z="${z}" class="${z === st.Z ? 'on' : ''}">${ION[z]}</button>`).join('')}</div>
+        <svg viewBox="0 0 320 252" class="jx-circ" id="jxSp" style="max-width:360px;background:#0f172a;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+        <div class="jx-fine" style="margin-top:6px">Upper level</div><div class="jx-seg3" style="flex-wrap:wrap">${[2, 3, 4, 5, 6, 7].map(n => `<button data-hi="${n}" class="${n === st.hi ? 'on' : ''}">n = ${n}</button>`).join('')}</div>
+        <div class="jx-fine">Lower level</div><div class="jx-seg3" style="flex-wrap:wrap">${[1, 2, 3, 4, 5, 6].map(n => `<button data-lo="${n}" class="${n === st.lo ? 'on' : ''}">n = ${n}</button>`).join('')}</div>
+        <button class="jx-btn wide" id="jxEmit" style="margin-top:8px">⚡ Emit photon</button>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { tap(); st.Z = +b.dataset.z; draw(); });
+      el.querySelectorAll('[data-hi]').forEach(b => b.onclick = () => { tap(); st.hi = +b.dataset.hi; draw(); });
+      el.querySelectorAll('[data-lo]').forEach(b => b.onclick = () => { tap(); st.lo = +b.dataset.lo; draw(); });
+      $('#jxEmit').onclick = () => { if (st.lo >= st.hi) return toast('The lower level must be BELOW the upper one'); tap(); const L = lam(st.hi, st.lo, st.Z); st.last = { Z: st.Z, h: st.hi, l: st.lo, L }; st.seen[st.Z + ':' + st.hi + ':' + st.lo] = L; upd(); };
+      upd();
+    };
+    const upd = () => {
+      const Z = st.Z, y = n => 196 - (En(n, Z) - En(1, Z)) / (-En(1, Z)) * 176, x0 = 20, x1 = 170, L = last();
+      const lv = [1, 2, 3, 4, 5, 6, 7].map(n => `<line x1="${x0}" x2="${x1}" y1="${y(n)}" y2="${y(n)}" stroke="${n === st.hi || n === st.lo ? '#facc15' : '#475569'}" stroke-width="${n === st.hi || n === st.lo ? 2 : 1}"/>${n <= 4 || n === st.hi ? `<text x="${x1 + 4}" y="${y(n) + 3}" fill="${n === st.hi || n === st.lo ? '#facc15' : '#94a3b8'}" font-size="8">n=${n} ${En(n, Z).toFixed(2)} eV</text>` : ''}`).join('') + `<text x="${x1 + 4}" y="${y(7) - 8}" fill="#64748b" font-size="7">n = 5, 6, 7 crowd near 0 eV</text>`;
+      const arrow = L && L.Z === Z ? `<line x1="95" x2="95" y1="${y(L.h)}" y2="${y(L.l)}" stroke="${col(L.L)}" stroke-width="3"/><circle cx="95" cy="${y(L.l)}" r="4" fill="${col(L.L)}"/>` : '';
+      const strip = Array.from({ length: 40 }, (_, i) => { const w = 380 + i * 9.25; return `<rect x="${20 + i * 7}" y="216" width="7.2" height="10" fill="${col(w)}"/>`; }).join('');
+      const marks = Object.entries(st.seen).filter(([k]) => +k.split(':')[0] === Z).map(([, w]) => w >= 380 && w <= 750 ? `<line x1="${20 + (w - 380) / 370 * 280}" x2="${20 + (w - 380) / 370 * 280}" y1="212" y2="230" stroke="#fff" stroke-width="2"/>` : '').join('');
+      $('#jxSp').innerHTML = lv + arrow + strip + marks + `<text x="20" y="244" fill="#94a3b8" font-size="8">visible strip 380–750 nm (white marks = lines you made)</text>`;
+      $('#jxRead').innerHTML = L ? `<span>${ION[L.Z]} ${L.h} → ${L.l}</span><span>${SER[L.l] || ''} series</span><span>E = <b>${(En(L.h, L.Z) - En(L.l, L.Z)).toFixed(2)} eV</b></span><span>λ = <b>${L.L.toFixed(1)} nm</b> (${band(L.L)})</span>` : '<span>No photon yet — press Emit</span>';
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['at_' + kk] && tt(st)) { done['at_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['at_' + kk] ? 'ok' : ''}">${done['at_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
   }

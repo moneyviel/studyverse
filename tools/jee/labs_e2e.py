@@ -142,6 +142,11 @@ async def _(pg):
     await tap(pg, '[data-dir="-1"]'); await tap(pg, '[data-e="-z"]')     # travel −x, E −z → B −y
     await setr(pg, '[data-k="E0"]', 200)                                 # 53 W/m²
     await setr(pg, '[data-k="fi"]', 12)                                  # 2000 MHz → 15 cm
+@lab('phy-u18', 'spectra')
+async def _(pg):
+    async def emit(z, hi, lo): await tap(pg, f'[data-z="{z}"]'); await tap(pg, f'[data-hi="{hi}"]'); await tap(pg, f'[data-lo="{lo}"]'); await tap(pg, '#jxEmit')
+    await emit(1, 3, 2); await emit(1, 4, 1); await emit(1, 5, 3); await emit(2, 4, 2)
+    for hi in (4, 5, 6): await emit(1, hi, 2)
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
