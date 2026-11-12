@@ -29,7 +29,7 @@
   /* Owner mode: open the app with ?owner and enter the passcode. It only unlocks the "Owner tools" card (switch course
      and CA level, see every level) on this device. The passcode sits in this file, so it is NOT real security —
      it just keeps students from switching by accident. Real roles arrive with the backend. */
-  const OWNER = () => { try { return localStorage.getItem('sv_owner') === '1'; } catch (e) { return false; } };
+  const OWNER = () => { try { return localStorage.getItem('sv_owner') === '1' || !!(window.Cloud && Cloud.admin && Cloud.admin()); } catch (e) { return false; } };
   const LIVE_LEVELS = ['foundation'];                       // students see CA Foundation only for now
   const levelOK = k => OWNER() || LIVE_LEVELS.includes(k);
   const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
@@ -982,7 +982,7 @@
     return `<div class="card ca-owner" id="caOwner"><h2 class="ca-h2s">🔑 Owner tools</h2><p class="sub">Only visible in owner mode on this device. Students cannot switch course or level.</p>
       <h3 class="ca-h3">Course</h3><div class="ca-btns"><button class="btn ghost" id="caOwSchool" ${isCA() ? '' : 'disabled'}>School mode (Grades 1–12)</button><button class="btn ghost" id="caOwCA" ${isCA() ? 'disabled' : ''}>CA mode</button></div>
       <h3 class="ca-h3">CA level</h3><div class="ca-seg ca-segw" role="radiogroup" aria-label="CA level">${LEVELS.map(([k, n]) => `<button role="radio" aria-checked="${k === c.level}" tabindex="${k === c.level ? 0 : -1}" data-l="${k}">${n}</button>`).join('')}</div>
-      <div style="height:10px"></div><button class="btn ghost" id="caOwOff">Turn owner mode off</button></div>`;
+      <div style="height:10px"></div><button class="btn ghost" id="caOwOff" ${window.Cloud && Cloud.admin && Cloud.admin() ? 'hidden' : ''}>Turn owner mode off</button></div>`;
   }
   function wireOwner(again) {
     const box = D.getElementById('caOwner'); if (!box) return;
@@ -1083,6 +1083,20 @@
   /* every CA screen is a history route (Back returns to it — see Nav in js/app.js); 'world' = the CA home */
   if (window.Nav) { home = Nav.route('world', home); paper = Nav.route('ca.paper', paper); unit = Nav.route('ca.unit', unit); weakScreen = Nav.route('ca.weak', weakScreen);
     groupScreen = Nav.route('ca.group', groupScreen); profile = Nav.route('ca.profile', profile); caSetup = Nav.route('onboard', caSetup); }
+  /* Gappu for CA: answers only from the built (checked) CA units of the current level — every concept, with its analogy and real-work note */
+  if (window.Ask && Ask.provider) Ask.provider({ name: 'ca', label: 'CA study material', active: isCA, key: () => C().level,
+    examples: ['What is double entry?', 'Difference between capital and revenue expenditure', 'What is a contract?'],
+    async load() {
+      const st = await structure(C().level), out = [];
+      for (const p of st.papers) for (const c of p.chapters) for (const u of c.units) {
+        if (u.status !== 'built') continue; let d = null; try { d = await unitData(u.id); } catch (e) {} if (!d) continue;
+        (d.concepts || []).forEach(x => out.push({ id: u.id + '#' + x.id, title: x.title, sub: `Paper ${p.key.replace('p', '')} · ${p.name}`, ch: `${c.title} · ${u.title}`,
+          fields: [[x.title, 4], [u.title, 1], [c.title, 0.6], [(u.topics || []).join(' '), 0.5], [x.body, 1.5], [x.analogy, 0.6], [x.work, 0.6]],
+          html: (x.body || []).map(t => `<p>${esc(t)}</p>`).join('') + (x.analogy ? `<p><b>Think of it like this:</b> ${esc(x.analogy)}</p>` : '') + (x.work ? `<p><b>In real CA work:</b> ${esc(x.work)}</p>` : ''),
+          open: () => openRef(u.id, x.id, x.title) }));
+      }
+      return out;
+    } });
   window.Ca = { home, paper, unit, openQuestion, weak: weakScreen, group: groupScreen, setup: caSetup, profile, isCA,
     /* Shape of a written answer for a future AI checker panel (backend). */
     submission(uid, qid, i = -1) { const h = C().writes[`${uid}#${qid}`] || []; const a = h.at(i); if (!a) return null;

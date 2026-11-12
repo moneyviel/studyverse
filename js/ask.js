@@ -19,7 +19,21 @@
   const toks = s => String(s || '').toLowerCase().replace(/[’']/g, '').split(/[^a-z0-9ऀ-ॿ]+/).filter(w => w && !STOP.has(w)).map(stem);
   const asText = v => Array.isArray(v) ? v.map(asText).join(' ') : (v && typeof v === 'object') ? Object.values(v).map(asText).join(' ') : String(v || '');
 
+  /* course providers: CA, JEE and every future course plug their own checked content in here (Ask.provider) */
+  const PROV = [];
+  const cur = () => { for (const p of PROV) { try { if (p.active()) return p; } catch (e) {} } return null; };
+  let lastProv = null;
   async function loadIndex() {
+    const P = cur();
+    if (P) {
+      const key = 'p:' + P.name + ':' + (P.key ? P.key() : '');
+      if (docs && docsKey === key) return;
+      let items = []; try { items = await P.load(); } catch (e) { items = []; }
+      docs = []; df = {};
+      items.forEach(it => { const tf = {}; let len = 0; (it.fields || []).forEach(([txt, w]) => toks(asText(txt)).forEach(t => { tf[t] = (tf[t] || 0) + w; len += w; }));
+        const doc = { kind: 't', t: { id: it.id, t: it.title, sn: it.sub, ch: it.ch, P, it }, tf, len: len || 1 }; Object.keys(tf).forEach(t => df[t] = (df[t] || 0) + 1); docs.push(doc); });
+      avgLen = docs.reduce((a, d) => a + d.len, 0) / (docs.length || 1); docsKey = key; return;
+    }
     const g = ST.profile.grade, subs = curSubjects(g).map(s => s.id), key = g + ':' + subs.join(',');
     if (docs && docsKey === key) return;
     await Promise.all(subs.map(async sid => { const k = `g${g}-${sid}`; if (!IDX[k]) { try { IDX[k] = await (await fetch(`content/index/${k}.json`)).json(); } catch (e) { IDX[k] = { topics: [], qa: [] }; } } }));
@@ -89,13 +103,21 @@
     hello();
   }
   function hello() {
+    const P = cur();
+    if (P !== lastProv) { log.innerHTML = ''; lastProv = P; }
     if (log.children.length) return;
+    if (P) { log.innerHTML = `<div class="ask-msg bot"><div class="ask-bubble">Hi ${esc((ST.profile?.name || '').split(' ')[0])}! 👋 I'm Gappu. Ask me any doubt from your ${esc(P.label)}. For example: ${P.examples.map(x => `<i>"${esc(x)}"</i>`).join(', ')}. Tap 🎤 to speak.</div></div>`; return; }
     log.innerHTML = `<div class="ask-msg bot"><div class="ask-bubble">Hi ${esc(ST.profile?.name || '')}! 👋 Ask me any doubt from your Grade ${ST.profile?.grade} lessons. For example: <i>"What is photosynthesis?"</i>, <i>"How do I find the area of a triangle?"</i> or <i>"25% of 80"</i>. Tap 🎤 to speak.</div></div>`;
   }
-  function open() { build(); sheet.classList.add('show'); setTimeout(() => input.focus(), 250); loadIndex(); }
+  function open() { build(); hello(); const P = cur(); try { $('#askSheet .ask-head small').textContent = P ? `Answers come only from your checked ${P.label}` : 'Answers come only from your checked lessons'; } catch (e) {} sheet.classList.add('show'); setTimeout(() => input.focus(), 250); loadIndex(); }
   function close() { sheet.classList.remove('show'); try { ReadAlong.stop(); } catch (e) {} }
   const li = (arr) => (arr || []).filter(Boolean).map(x => `<li>${esc(x)}</li>`).join('');
   function card(h, alts) {
+    if (h.t.P) { const t = h.t;
+      return `<div class="ask-card" data-tid="${esc(t.id)}"><div class="ask-src ra-skip">${esc(t.sn)} · ${esc(t.ch)}</div><h3>${esc(t.t)} <button class="spk" data-ra=".ask-card" aria-label="Read aloud">🔊</button></h3>
+        <div class="ask-sec">${t.it.html || ''}</div>${t.it.open ? '<div class="ask-acts ra-skip"><button class="btn ghost ask-open">📖 Open this lesson</button></div>' : ''}
+        ${alts.length ? `<div class="ask-alts ra-skip"><small>Not what you meant? Try:</small>${alts.map(a => `<button class="ask-alt" data-tid="${esc(a.t.id)}">${esc(a.t.t)} <i>${esc(a.t.ch || a.t.sn)}</i></button>`).join('')}</div>` : ''}
+        <div class="ask-trust ra-skip">✔ From your checked ${esc(t.P.label)}</div></div>`; }
     const t = h.t, rv = t.rv || {}, sty = (Worlds.SUBJECT_STYLE[t.s] || {}).e || '📘';
     const qa = h.qa && h.qs >= h.s * .8 ? h.qa : null;
     return `<div class="ask-card" data-tid="${esc(t.id)}">
@@ -112,7 +134,7 @@
       <div class="ask-trust ra-skip">✔ From your reviewed ${esc(t.sn)} lesson</div></div>`;
   }
   function wire(el, hits) {
-    el.querySelectorAll('.ask-open').forEach(b => b.onclick = () => { const t = hits.find(h => h.t.id === b.closest('.ask-card').dataset.tid).t; close(); playTopic(t.s, t.ci, t.ti); });
+    el.querySelectorAll('.ask-open').forEach(b => b.onclick = () => { const t = hits.find(h => h.t.id === b.closest('.ask-card').dataset.tid).t; close(); if (t.P) { try { t.it.open(); } catch (e) {} return; } playTopic(t.s, t.ci, t.ti); });
     el.querySelectorAll('.ask-alt').forEach(b => b.onclick = () => { const h = lastHits.find(x => x.t.id === b.dataset.tid); if (!h) return; const box = document.createElement('div'); box.className = 'ask-msg bot'; box.innerHTML = card(h, []); log.appendChild(box); wire(box, [h]); box.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
   }
   async function ask(raw) {
@@ -125,7 +147,7 @@
     const hits = search(q); lastHits = hits;
     const top = hits[0];
     if (!top || top.cover < .5 || top.score < 2.2) {
-      wait.innerHTML = `<div class="ask-card"><h3>🤔 I couldn't find that in your Grade ${ST.profile.grade} lessons yet.</h3><p class="sub">I only answer from checked lessons, so I won't guess. Try other words, or ask about a topic from your books.</p>
+      wait.innerHTML = `<div class="ask-card"><h3>🤔 I couldn't find that in your ${cur() ? esc(cur().label) : `Grade ${ST.profile.grade} lessons`} yet.</h3><p class="sub">I only answer from checked lessons, so I won't guess. Try other words, or ask about a topic from your books.</p>
         ${hits.length ? `<div class="ask-alts ra-skip"><small>Closest lessons:</small>${hits.slice(0, 3).map(a => `<button class="ask-alt" data-tid="${esc(a.t.id)}">${esc(a.t.t)} <i>${esc(a.t.sn)}</i></button>`).join('')}</div>` : ''}</div>`;
       wire(wait, hits); sfx('hmm'); return;
     }
@@ -133,7 +155,7 @@
     wait.scrollIntoView({ behavior: 'smooth', block: 'start' });
     try { const t = ST.asked = ST.asked || {}; t[top.t.id] = (t[top.t.id] || 0) + 1; save(); } catch (e) {}
   }
-  window.Ask = { open, ask, search: async q => { await loadIndex(); return search(q); }, calc };
+  window.Ask = { open, ask, search: async q => { await loadIndex(); return search(q); }, calc, provider: p => { PROV.push(p); docsKey = ''; } };
   const boot = () => { if (!ST.profile) return setTimeout(boot, 1500); build(); };
   setTimeout(boot, 800);
 })();

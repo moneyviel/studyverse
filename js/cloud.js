@@ -26,7 +26,7 @@
 
   let S = jget('sv_auth', null);                    // session { at, rt, exp, user:{id,email} }
   // owner mode only comes from an owner (admin) account now — the old passcode owner mode is switched off
-  if (get('sv_owner') === '1' && !(jget('sv_cloud', {}).adm && S)) set('sv_owner', null);
+  if (get('sv_owner') === '1' && !S) set('sv_owner', null);   // signed out → no owner mode (an owner session keeps it; owner() re-checks with the server)
   let status = 'off', lastErr = '', recovery = false, busy = false, linked = false, linkMsg = '';
   const one = r => Array.isArray(r) ? r[0] : r;
 
@@ -247,7 +247,7 @@
     try {
       const r = await rest('admins?select=user_id&user_id=eq.' + encodeURIComponent((S && S.user && S.user.id) || '')); if (!Array.isArray(r)) return;
       const adm = r.length > 0, m = meta();
-      if (adm && !m.adm) { set('sv_owner', '1'); say('Owner account — owner mode is on'); }
+      if (adm) { if (get('sv_owner') !== '1' && !m.adm) say('Owner account — owner mode is on'); set('sv_owner', '1'); }   // the owner always sees everything
       if (!adm) set('sv_owner', null);
       if (!!m.adm !== adm) { setMeta(Object.assign(meta(), { adm })); repaintMe(); try { const a = D.querySelector('.screen.active'), typing = D.activeElement && /INPUT|TEXTAREA/.test(D.activeElement.tagName); if (a && a.id === 's-me' && !typing) meScreen(); } catch (e) {} }
     } catch (e) {}

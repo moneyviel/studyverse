@@ -80,9 +80,21 @@
   function screen(nav) {
     let s = D.getElementById('s-jee');
     if (!s) { s = D.createElement('section'); s.className = 'screen'; s.id = 's-jee'; D.querySelector('main').appendChild(s); }
-    show('jee', nav || (NAVP ? 'practice' : 'world')); return s;
+    show('jee', nav || (NAVP ? 'practice' : 'world')); setTimeout(retPill, 0); return s;
   }
   let NAVP = false;   // true while the student is inside the JEE Practice hub (bank, crash course) — keeps the Practice tab lit
+  /* ---------- "Back to your question": a question opened a subject / unit / topic page → Back returns to that exact question ---------- */
+  let INRUN = null, RET = null;
+  const resumeQ = () => { if (!RET) return false; const f = RET; RET = null; try { f(); } catch (e) {} return true; };
+  const leaveQ = () => { if (!INRUN || !D.querySelector('#s-jee .jx-q')) return; RET = INRUN; try { Nav.sub(() => { if (RET) resumeQ(); }); } catch (e) {} };
+  const retPill = () => { const s = D.getElementById('s-jee'); if (!s) return; const old = s.querySelector('.jx-retq'); if (old) old.remove();
+    if (!RET || s.querySelector('.jx-q')) return; const b = D.createElement('button'); b.type = 'button'; b.className = 'jx-retq'; b.textContent = '↩ Back to your question';
+    b.onclick = () => { tap(); resumeQ(); }; s.prepend(b); };
+  D.addEventListener('click', e => {   // leaving from a sheet opened over a question; in-app Back while a question waits
+    const t = e.target.closest ? e.target : null; if (!t) return;
+    if (t.closest('#jxSheet [data-act], #jxSheet [data-u]')) { leaveQ(); return; }
+    const bk = t.closest('#s-jee .jx-back'); if (bk && RET && !/Try it yourself/.test(bk.textContent) && !D.querySelector('#s-jee .jx-q')) { e.preventDefault(); e.stopImmediatePropagation(); tap(); resumeQ(); }
+  }, true);
   const here = (...a) => { try { Nav.here('jee', a); } catch (e) {} };
   const srcTag = s => `JEE Main ${s.y} · ${new Date(s.d + 'T00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })} · Shift ${s.sh}`;
   const pct = (a, b) => b ? Math.round(100 * a / b) : 0;
@@ -111,9 +123,9 @@
         <p>${j.track === 'found' ? `Class ${j.cls} → your first JEE Main is in <b>January ${xii}</b>. Every concept you master now is one less to rush later.` : xii === EXAM && days > 0 ? `<b>${days} days</b> to JEE Main 2027 Session 1 (20 Jan). Session 2: 2–7 April.` : `Target: <b>JEE Main ${Math.max(EXAM, xii)}</b>.`}</p>
         <div class="jx-chips">${mainChip}${advChip}<button class="jx-chip lnk" id="jxElig">Check eligibility</button></div></div>
       <div class="jx-card jx-next"><div><small>Continue</small><b>${SUBJ[LU.split('-')[0]].e} ${esc(unitName(LU))}</b><span>${st.prog}% mastered · ${st.first} solved first time · ${READY[LU].pyq} real JEE questions</span></div><button class="jx-btn" id="jxGo">Open ▶</button></div>
-      <details class="jx-sec" data-sec="path" ${secOpen('path', true)}><summary><h2 class="jx-h">${j.track === 'found' ? '🌱 Foundation path' : j.track === 'main' ? `🧭 Your path — Class ${j.cls} first` : '⚡ Full syllabus — recommended order'}</h2><small>${path(j).filter(x => READY[x[0]]).length}/${path(j).length} ready</small></summary>
+      <details class="jx-sec" data-sec="path" ${secOpen('path', true)}><summary><h2 class="jx-h">${j.track === 'found' ? '🌱 Seed to Summit — your Class 9–10 launchpad' : j.track === 'main' ? `🚀 Mission Class ${j.cls} — your IIT launch sequence` : '⚡ IIT Expressway — all 54 units, smartest order'}</h2><small>${path(j).filter(x => READY[x[0]]).length}/${path(j).length} ready</small></summary>
       <div class="jx-path">${path(j).map(([uid, name, tag], i) => `<button class="jx-pu ${READY[uid] ? 'on' : ''}" data-u="${uid}"><span class="jx-pn">${i + 1}</span><span><b>${esc(name)}</b><small>${tag}</small></span><span class="jx-st">${READY[uid] ? 'Ready' : '🔨 Building'}</span></button>`).join('')}</div></details>
-      <details class="jx-sec" data-sec="syl" ${secOpen('syl', false)}><summary><h2 class="jx-h">📚 Full JEE Main syllabus</h2><small>${Object.keys(READY).length}/${Object.values(SUBJ).reduce((a, x) => a + x.u.length, 0)} units ready</small></summary>
+      <details class="jx-sec" data-sec="syl" ${secOpen('syl', false)}><summary><h2 class="jx-h">🗺️ The Full JEE Map — every unit</h2><small>${Object.keys(READY).length}/${Object.values(SUBJ).reduce((a, x) => a + x.u.length, 0)} units ready</small></summary>
       <div class="jx-subs">${Object.entries(SUBJ).map(([k, s]) => `<details class="jx-sub" style="--c:${s.c}"><summary><span>${s.e}</span><b>${s.n}</b><small>${s.u.length} units · ${s.u.filter((_, i) => READY[uidOf(k, i)]).length} ready</small></summary>
         ${s.u.map((u, i) => { const id = uidOf(k, i); return `<button class="jx-ur ${READY[id] ? 'on' : ''}" data-u="${id}"><span>Unit ${i + 1}</span><b>${esc(u[0])}</b><small>Class ${u[1]}</small><em>${READY[id] ? 'Ready ▶' : 'Building'}</em></button>`; }).join('')}</details>`).join('')}</div></details>
       <button class="jx-card jx-adv" id="jxAdv"><span>🏔️</span><span><b>JEE Advanced</b><small>Paper 1 · Paper 2 — coming soon</small></span><em>Soon</em></button>
@@ -272,8 +284,9 @@
     const el = screen(); const d0 = CACHE[uid];
     const list = o.items ? o.items.slice() : (d0 ? ids.map(id => d0.byId[id]).filter(Boolean).map(q => ({ q, uid })) : []);
     if (!list.length) { toast('Nothing to practise here yet'); return; }
-    let i = o.start > 0 ? o.start : 0; const S = list.map(() => ({}));
+    let i = o.start > 0 ? o.start : 0; const S = list.map(() => ({})); RET = null; const nav0 = NAVP;
     const draw = () => {
+      INRUN = () => { NAVP = nav0; screen(); draw(); };
       const it = list[i], q = it.q, s = S[i], num = q.n !== undefined, d = CACHE[it.uid]; uid = it.uid; TOP = d.topics || TOP1;
       const bm = (J().bm || []).includes(it.uid + '|' + q.id);
       el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← ${esc(o.title || 'Back')}</button>
@@ -289,7 +302,7 @@
             : `<button class="jx-btn wide" id="jxCheck" ${num || s.pick != null ? '' : 'disabled'}>Check answer</button>`}
         </div>
         <div class="jx-nav"><button class="jx-btn ghost" id="jxPrev" ${i ? '' : 'disabled'}>◀ Previous</button><button class="jx-btn" id="jxNext">${i < list.length - 1 ? 'Next ▶' : 'Finish'}</button></div></div>`;
-      $('#jxBack').onclick = () => { tap(); o.back ? o.back() : unit(uid); };
+      $('#jxBack').onclick = () => { tap(); INRUN = null; o.back ? o.back() : unit(uid); };
       wireCrumbs(el);
       $('#jxBm').onclick = () => { const b = J().bm || (J().bm = []), k = it.uid + '|' + q.id, x = b.indexOf(k); if (x < 0) { b.push(k); toast('⭐ Saved to your question bank'); } else b.splice(x, 1); save(); tap(); draw(); };
       el.querySelectorAll('[data-j]').forEach(b => b.onclick = () => { i = +b.dataset.j; draw(); });
@@ -315,7 +328,7 @@
       const done = S.filter(x => x.done).length, right = S.filter(x => x.ok).length;
       el.innerHTML = `<div class="jx"><div class="jx-card jx-sum"><h2>${right === done && done ? '🏆' : '📊'} ${right}/${done} correct</h2><p class="jx-p">${done < list.length ? `${list.length - done} left unanswered. ` : ''}Wrong ones are saved in your Mistake book — fix them later to clear them.</p>
         <button class="jx-btn wide" id="jxAgain">Back to the unit</button></div></div>`;
-      $('#jxAgain').onclick = () => { tap(); o.back ? o.back() : unit(uid); };
+      $('#jxAgain').onclick = () => { tap(); INRUN = null; o.back ? o.back() : unit(uid); };
     };
     draw();
   }
@@ -2029,6 +2042,7 @@
   .jx-next{display:flex;align-items:center;gap:10px;justify-content:space-between}.jx-next small{display:block;color:#6b6795}.jx-next b{display:block;font-size:16px}.jx-next span{font-size:12.5px;color:#4b4878}
   .jx-btn{background:linear-gradient(135deg,#6d28d9,#db2777);color:#fff;border:0;border-radius:12px;padding:10px 14px;font-weight:800;font-size:14.5px;cursor:pointer}
   .jx-btn.wide{width:100%;margin-top:8px}.jx-btn.ghost{background:#f1edff;color:#4c1d95}.jx-btn.sm{padding:6px 10px;font-size:13px}.jx-btn:disabled{opacity:.45;cursor:default}
+  .jx-retq{position:sticky;top:8px;z-index:30;display:block;margin:6px auto 8px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:800;font-size:14px;box-shadow:0 4px 14px #ea580c66;cursor:pointer}
   .jx-back{background:#fff;border:0;color:#5b21b6;font-weight:800;font-size:14px;padding:7px 12px;border-radius:999px;cursor:pointer;margin:2px 0 6px;box-shadow:0 1px 4px #0002}
   .jx>.jx-fine,.jx>.jx-p,#jxBody>.jx-p{background:#ffffffeb;border-radius:12px;padding:8px 10px}.jx-uh{background:#fff;border-radius:16px;padding:12px}
   .jx-path{display:flex;flex-direction:column;gap:6px}.jx-pu{display:flex;align-items:center;gap:10px;background:#f6f4fc;border:1px solid #ece9ff;border-radius:12px;padding:9px 10px;text-align:left;cursor:pointer;font:inherit;color:#5a567f}
@@ -2349,5 +2363,20 @@
   const _practiceJ = practiceScreen;
   practiceScreen = function () { if (active()) return practiceHub(); NAVP = false; return _practiceJ.apply(this, arguments); };
 
+  /* Gappu for JEE: answers only from the checked concept cards, formulas and traps of the ready JEE units */
+  if (window.Ask && Ask.provider) Ask.provider({ name: 'jee', label: 'JEE lessons', active: () => active() || !!D.querySelector('#s-jee.active'), key: () => Object.keys(READY).length,
+    examples: ['What is the parallel axis theorem?', 'Coefficient of restitution', 'Le Chatelier principle'],
+    async load() {
+      const out = [], plain = t => String(t || '').replace(/<[^>]+>/g, ' ').replace(/\\f\{([^{}]*)\}\{([^{}]*)\}/g, '$1/$2').replace(/[\^_]\{([^{}]*)\}/g, '$1');
+      for (const uid of Object.keys(READY)) {
+        let d; try { d = await data(uid); } catch (e) { continue; }
+        const sn = SUBJ[subjOfU(uid)], ch = `Unit ${+uid.split('-u')[1]} · ${unitName(uid)}`, tn = d.topics || {};
+        (d.cards || []).forEach(c => out.push({ id: uid + '#' + c.id, title: c.t, sub: sn.e + ' ' + sn.n, ch, fields: [[c.t, 4], [tn[c.topic], 1.5], [unitName(uid), 1], [plain(c.body.join(' ')), 1.5], [plain(c.check && c.check.q), 0.5]],
+          html: c.body.map(x => `<p>${mx(x)}</p>`).join(''), open: () => { NAVP = false; pop(`t:${uid}:${c.topic}`); } }));
+        (d.formulas || []).forEach((f, k) => out.push({ id: uid + '#f' + k, title: f[0] + ' (formula)', sub: sn.e + ' ' + sn.n, ch, fields: [[f[0], 4], [plain(f[1]), 1], [unitName(uid), 1]],
+          html: `<p class="jx-f">${mx(f[1])}</p>`, open: () => { NAVP = false; unit(uid, 'vault'); } }));
+      }
+      return out;
+    } });
   window.Jee = { home, bank, crash, practiceHub, pop, unit, setup, reopen, elig, mx, data, _run: run, active, plain, cards, arcadePool, livePool, puzzleSubjects, unitInfo, lastUnit, path: filePath, READY };
 })();
