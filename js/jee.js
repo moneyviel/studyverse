@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -396,6 +396,7 @@
         bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
         orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
         orbit: ['🛰️ Orbit Launcher', 'Fire a satellite sideways from Earth, the Moon or Mars: watch it crash, circle, stretch into an ellipse or escape — with live orbital and escape speeds. 5 missions.', () => orbitLab(uid)],
+        charges: ['⚡ Field Line Studio', 'Place two charges, change their size, sign and gap, and probe the field and potential anywhere: find null points, zero-potential points and dipole fields. 5 missions.', () => chargeLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
         planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
         pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
@@ -723,6 +724,68 @@
       $('#jxRead').innerHTML = `<span>v<sub>circular</sub> <b>${x.vc.toFixed(2)} km/s</b></span><span>v<sub>escape</sub> <b>${x.ve.toFixed(2)} km/s</b></span><span>total energy <b>${x.E >= 0 ? '≥ 0' : '< 0 (bound)'}</b></span>${x.kind === 'orbit' ? `<span>period <b>${tt(x.T)}</b></span><span>near/far <b>${(x.rp - 1).toFixed(2)}R / ${(x.ra - 1).toFixed(2)}R</b> (height)</span>` : ''}`;
       let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['gv_' + kk] && t(x)) { done['gv_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['gv_' + kk] ? 'ok' : ''}">${done['gv_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Electrostatics ---------- */
+  function chargeLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}), K = 9e9;
+    const st = { a: 3, b: 1, d: 6, x: 5, y: 4 };
+    const fieldAt = (x, y) => {   // x, y in cm → E (N/C) and V (volts)
+      let ex = 0, ey = 0, v = 0, rmin = 1e9;
+      [[st.a, -st.d / 2], [st.b, st.d / 2]].forEach(([q, cx]) => { if (!q) return; const dx = (x - cx) / 100, dy = y / 100, r = Math.hypot(dx, dy); rmin = Math.min(rmin, r * 100); if (r < 1e-9) return;
+        const f = K * q * 1e-6 / (r * r * r); ex += f * dx; ey += f * dy; v += K * q * 1e-6 / r; });
+      return { ex, ey, E: Math.hypot(ex, ey), v, rmin };
+    };
+    const ref = () => K * Math.max(Math.abs(st.a), Math.abs(st.b), 1) * 1e-6 / 1e-4;   // field of the bigger charge at 1 cm
+    const MIS = [['null', 'Find a NULL point: put P where the field is zero (charges switched on)', x => st.a && st.b && x.rmin > 0.2 && x.E < 1e-6 * ref()],
+      ['up', 'Make the field at P point straight UP (+y) with both charges switched on', x => st.a && st.b && st.y > 0 && Math.abs(x.ex) < 1e-6 * x.E && x.ey > 0],
+      ['dip', 'Build a DIPOLE and put P on its equatorial line: the field there must be parallel to the axis', x => st.a && st.a === -st.b && st.x === 0 && st.y > 0],
+      ['v0', 'With UNEQUAL charges, find a point where V = 0 but E ≠ 0', x => st.a && st.b && Math.abs(st.a) !== Math.abs(st.b) && x.rmin > 0.2 && Math.abs(x.v) < 1e-6 * ref() * 0.01 && x.E > 0],
+      ['big', 'Get |E| at P above 5 × 10⁸ N/C while P stays at least 1 cm from every charge', x => x.rmin >= 1 - 1e-9 && x.E >= 5e8]];
+    const sx = x => x * 10, sy = y => -y * 10;
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>⚡ Field Line Studio</h3>
+        <p class="jx-fine">Two point charges A and B sit on the x-axis. Set their charges and gap, then move the probe P (sliders, or tap the picture). Lines leave + charges and end on − charges.</p>
+        <svg viewBox="-160 -120 320 240" class="jx-circ" id="jxEs" style="max-width:360px;background:#0f172a;border-radius:16px;touch-action:manipulation"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>Charge A <b id="v_a">${st.a} μC</b></span><input type="range" min="-5" max="5" step="1" value="${st.a}" data-k="a"></label>
+        <label class="jx-sl"><span>Charge B <b id="v_b">${st.b} μC</b></span><input type="range" min="-5" max="5" step="1" value="${st.b}" data-k="b"></label>
+        <label class="jx-sl"><span>Gap A–B <b id="v_d">${st.d} cm</b></span><input type="range" min="2" max="12" step="1" value="${st.d}" data-k="d"></label>
+        <label class="jx-sl"><span>Probe P: x <b id="v_x">${st.x} cm</b></span><input type="range" min="-15" max="15" step="0.5" value="${st.x}" data-k="x"></label>
+        <label class="jx-sl"><span>Probe P: y <b id="v_y">${st.y} cm</b></span><input type="range" min="0" max="10" step="0.5" value="${st.y}" data-k="y"></label>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      const unitOf = k => (k === 'a' || k === 'b') ? ' μC' : ' cm';
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + unitOf(i.dataset.k); upd(); });
+      $('#jxEs').onclick = ev => { const bb = ev.currentTarget.getBoundingClientRect(), X = ((ev.clientX - bb.left) / bb.width * 320 - 160) / 10, Y = -((ev.clientY - bb.top) / bb.height * 240 - 120) / 10;
+        st.x = Math.max(-15, Math.min(15, Math.round(X * 2) / 2)); st.y = Math.max(0, Math.min(10, Math.round(Y * 2) / 2)); tap();
+        ['x', 'y'].forEach(k => { const i = el.querySelector(`[data-k="${k}"]`); i.value = st[k]; $('#v_' + k).textContent = st[k] + ' cm'; }); upd(); };
+      upd();
+    };
+    const lines = () => {
+      const out = [], Q = [[st.a, -st.d / 2], [st.b, st.d / 2]];
+      Q.forEach(([q, cx]) => { if (!q) return; const n = Math.min(24, 4 * Math.abs(q)), dir = q > 0 ? 1 : -1;
+        if (dir < 0 && Q.some(([q2]) => q2 > 0)) return;   // lines from + charges already reach the − ones
+        for (let k = 0; k < n; k++) { const th = 2 * Math.PI * (k + 0.5) / n; let x = cx + 0.3 * Math.cos(th), y = 0.3 * Math.sin(th); const pts = [[x, y]];
+          for (let s = 0; s < 500; s++) { let ex = 0, ey = 0, hit = false;
+            Q.forEach(([q2, c2]) => { if (!q2) return; const dx = x - c2, r = Math.hypot(dx, y); if (r < 0.25 && s > 2) hit = true; const f = q2 / (r * r * r); ex += f * dx; ey += f * y; });
+            const m = Math.hypot(ex, ey); if (hit || !m) break; x += dir * 0.2 * ex / m; y += dir * 0.2 * ey / m; pts.push([x, y]); if (Math.abs(x) > 17 || Math.abs(y) > 13) break; }
+          out.push(pts.map((p, i) => (i ? 'L' : 'M') + sx(p[0]).toFixed(1) + ' ' + sy(p[1]).toFixed(1)).join(' ')); } });
+      return out;
+    };
+    const upd = () => {
+      const x = fieldAt(st.x, st.y), col = q => q > 0 ? '#ef4444' : q < 0 ? '#3b82f6' : '#64748b';
+      const L = 28, ux = x.E ? x.ex / x.E : 0, uy = x.E ? x.ey / x.E : 0;
+      $('#jxEs').innerHTML = `<defs><marker id="esA" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#fde047"/></marker></defs>
+        <line x1="-160" y1="0" x2="160" y2="0" stroke="#334155"/>${lines().map(d => `<path d="${d}" fill="none" stroke="#94a3b8" stroke-opacity=".55" stroke-width="1"/>`).join('')}
+        ${[[st.a, -st.d / 2, 'A'], [st.b, st.d / 2, 'B']].map(([q, cx, n]) => `<circle cx="${sx(cx)}" cy="0" r="9" fill="${col(q)}"/><text x="${sx(cx)}" y="4" fill="#fff" font-size="10" text-anchor="middle" font-weight="700">${q > 0 ? '+' : q < 0 ? '−' : '0'}</text><text x="${sx(cx)}" y="22" fill="#cbd5e1" font-size="10" text-anchor="middle">${n}</text>`).join('')}
+        <circle cx="${sx(st.x)}" cy="${sy(st.y)}" r="5" fill="#fde047"/><text x="${sx(st.x) + 7}" y="${sy(st.y) - 7}" fill="#fde047" font-size="11" font-weight="700">P</text>
+        ${x.E ? `<line x1="${sx(st.x)}" y1="${sy(st.y)}" x2="${sx(st.x) + L * ux}" y2="${sy(st.y) - L * uy}" stroke="#fde047" stroke-width="2.5" marker-end="url(#esA)"/>` : ''}`;
+      const f = v => { const a = Math.abs(v); if (a < 1e-3) return '0'; const e = Math.floor(Math.log10(a)), m = v / 10 ** e; return e >= -2 && e <= 3 ? v.toFixed(e < 1 ? 2 : 0) : m.toFixed(2) + ' × 10<sup>' + e + '</sup>'; };
+      $('#jxRead').innerHTML = `<span>|E| at P <b>${x.E < 1e-6 * ref() ? '0 (null point!)' : f(x.E) + ' N/C'}</b></span><span>E<sub>x</sub>, E<sub>y</sub> <b>${f(x.ex)}, ${f(x.ey)}</b></span><span>V at P <b>${Math.abs(x.v) < 1e-8 * ref() ? '0' : f(x.v) + ' V'}</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['es_' + kk] && t(x)) { done['es_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['es_' + kk] ? 'ok' : ''}">${done['es_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
   }

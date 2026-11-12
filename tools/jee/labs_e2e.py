@@ -108,6 +108,16 @@ async def _(pg):
     await setr(pg, '[data-k="h"]', 1); await setr(pg, '[data-k="v"]', 7)
     await setr(pg, '[data-k="h"]', 5.6); await tap(pg, '#jxVc')
     await tap(pg, '[data-p="moon"]'); await setr(pg, '[data-k="h"]', 1); await tap(pg, '#jxVc')
+@lab('phy-u11', 'charges')
+async def _(pg):
+    async def set_(**kw):
+        for k, v in kw.items(): await setr(pg, f'[data-k="{k}"]', v)
+    await set_(a=1, b=4, d=6, x=-1, y=0)            # null point 2 cm from A
+    await set_(a=2, b=2, x=0, y=3)                  # field straight up on the bisector
+    await set_(a=2, b=-2, x=0, y=4)                 # dipole, equatorial line
+    await set_(a=1, b=-2, d=6, x=-1, y=0)           # V = 0, E ≠ 0
+    await set_(a=5, b=-5, d=2, y=0)                 # strong field between opposite charges
+    await tapxy(pg, '#jxEs', 160, 160, 320)         # a tap on the picture centre moves P to (0, 0)
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
