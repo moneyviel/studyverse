@@ -197,6 +197,13 @@ async def _(pg):
     await setr(pg, '[data-k="th"]', 76)                                               # R ≈ H (tan⁻¹4 ≈ 76°)
     await setr(pg, '[data-k="u"]', 18); await setr(pg, '[data-k="th"]', 34)         # R ≈ 30.04 m
     await setr(pg, '[data-k="u"]', 10); await setr(pg, '[data-k="th"]', 0); await setr(pg, '[data-k="h"]', 45)   # 10 × 3 = 30 m
+@lab('phy-u03', 'incline')
+async def _(pg):
+    await setr(pg, '[data-k="F"]', 0); await setr(pg, '[data-k="mu"]', 0.5); await setr(pg, '[data-k="th"]', 27)   # repose
+    await setr(pg, '[data-k="mu"]', 0.2); await setr(pg, '[data-k="th"]', 20)                                       # a ≈ 1.92
+    await setr(pg, '[data-k="th"]', 0)                                                                              # flat, no friction
+    await setr(pg, '[data-k="mu"]', 0.4); await setr(pg, '[data-k="th"]', 45); await setr(pg, '[data-k="F"]', 10)  # hold
+    await setr(pg, '[data-k="mu"]', 0.5); await setr(pg, '[data-k="th"]', 30); await setr(pg, '[data-k="F"]', 25)  # push up
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
