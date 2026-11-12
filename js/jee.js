@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -386,6 +386,8 @@
         photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
         bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
         orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
+        transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
+        planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
         pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
         tele: ['🔭 Telescoping Machine', 'See Gauss\'s staircase turn into a rectangle, then split fractions and cancel neighbours with ✂️ until only the ends survive. 4 missions.', () => teleLab(uid)],
         molemach: ['🥚 Mole Machine', 'Pour grams of water, CO₂, salt or glucose on a balance and watch moles, molecules, atoms and gas volume appear on the mole map. 5 missions.', () => moleLab(uid)],
@@ -659,6 +661,77 @@
     draw();
   }
 
+
+  /* ---------- Try it yourself: Matrices and Determinants ---------- */
+  function transformLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { a: 1, b: 0.5, c: 0, d: 1 };
+    const MIS = [['squash', 'Squash the square flat — make the determinant 0', x => Math.abs(x.D) < 1e-9 && (x.a || x.b || x.c || x.d)],
+      ['rot', 'Rotate the square by 90° (area stays 1)', x => x.a === 0 && x.b === -1 && x.c === 1 && x.d === 0],
+      ['flip', 'Flip it over: get a NEGATIVE determinant', x => x.D < 0],
+      ['four', 'Make the area exactly 4 times bigger', x => Math.abs(Math.abs(x.D) - 4) < 1e-9],
+      ['shear', 'Shear it: slide the top sideways but keep the area 1', x => x.a === 1 && x.d === 1 && x.c === 0 && x.b !== 0]];
+    const sl = (k) => `<label class="jx-sl"><span>${k} <b id="v_${k}">${st[k]}</b></span><input type="range" min="-3" max="3" step="0.5" value="${st[k]}" data-k="${k}"></label>`;
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔀 Matrix Transformer</h3>
+      <p class="jx-fine">A 2 × 2 matrix moves every point of the plane. Watch the grey unit square become the purple shape — its area is |det|.</p>
+      <svg viewBox="-160 -160 320 320" class="jx-circ" id="jxT" style="max-width:330px"></svg><div class="jx-read" id="jxRead"></div>
+      <div class="jx-f" id="jxM" style="text-align:center"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px">${sl('a')}${sl('b')}${sl('c')}${sl('d')}</div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value; upd(); });
+    const upd = () => {
+      const { a, b, c, d } = st, D = a * d - b * c, s = 34, P = (x, y) => [(a * x + b * y) * s, -(c * x + d * y) * s];
+      const grid = [];
+      for (let k = -4; k <= 4; k++) { const [x1, y1] = P(k, -4), [x2, y2] = P(k, 4), [x3, y3] = P(-4, k), [x4, y4] = P(4, k); grid.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><line x1="${x3}" y1="${y3}" x2="${x4}" y2="${y4}"/>`); }
+      const sq = [[0, 0], [1, 0], [1, 1], [0, 1]].map(([x, y]) => P(x, y).join(',')).join(' '), [ix, iy] = P(1, 0), [jx, jy] = P(0, 1);
+      $('#jxT').innerHTML = `<g stroke="#e9d5ff" stroke-width="1">${grid.join('')}</g><line x1="-160" y1="0" x2="160" y2="0" stroke="#94a3b8"/><line x1="0" y1="-160" x2="0" y2="160" stroke="#94a3b8"/>
+        <rect x="0" y="${-s}" width="${s}" height="${s}" fill="#94a3b8" opacity=".35"/>
+        <polygon points="${sq}" fill="${D < 0 ? '#f97316' : '#7c3aed'}" opacity=".55" stroke="${D < 0 ? '#c2410c' : '#5b21b6'}" stroke-width="2"/>
+        <line x1="0" y1="0" x2="${ix}" y2="${iy}" stroke="#dc2626" stroke-width="3"/><line x1="0" y1="0" x2="${jx}" y2="${jy}" stroke="#16a34a" stroke-width="3"/>
+        <text x="${ix + 4}" y="${iy}" font-size="12" fill="#dc2626">î → (${a}, ${c})</text><text x="${jx + 4}" y="${jy - 4}" font-size="12" fill="#16a34a">ĵ → (${b}, ${d})</text>`;
+      $('#jxM').innerHTML = mx(`A = [[${a}, ${b}], [${c}, ${d}]]`);
+      $('#jxRead').innerHTML = `<span>det A <b>${+D.toFixed(3)}</b></span><span>area × <b>${+Math.abs(D).toFixed(3)}</b></span><span>${D === 0 ? '⚠️ singular — no inverse' : D < 0 ? '🔄 orientation flipped' : '✅ invertible'}</span>`;
+      const x = { ...st, D };
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['mt_' + kk] && t(x)) { done['mt_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['mt_' + kk] ? 'ok' : ''}">${done['mt_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+  function planesLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { a1: 1, b1: 1, c1: 4, a2: 1, b2: -1, c2: 0 };
+    const MIS = [['uni', 'Make the two lines cross at exactly one point', x => x.kind === 'unique'],
+      ['none', 'Make the system have NO solution (parallel lines)', x => x.kind === 'none'],
+      ['inf', 'Make it have INFINITELY many solutions (same line)', x => x.kind === 'infinite'],
+      ['pt', 'Make the lines meet at the point (2, 3)', x => x.kind === 'unique' && Math.abs(x.X - 2) < 1e-9 && Math.abs(x.Y - 3) < 1e-9]];
+    const sl = (k, lab) => `<label class="jx-sl"><span>${lab} <b id="v_${k}">${st[k]}</b></span><input type="range" min="-6" max="6" step="1" value="${st[k]}" data-k="${k}"></label>`;
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>📐 Line Meeting Room</h3>
+      <p class="jx-fine">Each equation ax + by = c is a line. D, D<sub>x</sub>, D<sub>y</sub> decide whether they meet once, never, or everywhere.</p>
+      <svg viewBox="-150 -150 300 300" class="jx-circ" id="jxL" style="max-width:320px"></svg><div class="jx-f" id="jxEq" style="text-align:center"></div><div class="jx-read" id="jxRead"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px 10px"><b style="grid-column:1/4;color:#7c3aed">Line 1</b>${sl('a1', 'a₁')}${sl('b1', 'b₁')}${sl('c1', 'c₁')}<b style="grid-column:1/4;color:#f97316">Line 2</b>${sl('a2', 'a₂')}${sl('b2', 'b₂')}${sl('c2', 'c₂')}</div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value; upd(); });
+    const line = (a, b, c, col) => { const s = 20, pts = [];
+      if (b !== 0) { for (const x of [-8, 8]) pts.push([x * s, -(c - a * x) / b * s]); } else if (a !== 0) { const x = c / a; pts.push([x * s, -160], [x * s, 160]); } else return '';
+      return `<line x1="${pts[0][0]}" y1="${pts[0][1]}" x2="${pts[1][0]}" y2="${pts[1][1]}" stroke="${col}" stroke-width="3" opacity=".85"/>`; };
+    const upd = () => {
+      const { a1, b1, c1, a2, b2, c2 } = st, D = a1 * b2 - a2 * b1, Dx = c1 * b2 - c2 * b1, Dy = a1 * c2 - a2 * c1;
+      const kind = D !== 0 ? 'unique' : (Dx !== 0 || Dy !== 0) ? 'none' : 'infinite', X = D ? Dx / D : NaN, Y = D ? Dy / D : NaN, s = 20;
+      const g = []; for (let k = -7; k <= 7; k++) g.push(`<line x1="${k * s}" y1="-150" x2="${k * s}" y2="150"/><line x1="-150" y1="${k * s}" x2="150" y2="${k * s}"/>`);
+      $('#jxL').innerHTML = `<g stroke="#f1f5f9">${g.join('')}</g><line x1="-150" y1="0" x2="150" y2="0" stroke="#94a3b8"/><line x1="0" y1="-150" x2="0" y2="150" stroke="#94a3b8"/>
+        ${line(a1, b1, c1, '#7c3aed')}${line(a2, b2, c2, '#f97316')}${kind === 'unique' && Math.abs(X) < 8 && Math.abs(Y) < 8 ? `<circle cx="${X * s}" cy="${-Y * s}" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>` : ''}`;
+      const f = v => +v.toFixed(3);
+      const lq = (a, b, c) => { const t = (k, v, first) => k === 0 ? '' : (first ? (k < 0 ? '−' : '') : (k < 0 ? ' − ' : ' + ')) + (Math.abs(k) === 1 ? '' : Math.abs(k)) + v; const L = (t(a, 'x', true) + t(b, 'y', a === 0)) || '0'; return L + ' = ' + String(c).replace('-', '−'); };
+      $('#jxEq').innerHTML = `<span style="color:#7c3aed">${lq(a1, b1, c1)}</span> &nbsp; <span style="color:#f97316">${lq(a2, b2, c2)}</span>`;
+      $('#jxRead').innerHTML = `<span>D <b>${D}</b></span><span>D<sub>x</sub> <b>${Dx}</b></span><span>D<sub>y</sub> <b>${Dy}</b></span><span><b>${kind === 'unique' ? `one point (${f(X)}, ${f(Y)})` : kind === 'none' ? 'no solution — parallel' : 'infinitely many — same line'}</b></span>`;
+      const x = { kind, X, Y };
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['pl_' + kk] && t(x)) { done['pl_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['pl_' + kk] ? 'ok' : ''}">${done['pl_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
 
   /* ---------- Try it yourself: Sequence and Series ---------- */
   const gcdJ = (a, b) => { a = Math.abs(a); b = Math.abs(b); while (b) [a, b] = [b, a % b]; return a || 1; };
