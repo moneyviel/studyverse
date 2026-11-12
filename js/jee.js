@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -401,6 +401,7 @@
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
+        shift: ['⚖️ Equilibrium Syringe', 'Heat, squeeze or add gas to N₂O₄ ⇌ 2NO₂ and watch the colour, α, Q and K respond — Le Chatelier live. 5 missions.', () => shiftLab(uid)],
         mixer: ['🧪 Solution Mixer', 'Dissolve glucose, urea, NaCl or CaCl₂ in water and watch freezing point, boiling point, osmotic pressure and vapour pressure change with the number of particles. 5 missions.', () => mixLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
         planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
@@ -1025,6 +1026,56 @@
       $('#jxRead').innerHTML = `<span>${x.g.toFixed(1)} g in ${st.w} kg</span><span>molality <b>${x.m.toFixed(3)} m</b></span><span>i = <b>${x.i}</b></span><span>ΔT<sub>f</sub> <b>${x.dTf.toFixed(2)} K</b></span><span>ΔT<sub>b</sub> <b>${x.dTb.toFixed(2)} K</b></span><span>π (300 K) <b>${x.pi.toFixed(1)} bar</b></span><span>VP lowered by <b>${(x.low * 100).toFixed(1)} %</b></span>`;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['sl_' + kk] && tt(x)) { done['sl_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['sl_' + kk] ? 'ok' : ''}">${done['sl_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Equilibrium ---------- */
+  function shiftLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    // N2O4(g) ⇌ 2NO2(g), ΔH° = +57.2 kJ/mol, Kc(298 K) = 4.6 × 10⁻³ mol/L
+    const st = { T: 298, V: 2, n: 1, ar: 0 }, Kc = T => 4.6e-3 * Math.exp(57200 / 8.314 * (1 / 298 - 1 / T));
+    const solve = s => { const K = Kc(s.T) * s.V, x = (-K / 2 + Math.sqrt(K * K / 4 + 4 * K * s.n)) / 2; return { K: Kc(s.T), x, a: x / 2 / s.n, nA: s.n - x / 2 }; };
+    let last = solve(st), msg = 'Change something — the mixture will push back.';
+    const MIS = [['hot', 'Heat it until at least half of the N₂O₄ has split (α ≥ 50 %)', x => x.a >= 0.5],
+      ['squeeze', 'At room temperature (298 K), squeeze it so that α falls below 5 %', x => st.T === 298 && x.a < 0.05],
+      ['brown', 'Make the gas dark brown: [NO₂] of at least 0.2 mol/L', x => x.x / st.V >= 0.2],
+      ['bigK', 'Make the equilibrium constant Kc bigger than 1', x => x.K > 1],
+      ['argon', 'Pump in argon at fixed volume — see the pressure rise while α stays put', x => st.ar > 0]];
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>⚖️ Equilibrium Syringe</h3>
+        <p class="jx-fine">N₂O₄ (colourless) ⇌ 2NO₂ (brown), ΔH° = +57 kJ mol⁻¹. Heat it, squeeze it or add gas, and watch Le Chatelier's principle at work.</p>
+        <svg viewBox="0 0 320 170" class="jx-circ" id="jxEq" style="max-width:360px;background:#f8fafc;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div><div class="jx-fine" id="jxMsg" style="margin:6px 0;font-weight:600"></div>
+        <label class="jx-sl"><span>Temperature <b id="v_T">${st.T} K</b></span><input type="range" min="250" max="400" step="2" value="${st.T}" data-k="T"></label>
+        <label class="jx-sl"><span>Volume <b id="v_V">${st.V} L</b></span><input type="range" min="0.5" max="10" step="0.5" value="${st.V}" data-k="V"></label>
+        <label class="jx-sl"><span>N₂O₄ put in <b id="v_n">${st.n} mol</b></span><input type="range" min="0.2" max="3" step="0.1" value="${st.n}" data-k="n"></label>
+        <div class="jx-seg3"><button id="jxAr">➕ Argon (fixed V)</button><button id="jxNoAr">Remove argon</button></div>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { change(() => { st[i.dataset.k] = +i.value; }); $('#v_' + i.dataset.k).textContent = i.value + (i.dataset.k === 'T' ? ' K' : i.dataset.k === 'V' ? ' L' : ' mol'); });
+      $('#jxAr').onclick = () => { tap(); change(() => { st.ar += 1; }); };
+      $('#jxNoAr').onclick = () => { tap(); change(() => { st.ar = 0; }); };
+      upd();
+    };
+    const change = f => {   // Q of the old mixture under the new conditions, then let it settle
+      const oldX = last.x; f(); const now = solve(st), nA = st.n - oldX / 2;
+      if (nA > 0) { const Q = (oldX / st.V) ** 2 / (nA / st.V), r = Q / now.K;
+        msg = Math.abs(Math.log(r)) < 0.01 ? '⚖️ Q = K — no shift.' : r < 1 ? '➡️ Q < K → shifts forward (more NO₂).' : '⬅️ Q > K → shifts backward (more N₂O₄).'; }
+      last = now; upd();
+    };
+    const upd = () => {
+      const x = last, cN = x.x / st.V, ptot = (x.nA + x.x + st.ar) * 0.0821 * st.T / st.V, brown = Math.min(1, cN / 0.25), W = 40 + st.V / 10 * 170;
+      const dots = [[x.nA, '#64748b'], [x.x, '#c2410c'], [st.ar, '#7c3aed']].flatMap(([n, c]) => Array(Math.min(30, Math.round(n * 12))).fill(c)), cols = Math.max(2, Math.floor((W - 12) / 9)), rows = Math.max(1, Math.ceil(dots.length / cols)), dy = Math.min(14, 78 / rows);
+      const mol = () => dots.map((c, k) => `<circle cx="${30 + (k % cols) * ((W - 16) / cols)}" cy="${34 + Math.floor(k / cols) * dy}" r="${dy < 6 ? 2.4 : 3.2}" fill="${c}" stroke="#fff" stroke-width=".8"/>`).join('');
+      $('#jxEq').innerHTML = `<rect x="22" y="26" width="${W}" height="90" rx="10" fill="rgb(${Math.round(255 - 70 * brown)},${Math.round(250 - 150 * brown)},${Math.round(245 - 205 * brown)})" stroke="#475569" stroke-width="2"/>
+        <rect x="${22 + W}" y="20" width="8" height="102" fill="#64748b"/><rect x="${30 + W}" y="66" width="${Math.max(10, 270 - W)}" height="10" fill="#94a3b8"/>
+        ${mol()}
+        <text x="22" y="140" font-size="10" fill="#475569">● N₂O₄  </text><text x="80" y="140" font-size="10" fill="#c2410c">● NO₂</text><text x="126" y="140" font-size="10" fill="#7c3aed">● Ar</text>
+        <text x="22" y="158" font-size="10" fill="#0f172a">${st.T} K · ${st.V} L · p = ${ptot.toFixed(2)} atm</text>`;
+      $('#jxRead').innerHTML = `<span>K<sub>c</sub> <b>${x.K < 0.01 ? x.K.toExponential(2) : x.K.toFixed(3)}</b></span><span>α <b>${(x.a * 100).toFixed(1)} %</b></span><span>N₂O₄ <b>${x.nA.toFixed(3)} mol</b></span><span>NO₂ <b>${x.x.toFixed(3)} mol</b></span><span>[NO₂] <b>${cN.toFixed(3)} M</b></span>`;
+      $('#jxMsg').textContent = msg;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['eq_' + kk] && tt(x)) { done['eq_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['eq_' + kk] ? 'ok' : ''}">${done['eq_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
   }

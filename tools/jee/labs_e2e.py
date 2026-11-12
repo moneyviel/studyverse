@@ -1,3 +1,4 @@
+import os
 """End-to-end: every 'Try it yourself' mission must be completable with real taps / slider drags on a phone viewport."""
 import asyncio, sys
 from playwright.async_api import async_playwright
@@ -155,6 +156,13 @@ async def _(pg):
     await mix('CaCl2', 0.5, 0.75)         # 1.04 K
     await mix('glucose', 1, 1)            # π = 24.9 bar
     await mix('NaCl', 1.5, 1)             # VP −5.1 %
+@lab('chem-u06', 'shift')
+async def _(pg):
+    await setr(pg, '[data-k="T"]', 360)       # α ≥ 50 %
+    await setr(pg, '[data-k="T"]', 398)       # K > 1
+    await setr(pg, '[data-k="T"]', 298); await setr(pg, '[data-k="V"]', 0.5)   # α < 5 %
+    await setr(pg, '[data-k="T"]', 330); await setr(pg, '[data-k="n"]', 1)      # [NO2] ≥ 0.2
+    await tap(pg, '#jxAr')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
@@ -172,5 +180,7 @@ async def main(only=None):
             print(('PASS ' if all(ok) else 'FAIL ') + f'{uid}/{name}: {sum(ok)}/{len(ok)}')
             for o, t in zip(ok, txt):
                 if not o: print('    ✗', t[:90]); bad += 1
+            if SHOT: await pg.screenshot(path=f'/tmp/lab_{name}.png', full_page=True)
         print('page errors:', errs); await b.close(); sys.exit(1 if bad or errs else 0)
-asyncio.run(main(sys.argv[1:] or None))
+SHOT = os.environ.get('SHOT')
+if __name__ == '__main__': asyncio.run(main(sys.argv[1:] or None))
