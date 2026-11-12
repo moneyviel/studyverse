@@ -421,3 +421,13 @@ for _d, _m in ((EQ, EQ_MORE), (SQ, SQ_MORE), (AQ, AQ_MORE), (CQ, CQ_MORE)):
     for _sk, _bands in _m.items():
         if _sk not in _d: continue
         for _b, _L in _bands.items(): _more(_d, _sk, _b, _L)
+from scen_more2 import MORE2
+for _t, _m in MORE2.items():
+    for _sk, _bands in _m.items():
+        for _b, _L in _bands.items(): _more(ALL[_t], _sk, _b, _L)
+from scen_more3 import MORE3
+for _t, _m in MORE3.items():
+    for _sk, _L in _m.items(): _more(ALL[_t], _sk, 'j', _L)
+for _k, _v in {'guilty': ['disappointed', 'frustrated', 'embarrassed'], 'sad': ['angry', 'annoyed', 'worried'], 'embarrassed': ['surprised', 'disappointed', 'guilty'], 'proud': ['surprised', 'embarrassed'],
+               'relieved': ['surprised'], 'frustrated': ['worried', 'angry', 'annoyed'], 'confused': ['annoyed'], 'jealous': ['lonely', 'disappointed'], 'disappointed': ['embarrassed', 'worried']}.items():
+    AVOID.setdefault(_k, []).extend(_v)

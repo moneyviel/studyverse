@@ -116,16 +116,25 @@
 
   /* 💬 Story Chat — a guide character tells the situation, you pick your reply */
   const GUIDE = { eq: ['🦉', 'Ollie the Owl', 'Mentor Asha'], sq: ['👽', 'Zip from the Galaxy', 'Coach Zara'], aq: ['👩‍🚀', 'Captain Rae', 'Coach Rae'], cq: ['🤖', 'Bolt the Robot', 'Inventor Kiran'] };
+  const FACE = { happy: '😊', excited: '🤩', proud: '😎', relieved: '😌', grateful: '🙏', sad: '😢', disappointed: '😞', lonely: '🥺', angry: '😠', frustrated: '😤', annoyed: '😒',
+    scared: '😨', nervous: '😬', worried: '😟', embarrassed: '😳', guilty: '😔', ashamed: '😣', jealous: '😑', surprised: '😲', bored: '🥱', confused: '😕' };
+  const SCENE = [[/birthday|party|cake/i, '🎂'], [/rain|storm|thunder/i, '🌧️'], [/dog|puppy/i, '🐶'], [/cat\b|kitten/i, '🐱'], [/school|class|teacher/i, '🏫'], [/test|exam|marks|paper\b|mock/i, '📝'],
+    [/phone|online|chat|instagram|post|video|app\b/i, '📱'], [/cricket|football|match|team|race|sports/i, '🏆'], [/kite/i, '🪁'], [/client|audit|office|firm|senior|partner|article/i, '💼'],
+    [/tax|gst|ledger|invoice|ca\b|return/i, '🧾'], [/friend/i, '🧑‍🤝‍🧑'], [/brother|sister|cousin|mum|dad|grand|family|parents/i, '👨‍👩‍👧'], [/park|garden|plant|tree|seed/i, '🌳'],
+    [/stage|sing|dance|play\b|show|speech/i, '🎤'], [/draw|paint|colour|poster|art/i, '🎨'], [/money|cash|wallet|coin|price/i, '💰'], [/night|dark|bed/i, '🌙'], [/food|lunch|snack|mango|ice cream|biscuit/i, '🍱'], [/book|read|story/i, '📚']];
+  const scene = t => { const e = []; SCENE.forEach(([r, x]) => { if (e.length < 3 && r.test(t) && !e.includes(x)) e.push(x); }); return e.length ? `<div class="pq-scene" aria-hidden="true">${e.map((x, i) => `<span style="--d:${i * .15}s">${x}</span>`).join('')}</div>` : ''; };
   function story(host, p, done) {
     const q = p.q, gd = GUIDE[p.test] || GUIDE.eq, b = band(), who = b === 's' || b === 'p' ? gd[2] : gd[1];
-    host.innerHTML = `<div class="pq-chat"><div class="pq-who"><span>${gd[0]}</span><b>${E(who)}</b></div><div class="pq-msgs"><div class="pq-b them typing"><i></i><i></i><i></i></div></div></div><div class="pq-reps"></div>`;
+    host.innerHTML = `<div class="pq-chat"><div class="pq-who"><span>${gd[0]}</span><b>${E(who)}</b></div>${scene(q.q)}<div class="pq-msgs"><div class="pq-b them typing"><i></i><i></i><i></i></div></div></div><div class="pq-reps"></div>`;
     const msgs = $1('.pq-msgs', host), reps = $1('.pq-reps', host);
     setTimeout(() => {
       const t = $1('.typing', msgs); t.classList.remove('typing'); t.innerHTML = `<span class="pl-q pq-say">${E(q.q)}</span>`; S('open');
-      reps.innerHTML = `<p class="sub">Your reply:</p>` + order().map(k => `<button type="button" class="pq-rep sx-opt" data-k="${k}">${E(q.o[k])}</button>`).join('');
+      const faces = q.o.every(o => FACE[o]);
+      reps.innerHTML = faces ? `<p class="sub">Tap the face that fits:</p><div class="pq-faces">${order().map(k => `<button type="button" class="pq-face sx-opt" data-k="${k}"><span aria-hidden="true">${FACE[q.o[k]]}</span>${E(q.o[k])}</button>`).join('')}</div>`
+        : `<p class="sub">Your reply:</p>` + order().map(k => `<button type="button" class="pq-rep sx-opt" data-k="${k}">${E(q.o[k])}</button>`).join('');
       reps.querySelectorAll('[data-k]').forEach(btn => btn.onclick = () => {
         const k = +btn.dataset.k, ok = k === q.a; S('tap'); reps.innerHTML = '';
-        msgs.insertAdjacentHTML('beforeend', `<div class="pq-b me">${E(q.o[k])}</div><div class="pq-b them typing"><i></i><i></i><i></i></div>`);
+        msgs.insertAdjacentHTML('beforeend', `<div class="pq-b me">${FACE[q.o[k]] ? FACE[q.o[k]] + ' ' : ''}${E(q.o[k])}</div><div class="pq-b them typing"><i></i><i></i><i></i></div>`);
         setTimeout(() => { const t2 = msgs.querySelector('.typing'); t2.classList.remove('typing'); t2.innerHTML = ok ? '😊💛 That’s a wise choice!' : `🤔 Hmm… a better reply: <b>${E(q.o[q.a])}</b>`;
           answer(p, ok); done(ok, q.why); }, 700);
       });
@@ -165,6 +174,10 @@
       .pq-chat{border-radius:18px;background:rgba(255,255,255,.7);padding:10px}.pq-who{display:flex;align-items:center;gap:8px;margin-bottom:6px}.pq-who span{font-size:30px}.pq-msgs{display:flex;flex-direction:column;gap:8px}
       .pq-b{max-width:88%;padding:10px 12px;border-radius:16px;line-height:1.45;animation:mpPop .3s both}.pq-b.them{align-self:flex-start;background:#fff;color:#1f2d33;border-bottom-left-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.08)}.pq-b.me{align-self:flex-end;background:var(--plc);color:#fff;border-bottom-right-radius:4px;font-weight:700}
       .pq-say{font-size:16px;margin:0}.pq-b.typing{display:flex;gap:4px}.pq-b.typing i{width:8px;height:8px;border-radius:50%;background:#99a;animation:pqDot 1s infinite}.pq-b.typing i:nth-child(2){animation-delay:.15s}.pq-b.typing i:nth-child(3){animation-delay:.3s}
+      .pq-scene{display:flex;gap:10px;justify-content:center;font-size:34px;margin:2px 0 8px}.pq-scene span{animation:pqFloat 2.6s ease-in-out infinite;animation-delay:var(--d)}
+      .pq-faces{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pq-face{display:flex;flex-direction:column;align-items:center;gap:4px;border:0;border-radius:18px;padding:12px 6px;background:#fff;color:#1f2d33;font-weight:800;font-size:15px;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(0,0,0,.12);animation:mpPop .3s both;text-transform:capitalize}
+      .pq-face>span:first-child{font-size:44px;transition:transform .2s}.pq-face:active>span:first-child{transform:scale(1.3)}.pl-s .pq-face{background:#232a48;color:#eef}
+      @keyframes pqFloat{50%{transform:translateY(-6px)}}
       .pq-reps{display:flex;flex-direction:column;gap:8px;margin-top:10px}.pq-rep{border:2px solid var(--plc);border-radius:18px 18px 4px 18px;padding:10px 12px;background:#fff;color:#1f2d33;font-weight:700;font-size:15px;text-align:left;cursor:pointer;font-family:inherit;align-self:flex-end;max-width:92%;animation:mpPop .3s both}
       .pl-s .pq-tile:not(.ok):not(.no),.pl-s .pq-mate,.pl-s .pq-clue,.pl-s .pq-rep{background:#232a48;color:#eef}.pl-s .pq-tiles.emo .pq-tile{background:#232a48}.pl-s .pq-chat{background:#1b2140}.pl-s .pq-b.them{background:#2a3152;color:#eef}.pl-s .pq-slot{background:#161b30}
       .pl-s .pq-slot.full{background:#2a3152;color:#fff}
