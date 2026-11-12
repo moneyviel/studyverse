@@ -134,7 +134,7 @@
     if (!s) { $1('main').insertAdjacentHTML('beforeend', '<section class="screen" id="s-mind"></section>'); s = D.getElementById('s-mind'); }
     return s;
   }
-  const backToPractice = () => { if (PARENT) { setParent(false); try { Parent.home(); } catch (e) {} return; } if (isCA() && window.CaTools && CaTools.practiceHub) CaTools.practiceHub(); else practiceScreen(); };
+  const backToPractice = () => { if (PARENT) { setParent(false); try { if (window.Family) Family.forget(); Parent.home(); } catch (e) {} return; } if (isCA() && window.CaTools && CaTools.practiceHub) CaTools.practiceHub(); else practiceScreen(); };
 
   /* five-point "skills star" chart: one point per practice */
   function radar(info) {

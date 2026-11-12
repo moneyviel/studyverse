@@ -40,7 +40,7 @@
   const setRole = (uid, r, sure) => set(ROLE_K, JSON.stringify({ uid, role: r, sure: !!sure }));
   const isParent = () => !!S && !demo() && role() === 'parent';
   const parentCss = () => { if (D.getElementById('svParentCss')) return; const c = D.createElement('style'); c.id = 'svParentCss';
-    c.textContent = 'html.sv-parent .app>:not(.toast){display:none!important}html.sv-parent .toast{z-index:995}html.sv-parent .askfab,html.sv-parent .sv-talk,html.sv-parent .ca-hlbtn{display:none!important}'; (D.head || D.documentElement).appendChild(c); };
+    c.textContent = 'html.sv-parent:not(.mg-parent) .app>:not(.toast){display:none!important}html.sv-parent.mg-parent nav[aria-label="Main"]{display:none!important}html.sv-parent .toast{z-index:995}html.sv-parent .askfab,html.sv-parent .sv-talk,html.sv-parent .ca-hlbtn{display:none!important}'; (D.head || D.documentElement).appendChild(c); };
   if (isParent()) { parentCss(); D.documentElement.classList.add('sv-parent'); }   // before the first paint: no flash of the student app
 
   /* ---------- 1. login links from emails: #access_token=…&type=signup|recovery ---------- */

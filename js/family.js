@@ -75,12 +75,14 @@
     const x = $1('[data-fmx]', sheet); if (x) x.onclick = close;
     return sheet;
   }
-  function close() { if (sheet) sheet.classList.remove('show'); try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} }
+  const FK = 'sv_fm', keep = v => { try { sessionStorage.setItem(FK, JSON.stringify(v)); } catch (e) {} }, forget = () => { try { sessionStorage.removeItem(FK); } catch (e) {} };
+  function close() { forget(); if (sheet) sheet.classList.remove('show'); try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} }
   const top = (t, back) => `<div class="fm-top"><button type="button" class="fm-back" ${back ? 'id="fmBack"' : 'data-fmx'}>← ${back ? E(back) : 'Parent Hub'}</button><h2>${t}</h2></div>`;
 
   /* ---------- 🎲 Family Quiz Night ---------- */
   const KIDE = ['🦊', '🐼', '🐯', '🐨', '🦄', '🐸'], ADE = ['🦉', '🐘', '🦚', '🐢'];
   function setup(kids) {
+    keep({ v: 'setup' });
     const ad = [{ n: 'Me', e: '🦉' }];
     const draw = () => {
       const el = open(`${top('🎲 Family Quiz Night')}
@@ -107,15 +109,20 @@
   }
   const name = k => (k && (k.name || (((k.state || {}).st || {}).profile || {}).name)) || 'Child';
 
-  async function play(players, rounds, kids) {
-    const pools = await Promise.all(players.map(p => p.kid ? kidPool(p.kid) : gkPool(10).then(L => L.map(q => gkQ(q)))));
-    const turns = []; for (let r = 0; r < rounds; r++) players.forEach((p, i) => { const q = pools[i][r % Math.max(1, pools[i].length)]; if (q) turns.push({ p: i, q }); });
-    if (!turns.length) throw new Error('none');
-    players.forEach(p => { p.right = 0; p.help = 0; p.teach = 0; p.life = 1; });
-    let t = 0; const log = [];
+  async function play(players, rounds, kids, saved) {
+    let turns, t = 0, log = [];
+    if (saved) { turns = saved.turns; t = saved.t; log = saved.log || []; }
+    else {
+      const pools = await Promise.all(players.map(p => p.kid ? kidPool(p.kid) : gkPool(10).then(L => L.map(q => gkQ(q)))));
+      turns = []; for (let r = 0; r < rounds; r++) players.forEach((p, i) => { const q = pools[i][r % Math.max(1, pools[i].length)]; if (q) turns.push({ p: i, q }); });
+      if (!turns.length) throw new Error('none');
+      players.forEach(p => { p.right = 0; p.help = 0; p.teach = 0; p.life = 1; });
+    }
+    const snap = () => keep({ v: 'quiz', t, log, turns, players: players.map(p => ({ n: p.n, e: p.e, kid: p.kid ? 1 : null, right: p.right, help: p.help, teach: p.teach, life: p.life })) });
     const jar = () => { const n = log.filter(x => x.ok).length; return `<div class="fm-jar" aria-label="Family Star Jar: ${n} of ${turns.length} stars"><div class="fm-jarf" style="height:${Math.round(n / turns.length * 100)}%"></div><b>🫙 ${n} / ${turns.length} ⭐</b></div>`; };
     const pass = () => {
       if (t >= turns.length) return end();
+      snap();
       const P = players[turns[t].p];
       const el = open(`${top('🎲 Family Quiz Night')}${jar()}<div class="fm-card fm-pass"><div class="fm-big">${P.e}</div><h2>Pass the phone to <b>${E(P.n)}</b></h2>
         <p class="fm-mut">Question ${t + 1} of ${turns.length}. Everyone else: cheer, don’t tell the answer — unless ${E(P.n)} asks the family!</p><button type="button" class="fm-btn" id="fmReady">I’m ready ▶</button>
@@ -163,6 +170,7 @@
       draw(j);
     };
     const end = async () => {
+      forget();
       const n = log.filter(x => x.ok).length, pct = n / turns.length;
       let talk = []; try { talk = (await get('content/mind/pc-s.json')).talk || []; } catch (e) {}
       const most = Math.max(...players.map(p => p.right));
@@ -182,6 +190,7 @@
 
   /* ---------- 🌍 GK challenge for grown-ups ---------- */
   async function gkSolo() {
+    keep({ v: 'gk' });
     const el = open(`${top('🌍 GK challenge')}<div class="fm-card"><p>Getting questions…</p></div>`);
     let L; try { L = (await gkPool(12)).slice(0, 10).map(q => gkQ(q)); } catch (e) { $1('.fm-card', el).innerHTML = '<p>Could not load. Check your internet.</p>'; return; }
     const ans = []; let i = 0;
@@ -206,10 +215,11 @@
   }
 
   /* ---------- 💬 Talk Time ---------- */
-  async function talkTime() {
+  async function talkTime(i0) {
     let L = []; try { L = (await get('content/mind/pc-s.json')).talk || []; } catch (e) {}
-    L = shuffle(L); let i = 0;
+    let i = typeof i0 === 'number' && i0 < L.length ? i0 : Math.floor(Math.random() * Math.max(1, L.length));
     const draw = () => {
+      keep({ v: 'talk', i });
       const el = open(`${top('💬 Talk Time')}<div class="fm-card fm-hero"><p>Ask one question at dinner, in the car or at bedtime. <b>Listen more than you talk</b> — and answer it yourself too!</p></div>
         <div class="fm-card fm-talk fm-flip"><div class="fm-big">💬</div><p class="pl-q">${E(L[i] || '')}</p><small>${i + 1} / ${L.length}</small></div>
         <div class="fm-nav"><button type="button" class="fm-btn ghost" id="fmTp" ${i ? '' : 'disabled'}>◀ Previous</button><button type="button" class="fm-btn" id="fmTn">Next ▶</button></div>`);
@@ -222,6 +232,7 @@
   /* ---------- Mind Gym / Parenting Compass for grown-ups (the app's own screens, Parent Hub steps aside) ---------- */
   function mindGym(id) {
     if (!window.MindGym) return;
+    keep({ v: 'mg' });
     const hub = D.getElementById('pvHub'); if (hub) hub.classList.remove('show');
     MindGym.parent(true);
     if (id && window.MindPlay) MindPlay.hub(id); else MindGym.open();
@@ -272,5 +283,19 @@
       @keyframes fmFlip{from{transform:rotateY(80deg);opacity:0}}
     </style>`);
   }
-  window.Family = { hubCard, open: kids => setup(kids || []) };
+  /* a refresh inside the Parent Hub reopens the same game / page (the hub calls this once it has loaded) */
+  let resumed = false;
+  function resume(kids) {
+    if (resumed) return; resumed = true;
+    let v = null; try { v = JSON.parse(sessionStorage.getItem(FK) || 'null'); } catch (e) {}
+    if (!v) return;
+    try {
+      if (v.v === 'quiz' && v.turns) return play(v.players, 0, kids || [], v);
+      if (v.v === 'setup') return setup(kids || []);
+      if (v.v === 'gk') return gkSolo();
+      if (v.v === 'talk') return talkTime(v.i);
+      if (v.v === 'mg') { let h = null; try { h = JSON.parse(sessionStorage.getItem('sv_here') || 'null'); } catch (e) {} return mindGym(h && h.x === 'mindplay' && h.a ? h.a[0] : null); }
+    } catch (e) { forget(); }
+  }
+  window.Family = { hubCard, open: kids => setup(kids || []), resume, forget };
 })();

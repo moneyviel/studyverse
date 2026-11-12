@@ -490,7 +490,21 @@
   let SKIP = false;
   const _world = worldScreen;
   worldScreen = function () { const j = ST.jee; if (j && j.track && j.home && !SKIP && ST.profile && !(ST.profile.course)) return home(); return _world.apply(this, arguments); };
+  function ownerTools() {
+    const ow = D.getElementById('caOwner');
+    if (ow && !ow.querySelector('#jxOwn')) {
+      const off = ow.querySelector('#caOwOff'), jj = ST.jee || {}, onJ = !!(jj.track && jj.home && !(ST.profile && ST.profile.course));
+      if (off) off.insertAdjacentHTML('beforebegin', `<div id="jxOwn"><h3 class="ca-h3">JEE</h3><div class="ca-btns"><button class="btn ghost" id="jxOwOn" ${onJ ? 'disabled' : ''}>JEE mode</button><button class="btn ghost" id="jxOwOff" ${onJ ? '' : 'disabled'}>School world</button></div>
+        <div class="ca-seg" role="radiogroup" aria-label="JEE track">${Object.entries(TRACKS).map(([k, t0]) => `<button role="radio" aria-checked="${jj.track === k}" data-jt="${k}">${t0.e} ${t0.n.replace('JEE ', '')}</button>`).join('')}</div><div style="height:10px"></div></div>`);
+      const setT = k => { const j = J(); j.track = k; j.cls = k === 'found' ? 9 : k === 'main' ? (j.cls >= 11 && j.cls <= 12 ? j.cls : 11) : null; const r = elig(k === 'full' ? { status: 'passed', first: 2026 } : { status: 'school', cls: j.cls }); j.elig = { xii: r.xii, main: r.main, adv: r.adv }; };
+      const go = () => { const j = J(); if (!j.track) setT('main'); j.home = true; if (ST.profile) ST.profile.course = null; save(); try { Look.apply(); } catch (e) {} home(); };
+      ow.querySelector('#jxOwOn').onclick = () => { tap(); go(); };
+      ow.querySelector('#jxOwOff').onclick = () => { tap(); J().home = false; save(); toast('School world is home now'); worldScreen(); };
+      ow.querySelectorAll('[data-jt]').forEach(b => b.onclick = () => { tap(); setT(b.dataset.jt); go(); toast(TRACKS[b.dataset.jt].n + ' selected'); });
+    }
+  }
   function tile() {
+    try { ownerTools(); } catch (e) {}
     if (!ST.profile || ST.profile.course || (window.Cloud && Cloud.isParent && Cloud.isParent())) return;
     const g = +ST.profile.grade || 0, j = ST.jee, own = !!(window.Cloud && Cloud.admin && Cloud.admin());
     if (g < 9 && !(j && j.track) && !own) return;
