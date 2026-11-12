@@ -39,7 +39,19 @@ for t in ('eq', 'sq', 'aq', 'cq'):
             print('  %s band %s: %d of %d' % (t, b, c[b], n))
     for i, q in enumerate(qs):
         q['id'] = '%s-%s-%03d' % (t, q['b'], i + 1)
+    try:
+        sys.path.insert(0, HERE); from gen_scen import gen
+        hand = {(q['b'], re.sub(r'\W+', ' ', q['q'].lower()).strip()) for q in qs}
+        n = collections.Counter()
+        for q in gen(t):
+            if (q['b'], re.sub(r'\W+', ' ', q['q'].lower()).strip()) in hand: continue
+            n[q['b']] += 1; q['id'] = '%s-%s-g%04d' % (t, q['b'], n[q['b']]); qs.append(q)
+        print('  + generated', dict(n))
+    except ImportError:
+        pass
     json.dump({'test': t, 'v': 1, 'questions': qs}, open(os.path.join(OUT, t + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    for b in TARGET:   # the app downloads only the student's own age band
+        json.dump({'test': t, 'v': 1, 'questions': [q for q in qs if q['b'] == b]}, open(os.path.join(OUT, '%s-%s.json' % (t, b)), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 ok_final = ok
 
 # small summary the app reads for the Practice tile and unlock reminders (no need to download every question)

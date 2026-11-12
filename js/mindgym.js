@@ -79,7 +79,7 @@
   const okQ = q => q && q.id && Array.isArray(q.o) && q.o.length === 4 && q.a >= 0 && q.a < 4;
   async function bank(test) {
     if (!BANK[test]) {
-      const d = await loadJSON(`content/mind/${test}.json`); let L = (d.questions || []).filter(okQ);
+      const d = test === 'iq' ? await loadJSON('content/mind/iq.json') : await loadJSON(`content/mind/${test}-${qBand(test, band())}.json`).catch(() => loadJSON(`content/mind/${test}.json`)); let L = (d.questions || []).filter(okQ);
       if (test === 'iq') {
         try { const p = await loadJSON('content/mind/pics.json'); if (window.MindPics) { MindPics.init(p); L = L.concat((p.questions || []).filter(q => okQ(q) && PICK.has(q.k)).map(q => Object.assign(q, { pic: true }))); } } catch (e) {}
       }
@@ -87,6 +87,7 @@
     }
     return BANK[test];
   }
+  async function total(test) { const c = await loadCounts(); const n = c && c[test] && c[test][qBand(test, band())]; return n || (await pool(test)).length; }
   async function pool(test) { const b = qBand(test, band()); return (await bank(test)).filter(q => q.b === b); }
   function openCount(total) { if (isOwner()) return total; return Math.min(total, START + PER * Math.floor(steps() / STEP)); }
   function nextUnlock(total) {
@@ -143,7 +144,7 @@
     el.innerHTML = `<div class="mg-root mg-${b} pl-root ${LOOKCLS[b]}"><button class="back" id="mgBack">← Practice</button><div class="card mg-wait">Loading…</div></div>`;
     $1('#mgBack').onclick = () => { S('tap'); backToPractice(); };
     let info;
-    try { info = await Promise.all(TESTS.map(async t => { const p = await pool(t.id); return { t, total: p.length, open: openCount(p.length), lv: level(t.id), nx: nextUnlock(p.length) }; })); }
+    try { info = await Promise.all(TESTS.map(async t => { const n = await total(t.id); return { t, total: n, open: openCount(n), lv: level(t.id), nx: nextUnlock(n) }; })); }
     catch (e) { $1('.mg-wait', el).textContent = 'Could not load Mind Gym. Check your internet and try again.'; return; }
     const st = steps(), nx = info.map(i => i.nx).filter(Boolean)[0], w = wk();
     const prog = nx ? `<div class="card mg-unlock"><b>🔓 Finish ${nx.need} more ${stepWord(nx.need)} to unlock ${nx.gets} new challenges in every practice.</b><div class="mg-bar"><i style="width:${Math.round(((STEP - nx.need) / STEP) * 100)}%"></i></div><small>Learning opens new challenges. ${st} ${stepWord(st)} finished so far.</small></div>` : '';
@@ -159,7 +160,7 @@
   /* My Mind Map: the five-point skills star + every practice's rating */
   async function mindMap() {
     style(); const el = screen(), b = band(); show('mind', 'practice'); window.scrollTo(0, 0);
-    const info = await Promise.all(TESTS.map(async t => { const p = await pool(t.id); return { t, total: p.length, open: openCount(p.length), lv: level(t.id) }; }));
+    const info = await Promise.all(TESTS.map(async t => { const n = await total(t.id); return { t, total: n, open: openCount(n), lv: level(t.id) }; }));
     el.innerHTML = `<div class="mg-root mg-${b}"><button class="back" id="mgQuit">← Mind Gym</button>
       <div class="card mg-sc"><h3><span aria-hidden="true">📊</span> My Mind Map</h3>
         <div class="mg-scwrap">${radar(info)}<div class="mg-scl">${info.map(i => `<button type="button" class="mg-scr" data-sc="${i.t.id}" style="--c:${i.t.col}"><span>${i.t.e} <b>${E(i.t.n)}</b></span><span class="mg-st" aria-label="${i.lv.i} of 4 stars">${stars(i.lv.i)}</span><small>${BADGE[i.lv.i]} ${E(i.lv.n)}${i.lv.few ? '' : ' · ' + i.lv.pct + '%'} · ${i.open} of ${i.total} open</small></button>`).join('')}</div></div>

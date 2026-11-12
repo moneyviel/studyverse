@@ -36,7 +36,7 @@
   }
   function answer(p, ok) {
     const m = MG().state(); m.seen[p.q.id] = ok ? 1 : 0;
-    const kind = p.test === 'iq' ? MG()._skillOf(p.q) : p.test === 'eq' ? 'Choose wisely' : 'Real-life choices';
+    const kind = p.test === 'iq' ? MG()._skillOf(p.q) : p.q.sk || (p.test === 'eq' ? 'Choose wisely' : 'Real-life choices');
     MG().record(p.test, kind, ok);
   }
 
