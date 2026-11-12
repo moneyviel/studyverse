@@ -656,6 +656,36 @@
     try { const d = await subjectData(+m[1], m[2]); const c = d && d.chapters && d.chapters.find(c => (c.topics || []).some(t => t.id.startsWith(ch + '-'))); return c ? { g: +m[1], sid: m[2], chapter: c.title } : null; } catch (e) { return null; }
   }
   const nameTopic = async id => { const i = await topicInfo(id); return i ? `${esc(i.topic)}<small class="od-sub">Class ${i.g} · ${esc(SUBJ(i.sid))} · ${esc(i.chapter)}</small>` : `<code>${esc(id)}</code>`; };
+  /* ---------- 🎁 Give course (owner gives a student a course for some days; gifts can be taken back) ---------- */
+  const GIVE_C = [['jee', 'JEE Main'], ['ca-foundation', 'CA Foundation'], ['ca-inter', 'CA Intermediate'], ['ca-final', 'CA Final']].concat(Array.from({ length: 12 }, (_, i) => ['school-g' + (i + 1), 'Class ' + (i + 1)]));
+  const GIVE_D = [[30, '30 days'], [90, '3 months'], [180, '6 months'], [365, '1 year'], [7, '7 days'], [0, 'No end date']];
+  function giveBox(uid, access) {
+    const gifts = access.filter(a => a.note === 'gift');
+    later(body => {
+      const box = body.querySelector('#odGive'); if (!box) return;
+      const msg = t => { box.querySelector('.od-gmsg').textContent = t; };
+      box.querySelector('#odGiveGo').onclick = async () => {
+        const c = box.querySelector('#odGiveC').value, d = +box.querySelector('#odGiveD').value, nm = (GIVE_C.find(x => x[0] === c) || [0, c])[1];
+        if (!confirm(`Give ${nm} to this student for ${d ? d + ' days' : 'no end date'}?`)) return;
+        msg('Saving…');
+        try { const r = await rpc('owner_give_course', { p_user: uid, p_course: c, p_days: d || null }); if (!r || !r.ok) return msg('⚠️ ' + ((r && r.msg) || 'Could not save.'));
+          say(`✅ ${nm} given`); cache.clear(); paint(); } catch (e) { msg('⚠️ ' + errT(e)); }
+      };
+      box.querySelectorAll('[data-take]').forEach(b => b.onclick = async () => {
+        const c = b.dataset.take, nm = (GIVE_C.find(x => x[0] === c) || [0, c])[1];
+        if (!confirm(`Take back ${nm} from this student? They lose access straight away.`)) return;
+        try { const r = await rpc('owner_take_course', { p_user: uid, p_course: c }); if (!r || !r.ok) return msg('⚠️ ' + ((r && r.msg) || 'Could not remove.'));
+          say(`${nm} taken back`); cache.clear(); paint(); } catch (e) { msg('⚠️ ' + errT(e)); }
+      });
+    });
+    return `<div id="odGive" class="od-give" style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(127,127,127,.35)">
+      <h4 style="margin:0 0 6px">🎁 Give a course</h4>
+      <div class="od-row" style="flex-wrap:wrap;gap:6px"><label>Course <select id="odGiveC">${GIVE_C.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join('')}</select></label>
+        <label>For <select id="odGiveD">${GIVE_D.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join('')}</select></label>
+        <button type="button" class="od-mini" id="odGiveGo">🎁 Give</button></div>
+      ${gifts.length ? `<p class="od-foot">Given by you: ${gifts.map(g => `${esc((GIVE_C.find(x => x[0] === g.course) || [0, g.course])[1])} <button type="button" class="od-mini" data-take="${esc(g.course)}">✖ Take back</button>`).join(' ')}</p>` : ''}
+      <p class="od-foot od-gmsg" role="status">If the student already has it, the days are added on top. The student sees it the next time the app opens.</p></div>`;
+  }
   async function drillStudent(id) {
     const r = await get('owner_dash_student', { p_user: id }); const u = r.user || {};
     const nm = u.name || u.email, acc = u.answered ? Math.round(100 * (u.answered - u.wrong) / u.answered) : null;
@@ -695,7 +725,7 @@
         ${card('🩹 Weak topics (accuracy under 70%)', weakT, { sum: 'Good topics to suggest for revision.' })}
         ${card('🧭 What they use (30 days)', hbars(use, { empty: 'No usage recorded yet (needs the latest app version).' }) + (tests.length ? `<h4>Recent tests</h4><ul class="od-list">${tests.map(x => `<li>${esc(x.d || '')} · ${esc(String(x.k || '').replace(/[-_]/g, ' '))} · <b>${x.pct == null ? '–' : esc(x.pct) + '%'}</b></li>`).join('')}</ul>` : ''))}
         ${card('💳 Payments', payT, { csv: payId })}
-        ${card('🔑 Access (plans, trial, seats, codes)', accT + ((r.codes || []).length ? `<p class="od-foot">Codes used: ${r.codes.map(c => esc(c.code) + ' (' + esc(c.kind || '') + ')').join(', ')}</p>` : ''))}
+        ${card('🔑 Access (plans, trial, seats, codes)', accT + ((r.codes || []).length ? `<p class="od-foot">Codes used: ${r.codes.map(c => esc(c.code) + ' (' + esc(c.kind || '') + ')').join(', ')}</p>` : '') + giveBox(id, r.access || []))}
         ${card('👪 Parents', parT)}
         ${card('📱 Device & social', `<ul class="od-list"><li>Device: ${esc(dv.os || 'unknown')}${dv.w ? ' · ' + esc(dv.w) : ''}${dv.pwa ? ' · installed app' : dv.os ? ' · in browser' : ''}${dv.app ? ' · app v' + esc(dv.app) : ''}</li><li>Live game rooms joined: ${nf(r.live_games)}</li><li>Squad friends: ${nf(r.friends)}</li></ul>`)}
       </div>`;

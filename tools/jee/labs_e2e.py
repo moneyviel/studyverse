@@ -150,7 +150,7 @@ async def main(only=None):
         await pg.route(lambda u: 'localhost' not in u, lambda r: r.abort())
         await pg.goto('http://localhost:8765/index.html'); await pg.wait_for_timeout(1500)
         await pg.evaluate('''() => { Object.assign(ST,{profile:{name:'T',avatar:'🦊',grade:12,board:'cbse',stream:'science',subjects:['physics'],course:null}, jee:{track:'full',home:true,units:{},mist:[]}}); save(); }''')
-        await pg.reload(); await pg.wait_for_timeout(2500); await pg.evaluate(GATE)
+        await pg.reload(); await pg.wait_for_timeout(2500); await pg.evaluate(GATE); await pg.evaluate("() => localStorage.setItem('sv_owner','1')")
         bad = 0
         for (uid, name), f in S.items():
             if only and name not in only: continue

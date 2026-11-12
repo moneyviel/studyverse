@@ -1445,7 +1445,28 @@
   /* ================= hooks ================= */
   let SKIP = false;
   const _world = worldScreen;
-  worldScreen = function () { const j = ST.jee; if (j && j.track && j.home && !SKIP && ST.profile && !(ST.profile.course)) return home(); return _world.apply(this, arguments); };
+  /* ---------- course lock: JEE Main opens only with access (owner gift / paid plan 'jee'), a live free trial, or owner mode ---------- */
+  function hasJee() {
+    const C = window.Cloud; if (!C) return true;
+    try { if (localStorage.getItem('sv_owner') === '1') return true; } catch (e) {}
+    try { if (C.admin && C.admin()) return true; if (!C.signedIn || !C.signedIn()) return false;
+      return (C.courses ? C.courses() : []).some(a => a.course === 'jee' || /trial/.test(a.note || '')); } catch (e) { return false; }
+  }
+  function lockScreen() {
+    NAVP = false; here('lock'); const el = screen(), C = window.Cloud, signed = !!(C && C.signedIn && C.signedIn()), mail = signed && C.email ? C.email() : '';
+    el.innerHTML = `<div class="jx"><div class="jx-card" style="text-align:center;padding:22px 16px"><div style="font-size:44px">🔒</div>
+      <h2 style="margin:6px 0">JEE Main is a separate course</h2>
+      <p class="jx-p">${Object.keys(READY).length} units with real JEE questions, practice sets, crash courses and labs are waiting for you.</p>
+      <p class="jx-p">${signed ? `To unlock it, ask Knowtopia to give JEE Main to your account <b>${esc(mail)}</b>.` : 'Please sign in first. Then ask Knowtopia to give JEE Main to your account.'}</p>
+      <button class="jx-btn wide" id="jxLockRe">🔄 I have access now — check again</button>
+      <button class="jx-btn wide ghost" id="jxLockSchool" style="margin-top:8px">🏫 Go to my school world</button></div></div>`;
+    $('#jxLockRe').onclick = async () => { tap(); try { if (C && C.refreshAccess) await C.refreshAccess(); } catch (e) {} if (hasJee()) home(); else toast('Not unlocked yet'); };
+    $('#jxLockSchool').onclick = () => { tap(); const j = J(); j.home = false; save(); try { Look.apply(); } catch (e) {} worldScreen(); };
+  }
+  const _gate = f => function () { if (!hasJee()) return lockScreen(); return f.apply(this, arguments); };
+  home = _gate(home); unit = _gate(unit); bank = _gate(bank); crash = _gate(crash); practiceHub = _gate(practiceHub); setup = (f => function (step, dr) { if (ST.jee && ST.jee.track && !hasJee()) return lockScreen(); return f.apply(this, arguments); })(setup);
+  window.addEventListener('sv-access', () => { try { const s = D.getElementById('s-jee'); if (s && s.classList.contains('active') && D.getElementById('jxLockRe') && hasJee()) home(); } catch (e) {} });
+  worldScreen = function () { const j = ST.jee; if (j && j.track && j.home && !SKIP && ST.profile && !(ST.profile.course) && hasJee()) return home(); return _world.apply(this, arguments); };
   function ownerTools() {
     const ow = D.getElementById('caOwner');
     if (ow && !ow.querySelector('#jxOwn')) {
@@ -1579,7 +1600,7 @@
   /* ================= JEE as the ACTIVE course: games, puzzles and live rooms ask JEE questions =================
      JEE is the active course when the student has a JEE track and made JEE their home (school world switched off).
      Used by js/playhub.js (Arcade), js/live.js (game rooms) and js/puzzles.js (word puzzles). */
-  const active = () => { try { const j = ST.jee; return !!(j && j.track && j.home && !(ST.profile && ST.profile.course)); } catch (e) { return false; } };
+  const active = () => { try { const j = ST.jee; return !!(j && j.track && j.home && !(ST.profile && ST.profile.course)) && hasJee(); } catch (e) { return false; } };
   const SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '−': '⁻', '-': '⁻', '+': '⁺', 'n': 'ⁿ', '(': '⁽', ')': '⁾', 'i': 'ⁱ' };
   const SUB = { '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉', '−': '₋', '+': '₊', 'a': 'ₐ', 'e': 'ₑ', 'o': 'ₒ', 'x': 'ₓ', 'n': 'ₙ', 'k': 'ₖ', 'm': 'ₘ', 'p': 'ₚ', 's': 'ₛ', 't': 'ₜ', 'i': 'ᵢ', 'r': 'ᵣ' };
   /* plain text for places that cannot draw maths (game cards): \f{a}{b} → (a)/(b), ^{2} → ², _{2} → ₂, √{x} → √(x) */
