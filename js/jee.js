@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -401,6 +401,7 @@
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
+        vsepr: ['📐 VSEPR Shape Builder', 'Pick bond pairs and lone pairs around a central atom and see the shape, hybridisation, bond angle and a real example. 5 missions.', () => vseprLab(uid)],
         gibbs: ['🎲 Spontaneity Explorer', 'Set ΔH, ΔS and the temperature and watch ΔG = ΔH − TΔS cross zero — the four sign cases come alive. 5 missions.', () => gibbsLab(uid)],
         galvanic: ['🔋 Galvanic Cell Builder', 'Pick two metals and the ion concentrations — see which is the anode, the electron flow, E°, the Nernst emf and ΔG. 5 missions.', () => galvanicLab(uid)],
         shift: ['⚖️ Equilibrium Syringe', 'Heat, squeeze or add gas to N₂O₄ ⇌ 2NO₂ and watch the colour, α, Q and K respond — Le Chatelier live. 5 missions.', () => shiftLab(uid)],
@@ -1165,6 +1166,50 @@
       const x = { ...st, g };
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['gb_' + kk] && tt(x)) { done['gb_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['gb_' + kk] ? 'ok' : ''}">${done['gb_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Chemical Bonding ---------- */
+  function vseprLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { b: 4, l: 0 };
+    const SH = { '2,0': ['linear', 'sp', '180°', 'BeCl₂, CO₂'], '3,0': ['trigonal planar', 'sp²', '120°', 'BF₃'], '2,1': ['bent', 'sp²', '< 120°', 'SO₂, O₃'], '4,0': ['tetrahedral', 'sp³', '109.5°', 'CH₄'],
+      '3,1': ['trigonal pyramidal', 'sp³', '107°', 'NH₃'], '2,2': ['bent', 'sp³', '104.5°', 'H₂O'], '5,0': ['trigonal bipyramidal', 'sp³d', '90°, 120°', 'PCl₅'], '4,1': ['see-saw', 'sp³d', '< 90°, < 120°', 'SF₄'],
+      '3,2': ['T-shaped', 'sp³d', '≈ 87.5°', 'ClF₃'], '2,3': ['linear', 'sp³d', '180°', 'XeF₂, I₃⁻'], '6,0': ['octahedral', 'sp³d²', '90°', 'SF₆'], '5,1': ['square pyramidal', 'sp³d²', '< 90°', 'BrF₅, XeOF₄'],
+      '4,2': ['square planar', 'sp³d²', '90°', 'XeF₄, ICl₄⁻'], '7,0': ['pentagonal bipyramidal', 'sp³d³', '72°, 90°', 'IF₇'], '6,1': ['distorted octahedral', 'sp³d³', '—', 'XeF₆'] };
+    // 2D positions (unit vectors in the picture) for each steric number; lone pairs take the first slots listed in LP
+    const POS = { 2: [[1, 0], [-1, 0]], 3: [[0, -1], [0.87, 0.5], [-0.87, 0.5]], 4: [[0, -1], [0.94, 0.33], [-0.47, 0.6], [-0.2, 0.15]],
+      5: [[0, -1], [0, 1], [1, 0.05], [-0.6, 0.35], [-0.45, -0.3]], 6: [[0, -1], [0, 1], [1, 0], [-1, 0], [0.45, 0.3], [-0.45, -0.3]], 7: [[0, -1], [0, 1], [1, 0], [0.3, 0.55], [-0.85, 0.3], [-0.85, -0.3], [0.3, -0.55]] };
+    const LPI = { 2: [0, 1], 3: [0, 1], 4: [0, 1], 5: [2, 3, 4], 6: [0, 1], 7: [0] };
+    const MIS = [['tet', 'Build methane\'s shape — tetrahedral', x => x.k === '4,0'], ['amm', 'Add a lone pair to get ammonia\'s trigonal pyramid', x => x.k === '3,1'],
+      ['tee', 'Make the T-shape of ClF₃', x => x.k === '3,2'], ['xe2', 'Three lone pairs, yet a straight line (XeF₂)', x => x.k === '2,3'], ['sqp', 'Make a square planar molecule like XeF₄', x => x.k === '4,2']];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>📐 VSEPR Shape Builder</h3>
+      <p class="jx-fine">Choose how many bond pairs and lone pairs sit around the central atom. Lone pairs push hardest, so they take the roomiest spots (equatorial in a trigonal bipyramid).</p>
+      <div class="jx-fine"><b>Bond pairs</b></div><div class="jx-seg3" style="display:grid;grid-template-columns:repeat(6,1fr);gap:3px">${[2, 3, 4, 5, 6, 7].map(n => `<button style="padding:6px 0;min-width:0" data-b="${n}">${n}</button>`).join('')}</div>
+      <div class="jx-fine"><b>Lone pairs</b></div><div class="jx-seg3" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px">${[0, 1, 2, 3].map(n => `<button style="padding:6px 0;min-width:0" data-lp="${n}">${n}</button>`).join('')}</div>
+      <svg viewBox="0 0 320 200" class="jx-circ" id="jxV" style="max-width:360px;background:#f8fafc;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('[data-b]').forEach(b => b.onclick = () => { tap(); st.b = +b.dataset.b; upd(); });
+    el.querySelectorAll('[data-lp]').forEach(b => b.onclick = () => { tap(); st.l = +b.dataset.lp; upd(); });
+    const upd = () => {
+      el.querySelectorAll('[data-b]').forEach(b => b.classList.toggle('on', +b.dataset.b === st.b)); el.querySelectorAll('[data-lp]').forEach(b => b.classList.toggle('on', +b.dataset.lp === st.l));
+      const k = st.b + ',' + st.l, info = SH[k], sn = st.b + st.l, cx = 160, cy = 100, R = 72;
+      let svg = '';
+      if (!info || !POS[sn]) svg = `<text x="160" y="100" text-anchor="middle" font-size="12" fill="#b91c1c">No common molecule has ${st.b} bond pairs + ${st.l} lone pairs.</text>`;
+      else {
+        const lpSlots = LPI[sn].slice(0, st.l), pos = POS[sn];
+        pos.forEach(([x, y], i) => { const X = cx + x * R, Y = cy + y * R * 0.95;
+          if (lpSlots.includes(i)) svg += `<ellipse cx="${cx + x * R * 0.55}" cy="${cy + y * R * 0.52}" rx="16" ry="10" transform="rotate(${Math.atan2(y, x) * 180 / Math.PI} ${cx + x * R * 0.55} ${cy + y * R * 0.52})" fill="#fde68a" stroke="#d97706"/><text x="${cx + x * R * 0.55}" y="${cy + y * R * 0.52 + 3}" font-size="9" text-anchor="middle" fill="#92400e">••</text>`;
+          else svg += `<line x1="${cx}" y1="${cy}" x2="${X}" y2="${Y}" stroke="#334155" stroke-width="3"/><circle cx="${X}" cy="${Y}" r="11" fill="#60a5fa" stroke="#1d4ed8"/>`; });
+        svg += `<circle cx="${cx}" cy="${cy}" r="15" fill="#7c3aed"/><text x="${cx}" y="${cy + 4}" font-size="11" text-anchor="middle" fill="#fff">A</text>`;
+      }
+      $('#jxV').innerHTML = svg;
+      $('#jxRead').innerHTML = info ? `<span>shape <b>${info[0]}</b></span><span>hybrid <b>${info[1]}</b></span><span>angle <b>${info[2]}</b></span><span>e.g. <b>${info[3]}</b></span>` : '<span>try another combination</span>';
+      const x = { k: info ? k : '' };
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['vs_' + kk] && tt(x)) { done['vs_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['vs_' + kk] ? 'ok' : ''}">${done['vs_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }

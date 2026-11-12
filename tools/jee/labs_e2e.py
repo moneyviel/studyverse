@@ -177,6 +177,10 @@ async def _(pg):
     await setr(pg, '[data-k="H"]', 6); await setr(pg, '[data-k="S"]', 22)             # crossover 273
     await setr(pg, '[data-k="H"]', -100); await setr(pg, '[data-k="S"]', -100); await setr(pg, '[data-k="T"]', 300)   # cold
     await setr(pg, '[data-k="T"]', 1000)                                               # equilibrium
+@lab('chem-u03', 'vsepr')
+async def _(pg):
+    for b, l in [(4, 0), (3, 1), (3, 2), (2, 3), (4, 2)]:
+        await tap(pg, f'[data-b="{b}"]'); await tap(pg, f'[data-lp="{l}"]')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
