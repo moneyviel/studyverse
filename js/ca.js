@@ -349,7 +349,7 @@
     D.getElementById('caGrpGo').onclick = groupScreen;
     weakMini(D.getElementById('caWeakMini'));
     if (T()) T().wireHome(el);
-    try { if (window.GK) GK.snacks(); } catch (e) {}   // Brain Snacks for CA students too
+    document.getElementById('gkSnack')?.remove();   // Brain Snacks live on the Profile (js/gk.js)
   }
   function paperCard(level, p, i, st) {
     const b = builtCount(p), n = unitCount(p), pr = paperProg(p);
@@ -975,6 +975,7 @@
     D.getElementById('caNmS').onclick = () => { const v = D.getElementById('caNm').value.trim(); if (v) { p.name = v; save(); toast('Name saved'); } };
     if (T()) { D.getElementById('caPNotes').onclick = () => T().notes(); D.getElementById('caPSearch').onclick = () => T().search(''); }
     D.getElementById('caReset').onclick = function () { if (this.dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { this.dataset.sure = 1; this.textContent = 'Tap again to erase everything'; } };
+    try { if (window.GK) GK.snacks(); } catch (e) {}
   }
   /* ---------- owner tools (owner mode only) ---------- */
   function ownerCard() {

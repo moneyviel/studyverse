@@ -155,7 +155,8 @@
     try {
       if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; userMeta = u.user_metadata || null; set('sv_auth', JSON.stringify(S)); }
       const wasParent = isParent(), r = await resolveRole();
-      if (r === 'parent') { enterParent(); owner(); status = 'ok'; paint(); return; }   // parents: no progress sync, trial or courses
+      if (r === 'parent') { await owner(); if (meta().adm) { setRole(S.user.id, 'student', true); if (wasParent) { location.replace(SITE); return; } }   // the owner always gets the student app; Parent Hub opens from Me
+        else { enterParent(); status = 'ok'; paint(); return; } }   // parents: no progress sync, trial or courses
       if (wasParent && (r === 'student' || r === 'none')) { location.replace(SITE); return; }
       repaintMe();
       await claim();
@@ -168,7 +169,7 @@
   /* role: cached once known for sure; otherwise ask the server, and set the role chosen at sign-up (once) */
   async function resolveRole() {
     const uid = S.user.id, email = (S.user.email || '').toLowerCase(), c = jget(ROLE_K, null), mine = c && c.uid === uid ? c : null;
-    if (mine && mine.sure && (mine.role === 'parent' || mine.role === 'student')) { set(PEND_K, null); return mine.role; }
+    if (mine && mine.sure && mine.role === 'student') { set(PEND_K, null); return mine.role; }   // a cached 'parent' is re-checked with the server below
     const pj = jget(PEND_K, null);
     let pend = pj && pj.email === email ? pj.role : (userMeta && userMeta.sv_role) || null;
     if (pend !== 'parent' && pend !== 'student') pend = null;

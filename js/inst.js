@@ -230,17 +230,18 @@ textarea.pv-in{min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospac
   function paint() {
     if (!signedIn() || (C().isParent && C().isParent())) return;
     try { hwCheck(); } catch (e) {}
-    const w = D.getElementById('s-world');
-    if (w && w.querySelector('#worldTitle')) {
-      place(w, w.querySelector('#worldTitle'), 'in-badge', badgeHTML());
-      place(w, w.querySelector(':scope > .in-badge') || w.querySelector('#worldTitle'), 'in-hw', hwHTML(), wireHw);
+    const w = D.getElementById('s-me');   // school badge + homework live on Me (not on World)
+    if (w && w.querySelector(':scope > .statrow')) {
+      place(w, w.querySelector(':scope > .statrow'), 'in-badge', badgeHTML());
+      place(w, w.querySelector(':scope > .in-badge') || w.querySelector(':scope > .statrow'), 'in-hw', hwHTML(), wireHw);
     }
+    D.querySelectorAll('#s-world > .in-badge, #s-world > .in-hw').forEach(x => x.remove());
     const ca = D.getElementById('s-ca');
-    if (ca && ca.querySelector('.ca-journey')) {
-      const firstCard = ca.querySelector(':scope > .card:not(.in-hw):not(.pv-goal)');
-      place(ca, firstCard, 'in-badge', badgeHTML());
-      place(ca, ca.querySelector(':scope > .in-badge') || firstCard, 'in-hw', hwHTML(), wireHw);
-    } else if (ca) ca.querySelectorAll(':scope > .in-hw, :scope > .in-badge').forEach(x => { if (!ca.querySelector('.ca-prof')) x.remove(); });
+    if (ca && ca.querySelector(':scope > .ca-prof')) {   // CA: on the Profile, not the Journey
+      const anchor = ca.querySelector(':scope > .statrow');
+      place(ca, anchor, 'in-badge', badgeHTML());
+      place(ca, ca.querySelector(':scope > .in-badge') || anchor, 'in-hw', hwHTML(), wireHw);
+    } else if (ca) ca.querySelectorAll(':scope > .in-hw, :scope > .in-badge').forEach(x => x.remove());
     const meS = D.getElementById('s-me');
     const hosts = [meS && meS.firstElementChild ? meS : null, ca && ca.querySelector('.ca-prof') ? ca : null].filter(Boolean);
     hosts.forEach(h => {

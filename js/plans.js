@@ -260,7 +260,8 @@
     if (!signedIn()) return;
     if (parent()) { D.querySelectorAll('.sv-planbar').forEach(b => b.remove()); return; }
     const kind = kindNow();
-    ['s-world', 's-me'].forEach(id => {
+    D.querySelectorAll('#s-world > .sv-planbar').forEach(b => b.remove());   // the plan card lives on Me
+    ['s-me'].forEach(id => {
       const sc = D.getElementById(id); if (!sc || !sc.firstElementChild) return;
       const h = kind === 'ca' ? '' : barHTML('school'); let b = sc.querySelector(':scope > .sv-planbar');
       if (!h) { if (b) b.remove(); return; }
@@ -271,7 +272,7 @@
     if (kind !== 'ca') { place(ca, '', null); return; }
     const top = ca.querySelector(':scope > .ca-top'), home = top && ca.querySelector(':scope > .ca-journey'), prof = ca.querySelector(':scope > .ca-prof');
     const snack = home ? ca.querySelector(':scope > #gkSnack') : null;
-    place(ca, caBarHTML(), prof || (home ? (snack || top) : null));
+    place(ca, caBarHTML(), prof || null);
   }
   let warned = false;
   function remind() {

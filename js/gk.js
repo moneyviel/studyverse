@@ -46,9 +46,9 @@
 
   /* ================= 1. Brain Snacks ================= */
   async function snacks() {
-    const ca = !!(ST.profile && ST.profile.course === 'ca');   // CA home: snacks go just under the greeting
-    const scr = document.getElementById(ca ? 's-ca' : 's-world'), top = ca && scr ? scr.querySelector('.ca-top') : null;
-    const map = ca ? (top && top.nextElementSibling) : document.getElementById('map');
+    const ca = !!(ST.profile && ST.profile.course === 'ca');   // on Me (school) / Profile (CA), just under the stats
+    const scr = document.getElementById(ca ? 's-ca' : 's-me'), st = scr && (!ca || scr.querySelector(':scope > .ca-prof')) ? scr.querySelector(':scope > .statrow') : null;
+    const map = st && st.nextElementSibling;
     if (!scr || !map || !ST.profile) return;
     let D; try { D = await daily(); } catch (e) { document.getElementById('gkSnack')?.remove(); return; }
     const t = dayInfo(), g = grade(), sig = `${t.iso}|${g}`;
@@ -413,12 +413,12 @@
 
   /* ---------- hooks: home screen snacks, and a card on Me ---------- */
   const _world = worldScreen;
-  worldScreen = async function () { stopRun(); const r = await _world.apply(this, arguments); try { await snacks(); } catch (e) {} return r; };
+  worldScreen = async function () { stopRun(); const r = await _world.apply(this, arguments); document.getElementById('gkSnack')?.remove(); return r; };
   const _me = meScreen;
   meScreen = function () {
     stopRun(); const r = _me.apply(this, arguments);
     const host = document.getElementById('s-me');
-    meCard(host);
+    meCard(host); snacks().catch(() => {});
     return r;
   };
   function meCard(host, anchorSel) {           // GK Explorer card on the school Me screen and the CA Profile

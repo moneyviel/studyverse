@@ -203,10 +203,11 @@
   function paintGoal() {
     try { focusCheck(); } catch (e) {}
     const w = D.getElementById('s-world');
-    if (w && w.querySelector('#worldTitle')) { placeGoal(w, w.querySelector('#worldTitle')); placeMission(w, w.querySelector(':scope > .pv-goal:not(.pv-mission)') || w.querySelector('#worldTitle')); }
-    const me = D.getElementById('s-me'); if (me && me.firstElementChild) placeGoal(me, me.querySelector(':scope > .card:not(.pv-goal)'));
+    if (w) w.querySelectorAll(':scope > .pv-goal').forEach(x => x.remove());   // goal + mission live on Me
+    const me = D.getElementById('s-me'); if (me && me.firstElementChild) { placeGoal(me, me.querySelector(':scope > .card:not(.pv-goal)')); placeMission(me, me.querySelector(':scope > .pv-goal:not(.pv-mission)') || me.querySelector(':scope > .card')); }
     const ca = D.getElementById('s-ca');
-    if (ca && (ca.querySelector('.ca-journey') || ca.querySelector('.ca-prof'))) {
+    if (ca && ca.querySelector(':scope > .ca-journey')) ca.querySelectorAll(':scope > .pv-goal').forEach(x => x.remove());
+    if (ca && ca.querySelector('.ca-prof')) {
       placeGoal(ca, ca.querySelector(':scope > .card:not(.pv-goal)'));
       if (ca.querySelector('.ca-journey')) placeMission(ca, ca.querySelector(':scope > .pv-goal:not(.pv-mission)') || ca.querySelector(':scope > .card:not(.pv-goal)'));
       else { const m = ca.querySelector(':scope > .pv-mission'); if (m) m.remove(); }
