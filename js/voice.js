@@ -49,9 +49,9 @@
   window.speak = t => say(t);
 
   /* ---------- 🔊 buttons everywhere in games ---------- */
-  const Q = '#s-mind .mg-q, #s-mind .pl-q, #s-mind .hp-sit, #s-mind .hp-event, #s-mind .sx-q, #s-mind .sx-card-t, .pz-cl, .pz-ctx, .arc-p, .arc-lq';
-  const O = '#s-mind .mg-o:not(.pic), #s-mind .hp-opt, #s-mind .hp-rep, #s-mind .hp-tile, #s-mind .sx-opt, #s-mind .sx-chip';
-  const M = '#s-mind .hp-b:not(.me):not(.typing), #s-mind .mg-fb > p:not(.mg-v), #s-mind .pl-fb > p:not(.mg-v), #s-mind .hp-res, #s-mind .pl-hero p, #s-mind .mg-out, #s-mind .sx-why, .arc-exp, .arc-hint';
+  const Q = '.fm-sheet .fm-qt, .fm-talk .pl-q, #s-mind .mg-q, #s-mind .pl-q, #s-mind .hp-sit, #s-mind .hp-event, #s-mind .sx-q, #s-mind .sx-card-t, .pz-cl, .pz-ctx, .arc-p, .arc-lq';
+  const O = '.fm-sheet button.fm-o, #s-mind .mg-o:not(.pic), #s-mind .hp-opt, #s-mind .hp-rep, #s-mind .hp-tile, #s-mind .sx-opt, #s-mind .sx-chip';
+  const M = '.fm-sheet .fm-fb > p, .fm-sheet .fm-hero p, .fm-sheet .fm-tipc p, #s-mind .hp-b:not(.me):not(.typing), #s-mind .mg-fb > p:not(.mg-v), #s-mind .pl-fb > p:not(.mg-v), #s-mind .hp-res, #s-mind .pl-hero p, #s-mind .mg-out, #s-mind .sx-why, .arc-exp, .arc-hint';
   const btn = (kind) => `<span class="vx vx-${kind}" role="button" tabindex="0" aria-label="Listen">🔊</span>`;
   function decorate() {
     D.querySelectorAll(`${Q}, ${O}, ${M}`).forEach(el => {
@@ -82,7 +82,7 @@
   D.addEventListener('pointerdown', e => { if (e.target.closest && e.target.closest('.vx')) { e.stopPropagation(); } }, true);
   D.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('vx')) activate(e); }, true);
   // stop talking when the student moves on
-  D.addEventListener('click', e => { if (e.target.closest && e.target.closest('#plNext, #mgNext, .back, nav button')) stop(); }, true);
+  D.addEventListener('click', e => { if (e.target.closest && e.target.closest('#plNext, #mgNext, .back, nav button, .fm-btn, .fm-back')) stop(); }, true);
 
   let t = 0; new MutationObserver(() => { if (!t) t = requestAnimationFrame(() => { t = 0; try { decorate(); } catch (e) {} }); }).observe(D.documentElement, { childList: true, subtree: true });
   D.head.insertAdjacentHTML('beforeend', `<style id="vxCss">

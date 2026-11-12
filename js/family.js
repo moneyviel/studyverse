@@ -33,7 +33,8 @@
   const gkQ = (q, tag) => ({ q: q.q, o: q.o, a: q.a, x: q.x || '', tag: tag || `🌍 General knowledge · ${q.ce || ''} ${q.cat || ''}` });
   async function kidPool(k) {
     const st = (k.state && k.state.st) || {}, pr = st.profile || {}, g = +pr.grade;
-    if (pr.course === 'ca' || !g) return (await gkPool(12)).map(q => gkQ(q));
+    if (pr.course === 'ca') { try { const L = await caPool(st); if (L.length) return L; } catch (e) {} return (await gkPool(12)).map(q => gkQ(q)); }
+    if (!g) return (await gkPool(12)).map(q => gkQ(q));
     const ids = Object.keys(st.topics || {}).filter(id => id.startsWith(`g${g}-`));
     const subj = {}; ids.forEach(id => { const s = id.split('-')[1]; (subj[s] = subj[s] || []).push(id); });
     let subs = Object.keys(subj);
@@ -50,6 +51,18 @@
     }
     if (!out.length) return (await gkPool(g)).map(q => gkQ(q, `🌍 General knowledge (Grade ${g})`));
     return shuffle(out).sort((a, b) => (b.mine ? 1 : 0) - (a.mine ? 1 : 0));
+  }
+  /* CA students: MCQs from the units they studied (or the first built units of their level) */
+  async function caPool(st) {
+    const ca = st.ca || {}, LV = { fnd: 'foundation', int: 'inter', fin: 'final' }, NM = { foundation: 'Foundation', inter: 'Intermediate', final: 'Final' };
+    const done = Object.keys(ca.units || {}), lvl = ca.level || LV[(done[0] || '').split('-')[0]] || 'foundation';
+    const str = await get(`content/ca/${lvl}/structure.json`), units = [];
+    (str.papers || []).forEach(pp => (pp.chapters || []).forEach(ch => (ch.units || []).forEach(u => { if (u.status === 'built' && u.file) units.push({ u, pp, ch }); })));
+    const mine = units.filter(x => done.includes(x.u.id)), use = shuffle(mine.length ? mine : units.slice(0, 8)).slice(0, 3), out = [];
+    for (const { u, pp } of use) {
+      try { const d = await get(u.file); (d.mcqs || []).forEach(q => { if (Array.isArray(q.options) && q.answer != null) out.push({ q: q.q, o: q.options, a: q.answer, x: q.explain || '', tag: `📘 CA ${NM[lvl]} · ${E(pp.name)} · ${E(u.title)}` }); }); } catch (e) {}
+    }
+    return shuffle(out);
   }
   const subjLabel = s => s.charAt(0).toUpperCase() + s.slice(1);
 

@@ -32,7 +32,11 @@
   let PARENT = false;
   const PCT = { id: 'pc', e: '🫶', n: 'Parenting Compass', d: 'Calm, kind and firm — real family moments', col: '#c2185b' };
   let TESTS = TBASE;
-  function setParent(on) { PARENT = !!on; TESTS = PARENT ? [PCT].concat(TBASE) : TBASE; }
+  function setParent(on) {
+    PARENT = !!on; TESTS = PARENT ? [PCT].concat(TBASE) : TBASE;
+    D.documentElement.classList.toggle('mg-parent', PARENT);   // grown-ups don't need the students' bottom menu
+    if (!D.getElementById('mgParCss')) D.head.insertAdjacentHTML('beforeend', '<style id="mgParCss">html.mg-parent nav[aria-label="Main"]{display:none!important}</style>');
+  }
   const T = id => TESTS.find(t => t.id === id);
   const START = 20, PER = 10, STEP = 2, ROUND = { j: 6, m: 8, s: 10, p: 10 };
   const NOTE = 'Mind Gym is fun practice to grow thinking skills. Ratings show how you are doing in these practice questions only. It is not an IQ test or a medical or psychological assessment, and it never labels anyone. Feelings and people questions follow widely used school social-emotional learning ideas.';
