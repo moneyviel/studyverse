@@ -238,6 +238,14 @@ async def _(pg):
     await tap(pg, '#jxRc'); await tap(pg, '#jxRi'); await c(1, 2)                                # reflexive + transitive, not symmetric
     await tap(pg, '#jxRc'); await c(1, 1)                                                        # symmetric + transitive, not reflexive
     await tap(pg, '#jxRc'); await c(1, 2); await c(2, 1); await c(3, 3); await c(4, 4)            # a non-identity bijection
+@lab('math-u02', 'argand')
+async def _(pg):
+    r = lambda k, v: setr(pg, f'input[data-k="{k}"]', v)
+    await r('x', 3); await r('y', 4)                    # |z| = 5
+    await r('x', -2); await r('y', 2)                   # arg 3π/4; n = 2 → z² = −8i
+    await r('x', 0); await r('y', 1); await r('n', 4)   # i⁴ = 1
+    await r('n', 2)                                     # i² = −1
+    await r('x', 4); await r('y', 4); await r('n', 6)   # huge
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 }, 'math-u01': { pyq: 65, prac: 780 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 }, 'math-u01': { pyq: 65, prac: 780 }, 'math-u02': { pyq: 49, prac: 588 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -403,7 +403,7 @@
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
-      const L = { relation: ['🔗 Relation Builder', 'Tap pairs into a relation on {1, 2, 3, 4} and watch it become reflexive, symmetric, transitive — or a one-one onto function. 5 missions.', () => relLab(uid)], pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
+      const L = { argand: ['🧭 Argand Explorer', 'Drag a complex number round the plane — see its modulus and argument, raise it to a power and watch it spin and stretch. 5 missions.', () => argandLab(uid)], relation: ['🔗 Relation Builder', 'Tap pairs into a relation on {1, 2, 3, 4} and watch it become reflexive, symmetric, transitive — or a one-one onto function. 5 missions.', () => relLab(uid)], pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
         projectile: ['🏀 Projectile Launcher', 'Set speed, angle and launch height — watch the path, range, height and flight time; hit a flag and find twin angles. 5 missions.', () => projectileLab(uid)],
         circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
@@ -1569,6 +1569,46 @@
       $('#jxRead').innerHTML = `<span>n(R) <b>${x.n}</b></span>${lt(x.refl, 'reflexive')}${lt(x.sym, 'symmetric')}${lt(x.tr, 'transitive')}${lt(x.func, 'a function')}${x.classes ? `<span>classes <b>${x.classes}</b></span>` : ''}`;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['rl_' + kk] && tt(x)) { done['rl_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['rl_' + kk] ? 'ok' : ''}">${done['rl_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Complex Numbers ---------- */
+  function argandLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { x: 1, y: 1, n: 2 };
+    const MIS = [['m5', 'Move z so that |z| is exactly 5', v => Math.abs(v.r - 5) < 1e-9],
+      ['a34', 'Point z at an argument of 3π/4 (135°)', v => v.r > 0 && Math.abs(v.th - 3 * Math.PI / 4) < 1e-9],
+      ['root', 'Find z ≠ 1 on the unit circle with zⁿ = 1 (n ≥ 2)', v => v.n >= 2 && Math.abs(v.r - 1) < 1e-9 && !(v.x === 1 && v.y === 0) && Math.abs(v.wx - 1) < 1e-9 && Math.abs(v.wy) < 1e-9],
+      ['neg', 'Make zⁿ a negative real number while z itself is not real', v => v.y !== 0 && Math.abs(v.wy) < 1e-9 && v.wx < -1e-9],
+      ['big', 'Blow it up: make |zⁿ| bigger than 100', v => v.R > 100]];
+    const sl = (k, lo, hi, stp) => `<label class="jx-sl"><span>${k === 'n' ? 'power n' : k === 'x' ? 'Re z' : 'Im z'} <b id="v_${k}">${st[k]}</b></span><input type="range" min="${lo}" max="${hi}" step="${stp}" value="${st[k]}" data-k="${k}"></label>`;
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🧭 Argand Explorer</h3>
+      <p class="jx-fine">Every complex number is a point. Move z (purple) and pick a power n — zⁿ (orange) spins n times as far round and its distance from O is raised to the power n. The dashed circle is |z| = 1.</p>
+      <svg viewBox="-160 -160 320 320" class="jx-circ" id="jxAg" style="max-width:330px"></svg><div class="jx-read" id="jxRead"></div>
+      ${sl('x', -4, 4, 0.5)}${sl('y', -4, 4, 0.5)}${sl('n', 1, 6, 1)}
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value; upd(); });
+    const fmt = (a, b) => { const r = q => +q.toFixed(3); a = r(a); b = r(b); if (Object.is(a, -0)) a = 0; if (Object.is(b, -0)) b = 0; const m = q => String(q).replace('-', '−'); return b === 0 ? m(a) : a === 0 ? m(b) + 'i' : `${m(a)} ${b < 0 ? '−' : '+'} ${Math.abs(b)}i`; };
+    const upd = () => {
+      const { x, y, n } = st, r = Math.hypot(x, y), th = Math.atan2(y, x), R = Math.pow(r, n), wx = Math.abs(R * Math.cos(n * th)) < 1e-9 ? 0 : R * Math.cos(n * th), wy = Math.abs(R * Math.sin(n * th)) < 1e-9 ? 0 : R * Math.sin(n * th);
+      const big = Math.max(5, Math.min(Math.hypot(wx, wy) * 1.1, 1e9)), s = 140 / big, P = (a, b) => [a * s, -b * s];
+      const [zx, zy] = P(x, y), lim = Math.min(Math.hypot(wx, wy), big), ang = Math.atan2(wy, wx), [px, py] = [lim * Math.cos(ang) * s, -lim * Math.sin(ang) * s];
+      let ticks = ''; const step = big > 50 ? Math.pow(10, Math.floor(Math.log10(big))) : big > 10 ? 5 : 1;
+      for (let k = -Math.floor(big / step) * step; k <= big; k += step) if (k) ticks += `<line x1="${k * s}" y1="-3" x2="${k * s}" y2="3" stroke="#94a3b8"/><line x1="-3" y1="${-k * s}" x2="3" y2="${-k * s}" stroke="#94a3b8"/>`;
+      $('#jxAg').innerHTML = `<line x1="-160" y1="0" x2="160" y2="0" stroke="#94a3b8"/><line x1="0" y1="-160" x2="0" y2="160" stroke="#94a3b8"/>${ticks}
+        <text x="150" y="-6" font-size="11" fill="#64748b" text-anchor="end">Re</text><text x="6" y="-148" font-size="11" fill="#64748b">Im</text>
+        <circle r="${s}" fill="none" stroke="#0ea5e9" stroke-dasharray="4 3" stroke-width="1.5"/>
+        ${r > 0 ? `<path d="M ${Math.min(22, r * s)} 0 A ${Math.min(22, r * s)} ${Math.min(22, r * s)} 0 ${th < 0 ? 0 : 0} ${th < 0 ? 1 : 0} ${Math.min(22, r * s) * Math.cos(th)} ${-Math.min(22, r * s) * Math.sin(th)}" fill="none" stroke="#7c3aed" stroke-width="1.5"/>` : ''}
+        <line x1="0" y1="0" x2="${px}" y2="${py}" stroke="#f97316" stroke-width="2.5"/><circle cx="${px}" cy="${py}" r="6" fill="#f97316"/>
+        <line x1="0" y1="0" x2="${zx}" y2="${zy}" stroke="#7c3aed" stroke-width="2.5"/><circle cx="${zx}" cy="${zy}" r="6" fill="#7c3aed"/>
+        <text x="${zx + 8}" y="${zy - 6}" font-size="12" fill="#6d28d9" font-weight="700">z</text><text x="${px + 8}" y="${py + 14}" font-size="12" fill="#c2410c" font-weight="700">z${n > 1 ? '<tspan dy="-5" font-size="9">' + n + '</tspan>' : ''}</text>`;
+      const deg = +(th * 180 / Math.PI).toFixed(1);
+      $('#jxRead').innerHTML = `<span>z = <b>${fmt(x, y)}</b></span><span>|z| <b>${+r.toFixed(3)}</b></span><span>arg z <b>${r ? deg + '°' : '—'}</b></span><span>z<sup>${n}</sup> = <b>${fmt(wx, wy)}</b></span><span>|z<sup>${n}</sup>| <b>${+R.toFixed(3)}</b></span>`;
+      const v = { x, y, n, r, th, R, wx, wy };
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['ag_' + kk] && t(v)) { done['ag_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['ag_' + kk] ? 'ok' : ''}">${done['ag_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }
