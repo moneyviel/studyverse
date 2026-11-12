@@ -19,15 +19,20 @@
   const STx = () => { try { return ST; } catch (e) { return null; } };
   const isCA = () => { const s = STx(); return !!(s && s.profile && s.profile.course === 'ca'); };
   const isParent = () => { try { return !!(window.Cloud && Cloud.isParent && Cloud.isParent()); } catch (e) { return false; } };
-  const isOwner = () => { try { return !!(window.Cloud && Cloud.admin && Cloud.admin()); } catch (e) { return false; } };
+  const isOwner = () => { try { return PARENT || !!(window.Cloud && Cloud.admin && Cloud.admin()); } catch (e) { return false; } };
   const persist = () => { try { save(); } catch (e) {} };
 
-  const TESTS = [
+  const TBASE = [
     { id: 'iq', e: '🧠', n: 'Brainstorm Arena', d: 'Logic, patterns and picture puzzles', col: '#6d4aff' },
     { id: 'eq', e: '🧭', n: 'Heart Compass', d: 'Read and handle feelings, yours and others’', col: '#d99a00' },
     { id: 'sq', e: '🪐', n: 'Friendship Galaxy', d: 'Get along, team up and play fair', col: '#1e9e6a' },
     { id: 'aq', e: '🚀', n: 'Rise-Again Rocket', d: 'Bounce back when things go wrong', col: '#ff7a1a' },
     { id: 'cq', e: '💡', n: 'Idea Factory', d: 'Curiosity and creative ideas', col: '#e0408f' }];
+  /* parents (opened from Parent Hub): grown-up look, every challenge open, plus 🫶 Parenting Compass */
+  let PARENT = false;
+  const PCT = { id: 'pc', e: '🫶', n: 'Parenting Compass', d: 'Calm, kind and firm — real family moments', col: '#c2185b' };
+  let TESTS = TBASE;
+  function setParent(on) { PARENT = !!on; TESTS = PARENT ? [PCT].concat(TBASE) : TBASE; }
   const T = id => TESTS.find(t => t.id === id);
   const START = 20, PER = 10, STEP = 2, ROUND = { j: 6, m: 8, s: 10, p: 10 };
   const NOTE = 'Mind Gym is fun practice to grow thinking skills. Ratings show how you are doing in these practice questions only. It is not an IQ test or a medical or psychological assessment, and it never labels anyone. Feelings and people questions follow widely used school social-emotional learning ideas.';
@@ -46,9 +51,11 @@
     eq: ['Play a few rounds to get your rating.', 'You are learning to name feelings. Keep reading the “why”.', 'You often pick the calm, kind choice. Nice!', 'You read feelings well and handle them wisely.', 'Feelings expert! You stay calm and help others feel understood.'],
     sq: ['Play a few rounds to get your rating.', 'You are learning how friends and teams work.', 'You often choose fair and friendly. Great teammate!', 'You include others and solve fights fairly.', 'Super teammate! People can count on you to be fair and kind.'],
     aq: ['Play a few rounds to get your rating.', 'You are learning to bounce back. Every try counts!', 'You usually look for a plan when things go wrong.', 'You turn setbacks into steps forward.', 'Comeback champion! You learn from every fall and rise again.'],
+    pc: ['Play a few rounds to get your rating.', 'You are noticing new ways to respond. Keep going!', 'You often choose the calm, connecting response.', 'Your child is lucky — you listen first and stay calm.', 'Parenting champion! Kind, firm and always connected.'],
     cq: ['Play a few rounds to get your rating.', 'You are starting to ask “what if?”. Keep wondering!', 'Your ideas are getting fresh and useful.', 'Creative thinker! You find new uses and smart solutions.', 'Idea champion! Curious, inventive and practical.'] };
 
   function band() {
+    if (PARENT) return 's';
     const s = STx(); if (!s || !s.profile) return 'm';
     if (isCA()) return 'p';
     const g = +s.profile.grade || 5; return g <= 3 ? 'j' : g <= 8 ? 'm' : 's';
@@ -123,11 +130,11 @@
     if (!s) { $1('main').insertAdjacentHTML('beforeend', '<section class="screen" id="s-mind"></section>'); s = D.getElementById('s-mind'); }
     return s;
   }
-  const backToPractice = () => { if (isCA() && window.CaTools && CaTools.practiceHub) CaTools.practiceHub(); else practiceScreen(); };
+  const backToPractice = () => { if (PARENT) { setParent(false); try { Parent.home(); } catch (e) {} return; } if (isCA() && window.CaTools && CaTools.practiceHub) CaTools.practiceHub(); else practiceScreen(); };
 
   /* five-point "skills star" chart: one point per practice */
   function radar(info) {
-    const cx = 110, cy = 105, R = 78, pt = (i, f) => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; return [cx + Math.cos(a) * R * f, cy + Math.sin(a) * R * f]; };
+    const cx = 110, cy = 105, R = 78, pt = (i, f) => { const a = -Math.PI / 2 + i * 2 * Math.PI / info.length; return [cx + Math.cos(a) * R * f, cy + Math.sin(a) * R * f]; };
     const ring = f => info.map((_, i) => pt(i, f).join(',')).join(' ');
     const val = info.map((x, i) => pt(i, Math.max(.06, (x.lv.few ? 0 : x.lv.pct) / 100)).join(',')).join(' ');
     return `<svg viewBox="0 0 220 215" class="mg-radar" role="img" aria-label="Skills star: ${info.map(x => `${x.t.n} ${x.lv.few ? 'not rated yet' : x.lv.pct + '%'}`).join(', ')}">
@@ -141,17 +148,17 @@
   async function open() {
     style(); try { MindPlay._style(); } catch (e) {} const el = screen(); show('mind', 'practice'); window.scrollTo(0, 0);
     const b = band(), lk = LOOK[b];
-    el.innerHTML = `<div class="mg-root mg-${b} pl-root ${LOOKCLS[b]}"><button class="back" id="mgBack">← Practice</button><div class="card mg-wait">Loading…</div></div>`;
+    el.innerHTML = `<div class="mg-root mg-${b} pl-root ${LOOKCLS[b]}"><button class="back" id="mgBack">← ${PARENT ? 'Parent Hub' : 'Practice'}</button><div class="card mg-wait">Loading…</div></div>`;
     $1('#mgBack').onclick = () => { S('tap'); backToPractice(); };
     let info;
     try { info = await Promise.all(TESTS.map(async t => { const n = await total(t.id); return { t, total: n, open: openCount(n), lv: level(t.id), nx: nextUnlock(n) }; })); }
     catch (e) { $1('.mg-wait', el).textContent = 'Could not load Mind Gym. Check your internet and try again.'; return; }
     const st = steps(), nx = info.map(i => i.nx).filter(Boolean)[0], w = wk();
     const prog = nx ? `<div class="card mg-unlock"><b>🔓 Finish ${nx.need} more ${stepWord(nx.need)} to unlock ${nx.gets} new challenges in every practice.</b><div class="mg-bar"><i style="width:${Math.round(((STEP - nx.need) / STEP) * 100)}%"></i></div><small>Learning opens new challenges. ${st} ${stepWord(st)} finished so far.</small></div>` : '';
-    $1('.mg-wait', el).outerHTML = `<div class="pl-hero"><div class="pl-he" aria-hidden="true">🧠</div><h2>Mind Gym</h2><p>${E(lk.tag)} · five practices that grow as you learn</p></div>
+    $1('.mg-wait', el).outerHTML = `<div class="pl-hero"><div class="pl-he" aria-hidden="true">🧠</div><h2>Mind Gym</h2><p>${PARENT ? 'For grown-ups · play, learn and grow with your child' : `${E(lk.tag)} · five practices that grow as you learn`}</p></div>
       <button type="button" class="card pl-testbtn" id="mgWork"><span aria-hidden="true">${w.done ? '✅' : '🔥'}</span><span><b>Daily Mind Workout</b><small>${w.done ? `Done today${w.streak ? ` · 🔥 ${w.streak}-day streak` : ''} · play again` : `5 minutes · one challenge from every practice${w.streak ? ` · 🔥 ${w.streak}-day streak` : ''}`}</small></span><span class="mg-chev">›</span></button>
       ${prog}<div class="pl-games mg-tiles5">${info.map((i, k) => `<button type="button" class="pl-game" data-t="${i.t.id}" style="--plc:${i.t.col};--k:${k}"><span class="pl-ge" aria-hidden="true">${i.t.e}</span><span class="pl-gt"><b>${E(i.t.n)}</b><small>${E(i.t.d)}</small><small class="pl-lv">${BADGE[i.lv.i]} ${E(i.lv.n)} · ${stars(i.lv.i)}</small></span></button>`).join('')}
-        <button type="button" class="pl-game" id="mgMap" style="--plc:#8a8fb0;--k:5"><span class="pl-ge" aria-hidden="true">📊</span><span class="pl-gt"><b>My Mind Map</b><small>All five scorecards in one place</small><small class="pl-lv">Open ›</small></span></button></div>
+        <button type="button" class="pl-game" id="mgMap" style="--plc:#8a8fb0;--k:5"><span class="pl-ge" aria-hidden="true">📊</span><span class="pl-gt"><b>My Mind Map</b><small>All your scorecards in one place</small><small class="pl-lv">Open ›</small></span></button></div>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div>`;
     el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); go(x.dataset.t); });
     $1('#mgMap', el).onclick = () => { S('open'); mindMap(); };
@@ -255,9 +262,9 @@
         ${HSK.map(([k, e, c]) => { const v = K[k]; return `<div class="mg-row"><span>${e} ${E(k)}</span><div class="mg-bar"><i style="width:${v && v[1] ? Math.round(v[0] / v[1] * 100) : 0}%;background:${c}"></i></div><b>${v && v[1] ? ZONES[(v[0] / v[1]) >= .85 ? 3 : (v[0] / v[1]) >= .7 ? 2 : (v[0] / v[1]) >= .5 ? 1 : 0][0].split(' ')[0] : '—'}</b></div>`; }).join('')}
         <p class="sub mg-lvl">Zones: 🌱 Growing → 🌿 Building → 🌳 Strong → 🌟 Shining, from your Heart Compass games. Longer petals = stronger skills.</p></div>`; })() : ''}
       ${test === 'eq' && (m.htests || []).length ? `<div class="card"><h3>⏱️ Timed check results</h3><div class="mg-tiles2">${m.htests.slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div></div>` : ''}
-      ${(test === 'iq' || SX[test]) && skills.length ? `<div class="card"><h3>🧩 Skills</h3>${skills.map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${Math.round(v[0] / v[1] * 100)}%;background:${t.col}"></i></div><b>${v[0]}/${v[1]}</b></div>`).join('')}
+      ${(test === 'iq' || SX[test] || test === 'pc') && skills.length ? `<div class="card"><h3>🧩 Skills</h3>${skills.map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${Math.round(v[0] / v[1] * 100)}%;background:${t.col}"></i></div><b>${v[0]}/${v[1]}</b></div>`).join('')}
         ${strong.length > 1 ? `<p class="sub mg-lvl">💪 Strongest: ${E(strong[0][0])} · 🎯 Practise more: ${E(strong[strong.length - 1][0])}</p>` : ''}</div>` : ''}
-      ${SX[test] && (m[test + 'tests'] || []).length ? `<div class="card"><h3>⏱️ Timed check results</h3><div class="mg-tiles2">${m[test + 'tests'].slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div></div>` : ''}
+      ${(SX[test] || test === 'pc') && (m[test + 'tests'] || []).length ? `<div class="card"><h3>⏱️ Timed check results</h3><div class="mg-tiles2">${m[test + 'tests'].slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div></div>` : ''}
       ${test === 'iq' && (m.btests || []).length ? `<div class="card"><h3>⏱️ Timed test results</h3><div class="mg-tiles2">${m.btests.slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div>
         ${(() => { const last = m.btests[m.btests.length - 1].sec; return Object.entries(last).map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${v}%;background:${t.col}"></i></div><b>${v}%</b></div>`).join(''); })()}<p class="sub mg-lvl">Bars show your latest timed test, skill by skill.</p></div>` : ''}
       <button class="btn" type="button" id="mgGo">Play ${E(t.n)} ▶</button>
@@ -440,5 +447,5 @@
     m.total[test] = (m.total[test] || 0) + 1;
     const K = m.kinds[test] = m.kinds[test] || {}; K[kind] = K[kind] || [0, 0]; K[kind][1]++; if (ok) K[kind][0]++; persist();
   }
-  window.MindGym = { open, card, mindMap, iqMenu, eqMenu, suiteMenu, round, record, state: M, TESTS, _pool: pool, _open: openCount, _skillOf: skillOf, _wk: wk, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
+  window.MindGym = { open, card, mindMap, iqMenu, eqMenu, suiteMenu, round, record, state: M, get TESTS() { return TESTS; }, parent: on => { setParent(on); }, isParent: () => PARENT, _pool: pool, _open: openCount, _skillOf: skillOf, _wk: wk, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
 })();

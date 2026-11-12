@@ -54,6 +54,19 @@ for t in ('eq', 'sq', 'aq', 'cq'):
         json.dump({'test': t, 'v': 1, 'questions': [q for q in qs if q['b'] == b]}, open(os.path.join(OUT, '%s-%s.json' % (t, b)), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 ok_final = ok
 
+# 🫶 Parenting Compass (parents only; one band)
+try:
+    from gen_scen import gen
+    from scen_data import ALL
+    from pc_data import PC, TALK
+    for sk in PC.values(): sk['sit'] = {'s': sk['sit']['x']}
+    ALL['pc'] = PC
+    pq = [q for q in gen('pc') if q['b'] == 's']
+    for i, q in enumerate(pq): q['id'] = 'pc-s-%04d' % (i + 1)
+    json.dump({'test': 'pc', 'v': 1, 'questions': pq, 'talk': TALK}, open(os.path.join(OUT, 'pc-s.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+    print('pc:', len(pq))
+except ImportError as e:
+    print('pc skipped', e)
 # small summary the app reads for the Practice tile and unlock reminders (no need to download every question)
 cnt = {}
 for t in ('iq', 'pics', 'eq', 'sq', 'aq', 'cq'):
@@ -63,6 +76,8 @@ for t in ('iq', 'pics', 'eq', 'sq', 'aq', 'cq'):
         k = 'iq' if t == 'pics' else t
         for b, n in c.items(): cnt.setdefault(k, {}); cnt[k][b] = cnt[k].get(b, 0) + n
 cnt['iq']['p'] = cnt['iq'].get('s', 0)
+if os.path.exists(os.path.join(OUT, 'pc-s.json')):
+    n = len(json.load(open(os.path.join(OUT, 'pc-s.json'), encoding='utf-8'))['questions']); cnt['pc'] = {b: n for b in 'jmsp'}
 json.dump(cnt, open(os.path.join(OUT, 'counts.json'), 'w'), separators=(',', ':'))
 print('counts', cnt)
 sys.exit(0 if ok_final else 1)

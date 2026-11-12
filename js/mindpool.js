@@ -115,7 +115,7 @@
   }
 
   /* 💬 Story Chat — a guide character tells the situation, you pick your reply */
-  const GUIDE = { eq: ['🦉', 'Ollie the Owl', 'Mentor Asha'], sq: ['👽', 'Zip from the Galaxy', 'Coach Zara'], aq: ['👩‍🚀', 'Captain Rae', 'Coach Rae'], cq: ['🤖', 'Bolt the Robot', 'Inventor Kiran'] };
+  const GUIDE = { pc: ['🫶', 'Coach Meera', 'Coach Meera'], eq: ['🦉', 'Ollie the Owl', 'Mentor Asha'], sq: ['👽', 'Zip from the Galaxy', 'Coach Zara'], aq: ['👩‍🚀', 'Captain Rae', 'Coach Rae'], cq: ['🤖', 'Bolt the Robot', 'Inventor Kiran'] };
   const FACE = { happy: '😊', excited: '🤩', proud: '😎', relieved: '😌', grateful: '🙏', sad: '😢', disappointed: '😞', lonely: '🥺', angry: '😠', frustrated: '😤', annoyed: '😒',
     scared: '😨', nervous: '😬', worried: '😟', embarrassed: '😳', guilty: '😔', ashamed: '😣', jealous: '😑', surprised: '😲', bored: '🥱', confused: '😕' };
   const SCENE = [[/birthday|party|cake/i, '🎂'], [/rain|storm|thunder/i, '🌧️'], [/dog|puppy/i, '🐶'], [/cat\b|kitten/i, '🐱'], [/school|class|teacher/i, '🏫'], [/test|exam|marks|paper\b|mock/i, '📝'],
@@ -150,6 +150,11 @@
     { id: 'logic', e: '🗂️', skill: 'Reasoning', n: { j: 'Logic Detective', m: 'Logic Detective', s: 'Logic Cases' }, d: 'Directions, calendars, ages and analogies', pool: q => !q.pic && ['direction', 'calendar', 'clock', 'age', 'rank', 'analogy'].includes(q.k) }];
   const STORY = id => ({ id: 'story', e: '💬', skill: id === 'eq' ? 'Choose wisely' : 'Real-life choices', n: { j: 'Story Chat', m: 'Story Chat', s: 'Real-Life Cases' }, d: 'Chat through real situations and pick the wisest reply', pool: () => true });
   const PLAYS = { pdet, pattern, code, oddout, logic, story };
+  const SAYQ = q => /What could you say\?$/.test(q.q);
+  const PCG = [{ id: 'story', e: '🏡', skill: 'Family moments', n: { j: 'Family Moments', m: 'Family Moments', s: 'Family Moments' }, d: 'Real everyday moments — pick the calm, connecting response', pool: q => !SAYQ(q) },
+    { id: 'kindly', e: '🔁', skill: 'Say it kindly', n: { j: 'Say It Kindly', m: 'Say It Kindly', s: 'Say It Kindly' }, d: 'Swap scary or hurtful words for words that build trust', pool: SAYQ }];
+  PLAYS.kindly = (host, p, done) => story(host, p, done);
+  const PCTHEME = { name: 'Parenting Compass', e: '🫶', test: 'Parent Check-in', cls: 'pl-s sx-pc', hero: 'No lectures, no judging — just real moments and kinder ways to respond. Small changes build big trust.' };
 
   function style() {
     if (D.getElementById('pqCss')) return;
@@ -181,6 +186,7 @@
       .pq-reps{display:flex;flex-direction:column;gap:8px;margin-top:10px}.pq-rep{border:2px solid var(--plc);border-radius:18px 18px 4px 18px;padding:10px 12px;background:#fff;color:#1f2d33;font-weight:700;font-size:15px;text-align:left;cursor:pointer;font-family:inherit;align-self:flex-end;max-width:92%;animation:mpPop .3s both}
       .pl-s .pq-tile:not(.ok):not(.no),.pl-s .pq-mate,.pl-s .pq-clue,.pl-s .pq-rep{background:#232a48;color:#eef}.pl-s .pq-tiles.emo .pq-tile{background:#232a48}.pl-s .pq-chat{background:#1b2140}.pl-s .pq-b.them{background:#2a3152;color:#eef}.pl-s .pq-slot{background:#161b30}
       .pl-s .pq-slot.full{background:#2a3152;color:#fff}
+      .sx-pc{--plh:linear-gradient(135deg,#ad1457,#6a1b9a);--plc:#e05297}
       @keyframes pqWob{50%{transform:rotate(-12deg) scale(1.1)}}@keyframes pqDot{50%{transform:translateY(-4px);opacity:.4}}@keyframes pqOpen{40%{transform:scale(1.4) rotate(-15deg)}}
     </style>`);
   }
@@ -189,6 +195,7 @@
     if (!window.MindPlay || !MindPlay.suite || !MindPlay.suite('iq') || !MindPlay.suite('eq') || !MindPlay.suite('sq') || !window.MindGym) return setTimeout(boot, 200);
     style(); Object.assign(MindPlay.PLAY, PLAYS);
     const iq = MindPlay.suite('iq'); if (!iq.games.some(g => g.id === 'pdet')) iq.games.push(...IQG);
+    if (!MindPlay.suite('pc')) MindPlay.addSuite({ id: 'pc', test: 'pc', theme: { j: PCTHEME, m: PCTHEME, s: PCTHEME }, games: PCG, gen: () => ({ make: () => null }), back: () => MindGym.open(), backLabel: 'Mind Gym', store: 'pctests', kind: g => g.skill });
     ['eq', 'sq', 'aq', 'cq'].forEach(id => { const s = MindPlay.suite(id); if (s && !s.games.some(g => g.id === 'story')) s.games.push(STORY(id)); });
   }
   boot();

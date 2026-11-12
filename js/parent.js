@@ -389,12 +389,15 @@
       body.innerHTML = `<div class="pv-card pv-hero"><h2>Welcome! Let's add your child</h2>
         <p>Choose one way below. Your child's study time and progress will then show here.</p>${optsHTML()}
         <p class="pv-note">You will see study time, strong and weak areas, and can set goals and healthy limits. Only you can see your child's data.</p></div>` + invitesHTML() + acctHTML();
-      wireOpts(body); wireAcct(body); return;
+      wireOpts(body); wireAcct(body);
+      try { if (window.Family) Family.hubCard(body, []); } catch (e) {}
+      return;
     }
     const k = kids[sel], A = await analyse(k), X = A.has ? await deep(A) : null;
     if (kids[sel] !== k) return;
     body.innerHTML = childHTML(k, A, X) + invitesHTML() + mailCardHTML() + acctHTML();
     wireChild(body, k, A, X); wireMail(body); wireAcct(body);
+    try { if (window.Family) Family.hubCard(body, kids); } catch (e) {}   // 🎲 Family Fun Zone (js/family.js)
     try { if (window.Squad && Squad.hubCard) Squad.hubCard(body, k, A); } catch (e) {}   // ⚔️ parent challenge card (js/squad.js)
     try { if (window.PlayReady && PlayReady.hubCard) PlayReady.hubCard(body, k, A); } catch (e) {}   // 🛡️ friends / rooms / news controls (js/playready.js)
   }
