@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -91,7 +91,7 @@
     const first = ids.filter(k => ans[k].f === 1).length, tried = ids.length;
     const topic = {}; ids.forEach(k => { const q = d && d.byId[k]; if (!q) return; const t = topic[q.t] || (topic[q.t] = { a: 0, r: 0 }); t.a++; if (ans[k].ok) t.r++; });
     const cardsOk = Object.keys(u.cards).length, best = Math.max(0, ...u.tests.map(t => t.pct));
-    const prog = Math.round(30 * Math.min(1, cardsOk / 10) + 40 * Math.min(1, first / 60) + 30 * best / 100);
+    const prog = Math.round(30 * Math.min(1, cardsOk / ((d && d.cards && d.cards.length) || 10)) + 40 * Math.min(1, first / 60) + 30 * best / 100);
     return { first, tried, topic, cardsOk, best, prog, pyqDone: ids.filter(k => k[0] === 'p' && !k.includes('-v')).length };
   }
 
@@ -103,13 +103,13 @@
     const days = Math.ceil((new Date(S1) - NOW()) / 864e5);
     const mainChip = e.main ? (e.main.ok === true ? `<span class="jx-chip ok">JEE Main ${(e.main.years || [EXAM])[0]} ✓</span>` : e.main.ok === null ? `<span class="jx-chip">First JEE Main: ${e.main.first}</span>` : `<span class="jx-chip no">Not eligible for JEE Main 2027</span>`) : '';
     const advChip = e.adv && e.adv.ok !== undefined ? (e.adv.ok === false ? `<span class="jx-chip no">JEE Advanced ✗</span>` : `<span class="jx-chip ${e.adv.ok ? 'ok' : ''}">JEE Advanced ${(e.adv.years || []).join('/')}</span>`) : '';
-    const st = CACHE['phy-u01'] ? stats('phy-u01', CACHE['phy-u01']) : stats('phy-u01');
+    const LU = READY[j.last] ? j.last : 'phy-u01', st = stats(LU, CACHE[LU]);
     el.innerHTML = `<div class="jx">
       <div class="jx-hero"><div class="jx-ht"><span class="jx-badge">${tr.e} ${tr.n}</span><button class="jx-lnk" id="jxSwitch">Change</button></div>
         <h1>${esc(ST.profile && ST.profile.name ? ST.profile.name.split(' ')[0] + ', ' : '')}your road to JEE</h1>
         <p>${j.track === 'found' ? `Class ${j.cls} → your first JEE Main is in <b>January ${xii}</b>. Every concept you master now is one less to rush later.` : xii === EXAM && days > 0 ? `<b>${days} days</b> to JEE Main 2027 Session 1 (20 Jan). Session 2: 2–7 April.` : `Target: <b>JEE Main ${Math.max(EXAM, xii)}</b>.`}</p>
         <div class="jx-chips">${mainChip}${advChip}<button class="jx-chip lnk" id="jxElig">Check eligibility</button></div></div>
-      <div class="jx-card jx-next"><div><small>Continue</small><b>⚛️ Units and Measurements</b><span>${st.prog}% mastered · ${st.first} solved first time · ${READY['phy-u01'].pyq} real JEE questions</span></div><button class="jx-btn" id="jxGo">Open ▶</button></div>
+      <div class="jx-card jx-next"><div><small>Continue</small><b>${SUBJ[LU.split('-')[0]].e} ${esc(unitName(LU))}</b><span>${st.prog}% mastered · ${st.first} solved first time · ${READY[LU].pyq} real JEE questions</span></div><button class="jx-btn" id="jxGo">Open ▶</button></div>
       <h2 class="jx-h">${j.track === 'found' ? '🌱 Foundation path' : j.track === 'main' ? `🧭 Your path — Class ${j.cls} first` : '⚡ Full syllabus — recommended order'}</h2>
       <div class="jx-path">${path(j).map(([uid, name, tag], i) => `<button class="jx-pu ${READY[uid] ? 'on' : ''}" data-u="${uid}"><span class="jx-pn">${i + 1}</span><span><b>${esc(name)}</b><small>${tag}</small></span><span class="jx-st">${READY[uid] ? 'Ready' : '🔨 Building'}</span></button>`).join('')}</div>
       <h2 class="jx-h">📚 Full JEE Main syllabus</h2>
@@ -118,7 +118,7 @@
       <button class="jx-card jx-adv" id="jxAdv"><span>🏔️</span><span><b>JEE Advanced</b><small>Paper 1 · Paper 2 — coming soon</small></span><em>Soon</em></button>
       <div class="jx-tools"><button id="jxPat">📋 Exam pattern</button><button id="jxMist">📕 Mistake book (${j.mist.length})</button><button id="jxSchool">🏫 School world</button></div>
       <p class="jx-fine">Real questions are from JEE Main papers, tagged with date and shift; all solutions and extra questions are written by StudyVerse. Rules: NTA JEE Main 2027 Information Bulletin.</p></div>`;
-    $('#jxGo').onclick = () => { tap('open'); unit('phy-u01'); };
+    $('#jxGo').onclick = () => { tap('open'); unit(LU); };
     $('#jxElig').onclick = () => { tap(); eligScreen(); };
     $('#jxSwitch').onclick = () => { tap(); setup(1, { again: true }); };
     $('#jxAdv').onclick = () => { tap(); advanced(); };
@@ -126,7 +126,7 @@
     $('#jxMist').onclick = () => { tap(); mistakes(); };
     $('#jxSchool').onclick = () => { tap(); J().home = false; save(); toast('School world is home now — JEE stays in Practice and Me'); worldScreen(); };
     el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { const u = b.dataset.u; if (READY[u]) { tap('open'); unit(u); } else { tap(); toast('This unit is being built — Units and Measurements is ready now'); } });
-    if (!CACHE['phy-u01']) data('phy-u01').then(() => { const g = $('#jxGo'); if (g && D.getElementById('s-jee').classList.contains('active')) { const s2 = stats('phy-u01', CACHE['phy-u01']); g.parentElement.querySelector('span').textContent = `${s2.prog}% mastered · ${s2.first} solved first time · ${READY['phy-u01'].pyq} real JEE questions`; } }).catch(() => {});
+    if (!CACHE[LU]) data(LU).then(() => { const g = $('#jxGo'); if (g && D.getElementById('s-jee').classList.contains('active')) { const s2 = stats(LU, CACHE[LU]); g.parentElement.querySelector('span').textContent = `${s2.prog}% mastered · ${s2.first} solved first time · ${READY[LU].pyq} real JEE questions`; } }).catch(() => {});
   }
   function path(j) {
     if (j.track === 'found') return FOUND.map(([u, n]) => [u, n, u === 'phy-u01' ? 'Physics · starts at Class 9 level' : 'Foundation']);
@@ -190,15 +190,15 @@
   function eligScreen() { const j = J(); setup(1, { again: true }); if (j.elig) { const el = $('#s-jee .jx'); el.insertAdjacentHTML('afterbegin', `<div class="jx-card"><h3>Saved result</h3>${eligHTML(Object.assign({ notes: [] }, j.elig))}</div>`); } }
 
   /* ================= UNIT ================= */
-  const TOP = { units: 'SI units', lc: 'Least count & instruments', sf: 'Significant figures', err: 'Errors', dim: 'Dimensions', dimapp: 'Dimensional analysis' };
+  let TOP; const TOP1 = { units: 'SI units', lc: 'Least count & instruments', sf: 'Significant figures', err: 'Errors', dim: 'Dimensions', dimapp: 'Dimensional analysis' };
   async function unit(uid, tab = 'learn') {
-    const el = screen(); here('unit', uid, tab);
+    const el = screen(); here('unit', uid, tab); J().last = uid; save();
     el.innerHTML = `<div class="jx"><p class="jx-p">Loading…</p></div>`;
     let d; try { d = await data(uid); } catch (e) { el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← JEE</button><div class="jx-card"><p>Could not load this unit. Check your connection and try again.</p></div></div>`; $('#jxBack').onclick = home; return; }
-    const s = stats(uid, d), j = J();
-    const tabs = [['learn', '📖 Learn'], ['pyq', '🏛️ Real JEE'], ['prac', '🎯 Practice'], ['lab', '🧪 Labs'], ['test', '⏱️ Test'], ['vault', '🧾 Formulas']];
+    TOP = d.topics || TOP1; const s = stats(uid, d), j = J();
+    const tabs = [['learn', '📖 Learn'], ['lab', '🧪 Try it yourself'], ['pyq', '🏛️ Real JEE'], ['prac', '🎯 Practice'], ['test', '⏱️ Test'], ['vault', '🧾 Formulas']];
     el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← JEE home</button>
-      <div class="jx-uh"><div class="jx-ring" style="--p:${s.prog}"><b>${s.prog}%</b></div><div><small>Physics · Unit 1 · Class ${d.cls}</small><h1>${esc(d.title)}</h1><p>${s.cardsOk}/10 concepts checked · ${s.first} solved first time · best test ${s.best}%</p></div></div>
+      <div class="jx-uh"><div class="jx-ring" style="--p:${s.prog}"><b>${s.prog}%</b></div><div><small>${SUBJ[d.subject || 'phy'].n} · Unit ${d.n || 1} · Class ${d.cls}</small><h1>${esc(d.title)}</h1><p>${s.cardsOk}/${d.cards.length} concepts checked · ${s.first} solved first time · best test ${s.best}%</p></div></div>
       <div class="jx-tabs" role="tablist">${tabs.map(([k, n]) => `<button role="tab" aria-selected="${k === tab}" data-t="${k}">${n}</button>`).join('')}</div><div id="jxBody"></div></div>`;
     $('#jxBack').onclick = () => { tap(); home(); };
     el.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { tap(); unit(uid, b.dataset.t); });
@@ -267,13 +267,14 @@
   /* ================= QUESTION RUNNER (prev/next, answered strip, step-by-step solutions) ================= */
   function run(uid, ids, o = {}) {
     const el = screen(); const d = CACHE[uid]; if (!d || !ids.length) { toast('Nothing to practise here yet'); return; }
+    TOP = d.topics || TOP1;
     const list = ids.map(id => d.byId[id]).filter(Boolean); let i = o.start > 0 ? o.start : 0; const S = list.map(() => ({}));
     const draw = () => {
       const q = list[i], s = S[i], num = q.n !== undefined;
       el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← ${esc(o.title || 'Back')}</button>
         <div class="jx-strip">${list.map((x, k) => `<button data-j="${k}" class="${k === i ? 'cur ' : ''}${S[k].done ? (S[k].ok ? 'ok' : 'no') : ''}" aria-label="Question ${k + 1}">${k + 1}</button>`).join('')}</div>
         <div class="jx-card jx-q"><div class="jx-qt"><span class="jx-tag ${q.kind}">${q.kind === 'pyq' ? '🏛️ ' + srcTag(q.src) : '🎯 StudyVerse practice'}</span><span class="jx-tag">${TOP[q.t]}${num ? ' · Numerical' : ''}</span></div>
-          <div class="jx-qq">${mx(q.q)}</div>
+          <div class="jx-qq">${mx(q.q)}</div>${q.fig ? `<div class="jx-figw">${q.fig}</div>` : ''}
           ${num ? `<div class="jx-num"><input id="jxN" inputmode="decimal" placeholder="Type your answer" ${s.done ? 'disabled' : ''} value="${s.v != null ? esc(s.v) : ''}"><small>Numerical answer — NTA rounds to the nearest integer</small></div>`
             : `<div class="jx-os">${q.o.map((x, k) => `<button class="jx-o ${s.done ? (k === q.a ? 'ok' : k === s.pick ? 'no' : '') : (k === s.pick ? 'sel' : '')}" data-k="${k}" ${s.done ? 'disabled' : ''}><i class="jx-on">${k + 1}</i><span>${mx(x)}</span></button>`).join('')}</div>`}
           ${s.done ? `<div class="jx-res ${s.ok ? 'ok' : 'no'}">${s.ok ? '✅ Correct' : `❌ Not quite — answer: ${num ? q.n : '(' + (q.a + 1) + ') ' + mx(q.o[q.a])}`}</div>
@@ -332,7 +333,7 @@
     $('#jxT1').onclick = () => { tap('open'); test(uid); };
   }
   function test(uid) {
-    const d = CACHE[uid], el = screen(); here('unit', uid, 'test');
+    const d = CACHE[uid], el = screen(); here('unit', uid, 'test'); TOP = d.topics || TOP1;
     const mc = shuffle(d.pyq.filter(q => q.o)).slice(0, 9).concat(shuffle(d.prac.filter(q => q.o)).slice(0, 6));
     const nm = shuffle(d.pyq.filter(q => q.n !== undefined)).slice(0, 2).concat(shuffle(d.prac.filter(q => q.n !== undefined))).slice(0, 5);
     const list = shuffle(mc).concat(nm), S = list.map(() => ({ v: null, rev: false, seen: false }));
@@ -343,7 +344,7 @@
       const q = list[i], s = S[i], num = q.n !== undefined; s.seen = true;
       el.innerHTML = `<div class="jx jx-test"><div class="jx-tbar"><b>Section ${num ? 'B · Numerical' : 'A · MCQ'}</b><span id="jxClock">⏱ ${fmt(left)}</span><button class="jx-btn ghost sm" id="jxSub">Submit</button></div>
         <div class="jx-pal">${list.map((x, k) => `<button data-j="${k}" class="p-${stOf(S[k])}${k === i ? ' cur' : ''}">${k + 1}</button>`).join('')}</div>
-        <div class="jx-card jx-q"><div class="jx-qt"><span class="jx-tag">Q${i + 1} · +4 / −1</span></div><div class="jx-qq">${mx(q.q)}</div>
+        <div class="jx-card jx-q"><div class="jx-qt"><span class="jx-tag">Q${i + 1} · +4 / −1</span></div><div class="jx-qq">${mx(q.q)}</div>${q.fig ? `<div class="jx-figw">${q.fig}</div>` : ''}
         ${num ? `<div class="jx-num"><input id="jxN" inputmode="decimal" placeholder="Enter a number" value="${s.v != null ? esc(s.v) : ''}"></div>` : `<div class="jx-os">${q.o.map((x, k) => `<button class="jx-o ${s.v === k ? 'sel' : ''}" data-k="${k}"><i class="jx-on">${k + 1}</i><span>${mx(x)}</span></button>`).join('')}</div>`}</div>
         <div class="jx-nav"><button class="jx-btn ghost" id="jxClr">Clear</button><button class="jx-btn ghost" id="jxRev">${s.rev ? 'Unmark' : 'Mark for review'}</button><button class="jx-btn" id="jxNx">Save & next ▶</button></div>
         <p class="jx-fine">Palette: grey not visited · red not answered · green answered · purple marked for review.</p></div>`;
@@ -362,7 +363,7 @@
       U(uid).tests.push({ sc, r, w, pct: p, sec, at: Date.now() }); save(); tap('unlock');
       el.innerHTML = `<div class="jx"><div class="jx-card jx-sum"><h2>${sc}/80</h2><p class="jx-p">${r} correct (+${4 * r}) · ${w} wrong (−${w}) · ${list.length - r - w} skipped · ${Math.round(sec / 60)} min</p>
         <p class="jx-p">${w > r / 2 ? '⚠️ Many negatives: in the real exam, skip a question unless you can rule out at least two options.' : r >= 16 ? '🔥 Exam-ready on this unit.' : 'Review each wrong answer below — the steps show where it went off.'}</p></div>
-        ${list.map((q, k) => `<details class="jx-card jx-rv ${res[k] > 0 ? 'ok' : res[k] < 0 ? 'no' : ''}"><summary>Q${k + 1} · ${res[k] > 0 ? '✅ +4' : res[k] < 0 ? '❌ −1' : '— 0'} · ${TOP[q.t]}</summary><div class="jx-qq">${mx(q.q)}</div>
+        ${list.map((q, k) => `<details class="jx-card jx-rv ${res[k] > 0 ? 'ok' : res[k] < 0 ? 'no' : ''}"><summary>Q${k + 1} · ${res[k] > 0 ? '✅ +4' : res[k] < 0 ? '❌ −1' : '— 0'} · ${TOP[q.t]}</summary><div class="jx-qq">${mx(q.q)}</div>${q.fig ? `<div class="jx-figw">${q.fig}</div>` : ''}
           <p><b>Answer:</b> ${q.n !== undefined ? q.n : '(' + (q.a + 1) + ') ' + mx(q.o[q.a])}${S[k].v != null && S[k].v !== '' ? ` · <b>You:</b> ${q.n !== undefined ? esc(S[k].v) : '(' + (S[k].v + 1) + ')'}` : ''}</p>
           <div class="jx-sol">${q.sol.map((x, n) => `<p><i class="jx-sn">${n + 1}</i><span>${mx(x)}</span></p>`).join('')}</div></details>`).join('')}
         <button class="jx-btn wide" id="jxDone">Back to the unit</button></div>`;
@@ -379,6 +380,13 @@
   const frac = p => { const n = Math.round(p * 2); return (n < 0 ? '−' : '') + (n % 2 ? `${Math.abs(n)}/2` : Math.abs(n / 2)); };
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
+    if (d.labs && d.labs.length) {
+      const L = { circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
+        bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)] };
+      body.innerHTML = `<p class="jx-p">Play first, then read: every slider here is a real formula from this unit.</p><div class="jx-grid">${d.labs.map(k => `<button class="jx-tile big" data-lab="${k}"><b>${L[k][0]}</b><small>${L[k][1]}</small></button>`).join('')}</div>`;
+      body.querySelectorAll('[data-lab]').forEach(b => b.onclick = () => { tap('open'); L[b.dataset.lab][2](); });
+      return;
+    }
     body.innerHTML = `<div class="jx-grid"><button class="jx-tile big" id="jxLD"><b>🧬 Dimension Lab</b><small>Build quantities from ε₀, μ₀, h, G… and watch the dimensions change live. 8 challenges.</small></button>
       <button class="jx-tile big" id="jxLV"><b>📏 Vernier Simulator</b><small>Read a real-looking vernier, with and without zero error. Endless readings.</small></button>
       <button class="jx-tile big" id="jxLS"><b>🔩 Screw Gauge Simulator</b><small>Pitch, circular scale and zero error — read it like the lab.</small></button></div>`;
@@ -467,6 +475,104 @@
       };
     };
     next();
+  }
+
+
+  /* ---------- Try it yourself: Current Electricity ---------- */
+  function circuitLab(uid) {
+    const el = screen(); const st = { E: 9, r: 1, R1: 5, R2: 4, R3: 4, top: 'mix' }; const done = U(uid).lab || (U(uid).lab = {});
+    const MIS = [['maxp', 'Make the bulb + load take MAXIMUM power from the cell', x => Math.abs(x.Req - x.r) < 0.05 && x.r > 0],
+      ['half', 'Make the terminal voltage exactly half of the emf', x => x.r > 0 && Math.abs(x.V - x.E / 2) < 0.05],
+      ['two', 'Draw exactly 2 A from the cell', x => Math.abs(x.I - 2) < 0.01],
+      ['six', 'Build an equivalent load of exactly 6 Ω using R₁ + (R₂ ∥ R₃)', x => x.top === 'mix' && Math.abs(x.Req - 6) < 0.01],
+      ['eff', 'Get the efficiency above 90 %', x => x.eff > 0.9],
+      ['dim', 'In SERIES, make R₁ (the bulb) the brightest of the three', x => x.top === 'series' && x.P1 > x.P2 && x.P1 > x.P3]];
+    const calc = () => {
+      const p2 = st.R2 * st.R3 / (st.R2 + st.R3 || 1);
+      const Req = st.top === 'series' ? st.R1 + st.R2 + st.R3 : st.top === 'par' ? 1 / (1 / st.R1 + 1 / st.R2 + 1 / st.R3) : st.R1 + p2;
+      const I = st.E / (Req + st.r), V = I * Req;
+      let P1, P2, P3;
+      if (st.top === 'series') { P1 = I * I * st.R1; P2 = I * I * st.R2; P3 = I * I * st.R3; }
+      else if (st.top === 'par') { P1 = V * V / st.R1; P2 = V * V / st.R2; P3 = V * V / st.R3; }
+      else { P1 = I * I * st.R1; const Vp = I * p2; P2 = Vp * Vp / st.R2; P3 = Vp * Vp / st.R3; }
+      return { ...st, Req, I, V, P1, P2, P3, Pl: V * I, eff: Req / (Req + st.r) };
+    };
+    const curve = x => {   // load power vs load resistance, 0..30 Ω
+      const pts = []; let mx = 0; for (let R = 0; R <= 30; R += 0.25) { const P = x.E * x.E * R / ((R + x.r) ** 2 || 1); mx = Math.max(mx, P); pts.push([R, P]); }
+      const X = R => 30 + R / 30 * 270, Y = P => 110 - P / (mx || 1) * 95;
+      return `<svg viewBox="0 0 310 130" class="jx-curve"><line x1="30" y1="110" x2="305" y2="110" stroke="#c4b5fd"/><line x1="30" y1="10" x2="30" y2="110" stroke="#c4b5fd"/>
+        <polyline fill="none" stroke="#7c3aed" stroke-width="2.5" points="${pts.map(([R, P]) => X(R).toFixed(1) + ',' + Y(P).toFixed(1)).join(' ')}"/>
+        ${x.r > 0 ? `<line x1="${X(x.r)}" y1="12" x2="${X(x.r)}" y2="110" stroke="#f59e0b" stroke-dasharray="4 3"/><text x="${X(x.r) + 3}" y="22" font-size="10" fill="#b45309">R = r</text>` : ''}
+        <circle cx="${X(Math.min(30, x.Req))}" cy="${Y(x.Pl)}" r="6" fill="#db2777"/><text x="34" y="125" font-size="10" fill="#6b6795">load resistance (0–30 Ω) →</text><text x="2" y="14" font-size="10" fill="#6b6795">P</text></svg>`;
+    };
+    const schem = x => {
+      const sp = Math.max(0.25, 4 / Math.max(0.05, x.I)), glow = Math.min(1, x.P1 / 40);
+      const bulb = (cx, cy) => `<circle cx="${cx}" cy="${cy}" r="14" fill="rgba(255,200,40,${0.15 + glow * 0.85})" stroke="#92400e"/><circle cx="${cx}" cy="${cy}" r="${10 + glow * 16}" fill="rgba(255,220,80,${glow * 0.35})"/><text x="${cx}" y="${cy + 30}" font-size="11" text-anchor="middle">R₁ ${x.R1} Ω</text>`;
+      const box = (cx, cy, lab) => `<rect x="${cx - 18}" y="${cy - 8}" width="36" height="16" rx="3" fill="#ede9fe" stroke="#5b21b6"/><text x="${cx}" y="${cy + 24}" font-size="11" text-anchor="middle">${lab}</text>`;
+      let mid;
+      if (x.top === 'series') mid = bulb(90, 40) + box(170, 40, `R₂ ${x.R2} Ω`) + box(240, 40, `R₃ ${x.R3} Ω`);
+      else if (x.top === 'par') mid = `<line x1="60" y1="40" x2="60" y2="130"/><line x1="270" y1="40" x2="270" y2="130"/>` + bulb(165, 40) + box(165, 85, `R₂ ${x.R2} Ω`) + box(165, 125, `R₃ ${x.R3} Ω`) + `<line x1="60" y1="85" x2="147" y2="85"/><line x1="183" y1="85" x2="270" y2="85"/><line x1="60" y1="125" x2="147" y2="125"/><line x1="183" y1="125" x2="270" y2="125"/>`;
+      else mid = bulb(90, 40) + `<line x1="180" y1="40" x2="180" y2="100"/><line x1="270" y1="40" x2="270" y2="100"/>` + box(225, 40, `R₂ ${x.R2} Ω`) + box(225, 100, `R₃ ${x.R3} Ω`) + `<line x1="180" y1="100" x2="207" y2="100"/><line x1="243" y1="100" x2="270" y2="100"/>`;
+      return `<svg viewBox="0 0 330 200" class="jx-circ" stroke="#1e1b4b" stroke-width="2" font-family="sans-serif"><path id="jxLoop" d="M30 40 H300 V170 H30 Z" fill="none"/>
+        <path d="M30 40 H300 V170 H30 Z" fill="none" stroke="#c4b5fd" stroke-width="3"/>${mid}
+        <rect x="140" y="160" width="50" height="20" fill="#fff" stroke="none"/><line x1="150" y1="155" x2="150" y2="185"/><line x1="160" y1="162" x2="160" y2="178" stroke-width="4"/><text x="165" y="198" font-size="11" text-anchor="middle" stroke="none" fill="#1e1b4b">E ${x.E} V, r ${x.r} Ω</text>
+        ${[0, 1, 2, 3, 4, 5, 6, 7].map(k => `<circle r="3.5" fill="#f59e0b" stroke="none"><animateMotion dur="${sp.toFixed(2)}s" begin="-${(sp * k / 8).toFixed(2)}s" repeatCount="indefinite"><mpath href="#jxLoop"/></animateMotion></circle>`).join('')}</svg>`;
+    };
+    const sl = (k, lab, mn, mxv, stp) => `<label class="jx-sl"><span>${lab} <b id="v_${k}">${st[k]}</b></span><input type="range" min="${mn}" max="${mxv}" step="${stp}" value="${st[k]}" data-k="${k}"></label>`;
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔋 Circuit Playground</h3>
+        <div class="jx-seg3">${[['series', 'All in series'], ['par', 'All in parallel'], ['mix', 'R₁ + (R₂ ∥ R₃)']].map(([k, n]) => `<button data-top="${k}" class="${st.top === k ? 'on' : ''}">${n}</button>`).join('')}</div>
+        <div id="jxSch"></div><div class="jx-read" id="jxRead"></div>
+        ${sl('E', 'EMF E (V)', 1, 24, 1)}${sl('r', 'Internal r (Ω)', 0, 6, 0.5)}${sl('R1', 'R₁ — the bulb (Ω)', 1, 20, 1)}${sl('R2', 'R₂ (Ω)', 1, 20, 1)}${sl('R3', 'R₃ (Ω)', 1, 20, 1)}
+        <h3 style="margin-top:12px">📈 Power to the load vs load resistance</h3><div id="jxCurve"></div>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-top]').forEach(b => b.onclick = () => { tap(); st.top = b.dataset.top; draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value; upd(); });
+      upd();
+    };
+    const upd = () => {
+      const x = calc(), f = v => (Math.round(v * 100) / 100).toString();
+      $('#jxSch').innerHTML = schem(x); $('#jxCurve').innerHTML = curve(x);
+      $('#jxRead').innerHTML = `<span>R<sub>eq</sub> <b>${f(x.Req)} Ω</b></span><span>I <b>${f(x.I)} A</b></span><span>V<sub>terminal</sub> <b>${f(x.V)} V</b></span><span>P<sub>load</sub> <b>${f(x.Pl)} W</b></span><span>Bulb <b>${f(x.P1)} W</b></span><span>Efficiency <b>${Math.round(x.eff * 100)} %</b></span>`;
+      let fresh = false; MIS.forEach(([k, , t]) => { if (!done[k] && t(x)) { done[k] = Date.now(); fresh = true; } });
+      if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([k, n]) => `<div class="jx-mis ${done[k] ? 'ok' : ''}">${done[k] ? '✅' : '⬜'} ${n}</div>`).join('');
+    };
+    draw();
+  }
+  function bridgeLab(uid) {
+    const el = screen(); let X, R = 10, l = 50, tries = 0, right = 0;
+    const fresh = () => { X = [2, 2.5, 3, 4, 5, 6, 7.5, 8, 9, 12, 15][Math.floor(Math.random() * 11)]; R = 10; l = 50; draw(); };
+    const defl = () => { const vg = R / (X + R), vw = (100 - l) / 100; return Math.max(-1, Math.min(1, (vw - vg) * 4)); };   // + : needle right
+    const draw = () => {
+      const a = defl() * 60, nul = Math.abs(defl()) < 0.01;
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🌉 Meter Bridge Lab</h3>
+        <p class="jx-p">A <b>hidden resistor X</b> sits in the left gap and a box R in the right gap. Slide the jockey until the galvanometer reads zero, then work out X.</p>
+        <svg viewBox="0 0 320 190" class="jx-circ" font-family="sans-serif"><rect x="40" y="20" width="70" height="26" rx="5" fill="#fee2e2" stroke="#b91c1c"/><text x="75" y="38" text-anchor="middle" font-size="13" font-weight="700">X = ?</text>
+          <rect x="210" y="20" width="70" height="26" rx="5" fill="#ede9fe" stroke="#5b21b6"/><text x="245" y="38" text-anchor="middle" font-size="13">R = ${R} Ω</text>
+          <path d="M20 33 H40 M110 33 H210 M280 33 H300 M20 33 V130 M300 33 V130" stroke="#1e1b4b" stroke-width="2" fill="none"/>
+          <line x1="20" y1="130" x2="300" y2="130" stroke="#92400e" stroke-width="4"/>${[0, 20, 40, 60, 80, 100].map(c => `<text x="${20 + c * 2.8}" y="148" text-anchor="middle" font-size="9" fill="#6b6795">${c}</text>`).join('')}
+          <circle cx="160" cy="80" r="22" fill="#fff" stroke="#1e1b4b" stroke-width="2"/><text x="160" y="72" text-anchor="middle" font-size="9">G</text><line x1="160" y1="88" x2="${160 + 18 * Math.sin(a * Math.PI / 180)}" y2="${88 - 18 * Math.cos(a * Math.PI / 180)}" stroke="${nul ? '#16a34a' : '#dc2626'}" stroke-width="3"/>
+          <path d="M160 33 V58 M160 102 Q ${(160 + 20 + l * 2.8) / 2} 120 ${20 + l * 2.8} 128" stroke="#1e1b4b" stroke-width="2" fill="none"/><polygon points="${20 + l * 2.8 - 5},120 ${20 + l * 2.8 + 5},120 ${20 + l * 2.8},130" fill="#1e1b4b"/>
+          <text x="160" y="178" text-anchor="middle" font-size="12" fill="${nul ? '#16a34a' : '#4b4878'}">${nul ? '✔ Galvanometer reads ZERO — null point!' : 'jockey at ' + l + ' cm'}</text></svg>
+        <label class="jx-sl"><span>Jockey position <b>${l} cm</b></span><input type="range" min="1" max="99" step="0.5" value="${l}" id="jxL"></label>
+        <label class="jx-sl"><span>Resistance box R <b>${R} Ω</b></span><input type="range" min="1" max="20" step="1" value="${R}" id="jxR"></label>
+        <div class="jx-num"><input id="jxX" inputmode="decimal" placeholder="Your value of X in Ω"></div><div class="jx-nav"><button class="jx-btn" id="jxC">Check X</button><button class="jx-btn ghost" id="jxN2">New hidden X</button></div>
+        <p id="jxRes"></p><p class="jx-fine">Score ${right}/${tries}. Tip: \\f{X}{R} = \\f{l}{100 − l}. Change R to bring the null point near the middle — that is where the bridge is most accurate.</p></div></div>`;
+      el.querySelector('.jx-fine').innerHTML = `Score ${right}/${tries}. Tip: ${mx('\\f{X}{R} = \\f{l}{100 − l}')}. Change R to bring the null point near the middle — that is where the bridge is most accurate.`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      $('#jxL').oninput = e => { l = +e.target.value; draw(); };
+      $('#jxR').oninput = e => { R = +e.target.value; draw(); };
+      $('#jxN2').onclick = () => { tap(); fresh(); };
+      $('#jxC').onclick = () => {
+        const v = parseFloat($('#jxX').value); if (isNaN(v)) return toast('Type X first'); tries++;
+        const ok = Math.abs(v - X) <= 0.05 * X; if (ok) right++; tap(ok ? 'correct' : 'wrong');
+        const lb = 100 * X / (X + R);
+        $('#jxRes').innerHTML = `${ok ? '✅ Spot on!' : '❌ Not yet.'} With R = ${R} Ω the null point is at ${(Math.round(lb * 10) / 10)} cm, so X = R ×  ${(Math.round(lb * 10) / 10)}/${(Math.round((100 - lb) * 10) / 10)} = <b>${X} Ω</b>.`;
+      };
+    };
+    fresh();
   }
 
   /* ================= INFO SCREENS ================= */
@@ -608,7 +714,12 @@
   .jx-chipsel{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.jx-dc{display:flex;align-items:center;gap:4px;background:#faf9ff;border:1px solid #e4dcff;border-radius:12px;padding:4px}.jx-dc.hint{border-color:#a78bfa;background:#f5f3ff}
   .jx-dc button{width:30px;height:30px;border-radius:8px;border:0;background:#ede9fe;font-weight:900;font-size:16px;cursor:pointer;color:#4c1d95}.jx-dc span{flex:1;font-size:13px;font-weight:700;text-align:center;line-height:1.2}.jx-dc small{display:block;font-weight:400;font-size:10.5px;color:#6b6795}.jx-dc b{display:block;color:#7c3aed;font-size:11px;min-height:12px}
   .jx-vbox{overflow-x:auto;border-radius:12px;border:1px solid #e4dcff;background:#fff}.jx-vsvg{min-width:600px;max-width:none!important;width:100%;height:auto;display:block}
-  .jx-tile0{background:linear-gradient(135deg,#6d28d9,#db2777)!important;color:#fff!important;margin-bottom:10px}.jx-tile0 small{color:#fce7f3!important}
+.jx-figw{margin:10px 0;text-align:center}.jx-figw svg{max-width:340px;width:100%;height:auto;color:#1e1b4b}.jx-circ{width:100%;max-width:420px;height:auto;display:block;margin:6px auto}.jx-curve{width:100%;height:auto}
+  .jx-seg3{display:flex;gap:6px;margin:6px 0}.jx-seg3 button{flex:1;border:1px solid #d9d2ff;background:#f7f5ff;border-radius:10px;padding:8px 4px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:#4c1d95}.jx-seg3 .on{background:#4c1d95;color:#fff}
+  .jx-read{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.jx-read span{background:#1e1b4b;color:#ddd6fe;border-radius:10px;padding:5px 8px;font-size:12px}.jx-read b{color:#fff}
+  .jx-sl{display:block;margin:8px 0;font-size:13px;font-weight:700;color:#3b2a85}.jx-sl span{display:flex;justify-content:space-between}.jx-sl input{width:100%;accent-color:#7c3aed}
+  .jx-mis{padding:7px 10px;border-radius:10px;background:#f7f5ff;margin:5px 0;font-size:13.5px}.jx-mis.ok{background:#dcfce7}
+    .jx-tile0{background:linear-gradient(135deg,#6d28d9,#db2777)!important;color:#fff!important;margin-bottom:10px}.jx-tile0 small{color:#fce7f3!important}
   html[data-theme=dark] .jx{color:#ece9ff}html[data-theme=dark] .jx-card,html[data-theme=dark] .jx-step,html[data-theme=dark] .jx-pu,html[data-theme=dark] .jx-sub,html[data-theme=dark] .jx-li,html[data-theme=dark] .jx-tile,html[data-theme=dark] .jx-o,html[data-theme=dark] .jx-tools button{background:#1d1a3a;border-color:#2f2a5c;color:#ece9ff}
   </style>`);
 
