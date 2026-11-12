@@ -204,6 +204,13 @@ async def _(pg):
     await setr(pg, '[data-k="th"]', 0)                                                                              # flat, no friction
     await setr(pg, '[data-k="mu"]', 0.4); await setr(pg, '[data-k="th"]', 45); await setr(pg, '[data-k="F"]', 10)  # hold
     await setr(pg, '[data-k="mu"]', 0.5); await setr(pg, '[data-k="th"]', 30); await setr(pg, '[data-k="F"]', 25)  # push up
+@lab('phy-u04', 'collision')
+async def _(pg):
+    await setr(pg, '[data-k="e"]', 1); await setr(pg, '[data-k="u2"]', 0); await setr(pg, '[data-k="m1"]', 2); await setr(pg, '[data-k="m2"]', 2); await setr(pg, '[data-k="u1"]', 4)   # swap
+    await setr(pg, '[data-k="m2"]', 6)                                                                                     # A bounces back
+    await setr(pg, '[data-k="m1"]', 10); await setr(pg, '[data-k="m2"]', 1)                                                # B ≈ 7.3 m/s
+    await setr(pg, '[data-k="m1"]', 2); await setr(pg, '[data-k="m2"]', 6); await setr(pg, '[data-k="e"]', 0)            # stick, 75% lost
+    await setr(pg, '[data-k="m2"]', 8); await setr(pg, '[data-k="u2"]', -1)                                                # both stop
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
