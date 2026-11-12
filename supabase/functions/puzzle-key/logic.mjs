@@ -4,7 +4,7 @@
 // studyverse._puzzle_norm() in SQL then normalises both the key and every submitted answer (whitespace removed,
 // upper-case, ws as a sorted set).
 // Content (what PuzzleCore.contentPathOf(spec) lists), assembled exactly like js/puzzles.js terms():
-//   number puzzles → null · school chapter → the subject JSON · CA chapter → { structure, units, banks, keyItems }
+//   number puzzles → null · school chapter → the subject JSON · JEE unit → the unit JSON (its key words) · CA chapter → { structure, units, banks, keyItems }
 //   (CA: contentPathOf(spec) gives the structure, then contentPathOf(spec, structure) the unit + bank files; bank files
 //    are optional; js/ca-keys-data.js is NOT fetched — it is bundled next to the function, keyItems = CaKeysData.ITEMS).
 export const SITE = 'https://knowtopia.in/';
@@ -26,7 +26,7 @@ export async function contentFor(core, spec, getJSON, keyItems) {
   const first = paths(core, spec).filter(p => p !== KEYS_JS);
   if (!first.length) return null;
   if (first.length > 60 || !first.every(safePath)) throw bad();
-  if (sc.k === 's') return getJSON(first[0]);
+  if (sc.k === 's' || sc.k === 'j') return getJSON(first[0]);   // school subject file / JEE unit file
   if (sc.k === 'c') {
     const sPath = first.find(p => /\/structure\.json$/.test(p)); if (!sPath) throw bad();
     const structure = await getJSON(sPath);
