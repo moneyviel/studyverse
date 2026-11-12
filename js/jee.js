@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -401,6 +401,7 @@
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
+        galvanic: ['🔋 Galvanic Cell Builder', 'Pick two metals and the ion concentrations — see which is the anode, the electron flow, E°, the Nernst emf and ΔG. 5 missions.', () => galvanicLab(uid)],
         shift: ['⚖️ Equilibrium Syringe', 'Heat, squeeze or add gas to N₂O₄ ⇌ 2NO₂ and watch the colour, α, Q and K respond — Le Chatelier live. 5 missions.', () => shiftLab(uid)],
         mixer: ['🧪 Solution Mixer', 'Dissolve glucose, urea, NaCl or CaCl₂ in water and watch freezing point, boiling point, osmotic pressure and vapour pressure change with the number of particles. 5 missions.', () => mixLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
@@ -1076,6 +1077,56 @@
       $('#jxMsg').textContent = msg;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['eq_' + kk] && tt(x)) { done['eq_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['eq_' + kk] ? 'ok' : ''}">${done['eq_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Electrochemistry ---------- */
+  function galvanicLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const M = { Mg: ['Mg', -2.37, 2, '#94a3b8'], Zn: ['Zn', -0.76, 2, '#a1a1aa'], Fe: ['Fe', -0.44, 2, '#78716c'], Ni: ['Ni', -0.25, 2, '#a8a29e'], Pb: ['Pb', -0.13, 2, '#64748b'], Cu: ['Cu', 0.34, 2, '#c2410c'], Ag: ['Ag', 0.80, 1, '#cbd5e1'] };
+    const st = { L: 'Zn', R: 'Cu', cL: 1, cR: 1 };
+    const calc = () => {
+      const [, EL, nL] = M[st.L], [, ER, nR] = M[st.R], left = EL <= ER, an = left ? st.L : st.R, ca = left ? st.R : st.L;
+      const [, Ea, na] = M[an], [, Ec, nc] = M[ca], ca_c = left ? st.cR : st.cL, an_c = left ? st.cL : st.cR;
+      const n = na * nc / (na === nc ? na : 1), E0 = Ec - Ea;
+      const Q = Math.pow(an_c, n / na) / Math.pow(ca_c, n / nc), E = E0 - 0.059 / n * Math.log10(Q);
+      if (st.L === st.R) { const Ec2 = 0.059 / n * Math.abs(Math.log10(st.cL / st.cR)); return { an, ca, n, E0: 0, E: Ec2, dG: -n * 96.5 * Ec2, left: st.cL <= st.cR }; }
+      return { an, ca, n, E0, E, dG: -n * 96.5 * E, left };
+    };
+    const MIS = [['dan', 'Build the Daniell cell (Zn | Cu, both 1 M) — read 1.10 V', x => st.L !== st.R && new Set([st.L, st.R]).has('Zn') && new Set([st.L, st.R]).has('Cu') && st.cL === 1 && st.cR === 1],
+      ['two', 'Build a cell with E° above 2 V', x => x.E0 > 2],
+      ['boost', 'Keep the same metals but push E above E° by changing concentrations', x => st.L !== st.R && x.E > x.E0 + 0.02],
+      ['conc', 'Same metal on both sides — a concentration cell giving at least 50 mV', x => st.L === st.R && x.E >= 0.05],
+      ['flip', 'Put the more reactive metal on the RIGHT — watch the electrons flow the other way', x => st.L !== st.R && !x.left]];
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔋 Galvanic Cell Builder</h3>
+        <p class="jx-fine">Pick a metal for each beaker and set the ion concentrations. The lower E° metal becomes the anode (it is oxidised); electrons flow through the wire to the cathode.</p>
+        <div class="jx-fine"><b>Left</b></div><div class="jx-seg3" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px">${Object.keys(M).map(k => `<button style="padding:6px 0;min-width:0;font-size:13px" data-l="${k}" class="${k === st.L ? 'on' : ''}">${k}</button>`).join('')}</div>
+        <div class="jx-fine"><b>Right</b></div><div class="jx-seg3" style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px">${Object.keys(M).map(k => `<button style="padding:6px 0;min-width:0;font-size:13px" data-r="${k}" class="${k === st.R ? 'on' : ''}">${k}</button>`).join('')}</div>
+        <svg viewBox="0 0 320 190" class="jx-circ" id="jxGal" style="max-width:360px;background:#f8fafc;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>Left ion concentration <b id="v_cL">${st.cL} M</b></span><input type="range" min="-3" max="0.3" step="0.1" value="${Math.log10(st.cL)}" data-k="cL"></label>
+        <label class="jx-sl"><span>Right ion concentration <b id="v_cR">${st.cR} M</b></span><input type="range" min="-3" max="0.3" step="0.1" value="${Math.log10(st.cR)}" data-k="cR"></label>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-l]').forEach(b => b.onclick = () => { tap(); st.L = b.dataset.l; draw(); });
+      el.querySelectorAll('[data-r]').forEach(b => b.onclick = () => { tap(); st.R = b.dataset.r; draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { const v = +(10 ** +i.value).toPrecision(2); st[i.dataset.k] = Math.abs(+i.value) < 1e-9 ? 1 : v; $('#v_' + i.dataset.k).textContent = st[i.dataset.k] + ' M'; upd(); });
+      upd();
+    };
+    const upd = () => {
+      const x = calc(), dir = x.left ? 1 : -1, ion = k => M[k][0] + (M[k][2] === 1 ? '⁺' : '²⁺');
+      const beaker = (cx, k, c, role) => `<path d="M${cx - 50} 80 v70 h100 v-70" fill="none" stroke="#475569" stroke-width="2"/><rect x="${cx - 49}" y="${100}" width="98" height="49" fill="#bfdbfe" opacity="${0.35 + Math.min(0.6, c / 2)}"/>
+        <rect x="${cx - 8}" y="58" width="16" height="78" fill="${M[k][3]}" stroke="#334155"/><text x="${cx}" y="166" font-size="10" text-anchor="middle" fill="#0f172a">${ion(k)} ${c} M</text>
+        <text x="${cx}" y="181" font-size="10" text-anchor="middle" fill="${role === 'anode' ? '#b91c1c' : '#1d4ed8'}" font-weight="700">${k} · ${role} (${role === 'anode' ? '−' : '+'})</text>`;
+      const same = st.L === st.R;
+      $('#jxGal').innerHTML = `${beaker(70, st.L, st.cL, same ? (st.cL <= st.cR ? 'anode' : 'cathode') : (x.left ? 'anode' : 'cathode'))}${beaker(250, st.R, st.cR, same ? (st.cL <= st.cR ? 'cathode' : 'anode') : (x.left ? 'cathode' : 'anode'))}
+        <path d="M110 92 v-12 q0 -10 10 -10 h80 q10 0 10 10 v12" fill="none" stroke="#e5e7eb" stroke-width="12"/><text x="160" y="74" font-size="8" text-anchor="middle" fill="#475569">salt bridge</text>
+        <path d="M70 58 V22 H250 V58" fill="none" stroke="#0f172a" stroke-width="2"/><circle cx="160" cy="22" r="18" fill="#fff" stroke="#0f172a"/><text x="160" y="25.5" font-size="9" text-anchor="middle" font-weight="700">${Math.abs(x.E).toFixed(2)}V</text>
+        <text x="${dir > 0 ? 112 : 208}" y="15" font-size="11" text-anchor="middle" fill="#ca8a04">${dir > 0 ? 'e⁻ →' : '← e⁻'}</text>`;
+      $('#jxRead').innerHTML = `<span>E° <b>${x.E0.toFixed(2)} V</b></span><span>E (Nernst) <b>${x.E.toFixed(3)} V</b></span><span>n <b>${x.n}</b></span><span>ΔG <b>${x.dG.toFixed(0)} kJ</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['gc_' + kk] && tt(x)) { done['gc_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['gc_' + kk] ? 'ok' : ''}">${done['gc_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
   }

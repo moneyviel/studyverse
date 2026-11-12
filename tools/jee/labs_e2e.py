@@ -163,6 +163,13 @@ async def _(pg):
     await setr(pg, '[data-k="T"]', 298); await setr(pg, '[data-k="V"]', 0.5)   # α < 5 %
     await setr(pg, '[data-k="T"]', 330); await setr(pg, '[data-k="n"]', 1)      # [NO2] ≥ 0.2
     await tap(pg, '#jxAr')
+@lab('chem-u07', 'galvanic')
+async def _(pg):
+    await tap(pg, '[data-l="Zn"]'); await tap(pg, '[data-r="Cu"]')                       # Daniell
+    await setr(pg, '[data-k="cR"]', 0.3); await setr(pg, '[data-k="cL"]', -3)                     # boost
+    await tap(pg, '[data-l="Mg"]'); await tap(pg, '[data-r="Ag"]')                       # E° 3.17
+    await tap(pg, '[data-l="Cu"]'); await tap(pg, '[data-r="Zn"]')                       # flip
+    await tap(pg, '[data-l="Cu"]'); await tap(pg, '[data-r="Cu"]'); await setr(pg, '[data-k="cL"]', -3); await setr(pg, '[data-k="cR"]', 0)   # conc cell
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
