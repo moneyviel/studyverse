@@ -187,6 +187,9 @@ async def _(pg):
     await tap(pg, '[data-pp="ie"]'); await el('He'); await el('N'); await el('O')
     await tap(pg, '[data-pp="r"]'); await el('Al'); await el('Ga'); await el('K')
     await tap(pg, '[data-pp="eg"]'); await el('Cl')
+@lab('chem-u10', 'oxoacid')
+async def _(pg):
+    for n in (3, 2, 1): await tap(pg, f'[data-oh="{n}"]')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

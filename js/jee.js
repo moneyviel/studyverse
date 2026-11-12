@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -401,6 +401,7 @@
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
+        oxoacid: ['🔬 Phosphorus Oxoacid Builder', 'Swap −OH and −H around phosphorus to build H₃PO₄, H₃PO₃ and H₃PO₂ — see basicity, oxidation state and reducing power change. 5 missions.', () => oxoacidLab(uid)],
         ptrend: ['🗂️ Periodic Trend Explorer', 'Colour the first 36 elements by ionisation enthalpy, electronegativity, radius or electron gain enthalpy and hunt for the famous exceptions. 5 missions.', () => ptrendLab(uid)],
         vsepr: ['📐 VSEPR Shape Builder', 'Pick bond pairs and lone pairs around a central atom and see the shape, hybridisation, bond angle and a real example. 5 missions.', () => vseprLab(uid)],
         gibbs: ['🎲 Spontaneity Explorer', 'Set ΔH, ΔS and the temperature and watch ΔG = ΔH − TΔS cross zero — the four sign cases come alive. 5 missions.', () => gibbsLab(uid)],
@@ -1250,6 +1251,40 @@
       $('#jxRead').innerHTML = st.sel ? `<span><b>${st.sel}</b> (Z = ${D[st.sel][0]})</span><span>${nm}: <b>${v === null ? 'not listed' : v + ' ' + unitTxt}</b></span>` : '<span>tap an element</span>';
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['pt_' + kk] && tt()) { done['pt_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['pt_' + kk] ? 'ok' : ''}">${done['pt_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: p-Block ---------- */
+  function oxoacidLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { oh: 3, h: 0 };   // around P: one P=O plus three more groups (OH or H)
+    const NAME = { '3,0': 'H₃PO₄ — orthophosphoric acid', '2,1': 'H₃PO₃ — phosphorous acid', '1,2': 'H₃PO₂ — hypophosphorous acid', '0,3': 'H₃PO — not a stable acid' };
+    const MIS = [['four', 'Build orthophosphoric acid (tribasic)', x => x.oh === 3], ['three', 'Build the DIBASIC acid H₃PO₃', x => x.oh === 2 && x.h === 1],
+      ['two', 'Build the MONObasic acid H₃PO₂', x => x.oh === 1 && x.h === 2], ['red', 'Make the strongest reducing agent of the three acids', x => x.oh === 1 && x.h === 2], ['ox5', 'Get phosphorus to its highest oxidation state, +5', x => x.on === 5]];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔬 Phosphorus Oxoacid Builder</h3>
+      <p class="jx-fine">Every P here has one P=O and three more groups: −OH or −H. Only the O−H hydrogens are acidic, and P−H bonds make the acid a reducing agent.</p>
+      <div class="jx-fine"><b>Number of −OH groups</b> (the rest are P−H)</div><div class="jx-seg3" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px">${[0, 1, 2, 3].map(n => `<button style="padding:6px 0;min-width:0" data-oh="${n}">${n}</button>`).join('')}</div>
+      <svg viewBox="0 0 320 180" class="jx-circ" id="jxOx" style="max-width:360px;background:#f8fafc;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('[data-oh]').forEach(b => b.onclick = () => { tap(); st.oh = +b.dataset.oh; st.h = 3 - st.oh; upd(); });
+    const upd = () => {
+      el.querySelectorAll('[data-oh]').forEach(b => b.classList.toggle('on', +b.dataset.oh === st.oh));
+      const on = 2 + st.oh - st.h, cx = 160, cy = 96, ang = [200, 340, 90];
+      let s = `<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - 58}" stroke="#334155" stroke-width="3"/><line x1="${cx + 5}" y1="${cy}" x2="${cx + 5}" y2="${cy - 58}" stroke="#334155" stroke-width="3"/>
+        <circle cx="${cx + 2}" cy="${cy - 66}" r="13" fill="#ef4444"/><text x="${cx + 2}" y="${cy - 62}" font-size="11" text-anchor="middle" fill="#fff">O</text>`;
+      ang.forEach((a, i) => { const r = a * Math.PI / 180, x = cx + Math.cos(r) * 62, y = cy + Math.sin(r) * 50, isOH = i < st.oh;
+        s += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#334155" stroke-width="3"/>`;
+        if (isOH) s += `<circle cx="${x}" cy="${y}" r="13" fill="#ef4444"/><text x="${x}" y="${y + 4}" font-size="11" text-anchor="middle" fill="#fff">O</text><line x1="${x}" y1="${y}" x2="${x + Math.cos(r) * 26}" y2="${y + Math.sin(r) * 22}" stroke="#334155" stroke-width="2"/><circle cx="${x + Math.cos(r) * 30}" cy="${y + Math.sin(r) * 25}" r="9" fill="#22c55e"/><text x="${x + Math.cos(r) * 30}" y="${y + Math.sin(r) * 25 + 3}" font-size="9" text-anchor="middle" fill="#fff">H⁺</text>`;
+        else s += `<circle cx="${x}" cy="${y}" r="10" fill="#94a3b8"/><text x="${x}" y="${y + 3}" font-size="10" text-anchor="middle" fill="#fff">H</text>`; });
+      s += `<circle cx="${cx}" cy="${cy}" r="17" fill="#f59e0b"/><text x="${cx}" y="${cy + 4}" font-size="12" text-anchor="middle" fill="#fff">P</text>
+        <text x="10" y="172" font-size="9" fill="#15803d">green H⁺ = acidic (O−H)</text><text x="310" y="172" font-size="9" fill="#475569" text-anchor="end">grey H = P−H (not acidic, reducing)</text>`;
+      $('#jxOx').innerHTML = s;
+      $('#jxRead').innerHTML = `<span><b>${NAME[st.oh + ',' + st.h]}</b></span><span>basicity <b>${st.oh}</b></span><span>P oxidation state <b>+${on}</b></span><span>${st.h ? '🔻 reducing (P−H)' : 'not reducing'}</span>`;
+      const x = { ...st, on };
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['ox_' + kk] && tt(x)) { done['ox_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['ox_' + kk] ? 'ok' : ''}">${done['ox_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }
