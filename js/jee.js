@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -397,6 +397,8 @@
         orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
         orbit: ['🛰️ Orbit Launcher', 'Fire a satellite sideways from Earth, the Moon or Mars: watch it crash, circle, stretch into an ellipse or escape — with live orbital and escape speeds. 5 missions.', () => orbitLab(uid)],
         charges: ['⚡ Field Line Studio', 'Place two charges, change their size, sign and gap, and probe the field and potential anywhere: find null points, zero-potential points and dipole fields. 5 missions.', () => chargeLab(uid)],
+        pv: ['🔥 P–V Process Lab', 'Take a gas through isothermal, adiabatic, isobaric and isochoric steps and watch Q, W and ΔU add up — build an engine, a fridge and a Carnot cycle. 5 missions.', () => pvLab(uid)],
+        box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
         planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
         pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
@@ -786,6 +788,107 @@
       $('#jxRead').innerHTML = `<span>|E| at P <b>${x.E < 1e-6 * ref() ? '0 (null point!)' : f(x.E) + ' N/C'}</b></span><span>E<sub>x</sub>, E<sub>y</sub> <b>${f(x.ex)}, ${f(x.ey)}</b></span><span>V at P <b>${Math.abs(x.v) < 1e-8 * ref() ? '0' : f(x.v) + ' V'}</b></span>`;
       let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['es_' + kk] && t(x)) { done['es_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['es_' + kk] ? 'ok' : ''}">${done['es_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Thermodynamics ---------- */
+  function pvLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}), Rg = 8.314;
+    const n = 100 / (Rg * 300);                       // start: 1 × 10⁵ Pa, 1 L, 300 K
+    const st = { f: 3, kind: 'iso', k: 2, path: [], P: 1, V: 1 }, PU = 1e5, VU = 1e-3;
+    const g = () => 1 + 2 / st.f, T = (P, V) => P * PU * V * VU / (n * Rg);
+    const step = () => {   // apply one process with factor k
+      const P0 = st.P, V0 = st.V, k = st.k, gm = g(); let P1, V1, W, pts = [];
+      if (st.kind === 'iso') { V1 = V0 * k; P1 = P0 * V0 / V1; W = P0 * PU * V0 * VU * Math.log(k); }
+      else if (st.kind === 'adia') { V1 = V0 * k; P1 = P0 * Math.pow(V0 / V1, gm); W = (P0 * V0 - P1 * V1) * PU * VU / (gm - 1); }
+      else if (st.kind === 'bar') { V1 = V0 * k; P1 = P0; W = P0 * PU * (V1 - V0) * VU; }
+      else { V1 = V0; P1 = P0 * k; W = 0; }
+      for (let i = 0; i <= 40; i++) { const v = V0 + (V1 - V0) * i / 40; pts.push([v, st.kind === 'iso' ? P0 * V0 / v : st.kind === 'adia' ? P0 * Math.pow(V0 / v, gm) : st.kind === 'bar' ? P0 : P0 + (P1 - P0) * i / 40]); }
+      const dU = n * st.f / 2 * Rg * (T(P1, V1) - T(P0, V0));
+      st.path.push({ kind: st.kind, k, W, dU, Q: dU + W, pts }); st.P = P1; st.V = V1;
+    };
+    const tot = () => st.path.reduce((a, s) => ({ W: a.W + s.W, Q: a.Q + s.Q, dU: a.dU + s.dU }), { W: 0, Q: 0, dU: 0 });
+    const closed = () => st.path.length >= 2 && Math.abs(st.P - 1) < 0.01 && Math.abs(st.V - 1) < 0.01;
+    const MIS = [['iso2', 'Double the volume ISOTHERMALLY — and see that Q = W', x => x.path.some(s => s.kind === 'iso' && Math.abs(s.k - 2) < 1e-9)],
+      ['hot', 'Raise the temperature by at least 50 % without giving the gas ANY heat', x => x.path.length && x.path.every(s => Math.abs(s.Q) < 1e-6) && T(x.P, x.V) >= 450 - 1e-6],
+      ['engine', 'Build a closed cycle (back to the start) in which the gas does POSITIVE net work', x => closed() && tot().W > 1e-6],
+      ['fridge', 'Build a closed cycle in which net work is done ON the gas', x => closed() && tot().W < -1e-6],
+      ['carnot', 'Carnot cycle: close a loop using only isothermal and adiabatic steps, with net work > 0', x => closed() && tot().W > 1e-6 && x.path.every(s => s.kind === 'iso' || s.kind === 'adia')]];
+    const NM = { iso: 'Isothermal', adia: 'Adiabatic', bar: 'Isobaric', chor: 'Isochoric' };
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔥 P–V Process Lab</h3>
+        <p class="jx-fine">Start: 1 × 10⁵ Pa, 1 L, 300 K. Pick a process and a factor, then press <b>Apply</b>. The table keeps Q (heat in), W (work by gas) and ΔU for every step — check the first law Q = ΔU + W yourself.</p>
+        <div class="jx-seg3"><button data-f="3" class="${st.f === 3 ? 'on' : ''}">Monoatomic</button><button data-f="5" class="${st.f === 5 ? 'on' : ''}">Diatomic</button></div>
+        <svg viewBox="0 0 320 220" class="jx-circ" id="jxPV" style="max-width:360px;background:#fff7ed;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+        <div class="jx-seg3" style="flex-wrap:wrap">${Object.entries(NM).map(([k, v]) => `<button data-kind="${k}" class="${k === st.kind ? 'on' : ''}">${v}</button>`).join('')}</div>
+        <label class="jx-sl"><span id="jxKl">${st.kind === 'chor' ? 'Pressure × ' : 'Volume × '} <b id="v_k">${st.k}</b></span><input type="range" min="0.25" max="4" step="0.25" value="${st.k}" data-k="k"></label>
+        <div class="jx-seg3"><button id="jxGo">➕ Apply step</button><button id="jxUndo">↩ Undo</button><button id="jxReset">⟲ Reset</button></div>
+        <div id="jxTab"></div><h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { tap(); st.f = +b.dataset.f; st.path = []; st.P = 1; st.V = 1; draw(); });
+      el.querySelectorAll('[data-kind]').forEach(b => b.onclick = () => { tap(); st.kind = b.dataset.kind; draw(); });
+      el.querySelector('[data-k="k"]').oninput = e => { st.k = +e.target.value; $('#v_k').textContent = st.k; };
+      $('#jxGo').onclick = () => { if (st.k === 1) return toast('Factor 1 changes nothing'); const nv = st.kind === 'chor' ? st.V : st.V * st.k; if (nv > 16 || nv < 1 / 16) return toast('That is off the chart — try a smaller factor'); tap(); step(); upd(); };
+      $('#jxUndo').onclick = () => { const s = st.path.pop(); if (s) { st.P = s.pts[0][1]; st.V = s.pts[0][0]; } tap(); upd(); };
+      $('#jxReset').onclick = () => { st.path = []; st.P = 1; st.V = 1; tap(); upd(); };
+      upd();
+    };
+    const upd = () => {
+      const all = st.path.flatMap(s => s.pts).concat([[1, 1], [st.V, st.P]]), Vm = Math.max(2, ...all.map(p => p[0])) * 1.1, Pm = Math.max(2, ...all.map(p => p[1])) * 1.1;
+      const X = v => 34 + v / Vm * 276, Y = p => 196 - p / Pm * 180, col = { iso: '#2563eb', adia: '#dc2626', bar: '#16a34a', chor: '#9333ea' };
+      $('#jxPV').innerHTML = `<line x1="34" y1="196" x2="314" y2="196" stroke="#78350f"/><line x1="34" y1="196" x2="34" y2="10" stroke="#78350f"/>
+        <text x="284" y="214" font-size="11" fill="#78350f">V (L)</text><text x="4" y="14" font-size="11" fill="#78350f">P</text>
+        ${st.path.map(s => `<path d="${s.pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join(' ')}" fill="none" stroke="${col[s.kind]}" stroke-width="3"/>`).join('')}
+        <circle cx="${X(1)}" cy="${Y(1)}" r="5" fill="#f59e0b"/><text x="${X(1) + 6}" y="${Y(1) - 6}" font-size="10" fill="#92400e">start</text><circle cx="${X(st.V)}" cy="${Y(st.P)}" r="5" fill="#111827"/>`;
+      const t = tot(), J = v => (Math.abs(v) < 0.05 ? '0' : v.toFixed(1)) + ' J';
+      $('#jxRead').innerHTML = `<span>now <b>${(st.P * 1).toFixed(3)} × 10⁵ Pa, ${st.V.toFixed(3)} L, ${T(st.P, st.V).toFixed(0)} K</b></span><span>total Q <b>${J(t.Q)}</b></span><span>total W <b>${J(t.W)}</b></span><span>total ΔU <b>${J(t.dU)}</b></span>${closed() ? '<span>✅ <b>back at the start — a closed cycle</b></span>' : ''}`;
+      $('#jxTab').innerHTML = st.path.length ? `<div class="jx-fine" style="margin-top:6px">${st.path.map((s, i) => `${i + 1}. ${NM[s.kind]} ×${s.k}: Q ${J(s.Q)}, W ${J(s.W)}, ΔU ${J(s.dU)}`).join('<br>')}</div>` : '';
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['td_' + kk] && tt(st)) { done['td_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['td_' + kk] ? 'ok' : ''}">${done['td_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Kinetic Theory of Gases ---------- */
+  function boxLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}), kB = 1.38e-23, Rg = 8.314;
+    const GM = { He: 4, Ne: 20, N2: 28, O2: 32 }, st = { g: 'He', T: 300, N: 20, V: 2 };
+    const vr = (g, T) => Math.sqrt(3 * Rg * T / (GM[g] * 1e-3)), P = () => st.N * st.T / st.V / (20 * 300 / 2);
+    const MIS = [['dbl', 'Make He molecules move exactly TWICE as fast (v_rms) as at 300 K', x => x.g === 'He' && Math.abs(vr('He', x.T) / vr('He', 300) - 2) < 1e-9],
+      ['p4', 'Make the pressure exactly 4 times the starting pressure', x => Math.abs(P() - 4) < 1e-9],
+      ['twiceN', 'With TWICE as many molecules as at the start, get back the starting pressure', x => x.N === 40 && Math.abs(P() - 1) < 1e-9],
+      ['o2he', 'Switch to O₂ and make its v_rms equal to helium\'s at 300 K', x => x.g === 'O2' && Math.abs(vr('O2', x.T) - vr('He', 300)) < 1e-6],
+      ['ke', 'Make the average KE per molecule about 0.1 eV (within 3 %)', x => Math.abs(1.5 * kB * x.T / 1.6e-19 / 0.1 - 1) < 0.03]];
+    let parts = [], raf = 0;
+    const seed = () => { parts = Array.from({ length: st.N }, (_, i) => { const a = (i * 2.399) % (2 * Math.PI); return { x: 0.1 + 0.8 * ((i * 0.618) % 1), y: 0.1 + 0.8 * ((i * 0.381) % 1), a }; }); };
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🫧 Molecule Box</h3>
+        <p class="jx-fine">Molecules fly about and bounce off the walls. Hotter → faster; heavier → slower; more molecules or a smaller box → more hits on the walls (pressure). Start: 20 He molecules, 300 K, box 2 units.</p>
+        <div class="jx-seg3" style="flex-wrap:wrap">${Object.keys(GM).map(k => `<button data-g="${k}" class="${k === st.g ? 'on' : ''}">${k.replace('2', '₂')}</button>`).join('')}</div>
+        <svg viewBox="0 0 320 200" class="jx-circ" id="jxBox" style="max-width:360px;background:#0f172a;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>Temperature <b id="v_T">${st.T} K</b></span><input type="range" min="100" max="2400" step="50" value="${st.T}" data-k="T"></label>
+        <label class="jx-sl"><span>Molecules <b id="v_N">${st.N}</b></span><input type="range" min="10" max="60" step="5" value="${st.N}" data-k="N"></label>
+        <label class="jx-sl"><span>Box volume <b id="v_V">${st.V}</b></span><input type="range" min="0.5" max="4" step="0.5" value="${st.V}" data-k="V"></label>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => { cancelAnimationFrame(raf); unit(uid, 'lab'); };
+      el.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { tap(); st.g = b.dataset.g; cancelAnimationFrame(raf); draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + (i.dataset.k === 'T' ? ' K' : ''); if (i.dataset.k === 'N') seed(); upd(); });
+      seed(); upd(); anim();
+    };
+    const anim = () => {
+      const svg = $('#jxBox'); if (!svg || !document.body.contains(svg)) return;
+      const W = 40 + st.V / 4 * 260, sp = vr(st.g, st.T) / 1370 * 0.012;
+      parts.forEach(p => { p.x += Math.cos(p.a) * sp * 320 / W; p.y += Math.sin(p.a) * sp;
+        if (p.x < 0 || p.x > 1) { p.a = Math.PI - p.a; p.x = Math.max(0, Math.min(1, p.x)); } if (p.y < 0 || p.y > 1) { p.a = -p.a; p.y = Math.max(0, Math.min(1, p.y)); } });
+      svg.innerHTML = `<rect x="10" y="10" width="${W}" height="180" fill="none" stroke="#94a3b8" stroke-width="2"/><rect x="${10 + W}" y="10" width="8" height="180" fill="#64748b"/>
+        ${parts.map(p => `<circle cx="${(10 + p.x * W).toFixed(1)}" cy="${(10 + p.y * 180).toFixed(1)}" r="${2.5 + GM[st.g] / 12}" fill="${st.T > 1200 ? '#f97316' : st.T > 600 ? '#facc15' : '#38bdf8'}"/>`).join('')}`;
+      raf = requestAnimationFrame(anim);
+    };
+    const upd = () => {
+      $('#jxRead').innerHTML = `<span>v<sub>rms</sub> <b>${vr(st.g, st.T).toFixed(0)} m/s</b></span><span>avg KE <b>${(1.5 * kB * st.T / 1.6e-19).toFixed(3)} eV</b></span><span>pressure <b>${P().toFixed(2)} × start</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['kg_' + kk] && tt(st)) { done['kg_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['kg_' + kk] ? 'ok' : ''}">${done['kg_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
   }

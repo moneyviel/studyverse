@@ -118,6 +118,23 @@ async def _(pg):
     await set_(a=1, b=-2, d=6, x=-1, y=0)           # V = 0, E ≠ 0
     await set_(a=5, b=-5, d=2, y=0)                 # strong field between opposite charges
     await tapxy(pg, '#jxEs', 160, 160, 320)         # a tap on the picture centre moves P to (0, 0)
+@lab('phy-u08', 'pv')
+async def _(pg):
+    async def go(kind, k): await tap(pg, f'[data-kind="{kind}"]'); await setr(pg, '[data-k="k"]', k); await tap(pg, '#jxGo')
+    await go('iso', 2); await tap(pg, '#jxReset')
+    await go('adia', 0.5); await tap(pg, '#jxReset')                                  # adiabatic compression heats the gas
+    for kind, k in [('bar', 2), ('chor', 0.5), ('bar', 0.5), ('chor', 2)]: await go(kind, k)   # clockwise rectangle
+    await tap(pg, '#jxReset')
+    for kind, k in [('chor', 0.5), ('bar', 2), ('chor', 2), ('bar', 0.5)]: await go(kind, k)   # anticlockwise
+    await tap(pg, '#jxReset')
+    for kind, k in [('iso', 2), ('adia', 2), ('iso', 0.5), ('adia', 0.5)]: await go(kind, k)   # Carnot
+@lab('phy-u09', 'box')
+async def _(pg):
+    await setr(pg, '[data-k="T"]', 1200); await setr(pg, '[data-k="T"]', 300)
+    await setr(pg, '[data-k="V"]', 0.5); await setr(pg, '[data-k="V"]', 2)
+    await setr(pg, '[data-k="N"]', 40); await setr(pg, '[data-k="V"]', 4); await setr(pg, '[data-k="N"]', 20); await setr(pg, '[data-k="V"]', 2)
+    await tap(pg, '[data-g="O2"]'); await setr(pg, '[data-k="T"]', 2400)
+    await setr(pg, '[data-k="T"]', 750)
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
