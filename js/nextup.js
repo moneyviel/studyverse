@@ -20,12 +20,12 @@
   const cardHTML = n => `<span class="nx-e" aria-hidden="true">🔭</span><span class="nx-t"><b>Sneak peek: ${E(n.title)}</b><small>See what you’ll explore next — keep going, it’s coming!</small></span><span class="nx-c" aria-hidden="true">›</span>`;
   function place() {
     const n = next(); style();
-    const hosts = [D.getElementById('s-me'), D.getElementById('s-world')];
+    const hosts = [D.getElementById('s-me'), D.getElementById('s-world')];   // World only to clean up: the card lives on Me / CA Profile
     const ca = D.getElementById('s-ca'); if (ca) hosts.push(ca);
     hosts.forEach(h => {
       if (!h || !h.firstElementChild) return;
       let c = h.querySelector(':scope > .nx-card');
-      const ok = n && (h.id !== 's-ca' || (isCA() && !!h.querySelector(':scope > .ca-prof, .ca-top .ca-chip.lvl'))) && (h.id !== 's-world' || !isCA());
+      const ok = n && h.id !== 's-world' && (h.id !== 's-ca' || (isCA() && !!h.querySelector(':scope > .ca-prof')));
       if (!ok) { if (c) c.remove(); return; }
       if (!c) { c = D.createElement('button'); c.type = 'button'; c.className = 'card nx-card'; c.onclick = () => { S('open'); open(); }; h.appendChild(c); }
       const html = cardHTML(n); if (c.dataset.h !== html) { c.dataset.h = html; c.innerHTML = html; }
@@ -91,6 +91,7 @@
     D.head.insertAdjacentHTML('beforeend', `<style id="nxCss">
       .nx-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;cursor:pointer;font:inherit;background:linear-gradient(135deg,#1b2a6b,#5b3fd1);color:#fff}
       .nx-card .nx-e{font-size:34px;animation:nxB 3s ease-in-out infinite}.nx-card .nx-t{flex:1;display:flex;flex-direction:column}.nx-card small{opacity:.85}.nx-card .nx-c{font-size:22px}
+      #s-me .nx-card,#s-ca .nx-card{background:linear-gradient(135deg,#1b2a6b,#5b3fd1)!important;color:#fff!important;border:0!important}#s-me .nx-card *,#s-ca .nx-card *{color:#fff!important}
       #s-me.me-lay>.nx-card{order:23}#s-ca.me-lay>.nx-card{order:23}
       .nx-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
       .nx-hero{text-align:center;border-radius:20px;padding:16px;color:#fff;background:linear-gradient(135deg,#ff6a88,#7b5cff 55%,#20c4ff);background-size:200% 200%;animation:nxG 6s ease infinite}

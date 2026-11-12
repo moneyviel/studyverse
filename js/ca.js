@@ -349,7 +349,7 @@
     D.getElementById('caGrpGo').onclick = groupScreen;
     weakMini(D.getElementById('caWeakMini'));
     if (T()) T().wireHome(el);
-    document.getElementById('gkSnack')?.remove();   // Brain Snacks live on the Profile (js/gk.js)
+    try { if (window.GK) GK.snacks(); } catch (e) {}   // Brain Snacks + GK Explorer for CA students too (Journey)
   }
   function paperCard(level, p, i, st) {
     const b = builtCount(p), n = unitCount(p), pr = paperProg(p);
@@ -969,13 +969,11 @@
       ${ownerCard()}
       <div class="card" id="meSound"><h3>🎵 Sound & music</h3><button class="btn ghost" onclick="openSound()">Open sound settings</button></div><div class="card me-danger" id="meResetC"><h3>⚠️ Start over</h3><p class="sub">Erases all progress on this device.</p><button class="btn ghost" id="caReset">Erase all progress</button></div>`;
     wireOwner(profile);
-    try { if (window.GK) GK.meCard(el, '.ca-top'); } catch (e) {}
     if (T() && T().photos) T().photos.usageCard(D.getElementById('caPhUse'));
     D.getElementById('caExamPS').onclick = () => { c.exam = D.getElementById('caExamP').value || null; save(); toast(c.exam ? 'Exam date saved' : 'Exam date cleared'); };
     D.getElementById('caNmS').onclick = () => { const v = D.getElementById('caNm').value.trim(); if (v) { p.name = v; save(); toast('Name saved'); } };
     if (T()) { D.getElementById('caPNotes').onclick = () => T().notes(); D.getElementById('caPSearch').onclick = () => T().search(''); }
     D.getElementById('caReset').onclick = function () { if (this.dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { this.dataset.sure = 1; this.textContent = 'Tap again to erase everything'; } };
-    try { if (window.GK) GK.snacks(); } catch (e) {}
   }
   /* ---------- owner tools (owner mode only) ---------- */
   function ownerCard() {

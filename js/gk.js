@@ -46,18 +46,19 @@
 
   /* ================= 1. Brain Snacks ================= */
   async function snacks() {
-    const ca = !!(ST.profile && ST.profile.course === 'ca');   // on Me (school) / Profile (CA), just under the stats
-    const scr = document.getElementById(ca ? 's-ca' : 's-me'), st = scr && (!ca || scr.querySelector(':scope > .ca-prof')) ? scr.querySelector(':scope > .statrow') : null;
-    const map = st && st.nextElementSibling;
+    const ca = !!(ST.profile && ST.profile.course === 'ca');   // World (school) / CA Journey: just above the map / under the greeting
+    const scr = document.getElementById(ca ? 's-ca' : 's-world'), top = ca && scr && scr.querySelector(':scope > .ca-journey') ? scr.querySelector(':scope > .ca-top') : null;
+    const map = ca ? (top && top.nextElementSibling) : document.getElementById('map');
     if (!scr || !map || !ST.profile) return;
     let D; try { D = await daily(); } catch (e) { document.getElementById('gkSnack')?.remove(); return; }
     const t = dayInfo(), g = grade(), sig = `${t.iso}|${g}`;
     let box = document.getElementById('gkSnack');
-    if (box && box.dataset.sig === sig) { box.classList.toggle('shut', !!G().shut); return; }
+    if (box && box.dataset.sig === sig && box.parentElement === scr) { box.classList.toggle('shut', !!G().shut); try { meCard(scr, '#gkSnack'); } catch (e) {} return; }
     const old = box && box.querySelector('.gk-row'), sx = old ? old.scrollLeft : 0;
     if (!box) { box = document.createElement('section'); box.id = 'gkSnack'; box.className = 'gk-snack'; box.setAttribute('aria-labelledby', 'gkSnackT'); map.before(box); }
     else if (box.nextElementSibling !== map) map.before(box);
     box.dataset.sig = sig;
+    try { meCard(scr, '#gkSnack'); } catch (e) {}
     const th = pickDay(D.thoughts, 'thought', t.n), wow = pickDay(D.wow, 'wow', t.n), bite = pickDay(D.bites, 'bite', t.n), word = pickDay(D.words, 'word', t.n);
     const otd = D.otd[t.key];
     const cards = [];
@@ -413,16 +414,16 @@
 
   /* ---------- hooks: home screen snacks, and a card on Me ---------- */
   const _world = worldScreen;
-  worldScreen = async function () { stopRun(); const r = await _world.apply(this, arguments); document.getElementById('gkSnack')?.remove(); return r; };
+  worldScreen = async function () { stopRun(); const r = await _world.apply(this, arguments); try { await snacks(); } catch (e) {} return r; };
   const _me = meScreen;
   meScreen = function () {
     stopRun(); const r = _me.apply(this, arguments);
     const host = document.getElementById('s-me');
-    meCard(host); snacks().catch(() => {});
+    host && host.querySelectorAll(':scope > #gkSnack, :scope > .gk-mecard').forEach(x => x.remove());   // both live on World
     return r;
   };
-  function meCard(host, anchorSel) {           // GK Explorer card on the school Me screen and the CA Profile
-    if (!host || document.getElementById('meGk')) return;
+  function meCard(host, anchorSel) {           // GK Explorer card on World (school) and the CA Journey, right after Brain Snacks
+    if (!host || host.querySelector('#meGk')) return; document.getElementById('meGk')?.closest('.gk-mecard')?.remove();
     const anchor = host.querySelector(anchorSel || '.statrow') || host.firstElementChild;
     const html = `<div class="card gk-mecard"><div class="gk-meh"><span class="gk-mee" aria-hidden="true">🧭</span><div><h3>GK Explorer</h3><p class="sub">Free bonus: ${Object.keys(G().seen).length} facts learned · best streak ${G().best}</p></div></div><button class="btn" id="meGk">Explore general knowledge ▶</button></div>`;
     if (anchor) anchor.insertAdjacentHTML('afterend', html); else host.insertAdjacentHTML('beforeend', html);
