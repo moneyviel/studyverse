@@ -10,6 +10,7 @@ def clus(f):
     raise ValueError(f)
 def sits(sk, b):
     return sk.get('sit', {}).get(b, []) + sk.get('pools', {}).get(b, [])
+ROT = {}
 def gen(t):
     spec, out, seen = ALL[t], [], set()
     for b in 'jmsp':
@@ -18,7 +19,6 @@ def gen(t):
             for src in MIX[b]:
                 for s in sits(sk, src):
                     rnd = random.Random(hashlib.md5(f'{t}{b}{skn}{s}'.encode()).hexdigest())
-                    nv = 3 if b in 'jp' else 2
                     frames = []
                     if sk['kind'] == 'match':
                         text, ans, clue = s.split('|')
@@ -27,16 +27,16 @@ def gen(t):
                         frames.append((q, [ans] + rnd.sample(others, 3), sk['why'].format(clue=clue)))
                     else:
                         G, B = sk['good'][grp], sk['bad'][grp]
-                        for fr, ftxt in sk['frames'].items():
+                        fl = list(sk['frames'].items()); k = ROT.get((t, b, skn), 0)
+                        use = [fl[(k + i) % len(fl)] for i in range(min(2, len(fl)))]; ROT[(t, b, skn)] = k + 1
+                        for fr, ftxt in use:
                             q = f"{s} {ftxt}"
                             if fr == 'best': pg, pb = G, B
                             elif fr == 'not': pg, pb = B, G
                             else: pg, pb = sk['gsay'][grp], sk['bsay'][grp]
-                            rights = rnd.sample(pg, min(nv, len(pg)))
-                            for r in rights:
-                                opts = [r] + rnd.sample(pb, 3)
-                                why = sk['why']['best'] if fr == 'best' else (f'“{r}” would not help. ' + sk['why']['not']) if fr == 'not' else sk['why']['say']
-                                frames.append((q, opts, why))
+                            r = rnd.choice(pg); opts = [r] + rnd.sample(pb, 3)
+                            why = sk['why']['best'] if fr == 'best' else (f'“{r}” would not help. ' + sk['why']['not']) if fr == 'not' else sk['why']['say']
+                            frames.append((q, opts, why))
                     for q, opts, why in frames:
                         key = (b, re.sub(r'\W+', ' ', q.lower()).strip(), opts[0])
                         if key in seen: continue

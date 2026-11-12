@@ -108,16 +108,16 @@ EQ = {
  'Choose wisely': {'kind': 'act', 'frames': {'best': 'What is the wisest choice?', 'not': 'Which choice is NOT wise?'},
   'why': {'best': 'A wise choice stops to think about what could happen and keeps everyone safe and treated fairly.', 'not': 'Acting on impulse or to please others can hurt you or someone else.'},
   'sit': {
-   'j': ['You find a wallet with money on the road.', 'A friend says, “Let’s take sweets from the shop without paying.”', 'You see matches lying on a table.', 'A stranger offers you a lift home.',
-         'Your friend wants you to skip homework and play.', 'You broke a glass at home and nobody saw.', 'Older kids dare you to climb a high wall.', 'You find your sister’s secret diary.',
-         'Your friend asks you to tell a lie for him.', 'You are offered a medicine by a classmate.'],
+   'j': ['Your friend says, “Let’s keep the wallet we found.”', 'A friend says, “Let’s take sweets from the shop without paying.”', 'Your friend wants to play with matches.', 'A stranger offers you a lift home.',
+         'Your friend wants you to skip homework and play.', 'Your friend says, “Hide the glass you broke.”', 'Older kids dare you to climb a high wall.', 'Your friend says, “Let’s read your sister’s diary.”',
+         'Your friend asks you to tell a lie for him.', 'A classmate says, “Take this medicine, it’s fun.”'],
    'm': ['Friends dare you to prank a substitute teacher.', 'Someone shares the test answers the night before.', 'An online stranger asks for your home address.', 'Your group wants to exclude someone from a trip.',
-         'You see a classmate cheating in a test.', 'Friends want to watch a scary film your parents said no to.', 'You find out a secret that could embarrass a friend.', 'Someone offers you an energy drink before a match to “play better”.',
+         'A classmate asks you to help him cheat in the test.', 'Friends want to watch a scary film your parents said no to.', 'Friends ask you to share a secret that could embarrass your friend.', 'Someone offers you an energy drink before a match to “play better”.',
          'Your friend wants to forward a mean meme about a classmate.', 'A game asks you to enter your parent’s card details.'],
    's': ['Friends pressure you to bunk a class for a movie.', 'Someone offers to sell you a leaked exam paper.', 'At a party, friends offer you alcohol.', 'A friend wants you to drive without a licence.',
          'You can copy a friend’s assignment and nobody would know.', 'An app asks for access to all your contacts and photos.', 'Your group wants to post an embarrassing video of someone.', 'A senior offers to write your project for money.',
          'You are tempted to lie about your marks to your parents.', 'A friend asks you to share your OTP to “check something”.']},
-  'pools': {'p': ['A client asks you to backdate an invoice.', 'A colleague wants you to sign attendance for him.', 'You find an error in work already sent to the client.', 'A vendor offers you a gift to approve his bill quickly.',
+  'pools': {'p': ['A client asks you to backdate an invoice.', 'A colleague wants you to sign attendance for him.', 'Your senior says to ignore an error already sent to the client.', 'A vendor offers you a gift to approve his bill quickly.',
          'Someone shares a leaked CA mock paper.', 'Your senior asks you to ignore a missing voucher “just this once”.']},
   'good': {'j': ['Stop, think, then tell a grown-up you trust', 'Say “No, thank you” and walk away', 'Say no to anything unsafe or unkind', 'Ask a parent or teacher what to do', 'Stop and think before you act'],
            'x': ['Pause and think about what could happen next', 'Say no clearly and suggest something else', 'Talk to a trusted adult before deciding', 'Choose what you’d be proud of later', 'Choose what is honest and safe']},
@@ -139,7 +139,7 @@ SQ = {
   'bad': {'j': ['Pretend you didn’t see them', 'Say “You can’t play with us”', 'Whisper about them', 'Run away from them', 'Laugh at how they talk'],
           'x': ['Leave them out so the group stays small', 'Talk about them behind their back', 'Ignore them until they leave', 'Make plans they can’t afford on purpose', 'Laugh at their differences']},
   'gsay': {'j': ['“Do you want to play with us?”', '“Hi! What’s your name?”', '“You can sit with me.”', '“Come, join our team!”'],
-           'x': ['“Want to join us? We’d like that.”', '“What do you think? I’d like to hear your idea.”', '“Come sit with us.”', '“Let’s pick something we can all do.”']},
+           'x': ['“Want to join us? We’d like that.”', '“What do you think? I’d like to hear your idea.”', '“Come sit with us.”', '“Want to hang out with us?”']},
   'bsay': {'j': ['“Go away, it’s our game.”', '“You’re too small to play.”', '“We don’t want you.”', '“You talk funny.”'],
            'x': ['“Sorry, the group is full.”', '“You wouldn’t get our jokes anyway.”', '“Why are you even here?”', '“Ask someone else.”']}},
  'Solving conflicts': {'kind': 'act', 'frames': {'best': 'What is the best way to sort it out?', 'not': 'Which would make the fight worse?', 'say': 'What is a good thing to say?'},
@@ -182,11 +182,11 @@ SQ = {
                 'A friend comes out to you as different in some way.', 'Online, someone posts an opinion you dislike.']},
   'pools': {'p': ['A client questions your work in a meeting.', 'A senior gives you blunt feedback.', 'A colleague from another background shares a different view.', 'A junior asks a basic question again.']},
   'good': {'j': ['Listen quietly and look at them', 'Wait for your turn to talk', 'Say please and thank you', 'Be kind about things that are different', 'Ask a friendly question'],
-           'x': ['Listen fully before you reply', 'Disagree politely with reasons', 'Ask questions to understand their view', 'Thank them and think about what they said', 'Respect differences without mocking']},
+           'x': ['Listen fully before you reply', 'Treat them the way you’d like to be treated', 'Ask questions to understand their view', 'Be polite and patient with them', 'Respect differences without mocking']},
   'bad': {'j': ['Talk loudly over them', 'Make faces and giggle', 'Call it weird or yucky', 'Turn your back on them', 'Copy them to make fun'],
           'x': ['Interrupt to prove your point', 'Roll your eyes and mock them', 'Ignore them completely', 'Insult them for being different', 'Share their secret with others']},
   'gsay': {'j': ['“Please tell me more!”', '“Thank you for sharing.”', '“That’s interesting!”', '“Sorry, go on.”'],
-           'x': ['“I see it differently, but I get your point.”', '“Thanks for the feedback, I’ll think about it.”', '“Can you explain what you mean?”', '“I respect that, even if I don’t agree.”']},
+           'x': ['“Please take your time — I’m listening.”', '“Thank you, that helps me understand.”', '“Can you explain what you mean?”', '“I respect that, even if I don’t agree.”']},
   'bsay': {'j': ['“That’s stupid.”', '“Be quiet, I’m talking.”', '“Ew, that’s weird.”', '“Nobody cares.”'],
            'x': ['“That’s a dumb opinion.”', '“Whatever, you don’t know anything.”', '“Let me finish for you.”', '“You people always think that.”']}},
  'Standing up': {'kind': 'act', 'frames': {'best': 'What is the best thing to do?', 'not': 'Which would NOT help?', 'say': 'What could you say?'},
@@ -228,8 +228,8 @@ AQ = {
           'm': ['You have three tests in one week.', 'You must give a speech to the whole school.', 'Your project is due tomorrow and isn’t finished.', 'You have a big match and feel sick with nerves.', 'Your parents expect top marks.', 'You have an olympiad exam on Sunday.'],
           's': ['Board exams start in two weeks.', 'You have an entrance exam and a school test the same week.', 'You must perform solo at a big event.', 'You have a college interview tomorrow.', 'Three assignments are due on the same day.', 'Your family has high hopes for your results.']},
   'pools': {'p': ['Your CA exam is a month away and the syllabus feels huge.', 'Year-end audit deadlines are piling up.', 'You have exams during peak articleship season.', 'A client presentation is tomorrow.']},
-  'good': {'j': ['Take slow breaths and relax', 'Do a little bit at a time', 'Tell a grown-up you feel worried', 'Practise a few times first', 'Get a good night’s sleep'],
-           'x': ['Break the work into small steps', 'Make a simple timetable', 'Take short breaks to breathe and stretch', 'Sleep well and eat properly', 'Talk to someone you trust about it']},
+  'good': {'j': ['Take slow breaths and relax', 'Tell a grown-up you feel worried', 'Hold a grown-up’s hand', 'Think of something happy', 'Remember you have done hard things before'],
+           'x': ['Focus on one step at a time', 'Prepare what you can ahead of time', 'Take slow breaths before you begin', 'Sleep well and eat properly', 'Talk to someone you trust about it']},
   'bad': {'j': ['Stay up very late worrying', 'Hide and pretend it isn’t happening', 'Cry and refuse to go', 'Eat lots of sweets and skip dinner', 'Tell yourself you will fail'],
           'x': ['Pull all-nighters every day', 'Avoid starting until the last minute', 'Scroll your phone to forget it', 'Skip meals to save time', 'Keep it all to yourself']},
   'gsay': {'j': ['“I can do one small step.”', '“I have practised. I am ready.”', '“Breathe in, breathe out.”', '“It’s okay to feel nervous.”'],
@@ -257,7 +257,7 @@ AQ = {
           's': ['You are going to a new college in another city.', 'Your exam pattern changed this year.', 'Your friend group drifted apart.', 'You have to choose a different stream than you wanted.', 'Your family’s plans changed suddenly.', 'Your internship moved online.']},
   'pools': {'p': ['Your firm assigns you to a new team.', 'The CA syllabus pattern changed.', 'Your manager changed mid-audit.', 'Your articleship location changed.']},
   'good': {'j': ['Talk about how you feel', 'Look for something fun in the new thing', 'Find something fun to do instead', 'Ask questions about what will happen', 'Keep a favourite thing with you'],
-           'x': ['Focus on what you can control', 'Look for new opportunities in it', 'Ask questions so you know what to expect', 'Make a simple plan for the change', 'Talk about your feelings with someone']},
+           'x': ['Focus on what you can control', 'Look for good things in the change', 'Ask questions so you know what to expect', 'Make a simple plan for the change', 'Talk about your feelings with someone']},
   'bad': {'j': ['Refuse to talk to anyone', 'Hide and cry all day', 'Be rude to the new people', 'Break things because you are upset', 'Say you will never be happy again'],
           'x': ['Refuse to accept it and sulk', 'Shut everyone out', 'Complain to everyone but do nothing', 'Assume everything will go wrong', 'Ignore it and hope it changes back']}},
  'Owning mistakes': {'kind': 'act', 'frames': {'best': 'What should you do?', 'not': 'Which would NOT be the right thing?', 'say': 'What is the best thing to say?'},
@@ -283,7 +283,7 @@ CQ = {
           's': ['Your school wastes a lot of paper.', 'Students forget assignment deadlines.', 'Your street has no lights at night.', 'Your club needs more members.', 'Food is wasted at your school canteen.', 'Your phone battery dies on long trips.']},
   'pools': {'p': ['Your team keeps missing client document follow-ups.', 'The office spends too long on repeated reports.', 'Articles struggle to find past working papers.', 'Clients send messy bank statements.']},
   'good': {'j': ['Use things you already have in a new way', 'Ask a grown-up to help test your idea', 'Ask friends to help build it', 'Try a few ideas and pick the best', 'Draw your idea first, then make it'],
-           'x': ['Reuse what you already have in a new way', 'Brainstorm many ideas, then test the best', 'Ask people who face the problem what they need', 'Build a small, cheap test version first', 'Combine two simple ideas into one']},
+           'x': ['Reuse what you already have in a new way', 'Brainstorm many ideas, then test the best', 'Ask people who face the problem what they need', 'Build a small, cheap test version first', 'Start small and improve it step by step']},
   'bad': {'j': ['Wait for the problem to go away by itself', 'Buy something very expensive', 'Use something sharp or dangerous', 'Take someone else’s things', 'Give up because there’s no answer'],
           'x': ['Spend a lot of money without testing', 'Do nothing and complain', 'Copy an idea that doesn’t fit your problem', 'Choose something unsafe to save time', 'Stick to the first idea without thinking']}},
  'Curiosity': {'kind': 'act', 'frames': {'best': 'What would a curious person do?', 'not': 'Which is NOT a curious way to respond?'},
@@ -292,7 +292,7 @@ CQ = {
           'm': ['You notice bread grows mould faster in summer.', 'Your phone gets hot when charging.', 'Some leaves curl up when touched.', 'You read a fact that seems surprising.', 'A magnet doesn’t stick to a coin.', 'The sky is red at sunset.'],
           's': ['You read a news claim that seems too good to be true.', 'An app knows exactly what ads to show you.', 'A science result in class didn’t match the book.', 'You wonder how vaccines are tested.', 'A friend shares a “miracle” health tip.', 'Prices in a shop suddenly went up.']},
   'pools': {'p': ['A client’s profit rose but cash fell.', 'A new tax circular changes a rule you knew.', 'Two audit samples show odd patterns.', 'A company’s stock jumped after results.']},
-  'good': {'j': ['Ask “why?” and “how?”', 'Look closely and draw what you see', 'Ask a grown-up or look in a book', 'Try a small safe experiment', 'Watch it for a few days'],
+  'good': {'j': ['Ask “why?” and “how?”', 'Look closely and draw what you see', 'Ask a grown-up or look in a book', 'Try a small safe experiment', 'Try to find out why it happens'],
            'x': ['Ask questions and look for good sources', 'Test it with a small, safe experiment', 'Compare what different sources say', 'Note what you see and look for patterns', 'Discuss it with a teacher or expert']},
   'bad': {'j': ['Say “who cares” and walk away', 'Squash it without looking', 'Laugh at the question', 'Make up an answer and stop', 'Never ask anyone'],
           'x': ['Believe the first thing you hear', 'Ignore it, it’s not in the syllabus', 'Make up an answer and move on', 'Mock people who ask questions', 'Share it without checking']}},
@@ -320,8 +320,8 @@ CQ = {
            'x': ['Take a short break and come back fresh', 'Ask “what if…?” questions', 'Look at how others solved similar problems', 'Try the opposite of your first idea', 'Start rough and improve later']},
   'bad': {'j': ['Give up and do nothing', 'Copy a friend’s work exactly', 'Get angry at the paper', 'Wait for someone to do it', 'Tear it all up'],
           'x': ['Copy someone else’s work', 'Stare at it for hours without a break', 'Give up and submit nothing', 'Tell yourself you’re not creative', 'Wait for the perfect idea before starting']}},
- 'Improving ideas': {'kind': 'act', 'frames': {'best': 'What should you do next?', 'not': 'Which would NOT help your idea?', 'say': 'What is a helpful way to respond?'},
-  'why': {'best': 'Ideas grow by testing, getting feedback and improving them step by step.', 'not': 'Ignoring feedback or giving up too soon stops an idea from growing.', 'say': 'Welcoming feedback helps you improve.'},
+ 'Improving ideas': {'kind': 'act', 'frames': {'best': 'What should you do next?', 'not': 'Which would NOT help your idea?', 'say': 'What could you tell yourself?'},
+  'why': {'best': 'Ideas grow by testing, getting feedback and improving them step by step.', 'not': 'Ignoring feedback or giving up too soon stops an idea from growing.', 'say': 'Seeing a flop as information helps you improve the idea.'},
   'sit': {'j': ['Your paper boat sinks.', 'Your friend says your drawing needs more colour.', 'Your block bridge falls when a car rolls on it.', 'Your sandcastle keeps falling.'],
           'm': ['Your model car doesn’t move straight.', 'Testers say your game is too hard.', 'Your teacher says your story is confusing.', 'Your bake sale cookies didn’t sell.', 'Your robot falls over.'],
           's': ['Users say your app is confusing.', 'Judges say your idea needs more research.', 'Your prototype keeps breaking.', 'Your video got very few views.', 'A mentor criticises your business plan.']},
@@ -330,10 +330,10 @@ CQ = {
            'x': ['Test it and change one thing at a time', 'Ask for feedback and use it', 'Find out exactly why it failed', 'Keep what works, improve what doesn’t', 'Try a small new version quickly']},
   'bad': {'j': ['Throw it away and never try again', 'Say it was perfect already', 'Blame your friend', 'Get angry at the people who said so', 'Copy someone else’s instead'],
           'x': ['Ignore the feedback', 'Give up after the first try', 'Argue with everyone who comments', 'Change everything at once without testing', 'Blame the users']},
-  'gsay': {'j': ['“Thanks! I’ll try that.”', '“How can I make it better?”', '“Good idea, I’ll change it.”', '“Can you show me?”'],
-           'x': ['“Thanks — what would make it better?”', '“Good point, I’ll test that.”', '“Which part confused you most?”', '“I’ll try a new version and show you.”']},
-  'bsay': {'j': ['“No, mine is perfect.”', '“You don’t know anything.”', '“I’m never making it again.”', '“You’re just jealous.”'],
-           'x': ['“You just don’t get my idea.”', '“It’s fine as it is.”', '“Whatever, I quit.”', '“Your idea is worse anyway.”']}}}
+  'gsay': {'j': ['“I can fix it and try again.”', '“What can I change?”', '“Let me try a new way.”', '“Mistakes help me make it better.”'],
+           'x': ['“What exactly went wrong?”', '“Let me change one thing and test again.”', '“Every version gets me closer.”', '“This shows me what to improve.”']},
+  'bsay': {'j': ['“It’s ruined forever.”', '“I’m bad at making things.”', '“I’ll never make it again.”', '“It’s someone else’s fault.”'],
+           'x': ['“It failed, so the idea is worthless.”', '“I’m just not an inventor.”', '“It’s fine as it is.”', '“Whatever, I quit.”']}}}
 
 ALL = {'eq': EQ, 'sq': SQ, 'aq': AQ, 'cq': CQ}
 
@@ -363,7 +363,7 @@ _say(CQ, 'Solving problems', 'What is a good question to ask?', 'Creative proble
      ['“Why bother, nothing will work?”', '“Who’s to blame for this?”', '“Can we just ignore it?”', '“Isn’t this someone else’s job?”'])
 _say(CQ, 'Curiosity', 'What is the most curious question?', 'Curious questions start with why, how or what if — they open new ideas.',
      ['“Why does that happen?”', '“How does it work?”', '“What if we tried…?”', '“Can we find out more?”'],
-     ['“Why does this happen, and how could we test it?”', '“What evidence supports that?”', '“What would happen if we changed one thing?”', '“How does this actually work?”'],
+     ['“Why does this happen, and how could we test it?”', '“What could explain this?”', '“What would happen if we changed one thing?”', '“How does this actually work?”'],
      ['“Who cares?”', '“Is it lunch time?”', '“Can we stop now?”', '“That’s boring, right?”'],
      ['“Does it even matter?”', '“Will this be in the exam?”', '“Can’t we just memorise it?”', '“Isn’t it obvious?”'])
 _say(CQ, 'Getting unstuck', 'What could you tell yourself?', 'Telling yourself it’s okay to start rough frees your mind to create.',
@@ -411,3 +411,13 @@ AVOID = {'lonely': ['bored'], 'bored': ['lonely', 'annoyed', 'frustrated'], 'exc
          'angry': ['jealous'], 'annoyed': ['jealous', 'bored'], 'embarrassed': ['sad', 'nervous'], 'guilty': ['sad', 'scared', 'worried'], 'ashamed': ['sad'], 'surprised': ['happy', 'excited', 'scared'],
          'confused': ['frustrated', 'worried'], 'frustrated': ['disappointed', 'sad', 'confused', 'jealous'], 'disappointed': ['angry', 'frustrated', 'annoyed'], 'sad': ['jealous', 'embarrassed', 'guilty'],
          'worried': ['guilty', 'confused'], 'scared': ['surprised', 'guilty']}
+
+# merge the extra situation files
+from scen_more_eq import EQ_MORE
+from scen_more_sq import SQ_MORE
+from scen_more_aq import AQ_MORE
+from scen_more_cq import CQ_MORE
+for _d, _m in ((EQ, EQ_MORE), (SQ, SQ_MORE), (AQ, AQ_MORE), (CQ, CQ_MORE)):
+    for _sk, _bands in _m.items():
+        if _sk not in _d: continue
+        for _b, _L in _bands.items(): _more(_d, _sk, _b, _L)
