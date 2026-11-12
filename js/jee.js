@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -386,6 +386,8 @@
         photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
         bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
         orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
+        molemach: ['🥚 Mole Machine', 'Pour grams of water, CO₂, salt or glucose on a balance and watch moles, molecules, atoms and gas volume appear on the mole map. 5 missions.', () => moleLab(uid)],
+        limit: ['⚖️ Limiting Reagent Kitchen', 'Drop molecules into the pot, press React and see which one runs out first — and what is left over. 5 missions.', () => limitLab(uid)],
         react: ['⚗️ Reaction Race', 'Watch A turn into B for zero, first and second order. Switch plots to find the straight line, spot the half-lives — then crack mystery reactions. 5 missions.', () => reactLab(uid)],
         arrh: ['🔥 Arrhenius Hill', 'Heat the molecules, lower the hill with a catalyst and see k, the half-life and the lucky collisions change by millions. 5 missions.', () => arrhLab(uid)],
         wave: ['🌊 Matter-Wave Explorer', 'Give an electron, proton, alpha or a cricket ball a speed and see how long its de Broglie wave is next to an atom.', () => waveLab(uid)] };
@@ -655,6 +657,107 @@
     draw();
   }
 
+
+  /* ---------- Try it yourself: Some Basic Concepts ---------- */
+  const ATC = { H: '#e2e8f0', C: '#334155', O: '#ef4444', N: '#3b82f6', Na: '#a855f7', Cl: '#22c55e', S: '#eab308', Al: '#94a3b8', Fe: '#b45309', Ca: '#f97316' };
+  const molSvg = (f, x, y, r = 5) => { const at = []; (f.match(/[A-Z][a-z]?\d*/g) || []).forEach(t => { const m = t.match(/([A-Z][a-z]?)(\d*)/); for (let i = 0; i < (+m[2] || 1); i++) at.push(m[1]); }); at.sort((p, q) => (p === 'H') - (q === 'H'));
+    const n = at.length, ring = Math.max(0, n - 1); return at.map((e, i) => { const a = i ? (i - 1) / ring * 2 * Math.PI : 0, rr = i ? r * 1.6 : 0; return `<circle cx="${(x + rr * Math.cos(a)).toFixed(1)}" cy="${(y + rr * Math.sin(a)).toFixed(1)}" r="${i ? r * 0.8 : r}" fill="${ATC[e] || '#64748b'}" stroke="#1e1b4b" stroke-width=".6"/>`; }).join(''); };
+  function moleLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}), NA = 6.022e23;
+    const SUB = [['H2O', 'Water', 18, 3, false], ['CO2', 'Carbon dioxide', 44, 3, true], ['NaCl', 'Salt', 58.5, 2, false], ['C6H12O6', 'Glucose', 180, 24, false], ['CH4', 'Methane', 16, 5, true], ['NH3', 'Ammonia', 17, 4, true], ['O2', 'Oxygen', 32, 2, true], ['Fe', 'Iron', 56, 1, false]];
+    const st = { s: 0, g: 9 };
+    const sub = f => f.replace(/(\d+)/g, '<sub>$1</sub>');
+    const sci = v => { if (v === 0) return '0'; const e = Math.floor(Math.log10(v)); return e >= -2 && e <= 3 ? (+v.toPrecision(4)).toString() : (v / 10 ** e).toFixed(3) + ' × 10' + String(e).split('').map(ch => '⁰¹²³⁴⁵⁶⁷⁸⁹'['0123456789'.indexOf(ch)] || '⁻').join(''); };
+    const MIS = [['one', 'Weigh out exactly 1 mole of water', x => x.s === 0 && Math.abs(x.n - 1) < 0.005],
+      ['glu', 'Find the mass of 1 mole of glucose', x => x.s === 3 && Math.abs(x.n - 1) < 0.005],
+      ['three', 'Get 3 N_A ATOMS from water', x => x.s === 0 && Math.abs(x.at - 3) < 0.01],
+      ['stp', 'Fill a 22.4 L balloon with CO₂ at STP', x => x.s === 1 && Math.abs(x.V - 22.4) < 0.1],
+      ['same', 'Atom twins: find the mass of CO₂ with as many atoms as 18 g of water', x => x.s === 1 && Math.abs(x.at - 3) < 0.01]];
+    const draw = () => {
+      const S = SUB[st.s];
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🥚 Mole Machine</h3>
+        <p class="jx-fine">Pour grams onto the balance — the machine counts the moles, molecules and atoms for you.</p>
+        <div class="jx-seg3" style="flex-wrap:wrap">${SUB.map((x, i) => `<button data-s="${i}" class="${i === st.s ? 'on' : ''}">${sub(x[0])}<br><small>${x[1]}</small></button>`).join('')}</div>
+        <svg viewBox="0 0 320 170" class="jx-circ" id="jxBal"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>Mass on the balance <b id="v_g">${st.g} g</b></span><input type="range" min="0" max="${Math.max(200, S[2] * 3)}" step="0.5" value="${st.g}" data-k="g"></label>
+        <div class="jx-seg3"><button data-q="1">1 mol</button><button data-q="0.5">½ mol</button><button data-q="2">2 mol</button></div>
+        <h3 style="margin-top:12px">🗺️ The mole map</h3><div id="jxMap"></div>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { tap(); st.s = +b.dataset.s; st.g = Math.min(st.g, Math.max(200, SUB[st.s][2] * 3)); draw(); });
+      el.querySelectorAll('[data-q]').forEach(b => b.onclick = () => { tap(); st.g = +(SUB[st.s][2] * +b.dataset.q).toFixed(1); draw(); });
+      el.querySelector('input[type=range]').oninput = e => { st.g = +e.target.value; $('#v_g').textContent = st.g + ' g'; upd(); };
+      upd();
+    };
+    const upd = () => {
+      const [f, nm, M, A, gas] = SUB[st.s], n = st.g / M, x = { s: st.s, n, at: n * A, V: gas ? n * 22.4 : 0 };
+      const k = Math.min(36, Math.round(n * 12)), tilt = Math.max(-12, Math.min(12, (n - 1) * 6));
+      $('#jxBal').innerHTML = `<g transform="rotate(${tilt.toFixed(1)} 160 120)"><rect x="40" y="116" width="240" height="6" rx="3" fill="#64748b"/>
+        ${Array.from({ length: k }, (_, i) => molSvg(f, 62 + (i % 12) * 18, 104 - Math.floor(i / 12) * 19, f.length > 4 ? 2.6 : 3.4)).join('')}</g>
+        <polygon points="150,170 170,170 160,124" fill="#475569"/>
+        <text x="160" y="16" text-anchor="middle" font-size="12" font-weight="700">${nm}: M = ${M} g mol⁻¹</text>
+        <text x="160" y="32" text-anchor="middle" font-size="10" fill="#6b6795">each picture molecule ≈ ${sci(NA / 12)} real molecules</text>`;
+      $('#jxRead').innerHTML = `<span>moles <b>${sci(n)}</b></span><span>molecules <b>${sci(n * NA)}</b></span><span>atoms <b>${sci(n * A * NA)}</b> = ${sci(n * A)} N<sub>A</sub></span>${gas ? `<span>volume at STP <b>${sci(n * 22.4)} L</b></span>` : ''}`;
+      $('#jxMap').innerHTML = `<svg viewBox="0 0 320 130" class="jx-curve"><g font-size="11" text-anchor="middle">
+        <rect x="120" y="50" width="80" height="34" rx="10" fill="#7c3aed"/><text x="160" y="72" fill="#fff" font-weight="700">${sci(n)} mol</text>
+        <rect x="6" y="6" width="90" height="34" rx="10" fill="#ede9fe"/><text x="51" y="28">${sci(st.g)} g</text>
+        <rect x="224" y="6" width="90" height="34" rx="10" fill="#ede9fe"/><text x="269" y="28">${sci(n * NA)}</text>
+        <rect x="6" y="92" width="90" height="34" rx="10" fill="#ede9fe"/><text x="51" y="114">${gas ? sci(n * 22.4) + ' L' : 'not a gas'}</text>
+        <rect x="224" y="92" width="90" height="34" rx="10" fill="#ede9fe"/><text x="269" y="114">${sci(n * A)} N_A atoms</text>
+        <line x1="96" y1="30" x2="120" y2="56" stroke="#7c3aed"/><text x="96" y="52" font-size="9" fill="#7c3aed">÷ ${M}</text>
+        <line x1="224" y1="30" x2="200" y2="56" stroke="#7c3aed"/><text x="230" y="52" font-size="9" fill="#7c3aed">× N_A</text>
+        <line x1="96" y1="104" x2="120" y2="80" stroke="#7c3aed"/><text x="94" y="88" font-size="9" fill="#7c3aed">× 22.4</text>
+        <line x1="224" y1="104" x2="200" y2="80" stroke="#7c3aed"/><text x="232" y="88" font-size="9" fill="#7c3aed">× ${A}</text></g></svg>`;
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['mb_' + kk] && t(x)) { done['mb_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['mb_' + kk] ? 'ok' : ''}">${done['mb_' + kk] ? '✅' : '⬜'} ${n2.replace('N_A', 'N<sub>A</sub>')}</div>`).join('');
+    };
+    draw();
+  }
+  function limitLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const RX = [{ n: 'Water', A: ['H2', 2], B: ['O2', 1], P: [['H2O', 2]] }, { n: 'Ammonia', A: ['N2', 1], B: ['H2', 3], P: [['NH3', 2]] },
+      { n: 'Burning methane', A: ['CH4', 1], B: ['O2', 2], P: [['CO2', 1], ['H2O', 2]] }, { n: 'Rust-proof alumina', A: ['Al', 4], B: ['O2', 3], P: [['Al2O3', 2]] }];
+    const st = { r: 0, a: 6, b: 2, fired: false }, sub = f => f.replace(/(\d+)/g, '<sub>$1</sub>'), usub = f => f.replace(/\d/g, d => '₀₁₂₃₄₅₆₇₈₉'[d]), coef = c => c === 1 ? '' : c;
+    const MIS = [['perfect', 'Perfect recipe: make water with nothing left over', x => x.r === 0 && x.fired && x.la === 0 && x.lb === 0 && x.ext > 0],
+      ['nh3', 'Make exactly 6 molecules of NH₃', x => x.r === 1 && x.fired && x.made[0] === 6],
+      ['olim', 'Burn methane where O₂ is the limiting reagent', x => x.r === 2 && x.fired && x.lim === 'B' && x.ext > 0],
+      ['al', 'Make 4 units of Al₂O₃ with zero waste', x => x.r === 3 && x.fired && x.made[0] === 4 && x.la === 0 && x.lb === 0],
+      ['all', 'Get a perfect zero-waste recipe for all four reactions', () => [0, 1, 2, 3].every(i => done['lr_z' + i])]];
+    const calc = () => { const R = RX[st.r], ext = Math.floor(Math.min(st.a / R.A[1], st.b / R.B[1])); return { r: st.r, fired: st.fired, ext, la: st.a - ext * R.A[1], lb: st.b - ext * R.B[1], made: R.P.map(p => ext * p[1]), lim: st.a / R.A[1] < st.b / R.B[1] ? 'A' : st.a / R.A[1] > st.b / R.B[1] ? 'B' : '=' }; };
+    const draw = () => {
+      const R = RX[st.r];
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>⚖️ Limiting Reagent Kitchen</h3>
+        <p class="jx-fine">Put molecules in the pot and press React. Whatever runs out first is the limiting reagent.</p>
+        <div class="jx-seg3" style="flex-wrap:wrap">${RX.map((x, i) => `<button data-r="${i}" class="${i === st.r ? 'on' : ''}">${x.n}</button>`).join('')}</div>
+        <div class="jx-f" style="text-align:center;font-size:16px">${coef(R.A[1])}${sub(R.A[0])} + ${coef(R.B[1])}${sub(R.B[0])} → ${R.P.map(p => coef(p[1]) + sub(p[0])).join(' + ')}</div>
+        <svg viewBox="0 0 320 190" class="jx-circ" id="jxPot"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>${usub(R.A[0])} molecules <b id="v_a">${st.a}</b></span><input type="range" min="0" max="12" step="1" value="${st.a}" data-k="a"></label>
+        <label class="jx-sl"><span>${usub(R.B[0])} molecules <b id="v_b">${st.b}</b></span><input type="range" min="0" max="12" step="1" value="${st.b}" data-k="b"></label>
+        <div class="jx-seg3"><button id="jxFire">🔥 React!</button></div>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-r]').forEach(b => b.onclick = () => { tap(); st.r = +b.dataset.r; st.fired = false; draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value; st.fired = false; upd(); });
+      $('#jxFire').onclick = () => { tap('open'); st.fired = true; upd(); };
+      upd();
+    };
+    const upd = () => {
+      const R = RX[st.r], x = calc(), grid = (list, x0, y0) => list.map((f, i) => molSvg(f, x0 + (i % 5) * 27, y0 + Math.floor(i / 5) * 26, f.length > 3 ? 3.4 : 4.2)).join('');
+      const left = st.fired ? [...Array(x.la).fill(R.A[0]), ...Array(x.lb).fill(R.B[0])] : [...Array(st.a).fill(R.A[0]), ...Array(st.b).fill(R.B[0])];
+      const right = st.fired ? R.P.flatMap((p, j) => Array(x.made[j]).fill(p[0])) : [];
+      $('#jxPot').innerHTML = `<rect x="4" y="22" width="150" height="160" rx="14" fill="#eff6ff" stroke="#93c5fd"/><rect x="166" y="22" width="150" height="160" rx="14" fill="#f0fdf4" stroke="#86efac"/>
+        <text x="79" y="16" text-anchor="middle" font-size="11" font-weight="700">${st.fired ? 'left over' : 'reactants'}</text><text x="241" y="16" text-anchor="middle" font-size="11" font-weight="700">products</text>
+        ${grid(left.slice(0, 30), 24, 42)}${grid(right.slice(0, 30), 186, 42)}
+        ${!st.fired ? '<text x="241" y="105" text-anchor="middle" font-size="12" fill="#16a34a">press 🔥 React!</text>' : ''}`;
+      const limTxt = x.lim === '=' ? 'none — perfect ratio' : sub((x.lim === 'A' ? R.A : R.B)[0]);
+      $('#jxRead').innerHTML = st.fired ? `<span>limiting <b>${limTxt}</b></span><span>made <b>${R.P.map((p, j) => x.made[j] + ' ' + sub(p[0])).join(', ')}</b></span><span>left <b>${x.la} ${sub(R.A[0])}, ${x.lb} ${sub(R.B[0])}</b></span>`
+        : `<span>ratio needed <b>${R.A[1]} : ${R.B[1]}</b></span><span>you have <b>${st.a} : ${st.b}</b></span>`;
+      if (st.fired && x.ext > 0 && x.la === 0 && x.lb === 0 && !done['lr_z' + st.r]) { done['lr_z' + st.r] = Date.now(); save(); }
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['lr_' + kk] && t(x)) { done['lr_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['lr_' + kk] ? 'ok' : ''}">${done['lr_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
 
   /* ---------- Try it yourself: Chemical Kinetics ---------- */
   function reactLab(uid) {
