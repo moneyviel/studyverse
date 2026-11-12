@@ -272,7 +272,7 @@
   }
 
   /* ---------- 5. screens ---------- */
-  const css = `#svCloud .cl-st{font-size:13px;margin:6px 0 10px;color:#4a4d57}#svCloud .cl-st.ok{color:#1d7a46}#svCloud .cl-st.bad{color:#B71C2C}
+  const css = `.oc-sum{display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding:12px 14px;border:0;border-radius:14px;background:#f3f0ff;cursor:pointer;font:inherit;color:inherit;text-align:left}.oc-sum span:first-child{display:flex;flex-direction:column}.oc-sum small{color:#5b6070;font-size:12px}.oc-chev{font-size:20px;color:#6d4aff}.oc-head{display:flex;justify-content:space-between;align-items:center}.oc-seg{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.oc-seg button{border:0;border-radius:999px;padding:7px 12px;background:#eef0f6;font:600 13px inherit;cursor:pointer;font-family:inherit}.oc-seg button.on{background:#6d4aff;color:#fff}.oc-row{display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #eee;padding:8px 0}.oc-act{display:flex;gap:10px;align-items:center;flex:none}.oc-tag{display:inline-block;border-radius:6px;padding:0 6px;font-size:11px;font-weight:700;background:#e6f7ef;color:#137a4b}.oc-tag.discount{background:#fff1d6;color:#8a5a00}.oc-sheet .sheet-in{max-height:88vh;overflow:auto}#svCloud .cl-st{font-size:13px;margin:6px 0 10px;color:#4a4d57}#svCloud .cl-st.ok{color:#1d7a46}#svCloud .cl-st.bad{color:#B71C2C}
 .cl-row{display:flex;gap:8px;flex-wrap:wrap}.cl-row .btn{flex:1;min-width:130px}
 .cl-sheet{z-index:990}.cl-sheet .sheet-in{color:#15161C;background:#FFFDF8;max-height:92vh;overflow:auto}
 .cl-sheet h3{margin:0 0 6px}.cl-sheet p{margin:0 0 10px;font-size:14px;line-height:1.45;color:#4a4d57}
@@ -396,8 +396,7 @@
       <label class="cl-small" for="ocDV">Valid till</label><input class="cl-in" id="ocDV" type="date">
       <button class="btn" type="button" id="ocDisc">Create discount code</button>
       <div class="cl-err" id="ocE" role="alert"></div>
-      <h4 style="margin:16px 0 4px">Your codes</h4><div id="ocList" class="cl-small">Loading…</div>
-      <button class="cl-link" type="button" id="ocWho">Who used codes?</button><div id="ocWhoOut" class="cl-small"></div>`;
+      <button type="button" class="oc-sum" id="ocSum" aria-haspopup="dialog"><span>🎟️ <b>Your codes</b><small id="ocSumT">Loading…</small></span><span class="oc-chev" aria-hidden="true">▸</span></button>`;
     const er = c.querySelector('#ocE'), fail = e => { er.textContent = errText(e); };
     const ins = row => rest('codes', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: row });
     c.querySelector('#ocFree').onclick = async () => {
@@ -424,33 +423,62 @@
         say('Discount code ' + code + ' created ✓'); ['#ocDC', '#ocDP', '#ocDU', '#ocDV'].forEach(q => c.querySelector(q).value = ''); list();
       } catch (e) { er.textContent = e.code === '23505' ? 'This code already exists.' : errText(e); }
     };
-    c.querySelector('#ocWho').onclick = async () => {
-      const box = c.querySelector('#ocWhoOut'); box.textContent = 'Loading…';
-      try { const r = await rest('rpc/code_report', { method: 'POST', body: {} });
-        box.innerHTML = (r || []).length ? r.map(u => `<div>${esc(u.code)} · ${esc(u.email)}${u.course ? ' · ' + esc(courseName(u.course)) : ''} · ${new Date(u.used_at).toLocaleDateString('en-IN')}</div>`).join('') : 'No codes used yet.';
-      } catch (e) { box.textContent = errText(e); }
-    };
+    /* "Your codes": a one-line summary here; tapping it opens a popup with live filters (search, type, status, use, sort) */
+    let ROWS = [], csh = null; const F = { q: '', kind: 'all', st: 'all', use: 'all', sort: 'new' };
+    const sum = () => { const t = c.querySelector('#ocSumT'); if (t) t.textContent = ROWS.length ? `${ROWS.length} code${ROWS.length > 1 ? 's' : ''} · ${ROWS.filter(x => x.active).length} active · ${ROWS.reduce((n, x) => n + (+x.used || 0), 0)} uses` : 'No codes yet'; };
     async function list() {
-      const box = c.querySelector('#ocList');
-      try {
-        const r = await rest('codes?select=*&order=created_at.desc&limit=100');
-        box.innerHTML = (r || []).length ? r.map(x => `<div style="display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #eee;padding:6px 0">
-          <div><b>${esc(x.code)}</b> ${x.kind === 'free' ? 'Free' : x.percent + '% off'}${x.note ? ' · ' + esc(x.note) : ''}<br>Used ${x.used}${x.max_uses ? '/' + x.max_uses : ''}${x.valid_until ? ' · till ' + new Date(x.valid_until).toLocaleDateString('en-IN') : ''}${x.active ? '' : ' · <b style="color:#B71C2C">stopped</b>'}</div>
-          <span style="display:flex;gap:10px;align-items:center;flex:none"><button class="cl-link" type="button" data-oc="${esc(x.code)}" data-act="${x.active ? 0 : 1}">${x.active ? 'Stop' : 'Start'}</button>${+x.used ? '' : `<button class="cl-link" type="button" data-ocdel="${esc(x.code)}" style="color:#B71C2C" aria-label="Delete code ${esc(x.code)}">🗑 Delete</button>`}</span></div>`).join('') + ((r || []).some(x => +x.used) ? '<p class="cl-small" style="margin:6px 0 0">Used codes can\'t be deleted — use Stop instead.</p>' : '') : 'No codes yet.';
-        box.querySelectorAll('[data-oc]').forEach(b => b.onclick = async () => {
-          try { await rest('codes?code=eq.' + encodeURIComponent(b.dataset.oc), { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: { active: b.dataset.act === '1' } }); list(); } catch (e) { fail(e); }
-        });
-        /* never-used codes can be deleted (rpc delete_unused_code refuses a code that has been used) */
-        box.querySelectorAll('[data-ocdel]').forEach(b => b.onclick = async () => {
-          const code = b.dataset.ocdel; er.textContent = '';
-          if (!confirm(`Delete code ${code}? This can't be undone.`)) return;
-          b.disabled = true;
-          try { const res = one(await rest('rpc/delete_unused_code', { method: 'POST', body: { p_code: code } }));
-            if (res && res.ok === false) er.textContent = res.msg || 'This code could not be deleted.'; else say(res && res.msg ? res.msg : 'Code ' + code + ' deleted');
-            list();
-          } catch (e) { b.disabled = false; fail(e); }
-        });
-      } catch (e) { box.textContent = errText(e); }
+      try { ROWS = (await rest('codes?select=*&order=created_at.desc&limit=500')) || []; sum(); if (csh && csh.classList.contains('show')) draw(); }
+      catch (e) { const t = c.querySelector('#ocSumT'); if (t) t.textContent = errText(e); }
+    }
+    c.querySelector('#ocSum').onclick = openCodes;
+    function openCodes() {
+      style();
+      if (!csh) { csh = D.createElement('div'); csh.className = 'sheet cl-sheet oc-sheet'; csh.setAttribute('role', 'dialog'); csh.setAttribute('aria-modal', 'true'); csh.setAttribute('aria-labelledby', 'ocT'); D.body.appendChild(csh); csh.onclick = e => { if (e.target === csh) csh.classList.remove('show'); }; }
+      const seg = (k, opts) => `<div class="oc-seg" role="group">${opts.map(([v, l]) => `<button type="button" class="${F[k] === v ? 'on' : ''}" data-f="${k}" data-v="${v}">${l}</button>`).join('')}</div>`;
+      csh.innerHTML = `<div class="sheet-in"><div class="sheet-grab"></div><div class="oc-head"><h3 id="ocT">🎟️ Your codes</h3><button type="button" class="cl-link" id="ocX">Close</button></div>
+        <input class="cl-in" id="ocQ" type="search" placeholder="Search code, student name…" value="${esc(F.q)}" aria-label="Search codes">
+        ${seg('kind', [['all', 'All'], ['free', 'Free'], ['discount', 'Discount']])}${seg('st', [['all', 'Any status'], ['on', 'Active'], ['off', 'Stopped'], ['exp', 'Expired']])}
+        ${seg('use', [['all', 'Any use'], ['used', 'Used'], ['unused', 'Never used']])}
+        <label class="cl-small" for="ocSort">Sort</label><select class="cl-in" id="ocSort">${[['new', 'Newest first'], ['old', 'Oldest first'], ['most', 'Most used'], ['end', 'Ending soonest']].map(([v, l]) => `<option value="${v}" ${F.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+        <p class="cl-small" id="ocN" aria-live="polite"></p><div id="ocList" class="cl-small"></div>
+        <button class="cl-link" type="button" id="ocWho">Who used codes?</button><div id="ocWhoOut" class="cl-small"></div></div>`;
+      csh.classList.add('show');
+      csh.querySelector('#ocX').onclick = () => csh.classList.remove('show');
+      csh.querySelector('#ocQ').oninput = e => { F.q = e.target.value; draw(); };
+      csh.querySelector('#ocSort').onchange = e => { F.sort = e.target.value; draw(); };
+      csh.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { F[b.dataset.f] = b.dataset.v; csh.querySelectorAll(`[data-f="${b.dataset.f}"]`).forEach(x => x.classList.toggle('on', x === b)); draw(); });
+      csh.querySelector('#ocWho').onclick = async () => {
+        const box = csh.querySelector('#ocWhoOut'); box.textContent = 'Loading…';
+        try { const r = await rest('rpc/code_report', { method: 'POST', body: {} });
+          const q = F.q.trim().toLowerCase(), L = (r || []).filter(u => !q || (u.code + ' ' + u.email).toLowerCase().includes(q));
+          box.innerHTML = L.length ? L.map(u => `<div>${esc(u.code)} · ${esc(u.email)}${u.course ? ' · ' + esc(courseName(u.course)) : ''} · ${new Date(u.used_at).toLocaleDateString('en-IN')}</div>`).join('') : 'No codes used yet.';
+        } catch (e) { box.textContent = errText(e); }
+      };
+      draw(); list();
+    }
+    function draw() {
+      if (!csh) return; const box = csh.querySelector('#ocList'), now = Date.now(), q = F.q.trim().toLowerCase();
+      const exp = x => x.valid_until && new Date(x.valid_until).getTime() < now;
+      let L = ROWS.filter(x => (F.kind === 'all' || x.kind === F.kind) && (F.use === 'all' || (F.use === 'used' ? +x.used > 0 : !+x.used))
+        && (F.st === 'all' || (F.st === 'on' ? x.active && !exp(x) : F.st === 'off' ? !x.active : exp(x))) && (!q || `${x.code} ${x.note || ''}`.toLowerCase().includes(q)));
+      const t = x => new Date(x.created_at || 0).getTime();
+      L.sort(F.sort === 'old' ? (a, b) => t(a) - t(b) : F.sort === 'most' ? (a, b) => (+b.used || 0) - (+a.used || 0) : F.sort === 'end' ? (a, b) => (a.valid_until ? new Date(a.valid_until) : 9e15) - (b.valid_until ? new Date(b.valid_until) : 9e15) : (a, b) => t(b) - t(a));
+      csh.querySelector('#ocN').textContent = `Showing ${L.length} of ${ROWS.length}`;
+      box.innerHTML = L.length ? L.map(x => `<div class="oc-row"><div><b>${esc(x.code)}</b> <span class="oc-tag ${x.kind}">${x.kind === 'free' ? 'Free' : x.percent + '% off'}</span>${x.note ? ' · ' + esc(x.note) : ''}<br>Used ${x.used}${x.max_uses ? '/' + x.max_uses : ''}${x.valid_until ? ` · till ${new Date(x.valid_until).toLocaleDateString('en-IN')}${exp(x) ? ' <b style="color:#B71C2C">expired</b>' : ''}` : ''}${x.active ? '' : ' · <b style="color:#B71C2C">stopped</b>'}</div>
+          <span class="oc-act"><button class="cl-link" type="button" data-oc="${esc(x.code)}" data-act="${x.active ? 0 : 1}">${x.active ? 'Stop' : 'Start'}</button>${+x.used ? '' : `<button class="cl-link" type="button" data-ocdel="${esc(x.code)}" style="color:#B71C2C" aria-label="Delete code ${esc(x.code)}">🗑 Delete</button>`}</span></div>`).join('')
+        + (L.some(x => +x.used) ? '<p class="cl-small" style="margin:6px 0 0">Used codes can\'t be deleted — use Stop instead.</p>' : '') : (ROWS.length ? 'No codes match these filters.' : 'No codes yet.');
+      box.querySelectorAll('[data-oc]').forEach(b => b.onclick = async () => {
+        try { await rest('codes?code=eq.' + encodeURIComponent(b.dataset.oc), { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: { active: b.dataset.act === '1' } }); list(); } catch (e) { say(errText(e)); }
+      });
+      /* never-used codes can be deleted (rpc delete_unused_code refuses a code that has been used) */
+      box.querySelectorAll('[data-ocdel]').forEach(b => b.onclick = async () => {
+        const code = b.dataset.ocdel;
+        if (!confirm(`Delete code ${code}? This can't be undone.`)) return;
+        b.disabled = true;
+        try { const res = one(await rest('rpc/delete_unused_code', { method: 'POST', body: { p_code: code } }));
+          say(res && res.ok === false ? (res.msg || 'This code could not be deleted.') : (res && res.msg ? res.msg : 'Code ' + code + ' deleted')); list();
+        } catch (e) { b.disabled = false; say(errText(e)); }
+      });
     }
     list();
   }

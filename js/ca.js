@@ -321,6 +321,7 @@
 
   /* ================= HOME: CA Journey ================= */
   async function home() {
+    try { Nav.here('ca'); } catch (e) {}
     const el = open('world'); const c = C();
     el.innerHTML = `<p class="ca-load">Loading your CA journey…</p>`;
     const sts = await allStructures(), mot = await motivation();
@@ -383,6 +384,7 @@
 
   /* ================= PAPER: chapters → units ================= */
   async function paper(level, pid, q = '') {
+    try { Nav.here('caPaper', [level, pid]); } catch (e) {}
     if (!levelOK(level)) return home();
     const el = open('world'); const st = await structure(level); const p = st.papers.find(x => x.id === pid); if (!p) return home();
     C().paper = pid; save(); await weightage();
@@ -432,6 +434,7 @@
   /* ================= UNIT ================= */
   let U = null;     // { uid, d, f, tab }
   async function unit(uid, tab) {
+    try { Nav.here('caUnit', [uid, tab]); } catch (e) {}
     const el = open('world');
     el.innerHTML = `<p class="ca-load">Opening unit…</p>`;
     if (!levelOK(levelOf(uid))) { toast(`That unit is from CA ${levelName(levelOf(uid))} — your course is CA ${levelName(LIVE_LEVELS[0])}`); return home(); }
@@ -964,7 +967,7 @@
       <div class="card"><h2 class="ca-h2s">Name</h2><label class="ca-lab" for="caNm">Shown on your journey and group results</label><input id="caNm" class="ca-in" maxlength="24" value="${esc(p.name)}" autocomplete="off"><button class="btn ghost" id="caNmS">Save</button></div>
       ${T() && T().photos ? '<div class="card" id="caPhUse"><h2 class="ca-h2s">📷 Answer photos</h2><p class="sub" id="caPhUseT">Checking storage…</p></div>' : ''}
       ${ownerCard()}
-      <div class="card"><button class="btn ghost" onclick="openSound()">Sound settings</button><div style="height:8px"></div><button class="btn ghost" id="caReset">Erase all progress</button></div>`;
+      <div class="card" id="meSound"><h3>🎵 Sound & music</h3><button class="btn ghost" onclick="openSound()">Open sound settings</button></div><div class="card me-danger" id="meResetC"><h3>⚠️ Start over</h3><p class="sub">Erases all progress on this device.</p><button class="btn ghost" id="caReset">Erase all progress</button></div>`;
     wireOwner(profile);
     try { if (window.GK) GK.meCard(el, '.ca-top'); } catch (e) {}
     if (T() && T().photos) T().photos.usageCard(D.getElementById('caPhUse'));

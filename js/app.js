@@ -252,10 +252,29 @@ const Nav = (() => {
     const top = stack[stack.length - 1];
     if (top && top.sheet && !isOpen(top.sheet)) { stack[stack.length - 1] = entry; try { history.replaceState(S(pos), ''); } catch (e) {} return; }  // reuse a just-closed sheet's entry
     stack.push(entry); pos = stack.length; try { history.pushState(S(pos), ''); } catch (e) {}
+    remember(entry);
+  }
+  /* refresh keeps the page: the current screen is kept for this tab (sessionStorage) and reopened after a reload */
+  const HK = 'sv_here';
+  let hereAt = 0;
+  function remember(en) { if (!en || en.sheet || en.sub || (en.anon && Date.now() - hereAt < 2000)) return; let v = null; if (en.name && en.fn) v = { r: en.name, a: en.args }; else if (en.anon) v = { s: en.anon };
+    if (v) try { sessionStorage.setItem(HK, JSON.stringify(v)); } catch (e) {} }
+  const SAVED = (() => { try { return JSON.parse(sessionStorage.getItem(HK) || 'null'); } catch (e) { return null; } })();
+  function here(k, a) { hereAt = Date.now(); try { sessionStorage.setItem(HK, JSON.stringify({ x: k, a: a || [] })); } catch (e) {} }
+  const REOPEN = { mindplay: id => MindPlay.hub(id), ca: () => Ca.home(), caPaper: (l, p) => Ca.paper(l, p), caUnit: (u, t) => Ca.unit(u, t) };
+  const SECTION = { mind: () => MindGym.open(), gk: () => GK.open(), play: () => PlayHub.open(), cxa: () => CalcAcademy.open(), cards: () => Rewards.openAlbum(), insights: () => Insights.open({ v: 'dash' }) };
+  function restore() {
+    const v = SAVED;
+    if (!v || !ST.profile) return;
+    try {
+      if (v.x && REOPEN[v.x]) return REOPEN[v.x](...(v.a || []));
+      if (v.r && v.r !== 'world' && v.r !== 'onboard' && typeof window[v.r] === 'function') return window[v.r](...(v.a || []));
+      if (v.s && SECTION[v.s]) return SECTION[v.s]();
+    } catch (e) { console.warn('Could not reopen the last page', e); }
   }
   function rewindTo(j) {            // the route at stack[j] is being opened again (in-app back button, bottom nav): behave like Back
     start(); disarm(); rearm();
-    const n = pos - (j + 1); stack.length = j + 1;
+    const n = pos - (j + 1); stack.length = j + 1; remember(stack[j]);
     if (n > 0) { pos = j + 1; expect = pos; try { history.go(-n); } catch (e) {} }
   }
   function route(name, fn) {
@@ -315,7 +334,7 @@ const Nav = (() => {
     const top = stack[p - 1];
     const needs = pendingReplay || leaving.some(en => !en.sheet && !en.dead);
     if (top.dead || top.sheet) { pendingReplay = needs ? (pendingReplay || leaving.find(en => en.sub && en.restore) || true) : null; stack.length = p - 1; pos = p - 1; expect = null; try { history.back(); } catch (x) {} return; }
-    const low = leaving[0]; pendingReplay = null;
+    const low = leaving[0]; pendingReplay = null; remember(top);
     if (!needs) return;
     if (low && low.sub && low.restore) { restoring = true; try { low.restore(); } catch (x) { replay(top); } finally { restoring = false; } }
     else replay(top);
@@ -341,7 +360,7 @@ const Nav = (() => {
     if (!stack.length && ST.profile) { start(); stack.push({ key: keyOf('world', []), name: 'world', fn: window.worldScreen, args: [] }); pos = 1; try { history.pushState(S(1), ''); } catch (e) {} }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wrapGlobals); else setTimeout(wrapGlobals, 0);
-  return { route, sub, shown, get depth() { return stack.length; }, get pos() { return pos; }, _stack: () => stack.map(e => e.key) };
+  return { route, sub, shown, here, restore, get depth() { return stack.length; }, get pos() { return pos; }, _stack: () => stack.map(e => e.key) };
 })();
 window.Nav = Nav;
 
@@ -787,12 +806,13 @@ function meScreen() {
   const p = ST.profile, done = Object.keys(ST.topics).length;
   $('#s-me').innerHTML = `<div class="card mecard"><div class="meav">${esc(p.avatar)}</div><div><h2>${esc(p.name)}</h2><p class="sub">${stateBoard(p.board) ? 'Class' : 'Grade'} ${p.grade} · ${esc(boardShort(p.board))}</p></div></div>
     <div class="card statrow"><div><b>${kfmt(ST.xp)}</b><span>XP</span></div><div><b>${liveStreak()}🔥</b><span>Streak</span></div><div><b>${done}</b><span>Quests</span></div></div>
-    <div class="card"><h3>Change grade</h3><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice ${p.grade === i + 1 ? 'sel' : ''}" data-g="${i + 1}"><b>${i + 1}</b></button>`).join('')}</div></div>
-    <div class="card"><button class="btn ghost" onclick="openSound()">🎵 Sound & music</button><div style="height:8px"></div><button class="btn ghost" id="meReset">Start over</button></div>`;
+    <div class="card" id="meGrade"><h3>🎓 Change grade</h3><div class="grid5">${Array.from({ length: MAX_GRADE }, (_, i) => `<button class="choice ${p.grade === i + 1 ? 'sel' : ''}" data-g="${i + 1}"><b>${i + 1}</b></button>`).join('')}</div></div>
+    <div class="card" id="meSound"><h3>🎵 Sound & music</h3><button class="btn ghost" onclick="openSound()">Open sound settings</button></div>
+    <div class="card me-danger" id="meResetC"><h3>⚠️ Start over</h3><p class="sub">Erases all progress on this device.</p><button class="btn ghost" id="meReset">Start over</button></div>`;
   const go = g => { setGrade(g); sfx('unlock'); toast(`Welcome to ${Worlds.THEMES[g].name}!`); worldScreen(); };
   $('#s-me').querySelectorAll('.choice').forEach(b => b.onclick = () => { const g = +b.dataset.g;
     if (g >= 11) pickStream(g, (stream, subjects) => { ST.profile.stream = stream; ST.profile.subjects = subjects; save(); go(g); }, meScreen); else go(g); });
-  if (p.grade >= 11) { const c = $('#s-me .grid5').closest('.card'); c.insertAdjacentHTML('afterend', `<div class="card"><h3>Stream & subjects</h3><p class="sub">${esc((STREAMS.find(x => x.id === p.stream) || {}).n || '')} · ${(p.subjects || []).length} subjects</p><button class="btn ghost" id="meStream">Change stream or subjects</button></div>`);
+  if (p.grade >= 11) { const c = $('#s-me .grid5').closest('.card'); c.insertAdjacentHTML('afterend', `<div class="card" id="meStreamC"><h3>Stream & subjects</h3><p class="sub">${esc((STREAMS.find(x => x.id === p.stream) || {}).n || '')} · ${(p.subjects || []).length} subjects</p><button class="btn ghost" id="meStream">Change stream or subjects</button></div>`);
     $('#meStream').onclick = () => pickStream(p.grade, (stream, subjects) => { ST.profile.stream = stream; ST.profile.subjects = subjects; save(); worldScreen(); }, meScreen); }
   $('#meReset').onclick = () => { if ($('#meReset').dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { $('#meReset').dataset.sure = 1; $('#meReset').textContent = 'Tap again to erase all progress'; } };
 }
@@ -865,5 +885,5 @@ if ('serviceWorker' in navigator && !inFrame && (location.protocol === 'https:' 
   if (isStateBoard(ST.profile?.board)) await loadBoards();          // before CUR is set: other screens wait on CUR, and must see the board filter
   CUR = cur;
   if (window.Cloud && Cloud.isParent && Cloud.isParent()) return;   // parent accounts see only Parent Home (js/parent.js)
-  if (!ST.profile) onboard(1); else { setGrade(ST.profile.grade); worldScreen(); }
+  if (!ST.profile) onboard(1); else { setGrade(ST.profile.grade); worldScreen(); setTimeout(() => Nav.restore(), 60); }
 })();

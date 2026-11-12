@@ -466,5 +466,5 @@
     </style>`);
   }
   const use = id => { SU = SUITES[id || 'iq'] || SUITES.iq; style(); };
-  window.MindPlay = { hub: id => { use(id); hub(); }, test: id => { use(id); test(); }, workout, has: id => !!SUITES[id], suite: id => SUITES[id], addSuite: def => { SUITES[def.id] = def; }, PLAY, frame, keypad, burst, timerBar, E, S, band, _style: style };
+  window.MindPlay = { hub: id => { use(id); hub(); try { if (!MG().isParent()) Nav.here('mindplay', [id || 'iq']); } catch (e) {} }, test: id => { use(id); test(); }, workout, has: id => !!SUITES[id], suite: id => SUITES[id], addSuite: def => { SUITES[def.id] = def; }, PLAY, frame, keypad, burst, timerBar, E, S, band, _style: style };
 })();

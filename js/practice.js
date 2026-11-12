@@ -274,7 +274,7 @@
 
   /* ---------- Me: badges ---------- */
   const _me = meScreen;
-  meScreen = function () { _me(); const mc = $('#s-me .statrow'); if (mc) mc.insertAdjacentHTML('afterend', `<div class="card"><h3>🏅 Badges</h3>${badgeGrid()}</div>`); };
+  meScreen = function () { _me(); const mc = $('#s-me .statrow'); if (mc) mc.insertAdjacentHTML('afterend', `<div class="card me-badges"><h3>🏅 Badges</h3>${badgeGrid()}</div>`); };
 
   /* ---------- open duel links ---------- */
   function route() {
