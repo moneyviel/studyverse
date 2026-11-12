@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 }, 'math-u01': { pyq: 65, prac: 780 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -403,7 +403,7 @@
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
-      const L = { pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
+      const L = { relation: ['🔗 Relation Builder', 'Tap pairs into a relation on {1, 2, 3, 4} and watch it become reflexive, symmetric, transitive — or a one-one onto function. 5 missions.', () => relLab(uid)], pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
         projectile: ['🏀 Projectile Launcher', 'Set speed, angle and launch height — watch the path, range, height and flight time; hit a flag and find twin angles. 5 missions.', () => projectileLab(uid)],
         circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
@@ -1526,6 +1526,49 @@
       $('#jxRead').innerHTML = `<span>harmonic <b>${x.h}${x.h === 1 ? ' (fundamental)' : ''}</b></span><span>f <b>${x.f.toFixed(1)} Hz</b></span><span>λ <b>${x.lam.toFixed(3)} m</b></span><span>nodes <b>${x.nodes}</b></span>`;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['pp_' + kk] && tt(x)) { done['pp_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['pp_' + kk] ? 'ok' : ''}">${done['pp_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Sets, Relations and Functions ---------- */
+  function relLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const A = [1, 2, 3, 4], R = new Set();
+    const key = (a, b) => a + ',' + b, has = (a, b) => R.has(key(a, b));
+    const calc = () => { const P = [...R].map(s => s.split(',').map(Number));
+      const refl = A.every(a => has(a, a)), sym = P.every(([a, b]) => has(b, a)), tr = P.every(([a, b]) => P.every(([c, d]) => b !== c || has(a, d)));
+      const outs = A.map(a => P.filter(p => p[0] === a).length), func = outs.every(n => n === 1), imgs = new Set(P.map(p => p[1])), bij = func && imgs.size === 4;
+      const classes = refl && sym && tr ? new Set(A.map(a => A.filter(b => has(a, b)).join(''))).size : 0;
+      return { n: P.length, refl, sym, tr, func, bij, classes, ident: bij && A.every(a => has(a, a)) }; };
+    const MIS = [['eq2', 'Build an equivalence relation that splits {1, 2, 3, 4} into exactly 2 classes', x => x.refl && x.sym && x.tr && x.classes === 2],
+      ['rs', 'Make it reflexive and symmetric but NOT transitive', x => x.refl && x.sym && !x.tr],
+      ['rt', 'Make it reflexive and transitive but NOT symmetric', x => x.refl && x.tr && !x.sym],
+      ['st', 'Make it symmetric and transitive but NOT reflexive (and not empty)', x => x.n > 0 && x.sym && x.tr && !x.refl],
+      ['bij', 'Turn it into a one-one onto function from A to A that is not the identity', x => x.bij && !x.ident]];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔗 Relation Builder</h3>
+      <p class="jx-fine">A = {1, 2, 3, 4}. Tap a cell to put the ordered pair (row, column) into R — or take it out. The arrows and the property lights update as you go.</p>
+      <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap"><div id="jxRg" style="display:grid;grid-template-columns:28px repeat(4,40px);gap:4px"></div>
+      <svg viewBox="0 0 150 150" id="jxRa" style="width:150px;height:150px;background:#f8fafc;border-radius:14px"></svg></div><div class="jx-read" id="jxRead"></div>
+      <div class="jx-seg3" style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px;margin-top:8px"><button style="padding:7px 0;min-width:0" id="jxRc">🧹 Clear</button><button style="padding:7px 0;min-width:0" id="jxRi">➕ Add all (a, a)</button></div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    $('#jxRc').onclick = () => { tap(); R.clear(); upd(); };
+    $('#jxRi').onclick = () => { tap(); A.forEach(a => R.add(key(a, a))); upd(); };
+    const pos = a => [75 + 52 * Math.cos(Math.PI / 2 * (a - 1) - Math.PI / 2), 75 + 52 * Math.sin(Math.PI / 2 * (a - 1) - Math.PI / 2)];
+    const upd = () => {
+      const x = calc(), g = $('#jxRg');
+      g.innerHTML = `<span></span>${A.map(b => `<b style="text-align:center;font-size:12px;color:#475569">${b}</b>`).join('')}` + A.map(a => `<b style="font-size:12px;color:#475569;align-self:center">${a}</b>` + A.map(b => `<button data-c="${a},${b}" style="height:40px;border-radius:8px;border:2px solid ${has(a, b) ? '#6d28d9' : '#cbd5e1'};background:${has(a, b) ? '#7c3aed' : '#fff'};color:${has(a, b) ? '#fff' : '#94a3b8'};font-size:10px;font-weight:700">${has(a, b) ? '✓' : ''}</button>`).join('')).join('');
+      g.querySelectorAll('[data-c]').forEach(c => c.onclick = () => { tap(); R.has(c.dataset.c) ? R.delete(c.dataset.c) : R.add(c.dataset.c); upd(); });
+      let svg = '<defs><marker id="jxAh" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#7c3aed"/></marker></defs>';
+      [...R].map(s => s.split(',').map(Number)).forEach(([a, b]) => { const [x1, y1] = pos(a), [x2, y2] = pos(b);
+        if (a === b) svg += `<circle cx="${x1 + (x1 - 75) * 0.28}" cy="${y1 + (y1 - 75) * 0.28}" r="8" fill="none" stroke="#7c3aed" stroke-width="1.6"/>`;
+        else { const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ox = -dy / L * 5, oy = dx / L * 5; svg += `<line x1="${x1 + dx / L * 12 + ox}" y1="${y1 + dy / L * 12 + oy}" x2="${x2 - dx / L * 13 + ox}" y2="${y2 - dy / L * 13 + oy}" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#jxAh)"/>`; } });
+      A.forEach(a => { const [px, py] = pos(a); svg += `<circle cx="${px}" cy="${py}" r="11" fill="#fff" stroke="#334155" stroke-width="2"/><text x="${px}" y="${py + 4}" font-size="11" text-anchor="middle" font-weight="700">${a}</text>`; });
+      $('#jxRa').innerHTML = svg;
+      const lt = (ok, n) => `<span>${ok ? '🟢' : '⚪'} <b>${n}</b></span>`;
+      $('#jxRead').innerHTML = `<span>n(R) <b>${x.n}</b></span>${lt(x.refl, 'reflexive')}${lt(x.sym, 'symmetric')}${lt(x.tr, 'transitive')}${lt(x.func, 'a function')}${x.classes ? `<span>classes <b>${x.classes}</b></span>` : ''}`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['rl_' + kk] && tt(x)) { done['rl_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['rl_' + kk] ? 'ok' : ''}">${done['rl_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }

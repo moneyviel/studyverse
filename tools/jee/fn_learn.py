@@ -1,0 +1,47 @@
+"""Concept cards for Mathematics Unit 1 — Sets, Relations and Functions (written for StudyVerse)."""
+TOPICS = {'sets': 'Sets & counting', 'rel': 'Relations & their properties', 'dom': 'Domain & range', 'ftype': 'One-one, onto, composition & inverse', 'fcount': 'Counting functions', 'feq': 'Functional equations'}
+CARDS = [
+ dict(id='c1', t='Sets', e='🧺', lvl='f', topic='sets',
+  body=['n(A ∪ B) = n(A) + n(B) − n(A ∩ B). Three sets: add the pairs back, take the triple out again.',
+        '"Neither a multiple of p nor of q" in a range: total − ⌊multiples of p⌋ − ⌊multiples of q⌋ + ⌊multiples of lcm⌋.',
+        'Subsets of an n-set: 2^{n}. Subsets with no two consecutive numbers follow s_{n} = s_{n−1} + s_{n−2} (Fibonacci).',
+        'Splitting 3k objects into named groups of k: \\f{(3k)!}{(k!)^{3}}; unnamed groups: divide by 3!.'],
+  check=dict(q='How many integers in 1…30 are multiples of 2 or 3?', o=['15', '20', '25', '10'], a=1, why='15 + 10 − 5.')),
+ dict(id='c2', t='Relations', e='🔗', lvl='m', topic='rel',
+  body=['A relation on A is any set of ordered pairs from A × A. Reflexive: every (a, a). Symmetric: (a, b) → (b, a). Transitive: (a, b), (b, c) → (a, c).',
+        'Equivalence = all three; it splits A into classes (partitions). Number of equivalence relations on a 3-set = 5.',
+        '<div class="jx-f">On an n-set: all relations 2^{n²}; reflexive 2^{n² − n}; symmetric 2^{n(n+1)/2}; reflexive and symmetric 2^{n(n−1)/2}</div>',
+        '"Fewest pairs to add": for reflexive, count the missing (a, a); for symmetric, count pairs whose reverse is missing.'],
+  check=dict(q='R = {(1,1), (2,2), (1,2)} on {1, 2} is', o=['an equivalence', 'reflexive & transitive, not symmetric', 'symmetric only', 'not reflexive'], a=1, why='(2,1) is missing.')),
+ dict(id='c3', t='Domain and range', e='📏', lvl='m', topic='dom',
+  body=['Domain: √{·} needs ≥ 0 (> 0 in a denominator); log needs argument > 0 and base > 0, ≠ 1; sec^{−1}t needs |t| ≥ 1.',
+        'Range of y = f(x): solve for x and ask when a real x exists. For a quotient of quadratics, the discriminant in x gives an inequality in y.',
+        'Bounded pieces: \\f{1}{c − sin kx} has range [\\f{1}{c + 1}, \\f{1}{c − 1}]; a sin x + b cos x lies in [−√{a^{2} + b^{2}}, √{a^{2} + b^{2}}].'],
+  check=dict(q='Domain of log(x² − 5x + 6) :', o=['(2, 3)', 'x < 2 or x > 3', 'all reals', 'x > 3'], a=1, why='The argument must be positive.')),
+ dict(id='c4', t='Types of functions', e='🎯', lvl='m', topic='ftype',
+  body=['One-one (injective): different inputs, different outputs — a strictly increasing or decreasing function is one-one. Onto: every element of the codomain is hit.',
+        'A quotient of two quadratics (denominator never 0) is never one-one and never onto R.',
+        '(fog)(x) = f(g(x)). If g is the inverse of f: f(a) = b ⟹ g(b) = a and g\'(b) = \\f{1}{f\'(a)}.',
+        'Composing \\f{kx}{√{1 + cx^{2}}} with itself n times keeps the same shape — track how the coefficient grows.'],
+  check=dict(q='f(x) = x³ + x : R → R is', o=['one-one and onto', 'one-one, not onto', 'onto, not one-one', 'neither'], a=0, why='Strictly increasing, unbounded both ways.')),
+ dict(id='c5', t='Counting functions', e='🔢', lvl='m', topic='fcount',
+  body=['Functions from an m-set to an n-set: n^{m}. One-one (m ≤ n): ^{n}P_{m}.',
+        '<div class="jx-f">Onto: Σ_{k}(−1)^{k}C(n, k)(n − k)^{m}</div>',
+        'Not onto = all − onto. Many-one = all − one-one. Fix the constrained values first, then fill the rest.'],
+  check=dict(q='Onto functions from a 3-set to a 2-set :', o=['6', '8', '2', '4'], a=0, why='2³ − 2.')),
+ dict(id='c6', t='Functional equations', e='🧩', lvl='h', topic='feq',
+  body=['f(x) + kf(\\f{c}{x}) = g(x): replace x by c/x to get a second equation, then solve the pair.',
+        'f(m + n) = f(m) + f(n) → f(n) = n f(1). f(x + y) = f(x)f(y) → f(x) = a^{x}.',
+        'When f is a polynomial: put x = 0 or y = 0 first, then compare coefficients.'],
+  check=dict(q='f(m+n) = f(m) + f(n), f(1) = 3. f(10) =', o=['30', '13', '3^10', '10'], a=0, why='f(n) = 3n.')),
+]
+FORMULAS = [('Union', 'n(A ∪ B) = n(A) + n(B) − n(A ∩ B)'), ('All relations', '2^{n^{2}}'), ('Reflexive relations', '2^{n^{2} − n}'), ('Symmetric relations', '2^{n(n + 1)/2}'),
+            ('Functions', 'n^{m}'), ('One-one', '^{n}P_{m}'), ('Onto', 'Σ(−1)^{k}C(n, k)(n − k)^{m}'), ('Inverse slope', "g'(b) = \\f{1}{f'(a)}")]
+TRAPS = ['A relation can be symmetric and transitive without being reflexive (e.g. {(1,1)} on {1, 2}).', 'One-one onto depends on the codomain: e^{x} : R → R is not onto, but R → (0, ∞) is.',
+         'For log domains also check the base: > 0 and ≠ 1.', 'Many-one functions = all functions minus one-one, not minus onto.',
+         '"Fewest pairs for symmetry" counts missing reverses, not all pairs.', 'Equivalence relations on n elements = number of partitions (Bell number), not 2^{something}.']
+STEPS = [dict(k='s1', t='Sets & relations', e='🔗', cards=['c1', 'c2'], need=['sets', 'rel'], note='Counting sets, relation properties'),
+         dict(k='s2', t='Functions', e='🎯', cards=['c3', 'c4'], need=['dom', 'ftype'], note='Domain, range, one-one, onto, inverse'),
+         dict(k='s3', t='Counting & equations', e='🧩', cards=['c5', 'c6'], need=['fcount', 'feq'], note='Counting functions, functional equations')]
+META = dict(unit='math-u01', subject='math', n=1, title='Sets, Relations and Functions', cls='11–12', labs=['relation'],
+            syllabus='Sets and their representation: Union, intersection and complement of sets and their algebraic properties; Power set; Relation, Type of relations, equivalence relations, functions; one-one, into and onto functions, the composition of functions.')

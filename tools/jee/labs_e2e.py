@@ -230,6 +230,14 @@ async def _(pg):
     await setr(pg, '[data-k="m"]', 3)                                                    # 5th harmonic
     await setr(pg, '[data-k="m"]', 4)                                                    # 4 nodes
     await tap(pg, '[data-pk="open"]'); await setr(pg, '[data-k="m"]', 1); await setr(pg, '[data-k="L"]', 0.15)   # 1100 Hz
+@lab('math-u01', 'relation')
+async def _(pg):
+    async def c(a, b): await tap(pg, f'[data-c="{a},{b}"]')
+    await tap(pg, '#jxRi'); await c(1, 2); await c(2, 1); await c(3, 4); await c(4, 3)          # equivalence, 2 classes
+    await c(2, 3); await c(3, 2)                                                                 # reflexive + symmetric, not transitive
+    await tap(pg, '#jxRc'); await tap(pg, '#jxRi'); await c(1, 2)                                # reflexive + transitive, not symmetric
+    await tap(pg, '#jxRc'); await c(1, 1)                                                        # symmetric + transitive, not reflexive
+    await tap(pg, '#jxRc'); await c(1, 2); await c(2, 1); await c(3, 3); await c(4, 4)            # a non-identity bijection
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
