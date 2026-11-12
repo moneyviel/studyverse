@@ -135,6 +135,13 @@ async def _(pg):
     await setr(pg, '[data-k="N"]', 40); await setr(pg, '[data-k="V"]', 4); await setr(pg, '[data-k="N"]', 20); await setr(pg, '[data-k="V"]', 2)
     await tap(pg, '[data-g="O2"]'); await setr(pg, '[data-k="T"]', 2400)
     await setr(pg, '[data-k="T"]', 750)
+@lab('phy-u15', 'emw')
+async def _(pg):
+    await setr(pg, '[data-k="fi"]', 6)                                   # 60 MHz → 5 m
+    await tap(pg, '[data-dir="1"]'); await tap(pg, '[data-e="y"]')       # E +y, travel +x → B +z
+    await tap(pg, '[data-dir="-1"]'); await tap(pg, '[data-e="-z"]')     # travel −x, E −z → B −y
+    await setr(pg, '[data-k="E0"]', 200)                                 # 53 W/m²
+    await setr(pg, '[data-k="fi"]', 12)                                  # 2000 MHz → 15 cm
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

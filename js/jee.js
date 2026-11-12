@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -399,6 +399,7 @@
         charges: ['⚡ Field Line Studio', 'Place two charges, change their size, sign and gap, and probe the field and potential anywhere: find null points, zero-potential points and dipole fields. 5 missions.', () => chargeLab(uid)],
         pv: ['🔥 P–V Process Lab', 'Take a gas through isothermal, adiabatic, isobaric and isochoric steps and watch Q, W and ΔU add up — build an engine, a fridge and a Carnot cycle. 5 missions.', () => pvLab(uid)],
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
+        emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
         planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
         pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
@@ -889,6 +890,55 @@
       $('#jxRead').innerHTML = `<span>v<sub>rms</sub> <b>${vr(st.g, st.T).toFixed(0)} m/s</b></span><span>avg KE <b>${(1.5 * kB * st.T / 1.6e-19).toFixed(3)} eV</b></span><span>pressure <b>${P().toFixed(2)} × start</b></span>`;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['kg_' + kk] && tt(st)) { done['kg_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['kg_' + kk] ? 'ok' : ''}">${done['kg_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Electromagnetic Waves ---------- */
+  function emLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}), c = 3e8, e0 = 8.85e-12;
+    const FQ = [1, 2, 5, 10, 20, 50, 60, 100, 200, 300, 500, 1000, 2000, 3000];
+    const st = { fi: 3, E0: 100, dir: 1, E: 'y' }, AX = { y: [0, 1, 0], '-y': [0, -1, 0], z: [0, 0, 1], '-z': [0, 0, -1] };
+    const cr = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+    const nm = v => (v[0] + v[1] + v[2] < 0 ? '−' : '+') + (v[0] ? 'x' : v[1] ? 'y' : 'z');
+    const calc = () => { const f = FQ[st.fi] * 1e6, lam = c / f, B = cr([st.dir, 0, 0], AX[st.E]); return { f, lam, B, Bn: nm(B), B0: st.E0 / c, I: 0.5 * c * e0 * st.E0 * st.E0 }; };
+    const MIS = [['lam5', 'Make a wave with wavelength exactly 5 m', x => Math.abs(x.lam - 5) < 1e-9],
+      ['bz', 'Make the magnetic field point along +z', x => x.Bn === '+z'],
+      ['bny', 'Send the wave towards −x with its magnetic field along −y', x => st.dir === -1 && x.Bn === '−y'],
+      ['int', 'Tune the intensity to between 50 and 60 W/m²', x => x.I >= 50 && x.I <= 60],
+      ['micro', 'Make it a MICROWAVE (λ between 1 mm and 30 cm)', x => x.lam > 1e-3 && x.lam < 0.3]];
+    let ph = 0, raf = 0;
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🌊 EM Wave Builder</h3>
+        <p class="jx-fine">Red = electric field, blue = magnetic field. They are always at right angles to each other and to the direction of travel, and \\(\\vec E\\times\\vec B\\) points the way the wave goes.</p>
+        <svg viewBox="0 0 320 180" class="jx-circ" id="jxEM" style="max-width:360px;background:#0f172a;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+        <div class="jx-seg3"><button data-dir="1" class="${st.dir === 1 ? 'on' : ''}">Travel +x ➡</button><button data-dir="-1" class="${st.dir === -1 ? 'on' : ''}">⬅ Travel −x</button></div>
+        <div class="jx-seg3" style="flex-wrap:wrap">${Object.keys(AX).map(k => `<button data-e="${k}" class="${k === st.E ? 'on' : ''}">E along ${k.replace('-', '−')}</button>`).join('')}</div>
+        <label class="jx-sl"><span>Frequency <b id="v_f">${FQ[st.fi]} MHz</b></span><input type="range" min="0" max="${FQ.length - 1}" step="1" value="${st.fi}" data-k="fi"></label>
+        <label class="jx-sl"><span>E amplitude <b id="v_E0">${st.E0} V/m</b></span><input type="range" min="50" max="1000" step="50" value="${st.E0}" data-k="E0"></label>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      el.querySelector('.jx-fine').innerHTML = 'Red = electric field E, blue = magnetic field B. They are always at right angles to each other and to the direction of travel, and E × B points the way the wave goes.';
+      $('#jxBack').onclick = () => { cancelAnimationFrame(raf); unit(uid, 'lab'); };
+      el.querySelectorAll('[data-dir]').forEach(b => b.onclick = () => { tap(); st.dir = +b.dataset.dir; cancelAnimationFrame(raf); draw(); });
+      el.querySelectorAll('[data-e]').forEach(b => b.onclick = () => { tap(); st.E = b.dataset.e; cancelAnimationFrame(raf); draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_f').textContent = FQ[st.fi] + ' MHz'; $('#v_E0').textContent = st.E0 + ' V/m'; upd(); });
+      upd(); anim();
+    };
+    const proj = v => [v[2] * -0.55, -v[1] - v[2] * 0.35];   // screen offset of a y/z direction (z drawn as a slanted depth axis)
+    const anim = () => {
+      const svg = $('#jxEM'); if (!svg || !document.body.contains(svg)) return;
+      const x = calc(), Ed = AX[st.E], Bd = x.B, aE = 22 + st.E0 / 1000 * 30, aB = aE * 0.75, cyc = 2.5; ph += 0.06 * st.dir;
+      const line = (d, a, col) => { let s = ''; for (let i = 0; i <= 120; i++) { const X = 20 + i * 2.4, v = Math.sin(2 * Math.PI * cyc * i / 120 - ph), p = proj(d); s += (i ? 'L' : 'M') + (X + p[0] * a * v).toFixed(1) + ' ' + (90 + p[1] * a * v).toFixed(1); } return `<path d="${s}" fill="none" stroke="${col}" stroke-width="2.2"/>`; };
+      const arr = (d, col, lab) => { const p = proj(d); return `<line x1="290" y1="128" x2="${290 + p[0] * 24}" y2="${128 + p[1] * 24}" stroke="${col}" stroke-width="2.5"/><text x="${292 + p[0] * 30}" y="${131 + p[1] * 30}" fill="${col}" font-size="10">${lab}</text>`; };
+      svg.innerHTML = `<line x1="10" y1="90" x2="310" y2="90" stroke="#475569"/><text x="${st.dir > 0 ? 292 : 12}" y="84" fill="#facc15" font-size="16">${st.dir > 0 ? '➡' : '⬅'}</text>
+        ${line(Ed, aE, '#ef4444')}${line(Bd, aB, '#60a5fa')}${arr(Ed, '#ef4444', 'E')}${arr(Bd, '#60a5fa', 'B')}<text x="12" y="172" fill="#94a3b8" font-size="10">y up · z slanting into the page</text>`;
+      raf = requestAnimationFrame(anim);
+    };
+    const upd = () => {
+      const x = calc(), L = x.lam >= 1 ? x.lam.toFixed(2) + ' m' : x.lam >= 0.01 ? (x.lam * 100).toFixed(1) + ' cm' : (x.lam * 1000).toFixed(1) + ' mm';
+      $('#jxRead').innerHTML = `<span>λ <b>${L}</b></span><span>B along <b>${x.Bn}</b></span><span>B₀ <b>${(x.B0 * 1e7).toFixed(2)} × 10⁻⁷ T</b></span><span>intensity <b>${x.I.toFixed(1)} W/m²</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['em_' + kk] && tt(x)) { done['em_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['em_' + kk] ? 'ok' : ''}">${done['em_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
   }
