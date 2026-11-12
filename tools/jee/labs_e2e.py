@@ -223,6 +223,13 @@ async def _(pg):
     await setr(pg, '[data-k="rho"]', 1000)                                                                      # rises
     await setr(pg, '[data-k="rho"]', 1260)                                                                      # hovers
     await tap(pg, '[data-lq="2"]'); await setr(pg, '[data-k="r"]', 0.5); await setr(pg, '[data-k="rho"]', 2000)  # honey: ≈ 0.033 cm/s
+@lab('phy-u10', 'pipe')
+async def _(pg):
+    await setr(pg, '[data-k="m"]', 2)                                                    # open, 1 m, 2nd harmonic = 330 Hz
+    await tap(pg, '[data-pk="closed"]'); await setr(pg, '[data-k="m"]', 1); await setr(pg, '[data-k="L"]', 0.5)   # closed fundamental
+    await setr(pg, '[data-k="m"]', 3)                                                    # 5th harmonic
+    await setr(pg, '[data-k="m"]', 4)                                                    # 4 nodes
+    await tap(pg, '[data-pk="open"]'); await setr(pg, '[data-k="m"]', 1); await setr(pg, '[data-k="L"]', 0.15)   # 1100 Hz
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

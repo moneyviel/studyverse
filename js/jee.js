@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -403,7 +403,7 @@
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
-      const L = { stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
+      const L = { pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
         projectile: ['🏀 Projectile Launcher', 'Set speed, angle and launch height — watch the path, range, height and flight time; hit a flag and find twin angles. 5 missions.', () => projectileLab(uid)],
         circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
@@ -1490,6 +1490,42 @@
       $('#jxRead').innerHTML = `<span>v<sub>t</sub> <b>${x.v > 0 ? '⬇ ' : x.v < 0 ? '⬆ ' : ''}${x.v ? f(x.v) : '0 (hovers)'}</b></span><span>time to settle <b>${x.v ? (5 * x.tau < 0.01 ? (5000 * x.tau).toFixed(1) + ' ms' : (5 * x.tau).toFixed(2) + ' s') : '—'}</b></span><span>Reynolds <b>${x.Re < 0.01 ? x.Re.toExponential(1) : x.Re.toFixed(2)}</b></span>${x.Re > 1 ? '<span>⚠️ <b>too fast for Stokes</b></span>' : ''}`;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['sk_' + kk] && tt(x)) { done['sk_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['sk_' + kk] ? 'ok' : ''}">${done['sk_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Oscillations and Waves ---------- */
+  function pipeLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { kind: 'open', L: 1, m: 1 }, V = 330;
+    const calc = () => { const h = st.kind === 'open' ? st.m : 2 * st.m - 1, f = st.kind === 'open' ? h * V / (2 * st.L) : h * V / (4 * st.L), nodes = st.m; return { h, f, lam: V / f, nodes }; };
+    const MIS = [['fund', 'Make a CLOSED pipe 0.5 m long sing its fundamental — what frequency do you hear?', x => st.kind === 'closed' && st.L === 0.5 && x.h === 1],
+      ['odd', 'Make a closed pipe play its 5th harmonic (closed pipes skip the even ones!)', x => st.kind === 'closed' && x.h === 5],
+      ['unison', 'Make an OPEN pipe sound exactly 330 Hz using its 2nd harmonic', x => st.kind === 'open' && x.h === 2 && Math.abs(x.f - 330) < 1e-9],
+      ['nodes', 'Show exactly 4 nodes inside a pipe', x => x.nodes === 4],
+      ['khz', 'Reach at least 1000 Hz using only the fundamental', x => st.m === 1 && x.f >= 1000]];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🎺 Pipe Studio</h3>
+      <p class="jx-fine">Sound in air (v = 330 m/s) bounces between the ends and forms standing waves. An open end is a displacement antinode; a closed end is a node. Pick a pipe, its length and the mode.</p>
+      <div class="jx-seg3" style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px"><button style="padding:7px 0;min-width:0" data-pk="open">🎶 Open pipe</button><button style="padding:7px 0;min-width:0" data-pk="closed">🔇 Closed at one end</button></div>
+      <svg viewBox="0 0 320 150" class="jx-circ" id="jxPp" style="max-width:360px;background:#f8fafc;border-radius:14px;margin-top:8px"></svg><div class="jx-read" id="jxRead"></div>
+      <label class="jx-sl"><span>Pipe length <b id="v_L">${st.L} m</b></span><input type="range" min="0.1" max="2" step="0.05" value="${st.L}" data-k="L"></label>
+      <label class="jx-sl"><span>Mode <b id="v_m">${st.m}</b></span><input type="range" min="1" max="6" step="1" value="${st.m}" data-k="m"></label>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('[data-pk]').forEach(b => b.onclick = () => { tap(); st.kind = b.dataset.pk; upd(); });
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + (i.dataset.k === 'L' ? ' m' : ''); upd(); });
+    const upd = () => {
+      el.querySelectorAll('[data-pk]').forEach(b => b.classList.toggle('on', b.dataset.pk === st.kind));
+      const x = calc(), x0 = 20, x1 = 300, cy = 70, amp = 34, N = 120, y = s => st.kind === 'open' ? Math.cos(x.h * Math.PI * s) : Math.sin(x.h * Math.PI * s / 2);
+      const top = [], bot = []; for (let i = 0; i <= N; i++) { const s = i / N, px = x0 + (x1 - x0) * s; top.push(`${px},${cy - amp * y(s)}`); bot.push(`${px},${cy + amp * y(s)}`); }
+      const nodes = []; for (let i = 0; i <= 2000; i++) { const s = i / 2000; if (Math.abs(y(s)) < 2e-3 && (!nodes.length || s - nodes[nodes.length - 1] > 0.02)) nodes.push(s); }
+      $('#jxPp').innerHTML = `<rect x="${x0}" y="${cy - 44}" width="${x1 - x0}" height="88" rx="6" fill="#e0f2fe" stroke="#0369a1" stroke-width="2"/>${st.kind === 'closed' ? `<rect x="${x0 - 6}" y="${cy - 46}" width="8" height="92" fill="#334155"/>` : ''}
+        <polyline points="${top.join(' ')}" fill="none" stroke="#7c3aed" stroke-width="2.5"/><polyline points="${bot.join(' ')}" fill="none" stroke="#7c3aed" stroke-width="2.5" opacity=".45"/>
+        ${nodes.map(s => `<circle cx="${x0 + (x1 - x0) * s}" cy="${cy}" r="4" fill="#dc2626"/>`).join('')}
+        <text x="${x0}" y="138" font-size="9" fill="#475569">${st.kind === 'closed' ? 'closed end' : 'open end'}</text><text x="${x1}" y="138" font-size="9" text-anchor="end" fill="#475569">open end</text><text x="160" y="138" font-size="9" text-anchor="middle" fill="#dc2626">● node</text>`;
+      $('#jxRead').innerHTML = `<span>harmonic <b>${x.h}${x.h === 1 ? ' (fundamental)' : ''}</b></span><span>f <b>${x.f.toFixed(1)} Hz</b></span><span>λ <b>${x.lam.toFixed(3)} m</b></span><span>nodes <b>${x.nodes}</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['pp_' + kk] && tt(x)) { done['pp_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['pp_' + kk] ? 'ok' : ''}">${done['pp_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }
