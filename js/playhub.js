@@ -162,8 +162,9 @@
   }
   function calcTile(host, after) {
     if (!window.CalcAcademy || !CalcAcademy.tileHTML || host.querySelector('#cxaTile')) return;
-    if (isCA()) { let p = null; try { p = CalcAcademy.progress(); } catch (e) {} after.insertAdjacentHTML('afterend', caTile('cxaTile', '🧮', 'Calculator Academy', `Free bonus${p ? ` · ${p.done} of ${p.all} missions` : ''} · press real keys to learn`)); }
-    else after.insertAdjacentHTML('afterend', CalcAcademy.tileHTML());
+    /* Calculator Academy always sits at the END of the practice list */
+    if (isCA()) { let p = null; try { p = CalcAcademy.progress(); } catch (e) {} host.insertAdjacentHTML('beforeend', caTile('cxaTile', '🧮', 'Calculator Academy', `Free bonus${p ? ` · ${p.done} of ${p.all} missions` : ''} · press real keys to learn`)); }
+    else host.insertAdjacentHTML('beforeend', CalcAcademy.tileHTML());
     const t = D.getElementById('cxaTile'); if (t) { t.classList.add('ph-cxa'); t.onclick = () => { S('open'); CalcAcademy.open({ from: 'practice' }); }; }
   }
   function wire() { const t = D.getElementById('phTile'); if (t) t.onclick = () => { S('open'); open(); }; }

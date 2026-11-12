@@ -843,18 +843,18 @@ if ('serviceWorker' in navigator && !inFrame && (location.protocol === 'https:' 
   navigator.serviceWorker.register('sw.js').then(reg => {
     const check = () => { if (Date.now() - lastCheck < 60000) return; lastCheck = Date.now(); try { const p = reg.update(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
     check();
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') return; if (pending) reloadNow(); else check(); });
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') return; if (pending) { if (!busy()) reloadNow(); } else check(); });
   }).catch(() => {});
-  const busy = () => !!document.querySelector('.ca-pad, .ca-viva, .ca-set, .ca-mbar, .ca-mcq, textarea:focus');
+  const busy = () => (window.svBusy ? window.svBusy() : false) || !!document.querySelector('.ca-pad, .ca-viva, .ca-set, .ca-mbar, .ca-mcq, textarea:focus');
   function reloadNow() {
     if (done) return; let last = 0; try { last = +sessionStorage.getItem('sv_swreload') || 0; } catch (e) {}
     if (Date.now() - last < 20000) return;          // loop guard
     done = true; try { sessionStorage.setItem('sv_swreload', String(Date.now())); } catch (e) {}
-    location.reload();
+    window.__svReloading = true; location.reload();
   }
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (!hadCtl || done) return;                    // first install: nothing to refresh
-    if (busy()) { pending = true; toast('Update ready — it applies next time you open the app'); } else reloadNow();
+    if (busy()) { pending = true; try { window.svUpdateReady && svUpdateReady(); } catch (e) {} } else reloadNow();
   });
 });
 

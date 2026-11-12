@@ -152,7 +152,7 @@
         <div class="mg-scwrap">${radar(info)}<div class="mg-scl">${info.map(i => `<button type="button" class="mg-scr" data-sc="${i.t.id}" style="--c:${i.t.col}"><span>${i.t.e} <b>${E(i.t.n)}</b></span><span class="mg-st" aria-label="${i.lv.i} of 4 stars">${stars(i.lv.i)}</span><small>${BADGE[i.lv.i]} ${E(i.lv.n)}${i.lv.few ? '' : ' · ' + i.lv.pct + '%'}</small></button>`).join('')}</div></div>
         <p class="sub mg-lvl">Ratings: ✨ Warming up → 🧭 Explorer → ⭐ Rising star → 🌟 Pro → 🏆 Champion, from your last 40 answers. Tap any practice for its full scorecard.</p></div>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div>`;
-    el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); x.dataset.t === 'iq' ? iqMenu() : x.dataset.t === 'eq' && window.HeartPlay ? eqMenu() : round(x.dataset.t); });
+    el.querySelectorAll('[data-t]').forEach(x => x.onclick = () => { S('open'); go(x.dataset.t); });
     el.querySelectorAll('[data-sc]').forEach(x => x.onclick = () => { S('open'); card(x.dataset.sc); });
   }
 
@@ -185,6 +185,23 @@
     $1('#mgHeart').onclick = () => { S('open'); MindPlay.hub('eq'); };
     $1('#mgScen').onclick = () => { S('open'); round('eq'); };
     $1('#mgSc').onclick = () => { S('open'); card('eq'); };
+  }
+  const go = id => id === 'iq' ? iqMenu() : id === 'eq' && window.HeartPlay ? eqMenu() : SX[id] && window.SuitesUI ? suiteMenu(id) : round(id);
+  /* Friendship Galaxy / Rise-Again Rocket / Idea Factory: games hub, scenario questions, scorecard */
+  const SX = { sq: { e: '🪐', n: 'Friendship Galaxy', sub: 'Fairness, teamwork and kind, brave words', th: { j: ['🪐', 'Friendship Planet', 'Fair sharing, team helpers, kind words and more!'], m: ['🌌', 'Galaxy Quest', 'Five friendship missions + a timed Galaxy Expedition'], s: ['🛰️', 'Social Lab', 'Five hands-on people-skills games + a timed check'] } },
+    aq: { e: '🚀', n: 'Rise-Again Rocket', sub: 'Bounce back, keep going, plan your way up', th: { j: ['🚀', 'Rocket Park', 'Rocket launches, “not yet” thoughts, feel-better tools!'], m: ['🌋', 'Rise Quest', 'Five never-give-up missions + a timed Summit Expedition'], s: ['🧗', 'Resilience Lab', 'Five hands-on resilience games + a timed check'] } },
+    cq: { e: '💡', n: 'Idea Factory', sub: 'Imagine, connect and invent', th: { j: ['🎨', 'Idea Playground', 'Riddles, word glue, clever new uses and more!'], m: ['🏭', 'Invention Quest', 'Five inventor missions + a timed Inventor Expedition'], s: ['🧠', 'Innovation Lab', 'Five hands-on creativity games + a timed check'] } } };
+  function suiteMenu(id) {
+    style(); const el = screen(), b = band(), t = T(id), c = SX[id], th = c.th[b === 'p' ? 's' : b]; show('mind', 'practice'); window.scrollTo(0, 0);
+    el.innerHTML = `<div class="mg-root mg-${b}" style="--c:${t.col}"><button class="back" id="mgQuit">← Mind Gym</button>
+      <div class="hello mg-hello" role="heading" aria-level="1"><span aria-hidden="true">${c.e}</span> ${E(c.n)} <small>${E(c.sub)}</small></div>
+      <button type="button" class="card mg-play-hub" id="mgHub"><span class="mg-e" aria-hidden="true">${th[0]}</span><span class="mg-tt"><b>${E(th[1])}</b><small>${E(th[2])}</small></span><span class="mg-chev" aria-hidden="true">›</span></button>
+      <div class="mg-list"><button type="button" class="card mg-test" id="mgScen" style="--c:${t.col}"><span class="mg-e" aria-hidden="true">💭</span><span class="mg-tt"><b>What would you do?</b><small>Real-life situations — pick the wisest choice</small></span><span class="mg-chev" aria-hidden="true">›</span></button></div>
+      <button class="btn ghost" type="button" id="mgSc">📊 ${E(c.n)} scorecard</button></div>`;
+    $1('#mgQuit').onclick = () => { S('tap'); open(); };
+    $1('#mgHub').onclick = () => { S('open'); MindPlay.hub(id); };
+    $1('#mgScen').onclick = () => { S('open'); round(id); };
+    $1('#mgSc').onclick = () => { S('open'); card(id); };
   }
   /* Heart Wheel: five skills as petals (longer petal = stronger), plus a zone gauge — words, never an EQ number */
   const HSK = [['Know my feelings', '🪞', '#ff7a59'], ['Manage my feelings', '🫧', '#3cbf7f'], ['Read others', '🕵️', '#2b8cff'], ['Connect & care', '💬', '#e0408f'], ['Choose wisely', '🛤️', '#ffb400']];
@@ -224,14 +241,15 @@
         ${HSK.map(([k, e, c]) => { const v = K[k]; return `<div class="mg-row"><span>${e} ${E(k)}</span><div class="mg-bar"><i style="width:${v && v[1] ? Math.round(v[0] / v[1] * 100) : 0}%;background:${c}"></i></div><b>${v && v[1] ? ZONES[(v[0] / v[1]) >= .85 ? 3 : (v[0] / v[1]) >= .7 ? 2 : (v[0] / v[1]) >= .5 ? 1 : 0][0].split(' ')[0] : '—'}</b></div>`; }).join('')}
         <p class="sub mg-lvl">Zones: 🌱 Growing → 🌿 Building → 🌳 Strong → 🌟 Shining, from your Heart Compass games. Longer petals = stronger skills.</p></div>`; })() : ''}
       ${test === 'eq' && (m.htests || []).length ? `<div class="card"><h3>⏱️ Timed check results</h3><div class="mg-tiles2">${m.htests.slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div></div>` : ''}
-      ${test === 'iq' && skills.length ? `<div class="card"><h3>🧩 Skills</h3>${skills.map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${Math.round(v[0] / v[1] * 100)}%;background:${t.col}"></i></div><b>${v[0]}/${v[1]}</b></div>`).join('')}
+      ${(test === 'iq' || SX[test]) && skills.length ? `<div class="card"><h3>🧩 Skills</h3>${skills.map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${Math.round(v[0] / v[1] * 100)}%;background:${t.col}"></i></div><b>${v[0]}/${v[1]}</b></div>`).join('')}
         ${strong.length > 1 ? `<p class="sub mg-lvl">💪 Strongest: ${E(strong[0][0])} · 🎯 Practise more: ${E(strong[strong.length - 1][0])}</p>` : ''}</div>` : ''}
+      ${SX[test] && (m[test + 'tests'] || []).length ? `<div class="card"><h3>⏱️ Timed check results</h3><div class="mg-tiles2">${m[test + 'tests'].slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div></div>` : ''}
       ${test === 'iq' && (m.btests || []).length ? `<div class="card"><h3>⏱️ Timed test results</h3><div class="mg-tiles2">${m.btests.slice(-6).map(x => `<span><b>${x.pct}%</b><small>${new Date(x.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</small></span>`).join('')}</div>
         ${(() => { const last = m.btests[m.btests.length - 1].sec; return Object.entries(last).map(([k, v]) => `<div class="mg-row"><span>${E(k)}</span><div class="mg-bar"><i style="width:${v}%;background:${t.col}"></i></div><b>${v}%</b></div>`).join(''); })()}<p class="sub mg-lvl">Bars show your latest timed test, skill by skill.</p></div>` : ''}
       <button class="btn" type="button" id="mgGo">Play ${E(t.n)} ▶</button>
       <div class="card mg-note">ℹ️ ${E(NOTE)}</div></div>`;
     $1('#mgQuit').onclick = () => { S('tap'); open(); };
-    $1('#mgGo').onclick = () => { S('open'); test === 'iq' ? iqMenu() : test === 'eq' && window.HeartPlay ? eqMenu() : round(test); };
+    $1('#mgGo').onclick = () => { S('open'); go(test); };
   }
 
   /* ---------- a round ---------- */
@@ -334,13 +352,13 @@
     const s = STx(); if (!s || !s.profile || isParent()) return;
     const p = D.getElementById('s-practice');
     if (p && p.classList.contains('active') && !isCA() && !p.querySelector(':scope > #mgTile')) {
-      const after = p.querySelector(':scope > #cxaTile') || p.querySelector(':scope > #phTile');
+      const after = p.querySelector(':scope > #phTile');
       if (after) { after.insertAdjacentHTML('afterend', `<button type="button" class="card mg-tile" id="mgTile" aria-label="Mind Gym: thinking-skill challenges"><span class="mg-te" aria-hidden="true">🧠</span><span class="mg-tt"><b>Mind Gym</b><small>${tileSub()}</small></span><span class="mg-chev" aria-hidden="true">›</span></button>`); wire(); }
     }
     const c = D.getElementById('s-ca');
     if (c && isCA() && c.classList.contains('active')) {
       const hubs = c.querySelector(':scope > .ca-hubs');
-      const after = hubs && (hubs.querySelector(':scope > #cxaTile') || hubs.querySelector(':scope > #phTile'));
+      const after = hubs && hubs.querySelector(':scope > #phTile');
       if (after && !hubs.querySelector('#mgTile')) { after.insertAdjacentHTML('afterend', `<button type="button" class="card ca-hub" id="mgTile"><b class="ca-hube" aria-hidden="true">🧠</b><span><b>Mind Gym</b><small>${unlockInfo() ? tileSub() : 'Thinking, people and workplace skills'}</small></span><span class="ca-chev" aria-hidden="true">›</span></button>`); wire(); }
     }
   }
@@ -408,5 +426,5 @@
     m.total[test] = (m.total[test] || 0) + 1;
     const K = m.kinds[test] = m.kinds[test] || {}; K[kind] = K[kind] || [0, 0]; K[kind][1]++; if (ok) K[kind][0]++; persist();
   }
-  window.MindGym = { open, card, iqMenu, eqMenu, round, record, state: M, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
+  window.MindGym = { open, card, iqMenu, eqMenu, suiteMenu, round, record, state: M, _steps: steps, _band: band, _owner: isOwner, _isCA: isCA, _screen: screen, _show: () => { style(); show('mind', 'practice'); } };
 })();
