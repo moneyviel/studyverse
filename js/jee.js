@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -382,7 +382,9 @@
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
       const L = { circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
-        bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)] };
+        bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
+        photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
+        wave: ['🌊 Matter-Wave Explorer', 'Give an electron, proton, alpha or a cricket ball a speed and see how long its de Broglie wave is next to an atom.', () => waveLab(uid)] };
       body.innerHTML = `<p class="jx-p">Play first, then read: every slider here is a real formula from this unit.</p><div class="jx-grid">${d.labs.map(k => `<button class="jx-tile big" data-lab="${k}"><b>${L[k][0]}</b><small>${L[k][1]}</small></button>`).join('')}</div>`;
       body.querySelectorAll('[data-lab]').forEach(b => b.onclick = () => { tap('open'); L[b.dataset.lab][2](); });
       return;
@@ -575,6 +577,80 @@
     fresh();
   }
 
+
+  /* ---------- Try it yourself: Dual Nature ---------- */
+  const lamColor = l => l < 380 ? '#7c3aed' : l < 440 ? `hsl(${270 - (l - 380)},90%,55%)` : l < 490 ? `hsl(${230 - (l - 440) * 1.2},90%,50%)` : l < 570 ? `hsl(${170 - (l - 490) * 1.4},85%,45%)` : l < 620 ? `hsl(${55 - (l - 570) * 0.6},95%,50%)` : l <= 750 ? `hsl(${25 - (l - 620) * 0.19},90%,50%)` : '#7f1d1d';
+  function photoLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const MET = [['Caesium', 1.9], ['Potassium', 2.3], ['Sodium', 2.75], ['Zinc', 4.3], ['Platinum', 5.65]];
+    const st = { m: 2, lam: 600, I: 60, V: 0 };
+    const MIS = [['thr', 'Find the colour where electrons JUST start to come out of sodium (within 0.1 eV)', x => x.m === 2 && x.K >= 0 && x.K < 0.1],
+      ['stop', 'Make the current exactly zero with the smallest retarding voltage (V ≈ V₀)', x => x.K > 0.2 && x.V >= x.K - 0.05 && x.V <= x.K + 0.05],
+      ['int', 'Show that brightness does not matter below threshold: 100 % intensity, zero current', x => x.I >= 100 && x.K < 0],
+      ['zinc', 'Get electrons out of zinc', x => x.m === 3 && x.K > 0],
+      ['two', 'Give the fastest electrons exactly 2 eV (±0.05)', x => Math.abs(x.K - 2) <= 0.05]];
+    const calc = () => { const E = 1240 / st.lam, K = E - MET[st.m][1], cur = K <= 0 ? 0 : st.V >= K ? 0 : st.I * (1 - st.V / K); return { ...st, E, K, cur }; };
+    const sl = (k, lab, mn, mxv, stp, u) => `<label class="jx-sl"><span>${lab} <b id="v_${k}">${st[k]}${u}</b></span><input type="range" min="${mn}" max="${mxv}" step="${stp}" value="${st[k]}" data-k="${k}"></label>`;
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>⚡ Photoelectric Lab</h3>
+      <div class="jx-seg3" style="flex-wrap:wrap">${MET.map(([n, w], i) => `<button data-m="${i}" class="${i === st.m ? 'on' : ''}">${n}<br><small>φ ${w} eV</small></button>`).join('')}</div>
+      <div id="jxPh"></div><div class="jx-read" id="jxRead"></div>
+      ${sl('lam', 'Wavelength λ', 150, 750, 5, ' nm')}<div class="jx-spec"></div>${sl('I', 'Intensity', 0, 100, 5, ' %')}${sl('V', 'Retarding voltage', 0, 6, 0.05, ' V')}
+      <h3 style="margin-top:12px">📈 Current vs retarding voltage</h3><div id="jxIV"></div><h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { tap(); st.m = +b.dataset.m; el.querySelectorAll('[data-m]').forEach(x => x.classList.toggle('on', x === b)); upd(); });
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + ({ lam: ' nm', I: ' %', V: ' V' })[i.dataset.k]; upd(); });
+    const upd = () => {
+      const x = calc(), f = v => (Math.round(v * 100) / 100), col = lamColor(st.lam), n = x.K > 0 ? Math.round(st.I / 12) : 0, sp = x.K > 0 ? Math.max(0.6, 3 / Math.sqrt(x.K + 0.05)) : 0;
+      $('#jxPh').innerHTML = `<svg viewBox="0 0 320 150" class="jx-circ"><defs><linearGradient id="jxBeam" x1="0" x2="1"><stop offset="0" stop-color="${col}" stop-opacity="${0.15 + st.I / 130}"/><stop offset="1" stop-color="${col}" stop-opacity="0.05"/></linearGradient></defs>
+        <rect x="40" y="20" width="14" height="110" fill="#94a3b8"/><text x="47" y="145" text-anchor="middle" font-size="10">${MET[st.m][0]}</text><rect x="270" y="20" width="10" height="110" fill="#64748b"/><text x="275" y="145" text-anchor="middle" font-size="10">collector</text>
+        <polygon points="160,0 210,0 54,90 54,60" fill="url(#jxBeam)"/>
+        ${Array.from({ length: n }, (_, k) => `<circle r="3" fill="#2563eb"><animate attributeName="cx" values="56;${x.V >= x.K ? (56 + 190 * x.K / Math.max(x.V, 0.01)).toFixed(0) + ';56' : '268;268'}" dur="${sp}s" begin="-${(sp * k / n).toFixed(2)}s" repeatCount="indefinite"/><animate attributeName="cy" values="${30 + (k * 37) % 90};${30 + (k * 37) % 90}" dur="${sp}s" repeatCount="indefinite"/></circle>`).join('')}
+        ${x.K <= 0 ? '<text x="160" y="80" text-anchor="middle" font-size="13" fill="#dc2626" font-weight="700">No electrons — photon energy below φ</text>' : ''}</svg>`;
+      el.querySelector('.jx-spec').innerHTML = `<div style="height:10px;border-radius:6px;background:linear-gradient(90deg,#4c1d95 0%,#7c3aed 38%,#2563eb 48%,#16a34a 57%,#eab308 70%,#f97316 78%,#dc2626 92%,#7f1d1d 100%);position:relative"><span style="position:absolute;left:${(st.lam - 150) / 6}%;top:-4px;width:4px;height:18px;background:#111;border-radius:2px"></span></div><small class="jx-fine">UV ← visible (380–750 nm) → IR</small>`;
+      $('#jxRead').innerHTML = `<span>Photon <b>${f(x.E)} eV</b></span><span>K<sub>max</sub> <b>${x.K > 0 ? f(x.K) + ' eV' : '—'}</b></span><span>V<sub>0</sub> <b>${x.K > 0 ? f(x.K) + ' V' : '—'}</b></span><span>Current <b>${f(x.cur)} μA</b></span><span>λ<sub>0</sub> <b>${Math.round(1240 / MET[st.m][1])} nm</b></span>`;
+      const pts = []; for (let v = 0; v <= 6; v += 0.1) pts.push([v, x.K <= 0 ? 0 : v >= x.K ? 0 : st.I * (1 - v / x.K)]);
+      $('#jxIV').innerHTML = `<svg viewBox="0 0 310 120" class="jx-curve"><line x1="30" y1="100" x2="305" y2="100" stroke="#c4b5fd"/><line x1="30" y1="5" x2="30" y2="100" stroke="#c4b5fd"/><polyline fill="none" stroke="#7c3aed" stroke-width="2.5" points="${pts.map(([v, i]) => (30 + v / 6 * 270).toFixed(1) + ',' + (100 - i * 0.9).toFixed(1)).join(' ')}"/><circle cx="${30 + st.V / 6 * 270}" cy="${100 - x.cur * 0.9}" r="5" fill="#db2777"/><text x="34" y="115" font-size="10" fill="#6b6795">retarding voltage 0 → 6 V</text></svg>`;
+      let fresh = false; MIS.forEach(([k, , t]) => { if (!done['pe_' + k] && t(x)) { done['pe_' + k] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([k, n2]) => `<div class="jx-mis ${done['pe_' + k] ? 'ok' : ''}">${done['pe_' + k] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+  function waveLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const PT = [['Electron', 9.11e-31, 1], ['Proton', 1.673e-27, 1], ['Alpha', 6.64e-27, 2], ['Neutron', 1.675e-27, 0], ['Cricket ball (160 g)', 0.16, 0]];
+    const st = { p: 0, V: 100, v: 30 };
+    const MIS = [['atom', 'Make an electron wave the size of an atom (0.1 nm, ±10 %)', x => x.p === 0 && Math.abs(x.lam - 1e-10) <= 1e-11], ['dg', 'Recreate Davisson–Germer: electron through 54 V', x => x.p === 0 && x.V === 54],
+      ['ball', 'See why a cricket ball shows no wave nature (λ < 10^{−30} m)', x => x.p === 4 && x.lam < 1e-30], ['same', 'Give a proton a wavelength under 3 pm', x => x.p === 1 && x.lam < 3e-12]];
+    const calc = () => { const [n, m, q] = PT[st.p]; const lam = q ? 6.626e-34 / Math.sqrt(2 * m * q * 1.602e-19 * st.V) : 6.626e-34 / (m * (st.p === 4 ? st.v : st.v * 1000)); return { ...st, lam }; };
+    const fmtL = l => l >= 1e-9 ? (l * 1e9).toPrecision(3) + ' nm' : l >= 1e-12 ? (l * 1e12).toPrecision(3) + ' pm' : l >= 1e-15 ? (l * 1e15).toPrecision(3) + ' fm' : l.toExponential(2).replace('e', ' × 10^') + ' m';
+    const draw = () => {
+      const q = PT[st.p][2];
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🌊 Matter-Wave Explorer</h3>
+        <div class="jx-seg3" style="flex-wrap:wrap">${PT.map(([n], i) => `<button data-p="${i}" class="${i === st.p ? 'on' : ''}">${n}</button>`).join('')}</div>
+        <div id="jxW"></div><div class="jx-read" id="jxRead"></div>
+        ${q ? `<label class="jx-sl"><span>Accelerating voltage <b id="v_V">${st.V} V</b></span><input type="range" min="1" max="10000" step="1" value="${st.V}" data-k="V"></label>`
+            : `<label class="jx-sl"><span>Speed <b id="v_v">${st.v} ${st.p === 4 ? 'm/s' : 'km/s'}</b></span><input type="range" min="1" max="${st.p === 4 ? 45 : 3000}" step="1" value="${st.v}" data-k="v"></label>`}
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { tap(); st.p = +b.dataset.p; draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + (i.dataset.k === 'V' ? ' V' : st.p === 4 ? ' m/s' : ' km/s'); upd(); });
+      upd();
+    };
+    const upd = () => {
+      const x = calc(), lg = Math.log10(x.lam), pos = Math.max(0, Math.min(100, (lg + 36) / 30 * 100));
+      const per = Math.max(6, Math.min(140, 40 * Math.pow(10, (lg + 10) / 3)));
+      let path = 'M0 40'; for (let X = 0; X <= 300; X += 2) path += ` L${X} ${40 + 22 * Math.sin(2 * Math.PI * X / per)}`;
+      $('#jxW').innerHTML = `<svg viewBox="0 0 300 80" class="jx-curve"><path d="${path}" fill="none" stroke="#7c3aed" stroke-width="2"/></svg>
+        <div style="position:relative;height:46px;margin:8px 0 4px;background:linear-gradient(90deg,#fef3c7,#ede9fe,#dbeafe);border-radius:8px">
+        ${[['ball', -33], ['nucleus', -15], ['atom', -10], ['X-ray', -10.5], ['light', -6.3]].map(([n, l]) => `<span style="position:absolute;left:${(l + 36) / 30 * 100}%;top:2px;font-size:9px;transform:translateX(-50%)">${n === 'X-ray' ? '' : n}</span>`).join('')}
+        <span style="position:absolute;left:${pos}%;bottom:2px;transform:translateX(-50%);font-size:18px">▲</span></div><small class="jx-fine">${mx("log scale from 10^{−36} m to 10^{−6} m")}</small>`;
+      $('#jxRead').innerHTML = `<span>λ <b>${fmtL(x.lam)}</b></span><span>${x.lam > 1e-11 && x.lam < 1e-9 ? '✅ diffracts from a crystal' : x.lam < 1e-30 ? '🚫 far too small to ever notice' : 'compare with atom ≈ 0.1 nm'}</span>`;
+      let fresh = false; MIS.forEach(([k, , t]) => { if (!done['db_' + k] && t(x)) { done['db_' + k] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([k, n2]) => `<div class="jx-mis ${done['db_' + k] ? 'ok' : ''}">${done['db_' + k] ? '✅' : '⬜'} ${mx(n2)}</div>`).join('');
+    };
+    draw();
+  }
+
   /* ================= INFO SCREENS ================= */
   function pattern() {
     const el = screen(); here('pattern');
@@ -715,7 +791,7 @@
   .jx-dc button{width:30px;height:30px;border-radius:8px;border:0;background:#ede9fe;font-weight:900;font-size:16px;cursor:pointer;color:#4c1d95}.jx-dc span{flex:1;font-size:13px;font-weight:700;text-align:center;line-height:1.2}.jx-dc small{display:block;font-weight:400;font-size:10.5px;color:#6b6795}.jx-dc b{display:block;color:#7c3aed;font-size:11px;min-height:12px}
   .jx-vbox{overflow-x:auto;border-radius:12px;border:1px solid #e4dcff;background:#fff}.jx-vsvg{min-width:600px;max-width:none!important;width:100%;height:auto;display:block}
 .jx-figw{margin:10px 0;text-align:center}.jx-figw svg{max-width:340px;width:100%;height:auto;color:#1e1b4b}.jx-circ{width:100%;max-width:420px;height:auto;display:block;margin:6px auto}.jx-curve{width:100%;height:auto}
-  .jx-seg3{display:flex;gap:6px;margin:6px 0}.jx-seg3 button{flex:1;border:1px solid #d9d2ff;background:#f7f5ff;border-radius:10px;padding:8px 4px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:#4c1d95}.jx-seg3 .on{background:#4c1d95;color:#fff}
+  .jx-seg3{display:flex;gap:6px;margin:6px 0}.jx-seg3 button{flex:1 1 28%;border:1px solid #d9d2ff;background:#f7f5ff;border-radius:10px;padding:8px 4px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:#4c1d95}.jx-seg3 .on{background:#4c1d95;color:#fff}
   .jx-read{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.jx-read span{background:#1e1b4b;color:#ddd6fe;border-radius:10px;padding:5px 8px;font-size:12px}.jx-read b{color:#fff}
   .jx-sl{display:block;margin:8px 0;font-size:13px;font-weight:700;color:#3b2a85}.jx-sl span{display:flex;justify-content:space-between}.jx-sl input{width:100%;accent-color:#7c3aed}
   .jx-mis{padding:7px 10px;border-radius:10px;background:#f7f5ff;margin:5px 0;font-size:13.5px}.jx-mis.ok{background:#dcfce7}
