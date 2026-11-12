@@ -261,7 +261,7 @@ const Nav = (() => {
     if (v) try { sessionStorage.setItem(HK, JSON.stringify(v)); } catch (e) {} }
   const SAVED = (() => { try { return JSON.parse(sessionStorage.getItem(HK) || 'null'); } catch (e) { return null; } })();
   function here(k, a) { hereAt = Date.now(); try { sessionStorage.setItem(HK, JSON.stringify({ x: k, a: a || [] })); } catch (e) {} }
-  const REOPEN = { mindplay: id => MindPlay.hub(id), ca: () => Ca.home(), caPaper: (l, p) => Ca.paper(l, p), caUnit: (u, t) => Ca.unit(u, t) };
+  const REOPEN = { mindplay: id => MindPlay.hub(id), ca: () => Ca.home(), caPaper: (l, p) => Ca.paper(l, p), caUnit: (u, t) => Ca.unit(u, t), jee: (...a) => Jee.reopen(...a) };
   const SECTION = { mind: () => MindGym.open(), gk: () => GK.open(), play: () => PlayHub.open(), cxa: () => CalcAcademy.open(), cards: () => Rewards.openAlbum(), insights: () => Insights.open({ v: 'dash' }) };
   function restore() {
     const v = SAVED;
