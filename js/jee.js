@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -386,6 +386,8 @@
         photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
         bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
         orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
+        react: ['⚗️ Reaction Race', 'Watch A turn into B for zero, first and second order. Switch plots to find the straight line, spot the half-lives — then crack mystery reactions. 5 missions.', () => reactLab(uid)],
+        arrh: ['🔥 Arrhenius Hill', 'Heat the molecules, lower the hill with a catalyst and see k, the half-life and the lucky collisions change by millions. 5 missions.', () => arrhLab(uid)],
         wave: ['🌊 Matter-Wave Explorer', 'Give an electron, proton, alpha or a cricket ball a speed and see how long its de Broglie wave is next to an atom.', () => waveLab(uid)] };
       body.innerHTML = `<p class="jx-p">Play first, then read: every slider here is a real formula from this unit.</p><div class="jx-grid">${d.labs.map(k => `<button class="jx-tile big" data-lab="${k}"><b>${L[k][0]}</b><small>${L[k][1]}</small></button>`).join('')}</div>`;
       body.querySelectorAll('[data-lab]').forEach(b => b.onclick = () => { tap('open'); L[b.dataset.lab][2](); });
@@ -653,6 +655,138 @@
     draw();
   }
 
+
+  /* ---------- Try it yourself: Chemical Kinetics ---------- */
+  function reactLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { n: 1, A0: 1, k: 0.1, t: 0, run: false, plot: 'c', mys: false, mn: 1, solved: done.ck_solved || 0, sp: 1 };
+    const KU = ['M s⁻¹', 's⁻¹', 'M⁻¹ s⁻¹'];
+    const ord = () => st.mys ? st.mn : st.n;
+    const conc = t => { const n = ord(), k = st.k, a = st.A0; return n === 0 ? Math.max(0, a - k * t) : n === 1 ? a * Math.exp(-k * t) : a / (1 + k * a * t); };
+    const th = () => { const n = ord(); return n === 0 ? st.A0 / (2 * st.k) : n === 1 ? Math.LN2 / st.k : 1 / (st.k * st.A0); };
+    const tmax = () => { const n = ord(); return n === 0 ? 1.15 * st.A0 / st.k : n === 1 ? Math.log(10) / st.k : 9 / (st.k * st.A0); };
+    const halves = () => { const n = ord(), out = []; for (let m = 1; m <= 4; m++) { const t = n === 0 ? st.A0 * (1 - Math.pow(2, -m)) / st.k : n === 1 ? m * Math.LN2 / st.k : (Math.pow(2, m) - 1) / (st.k * st.A0); if (t <= tmax()) out.push(t); } return out; };
+    const Y = { c: c => c, ln: c => Math.log(Math.max(c, 1e-3 * st.A0)), inv: c => 1 / Math.max(c, 1e-3 * st.A0) };
+    const YL = { c: '[A] / M', ln: 'ln [A]', inv: '1 / [A]' };
+    const MIS = [['three', 'Run a first-order reaction until only 12.5 % of A is left — count the half-lives', x => !x.mys && x.n === 1 && x.frac <= 0.125],
+      ['zero', 'Make a zero-order reaction run out completely', x => !x.mys && x.n === 0 && x.frac === 0],
+      ['line1', 'Find the plot that is a straight line for first order', x => !x.mys && x.n === 1 && x.plot === 'ln' && x.frac < 0.5],
+      ['line2', 'Find the plot that is a straight line for second order', x => !x.mys && x.n === 2 && x.plot === 'inv' && x.frac < 0.5],
+      ['myst', 'Detective: crack 3 mystery reactions (order hidden)', x => x.solved >= 3]];
+    const pts = Array.from({ length: 70 }, (_, i) => [20 + ((i * 47) % 100) / 100 * 120, 40 + ((i * 71) % 100) / 100 * 90, (i * 0.618) % 1]);
+    let raf = 0, last = 0;
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>⚗️ Reaction Race</h3>
+        <p class="jx-fine">Blue A molecules turn into orange B. Choose the order, press ▶ and watch the graph draw itself.</p>
+        <div class="jx-seg3">${st.mys ? '<button class="on">🕵️ Mystery order</button>' : [0, 1, 2].map(n => `<button data-n="${n}" class="${n === st.n ? 'on' : ''}">${['Zero', 'First', 'Second'][n]} order</button>`).join('')}</div>
+        <div style="display:flex;gap:8px;align-items:stretch;flex-wrap:wrap"><svg viewBox="0 0 160 150" id="jxBk" style="flex:1 1 140px;max-width:200px"></svg><div style="flex:2 1 220px"><svg viewBox="0 0 300 170" class="jx-curve" id="jxG"></svg></div></div>
+        <div class="jx-seg3">${['c', 'ln', 'inv'].map(p => `<button data-p="${p}" class="${p === st.plot ? 'on' : ''}">${YL[p]} vs t</button>`).join('')}</div>
+        <div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>[A]₀ <b id="v_A0">${st.A0} M</b></span><input type="range" min="0.2" max="2" step="0.1" value="${st.A0}" data-k="A0"></label>
+        <label class="jx-sl"><span>Rate constant k <b id="v_k">${st.k} ${st.mys ? '' : KU[st.n]}</b></span><input type="range" min="0.02" max="0.5" step="0.01" value="${st.k}" data-k="k"></label>
+        <div class="jx-seg3"><button id="jxGo">${st.run ? '⏸ Pause' : st.t > 0 && st.t >= tmax() ? '↺ Replay' : '▶ Start'}</button><button id="jxRs">⏮ Reset</button><button id="jxMy">${st.mys ? '🔓 Leave mystery' : '🕵️ Mystery reaction'}</button></div>
+        <div id="jxGuess"></div>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => { cancelAnimationFrame(raf); unit(uid, 'lab'); };
+      el.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { tap(); st.n = +b.dataset.n; reset(); draw(); });
+      el.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { tap(); st.plot = b.dataset.p; el.querySelectorAll('[data-p]').forEach(x => x.classList.toggle('on', x === b)); upd(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + (i.dataset.k === 'A0' ? ' M' : st.mys ? '' : ' ' + KU[st.n]); reset(); upd(); });
+      $('#jxGo').onclick = () => { tap(); if (st.t >= tmax()) st.t = 0; st.run = !st.run; $('#jxGo').textContent = st.run ? '⏸ Pause' : '▶ Start'; if (st.run) { last = 0; raf = requestAnimationFrame(loop); } };
+      $('#jxRs').onclick = () => { tap(); reset(); $('#jxGo').textContent = '▶ Start'; upd(); };
+      $('#jxMy').onclick = () => { tap('open'); st.mys = !st.mys; if (st.mys) { st.mn = Math.floor(Math.random() * 3); st.k = +(0.05 + Math.random() * 0.3).toFixed(2); } reset(); draw(); };
+      upd();
+    };
+    const reset = () => { st.t = 0; st.run = false; cancelAnimationFrame(raf); };
+    const loop = ts => {
+      if (!document.body.contains(el) || !$('#jxG')) return;
+      if (last) st.t = Math.min(tmax(), st.t + (ts - last) / 1000 * tmax() / 9);
+      last = ts; upd();
+      if (st.t >= tmax()) { st.run = false; const g = $('#jxGo'); if (g) g.textContent = '↺ Replay'; return; }
+      if (st.run) raf = requestAnimationFrame(loop);
+    };
+    const upd = () => {
+      const c = conc(st.t), frac = c / st.A0, n = ord(), T = tmax(), nA = Math.round(70 * frac);
+      $('#jxBk').innerHTML = `<path d="M12 20 L12 140 Q12 146 18 146 L142 146 Q148 146 148 140 L148 20" fill="#eff6ff" stroke="#64748b" stroke-width="2"/>
+        <rect x="14" y="${146 - 120 * 0.85}" width="132" height="${120 * 0.85 - 2}" fill="#dbeafe" opacity=".6"/>
+        ${pts.map(([x, y, r], i) => `<circle cx="${(x + Math.sin(st.t * 3 + i) * 3).toFixed(1)}" cy="${(y + Math.cos(st.t * 2.3 + i) * 3).toFixed(1)}" r="4.2" fill="${i < nA ? '#2563eb' : '#f97316'}"/>`).join('')}
+        <text x="80" y="14" text-anchor="middle" font-size="11" font-weight="700">A ${Math.round(frac * 100)}% · B ${100 - Math.round(frac * 100)}%</text>`;
+      const N = 120, xs = Array.from({ length: N + 1 }, (_, i) => i / N * T), all = xs.map(t => Y[st.plot](conc(t)));
+      const lo = Math.min(...all), hi = Math.max(...all), sy = v => 150 - (hi === lo ? 0.5 : (v - lo) / (hi - lo)) * 135, sx = t => 30 + t / T * 265;
+      const seen = xs.filter(t => t <= st.t + 1e-9), line = seen.map(t => sx(t).toFixed(1) + ',' + sy(Y[st.plot](conc(t))).toFixed(1)).join(' ');
+      let r2 = 0;
+      if (seen.length > 8) { const ys = seen.map(t => Y[st.plot](conc(t))), mxv = seen.reduce((a, b) => a + b, 0) / seen.length, my = ys.reduce((a, b) => a + b, 0) / ys.length;
+        let sxy = 0, sxx = 0, syy = 0; seen.forEach((t, i) => { sxy += (t - mxv) * (ys[i] - my); sxx += (t - mxv) ** 2; syy += (ys[i] - my) ** 2; }); r2 = syy < 1e-12 ? 1 : sxy * sxy / (sxx * syy); }
+      const zeroEnd = n === 0 && st.plot !== 'c' && frac < 0.02;
+      const straight = seen.length > 20 && r2 > 0.9995 && !zeroEnd;
+      $('#jxG').innerHTML = `<line x1="30" y1="150" x2="297" y2="150" stroke="#c4b5fd"/><line x1="30" y1="10" x2="30" y2="150" stroke="#c4b5fd"/>
+        ${st.plot === 'c' ? halves().map((h, i) => `<line x1="${sx(h)}" y1="12" x2="${sx(h)}" y2="150" stroke="#db2777" stroke-dasharray="3 3" opacity="${h <= st.t ? 0.9 : 0.25}"/><text x="${sx(h) + 2}" y="20" font-size="9" fill="#db2777" opacity="${h <= st.t ? 1 : 0.3}">t½ #${i + 1}</text>`).join('') : ''}
+        <polyline fill="none" stroke="${straight ? '#16a34a' : '#7c3aed'}" stroke-width="2.6" points="${line}"/>
+        ${seen.length ? `<circle cx="${sx(st.t)}" cy="${sy(Y[st.plot](c))}" r="4.5" fill="#db2777"/>` : ''}
+        <text x="34" y="165" font-size="10" fill="#6b6795">time →  (y: ${YL[st.plot]})</text>
+        ${straight ? '<text x="290" y="40" text-anchor="end" font-size="12" font-weight="700" fill="#16a34a">📏 Straight line!</text>' : seen.length > 20 ? '<text x="290" y="40" text-anchor="end" font-size="11" fill="#9333ea">curved</text>' : ''}`;
+      const hs = halves(), gaps = hs.map((h, i) => (h - (i ? hs[i - 1] : 0)).toFixed(1));
+      $('#jxRead').innerHTML = `<span>t <b>${st.t.toFixed(1)} s</b></span><span>[A] <b>${c.toFixed(3)} M</b></span><span>rate <b>${(st.k * Math.pow(c, n)).toFixed(4)} M s⁻¹</b></span>
+        ${st.mys ? '<span>half-life gaps <b>' + (st.t >= (hs[1] || 1e9) ? gaps.slice(0, 3).join(' → ') + ' s' : 'run to see') + '</b></span>' : `<span>t½ <b>${th().toFixed(1)} s</b></span><span>half-life gaps <b>${gaps.slice(0, 3).join(' → ')} s</b></span>`}`;
+      $('#jxGuess').innerHTML = st.mys ? `<p class="jx-p">🕵️ Which plot is straight? Then name the order:</p><div class="jx-seg3">${[0, 1, 2].map(g => `<button data-g="${g}">Order ${g}</button>`).join('')}</div><small class="jx-fine">Solved so far: ${st.solved}</small>` : '';
+      el.querySelectorAll('[data-g]').forEach(b => b.onclick = () => {
+        if (+b.dataset.g === st.mn) { st.solved++; done.ck_solved = st.solved; save(); tap('correct'); toast(`✅ Yes — order ${st.mn}! ${['[A] vs t', 'ln[A] vs t', '1/[A] vs t'][st.mn]} is straight.`); st.mn = Math.floor(Math.random() * 3); st.k = +(0.05 + Math.random() * 0.3).toFixed(2); reset(); draw(); }
+        else { tap('wrong'); toast('Not quite — try the three plots and look for the green straight line.'); }
+      });
+      const x = { ...st, frac, n: st.n };
+      let fresh = false; MIS.forEach(([k, , t]) => { if (!done['ck_' + k] && t(x)) { done['ck_' + k] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([k, n2]) => `<div class="jx-mis ${done['ck_' + k] ? 'ok' : ''}">${done['ck_' + k] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+  function arrhLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {}), Rg = 8.314, A = 1e13;
+    const st = { T: 300, Ea: 80, cat: false, d: 20 };
+    const kOf = (Ea, T) => A * Math.exp(-Ea * 1000 / (Rg * T));
+    const human = s => s < 1e-3 ? (s * 1e6).toPrecision(2) + ' μs' : s < 1 ? (s * 1e3).toPrecision(2) + ' ms' : s < 120 ? s.toPrecision(2) + ' s' : s < 7200 ? (s / 60).toPrecision(2) + ' min' : s < 172800 ? (s / 3600).toPrecision(2) + ' h' : s < 3.15e7 * 2 ? (s / 86400).toPrecision(3) + ' days' : s < 3.15e7 * 1e9 ? (s / 3.15e7).toPrecision(2) + ' years' : 'longer than the age of Earth';
+    const sci = v => { const e = Math.floor(Math.log10(v)); return e >= -2 && e <= 2 ? v.toPrecision(3) : (v / 10 ** e).toFixed(2) + ' × 10' + String(e).split('').map(ch => '⁰¹²³⁴⁵⁶⁷⁸⁹'['0123456789'.indexOf(ch)] || '⁻').join(''); };
+    const MIS = [['dbl', 'Find the Eₐ for which a 10 °C rise (298 → 308 K) exactly doubles k (ratio 2.00 ± 0.05)', x => x.T === 298 && Math.abs(x.r10 - 2) <= 0.05],
+      ['fast', 'Without a catalyst, at 300 K, make the half-life shorter than 1 second', x => !x.cat && x.T === 300 && x.th < 1],
+      ['year', 'At 300 K, find an Eₐ that makes the half-life about one year (½ to 2 years)', x => x.T === 300 && x.th > 1.58e7 && x.th < 6.3e7],
+      ['cat', 'Switch on the catalyst and make the reaction at least 1000 times faster', x => x.cat && x.boost >= 1000],
+      ['hot', 'Keep Eₐ, heat it up: 100 times faster than at 300 K', x => x.T > 300 && x.vs300 >= 100]];
+    const sl = (k, lab, mn, mxv, stp, u) => `<label class="jx-sl"><span>${lab} <b id="v_${k}">${st[k]}${u}</b></span><input type="range" min="${mn}" max="${mxv}" step="${stp}" value="${st[k]}" data-k="${k}"></label>`;
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔥 Arrhenius Hill</h3>
+      <p class="jx-fine">Molecules must climb the energy hill Eₐ to react. Heat them up or lower the hill — and see how violently k changes.</p>
+      <svg viewBox="0 0 320 170" class="jx-circ" id="jxHill"></svg><div class="jx-read" id="jxRead"></div>
+      ${sl('T', 'Temperature T', 200, 800, 1, ' K')}${sl('Ea', 'Activation energy Eₐ', 10, 200, 0.5, ' kJ/mol')}
+      <div class="jx-seg3"><button id="jxCat">${st.cat ? '🧪 Catalyst ON' : '🧪 Add catalyst'}</button></div><div id="jxCs"></div>
+      <h3 style="margin-top:12px">🎲 Collisions that make it over the hill</h3><div id="jxFrac"></div>
+      <h3 style="margin-top:12px">📈 ln k vs 1/T (the Arrhenius plot)</h3><svg viewBox="0 0 310 130" class="jx-curve" id="jxArr"></svg>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    const bind = () => el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + ({ T: ' K', Ea: ' kJ/mol', d: ' kJ/mol' })[i.dataset.k]; upd(); });
+    $('#jxCat').onclick = () => { tap(); st.cat = !st.cat; $('#jxCat').textContent = st.cat ? '🧪 Catalyst ON' : '🧪 Add catalyst'; $('#jxCs').innerHTML = st.cat ? sl('d', 'Catalyst lowers Eₐ by', 1, 60, 1, ' kJ/mol') : ''; bind(); upd(); };
+    const upd = () => {
+      const Ee = Math.max(1, st.Ea - (st.cat ? st.d : 0)), k = kOf(Ee, st.T), th = Math.LN2 / k, f = Math.exp(-Ee * 1000 / (Rg * st.T));
+      const x = { ...st, k, th, r10: kOf(Ee, st.T + 10) / k, boost: st.cat ? k / kOf(st.Ea, st.T) : 1, vs300: k / kOf(Ee, 300) };
+      const base = 120, sc = 0.45, top = base - st.Ea * sc, ctop = base - Ee * sc, prod = base + 20;
+      const hill = (h, dash, col) => `<path d="M10 ${base} L80 ${base} C120 ${base} 130 ${h} 160 ${h} C190 ${h} 200 ${prod} 240 ${prod} L310 ${prod}" fill="none" stroke="${col}" stroke-width="3" ${dash ? 'stroke-dasharray="6 4"' : ''}/>`;
+      const jig = Math.min(30, 4 + (st.T - 200) / 25);
+      $('#jxHill').innerHTML = `${hill(top, false, '#7c3aed')}${st.cat ? hill(ctop, true, '#16a34a') : ''}
+        <line x1="150" y1="${base}" x2="150" y2="${st.cat ? ctop : top}" stroke="#db2777" stroke-dasharray="2 3"/><text x="150" y="${base + 14}" text-anchor="middle" font-size="11" font-weight="700" fill="#db2777">Eₐ = ${Ee.toFixed(1)} kJ</text>
+        ${Array.from({ length: 6 }, (_, i) => `<circle cx="${30 + i * 9}" cy="${base - 6}" r="5" fill="#2563eb"><animate attributeName="cy" values="${base - 6};${base - 6 - jig * (0.5 + (i % 3) / 3)};${base - 6}" dur="${(0.5 + 300 / st.T * (0.4 + i * 0.05)).toFixed(2)}s" repeatCount="indefinite"/></circle>`).join('')}
+        ${f > 1e-4 ? `<circle r="5" fill="#f97316"><animateMotion dur="${Math.max(0.8, Math.min(6, -Math.log10(f) / 1.5)).toFixed(1)}s" repeatCount="indefinite" path="M60 ${base - 6} C120 ${base - 6} 130 ${(st.cat ? ctop : top) - 6} 160 ${(st.cat ? ctop : top) - 6} C190 ${(st.cat ? ctop : top) - 6} 200 ${prod - 6} 260 ${prod - 6}"/></circle>` : ''}
+        <text x="40" y="${base + 18}" font-size="10" fill="#475569">reactants</text><text x="270" y="${prod + 16}" font-size="10" fill="#475569" text-anchor="middle">products</text>
+        <text x="160" y="${Math.max(12, (st.cat ? Math.min(top, ctop) : top) - 8)}" text-anchor="middle" font-size="10" fill="#7c3aed">transition state</text>`;
+      $('#jxRead').innerHTML = `<span>k <b>${sci(k)} s⁻¹</b></span><span>t½ <b>${human(th)}</b></span><span>k(T+10)/k(T) <b>${x.r10.toFixed(2)}</b></span>${st.cat ? `<span>catalyst boost <b>× ${sci(x.boost)}</b></span>` : ''}`;
+      const lg = Math.log10(f), pos = Math.max(0, Math.min(100, (lg + 40) / 40 * 100));
+      $('#jxFrac').innerHTML = `<div style="position:relative;height:30px;border-radius:8px;background:linear-gradient(90deg,#1e1b4b,#7c3aed,#f97316,#fde047)"><span style="position:absolute;left:${pos}%;top:-2px;transform:translateX(-50%);font-size:22px">▼</span></div>
+        <small class="jx-fine">${mx('e^{−E_{a}/RT}')} = ${sci(f)} — about <b>1 collision in ${f > 0.5 ? '1' : sci(1 / f)}</b> has enough energy. (scale: 10⁻⁴⁰ → 1)</small>`;
+      const Ts = [250, 300, 350, 400, 500, 600, 800], lk = T => Math.log(kOf(Ee, T)), xs = T => 30 + (1 / T - 1 / 800) / (1 / 250 - 1 / 800) * 270, lks = Ts.map(lk), lo = Math.min(...lks), hi = Math.max(...lks), ys = v => 115 - (v - lo) / (hi - lo || 1) * 100;
+      $('#jxArr').innerHTML = `<line x1="30" y1="115" x2="302" y2="115" stroke="#c4b5fd"/><line x1="30" y1="10" x2="30" y2="115" stroke="#c4b5fd"/>
+        <line x1="${xs(800)}" y1="${ys(lk(800))}" x2="${xs(250)}" y2="${ys(lk(250))}" stroke="#7c3aed" stroke-width="2.5"/>
+        ${st.T >= 250 ? `<circle cx="${xs(st.T)}" cy="${ys(lk(st.T))}" r="5" fill="#db2777"/>` : ''}
+        <text x="300" y="24" text-anchor="end" font-size="11" fill="#7c3aed">slope = −Eₐ/R = ${Math.round(-Ee * 1000 / Rg)} K</text><text x="34" y="127" font-size="10" fill="#6b6795">1/T → (hot on the left, cold on the right)</text>`;
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['ar_' + kk] && t(x)) { done['ar_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['ar_' + kk] ? 'ok' : ''}">${done['ar_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    bind(); upd();
+  }
 
   /* ---------- Try it yourself: Atomic Structure ---------- */
   function bohrLab(uid) {
