@@ -999,25 +999,41 @@
   /* ---------- 🔤 ANAGRAM (tiles are letters or aksharas) ---------- */
   function playAN(el, st, saved) {
     const p = st.p; let k = saved && saved.k || 0, got = saved && saved.got || 0, skipped = saved && saved.skipped || 0, pick = [];
-    const answers = (saved && saved.ans) || [];
-    st.getState = () => ({ k, got, skipped, ans: answers.slice() });
+    const answers = (saved && saved.ans) || [], shown = (saved && saved.shown) || [];
+    st.getState = () => ({ k, got, skipped, ans: answers.slice(), shown: shown.slice() });
+    /* numbered strip: tap any finished word to look at it again (answer + clue); nothing moves on by itself */
+    const strip = cur => `<div class="pz-strip" role="group" aria-label="Words">${p.words.map((_, i) => `<button class="pz-sd${i === cur ? ' cur' : i < k ? (shown.includes(i) ? ' sh' : ' ok') : ''}" data-v="${i}" ${i > k || (i === k && cur !== k) ? '' : ''}${i > k ? 'disabled' : ''} aria-label="Word ${i + 1}">${i < k ? (shown.includes(i) ? '💡' : '✓') : i + 1}</button>`).join('')}</div>`;
+    const wireStrip = () => $$('.pz-sd', el).forEach(b => b.onclick = () => { const v = +b.dataset.v; S('tap'); if (v < k) review(v); else if (v === k) draw(); });
+    function review(i) {
+      const w = p.words[i], ans = w.u || w.a.split(''), was = shown.includes(i);
+      el.innerHTML = `<div class="pz-root pz-an${st.indic ? ' pz-indic' : ''}" data-pz="an">${header(st, '🔤 Anagram', `Word ${i + 1} of ${p.words.length}`)}${strip(i)}
+        <div class="card pz-anc pz-rev"><p class="pz-ctx"${st.L}>${w.ctx ? E(w.ctx) : 'Clue'}</p><h2 class="pz-anq"${st.L}>${E(w.clue)} <span class="pz-enum">${E(w.enum)}</span></h2>
+          <div class="pz-slots"${st.L}>${ans.map(c => `<span class="pz-slot ${was ? 'rev' : 'ok'}">${E(c)}</span>`).join('')}</div>
+          <p class="pz-revt">${was ? `💡 The answer is <b>${E(w.a)}</b>. Say it aloud and spell it once — it will stick!` : `✅ You unscrambled <b>${E(w.a)}</b>!`}</p>
+          <div class="pz-nav">${i > 0 ? '<button class="btn ghost" id="pzPrev">◀ Previous</button>' : '<span></span>'}<button class="btn" id="pzNext">${i + 1 < k ? 'Next ▶' : k >= p.words.length ? 'See my result ▶' : 'Next word ▶'}</button></div></div></div>`;
+      wireQuit(el, st); wireStrip();
+      const pv = $1('#pzPrev', el); if (pv) pv.onclick = () => { S('tap'); review(i - 1); };
+      $1('#pzNext', el).onclick = () => { S('tap'); if (i + 1 < k) review(i + 1); else draw(); };
+      st.key = e => { if (e.key === 'ArrowLeft' && i > 0) { review(i - 1); return true; } if (e.key === 'ArrowRight' || e.key === 'Enter') { $1('#pzNext', el).click(); return true; } return false; };
+      st.speech = () => was ? `Word ${i + 1}. Clue: ${w.clue}. The answer is ${w.a}.` : `Word ${i + 1}. You unscrambled ${w.a}.`;
+    }
     st.answer = () => answers.slice();
     const draw = () => {
       st.prog(k, p.words.length);
       if (k >= p.words.length) { st.done = true; st.pool = Math.max(0, st.pool - skipped * 2); return finish(st, { line: `${got} of ${p.words.length} unscrambled` }); }
       const w = p.words[k], tiles0 = w.t || w.s.split(''), ans = w.u || w.a.split(''); pick = [];
-      el.innerHTML = `<div class="pz-root pz-an${st.indic ? ' pz-indic' : ''}" data-pz="an">${header(st, '🔤 Anagram', `Word ${k + 1} of ${p.words.length}`)}
+      el.innerHTML = `<div class="pz-root pz-an${st.indic ? ' pz-indic' : ''}" data-pz="an">${header(st, '🔤 Anagram', `Word ${k + 1} of ${p.words.length}`)}${st.race ? '' : strip(k)}
         <div class="card pz-anc"><p class="pz-ctx"${st.L}>${w.ctx ? E(w.ctx) : 'Clue'}</p><h2 class="pz-anq"${st.L}>${E(w.clue)} <span class="pz-enum">${E(w.enum)}</span></h2>
           <div class="pz-slots" aria-live="polite"${st.L}>${ans.map((_, j) => `<span class="pz-slot" data-j="${j}"></span>`).join('')}</div>
           <div class="pz-tiles"${st.L}>${tiles0.map((c, j) => `<button class="pz-lt" data-j="${j}" aria-label="${E(c)}">${E(c)}</button>`).join('')}</div>
-          <div class="pz-tools"><button class="pz-tb" id="pzAnBack">⌫ Undo ${st.indic ? 'tile' : 'letter'}</button>${st.race ? '<button class="pz-tb" id="pzAnHint">💡 Next tile <small>2⭐</small></button>' : '<button class="pz-tb" id="pzAnSkip">⏭ Show answer <small>−2⭐</small></button>'}</div></div></div>`;
-      wireQuit(el, st);
+          <div class="pz-tools"><button class="pz-tb" id="pzAnBack">⌫ Undo ${st.indic ? 'tile' : 'letter'}</button>${st.race ? '<button class="pz-tb" id="pzAnHint">💡 Next tile <small>2⭐</small></button>' : '<button class="pz-tb" id="pzAnSkip">⏭ Show answer <small>−2⭐</small></button>'}${!st.race && k > 0 ? '<button class="pz-tb" id="pzAnPrev">◀ Previous word</button>' : ''}</div></div></div>`;
+      wireQuit(el, st); if (!st.race) { wireStrip(); const pw = $1('#pzAnPrev', el); if (pw) pw.onclick = () => { S('tap'); review(k - 1); }; }
       const slots = $$('.pz-slot', el), tiles = $$('.pz-lt', el);
       const paint = () => { slots.forEach((s, j) => { s.textContent = pick[j] != null ? tiles0[pick[j]] : ''; }); tiles.forEach(t => { t.disabled = pick.includes(+t.dataset.j); }); };
       const chk = () => {
         if (pick.length < ans.length) return;
         const got1 = pick.map(j => tiles0[j]).join('');
-        if (got1 === w.a) { answers[k] = got1; got++; S('correct'); slots.forEach(s => s.classList.add('ok')); announce(`Correct: ${w.a}`); k++; persist(st); setTimeout(draw, 800); }
+        if (got1 === w.a) { answers[k] = got1; got++; S('correct'); slots.forEach(s => s.classList.add('ok')); announce(`Correct: ${w.a}`); k++; persist(st); if (st.race) setTimeout(draw, 800); else setTimeout(() => review(k - 1), 500); }
         else { st.mistakes++; S('wrong'); $1('.pz-slots', el).classList.add('shake'); announce('Not quite. Try again.'); setTimeout(() => { pick = []; paint(); const s = $1('.pz-slots', el); if (s) s.classList.remove('shake'); }, 600); }
       };
       tiles.forEach(t => t.onclick = () => { if (pick.includes(+t.dataset.j) || pick.length >= ans.length) return; pick.push(+t.dataset.j); S('tap'); paint(); chk(); });
@@ -1028,7 +1044,7 @@
         const keep = pick.slice(0, ok), j = tiles0.findIndex((c, x) => c === ans[ok] && !keep.includes(x)); if (j < 0) return;
         if (!charge(st, 2, `Next is ${ans[ok]}`)) return; pick = keep.concat(j); S('coin'); paint(); chk();
       };
-      else $1('#pzAnSkip', el).onclick = () => { skipped++; st.hints++; slots.forEach((s, j) => { s.textContent = ans[j]; s.classList.add('rev'); }); announce(`The answer is ${w.a}`); S('hmm'); k++; persist(st); setTimeout(draw, 1400); };
+      else $1('#pzAnSkip', el).onclick = () => { skipped++; st.hints++; shown.push(k); announce(`The answer is ${w.a}`); S('hmm'); k++; persist(st); review(k - 1); };
       st.key = e => { if (!st.indic && /^[a-zA-Z]$/.test(e.key)) { const L = e.key.toUpperCase(), t = tiles.find(t => !t.disabled && t.textContent === L); if (t) t.click(); return true; } if (e.key === 'Backspace') { $1('#pzAnBack', el).click(); return true; } return false; };
       st.speech = () => `Anagram ${k + 1} of ${p.words.length}. Clue: ${w.clue}. ${ans.length} ${st.indic ? 'tiles' : 'letters'}. ${st.indic ? 'Tiles' : 'Letters'}: ${tiles0.join(', ')}. ${st.indic ? 'Tap the tiles in order.' : 'Type the letters in order.'}`;
       paint();
@@ -1231,7 +1247,7 @@
 .pz-c:focus-visible,.pz-s:focus-visible,.pz-k1:focus-visible,.pz-w:focus-visible{box-shadow:inset 0 0 0 3px #2563eb}
 .pz-cluebar{background:#fff;border-radius:14px;padding:9px 12px;margin-bottom:8px;font-size:14.5px;line-height:1.35;min-height:44px;box-shadow:0 4px 14px rgba(0,0,0,.14)}
 .pz-ctx{color:var(--muted);font-size:12.5px}.pz-enum{color:var(--muted);font-weight:800;white-space:nowrap}.pz-near{color:#7646ea;font-weight:800}
-.pz-tools{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px}.pz-tb{flex:1 1 auto;border:0;border-radius:12px;padding:9px 10px;background:#eef0fb;color:var(--ink);font:700 13px Nunito,sans-serif;cursor:pointer;min-height:40px}.pz-tb small{opacity:.7}.pz-tb.on{background:var(--violet);color:#fff}
+.pz-strip{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0 8px}.pz-sd{min-width:34px;height:34px;border:0;border-radius:50%;background:#eef0fb;color:var(--ink);font:800 13px Nunito,sans-serif;cursor:pointer}.pz-sd.ok{background:#d6f5e6;color:#137a4b}.pz-sd.sh{background:#fff1c2}.pz-sd.cur{background:var(--violet);color:#fff;box-shadow:0 0 0 3px rgba(108,92,231,.25)}.pz-sd:disabled{opacity:.45;cursor:default}.pz-nav{display:flex;gap:8px;justify-content:space-between;margin-top:10px}.pz-nav .btn{flex:1}.pz-revt{text-align:center;font-size:16px;margin:8px 0}.pz-tools{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px}.pz-tb{flex:1 1 auto;border:0;border-radius:12px;padding:9px 10px;background:#eef0fb;color:var(--ink);font:700 13px Nunito,sans-serif;cursor:pointer;min-height:40px}.pz-tb small{opacity:.7}.pz-tb.on{background:var(--violet);color:#fff}
 .pz-kb{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;user-select:none}.pz-kr{display:flex;gap:4px;justify-content:center}
 .pz-k{flex:1 1 0;max-width:40px;min-height:44px;border:0;border-radius:9px;background:#fff;color:#1b1f3a;font:800 16px 'Baloo 2',sans-serif;box-shadow:0 2px 0 #c9cde4;cursor:pointer;padding:0}.pz-k.wide{max-width:64px;flex:1.6 1 0;font-size:13px;background:#dfe3f6}.pz-k:active{transform:translateY(2px);box-shadow:none}
 .pz-clues ol{list-style:none;margin:0 0 8px;padding:0}.pz-cl{width:100%;text-align:left;border:0;background:none;padding:7px 6px;border-radius:10px;font:500 14px/1.35 Nunito,sans-serif;color:var(--ink);cursor:pointer}.pz-cl b{display:inline-block;min-width:22px}.pz-cl.on{background:#fff3c4}

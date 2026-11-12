@@ -270,21 +270,38 @@
 
   /* ---------- running a set of puzzles ---------- */
   function runSet(list, opts) {   // list: [{g, lvl}], opts: {title, back, onEnd(results), timed}
-    let i = 0; const res = [];
+    let i = 0; const res = [], snaps = [];
+    /* review: a numbered strip + ◀ Previous lets students look again at any answered challenge (its answer and the why) */
+    const stripHTML = cur => `<div class="pl-hist" role="group" aria-label="Answered challenges">${list.map((_, j) => j < snaps.length ? `<button type="button" class="pl-hd ${snaps[j].ok ? 'y' : 'n'}${j === cur ? ' cur' : ''}" data-h="${j}" aria-label="Look again at challenge ${j + 1}">${snaps[j].ok ? '✓' : '✗'}</button>` : `<span class="pl-hd${j === cur ? ' cur' : ''}">${j + 1}</span>`).join('')}</div>`;
+    function review(el, j) {
+      const card = $1('.pl-card', el); let rv = $1('.pl-revw', el);
+      if (!rv) { rv = D.createElement('div'); rv.className = 'card pl-card pl-revw'; card.after(rv); }
+      card.hidden = true; rv.hidden = false; window.scrollTo(0, 0);
+      rv.innerHTML = `${stripHTML(j)}<p class="pl-revtag">👀 Looking again at challenge ${j + 1}</p><div class="pl-revbody">${snaps[j].html}</div>
+        <div class="pl-nav">${j > 0 ? '<button type="button" class="btn ghost" data-go="prev">◀ Previous</button>' : '<span></span>'}<button type="button" class="btn" data-go="next">${j + 1 < i ? 'Next ▶' : `Back to challenge ${i + 1} ▶`}</button></div>`;
+      rv.querySelectorAll('[data-h]').forEach(b => b.onclick = () => { S('tap'); review(el, +b.dataset.h); });
+      rv.querySelector('[data-go="next"]').onclick = () => { S('tap'); if (j + 1 < i) review(el, j + 1); else back(el); };
+      const pv = rv.querySelector('[data-go="prev"]'); if (pv) pv.onclick = () => { S('tap'); review(el, j - 1); };
+    }
+    function back(el) { const rv = $1('.pl-revw', el); if (rv) rv.hidden = true; $1('.pl-card:not(.pl-revw)', el).hidden = false; }
     const next = () => {
       if (i >= list.length) return opts.onEnd(res);
       const it = list[i]; if (it.s) SU = SUITES[it.s];
       const g = SU.games.find(x => x.id === it.g), p = g.pool ? MindPool.next(SU.test, g) : SU.gen().make(it.g, band(), it.lvl);
-      const el = frame(`<div class="card pl-card"><div class="pl-top"><span>${it.s ? MG().TESTS.find(x => x.id === it.s).e + ' ' : ''}${g.e} ${E(gname(g))}${opts.tag ? ` · ${E(opts.tag(it))}` : ''}</span><span>${i + 1} / ${list.length}</span></div><div class="mg-bar"><i style="width:${Math.round(i / list.length * 100)}%"></i></div><div class="pl-stage"></div><div class="pl-fb" aria-live="polite"></div></div>`, opts.back, opts.title);
+      const el = frame(`<div class="card pl-card">${snaps.length ? stripHTML(i) : ''}<div class="pl-top"><span>${it.s ? MG().TESTS.find(x => x.id === it.s).e + ' ' : ''}${g.e} ${E(gname(g))}${opts.tag ? ` · ${E(opts.tag(it))}` : ''}</span><span>${i + 1} / ${list.length}</span></div><div class="mg-bar"><i style="width:${Math.round(i / list.length * 100)}%"></i></div><div class="pl-stage"></div><div class="pl-fb" aria-live="polite"></div></div>`, opts.back, opts.title);
       const stage = $1('.pl-stage', el);
+      el.querySelectorAll('.pl-card [data-h]').forEach(b => b.onclick = () => { S('tap'); review(el, +b.dataset.h); });
       PLAY[it.g](stage, p, (ok, why, extra, part, after) => {
         S(ok ? 'right' : 'wrong'); if (ok) burst($1('.pl-card', el));
         res.push({ g: it.g, ok, part: part == null ? (ok ? 1 : 0) : part });
         try { if (!g.pool) MG().record(SU.test, SU.kind(g), ok); } catch (e) {}
         const fb = $1('.pl-fb', el);
-        fb.innerHTML = `<p class="mg-v ${ok ? 'ok' : 'no'}">${ok ? (band() === 'j' ? '🎉 Yay, correct!' : band() === 'm' ? '✅ Quest step cleared!' : '✅ Correct') : (band() === 'j' ? '🙈 Oops, not this time!' : '❌ Not quite')}</p><p>${E(why)}</p>${extra || ''}<button class="btn" type="button" id="plNext">${i + 1 < list.length ? 'Next ▶' : 'See results'}</button>`;
+        fb.innerHTML = `<p class="mg-v ${ok ? 'ok' : 'no'}">${ok ? (band() === 'j' ? '🎉 Yay, correct!' : band() === 'm' ? '✅ Quest step cleared!' : '✅ Correct') : (band() === 'j' ? '🙈 Oops, not this time!' : '❌ Not quite')}</p><p>${E(why)}</p>${extra || ''}<div class="pl-nav">${i > 0 ? '<button class="btn ghost" type="button" id="plPrev">◀ Previous</button>' : ''}<button class="btn" type="button" id="plNext">${i + 1 < list.length ? 'Next ▶' : 'See results'}</button></div>`;
         if (after) after(fb);
-        const nb = $1('#plNext', el); nb.onclick = () => { S('tap'); i++; next(); };
+        const cardEl = $1('.pl-card', el);
+        setTimeout(() => { const c = cardEl.cloneNode(true); c.querySelectorAll('.pl-nav,.pl-hist,.pq-again,.mg-showme,.mg-conf').forEach(x => x.remove()); c.querySelectorAll('button,input').forEach(x => { x.disabled = true; x.tabIndex = -1; }); snaps[i] = { html: c.innerHTML, ok }; }, 1600);
+        const pb = $1('#plPrev', el); if (pb) pb.onclick = () => { S('tap'); review(el, i - 1); };
+        const nb = $1('#plNext', el); nb.onclick = () => { S('tap'); if (!snaps[i]) { const c = cardEl.cloneNode(true); c.querySelectorAll('.pl-nav,.pl-hist,.pq-again,.mg-showme,.mg-conf').forEach(x => x.remove()); c.querySelectorAll('button,input').forEach(x => { x.disabled = true; x.tabIndex = -1; }); snaps[i] = { html: c.innerHTML, ok }; } i++; next(); };
         nb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
     };
@@ -439,7 +456,7 @@
       .pl-mc.in{border:2px dashed var(--plc);background:#fff;cursor:pointer;font-family:inherit;color:#1f2d33}.pl-mc.sel{border-style:solid;background:#fff6c7}.pl-mc.ok{background:#d6f5e6}.pl-mc.no{background:#fde2e2;font-size:16px}
       .pl-sums{display:grid;grid-template-rows:repeat(3,60px);gap:6px}.pl-sums span{display:grid;place-items:center;font-weight:900;color:#99a}.pl-sums .ok{color:#1e9e6a}.pl-sums .no{color:#e45}
       .pl-s .pl-mc{background:#2a3152;color:#fff}.pl-s .pl-mc.in{background:#161b30;color:#fff}
-      .pl-fb p{line-height:1.45}.pl-end{text-align:center;position:relative}.pl-bigstars{font-size:34px;letter-spacing:4px}.pl-unlock{font-weight:900;color:#1e9e6a;font-size:18px}
+      .pl-fb p{line-height:1.45}.pl-nav{display:flex;gap:8px;margin-top:8px}.pl-nav .btn{flex:1}.pl-nav span{flex:1}.pl-hist{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:0 0 8px}.pl-hd{min-width:28px;height:28px;border-radius:50%;border:0;display:grid;place-items:center;font-weight:900;font-size:12px;background:rgba(0,0,0,.07);color:inherit;font-family:inherit}.pl-hd.y{background:#1e9e6a;color:#fff;cursor:pointer}.pl-hd.n{background:#e45;color:#fff;cursor:pointer}.pl-hd.cur{box-shadow:0 0 0 3px var(--plc)}.pl-revtag{text-align:center;font-weight:800;color:var(--plc);margin:0 0 6px}.pl-revbody{pointer-events:none}.pl-revbody .pl-fb,.pl-revbody .pl-fb *{pointer-events:auto}.pl-end{text-align:center;position:relative}.pl-bigstars{font-size:34px;letter-spacing:4px}.pl-unlock{font-weight:900;color:#1e9e6a;font-size:18px}
       .pl-ring{--p:0;width:120px;height:120px;margin:8px auto;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--plc) calc(var(--p)*1%),rgba(0,0,0,.08) 0)}.pl-ring b{width:92px;height:92px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:26px;color:#1f2d33}
       .pl-secs .mg-bar i{background:var(--plc)}.pl-s .pl-end{background:#161b30;color:#e8ebff}.pl-s .pl-ring b{background:#161b30;color:#fff}
       @keyframes mpPulse{50%{transform:scale(1.04)}}@keyframes mgShake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
