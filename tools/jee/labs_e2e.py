@@ -101,6 +101,13 @@ async def _(pg):
         await pg.locator('#jxL').evaluate('(i,v)=>{i.value=v;i.dispatchEvent(new Event("input",{bubbles:true}));}', str(l))
         if 'reads ZERO' in await pg.inner_text('.jx-card'): print('    bridge null found at', l); return
     raise SystemExit('bridge: null point not reachable')
+@lab('phy-u06', 'orbit')
+async def _(pg):
+    await setr(pg, '[data-k="h"]', 1); await tap(pg, '#jxVc')
+    await setr(pg, '[data-k="h"]', 0.05); await tap(pg, '#jxVe')
+    await setr(pg, '[data-k="h"]', 1); await setr(pg, '[data-k="v"]', 7)
+    await setr(pg, '[data-k="h"]', 5.6); await tap(pg, '#jxVc')
+    await tap(pg, '[data-p="moon"]'); await setr(pg, '[data-k="h"]', 1); await tap(pg, '#jxVc')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

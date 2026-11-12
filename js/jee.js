@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -395,6 +395,7 @@
         photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
         bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
         orbital: ['🧱 Orbital Builder', 'Pick n, l and m to see each orbital and its nodes, then fill boxes electron by electron with Aufbau, Pauli and Hund. 4 missions.', () => orbitalLab(uid)],
+        orbit: ['🛰️ Orbit Launcher', 'Fire a satellite sideways from Earth, the Moon or Mars: watch it crash, circle, stretch into an ellipse or escape — with live orbital and escape speeds. 5 missions.', () => orbitLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
         planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
         pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
@@ -671,6 +672,60 @@
     draw();
   }
 
+
+  /* ---------- Try it yourself: Gravitation ---------- */
+  function orbitLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const PL = { earth: ['🌍 Earth', 7.91, 6371, 84.4, '#2563eb'], moon: ['🌕 Moon', 1.68, 1737, 108.4, '#94a3b8'], mars: ['🔴 Mars', 3.55, 3390, 100.2, '#dc2626'] };
+    const st = { p: 'earth', h: 1, v: 5.6 };
+    const MIS = [['circ', 'Earth: put a satellite in a CIRCULAR orbit at height h = R (within 1 %)', x => x.p === 'earth' && Math.abs(x.h - 1) < 1e-9 && Math.abs(x.e) < 0.01],
+      ['esc', 'Earth: launch from just above the surface (h ≤ 0.1R) and ESCAPE for ever', x => x.p === 'earth' && x.h <= 0.1 + 1e-9 && x.kind === 'escape'],
+      ['ell', 'Make an ellipse whose far point is at least 3 times as far as its near point', x => x.kind === 'orbit' && x.ra >= 3 * x.rp],
+      ['geo', 'Earth: build a GEOSTATIONARY orbit — circular, period 24 h (±2 %)', x => x.p === 'earth' && Math.abs(x.e) < 0.01 && Math.abs(x.T / 60 - 24) < 0.48],
+      ['moon', 'Moon: get into any circular orbit (within 1 %)', x => x.p === 'moon' && x.kind === 'orbit' && Math.abs(x.e) < 0.01]];
+    const calc = () => {
+      const [, vs, Rkm, Tmin] = PL[st.p], r0 = 1 + st.h, u = st.v / vs, E = u * u / 2 - 1 / r0, L = r0 * u, e = Math.sqrt(Math.max(0, 1 + 2 * E * L * L));
+      const vc = vs / Math.sqrt(r0), ve = vs * Math.sqrt(2 / r0);
+      if (E >= 0) return { kind: 'escape', e, L, r0, u, vc, ve, E, T: Infinity, rp: L * L / (1 + e), ra: Infinity, ...st };
+      const a = -1 / (2 * E), rp = a * (1 - e), ra = a * (1 + e);
+      return { kind: rp < 1 ? 'crash' : 'orbit', e, L, r0, u, vc, ve, E, a, rp, ra, T: Tmin * Math.pow(a, 1.5), ...st };
+    };
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🛰️ Orbit Launcher</h3>
+        <p class="jx-fine">Fire a satellite sideways from a tower. Too slow and it falls back; just right and it circles; fast enough and it escapes for ever.</p>
+        <div class="jx-seg3">${Object.entries(PL).map(([k, p]) => `<button data-p="${k}" class="${k === st.p ? 'on' : ''}">${p[0]}</button>`).join('')}</div>
+        <svg viewBox="-160 -160 320 320" class="jx-circ" id="jxOrb" style="max-width:340px;background:#0b1026;border-radius:16px"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>Launch height h <b id="v_h">${st.h} R</b></span><input type="range" min="0.05" max="6" step="0.05" value="${st.h}" data-k="h"></label>
+        <label class="jx-sl"><span>Launch speed (sideways) <b id="v_v">${st.v} km/s</b></span><input type="range" min="0" max="15" step="0.01" value="${st.v}" data-k="v"></label>
+        <div class="jx-seg3"><button id="jxVc">Set circular speed</button><button id="jxVe">Set escape speed</button></div>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { tap(); st.p = b.dataset.p; draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + (i.dataset.k === 'h' ? ' R' : ' km/s'); upd(); });
+      $('#jxVc').onclick = () => { tap(); st.v = +calc().vc.toFixed(2); draw(); };
+      $('#jxVe').onclick = () => { tap(); st.v = +(calc().ve + 0.01).toFixed(2); draw(); };
+      upd();
+    };
+    const upd = () => {
+      const x = calc(), col = PL[st.p][4], sc = 150 / Math.max(3, Math.min(14, x.kind === 'orbit' ? x.ra * 1.1 : x.r0 * 2.2));
+      const out = x.u * x.u * x.r0 >= 1 ? 0 : Math.PI, pts = [];
+      for (let k = 0; k <= 720; k++) { const th = k / 720 * 2 * Math.PI, den = 1 + x.e * Math.cos(th - out); if (den <= 1e-6) continue; const r = x.L * x.L / den; if (r > 40) continue;
+        if (x.kind === 'crash' && r < 1) continue; pts.push([r * Math.cos(th) * sc, -r * Math.sin(th) * sc]); }
+      const path = pts.map((p, k) => (k ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+      $('#jxOrb').innerHTML = `${Array.from({ length: 40 }, (_, k) => `<circle cx="${(k * 97) % 320 - 160}" cy="${(k * 53) % 320 - 160}" r="0.8" fill="#fff" opacity=".5"/>`).join('')}
+        <circle cx="0" cy="0" r="${sc}" fill="${col}"/><circle cx="0" cy="0" r="${sc}" fill="none" stroke="#fff" stroke-opacity=".25"/>
+        <line x1="${sc}" y1="0" x2="${x.r0 * sc}" y2="0" stroke="#e5e7eb" stroke-width="2"/>
+        <path d="${path}" fill="none" stroke="${x.kind === 'escape' ? '#f97316' : x.kind === 'crash' ? '#ef4444' : '#22c55e'}" stroke-width="2" stroke-dasharray="${x.kind === 'escape' ? '6 4' : ''}"/>
+        <circle cx="${x.r0 * sc}" cy="0" r="5" fill="#fde047"/><line x1="${x.r0 * sc}" y1="0" x2="${x.r0 * sc}" y2="${-Math.min(60, 12 + st.v * 4)}" stroke="#fde047" stroke-width="2" marker-end="url(#ar)"/>
+        <defs><marker id="ar" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#fde047"/></marker></defs>
+        <text x="-150" y="-140" fill="#fff" font-size="12" font-weight="700">${x.kind === 'escape' ? '🚀 ESCAPES' : x.kind === 'crash' ? '💥 falls back and hits the ground' : x.e < 0.01 ? '⭕ circular orbit' : '🥚 elliptical orbit'}</text>`;
+      const tt = m => m === Infinity ? '—' : m < 120 ? m.toFixed(0) + ' min' : (m / 60).toFixed(1) + ' h';
+      $('#jxRead').innerHTML = `<span>v<sub>circular</sub> <b>${x.vc.toFixed(2)} km/s</b></span><span>v<sub>escape</sub> <b>${x.ve.toFixed(2)} km/s</b></span><span>total energy <b>${x.E >= 0 ? '≥ 0' : '< 0 (bound)'}</b></span>${x.kind === 'orbit' ? `<span>period <b>${tt(x.T)}</b></span><span>near/far <b>${(x.rp - 1).toFixed(2)}R / ${(x.ra - 1).toFixed(2)}R</b> (height)</span>` : ''}`;
+      let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['gv_' + kk] && t(x)) { done['gv_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['gv_' + kk] ? 'ok' : ''}">${done['gv_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
 
   /* ---------- Try it yourself: Matrices and Determinants ---------- */
   function transformLab(uid) {
