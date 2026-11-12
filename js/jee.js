@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -390,7 +390,7 @@
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
-      const L = { collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
+      const L = { roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
         projectile: ['🏀 Projectile Launcher', 'Set speed, angle and launch height — watch the path, range, height and flight time; hit a flag and find twin angles. 5 missions.', () => projectileLab(uid)],
         circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
@@ -1398,6 +1398,47 @@
       $('#jxRead').innerHTML = `<span>p before <b>${f(x.P0)}</b></span><span>p after <b>${f(x.P1)}</b></span><span>KE before <b>${x.K0.toFixed(1)} J</b></span><span>KE after <b>${x.K1.toFixed(1)} J</b></span><span>KE lost <b>${(100 * x.lost).toFixed(0)}%</b></span>`;
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['cl_' + kk] && tt(x)) { done['cl_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['cl_' + kk] ? 'ok' : ''}">${done['cl_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Rotational Motion ---------- */
+  function rollLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const B = [['ring', 1, '💍 Ring'], ['hollow sphere', 2 / 3, '🏐 Hollow ball'], ['disc', 0.5, '💿 Disc'], ['solid sphere', 0.4, '🎱 Solid ball']];
+    const st = { b: 0, th: 30, mu: 0.6 }, G = 10, Lslope = 2;
+    const calc = () => { const k = B[st.b][1], r = st.th * Math.PI / 180, s = Math.sin(r), c = Math.cos(r), need = k * Math.tan(r) / (1 + k);
+      if (st.mu >= need - 1e-9) { const a = G * s / (1 + k), t = Math.sqrt(2 * Lslope / a); return { k, a, t, roll: true, need, rot: k / (1 + k) }; }
+      const a = G * (s - st.mu * c), t = Math.sqrt(2 * Lslope / a), v = a * t, wR = st.mu * G * c / k * t; return { k, a, t, roll: false, need, rot: k * wR * wR / (v * v + k * wR * wR) }; };
+    const MIS = [['win', 'Find the shape that reaches the bottom FIRST when rolling', x => x.roll && st.b === 3],
+      ['half', 'Find a shape whose spin takes exactly HALF of its kinetic energy', x => x.roll && Math.abs(x.rot - 0.5) < 1e-9],
+      ['ice', 'Make the slope perfectly smooth (μ = 0): it slides without spinning at all', x => st.mu === 0 && x.rot === 0],
+      ['slip', 'Tilt a ring to 60° and lower μ until it starts SLIPPING (but μ > 0)', x => st.b === 0 && st.th === 60 && st.mu > 0 && !x.roll],
+      ['fast', 'Make a disc ROLL down the 2 m slope in under 0.9 s', x => st.b === 2 && x.roll && x.t < 0.9]];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🛞 Rolling Race</h3>
+      <p class="jx-fine">Pick a shape (all the same mass and radius) and let it travel 2 m down the slope (g = 10). It rolls without slipping only while friction can supply what is needed: μ ≥ k·tanθ / (1 + k), where k = I / mR².</p>
+      <div class="jx-seg3" style="display:grid;grid-template-columns:repeat(2,1fr);gap:4px">${B.map((b, i) => `<button style="padding:7px 0;min-width:0" data-sh="${i}">${b[2]}</button>`).join('')}</div>
+      <svg viewBox="0 0 320 190" class="jx-circ" id="jxRo" style="max-width:360px;background:#f8fafc;border-radius:14px;margin-top:8px"></svg><div class="jx-read" id="jxRead"></div>
+      <label class="jx-sl"><span>Slope angle <b id="v_th">${st.th}°</b></span><input type="range" min="5" max="60" step="5" value="${st.th}" data-k="th"></label>
+      <label class="jx-sl"><span>Friction μ <b id="v_mu">${st.mu}</b></span><input type="range" min="0" max="1" step="0.05" value="${st.mu}" data-k="mu"></label>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('[data-sh]').forEach(b => b.onclick = () => { tap(); st.b = +b.dataset.sh; upd(); });
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + (i.dataset.k === 'th' ? '°' : ''); upd(); });
+    const upd = () => {
+      el.querySelectorAll('[data-sh]').forEach(b => b.classList.toggle('on', +b.dataset.sh === st.b));
+      const x = calc(), r = st.th * Math.PI / 180, ox = 40, oy = 150, Lp = Math.min(250, 115 / Math.sin(r)), tx = ox + Lp * Math.cos(r), ty = oy - Lp * Math.sin(r), R = 13;
+      const nx = -Math.sin(r), ny = -Math.cos(r), body = (f, op) => { const px = tx + (ox - tx) * f + nx * R, py = ty + (oy - ty) * f + ny * R;
+        const kind = B[st.b][0], fill = { ring: 'none', 'hollow sphere': '#fde68a', disc: '#c4b5fd', 'solid sphere': '#7c3aed' }[kind];
+        return `<g opacity="${op}"><circle cx="${px}" cy="${py}" r="${R}" fill="${fill}" stroke="#5b21b6" stroke-width="${kind === 'ring' ? 4 : 2}"/><line x1="${px}" y1="${py}" x2="${px + R * Math.cos(f * 9)}" y2="${py + R * Math.sin(f * 9) * (x.roll ? 1 : 0.0001)}" stroke="#f97316" stroke-width="2"/></g>`; };
+      const rotW = 120 * x.rot;
+      $('#jxRo').innerHTML = `<polygon points="${ox},${oy} ${tx},${oy} ${tx},${ty}" fill="#e2e8f0" stroke="#64748b"/>${body(0, 1)}${body(0.5, 0.35)}${body(1, 0.6)}
+        <text x="10" y="18" font-size="11" font-weight="700" fill="${x.roll ? '#15803d' : '#c2410c'}">${x.roll ? '✅ rolling without slipping' : '⚠️ slipping'}</text>
+        <text x="10" y="172" font-size="9" fill="#475569">KE at the bottom:</text><rect x="95" y="164" width="${120 - rotW}" height="10" fill="#38bdf8"/><rect x="${95 + 120 - rotW}" y="164" width="${rotW}" height="10" fill="#f97316"/>
+        <text x="220" y="172" font-size="9" fill="#0369a1">move ${(100 * (1 - x.rot)).toFixed(0)}%</text><text x="270" y="172" font-size="9" fill="#c2410c">spin ${(100 * x.rot).toFixed(0)}%</text>`;
+      $('#jxRead').innerHTML = `<span>a <b>${x.a.toFixed(2)} m/s²</b></span><span>time <b>${x.t.toFixed(2)} s</b></span><span>μ needed <b>${x.need.toFixed(2)}</b></span><span>I/mR² <b>${x.k.toFixed(2)}</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['ro_' + kk] && tt(x)) { done['ro_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['ro_' + kk] ? 'ok' : ''}">${done['ro_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }

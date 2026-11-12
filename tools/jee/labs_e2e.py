@@ -211,6 +211,12 @@ async def _(pg):
     await setr(pg, '[data-k="m1"]', 10); await setr(pg, '[data-k="m2"]', 1)                                                # B ≈ 7.3 m/s
     await setr(pg, '[data-k="m1"]', 2); await setr(pg, '[data-k="m2"]', 6); await setr(pg, '[data-k="e"]', 0)            # stick, 75% lost
     await setr(pg, '[data-k="m2"]', 8); await setr(pg, '[data-k="u2"]', -1)                                                # both stop
+@lab('phy-u05', 'roll')
+async def _(pg):
+    await tap(pg, '[data-sh="3"]'); await tap(pg, '[data-sh="0"]')                                  # win; ring → half
+    await setr(pg, '[data-k="mu"]', 0)                                                             # smooth
+    await setr(pg, '[data-k="th"]', 60); await setr(pg, '[data-k="mu"]', 0.3)                       # ring slips (needs 0.87)
+    await tap(pg, '[data-sh="2"]'); await setr(pg, '[data-k="mu"]', 0.6)                            # disc rolls at 60°, t ≈ 0.83 s
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
