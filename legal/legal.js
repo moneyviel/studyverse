@@ -9,19 +9,19 @@
 var SV_LEGAL = {
   brand: 'Knowtopia',                         // the app name, used in every page
   brandHTML: 'Know<span>topia</span>',         // the coloured logo text in the page header
-  operator: 'Mukesh J',                     // the person who owns and runs the app
+  operator: 'Mukesh Jhedu',                     // the person who owns and runs the app
   tradeName: 'MoneyViel',                       // the business name the app is offered under
   legalForm: 'an individual (sole proprietor) in India, trading as MoneyViel',
   address: '[OWNER TO FILL: full postal address with PIN], Pune, Maharashtra, India',
   email: 'support@knowtopia.in',
   site: 'https://knowtopia.in',
-  goName: 'Mukesh J',                               // Grievance Officer
+  goName: 'Mukesh Jhedu',                               // Grievance Officer
   goPhone: '[OWNER TO FILL: phone number]',
   hours: 'Monday to Saturday, 10 am to 6 pm IST (not on public holidays)',
   gstin: '[OWNER TO FILL: GSTIN, or write "Not registered for GST"]',
-  version: '2.0',                               // policy set version: change it with legal/changes.html
-  effective: '9 November 2026',
-  effectiveISO: '2026-11-09'
+  version: '2.1',                               // policy set version: change it with legal/changes.html
+  effective: '12 November 2026',
+  effectiveISO: '2026-11-12'
 };
 
 (function () {

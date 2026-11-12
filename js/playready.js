@@ -21,7 +21,7 @@
 (function () {
   'use strict';
   const D = document, LS = localStorage;
-  const LEGAL_V = '2.0';                    // KEEP IN SYNC with SV_LEGAL.version (legal/legal.js) and studyverse.legal_settings
+  const LEGAL_V = '2.0';                    // last version that needs acceptance — KEEP IN SYNC with studyverse.legal_settings (legal 2.1 of 12 Nov 2026 was a minor update: no re-acceptance)
   const C = () => window.Cloud || null;
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = m => { try { toast(m); } catch (e) {} };
