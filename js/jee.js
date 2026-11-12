@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -390,7 +390,8 @@
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
-      const L = { circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
+      const L = { projectile: ['🏀 Projectile Launcher', 'Set speed, angle and launch height — watch the path, range, height and flight time; hit a flag and find twin angles. 5 missions.', () => projectileLab(uid)],
+        circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
         photo: ['⚡ Photoelectric Lab', 'Pick a metal, tune the colour and brightness of light, push back with a retarding voltage — see which electrons escape. 5 missions.', () => photoLab(uid)],
         bohr: ['🪐 Bohr Atom Jumper', 'Make the electron jump between orbits of H, He⁺ or Li²⁺ and catch the photon it emits — colour, wavelength and series. 5 missions.', () => bohrLab(uid)],
@@ -1285,6 +1286,41 @@
       const x = { ...st, on };
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['ox_' + kk] && tt(x)) { done['ox_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['ox_' + kk] ? 'ok' : ''}">${done['ox_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Kinematics ---------- */
+  function projectileLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { u: 20, th: 45, h: 0 }, G = 10, TARGET = 30;
+    const calc = () => { const r = st.th * Math.PI / 180, ux = st.u * Math.cos(r), uy = st.u * Math.sin(r), T = (uy + Math.sqrt(uy * uy + 2 * G * st.h)) / G;
+      return { ux, uy, T, H: st.h + uy * uy / (2 * G), R: ux * T }; };
+    const MIS = [['max', 'Get the longest range for u = 20 m/s from the ground', x => st.u === 20 && st.h === 0 && st.th === 45],
+      ['twin', 'Find a SECOND angle that gives the same range as 30° (same speed, ground level)', x => st.h === 0 && st.th === 60],
+      ['hit', 'Land the ball on the flag at 30 m (± 0.5 m)', x => Math.abs(x.R - TARGET) <= 0.5],
+      ['rh', 'Make the range equal to the maximum height (ground level)', x => st.h === 0 && Math.abs(x.R - x.H) / x.H < 0.03],
+      ['cliff', 'Throw horizontally (0°) from a 45 m cliff so that it lands 30 m away', x => st.th === 0 && st.h === 45 && Math.abs(x.R - 30) <= 0.5]];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🏀 Projectile Launcher</h3>
+      <p class="jx-fine">Set speed, angle and launch height (g = 10 m/s²). The horizontal speed never changes; gravity only changes the vertical one.</p>
+      <svg viewBox="0 0 320 190" class="jx-circ" id="jxPj" style="max-width:360px;background:#f0f9ff;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+      <label class="jx-sl"><span>Speed <b id="v_u">${st.u} m/s</b></span><input type="range" min="5" max="30" step="1" value="${st.u}" data-k="u"></label>
+      <label class="jx-sl"><span>Angle <b id="v_th">${st.th}°</b></span><input type="range" min="0" max="90" step="1" value="${st.th}" data-k="th"></label>
+      <label class="jx-sl"><span>Launch height <b id="v_h">${st.h} m</b></span><input type="range" min="0" max="60" step="5" value="${st.h}" data-k="h"></label>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_' + i.dataset.k).textContent = i.value + { u: ' m/s', th: '°', h: ' m' }[i.dataset.k]; upd(); });
+    const upd = () => {
+      const x = calc(), sx = 280 / 95, sy = 150 / 90, X = v => 24 + v * sx, Y = v => 170 - v * sy;
+      let path = ''; for (let k = 0; k <= 60; k++) { const t = x.T * k / 60, px = x.ux * t, py = st.h + x.uy * t - G * t * t / 2; path += (k ? 'L' : 'M') + X(px).toFixed(1) + ' ' + Y(Math.max(0, py)).toFixed(1); }
+      $('#jxPj').innerHTML = `<line x1="0" x2="320" y1="170" y2="170" stroke="#65a30d" stroke-width="3"/>
+        ${st.h ? `<rect x="0" y="${Y(st.h)}" width="24" height="${170 - Y(st.h)}" fill="#a8a29e"/>` : ''}
+        <line x1="${X(TARGET)}" x2="${X(TARGET)}" y1="170" y2="148" stroke="#dc2626" stroke-width="2"/><path d="M${X(TARGET)} 148 l12 4 l-12 4z" fill="#dc2626"/><text x="${X(TARGET)}" y="182" font-size="8" text-anchor="middle" fill="#b91c1c">30 m</text>
+        <path d="${path}" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="1 0"/>
+        <circle cx="${X(x.R)}" cy="170" r="5" fill="#f97316"/><text x="300" y="16" font-size="9" text-anchor="end" fill="#334155">x up to 95 m · y up to 90 m</text>`;
+      $('#jxRead').innerHTML = `<span>range <b>${x.R.toFixed(1)} m</b></span><span>max height <b>${x.H.toFixed(1)} m</b></span><span>flight time <b>${x.T.toFixed(2)} s</b></span><span>u<sub>x</sub> <b>${x.ux.toFixed(1)}</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['pj_' + kk] && tt(x)) { done['pj_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['pj_' + kk] ? 'ok' : ''}">${done['pj_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     upd();
   }

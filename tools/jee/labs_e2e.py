@@ -190,6 +190,13 @@ async def _(pg):
 @lab('chem-u10', 'oxoacid')
 async def _(pg):
     for n in (3, 2, 1): await tap(pg, f'[data-oh="{n}"]')
+@lab('phy-u02', 'projectile')
+async def _(pg):
+    await setr(pg, '[data-k="u"]', 20); await setr(pg, '[data-k="th"]', 45)        # max range 40 m
+    await setr(pg, '[data-k="th"]', 60)                                               # twin of 30°
+    await setr(pg, '[data-k="th"]', 76)                                               # R ≈ H (tan⁻¹4 ≈ 76°)
+    await setr(pg, '[data-k="u"]', 18); await setr(pg, '[data-k="th"]', 34)         # R ≈ 30.04 m
+    await setr(pg, '[data-k="u"]', 10); await setr(pg, '[data-k="th"]', 0); await setr(pg, '[data-k="h"]', 45)   # 10 × 3 = 30 m
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
