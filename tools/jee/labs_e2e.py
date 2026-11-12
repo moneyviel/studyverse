@@ -147,6 +147,14 @@ async def _(pg):
     async def emit(z, hi, lo): await tap(pg, f'[data-z="{z}"]'); await tap(pg, f'[data-hi="{hi}"]'); await tap(pg, f'[data-lo="{lo}"]'); await tap(pg, '#jxEmit')
     await emit(1, 3, 2); await emit(1, 4, 1); await emit(1, 5, 3); await emit(2, 4, 2)
     for hi in (4, 5, 6): await emit(1, hi, 2)
+@lab('chem-u05', 'mixer')
+async def _(pg):
+    async def mix(sol, n, w): await tap(pg, f'[data-s="{sol}"]'); await setr(pg, '[data-k="n"]', n); await setr(pg, '[data-k="w"]', w)
+    await mix('glucose', 5.5, 1)          # ΔTf = 10.2
+    await mix('NaCl', 0.5, 1)             # 1.86 K
+    await mix('CaCl2', 0.5, 0.75)         # 1.04 K
+    await mix('glucose', 1, 1)            # π = 24.9 bar
+    await mix('NaCl', 1.5, 1)             # VP −5.1 %
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

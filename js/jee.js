@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -401,6 +401,7 @@
         box: ['🫧 Molecule Box', 'Watch molecules fly and hit the walls. Change temperature, number and box size and see rms speed, kinetic energy and pressure respond. 5 missions.', () => boxLab(uid)],
         emw: ['🌊 EM Wave Builder', 'Watch the electric and magnetic fields of a light wave move together. Choose the travel direction, field directions, frequency and strength — see wavelength, B and intensity. 5 missions.', () => emLab(uid)],
         spectra: ['🌈 Spectrum Lab', 'Make electrons jump down between energy levels of H, He⁺ and Li²⁺ and see the photon\'s energy, wavelength, series and colour. 5 missions.', () => spectraLab(uid)],
+        mixer: ['🧪 Solution Mixer', 'Dissolve glucose, urea, NaCl or CaCl₂ in water and watch freezing point, boiling point, osmotic pressure and vapour pressure change with the number of particles. 5 missions.', () => mixLab(uid)],
         transform: ['🔀 Matrix Transformer', 'Drag four numbers and watch a matrix stretch, rotate, shear or flatten the plane — the area change is the determinant. 5 missions.', () => transformLab(uid)],
         planes: ['📐 Line Meeting Room', 'Tune two equations and see their lines cross once, run parallel or lie on top of each other, with D, Dx and Dy live. 4 missions.', () => planesLab(uid)],
         pattern: ['📈 Pattern Builder', 'Build A.P.s and G.P.s with sliders: bars for terms, a line for the running sum, and the infinite-sum line a G.P. creeps towards. 5 missions.', () => patternLab(uid)],
@@ -983,6 +984,47 @@
       $('#jxRead').innerHTML = L ? `<span>${ION[L.Z]} ${L.h} → ${L.l}</span><span>${SER[L.l] || ''} series</span><span>E = <b>${(En(L.h, L.Z) - En(L.l, L.Z)).toFixed(2)} eV</b></span><span>λ = <b>${L.L.toFixed(1)} nm</b> (${band(L.L)})</span>` : '<span>No photon yet — press Emit</span>';
       let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['at_' + kk] && tt(st)) { done['at_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['at_' + kk] ? 'ok' : ''}">${done['at_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
+    };
+    draw();
+  }
+
+  /* ---------- Try it yourself: Solutions ---------- */
+  function mixLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const SO = { glucose: ['Glucose', 180, 1], urea: ['Urea', 60, 1], NaCl: ['NaCl', 58.5, 2], CaCl2: ['CaCl₂', 111, 3] };
+    const st = { s: 'glucose', n: 0.5, w: 1 };
+    const calc = () => { const [, M, i] = SO[st.s], m = st.n / st.w, eff = i * m, nw = st.w * 1000 / 18;
+      return { g: st.n * M, m, i, eff, dTf: 1.86 * eff, dTb: 0.52 * eff, pi: 0.083 * 300 * eff, low: i * st.n / (i * st.n + nw) }; };
+    const MIS = [['anti', 'Antifreeze: make the water freeze at −10 °C or colder', x => x.dTf >= 10 - 1e-9],
+      ['same', 'With NaCl, match the freezing point of a 1 molal glucose solution (−1.86 °C)', x => st.s === 'NaCl' && Math.abs(x.dTf - 1.86) < 0.005],
+      ['bp', 'With CaCl₂, raise the boiling point by exactly 1.04 K', x => st.s === 'CaCl2' && Math.abs(x.dTb - 1.04) < 0.005],
+      ['osm', 'Make an osmotic pressure of 24.9 bar at 300 K (within 1 %)', x => Math.abs(x.pi - 24.9) < 0.249],
+      ['vp', 'Lower the vapour pressure of water by at least 5 %', x => x.low >= 0.05]];
+    const draw = () => {
+      el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🧪 Solution Mixer</h3>
+        <p class="jx-fine">Dissolve a solute in water. Colligative properties depend only on how many particles you add: salts split into ions (van 't Hoff factor i), so 1 mol of CaCl₂ counts as 3.</p>
+        <div class="jx-seg3" style="flex-wrap:wrap">${Object.entries(SO).map(([k, v]) => `<button data-s="${k}" class="${k === st.s ? 'on' : ''}">${v[0]}</button>`).join('')}</div>
+        <svg viewBox="0 0 320 176" class="jx-circ" id="jxMix" style="max-width:360px;background:#f0f9ff;border-radius:14px"></svg><div class="jx-read" id="jxRead"></div>
+        <label class="jx-sl"><span>Solute <b id="v_n">${st.n} mol</b></span><input type="range" min="0.05" max="6" step="0.05" value="${st.n}" data-k="n"></label>
+        <label class="jx-sl"><span>Water <b id="v_w">${st.w} kg</b></span><input type="range" min="0.25" max="2" step="0.25" value="${st.w}" data-k="w"></label>
+        <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+      $('#jxBack').onclick = () => unit(uid, 'lab');
+      el.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { tap(); st.s = b.dataset.s; draw(); });
+      el.querySelectorAll('input[type=range]').forEach(i => i.oninput = () => { st[i.dataset.k] = +i.value; $('#v_n').textContent = st.n + ' mol'; $('#v_w').textContent = st.w + ' kg'; upd(); });
+      upd();
+    };
+    const upd = () => {
+      const x = calc(), dots = Math.min(90, Math.round(x.eff * 18)), fr = Math.max(-30, -x.dTf), Y = t => 152 - (t + 30) / 140 * 128;
+      let pts = ''; for (let k = 0; k < dots; k++) pts += `<circle cx="${22 + (k * 37) % 136}" cy="${34 + (k * 53) % 112}" r="3" fill="${k % x.i === 0 ? '#2563eb' : '#f97316'}"/>`;
+      $('#jxMix').innerHTML = `<rect x="14" y="24" width="150" height="128" rx="8" fill="#bae6fd" stroke="#0369a1"/>${pts}<text x="14" y="170" font-size="9" fill="#0c4a6e">${dots}${dots >= 90 ? '+' : ''} particles · blue = formula units · orange = extra ions</text>
+        <rect x="200" y="${Y(110)}" width="16" height="${Y(-30) - Y(110)}" rx="8" fill="#fff" stroke="#64748b"/>
+        <line x1="190" x2="226" y1="${Y(0)}" y2="${Y(0)}" stroke="#94a3b8" stroke-dasharray="3 2"/><line x1="190" x2="226" y1="${Y(100)}" y2="${Y(100)}" stroke="#94a3b8" stroke-dasharray="3 2"/>
+        <text x="230" y="${Y(0) + 3}" font-size="9" fill="#475569">0 °C</text><text x="230" y="${Y(100) + 3}" font-size="9" fill="#475569">100 °C</text>
+        <circle cx="208" cy="${Y(fr)}" r="5" fill="#2563eb"/><text x="236" y="${Y(fr) + 12}" font-size="10" fill="#1d4ed8">freezes ${(-x.dTf).toFixed(2)} °C</text>
+        <circle cx="208" cy="${Y(100 + x.dTb)}" r="5" fill="#dc2626"/><text x="236" y="${Y(100 + x.dTb) - 4}" font-size="10" fill="#b91c1c">boils ${(100 + x.dTb).toFixed(2)} °C</text>`;
+      $('#jxRead').innerHTML = `<span>${x.g.toFixed(1)} g in ${st.w} kg</span><span>molality <b>${x.m.toFixed(3)} m</b></span><span>i = <b>${x.i}</b></span><span>ΔT<sub>f</sub> <b>${x.dTf.toFixed(2)} K</b></span><span>ΔT<sub>b</sub> <b>${x.dTb.toFixed(2)} K</b></span><span>π (300 K) <b>${x.pi.toFixed(1)} bar</b></span><span>VP lowered by <b>${(x.low * 100).toFixed(1)} %</b></span>`;
+      let fresh = false; MIS.forEach(([kk, , tt]) => { if (!done['sl_' + kk] && tt(x)) { done['sl_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['sl_' + kk] ? 'ok' : ''}">${done['sl_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
     draw();
   }
