@@ -217,6 +217,12 @@ async def _(pg):
     await setr(pg, '[data-k="mu"]', 0)                                                             # smooth
     await setr(pg, '[data-k="th"]', 60); await setr(pg, '[data-k="mu"]', 0.3)                       # ring slips (needs 0.87)
     await tap(pg, '[data-sh="2"]'); await setr(pg, '[data-k="mu"]', 0.6)                            # disc rolls at 60°, t ≈ 0.83 s
+@lab('phy-u07', 'stokes')
+async def _(pg):
+    await tap(pg, '[data-lq="1"]'); await setr(pg, '[data-k="rho"]', 7800); await setr(pg, '[data-k="r"]', 2); await setr(pg, '[data-k="r"]', 2.5)   # 4v at 2 mm; 2.5 mm steel in glycerine ≈ 6.5 cm/s
+    await setr(pg, '[data-k="rho"]', 1000)                                                                      # rises
+    await setr(pg, '[data-k="rho"]', 1260)                                                                      # hovers
+    await tap(pg, '[data-lq="2"]'); await setr(pg, '[data-k="r"]', 0.5); await setr(pg, '[data-k="rho"]', 2000)  # honey: ≈ 0.033 cm/s
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
