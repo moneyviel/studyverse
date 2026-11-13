@@ -1,0 +1,686 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p4-ch28-u01",
+ "level": "final",
+ "paper": "p4",
+ "chapter": "fin-p4-ch28",
+ "n": 1,
+ "title": "Latest Developments in International Taxation",
+ "outcomes": [
+  "Describe BEPS monitoring and the Inclusive Framework.",
+  "Explain Pillar One: Amount A and Amount B.",
+  "Apply Pillar Two: GloBE rules and STTR.",
+  "Summarise recent GloBE guidance and safe harbours."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 30,
+   "practice": 15
+  },
+  "prereq": [
+   "fin-p4-ch27-u01"
+  ],
+  "exam_tip": "Keep the thresholds straight: EUR 20 billion and 10% for Amount A; EUR 750 million and 15% for GloBE; 9% for STTR."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "BEPS monitoring and the Inclusive Framework",
+   "body": [
+    "After the 2015 BEPS package of 15 Actions, OECD and G20 countries committed to monitor implementation, especially of the four minimum standards, through peer reviews.",
+    "The Inclusive Framework on BEPS, set up in 2016, lets non-OECD and non-G20 jurisdictions participate on an equal footing in developing and monitoring standards; it had 148 members by January 2026.",
+    "The Inclusive Framework agreed the Two-Pillar solution (BEPS 2.0) in 2021 — the July statement backed by 130 jurisdictions and the October 2021 statement with a detailed implementation plan, later supported by 139."
+   ],
+   "analogy": "BEPS moved from design to monitoring and BEPS 2.0.",
+   "work": "Developing countries now help set international tax standards."
+  },
+  {
+   "id": "c2",
+   "title": "Pillar One: Amount A and Amount B",
+   "body": [
+    "Pillar One has two parts. Amount A reallocates 25% of residual profit (profit above 10% of revenue) of very large and profitable groups — revenue above EUR 20 billion and profitability above 10% — to market jurisdictions using a revenue-based nexus. Amount A is not presently in force.",
+    "Amount B provides a simplified and streamlined approach to pricing baseline marketing and distribution activities, using a pricing matrix based on industry grouping and asset and expense intensity. It was integrated into the OECD Transfer Pricing Guidelines; jurisdictions may choose to apply it, and it has effect only where adopted.",
+    "Further Amount B materials, including pricing FAQs and an automation tool, were released in February 2026."
+   ],
+   "analogy": "Amount A reallocates profit; Amount B simplifies distributor pricing.",
+   "work": "A group earning 15% on EUR 30 billion revenue would reallocate EUR 375 million under Amount A."
+  },
+  {
+   "id": "c3",
+   "title": "Pillar Two: GloBE rules and STTR",
+   "body": [
+    "Pillar Two has two components. The GloBE rules require in-scope groups (consolidated revenue of at least EUR 750 million) to bear tax of at least 15% (effective rate), measured jurisdiction by jurisdiction, via a qualified domestic minimum top-up tax (QDMTT), an income inclusion rule (IIR) at the parent level, and an undertaxed profits rule (UTPR) as backstop. A substance-based income exclusion reduces the profit subject to top-up.",
+    "The Subject to Tax Rule (STTR) is treaty-based: where specified intra-group payments such as interest, royalties and certain service fees are taxed below 9% (adjusted nominal rate) in the recipient's jurisdiction, the source state may levy tax up to the shortfall. STTR tax is counted as a covered tax for GloBE, so it applies first.",
+    "The STTR can be implemented through a multilateral instrument or bilateral treaty amendments and is designed to benefit developing countries."
+   ],
+   "analogy": "A 15% floor for groups and a 9% treaty test for payments.",
+   "work": "Royalty taxed at 4% in the recipient jurisdiction may face a 5% STTR charge at source."
+  },
+  {
+   "id": "c4",
+   "title": "Recent GloBE guidance and safe harbours",
+   "body": [
+    "On 5 January 2026 the Inclusive Framework agreed a Side-by-Side Package that includes a new safe harbour based on a simplified ETR, an extra year for the transitional CbCR safe harbour, a safe harbour for substance-based tax incentives, and a side-by-side system with safe harbours for groups headquartered in eligible jurisdictions.",
+    "Administrative guidance in May 2026 addressed the transitional UTPR safe harbour for groups with 52/53-week years; a common understanding on central filing and exchange of the GloBE Information Return together with a refreshed central list of qualifying IIR and domestic top-up regimes, followed in May–June 2026.",
+    "The 2026 Consolidated Commentary to the GloBE Model Rules, published on 28 May 2026, merges the Commentary with all agreed administrative guidance."
+   ],
+   "analogy": "Safe harbours and central filing ease GloBE compliance.",
+   "work": "A group meeting the simplified ETR safe harbour may avoid full GloBE computations in a jurisdiction."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Amount A arithmetic",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "A multinational group has global revenue of EUR 30,000 million and profit before tax of EUR 4,500 million. Assuming it is in scope of Amount A, compute the residual profit and the amount reallocated to market jurisdictions.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "EUR million"
+     ],
+     "rows": [
+      [
+       "Scope",
+       "Revenue > EUR 20 billion; profitability 15% > 10%",
+       "In scope"
+      ],
+      [
+       "Residual profit",
+       "4,500 − 10% × 30,000",
+       "1,500"
+      ],
+      [
+       "Amount A",
+       "25% × residual profit",
+       "375"
+      ]
+     ],
+     "title": "Pillar One"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "4500-30000*0.10",
+     "value": 1500,
+     "label": "Residual profit above 10% of revenue (EUR million)"
+    },
+    {
+     "expr": "(4500-30000*0.10)*0.25",
+     "value": 375,
+     "label": "Amount A reallocated (EUR million)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Subject to tax rule",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "An Indian company pays royalty of ₹10 crore to a connected company resident in a treaty country where the adjusted nominal rate on such royalty is 4%. Assuming the STTR is in force in that treaty, compute the additional tax India may levy under the STTR.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "STTR minimum rate",
+       "9%",
+       "—"
+      ],
+      [
+       "Shortfall",
+       "9% − 4%",
+       "5%"
+      ],
+      [
+       "STTR tax",
+       "5% × 10 crore",
+       "50,00,000"
+      ]
+     ],
+     "title": "Pillar Two — STTR"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100000000*(0.09-0.04)",
+     "value": 5000000,
+     "label": "STTR tax on ₹10 crore royalty (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Pillar Two readiness",
+   "role": "Global tax analyst",
+   "situation": "An Indian-headquartered group with EUR 900 million revenue reviews its subsidiaries.",
+   "steps": [
+    "Confirm scope at EUR 750 million.",
+    "Compute jurisdictional ETRs.",
+    "Test safe harbours.",
+    "Plan GIR filing and QDMTT exposure."
+   ],
+   "takeaway": "Safe harbours can save heavy computations if tested early."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The Inclusive Framework on BEPS was established in:",
+   "options": [
+    "2016",
+    "2013",
+    "2015",
+    "2021"
+   ],
+   "answer": 0,
+   "explain": "Equal footing. In practice: 148 members by 2026.",
+   "concept": "c1",
+   "topic": "BEPS monitoring and the Inclusive Framework",
+   "difficulty": "core",
+   "check": 2016
+  },
+  {
+   "id": "m2",
+   "q": "Amount A applies to groups with revenue above:",
+   "options": [
+    "EUR twenty billion",
+    "EUR seven hundred fifty million",
+    "EUR one billion",
+    "EUR five billion"
+   ],
+   "answer": 0,
+   "explain": "And profitability above 10%. In practice: not yet in force.",
+   "concept": "c2",
+   "topic": "Pillar One: Amount A and Amount B",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Amount A reallocates what share of residual profit?",
+   "options": [
+    "Twenty-five percent",
+    "Ten percent",
+    "Fifteen percent",
+    "Fifty percent"
+   ],
+   "answer": 0,
+   "explain": "Residual = profit above 10% of revenue. In practice: market jurisdictions.",
+   "concept": "c2",
+   "topic": "Pillar One: Amount A and Amount B",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Amount B deals with:",
+   "options": [
+    "Pricing of baseline distribution activities",
+    "Global minimum tax",
+    "Digital services tax",
+    "Treaty abuse"
+   ],
+   "answer": 0,
+   "explain": "Simplified TP. In practice: optional adoption.",
+   "concept": "c2",
+   "topic": "Pillar One: Amount A and Amount B",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "GloBE rules apply to groups with consolidated revenue of at least:",
+   "options": [
+    "EUR seven hundred fifty million",
+    "EUR twenty billion",
+    "EUR one hundred million",
+    "EUR five hundred million"
+   ],
+   "answer": 0,
+   "explain": "15% minimum ETR. In practice: per jurisdiction.",
+   "concept": "c3",
+   "topic": "Pillar Two: GloBE rules and STTR",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "The STTR minimum rate is:",
+   "options": [
+    "Nine percent",
+    "Fifteen percent",
+    "Ten percent",
+    "Five percent"
+   ],
+   "answer": 0,
+   "explain": "Treaty-based. In practice: covered tax for GloBE.",
+   "concept": "c3",
+   "topic": "Pillar Two: GloBE rules and STTR",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Which applies first among GloBE charging mechanisms?",
+   "options": [
+    "Qualified domestic minimum top-up tax",
+    "Undertaxed profits rule",
+    "Income inclusion rule",
+    "STTR is ignored"
+   ],
+   "answer": 0,
+   "explain": "QDMTT reduces IIR/UTPR. In practice: STTR before GloBE.",
+   "concept": "c3",
+   "topic": "Pillar Two: GloBE rules and STTR",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "The Side-by-Side Package was agreed on:",
+   "options": [
+    "5 January 2026",
+    "28 May 2026",
+    "1 July 2021",
+    "8 October 2021"
+   ],
+   "answer": 0,
+   "explain": "Safe harbours. In practice: simplifies compliance.",
+   "concept": "c4",
+   "topic": "Recent GloBE guidance and safe harbours",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A multinational group has global revenue of EUR 30,000 million and profit before tax of EUR 4,500 million. Assuming it is in scope of Amount A, compute the residual profit and the amount reallocated to market jurisdictions.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "EUR million"
+     ],
+     "rows": [
+      [
+       "Scope",
+       "Revenue > EUR 20 billion; profitability 15% > 10%",
+       "In scope"
+      ],
+      [
+       "Residual profit",
+       "4,500 − 10% × 30,000",
+       "1,500"
+      ],
+      [
+       "Amount A",
+       "25% × residual profit",
+       "375"
+      ]
+     ],
+     "title": "Pillar One"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Scope and residual profit",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "residual"
+     ],
+     "min": 1,
+     "nums": [
+      1500
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Amount A",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "25%"
+     ],
+     "min": 1,
+     "nums": [
+      375
+     ]
+    }
+   ],
+   "remarks": [
+    "State status of Amount A."
+   ],
+   "mistakes": [
+    "Applying 25% to total profit."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "4500-30000*0.10",
+     "value": 1500,
+     "label": "Residual profit above 10% of revenue (EUR million)"
+    },
+    {
+     "expr": "(4500-30000*0.10)*0.25",
+     "value": 375,
+     "label": "Amount A reallocated (EUR million)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "An Indian company pays royalty of ₹10 crore to a connected company resident in a treaty country where the adjusted nominal rate on such royalty is 4%. Assuming the STTR is in force in that treaty, compute the additional tax India may levy under the STTR.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "STTR minimum rate",
+       "9%",
+       "—"
+      ],
+      [
+       "Shortfall",
+       "9% − 4%",
+       "5%"
+      ],
+      [
+       "STTR tax",
+       "5% × 10 crore",
+       "50,00,000"
+      ]
+     ],
+     "title": "Pillar Two — STTR"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Shortfall",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "9%"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "STTR tax",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "STTR"
+     ],
+     "min": 1,
+     "nums": [
+      5000000
+     ]
+    }
+   ],
+   "remarks": [
+    "Mention interaction with GloBE."
+   ],
+   "mistakes": [
+    "Using 15% instead of 9%."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100000000*(0.09-0.04)",
+     "value": 5000000,
+     "label": "STTR tax on ₹10 crore royalty (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Inclusive Framework (2016); 148 members by Jan 2026.",
+   "Amount A: EUR 20 billion, 10%, 25% of residual — not in force.",
+   "Amount B: simplified distribution pricing — optional.",
+   "GloBE: EUR 750 million; 15%; QDMTT, IIR, UTPR.",
+   "STTR 9%; Side-by-Side Package (Jan 2026); Consolidated Commentary (May 2026)."
+  ],
+  "remember": [
+   "STTR is counted before GloBE top-up."
+  ],
+  "traps": [
+   "Mixing the Amount A and GloBE thresholds."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Pillar One",
+   "v": "Amount A / B"
+  },
+  {
+   "k": "Pillar Two",
+   "v": "GloBE / STTR"
+  },
+  {
+   "k": "2026 updates",
+   "v": "Side-by-Side Package"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is BEPS 2.0?",
+   "model": "The Two-Pillar solution agreed in 2021: Pillar One on reallocation of taxing rights and Pillar Two on a global minimum tax.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Two-Pillar",
+     "w": 5,
+     "kw": [
+      "two-pillar|pillar"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Minimum tax",
+     "w": 5,
+     "kw": [
+      "minimum tax"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is the substance-based income exclusion?",
+   "model": "A carve-out based on payroll and tangible assets that reduces the profit subject to top-up tax.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Payroll",
+     "w": 5,
+     "kw": [
+      "payroll"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Tangible assets",
+     "w": 5,
+     "kw": [
+      "tangible"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Is Amount B mandatory?",
+   "model": "It applies only in jurisdictions that choose to adopt it; it has no effect otherwise.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Adopt",
+     "w": 5,
+     "kw": [
+      "adopt"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Choose",
+     "w": 5,
+     "kw": [
+      "choose"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "Why does the STTR apply before GloBE?",
+   "model": "STTR tax counts as a covered tax in the GloBE effective tax rate, giving it practical priority.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Covered tax",
+     "w": 5,
+     "kw": [
+      "covered tax"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Priority",
+     "w": 5,
+     "kw": [
+      "priority"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "What did the 2026 Consolidated Commentary do?",
+   "model": "It merged the GloBE Commentary with all agreed administrative guidance into one document.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Merged",
+     "w": 5,
+     "kw": [
+      "merged"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Administrative guidance",
+     "w": 5,
+     "kw": [
+      "administrative guidance"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Saffron Group",
+   "difficulty": "moderate",
+   "case": "Saffron Group (revenue EUR 900 million) has subsidiaries in Country Q with GloBE income of ₹250 crore, a substance-based income exclusion of ₹50 crore and an effective tax rate of 11%. Country Q has a qualified domestic minimum top-up tax.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Is Saffron in scope of GloBE?",
+     "options": [
+      "Yes, revenue exceeds EUR 750 million",
+      "No",
+      "Only for Amount A",
+      "Only if listed"
+     ],
+     "answer": 0,
+     "explain": "Scope threshold. In practice: consolidated revenue.",
+     "difficulty": "core",
+     "topic": "Pillar Two: GloBE rules and STTR"
+    },
+    {
+     "id": "k1b",
+     "q": "Excess profit after exclusion (₹ crore):",
+     "options": [
+      "200",
+      "250",
+      "50",
+      "300"
+     ],
+     "answer": 0,
+     "explain": "250 − 50. In practice: top-up base.",
+     "difficulty": "core",
+     "check": 200,
+     "topic": "Pillar Two: GloBE rules and STTR"
+    },
+    {
+     "id": "k1c",
+     "q": "Top-up tax (₹ crore):",
+     "options": [
+      "8",
+      "22",
+      "30",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "(15% − 11%) × 200. In practice: simplified.",
+     "difficulty": "core",
+     "check": 8,
+     "topic": "Pillar Two: GloBE rules and STTR"
+    },
+    {
+     "id": "k1d",
+     "q": "Which jurisdiction collects it first?",
+     "options": [
+      "Country Q via its QDMTT",
+      "Parent via IIR",
+      "Any via UTPR",
+      "India via STTR"
+     ],
+     "answer": 0,
+     "explain": "QDMTT priority. In practice: reduces IIR.",
+     "difficulty": "core",
+     "topic": "Pillar Two: GloBE rules and STTR"
+    }
+   ]
+  }
+ ]
+}
