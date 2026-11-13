@@ -302,6 +302,11 @@ async def _(pg):
     await setr(pg, 'input[data-k=h]', -1.125); await setr(pg, 'input[data-k=s]', 1.75); await setr(pg, 'input[data-k=t]', 1.85)
     for v in (60, 100, 140): await setr(pg, 'input[data-k=v]', v)
 
+@lab('math-u12', 'xprod')
+async def _(pg):
+    await setr(pg, 'input[data-k=th]', 90); await setr(pg, 'input[data-k=a]', 3); await setr(pg, 'input[data-k=b]', 4)
+    await setr(pg, 'input[data-k=th]', 45); await setr(pg, 'input[data-k=th]', 120); await setr(pg, 'input[data-k=th]', 180)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
