@@ -354,6 +354,17 @@ async def _(pg):
     await tap(pg, '#dbM button', 9); await tap(pg, '#dbQ button', 2)
     await tap(pg, '#dbM button', 6); await tap(pg, '#dbM button', 3); await tap(pg, '#dbQ button', 0)
 
+@lab('chem-u12', 'cfbox')
+async def _(pg):
+    await tap(pg, '#cfL button', 2)                                   # Co3+ + F- : high spin
+    await tap(pg, '#cfL button', 6)                                   # Co3+ + CN-: low spin
+    await tap(pg, '#cfI button', 4); await tap(pg, '#cfL button', 3)   # Mn2+ aqua: HS d5, CFSE 0
+    await tap(pg, '#cfI button', 2); await tap(pg, '#cfL button', 2)   # Cr2+ F-: 14000*0.9=12600 → 794 nm? use Ni2+ H2O below
+    await tap(pg, '#cfI button', 9); await tap(pg, '#cfL button', 4)   # Ni2+ NH3: 10875 cm-1 → 920 nm
+    await tap(pg, '#cfI button', 1); await tap(pg, '#cfL button', 3)   # Cr3+ aqua: 17400 → 575 nm
+    await tap(pg, '#cfI button', 10); await tap(pg, '#cfL button', 5)  # Cu2+ en: 16000 → 625 nm (red)
+    await tap(pg, '#cfI button', 6); await tap(pg, '#cfL button', 6)   # Fe2+ CN-: diamagnetic
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
