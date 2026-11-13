@@ -1,0 +1,712 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p5-ch11-u01",
+ "level": "final",
+ "paper": "p5",
+ "chapter": "fin-p5-ch11",
+ "n": 1,
+ "title": "Payment of Tax",
+ "outcomes": [
+  "Use electronic cash and credit ledgers correctly.",
+  "Apply the order of utilisation of ITC.",
+  "Compute interest on delayed payment and wrong ITC.",
+  "Explain TDS under GST."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 30,
+   "practice": 25
+  },
+  "prereq": [
+   "fin-p5-ch10-u01"
+  ],
+  "exam_tip": "Show a set-off table by tax head and keep IGST first."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Electronic ledgers",
+   "body": [
+    "The electronic cash ledger records deposits (by challan in Form PMT-06 via net banking, cards, NEFT/RTGS or over the counter up to ₹10,000) and TDS/TCS credits claimed; the date of credit to the Government account is the date of deposit. Amounts can be used for tax, interest, penalty, fee and other dues and may be transferred to the cash ledger of a distinct person.",
+    "The electronic credit ledger holds self-assessed ITC and can be used only for output tax — not interest, penalty, fees or reverse charge tax, which must be paid in cash.",
+    "The electronic liability register records all liabilities. Order of discharge (section 49(8)): first self-assessed tax and dues of previous periods, then current period self-assessed tax and dues, then demands, including those under sections 73, 74 or 74A."
+   ],
+   "analogy": "Cash ledger pays anything; credit ledger pays only output tax.",
+   "work": "RCM tax must be paid from the cash ledger."
+  },
+  {
+   "id": "c2",
+   "title": "Order of utilisation of ITC",
+   "body": [
+    "IGST credit is used first for IGST, then for CGST and SGST/UTGST in any order or proportion. CGST credit is used for CGST then IGST; SGST credit for SGST then IGST. CGST credit cannot pay SGST and vice versa.",
+    "Under section 49A and rule 88A, IGST credit must be fully used before CGST or SGST credit is used to pay IGST, CGST or SGST.",
+    "Section 53 transfers amounts between Central and State accounts when credits of one are used for the other's tax; section 49B lets the Government prescribe the order and manner of utilisation."
+   ],
+   "analogy": "IGST first, and cross-use only through IGST.",
+   "work": "IGST credit left after paying IGST should be set off before using CGST credit."
+  },
+  {
+   "id": "c3",
+   "title": "Interest on delayed payment",
+   "body": [
+    "Section 50(1): interest at 18% per annum is payable on tax paid late, from the day after the due date until payment. Where a return for a period is filed late (not after proceedings start), interest is only on the portion paid in cash.",
+    "Section 50(3): where ITC is wrongly availed and utilised, interest at the notified rate (currently 18%) applies from the date of utilisation; wrongly availed credit that stays unused in the ledger attracts no interest. Rule 88B treats credit as utilised when the ledger balance falls below the wrongly availed amount.",
+    "Interest is mandatory and compensatory, and is payable even without a demand order."
+   ],
+   "analogy": "Late tax costs 18% a year, mostly on the cash part.",
+   "work": "Tax of ₹1 lakh paid 30 days late in cash costs about ₹1,479 in interest."
+  },
+  {
+   "id": "c4",
+   "title": "TDS under GST and transfer of credit",
+   "body": [
+    "Section 51: notified deductors — central and State government departments, local authorities, governmental agencies and specified persons — deduct TDS from payments to suppliers where the total value of a contract exceeds the notified threshold; the deductee claims the amount in its cash ledger after accepting it on the portal.",
+    "The deductor files GSTR-7, issues a TDS certificate, and pays late fee and interest for delays.",
+    "Section 52 (TCS by ECOs) is discussed with e-commerce transactions; amounts deducted or collected credited to the cash ledger can be used for any liability."
+   ],
+   "analogy": "TDS and TCS land in the supplier's cash ledger once accepted.",
+   "work": "A supplier to a government department sees TDS in its cash ledger after accepting it."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Optimal use of credit",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Kirti Ltd has output tax: IGST ₹50,000, CGST ₹30,000, SGST ₹30,000. Credit available: IGST ₹70,000, CGST ₹10,000, SGST ₹25,000. Use credit in the permitted order to minimise cash payment.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "IGST credit to IGST",
+       "50,000 used; balance",
+       "20,000"
+      ],
+      [
+       "IGST balance to CGST",
+       "₹20,000 set off against CGST (must be used fully before CGST/SGST credit)",
+       "—"
+      ],
+      [
+       "CGST credit",
+       "30,000 − 20,000 − 10,000 → cash",
+       "0"
+      ],
+      [
+       "SGST credit",
+       "30,000 − 25,000 → cash",
+       "5,000"
+      ],
+      [
+       "Total cash",
+       "",
+       "5,000"
+      ]
+     ],
+     "title": "Section 49 and rule 88A"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "70000-50000",
+     "value": 20000,
+     "label": "IGST credit left after paying IGST (₹)"
+    },
+    {
+     "expr": "30000-(70000-50000)-10000",
+     "value": 0,
+     "label": "CGST payable in cash after credits (₹)"
+    },
+    {
+     "expr": "30000-25000",
+     "value": 5000,
+     "label": "SGST payable in cash after SGST credit (₹)"
+    },
+    {
+     "expr": "(30000-(70000-50000)-10000)+(30000-25000)",
+     "value": 5000,
+     "label": "Total cash payment (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Interest on late return",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "Rajan files GSTR-3B for August 2026 (due 20 September 2026) on 20 October 2026, 30 days late. Total tax ₹3,00,000, of which ₹2,00,000 is paid by ITC and ₹1,00,000 in cash. No proceedings had started. Compute interest.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Base",
+       "Only the net cash portion (proviso to section 50(1))",
+       "1,00,000"
+      ],
+      [
+       "Interest",
+       "18% × 30/365",
+       "1479.45"
+      ]
+     ],
+     "title": "Section 50"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(100000*0.18*30/365,2)",
+     "value": 1479.45,
+     "label": "Interest at 18% for 30 days (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Monthly payment planning",
+   "role": "GST accountant",
+   "situation": "A company with all three tax types wants to minimise cash outflow.",
+   "steps": [
+    "Compute liabilities by tax head.",
+    "Apply IGST credit first.",
+    "Pay RCM and interest in cash.",
+    "File on time to avoid interest."
+   ],
+   "takeaway": "Correct sequencing of credit can save cash every month."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Which can be paid from the electronic credit ledger?",
+   "options": [
+    "Output tax",
+    "Interest",
+    "Late fee",
+    "Tax under reverse charge"
+   ],
+   "answer": 0,
+   "explain": "Section 49(4). In practice: others in cash.",
+   "concept": "c1",
+   "topic": "Electronic ledgers",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "CGST credit can be used to pay:",
+   "options": [
+    "CGST and then IGST",
+    "SGST",
+    "Penalty",
+    "UTGST"
+   ],
+   "answer": 0,
+   "explain": "Section 49(5)(b). In practice: not SGST.",
+   "concept": "c2",
+   "topic": "Order of utilisation of ITC",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Before using CGST credit, IGST credit must be:",
+   "options": [
+    "Fully utilised",
+    "Refunded",
+    "Transferred to SGST",
+    "Ignored"
+   ],
+   "answer": 0,
+   "explain": "Rule 88A. In practice: sequence matters.",
+   "concept": "c2",
+   "topic": "Order of utilisation of ITC",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Interest on delayed payment of tax is at:",
+   "options": [
+    "Eighteen percent per annum",
+    "Twenty-four percent",
+    "Twelve percent",
+    "Nine percent"
+   ],
+   "answer": 0,
+   "explain": "Section 50(1). In practice: day after due date.",
+   "concept": "c3",
+   "topic": "Interest on delayed payment",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "For a late GSTR-3B (no proceedings), interest is charged on:",
+   "options": [
+    "Tax paid in cash",
+    "Gross tax liability",
+    "ITC claimed",
+    "Turnover"
+   ],
+   "answer": 0,
+   "explain": "Proviso to section 50(1). In practice: net cash.",
+   "concept": "c3",
+   "topic": "Interest on delayed payment",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Interest on wrongly availed ITC applies only when it is:",
+   "options": [
+    "Utilised",
+    "Reported",
+    "Reversed",
+    "Claimed in GSTR-1"
+   ],
+   "answer": 0,
+   "explain": "Section 50(3). In practice: rule 88B.",
+   "concept": "c3",
+   "topic": "Interest on delayed payment",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Over-the-counter cash deposit per challan is allowed up to:",
+   "options": [
+    "Ten thousand rupees",
+    "Fifty thousand rupees",
+    "One lakh rupees",
+    "Two thousand rupees"
+   ],
+   "answer": 0,
+   "explain": "Rule 87. In practice: digital modes preferred.",
+   "concept": "c1",
+   "topic": "Electronic ledgers",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "TDS deducted under section 51 is credited to the supplier's:",
+   "options": [
+    "Electronic cash ledger",
+    "Electronic credit ledger",
+    "Liability register",
+    "Bank account"
+   ],
+   "answer": 0,
+   "explain": "After acceptance. In practice: usable for any due.",
+   "concept": "c4",
+   "topic": "TDS under GST and transfer of credit",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Kirti Ltd has output tax: IGST ₹50,000, CGST ₹30,000, SGST ₹30,000. Credit available: IGST ₹70,000, CGST ₹10,000, SGST ₹25,000. Use credit in the permitted order to minimise cash payment.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "IGST credit to IGST",
+       "50,000 used; balance",
+       "20,000"
+      ],
+      [
+       "IGST balance to CGST",
+       "₹20,000 set off against CGST (must be used fully before CGST/SGST credit)",
+       "—"
+      ],
+      [
+       "CGST credit",
+       "30,000 − 20,000 − 10,000 → cash",
+       "0"
+      ],
+      [
+       "SGST credit",
+       "30,000 − 25,000 → cash",
+       "5,000"
+      ],
+      [
+       "Total cash",
+       "",
+       "5,000"
+      ]
+     ],
+     "title": "Section 49 and rule 88A"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "IGST credit use",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "IGST"
+     ],
+     "min": 1,
+     "nums": [
+      20000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Cash payable",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "cash"
+     ],
+     "min": 1,
+     "nums": [
+      0,
+      5000,
+      5000
+     ]
+    }
+   ],
+   "remarks": [
+    "Show order."
+   ],
+   "mistakes": [
+    "Using CGST credit for SGST."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "70000-50000",
+     "value": 20000,
+     "label": "IGST credit left after paying IGST (₹)"
+    },
+    {
+     "expr": "30000-(70000-50000)-10000",
+     "value": 0,
+     "label": "CGST payable in cash after credits (₹)"
+    },
+    {
+     "expr": "30000-25000",
+     "value": 5000,
+     "label": "SGST payable in cash after SGST credit (₹)"
+    },
+    {
+     "expr": "(30000-(70000-50000)-10000)+(30000-25000)",
+     "value": 5000,
+     "label": "Total cash payment (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Rajan files GSTR-3B for August 2026 (due 20 September 2026) on 20 October 2026, 30 days late. Total tax ₹3,00,000, of which ₹2,00,000 is paid by ITC and ₹1,00,000 in cash. No proceedings had started. Compute interest.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Base",
+       "Only the net cash portion (proviso to section 50(1))",
+       "1,00,000"
+      ],
+      [
+       "Interest",
+       "18% × 30/365",
+       "1479.45"
+      ]
+     ],
+     "title": "Section 50"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Interest base and amount",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "cash"
+     ],
+     "min": 1,
+     "nums": [
+      1479.45
+     ]
+    }
+   ],
+   "remarks": [
+    "Cite proviso."
+   ],
+   "mistakes": [
+    "Charging interest on ITC portion."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(100000*0.18*30/365,2)",
+     "value": 1479.45,
+     "label": "Interest at 18% for 30 days (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Section 49 ledgers; cash for RCM, interest, fees.",
+   "Order: IGST first; no CGST↔SGST.",
+   "Section 50: 18% on net cash; wrong ITC only if utilised.",
+   "Section 51 TDS; credited to cash ledger.",
+   "Section 49(8) discharge order."
+  ],
+  "remember": [
+   "Rule 88A: exhaust IGST credit first."
+  ],
+  "traps": [
+   "Paying interest from the credit ledger."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Ledgers",
+   "v": "Section 49"
+  },
+  {
+   "k": "Utilisation",
+   "v": "Section 49A/rule 88A"
+  },
+  {
+   "k": "Interest",
+   "v": "Section 50"
+  },
+  {
+   "k": "TDS",
+   "v": "Section 51"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is the order of discharge under section 49(8)?",
+   "model": "Previous periods' self-assessed dues first, then current period dues, then demands raised.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Previous periods",
+     "w": 5,
+     "kw": [
+      "previous"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Demands",
+     "w": 5,
+     "kw": [
+      "demand"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Can cash ledger balance be moved to another registration of the same PAN?",
+   "model": "Yes, to a distinct person's cash ledger under section 49(10).",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Distinct person",
+     "w": 5,
+     "kw": [
+      "distinct"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Cash ledger",
+     "w": 5,
+     "kw": [
+      "cash ledger"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v3",
+   "q": "When does rule 88B treat ITC as utilised?",
+   "model": "When the credit ledger balance falls below the wrongly availed amount, to that extent.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Balance falls",
+     "w": 5,
+     "kw": [
+      "falls below"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Wrongly availed",
+     "w": 5,
+     "kw": [
+      "wrongly availed"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What does section 53 provide?",
+   "model": "Transfer of amounts between Central and IGST accounts when credits of one tax pay another.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Transfer",
+     "w": 5,
+     "kw": [
+      "transfer"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "IGST",
+     "w": 5,
+     "kw": [
+      "igst"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "Who must deduct TDS under GST?",
+   "model": "Notified government departments, local authorities, government agencies and specified persons.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Government departments",
+     "w": 5,
+     "kw": [
+      "government"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Local authorities",
+     "w": 5,
+     "kw": [
+      "local"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Wrong ITC at Pioneer Paints",
+   "difficulty": "moderate",
+   "case": "Pioneer Paints wrongly claimed ITC of ₹2,00,000 in June 2026. Its credit ledger balance stayed above ₹2,00,000 until 31 July 2026, when it fell to ₹50,000. It reversed the wrong credit on 30 September 2026.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Wrong ITC treated as utilised on 31 July (₹):",
+     "options": [
+      "1,50,000",
+      "2,00,000",
+      "50,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "Balance fell by ₹1.5 lakh below the wrong amount. In practice: rule 88B.",
+     "difficulty": "core",
+     "check": 150000,
+     "topic": "Interest on delayed payment"
+    },
+    {
+     "id": "k1b",
+     "q": "Days from 31 July to 30 September:",
+     "options": [
+      "61",
+      "60",
+      "62",
+      "59"
+     ],
+     "answer": 0,
+     "explain": "August 31 + September 30. In practice: interest period.",
+     "difficulty": "core",
+     "check": 61,
+     "topic": "Interest on delayed payment"
+    },
+    {
+     "id": "k1c",
+     "q": "Interest at 18% on utilised amount (₹, approx.):",
+     "options": [
+      "4,512",
+      "6,016",
+      "1,504",
+      "9,000"
+     ],
+     "answer": 0,
+     "explain": "1,50,000 × 18% × 61/365. In practice: pay with reversal.",
+     "difficulty": "core",
+     "check": 4512,
+     "topic": "Interest on delayed payment"
+    },
+    {
+     "id": "k1d",
+     "q": "Interest on the unutilised ₹50,000 part:",
+     "options": [
+      "Nil",
+      "Payable at 18%",
+      "Payable at 24%",
+      "Payable at 12%"
+     ],
+     "answer": 0,
+     "explain": "Only utilised credit attracts interest. In practice: reverse promptly.",
+     "difficulty": "core",
+     "topic": "Interest on delayed payment"
+    }
+   ]
+  }
+ ]
+}
