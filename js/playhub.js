@@ -52,6 +52,7 @@
       <div class="card ph-friends"><h3><span aria-hidden="true">👫</span> Play with friends</h3><p class="sub">Make a room and share its code, or type a friend’s code.</p>
         <div class="ph-join"><input id="phCode" inputmode="text" autocomplete="off" maxlength="8" placeholder="Room code" aria-label="Room code"><button class="btn" type="button" id="phJoin">Join</button></div>
         <button class="btn ghost" type="button" id="phMake">➕ Make a room</button></div>
+      <button class="card ph-resume ph-fam" type="button" id="phFam"><span aria-hidden="true">👨‍👩‍👧</span> <b>Play with family<small>Mum, Dad, both parents or a guardian · one phone, one laptop or each on your own</small></b><span class="ph-chev" aria-hidden="true">›</span></button>
       <div class="card"><h3><span aria-hidden="true">🎲</span> Games</h3>${live.map(g => row(g.e, g.n, g.d, `data-solo="${g.id}"`, `data-fr="${g.id}"`, `<small class="ph-alone">🙋 Alone: ${E(g.soloN)}</small>`)).join('')}</div>
       <div class="card"><h3><span aria-hidden="true">🧩</span> Puzzles</h3>
         ${row('📅', 'Daily puzzle', 'A new puzzle every day from your chapter. Keep your puzzle streak!', 'data-daily="1"', '')}
@@ -64,6 +65,7 @@
     wireSaved(el);
     if (back) $1('#phResume').onclick = () => { S('open'); Live.join(back); };
     $1('#phMake').onclick = () => { S('open'); liveOpen(); };
+    $1('#phFam').onclick = () => { S('open'); family(open); };
     const join = () => { const c = ($1('#phCode').value || '').trim().toUpperCase(); if (!c) { $1('#phCode').focus(); return; } S('open'); if (window.Live) Live.join(c); };
     $1('#phJoin').onclick = join; $1('#phCode').onkeydown = e => { if (e.key === 'Enter') join(); };
     el.querySelectorAll('[data-fr]').forEach(b => b.onclick = () => { S('open'); liveOpen({ game: b.dataset.fr }); });
@@ -104,6 +106,29 @@
   function liveOpen(o) {
     if (!window.Live) { try { toast('Game Rooms are loading. Please try again in a moment.'); } catch (e) {} return; }
     try { Live.open(o); } catch (e) { console.error(e); Live.open(); }
+  }
+
+  /* ---------- 👨‍👩‍👧 play with family: one device (pass-and-play) or each on their own device (family Game Room) ---------- */
+  function family(back) {
+    style(); back = typeof back === 'function' ? back : backToPractice;
+    const el = screen(); show('play', 'practice'); window.scrollTo(0, 0);
+    const W = [['mum', '👩 Mum'], ['dad', '👨 Dad'], ['both', '👪 Both parents'], ['guardian', '🧑 Guardian']];
+    let who = 'mum';
+    const draw = () => {
+      el.innerHTML = `<div class="ph-root${isCA() ? ' ph-ca' : ''}"><button class="back" id="phFBack">← Back</button>
+        <div class="hello ph-hello" role="heading" aria-level="1"><span aria-hidden="true">👨‍👩‍👧</span> Play with family <small>Learn and laugh together — you get your syllabus, grown-ups get general knowledge</small></div>
+        <div class="card"><h3>Who is playing with you?</h3><div class="ph-who" role="radiogroup" aria-label="Who is playing">${W.map(([k, t]) => `<button type="button" role="radio" class="ph-wb${k === who ? ' on' : ''}" aria-checked="${k === who}" data-who="${k}">${t}</button>`).join('')}</div>
+          <p class="sub" style="margin-top:6px">You can change names or add more grown-ups (Nani, Dadu…) on the next screen.</p></div>
+        <button class="card ph-resume ph-fam" type="button" id="phF1"><span aria-hidden="true">📱</span> <b>On one phone or one laptop<small>Sit together and pass it around. Works on this device right now — no codes, no second device.</small></b><span class="ph-chev" aria-hidden="true">›</span></button>
+        <button class="card ph-resume ph-fam" type="button" id="phF2"><span aria-hidden="true">💻📱</span> <b>Each on our own phone or laptop<small>You start a room and read out its code. Grown-ups open Knowtopia on their device → Parent Hub → 🎮 Play with my child → type the code.</small></b><span class="ph-chev" aria-hidden="true">›</span></button>
+        <p class="sub" style="padding:0 6px">Grown-ups join from a <b>parent account linked to you</b> (Me → Link to my parent). On one device nobody needs to sign in again.</p></div>`;
+      $1('#phFBack').onclick = () => { S('tap'); back(); };
+      el.querySelectorAll('[data-who]').forEach(b => b.onclick = () => { S('tap'); who = b.dataset.who; draw(); });
+      $1('#phF1').onclick = () => { S('open'); if (!window.Family || !Family.student) { try { toast('Family games are loading. Please try again.'); } catch (e) {} return; }
+        Family.student({ with: who === 'both' ? ['mum', 'dad'] : [who], backLabel: 'Back', onClose: () => family(back) }); };
+      $1('#phF2').onclick = () => { S('open'); liveOpen({ game: 'quiz' }); };
+    };
+    draw();
   }
 
   /* ---------- 🙋 alone ---------- */
@@ -168,7 +193,12 @@
     else host.insertAdjacentHTML('beforeend', CalcAcademy.tileHTML());
     const t = D.getElementById('cxaTile'); if (t) { t.classList.add('ph-cxa'); t.onclick = () => { S('open'); CalcAcademy.open({ from: 'practice' }); }; }
   }
-  function wire() { const t = D.getElementById('phTile'); if (t) t.onclick = () => { S('open'); open(); }; }
+  const famTile = dark => dark ? caTile('phFamTile', '👨‍👩‍👧', 'Play with family', 'Mum, Dad, both parents or a guardian · one device or each on your own')
+    : `<button type="button" class="card ph-tile ph-famtile" id="phFamTile" aria-label="Play with family"><span class="ph-te" aria-hidden="true">👨‍👩‍👧</span><span class="ph-tt"><b>Play with family</b><small>Mum, Dad, both parents or a guardian · one phone, one laptop or each on your own</small></span><span class="ph-chev" aria-hidden="true">›</span></button>`;
+  function wire() {
+    const t = D.getElementById('phTile'); if (t) { t.onclick = () => { S('open'); open(); }; if (!D.getElementById('phFamTile')) t.insertAdjacentHTML('afterend', famTile(isCA())); }
+    const f = D.getElementById('phFamTile'); if (f) f.onclick = () => { S('open'); family(); };
+  }
 
   let css = false;
   function style() {
@@ -176,6 +206,9 @@
     D.head.insertAdjacentHTML('beforeend', `<style id="phCss">
       .ph-tile{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:none;cursor:pointer;background:linear-gradient(135deg,#6d4aff,#9b5cff);color:#fff;font-family:inherit}
       .ph-tile .ph-te{font-size:34px}.ph-tile .ph-tt{flex:1;display:flex;flex-direction:column}.ph-tile b{font-size:19px}.ph-tile small{opacity:.9;font-size:13px}.ph-chev{font-size:24px;opacity:.8}
+      .ph-fam b{display:flex;flex-direction:column;gap:2px}.ph-fam b small{font-weight:600;color:#666;font-size:13px;line-height:1.3}.ph-fam>span:first-child{font-size:26px}
+      .ph-who{display:flex;flex-wrap:wrap;gap:8px}.ph-wb{border:2px solid #dcd6f5;background:#fff;border-radius:999px;padding:8px 14px;font:800 15px inherit;font-family:inherit;cursor:pointer;color:inherit}.ph-wb.on{background:#6d4aff;border-color:#6d4aff;color:#fff}
+      .ph-famtile{background:linear-gradient(135deg,#e05297,#ff9a5a)!important}
       .ph-tile.dark{background:linear-gradient(135deg,#3b2a7a,#5b3fb8)}
       .ca-hubs .ph-tile,.ca-hubs .cxa-tile{margin-bottom:10px}
       .ph-hello small{display:block}
@@ -197,5 +230,5 @@
     place();
   }
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', boot); else boot();
-  window.PlayHub = { open, solo, arcade, _caPool: caPool };
+  window.PlayHub = { open, solo, arcade, family, _caPool: caPool };
 })();

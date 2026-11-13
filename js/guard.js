@@ -46,8 +46,8 @@
     if (y0 == null) return; const dy = (e.changedTouches[0] || {}).clientY - y0; y0 = null;
     if (ind) { ind.remove(); ind = null; }
     if (!pulling || dy < 100) return;
-    if (busy()) chip('Refreshing will exit what you’re doing.', [{ t: 'Refresh', main: 1, go: reloadNow }, { t: 'Cancel' }]);
-    else reloadNow();
+    // never reload on a pull alone (an accidental pull while scrolling used to restart the app): always ask first
+    chip(busy() ? 'Refreshing will exit what you’re doing.' : 'Refresh Knowtopia?', [{ t: 'Refresh', main: 1, go: reloadNow }, { t: 'Cancel' }]);
   }, { passive: true });
 
   /* a refresh key / browser reload button during an activity: the browser shows its own small “Leave site?” check */

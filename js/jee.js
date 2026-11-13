@@ -3600,12 +3600,13 @@
         <button class="jx-ht2" id="jxQB"><span>📚</span><b>Question bank</b><small>${all} questions · filter by subject, unit, topic, year, difficulty</small></button>
         <button class="jx-ht2" id="jxCC"><span>⚡</span><b>Crash course</b><small>Each unit in 15 minutes: ideas, formula flips, traps, must-do JEE</small></button>
         <button class="jx-ht2" id="jxPlay"><span>🎮</span><b>Play</b><small>Quiz Show, Snakes, Boss Battle, crosswords — all with JEE questions</small></button>
+        <button class="jx-ht2" id="jxFam"><span>👨‍👩‍👧</span><b>Play with family</b><small>Mum, Dad or a guardian · one device or each on your own</small></button>
         <button class="jx-ht2" id="jxMG"><span>🧠</span><b>Mind Gym</b><small>Reasoning, IQ and focus puzzles for exam days</small></button>
         <button class="jx-ht2" id="jxMB"><span>📕</span><b>Mistake book</b><small>${wrong ? wrong + ' questions to fix' : 'Empty — great work'}</small></button>
         <button class="jx-ht2" id="jxRooms"><span>🏁</span><b>Game rooms</b><small>Race friends live — everyone gets JEE questions</small></button>
       </div>
       <details class="jx-sec" data-sec="pu" ${secOpen('pu', true)}><summary><h2 class="jx-h">🎯 Practise by unit</h2><small>${ready.length} ready</small></summary>
-        ${Object.entries(SUBJ).map(([k, s0]) => { const r = s0.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sub" style="--c:${s0.c}" open><summary><span>${s0.e}</span><b>${s0.n}</b><small>${r.length} units</small></summary>
+        ${Object.entries(SUBJ).map(([k, s0]) => { const r = s0.u.map((u, i) => uidOf(k, i)).filter(u => READY[u]); return r.length ? `<details class="jx-sub" style="--c:${s0.c}"><summary><span>${s0.e}</span><b>${s0.n}</b><small>${r.length} units</small></summary>
           ${r.map(u => { const a = U(u).ans, n = Object.keys(a).length, ok = Object.values(a).filter(x => x.ok).length; return `<button class="jx-ur on" data-u="${u}"><span>Unit ${+u.split('-u')[1]}</span><b>${esc(unitName(u))}</b><small>${n} tried · ${ok} right</small><em>Practise ▶</em></button>`; }).join('')}</details>` : ''; }).join('')}
       </details></div>`;
     el.querySelectorAll('details.jx-sec').forEach(dd => dd.ontoggle = () => { const u = J().ui || (J().ui = {}); u[dd.dataset.sec] = dd.open; save(); });
@@ -3613,6 +3614,7 @@
     $('#jxCC').onclick = () => { tap('open'); crash(); };
     $('#jxPlay').onclick = () => { tap('open'); if (window.PlayHub) PlayHub.open(); };
     $('#jxMG').onclick = () => { tap('open'); if (window.MindGym) MindGym.open(); };
+    $('#jxFam').onclick = () => { tap('open'); if (window.PlayHub && PlayHub.family) PlayHub.family(practiceHub); };
     $('#jxMB').onclick = () => { tap(); mistakes(); };
     $('#jxRooms').onclick = () => { tap('open'); if (window.Live && Live.open) Live.open(); };
     el.querySelectorAll('[data-u]').forEach(b => b.onclick = () => { tap('open'); NAVP = false; unit(b.dataset.u, 'prac'); });

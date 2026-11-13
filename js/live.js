@@ -51,6 +51,7 @@
   const STx = () => { try { return ST; } catch (e) { return null; } };      // app.js: top-level let (not on window)
   const isCA = () => { const s = STx(); return !!(s && s.profile && s.profile.course === 'ca'); };
   function myCourse() {
+    if (parentNow()) return 'gk';
     const s0 = STx(), p = s0 && s0.profile; if (!p) return null;
     if (p.course === 'ca') return 'ca-' + ((ST.ca && ST.ca.level) || 'foundation');
     try { if (window.Jee && Jee.active && Jee.active()) return 'jee'; } catch (e) {}
@@ -67,21 +68,27 @@
     let m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m[0-9a-f]+)?$/.exec(c || ''); if (m) return `Class ${m[1]}${m[2] && m[2] !== 'm' ? ' ' + cap(m[2]) : ''}`;
     m = /^ca-([a-z]+)$/.exec(c || ''); if (m) return 'CA ' + ({ foundation: 'Foundation', inter: 'Intermediate', final: 'Final' }[m[1]] || cap(m[1]));
     if (c === 'jee') return 'JEE Main';
+    if (c === 'gk') return 'Grown-up · General knowledge';
     return cap(String(c || '').replace(/-/g, ' '));
   }
-  const firstName = () => String((ST.profile && ST.profile.name) || 'Player').trim().split(/\s+/)[0].slice(0, 20) || 'Player';
-  const avatar = () => (ST.profile && ST.profile.avatar) || '🙂';
+  /* 👨‍👩‍👧 family guest: a PARENT account joining their own child's room (the server allows linked parents only).
+     Grown-ups get general-knowledge questions (course 'gk'); their name is the one they pick (Mum / Dad / …). */
+  const parentNow = () => { try { return !!(window.Cloud && Cloud.isParent && Cloud.isParent()); } catch (e) { return false; } };
+  const FAM = (() => { try { return JSON.parse(sessionStorage.getItem('sv_famlive') || 'null') || {}; } catch (e) { return {}; } })();
+  const famSave = () => { try { sessionStorage.setItem('sv_famlive', JSON.stringify(FAM)); } catch (e) {} };
+  const firstName = () => parentNow() ? (FAM.name || 'Mum') : String((ST.profile && ST.profile.name) || 'Player').trim().split(/\s+/)[0].slice(0, 20) || 'Player';
+  const avatar = () => parentNow() ? (FAM.e || '👩') : (ST.profile && ST.profile.avatar) || '🙂';
   const uid = () => { try { const u = Cloud.user(); return u && u.id; } catch (e) { return null; } };
   /* quick local answer (the server decides for real) */
   function elig() {
     const C = window.Cloud; if (!C || !C.signedIn()) return { ok: false, why: 'signin' };
-    if (C.isParent && C.isParent()) return { ok: false, why: 'parent' };
+    if (C.isParent && C.isParent()) return { ok: true, fam: true };   // joins only (the server checks the parent is linked to the room's host)
     try { if (C.admin() || localStorage.getItem('sv_owner') === '1') return { ok: true, admin: true }; } catch (e) {}
     if (localStorage.getItem('sv_access') == null) return { ok: null };
     return C.courses().length ? { ok: true } : { ok: false, why: 'free' };
   }
   /* Parent Hub: daily limit / quiet hours → the existing "Time to rest" screen, and no joining */
-  function restBlocked() { try { if (window.Parent && Parent._enforce) { Parent._enforce(); return !!D.getElementById('pvRest'); } } catch (e) {} return false; }
+  function restBlocked() { if (parentNow()) return false; try { if (window.Parent && Parent._enforce) { Parent._enforce(); return !!D.getElementById('pvRest'); } } catch (e) {} return false; }
 
   /* ---------- screen ---------- */
   function screen() {
@@ -147,7 +154,30 @@
   function paintOnline() { if (!L.st) return; L.st.players.forEach(p => $$(`[data-on="${p.user_id}"]`).forEach(el => { const on = online(p); el.classList.toggle('off', !on); el.setAttribute('aria-label', on ? 'online' : 'offline'); el.title = on ? 'online' : 'offline'; })); }
 
   /* ================= entry: home ================= */
+  /* parents: a simple "join my child's game" page instead of the students' Game Rooms home */
+  function famHome(code) {
+    D.documentElement.classList.add('mg-parent');
+    const hub = D.getElementById('pvHub'); if (hub) hub.classList.remove('show');      // Parent Hub steps aside (like Mind Gym)
+    if (!D.getElementById('mgParCss')) D.head.insertAdjacentHTML('beforeend', '<style id="mgParCss">html.mg-parent nav[aria-label="Main"]{display:none!important}</style>');
+    const s = openScreen(); L.view = 'home';
+    if (L.code && L.st && L.st.ok) { enter(L.code); return; }
+    const who = [['Mum', '👩'], ['Dad', '👨'], ['Guardian', '🧑'], ['Nani', '👵'], ['Dadu', '👴']];
+    if (!FAM.name) { FAM.name = 'Mum'; FAM.e = '👩'; }
+    s.innerHTML = `<div class="lv-root lv-home"><button class="back" id="lvBack">← Parent Hub</button>
+      <div class="card lv-hero"><div class="lv-hero-e" aria-hidden="true">👨‍👩‍👧</div><div><h1 class="lv-h1">Play with your child</h1><p class="sub">Your child starts a room in their app (Practice → 👨‍👩‍👧 Play with family → Each on our own device) and reads you the 6-letter code. You get general-knowledge questions; they get their syllabus.</p></div></div>
+      <div class="card"><h2 class="lv-h2">I am</h2><div class="lv-chips" role="radiogroup" aria-label="I am">${who.map(([n, e]) => `<button type="button" role="radio" class="lv-chip${FAM.name === n ? ' on' : ''}" aria-checked="${FAM.name === n}" data-who="${n}|${e}">${e} ${n}</button>`).join('')}</div>
+        <label class="lv-lab" for="lvCode">Room code from your child</label>
+        <div class="lv-joinrow"><input id="lvCode" class="lv-in" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCDEF" value="${E(code || '')}" aria-describedby="lvErr"><button class="btn mint" id="lvJoin">Join ▶</button></div>
+        <p class="lv-err" id="lvErr" role="alert"></p></div></div>`;
+    $('#lvBack').onclick = () => { exit(); D.documentElement.classList.remove('mg-parent'); try { if (window.Parent && Parent.home) Parent.home(); } catch (e) {} };
+    s.querySelectorAll('[data-who]').forEach(b => b.onclick = () => { S('tap'); const [n, e] = b.dataset.who.split('|'); FAM.name = n; FAM.e = e; famSave(); famHome(D.getElementById('lvCode').value); });
+    const inp = D.getElementById('lvCode');
+    inp.oninput = () => { const v = inp.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 6); if (v !== inp.value) inp.value = v; };
+    inp.onkeydown = e => { if (e.key === 'Enter') D.getElementById('lvJoin').click(); };
+    D.getElementById('lvJoin').onclick = () => { const v = inp.value.trim().toUpperCase(); if (!/^[A-Z]{6}$/.test(v)) { D.getElementById('lvErr').textContent = 'Room codes have 6 letters.'; return; } famSave(); join(v); };
+  }
   async function home() {
+    if (parentNow()) return famHome();
     const s = openScreen(); L.view = 'home';
     if (L.code && L.st && L.st.ok) { enter(L.code); return; }
     const saved = lget('sv_live_room', null), back = saved && Date.now() - saved.at < 2 * 3600e3 ? saved.code : null;
@@ -276,7 +306,7 @@
     try {
       const j = await rpc('join_room', { p_code: code, p_name: firstName(), p_avatar: avatar(), p_course: myCourse() });
       if (!j || !j.ok) {
-        if (j && (j.code === 'free' || j.code === 'parent')) { const m = D.getElementById('lvMain'); if (m) { m.innerHTML = lockedHTML(j.code); wireLocked(); } return; }
+        if (j && (j.code === 'free' || j.code === 'parent') && !parentNow()) { const m = D.getElementById('lvMain'); if (m) { m.innerHTML = lockedHTML(j.code); wireLocked(); } return; }
         if (er) er.textContent = errText(j); else say(errText(j));
         if (j && j.code === 'not_found' && lget('sv_live_room', {}).code === code) lset('sv_live_room', null);
         return;
@@ -541,6 +571,12 @@
     if (want && by.reduce((t, l) => t + l.length, 0) < Math.min(need, 10)) return caPool(level, game, need, 'mixed', T);   // too few at this level: mix
     return spread(by, need);
   }
+  /* grown-ups in a family room: general-knowledge MCQs (content/gk) */
+  async function gkLive(need) {
+    const idx = await loadJSON('content/gk/index.json'), cats = (idx.categories || []).slice().sort(() => Math.random() - .5).slice(0, 5), by = [];
+    for (const c of cats) { try { const d = await loadJSON(`content/gk/${c.id}.json`); by.push((d.quiz || []).filter(q => Array.isArray(q.o) && q.o.length >= 2 && q.a != null).sort(() => Math.random() - .5).map(q => ({ q: q.q, o: q.o, a: q.a, x: q.x || '', s: `${c.emoji || '🌍'} ${c.name}` }))); } catch (e) {} }
+    return spread(by, need);
+  }
   async function pickQuestions(st) {
     const r = st.room, courses = [...new Set(st.players.filter(p => !p.left).map(p => p.course))];
     const need = r.game === 'snakes' ? 60 : r.rounds, out = {}, lvl = r.level || 'mixed';
@@ -551,6 +587,7 @@
         if ((m = /^school-g(\d+)(?:-(science|commerce|arts))?(?:-m([0-9a-f]+))?$/.exec(c))) list = await schoolPool(+m[1], m[2], need, m[3] ? maskIds(m[3]) : null, lvl, T);
         else if ((m = /^ca-([a-z]+)$/.exec(c))) list = await caPool(m[1], r.game, need, lvl, T);
         else if (c === 'jee' && window.Jee && Jee.livePool) list = await Jee.livePool(need, lvl);
+        else if (c === 'gk') list = await gkLive(need);
       } catch (e) { console.warn('live: questions for', c, e); }
       out[c] = list;
     }
@@ -1041,8 +1078,8 @@
     let p = null; try { p = JSON.parse(sessionStorage.getItem('sv_room_join') || 'null'); } catch (e) {}
     if (!p) return;
     if (Date.now() - p.at > 30 * 60e3) { sessionStorage.removeItem('sv_room_join'); return; }
-    const C = window.Cloud; if (!C || !C.signedIn() || !STx() || !STx().profile) return;
-    if (C.isParent && C.isParent()) { sessionStorage.removeItem('sv_room_join'); say('Game Rooms are for students.'); return; }
+    const C = window.Cloud; if (!C || !C.signedIn() || !STx() || (!STx().profile && !parentNow())) return;
+    if (C.isParent && C.isParent()) { sessionStorage.removeItem('sv_room_join'); famHome(p.c); return; }
     if (!uid()) return;
     const a = D.querySelector('.screen.active'); if (!a || a.id === 's-onboard') return;
     if (localStorage.getItem('sv_access') == null && Date.now() - p.at < 8000) return;    // wait briefly for the plan check
@@ -1161,5 +1198,5 @@ html[data-age=pro]:not(.sv-hc) .lv-q .lv-src{color:#74561F}html[data-age=pro]:no
   }
   D.readyState === 'loading' ? D.addEventListener('DOMContentLoaded', boot) : boot();
   if (window.Nav) home = Nav.route('live', home);
-  window.Live = { open, join, resume, speech, _L: L, _pick: pickQuestions, _courseName: courseName };
+  window.Live = { open, join, resume, speech, family: code => famHome(code), _L: L, _pick: pickQuestions, _courseName: courseName };
 })();

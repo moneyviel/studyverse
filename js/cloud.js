@@ -42,6 +42,9 @@
   const parentCss = () => { if (D.getElementById('svParentCss')) return; const c = D.createElement('style'); c.id = 'svParentCss';
     c.textContent = 'html.sv-parent:not(.mg-parent) .app>:not(.toast){display:none!important}html.sv-parent.mg-parent nav[aria-label="Main"]{display:none!important}html.sv-parent .toast{z-index:995}html.sv-parent .askfab,html.sv-parent .sv-talk,html.sv-parent .ca-hlbtn{display:none!important}'; (D.head || D.documentElement).appendChild(c); };
   if (isParent()) { parentCss(); D.documentElement.classList.add('sv-parent'); }   // before the first paint: no flash of the student app
+  // signed in but this phone has no profile yet (new phone, cleared data, after sign-out): hide the app until the account's
+  // progress is loaded, so the board/class picker never flashes up for a student who already has a profile
+  try { if (S && !demo() && !isParent() && !get('sv_fresh') && !(jget('sv_state', {}) || {}).profile) D.documentElement.classList.add('sv-boot'); } catch (e) {}
 
   /* ---------- 1. login links from emails: #access_token=…&type=signup|recovery ---------- */
   (function catchLink() {
@@ -135,10 +138,12 @@
 
   async function link() {                            // first sign-in of this account on this phone
     const uid = S.user.id, m = meta();
-    if (m.uid === uid) { linked = true; return; }
+    if (m.uid === uid && get('sv_fresh')) { set('sv_fresh', null); linked = true; return; }   // the student chose "erase all progress": start fresh, do not restore
+    if (m.uid === uid && hasProgress(payload())) { linked = true; return; }
     const rows = await rest('progress?select=state,updated_at&user_id=eq.' + encodeURIComponent(uid));
     if (!Array.isArray(rows)) throw new Error('No connection to the server.');
     const cloud = rows[0] && rows[0].state, local = payload();
+    if (m.uid === uid && !hasProgress(cloud)) { linked = true; return; }   // same account, nothing saved yet: nothing to restore
     const foreign = !!(m.uid && m.uid !== uid);      // phone progress belongs to another account
     const L = hasProgress(local) && !foreign, C = hasProgress(cloud);
     if (C && !L) return adopt(cloud, uid);
@@ -148,22 +153,42 @@
     return choose(local, cloud, rows[0].updated_at, uid);
   }
 
+  /* While a signed-in student's progress is being fetched, a phone with no profile on it must NOT show the
+     board/class picker (that made every sign-in look like a fresh start). Cover the app until we know. */
+  let restoring = false;
+  const needCover = () => { try { return !!S && !demo() && !linked && !(ST && ST.profile) && !isParent() && !get('sv_fresh'); } catch (e) { return false; } };
+  function cover(msg, fail) {
+    let c = D.getElementById('svRestore');
+    if (!c) { c = D.createElement('div'); c.id = 'svRestore'; c.setAttribute('role', 'status'); c.setAttribute('aria-live', 'polite');
+      c.style.cssText = 'position:fixed;inset:0;z-index:985;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px;text-align:center;background:radial-gradient(120% 80% at 50% 0%,#5B0F1B 0%,#15161C 70%);color:#F4EAD8;font-size:17px';
+      D.body.appendChild(c); }
+    c.innerHTML = `<img src="icons/logo-full.webp" alt="" style="width:120px;max-width:40vw"><p style="margin:0;max-width:380px;line-height:1.5">${esc(msg)}</p>`
+      + (fail ? `<div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px"><button type="button" id="svRsTry" style="font-size:17px;font-weight:700;padding:13px;border-radius:14px;border:0;background:#C9A76A;color:#15161C">Try again</button>
+        <button type="button" id="svRsOut" style="font-size:15px;padding:11px;border-radius:14px;border:1.5px solid #C9A76A;background:transparent;color:#F4EAD8">Sign out</button></div>` : '<div class="sv-spin" style="width:34px;height:34px;border-radius:50%;border:4px solid rgba(201,167,106,.3);border-top-color:#C9A76A;animation:svspin 1s linear infinite"></div><style>@keyframes svspin{to{transform:rotate(360deg)}}</style>');
+    if (fail) { D.getElementById('svRsTry').onclick = () => arrive(); D.getElementById('svRsOut').onclick = () => signOut(); }
+  }
+  function uncover() { const c = D.getElementById('svRestore'); if (c) c.remove(); }
   async function arrive() {
     if (!S) return;
+    if (needCover()) { restoring = true; cover('Loading your profile…'); }
     if (demo()) { status = 'demo'; paint(); return; }
     status = 'idle'; paint();
     try {
       if (!S.user) { const u = await call('/auth/v1/user'); S.user = { id: u.id, email: u.email }; userMeta = u.user_metadata || null; set('sv_auth', JSON.stringify(S)); }
       const wasParent = isParent(), r = await resolveRole();
       if (r === 'parent') { await owner(); if (meta().adm) { setRole(S.user.id, 'student', true); if (wasParent) { location.replace(SITE); return; } }   // the owner always gets the student app; Parent Hub opens from Me
-        else { enterParent(); status = 'ok'; paint(); return; } }   // parents: no progress sync, trial or courses
+        else { restoring = false; uncover(); enterParent(); status = 'ok'; paint(); return; } }   // parents: no progress sync, trial or courses
       if (wasParent && (r === 'student' || r === 'none')) { location.replace(SITE); return; }
       repaintMe();
       await claim();
       await link();
       access(); owner(); prof();
       if (linked) { status = status === 'saving' ? status : 'ok'; paint(); }
-    } catch (e) { status = navigator.onLine === false || e.status === 0 ? 'offline' : 'error'; lastErr = e.message; paint(); }
+      if (restoring && linked) { restoring = false; uncover(); }   // no saved profile in the account: the board/class picker is the right next step
+    } catch (e) {
+      status = navigator.onLine === false || e.status === 0 ? 'offline' : 'error'; lastErr = e.message; paint();
+      if (restoring) cover(status === 'offline' ? 'You seem to be offline. Connect to the internet to load your profile.' : 'We could not load your profile just now.', true);
+    }
   }
 
   /* role: cached once known for sure; otherwise ask the server, and set the role chosen at sign-up (once) */
@@ -268,7 +293,7 @@
   async function signOut() {
     try { await push(true); } catch (e) {}
     try { await call('/auth/v1/logout', { method: 'POST' }); } catch (e) {}
-    S = null; ['sv_auth', 'sv_cloud', 'sv_access', 'sv_owner', 'sv_lock', 'sv_disc', 'sv_trial', ROLE_K, PEND_K, 'sv_pctl'].forEach(k => set(k, null));
+    S = null; ['sv_auth', 'sv_cloud', 'sv_fresh', 'sv_access', 'sv_owner', 'sv_lock', 'sv_disc', 'sv_trial', ROLE_K, PEND_K, 'sv_pctl'].forEach(k => set(k, null));
     wipeLocal();
   }
 

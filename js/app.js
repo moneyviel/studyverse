@@ -814,7 +814,7 @@ function meScreen() {
     if (g >= 11) pickStream(g, (stream, subjects) => { ST.profile.stream = stream; ST.profile.subjects = subjects; save(); go(g); }, meScreen); else go(g); });
   if (p.grade >= 11) { const c = $('#s-me .grid5').closest('.card'); c.insertAdjacentHTML('afterend', `<div class="card" id="meStreamC"><h3>Stream & subjects</h3><p class="sub">${esc((STREAMS.find(x => x.id === p.stream) || {}).n || '')} · ${(p.subjects || []).length} subjects</p><button class="btn ghost" id="meStream">Change stream or subjects</button></div>`);
     $('#meStream').onclick = () => pickStream(p.grade, (stream, subjects) => { ST.profile.stream = stream; ST.profile.subjects = subjects; save(); worldScreen(); }, meScreen); }
-  $('#meReset').onclick = () => { if ($('#meReset').dataset.sure) { localStorage.removeItem('sv_state'); location.reload(); } else { $('#meReset').dataset.sure = 1; $('#meReset').textContent = 'Tap again to erase all progress'; } };
+  $('#meReset').onclick = () => { if ($('#meReset').dataset.sure) { localStorage.removeItem('sv_state'); try { localStorage.setItem('sv_fresh', '1'); } catch (e) {} location.reload(); } else { $('#meReset').dataset.sure = 1; $('#meReset').textContent = 'Tap again to erase all progress'; } };
 }
 
 /* ================= Angle lab (interactive) ================= */
@@ -856,25 +856,20 @@ async function installApp() {
 }
 if (!isStandalone() && !inFrame) setTimeout(() => { if (!deferredPrompt) showInstall(); }, 2500);
 /* Service worker + updates reaching installed phones: check for a new version on load and whenever the app comes
-   back to the screen; when a new worker takes control, reload once (never in a loop; deferred while the student is
-   writing or in a test — then it applies the next time the app is reopened). */
+   back to the screen. The app NEVER reloads by itself (a student could lose what they are doing): when a new version
+   takes control we only show a small "New version ready — Refresh / Later" chip; it also applies on the next open. */
 if ('serviceWorker' in navigator && !inFrame && (location.protocol === 'https:' || location.hostname === 'localhost')) window.addEventListener('load', () => {
   const hadCtl = !!navigator.serviceWorker.controller; let lastCheck = 0, pending = false, done = false;
   navigator.serviceWorker.register('sw.js').then(reg => {
     const check = () => { if (Date.now() - lastCheck < 60000) return; lastCheck = Date.now(); try { const p = reg.update(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
     check();
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') return; if (pending) { if (!busy()) reloadNow(); } else check(); });
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') return; if (pending) offer(); else check(); });
   }).catch(() => {});
-  const busy = () => (window.svBusy ? window.svBusy() : false) || !!document.querySelector('.ca-pad, .ca-viva, .ca-set, .ca-mbar, .ca-mcq, textarea:focus');
-  function reloadNow() {
-    if (done) return; let last = 0; try { last = +sessionStorage.getItem('sv_swreload') || 0; } catch (e) {}
-    if (Date.now() - last < 20000) return;          // loop guard
-    done = true; try { sessionStorage.setItem('sv_swreload', String(Date.now())); } catch (e) {}
-    window.__svReloading = true; location.reload();
-  }
+  let offered = 0;
+  const offer = () => { if (Date.now() - offered < 10 * 60000 || document.getElementById('svChip')) return; offered = Date.now(); try { window.svUpdateReady && svUpdateReady(); } catch (e) {} };
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (!hadCtl || done) return;                    // first install: nothing to refresh
-    if (busy()) { pending = true; try { window.svUpdateReady && svUpdateReady(); } catch (e) {} } else reloadNow();
+    pending = true; offer();                        // the student decides when to refresh
   });
 });
 

@@ -76,44 +76,50 @@
     return sheet;
   }
   const FK = 'sv_fm', keep = v => { try { sessionStorage.setItem(FK, JSON.stringify(v)); } catch (e) {} }, forget = () => { try { sessionStorage.removeItem(FK); } catch (e) {} };
-  function close() { forget(); if (sheet) sheet.classList.remove('show'); try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} }
-  const top = (t, back) => `<div class="fm-top"><button type="button" class="fm-back" ${back ? 'id="fmBack"' : 'data-fmx'}>← ${back ? E(back) : 'Parent Hub'}</button><h2>${t}</h2></div>`;
+  let HOME = 'Parent Hub', onClose = null;          // student mode (Practice / Play → 👨‍👩‍👧 Play with family): "← Back" returns to the student app
+  function close() { forget(); if (sheet) sheet.classList.remove('show'); try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {} const f = onClose; if (f) { onClose = null; HOME = 'Parent Hub'; try { f(); } catch (e) {} } }
+  const top = (t, back) => `<div class="fm-top"><button type="button" class="fm-back" ${back ? 'id="fmBack"' : 'data-fmx'}>← ${back ? E(back) : E(HOME)}</button><h2>${t}</h2></div>`;
 
   /* ---------- 🎲 Family Quiz Night ---------- */
   const KIDE = ['🦊', '🐼', '🐯', '🐨', '🦄', '🐸'], ADE = ['🦉', '🐘', '🦚', '🐢'];
-  function setup(kids) {
-    keep({ v: 'setup' });
-    const ad = [{ n: 'Me', e: '🦉' }];
+  const GROWN = { mum: { n: 'Mum', e: '👩' }, dad: { n: 'Dad', e: '👨' }, guardian: { n: 'Guardian', e: '🧑' } };
+  function setup(kids, o) {
+    o = o || {}; const student = !!o.student;
+    keep({ v: 'setup', student });
+    const ad = student ? (o.with || ['mum']).map(k => Object.assign({}, GROWN[k] || GROWN.guardian)) : [{ n: 'Me', e: '🦉' }];
     const draw = () => {
       const el = open(`${top('🎲 Family Quiz Night')}
-        <div class="fm-card fm-hero"><div class="fm-big">🫙⭐</div><p><b>Play together, win together!</b> Pass the phone around. Children get questions from <b>their own syllabus</b>; grown-ups get <b>general knowledge</b>. Every right answer adds a star to ONE Family Star Jar.</p></div>
-        <div class="fm-card"><h3>👨‍👩‍👧 Who is playing?</h3>
-          <div class="fm-pl">${ad.map((a, i) => `<span class="fm-chip ad"><span>${a.e}</span><input value="${E(a.n)}" data-ad="${i}" aria-label="Grown-up name" maxlength="14">${i ? `<button type="button" data-rm="${i}" aria-label="Remove">✕</button>` : ''}</span>`).join('')}
+        <div class="fm-card fm-hero"><div class="fm-big">🫙⭐</div><p><b>Play together, win together!</b> Pass the phone around (or sit together at one laptop). Children get questions from <b>their own syllabus</b>; grown-ups get <b>general knowledge</b>. Every right answer adds a star to ONE Family Star Jar.</p></div>
+        <div class="fm-card"><h3>👨‍👩‍👧 Who is playing?</h3>${student ? `<div class="fm-pl" role="group" aria-label="Quick pick">${[['mum', '👩 Mum'], ['dad', '👨 Dad'], ['both', '👪 Both parents'], ['guardian', '🧑 Guardian']].map(([k, t]) => `<button type="button" class="fm-chip add" data-qp="${k}">${t}</button>`).join('')}</div>` : ''}
+          <div class="fm-pl">${ad.map((a, i) => `<span class="fm-chip ad"><span>${a.e}</span><input value="${E(a.n)}" data-ad="${i}" aria-label="Grown-up name" maxlength="14">${(student ? ad.length > 1 : i) ? `<button type="button" data-rm="${i}" aria-label="Remove">✕</button>` : ''}</span>`).join('')}
             ${ad.length < 4 ? '<button type="button" class="fm-chip add" id="fmAddAd">＋ Grown-up</button>' : ''}</div>
           <div class="fm-pl">${kids.map((k, i) => { const p = ((k.state || {}).st || {}).profile || {}; return `<label class="fm-chip kid"><input type="checkbox" data-kid="${i}" checked><span>${KIDE[i % KIDE.length]}</span>${E(name(k))}<small>${p.course === 'ca' ? 'CA' : p.grade ? 'Grade ' + p.grade : ''}</small></label>`; }).join('') || '<p class="fm-mut">Add a child in Parent Hub to play with them. You can still play as grown-ups!</p>'}</div></div>
         <div class="fm-card"><h3>🔁 Rounds</h3><div class="fm-seg">${[3, 5, 7].map(n => `<button type="button" class="fm-sg${n === 3 ? ' on' : ''}" data-r="${n}">${n}</button>`).join('')}</div><p class="fm-mut">One round = one question for each player.</p></div>
         <button type="button" class="fm-btn" id="fmGo">Start the game ▶</button>`);
-      el.querySelectorAll('[data-ad]').forEach(x => x.oninput = () => { ad[+x.dataset.ad].n = x.value.trim() || 'Me'; });
+      el.querySelectorAll('[data-ad]').forEach(x => x.oninput = () => { ad[+x.dataset.ad].n = x.value.trim() || (student ? 'Grown-up' : 'Me'); });
       el.querySelectorAll('[data-rm]').forEach(x => x.onclick = () => { ad.splice(+x.dataset.rm, 1); draw(); });
-      const add = $1('#fmAddAd', el); if (add) add.onclick = () => { ad.push({ n: ['Mum', 'Dad', 'Nani', 'Dadu'][ad.length] || 'Grown-up', e: ADE[ad.length % ADE.length] }); draw(); };
+      el.querySelectorAll('[data-qp]').forEach(x => x.onclick = () => { S('tap'); const k = x.dataset.qp; ad.splice(0, ad.length, ...(k === 'both' ? ['mum', 'dad'] : [k]).map(z => Object.assign({}, GROWN[z]))); draw(); });
+      const add = $1('#fmAddAd', el); if (add) add.onclick = () => { const used = ad.map(a => a.n), nx = (student ? ['Mum', 'Dad', 'Guardian', 'Nani', 'Dadu'] : ['Mum', 'Dad', 'Nani', 'Dadu']).find(n => !used.includes(n)); ad.push({ n: nx || 'Grown-up', e: ADE[ad.length % ADE.length] }); draw(); };
       el.querySelectorAll('[data-r]').forEach(x => x.onclick = () => { el.querySelectorAll('[data-r]').forEach(y => y.classList.toggle('on', y === x)); });
       $1('#fmGo', el).onclick = async () => {
         const ks = [...el.querySelectorAll('[data-kid]')].filter(x => x.checked).map(x => kids[+x.dataset.kid]);
         const rounds = +$1('.fm-sg.on', el).dataset.r;
-        const players = ad.map(a => ({ n: a.n, e: a.e, kid: null })).concat(ks.map((k, i) => ({ n: name(k), e: KIDE[kids.indexOf(k) % KIDE.length], kid: k })));
+        const grown = ad.map(a => ({ n: a.n, e: a.e, kid: null })), kp = ks.map(k => ({ n: name(k), e: k.avatar || KIDE[kids.indexOf(k) % KIDE.length], kid: k }));
+        const players = student ? kp.concat(grown) : grown.concat(kp);
+        if (!players.length) return;
         $1('#fmGo', el).textContent = 'Getting questions…'; $1('#fmGo', el).disabled = true;
-        try { await play(players, rounds, kids); } catch (e) { $1('#fmGo', el).textContent = 'Could not load questions — check internet and try again'; $1('#fmGo', el).disabled = false; }
+        try { await play(players, rounds, kids, null, o); } catch (e) { $1('#fmGo', el).textContent = 'Could not load questions — check internet and try again'; $1('#fmGo', el).disabled = false; }
       };
     };
     draw();
   }
   const name = k => (k && (k.name || (((k.state || {}).st || {}).profile || {}).name)) || 'Child';
 
-  async function play(players, rounds, kids, saved) {
+  async function play(players, rounds, kids, saved, sopt) {
     let turns, t = 0, log = [];
     if (saved) { turns = saved.turns; t = saved.t; log = saved.log || []; }
     else {
-      const pools = await Promise.all(players.map(p => p.kid ? kidPool(p.kid) : gkPool(10).then(L => L.map(q => gkQ(q)))));
+      const pools = await Promise.all(players.map(p => p.kid ? (p.kid.pool ? p.kid.pool(rounds) : kidPool(p.kid)) : gkPool(10).then(L => L.map(q => gkQ(q)))));
       turns = []; for (let r = 0; r < rounds; r++) players.forEach((p, i) => { const q = pools[i][r % Math.max(1, pools[i].length)]; if (q) turns.push({ p: i, q }); });
       if (!turns.length) throw new Error('none');
       players.forEach(p => { p.right = 0; p.help = 0; p.teach = 0; p.life = 1; });
@@ -180,9 +186,9 @@
         <div class="fm-bad">${players.map(p => { const b = badge(p); return `<div><span>${p.e}</span><b>${E(p.n)}</b><small>${b[0]} ${b[1]} — ${b[2]}</small></div>`; }).join('')}</div></div>
         ${talk.length ? `<div class="fm-card fm-talk"><h3>💬 Keep talking</h3><p class="pl-q">${E(pick(talk))}</p><p class="fm-mut">Everyone answers — grown-ups too!</p></div>` : ''}
         <div class="fm-card fm-tipc"><h3>🫶 Tip for grown-ups</h3><p>${E(pick(TIPS))}</p></div>
-        <button type="button" class="fm-btn ghost" id="fmAll">👀 Look back at every question</button><button type="button" class="fm-btn" id="fmAgain">Play again ▶</button><button type="button" class="fm-btn ghost" data-fmx>Back to Parent Hub</button>`);
+        <button type="button" class="fm-btn ghost" id="fmAll">👀 Look back at every question</button><button type="button" class="fm-btn" id="fmAgain">Play again ▶</button><button type="button" class="fm-btn ghost" data-fmx>Back to ${E(HOME)}</button>`);
       if (pct >= .5) S('unlock');
-      $1('#fmAgain', el).onclick = () => setup(kids);
+      $1('#fmAgain', el).onclick = () => setup(kids, sopt);
       $1('#fmAll', el).onclick = () => review(0, end);
     };
     pass();
@@ -198,7 +204,7 @@
       if (i >= L.length) {
         const n = ans.filter((a, k) => a === L[k].a).length;
         const e2 = open(`${top('🌍 GK challenge')}<div class="fm-card fm-end"><div class="fm-big">${n >= 8 ? '🏆' : n >= 5 ? '🌟' : '📚'}</div><h2>${n} / ${L.length}</h2><p>Share one surprising fact you learned with your child tonight!</p></div>
-          <button type="button" class="fm-btn ghost" id="fmRv">👀 Look back</button><button type="button" class="fm-btn" id="fmAg">Play again ▶</button><button type="button" class="fm-btn ghost" data-fmx>Back to Parent Hub</button>`);
+          <button type="button" class="fm-btn ghost" id="fmRv">👀 Look back</button><button type="button" class="fm-btn" id="fmAg">Play again ▶</button><button type="button" class="fm-btn ghost" data-fmx>Back to ${E(HOME)}</button>`);
         $1('#fmAg', e2).onclick = gkSolo; $1('#fmRv', e2).onclick = () => { i = 0; draw(); };
         return;
       }
@@ -246,11 +252,12 @@
     (first ? h => first.insertAdjacentHTML('afterend', h) : h => host.insertAdjacentHTML('afterbegin', h))(`<div class="pv-card fm-hubcard"><h2>🎲 Family Fun Zone</h2><p class="fm-mut">Play, learn and talk together. Kind words and laughter build a bond that lasts.</p>
       <div class="fm-grid">
         <button type="button" class="fm-tile big" data-fm="quiz"><span>🎲</span><b>Family Quiz Night</b><small>Pass the phone · kids get their syllabus, grown-ups get GK · one family star jar</small></button>
+        <button type="button" class="fm-tile big fm-live" data-fm="live"><span>🎮</span><b>Play with my child — on my own phone or laptop</b><small>Your child starts a family room in their app and reads you the code. You answer GK, they answer their syllabus — live, side by side.</small></button>
         <button type="button" class="fm-tile" data-fm="pc"><span>🫶</span><b>Parenting Compass</b><small>Calm, kind and firm — real family moments</small></button>
         <button type="button" class="fm-tile" data-fm="mg"><span>🧠</span><b>Mind Gym for me</b><small>Puzzles and brain games</small></button>
         <button type="button" class="fm-tile" data-fm="gk"><span>🌍</span><b>GK challenge</b><small>10 quick questions</small></button>
         <button type="button" class="fm-tile" data-fm="talk"><span>💬</span><b>Talk Time</b><small>Questions that open hearts</small></button></div></div>`);
-    host.querySelectorAll('[data-fm]').forEach(b => b.onclick = () => { S('open'); ({ quiz: () => setup(kids || []), pc: () => mindGym('pc'), mg: () => mindGym(), gk: gkSolo, talk: talkTime })[b.dataset.fm](); });
+    host.querySelectorAll('[data-fm]').forEach(b => b.onclick = () => { S('open'); ({ quiz: () => setup(kids || []), live: () => { if (window.Live && Live.family) Live.family(); }, pc: () => mindGym('pc'), mg: () => mindGym(), gk: gkSolo, talk: talkTime })[b.dataset.fm](); });
   }
 
   let css = false;
@@ -279,7 +286,7 @@
       .fm-nav{display:flex;gap:8px}.fm-nav .fm-btn{flex:1}.fm-bad{display:grid;gap:8px;margin-top:10px}.fm-bad div{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#f8f5ff;border-radius:12px;padding:8px}
       .fm-bad span{font-size:24px}.fm-bad small{width:100%;color:#556}.fm-end{text-align:center}.fm-talk{text-align:center;background:linear-gradient(135deg,#e8f0ff,#f3e8ff)}.fm-flip{animation:fmFlip .4s}
       .fm-hubcard .fm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fm-tile{display:flex;flex-direction:column;gap:2px;align-items:flex-start;text-align:left;border:0;border-radius:16px;padding:12px;background:#f7f2ff;cursor:pointer;font-family:inherit;color:inherit}
-      .fm-tile.big{grid-column:span 2;background:linear-gradient(135deg,#ffd6e7,#ffe9b8)}.fm-tile span{font-size:28px}.fm-tile small{color:#667}
+      .fm-tile.big{grid-column:span 2;background:linear-gradient(135deg,#ffd6e7,#ffe9b8)}.fm-tile.fm-live{background:linear-gradient(135deg,#dbeafe,#ede9fe)}.fm-tile span{font-size:28px}.fm-tile small{color:#667}
       @keyframes fmFlip{from{transform:rotateY(80deg);opacity:0}}
     </style>`);
   }
@@ -297,5 +304,15 @@
       if (v.v === 'mg') { let h = null; try { h = JSON.parse(sessionStorage.getItem('sv_here') || 'null'); } catch (e) {} return mindGym(h && h.x === 'mindplay' && h.a ? h.a[0] : null); }
     } catch (e) { forget(); }
   }
-  window.Family = { hubCard, open: kids => setup(kids || []), resume, forget };
+  /* student side: the signed-in student + chosen grown-ups on ONE device (phone or laptop), pass-and-play */
+  function student(o) {
+    o = o || {}; let st = null; try { st = ST; } catch (e) {}
+    if (!st || !st.profile) return;
+    HOME = o.backLabel || 'Back'; onClose = o.onClose || null;
+    let pool = null;                                  // JEE students: real JEE + practice questions
+    try { if (window.Jee && Jee.active && Jee.active() && Jee.livePool) { const P = t => String(Jee.plain ? Jee.plain(t) : t);
+      pool = async n => (await Jee.livePool(Math.max(3, n), 'mixed')).map(q => ({ q: P(q.q), o: q.o.map(P), a: q.a, x: '', tag: q.s ? P(q.s) : '🎯 JEE Main' })); } } catch (e) {}
+    setup([{ name: st.profile.name || 'Me', avatar: st.profile.avatar, state: { st }, pool }], { student: true, with: o.with });
+  }
+  window.Family = { hubCard, open: kids => setup(kids || []), student, resume, forget };
 })();
