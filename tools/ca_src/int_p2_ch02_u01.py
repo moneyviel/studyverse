@@ -59,7 +59,7 @@ def build():
     concepts = [
         C('c1', T1, [
             'Promoters are those who take the steps needed to bring a company into existence and set it going; they stand in a fiduciary position. Section 2(69) treats as promoter a person named as such in a prospectus or annual return, a person controlling the company\'s affairs, or one on whose instructions the Board acts — excluding those acting purely professionally. One who later helps float capital can also be a promoter.',
-            'Section 3: a company may be formed for any lawful purpose by 7 or more persons (public), 2 or more (private) or 1 person (OPC, a private company), by subscribing to the memorandum and complying with registration requirements. It may be limited by shares, limited by guarantee or unlimited.',
+            'Section 3: any lawful object can be pursued through a company formed by 7 or more persons (public), 2 or more (private) or 1 person (OPC, a private company), by subscribing to the memorandum and complying with registration requirements. It may be limited by shares, limited by guarantee or unlimited.',
             'Section 3A: if membership falls below 7 (public) or 2 (private) and business continues for more than six months, every member aware of it is severally liable for all debts contracted after those six months and may be sued individually.'],
           'Promoters are the architects and builders of the company; section 3A says that if the house runs on too few owners for too long, the knowing owners pay its new bills personally.',
           'Start-up founders who incorporate a company and arrange its first funding are its promoters.'),
