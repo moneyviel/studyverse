@@ -1,0 +1,782 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p1-ch15-u01",
+ "level": "inter",
+ "paper": "p1",
+ "chapter": "int-p1-ch15",
+ "n": 1,
+ "title": "Accounting for Branches including Foreign Branches",
+ "outcomes": [
+  "Distinguish dependent, independent and foreign branches.",
+  "Account for dependent branches under different systems, including invoice-price goods.",
+  "Reconcile and incorporate independent branch accounts.",
+  "Translate foreign branch accounts under AS 11."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 35,
+   "practice": 45
+  },
+  "prereq": [
+   "int-p1-ch14-u01"
+  ],
+  "exam_tip": "Convert mark-up on cost into a fraction of invoice price before anything else; for foreign branches, classify every item before picking a rate."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Kinds of branches",
+   "body": [
+    "A branch is a part of the business at another location that sells goods or provides services under the control of the head office.",
+    "Dependent branches do not keep full books; the head office maintains their accounts, and branch cash is usually remitted to the head office. Independent branches keep their own complete books and prepare their own trial balance.",
+    "Foreign branches operate outside India and are translated under AS 11 according to whether they are integral or non-integral."
+   ],
+   "analogy": "How much accounting the branch does decides the system used.",
+   "work": "A retail outlet that only sells goods sent by the head office is a dependent branch."
+  },
+  {
+   "id": "c2",
+   "title": "Dependent branches: debtors, stock and debtors, and final accounts systems",
+   "body": [
+    "Debtors system: the head office keeps a Branch Account (a nominal account) debited with opening assets and goods sent and credited with remittances and closing assets; its balance is branch profit or loss.",
+    "Stock and debtors system: separate accounts for branch stock, branch debtors, branch expenses, branch adjustment (gross profit) and branch profit and loss give better control.",
+    "Final accounts system: a branch trading and profit and loss account is prepared at the head office like a separate business.",
+    "Cash sales, collections from debtors, expenses paid by the branch and goods returned are tracked to find shortages or surpluses."
+   ],
+   "analogy": "Dependent branch accounts all live in the head office books.",
+   "work": "Under the debtors system, branch profit is the balancing figure in the Branch Account."
+  },
+  {
+   "id": "c3",
+   "title": "Goods at invoice price and stock reserve",
+   "body": [
+    "Goods may be sent to a branch at cost or at invoice price (cost plus a loading) to keep selling prices uniform and hide cost from branch staff.",
+    "When goods are invoiced above cost, the loading included in goods sent, returns and opening and closing stock is removed through a stock reserve or branch adjustment account so that only true profit is recognised.",
+    "Loading as a fraction of invoice price = mark-up ÷ (100 + mark-up) when the mark-up is on cost."
+   ],
+   "analogy": "Invoice prices carry a built-in profit that must be stripped out.",
+   "work": "A 20% mark-up on cost means one-sixth of the invoice price is loading."
+  },
+  {
+   "id": "c4",
+   "title": "Independent branches: reconciliation and incorporation",
+   "body": [
+    "An independent branch keeps its own books; the head office keeps a Branch Account and the branch a Head Office Account, which should mirror each other.",
+    "Differences arise from items in transit (cash or goods sent but not received by the year end) and items recorded by one side only. They are reconciled before incorporation, usually by adjusting in the head office books.",
+    "Incorporation: the branch trial balance is included in the head office books (or a combined statement is prepared), eliminating the branch and head office accounts against each other.",
+    "Depreciation on branch fixed assets kept in head office books is recorded by the head office; expenses incurred by head office for the branch are charged to the branch."
+   ],
+   "analogy": "The two accounts must agree before the branch is combined.",
+   "work": "Cash of ₹50,000 remitted by the branch on 31 March and received on 2 April is \"cash in transit\" in the head office books."
+  },
+  {
+   "id": "c5",
+   "title": "Foreign branches and translation",
+   "body": [
+    "Integral foreign branch: monetary items at closing rate; non-monetary items at historical rates; income and expenses at transaction (or average) rates; depreciation at the rate of the related asset; the net exchange difference goes to profit and loss.",
+    "Non-integral foreign branch: all assets and liabilities at closing rate; income and expenses at transaction (or average) rates; the exchange difference goes to a foreign currency translation reserve until disposal.",
+    "The head office account in the branch books is translated at the rupee balance in the head office books; opening stock and closing stock follow the rates appropriate to their classification."
+   ],
+   "analogy": "Translate a foreign branch by the AS 11 rules for its type.",
+   "work": "A branch abroad that depends on goods and finance from India is integral."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Removing the loading",
+   "difficulty": "core",
+   "minutes": 7,
+   "q": "Head office sends goods to its Pune branch at cost plus 25%. Goods sent during the year are ₹5,00,000 at invoice price; the branch's closing stock is ₹1,20,000 at invoice price. Compute the loading on goods sent and the stock reserve needed.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Loading on goods sent",
+       "5,00,000 × 25/125",
+       "1,00,000"
+      ],
+      [
+       "Stock reserve on closing stock",
+       "1,20,000 × 25/125",
+       "24,000"
+      ],
+      [
+       "Closing stock at cost",
+       "1,20,000 − 24,000",
+       "96,000"
+      ]
+     ],
+     "title": "Invoice price adjustments"
+    },
+    {
+     "t": "note",
+     "text": "Loading is 20% of invoice price when the mark-up is 25% on cost."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "500000*25/125",
+     "value": 100000,
+     "label": "Loading on goods sent at invoice price (₹)"
+    },
+    {
+     "expr": "120000*25/125",
+     "value": 24000,
+     "label": "Stock reserve on closing branch stock (₹)"
+    },
+    {
+     "expr": "120000-24000",
+     "value": 96000,
+     "label": "Closing branch stock at cost (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Translating an integral foreign branch",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "An integral foreign branch shows: fixed assets $10,000 (bought when $1 = ₹70), debtors $4,000, and sales $50,000 for the year. Closing rate ₹83; average rate ₹82. Translate these items.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Rate",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Fixed assets (non-monetary)",
+       "Historical ₹70",
+       "7,00,000"
+      ],
+      [
+       "Debtors (monetary)",
+       "Closing ₹83",
+       "3,32,000"
+      ],
+      [
+       "Sales (income)",
+       "Average ₹82",
+       "41,00,000"
+      ]
+     ],
+     "title": "AS 11 — integral foreign operation"
+    },
+    {
+     "t": "note",
+     "text": "Depreciation follows the rate used for the related asset. The net exchange difference on translation goes to profit and loss for an integral branch."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "10000*70",
+     "value": 700000,
+     "label": "Fixed assets at historical rate (₹)"
+    },
+    {
+     "expr": "4000*83",
+     "value": 332000,
+     "label": "Debtors at closing rate (₹)"
+    },
+    {
+     "expr": "50000*82",
+     "value": 4100000,
+     "label": "Sales at average rate (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Year-end branch closing",
+   "role": "Accounts executive",
+   "situation": "Your company has two dependent branches supplied at invoice price and one independent foreign branch.",
+   "steps": [
+    "Prepare stock and debtors accounts for the dependent branches.",
+    "Remove loading through stock reserve.",
+    "Reconcile the independent branch account and translate its trial balance.",
+    "Incorporate the branch in the head office books."
+   ],
+   "takeaway": "Remove loading, reconcile, translate, then combine."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Under the debtors system, branch profit is found as:",
+   "options": [
+    "The balancing figure in the Branch Account",
+    "Sales less purchases",
+    "Cash remitted",
+    "Closing stock less opening stock"
+   ],
+   "answer": 0,
+   "explain": "The Branch Account is debited with opening assets and goods sent and credited with remittances and closing assets; the balance is branch profit or loss. In practice: include branch expenses paid by HO.",
+   "concept": "c2",
+   "topic": "Dependent branches: debtors, stock and debtors, and final accounts systems",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Goods sent at cost plus 25%; invoice value ₹2,50,000. Loading included:",
+   "options": [
+    "₹50,000",
+    "₹62,500",
+    "₹25,000",
+    "₹2,00,000"
+   ],
+   "answer": 0,
+   "explain": "Loading = invoice × 25/125 = ₹50,000, i.e. 20% of invoice price. Cost is ₹2,00,000. In practice: apply the same fraction to returns and stock.",
+   "concept": "c3",
+   "topic": "Goods at invoice price and stock reserve",
+   "difficulty": "moderate",
+   "check": 50000
+  },
+  {
+   "id": "m3",
+   "q": "Closing branch stock at invoice price ₹60,000; goods invoiced at cost plus 20%. Stock reserve:",
+   "options": [
+    "₹10,000",
+    "₹12,000",
+    "₹8,000",
+    "₹6,000"
+   ],
+   "answer": 0,
+   "explain": "Reserve = 60,000 × 20/120 = ₹10,000, so stock at cost is ₹50,000. This removes unrealised loading. In practice: reverse the opening reserve next year.",
+   "concept": "c3",
+   "topic": "Goods at invoice price and stock reserve",
+   "difficulty": "moderate",
+   "check": 10000
+  },
+  {
+   "id": "m4",
+   "q": "Which system uses Branch Stock, Branch Debtors and Branch Adjustment accounts?",
+   "options": [
+    "Stock and debtors system",
+    "Debtors system",
+    "Final accounts system",
+    "Independent branch system"
+   ],
+   "answer": 0,
+   "explain": "The stock and debtors system keeps separate accounts for stock, debtors, expenses and gross profit (branch adjustment), giving close control over branch operations. In practice: suits larger dependent branches.",
+   "concept": "c2",
+   "topic": "Dependent branches: debtors, stock and debtors, and final accounts systems",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Cash remitted by an independent branch on 30 March and received by head office on 3 April is treated as:",
+   "options": [
+    "Cash in transit in head office books",
+    "Branch cash",
+    "Income",
+    "Ignored"
+   ],
+   "answer": 0,
+   "explain": "At the year end the branch has recorded the remittance but the head office has not; the head office records it as cash in transit to reconcile the accounts. In practice: goods in transit are treated similarly.",
+   "concept": "c4",
+   "topic": "Independent branches: reconciliation and incorporation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Depreciation on branch fixed assets whose accounts are kept by head office is recorded:",
+   "options": [
+    "By the head office, charging the branch",
+    "By the branch in its books",
+    "Not at all",
+    "In the branch trial balance only"
+   ],
+   "answer": 0,
+   "explain": "If head office keeps the asset accounts, it records depreciation and charges the branch through the branch account; the branch makes a matching entry. In practice: confirm who holds the asset records.",
+   "concept": "c4",
+   "topic": "Independent branches: reconciliation and incorporation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "For an integral foreign branch, fixed assets are translated at:",
+   "options": [
+    "Historical rates",
+    "Closing rate",
+    "Average rate",
+    "Opening rate"
+   ],
+   "answer": 0,
+   "explain": "Fixed assets are non-monetary items; for an integral operation they are translated at the rate when acquired, and depreciation follows the same rate. In practice: keep an acquisition-rate register.",
+   "concept": "c5",
+   "topic": "Foreign branches and translation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "For a non-integral foreign branch, all assets and liabilities are translated at:",
+   "options": [
+    "The closing rate",
+    "Historical rates",
+    "Average rate",
+    "Rate when the branch opened"
+   ],
+   "answer": 0,
+   "explain": "Non-integral operations use the closing rate for all assets and liabilities, with income and expenses at transaction or average rates; differences go to translation reserve. In practice: recycle on disposal.",
+   "concept": "c5",
+   "topic": "Foreign branches and translation",
+   "difficulty": "core"
+  },
+  {
+   "id": "m9",
+   "q": "Debtors of an integral branch $2,000; closing rate ₹84; average ₹82. Translated debtors:",
+   "options": [
+    "₹1,68,000",
+    "₹1,64,000",
+    "₹1,66,000",
+    "₹2,000"
+   ],
+   "answer": 0,
+   "explain": "Debtors are monetary, so they use the closing rate: 2,000 × ₹84 = ₹1,68,000. Income items would use the average rate. In practice: classify each item first.",
+   "concept": "c5",
+   "topic": "Foreign branches and translation",
+   "difficulty": "moderate",
+   "check": 168000
+  },
+  {
+   "id": "m10",
+   "q": "An independent branch is one that:",
+   "options": [
+    "Keeps its own complete set of books",
+    "Has no bank account",
+    "Only sells goods sent by the head office",
+    "Is located abroad"
+   ],
+   "answer": 0,
+   "explain": "Independent branches maintain full books and prepare their own trial balance, which is later incorporated in the head office accounts. In practice: reconcile the inter-office accounts.",
+   "concept": "c1",
+   "topic": "Kinds of branches",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Head office sends goods to its Pune branch at cost plus 25%. Goods sent during the year are ₹5,00,000 at invoice price; the branch's closing stock is ₹1,20,000 at invoice price. Compute the loading on goods sent and the stock reserve needed.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Loading on goods sent",
+       "5,00,000 × 25/125",
+       "1,00,000"
+      ],
+      [
+       "Stock reserve on closing stock",
+       "1,20,000 × 25/125",
+       "24,000"
+      ],
+      [
+       "Closing stock at cost",
+       "1,20,000 − 24,000",
+       "96,000"
+      ]
+     ],
+     "title": "Invoice price adjustments"
+    },
+    {
+     "t": "note",
+     "text": "Loading is 20% of invoice price when the mark-up is 25% on cost."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Loading on goods sent",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "loading"
+     ],
+     "min": 1,
+     "nums": [
+      100000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Stock reserve",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "reserve"
+     ],
+     "min": 1,
+     "nums": [
+      24000,
+      96000
+     ]
+    }
+   ],
+   "remarks": [
+    "Use mark-up ÷ (100 + mark-up)."
+   ],
+   "mistakes": [
+    "Taking 25% of invoice price."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "500000*25/125",
+     "value": 100000,
+     "label": "Loading on goods sent at invoice price (₹)"
+    },
+    {
+     "expr": "120000*25/125",
+     "value": 24000,
+     "label": "Stock reserve on closing branch stock (₹)"
+    },
+    {
+     "expr": "120000-24000",
+     "value": 96000,
+     "label": "Closing branch stock at cost (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "An integral foreign branch shows: fixed assets $10,000 (bought when $1 = ₹70), debtors $4,000, and sales $50,000 for the year. Closing rate ₹83; average rate ₹82. Translate these items.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Rate",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Fixed assets (non-monetary)",
+       "Historical ₹70",
+       "7,00,000"
+      ],
+      [
+       "Debtors (monetary)",
+       "Closing ₹83",
+       "3,32,000"
+      ],
+      [
+       "Sales (income)",
+       "Average ₹82",
+       "41,00,000"
+      ]
+     ],
+     "title": "AS 11 — integral foreign operation"
+    },
+    {
+     "t": "note",
+     "text": "Depreciation follows the rate used for the related asset. The net exchange difference on translation goes to profit and loss for an integral branch."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Fixed assets at historical rate",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "historical"
+     ],
+     "min": 1,
+     "nums": [
+      700000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Debtors at closing rate",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "closing"
+     ],
+     "min": 1,
+     "nums": [
+      332000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Sales at average rate",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "average"
+     ],
+     "min": 1,
+     "nums": [
+      4100000
+     ]
+    }
+   ],
+   "remarks": [
+    "Classify monetary vs non-monetary."
+   ],
+   "mistakes": [
+    "Using closing rate for fixed assets."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "10000*70",
+     "value": 700000,
+     "label": "Fixed assets at historical rate (₹)"
+    },
+    {
+     "expr": "4000*83",
+     "value": 332000,
+     "label": "Debtors at closing rate (₹)"
+    },
+    {
+     "expr": "50000*82",
+     "value": 4100000,
+     "label": "Sales at average rate (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Dependent branches: debtors, stock and debtors, final accounts systems.",
+   "Invoice price goods: remove loading via stock reserve.",
+   "Independent branches: reconcile HO and branch accounts; transit items.",
+   "Incorporate branch trial balance.",
+   "Integral foreign branch: monetary closing, non-monetary historical, P&L at average.",
+   "Non-integral: all at closing; difference to reserve."
+  ],
+  "remember": [
+   "Loading = mark-up ÷ (100 + mark-up) of invoice."
+  ],
+  "traps": [
+   "Do not translate fixed assets of an integral branch at closing rate."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Loading fraction",
+   "v": "Mark-up ÷ (100 + mark-up)"
+  },
+  {
+   "k": "Integral branch",
+   "v": "Historical for non-monetary"
+  },
+  {
+   "k": "Non-integral",
+   "v": "Closing for all"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is a dependent branch?",
+   "model": "A branch that keeps no full books; its accounts are maintained by the head office and its cash is usually remitted to the head office.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Head office keeps accounts",
+     "w": 6,
+     "kw": [
+      "head office"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Cash remitted",
+     "w": 4,
+     "kw": [
+      "remit"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Why are goods sent at invoice price?",
+   "model": "To keep selling prices uniform and keep cost confidential from branch staff, with the loading later removed through a stock reserve.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Control and confidentiality",
+     "w": 5,
+     "kw": [
+      "uniform|confidential|cost"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Loading removed",
+     "w": 5,
+     "kw": [
+      "loading|reserve"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "What causes differences between head office and branch accounts?",
+   "model": "Cash or goods in transit and items recorded by only one side at the year end.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "In transit",
+     "w": 6,
+     "kw": [
+      "transit"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "One-sided entries",
+     "w": 4,
+     "kw": [
+      "one side|only one|recorded"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "How are integral foreign branch items translated?",
+   "model": "Monetary items at closing rate, non-monetary items at historical rates, income and expenses at average or transaction rates, with differences to profit and loss.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Monetary closing, non-monetary historical",
+     "w": 6,
+     "kw": [
+      "closing",
+      "historical"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Income at average",
+     "w": 4,
+     "kw": [
+      "average"
+     ]
+    }
+   ],
+   "concept": "c5"
+  },
+  {
+   "id": "v5",
+   "q": "Where do translation differences of a non-integral branch go?",
+   "model": "To a foreign currency translation reserve until the net investment is disposed of.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Translation reserve",
+     "w": 6,
+     "kw": [
+      "reserve"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Until disposal",
+     "w": 4,
+     "kw": [
+      "dispos"
+     ]
+    }
+   ],
+   "concept": "c5"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Vasudha Stores — Nagpur branch",
+   "difficulty": "moderate",
+   "case": "Vasudha Stores sends goods to its Nagpur branch at cost plus one-third. Opening branch stock (invoice) ₹48,000; goods sent (invoice) ₹3,60,000; branch sales ₹3,80,000; closing stock (invoice) ₹40,000. No shortages.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Loading on goods sent:",
+     "options": [
+      "₹90,000",
+      "₹1,20,000",
+      "₹72,000",
+      "₹1,08,000"
+     ],
+     "answer": 0,
+     "explain": "With a one-third mark-up on cost, loading is one-quarter of invoice price: 3,60,000 × 1/4 = ₹90,000. In practice: credit branch adjustment.",
+     "difficulty": "moderate",
+     "check": 90000,
+     "topic": "Goods at invoice price and stock reserve"
+    },
+    {
+     "id": "k1b",
+     "q": "Stock reserve on closing stock:",
+     "options": [
+      "₹10,000",
+      "₹13,333",
+      "₹12,000",
+      "₹8,000"
+     ],
+     "answer": 0,
+     "explain": "Closing stock at invoice ₹40,000 × 1/4 = ₹10,000 reserve, leaving ₹30,000 at cost. In practice: opening reserve of ₹12,000 is released.",
+     "difficulty": "moderate",
+     "check": 10000,
+     "topic": "Goods at invoice price and stock reserve"
+    },
+    {
+     "id": "k1c",
+     "q": "Under the stock and debtors system, the gross profit is found in:",
+     "options": [
+      "Branch adjustment account",
+      "Branch stock account",
+      "Branch debtors account",
+      "Branch cash account"
+     ],
+     "answer": 0,
+     "explain": "The branch adjustment account collects loading on goods sent and stock, so its balance shows gross profit at cost. In practice: transfer it to branch profit and loss.",
+     "difficulty": "core",
+     "topic": "Dependent branches: debtors, stock and debtors, and final accounts systems"
+    }
+   ]
+  }
+ ]
+}
