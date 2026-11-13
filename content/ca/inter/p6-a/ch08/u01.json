@@ -1,0 +1,781 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p6-a-ch08-u01",
+ "level": "inter",
+ "paper": "p6",
+ "chapter": "int-p6-a-ch08",
+ "n": 1,
+ "title": "Dividend Decision",
+ "outcomes": [
+  "Explain forms and determinants of dividend policy.",
+  "Apply Walter, Gordon and traditional models.",
+  "Apply the MM irrelevance model.",
+  "Explain stable dividend policies and Lintner's model."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 35,
+   "practice": 45
+  },
+  "prereq": [
+   "int-p6-a-ch07-u01"
+  ],
+  "exam_tip": "Compare r with Ke before any calculation — it tells you the answer to \"optimal payout\"."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Dividend decision, forms of dividend and determinants",
+   "body": [
+    "The dividend decision splits earnings between distribution and retention; it affects shareholder wealth, financing needs and signalling.",
+    "Forms: cash dividend; stock dividend (bonus shares — no cash outflow, more shares); share buy-back as an alternative way of returning cash; interim and final dividends.",
+    "Determinants: legal restrictions (dividend out of profits, Companies Act rules), liquidity, growth needs and access to capital, stability of earnings, shareholders' preference and tax, inflation, and covenants in loan agreements."
+   ],
+   "analogy": "Dividend policy is a trade-off between cash in shareholders' hands today and growth tomorrow.",
+   "work": "A start-up with high-return projects usually retains all earnings."
+  },
+  {
+   "id": "c2",
+   "title": "Relevance theories: Walter, Gordon, traditional",
+   "body": [
+    "Walter: P = [D + (r/Ke)(E − D)] ÷ Ke. If r > Ke (growth firm), retention raises price — optimal payout 0%; if r < Ke (declining firm), full payout is optimal; if r = Ke (normal firm), payout does not matter. Assumes all financing from retention, constant r and Ke, infinite life.",
+    "Gordon: P = E(1 − b) ÷ (Ke − br), where b is retention ratio and br is growth. Conclusions mirror Walter's; with uncertainty, investors value near dividends more (\"bird in hand\").",
+    "Traditional (Graham and Dodd): P = m(D + E/3), giving dividends more weight than retained earnings."
+   ],
+   "analogy": "Relevance theories link the best payout to whether the firm earns more than shareholders require.",
+   "work": "Under Gordon, EPS ₹20, b = 0.6, r = 15%, Ke = 12% gives g = 9% and P = ₹8 ÷ 3% = ₹266.67."
+  },
+  {
+   "id": "c3",
+   "title": "Irrelevance: Modigliani–Miller",
+   "body": [
+    "Modigliani and Miller argue that, in perfect markets with no taxes, no transaction or flotation costs and fixed investment policy, dividend policy does not affect firm value; value depends on earnings power and investment decisions.",
+    "P0 = (D1 + P1) ÷ (1 + Ke); shares issued to finance investment: Δn = [I − (E − nD1)] ÷ P1. Paying a dividend lowers P1 by exactly the dividend, and the new issue offsets the cash paid.",
+    "Criticisms: taxes on dividends and gains differ, flotation costs exist, investors face transaction costs, information asymmetry gives dividends a signalling role, and markets are not perfect."
+   ],
+   "analogy": "MM: what you get as dividend you lose in share price, when markets are perfect.",
+   "work": "A ₹5 dividend on a share that would be worth ₹110 leaves the share at ₹105 — the holder's wealth is unchanged."
+  },
+  {
+   "id": "c4",
+   "title": "Dividend policy in practice: stability and Lintner",
+   "body": [
+    "Stable dividend policies (constant dividend per share, constant payout ratio, or a small regular dividend plus extra) are popular because investors value predictability and signals.",
+    "Lintner's model: firms have a target payout ratio and adjust dividends gradually towards it: D1 = D0 + [(EPS × target payout) − D0] × adjustment factor.",
+    "Stock dividends and splits do not change wealth directly but improve marketability and may signal confidence."
+   ],
+   "analogy": "Managers smooth dividends because cutting them sends a bad signal.",
+   "work": "Target payout 50%, EPS rises from ₹8 to ₹12, previous dividend ₹4, adjustment 0.5: new dividend ₹5."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Should a growth firm pay out?",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "EPS ₹10; cost of equity 10%. Using Walter's model, find the share price at 40% and 100% payout when (a) return on investment r = 15% and (b) r = 8%. What is the optimal payout in each case?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "40% payout ₹",
+      "100% payout ₹",
+      "Optimal"
+     ],
+     "rows": [
+      [
+       "(a) r = 15% > Ke",
+       "130",
+       "100",
+       "Retain all (0% payout)"
+      ],
+      [
+       "(b) r = 8% < Ke",
+       "88",
+       "100",
+       "Distribute all (100% payout)"
+      ]
+     ],
+     "title": "Walter: P = [D + (r/Ke)(E − D)] ÷ Ke"
+    },
+    {
+     "t": "note",
+     "text": "When r = Ke the price is the same at any payout — dividend policy does not matter."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(4+0.15/0.10*(10-4))/0.10",
+     "value": 130,
+     "label": "Walter price at 40% payout (r = 15%)"
+    },
+    {
+     "expr": "10/0.10",
+     "value": 100,
+     "label": "Walter price at 100% payout"
+    },
+    {
+     "expr": "(4+0.08/0.10*(10-4))/0.10",
+     "value": 88,
+     "label": "Walter price at 40% payout (r = 8%)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Testing MM",
+   "difficulty": "hard",
+   "minutes": 10,
+   "q": "A firm has 1,00,000 shares at ₹100 each; cost of equity 10%. It expects net income of ₹10 lakh, plans investment of ₹20 lakh and is considering a dividend of ₹5 per share. Under MM, find the year-end price if the dividend is paid, the number of new shares needed, and show the firm's value is unchanged.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "Year-end price (dividend paid)",
+       "100 × 1.10 − 5",
+       "₹105"
+      ],
+      [
+       "Funds needed from new shares",
+       "20,00,000 − (10,00,000 − 5,00,000)",
+       "₹15,00,000"
+      ],
+      [
+       "New shares",
+       "15,00,000 ÷ 105",
+       "14285.71"
+      ],
+      [
+       "Value of firm today",
+       "[(1,00,000 + 14,285.71) × 105 − 20,00,000 + 10,00,000] ÷ 1.10",
+       "₹1,00,00,000"
+      ]
+     ],
+     "title": "Modigliani–Miller"
+    },
+    {
+     "t": "p",
+     "text": "Without a dividend the year-end price would be ₹110, fewer shares would be issued, and the value is still ₹1,00,00,000 — so dividend policy is irrelevant under MM's assumptions."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100*1.10-5",
+     "value": 105,
+     "label": "Price at year end if dividend is paid"
+    },
+    {
+     "expr": "(2000000-(1000000-500000))/105",
+     "value": 14285.71,
+     "label": "New shares to be issued"
+    },
+    {
+     "expr": "((100000+14285.714)*105 - 2000000 + 1000000)/1.10",
+     "value": 9999999.97,
+     "label": "Value of the firm today"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Board note on dividend",
+   "role": "Finance analyst trainee",
+   "situation": "The CFO asks whether to raise the dividend or fund a new plant from profits.",
+   "steps": [
+    "Compare expected project return with the cost of equity.",
+    "Check legal and covenant limits.",
+    "Assess cash and access to external funds.",
+    "Consider signalling and shareholder expectations."
+   ],
+   "takeaway": "If retained profits earn more than shareholders' required return, retention usually adds value."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Under Walter's model, a growth firm (r > Ke) should:",
+   "options": [
+    "Retain all earnings",
+    "Pay all earnings as dividend",
+    "Pay 50%",
+    "Issue bonus shares only"
+   ],
+   "answer": 0,
+   "explain": "Each rupee retained earns more than shareholders require, raising price. In practice: high-growth tech firms pay little dividend.",
+   "concept": "c2",
+   "topic": "Relevance theories: Walter, Gordon, traditional",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Walter: E = ₹8, D = ₹8, Ke = 10%. Price:",
+   "options": [
+    "₹80",
+    "₹8",
+    "₹100",
+    "₹64"
+   ],
+   "answer": 0,
+   "explain": "With full payout P = 8 ÷ 0.10 = ₹80. In practice: r does not matter at 100% payout.",
+   "concept": "c2",
+   "topic": "Relevance theories: Walter, Gordon, traditional",
+   "difficulty": "core",
+   "check": 80
+  },
+  {
+   "id": "m3",
+   "q": "In Gordon's model, growth g equals:",
+   "options": [
+    "b × r",
+    "Ke − r",
+    "D ÷ E",
+    "1 − b"
+   ],
+   "answer": 0,
+   "explain": "Growth comes from retained earnings reinvested at r. In practice: requires Ke > g.",
+   "concept": "c2",
+   "topic": "Relevance theories: Walter, Gordon, traditional",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Gordon: E = ₹10, b = 0.4, r = 10%, Ke = 12%. Price:",
+   "options": [
+    "₹75",
+    "₹60",
+    "₹83.33",
+    "₹50"
+   ],
+   "answer": 0,
+   "explain": "D = 6; g = 4%; P = 6 ÷ (0.12 − 0.04) = ₹75. In practice: sensitive to Ke − g.",
+   "concept": "c2",
+   "topic": "Relevance theories: Walter, Gordon, traditional",
+   "difficulty": "moderate",
+   "check": 75
+  },
+  {
+   "id": "m5",
+   "q": "MM dividend irrelevance assumes:",
+   "options": [
+    "Perfect capital markets with no taxes",
+    "High flotation costs",
+    "Different tax on dividends and gains",
+    "Uncertain investment policy"
+   ],
+   "answer": 0,
+   "explain": "MM rely on perfect markets, no taxes and fixed investment policy. In practice: real markets violate these.",
+   "concept": "c3",
+   "topic": "Irrelevance: Modigliani–Miller",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Under MM, P0 ₹50, Ke 10%, D1 ₹2. P1:",
+   "options": [
+    "₹53",
+    "₹55",
+    "₹50",
+    "₹48"
+   ],
+   "answer": 0,
+   "explain": "P1 = 50 × 1.10 − 2 = ₹53. In practice: without dividend P1 = ₹55.",
+   "concept": "c3",
+   "topic": "Irrelevance: Modigliani–Miller",
+   "difficulty": "core",
+   "check": 53
+  },
+  {
+   "id": "m7",
+   "q": "The traditional model of Graham and Dodd is:",
+   "options": [
+    "P = m(D + E/3)",
+    "P = D/Ke",
+    "P = E/Ke",
+    "P = (D1 + P1)/(1 + Ke)"
+   ],
+   "answer": 0,
+   "explain": "It weights dividends three times as heavily as retained earnings. In practice: reflects investor preference for dividends.",
+   "concept": "c2",
+   "topic": "Relevance theories: Walter, Gordon, traditional",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Lintner's model suggests that firms:",
+   "options": [
+    "Adjust dividends gradually towards a target payout",
+    "Change dividends every year with earnings",
+    "Never pay dividends",
+    "Pay all earnings"
+   ],
+   "answer": 0,
+   "explain": "Dividends are smoothed using an adjustment factor. In practice: explains sticky dividends.",
+   "concept": "c4",
+   "topic": "Dividend policy in practice: stability and Lintner",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "EPS ₹10; cost of equity 10%. Using Walter's model, find the share price at 40% and 100% payout when (a) return on investment r = 15% and (b) r = 8%. What is the optimal payout in each case?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "40% payout ₹",
+      "100% payout ₹",
+      "Optimal"
+     ],
+     "rows": [
+      [
+       "(a) r = 15% > Ke",
+       "130",
+       "100",
+       "Retain all (0% payout)"
+      ],
+      [
+       "(b) r = 8% < Ke",
+       "88",
+       "100",
+       "Distribute all (100% payout)"
+      ]
+     ],
+     "title": "Walter: P = [D + (r/Ke)(E − D)] ÷ Ke"
+    },
+    {
+     "t": "note",
+     "text": "When r = Ke the price is the same at any payout — dividend policy does not matter."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Walter formula",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "walter"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Prices at r = 15%",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "15%"
+     ],
+     "min": 1,
+     "nums": [
+      130,
+      100
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Price at r = 8%",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "8%"
+     ],
+     "min": 1,
+     "nums": [
+      88
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Optimal payout",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "retain|distribute"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "State r vs Ke first."
+   ],
+   "mistakes": [
+    "Using r in the denominator."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "(4+0.15/0.10*(10-4))/0.10",
+     "value": 130,
+     "label": "Walter price at 40% payout (r = 15%)"
+    },
+    {
+     "expr": "10/0.10",
+     "value": 100,
+     "label": "Walter price at 100% payout"
+    },
+    {
+     "expr": "(4+0.08/0.10*(10-4))/0.10",
+     "value": 88,
+     "label": "Walter price at 40% payout (r = 8%)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 7,
+   "minutes": 13,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "A firm has 1,00,000 shares at ₹100 each; cost of equity 10%. It expects net income of ₹10 lakh, plans investment of ₹20 lakh and is considering a dividend of ₹5 per share. Under MM, find the year-end price if the dividend is paid, the number of new shares needed, and show the firm's value is unchanged.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "Year-end price (dividend paid)",
+       "100 × 1.10 − 5",
+       "₹105"
+      ],
+      [
+       "Funds needed from new shares",
+       "20,00,000 − (10,00,000 − 5,00,000)",
+       "₹15,00,000"
+      ],
+      [
+       "New shares",
+       "15,00,000 ÷ 105",
+       "14285.71"
+      ],
+      [
+       "Value of firm today",
+       "[(1,00,000 + 14,285.71) × 105 − 20,00,000 + 10,00,000] ÷ 1.10",
+       "₹1,00,00,000"
+      ]
+     ],
+     "title": "Modigliani–Miller"
+    },
+    {
+     "t": "p",
+     "text": "Without a dividend the year-end price would be ₹110, fewer shares would be issued, and the value is still ₹1,00,00,000 — so dividend policy is irrelevant under MM's assumptions."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Year-end price",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "price"
+     ],
+     "min": 1,
+     "nums": [
+      105
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "New shares",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "shares"
+     ],
+     "min": 1,
+     "nums": [
+      14285.71
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Value of firm",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "value"
+     ],
+     "min": 1,
+     "nums": [
+      9999999.97
+     ]
+    }
+   ],
+   "remarks": [
+    "Follow the MM equations."
+   ],
+   "mistakes": [
+    "Forgetting to subtract investment."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100*1.10-5",
+     "value": 105,
+     "label": "Price at year end if dividend is paid"
+    },
+    {
+     "expr": "(2000000-(1000000-500000))/105",
+     "value": 14285.71,
+     "label": "New shares to be issued"
+    },
+    {
+     "expr": "((100000+14285.714)*105 - 2000000 + 1000000)/1.10",
+     "value": 9999999.97,
+     "label": "Value of the firm today"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Walter: P = [D + (r/Ke)(E − D)] ÷ Ke.",
+   "Gordon: P = E(1 − b) ÷ (Ke − br).",
+   "r > Ke retain; r < Ke distribute; r = Ke irrelevant.",
+   "MM: P0 = (D1 + P1) ÷ (1 + Ke); Δn = [I − (E − nD1)] ÷ P1.",
+   "Lintner: gradual adjustment to target payout."
+  ],
+  "remember": [
+   "Gordon needs Ke > g."
+  ],
+  "traps": [
+   "Bonus shares do not change shareholder wealth by themselves."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Walter",
+   "v": "[D + r/Ke(E − D)]/Ke"
+  },
+  {
+   "k": "Gordon",
+   "v": "E(1 − b)/(Ke − br)"
+  },
+  {
+   "k": "MM P1",
+   "v": "P0(1 + Ke) − D1"
+  },
+  {
+   "k": "Growth",
+   "v": "g = br"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What does Walter say about a normal firm?",
+   "model": "When the return on investment equals the cost of equity, the share price is the same at every payout, so dividend policy is irrelevant.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "r equals Ke",
+     "w": 5,
+     "kw": [
+      "equal"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Same price",
+     "w": 5,
+     "kw": [
+      "same|irrelevant"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "State Gordon's formula.",
+   "model": "Price equals earnings times one minus retention ratio, divided by cost of equity minus retention ratio times return.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Payout numerator",
+     "w": 5,
+     "kw": [
+      "one minus|1 − b|earnings"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Ke − br",
+     "w": 5,
+     "kw": [
+      "cost of equity minus|ke"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What is the MM argument?",
+   "model": "In perfect markets the value of a firm depends on its earning power and investment policy; the dividend paid is offset by a fall in share price, so payout does not matter.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Perfect markets",
+     "w": 5,
+     "kw": [
+      "perfect"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Offset",
+     "w": 5,
+     "kw": [
+      "offset|fall"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Give two criticisms of MM.",
+   "model": "Taxes treat dividends and capital gains differently, and flotation and transaction costs exist.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Taxes",
+     "w": 5,
+     "kw": [
+      "tax"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Costs",
+     "w": 5,
+     "kw": [
+      "flotation|transaction"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Why do companies keep dividends stable?",
+   "model": "Because investors value predictable income and a cut sends a negative signal about future earnings.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Predictability",
+     "w": 5,
+     "kw": [
+      "predict|stable"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Signal",
+     "w": 5,
+     "kw": [
+      "signal"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Aarohi Tech Ltd.",
+   "difficulty": "moderate",
+   "case": "Aarohi Tech Ltd.: EPS ₹20; cost of equity 12%; return on investment 18%. The board debates a 30% or 70% payout. Use Walter's model.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Price at 30% payout:",
+     "options": [
+      "₹225.00",
+      "₹191.67",
+      "₹250.00",
+      "₹166.67"
+     ],
+     "answer": 0,
+     "explain": "D = 6; P = [6 + (0.18 ÷ 0.12) × 14] ÷ 0.12 = 27 ÷ 0.12 = ₹225. In practice: retention adds value here.",
+     "difficulty": "moderate",
+     "check": 225,
+     "topic": "Relevance theories: Walter, Gordon, traditional"
+    },
+    {
+     "id": "k1b",
+     "q": "Price at 70% payout:",
+     "options": [
+      "₹191.67",
+      "₹225.00",
+      "₹166.67",
+      "₹250.00"
+     ],
+     "answer": 0,
+     "explain": "D = 14; P = [14 + 1.5 × 6] ÷ 0.12 = 23 ÷ 0.12 = ₹191.67. In practice: higher payout lowers price for a growth firm.",
+     "difficulty": "moderate",
+     "check": 191.67,
+     "topic": "Relevance theories: Walter, Gordon, traditional"
+    },
+    {
+     "id": "k1c",
+     "q": "Optimal payout under Walter:",
+     "options": [
+      "0%",
+      "100%",
+      "50%",
+      "Any payout"
+     ],
+     "answer": 0,
+     "explain": "Since r (18%) exceeds Ke (12%), retaining everything maximises price (₹250). In practice: consider shareholder cash needs.",
+     "difficulty": "core",
+     "topic": "Relevance theories: Walter, Gordon, traditional"
+    },
+    {
+     "id": "k1d",
+     "q": "Under MM, the choice of payout would:",
+     "options": [
+      "Not affect firm value",
+      "Raise value at 70%",
+      "Raise value at 30%",
+      "Make value zero"
+     ],
+     "answer": 0,
+     "explain": "MM hold dividend policy irrelevant in perfect markets. In practice: taxes and signalling make it relevant.",
+     "difficulty": "core",
+     "topic": "Irrelevance: Modigliani–Miller"
+    }
+   ]
+  }
+ ]
+}
