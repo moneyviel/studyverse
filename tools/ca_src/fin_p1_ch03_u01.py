@@ -14,7 +14,7 @@ def build():
           'q': 'Reporting date 31 March 2027; statements approved 20 May 2027. Classify: (a) a term loan of ₹50 crore due on 30 November 2027, refinanced for five years on 10 April 2027; (b) a loan covenant breached on 15 March 2027 making the loan repayable on demand; on 5 May 2027 the bank agreed not to demand payment; (c) the same breach, but on 25 March 2027 the bank granted a grace period up to 30 June 2028 during which it will not demand repayment; (d) a ₹20 crore drawing under a 5-year committed facility, repayable in 6 months but which the entity has the right and expectation to roll over; (e) trade payables due in 14 months within the 18-month operating cycle.',
           'solution': [table(['Item', 'Classification', 'Reason'], [
               ['(a)', 'Current', 'Due within 12 months; refinancing agreed after the reporting date does not change classification'],
-              ['(b)', 'Non-current (Ind AS 1 carve-out)', 'Under Ind AS, a lender\'s agreement before approval of the statements not to demand payment following a breach allows non-current classification (IAS 1 would require current)'],
+              ['(b)', 'Current', 'The old Ind AS carve-out for post-year-end waivers applied only to periods beginning before 1 April 2026; from FY 2026-27 the May waiver is a non-adjusting event and the loan is current'],
               ['(c)', 'Non-current', 'Grace period agreed by the reporting date ends more than 12 months later and the lender cannot demand repayment meanwhile'],
               ['(d)', 'Non-current', 'Entity expects and has the discretion under an existing facility to roll over for at least 12 months'],
               ['(e)', 'Current', 'Operating items settled within the normal operating cycle are current even if due after 12 months']], title='Ind AS 1 — liabilities')],
@@ -54,8 +54,8 @@ def build():
             'Assets and liabilities are split into current and non-current unless a liquidity-based presentation is more reliable and relevant (e.g. for financial institutions).',
             'Current assets: expected to be realised, sold or consumed in the normal operating cycle; held mainly for trading; expected to be realised within 12 months; or unrestricted cash and cash equivalents. The operating cycle runs from buying inputs for processing to collecting cash; where it cannot be identified, 12 months is used.',
             'Current liabilities: expected to be settled in the normal operating cycle; held mainly for trading; due within 12 months; or where there is no right, existing at the reporting date and having substance, to defer settlement for at least 12 months. Settlement through equity at the counterparty\'s option does not affect classification. Covenants to be complied with only after the reporting date do not affect classification, but are disclosed.',
-            'Refinancing after the reporting date does not make a loan non-current; but where the entity has discretion under an existing facility to roll it over for 12 months, it is non-current. Ind AS carve-out: a breach-related loan stays non-current if, after the reporting date and before approval, the lender agrees not to demand payment.'],
-          'Classification depends on rights and expectations at the reporting date, not on what happens after it — except for the Ind AS carve-out on breaches.',
+            'Refinancing after the reporting date does not make a loan non-current; but where the entity has discretion under an existing facility to roll it over for 12 months, it is non-current. Breaches: from periods beginning 1 April 2026 a loan made repayable on demand by a breach on or before the reporting date is current, even if the lender waives after that date; it is non-current only if, by the reporting date, the lender has granted a grace period of at least 12 months. (For FY 2025-26 only, India kept a carve-out allowing a waiver obtained before approval of the statements.)'],
+          'Classification depends on rights at the reporting date, not on what happens after it — the old Indian carve-out on breaches has now been withdrawn.',
           'Whisky maturing for 3 years in a distillery\'s normal cycle is a current asset.'),
         C('c4', T4, [
             'Statement of profit and loss: profit or loss section, followed by OCI, then total comprehensive income; with profit and total comprehensive income attributed to owners of the parent and non-controlling interests. Expenses are analysed by nature under Schedule III. No item is presented as "extraordinary".',
@@ -68,7 +68,7 @@ def build():
 
     jobs = [{'id': 'j1', 'title': 'Year-end classification review', 'role': 'Audit senior',
              'situation': 'The client has several loans with covenants and some breaches near year end.',
-             'steps': ['List each borrowing with maturity and covenant status at the reporting date.', 'Check rights to defer settlement and their substance.', 'Apply the Ind AS carve-out for post-year-end waivers.', 'Disclose covenant information for non-current loans.'],
+             'steps': ['List each borrowing with maturity and covenant status at the reporting date.', 'Check rights to defer settlement and their substance.', 'Treat post-year-end waivers as non-adjusting events (carve-out withdrawn from FY 2026-27).', 'Disclose covenant information for non-current loans.'],
              'takeaway': 'Read the loan agreements and dates — classification turns on them.'}]
 
     mcqs = [
@@ -82,8 +82,8 @@ def build():
           'Ind AS 1 presumes 12 months. In practice: disclose the cycle used.', 'c3', T3),
         Q('m5', 'A loan due in 4 months is refinanced on a long-term basis after the reporting date but before approval. Classification:', ['Current', 'Non-current', 'Equity', 'Contingent liability'], 0,
           'Refinancing after the reporting date does not create a right that existed at that date. In practice: disclose the refinancing as a non-adjusting event.', 'c3', T3),
-        Q('m6', 'Under the Ind AS carve-out, a loan payable on demand due to a pre-year-end breach is non-current if:', ['The lender agrees, before the statements are approved, not to demand payment', 'The entity intends to repay later', 'The breach is small', 'The bank is a related party'], 0,
-          'Ind AS 1 departs from IAS 1 here. In practice: document the lender\'s letter and its date.', 'c3', T3),
+        Q('m6', 'For FY 2026-27, a loan payable on demand due to a pre-year-end breach is non-current only if:', ['By the reporting date the lender granted a grace period of at least 12 months', 'The lender waives before the statements are approved', 'The entity intends to repay later', 'The breach is small'], 0,
+          'The Indian carve-out for later waivers ended with FY 2025-26. In practice: document the lender\'s letter and its date.', 'c3', T3),
         Q('m7', 'Which OCI item will be reclassified to profit or loss later?', ['Exchange differences on translating a foreign operation', 'Remeasurement of defined benefit plans', 'Revaluation surplus', 'Equity instruments designated at FVOCI'], 0,
           'Translation differences are recycled on disposal of the foreign operation. The others are not. In practice: present the two groups separately.', 'c4', T4),
         Q('m8', 'Under Ind AS 1, presenting items as "extraordinary":', ['Is prohibited', 'Is required for rare events', 'Is allowed in notes only', 'Is optional'], 0,
@@ -92,9 +92,9 @@ def build():
 
     questions = [
         W('q1', 8, i1['q'], i1['solution'],
-          [S('s1', 'Refinancing after date', 1.5, 'concept', 'after the reporting|current'), S('s2', 'Carve-out', 2, 'concept', 'carve'),
+          [S('s1', 'Refinancing after date', 1.5, 'concept', 'after the reporting|current'), S('s2', 'Breach and waiver', 2, 'concept', 'carve|waiver'),
            S('s3', 'Grace period', 1.5, 'concept', 'grace'), S('s4', 'Roll-over discretion', 1.5, 'concept', 'discretion|roll'), S('s5', 'Operating cycle', 1.5, 'concept', 'operating cycle')],
-          ['Anchor each answer on the reporting date.'], ['Ignoring the Ind AS carve-out.'], ['Table.'], pad='table'),
+          ['Anchor each answer on the reporting date.'], ['Applying the withdrawn carve-out.'], ['Table.'], pad='table'),
         W('q2', 4, i2['q'], i2['solution'],
           [S('s1', 'Never-recycled group', 2, 'concept', 'never moves'), S('s2', 'Recycled group', 1, 'concept', 'moves to profit or loss later'), S('s3', 'Totals', 1, 'computation', 'total', nums=[tci])],
           ['Show both groups.'], ['Putting actuarial losses in the recycled group.'], ['Extract.'], pad='table', checks=list(ck)),
@@ -107,8 +107,8 @@ def build():
           [P('p1', 'Omit, misstate, obscure', 5, 'omit|misstat|obscur'), P('p2', 'Influence decisions', 5, 'influence|decision')], 'c2'),
         V('v3', 'When is a liability current?', 'When it is expected to be settled in the operating cycle, held for trading, due within 12 months, or the entity lacks a substantive right at the reporting date to defer settlement for 12 months.',
           [P('p1', 'Cycle or 12 months', 5, 'cycle|12 months|twelve'), P('p2', 'Right to defer', 5, 'defer')], 'c3'),
-        V('v4', 'What is the Ind AS 1 carve-out on loan breaches?', 'If the lender agrees after the reporting date but before approval of the statements not to demand payment, the liability is not reclassified as current, unlike IAS 1.',
-          [P('p1', 'Lender agreement', 5, 'lender|agree'), P('p2', 'Before approval', 5, 'approval')], 'c3'),
+        V('v4', 'What happened to the Ind AS 1 carve-out on loan breaches?', 'It let a lender waiver given before approval of the statements keep a breached loan non-current; it was withdrawn for periods beginning 1 April 2026, so only a grace period of 12 months or more agreed by the reporting date now helps.',
+          [P('p1', 'Withdrawn from 2026', 5, 'withdrawn'), P('p2', 'Grace period by reporting date', 5, 'grace')], 'c3'),
         V('v5', 'Give two items of OCI that are never reclassified.', 'Remeasurements of defined benefit plans and changes in revaluation surplus, as well as fair value changes on equity instruments designated at FVOCI.',
           [P('p1', 'Defined benefit', 5, 'defined benefit|remeasure'), P('p2', 'Revaluation or equity', 5, 'revaluation|equity')], 'c4'),
     ]
@@ -129,7 +129,7 @@ def build():
     return unit(UID, 'p1', 'fin-p1-ch03', 1, 'Ind AS 1 "Presentation of Financial Statements"',
                 ['Identify the components of a complete set of financial statements.',
                  'Apply the general features of presentation.',
-                 'Classify assets and liabilities as current or non-current, including the Ind AS carve-out.',
+                 'Classify assets and liabilities as current or non-current, including covenant breaches.',
                  'Present profit or loss, OCI, changes in equity and notes.'],
                 {'difficulty': 'core', 'minutes': {'learn': 45, 'practice': 35}, 'prereq': ['fin-p1-ch02-u01'],
                  'exam_tip': 'For loan classification, write the reporting date, approval date and when each event happened before concluding.'},
@@ -137,9 +137,9 @@ def build():
                 {'summary': ['Complete set incl. third balance sheet on material retrospective changes.',
                              'Fair presentation, going concern (12 months), accrual, materiality, no offsetting, comparatives, consistency.',
                              'Current: operating cycle, trading, 12 months, no substantive right to defer.',
-                             'Ind AS carve-out on post-year-end lender waivers.',
+                             'Breach carve-out withdrawn from FY 2026-27: post-year-end waivers no longer help.',
                              'OCI in two groups; no extraordinary items.'],
                  'remember': ['Refinancing after year end does not change classification.'],
                  'traps': ['Operating items stay current beyond 12 months; financing items do not.']},
-                [('Operating cycle unclear', '12 months'), ('Going concern horizon', '≥ 12 months'), ('Third balance sheet', 'Material retrospective change'), ('Breach carve-out', 'Waiver before approval → non-current')],
+                [('Operating cycle unclear', '12 months'), ('Going concern horizon', '≥ 12 months'), ('Third balance sheet', 'Material retrospective change'), ('Breach (FY 2026-27 on)', 'Current unless 12-month grace by reporting date')],
                 viva, cases)
