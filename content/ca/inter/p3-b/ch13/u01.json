@@ -1,0 +1,699 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p3-b-ch13-u01",
+ "level": "inter",
+ "paper": "p3",
+ "chapter": "int-p3-b-ch13",
+ "n": 1,
+ "title": "Payment of Tax",
+ "outcomes": [
+  "Explain the electronic ledgers and modes of deposit.",
+  "Apply the order of discharge and payment due dates.",
+  "Compute interest on delayed payment and wrong ITC."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 25,
+   "practice": 25
+  },
+  "prereq": [
+   "int-p3-b-ch12-u01"
+  ],
+  "exam_tip": "In interest sums, check whether the base is the cash portion and whether ITC was actually utilised."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Electronic ledgers and modes of payment (s. 49)",
+   "body": [
+    "Each registered person has three electronic records on the portal: the cash ledger (deposits), the credit ledger (ITC) and the liability register (all dues).",
+    "Deposits into the cash ledger use a challan (valid 15 days) paid by internet banking, debit or credit card, NEFT/RTGS, UPI or over the counter (up to ₹10,000 per challan per period); the date of credit to the Government account is the date of deposit.",
+    "The cash ledger pays tax, interest, penalty, fees and other amounts; the credit ledger pays only output tax. Amounts can be transferred between heads in the cash ledger and, for CGST and IGST, to a distinct person with the same PAN. Unused balances in the cash ledger can be refunded."
+   ],
+   "analogy": "Cash is the universal key; credit opens only the output-tax door.",
+   "work": "A trader with ₹5 lakh of ITC must still pay a ₹2,000 late fee in cash."
+  },
+  {
+   "id": "c2",
+   "title": "Order of discharge and due dates",
+   "body": [
+    "Section 49(8) order: first, self-assessed tax and other dues for previous periods; then the current period; then any amount payable under a demand (sections 73 or 74).",
+    "Due dates: monthly filers pay by the 20th of the next month with GSTR-3B. Quarterly (QRMP) filers pay for the first two months by the 25th of the following month (either 35% of last quarter's cash tax, or actual tax), and for the quarter with GSTR-3B by the 22nd or 24th depending on the State.",
+    "Reverse charge tax is paid in cash. TDS and TCS deducted by others are credited to the cash ledger of the supplier once accepted."
+   ],
+   "analogy": "Old dues are cleared before new ones, so a short payment always shows up as a current-period default.",
+   "work": "A QRMP taxpayer with low sales in April may pay actual tax by 25 May instead of 35% of the earlier quarter's cash."
+  },
+  {
+   "id": "c3",
+   "title": "Interest on delayed payment (s. 50)",
+   "body": [
+    "Section 50(1): interest at 18% a year on tax not paid by the due date, from the day after the due date until payment. Where the return is filed late but before proceedings, interest is on the cash portion only.",
+    "Section 50(3): where ITC is wrongly availed and utilised, interest is payable at the notified rate (18%) from the date of utilisation to the date of reversal or payment; credit merely availed but not used attracts no interest.",
+    "ITC is treated as utilised when the balance in the credit ledger falls below the wrongly availed amount. Interest is paid in cash and is not deductible from ITC."
+   ],
+   "analogy": "Interest charges only for the time the Government was actually short of cash.",
+   "work": "Wrong credit of ₹10,000 sitting unused in the ledger costs nothing; once used, interest starts."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Paying late",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "For a month, Kavi Industries (monthly filer) had output tax of ₹1,00,000, of which ₹60,000 was set off by ITC and ₹40,000 was payable in cash. It filed GSTR-3B and paid 30 days after the due date. Separately, it had wrongly availed and used ITC of ₹25,000, reversed 73 days later. Compute interest (round to the nearest rupee).",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Late payment",
+       "18% on the cash portion only: 40,000 × 18% × 30/365",
+       "592"
+      ],
+      [
+       "Wrong ITC availed and utilised",
+       "18% (notified rate): 25,000 × 18% × 73/365",
+       "900"
+      ]
+     ],
+     "title": "Section 50"
+    },
+    {
+     "t": "note",
+     "text": "Interest on late payment is on the net cash liability where the return is filed before any proceedings begin."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(40000*18/100*30/365)",
+     "value": 592,
+     "label": "Interest on cash portion paid 30 days late"
+    },
+    {
+     "expr": "round(25000*18/100*73/365)",
+     "value": 900,
+     "label": "Interest on ITC wrongly availed and utilised, 73 days"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Which ledger pays what?",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "State which ledger can be used: (a) output IGST for the month; (b) reverse charge tax on legal fees; (c) interest under section 50; (d) late fee for GSTR-3B; (e) a penalty imposed by the officer.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Ledger"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Electronic credit ledger or cash ledger"
+      ],
+      [
+       "(b)",
+       "Electronic cash ledger only"
+      ],
+      [
+       "(c)",
+       "Electronic cash ledger only"
+      ],
+      [
+       "(d)",
+       "Electronic cash ledger only"
+      ],
+      [
+       "(e)",
+       "Electronic cash ledger only"
+      ]
+     ],
+     "title": "Section 49"
+    },
+    {
+     "t": "note",
+     "text": "The credit ledger is used only for output tax under forward charge (and output tax payable by ECOs as suppliers)."
+    }
+   ],
+   "checks": []
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Payment calendar for a QRMP client",
+   "role": "Article assistant",
+   "situation": "A small trader on QRMP keeps missing the monthly payment.",
+   "steps": [
+    "Explain the 25th deadline for months one and two.",
+    "Choose fixed-sum or self-assessment method.",
+    "Generate challan early; it is valid 15 days.",
+    "Reconcile in the quarterly GSTR-3B."
+   ],
+   "takeaway": "Quarterly returns still mean monthly payments."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Late fee under GST can be paid from:",
+   "options": [
+    "Electronic cash ledger only",
+    "Electronic credit ledger",
+    "Either ledger",
+    "Liability register"
+   ],
+   "answer": 0,
+   "explain": "The credit ledger pays only output tax; fees, interest and penalties are paid in cash. In practice: keep cash for these.",
+   "concept": "c1",
+   "topic": "Electronic ledgers and modes of payment (s. 49)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "A GST challan is valid for:",
+   "options": [
+    "15 days",
+    "7 days",
+    "30 days",
+    "24 hours"
+   ],
+   "answer": 0,
+   "explain": "A challan generated on the portal must be paid within 15 days. In practice: generate it close to payment.",
+   "concept": "c1",
+   "topic": "Electronic ledgers and modes of payment (s. 49)",
+   "difficulty": "core",
+   "check": 15
+  },
+  {
+   "id": "m3",
+   "q": "Over-the-counter payment is allowed up to:",
+   "options": [
+    "₹10,000 per challan per tax period",
+    "₹50,000",
+    "₹1 lakh",
+    "No limit"
+   ],
+   "answer": 0,
+   "explain": "Cash or cheque payments at the bank counter are capped at ₹10,000 per challan per period (with exceptions for Government recoveries). In practice: use online modes.",
+   "concept": "c1",
+   "topic": "Electronic ledgers and modes of payment (s. 49)",
+   "difficulty": "core",
+   "check": 10000
+  },
+  {
+   "id": "m4",
+   "q": "Which dues are discharged first under section 49(8)?",
+   "options": [
+    "Self-assessed dues of previous periods",
+    "Current period tax",
+    "Demand under section 74",
+    "Penalty"
+   ],
+   "answer": 0,
+   "explain": "Order: previous periods, then current period, then demands. In practice: arrears eat into current payments.",
+   "concept": "c2",
+   "topic": "Order of discharge and due dates",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Monthly payment under QRMP for the first two months of a quarter is due by:",
+   "options": [
+    "25th of the next month",
+    "20th of the next month",
+    "11th of the next month",
+    "30th of the next month"
+   ],
+   "answer": 0,
+   "explain": "QRMP taxpayers deposit by the 25th using Form PMT-06. In practice: the fixed-sum option is 35% of last quarter's cash tax.",
+   "concept": "c2",
+   "topic": "Order of discharge and due dates",
+   "difficulty": "core",
+   "check": 25
+  },
+  {
+   "id": "m6",
+   "q": "Interest on delayed payment of tax is:",
+   "options": [
+    "18% per annum",
+    "24% per annum",
+    "12% per annum",
+    "1.5% per month"
+   ],
+   "answer": 0,
+   "explain": "Section 50(1) and the notification set 18% per annum. In practice: compute by days.",
+   "concept": "c3",
+   "topic": "Interest on delayed payment (s. 50)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Interest on ITC wrongly availed applies when:",
+   "options": [
+    "It is availed and utilised",
+    "It is merely availed",
+    "It is reported in GSTR-1",
+    "It is in GSTR-2B"
+   ],
+   "answer": 0,
+   "explain": "Section 50(3) charges interest only on credit both availed and utilised. In practice: reverse early.",
+   "concept": "c3",
+   "topic": "Interest on delayed payment (s. 50)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "For a return filed late (no proceedings), interest is charged on:",
+   "options": [
+    "The cash portion of the tax",
+    "The gross tax liability",
+    "The ITC only",
+    "Nothing"
+   ],
+   "answer": 0,
+   "explain": "The proviso to section 50(1) limits interest to the part paid in cash. In practice: ITC available in the ledger reduces the base.",
+   "concept": "c3",
+   "topic": "Interest on delayed payment (s. 50)",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "For a month, Kavi Industries (monthly filer) had output tax of ₹1,00,000, of which ₹60,000 was set off by ITC and ₹40,000 was payable in cash. It filed GSTR-3B and paid 30 days after the due date. Separately, it had wrongly availed and used ITC of ₹25,000, reversed 73 days later. Compute interest (round to the nearest rupee).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Late payment",
+       "18% on the cash portion only: 40,000 × 18% × 30/365",
+       "592"
+      ],
+      [
+       "Wrong ITC availed and utilised",
+       "18% (notified rate): 25,000 × 18% × 73/365",
+       "900"
+      ]
+     ],
+     "title": "Section 50"
+    },
+    {
+     "t": "note",
+     "text": "Interest on late payment is on the net cash liability where the return is filed before any proceedings begin."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Cash portion base",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "cash"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Late interest",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "18%"
+     ],
+     "min": 1,
+     "nums": [
+      592
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Utilised ITC interest",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "utilised|availed"
+     ],
+     "min": 1,
+     "nums": [
+      900
+     ]
+    }
+   ],
+   "remarks": [
+    "Use days/365."
+   ],
+   "mistakes": [
+    "Charging interest on gross tax."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(40000*18/100*30/365)",
+     "value": 592,
+     "label": "Interest on cash portion paid 30 days late"
+    },
+    {
+     "expr": "round(25000*18/100*73/365)",
+     "value": 900,
+     "label": "Interest on ITC wrongly availed and utilised, 73 days"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "State which ledger can be used: (a) output IGST for the month; (b) reverse charge tax on legal fees; (c) interest under section 50; (d) late fee for GSTR-3B; (e) a penalty imposed by the officer.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Ledger"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Electronic credit ledger or cash ledger"
+      ],
+      [
+       "(b)",
+       "Electronic cash ledger only"
+      ],
+      [
+       "(c)",
+       "Electronic cash ledger only"
+      ],
+      [
+       "(d)",
+       "Electronic cash ledger only"
+      ],
+      [
+       "(e)",
+       "Electronic cash ledger only"
+      ]
+     ],
+     "title": "Section 49"
+    },
+    {
+     "t": "note",
+     "text": "The credit ledger is used only for output tax under forward charge (and output tax payable by ECOs as suppliers)."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Output tax",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "credit ledger"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "RCM and interest",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "cash"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Fees and penalty",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "cash"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Name the ledger."
+   ],
+   "mistakes": [
+    "Paying RCM through ITC."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Cash ledger, credit ledger, liability register.",
+   "Credit ledger: output tax only; RCM, interest, fees, penalty in cash.",
+   "Order: previous periods → current → demands.",
+   "Monthly by 20th; QRMP months by 25th (35% or actual).",
+   "Interest 18%; on cash portion; wrong ITC only if utilised."
+  ],
+  "remember": [
+   "Challan valid 15 days; OTC up to ₹10,000."
+  ],
+  "traps": [
+   "Merely availed wrong ITC: no interest.",
+   "TDS/TCS credit goes to cash ledger."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Interest",
+   "v": "18% p.a."
+  },
+  {
+   "k": "Challan validity",
+   "v": "15 days"
+  },
+  {
+   "k": "OTC limit",
+   "v": "₹10,000"
+  },
+  {
+   "k": "QRMP monthly",
+   "v": "25th"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is the electronic liability register?",
+   "model": "The portal record of all amounts payable by a taxpayer — tax, interest, penalty, fee — and how they are discharged.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "All dues",
+     "w": 5,
+     "kw": [
+      "tax|interest|penalty"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Record",
+     "w": 5,
+     "kw": [
+      "record|register"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What can the credit ledger pay?",
+   "model": "Only output tax; interest, penalty, fees and reverse charge tax must be paid from the cash ledger.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Output tax",
+     "w": 6,
+     "kw": [
+      "output tax"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Cash for rest",
+     "w": 4,
+     "kw": [
+      "cash"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v3",
+   "q": "What is the order of discharge?",
+   "model": "Previous periods' self-assessed dues, then the current period, then demands raised under sections 73 or 74.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Previous first",
+     "w": 6,
+     "kw": [
+      "previous"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Demands last",
+     "w": 4,
+     "kw": [
+      "demand"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "When is interest charged on ITC?",
+   "model": "When ITC is wrongly availed and utilised, at 18% from utilisation till reversal.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Availed and utilised",
+     "w": 6,
+     "kw": [
+      "utilis"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "18%",
+     "w": 4,
+     "kw": [
+      "18%"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "What is the date of deposit in the cash ledger?",
+   "model": "The date on which the amount is credited to the Government account in the authorised bank, as shown by the challan identification number.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Credit to Government",
+     "w": 6,
+     "kw": [
+      "credit|government"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "CIN",
+     "w": 4,
+     "kw": [
+      "challan identification|cin"
+     ]
+    }
+   ],
+   "concept": "c1"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Bloom Florists",
+   "difficulty": "core",
+   "case": "Bloom Florists, a QRMP taxpayer, had cash tax of ₹20,000 in the last quarter. For April it chooses the fixed-sum method. It has ITC of ₹30,000 but owes a late fee of ₹1,000 and reverse charge tax of ₹4,000 on rent.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "April payment under the fixed-sum method:",
+     "options": [
+      "₹7,000",
+      "₹20,000",
+      "₹6,667",
+      "₹10,000"
+     ],
+     "answer": 0,
+     "explain": "35% of last quarter's cash tax: 35% × ₹20,000 = ₹7,000, due by 25 May. In practice: it is adjusted in the quarterly return.",
+     "difficulty": "moderate",
+     "check": 7000,
+     "topic": "Order of discharge and due dates"
+    },
+    {
+     "id": "k1b",
+     "q": "The late fee is paid from:",
+     "options": [
+      "Cash ledger",
+      "Credit ledger",
+      "Either",
+      "Not payable"
+     ],
+     "answer": 0,
+     "explain": "Fees are paid only in cash. In practice: ITC cannot pay fees.",
+     "difficulty": "core",
+     "topic": "Electronic ledgers and modes of payment (s. 49)"
+    },
+    {
+     "id": "k1c",
+     "q": "Reverse charge tax on rent is paid from:",
+     "options": [
+      "Cash ledger",
+      "Credit ledger",
+      "Either",
+      "Liability register"
+     ],
+     "answer": 0,
+     "explain": "RCM tax must be paid in cash. In practice: it can then be claimed as ITC.",
+     "difficulty": "core",
+     "topic": "Electronic ledgers and modes of payment (s. 49)"
+    },
+    {
+     "id": "k1d",
+     "q": "If Bloom pays the quarter's tax 10 days late on a cash liability of ₹18,250, interest is:",
+     "options": [
+      "₹90",
+      "₹900",
+      "₹182",
+      "₹50"
+     ],
+     "answer": 0,
+     "explain": "₹18,250 × 18% × 10/365 = ₹90. In practice: interest is in cash.",
+     "difficulty": "moderate",
+     "check": 90,
+     "topic": "Interest on delayed payment (s. 50)"
+    }
+   ]
+  }
+ ]
+}

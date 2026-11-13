@@ -1,0 +1,744 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p3-b-ch14-u01",
+ "level": "inter",
+ "paper": "p3",
+ "chapter": "int-p3-b-ch14",
+ "n": 1,
+ "title": "Tax Deduction at Source and Collection of Tax at Source",
+ "outcomes": [
+  "Identify GST TDS deductors, threshold and rate.",
+  "Apply deposit, return and certificate rules.",
+  "Compute TCS collected by e-commerce operators."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 25,
+   "practice": 20
+  },
+  "prereq": [
+   "int-p3-b-ch13-u01"
+  ],
+  "exam_tip": "Check three things for TDS: deductor type, contract value above ₹2.5 lakh, and the State test."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Who deducts GST TDS and when (s. 51)",
+   "body": [
+    "Section 51: notified deductors — departments or establishments of the Central or State Government, local authorities, Government agencies and notified persons (such as bodies with 51% or more Government equity or control, and societies or authorities set up by Government) — deduct tax from payments to suppliers of taxable goods or services.",
+    "TDS applies when the total value of supply under a contract exceeds ₹2,50,000 (excluding GST). Rate: 2% — 1% CGST + 1% SGST/UTGST for intra-State, or 2% IGST for inter-State.",
+    "No TDS where the supplier's location and the place of supply are in a State different from the deductor's State of registration (as CGST + SGST of another State could not be credited properly). Registered persons buying metal scrap have also been notified to deduct 2% TDS on such supplies above ₹2,50,000."
+   ],
+   "analogy": "GST TDS is a small advance payment by public bodies to keep their suppliers compliant.",
+   "work": "A State PSU paying a ₹2 lakh contract: no TDS, as the value is below ₹2.5 lakh."
+  },
+  {
+   "id": "c2",
+   "title": "Deposit, returns and certificates for TDS",
+   "body": [
+    "TDS is deposited by the 10th of the next month and reported in GSTR-7 by the same date; the deductee sees it in his cash ledger once accepted.",
+    "The deductor issues a TDS certificate (generated from GSTR-7). Late furnishing attracts a fee of ₹100 a day, up to ₹5,000; non-deposit attracts interest under section 50.",
+    "Excess or wrong deduction is refunded to the deductor or deductee under section 54; the deductee can use the credit to pay tax."
+   ],
+   "analogy": "Deducted tax becomes the supplier's cash credit — but only after the deductor files on time.",
+   "work": "A deductor who files GSTR-7 for May on 20 June is 10 days late."
+  },
+  {
+   "id": "c3",
+   "title": "TCS by electronic commerce operators (s. 52)",
+   "body": [
+    "Section 52: an ECO not being an agent collects tax on the net value of taxable supplies made through it by other suppliers where it collects the consideration. Net value = taxable supplies minus returns in the month (excluding section 9(5) services on which the ECO itself pays tax).",
+    "Rate: 0.5% — 0.25% CGST + 0.25% SGST/UTGST, or 0.5% IGST (reduced from 1% in July 2024).",
+    "The ECO deposits by the 10th of the next month and files GSTR-8 by then; an annual statement is filed by 31 December after the year. Suppliers claim the TCS in their cash ledger. Officers may seek details from the ECO, and mismatches are communicated to suppliers."
+   ],
+   "analogy": "TCS uses the marketplace as a checkpoint to tie each seller's sales to its tax.",
+   "work": "A seller with ₹10 lakh of net sales on a marketplace in a month has ₹5,000 collected and credited to it."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "A municipality pays its contractors",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Pune Municipal Corporation (registered in Maharashtra) pays: (a) a Pune contractor ₹3,00,000 + GST for road repair materials; (b) a Pune supplier ₹2,00,000 + GST for stationery; (c) a Hyderabad firm ₹4,00,000 + IGST for software services where the place of supply is Maharashtra; (d) a Mumbai supplier ₹5,00,000 for exempt goods. Compute GST TDS.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "TDS?",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Yes",
+       "Taxable value above ₹2,50,000: 1% CGST + 1% SGST",
+       "6,000"
+      ],
+      [
+       "(b)",
+       "No",
+       "Contract value does not exceed ₹2,50,000",
+       "0"
+      ],
+      [
+       "(c)",
+       "Yes",
+       "Inter-State, place of supply in the deductor's State: 2% IGST",
+       "8,000"
+      ],
+      [
+       "(d)",
+       "No",
+       "TDS applies only to taxable supplies",
+       "0"
+      ]
+     ],
+     "title": "Section 51"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "300000*2/100",
+     "value": 6000,
+     "label": "TDS on ₹3,00,000 (intra-State: 1% CGST + 1% SGST)"
+    },
+    {
+     "expr": "400000*2/100",
+     "value": 8000,
+     "label": "TDS on ₹4,00,000 inter-State (2% IGST)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Marketplace collections",
+   "difficulty": "moderate",
+   "minutes": 6,
+   "q": "Sellers on ShopNow (an ECO) made taxable supplies of ₹15,00,000 (excluding tax) through it in June, with returns of ₹1,00,000 in the same month. Compute TCS and state the due date of deposit and of the ECO's statement.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Net value",
+       "15,00,000 − 1,00,000 returns",
+       "14,00,000"
+      ],
+      [
+       "TCS @0.5%",
+       "",
+       "7,000"
+      ],
+      [
+       "Deposit and GSTR-8",
+       "By 10 July",
+       "—"
+      ]
+     ],
+     "title": "Section 52"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1500000-100000",
+     "value": 1400000,
+     "label": "Net value of taxable supplies through the ECO"
+    },
+    {
+     "expr": "1400000*0.5/100",
+     "value": 7000,
+     "label": "TCS at 0.5% (0.25% CGST + 0.25% SGST, or 0.5% IGST)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Reconciling TDS credit",
+   "role": "Article assistant",
+   "situation": "A contractor serving several municipalities sees less TDS in his ledger than his receipts show.",
+   "steps": [
+    "Download TDS/TCS credit received on the portal.",
+    "Match each deductor's GSTR-7 entries.",
+    "Accept correct entries; reject wrong ones.",
+    "Follow up deductors who have not filed."
+   ],
+   "takeaway": "Credit appears only after the deductor files and the deductee accepts."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "GST TDS applies when contract value exceeds:",
+   "options": [
+    "₹2,50,000",
+    "₹50,000",
+    "₹5,00,000",
+    "₹1,00,000"
+   ],
+   "answer": 0,
+   "explain": "Section 51 uses ₹2,50,000 of total value under a contract, excluding tax. In practice: split contracts are looked at together.",
+   "concept": "c1",
+   "topic": "Who deducts GST TDS and when (s. 51)",
+   "difficulty": "core",
+   "check": 250000
+  },
+  {
+   "id": "m2",
+   "q": "Rate of GST TDS on an intra-State supply:",
+   "options": [
+    "1% CGST + 1% SGST",
+    "2% CGST + 2% SGST",
+    "0.5% CGST + 0.5% SGST",
+    "1% IGST"
+   ],
+   "answer": 0,
+   "explain": "Total 2%, split equally for intra-State supplies; 2% IGST for inter-State supplies. In practice: show both on the certificate.",
+   "concept": "c1",
+   "topic": "Who deducts GST TDS and when (s. 51)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Which deductor is NOT covered by section 51?",
+   "options": [
+    "A private limited company",
+    "A State Government department",
+    "A local authority",
+    "A Government agency"
+   ],
+   "answer": 0,
+   "explain": "Only Government bodies and notified persons deduct GST TDS (plus notified metal scrap buyers). An ordinary private company is not a deductor. In practice: check the notification.",
+   "concept": "c1",
+   "topic": "Who deducts GST TDS and when (s. 51)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "No GST TDS is deducted where:",
+   "options": [
+    "Supplier location and place of supply are in a State other than the deductor's registration State",
+    "The supply is inter-State",
+    "Value exceeds ₹2.5 lakh",
+    "The supplier is a company"
+   ],
+   "answer": 0,
+   "explain": "The proviso excludes cases where both supplier and place of supply are in another State. In practice: such supplies attract CGST + SGST of that State.",
+   "concept": "c1",
+   "topic": "Who deducts GST TDS and when (s. 51)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "GSTR-7 is due by:",
+   "options": [
+    "10th of the next month",
+    "20th of the next month",
+    "11th of the next month",
+    "31 December"
+   ],
+   "answer": 0,
+   "explain": "Deductors deposit and file by the 10th. In practice: the deductee's credit depends on it.",
+   "concept": "c2",
+   "topic": "Deposit, returns and certificates for TDS",
+   "difficulty": "core",
+   "check": 10
+  },
+  {
+   "id": "m6",
+   "q": "Late fee for delay in GSTR-7 is capped at:",
+   "options": [
+    "₹5,000",
+    "₹10,000",
+    "₹1,000",
+    "₹25,000"
+   ],
+   "answer": 0,
+   "explain": "Section 51(6): ₹100 a day, up to ₹5,000. In practice: interest is separate.",
+   "concept": "c2",
+   "topic": "Deposit, returns and certificates for TDS",
+   "difficulty": "core",
+   "check": 5000
+  },
+  {
+   "id": "m7",
+   "q": "TCS rate collected by an ECO on an intra-State supply:",
+   "options": [
+    "0.25% CGST + 0.25% SGST",
+    "0.5% CGST + 0.5% SGST",
+    "1% CGST + 1% SGST",
+    "2% IGST"
+   ],
+   "answer": 0,
+   "explain": "Since July 2024 the rate is 0.5% in total. In practice: inter-State supplies bear 0.5% IGST.",
+   "concept": "c3",
+   "topic": "TCS by electronic commerce operators (s. 52)",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "TCS is calculated on:",
+   "options": [
+    "Net value of taxable supplies (after returns)",
+    "Gross value including GST",
+    "Exempt supplies too",
+    "The ECO's commission"
+   ],
+   "answer": 0,
+   "explain": "Net value deducts returns in the month and excludes section 9(5) services. In practice: commission is the ECO's own taxable supply.",
+   "concept": "c3",
+   "topic": "TCS by electronic commerce operators (s. 52)",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Pune Municipal Corporation (registered in Maharashtra) pays: (a) a Pune contractor ₹3,00,000 + GST for road repair materials; (b) a Pune supplier ₹2,00,000 + GST for stationery; (c) a Hyderabad firm ₹4,00,000 + IGST for software services where the place of supply is Maharashtra; (d) a Mumbai supplier ₹5,00,000 for exempt goods. Compute GST TDS.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "TDS?",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Yes",
+       "Taxable value above ₹2,50,000: 1% CGST + 1% SGST",
+       "6,000"
+      ],
+      [
+       "(b)",
+       "No",
+       "Contract value does not exceed ₹2,50,000",
+       "0"
+      ],
+      [
+       "(c)",
+       "Yes",
+       "Inter-State, place of supply in the deductor's State: 2% IGST",
+       "8,000"
+      ],
+      [
+       "(d)",
+       "No",
+       "TDS applies only to taxable supplies",
+       "0"
+      ]
+     ],
+     "title": "Section 51"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Threshold",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "2,50,000"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Intra-State TDS",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "1%"
+     ],
+     "min": 1,
+     "nums": [
+      6000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Inter-State TDS",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "IGST"
+     ],
+     "min": 1,
+     "nums": [
+      8000
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Exempt goods",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "taxable"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Test value and taxability."
+   ],
+   "mistakes": [
+    "Deducting on exempt goods."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "300000*2/100",
+     "value": 6000,
+     "label": "TDS on ₹3,00,000 (intra-State: 1% CGST + 1% SGST)"
+    },
+    {
+     "expr": "400000*2/100",
+     "value": 8000,
+     "label": "TDS on ₹4,00,000 inter-State (2% IGST)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 3,
+   "minutes": 5,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Sellers on ShopNow (an ECO) made taxable supplies of ₹15,00,000 (excluding tax) through it in June, with returns of ₹1,00,000 in the same month. Compute TCS and state the due date of deposit and of the ECO's statement.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Net value",
+       "15,00,000 − 1,00,000 returns",
+       "14,00,000"
+      ],
+      [
+       "TCS @0.5%",
+       "",
+       "7,000"
+      ],
+      [
+       "Deposit and GSTR-8",
+       "By 10 July",
+       "—"
+      ]
+     ],
+     "title": "Section 52"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Net value",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "net"
+     ],
+     "min": 1,
+     "nums": [
+      1400000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "TCS",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "0.5%"
+     ],
+     "min": 1,
+     "nums": [
+      7000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Due date",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "10"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Deduct returns first."
+   ],
+   "mistakes": [
+    "Using 1%."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1500000-100000",
+     "value": 1400000,
+     "label": "Net value of taxable supplies through the ECO"
+    },
+    {
+     "expr": "1400000*0.5/100",
+     "value": 7000,
+     "label": "TCS at 0.5% (0.25% CGST + 0.25% SGST, or 0.5% IGST)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "TDS by Government bodies and notified persons: 2% above ₹2.5 lakh.",
+   "No TDS if supplier and place of supply are in another State.",
+   "GSTR-7 and deposit by 10th; late fee ₹100/day up to ₹5,000.",
+   "TCS by ECO: 0.5% of net value; GSTR-8 by 10th; annual by 31 December."
+  ],
+  "remember": [
+   "TDS/TCS goes to supplier's cash ledger."
+  ],
+  "traps": [
+   "TCS rate is now 0.5%, not 1%.",
+   "TDS only on taxable supplies."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "TDS",
+   "v": "2%; > ₹2.5 lakh"
+  },
+  {
+   "k": "TCS",
+   "v": "0.5%"
+  },
+  {
+   "k": "GSTR-7/8",
+   "v": "10th"
+  },
+  {
+   "k": "Late fee GSTR-7",
+   "v": "₹100/day, max ₹5,000"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Who deducts GST TDS?",
+   "model": "Government departments, local authorities, Government agencies and notified persons such as bodies with 51% or more Government equity.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Government bodies",
+     "w": 6,
+     "kw": [
+      "government|local authorit"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Notified persons",
+     "w": 4,
+     "kw": [
+      "notified|51%"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is the TDS rate and threshold?",
+   "model": "Two per cent on taxable supplies where contract value exceeds ₹2,50,000.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "2%",
+     "w": 5,
+     "kw": [
+      "two per cent|2%"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "₹2,50,000",
+     "w": 5,
+     "kw": [
+      "2,50,000"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v3",
+   "q": "How does the supplier use the TDS?",
+   "model": "It appears in his electronic cash ledger once accepted and can be used to pay tax.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Cash ledger",
+     "w": 6,
+     "kw": [
+      "cash ledger"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Accepted",
+     "w": 4,
+     "kw": [
+      "accept"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "What is the TCS rate for ECOs?",
+   "model": "Half a per cent of net taxable value — 0.25% each of CGST and SGST, or 0.5% IGST.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "0.5%",
+     "w": 6,
+     "kw": [
+      "0.5%|half"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Split",
+     "w": 4,
+     "kw": [
+      "0.25%|igst"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "When is the ECO's annual statement due?",
+   "model": "By 31 December following the end of the financial year.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "31 December",
+     "w": 6,
+     "kw": [
+      "31 december"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Annual",
+     "w": 4,
+     "kw": [
+      "year"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Delta Constructions",
+   "difficulty": "moderate",
+   "case": "Delta Constructions of Lucknow, Uttar Pradesh, supplies works contracts to the UP Public Works Department (registered in UP) worth ₹10,00,000 + GST in July. It also sells building materials worth ₹3,00,000 through an online marketplace.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "TDS by the PWD on the July contract:",
+     "options": [
+      "₹20,000",
+      "₹10,000",
+      "₹5,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "2% of ₹10,00,000 = ₹20,000 (1% CGST + 1% SGST). In practice: TDS is on value excluding GST.",
+     "difficulty": "core",
+     "check": 20000,
+     "topic": "Who deducts GST TDS and when (s. 51)"
+    },
+    {
+     "id": "k1b",
+     "q": "TDS is deposited by:",
+     "options": [
+      "10 August",
+      "20 August",
+      "31 July",
+      "25 August"
+     ],
+     "answer": 0,
+     "explain": "By the 10th of the next month. In practice: GSTR-7 is filed by the same date.",
+     "difficulty": "core",
+     "check": 10,
+     "topic": "Deposit, returns and certificates for TDS"
+    },
+    {
+     "id": "k1c",
+     "q": "TCS by the marketplace on ₹3,00,000:",
+     "options": [
+      "₹1,500",
+      "₹3,000",
+      "₹6,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "0.5% of ₹3,00,000 = ₹1,500. In practice: shown in Delta's cash ledger after acceptance.",
+     "difficulty": "core",
+     "check": 1500,
+     "topic": "TCS by electronic commerce operators (s. 52)"
+    },
+    {
+     "id": "k1d",
+     "q": "Delta can use the TDS and TCS credits to:",
+     "options": [
+      "Pay its tax liability",
+      "Pay only late fees",
+      "Claim only a refund",
+      "Nothing"
+     ],
+     "answer": 0,
+     "explain": "Amounts in the cash ledger may be used for tax and other dues. In practice: reconcile monthly.",
+     "difficulty": "core",
+     "topic": "Deposit, returns and certificates for TDS"
+    }
+   ]
+  }
+ ]
+}
