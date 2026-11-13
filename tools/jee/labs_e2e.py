@@ -313,6 +313,10 @@ async def _(pg):
     await setr(pg, 'input[data-k=prev]', 10); await setr(pg, 'input[data-k=sens]', 90)
     await setr(pg, 'input[data-k=prev]', 50); await setr(pg, 'input[data-k=fp]', 5); await setr(pg, 'input[data-k=fp]', 0)
 
+@lab('math-u14', 'ucircle')
+async def _(pg):
+    for v in (45, 90, 150, 330, 690): await setr(pg, 'input[data-k=th]', v)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
