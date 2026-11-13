@@ -246,6 +246,17 @@ async def _(pg):
     await r('x', 0); await r('y', 1); await r('n', 4)   # i⁴ = 1
     await r('n', 2)                                     # i² = −1
     await r('x', 4); await r('y', 4); await r('n', 6)   # huge
+@lab('math-u04', 'rank')
+async def _(pg):
+    async def build(w, s):
+        await pg.click(f'[data-w="{w}"]'); used = []
+        for ch in s:
+            ks = await pg.evaluate("""(a) => [...document.querySelectorAll('#rkTiles [data-k]')].filter(b => b.textContent === a[0]).map(b => +b.dataset.k)""", [ch])
+            await pg.click(f'#rkTiles [data-k="{ks[0]}"]')
+    await build('GARDEN', 'ADEGNR'); await build('GARDEN', 'RNGEDA')
+    await build('MATHS', 'MHTSA')
+    await build('KANPUR', 'AUKPRN')
+    await build('BANANA', 'BAAANN')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

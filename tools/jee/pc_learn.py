@@ -1,0 +1,47 @@
+"""Concept cards for Mathematics Unit 4 — Permutations and Combinations (written for StudyVerse)."""
+TOPICS = {'arr': 'Arrangements, words & rank', 'sel': 'Selections', 'geo': 'Points, lines & polygons', 'dig': 'Forming numbers', 'dist': 'Distributing & placing'}
+CARDS = [
+ dict(id='c1', t='Count, don\'t list', e='🧮', lvl='f', topic='arr',
+  body=['Multiplication rule: a job done in steps with m ways, then n ways, can be done in m × n ways.',
+        'Addition rule: cases that cannot happen together are added.',
+        '<div class="jx-f">P(n, r) = \\f{n!}{(n − r)!} (order matters) · C(n, r) = \\f{n!}{r!(n − r)!} (order does not)</div>',
+        'Ask one question: does swapping two chosen things give something new? Yes → arrangement, no → selection.'],
+  check=dict(q='How many 3-letter arrangements of A, B, C, D, E (no repeats)?', o=['60', '10', '125', '120'], a=0, why='5 × 4 × 3.')),
+ dict(id='c2', t='Repeated letters, blocks and gaps', e='🔤', lvl='m', topic='arr',
+  body=['Letters with repeats: \\f{n!}{p!q!…} (p, q … are how often each letter repeats).',
+        'Must be together → glue them into one block and multiply by the arrangements inside the block.',
+        'Never next to each other → arrange the others first, then place these in the gaps (k + 1 gaps for k things).',
+        '"Not all together" = total − all together. "No two together" is a different, stronger condition.'],
+  check=dict(q='Arrangements of the letters of BANANA:', o=['60', '120', '720', '36'], a=0, why='\\f{6!}{3!2!} = 60.')),
+ dict(id='c3', t='Dictionary rank', e='📖', lvl='m', topic='arr',
+  body=['Sort the letters. For the first place, count all words starting with a smaller letter; fix the right letter and repeat for the next place.',
+        'Each block of words starting with a fixed letter has (remaining letters)! words — divide by repeats if any.',
+        'Rank = (words before it) + 1. To find the n^{th} word, do the same counting in reverse.'],
+  check=dict(q='Rank of CAB among the words of A, B, C:', o=['5', '4', '6', '3'], a=0, why='A…, B… give 4 words, CAB is next.')),
+ dict(id='c4', t='Selections with conditions', e='🎯', lvl='m', topic='sel',
+  body=['"At least k" → split into cases (k, k + 1, …) or use total − cases below k.',
+        'Fixed people included → remove them and choose the rest.',
+        '<div class="jx-f">C(n, r) = C(n, n − r) · C(n, r) + C(n, r − 1) = C(n + 1, r)</div>',
+        'Repeated letters chosen without order: split by pattern (all different, one pair, …).'],
+  check=dict(q='Choose 3 from 5 boys and 4 girls with at least 1 girl:', o=['74', '84', '64', '80'], a=0, why='84 − C(5, 3) = 74.')),
+ dict(id='c5', t='Points, lines and polygons', e='📐', lvl='m', topic='geo',
+  body=['Triangles from n points: C(n, 3), minus C(m, 3) for every set of m collinear points.',
+        'Lines through pairs: C(n, 2) − C(m, 2) + 1 when m points are collinear.',
+        'Diagonals of an n-gon: \\f{n(n − 3)}{2}.',
+        'A polygon from points on a triangle\'s sides needs no three vertices on one side.'],
+  check=dict(q='Diagonals of a hexagon:', o=['9', '6', '15', '12'], a=0, why='\\f{6 × 3}{2} = 9.')),
+ dict(id='c6', t='Distributing things', e='🎁', lvl='h', topic='dist',
+  body=['n identical things to r people: C(n + r − 1, r − 1); each at least one: C(n − 1, r − 1).',
+        'n different things into r different boxes: r^{n}; no box empty: r^{n} − C(r, 1)(r − 1)^{n} + C(r, 2)(r − 2)^{n} − …',
+        'Dice totals are distributions with a cap of 6: count all, then remove the ones that break the cap.'],
+  check=dict(q='10 identical toffees to 3 children, each at least one:', o=['36', '66', '45', '30'], a=0, why='C(9, 2) = 36.')),
+]
+FORMULAS = [('Arrangements', 'P(n, r) = \\f{n!}{(n − r)!}'), ('Selections', 'C(n, r) = \\f{n!}{r!(n − r)!}'), ('Repeats', '\\f{n!}{p!q!r!}'), ('Pascal', 'C(n, r) + C(n, r − 1) = C(n + 1, r)'),
+            ('Circular', '(n − 1)!'), ('Identical to r', 'C(n + r − 1, r − 1)'), ('Onto', 'Σ(−1)^{k}C(r, k)(r − k)^{n}'), ('Diagonals', '\\f{n(n − 3)}{2}')]
+TRAPS = ['The first digit of a number can never be 0.', '"Not all together" ≠ "no two together".', 'Collinear points: remove the triples that make no triangle.',
+         'Order matters? Then P, not C.', 'Identical things: stars and bars. Different things: powers or inclusion–exclusion.', 'With repeated letters, divide by the factorial of each repeat.']
+STEPS = [dict(k='s1', t='Arrange', e='🔤', cards=['c1', 'c2', 'c3'], need=['arr'], note='Words, repeats, blocks, rank'),
+         dict(k='s2', t='Select', e='🎯', cards=['c4', 'c5'], need=['sel', 'geo'], note='Conditions, points and polygons'),
+         dict(k='s3', t='Numbers & sharing', e='🎁', cards=['c6'], need=['dig', 'dist'], note='Digits, distributions, dice')]
+META = dict(unit='math-u04', subject='math', n=4, title='Permutations and Combinations', cls=11, labs=['rank'],
+            syllabus='The fundamental principle of counting, permutation as an arrangement and combination as selection, meaning of P(n, r) and C(n, r), simple applications.')

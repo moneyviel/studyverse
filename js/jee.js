@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 }, 'math-u01': { pyq: 65, prac: 780 }, 'math-u02': { pyq: 49, prac: 588 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 }, 'math-u01': { pyq: 65, prac: 780 }, 'math-u02': { pyq: 49, prac: 588 }, 'math-u04': { pyq: 41, prac: 492 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -404,7 +404,7 @@
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
-      const L = { argand: ['🧭 Argand Explorer', 'Drag a complex number round the plane — see its modulus and argument, raise it to a power and watch it spin and stretch. 5 missions.', () => argandLab(uid)], relation: ['🔗 Relation Builder', 'Tap pairs into a relation on {1, 2, 3, 4} and watch it become reflexive, symmetric, transitive — or a one-one onto function. 5 missions.', () => relLab(uid)], pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
+      const L = { rank: ['📖 Word Rank Machine', 'Build any arrangement of a word and watch the machine count, place by place, how many words come before it in the dictionary. 5 missions.', () => rankLab(uid)], argand: ['🧭 Argand Explorer', 'Drag a complex number round the plane — see its modulus and argument, raise it to a power and watch it spin and stretch. 5 missions.', () => argandLab(uid)], relation: ['🔗 Relation Builder', 'Tap pairs into a relation on {1, 2, 3, 4} and watch it become reflexive, symmetric, transitive — or a one-one onto function. 5 missions.', () => relLab(uid)], pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
         projectile: ['🏀 Projectile Launcher', 'Set speed, angle and launch height — watch the path, range, height and flight time; hit a flag and find twin angles. 5 missions.', () => projectileLab(uid)],
         circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
@@ -1611,6 +1611,49 @@
       let fresh = false; MIS.forEach(([kk, , t]) => { if (!done['ag_' + kk] && t(v)) { done['ag_' + kk] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
       $('#jxMis').innerHTML = MIS.map(([kk, n2]) => `<div class="jx-mis ${done['ag_' + kk] ? 'ok' : ''}">${done['ag_' + kk] ? '✅' : '⬜'} ${n2}</div>`).join('');
     };
+    upd();
+  }
+
+  /* ---------- Try it yourself: Permutations — Word Rank Machine ---------- */
+  function rankLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const WL = ['MATHS', 'GARDEN', 'KANPUR', 'BANANA'], st = { w: 'GARDEN', b: [] };
+    const fact = n => { let f = 1; for (let i = 2; i <= n; i++) f *= i; return f; };
+    const cnt = arr => { const m = {}; arr.forEach(c => m[c] = (m[c] || 0) + 1); return fact(arr.length) / Object.values(m).reduce((p, v) => p * fact(v), 1); };
+    const rankOf = (word, letters) => { let left = letters.slice(), r = 0; const rows = [];
+      word.forEach((ch, i) => { let here = 0; [...new Set(left)].sort().forEach(L => { if (L < ch) { const rest = left.slice(); rest.splice(rest.indexOf(L), 1); here += cnt(rest); } });
+        rows.push([i, ch, here]); r += here; left.splice(left.indexOf(ch), 1); }); return { r: r + 1, rows }; };
+    const MIS = [['first', 'Build the very first word in dictionary order (rank 1)', v => v.full && v.r === 1],
+      ['last', 'Build the very last word (rank = total)', v => v.full && v.r === v.tot],
+      ['mid', 'MATHS: build the word with rank exactly 60', v => v.full && v.w === 'MATHS' && v.r === 60],
+      ['k100', 'KANPUR: build the word with rank exactly 100', v => v.full && v.w === 'KANPUR' && v.r === 100],
+      ['ban', 'BANANA: build the first word that starts with B — what rank does it get?', v => v.full && v.w === 'BANANA' && v.s === 'BAAANN']];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>📖 Word Rank Machine</h3>
+      <p class="jx-fine">Pick a word, then tap its letters to build a new arrangement. The machine counts every word that comes before yours in the dictionary — place by place — and tells you its rank.</p>
+      <div class="jx-frow" id="rkW">${WL.map(w => `<button class="jx-fc" data-w="${w}">${w}</button>`).join('')}</div>
+      <div id="rkBuilt" style="display:flex;gap:6px;justify-content:center;min-height:52px;margin:12px 0"></div>
+      <div id="rkTiles" style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap"></div>
+      <div class="jx-nav"><button class="jx-btn ghost" id="rkUndo">↶ Undo</button><button class="jx-btn ghost" id="rkClr">✖ Clear</button></div>
+      <div class="jx-read" id="jxRead"></div><div id="rkRows"></div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    const tile = (c, on, k) => `<button class="rk-t" ${k != null ? `data-k="${k}"` : ''} style="width:42px;height:48px;border-radius:12px;border:0;font:800 22px inherit;${on ? 'background:#7c3aed;color:#fff;box-shadow:0 3px 0 #4c1d95' : 'background:#ede9fe;color:#5b21b6;box-shadow:0 3px 0 #c4b5fd'}">${c}</button>`;
+    const upd = () => {
+      const L = st.w.split(''), left = L.slice(); st.b.forEach(i => left.splice(left.indexOf(L[i]), 1));
+      el.querySelectorAll('[data-w]').forEach(b => b.classList.toggle('on', b.dataset.w === st.w));
+      $('#rkBuilt').innerHTML = st.b.length ? st.b.map(i => tile(L[i], true)).join('') : '<span class="jx-fine" style="align-self:center">Tap the letters below in the order you want</span>';
+      $('#rkTiles').innerHTML = st.b.length === L.length ? '' : L.map((c, i) => st.b.includes(i) ? `<span style="width:42px;height:48px"></span>` : tile(c, false, i)).join('');
+      el.querySelectorAll('#rkTiles [data-k]').forEach(b => b.onclick = () => { tap(); st.b.push(+b.dataset.k); upd(); });
+      const word = st.b.map(i => L[i]), tot = cnt(L), full = word.length === L.length;
+      if (full) { const R = rankOf(word, L); $('#jxRead').innerHTML = `<span>word <b>${word.join('')}</b></span><span>rank <b>${R.r}</b></span><span>of <b>${tot}</b></span>`;
+        $('#rkRows').innerHTML = R.rows.map(([i, ch, h]) => `<div class="jx-fine" style="margin:2px 0">Place ${i + 1} is <b>${ch}</b>: ${h} word${h === 1 ? '' : 's'} start${h === 1 ? 's' : ''} smaller here</div>`).join('') + `<div class="jx-fine"><b>Rank = ${R.r - 1} + 1 = ${R.r}</b></div>`;
+        const v = { full, r: R.r, tot, w: st.w, s: word.join('') }; let fresh = false;
+        MIS.forEach(([k, , t]) => { if (!done['rk_' + k] && t(v)) { done['rk_' + k] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      } else { $('#jxRead').innerHTML = `<span>${st.w} makes <b>${tot}</b> different words</span>`; $('#rkRows').innerHTML = ''; }
+      $('#jxMis').innerHTML = MIS.map(([k, n]) => `<div class="jx-mis ${done['rk_' + k] ? 'ok' : ''}">${done['rk_' + k] ? '✅' : '⬜'} ${n}</div>`).join('');
+    };
+    el.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { tap(); st.w = b.dataset.w; st.b = []; upd(); });
+    $('#rkUndo').onclick = () => { tap(); st.b.pop(); upd(); }; $('#rkClr').onclick = () => { tap(); st.b = []; upd(); };
     upd();
   }
 
