@@ -419,6 +419,11 @@ async def _(pg):
     await tap(pg, '#dnM button', 1); await setb(pg, '#dnT button', 0, 'A')
     for i, b in enumerate('UCCCCCCC'): await setb(pg, '#dnB button', i, b)            # RNA with U
 
+@lab('chem-u20', 'saltlad')
+async def _(pg):
+    for i in (0, 2, 4, 8, 6):                                    # Pb, Fe, Zn, Mg, Ba
+        await tap(pg, '#gsI button', i); await tap(pg, '#gsR button', 6)   # run all (+ flame)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
