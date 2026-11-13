@@ -1,0 +1,754 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch11-u02",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch11",
+ "n": 2,
+ "title": "Classification and Measurement of Financial Assets and Financial Liabilities",
+ "outcomes": [
+  "Classify financial assets using the business model and SPPI tests.",
+  "Measure assets at amortised cost, FVOCI and FVTPL.",
+  "Measure financial liabilities and apply reclassification rules.",
+  "Apply the expected credit loss model."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 40
+  },
+  "prereq": [
+   "fin-p1-ch11-u01"
+  ],
+  "exam_tip": "For each asset state the business model, the SPPI result and the category — then measure."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Classifying financial assets: business model and SPPI",
+   "body": [
+    "Financial assets are classified on two tests: the entity's business model for managing them, and whether the contract pays nothing but principal plus interest on the amount still owed (the SPPI test).",
+    "Business models: hold to collect contractual cash flows; hold to collect and sell; and others (trading, managing on fair value). Sales are not prohibited in hold to collect, but frequent or significant sales need explaining. Interest under SPPI means consideration for time value, credit risk, other basic lending risks and costs, and a profit margin; leverage or equity-linked returns fail.",
+    "Result: debt assets passing SPPI in hold-to-collect go to amortised cost; in hold-to-collect-and-sell, to FVOCI; all others, to FVTPL. Equity investments are FVTPL, but an irrevocable election at initial recognition allows FVOCI for equity not held for trading. A fair value option can designate assets at FVTPL to remove an accounting mismatch."
+   ],
+   "analogy": "Two questions — how is it managed, and what cash flows does it pay — decide the bucket.",
+   "work": "A convertible bond held as an investment fails SPPI and is at FVTPL."
+  },
+  {
+   "id": "c2",
+   "title": "Measuring financial assets: amortised cost, FVOCI, FVTPL",
+   "body": [
+    "All financial assets are initially measured at fair value plus transaction costs (except FVTPL, where costs are expensed). Trade receivables without a significant financing component are measured at transaction price.",
+    "Amortised cost uses the effective interest rate (EIR) — the rate that exactly discounts estimated future cash flows to the gross carrying amount. Debt at FVOCI: interest (EIR), impairment and exchange differences go to profit or loss; other fair value changes go to OCI and are recycled on derecognition.",
+    "Equity at FVOCI: fair value changes in OCI are never recycled; dividends go to profit or loss. FVTPL: all changes in profit or loss. Day-one gains or losses are recognised only if fair value is based on observable market data; otherwise deferred."
+   ],
+   "analogy": "Amortised cost tracks the EIR; FVOCI debt recycles; FVOCI equity never does.",
+   "work": "A bond bought at a discount accretes up to face value."
+  },
+  {
+   "id": "c3",
+   "title": "Financial liabilities and reclassification",
+   "body": [
+    "Financial liabilities are measured at amortised cost, except: FVTPL liabilities (held for trading, derivatives, or designated); liabilities from transfers not qualifying for derecognition; financial guarantee contracts; commitments to lend below market; and contingent consideration of an acquirer.",
+    "For liabilities designated at FVTPL, the change in fair value due to own credit risk goes to OCI (unless this creates a mismatch), with the rest in profit or loss.",
+    "Reclassification of financial assets happens only when the business model changes (expected to be very infrequent), applied prospectively from the reclassification date — the first day of the next reporting period. Financial liabilities are never reclassified."
+   ],
+   "analogy": "Liabilities are usually at amortised cost; assets move only with business models.",
+   "work": "A bank exiting a lending business may reclassify the loans."
+  },
+  {
+   "id": "c4",
+   "title": "Impairment: expected credit loss model",
+   "body": [
+    "Ind AS 109 uses a forward-looking expected credit loss (ECL) model for amortised cost assets, debt at FVOCI, lease receivables, contract assets, loan commitments and financial guarantees.",
+    "General approach: Stage 1 — 12-month ECL; Stage 2 (significant increase in credit risk since initial recognition) — lifetime ECL; Stage 3 (credit-impaired) — lifetime ECL with interest on net carrying amount. A rebuttable presumption treats more than 30 days past due as a significant increase, and 90 days as default.",
+    "Simplified approach: trade receivables and contract assets (without significant financing) always use lifetime ECL, often via a provision matrix based on historical loss rates adjusted for forward-looking information. Purchased or originated credit-impaired assets use a credit-adjusted EIR."
+   ],
+   "analogy": "Provide for losses you expect, not only those that have happened.",
+   "work": "A provision matrix applies ageing-bucket loss rates to receivables."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "A bond at amortised cost",
+   "difficulty": "moderate",
+   "minutes": 9,
+   "q": "Kestrel Ltd. buys a 3-year bond with face value ₹1,00,000 and a 6% annual coupon, priced to yield 8% (3-year annuity factor 2.5771; discount factor year 3: 0.7938). It holds such bonds to collect contractual cash flows. Compute the initial amount, year-1 interest income and closing amortised cost.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Classification",
+       "Hold-to-collect model + SPPI → amortised cost",
+       "—"
+      ],
+      [
+       "Initial measurement",
+       "6,000 × 2.5771 + 1,00,000 × 0.7938",
+       "94,842.6"
+      ],
+      [
+       "Interest income at EIR",
+       "94,842.6 × 8%",
+       "7,587.41"
+      ],
+      [
+       "Coupon received",
+       "1,00,000 × 6%",
+       "6,000"
+      ],
+      [
+       "Closing amortised cost",
+       "94,842.6 + 7,587.41 − 6,000",
+       "96,430.01"
+      ]
+     ],
+     "title": "Effective interest method"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "6000*2.5771+100000*0.7938",
+     "value": 94842.6,
+     "label": "Initial carrying amount at 8% (₹)"
+    },
+    {
+     "expr": "(6000*2.5771+100000*0.7938)*0.08",
+     "value": 7587.41,
+     "label": "Interest income year 1 (₹)"
+    },
+    {
+     "expr": "(6000*2.5771+100000*0.7938)*1.08-6000",
+     "value": 96430.01,
+     "label": "Amortised cost at end of year 1 (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Expected credit losses",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Kestrel Ltd. lends ₹10 lakh. At year 1, credit risk has not increased significantly: 12-month probability of default 2%, loss given default 40%. At year 2, credit risk has increased significantly: lifetime probability of default 15%, loss given default 40%. Compute the loss allowance at each date (ignore discounting).",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Date",
+      "Stage and working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Year 1",
+       "Stage 1: 10,00,000 × 2% × 40%",
+       "8,000"
+      ],
+      [
+       "Year 2",
+       "Stage 2: 10,00,000 × 15% × 40%",
+       "60,000"
+      ],
+      [
+       "Interest",
+       "Stage 1 and 2: on gross amount; Stage 3: on net amount",
+       "—"
+      ]
+     ],
+     "title": "ECL stages"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000000*0.02*0.4",
+     "value": 8000,
+     "label": "Stage 1: 12-month ECL (₹)"
+    },
+    {
+     "expr": "1000000*0.15*0.4",
+     "value": 60000,
+     "label": "Stage 2: lifetime ECL (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Classifying a treasury portfolio",
+   "role": "Treasury accountant",
+   "situation": "A company holds bonds, mutual funds, equity stakes and receivables.",
+   "steps": [
+    "Document business models per portfolio.",
+    "Run SPPI tests on each instrument.",
+    "Elect FVOCI for strategic equity if desired.",
+    "Build ECL staging and provision matrix."
+   ],
+   "takeaway": "Classification is decided at inception; impairment is reassessed each period."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "A debt instrument passing SPPI held to collect contractual cash flows is measured at:",
+   "options": [
+    "Amortised cost",
+    "FVTPL",
+    "FVOCI",
+    "Cost"
+   ],
+   "answer": 0,
+   "explain": "Both tests point to amortised cost. In practice: use EIR.",
+   "concept": "c1",
+   "topic": "Classifying financial assets: business model and SPPI",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Fair value gains on equity designated at FVOCI are:",
+   "options": [
+    "Never recycled to profit or loss",
+    "Recycled on sale",
+    "Recognised in profit or loss",
+    "Ignored"
+   ],
+   "answer": 0,
+   "explain": "Only dividends go to profit or loss. In practice: transfer within equity on sale.",
+   "concept": "c2",
+   "topic": "Measuring financial assets: amortised cost, FVOCI, FVTPL",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Transaction costs on FVTPL assets are:",
+   "options": [
+    "Expensed",
+    "Capitalised",
+    "Deferred",
+    "Amortised"
+   ],
+   "answer": 0,
+   "explain": "They are not added to the asset. In practice: brokerage on trading shares.",
+   "concept": "c2",
+   "topic": "Measuring financial assets: amortised cost, FVOCI, FVTPL",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Financial liabilities can be reclassified:",
+   "options": [
+    "Never",
+    "When the business model changes",
+    "Annually",
+    "With auditor approval"
+   ],
+   "answer": 0,
+   "explain": "Only assets reclassify. In practice: rare event.",
+   "concept": "c3",
+   "topic": "Financial liabilities and reclassification",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Stage 2 under the ECL model requires recognising:",
+   "options": [
+    "Lifetime expected credit losses",
+    "12-month losses",
+    "Incurred losses only",
+    "Nothing"
+   ],
+   "answer": 0,
+   "explain": "After significant increase in credit risk. In practice: interest on gross amount.",
+   "concept": "c4",
+   "topic": "Impairment: expected credit loss model",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Trade receivables without a significant financing component use:",
+   "options": [
+    "Lifetime ECL under the simplified approach",
+    "12-month ECL",
+    "No impairment",
+    "Incurred loss"
+   ],
+   "answer": 0,
+   "explain": "Simplified approach is mandatory for these. In practice: provision matrix.",
+   "concept": "c4",
+   "topic": "Impairment: expected credit loss model",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Own credit risk changes on liabilities designated at FVTPL go to:",
+   "options": [
+    "OCI, unless this creates a mismatch",
+    "Profit or loss",
+    "Equity directly",
+    "Revenue"
+   ],
+   "answer": 0,
+   "explain": "Avoids counter-intuitive gains. In practice: not recycled.",
+   "concept": "c3",
+   "topic": "Financial liabilities and reclassification",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "An investment in a mutual fund whose returns depend on market prices is usually:",
+   "options": [
+    "At FVTPL, failing SPPI",
+    "At amortised cost",
+    "At FVOCI without election",
+    "At cost"
+   ],
+   "answer": 0,
+   "explain": "Units are not simple lending. In practice: often held at fair value.",
+   "concept": "c1",
+   "topic": "Classifying financial assets: business model and SPPI",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Kestrel Ltd. buys a 3-year bond with face value ₹1,00,000 and a 6% annual coupon, priced to yield 8% (3-year annuity factor 2.5771; discount factor year 3: 0.7938). It holds such bonds to collect contractual cash flows. Compute the initial amount, year-1 interest income and closing amortised cost.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Classification",
+       "Hold-to-collect model + SPPI → amortised cost",
+       "—"
+      ],
+      [
+       "Initial measurement",
+       "6,000 × 2.5771 + 1,00,000 × 0.7938",
+       "94,842.6"
+      ],
+      [
+       "Interest income at EIR",
+       "94,842.6 × 8%",
+       "7,587.41"
+      ],
+      [
+       "Coupon received",
+       "1,00,000 × 6%",
+       "6,000"
+      ],
+      [
+       "Closing amortised cost",
+       "94,842.6 + 7,587.41 − 6,000",
+       "96,430.01"
+      ]
+     ],
+     "title": "Effective interest method"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Classification",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "amortised cost"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Initial",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "initial"
+     ],
+     "min": 1,
+     "nums": [
+      94842.6
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Interest",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "interest"
+     ],
+     "min": 1,
+     "nums": [
+      7587.41
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Closing",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "closing"
+     ],
+     "min": 1,
+     "nums": [
+      96430.01
+     ]
+    }
+   ],
+   "remarks": [
+    "Use EIR, not coupon."
+   ],
+   "mistakes": [
+    "Recognising coupon as income."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "6000*2.5771+100000*0.7938",
+     "value": 94842.6,
+     "label": "Initial carrying amount at 8% (₹)"
+    },
+    {
+     "expr": "(6000*2.5771+100000*0.7938)*0.08",
+     "value": 7587.41,
+     "label": "Interest income year 1 (₹)"
+    },
+    {
+     "expr": "(6000*2.5771+100000*0.7938)*1.08-6000",
+     "value": 96430.01,
+     "label": "Amortised cost at end of year 1 (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Kestrel Ltd. lends ₹10 lakh. At year 1, credit risk has not increased significantly: 12-month probability of default 2%, loss given default 40%. At year 2, credit risk has increased significantly: lifetime probability of default 15%, loss given default 40%. Compute the loss allowance at each date (ignore discounting).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Date",
+      "Stage and working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Year 1",
+       "Stage 1: 10,00,000 × 2% × 40%",
+       "8,000"
+      ],
+      [
+       "Year 2",
+       "Stage 2: 10,00,000 × 15% × 40%",
+       "60,000"
+      ],
+      [
+       "Interest",
+       "Stage 1 and 2: on gross amount; Stage 3: on net amount",
+       "—"
+      ]
+     ],
+     "title": "ECL stages"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Stage 1",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "stage 1|12-month"
+     ],
+     "min": 1,
+     "nums": [
+      8000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Stage 2",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "stage 2|lifetime"
+     ],
+     "min": 1,
+     "nums": [
+      60000
+     ]
+    }
+   ],
+   "remarks": [
+    "State the trigger."
+   ],
+   "mistakes": [
+    "Using lifetime ECL in Stage 1."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000000*0.02*0.4",
+     "value": 8000,
+     "label": "Stage 1: 12-month ECL (₹)"
+    },
+    {
+     "expr": "1000000*0.15*0.4",
+     "value": 60000,
+     "label": "Stage 2: lifetime ECL (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Business model + SPPI decide category.",
+   "Amortised cost via EIR.",
+   "FVOCI debt recycles; FVOCI equity does not.",
+   "Liabilities mostly at amortised cost; never reclassified.",
+   "ECL: 12-month, lifetime, credit-impaired."
+  ],
+  "remember": [
+   "Trade receivables: simplified approach."
+  ],
+  "traps": [
+   "Recognising coupon instead of EIR interest."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Hold to collect",
+   "v": "Amortised cost"
+  },
+  {
+   "k": "Collect and sell",
+   "v": "FVOCI"
+  },
+  {
+   "k": "Others",
+   "v": "FVTPL"
+  },
+  {
+   "k": "ECL Stage 2",
+   "v": "Lifetime"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What two tests classify financial assets?",
+   "model": "The business model for managing the assets and the contractual cash flow characteristics, known as the SPPI test.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Business model",
+     "w": 5,
+     "kw": [
+      "business model"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "SPPI",
+     "w": 5,
+     "kw": [
+      "sppi"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is the effective interest rate?",
+   "model": "The rate that exactly discounts expected future cash payments or receipts over the instrument's life to its gross carrying amount.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Discounts future cash flows",
+     "w": 5,
+     "kw": [
+      "discount"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Gross carrying amount",
+     "w": 5,
+     "kw": [
+      "carrying amount"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "How is debt at FVOCI accounted for?",
+   "model": "Interest, impairment and exchange differences go to profit or loss; other fair value changes go to OCI and are recycled on derecognition.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Interest in P&L",
+     "w": 5,
+     "kw": [
+      "interest"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "OCI recycled",
+     "w": 5,
+     "kw": [
+      "recycl"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "When can financial assets be reclassified?",
+   "model": "Only when the business model for managing them changes, prospectively from the next reporting period's first day.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Business model change",
+     "w": 6,
+     "kw": [
+      "business model"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Prospective",
+     "w": 4,
+     "kw": [
+      "prospective"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Describe the three ECL stages.",
+   "model": "Stage 1 needs 12-month ECL; Stage 2, after a significant rise in credit risk, needs lifetime ECL; Stage 3, credit-impaired, needs lifetime ECL with interest on the net amount.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "12-month vs lifetime",
+     "w": 6,
+     "kw": [
+      "12-month|lifetime"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Credit-impaired",
+     "w": 4,
+     "kw": [
+      "impaired"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Harbor Finance Ltd.",
+   "difficulty": "moderate",
+   "case": "Harbor Finance Ltd. holds: government bonds managed to collect interest and sell when liquidity is needed; shares of a supplier held long-term (elected FVOCI); trade receivables of ₹50 lakh with an expected lifetime loss rate of 3%; and a loan 45 days past due with no evidence to rebut the presumption.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The government bonds are measured at:",
+     "options": [
+      "FVOCI",
+      "Amortised cost",
+      "FVTPL",
+      "Cost"
+     ],
+     "answer": 0,
+     "explain": "Hold to collect and sell + SPPI. In practice: recycle on sale.",
+     "difficulty": "core",
+     "topic": "Classifying financial assets: business model and SPPI"
+    },
+    {
+     "id": "k1b",
+     "q": "On selling the supplier shares, the accumulated OCI gain is:",
+     "options": [
+      "Transferred within equity, not recycled",
+      "Recycled to profit or loss",
+      "Reversed",
+      "Taxed separately"
+     ],
+     "answer": 0,
+     "explain": "FVOCI equity never recycles. In practice: transfer to retained earnings.",
+     "difficulty": "moderate",
+     "topic": "Measuring financial assets: amortised cost, FVOCI, FVTPL"
+    },
+    {
+     "id": "k1c",
+     "q": "Loss allowance on trade receivables (₹ lakh):",
+     "options": [
+      "1.5",
+      "0.5",
+      "3",
+      "15"
+     ],
+     "answer": 0,
+     "explain": "50 × 3% lifetime. In practice: simplified approach.",
+     "difficulty": "core",
+     "check": 1.5,
+     "topic": "Impairment: expected credit loss model"
+    },
+    {
+     "id": "k1d",
+     "q": "The loan 45 days past due is in:",
+     "options": [
+      "Stage 2 — lifetime ECL",
+      "Stage 1",
+      "Stage 3",
+      "Written off"
+     ],
+     "answer": 0,
+     "explain": "The 30-day presumption indicates significant increase. In practice: rebuttable with evidence.",
+     "difficulty": "moderate",
+     "topic": "Impairment: expected credit loss model"
+    }
+   ]
+  }
+ ]
+}
