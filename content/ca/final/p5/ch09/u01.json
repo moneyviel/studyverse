@@ -1,0 +1,703 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p5-ch09-u01",
+ "level": "final",
+ "paper": "p5",
+ "chapter": "fin-p5-ch09",
+ "n": 1,
+ "title": "Tax Invoice, Credit and Debit Notes",
+ "outcomes": [
+  "Apply time limits and contents for tax invoices.",
+  "Apply e-invoicing and QR code requirements.",
+  "Identify other documents under GST.",
+  "Apply credit and debit note provisions."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 30,
+   "practice": 20
+  },
+  "prereq": [
+   "fin-p5-ch08-u01"
+  ],
+  "exam_tip": "Match each document to its triggering event and deadline."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Time and contents of tax invoice",
+   "body": [
+    "Section 31: for goods, the tax invoice is issued before or at the time of removal (where movement is involved) or delivery; for continuous supply of goods, at the time of each statement or payment. For services, within 30 days of supply (45 days for banks, insurers and NBFCs). Goods sent on approval: before or at supply or within six months of removal, whichever earlier.",
+    "Rule 46 prescribes contents: supplier's name, address and GSTIN; a consecutive serial number up to 16 characters unique for the financial year; date; recipient details; HSN or SAC; description, quantity, value, rate and amount of tax; place of supply (with State name for inter-State supplies); reverse charge indication; and signature.",
+    "HSN digits: 4 digits for B2B supplies where turnover is up to ₹5 crore (optional for B2C), and 6 digits for all supplies above ₹5 crore. Invoices for goods are issued in triplicate and for services in duplicate."
+   ],
+   "analogy": "Invoice timing depends on goods or services; contents are prescribed.",
+   "work": "A security agency must invoice within 30 days of providing the service."
+  },
+  {
+   "id": "c2",
+   "title": "E-invoicing and QR code",
+   "body": [
+    "E-invoicing applies to notified registered persons — currently those with aggregate turnover in any year from 2017-18 above ₹5 crore — for B2B supplies, exports and credit or debit notes. The invoice is reported to the Invoice Registration Portal, which returns an Invoice Reference Number (IRN) and a signed QR code; an invoice without a valid IRN is not a valid invoice.",
+    "Exempted from e-invoicing: SEZ units, insurers, banks and NBFCs, GTAs, passenger transport services, multiplex admission services and specified others.",
+    "Taxpayers with turnover above ₹500 crore must show a dynamic QR code on B2C invoices; digital display with payment cross-reference is treated as compliance."
+   ],
+   "analogy": "E-invoicing validates B2B invoices through IRN.",
+   "work": "A ₹8 crore turnover company must generate IRNs for its B2B invoices."
+  },
+  {
+   "id": "c3",
+   "title": "Other documents: bill of supply, vouchers, revised invoice",
+   "body": [
+    "A bill of supply is issued for exempt supplies and by composition dealers; a combined invoice-cum-bill of supply may be used for mixed taxable and exempt supplies to unregistered persons.",
+    "A receipt voucher is issued on receiving an advance; a refund voucher if no supply follows; a payment voucher by the recipient under reverse charge; and a self-invoice where the supplier is unregistered. Revised tax invoices can be issued within one month of the registration certificate for supplies made between the date of liability and grant of registration.",
+    "Delivery challans are used for transport not involving supply (job work, approval basis, goods in SKD/CKD condition in lots, liquid gas without known quantity)."
+   ],
+   "analogy": "Each situation has its own document.",
+   "work": "A composition dealer issues a bill of supply, never a tax invoice."
+  },
+  {
+   "id": "c4",
+   "title": "Credit and debit notes",
+   "body": [
+    "Section 34: a credit note may be issued where taxable value or tax in an invoice is excessive, goods are returned, or services are found deficient; a debit note where value or tax is less than due. Credit notes must be declared in the return by the earlier of 30 November after the financial year of supply and the date of the annual return.",
+    "Output tax can be reduced by a credit note only if the incidence has not been passed on — i.e. the recipient reverses the corresponding ITC. Debit notes have no time limit and the recipient takes ITC on them.",
+    "Credit and debit notes contain prescribed particulars, including reference to the original invoices, and must be reported through e-invoicing where applicable."
+   ],
+   "analogy": "Credit notes have deadlines and ITC conditions; debit notes do not.",
+   "work": "A 10% price cut on a ₹5 lakh supply reduces output tax by ₹9,000."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Credit note for a price cut",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Om Electricals supplied goods worth ₹5,00,000 + 18% GST on 10 January 2027 (FY 2026-27). In August 2027 it agrees a 10% price reduction and issues a credit note; the buyer reverses the ITC. Its annual return for 2026-27 is filed on 31 October 2027. Compute the reduction and the last date to declare the credit note.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Value reduced",
+       "10% × 5,00,000",
+       "50,000"
+      ],
+      [
+       "Output tax reduced",
+       "18% × 50,000",
+       "9,000"
+      ],
+      [
+       "Last date",
+       "Earlier of 30 November 2027 and annual return date",
+       "31 October 2027"
+      ],
+      [
+       "Condition",
+       "Tax burden must not be passed on — recipient reverses ITC",
+       "Met"
+      ]
+     ],
+     "title": "Section 34"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "500000*0.10",
+     "value": 50000,
+     "label": "Value reduction by credit note (₹)"
+    },
+    {
+     "expr": "500000*0.10*0.18",
+     "value": 9000,
+     "label": "Output tax reduced (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Invoicing obligations by turnover",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Sanvi Ltd had aggregate turnover of ₹8 crore in 2025-26. (a) How many HSN digits must it show on invoices? (b) Must it issue e-invoices for B2B supplies? (c) Must its B2C invoices carry a dynamic QR code? (d) When must it invoice goods sent on approval?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Point",
+      "Rule",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "(a) HSN",
+       "Turnover ₹8,00,00,000 exceeds ₹5 crore",
+       "6 digits for all supplies"
+      ],
+      [
+       "(b) E-invoice",
+       "Notified for turnover above ₹5 crore",
+       "Yes, with IRN"
+      ],
+      [
+       "(c) Dynamic QR",
+       "Only above ₹500 crore",
+       "No"
+      ],
+      [
+       "(d) Approval basis",
+       "Before or at supply, or within six months of removal",
+       "Within six months"
+      ]
+     ],
+     "title": "Section 31 and rule 46/48"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "80000000",
+     "value": 80000000,
+     "label": "Aggregate turnover of Sanvi Ltd (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Invoice compliance review",
+   "role": "GST associate",
+   "situation": "An audit finds invoices with missing fields and late credit notes.",
+   "steps": [
+    "Check rule 46 fields and HSN digits.",
+    "Verify IRN generation where required.",
+    "Check credit note deadlines.",
+    "Confirm ITC reversal by recipients."
+   ],
+   "takeaway": "Defective documents risk ITC denial for customers."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Invoice for services by a bank must be issued within:",
+   "options": [
+    "Forty-five days of supply",
+    "Thirty days",
+    "Sixty days",
+    "Seven days"
+   ],
+   "answer": 0,
+   "explain": "Rule 47. In practice: others 30 days.",
+   "concept": "c1",
+   "topic": "Time and contents of tax invoice",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Invoice serial number can have up to:",
+   "options": [
+    "Sixteen characters",
+    "Ten characters",
+    "Twenty characters",
+    "Eight characters"
+   ],
+   "answer": 0,
+   "explain": "Rule 46. In practice: unique per year.",
+   "concept": "c1",
+   "topic": "Time and contents of tax invoice",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Taxpayers with turnover above ₹5 crore must show HSN at:",
+   "options": [
+    "Six digits",
+    "Four digits",
+    "Eight digits",
+    "Two digits"
+   ],
+   "answer": 0,
+   "explain": "Rule 46 notification. In practice: B2B and B2C.",
+   "concept": "c1",
+   "topic": "Time and contents of tax invoice",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Current e-invoicing threshold of aggregate turnover is above:",
+   "options": [
+    "Five crore rupees",
+    "Ten crore rupees",
+    "Twenty crore rupees",
+    "Five hundred crore rupees"
+   ],
+   "answer": 0,
+   "explain": "Notification. In practice: any year since 2017-18.",
+   "concept": "c2",
+   "topic": "E-invoicing and QR code",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Dynamic QR code on B2C invoices applies above turnover of:",
+   "options": [
+    "Five hundred crore rupees",
+    "Five crore rupees",
+    "Fifty crore rupees",
+    "One hundred crore rupees"
+   ],
+   "answer": 0,
+   "explain": "Rule 46. In practice: digital display allowed.",
+   "concept": "c2",
+   "topic": "E-invoicing and QR code",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Recipient paying tax under RCM to an unregistered supplier issues:",
+   "options": [
+    "A self-invoice and payment voucher",
+    "A bill of supply",
+    "A credit note",
+    "A receipt voucher"
+   ],
+   "answer": 0,
+   "explain": "Section 31(3)(f)/(g). In practice: same day as payment.",
+   "concept": "c3",
+   "topic": "Other documents: bill of supply, vouchers, revised invoice",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Credit note for 2026-27 supplies must be declared by the earlier of the annual return date and:",
+   "options": [
+    "30 November 2027",
+    "31 March 2027",
+    "30 September 2027",
+    "31 December 2027"
+   ],
+   "answer": 0,
+   "explain": "Section 34(2). In practice: track deadlines.",
+   "concept": "c4",
+   "topic": "Credit and debit notes",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Goods sent on approval must be invoiced within:",
+   "options": [
+    "Six months of removal",
+    "Thirty days",
+    "One year",
+    "Ninety days"
+   ],
+   "answer": 0,
+   "explain": "Section 31(7). In practice: or on acceptance.",
+   "concept": "c1",
+   "topic": "Time and contents of tax invoice",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Om Electricals supplied goods worth ₹5,00,000 + 18% GST on 10 January 2027 (FY 2026-27). In August 2027 it agrees a 10% price reduction and issues a credit note; the buyer reverses the ITC. Its annual return for 2026-27 is filed on 31 October 2027. Compute the reduction and the last date to declare the credit note.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Value reduced",
+       "10% × 5,00,000",
+       "50,000"
+      ],
+      [
+       "Output tax reduced",
+       "18% × 50,000",
+       "9,000"
+      ],
+      [
+       "Last date",
+       "Earlier of 30 November 2027 and annual return date",
+       "31 October 2027"
+      ],
+      [
+       "Condition",
+       "Tax burden must not be passed on — recipient reverses ITC",
+       "Met"
+      ]
+     ],
+     "title": "Section 34"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Reduction",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "credit note"
+     ],
+     "min": 1,
+     "nums": [
+      50000,
+      9000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Deadline and condition",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "30 November"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "State incidence condition."
+   ],
+   "mistakes": [
+    "Ignoring annual return date."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "500000*0.10",
+     "value": 50000,
+     "label": "Value reduction by credit note (₹)"
+    },
+    {
+     "expr": "500000*0.10*0.18",
+     "value": 9000,
+     "label": "Output tax reduced (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Sanvi Ltd had aggregate turnover of ₹8 crore in 2025-26. (a) How many HSN digits must it show on invoices? (b) Must it issue e-invoices for B2B supplies? (c) Must its B2C invoices carry a dynamic QR code? (d) When must it invoice goods sent on approval?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Point",
+      "Rule",
+      "Answer"
+     ],
+     "rows": [
+      [
+       "(a) HSN",
+       "Turnover ₹8,00,00,000 exceeds ₹5 crore",
+       "6 digits for all supplies"
+      ],
+      [
+       "(b) E-invoice",
+       "Notified for turnover above ₹5 crore",
+       "Yes, with IRN"
+      ],
+      [
+       "(c) Dynamic QR",
+       "Only above ₹500 crore",
+       "No"
+      ],
+      [
+       "(d) Approval basis",
+       "Before or at supply, or within six months of removal",
+       "Within six months"
+      ]
+     ],
+     "title": "Section 31 and rule 46/48"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "HSN and e-invoice",
+     "m": 3,
+     "skill": "analysis",
+     "kw": [
+      "5 crore"
+     ],
+     "min": 1,
+     "nums": [
+      80000000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "QR and approval basis",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "six months"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Cite thresholds."
+   ],
+   "mistakes": [
+    "Applying QR code to ₹8 crore turnover."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "80000000",
+     "value": 80000000,
+     "label": "Aggregate turnover of Sanvi Ltd (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Section 31: goods at removal; services 30/45 days; approval 6 months.",
+   "Rule 46: contents; HSN 4/6 digits.",
+   "E-invoice above ₹5 crore; QR above ₹500 crore.",
+   "Bill of supply, receipt/refund/payment vouchers, revised invoices.",
+   "Section 34: credit note deadline 30 November/annual return."
+  ],
+  "remember": [
+   "No IRN, no valid e-invoice."
+  ],
+  "traps": [
+   "Reducing tax without recipient's ITC reversal."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Invoice",
+   "v": "Section 31"
+  },
+  {
+   "k": "Contents",
+   "v": "Rule 46"
+  },
+  {
+   "k": "Credit/debit notes",
+   "v": "Section 34"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is an IRN?",
+   "model": "An Invoice Reference Number generated by the registration portal that validates an e-invoice.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Invoice Reference Number",
+     "w": 5,
+     "kw": [
+      "invoice reference number"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Validates",
+     "w": 5,
+     "kw": [
+      "valid"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "When is a revised tax invoice issued?",
+   "model": "For supplies made between the date of liability and grant of registration, within one month of the registration certificate.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Between liability and registration",
+     "w": 5,
+     "kw": [
+      "between"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "One month",
+     "w": 5,
+     "kw": [
+      "one month"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "Is there a time limit for debit notes?",
+   "model": "Debit notes can be issued at any time; the recipient takes ITC on them within the section 16(4) limit.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Any time",
+     "w": 5,
+     "kw": [
+      "any time"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Recipient ITC",
+     "w": 5,
+     "kw": [
+      "recipient"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "When is a delivery challan used?",
+   "model": "For movement not involving supply, such as job work or goods sent on approval.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Job work",
+     "w": 5,
+     "kw": [
+      "job work"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Approval",
+     "w": 5,
+     "kw": [
+      "approval"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "How many copies of an invoice for goods?",
+   "model": "Triplicate: original for recipient, duplicate for transporter, triplicate for supplier.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Triplicate",
+     "w": 5,
+     "kw": [
+      "triplicate"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Transporter",
+     "w": 5,
+     "kw": [
+      "transporter"
+     ]
+    }
+   ],
+   "concept": "c1"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Deficient service refund",
+   "difficulty": "core",
+   "case": "Vista IT Services billed ₹10,00,000 + 18% GST in December 2026. In May 2027 the client reports deficiency and Vista agrees to refund 20% of value; the client reverses ITC accordingly.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Value of credit note (₹):",
+     "options": [
+      "2,00,000",
+      "1,00,000",
+      "2,36,000",
+      "20,000"
+     ],
+     "answer": 0,
+     "explain": "20% × 10 lakh. In practice: plus tax.",
+     "difficulty": "core",
+     "check": 200000,
+     "topic": "Credit and debit notes"
+    },
+    {
+     "id": "k1b",
+     "q": "Tax reduced (₹):",
+     "options": [
+      "36,000",
+      "18,000",
+      "1,80,000",
+      "3,600"
+     ],
+     "answer": 0,
+     "explain": "18% × 2 lakh. In practice: in return of issue.",
+     "difficulty": "core",
+     "check": 36000,
+     "topic": "Credit and debit notes"
+    },
+    {
+     "id": "k1c",
+     "q": "Ground for credit note:",
+     "options": [
+      "Services found deficient",
+      "Late payment",
+      "Change in rate",
+      "Bad debt"
+     ],
+     "answer": 0,
+     "explain": "Section 34(1). In practice: document reasons.",
+     "difficulty": "core",
+     "topic": "Credit and debit notes"
+    },
+    {
+     "id": "k1d",
+     "q": "If the client did not reverse ITC, Vista's output tax:",
+     "options": [
+      "Cannot be reduced",
+      "Is reduced anyway",
+      "Is refunded",
+      "Is doubled"
+     ],
+     "answer": 0,
+     "explain": "Incidence condition. In practice: financial credit note.",
+     "difficulty": "core",
+     "topic": "Credit and debit notes"
+    }
+   ]
+  }
+ ]
+}
