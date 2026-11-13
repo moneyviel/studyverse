@@ -330,6 +330,11 @@ async def _(pg):
     await setr(pg, 'input[data-k=R]', 40); await setr(pg, 'input[data-k=L]', 0.7); await setr(pg, 'input[data-k=C]', 50); await setr(pg, 'input[data-k=w]', 200)
     await setr(pg, 'input[data-k=R]', 10); await setr(pg, 'input[data-k=L]', 1); await setr(pg, 'input[data-k=C]', 10); await setr(pg, 'input[data-k=w]', 600)
 
+@lab('phy-u16', 'optbench')
+async def _(pg):
+    await setr(pg, 'input[data-k=f]', 10); await setr(pg, 'input[data-k=u]', 20); await setr(pg, 'input[data-k=u]', 15); await setr(pg, 'input[data-k=u]', 10)
+    await setr(pg, 'input[data-k=u]', 5); await tap(pg, '#obK button', 1); await setr(pg, 'input[data-k=u]', 10)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
