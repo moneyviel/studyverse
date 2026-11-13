@@ -30,7 +30,7 @@ R = lambda n: '₹' + inr(n)
 class Checks(list):
     def add(self, expr, label):
         """expr: a Python arithmetic string. Its value is stored, and the validator re-evaluates it."""
-        v = eval(expr, {'__builtins__': {}}, {'round': round})
+        v = eval(expr, {'__builtins__': {}}, {'round': round, 'min': min, 'max': max, 'abs': abs})
         v = round(v, 2)
         if v == int(v): v = int(v)
         self.append({'expr': expr, 'value': v, 'label': label})
@@ -128,7 +128,8 @@ def minutes(marks):
 
 
 def write_unit(u):
-    lv, pp, ch, un = u['id'].split('-')
+    parts = u['id'].split('-')                      # int-p3-a-ch01-u01: papers split into sections keep the section in the folder (p3-a)
+    lv, un, ch = parts[0], parts[-1], parts[-2]; pp = '-'.join(parts[1:-2])
     folder = {'fnd': 'foundation', 'int': 'inter', 'fin': 'final'}[lv]
     path = os.path.join(ROOT, 'content', 'ca', folder, pp, ch, un + '.json')
     os.makedirs(os.path.dirname(path), exist_ok=True)

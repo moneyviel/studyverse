@@ -1,0 +1,302 @@
+"""CA Intermediate · Paper 1 Advanced Accounting · Chapter 1 Introduction to Accounting Standards (single implicit unit).
+Scope and facts follow the ICAI study material (May 2027 onwards); every explanation, example and question is original."""
+from ikit import *
+
+UID = 'int-p1-ch01-u01'
+T1 = 'What Accounting Standards are and what they cover'
+T2 = 'Why standards help: benefits and limits'
+T3 = 'How an Accounting Standard is made in India'
+T4 = 'How many AS, and their legal status'
+T5 = 'Why the world moved to global standards'
+T6 = 'IASC, IASB and what "IFRS" includes'
+T7 = 'Adoption vs convergence; carve-outs and carve-ins'
+T8 = 'Ind AS: meaning, numbering and the roadmap'
+
+
+def build():
+    steps = table(['Step', 'What happens'], [
+        ['I', 'ASB picks the broad area that needs a standard'],
+        ['II', 'A study group writes a preliminary draft (objective, scope, definitions, recognition and measurement, presentation and disclosure); ASB reviews it'],
+        ['III', 'Draft goes to ICAI Council members and outside bodies — MCA, SEBI, C&AG, CBDT, SCOPE and others — for comments'],
+        ['IV', 'ASB meets representatives of those bodies to hear their views'],
+        ['V', 'Exposure draft (ED) is finalised and issued for public comment'],
+        ['VI', 'ASB considers the comments and finalises the draft for the ICAI Council'],
+        ['VII', 'Council considers it and, if needed, modifies it in consultation with ASB'],
+        ['VIII', 'ICAI issues the AS (non-corporate entities); for companies, MCA notifies it under s.133 (Companies Act, 2013) once NFRA has been consulted'],
+    ], title='Standard-setting steps of the Accounting Standards Board')
+    roadmap = table(['Phase / date', 'Companies covered (other than banks, NBFCs, insurers)'], [
+        ['Voluntary — 1 April 2015 or later (with comparatives)', 'Any company, with its holding, subsidiary, JV and associate companies'],
+        ['Phase I — mandatory from 1 April 2016', 'Listed or in process of listing (India or abroad) with net worth ₹500 crore or more; unlisted with net worth ₹500 crore or more; their holding, subsidiary, associate and JV companies'],
+        ['Phase II — mandatory from 1 April 2017', 'All other listed / to-be-listed companies (except companies on SME exchanges); unlisted with net worth ₹250 crore or more but below ₹500 crore; their holding, subsidiary, associate and JV companies'],
+    ], title='Ind AS roadmap — corporates')
+    nbfc = table(['Sector', 'Position as per the study material'], [
+        ['NBFCs — Phase I (1 April 2018)', 'Net worth ₹500 crore or more, listed or unlisted, and their group companies'],
+        ['NBFCs — Phase II (1 April 2019)', 'Listed NBFCs with net worth below ₹500 crore; unlisted with net worth ₹250 crore to below ₹500 crore; their group companies'],
+        ['Other NBFCs', 'Net worth below ₹250 crore and not covered above: continue with AS; voluntary Ind AS adoption not allowed'],
+        ['Scheduled commercial banks (not RRBs)', 'Originally 1 April 2018; RBI deferred to 2019 and then (22 March 2019) till further notice'],
+        ['UCBs and RRBs', 'Not required to apply Ind AS'],
+        ['Insurers', 'MCA date 1 April 2018; IRDAI deferred to 2020 and then till further notice; later IRDAI clarifications point to implementation from 1 April 2026 with parallel reporting, subject to IRDAI requirements'],
+    ], title='Banks, NBFCs and insurers')
+    numbering = table(['Source standard', 'Ind AS number', 'Example'], [
+        ['IAS n', 'Ind AS n (same number)', 'IAS 16 → Ind AS 16 Property, Plant and Equipment'],
+        ['IFRS n', 'Ind AS 100 + n', 'IFRS 5 → Ind AS 105; IFRS 15 → Ind AS 115; IFRS 16 → Ind AS 116'],
+    ], title='Numbering rule')
+
+    concepts = [
+        C('c1', T1, [
+            'GAAP — generally accepted accounting principles — is the mix of rules a reporting entity must follow: the authoritative standards set by standard-setting boards plus the accounting methods that are commonly accepted in practice. Internationally the authoritative part is mostly IFRS; in India it is the Accounting Standards (AS) and the Indian Accounting Standards (Ind AS).',
+            'An Accounting Standard is an authoritative written pronouncement on four things for a type of transaction: recognition (whether and when it enters the books), measurement (at what amount), presentation (where and how it appears in the statements) and disclosure (what extra information is given in the notes).',
+            'Who issues them: for non-corporate entities (firms, trusts, sole traders, LLPs that follow AS) the AS are issued by ICAI. For companies, it is the Central Government (acting through MCA) that prescribes AS and Ind AS, using its power in section 133 of the Companies Act, 2013.',
+            'The aim is narrow the menu of acceptable treatments so that statements of different enterprises can be compared — not to remove every choice, but to keep choices within reason and make them visible.'],
+          'An Accounting Standard is a recipe card for one dish: what goes in (recognition), how much (measurement), how it is plated (presentation) and what the menu card must say about it (disclosure).',
+          'When a client asks "can we show this as an asset?", a CA answers from the relevant standard — and checks whether the client is under AS or Ind AS before answering.'),
+        C('c2', T2, [
+            'Standardises alternative treatments: confusing variations in how the same event is recorded are reduced. Because one policy cannot suit every enterprise, standards still allow some choices — so the policy actually used must be disclosed (AS 1). Example: an enterprise must say whether it used FIFO or weighted average for inventory.',
+            'Calls for additional disclosures that the law itself may not require, so readers understand the treatment used.',
+            'Improves comparability — intra-enterprise (the same enterprise across years, which needs consistent policies) and inter-enterprise (different enterprises for the same period, which needs similar policies or disclosed differences so users can adjust).',
+            'Reduces creative accounting — bending policies to flatter one group of users, e.g. inflating profit by capitalising revenue expenditure or depressing it by writing off capital expenditure. Clear capitalisation rules for borderline items curb this.',
+            'Limits to remember: standards are principle-based, so complex transactions still need judgement; and where a standard conflicts with a statute, the statute prevails — and the statements must still give a true and fair picture inside the law.'],
+          'Standards are like a common measuring tape for a whole market: if every shop used its own tape, nobody could compare two pieces of cloth.',
+          'Analysts comparing two cement companies first read their policy notes (depreciation method, inventory formula) so the comparison is like-for-like.'),
+        C('c3', T3, [
+            'ICAI set up the Accounting Standards Board (ASB) in 1977. ASB includes representatives of industry and industry associations (ASSOCHAM, CII, FICCI), regulators, academics and government departments. Though constituted by the ICAI Council, it is independent in formulating standards. While framing AS it considers IAS/IFRS and adjusts for Indian law, customs, usage and business environment.',
+            'The process has eight steps — area identification, study-group draft, circulation to outside bodies, meeting their representatives, exposure draft, consideration of public comments, Council review and issue. See the table.',
+            'Under section 133 of the 2013 Act the Government of India may prescribe accounting standards (or addenda) as recommended by ICAI, in consultation with and after examining the recommendations of NFRA (National Financial Reporting Authority).',
+            'Earlier, ASB issued Accounting Standards Interpretations (ASIs) to answer application questions; they had the same authority as the standard. Their consensus portions are now merged as "Explanations" to the relevant AS paragraphs — first in the MCA-notified AS and then, to keep both sets in harmony, in ICAI-issued AS too.'],
+          'Making a standard is like drafting a building code: an expert committee drafts, the public and regulators comment, the council approves, and for companies the government gives it the force of law.',
+          'CAs comment on exposure drafts through ICAI — a practitioner who spots a practical problem can influence the final standard.',
+          blocks=[steps]),
+        C('c4', T4, [
+            'ICAI has issued 29 AS so far. Two were withdrawn: AS 6 Depreciation Accounting (on revision of AS 10, now Property, Plant and Equipment) and AS 8 Accounting for Research and Development (on issue of AS 26 Intangible Assets). So 27 AS are in force.',
+            'For companies, MCA had notified 28 AS and withdrew AS 6 in 2016, so 27 are notified today under the Companies (Accounting Standards) Rules, 2021 (notified 23 June 2021; apply for accounting periods beginning on or after 1 April 2021; they replaced the 2006 Rules). AS 2, 4, 10, 13, 14, 21 and 29 were revised to move closer to Ind AS.',
+            'Status: ICAI is not a legislature — it can enforce its standards only on its members, and a standard cannot override a law. Whether compliance is compulsory for an entity depends on the statute governing that entity. Companies that do not follow Ind AS apply the AS notified under the 2021 Rules.',
+            'In the study material the AS are grouped by theme rather than number: presentation and disclosure (AS 1, 3, 17, 18, 20, 24, 25), assets (AS 2, 10, 13, 16, 19, 26, 28), liabilities (AS 15, 29), items affecting the statements (AS 4, 5, 11, 22), revenue (AS 7, 9), others (AS 12, 14) and consolidation (AS 21, 23, 27).'],
+          'Think of 29 numbered seats in a hall with two seats (6 and 8) removed: 27 people are still seated, but the seat numbers were never renumbered.',
+          'In audit reports a CA states compliance with "the Accounting Standards specified under section 133 of the Act" — that is the notified set of 27.'),
+        C('c5', T5, [
+            'Raising money abroad: each country has its own reporting rules, so a company raising capital in another market must translate and restate its statements — costly and confusing. Common standards remove much of this.',
+            'Comparability for global investors and analysts, who want to compare statements prepared on similar standards; harmonised reporting raises their confidence.',
+            'Uniformity and transparency: if the same events produce different numbers under different systems, accounting loses credibility, errors grow and fraud becomes easier. One high-quality global set is in the public interest.',
+            'Global investment: convergence supports free flow of capital, lowers the investor\'s risk of misjudging, makes group reporting easier for multinationals, removes costly restatements and helps companies listed both at home and abroad.'],
+          'A single global standard is like a common plug socket — every appliance works everywhere without an adaptor.',
+          'An Indian company planning an overseas bond issue saves time and fees if its statements are already on a globally accepted basis.'),
+        C('c6', T6, [
+            'The International Accounting Standards Committee (IASC), a London-based body of professional accountancy bodies, was formed in June 1973 to develop International Accounting Standards (IAS) in the public interest.',
+            'After restructuring during 1997–1999, the International Accounting Standards Board (IASB) replaced IASC with effect from 1 April 2001. Standards issued by IASC up to 31 March 2001 keep the name IAS; standards issued by IASB from 1 April 2001 are IFRS. IASB did not scrap the old IAS — they continue in force.',
+            'So the term "IFRS" covers four things: IFRS issued by IASB; IAS issued by IASC; interpretations of the Standing Interpretations Committee (SIC); and interpretations of the IFRS Interpretations Committee (IFRIC).',
+            'IFRS are principles-based — broad rules rather than prescribed treatments. Many jurisdictions require or permit them for listed and public-interest entities, and lenders and regulators increasingly look to them as well.'],
+          'IASC was the old club; IASB is the new management. The new management kept the old rule book (IAS) and keeps adding new chapters (IFRS).',
+          'When reading a foreign client\'s IFRS statements, a CA should remember that "IFRS compliance" includes the older IAS and the SIC/IFRIC interpretations.'),
+        C('c7', T7, [
+            'A country becomes IFRS-compliant in one of two ways. Adoption: it fixes a timetable from which specified entities must use IFRS exactly as issued by IASB. Convergence: it writes its own high-quality standards aligned with IFRS, accepting some modifications — fully or partly.',
+            'India chose convergence, not adoption, after consulting stakeholders: Ind AS follow IAS/IFRS as far as possible, with departures only where considered essential.',
+            'Departures are of three kinds. Terminology changes to match Indian law, e.g. "balance sheet" for "statement of financial position" and "statement of profit and loss" for "statement of comprehensive income". Removal of options available under IFRS, for consistency — these do not create carve-outs. Deviations from IFRS principles because India\'s economic environment differs — these are called carve-outs.',
+            'Carve-ins work the other way: they are extra guidance or extra requirements that Indian standards add beyond what IFRS contains.',
+            'Benefits of convergence: more investor confidence through transparency and comparability; easier inter-firm and inter-industry comparison; simpler group consolidation; and acceptance of Indian statements by stock exchanges abroad.'],
+          'Adoption is buying a suit off the rack; convergence is buying the same suit and having the tailor alter the sleeves to fit. A carve-out is cloth cut away; a carve-in is a pocket added.',
+          'Indian subsidiaries of foreign groups often keep a reconciliation of the main Ind AS-vs-IFRS differences (carve-outs) for group reporting.'),
+        C('c8', T8, [
+            'Ind AS are IFRS-converged standards notified by the Central Government/MCA under the Companies Act framework. They go through ICAI\'s standard-setting process and are notified after NFRA\'s statutory recommendation.',
+            'Numbering: an Ind AS based on an IAS keeps the IAS number (IAS 16 → Ind AS 16); one based on an IFRS adds 100 (IFRS 1 → Ind AS 101, IFRS 15 → Ind AS 115). IFRS 17 on insurance contracts has its Indian counterpart in Ind AS 117 (the older insurance standard was Ind AS 104).',
+            'History: ICAI began moving towards IFRS in 2006. The original plan for 2011 was postponed (tax and other issues). After the July 2014 Budget speech, MCA notified the Companies (Indian Accounting Standards) Rules, 2015 on 16 February 2015: voluntary application from 1 April 2015, mandatory from 1 April 2016 for specified companies.',
+            'Special points: companies listed on SME exchanges need not apply Ind AS (they continue with AS unless they choose otherwise); once Ind AS applies there is no going back, even if net worth later falls; companies outside the roadmap keep applying the AS under the 2021 Rules. For NBFCs, Ind AS applies to both consolidated and individual statements and voluntary adoption is not allowed.'],
+          'The roadmap is a lift that only goes up: once a company steps into the Ind AS lift, it cannot step back down to AS.',
+          'Each year an auditor re-checks the net-worth tests for unlisted clients and their group companies, because crossing ₹250 crore can bring Ind AS from the next period.',
+          blocks=[numbering, roadmap, nbfc]),
+    ]
+
+    illustrations = [
+        {'id': 'i1', 'title': 'Does Ind AS apply?', 'difficulty': 'moderate', 'minutes': 8,
+         'q': 'Using the Ind AS roadmap for companies (other than banks, NBFCs and insurers), state whether each company must apply Ind AS and from when: (a) Kaveri Ltd., unlisted, net worth ₹540 crore as on 31 March 2014; (b) Shivalik Ltd., listed on an SME exchange, net worth ₹70 crore; (c) Narmada Pvt. Ltd., unlisted, net worth ₹310 crore, with no group links to covered companies; (d) Tapti Ltd., a wholly owned subsidiary of Kaveri Ltd., net worth ₹40 crore; (e) Kaveri Ltd. again, whose net worth fell to ₹420 crore in a later year.',
+         'solution': [table(['Company', 'Test', 'Result'], [
+             ['(a) Kaveri Ltd.', 'Unlisted, net worth ≥ ₹500 crore', 'Phase I — mandatory from 1 April 2016'],
+             ['(b) Shivalik Ltd.', 'Listed only on an SME exchange', 'Not required; continues with AS unless it opts for Ind AS'],
+             ['(c) Narmada Pvt. Ltd.', 'Unlisted, ₹250 crore ≤ net worth < ₹500 crore', 'Phase II — mandatory from 1 April 2017'],
+             ['(d) Tapti Ltd.', 'Subsidiary of a Phase I company', 'Phase I with its parent — from 1 April 2016, whatever its own size'],
+             ['(e) Kaveri Ltd. later', 'Net worth falls below ₹500 crore', 'Continues with Ind AS — no going back once applicable'],
+         ]), note('Net worth is tested as per the roadmap; group companies (holding, subsidiary, JV, associate) follow the covered company.')]},
+        {'id': 'i2', 'title': 'Find the Ind AS number', 'difficulty': 'core', 'minutes': 4,
+         'q': 'Give the Ind AS number for: (a) IFRS 9 Financial Instruments; (b) IAS 36 Impairment of Assets; (c) IFRS 16 Leases; (d) IAS 7 Statement of Cash Flows; (e) IFRS 3 Business Combinations. Also name the AS that deals with the same area where one exists.',
+         'solution': [table(['Global standard', 'Ind AS', 'Nearest AS'], [
+             ['IFRS 9', 'Ind AS 109', 'None'],
+             ['IAS 36', 'Ind AS 36', 'AS 28 Impairment of Assets'],
+             ['IFRS 16', 'Ind AS 116', 'AS 19 Leases'],
+             ['IAS 7', 'Ind AS 7', 'AS 3 Cash Flow Statements'],
+             ['IFRS 3', 'Ind AS 103', 'AS 14 Accounting for Amalgamations'],
+         ]), note('Rule: IAS keeps its number; IFRS adds 100.')]},
+        {'id': 'i3', 'title': 'Carve-out, carve-in or terminology?', 'difficulty': 'moderate', 'minutes': 5,
+         'q': 'Classify each departure of Ind AS from IFRS: (a) "statement of profit and loss" used in place of "statement of comprehensive income"; (b) an option available under IFRS is removed so that all Indian companies follow one method; (c) a principle is changed because Indian economic conditions differ from those IFRS assumes; (d) Ind AS gives additional guidance not found in IFRS.',
+         'solution': [table(['Item', 'Type', 'Carve-out?'], [
+             ['(a)', 'Terminology difference (consistent with Indian law)', 'No'],
+             ['(b)', 'Removal of an option', 'No'],
+             ['(c)', 'Deviation from IFRS principle for the Indian economic environment', 'Yes — a carve-out'],
+             ['(d)', 'Additional requirement over IFRS', 'No — this is a carve-in'],
+         ])]},
+    ]
+
+    jobs = [
+        {'id': 'j1', 'title': 'Which framework does the client follow?', 'role': 'Audit senior at a mid-size CA firm',
+         'situation': 'A new unlisted client, Meru Engineering Pvt. Ltd., has net worth of ₹180 crore. Its parent, Meru Holdings Ltd., is listed on the main board of NSE.',
+         'steps': ['Check the parent: listed on a main stock exchange, so it is covered by the roadmap (Phase I or II depending on net worth).', 'A subsidiary of a covered company follows its parent onto Ind AS, whatever its own net worth.', 'So Meru Engineering prepares its statements under Ind AS, not AS.', 'Record the reasoning in the audit file and use the Ind AS checklist.'],
+         'takeaway': 'Never decide AS vs Ind AS from the client\'s own size alone — look up the group.',
+         'think': 'Would the answer change if the parent were listed only on an SME exchange?',
+         'answer': 'Yes. SME-exchange companies are outside the mandatory roadmap, so the parent need not apply Ind AS; the subsidiary (₹180 crore, unlisted) would then continue with AS unless the group opts in voluntarily.'},
+        {'id': 'j2', 'title': 'Explaining "true and fair within the law"', 'role': 'Finance manager of a trust-run school',
+         'situation': 'The trust\'s governing statute prescribes a specific format that conflicts with an AS requirement.',
+         'steps': ['Follow the statute where it conflicts — a standard cannot override law.', 'Apply the AS everywhere else.', 'Disclose the departure and its effect so readers still get a fair picture.'],
+         'takeaway': 'Statute first, standards next, and transparent disclosure always.'},
+    ]
+
+    mcqs = [
+        Q('m1', 'For a partnership firm in India, Accounting Standards are issued by:', ['ICAI', 'MCA', 'NFRA', 'SEBI'], 0,
+          'For non-corporate entities such as partnership firms, trusts and sole proprietors, the Accounting Standards are issued by ICAI through its Accounting Standards Board. The tempting trap is MCA: MCA (the Central Government) prescribes standards for companies under section 133, not for firms. NFRA only recommends to the Government. In practice: a CA auditing a firm checks compliance with ICAI-issued AS, subject to the size-based exemptions for smaller entities.', 'c1', T1),
+        Q('m2', 'Accounting Standards for companies under the Companies Act, 2013 are prescribed by:', ['The Central Government (MCA) under section 133', 'NFRA alone', 'The IASB', 'The stock exchanges'], 0,
+          'Section 133 empowers the Central Government to prescribe accounting standards as recommended by ICAI, after consultation with and examination of recommendations by NFRA. NFRA advises but does not itself prescribe, so "NFRA alone" is the trap. IASB writes IFRS for the world, not Indian law. In practice: an audit report on a company refers to standards "specified under section 133 of the Act".', 'c3', T3),
+        Q('m3', 'Which of these is NOT one of the four aspects that Accounting Standards deal with?', ['Taxation of the transaction', 'Recognition', 'Measurement', 'Disclosure'], 0,
+          'Standards cover recognition, measurement, presentation and disclosure of transactions and events. How much tax is payable on a transaction is decided by tax law, not by accounting standards (AS 22 deals only with how the tax expense is accounted). The trap is measurement — it is very much part of a standard. In practice: the same sale may be recognised in the books under AS and taxed on a different basis under the Income-tax Act.', 'c1', T1),
+        Q('m4', 'Inter-enterprise comparison of financial statements is meaningful mainly when:', ['Comparable enterprises use similar policies or disclose the differences', 'The same enterprise uses the same policies every year', 'Both enterprises have the same auditor', 'Both enterprises have the same year-end only'], 0,
+          'Inter-enterprise comparison sets different enterprises side by side for the same period, which works only when their policies are similar or the differences are disclosed so users can adjust. The trap is "the same enterprise every year" — that describes intra-enterprise comparison across years, which needs consistency. In practice: an equity analyst adjusts for a competitor\'s different depreciation method before comparing margins.', 'c2', T2),
+        Q('m5', 'Where an Accounting Standard conflicts with a statute governing the enterprise:', ['The statute prevails', 'The Accounting Standard prevails', 'The enterprise may choose either', 'Both are ignored'], 0,
+          'A standard cannot override a law. If they conflict, the statute governs, yet the entity keeps aiming at a true and fair picture inside the legal framework, explaining any departure. The tempting trap is "the Accounting Standard prevails" because standards are mandatory — but their mandatory force itself comes from law. In practice: banks follow formats and provisioning norms prescribed by banking law and RBI where these differ from general standards.', 'c2', T2),
+        Q('m6', 'The Accounting Standards Board of ICAI was constituted in:', ['1977', '1949', '2001', '2013'], 0,
+          'ICAI constituted the ASB in 1977 and it has since led standard-setting in India. 1949 is the year of the Chartered Accountants Act that created ICAI, 2001 is when IASB replaced IASC, and 2013 is the Companies Act. In practice: ASB still issues and revises AS for non-corporates and drives Ind AS formulation for companies.', 'c3', T3, check='1977'),
+        Q('m7', 'In the ASB\'s standard-setting process, the exposure draft is issued:', ['For public comments, after views of specified outside bodies are ascertained', 'Only to ICAI Council members', 'After the Central Government notifies the standard', 'Before the study group prepares any draft'], 0,
+          'The draft is first circulated to Council members and bodies like MCA, SEBI, C&AG, CBDT and SCOPE, their representatives are met, and only then is the exposure draft finalised and issued to invite public comments. The trap is "only to Council members" — an exposure draft is meant for the public. In practice: CA firms submit comment letters on exposure drafts during this window.', 'c3', T3, 'moderate'),
+        Q('m8', 'How many Accounting Standards are currently in force out of the 29 issued by ICAI?', ['27', '29', '28', '25'], 0,
+          'Twenty-nine were issued; AS 6 (Depreciation Accounting) was withdrawn on revision of AS 10 and AS 8 (Accounting for Research and Development) on issue of AS 26, leaving 27. The trap is 28 — MCA had notified 28 and then withdrew AS 6 in 2016, so the notified count is also 27. In practice: numbering was never changed, so there is simply no AS 6 or AS 8 in the list.', 'c4', T4, check='29-2'),
+        Q('m9', 'AS 8 on Accounting for Research and Development was withdrawn on the issue of:', ['AS 26 Intangible Assets', 'AS 10 Property, Plant and Equipment', 'AS 28 Impairment of Assets', 'AS 16 Borrowing Costs'], 0,
+          'Research and development expenditure is now covered by AS 26 Intangible Assets, so AS 8 was withdrawn when AS 26 was issued. AS 10\'s revision led to the withdrawal of AS 6 on depreciation, which is the usual trap. In practice: development costs that meet the AS 26 criteria are capitalised as an intangible asset; research costs are expensed.', 'c4', T4),
+        Q('m10', 'The Companies (Accounting Standards) Rules, 2021 apply to accounting periods beginning on or after:', ['1 April 2021', '23 June 2021', '1 April 2016', '1 April 2015'], 0,
+          'The Rules were notified on 23 June 2021 but apply to accounting periods commencing on or after 1 April 2021; they replaced the 2006 Rules. The tempting trap is the notification date, 23 June 2021. 1 April 2015 and 2016 are Ind AS roadmap dates. In practice: a company not on Ind AS refers to "AS notified under the Companies (Accounting Standards) Rules, 2021" in its policy note.', 'c4', T4, 'moderate'),
+        Q('m11', 'Standards issued by IASC up to 31 March 2001 are known as:', ['IAS', 'IFRS', 'Ind AS', 'IFRIC'], 0,
+          'IASC\'s standards issued up to 31 March 2001 are called International Accounting Standards (IAS); IASB, which replaced IASC from 1 April 2001, issues IFRS. IASB kept the old IAS in force rather than withdrawing them. IFRIC is the interpretations committee, not a series of standards. In practice: IAS 16 and IFRS 16 are both live standards — the numbers belong to different series.', 'c6', T6),
+        Q('m12', 'The term "IFRS" in the wide sense does NOT include:', ['Accounting Standards issued by ICAI for non-corporates', 'IAS issued by IASC', 'Interpretations of SIC', 'Interpretations of IFRIC'], 0,
+          'IFRS in the wide sense covers IFRS issued by IASB, IAS issued by IASC, SIC interpretations and IFRIC interpretations. ICAI\'s AS for non-corporates are Indian standards and form no part of IFRS. The trap is SIC — although the committee no longer exists, its interpretations still count. In practice: a statement of "compliance with IFRS" must respect every one of those four components.', 'c6', T6, 'moderate'),
+        Q('m13', 'A country writes its own standards aligned with IFRS but keeps some modifications for local conditions. This is:', ['Convergence', 'Adoption', 'Transliteration', 'Codification'], 0,
+          'Convergence means developing national standards that align with IFRS, accepting some modifications. Adoption would mean using IFRS exactly as issued by IASB from a fixed date. India followed convergence — Ind AS — after wide consultation. In practice: Ind AS statements are not automatically "IFRS compliant" because of carve-outs, which is why global groups reconcile the two.', 'c7', T7),
+        Q('m14', 'Using "balance sheet" in Ind AS instead of "statement of financial position" is an example of:', ['A terminology difference', 'A carve-out', 'A carve-in', 'Removal of an option'], 0,
+          'Wording was changed so that Ind AS terms match the terms used in Indian law; this is a terminology difference and changes no accounting principle. A carve-out is a deviation from an IFRS principle because India\'s economic environment differs. In practice: Schedule III of the Companies Act still uses "Balance Sheet", so Ind AS adopted the same label.', 'c7', T7),
+        Q('m15', 'Departures in Ind AS that deviate from IFRS principles because of India\'s economic environment are called:', ['Carve-outs', 'Carve-ins', 'Interpretations', 'Exposure drafts'], 0,
+          'Deviations from IFRS principles made because Indian economic conditions differ from those IFRS assumes are carve-outs. Extra guidance or requirements added over IFRS are carve-ins, which is the usual trap. Removal of IFRS options is a departure but does not produce a carve-out. In practice: auditors of group companies list carve-outs when reconciling Ind AS numbers to IFRS group packs.', 'c7', T7),
+        Q('m16', 'The Ind AS corresponding to IFRS 15 Revenue from Contracts with Customers is:', ['Ind AS 115', 'Ind AS 15', 'Ind AS 18', 'Ind AS 105'], 0,
+          'An Ind AS based on an IFRS takes the IFRS number plus 100, so IFRS 15 becomes Ind AS 115. Ind AS based on an IAS keep the IAS number — which is why Ind AS 15 would be the wrong pick. Ind AS 105 corresponds to IFRS 5. In practice: Ind AS 115 replaced the older revenue guidance; its AS counterparts are AS 7 and AS 9.', 'c8', T8),
+        Q('m17', 'An unlisted company has net worth of ₹320 crore. Under the corporate roadmap, Ind AS became mandatory for it from:', ['1 April 2017', '1 April 2016', '1 April 2015', 'Never — unlisted companies are exempt'], 0,
+          'Phase II (1 April 2017) covers unlisted companies with net worth of ₹250 crore or more but less than ₹500 crore, which includes ₹320 crore. Phase I (1 April 2016) was for net worth of ₹500 crore or more. 1 April 2015 was only the voluntary start. In practice: auditors keep a net-worth working each year to see whether an unlisted client has crossed the threshold.', 'c8', T8, 'moderate'),
+        Q('m18', 'A company that applied Ind AS from Phase I sees its net worth fall below ₹250 crore. It must:', ['Continue to follow Ind AS', 'Switch back to AS', 'Follow Ind AS only for consolidated statements', 'Choose between AS and Ind AS each year'], 0,
+          'Once Ind AS applies, the company must keep following it for all subsequent statements — there is no looking back even if net worth later falls. The trap is "switch back to AS", which the roadmap does not permit. In practice: management should weigh this one-way door before opting in voluntarily.', 'c8', T8),
+        Q('m19', 'Which of these is NOT required to apply Ind AS as per the study material?', ['Regional Rural Banks', 'An NBFC with net worth of ₹600 crore', 'An unlisted company with net worth of ₹700 crore', 'A main-board listed company with net worth of ₹100 crore'], 0,
+          'Urban co-operative banks and Regional Rural Banks are not required to apply Ind AS. An NBFC with net worth of ₹500 crore or more was in NBFC Phase I (2018); an unlisted company with ₹700 crore was in Phase I (2016); every main-board listed company is covered by Phase II at the latest. In practice: RRB audits still use the existing accounting framework and RBI norms.', 'c8', T8, 'moderate'),
+    ]
+
+    questions = [
+        W('q1', 5, 'What are Accounting Standards? State the advantages of setting Accounting Standards.',
+          [p('Meaning: Accounting Standards are authoritative written pronouncements on the recognition, measurement, presentation and disclosure of transactions and events in financial statements. For non-corporate entities they are issued by ICAI; for companies the Central Government (MCA) prescribes AS and Ind AS under section 133 of the Companies Act, 2013.'),
+           ul(['They standardise alternative accounting treatments and so reduce confusing variations; the policy actually used is disclosed.',
+               'They require additional disclosures that may not be required by law, so users understand the treatment followed.',
+               'They make financial statements comparable — over years for the same enterprise and across enterprises — helping investors and lenders decide.',
+               'They reduce the scope for manipulation and creative accounting, for example capitalising revenue expenditure to inflate profit.',
+               'They add credibility and reliability to financial statements.'])],
+          [S('s1', 'Meaning — recognition, measurement, presentation, disclosure', 1, 'concept', 'recognition|recognise|recognize', 'measurement|measure', 'presentation|present', 'disclosure|disclose', n=3),
+           S('s2', 'Issuing authority — ICAI for non-corporates; Central Government/MCA under s.133 for companies', 1, 'provision', 'icai|institute of chartered', 'central government|mca|ministry of corporate|section 133|s 133|sec 133'),
+           S('s3', 'Standardisation of alternative treatments', 1, 'concept', 'standardis|standardiz|uniform|harmonis|harmoniz|reduce variation|alternative'),
+           S('s4', 'Comparability for users / decision making', 1, 'concept', 'compar'),
+           S('s5', 'Additional disclosures; curbs creative accounting / manipulation', 1, 'concept', 'disclos', 'creative|manipulat|mislead|window dress', n=1)],
+          ['Answers that list advantages without defining the term lose the first mark.'],
+          ['Saying ICAI prescribes standards for companies — for companies they are prescribed by the Central Government under section 133.'],
+          ['Open with a one-line definition naming the four aspects.', 'Write advantages as separate numbered points.']),
+        W('q2', 5, 'What do you mean by carve-outs and carve-ins in Ind AS? Why did India choose convergence rather than adoption of IFRS?',
+          [p('India, through the Government in consultation with ICAI, decided to converge with IFRS rather than adopt them as issued by IASB. Convergence means framing national standards aligned with IFRS but with changes where considered essential; adoption would mean using IFRS exactly as issued from a fixed date.'),
+           p('While framing Ind AS, departures from IFRS were made for three reasons: (i) terminology differences to match Indian law, such as "balance sheet" for "statement of financial position"; (ii) removal of certain options to keep statements consistent and comparable — these do not create carve-outs; and (iii) differences in India\'s economic environment.'),
+           p('Carve-outs are those departures that deviate from the accounting principles of IFRS because the economic conditions in India differ from the conditions IFRS assumes. Carve-ins are extra guidance or extra requirements that Ind AS contain beyond IFRS.'),
+           p('Convergence was preferred because it lets India stay aligned with global standards for comparability and access to global capital while keeping Indian law, business practice and economic conditions in view.')],
+          [S('s1', 'Convergence vs adoption explained', 1, 'concept', 'converg', 'adopt'),
+           S('s2', 'Terminology differences and removal of options (no carve-out)', 1, 'concept', 'terminolog|balance sheet|statement of profit', 'option'),
+           S('s3', 'Carve-out — deviation from IFRS principles due to economic environment', 1.5, 'concept', 'carve out|carve-out|carveout', 'economic|environment|condition'),
+           S('s4', 'Carve-in — additional requirement over IFRS', 1, 'concept', 'carve in|carve-in|carvein', 'additional|over and above|extra|more than'),
+           S('s5', 'Reason for convergence', 0.5, 'application', 'indian law|indian condition|india|local|business environment|economic')],
+          ['Many answers define carve-out correctly but forget that removal of options does not create a carve-out.'],
+          ['Treating every departure from IFRS as a carve-out.', 'Mixing up carve-in with carve-out.'],
+          ['Use the three-way classification: terminology, options, economic environment.']),
+        W('q3', 6, 'State, with reasons, whether Ind AS is mandatory for each of the following under the roadmap for companies other than banks, NBFCs and insurers: (a) Ganga Ltd., unlisted, net worth ₹520 crore; (b) Yamuna Ltd., listed on the BSE main board, net worth ₹90 crore; (c) Sutlej Ltd., listed only on an SME exchange, net worth ₹45 crore; (d) Beas Ltd., unlisted, net worth ₹260 crore; (e) Chenab Ltd., unlisted, net worth ₹60 crore, a subsidiary of Ganga Ltd.; (f) Ganga Ltd. after its net worth falls to ₹230 crore in a later year.',
+          [table(['Company', 'Reason', 'Ind AS'], [
+              ['(a) Ganga Ltd.', 'Unlisted with net worth ₹500 crore or more — Phase I', 'Mandatory from 1 April 2016'],
+              ['(b) Yamuna Ltd.', 'Listed (main board) and not covered in Phase I — Phase II', 'Mandatory from 1 April 2017'],
+              ['(c) Sutlej Ltd.', 'Companies listed on SME exchange are outside the mandatory roadmap', 'Not mandatory; continues with AS unless it opts in'],
+              ['(d) Beas Ltd.', 'Unlisted with net worth ₹250 crore or more but below ₹500 crore — Phase II', 'Mandatory from 1 April 2017'],
+              ['(e) Chenab Ltd.', 'Subsidiary of a Phase I company — follows the parent', 'Mandatory from 1 April 2016'],
+              ['(f) Ganga Ltd. later', 'No looking back once Ind AS applies', 'Continues with Ind AS'],
+          ])],
+          [S('s1', 'Ganga — Phase I, 1 April 2016', 1, 'application', 'ganga', 'phase i|phase 1|2016|500'),
+           S('s2', 'Yamuna — Phase II (listed), 1 April 2017', 1, 'application', 'yamuna', 'phase ii|phase 2|2017|listed'),
+           S('s3', 'Sutlej — SME exchange, not mandatory', 1, 'application', 'sutlej', 'sme', 'not mandatory|not required|not applicable|need not|continue|exempt|optional|voluntar', n=2),
+           S('s4', 'Beas — Phase II (₹250–500 crore), 1 April 2017', 1, 'application', 'beas', 'phase ii|phase 2|2017|250'),
+           S('s5', 'Chenab — subsidiary follows parent, 2016', 1, 'application', 'chenab', 'subsidiar|parent|holding|group'),
+           S('s6', 'Ganga later — no looking back', 1, 'application', 'no looking back|cannot revert|can not revert|no going back|continue|not go back|cannot go back|once')],
+          ['Most students miss (e): group companies follow the covered company regardless of their own net worth.'],
+          ['Treating SME-listed companies as covered by Phase II.', 'Allowing a company to revert to AS when its net worth falls.'],
+          ['A three-column table (company · reason · result) is the fastest way to score.'], pad='table', difficulty='moderate'),
+    ]
+
+    viva = [
+        V('v1', 'What is an Accounting Standard and which four aspects does it deal with?',
+          'An Accounting Standard is an authoritative written pronouncement. It deals with the recognition, measurement, presentation and disclosure of transactions and events in financial statements.',
+          [P('p1', 'Authoritative written pronouncement / policy document', 2, 'authorit|pronounc|written polic|policy document|rule'),
+           P('p2', 'Recognition', 2, 'recogni'), P('p3', 'Measurement', 2, 'measur'), P('p4', 'Presentation', 2, 'present'), P('p5', 'Disclosure', 2, 'disclos')], 'c1'),
+        V('v2', 'Who issues Accounting Standards for non-corporate entities and who prescribes them for companies?',
+          'For non-corporate entities the Accounting Standards are issued by ICAI. For companies the Central Government, through MCA, prescribes them under section 133 of the 2013 Act, after consulting NFRA.',
+          [P('p1', 'ICAI for non-corporates', 4, 'icai|institute of chartered'), P('p2', 'Central Government / MCA for companies', 4, 'central government|mca|ministry of corporate'),
+           P('p3', 'Section 133, Companies Act 2013; NFRA consulted', 2, '133|nfra|national financial reporting')], 'c3'),
+        V('v3', 'Why are there only 27 Accounting Standards in force when 29 were issued?',
+          'ICAI issued 29 standards. AS 6 on depreciation was withdrawn when AS 10 was revised, and AS 8 on research and development was withdrawn when AS 26 on intangible assets was issued, so 27 remain.',
+          [P('p1', 'AS 6 withdrawn on revision of AS 10', 5, 'as 6|as6|depreciation', 'as 10|as10|property plant'),
+           P('p2', 'AS 8 withdrawn on issue of AS 26', 5, 'as 8|as8|research', 'as 26|as26|intangible')], 'c4'),
+        V('v4', 'Distinguish adoption from convergence, and explain carve-outs and carve-ins.',
+          'Adoption means using IFRS exactly as issued by the IASB from a set date. Convergence means framing our own standards aligned with IFRS with necessary changes; India chose convergence. Carve-outs are departures from IFRS principles because of the Indian economic environment, while carve-ins are additional requirements over IFRS.',
+          [P('p1', 'Adoption — IFRS as issued', 2, 'adopt', 'as issued|exactly|without change|unchanged|same form|same standard'),
+           P('p2', 'Convergence — aligned own standards with changes; India chose it', 2, 'converg', 'align|change|modif|own'),
+           P('p3', 'Carve-out — deviation due to economic environment', 3, 'carve out|carve-out|carveout', 'econom|environment|condition|depart|deviat'),
+           P('p4', 'Carve-in — additional requirement', 3, 'carve in|carve-in|carvein', 'addition|extra|over and above|more')], 'c7'),
+        V('v5', 'State the numbering rule for Ind AS and the main Phase I and Phase II net worth tests.',
+          'An Ind AS based on an IAS keeps the same number, and one based on an IFRS adds one hundred, so IFRS 15 becomes Ind AS 115. Phase I from 1 April 2016 covered companies with net worth of 500 crore or more, and Phase II from 1 April 2017 covered other listed companies and unlisted companies with net worth from 250 crore to 500 crore.',
+          [P('p1', 'IAS keeps number; IFRS adds 100', 4, 'add 100|adds 100|plus 100|add one hundred|adds one hundred|100 added|hundred', 'ias|same number|keeps'),
+           P('p2', 'Phase I — 2016, net worth 500 crore or more', 3, '2016', '500 crore'),
+           P('p3', 'Phase II — 2017, other listed and 250–500 crore unlisted', 3, '2017', '250 crore')], 'c8'),
+    ]
+
+    cases = [{'id': 'k1', 'title': 'Advising the Rao group', 'difficulty': 'moderate',
+              'case': 'Rao Textiles Ltd. is unlisted with net worth of ₹470 crore. Its subsidiary Rao Dyes Pvt. Ltd. has net worth of ₹35 crore. A family partnership, Rao & Sons, also does business. The group CFO is preparing a note for the board and asks you four questions.',
+              'mcqs': [
+                  M('k1a', 'Rao Textiles Ltd. falls under:', ['Phase II — Ind AS from 1 April 2017', 'Phase I — Ind AS from 1 April 2016', 'No mandatory Ind AS', 'NBFC roadmap'], 0,
+                    'Rao Textiles is unlisted with net worth between ₹250 crore and ₹500 crore, which is exactly the Phase II band, so Ind AS became mandatory from 1 April 2017. Phase I needed ₹500 crore or more. It is a textile manufacturer, so the NBFC roadmap is irrelevant. In practice: the CFO should confirm the net-worth computation used for the test.', 'moderate', topic=T8),
+                  M('k1b', 'Rao Dyes Pvt. Ltd. (net worth ₹35 crore) must:', ['Apply Ind AS along with its parent', 'Apply AS because its net worth is small', 'Choose freely each year', 'Apply IFRS as issued'], 0,
+                    'A subsidiary of a company covered by the roadmap applies Ind AS from the same date as its parent, whatever its own net worth. The trap is to judge Rao Dyes by its own size. Ind AS, not IFRS as issued, is what Indian companies apply. In practice: group consolidation is far simpler when parent and subsidiary use the same framework.', 'moderate', topic=T8),
+                  M('k1c', 'Rao & Sons, the partnership firm, will follow:', ['Accounting Standards issued by ICAI, subject to applicability', 'Ind AS compulsorily', 'No standards at all', 'Only standards notified for companies'], 0,
+                    'Ind AS is a framework for companies under the Companies Act. A partnership firm is a non-corporate entity and follows the AS issued by ICAI, subject to the applicability and exemptions for its size. The trap is "no standards" — firms are not outside the standards framework. In practice: a firm\'s auditor applies ICAI\'s criteria for classifying non-corporate entities.', 'core', topic=T1),
+                  M('k1d', 'If Rao Textiles\' net worth later falls to ₹200 crore, it will:', ['Continue with Ind AS', 'Revert to AS', 'Stop preparing financial statements under any standard', 'Apply Ind AS only to its subsidiary'], 0,
+                    'Once Ind AS becomes applicable, a company must follow it in all later statements; a fall in net worth does not allow a return to AS. The trap is "revert to AS", which the roadmap forbids. In practice: the board note should flag that the decision is irreversible.', 'core', topic=T8),
+              ]}]
+
+    return unit(UID, 'p1', 'int-p1-ch01', 1, 'Introduction to Accounting Standards',
+                ['Explain what Accounting Standards are, who issues or prescribes them, and the four aspects they cover.',
+                 'Describe the ASB\'s standard-setting process, the number and legal status of AS in India.',
+                 'Explain the need for global standards, the IASC/IASB history and what IFRS comprises.',
+                 'Distinguish adoption from convergence and identify carve-outs, carve-ins and terminology changes.',
+                 'Apply the Ind AS numbering rule and the roadmap for companies, NBFCs, banks and insurers.'],
+                {'difficulty': 'core', 'minutes': {'learn': 35, 'practice': 30}, 'prereq': [],
+                 'exam_tip': 'Expect theory questions on benefits of AS, the standard-setting process, carve-outs/carve-ins and roadmap applicability; learn the ₹500 crore / ₹250 crore tests and the "no looking back" rule.'},
+                concepts, illustrations, jobs, mcqs, questions,
+                {'summary': ['AS = authoritative pronouncements on recognition, measurement, presentation and disclosure.', 'Non-corporates: AS issued by ICAI. Companies: AS/Ind AS prescribed by Central Government/MCA under s.133 after NFRA consultation.',
+                             'Benefits: standardised treatments, extra disclosures, comparability, less creative accounting. Statute prevails over AS.',
+                             'ASB set up 1977; eight-step process ending with ICAI issue / MCA notification.', '29 AS issued; AS 6 and AS 8 withdrawn → 27. Companies (Accounting Standards) Rules, 2021 from periods beginning 1 April 2021.',
+                             'IASC (1973) → IASB (1 April 2001). IFRS = IFRS + IAS + SIC + IFRIC.', 'India: convergence (Ind AS), with terminology changes, removed options, carve-outs and carve-ins.',
+                             'Ind AS numbering: IAS n → Ind AS n; IFRS n → Ind AS 100+n. Roadmap: Phase I 2016 (≥ ₹500 cr), Phase II 2017 (other listed; ₹250–500 cr unlisted); SME-listed exempt; no looking back.'],
+                 'remember': ['Section 133 — Central Government prescribes standards for companies.', 'IASB standards from 1 April 2001 are IFRS.', 'RRBs and UCBs: no Ind AS. NBFCs: no voluntary adoption.'],
+                 'traps': ['NFRA recommends; it does not prescribe.', 'Removal of IFRS options is not a carve-out.', 'A subsidiary follows its parent onto Ind AS regardless of its own size.']},
+                [('Standards for companies', 'Prescribed by Central Government/MCA — s.133, Companies Act 2013, after NFRA'), ('AS in force', '29 issued − AS 6 − AS 8 = 27'),
+                 ('Rules', 'Companies (Accounting Standards) Rules, 2021 — periods from 1 April 2021'), ('IFRS includes', 'IFRS · IAS · SIC · IFRIC'),
+                 ('Numbering', 'IAS n → Ind AS n · IFRS n → Ind AS 100+n'), ('Phase I (1.4.2016)', 'Listed or unlisted, net worth ≥ ₹500 crore + group'),
+                 ('Phase II (1.4.2017)', 'Other listed (not SME) + unlisted ₹250–500 crore + group'), ('Carve-out / carve-in', 'Deviation for Indian economy / addition over IFRS')],
+                viva, cases,
+                topics=['Introduction', 'Standards Setting Process', 'How Many Accounting Standards?', 'Status of Accounting Standards', 'Need for Convergence towards Global Standards',
+                        'International Accounting Standard Board', 'IFRS as Global Standards', 'Becoming IFRS Compliant', 'Carve outs/Carve-ins in Ind AS', 'Convergence to IFRS in India',
+                        'Indian Accounting Standards', 'History of IFRS-converged Ind AS', 'List of Ind AS', 'Roadmap for Implementation of Ind AS'])

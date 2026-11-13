@@ -158,7 +158,8 @@ def build_paper(level_key, paper_key, paper_name, sources, pattern=None, group=N
 
 
 def unit_file(uid):
-    lv, p, ch, u = uid.split('-')[:4]
+    parts = uid.split('-')                         # section papers: int-p3-a-ch01-u01 -> inter/p3-a/ch01/u01.json
+    lv, u, ch = parts[0], parts[-1], parts[-2]; p = '-'.join(parts[1:-2])
     folder = {'fnd': 'foundation', 'int': 'inter', 'fin': 'final'}[lv]
     return f'content/ca/{folder}/{p}/{ch}/{u}.json'
 

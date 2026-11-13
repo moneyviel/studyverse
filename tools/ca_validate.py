@@ -423,7 +423,7 @@ def check_topics(w0, u):
 def words(s): return re.findall(r"[a-z0-9]+", s.lower())
 def originality(units, src, n=10):
     texts = {}
-    for f in glob.glob(os.path.join(src, 'CA - Foundation__*.txt')):
+    for f in glob.glob(os.path.join(src, 'CA - Foundation__*.txt')) or glob.glob(os.path.join(src, '*.txt')):   # Foundation export, or any folder of ICAI .txt files
         texts[f] = words(open(f, encoding='utf-8', errors='ignore').read())
     grams = set()
     for ws in texts.values():
@@ -519,7 +519,9 @@ def main():
                 print(f'answer checker parity JS = Python on {len(AUTO["cases"])} answers')
         elif AUTO['cases']: warn('checker parity', 'node not found — JS/Python answer-checker parity not checked')
     except Exception as e: err('checker parity', str(e))
-    if src: originality(units + mocks, src)
+    if src:                                           # --level inter: check only that level's units against that level's ICAI text
+        lvl = sys.argv[sys.argv.index('--level') + 1] if '--level' in sys.argv else None
+        originality([(f, u) for f, u in units + mocks if not lvl or u.get('level') == lvl], src)
     for lv, (p, c, n) in counts.items(): print(f'{lv:10s} papers {p:2d}  chapters {c:3d}  units {n:3d}')
     nm = sum(len(u['mcqs']) for _, u in units); nq = sum(len(u['questions']) for _, u in units); ni = sum(len(u['illustrations']) for _, u in units)
     nc = sum(len(x.get('checks') or []) for _, u in units for x in u['illustrations'] + u['questions'] + u['jobs']) + sum(1 for _, u in units for q in u['mcqs'] if 'check' in q)
