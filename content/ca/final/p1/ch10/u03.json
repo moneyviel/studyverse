@@ -1,0 +1,758 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch10-u03",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch10",
+ "n": 3,
+ "title": "Ind AS 102 \"Share-based Payment\"",
+ "outcomes": [
+  "Identify share-based payment transactions and their types.",
+  "Measure equity-settled plans at grant-date fair value over the vesting period.",
+  "Account for cash-settled plans and settlement choices.",
+  "Handle modifications, cancellations and group plans."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 40,
+   "practice": 35
+  },
+  "prereq": [
+   "fin-p1-ch10-u02"
+  ],
+  "exam_tip": "Use the formula: number expected to vest × fair value × elapsed fraction − previous cumulative."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Scope and types of share-based payment",
+   "body": [
+    "A share-based payment arrangement gives a counterparty (employee or supplier) the right to receive equity instruments of the entity, or cash or assets based on the price of those instruments, provided vesting conditions are met.",
+    "Three types: equity-settled (entity issues shares or options), cash-settled (entity pays cash based on share price, e.g. share appreciation rights), and those with a choice of settlement. Transactions where the group settles for a subsidiary's employees are also in scope.",
+    "Excluded: transactions with shareholders acting as shareholders (rights issues), shares issued in a business combination for control (Ind AS 103), and contracts within Ind AS 32/109. Goods or services received are recognised when received; expense arises unless they qualify as assets."
+   ],
+   "analogy": "If the payment is in, or measured by, the entity's shares, Ind AS 102 applies.",
+   "work": "ESOPs and phantom share plans are both share-based payments."
+  },
+  {
+   "id": "c2",
+   "title": "Equity-settled: grant-date fair value and vesting",
+   "body": [
+    "Equity-settled transactions are measured at the fair value of goods or services received, if reliably measurable; for employees, by reference to the fair value of equity instruments granted at grant date (using market prices or an option pricing model). The credit goes to equity.",
+    "If instruments vest immediately, the expense is recognised in full at grant. Otherwise, it is recognised over the vesting period, based on the best estimate of instruments expected to vest. Service conditions and non-market performance conditions are trued up to actual outcomes; market conditions and non-vesting conditions are built into grant-date fair value and not trued up.",
+    "After vesting, no reversal is made if options lapse unexercised, though a transfer within equity is permitted."
+   ],
+   "analogy": "Fix the price at grant date; adjust only the number expected to vest.",
+   "work": "A share price target missed does not reverse the expense if service was given."
+  },
+  {
+   "id": "c3",
+   "title": "Cash-settled and choice-of-settlement plans",
+   "body": [
+    "Cash-settled transactions create a liability measured at fair value initially and remeasured at each reporting date and at settlement, with changes in profit or loss. Vesting conditions other than market conditions are reflected in the number of awards expected to vest.",
+    "Where the counterparty has a choice of settlement, the entity has granted a compound instrument: a debt component (cash right) and an equity component. Where the entity has the choice, it accounts as cash-settled if it has a present obligation to pay cash (e.g. past practice), otherwise as equity-settled.",
+    "Net settlement for withholding tax obligations is classified wholly as equity-settled if it would otherwise have been."
+   ],
+   "analogy": "Cash plans are remeasured every year end; equity plans are not.",
+   "work": "SAR liability grows as the share price rises."
+  },
+  {
+   "id": "c4",
+   "title": "Modifications, cancellations and group plans",
+   "body": [
+    "Modifications: at minimum, the grant-date fair value continues to be recognised. If modification increases total fair value (e.g. repricing), the incremental fair value is recognised over the remaining vesting period. Decreases are ignored.",
+    "Cancellation or settlement during vesting is an acceleration of vesting: the remaining amount is recognised immediately. Payments on settlement up to fair value at that date are a repurchase of equity; any excess is an expense. Replacement awards are treated as modifications.",
+    "Group plans: the subsidiary receiving services accounts as equity-settled if it has no obligation to settle or the award is in its own shares; otherwise cash-settled. The parent recognises an increase in investment in the subsidiary."
+   ],
+   "analogy": "Modifications can only add cost, never remove it.",
+   "work": "Repricing underwater options adds the incremental value going forward."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "An employee stock option plan",
+   "difficulty": "moderate",
+   "minutes": 10,
+   "q": "Lotus Tech grants 100 options each to 100 employees, vesting after 3 years of service. Grant-date fair value per option is ₹30. Expected employees at vesting: 90 (end of year 1), 85 (end of year 2); actually 88 vest. Compute the expense each year (credit to equity).",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Working",
+      "Expense ₹"
+     ],
+     "rows": [
+      [
+       "1",
+       "90 × 100 × 30 × 1/3 = 90,000",
+       "90,000"
+      ],
+      [
+       "2",
+       "85 × 100 × 30 × 2/3 = 1,70,000 − 90,000",
+       "80,000"
+      ],
+      [
+       "3",
+       "88 × 100 × 30 = 2,64,000 − 1,70,000",
+       "94,000"
+      ]
+     ],
+     "title": "Equity-settled — true-up for service conditions"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "90*100*30*1/3",
+     "value": 90000,
+     "label": "Cumulative expense year 1 (₹)"
+    },
+    {
+     "expr": "85*100*30*2/3",
+     "value": 170000,
+     "label": "Cumulative expense year 2 (₹)"
+    },
+    {
+     "expr": "85*100*30*2/3-90*100*30*1/3",
+     "value": 80000,
+     "label": "Expense year 2 (₹)"
+    },
+    {
+     "expr": "88*100*30-85*100*30*2/3",
+     "value": 94000,
+     "label": "Expense year 3 (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Share appreciation rights",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Lotus Tech grants 100 cash-settled share appreciation rights each to 50 managers, vesting after 2 years. Fair value per SAR: ₹12 at end of year 1, ₹15 at end of year 2. All 50 were expected to stay at year 1; 48 actually vest. Compute the liability and expense.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "1 — liability",
+       "50 × 100 × 12 × 1/2",
+       "30,000"
+      ],
+      [
+       "2 — liability",
+       "48 × 100 × 15",
+       "72,000"
+      ],
+      [
+       "2 — expense",
+       "72,000 − 30,000",
+       "42,000"
+      ]
+     ],
+     "title": "Cash-settled — remeasure each date"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "50*100*12*1/2",
+     "value": 30000,
+     "label": "Liability at end of year 1 (₹)"
+    },
+    {
+     "expr": "48*100*15",
+     "value": 72000,
+     "label": "Liability at end of year 2 (₹)"
+    },
+    {
+     "expr": "48*100*15-50*100*12*1/2",
+     "value": 42000,
+     "label": "Expense year 2 (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "ESOP accounting cycle",
+   "role": "Payroll and reporting accountant",
+   "situation": "A listed company runs an ESOP and a SAR plan.",
+   "steps": [
+    "Obtain grant-date valuations.",
+    "Estimate forfeitures each year end.",
+    "Remeasure SAR liabilities at fair value.",
+    "Record modifications and exercise entries."
+   ],
+   "takeaway": "Equity-settled uses fixed grant value; cash-settled floats with the share price."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Equity-settled awards to employees are measured at fair value at:",
+   "options": [
+    "Grant date",
+    "Vesting date",
+    "Exercise date",
+    "Each reporting date"
+   ],
+   "answer": 0,
+   "explain": "Fixed at grant. In practice: use an option pricing model.",
+   "concept": "c2",
+   "topic": "Equity-settled: grant-date fair value and vesting",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Cash-settled share appreciation rights are measured:",
+   "options": [
+    "At fair value at each reporting date until settled",
+    "At grant date only",
+    "At intrinsic value at grant",
+    "At cost"
+   ],
+   "answer": 0,
+   "explain": "They are liabilities. In practice: changes go to profit or loss.",
+   "concept": "c3",
+   "topic": "Cash-settled and choice-of-settlement plans",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Market performance conditions are:",
+   "options": [
+    "Included in grant-date fair value and not trued up",
+    "Trued up each year",
+    "Ignored",
+    "Recognised in OCI"
+   ],
+   "answer": 0,
+   "explain": "Only non-market conditions are trued up. In practice: share price targets.",
+   "concept": "c2",
+   "topic": "Equity-settled: grant-date fair value and vesting",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Options that lapse unexercised after vesting:",
+   "options": [
+    "Do not reverse the expense",
+    "Reverse the expense",
+    "Create income",
+    "Increase liabilities"
+   ],
+   "answer": 0,
+   "explain": "Services were received. In practice: transfer within equity allowed.",
+   "concept": "c2",
+   "topic": "Equity-settled: grant-date fair value and vesting",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Cancellation of an award during the vesting period results in:",
+   "options": [
+    "Immediate recognition of the remaining expense",
+    "Reversal of expense",
+    "No entry",
+    "OCI entry"
+   ],
+   "answer": 0,
+   "explain": "Treated as acceleration of vesting. In practice: excess payment is expense.",
+   "concept": "c4",
+   "topic": "Modifications, cancellations and group plans",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "A modification that reduces fair value is:",
+   "options": [
+    "Ignored — original cost continues",
+    "Recognised as income",
+    "Reversed",
+    "Charged to OCI"
+   ],
+   "answer": 0,
+   "explain": "Minimum cost is the original grant value. In practice: favourable changes add cost.",
+   "concept": "c4",
+   "topic": "Modifications, cancellations and group plans",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "If the employee can choose cash or shares, the entity has granted:",
+   "options": [
+    "A compound instrument",
+    "Only equity",
+    "Only debt",
+    "Nothing"
+   ],
+   "answer": 0,
+   "explain": "Debt and equity components. In practice: measure the debt first.",
+   "concept": "c3",
+   "topic": "Cash-settled and choice-of-settlement plans",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Shares issued in a business combination to obtain control are accounted for under:",
+   "options": [
+    "Ind AS 103",
+    "Ind AS 102",
+    "Ind AS 32",
+    "Ind AS 19"
+   ],
+   "answer": 0,
+   "explain": "They are consideration, not payment for services. In practice: replacement awards may differ.",
+   "concept": "c1",
+   "topic": "Scope and types of share-based payment",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Lotus Tech grants 100 options each to 100 employees, vesting after 3 years of service. Grant-date fair value per option is ₹30. Expected employees at vesting: 90 (end of year 1), 85 (end of year 2); actually 88 vest. Compute the expense each year (credit to equity).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Working",
+      "Expense ₹"
+     ],
+     "rows": [
+      [
+       "1",
+       "90 × 100 × 30 × 1/3 = 90,000",
+       "90,000"
+      ],
+      [
+       "2",
+       "85 × 100 × 30 × 2/3 = 1,70,000 − 90,000",
+       "80,000"
+      ],
+      [
+       "3",
+       "88 × 100 × 30 = 2,64,000 − 1,70,000",
+       "94,000"
+      ]
+     ],
+     "title": "Equity-settled — true-up for service conditions"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Year 1",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "year 1|1/3"
+     ],
+     "min": 1,
+     "nums": [
+      90000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Year 2",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "year 2|2/3"
+     ],
+     "min": 1,
+     "nums": [
+      80000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Year 3",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "year 3|actual"
+     ],
+     "min": 1,
+     "nums": [
+      94000
+     ]
+    }
+   ],
+   "remarks": [
+    "Show cumulative amounts."
+   ],
+   "mistakes": [
+    "Using year-end fair value."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "90*100*30*1/3",
+     "value": 90000,
+     "label": "Cumulative expense year 1 (₹)"
+    },
+    {
+     "expr": "85*100*30*2/3",
+     "value": 170000,
+     "label": "Cumulative expense year 2 (₹)"
+    },
+    {
+     "expr": "85*100*30*2/3-90*100*30*1/3",
+     "value": 80000,
+     "label": "Expense year 2 (₹)"
+    },
+    {
+     "expr": "88*100*30-85*100*30*2/3",
+     "value": 94000,
+     "label": "Expense year 3 (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Lotus Tech grants 100 cash-settled share appreciation rights each to 50 managers, vesting after 2 years. Fair value per SAR: ₹12 at end of year 1, ₹15 at end of year 2. All 50 were expected to stay at year 1; 48 actually vest. Compute the liability and expense.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Year",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "1 — liability",
+       "50 × 100 × 12 × 1/2",
+       "30,000"
+      ],
+      [
+       "2 — liability",
+       "48 × 100 × 15",
+       "72,000"
+      ],
+      [
+       "2 — expense",
+       "72,000 − 30,000",
+       "42,000"
+      ]
+     ],
+     "title": "Cash-settled — remeasure each date"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Year 1 liability",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "liability"
+     ],
+     "min": 1,
+     "nums": [
+      30000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Year 2 liability",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "liability"
+     ],
+     "min": 1,
+     "nums": [
+      72000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Expense",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "expense"
+     ],
+     "min": 1,
+     "nums": [
+      42000
+     ]
+    }
+   ],
+   "remarks": [
+    "Remeasure."
+   ],
+   "mistakes": [
+    "Using grant-date value."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "50*100*12*1/2",
+     "value": 30000,
+     "label": "Liability at end of year 1 (₹)"
+    },
+    {
+     "expr": "48*100*15",
+     "value": 72000,
+     "label": "Liability at end of year 2 (₹)"
+    },
+    {
+     "expr": "48*100*15-50*100*12*1/2",
+     "value": 42000,
+     "label": "Expense year 2 (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Equity-settled: grant-date fair value; credit equity.",
+   "Spread over vesting; true-up for service and non-market.",
+   "Market conditions in fair value only.",
+   "Cash-settled: liability remeasured each date.",
+   "Modifications add, never reduce, cost."
+  ],
+  "remember": [
+   "No reversal after vesting."
+  ],
+  "traps": [
+   "Truing up market conditions."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Equity-settled",
+   "v": "Grant-date FV"
+  },
+  {
+   "k": "Cash-settled",
+   "v": "Remeasure"
+  },
+  {
+   "k": "Market condition",
+   "v": "No true-up"
+  },
+  {
+   "k": "Cancellation",
+   "v": "Accelerate"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Name the types of share-based payment.",
+   "model": "Equity-settled, cash-settled, and arrangements with a choice of settlement in cash or equity.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Equity and cash-settled",
+     "w": 6,
+     "kw": [
+      "equity-settled|cash-settled"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Choice",
+     "w": 4,
+     "kw": [
+      "choice"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How is the expense for an equity-settled plan spread?",
+   "model": "Over the vesting period, based on the best estimate of awards expected to vest, trued up for service and non-market conditions.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Vesting period",
+     "w": 5,
+     "kw": [
+      "vesting period"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "True-up",
+     "w": 5,
+     "kw": [
+      "trued up|estimate"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "How does a cash-settled plan differ?",
+   "model": "It creates a liability remeasured at fair value at each reporting date and at settlement, with changes in profit or loss.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Liability",
+     "w": 5,
+     "kw": [
+      "liability"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Remeasured",
+     "w": 5,
+     "kw": [
+      "remeasur"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What happens on a beneficial modification?",
+   "model": "The incremental fair value at the modification date is recognised over the remaining vesting period, in addition to the original cost.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Incremental fair value",
+     "w": 6,
+     "kw": [
+      "incremental"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Remaining period",
+     "w": 4,
+     "kw": [
+      "remaining"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "How does a subsidiary account for a parent-granted equity plan?",
+   "model": "As equity-settled, recognising expense and a capital contribution from the parent.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Equity-settled",
+     "w": 5,
+     "kw": [
+      "equity-settled"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Contribution from parent",
+     "w": 5,
+     "kw": [
+      "contribution"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Prism Software Ltd.",
+   "difficulty": "moderate",
+   "case": "Prism Software Ltd. grants 1,000 options to its CTO with a grant-date fair value of ₹50 each, vesting in 2 years if revenue grows 20% (non-market) and the share price reaches ₹500 (market). After year 1 it reprices the options, raising fair value by ₹10 each. At the end of year 2, revenue grew 25% but the share price is ₹450.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Expense in year 1 (₹), before repricing:",
+     "options": [
+      "25,000",
+      "50,000",
+      "30,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "1,000 × 50 × 1/2. In practice: assumes vesting expected.",
+     "difficulty": "core",
+     "check": 25000,
+     "topic": "Equity-settled: grant-date fair value and vesting"
+    },
+    {
+     "id": "k1b",
+     "q": "The repricing adds expense of (₹) over the remaining period:",
+     "options": [
+      "10,000",
+      "60,000",
+      "5,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "1,000 × 10 incremental. In practice: spread over year 2.",
+     "difficulty": "moderate",
+     "check": 10000,
+     "topic": "Modifications, cancellations and group plans"
+    },
+    {
+     "id": "k1c",
+     "q": "The share price target being missed:",
+     "options": [
+      "Does not reverse the expense",
+      "Reverses all expense",
+      "Halves the expense",
+      "Creates a liability"
+     ],
+     "answer": 0,
+     "explain": "Market conditions are not trued up. In practice: service and revenue tests were met.",
+     "difficulty": "moderate",
+     "topic": "Equity-settled: grant-date fair value and vesting"
+    },
+    {
+     "id": "k1d",
+     "q": "Credit side of the ESOP expense entry is:",
+     "options": [
+      "Equity (share-based payment reserve)",
+      "Liability",
+      "Cash",
+      "Revenue"
+     ],
+     "answer": 0,
+     "explain": "Equity-settled plan. In practice: transfer to share capital on exercise.",
+     "difficulty": "core",
+     "topic": "Equity-settled: grant-date fair value and vesting"
+    }
+   ]
+  }
+ ]
+}
