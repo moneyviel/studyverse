@@ -1,0 +1,688 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p3-ch12-u01",
+ "level": "final",
+ "paper": "p3",
+ "chapter": "fin-p3-ch12",
+ "n": 1,
+ "title": "Digital Auditing & Assurance",
+ "outcomes": [
+  "Explain digital audit and auditing digitally.",
+  "Understand IT environments, risks and dependencies.",
+  "Assess cyber risks and conduct remote audits.",
+  "Apply emerging technologies in audit."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 30,
+   "practice": 15
+  },
+  "prereq": [
+   "fin-p3-ch11-u01"
+  ],
+  "exam_tip": "Pair each IT weakness with an ITGC or application control."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Digital audit and auditing digitally",
+   "body": [
+    "A digital audit uses technology across the audit — paperless workflows, data analytics, automated tools — to examine entire populations, increase speed and focus on risk. Auditing digitally refers to auditing an entity whose processes, records and controls are digital, requiring the auditor to understand and test IT systems.",
+    "Advantages: wider coverage, real-time or continuous auditing, better anomaly detection, efficiency and documentation. Challenges: data quality and access, cyber security, skills, tool reliability, cost and evidence of data completeness.",
+    "Professional skepticism and judgement remain central; tools support but do not replace the auditor."
+   ],
+   "analogy": "Technology expands what auditors can see — judgement still decides.",
+   "work": "Testing 100% of transactions replaces small samples."
+  },
+  {
+   "id": "c2",
+   "title": "Understanding the IT environment and IT risks",
+   "body": [
+    "Understanding the IT environment covers applications, databases, operating systems, networks, IT processes (access, change, operations) and outsourced services.",
+    "Risks arising from IT: unauthorised access, unauthorised changes to data or programs, failure to update systems, inappropriate manual intervention, data loss, and reliance on inaccurate system reports. IT general controls (access, change management, operations) support application controls.",
+    "The auditor identifies IT dependencies — automated controls, calculations, reports used in the audit, interfaces — and tests related controls or the data itself."
+   ],
+   "analogy": "Know the systems before trusting their output.",
+   "work": "A system-generated ageing report needs testing before relying on it."
+  },
+  {
+   "id": "c3",
+   "title": "Cyber risk and remote audit",
+   "body": [
+    "Cyber risk is the risk of loss from failure or breach of information systems — malware, ransomware, phishing, data theft, denial of service — threatening confidentiality, integrity and availability.",
+    "Cyber security frameworks (e.g. identify, protect, detect, respond, recover) guide controls: access management, encryption, patching, monitoring, incident response, backups and awareness training. The auditor considers effects of cyber incidents on statements and going concern.",
+    "Remote audits use secure document sharing and video tools; auditors must ensure authenticity of documents, confidentiality, and sufficiency of evidence, sometimes using live observation by video."
+   ],
+   "analogy": "Cyber incidents are audit risks, not just IT problems.",
+   "work": "A ransomware attack may require evaluating data integrity and disclosures."
+  },
+  {
+   "id": "c4",
+   "title": "Emerging technologies and next-generation audit",
+   "body": [
+    "Emerging technologies: data analytics (e.g. ACL, IDEA), artificial intelligence and machine learning for anomaly detection and document reading, robotic process automation for repetitive testing, Internet of Things for real-time asset data, blockchain for tamper-resistant records, and drones for inventory observation.",
+    "Control objectives in such environments: accuracy, completeness, authorisation, data integrity and security; auditors must understand how tools and models work and validate their outputs.",
+    "Next-generation audit moves toward continuous auditing, full-population testing and predictive insights, requiring new skills and quality controls over tools."
+   ],
+   "analogy": "New tools, same objectives: reliable evidence.",
+   "work": "Drones counting coal stockpiles support inventory observation."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Full-population journal testing",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Using a data analytics tool, the auditor tests all 2,400 manual journal entries of Kite Ltd. against criteria: posted on weekends, posted by senior management, round amounts, or just below approval limits. 37 entries meet one or more criteria. Compute the exception rate and outline follow-up.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working / Action",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Exception rate",
+       "37 ÷ 2,400",
+       "1.54%"
+      ],
+      [
+       "Follow-up",
+       "Inspect support and approvals for each flagged entry",
+       "—"
+      ],
+      [
+       "Fraud angle",
+       "Responds to management override risk (SA 240)",
+       "—"
+      ],
+      [
+       "Data integrity",
+       "Confirm completeness of extracted data before testing",
+       "—"
+      ]
+     ],
+     "title": "Data analytics"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "round(37/2400*100,2)",
+     "value": 1.54,
+     "label": "Exceptions as a share of journal entries tested (%)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "IT risk and control",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Identify the IT risk and a control: (a) developers can change production code directly; (b) ex-employees' user IDs remain active; (c) no backups are tested; (d) users can override system-calculated discounts without approval.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Issue",
+      "Risk",
+      "Control"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Unauthorised program changes",
+       "Change management with segregation of development and production"
+      ],
+      [
+       "(b)",
+       "Unauthorised access",
+       "Timely access removal and periodic user reviews"
+      ],
+      [
+       "(c)",
+       "Data loss and continuity",
+       "Regular backup and restoration testing"
+      ],
+      [
+       "(d)",
+       "Inappropriate manual overrides",
+       "Approval workflow and override logs"
+      ]
+     ],
+     "title": "IT general and application controls"
+    }
+   ],
+   "checks": []
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Setting up an analytics-led audit",
+   "role": "IT audit specialist",
+   "situation": "A retail client processes 10 million transactions annually on an ERP.",
+   "steps": [
+    "Map IT environment and dependencies.",
+    "Test IT general controls.",
+    "Extract full data and verify completeness.",
+    "Run analytics and follow up exceptions."
+   ],
+   "takeaway": "Reliable data plus tested controls make analytics trustworthy."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "A key advantage of digital audit is:",
+   "options": [
+    "Testing entire populations",
+    "Eliminating judgement",
+    "Avoiding documentation",
+    "No need for skepticism"
+   ],
+   "answer": 0,
+   "explain": "Wider coverage. In practice: analytics tools.",
+   "concept": "c1",
+   "topic": "Digital audit and auditing digitally",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "IT general controls include:",
+   "options": [
+    "Access, change management and operations controls",
+    "Sales discounts",
+    "Credit limits",
+    "Price lists"
+   ],
+   "answer": 0,
+   "explain": "Support application controls. In practice: test first.",
+   "concept": "c2",
+   "topic": "Understanding the IT environment and IT risks",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Active user IDs of ex-employees indicate risk of:",
+   "options": [
+    "Unauthorised access",
+    "Inventory loss only",
+    "Tax evasion",
+    "None"
+   ],
+   "answer": 0,
+   "explain": "Access control failure. In practice: user reviews.",
+   "concept": "c2",
+   "topic": "Understanding the IT environment and IT risks",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "The CIA triad in cyber security stands for:",
+   "options": [
+    "Confidentiality, integrity, availability",
+    "Control, inspection, audit",
+    "Cost, impact, accuracy",
+    "Compliance, independence, assurance"
+   ],
+   "answer": 0,
+   "explain": "Security objectives. In practice: frameworks.",
+   "concept": "c3",
+   "topic": "Cyber risk and remote audit",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "In a remote audit, a key concern is:",
+   "options": [
+    "Authenticity of documents received",
+    "Travel costs",
+    "Office space",
+    "Printing"
+   ],
+   "answer": 0,
+   "explain": "Evidence reliability. In practice: secure portals.",
+   "concept": "c3",
+   "topic": "Cyber risk and remote audit",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "RPA in audit is best used for:",
+   "options": [
+    "Repetitive rule-based tasks",
+    "Judgement on estimates",
+    "Signing reports",
+    "Client acceptance"
+   ],
+   "answer": 0,
+   "explain": "Automation. In practice: reconciliations.",
+   "concept": "c4",
+   "topic": "Emerging technologies and next-generation audit",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Before relying on a system report, the auditor should:",
+   "options": [
+    "Test its accuracy and completeness",
+    "Accept it",
+    "Ignore it",
+    "Print it"
+   ],
+   "answer": 0,
+   "explain": "Information produced by entity. In practice: test ITGCs.",
+   "concept": "c2",
+   "topic": "Understanding the IT environment and IT risks",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Continuous auditing is a feature of:",
+   "options": [
+    "Next-generation audit",
+    "Manual audit",
+    "Compilation",
+    "Agreed procedures"
+   ],
+   "answer": 0,
+   "explain": "Real-time insights. In practice: data feeds.",
+   "concept": "c4",
+   "topic": "Emerging technologies and next-generation audit",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Using a data analytics tool, the auditor tests all 2,400 manual journal entries of Kite Ltd. against criteria: posted on weekends, posted by senior management, round amounts, or just below approval limits. 37 entries meet one or more criteria. Compute the exception rate and outline follow-up.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working / Action",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Exception rate",
+       "37 ÷ 2,400",
+       "1.54%"
+      ],
+      [
+       "Follow-up",
+       "Inspect support and approvals for each flagged entry",
+       "—"
+      ],
+      [
+       "Fraud angle",
+       "Responds to management override risk (SA 240)",
+       "—"
+      ],
+      [
+       "Data integrity",
+       "Confirm completeness of extracted data before testing",
+       "—"
+      ]
+     ],
+     "title": "Data analytics"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Rate",
+     "m": 1.5,
+     "skill": "computation",
+     "kw": [
+      "exception"
+     ],
+     "min": 1,
+     "nums": [
+      1.54
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Follow-up",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "support|approval"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Data integrity",
+     "m": 1.5,
+     "skill": "concept",
+     "kw": [
+      "completeness"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Link to SA 240."
+   ],
+   "mistakes": [
+    "Skipping data completeness checks."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "round(37/2400*100,2)",
+     "value": 1.54,
+     "label": "Exceptions as a share of journal entries tested (%)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Identify the IT risk and a control: (a) developers can change production code directly; (b) ex-employees' user IDs remain active; (c) no backups are tested; (d) users can override system-calculated discounts without approval.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Issue",
+      "Risk",
+      "Control"
+     ],
+     "rows": [
+      [
+       "(a)",
+       "Unauthorised program changes",
+       "Change management with segregation of development and production"
+      ],
+      [
+       "(b)",
+       "Unauthorised access",
+       "Timely access removal and periodic user reviews"
+      ],
+      [
+       "(c)",
+       "Data loss and continuity",
+       "Regular backup and restoration testing"
+      ],
+      [
+       "(d)",
+       "Inappropriate manual overrides",
+       "Approval workflow and override logs"
+      ]
+     ],
+     "title": "IT general and application controls"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Change and access",
+     "m": 3,
+     "skill": "concept",
+     "kw": [
+      "change|access"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Backup and override",
+     "m": 3,
+     "skill": "concept",
+     "kw": [
+      "backup|override"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Risk and control pairs."
+   ],
+   "mistakes": [
+    "Naming risks without controls."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Digital audit vs auditing digitally.",
+   "ITGCs: access, change, operations.",
+   "IT dependencies and system reports.",
+   "Cyber risk: CIA triad; frameworks.",
+   "Analytics, AI, RPA, blockchain, IoT, drones."
+  ],
+  "remember": [
+   "Tools support, not replace, judgement."
+  ],
+  "traps": [
+   "Relying on unverified system reports."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "ITGC",
+   "v": "Access, change, ops"
+  },
+  {
+   "k": "CIA",
+   "v": "Confidentiality, integrity, availability"
+  },
+  {
+   "k": "RPA",
+   "v": "Repetitive tasks"
+  },
+  {
+   "k": "Remote audit",
+   "v": "Authenticity"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Distinguish digital audit and auditing digitally.",
+   "model": "Digital audit uses technology to perform the audit; auditing digitally means auditing an entity whose processes and records are digital.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Uses technology",
+     "w": 5,
+     "kw": [
+      "technology"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Digital entity",
+     "w": 5,
+     "kw": [
+      "digital"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Name risks arising from IT.",
+   "model": "Unauthorised access, unauthorised program or data changes, inappropriate manual intervention and data loss.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Access and changes",
+     "w": 5,
+     "kw": [
+      "access|change"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Data loss or intervention",
+     "w": 5,
+     "kw": [
+      "loss|intervention"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What are the stages of a cyber security framework?",
+   "model": "Identify, protect, detect, respond and recover.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Identify and protect",
+     "w": 5,
+     "kw": [
+      "identify|protect"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Detect, respond, recover",
+     "w": 5,
+     "kw": [
+      "detect|respond|recover"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Give examples of emerging audit technologies.",
+   "model": "Data analytics, artificial intelligence, robotic process automation, blockchain, IoT and drones.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Analytics and AI",
+     "w": 5,
+     "kw": [
+      "analytics|artificial"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "RPA or blockchain",
+     "w": 5,
+     "kw": [
+      "robotic|blockchain"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Why must data completeness be checked before analytics?",
+   "model": "Because conclusions from analytics are only reliable if the extracted data is complete and accurate.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Complete and accurate",
+     "w": 5,
+     "kw": [
+      "complete"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Reliable conclusions",
+     "w": 5,
+     "kw": [
+      "reliab"
+     ]
+    }
+   ],
+   "concept": "c1"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "CloudKart Ltd.",
+   "difficulty": "moderate",
+   "case": "CloudKart, an e-commerce company, suffered a ransomware attack in February; systems were restored from backups within a week. The audit is performed remotely. Developers have admin access to production. The auditor plans to use AI to read 50,000 vendor invoices.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The ransomware attack requires the auditor to consider:",
+     "options": [
+      "Data integrity, completeness and disclosures",
+      "Nothing as systems restored",
+      "Only insurance",
+      "Only fees"
+     ],
+     "answer": 0,
+     "explain": "Cyber risk affects evidence. In practice: test restored data.",
+     "difficulty": "core",
+     "topic": "Cyber risk and remote audit"
+    },
+    {
+     "id": "k1b",
+     "q": "Developers' admin access to production is a weakness in:",
+     "options": [
+      "Change management and access controls",
+      "Sales controls",
+      "Payroll",
+      "Treasury"
+     ],
+     "answer": 0,
+     "explain": "ITGC failure. In practice: substantive testing increases.",
+     "difficulty": "core",
+     "topic": "Understanding the IT environment and IT risks"
+    },
+    {
+     "id": "k1c",
+     "q": "In the remote audit, documents should be:",
+     "options": [
+      "Obtained via secure channels and checked for authenticity",
+      "Accepted as emailed",
+      "Ignored",
+      "Printed only"
+     ],
+     "answer": 0,
+     "explain": "Evidence reliability. In practice: live video verification.",
+     "difficulty": "core",
+     "topic": "Cyber risk and remote audit"
+    },
+    {
+     "id": "k1d",
+     "q": "Before relying on the AI tool, the auditor should:",
+     "options": [
+      "Understand and validate its outputs",
+      "Trust it fully",
+      "Let it sign the report",
+      "Avoid documenting it"
+     ],
+     "answer": 0,
+     "explain": "Tool reliability. In practice: test a sample manually.",
+     "difficulty": "core",
+     "topic": "Emerging technologies and next-generation audit"
+    }
+   ]
+  }
+ ]
+}
