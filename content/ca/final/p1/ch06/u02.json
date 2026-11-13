@@ -1,0 +1,744 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch06-u02",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch06",
+ "n": 2,
+ "title": "Ind AS 37 \"Provisions, Contingent Liabilities and Contingent Assets\"",
+ "outcomes": [
+  "Apply the recognition criteria for provisions.",
+  "Measure provisions using best estimate, expected value and discounting.",
+  "Distinguish contingent liabilities and contingent assets.",
+  "Apply the rules to onerous contracts, restructurings and future losses."
+ ],
+ "meta": {
+  "difficulty": "core",
+  "minutes": {
+   "learn": 35,
+   "practice": 30
+  },
+  "prereq": [
+   "fin-p1-ch06-u01"
+  ],
+  "exam_tip": "Start every answer by naming the obligating event — if there isn't one, there is no provision."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Recognising a provision",
+   "body": [
+    "A provision is a liability whose timing or amount is uncertain. It is recognised only when three things are all true: the entity has a present obligation (legal or constructive) arising from a past event; an outflow of resources is probable (more likely than not); and a reliable estimate can be made.",
+    "An obligating event leaves the entity with no realistic alternative but to settle. A constructive obligation comes from an established pattern of practice, published policies or a specific current statement that creates valid expectations in others.",
+    "Obligations must exist independently of future actions: costs to operate in the future, or fitting filters that the entity could avoid by changing its operations, are not provisions. In rare doubtful cases, a present obligation is assumed if it is more likely than not, taking account of all evidence."
+   ],
+   "analogy": "No past event, no provision — however likely the future cost.",
+   "work": "A refund policy the shop always honours is a constructive obligation."
+  },
+  {
+   "id": "c2",
+   "title": "Measuring a provision",
+   "body": [
+    "The amount is the best estimate of the spending needed to settle the obligation at the reporting date — what the entity would rationally pay to settle or transfer it.",
+    "For a large population, use expected value (weighting outcomes by probability). For a single obligation, the most likely outcome may be best, adjusted if other outcomes are mostly higher or lower. Risks and uncertainties are considered without creating excess provisions.",
+    "Where time value is material, discount at a pre-tax rate reflecting current market assessments; the unwinding is a finance cost. Expected future events (e.g. new technology) are reflected if there is sufficient objective evidence. Gains on expected asset disposals are excluded. Reimbursements are recognised separately as an asset only when virtually certain, not exceeding the provision. Provisions are reviewed each reporting date and used only for their original purpose."
+   ],
+   "analogy": "Estimate honestly, discount if material, and never net off expected reimbursements.",
+   "work": "A warranty on thousands of units uses expected value."
+  },
+  {
+   "id": "c3",
+   "title": "Contingent liabilities and contingent assets",
+   "body": [
+    "A contingent liability is either a possible obligation whose existence will be confirmed by uncertain future events outside the entity's full control, or a present obligation not recognised because outflow is not probable or cannot be reliably measured. It is disclosed, unless the possibility of outflow is remote.",
+    "A contingent asset is a possible asset from past events whose existence depends on uncertain future events. It is not recognised; it is disclosed when an inflow is probable. When realisation becomes virtually certain, the asset is no longer contingent and is recognised.",
+    "Contingencies are reassessed continually; when outflow becomes probable, a provision is recognised in that period."
+   ],
+   "analogy": "Liabilities: provide if probable, disclose if possible, ignore if remote. Assets: recognise only if virtually certain.",
+   "work": "A lawsuit the company will probably win is a contingent liability disclosed in notes."
+  },
+  {
+   "id": "c4",
+   "title": "Applying the rules: onerous contracts, restructuring, future losses",
+   "body": [
+    "Future operating losses are never provided for; they suggest assets may be impaired.",
+    "An onerous contract is one where the unavoidable costs of meeting obligations exceed the expected benefits. The unavoidable cost is the lower of the net cost of fulfilling it and any penalty for exiting. Before providing, impairment of dedicated assets is recognised. Costs of fulfilling include incremental costs and an allocation of other directly related costs.",
+    "Restructuring provisions require a detailed formal plan and a valid expectation in those affected (by starting implementation or announcing main features). Only direct costs necessarily entailed and not associated with ongoing activities are included — not retraining, relocating staff, marketing or new systems. A sale of an operation creates no obligation until a binding sale agreement exists."
+   ],
+   "analogy": "Provisions cover today's obligations, not tomorrow's business decisions.",
+   "work": "A board decision kept secret creates no restructuring provision."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Warranty and site restoration",
+   "difficulty": "moderate",
+   "minutes": 9,
+   "q": "Ray Electronics sells products with a one-year warranty. If all products sold this year had minor defects, repairs would cost ₹20 lakh; if all had major defects, ₹100 lakh. Experience: 80% will have no defects, 15% minor, 5% major. Separately, it must restore a mining site in 10 years at an estimated ₹100 lakh (discount rate 10%, factor 0.3855). Compute both provisions and the year-1 unwinding.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Warranty (expected value of a large population)",
+       "15% × 20 + 5% × 100",
+       "8"
+      ],
+      [
+       "Decommissioning provision",
+       "100 × 0.3855 — added to the cost of the asset",
+       "38.55"
+      ],
+      [
+       "Unwinding year 1 (finance cost)",
+       "38.55 × 10%",
+       "3.86"
+      ]
+     ],
+     "title": "Ind AS 37 measurement"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "0.15*20+0.05*100",
+     "value": 8,
+     "label": "Warranty provision — expected value (₹ lakh)"
+    },
+    {
+     "expr": "100*0.3855",
+     "value": 38.55,
+     "label": "Decommissioning provision at present value (₹ lakh)"
+    },
+    {
+     "expr": "100*0.3855*0.1",
+     "value": 3.86,
+     "label": "Unwinding of discount in year 1 (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "A contract that turned sour",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Lumen Ltd. has a firm contract to buy components costing ₹50 lakh, which it no longer needs because a product was discontinued. It can resell the components for ₹20 lakh. Cancelling the contract costs a penalty of ₹35 lakh. Is the contract onerous, and what provision is required?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Option",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Cost of fulfilling, net of benefits",
+       "50 − 20",
+       "30"
+      ],
+      [
+       "Penalty for exit",
+       "Given",
+       "35"
+      ],
+      [
+       "Unavoidable cost (lower)",
+       "Lower of 30 and 35",
+       "30"
+      ],
+      [
+       "Conclusion",
+       "Unavoidable cost exceeds benefits — onerous",
+       "Provide"
+      ]
+     ],
+     "title": "Onerous contract"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "50-20",
+     "value": 30,
+     "label": "Net cost of fulfilling (₹ lakh)"
+    },
+    {
+     "expr": "min(50-20,35)",
+     "value": 30,
+     "label": "Onerous contract provision (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Year-end legal review",
+   "role": "Audit assistant",
+   "situation": "The legal department lists 12 pending cases with lawyers' assessments.",
+   "steps": [
+    "Classify each as probable, possible or remote.",
+    "Provide for probable cases at best estimate.",
+    "Disclose possible ones.",
+    "Check reimbursements from insurers are virtually certain before recognising."
+   ],
+   "takeaway": "Probability bands decide provision, disclosure or silence."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "A provision is recognised when there is a present obligation, a probable outflow and:",
+   "options": [
+    "A reliable estimate",
+    "Board approval",
+    "Cash available",
+    "An auditor's letter"
+   ],
+   "answer": 0,
+   "explain": "All three conditions are needed. In practice: estimates are rarely impossible.",
+   "concept": "c1",
+   "topic": "Recognising a provision",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Future operating losses are:",
+   "options": [
+    "Not provided for",
+    "Provided in full",
+    "Provided if probable",
+    "Disclosed as contingent"
+   ],
+   "answer": 0,
+   "explain": "No present obligation exists. In practice: test assets for impairment.",
+   "concept": "c4",
+   "topic": "Applying the rules: onerous contracts, restructuring, future losses",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "A contingent asset is recognised when realisation is:",
+   "options": [
+    "Virtually certain",
+    "Probable",
+    "Possible",
+    "Remote"
+   ],
+   "answer": 0,
+   "explain": "Then it is no longer contingent. In practice: probable inflows are disclosed only.",
+   "concept": "c3",
+   "topic": "Contingent liabilities and contingent assets",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "For a large population of obligations, the provision uses:",
+   "options": [
+    "Expected value",
+    "The single most likely outcome",
+    "The maximum outcome",
+    "The minimum outcome"
+   ],
+   "answer": 0,
+   "explain": "Probability-weighted outcomes. In practice: warranties.",
+   "concept": "c2",
+   "topic": "Measuring a provision",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "The unavoidable cost of an onerous contract is:",
+   "options": [
+    "Lower of net cost of fulfilling and exit penalty",
+    "Higher of the two",
+    "Fulfilment cost only",
+    "Penalty only"
+   ],
+   "answer": 0,
+   "explain": "The entity would choose the cheaper way out. In practice: impair dedicated assets first.",
+   "concept": "c4",
+   "topic": "Applying the rules: onerous contracts, restructuring, future losses",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Which cost can be included in a restructuring provision?",
+   "options": [
+    "Redundancy payments to staff being let go",
+    "Retraining continuing staff",
+    "Marketing",
+    "New IT systems"
+   ],
+   "answer": 0,
+   "explain": "Only direct, necessary costs unrelated to ongoing activities. In practice: list each cost.",
+   "concept": "c4",
+   "topic": "Applying the rules: onerous contracts, restructuring, future losses",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "An expected reimbursement from an insurer is:",
+   "options": [
+    "Recognised separately only when virtually certain",
+    "Netted against the provision",
+    "Ignored",
+    "Recognised when probable"
+   ],
+   "answer": 0,
+   "explain": "Shown as a separate asset, capped at the provision. In practice: P&L may show net.",
+   "concept": "c2",
+   "topic": "Measuring a provision",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "A contingent liability with a remote chance of outflow is:",
+   "options": [
+    "Neither recognised nor disclosed",
+    "Disclosed",
+    "Provided",
+    "Recognised in OCI"
+   ],
+   "answer": 0,
+   "explain": "Remote items need no disclosure. In practice: guarantees may be an exception under other standards.",
+   "concept": "c3",
+   "topic": "Contingent liabilities and contingent assets",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Ray Electronics sells products with a one-year warranty. If all products sold this year had minor defects, repairs would cost ₹20 lakh; if all had major defects, ₹100 lakh. Experience: 80% will have no defects, 15% minor, 5% major. Separately, it must restore a mining site in 10 years at an estimated ₹100 lakh (discount rate 10%, factor 0.3855). Compute both provisions and the year-1 unwinding.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Warranty (expected value of a large population)",
+       "15% × 20 + 5% × 100",
+       "8"
+      ],
+      [
+       "Decommissioning provision",
+       "100 × 0.3855 — added to the cost of the asset",
+       "38.55"
+      ],
+      [
+       "Unwinding year 1 (finance cost)",
+       "38.55 × 10%",
+       "3.86"
+      ]
+     ],
+     "title": "Ind AS 37 measurement"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Warranty",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "expected"
+     ],
+     "min": 1,
+     "nums": [
+      8
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Decommissioning",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "present value|decommission"
+     ],
+     "min": 1,
+     "nums": [
+      38.55
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Unwinding",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "unwinding|finance"
+     ],
+     "min": 1,
+     "nums": [
+      3.86
+     ]
+    }
+   ],
+   "remarks": [
+    "Explain expected value."
+   ],
+   "mistakes": [
+    "Using the most likely outcome for a population."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "0.15*20+0.05*100",
+     "value": 8,
+     "label": "Warranty provision — expected value (₹ lakh)"
+    },
+    {
+     "expr": "100*0.3855",
+     "value": 38.55,
+     "label": "Decommissioning provision at present value (₹ lakh)"
+    },
+    {
+     "expr": "100*0.3855*0.1",
+     "value": 3.86,
+     "label": "Unwinding of discount in year 1 (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Lumen Ltd. has a firm contract to buy components costing ₹50 lakh, which it no longer needs because a product was discontinued. It can resell the components for ₹20 lakh. Cancelling the contract costs a penalty of ₹35 lakh. Is the contract onerous, and what provision is required?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Option",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "Cost of fulfilling, net of benefits",
+       "50 − 20",
+       "30"
+      ],
+      [
+       "Penalty for exit",
+       "Given",
+       "35"
+      ],
+      [
+       "Unavoidable cost (lower)",
+       "Lower of 30 and 35",
+       "30"
+      ],
+      [
+       "Conclusion",
+       "Unavoidable cost exceeds benefits — onerous",
+       "Provide"
+      ]
+     ],
+     "title": "Onerous contract"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Net fulfilment cost",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "fulfil"
+     ],
+     "min": 1,
+     "nums": [
+      30
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Lower of",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "lower"
+     ],
+     "min": 1,
+     "nums": [
+      30
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Conclusion",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "onerous"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Compare both routes."
+   ],
+   "mistakes": [
+    "Providing the full purchase cost."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "50-20",
+     "value": 30,
+     "label": "Net cost of fulfilling (₹ lakh)"
+    },
+    {
+     "expr": "min(50-20,35)",
+     "value": 30,
+     "label": "Onerous contract provision (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Provision: obligation + probable outflow + reliable estimate.",
+   "Best estimate; expected value for populations.",
+   "Discount if material; unwinding is finance cost.",
+   "Contingent liability: disclose unless remote.",
+   "Contingent asset: recognise only when virtually certain."
+  ],
+  "remember": [
+   "No provision for future operating losses."
+  ],
+  "traps": [
+   "Netting reimbursements against the provision."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Probable",
+   "v": "Provide"
+  },
+  {
+   "k": "Possible",
+   "v": "Disclose"
+  },
+  {
+   "k": "Remote",
+   "v": "Nothing"
+  },
+  {
+   "k": "Onerous",
+   "v": "Lower of fulfil or exit"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "State the recognition criteria for a provision.",
+   "model": "A present obligation from a past event, a probable outflow of resources, and a reliable estimate of the amount.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Present obligation and past event",
+     "w": 5,
+     "kw": [
+      "obligation|past"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Probable and reliable estimate",
+     "w": 5,
+     "kw": [
+      "probable|reliable"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What is a constructive obligation?",
+   "model": "An obligation arising from an entity's established practice, published policy or specific statement that creates a valid expectation in others.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Practice or policy",
+     "w": 5,
+     "kw": [
+      "practice|policy"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Valid expectation",
+     "w": 5,
+     "kw": [
+      "expectation"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v3",
+   "q": "How are contingent liabilities treated?",
+   "model": "They are disclosed in the notes unless the possibility of outflow is remote, and are recognised as provisions once outflow becomes probable.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Disclosed",
+     "w": 5,
+     "kw": [
+      "disclos"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Remote exception",
+     "w": 5,
+     "kw": [
+      "remote"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What is an onerous contract?",
+   "model": "A contract whose unavoidable costs of meeting the obligations exceed the economic benefits expected under it.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Unavoidable costs",
+     "w": 5,
+     "kw": [
+      "unavoidable"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Exceed benefits",
+     "w": 5,
+     "kw": [
+      "exceed"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "When is a restructuring provision recognised?",
+   "model": "When there is a detailed formal plan and those affected have a valid expectation that it will be carried out, through starting it or announcing it.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Detailed formal plan",
+     "w": 5,
+     "kw": [
+      "formal plan|detailed"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Valid expectation",
+     "w": 5,
+     "kw": [
+      "expectation"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Coastal Chemicals Ltd.",
+   "difficulty": "moderate",
+   "case": "Coastal Chemicals Ltd. faces: (1) a lawsuit where lawyers say loss is probable, best estimate ₹60 lakh, with insurance cover of ₹25 lakh that the insurer has accepted in writing; (2) a new law requiring smoke filters by next year, not yet fitted; (3) a claim it has filed against a supplier which it will probably win, worth ₹15 lakh; (4) expected operating losses of ₹40 lakh next year.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Provision for the lawsuit (₹ lakh):",
+     "options": [
+      "60",
+      "35",
+      "25",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "Provision at gross best estimate; the accepted reimbursement is a separate asset. In practice: do not net.",
+     "difficulty": "moderate",
+     "check": 60,
+     "topic": "Measuring a provision"
+    },
+    {
+     "id": "k1b",
+     "q": "The filter requirement at year end creates:",
+     "options": [
+      "No provision, as the entity can avoid it by changing operations",
+      "A provision",
+      "A contingent asset",
+      "An onerous contract"
+     ],
+     "answer": 0,
+     "explain": "No obligating event has occurred yet. In practice: penalties for non-compliance may differ.",
+     "difficulty": "moderate",
+     "topic": "Recognising a provision"
+    },
+    {
+     "id": "k1c",
+     "q": "The supplier claim is:",
+     "options": [
+      "A contingent asset disclosed in notes",
+      "Recognised as income",
+      "Ignored entirely",
+      "A provision"
+     ],
+     "answer": 0,
+     "explain": "Probable inflow — disclose only. In practice: recognise once virtually certain.",
+     "difficulty": "core",
+     "topic": "Contingent liabilities and contingent assets"
+    },
+    {
+     "id": "k1d",
+     "q": "The expected operating losses are:",
+     "options": [
+      "Not provided for",
+      "Provided at ₹40 lakh",
+      "Disclosed as contingent liability",
+      "Recognised in OCI"
+     ],
+     "answer": 0,
+     "explain": "No present obligation. In practice: impairment test instead.",
+     "difficulty": "core",
+     "topic": "Applying the rules: onerous contracts, restructuring, future losses"
+    }
+   ]
+  }
+ ]
+}
