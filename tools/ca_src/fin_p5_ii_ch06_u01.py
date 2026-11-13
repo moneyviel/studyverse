@@ -121,7 +121,7 @@ def build():
                  'Apply warehousing period and interest provisions.',
                  'Apply owner\'s rights and manufacture in a warehouse.',
                  'Apply removal, improper removal and relinquishment rules.'],
-                {'difficulty': 'moderate', 'minutes': {'learn': 35, 'practice': 20}, 'prereq': ['fin-p5-ii-ch04-u01'],
+                {'difficulty': 'moderate', 'minutes': {'learn': 35, 'practice': 20}, 'prereq': ['fin-p5-ii-ch05-u01'],
                  'exam_tip': 'Start every warehousing question by fixing the date of the section 60 order.'},
                 concepts, [i1, i2], jobs, mcqs, questions,
                 {'summary': ['Public, private, special warehouses.', 'Bond thrice the duty.', 'Period one year (+1 year at a time); section 65 till ex-bond.',
