@@ -372,6 +372,14 @@ async def _(pg):
     await setr(pg, 'input[data-k=s]', 50); await setr(pg, 'input[data-k=f]', 8)      # separated, A > 6 cm
     await setr(pg, 'input[data-k=s]', 100)                             # acid past the middle
 
+@lab('chem-u14', 'acidtune')
+async def _(pg):
+    await tap(pg, '#atG button', 5); await tap(pg, '#atP button', 2)                                  # Cl on gamma
+    await tap(pg, '#atG button', 6); await tap(pg, '#atP button', 0)                                  # F alpha
+    await tap(pg, '#atG button', 8)                                                                   # NO2 alpha
+    await tap(pg, '#atN button', 2)                                                                   # 3 NO2 → very strong
+    await tap(pg, '#atG button', 1)                                                                   # CH3 → weaker
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
