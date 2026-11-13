@@ -191,7 +191,7 @@ def build():
           [P('p1', 'Paid from post-tax profit', 5, 'post-tax|after tax'), P('p2', 'Divide by (1 – t)', 5, '1 – t|one minus|1-t')], 'c4'),
         V('v5', 'Which leverage reflects total risk and how is it found?',
           'Combined leverage reflects total risk; it is the product of operating and financial leverage, or contribution divided by profit before tax after grossed-up preference dividend.',
-          [P('p1', 'Combined leverage', 4, 'combined'), P('p2', 'Product of DOL and DFL', 6, 'product|multipl|×')], 'c5'),
+          [P('p1', 'Combined leverage', 4, 'combined'), P('p2', 'Product of DOL and DFL', 6, 'product|multipl')], 'c5'),
     ]
 
     cases = [{'id': 'k1', 'title': 'Two bakeries', 'difficulty': 'moderate',
