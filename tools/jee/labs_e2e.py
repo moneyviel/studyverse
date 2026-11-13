@@ -347,6 +347,13 @@ async def _(pg):
     for v in (0, 12.7, 23.4, 35.9): await setr(pg, 'input[data-k=L]', v)
     await tap(pg, '#vnN button', 1); await setr(pg, 'input[data-k=L]', 8.35)
 
+@lab('chem-u11', 'dbox')
+async def _(pg):
+    await tap(pg, '#dbM button', 4); await tap(pg, '#dbQ button', 2)
+    await tap(pg, '#dbM button', 0); await tap(pg, '#dbQ button', 3)
+    await tap(pg, '#dbM button', 9); await tap(pg, '#dbQ button', 2)
+    await tap(pg, '#dbM button', 6); await tap(pg, '#dbM button', 3); await tap(pg, '#dbQ button', 0)
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
