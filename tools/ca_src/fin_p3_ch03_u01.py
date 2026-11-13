@@ -48,7 +48,7 @@ def build():
           'Programme the work, then execute it to the risks.',
           'A receivables programme includes confirmations, ageing review and cut-off tests.'),
         C('c3', T3, [
-            'SA 600 (using the work of another auditor): the principal auditor is responsible for the opinion; considers the other auditor\'s professional competence and independence, communicates requirements, and may review their work; generally no reference to the other auditor is made unless law or practice permits, in which case responsibility is not divided.',
+            'SA 600 (using the work of another auditor): the principal auditor considers the other auditor\'s professional competence and independence, communicates requirements and may review their work. The principal auditor is not responsible for work entrusted to the other auditor unless circumstances should have raised suspicion about its reliability; the report states the division of responsibility by showing the extent of components audited by others.',
             'SA 610 (internal auditors): evaluate objectivity, competence and systematic approach; decide the extent of use based on risk and judgement involved; perform audit procedures on work used. Internal auditors may provide direct assistance under the external auditor\'s direction, supervision and review unless law or regulation prohibits it; they cannot be used for work involving significant judgement, higher assessed risks or areas they were involved in.',
             'SA 620 (auditor\'s expert): evaluate competence, capabilities and objectivity; agree scope and objectives in writing; evaluate adequacy of findings. No reference to the expert in an unmodified report.'],
           'Use others\' work, but never hand over responsibility.',
@@ -85,8 +85,8 @@ def build():
           'SA 450 types. In practice: add to aggregate.', 'c5', T5),
         Q('m6', 'SA 540 requires the auditor to evaluate:', ['Methods, data and assumptions behind estimates', 'Only arithmetic', 'Only disclosures', 'Nothing if management is honest'], 0,
           'Plus bias indicators. In practice: retrospective review.', 'c4', T4),
-        Q('m7', 'Under SA 600, responsibility for the opinion on the whole statements rests with:', ['The principal auditor', 'Both auditors equally', 'The other auditor', 'Management'], 0,
-          'Principal auditor\'s report. In practice: assess other auditor\'s competence.', 'c3', T3),
+        Q('m7', 'Under SA 600, the principal auditor is responsible for the other auditor\'s work:', ['Only if circumstances should have aroused suspicion about its reliability', 'Always, fully', 'Never under any circumstances', 'Only for listed companies'], 0,
+          'The report shows the division of responsibility. In practice: assess competence first.', 'c3', T3),
         Q('m8', 'An audit programme helps by:', ['Guiding staff, recording work done and aiding review', 'Replacing judgement', 'Fixing fees', 'Avoiding documentation'], 0,
           'Control tool. In practice: tailor to risks.', 'c2', T2),
     ]
