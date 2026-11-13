@@ -1,0 +1,705 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p4-ch11-u01",
+ "level": "final",
+ "paper": "p4",
+ "chapter": "fin-p4-ch11",
+ "n": 1,
+ "title": "Tax Planning, Tax Avoidance and Tax Evasion",
+ "outcomes": [
+  "Distinguish tax planning, avoidance and evasion.",
+  "Apply judicial doctrines including form and substance.",
+  "Apply anti-avoidance rules on dividend, income and bonus stripping.",
+  "Apply GAAR conditions, consequences and exclusions."
+ ],
+ "meta": {
+  "difficulty": "moderate",
+  "minutes": {
+   "learn": 35,
+   "practice": 20
+  },
+  "prereq": [
+   "fin-p4-ch10-u01"
+  ],
+  "exam_tip": "For GAAR questions, test threshold, main purpose and each tainted element separately."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Tax planning, avoidance and evasion",
+   "body": [
+    "Tax planning arranges affairs within the law to use exemptions, deductions and reliefs the legislature intended — for example choosing between tax regimes, investing in eligible instruments or selecting a business form.",
+    "Tax avoidance uses the letter of the law to defeat its intent, often through artificial or circular steps lacking commercial purpose; it is legal in form but countered by anti-avoidance rules. Tax evasion is illegal: suppression of income, inflating expenses, false documents or concealment, attracting penalty and prosecution.",
+    "Tax management covers compliance — timely returns, TDS, audits and records — while tax planning looks ahead to structure transactions. Good planning should be natural, documented and backed by business substance."
+   ],
+   "analogy": "Planning is lawful, avoidance is resisted, evasion is punished.",
+   "work": "Choosing section 200 rates is planning; recording fake purchases is evasion."
+  },
+  {
+   "id": "c2",
+   "title": "Judicial approach and form versus substance",
+   "body": [
+    "The Westminster principle (UK, 1936) allowed taxpayers to arrange affairs to reduce tax if the form was genuine. Later UK cases like Ramsay looked at a composite series of pre-ordained steps and disregarded inserted artificial steps.",
+    "In India, McDowell & Co. (1985) criticised colourable devices, while Azadi Bachao Andolan (2003) upheld treaty-based planning and Vodafone International (2012) held that genuine transactions are to be viewed as a whole and the revenue must establish sham or colourable devices.",
+    "Under the doctrine of form and substance, the true nature of a transaction is determined from all its terms, not merely its label; but a genuine legal form is not lightly brushed aside."
+   ],
+   "analogy": "Courts look through shams, not genuine choices.",
+   "work": "A circular loan routed through three entities to create interest deductions can be disregarded."
+  },
+  {
+   "id": "c3",
+   "title": "Specific anti-avoidance rules on securities",
+   "body": [
+    "Specific anti-avoidance rules (SAAR) target known schemes: transfer pricing, clubbing, deemed dividends, thin capitalisation limits on interest and others. Section 175 deals with transactions in securities.",
+    "Income stripping (section 175(8)): if securities or units are bought within three months before the record date and sold within three months (securities) or nine months (units) after it, and the income received is exempt, the loss is ignored to the extent of that income. Since dividends and mutual fund income are now taxable, it mainly matters for business trust units.",
+    "Bonus stripping (section 175(9)): if securities or units are bought within three months before the record date, bonus units are allotted, and the original units are sold within nine months while the bonus units are kept, the loss is ignored and treated as the cost of the bonus units."
+   ],
+   "analogy": "Short-term in-and-out trades around record dates lose their losses.",
+   "work": "A ₹40,000 loss on stripped mutual fund units becomes the bonus units' cost."
+  },
+  {
+   "id": "c4",
+   "title": "General Anti-Avoidance Rule",
+   "body": [
+    "GAAR (sections 178 to 184) allows an arrangement to be declared an impermissible avoidance arrangement (IAA) if its main purpose is a tax benefit and it (a) creates rights or obligations not at arm's length, (b) results in misuse or abuse of the Act, (c) lacks commercial substance (section 180 — e.g. round-trip financing, accommodating parties, offsetting elements, disguised location) or (d) is not carried out by means ordinarily used for bona fide purposes.",
+    "Consequences (section 181): disregarding or recharacterising steps, treating connected parties as one, reallocating income or expenditure, ignoring corporate structures and denying treaty benefits. The AO refers the case to the PCIT/CIT, who may refer it to an Approving Panel.",
+    "GAAR does not apply where aggregate tax benefit to all parties in the year is ₹3 crore or less, to specified FIIs and their non-resident investors, or to income from transfer of investments made before 1 April 2017. GAAR and SAAR can co-exist; GAAR is not barred merely because a SAAR applies."
+   ],
+   "analogy": "GAAR attacks arrangements whose main aim is tax and which have a tainted element.",
+   "work": "A mid-year shift of profits to a tax-holiday unit with no business reason can be an IAA."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Income stripping in business trust units",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "Farah buys 1,000 units of an InvIT at ₹120 each six weeks before the record date. She receives an exempt distribution of ₹15 per unit and sells all units at ₹100 each two months after the record date. Compute the allowable loss.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Loss on sale",
+       "1,000 × (120 − 100)",
+       "20,000"
+      ],
+      [
+       "Exempt income received",
+       "1,000 × 15",
+       "15,000"
+      ],
+      [
+       "Loss ignored",
+       "To the extent of exempt income",
+       "15,000"
+      ],
+      [
+       "Allowable loss",
+       "",
+       "5,000"
+      ]
+     ],
+     "title": "Section 175(8)"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000*(120-100)",
+     "value": 20000,
+     "label": "Loss on sale of units (₹)"
+    },
+    {
+     "expr": "1000*15",
+     "value": 15000,
+     "label": "Exempt distribution received (₹)"
+    },
+    {
+     "expr": "1000*(120-100)-min(1000*(120-100),1000*15)",
+     "value": 5000,
+     "label": "Loss allowed after section 175(8) (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Bonus stripping",
+   "difficulty": "core",
+   "minutes": 5,
+   "q": "Gautam buys 2,000 mutual fund units at ₹50 each one month before the record date for a 1:1 bonus. He sells the 2,000 original units at ₹30 each five months later and keeps the bonus units. Explain the tax treatment.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Loss on original units",
+       "Ignored under section 175(9)",
+       "40,000"
+      ],
+      [
+       "Cost of bonus units",
+       "Ignored loss deemed to be their cost",
+       "40,000"
+      ]
+     ],
+     "title": "Section 175(9)"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2000*50-2000*30",
+     "value": 40000,
+     "label": "Loss on original units ignored (₹)"
+    },
+    {
+     "expr": "2000*50-2000*30",
+     "value": 40000,
+     "label": "Deemed cost of bonus units (₹)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "GAAR risk review of a restructuring",
+   "role": "Tax advisor",
+   "situation": "A group plans to interpose a holding company in a treaty jurisdiction.",
+   "steps": [
+    "Quantify tax benefit for all parties.",
+    "Assess main purpose and commercial substance.",
+    "Check tainted elements.",
+    "Document non-tax reasons."
+   ],
+   "takeaway": "Substance and documentation protect planning from GAAR."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Suppressing sales to reduce tax is:",
+   "options": [
+    "Tax evasion",
+    "Tax planning",
+    "Tax management",
+    "Tax mitigation"
+   ],
+   "answer": 0,
+   "explain": "Illegal concealment. In practice: penalty and prosecution.",
+   "concept": "c1",
+   "topic": "Tax planning, avoidance and evasion",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Which case held that colourable devices cannot be part of tax planning?",
+   "options": [
+    "McDowell & Co.",
+    "Duke of Westminster",
+    "Azadi Bachao Andolan",
+    "Vodafone International"
+   ],
+   "answer": 0,
+   "explain": "Supreme Court, 1985. In practice: later read narrowly.",
+   "concept": "c2",
+   "topic": "Judicial approach and form versus substance",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Under section 175(8), units must be sold within how long after the record date?",
+   "options": [
+    "Nine months",
+    "Three months",
+    "Six months",
+    "Twelve months"
+   ],
+   "answer": 0,
+   "explain": "Securities: three months. In practice: business trust units.",
+   "concept": "c3",
+   "topic": "Specific anti-avoidance rules on securities",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Loss ignored under bonus stripping is treated as:",
+   "options": [
+    "Cost of the bonus units",
+    "Business loss",
+    "Capital loss carried forward",
+    "Exempt income"
+   ],
+   "answer": 0,
+   "explain": "Section 175(9). In practice: used on later sale.",
+   "concept": "c3",
+   "topic": "Specific anti-avoidance rules on securities",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "GAAR does not apply where aggregate tax benefit in the year does not exceed:",
+   "options": [
+    "Three crore rupees",
+    "One crore rupees",
+    "Five crore rupees",
+    "Ten crore rupees"
+   ],
+   "answer": 0,
+   "explain": "Rule 128. In practice: count all parties.",
+   "concept": "c4",
+   "topic": "General Anti-Avoidance Rule",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Which is a tainted element under GAAR?",
+   "options": [
+    "Lack of commercial substance",
+    "Use of a deduction as intended",
+    "Filing return on time",
+    "Paying advance tax"
+   ],
+   "answer": 0,
+   "explain": "Section 179. In practice: plus main purpose test.",
+   "concept": "c4",
+   "topic": "General Anti-Avoidance Rule",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "GAAR does not apply to income from transfer of investments made before:",
+   "options": [
+    "1 April 2017",
+    "1 April 2020",
+    "1 April 2026",
+    "1 April 2012"
+   ],
+   "answer": 0,
+   "explain": "Grandfathering. In practice: benefits after that date still covered.",
+   "concept": "c4",
+   "topic": "General Anti-Avoidance Rule",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Round-trip financing is an example of:",
+   "options": [
+    "An arrangement lacking commercial substance",
+    "Tax planning",
+    "A deduction",
+    "A SAAR"
+   ],
+   "answer": 0,
+   "explain": "Section 180. In practice: funds return to origin.",
+   "concept": "c4",
+   "topic": "General Anti-Avoidance Rule",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Farah buys 1,000 units of an InvIT at ₹120 each six weeks before the record date. She receives an exempt distribution of ₹15 per unit and sells all units at ₹100 each two months after the record date. Compute the allowable loss.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Loss on sale",
+       "1,000 × (120 − 100)",
+       "20,000"
+      ],
+      [
+       "Exempt income received",
+       "1,000 × 15",
+       "15,000"
+      ],
+      [
+       "Loss ignored",
+       "To the extent of exempt income",
+       "15,000"
+      ],
+      [
+       "Allowable loss",
+       "",
+       "5,000"
+      ]
+     ],
+     "title": "Section 175(8)"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Conditions",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "record date"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Allowable loss",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "ignored"
+     ],
+     "min": 1,
+     "nums": [
+      20000,
+      15000,
+      5000
+     ]
+    }
+   ],
+   "remarks": [
+    "State time limits."
+   ],
+   "mistakes": [
+    "Ignoring the full loss."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000*(120-100)",
+     "value": 20000,
+     "label": "Loss on sale of units (₹)"
+    },
+    {
+     "expr": "1000*15",
+     "value": 15000,
+     "label": "Exempt distribution received (₹)"
+    },
+    {
+     "expr": "1000*(120-100)-min(1000*(120-100),1000*15)",
+     "value": 5000,
+     "label": "Loss allowed after section 175(8) (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Gautam buys 2,000 mutual fund units at ₹50 each one month before the record date for a 1:1 bonus. He sells the 2,000 original units at ₹30 each five months later and keeps the bonus units. Explain the tax treatment.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Treatment",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Loss on original units",
+       "Ignored under section 175(9)",
+       "40,000"
+      ],
+      [
+       "Cost of bonus units",
+       "Ignored loss deemed to be their cost",
+       "40,000"
+      ]
+     ],
+     "title": "Section 175(9)"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Loss ignored",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "ignored"
+     ],
+     "min": 1,
+     "nums": [
+      40000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Deemed cost",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "bonus"
+     ],
+     "min": 1,
+     "nums": [
+      40000
+     ]
+    }
+   ],
+   "remarks": [
+    "Mention the nine-month window."
+   ],
+   "mistakes": [
+    "Allowing the loss as capital loss."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "2000*50-2000*30",
+     "value": 40000,
+     "label": "Loss on original units ignored (₹)"
+    },
+    {
+     "expr": "2000*50-2000*30",
+     "value": 40000,
+     "label": "Deemed cost of bonus units (₹)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Planning vs avoidance vs evasion.",
+   "Westminster, McDowell, Azadi Bachao, Vodafone.",
+   "Section 175(8) income stripping; 175(9) bonus stripping.",
+   "GAAR sections 178–184; ₹3 crore threshold; 1 April 2017 grandfathering."
+  ],
+  "remember": [
+   "GAAR needs main purpose plus a tainted element."
+  ],
+  "traps": [
+   "Assuming SAAR excludes GAAR."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Stripping",
+   "v": "Section 175"
+  },
+  {
+   "k": "GAAR",
+   "v": "Sections 178–184"
+  },
+  {
+   "k": "Threshold",
+   "v": "Rule 128"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "Distinguish tax avoidance and tax evasion.",
+   "model": "Avoidance uses the letter of the law against its spirit and is legal in form; evasion uses illegal means such as concealment or falsification.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Letter of law",
+     "w": 5,
+     "kw": [
+      "letter"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Illegal",
+     "w": 5,
+     "kw": [
+      "illegal"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "What did Vodafone International hold?",
+   "model": "Transactions should be viewed as a whole, and the revenue must prove that a structure is a sham or colourable device.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Whole",
+     "w": 5,
+     "kw": [
+      "whole"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Sham",
+     "w": 5,
+     "kw": [
+      "sham"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What is the main purpose test in GAAR?",
+   "model": "An arrangement whose main purpose is to obtain a tax benefit, combined with a tainted element, can be declared impermissible.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Main purpose",
+     "w": 5,
+     "kw": [
+      "main purpose"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Tax benefit",
+     "w": 5,
+     "kw": [
+      "tax benefit"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "Can GAAR and SAAR both apply?",
+   "model": "Yes, they co-exist and GAAR can be invoked even where a SAAR applies.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Co-exist",
+     "w": 5,
+     "kw": [
+      "co-exist|coexist"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Invoked",
+     "w": 5,
+     "kw": [
+      "invoke"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v5",
+   "q": "Who approves GAAR declarations in contested cases?",
+   "model": "An Approving Panel, on reference by the PCIT or CIT.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Approving Panel",
+     "w": 5,
+     "kw": [
+      "approving panel"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "PCIT",
+     "w": 5,
+     "kw": [
+      "pcit|cit"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Helix Group",
+   "difficulty": "moderate",
+   "case": "Helix Group routes a ₹200 crore investment in its Indian subsidiary through a newly formed company in a treaty country with no employees or office, claiming treaty exemption on later capital gains. The expected aggregate tax benefit is ₹18 crore.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Does the GAAR monetary threshold bar its application?",
+     "options": [
+      "No, the benefit exceeds three crore rupees",
+      "Yes",
+      "Only if below ten crore",
+      "Only for residents"
+     ],
+     "answer": 0,
+     "explain": "Threshold ₹3 crore. In practice: aggregate benefit.",
+     "difficulty": "core",
+     "topic": "General Anti-Avoidance Rule"
+    },
+    {
+     "id": "k1b",
+     "q": "The intermediate company with no staff or office suggests:",
+     "options": [
+      "Lack of commercial substance",
+      "Genuine planning",
+      "Tax management",
+      "Evasion only"
+     ],
+     "answer": 0,
+     "explain": "Section 180. In practice: substance test.",
+     "difficulty": "core",
+     "topic": "General Anti-Avoidance Rule"
+    },
+    {
+     "id": "k1c",
+     "q": "A possible GAAR consequence is:",
+     "options": [
+      "Denial of treaty benefit",
+      "Prosecution automatically",
+      "Cancellation of PAN",
+      "Refund of tax"
+     ],
+     "answer": 0,
+     "explain": "Section 181. In practice: look-through.",
+     "difficulty": "core",
+     "topic": "General Anti-Avoidance Rule"
+    },
+    {
+     "id": "k1d",
+     "q": "Tax benefit beyond the threshold (₹ crore):",
+     "options": [
+      "15",
+      "18",
+      "3",
+      "21"
+     ],
+     "answer": 0,
+     "explain": "18 − 3. In practice: threshold is a gate, not a deduction.",
+     "difficulty": "core",
+     "check": 15,
+     "topic": "General Anti-Avoidance Rule"
+    }
+   ]
+  }
+ ]
+}
