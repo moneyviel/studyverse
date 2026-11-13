@@ -273,6 +273,13 @@ async def _(pg):
     await pg.click('[data-f="flr"]')
     await pg.click('[data-f="euler"]'); await setr(pg, '#zR', 32)
     await pg.click('[data-f="sinc"]')
+@lab('math-u08', 'riemann')
+async def _(pg):
+    await setr(pg, '[data-k="b"]', 3)                       # x² 0→3 = 9
+    await pg.click('[data-m="M"]'); await setr(pg, '[data-k="n"]', 8)   # midpoint within 1%
+    await setr(pg, '[data-k="n"]', 60)
+    await pg.click('[data-f="sin"]')                         # 0→π = 2
+    await setr(pg, '[data-k="b"]', 6.283185307179586)        # 0→2π = 0
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
