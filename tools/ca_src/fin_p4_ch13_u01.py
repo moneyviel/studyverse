@@ -114,7 +114,7 @@ def build():
         V('v4', 'What disallowance follows non-deduction on a resident payment?', 'Thirty percent of the expense, allowed in the year the tax is paid.',
           [P('p1', 'Thirty percent', 5, '30%|thirty'), P('p2', 'Year paid', 5, 'paid')], 'c4'),
         V('v5', 'Who need not pay advance tax?', 'Resident senior citizens whose income is only from heads other than business or profession.',
-          [P('p1', 'Senior citizens', 5, 'senior'), P('p2', 'Other heads', 5, 'other heads')], 'c5'),
+          [P('p1', 'Senior citizens', 5, 'senior'), P('p2', 'Non-business heads', 5, 'heads')], 'c5'),
     ]
 
     cases = [{'id': 'k1', 'title': 'Dhillon family purchases', 'difficulty': 'core',
