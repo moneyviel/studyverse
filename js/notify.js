@@ -146,7 +146,8 @@
     return `<h3>📳 Phone reminders</h3>
       <label class="nt-sw" for="ntSw"><span class="nt-t"><b>One reminder a day</b><small>Around 5:30 pm, only if you haven't studied yet. Never at night or in school hours.</small></span>
       <input type="checkbox" role="switch" id="ntSw" ${on ? 'checked' : ''} ${denied ? 'disabled' : ''}><span aria-hidden="true"></span></label>
-      ${denied ? `<p class="sub nt-warn">Notifications are blocked for Knowtopia. To use reminders, allow them in your phone's settings, then come back here.</p>` : ''}`;
+      ${denied ? `<p class="sub nt-warn">Notifications are blocked for Knowtopia. To use reminders, allow them in your phone's settings, then come back here.</p>` : ''}
+      ${on && /Android/i.test(navigator.userAgent) ? `<details class="nt-help"><summary>Reminders not showing up?</summary><p>Knowtopia uses Chrome to receive reminders. On your phone open <b>Settings → Apps → Chrome</b> and make sure <b>Notifications</b> are allowed and <b>background usage</b> is allowed (not restricted by battery saver). Do the same for <b>Knowtopia</b>.</p></details>` : ''}`;
   }
   function render() {
     const c = D.getElementById('svPush'); if (!c) return;
@@ -176,6 +177,7 @@
 .nt-sw input+span::after{content:'';position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .nt-sw input:checked+span{background:#1d7a46}.nt-sw input:checked+span::after{transform:translateX(22px)}.nt-sw input:disabled+span{opacity:.5}
 #ntPar{border:2px solid #1d7a46}.nt-par p{margin:6px 0}
+.nt-help{margin-top:8px;font-size:13.5px}.nt-help summary{cursor:pointer;font-weight:800;min-height:36px;display:flex;align-items:center}.nt-help p{margin:4px 0 0;line-height:1.45;color:var(--muted,#5d5a55)}
 .nt-sw input:focus-visible+span{outline:3px solid #8A6A2E;outline-offset:2px}.nt-warn{color:#9a1b1b!important;margin-top:6px}
 </style>`);
   }
