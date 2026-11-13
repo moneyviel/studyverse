@@ -406,6 +406,19 @@ async def _(pg):
     for a in (2, 0, 4, 6):                                       # aniline, methylamine, dimethylamine, trimethylamine
         await tap(pg, '#amA button', a); await tap(pg, '#amT button', 4)   # run all
 
+async def setb(pg, sel, i, want):   # tap one base button until it shows the wanted letter
+    for _ in range(6):
+        if (await pg.locator(sel).nth(i).inner_text()).strip() == want: return
+        await tap(pg, sel, i)
+@lab('chem-u19', 'dnapair')
+async def _(pg):
+    for i, b in enumerate('TACGAAGT'): await setb(pg, '#dnB button', i, b)            # zip (18 H-bonds)
+    for i, b in enumerate('GGAATTCC'): await setb(pg, '#dnT button', i, b)
+    for i, b in enumerate('CCTTAAGG'): await setb(pg, '#dnB button', i, b)            # palindrome, 20 H-bonds
+    for i in range(8): await setb(pg, '#dnT button', i, 'G'); await setb(pg, '#dnB button', i, 'C')   # 24
+    await tap(pg, '#dnM button', 1); await setb(pg, '#dnT button', 0, 'A')
+    for i, b in enumerate('UCCCCCCC'): await setb(pg, '#dnB button', i, b)            # RNA with U
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
