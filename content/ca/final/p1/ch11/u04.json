@@ -1,0 +1,732 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch11-u04",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch11",
+ "n": 4,
+ "title": "Derivatives and Embedded Derivatives",
+ "outcomes": [
+  "Identify derivatives using the three characteristics.",
+  "Account for standalone derivatives at fair value.",
+  "Decide when embedded derivatives must be separated.",
+  "Recognise common derivative instruments."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 30,
+   "practice": 25
+  },
+  "prereq": [
+   "fin-p1-ch11-u03"
+  ],
+  "exam_tip": "For embedded derivatives, first ask whether the host is a financial asset — if yes, do not split."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "What makes a contract a derivative",
+   "body": [
+    "A derivative has three features: its value changes with an underlying variable (interest rate, price, exchange rate, index, credit rating, or a non-financial variable not specific to a party); it needs no initial net investment, or one smaller than for similar contracts; and it is settled at a future date.",
+    "Examples: forwards, futures, swaps, options (purchased or written). An option premium is a small initial investment relative to buying the underlying, so options are still derivatives.",
+    "Contracts to buy or sell non-financial items are derivatives only if net-settleable and not held for own use."
+   ],
+   "analogy": "Underlying, little upfront money, settlement later — all three make a derivative.",
+   "work": "An interest rate swap with nil initial value is a derivative."
+  },
+  {
+   "id": "c2",
+   "title": "Accounting for standalone derivatives",
+   "body": [
+    "Derivatives are financial assets or liabilities at fair value through profit or loss, unless designated as effective hedging instruments.",
+    "They are recognised when the entity becomes party to the contract — even if fair value is nil at inception. A forward contract is recognised at nil and gains or losses arise as rates move.",
+    "Fair value reflects market inputs (forward rates, volatility, credit risk). Changes in fair value go to profit or loss each period, producing volatility unless hedge accounting is applied."
+   ],
+   "analogy": "Every derivative is on the balance sheet at fair value.",
+   "work": "A forward with favourable rates becomes an asset."
+  },
+  {
+   "id": "c3",
+   "title": "Embedded derivatives: when to separate",
+   "body": [
+    "An embedded derivative sits inside a larger (hybrid) contract and makes some cash flows vary like a standalone derivative. A derivative attached to a contract but separately transferable is a separate instrument.",
+    "If the host is a financial asset within Ind AS 109, the whole hybrid is classified as a unit (usually failing SPPI → FVTPL). For other hosts, the embedded derivative is separated when: its economic characteristics and risks are not closely related to the host; a separate instrument with the same terms would be a derivative; and the hybrid is not measured at FVTPL.",
+    "Closely related examples: inflation-indexed lease payments, caps and floors out of the money at inception, foreign currency in a functional or commonly used currency. Not closely related: equity- or commodity-indexed interest, leveraged features, calls in equity hosts."
+   ],
+   "analogy": "Split only what behaves differently from the host contract.",
+   "work": "A loan whose interest follows a stock index hides an equity derivative."
+  },
+  {
+   "id": "c4",
+   "title": "Common derivative instruments",
+   "body": [
+    "Forward contract: customised agreement to buy or sell at a fixed future price. Futures: standardised exchange-traded forwards with daily margining.",
+    "Options: right without obligation to buy (call) or sell (put); the writer receives a premium and bears the obligation. Swaps: exchange of cash flow streams (interest rate swap: fixed for floating; currency swap: principal and interest in different currencies).",
+    "Separated embedded derivatives are measured at fair value; the host is accounted for under the relevant standard. If the derivative cannot be measured separately, the whole contract is designated at FVTPL."
+   ],
+   "analogy": "Know the instrument to know its underlying.",
+   "work": "A company paying fixed and receiving floating has swapped its interest exposure."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "A currency forward",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Orbit Ltd. enters into a forward on 1 February to buy USD 10 lakh at ₹83 on 31 May; no premium is paid. It is not designated as a hedge. At 31 March, the forward rate for 31 May is ₹84.5. On 31 May, the spot rate is ₹82. Ignore discounting. Show amounts in profit or loss.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Date",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "1 Feb",
+       "Fair value nil at inception",
+       "0"
+      ],
+      [
+       "31 Mar — derivative asset, gain in P&L",
+       "10,00,000 × (84.5 − 83)",
+       "15"
+      ],
+      [
+       "31 May — cumulative position",
+       "10,00,000 × (82 − 83)",
+       "-10"
+      ],
+      [
+       "Loss recognised in second period",
+       "−10 − 15",
+       "-25"
+      ]
+     ],
+     "title": "Derivative at FVTPL"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000000*(84.5-83)/100000",
+     "value": 15,
+     "label": "Fair value of forward at year end (₹ lakh)"
+    },
+    {
+     "expr": "1000000*(82-83)/100000",
+     "value": -10,
+     "label": "Cumulative result at settlement (₹ lakh)"
+    },
+    {
+     "expr": "1000000*(82-83)/100000-1000000*(84.5-83)/100000",
+     "value": -25,
+     "label": "Loss in the second period (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Separate the embedded derivative?",
+   "difficulty": "hard",
+   "minutes": 9,
+   "q": "Assess separation for Orbit Ltd. (holder or issuer as stated): (a) Orbit issues a bond whose interest is linked to the Nifty index; (b) Orbit issues a loan with an interest rate cap above market rate at issue; (c) Orbit holds a bond whose principal is linked to gold prices; (d) Orbit leases a warehouse with rent indexed to local inflation; (e) Orbit sells goods to a German customer priced in USD (neither party's functional currency, and USD is not commonly used in that market).",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Separate?",
+      "Reason"
+     ],
+     "rows": [
+      [
+       "(a) Issued equity-index bond",
+       "Yes",
+       "Equity-linked return not closely related to a debt host"
+      ],
+      [
+       "(b) Cap above market",
+       "No",
+       "Out-of-the-money cap at issue is closely related"
+      ],
+      [
+       "(c) Held gold-linked bond",
+       "No — whole asset at FVTPL",
+       "Financial asset hosts are not split; fails SPPI"
+      ],
+      [
+       "(d) Inflation-indexed rent",
+       "No",
+       "Local, non-leveraged inflation index is closely related"
+      ],
+      [
+       "(e) USD-priced sale contract",
+       "Yes",
+       "Currency not functional for either party nor commonly used"
+      ]
+     ],
+     "title": "Embedded derivatives"
+    }
+   ],
+   "checks": []
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Derivative register",
+   "role": "Risk analyst",
+   "situation": "Treasury signed forwards and swaps; procurement signed foreign-currency supply contracts.",
+   "steps": [
+    "List all derivatives and fair value them.",
+    "Scan commercial contracts for embedded features.",
+    "Test closely-related criteria.",
+    "Book changes in profit or loss unless hedging."
+   ],
+   "takeaway": "Embedded derivatives often hide in ordinary contracts."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Which is not a feature of a derivative?",
+   "options": [
+    "Large initial net investment",
+    "Value linked to an underlying",
+    "Future settlement",
+    "Little or no initial investment"
+   ],
+   "answer": 0,
+   "explain": "A large initial investment points away from a derivative. In practice: compare to buying the underlying.",
+   "concept": "c1",
+   "topic": "What makes a contract a derivative",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Derivatives not designated as hedges are measured at:",
+   "options": [
+    "Fair value through profit or loss",
+    "Amortised cost",
+    "Cost",
+    "FVOCI"
+   ],
+   "answer": 0,
+   "explain": "Changes hit profit or loss. In practice: hedge accounting can reduce volatility.",
+   "concept": "c2",
+   "topic": "Accounting for standalone derivatives",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "A forward contract with nil fair value at inception is:",
+   "options": [
+    "Recognised at nil",
+    "Not recognised",
+    "Recognised at notional",
+    "Disclosed only"
+   ],
+   "answer": 0,
+   "explain": "It is still a contract the entity is party to. In practice: value moves later.",
+   "concept": "c2",
+   "topic": "Accounting for standalone derivatives",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "A hybrid contract with a financial asset host in Ind AS 109 scope is:",
+   "options": [
+    "Classified as a whole",
+    "Always split",
+    "Measured at cost",
+    "Excluded"
+   ],
+   "answer": 0,
+   "explain": "No bifurcation for asset hosts. In practice: often FVTPL.",
+   "concept": "c3",
+   "topic": "Embedded derivatives: when to separate",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Inflation-indexed lease rentals based on the local economy are:",
+   "options": [
+    "Closely related — not separated",
+    "Separated",
+    "Derivatives at FVTPL",
+    "Equity"
+   ],
+   "answer": 0,
+   "explain": "Non-leveraged local inflation is closely related. In practice: no split.",
+   "concept": "c3",
+   "topic": "Embedded derivatives: when to separate",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Interest linked to an equity index in a debt host issued by the entity is:",
+   "options": [
+    "Not closely related — separate",
+    "Closely related",
+    "Ignored",
+    "Equity"
+   ],
+   "answer": 0,
+   "explain": "Equity risk differs from debt risk. In practice: fair value the embedded derivative.",
+   "concept": "c3",
+   "topic": "Embedded derivatives: when to separate",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "The writer of an option:",
+   "options": [
+    "Receives a premium and bears an obligation",
+    "Pays a premium",
+    "Has a right only",
+    "Has no exposure"
+   ],
+   "answer": 0,
+   "explain": "Writers take on obligations. In practice: written options are liabilities.",
+   "concept": "c4",
+   "topic": "Common derivative instruments",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "An interest rate swap typically exchanges:",
+   "options": [
+    "Fixed for floating interest flows",
+    "Principal in two currencies only",
+    "Shares for cash",
+    "Goods for cash"
+   ],
+   "answer": 0,
+   "explain": "Currency swaps exchange currencies. In practice: used to hedge loans.",
+   "concept": "c4",
+   "topic": "Common derivative instruments",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Orbit Ltd. enters into a forward on 1 February to buy USD 10 lakh at ₹83 on 31 May; no premium is paid. It is not designated as a hedge. At 31 March, the forward rate for 31 May is ₹84.5. On 31 May, the spot rate is ₹82. Ignore discounting. Show amounts in profit or loss.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Date",
+      "Working",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "1 Feb",
+       "Fair value nil at inception",
+       "0"
+      ],
+      [
+       "31 Mar — derivative asset, gain in P&L",
+       "10,00,000 × (84.5 − 83)",
+       "15"
+      ],
+      [
+       "31 May — cumulative position",
+       "10,00,000 × (82 − 83)",
+       "-10"
+      ],
+      [
+       "Loss recognised in second period",
+       "−10 − 15",
+       "-25"
+      ]
+     ],
+     "title": "Derivative at FVTPL"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Inception",
+     "m": 1,
+     "skill": "concept",
+     "kw": [
+      "nil|inception"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Year end",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "gain|asset"
+     ],
+     "min": 1,
+     "nums": [
+      15
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Settlement",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "loss|settle"
+     ],
+     "min": 1,
+     "nums": [
+      -25
+     ]
+    }
+   ],
+   "remarks": [
+    "Track cumulative value."
+   ],
+   "mistakes": [
+    "Not recognising at inception."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000000*(84.5-83)/100000",
+     "value": 15,
+     "label": "Fair value of forward at year end (₹ lakh)"
+    },
+    {
+     "expr": "1000000*(82-83)/100000",
+     "value": -10,
+     "label": "Cumulative result at settlement (₹ lakh)"
+    },
+    {
+     "expr": "1000000*(82-83)/100000-1000000*(84.5-83)/100000",
+     "value": -25,
+     "label": "Loss in the second period (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 7,
+   "minutes": 13,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Assess separation for Orbit Ltd. (holder or issuer as stated): (a) Orbit issues a bond whose interest is linked to the Nifty index; (b) Orbit issues a loan with an interest rate cap above market rate at issue; (c) Orbit holds a bond whose principal is linked to gold prices; (d) Orbit leases a warehouse with rent indexed to local inflation; (e) Orbit sells goods to a German customer priced in USD (neither party's functional currency, and USD is not commonly used in that market).",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Separate?",
+      "Reason"
+     ],
+     "rows": [
+      [
+       "(a) Issued equity-index bond",
+       "Yes",
+       "Equity-linked return not closely related to a debt host"
+      ],
+      [
+       "(b) Cap above market",
+       "No",
+       "Out-of-the-money cap at issue is closely related"
+      ],
+      [
+       "(c) Held gold-linked bond",
+       "No — whole asset at FVTPL",
+       "Financial asset hosts are not split; fails SPPI"
+      ],
+      [
+       "(d) Inflation-indexed rent",
+       "No",
+       "Local, non-leveraged inflation index is closely related"
+      ],
+      [
+       "(e) USD-priced sale contract",
+       "Yes",
+       "Currency not functional for either party nor commonly used"
+      ]
+     ],
+     "title": "Embedded derivatives"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Separate items",
+     "m": 3,
+     "skill": "concept",
+     "kw": [
+      "separate|not closely"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s2",
+     "pt": "Closely related",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "closely related"
+     ],
+     "min": 1
+    },
+    {
+     "id": "s3",
+     "pt": "Asset host",
+     "m": 2,
+     "skill": "concept",
+     "kw": [
+      "asset|fvtpl"
+     ],
+     "min": 1
+    }
+   ],
+   "remarks": [
+    "Reason each."
+   ],
+   "mistakes": [
+    "Splitting a held asset."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Derivative: underlying, small investment, future settlement.",
+   "At FVTPL unless hedge.",
+   "Recognised even at nil fair value.",
+   "Asset hosts: classify whole hybrid.",
+   "Other hosts: separate if not closely related."
+  ],
+  "remember": [
+   "Options are derivatives despite premiums."
+  ],
+  "traps": [
+   "Splitting embedded features from financial asset hosts."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Features",
+   "v": "Underlying + small investment + future"
+  },
+  {
+   "k": "Measure",
+   "v": "FVTPL"
+  },
+  {
+   "k": "Asset host",
+   "v": "Whole hybrid"
+  },
+  {
+   "k": "Other host",
+   "v": "Closely related test"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "State the three characteristics of a derivative.",
+   "model": "Its value changes with an underlying, it requires little or no initial net investment, and it is settled at a future date.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Underlying",
+     "w": 4,
+     "kw": [
+      "underlying"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Small investment and future settlement",
+     "w": 6,
+     "kw": [
+      "investment|future"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How are standalone derivatives measured?",
+   "model": "At fair value through profit or loss unless designated as effective hedging instruments.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Fair value",
+     "w": 6,
+     "kw": [
+      "fair value"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Hedging exception",
+     "w": 4,
+     "kw": [
+      "hedg"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "When is an embedded derivative separated?",
+   "model": "When its risks differ from those of the host (failing the closely related test), would meet the derivative definition alone, and the hybrid is outside FVTPL — and the host is a non-asset contract.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Risks differ from host",
+     "w": 5,
+     "kw": [
+      "risks differ"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Hybrid outside FVTPL",
+     "w": 5,
+     "kw": [
+      "fvtpl"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "Why are financial asset hosts not split?",
+   "model": "Because Ind AS 109 classifies the whole hybrid asset using the SPPI and business model tests.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Whole hybrid",
+     "w": 5,
+     "kw": [
+      "whole"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "SPPI",
+     "w": 5,
+     "kw": [
+      "sppi"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Distinguish forwards and futures.",
+   "model": "Forwards are customised private contracts; futures are standardised, exchange-traded and margined daily.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Customised",
+     "w": 5,
+     "kw": [
+      "customised"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Standardised exchange-traded",
+     "w": 5,
+     "kw": [
+      "standardised|exchange"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Vector Metals Ltd.",
+   "difficulty": "moderate",
+   "case": "Vector Metals Ltd. buys a 2-year call option on 1,000 shares of another company for a premium of ₹50,000. It also has a supply contract to buy coal priced in rupees, settled by physical delivery for its plant, and borrows under a loan whose interest is 2 × MIBOR − 4% (leveraged).",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The call option is:",
+     "options": [
+      "A derivative at FVTPL",
+      "An equity investment at cost",
+      "Outside scope",
+      "A prepayment"
+     ],
+     "answer": 0,
+     "explain": "Small premium relative to the shares; value follows share price. In practice: remeasure each period.",
+     "difficulty": "core",
+     "topic": "What makes a contract a derivative"
+    },
+    {
+     "id": "k1b",
+     "q": "The coal supply contract is:",
+     "options": [
+      "Outside Ind AS 109 under own use",
+      "A derivative",
+      "A financial liability",
+      "A hedge"
+     ],
+     "answer": 0,
+     "explain": "Physically settled for usage needs. In practice: no fair valuing.",
+     "difficulty": "core",
+     "topic": "What makes a contract a derivative"
+    },
+    {
+     "id": "k1c",
+     "q": "The leveraged interest feature in the loan is:",
+     "options": [
+      "Not closely related — separated",
+      "Closely related",
+      "Equity",
+      "Ignored"
+     ],
+     "answer": 0,
+     "explain": "Leverage can double rate exposure. In practice: fair value separately.",
+     "difficulty": "hard",
+     "topic": "Embedded derivatives: when to separate"
+    },
+    {
+     "id": "k1d",
+     "q": "Initial carrying amount of the option (₹):",
+     "options": [
+      "50,000",
+      "Nil",
+      "5,00,000",
+      "1,000"
+     ],
+     "answer": 0,
+     "explain": "The premium paid equals initial fair value. In practice: transaction costs expensed.",
+     "difficulty": "core",
+     "check": 50000,
+     "topic": "Accounting for standalone derivatives"
+    }
+   ]
+  }
+ ]
+}
