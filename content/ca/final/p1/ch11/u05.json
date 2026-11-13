@@ -1,0 +1,712 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p1-ch11-u05",
+ "level": "final",
+ "paper": "p1",
+ "chapter": "fin-p1-ch11",
+ "n": 5,
+ "title": "Recognition and Derecognition of Financial Instruments",
+ "outcomes": [
+  "Apply initial recognition rules including regular-way trades.",
+  "Follow the derecognition decision tree for financial assets.",
+  "Account for transfers with retained risks or continuing involvement.",
+  "Derecognise and modify financial liabilities."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 35,
+   "practice": 30
+  },
+  "prereq": [
+   "fin-p1-ch11-u04"
+  ],
+  "exam_tip": "Walk the derecognition tree step by step in your answer — examiners look for the sequence."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Initial recognition and regular-way trades",
+   "body": [
+    "A financial asset or liability is recognised when the entity becomes party to the contractual provisions. Firm commitments to buy or sell goods are generally not recognised until one party performs; forwards and other derivatives are recognised at commitment.",
+    "Regular-way purchases or sales (delivery within the market's standard timeframe) are recognised using trade-date or settlement-date accounting, applied consistently for each category of assets.",
+    "Under settlement-date accounting for assets measured at fair value, changes in value between trade and settlement dates are still recognised (in profit or loss or OCI by category); for amortised cost assets they are ignored."
+   ],
+   "analogy": "Recognise when you sign the contract — except for ordinary goods orders.",
+   "work": "Shares bought on T and delivered on T+1 may be booked on either date, consistently."
+  },
+  {
+   "id": "c2",
+   "title": "Derecognition of financial assets: the decision tree",
+   "body": [
+    "The derecognition decision follows steps: consolidate subsidiaries first; decide whether the test applies to the whole asset or a part; then ask whether contractual rights to cash flows have expired — if yes, derecognise.",
+    "If not expired, ask whether the asset has been transferred (rights to cash flows transferred, or a qualifying pass-through arrangement where the entity collects and passes on cash without material delay, cannot sell or pledge the asset, and pays only what it collects).",
+    "If transferred: if substantially all risks and rewards are transferred, derecognise; if substantially all are retained, continue to recognise; if neither, consider control — if the transferee can practically sell the asset unilaterally, derecognise; otherwise continue to recognise to the extent of continuing involvement."
+   ],
+   "analogy": "Expired? Transferred? Risks and rewards? Control? — in that order.",
+   "work": "Selling a bond outright with no strings attached is a clean derecognition."
+  },
+  {
+   "id": "c3",
+   "title": "Transfers, continuing involvement and factoring",
+   "body": [
+    "On full derecognition, the difference between the carrying amount and consideration received (plus any cumulative OCI gain or loss on debt at FVOCI) is recognised in profit or loss.",
+    "Where risks and rewards are retained (e.g. sale with full recourse, repo at a fixed price, total return swap), the asset stays and consideration received is a financial liability.",
+    "Continuing involvement: the asset remains to the extent of exposure (e.g. guarantee: lower of carrying amount and maximum guaranteed amount), with an associated liability. Servicing rights retained may create a servicing asset or liability."
+   ],
+   "analogy": "Credit risk kept means the receivable stays on the books.",
+   "work": "Factoring with recourse is a borrowing, not a sale."
+  },
+  {
+   "id": "c4",
+   "title": "Derecognition and modification of financial liabilities",
+   "body": [
+    "A financial liability is removed when extinguished — the obligation is discharged, cancelled or expires. The difference between carrying amount and consideration paid is recognised in profit or loss.",
+    "An exchange with the same lender on substantially different terms, or a substantial modification, is an extinguishment of the old liability and recognition of a new one. The quantitative test: terms differ substantially if the present value of new cash flows, including fees net of fees received, discounted at the original effective rate differs by at least 10% from the remaining cash flows of the original liability. Qualitative factors may also indicate substantial modification.",
+    "If not substantial, the liability is adjusted to the revised present value at the original rate, with the difference in profit or loss; costs adjust the carrying amount and are amortised. Settling debt by issuing equity is accounted for under Appendix D of Ind AS 109 (equity at fair value)."
+   ],
+   "analogy": "The 10% test decides whether a renegotiated loan is new or old.",
+   "work": "A waiver of part of a loan by the lender creates a gain."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Factoring receivables",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "Raven Ltd. transfers trade receivables of ₹100 lakh to a factor for ₹95 lakh. Case A: no recourse; the factor bears all credit risk. Case B: Raven must reimburse the factor for every default (full recourse) and expected losses are significant. Account for each case.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Analysis",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "A — derecognise",
+       "Substantially all risks and rewards transferred",
+       "—"
+      ],
+      [
+       "A — loss on sale",
+       "100 − 95",
+       "5"
+      ],
+      [
+       "B — keep receivables",
+       "Credit risk retained — risks and rewards kept",
+       "100"
+      ],
+      [
+       "B — collateralised borrowing",
+       "Cash received recognised as liability",
+       "95"
+      ]
+     ],
+     "title": "Derecognition test"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "100-95",
+     "value": 5,
+     "label": "Loss on sale without recourse (₹ lakh)"
+    },
+    {
+     "expr": "95",
+     "value": 95,
+     "label": "Financial liability recognised with full recourse (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Renegotiating a loan",
+   "difficulty": "hard",
+   "minutes": 8,
+   "q": "Raven Ltd. has a ₹100 lakh loan at amortised cost. It renegotiates terms with the same lender. The present value of new cash flows (including fees) discounted at the original effective interest rate is ₹88 lakh. Is this a substantial modification? If the new loan's fair value is ₹88 lakh, what is the gain?",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Present value difference",
+       "(100 − 88) ÷ 100",
+       "12%"
+      ],
+      [
+       "10% test",
+       "12% ≥ 10%",
+       "Substantial — extinguishment"
+      ],
+      [
+       "Derecognise old, recognise new at fair value",
+       "100 − 88",
+       "₹12 lakh gain"
+      ]
+     ],
+     "title": "Quantitative 10% test"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "(100-88)/100*100",
+     "value": 12,
+     "label": "Difference in present values (%)"
+    },
+    {
+     "expr": "100-88",
+     "value": 12,
+     "label": "Gain on extinguishment if new loan fair value equals PV (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Reviewing a securitisation",
+   "role": "Group reporting accountant",
+   "situation": "A subsidiary sells loan receivables to a trust and provides a first-loss guarantee.",
+   "steps": [
+    "Check whether the trust is consolidated.",
+    "Apply the pass-through test.",
+    "Assess risks and rewards retained via the guarantee.",
+    "Measure continuing involvement if partial."
+   ],
+   "takeaway": "Consolidation comes before derecognition."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Regular-way purchases may be recognised using:",
+   "options": [
+    "Trade date or settlement date accounting, consistently",
+    "Only trade date",
+    "Only settlement date",
+    "Payment date"
+   ],
+   "answer": 0,
+   "explain": "A policy choice per category. In practice: disclose it.",
+   "concept": "c1",
+   "topic": "Initial recognition and regular-way trades",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "The first step in the derecognition tree after consolidation is:",
+   "options": [
+    "Whether rights to cash flows have expired",
+    "Risks and rewards",
+    "Control",
+    "Fair value"
+   ],
+   "answer": 0,
+   "explain": "Expiry ends the analysis. In practice: then check transfer.",
+   "concept": "c2",
+   "topic": "Derecognition of financial assets: the decision tree",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Receivables sold with full recourse are:",
+   "options": [
+    "Not derecognised; proceeds are a liability",
+    "Derecognised",
+    "Partially derecognised",
+    "Written off"
+   ],
+   "answer": 0,
+   "explain": "Credit risk retained. In practice: collateralised borrowing.",
+   "concept": "c3",
+   "topic": "Transfers, continuing involvement and factoring",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "When neither substantially all risks and rewards are transferred nor retained, the entity considers:",
+   "options": [
+    "Control",
+    "Fair value",
+    "Legal form",
+    "Tax effect"
+   ],
+   "answer": 0,
+   "explain": "Control decides. In practice: transferee's practical ability to sell.",
+   "concept": "c2",
+   "topic": "Derecognition of financial assets: the decision tree",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "The quantitative test for substantial modification of a liability uses a threshold of:",
+   "options": [
+    "Ten percent of present value",
+    "Five percent",
+    "Twenty percent",
+    "Any change"
+   ],
+   "answer": 0,
+   "explain": "Discount at the original EIR. In practice: include fees.",
+   "concept": "c4",
+   "topic": "Derecognition and modification of financial liabilities",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "A gain or loss on extinguishing a liability is recognised in:",
+   "options": [
+    "Profit or loss",
+    "OCI",
+    "Equity",
+    "Deferred income"
+   ],
+   "answer": 0,
+   "explain": "Difference between carrying amount and amount paid. In practice: include fees.",
+   "concept": "c4",
+   "topic": "Derecognition and modification of financial liabilities",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Firm commitments to buy goods are recognised:",
+   "options": [
+    "Generally when one party performs",
+    "At signing",
+    "Never",
+    "At fair value always"
+   ],
+   "answer": 0,
+   "explain": "Executory contracts. In practice: onerous ones fall under Ind AS 37.",
+   "concept": "c1",
+   "topic": "Initial recognition and regular-way trades",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "On derecognising debt at FVOCI, accumulated OCI is:",
+   "options": [
+    "Reclassified to profit or loss",
+    "Left in equity",
+    "Transferred to retained earnings",
+    "Reversed"
+   ],
+   "answer": 0,
+   "explain": "Debt FVOCI recycles. In practice: part of the gain.",
+   "concept": "c3",
+   "topic": "Transfers, continuing involvement and factoring",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Raven Ltd. transfers trade receivables of ₹100 lakh to a factor for ₹95 lakh. Case A: no recourse; the factor bears all credit risk. Case B: Raven must reimburse the factor for every default (full recourse) and expected losses are significant. Account for each case.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Analysis",
+      "₹ lakh"
+     ],
+     "rows": [
+      [
+       "A — derecognise",
+       "Substantially all risks and rewards transferred",
+       "—"
+      ],
+      [
+       "A — loss on sale",
+       "100 − 95",
+       "5"
+      ],
+      [
+       "B — keep receivables",
+       "Credit risk retained — risks and rewards kept",
+       "100"
+      ],
+      [
+       "B — collateralised borrowing",
+       "Cash received recognised as liability",
+       "95"
+      ]
+     ],
+     "title": "Derecognition test"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Case A",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "derecognis|loss"
+     ],
+     "min": 1,
+     "nums": [
+      5
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Case B",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "liability|borrowing"
+     ],
+     "min": 1,
+     "nums": [
+      95
+     ]
+    }
+   ],
+   "remarks": [
+    "Name the test."
+   ],
+   "mistakes": [
+    "Derecognising under recourse."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "100-95",
+     "value": 5,
+     "label": "Loss on sale without recourse (₹ lakh)"
+    },
+    {
+     "expr": "95",
+     "value": 95,
+     "label": "Financial liability recognised with full recourse (₹ lakh)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Raven Ltd. has a ₹100 lakh loan at amortised cost. It renegotiates terms with the same lender. The present value of new cash flows (including fees) discounted at the original effective interest rate is ₹88 lakh. Is this a substantial modification? If the new loan's fair value is ₹88 lakh, what is the gain?",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Working",
+      "Result"
+     ],
+     "rows": [
+      [
+       "Present value difference",
+       "(100 − 88) ÷ 100",
+       "12%"
+      ],
+      [
+       "10% test",
+       "12% ≥ 10%",
+       "Substantial — extinguishment"
+      ],
+      [
+       "Derecognise old, recognise new at fair value",
+       "100 − 88",
+       "₹12 lakh gain"
+      ]
+     ],
+     "title": "Quantitative 10% test"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Test",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "10%|test"
+     ],
+     "min": 1,
+     "nums": [
+      12
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Gain",
+     "m": 2.5,
+     "skill": "computation",
+     "kw": [
+      "gain"
+     ],
+     "min": 1,
+     "nums": [
+      12
+     ]
+    }
+   ],
+   "remarks": [
+    "Use original EIR."
+   ],
+   "mistakes": [
+    "Using new rate for the test."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "(100-88)/100*100",
+     "value": 12,
+     "label": "Difference in present values (%)"
+    },
+    {
+     "expr": "100-88",
+     "value": 12,
+     "label": "Gain on extinguishment if new loan fair value equals PV (₹ lakh)"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Recognise on becoming party to the contract.",
+   "Derecognition: expired → transferred → risks and rewards → control.",
+   "Retained risks: asset stays, proceeds are a liability.",
+   "Liabilities: extinguished when discharged, cancelled or expired.",
+   "10% test for substantial modification."
+  ],
+  "remember": [
+   "Consolidate before testing derecognition."
+  ],
+  "traps": [
+   "Derecognising receivables factored with recourse."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Recourse",
+   "v": "Borrowing"
+  },
+  {
+   "k": "Repo",
+   "v": "Borrowing"
+  },
+  {
+   "k": "Control",
+   "v": "Can transferee sell?"
+  },
+  {
+   "k": "Modification",
+   "v": "10% test"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "When is a financial instrument first recognised?",
+   "model": "At the moment the entity signs up to the instrument's contractual terms and becomes a party to them.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Party to contract",
+     "w": 6,
+     "kw": [
+      "party"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Contractual terms",
+     "w": 4,
+     "kw": [
+      "contractual"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "Describe a pass-through arrangement.",
+   "model": "The entity keeps the right to receive cash but must pay it on to others without material delay, is barred from selling or pledging the asset, and pays only what it collects.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Pass on cash",
+     "w": 5,
+     "kw": [
+      "pay|pass"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Barred from pledging",
+     "w": 5,
+     "kw": [
+      "barred"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What happens if risks and rewards are retained?",
+   "model": "The asset stays on the balance sheet and any consideration received is booked as a financial liability.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Asset stays",
+     "w": 5,
+     "kw": [
+      "stays"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Liability",
+     "w": 5,
+     "kw": [
+      "liability"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "What is the role of control in derecognition?",
+   "model": "If risks and rewards are partly kept, the transferee's practical ability to sell the asset unilaterally means control passed and the asset is derecognised.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Ability to sell",
+     "w": 6,
+     "kw": [
+      "sell"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Unilaterally",
+     "w": 4,
+     "kw": [
+      "unilateral"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "How is a non-substantial modification of a loan treated?",
+   "model": "The carrying amount is recalculated at the original effective rate and the difference goes to profit or loss.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Original effective rate",
+     "w": 6,
+     "kw": [
+      "original"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Profit or loss",
+     "w": 4,
+     "kw": [
+      "profit or loss"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Crest Bank Ltd.",
+   "difficulty": "moderate",
+   "case": "Crest Bank Ltd. sells government bonds (carrying ₹500 lakh) to a counterparty for ₹510 lakh under an agreement to repurchase them in 30 days at ₹512 lakh. It also sells a loan portfolio of ₹200 lakh outright for ₹198 lakh, retaining no exposure. A borrower's ₹40 lakh loan is waived by Crest's lender on Crest's own borrowings.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "The repo of bonds is:",
+     "options": [
+      "A collateralised borrowing; bonds stay on the books",
+      "A sale",
+      "A derivative only",
+      "Equity"
+     ],
+     "answer": 0,
+     "explain": "Fixed-price repurchase retains risks and rewards. In practice: interest of ₹2 lakh.",
+     "difficulty": "core",
+     "topic": "Transfers, continuing involvement and factoring"
+    },
+    {
+     "id": "k1b",
+     "q": "Loss on the outright loan sale (₹ lakh):",
+     "options": [
+      "2",
+      "0",
+      "198",
+      "10"
+     ],
+     "answer": 0,
+     "explain": "200 − 198. In practice: derecognise fully.",
+     "difficulty": "core",
+     "check": 2,
+     "topic": "Transfers, continuing involvement and factoring"
+    },
+    {
+     "id": "k1c",
+     "q": "The ₹40 lakh waiver on Crest's borrowing results in:",
+     "options": [
+      "A gain in profit or loss",
+      "Equity credit",
+      "OCI",
+      "No entry"
+     ],
+     "answer": 0,
+     "explain": "Extinguishment of part of a liability. In practice: unless lender is a shareholder acting as such.",
+     "difficulty": "moderate",
+     "topic": "Derecognition and modification of financial liabilities"
+    },
+    {
+     "id": "k1d",
+     "q": "Liability recognised on the repo (₹ lakh):",
+     "options": [
+      "510",
+      "512",
+      "500",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "Cash received is the liability, accreting to 512. In practice: the 2 is interest.",
+     "difficulty": "moderate",
+     "check": 510,
+     "topic": "Transfers, continuing involvement and factoring"
+    }
+   ]
+  }
+ ]
+}
