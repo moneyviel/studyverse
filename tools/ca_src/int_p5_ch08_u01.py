@@ -1,0 +1,147 @@
+"""CA Intermediate · Paper 5 Auditing and Ethics · Chapter 8 Audit Report.
+Scope follows the ICAI study material; explanations, names and figures are original."""
+from ikit import *
+
+UID = 'int-p5-ch08-u01'
+T1 = 'Forming the opinion and the unmodified report (SA 700)'
+T2 = 'Modified opinions (SA 705)'
+T3 = 'Emphasis of matter, other matter and key audit matters (SA 706, SA 701)'
+T4 = 'Comparatives, branch and joint audits (SA 710, SA 299, s. 143(8))'
+T5 = 'Reporting under the Companies Act and CARO 2020'
+
+
+def build():
+    i1 = {'id': 'i1', 'title': 'Which opinion?', 'difficulty': 'hard', 'minutes': 9,
+          'q': 'Decide the opinion: (a) Inventory is overstated by ₹40 lakh against materiality of ₹15 lakh; the error affects only inventory and profit. (b) Management has not consolidated a major subsidiary whose results would change almost every line of the group statements. (c) Records of a branch forming 10% of revenue were destroyed; no alternative evidence is available; the rest of the audit is clean. (d) The auditor could not obtain evidence for most balances because the accounting system crashed and backups failed.',
+          'solution': [table(['Case', 'Nature', 'Material and pervasive?', 'Opinion'], [
+              ['(a)', 'Misstatement', 'Material, not pervasive', 'Qualified'],
+              ['(b)', 'Misstatement', 'Material and pervasive', 'Adverse'],
+              ['(c)', 'Inability to obtain evidence', 'Material, not pervasive', 'Qualified'],
+              ['(d)', 'Inability to obtain evidence', 'Material and pervasive', 'Disclaimer']], title='SA 705 decision matrix'),
+              note('"Pervasive" means the effects are not confined to specific items, or, if confined, represent a substantial part of the statements, or relate to disclosures fundamental to users\' understanding.')],
+          'checks': []}
+
+    i2 = {'id': 'i2', 'title': 'Do we need CARO 2020?', 'difficulty': 'moderate', 'minutes': 7,
+          'q': 'State whether CARO 2020 applies for 2026-27: (a) a private company (not a holding or subsidiary of a public company) with paid-up capital and reserves ₹80 lakh, maximum bank borrowing ₹60 lakh, and revenue ₹9 crore; (b) the same company with revenue ₹12 crore; (c) a section 8 company; (d) a one person company; (e) a banking company.',
+          'solution': [table(['Case', 'CARO applies?', 'Reason'], [
+              ['(a)', 'No', 'Private company within all three limits (₹1 crore capital and reserves, ₹1 crore borrowings, ₹10 crore revenue), unless it is a small company in any case'],
+              ['(b)', 'Yes, unless it is a small company', 'Revenue exceeds ₹10 crore, so the private-company exemption fails'],
+              ['(c)', 'No', 'Section 8 companies are excluded'],
+              ['(d)', 'No', 'One person companies are excluded'],
+              ['(e)', 'No', 'Banking companies are excluded']], title='CARO 2020 applicability')],
+          'checks': []}
+
+    concepts = [
+        C('c1', T1, [
+            'SA 700: the auditor concludes whether, in all material respects, the statements follow the applicable financial reporting framework, after deciding whether reasonable assurance has been obtained — considering sufficiency of evidence, materiality of uncorrected misstatements, qualitative aspects of accounting practices (including bias) and the adequacy of disclosures.',
+            'An unmodified opinion is expressed when the statements are free from material misstatement and give a true and fair view. The report contains: title; addressee; opinion section first; basis for opinion (SAs followed, independence and ethics, sufficiency of evidence); going concern (where applicable); key audit matters (listed entities); other information; responsibilities of management and TCWG; auditor\'s responsibilities; other legal and regulatory requirements; signature with membership number and UDIN; place; and date.',
+            'The report cannot carry a date before the auditor holds sufficient appropriate evidence, including evidence that the complete set of statements has been prepared and those with authority have taken responsibility for them.'],
+          'The report\'s fixed structure lets readers find the opinion and its basis at a glance.',
+          'An audit report dated before the Board approves the accounts would be premature.'),
+        C('c2', T2, [
+            'SA 705: the opinion is modified when the auditor concludes the statements as a whole are materially misstated, or cannot obtain sufficient appropriate evidence to conclude that they are free from material misstatement.',
+            'Matrix: material but not pervasive misstatement — qualified; material and pervasive misstatement — adverse; inability to obtain evidence, material but not pervasive — qualified; material and pervasive — disclaimer.',
+            'When management imposes a limitation after acceptance that is likely to cause a qualified opinion or disclaimer, the auditor asks for its removal, then communicates with TCWG, performs alternative procedures, and if the effect could be material and pervasive, withdraws where possible or disclaims.',
+            'The modified report uses headings like "Qualified Opinion" and "Basis for Qualified Opinion", describing and quantifying the matter where practicable.'],
+          'Two questions decide the opinion: what kind of problem, and how widespread its effect.',
+          'A dispute over one large receivable usually gives a qualified opinion, not a disclaimer.'),
+        C('c3', T3, [
+            'SA 706: an Emphasis of Matter paragraph draws attention to a matter properly presented or disclosed that is fundamental to users\' understanding — e.g. uncertainty about exceptional litigation, a major catastrophe, or early application of a new standard. It does not modify the opinion.',
+            'An Other Matter paragraph covers something not shown in the statements that helps readers understand the audit, the auditor\'s duties or the report itself — e.g. prior-year statements audited by another auditor.',
+            'SA 701: key audit matters (KAMs) are those of most significance in the current audit, selected from matters communicated with TCWG, considering areas of higher risk, significant judgements and significant events. KAMs are required for listed entities, describing why each is a KAM and how it was addressed. A KAM is not a substitute for a modified opinion or for going concern reporting.'],
+          'EoM points to the accounts, Other Matter points to the audit, KAMs explain where the audit effort went.',
+          'A note about a fire that destroyed a factory after the year end may be emphasised by an EoM paragraph.'),
+        C('c4', T4, [
+            'SA 710: comparative information is presented either as corresponding figures (part of the current statements; the opinion refers only to the current period) or as comparative financial statements (the opinion covers each period presented). If the prior period was audited by a predecessor, an Other Matter paragraph says so, and if it was unaudited, that fact is stated.',
+            'Section 143(8): a company\'s branch may be audited by the company\'s auditor or another qualified person; the branch auditor reports to the company\'s auditor, who deals with the report as he considers necessary.',
+            'SA 299 (joint audit): joint auditors divide work and each is responsible for his share; they are jointly and severally responsible for work not divided, decisions on the nature, timing and extent of procedures agreed jointly, and for examining that the statements comply with law. Where they disagree, each expresses his own opinion in a separate report.'],
+          'Comparatives, branches and joint auditors each change who is responsible for which part of the report.',
+          'Two joint auditors who disagree on a provision issue separate reports.'),
+        C('c5', T5, [
+            'Section 143(1) requires the auditor to inquire into: whether loans and advances are properly secured and on terms not prejudicial; book entries prejudicial to the company; sale of assets (other than for investment or banking companies) below purchase price; loans and advances shown as deposits; personal expenses charged to revenue; and whether cash was actually received for shares allotted for cash. These are reported only if there is an adverse finding.',
+            'Section 143(3) requires the report to state, among other things: whether all information and explanations were obtained; proper books kept; branch reports dealt with; agreement of statements with books; compliance with Accounting Standards; observations with adverse effect on functioning; disqualification of directors under section 164(2); adequacy and operating effectiveness of internal financial controls; and Rule 11 matters (pending litigations, foreseeable losses, IEPF transfers, funding through intermediaries, dividend compliance, and use of accounting software with an audit trail).',
+            'CARO 2020 adds matters such as fixed assets, inventory, loans, deposits, statutory dues, defaults, fraud, related parties and cash losses. It does not apply to banking, insurance, section 8, one person and small companies, nor to private companies (not holding or subsidiary of a public company) whose paid-up capital and reserves and borrowings are each up to ₹1 crore and revenue up to ₹10 crore.'],
+          'The Act asks the auditor to look beyond the numbers into the way the company is run.',
+          'A private company with ₹11 crore revenue loses the CARO exemption even if its capital is small.'),
+    ]
+
+    jobs = [{'id': 'j1', 'title': 'Drafting a modified report', 'role': 'Audit senior',
+             'situation': 'The partner decides on a qualified opinion because a ₹2 crore impairment was not recognised.',
+             'steps': ['Change the heading to Qualified Opinion.', 'Describe and quantify the matter in Basis for Qualified Opinion.', 'Check effects on KAMs and other information sections.', 'Communicate the wording to TCWG before signing.'],
+             'takeaway': 'A modified report must explain the "what" and the "how much" clearly.'}]
+
+    mcqs = [
+        Q('m1', 'Material and pervasive misstatement leads to:', ['An adverse opinion', 'A qualified opinion', 'A disclaimer', 'An unmodified opinion with EoM'], 0,
+          'SA 705 requires an adverse opinion when misstatements are both material and pervasive. In practice: describe the effects in the basis paragraph.', 'c2', T2),
+        Q('m2', 'Inability to obtain evidence with possible effects material and pervasive results in:', ['Disclaimer of opinion', 'Adverse opinion', 'Qualified opinion', 'Emphasis of matter'], 0,
+          'Where the auditor cannot conclude on matters that could be material and pervasive, he disclaims. In practice: withdraw where law allows.', 'c2', T2),
+        Q('m3', 'In the auditor\'s report under SA 700, the first section is:', ['Opinion', 'Basis for opinion', 'Management\'s responsibilities', 'Key audit matters'], 0,
+          'The opinion section comes first, followed by the basis for opinion. In practice: headings are prescribed.', 'c1', T1),
+        Q('m4', 'An Emphasis of Matter paragraph is used for a matter that is:', ['Properly disclosed and fundamental to users\' understanding', 'Misstated in the accounts', 'Not disclosed in the accounts', 'A substitute for qualification'], 0,
+          'EoM highlights an adequately presented matter without modifying the opinion. In practice: refer to the note.', 'c3', T3),
+        Q('m5', 'Key audit matters are required to be communicated in the report of:', ['Listed entities', 'All partnership firms', 'Only banks', 'Only private companies'], 0,
+          'SA 701 applies to audits of listed entities and where the auditor decides or is required to communicate KAMs. In practice: select from matters discussed with TCWG.', 'c3', T3),
+        Q('m6', 'Joint auditors are jointly and severally responsible for:', ['Work not divided among them', 'Work done by the other auditor', 'Errors in branch accounts', 'Management\'s estimates'], 0,
+          'SA 299 makes them jointly responsible for undivided work and jointly agreed decisions, but each is responsible for his own allotted work. In practice: document the division.', 'c4', T4),
+        Q('m7', 'Under section 143(1), the auditor inquires whether:', ['Personal expenses have been charged to revenue account', 'Directors\' salaries are reasonable', 'Dividend rate is adequate', 'Share price is fair'], 0,
+          'Charging personal expenses to revenue is one of the six inquiry matters. In practice: report only if adverse.', 'c5', T5),
+        Q('m8', 'CARO 2020 does NOT apply to:', ['A one person company', 'A listed company', 'A public company with ₹50 crore revenue', 'A private company with ₹20 crore revenue'], 0,
+          'OPCs, small companies, banking, insurance and section 8 companies are excluded. In practice: test private companies against the three limits.', 'c5', T5),
+        Q('m9', 'Under corresponding figures, the auditor\'s opinion refers to:', ['Current period only', 'Each period presented', 'Prior period only', 'No period'], 0,
+          'Corresponding figures are part of the current statements; the opinion covers only the current period. In practice: comparative statements need an opinion on each period.', 'c4', T4),
+    ]
+
+    questions = [
+        W('q1', 6, i1['q'], i1['solution'],
+          [S('s1', 'Qualified for misstatement', 1.5, 'concept', 'qualified'), S('s2', 'Adverse', 1.5, 'concept', 'adverse'),
+           S('s3', 'Qualified for limitation', 1.5, 'concept', 'qualified'), S('s4', 'Disclaimer', 1.5, 'concept', 'disclaimer')],
+          ['Classify nature, then pervasiveness.'], ['Using disclaimer for misstatements.'], ['Matrix table.'], pad='table'),
+        W('q2', 5, i2['q'], i2['solution'],
+          [S('s1', 'Private company limits', 2, 'concept', '1 crore|10 crore'), S('s2', 'Excluded companies', 3, 'concept', 'section 8|one person|banking')],
+          ['Test all three limits.'], ['Forgetting the holding/subsidiary condition.'], ['Table.'], pad='table'),
+    ]
+
+    viva = [
+        V('v1', 'When is an opinion qualified?', 'When misstatements, or the possible effects of an inability to obtain evidence, are material but their effect is confined and not pervasive.',
+          [P('p1', 'Material', 5, 'material'), P('p2', 'Confined effect', 5, 'confined')], 'c2'),
+        V('v2', 'What does pervasive mean?', 'Effects that are not confined to specific elements, or if confined, form a substantial part of the statements, or relate to disclosures fundamental to understanding.',
+          [P('p1', 'Not confined', 5, 'confined'), P('p2', 'Substantial or fundamental', 5, 'substantial|fundamental')], 'c2'),
+        V('v3', 'How do Emphasis of Matter and Other Matter paragraphs differ?', 'Emphasis of Matter refers to a matter presented in the statements; Other Matter refers to something not presented but relevant to understanding the audit or report.',
+          [P('p1', 'EoM in statements', 5, 'presented|disclosed'), P('p2', 'OM about audit', 5, 'audit|report')], 'c3'),
+        V('v4', 'What is a key audit matter?', 'A matter of most significance in the audit of the current period, selected from those communicated with those charged with governance.',
+          [P('p1', 'Most significance', 6, 'significan'), P('p2', 'From TCWG matters', 4, 'governance')], 'c3'),
+        V('v5', 'To whom does a branch auditor report?', 'To the company\'s auditor, who deals with the branch report in his own report as he considers necessary.',
+          [P('p1', 'Company auditor', 6, 'company\'s auditor|company auditor'), P('p2', 'Deals with it', 4, 'deal|necessary')], 'c4'),
+    ]
+
+    cases = [{'id': 'k1', 'title': 'Sabarmati Steel Ltd.', 'difficulty': 'moderate',
+              'case': 'Sabarmati Steel Ltd. (listed) is audited jointly by CA Rao and CA Iyer. A major lawsuit is uncertain but fully disclosed. Impairment of a plant was assessed with significant judgement. One director is disqualified under section 164(2). The prior year was audited by another firm.',
+              'mcqs': [
+                  M('k1a', 'The disclosed lawsuit uncertainty may be highlighted through:', ['An Emphasis of Matter paragraph', 'A qualified opinion', 'An adverse opinion', 'A disclaimer'], 0,
+                    'A properly disclosed exceptional uncertainty fundamental to understanding may be emphasised without modification. In practice: refer to the note.', 'moderate', topic=T3),
+                  M('k1b', 'Plant impairment with significant judgement is likely to be:', ['A key audit matter', 'An Other Matter paragraph', 'Ignored', 'A CARO clause only'], 0,
+                    'Areas of significant judgement communicated with TCWG are candidates for KAMs in a listed entity. In practice: describe how it was addressed.', 'moderate', topic=T3),
+                  M('k1c', 'The director\'s disqualification is reported under:', ['Section 143(3)', 'Section 143(1)', 'SA 710', 'SA 299'], 0,
+                    'Section 143(3) requires a statement on whether any director is disqualified under section 164(2). In practice: check written representations from directors.', 'core', topic=T5),
+                  M('k1d', 'The prior-year audit by another firm is mentioned in:', ['An Other Matter paragraph', 'An Emphasis of Matter paragraph', 'The opinion paragraph', 'Key audit matters'], 0,
+                    'SA 710 requires an Other Matter paragraph stating that the prior period was audited by a predecessor, with the type of opinion. In practice: date of that report too.', 'core', topic=T4),
+              ]}]
+
+    return unit(UID, 'p5', 'int-p5-ch08', 1, 'Audit Report',
+                ['Form an opinion and draft the elements of an unmodified report.',
+                 'Choose the right modified opinion.',
+                 'Use EoM, Other Matter and KAM sections correctly.',
+                 'Apply rules for comparatives, branch and joint audits.',
+                 'Apply section 143 and CARO 2020 requirements.'],
+                {'difficulty': 'hard', 'minutes': {'learn': 50, 'practice': 35}, 'prereq': ['int-p5-ch07-u01'],
+                 'exam_tip': 'For opinion questions, build the 2×2 matrix: nature (misstatement / evidence) × effect (not pervasive / pervasive).'},
+                concepts, [i1, i2], jobs, mcqs, questions,
+                {'summary': ['SA 700: opinion first; basis; going concern; KAM; responsibilities; signature, UDIN, place, date.',
+                             'SA 705: qualified / adverse / disclaimer by nature and pervasiveness.',
+                             'SA 706: EoM (in statements) vs Other Matter (about audit); SA 701: KAMs for listed entities.',
+                             'SA 710 corresponding vs comparative; s. 143(8) branch; SA 299 joint audit.',
+                             's. 143(1) inquiries; s. 143(3) reporting; CARO 2020 exclusions.'],
+                 'remember': ['KAM never replaces a modified opinion.'],
+                 'traps': ['Going concern uncertainty has its own section, not EoM.', 'CARO private company test: all three limits.']},
+                [('Material, not pervasive', 'Qualified'), ('Pervasive misstatement', 'Adverse'), ('Pervasive limitation', 'Disclaimer'), ('Listed entity', 'KAMs')],
+                viva, cases)
