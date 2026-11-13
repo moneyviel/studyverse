@@ -1,0 +1,760 @@
+{
+ "schema": "ca-unit/1",
+ "id": "fin-p5-ch19-u01",
+ "level": "final",
+ "paper": "p5",
+ "chapter": "fin-p5-ch19",
+ "n": 1,
+ "title": "Demands and Recovery",
+ "outcomes": [
+  "Apply section 74A for determination of tax.",
+  "Compute penalties and reductions.",
+  "Apply general provisions on demands.",
+  "Apply recovery, instalments and provisional attachment."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 40,
+   "practice": 25
+  },
+  "prereq": [
+   "fin-p5-ch18-u01"
+  ],
+  "exam_tip": "Identify period (pre or post FY 2024-25), then fraud or non-fraud, then payment timing."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Determination of tax under section 74A",
+   "body": [
+    "For FY 2024-25 onwards, section 74A replaces sections 73 and 74 with a single procedure for tax not paid, short paid, erroneously refunded, or ITC wrongly availed — whether or not fraud is involved. Sections 73 and 74 continue for periods up to FY 2023-24.",
+    "The SCN must be issued within 42 months from the due date of the annual return (or date of erroneous refund) and the order within 12 months of the SCN, extendable by up to six months with recorded reasons. A statement for subsequent periods on the same grounds is treated as an SCN. No SCN is issued if the amount is below ₹1,000 in a financial year.",
+    "A pre-SCN intimation (DRC-01A) gives the taxpayer a chance to pay and close the matter."
+   ],
+   "analogy": "One section, one timeline, two penalty tracks.",
+   "work": "A FY 2025-26 demand needs an SCN by 30 June 2030."
+  },
+  {
+   "id": "c2",
+   "title": "Penalty and its reduction",
+   "body": [
+    "Non-fraud cases: penalty is the higher of 10% of tax and ₹10,000 (₹20,000 under IGST); waived if tax and interest are paid before SCN or within 60 days of it.",
+    "Fraud, wilful misstatement or suppression cases: penalty equal to tax, reduced to 15% if tax, interest and penalty are paid before SCN, 25% if within 60 days of SCN, and 50% if within 60 days of the order.",
+    "Self-assessed tax or tax collected but not paid within 30 days of the due date attracts the non-fraud penalty compulsorily, without the waiver option."
+   ],
+   "analogy": "Paying early cuts penalties sharply.",
+   "work": "In a fraud case, paying within 60 days of SCN reduces penalty from 100% to 25%."
+  },
+  {
+   "id": "c3",
+   "title": "General provisions on demands",
+   "body": [
+    "Section 75: where the demand under fraud is not sustained for want of fraud, it is redetermined as non-fraud; a hearing must be given if requested or adverse action is proposed, with up to three adjournments; the order cannot exceed the SCN amount or grounds; interest is payable whether or not mentioned.",
+    "Where a court or tribunal sets aside an order on limitation grounds, or periods are stayed by courts, those periods are excluded in computing limitation. Penalty is not imposed separately for the same act under different provisions.",
+    "Section 76: whoever collects money from customers in the name of tax must deposit it with the Government, with interest and penalty, even if the supply itself was not taxable."
+   ],
+   "analogy": "Procedural safeguards bind the adjudicating officer.",
+   "work": "An order cannot demand more than the amount in the SCN."
+  },
+  {
+   "id": "c4",
+   "title": "Recovery, instalments and provisional attachment",
+   "body": [
+    "Section 78: amounts under an order are payable within three months of service, or a shorter period if revenue so requires. Section 79 recovery modes: deduction from refunds or amounts owed by the Government, detention and sale of goods, garnishee notices to debtors or banks, distraint and sale of movable or immovable property, recovery as arrears of land revenue, and through a magistrate.",
+    "Section 80: the Commissioner may allow payment of amounts (other than self-assessed tax) in up to 24 monthly instalments with interest; default in any instalment makes the balance payable at once. Section 81 voids transfers made to defraud revenue during pending proceedings.",
+    "Section 83: the Commissioner may provisionally attach property, including bank accounts, during proceedings to protect revenue; the attachment lapses after one year from the order."
+   ],
+   "analogy": "Recovery is backed by strong powers, softened by instalments.",
+   "work": "A demand can be paid in up to 24 instalments with interest."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Penalty under section 74A",
+   "difficulty": "moderate",
+   "minutes": 8,
+   "q": "An IGST short payment of ₹8,00,000 relating to FY 2025-26 is detected. Compute the penalty (a) in a non-fraud case and (b) in a fraud case where the taxpayer pays tax and interest (i) before SCN, (ii) within 60 days of SCN, (iii) within 60 days of the order, (iv) later.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Rule",
+      "₹"
+     ],
+     "rows": [
+      [
+       "(a) Non-fraud",
+       "Higher of 10% of tax and ₹20,000 (IGST); nil if paid before SCN or within 60 days of SCN",
+       "80,000"
+      ],
+      [
+       "(b)(i) Fraud, before SCN",
+       "15%",
+       "1,20,000"
+      ],
+      [
+       "(b)(ii) Fraud, within 60 days of SCN",
+       "25%",
+       "2,00,000"
+      ],
+      [
+       "(b)(iii) Fraud, within 60 days of order",
+       "50%",
+       "4,00,000"
+      ],
+      [
+       "(b)(iv) Fraud, otherwise",
+       "100%",
+       "8,00,000"
+      ]
+     ],
+     "title": "Section 74A"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "max(800000*0.10,20000)",
+     "value": 80000,
+     "label": "Non-fraud penalty under IGST (₹)"
+    },
+    {
+     "expr": "800000*0.15",
+     "value": 120000,
+     "label": "Fraud: penalty if paid before SCN at 15% (₹)"
+    },
+    {
+     "expr": "800000*0.25",
+     "value": 200000,
+     "label": "Fraud: penalty if paid within 60 days of SCN at 25% (₹)"
+    },
+    {
+     "expr": "800000*0.50",
+     "value": 400000,
+     "label": "Fraud: penalty if paid within 60 days of order at 50% (₹)"
+    },
+    {
+     "expr": "800000*1.00",
+     "value": 800000,
+     "label": "Fraud: full penalty (₹)"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Time limits for a FY 2025-26 demand",
+   "difficulty": "core",
+   "minutes": 6,
+   "q": "For FY 2025-26, the annual return was due on 31 December 2026. Determine the last date for the SCN and for the order if the SCN is issued on 1 March 2030.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Rule",
+      "Date"
+     ],
+     "rows": [
+      [
+       "SCN",
+       "42 months from due date of annual return",
+       "30 June 2030"
+      ],
+      [
+       "Order",
+       "12 months from SCN, extendable by 6 (max 18)",
+       "28 February 2031 (or 31 August 2031 if extended)"
+      ],
+      [
+       "Minimum",
+       "No SCN if amount below ₹1,000 a year",
+       "—"
+      ]
+     ],
+     "title": "Section 74A(2) and (7)"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "42",
+     "value": 42,
+     "label": "Months from annual return due date to issue SCN"
+    },
+    {
+     "expr": "12+6",
+     "value": 18,
+     "label": "Maximum months from SCN to issue order"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "SCN response strategy",
+   "role": "GST litigation associate",
+   "situation": "A client receives a DRC-01A pre-SCN intimation.",
+   "steps": [
+    "Check limitation under section 74A.",
+    "Evaluate fraud allegation strength.",
+    "Compare penalty savings from early payment.",
+    "Reply or pay and close the matter."
+   ],
+   "takeaway": "Timing of payment decides the penalty bill."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Section 74A applies to tax for periods from:",
+   "options": [
+    "FY 2024-25 onwards",
+    "FY 2017-18 onwards",
+    "FY 2026-27 only",
+    "FY 2023-24 only"
+   ],
+   "answer": 0,
+   "explain": "Unified procedure. In practice: 73/74 for earlier.",
+   "concept": "c1",
+   "topic": "Determination of tax under section 74A",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "SCN under section 74A must be issued within:",
+   "options": [
+    "Forty-two months from annual return due date",
+    "Three years",
+    "Five years",
+    "Thirty months"
+   ],
+   "answer": 0,
+   "explain": "Section 74A(2). In practice: also from erroneous refund.",
+   "concept": "c1",
+   "topic": "Determination of tax under section 74A",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Order under section 74A must be issued within:",
+   "options": [
+    "Twelve months of SCN, extendable by six",
+    "Six months",
+    "Two years",
+    "Three months"
+   ],
+   "answer": 0,
+   "explain": "Section 74A(7). In practice: reasons recorded.",
+   "concept": "c1",
+   "topic": "Determination of tax under section 74A",
+   "difficulty": "core"
+  },
+  {
+   "id": "m4",
+   "q": "Non-fraud penalty under CGST is the higher of 10% of tax and:",
+   "options": [
+    "Ten thousand rupees",
+    "Twenty thousand rupees",
+    "Five thousand rupees",
+    "One lakh rupees"
+   ],
+   "answer": 0,
+   "explain": "Section 74A(5). In practice: IGST ₹20,000.",
+   "concept": "c2",
+   "topic": "Penalty and its reduction",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "In fraud cases, penalty if paid within 60 days of SCN is:",
+   "options": [
+    "Twenty-five percent",
+    "Fifteen percent",
+    "Fifty percent",
+    "Nil"
+   ],
+   "answer": 0,
+   "explain": "Section 74A(9). In practice: with tax and interest.",
+   "concept": "c2",
+   "topic": "Penalty and its reduction",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "Amounts due under an order must be paid within:",
+   "options": [
+    "Three months of service",
+    "Thirty days",
+    "One year",
+    "Seven days"
+   ],
+   "answer": 0,
+   "explain": "Section 78. In practice: shorter if revenue at risk.",
+   "concept": "c4",
+   "topic": "Recovery, instalments and provisional attachment",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Maximum monthly instalments under section 80:",
+   "options": [
+    "Twenty-four",
+    "Twelve",
+    "Thirty-six",
+    "Six"
+   ],
+   "answer": 0,
+   "explain": "Rule 158. In practice: not for self-assessed tax.",
+   "concept": "c4",
+   "topic": "Recovery, instalments and provisional attachment",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Provisional attachment under section 83 lapses after:",
+   "options": [
+    "One year from the order",
+    "Six months",
+    "Three years",
+    "Ninety days"
+   ],
+   "answer": 0,
+   "explain": "Section 83(2). In practice: fresh order needed.",
+   "concept": "c4",
+   "topic": "Recovery, instalments and provisional attachment",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 6,
+   "minutes": 11,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "An IGST short payment of ₹8,00,000 relating to FY 2025-26 is detected. Compute the penalty (a) in a non-fraud case and (b) in a fraud case where the taxpayer pays tax and interest (i) before SCN, (ii) within 60 days of SCN, (iii) within 60 days of the order, (iv) later.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Case",
+      "Rule",
+      "₹"
+     ],
+     "rows": [
+      [
+       "(a) Non-fraud",
+       "Higher of 10% of tax and ₹20,000 (IGST); nil if paid before SCN or within 60 days of SCN",
+       "80,000"
+      ],
+      [
+       "(b)(i) Fraud, before SCN",
+       "15%",
+       "1,20,000"
+      ],
+      [
+       "(b)(ii) Fraud, within 60 days of SCN",
+       "25%",
+       "2,00,000"
+      ],
+      [
+       "(b)(iii) Fraud, within 60 days of order",
+       "50%",
+       "4,00,000"
+      ],
+      [
+       "(b)(iv) Fraud, otherwise",
+       "100%",
+       "8,00,000"
+      ]
+     ],
+     "title": "Section 74A"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Non-fraud",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "10%"
+     ],
+     "min": 1,
+     "nums": [
+      80000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Fraud slabs",
+     "m": 4,
+     "skill": "computation",
+     "kw": [
+      "fraud"
+     ],
+     "min": 1,
+     "nums": [
+      120000,
+      200000,
+      400000,
+      800000
+     ]
+    }
+   ],
+   "remarks": [
+    "Show each stage."
+   ],
+   "mistakes": [
+    "Using ₹10,000 minimum for IGST."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "max(800000*0.10,20000)",
+     "value": 80000,
+     "label": "Non-fraud penalty under IGST (₹)"
+    },
+    {
+     "expr": "800000*0.15",
+     "value": 120000,
+     "label": "Fraud: penalty if paid before SCN at 15% (₹)"
+    },
+    {
+     "expr": "800000*0.25",
+     "value": 200000,
+     "label": "Fraud: penalty if paid within 60 days of SCN at 25% (₹)"
+    },
+    {
+     "expr": "800000*0.50",
+     "value": 400000,
+     "label": "Fraud: penalty if paid within 60 days of order at 50% (₹)"
+    },
+    {
+     "expr": "800000*1.00",
+     "value": 800000,
+     "label": "Fraud: full penalty (₹)"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "For FY 2025-26, the annual return was due on 31 December 2026. Determine the last date for the SCN and for the order if the SCN is issued on 1 March 2030.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Step",
+      "Rule",
+      "Date"
+     ],
+     "rows": [
+      [
+       "SCN",
+       "42 months from due date of annual return",
+       "30 June 2030"
+      ],
+      [
+       "Order",
+       "12 months from SCN, extendable by 6 (max 18)",
+       "28 February 2031 (or 31 August 2031 if extended)"
+      ],
+      [
+       "Minimum",
+       "No SCN if amount below ₹1,000 a year",
+       "—"
+      ]
+     ],
+     "title": "Section 74A(2) and (7)"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "SCN date",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "42 months"
+     ],
+     "min": 1,
+     "nums": [
+      42
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Order date",
+     "m": 2,
+     "skill": "analysis",
+     "kw": [
+      "12 months"
+     ],
+     "min": 1,
+     "nums": [
+      18
+     ]
+    }
+   ],
+   "remarks": [
+    "Count from annual return due date."
+   ],
+   "mistakes": [
+    "Counting from end of financial year."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "42",
+     "value": 42,
+     "label": "Months from annual return due date to issue SCN"
+    },
+    {
+     "expr": "12+6",
+     "value": 18,
+     "label": "Maximum months from SCN to issue order"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Section 74A from FY 2024-25: SCN 42 months; order 12 + 6 months.",
+   "Non-fraud: higher of 10% and ₹10,000; waived if paid early.",
+   "Fraud: 100%, reduced to 15%/25%/50%.",
+   "Section 75 safeguards; 76 tax collected not paid.",
+   "Sections 78–83: recovery in 3 months; 24 instalments; attachment one year."
+  ],
+  "remember": [
+   "No SCN below ₹1,000 a year."
+  ],
+  "traps": [
+   "Applying section 73/74 to FY 2025-26."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Demand",
+   "v": "Section 74A"
+  },
+  {
+   "k": "General provisions",
+   "v": "Section 75"
+  },
+  {
+   "k": "Recovery",
+   "v": "Section 79"
+  },
+  {
+   "k": "Instalments",
+   "v": "Section 80"
+  },
+  {
+   "k": "Attachment",
+   "v": "Section 83"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What happens if fraud is not established in a fraud SCN?",
+   "model": "The demand is redetermined as a non-fraud case under section 75(2).",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Redetermined",
+     "w": 5,
+     "kw": [
+      "redetermin"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Non-fraud",
+     "w": 5,
+     "kw": [
+      "non-fraud"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v2",
+   "q": "How many adjournments are allowed?",
+   "model": "Up to three adjournments during proceedings.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Three",
+     "w": 5,
+     "kw": [
+      "three"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Adjournments",
+     "w": 5,
+     "kw": [
+      "adjournment"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v3",
+   "q": "What is a garnishee notice?",
+   "model": "A notice requiring a debtor or bank of the defaulter to pay amounts owed directly to the Government.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Debtor",
+     "w": 5,
+     "kw": [
+      "debtor"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Pay to Government",
+     "w": 5,
+     "kw": [
+      "government"
+     ]
+    }
+   ],
+   "concept": "c4"
+  },
+  {
+   "id": "v4",
+   "q": "When is the non-fraud penalty compulsory?",
+   "model": "Where self-assessed tax or tax collected is unpaid beyond 30 days of the due date.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Self-assessed",
+     "w": 5,
+     "kw": [
+      "self-assessed"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Thirty days",
+     "w": 5,
+     "kw": [
+      "30 days"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v5",
+   "q": "What does section 76 require?",
+   "model": "Money collected from customers in the name of tax must be deposited with the Government, with interest and penalty.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Collected",
+     "w": 5,
+     "kw": [
+      "collected"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Deposited",
+     "w": 5,
+     "kw": [
+      "deposited"
+     ]
+    }
+   ],
+   "concept": "c3"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Suppressed turnover",
+   "difficulty": "moderate",
+   "case": "Ganesh Traders suppressed turnover for FY 2025-26, short-paying CGST ₹3,00,000 and SGST ₹3,00,000. It pays tax, interest and penalty within 60 days of the SCN.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Total tax short paid (₹):",
+     "options": [
+      "6,00,000",
+      "3,00,000",
+      "9,00,000",
+      "1,50,000"
+     ],
+     "answer": 0,
+     "explain": "CGST + SGST. In practice: plus interest.",
+     "difficulty": "core",
+     "check": 600000,
+     "topic": "Determination of tax under section 74A"
+    },
+    {
+     "id": "k1b",
+     "q": "Penalty rate applicable (%):",
+     "options": [
+      "25",
+      "15",
+      "50",
+      "100"
+     ],
+     "answer": 0,
+     "explain": "Fraud, within 60 days of SCN. In practice: section 74A(9).",
+     "difficulty": "core",
+     "check": 25,
+     "topic": "Penalty and its reduction"
+    },
+    {
+     "id": "k1c",
+     "q": "Total penalty payable (₹):",
+     "options": [
+      "1,50,000",
+      "90,000",
+      "3,00,000",
+      "6,00,000"
+     ],
+     "answer": 0,
+     "explain": "25% × 6 lakh. In practice: proceedings concluded.",
+     "difficulty": "core",
+     "check": 150000,
+     "topic": "Penalty and its reduction"
+    },
+    {
+     "id": "k1d",
+     "q": "After payment, proceedings are:",
+     "options": [
+      "Deemed concluded except for other noticees",
+      "Continued",
+      "Transferred to court",
+      "Reopened"
+     ],
+     "answer": 0,
+     "explain": "Section 74A(10). In practice: co-noticees separate.",
+     "difficulty": "core",
+     "topic": "General provisions on demands"
+    }
+   ]
+  }
+ ]
+}
