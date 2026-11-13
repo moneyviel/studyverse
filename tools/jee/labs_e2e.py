@@ -380,6 +380,14 @@ async def _(pg):
     await tap(pg, '#atN button', 2)                                                                   # 3 NO2 → very strong
     await tap(pg, '#atG button', 1)                                                                   # CH3 → weaker
 
+@lab('chem-u15', 'eas')
+async def _(pg):
+    await tap(pg, '#eaG button', 9)                                    # NO2 nitration: meta
+    await tap(pg, '#eaR button', 2)                                    # NO2 FC acylation: fails
+    await tap(pg, '#eaR button', 0); await tap(pg, '#eaG button', 4)   # NHCOCH3: para > 75%
+    await tap(pg, '#eaG button', 2)                                    # OCH3: fast
+    await tap(pg, '#eaG button', 5)                                    # Cl: slow but o/p
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])
