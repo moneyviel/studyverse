@@ -388,6 +388,14 @@ async def _(pg):
     await tap(pg, '#eaG button', 2)                                    # OCH3: fast
     await tap(pg, '#eaG button', 5)                                    # Cl: slow but o/p
 
+@lab('chem-u16', 'snarena')
+async def _(pg):
+    await tap(pg, '#snV button', 1)                                     # 2° + strong Nu + aprotic → SN2
+    await tap(pg, '#snS button', 5)                                     # neopentyl crawls
+    await tap(pg, '#snS button', 4); await tap(pg, '#snV button', 0)    # benzyl, protic: both
+    await tap(pg, '#snS button', 3); await tap(pg, '#snN button', 0)    # 3°, weak Nu, protic → SN1
+    await tap(pg, '#snN button', 2)                                     # 3° + base → E
+
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

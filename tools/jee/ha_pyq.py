@@ -1,0 +1,69 @@
+"""Real JEE Main questions — Chemistry Unit 16: Organic Compounds Containing Halogens. Our own solutions; chk checks
+reactivity orders against substituent constants (σ⁺) and carbocation stability, stereochemical outcomes (S_N1
+racemisation / S_N2 inversion), structures from orgkit, and name reactions/uses against a fact table from NCERT."""
+from common import new_registry, pick, verify
+from chemkit import stmt, ar, pickset
+from orgkit import Mol
+P, add = new_registry()
+STO = ['Both Statement I and Statement II are true', 'Both Statement I and Statement II are false', 'Statement I is true but Statement II is false', 'Statement I is false but Statement II is true']
+STC = ['Both Statement I and Statement II are correct', 'Both Statement I and Statement II are incorrect', 'Statement I is correct but Statement II is incorrect', 'Statement I is incorrect but Statement II is correct']
+NAME = {'Swarts': ('alkyl fluoride', 'AgF / Hg2F2 / CoF2 / SbF3'), 'Finkelstein': ('alkyl iodide', 'NaI in dry acetone'), 'Sandmeyer': ('aryl halide / aryl cyanide', 'CuCl, CuBr, CuCN'),
+        'Gattermann': ('aryl chloride / bromide', 'Cu powder + HX'), 'Wurtz-Fittig': ('alkylbenzene', 'Na, dry ether'), 'Fittig': ('biphenyl', 'Na, dry ether')}
+SIGP = {'p-NH2': -1.3, 'p-OH': -0.92, 'm-NO2': 0.71, 'p-NO2': 0.79}
+USE = {'CCl4': 'fire extinguisher', 'CH2Cl2': 'paint remover', 'DDT': 'non-biodegradable insecticide', 'freon': 'refrigerant'}
+
+# ---------------- substitution / elimination ----------------
+add(('2025', 'Apr', '2025-04-04', 2), 'sn', 'Given below are two statements : Statement (I) : Alcohols are formed when alkyl chlorides are treated with aqueous potassium hydroxide by elimination reaction. Statement (II) : In alcoholic potassium hydroxide, alkyl chlorides form alkenes by abstracting the hydrogen from the β-carbon. In the light of the above statements, choose the most appropriate answer from the options given below :',
+    ['Both Statement I and Statement II are incorrect', 'Statement I is incorrect but Statement II is correct', 'Both Statement I and Statement II are correct', 'Statement I is correct but Statement II is incorrect'], 2,
+    lambda: stmt(False, True, ['Both Statement I and Statement II are incorrect', 'Statement I is incorrect but Statement II is correct', 'Both Statement I and Statement II are correct', 'Statement I is correct but Statement II is incorrect']),
+    ['I: aqueous KOH gives alcohols by SUBSTITUTION (OH^{−} replaces Cl), not elimination. Incorrect.', 'II: alcoholic KOH (RO^{−}, a strong base) removes a β-H → alkene (dehydrohalogenation). Correct.'], 'sn', 1)
+add(('2024', 'Apr', '2024-04-08', 2), 'sn', "Given below are two statements : Statement (I) : S_{N}2 reactions are 'stereospecific', indicating that they result in the formation only one stereo-isomers as the product. Statement (II) : S_{N}1 reactions generally result in formation of product as racemic mixtures. In the light of the above options, choose the correct answer from the options given below :",
+    ['Statement I is true but Statement II is false', 'Statement I is false but Statement II is true', 'Both Statement I and Statement II is true', 'Both Statement I and Statement II is false'], 3,
+    lambda: stmt(True, True, ['Statement I is true but Statement II is false', 'Statement I is false but Statement II is true', 'Both Statement I and Statement II are true', 'Both Statement I and Statement II are false']),
+    ['S_{N}2: back-side attack → complete inversion, one stereoisomer. True.', 'S_{N}1: planar carbocation attacked from both faces → (mostly) racemic. True.'], 'sn', 1)
+add(('2026', 'Jan', '2026-01-21', 2), 'sn', 'The correct order of reactivity of the following benzyl halides towards reaction with KCN is : a = p-hydroxybenzyl bromide, b = p-aminobenzyl bromide, c = p-nitrobenzyl bromide, d = m-nitrobenzyl bromide', ['a > b > c > d', 'b > a > d > c', 'b > a > c > d', 'a > b > d > c'], 2,
+    lambda: pick(['abcd', 'badc', 'bacd', 'abdc'], ''.join(sorted('abcd', key=lambda k: SIGP[{'a': 'p-OH', 'b': 'p-NH2', 'c': 'p-NO2', 'd': 'm-NO2'}[k]]))),
+    ['Benzyl bromides react with a strong S_{N}1 character here: electron donors in the para position stabilise the benzylic cation (σ^{+}: p-NH_{2} −1.3, p-OH −0.9).', 'Nitro groups destabilise it, the para one (σ^{+} 0.79) more than meta (0.71): b > a > d > c.'], 'sn', 3)
+add(('2025', 'Jan', '2025-01-22', 1), 'sn', 'Given below are two statements : Statement I : CH_{3}–O–CH_{2}–Cl will undergo S_{N}1 reaction though it is a primary halide. Statement II : (CH_{3})_{3}C–CH_{2}–Cl will not undergo S_{N}2 reaction very easily though it is a primary halide. In the light of the above statements, choose the most appropriate answer from the options given below:',
+    ['Statement I is correct but Statement II is incorrect', 'Both Statement I and Statement II are correct', 'Statement I is incorrect but Statement II is correct', 'Both Statement I and Statement II are incorrect'], 2,
+    lambda: stmt(True, True, ['Statement I is correct but Statement II is incorrect', 'Both Statement I and Statement II are correct', 'Statement I is incorrect but Statement II is correct', 'Both Statement I and Statement II are incorrect']),
+    ['I: CH_{3}O–CH_{2}^{+} ↔ CH_{3}O^{+}=CH_{2} — the O lone pair stabilises the cation, so S_{N}1 works. Correct.', 'II: neopentyl chloride: the bulky t-butyl next door blocks back-side attack. Correct.'], 'sn', 2)
+add(('2024', 'Jan', '2024-01-27', 1), 'sn', 'The correct statement regarding nucleophilic substitution reaction in a chiral alkyl halide is ;', ['Retention occurs in S_{N}1 reaction and inversion occurs in S_{N}2 reaction.', 'Racemisation occurs in S_{N}1 reaction and retention occurs in S_{N}2 reaction.', 'Racemisation occurs in both S_{N}1 and S_{N}2 reactions.', 'Racemisation occurs in S_{N}1 reaction and inversion occurs in S_{N}2 reaction.'], 4,
+    lambda: pick([('ret', 'inv'), ('rac', 'ret'), ('rac', 'rac'), ('rac', 'inv')], ('rac', 'inv')), ['S_{N}1 via a planar carbocation → racemisation; S_{N}2 back-side attack → inversion (Walden).'], 'sn', 1)
+add(('2024', 'Jan', '2024-01-29', 1), 'sn', 'Given below are two statements : one is labelled as Assertion A and the other is labelled as Reason R : Assertion A : Aryl halides cannot be prepared by replacement of hydroxyl group of phenol by halogen atom. Reason R : Phenols react with halogen acids violently. In the light of the above statements, choose the most appropriate from the options given below:',
+    ['Both A and R are true but R is NOT the correct explanation of A', 'A is false but R is true', 'A is true but R is false', 'Both A and R are true and R is the correct explanation of A'], 3,
+    lambda: ar(True, False, False, ['Both A and R are true but R is NOT the correct explanation of A', 'A is false but R is true', 'A is true but R is false', 'Both A and R are true and R is the correct explanation of A']),
+    ['A: the C–OH bond of phenol has partial double-bond character (resonance), so OH is not replaced by X. True.', 'R: phenols do NOT react with HX (that is exactly why) — false.'], 'sn', 2)
+add(('2024', 'Jan', '2024-01-29', 2), 'sn', 'Alkyl halide is converted into alkyl isocyanide by reaction with', ['NaCN', 'NH_{4}CN', 'KCN', 'AgCN'], 4,
+    lambda: pick(['ionic', 'ionic', 'ionic', 'covalent'], 'covalent'), ['KCN/NaCN are ionic: the C end of CN^{−} attacks → nitriles R–CN.', 'AgCN is covalent (Ag–C≡N): only the N lone pair is free → isocyanide R–NC.'], 'sn', 1)
+add(('2026', 'Jan', '2026-01-22', 1), 'sn', 'As compared with chlorocyclohexane, which of the following statements correctly apply to chlorobenzene? A. The magnitude of negative charge is more on chlorine atom. B. The C–Cl bond has partial double bond character. C. C–Cl bond is less polar. D. C–Cl bond is longer due to repulsion between delocalised electrons of the aromatic ring and lone pairs of electrons of chlorine. E. The C–Cl bond is formed using sp^{2} hybridised orbital of carbon.',
+    ['A, C and E Only', 'B, C and D Only', 'A, D and E Only', 'B, C and E Only'], 4,
+    lambda: pickset(['A, C and E Only', 'B, C and D Only', 'A, D and E Only', 'B, C and E Only'], dict(A=False, B=True, C=True, D=False, E=True)),
+    ['Cl lone pair is delocalised into the ring → partial C=Cl character (B), shorter bond (D ✗), less negative charge on Cl so less polar (C ✓, A ✗).', 'The ring carbon is sp^{2} (more s character) (E ✓).'], 'sn', 2)
+
+# ---------------- preparation, name reactions, uses ----------------
+add(('2024', 'Feb', '2024-02-01', 2), 'prep', 'Match List - I (Compound) with List - II (Use): (A) Carbon tetrachloride (B) Methylene chloride (C) DDT (D) Freons; (I) Paint remover (II) Refrigerators and air conditioners (III) Fire extinguisher (IV) Non Biodegradable insecticide',
+    ['(A)-(I), (B)-(II), (C)-(III), (D)-(IV)', '(A)-(III), (B)-(I), (C)-(IV), (D)-(II)', '(A)-(IV), (B)-(III), (C)-(II), (D)-(I)', '(A)-(II), (B)-(III), (C)-(I), (D)-(IV)'], 2,
+    lambda: pick(['I II III IV', 'III I IV II', 'IV III II I', 'II III I IV'], ' '.join({'paint remover': 'I', 'refrigerant': 'II', 'fire extinguisher': 'III', 'non-biodegradable insecticide': 'IV'}[USE[k]] for k in ('CCl4', 'CH2Cl2', 'DDT', 'freon'))),
+    ['CCl_{4}: fire extinguisher (pyrene); CH_{2}Cl_{2}: paint remover/solvent.', 'DDT: persistent (non-biodegradable) insecticide; freons (CFCs): refrigerants and propellants.'], 'prep', 1)
+add(('2024', 'Apr', '2024-04-09', 2), 'prep', 'Which of the following compound can give positive iodoform test when treated with aqueous KOH solution followed by potassium hypoiodite.', ['CH_{3}CH_{2}COCH_{2}CH_{3}', 'CH_{3}CH_{2}CCl_{2}CH_{3}', 'CH_{3}CH_{2}CH_{2}CHO', 'CH_{3}CH_{2}CH(O)CH_{2} (1,2-epoxybutane)'], 2,
+    lambda: pick(['CCC(=O)CC', 'CCC(=O)C', 'CCCC=O', 'CCC(O)CO'], 'CCC(=O)C'),
+    ['Aqueous KOH hydrolyses the gem-dichloride CH_{3}CH_{2}CCl_{2}CH_{3} → gem-diol → butan-2-one, a methyl ketone → CHI_{3}.', 'Pentan-3-one and butanal have no CH_{3}CO– group; the epoxide gives a 1,2-diol (no CH_{3}CH(OH)–).'], 'prep', 2)
+add(('2026', 'Apr', '2026-04-02', 2), 'prep', 'Correct statements regarding alkyl halides (R–X) among the following are : A. Alcohol being less polar solvent as compared to water, alcoholic KOH favours elimination reaction with R–X. B. Order of reactivity towards S_{N}1 mechanism is C_{6}H_{5}–CH_{2}–Cl > C_{6}H_{5}–CHCl–C_{6}H_{5}. C. Non substituted aryl halides exhibit properties similar to alkyl halides. D. Vinyl chloride is an example of haloalkene and allyl chloride is an example of haloalkyne. E. R–Cl can be prepared by reacting R–OH with SOCl_{2} but Ar–Cl cannot be prepared by reacting Ar–OH with SOCl_{2}.',
+    ['A, B and C Only', 'B and D Only', 'A and E Only', 'D and E Only'], 3,
+    lambda: pickset(['A, B and C Only', 'B and D Only', 'A and E Only', 'D and E Only'], dict(A=True, B=False, C=False, D=False, E=True)),
+    ['B ✗: the diphenylmethyl cation (two rings) is more stable → Ph_{2}CHCl is faster. C ✗: aryl halides resist substitution.', 'D ✗: allyl chloride CH_{2}=CHCH_{2}Cl is also an alkene. A and E are correct.'], 'prep', 2)
+add(('2025', 'Jan', '2025-01-23', 1), 'prep', 'Match the LIST-I (Name Reaction) with LIST-II (Product Obtainable): A. Swarts reaction B. Sandmeyer\'s reaction C. Wurtz Fittig reaction D. Finkelstein reaction; I. Ethyl benzene II. Ethyl iodide III. Cyanobenzene IV. Ethyl fluoride',
+    ['A-II, B-III, C-I, D-IV', 'A-II, B-I, C-III, D-IV', 'A-IV, B-III, C-I, D-II', 'A-IV, B-I, C-III, D-II'], 3,
+    lambda: pick(['II III I IV', 'II I III IV', 'IV III I II', 'IV I III II'], ' '.join({'alkyl fluoride': 'IV', 'aryl halide / aryl cyanide': 'III', 'alkylbenzene': 'I', 'alkyl iodide': 'II'}[NAME[k][0]] for k in ('Swarts', 'Sandmeyer', 'Wurtz-Fittig', 'Finkelstein'))),
+    ['Swarts: R–Cl/Br + metal fluoride → R–F. Sandmeyer: ArN_{2}^{+} + CuCN → ArCN.', 'Wurtz–Fittig: ArX + RX + Na → Ar–R (ethylbenzene). Finkelstein: R–Cl/Br + NaI/acetone → R–I.'], 'prep', 1)
+add(('2026', 'Apr', '2026-04-04', 1), 'prep', 'Match the LIST-I (Name of reaction) with LIST-II (Reagent or catalyst used): A. Finkelstein reaction B. Swarts reaction C. Sandmeyer\'s reaction D. Fittig reaction; I. SbF_{3} II. Na, dry ether III. NaI IV. Cu_{2}Cl_{2}',
+    ['A-I, B-IV, C-III, D-II', 'A-III, B-I, C-IV, D-II', 'A-IV, B-II, C-I, D-III', 'A-I, B-III, C-II, D-IV'], 2,
+    lambda: pick(['I IV III II', 'III I IV II', 'IV II I III', 'I III II IV'], ' '.join({'NaI': 'III', 'SbF3': 'I', 'CuCl': 'IV', 'Na': 'II'}[k] for k in ('NaI', 'SbF3', 'CuCl', 'Na'))),
+    ['Finkelstein — NaI (acetone); Swarts — SbF_{3}/AgF; Sandmeyer — Cu_{2}Cl_{2} (CuCl); Fittig — Na in dry ether.'], 'prep', 1)
+add(('2026', 'Apr', '2026-04-06', 1), 'prep', 'Given below are two statements: Statement I: 3-phenylpropene reacts with HBr and gives secondary alkyl bromide having a chiral carbon atom as the major product. Statement II: Aryl chlorides and aryl cyanides can be prepared by Sandmeyer reaction as well as Gattermann reaction. In the light of the above statements, choose the correct answer from the options given below', STO, 3,
+    lambda: stmt(bool(Mol('CC(Br)Cc1ccccc1').chiral()), 'cyanide' in NAME['Gattermann'][0], STO),
+    ['I: PhCH_{2}CH=CH_{2} + HBr (Markovnikov) → PhCH_{2}CHBrCH_{3}, a 2° bromide with a chiral C. True.', 'II: Gattermann (Cu/HX) gives aryl chlorides/bromides, not aryl cyanides; only Sandmeyer (CuCN) gives ArCN. False.'], 'prep', 2)
+add(('2024', 'Jan', '2024-01-31', 1), 'prep', 'The product (C) in the below mentioned reaction is: CH_{3}–CH_{2}–CH_{2}–Br → (KOH(alc), Δ) A → (HBr) B → (KOH(aq), Δ) C', ['Propan-1-ol', 'Propene', 'Propyne', 'Propan-2-ol'], 4,
+    lambda: pick(['CCCO', 'C=CC', 'C#CC', 'CC(O)C'], 'CC(O)C'), ['alc. KOH: elimination → A propene. HBr (Markovnikov) → B 2-bromopropane.', 'aq. KOH: substitution → C propan-2-ol.'], 'prep', 1)
+for _p in P: _p['t'] = _p['fam']
