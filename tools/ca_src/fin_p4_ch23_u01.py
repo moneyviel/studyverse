@@ -80,7 +80,7 @@ def build():
         Q('m6', 'The ruling must be pronounced within:', ['Six months of receipt', 'Three months', 'One year', 'Sixty days'], 0,
           'Section 384. In practice: hearing on request.', 'c3', T3),
         Q('m7', 'A ruling obtained by fraud can be:', ['Declared void ab initio', 'Only modified', 'Ignored by the AO without order', 'Appealed only'], 0,
-          'Section 386. In practice: after hearing.', 'c4', T4),
+          'Section 386. In practice: on PCIT representation or otherwise.', 'c4', T4),
         Q('m8', 'Appeal against an advance ruling lies to:', ['The High Court within sixty days', 'The Tribunal', 'The CIT(A)', 'The Supreme Court directly'], 0,
           'Section 389. In practice: delay condonable.', 'c4', T4),
     ]
