@@ -257,6 +257,14 @@ async def _(pg):
     await build('MATHS', 'MHTSA')
     await build('KANPUR', 'AUKPRN')
     await build('BANANA', 'BAAANN')
+@lab('math-u05', 'pascal')
+async def _(pg):
+    await setr(pg, '#pxN', 12)
+    await pg.click('[data-n="10"][data-r="2"]')                 # row 10 → sum 1024
+    await pg.click('[data-n="7"][data-r="1"]'); await pg.click('[data-n="7"][data-r="2"]'); await pg.click('[data-n="7"][data-r="3"]')   # 7, 21, 35
+    await pg.click('[data-n="12"][data-r="6"]')                 # 924
+    await pg.click('[data-n="12"][data-r="2"]'); await pg.click('[data-n="12"][data-r="10"]')   # 66 = 66
+    await setr(pg, '#pxN', 16); await pg.click('#pxPar')
 async def main(only=None):
     async with async_playwright() as pw:
         b = await pw.chromium.launch(executable_path='/usr/bin/google-chrome', args=['--no-sandbox'])

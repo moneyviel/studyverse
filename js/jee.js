@@ -29,7 +29,7 @@
     chem: { n: 'Chemistry', e: '🧪', c: '#0ea5a4', u: [['Some Basic Concepts in Chemistry', 11], ['Atomic Structure', 11], ['Chemical Bonding and Molecular Structure', 11], ['Chemical Thermodynamics', 11], ['Solutions', 12], ['Equilibrium', 11], ['Redox Reactions and Electrochemistry', '11–12'], ['Chemical Kinetics', 12], ['Classification of Elements and Periodicity', 11], ['p-Block Elements', '11–12'], ['d- and f-Block Elements', 12], ['Coordination Compounds', 12], ['Purification and Characterisation of Organic Compounds', 11], ['Some Basic Principles of Organic Chemistry', 11], ['Hydrocarbons', 11], ['Organic Compounds Containing Halogens', 12], ['Organic Compounds Containing Oxygen', 12], ['Organic Compounds Containing Nitrogen', 12], ['Biomolecules', 12], ['Principles Related to Practical Chemistry', '11–12']] },
     math: { n: 'Mathematics', e: '📐', c: '#f97316', u: [['Sets, Relations and Functions', '11–12'], ['Complex Numbers and Quadratic Equations', 11], ['Matrices and Determinants', 12], ['Permutations and Combinations', 11], ['Binomial Theorem', 11], ['Sequence and Series', 11], ['Limit, Continuity and Differentiability', '11–12'], ['Integral Calculus', 12], ['Differential Equations', 12], ['Coordinate Geometry', 11], ['Three Dimensional Geometry', '11–12'], ['Vector Algebra', 12], ['Statistics and Probability', '11–12'], ['Trigonometry', 11]] },
   };
-  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 }, 'math-u01': { pyq: 65, prac: 780 }, 'math-u02': { pyq: 49, prac: 588 }, 'math-u04': { pyq: 41, prac: 492 } };
+  const READY = { 'phy-u01': { pyq: 76, prac: 912 }, 'phy-u12': { pyq: 31, prac: 366 }, 'phy-u17': { pyq: 46, prac: 552 }, 'chem-u02': { pyq: 46, prac: 552 }, 'chem-u08': { pyq: 47, prac: 564 }, 'chem-u01': { pyq: 48, prac: 576 }, 'math-u06': { pyq: 39, prac: 468 }, 'math-u03': { pyq: 32, prac: 384 }, 'phy-u06': { pyq: 44, prac: 524 }, 'phy-u11': { pyq: 69, prac: 828 }, 'phy-u08': { pyq: 40, prac: 480 }, 'phy-u09': { pyq: 28, prac: 336 }, 'phy-u15': { pyq: 34, prac: 408 }, 'phy-u18': { pyq: 73, prac: 876 }, 'chem-u05': { pyq: 33, prac: 396 }, 'chem-u06': { pyq: 54, prac: 648 }, 'chem-u07': { pyq: 69, prac: 828 }, 'chem-u04': { pyq: 42, prac: 504 }, 'chem-u03': { pyq: 57, prac: 684 }, 'chem-u09': { pyq: 50, prac: 600 }, 'chem-u10': { pyq: 39, prac: 468 }, 'phy-u02': { pyq: 47, prac: 564 }, 'phy-u03': { pyq: 49, prac: 588 }, 'phy-u04': { pyq: 34, prac: 408 }, 'phy-u05': { pyq: 51, prac: 612 }, 'phy-u07': { pyq: 75, prac: 900 }, 'phy-u10': { pyq: 51, prac: 612 }, 'math-u01': { pyq: 65, prac: 780 }, 'math-u02': { pyq: 49, prac: 588 }, 'math-u04': { pyq: 41, prac: 492 }, 'math-u05': { pyq: 26, prac: 312 } };
   const uidOf = (s, i) => `${s}-u${String(i + 1).padStart(2, '0')}`;
   const unitName = uid => { const [s, n] = uid.split('-u'); return SUBJ[s].u[+n - 1][0]; };
   const FOUND = [ // Class 9–10 bridge chapters that lead into JEE units
@@ -404,7 +404,7 @@
   const dimTxt = v => { const t = ['M', 'L', 'T', 'A'].map((s, k) => Math.abs(v[k]) > 1e-9 ? s + (v[k] === 1 ? '' : `<sup>${frac(v[k])}</sup>`) : '').join(''); return '[' + (t || 'M<sup>0</sup>L<sup>0</sup>T<sup>0</sup>') + ']'; };
   function labTab(body, d, uid) {
     if (d.labs && d.labs.length) {
-      const L = { rank: ['📖 Word Rank Machine', 'Build any arrangement of a word and watch the machine count, place by place, how many words come before it in the dictionary. 5 missions.', () => rankLab(uid)], argand: ['🧭 Argand Explorer', 'Drag a complex number round the plane — see its modulus and argument, raise it to a power and watch it spin and stretch. 5 missions.', () => argandLab(uid)], relation: ['🔗 Relation Builder', 'Tap pairs into a relation on {1, 2, 3, 4} and watch it become reflexive, symmetric, transitive — or a one-one onto function. 5 missions.', () => relLab(uid)], pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
+      const L = { pascal: ['🔺 Pascal Explorer', 'Build Pascal\'s triangle up to row 16, tap coefficients to find A.P.s, symmetry and the largest term, and watch odd numbers draw triangles inside triangles. 5 missions.', () => pascalLab(uid)], rank: ['📖 Word Rank Machine', 'Build any arrangement of a word and watch the machine count, place by place, how many words come before it in the dictionary. 5 missions.', () => rankLab(uid)], argand: ['🧭 Argand Explorer', 'Drag a complex number round the plane — see its modulus and argument, raise it to a power and watch it spin and stretch. 5 missions.', () => argandLab(uid)], relation: ['🔗 Relation Builder', 'Tap pairs into a relation on {1, 2, 3, 4} and watch it become reflexive, symmetric, transitive — or a one-one onto function. 5 missions.', () => relLab(uid)], pipe: ['🎺 Pipe Studio', 'Play open and closed pipes — change the length and the mode, see the standing wave, its nodes and the note it makes. 5 missions.', () => pipeLab(uid)], stokes: ['🫙 Stokes Tank', 'Drop balls into oil, glycerine and honey — change size and density, watch the speed level off at terminal velocity, and make a ball float or hover. 5 missions.', () => stokesLab(uid)], roll: ['🛞 Rolling Race', 'Race a ring, a disc and two balls down a slope — change the angle and friction, see who wins and how the energy splits between moving and spinning. 5 missions.', () => rollLab(uid)], collision: ['🎱 Collision Track', 'Crash two carts — change masses, speeds and bounciness, and watch momentum stay fixed while kinetic energy is lost. 5 missions.', () => collisionLab(uid)], incline: ['🧱 Friction Ramp', 'Tilt a ramp, change μ and push — see normal force, friction and acceleration, and find the angle of repose. 5 missions.', () => inclineLab(uid)],
         projectile: ['🏀 Projectile Launcher', 'Set speed, angle and launch height — watch the path, range, height and flight time; hit a flag and find twin angles. 5 missions.', () => projectileLab(uid)],
         circuit: ['🔋 Circuit Playground', 'Change emf, internal resistance and resistors — watch the current flow, the bulb glow and the power curve. 6 missions.', () => circuitLab(uid)],
         bridge: ['🌉 Meter Bridge Lab', 'Slide the jockey, watch the galvanometer needle, find the null point and unmask the hidden resistor.', () => bridgeLab(uid)],
@@ -1655,6 +1655,51 @@
     el.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { tap(); st.w = b.dataset.w; st.b = []; upd(); });
     $('#rkUndo').onclick = () => { tap(); st.b.pop(); upd(); }; $('#rkClr').onclick = () => { tap(); st.b = []; upd(); };
     upd();
+  }
+
+  /* ---------- Try it yourself: Binomial Theorem — Pascal Explorer ---------- */
+  function pascalLab(uid) {
+    const el = screen(), done = U(uid).lab || (U(uid).lab = {});
+    const st = { N: 8, par: false, sel: [] };
+    const C = (n, r) => { let v = 1; for (let i = 1; i <= r; i++) v = v * (n - i + 1) / i; return Math.round(v); };
+    const MIS = [['r10', 'Show a row whose numbers add up to 1024 (tap any number in it)', v => v.rowSum === 1024],
+      ['ap', 'Tap three neighbours in one row that form an A.P.', v => v.ap],
+      ['big', 'Tap the largest number in row 12', v => v.n === 12 && v.val === 924],
+      ['sym', 'Tap two equal numbers in the same row (C(n, r) = C(n, n − r))', v => v.sym],
+      ['tri', 'Turn on odd / even colours with 16 rows — spot the triangles inside triangles', v => v.par && v.N >= 16]];
+    el.innerHTML = `<div class="jx"><button class="jx-back" id="jxBack">← Try it yourself</button><div class="jx-card"><h3>🔺 Pascal Explorer</h3>
+      <p class="jx-fine">Row n of Pascal's triangle is the list of coefficients of (1 + x)ⁿ: C(n, 0), C(n, 1), … C(n, n). Every number is the sum of the two above it. Tap numbers to study them.</p>
+      <label class="jx-sl"><span>rows <b id="v_N">${st.N}</b></span><input type="range" min="4" max="16" step="1" value="${st.N}" id="pxN"></label>
+      <label style="display:flex;gap:8px;align-items:center;margin:6px 0"><input type="checkbox" id="pxPar"> <span class="jx-fine" style="margin:0">Colour odd / even numbers</span></label>
+      <div id="pxT" style="overflow-x:auto;padding:4px 0"></div><div class="jx-read" id="jxRead"></div>
+      <h3 style="margin-top:12px">🎯 Missions</h3><div id="jxMis"></div></div></div>`;
+    $('#jxBack').onclick = () => unit(uid, 'lab');
+    $('#pxN').oninput = e => { st.N = +e.target.value; $('#v_N').textContent = st.N; st.sel = []; upd({}); };
+    $('#pxPar').onchange = e => { st.par = e.target.checked; upd({}); };
+    const upd = (ev) => {
+      const w = Math.max(20, Math.min(38, Math.floor(330 / (st.N + 1)))), fs = st.N > 12 ? 0 : Math.min(13, w * 0.42);
+      let h = '';
+      for (let n = 0; n <= st.N; n++) {
+        h += `<div style="display:flex;justify-content:center;gap:2px;margin-bottom:2px">`;
+        for (let r = 0; r <= n; r++) { const v = C(n, r), on = st.sel.some(([a, b]) => a === n && b === r);
+          const bg = on ? '#f97316' : st.par ? (v % 2 ? '#7c3aed' : '#ede9fe') : '#ede9fe', col = on || (st.par && v % 2) ? '#fff' : '#4c1d95';
+          h += `<button data-n="${n}" data-r="${r}" style="width:${w}px;height:${Math.max(20, w * 0.8)}px;border:0;border-radius:7px;background:${bg};color:${col};font:700 ${fs}px inherit;padding:0">${fs ? v : ''}</button>`; }
+        h += '</div>';
+      }
+      $('#pxT').innerHTML = h;
+      el.querySelectorAll('#pxT [data-n]').forEach(b => b.onclick = () => { tap(); const n = +b.dataset.n, r = +b.dataset.r;
+        const i = st.sel.findIndex(([a, c]) => a === n && c === r); if (i >= 0) st.sel.splice(i, 1); else { if (st.sel.length && st.sel[0][0] !== n) st.sel = []; st.sel.push([n, r]); if (st.sel.length > 3) st.sel.shift(); }
+        upd({ n, r, val: C(n, r) }); });
+      const s = st.sel.slice().sort((a, b) => a[1] - b[1]), vals = s.map(([n, r]) => C(n, r));
+      const ap = s.length === 3 && s[1][1] === s[0][1] + 1 && s[2][1] === s[1][1] + 1 && 2 * vals[1] === vals[0] + vals[2];
+      const sym = s.length >= 2 && s.some((a, i) => s.some((b, j) => i < j && a[1] !== b[1] && C(a[0], a[1]) === C(b[0], b[1])));
+      const n0 = s.length ? s[0][0] : null, rowSum = n0 != null ? 2 ** n0 : 0;
+      $('#jxRead').innerHTML = n0 == null ? '<span>Tap a number</span>' : `<span>row <b>${n0}</b>: (1 + x)<sup>${n0}</sup></span><span>picked <b>${s.map(([n, r]) => 'C(' + n + ', ' + r + ') = ' + C(n, r)).join(' · ')}</b></span><span>row sum <b>2<sup>${n0}</sup> = ${rowSum}</b></span>${ap ? '<span>✨ <b>A.P.!</b></span>' : ''}`;
+      const v = { rowSum, ap, sym, par: st.par, N: st.N, n: ev.n, val: ev.val }; let fresh = false;
+      MIS.forEach(([k, , t]) => { if (!done['px_' + k] && t(v)) { done['px_' + k] = Date.now(); fresh = true; } }); if (fresh) { save(); tap('correct'); toast('🎯 Mission complete!'); }
+      $('#jxMis').innerHTML = MIS.map(([k, n]) => `<div class="jx-mis ${done['px_' + k] ? 'ok' : ''}">${done['px_' + k] ? '✅' : '⬜'} ${n}</div>`).join('');
+    };
+    upd({});
   }
 
   /* ---------- Try it yourself: Matrices and Determinants ---------- */

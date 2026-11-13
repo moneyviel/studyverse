@@ -1,0 +1,45 @@
+"""Concept cards for Mathematics Unit 5 — Binomial Theorem (written for StudyVerse)."""
+TOPICS = {'term': 'General term & coefficients', 'coef': 'Binomial coefficients & sums', 'rat': 'Rational & integral terms', 'rem': 'Remainders & last digits'}
+CARDS = [
+ dict(id='c1', t='The expansion', e='🌱', lvl='f', topic='term',
+  body=['(a + b)^{n} has n + 1 terms; the powers of a go down from n, the powers of b go up from 0.',
+        '<div class="jx-f">T_{r+1} = C(n, r) a^{n−r} b^{r}</div>',
+        'The coefficients are the n-th row of Pascal\'s triangle: each number is the sum of the two above it.',
+        'Middle term: T_{n/2 + 1} when n is even; two middle terms when n is odd.'],
+  check=dict(q='How many terms in (x + y)^{12}?', o=['13', '12', '24', '6'], a=0, why='n + 1.')),
+ dict(id='c2', t='Finding one term', e='🎯', lvl='m', topic='term',
+  body=['Write the power of x in T_{r+1} as a formula in r, set it equal to the power you want, solve for r.',
+        'Term independent of x: set the power to 0. If r is not a whole number from 0 to n, there is no such term.',
+        'A product like (1 + 2x)(1 − x)^{n}: pick a term from the first bracket and the matching term from the binomial, then add.'],
+  check=dict(q='Constant term of (x + \\f{1}{x})^{6}:', o=['20', '15', '6', '1'], a=0, why='r = 3: C(6, 3).')),
+ dict(id='c3', t='Sums of coefficients', e='➕', lvl='m', topic='coef',
+  body=['Put x = 1: Σ C(n, r) = 2^{n}. Put x = −1: alternating sum = 0, so odd-place and even-place sums are 2^{n−1} each.',
+        '<div class="jx-f">Σ rC(n, r) = n2^{n−1} · Σ C(n, r)^{2} = C(2n, n)</div>',
+        'Differentiate (1 + x)^{n} to bring down r; integrate to get \\f{1}{r + 1}.',
+        'Hockey stick: C(r, r) + C(r + 1, r) + … + C(n, r) = C(n + 1, r + 1).'],
+  check=dict(q='C(5, 0) + C(5, 1) + … + C(5, 5) =', o=['32', '25', '31', '10'], a=0, why='2^{5}.')),
+ dict(id='c4', t='Ratio of neighbours', e='⚖️', lvl='h', topic='coef',
+  body=['<div class="jx-f">\\f{C(n, r)}{C(n, r − 1)} = \\f{n − r + 1}{r}</div>',
+        'Three neighbours in A.P. or in a given ratio → two equations in n and r.',
+        'Greatest coefficient of (1 + x)^{n}: the middle one(s). For (a + bx)^{n}, find where the ratio of neighbours drops below 1.'],
+  check=dict(q='Largest coefficient in (1 + x)^{8}:', o=['70', '56', '28', '8'], a=0, why='C(8, 4).')),
+ dict(id='c5', t='Rational terms', e='🔢', lvl='m', topic='rat',
+  body=['In (a^{1/p} + b^{1/q})^{n}, the term T_{r+1} is rational when p divides (n − r) and q divides r.',
+        'Count the r that work; irrational terms = (n + 1) − rational terms.',
+        'Sum of rational terms of (b + √{a})^{n} = \\f{(b + √{a})^{n} + (b − √{a})^{n}}{2}.'],
+  check=dict(q='Rational terms in (√{2} + 3)^{4}:', o=['3', '2', '5', '4'], a=0, why='r = 0, 2, 4 for the power of √{2}.')),
+ dict(id='c6', t='Remainders', e='🧮', lvl='m', topic='rem',
+  body=['Write the base as (multiple of m) ± 1 and expand: every term but the last is divisible by m.',
+        'Or find a power of the base that is ≡ 1 or −1 (mod m), then split the exponent.',
+        'Last two digits = remainder on division by 100.'],
+  check=dict(q='Remainder of 8^{50} on division by 7:', o=['1', '6', '0', '8'], a=0, why='8 = 7 + 1.')),
+]
+FORMULAS = [('General term', 'T_{r+1} = C(n, r)a^{n−r}b^{r}'), ('Sum', 'Σ C(n, r) = 2^{n}'), ('Odd = even', 'Σ_{odd} = Σ_{even} = 2^{n−1}'), ('Weighted', 'Σ rC(n, r) = n2^{n−1}'),
+            ('Squares', 'Σ C(n, r)^{2} = C(2n, n)'), ('Neighbours', '\\f{C(n, r)}{C(n, r − 1)} = \\f{n − r + 1}{r}'), ('Hockey stick', 'Σ_{k=r}^{n} C(k, r) = C(n + 1, r + 1)'), ('Pascal', 'C(n, r) + C(n, r + 1) = C(n + 1, r + 1)')]
+TRAPS = ['T_{r+1}, not T_{r}, carries C(n, r).', 'Keep the sign of b: (x − y)^{n} has (−1)^{r}.', 'r must be a whole number from 0 to n — otherwise the term does not exist.',
+         '"Coefficient" includes the numbers inside the brackets, not just C(n, r).', 'Odd n has two middle terms.', 'Remainder must be between 0 and m − 1: turn −1 into m − 1.']
+STEPS = [dict(k='s1', t='Terms', e='🎯', cards=['c1', 'c2'], need=['term'], note='General term, constant term, one coefficient'),
+         dict(k='s2', t='Coefficients', e='➕', cards=['c3', 'c4'], need=['coef'], note='Sums, ratios, greatest'),
+         dict(k='s3', t='Number tricks', e='🔢', cards=['c5', 'c6'], need=['rat', 'rem'], note='Rational terms, remainders')]
+META = dict(unit='math-u05', subject='math', n=5, title='Binomial Theorem', cls=11, labs=['pascal'],
+            syllabus='Binomial theorem for a positive integral index, general term and middle term, and simple applications.')
