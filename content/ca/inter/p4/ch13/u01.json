@@ -1,0 +1,857 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p4-ch13-u01",
+ "level": "inter",
+ "paper": "p4",
+ "chapter": "int-p4-ch13",
+ "n": 1,
+ "title": "Standard Costing",
+ "outcomes": [
+  "Explain standards and the purpose of variance analysis.",
+  "Compute material and labour variances.",
+  "Compute overhead and sales variances.",
+  "Report and interpret variances."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 60
+  },
+  "prereq": [
+   "int-p4-ch12-u01"
+  ],
+  "exam_tip": "Compute the total variance first, then sub-variances, and show that they reconcile."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Standards, standard costing and variance analysis",
+   "body": [
+    "A standard is a predetermined measure of what cost should be under efficient conditions; standard costing compares actual costs with standards, finds variances, and analyses causes for corrective action.",
+    "Types of standards: ideal (perfect conditions), basic (unchanged long-term base), currently attainable (achievable with efficient effort — most useful), and normal (average over a cycle).",
+    "Setting standards needs input from purchasing (prices), engineering (quantities, times), HR (wage rates) and accounts (overhead rates), usually summarised on a standard cost card.",
+    "Variance = standard cost of actual output − actual cost; favourable when actual is lower, adverse when higher. Variances help apply management by exception."
+   ],
+   "analogy": "Standards are the \"should\" against which the \"did\" is measured.",
+   "work": "If standard material per chair is ₹500 and actual is ₹540, the ₹40 adverse variance triggers a check on price and usage."
+  },
+  {
+   "id": "c2",
+   "title": "Material and labour variances",
+   "body": [
+    "Material: cost variance = SQ × SP − AQ × AP; price variance = AQ × (SP − AP) (on purchase or on usage); usage variance = SP × (SQ − AQ), which splits into mix variance = SP × (revised SQ − AQ) and yield variance = SP × (SQ − revised SQ) when several materials are mixed.",
+    "Labour: cost variance = SH × SR − AH paid × AR; rate variance = AH paid × (SR − AR); idle time variance = idle hours × SR (always adverse); efficiency variance = SR × (SH − AH worked), which can be split into mix (gang) and yield (sub-efficiency) variances.",
+    "Causes: price — market changes, poor buying; usage — wastage, poor quality material; rate — wage revisions, wrong grade; efficiency — poor supervision, machine breakdown, untrained staff."
+   ],
+   "analogy": "Every variance splits into a price effect and a quantity effect.",
+   "work": "Buying cheaper but poorer material can give a favourable price variance and an adverse usage variance."
+  },
+  {
+   "id": "c3",
+   "title": "Overhead and sales variances",
+   "body": [
+    "Variable overheads: cost variance = standard VOH for actual output − actual VOH; expenditure variance = AH × standard rate − actual VOH; efficiency variance = standard rate × (SH − AH).",
+    "Fixed overheads: cost variance = absorbed (actual output × standard rate per unit) − actual; expenditure (budget) variance = budgeted − actual; volume variance = absorbed − budgeted, which splits into capacity, efficiency and calendar variances when hours are used.",
+    "Sales variances (turnover or margin basis): sales price variance = AQ × (AP − SP); sales volume variance = SP (or standard margin) × (AQ − BQ), splitting into mix and quantity variances for multiple products."
+   ],
+   "analogy": "Overhead variances separate overspending from under-use of capacity.",
+   "work": "Producing 1,000 units against a 1,200-unit budget leaves fixed overheads under-absorbed — an adverse volume variance."
+  },
+  {
+   "id": "c4",
+   "title": "Reporting and controlling variances",
+   "body": [
+    "Variances are reported regularly to the managers responsible — purchase manager for price, production manager for usage and efficiency.",
+    "Not all variances are controllable; uncontrollable ones (e.g. a statutory wage increase) may call for revising standards.",
+    "Advantages of standard costing: cost control, efficient pricing, budgeting support, simpler stock valuation; limitations: cost of setting standards, standards becoming outdated, and possible demotivation if standards are unrealistic."
+   ],
+   "analogy": "Variance analysis is valuable only if someone acts on it.",
+   "work": "A recurring adverse labour efficiency variance points to training or equipment problems."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "Where did the cost go?",
+   "difficulty": "moderate",
+   "minutes": 12,
+   "q": "Standard per unit: 2 kg of material at ₹50/kg; 3 labour hours at ₹100/hour. Actual output 1,000 units used 2,100 kg bought at ₹48/kg; workers were paid for 3,300 hours at ₹95/hour, of which 100 hours were idle due to a power failure. Compute material and labour variances.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Variance",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Material price",
+       "AQ × (SP − AP) = 2,100 × 2",
+       "4,200 F"
+      ],
+      [
+       "Material usage",
+       "SP × (SQ − AQ) = 50 × (2,000 − 2,100)",
+       "5,000 A"
+      ],
+      [
+       "Material cost",
+       "SC − AC = 1,00,000 − 1,00,800",
+       "800 A"
+      ],
+      [
+       "Labour rate",
+       "AH paid × (SR − AR) = 3,300 × 5",
+       "16,500 F"
+      ],
+      [
+       "Idle time",
+       "100 × ₹100",
+       "10,000 A"
+      ],
+      [
+       "Labour efficiency",
+       "SR × (SH − AH worked) = 100 × (3,000 − 3,200)",
+       "20,000 A"
+      ],
+      [
+       "Labour cost",
+       "SC − AC = 3,00,000 − 3,13,500",
+       "13,500 A"
+      ]
+     ],
+     "title": "Material and labour variances"
+    },
+    {
+     "t": "note",
+     "text": "Check: 4,200 F − 5,000 A = 800 A; 16,500 F − 10,000 A − 20,000 A = 13,500 A."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "2000*50 - 2100*48",
+     "value": -800,
+     "label": "Material cost variance (negative = adverse)"
+    },
+    {
+     "expr": "2100*(50-48)",
+     "value": 4200,
+     "label": "Material price variance"
+    },
+    {
+     "expr": "50*(2000-2100)",
+     "value": -5000,
+     "label": "Material usage variance"
+    },
+    {
+     "expr": "3000*100 - 3300*95",
+     "value": -13500,
+     "label": "Labour cost variance"
+    },
+    {
+     "expr": "3300*(100-95)",
+     "value": 16500,
+     "label": "Labour rate variance"
+    },
+    {
+     "expr": "-100*100",
+     "value": -10000,
+     "label": "Idle time variance"
+    },
+    {
+     "expr": "100*(3000-3200)",
+     "value": -20000,
+     "label": "Labour efficiency variance"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Fixed overheads",
+   "difficulty": "moderate",
+   "minutes": 7,
+   "q": "Budgeted fixed overheads ₹2,40,000 for 1,200 units (₹200 per unit). Actual fixed overheads ₹2,50,000; actual output 1,000 units. Compute the fixed overhead cost, expenditure and volume variances.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Variance",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Cost",
+       "Absorbed 2,00,000 − actual 2,50,000",
+       "50,000 A"
+      ],
+      [
+       "Expenditure",
+       "Budgeted 2,40,000 − actual 2,50,000",
+       "10,000 A"
+      ],
+      [
+       "Volume",
+       "Absorbed 2,00,000 − budgeted 2,40,000",
+       "40,000 A"
+      ]
+     ],
+     "title": "Fixed overhead variances"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000*200 - 250000",
+     "value": -50000,
+     "label": "Fixed overhead cost variance"
+    },
+    {
+     "expr": "240000-250000",
+     "value": -10000,
+     "label": "Fixed overhead expenditure variance"
+    },
+    {
+     "expr": "1000*200 - 240000",
+     "value": -40000,
+     "label": "Fixed overhead volume variance"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Monthly variance report",
+   "role": "Cost accountant trainee",
+   "situation": "The plant head wants a one-page explanation of why actual cost exceeded standard.",
+   "steps": [
+    "Compute material, labour and overhead variances.",
+    "Check that sub-variances add up.",
+    "Assign each to a responsible manager.",
+    "Note likely causes and actions."
+   ],
+   "takeaway": "Reconcile totals first — a variance report that does not add up loses credibility."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "The most useful standard for control is:",
+   "options": [
+    "Currently attainable standard",
+    "Ideal standard",
+    "Basic standard",
+    "Historical average"
+   ],
+   "answer": 0,
+   "explain": "Attainable standards are achievable with efficient effort, motivating staff while revealing real inefficiency. In practice: review them periodically.",
+   "concept": "c1",
+   "topic": "Standards, standard costing and variance analysis",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "AQ 500 kg at ₹22; SP ₹20. Material price variance:",
+   "options": [
+    "₹1,000 adverse",
+    "₹1,200 favourable",
+    "₹500 adverse",
+    "₹2,000 adverse"
+   ],
+   "answer": 0,
+   "explain": "500 × (20 − 22) = −1,000: adverse. In practice: check supplier prices.",
+   "concept": "c2",
+   "topic": "Material and labour variances",
+   "difficulty": "core",
+   "check": 1000
+  },
+  {
+   "id": "m3",
+   "q": "SQ 1,000 kg, AQ 950 kg, SP ₹10. Usage variance:",
+   "options": [
+    "₹500 favourable",
+    "₹600 adverse",
+    "₹950 favourable",
+    "₹50 favourable"
+   ],
+   "answer": 0,
+   "explain": "10 × (1,000 − 950) = ₹500 F. In practice: may reflect better material quality.",
+   "concept": "c2",
+   "topic": "Material and labour variances",
+   "difficulty": "core",
+   "check": 500
+  },
+  {
+   "id": "m4",
+   "q": "Idle time variance is:",
+   "options": [
+    "Always adverse",
+    "Always favourable",
+    "Either",
+    "Part of rate variance"
+   ],
+   "answer": 0,
+   "explain": "Paid hours not worked cost money with no output. In practice: separate normal idle time in the standard.",
+   "concept": "c2",
+   "topic": "Material and labour variances",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "SH 2,000; AH worked 2,200; SR ₹50. Labour efficiency variance:",
+   "options": [
+    "₹10,000 adverse",
+    "₹12,000 favourable",
+    "₹11,000 adverse",
+    "₹1,000 adverse"
+   ],
+   "answer": 0,
+   "explain": "50 × (2,000 − 2,200) = −10,000. In practice: investigate supervision.",
+   "concept": "c2",
+   "topic": "Material and labour variances",
+   "difficulty": "core",
+   "check": 10000
+  },
+  {
+   "id": "m6",
+   "q": "Fixed overhead volume variance arises from:",
+   "options": [
+    "Difference between actual and budgeted output",
+    "Overspending on overheads",
+    "Wage rate changes",
+    "Material price rises"
+   ],
+   "answer": 0,
+   "explain": "It is absorbed minus budgeted fixed overheads, due to output differing from budget. In practice: it reflects capacity use.",
+   "concept": "c3",
+   "topic": "Overhead and sales variances",
+   "difficulty": "core"
+  },
+  {
+   "id": "m7",
+   "q": "Budgeted FOH ₹1,00,000; actual ₹95,000. Expenditure variance:",
+   "options": [
+    "₹5,000 favourable",
+    "₹4,000 adverse",
+    "Nil",
+    "₹95,000"
+   ],
+   "answer": 0,
+   "explain": "Spent less than budget: favourable. In practice: check whether savings are sustainable.",
+   "concept": "c3",
+   "topic": "Overhead and sales variances",
+   "difficulty": "core",
+   "check": 5000
+  },
+  {
+   "id": "m8",
+   "q": "Actual 900 units sold at ₹105 vs standard price ₹100. Sales price variance:",
+   "options": [
+    "₹4,500 favourable",
+    "₹5,500 adverse",
+    "₹5,000 favourable",
+    "₹500 favourable"
+   ],
+   "answer": 0,
+   "explain": "900 × (105 − 100) = 4,500 F. In practice: volume variance is separate.",
+   "concept": "c3",
+   "topic": "Overhead and sales variances",
+   "difficulty": "core",
+   "check": 4500
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 8,
+   "minutes": 14,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Standard per unit: 2 kg of material at ₹50/kg; 3 labour hours at ₹100/hour. Actual output 1,000 units used 2,100 kg bought at ₹48/kg; workers were paid for 3,300 hours at ₹95/hour, of which 100 hours were idle due to a power failure. Compute material and labour variances.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Variance",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Material price",
+       "AQ × (SP − AP) = 2,100 × 2",
+       "4,200 F"
+      ],
+      [
+       "Material usage",
+       "SP × (SQ − AQ) = 50 × (2,000 − 2,100)",
+       "5,000 A"
+      ],
+      [
+       "Material cost",
+       "SC − AC = 1,00,000 − 1,00,800",
+       "800 A"
+      ],
+      [
+       "Labour rate",
+       "AH paid × (SR − AR) = 3,300 × 5",
+       "16,500 F"
+      ],
+      [
+       "Idle time",
+       "100 × ₹100",
+       "10,000 A"
+      ],
+      [
+       "Labour efficiency",
+       "SR × (SH − AH worked) = 100 × (3,000 − 3,200)",
+       "20,000 A"
+      ],
+      [
+       "Labour cost",
+       "SC − AC = 3,00,000 − 3,13,500",
+       "13,500 A"
+      ]
+     ],
+     "title": "Material and labour variances"
+    },
+    {
+     "t": "note",
+     "text": "Check: 4,200 F − 5,000 A = 800 A; 16,500 F − 10,000 A − 20,000 A = 13,500 A."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Material price and usage",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "price|usage"
+     ],
+     "min": 1,
+     "nums": [
+      4200
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Material cost check",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "cost"
+     ],
+     "min": 1,
+     "nums": [
+      800
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Labour rate and idle",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "rate|idle"
+     ],
+     "min": 1,
+     "nums": [
+      16500
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Labour efficiency and total",
+     "m": 3,
+     "skill": "computation",
+     "kw": [
+      "efficiency"
+     ],
+     "min": 1,
+     "nums": [
+      20000,
+      13500
+     ]
+    }
+   ],
+   "remarks": [
+    "Mark F/A every time."
+   ],
+   "mistakes": [
+    "Using paid hours for efficiency."
+   ],
+   "tips": [
+    "Variance table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "2000*50 - 2100*48",
+     "value": -800,
+     "label": "Material cost variance (negative = adverse)"
+    },
+    {
+     "expr": "2100*(50-48)",
+     "value": 4200,
+     "label": "Material price variance"
+    },
+    {
+     "expr": "50*(2000-2100)",
+     "value": -5000,
+     "label": "Material usage variance"
+    },
+    {
+     "expr": "3000*100 - 3300*95",
+     "value": -13500,
+     "label": "Labour cost variance"
+    },
+    {
+     "expr": "3300*(100-95)",
+     "value": 16500,
+     "label": "Labour rate variance"
+    },
+    {
+     "expr": "-100*100",
+     "value": -10000,
+     "label": "Idle time variance"
+    },
+    {
+     "expr": "100*(3000-3200)",
+     "value": -20000,
+     "label": "Labour efficiency variance"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 4,
+   "minutes": 7,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Budgeted fixed overheads ₹2,40,000 for 1,200 units (₹200 per unit). Actual fixed overheads ₹2,50,000; actual output 1,000 units. Compute the fixed overhead cost, expenditure and volume variances.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Variance",
+      "Working",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Cost",
+       "Absorbed 2,00,000 − actual 2,50,000",
+       "50,000 A"
+      ],
+      [
+       "Expenditure",
+       "Budgeted 2,40,000 − actual 2,50,000",
+       "10,000 A"
+      ],
+      [
+       "Volume",
+       "Absorbed 2,00,000 − budgeted 2,40,000",
+       "40,000 A"
+      ]
+     ],
+     "title": "Fixed overhead variances"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Cost",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "absorbed"
+     ],
+     "min": 1,
+     "nums": [
+      50000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Expenditure",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "budget"
+     ],
+     "min": 1,
+     "nums": [
+      10000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Volume",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "volume"
+     ],
+     "min": 1,
+     "nums": [
+      40000
+     ]
+    }
+   ],
+   "remarks": [
+    "Check: expenditure + volume = cost."
+   ],
+   "mistakes": [
+    "Using budgeted output for absorption."
+   ],
+   "tips": [
+    "Table."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000*200 - 250000",
+     "value": -50000,
+     "label": "Fixed overhead cost variance"
+    },
+    {
+     "expr": "240000-250000",
+     "value": -10000,
+     "label": "Fixed overhead expenditure variance"
+    },
+    {
+     "expr": "1000*200 - 240000",
+     "value": -40000,
+     "label": "Fixed overhead volume variance"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "MCV = SQ·SP − AQ·AP; MPV = AQ(SP − AP); MUV = SP(SQ − AQ).",
+   "LCV = SH·SR − AH·AR; LRV = AH paid(SR − AR); idle = idle hrs × SR; LEV = SR(SH − AH worked).",
+   "FOH: expenditure = budget − actual; volume = absorbed − budget.",
+   "Sales price = AQ(AP − SP); volume = SP(AQ − BQ)."
+  ],
+  "remember": [
+   "Standard quantity is for actual output."
+  ],
+  "traps": [
+   "Idle time variance is always adverse."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "MPV",
+   "v": "AQ(SP − AP)"
+  },
+  {
+   "k": "MUV",
+   "v": "SP(SQ − AQ)"
+  },
+  {
+   "k": "LRV",
+   "v": "AH(SR − AR)"
+  },
+  {
+   "k": "LEV",
+   "v": "SR(SH − AH)"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is standard costing?",
+   "model": "A technique that sets predetermined costs, compares actual costs with them, analyses the variances and takes corrective action.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Predetermined",
+     "w": 5,
+     "kw": [
+      "predetermined|standard"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Variance analysis",
+     "w": 5,
+     "kw": [
+      "variance"
+     ]
+    }
+   ],
+   "concept": "c1"
+  },
+  {
+   "id": "v2",
+   "q": "How is material usage variance computed?",
+   "model": "Standard price multiplied by the difference between standard quantity for actual output and actual quantity used.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Standard price",
+     "w": 5,
+     "kw": [
+      "standard price"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "SQ vs AQ",
+     "w": 5,
+     "kw": [
+      "quantity"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "Why separate idle time variance?",
+   "model": "Because paying for hours not worked has different causes, such as power failure, from inefficiency in hours actually worked.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Different cause",
+     "w": 5,
+     "kw": [
+      "cause|power"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Hours not worked",
+     "w": 5,
+     "kw": [
+      "not worked|idle"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v4",
+   "q": "What does fixed overhead volume variance show?",
+   "model": "The over- or under-absorption of fixed overheads because actual output differs from budgeted output.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Absorption",
+     "w": 5,
+     "kw": [
+      "absorb"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Output difference",
+     "w": 5,
+     "kw": [
+      "output"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "Name two limitations of standard costing.",
+   "model": "Standards are costly to set and may become outdated; unrealistic standards can demotivate staff.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Cost or outdated",
+     "w": 5,
+     "kw": [
+      "cost|outdated"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Demotivation",
+     "w": 5,
+     "kw": [
+      "demotiv|unrealistic"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "Crisp Snacks",
+   "difficulty": "moderate",
+   "case": "Crisp Snacks: standard for one packet — 0.5 kg potato at ₹30/kg. In March it made 4,000 packets using 2,100 kg bought at ₹28/kg. Standard labour 0.1 hour at ₹120; actual 420 hours at ₹125.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Material price variance:",
+     "options": [
+      "₹4,200 F",
+      "₹3,800 A",
+      "₹4,000 F",
+      "₹3,000 A"
+     ],
+     "answer": 0,
+     "explain": "2,100 × (30 − 28) = 4,200 F. In practice: seasonal prices.",
+     "difficulty": "core",
+     "check": 4200,
+     "topic": "Material and labour variances"
+    },
+    {
+     "id": "k1b",
+     "q": "Material usage variance:",
+     "options": [
+      "₹3,000 A",
+      "₹3,500 F",
+      "₹2,800 A",
+      "₹6,000 A"
+     ],
+     "answer": 0,
+     "explain": "SQ 2,000 kg; 30 × (2,000 − 2,100) = 3,000 A. In practice: check peeling wastage.",
+     "difficulty": "core",
+     "check": 3000,
+     "topic": "Material and labour variances"
+    },
+    {
+     "id": "k1c",
+     "q": "Labour rate variance:",
+     "options": [
+      "₹2,100 A",
+      "₹1,900 F",
+      "₹2,000 A",
+      "₹2,400 A"
+     ],
+     "answer": 0,
+     "explain": "420 × (120 − 125) = 2,100 A. In practice: overtime may explain it.",
+     "difficulty": "core",
+     "check": 2100,
+     "topic": "Material and labour variances"
+    },
+    {
+     "id": "k1d",
+     "q": "Labour efficiency variance:",
+     "options": [
+      "₹2,400 A",
+      "₹2,600 F",
+      "₹2,500 A",
+      "₹4,500 A"
+     ],
+     "answer": 0,
+     "explain": "SH 400; 120 × (400 − 420) = 2,400 A. In practice: total labour variance ₹4,500 A.",
+     "difficulty": "core",
+     "check": 2400,
+     "topic": "Material and labour variances"
+    }
+   ]
+  }
+ ]
+}
