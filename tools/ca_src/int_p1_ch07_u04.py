@@ -38,7 +38,7 @@ def build():
     concepts = [
         C('c1', T1, [
             'Accounting income is net profit before tax per the statement of profit and loss; taxable income is income on which tax is payable under the tax laws.',
-            'Tax expense (or saving) is the sum of the year\'s current tax and its deferred tax charge or credit in profit and loss. Current tax is tax payable on taxable income for the period; deferred tax is the tax effect of timing differences.',
+            'Tax expense (or saving) is the sum of the year\'s current tax and its deferred tax charge or credit in profit and loss. Current tax is tax payable on taxable income for the period; deferred tax captures the tax impact of items that are timed differently in the books and the return.',
             'AS 22 follows the matching concept: tax expense is matched with the accounting income of the period, not just the tax actually payable.'],
           'Tax expense in the accounts follows book profit, not just the tax bill.',
           'A company paying low tax because of accelerated tax depreciation still shows a normal tax charge via deferred tax.'),
@@ -61,7 +61,7 @@ def build():
           'Use enacted rates, no discounting, and keep testing the assets.',
           'If a lower tax rate is enacted, the existing deferred tax liability is remeasured downward.'),
         C('c5', T5, [
-            'Deferred tax assets and liabilities are shown separately from current tax and from other assets and liabilities. They may be netted only where the law gives the enterprise a right to net them and they relate to taxes on income levied by the same governing tax laws.',
+            'Deferred tax assets and liabilities are shown separately from current tax and from other assets and liabilities. They may be netted only where the law gives the enterprise a right to net them and both arise under one and the same income-tax law.',
             'Current tax assets and liabilities may be set off where there is a legal right and an intention to settle on a net basis.',
             'Disclose the break-up of deferred tax assets and liabilities into major components and, where deferred tax assets on losses are recognised, the nature of the evidence supporting them.'],
           'Keep deferred tax separate from current tax and explain where it comes from.',
