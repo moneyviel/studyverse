@@ -94,7 +94,7 @@ def build():
     ]
 
     viva = [
-        V('v1', 'Name the five fundamental principles.', 'Integrity, objectivity, professional competence and due care, confidentiality, and professional behaviour.',
+        V('v1', 'Name the five fundamental principles.', 'Integrity, objectivity, confidentiality, professional behaviour, and competence exercised with due care.',
           [P('p1', 'Integrity and objectivity', 5, 'integrity|objectivity'), P('p2', 'Competence, confidentiality, behaviour', 5, 'competence|confidential|behaviour')], 'c2'),
         V('v2', 'What are the steps of the conceptual framework?', 'Identify threats, evaluate whether they are acceptable, and address them by removing causes, applying safeguards or declining the activity.',
           [P('p1', 'Identify and evaluate', 5, 'identify|evaluate'), P('p2', 'Address', 5, 'address|safeguard')], 'c1'),
