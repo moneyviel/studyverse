@@ -1,0 +1,874 @@
+{
+ "schema": "ca-unit/1",
+ "id": "int-p4-ch10-u01",
+ "level": "inter",
+ "paper": "p4",
+ "chapter": "int-p4-ch10",
+ "n": 1,
+ "title": "Process & Operation Costing",
+ "outcomes": [
+  "Prepare process accounts with normal and abnormal losses or gains.",
+  "Compute equivalent production under FIFO and weighted average.",
+  "Explain inter-process profit and operation costing."
+ ],
+ "meta": {
+  "difficulty": "hard",
+  "minutes": {
+   "learn": 50,
+   "practice": 60
+  },
+  "prereq": [
+   "int-p4-ch09-u01"
+  ],
+  "exam_tip": "Always build the units reconciliation first (input = output + losses + closing WIP) before any rupee figure."
+ },
+ "concepts": [
+  {
+   "id": "c1",
+   "title": "Features of process costing and the process account",
+   "body": [
+    "Process costing suits continuous, mass production of identical units passing through sequential processes — chemicals, textiles, paper, oil refining, food processing. Costs are collected per process for a period and averaged over output.",
+    "Each process account is debited with materials, labour, direct expenses and overheads, and with the cost of units transferred from the previous process; it is credited with normal loss scrap, abnormal loss and output transferred to the next process or finished stock.",
+    "Unlike job costing, costs are not traced to individual orders; work-in-progress is common at period ends and must be converted into equivalent finished units."
+   ],
+   "analogy": "Costs follow the product through each stage, like water flowing through connected tanks.",
+   "work": "A paper mill has pulping, forming and finishing processes, each with its own account."
+  },
+  {
+   "id": "c2",
+   "title": "Normal loss, abnormal loss and abnormal gain",
+   "body": [
+    "Normal loss is the expected, unavoidable loss (evaporation, shrinkage). Its cost is absorbed by good output; scrap value of normal loss is credited to the process.",
+    "Abnormal loss is loss beyond normal, from inefficiency or accident. It is valued at the same cost per unit as good output — (total cost − normal scrap) ÷ (input − normal loss) — and credited to the process and debited to an Abnormal Loss Account, which in turn is credited with its scrap value and the balance written off to Costing P&L.",
+    "Abnormal gain arises when actual loss is less than normal. It is debited to the process at the normal cost per unit and credited to an Abnormal Gain Account; that account is debited with the scrap value forgone and the balance credited to Costing P&L."
+   ],
+   "analogy": "Expected losses raise unit cost; unexpected ones are isolated and reported.",
+   "work": "Normal loss 5%, actual loss 3%: the 2% difference is an abnormal gain."
+  },
+  {
+   "id": "c3",
+   "title": "Equivalent production: FIFO and weighted average",
+   "body": [
+    "Equivalent units express partly completed units as whole units: units × percentage complete, computed separately for each cost element because materials often enter at the start while conversion accrues gradually.",
+    "FIFO: opening WIP is completed first; current-period cost per EU uses only current costs and current work (opening WIP's remaining work + units started and completed + closing WIP work). Opening WIP cost is added only to completed units.",
+    "Weighted average: opening WIP cost and current cost are pooled; EU = completed units + closing WIP work; one average rate values both completed units and closing WIP.",
+    "Losses in EU: normal loss gets zero EU (its cost spreads to good units); abnormal loss gets EU to the stage of loss, usually 100%."
+   ],
+   "analogy": "Half-done units are counted as fractions of whole ones so costs can be shared fairly.",
+   "work": "1,000 units 50% converted equal 500 equivalent units of conversion work."
+  },
+  {
+   "id": "c4",
+   "title": "Inter-process profit and operation costing",
+   "body": [
+    "Inter-process profit: when output is transferred between processes at market price or cost plus a percentage, process accounts show profit at each stage. Unrealised profit in closing stock must be eliminated through a provision so that final profit is not overstated.",
+    "Operation costing is a refinement of process costing used where each operation is costed (cost per operation), such as in engineering units or bottle filling; it aids control at each step.",
+    "Process costing contrasts with job costing: continuous vs. order-based; average costs vs. specific costs; period accumulation vs. job completion."
+   ],
+   "analogy": "Transfer profits motivate managers but must be removed from unsold stock before reporting.",
+   "work": "Process I transfers at cost + 25%; profit on goods still in Process II stock is unrealised."
+  }
+ ],
+ "illustrations": [
+  {
+   "id": "i1",
+   "title": "A process with losses",
+   "difficulty": "moderate",
+   "minutes": 9,
+   "q": "10,000 units were put into Process I at a total cost of ₹3,02,000 (materials, labour and overheads). Normal loss is 10% of input; loss units sell as scrap at ₹5 each. Actual output was 8,800 units. Prepare the Process I account and value the abnormal loss.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Units",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Total cost charged (Dr)",
+       "10,000",
+       "3,02,000"
+      ],
+      [
+       "Normal loss (scrap value, Cr)",
+       "1,000",
+       "5,000"
+      ],
+      [
+       "Abnormal loss (Cr) @ ₹33",
+       "200",
+       "6,600"
+      ],
+      [
+       "Output to Process II (Cr) @ ₹33",
+       "8,800",
+       "2,90,400"
+      ]
+     ],
+     "title": "Process I account"
+    },
+    {
+     "t": "note",
+     "text": "Cost per unit = (total cost − scrap of normal loss) ÷ normal output = 2,97,000 ÷ 9,000 = ₹33. The abnormal loss account is then credited with ₹1,000 scrap value and the balance ₹5,600 goes to Costing P&L."
+    }
+   ],
+   "checks": [
+    {
+     "expr": "1000*5",
+     "value": 5000,
+     "label": "Scrap value of normal loss"
+    },
+    {
+     "expr": "(302000-5000)/9000",
+     "value": 33,
+     "label": "Cost per normal unit"
+    },
+    {
+     "expr": "200*33",
+     "value": 6600,
+     "label": "Abnormal loss"
+    },
+    {
+     "expr": "8800*33",
+     "value": 290400,
+     "label": "Value of good output transferred"
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "title": "Finishing what was started last month",
+   "difficulty": "hard",
+   "minutes": 12,
+   "q": "Opening WIP 2,000 units (materials 100%, conversion 60%) valued at ₹70,000. Units introduced 18,000; completed and transferred 17,000; closing WIP 3,000 (materials 100%, conversion 40%). Current costs: materials ₹3,60,000; conversion ₹5,10,000. Using FIFO, compute equivalent units, cost per EU, cost of completed units and closing WIP.",
+   "solution": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Materials",
+      "Conversion"
+     ],
+     "rows": [
+      [
+       "Completing opening WIP",
+       "0",
+       "800"
+      ],
+      [
+       "Started and completed (17,000 − 2,000)",
+       "15,000",
+       "15,000"
+      ],
+      [
+       "Closing WIP",
+       "3,000",
+       "1,200"
+      ],
+      [
+       "Equivalent units",
+       "18,000",
+       "17,000"
+      ],
+      [
+       "Current cost ₹",
+       "3,60,000",
+       "5,10,000"
+      ],
+      [
+       "Cost per EU ₹",
+       "20",
+       "30"
+      ]
+     ],
+     "title": "FIFO statement of equivalent production"
+    },
+    {
+     "t": "table",
+     "head": [
+      "Valuation",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Completed units: opening 70,000 + 800 × 30 + 15,000 × 50",
+       "8,44,000"
+      ],
+      [
+       "Closing WIP: 3,000 × 20 + 1,200 × 30",
+       "96,000"
+      ],
+      [
+       "Total (= 70,000 + 3,60,000 + 5,10,000)",
+       "9,40,000"
+      ]
+     ],
+     "title": "Valuation"
+    }
+   ],
+   "checks": [
+    {
+     "expr": "15000+3000",
+     "value": 18000,
+     "label": "Equivalent units — materials (FIFO)"
+    },
+    {
+     "expr": "2000*40/100+15000+3000*40/100",
+     "value": 17000,
+     "label": "Equivalent units — conversion (FIFO)"
+    },
+    {
+     "expr": "70000+800*30+15000*50",
+     "value": 844000,
+     "label": "Cost of units completed"
+    },
+    {
+     "expr": "3000*20+1200*30",
+     "value": 96000,
+     "label": "Closing WIP"
+    }
+   ]
+  }
+ ],
+ "jobs": [
+  {
+   "id": "j1",
+   "title": "Yield monitoring",
+   "role": "Cost accountant trainee",
+   "situation": "A chemicals plant's losses have crept above the normal rate.",
+   "steps": [
+    "Compute normal loss from input.",
+    "Compare with actual loss to find abnormal loss.",
+    "Value it at the process cost per unit.",
+    "Report causes and cost to production management."
+   ],
+   "takeaway": "Separating abnormal loss puts a rupee value on inefficiency."
+  }
+ ],
+ "mcqs": [
+  {
+   "id": "m1",
+   "q": "Process costing suits:",
+   "options": [
+    "Continuous production of identical units",
+    "Custom orders",
+    "Construction projects",
+    "Consulting assignments"
+   ],
+   "answer": 0,
+   "explain": "Process costing averages costs over homogeneous output. In practice: refineries and textile mills use it.",
+   "concept": "c1",
+   "topic": "Features of process costing and the process account",
+   "difficulty": "core"
+  },
+  {
+   "id": "m2",
+   "q": "Scrap value of normal loss is:",
+   "options": [
+    "Credited to the process account",
+    "Debited to the process account",
+    "Credited to Costing P&L",
+    "Ignored"
+   ],
+   "answer": 0,
+   "explain": "It reduces the cost borne by good output. In practice: it is a recovery, not income.",
+   "concept": "c2",
+   "topic": "Normal loss, abnormal loss and abnormal gain",
+   "difficulty": "core"
+  },
+  {
+   "id": "m3",
+   "q": "Input 5,000 units costing ₹1,00,000; normal loss 10% (scrap nil); output 4,400. Abnormal loss value:",
+   "options": [
+    "₹2,222",
+    "₹2,000",
+    "₹4,000",
+    "₹2,400"
+   ],
+   "answer": 0,
+   "explain": "Cost per unit = 1,00,000 ÷ 4,500 = ₹22.22; abnormal loss 100 units = ₹2,222. In practice: round consistently.",
+   "concept": "c2",
+   "topic": "Normal loss, abnormal loss and abnormal gain",
+   "difficulty": "moderate",
+   "check": 2222
+  },
+  {
+   "id": "m4",
+   "q": "Abnormal gain occurs when:",
+   "options": [
+    "Actual loss is less than normal loss",
+    "Actual loss exceeds normal loss",
+    "There is no scrap value",
+    "Output exceeds input"
+   ],
+   "answer": 0,
+   "explain": "Fewer units lost than expected gives an abnormal gain. In practice: it is credited, net of scrap forgone, to Costing P&L.",
+   "concept": "c2",
+   "topic": "Normal loss, abnormal loss and abnormal gain",
+   "difficulty": "core"
+  },
+  {
+   "id": "m5",
+   "q": "Under FIFO, cost per EU is based on:",
+   "options": [
+    "Current-period costs and current work only",
+    "Opening WIP cost plus current cost",
+    "Standard costs",
+    "Last period's rate"
+   ],
+   "answer": 0,
+   "explain": "FIFO separates opening WIP; weighted average pools. In practice: FIFO gives current efficiency.",
+   "concept": "c3",
+   "topic": "Equivalent production: FIFO and weighted average",
+   "difficulty": "core"
+  },
+  {
+   "id": "m6",
+   "q": "2,000 units in closing WIP are 30% complete for conversion. Conversion EU:",
+   "options": [
+    "600",
+    "2,000",
+    "1,400",
+    "300"
+   ],
+   "answer": 0,
+   "explain": "2,000 × 30% = 600. In practice: materials may be 100% complete.",
+   "concept": "c3",
+   "topic": "Equivalent production: FIFO and weighted average",
+   "difficulty": "core",
+   "check": 600
+  },
+  {
+   "id": "m7",
+   "q": "Normal loss is given equivalent units of:",
+   "options": [
+    "Zero",
+    "100%",
+    "50%",
+    "Same as closing WIP"
+   ],
+   "answer": 0,
+   "explain": "Its cost is absorbed by good units, so no EU is assigned. In practice: abnormal loss gets EU.",
+   "concept": "c3",
+   "topic": "Equivalent production: FIFO and weighted average",
+   "difficulty": "core"
+  },
+  {
+   "id": "m8",
+   "q": "Unrealised inter-process profit in closing stock is:",
+   "options": [
+    "Eliminated through a provision",
+    "Added to profit",
+    "Ignored",
+    "Charged to the next process"
+   ],
+   "answer": 0,
+   "explain": "Only profit on goods sold outside is realised. In practice: compute the profit element in each stock layer.",
+   "concept": "c4",
+   "topic": "Inter-process profit and operation costing",
+   "difficulty": "core"
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "marks": 5,
+   "minutes": 9,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "10,000 units were put into Process I at a total cost of ₹3,02,000 (materials, labour and overheads). Normal loss is 10% of input; loss units sell as scrap at ₹5 each. Actual output was 8,800 units. Prepare the Process I account and value the abnormal loss.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Units",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Total cost charged (Dr)",
+       "10,000",
+       "3,02,000"
+      ],
+      [
+       "Normal loss (scrap value, Cr)",
+       "1,000",
+       "5,000"
+      ],
+      [
+       "Abnormal loss (Cr) @ ₹33",
+       "200",
+       "6,600"
+      ],
+      [
+       "Output to Process II (Cr) @ ₹33",
+       "8,800",
+       "2,90,400"
+      ]
+     ],
+     "title": "Process I account"
+    },
+    {
+     "t": "note",
+     "text": "Cost per unit = (total cost − scrap of normal loss) ÷ normal output = 2,97,000 ÷ 9,000 = ₹33. The abnormal loss account is then credited with ₹1,000 scrap value and the balance ₹5,600 goes to Costing P&L."
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "Normal loss scrap",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "scrap"
+     ],
+     "min": 1,
+     "nums": [
+      5000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "Cost per unit",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "per unit"
+     ],
+     "min": 1,
+     "nums": [
+      33
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Abnormal loss and output",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "abnormal"
+     ],
+     "min": 1,
+     "nums": [
+      6600,
+      290400
+     ]
+    }
+   ],
+   "remarks": [
+    "Divide by normal output."
+   ],
+   "mistakes": [
+    "Dividing by actual output."
+   ],
+   "tips": [
+    "Process account."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "1000*5",
+     "value": 5000,
+     "label": "Scrap value of normal loss"
+    },
+    {
+     "expr": "(302000-5000)/9000",
+     "value": 33,
+     "label": "Cost per normal unit"
+    },
+    {
+     "expr": "200*33",
+     "value": 6600,
+     "label": "Abnormal loss"
+    },
+    {
+     "expr": "8800*33",
+     "value": 290400,
+     "label": "Value of good output transferred"
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "marks": 7,
+   "minutes": 13,
+   "difficulty": "core",
+   "pad": "table",
+   "q": "Opening WIP 2,000 units (materials 100%, conversion 60%) valued at ₹70,000. Units introduced 18,000; completed and transferred 17,000; closing WIP 3,000 (materials 100%, conversion 40%). Current costs: materials ₹3,60,000; conversion ₹5,10,000. Using FIFO, compute equivalent units, cost per EU, cost of completed units and closing WIP.",
+   "model": [
+    {
+     "t": "table",
+     "head": [
+      "Item",
+      "Materials",
+      "Conversion"
+     ],
+     "rows": [
+      [
+       "Completing opening WIP",
+       "0",
+       "800"
+      ],
+      [
+       "Started and completed (17,000 − 2,000)",
+       "15,000",
+       "15,000"
+      ],
+      [
+       "Closing WIP",
+       "3,000",
+       "1,200"
+      ],
+      [
+       "Equivalent units",
+       "18,000",
+       "17,000"
+      ],
+      [
+       "Current cost ₹",
+       "3,60,000",
+       "5,10,000"
+      ],
+      [
+       "Cost per EU ₹",
+       "20",
+       "30"
+      ]
+     ],
+     "title": "FIFO statement of equivalent production"
+    },
+    {
+     "t": "table",
+     "head": [
+      "Valuation",
+      "₹"
+     ],
+     "rows": [
+      [
+       "Completed units: opening 70,000 + 800 × 30 + 15,000 × 50",
+       "8,44,000"
+      ],
+      [
+       "Closing WIP: 3,000 × 20 + 1,200 × 30",
+       "96,000"
+      ],
+      [
+       "Total (= 70,000 + 3,60,000 + 5,10,000)",
+       "9,40,000"
+      ]
+     ],
+     "title": "Valuation"
+    }
+   ],
+   "scheme": [
+    {
+     "id": "s1",
+     "pt": "EU materials",
+     "m": 1,
+     "skill": "computation",
+     "kw": [
+      "materials"
+     ],
+     "min": 1,
+     "nums": [
+      18000
+     ]
+    },
+    {
+     "id": "s2",
+     "pt": "EU conversion",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "conversion"
+     ],
+     "min": 1,
+     "nums": [
+      17000
+     ]
+    },
+    {
+     "id": "s3",
+     "pt": "Completed units",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "completed"
+     ],
+     "min": 1,
+     "nums": [
+      844000
+     ]
+    },
+    {
+     "id": "s4",
+     "pt": "Closing WIP",
+     "m": 2,
+     "skill": "computation",
+     "kw": [
+      "closing"
+     ],
+     "min": 1,
+     "nums": [
+      96000
+     ]
+    }
+   ],
+   "remarks": [
+    "Separate opening WIP under FIFO."
+   ],
+   "mistakes": [
+    "Using weighted average when FIFO is asked."
+   ],
+   "tips": [
+    "Two tables."
+   ],
+   "extra_ok": true,
+   "checks": [
+    {
+     "expr": "15000+3000",
+     "value": 18000,
+     "label": "Equivalent units — materials (FIFO)"
+    },
+    {
+     "expr": "2000*40/100+15000+3000*40/100",
+     "value": 17000,
+     "label": "Equivalent units — conversion (FIFO)"
+    },
+    {
+     "expr": "70000+800*30+15000*50",
+     "value": 844000,
+     "label": "Cost of units completed"
+    },
+    {
+     "expr": "3000*20+1200*30",
+     "value": 96000,
+     "label": "Closing WIP"
+    }
+   ]
+  }
+ ],
+ "revision": {
+  "summary": [
+   "Process A/c: debit costs; credit normal scrap, abnormal loss, output.",
+   "Cost per unit = (cost − normal scrap) ÷ normal output.",
+   "Abnormal loss/gain valued at that rate; net to Costing P&L.",
+   "EU: FIFO (current only) vs weighted average (pooled).",
+   "Eliminate unrealised inter-process profit."
+  ],
+  "remember": [
+   "Normal loss gets zero EU."
+  ],
+  "traps": [
+   "Abnormal gain account is debited with scrap value forgone."
+  ]
+ },
+ "quickref": [
+  {
+   "k": "Cost per unit",
+   "v": "(Cost − scrap) ÷ normal output"
+  },
+  {
+   "k": "Abnormal loss",
+   "v": "At normal unit cost"
+  },
+  {
+   "k": "FIFO EU",
+   "v": "Current work only"
+  }
+ ],
+ "viva": [
+  {
+   "id": "v1",
+   "q": "What is normal loss?",
+   "model": "The expected and unavoidable loss inherent in a process, whose cost is absorbed by good output after crediting scrap value.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Expected",
+     "w": 5,
+     "kw": [
+      "expected|unavoidable"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Absorbed",
+     "w": 5,
+     "kw": [
+      "absorb|good output"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v2",
+   "q": "How is abnormal loss valued?",
+   "model": "At the cost per unit of normal output: total cost less scrap of normal loss, divided by input less normal loss units.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Normal output basis",
+     "w": 6,
+     "kw": [
+      "normal"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Scrap deducted",
+     "w": 4,
+     "kw": [
+      "scrap"
+     ]
+    }
+   ],
+   "concept": "c2"
+  },
+  {
+   "id": "v3",
+   "q": "What is an equivalent unit?",
+   "model": "A notional whole unit representing partly completed work, found by multiplying units by their percentage of completion.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Notional whole unit",
+     "w": 5,
+     "kw": [
+      "whole|notional"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Percentage completion",
+     "w": 5,
+     "kw": [
+      "percentage|complet"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v4",
+   "q": "How do FIFO and weighted average differ?",
+   "model": "FIFO uses only current costs and work and keeps opening WIP separate; weighted average pools opening and current costs into one rate.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "FIFO separate",
+     "w": 5,
+     "kw": [
+      "separate|current"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Average pools",
+     "w": 5,
+     "kw": [
+      "pool|average"
+     ]
+    }
+   ],
+   "concept": "c3"
+  },
+  {
+   "id": "v5",
+   "q": "What is operation costing?",
+   "model": "A form of process costing that determines the cost of each operation rather than each process, for closer control.",
+   "points": [
+    {
+     "id": "p1",
+     "pt": "Each operation",
+     "w": 6,
+     "kw": [
+      "operation"
+     ]
+    },
+    {
+     "id": "p2",
+     "pt": "Control",
+     "w": 4,
+     "kw": [
+      "control"
+     ]
+    }
+   ],
+   "concept": "c4"
+  }
+ ],
+ "cases": [
+  {
+   "id": "k1",
+   "title": "PureJuice",
+   "difficulty": "moderate",
+   "case": "PureJuice puts 20,000 litres into its pressing process at a cost of ₹4,00,000. Normal loss is 5% (sold as pulp at ₹2 per litre). Output is 19,400 litres.",
+   "mcqs": [
+    {
+     "id": "k1a",
+     "q": "Normal loss in litres:",
+     "options": [
+      "1,000",
+      "600",
+      "400",
+      "2,000"
+     ],
+     "answer": 0,
+     "explain": "5% of 20,000 = 1,000. In practice: computed on input.",
+     "difficulty": "core",
+     "check": 1000,
+     "topic": "Normal loss, abnormal loss and abnormal gain"
+    },
+    {
+     "id": "k1b",
+     "q": "Abnormal gain in litres:",
+     "options": [
+      "400",
+      "600",
+      "1,000",
+      "Nil"
+     ],
+     "answer": 0,
+     "explain": "Expected output 19,000; actual 19,400 — gain 400. In practice: loss was only 600.",
+     "difficulty": "core",
+     "check": 400,
+     "topic": "Normal loss, abnormal loss and abnormal gain"
+    },
+    {
+     "id": "k1c",
+     "q": "Cost per litre of normal output:",
+     "options": [
+      "₹20.95",
+      "₹20.00",
+      "₹20.62",
+      "₹21.05"
+     ],
+     "answer": 0,
+     "explain": "(4,00,000 − 2,000) ÷ 19,000 = ₹20.95 (rounded). In practice: value the gain at this rate.",
+     "difficulty": "moderate",
+     "check": 20.95,
+     "topic": "Normal loss, abnormal loss and abnormal gain"
+    },
+    {
+     "id": "k1d",
+     "q": "Net abnormal gain credited to Costing P&L:",
+     "options": [
+      "₹7,580",
+      "₹8,380",
+      "₹800",
+      "₹8,000"
+     ],
+     "answer": 0,
+     "explain": "Gain 400 × 20.95 = 8,380 less pulp value forgone 400 × 2 = 800 → ₹7,580. In practice: show it in the abnormal gain account.",
+     "difficulty": "hard",
+     "check": 7580,
+     "topic": "Normal loss, abnormal loss and abnormal gain"
+    }
+   ]
+  }
+ ]
+}
